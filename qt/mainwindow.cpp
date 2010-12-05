@@ -5,6 +5,7 @@
 #include "update_dialog.hpp"
 #include "searchwindow.hpp"
 #include "classificator_tree.hpp"
+#include "slider_ctrl.hpp"
 
 #include "../indexer/classificator.hpp"
 
@@ -13,7 +14,6 @@
 #include <QtGui/QDockWidget>
 #include <QtGui/QToolBar>
 #include <QtGui/QAction>
-#include <QtGui/QSlider>
 
 #include "../base/start_mem_debug.hpp"
 
@@ -152,7 +152,7 @@ void MainWindow::CreateNavigationBar()
   }
 
   // add scale slider
-  QSlider * pScale = new QSlider(Qt::Vertical, this);
+  QClickSlider * pScale = new QClickSlider(Qt::Vertical, this);
   pScale->setRange(0, scales::GetUpperScale());
   pScale->setTickPosition(QSlider::TicksRight);
 

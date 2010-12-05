@@ -25,23 +25,6 @@ namespace qt
   {
     m_pScale = pScale;
 
-    // this style cause slider to set value exactly to the cursor position (not "page scroll")
-    class MyProxyStyle : public ProxyStyle
-    {
-    public:
-      MyProxyStyle(QStyle * p) : ProxyStyle(p) {}
-
-      virtual int styleHint(StyleHint hint, const QStyleOption* option, const QWidget* widget, QStyleHintReturn* returnData) const
-      {
-        if (hint == SH_Slider_AbsoluteSetButtons)
-          return Qt::LeftButton;
-        else
-          return ProxyStyle::styleHint(hint, option, widget, returnData);
-      }
-    };
-
-    m_pScale->setStyle(new MyProxyStyle(m_pScale->style()));
-
     connect(m_pScale, SIGNAL(actionTriggered(int)), this, SLOT(ScaleChanged(int)));
   }
 

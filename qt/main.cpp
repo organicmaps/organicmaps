@@ -28,27 +28,39 @@ Q_GLOBAL_STATIC_WITH_ARGS(QFactoryLoader, bearerLoader,
 
 namespace
 {
-  class InitializeFinalize
+  class FinalizeBase
   {
   public:
-    InitializeFinalize()
-    {
-      // App runs without error console under win32.
-#if defined(OMIM_OS_WINDOWS) //&& defined(PROFILER_COMMON)
-      freopen("mapswithme.log", "w", stderr);
-      my::g_LogLevel = my::LDEBUG;
-
-      //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_DELAY_FREE_MEM_DF);
-      //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-#endif
-    }
-    ~InitializeFinalize()
+    ~FinalizeBase()
     {
       // optional - clean allocated data in protobuf library
       // useful when using memory and resource leak utilites
       //google::protobuf::ShutdownProtobufLibrary();
     }
   };
+
+#if defined(OMIM_OS_WINDOWS) //&& defined(PROFILER_COMMON)
+  class InitializeFinalize : public FinalizeBase
+  {
+    FILE * m_errFile;
+  public:
+    InitializeFinalize()
+    {
+      // App runs without error console under win32.
+      m_errFile = ::freopen("mapswithme.log", "w", stderr);
+      my::g_LogLevel = my::LDEBUG;
+
+      //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_DELAY_FREE_MEM_DF);
+      //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    }
+    ~InitializeFinalize()
+    {
+      ::fclose(m_errFile);
+    }
+  };
+#else
+  typedef FinalizeBase InitializeFinalize;
+#endif
 }
 
 int main(int argc, char *argv[])

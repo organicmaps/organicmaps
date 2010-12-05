@@ -48,6 +48,7 @@ SOURCES += \
   draw_widget.cpp \
   classificator_tree.cpp \
   proxystyle.cpp \
+  slider_ctrl.cpp \
 
 HEADERS += \
   mainwindow.hpp \
@@ -58,5 +59,6 @@ HEADERS += \
   qt_window_handle.hpp \
   classificator_tree.hpp \
   proxystyle.hpp \
+  slider_ctrl.hpp \
 
 RESOURCES += res/resources.qrc \

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QStyle>
+#include <QtGui/QStyle>
 
 class ProxyStyle : public QStyle
 {
