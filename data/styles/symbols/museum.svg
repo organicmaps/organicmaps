@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:cc="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" baseProfile="full" width="18.64" id="symbol-museum" viewBox="0 0 200 220" height="18.64">
+   <svg:g fill="lightgray" stroke-width="3" stroke="#000000">
+                <svg:path d="M 38.2,92.9 L 60.6,92.9 L 60.6,215.6 L 38.2,215.6 L 38.2,92.9 z "/>
+                <svg:path d="M 85,92.9 L 107.4,92.8 L 107.4,215.6 L 85,215.6 L 85,92.9 z "/>
+                <svg:path d="M 131.8,92.8 L 154.2,92.8 L 154.2,215.6 L 131.8,215.6 L 131.8,92.8 z "/>
+                <svg:path d="M 18.0,216.1 L 170.0,216.1 L 170.0,226.6 L 18.0,226.6 L 18.0,216.1 z "/>
+                <svg:path d="M 17.9,82.0 L 95.4,53.6 L 169.9,82.0 L 169.9,92.5 L 17.9,92.5 L 17.9,82.0 z "/>
+            </svg:g>
+</svg>

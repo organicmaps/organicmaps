@@ -1,0 +1,40 @@
+#pragma once
+
+#include "../std/stdint.hpp"
+#include "../std/static_assert.hpp"
+
+#if defined(DEBUG) || defined(_DEBUG) || defined(NRELEASE) || defined(QT_DEBUG)
+#define MY_DEBUG_DEFINED 1
+#else
+#define MY_DEBUG_DEFINED 0
+#endif
+
+#if defined(RELEASE) || defined(_RELEASE) || defined(NDEBUG) || defined(_NDEBUG) || \
+    defined(QT_NO_DEBUG)
+#define MY_RELEASE_DEFINED 1
+#else
+#define MY_RELEASE_DEFINED 0
+#endif
+
+// Either Debug or Release should be defined, but not both.
+STATIC_ASSERT(!(MY_DEBUG_DEFINED && MY_RELEASE_DEFINED));
+STATIC_ASSERT(MY_DEBUG_DEFINED || MY_RELEASE_DEFINED);
+
+
+// #define DEBUG macro, which should be used with #ifdef.
+#if !MY_RELEASE_DEFINED
+  #ifndef DEBUG
+    #define DEBUG 1
+  #endif
+#endif
+
+#ifdef DEBUG
+// #include "internal/debug_new.hpp"
+// TODO: STL debug mode.
+  #define IF_DEBUG_ELSE(a, b) (a)
+#else
+  #define IF_DEBUG_ELSE(a, b) (b)
+#endif
+
+// platform macroses
+#include "../std/target_os.hpp"

@@ -1,0 +1,83 @@
+==11 October 2010==
+
+I've just released gflags 1.4.  This release has only minor changes
+from 1.3, including some documentation tweaks and some work to make
+the library smaller.  If 1.3 is working well for you, there's no
+particular reason to upgrade.
+
+===4 January 2010===
+
+I've just released gflags 1.3.  gflags now compiles under MSVC, and
+all tests pass.  I *really* never thought non-unix-y Windows folks
+would want gflags, but at least some of them do.
+
+The major news, though, is that I've separated out the python package
+into its own library, [http://code.google.com/p/python-gflags python-gflags].
+If you're interested in the Python version of gflags, that's the place to
+get it now.
+
+===10 September 2009==
+
+I've just released gflags 1.2.  The major change from gflags 1.1 is it
+now compiles under MinGW (as well as cygwin), and all tests pass.  I
+never thought Windows folks would want unix-style command-line flags,
+since they're so different from the Windows style, but I guess I was
+wrong!
+
+The other changes are minor, such as support for --htmlxml in the
+python version of gflags.
+
+===15 April 2009===
+
+I've just released gflags 1.1.  It has only minor changes fdrom gflags
+1.0 (see the
+[http://code.google.com/p/google-gflags/source/browse/tags/gflags-1.1/ChangeLog
+ChangeLog] for details).  The major change is that I moved to a new
+system for creating .deb and .rpm files.  This allows me to create
+x86_64 deb and rpm files.
+
+In the process of moving to this new system, I noticed an
+inconsistency: the tar.gz and .rpm files created libraries named
+libgflags.so, but the deb file created libgoogle-gflags.so.  I have
+fixed the deb file to create libraries like the others.  I'm no expert
+in debian packaging, but I believe this has caused the package name to
+change as well.  Please let me know (at
+[mailto:google-gflags@googlegroups.com
+google-gflags@googlegroups.com]) if this causes problems for you --
+especially if you know of a fix!  I would be happy to change the deb
+packages to add symlinks from the old library name to the new
+(libgoogle-gflags.so -> libgflags.so), but that is beyond my knowledge
+of how to make .debs.
+
+If you've tried to install a .rpm or .deb and it doesn't work for you,
+let me know.  I'm excited to finally have 64-bit package files, but
+there may still be some wrinkles in the new system to iron out.
+
+===1 October 2008===
+
+gflags 1.0rc2 was out for a few weeks without any issues, so gflags
+1.0 is now released.  This is much like gflags 0.9.  The major change
+is that the .h files have been moved from `/usr/include/google` to
+`/usr/include/gflags`.  While I have backwards-compatibility
+forwarding headeds in place, please rewrite existing code to say
+{{{
+   #include <gflags/gflags.h>
+}}}
+instead of
+{{{
+   #include <google/gflags.h>
+}}}
+
+I've kept the default namespace to google.  You can still change with
+with the appropriate flag to the configure script (`./configure
+--help` to see the flags).  If you have feedback as to whether the
+default namespace should change to gflags, which would be a
+non-backwards-compatible change, send mail to
+`google-gflags@googlegroups.com`!
+
+Version 1.0 also has some neat new features, like support for bash
+commandline-completion of help flags.  See the
+[http://code.google.com/p/google-gflags/source/browse/tags/gflags-1.0rc2/ChangeLog
+ChangeLog] for more details.
+
+If I don't hear any bad news for a few weeks, I'll release 1.0-final.

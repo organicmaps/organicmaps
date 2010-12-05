@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" version="1.1" baseProfile="full"
+   width="20" height="20" id="symbol-information-office">
+ <rect x="0" y="0" width="20" height="20" style="fill:#DA251D;stroke-width:0" />
+ <rect x="5.5" y="8" width="8" height="10" style="fill:#FFFFFF;stroke-width:0" />
+ <ellipse cx="9.5" cy="4" rx="4" ry="3" style="fill:#FFFFFF;stroke-width:0" />
+</svg>

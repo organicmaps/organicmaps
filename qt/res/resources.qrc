@@ -1,0 +1,18 @@
+<!DOCTYPE RCC><RCC version="1.0">
+	<qresource prefix="/classif32">
+		<file>save.png</file>
+		<file>load.png</file>
+		<file>select.png</file>
+		<file>clear.png</file>
+	</qresource>
+	<qresource prefix="/navig64">
+		<file>up.png</file>
+		<file>down.png</file>
+		<file>left.png</file>
+		<file>right.png</file>
+		<file>world.png</file>
+		<file>download.png</file>
+		<file>plus.png</file>
+		<file>minus.png</file>
+	</qresource>
+</RCC>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:cc="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" baseProfile="full" width="23.3" id="theatre" viewBox="0 0 550 550" height="23.3">
+   <svg:g stroke="none" transform="translate(55,0)" fill-opacity="1" fill-rule="nonzero">
+                <svg:path d="M192.4,22c0,0,50,26,112,20s94-39,98-42s17,32,17,32l4,33l-3,29l5,24l7,39l-5,32l-6,32l-19,55l-25,49l-59,21l-30-14l-22-22l-29-47l4-40l-20-28l-18-24l1-34l2-54l-8-35L192.4,22z"/>
+                <svg:path fill="none" stroke="#FFFFFF" stroke-width="10" d="M210.4,44.5c0,0,43.8,22.8,98,17.5s82.3-34.1,85.8-36.8s14.9,28,14.9,28l3.5,28.9l-2.6,25.4l4.4,21l6.1,34.1l-4.4,28l-5.3,28l-16.6,48.1l-21.9,42.9L320.6,328l-26.3-12.3l-19.3-19.3l-25.4-41.1l3.5-35l-17.5-24.5l-15.8-21l0.9-29.8l1.8-47.3l-7-30.6L210.4,44.5z"/>
+                <svg:path fill="#FFFFFF" d="M293.4,152c0,8.3-11.4,15-25.5,15s-25.5-6.7-25.5-15s11.4-15,25.5-15S293.4,143.7,293.4,152z"/>
+                <svg:path fill="#FFFFFF" d="M406.4,140.5c0,8.6-13.2,15.5-29.5,15.5s-29.5-6.9-29.5-15.5s13.2-15.5,29.5-15.5S406.4,131.9,406.4,140.5z"/>
+                <svg:path fill="none" stroke="#FFFFFF" stroke-width="10" d="M248.4,124l14-43l15,27"/>
+                <svg:path fill="none" stroke="#FFFFFF" stroke-width="10" d="M336.4,110l7-32l35,23"/>
+                <svg:path fill="none" stroke="#FFFFFF" stroke-width="10" d="M317.4,146l-7,72l22-1L317.4,146z"/>
+                <path xmlns="" fill="none" stroke="#FFFFFF" stroke-width="10" d="M305.4,297c0,0,2-55,27-57s37,16,41,30"/>
+                <svg:path fill="#FFFFFF" stroke="#000000" stroke-width="10" d="M207.4,90c0,0-19,18-61,17s-42,5-83-33s-31-38-31-38l-9,105l-5,22l-13,15l26,128l37,82c0,0,3,9,38,9s30-10,40-20s15-35,34-49s41-47,41-47l17-21l3-34l-23-29l-12-32L207.4,90z"/>
+                <svg:path fill="none" stroke="#000000" stroke-width="10" d="M51.4,150c0,0-2-15,25-15s31,17,31,17"/>
+                <svg:path fill="none" stroke="#000000" stroke-width="10" d="M153.4,168c0,0,6-11,12-14s22,5,22,5"/>
+                <svg:path d="M51.4,193l23-19c0,0,12-2,25,2s7,14,7,14L51.4,193z"/>
+                <svg:path d="M164.4,199c0,0,14-13,27-10s16,19,16,19s-7,6-26,1S164.4,199,164.4,199z"/>
+                <svg:path d="M125.4,188l-25,83h29L125.4,188z"/>
+                <svg:path d="M61.4,258c0,0,0-4,14,16s10,36,44,34s38-45,55-42s13,8,7,20s-23,23-32,35s5,40-39,38s-43-44-49-48S61.4,258,61.4,258z"/>
+            </svg:g>
+</svg>

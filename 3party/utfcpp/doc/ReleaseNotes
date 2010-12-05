@@ -1,0 +1,9 @@
+utf8 cpp library
+Release 2.2.4
+
+This is a minor bug fix release that improves converting from utf-16 to utf-8 error detection.
+
+Changes from version 2.2.3
+- Bug fix [2857454]	dereference invalid iterator when lead surrogate was last element of the string.
+
+Files included in the release: utf8.h, core.h, checked.h, unchecked.h, utf8cpp.html, ReleaseNotes

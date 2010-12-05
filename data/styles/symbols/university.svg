@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:cc="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" baseProfile="full" width="18.64" id="symbol-university" viewBox="0 0 128 128" height="18.64">
+   <svg:g transform="translate(0,32)">
+            <svg:path fill="#000000" d="M 65,1 C 57.6,1.4 51.7,3.6 52,6 C 51.7,6.4 52,6.4 51,6.4 L 0,6 L 14,10 C 13.1,12 12.4,14 12,17 C 11.1,20.7 11.4,23.4 12,25 L 21,50 L 15,58 L 20,61 L 23,56 L 26,62 L 30,60 L 22,17 L 35,44 C 35.2,43.8 40.7,18.7 62,19 C 84.2,18.7 95,46.5 95,46.5 L 106,12 L 128,7 L 78,7 C 78.2,6.5 78.2,6.4 78.2,6.3 C 78.2,3.6 72.3,1.4 65,1.4 L 65,1 L 65,1 z"/>
+          </svg:g>
+</svg>

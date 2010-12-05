@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="osmarender.xsl"?>
+
+<!-- Render just captions for z9 -->
+
+<rules
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    data="data.osm"
+    svgBaseProfile="full"
+    scale="1"
+    symbolScale="1"
+    minimumMapWidth="1"
+    minimumMapHeight="1"
+    withOSMLayers="yes"
+    withUntaggedSegments="no"
+    showScale="no"
+    showGrid="no"
+    showBorder="no"
+    showLicense="no"
+    interactive="no">
+
+
+  <rule e="node|way" k="osmarender:render" v="~|yes">
+  	<rule e="node|way" k="osmarender:renderName" v="~|yes">
+  	
+  	  <rule e="node" k="place" v="town|city" horizontalProximity="0.10" verticalProximity="0.05">
+  	  	<rule e="node" k="place" v="town">
+  	  	  <text k="name" class='caption-casing town-caption-casing'/>
+  	  	  <text k="name" class='caption-core town-caption' />
+  	  	</rule>
+  	  </rule>
+
+  	  <rule e="node" k="place" v="city">
+  	  	<text k="name" class='caption-casing city-caption-casing' />
+  	  	<text k="name" class='caption-core city-caption' />
+  	  </rule>
+  	  
+    </rule> <!-- k="osmarender:renderName" v="~|yes" -->
+  </rule> <!-- k="osmarender:render" v="~|yes" -->
+
+
+    <!-- SVG Definitions - markers, symbols etc go here -->
+    <defs>
+
+        <style id="styles" type="text/css" xmlns="http://www.w3.org/2000/svg">
+            /* DO NOT DELETE .untagged-segments - Used by osmarender.xsl */
+            .untagged-segments {
+                stroke-width: 0.5px;
+                stroke-linejoin: miter;
+                stroke-linecap: butt;
+                stroke: #e0e0e0;
+                stroke-dasharray: 0.5,0.5;
+            }
+
+            
+            /* Places - generic styles */
+            .caption-casing {
+        				fill: white;
+                stroke: white;
+                font-family: "DejaVu Sans";
+                font-weight: normal;
+                text-anchor: middle;
+                stroke-miterlimit: 1.5;
+            }
+
+            .caption-core {
+                stroke: white;
+                stroke-width: 0px;
+                font-family: "DejaVu Sans";
+                font-weight: normal;
+                text-anchor: middle;
+                stroke-miterlimit: 1.5;
+            }
+
+			.city-caption-casing    { font-size: 375px; stroke-width: 100px; }
+			.city-caption           { font-size: 375px; }
+
+			.town-caption-casing    { font-size: 300px; stroke-width: 75px; }
+			.town-caption           { font-size: 300px; }
+
+
+            /* Map decoration */
+            .map-grid-line {
+                fill: none;
+                stroke: #8080ff;
+                stroke-width: 0.1px;
+                stroke-opacity: 0.5;
+            }
+
+            .map-border-casing {
+                fill: none;
+                stroke: #8080ff;
+                stroke-width: 3px;
+                stroke-miterlimit: 4;
+                stroke-dasharray: none;
+                stroke-opacity: 1;
+                stroke-linecap: round;
+            }
+
+            .map-border-core {
+                fill: none;
+                fill-opacity: 1;
+                fill-rule: nonzero;
+                stroke: #ffffff;
+                stroke-width: 2px;
+                stroke-miterlimit: 0;
+                stroke-dashoffset: -0.5px;
+                stroke-opacity: 1;
+            }
+
+            .map-scale-casing {
+                fill: none;
+                stroke: #8080ff;
+                stroke-width: 4px;
+                stroke-linecap: butt;
+            }
+
+            .map-scale-core {
+                fill: none;
+                stroke: #ffffff;
+                stroke-width: 3px;
+                stroke-linecap: butt;
+            }
+
+            .map-scale-bookend {
+                fill: none;
+                stroke: #8080ff;
+                stroke-width: 1px;
+                stroke-linecap: butt;
+            }
+
+            .map-scale-caption {
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 10px;
+                fill: #8080ff;
+            }
+
+            <!-- map background must be the same for all zooms or else empty tile detection will fail -->
+            .map-background {
+                fill: #f8f8f8;
+                stroke: none;
+            }
+
+            .map-title {
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 20px;
+                text-anchor: middle;
+                fill: black;
+            }
+
+            .map-title-background {
+                fill: white;
+            }
+
+            .map-marginalia-background {
+                fill: white;
+            }
+        </style>
+
+    </defs>
+
+</rules>

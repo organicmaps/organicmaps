@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:svg="http://www.w3.org/2000/svg"
+     xmlns:xi="http://www.w3.org/2001/XInclude"
+     xmlns:cc="http://web.resource.org/cc/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     version="1.1"
+     baseProfile="full"
+     id="subway"
+     viewBox="0 0 60 60"
+     width="16"
+     height="16">
+
+  <circle cx="30" cy="30" r="30" style="fill:#ffff00;fill-opacity:1;stroke:#008000;stroke-width:4.5"/>
+  <text x="30" y="48" style="font-size: 50px; font-weight: bold; fill: #008000; text-anchor: middle;">
+    S
+  </text>
+</svg>

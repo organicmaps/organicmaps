@@ -1,0 +1,172 @@
+#
+#  Watcom / OpenWatcom / Win32 makefile for cURL.
+#  G. Vanem <gvanem@broadpark.no>
+#
+
+!ifndef %watcom
+!error WATCOM environment variable not set!
+!else
+SYS_INCL = -I$(%watcom)\h\nt -I$(%watcom)\h
+SYS_LIBS = $(%watcom)\lib386\nt;$(%watcom)\lib386
+!endif
+
+!ifdef %libname
+LIBNAME = $(%libname)
+!else
+LIBNAME = libcurl
+!endif
+TARGETS = $(LIBNAME).dll $(LIBNAME)_imp.lib $(LIBNAME).lib
+
+CC = wcc386
+LD = wlink
+AR = wlib
+RC = wrc
+
+!ifdef __LOADDLL__
+!  loaddll wcc386  wccd386
+!  loaddll wpp386  wppd386
+!  loaddll wlib    wlibd
+!  if $(__VERSION__) > 1270
+!    loaddll wlink   wlinkd
+!  else
+!    loaddll wlink   wlink
+!  endif
+!endif
+
+!if $(__VERSION__) < 1250
+RM = del /q /f >NUL 2>&1
+!else
+RM = rm -f
+!endif
+MD = mkdir
+RD = rmdir /q /s >NUL 2>&1
+CP = copy
+
+CFLAGS = -3r -mf -hc -zff -zgf -zq -zm -s -fr=con -w2 -fpi -oilrtfm &
+         -wcd=201 -bt=nt -bc -d+ -dWIN32 -dHAVE_STRTOLL             &
+         -I..\include -I..\lib $(SYS_INCL)
+
+!ifdef %debug
+DEBUG  = -dDEBUG=1 -dDEBUGBUILD
+CFLAGS += -d3 $(DEBUG)
+!else
+CFLAGS += -d0
+!endif
+
+!ifdef %use_ipv6
+CFLAGS += -d_WIN32_WINNT=0x0501 -dENABLE_IPV6
+!endif
+
+#
+# Change to suite.
+#
+!ifdef %zlib_root
+ZLIB_ROOT = $(%zlib_root)
+!else
+ZLIB_ROOT = ..\..\zlib-1.2.5
+!endif
+
+!ifdef %openssl_root
+OPENSSL_ROOT = $(%openssl_root)
+!else
+OPENSSL_ROOT = ..\..\openssl-0.9.8o
+!endif
+
+!ifdef %ares_root
+ARES_ROOT = $(%ares_root)
+!else
+ARES_ROOT = ..\ares
+!endif
+
+!ifdef %use_ssl
+CFLAGS += -wcd=138 -dUSE_OPENSSL -dUSE_SSLEAY -I$(OPENSSL_ROOT)\inc32
+!endif
+
+OBJ_DIR  = WC_Win32.obj
+LINK_ARG = $(OBJ_DIR)\wlink.arg
+
+# In order to process Makefile.inc wmake must be called with -u switch!
+!ifndef %MAKEFLAGS
+!error You MUST call wmake with the -u switch!
+!else
+!include Makefile.inc
+!endif
+# For now we still define the CURLX_ONES sources here unless we know how
+# to split off the prefixed path.
+CURLX_SOURCES = rawstr.c nonblock.c
+
+OBJS = $(CURL_CFILES:.c=.obj)
+!ifdef %curl_static
+CFLAGS += -DCURL_STATICLIB
+!else
+CFLAGS += -br
+OBJS += $(CURLX_SOURCES:.c=.obj)
+!endif
+OBJS = $OBJ_DIR\$(OBJS: = $OBJ_DIR\)
+
+RESOURCE = $(OBJ_DIR)\curl.res
+
+all: hugehelp.c $(OBJ_DIR) curl.exe .SYMBOLIC
+	@echo Welcome to cURL
+
+clean: .SYMBOLIC
+	-$(RM) $(OBJS)
+	-$(RM) $(RESOURCE) $(LINK_ARG)
+
+vclean realclean: clean .SYMBOLIC
+	-$(RD) $(OBJ_DIR)
+	-$(RM) curl.exe curl.map curl.sym hugehelp.c
+
+hugehelp.c: hugehelp.c.cvs
+	$(CP) $[@ $^@
+
+hugehelp.c.cvs: .EXISTSONLY
+	$(CP) hugehelp.c $^@
+
+$(OBJ_DIR):
+	-$(MD) $^@
+
+curl.exe: $(OBJS) $(RESOURCE) $(LINK_ARG)
+	$(LD) name $^@ @$]@
+
+$(RESOURCE): curl.rc
+	$(RC) $(DEBUG) -q -r -zm -I..\include $(SYS_INCL) $[@ -fo=$^@
+
+# suffix search path - vpath-like hack
+.c: ..\lib
+
+.ERASE
+.c{$(OBJ_DIR)}.obj:
+	$(CC) $(CFLAGS) $[@ -fo=$^@
+
+$(LINK_ARG): $(__MAKEFILES__)
+	%create $^@
+	@%append $^@ system nt
+	@%append $^@ file { $(OBJS) }
+!ifdef %debug
+	@%append $^@ debug all
+	@%append $^@ option symfile
+!endif
+	@%append $^@ option quiet, map, caseexact, eliminate,
+	@%append $^@ res=$(RESOURCE) libpath $(SYS_LIBS)
+!ifdef %curl_static
+	@%append $^@ library wldap32.lib
+	@%append $^@ library ..\lib\$(LIBNAME).lib
+!ifdef %use_zlib
+	@%append $^@ library $(ZLIB_ROOT)\zlib.lib
+!endif
+!ifdef %use_ssl
+	@%append $^@ library $(OPENSSL_ROOT)\out32\libeay32.lib, $(OPENSSL_ROOT)\out32\ssleay32.lib
+!endif
+!ifdef %use_ares
+	@%append $^@ library $(ARES_ROOT)\cares.lib
+!endif
+!else
+	@%append $^@ library ..\lib\$(LIBNAME)_imp.lib
+!endif
+!ifeq USE_WATT32 1
+	@%append $^@ library $(%watt_root)\lib\wattcpw_imp.lib
+!else
+	@%append $^@ library ws2_32.lib
+!endif
+

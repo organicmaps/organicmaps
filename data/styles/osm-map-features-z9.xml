@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="osmarender.xsl"?>
+
+<!-- Tiles@Home Rules File for zoom level 9 -->
+<rules
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    data="data.osm"
+    svgBaseProfile="full"
+    scale="1"
+    symbolScale="1"
+    minimumMapWidth="1"
+    minimumMapHeight="1"
+    withOSMLayers="yes"
+    withUntaggedSegments="no"
+    showScale="no"
+    showGrid="no"
+    showBorder="no"
+    showLicense="no"
+    interactive="no">
+
+
+    <!-- Select all nodes and ways (unless they have an osmarender:render=no tag) -->
+    <rule e="node|way" k="osmarender:render" v="~|yes">
+
+        <!-- Draw land areas first -->
+        <rule e="way" k="natural" v="land">
+            <area class="natural-land"/>
+        </rule>
+
+        <!-- Landuse -->
+        <!-- render all landuse in the same colour so it doesn't look too psychedelic -->
+        <rule e="way" k="landuse" v="residential|farmyard|retail|industrial|commercial|cemetery">
+            <area class="landuse-all"/>
+        </rule>
+
+        <!-- Natural features -->
+        <rule e="way" k="natural" v="coastline">
+            <area class="natural-coastline"/>
+        </rule>
+        <rule e="way" k="natural" v="glacier">
+           <line class='natural-glacier'/>
+        </rule>
+        <rule e="way" k="landuse|natural" v="forest|wood">
+            <area class="landuse-wood"/>
+        </rule>
+        <rule e="way" k="landuse" v="field|village_green|meadow">
+            <area class="landuse-field"/>
+        </rule>
+        <rule e="way" k="amenity" v="kindergarten|school|college|university">
+            <area class="landuse-all"/>
+        </rule>
+        <rule e="way" k="leisure" v="park|playing_fields|garden|pitch|golf_course|common|green">
+            <area class="leisure-park"/>
+        </rule>
+        <rule e="way" k="leisure" v="stadium|sports_centre">
+            <area class="leisure-stadium"/>
+        </rule>
+
+        <!-- Airports and runways -->
+
+        <!-- Raceways and racetracks -->
+        <rule e="way" k="landuse" v="raceway">
+            <rule e="way" k="use_status" v="~">
+                <area class="landuse-raceway"/>
+            </rule>
+        </rule>
+
+        <!-- Man-made areas -->
+        <rule e="way" k="sport" v="*">
+            <area class="sport"/>
+        </rule>
+        <rule e="way" k="aeroway" v="terminal">
+            <area class="building-block"/>
+        </rule>
+
+        <!-- Waterways, lakes and ponds -->
+        <rule e="way" k="waterway" v="riverbank">
+            <area class="waterway-riverbank"/>
+        </rule>
+        <rule e="way" k="waterway" v="river">
+            <line class="waterway-river-core"/>
+        </rule>
+        <rule e="way" k="waterway" v="canal">
+            <line class="waterway-canal-core"/>
+        </rule>
+        <rule e="way" k="waterway" v="dock">
+            <area class="natural-water"/>
+        </rule>
+        <rule e="way" k="natural" v="water|pond|lake">
+            <area class="natural-water"/>
+        </rule>
+        <rule e="way" k="landuse" v="reservoir">
+            <area class="natural-water"/>
+        </rule>
+        <rule e="way" k="landuse" v="basin">
+            <area class="natural-water"/>
+        </rule>
+
+        <!-- Paths in tunnels -->
+
+        <!-- Paths not in tunnels -->
+
+        <!-- Highway cores (not in tunnel) -->
+        <rule e="way" k="tunnel" v="~|false|no">
+            <addclass e="way" k="bridge" v="yes|true" class="round">
+                <rule e="way" k="highway" v="raceway">
+                    <rule e="way" k="use_status" v="~">
+                        <line class="highway-raceway-core"/>
+                    </rule>
+                </rule>
+                <rule e="way" k="highway" v="secondary">
+                    <line class="highway-core highway-secondary-core"/>
+                </rule>
+                <rule e="way" k="highway" v="primary|primary_link">
+                    <line class="highway-core highway-primary-core"/>
+                </rule>
+                <rule e="way" k="highway" v="trunk|trunk_link">
+                    <line class="highway-core highway-trunk-core"/>
+                </rule>
+                <rule e="way" k="highway" v="motorway_link">
+                    <line class="highway-core highway-motorway-link-core"/>
+                </rule>
+                <rule e="way" k="highway" v="motorway">
+                    <line class="highway-core highway-motorway-core"/>
+                </rule>
+            </addclass>
+        </rule>
+
+        <!-- Highway cores in tunnels -->
+        <rule e="way" k="tunnel" v="true|yes">
+            <rule e="way" k="highway" v="service">
+                <tunnel width="10" class="highway-core highway-service-core"/>
+            </rule>
+            <rule e="way" k="highway" v="secondary">
+                <tunnel width="30" class="highway-core highway-secondary-core"/>
+            </rule>
+            <rule e="way" k="highway" v="primary|primary_link">
+                <tunnel width="30" class="highway-core highway-primary-core"/>
+            </rule>
+            <rule e="way" k="highway" v="trunk|trunk_link">
+                <tunnel width="40" class="highway-core highway-trunk-core"/>
+            </rule>
+            <rule e="way" k="highway" v="motorway|motorway_link">
+                <tunnel width="40" class="highway-core highway-motorway-core"/>
+            </rule>
+        </rule>
+
+        <!-- highway motorway-junctions -->
+        <rule e="node" k="highway" v="motorway_junction">
+            <circle r="7" class="highway-motorway-junction"/>
+            <text k="name" class="highway-motorway-junction-caption" dy="-2px"/>
+            <text k="ref" class="highway-motorway-junction-caption" dy="+5px"/>
+        </rule>
+
+        <!-- Railway lines -->
+        <rule e="way" k="railway" v="rail">
+            <line class="railway-rail"/>
+        </rule>
+
+        <!-- Airfields and airports -->
+        <rule e="way" k="aeroway" v="runway">
+            <line class="aeroway-runway-core"/>
+        </rule>
+        <rule e="node" k="aeroway" v="airport">
+            <symbol xlink:href="#airport" width="200px" height="200px" transform="translate(-100,-100)"/>
+        </rule>
+
+        <!-- Non-physical routes -->
+        <rule e="way" k="route" v="ferry">
+            <line class="route-ferry"/>
+        </rule>
+    </rule>
+
+    <!-- ==================================== Layer 5 ================================== -->
+    <rule e="node|way" k="osmarender:render" v="~|yes" layer="5">
+
+        <!-- Non-physical boundaries -->
+        <rule e="way" k="boundary" v="administrative" layer="5">
+            <rule e="way" k="border_type" v="state" layer="5">
+                <line class="boundary boundary-administrative-state-casing"/>
+                <line class="boundary boundary-administrative-state-core"/>
+            </rule>
+            <else>
+                <line class="boundary boundary-administrative-state-core"/>
+            </else>
+        </rule>
+
+        <rule e="way" k="boundary" v="national_park" layer="5">
+            <line class="boundary boundary-nationalpark-core" layer="5"/>
+        </rule>
+
+        <!-- Place names  -->
+        <rule e="node" k="place" v="island" layer="5">
+            <text k="name" class="island-caption"/>
+        </rule>
+        <rule e="node" k="place" v="continent" layer="5">
+            <text k="name" class="continent-caption"/>
+        </rule>
+        <rule e="node" k="place" v="country" layer="5">
+            <text k="name" class="country-caption"/>
+        </rule>
+        <rule e="node" k="place" v="state" layer="5">
+            <text k="name" class="state-caption"/>
+        </rule>
+        <rule e="node" k="place" v="region" layer="5">
+            <text k="name" class="region-caption"/>
+        </rule>
+        <rule e="node" k="place" v="county" layer="5">
+            <text k="name" class="county-caption"/>
+        </rule>
+        <rule e="node" k="place" v="city" layer="5">
+            <text k="name" class="city-caption"/>
+        </rule>
+        <rule e="node" k="place" v="town" layer="5">
+            <text k="name" class="town-caption"/>
+        </rule>
+    </rule> <!-- End Layer 5 -->
+
+    <!-- SVG Definitions - markers, symbols etc go here -->
+    <defs>
+        <style xmlns="http://www.w3.org/2000/svg" id="styles" type="text/css">
+            .debug {
+                stroke-width: 0.1px;
+                stroke-linecap: round;
+                stroke: gray;
+                /* marker-end: url(#segment-direction); */
+            }
+
+            .highway-core {
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                fill: none;
+            }
+
+            .highway-motorway-junction {
+            fill: yellow;
+            stroke: #4D5D73;
+            stroke-width: 3px;
+            }
+
+            .highway-motorway-junction-caption {
+            fill: black;
+            stroke: blue;
+            stroke-width: 0.2px;
+            font-family: "DejaVu Sans",sans-serif;
+            font-size: 10px;
+            font-weight: bold;
+            display: none;
+            }
+
+         /* Highways - street specific style */
+
+            .highway-motorway-core {
+                stroke-width: 50px;
+                stroke: #809BC0;
+            }
+
+            .highway-motorway-link-core {
+                stroke-width: 50px;
+                stroke: #809BC0;
+            }
+
+            .highway-trunk-core {
+                stroke-width: 36px;
+                stroke: #7fc97f;
+            }
+
+            .highway-primary-core {
+                stroke-width: 20px;
+                stroke: #e46d71;
+            }
+
+            .highway-secondary-core {
+                stroke-width: 16px;
+                stroke: #FDBF6F;
+            }
+
+            .highway-service-core {
+                stroke-width: 4px;
+                stroke: #ffffff;
+            }
+
+
+            .round {
+                stroke-linecap: round;
+            }
+
+
+            /* Mini roundabouts */
+
+            /* Aeroways */
+            .aeroway-runway-core {
+                stroke-width: 5px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #d4dcbd;
+                fill: none;
+            }
+
+            /* Waterways */
+            .waterway-riverbank {
+                fill: #b5d6f1;
+                stroke: #aaaaaa;
+                stroke-width: 0px;
+            }
+
+            .waterway-river-core {
+                stroke-width: 12px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #b5d6f1;
+                fill: none;
+            }
+
+            .waterway-canal-core {
+                stroke-width: 12px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #b5d6f1;
+                fill: none;
+            }
+
+            .railway-rail {
+                stroke-width: 50px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #666666;
+                fill: none;
+            }
+
+            /* Ferry */
+            .route-ferry {
+                stroke-width: 30px;
+                stroke-dasharray: 3,2;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #777777;
+                fill: none;
+            }
+
+
+            /* Place names */
+            .continent-caption {
+                fill: black;
+                stroke: white;
+                stroke-width: 0.6px;
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 500px;
+                font-weight: bold;
+                text-anchor: middle;
+            }
+
+            .country-caption {
+                fill: black;
+                stroke: white;
+                stroke-width: 0.5px;
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 380px;
+                font-weight: bold;
+                text-anchor: middle;
+            }
+
+            .state-caption {
+                fill: black;
+                stroke: white;
+                stroke-width: 0.5px;
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 160px;
+                font-weight: bold;
+                text-anchor: middle;
+            }
+
+            .region-caption {
+                fill: black;
+                stroke: white;
+                stroke-width: 0.4px;
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 140px;
+                font-weight: bold;
+                text-anchor: middle;
+            }
+
+            .county-caption {
+                fill: black;
+                stroke: white;
+                stroke-width: 0.4px;
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 120px;
+                font-weight: bold;
+                text-anchor: middle;
+            }
+
+            .city-caption {
+                fill: black;
+                stroke: none;
+                stroke-width: 0.4px;
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 400px;
+                font-weight: bold;
+                text-anchor: middle;
+            }
+
+            .town-caption {
+                fill: black;
+                stroke: none;
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 200px;
+                opacity: 0.9;
+                font-weight: normal;
+                text-anchor: middle;
+            }
+
+            .island-caption {
+                fill: black;
+                stroke: none;
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 200px;
+                opacity: 0.9;
+                font-weight: normal;
+                text-anchor: middle;
+            }
+
+            /* Natural */
+            .natural-water {
+                fill: #b5d6f1;
+                stroke: #aaaaaa;
+                stroke-width: 0px;
+            }
+
+            .natural-coastline {
+                fill: #b5d6f1;
+                stroke: #b5d6f1;
+                stroke-width: 15px;
+            }
+
+            .natural-glacier {
+                fill: #fafaff;
+                stroke: lightblue;
+                stroke-width: 15px;
+            }
+
+            .natural-land {
+                fill: #ffffff;
+                stroke: #e0e0e0;
+                stroke-width: 10px;
+            }
+
+
+            /* Landuse */
+            .landuse-all {
+                stroke: none;
+                fill: #f0f0f0;
+            }
+
+            .landuse-wood {
+                fill: #72bf81;
+                stroke: #6fc18e;
+                stroke-width: 2px;
+            }
+
+            .landuse-field {
+                fill: #bde3cb;
+                stroke: #6fc13d;
+                stroke-width: 2px;
+            }
+
+
+            /* Leisure */
+            .leisure-park {
+                fill: #c7f1a3;
+                stroke: #6fc18e;
+                stroke-width: 2px;
+            }
+
+            .leisure-stadium {
+                fill: #bde3cb;
+                stroke: #6fc18e;
+                stroke-width: 2px;
+            }
+
+            .sport {
+                fill: #bde3cb;
+                stroke: #6fc18e;
+                stroke-width: 2px;
+            }
+
+            /* Non-physical boundaries */
+            .boundary {
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                fill: none;
+            }
+
+            .boundary-administrative-state-casing {
+                stroke-width: 80px;
+                stroke: #ffff00;
+                opacity: 0.5;
+            }
+
+            .boundary-administrative-state-core {
+                stroke-width: 16px;
+                stroke: #f9574b;
+                stroke-dasharray: 80, 16, 16, 16;
+            }
+
+            .boundary-nationalpark-core {
+                stroke-width: 16px; 
+                stroke: #4ef94b;
+                stroke-dasharray: 80, 16, 16, 16;
+            }
+
+            /* Racetracks */
+            .highway-raceway-core {
+              stroke-width: 1.5px;
+              stroke-linecap: butt;
+              stroke-linejoin: round;
+              fill: none;
+              stroke: #f0f0f0;
+              }
+
+            .landuse-raceway {
+              stroke-width: 0.3px;
+              stroke-linecap: butt;
+              stroke-linejoin: round;
+              fill: #f0f0f0;
+              stroke: #101010;
+              }
+
+
+            /* Tourism */
+
+            /* Building */
+
+            /* Map decoration */
+            .map-grid-line {
+                fill: none;
+                stroke: #8080ff;
+                stroke-width: 0.1px;
+                stroke-opacity: 0.5;
+            }
+
+            .map-border-casing {
+                fill: none;
+                stroke: #8080ff;
+                stroke-width: 3px;
+                stroke-miterlimit: 4;
+                stroke-dasharray: none;
+                stroke-opacity: 1;
+                stroke-linecap: round;
+            }
+
+            .map-border-core {
+                fill: none;
+                fill-opacity: 1;
+                fill-rule: nonzero;
+                stroke: #ffffff;
+                stroke-width: 2px;
+                stroke-miterlimit: 0;
+                stroke-dashoffset: -0.5px;
+                stroke-opacity: 1;
+            }
+
+            .map-scale-casing {
+                fill: none;
+                stroke: #8080ff;
+                stroke-width: 4px;
+                stroke-linecap: butt;
+            }
+
+            .map-scale-core {
+                fill: none;
+                stroke: #ffffff;
+                stroke-width: 3px;
+                stroke-linecap: butt;
+            }
+
+            .map-scale-bookend {
+                fill: none;
+                stroke: #8080ff;
+                stroke-width: 1px;
+                stroke-linecap: butt;
+            }
+
+            .map-scale-caption {
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 10px;
+                fill: #8080ff;
+            }
+
+            <!-- map background must be the same for all zooms or else empty tile detection will fail -->
+            .map-background {
+                fill: #f8f8f8;
+                stroke: none;
+            }
+
+            .map-title {
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 20px;
+                text-anchor: middle;
+                fill: black;
+            }
+
+            .map-title-background {
+                fill: white;
+            }
+
+            .map-marginalia-background {
+                fill: white;
+            }
+        </style>
+
+        <svg:symbol id="airport" viewBox="0 0 10 10" fill="black" fill-opacity="1" fill-rule="evenodd" stroke="none">
+            <svg:path d="M 9.2,5 C 9.2,4.5 9.8,3.2 10,3 L 9,3 L 8,4 L 5.5,4 L 8,0 L 6,0 L 3,4 C 2,4 1,4.2 0.5,4.5 C 0,5 0,5 0.5,5.5 C 1,5.8 2,6 3,6 L 6,10 L 8,10 L 5.5,6 L 7.8,6 L 9,7 L 10,7 C 9.8,6.8 9.2,5.5 9.2,5 z "/>
+        </svg:symbol>
+    </defs>
+</rules>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="35"
+   height="35"
+   viewBox="0 0 600 600"
+   id="symbol-basketball">
+  <defs
+     id="defs2406" />
+  <path
+     d="M 70.52031,300.00002 C 70.52031,427.19705 173.32721,530.42945 300.00001,530.42945 C 426.67279,530.42945 529.47969,427.19705 529.47969,300.00002 C 529.47969,172.80296 426.67279,69.570552 300.00001,69.570552 C 173.32721,69.570552 70.52031,172.80296 70.52031,300.00002"
+     id="path2414"
+     style="fill:#ff7006;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:11.79735374;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  <path
+     d="M 360.49066,522.95494 C 376.60997,498.31694 360.14211,426.11931 351.01331,374.61986 C 343.00764,329.45657 331.42752,282.58515 317.8341,235.19575 C 304.29232,187.98638 271.57039,92.203997 232.78688,79.378129"
+     id="path3187"
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:9.83112812;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  <path
+     d="M 470.45263,145.69954 C 330.67227,55.784795 101.39836,151.23598 71.108339,301.17156"
+     id="path3193"
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:9.83112812;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;display:inline" />
+  <path
+     d="M 512.40569,387.34404 C 513.13913,296.58774 441.56135,233.90266 407.08927,194.15076 C 372.00659,153.69473 310.68278,97.717098 328.12233,72.101059"
+     id="path3196"
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:9.83112812;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  <path
+     d="M 150.91542,124.74477 C 239.21777,108.7752 215.91735,204.55222 197.88475,279.74358 C 180.0651,354.04696 155.61235,419.7122 191.30906,503.31762"
+     id="path3208"
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:9.83112812;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  <rect
+     width="563.48956"
+     height="563.48962"
+     ry="51.22633"
+     x="18.255203"
+     y="18.255173"
+     id="rect2386"
+     style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:36.51040649;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+</svg>

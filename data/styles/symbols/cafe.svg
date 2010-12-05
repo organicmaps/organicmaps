@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="14"
+   height="14"
+   id="symbol-cafe">
+  <defs
+     id="defs2230" />
+  <g
+     id="g9053">
+    <rect
+       width="14"
+       height="14"
+       ry="2.5999999"
+       x="0"
+       y="0"
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.93333334;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4191" />
+    <path
+       d="M 10.960919 10.464368 A 4.027586 4.027586 0 1 1  2.9057474,10.464368 A 4.027586 4.027586 0 1 1  10.960919 10.464368 z"
+       transform="matrix(0.8945367,0,0,0.7056598,-1.1054313,1.2736111)"
+       style="fill:#886600;fill-opacity:1;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path2236" />
+    <rect
+       width="7.205647"
+       height="6.1578946"
+       x="1.4938664"
+       y="2.5"
+       style="fill:#886600;fill-opacity:1;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect2238" />
+    <path
+       d="M 14.418391 6.4367814 A 2.4275863 2.6114943 0 1 1  9.5632184,6.4367814 A 2.4275863 2.6114943 0 1 1  14.418391 6.4367814 z"
+       transform="matrix(0.8886538,0,0,1.0890316,-0.7987018,-0.7693869)"
+       style="fill:none;fill-opacity:1;stroke:#886600;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3214" />
+  </g>
+</svg>

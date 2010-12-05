@@ -1,0 +1,589 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="osmarender.xsl"?>
+
+<!-- This file should be used with Osmarender 4 -->
+<!-- This rule file is for use with Maplint. See http://wiki.openstreetmap.org/index.php/Maplint for details -->
+
+<!-- A scale of 0.1 will make fat roads on a small map, a scale of 5 will draw very thin roads on a large scale map -->
+<!-- minimumMapWidth/Height is in kilometres -->
+<!-- Set javaScript="no" if you want an svg file that contains no javascript.  This is so that you can upload it to Wikipedia etc -->
+<rules
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    data="data.osm"
+    svgBaseProfile="full"
+    scale="1"
+    symbolScale="4"
+    minimumMapWidth="0.5"
+    minimumMapHeight="0.5"
+    withOSMLayers="no"
+    withUntaggedSegments="no"
+    symbolsDir=""
+    showScale="yes"
+    showGrid="yes"
+    showBorder="yes"
+    showLicense="yes"
+    interactive="no">
+
+    <!-- Uncomment this element if you want to explicitly specify the bounding box for a map, or you can add a <bounds> element to
+         your data.osm file, which is probably a better thing to do. -->
+    <!--<bounds
+        minlat="51.50583362991789"
+        minlon="-0.13313005495563884"
+        maxlat="51.516556840221504"
+        maxlon="-0.10891295872251346" />-->
+
+    <!-- Select all nodes, waysegments and ways (unless they have an osmarender:render=no tag) -->
+    <!-- If you really want to render segments then you will need to add segment to the element list, but please don't - tag the ways instead. -->
+    <rule e="node|segment|waysegment|way" k="osmarender:render" v="~|yes">
+
+        <layer name="Areas">
+            <rule e="way" k="landuse" v="forest|wood">
+                <area class='area-green'/>
+            </rule>
+            <rule e="way" k="natural" v="forest|wood">
+                <area class='area-green'/>
+            </rule>
+            <rule e="way" k="leisure" v="park|playing_fields|garden|pitch|golf_course|common|green">
+                <area class='area-green'/>
+            </rule>
+            <rule e="way" k="natural" v="water|pond|lake">
+                <area class='area-lake' />
+            </rule>
+        </layer>
+
+        <layer name="Todo">
+            <rule e="node" k="todo" v="*">
+                <circle r="4" class="maplint-node-todo"/>
+            </rule>
+        </layer>
+
+        <layer name="Maplint">
+            <rule e="way" k="maplint:notice" v="*">
+                <line class="maplint-way-notice-casing"/>
+                <line class="maplint-way-notice-core"/>
+            </rule>
+            <rule e="segment" k="maplint:notice" v="*">
+                <line class="maplint-segment-notice"/>
+            </rule>
+            <rule e="node" k="maplint:notice" v="*">
+                <circle r="4" class="maplint-node-notice"/>
+            </rule>
+
+            <rule e="way" k="maplint:warning" v="*">
+                <line class="maplint-way-warning-casing"/>
+                <line class="maplint-way-warning-core"/>
+            </rule>
+            <rule e="segment" k="maplint:warning" v="*">
+                <line class="maplint-segment-warning"/>
+            </rule>
+            <rule e="node" k="maplint:warning" v="*">
+                <circle r="4" class="maplint-node-warning"/>
+            </rule>
+
+            <rule e="way" k="maplint:error" v="*">
+                <line class="maplint-way-error-casing"/>
+                <line class="maplint-way-error-core"/>
+            </rule>
+            <rule e="segment" k="maplint:error" v="*">
+                <line class="maplint-segment-error"/>
+            </rule>
+            <rule e="node" k="maplint:error" v="*">
+                <circle r="4" class="maplint-node-error"/>
+            </rule>
+        </layer>
+
+        <!-- Waterways -->
+        <layer name="Waterways">
+            <rule e="segment|way" k="waterway" v="*">
+                <line class='waterway-river'/>
+            </rule>
+        </layer>
+
+
+        <!-- Roads and paths -->
+        <layer name="Roads and Paths">
+
+            <rule e="segment|way" k="highway" v="service|unsurfaced|track|byway|bridleway|cycleway|footway|steps">
+                <line class='highway-small' />
+            </rule>
+
+            <rule e="segment|way" k="highway" v="unclassified|residential|minor|tertiary|pedestrian">
+                <line class='highway-minor' />
+            </rule>
+
+            <rule e="segment|way" k="highway" v="secondary|primary|primary_link">
+                <line class='highway-primary' />
+            </rule>
+
+            <rule e="segment|way" k="highway" v="motorway_link|motorway|trunk_link|trunk">
+                <line class='highway-major' />
+            </rule>
+
+        </layer>
+
+
+        <!-- Railway lines -->
+        <rule e="segment|way" k="railway" v="*">
+            <layer name="Railway/Subway/Tram">
+
+                <rule e="segment|way" k="railway" v="rail">
+                    <line class='railway-rail' />
+                    <line class='railway-rail-dashes' />
+                </rule>
+                <rule e="segment|way" k="railway" v="light_rail|tram">
+                    <line class='railway-light-rail' />
+                </rule>
+                <rule e="segment|way" k="railway" v="subway">
+                    <line class='railway-subway-rail' />
+                </rule>
+
+            </layer>
+        </rule>
+
+
+        <!-- Airfields and airports -->
+        <rule e="node|segment|way" k="aeroway" v="*">
+            <layer name="Airfields and airports">
+                <rule e="segment|way" k="aeroway" v="runway">
+                    <line class='aeroway-runway-core'/>
+                </rule>
+                <rule e="segment|way" k="aeroway" v="taxiway">
+                    <line class='aeroway-taxiway-core'/>
+                </rule>
+            </layer>
+        </rule>
+
+
+        <!-- Power lines and pylons -->
+        <rule e="node|way" k="power" v="*">
+            <layer name="Power lines">
+                <rule e="way" k="power" v="line">
+                    <line class='power-line'/>
+                </rule>
+            </layer>
+        </rule>
+
+
+        <!-- Non-pysical routes -->
+        <rule e="segment|way" k="route" v="ferry">
+            <layer name="Ferry">
+                <line class='route-ferry' />
+            </layer>
+        </rule>
+
+        <layer name="Maplint node dots">
+            <rule e="node" k="maplint:notice|maplint:warning|maplint:error|todo" v="*">
+                <circle r="0.8" class="maplint-node-dot"/>
+            </rule>
+        </layer>
+
+        <layer name="Maplint text">
+            <rule e="segment|way" k="maplint:notice" v="*">
+                <text k="maplint:notice" startOffset="50%" class='maplint-text' dy="0.33" />
+            </rule>
+            <rule e="segment|way" k="maplint:warning" v="*">
+                <text k="maplint:warning" startOffset="50%" class='maplint-text' dy="0.33" />
+            </rule>
+            <rule e="segment|way" k="maplint:error" v="*">
+                <text k="maplint:error" startOffset="50%" class='maplint-text' dy="0.33" />
+            </rule>
+
+            <rule e="node" k="maplint:notice" v="*">
+                <text k="maplint:notice" class='maplint-caption' dx='2.5px' dy='1.5px' />
+            </rule>
+            <rule e="node" k="maplint:warning" v="*">
+                <text k="maplint:warning" class='maplint-caption' dx='2.5px' dy='1.5px' />
+            </rule>
+            <rule e="node" k="maplint:error" v="*">
+                <text k="maplint:error" class='maplint-caption' dx='2.5px' dy='1.5px' />
+            </rule>
+        </layer>
+
+    </rule>
+
+
+    <!-- SVG Definitions - markers, symbols etc go here -->
+    <defs>
+
+        <style id="styles" type="text/css" xmlns="http://www.w3.org/2000/svg">
+            /* Highways */
+
+            .highway-major {
+                stroke-width: 2px;
+                stroke-linejoin: round;
+                stroke: #909090;
+                fill: none;
+            }
+
+            .highway-primary {
+                stroke-width: 1.5px;
+                stroke-linejoin: round;
+                stroke: #909090;
+                fill: none;
+            }
+
+            .highway-minor {
+                stroke-width: 1.2px;
+                stroke-linejoin: round;
+                stroke: #909090;
+                fill: none;
+            }
+
+            .highway-small {
+                stroke-width: 1px;
+                stroke-linejoin: round;
+                stroke: #a0a0a0;
+                fill: none;
+            }
+
+            /* Aeroways */
+            .aeroway-taxiway-core {
+                stroke-width: 1px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #CCCCCC;
+                fill: none;
+            }
+
+            .aeroway-runway-core {
+                stroke-width: 5px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #CCCCCC;
+                fill: none;
+            }
+
+            .aeroway-aerodrome-caption {
+                fill: black;
+                stroke: white;
+                stroke-width: 0.3px;
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 6px;
+                font-weight: bolder;
+            }
+
+            .aeroway-airport-caption {
+                fill: black;
+                stroke: white;
+                stroke-width: 0.3px;
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 10px;
+                font-weight: bolder;
+            }
+
+
+            /* Waterways */
+            .waterway-river {
+                stroke-width: 3px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #89bac6;
+                fill: none;
+            }
+
+            .railway-rail {
+                stroke-width: 1.5px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #808080;
+                fill: none;
+            }
+
+            .railway-light-rail {
+                stroke-width: 0.8px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #808080;
+                fill: none;
+            }
+
+            .railway-subway-rail {
+                stroke-width: 0.8px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #aaaaaa;
+                fill: none;
+                stroke-dasharray: 3px, 1px;
+                stroke-dashoffset: 0;
+                stroke-opacity: 1;
+            }
+
+            .railway-rail-dashes {
+                stroke-width: 1px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #ffffff;
+                fill: none;
+                stroke-dasharray: 3px, 3px;
+                stroke-opacity: 1;
+            }
+
+            .railway-station {
+                fill: #808080;
+                stroke: #808080;
+                stroke-width: 0.5px;
+            }
+
+            .railway-station-caption {
+                fill: black;
+                stroke: white;
+                stroke-width: 0.2px;
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 4px;
+                font-weight: bolder;
+            }
+
+            .railway-halt {
+                fill: #808080;
+                stroke: #808080;
+                stroke-width: 0.5px;
+            }
+
+            .railway-halt-caption {
+                fill: black;
+                stroke: white;
+                stroke-width: 0.1px;
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 2px;
+                font-weight: bolder;
+            }
+
+
+            /* Ferry */
+            .route-ferry {
+                stroke-width: 0.5px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #777777;
+                fill: none;
+            }
+
+
+            /* Points of interest */
+            .point-of-interest {
+                fill: red;
+                stroke: black;
+                stroke-width: 0.5px;
+            }
+
+
+            /* Areas */
+            .area-green {
+                fill: #f5f5f5;
+                stroke: none;
+            }
+            .area-lake {
+                fill: #89bac6;
+                stroke: none;
+            }
+
+
+            /* JOSM Debugging */
+            .josm-segment {
+                stroke-width: 0.2px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #008000;
+                fill: none;
+                marker-end: url(#segment-direction);
+            }
+
+
+            /* Power line */
+            .power-line {
+                stroke-width: 0.1px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #cccccc;
+                stroke-dasharray: 1px ,1px;
+                fill: none;
+            }
+
+
+            /* Maplint */
+            .maplint-node-error {
+                fill: #e74444;
+            }
+
+            .maplint-node-warning {
+                fill: #f89559;
+            }
+
+            .maplint-node-notice {
+                fill: #e2f91d;
+            }
+
+            .maplint-node-todo {
+                fill: #0000e0;
+            }
+
+            .maplint-node-dot {
+                fill: black;
+            }
+
+            .maplint-segment-error {
+                fill: none;
+                stroke: #e74444;
+                stroke-width: 5px;
+            }
+
+            .maplint-segment-warning {
+                fill: none;
+                stroke: #f89559;
+                stroke-width: 5px;
+            }
+
+            .maplint-segment-notice {
+                fill: none;
+                stroke: #e2f91d;
+                stroke-width: 5px;
+            }
+
+            .maplint-way-error-casing {
+                fill: none;
+                stroke: #e74444;
+                stroke-width: 5px;
+            }
+
+            .maplint-way-warning-casing {
+                fill: none;
+                stroke: #f89559;
+                stroke-width: 5px;
+            }
+
+            .maplint-way-notice-casing {
+                fill: none;
+                stroke: #e2f91d;
+                stroke-width: 5px;
+            }
+
+            .maplint-way-error-core {
+                fill: none;
+                stroke: #fcfcfc;
+                stroke-width: 3.5px;
+            }
+
+            .maplint-way-warning-core {
+                fill: none;
+                stroke: #fcfcfc;
+                stroke-width: 3.5px;
+            }
+
+            .maplint-way-notice-core {
+                fill: none;
+                stroke: #fcfcfc;
+                stroke-width: 3.5px;
+            }
+
+            .maplint-text {
+                fill: black;
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 2px;
+                font-weight: bold;
+                text-anchor: middle
+            }
+
+            .maplint-caption {
+                fill: black;
+                stroke: white;
+                stroke-width: 0.2px;
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 3px;
+                font-weight: bolder;
+            }
+
+            /* Map decoration */
+            .map-grid-line {
+                fill: none;
+                stroke: #8080ff;
+                stroke-width: 0.1px;
+                stroke-opacity: 0.5;
+            }
+
+            .map-border-casing {
+                fill: none;
+                stroke: #8080ff;
+                stroke-width: 3px;
+                stroke-miterlimit: 4;
+                stroke-dasharray: none;
+                stroke-opacity: 1;
+                stroke-linecap: round;
+            }
+
+            .map-border-core {
+                fill: none;
+                fill-opacity: 1;
+                fill-rule: nonzero;
+                stroke: #ffffff;
+                stroke-width: 2px;
+                stroke-miterlimit: 0;
+                stroke-dashoffset: -0.5px;
+                stroke-opacity: 1;
+            }
+
+            .map-scale-casing {
+                fill: none;
+                stroke: #8080ff;
+                stroke-width: 4px;
+                stroke-linecap: butt;
+            }
+
+            .map-scale-core {
+                fill: none;
+                stroke: #ffffff;
+                stroke-width: 3px;
+                stroke-linecap: butt;
+            }
+
+            .map-scale-bookend {
+                fill: none;
+                stroke: #8080ff;
+                stroke-width: 1px;
+                stroke-linecap: butt;
+            }
+
+            .map-scale-caption {
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 10px;
+                fill: #8080ff;
+            }
+
+            .map-background {
+                fill: #fcfcfc;
+                stroke: none;
+            }
+
+            .map-title {
+                font-family: "DejaVu Sans",sans-serif;
+                font-size: 20px;
+                text-anchor: middle;
+                fill: black;
+            }
+
+            .map-title-background {
+                fill: white;
+            }
+
+            .map-marginalia-background {
+                fill: white;
+            }
+        </style>
+
+        <svg:marker
+            id="segment-direction"
+            viewBox="0 0 10 10"
+            refX="10px" refY="5px"
+            markerUnits="userSpaceOnUse"
+            fill='none'
+            stroke-width='1px'
+            stroke='#008000'
+            markerWidth="1px"
+            markerHeight="1px"
+            orient="auto">
+            <svg:path d="M 0,2 L 10,5 L 0,8" />
+        </svg:marker>
+
+    </defs>
+
+</rules>

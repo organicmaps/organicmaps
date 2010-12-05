@@ -1,0 +1,112 @@
+#!/bin/bash
+################################################
+# Cool script for building dat and index files #
+################################################
+
+# At least "set -e -u" should always be here, not just for debugging!
+# "set -x" is useful to see what is going on.
+set -e -u -x
+
+DEFAULT_BUCKETING_LEVEL=0
+
+# displays usage and exits
+function Usage {
+  echo ''
+  echo "Usage: $0 countryName [dataDir] [omim-build-suffix] [heavyNodes]"
+  echo 'omim-build-suffix is "release" or "debug" or just a shadow build folder name'
+  echo 'heavyNodes if present, enables Big Nodes Temp File Mode for continent/planet OSM'
+  exit 0
+}
+
+if [ $# -lt 1 ]; then
+  Usage
+fi
+
+# set up necessary Windows MinGW settings
+#if [ ${WINDIR+1} ]; then
+#fi
+
+# check if we have QT in PATH
+if [ ! `which qmake` ]; then
+  echo 'You should add your qmake binary into the PATH. This can be done in 2 ways:'
+  echo '  1. Set it temporarily by executing: export PATH=/c/qt/your_qt_dir/bin:$PATH'
+  echo '  2. Set it permanently by adding export... string above to your ~/.bashrc'
+  echo 'Hint: for second solution you can type from git bash console: notepad ~/.bashrc'
+  exit 0
+fi
+
+# determine script path
+MY_PATH=`dirname $0`
+
+# find indexer_tool
+# check if user specified build suffix parameter
+if [ $# -ge 3 ]; then
+  IT_ARR_SIZE=4
+  IT_PATHS_ARRAY=(  "$MY_PATH/../../../omim-build-$3/out/release/indexer_tool" \
+                    "$MY_PATH/../../../$3/out/release/indexer_tool" \
+                    "$MY_PATH/../../../omim-build-$3/out/debug/indexer_tool" \
+                    "$MY_PATH/../../../$3/out/debug/indexer_tool" )
+else
+  IT_ARR_SIZE=2
+  IT_PATHS_ARRAY=(  "$MY_PATH/../../../omim-build-release/out/release/indexer_tool" \
+                    "$MY_PATH/../../../omim-build-debug/out/debug/indexer_tool" \
+                    "stub-for-for-cycle" \
+                    "stub-for-for-cycle" )
+fi
+for i in {0..3}; do
+  if [ -x ${IT_PATHS_ARRAY[i]} ]; then
+    INDEXER_TOOL=${IT_PATHS_ARRAY[i]}
+    echo TOOL: $INDEXER_TOOL
+    break
+  fi
+done
+
+if [[ ! -n $INDEXER_TOOL ]]; then
+  echo 'No indexer_tool found, please build omim-build-release or omim-build-debug'
+  echo 'or specify omim-build-[suffix] or [shadow directory] as 3rd script parameter'
+  Usage
+fi
+
+# determine data directory
+if [ $# -ge 2 ]; then
+  DATADIR=$2
+else
+  DATADIR=$MY_PATH/../../data
+fi
+
+OSM_BZ2=$DATADIR/$1.osm.bz2
+
+if ! [ -f $OSM_BZ2 ]; then
+  echo "Can't open file $OSM_BZ2, did you forgot to specify dataDir?"
+  Usage
+fi
+
+if [ -d /media/ssd/tmp ]; then
+  TMPDIR=/media/ssd/tmp/$LOGNAME/
+else
+  TMPDIR=/tmp/
+fi
+
+if ! [ -d $TMPDIR ]; then
+  mkdir -p $TMPDIR
+fi
+
+PV="cat"
+if [ `which pv` ]
+then
+  PV=pv
+fi
+
+if [ $# -ge 4 ]; then
+  LIGHT_NODES=false
+else
+  LIGHT_NODES=true
+fi
+
+$PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
+  --use_light_nodes=$LIGHT_NODES \
+  --generate_intermediate_data
+
+$PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
+  --use_light_nodes=$LIGHT_NODES \
+  --generate_final_data --sort_features  --generate_index --output=$1 --bucketing_level=$DEFAULT_BUCKETING_LEVEL

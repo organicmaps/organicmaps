@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:cc="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" baseProfile="full" width="18.64" id="symbol-library" viewBox="0 0 640 640" height="18.64">
+   <svg:g transform="translate(160,10)">
+            <svg:path fill="#FFFFFF" stroke="#000000" stroke-width="32.0585" d="M136,165.5l5.1,414l162.2-163.5V46.6 L136,165.5z"/>
+            <svg:path fill="#FFFFFF" stroke="#000000" stroke-width="32.1739" d="M20.2,136.7l-3.9,422.1c0,0-6.4,45,43.8,46.3 c56.6,1.5,68.2-10.3,68.2-10.3l2.6-426c0,0-18,14.2-57.9,12.9C22.8,180.1,20.2,136.7,20.2,136.7z"/>
+            <svg:path fill="none" stroke="#000000" stroke-width="26.7171" d="M175.9,229.4l79.8-48.9"/>
+            <svg:path fill="none" stroke="#000000" stroke-width="26.7171" d="M182.3,289.9l69.5-42.5"/>
+            <svg:path fill="none" stroke="#000000" stroke-width="26.7171" d="M184.9,351.6l75.9-48.9"/>
+            <svg:path fill="none" stroke="#000000" stroke-width="26.7171" d="M13.7,147L191.3,10.6 c-18.3,17.1,13.9,32.3,37.3,33.5c51.5,2.6,81.1-7.7,81.1-7.7"/>
+            <svg:path fill="#FFFFFF" stroke="#000000" d="M36.7,143.9l144-116c0,0-7,18,26,25s59,1,59,1l-149,107c0,0-27,16-59,1 S36.7,143.9,36.7,143.9z"/>
+          </svg:g>
+</svg>

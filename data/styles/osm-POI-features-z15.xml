@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="osmarender.xsl"?>
+
+<!-- Tiles@Home Rules File for zoom level 15 -->
+
+<rules
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    data="data.osm"
+    svgBaseProfile="full"
+    scale="1"
+    symbolScale="1"
+	textAttenuation="0.44"
+    minimumMapWidth="1"
+    minimumMapHeight="1"
+    withOSMLayers="yes"
+    withUntaggedSegments="no"
+    showScale="no"
+    showGrid="no"
+    showBorder="no"
+    showLicense="no"
+    interactive="no">
+
+
+
+    <!-- SVG Definitions - markers, symbols etc go here -->
+    <defs>
+
+        <style id="styles" type="text/css" xmlns="http://www.w3.org/2000/svg">
+        </style>
+
+    </defs>
+
+</rules>

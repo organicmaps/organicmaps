@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Tiles@Home Rules File for zoom levels 0-17 -->
+<rules>
+  <rule e="way" k="mapswithme" v="grid">
+    <line class="mapswithme-grid-core"/>
+  </rule>
+  <rule e="node" k="mapswithme" v="gridcaption">
+    <text k="name" class='caption-core grid-caption' />
+  </rule>
+  
+  <defs>
+    <style xmlns="http://www.w3.org/2000/svg" id="styles" type="text/css">
+
+      .mapswithme-grid-core {
+        stroke-width: 10px;
+        stroke-linejoin: round;
+        stroke-linecap: butt;
+        stroke: #000000;
+        stroke-dasharray: 1,1;
+      }
+
+      .caption-core {
+        stroke: #000000;
+        stroke-width: 10px;
+        font-family: "DejaVu Sans";
+        font-weight: normal;
+        text-anchor: middle;
+        stroke-miterlimit: 1.5;
+      }
+
+      .grid-caption        { font-size: 100000px; }
+      
+    </style>
+  </defs>
+</rules>

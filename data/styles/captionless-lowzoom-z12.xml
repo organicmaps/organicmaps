@@ -1,0 +1,1315 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="osmarender.xsl"?>
+
+<!-- Tiles@Home Rules File for low zoom level 12 -->
+<!-- This is the same as the normal z12 rules file except:
+     - No captions of any kind
+     - No landuse area fills
+     - No green stuff
+     -->
+
+<rules
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    data="data.osm"
+    svgBaseProfile="full"
+    scale="1"
+    symbolScale="1"
+    textAttenuation="0.44"
+    minimumMapWidth="0.5"
+    minimumMapHeight="0.5"
+    withOSMLayers="yes"
+    withUntaggedSegments="no"
+    showScale="no"
+    showGrid="no"
+    showBorder="no"
+    showLicense="no"
+    interactive="no">
+
+
+	<!-- Select all nodes and ways (unless they have an osmarender:render=no tag) -->
+	<rule e="node|way" k="osmarender:render" v="~|yes">
+
+		<!-- Draw land areas first -->
+		<rule e="way" k="natural" v="land">
+			<area class='natural-land' />
+		</rule>
+
+		<!-- Natural features -->
+		<rule e="way" k="natural" v="coastline">
+			<area class='natural-coastline'/>
+		</rule>
+		<rule e="way" k="natural" v="glacier">
+			<line class='natural-glacier'/>
+		</rule>
+
+		<!-- Airports and runways -->
+		<rule e="way" k="aeroway" v="aerodrome" closed="yes">
+			<area class='aeroway-aerodrome'/>
+		</rule>
+		<rule e="way" k="aeroway" v="apron">
+			<area class='aeroway-apron'/>
+		</rule>
+		<rule e="way" k="landuse" v="runway">
+			<rule e="way" k="use_status" v="~">
+				<area class='landuse-runway' />
+			</rule>
+			<rule e="way" k="use_status" v="disused">
+				<area class='landuse-runway-disused' />
+			</rule>
+			<rule e="way" k="use_status" v="dismantled">
+				<area class='landuse-runway-dismantled' />
+			</rule>
+		</rule>
+
+
+		<!-- Raceways and racetracks (cars and horses etc) -->
+		<rule e="way" k="landuse" v="raceway">
+			<rule e="way" k="use_status" v="~">
+				<area class='landuse-raceway' />
+			</rule>
+			<rule e="way" k="use_status" v="disused">
+				<area class='landuse-raceway-disused' />
+			</rule>
+			<rule e="way" k="use_status" v="dismantled">
+				<area class='landuse-raceway-dismantled' />
+			</rule>
+		</rule>
+
+
+        <!-- Airfields and airports -->
+        <rule e="way" k="aeroway" v="runway">
+            <line class='aeroway-runway-casing'/>
+        </rule>
+        <rule e="way" k="aeroway" v="taxiway">
+            <line class='aeroway-taxiway-casing'/>
+        </rule>
+
+
+        <!-- Waterways -->
+        <rule e="way" k="waterway" v="riverbank">
+            <area class='waterway-riverbank'/>
+        </rule>
+        <rule e="way" k="waterway" v="river">
+            <line class='waterway-casing waterway-river-casing'/>
+        </rule>
+        <rule e="way" k="waterway" v="stream">
+            <line class='waterway-casing waterway-stream-casing'/>
+        </rule>
+        <rule e="way" k="waterway" v="canal">
+            <line class='waterway-casing waterway-canal-casing'/>
+        </rule>
+        <rule e="way" k="waterway" v="drain">
+            <line class='waterway-casing waterway-drain-casing'/>
+        </rule>
+        <rule e="way" k="waterway" v="river">
+            <line class='waterway-core waterway-river-core'/>
+        </rule>
+        <rule e="way" k="waterway" v="stream">
+            <line class='waterway-core waterway-stream-core'/>
+        </rule>
+        <rule e="way" k="waterway" v="canal">
+            <line class='waterway-core waterway-canal-core'/>
+        </rule>
+        <rule e="way" k="waterway" v="drain">
+            <line class='waterway-core waterway-drain-core'/>
+        </rule>
+        <rule e="way" k="waterway" v="dock">
+            <area class='natural-water' />
+        </rule>
+        <rule e="way" k="natural" v="water|pond|lake">
+            <area class='natural-water' />
+        </rule>
+        <rule e="way" k="landuse" v="reservoir">
+            <area class='natural-water' />
+        </rule>
+        <rule e="way" k="landuse" v="basin">
+            <area class='natural-water' />
+        </rule>
+
+
+        <!-- Linear casings -->
+        <rule e="way" k="tunnel" v="~|no|false">
+			      <rule e="way" k="highway" v="raceway">
+				        <rule e="way" k="use_status" v="~">
+					          <line class='highway-raceway-casing' />
+				        </rule>
+				        <rule e="way" k="use_status" v="disused">
+					          <line class='highway-raceway-casing-disused' />
+				        </rule>
+				        <rule e="way" k="use_status" v="dismantled">
+					          <line class='highway-raceway-casing-dismantled' />
+				        </rule>
+			      </rule>
+            <rule e="way" k="highway" v="steps">
+                <line class='highway-casing highway-steps-casing' />
+            </rule>
+            <rule e="way" k="highway" v="footway|footpath">
+                <line class='highway-casing highway-footway-casing' smart-linecap='no'/>
+            </rule>
+            <rule e="way" k="highway" v="pedestrian">
+                <line class='highway-casing highway-pedestrian-casing' />
+            </rule>
+            <rule e="way" k="highway" v="cycleway">
+                <line class='highway-casing highway-cycleway-casing' smart-linecap='no'/>
+            </rule>
+            <rule e="way" k="highway" v="bridleway">
+                <line class='highway-casing highway-bridleway-casing' smart-linecap='no'/>
+            </rule>
+            <rule e="way" k="highway" v="byway">
+                <line class='highway-casing highway-byway-1-casing' smart-linecap='no'/>
+                <line class='highway-casing highway-byway-2-casing' smart-linecap='no'/>
+                <line class='highway-casing highway-byway-3-casing' smart-linecap='no'/>
+            </rule>
+            <rule e="way" k="highway" v="track">
+                <line class='highway-casing highway-track-casing'/>
+            </rule>
+            <rule e="way" k="highway" v="unsurfaced">
+                <line class='highway-casing highway-unsurfaced-casing' smart-linecap='no'/>
+            </rule>
+            <rule e="way" k="highway" v="service">
+                <line class='highway-casing highway-service-casing' />
+            </rule>
+            <rule e="way" k="highway" v="unclassified|residential|minor">
+                <line class='highway-casing highway-unclassified-casing' />
+            </rule>
+            <rule e="way" k="highway" v="tertiary_link">
+                <line class='highway-casing highway-tertiary-link-casing' />
+            </rule>
+            <rule e="way" k="highway" v="tertiary">
+                <line class='highway-casing highway-tertiary-casing' />
+            </rule>
+            <rule e="way" k="highway" v="secondary_link">
+                <line class='highway-casing highway-secondary-link-casing' />
+            </rule>
+            <rule e="way" k="highway" v="secondary">
+                <line class='highway-casing highway-secondary-casing' />
+            </rule>
+            <rule e="way" k="highway" v="primary_link">
+                <line class='highway-casing highway-primary-link-casing' />
+            </rule>
+            <rule e="way" k="highway" v="trunk_link">
+                <line class='highway-casing highway-trunk-link-casing' />
+            </rule>
+            <rule e="way" k="highway" v="motorway_link">
+                <line class='highway-casing highway-motorway-link-casing' />
+            </rule>
+            <rule e="way" k="highway" v="primary">
+                <line class='highway-casing highway-primary-casing' />
+            </rule>
+            <rule e="way" k="highway" v="trunk">
+                <line class='highway-casing highway-trunk-casing' />
+            </rule>
+            <rule e="way" k="highway" v="motorway">
+                <line class='highway-casing highway-motorway-casing' />
+            </rule>
+        </rule>
+
+
+        <!-- Linear cores -->
+		<rule e="way" k="tunnel" v="~|false|no">
+			<rule e="way" k="highway" v="raceway">
+				<rule e="way" k="use_status" v="~">
+					<line class='highway-raceway-core' />
+				</rule>
+				<rule e="way" k="use_status" v="disused">
+					<line class='highway-raceway-core-disused' />
+				</rule>
+				<rule e="way" k="use_status" v="dismantled">
+					<line class='highway-raceway-core-dismantled' />
+				</rule>
+			</rule>
+			<rule e="way" k="scramble" v="*">
+				<line class='highway-core highway-scramble-core' />
+			</rule>
+			<rule e="way" k="highway" v="steps">
+				<line class='highway-core highway-steps-core' smart-linecap='no'/>
+			</rule>
+			<rule e="way" k="highway" v="footway|footpath">
+				<line class='highway-core highway-footway-core' />
+			</rule>
+			<rule e="way" k="highway" v="pedestrian">
+				<line class='highway-core highway-pedestrian-core' />
+			</rule>
+			<rule e="way" k="highway" v="cycleway">
+				<line class='highway-core highway-cycleway-core' />
+			</rule>
+			<rule e="way" k="highway" v="bridleway">
+				<line class='highway-core highway-bridleway-core' />
+			</rule>
+			<rule e="way" k="highway" v="byway">
+				<line class='highway-core highway-byway-2-casing' smart-linecap='no'/>
+				<line class='highway-core highway-byway-3-casing' smart-linecap='no'/>
+				<line class='highway-core highway-byway-1-core' />
+			</rule>
+			<rule e="way" k="highway" v="track">
+				<line class='highway-core highway-track-core' />
+			</rule>
+			<rule e="way" k="highway" v="unsurfaced">
+				<line class='highway-core highway-unsurfaced-core' />
+			</rule>
+			<rule e="way" k="highway" v="service">
+				<line class='highway-core highway-service-core' />
+			</rule>
+			<rule e="way" k="highway" v="unclassified|residential|minor">
+				<line class='highway-core highway-unclassified-core' />
+			</rule>
+			<rule e="way" k="highway" v="tertiary_link">
+				<line class='highway-core highway-tertiary-link-core' />
+			</rule>
+			<rule e="way" k="highway" v="tertiary">
+				<line class='highway-core highway-tertiary-core' />
+			</rule>
+			<rule e="way" k="highway" v="secondary_link">
+				<line class='highway-core highway-secondary-link-core' />
+			</rule>
+			<rule e="way" k="highway" v="secondary">
+				<line class='highway-core highway-secondary-core' />
+			</rule>
+			<rule e="way" k="highway" v="primary_link">
+				<line class='highway-core highway-primary-link-core' />
+			</rule>
+			<rule e="way" k="highway" v="trunk_link">
+				<line class='highway-core highway-trunk-link-core' />
+			</rule>
+			<rule e="way" k="highway" v="motorway_link">
+				<line class='highway-core highway-motorway-link-core' />
+			</rule>
+			<rule e="way" k="highway" v="primary">
+				<line class='highway-core highway-primary-core' />
+			</rule>
+			<rule e="way" k="highway" v="trunk">
+				<line class='highway-core highway-trunk-core' />
+			</rule>
+			<rule e="way" k="highway" v="motorway">
+				<line class='highway-core highway-motorway-core' />
+			</rule>
+			<rule e="way" k="railway" v="*">
+				<rule e="way" k="railway" v="rail">
+					<line class="railway-rail-2-core railway-rail-2-core-color railway-2-core" smart-linecap="no" />
+				</rule>
+				<rule e="way" k="railway" v="narrow_gauge">
+					<line class="railway-narrow-2-core railway-narrow-2-core-color railway-2-core" smart-linecap="no" />
+				</rule>
+				<rule e="way" k="railway" v="preserved">
+					<line class="railway-preserved-2-core railway-preserved-2-core-color railway-2-core" smart-linecap="no" />
+				</rule>
+				<rule e="way" k="railway" v="light_rail">
+					<line class="railway-light-2-core railway-light-2-core-color railway-2-core" smart-linecap="no" />
+				</rule>
+				<rule e="way" k="railway" v="tram">
+					<line class="railway-tram-2-core railway-tram-2-core-color railway-2-core" smart-linecap="no" />
+				</rule>
+				<rule e="way" k="railway" v="subway">
+					<line class="railway-subway-2-core railway-subway-2-core-color railway-2-core" smart-linecap="no" />
+				</rule>
+				<rule e="way" k="railway" v="monorail">
+					<line class="railway-monorail-2-core railway-monorail-2-core-color railway-2-core" smart-linecap="no" />
+				</rule>
+			</rule>
+			<rule e="way" k="aeroway" v="runway">
+				<line class='aeroway-runway-core'/>
+			</rule>
+			<rule e="way" k="aeroway" v="taxiway">
+				<line class='aeroway-taxiway-core'/>
+			</rule>
+	</rule>
+
+	<!-- Tunnels -->
+		<rule e="way" k="tunnel" v="true|yes">
+			<rule e="way" k="highway" v="steps">
+				<line class='tunnel-casing highway-steps-casing tunnel' mask-class='tunnel-core highway-steps-core'/>
+				<line class='highway-steps-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="footway|footpath">
+				<line class='tunnel-casing highway-footway-casing tunnel' mask-class='tunnel-core highway-footway-core'/>
+				<line class='highway-footway-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="pedestrian">
+				<line class='tunnel-casing highway-pedestrian-casing tunnel' mask-class='tunnel-core highway-pedestrian-core'/>
+				<line class='highway-pedestrian-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="cycleway">
+				<line class='tunnel-casing highway-cycleway-casing tunnel' mask-class='tunnel-core highway-cycleway-core'/>
+				<line class='highway-cycleway-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="bridleway">
+				<line class='tunnel-casing highway-bridleway-casing tunnel' mask-class='tunnel-core highway-bridleway-core'/>
+				<line class='highway-bridleway-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="byway">
+				<line class='tunnel-casing highway-byway-1-casing tunnel' mask-class='tunnel-core highway-byway-1-core'/>
+				<line class='highway-byway-1-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="track">
+				<line class='tunnel-casing highway-track-casing tunnel' mask-class='tunnel-core highway-track-core'/>
+				<line class='highway-track-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="unsurfaced">
+				<line class='tunnel-casing highway-unsurfaced-casing tunnel' mask-class='tunnel-core highway-unsurfaced-core'/>
+				<line class='highway-unsurfaced-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="service">
+				<line class='tunnel-casing highway-service-casing tunnel' mask-class='tunnel-core highway-service-core'/>
+				<line class='highway-service-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="unclassified|residential|minor|tertiary">
+				<line class='tunnel-casing highway-unclassified-casing tunnel' mask-class='tunnel-core highway-unclassified-core'/>
+				<line class='highway-unclassified-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="tertiary_link">
+				<line class='tunnel-casing highway-tertiary-link-casing tunnel' mask-class='tunnel-core highway-tertiary-link-core'/>
+				<line class='highway-tertiary-link-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="tertiary">
+				<line class='tunnel-casing highway-tertiary-casing tunnel' mask-class='tunnel-core highway-tertiary-core'/>
+				<line class='highway-tertiary-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="secondary_link">
+				<line class='tunnel-casing highway-secondary-link-casing tunnel' mask-class='tunnel-core highway-secondary-link-core'/>
+				<line class='highway-secondary-link-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="secondary">
+				<line class='tunnel-casing highway-secondary-casing tunnel' mask-class='tunnel-core highway-secondary-core'/>
+				<line class='highway-secondary-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="primary_link">
+				<line class='tunnel-casing highway-primary-link-casing tunnel' mask-class='tunnel-core highway-primary-link-core'/>
+				<line class='highway-primary-link-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="trunk_link">
+				<line class='tunnel-casing highway-trunk-link-casing tunnel' mask-class='tunnel-core highway-trunk-link-core'/>
+				<line class='highway-trunk-link-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="motorway_link">
+				<line class='tunnel-casing highway-motorway-link-casing tunnel' mask-class='tunnel-core highway-motorway-link-core'/>
+				<line class='highway-motorway-link-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="primary">
+				<line class='tunnel-casing highway-primary-casing tunnel' mask-class='tunnel-core highway-primary-core'/>
+				<line class='highway-primary-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="trunk">
+				<line class='tunnel-casing highway-trunk-casing tunnel' mask-class='tunnel-core highway-trunk-core'/>
+				<line class='highway-trunk-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="highway" v="motorway">
+				<line class='tunnel-casing highway-motorway-casing tunnel' mask-class='tunnel-core highway-motorway-core'/>
+				<line class='highway-motorway-casing highway-tunnel-ends'/>
+			</rule>
+			<rule e="way" k="railway" v="*">
+				<rule e="way" k="railway" v="rail">
+					<line class="railway-rail-casing railway-rail-casing-color railway-casing tunnel-casing railway-tunnel" mask-class="tunnel-core railway-rail-2-core"/>
+					<line class="railway-rail-2-core railway-rail-2-core-color railway-2-core railway-rail-tunnel-core railway-tunnel"  smart-linecap="no" />
+					<line class="railway-tunnel-ends" suppress-markers-tag="tunnel"/>
+				</rule>
+				<rule e="way" k="railway" v="narrow_gauge">
+					<line class="railway-narrow-casing railway-narrow-casing-color railway-casing tunnel-casing railway-tunnel" mask-class="tunnel-core railway-narrow-2-core"/>
+					<line class="railway-narrow-2-core railway-narrow-2-core-color railway-2-core railway-narrow-tunnel-core railway-tunnel"  smart-linecap="no" />
+					<line class="railway-tunnel-ends" suppress-markers-tag="tunnel"/>
+				</rule>
+				<rule e="way" k="railway" v="preserved">
+					<line class="railway-preserved-casing railway-preserved-casing-color railway-casing tunnel-casing railway-tunnel" mask-class="tunnel-core railway-preserved-2-core"/>
+					<line class="railway-preserved-2-core railway-preserved-2-core-color railway-2-core railway-preserved-tunnel-core railway-tunnel"  smart-linecap="no" />
+					<line class="railway-tunnel-ends" suppress-markers-tag="tunnel"/>
+				</rule>
+				<rule e="way" k="railway" v="light_rail">
+					<line class="railway-light-casing railway-light-casing-color railway-casing tunnel-casing railway-tunnel" mask-class="tunnel-core railway-light-2-core"/>
+					<line class="railway-light-2-core railway-light-2-core-color railway-2-core railway-light-tunnel-core railway-tunnel"  smart-linecap="no" />
+					<line class="railway-tunnel-ends" suppress-markers-tag="tunnel"/>
+				</rule>
+				<rule e="way" k="railway" v="tram">
+					<line class="railway-tram-casing railway-tram-casing-color railway-casing tunnel-casing railway-tunnel" mask-class="tunnel-core railway-tram-2-core"/>
+					<line class="railway-tram-2-core railway-tram-2-core-color railway-2-core railway-tram-tunnel-core railway-tunnel"  smart-linecap="no" />
+					<line class="railway-tunnel-ends" suppress-markers-tag="tunnel"/>
+				</rule>
+				<rule e="way" k="railway" v="subway">
+					<line class="railway-subway-casing railway-subway-casing-color railway-casing tunnel-casing railway-tunnel" mask-class="tunnel-core railway-subway-2-core"/>
+					<line class="railway-subway-2-core railway-subway-2-core-color railway-2-core railway-subway-tunnel-core railway-tunnel"  smart-linecap="no" />
+					<line class="railway-tunnel-ends" suppress-markers-tag="tunnel"/>
+				</rule>
+				<rule e="way" k="railway" v="monorail">
+					<line class="railway-monorail-casing railway-monorail-casing-color railway-casing tunnel-casing railway-tunnel" mask-class="tunnel-core railway-monorail-2-core"/>
+					<line class="railway-monorail-2-core railway-monorail-2-core-color railway-2-core railway-monorail-tunnel-core railway-tunnel"  smart-linecap="no" />
+					<line class="railway-tunnel-ends" suppress-markers-tag="tunnel"/>
+				</rule>
+			</rule>
+		</rule>
+
+
+        <!-- Non-physical routes -->
+        <rule e="way" k="route" v="ferry">
+            <line class='route-ferry' />
+        </rule>
+
+        <!-- Airfields and airports -->
+        <rule e="node" k="aeroway" v="airport">
+            <symbol xlink:href="#airport" width='160px' height='160px' transform='translate(-80,-80)' />
+        </rule>
+
+	</rule> <!-- k="osmarender:render" v="~|yes" -->
+
+
+
+
+	<!-- ==================================== Layer 5 ======================================== -->
+    <rule e="node|way" k="osmarender:render" v="~|yes" layer="5">
+		<!-- Non-physical boundaries -->
+		<rule e="way" k="boundary" v="administrative" layer="5">
+			<rule e="way" k="admin_level" v="2" layer="5">
+				<line class="boundary boundary-level-2-casing no-bezier" layer="5"/>
+				<line class="boundary boundary-level-2-core no-bezier" layer="5"/>
+			</rule>
+			<rule e="way" k="admin_level" v="1" layer="5">
+				<line class="boundary boundary-level-1-casing no-bezier" layer="5"/>
+				<line class="boundary boundary-level-1-core no-bezier" layer="5"/>
+			</rule>
+		</rule>
+		<rule e="way" k="boundary" v="national_park" layer="5">
+			<line class="boundary boundary-nationalpark-core no-bezier" layer="5"/>
+		</rule>
+	</rule>
+
+    <!-- SVG Definitions - markers, symbols etc go here -->
+    <defs>
+
+        <style id="styles" type="text/css" xmlns="http://www.w3.org/2000/svg">
+            /* DO NOT DELETE .untagged-segments - Used by osmarender.xsl */
+            .untagged-segments {
+                stroke-width: 0.5px;
+                stroke-linejoin: miter;
+                stroke-linecap: butt;
+                stroke: #e0e0e0;
+                stroke-dasharray: 0.5,0.5;
+            }
+            
+
+
+            /* Highways - generic styles */
+            .highway-casing {
+				stroke-linecap: square;
+                stroke-linejoin: round;
+                fill: none;
+            }
+
+            .highway-core {
+                stroke-linecap: square;
+                stroke-linejoin: round;
+                fill: none;
+            }
+
+            .highway-motorway-junction {
+            fill: yellow;
+            stroke: #4D5D73;
+            stroke-width: 3px;
+            }
+            
+            .highway-motorway-junction-caption {
+            fill: black;
+            stroke: blue;
+            stroke-width: 0.2px;
+            font-family: "DejaVu Sans",sans-serif;
+            font-size: 10px;
+            font-weight: bold;
+            display: none;
+            }
+            
+            .highway-ref {
+                fill: #606060;
+                stroke: white;
+                font-family: "DejaVu Sans";
+                font-weight: normal;
+				text-anchor: middle;
+            }
+
+            .highway-name {
+                fill: black;
+                font-family: "DejaVu Sans";
+                font-weight: normal;
+                stroke: white;
+				text-anchor: middle;
+             }
+
+            .bridge-casing {
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #707070;
+                fill: none;
+                marker-start: url(#bridge-casing-start);
+                marker-end: url(#bridge-casing-end);
+            }
+			
+			.bridge-core {
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #ffffff;
+                fill: none;
+			}
+
+            .tunnel-casing {
+				stroke-linecap: butt;
+                stroke-linejoin: round;
+                fill: none;
+            }
+
+            .tunnel-core {
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                fill: none;
+            }
+
+			.tunnel { stroke-dasharray: 1.6, 1.6; }
+
+		/* Railways - generic styles */
+		.railway-tunnel { stroke-dasharray: 6, 6; }
+		.railway-casing { stroke-linecap: butt; stroke-linejoin: round; fill: none; }
+		.railway-2-core { stroke-linecap: butt; stroke-linejoin: round; fill: none; }
+
+		.railway-tunnel-ends {
+			stroke-opacity: 0;
+			fill: none;
+			marker-start: url(#marker-tunnel-start);
+			marker-end: url(#marker-tunnel-end);
+			stroke: #b0b0b0;
+			stroke-width: 8px;
+		}
+
+		.railway-rail-casing                    { stroke-width: 9.5px; }
+		.railway-rail-2-core                    { stroke-width: 7px; }
+		.railway-rail-casing-color              { stroke: #404040; }
+		.railway-rail-2-core-color              { stroke: #404040; }
+		.railway-rail-tunnel-core               { stroke-opacity: 0.1; }
+
+		.railway-narrow-casing                    { stroke-width: 7.5px; }
+		.railway-narrow-2-core                    { stroke-width: 5px; }
+		.railway-narrow-casing-color              { stroke: #404040; }
+		.railway-narrow-2-core-color              { stroke: #404040; }
+		.railway-narrow-tunnel-core               { stroke-opacity: 0.1; }
+
+		.railway-preserved-casing                    { stroke-width: 7.5px; }
+		.railway-preserved-2-core                    { stroke-width: 4px; }
+		.railway-preserved-casing-color              { stroke: #595959; }
+		.railway-preserved-2-core-color              { stroke: #595959; }
+		.railway-preserved-tunnel-core               { stroke-opacity: 0.1; }
+
+		.railway-light-casing                    { stroke-width: 7.5px; }
+		.railway-light-2-core                    { stroke-width: 4px; }
+		.railway-light-casing-color              { stroke: #008000; }
+		.railway-light-2-core-color              { stroke: #008000; }
+		.railway-light-tunnel-core               { stroke-opacity: 0.2; }
+
+		.railway-tram-casing                    { stroke-width: 7.5px; }
+		.railway-tram-2-core                    { stroke-width: 4px; }
+		.railway-tram-casing-color              { stroke: #800080; }
+		.railway-tram-2-core-color              { stroke: #800080; }
+		.railway-tram-tunnel-core               { stroke-opacity: 0.2; }
+
+		.railway-subway-casing                    { stroke-width: 7.5px; }
+		.railway-subway-2-core                    { stroke-width: 4px; }
+		.railway-subway-casing-color              { stroke: #000080; }
+		.railway-subway-2-core-color              { stroke: #000080; }
+		.railway-subway-tunnel-core               { stroke-opacity: 0.2; }
+
+		.railway-monorail-casing                    { stroke-width: 7.5px; }
+		.railway-monorail-2-core                    { stroke-width: 4px; }
+		.railway-monorail-casing-color              { stroke: #b20000; }
+		.railway-monorail-2-core-color              { stroke: #b20000; }
+		.railway-monorail-tunnel-core               { stroke-opacity: 0.2; }
+
+		.highway-motorway-casing                { stroke-width: 33px; stroke: #202020; }
+		.highway-motorway-core                  { stroke-width: 32px; stroke: #809BC0; }
+
+		.highway-motorway-link-casing           { stroke-width: 13.5px; stroke: #202020; }
+		.highway-motorway-link-core             { stroke-width: 12.5px; stroke: #809BC0; }
+
+		.highway-trunk-casing                   { stroke-width: 27px; stroke: #202020; }
+		.highway-trunk-core                     { stroke-width: 26px; stroke: #7fc97f; }
+
+		.highway-trunk-link-casing              { stroke-width: 10px; stroke: #202020; }
+		.highway-trunk-link-core                { stroke-width: 9.5px; stroke: #7FC97F; }
+
+		.highway-primary-casing                 { stroke-width: 21px; stroke: #202020; }
+		.highway-primary-core                   { stroke-width: 20px; stroke: #e46d71; }
+
+		.highway-primary-link-casing            { stroke-width: 7px; stroke: #202020; }
+		.highway-primary-link-core              { stroke-width: 6.75px; stroke: #e46d71; }
+
+		.highway-secondary-casing               { stroke-width: 18px; stroke: #202020; }
+		.highway-secondary-core                 { stroke-width: 17px; stroke: #FDBF6F; }
+
+		.highway-secondary-link-casing          { stroke-width: 7px; stroke: #202020; }
+		.highway-secondary-link-core            { stroke-width: 6.75px; stroke: #FDBF6F; }
+
+		.highway-tertiary-casing                { stroke-width: 5px;  stroke: #202020; }
+		.highway-tertiary-core                  { stroke-width: 4.75px;  stroke: #ffff90; }
+
+		.highway-tertiary-link-casing           { stroke-width: 6.5px;  stroke: #202020; }
+		.highway-tertiary-link-core             { stroke-width: 5.75px;  stroke: #ffff90; }
+
+            .highway-unclassified-casing            { stroke-width: 5px; stroke: #c0c0c0; }
+            .highway-unclassified-core              { stroke-width: 1.2px; stroke: #ffffff; }
+
+            .highway-service-casing                 { stroke-width: 4px; stroke: #202020; }
+            .highway-service-core                   { stroke-width: 3.5px; stroke: #ffffff; }
+
+            .highway-unsurfaced-casing              { stroke-width: 4px; stroke: #202020; stroke-dasharray: 1, .5; }
+            .highway-unsurfaced-core                { stroke-width: 3.5px; stroke: #ffffff; }
+
+            .highway-track-casing                   { stroke-width: 4px; stroke: #d79331; }
+            .highway-track-core                     { stroke-width: 3.5px; stroke: #ffffff; }
+
+            .highway-byway-1-casing                 { stroke-width: 2px;     stroke: #505050;  stroke-dasharray: 1.4, 0.4; stroke-linecap: butt;}
+            .highway-byway-2-casing                 { stroke-width: 1.6px;   stroke: #efadaa; }
+            .highway-byway-3-casing                 { stroke-width: 2.8px;   stroke: #505050;  stroke-dasharray: 0.2, 1.6; stroke-dashoffset: 1.2; stroke-linecap: butt; }
+            .highway-byway-1-core                   { stroke-width: 0.8px;   stroke: #efadaa; }
+
+            .highway-bridleway-casing               { stroke-width: 1.8px;   stroke: #707070;  stroke-dasharray: 1.4, 0.4; stroke-linecap: butt; }
+            .highway-bridleway-core                 { stroke-width: 1.7px;   stroke: #d3cb98; }
+
+            .highway-cycleway-casing                { stroke-width: 0.5px;   stroke: #202020; }
+            .highway-cycleway-core                  { stroke-width: 0.5px;   stroke: #d1ead1; }
+
+            .highway-pedestrian-casing              { stroke-width: 4px; stroke: #b0b0b0; }
+            .highway-pedestrian-core                { stroke-width: 3.5px; stroke: #e4e4e4; }
+
+            .highway-footway-casing                 { stroke-width: 0.5px;   stroke: #202020; }
+            .highway-footway-core                   { stroke-width: 0.5px;   stroke: #e5e0c2; }
+
+            .highway-steps-casing                   { stroke-width: 1.2px;   stroke: #202020; }
+            .highway-steps-core                     { stroke-width: 1.1px;   stroke: #e5e0c2; stroke-dasharray: 0.6, 0.2; stroke-linecap: butt;}
+
+            .highway-scramble-core                  { stroke-width: 0.6px;   stroke: #707070; stroke-linecap: butt;}
+
+
+
+            /* Aeroways */
+            .aeroway-aerodrome {
+                stroke-width: 0.5px;
+                stroke: #000000;
+                fill: #d8dcce;
+            }
+
+            .aeroway-apron {
+                stroke-width: 0.3px;
+                stroke: none;
+                fill: #f0f0f0;
+            }
+
+            .aeroway-taxiway-core {
+                stroke-width: 2px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #d4dcbd;
+                fill: none;
+            }
+
+            .aeroway-taxiway-casing {
+                stroke-width: 3px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #000000;
+                fill: none;
+            }
+
+            .aeroway-runway-core {
+                stroke-width: 5px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #d4dcbd;
+                fill: none;
+            }
+
+            .aeroway-runway-casing {
+                stroke-width: 7px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #000000;
+                fill: none;
+            }
+
+            .aeroway-aerodrome-caption {
+                fill: black;
+                stroke: white;
+                stroke-width: 0.3px;
+                font-family: "DejaVu Sans";
+                font-size: 6px;
+                font-weight: bold;
+            }
+
+            .aeroway-airport-caption {
+                fill: black;
+                stroke: white;
+                stroke-width: 0.3px;
+                font-family: "DejaVu Sans";
+                font-size: 10px;
+                font-weight: bold;
+                text-anchor: middle;
+            }
+
+
+            /* Waterways */
+            .waterway-casing {
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                stroke: #b5d6f1;
+                fill: none;
+            }
+
+            .waterway-core {
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                stroke: #b5d6f1;
+                fill: none;
+            }
+
+            .waterway-riverbank {
+                fill: #b5d6f1;
+                stroke: #b0b0b0;
+                stroke-width: 0px;
+            }
+
+            .waterway-river-casing {
+                stroke-width: 10px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #b0b0b0;
+                fill: none;
+            }
+
+            .waterway-river-core {
+                stroke-width: 8px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #b5d6f1;
+                fill: none;
+            }
+
+            .waterway-stream-casing {
+                stroke-width: 4px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #b0b0b0;
+                fill: none;
+            }
+
+            .waterway-stream-core {
+                stroke-width: 3px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #b5d6f1;
+                fill: none;
+            }
+
+            .waterway-canal-casing {
+                stroke-width: 2px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #b0b0b0;
+                fill: none;
+            }
+
+            .waterway-canal-core {
+                stroke-width: 1px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #b5d6f1;
+                fill: none;
+            }
+
+            .waterway-drain-casing {
+                stroke-width: 1px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #b0b0b0;
+                fill: none;
+            }
+
+            .waterway-drain-core {
+                stroke-width: 0.5px;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #b5d6f1;
+                fill: none;
+            }
+
+
+            /* Ferry */
+            .route-ferry {
+                stroke-width: 2px;
+                stroke-dasharray: 3,2;
+                stroke-linecap: butt;
+                stroke-linejoin: round;
+                stroke: #707070;
+                fill: none;
+            }
+
+
+            /* Place names */
+			/* General style for place names */
+			.place-caption {
+				fill: black;
+				stroke: none;
+                font-family: "DejaVu Sans";
+                font-weight: bold;
+				text-anchor: middle;
+			}
+			
+            .caption-casing {
+				fill: white;
+                stroke: white;
+                font-family: "DejaVu Sans";
+                font-weight: bold;
+                text-anchor: middle;
+                stroke-miterlimit: 1.5;
+            }
+
+            .caption-core {
+                stroke: white;
+                stroke-width: 0px;
+                font-family: "DejaVu Sans";
+                font-weight: bold;
+                text-anchor: middle;
+                stroke-miterlimit: 1.5;
+            }
+
+			.county-caption         { font-size: 150px; }
+			.city-caption           { font-size: 100px; }
+			.town-caption           { font-size: 65px; }
+
+
+            /* Natural */
+            .natural-water {
+                fill: #b5d6f1;
+                stroke: #b0b0b0;
+                stroke-width: 0px;
+            }
+
+            .natural-coastline {
+                fill: #b5d6f1;
+                stroke: #b5d6f1;
+                stroke-width: 1.5px;
+            }
+
+            .natural-glacier {
+                fill: #fafaff;
+                stroke: lightblue;
+                stroke-width: 1.5px;
+            }
+
+            .natural-land {
+                fill: #f8f8f8;
+                stroke: #e0e0e0;
+                stroke-width: 0.1px;
+            }
+
+
+            /* Landuse */
+            .landuse-all {
+                stroke: none;
+                fill: #f0f0f0;
+            }
+
+            .landuse-wood {
+                fill: #6fc18e;
+                stroke: #6fc18e;
+                stroke-width: 0.2px;
+            }
+
+            .landuse-cemetery {
+                fill: #bde3cb;
+                stroke: #e4e4e4;
+                stroke-width: 0.2px;
+            }
+
+            .landuse-field {
+                fill: #bde3cb;
+                stroke: #6fc13d;
+                stroke-width: 0.2px;
+            }
+
+            .landuse-residential {
+                stroke: none;
+                fill: #e4e4e4;
+            }
+
+            .landuse-retail {
+                stroke: none;
+                fill: #ffebeb;
+            }
+
+            .landuse-industrial {
+                fill: #ecd8ff;
+                stroke: #e4e4e4;
+                stroke-width: 0.2px;
+            }
+
+            .landuse-commercial {
+                fill: #ffffc0;
+                stroke: #e4e4e4;
+                stroke-width: 0.2px;
+            }
+
+            .landuse-retail {
+                fill: #ffebeb;
+                stroke: #e4e4e4;
+                stroke-width: 0.2px;
+            }
+
+			.landuse-runway {
+			  stroke-width: 0.3px;
+			  stroke: #808080;
+			  fill: #d4dcbd;
+			  }
+
+			.landuse-runway-disused {
+			  stroke-width: 0.3px;
+			  stroke: #808080;
+			  fill: #d4dcbd;
+			  stroke-dasharray: 1, 1;
+			  }
+
+			.landuse-runway-dismantled {
+			  stroke-width: 0.3px;
+			  stroke: #808080;
+			  fill: #fcffef;
+			  stroke-dasharray: 0.3, 1.7;
+			  opacity: 0.5;
+			  }
+
+
+            /* Leisure */
+            .leisure-park {
+                fill: #c7f1a3;
+                stroke: #6fc18e;
+                stroke-width: 0.2px;
+            }
+
+            .leisure-stadium {
+                fill: #bde3cb;
+                stroke: #6fc18e;
+                stroke-width: 0.2px;
+            }
+
+            .sport {
+                fill: #bde3cb;
+                stroke: #6fc18e;
+                stroke-width: 0.2px;
+            }
+
+            .amenity-parking {
+                fill: #ffffc0;
+                stroke: #e9dd72;
+                stroke-width: 0.2px;
+            }
+
+
+            /* Non-physical boundaries */
+            .boundary {
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            }
+			
+            .boundary-level-1-casing {
+            stroke-width: 64px;
+            stroke: #ffff00;
+            opacity: 0.7;
+            }
+			
+            .boundary-level-1-core {
+            stroke-width: 21px;
+            stroke: #f9574b;
+            stroke-dasharray: 48, 16, 16, 16;
+            }
+
+            .boundary-level-2-casing {
+            stroke-width: 48px;
+            stroke: #ffff00;
+            opacity: 0.7;
+            }
+			
+            .boundary-level-2-core {
+            stroke-width: 21px;
+            stroke: #f9574b;
+            stroke-dasharray: 48, 48;
+            }
+			
+            .boundary-nationalpark-core {
+            stroke-width: 8px;
+            stroke: #4ef94b;
+            stroke-dasharray: 48, 16, 16, 16;
+            }
+
+
+			/* Racetracks */
+			.highway-raceway-casing {
+			  stroke-width: 2px; 
+			  stroke-linecap: butt; 
+			  stroke-linejoin: round; 
+			  fill: none;
+			  stroke: #101010;
+			  }
+
+			.highway-raceway-casing-disused {
+			  stroke-width: 2px; 
+			  stroke-linecap: butt; 
+			  stroke-linejoin: round; 
+			  fill: none;
+			  stroke: #808080;
+			  stroke-dasharray: 1, 1;
+			  }
+
+			.highway-raceway-casing-dismantled {
+			  stroke-width: 2px; 
+			  stroke-linecap: butt; 
+			  stroke-linejoin: round; 
+			  fill: none;
+			  stroke: #808080;
+			  stroke-dasharray: 0.3, 1.7;
+			  opacity: 0.5;
+			  }
+
+			.highway-raceway-core {
+			  stroke-width: 1.5px; 
+			  stroke-linecap: butt; 
+			  stroke-linejoin: round; 
+			  fill: none;
+			  stroke: #f0f0f0;
+			  }
+
+			.highway-raceway-core-disused {
+			  stroke-width: 1.5px; 
+			  stroke-linecap: butt; 
+			  stroke-linejoin: round; 
+			  fill: none;
+			  stroke-dasharray: 1, 1;
+			  stroke: #f0f0f0;
+			  }
+
+			.highway-raceway-core-dismantled {
+			  stroke-width: 1.5px; 
+			  stroke-linecap: butt; 
+			  stroke-linejoin: round; 
+			  fill: none;
+			  stroke: #ffffff;
+			  stroke-dasharray: 0.3, 1.7;
+			  opacity: 0.5;
+			  }
+			  
+			.landuse-raceway {
+			  stroke-width: 0.3px; 
+			  stroke-linecap: butt; 
+			  stroke-linejoin: round; 
+			  fill: #f0f0f0;
+			  stroke: #101010;
+			  }
+
+			.landuse-raceway-disused {
+			  stroke-width: 0.3px; 
+			  stroke-linecap: butt; 
+			  stroke-linejoin: round; 
+			  fill: #f0f0f0;
+			  stroke: #808080;
+			  stroke-dasharray: 1, 1;
+			  }
+
+			.landuse-raceway-dismantled {
+			  stroke-width: 0.3px; 
+			  stroke-linecap: butt; 
+			  stroke-linejoin: round; 
+			  fill: #ffffff;
+			  stroke: #808080;
+			  stroke-dasharray: 0.3, 1.7;
+			  opacity: 0.5;
+			  }
+
+            /* Tourism */
+            .tourism-attraction {
+                fill: #f2caea;
+                stroke: #ff00ff;
+                stroke-width: 0px;
+            }
+
+            /* Building */
+            .building {
+                fill: #e0e0e0;
+                stroke: #d0d0d0;
+                stroke-width: 0.2px;
+            }
+
+            .building-block {
+                fill: #F3D6B6;
+                stroke: #6a5a8e;
+                stroke-width: 0.2px;
+            }
+
+            .building-residential {
+                fill: #c95e2a;
+                stroke: #800000;
+                stroke-width: 0.2px;
+            }
+
+
+            /* Map decoration */
+            .map-grid-line {
+                fill: none;
+                stroke: #8080ff;
+                stroke-width: 0.1px;
+                stroke-opacity: 0.5;
+            }
+
+            .map-border-casing {
+                fill: none;
+                stroke: #8080ff;
+                stroke-width: 3px;
+                stroke-miterlimit: 4;
+                stroke-dasharray: none;
+                stroke-opacity: 1;
+                stroke-linecap: round;
+            }
+
+            .map-border-core {
+                fill: none;
+                fill-opacity: 1;
+                fill-rule: nonzero;
+                stroke: #ffffff;
+                stroke-width: 2px;
+                stroke-miterlimit: 0;
+                stroke-dashoffset: -0.5px;
+                stroke-opacity: 1;
+            }
+
+            .map-scale-casing {
+                fill: none;
+                stroke: #8080ff;
+                stroke-width: 4px;
+                stroke-linecap: butt;
+            }
+
+            .map-scale-core {
+                fill: none;
+                stroke: #ffffff;
+                stroke-width: 3px;
+                stroke-linecap: butt;
+            }
+
+            .map-scale-bookend {
+                fill: none;
+                stroke: #8080ff;
+                stroke-width: 1px;
+                stroke-linecap: butt;
+            }
+
+            .map-scale-caption {
+                font-family: "DejaVu Sans";
+                font-size: 10px;
+                fill: #8080ff;
+            }
+
+            <!-- map background must be the same for all zooms or else empty tile detection will fail -->
+            .map-background {
+                fill: #f8f8f8;
+                stroke: none;
+            }
+
+            .map-title {
+                font-family: "DejaVu Sans";
+                font-size: 20px;
+                text-anchor: middle;
+                fill: black;
+            }
+
+            .map-title-background {
+                fill: white;
+            }
+
+            .map-marginalia-background {
+                fill: white;
+            }
+
+			.highway-tunnel-ends {
+				stroke-opacity: 0;
+				fill: none;
+				marker-start: url(#marker-tunnel-start);
+				marker-end: url(#marker-tunnel-end);
+			 }
+
+			/* Osmarender built-in styles - do not remove */
+			.osmarender-stroke-linecap-round { stroke-linecap: round; }
+			.osmarender-stroke-linecap-butt { stroke-linecap: butt; }
+			.osmarender-mask-black { stroke: black; }
+			.osmarender-mask-white { stroke: white; }
+			.osmarender-no-marker-start { marker-start: none; }
+			.osmarender-no-marker-end { marker-end: none; }
+        </style>
+
+        <svg:marker
+            id="bridge-casing-start"
+            fill='none'
+            stroke-width='0.1px'
+            stroke='#707070'
+            markerWidth="1px"
+            markerHeight="1px"
+            orient="auto">
+            <svg:path d="M-0.25,0.75 L0.5,0 L-0.25,-0.75" />
+        </svg:marker>
+
+        <svg:marker
+            id="bridge-casing-end"
+            fill='none'
+            stroke-width='0.1px'
+            stroke='#707070'
+            markerWidth="1px"
+            markerHeight="1px"
+            orient="auto">
+            <svg:path d="M0.25,0.75 L-0.5,0 L0.25,-0.75" />
+        </svg:marker>
+
+        <svg:marker
+            id="marker-tunnel-start"
+            viewBox="0 0 10 10"
+            refX="5px" refY="5px"
+            markerUnits="strokeWidth"
+            fill='none'
+            stroke-width='0.5px'
+            stroke='#707070'
+            markerWidth="2px"
+            markerHeight="2px"
+            orient="auto">
+            <svg:path d="M 4,1 A5,4.25 0 0,1 4,9" />
+        </svg:marker>
+
+        <svg:marker
+            id="marker-tunnel-end"
+            viewBox="0 0 10 10"
+            refX="5px" refY="5px"
+            markerUnits="strokeWidth"
+            fill='none'
+            stroke-width='0.5px'
+            stroke='#707070'
+            markerWidth="2px"
+            markerHeight="2px"
+            orient="auto">
+            <svg:path d="M 6,1 A5,4.25 0 0,0 6,9" /> 
+        </svg:marker>
+
+        <!-- derived from http://www.sodipodi.com/index.php3?section=clipart -->
+        <svg:symbol
+          id="airport"
+          viewBox="0 0 10 10"
+          fill="black"
+          fill-opacity="1"
+          fill-rule="evenodd"
+          stroke="none">
+            <svg:path d="M 9.2,5 C 9.2,4.5 9.8,3.2 10,3 L 9,3 L 8,4 L 5.5,4 L 8,0 L 6,0 L 3,4 C 2,4 1,4.2 0.5,4.5 C 0,5 0,5 0.5,5.5 C 1,5.8 2,6 3,6 L 6,10 L 8,10 L 5.5,6 L 7.8,6 L 9,7 L 10,7 C 9.8,6.8 9.2,5.5 9.2,5 z " />
+        </svg:symbol>
+
+
+		<svg:symbol id="symbol-peak" viewBox="0 0 100 100">
+			<svg:path  fill="#cdabde" stroke="#202020" stroke-width="5" d="M 0,90 L 50,10 L 100,90 Z"/>
+		</svg:symbol>
+
+
+    </defs>
+
+</rules>

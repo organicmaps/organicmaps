@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">  
+  <svg:marker fill="none" id="marker-tunnel-start" markerHeight="2px" markerUnits="strokeWidth" markerWidth="2px" orient="auto" refX="5px" refY="5px" stroke="#777777" stroke-width="0.5px" viewBox="0 0 10 10">
+    <svg:path d="M 4,1 A5,4.25 0 0,1 4,9"/>
+  </svg:marker>
+  <svg:marker fill="none" id="marker-tunnel-end" markerHeight="2px" markerUnits="strokeWidth" markerWidth="2px" orient="auto" refX="5px" refY="5px" stroke="#777777" stroke-width="0.5px" viewBox="0 0 10 10">
+    <svg:path d="M 6,1 A5,4.25 0 0,0 6,9"/>
+  </svg:marker>
+  <svg:marker fill="none" id="marker-chicane" markerHeight="3px" markerUnits="userSpaceOnUse" markerWidth="3px" orient="auto" refX="5px" refY="5px" stroke="#777777" stroke-width="0.4px" viewBox="0 0 10 10">
+    <svg:path d="M4,0 L4,5 M6,5 L6,10"/>
+  </svg:marker>
+  <svg:marker fill="#c00000" id="marker-traffic-calming" markerHeight="3px" markerUnits="userSpaceOnUse" markerWidth="3px" orient="auto" refX="5px" refY="5px" stroke="#c00000" stroke-width="0.4px" viewBox="0 0 10 10">
+    <svg:rect x="4" y="1" width="0.2" height="0.2"/>
+    <svg:rect x="4" y="4" width="0.2" height="0.2"/>
+    <svg:rect x="4" y="7" width="0.2" height="0.2"/>
+    <svg:rect x="6" y="3" width="0.2" height="0.2"/>
+    <svg:rect x="6" y="6" width="0.2" height="0.2"/>
+    <svg:rect x="6" y="9" width="0.2" height="0.2"/>
+  </svg:marker>
+  <svg:marker fill="none" id="marker-stile" markerHeight="2px" markerUnits="userSpaceOnUse" markerWidth="2px" orient="auto" refX="5px" refY="5px" stroke="#777777" stroke-width="0.5px" viewBox="0 0 10 10">
+    <svg:path d="M3.5,0 L3.5,10 M6.5,0 L6.5,10 M 10,1 L 1,10"/>
+  </svg:marker>
+  <svg:marker fill="#FFFFFF" id="marker-otherway-start" markerHeight="1px" markerUnits="userSpaceOnUse" markerWidth="1px" orient="auto" refX="-30px" refY="5px" stroke="#000000" stroke-width="1px" viewBox="0 0 10 10">
+    <svg:path d="M 10,4 L 4,4 L 4,2 L 0,5 L 4,8 L 4,6 L 10,6 z"/>
+  </svg:marker>
+  <svg:marker fill="#FFFFFF" id="marker-otherway-end" markerHeight="1px" markerUnits="userSpaceOnUse" markerWidth="1px" orient="auto" refX="30px" refY="5px" stroke="#000000" stroke-width="1px" viewBox="0 0 10 10">
+    <svg:path d="M 10,4 L 4,4 L 4,2 L 0,5 L 4,8 L 4,6 L 10,6 z"/>
+  </svg:marker>
+  <!-- aerialway and surface lift icons -->
+  <svg:marker fill="#000000" id="marker-cablecar" markerHeight="10px" markerUnits="userSpaceOnUse" markerWidth="10px" orient="auto" refX="-18px" refY="0px" stroke="none" viewBox="0 0 10 9">
+    <svg:path d="M 2.9,2.7 L 0,2.7 L 0,8.8 L 10,8.8 L 10,2.7 L 7.3,2.7 L 5.7,0.1 L 4.5,0 L 2.9,2.7 z M 5,0.3 L 6.3,2.7 L 3.8,2.7 L 5,0.3 z M 6.5,3.3 L 6.5,5.2 L 3.8,5.2 L 3.8,3.3 L 6.5,3.3 z M 0.9,3.3 L 3,3.3 L 3,5.2 L 0.9,5.2 L 0.9,3.3 z M 9.4,3.3 L 9.4,5.2 L 7.2,5.2 L 7.2,3.3 L 9.4,3.3 z"/>
+  </svg:marker>
+  <svg:marker fill="#000000" id="marker-gondola" markerHeight="10px" markerUnits="userSpaceOnUse" markerWidth="9px" orient="auto" refX="-30px" refY="0px" stroke="none" viewBox="0 0 10 11">
+    <svg:path d="M 4.6,0 L 4.6,2.9 L 1.4,2.9 C 0,3.5 0.2,10.7 1.3,11.1 L 8.7,11.1 C 9.7,10.6 10,4 8.6,2.9 L 5.6,2.9 L 5.6,0 L 4.6,0 z M 4.5,3.8 L 4.5,6.5 L 1.4,6.5 L 1.4,3.8 L 4.5,3.8 z M 5.6,3.8 L 8.5,3.8 L 8.5,6.5 L 5.6,6.5 L 5.6,3.8 z"/>
+  </svg:marker>
+  <svg:marker fill="#000000" id="marker-chair-lift-2" markerHeight="11px" markerUnits="userSpaceOnUse" markerWidth="5px" orient="auto" refX="-25px" refY="0px" stroke="none" viewBox="0 0 10 22">
+    <svg:path d="M 3.6,0 L 3.6,4.3 L 0,6.2 L 0,17.5 L 5.1,17.5 L 5.1,16.6 L 1.1,16.6 L 1.1,6.6 L 7.4,3.4 L 7.4,12.3 L 8.5,12.3 L 8.5,1.7 L 4.9,3.6 L 4.9,0 L 3.6,0 z M 5.7,4.7 C 5.1,4.7 4.5,5.3 4.5,6.2 C 4.5,6.8 5.1,7.5 5.7,7.5 C 6.4,7.5 7,6.8 7,6.2 C 7,5.3 6.4,4.7 5.7,4.7 z M 3,6.4 C 2.3,6.4 1.7,7 1.7,7.9 C 1.7,8.5 2.3,9.2 3,9.2 C 3.6,9.2 4.3,8.5 4.3,7.9 C 4.3,7 3.6,6.4 3,6.4 z M 4.5,7.7 L 4.5,14.5 L 8.5,14.5 L 8.5,19.6 L 10,19.6 L 10,13 L 7,13 L 7,7.7 L 4.5,7.7 z M 1.7,9.4 L 1.7,16.2 L 5.7,16.2 L 5.7,21.3 L 7.2,21.3 L 7.2,14.7 L 4.3,14.7 L 4.3,9.4 L 1.7,9.4 z"/>
+  </svg:marker>
+  <svg:marker fill="#000000" id="marker-chair-lift-4" markerHeight="10px" markerUnits="userSpaceOnUse" markerWidth="6px" orient="auto" refX="-20px" refY="0px" stroke="none" viewBox="0 0 10 17">
+    <svg:path d="M 4.3,0 L 4.3,3.3 L 0,5.7 L 0,14.3 L 2.9,14.3 L 2.9,13.5 L 0.7,13.5 L 0.7,6.7 L 8.6,2 L 8.6,8.5 L 9.3,8.5 L 9.3,0.4 L 5,2.8 L 5,0 L 4.3,0 z M 7.4,3.4 C 7,3.4 6.6,3.8 6.6,4.3 C 6.6,4.7 7,5.1 7.4,5.1 C 7.9,5.1 8.3,4.7 8.3,4.3 C 8.3,3.8 7.9,3.4 7.4,3.4 z M 5.6,4.5 C 5.1,4.5 4.7,4.9 4.7,5.4 C 4.7,5.9 5.1,6.3 5.6,6.3 C 6,6.3 6.4,5.9 6.4,5.4 C 6.4,4.9 6,4.6 5.6,4.5 z M 6.6,5.3 L 6.6,9.8 L 9,9.8 L 9,13.3 L 10,13.3 L 10,8.8 L 8.3,8.8 L 8.3,5.3 L 6.6,5.3 z M 3.7,5.7 C 3.2,5.7 2.9,6.1 2.9,6.5 C 2.9,7 3.2,7.4 3.7,7.4 C 4.2,7.4 4.6,7 4.6,6.5 C 4.6,6.1 4.2,5.7 3.7,5.7 z M 4.7,6.4 L 4.7,11 L 7.4,11 L 7.4,14.3 L 8.4,14.3 L 8.4,10 L 6.4,10 L 6.4,6.4 L 4.7,6.4 z M 1.9,6.7 C 1.4,6.7 1,7.1 1,7.5 C 1,8 1.4,8.4 1.9,8.4 C 2.3,8.4 2.7,8 2.7,7.5 C 2.7,7.1 2.3,6.7 1.9,6.7 z M 2.8,7.5 L 2.8,12.3 L 5.6,12.3 L 5.6,15.5 L 6.6,15.5 L 6.6,11.1 L 4.6,11.1 L 4.6,7.5 L 2.8,7.5 z M 1,8.5 L 1,13.3 L 3.6,13.3 L 3.6,16.4 L 4.6,16.4 L 4.6,12.4 L 2.7,12.4 L 2.7,8.6 L 1,8.5 z"/>
+  </svg:marker>
+  <svg:marker fill="#000000" id="marker-piste-lift-t-bar" markerHeight="10px" markerUnits="userSpaceOnUse" markerWidth="8px" orient="auto" refX="-5px" refY="0px" stroke="none" viewBox="0 0 10 13">
+    <svg:path d="M 8.1,0 L 5.1,3.2 L 0,3.2 L 0.6,7.1 L 4.5,11.6 L 0,12.9 L 0,13.2 L 9.6,10.3 L 10,9.6 L 9.6,10 L 5.6,11.1 L 2.1,7.4 L 8.7,0 L 8.1,0 z M 1,0.6 C 0.4,0.6 0,1.1 0,1.6 C 0,2.1 0.4,2.6 1,2.6 C 1.5,2.6 1.9,2.1 1.9,1.6 C 1.9,1.1 1.5,0.6 1,0.6 z M 1.9,3.9 L 4.5,3.9 L 1.9,6.8 L 1.9,3.9 z"/>
+  </svg:marker>
+  <svg:marker fill="#000000" id="marker-mixed-lift" markerHeight="9px" markerUnits="userSpaceOnUse" markerWidth="14px" orient="auto" refX="-15px" refY="0px" stroke="none" viewBox="0 0 10 6">
+    <svg:path d="M 1.6,0.1 L 1.6,2.9 L 0,3.9 L 0,7.1 L 1.1,7.1 L 1.1,6.8 L 0.3,6.8 L 0.3,4.1 L 3.5,2.3 L 3.5,4.8 L 3.8,4.8 L 3.8,1.7 L 2.1,2.6 L 2.1,0.1 L 7.5,0.1 L 7.5,1.8 L 5.9,1.9 C 5.8,1.9 5.8,2 5.7,2.1 C 5.5,2.8 5.4,3.3 5.4,4.6 C 5.4,5.3 5.5,6.8 5.8,7.1 L 9.5,7.2 C 9.9,6.9 10,5.2 10,4.6 C 10,3.4 9.9,2.6 9.7,2.1 C 9.6,2 9.6,1.9 9.5,1.9 L 8,1.8 L 8,0 L 1.6,0.1 z M 8,2.4 L 9.5,2.4 L 9.5,4.2 L 8,4.2 L 8,2.4 z M 7.5,2.4 L 7.5,4.2 L 5.9,4.2 L 5.9,2.5 L 7.5,2.4 z M 3,2.6 C 2.6,2.7 2.6,3.2 2.9,3.4 C 3.1,3.4 3.2,3.4 3.3,3.3 C 3.5,3 3.3,2.6 3,2.6 z M 2.3,3.1 C 1.9,3.1 1.8,3.7 2.1,3.8 C 2.3,3.9 2.5,3.8 2.6,3.7 C 2.7,3.5 2.6,3.1 2.3,3.1 z M 2.7,3.4 L 2.7,5.4 L 3.8,5.3 L 3.8,6.8 C 3.9,6.8 4.2,6.8 4.3,6.8 L 4.2,4.9 L 3.4,4.9 L 3.4,3.4 L 2.7,3.4 z M 1.5,3.6 C 1.1,3.6 1,4.1 1.4,4.3 C 1.5,4.3 1.6,4.3 1.7,4.3 C 2,4.1 1.9,3.6 1.5,3.6 z M 1.9,3.9 L 1.9,5.8 L 3.1,5.8 L 3.1,7.3 C 3.2,7.3 3.4,7.3 3.5,7.3 L 3.5,5.4 L 2.7,5.4 L 2.7,3.9 L 1.9,3.9 z M 0.8,4 C 0.7,4 0.7,4.1 0.6,4.1 C 0.3,4.2 0.3,4.7 0.7,4.8 C 0.8,4.8 1,4.7 1.1,4.6 C 1.2,4.4 1,4 0.8,4 z M 1.2,4.4 L 1.2,6.3 L 2.3,6.3 L 2.3,7.8 L 2.7,7.8 L 2.7,5.9 L 1.9,5.9 L 1.9,4.4 L 1.2,4.4 z M 0.4,4.9 L 0.4,6.8 L 1.5,6.8 L 1.5,8.2 L 2,8.2 L 2,6.4 L 1.1,6.4 L 1.1,4.9 L 0.4,4.9 z"/>
+  </svg:marker>
+  <svg:marker fill="#000000" id="marker-piste-type-sled" markerHeight="7px" markerUnits="userSpaceOnUse" markerWidth="7px" orient="auto" refX="-1px" refY="10px" stroke="none" viewBox="0 0 10 10">
+    <svg:path d="M 0,0 L 0,10 L 10,10 L 10,0 L 0,0 z M 0.1,0.1 L 9.9,0.1 L 9.9,9.9 L 0.1,9.9 L 0.1,0.1 z M 8.5,4.9 C 8.5,5.8 7.8,6.6 6.9,6.6 L 5.6,6.6 L 5.6,5.3 L 6.9,5.3 L 6.9,5 L 1.9,5 L 1.9,5.3 L 2.9,5.3 L 2.9,6.6 L 1.2,6.6 L 1.2,6.9 L 6.9,6.9 C 7.9,6.9 8.7,5.9 8.7,4.9 L 8.5,4.9 z M 3.1,5.3 L 5.4,5.3 L 5.4,6.6 L 3.1,6.6 L 3.1,5.3 z"/>
+  </svg:marker>
+  <svg:marker fill="#000000" id="marker-piste-type-nordic" markerHeight="7px" markerUnits="userSpaceOnUse" markerWidth="7px" orient="auto" refX="-1px" refY="10px" stroke="none" viewBox="0 0 10 10">
+    <svg:path d="M 0,0 L 0,10 L 10,10 L 10,0 L 0,0 z M 0.1,0.1 L 9.9,0.1 L 9.9,9.9 L 0.1,9.9 L 0.1,0.1 z M 7,1.1 C 6.6,1.1 6.3,1.4 6.3,1.7 C 6.3,2.1 6.6,2.4 7,2.4 C 7.3,2.4 7.6,2.1 7.6,1.7 C 7.6,1.4 7.3,1.1 7,1.1 z M 6,2.2 L 4.4,2.5 L 3.5,3.7 L 3.5,3.8 L 0.5,3.8 L 0.5,3.9 L 3.5,3.9 L 3.6,4 L 3.7,3.9 L 4.5,2.9 L 5.3,2.9 L 4.1,4.3 L 3,6.1 L 1,6.9 L 1.3,7.1 L 3.3,6.4 L 4.6,5.2 L 5.8,6.3 L 5.4,8.5 L 5.8,8.5 L 6.3,6.3 L 5.1,4.8 L 6.5,3.1 L 7.6,3.9 L 8.5,3.1 L 7.7,8.6 L 3.5,8.6 L 0.8,6.9 L 0.4,6.9 L 3.1,8.6 L 2.1,8.6 L 2.1,8.9 L 8.8,8.9 L 9.2,8.4 L 8.7,8.6 L 7.9,8.6 L 8.6,3 L 8.7,2.9 L 8.7,2.6 L 7.6,3.4 L 6.5,2.6 L 6,2.2 z"/>
+  </svg:marker>
+</svg>

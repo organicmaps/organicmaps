@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="22.000002"
+   height="16.000004"
+   id="symbol-bakery">
+  <defs
+     id="defs4" />
+  <g
+     id="layer1">
+    <path
+       d="M 6,0 C 3,0 0,1.5 0,6 C 0,10.5 5,16 11,16 C 17,16 22,10 22,6 C 22,1 19,0 16,0 C 13,0 12,1.5 11,3.5 C 10,1.5 9,0 6,0 z M 6,2 C 8.5,2 9.5,4 9.5,6 C 9.5,8 7.5,8.75 5.5,10.25 C 2.9713492,9 2,7.3713068 2,6 C 2,3 3.5,2 6,2 z M 20,6 C 20,7.3207023 18.75,9.25 16.5,10.25 C 14,8.75 12.5,8 12.5,6 C 12.5,4 13.5,2 16,2 C 18.5,2 20,3.5 20,6 z M 11,7.5 C 12,9 13,9.75 15,11.25 C 14,11.75 12,11.75 11,11.75 C 9.5,11.75 8,11.75 7,11.25 C 9,9.75 10,9 11,7.5 z"
+       id="path2426"
+       style="fill:#976400;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
+</svg>
