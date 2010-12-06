@@ -60,7 +60,7 @@ namespace yg
     if (fileName.empty())
       return 0;
     SkinLoader loader(resourceManager);
-    FileReader skinFile((GetPlatform().ResourcesDir() + fileName).c_str());
+    FileReader skinFile(GetPlatform().ReadPathForFile(fileName));
     ReaderSource<FileReader> source(skinFile);
     bool parseResult = ParseXML(source, loader);
     ASSERT(parseResult, ("Invalid skin file structure?"));

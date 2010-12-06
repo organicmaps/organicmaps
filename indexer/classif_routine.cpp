@@ -13,13 +13,13 @@
 
 namespace classificator
 {
-  void Read(string const & dir)
+  void Read(string const & rules, string const & classificator, string const & visibility)
   {
-    drule::ReadRules((dir + "drawing_rules.bin").c_str());
-    if (!classif().ReadClassificator((dir + "classificator.txt").c_str()))
+    drule::ReadRules(rules.c_str());
+    if (!classif().ReadClassificator(classificator.c_str()))
       MYTHROW(Reader::OpenException, ("drawing rules or classificator file"));
 
-    (void)classif().ReadVisibility((dir + "visibility.txt").c_str());
+    (void)classif().ReadVisibility(visibility.c_str());
   }
 
   void parse_osm_types(int start, int end, string const & path)

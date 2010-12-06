@@ -68,7 +68,7 @@ int main(int argc, char ** argv)
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   string const path =
-      FLAGS_data_path.empty() ? GetPlatform().WorkingDir() : AddSlashIfNeeded(FLAGS_data_path);
+      FLAGS_data_path.empty() ? GetPlatform().WritableDir() : AddSlashIfNeeded(FLAGS_data_path);
 
   if (FLAGS_version)
   {
@@ -103,7 +103,9 @@ int main(int argc, char ** argv)
   {
     LOG(LINFO, ("Generating final data ..."));
 
-    classificator::Read(path);
+    classificator::Read(path + "drawing_rules.bin",
+                        path + "classificator.txt",
+                        path + "visibility.txt");
     classificator::PrepareForFeatureGeneration();
 
     genInfo.datFilePrefix = path + FLAGS_output + (FLAGS_bucketing_level > 0 ? "-" : "");

@@ -24,7 +24,7 @@ namespace mapinfo
   bool IsFileSizeEqualTo(string const & fileName, uint64_t size)
   {
     uint64_t diskSize = 0;
-    if (GetPlatform().GetFileSize(GetPlatform().WorkingDir() + fileName, diskSize)
+    if (GetPlatform().GetFileSize(GetPlatform().WritablePathForFile(fileName), diskSize)
         && diskSize == size)
       return true;
     else
@@ -48,7 +48,7 @@ namespace mapinfo
       if (IsFileSizeEqualTo(fileName, url.second) && IsDatFile(fileName))
       {
         feature::DataHeader header;
-        if (feature::ReadDataHeader(GetPlatform().WorkingDir() + fileName, header))
+        if (feature::ReadDataHeader(GetPlatform().WritablePathForFile(fileName), header))
           m_bounds.Add(header.Bounds());
       }
     }

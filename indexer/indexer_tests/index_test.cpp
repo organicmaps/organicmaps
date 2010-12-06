@@ -12,10 +12,8 @@
 
 UNIT_TEST(IndexParseTest)
 {
-  string const  dir = GetPlatform().WorkingDir();
-
-  FileReader dataReader(dir + "minsk-pass.dat");
-  FileReader indexReader(dir + "minsk-pass.dat.idx");
+  FileReader dataReader(GetPlatform().WritablePathForFile("minsk-pass.dat"));
+  FileReader indexReader(GetPlatform().WritablePathForFile("minsk-pass.dat.idx"));
 
   Index<FileReader, FileReader>::Type index;
   index.Add(dataReader, indexReader);

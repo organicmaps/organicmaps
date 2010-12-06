@@ -21,7 +21,10 @@ namespace model
 
 void FeaturesFetcher::InitClassificator()
 {
-  classificator::Read(GetPlatform().ResourcesDir());
+  Platform & p = GetPlatform();
+  classificator::Read(p.ReadPathForFile("drawing_rules.bin"),
+                      p.ReadPathForFile("classificator.txt"),
+                      p.ReadPathForFile("visibility.txt"));
 }
 
 void FeaturesFetcher::AddMap(string const & dataPath, string const & indexPath)

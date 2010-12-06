@@ -8,10 +8,12 @@
 
 UNIT_TEST(BuildIndexTest)
 {
-  classificator::Read(GetPlatform().ResourcesDir());
-  string const dir = GetPlatform().WorkingDir();
+  Platform & p = GetPlatform();
+  classificator::Read(p.ReadPathForFile("drawing_rules.bin"),
+                      p.ReadPathForFile("classificator.txt"),
+                      p.ReadPathForFile("visibility.txt"));
 
-  FileReader reader(dir + "minsk-pass.dat");
+  FileReader reader(p.WritablePathForFile("minsk-pass.dat"));
   // skip xml metadata header
   uint64_t startOffset = feature::ReadDatHeaderSize(reader);
   FileReader subReader = reader.SubReader(startOffset, reader.Size() - startOffset);

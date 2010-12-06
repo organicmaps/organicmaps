@@ -209,7 +209,7 @@ namespace yg
     Texture<Traits, true>::Texture(string const & fileName) : ManagedTexture(GetDimensions(fileName))
     {
       lock();
-      gil::lodepng_read_and_convert_image((GetPlatform().ResourcesDir() + fileName).c_str(), m_image, typename Traits::color_converter());
+      gil::lodepng_read_and_convert_image(GetPlatform().ReadPathForFile(fileName).c_str(), m_image, typename Traits::color_converter());
       unlock();
       upload();
       m_image.recreate(0, 0);
@@ -313,9 +313,9 @@ namespace yg
     void Texture<Traits, true>::dump(char const * fileName)
     {
       readback();
-      std::string fullPath = GetPlatform().WorkingDir() + fileName;
+      std::string const fullPath = GetPlatform().WritablePathForFile(fileName);
 #ifndef OMIM_GL_ES
-      boost::gil::lodepng_write_view(fullPath.c_str(), gil::const_view(m_image));
+      boost::gil::lodepng_write_view(fullPath, gil::const_view(m_image));
 #endif
     }
 

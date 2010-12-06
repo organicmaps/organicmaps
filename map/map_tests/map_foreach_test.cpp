@@ -232,7 +232,7 @@ namespace
 
 UNIT_TEST(IndexForEachTest)
 {
-  string const path = GetPlatform().WorkingDir() + "minsk-pass";
+  string const path = GetPlatform().WritablePathForFile("minsk-pass");
 
   model::FeaturesFetcher src1;
   src1.InitClassificator();

@@ -27,48 +27,60 @@ UNIT_TEST(TimeInSec)
 #endif
 }
 
-namespace
+char const * TEST_FILE_NAME = "some_temporary_unit_test_file.tmp";
+
+UNIT_TEST(WritableDir)
 {
-  template <int N>
-  void TestForFiles(string const & dir, char const * (&arr)[N])
+  string const path = GetPlatform().WritableDir() + TEST_FILE_NAME;
+  FILE * f = fopen(path.c_str(), "w");
+  TEST_NOT_EQUAL(f, 0, ("Can't create file", path));
+  if (f)
+    fclose(f);
+  remove(path.c_str());
+}
+
+UNIT_TEST(WritablePathForFile)
+{
+  string const p1 = GetPlatform().WritableDir() + TEST_FILE_NAME;
+  string const p2 = GetPlatform().WritablePathForFile(TEST_FILE_NAME);
+  TEST_EQUAL(p1, p2, ());
+}
+
+UNIT_TEST(ReadPathForFile)
+{
+  char const * NON_EXISTING_FILE = "mgbwuerhsnmbui45efhdbn34.tmp";
+  char const * arr[] = { "drawing_rules.bin", "basic.skn", "classificator.txt", "minsk-pass.dat" };
+  Platform & p = GetPlatform();
+  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
   {
-    ASSERT( !dir.empty(), () );
-
-    for (int i = 0; i < N; ++i)
-    {
-      FILE * f = fopen((dir + arr[i]).c_str(), "r");
-      TEST_NOT_EQUAL(f, NULL, (arr[i], " is not present in ResourcesDir()"));
-      if (f)
-        fclose(f);
-    }
+    TEST_GREATER( p.ReadPathForFile(arr[i]).size(), 0, ("File should exist!") );
   }
-}
 
-UNIT_TEST(WorkingDir)
-{
-  char const * arr[] = { "minsk-pass.dat", "minsk-pass.dat.idx"};
-  TestForFiles(GetPlatform().WorkingDir(), arr);
-}
-
-UNIT_TEST(ResourcesDir)
-{
-  char const * arr[] = { "drawing_rules.bin", "symbols.png", "basic.skn", "classificator.txt" };
-  TestForFiles(GetPlatform().ResourcesDir(), arr);
+  bool wasException = false;
+  try
+  {
+    p.ReadPathForFile(NON_EXISTING_FILE);
+  }
+  catch (FileAbsentException const & e)
+  {
+    wasException = true;
+  }
+  TEST( wasException, ());
 }
 
 UNIT_TEST(GetFilesInDir)
 {
   Platform & pl = GetPlatform();
   Platform::FilesList files;
-  TEST_GREATER(pl.GetFilesInDir(pl.WorkingDir(), "*.dat", files), 0, ("/data/ folder should contain some *.dat files"));
+  TEST_GREATER(pl.GetFilesInDir(pl.WritableDir(), "*.dat", files), 0, ("/data/ folder should contain some *.dat files"));
 }
 
 UNIT_TEST(GetFileSize)
 {
   Platform & pl = GetPlatform();
   uint64_t size = 0;
-  pl.GetFileSize((pl.WorkingDir() + "minsk-pass.dat").c_str(), size);
-  TEST_GREATER(size, 0, ("File /data/minsk-pass.dat should exist for test"));
+  pl.GetFileSize(pl.ReadPathForFile("classificator.txt").c_str(), size);
+  TEST_GREATER(size, 0, ("File classificator.txt should exist for test"));
 }
 
 UNIT_TEST(CpuCores)

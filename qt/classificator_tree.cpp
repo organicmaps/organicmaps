@@ -216,7 +216,7 @@ void ClassifTreeHolder::OnSave()
 {
   QString const fName = QFileDialog::getSaveFileName(this,
     tr("Save classificator visibility"),
-    QString::fromStdString(GetPlatform().WorkingDir()),
+    QString::fromStdString(GetPlatform().WritableDir()),
     tr("Text Files (*.txt)"));
 
   classif().PrintVisibility(fName.toAscii().constData());
@@ -226,7 +226,7 @@ void ClassifTreeHolder::OnLoad()
 {
   QString const fName = QFileDialog::getOpenFileName(this,
     tr("Open classificator visibility"),
-    QString::fromStdString(GetPlatform().WorkingDir()),
+    QString::fromStdString(GetPlatform().WritableDir()),
     tr("Text Files (*.txt)"));
 
   classif().ReadVisibility(fName.toAscii().constData());

@@ -44,7 +44,7 @@ MainWindow::~MainWindow()
 
 string MainWindow::GetIniFile()
 {
-  return GetPlatform().WorkingDir() + "settings.ini";
+  return GetPlatform().WritablePathForFile("settings.ini");
 }
 
 void MainWindow::SaveState()
