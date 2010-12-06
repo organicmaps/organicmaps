@@ -35,4 +35,6 @@ UNIT_TEST(CountrySerialization)
   TEST_EQUAL(c.Name(), c2.Name(), ());
   TEST_GREATER(c2.Urls().size(), 0, ());
   TEST_EQUAL(*c.Urls().begin(), *c2.Urls().begin(), ());
+
+  FileWriter::DeleteFile(TEST_FILE_NAME);
 }
