@@ -11,50 +11,22 @@
 #include <dirent.h>
 #include <sys/stat.h>
 
-/// @return path to data stored inside application
-char const * ResourcesPath()
-{
-  NSBundle * bundle = [NSBundle mainBundle];
-  NSString * path = [bundle resourcePath];
-  return [path UTF8String];
-}
-
 IPhonePlatform::IPhonePlatform()
 {
   NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];    
 
+  NSBundle * bundle = [NSBundle mainBundle];
+  NSString * path = [bundle resourcePath];
+	m_resourcesPath = [path UTF8String];
+  m_resourcesPath += '/';
+  
+  NSArray * dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+  NSString * docsDir = [dirPaths objectAtIndex:0];
+  m_writablePath = [docsDir UTF8String];
+  m_writablePath += '/';
+
   m_StartDate = [[NSDate alloc] init];
   
-  // create symlinks for resource files, like skins, classificator etc.
-	char const * files[] = {"symbols_24.png",		
-													"symbols_48.png",
-													"dejavusans_8.png", 
-													"dejavusans_10.png",
-													"dejavusans_12.png",
-													"dejavusans_14.png",
-													"dejavusans_16.png",		
-													"dejavusans_20.png",		
-													"dejavusans_24.png",		
-													"basic.skn",
-													"basic_highres.skn",
-													"drawing_rules.bin", 
-													"classificator.txt",
-													"minsk-pass.dat", 
-													"minsk-pass.dat.idx",
-													"visibility.txt"};
-      // TODO: change liechtenstein to world
-      
-  std::string resPath(ResourcesPath());
-  resPath += '/';
-  std::string workPath(WorkingDir());
-  workPath += '/';
-  for (size_t i = 0; i < sizeof(files) / sizeof(files[0]); ++i)
-  {
-  	unlink((workPath + files[i]).c_str());
-    int res = symlink((resPath + files[i]).c_str(), (workPath + files[i]).c_str());
-    res += 2;
-  }
-
 	/// Hardcoding screen resolution depending on the device we are running.
  	m_visualScale = 1.0;
 	m_skinName = "basic.skn";
@@ -87,7 +59,7 @@ IPhonePlatform::IPhonePlatform()
   [pool release];
 }
 
-double IPhonePlatform::TimeInSec()
+double IPhonePlatform::TimeInSec() const
 {
   NSDate * now = [[NSDate alloc] init];
   double interval = [now timeIntervalSinceDate:m_StartDate];
@@ -95,22 +67,26 @@ double IPhonePlatform::TimeInSec()
   return interval;
 }
 
-string IPhonePlatform::ResourcesDir()
+string IPhonePlatform::ReadPathForFile(char const * file) const
 {
-	return WorkingDir();
+	string path = m_writablePath + file;
+	if (!IsFileExists(path))
+  {
+  	path = m_resourcesPath + file;
+    if (!IsFileExists(path))
+    {
+    	MYTHROW( FileAbsentException, ("File can't be read") );
+    }
+  }
+  return path;
 }
 
-string IPhonePlatform::WorkingDir()
+string IPhonePlatform::WritableDir() const
 {
-  NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-  NSArray * dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString * docsDir = [dirPaths objectAtIndex:0];
-  std::string wdPath([docsDir UTF8String]);
-  [pool release];
-  return wdPath + "/";
+	return m_writablePath;
 }
 
-int IPhonePlatform::GetFilesInDir(string const & directory, string const & mask, FilesList & outFiles)
+int IPhonePlatform::GetFilesInDir(string const & directory, string const & mask, FilesList & outFiles) const
 {
   DIR * dir;
   struct dirent * entry;
@@ -147,7 +123,7 @@ int IPhonePlatform::GetFilesInDir(string const & directory, string const & mask,
   return outFiles.size();
 }
 
-bool IPhonePlatform::GetFileSize(string const & file, uint64_t & size)
+bool IPhonePlatform::GetFileSize(string const & file, uint64_t & size) const
 {
 	struct stat fileStatus;
   if (stat(file.c_str(), &fileStatus) == 0)
@@ -158,12 +134,12 @@ bool IPhonePlatform::GetFileSize(string const & file, uint64_t & size)
   return false;
 }
 
-bool IPhonePlatform::RenameFileX(string const & original, string const & newName)
+bool IPhonePlatform::RenameFileX(string const & original, string const & newName) const
 {
   return rename(original.c_str(), newName.c_str());
 }
 
-int IPhonePlatform::CpuCores()
+int IPhonePlatform::CpuCores() const
 {
 	NSInteger numCPU = [[NSProcessInfo processInfo] activeProcessorCount];
   if (numCPU >= 1)
