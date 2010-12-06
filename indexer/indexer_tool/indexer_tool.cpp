@@ -22,7 +22,7 @@
 #include "../../std/iomanip.hpp"
 #include "../../std/numeric.hpp"
 
-//#include "../../version/version.h"
+#include "../../version/version.hpp"
 
 #include "../../base/start_mem_debug.hpp"
 
@@ -70,11 +70,11 @@ int main(int argc, char ** argv)
   string const path =
       FLAGS_data_path.empty() ? GetPlatform().WorkingDir() : AddSlashIfNeeded(FLAGS_data_path);
 
-  //if (FLAGS_version)
-  //{
-  //  cout << "Tool version: " << VERSION_STRING << endl;
-  //  cout << "Built on: " << VERSION_DATE_STRING << endl;
-  //}
+  if (FLAGS_version)
+  {
+    cout << "Tool version: " << VERSION_STRING << endl;
+    cout << "Built on: " << VERSION_DATE_STRING << endl;
+  }
 
   // Make a classificator
   if (FLAGS_generate_classif)

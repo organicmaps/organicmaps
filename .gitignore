@@ -50,7 +50,7 @@ data/le9q663011
 data/settings.ini
 data/maps.update
 GeneratedFiles
-version/version.h
+version/version.hpp
 
 syntax: regexp
 (.*/)?\#[^/]*\#$

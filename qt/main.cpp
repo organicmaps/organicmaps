@@ -4,7 +4,7 @@
 
 #include "../base/logging.hpp"
 
-//#include "../version/version.h"
+#include "../version/version.hpp"
 
 #include <QtGui/QApplication>
 
@@ -56,8 +56,8 @@ int main(int argc, char *argv[])
   InitializeFinalize mainGuard;
 
   LOG(LINFO, ("MapsWithMe started"));
-  //LOG(LINFO, ("Version : ", VERSION_STRING));
-  //LOG(LINFO, ("Built on : ", VERSION_DATE_STRING));
+  LOG(LINFO, ("Version : ", VERSION_STRING));
+  LOG(LINFO, ("Built on : ", VERSION_DATE_STRING));
 
   QApplication a(argc, argv);
 
