@@ -1,4 +1,9 @@
-set PKG_TYPE=mingw
+@echo off
+IF [%1]==[] (
+  echo Please specify mingw or vs2008 build should be used
+  exit /B 1
+)
+set PKG_TYPE=%1
 set PKG_DIR=MapsWithMe
 set BASE_PATH=C:\Qt\omim-build-%PKG_TYPE%-release
 set MINGW_BIN_PATH=C:\Qt\qtcreator-2.0.1\mingw\bin
@@ -8,7 +13,7 @@ set ZIP_NAME=MapsWithMe-%PKG_TYPE%.zip
 set PKG_RES_DIR=%PKG_DIR%\resources
 
 del /F /S /Q %PKG_DIR%
-del %ZIP_NAME%
+del /Q %ZIP_NAME%
 
 mkdir %PKG_DIR%
 copy %BASE_PATH%\out\release\MapsWithMe.exe %PKG_DIR%\
@@ -32,7 +37,8 @@ IF %PKG_TYPE%==mingw (
   copy %MINGW_BIN_PATH%\libgcc_s_dw2-1.dll %PKG_DIR%\
   copy %MINGW_BIN_PATH%\mingwm10.dll %PKG_DIR%\
 ) ELSE (
-  echo "aa"
+  copy C:\Windows\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4926_none_508ed732bcbc0e5a\msvcp90.dll %PKG_DIR%\
+  copy C:\Windows\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4926_none_508ed732bcbc0e5a\msvcr90.dll %PKG_DIR%\
 )
 
 copy %QT_BIN_PATH%\QtCore4.dll %PKG_DIR%\
