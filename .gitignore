@@ -53,7 +53,7 @@ data/settings.ini
 data/maps.update
 GeneratedFiles
 version/version.hpp
-tools/win/MapsWithMe
+tools/win/MapsWithMe*
 
 syntax: regexp
 (.*/)?\#[^/]*\#$
