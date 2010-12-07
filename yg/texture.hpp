@@ -201,7 +201,7 @@ namespace yg
     {
       lock();
       view_t v = view(width(), height());
-      gil::lodepng_read_and_convert_view((GetPlatform().ResourcesDir() + fileName).c_str(), v, typename Traits::color_converter());
+      gil::lodepng_read_and_convert_view(GetPlatform().ReadPathForFile(fileName).c_str(), v, typename Traits::color_converter());
       upload(&v(0, 0));
       unlock();
     }
@@ -290,13 +290,13 @@ namespace yg
     }
 
     template <typename Traits>
-    void Texture<Traits, true>::dump(char const * fileName)
+    void Texture<Traits, true>::dump(char const * /*fileName*/)
     {
-      readback();
+/*      readback();
       std::string const fullPath = GetPlatform().WritablePathForFile(fileName);
 #ifndef OMIM_GL_ES
       boost::gil::lodepng_write_view(fullPath.c_str(), gil::const_view(m_image));
-#endif
+#endif*/
     }
 
     template <typename Traits>

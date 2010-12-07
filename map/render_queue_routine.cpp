@@ -50,7 +50,7 @@ void RenderQueueRoutine::Cancel()
     m_currentRenderCommand->m_paintEvent->setIsCancelled(true);
 }
 
-void RenderQueueRoutine::processResize(ScreenBase const & frameScreen)
+void RenderQueueRoutine::processResize(ScreenBase const & /*frameScreen*/)
 {
   threads::MutexGuard guard(*m_renderState->m_mutex.get());
 
