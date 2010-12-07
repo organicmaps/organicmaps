@@ -126,7 +126,7 @@ static bool GetPathToBinary(string & outPath)
 #if defined(OMIM_OS_WINDOWS)
     // get path to executable
     char pathBuf[MAX_PATH] = {0};
-    if (0 == ::GetModuleFileNameA(NULL, path, MAX_PATH))
+    if (0 < ::GetModuleFileNameA(NULL, pathBuf, MAX_PATH))
     {
       outPath = pathBuf;
       return true;

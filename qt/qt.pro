@@ -10,7 +10,7 @@ TEMPLATE = app
 QT *= core gui opengl network
 
 win32 {
-  LIBS += -lopengl32 -lws2_32
+  LIBS += -lopengl32 -lws2_32 -lshell32
 }
 
 macx {

@@ -12,6 +12,10 @@ TEMPLATE = app
 # needed for Platform::WorkingDir()
 QT += core
 
+win32 {
+  LIBS += -lShell32
+}
+
 SOURCES += \
   indexer_tool.cpp \
   data_generator.cpp \

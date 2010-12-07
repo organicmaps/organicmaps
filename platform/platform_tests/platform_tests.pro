@@ -10,6 +10,10 @@ include($$ROOT_DIR/common.pri)
 
 QT *= core network
 
+win32 {
+  LIBS += -lShell32
+}
+
 SOURCES += \
     ../../testing/testingmain.cpp \
     platform_test.cpp \
