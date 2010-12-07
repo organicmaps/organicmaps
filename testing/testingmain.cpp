@@ -61,7 +61,7 @@ int main()
         ++numFailedTests;
       }
 
-    } catch (TestFailureException const & ex)
+    } catch (TestFailureException const & )
     {
       testResults[iTest] = false;
       ++numFailedTests;

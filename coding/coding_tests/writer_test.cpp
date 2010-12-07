@@ -107,7 +107,7 @@ UNIT_TEST(FileWriter_DeleteFile)
     FileReader reader(fileName);
     TEST(false, ("Exception should be thrown!"));
   }
-  catch (FileReader::OpenException & e)
+  catch (FileReader::OpenException & )
   {
   }
 }

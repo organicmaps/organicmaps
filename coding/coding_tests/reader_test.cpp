@@ -62,7 +62,7 @@ UNIT_TEST(FileReaderNonExistentFileTest)
     FileReader reader("skjhfaxniauiuq2bmnszmn093sklsd");
     TEST(false, ("Exception should be thrown!"));
   }
-  catch (FileReader::OpenException & e)
+  catch (FileReader::OpenException &)
   {
   }
 }
