@@ -15,6 +15,7 @@ SOURCES += base.cpp \
     string_utils.cpp \
     profiler.cpp \
     commands_queue.cpp \
+    shared_buffer_manager.cpp
 
 HEADERS += SRC_FIRST.hpp \
     assert.hpp \
@@ -51,4 +52,5 @@ HEADERS += SRC_FIRST.hpp \
     commands_queue.hpp \
     ptr_utils.hpp \
     stats.hpp \
-    monitor.hpp
+    monitor.hpp \
+    shared_buffer_manager.hpp

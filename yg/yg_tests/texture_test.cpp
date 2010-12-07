@@ -10,7 +10,7 @@ UNIT_TEST(TextureTest_Main)
   yg::gl::RGBA8Texture texture(256, 256);
   texture.makeCurrent();
   texture.lock();
-  yg::gl::RGBA8Texture::view_t view = texture.view();
+  yg::gl::RGBA8Texture::view_t view = texture.view(256, 256);
   for (size_t i = 0; i < texture.height(); ++i)
     for (size_t j = 0; j < texture.width(); ++j)
     {

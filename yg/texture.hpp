@@ -11,10 +11,8 @@
 #include "../platform/platform.hpp"
 #include "../coding/lodepng_io.hpp"
 #include "../std/iostream.hpp"
-
 namespace gil = boost::gil;
 namespace mpl = boost::mpl;
-
 
 namespace yg
 {
@@ -148,17 +146,12 @@ namespace yg
 
     private:
 
-      /// system memory copy of texture data
-      image_t m_image;
-      /// system memory buffer for the purpose of correct working of glTexSubImage2D.
-      /// in OpenGL ES 1.1 there are no way to specify GL_UNPACK_ROW_LENGTH so
-      /// the data supplied to glTexSubImage2D should be continous.
-      vector<pixel_t> m_auxData;
-
-      void upload();
       void updateDirty(m2::RectU const & r);
 
     public:
+
+      void upload(void * data);
+      void upload(void * data, m2::RectU const & r);
 
       /// Create the texture loading it from file
       Texture(string const & fileName);
@@ -167,10 +160,10 @@ namespace yg
       Texture(m2::RectU const & r);
 
       /// You can call this anytime, regardless the locking status of the texture.
-      const_view_t const_view() const;
+      /// const_view_t const_view() const;
       /// You can call this on locked texture only. All your changess to this view's data will be
       /// uploaded to the video memory on unlock()
-      view_t view();
+      view_t view(size_t width, size_t height);
 
       void fill(yg::Color const & c);
 
@@ -191,45 +184,48 @@ namespace yg
 
     template <typename Traits>
     Texture<Traits, true>::Texture(const m2::RectU &r)
-      : ManagedTexture(r.SizeX(), r.SizeY()), m_image(r.SizeX(), r.SizeY())
+      : ManagedTexture(r.SizeX(), r.SizeY(), sizeof(pixel_t))
     {
-      upload();
-      m_auxData.resize(width * height);
+      upload(0);
     }
 
     template <typename Traits>
     Texture<Traits, true>::Texture(size_t width, size_t height)
-      : ManagedTexture(width, height), m_image(width, height)
+      : ManagedTexture(width, height, sizeof(pixel_t))
     {
-      upload();
-      m_auxData.resize(width * height);
+      upload(0);
     }
 
     template <typename Traits>
-    Texture<Traits, true>::Texture(string const & fileName) : ManagedTexture(GetDimensions(fileName))
+    Texture<Traits, true>::Texture(string const & fileName) : ManagedTexture(GetDimensions(fileName), sizeof(pixel_t))
     {
       lock();
-      gil::lodepng_read_and_convert_image(GetPlatform().ReadPathForFile(fileName).c_str(), m_image, typename Traits::color_converter());
+      view_t v = view(width(), height());
+      gil::lodepng_read_and_convert_view((GetPlatform().ResourcesDir() + fileName).c_str(), v, typename Traits::color_converter());
+      upload(&v(0, 0));
       unlock();
-      upload();
-      m_image.recreate(0, 0);
     }
 
     template <typename Traits>
-    typename Texture<Traits, true>::view_t Texture<Traits, true>::view()
+    typename Texture<Traits, true>::view_t Texture<Traits, true>::view(size_t w, size_t h)
     {
       ASSERT(m_isLocked, ("non const access to unlocked texture!"));
-      return gil::view(m_image);
+      return gil::interleaved_view(
+          w,
+          h,
+          (pixel_t*)auxData(),
+          w * sizeof(pixel_t));
     }
 
-    template <typename Traits>
+/*    template <typename Traits>
     typename Texture<Traits, true>::const_view_t Texture<Traits, true>::const_view() const
     {
       return gil::const_view(m_image);
     }
+ */
 
     template <typename Traits>
-    void Texture<Traits, true>::upload()
+    void Texture<Traits, true>::upload(void * data)
     {
       makeCurrent();
 
@@ -241,40 +237,25 @@ namespace yg
          height(),
          0,
          GL_RGBA,
-         Traits::gl_pixel_data_type,
-         &gil::const_view(m_image)(0, 0)));
+         gl_pixel_data_type,
+         data));
     }
 
-
     template <typename Traits>
-    void Texture<Traits, true>::updateDirty(m2::RectU const & r)
+    void Texture<Traits, true>::upload(void * data, m2::RectU const & r)
     {
       makeCurrent();
-
-//      m_auxData.resize(r.SizeX() * r.SizeY());
-
-      view_t auxView = gil::interleaved_view(
-          r.SizeX(), r.SizeY(),
-          (pixel_t*)&m_auxData[0],
-          r.SizeX() * sizeof(pixel_t));
-
-      gil::copy_pixels(
-          gil::subimage_view(gil::const_view(m_image),
-                             r.minX(), r.minY(),
-                             r.SizeX(), r.SizeY()),
-          auxView);
-
+      /// Uploading texture data
       OGLCHECK(glTexSubImage2D(
-          GL_TEXTURE_2D,
-          0,
-          r.minX(),
-          r.minY(),
-          r.SizeX(),
-          r.SizeY(),
-          GL_RGBA,
-          Traits::gl_pixel_data_type,
-          &m_auxData[0]
-      ));
+         GL_TEXTURE_2D,
+         0,
+         r.minX(),
+         r.minY(),
+         r.SizeX(),
+         r.SizeY(),
+         GL_RGBA,
+         gl_pixel_data_type,
+         data));
     }
 
     template <typename Traits>
@@ -282,21 +263,20 @@ namespace yg
     {
       makeCurrent();
       lock();
-      view_t v = view();
+      view_t v = view(width(), height());
 
       for (size_t y = 0; y < height(); ++y)
         for (size_t x = 0; x < width(); ++x)
           v(x, y) = pixel_t(rand() % maxChannelVal, rand() % maxChannelVal, rand() % maxChannelVal, maxChannelVal);
 
-      addDirtyRect(m2::RectU(0, 0, width(), height()));
-
+      upload(&v(0, 0), m2::RectU(0, 0, width(), height()));
       unlock();
     }
 
     template <typename Traits>
     void Texture<Traits, true>::readback()
     {
-      makeCurrent();
+/*      makeCurrent();
 #ifndef OMIM_GL_ES
       OGLCHECK(glGetTexImage(
           GL_TEXTURE_2D,
@@ -306,7 +286,7 @@ namespace yg
           &gil::view(m_image)(0, 0)));
 #else
           ASSERT(false, ("no glGetTexImage function in OpenGL ES"));
-#endif
+#endif*/
     }
 
     template <typename Traits>
@@ -315,14 +295,14 @@ namespace yg
       readback();
       std::string const fullPath = GetPlatform().WritablePathForFile(fileName);
 #ifndef OMIM_GL_ES
-      boost::gil::lodepng_write_view(fullPath, gil::const_view(m_image));
+      boost::gil::lodepng_write_view(fullPath.c_str(), gil::const_view(m_image));
 #endif
     }
 
     template <typename Traits>
     void Texture<Traits, true>::fill(yg::Color const & c)
     {
-      makeCurrent();
+/*      makeCurrent();
       lock();
       view_t v = view();
 
@@ -337,6 +317,7 @@ namespace yg
 
       addDirtyRect(m2::RectU(0, 0, width(), height()));
       unlock();
+ */
     }
   }
 }

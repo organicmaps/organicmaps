@@ -113,14 +113,18 @@ namespace
       vector<m2::PointD> points;
       vector<double> pattern;
 
-      int count = 20;
+      int columns = 30;
+      int rows = 6;
 
-      for (size_t i = 0; i < count; ++i)
+      for (size_t j = 0; j < rows; ++j)
       {
-        points.clear();
-        points.push_back(m2::PointD(10, i * 15 + 20));
-        points.push_back(m2::PointD(100, i * 15 + 20));
-        AddTest(points, pattern, yg::Color(0, 0, 128 + 128 / count * i, 255), 10);
+        for (size_t i = 0; i < columns; ++i)
+        {
+          points.clear();
+          points.push_back(m2::PointD(100 * j + 10, i * 15 + 20));
+          points.push_back(m2::PointD(100 * j + 100, i * 15 + 20));
+          AddTest(points, pattern, yg::Color(128 + 128 / columns * i, 128 + 128 / rows * j, 0, 255), rand() % 15);
+        }
       }
     }
   };

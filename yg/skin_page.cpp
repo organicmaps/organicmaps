@@ -203,14 +203,9 @@ namespace yg
       yg::PenInfo const & penInfo = m_penUploadCommands[i].m_penInfo;
       m2::RectU const & rect = m_penUploadCommands[i].m_rect;
 
-      TDynamicTexture::view_t v = gil::subimage_view
-      (
-        static_cast<TDynamicTexture*>(m_texture.get())->view(),
-        rect.minX(), rect.minY(),
-        rect.maxX(), rect.maxY()
-      );
+      TDynamicTexture * dynTexture = static_cast<TDynamicTexture*>(m_texture.get());
 
-      static_cast<gl::ManagedTexture*>(m_texture.get())->addDirtyRect(rect);
+      TDynamicTexture::view_t v = dynTexture->view(rect.SizeX(), rect.SizeY());
 
       yg::Color penInfoColor = penInfo.m_color;
 
@@ -272,6 +267,8 @@ namespace yg
           curLen += penInfo.m_pat[i];
         }
       }
+
+      dynTexture->upload(&v(0, 0), rect);
     }
     m_penUploadCommands.clear();
   }
@@ -290,12 +287,15 @@ namespace yg
       c.a /= 16;
 #endif
 
-      for (size_t y = r.minY(); y < r.maxY(); ++y)
-        for (size_t x = r.minX(); x < r.maxX(); ++x)
-          static_cast<TDynamicTexture*>(m_texture.get())->view()(x, y) =
-              TDynamicTexture::pixel_t(gil::rgba8_pixel_t(c.r, c.g, c.b, c.a));
+      TDynamicTexture * dynTexture = static_cast<TDynamicTexture*>(m_texture.get());
 
-      static_cast<gl::ManagedTexture*>(m_texture.get())->addDirtyRect(r);
+      TDynamicTexture::view_t v = dynTexture->view(r.SizeX(), r.SizeY());
+
+      for (size_t y = 0; y < r.SizeY(); ++y)
+        for (size_t x = 0; x < r.SizeX(); ++x)
+          v(x, y) = TDynamicTexture::pixel_t(gil::rgba8_pixel_t(c.r, c.g, c.b, c.a));
+
+      dynTexture->upload(&v(0, 0), r);
     }
     m_colorUploadCommands.clear();
   }

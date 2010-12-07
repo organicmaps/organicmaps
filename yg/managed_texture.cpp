@@ -2,48 +2,39 @@
 
 #include "internal/opengl.hpp"
 #include "managed_texture.hpp"
+#include "../base/shared_buffer_manager.hpp"
 
 namespace yg
 {
   namespace gl
   {
-    ManagedTexture::ManagedTexture(unsigned width, unsigned height)
-      : BaseTexture(width, height), m_isLocked(false)
+    ManagedTexture::ManagedTexture(unsigned width, unsigned height, size_t pixelSize)
+      : BaseTexture(width, height), m_imageSize(width * height * pixelSize), m_isLocked(false)
     {}
 
-    ManagedTexture::ManagedTexture(m2::PointU const & size)
-      : BaseTexture(size.x, size.y), m_isLocked(false)
+    ManagedTexture::ManagedTexture(m2::PointU const & size, size_t pixelSize)
+      : BaseTexture(size.x, size.y), m_imageSize(size.x * size.y * pixelSize), m_isLocked(false)
     {}
-
-    void ManagedTexture::addDirtyRect(m2::RectU const & r)
-    {
-      if (m_isLocked)
-      {
-        if (!m_isDirty && (r.SizeX() != 0) && (r.SizeY() != 0))
-        {
-          m_dirtyRect = r;
-          m_isDirty = true;
-        }
-        else
-          m_dirtyRect.Add(r);
-      }
-    }
 
     void ManagedTexture::lock()
     {
       m_isLocked = true;
-      m_isDirty = false;
+      m_auxData = SharedBufferManager::instance().reserveSharedBuffer(m_imageSize);
     }
 
     void ManagedTexture::unlock()
     {
-      m_isLocked = false;
+      SharedBufferManager::instance().freeSharedBuffer(m_imageSize, m_auxData);
 
-      if (m_isDirty)
-      {
-        updateDirty(m_dirtyRect);
-        m_isDirty = false;
-      }
+      m_auxData.reset();
+
+      m_isLocked = false;
+    }
+
+    void * ManagedTexture::auxData()
+    {
+      ASSERT(m_isLocked, ("texture is unlocked"));
+      return &(*m_auxData)[0];
     }
   }
 }
