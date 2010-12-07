@@ -279,6 +279,8 @@ void RenderQueueRoutine::Do()
         if ((areas[i].SizeX() != 0) && (areas[i].SizeY() != 0))
         {
           frameScreen.PtoG(m2::Inflate<double>(m2::RectD(areas[i]), 30 * m_visualScale, 30 * m_visualScale), glbRect);
+          if ((glbRect.SizeX() == 0) || (glbRect.SizeY()))
+            continue;
 
           m_threadDrawer->screen()->setClipRect(areas[i]);
 
