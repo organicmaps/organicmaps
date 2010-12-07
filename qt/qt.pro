@@ -11,6 +11,7 @@ QT *= core gui opengl network
 
 win32 {
   LIBS += -lopengl32 -lws2_32 -lshell32
+  RC_FILE = res/windows.rc
 }
 
 macx {

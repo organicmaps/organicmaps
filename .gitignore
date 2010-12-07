@@ -13,7 +13,9 @@ object_script.*.Release
 *.user
 *.ncb
 *.suo
+*.aps
 *.rc
+!qt/res/windows.rc
 *.pdb
 out/*
 .obj/*
@@ -51,6 +53,7 @@ data/settings.ini
 data/maps.update
 GeneratedFiles
 version/version.hpp
+tools/win/MapsWithMe
 
 syntax: regexp
 (.*/)?\#[^/]*\#$
