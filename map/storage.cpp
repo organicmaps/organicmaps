@@ -75,11 +75,13 @@ namespace mapinfo
     // scan and load all local maps
     size_t addedMapsCount = 0;
     AddMapsToModelAndDeleteIfInvalid<TAddFn> functor(addFunc, addedMapsCount);
-    ForEachMapInDir(GetPlatform().WorkingDir(), functor);
-    // scan resources if no maps found in data folder
-    if (addedMapsCount == 0)
+    ForEachMapInDir(GetPlatform().WritableDir(), functor);
+    try
     {
-      ForEachMapInDir(GetPlatform().ResourcesDir(), functor);
+      functor(GetPlatform().ReadPathForFile(WORLD_DATA_FILE));
+    }
+    catch (FileAbsentException const &)
+    {
       if (addedMapsCount == 0)
       {
         LOG(LWARNING, ("No data files were found. Model is empty."));
@@ -101,7 +103,7 @@ namespace mapinfo
   {
     GetDownloadManager().DownloadFile(
         UPDATE_FULL_URL,
-        (GetPlatform().WorkingDir() + UPDATE_CHECK_FILE).c_str(),
+		(GetPlatform().WritablePathForFile(UPDATE_CHECK_FILE)).c_str(),
         boost::bind(&Storage::OnUpdateDownloadFinished, this, _1, _2),
         TDownloadProgressFunction());
     return true;
@@ -240,7 +242,7 @@ namespace mapinfo
   public:
     DeactivateMap(TRemoveFn & removeFn) : m_removeFn(removeFn)
     {
-      m_workingDir = GetPlatform().WorkingDir();
+      m_workingDir = GetPlatform().WritableDir();
     }
     void operator()(TUrl const & url)
     {
@@ -264,7 +266,7 @@ namespace mapinfo
           {
             GetDownloadManager().DownloadFile(
                 it->first.c_str(),
-                (GetPlatform().WorkingDir() + mapinfo::FileNameFromUrl(it->first)).c_str(),
+				(GetPlatform().WritablePathForFile(mapinfo::FileNameFromUrl(it->first))).c_str(),
                 boost::bind(&Storage::OnMapDownloadFinished, this, _1, _2),
                 boost::bind(&Storage::OnMapDownloadProgress, this, _1, _2));
             // notify GUI - new status for country, "Downloading"
@@ -290,7 +292,7 @@ namespace mapinfo
     void operator()(TUrl const & url)
     {
       GetDownloadManager().CancelDownload(url.first.c_str());
-      FileWriter::DeleteFile(GetPlatform().WorkingDir() + FileNameFromUrl(url.first));
+	  FileWriter::DeleteFile(GetPlatform().WritablePathForFile(FileNameFromUrl(url.first)));
     }
   };
 
@@ -305,7 +307,7 @@ namespace mapinfo
   public:
     DeleteMap()
     {
-      m_workingDir = GetPlatform().WorkingDir();
+		  m_workingDir = GetPlatform().WritableDir();
     }
     void operator()(TUrl const & url)
     {
@@ -437,7 +439,7 @@ namespace mapinfo
 
     // parse update file
     TCountriesContainer tempCountries;
-    if (!LoadCountries(tempCountries, GetPlatform().WorkingDir() + UPDATE_CHECK_FILE))
+    if (!LoadCountries(tempCountries, GetPlatform().WritablePathForFile(UPDATE_CHECK_FILE)))
     {
       LOG(LWARNING, ("New application version should be downloaded, "
                      "update file format can't be parsed"));

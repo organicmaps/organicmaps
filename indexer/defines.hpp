@@ -9,6 +9,8 @@ uint32_t const MAPS_MAJOR_VERSION_BINARY_FORMAT = 0;
 
 #define DATA_FILE_EXTENSION ".dat"
 
+#define WORLD_DATA_FILE "world" DATA_FILE_EXTENSION
+
 #define UPDATE_CHECK_FILE "maps.update"
 #define UPDATE_BASE_URL "http://melnichek.ath.cx:34568/maps/"
 #define UPDATE_FULL_URL UPDATE_BASE_URL UPDATE_CHECK_FILE

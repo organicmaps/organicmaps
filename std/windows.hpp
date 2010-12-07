@@ -15,6 +15,11 @@
   #define WIN32_LEAN_AND_MEAN
 #endif
 
+#ifdef _WIN32_IE
+  #undef _WIN32_IE
+#endif
+#define _WIN32_IE 0x0600
+
 #include <windows.h>
 
 #undef min
