@@ -2,13 +2,13 @@
 #define PACKER_H
 #pragma once
 
+#include "rect2d.hpp"
+
 #include "../std/list.hpp"
 #include "../std/unordered_map.hpp"
 #include "../std/function.hpp"
 #include "../std/queue.hpp"
 
- /// @todo WTF? "base" logically dependeced from "geometry"
-#include "../geometry/rect2d.hpp"
 
 namespace m2
 {

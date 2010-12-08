@@ -12,7 +12,6 @@ include($$ROOT_DIR/common.pri)
 SOURCES += \
   screenbase.cpp \
   packer.cpp \
-  transformations.cpp \
 
 HEADERS += \
   rect2d.hpp \
