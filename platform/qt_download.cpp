@@ -5,7 +5,8 @@
 #include "../base/assert.hpp"
 
 QtDownload::QtDownload(QtDownloadManager & manager, char const * url,
-  char const * fileName, TDownloadFinishedFunction & finish, TDownloadProgressFunction & progress)
+  char const * fileName, TDownloadFinishedFunction & finish,
+  TDownloadProgressFunction & progress, bool useResume)
   : QObject(&manager), m_currentUrl(url), m_reply(0), m_file(0),
   m_httpRequestAborted(false), m_finish(finish), m_progress(progress)
 {
@@ -13,11 +14,8 @@ QtDownload::QtDownload(QtDownloadManager & manager, char const * url,
   QString tmpFileName(fileName);
   tmpFileName += DOWNLOADING_FILE_EXTENSION;
 
-  // @TODO implement resume download
-  QFile::remove(tmpFileName);
-
   m_file = new QFile(tmpFileName);
-  if (!m_file->open(QIODevice::WriteOnly))
+  if (!m_file->open(useResume ? QIODevice::Append : QIODevice::WriteOnly))
   {
     QString const err = m_file->errorString();
     LOG(LERROR, ("Can't open file while downloading", qPrintable(tmpFileName), qPrintable(err)));
@@ -50,16 +48,21 @@ QtDownload::~QtDownload()
 }
 
 void QtDownload::StartDownload(QtDownloadManager & manager, char const * url,
-     char const * fileName, TDownloadFinishedFunction & finish, TDownloadProgressFunction & progress)
+     char const * fileName, TDownloadFinishedFunction & finish,
+     TDownloadProgressFunction & progress, bool useResume)
 {
   ASSERT(url && fileName, ());
   // manager is responsible for auto deleting
-  new QtDownload(manager, url, fileName, finish, progress);
+  new QtDownload(manager, url, fileName, finish, progress, useResume);
 }
 
 void QtDownload::StartRequest()
 {
-  m_reply = static_cast<QtDownloadManager *>(parent())->NetAccessManager().get(QNetworkRequest(m_currentUrl));
+  QNetworkRequest httpRequest(m_currentUrl);
+  qint64 fileSize = m_file->size();
+  if (fileSize > 0) // need resume
+    httpRequest.setRawHeader("Range", QString("bytes=%1-").arg(fileSize).toAscii());
+  m_reply = static_cast<QtDownloadManager *>(parent())->NetAccessManager().get(httpRequest);
   connect(m_reply, SIGNAL(finished()), this, SLOT(OnHttpFinished()));
   connect(m_reply, SIGNAL(readyRead()), this, SLOT(OnHttpReadyRead()));
   connect(m_reply, SIGNAL(downloadProgress(qint64, qint64)),

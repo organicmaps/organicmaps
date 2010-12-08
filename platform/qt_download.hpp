@@ -19,7 +19,8 @@ private:
   TDownloadProgressFunction m_progress;
 
   QtDownload(QtDownloadManager & manager, char const * url, char const * fileName,
-             TDownloadFinishedFunction & finish, TDownloadProgressFunction & progress);
+             TDownloadFinishedFunction & finish, TDownloadProgressFunction & progress,
+             bool useResume);
   void StartRequest();
 
 private slots:
@@ -31,6 +32,6 @@ public:
   /// Created instance is automanaged as a manager's child
   /// and can be manipulated later by manager->findChild(url);
   static void StartDownload(QtDownloadManager & manager, char const * url, char const * fileName,
-         TDownloadFinishedFunction & finish, TDownloadProgressFunction & progress);
+         TDownloadFinishedFunction & finish, TDownloadProgressFunction & progress, bool useResume);
   virtual ~QtDownload();
 };

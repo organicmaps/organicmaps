@@ -105,7 +105,7 @@ namespace mapinfo
         UPDATE_FULL_URL,
 		(GetPlatform().WritablePathForFile(UPDATE_CHECK_FILE)).c_str(),
         boost::bind(&Storage::OnUpdateDownloadFinished, this, _1, _2),
-        TDownloadProgressFunction());
+        TDownloadProgressFunction(), false);
     return true;
   }
 
@@ -268,7 +268,8 @@ namespace mapinfo
                 it->first.c_str(),
 				(GetPlatform().WritablePathForFile(mapinfo::FileNameFromUrl(it->first))).c_str(),
                 boost::bind(&Storage::OnMapDownloadFinished, this, _1, _2),
-                boost::bind(&Storage::OnMapDownloadProgress, this, _1, _2));
+                boost::bind(&Storage::OnMapDownloadProgress, this, _1, _2),
+                true);  // enabled resume support by default
             // notify GUI - new status for country, "Downloading"
             if (m_observerChange)
               m_observerChange(index);

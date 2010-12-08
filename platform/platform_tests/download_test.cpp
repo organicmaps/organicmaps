@@ -73,7 +73,10 @@ struct DlObserver
   void OnDownloadProgress(char const * url, TDownloadProgress progress)
   {
     m_progressUrl = url;
-    TEST_NOT_EQUAL( progress.second, -1, ("Your hosting doesn't support total file size", GetHostFromUrl(url)) );
+    if (progress.second < 0)
+    {
+      cerr << "Your hosting doesn't support total file size or invalid resume range was given for " << url << endl;
+    }
     // for big file - cancel downloading after 40Kb were transferred
     if (progress.first > 40 * 1024)
       gMgr.CancelDownload(url);
@@ -204,3 +207,62 @@ UNIT_TEST(LongDownloadCanceling)
   FileWriter::DeleteFile(TEST_FILE_NAME1);
 }
 */
+UNIT_TEST(DownloadResume)
+{
+  size_t const NUM = 1;
+
+  string const fileContent("aLeX");
+
+  {
+    FileWriter f(TEST_FILE_NAME1 DOWNLOADING_FILE_EXTENSION);
+    f.Write(fileContent.c_str(), fileContent.size());
+  }
+
+ DlObserver<NUM> observer1;
+  gMgr.DownloadFile(TEST_FILE_URL1, TEST_FILE_NAME1,
+      boost::bind(&DlObserver<NUM>::OnDownloadFinished, &observer1, _1, _2),
+      boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer1, _1, _2),
+      false);
+  WAIT_FOR_ASYNC_DOWNLOAD;
+  TEST_EQUAL( observer1.m_result[0], true, () );
+
+  DlObserver<NUM> observer2;
+  gMgr.DownloadFile(TEST_FILE_URL1, TEST_FILE_NAME2,
+      boost::bind(&DlObserver<NUM>::OnDownloadFinished, &observer2, _1, _2),
+      boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer2, _1, _2),
+      false);
+  WAIT_FOR_ASYNC_DOWNLOAD;
+  TEST_EQUAL( observer2.m_result[0], true, () );
+
+  uint64_t size1 = 4, size2 = 5;
+  TEST( GetPlatform().GetFileSize(TEST_FILE_NAME1, size1), ());
+  TEST( GetPlatform().GetFileSize(TEST_FILE_NAME2, size2), ());
+
+  TEST_EQUAL(size1, size2, ("Sizes should be equal - no resume was enabled"));
+
+  // resume should append content to 1st file
+  {
+    FileWriter f(TEST_FILE_NAME1 DOWNLOADING_FILE_EXTENSION);
+    f.Write(fileContent.c_str(), fileContent.size());
+  }
+  DlObserver<NUM> observer3;
+  gMgr.DownloadFile(TEST_FILE_URL1, TEST_FILE_NAME1,
+      boost::bind(&DlObserver<NUM>::OnDownloadFinished, &observer3, _1, _2),
+      boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer3, _1, _2),
+      true);
+  WAIT_FOR_ASYNC_DOWNLOAD;
+  TEST_EQUAL( observer3.m_result[0], true, () );
+
+  TEST( GetPlatform().GetFileSize(TEST_FILE_NAME1, size1), ());
+  TEST_EQUAL( size1, size2, () );
+
+  {
+    string str;
+    ReadFileToString(TEST_FILE_NAME1, str);
+    TEST_EQUAL(fileContent, str.substr(0, fileContent.size()), ());
+    TEST_NOT_EQUAL(fileContent, str, ());
+  }
+
+  FileWriter::DeleteFile(TEST_FILE_NAME1);
+  FileWriter::DeleteFile(TEST_FILE_NAME2);
+}

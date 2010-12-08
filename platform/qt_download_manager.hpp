@@ -10,7 +10,8 @@ class QtDownloadManager : public QObject, public DownloadManager
 
 public:
   virtual void DownloadFile(char const * url, char const * fileName,
-          TDownloadFinishedFunction finish, TDownloadProgressFunction progress);
+          TDownloadFinishedFunction finish, TDownloadProgressFunction progress,
+          bool useResume);
   virtual void CancelDownload(char const * url);
   virtual void CancelAllDownloads();
 

@@ -21,7 +21,7 @@
 
 - (void) dealloc
 {
-  NSLog(@"~IPhoneDownload() for url: %s", m_url.c_str());
+//  NSLog(@"~IPhoneDownload() for url: %s", m_url.c_str());
   if (m_connection)
   {
   	[m_connection cancel];
@@ -39,14 +39,15 @@
 
 - (BOOL) StartDownloadWithUrl: (char const *)originalUrl andFile: (char const *)file
 		andFinishFunc: (TDownloadFinishedFunction &)finishFunc andProgressFunc: (TDownloadProgressFunction &)progressFunc
+    andUseResume: (BOOL)resume
 {
 	m_finishObserver = finishFunc;
   m_progressObserver = progressFunc;
   
 	// try to create file first
-  string tmpFile = file;
+  std::string tmpFile = file;
   tmpFile += DOWNLOADING_FILE_EXTENSION;
-  m_file = fopen(tmpFile.c_str(), "wb");
+  m_file = fopen(tmpFile.c_str(), resume ? "ab" : "wb");
   if (m_file == 0)
   {
   	NSLog(@"Error opening %s file for download: %s", tmpFile.c_str(), strerror(errno));
@@ -60,15 +61,22 @@
 	m_url = originalUrl;
  
   // Create the request.
-	NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString: [NSString stringWithUTF8String:m_url.c_str()]]
+	NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: [NSString stringWithUTF8String:m_url.c_str()]]
   		cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:TIMEOUT_IN_SECONDS];
+  long long fileSize = ftello(m_file);
+  if (resume && fileSize > 0)
+  {
+		NSString * val = [[NSString alloc] initWithFormat: @"bytes=%qi-", fileSize];
+		[request addValue:val forHTTPHeaderField:@"Range"];
+		[val release];
+  }
 	// create the connection with the request and start loading the data
 	m_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 //  [request release];
 	if (m_connection == 0)
   {
-  	NSLog(@"Can't create connection for url %s", originalUrl);
-    // notify observer about error and exit
+		NSLog(@"Can't create connection for url %s", originalUrl);
+		// notify observer about error and exit
     if (m_finishObserver)
     	m_finishObserver(originalUrl, false);
     return NO;
@@ -82,11 +90,34 @@
 	// This method is called when the server has determined that it
 	// has enough information to create the NSURLResponse.
  
-  // It can be called multiple times, for example in the case of a
-  // redirect, so each time we reset the data.
+	// check if this is OK (not a 404 or the like)
+  if ([response respondsToSelector:@selector(statusCode)])
+  {
+  	NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
+    if (statusCode < 200 || statusCode > 299)
+    {
+    	NSLog(@"Received HTTP error code %d, canceling download", statusCode);
+      // deleting file
+      fclose(m_file);
+      m_file = 0;
+      remove((m_requestedFileName + DOWNLOADING_FILE_EXTENSION).c_str());
+      // notify user
+		  if (m_finishObserver)
+      	m_finishObserver(m_url.c_str(), false);
+  		// and selfdestruct...
+  		GetDownloadManager().CancelDownload(m_url.c_str());
+			return;
+    }
+  }
  
-  fseeko(m_file, 0, SEEK_SET);
   m_projectedFileSize = [response expectedContentLength];
+  // if server doesn't support resume, make sure we're downloading file from scratch
+	if (m_projectedFileSize < 0)
+  {
+  	fclose(m_file);
+    m_file = fopen((m_requestedFileName + DOWNLOADING_FILE_EXTENSION).c_str(), "wb");
+  }
+  NSLog(@"Projected file size: %qi", m_projectedFileSize);
 }
 
 - (void) connection: (NSURLConnection *)connection didReceiveData: (NSData *)data

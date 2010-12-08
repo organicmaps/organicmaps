@@ -4,11 +4,12 @@
 #include "../base/assert.hpp"
 
 void QtDownloadManager::DownloadFile(char const * url, char const * fileName,
-     TDownloadFinishedFunction finish, TDownloadProgressFunction progress)
+     TDownloadFinishedFunction finish, TDownloadProgressFunction progress,
+     bool useResume)
 {
   QList<QtDownload *> downloads = findChildren<QtDownload *>(url);
   if (downloads.empty())
-    QtDownload::StartDownload(*this, url, fileName, finish, progress);
+    QtDownload::StartDownload(*this, url, fileName, finish, progress, useResume);
   else
   {
     ASSERT(false, ("Download with the same url is already in progress!"));

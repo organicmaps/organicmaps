@@ -24,7 +24,7 @@ public:
   }
 
   virtual void DownloadFile(char const * url, char const * fileName,
-  		TDownloadFinishedFunction finishFunc, TDownloadProgressFunction progressFunc)
+  		TDownloadFinishedFunction finishFunc, TDownloadProgressFunction progressFunc, bool resume)
   {
 		// check if download is already active
   	for (NSUInteger i = 0; i < [activeDownloads count]; ++i)
@@ -38,7 +38,11 @@ public:
     }
 
   	IPhoneDownload * download = [[IPhoneDownload alloc] init];
-    if ([download StartDownloadWithUrl:url andFile:fileName andFinishFunc:finishFunc andProgressFunc:progressFunc])
+    if ([download StartDownloadWithUrl:url 
+    							andFile:fileName
+                  andFinishFunc:finishFunc
+                  andProgressFunc:progressFunc
+                  andUseResume:resume])
     {
     	// save download in array to cancel it later if necessary
     	[activeDownloads addObject:download];

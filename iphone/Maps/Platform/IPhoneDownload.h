@@ -19,9 +19,11 @@
 }
 
 - (void) dealloc;
-- (string const &) Url;
+- (std::string const &) Url;
 - (BOOL) StartDownloadWithUrl: (char const *)originalUrl andFile: (char const *)file
-		andFinishFunc: (TDownloadFinishedFunction &)finishFunc andProgressFunc: (TDownloadProgressFunction &)progressFunc;
+		andFinishFunc: (TDownloadFinishedFunction &)finishFunc
+    andProgressFunc: (TDownloadProgressFunction &)progressFunc
+    andUseResume: (BOOL)resume;
 // Added because release from manager doesn't destroy it immediately...
 - (void) Cancel;
 @end
