@@ -56,6 +56,7 @@
 		FA5005661287BFCE002961F0 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FA5005601287BFCE002961F0 /* Icon.png */; };
 		FA5005671287BFCE002961F0 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA5005611287BFCE002961F0 /* Icon@2x.png */; };
 		FA500588128907F0002961F0 /* visibility.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA500587128907F0002961F0 /* visibility.txt */; };
+		FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
 		FAF37EFF126DCE6F005EA154 /* IPhoneDownload.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAF37EFA126DCE6F005EA154 /* IPhoneDownload.mm */; };
 		FAF37F00126DCE6F005EA154 /* IPhoneDownloadManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAF37EFB126DCE6F005EA154 /* IPhoneDownloadManager.mm */; };
 		FAF37F01126DCE6F005EA154 /* IPhonePlatform.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAF37EFD126DCE6F005EA154 /* IPhonePlatform.mm */; };
@@ -125,6 +126,7 @@
 		FA5005601287BFCE002961F0 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = SOURCE_ROOT; };
 		FA5005611287BFCE002961F0 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = SOURCE_ROOT; };
 		FA500587128907F0002961F0 /* visibility.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = visibility.txt; path = ../../data/visibility.txt; sourceTree = SOURCE_ROOT; };
+		FA87151A12B1518F00592DAF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FAF37EFA126DCE6F005EA154 /* IPhoneDownload.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = IPhoneDownload.mm; path = Platform/IPhoneDownload.mm; sourceTree = SOURCE_ROOT; };
 		FAF37EFB126DCE6F005EA154 /* IPhoneDownloadManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = IPhoneDownloadManager.mm; path = Platform/IPhoneDownloadManager.mm; sourceTree = SOURCE_ROOT; };
 		FAF37EFD126DCE6F005EA154 /* IPhonePlatform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = IPhonePlatform.mm; path = Platform/IPhonePlatform.mm; sourceTree = SOURCE_ROOT; };
@@ -150,6 +152,7 @@
 				EE12020F11CD464100ABDD5D /* libindexer.a in Frameworks */,
 				EE12021011CD464100ABDD5D /* libmap.a in Frameworks */,
 				EE12021211CD464100ABDD5D /* libyg.a in Frameworks */,
+				FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +240,7 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765070DF74369002DB57D /* CoreGraphics.framework */,
+				FA87151A12B1518F00592DAF /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
