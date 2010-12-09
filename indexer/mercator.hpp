@@ -1,5 +1,6 @@
 #pragma once
 #include "../geometry/point2d.hpp"
+#include "../geometry/rect2d.hpp"
 #include "../base/math.hpp"
 
 struct MercatorBounds
@@ -29,5 +30,14 @@ struct MercatorBounds
   inline static double LonToX(double lon)
   {
     return lon;
+  }
+
+  /// @return mercator bound points in rect
+  inline static m2::RectD ErrorToRadius(double lon, double lat, double errorInMetres)
+  {
+    // We use approximate number of metres per degree
+    static double const metresInDegree = 1.0 / 111111.0;
+    double const offset = errorInMetres / 2.0 * metresInDegree;
+    return m2::RectD(LonToX(lon - offset), LatToY(lat - offset), LonToX(lon + offset), LatToY(lat + offset));
   }
 };
