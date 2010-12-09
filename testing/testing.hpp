@@ -19,7 +19,7 @@ namespace my
 {
   inline void OnTestFailed(SrcPoint const & srcPoint, string const & msg)
   {
-    cerr << "FAILED" << endl << srcPoint.FileName() << ":" << srcPoint.Line() << " " << msg;
+    cerr << "FAILED" << endl << srcPoint.FileName() << ":" << srcPoint.Line() << " " << msg << endl;
     MYTHROW(TestFailureException, (srcPoint.FileName(), srcPoint.Line(), msg));
   }
 }
