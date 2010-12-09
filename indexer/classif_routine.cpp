@@ -3,8 +3,11 @@
 #include "drawing_rules.hpp"
 
 #include "../indexer/osm2type.hpp"
+#include "../indexer/scales.hpp"
 
 #include "../coding/reader.hpp"
+
+#include "../base/logging.hpp"
 
 #include "../std/stdio.hpp"
 
@@ -36,6 +39,22 @@ namespace classificator
 
   void GenerateAndWrite(string const & path)
   {
+    // Experimental - add drawing rules in programm.
+    //string const fullName = path + "drawing_rules.bin";
+    //drule::ReadRules(fullName.c_str());
+
+    //int const color = 0;
+    //double const pixWidth = 1.5;
+    //for (int i = 0; i <= scales::GetUpperScale(); ++i)
+    //{
+    //  size_t const ind = drule::rules().AddLineRule(i, color, pixWidth);
+    //  LOG_SHORT(LINFO, ("Scale = ", i, "; Index = ", ind));
+    //}
+
+    //drule::WriteRules(fullName.c_str());
+
+    //return;
+
     // 1. generic types
     parse_osm_types(0, 11, path + "styles/caption-z");
     parse_osm_types(6, 17, path + "styles/osm-map-features-z");

@@ -84,6 +84,9 @@ namespace drule
   public:
     ~RulesHolder();
 
+    size_t AddRule(int32_t scale, rule_type_t type, BaseRule * p);
+    size_t AddLineRule(int32_t scale, int color, double pixWidth);
+
     void Clean();
 
     void SetParseFile(char const * fPath, int scale);

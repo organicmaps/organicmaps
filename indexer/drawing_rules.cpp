@@ -4,6 +4,7 @@
 #include "file_reader_stream.hpp"
 #include "file_writer_stream.hpp"
 #include "std_serialization.hpp"
+#include "scales.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/file_writer.hpp"
@@ -957,6 +958,29 @@ Key RulesHolder::CreateRuleImpl2(string const & name,
     ASSERT ( !"check possible rules", (name) );
     return Key();
   }
+}
+
+size_t RulesHolder::AddRule(int32_t scale, rule_type_t type, BaseRule * p)
+{
+  ASSERT ( 0 <= scale && scale <= scales::GetUpperScale(), (scale) );
+  ASSERT ( 0 <= type && type < count_of_rules, () );
+
+  m_container[type].push_back(p);
+
+  vector<uint32_t> & v = m_rules[scale][type];
+  v.push_back(m_container[type].size()-1);
+
+  size_t const ret = v.size() - 1;
+  ASSERT ( Find(Key(scale, type, ret)) == p, (ret) );
+  return ret;
+}
+
+size_t RulesHolder::AddLineRule(int32_t scale, int color, double pixWidth)
+{
+  LineRule * p = new LineRule();
+  p->m_params.get<4>() = color_t(color);
+  p->m_params.get<5>() = pixWidth / scales::GetM2PFactor(scale);
+  return AddRule(scale, line, p);
 }
 
 BaseRule const * RulesHolder::Find(Key const & k) const
