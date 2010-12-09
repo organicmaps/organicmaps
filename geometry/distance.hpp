@@ -1,3 +1,4 @@
+#pragma once
 #include "../base/base.hpp"
 
 // Similarly to namespace m2 - 2d math, this is a namespace for nd math.
