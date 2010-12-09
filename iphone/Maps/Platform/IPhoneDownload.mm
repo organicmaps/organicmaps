@@ -3,6 +3,7 @@
 #include "../../platform/download_manager.hpp"
 
 #define TIMEOUT_IN_SECONDS 15.0
+#define MAX_AUTOMATIC_RETRIES 3
 
 @implementation IPhoneDownload
 
@@ -37,12 +38,30 @@
 	[super dealloc];
 }
 
+- (NSMutableURLRequest *) CreateRequest
+{
+  // Create the request.
+	NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: [NSString stringWithUTF8String:m_url.c_str()]]
+  		cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:TIMEOUT_IN_SECONDS];
+  long long fileSize = ftello(m_file);
+  if (fileSize > 0)
+  {
+  	NSLog(@"Resuming download for file %s from position %qi", m_requestedFileName.c_str(), fileSize);
+		NSString * val = [[NSString alloc] initWithFormat: @"bytes=%qi-", fileSize];
+		[request addValue:val forHTTPHeaderField:@"Range"];
+		[val release];
+  }
+  return request;
+}
+
 - (BOOL) StartDownloadWithUrl: (char const *)originalUrl andFile: (char const *)file
 		andFinishFunc: (TDownloadFinishedFunction &)finishFunc andProgressFunc: (TDownloadProgressFunction &)progressFunc
     andUseResume: (BOOL)resume
 {
 	m_finishObserver = finishFunc;
   m_progressObserver = progressFunc;
+  
+  m_retryCounter = 0;
   
 	// try to create file first
   std::string tmpFile = file;
@@ -60,19 +79,9 @@
 	m_requestedFileName = file;
 	m_url = originalUrl;
  
-  // Create the request.
-	NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: [NSString stringWithUTF8String:m_url.c_str()]]
-  		cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:TIMEOUT_IN_SECONDS];
-  long long fileSize = ftello(m_file);
-  if (resume && fileSize > 0)
-  {
-		NSString * val = [[NSString alloc] initWithFormat: @"bytes=%qi-", fileSize];
-		[request addValue:val forHTTPHeaderField:@"Range"];
-		[val release];
-  }
 	// create the connection with the request and start loading the data
-	m_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-//  [request release];
+	m_connection = [[NSURLConnection alloc] initWithRequest:[self CreateRequest] delegate:self];
+ 
 	if (m_connection == 0)
   {
 		NSLog(@"Can't create connection for url %s", originalUrl);
@@ -131,7 +140,25 @@
 - (void) connection: (NSURLConnection *)connection didFailWithError: (NSError *)error
 {
 	// inform the user
-  NSLog(@"Connection failed! Error - %@ %s", [error localizedDescription], m_url.c_str());
+  NSLog(@"Connection failed for url %s\n%@", m_url.c_str(), [error localizedDescription]);
+  
+  // retry connection if it's network-specific error
+  if ([error code] < 0 && ++m_retryCounter <= MAX_AUTOMATIC_RETRIES)
+  {
+    [m_connection release];
+  	// create the connection with the request and start loading the data
+		m_connection = [[NSURLConnection alloc] initWithRequest:[self CreateRequest] delegate:self];
+ 
+		if (m_connection)
+    {
+    	NSLog(@"Retrying %d time", m_retryCounter);
+    	return;	// successfully restarted connection
+    }
+      
+    NSLog(@"Can't retry connection");
+    // notify observer about error and exit after this if-block
+  }
+  
   if (m_finishObserver)
 	  m_finishObserver(m_url.c_str(), false);
   // and selfdestruct...

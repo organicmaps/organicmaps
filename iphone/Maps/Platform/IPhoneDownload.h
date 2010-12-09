@@ -16,6 +16,8 @@
   
   TDownloadFinishedFunction m_finishObserver;
   TDownloadProgressFunction m_progressObserver;
+  
+  NSInteger m_retryCounter;
 }
 
 - (void) dealloc;

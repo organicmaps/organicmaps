@@ -17,6 +17,7 @@ private:
   bool m_httpRequestAborted;
   TDownloadFinishedFunction m_finish;
   TDownloadProgressFunction m_progress;
+  int m_retryCounter;
 
   QtDownload(QtDownloadManager & manager, char const * url, char const * fileName,
              TDownloadFinishedFunction & finish, TDownloadProgressFunction & progress,

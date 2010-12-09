@@ -4,11 +4,15 @@
 #include "../base/logging.hpp"
 #include "../base/assert.hpp"
 
+// How many times we try to automatically reconnect in the case of network errors
+#define MAX_AUTOMATIC_RETRIES 2
+
 QtDownload::QtDownload(QtDownloadManager & manager, char const * url,
   char const * fileName, TDownloadFinishedFunction & finish,
   TDownloadProgressFunction & progress, bool useResume)
   : QObject(&manager), m_currentUrl(url), m_reply(0), m_file(0),
-  m_httpRequestAborted(false), m_finish(finish), m_progress(progress)
+  m_httpRequestAborted(false), m_finish(finish), m_progress(progress),
+  m_retryCounter(0)
 {
   // use temporary file for download
   QString tmpFileName(fileName);
@@ -91,9 +95,18 @@ void QtDownload::OnHttpFinished()
   m_file->close();
 
   QVariant redirectionTarget = m_reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
-  if (m_reply->error())
+  QNetworkReply::NetworkError netError = m_reply->error();
+  if (netError)
   {
-    m_file->remove();
+    if (netError <= QNetworkReply::UnknownNetworkError && ++m_retryCounter <= MAX_AUTOMATIC_RETRIES)
+    { // try one more time
+      m_reply->deleteLater();
+      StartRequest();
+      return;
+    }
+    // do not delete file if we can resume it's downloading later
+    if (m_file->pos() == 0)
+      m_file->remove();
     delete m_file;
     m_file = 0;
 
@@ -128,6 +141,7 @@ void QtDownload::OnHttpFinished()
     QFile::remove(originalFileName);
     if (!m_file->rename(originalFileName))
     { // sh*t... file is locked and can't be removed
+      m_file->remove();
       // report error to GUI
       LOG(LERROR, ("File exists and can't be replaced by downloaded one:", qPrintable(originalFileName)));
       resultForGui = false;
