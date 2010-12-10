@@ -7,7 +7,10 @@
 
 @required
 - (void) OnLocation: (m2::PointD const &) mercatorPoint 
+withConfidenceRadius: (double) confidenceRadius
 			withTimestamp: (NSDate *) timestamp;
+- (void) OnHeading: (double) heading
+		 withTimestamp: (NSDate *) timestamp;
 - (void) OnLocationError: (NSString *) errorDescription;
 @end
 
@@ -31,6 +34,9 @@
 - (void) locationManager: (CLLocationManager *) manager
      didUpdateToLocation: (CLLocation *) newLocation
             fromLocation: (CLLocation *) oldLocation;
+
+- (void) locationManager: (CLLocationManager *) manager
+				didUpdateHeading: (CLHeading *) newHeading;
 
 - (void) locationManager: (CLLocationManager *) manager
         didFailWithError: (NSError *) error;

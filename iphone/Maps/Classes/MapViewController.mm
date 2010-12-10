@@ -68,13 +68,28 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 	return self;
 }
 
-- (void) OnLocation: (m2::PointD const &) mercatorPoint withTimestamp: (NSDate *) timestamp
+- (void) OnHeading: (double) heading
+		 withTimestamp: (NSDate *)timestamp
+{
+	NSTimeInterval secondsFromLastUpdate = [timestamp timeIntervalSinceNow];
+	if (fabs(secondsFromLastUpdate)< MAX_SECONDS_INTERVAL_FOR_RECENT_LOCATION)
+		[m_locationController Stop];
+	m_framework->SetHeading(heading);
+}
+
+
+- (void) OnLocation: (m2::PointD const &) mercatorPoint 
+withConfidenceRadius: (double) confidenceRadius
+			withTimestamp: (NSDate *) timestamp
 {
 	// stop location update to preserve battery, but only if received location is up to date
   NSTimeInterval secondsFromLastUpdate = [timestamp timeIntervalSinceNow];
   if (fabs(secondsFromLastUpdate) < MAX_SECONDS_INTERVAL_FOR_RECENT_LOCATION)
   	[m_locationController Stop];
-  m_framework->SetMyPosition(mercatorPoint);
+	
+  m_framework->SetPosition(mercatorPoint, confidenceRadius);
+//	m_framework->SetConfidenceRadius()
+//	m_framework->SetHeading(headingVector);
 }
 
 - (void) OnLocationError: (NSString *) errorDescription

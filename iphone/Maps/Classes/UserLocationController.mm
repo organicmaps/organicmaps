@@ -32,12 +32,23 @@
 
 - (void) Start
 {
+	m_locationManager.headingFilter = 5;
+	
   [m_locationManager startUpdatingLocation];
+	[m_locationManager startUpdatingHeading];
 }
 
 - (void) Stop
 {
 	[m_locationManager stopUpdatingLocation];
+	[m_locationManager stopUpdatingHeading];
+}
+
+- (void) locationManager: (CLLocationManager *) manager
+				didUpdateHeading:	(CLHeading *) newHeading
+{
+	double trueHeading = [newHeading trueHeading];
+	[self.delegate OnHeading: trueHeading withTimeStamp: newHeading.timestamp];
 }
 
 - (void) locationManager: (CLLocationManager *) manager
@@ -46,7 +57,11 @@
 {
 	m2::PointD mercPoint(MercatorBounds::LonToX(newLocation.coordinate.longitude),
   										 MercatorBounds::LatToY(newLocation.coordinate.latitude));
-	[self.delegate OnLocation: mercPoint withTimestamp: newLocation.timestamp];
+	
+	double confidenceRadius = sqrt(newLocation.horizontalAccuracy * newLocation.horizontalAccuracy 
+															 + newLocation.verticalAccuracy * newLocation.verticalAccuracy);*/
+	
+	[self.delegate OnLocation: mercPoint withConfidenceRadius: confidenceRadius withTimestamp: newLocation.timestamp];
 }
 
 - (void) locationManager: (CLLocationManager *) manager

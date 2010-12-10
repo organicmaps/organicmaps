@@ -16,6 +16,7 @@
 #include "../yg/screen.hpp"
 #include "../yg/color.hpp"
 #include "../yg/render_state.hpp"
+#include "../yg/skin.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/file_writer.hpp"
@@ -91,6 +92,13 @@ class FrameWork
   shared_ptr<window_handle_t> m_windowHandle;
   RenderQueue m_renderQueue;
 
+  bool m_isHeadingEnabled;
+  double m_heading;
+
+  bool m_isPositionEnabled;
+  m2::PointD m_position;
+  double m_confidenceRadius;
+
   void Invalidate()
   {
     m_windowHandle->invalidate();
@@ -152,7 +160,9 @@ class FrameWork
 public:
   FrameWork(shared_ptr<window_handle_t> windowHandle)
     : m_windowHandle(windowHandle),
-      m_renderQueue(GetPlatform().SkinName(), GetPlatform().IsMultiSampled())
+      m_renderQueue(GetPlatform().SkinName(), GetPlatform().IsMultiSampled()),
+      m_isPositionEnabled(false),
+      m_isHeadingEnabled(false)
   {
     m_renderQueue.AddWindowHandle(m_windowHandle);
   }
@@ -298,9 +308,29 @@ public:
 
       m2::PointD const center = m_navigator.Screen().ClipRect().Center();
 
-//      m2::PointD pxCenter = m_navigator.Screen().GtoP(center);
+      if (m_isPositionEnabled)
+      {
 
-//      pDrawer->screen()->drawPoint(pxCenter, 84, 10000);
+        /// Drawing position and heading
+        m2::PointD pxPosition = m_navigator.Screen().GtoP(m_position);
+        pDrawer->screen()->drawPoint(pxPosition - ptShift, 84, 10000);
+        if (m_isHeadingEnabled)
+        {
+          LOG(LINFO, ("Drawing Heading", m_heading));
+          m2::PointD v(0, 1);
+          v.Rotate(m_heading / 180 * math::pi);
+          m2::PointD pts[2] = {m_navigator.Screen().GtoP(m_position),
+                               m_navigator.Screen().GtoP(m_position + v)};
+
+          pDrawer->screen()->drawPath(
+              pts,
+              2,
+              pDrawer->screen()->skin()->mapPenInfo(yg::PenInfo(yg::Color(255, 0, 0, 255), 4, 0, 0, 0)),
+              12000
+              );
+        }
+      }
+
 
       OGLCHECK(glPopMatrix());
 
@@ -309,9 +339,22 @@ public:
     }
   }
 
-  void SetMyPosition(m2::PointD const & mercatorPoint)
+  void SetPosition(m2::PointD const & mercatorPos, double confidenceRadius)
   {
-    m_navigator.CenterViewport(mercatorPoint);
+    m_isPositionEnabled = true;
+
+    m_position = mercatorPos;
+    m_confidenceRadius = confidenceRadius;
+
+    m_navigator.CenterViewport(mercatorPos);
+    UpdateNow();
+  }
+
+  void SetHeading(double heading)
+  {
+    m_isHeadingEnabled = true;
+    m_heading = heading;
+
     UpdateNow();
   }
 
