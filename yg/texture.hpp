@@ -300,7 +300,7 @@ namespace yg
     }
 
     template <typename Traits>
-    void Texture<Traits, true>::fill(yg::Color const & c)
+    void Texture<Traits, true>::fill(yg::Color const & /*c*/)
     {
 /*      makeCurrent();
       lock();

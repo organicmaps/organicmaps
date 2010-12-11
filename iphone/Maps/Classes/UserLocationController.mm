@@ -32,10 +32,17 @@
 
 - (void) Start
 {
-	m_locationManager.headingFilter = 5;
+
 	
   [m_locationManager startUpdatingLocation];
-	[m_locationManager startUpdatingHeading];
+	if ([m_locationManager headingAvailable])
+	{
+		m_locationManager.headingFilter = 5;
+		[m_locationManager startUpdatingHeading];
+	}
+	else
+		NSLog(@"heading information is not available");
+
 }
 
 - (void) Stop
@@ -59,7 +66,13 @@
   										 MercatorBounds::LatToY(newLocation.coordinate.latitude));
 	
 	double confidenceRadius = sqrt(newLocation.horizontalAccuracy * newLocation.horizontalAccuracy 
-															 + newLocation.verticalAccuracy * newLocation.verticalAccuracy);*/
+															 + newLocation.verticalAccuracy * newLocation.verticalAccuracy);
+	
+	m2::RectD errorRect = MercatorBounds::ErrorToRadius(newLocation.coordinate.longitude, 
+																											newLocation.coordinate.latitude,
+																											confidenceRadius);
+	
+	confidenceRadius = sqrt((errorRect.SizeX() * errorRect.SizeX() + errorRect.SizeY() * errorRect.SizeY()) / 4);
 	
 	[self.delegate OnLocation: mercPoint withConfidenceRadius: confidenceRadius withTimestamp: newLocation.timestamp];
 }

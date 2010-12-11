@@ -22,7 +22,9 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
   
 - (void) OnMyPositionClicked: (id)sender
 {
+	[m_locationController Stop];
 	[m_locationController Start];
+	m_isDirtyPosition = true;
 }
 
 - (void) OnSettingsClicked: (id)sender
@@ -56,7 +58,8 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 		m_locationController = [[UserLocationController alloc] initWithDelegate:self];
 		
 		m_CurrentAction = NOTHING;
-
+    m_isDirtyPosition = false;
+		
 		// initialize with currently active screen orientation
     [self didRotateFromInterfaceOrientation: self.interfaceOrientation];
     
@@ -88,8 +91,12 @@ withConfidenceRadius: (double) confidenceRadius
   	[m_locationController Stop];
 	
   m_framework->SetPosition(mercatorPoint, confidenceRadius);
-//	m_framework->SetConfidenceRadius()
-//	m_framework->SetHeading(headingVector);
+	
+	if (m_isDirtyPosition)
+	{
+		m_framework->CenterViewport();
+		m_isDirtyPosition = false;
+	}
 }
 
 - (void) OnLocationError: (NSString *) errorDescription

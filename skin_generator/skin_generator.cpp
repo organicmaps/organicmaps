@@ -9,11 +9,45 @@
 #include "../std/iterator.hpp"
 #include "../std/fstream.hpp"
 #include "../std/iostream.hpp"
+#include "../base/logging.hpp"
 
 #include <ft2build.h>
+
 #include FT_FREETYPE_H
+#include FT_STROKER_H
 #include FT_GLYPH_H
 
+#undef __FTERRORS_H__
+#define FT_ERRORDEF( e, v, s )  { e, s },
+#define FT_ERROR_START_LIST     {
+#define FT_ERROR_END_LIST       { 0, 0 } };
+
+const struct
+{
+  int          err_code;
+  const char*  err_msg;
+} ft_errors[] =
+
+#include FT_ERRORS_H
+
+void CheckError(FT_Error error)
+{
+  if (error != 0)
+  {
+    int i = 0;
+    while (ft_errors[i].err_code != 0)
+    {
+      if (ft_errors[i].err_code == error)
+      {
+        LOG(LERROR, (ft_errors[i].err_msg));
+        break;
+      }
+      ++i;
+    }
+  }
+}
+
+#define FTCHECK(x) do {FT_Error e = (x); CheckError(e);} while (false)
 
 namespace gil = boost::gil;
 
@@ -42,10 +76,16 @@ namespace tools
     fclose(file);
 
     FT_Library lib;
-    FT_Init_FreeType(&lib);
+    FT_Error error;
+    FTCHECK(FT_Init_FreeType(&lib));
 
     FT_Face face;
-    FT_New_Face(lib, fileName.c_str(), 0, &face);
+    FTCHECK(FT_New_Face(lib, fileName.c_str(), 0, &face));
+
+    FT_Stroker stroker;
+    FTCHECK(FT_Stroker_New(lib, &stroker));
+    size_t outlineWidth = 10;
+    FT_Stroker_Set(stroker, outlineWidth * 64, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
 
     FT_Glyph_Metrics glyphMetrics;
 
@@ -59,7 +99,8 @@ namespace tools
 
       fontInfo.m_size = fontSizes[i];
 
-      FT_Set_Pixel_Sizes(face, 0, fontSizes[i]);
+      FTCHECK(FT_Set_Pixel_Sizes(face, 0, fontSizes[i]));
+//      FTCHECK(FT_Set_Pixel_Sizes(face, 0, 200));
       for (size_t j = 0; j < ucs2Symbols.size(); ++j)
       {
         unsigned short symbol = ucs2Symbols[j];
@@ -69,7 +110,7 @@ namespace tools
         if (symbolIdx == 0)
           continue;
 
-        FT_Load_Glyph(face, symbolIdx, FT_LOAD_DEFAULT);
+        FTCHECK(FT_Load_Glyph(face, symbolIdx, FT_LOAD_DEFAULT));
         glyphMetrics = face->glyph->metrics;
 
         CharInfo charInfo;
@@ -79,13 +120,26 @@ namespace tools
         charInfo.m_yOffset = int(glyphMetrics.horiBearingY >> 6) - charInfo.m_height;
         charInfo.m_xAdvance = int(glyphMetrics.horiAdvance >> 6);
 
-        FT_GlyphSlot glyphSlot = face->glyph;
         if ((charInfo.m_width != 0) && (charInfo.m_height != 0))
         {
-          FT_Render_Glyph(glyphSlot, FT_RENDER_MODE_NORMAL);
+          FT_GlyphSlot glyphSlot = face->glyph;
 
+          FTCHECK(FT_Render_Glyph(glyphSlot, FT_RENDER_MODE_NORMAL));
+
+/*          FT_Glyph strokedGlyph;
+          FTCHECK(FT_Get_Glyph(face->glyph, &strokedGlyph));
+
+          FTCHECK(FT_Glyph_Stroke(&strokedGlyph, stroker, 1));
+          FTCHECK(FT_Glyph_To_Bitmap(&strokedGlyph, FT_RENDER_MODE_NORMAL, 0, 0));
+*/
           typedef gil::gray8_pixel_t pixel_t;
 
+/*          gil::gray8c_view_t grayview = gil::interleaved_view(
+              charInfo.m_width,
+              charInfo.m_height,
+              (pixel_t*)((FT_BitmapGlyph)strokedGlyph)->bitmap.buffer,
+              sizeof(unsigned char) * ((FT_BitmapGlyph)strokedGlyph)->bitmap.width);
+*/
           gil::gray8c_view_t grayview = gil::interleaved_view(
               charInfo.m_width,
               charInfo.m_height,
@@ -94,6 +148,13 @@ namespace tools
 
           charInfo.m_image.recreate(charInfo.m_width, charInfo.m_height);
           gil::copy_pixels(grayview, gil::view(charInfo.m_image));
+
+ /*        gil::lodepng_write_view(
+            "testchar.png",
+            gil::view(charInfo.m_image));
+
+          FT_Done_Glyph(strokedGlyph);
+  */
         }
 
         fontInfo.m_chars[symbol] = charInfo;

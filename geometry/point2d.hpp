@@ -160,6 +160,14 @@ namespace m2
   }
 
   template <typename T>
+      Point<T> const Rotate(Point<T> const & pt, T a)
+  {
+    Point<T> res(pt);
+    res.Rotate(a);
+    return res;
+  }
+
+  template <typename T>
   bool IsPointStrictlyInsideTriangle(Point<T> const & p,
                                      Point<T> const & a, Point<T> const & b, Point<T> const & c)
   {

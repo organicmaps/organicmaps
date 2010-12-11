@@ -70,6 +70,11 @@ void DrawerYG::onSize(int w, int h)
   m_pScreen->onSize(w, h);
 }
 
+void DrawerYG::drawSymbol(m2::PointD const & pt, string const & symbolName, int depth)
+{
+  m_pScreen->drawPoint(pt, m_pSkin->mapSymbol(symbolName.c_str()), depth);
+}
+
 void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, int depth)
 {
   // Use BaseRule::m_id to cache for point draw rule.

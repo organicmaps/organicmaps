@@ -21,6 +21,8 @@
 		SCALING
 	} m_CurrentAction; 
 	
+	bool m_isDirtyPosition;
+	
 	m2::PointD m_Pt1, m_Pt2;
 }
 

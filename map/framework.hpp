@@ -308,19 +308,71 @@ public:
 
       m2::PointD const center = m_navigator.Screen().ClipRect().Center();
 
-      if (m_isPositionEnabled)
-      {
+      DrawPosition(pDrawer);
 
-        /// Drawing position and heading
-        m2::PointD pxPosition = m_navigator.Screen().GtoP(m_position);
-        pDrawer->screen()->drawPoint(pxPosition - ptShift, 84, 10000);
-        if (m_isHeadingEnabled)
+      OGLCHECK(glPopMatrix());
+
+      pDrawer->drawStats(state.m_duration, GetCurrentScale(),
+                         MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x));
+    }
+  }
+
+  void DrawPosition(DrawerYG * pDrawer)
+  {
+    if (m_isPositionEnabled)
+    {
+      m2::PointD ptShift = GetCoordSystemShift();
+      /// Drawing position and heading
+      m2::PointD pxPosition = m_navigator.Screen().GtoP(m_position);
+      pDrawer->drawSymbol(pxPosition - ptShift, "current-position", 12000);
+
+      double pxConfidenceRadius = pxPosition.Length(m_navigator.Screen().GtoP(m_position + m2::PointD(m_confidenceRadius, 0)));
+
+      size_t sectorsCount = 360;
+      vector<m2::PointD> borderPts;
+      vector<m2::PointD> areaPts;
+      m2::PointD prevPt = pxPosition + m2::PointD(pxConfidenceRadius, 0) - ptShift;
+
+      for (size_t i = 0; i < sectorsCount; ++i)
+      {
+        m2::PointD curPt = pxPosition + m2::Rotate(m2::PointD(pxConfidenceRadius, 0), i / 180.0 * math::pi) - ptShift;
+        borderPts.push_back(curPt);
+        if (prevPt != curPt)
+        {
+          areaPts.push_back(pxPosition - ptShift);
+          areaPts.push_back(prevPt);
+          areaPts.push_back(curPt);
+        }
+        prevPt = curPt;
+      }
+
+      borderPts.push_back(pxPosition + m2::PointD(pxConfidenceRadius, 0) - ptShift);
+      areaPts.push_back(pxPosition - ptShift);
+      areaPts.push_back(prevPt);
+      areaPts.push_back(pxPosition + m2::PointD(pxConfidenceRadius, 0) - ptShift);
+
+      pDrawer->screen()->drawPath(
+          &borderPts[0],
+          borderPts.size(),
+          pDrawer->screen()->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 255, 64), 4, 0, 0, 0)),
+          11999
+          );
+
+      pDrawer->screen()->drawTriangles(
+          &areaPts[0],
+          areaPts.size(),
+          pDrawer->screen()->skin()->mapColor(yg::Color(0, 0, 255, 32)),
+          11998);
+
+/*        if (m_isHeadingEnabled)
         {
           LOG(LINFO, ("Drawing Heading", m_heading));
           m2::PointD v(0, 1);
           v.Rotate(m_heading / 180 * math::pi);
           m2::PointD pts[2] = {m_navigator.Screen().GtoP(m_position),
                                m_navigator.Screen().GtoP(m_position + v)};
+
+
 
           pDrawer->screen()->drawPath(
               pts,
@@ -329,13 +381,7 @@ public:
               12000
               );
         }
-      }
-
-
-      OGLCHECK(glPopMatrix());
-
-      pDrawer->drawStats(state.m_duration, GetCurrentScale(),
-                         MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x));
+*/
     }
   }
 
@@ -346,7 +392,12 @@ public:
     m_position = mercatorPos;
     m_confidenceRadius = confidenceRadius;
 
-    m_navigator.CenterViewport(mercatorPos);
+    UpdateNow();
+  }
+
+  void CenterViewport()
+  {
+    m_navigator.CenterViewport(m_position);
     UpdateNow();
   }
 

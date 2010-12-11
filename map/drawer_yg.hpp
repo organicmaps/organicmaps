@@ -70,6 +70,8 @@ public:
 
   DrawerYG(shared_ptr<yg::ResourceManager> const & tm, string const & skinName, bool isAntiAliased);
 
+  void drawSymbol(m2::PointD const & pt, string const & symbolName, int depth);
+
   //render_target_t renderTarget() const;
   void setFrameBuffer(frame_buffer_t frameBuffer);
   //frame_buffer_t frameBuffer() const;
