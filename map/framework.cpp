@@ -98,7 +98,7 @@ namespace fwork
     }                                                   \
   }
 
-  bool DrawProcessor::operator()(feature_t const & f)
+  bool DrawProcessor::operator()(FeatureType const & f)
   {
     if (m_paintEvent->isCancelled())
       throw redraw_operation_cancelled();

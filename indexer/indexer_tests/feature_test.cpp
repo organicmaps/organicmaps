@@ -34,8 +34,6 @@ namespace
 
 UNIT_TEST(Feature_Deserialize)
 {
-  typedef FeatureGeom feature_t;
-
   vector<int> a;
   a.push_back(1);
   a.push_back(2);
@@ -71,7 +69,7 @@ UNIT_TEST(Feature_Deserialize)
   vector<char> serial;
   builder.Serialize(serial);
   vector<char> serial1 = serial;
-  feature_t f(serial1);
+  FeatureType f(serial1);
 
   TEST_EQUAL(f.GetFeatureType(), FeatureBase::FEATURE_TYPE_AREA, ());
 
@@ -103,5 +101,5 @@ UNIT_TEST(Feature_Deserialize)
   builder2.Serialize(serial2);
 
   TEST_EQUAL(serial, serial2,
-             (f.DebugString(), feature_t(serial2).DebugString()));
+             (f.DebugString(), FeatureType(serial2).DebugString()));
 }

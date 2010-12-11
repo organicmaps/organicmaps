@@ -1,6 +1,7 @@
 
 #pragma once
 #include "../../indexer/osm_decl.hpp"
+#include "../../indexer/feature.hpp"
 
 #include "../../geometry/rect2d.hpp"
 
@@ -37,8 +38,6 @@ namespace feature
 
     void Init();
 
-    typedef FeatureGeom feature_t;
-
   public:
     ~FeaturesCollector();
 
@@ -49,6 +48,6 @@ namespace feature
     FeaturesCollector(string const & bucketName, InitDataType const & datFilePrefixSuffix);
 
     void operator() (FeatureBuilder const & f);
-    void operator() (feature_t const & f);
+    void operator() (FeatureType const & f);
   };
 }

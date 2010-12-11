@@ -22,8 +22,6 @@ namespace feature
 template <class FeatureOutT, class FeatureClipperT, class BoundsT, typename CellIdT>
 class CellFeatureBucketer
 {
-  typedef FeatureGeom feature_t;
-
 public:
   CellFeatureBucketer(int level, typename FeatureOutT::InitDataType const & featureOutInitData,
                       int maxWorldZoom = -1)
@@ -45,7 +43,7 @@ public:
     }
   }
 
-  void operator () (feature_t const & f)
+  void operator () (FeatureType const & f)
   {
     // separately store features needed for world map
     if (m_worldBucket && m_maxWorldZoom >= feature::MinDrawableScaleForFeature(f))
@@ -60,7 +58,7 @@ public:
       // Clipper may (or may not) do a better intersection.
       if (m_Buckets[i].m_Rect.IsIntersect(limitRect))
       {
-        feature_t clippedFeature;
+        FeatureType clippedFeature;
         if (clipper(m_Buckets[i].m_Rect, clippedFeature))
         {
           if (!m_Buckets[i].m_pOut)
@@ -76,7 +74,7 @@ public:
   {
     vector<char> data;
     fb.Serialize(data);
-    feature_t f;
+    FeatureType f;
     f.Deserialize(data);
     this->operator()(f);
   }
@@ -113,21 +111,19 @@ private:
 
 class SimpleFeatureClipper
 {
-  typedef FeatureGeom feature_t;
-
 public:
-  explicit SimpleFeatureClipper(feature_t const & f) : m_Feature(f)
+  explicit SimpleFeatureClipper(FeatureType const & f) : m_Feature(f)
   {
   }
 
-  bool operator () (m2::RectD const & /*rect*/, feature_t & clippedFeature) const
+  bool operator () (m2::RectD const & /*rect*/, FeatureType & clippedFeature) const
   {
     clippedFeature = m_Feature;
     return true;
   }
 
 private:
-  feature_t const & m_Feature;
+  FeatureType const & m_Feature;
 };
 
 }

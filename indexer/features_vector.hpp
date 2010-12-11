@@ -11,8 +11,6 @@
 template <typename ReaderT>
 class FeaturesVector
 {
-  typedef FeatureGeom feature_t;
-
 public:
   typedef ReaderT ReaderType;
 
@@ -20,7 +18,7 @@ public:
   {
   }
 
-  void Get(uint64_t pos, feature_t & feature) const
+  void Get(uint64_t pos, FeatureType & feature) const
   {
     vector<char> record;
     uint32_t offset;
@@ -30,14 +28,14 @@ public:
 
   template <class TDo> void ForEachOffset(TDo const & toDo) const
   {
-    feature_t f;
+    FeatureType f;
     m_RecordReader.ForEachRecord(
         bind<void>(toDo, bind(&FeaturesVector<ReaderT>::DeserializeFeature, this, _2, _3, &f), _1));
   }
 
   template <class TDo> void ForEach(TDo const & toDo) const
   {
-    feature_t f;
+    FeatureType f;
     m_RecordReader.ForEachRecord(
         bind<void>(toDo, bind(&FeaturesVector<ReaderT>::DeserializeFeature, this, _2, _3, &f)));
   }
@@ -48,7 +46,7 @@ public:
   }
 
 private:
-  feature_t const & DeserializeFeature(char const * data, uint32_t size, feature_t * pFeature) const
+  FeatureType const & DeserializeFeature(char const * data, uint32_t size, FeatureType * pFeature) const
   {
     vector<char> data1(data, data + size);
     pFeature->Deserialize(data1);

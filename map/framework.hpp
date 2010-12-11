@@ -9,6 +9,7 @@
 #include "../indexer/data_header_reader.hpp"
 #include "../indexer/data_header.hpp"
 #include "../indexer/scales.hpp"
+#include "../indexer/feature.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -35,8 +36,6 @@
 #include "../base/start_mem_debug.hpp"
 
 
-class FeatureGeom;
-
 namespace di { class DrawInfo; }
 namespace drule { class BaseRule; }
 
@@ -44,8 +43,6 @@ class redraw_operation_cancelled {};
 
 namespace fwork
 {
-  typedef FeatureGeom feature_t;
-
   class DrawProcessor
   {
     m2::RectD m_rect;
@@ -71,7 +68,8 @@ namespace fwork
                   shared_ptr<PaintEvent> paintEvent,
                   int scaleLevel);
 
-    bool operator() (feature_t const & f);
+
+    bool operator() (FeatureType const & f);
   };
 }
 

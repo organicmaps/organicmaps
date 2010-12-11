@@ -11,8 +11,6 @@
 
 namespace
 {
-  typedef FeatureGeom feature_t;
-
   class PushBackFeatureDebugStringOutput
   {
   public:
@@ -21,7 +19,7 @@ namespace
     PushBackFeatureDebugStringOutput(string const & name, InitDataType const & initData)
       : m_pContainer(&((*initData)[name])) {}
 
-    void operator() (feature_t const & feature)
+    void operator() (FeatureType const & feature)
     {
       m_pContainer->push_back(feature.DebugString());
     }
@@ -37,11 +35,11 @@ namespace
       RectId
   > FeatureBucketer;
 
-  feature_t MakeFeature(FeatureBuilder const & fb)
+  FeatureType MakeFeature(FeatureBuilder const & fb)
   {
     vector<char> data;
     fb.Serialize(data);
-    return feature_t(data, 0);
+    return FeatureType(data, 0);
   }
 }
 

@@ -166,12 +166,12 @@ void FeaturesCollector::operator() (FeatureBuilder const & f)
     WriteVarUint(m_datFile, sz);
     m_datFile.Write(&bytes[0], sz);
 
-    feature_t f(bytes);
+    FeatureType f(bytes);
     m_bounds.Add(f.GetLimitRect());
   }
 }
 
-void FeaturesCollector::operator() (feature_t const & f)
+void FeaturesCollector::operator() (FeatureType const & f)
 {
   FeatureBuilder fb;
   f.InitFeatureBuilder(fb);

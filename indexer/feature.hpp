@@ -258,3 +258,6 @@ inline string debug_print(FeatureGeom const & f)
 {
   return f.DebugString();
 }
+
+
+typedef FeatureGeom FeatureType;

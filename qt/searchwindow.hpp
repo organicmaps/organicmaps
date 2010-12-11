@@ -31,20 +31,18 @@ namespace qt
     FindEditorWnd * m_pEditor;
     model_t * m_pModel;
 
-    typedef FeatureGeom feature_t;
-
   public:
     FindTableWnd(QWidget * pParent, FindEditorWnd * pEditor, model_t * pModel);
 
-    feature_t const & GetFeature(size_t row) const;
+    FeatureType const & GetFeature(size_t row) const;
 
   protected:
-    bool AddFeature(feature_t const & f);
+    bool AddFeature(FeatureType const & f);
 
   protected Q_SLOTS:
     void OnTextChanged(QString const & s);
 
   private:
-    vector<feature_t> m_features;
+    vector<FeatureType> m_features;
   };
 }
