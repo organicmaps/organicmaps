@@ -161,8 +161,8 @@ public:
   FrameWork(shared_ptr<window_handle_t> windowHandle)
     : m_windowHandle(windowHandle),
       m_renderQueue(GetPlatform().SkinName(), GetPlatform().IsMultiSampled()),
-      m_isPositionEnabled(false),
-      m_isHeadingEnabled(false)
+      m_isHeadingEnabled(false),
+      m_isPositionEnabled(false)
   {
     m_renderQueue.AddWindowHandle(m_windowHandle);
   }
