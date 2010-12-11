@@ -60,7 +60,8 @@ public:
     {
       uint32_t offset;
       uint64_t nextPos = ReadRecord(pos, buffer, offset);
-      f(pos, &buffer[offset], buffer.size() - offset);
+      // uint64_t -> uint32_t : assume that feature dat file not more than 4Gb
+      f(static_cast<uint32_t>(pos), &buffer[offset], static_cast<uint32_t>(buffer.size() - offset));
       pos = nextPos;
     }
     ASSERT_EQUAL(pos, m_ReaderSize, ());

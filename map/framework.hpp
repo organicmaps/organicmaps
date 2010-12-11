@@ -5,7 +5,6 @@
 #include "render_queue.hpp"
 
 #include "../indexer/drawing_rule_def.hpp"
-#include "../indexer/feature.hpp"
 #include "../indexer/mercator.hpp"
 #include "../indexer/data_header_reader.hpp"
 #include "../indexer/data_header.hpp"
@@ -35,7 +34,9 @@
 
 #include "../base/start_mem_debug.hpp"
 
-class Feature;
+
+class FeatureGeom;
+
 namespace di { class DrawInfo; }
 namespace drule { class BaseRule; }
 
@@ -43,6 +44,8 @@ class redraw_operation_cancelled {};
 
 namespace fwork
 {
+  typedef FeatureGeom feature_t;
+
   class DrawProcessor
   {
     m2::RectD m_rect;
@@ -68,7 +71,7 @@ namespace fwork
                   shared_ptr<PaintEvent> paintEvent,
                   int scaleLevel);
 
-    bool operator() (Feature const & f);
+    bool operator() (feature_t const & f);
   };
 }
 
@@ -424,11 +427,11 @@ public:
     UpdateNow();
   }
 
-  void ShowFeature(Feature const & f)
-  {
-    m_navigator.SetFromRect(f.GetLimitRect());
-    Repaint();
-  }
+  //void ShowFeature(Feature const & f)
+  //{
+  //  m_navigator.SetFromRect(f.GetLimitRect());
+  //  Repaint();
+  //}
 
   void Repaint()
   {

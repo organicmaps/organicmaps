@@ -1,8 +1,9 @@
 #pragma once
 #include "../base/base.hpp"
+
 #include "../std/vector.hpp"
 #include "../std/memcpy.hpp"
-#include "../base/start_mem_debug.hpp"
+
 
 class ArrayByteSource
 {
@@ -56,5 +57,3 @@ private:
   TStorage & m_Storage;
   size_t m_InitialStorageSize;
 };
-
-#include "../base/stop_mem_debug.hpp"

@@ -112,16 +112,16 @@ namespace
   };
 }
 
-int GetDrawRule(Feature const & f, int level, vector<drule::Key> & keys, string & names)
+int GetDrawRule(FeatureBase const & f, int level, vector<drule::Key> & keys, string & names)
 {
-  Feature::FeatureType const geoType = f.GetFeatureType();
-  if (geoType == Feature::FEATURE_TYPE_UNKNOWN)
+  FeatureBase::FeatureType const geoType = f.GetFeatureType();
+  if (geoType == FeatureBase::FEATURE_TYPE_UNKNOWN)
   {
     ASSERT ( false, ("Logic Error! Unknown feature type.") );
-    return Feature::FEATURE_TYPE_UNKNOWN;
+    return FeatureBase::FEATURE_TYPE_UNKNOWN;
   }
 
-  Feature::GetTypesFn types;
+  FeatureBase::GetTypesFn types;
   f.ForEachTypeRef(types);
 
   ASSERT ( keys.empty(), () );
@@ -196,13 +196,13 @@ bool IsDrawableLike(vector<uint32_t> const & types, feature_geo_t ft)
   return false;
 }
 
-bool IsDrawableForIndex(Feature const & f, int level)
+bool IsDrawableForIndex(FeatureBase const & f, int level)
 {
-  if (f.GetFeatureType() == Feature::FEATURE_TYPE_AREA)
+  if (f.GetFeatureType() == FeatureBase::FEATURE_TYPE_AREA)
     if (!scales::IsGoodForLevel(level, f.GetLimitRect()))
       return false;
 
-  Feature::GetTypesFn types;
+  FeatureBase::GetTypesFn types;
   f.ForEachTypeRef(types);
 
   Classificator const & c = classif();
@@ -215,15 +215,15 @@ bool IsDrawableForIndex(Feature const & f, int level)
   return false;
 }
 
-uint32_t MinDrawableScaleForFeature(Feature const & f)
+int MinDrawableScaleForFeature(FeatureBase const & f)
 {
-  uint32_t const upBound = scales::GetUpperScale();
+  int const upBound = scales::GetUpperScale();
 
-  for (uint32_t level = 0; level <= upBound; ++level)
+  for (int level = 0; level <= upBound; ++level)
     if (feature::IsDrawableForIndex(f, level))
       return level;
 
-  return uint32_t(-1);
+  return -1;
 }
 
 }

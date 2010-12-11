@@ -68,13 +68,15 @@ namespace
   };
 }
 
-vector<int64_t> covering::CoverFeature(Feature const & feature)
+vector<int64_t> covering::CoverFeature(FeatureGeom const & feature)
 {
   vector<CoordPointT> geometry;
   feature.ForEachPoint(MakeBackInsertFunctor(geometry));
+
   ASSERT(!geometry.empty(), ());
   if (geometry.empty())
     return vector<int64_t>();
+
   vector<RectId> ids;
   if (geometry.size() > 1)
     // TODO: Tweak CoverPolyLine() depth level.

@@ -98,7 +98,7 @@ namespace fwork
     }                                                   \
   }
 
-  bool DrawProcessor::operator()(Feature const & f)
+  bool DrawProcessor::operator()(feature_t const & f)
   {
     if (m_paintEvent->isCancelled())
       throw redraw_operation_cancelled();
@@ -123,11 +123,11 @@ namespace fwork
     bool isExist = false;
     switch (type)
     {
-    case Feature::FEATURE_TYPE_POINT:
+    case FeatureBase::FEATURE_TYPE_POINT:
       GET_POINTS(get_pts::one_point, ForEachPointRef, assign_point)
       break;
 
-    case Feature::FEATURE_TYPE_AREA:
+    case FeatureBase::FEATURE_TYPE_AREA:
       GET_POINTS(filter_screenpts_adapter<area_tess_points>, ForEachTriangleExRef, assign_area)
       {
         // if area feature has any line-drawing-rules, than draw it like line
@@ -138,11 +138,11 @@ namespace fwork
       }
 
     draw_line:
-    case Feature::FEATURE_TYPE_LINE:
+    case FeatureBase::FEATURE_TYPE_LINE:
       GET_POINTS(filter_screenpts_adapter<path_points>, ForEachPointRef, assign_path)
       break;
 
-    case Feature::FEATURE_TYPE_UNKNOWN:
+    case FeatureBase::FEATURE_TYPE_UNKNOWN:
       ASSERT(0, ("Feature type is unknown"));
     }
 

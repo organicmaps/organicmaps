@@ -2,8 +2,8 @@
 #include "scale_index.hpp"
 #include "feature_visibility.hpp"
 #include "covering.hpp"
-#include "feature.hpp"
 #include "interval_index_builder.hpp"
+#include "cell_id.hpp"
 
 #include "../geometry/covering_stream_optimizer.hpp"
 
@@ -52,7 +52,8 @@ public:
   {
   }
 
-  void operator() (Feature const & f, uint32_t offset) const
+  template <class TFeature>
+  void operator() (TFeature const & f, uint32_t offset) const
   {
     if (FeatureShouldBeIndexed(f))
     {
@@ -64,10 +65,13 @@ public:
     }
   }
 
-  bool FeatureShouldBeIndexed(Feature const & f) const
+  template <class TFeature>
+  bool FeatureShouldBeIndexed(TFeature const & f) const
   {
-    uint32_t const minDrawableScale = feature::MinDrawableScaleForFeature(f);
-    return m_ScaleRange.first <= minDrawableScale && minDrawableScale < m_ScaleRange.second;
+    (void)f.GetLimitRect(); // dummy call to force TFeature::ParseGeometry
+
+    uint32_t const minScale = feature::MinDrawableScaleForFeature(f);
+    return (m_ScaleRange.first <= minScale && minScale < m_ScaleRange.second);
   }
 
 private:
@@ -84,7 +88,8 @@ public:
 
   void operator() (int64_t cellId, uint64_t value) const
   {
-    CellFeaturePair cellFeaturePair(cellId, value);
+    // uint64_t -> uint32_t : assume that feature dat file not more than 4Gb
+    CellFeaturePair cellFeaturePair(cellId, static_cast<uint32_t>(value));
     m_Sink.Write(&cellFeaturePair, sizeof(cellFeaturePair));
   }
 

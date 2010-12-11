@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../indexer/feature.hpp"
+
 #include "../std/vector.hpp"
 
 #include <QtGui/QLineEdit>
@@ -30,18 +31,20 @@ namespace qt
     FindEditorWnd * m_pEditor;
     model_t * m_pModel;
 
+    typedef FeatureGeom feature_t;
+
   public:
     FindTableWnd(QWidget * pParent, FindEditorWnd * pEditor, model_t * pModel);
 
-    Feature const & GetFeature(size_t row) const;
+    feature_t const & GetFeature(size_t row) const;
 
   protected:
-    bool AddFeature(Feature const & f);
+    bool AddFeature(feature_t const & f);
 
   protected Q_SLOTS:
     void OnTextChanged(QString const & s);
 
   private:
-    vector<Feature> m_features;
+    vector<feature_t> m_features;
   };
 }

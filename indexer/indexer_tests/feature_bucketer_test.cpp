@@ -1,10 +1,18 @@
 #include "../../testing/testing.hpp"
+
 #include "../indexer_tool/feature_bucketer.hpp"
+
 #include "../feature.hpp"
+#include "../mercator.hpp"
+#include "../cell_id.hpp"
+
 #include "../../base/stl_add.hpp"
+
 
 namespace
 {
+  typedef FeatureGeom feature_t;
+
   class PushBackFeatureDebugStringOutput
   {
   public:
@@ -13,7 +21,7 @@ namespace
     PushBackFeatureDebugStringOutput(string const & name, InitDataType const & initData)
       : m_pContainer(&((*initData)[name])) {}
 
-    void operator() (Feature const & feature)
+    void operator() (feature_t const & feature)
     {
       m_pContainer->push_back(feature.DebugString());
     }
@@ -29,11 +37,11 @@ namespace
       RectId
   > FeatureBucketer;
 
-  Feature MakeFeature(FeatureBuilder const & fb)
+  feature_t MakeFeature(FeatureBuilder const & fb)
   {
     vector<char> data;
     fb.Serialize(data);
-    return Feature(data, 0);
+    return feature_t(data, 0);
   }
 }
 

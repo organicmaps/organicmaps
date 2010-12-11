@@ -1,12 +1,17 @@
 #include "feature.hpp"
+#include "cell_id.hpp"
+
 #include "../geometry/rect2d.hpp"
+
 #include "../coding/byte_stream.hpp"
 #include "../coding/reader.hpp"
 #include "../coding/varint.hpp"
 #include "../coding/write_to_sink.hpp"
+
 #include "../base/logging.hpp"
-#include "../std/bind.hpp"
-#include "../std/map.hpp"
+
+#include "../base/start_mem_debug.hpp"
+
 
 namespace pts
 {
@@ -20,6 +25,10 @@ namespace pts
     return PointToInt64(p.first, p.second);
   }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// FeatureBuilder implementation
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 FeatureBuilder::FeatureBuilder() : m_Layer(0)
 {
@@ -80,16 +89,16 @@ void FeatureBuilder::Serialize(vector<char> & data) const
   // Serializing header.
   uint8_t header = static_cast<uint8_t>(m_Types.size());
   if (m_Layer != 0)
-    header |= Feature::HEADER_HAS_LAYER;
+    header |= FeatureBase::HEADER_HAS_LAYER;
   if (m_Geometry.size() > 1)
   {
     if (m_Triangles.empty())
-      header |= Feature::HEADER_IS_LINE;
+      header |= FeatureBase::HEADER_IS_LINE;
     else
-      header |= Feature::HEADER_IS_AREA;
+      header |= FeatureBase::HEADER_IS_AREA;
   }
   if (!m_Name.empty())
-    header |= Feature::HEADER_HAS_NAME;
+    header |= FeatureBase::HEADER_HAS_NAME;
   WriteToSink(sink, header);
 
   // Serializing types.
@@ -101,6 +110,13 @@ void FeatureBuilder::Serialize(vector<char> & data) const
   // Serializing layer.
   if (m_Layer != 0)
     WriteVarInt(sink, m_Layer);
+
+  // Serializing name.
+  if (!m_Name.empty())
+  {
+    WriteVarUint(sink, m_Name.size() - 1);
+    sink.Write(&m_Name[0], m_Name.size());
+  }
 
   // Serializing geometry.
   if (m_Geometry.size() == 1)
@@ -123,67 +139,64 @@ void FeatureBuilder::Serialize(vector<char> & data) const
       WriteVarInt(sink, i == 0 ? m_Triangles[i] : (m_Triangles[i] - m_Triangles[i-1]));
   }
 
-  // Serializing name.
-  if (!m_Name.empty())
-  {
-    WriteVarUint(sink, m_Name.size() - 1);
-    sink.Write(&m_Name[0], m_Name.size());
-  }
+  ASSERT ( CheckCorrect(data), () );
+}
 
-
-#ifdef DEBUG
+bool FeatureBuilder::CheckCorrect(vector<char> const & data) const
+{
   vector<char> data1 = data;
-  Feature feature;
+  FeatureGeom feature;
   feature.DeserializeAndParse(data1);
-  FeatureBuilder const fb = feature.GetFeatureBuilder();
-  ASSERT_EQUAL(m_Types, fb.m_Types, (feature.DebugString()));
-  ASSERT_EQUAL(m_Layer, fb.m_Layer, (feature.DebugString()));
-  ASSERT_EQUAL(m_Geometry, fb.m_Geometry, (feature.DebugString()));
-  ASSERT_EQUAL(m_Triangles, fb.m_Triangles, (feature.DebugString()));
-  ASSERT_EQUAL(m_Name, fb.m_Name, (feature.DebugString()));
-  ASSERT(*this == fb, (feature.DebugString()));
-#endif
+  FeatureBuilder fb;
+  feature.InitFeatureBuilder(fb);
+
+  string const s = feature.DebugString();
+
+  ASSERT_EQUAL(m_Types, fb.m_Types, (s));
+  ASSERT_EQUAL(m_Layer, fb.m_Layer, (s));
+  ASSERT_EQUAL(m_Geometry, fb.m_Geometry, (s));
+  ASSERT_EQUAL(m_Triangles, fb.m_Triangles, (s));
+  ASSERT_EQUAL(m_Name, fb.m_Name, (s));
+  ASSERT(*this == fb, (s));
+
+  return true;
 }
 
-Feature FeatureBuilder::GetFeature() const
-{
-  vector<char> data;
-  Serialize(data);
-  Feature feature;
-  feature.Deserialize(data);
-  return feature;
-}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// FeatureBase implementation
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
-Feature::Feature(vector<char> & data, uint32_t offset)
-{
-  Deserialize(data, offset);
-}
-
-void Feature::Deserialize(vector<char> & data, uint32_t offset)
+void FeatureBase::Deserialize(vector<char> & data, uint32_t offset)
 {
   m_Offset = offset;
   m_Data.swap(data);
 
   m_LayerOffset = m_GeometryOffset = m_TrianglesOffset = m_NameOffset = 0;
   m_bTypesParsed = m_bLayerParsed = m_bGeometryParsed = m_bTrianglesParsed = m_bNameParsed = false;
-  m_Layer = m_TriangleCount = 0;
-  m_Geometry.clear();
-  m_Triangles.clear();
+
+  m_Layer = 0;
   m_Name.clear();
   m_LimitRect = m2::RectD();
 }
 
-void Feature::ParseTypes() const
+uint32_t FeatureBase::CalcOffset(ArrayByteSource const & source) const
+{
+  return static_cast<uint32_t>(static_cast<char const *>(source.Ptr()) - DataPtr());
+}
+
+void FeatureBase::ParseTypes() const
 {
   ASSERT(!m_bTypesParsed, ());
+
   ArrayByteSource source(DataPtr() + 1);
   for (size_t i = 0; i < GetTypesCount(); ++i)
     m_Types[i] = ReadVarUint<uint32_t>(source);
-  m_LayerOffset = static_cast<uint32_t>(static_cast<char const *>(source.Ptr()) - DataPtr());
+
   m_bTypesParsed = true;
+  m_LayerOffset = CalcOffset(source);
 }
 
-void Feature::ParseLayer() const
+void FeatureBase::ParseLayer() const
 {
   ASSERT(!m_bLayerParsed, ());
   if (!m_bTypesParsed)
@@ -193,76 +206,31 @@ void Feature::ParseLayer() const
   if (Header() & HEADER_HAS_LAYER)
     m_Layer = ReadVarInt<int32_t>(source);
 
-  m_GeometryOffset = static_cast<uint32_t>(static_cast<char const *>(source.Ptr()) - DataPtr());
   m_bLayerParsed = true;
+  m_NameOffset = CalcOffset(source);
 }
 
-void Feature::ParseGeometry() const
-{
-  ASSERT(!m_bGeometryParsed, ());
-  if (!m_bLayerParsed)
-    ParseLayer();
-  ArrayByteSource source(DataPtr() + m_GeometryOffset);
-  uint32_t const geometrySize =
-      (GetFeatureType() == FEATURE_TYPE_POINT ? 1 : ReadVarUint<uint32_t>(source) + 1);
-  m_Geometry.resize(geometrySize);
-  int64_t id = 0;
-  for (size_t i = 0; i < geometrySize; ++i)
-    m_LimitRect.Add(m_Geometry[i] = pts::ToPoint(id += ReadVarInt<int64_t>(source)));
-  m_TrianglesOffset = static_cast<uint32_t>(static_cast<char const *>(source.Ptr()) - DataPtr());
-  m_bGeometryParsed = true;
-}
-
-void Feature::ParseTriangles() const
-{
-  ASSERT(!m_bTrianglesParsed, ());
-  if (!m_bGeometryParsed)
-    ParseGeometry();
-  ArrayByteSource source(DataPtr() + m_TrianglesOffset);
-  if (GetFeatureType() == FEATURE_TYPE_AREA)
-  {
-    m_TriangleCount = ReadVarUint<uint32_t>(source) + 1;
-    uint32_t const trianglePoints = m_TriangleCount * 3;
-    m_Triangles.resize(trianglePoints);
-    int64_t id = 0;
-    for (size_t i = 0; i < trianglePoints; ++i)
-      m_Triangles[i] = pts::ToPoint(id += ReadVarInt<int64_t>(source));
-  }
-  m_NameOffset = static_cast<uint32_t>(static_cast<char const *>(source.Ptr()) - DataPtr());
-  m_bTrianglesParsed = true;
-}
-
-void Feature::ParseName() const
+void FeatureBase::ParseName() const
 {
   ASSERT(!m_bNameParsed, ());
-  if (!m_bTrianglesParsed)
-    ParseTriangles();
+  if (!m_bLayerParsed)
+    ParseLayer();
+
   ArrayByteSource source(DataPtr() + m_NameOffset);
   if (Header() & HEADER_HAS_NAME)
   {
     m_Name.resize(ReadVarUint<uint32_t>(source) + 1);
     source.Read(&m_Name[0], m_Name.size());
   }
+
   m_bNameParsed = true;
-  ASSERT_EQUAL(static_cast<uint32_t>(static_cast<char const *>(source.Ptr()) - DataPtr()),
-               m_Data.size() - m_Offset, ());
+  m_GeometryOffset = CalcOffset(source);
 }
 
-void Feature::ParseAll() const
+string FeatureBase::DebugString() const
 {
-  if (!m_bNameParsed)
-    ParseName();
-}
+  ASSERT(m_bNameParsed, ());
 
-void Feature::DeserializeAndParse(vector<char> & data, uint32_t offset)
-{
-  Deserialize(data, offset);
-  ParseAll();
-}
-
-string Feature::DebugString() const
-{
-  ParseAll();
   string res("Feature(");
   res +=  "'" + m_Name + "' ";
 
@@ -270,23 +238,105 @@ string Feature::DebugString() const
     res += "Type:" + debug_print(m_Types[i]) + " ";
 
   res += "Layer:" + debug_print(m_Layer) + " ";
+  return res;
+}
+
+void FeatureBase::InitFeatureBuilder(FeatureBuilder & fb) const
+{
+  ASSERT(m_bNameParsed, ());
+
+  fb.AddTypes(m_Types, m_Types + GetTypesCount());
+  fb.AddLayer(m_Layer);
+  fb.AddName(m_Name);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// FeatureGeom implementation
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+FeatureGeom::FeatureGeom(vector<char> & data, uint32_t offset)
+{
+  Deserialize(data, offset);
+}
+
+void FeatureGeom::Deserialize(vector<char> & data, uint32_t offset)
+{
+  base_type::Deserialize(data, offset);
+
+  m_Geometry.clear();
+  m_Triangles.clear();
+}
+
+void FeatureGeom::ParseGeometry() const
+{
+  ASSERT(!m_bGeometryParsed, ());
+  if (!m_bNameParsed)
+    ParseName();
+
+  ArrayByteSource source(DataPtr() + m_GeometryOffset);
+  uint32_t const geometrySize =
+    (GetFeatureType() == FEATURE_TYPE_POINT ? 1 : ReadVarUint<uint32_t>(source) + 1);
+
+  m_Geometry.resize(geometrySize);
+  int64_t id = 0;
+  for (size_t i = 0; i < geometrySize; ++i)
+    m_LimitRect.Add(m_Geometry[i] = pts::ToPoint(id += ReadVarInt<int64_t>(source)));
+
+  m_bGeometryParsed = true;
+  m_TrianglesOffset = CalcOffset(source);
+}
+
+void FeatureGeom::ParseTriangles() const
+{
+  ASSERT(!m_bTrianglesParsed, ());
+  if (!m_bGeometryParsed)
+    ParseGeometry();
+
+  ArrayByteSource source(DataPtr() + m_TrianglesOffset);
+  if (GetFeatureType() == FEATURE_TYPE_AREA)
+  {
+    uint32_t const trgPoints = (ReadVarUint<uint32_t>(source) + 1) * 3;
+    m_Triangles.resize(trgPoints);
+    int64_t id = 0;
+    for (size_t i = 0; i < trgPoints; ++i)
+      m_Triangles[i] = pts::ToPoint(id += ReadVarInt<int64_t>(source));
+  }
+
+  m_bTrianglesParsed = true;
+  ASSERT_EQUAL ( CalcOffset(source), m_Data.size() - m_Offset, () );
+}
+
+void FeatureGeom::ParseAll() const
+{
+  if (!m_bTrianglesParsed)
+    ParseTriangles();
+}
+
+void FeatureGeom::DeserializeAndParse(vector<char> & data, uint32_t offset)
+{
+  Deserialize(data, offset);
+  ParseAll();
+}
+
+string FeatureGeom::DebugString() const
+{
+  ParseAll();
+  string res = base_type::DebugString();
   res += debug_print(m_Geometry) + " ";
   res += debug_print(m_Triangles) + ")";
   return res;
 }
 
-FeatureBuilder Feature::GetFeatureBuilder() const
+void FeatureGeom::InitFeatureBuilder(FeatureBuilder & fb) const
 {
   ParseAll();
-  FeatureBuilder fb;
-  fb.AddTypes(m_Types, m_Types + GetTypesCount());
-  fb.AddLayer(m_Layer);
+  base_type::InitFeatureBuilder(fb);
+
   for (size_t i = 0; i < m_Geometry.size(); ++i)
     fb.AddPoint(m_Geometry[i]);
+
   ASSERT_EQUAL(m_Triangles.size() % 3, 0, ());
   uint32_t const triangleCount = m_Triangles.size() / 3;
   for (size_t i = 0; i < triangleCount; ++i)
     fb.AddTriangle(m_Triangles[3*i + 0], m_Triangles[3*i + 1], m_Triangles[3*i + 2]);
-  fb.AddName(m_Name);
-  return fb;
 }

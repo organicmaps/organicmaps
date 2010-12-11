@@ -9,8 +9,8 @@
 
 namespace feature
 {
-  template <typename TSource>
-  void ReadFromSource(TSource & src, Feature & ft)
+  template <class TSource, class TFeature>
+  void ReadFromSource(TSource & src, TFeature & ft)
   {
     uint32_t const sz = ReadVarUint<uint32_t>(src);
     vector<char> buffer(sz);
@@ -40,7 +40,7 @@ namespace feature
     // read features one by one
     while (currPos < fSize)
     {
-      Feature ft;
+      FeatureGeom ft;
       ReadFromSource(src, ft);
       toDo(ft, currPos);
       currPos = src.Pos();

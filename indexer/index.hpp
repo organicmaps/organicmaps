@@ -150,17 +150,21 @@ private:
   FeatureVectorT m_FeatureVector;
 
   template <typename F>
-  struct OffsetToFeatureReplacer
+  class OffsetToFeatureReplacer
   {
+    typedef FeatureGeom feature_t;
+
+    FeatureVectorT const & m_V;
+    F const & m_F;
+
+  public:
     OffsetToFeatureReplacer(FeatureVectorT const & v, F const & f) : m_V(v), m_F(f) {}
     void operator() (uint32_t offset) const
     {
-      Feature feature;
+      feature_t feature;
       m_V.Get(offset, feature);
       m_F(feature);
     }
-    FeatureVectorT const & m_V;
-    F const & m_F;
   };
 };
 

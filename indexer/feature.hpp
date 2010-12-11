@@ -1,7 +1,5 @@
 #pragma once
 
-#include "cell_id.hpp"
-
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 
@@ -9,10 +7,9 @@
 
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
-#include "../std/iterator.hpp"
-#include "../std/algorithm.hpp"
 
-class Feature;
+class ArrayByteSource;
+
 
 class FeatureBuilder
 {
@@ -39,15 +36,14 @@ public:
 
   void Serialize(vector<char> & data) const;
 
-  // Returns corresponding feature. Does Serialize() and feature.Deserialize() internally.
-  Feature GetFeature() const;
-
   bool IsGeometryClosed() const;
   size_t GetPointsCount() const { return m_Geometry.size(); }
 
   bool operator == (FeatureBuilder const &) const;
 
 private:
+  bool CheckCorrect(vector<char> const & data) const;
+
   int32_t m_Layer;
   string m_Name;
   vector<uint32_t> m_Types;
@@ -55,7 +51,7 @@ private:
   vector<int64_t> m_Triangles;
 };
 
-class Feature
+class FeatureBase
 {
 public:
   enum FeatureType
@@ -66,15 +62,14 @@ public:
     FEATURE_TYPE_UNKNOWN = 17
   };
 
-  Feature() {}
-  Feature(vector<char> & data, uint32_t offset = 0);
+  FeatureBase() {}
 
+  /// @name Use like polymorfic functions. Need to overwrite in derived classes.
+  //@{
   void Deserialize(vector<char> & data, uint32_t offset = 0);
-  void DeserializeAndParse(vector<char> & data, uint32_t offset = 0);
-
   string DebugString() const;
-
-  FeatureBuilder GetFeatureBuilder() const;
+  void InitFeatureBuilder(FeatureBuilder & fb) const;
+  //@}
 
   inline FeatureType GetFeatureType() const
   {
@@ -96,27 +91,6 @@ public:
     return m_Layer;
   }
 
-  inline m2::RectD GetLimitRect() const
-  {
-    if (!m_bGeometryParsed)
-      ParseGeometry();
-    return m_LimitRect;
-  }
-
-  inline uint32_t GetGeometrySize() const
-  {
-    if (!m_bGeometryParsed)
-      ParseGeometry();
-    return m_Geometry.size();
-  }
-
-  inline uint32_t GetTriangleCount() const
-  {
-    if (!m_bTrianglesParsed)
-      ParseTriangles();
-    return m_TriangleCount;
-  }
-
   inline string GetName() const
   {
     if (!(Header() & HEADER_HAS_NAME))
@@ -124,6 +98,12 @@ public:
     if (!m_bNameParsed)
       ParseName();
     return m_Name;
+  }
+
+  inline m2::RectD GetLimitRect() const
+  {
+    ASSERT(m_bGeometryParsed, ());
+    return m_LimitRect;
   }
 
   class GetTypesFn
@@ -146,6 +126,83 @@ public:
     uint32_t const typeCount = GetTypesCount();
     for (size_t i = 0; i < typeCount; ++i)
       f(m_Types[i]);
+  }
+
+  enum
+  {
+    HEADER_HAS_LAYER = 1U << 7,
+    HEADER_HAS_NAME = 1U << 6,
+    HEADER_IS_AREA = 1U << 5,
+    HEADER_IS_LINE = 1U << 4
+  };
+
+protected:
+  vector<char> m_Data;
+  uint32_t m_Offset;
+
+  inline char const * DataPtr() const { return &m_Data[m_Offset]; }
+  inline uint8_t Header() const { return static_cast<uint8_t>(*DataPtr()); }
+  uint32_t CalcOffset(ArrayByteSource const & source) const;
+
+  mutable uint32_t m_Types[16];
+  mutable int32_t m_Layer;
+  mutable string m_Name;
+
+  mutable m2::RectD m_LimitRect;
+
+  mutable uint32_t m_LayerOffset;
+  mutable uint32_t m_NameOffset;
+  mutable uint32_t m_GeometryOffset;
+  mutable uint32_t m_TrianglesOffset;
+
+  mutable bool m_bTypesParsed;
+  mutable bool m_bLayerParsed;
+  mutable bool m_bNameParsed;
+  mutable bool m_bGeometryParsed;
+  mutable bool m_bTrianglesParsed;
+
+  void ParseTypes() const;
+  void ParseLayer() const;
+  void ParseName() const;
+};
+
+class FeatureGeom : public FeatureBase
+{
+  typedef FeatureBase base_type;
+
+public:
+  FeatureGeom() {}
+  FeatureGeom(vector<char> & data, uint32_t offset = 0);
+
+  /// @name Overwrite from base_type.
+  //@{
+  void Deserialize(vector<char> & data, uint32_t offset = 0);
+  string DebugString() const;
+  void InitFeatureBuilder(FeatureBuilder & fb) const;
+  //@}
+
+  inline m2::RectD GetLimitRect() const
+  {
+    if (!m_bGeometryParsed)
+      ParseGeometry();
+    return base_type::GetLimitRect();
+  }
+
+  void ParseAll() const;
+  void DeserializeAndParse(vector<char> & data, uint32_t offset = 0);
+
+  inline uint32_t GetGeometrySize() const
+  {
+    if (!m_bGeometryParsed)
+      ParseGeometry();
+    return m_Geometry.size();
+  }
+
+  inline uint32_t GetTriangleCount() const
+  {
+    if (!m_bTrianglesParsed)
+      ParseTriangles();
+    return (m_Triangles.size() / 3);
   }
 
   template <typename FunctorT>
@@ -183,49 +240,21 @@ public:
     f.EndPrimitive();
   }
 
-  enum
-  {
-    HEADER_HAS_LAYER = 1U << 7,
-    HEADER_HAS_NAME = 1U << 6,
-    HEADER_IS_AREA = 1U << 5,
-    HEADER_IS_LINE = 1U << 4
-  };
-
 private:
-  vector<char> m_Data;
-  uint32_t m_Offset;
 
-  inline char const * DataPtr() const { return &m_Data[m_Offset]; }
-  inline uint8_t Header() const { return static_cast<uint8_t>(*DataPtr()); }
-
-  mutable uint32_t m_Types[16];
-  mutable int32_t m_Layer;
   mutable vector<m2::PointD> m_Geometry;
-  mutable m2::RectD m_LimitRect;
   mutable vector<m2::PointD> m_Triangles;
-  mutable uint32_t m_TriangleCount;
-  mutable string m_Name;
 
-  mutable uint32_t m_LayerOffset;
-  mutable uint32_t m_GeometryOffset;
-  mutable uint32_t m_TrianglesOffset;
-  mutable uint32_t m_NameOffset;
-
-  mutable bool m_bTypesParsed;
-  mutable bool m_bLayerParsed;
-  mutable bool m_bGeometryParsed;
-  mutable bool m_bTrianglesParsed;
-  mutable bool m_bNameParsed;
-
-  void ParseTypes() const;
-  void ParseLayer() const;
   void ParseGeometry() const;
   void ParseTriangles() const;
-  void ParseName() const;
-  void ParseAll() const;
 };
 
-inline string debug_print(Feature const & f)
+class FeatureGeomRef : public FeatureBase
+{
+
+};
+
+inline string debug_print(FeatureGeom const & f)
 {
   return f.DebugString();
 }

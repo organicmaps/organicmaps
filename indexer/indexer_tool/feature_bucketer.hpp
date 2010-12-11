@@ -9,7 +9,6 @@
 #include "../../indexer/feature.hpp"
 #include "../../indexer/feature_visibility.hpp"
 
-#include "../../std/map.hpp"
 #include "../../std/string.hpp"
 
 #include <boost/scoped_ptr.hpp>
@@ -23,6 +22,8 @@ namespace feature
 template <class FeatureOutT, class FeatureClipperT, class BoundsT, typename CellIdT>
 class CellFeatureBucketer
 {
+  typedef FeatureGeom feature_t;
+
 public:
   CellFeatureBucketer(int level, typename FeatureOutT::InitDataType const & featureOutInitData,
                       int maxWorldZoom = -1)
@@ -44,25 +45,22 @@ public:
     }
   }
 
-  void operator () (Feature const & feature)
+  void operator () (feature_t const & f)
   {
     // separately store features needed for world map
-    if (m_worldBucket
-        && m_maxWorldZoom >= feature::MinDrawableScaleForFeature(feature))
-    {
-      (*m_worldBucket)(feature);
-    }
+    if (m_worldBucket && m_maxWorldZoom >= feature::MinDrawableScaleForFeature(f))
+      (*m_worldBucket)(f);
 
-    FeatureClipperT clipper(feature);
+    FeatureClipperT clipper(f);
     // TODO: Is feature fully inside GetLimitRect()?
-    m2::RectD const limitRect = feature.GetLimitRect();
+    m2::RectD const limitRect = f.GetLimitRect();
     for (uint32_t i = 0; i < m_Buckets.size(); ++i)
     {
       // First quick and dirty limit rect intersection.
       // Clipper may (or may not) do a better intersection.
       if (m_Buckets[i].m_Rect.IsIntersect(limitRect))
       {
-        Feature clippedFeature;
+        feature_t clippedFeature;
         if (clipper(m_Buckets[i].m_Rect, clippedFeature))
         {
           if (!m_Buckets[i].m_pOut)
@@ -74,7 +72,14 @@ public:
     }
   }
 
-  void operator () (FeatureBuilder const & fb) { (*this)(fb.GetFeature()); }
+  void operator () (FeatureBuilder const & fb)
+  {
+    vector<char> data;
+    fb.Serialize(data);
+    feature_t f;
+    f.Deserialize(data);
+    this->operator()(f);
+  }
 
   template <typename F> void GetBucketNames(F f) const
   {
@@ -108,19 +113,21 @@ private:
 
 class SimpleFeatureClipper
 {
+  typedef FeatureGeom feature_t;
+
 public:
-  explicit SimpleFeatureClipper(Feature const & feature) : m_Feature(feature)
+  explicit SimpleFeatureClipper(feature_t const & f) : m_Feature(f)
   {
   }
 
-  bool operator () (m2::RectD const & /*rect*/, Feature & clippedFeature) const
+  bool operator () (m2::RectD const & /*rect*/, feature_t & clippedFeature) const
   {
     clippedFeature = m_Feature;
     return true;
   }
 
 private:
-  Feature const & m_Feature;
+  feature_t const & m_Feature;
 };
 
 }

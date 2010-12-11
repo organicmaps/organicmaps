@@ -25,7 +25,7 @@ FindTableWnd::FindTableWnd(QWidget * pParent, FindEditorWnd * pEditor, model_t *
   connect(m_pEditor, SIGNAL(textChanged(QString const &)), this, SLOT(OnTextChanged(QString const &)));
 }
 
-bool FindTableWnd::AddFeature(Feature const & f)
+bool FindTableWnd::AddFeature(feature_t const & f)
 {
   string name = f.GetName();
 
@@ -61,7 +61,7 @@ void FindTableWnd::OnTextChanged(QString const & s)
   }
 }
 
-Feature const & FindTableWnd::GetFeature(size_t row) const
+FindTableWnd::feature_t const & FindTableWnd::GetFeature(size_t row) const
 {
   ASSERT ( row < m_features.size(), (row, m_features.size()) );
   return m_features[row];

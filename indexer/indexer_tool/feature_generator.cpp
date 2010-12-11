@@ -2,15 +2,22 @@
 #include "feature_bucketer.hpp"
 #include "data_cache_file.hpp"
 #include "osm_element.hpp"
+
 #include "../../indexer/data_header.hpp"
 #include "../../indexer/osm_decl.hpp"
 #include "../../indexer/data_header_reader.hpp"
+#include "../../indexer/mercator.hpp"
+#include "../../indexer/cell_id.hpp"
+
 #include "../../coding/varint.hpp"
+
 #include "../../base/assert.hpp"
 #include "../../base/logging.hpp"
 #include "../../base/stl_add.hpp"
+
 #include "../../std/bind.hpp"
 #include "../../std/unordered_map.hpp"
+
 
 namespace feature
 {
@@ -146,7 +153,7 @@ void FeaturesCollector::operator() (FeatureBuilder const & f)
   // .dat file should be less than 4Gb
   uint64_t const pos = m_datFile.Pos();
   ASSERT_EQUAL ( static_cast<uint64_t>(static_cast<uint32_t>(pos)), pos,
-    ("Feature offset is out of 32bit boundary :(") );
+    ("Feature offset is out of 32bit boundary!") );
 #endif
 
   vector<char> bytes;
@@ -159,9 +166,16 @@ void FeaturesCollector::operator() (FeatureBuilder const & f)
     WriteVarUint(m_datFile, sz);
     m_datFile.Write(&bytes[0], sz);
 
-    Feature feature(bytes);
-    m_bounds.Add(feature.GetLimitRect());
+    feature_t f(bytes);
+    m_bounds.Add(f.GetLimitRect());
   }
+}
+
+void FeaturesCollector::operator() (feature_t const & f)
+{
+  FeatureBuilder fb;
+  f.InitFeatureBuilder(fb);
+  this->operator()(fb);
 }
 
 FeaturesCollector::~FeaturesCollector()

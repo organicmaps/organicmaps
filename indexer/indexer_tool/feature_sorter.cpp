@@ -1,11 +1,10 @@
 #include "feature_sorter.hpp"
 #include "feature_generator.hpp"
 
-#include "../../indexer/data_header.hpp"
-#include "../../indexer/data_header_reader.hpp"
 #include "../../indexer/feature_processor.hpp"
 #include "../../indexer/feature_visibility.hpp"
 #include "../../indexer/scales.hpp"
+#include "../../indexer/cell_id.hpp"
 
 #include "../../platform/platform.hpp"
 
@@ -28,7 +27,7 @@ namespace
   public:
     std::vector<TCellAndOffset> m_vec;
 
-    void operator() (Feature const & ft, uint64_t pos)
+    void operator() (FeatureGeom const & ft, uint64_t pos)
     {
       // reset state
       m_midX = 0.0;
@@ -39,10 +38,10 @@ namespace
       m_midY /= m_counter;
 
       uint64_t const pointAsInt64 = PointToInt64(m_midX, m_midY);
-      uint64_t const featureScale = feature::MinDrawableScaleForFeature(ft);
-      CHECK(featureScale <= scales::GetUpperScale(), ("Dat file contain invisible feature"));
+      uint64_t const minScale = feature::MinDrawableScaleForFeature(ft);
+      CHECK(minScale <= scales::GetUpperScale(), ("Dat file contain invisible feature"));
 
-      uint64_t const order = (featureScale << 59) | (pointAsInt64 >> 5);
+      uint64_t const order = (minScale << 59) | (pointAsInt64 >> 5);
       m_vec.push_back(make_pair(order, pos));
     }
 
@@ -60,7 +59,7 @@ namespace
   }
 
   template <typename TReader>
-  void ReadFeature(TReader const & reader, Feature & ft, uint64_t offset)
+  void ReadFeature(TReader const & reader, FeatureGeom & ft, uint64_t offset)
   {
     ReaderSource<TReader> src(reader);
     src.Skip(offset);
@@ -95,11 +94,12 @@ namespace feature
     {
       FeaturesCollector collector(datFilePath);
       FileReader notSortedFileReader(tempDatFilePath);
-      Feature ft;
+
+      FeatureGeom ft;
       for (size_t i = 0; i < midPoints.m_vec.size(); ++i)
       {
         ReadFeature(notSortedFileReader, ft, midPoints.m_vec[i].second);
-        collector(ft.GetFeatureBuilder());
+        collector(ft);
       }
     }
 

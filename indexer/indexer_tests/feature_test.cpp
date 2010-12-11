@@ -1,6 +1,10 @@
 #include "../../testing/testing.hpp"
+
 #include "../feature.hpp"
+#include "../cell_id.hpp"
+
 #include "../../geometry/point2d.hpp"
+
 #include "../../base/stl_add.hpp"
 
 namespace
@@ -30,6 +34,8 @@ namespace
 
 UNIT_TEST(Feature_Deserialize)
 {
+  typedef FeatureGeom feature_t;
+
   vector<int> a;
   a.push_back(1);
   a.push_back(2);
@@ -65,11 +71,11 @@ UNIT_TEST(Feature_Deserialize)
   vector<char> serial;
   builder.Serialize(serial);
   vector<char> serial1 = serial;
-  Feature f(serial1);
+  feature_t f(serial1);
 
-  TEST_EQUAL(f.GetFeatureType(), Feature::FEATURE_TYPE_AREA, ());
+  TEST_EQUAL(f.GetFeatureType(), FeatureBase::FEATURE_TYPE_AREA, ());
 
-  Feature::GetTypesFn types;
+  FeatureBase::GetTypesFn types;
   f.ForEachTypeRef(types);
   TEST_EQUAL(types.m_types, vector<uint32_t>(arrTypes, arrTypes + typesCount), ());
 
@@ -92,7 +98,10 @@ UNIT_TEST(Feature_Deserialize)
   TEST_LESS(fabs(f.GetLimitRect().maxY() - 1.00), 0.0001, ());
 
   vector<char> serial2;
-  f.GetFeatureBuilder().Serialize(serial2);
+  FeatureBuilder builder2;
+  f.InitFeatureBuilder(builder2);
+  builder2.Serialize(serial2);
+
   TEST_EQUAL(serial, serial2,
-             (f.DebugString(), Feature(serial2).DebugString()));
+             (f.DebugString(), feature_t(serial2).DebugString()));
 }

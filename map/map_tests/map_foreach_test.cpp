@@ -22,7 +22,8 @@
 #include "../../base/start_mem_debug.hpp"
 
 
-typedef vector<pair<Feature, string> > feature_cont_t;
+typedef FeatureGeom feature_t;
+typedef vector<pair<feature_t, string> > feature_cont_t;
 
 class AccumulatorBase
 {
@@ -31,12 +32,12 @@ class AccumulatorBase
   feature_cont_t & m_cont;
 
 protected:
-  bool is_drawable(Feature const & f) const
+  bool is_drawable(feature_t const & f) const
   {
     return feature::IsDrawableForIndex(f, m_scale);
   }
 
-  void add(Feature const & f) const
+  void add(feature_t const & f) const
   {
     string const s = f.DebugString();
     m_cont.push_back(make_pair(f, s));
@@ -49,7 +50,7 @@ public:
     m_scale = scales::GetScaleLevel(r);
   }
 
-  void operator() (Feature const & f) const
+  void operator() (feature_t const & f) const
   {
     ASSERT ( f.DebugString() == f.DebugString(), () );
 
@@ -97,7 +98,7 @@ class AccumulatorEtalon : public AccumulatorBase
 
   m2::RectD m_rect;
 
-  bool is_intersect(Feature const & f) const
+  bool is_intersect(feature_t const & f) const
   {
     IntersectCheck check(m_rect);
     f.ForEachPointRef(check);
@@ -110,7 +111,7 @@ public:
   {
   }
 
-  void operator() (Feature const & f, uint64_t /*offset*/) const
+  void operator() (feature_t const & f, uint64_t /*offset*/) const
   {
     ASSERT ( f.DebugString() == f.DebugString(), () );
 
@@ -215,11 +216,11 @@ namespace
 {
   class FindOffset
   {
-    pair<Feature, string> const & m_test;
+    pair<feature_t, string> const & m_test;
   public:
-    FindOffset(pair<Feature, string> const & test) : m_test(test) {}
+    FindOffset(pair<feature_t, string> const & test) : m_test(test) {}
 
-    void operator() (Feature const & f, uint64_t offset)
+    void operator() (feature_t const & f, uint64_t offset)
     {
       if (f.DebugString() == m_test.second)
       {

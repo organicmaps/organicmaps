@@ -7,7 +7,7 @@
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
 
-class Feature;
+class FeatureBase;
 
 namespace feature
 {
@@ -15,9 +15,9 @@ namespace feature
 
   bool IsDrawableAny(uint32_t type);
   bool IsDrawableLike(vector<uint32_t> const & type, feature_geo_t ft);
-  bool IsDrawableForIndex(Feature const & f, int level);
-  uint32_t MinDrawableScaleForFeature(Feature const & f);
+  bool IsDrawableForIndex(FeatureBase const & f, int level);
+  int MinDrawableScaleForFeature(FeatureBase const & f);
 
 
-  int GetDrawRule(Feature const & f, int level, vector<drule::Key> & keys, string & names);
+  int GetDrawRule(FeatureBase const & f, int level, vector<drule::Key> & keys, string & names);
 }
