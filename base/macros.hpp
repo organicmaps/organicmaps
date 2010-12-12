@@ -22,7 +22,7 @@ private:													\
 #define TO_STRING_IMPL(x) #x
 #define TO_STRING(x) TO_STRING_IMPL(x)
 
-#define UNUSED_VALUE(x) do { (void)(x); } while (false)
+#define UNUSED_VALUE(x) static_cast<void>(x)
 
 namespace my
 {
