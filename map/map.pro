@@ -21,6 +21,8 @@ HEADERS += \
     storage.hpp \
     render_queue.hpp \
     render_queue_routine.hpp \
+    simple_tree.hpp \
+    countries.hpp \
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -30,7 +32,8 @@ SOURCES += \
     draw_processor.cpp \
     storage.cpp \
     render_queue.cpp \
-    render_queue_routine.cpp
+    render_queue_routine.cpp \
+    countries.cpp \
 
 
 !iphonesimulator-g++42 {
