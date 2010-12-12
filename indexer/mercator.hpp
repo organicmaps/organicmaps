@@ -40,4 +40,6 @@ struct MercatorBounds
     double const offset = errorInMetres / 2.0 * metresInDegree;
     return m2::RectD(LonToX(lon - offset), LatToY(lat - offset), LonToX(lon + offset), LatToY(lat + offset));
   }
+
+  static double GetCellID2PointAbsEpsilon() { return 1.0E-4; }
 };

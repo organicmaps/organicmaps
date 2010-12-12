@@ -90,10 +90,11 @@ UNIT_TEST(Feature_Deserialize)
   f.ForEachTriangleRef(featureTriangles);
   TEST_EQUAL(triangles, featureTriangles.m_V, ());
 
-  TEST_LESS(fabs(f.GetLimitRect().minX() - 0.25), 0.0001, ());
-  TEST_LESS(fabs(f.GetLimitRect().minY() - 0.20), 0.0001, ());
-  TEST_LESS(fabs(f.GetLimitRect().maxX() - 1.00), 0.0001, ());
-  TEST_LESS(fabs(f.GetLimitRect().maxY() - 1.00), 0.0001, ());
+  double const eps = MercatorBounds::GetCellID2PointAbsEpsilon();
+  TEST_LESS(fabs(f.GetLimitRect().minX() - 0.25), eps, ());
+  TEST_LESS(fabs(f.GetLimitRect().minY() - 0.20), eps, ());
+  TEST_LESS(fabs(f.GetLimitRect().maxX() - 1.00), eps, ());
+  TEST_LESS(fabs(f.GetLimitRect().maxY() - 1.00), eps, ());
 
   vector<char> serial2;
   FeatureBuilder builder2;

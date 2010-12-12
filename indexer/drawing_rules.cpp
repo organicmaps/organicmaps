@@ -989,7 +989,9 @@ BaseRule const * RulesHolder::Find(Key const & k) const
   if (i == m_rules.end()) return 0;
 
   vector<uint32_t> const & v = (i->second)[k.m_type];
-  if (k.m_index < v.size())
+
+  ASSERT ( k.m_index >= 0, (k.m_index) );
+  if (static_cast<size_t>(k.m_index) < v.size())
     return m_container[k.m_type][v[k.m_index]];
   else
     return 0;
