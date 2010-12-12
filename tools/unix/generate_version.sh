@@ -33,12 +33,12 @@ BUILD_TIMESTAMP_FULL=`date -u`
 
 GIT_CMD="git --git-dir=$GIT_WORKING_DIR_PATH/.git --work-tree=$GIT_WORKING_DIR_PATH"
 
-GIT_COMMIT=`cd $GIT_WORKING_DIR; $GIT_CMD log --oneline -1`
+GIT_COMMIT=`cd $GIT_WORKING_DIR_PATH; $GIT_CMD log --oneline -1`
 GIT_COMMIT_HASH=${GIT_COMMIT:0:7}
 
 # check if git repo has local uncommitted modifications
 STRING_MODIFICATIONS=""
-GIT_STATUS_OUTPUT=`cd $GIT_WORKING_DIR; $GIT_CMD status -s -uno`
+GIT_STATUS_OUTPUT=`cd $GIT_WORKING_DIR_PATH; $GIT_CMD status -s -uno`
 if [ -n "$GIT_STATUS_OUTPUT" ]; then
   STRING_MODIFICATIONS=".altered"
 fi
