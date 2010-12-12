@@ -42,6 +42,7 @@ bool FeatureBuilder::IsGeometryClosed() const
 void FeatureBuilder::AddPoint(m2::PointD const & p)
 {
   m_Geometry.push_back(pts::ToId(CoordPointT(p.x, p.y)));
+  m_LimitRect.Add(p);
 }
 
 void FeatureBuilder::AddTriangle(m2::PointD const & a, m2::PointD const & b, m2::PointD const & c)
@@ -67,6 +68,38 @@ void FeatureBuilder::AddLayer(int32_t layer)
   m_Layer = layer;
 }
 
+FeatureBase FeatureBuilder::GetFeatureBase() const
+{
+  FeatureBase f;
+  f.SetHeader(GetHeader());
+
+  f.m_Layer = m_Layer;
+  for (size_t i = 0; i < m_Types.size(); ++i)
+    f.m_Types[i] = m_Types[i];
+  f.m_LimitRect = m_LimitRect;
+  f.m_Name = m_Name;
+
+  f.m_bTypesParsed = f.m_bLayerParsed = f.m_bNameParsed = f.m_bGeometryParsed = true;
+
+  return f;
+}
+
+namespace
+{
+  bool is_equal(double d1, double d2)
+  {
+    //return my::AlmostEqual(d1, d2, 100000000);
+    return (fabs(d1 - d2) < 1.0E-6);
+  }
+  bool is_equal(m2::RectD const & r1, m2::RectD const & r2)
+  {
+    return (is_equal(r1.minX(), r2.minX()) &&
+            is_equal(r1.minY(), r2.minY()) &&
+            is_equal(r1.maxX(), r2.maxX()) &&
+            is_equal(r1.maxY(), r2.maxY()));
+  }
+}
+
 bool FeatureBuilder::operator == (FeatureBuilder const & fb) const
 {
   return
@@ -74,19 +107,12 @@ bool FeatureBuilder::operator == (FeatureBuilder const & fb) const
       m_Layer == fb.m_Layer &&
       m_Name == fb.m_Name &&
       m_Geometry == fb.m_Geometry &&
-      m_Triangles == fb.m_Triangles;
+      m_Triangles == fb.m_Triangles &&
+      is_equal(m_LimitRect, fb.m_LimitRect);
 }
 
-void FeatureBuilder::Serialize(vector<char> & data) const
+uint8_t FeatureBuilder::GetHeader() const
 {
-  CHECK(!m_Geometry.empty(), ());
-  CHECK(m_Geometry.size() > 1 || m_Triangles.empty(), ());
-  CHECK_LESS(m_Types.size(), 16, ());
-
-  data.clear();
-  PushBackByteSink<vector<char> > sink(data);
-
-  // Serializing header.
   uint8_t header = static_cast<uint8_t>(m_Types.size());
   if (m_Layer != 0)
     header |= FeatureBase::HEADER_HAS_LAYER;
@@ -99,7 +125,20 @@ void FeatureBuilder::Serialize(vector<char> & data) const
   }
   if (!m_Name.empty())
     header |= FeatureBase::HEADER_HAS_NAME;
-  WriteToSink(sink, header);
+  return header;
+}
+
+void FeatureBuilder::Serialize(vector<char> & data) const
+{
+  CHECK(!m_Geometry.empty(), ());
+  CHECK(m_Geometry.size() > 1 || m_Triangles.empty(), ());
+  CHECK_LESS(m_Types.size(), 16, ());
+
+  data.clear();
+  PushBackByteSink<vector<char> > sink(data);
+
+  // Serializing header.
+  WriteToSink(sink, GetHeader());
 
   // Serializing types.
   {
@@ -145,18 +184,16 @@ void FeatureBuilder::Serialize(vector<char> & data) const
 bool FeatureBuilder::CheckCorrect(vector<char> const & data) const
 {
   vector<char> data1 = data;
-  FeatureGeom feature;
-  feature.DeserializeAndParse(data1);
+  FeatureGeom f;
+  f.DeserializeAndParse(data1);
   FeatureBuilder fb;
-  feature.InitFeatureBuilder(fb);
+  f.InitFeatureBuilder(fb);
 
-  string const s = feature.DebugString();
+  string const s = f.DebugString();
 
-  ASSERT_EQUAL(m_Types, fb.m_Types, (s));
-  ASSERT_EQUAL(m_Layer, fb.m_Layer, (s));
-  ASSERT_EQUAL(m_Geometry, fb.m_Geometry, (s));
-  ASSERT_EQUAL(m_Triangles, fb.m_Triangles, (s));
-  ASSERT_EQUAL(m_Name, fb.m_Name, (s));
+  ASSERT_EQUAL(m_Layer, f.m_Layer, (s));
+  ASSERT_EQUAL(m_Name, f.m_Name, (s));
+  ASSERT(is_equal(m_LimitRect, f.m_LimitRect), (s));
   ASSERT(*this == fb, (s));
 
   return true;
@@ -182,6 +219,13 @@ void FeatureBase::Deserialize(vector<char> & data, uint32_t offset)
 uint32_t FeatureBase::CalcOffset(ArrayByteSource const & source) const
 {
   return static_cast<uint32_t>(static_cast<char const *>(source.Ptr()) - DataPtr());
+}
+
+void FeatureBase::SetHeader(uint8_t h)
+{
+  ASSERT ( m_Offset == 0, (m_Offset) );
+  m_Data.resize(1);
+  m_Data[0] = h;
 }
 
 void FeatureBase::ParseTypes() const
@@ -339,4 +383,13 @@ void FeatureGeom::InitFeatureBuilder(FeatureBuilder & fb) const
   uint32_t const triangleCount = m_Triangles.size() / 3;
   for (size_t i = 0; i < triangleCount; ++i)
     fb.AddTriangle(m_Triangles[3*i + 0], m_Triangles[3*i + 1], m_Triangles[3*i + 2]);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// FeatureGeomRef implementation
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+FeatureGeomRef::FeatureGeomRef(vector<char> & data, uint32_t offset)
+{
+  Deserialize(data, offset);
 }

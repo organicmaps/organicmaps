@@ -1,6 +1,7 @@
 #include "feature_sorter.hpp"
 #include "feature_generator.hpp"
 
+#include "../../indexer/data_header.hpp"
 #include "../../indexer/feature_processor.hpp"
 #include "../../indexer/feature_visibility.hpp"
 #include "../../indexer/scales.hpp"
@@ -57,15 +58,6 @@ namespace
   {
     return c1.first < c2.first;
   }
-
-  template <typename TReader>
-  void ReadFeature(TReader const & reader, FeatureGeom & ft, uint64_t offset)
-  {
-    ReaderSource<TReader> src(reader);
-    src.Skip(offset);
-
-    feature::ReadFromSource(src, ft);
-  }
 }
 
 namespace feature
@@ -86,21 +78,38 @@ namespace feature
 
     // stores cellIds for middle points
     CalculateMidPoints midPoints;
-    ForEachFromDat(tempDatFilePath, midPoints);
+    ForEachFromDat<FeatureGeom>(tempDatFilePath, midPoints);
 
+    // sort features by their middle point
     std::sort(midPoints.m_vec.begin(), midPoints.m_vec.end(), &SortMidPointsFunc);
 
     // store sorted features
     {
-      FeaturesCollector collector(datFilePath);
-      FileReader notSortedFileReader(tempDatFilePath);
+      FileWriter writer(datFilePath);
+      FileReader reader(tempDatFilePath);
 
-      FeatureGeom ft;
+      feature::DataHeader header;
+      feature::ReadDataHeader(tempDatFilePath, header);
+      feature::WriteDataHeader(writer, header);
+
       for (size_t i = 0; i < midPoints.m_vec.size(); ++i)
       {
-        ReadFeature(notSortedFileReader, ft, midPoints.m_vec[i].second);
-        collector(ft);
+        ReaderSource<FileReader> src(reader);
+
+        // move to position
+        src.Skip(midPoints.m_vec[i].second);
+
+        // read feature bytes
+        uint32_t const sz = ReadVarUint<uint32_t>(src);
+        vector<char> buffer(sz);
+        src.Read(&buffer[0], sz);
+
+        // write feature bytes
+        WriteVarUint(writer, sz);
+        writer.Write(&buffer[0], sz);
       }
+
+      // at this point files should be closed
     }
 
     // remove old not-sorted dat file

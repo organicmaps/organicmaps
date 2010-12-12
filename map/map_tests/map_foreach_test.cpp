@@ -160,7 +160,7 @@ public:
   template <class ToDo>
   void ForEachFeature(m2::RectD const & /*rect*/, ToDo toDo)
   {
-    feature::ForEachFromDat(m_fDat, toDo);
+    feature::ForEachFromDat<FeatureType>(m_fDat, toDo);
   }
 };
 

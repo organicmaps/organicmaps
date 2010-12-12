@@ -1,7 +1,6 @@
 
 #pragma once
 #include "../../indexer/osm_decl.hpp"
-#include "../../indexer/feature.hpp"
 
 #include "../../geometry/rect2d.hpp"
 
@@ -11,7 +10,6 @@
 #include "../../std/string.hpp"
 
 class FeatureBuilder;
-class FeatureGeom;
 
 namespace feature
 {
@@ -48,6 +46,5 @@ namespace feature
     FeaturesCollector(string const & bucketName, InitDataType const & datFilePrefixSuffix);
 
     void operator() (FeatureBuilder const & f);
-    void operator() (FeatureType const & f);
   };
 }

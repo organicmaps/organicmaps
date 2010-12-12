@@ -9,7 +9,6 @@
 #include "../features_vector.hpp"
 #include "../index_builder.hpp"
 #include "../osm_decl.hpp"
-#include "../feature_processor.hpp"
 #include "../data_header.hpp"
 #include "../defines.hpp"
 

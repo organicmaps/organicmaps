@@ -1,7 +1,9 @@
 #include "index_builder.hpp"
-#include "feature_processor.hpp"
+#include "data_header_reader.hpp"
 #include "features_vector.hpp"
+
 #include "../coding/file_reader.hpp"
+
 
 namespace indexer
 {
@@ -11,8 +13,9 @@ namespace indexer
     try
     {
       FileReader dataReader(fullDatFilePath);
-      // skip xml header with metadata
-      uint64_t startOffset = feature::ReadDatHeaderSize(dataReader);
+
+      uint64_t startOffset = feature::GetSkipHeaderSize(dataReader);
+
       FileReader subReader = dataReader.SubReader(startOffset, dataReader.Size() - startOffset);
       FeaturesVector<FileReader> featuresVector(subReader);
 

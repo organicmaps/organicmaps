@@ -147,7 +147,7 @@ FeaturesCollector::FeaturesCollector(string const & bucketName,
   Init();
 }
 
-void FeaturesCollector::operator() (FeatureBuilder const & f)
+void FeaturesCollector::operator() (FeatureBuilder const & fb)
 {
 #ifdef DEBUG
   // .dat file should be less than 4Gb
@@ -157,7 +157,7 @@ void FeaturesCollector::operator() (FeatureBuilder const & f)
 #endif
 
   vector<char> bytes;
-  f.Serialize(bytes);
+  fb.Serialize(bytes);
   size_t const sz = bytes.size();
   CHECK(sz, ("Empty feature! WTF?"));
 
@@ -166,16 +166,8 @@ void FeaturesCollector::operator() (FeatureBuilder const & f)
     WriteVarUint(m_datFile, sz);
     m_datFile.Write(&bytes[0], sz);
 
-    FeatureType f(bytes);
-    m_bounds.Add(f.GetLimitRect());
+    m_bounds.Add(fb.GetLimitRect());
   }
-}
-
-void FeaturesCollector::operator() (FeatureType const & f)
-{
-  FeatureBuilder fb;
-  f.InitFeatureBuilder(fb);
-  this->operator()(fb);
 }
 
 FeaturesCollector::~FeaturesCollector()

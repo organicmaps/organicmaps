@@ -8,19 +8,26 @@
 
 namespace feature
 {
+  uint64_t GetSkipHeaderSize(Reader const & reader)
+  {
+    uint64_t const headerSize = ReadPrimitiveFromPos<uint64_t>(reader, 0);
+    return headerSize + sizeof(uint64_t);
+  }
+
   uint64_t ReadDataHeader(string const & datFileName, feature::DataHeader & outHeader)
   {
     try
     {
-      FileReader datReader(datFileName);
-      // read header size
-      uint64_t const headerSize = ReadPrimitiveFromPos<uint64_t>(datReader, 0);
+      FileReader reader(datFileName);
 
-      FileReader subReader = datReader.SubReader(sizeof(uint64_t), headerSize);
-      ReaderSource<FileReader> src(subReader);
+      uint64_t const toSkip = GetSkipHeaderSize(reader);
+
+      ReaderSource<FileReader> src(reader);
+      src.Skip(sizeof(uint64_t));
+
       outHeader.Load(src);
 
-      return (headerSize + sizeof(uint64_t));
+      return toSkip;
     }
     catch (Reader::Exception const & e)
     {

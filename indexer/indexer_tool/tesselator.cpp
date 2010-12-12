@@ -30,9 +30,9 @@ namespace feature
 
     tess.beginContour();
     {
-      vector<char> data;
-      fb.Serialize(data);
-      FeatureGeom f(data);
+      vector<char> bytes;
+      fb.Serialize(bytes);
+      FeatureGeom f(bytes);
       f.ForEachPoint(AddTessPointF(tess));
     }
     tess.endContour();

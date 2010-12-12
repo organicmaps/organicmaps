@@ -36,47 +36,37 @@ public:
       CellIdConverter<BoundsT, CellIdT>::GetCellBounds(cell, minX, minY, maxX, maxY);
       m_Buckets[i].m_Rect = m2::RectD(minX, minY, maxX, maxY);
     }
+
     // create separate world bucket if necessary
     if (maxWorldZoom >= 0)
-    {
       m_worldBucket.reset(new FeatureOutT(WORLD_FILE_NAME, m_FeatureOutInitData));
-    }
   }
 
-  void operator () (FeatureType const & f)
+  void operator () (FeatureBuilder const & fb)
   {
     // separately store features needed for world map
-    if (m_worldBucket && m_maxWorldZoom >= feature::MinDrawableScaleForFeature(f))
-      (*m_worldBucket)(f);
+    if (m_worldBucket && m_maxWorldZoom >= feature::MinDrawableScaleForFeature(fb.GetFeatureBase()))
+      (*m_worldBucket)(fb);
 
-    FeatureClipperT clipper(f);
+    FeatureClipperT clipper(fb);
     // TODO: Is feature fully inside GetLimitRect()?
-    m2::RectD const limitRect = f.GetLimitRect();
+    m2::RectD const limitRect = fb.GetLimitRect();
     for (uint32_t i = 0; i < m_Buckets.size(); ++i)
     {
       // First quick and dirty limit rect intersection.
       // Clipper may (or may not) do a better intersection.
       if (m_Buckets[i].m_Rect.IsIntersect(limitRect))
       {
-        FeatureType clippedFeature;
-        if (clipper(m_Buckets[i].m_Rect, clippedFeature))
+        FeatureBuilder clippedFb;
+        if (clipper(m_Buckets[i].m_Rect, clippedFb))
         {
           if (!m_Buckets[i].m_pOut)
             m_Buckets[i].m_pOut = new FeatureOutT(BucketName(i), m_FeatureOutInitData);
 
-          (*(m_Buckets[i].m_pOut))(clippedFeature);
+          (*(m_Buckets[i].m_pOut))(clippedFb);
         }
       }
     }
-  }
-
-  void operator () (FeatureBuilder const & fb)
-  {
-    vector<char> data;
-    fb.Serialize(data);
-    FeatureType f;
-    f.Deserialize(data);
-    this->operator()(f);
   }
 
   template <typename F> void GetBucketNames(F f) const
@@ -111,19 +101,17 @@ private:
 
 class SimpleFeatureClipper
 {
+    FeatureBuilder const & m_Feature;
 public:
-  explicit SimpleFeatureClipper(FeatureType const & f) : m_Feature(f)
+  explicit SimpleFeatureClipper(FeatureBuilder const & f) : m_Feature(f)
   {
   }
 
-  bool operator () (m2::RectD const & /*rect*/, FeatureType & clippedFeature) const
+  bool operator () (m2::RectD const & /*rect*/, FeatureBuilder & clippedF) const
   {
-    clippedFeature = m_Feature;
+    clippedF = m_Feature;
     return true;
   }
-
-private:
-  FeatureType const & m_Feature;
 };
 
 }

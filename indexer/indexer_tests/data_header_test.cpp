@@ -1,10 +1,12 @@
 #include "../../testing/testing.hpp"
 
-#include "../../coding/file_writer.hpp"
-#include "../feature_processor.hpp"
 #include "../data_header_reader.hpp"
 #include "../data_header.hpp"
 #include "../cell_id.hpp"
+
+#include "../../coding/file_reader.hpp"
+#include "../../coding/file_writer.hpp"
+
 
 UNIT_TEST(DataHeaderSerialization)
 {
@@ -30,7 +32,7 @@ UNIT_TEST(DataHeaderSerialization)
 
   {
     FileReader reader(fileName);
-    uint64_t const headerSize = feature::ReadDatHeaderSize(reader);
+    uint64_t const headerSize = feature::GetSkipHeaderSize(reader);
     TEST_GREATER(headerSize, 0, ());
     uint64_t number = 0;
     reader.Read(headerSize, &number, sizeof(number));

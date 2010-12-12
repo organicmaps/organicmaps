@@ -19,9 +19,13 @@ namespace
     PushBackFeatureDebugStringOutput(string const & name, InitDataType const & initData)
       : m_pContainer(&((*initData)[name])) {}
 
-    void operator() (FeatureType const & feature)
+    void operator() (FeatureBuilder const & fb)
     {
-      m_pContainer->push_back(feature.DebugString());
+      vector<char> bytes;
+      fb.Serialize(bytes);
+      FeatureType f(bytes);
+
+      m_pContainer->push_back(f.DebugString());
     }
 
   private:
@@ -37,9 +41,9 @@ namespace
 
   FeatureType MakeFeature(FeatureBuilder const & fb)
   {
-    vector<char> data;
-    fb.Serialize(data);
-    return FeatureType(data, 0);
+    vector<char> bytes;
+    fb.Serialize(bytes);
+    return FeatureType(bytes);
   }
 }
 
@@ -51,7 +55,7 @@ UNIT_TEST(FeatureBucketerSmokeTest)
   FeatureBuilder fb;
   fb.AddPoint(m2::PointD(10, 10));
   fb.AddPoint(m2::PointD(20, 20));
-  bucketer(MakeFeature(fb));
+  bucketer(fb);
 
   expectedOut["3"].push_back(MakeFeature(fb).DebugString());
   TEST_EQUAL(out, expectedOut, ());

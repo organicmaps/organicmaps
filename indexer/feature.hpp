@@ -9,7 +9,7 @@
 #include "../std/vector.hpp"
 
 class ArrayByteSource;
-
+class FeatureBase;
 
 class FeatureBuilder
 {
@@ -20,13 +20,13 @@ public:
   void AddTriangle(m2::PointD const & a, m2::PointD const & b, m2::PointD const & c);
 
   template <class TIter>
-  void AddTypes(TIter beg, TIter end)
+  inline void AddTypes(TIter beg, TIter end)
   {
     // 15 - is the maximum count of types (@see Feature::GetTypesCount())
     size_t const count = min(15, static_cast<int>(distance(beg, end)));
     m_Types.assign(beg, beg + count);
   }
-  void SetType(uint32_t type)
+  inline void SetType(uint32_t type)
   {
     m_Types.clear();
     m_Types.push_back(type);
@@ -36,12 +36,19 @@ public:
 
   void Serialize(vector<char> & data) const;
 
+  inline m2::RectD GetLimitRect() const { return m_LimitRect; }
+
+  // Get common parameters of feature.
+  FeatureBase GetFeatureBase() const;
+
   bool IsGeometryClosed() const;
   size_t GetPointsCount() const { return m_Geometry.size(); }
 
   bool operator == (FeatureBuilder const &) const;
 
 private:
+  uint8_t GetHeader() const;
+
   bool CheckCorrect(vector<char> const & data) const;
 
   int32_t m_Layer;
@@ -49,6 +56,7 @@ private:
   vector<uint32_t> m_Types;
   vector<int64_t> m_Geometry;
   vector<int64_t> m_Triangles;
+  m2::RectD m_LimitRect;
 };
 
 class FeatureBase
@@ -62,7 +70,7 @@ public:
     FEATURE_TYPE_UNKNOWN = 17
   };
 
-  FeatureBase() {}
+  FeatureBase() : m_Offset(0) {}
 
   /// @name Use like polymorfic functions. Need to overwrite in derived classes.
   //@{
@@ -139,6 +147,10 @@ public:
 protected:
   vector<char> m_Data;
   uint32_t m_Offset;
+
+  friend class FeatureBuilder;
+
+  void SetHeader(uint8_t h);
 
   inline char const * DataPtr() const { return &m_Data[m_Offset]; }
   inline uint8_t Header() const { return static_cast<uint8_t>(*DataPtr()); }
@@ -251,7 +263,11 @@ private:
 
 class FeatureGeomRef : public FeatureBase
 {
+  typedef FeatureBase base_type;
 
+public:
+  FeatureGeomRef() {}
+  FeatureGeomRef(vector<char> & data, uint32_t offset = 0);
 };
 
 inline string debug_print(FeatureGeom const & f)

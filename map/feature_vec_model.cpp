@@ -8,7 +8,7 @@
 #include "../indexer/scales.hpp"
 #include "../indexer/classif_routine.hpp"
 #include "../indexer/classificator.hpp"
-#include "../indexer/feature_processor.hpp"
+#include "../indexer/data_header_reader.hpp"
 
 #include "../base/logging.hpp"
 
@@ -41,7 +41,7 @@ void FeaturesFetcher::AddMap(string const & dataPath, string const & indexPath)
     uint32_t const idxLogPageCount = 11;
 
     FileReader dataReader(dataPath, datLogPageSize, datLogPageCount);
-    uint64_t const startOffset = feature::ReadDatHeaderSize(dataReader);
+    uint64_t const startOffset = feature::GetSkipHeaderSize(dataReader);
 
 #ifdef USE_BUFFER_READER
     // readers from memory

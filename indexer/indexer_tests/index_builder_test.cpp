@@ -1,10 +1,13 @@
 #include "../../testing/testing.hpp"
+
 #include "../index.hpp"
 #include "../index_builder.hpp"
 #include "../classif_routine.hpp"
 #include "../features_vector.hpp"
-#include "../feature_processor.hpp"
+#include "../data_header_reader.hpp"
+
 #include "../../platform/platform.hpp"
+
 
 UNIT_TEST(BuildIndexTest)
 {
@@ -15,7 +18,7 @@ UNIT_TEST(BuildIndexTest)
 
   FileReader reader(p.WritablePathForFile("minsk-pass.dat"));
   // skip xml metadata header
-  uint64_t startOffset = feature::ReadDatHeaderSize(reader);
+  uint64_t const startOffset = feature::GetSkipHeaderSize(reader);
   FileReader subReader = reader.SubReader(startOffset, reader.Size() - startOffset);
   FeaturesVector<FileReader> featuresVector(subReader);
 
