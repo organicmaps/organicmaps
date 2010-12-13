@@ -5,6 +5,7 @@
 @implementation UserLocationController
 
 @synthesize delegate;
+@synthesize active;
 
 - (id) init
 {
@@ -13,6 +14,7 @@
   {
     m_locationManager = [[CLLocationManager alloc] init];
     m_locationManager.delegate = self;
+    active = NO;
   }
   return self;
 }
@@ -32,8 +34,7 @@
 
 - (void) Start
 {
-
-	
+	active = YES;
   [m_locationManager startUpdatingLocation];
 	if ([m_locationManager headingAvailable])
 	{
@@ -42,13 +43,13 @@
 	}
 	else
 		NSLog(@"heading information is not available");
-
 }
 
 - (void) Stop
 {
 	[m_locationManager stopUpdatingLocation];
 	[m_locationManager stopUpdatingHeading];
+  active = NO;
 }
 
 - (void) locationManager: (CLLocationManager *) manager

@@ -385,6 +385,14 @@ public:
     }
   }
 
+	void DisableMyPositionAndHeading()
+  {
+  	m_isPositionEnabled = false;
+    m_isHeadingEnabled = false;
+    
+    UpdateNow();
+  }
+
   void SetPosition(m2::PointD const & mercatorPos, double confidenceRadius)
   {
     m_isPositionEnabled = true;

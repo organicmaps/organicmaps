@@ -21,24 +21,15 @@ withConfidenceRadius: (double) confidenceRadius
   
 @public
 	id delegate;
+  BOOL active;
 }
 
 @property (nonatomic, assign) id delegate;
+/// YES means that location manager is active
+@property (nonatomic, assign) BOOL active;
 
 - (id) initWithDelegate: (id) locationDelegate;
-
 - (void) Start;
-
 - (void) Stop;
-
-- (void) locationManager: (CLLocationManager *) manager
-     didUpdateToLocation: (CLLocation *) newLocation
-            fromLocation: (CLLocation *) oldLocation;
-
-- (void) locationManager: (CLLocationManager *) manager
-				didUpdateHeading: (CLHeading *) newHeading;
-
-- (void) locationManager: (CLLocationManager *) manager
-        didFailWithError: (NSError *) error;
 
 @end

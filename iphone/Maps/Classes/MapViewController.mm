@@ -10,9 +10,6 @@
 #include "../../map/drawer_yg.hpp"
 #include "../../map/storage.hpp"
 
-/// Location service will stop only when received lat long will be earlier than this value
-#define MAX_SECONDS_INTERVAL_FOR_RECENT_LOCATION 60.0
-
 typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> framework_t;
 
 @implementation MapViewController
@@ -22,9 +19,18 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
   
 - (void) OnMyPositionClicked: (id)sender
 {
-	[m_locationController Stop];
-	[m_locationController Start];
-	m_isDirtyPosition = true;
+	if (m_locationController.active)
+  {
+  	[m_locationController Stop];
+   	((UIBarItem *)sender).title = @"My Position";
+    m_framework->DisableMyPositionAndHeading();
+  }
+  else
+  {
+		[m_locationController Start];
+		m_isDirtyPosition = true;
+  	((UIBarItem *)sender).title = @"Disable GPS"; 
+  }
 }
 
 - (void) OnSettingsClicked: (id)sender
@@ -74,22 +80,13 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 - (void) OnHeading: (double) heading
 		 withTimestamp: (NSDate *)timestamp
 {
-	NSTimeInterval secondsFromLastUpdate = [timestamp timeIntervalSinceNow];
-	if (fabs(secondsFromLastUpdate)< MAX_SECONDS_INTERVAL_FOR_RECENT_LOCATION)
-		[m_locationController Stop];
 	m_framework->SetHeading(heading);
 }
 
-
 - (void) OnLocation: (m2::PointD const &) mercatorPoint 
-withConfidenceRadius: (double) confidenceRadius
+			withConfidenceRadius: (double) confidenceRadius
 			withTimestamp: (NSDate *) timestamp
 {
-	// stop location update to preserve battery, but only if received location is up to date
-  NSTimeInterval secondsFromLastUpdate = [timestamp timeIntervalSinceNow];
-  if (fabs(secondsFromLastUpdate) < MAX_SECONDS_INTERVAL_FOR_RECENT_LOCATION)
-  	[m_locationController Stop];
-	
   m_framework->SetPosition(mercatorPoint, confidenceRadius);
 	
 	if (m_isDirtyPosition)
