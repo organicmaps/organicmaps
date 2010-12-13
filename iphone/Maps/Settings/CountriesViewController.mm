@@ -320,6 +320,17 @@ mapinfo::TIndex g_clickedIndex;
 		}
   	break;
   	case mapinfo::EDownloading:
+    { // display confirmation popup
+    	UIActionSheet * popupQuery = [[UIActionSheet alloc]
+      		initWithTitle: countryName
+        	delegate: self
+        	cancelButtonTitle: @"Do Nothing"
+        	destructiveButtonTitle: @"Cancel Download"
+        	otherButtonTitles: nil];
+    	[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
+    	[popupQuery release];
+    }
+    break;
   	case mapinfo::EInQueue:
   	// cancel download
     g_pStorage->DeleteCountry(g_clickedIndex);
