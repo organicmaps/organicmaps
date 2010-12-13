@@ -8,6 +8,7 @@
 #include "../base/mutex.hpp"
 
 #include "storage.hpp"
+#include "glyph_cache.hpp"
 
 namespace yg
 {
@@ -18,6 +19,8 @@ namespace yg
     class BaseTexture;
     class Storage;
   }
+
+  class GlyphInfo;
 
   class ResourceManager
   {
@@ -37,6 +40,8 @@ namespace yg
     gl::Storage const reserveStorageImpl(bool doWait, list<gl::Storage> & l);
     void freeStorageImpl(gl::Storage const & storage, bool doSignal, list<gl::Storage> & l);
 
+    GlyphCache m_glyphCache;
+
   public:
 
     ResourceManager(size_t vbSize, size_t ibSize, size_t storagesCount,
@@ -53,6 +58,9 @@ namespace yg
 
     shared_ptr<gl::BaseTexture> const reserveTexture(bool doWait = false);
     void freeTexture(shared_ptr<gl::BaseTexture> const & texture, bool doSignal = false);
+
+    shared_ptr<GlyphInfo> const getGlyph(GlyphKey const & key);
+    void addFont(char const * fileName);
   };
 
   Skin * loadSkin(shared_ptr<ResourceManager> const & resourceManager, string const & fileName);

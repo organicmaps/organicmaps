@@ -56,6 +56,8 @@ namespace yg
       ELineStyle,
       EResourceStyle,
       ECharStyle,
+      EGlyphInfo,
+      EGlyphMaskInfo,
       EFontInfo
     };
 
@@ -70,16 +72,22 @@ namespace yg
     m2::RectU m_texRect;
 
 /// fontInfo-specific parameters
-    typedef map<int32_t, boost::shared_ptr<CharStyle> > TChars;
+    typedef map<int32_t, pair<shared_ptr<CharStyle>, shared_ptr<CharStyle> > > TChars;
     TChars m_chars;
     typedef map<int8_t, TChars> TFonts;
     TFonts m_fonts;
     int8_t m_fontSize;
 
 /// charStyle-specific parameters
+
+
+/// glyphInfo and glyphMaskInfo specific parameters
     int8_t m_xOffset;
     int8_t m_yOffset;
     int8_t m_xAdvance;
+
+    shared_ptr<CharStyle> m_glyphInfo;
+    shared_ptr<CharStyle> m_glyphMaskInfo;
 
 /// pointStyle-specific parameters
     string m_styleID;
@@ -108,6 +116,8 @@ namespace yg
     void AddAttr(string const & attribute, string const & value);
 
     void popCharStyle();
+    void popGlyphInfo();
+    void popGlyphMaskInfo();
     void popFontInfo();
     void popPointStyle();
     void popSkin();

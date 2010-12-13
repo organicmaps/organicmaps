@@ -40,7 +40,7 @@ namespace tools
         m2::Packer::handle_t m_handle;
       };
 
-      typedef map<int32_t, CharInfo> TChars;
+      typedef map<int32_t, pair<CharInfo, CharInfo> > TChars;
 
       struct FontInfo
       {

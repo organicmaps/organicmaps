@@ -540,13 +540,25 @@ namespace yg
    void Screen::drawText(m2::PointD const & pt, float angle, uint8_t fontSize, string const & utf8Text, double depth)
    {
      wstring text = FromUtf8(utf8Text);
-     m2::PointD currPt(0, 0);
 
-     FontInfo const & fontInfo = m_skin->getFont(translateFontSize(fontSize));
+     m2::PointD currPt(0, 0);
+     for (size_t i = 0; i < text.size(); ++i)
+     {
+        uint32_t glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, true));
+        CharStyle const * p = static_cast<CharStyle const *>(m_skin->fromID(glyphID));
+        if (p)
+        {
+          drawGlyph(pt, currPt, angle, 0, p, depth);
+          currPt = currPt.Move(p->m_xAdvance, 0);
+        }
+      }
+
+     currPt = m2::PointD(0, 0);
 
      for (size_t i = 0; i < text.size(); ++i)
      {
-        CharStyle const * p = static_cast<CharStyle const *>(fontInfo.fromID(text[i]));
+        uint32_t glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, false));
+        CharStyle const * p = static_cast<CharStyle const *>(m_skin->fromID(glyphID));
         if (p)
         {
           drawGlyph(pt, currPt, angle, 0, p, depth);
@@ -615,21 +627,31 @@ namespace yg
    }
 
    void Screen::drawPathText(m2::PointD const * path, size_t s, uint8_t fontSize, string const & utf8Text,
-                             double pathLength, TextPos pos, double depth)
+                             double pathLength, TextPos pos, bool isMasked, double depth)
+   {
+     if (isMasked)
+       drawPathTextImpl(path, s, fontSize, utf8Text, pathLength, pos, true, depth);
+     drawPathTextImpl(path, s, fontSize, utf8Text, pathLength, pos, false, depth);
+   }
+
+   void Screen::drawPathTextImpl(m2::PointD const * path, size_t s, uint8_t fontSize, string const & utf8Text,
+                             double pathLength, TextPos pos, bool fromMask, double depth)
    {
      pts_array arrPath(path, s);
 
      wstring const text = FromUtf8(utf8Text);
 
 //     FontInfo const & fontInfo = fontSize > 0 ? m_skin->getBigFont() : m_skin->getSmallFont();
-     FontInfo const & fontInfo = m_skin->getFont(translateFontSize(fontSize));
+//     FontInfo const & fontInfo = m_skin->getFont(translateFontSize(fontSize));
+
+//     fontSize = translateFontSize(fontSize);
 
      // calc base line offset
      float blOffset = 2;
      switch (pos)
      {
-     case under_line: blOffset -= fontInfo.m_fontSize; break;
-     case middle_line: blOffset -= fontInfo.m_fontSize/2; break;
+     case under_line: blOffset -= fontSize; break;
+     case middle_line: blOffset -= fontSize / 2; break;
      case above_line: blOffset -= 0; break;
      }
 
@@ -637,7 +659,8 @@ namespace yg
      double strLength = 0.0;
      for (size_t i = 0; i < text.size(); ++i)
      {
-       CharStyle const * p = static_cast<CharStyle const *>(fontInfo.fromID(text[i]));
+       uint32_t glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, fromMask));
+       CharStyle const * p = static_cast<CharStyle const *>(m_skin->fromID(glyphID));
        strLength += p->m_xAdvance;
      }
 
@@ -654,7 +677,8 @@ namespace yg
        if (!CalcPointAndAngle(arrPath, offset, ind, ptOrg, angle))
          break;
 
-       CharStyle const * p = static_cast<CharStyle const *>(fontInfo.fromID(text[i]));
+       uint32_t glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, fromMask));
+       CharStyle const * p = static_cast<CharStyle const *>(m_skin->fromID(glyphID));
 
        drawGlyph(ptOrg, m2::PointD(0.0, 0.0), angle, blOffset, p, depth);
 
@@ -674,15 +698,5 @@ namespace yg
      base_t::setClipRect(rect);
    }
 
-   int Screen::translateFontSize(int fontSize)
-   {
-     return fontSize;
-/*     int lookUpTable [] = {8, 8, 8, 8, 8, 8, 8, 8, 12, 12, 12, 12, 16, 16, 16, 16};
-
-     if (fontSize < sizeof(lookUpTable) / sizeof(int))
-       return lookUpTable[fontSize];
-     else
-       return 16;*/
-   }
  } // namespace gl
 } // namespace yg

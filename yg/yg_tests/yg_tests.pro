@@ -14,6 +14,8 @@ win32-g++ {
   LIBS += -lpthread -lopengl32
 }
 
+LIBS += -lfreetype
+
 SOURCES += \
     ../../testing/testingmain.cpp \
     texture_test.cpp \
@@ -24,4 +26,5 @@ SOURCES += \
     formats_loading_test.cpp \
     thread_render.cpp \
     opengl_test.cpp \
-    screenglglobal_test.cpp
+    screenglglobal_test.cpp \
+    glyph_cache_test.cpp

@@ -2,13 +2,12 @@
 
 TEMPLATE = subdirs
 
-SUBDIRS = expat
+SUBDIRS = expat freetype
 
 !iphonesimulator-g++42 {
   !iphonedevice-g++42 {
     !bada-simulator {
-      SUBDIRS += freetype \
-                 gflags \
+      SUBDIRS += gflags \
                  sgitess
       }
    }

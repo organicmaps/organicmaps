@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
   symbolScales.push_back(FLAGS_symbolScale);
 
   gen.processSymbols(FLAGS_symbolsDir, FLAGS_skinName, symbolSizes, symbolScales);
-  gen.processFont(FLAGS_fontFileName, FLAGS_skinName, FLAGS_symbolsFile, glyphSizes);
+//  gen.processFont(FLAGS_fontFileName, FLAGS_skinName, FLAGS_symbolsFile, glyphSizes);
 
   gen.writeToFile(FLAGS_skinName);
 

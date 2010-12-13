@@ -2,6 +2,8 @@
 ROOT_DIR = ..
 DEPENDENCIES = map indexer platform yg geometry coding base expat version
 
+LIBS += -lfreetype
+
 include($$ROOT_DIR/common.pri)
 
 TARGET = MapsWithMe
@@ -28,9 +30,7 @@ macx {
   CLASSIFICATOR_RESOURCES.files = ../data/classificator.txt ../data/drawing_rules.bin ../data/visibility.txt
   CLASSIFICATOR_RESOURCES.path = Contents/Resources
   SKIN_RESOURCES.files = ../data/basic.skn ../data/symbols_24.png \
-    ../data/dejavusans_8.png ../data/dejavusans_10.png ../data/dejavusans_12.png \
-    ../data/dejavusans_14.png ../data/dejavusans_16.png ../data/dejavusans_20.png \
-    ../data/dejavusans_24.png
+    ../data/dejavusans.ttf
   SKIN_RESOURCES.path = Contents/Resources
   QMAKE_BUNDLE_DATA += CLASSIFICATOR_RESOURCES SKIN_RESOURCES
 }

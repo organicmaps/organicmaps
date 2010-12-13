@@ -84,10 +84,11 @@ namespace tools
 
     FT_Stroker stroker;
     FTCHECK(FT_Stroker_New(lib, &stroker));
-    size_t outlineWidth = 10;
+    size_t outlineWidth = 3;
     FT_Stroker_Set(stroker, outlineWidth * 64, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
 
-    FT_Glyph_Metrics glyphMetrics;
+    FT_Glyph_Metrics normalGlyphMetrics;
+    FT_Glyph_Metrics strokedGlyphMetrics;
 
     for (size_t i = 0; i < fontSizes.size(); ++i)
     {
@@ -100,7 +101,7 @@ namespace tools
       fontInfo.m_size = fontSizes[i];
 
       FTCHECK(FT_Set_Pixel_Sizes(face, 0, fontSizes[i]));
-//      FTCHECK(FT_Set_Pixel_Sizes(face, 0, 200));
+//      FTCHECK(FT_Set_Pixel_Sizes(face, 0, 100));
       for (size_t j = 0; j < ucs2Symbols.size(); ++j)
       {
         unsigned short symbol = ucs2Symbols[j];
@@ -111,53 +112,84 @@ namespace tools
           continue;
 
         FTCHECK(FT_Load_Glyph(face, symbolIdx, FT_LOAD_DEFAULT));
-        glyphMetrics = face->glyph->metrics;
+//        FTCHECK(FT_Load_Glyph(face, FT_Get_Char_Index(face, '@'), FT_LOAD_DEFAULT));
 
-        CharInfo charInfo;
-        charInfo.m_width = int(glyphMetrics.width >> 6);
-        charInfo.m_height = int(glyphMetrics.height >> 6);
-        charInfo.m_xOffset = int(glyphMetrics.horiBearingX >> 6);
-        charInfo.m_yOffset = int(glyphMetrics.horiBearingY >> 6) - charInfo.m_height;
-        charInfo.m_xAdvance = int(glyphMetrics.horiAdvance >> 6);
+        normalGlyphMetrics = face->glyph->metrics;
 
-        if ((charInfo.m_width != 0) && (charInfo.m_height != 0))
+        CharInfo normalCharInfo;
+
+        normalCharInfo.m_width = int(normalGlyphMetrics.width >> 6);
+        normalCharInfo.m_height = int(normalGlyphMetrics.height >> 6);
+        normalCharInfo.m_xOffset = int(normalGlyphMetrics.horiBearingX >> 6);
+        normalCharInfo.m_yOffset = int(normalGlyphMetrics.horiBearingY >> 6) - normalCharInfo.m_height;
+        normalCharInfo.m_xAdvance = int(normalGlyphMetrics.horiAdvance >> 6);
+
+        CharInfo strokedCharInfo = normalCharInfo;
+
+        if ((normalCharInfo.m_width != 0) && (normalCharInfo.m_height != 0))
         {
           FT_GlyphSlot glyphSlot = face->glyph;
 
-          FTCHECK(FT_Render_Glyph(glyphSlot, FT_RENDER_MODE_NORMAL));
-
-/*          FT_Glyph strokedGlyph;
+          FT_Glyph strokedGlyph;
           FTCHECK(FT_Get_Glyph(face->glyph, &strokedGlyph));
 
           FTCHECK(FT_Glyph_Stroke(&strokedGlyph, stroker, 1));
           FTCHECK(FT_Glyph_To_Bitmap(&strokedGlyph, FT_RENDER_MODE_NORMAL, 0, 0));
-*/
+
+          FT_BitmapGlyph strokedBitmapGlyph = (FT_BitmapGlyph)strokedGlyph;
+
+          strokedCharInfo.m_width = strokedBitmapGlyph->bitmap.width;
+          strokedCharInfo.m_height = strokedBitmapGlyph->bitmap.rows;
+          strokedCharInfo.m_xOffset = strokedBitmapGlyph->left;
+          strokedCharInfo.m_yOffset = int(strokedBitmapGlyph->top) - strokedCharInfo.m_height;
+          strokedCharInfo.m_xAdvance = int(strokedBitmapGlyph->root.advance.x >> 16);
+
           typedef gil::gray8_pixel_t pixel_t;
 
-/*          gil::gray8c_view_t grayview = gil::interleaved_view(
-              charInfo.m_width,
-              charInfo.m_height,
-              (pixel_t*)((FT_BitmapGlyph)strokedGlyph)->bitmap.buffer,
-              sizeof(unsigned char) * ((FT_BitmapGlyph)strokedGlyph)->bitmap.width);
-*/
           gil::gray8c_view_t grayview = gil::interleaved_view(
-              charInfo.m_width,
-              charInfo.m_height,
-              (pixel_t*)glyphSlot->bitmap.buffer,
-              sizeof(unsigned char) * glyphSlot->bitmap.width);
+              strokedCharInfo.m_width,
+              strokedCharInfo.m_height,
+              (pixel_t*)strokedBitmapGlyph->bitmap.buffer,
+              strokedBitmapGlyph->bitmap.pitch);
 
-          charInfo.m_image.recreate(charInfo.m_width, charInfo.m_height);
-          gil::copy_pixels(grayview, gil::view(charInfo.m_image));
+          strokedCharInfo.m_image.recreate(strokedCharInfo.m_width,
+                                           strokedCharInfo.m_height);
 
- /*        gil::lodepng_write_view(
-            "testchar.png",
-            gil::view(charInfo.m_image));
 
+          gil::copy_pixels(grayview, gil::view(strokedCharInfo.m_image));
+
+/*          gil::lodepng_write_view(
+            "testchar_outline.png",
+            gil::view(strokedCharInfo.m_image));
+*/
           FT_Done_Glyph(strokedGlyph);
-  */
+
+          FTCHECK(FT_Render_Glyph(glyphSlot, FT_RENDER_MODE_NORMAL));
+
+          FT_Glyph normalGlyph;
+          FTCHECK(FT_Get_Glyph(face->glyph, &normalGlyph));
+
+          FT_BitmapGlyph normalBitmapGlyph = (FT_BitmapGlyph)normalGlyph;
+
+          grayview = gil::interleaved_view(
+              normalCharInfo.m_width,
+              normalCharInfo.m_height,
+              (pixel_t*)normalBitmapGlyph->bitmap.buffer,
+              sizeof(unsigned char) * normalBitmapGlyph->bitmap.width);
+
+          normalCharInfo.m_image.recreate(normalCharInfo.m_width, normalCharInfo.m_height);
+
+          gil::copy_pixels(grayview, gil::view(normalCharInfo.m_image));
+
+/*          gil::lodepng_write_view(
+              "testchar.png",
+              gil::view(normalCharInfo.m_image)
+              );
+ */
+          FT_Done_Glyph(normalGlyph);
         }
 
-        fontInfo.m_chars[symbol] = charInfo;
+        fontInfo.m_chars[symbol] = make_pair(normalCharInfo, strokedCharInfo);
       }
 
       std::stringstream out;
@@ -178,7 +210,10 @@ namespace tools
 
         for (TChars::iterator it = fontInfo.m_chars.begin(); it != fontInfo.m_chars.end(); ++it)
         {
-          it->second.m_handle = page.m_packer.pack(it->second.m_width + 4, it->second.m_height + 4);
+          it->second.first.m_handle = page.m_packer.pack(it->second.first.m_width + 4, it->second.first.m_height + 4);
+          if (m_overflowDetected)
+            break;
+          it->second.second.m_handle = page.m_packer.pack(it->second.second.m_width + 4, it->second.second.m_height + 4);
           if (m_overflowDetected)
             break;
         }
@@ -200,7 +235,8 @@ namespace tools
 
       for (TChars::const_iterator it = fontInfo.m_chars.begin(); it != fontInfo.m_chars.end(); ++it)
       {
-        m2::RectU dstRect(page.m_packer.find(it->second.m_handle).second);
+        /// Packing normal char
+        m2::RectU dstRect(page.m_packer.find(it->second.first.m_handle).second);
 
         gil::rgba8_pixel_t color(0, 0, 0, 0);
 
@@ -213,7 +249,7 @@ namespace tools
                                      dstRect.SizeX() - 4,
                                      dstRect.SizeY() - 4);
 
-        gil::gray8c_view_t srcView = gil::const_view(it->second.m_image);
+        gil::gray8c_view_t srcView = gil::const_view(it->second.first.m_image);
 
         for (size_t x = 0; x < dstRect.SizeX() - 4; ++x)
           for (size_t y = 0; y < dstRect.SizeY() - 4; ++y)
@@ -221,6 +257,31 @@ namespace tools
             color[3] = srcView(x, y);
             dstView(x, y) = color;
           }
+
+        /// packing stroked version
+
+        dstRect = m2::RectU(page.m_packer.find(it->second.second.m_handle).second);
+
+        color = gil::rgba8_pixel_t(255, 255, 255, 0);
+
+        dstView = gil::subimage_view(gil::view(skinImage), dstRect.minX(), dstRect.minY(), dstRect.SizeX(), dstRect.SizeY());
+        gil::fill_pixels(dstView, color);
+
+        dstView = gil::subimage_view(gil::view(skinImage),
+                                     dstRect.minX() + 2,
+                                     dstRect.minY() + 2,
+                                     dstRect.SizeX() - 4,
+                                     dstRect.SizeY() - 4);
+
+        srcView = gil::const_view(it->second.second.m_image);
+
+        for (size_t x = 0; x < dstRect.SizeX() - 4; ++x)
+          for (size_t y = 0; y < dstRect.SizeY() - 4; ++y)
+          {
+            color[3] = srcView(x, y);
+            dstView(x, y) = color;
+          }
+
       }
 
       gil::lodepng_write_view(
@@ -389,21 +450,43 @@ namespace tools
         for (TChars::const_iterator it = fontIt->m_chars.begin(); it != fontIt->m_chars.end(); ++it)
         {
           QDomElement charStyle = doc.createElement("charStyle");
+
+          charStyle.setAttribute("id", it->first);
+
+          QDomElement glyphInfo = doc.createElement("glyphInfo");
+          charStyle.appendChild(glyphInfo);
+
           QDomElement resourceStyle = doc.createElement("resourceStyle");
 
-          m2::RectU const & texRect = page.m_packer.find(it->second.m_handle).second;
+          m2::RectU texRect = page.m_packer.find(it->second.first.m_handle).second;
 
           resourceStyle.setAttribute("x", texRect.minX());
           resourceStyle.setAttribute("y", texRect.minY());
           resourceStyle.setAttribute("width", texRect.SizeX());
           resourceStyle.setAttribute("height", texRect.SizeY());
 
-          charStyle.appendChild(resourceStyle);
+          glyphInfo.appendChild(resourceStyle);
 
-          charStyle.setAttribute("xAdvance", it->second.m_xAdvance);
-          charStyle.setAttribute("xOffset", it->second.m_xOffset);
-          charStyle.setAttribute("yOffset", it->second.m_yOffset);
-          charStyle.setAttribute("id", it->first);
+          glyphInfo.setAttribute("xAdvance", it->second.first.m_xAdvance);
+          glyphInfo.setAttribute("xOffset", it->second.first.m_xOffset);
+          glyphInfo.setAttribute("yOffset", it->second.first.m_yOffset);
+
+          QDomElement glyphMaskInfo = doc.createElement("glyphMaskInfo");
+          resourceStyle = doc.createElement("resourceStyle");
+
+          texRect = page.m_packer.find(it->second.second.m_handle).second;
+
+          resourceStyle.setAttribute("x", texRect.minX());
+          resourceStyle.setAttribute("y", texRect.minY());
+          resourceStyle.setAttribute("width", texRect.SizeX());
+          resourceStyle.setAttribute("height", texRect.SizeY());
+
+          glyphMaskInfo.appendChild(resourceStyle);
+          glyphMaskInfo.setAttribute("xAdvance", it->second.second.m_xAdvance);
+          glyphMaskInfo.setAttribute("xOffset", it->second.second.m_xOffset);
+          glyphMaskInfo.setAttribute("yOffset", it->second.second.m_yOffset);
+
+          charStyle.appendChild(glyphMaskInfo);
 
           fontInfo.appendChild(charStyle);
 

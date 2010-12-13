@@ -31,17 +31,12 @@
 		EE7F29831219ECA300EB67A9 /* WindowHandle.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F29801219ECA300EB67A9 /* WindowHandle.mm */; };
 		EEB7E22211E9079400080A68 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB7E22111E9079400080A68 /* CoreLocation.framework */; };
 		EEB7E30911E9094F00080A68 /* UserLocationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEB7E30811E9094F00080A68 /* UserLocationController.mm */; };
-		EECB31EB1281504600B01841 /* dejavusans_8.png in Resources */ = {isa = PBXBuildFile; fileRef = EECB31E31281504600B01841 /* dejavusans_8.png */; };
-		EECB31EC1281504600B01841 /* dejavusans_10.png in Resources */ = {isa = PBXBuildFile; fileRef = EECB31E41281504600B01841 /* dejavusans_10.png */; };
-		EECB31ED1281504600B01841 /* dejavusans_12.png in Resources */ = {isa = PBXBuildFile; fileRef = EECB31E51281504600B01841 /* dejavusans_12.png */; };
-		EECB31EE1281504600B01841 /* dejavusans_14.png in Resources */ = {isa = PBXBuildFile; fileRef = EECB31E61281504600B01841 /* dejavusans_14.png */; };
-		EECB31EF1281504600B01841 /* dejavusans_16.png in Resources */ = {isa = PBXBuildFile; fileRef = EECB31E71281504600B01841 /* dejavusans_16.png */; };
-		EECB31F01281504600B01841 /* dejavusans_20.png in Resources */ = {isa = PBXBuildFile; fileRef = EECB31E81281504600B01841 /* dejavusans_20.png */; };
-		EECB31F11281504600B01841 /* dejavusans_24.png in Resources */ = {isa = PBXBuildFile; fileRef = EECB31E91281504600B01841 /* dejavusans_24.png */; };
 		EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EED10A4411F78D120095FAD4 /* MapViewController.mm */; };
 		EEE4C93E1298A2F3007231A9 /* symbols_24.png in Resources */ = {isa = PBXBuildFile; fileRef = EEE4C93D1298A2F3007231A9 /* symbols_24.png */; };
 		EEE4C9401298A303007231A9 /* symbols_48.png in Resources */ = {isa = PBXBuildFile; fileRef = EEE4C93F1298A303007231A9 /* symbols_48.png */; };
 		EEE4C9421298A31B007231A9 /* basic_highres.skn in Resources */ = {isa = PBXBuildFile; fileRef = EEE4C9411298A31B007231A9 /* basic_highres.skn */; };
+		EEFC0A9612B561B7002914FF /* dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFC0A9512B561B7002914FF /* dejavusans.ttf */; };
+		EEFC0BBF12B5656A002914FF /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020311CD464100ABDD5D /* libfreetype.a */; };
 		FA065FED128614C400FEA989 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */; };
 		FA065FFF1286167A00FEA989 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA065FFD1286167A00FEA989 /* Default@2x.png */; };
 		FA0660001286167A00FEA989 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FA065FFE1286167A00FEA989 /* Default.png */; };
@@ -99,17 +94,11 @@
 		EEB7E22111E9079400080A68 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		EEB7E30711E9094F00080A68 /* UserLocationController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UserLocationController.hpp; sourceTree = "<group>"; };
 		EEB7E30811E9094F00080A68 /* UserLocationController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UserLocationController.mm; sourceTree = "<group>"; };
-		EECB31E31281504600B01841 /* dejavusans_8.png */ = {isa = PBXFileReference; explicitFileType = image.png; name = dejavusans_8.png; path = ../../data/dejavusans_8.png; sourceTree = SOURCE_ROOT; };
-		EECB31E41281504600B01841 /* dejavusans_10.png */ = {isa = PBXFileReference; explicitFileType = image.png; name = dejavusans_10.png; path = ../../data/dejavusans_10.png; sourceTree = SOURCE_ROOT; };
-		EECB31E51281504600B01841 /* dejavusans_12.png */ = {isa = PBXFileReference; explicitFileType = image.png; name = dejavusans_12.png; path = ../../data/dejavusans_12.png; sourceTree = SOURCE_ROOT; };
-		EECB31E61281504600B01841 /* dejavusans_14.png */ = {isa = PBXFileReference; explicitFileType = image.png; name = dejavusans_14.png; path = ../../data/dejavusans_14.png; sourceTree = SOURCE_ROOT; };
-		EECB31E71281504600B01841 /* dejavusans_16.png */ = {isa = PBXFileReference; explicitFileType = image.png; name = dejavusans_16.png; path = ../../data/dejavusans_16.png; sourceTree = SOURCE_ROOT; };
-		EECB31E81281504600B01841 /* dejavusans_20.png */ = {isa = PBXFileReference; explicitFileType = image.png; name = dejavusans_20.png; path = ../../data/dejavusans_20.png; sourceTree = SOURCE_ROOT; };
-		EECB31E91281504600B01841 /* dejavusans_24.png */ = {isa = PBXFileReference; explicitFileType = image.png; name = dejavusans_24.png; path = ../../data/dejavusans_24.png; sourceTree = SOURCE_ROOT; };
 		EED10A4411F78D120095FAD4 /* MapViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MapViewController.mm; sourceTree = "<group>"; };
 		EEE4C93D1298A2F3007231A9 /* symbols_24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = symbols_24.png; path = ../../data/symbols_24.png; sourceTree = SOURCE_ROOT; };
 		EEE4C93F1298A303007231A9 /* symbols_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = symbols_48.png; path = ../../data/symbols_48.png; sourceTree = SOURCE_ROOT; };
 		EEE4C9411298A31B007231A9 /* basic_highres.skn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic_highres.skn; path = ../../data/basic_highres.skn; sourceTree = SOURCE_ROOT; };
+		EEFC0A9512B561B7002914FF /* dejavusans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = dejavusans.ttf; path = ../../data/dejavusans.ttf; sourceTree = "<group>"; };
 		FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = SOURCE_ROOT; };
 		FA065FFD1286167A00FEA989 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = SOURCE_ROOT; };
 		FA065FFE1286167A00FEA989 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
@@ -139,6 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEFC0BBF12B5656A002914FF /* libfreetype.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
@@ -248,17 +238,11 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EEFC0A9512B561B7002914FF /* dejavusans.ttf */,
 				EEE4C9411298A31B007231A9 /* basic_highres.skn */,
 				EEE4C93F1298A303007231A9 /* symbols_48.png */,
 				EEE4C93D1298A2F3007231A9 /* symbols_24.png */,
 				FA500587128907F0002961F0 /* visibility.txt */,
-				EECB31E31281504600B01841 /* dejavusans_8.png */,
-				EECB31E41281504600B01841 /* dejavusans_10.png */,
-				EECB31E51281504600B01841 /* dejavusans_12.png */,
-				EECB31E61281504600B01841 /* dejavusans_14.png */,
-				EECB31E71281504600B01841 /* dejavusans_16.png */,
-				EECB31E81281504600B01841 /* dejavusans_20.png */,
-				EECB31E91281504600B01841 /* dejavusans_24.png */,
 				EE026F0811D6AC2800645242 /* basic.skn */,
 				EE026F0911D6AC2800645242 /* drawing_rules.bin */,
 				EE026F0511D6AC0D00645242 /* classificator.txt */,
@@ -371,13 +355,6 @@
 				EE026F0611D6AC0D00645242 /* classificator.txt in Resources */,
 				EE026F0D11D6AC2800645242 /* basic.skn in Resources */,
 				EE026F0E11D6AC2800645242 /* drawing_rules.bin in Resources */,
-				EECB31EB1281504600B01841 /* dejavusans_8.png in Resources */,
-				EECB31EC1281504600B01841 /* dejavusans_10.png in Resources */,
-				EECB31ED1281504600B01841 /* dejavusans_12.png in Resources */,
-				EECB31EE1281504600B01841 /* dejavusans_14.png in Resources */,
-				EECB31EF1281504600B01841 /* dejavusans_16.png in Resources */,
-				EECB31F01281504600B01841 /* dejavusans_20.png in Resources */,
-				EECB31F11281504600B01841 /* dejavusans_24.png in Resources */,
 				FA065FED128614C400FEA989 /* MainWindow-iPad.xib in Resources */,
 				FA065FFF1286167A00FEA989 /* Default@2x.png in Resources */,
 				FA0660001286167A00FEA989 /* Default.png in Resources */,
@@ -393,6 +370,7 @@
 				EEE4C93E1298A2F3007231A9 /* symbols_24.png in Resources */,
 				EEE4C9401298A303007231A9 /* symbols_48.png in Resources */,
 				EEE4C9421298A31B007231A9 /* basic_highres.skn in Resources */,
+				EEFC0A9612B561B7002914FF /* dejavusans.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,6 +405,11 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/Projects/omim-iphone-build/out/release\"",
+					"\"$(DEVELOPER_DIR)/Projects/omim/iphone/Maps\"",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -517,6 +500,11 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/Projects/omim-iphone-build/out/release\"",
+					"\"$(DEVELOPER_DIR)/Projects/omim/iphone/Maps\"",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -568,6 +556,11 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/Projects/omim-iphone-build/out/release\"",
+					"\"$(DEVELOPER_DIR)/Projects/omim/iphone/Maps\"",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -619,6 +612,11 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/Projects/omim-iphone-build/out/release\"",
+					"\"$(DEVELOPER_DIR)/Projects/omim/iphone/Maps\"",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

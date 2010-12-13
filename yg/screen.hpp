@@ -36,6 +36,8 @@ namespace yg
 
       typedef function<void()> onFlushFinishedFn;
 
+      enum TextPos { under_line, middle_line, above_line };
+
     private:
 
       typedef RenderStateUpdater base_t;
@@ -79,6 +81,15 @@ namespace yg
 
       int m_aaShift;
 
+      void drawPathTextImpl(m2::PointD const * path,
+                        size_t s,
+                        uint8_t fontSize,
+                        string const & utf8Text,
+                        double pathLength,
+                        TextPos pos,
+                        bool fromMask,
+                        double depth);
+
     public:
 
       Screen(shared_ptr<ResourceManager> const & resourceManager, bool isAntiAliased = false);
@@ -110,7 +121,6 @@ namespace yg
                     string const & utf8Text,
                     double depth);
 
-      enum TextPos { under_line, middle_line, above_line };
       /// Drawing text in the middle of the path.
       void drawPathText(m2::PointD const * path,
                         size_t s,
@@ -118,6 +128,7 @@ namespace yg
                         string const & utf8Text,
                         double pathLength,
                         TextPos pos,
+                        bool isMasked,
                         double depth);
 
       /// This functions hide the base_t functions with the same name and signature
@@ -129,8 +140,6 @@ namespace yg
       void clear(yg::Color const & c = yg::Color(192, 192, 192, 255), bool clearRT = true, float depth = 1.0, bool clearDepth = true);
 
       /// @}
-
-      int translateFontSize(int fontSize);
 
     private:
 

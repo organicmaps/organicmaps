@@ -10,6 +10,7 @@
 
 #include "pen_info.hpp"
 #include "color.hpp"
+#include "glyph_cache.hpp"
 
 namespace yg
 {
@@ -21,6 +22,14 @@ namespace yg
   struct CharStyle;
   struct ResourceStyle;
   class ResourceManager;
+
+  struct GlyphUploadCmd
+  {
+    shared_ptr<GlyphInfo> m_glyphInfo;
+    m2::RectU m_rect;
+    GlyphUploadCmd(shared_ptr<GlyphInfo> const & glyphInfo, m2::RectU const & rect);
+    GlyphUploadCmd();
+  };
 
   struct ColorUploadCmd
   {
@@ -41,13 +50,13 @@ namespace yg
   struct FontInfo
   {
     int8_t m_fontSize;
-    typedef map<int32_t, shared_ptr<CharStyle> > TChars;
+    typedef map<int32_t, pair<shared_ptr<CharStyle>, shared_ptr<CharStyle> > > TChars;
     TChars m_chars;
 
-    mutable ResourceStyle * m_invalidChar;
-    FontInfo() : m_invalidChar(0){}
+    mutable pair<ResourceStyle *, ResourceStyle *> m_invalidChar;
+    FontInfo() : m_invalidChar(0, 0){}
 
-    ResourceStyle * fromID(uint32_t id) const;
+    ResourceStyle * fromID(uint32_t id, bool primaryGlyph = true) const;
   };
 
   class SkinPage
@@ -72,17 +81,20 @@ namespace yg
     typedef map<Color, uint32_t> TColorMap;
     TColorMap m_colorMap;
 
+    typedef map<GlyphKey, uint32_t> TGlyphMap;
+    TGlyphMap m_glyphMap;
+
     m2::Packer m_packer;
     shared_ptr<gl::BaseTexture> m_texture;
     shared_ptr<ResourceManager> m_resourceManager;
 
     vector<ColorUploadCmd> m_colorUploadCommands;
     vector<PenUploadCmd> m_penUploadCommands;
+    vector<GlyphUploadCmd> m_glyphUploadCommands;
 
     void uploadPenInfo();
     void uploadColors();
-
-    vector<FontInfo> m_fonts;
+    void uploadGlyphs();
 
     bool m_isDynamic;
     uint32_t m_pageID;
@@ -94,6 +106,10 @@ namespace yg
     friend class SkinLoader;
 
   public:
+
+    void clearColorHandles();
+    void clearPenInfoHandles();
+    void clearFontHandles();
 
     void clearHandles();
 
@@ -113,19 +129,21 @@ namespace yg
     void reserveTexture();
     void freeTexture();
 
-    uint32_t find(Color const & c) const;
-    uint32_t Map(Color const & c);
+    uint32_t findColor(Color const & c) const;
+    uint32_t mapColor(Color const & c);
     bool     hasRoom(Color const & c) const;
 
-    uint32_t find(PenInfo const & penInfo) const;
-    uint32_t Map(PenInfo const & penInfo);
+    uint32_t findPenInfo(PenInfo const & penInfo) const;
+    uint32_t mapPenInfo(PenInfo const & penInfo);
     bool     hasRoom(PenInfo const & penInfo) const;
 
-    uint32_t find(char const * symbolName) const;
+    uint32_t findGlyph(GlyphKey const & g) const;
+    uint32_t mapGlyph(GlyphKey const & g);
+    bool hasRoom(GlyphKey const & g) const;
+
+    uint32_t findSymbol(char const * symbolName) const;
 
     ResourceStyle * fromID(uint32_t idx) const;
-
-    vector<FontInfo> const & fonts() const;
 
     bool isDynamic() const;
 

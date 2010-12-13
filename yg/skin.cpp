@@ -72,7 +72,7 @@ namespace yg
   {
     for (uint8_t i = 0; i < m_pages.size(); ++i)
     {
-      uint32_t res = m_pages[i]->find(symbolName);
+      uint32_t res = m_pages[i]->findSymbol(symbolName);
       if (res != invalidPageHandle())
         return packID(i, res);
     }
@@ -85,7 +85,7 @@ namespace yg
 
     for (uint8_t i = 0; i < m_pages.size(); ++i)
     {
-      res = m_pages[i]->find(c);
+      res = m_pages[i]->findColor(c);
       if (res != invalidPageHandle())
         return packID(i, res);
     }
@@ -93,7 +93,7 @@ namespace yg
     if (!m_pages[m_currentDynamicPage]->hasRoom(c))
       changeCurrentDynamicPage();
 
-    return packID(m_currentDynamicPage, m_pages[m_currentDynamicPage]->Map(c));
+    return packID(m_currentDynamicPage, m_pages[m_currentDynamicPage]->mapColor(c));
   }
 
   uint32_t Skin::mapPenInfo(PenInfo const & penInfo)
@@ -101,7 +101,7 @@ namespace yg
     uint32_t res = invalidPageHandle();
     for (uint8_t i = 0; i < m_pages.size(); ++i)
     {
-      res = m_pages[i]->find(penInfo);
+      res = m_pages[i]->findPenInfo(penInfo);
       if (res != invalidPageHandle())
         return packID(i, res);
     }
@@ -109,27 +109,23 @@ namespace yg
     if (!m_pages[m_currentDynamicPage]->hasRoom(penInfo))
       changeCurrentDynamicPage();
 
-    return packID(m_currentDynamicPage, m_pages[m_currentDynamicPage]->Map(penInfo));
+    return packID(m_currentDynamicPage, m_pages[m_currentDynamicPage]->mapPenInfo(penInfo));
   }
 
-  FontInfo const & Skin::getFont(int size) const
+  uint32_t Skin::mapGlyph(GlyphKey const & gk)
   {
-    int lastFont = -1;
-
+    uint32_t res = invalidPageHandle();
     for (uint8_t i = 0; i < m_pages.size(); ++i)
     {
-      if (m_pages[i]->fonts().size() != 0)
-      {
-        if (lastFont == -1)
-          lastFont = i;
-        if (size >= m_pages[i]->fonts()[0].m_fontSize)
-          lastFont = i;
-        else
-          return m_pages[lastFont]->fonts()[0];
-      }
+      res = m_pages[i]->findGlyph(gk);
+      if (res != invalidPageHandle())
+        return packID(i, res);
     }
 
-    return m_pages[lastFont]->fonts()[0];
+    if (!m_pages[m_currentDynamicPage]->hasRoom(gk))
+      changeCurrentDynamicPage();
+
+    return packID(m_currentDynamicPage, m_pages[m_currentDynamicPage]->mapGlyph(gk));
   }
 
   Skin::TSkinPages const & Skin::pages() const
@@ -186,6 +182,9 @@ namespace yg
     /// 1. flush screen(through overflowFns)
     callOverflowFns(m_currentDynamicPage);
     /// page should be frozen after flushing(activeCommands > 0)
+
+    /// 2. forget all fonts packed on previous page
+    m_pages[m_currentDynamicPage]->clearFontHandles();
 
     /// 2. choose next dynamic page
     if (m_currentDynamicPage == m_pages.size() - 1)

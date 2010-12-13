@@ -157,7 +157,7 @@ void DrawerYG::drawPathText(vector<m2::PointD> const & pts, double pathLength, s
 {
   uint8_t fontSize = get_font_size(pRule);
   if (fontSize > 3 * m_visualScale)
-    m_pScreen->drawPathText(&pts[0], pts.size(), fontSize, name, pathLength, yg::gl::Screen::middle_line, 10000);
+    m_pScreen->drawPathText(&pts[0], pts.size(), fontSize, name, pathLength, yg::gl::Screen::middle_line, true, 10000);
 }
 
 //render_target_t DrawerYG::renderTarget() const
@@ -260,7 +260,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t pRule, int depth)
 
 void DrawerYG::drawStats(double duration, int scale, double lat, double lng)
 {
-  ostringstream out;
+/*  ostringstream out;
   out << "SPF: " << duration;
   if (duration == 0.0)
     out << " FPS: inf";
@@ -270,5 +270,5 @@ void DrawerYG::drawStats(double duration, int scale, double lat, double lng)
 
   out.str("");
   out << "(" << lat << ", " << lng << ") Scale: " << scale;
-  m_pScreen->drawText(m2::PointD(10, 40), 0, 14, out.str().c_str(), 10000);
+  m_pScreen->drawText(m2::PointD(10, 40), 0, 14, out.str().c_str(), 10000);*/
 }

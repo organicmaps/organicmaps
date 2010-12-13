@@ -47,6 +47,8 @@ void GLDrawWidget::initializeGL()
       5000 * sizeof(unsigned short),
       100,
       512, 256, 15));
+
+  m_resourceManager->addFont(GetPlatform().ReadPathForFile("dejavusans.ttf").c_str());
 /*  m_resourceManager = make_shared_ptr(new yg::ResourceManager(
       5000 * sizeof(yg::gl::Vertex),
       10000 * sizeof(unsigned short),

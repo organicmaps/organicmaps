@@ -420,12 +420,12 @@ namespace
       double pat[2] = {2, 2};
       p->drawPath(path, sizeof(path) / sizeof(m2::PointD), p->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 0xFF), 2, pat, 2, 0)), 0);
 
-      p->drawText(m2::PointD(200, 200), 0                , 0, "0", 0);
-      p->drawText(m2::PointD(240, 200), math::pi / 2     , 0, "0", 0);
-      p->drawText(m2::PointD(280, 200), math::pi         , 0, "0", 0);
-      p->drawText(m2::PointD(320, 200), math::pi * 3 / 2 , 0, "0", 0);
-      p->drawText(m2::PointD(360, 200), math::pi / 18, 0, "0", 0);
-      p->drawText(m2::PointD(40, 50), math::pi / 18, 0, "Simplicity is the ultimate sophistication", 0);
+      p->drawText(m2::PointD(200, 200), 0                , 20, "0", 0);
+      p->drawText(m2::PointD(240, 200), math::pi / 2     , 20, "0", 0);
+      p->drawText(m2::PointD(280, 200), math::pi         , 20, "0", 0);
+      p->drawText(m2::PointD(320, 200), math::pi * 3 / 2 , 20, "0", 0);
+      p->drawText(m2::PointD(360, 200), math::pi / 18, 20, "0", 0);
+      p->drawText(m2::PointD(40, 50), math::pi / 18, 20, "Simplicity is the ultimate sophistication", 0);
     }
   };
 
@@ -433,7 +433,7 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      p->drawText(m2::PointD(40, 50), 0, 0, "X", 1);
+      p->drawText(m2::PointD(40, 50), 0, 20, "X", 1);
     }
   };
 
@@ -446,7 +446,7 @@ namespace
 
       for (size_t i = 0; i < maxTimes; ++i)
         for (size_t j = 1; j <= i+1; ++j)
-          p->drawText(m2::PointD(40, 10 + yStep * i), math::pi / 6, 10, "Simplicity is the ultimate sophistication", 0);
+          p->drawText(m2::PointD(40, 10 + yStep * i), math::pi / 6, 20, "Simplicity is the ultimate sophistication", 0);
     }
   };
 
@@ -462,7 +462,7 @@ namespace
       yg::PenInfo penInfo = yg::PenInfo(yg::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
       yg::PenInfo solidPenInfo = yg::PenInfo(yg::Color(0xFF, 0, 0, 0xFF), 4, 0, 0, 0);
 
-      p->drawText(m2::PointD(40, 50), 0, 1, "S", 0);
+      p->drawText(m2::PointD(40, 50), 0, 20, "S", 0);
       p->drawPath(&path[0], path.size(), p->skin()->mapPenInfo(solidPenInfo), 0);
 
     }
@@ -472,7 +472,7 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      p->drawText(m2::PointD(40, 50), 0/*, math::pi / 18*/, 1, "Simplicity is the ultimate sophistication", 0);
+      p->drawText(m2::PointD(40, 50), 0/*, math::pi / 18*/, 20, "Simplicity is the ultimate sophistication", 0);
     }
   };
 
@@ -505,7 +505,7 @@ namespace
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
       p->drawPath(&m_path[0], m_path.size(), p->skin()->mapPenInfo(m_penInfo), 0);
-      p->drawPathText(&m_path[0], m_path.size(), 1, m_text, calc_length(m_path), yg::gl::Screen::middle_line, 0);
+      p->drawPathText(&m_path[0], m_path.size(), 10, m_text, calc_length(m_path), yg::gl::Screen::middle_line, true, 0);
     }
   };
 
@@ -516,8 +516,8 @@ namespace
       p->drawPath(&m_path[0], m_path.size(), p->skin()->mapPenInfo(m_penInfo), 0);
 
       double const len = calc_length(m_path);
-      p->drawPathText(&m_path[0], m_path.size(), 1, m_text, len, yg::gl::Screen::above_line, 0);
-      p->drawPathText(&m_path[0], m_path.size(), 1, m_text, len, yg::gl::Screen::under_line, 0);
+      p->drawPathText(&m_path[0], m_path.size(), 10, m_text, len, yg::gl::Screen::above_line, true, 0);
+      p->drawPathText(&m_path[0], m_path.size(), 10, m_text, len, yg::gl::Screen::under_line, true, 0);
     }
   };
 
@@ -690,22 +690,22 @@ namespace
   };
 
 //   UNIT_TEST_GL(TestDrawPolyOverflow);
-//   UNIT_TEST_GL(TestDrawFont);
-//   UNIT_TEST_GL(TestDrawSingleSymbol);
+     UNIT_TEST_GL(TestDrawFont);
+//     UNIT_TEST_GL(TestDrawSingleSymbol);
 //   UNIT_TEST_GL(TestDrawSingleSymbolAndSolidPath);
-//   UNIT_TEST_GL(TestDrawString);
-//   UNIT_TEST_GL(TestDrawStringOnString);
-//   UNIT_TEST_GL(TestDrawFontOnPath);
-//   UNIT_TEST_GL(TestDrawFontOnPathWithOffset);
+   UNIT_TEST_GL(TestDrawString);
+   UNIT_TEST_GL(TestDrawStringOnString);
+   UNIT_TEST_GL(TestDrawFontOnPath);
+   UNIT_TEST_GL(TestDrawFontOnPathWithOffset);
 //   UNIT_TEST_GL(TestDrawSGIConvex);
 //   UNIT_TEST_GL(TestDrawPoly);
 //   UNIT_TEST_GL(TestDrawSolidRect);
-     UNIT_TEST_GL(TestDrawPathWithSkinPageMiss);
+//     UNIT_TEST_GL(TestDrawPathWithSkinPageMiss);
 //   UNIT_TEST_GL(TestDrawPathWithOffset);
 //   UNIT_TEST_GL(TestDrawPathJoin);
 //   UNIT_TEST_GL(TestDrawPathSolid);
 //   UNIT_TEST_GL(TestDrawPathSolidWithZ);
-     UNIT_TEST_GL(TestDrawPathSolidWithClipRect);
+//     UNIT_TEST_GL(TestDrawPathSolidWithClipRect);
 //   UNIT_TEST_GL(TestDrawUtilsRect);
 //   UNIT_TEST_GL(TestDrawUtilsRectFilledTexture);
 }

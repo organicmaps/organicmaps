@@ -6,7 +6,11 @@ CONFIG += staticlib
 DEFINES += YG_LIBRARY
 
 ROOT_DIR = ..
-DEPENDENCIES = expat geometry coding base
+DEPENDENCIES = expat geometry coding base freetype
+
+INCLUDEPATH += $$ROOT_DIR/3party/freetype/include
+
+LIBS += lfreetype
 
 include($$ROOT_DIR/common.pri)
 
@@ -49,7 +53,8 @@ SOURCES += \
     geometry_renderer.cpp \
     skin_page.cpp \
     storage.cpp \
-    render_state_updater.cpp
+    render_state_updater.cpp \
+    glyph_cache.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -84,7 +89,9 @@ HEADERS += \
     skin_page.hpp \
     storage.hpp \
     render_state_updater.hpp \
-    render_target.hpp
+    render_target.hpp \
+    glyph_cache.hpp \
+    data_formats.hpp
 
 !iphonesimulator-g++42 {
   !iphonedevice-g++42 {

@@ -103,6 +103,10 @@ namespace yg
     /// if found - return id.
     /// if not - pack and return id.
     uint32_t mapColor(Color const & c);
+    /// find glyph identified by GlyphKey on texture
+    /// if found - return id
+    /// if not - pack and return id
+    uint32_t mapGlyph(GlyphKey const & gk);
 
     void addClearPageFn(clearPageFn fn, int priority);
     void addOverflowFn(overflowFn, int priority);

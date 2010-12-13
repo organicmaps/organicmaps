@@ -1,6 +1,7 @@
 #include "../base/SRC_FIRST.hpp"
 #include "internal/opengl.hpp"
 #include "base_texture.hpp"
+#include "data_formats.hpp"
 #include "resource_manager.hpp"
 #include "skin_loader.hpp"
 #include "texture.hpp"
@@ -12,15 +13,8 @@
 
 namespace yg
 {
-
-#ifdef OMIM_GL_ES
-  typedef gl::Texture<gl::RGBA4Traits, true> TDynamicTexture;
-  typedef gl::Texture<gl::RGBA4Traits, false> TStaticTexture;
-
-#else
-  typedef gl::Texture<gl::RGBA8Traits, true> TDynamicTexture;
-  typedef gl::Texture<gl::RGBA8Traits, false> TStaticTexture;
-#endif
+  typedef gl::Texture<DATA_TRAITS, true> TDynamicTexture;
+  typedef gl::Texture<DATA_TRAITS, false> TStaticTexture;
 
   ResourceManager::ResourceManager(size_t vbSize, size_t ibSize, size_t storagesCount,
                                    size_t smallVBSize, size_t smallIBSize, size_t smallStoragesCount,
@@ -149,5 +143,15 @@ namespace yg
     {
       /// somehow signal
     }
+  }
+
+  shared_ptr<GlyphInfo> const ResourceManager::getGlyph(GlyphKey const & key)
+  {
+    return m_glyphCache.getGlyph(key);
+  }
+
+  void ResourceManager::addFont(char const * fileName)
+  {
+    m_glyphCache.addFont(fileName);
   }
 }
