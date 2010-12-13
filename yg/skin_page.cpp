@@ -358,13 +358,6 @@ namespace yg
 
       TDynamicTexture::view_t v = dynTexture->view(rect.SizeX(), rect.SizeY());
 
-      TDynamicTexture::const_view_t srcView = gil::interleaved_view(
-          gi->m_width,
-          gi->m_height,
-          (TDynamicTexture::pixel_t*)&gi->m_bitmap[0],
-          gi->m_width * sizeof(TDynamicTexture::pixel_t)
-          );
-
       TDynamicTexture::pixel_t penColorTranslucent(0, 0, 0, 0);
 
       for (size_t y = 0; y < 2; ++y)
@@ -383,13 +376,21 @@ namespace yg
         v(rect.SizeX() - 1, y) = penColorTranslucent;
       }
 
-      for (size_t y = 2; y < rect.SizeY() - 2; ++y)
+      if ((gi->m_width != 0) && (gi->m_height != 0))
       {
-        for (size_t x = 2; x < rect.SizeX() - 2; ++x)
-         v(x, y) = srcView(x - 2, y - 2);
-      }
+        TDynamicTexture::const_view_t srcView = gil::interleaved_view(
+            gi->m_width,
+            gi->m_height,
+            (TDynamicTexture::pixel_t*)&gi->m_bitmap[0],
+            gi->m_width * sizeof(TDynamicTexture::pixel_t)
+            );
 
-      dynTexture->upload(&v(0, 0), rect);
+        for (size_t y = 2; y < rect.SizeY() - 2; ++y)
+          for (size_t x = 2; x < rect.SizeX() - 2; ++x)
+           v(x, y) = srcView(x - 2, y - 2);
+
+        dynTexture->upload(&v(0, 0), rect);
+      }
     }
 
     m_glyphUploadCommands.clear();
