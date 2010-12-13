@@ -8,6 +8,8 @@
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 
+#include "cell_id.hpp"
+
 class ArrayByteSource;
 class FeatureBase;
 
