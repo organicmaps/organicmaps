@@ -285,6 +285,7 @@ public:
 
   virtual int GetFilesInDir(string const & directory, string const & mask, FilesList & outFiles) const
   {
+    outFiles.clear();
     QDir dir(directory.c_str(), mask.c_str(), QDir::Unsorted,
              QDir::Files | QDir::Readable | QDir::Dirs | QDir::NoDotAndDotDot);
     int const count = dir.count();
