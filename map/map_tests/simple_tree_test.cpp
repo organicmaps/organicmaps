@@ -47,4 +47,9 @@ UNIT_TEST(SimpleTree)
   Calculator<mytree> c3;
   tree[i].ForEachChildren(c3);
   TEST_GREATER(c3.count, c2.count, ("Europe should contain some regions"));
+
+  tree.Clear();
+  Calculator<mytree> c4;
+  tree.ForEachChildren(c4);
+  TEST_EQUAL(c4.count, 0, ("Tree should be empty"));
 }

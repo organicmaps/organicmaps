@@ -43,6 +43,12 @@ public:
     return m_siblings.back().Value();
   }
 
+  /// Deletes all children and makes tree empty
+  void Clear()
+  {
+    m_siblings.clear();
+  }
+
   bool operator<(SimpleTree<T> const & other) const
   {
     return Value() < other.Value();
