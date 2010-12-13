@@ -55,7 +55,7 @@
 				didUpdateHeading:	(CLHeading *) newHeading
 {
 	double trueHeading = [newHeading trueHeading];
-	[self.delegate OnHeading: trueHeading withTimeStamp: newHeading.timestamp];
+	[self.delegate OnHeading: trueHeading withTimestamp: newHeading.timestamp];
 }
 
 - (void) locationManager: (CLLocationManager *) manager
