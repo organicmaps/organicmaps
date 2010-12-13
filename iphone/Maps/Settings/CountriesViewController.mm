@@ -11,6 +11,9 @@
 #define NAVIGATION_BAR_HEIGHT	44
 #define MAX_3G_MEGABYTES 100
 
+#define GB 1000*1000*1000
+#define MB 1000*1000    
+
 
 /////////////////////////////////////////////////////////////////
 // needed for trick with back button
@@ -117,36 +120,33 @@
 
 - (void) UpdateCell: (UITableViewCell *) cell forCountry: (mapinfo::TIndex const &) countryIndex
 {
-//  uint64_t size = g_pStorage->CountrySizeInBytes(countryIndex);
-//  // convert size to human readable values
-//  uint64_t const GB = 1000 * 1000 * 1000;
-//  uint64_t const MB = 1000 * 1000;
-//  char const * sizeStr = "kB";
-//  if (size > GB)
-//  {
-//  	sizeStr = "GB";
-//    size /= GB;
-//  }
-//  else if (size > MB)
-//  {
-//    sizeStr = "MB";
-//    size /= MB;
-//  }
-//  else
-//  {
-//    sizeStr = "kB";
-//    size = (size + 999) / 1000;
-//  }
-
   UIActivityIndicatorView * indicator = (UIActivityIndicatorView *)cell.accessoryView;
 
 	switch (g_pStorage->CountryStatus(countryIndex))
   {
   case mapinfo::EOnDisk:
   	{
+    	uint64_t size = g_pStorage->CountrySizeInBytes(countryIndex);
+  		// convert size to human readable values
+			char const * kBorMBorGB = "kB";
+      if (size > GB)
+      {
+      	kBorMBorGB = "GB";
+        size /= GB;
+      }
+      else if (size > MB)
+      {
+      	kBorMBorGB = "MB";
+        size /= MB;
+      }
+      else
+      {
+      	kBorMBorGB = "kB";
+        size = (size + 999) / 1000;  
+      }
+    
   		cell.textLabel.textColor = [UIColor greenColor];
-//    	cell.detailTextLabel.text = [NSString stringWithFormat: @"Takes %qu %s on disk", size, kBOrMB];
-    	cell.detailTextLabel.text = [NSString stringWithFormat: @"Downloaded, touch to delete"];
+    	cell.detailTextLabel.text = [NSString stringWithFormat: @"Downloaded (%qu %s), touch to delete", size, kBorMBorGB];
       cell.accessoryView = nil;
     }
     break;
@@ -279,8 +279,6 @@ mapinfo::TIndex g_clickedIndex;
       
     	uint64_t size = g_pStorage->CountrySizeInBytes(g_clickedIndex);
   		// convert size to human readable values
-  		uint64_t const GB = 1000 * 1000 * 1000;
-  		uint64_t const MB = 1000 * 1000;
       NSString * strTitle = nil;
       NSString * strDownload = nil;
   		if (size > GB)
