@@ -153,33 +153,37 @@ namespace yg
       info->m_xOffset = bitmapGlyph->left;
       info->m_yOffset = bitmapGlyph->top - info->m_height;
       info->m_xAdvance = int(bitmapGlyph->root.advance.x >> 16);
-      info->m_bitmap.resize(info->m_width * info->m_height * 4);
 
-      DATA_TRAITS::view_t dstView = gil::interleaved_view(
-          info->m_width,
-          info->m_height,
-          (DATA_TRAITS::pixel_t*)&info->m_bitmap[0],
-          info->m_width * sizeof(DATA_TRAITS::pixel_t)
-          );
+      if ((info->m_width != 0) && (info->m_height != 0))
+      {
+        info->m_bitmap.resize(info->m_width * info->m_height * 4);
 
-      gil::gray8c_view_t srcView = gil::interleaved_view(
-          info->m_width,
-          info->m_height,
-          (gil::gray8_pixel_t*)bitmapGlyph->bitmap.buffer,
-          bitmapGlyph->bitmap.pitch
-          );
+        DATA_TRAITS::view_t dstView = gil::interleaved_view(
+            info->m_width,
+            info->m_height,
+            (DATA_TRAITS::pixel_t*)&info->m_bitmap[0],
+            info->m_width * sizeof(DATA_TRAITS::pixel_t)
+            );
 
-      DATA_TRAITS::pixel_t c(key.m_isMask ? DATA_TRAITS::maxChannelVal : 0,
-                             key.m_isMask ? DATA_TRAITS::maxChannelVal : 0,
-                             key.m_isMask ? DATA_TRAITS::maxChannelVal : 0,
-                             0);
+        gil::gray8c_view_t srcView = gil::interleaved_view(
+            info->m_width,
+            info->m_height,
+            (gil::gray8_pixel_t*)bitmapGlyph->bitmap.buffer,
+            bitmapGlyph->bitmap.pitch
+            );
 
-      for (size_t y = 0; y < srcView.height(); ++y)
-        for (size_t x = 0; x < srcView.width(); ++x)
-        {
-          gil::at_c<3>(c) = srcView(x, y) / DATA_TRAITS::channelScaleFactor;
-          dstView(x, y) = c;
-        }
+        DATA_TRAITS::pixel_t c(key.m_isMask ? DATA_TRAITS::maxChannelVal : 0,
+                               key.m_isMask ? DATA_TRAITS::maxChannelVal : 0,
+                               key.m_isMask ? DATA_TRAITS::maxChannelVal : 0,
+                               0);
+
+        for (size_t y = 0; y < srcView.height(); ++y)
+          for (size_t x = 0; x < srcView.width(); ++x)
+          {
+            gil::get_color(c, gil::alpha_t()) = srcView(x, y) / DATA_TRAITS::channelScaleFactor;
+            dstView(x, y) = c;
+          }
+      }
 
       FT_Done_Glyph(glyph);
 
