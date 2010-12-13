@@ -20,7 +20,7 @@ namespace yg
     class Storage;
   }
 
-  class GlyphInfo;
+  struct GlyphInfo;
 
   class ResourceManager
   {

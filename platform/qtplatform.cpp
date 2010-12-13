@@ -49,15 +49,10 @@ static char const * sRequiredResourcesList[] =
   "classificator.txt",
   "drawing_rules.bin",
   "basic.skn",
+  "basic_highres.skn",
   "visibility.txt",
   "symbols_24.png",
-  "dejavusans_8.png",
-  "dejavusans_10.png",
-  "dejavusans_12.png",
-  "dejavusans_14.png",
-  "dejavusans_16.png",
-  "dejavusans_20.png",
-  "dejavusans_24.png"
+  "symbols_48.png"
 };
 
 #ifdef OMIM_OS_MAC

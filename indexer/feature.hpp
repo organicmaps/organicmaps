@@ -15,6 +15,7 @@ class FeatureBuilder
 {
 public:
   FeatureBuilder();
+
   void AddName(string const & name);
   void AddPoint(m2::PointD const & p);
   void AddTriangle(m2::PointD const & a, m2::PointD const & b, m2::PointD const & c);
@@ -54,9 +55,12 @@ private:
   int32_t m_Layer;
   string m_Name;
   vector<uint32_t> m_Types;
-  vector<int64_t> m_Geometry;
-  vector<int64_t> m_Triangles;
+
   m2::RectD m_LimitRect;
+
+  vector<m2::PointD> m_Geometry;  // store points as is for further processing
+
+  vector<int64_t> m_Triangles;
 };
 
 class FeatureBase
@@ -200,9 +204,6 @@ public:
     return base_type::GetLimitRect();
   }
 
-  void ParseAll() const;
-  void DeserializeAndParse(vector<char> & data, uint32_t offset = 0);
-
   inline uint32_t GetGeometrySize() const
   {
     if (!m_bGeometryParsed)
@@ -252,22 +253,24 @@ public:
     f.EndPrimitive();
   }
 
-private:
-
-  mutable vector<m2::PointD> m_Geometry;
-  mutable vector<m2::PointD> m_Triangles;
+protected:
 
   void ParseGeometry() const;
   void ParseTriangles() const;
+
+  void ParseAll() const;
+
+  mutable vector<m2::PointD> m_Geometry;
+  mutable vector<m2::PointD> m_Triangles;
 };
 
-class FeatureGeomRef : public FeatureBase
+class FeatureGeomRef : public FeatureGeom
 {
-  typedef FeatureBase base_type;
+  typedef FeatureGeom base_type;
 
 public:
   FeatureGeomRef() {}
-  FeatureGeomRef(vector<char> & data, uint32_t offset = 0);
+  FeatureGeomRef(vector<char> & data, uint32_t offset = 0) : base_type(data, offset) {}
 };
 
 inline string debug_print(FeatureGeom const & f)

@@ -20,10 +20,14 @@ namespace pts
     CoordPointT const pt = Int64ToPoint(i);
     return m2::PointD(pt.first, pt.second);
   }
-  inline int64_t ToId(CoordPointT const & p)
+
+  struct Fpt2id
   {
-    return PointToInt64(p.first, p.second);
-  }
+    int64_t operator() (m2::PointD const & p)
+    {
+      return PointToInt64(p.x, p.y);
+    }
+  };
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,15 +45,16 @@ bool FeatureBuilder::IsGeometryClosed() const
 
 void FeatureBuilder::AddPoint(m2::PointD const & p)
 {
-  m_Geometry.push_back(pts::ToId(CoordPointT(p.x, p.y)));
+  m_Geometry.push_back(p);
   m_LimitRect.Add(p);
 }
 
 void FeatureBuilder::AddTriangle(m2::PointD const & a, m2::PointD const & b, m2::PointD const & c)
 {
-  m_Triangles.push_back(pts::ToId(CoordPointT(a.x, a.y)));
-  m_Triangles.push_back(pts::ToId(CoordPointT(b.x, b.y)));
-  m_Triangles.push_back(pts::ToId(CoordPointT(c.x, c.y)));
+  pts::Fpt2id fn;
+  m_Triangles.push_back(fn(a));
+  m_Triangles.push_back(fn(b));
+  m_Triangles.push_back(fn(c));
 }
 
 void FeatureBuilder::AddName(string const & name)
@@ -89,7 +94,7 @@ namespace
   bool is_equal(double d1, double d2)
   {
     //return my::AlmostEqual(d1, d2, 100000000);
-    return (fabs(d1 - d2) < 1.0E-6);
+    return (fabs(d1 - d2) < MercatorBounds::GetCellID2PointAbsEpsilon());
   }
   bool is_equal(m2::RectD const & r1, m2::RectD const & r2)
   {
@@ -102,11 +107,18 @@ namespace
 
 bool FeatureBuilder::operator == (FeatureBuilder const & fb) const
 {
+  if (m_Geometry.size() != fb.m_Geometry.size())
+    return false;
+
+  double const eps = MercatorBounds::GetCellID2PointAbsEpsilon();
+  for (size_t i = 0; i < m_Geometry.size(); ++i)
+    if (!m_Geometry[i].EqualDxDy(fb.m_Geometry[i], eps))
+      return false;
+
   return
       m_Types == fb.m_Types &&
       m_Layer == fb.m_Layer &&
       m_Name == fb.m_Name &&
-      m_Geometry == fb.m_Geometry &&
       m_Triangles == fb.m_Triangles &&
       is_equal(m_LimitRect, fb.m_LimitRect);
 }
@@ -157,16 +169,21 @@ void FeatureBuilder::Serialize(vector<char> & data) const
     sink.Write(&m_Name[0], m_Name.size());
   }
 
+  size_t const ptsCount = m_Geometry.size();
+  vector<int64_t> geom;
+  geom.reserve(ptsCount);
+  transform(m_Geometry.begin(), m_Geometry.end(), back_inserter(geom), pts::Fpt2id());
+
   // Serializing geometry.
-  if (m_Geometry.size() == 1)
+  if (ptsCount == 1)
   {
-    WriteVarInt(sink, m_Geometry[0]);
+    WriteVarInt(sink, geom[0]);
   }
   else
   {
-    WriteVarUint(sink, m_Geometry.size() - 1);
-    for (size_t i = 0; i < m_Geometry.size(); ++i)
-      WriteVarInt(sink, i == 0 ? m_Geometry[0] : m_Geometry[i] - m_Geometry[i-1]);
+    WriteVarUint(sink, ptsCount - 1);
+    for (size_t i = 0; i < ptsCount; ++i)
+      WriteVarInt(sink, i == 0 ? geom[0] : geom[i] - geom[i-1]);
   }
 
   // Serializing triangles.
@@ -184,8 +201,8 @@ void FeatureBuilder::Serialize(vector<char> & data) const
 bool FeatureBuilder::CheckCorrect(vector<char> const & data) const
 {
   vector<char> data1 = data;
-  FeatureGeom f;
-  f.DeserializeAndParse(data1);
+  FeatureGeom f(data1);
+
   FeatureBuilder fb;
   f.InitFeatureBuilder(fb);
 
@@ -356,12 +373,6 @@ void FeatureGeom::ParseAll() const
     ParseTriangles();
 }
 
-void FeatureGeom::DeserializeAndParse(vector<char> & data, uint32_t offset)
-{
-  Deserialize(data, offset);
-  ParseAll();
-}
-
 string FeatureGeom::DebugString() const
 {
   ParseAll();
@@ -388,8 +399,3 @@ void FeatureGeom::InitFeatureBuilder(FeatureBuilder & fb) const
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // FeatureGeomRef implementation
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-FeatureGeomRef::FeatureGeomRef(vector<char> & data, uint32_t offset)
-{
-  Deserialize(data, offset);
-}
