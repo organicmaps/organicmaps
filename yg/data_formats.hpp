@@ -76,8 +76,8 @@ namespace yg
   };
 }
 
-/*#ifdef OMIM_GL_ES
+#ifdef OMIM_GL_ES
   #define DATA_TRAITS RGBA4Traits
-#else*/
+#else
   #define DATA_TRAITS RGBA8Traits
-//#endif
+#endif

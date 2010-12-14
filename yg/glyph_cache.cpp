@@ -157,7 +157,7 @@ namespace yg
 
       if ((info->m_width != 0) && (info->m_height != 0))
       {
-        info->m_bitmap.resize(info->m_width * info->m_height * 4);
+        info->m_bitmap.resize(info->m_width * info->m_height * sizeof(DATA_TRAITS::pixel_t));
 
         DATA_TRAITS::view_t dstView = gil::interleaved_view(
             info->m_width,
@@ -173,10 +173,12 @@ namespace yg
             bitmapGlyph->bitmap.pitch
             );
 
-        DATA_TRAITS::pixel_t c(key.m_isMask ? DATA_TRAITS::maxChannelVal : 0,
-                               key.m_isMask ? DATA_TRAITS::maxChannelVal : 0,
-                               key.m_isMask ? DATA_TRAITS::maxChannelVal : 0,
-                               0);
+        DATA_TRAITS::pixel_t c;
+
+        gil::get_color(c, gil::red_t()) = key.m_isMask ? DATA_TRAITS::maxChannelVal : 0;
+        gil::get_color(c, gil::green_t()) = key.m_isMask ? DATA_TRAITS::maxChannelVal : 0;
+        gil::get_color(c, gil::blue_t()) = key.m_isMask ? DATA_TRAITS::maxChannelVal : 0;
+        gil::get_color(c, gil::alpha_t()) = 0;
 
         for (size_t y = 0; y < srcView.height(); ++y)
           for (size_t x = 0; x < srcView.width(); ++x)

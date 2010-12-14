@@ -407,10 +407,12 @@ namespace yg
       yg::Color c = m_colorUploadCommands[i].m_color;
       m2::RectU const & r = m_colorUploadCommands[i].m_rect;
 
-      c.r /= TDynamicTexture::channelScaleFactor;
-      c.g /= TDynamicTexture::channelScaleFactor;
-      c.b /= TDynamicTexture::channelScaleFactor;
-      c.a /= TDynamicTexture::channelScaleFactor;
+      TDynamicTexture::pixel_t px;
+
+      gil::get_color(px, gil::red_t()) = c.r / TDynamicTexture::channelScaleFactor;
+      gil::get_color(px, gil::green_t()) = c.g / TDynamicTexture::channelScaleFactor;
+      gil::get_color(px, gil::blue_t()) = c.b / TDynamicTexture::channelScaleFactor;
+      gil::get_color(px, gil::alpha_t()) = c.a / TDynamicTexture::channelScaleFactor;
 
       TDynamicTexture * dynTexture = static_cast<TDynamicTexture*>(m_texture.get());
 
@@ -418,7 +420,7 @@ namespace yg
 
       for (size_t y = 0; y < r.SizeY(); ++y)
         for (size_t x = 0; x < r.SizeX(); ++x)
-          v(x, y) = TDynamicTexture::pixel_t(c.r, c.g, c.b, c.a);
+          v(x, y) = px;
 
       dynTexture->upload(&v(0, 0), r);
     }
