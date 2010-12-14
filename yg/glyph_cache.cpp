@@ -80,7 +80,7 @@ namespace yg
   {
     FTCHECK(FT_Init_FreeType(&m_impl->m_lib));
     FTCHECK(FT_Stroker_New(m_impl->m_lib, &m_impl->m_stroker));
-    FT_Stroker_Set(m_impl->m_stroker, 3 * 64, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
+    FT_Stroker_Set(m_impl->m_stroker, 2 * 64, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
   }
 
   GlyphCache::~GlyphCache()

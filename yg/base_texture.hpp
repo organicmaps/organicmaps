@@ -6,6 +6,7 @@
 
 namespace yg
 {
+  class Color;
   namespace gl
   {
     class BaseTexture : public RenderTarget
@@ -39,6 +40,7 @@ namespace yg
         m2::RectF const mapRect(m2::RectF const & r) const;
         void mapPixel(float & x, float & y) const;
 
+        virtual void fill(yg::Color const & c) = 0;
         virtual void dump(char const * fileName) = 0;
 
         static unsigned current();

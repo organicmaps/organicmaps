@@ -25,6 +25,8 @@ namespace yg
 
       bool m_isMultiSampled;
 
+      bool m_isRendering;
+
       unsigned int m_width;
       unsigned int m_height;
 
@@ -34,6 +36,8 @@ namespace yg
 
       void beginFrame();
       void endFrame();
+
+      bool isRendering() const;
 
       void setIsMultiSampled(bool isMultiSampled);
       bool isMultiSampled() const;

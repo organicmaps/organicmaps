@@ -10,13 +10,14 @@ namespace yg
 {
   namespace gl
   {
-    Renderer::Renderer() : m_isMultiSampled(false)
+    Renderer::Renderer() : m_isMultiSampled(false), m_isRendering(false)
     {
       m_multiSampledFrameBuffer = make_shared_ptr(new FrameBuffer());
     }
 
     void Renderer::beginFrame()
     {
+      m_isRendering = true;
       if (m_isMultiSampled)
         m_multiSampledFrameBuffer->makeCurrent();
       else
@@ -24,10 +25,16 @@ namespace yg
           m_frameBuffer->makeCurrent();
     }
 
+    bool Renderer::isRendering() const
+    {
+      return m_isRendering;
+    }
+
     void Renderer::endFrame()
     {
 //      if (m_isMultiSampled)
         updateFrameBuffer();
+        m_isRendering = false;
     }
 
     shared_ptr<FrameBuffer> const & Renderer::frameBuffer() const
@@ -52,10 +59,11 @@ namespace yg
 
     void Renderer::setRenderTarget(shared_ptr<RenderTarget> const & rt)
     {
-      updateFrameBuffer();
+      if (isRendering())
+        updateFrameBuffer();
 
       m_frameBuffer->setRenderTarget(rt);
-      m_frameBuffer->makeCurrent();
+      m_frameBuffer->makeCurrent(); //< to attach renderTarget
 
       if (m_isMultiSampled)
         m_multiSampledFrameBuffer->makeCurrent();
@@ -74,6 +82,9 @@ namespace yg
         OGLCHECK(glBindFramebufferOES(GL_DRAW_FRAMEBUFFER_APPLE, m_multiSampledFrameBuffer->id()));
 
 #else
+        /// Somehow this does the trick with the "trash-texture" upon first application redraw.
+        m_multiSampledFrameBuffer->makeCurrent();
+
         OGLCHECK(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_multiSampledFrameBuffer->id()));
         OGLCHECK(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_frameBuffer->id()));
         OGLCHECK(glBlitFramebuffer(0, 0, width(), height(),

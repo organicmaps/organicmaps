@@ -65,7 +65,45 @@ namespace yg
         upload(0);
       }
 
-      void dump(char const *){}
+      void fill(yg::Color const & c)
+      {
+        makeCurrent();
+
+        typename Traits::image_t image(width(), height());
+
+        typename Traits::pixel_t val((c.r / 255.0f) * Traits::maxChannelVal,
+                                     (c.g / 255.0f) * Traits::maxChannelVal,
+                                     (c.b / 255.0f) * Traits::maxChannelVal,
+                                     (c.a / 255.0f) * Traits::maxChannelVal);
+
+        typename Traits::view_t v = gil::view(image);
+
+        for (size_t y = 0; y < height(); ++y)
+          for (size_t x = 0; x < width(); ++x)
+            v(x, y) = val;
+
+        upload(&v(0, 0));
+      }
+
+      void dump(char const * fileName)
+      {
+        makeCurrent();
+        std::string const fullPath = GetPlatform().WritablePathForFile(fileName);
+
+        typename Traits::image_t image(width(), height());
+
+#ifndef OMIM_GL_ES
+      OGLCHECK(glGetTexImage(
+          GL_TEXTURE_2D,
+          0,
+          GL_RGBA,
+          Traits::gl_pixel_data_type,
+          &gil::view(image)(0, 0)));
+      boost::gil::lodepng_write_view(fullPath.c_str(), gil::view(image));
+#endif
+
+
+      }
     };
 
     template <typename Traits>
@@ -215,27 +253,29 @@ namespace yg
     template <typename Traits>
     void Texture<Traits, true>::readback()
     {
-/*      makeCurrent();
+      makeCurrent();
 #ifndef OMIM_GL_ES
       OGLCHECK(glGetTexImage(
           GL_TEXTURE_2D,
           0,
           GL_RGBA,
           Traits::gl_pixel_data_type,
-          &gil::view(m_image)(0, 0)));
+          &view(width(), height())(0, 0)));
 #else
           ASSERT(false, ("no glGetTexImage function in OpenGL ES"));
-#endif*/
+#endif
     }
 
     template <typename Traits>
-    void Texture<Traits, true>::dump(char const * /*fileName*/)
+    void Texture<Traits, true>::dump(char const * fileName)
     {
-/*      readback();
+      lock();
+      readback();
       std::string const fullPath = GetPlatform().WritablePathForFile(fileName);
 #ifndef OMIM_GL_ES
-      boost::gil::lodepng_write_view(fullPath.c_str(), gil::const_view(m_image));
-#endif*/
+      boost::gil::lodepng_write_view(fullPath.c_str(), view(width(), height()));
+#endif
+      unlock();
     }
 
     template <typename Traits>

@@ -63,12 +63,12 @@ void RenderQueueRoutine::processResize(ScreenBase const & /*frameScreen*/)
     m_renderState->m_backBuffer = make_shared_ptr(new yg::gl::RawRGBA8Texture(texW, texH));
 
     m_renderState->m_depthBuffer.reset();
-    m_renderState->m_depthBuffer = make_shared_ptr(new yg::gl::RenderBuffer(texW, texH, true));
 
     if (!m_isMultiSampled)
-      m_threadDrawer->screen()->setRenderTarget(m_renderState->m_backBuffer);
-
-    m_threadDrawer->screen()->frameBuffer()->setDepthBuffer(m_renderState->m_depthBuffer);
+    {
+      m_renderState->m_depthBuffer = make_shared_ptr(new yg::gl::RenderBuffer(texW, texH, true));
+      m_threadDrawer->screen()->frameBuffer()->setDepthBuffer(m_renderState->m_depthBuffer);
+    }
 
     m_threadDrawer->onSize(texW, texH);
 
