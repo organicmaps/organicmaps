@@ -153,6 +153,7 @@ namespace yg
       info->m_xOffset = bitmapGlyph->left;
       info->m_yOffset = bitmapGlyph->top - info->m_height;
       info->m_xAdvance = int(bitmapGlyph->root.advance.x >> 16);
+      info->m_color = key.m_isMask ? yg::Color(255, 255, 255, 0) : yg::Color(0, 0, 0, 0);
 
       if ((info->m_width != 0) && (info->m_height != 0))
       {

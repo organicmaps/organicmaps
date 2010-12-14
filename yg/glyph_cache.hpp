@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../std/shared_ptr.hpp"
+#include "color.hpp"
 
 namespace yg
 {
@@ -11,6 +12,7 @@ namespace yg
     int m_yOffset;
     int m_width;
     int m_height;
+    yg::Color m_color;
 
     vector<unsigned char> m_bitmap;
 

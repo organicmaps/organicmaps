@@ -358,22 +358,26 @@ namespace yg
 
       TDynamicTexture::view_t v = dynTexture->view(rect.SizeX(), rect.SizeY());
 
-      TDynamicTexture::pixel_t penColorTranslucent(0, 0, 0, 0);
+      TDynamicTexture::pixel_t pxTranslucent;
+      gil::get_color(pxTranslucent, gil::red_t()) = gi->m_color.r / TDynamicTexture::channelScaleFactor;
+      gil::get_color(pxTranslucent, gil::green_t()) = gi->m_color.g / TDynamicTexture::channelScaleFactor;
+      gil::get_color(pxTranslucent, gil::blue_t()) = gi->m_color.b / TDynamicTexture::channelScaleFactor;
+      gil::get_color(pxTranslucent, gil::alpha_t()) = 0;
 
       for (size_t y = 0; y < 2; ++y)
         for (size_t x = 0; x < rect.SizeX(); ++x)
-          v(x, y) = penColorTranslucent;
+          v(x, y) = pxTranslucent;
 
       for (size_t y = rect.SizeY() - 2; y < rect.SizeY(); ++y)
         for (size_t x = 0; x < rect.SizeX(); ++x)
-          v(x, y) = penColorTranslucent;
+          v(x, y) = pxTranslucent;
 
       for (size_t y = 2; y < rect.SizeY() - 2; ++y)
       {
-        v(0, y) = penColorTranslucent;
-        v(1, y) = penColorTranslucent;
-        v(rect.SizeX() - 2, y) = penColorTranslucent;
-        v(rect.SizeX() - 1, y) = penColorTranslucent;
+        v(0, y) = pxTranslucent;
+        v(1, y) = pxTranslucent;
+        v(rect.SizeX() - 2, y) = pxTranslucent;
+        v(rect.SizeX() - 1, y) = pxTranslucent;
       }
 
       if ((gi->m_width != 0) && (gi->m_height != 0))
