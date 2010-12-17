@@ -6,7 +6,7 @@
 
 namespace yg
 {
-  class Color;
+  struct Color;
   namespace gl
   {
     class BaseTexture : public RenderTarget
