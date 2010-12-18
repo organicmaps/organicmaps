@@ -3,6 +3,7 @@
 #include "../platform/platform.hpp"
 
 #include "../base/logging.hpp"
+#include "../base/macros.hpp"
 
 #include "../version/version.hpp"
 
@@ -66,6 +67,7 @@ namespace
 int main(int argc, char *argv[])
 {
   InitializeFinalize mainGuard;
+  UNUSED_VALUE(mainGuard);
 
   LOG(LINFO, ("MapsWithMe started"));
   LOG(LINFO, ("Version : ", VERSION_STRING));
