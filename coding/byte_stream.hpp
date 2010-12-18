@@ -38,22 +38,22 @@ template <class TStorage = vector<unsigned char> > class PushBackByteSink
 {
 public:
   explicit PushBackByteSink(TStorage & storage)
-    : m_Storage(storage), m_InitialStorageSize(storage.size())
+    : m_Storage(storage)//, m_InitialStorageSize(storage.size())
   {
   }
 
   void Write(void const * p, size_t size)
   {
-    m_Storage.insert(m_Storage.end(),
-                     static_cast<unsigned char const *>(p),
-                     static_cast<unsigned char const *>(p) + size);
+    // assume input buffer as buffer of bytes
+    unsigned char const * pp = static_cast<unsigned char const *>(p);
+    m_Storage.insert(m_Storage.end(), pp, pp + size);
   }
 
-  size_t BytesWritten() const
-  {
-    return m_Storage.size() - m_InitialStorageSize;
-  }
+  //size_t BytesWritten() const
+  //{
+  //  return m_Storage.size() - m_InitialStorageSize;
+  //}
 private:
   TStorage & m_Storage;
-  size_t m_InitialStorageSize;
+  //size_t m_InitialStorageSize;
 };
