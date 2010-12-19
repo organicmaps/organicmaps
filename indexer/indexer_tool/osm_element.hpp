@@ -230,7 +230,7 @@ class SecondPassParserJoin : public SecondPassParserBase<TEmitter, THolder>
 
   set<uint64_t> m_usedDirect;
 
-  bool TryEmitUnited(uint64_t featureID, base_type::feature_builder_t & ft)
+  bool TryEmitUnited(uint64_t featureID, typename base_type::feature_builder_t & ft)
   {
     // check, if feature already processed early
     if (m_usedDirect.count(featureID) > 0)
@@ -326,7 +326,7 @@ protected:
     for (typename base_type::value_t::types_t::iterator i = fValue.types.begin(); i != fValue.types.end(); ++i)
       if (feature::NeedUnite(*i))
       {
-        base_type::feature_builder_t ft;
+        typename base_type::feature_builder_t ft;
         ft.AddName(fValue.name);
         ft.AddTypes(fValue.types.begin(), fValue.types.end());
         ft.AddLayer(fValue.layer);
@@ -356,7 +356,7 @@ protected:
     if (!ParseType(p, id, fValue))
       return;
 
-    base_type::feature_builder_t ft;
+    typename base_type::feature_builder_t ft;
     ft.AddName(fValue.name);
     ft.AddTypes(fValue.types.begin(), fValue.types.end());
     ft.AddLayer(fValue.layer);

@@ -1,8 +1,6 @@
 # Main application in qt.
 ROOT_DIR = ..
-DEPENDENCIES = map indexer platform yg geometry coding base expat version
-
-LIBS += -lfreetype
+DEPENDENCIES = map indexer platform yg geometry coding base freetype expat version
 
 include($$ROOT_DIR/common.pri)
 

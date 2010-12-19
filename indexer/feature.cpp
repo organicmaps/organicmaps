@@ -599,7 +599,7 @@ void FeatureGeomRef::ParseOffsets() const
       if (mask & 0x01)
         m_gOffsets.push_back(ReadVarUint<uint32_t>(source));
       else
-        m_gOffsets.push_back(m_invalidOffset);
+        m_gOffsets.push_back((uint32_t)m_invalidOffset);
 
       mask = mask >> 1;
     }
