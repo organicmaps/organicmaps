@@ -51,7 +51,8 @@ public:
 
   void operator() (FeatureType const & f) const
   {
-    ASSERT ( f.DebugString() == f.DebugString(), () );
+    string const dbg = f.DebugString();
+    ASSERT ( dbg == f.DebugString(), () );
 
     if (is_drawable(f))
       add(f);
@@ -100,7 +101,7 @@ class AccumulatorEtalon : public AccumulatorBase
   bool is_intersect(FeatureType const & f) const
   {
     IntersectCheck check(m_rect);
-    f.ForEachPointRef(check);
+    f.ForEachPointRef(check, scales::GetScaleLevel(m_rect));
     return check.IsIntersect();
   }
 

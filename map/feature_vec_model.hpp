@@ -17,7 +17,7 @@ namespace model
 {
   class FeatureVector
   {
-    vector<FeatureBuilder> m_vec;
+    vector<FeatureBuilderType> m_vec;
     m2::RectD m_rect;
 
   public:

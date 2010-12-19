@@ -34,7 +34,7 @@ namespace
       m_midX = 0.0;
       m_midY = 0.0;
       m_counter = 0;
-      ft.ForEachPointRef(*this);
+      ft.ForEachPointRef(*this, FeatureGeom::m_defScale);
       m_midX /= m_counter;
       m_midY /= m_counter;
 
@@ -85,12 +85,14 @@ namespace feature
 
     // store sorted features
     {
-      FileWriter writer(datFilePath);
+      //FileWriter writer(datFilePath);
       FileReader reader(tempDatFilePath);
 
-      feature::DataHeader header;
-      feature::ReadDataHeader(tempDatFilePath, header);
-      feature::WriteDataHeader(writer, header);
+      //feature::DataHeader header;
+      //feature::ReadDataHeader(tempDatFilePath, header);
+      //feature::WriteDataHeader(writer, header);
+
+      FeaturesCollector collector(datFilePath);
 
       for (size_t i = 0; i < midPoints.m_vec.size(); ++i)
       {
@@ -101,12 +103,21 @@ namespace feature
 
         // read feature bytes
         uint32_t const sz = ReadVarUint<uint32_t>(src);
-        vector<char> buffer(sz);
-        src.Read(&buffer[0], sz);
+        FeatureGeom::read_source_t buffer;
+        buffer.m_data.resize(sz);
+        src.Read(&buffer.m_data[0], sz);
+
+        FeatureGeom f;
+        f.Deserialize(buffer);
+
+        FeatureBuilderType fb;
+        f.InitFeatureBuilder(fb);
 
         // write feature bytes
-        WriteVarUint(writer, sz);
-        writer.Write(&buffer[0], sz);
+        //WriteVarUint(writer, sz);
+        //writer.Write(&buffer[0], sz);
+
+        collector(fb);
       }
 
       // at this point files should be closed

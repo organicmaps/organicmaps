@@ -129,37 +129,49 @@ public:
   }
 };
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// FeaturesCollector implementation
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 void FeaturesCollector::Init()
 {
   // write empty stub, will be updated in Finish()
   WriteDataHeader(m_datFile, feature::DataHeader());
 }
 
-FeaturesCollector::FeaturesCollector(string const & datFile) : m_datFile(datFile)
+FeaturesCollector::FeaturesCollector(string const & fName)
+: m_datFile(fName), m_geoFile(fName + ".geom"), m_trgFile(fName + ".trg")
 {
   Init();
 }
 
-FeaturesCollector::FeaturesCollector(string const & bucketName,
-                                     FeaturesCollector::InitDataType const & datFilePrefixSuffix)
-  : m_datFile(datFilePrefixSuffix.first + bucketName + datFilePrefixSuffix.second)
+FeaturesCollector::FeaturesCollector(string const & bucket,
+                                     FeaturesCollector::InitDataType const & prefix)
+: m_datFile(prefix.first + bucket + prefix.second),
+  m_geoFile(prefix.first + bucket + prefix.second + ".geom"),
+  m_trgFile(prefix.first + bucket + prefix.second + ".trg")
 {
   Init();
 }
 
-void FeaturesCollector::operator() (FeatureBuilder const & fb)
+void FeaturesCollector::FilePreCondition(FileWriter const & f)
 {
-#ifdef DEBUG
   // .dat file should be less than 4Gb
-  uint64_t const pos = m_datFile.Pos();
-  ASSERT_EQUAL ( static_cast<uint64_t>(static_cast<uint32_t>(pos)), pos,
+  uint64_t const pos = f.Pos();
+  CHECK_EQUAL ( static_cast<uint64_t>(static_cast<uint32_t>(pos)), pos,
     ("Feature offset is out of 32bit boundary!") );
-#endif
+}
 
-  vector<char> bytes;
-  fb.Serialize(bytes);
+void FeaturesCollector::WriteBuffer(FileWriter & f, vector<char> const & bytes)
+{
+  if (!bytes.empty())
+    f.Write(&bytes[0], bytes.size());
+}
+
+void FeaturesCollector::WriteFeatureBase(vector<char> const & bytes, FeatureBuilderGeom const & fb)
+{
   size_t const sz = bytes.size();
-  CHECK(sz, ("Empty feature! WTF?"));
+  CHECK ( sz != 0, ("Empty feature not allowed here!") );
 
   if (sz > 0)
   {
@@ -170,6 +182,32 @@ void FeaturesCollector::operator() (FeatureBuilder const & fb)
   }
 }
 
+void FeaturesCollector::operator() (FeatureBuilderGeom const & fb)
+{
+  FilePreCondition(m_datFile);
+
+  FeatureBuilderGeom::buffers_holder_t bytes;
+  fb.Serialize(bytes);
+  WriteFeatureBase(bytes, fb);
+}
+
+void FeaturesCollector::operator() (FeatureBuilderGeomRef const & fb)
+{
+  FilePreCondition(m_datFile);
+  FilePreCondition(m_geoFile);
+  FilePreCondition(m_trgFile);
+
+  FeatureBuilderGeomRef::buffers_holder_t buffers;
+  buffers.m_lineOffset = static_cast<uint32_t>(m_geoFile.Pos());
+  buffers.m_trgOffset = static_cast<uint32_t>(m_trgFile.Pos());
+
+  fb.Serialize(buffers);
+  WriteFeatureBase(buffers.m_buffers[0], fb);
+
+  WriteBuffer(m_geoFile, buffers.m_buffers[1]);
+  WriteBuffer(m_trgFile, buffers.m_buffers[2]);
+}
+
 FeaturesCollector::~FeaturesCollector()
 {
   // rewrite map information with actual data
@@ -178,6 +216,10 @@ FeaturesCollector::~FeaturesCollector()
   header.SetBounds(m_bounds);
   WriteDataHeader(m_datFile, header);
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Generate functions implementations.
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 class points_in_file
 {

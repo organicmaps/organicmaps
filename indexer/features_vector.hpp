@@ -14,16 +14,15 @@ class FeaturesVector
 public:
   typedef ReaderT ReaderType;
 
-  explicit FeaturesVector(ReaderT const & reader) : m_RecordReader(reader, 256)
+  explicit FeaturesVector(ReaderT const & reader)
+    : m_RecordReader(reader, 256), m_source(reader.GetName())
   {
   }
 
   void Get(uint64_t pos, FeatureType & feature) const
   {
-    vector<char> record;
-    uint32_t offset;
-    m_RecordReader.ReadRecord(pos, record, offset);
-    feature.Deserialize(record, offset);
+    m_RecordReader.ReadRecord(pos, m_source.m_data, m_source.m_offset);
+    feature.Deserialize(m_source);
   }
 
   template <class TDo> void ForEachOffset(TDo const & toDo) const
@@ -48,10 +47,11 @@ public:
 private:
   FeatureType const & DeserializeFeature(char const * data, uint32_t size, FeatureType * pFeature) const
   {
-    vector<char> data1(data, data + size);
-    pFeature->Deserialize(data1);
+    m_source.assign(data, size);
+    pFeature->Deserialize(m_source);
     return *pFeature;
   }
 
   VarRecordReader<ReaderT, &VarRecordSizeReaderVarint> m_RecordReader;
+  mutable FeatureType::read_source_t m_source;
 };

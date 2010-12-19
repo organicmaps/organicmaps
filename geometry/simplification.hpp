@@ -2,6 +2,8 @@
 #include "../base/base.hpp"
 #include "../base/stl_add.hpp"
 #include "../base/logging.hpp"
+
+#include "../std/iterator.hpp"
 #include "../std/algorithm.hpp"
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
@@ -17,7 +19,7 @@ namespace impl
 template <typename DistanceF, typename IterT>
 pair<double, IterT> MaxDistance(IterT first, IterT last)
 {
-  if (last - first <= 1)
+  if (distance(first, last) <= 1)
     return pair<double, IterT>(0.0, first);
 
   pair<double, IterT> res(0.0, first);

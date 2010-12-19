@@ -19,12 +19,12 @@ namespace
     PushBackFeatureDebugStringOutput(string const & name, InitDataType const & initData)
       : m_pContainer(&((*initData)[name])) {}
 
-    void operator() (FeatureBuilder const & fb)
+    void operator() (FeatureBuilderType const & fb)
     {
-      vector<char> bytes;
-      fb.Serialize(bytes);
-      FeatureType f(bytes);
+      FeatureType::read_source_t bytes;
+      fb.Serialize(bytes.m_data);
 
+      FeatureType f(bytes);
       m_pContainer->push_back(f.DebugString());
     }
 
@@ -39,10 +39,11 @@ namespace
       RectId
   > FeatureBucketer;
 
-  FeatureType MakeFeature(FeatureBuilder const & fb)
+  FeatureType MakeFeature(FeatureBuilderType const & fb)
   {
-    vector<char> bytes;
-    fb.Serialize(bytes);
+    FeatureType::read_source_t bytes;
+    fb.Serialize(bytes.m_data);
+
     return FeatureType(bytes);
   }
 }
@@ -52,7 +53,7 @@ UNIT_TEST(FeatureBucketerSmokeTest)
   map<string, vector<string> > out, expectedOut;
   FeatureBucketer bucketer(1, &out);
 
-  FeatureBuilder fb;
+  FeatureBuilderType fb;
   fb.AddPoint(m2::PointD(10, 10));
   fb.AddPoint(m2::PointD(20, 20));
   bucketer(fb);

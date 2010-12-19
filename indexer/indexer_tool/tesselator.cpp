@@ -17,7 +17,7 @@ namespace feature
     }
   };
 
-  void TesselateInterior(FeatureBuilder & fb, feature::holes_cont_t const & holes)
+  void TesselateInterior(FeatureBuilderGeom & fb, feature::holes_cont_t const & holes)
   {
     ASSERT(fb.IsGeometryClosed(), ());
 
@@ -30,10 +30,10 @@ namespace feature
 
     tess.beginContour();
     {
-      vector<char> bytes;
-      fb.Serialize(bytes);
+      FeatureGeom::read_source_t bytes;
+      fb.Serialize(bytes.m_data);
       FeatureGeom f(bytes);
-      f.ForEachPoint(AddTessPointF(tess));
+      f.ForEachPoint(AddTessPointF(tess), FeatureGeom::m_defScale);
     }
     tess.endContour();
 

@@ -19,7 +19,7 @@
 namespace feature
 {
   typedef list<vector<m2::PointD> > holes_cont_t;
-  void TesselateInterior(FeatureBuilder & featureBuilder, feature::holes_cont_t const & holes);
+  void TesselateInterior(FeatureBuilderGeom & featureBuilder, feature::holes_cont_t const & holes);
 }
 
 /// @param  TEmitter  Feature accumulating policy
@@ -185,12 +185,14 @@ protected:
     }
   } m_typeProcessor;
 
+  typedef FeatureBuilderGeom feature_builder_t;
+
   bool GetPoint(uint64_t id, m2::PointD & pt)
   {
     return m_holder.GetNode(id, pt.y, pt.x);
   }
 
-  void FinishAreaFeature(uint64_t id, FeatureBuilder & ft)
+  void FinishAreaFeature(uint64_t id, feature_builder_t & ft)
   {
     if (ft.IsGeometryClosed())
     {
@@ -228,7 +230,7 @@ class SecondPassParserJoin : public SecondPassParserBase<TEmitter, THolder>
 
   set<uint64_t> m_usedDirect;
 
-  bool TryEmitUnited(uint64_t featureID, FeatureBuilder & ft)
+  bool TryEmitUnited(uint64_t featureID, base_type::feature_builder_t & ft)
   {
     // check, if feature already processed early
     if (m_usedDirect.count(featureID) > 0)
@@ -324,7 +326,7 @@ protected:
     for (typename base_type::value_t::types_t::iterator i = fValue.types.begin(); i != fValue.types.end(); ++i)
       if (feature::NeedUnite(*i))
       {
-        FeatureBuilder ft;
+        base_type::feature_builder_t ft;
         ft.AddName(fValue.name);
         ft.AddTypes(fValue.types.begin(), fValue.types.end());
         ft.AddLayer(fValue.layer);
@@ -354,7 +356,7 @@ protected:
     if (!ParseType(p, id, fValue))
       return;
 
-    FeatureBuilder ft;
+    base_type::feature_builder_t ft;
     ft.AddName(fValue.name);
     ft.AddTypes(fValue.types.begin(), fValue.types.end());
     ft.AddLayer(fValue.layer);

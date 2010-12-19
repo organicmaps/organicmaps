@@ -90,7 +90,7 @@ namespace fwork
 #define GET_POINTS(functor_t, for_each_fun, assign_fun) \
   {                                                     \
     functor_t fun(m_convertor, m_rect);                 \
-    f.for_each_fun(fun);                                \
+    f.for_each_fun(fun, m_zoom);                        \
     if (fun.IsExist())                                  \
     {                                                   \
       isExist = true;                                   \

@@ -12,11 +12,11 @@ namespace feature
 {
   /// Read feature from feature source.
   template <class TSource, class TFeature>
-  void ReadFromSource(TSource & src, TFeature & f)
+  void ReadFromSource(TSource & src, TFeature & f, typename TFeature::read_source_t & buffer)
   {
     uint32_t const sz = ReadVarUint<uint32_t>(src);
-    vector<char> buffer(sz);
-    src.Read(&buffer[0], sz);
+    buffer.m_data.resize(sz);
+    src.Read(&buffer.m_data[0], sz);
     f.Deserialize(buffer);
   }
 
@@ -28,6 +28,7 @@ namespace feature
 
     FileReader reader(fName);
     source_t src(reader);
+    typename TFeature::read_source_t buffer(fName);
 
     // skip header
     uint64_t currPos = feature::GetSkipHeaderSize(reader);
@@ -38,7 +39,7 @@ namespace feature
     while (currPos < fSize)
     {
       TFeature f;
-      ReadFromSource(src, f);
+      ReadFromSource(src, f, buffer);
       toDo(f, currPos);
       currPos = src.Pos();
     }

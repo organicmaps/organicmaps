@@ -68,10 +68,10 @@ namespace
   };
 }
 
-vector<int64_t> covering::CoverFeature(FeatureGeom const & feature)
+vector<int64_t> covering::CoverFeature(FeatureGeom const & feature, int level)
 {
   vector<CoordPointT> geometry;
-  feature.ForEachPoint(MakeBackInsertFunctor(geometry));
+  feature.ForEachPoint(MakeBackInsertFunctor(geometry), level);
 
   ASSERT(!geometry.empty(), ());
   if (geometry.empty())
@@ -87,7 +87,7 @@ vector<int64_t> covering::CoverFeature(FeatureGeom const & feature)
   typedef covering::Covering<RectId> CoveringType;
   typedef TriangleCoverer<MercatorBounds, CoveringType> CovererType;
   CovererType coverer = CovererType(CoveringType(ids));
-  feature.ForEachTriangleRef(coverer);
+  feature.ForEachTriangleRef(coverer, level);
   vector<int64_t> res;
   coverer.GetCovering().OutputToVector(res);
   return res;
