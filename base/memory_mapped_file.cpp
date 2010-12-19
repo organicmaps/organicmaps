@@ -1,14 +1,19 @@
 #include "../base/SRC_FIRST.hpp"
+
+// it's a shit; remove this into coding folder
+#include "../coding/internal/file64_api.hpp"
+
 #include "memory_mapped_file.hpp"
+
 
 MemoryMappedFile::MemoryMappedFile(char const * fileName, bool isReadOnly)
   : m_isReadOnly(isReadOnly)
 {
 #ifdef OMIM_OS_WINDOWS_NATIVE
-  m_fp = fopen(name, isReadOnly ? "r" : "w");
-  fseek(m_fp, SEEK_END);
+  m_fp = fopen(fileName, isReadOnly ? "r" : "w");
+  fseek(m_fp, 0, SEEK_END);
   m_size = ftell(m_fp);
-  fseek(m_fp, SEEK_SET);
+  fseek(m_fp, 0, SEEK_SET);
 
   m_data = malloc(m_size);
   fread(m_data, 1, m_size, m_fp);

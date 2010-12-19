@@ -76,7 +76,7 @@ namespace yg
     }
 
     FT_Glyph glyph = 0;
-    FTC_Node glyphNode;
+    //FTC_Node glyphNode;
 
     if (key.m_isMask)
       FTCHECK(FTC_ImageCache_LookupScaler(

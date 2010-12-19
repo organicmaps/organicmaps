@@ -29,7 +29,7 @@ namespace yg
 
   bool operator<(GlyphKey const & l, GlyphKey const & r);
 
-  class GlyphCacheImpl;
+  struct GlyphCacheImpl;
 
   class GlyphCache
   {
