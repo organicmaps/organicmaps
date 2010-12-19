@@ -54,7 +54,9 @@ SOURCES += \
     skin_page.cpp \
     storage.cpp \
     render_state_updater.cpp \
-    glyph_cache.cpp
+    glyph_cache.cpp \
+    glyph_cache_impl.cpp \
+    ft2_debug.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -91,7 +93,9 @@ HEADERS += \
     render_state_updater.hpp \
     render_target.hpp \
     glyph_cache.hpp \
-    data_formats.hpp
+    data_formats.hpp \
+    glyph_cache_impl.hpp \
+    ft2_debug.hpp
 
 !iphonesimulator-g++42 {
   !iphonedevice-g++42 {

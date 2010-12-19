@@ -80,9 +80,11 @@
 		resourceManager = shared_ptr<yg::ResourceManager>(new yg::ResourceManager(
 						15000 * sizeof(yg::gl::Vertex), 30000 * sizeof(unsigned short), 20,
 						1500 * sizeof(yg::gl::Vertex), 3000 * sizeof(unsigned short), 100,
-					  512, 256, 10));
+					  512, 256, 10,
+					  2000000));
 
-		resourceManager->addFont(GetPlatform().ReadPathForFile("dejavusans.ttf").c_str());
+//		resourceManager->addFont(GetPlatform().ReadPathForFile("dejavusans.ttf").c_str());
+		resourceManager->addFont(GetPlatform().ReadPathForFile("wqy-microhei.ttf").c_str());		
 		
 		drawer = shared_ptr<DrawerYG>(new DrawerYG(resourceManager, GetPlatform().SkinName(), !GetPlatform().IsMultiSampled()));
 		drawer->setFrameBuffer(frameBuffer);

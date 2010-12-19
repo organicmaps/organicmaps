@@ -21,26 +21,27 @@ namespace yg
 
   struct GlyphKey
   {
-    unsigned short m_id;
+    int m_id;
     int m_fontSize;
     bool m_isMask;
-    GlyphKey(unsigned short id, int fontSize, bool isMask);
+    GlyphKey(int id, int fontSize, bool isMask);
   };
 
   bool operator<(GlyphKey const & l, GlyphKey const & r);
+
+  class GlyphCacheImpl;
 
   class GlyphCache
   {
   private:
 
-    struct Impl;
-    shared_ptr<Impl> m_impl;
+    shared_ptr<GlyphCacheImpl> m_impl;
 
   public:
 
-    GlyphCache();
-    ~GlyphCache();
+    GlyphCache(size_t maxSize);
 
+    void reset();
     void addFont(char const * fileName);
 
     shared_ptr<GlyphInfo> const getGlyph(GlyphKey const & key);

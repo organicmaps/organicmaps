@@ -46,7 +46,8 @@ namespace yg
 
     ResourceManager(size_t vbSize, size_t ibSize, size_t storagesCount,
                     size_t smallVBSize, size_t smallIBSize, size_t smallStoragesCount,
-                    size_t texWidth, size_t texHeight, size_t texCount);
+                    size_t texWidth, size_t texHeight, size_t texCount,
+                    size_t maxGlyphCacheSize);
 
     shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
 

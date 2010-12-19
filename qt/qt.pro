@@ -29,8 +29,7 @@ macx {
   # Bundle Resouces
   CLASSIFICATOR_RESOURCES.files = ../data/classificator.txt ../data/drawing_rules.bin ../data/visibility.txt
   CLASSIFICATOR_RESOURCES.path = Contents/Resources
-  SKIN_RESOURCES.files = ../data/basic.skn ../data/symbols_24.png \
-    ../data/dejavusans.ttf
+  SKIN_RESOURCES.files = ../data/basic.skn ../data/symbols_24.png ../data/wqy-microhei.ttf
   SKIN_RESOURCES.path = Contents/Resources
   QMAKE_BUNDLE_DATA += CLASSIFICATOR_RESOURCES SKIN_RESOURCES
 }

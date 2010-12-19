@@ -41,9 +41,11 @@ namespace qt
           10000 * sizeof(unsigned short),
           100,
           512, 256,
-          15));
+          15,
+          2000000));
 
-      m_resourceManager->addFont(GetPlatform().ReadPathForFile("dejavusans.ttf").c_str());
+//      m_resourceManager->addFont(GetPlatform().ReadPathForFile("dejavusans.ttf").c_str());
+      m_resourceManager->addFont(GetPlatform().ReadPathForFile("wqy-microhei.ttf").c_str());
 
       m_p = shared_ptr<DrawerYG>(new DrawerYG(m_resourceManager, GetPlatform().SkinName(), !GetPlatform().IsMultiSampled()));
       m_p->setFrameBuffer(make_shared_ptr(new yg::gl::FrameBuffer(true)));

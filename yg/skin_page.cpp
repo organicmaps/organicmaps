@@ -392,9 +392,9 @@ namespace yg
         for (size_t y = 2; y < rect.SizeY() - 2; ++y)
           for (size_t x = 2; x < rect.SizeX() - 2; ++x)
            v(x, y) = srcView(x - 2, y - 2);
-
-        dynTexture->upload(&v(0, 0), rect);
       }
+
+      dynTexture->upload(&v(0, 0), rect);
     }
 
     m_glyphUploadCommands.clear();

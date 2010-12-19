@@ -46,9 +46,11 @@ void GLDrawWidget::initializeGL()
       3000 * sizeof(yg::gl::Vertex),
       5000 * sizeof(unsigned short),
       100,
-      512, 256, 15));
+      512, 256, 15,
+      2000000));
 
-  m_resourceManager->addFont(GetPlatform().ReadPathForFile("dejavusans.ttf").c_str());
+//  m_resourceManager->addFont(GetPlatform().ReadPathForFile("dejavusans.ttf").c_str());
+  m_resourceManager->addFont(GetPlatform().ReadPathForFile("wqy-microhei.ttf").c_str());
 /*  m_resourceManager = make_shared_ptr(new yg::ResourceManager(
       5000 * sizeof(yg::gl::Vertex),
       10000 * sizeof(unsigned short),

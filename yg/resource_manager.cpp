@@ -18,7 +18,8 @@ namespace yg
 
   ResourceManager::ResourceManager(size_t vbSize, size_t ibSize, size_t storagesCount,
                                    size_t smallVBSize, size_t smallIBSize, size_t smallStoragesCount,
-                                   size_t texWidth, size_t texHeight, size_t texCount)
+                                   size_t texWidth, size_t texHeight, size_t texCount,
+                                   size_t maxGlyphCacheSize) : m_glyphCache(maxGlyphCacheSize)
   {
     for (size_t i = 0; i < storagesCount; ++i)
       m_storages.push_back(gl::Storage(vbSize, ibSize));
