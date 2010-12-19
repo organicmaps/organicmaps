@@ -233,6 +233,56 @@
     return error;
   }
 
+  FT_Stroker g_stroker = 0;
+
+  FT_CALLBACK_DEF( FT_Error )
+  ftc_stroked_family_load_glyph( FTC_Family  ftcfamily,
+                                 FT_UInt     gindex,
+                                 FTC_Cache   cache,
+                                 FT_Glyph   *aglyph )
+  {
+    FTC_BasicFamily family = (FTC_BasicFamily)ftcfamily;
+    FT_Error         error;
+    FTC_Scaler       scaler = &family->attrs.scaler;
+    FT_Face          face;
+    FT_Size          size;
+
+
+    /* we will now load the glyph image */
+    error = FTC_Manager_LookupSize( cache->manager,
+                                    scaler,
+                                    &size );
+    if ( !error )
+    {
+      face = size->face;
+
+      error = FT_Load_Glyph( face, gindex, family->attrs.load_flags );
+      if ( !error )
+      {
+        if ( face->glyph->format == FT_GLYPH_FORMAT_BITMAP  ||
+             face->glyph->format == FT_GLYPH_FORMAT_OUTLINE )
+        {
+          /* ok, copy and stroke it */
+          FT_Glyph  glyph;
+
+          error = FT_Get_Glyph( face->glyph, &glyph );
+          error = FT_Glyph_Stroke(&glyph, g_stroker, 1);
+          error = FT_Glyph_To_Bitmap(&glyph, FT_RENDER_MODE_NORMAL, 0, 1);
+          if ( !error )
+          {
+            *aglyph = glyph;
+            goto Exit;
+          }
+        }
+        else
+          error = FTC_Err_Invalid_Argument;
+      }
+    }
+
+  Exit:
+    return error;
+  }
+
 
   FT_CALLBACK_DEF( FT_Bool )
   ftc_basic_gnode_compare_faceid( FTC_Node    ftcgnode,
@@ -304,7 +354,6 @@
     return FTC_GCache_New( manager, &ftc_basic_image_cache_class,
                            (FTC_GCache*)acache );
   }
-
 
   /* documentation is in ftcache.h */
 
@@ -614,6 +663,45 @@
     ftc_basic_family_load_bitmap
   };
 
+  FT_CALLBACK_TABLE_DEF
+  const FTC_IFamilyClassRec  ftc_stroked_image_family_class =
+  {
+    {
+      sizeof ( FTC_BasicFamilyRec ),
+      ftc_basic_family_compare,
+      ftc_basic_family_init,
+      0,                        /* FTC_MruNode_ResetFunc */
+      0                         /* FTC_MruNode_DoneFunc  */
+    },
+    ftc_stroked_family_load_glyph
+  };
+
+  FT_CALLBACK_TABLE_DEF
+  const FTC_GCacheClassRec  ftc_stroked_cache_class =
+  {
+    {
+      ftc_inode_new,
+      ftc_inode_weight,
+      ftc_gnode_compare,
+      ftc_basic_gnode_compare_faceid,
+      ftc_inode_free,
+
+      sizeof ( FTC_GCacheRec ),
+      ftc_gcache_init,
+      ftc_gcache_done
+    },
+    (FTC_MruListClass)&ftc_stroked_image_family_class
+  };
+
+
+  FT_EXPORT_DEF( FT_Error )
+  FTC_StrokedImageCache_New(FTC_Manager manager,
+                            FTC_ImageCache * acache,
+                            FT_Stroker stroker)
+  {
+    g_stroker = stroker;
+    return FTC_GCache_New( manager, &ftc_stroked_cache_class, (FTC_GCache*)acache);
+  }
 
   FT_CALLBACK_TABLE_DEF
   const FTC_GCacheClassRec  ftc_basic_sbit_cache_class =

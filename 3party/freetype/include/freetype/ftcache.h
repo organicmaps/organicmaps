@@ -22,6 +22,7 @@
 
 #include <ft2build.h>
 #include FT_GLYPH_H
+#include FT_STROKER_H
 
 
 FT_BEGIN_HEADER
@@ -737,6 +738,10 @@ FT_BEGIN_HEADER
   FTC_ImageCache_New( FTC_Manager      manager,
                       FTC_ImageCache  *acache );
 
+  FT_EXPORT( FT_Error )
+  FTC_StrokedImageCache_New( FTC_Manager manager,
+                             FTC_ImageCache * acache,
+                             FT_Stroker stroker);
 
   /*************************************************************************/
   /*                                                                       */
@@ -944,7 +949,6 @@ FT_BEGIN_HEADER
   FT_EXPORT( FT_Error )
   FTC_SBitCache_New( FTC_Manager     manager,
                      FTC_SBitCache  *acache );
-
 
   /*************************************************************************/
   /*                                                                       */
