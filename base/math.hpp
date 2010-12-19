@@ -14,7 +14,7 @@ namespace my
 // Infinity is treated as almost equal to the largest possible floating point values.
 // NaN produces undefined result.
 // See http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm for details.
-template <typename FloatT> bool AlmostEqual(FloatT x, FloatT y, unsigned int maxULPs = 64)
+template <typename FloatT> bool AlmostEqual(FloatT x, FloatT y, unsigned int maxULPs = 256)
 {
   STATIC_ASSERT(is_floating_point<FloatT>::value);
   STATIC_ASSERT(numeric_limits<FloatT>::is_iec559);
