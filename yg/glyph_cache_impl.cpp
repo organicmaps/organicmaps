@@ -7,24 +7,16 @@
 #include <../cache/ftccback.h>
 #include <../cache/ftccache.h>
 
+
 namespace yg
 {
-  Font::Font(char const * name) : m_name(name)
+  Font::Font(char const * name) : m_name(name), m_fontData(name, true)
   {
-    FILE * fp = fopen(name, "rb");
-    fseek(fp, 0, SEEK_END);
-    int size = ftell(fp);
-    fseek(fp, 0, SEEK_SET);
-
-    m_fontData.resize(size);
-    fread(&m_fontData[0], 1, size, fp);
-
-    fclose(fp);
   }
 
   FT_Error Font::CreateFaceID(FT_Library library, FT_Face *face)
   {
-    return FT_New_Memory_Face(library, &m_fontData[0], m_fontData.size(), 0, face);
+    return FT_New_Memory_Face(library, (unsigned char*)m_fontData.data(), m_fontData.size(), 0, face);
   }
 
   GlyphCacheImpl::GlyphCacheImpl(size_t maxSize)

@@ -3,15 +3,17 @@
 #include "ft2_debug.hpp"
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
-
-
+#include "../std/shared_ptr.hpp"
+#include "../base/memory_mapped_file.hpp"
 
 namespace yg
 {
   struct Font
   {
     string m_name;
-    vector<unsigned char> m_fontData;
+
+    MemoryMappedFile m_fontData;
+
     /// information about symbol ranges
     /// ...
     /// constructor
@@ -32,7 +34,7 @@ namespace yg
 
     FTC_CMapCache m_charMapCache;
 
-    typedef vector<Font> TFonts;
+    typedef vector<shared_ptr<Font> > TFonts;
     TFonts m_fonts;
 
     static FT_Error RequestFace(FTC_FaceID faceID, FT_Library library, FT_Pointer requestData, FT_Face * face);

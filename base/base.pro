@@ -15,7 +15,8 @@ SOURCES += base.cpp \
     string_utils.cpp \
     profiler.cpp \
     commands_queue.cpp \
-    shared_buffer_manager.cpp
+    shared_buffer_manager.cpp \
+    memory_mapped_file.cpp
 
 HEADERS += SRC_FIRST.hpp \
     assert.hpp \
@@ -53,4 +54,5 @@ HEADERS += SRC_FIRST.hpp \
     ptr_utils.hpp \
     stats.hpp \
     monitor.hpp \
-    shared_buffer_manager.hpp
+    shared_buffer_manager.hpp \
+    memory_mapped_file.hpp
