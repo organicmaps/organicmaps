@@ -49,7 +49,6 @@ HEADERS += \
   drawing_rules.hpp \
   drawing_rule_def.hpp \
   features_vector.hpp \
-  std_serialization.hpp \
   scale_index.hpp \
   scale_index_builder.hpp \
   index.hpp \

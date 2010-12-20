@@ -1,7 +1,6 @@
 #include "navigator.hpp"
 
 #include "../indexer/cell_id.hpp"
-#include "../indexer/std_serialization.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/file_writer.hpp"
@@ -11,6 +10,7 @@
 #include "../geometry/transformations.hpp"
 #include "../geometry/point2d.hpp"
 
+#include "../base/std_serialization.hpp"
 #include "../base/logging.hpp"
 
 #include "../base/start_mem_debug.hpp"

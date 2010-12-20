@@ -3,12 +3,12 @@
 #include "drawing_rules.hpp"
 #include "file_reader_stream.hpp"
 #include "file_writer_stream.hpp"
-#include "std_serialization.hpp"
 #include "scales.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/file_writer.hpp"
 
+#include "../base/std_serialization.hpp"
 #include "../base/assert.hpp"
 #include "../base/macros.hpp"
 #include "../base/string_utils.hpp"

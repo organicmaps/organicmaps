@@ -2,9 +2,9 @@
 #include "data_cache_file.hpp"
 #include "first_pass_parser.hpp"
 
-#include "../../indexer/std_serialization.hpp"
 #include "../../indexer/osm_decl.hpp"
 
+#include "../../base/std_serialization.hpp"
 #include "../../base/logging.hpp"
 
 #include "../../std/bind.hpp"

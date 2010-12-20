@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../indexer/std_serialization.hpp"
+#include "../base/std_serialization.hpp"
+
 #include "../indexer/defines.hpp"
 
 #include "../coding/streams_sink.hpp"

@@ -1,10 +1,11 @@
 #pragma once
 
+#include "../base/std_serialization.hpp"
+
 #include "../coding/streams_sink.hpp"
 
 #include "../geometry/rect2d.hpp"
 
-#include "../indexer/std_serialization.hpp"
 #include "../indexer/defines.hpp"
 
 #include "../std/string.hpp"
