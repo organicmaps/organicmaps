@@ -1,3 +1,5 @@
+#include "feature_routine.hpp"
+
 #include "../../testing/testing.hpp"
 
 #include "../indexer_tool/feature_bucketer.hpp"
@@ -17,14 +19,14 @@ namespace
     typedef map<string, vector<string> > * InitDataType;
 
     PushBackFeatureDebugStringOutput(string const & name, InitDataType const & initData)
-      : m_pContainer(&((*initData)[name])) {}
-
-    void operator() (FeatureBuilderType const & fb)
+      : m_pContainer(&((*initData)[name]))
     {
-      FeatureType::read_source_t bytes;
-      fb.Serialize(bytes.m_data);
+    }
 
-      FeatureType f(bytes);
+    void operator() (FeatureBuilderGeom const & fb)
+    {
+      FeatureGeom f;
+      FeatureBuilder2Feature(fb, f);
       m_pContainer->push_back(f.DebugString());
     }
 
@@ -38,14 +40,6 @@ namespace
       MercatorBounds,
       RectId
   > FeatureBucketer;
-
-  FeatureType MakeFeature(FeatureBuilderType const & fb)
-  {
-    FeatureType::read_source_t bytes;
-    fb.Serialize(bytes.m_data);
-
-    return FeatureType(bytes);
-  }
 }
 
 UNIT_TEST(FeatureBucketerSmokeTest)
@@ -53,12 +47,14 @@ UNIT_TEST(FeatureBucketerSmokeTest)
   map<string, vector<string> > out, expectedOut;
   FeatureBucketer bucketer(1, &out);
 
-  FeatureBuilderType fb;
+  FeatureBuilderGeom fb;
   fb.AddPoint(m2::PointD(10, 10));
   fb.AddPoint(m2::PointD(20, 20));
   bucketer(fb);
 
-  expectedOut["3"].push_back(MakeFeature(fb).DebugString());
+  FeatureGeom f;
+  FeatureBuilder2Feature(fb, f);
+  expectedOut["3"].push_back(f.DebugString());
   TEST_EQUAL(out, expectedOut, ());
 
   vector<string> bucketNames;

@@ -1,7 +1,13 @@
+#include "feature_routine.hpp"
+
 #include "../../testing/testing.hpp"
 
 #include "../feature.hpp"
 #include "../cell_id.hpp"
+#include "../classificator.hpp"
+#include "../classif_routine.hpp"
+
+#include "../../platform/platform.hpp"
 
 #include "../../geometry/point2d.hpp"
 
@@ -34,12 +40,17 @@ namespace
 
 UNIT_TEST(Feature_Deserialize)
 {
+  Platform & platform = GetPlatform();
+  classificator::Read(platform.ReadPathForFile("drawing_rules.bin"),
+                      platform.ReadPathForFile("classificator.txt"),
+                      platform.ReadPathForFile("visibility.txt"));
+
   vector<int> a;
   a.push_back(1);
   a.push_back(2);
-  FeatureBuilderType builder;
+  FeatureBuilderType fb;
 
-  builder.AddName("name");
+  fb.AddName("name");
 
   vector<m2::PointD> points;
   {
@@ -48,7 +59,7 @@ UNIT_TEST(Feature_Deserialize)
     points.push_back(m2::PointD(0.25, 0.2));
     points.push_back(m2::PointD(1.0, 1.0));
     for (size_t i = 0; i < points.size(); ++i)
-      builder.AddPoint(points[i]);
+      fb.AddPoint(points[i]);
   }
 
   vector<m2::PointD> triangles;
@@ -57,26 +68,34 @@ UNIT_TEST(Feature_Deserialize)
     triangles.push_back(m2::PointD(0.25, 0.5));
     triangles.push_back(m2::PointD(1.0, 1.0));
     for (size_t i = 0; i < triangles.size(); i += 3)
-      builder.AddTriangle(triangles[i], triangles[i+1], triangles[i+2]);
+      fb.AddTriangle(triangles[i], triangles[i+1], triangles[i+2]);
   }
 
-  builder.AddLayer(3);
+  fb.AddLayer(3);
 
-  size_t const typesCount = 2;
-  uint32_t arrTypes[typesCount+1] = { 5, 7, 0 };
-  builder.AddTypes(arrTypes, arrTypes + typesCount);
+  vector<uint32_t> types;
+  {
+    uint32_t type = ftype::GetEmptyValue();
 
-  FeatureBuilderType::buffers_holder_t serial;
-  builder.Serialize(serial);
-  FeatureType::read_source_t serial1;
-  serial1.m_data = serial;
-  FeatureType f(serial1);
+    ClassifObjectPtr pObj = classif().GetRoot()->BinaryFind("natural");
+    ASSERT ( pObj, () );
+    ftype::PushValue(type, pObj.GetIndex());
+
+    pObj->BinaryFind("coastline");
+    ftype::PushValue(type, pObj.GetIndex());
+
+    types.push_back(type);
+    fb.AddTypes(types.begin(), types.end());
+  }
+
+  FeatureType f;
+  FeatureBuilder2Feature(fb, f);
 
   TEST_EQUAL(f.GetFeatureType(), FeatureBase::FEATURE_TYPE_AREA, ());
 
-  FeatureBase::GetTypesFn types;
-  f.ForEachTypeRef(types);
-  TEST_EQUAL(types.m_types, vector<uint32_t>(arrTypes, arrTypes + typesCount), ());
+  FeatureBase::GetTypesFn doGetTypes;
+  f.ForEachTypeRef(doGetTypes);
+  TEST_EQUAL(doGetTypes.m_types, types, ());
 
   TEST_EQUAL(f.GetLayer(), 3, ());
   TEST_EQUAL(f.GetName(), "name", ());
@@ -97,11 +116,12 @@ UNIT_TEST(Feature_Deserialize)
   TEST_LESS(fabs(f.GetLimitRect().maxX() - 1.00), eps, ());
   TEST_LESS(fabs(f.GetLimitRect().maxY() - 1.00), eps, ());
 
-  FeatureType::read_source_t serial2;
-  FeatureBuilderType builder2;
-  f.InitFeatureBuilder(builder2);
-  builder2.Serialize(serial2.m_data);
+  {
+    FeatureBuilderType fbTest;
+    Feature2FeatureBuilder(f, fbTest);
 
-  TEST_EQUAL(serial, serial2.m_data,
-             (f.DebugString(), FeatureType(serial2).DebugString()));
+    FeatureType fTest;
+    FeatureBuilder2Feature(fbTest, fTest);
+    TEST_EQUAL(f.DebugString(), fTest.DebugString(), ());
+  }
 }

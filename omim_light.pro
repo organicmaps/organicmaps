@@ -17,7 +17,7 @@ SUBDIRS = \
           indexer/indexer_tests \
           map/map_tests \
           indexer/indexer_tool \
-          yg/yg_tests \
+#          yg/yg_tests \
           qt
 }
 
