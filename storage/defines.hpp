@@ -15,7 +15,7 @@ uint32_t const MAPS_MAJOR_VERSION_BINARY_FORMAT = 0;
 #define UPDATE_BASE_URL "http://melnichek.ath.cx:34568/maps/"
 #define UPDATE_FULL_URL UPDATE_BASE_URL UPDATE_CHECK_FILE
 
-namespace mapinfo
+namespace storage
 {
   inline bool IsDatFile(string const & fileName)
   {
