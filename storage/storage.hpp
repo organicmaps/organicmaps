@@ -3,8 +3,8 @@
 #include "../platform/download_manager.hpp"
 #include "../platform/platform.hpp"
 
-#include "../indexer/defines.hpp"
-#include "../indexer/country.hpp"
+#include "../storage/defines.hpp"
+#include "../storage/country.hpp"
 
 #include "../std/vector.hpp"
 #include "../std/map.hpp"
@@ -13,7 +13,7 @@
 
 #include <boost/function.hpp>
 
-namespace mapinfo
+namespace storage
 {
   /// Used in GUI
   enum TStatus

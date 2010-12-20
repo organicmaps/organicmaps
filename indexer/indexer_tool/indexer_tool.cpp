@@ -10,7 +10,8 @@
 #include "../index_builder.hpp"
 #include "../osm_decl.hpp"
 #include "../data_header.hpp"
-#include "../defines.hpp"
+
+#include "../../storage/defines.hpp"
 
 #include "../../platform/platform.hpp"
 
@@ -140,7 +141,7 @@ int main(int argc, char ** argv)
     if (FLAGS_generate_index)
     {
       LOG(LINFO, ("Generating index for", datFile));
-      string const indexFile = mapinfo::IndexFileForDatFile(datFile);
+      string const indexFile = storage::IndexFileForDatFile(datFile);
       if (!indexer::BuildIndexFromDatFile(indexFile, datFile,
                                           FLAGS_intermediate_data_path + FLAGS_output))
       {

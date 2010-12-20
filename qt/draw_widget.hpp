@@ -12,7 +12,7 @@ class FileReader;
 template <class> class ReaderSource;
 class FileWriter;
 
-namespace mapinfo { class Storage; }
+namespace storage { class Storage; }
 
 class QSlider;
 
@@ -49,7 +49,7 @@ namespace qt
     void ScaleChanged(int action);
 
   public:
-    DrawWidget(QWidget * pParent, mapinfo::Storage & storage);
+    DrawWidget(QWidget * pParent, storage::Storage & storage);
 
     void SetScaleControl(QSlider * pScale);
 

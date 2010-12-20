@@ -18,11 +18,8 @@ HEADERS += \
     draw_processor.hpp \
     draw_info.hpp \
     window_handle.hpp \
-    storage.hpp \
     render_queue.hpp \
     render_queue_routine.hpp \
-    simple_tree.hpp \
-    countries.hpp \
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -30,11 +27,8 @@ SOURCES += \
     navigator.cpp \
     drawer_yg.cpp \
     draw_processor.cpp \
-    storage.cpp \
     render_queue.cpp \
     render_queue_routine.cpp \
-    countries.cpp \
-
 
 !iphonesimulator-g++42 {
   !iphonedevice-g++42 {

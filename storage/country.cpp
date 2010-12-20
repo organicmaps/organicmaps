@@ -10,7 +10,7 @@
 #include "../indexer/data_header.hpp"
 #include "../indexer/data_header_reader.hpp"
 
-namespace mapinfo
+namespace storage
 {
   string FileNameFromUrl(string const & url)
   {
@@ -104,7 +104,7 @@ namespace mapinfo
 
   ////////////////////////////////////////////////////////////////////////
 
-  template <class TArchive> TArchive & operator << (TArchive & ar, mapinfo::Country const & country)
+  template <class TArchive> TArchive & operator << (TArchive & ar, storage::Country const & country)
   {
     ar << country.m_group;
     ar << country.m_country;

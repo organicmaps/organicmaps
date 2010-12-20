@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../map/storage.hpp"
+#include "../storage/storage.hpp"
 
 #include <QtGui/QDialog>
 
@@ -14,13 +14,13 @@ namespace qt
     Q_OBJECT
 
   public:
-    UpdateDialog(QWidget * parent, mapinfo::Storage & storage);
+    UpdateDialog(QWidget * parent, storage::Storage & storage);
     ~UpdateDialog();
 
     /// @name Called from storage to notify GUI
     //@{
-    void OnCountryChanged(mapinfo::TIndex const & index);
-    void OnCountryDownloadProgress(mapinfo::TIndex const & index,
+    void OnCountryChanged(storage::TIndex const & index);
+    void OnCountryDownloadProgress(storage::TIndex const & index,
                                    TDownloadProgress const & progress);
     //@}
 
@@ -29,10 +29,10 @@ namespace qt
 
   private:
     void FillTable();
-    void UpdateRowWithCountryInfo(mapinfo::TIndex const & index);
+    void UpdateRowWithCountryInfo(storage::TIndex const & index);
 
   private:
     QTableWidget * m_table;
-    mapinfo::Storage & m_storage;
+    storage::Storage & m_storage;
    };
 } // namespace qt

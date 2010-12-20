@@ -32,6 +32,5 @@ SOURCES += \
   sort_and_merge_intervals_test.cpp \
   feature_test.cpp \
   data_header_test.cpp \
-  country_test.cpp \
   feature_bucketer_test.cpp \
 

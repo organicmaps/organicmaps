@@ -12,6 +12,7 @@ SUBDIRS = 3party \
           platform platform/platform_tests \
           yg \
           indexer \
+          storage storage/storage_tests \
           map \
           map/map_tests \
           version \

@@ -12,7 +12,7 @@
 
 #include "../base/start_mem_debug.hpp"
 
-namespace mapinfo
+namespace storage
 {
   static bool IsMapValid(string const & datFile)
   {
@@ -266,7 +266,7 @@ namespace mapinfo
           {
             GetDownloadManager().DownloadFile(
                 it->first.c_str(),
-				(GetPlatform().WritablePathForFile(mapinfo::FileNameFromUrl(it->first))).c_str(),
+        (GetPlatform().WritablePathForFile(FileNameFromUrl(it->first))).c_str(),
                 boost::bind(&Storage::OnMapDownloadFinished, this, _1, _2),
                 boost::bind(&Storage::OnMapDownloadProgress, this, _1, _2),
                 true);  // enabled resume support by default

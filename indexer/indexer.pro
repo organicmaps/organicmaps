@@ -38,7 +38,6 @@ SOURCES += \
   feature_visibility.cpp \
   data_header.cpp \
   data_header_reader.cpp \
-  country.cpp \
 
 HEADERS += \
   feature.hpp \
@@ -67,6 +66,4 @@ HEADERS += \
   feature_visibility.hpp \
   data_header.hpp \
   data_header_reader.hpp \
-  country.hpp \
-  defines.hpp \
   tree_structure.hpp \

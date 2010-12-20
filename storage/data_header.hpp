@@ -2,6 +2,8 @@
 
 #include "../base/std_serialization.hpp"
 
+#include "../storage/defines.hpp"
+
 #include "../coding/streams_sink.hpp"
 
 #include "../geometry/rect2d.hpp"
@@ -16,9 +18,6 @@ namespace feature
   /// All file sizes are in bytes
   class DataHeader
   {
-    /// @TODO move version somewhere else
-    static int32_t const MAPS_MAJOR_VERSION_BINARY_FORMAT = 1;
-
   private:
     typedef tuple<
               pair<int64_t, int64_t> // boundary;

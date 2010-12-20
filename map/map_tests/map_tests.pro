@@ -20,4 +20,3 @@ SOURCES += \
   ../../testing/testingmain.cpp \
   navigator_test.cpp \
   map_foreach_test.cpp \
-  simple_tree_test.cpp \

@@ -1,12 +1,12 @@
 #pragma once
 
+#include "defines.hpp"
+
 #include "../base/std_serialization.hpp"
 
 #include "../coding/streams_sink.hpp"
 
 #include "../geometry/rect2d.hpp"
-
-#include "../indexer/defines.hpp"
 
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
@@ -14,7 +14,7 @@
 class Reader;
 class Writer;
 
-namespace mapinfo
+namespace storage
 {
   typedef pair<string, uint64_t> TUrl;
   typedef vector<TUrl> TUrlContainer;
@@ -27,8 +27,8 @@ namespace mapinfo
   /// Serves as a proxy between GUI and downloaded files
   class Country
   {
-    template <class TArchive> friend TArchive & operator << (TArchive & ar, mapinfo::Country const & country);
-    template <class TArchive> friend TArchive & operator >> (TArchive & ar, mapinfo::Country & country);
+    template <class TArchive> friend TArchive & operator << (TArchive & ar, storage::Country const & country);
+    template <class TArchive> friend TArchive & operator >> (TArchive & ar, storage::Country & country);
 
   private:
     /// Europe, Asia etc.
@@ -67,7 +67,7 @@ namespace mapinfo
     uint64_t RemoteSize() const;
   };
 
-  template <class TArchive> TArchive & operator >> (TArchive & ar, mapinfo::Country & country)
+  template <class TArchive> TArchive & operator >> (TArchive & ar, storage::Country & country)
   {
     ar >> country.m_group;
     ar >> country.m_country;

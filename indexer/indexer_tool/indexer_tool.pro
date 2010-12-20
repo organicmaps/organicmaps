@@ -1,7 +1,7 @@
 # Indexer binary
 
 ROOT_DIR = ../..
-DEPENDENCIES = map indexer platform geometry coding base gflags expat sgitess version
+DEPENDENCIES = map storage indexer platform geometry coding base gflags expat sgitess version
 
 include($$ROOT_DIR/common.pri)
 

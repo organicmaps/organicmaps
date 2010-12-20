@@ -9,7 +9,7 @@
 #include <QtGui/QMessageBox>
 #include <QtGui/QProgressBar>
 
-using namespace mapinfo;
+using namespace storage;
 
 enum
 {
@@ -42,7 +42,7 @@ namespace qt
   };
 ////////////////////////////////////////////////////////////////////////////////
 
-  UpdateDialog::UpdateDialog(QWidget * parent, mapinfo::Storage & storage)
+  UpdateDialog::UpdateDialog(QWidget * parent, Storage & storage)
     : QDialog(parent), m_storage(storage)
   {
     // table with countries list
@@ -141,7 +141,7 @@ namespace qt
     }
 
     QColor rowColor;
-    mapinfo::TStatus status = m_storage.CountryStatus(index);
+    TStatus status = m_storage.CountryStatus(index);
     switch (status)
     {
     case ENotDownloaded: rowColor = COLOR_NOTDOWNLOADED; break;
@@ -209,12 +209,12 @@ namespace qt
     m_table->sortByColumn(KItemIndexCountry);
   }
 
-  void UpdateDialog::OnCountryChanged(mapinfo::TIndex const & index)
+  void UpdateDialog::OnCountryChanged(TIndex const & index)
   {
     UpdateRowWithCountryInfo(index);
   }
 
-  void UpdateDialog::OnCountryDownloadProgress(mapinfo::TIndex const & index, TDownloadProgress const & progress)
+  void UpdateDialog::OnCountryDownloadProgress(TIndex const & index, TDownloadProgress const & progress)
   {
     int row = GetRowByGroupAndCountryIndex(*m_table, index);
     if (row != -1)

@@ -4,8 +4,8 @@
 
 #include "../../platform/platform.hpp"
 
-#include "../../indexer/country.hpp"
-#include "../../indexer/defines.hpp"
+#include "../../storage/country.hpp"
+#include "../../storage/defines.hpp"
 
 #include "../../base/string_utils.hpp"
 #include "../../base/logging.hpp"
@@ -25,10 +25,12 @@
   #define DIR_SEP '/'
 #endif
 
+using namespace storage;
+
 namespace update
 {
   typedef vector<string> TCellIds;
-  typedef pair<mapinfo::Country, TCellIds> TCountryCells;
+  typedef pair<Country, TCellIds> TCountryCells;
   typedef vector<TCountryCells> TCountryCellsContainer;
 
   string ChopExtension(string const & nameWithExtension)
@@ -92,7 +94,7 @@ namespace update
           string fullPath = path + *itGroup + DIR_SEP + *itCountry + DIR_SEP + *itRegion;
           if (LoadCountryCells(fullPath, cells))
           {
-            outCells.push_back(TCountryCells(mapinfo::Country(ChopExtension(*itGroup),
+            outCells.push_back(TCountryCells(Country(ChopExtension(*itGroup),
                                                        ChopExtension(*itCountry),
                                                        ChopExtension(*itRegion)),
                                       cells));
@@ -113,7 +115,7 @@ namespace update
         string fullPath = path + *itGroup + DIR_SEP + *itCountry;
         if (LoadCountryCells(fullPath, cells))
         {
-          outCells.push_back(TCountryCells(mapinfo::Country(ChopExtension(*itGroup),
+          outCells.push_back(TCountryCells(Country(ChopExtension(*itGroup),
                                                      ChopExtension(*itCountry),
                                                      ""),
                                     cells));
@@ -145,11 +147,11 @@ namespace update
           // data file
           uint64_t fileSize = 0;
           CHECK(GetPlatform().GetFileSize(m_path + m_file, fileSize), ("Non-existing file?"));
-          cells.first.AddUrl(mapinfo::TUrl(m_url + m_file, fileSize));
+          cells.first.AddUrl(TUrl(m_url + m_file, fileSize));
           // index file
-          string const indexFileName = mapinfo::IndexFileForDatFile(m_file);
+          string const indexFileName = IndexFileForDatFile(m_file);
           CHECK(GetPlatform().GetFileSize(m_path + indexFileName, fileSize), ("Non-existing file?"));
-          cells.first.AddUrl(mapinfo::TUrl(m_url + indexFileName, fileSize));
+          cells.first.AddUrl(TUrl(m_url + indexFileName, fileSize));
           break;
         }
       }
@@ -158,10 +160,10 @@ namespace update
 
   class CountryAdder
   {
-    mapinfo::TCountriesContainer & m_countries;
+    TCountriesContainer & m_countries;
 
   public:
-    CountryAdder(mapinfo::TCountriesContainer & outCountries)
+    CountryAdder(TCountriesContainer & outCountries)
       : m_countries(outCountries) {}
     void operator()(TCountryCells const & cells)
     {
@@ -173,7 +175,7 @@ namespace update
   class GroupSorter
   {
   public:
-    void operator()(mapinfo::TCountriesContainer::value_type & toSort)
+    void operator()(TCountriesContainer::value_type & toSort)
     {
       sort(toSort.second.begin(), toSort.second.end());
     }
@@ -204,7 +206,7 @@ namespace update
     }
 
     // save update list
-    mapinfo::TCountriesContainer countries;
+    TCountriesContainer countries;
     for_each(countriesCells.begin(), countriesCells.end(), CountryAdder(countries));
 
     // sort groups

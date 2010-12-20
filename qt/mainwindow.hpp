@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../map/storage.hpp"
+#include "../storage/storage.hpp"
 
 #include <QtGui/QMainWindow>
 
@@ -19,7 +19,7 @@ namespace qt
     QDockWidget * m_pClassifDock;
     //FindTableWnd * m_pFindTable;
 
-    mapinfo::Storage m_Storage;
+    storage::Storage m_Storage;
 
     Q_OBJECT
 

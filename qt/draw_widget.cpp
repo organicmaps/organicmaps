@@ -1,17 +1,18 @@
 #include "draw_widget.hpp"
 #include "proxystyle.hpp"
 
-#include "../map/storage.hpp"
+#include "../storage/storage.hpp"
 
 #include <QtGui/QMouseEvent>
 #include <QtGui/QSlider>
 
 #include "../base/start_mem_debug.hpp"
 
+using namespace storage;
 
 namespace qt
 {
-  DrawWidget::DrawWidget(QWidget * pParent, mapinfo::Storage & storage)
+  DrawWidget::DrawWidget(QWidget * pParent, Storage & storage)
     : base_type(pParent),
       m_handle(new handle_t(this)),
       m_framework(m_handle),
