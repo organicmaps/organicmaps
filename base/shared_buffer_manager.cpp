@@ -12,7 +12,7 @@ SharedBufferManager::shared_buffer_ptr_t SharedBufferManager::reserveSharedBuffe
 {
   threads::MutexGuard g(m_mutex);
 
-  shared_buffer_ptr_list_t l = m_sharedBuffers[s];
+  shared_buffer_ptr_list_t & l = m_sharedBuffers[s];
 
   if (l.empty())
     l.push_back(make_shared_ptr(new shared_buffer_t(s)));
@@ -27,7 +27,7 @@ void SharedBufferManager::freeSharedBuffer(size_t s, shared_buffer_ptr_t buf)
 {
   threads::MutexGuard g(m_mutex);
 
-  shared_buffer_ptr_list_t l = m_sharedBuffers[s];
+  shared_buffer_ptr_list_t & l = m_sharedBuffers[s];
 
   l.push_back(buf);
 }
