@@ -18,6 +18,9 @@ win32-g++ {
   LIBS += -lpthread
 }
 
+HEADERS += \
+  feature_routine.hpp
+
 SOURCES += \
   ../../testing/testingmain.cpp \
   cell_covering_visualize_test.cpp \
@@ -33,4 +36,5 @@ SOURCES += \
   feature_test.cpp \
   data_header_test.cpp \
   feature_bucketer_test.cpp \
+  feature_routine.cpp \
 
