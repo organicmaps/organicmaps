@@ -71,6 +71,7 @@ void RenderQueueRoutine::processResize(ScreenBase const & /*frameScreen*/)
     }
 
     m_threadDrawer->onSize(texW, texH);
+    m_threadDrawer->screen()->frameBuffer()->onSize(texW, texH);
 
     m_renderState->m_actualTarget.reset();
     m_renderState->m_actualTarget = make_shared_ptr(new yg::gl::RawRGBA8Texture(texW, texH));

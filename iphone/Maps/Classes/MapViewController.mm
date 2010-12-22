@@ -71,6 +71,8 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
     
 		m_framework->initializeGL([(EAGLView*)self.view renderContext], resourceManager);		
 		
+		// to perform a proper resize
+		[(EAGLView*)self.view layoutSubviews];
 		m_framework->ShowAll();
 	}
 	

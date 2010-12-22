@@ -89,7 +89,8 @@
 		drawer = shared_ptr<DrawerYG>(new DrawerYG(resourceManager, GetPlatform().SkinName(), !GetPlatform().IsMultiSampled()));
 		drawer->setFrameBuffer(frameBuffer);
 		
-		frameBuffer->setRenderTarget(renderBuffer);		
+//		frameBuffer->onSize(renderBuffer->width(), renderBuffer->height());
+//		frameBuffer->setRenderTarget(renderBuffer);		
 
 		windowHandle = shared_ptr<iphone::WindowHandle>(new iphone::WindowHandle(self));
 		windowHandle->setDrawer(drawer);

@@ -40,7 +40,7 @@ namespace yg
         frameBufferStack.pop_back();
     }
 
-    FrameBuffer::FrameBuffer(bool defaultFB /*= false*/)
+    FrameBuffer::FrameBuffer(bool defaultFB /*= false*/) : m_width(0), m_height(0)
     {
       if (defaultFB)
         m_id = 0;

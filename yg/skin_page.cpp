@@ -81,7 +81,6 @@ namespace yg
       m_isDynamic(true),
       m_pageID(pageID)
   {
-    static_cast<TDynamicTexture*>(m_texture.get())->randomize(/*yg::Color(255, 0, 0, 255)*/);
     m_packer = m2::Packer(m_texture->width(), m_texture->height(), 0x00FFFFFF - 1),
     /// clear handles will be called only upon handles overflow,
     /// as the texture overflow is processed separately
