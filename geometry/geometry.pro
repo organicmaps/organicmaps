@@ -27,4 +27,4 @@ HEADERS += \
   pointu_to_uint64.hpp \
   simplification.hpp \
   transformations.hpp \
-
+  tree4d.hpp \

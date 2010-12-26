@@ -28,4 +28,4 @@ SOURCES += \
   pointu_to_uint64_test.cpp \
   simplification_test.cpp \
   transformations_test.cpp \
-
+  tree_test.cpp \
