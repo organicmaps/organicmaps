@@ -151,6 +151,11 @@ namespace yg
     return m_glyphCache.getGlyph(key);
   }
 
+  GlyphMetrics const ResourceManager::getGlyphMetrics(GlyphKey const & key)
+  {
+    return m_glyphCache.getGlyphMetrics(key);
+  }
+
   void ResourceManager::addFont(char const * fileName)
   {
     m_glyphCache.addFont(fileName);

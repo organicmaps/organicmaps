@@ -27,6 +27,7 @@ namespace yg
     FTCHECK(FTC_Manager_New(m_lib, 3, 10, maxSize, &RequestFace, 0, &m_manager));
 
     FTCHECK(FTC_ImageCache_New(m_manager, &m_normalGlyphCache));
+    FTCHECK(FTC_ImageCache_New(m_manager, &m_glyphMetricsCache));
 
     /// Initializing stroker
     FTCHECK(FT_Stroker_New(m_lib, &m_stroker));

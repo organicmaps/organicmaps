@@ -29,6 +29,7 @@ namespace yg
 
     FTC_Manager m_manager;
 
+    FTC_ImageCache m_glyphMetricsCache;
     FTC_ImageCache m_strokedGlyphCache;
     FTC_ImageCache m_normalGlyphCache;
 

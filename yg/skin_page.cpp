@@ -178,8 +178,8 @@ namespace yg
 
     shared_ptr<GlyphInfo> gi = m_resourceManager->getGlyph(g);
 
-    m2::Packer::handle_t handle = m_packer.pack(gi->m_width + 4,
-                                                gi->m_height + 4);
+    m2::Packer::handle_t handle = m_packer.pack(gi->m_metrics.m_width + 4,
+                                                gi->m_metrics.m_height + 4);
 
     m2::RectU texRect = m_packer.find(handle).second;
     m_glyphUploadCommands.push_back(GlyphUploadCmd(gi, texRect));
@@ -188,9 +188,9 @@ namespace yg
     m_styles[handle] = boost::shared_ptr<ResourceStyle>(
         new CharStyle(texRect,
                       m_pageID,
-                      gi->m_xOffset,
-                      gi->m_yOffset,
-                      gi->m_xAdvance));
+                      gi->m_metrics.m_xOffset,
+                      gi->m_metrics.m_yOffset,
+                      gi->m_metrics.m_xAdvance));
 
     return m_glyphMap[g];
   }
@@ -198,7 +198,7 @@ namespace yg
   bool SkinPage::hasRoom(GlyphKey const & gk) const
   {
     shared_ptr<GlyphInfo> gi = m_resourceManager->getGlyph(gk);
-    return m_packer.hasRoom(gi->m_width + 4, gi->m_height + 4);
+    return m_packer.hasRoom(gi->m_metrics.m_width + 4, gi->m_metrics.m_height + 4);
   }
 
 
@@ -379,13 +379,13 @@ namespace yg
         v(rect.SizeX() - 1, y) = pxTranslucent;
       }
 
-      if ((gi->m_width != 0) && (gi->m_height != 0))
+      if ((gi->m_metrics.m_width != 0) && (gi->m_metrics.m_height != 0))
       {
         TDynamicTexture::const_view_t srcView = gil::interleaved_view(
-            gi->m_width,
-            gi->m_height,
+            gi->m_metrics.m_width,
+            gi->m_metrics.m_height,
             (TDynamicTexture::pixel_t*)&gi->m_bitmap[0],
-            gi->m_width * sizeof(TDynamicTexture::pixel_t)
+            gi->m_metrics.m_width * sizeof(TDynamicTexture::pixel_t)
             );
 
         for (size_t y = 2; y < rect.SizeY() - 2; ++y)

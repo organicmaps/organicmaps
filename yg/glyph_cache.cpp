@@ -37,10 +37,12 @@ namespace yg
     m_impl->m_fonts.push_back(make_shared_ptr(new Font(fileName)));
   }
 
-  shared_ptr<GlyphInfo> const GlyphCache::getGlyph(GlyphKey const & key)
+  int GlyphCache::getCharIDX(GlyphKey const & key)
   {
     Font * font = m_impl->m_fonts.back().get();
+
     FTC_FaceID faceID = reinterpret_cast<FTC_FaceID>(font);
+
     FTC_ScalerRec fontScaler =
     {
       faceID,
@@ -75,6 +77,67 @@ namespace yg
             );
     }
 
+    return charIDX;
+  }
+
+  GlyphMetrics const GlyphCache::getGlyphMetrics(GlyphKey const & key)
+  {
+    Font * font = m_impl->m_fonts.back().get();
+
+    FTC_FaceID faceID = reinterpret_cast<FTC_FaceID>(font);
+
+    FTC_ScalerRec fontScaler =
+    {
+      faceID,
+      key.m_fontSize,
+      key.m_fontSize,
+      1,
+      0,
+      0
+    };
+
+    int charIDX = getCharIDX(key);
+
+    FT_Glyph glyph = 0;
+
+    FTCHECK(FTC_ImageCache_LookupScaler(
+      m_impl->m_glyphMetricsCache,
+      &fontScaler,
+      FT_LOAD_DEFAULT,
+      charIDX,
+      &glyph,
+      0));
+
+    FT_BBox cbox;
+    FT_Glyph_Get_CBox(glyph, FT_GLYPH_BBOX_PIXELS, &cbox);
+
+    GlyphMetrics m =
+    {
+      glyph->advance.x >> 16,
+      glyph->advance.y >> 16,
+      cbox.xMin, cbox.yMin,
+      cbox.xMax - cbox.xMin, cbox.yMax - cbox.yMin
+    };
+
+    return m;
+  }
+
+  shared_ptr<GlyphInfo> const GlyphCache::getGlyph(GlyphKey const & key)
+  {
+    Font * font = m_impl->m_fonts.back().get();
+    FTC_FaceID faceID = reinterpret_cast<FTC_FaceID>(font);
+    FTC_ScalerRec fontScaler =
+    {
+      faceID,
+      key.m_fontSize,
+      key.m_fontSize,
+      1,
+      0,
+      0
+    };
+
+    int charIDX = getCharIDX(key);
+
     FT_Glyph glyph = 0;
     //FTC_Node glyphNode;
 
@@ -97,31 +160,37 @@ namespace yg
           0
           ));
 
+    /// glyph could appear in cache from getGlyphMetrics method,
+    /// so we should explicitly check this situation
+//    if (glyph.format == FT_GLYPH_FORMAT_OUTLINE)
+//      FTCHECK(FT_Glyph_To_Bitmap(&glyph, FT_RENDER_MODE_NORMAL, 0, 1));
+
     FT_BitmapGlyph bitmapGlyph = (FT_BitmapGlyph)glyph;
 
     shared_ptr<GlyphInfo> info(new GlyphInfo());
 
-    info->m_height = bitmapGlyph ? bitmapGlyph->bitmap.rows : 0;
-    info->m_width = bitmapGlyph ? bitmapGlyph->bitmap.width : 0;
-    info->m_xOffset = bitmapGlyph ? bitmapGlyph->left : 0;
-    info->m_yOffset = bitmapGlyph ? bitmapGlyph->top - info->m_height : 0;
-    info->m_xAdvance = bitmapGlyph ? int(bitmapGlyph->root.advance.x >> 16) : 0;
+    info->m_metrics.m_height = bitmapGlyph ? bitmapGlyph->bitmap.rows : 0;
+    info->m_metrics.m_width = bitmapGlyph ? bitmapGlyph->bitmap.width : 0;
+    info->m_metrics.m_xOffset = bitmapGlyph ? bitmapGlyph->left : 0;
+    info->m_metrics.m_yOffset = bitmapGlyph ? bitmapGlyph->top - info->m_metrics.m_height : 0;
+    info->m_metrics.m_xAdvance = bitmapGlyph ? int(bitmapGlyph->root.advance.x >> 16) : 0;
+    info->m_metrics.m_yAdvance = bitmapGlyph ? int(bitmapGlyph->root.advance.y >> 16) : 0;
     info->m_color = key.m_isMask ? yg::Color(255, 255, 255, 0) : yg::Color(0, 0, 0, 0);
 
-    if ((info->m_width != 0) && (info->m_height != 0))
+    if ((info->m_metrics.m_width != 0) && (info->m_metrics.m_height != 0))
     {
-      info->m_bitmap.resize(info->m_width * info->m_height * sizeof(DATA_TRAITS::pixel_t));
+      info->m_bitmap.resize(info->m_metrics.m_width * info->m_metrics.m_height * sizeof(DATA_TRAITS::pixel_t));
 
       DATA_TRAITS::view_t dstView = gil::interleaved_view(
-            info->m_width,
-            info->m_height,
+            info->m_metrics.m_width,
+            info->m_metrics.m_height,
             (DATA_TRAITS::pixel_t*)&info->m_bitmap[0],
-            info->m_width * sizeof(DATA_TRAITS::pixel_t)
+            info->m_metrics.m_width * sizeof(DATA_TRAITS::pixel_t)
             );
 
       gil::gray8c_view_t srcView = gil::interleaved_view(
-          info->m_width,
-          info->m_height,
+          info->m_metrics.m_width,
+          info->m_metrics.m_height,
           (gil::gray8_pixel_t*)bitmapGlyph->bitmap.buffer,
           bitmapGlyph->bitmap.pitch
           );

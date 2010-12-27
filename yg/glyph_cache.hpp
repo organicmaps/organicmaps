@@ -5,15 +5,20 @@
 
 namespace yg
 {
-  struct GlyphInfo
+  struct GlyphMetrics
   {
     int m_xAdvance;
+    int m_yAdvance;
     int m_xOffset;
     int m_yOffset;
     int m_width;
     int m_height;
-    yg::Color m_color;
+  };
 
+  struct GlyphInfo
+  {
+    GlyphMetrics m_metrics;
+    yg::Color m_color;
     vector<unsigned char> m_bitmap;
 
     void dump(char const * fileName);
@@ -44,6 +49,10 @@ namespace yg
     void reset();
     void addFont(char const * fileName);
 
+    int getCharIDX(GlyphKey const & key);
+
     shared_ptr<GlyphInfo> const getGlyph(GlyphKey const & key);
+    /// return control box(could be slightly larger than the precise bound box).
+    GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
   };
 }

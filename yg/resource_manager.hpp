@@ -61,6 +61,7 @@ namespace yg
     void freeTexture(shared_ptr<gl::BaseTexture> const & texture, bool doSignal = false);
 
     shared_ptr<GlyphInfo> const getGlyph(GlyphKey const & key);
+    GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
     void addFont(char const * fileName);
   };
 
