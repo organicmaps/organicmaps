@@ -23,7 +23,7 @@ SOURCES += \
     skin_loader_test.cpp \
     skin_test.cpp \
     screengl_test.cpp \
-    formats_loading_test.cpp \
+#    formats_loading_test.cpp \
     thread_render.cpp \
     opengl_test.cpp \
     screenglglobal_test.cpp \
