@@ -18,6 +18,7 @@ namespace yg
 
   ResourceManager::ResourceManager(size_t vbSize, size_t ibSize, size_t storagesCount,
                                    size_t smallVBSize, size_t smallIBSize, size_t smallStoragesCount,
+                                   size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
                                    size_t texWidth, size_t texHeight, size_t texCount,
                                    size_t maxGlyphCacheSize) : m_glyphCache(maxGlyphCacheSize)
   {
@@ -26,6 +27,9 @@ namespace yg
 
     for (size_t i = 0; i < smallStoragesCount; ++i)
       m_smallStorages.push_back(gl::Storage(smallVBSize, smallIBSize));
+
+    for (size_t i = 0; i < blitStoragesCount; ++i)
+      m_blitStorages.push_back(gl::Storage(blitVBSize, blitIBSize));
 
     for (size_t i = 0; i < texCount; ++i)
     {
@@ -103,6 +107,16 @@ namespace yg
   void ResourceManager::freeSmallStorage(gl::Storage const & storage, bool doSignal)
   {
     return freeStorageImpl(storage, doSignal, m_smallStorages);
+  }
+
+  gl::Storage const ResourceManager::reserveBlitStorage(bool doWait)
+  {
+    return reserveStorageImpl(doWait, m_blitStorages);
+  }
+
+  void ResourceManager::freeBlitStorage(gl::Storage const & storage, bool doSignal)
+  {
+    return freeStorageImpl(storage, doSignal, m_blitStorages);
   }
 
   gl::Storage const ResourceManager::reserveStorage(bool doWait)

@@ -12,8 +12,10 @@ namespace yg
     {
     private:
     public:
-      TextRenderer(shared_ptr<ResourceManager> const & rm, bool isAntiAliased)
-        : GeometryBatcher(rm, isAntiAliased)
+
+      typedef GeometryBatcher::Params Params;
+
+      TextRenderer(Params const & params) : GeometryBatcher(params)
       {}
     };
   }

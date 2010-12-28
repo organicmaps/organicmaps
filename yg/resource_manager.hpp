@@ -36,6 +36,7 @@ namespace yg
 
     list<gl::Storage> m_storages;
     list<gl::Storage> m_smallStorages;
+    list<gl::Storage> m_blitStorages;
 
     gl::Storage const reserveStorageImpl(bool doWait, list<gl::Storage> & l);
     void freeStorageImpl(gl::Storage const & storage, bool doSignal, list<gl::Storage> & l);
@@ -46,6 +47,7 @@ namespace yg
 
     ResourceManager(size_t vbSize, size_t ibSize, size_t storagesCount,
                     size_t smallVBSize, size_t smallIBSize, size_t smallStoragesCount,
+                    size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
                     size_t texWidth, size_t texHeight, size_t texCount,
                     size_t maxGlyphCacheSize);
 
@@ -56,6 +58,9 @@ namespace yg
 
     gl::Storage const reserveSmallStorage(bool doWait = false);
     void freeSmallStorage(gl::Storage const & storage, bool doSignal = false);
+
+    gl::Storage const reserveBlitStorage(bool doWait = false);
+    void freeBlitStorage(gl::Storage const & storage, bool doSignal = false);
 
     shared_ptr<gl::BaseTexture> const reserveTexture(bool doWait = false);
     void freeTexture(shared_ptr<gl::BaseTexture> const & texture, bool doSignal = false);

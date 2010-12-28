@@ -10,6 +10,9 @@ namespace yg
 {
   namespace gl
   {
+    GeometryRenderer::GeometryRenderer(base_t::Params const & params) : base_t(params)
+    {}
+
     void GeometryRenderer::drawGeometry(shared_ptr<BaseTexture> const & texture,
                                         shared_ptr<VertexBuffer> const & vertices,
                                         shared_ptr<IndexBuffer> const & indices,

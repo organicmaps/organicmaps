@@ -12,8 +12,10 @@ namespace yg
     {
     private:
     public:
-      Screen(shared_ptr<yg::ResourceManager> const & rm, bool isAntiAliased)
-        : TextRenderer(rm, isAntiAliased)
+
+      typedef TextRenderer::Params Params;
+
+      Screen(Params const & params) : TextRenderer(params)
       {}
     };
   }

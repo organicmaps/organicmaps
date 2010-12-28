@@ -25,6 +25,8 @@ namespace yg
 
     public:
 
+      RenderStateUpdater(base_t::Params const & params);
+
       void setRenderState(shared_ptr<RenderState> const & renderState);
       shared_ptr<RenderState> const & renderState() const;
 

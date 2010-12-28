@@ -5,9 +5,11 @@
 #include "framebuffer.hpp"
 #include "base_texture.hpp"
 #include "texture.hpp"
+#include "resource_manager.hpp"
 #include "vertexbuffer.hpp"
 #include "indexbuffer.hpp"
 #include "utils.hpp"
+#include "storage.hpp"
 
 #include "../geometry/screenbase.hpp"
 
@@ -15,9 +17,7 @@ namespace yg
 {
   namespace gl
   {
-    Blitter::Blitter() :
-        m_blitVertexBuffer(make_shared_ptr(new VertexBuffer(2048))),
-        m_blitIndexBuffer(make_shared_ptr(new IndexBuffer(2048)))
+    Blitter::Blitter(base_t::Params const & params) : base_t(params)
     {}
 
     void Blitter::beginFrame()
@@ -171,7 +171,9 @@ namespace yg
                                            yg::Color const & color,
                                            bool hasColor)
     {
-      AuxVertex * pointsData = (AuxVertex*)m_blitVertexBuffer->lock();
+      yg::gl::Storage blitStorage = resourceManager()->reserveBlitStorage();
+
+      AuxVertex * pointsData = (AuxVertex*)blitStorage.m_vertices->lock();
 
       for (size_t i = 0; i < size; ++i)
       {
@@ -182,7 +184,7 @@ namespace yg
         pointsData[i].color = color;
       }
 
-      m_blitVertexBuffer->unlock();
+      blitStorage.m_vertices->unlock();
 
       setupAuxVertexLayout(hasColor, hasTexture);
 
@@ -190,9 +192,11 @@ namespace yg
         texture->makeCurrent();
 
       unsigned short idxData[4] = {0, 1, 2, 3};
-      memcpy(m_blitIndexBuffer->lock(), idxData, sizeof(idxData));
-      m_blitIndexBuffer->unlock();
-      m_blitIndexBuffer->makeCurrent();
+      memcpy(blitStorage.m_indices->lock(), idxData, sizeof(idxData));
+      blitStorage.m_indices->unlock();
+      blitStorage.m_indices->makeCurrent();
+
+      resourceManager()->freeBlitStorage(blitStorage);
 
       OGLCHECK(glDisable(GL_BLEND));
       OGLCHECK(glDisable(GL_DEPTH_TEST));

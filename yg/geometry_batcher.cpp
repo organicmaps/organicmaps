@@ -28,8 +28,8 @@ namespace yg
 {
   namespace gl
   {
-    GeometryBatcher::GeometryBatcher(shared_ptr<ResourceManager> const & resourceManager, bool isAntiAliased)
-      : m_resourceManager(resourceManager), m_isAntiAliased(isAntiAliased)
+    GeometryBatcher::GeometryBatcher(Params const & params)
+      : base_t(params), m_isAntiAliased(params.m_isAntiAliased)
     {
       reset(-1);
       applyStates();
@@ -87,7 +87,7 @@ namespace yg
          m_pipelines[i].m_currentVertex = 0;
          m_pipelines[i].m_currentIndex = 0;
 
-         m_pipelines[i].m_storage = m_skin->pages()[i]->isDynamic() ? m_resourceManager->reserveStorage() : m_resourceManager->reserveSmallStorage();
+         m_pipelines[i].m_storage = m_skin->pages()[i]->isDynamic() ? resourceManager()->reserveStorage() : resourceManager()->reserveSmallStorage();
 
          m_pipelines[i].m_maxVertices = m_pipelines[i].m_storage.m_vertices->size() / sizeof(Vertex);
          m_pipelines[i].m_maxIndices = m_pipelines[i].m_storage.m_indices->size() / sizeof(unsigned short);
@@ -171,10 +171,10 @@ namespace yg
              renderedData = true;
 
              if (skinPage->isDynamic())
-               m_resourceManager->freeStorage(pipeline.m_storage);
+               resourceManager()->freeStorage(pipeline.m_storage);
              else
-               m_resourceManager->freeSmallStorage(pipeline.m_storage);
-             pipeline.m_storage = skinPage->isDynamic() ? m_resourceManager->reserveStorage() : m_resourceManager->reserveSmallStorage();
+               resourceManager()->freeSmallStorage(pipeline.m_storage);
+             pipeline.m_storage = skinPage->isDynamic() ? resourceManager()->reserveStorage() : resourceManager()->reserveSmallStorage();
              pipeline.m_maxVertices = pipeline.m_storage.m_vertices->size() / sizeof(Vertex);
              pipeline.m_maxIndices = pipeline.m_storage.m_indices->size() / sizeof(unsigned short);
 

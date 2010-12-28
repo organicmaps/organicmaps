@@ -7,6 +7,9 @@ namespace yg
 {
   namespace gl
   {
+    RenderStateUpdater::RenderStateUpdater(base_t::Params const & params) : base_t(params)
+    {}
+
     void RenderStateUpdater::setRenderState(shared_ptr<RenderState> const & renderState)
     {
       m_renderState = renderState;

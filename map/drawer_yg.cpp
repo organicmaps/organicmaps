@@ -20,7 +20,11 @@
 
 DrawerYG::DrawerYG(shared_ptr<yg::ResourceManager> const & rm, string const & skinName, bool isAntiAliased)
 {
-  m_pScreen = shared_ptr<yg::gl::Screen>(new yg::gl::Screen(rm, isAntiAliased));
+  yg::gl::Screen::Params params;
+  params.m_resourceManager = rm;
+  params.m_isAntiAliased = isAntiAliased;
+
+  m_pScreen = shared_ptr<yg::gl::Screen>(new yg::gl::Screen(params));
   m_pSkin = shared_ptr<yg::Skin>(loadSkin(rm, skinName));
   m_pScreen->setSkin(m_pSkin);
 

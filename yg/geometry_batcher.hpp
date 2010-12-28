@@ -92,7 +92,13 @@ namespace yg
 
     public:
 
-      GeometryBatcher(shared_ptr<ResourceManager> const & resourceManager, bool isAntiAliased = false);
+      struct Params : base_t::Params
+      {
+        bool m_isAntiAliased;
+        Params() : m_isAntiAliased(false) {}
+      };
+
+      GeometryBatcher(Params const & params);
       ~GeometryBatcher();
 
       void setSkin(shared_ptr<Skin> skin);

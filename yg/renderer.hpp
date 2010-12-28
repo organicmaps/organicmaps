@@ -6,6 +6,8 @@
 
 namespace yg
 {
+  class ResourceManager;
+
   namespace gl
   {
     class FrameBuffer;
@@ -13,7 +15,16 @@ namespace yg
 
     class Renderer
     {
+    public:
+
+      struct Params
+      {
+        shared_ptr<ResourceManager> m_resourceManager;
+      };
+
     private:
+
+      shared_ptr<ResourceManager> m_resourceManager;
 
       shared_ptr<FrameBuffer> m_frameBuffer;
       shared_ptr<BaseTexture> m_renderTarget;
@@ -32,12 +43,14 @@ namespace yg
 
     public:
 
-      Renderer();
+      Renderer(Params const & params = Params());
 
       void beginFrame();
       void endFrame();
 
       bool isRendering() const;
+
+      shared_ptr<ResourceManager> const & resourceManager() const;
 
       void setIsMultiSampled(bool isMultiSampled);
       bool isMultiSampled() const;

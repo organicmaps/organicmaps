@@ -18,7 +18,7 @@ namespace yg
 
     public:
 
-      Clipper();
+      Clipper(base_t::Params const & params);
 
       void beginFrame();
       void endFrame();

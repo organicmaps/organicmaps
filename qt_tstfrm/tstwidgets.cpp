@@ -46,6 +46,9 @@ void GLDrawWidget::initializeGL()
       3000 * sizeof(yg::gl::Vertex),
       5000 * sizeof(unsigned short),
       100,
+      2048,
+      2048,
+      30,
       512, 256, 15,
       2000000));
 
@@ -57,7 +60,11 @@ void GLDrawWidget::initializeGL()
       20,
       256, 256, 10));*/
 
-  m_p = make_shared_ptr(new yg::gl::Screen(m_resourceManager, false));
+  yg::gl::Screen::Params params;
+  params.m_resourceManager = m_resourceManager;
+  params.m_isAntiAliased = false;
+
+  m_p = make_shared_ptr(new yg::gl::Screen(params));
 
   m_primaryFrameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
 

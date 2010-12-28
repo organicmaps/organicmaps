@@ -24,12 +24,9 @@ namespace yg
 
       void setupAuxVertexLayout(bool hasColor, bool hasTexture);
 
-      shared_ptr<VertexBuffer> m_blitVertexBuffer;
-      shared_ptr<IndexBuffer> m_blitIndexBuffer;
-
     public:
 
-      Blitter();
+      Blitter(base_t::Params const & params);
 
       void beginFrame();
       void endFrame();

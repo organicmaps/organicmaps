@@ -81,6 +81,7 @@
 						15000 * sizeof(yg::gl::Vertex), 30000 * sizeof(unsigned short), 20,
 						1500 * sizeof(yg::gl::Vertex), 3000 * sizeof(unsigned short), 100,
 					  512, 256, 10,
+						2048, 2048, 20,																																	
 					  2000000));
 
 //		resourceManager->addFont(GetPlatform().ReadPathForFile("dejavusans.ttf").c_str());

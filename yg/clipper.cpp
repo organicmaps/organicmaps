@@ -6,8 +6,9 @@ namespace yg
 {
   namespace gl
   {
-    Clipper::Clipper()
-      : m_isClippingEnabled(false)
+    Clipper::Clipper(base_t::Params const & params)
+      : base_t(params),
+      m_isClippingEnabled(false)
     {}
 
     void Clipper::beginFrame()

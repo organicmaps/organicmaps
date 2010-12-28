@@ -3,6 +3,7 @@
 #include "utils.hpp"
 #include "framebuffer.hpp"
 #include "renderbuffer.hpp"
+#include "resource_manager.hpp"
 #include "../base/ptr_utils.hpp"
 #include "internal/opengl.hpp"
 
@@ -10,9 +11,15 @@ namespace yg
 {
   namespace gl
   {
-    Renderer::Renderer() : m_isMultiSampled(false), m_isRendering(false)
+    Renderer::Renderer(Params const & params) : m_isMultiSampled(false), m_isRendering(false)
     {
       m_multiSampledFrameBuffer = make_shared_ptr(new FrameBuffer());
+      m_resourceManager = params.m_resourceManager;
+    }
+
+    shared_ptr<ResourceManager> const & Renderer::resourceManager() const
+    {
+      return m_resourceManager;
     }
 
     void Renderer::beginFrame()

@@ -40,6 +40,9 @@ namespace qt
           5000 * sizeof(yg::gl::Vertex),
           10000 * sizeof(unsigned short),
           100,
+          2048,
+          2048,
+          30,
           512, 256,
           15,
           2000000));
