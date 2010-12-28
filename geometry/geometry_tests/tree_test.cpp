@@ -6,12 +6,7 @@
 
 namespace
 {
-  struct simple_traits
-  {
-    static m2::RectD GetLimitRect(m2::RectD const & r) { return r; }
-  };
-
-  typedef m4::Tree<m2::RectD, simple_traits> tree_t;
+  typedef m4::Tree<m2::RectD> tree_t;
 
   bool compare_true(m2::RectD const &, m2::RectD const &) { return true; }
 }
@@ -27,14 +22,14 @@ UNIT_TEST(Tree4D_Smoke)
   };
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
-    theTree.ReplaceIf(arr[i], &compare_true);
+    theTree.ReplaceIf(arr[i], arr[i], &compare_true);
 
   vector<m2::RectD> test;
   theTree.ForEach(MakeBackInsertFunctor(test));
   TEST_EQUAL(3, test.size(), ());
 
   m2::RectD const replaceR(0.5, 0.5, 2.5, 2.5);
-  theTree.ReplaceIf(replaceR, &compare_true);
+  theTree.ReplaceIf(replaceR, replaceR, &compare_true);
 
   test.clear();
   theTree.ForEach(MakeBackInsertFunctor(test));

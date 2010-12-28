@@ -103,6 +103,7 @@ namespace yg
 
       void setSkin(shared_ptr<Skin> skin);
       shared_ptr<Skin> skin() const;
+      shared_ptr<ResourceManager> resManager() const { return m_resourceManager; }
 
       void beginFrame();
       void endFrame();
@@ -120,6 +121,11 @@ namespace yg
                        uint32_t styleID,
                        double depth);
 
+    private:
+      template <class ToDo>
+      void ForEachGlyph(uint8_t fontSize, wstring const & text, bool isMask, ToDo toDo);
+
+    public:
       /// Drawing text from point rotated by the angle.
       void drawText(m2::PointD const & pt,
                     float angle,

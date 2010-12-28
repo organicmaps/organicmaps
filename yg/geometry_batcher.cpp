@@ -537,34 +537,28 @@ namespace yg
                          p->m_pageID);
    }
 
+   template <class ToDo>
+   void GeometryBatcher::ForEachGlyph(uint8_t fontSize, wstring const & text, bool isMask, ToDo toDo)
+   {
+     m2::PointD currPt(0, 0);
+     for (size_t i = 0; i < text.size(); ++i)
+     {
+       uint32_t glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, isMask));
+       CharStyle const * p = static_cast<CharStyle const *>(m_skin->fromID(glyphID));
+       if (p)
+       {
+         toDo(currPt, p);
+         currPt += m2::PointD(p->m_xAdvance, 0);
+       }
+     }
+   }
+
    void GeometryBatcher::drawText(m2::PointD const & pt, float angle, uint8_t fontSize, string const & utf8Text, double depth)
    {
      wstring text = FromUtf8(utf8Text);
 
-     m2::PointD currPt(0, 0);
-     for (size_t i = 0; i < text.size(); ++i)
-     {
-        uint32_t glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, true));
-        CharStyle const * p = static_cast<CharStyle const *>(m_skin->fromID(glyphID));
-        if (p)
-        {
-          drawGlyph(pt, currPt, angle, 0, p, depth);
-          currPt = currPt.Move(p->m_xAdvance, 0);
-        }
-      }
-
-     currPt = m2::PointD(0, 0);
-
-     for (size_t i = 0; i < text.size(); ++i)
-     {
-        uint32_t glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, false));
-        CharStyle const * p = static_cast<CharStyle const *>(m_skin->fromID(glyphID));
-        if (p)
-        {
-          drawGlyph(pt, currPt, angle, 0, p, depth);
-          currPt = currPt.Move(p->m_xAdvance, 0);
-        }
-     }
+     ForEachGlyph(fontSize, text, true, bind(&GeometryBatcher::drawGlyph, this, cref(pt), _1, angle, 0, _2, depth));
+     ForEachGlyph(fontSize, text, false, bind(&GeometryBatcher::drawGlyph, this, cref(pt), _1, angle, 0, _2, depth));
    }
 
    /// Incapsulate array of points in readable getting direction.

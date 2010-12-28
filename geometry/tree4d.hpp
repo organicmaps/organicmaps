@@ -10,7 +10,7 @@
 
 namespace m4
 {
-  template <class T, class TTraits>
+  template <class T>
   class Tree
   {
     struct value_t
@@ -44,10 +44,8 @@ namespace m4
   public:
 
     template <class TCompare>
-    void ReplaceIf(T const & obj, TCompare comp)
+    void ReplaceIf(T const & obj, m2::RectD const & rect, TCompare comp)
     {
-      m2::RectD const rect = TTraits::GetLimitRect(obj);
-
       region_t rgn;
       for (size_t i = 0; i < 4; ++i)
       {
@@ -96,11 +94,19 @@ namespace m4
       m_tree.insert(value_t(obj, rect));
     }
 
+    template <class TCompare>
+    void ReplaceIf(T const & obj, TCompare comp)
+    {
+      ReplaceIf(obj, obj.GetLimitRect(), comp);
+    }
+
     template <class ToDo>
     void ForEach(ToDo toDo) const
     {
       for (tree_t::const_iterator i = m_tree.begin(); i != m_tree.end(); ++i)
         toDo((*i).m_val);
     }
+
+    void Clear() { m_tree.clear(); }
   };
 }

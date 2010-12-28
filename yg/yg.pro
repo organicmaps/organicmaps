@@ -56,7 +56,8 @@ SOURCES += \
     glyph_cache.cpp \
     glyph_cache_impl.cpp \
     ft2_debug.cpp \
-    geometry_batcher.cpp
+    geometry_batcher.cpp \
+    text_renderer.cpp \
 
 HEADERS += \
     internal/opengl.hpp \
