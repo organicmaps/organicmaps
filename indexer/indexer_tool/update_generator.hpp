@@ -4,5 +4,5 @@
 
 namespace update
 {
-  bool GenerateMapsList(string const & pathToMaps, string const & pathToCountries, string const & baseUrl);
+  bool GenerateFilesList(string const & dataDir);
 } // namespace update

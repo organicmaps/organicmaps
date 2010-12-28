@@ -25,7 +25,18 @@ namespace storage
     EInQueue
   };
 
-  typedef std::pair<size_t, size_t> TIndex;
+  struct TIndex
+  {
+    int m_group;
+    int m_country;
+    int m_region;
+    TIndex(int group = -1, int country = -1, int region = -1)
+      : m_group(group), m_country(country), m_region(region) {}
+    bool operator==(TIndex const & other) const
+    {
+      return m_group == other.m_group && m_country == other.m_country && m_region == other.m_region;
+    }
+  };
 
   /// Can be used to store local maps and/or maps available for download
   class Storage
@@ -54,8 +65,8 @@ namespace storage
     //@}
 
     void DownloadNextCountryFromQueue();
-    Country const * CountryByIndex(TIndex const & index) const;
-    bool UpdateCheck();
+    Country const & CountryByIndex(TIndex const & index) const;
+//    bool UpdateCheck();
 
   public:
     Storage() {}
@@ -76,11 +87,9 @@ namespace storage
     void Unsubscribe();
     //@}
 
-    size_t GroupsCount() const;
-    size_t CountriesCountInGroup(size_t groupIndex) const;
-    string GroupName(size_t groupIndex) const;
+    size_t CountriesCount(TIndex const & index) const;
     string CountryName(TIndex const & index) const;
-    uint64_t CountrySizeInBytes(TIndex const & index) const;
+    TLocalAndRemoteSize CountrySizeInBytes(TIndex const & index) const;
     TStatus CountryStatus(TIndex const & index) const;
 
     void DownloadCountry(TIndex const & index);

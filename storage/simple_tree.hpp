@@ -93,8 +93,8 @@ public:
   {
     for (typename internal_container_type::iterator it = m_siblings.begin(); it != m_siblings.end(); ++it)
     {
-      it->ForEachChildren(f);
       f(*it);
+      it->ForEachChildren(f);
     }
   }
 
@@ -103,8 +103,8 @@ public:
   {
     for (typename internal_container_type::const_iterator it = m_siblings.begin(); it != m_siblings.end(); ++it)
     {
-      it->ForEachChildren(f);
       f(*it);
+      it->ForEachChildren(f);
     }
   }
 };

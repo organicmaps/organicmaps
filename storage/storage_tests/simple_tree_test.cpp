@@ -1,13 +1,10 @@
 #include "../../testing/testing.hpp"
 
-#include "../../platform/platform.hpp"
-
-#include "../../std/fstream.hpp"
+#include "../../coding/reader.hpp"
+#include "../../coding/writer.hpp"
+#include "../../coding/streams_sink.hpp"
 
 #include "../simple_tree.hpp"
-#include "../countries.hpp"
-
-using namespace mapinfo;
 
 template <class TNode>
 struct Calculator
@@ -22,34 +19,39 @@ struct Calculator
 
 UNIT_TEST(SimpleTree)
 {
-  typedef SimpleTree<CountryTreeNode> mytree;
+  typedef SimpleTree<int> mytree;
   mytree tree;
-  std::ifstream file(GetPlatform().WritablePathForFile("countries.txt").c_str());
-  TEST( LoadCountries(tree, file), ("countries.txt is absent or corrupted"));
+
+  tree.Add(4);
+  tree.Add(3);
+  tree.Add(5);
+  tree.Add(2);
+  tree.Add(1);
+  tree.AddAtDepth(1, 20);  // 1 is parent
+  tree.AddAtDepth(1, 10);  // 1 is parent
+  tree.AddAtDepth(1, 30);  // 1 is parent
 
   tree.Sort();
+  // test sorting
+  TEST_EQUAL(tree[0].Value(), 1, ());
+  TEST_EQUAL(tree[1].Value(), 2, ());
+  TEST_EQUAL(tree[2].Value(), 3, ());
+  TEST_EQUAL(tree[3].Value(), 4, ());
+  TEST_EQUAL(tree[4].Value(), 5, ());
+  TEST_EQUAL(tree[0][0].Value(), 10, ());
+  TEST_EQUAL(tree[0][1].Value(), 20, ());
+  TEST_EQUAL(tree[0][2].Value(), 30, ());
 
   Calculator<mytree> c1;
   tree.ForEachSibling(c1);
-  TEST_GREATER_OR_EQUAL(c1.count, 6, ("At least 6 continents should be present"));
-
-  // find europe
-  size_t i = 0;
-  for (; i < tree.SiblingsCount(); ++i)
-    if (tree[i].Value().Name() == "Europe")
-      break;
-  TEST_LESS(i, tree.SiblingsCount(), ("Europe is not present?"));
+  TEST_EQUAL(c1.count, 5, ());
 
   Calculator<mytree> c2;
-  tree[i].ForEachSibling(c2);
-  TEST_GREATER_OR_EQUAL(c2.count, 20, ("At least 20 countries should be present in Europe"));
-
-  Calculator<mytree> c3;
-  tree[i].ForEachChildren(c3);
-  TEST_GREATER(c3.count, c2.count, ("Europe should contain some regions"));
+  tree.ForEachChildren(c2);
+  TEST_EQUAL(c2.count, 8, ());
 
   tree.Clear();
-  Calculator<mytree> c4;
-  tree.ForEachChildren(c4);
-  TEST_EQUAL(c4.count, 0, ("Tree should be empty"));
+  Calculator<mytree> c3;
+  tree.ForEachChildren(c3);
+  TEST_EQUAL(c3.count, 0, ("Tree should be empty"));
 }

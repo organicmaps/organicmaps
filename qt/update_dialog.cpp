@@ -1,10 +1,12 @@
 #include "update_dialog.hpp"
 
+#include "../base/assert.hpp"
+
 #include <boost/bind.hpp>
 
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QLabel>
-#include <QtGui/QTableWidget>
+#include <QtGui/QTreeWidget>
 #include <QtGui/QHeaderView>
 #include <QtGui/QMessageBox>
 #include <QtGui/QProgressBar>
@@ -14,9 +16,9 @@ using namespace storage;
 enum
 {
 //  KItemIndexFlag = 0,
-  KItemIndexCountry,
-  KItemIndexContinent,
-  KItemIndexSize,
+  KColumnIndexCountry,
+  KColumnIndexStatus,
+  KColumnIndexSize,
   KNumberOfColumns
 };
 
@@ -32,12 +34,12 @@ namespace qt
 // Helpers
 ///////////////////////////////////////////////////////////////////////////////
   /// adds custom sorting for "Size" column
-  class QTableWidgetItemWithCustomSorting : public QTableWidgetItem
+  class QTreeWidgetItemWithCustomSorting : public QTreeWidgetItem
   {
   public:
-    virtual bool operator<(QTableWidgetItem const & other) const
+    virtual bool operator<(QTreeWidgetItem const & other) const
     {
-      return data(Qt::UserRole).toULongLong() < other.data(Qt::UserRole).toULongLong();
+      return data(KColumnIndexSize, Qt::UserRole).toULongLong() < other.data(KColumnIndexSize, Qt::UserRole).toULongLong();
     }
   };
 ////////////////////////////////////////////////////////////////////////////////
@@ -45,28 +47,25 @@ namespace qt
   UpdateDialog::UpdateDialog(QWidget * parent, Storage & storage)
     : QDialog(parent), m_storage(storage)
   {
-    // table with countries list
-    m_table = new QTableWidget(0, KNumberOfColumns, this);
-    m_table->setSelectionBehavior(QAbstractItemView::SelectRows);
-    QStringList labels;
-    labels << tr("Country") << tr("Continent") << tr("Size");
-    m_table->setHorizontalHeaderLabels(labels);
-    m_table->horizontalHeader()->setResizeMode(KItemIndexCountry, QHeaderView::Stretch);
-    m_table->verticalHeader()->hide();
-    m_table->setShowGrid(false);
-    connect(m_table, SIGNAL(cellClicked(int, int)), this, SLOT(OnTableClick(int, int)));
+    m_tree = new QTreeWidget(this);
+    m_tree->setColumnCount(KNumberOfColumns);
+    QStringList columnLabels;
+    columnLabels << tr("Country") << tr("Status") << tr("Size");
+    m_tree->setHeaderLabels(columnLabels);
+
+    connect(m_tree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(OnItemClick(QTreeWidgetItem *, int)));
 
     QVBoxLayout * layout = new QVBoxLayout();
-    layout->addWidget(m_table);
+    layout->addWidget(m_tree);
     setLayout(layout);
 
-    setWindowTitle(tr("Countries"));
-    resize(500, 300);
+    setWindowTitle(tr("Geographical Regions"));
+    resize(600, 500);
 
     // we want to receive all download progress and result events
     m_storage.Subscribe(boost::bind(&UpdateDialog::OnCountryChanged, this, _1),
                         boost::bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2));
-    FillTable();
+    FillTree();
   }
 
   UpdateDialog::~UpdateDialog()
@@ -76,137 +75,172 @@ namespace qt
   }
 
   /// when user clicks on any map row in the table
-  void UpdateDialog::OnTableClick(int row, int /*column*/)
+  void UpdateDialog::OnItemClick(QTreeWidgetItem * item, int /*column*/)
   {
-    uint group = m_table->item(row, KItemIndexContinent)->data(Qt::UserRole).toUInt();
-    uint country = m_table->item(row, KItemIndexCountry)->data(Qt::UserRole).toUInt();
+    // calculate index of clicked item
+    QList<int> treeIndex;
+    {
+      QTreeWidgetItem * parent = item;
+      while (parent)
+      {
+        treeIndex.insert(0, parent->data(KColumnIndexCountry, Qt::UserRole).toInt());
+        parent = parent->parent();
+      }
+      while (treeIndex.size() < 3)
+        treeIndex.append(-1);
+    }
 
-    switch (m_storage.CountryStatus(TIndex(group, country)))
+    TIndex const countryIndex(treeIndex[0], treeIndex[1], treeIndex[2]);
+    switch (m_storage.CountryStatus(countryIndex))
     {
     case EOnDisk:
       { // aha.. map is already downloaded, so ask user about deleting!
         QMessageBox ask(this);
-        ask.setText(tr("Do you want to delete %1?").arg(m_table->item(row, KItemIndexCountry)->text()));
+        ask.setText(tr("Do you want to delete %1?").arg(item->text(KColumnIndexCountry)));
         ask.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         ask.setDefaultButton(QMessageBox::No);
         if (ask.exec() == QMessageBox::Yes)
-          m_storage.DeleteCountry(TIndex(group, country));
+          m_storage.DeleteCountry(countryIndex);
       }
       break;
 
     case ENotDownloaded:
     case EDownloadFailed:
-      m_storage.DownloadCountry(TIndex(group, country));
+      m_storage.DownloadCountry(countryIndex);
       break;
 
     case EInQueue:
     case EDownloading:
-      m_storage.DeleteCountry(TIndex(group, country));
+      m_storage.DeleteCountry(countryIndex);
       break;
     }
   }
 
-  int GetRowByGroupAndCountryIndex(QTableWidget & table, TIndex const & index)
+  /// @return can be null if index is invalid
+  QTreeWidgetItem * GetTreeItemByIndex(QTreeWidget & tree, TIndex const & index)
   {
-    for (int i = 0; i < table.rowCount(); ++i)
+    QTreeWidgetItem * item = 0;
+    if (index.m_group >= 0 && index.m_group < tree.topLevelItemCount())
     {
-      if (table.item(i, KItemIndexContinent)->data(Qt::UserRole).toUInt() == index.first
-        && table.item(i, KItemIndexCountry)->data(Qt::UserRole).toUInt() == index.second)
+      item = tree.topLevelItem(index.m_group);
+      ASSERT_EQUAL( item->data(KColumnIndexCountry, Qt::UserRole).toInt(), index.m_group, () );
+      if (index.m_country >= 0 && index.m_country < item->childCount())
       {
-        return i;
+        item = item->child(index.m_country);
+        ASSERT_EQUAL( item->data(KColumnIndexCountry, Qt::UserRole).toInt(), index.m_country, () );
+        if (index.m_region >= 0 && index.m_region < item->childCount())
+        {
+          item = item->child(index.m_region);
+          ASSERT_EQUAL( item->data(KColumnIndexCountry, Qt::UserRole).toInt(), index.m_region, () );
+        }
       }
     }
-    // not found
-    return -1;
+    return item;
   }
 
   /// Changes row's text color
-  void SetRowColor(QTableWidget & table, int row, QColor const & color)
+  void SetRowColor(QTreeWidgetItem & item, QColor const & color)
   {
-    for (int column = 0; column < table.columnCount(); ++column)
-    {
-      QTableWidgetItem * item = table.item(row, column);
-      if (item)
-        item->setTextColor(color);
-    }
+    for (int column = 0; column < item.columnCount(); ++column)
+      item.setTextColor(column, color);
   }
 
   void UpdateDialog::UpdateRowWithCountryInfo(TIndex const & index)
   {
-    int row = GetRowByGroupAndCountryIndex(*m_table, index);
-    if (row == -1)
+    QTreeWidgetItem * item = GetTreeItemByIndex(*m_tree, index);
+    if (item)
     {
-      ASSERT(false, ("Invalid country index"));
-      return;
-    }
+      QColor rowColor;
+      QString statusString;
+      switch (m_storage.CountryStatus(index))
+      {
+      case ENotDownloaded:
+        statusString = tr("Click to download");
+        rowColor = COLOR_NOTDOWNLOADED;
+        break;
+      case EOnDisk:
+        statusString = tr("Installed (click to delete)");
+        rowColor = COLOR_ONDISK;
+        break;
+      case EDownloadFailed:
+        statusString = tr("Download has failed :(");
+        rowColor = COLOR_DOWNLOADFAILED;
+        break;
+      case EDownloading:
+        statusString = tr("Downloading...");
+        rowColor = COLOR_INPROGRESS;
+        break;
+      case EInQueue:
+        statusString = tr("Marked for download");
+        rowColor = COLOR_INQUEUE;
+        break;
+      }
+      item->setText(KColumnIndexStatus, statusString);
 
-    QColor rowColor;
-    TStatus status = m_storage.CountryStatus(index);
-    switch (status)
-    {
-    case ENotDownloaded: rowColor = COLOR_NOTDOWNLOADED; break;
-    case EOnDisk: rowColor = COLOR_ONDISK; break;
-    case EDownloadFailed: rowColor = COLOR_DOWNLOADFAILED; break;
-    case EDownloading: rowColor = COLOR_INPROGRESS; break;
-    case EInQueue: rowColor = COLOR_INQUEUE; break;
+      // update size column values
+//      QTableWidgetItem * sizeItem = m_table->item(row, KColumnIndexSize);
+//      if (status == EInQueue)
+//      {
+//        sizeItem->setText("In Queue");
+//      }
+//      else if (status != EDownloading)
+//      {
+//        uint64_t const size = m_storage.CountrySizeInBytes(index);
+//        if (size > 1000 * 1000)
+//          sizeItem->setText(QObject::tr("%1 MB").arg(uint(size / (1000 * 1000))));
+//        else
+//          sizeItem->setText(QObject::tr("%1 kB").arg(uint((size + 999) / 1000)));
+//        // needed for column sorting
+//        sizeItem->setData(Qt::UserRole, QVariant(qint64(size)));
+//      }
+      SetRowColor(*item, rowColor);
     }
-
-    // update size column values
-    QTableWidgetItem * sizeItem = m_table->item(row, KItemIndexSize);
-    if (status == EInQueue)
-    {
-      sizeItem->setText("In Queue");
-    }
-    else if (status != EDownloading)
-    {
-      uint64_t const size = m_storage.CountrySizeInBytes(index);
-      if (size > 1000 * 1000)
-        sizeItem->setText(QObject::tr("%1 MB").arg(uint(size / (1000 * 1000))));
-      else
-        sizeItem->setText(QObject::tr("%1 kB").arg(uint((size + 999) / 1000)));
-      // needed for column sorting
-      sizeItem->setData(Qt::UserRole, QVariant(qint64(size)));
-    }
-    SetRowColor(*m_table, row, rowColor);
   }
 
-  void UpdateDialog::FillTable()
+  void UpdateDialog::FillTree()
   {
-    m_table->setSortingEnabled(false);
-    m_table->clear();
+    m_tree->setSortingEnabled(false);
+    m_tree->clear();
 
-    for (size_t groupIndex = 0; groupIndex < m_storage.GroupsCount(); ++groupIndex)
+    for (int group = 0; group < m_storage.CountriesCount(TIndex()); ++group)
     {
-      for (size_t countryIndex = 0; countryIndex < m_storage.CountriesCountInGroup(groupIndex); ++countryIndex)
+      TIndex const grIndex(group);
+      QStringList groupText(m_storage.CountryName(grIndex).c_str());
+      QTreeWidgetItem * groupItem = new QTreeWidgetItem(groupText);
+      groupItem->setData(KColumnIndexCountry, Qt::UserRole, QVariant(group));
+      m_tree->addTopLevelItem(groupItem);
+      // set color by status and update country size
+      UpdateRowWithCountryInfo(grIndex);
+
+      for (int country = 0; country < m_storage.CountriesCount(grIndex); ++country)
       {
-        int row = m_table->rowCount();
-        m_table->insertRow(row);
-
-        // Country column
-        QTableWidgetItem * countryItem = new QTableWidgetItem(m_storage.CountryName(TIndex(groupIndex, countryIndex)).c_str());
-        countryItem->setFlags(countryItem->flags() ^ Qt::ItemIsEditable);
-        // acts as a key for Storage when user clicks this row
-        countryItem->setData(Qt::UserRole, QVariant(uint(countryIndex)));
-        m_table->setItem(row, KItemIndexCountry, countryItem);
-
-        // Continent column
-        QTableWidgetItem * continentItem = new QTableWidgetItem(m_storage.GroupName(groupIndex).c_str());
-        continentItem->setFlags(continentItem->flags() ^ Qt::ItemIsEditable);
-        // acts as a key for Storage when user clicks this row
-        continentItem->setData(Qt::UserRole, QVariant(uint(groupIndex)));
-        m_table->setItem(row, KItemIndexContinent, continentItem);
-
-        // Size column, actual size will be set later
-        QTableWidgetItemWithCustomSorting * sizeItem = new QTableWidgetItemWithCustomSorting;
-        sizeItem->setFlags(sizeItem->flags() ^ Qt::ItemIsEditable);
-        m_table->setItem(row, KItemIndexSize, sizeItem);
-
+        TIndex cIndex(group, country);
+        QStringList countryText(m_storage.CountryName(cIndex).c_str());
+        QTreeWidgetItem * countryItem = new QTreeWidgetItem(groupItem, countryText);
+        countryItem->setData(KColumnIndexCountry, Qt::UserRole, QVariant(country));
         // set color by status and update country size
-        UpdateRowWithCountryInfo(TIndex(groupIndex, countryIndex));
+        UpdateRowWithCountryInfo(cIndex);
+
+        for (int region = 0; region < m_storage.CountriesCount(cIndex); ++region)
+        {
+          TIndex const rIndex(group, country, region);
+          QStringList regionText(m_storage.CountryName(rIndex).c_str());
+          QTreeWidgetItem * regionItem = new QTreeWidgetItem(countryItem, regionText);
+          regionItem->setData(KColumnIndexCountry, Qt::UserRole, QVariant(region));
+          // set color by status and update country size
+          UpdateRowWithCountryInfo(rIndex);
+        }
       }
     }
-    m_table->setSortingEnabled(true);
-    m_table->sortByColumn(KItemIndexCountry);
+//        // Size column, actual size will be set later
+//        QTableWidgetItemWithCustomSorting * sizeItem = new QTableWidgetItemWithCustomSorting;
+//        sizeItem->setFlags(sizeItem->flags() ^ Qt::ItemIsEditable);
+//        m_table->setItem(row, KItemIndexSize, sizeItem);
+
+    m_tree->sortByColumn(KColumnIndexCountry, Qt::AscendingOrder);
+    m_tree->setSortingEnabled(true);
+    m_tree->header()->setResizeMode(KColumnIndexCountry, QHeaderView::ResizeToContents);
+    m_tree->header()->setResizeMode(KColumnIndexStatus, QHeaderView::ResizeToContents);
   }
 
   void UpdateDialog::OnCountryChanged(TIndex const & index)
@@ -214,18 +248,12 @@ namespace qt
     UpdateRowWithCountryInfo(index);
   }
 
-  void UpdateDialog::OnCountryDownloadProgress(TIndex const & index, TDownloadProgress const & progress)
+  void UpdateDialog::OnCountryDownloadProgress(TIndex const & index,
+                                               TDownloadProgress const & progress)
   {
-    int row = GetRowByGroupAndCountryIndex(*m_table, index);
-    if (row != -1)
-    {
-      m_table->item(row, KItemIndexSize)->setText(
-          QString("%1%").arg(progress.first * 100 / progress.second));
-    }
-    else
-    {
-      ASSERT(false, ());
-    }
+    QTreeWidgetItem * item = GetTreeItemByIndex(*m_tree, index);
+    if (item)
+      item->setText(KColumnIndexSize, QString("%1%").arg(progress.first * 100 / progress.second));
   }
 
 }

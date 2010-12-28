@@ -29,6 +29,11 @@ namespace stream
       t = ReadPrimitiveFromSource<uint32_t>(m_reader);
       return (*this);
     }
+    SinkReaderStream & operator >> (uint16_t & t)
+    {
+      t = ReadPrimitiveFromSource<uint16_t>(m_reader);
+      return (*this);
+    }
     SinkReaderStream & operator >> (int64_t & t)
     {
       t = ReadPrimitiveFromSource<int64_t>(m_reader);
@@ -37,6 +42,11 @@ namespace stream
     SinkReaderStream & operator >> (int32_t & t)
     {
       t = ReadPrimitiveFromSource<int32_t>(m_reader);
+      return (*this);
+    }
+    SinkReaderStream & operator >> (int16_t & t)
+    {
+      t = ReadPrimitiveFromSource<int16_t>(m_reader);
       return (*this);
     }
 

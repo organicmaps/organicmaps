@@ -3,6 +3,8 @@
 #include "data_cache_file.hpp"
 #include "osm_element.hpp"
 
+#include "../../storage/defines.hpp"
+
 #include "../../indexer/data_header.hpp"
 #include "../../indexer/osm_decl.hpp"
 #include "../../indexer/data_header_reader.hpp"
@@ -140,7 +142,7 @@ void FeaturesCollector::Init()
 }
 
 FeaturesCollector::FeaturesCollector(string const & fName)
-: m_datFile(fName), m_geoFile(fName + ".geom"), m_trgFile(fName + ".trg")
+: m_datFile(fName), m_geoFile(fName + GEOMETRY_FILE_EXTENSION), m_trgFile(fName + TRIANGLES_FILE_EXTENSION)
 {
   Init();
 }
@@ -148,8 +150,8 @@ FeaturesCollector::FeaturesCollector(string const & fName)
 FeaturesCollector::FeaturesCollector(string const & bucket,
                                      FeaturesCollector::InitDataType const & prefix)
 : m_datFile(prefix.first + bucket + prefix.second),
-  m_geoFile(prefix.first + bucket + prefix.second + ".geom"),
-  m_trgFile(prefix.first + bucket + prefix.second + ".trg")
+  m_geoFile(prefix.first + bucket + prefix.second + GEOMETRY_FILE_EXTENSION),
+  m_trgFile(prefix.first + bucket + prefix.second + TRIANGLES_FILE_EXTENSION)
 {
   Init();
 }

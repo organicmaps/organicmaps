@@ -5,16 +5,16 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 ROOT_DIR = ..
-DEPENDENCIES = geometry coding base
+DEPENDENCIES = indexer platform geometry coding base
 
 include($$ROOT_DIR/common.pri)
+
+HEADERS += \
+  country.hpp \
+  defines.hpp \
+  simple_tree.hpp \
+  storage.hpp \
 
 SOURCES += \
   country.cpp \
   storage.cpp \
-
-HEADERS += \
-  defines.hpp \
-  country.hpp \
-  simple_tree.hpp \
-  storage.hpp \

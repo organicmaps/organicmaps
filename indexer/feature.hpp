@@ -2,6 +2,8 @@
 
 #include "cell_id.hpp"
 
+#include "../storage/defines.hpp" // just for file extensions
+
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 
@@ -340,7 +342,7 @@ public:
     FileReader m_trgF;
 
     read_source_t(string const & name)
-      : m_gF(name + ".geom"), m_trgF(name + ".trg")
+      : m_gF(name + GEOMETRY_FILE_EXTENSION), m_trgF(name + TRIANGLES_FILE_EXTENSION)
     {
     }
   };

@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = storage geometry platform coding base
+DEPENDENCIES = storage indexer geometry platform coding base
 
 include($$ROOT_DIR/common.pri)
 
@@ -16,4 +16,5 @@ HEADERS +=
 
 SOURCES += \
   ../../testing/testingmain.cpp \
-#  simple_tree_test.cpp \
+  country_test.cpp \
+  simple_tree_test.cpp \

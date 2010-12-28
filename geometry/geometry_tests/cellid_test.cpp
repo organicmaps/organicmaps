@@ -175,3 +175,13 @@ UNIT_TEST(CellID_LessStackOrder)
     TEST_EQUAL(tst, exp, ());
   } while (next_permutation(e.begin(), e.end()));
 }
+
+UNIT_TEST(CellID_IsStringValid)
+{
+  typedef m2::CellId<9> TId;
+  TEST( TId::IsCellId("0123132"), () );
+  TEST( !TId::IsCellId(""), () );
+  TEST( !TId::IsCellId("-1332"), () );
+  TEST( !TId::IsCellId("023."), () );
+  TEST( !TId::IsCellId("121832"), () );
+}

@@ -54,6 +54,19 @@ public:
     return CellId(bits, level);
   }
 
+  static bool IsCellId(string const & s)
+  {
+    size_t const length = s.size();
+    if (length == 0)
+      return false;
+    for (size_t i = 0; i < length; ++i)
+    {
+      if (s[i] < '0' || s[i] > '3')
+        return false;
+    }
+    return true;
+  }
+
   static CellId FromString(string const & s)
   {
     int64_t bits = 0;

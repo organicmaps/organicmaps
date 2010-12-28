@@ -4,7 +4,8 @@
 
 #include <QtGui/QDialog>
 
-class QTableWidget;
+class QTreeWidget;
+class QTreeWidgetItem;
 class QLabel;
 
 namespace qt
@@ -17,7 +18,7 @@ namespace qt
     UpdateDialog(QWidget * parent, storage::Storage & storage);
     ~UpdateDialog();
 
-    /// @name Called from storage to notify GUI
+    /// @name Called from downloader to notify GUI
     //@{
     void OnCountryChanged(storage::TIndex const & index);
     void OnCountryDownloadProgress(storage::TIndex const & index,
@@ -25,14 +26,14 @@ namespace qt
     //@}
 
   private slots:
-    void OnTableClick(int row, int column);
+    void OnItemClick(QTreeWidgetItem * item, int column);
 
   private:
-    void FillTable();
+    void FillTree();
     void UpdateRowWithCountryInfo(storage::TIndex const & index);
 
   private:
-    QTableWidget * m_table;
+    QTreeWidget * m_tree;
     storage::Storage & m_storage;
    };
 } // namespace qt

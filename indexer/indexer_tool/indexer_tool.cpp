@@ -27,8 +27,8 @@
 #include "../../base/start_mem_debug.hpp"
 
 DEFINE_bool(version, false, "Display version");
-DEFINE_string(countries_path, "",
-              "If specified, update.maps file will be generated from cells in the path");
+DEFINE_bool(generate_update, false,
+              "If specified, update.maps file will be generated from cells in the data path");
 
 DEFINE_bool(sort_features, false, "Sort features inside .dat for better cache-friendliness.");
 DEFINE_bool(generate_classif, false, "Generate classificator.");
@@ -141,8 +141,7 @@ int main(int argc, char ** argv)
     if (FLAGS_generate_index)
     {
       LOG(LINFO, ("Generating index for", datFile));
-      string const indexFile = storage::IndexFileForDatFile(datFile);
-      if (!indexer::BuildIndexFromDatFile(indexFile, datFile,
+      if (!indexer::BuildIndexFromDatFile(datFile + INDEX_FILE_EXTENSION, datFile,
                                           FLAGS_intermediate_data_path + FLAGS_output))
       {
         LOG(LCRITICAL, ("Error generating index."));
@@ -151,10 +150,10 @@ int main(int argc, char ** argv)
   }
 
   // Create http update list for countries and corresponding files
-  if (FLAGS_countries_path.size())
+  if (FLAGS_generate_update)
   {
     LOG(LINFO, ("Creating maps.update file..."));
-    update::GenerateMapsList(path, FLAGS_countries_path, UPDATE_BASE_URL);
+    update::GenerateFilesList(path);
   }
 
   return 0;

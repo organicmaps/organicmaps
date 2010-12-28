@@ -2,6 +2,8 @@
 
 #include "../../coding/file_writer.hpp"
 
+#include "../../geometry/cellid.hpp"
+
 #include "../../platform/platform.hpp"
 
 #include "../../storage/country.hpp"
@@ -13,207 +15,81 @@
 #include "../../std/target_os.hpp"
 #include "../../std/fstream.hpp"
 
-#define GROUP_FILE_EXTENSION ".group"
-#define REGION_FILE_EXTENSION ".regions"
-#define CELLID_FILE_EXTENSION ".cells"
-
-#define PREFIX_CHAR '-'
-
-#ifdef OMIM_OS_WINDOWS_NATIVE
-  #define DIR_SEP '\\'
-#else
-  #define DIR_SEP '/'
-#endif
-
 using namespace storage;
 
 namespace update
 {
-  typedef vector<string> TCellIds;
-  typedef pair<Country, TCellIds> TCountryCells;
-  typedef vector<TCountryCells> TCountryCellsContainer;
-
-  string ChopExtension(string const & nameWithExtension)
+  // we don't support files without name or without extension
+  bool SplitExtension(string const & file, string & name, string & ext)
   {
-    size_t dotPos = nameWithExtension.rfind('.');
-    return nameWithExtension.substr(0, dotPos);
-  }
-
-  string ChopPrefix(string const & nameWithPrefix)
-  {
-    size_t prefixPos = nameWithPrefix.rfind(PREFIX_CHAR);
-    if (prefixPos != string::npos && (prefixPos + 1) < nameWithPrefix.size())
-      return nameWithPrefix.substr(prefixPos + 1, string::npos);
-    else
-      return nameWithPrefix;
-  }
-
-  bool LoadCountryCells(string const & fullPath, TCellIds & outCells)
-  {
-    outCells.clear();
-    ifstream file(fullPath.c_str());
-    string cell;
-    while (file.good())
+    // get extension
+    size_t const index = file.find_last_of('.');
+    if (index == string::npos || (index + 1) == file.size() || index == 0
+        || file == "." || file == "..")
     {
-      getline(file, cell);
-      if (cell.size())
-        outCells.push_back(cell);
-    }
-    return !outCells.empty();
-  }
-
-  /// @param path where folders with groups reside (Africa, Asia etc.)
-  /// @return true if loaded correctly
-  bool ScanAndLoadCountryCells(string path, TCountryCellsContainer & outCells)
-  {
-    if (path.empty())
+      name = file;
+      ext.clear();
       return false;
-    // fix missing slash
-    if (path[path.size() - 1] != DIR_SEP)
-      path.push_back(DIR_SEP);
+    }
+    ext = file.substr(index);
+    name = file.substr(0, index);
+    return true;
+  }
 
-    outCells.clear();
-
+  bool GenerateFilesList(string const & dataDir)
+  {
     Platform & platform = GetPlatform();
-    // get all groups
-    Platform::FilesList groups;
-    platform.GetFilesInDir(path, "*" GROUP_FILE_EXTENSION, groups);
-    for (Platform::FilesList::iterator itGroup = groups.begin(); itGroup != groups.end(); ++itGroup)
+
+    Platform::FilesList files;
+    if (!platform.GetFilesInDir(dataDir, "*", files))
     {
-      // get countries with regions
-      Platform::FilesList countries;
-      platform.GetFilesInDir(path + DIR_SEP + *itGroup, "*" REGION_FILE_EXTENSION, countries);
-      for (Platform::FilesList::iterator itCountry = countries.begin(); itCountry != countries.end(); ++itCountry)
-      { // get all regions
-        Platform::FilesList regions;
-        platform.GetFilesInDir(path + DIR_SEP + *itGroup + DIR_SEP + *itCountry,
-                               "*" CELLID_FILE_EXTENSION, regions);
-        for (Platform::FilesList::iterator itRegion = regions.begin(); itRegion != regions.end(); ++itRegion)
+      LOG(LERROR, ("Can't find any files at path", dataDir));
+      return false;
+    }
+
+    TDataFiles cellFiles;
+    TCommonFiles commonFiles;
+    string name, ext;
+    int32_t level = -1;
+    uint16_t bits;
+    for (Platform::FilesList::iterator it = files.begin(); it != files.end(); ++it)
+    {
+      uint64_t size = 0;
+      CHECK( platform.GetFileSize(dataDir + *it, size), ());
+      CHECK_EQUAL( size, static_cast<uint32_t>(size), ("We don't support files > 4gb", *it));
+      if (SplitExtension(*it, name, ext))
+      {
+        // is it data cell file?
+        if (ext == DATA_FILE_EXTENSION)
         {
-          TCellIds cells;
-          string fullPath = path + *itGroup + DIR_SEP + *itCountry + DIR_SEP + *itRegion;
-          if (LoadCountryCells(fullPath, cells))
+          if (CountryCellId::IsCellId(name))
           {
-            outCells.push_back(TCountryCells(Country(ChopExtension(*itGroup),
-                                                       ChopExtension(*itCountry),
-                                                       ChopExtension(*itRegion)),
-                                      cells));
+            CountryCellId cellId = CountryCellId::FromString(name);
+            pair<int64_t, int> bl = cellId.ToBitsAndLevel();
+            if (level < 0)
+              level = bl.second;
+            CHECK_EQUAL( level, bl.second, ("Data files with different level?", *it) );
+            bits = static_cast<uint16_t>(bl.first);
+            CHECK_EQUAL( name, CountryCellId::FromBitsAndLevel(bits, level).ToString(), (name));
+            cellFiles.push_back(make_pair(bits, static_cast<uint32_t>(size)));
           }
           else
           {
-            LOG(LERROR, ("Can't load cells from file", fullPath));
+            commonFiles.push_back(make_pair(*it, static_cast<uint32_t>(size)));
           }
-        }
-      }
-
-      // get countries without regions
-      countries.clear();
-      platform.GetFilesInDir(path + DIR_SEP + *itGroup, "*" CELLID_FILE_EXTENSION, countries);
-      for (Platform::FilesList::iterator itCountry = countries.begin(); itCountry != countries.end(); ++itCountry)
-      {
-        TCellIds cells;
-        string fullPath = path + *itGroup + DIR_SEP + *itCountry;
-        if (LoadCountryCells(fullPath, cells))
-        {
-          outCells.push_back(TCountryCells(Country(ChopExtension(*itGroup),
-                                                     ChopExtension(*itCountry),
-                                                     ""),
-                                    cells));
         }
         else
         {
-          LOG(LERROR, ("Can't load cells from file", fullPath));
+          commonFiles.push_back(make_pair(*it, static_cast<uint32_t>(size)));
         }
       }
     }
-    return !outCells.empty();
-  }
 
-  class CellChecker
-  {
-    string const m_path, m_file, m_url;
+    SaveTiles(dataDir + UPDATE_CHECK_FILE, level, cellFiles, commonFiles);
 
-  public:
-    CellChecker(string const & dataPath, string const & dataFileName, string const & baseUrl)
-      : m_path(dataPath), m_file(dataFileName), m_url(baseUrl) {}
-    void operator()(TCountryCells & cells) const
-    {
-      string const fileCell = ChopPrefix(ChopExtension(m_file));
-      for (TCellIds::iterator it = cells.second.begin(); it != cells.second.end(); ++it)
-      {
-        // check if country contains tile with this cell
-        if (fileCell.find(*it) == 0 || it->find(fileCell) == 0)
-        {
-          // data file
-          uint64_t fileSize = 0;
-          CHECK(GetPlatform().GetFileSize(m_path + m_file, fileSize), ("Non-existing file?"));
-          cells.first.AddUrl(TUrl(m_url + m_file, fileSize));
-          // index file
-          string const indexFileName = IndexFileForDatFile(m_file);
-          CHECK(GetPlatform().GetFileSize(m_path + indexFileName, fileSize), ("Non-existing file?"));
-          cells.first.AddUrl(TUrl(m_url + indexFileName, fileSize));
-          break;
-        }
-      }
-    }
-  };
+    LOG_SHORT(LINFO, ("Created update file with", cellFiles.size(), "data files and",
+                      commonFiles.size(), "other files"));
 
-  class CountryAdder
-  {
-    TCountriesContainer & m_countries;
-
-  public:
-    CountryAdder(TCountriesContainer & outCountries)
-      : m_countries(outCountries) {}
-    void operator()(TCountryCells const & cells)
-    {
-      if (cells.first.Urls().size())
-        m_countries[cells.first.Group()].push_back(cells.first);
-    }
-  };
-
-  class GroupSorter
-  {
-  public:
-    void operator()(TCountriesContainer::value_type & toSort)
-    {
-      sort(toSort.second.begin(), toSort.second.end());
-    }
-  };
-
-  bool GenerateMapsList(string const & pathToMaps, string const & pathToCountries, string const & baseUrl)
-  {
-    Platform & platform = GetPlatform();
-
-    TCountryCellsContainer countriesCells;
-    if (!ScanAndLoadCountryCells(pathToCountries, countriesCells))
-    {
-      LOG(LERROR, ("Can't load countries' cells from path", pathToCountries));
-      return false;
-    }
-
-    Platform::FilesList datFiles;
-    if (!platform.GetFilesInDir(pathToMaps, "*" DATA_FILE_EXTENSION, datFiles))
-    {
-      LOG(LERROR, ("Can't find any data files at path", pathToMaps));
-      return false;
-    }
-
-    // update each country's urls corresponding to existing data files
-    for (Platform::FilesList::iterator it = datFiles.begin(); it != datFiles.end(); ++it)
-    {
-      for_each(countriesCells.begin(), countriesCells.end(), CellChecker(pathToMaps, *it, baseUrl));
-    }
-
-    // save update list
-    TCountriesContainer countries;
-    for_each(countriesCells.begin(), countriesCells.end(), CountryAdder(countries));
-
-    // sort groups
-    for_each(countries.begin(), countries.end(), GroupSorter());
-
-    FileWriter writer(pathToMaps + UPDATE_CHECK_FILE);
-    SaveCountries(countries, writer);
     return true;
   }
 } // namespace update
