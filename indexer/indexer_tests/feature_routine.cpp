@@ -2,6 +2,8 @@
 
 #include "feature_routine.hpp"
 
+#include "../../platform/platform.hpp"
+
 #include "../../coding/file_writer.hpp"
 
 
@@ -12,18 +14,18 @@ void WriteToFile(string const & fName, vector<char> const & buffer)
     writer.Write(&buffer[0], buffer.size());
 }
 
-string g_datFile = "indexer_tests_tmp.dat";
-FeatureGeomRef::read_source_t g_source(g_datFile);
-
 void FeatureBuilder2Feature(FeatureBuilderGeomRef const & fb, FeatureGeomRef & f)
 {
+  string const datFile = GetPlatform().WritableDir() + "indexer_tests_tmp.dat";
+
   FeatureBuilderGeomRef::buffers_holder_t buffers;
   buffers.m_lineOffset = buffers.m_trgOffset = 0;
   fb.Serialize(buffers);
 
-  WriteToFile(g_datFile + ".geom", buffers.m_buffers[1]);
-  WriteToFile(g_datFile + ".trg", buffers.m_buffers[2]);
+  WriteToFile(datFile + ".geom", buffers.m_buffers[1]);
+  WriteToFile(datFile + ".trg", buffers.m_buffers[2]);
 
+  static FeatureGeomRef::read_source_t g_source(datFile);
   g_source.m_data.swap(buffers.m_buffers[0]);
   f.Deserialize(g_source);
 }
