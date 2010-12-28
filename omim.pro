@@ -19,7 +19,7 @@ SUBDIRS = 3party \
           indexer/indexer_tool \
           qt_tstfrm \
           indexer/indexer_tests \
-#         yg/yg_tests \
+         yg/yg_tests \
           qt
 }
 

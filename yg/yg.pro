@@ -30,7 +30,6 @@ SOURCES += \
     vertex.cpp \
     resource_manager.cpp \
     skin.cpp \
-    screen.cpp \
     pen_info.cpp \
     resource_style.cpp \
     color.cpp \
@@ -56,7 +55,8 @@ SOURCES += \
     render_state_updater.cpp \
     glyph_cache.cpp \
     glyph_cache_impl.cpp \
-    ft2_debug.cpp
+    ft2_debug.cpp \
+    geometry_batcher.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -66,7 +66,6 @@ HEADERS += \
     texture.hpp \
     skin.hpp \
     skin_loader.hpp \
-    screen.hpp \
     pen_info.hpp \
     resource_style.hpp \
     color.hpp \
@@ -95,7 +94,10 @@ HEADERS += \
     glyph_cache.hpp \
     data_formats.hpp \
     glyph_cache_impl.hpp \
-    ft2_debug.hpp
+    ft2_debug.hpp \
+    text_renderer.hpp \
+    geometry_batcher.hpp \
+    screen.hpp
 
 !iphonesimulator-g++42 {
   !iphonedevice-g++42 {

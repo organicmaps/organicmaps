@@ -1,6 +1,6 @@
 #include "../base/SRC_FIRST.hpp"
 
-#include "screen.hpp"
+#include "geometry_batcher.hpp"
 #include "skin.hpp"
 #include "memento.hpp"
 #include "color.hpp"
@@ -28,7 +28,7 @@ namespace yg
 {
   namespace gl
   {
-    Screen::Screen(shared_ptr<ResourceManager> const & resourceManager, bool isAntiAliased)
+    GeometryBatcher::GeometryBatcher(shared_ptr<ResourceManager> const & resourceManager, bool isAntiAliased)
       : m_resourceManager(resourceManager), m_isAntiAliased(isAntiAliased)
     {
       reset(-1);
@@ -39,7 +39,7 @@ namespace yg
       m_aaShift = m_isAntiAliased ? 1 : 2;
     }
 
-   void Screen::applyStates()
+   void GeometryBatcher::applyStates()
    {
      OGLCHECK(glEnable(GL_TEXTURE_2D));
 
@@ -55,10 +55,10 @@ namespace yg
      OGLCHECK(glColor4f(1.0f, 1.0f, 1.0f, 1.0f));
    }
 
-   Screen::~Screen()
+   GeometryBatcher::~GeometryBatcher()
    {}
 
-   void Screen::reset(int pageID)
+   void GeometryBatcher::reset(int pageID)
    {
      for (size_t i = 0; i < m_pipelines.size(); ++i)
      {
@@ -70,17 +70,17 @@ namespace yg
      }
    }
 
-   void Screen::setSkin(shared_ptr<Skin> skin)
+   void GeometryBatcher::setSkin(shared_ptr<Skin> skin)
    {
      m_skin = skin;
      if (m_skin != 0)
      {
        m_pipelines.resize(m_skin->pages().size());
 
-       m_skin->addOverflowFn(bind(&Screen::flush, this, _1), 100);
+       m_skin->addOverflowFn(bind(&GeometryBatcher::flush, this, _1), 100);
 
-       m_skin->addClearPageFn(bind(&Screen::flush, this, _1), 100);
-       m_skin->addClearPageFn(bind(&Screen::switchTextures, this, _1), 99);
+       m_skin->addClearPageFn(bind(&GeometryBatcher::flush, this, _1), 100);
+       m_skin->addClearPageFn(bind(&GeometryBatcher::switchTextures, this, _1), 99);
 
        for (size_t i = 0; i < m_pipelines.size(); ++i)
        {
@@ -98,24 +98,24 @@ namespace yg
      }
    }
 
-   shared_ptr<Skin> Screen::skin() const
+   shared_ptr<Skin> GeometryBatcher::skin() const
    {
      return m_skin;
    }
 
-   void Screen::beginFrame()
+   void GeometryBatcher::beginFrame()
    {
      base_t::beginFrame();
      reset(-1);
    }
 
-   void Screen::clear(yg::Color const & c, bool clearRT, float depth, bool clearDepth)
+   void GeometryBatcher::clear(yg::Color const & c, bool clearRT, float depth, bool clearDepth)
    {
      flush(-1);
      base_t::clear(c, clearRT, depth, clearDepth);
    }
 
-   void Screen::endFrame()
+   void GeometryBatcher::endFrame()
    {
      flush(-1);
      /// Syncronization point.
@@ -124,23 +124,23 @@ namespace yg
      base_t::endFrame();
    }
 
-   bool Screen::hasRoom(size_t verticesCount, size_t indicesCount, int pageID) const
+   bool GeometryBatcher::hasRoom(size_t verticesCount, size_t indicesCount, int pageID) const
    {
      return ((m_pipelines[pageID].m_currentVertex + verticesCount <= m_pipelines[pageID].m_maxVertices)
          &&  (m_pipelines[pageID].m_currentIndex + indicesCount <= m_pipelines[pageID].m_maxIndices));
    }
 
-   size_t Screen::verticesLeft(int pageID)
+   size_t GeometryBatcher::verticesLeft(int pageID)
    {
      return m_pipelines[pageID].m_maxVertices - m_pipelines[pageID].m_currentVertex;
    }
 
-   size_t Screen::indicesLeft(int pageID)
+   size_t GeometryBatcher::indicesLeft(int pageID)
    {
      return m_pipelines[pageID].m_maxIndices - m_pipelines[pageID].m_currentIndex;
    }
 
-   void Screen::flush(int pageID)
+   void GeometryBatcher::flush(int pageID)
    {
      bool renderedData = false;
 
@@ -188,7 +188,7 @@ namespace yg
      }
    }
 
-   void Screen::switchTextures(int pageID)
+   void GeometryBatcher::switchTextures(int pageID)
    {
 //     if (m_pipelines[pageID].m_currentIndex > 0)
 //     {
@@ -198,7 +198,7 @@ namespace yg
 //     }
    }
 
-   void Screen::drawPoint(m2::PointD const & pt, uint32_t styleID, double depth)
+   void GeometryBatcher::drawPoint(m2::PointD const & pt, uint32_t styleID, double depth)
    {
      ResourceStyle const * style(m_skin->fromID(styleID));
 
@@ -223,7 +223,7 @@ namespace yg
                          style->m_pageID);
    }
 
-   void Screen::drawPath(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth)
+   void GeometryBatcher::drawPath(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth)
    {
 #ifdef PROFILER_YG
      prof::block<prof::yg_draw_path> draw_path_block;
@@ -373,7 +373,7 @@ namespace yg
      }
    }
 
-   void Screen::drawTriangles(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth)
+   void GeometryBatcher::drawTriangles(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth)
    {
      ResourceStyle const * style = m_skin->fromID(styleID);
      if (!hasRoom(pointsCount, (pointsCount - 2) * 3, style->m_pageID))
@@ -430,7 +430,7 @@ namespace yg
      }
    }
 
-   void Screen::drawTexturedPolygon(
+   void GeometryBatcher::drawTexturedPolygon(
        m2::PointD const & ptShift,
        float angle,
        float tx0, float ty0, float tx1, float ty1,
@@ -489,7 +489,7 @@ namespace yg
      addTexturedVertices(coords, texCoords, 4, depth, pageID);
    }
 
-   void Screen::addTexturedVertices(m2::PointF const * coords, m2::PointF const * texCoords, unsigned size, double depth, int pageID)
+   void GeometryBatcher::addTexturedVertices(m2::PointF const * coords, m2::PointF const * texCoords, unsigned size, double depth, int pageID)
    {
      if (!hasRoom(size, (size - 2) * 3, pageID))
        flush(pageID);
@@ -519,7 +519,7 @@ namespace yg
      m_pipelines[pageID].m_currentIndex += (size - 2) * 3;
    }
 
-   void Screen::drawGlyph(m2::PointD const & ptOrg, m2::PointD const & ptGlyph, float angle, float blOffset, CharStyle const * p, double depth)
+   void GeometryBatcher::drawGlyph(m2::PointD const & ptOrg, m2::PointD const & ptGlyph, float angle, float blOffset, CharStyle const * p, double depth)
    {
      float x0 = ptGlyph.x + (p->m_xOffset - 1);
      float y1 = ptGlyph.y - (p->m_yOffset - 1) - blOffset;
@@ -537,7 +537,7 @@ namespace yg
                          p->m_pageID);
    }
 
-   void Screen::drawText(m2::PointD const & pt, float angle, uint8_t fontSize, string const & utf8Text, double depth)
+   void GeometryBatcher::drawText(m2::PointD const & pt, float angle, uint8_t fontSize, string const & utf8Text, double depth)
    {
      wstring text = FromUtf8(utf8Text);
 
@@ -626,7 +626,7 @@ namespace yg
      return true;
    }
 
-   void Screen::drawPathText(m2::PointD const * path, size_t s, uint8_t fontSize, string const & utf8Text,
+   void GeometryBatcher::drawPathText(m2::PointD const * path, size_t s, uint8_t fontSize, string const & utf8Text,
                              double pathLength, TextPos pos, bool isMasked, double depth)
    {
      if (isMasked)
@@ -634,7 +634,7 @@ namespace yg
      drawPathTextImpl(path, s, fontSize, utf8Text, pathLength, pos, false, depth);
    }
 
-   void Screen::drawPathTextImpl(m2::PointD const * path, size_t s, uint8_t fontSize, string const & utf8Text,
+   void GeometryBatcher::drawPathTextImpl(m2::PointD const * path, size_t s, uint8_t fontSize, string const & utf8Text,
                              double pathLength, TextPos pos, bool fromMask, double depth)
    {
      pts_array arrPath(path, s);
@@ -686,13 +686,13 @@ namespace yg
      }
    }
 
-   void Screen::enableClipRect(bool flag)
+   void GeometryBatcher::enableClipRect(bool flag)
    {
      flush(-1);
      base_t::enableClipRect(flag);
    }
 
-   void Screen::setClipRect(m2::RectI const & rect)
+   void GeometryBatcher::setClipRect(m2::RectI const & rect)
    {
      flush(-1);
      base_t::setClipRect(rect);

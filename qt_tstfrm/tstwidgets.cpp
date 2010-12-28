@@ -57,7 +57,7 @@ void GLDrawWidget::initializeGL()
       20,
       256, 256, 10));*/
 
-  m_p = make_shared_ptr(new yg::gl::Screen(m_resourceManager));
+  m_p = make_shared_ptr(new yg::gl::Screen(m_resourceManager, false));
 
   m_primaryFrameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
 
