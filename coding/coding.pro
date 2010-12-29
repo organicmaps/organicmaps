@@ -13,6 +13,7 @@ SOURCES += \
   file_reader.cpp \
   file_writer.cpp \
   lodepng.cpp \
+  file_container.cpp \
 
 
 HEADERS += \
@@ -59,3 +60,4 @@ HEADERS += \
   streams.hpp \
   streams_sink.hpp \
   streams_common.hpp \
+  file_container.hpp \
