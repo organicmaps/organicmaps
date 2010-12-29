@@ -38,6 +38,7 @@
 		EEE4C9421298A31B007231A9 /* basic_highres.skn in Resources */ = {isa = PBXBuildFile; fileRef = EEE4C9411298A31B007231A9 /* basic_highres.skn */; };
 		EEFC0A9612B561B7002914FF /* dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFC0A9512B561B7002914FF /* dejavusans.ttf */; };
 		EEFC0BBF12B5656A002914FF /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020311CD464100ABDD5D /* libfreetype.a */; };
+		FA04373212CAB83F00017494 /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA04373112CAB83F00017494 /* libstorage.a */; };
 		FA065FED128614C400FEA989 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */; };
 		FA065FFF1286167A00FEA989 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA065FFD1286167A00FEA989 /* Default@2x.png */; };
 		FA0660001286167A00FEA989 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FA065FFE1286167A00FEA989 /* Default.png */; };
@@ -101,6 +102,7 @@
 		EEE4C93F1298A303007231A9 /* symbols_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = symbols_48.png; path = ../../data/symbols_48.png; sourceTree = SOURCE_ROOT; };
 		EEE4C9411298A31B007231A9 /* basic_highres.skn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic_highres.skn; path = ../../data/basic_highres.skn; sourceTree = SOURCE_ROOT; };
 		EEFC0A9512B561B7002914FF /* dejavusans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = dejavusans.ttf; path = ../../data/dejavusans.ttf; sourceTree = "<group>"; };
+		FA04373112CAB83F00017494 /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libstorage.a; sourceTree = SOURCE_ROOT; };
 		FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = SOURCE_ROOT; };
 		FA065FFD1286167A00FEA989 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = SOURCE_ROOT; };
 		FA065FFE1286167A00FEA989 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
@@ -145,6 +147,7 @@
 				EE12021011CD464100ABDD5D /* libmap.a in Frameworks */,
 				EE12021211CD464100ABDD5D /* libyg.a in Frameworks */,
 				FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */,
+				FA04373212CAB83F00017494 /* libstorage.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +269,7 @@
 		FA1DE68411E15D4E00C6D69A /* Static Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				FA04373112CAB83F00017494 /* libstorage.a */,
 				EE1201FF11CD464100ABDD5D /* libbase.a */,
 				EE12020011CD464100ABDD5D /* libcoding.a */,
 				EE12020111CD464100ABDD5D /* libcurl.a */,
@@ -409,11 +413,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_DIR)/Projects/omim-iphone-build/out/release\"",
-					"\"$(DEVELOPER_DIR)/Projects/omim/iphone/Maps\"",
-				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -504,11 +503,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_DIR)/Projects/omim-iphone-build/out/release\"",
-					"\"$(DEVELOPER_DIR)/Projects/omim/iphone/Maps\"",
-				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -560,11 +554,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_DIR)/Projects/omim-iphone-build/out/release\"",
-					"\"$(DEVELOPER_DIR)/Projects/omim/iphone/Maps\"",
-				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -616,11 +605,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_DIR)/Projects/omim-iphone-build/out/release\"",
-					"\"$(DEVELOPER_DIR)/Projects/omim/iphone/Maps\"",
-				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

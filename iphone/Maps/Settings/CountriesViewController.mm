@@ -5,7 +5,7 @@
 #include <netinet/in.h>
 #import <SystemConfiguration/SCNetworkReachability.h>
 
-#include "../../../map/storage.hpp"
+#include "../../../storage/storage.hpp"
 #include <boost/bind.hpp>
 
 #define NAVIGATION_BAR_HEIGHT	44
@@ -13,6 +13,8 @@
 
 #define GB 1000*1000*1000
 #define MB 1000*1000    
+
+using namespace storage;
 
 
 /////////////////////////////////////////////////////////////////
@@ -29,19 +31,19 @@
 
 @implementation CountriesViewController
 
-	mapinfo::Storage * g_pStorage = 0;
+	Storage * g_pStorage = 0;
 
-- (id) initWithStorage: (mapinfo::Storage &)storage
+- (id) initWithStorage: (Storage &)storage
 {
 	g_pStorage = &storage;
   if ((self = [super initWithNibName:@"CountriesViewController" bundle:nil]))
   {
   	// tricky boost::bind for objC class methods
-  	typedef void (*TFinishFunc)(id, SEL, mapinfo::TIndex const &);
+  	typedef void (*TFinishFunc)(id, SEL, TIndex const &);
     SEL finishSel = @selector(OnDownloadFinished:);
   	TFinishFunc finishImpl = (TFinishFunc)[self methodForSelector:finishSel];
     
-  	typedef void (*TProgressFunc)(id, SEL, mapinfo::TIndex const &, TDownloadProgress const &);
+  	typedef void (*TProgressFunc)(id, SEL, TIndex const &, TDownloadProgress const &);
     SEL progressSel = @selector(OnDownload:withProgress:);
   	TProgressFunc progressImpl = (TProgressFunc)[self methodForSelector:progressSel];
     
@@ -118,13 +120,13 @@
 	return g_pStorage->CountriesCountInGroup(section);
 }
 
-- (void) UpdateCell: (UITableViewCell *) cell forCountry: (mapinfo::TIndex const &) countryIndex
+- (void) UpdateCell: (UITableViewCell *) cell forCountry: (TIndex const &) countryIndex
 {
   UIActivityIndicatorView * indicator = (UIActivityIndicatorView *)cell.accessoryView;
 
 	switch (g_pStorage->CountryStatus(countryIndex))
   {
-  case mapinfo::EOnDisk:
+  case EOnDisk:
   	{
     	uint64_t size = g_pStorage->CountrySizeInBytes(countryIndex);
   		// convert size to human readable values
@@ -150,7 +152,7 @@
       cell.accessoryView = nil;
     }
     break;
-  case mapinfo::EDownloading:
+  case EDownloading:
   	{
     	cell.textLabel.textColor = [UIColor blueColor];
       if (!indicator)
@@ -163,12 +165,12 @@
       [indicator startAnimating];
     }
     break;
-  case mapinfo::EDownloadFailed:
+  case EDownloadFailed:
   	cell.textLabel.textColor = [UIColor redColor];  
     cell.detailTextLabel.text = @"Download has failed :(";
     cell.accessoryView = nil;
     break;
-  case mapinfo::EInQueue:
+  case EInQueue:
   	{
   		cell.textLabel.textColor = [UIColor lightGrayColor];
 //    	cell.detailTextLabel.text = [NSString stringWithFormat: @"Waiting to download %qu %s", size, kBOrMB];
@@ -183,7 +185,7 @@
       [indicator stopAnimating];
     }
     break;
-  case mapinfo::ENotDownloaded:
+  case ENotDownloaded:
   	cell.textLabel.textColor = [UIColor blackColor];
 //    cell.detailTextLabel.text = [NSString stringWithFormat: @"Click to download %qu %s", size, kBOrMB];
     cell.detailTextLabel.text = [NSString stringWithFormat: @"Touch to download"];
@@ -199,7 +201,7 @@
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier: cellId];
   if (cell == nil)
   	cell = [[[UITableViewCell alloc] initWithStyle: UITableViewCellStyleSubtitle reuseIdentifier:cellId] autorelease];
-  mapinfo::TIndex countryIndex(indexPath.section, indexPath.row);
+  TIndex countryIndex(indexPath.section, indexPath.row);
   cell.textLabel.text = [NSString stringWithUTF8String:g_pStorage->CountryName(countryIndex).c_str()];
   cell.accessoryType = UITableViewCellAccessoryNone;
   [self UpdateCell: cell forCountry: countryIndex];
@@ -207,7 +209,7 @@
 }
 
 // stores clicked country index when confirmation dialog is displayed
-mapinfo::TIndex g_clickedIndex;
+TIndex g_clickedIndex;
 
 // User confirmation after touching country
 - (void) actionSheet: (UIActionSheet *) actionSheet clickedButtonAtIndex: (NSInteger) buttonIndex
@@ -216,8 +218,8 @@ mapinfo::TIndex g_clickedIndex;
     {	// Delete country
     	switch (g_pStorage->CountryStatus(g_clickedIndex))
       {
-      case mapinfo::ENotDownloaded:
-      case mapinfo::EDownloadFailed:
+      case ENotDownloaded:
+      case EDownloadFailed:
       	g_pStorage->DownloadCountry(g_clickedIndex);
         break;
       default:
@@ -257,10 +259,10 @@ mapinfo::TIndex g_clickedIndex;
   UITableViewCell * cell = [tableView cellForRowAtIndexPath: indexPath];
 	NSString * countryName = [[cell textLabel] text];
 
-	g_clickedIndex = mapinfo::TIndex(indexPath.section, indexPath.row);
+	g_clickedIndex = TIndex(indexPath.section, indexPath.row);
 	switch (g_pStorage->CountryStatus(g_clickedIndex))
   {
-  	case mapinfo::EOnDisk:
+  	case EOnDisk:
     {	// display confirmation popup
     	UIActionSheet * popupQuery = [[UIActionSheet alloc]
       		initWithTitle: countryName
@@ -272,8 +274,8 @@ mapinfo::TIndex g_clickedIndex;
     	[popupQuery release];
     }
   	break;
-  	case mapinfo::ENotDownloaded:
-  	case mapinfo::EDownloadFailed:
+  	case ENotDownloaded:
+  	case EDownloadFailed:
   	{	// display confirmation popup with country size
     	BOOL isWifiConnected = [CountriesViewController IsUsingWIFI];
       
@@ -317,7 +319,7 @@ mapinfo::TIndex g_clickedIndex;
 //  	g_pStorage->DownloadCountry(g_clickedIndex);
 		}
   	break;
-  	case mapinfo::EDownloading:
+  	case EDownloading:
     { // display confirmation popup
     	UIActionSheet * popupQuery = [[UIActionSheet alloc]
       		initWithTitle: countryName
@@ -329,14 +331,14 @@ mapinfo::TIndex g_clickedIndex;
     	[popupQuery release];
     }
     break;
-  	case mapinfo::EInQueue:
+  	case EInQueue:
   	// cancel download
     g_pStorage->DeleteCountry(g_clickedIndex);
 		break;
   }
 }
 
-- (void) OnDownloadFinished: (mapinfo::TIndex const &) index
+- (void) OnDownloadFinished: (TIndex const &) index
 {
   UITableView * tableView = (UITableView *)[self.view.subviews objectAtIndex: 1];
   UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: index.second inSection: index.first]];
@@ -344,7 +346,7 @@ mapinfo::TIndex g_clickedIndex;
 		[self UpdateCell: cell forCountry: index];
 }
 
-- (void) OnDownload: (mapinfo::TIndex const &) index withProgress: (TDownloadProgress const &) progress
+- (void) OnDownload: (TIndex const &) index withProgress: (TDownloadProgress const &) progress
 {
   UITableView * tableView = (UITableView *)[self.view.subviews objectAtIndex: 1];
   UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: index.second inSection: index.first]];

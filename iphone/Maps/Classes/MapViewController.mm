@@ -8,14 +8,14 @@
 #include "../../yg/internal/opengl.hpp"
 #include "../../yg/screen.hpp"
 #include "../../map/drawer_yg.hpp"
-#include "../../map/storage.hpp"
+#include "../../storage/storage.hpp"
 
 typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> framework_t;
 
 @implementation MapViewController
 
   framework_t * m_framework = NULL;
-  mapinfo::Storage m_storage;
+  storage::Storage m_storage;
   
 - (void) OnMyPositionClicked: (id)sender
 {

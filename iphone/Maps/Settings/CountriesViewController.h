@@ -1,12 +1,12 @@
 #import <UIKit/UIKit.h>
 
-namespace mapinfo { class Storage; }
+namespace storage { class Storage; }
 
 @interface CountriesViewController 
 : UIViewController <UINavigationBarDelegate, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 {
 }
 
-- (id) initWithStorage: (mapinfo::Storage &) storage;
+- (id) initWithStorage: (storage::Storage &) storage;
 
 @end

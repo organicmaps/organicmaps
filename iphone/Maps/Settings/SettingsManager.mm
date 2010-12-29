@@ -1,7 +1,9 @@
 #import "SettingsManager.h"
 #import "CountriesViewController.h"
 
-#include "../../../map/storage.hpp"
+#include "../../../storage/storage.hpp"
+
+using namespace storage;
 
 // Settings are always present globally
 //static SettingsManager gInstance;
@@ -25,7 +27,7 @@
 }
 
 // Currently displays only countries to download
-+ (void) Show: (UIViewController *)parentController WithStorage: (mapinfo::Storage &)storage
++ (void) Show: (UIViewController *)parentController WithStorage: (Storage &)storage
 
 {
 	if (!m_countriesViewController)

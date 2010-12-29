@@ -31,17 +31,7 @@ iphonesimulator-g++42|iphonedevice-g++42 {
             geometry \
             yg \
             indexer \
-            map \
-            version
-}
-
-bada-simulator|bada-device {
-  SUBDIRS = 3party \
-            base \
-            coding \
-            geometry \
-            yg \
-            indexer \
+            storage \
             map \
             version
 }

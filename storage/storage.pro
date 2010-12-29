@@ -5,7 +5,7 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 ROOT_DIR = ..
-DEPENDENCIES = platform geometry coding base
+DEPENDENCIES = geometry coding base
 
 include($$ROOT_DIR/common.pri)
 
