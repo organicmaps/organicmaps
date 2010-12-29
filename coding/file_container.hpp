@@ -43,7 +43,7 @@ protected:
 
 class FilesContainerR : public FilesContainerBase
 {
-  typedef public FilesContainerBase base_type;
+  typedef FilesContainerBase base_type;
 
   FileReader m_source;
 
@@ -55,7 +55,7 @@ public:
 
 class FilesContainerW : public FilesContainerBase
 {
-  typedef public FilesContainerBase base_type;
+  typedef FilesContainerBase base_type;
 
   string m_name;
 

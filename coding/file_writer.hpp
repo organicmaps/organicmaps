@@ -22,6 +22,8 @@ public:
     // Seek should not be called, if file is opened for append.
     OP_APPEND = 3};
 
+  FileWriter(FileWriter & rhs);
+
   explicit FileWriter(string const & fileName, Op operation = OP_WRITE_TRUNCATE);
   ~FileWriter();
 

@@ -7,6 +7,11 @@
 #include "../../base/start_mem_debug.hpp"
 
 
+FileWriter::FileWriter(FileWriter & rhs)
+{
+  m_pFileData.swap(rhs.m_pFileData);
+}
+
 FileWriter::FileWriter(string const & fileName, FileWriter::Op op)
   : m_pFileData(new FileData(fileName, static_cast<FileData::Op>(op)))
 {
