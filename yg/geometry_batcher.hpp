@@ -26,7 +26,6 @@ namespace yg
 {
   class Skin;
   struct CharStyle;
-  class ResourceManager;
 
   namespace gl
   {
@@ -76,7 +75,6 @@ namespace yg
       /// Apply all states needed for rendering a batch of geometry.
       void applyStates();
 
-      shared_ptr<ResourceManager> m_resourceManager;
       bool m_isAntiAliased;
 
       int m_aaShift;
@@ -103,7 +101,6 @@ namespace yg
 
       void setSkin(shared_ptr<Skin> skin);
       shared_ptr<Skin> skin() const;
-      shared_ptr<ResourceManager> resManager() const { return m_resourceManager; }
 
       void beginFrame();
       void endFrame();

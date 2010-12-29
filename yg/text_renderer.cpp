@@ -20,7 +20,7 @@ void TextRenderer::TextObj::Draw(GeometryBatcher * pBatcher) const
 
 m2::RectD TextRenderer::TextObj::GetLimitRect(GeometryBatcher * pBatcher) const
 {
-  shared_ptr<ResourceManager> pRM = pBatcher->resManager();
+  shared_ptr<ResourceManager> pRM = pBatcher->resourceManager();
   m2::RectD rect;
   m2::PointD pt(0, 0);
 

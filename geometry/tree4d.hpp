@@ -41,6 +41,26 @@ namespace m4
     typedef typename tree_t::_Region_ region_t;
     tree_t m_tree;
 
+    typedef vector<value_t const *> store_vec_t;
+
+    class insert_if_intersect
+    {
+      store_vec_t & m_isect;
+      m2::RectD const & m_rect;
+
+    public:
+      insert_if_intersect(store_vec_t & isect, m2::RectD const & r)
+        : m_isect(isect), m_rect(r)
+      {
+      }
+
+      void operator() (value_t const & v)
+      {
+        if (v.IsIntersect(m_rect))
+          m_isect.push_back(&v);
+      }
+    };
+
   public:
 
     template <class TCompare>
@@ -61,26 +81,7 @@ namespace m4
         }
       }
 
-      typedef vector<value_t const *> store_vec_t;
       store_vec_t isect;
-
-      class insert_if_intersect
-      {
-        store_vec_t & m_isect;
-        m2::RectD const & m_rect;
-
-      public:
-        insert_if_intersect(store_vec_t & isect, m2::RectD const & r)
-          : m_isect(isect), m_rect(r)
-        {
-        }
-
-        void operator() (value_t const & v)
-        {
-          if (v.IsIntersect(m_rect))
-            m_isect.push_back(&v);
-        }
-      };
 
       m_tree.visit_within_range(rgn, insert_if_intersect(isect, rect));
 
@@ -88,7 +89,7 @@ namespace m4
         if (!comp(obj, isect[i]->m_val))
           return;
 
-      for (store_vec_t::const_iterator i = isect.begin(); i != isect.end(); ++i)
+      for (typename store_vec_t::const_iterator i = isect.begin(); i != isect.end(); ++i)
         m_tree.erase(**i);
 
       m_tree.insert(value_t(obj, rect));
@@ -103,7 +104,7 @@ namespace m4
     template <class ToDo>
     void ForEach(ToDo toDo) const
     {
-      for (tree_t::const_iterator i = m_tree.begin(); i != m_tree.end(); ++i)
+      for (typename tree_t::const_iterator i = m_tree.begin(); i != m_tree.end(); ++i)
         toDo((*i).m_val);
     }
 
