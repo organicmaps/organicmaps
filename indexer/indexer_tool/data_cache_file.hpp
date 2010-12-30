@@ -193,26 +193,36 @@ namespace cache
     }
   };
 
-#pragma pack(push, 1)
-  struct MappedWay
+  class MappedWay
   {
-    uint64_t m_id;
-    int m_type;
+  public:
 
-    MappedWay() {}
-    MappedWay(uint64_t id, int type) : m_id(id), m_type(type) {}
+    enum WayType
+    {
+      coast_direct = 0,
+      empty_direct = 1,
+      coast_opposite = 2,
+      empty_opposite = 3
+    };
+
+    MappedWay() : m_id(0) {}
+    MappedWay(uint64_t id, WayType type) : m_id((id << 2) | type)
+    {
+      CHECK_EQUAL(0, id & 0xC000000000000000ULL, ("Highest 2 bits should be 0.", id));
+    }
 
     bool operator<(MappedWay const & r) const
     {
-      return ((m_id == r.m_id) ? m_type < r.m_type : m_id < r.m_id);
+      return m_id < r.m_id;
     }
 
-    enum {  coast_direct = 0,
-            empty_direct = 1,
-            coast_opposite = 2,
-            empty_opposite = 3 };
+    uint64_t GetId() const { return m_id >> 2; }
+    WayType GetType() const { return static_cast<WayType>(m_id & 3); }
+
+  private:
+    uint64_t m_id;
   };
-#pragma pack(pop)
+  STATIC_ASSERT(sizeof(MappedWay) == 8);
 
   template <class TNodesHolder, class TData, class TFile>
   class BaseFileHolder

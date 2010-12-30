@@ -14,30 +14,37 @@
 
 #include "../base/base.hpp"
 #include "../base/logging.hpp"
+#include "../base/macros.hpp"
 
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 #include "../std/utility.hpp"
 
+class CellFeaturePair
+{
+public:
+  CellFeaturePair() {}
+  CellFeaturePair(uint64_t cell, uint32_t feature)
+    : m_CellLo(UINT64_LO(cell)), m_CellHi(UINT64_HI(cell)), m_Feature(feature) {}
 
-#pragma pack(push, 1)
-  struct CellFeaturePair
+  bool operator< (CellFeaturePair const & rhs) const
   {
-    int64_t first;
-    uint32_t second;
+    if (m_CellHi != rhs.m_CellHi)
+      return m_CellHi < rhs.m_CellHi;
+    if (m_CellLo != rhs.m_CellLo)
+      return m_CellLo < rhs.m_CellLo;
+    return m_Feature < rhs.m_Feature;
+  }
 
-    CellFeaturePair() {}
-    CellFeaturePair(pair<int64_t, uint32_t> const & p) : first(p.first), second(p.second) {}
-    CellFeaturePair(int64_t f, uint32_t s) : first(f), second(s) {}
+  uint64_t GetCell() const { return UINT64_FROM_UINT32(m_CellHi, m_CellLo); }
+  uint32_t GetFeature() const { return m_Feature; }
 
-    bool operator< (CellFeaturePair const & rhs) const
-    {
-      if (first == rhs.first)
-        return (second < rhs.second);
-      return (first < rhs.first);
-    }
-  };
-#pragma pack (pop)
+private:
+  uint32_t m_CellLo;
+  uint32_t m_CellHi;
+  uint32_t m_Feature;
+};
+STATIC_ASSERT(sizeof(CellFeaturePair) == 12);
 
 template <class SorterT>
 class FeatureCoverer
@@ -59,7 +66,7 @@ public:
     {
       vector<int64_t> const cells = covering::CoverFeature(f, m_ScaleRange.second);
       for (vector<int64_t>::const_iterator it = cells.begin(); it != cells.end(); ++it)
-        m_Sorter.Add(make_pair(*it, offset));
+        m_Sorter.Add(CellFeaturePair(*it, offset));
       ++m_NumFeatures;
       return;
     }
@@ -113,7 +120,7 @@ public:
 
   void operator () (CellFeaturePair const & cellFeaturePair)
   {
-    m_Optimizer.Add(cellFeaturePair.first, cellFeaturePair.second);
+    m_Optimizer.Add(cellFeaturePair.GetCell(), cellFeaturePair.GetFeature());
   }
 
 private:

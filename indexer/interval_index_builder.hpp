@@ -8,6 +8,7 @@
 #include "../std/vector.hpp"
 #include "../std/memcpy.hpp"
 
+// TODO: BuildIntervalIndex() shouldn't rely on indexing cellid-feature pairs.
 template <int kCellIdBytes, typename CellIdValueIterT, class SinkT>
 void BuildIntervalIndex(CellIdValueIterT const & beg, CellIdValueIterT const & end,
                         SinkT & writer, int const leafBytes = 1)
@@ -70,13 +71,13 @@ void BuildIntervalIndex(CellIdValueIterT const & beg, CellIdValueIterT const & e
     uint8_t prevByte = 0;
     for (CellIdValueIterT it = beg; it != end; ++it)
     {
-      uint64_t id = it->first;
+      uint64_t id = it->GetCell();
       uint64_t const thisParentBytes = id >> 8 * (level + 1);
       uint8_t const thisByte = static_cast<uint8_t>(0xFF & (id >> 8 * level));
       if (it != beg && prevParentBytes != thisParentBytes)
       {
         // Writing index for previous parent.
-        index.m_BaseOffset = SwapIfBigEndian(childOffset);
+        index.SetBaseOffset(childOffset);
         for (uint32_t i = 0; i < 256; ++i)
           index.m_Count[i] = SwapIfBigEndian(index.m_Count[i]);
         writer.Write(&index, sizeof(index));
@@ -84,7 +85,7 @@ void BuildIntervalIndex(CellIdValueIterT const & beg, CellIdValueIterT const & e
         if (level != leafBytes)
           childOffset += childCount * sizeof(index);
         else
-          childOffset += (sizeof(beg->second) + leafBytes) * childCount;
+          childOffset += (sizeof(beg->GetFeature()) + leafBytes) * childCount;
         childCount = 0;
         --thisLevelCount;
       }
@@ -95,15 +96,15 @@ void BuildIntervalIndex(CellIdValueIterT const & beg, CellIdValueIterT const & e
         ++childCount;
         ++totalChildCount;
         ++index.m_Count[thisByte];
-        CHECK_LESS(
-            index.m_Count[thisByte], 65535,
-            (level, leafBytes, prevByte, thisByte, prevParentBytes, thisParentBytes, it->first));
+        CHECK_LESS(index.m_Count[thisByte], 65535, (level, leafBytes, prevByte, thisByte, \
+                                                    prevParentBytes, thisParentBytes, \
+                                                    it->GetCell()));
       }
 
       prevParentBytes = thisParentBytes;
       prevByte = thisByte;
     }
-    index.m_BaseOffset = SwapIfBigEndian(childOffset);
+    index.SetBaseOffset(childOffset);
     for (uint32_t i = 0; i < 256; ++i)
       index.m_Count[i] = SwapIfBigEndian(index.m_Count[i]);
     writer.Write(&index, sizeof(index));
@@ -127,8 +128,8 @@ void BuildIntervalIndex(CellIdValueIterT const & beg, CellIdValueIterT const & e
   uint32_t const mask = (1ULL << 8 * leafBytes) - 1;
   for (CellIdValueIterT it = beg; it != end; ++it)
   {
-    WriteToSink(writer, it->second);
-    uint32_t cellId = static_cast<uint32_t>(it->first & mask);
+    WriteToSink(writer, it->GetFeature());
+    uint32_t cellId = static_cast<uint32_t>(it->GetCell() & mask);
     cellId = SwapIfBigEndian(cellId);
     writer.Write(&cellId, leafBytes);
   }

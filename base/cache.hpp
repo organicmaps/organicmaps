@@ -78,14 +78,13 @@ namespace my
       return Hash(uint32_t(x) ^ uint32_t(x >> 32));
     }
 
-#pragma pack(push, 1)
+    // TODO: Consider using separate arrays for keys and values, to save on padding.
     struct Data
     {
       Data() : m_Key(), m_Value() {}
       KeyT m_Key;
       ValueT m_Value;
     };
-#pragma pack(pop)
 
     Data * const m_Cache;
     uint32_t const m_HashMask;

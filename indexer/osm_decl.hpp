@@ -10,12 +10,12 @@
 /// Used to store all world nodes inside temporary index file.
 /// To find node by id, just calculate offset inside index file:
 /// offset_in_file = sizeof(LatLon) * node_ID
-#pragma pack (push, 1)
 struct LatLon
 {
   double lat;
   double lon;
 };
+STATIC_ASSERT(sizeof(LatLon) == 16);
 
 struct LatLonPos
 {
@@ -23,8 +23,7 @@ struct LatLonPos
   double lat;
   double lon;
 };
-#pragma pack (pop)
-
+STATIC_ASSERT(sizeof(LatLonPos) == 24);
 
 #define NODES_FILE "nodes.dat"
 #define WAYS_FILE "ways.dat"
@@ -38,7 +37,7 @@ namespace feature
 {
   /// @name Need to unite features.
   //@{
-  /// @param[in]  k, v  Key and Value from relation tags. 
+  /// @param[in]  k, v  Key and Value from relation tags.
   bool NeedUnite(string const & k, string const & v);
   /// @param[in]  type  Type from feature.
   bool NeedUnite(uint32_t type);

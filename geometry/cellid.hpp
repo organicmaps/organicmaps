@@ -9,7 +9,6 @@
 namespace m2
 {
 
-#pragma pack(push, 1)
 template <int kDepthLevels> class CellId
 {
 public:
@@ -251,7 +250,6 @@ private:
   int64_t m_Bits;
   int m_Level;
 };
-#pragma pack(pop)
 
 template <int DEPTH_LEVELS> string debug_print(CellId<DEPTH_LEVELS> const & id)
 {

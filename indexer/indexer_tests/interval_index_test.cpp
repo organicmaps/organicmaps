@@ -8,12 +8,24 @@
 #include "../../std/utility.hpp"
 #include "../../std/vector.hpp"
 
+namespace
+{
+struct CellIdFeaturePairForTest
+{
+  CellIdFeaturePairForTest(uint64_t cell, uint32_t feature) : m_Cell(cell), m_Feature(feature) {}
+  uint64_t GetCell() const { return m_Cell; }
+  uint32_t GetFeature() const { return m_Feature; }
+  uint64_t m_Cell;
+  uint32_t m_Feature;
+};
+}
+
 UNIT_TEST(IntervalIndex_Simple)
 {
-  vector<pair<int64_t, uint32_t> > data;
-  data.push_back(make_pair(0xA0B1C2D100ULL, 0));
-  data.push_back(make_pair(0xA0B1C2D200ULL, 1));
-  data.push_back(make_pair(0xA0B2C2D100ULL, 2));
+  vector<CellIdFeaturePairForTest> data;
+  data.push_back(CellIdFeaturePairForTest(0xA0B1C2D100ULL, 0));
+  data.push_back(CellIdFeaturePairForTest(0xA0B1C2D200ULL, 1));
+  data.push_back(CellIdFeaturePairForTest(0xA0B2C2D100ULL, 2));
   vector<char> serializedIndex;
   MemWriter<vector<char> > writer(serializedIndex);
   BuildIntervalIndex<5>(data.begin(), data.end(), writer, 2);
@@ -63,7 +75,7 @@ UNIT_TEST(IntervalIndex_Simple)
 
 UNIT_TEST(IntervalIndex_Empty)
 {
-  vector<pair<int64_t, uint32_t> > data;
+  vector<CellIdFeaturePairForTest> data;
   vector<char> serializedIndex;
   MemWriter<vector<char> > writer(serializedIndex);
   BuildIntervalIndex<5>(data.begin(), data.end(), writer, 2);
@@ -78,11 +90,11 @@ UNIT_TEST(IntervalIndex_Empty)
 
 UNIT_TEST(IntervalIndex_Simple2)
 {
-  vector<pair<int64_t, uint32_t> > data;
-  data.push_back(make_pair(0xA0B1C2D200ULL, 0));
-  data.push_back(make_pair(0xA0B1C2D200ULL, 1));
-  data.push_back(make_pair(0xA0B1C2D200ULL, 3));
-  data.push_back(make_pair(0xA0B2C2D200ULL, 2));
+  vector<CellIdFeaturePairForTest> data;
+  data.push_back(CellIdFeaturePairForTest(0xA0B1C2D200ULL, 0));
+  data.push_back(CellIdFeaturePairForTest(0xA0B1C2D200ULL, 1));
+  data.push_back(CellIdFeaturePairForTest(0xA0B1C2D200ULL, 3));
+  data.push_back(CellIdFeaturePairForTest(0xA0B2C2D200ULL, 2));
   vector<char> serializedIndex;
   MemWriter<vector<char> > writer(serializedIndex);
   BuildIntervalIndex<5>(data.begin(), data.end(), writer, 2);
@@ -99,9 +111,9 @@ UNIT_TEST(IntervalIndex_Simple2)
 
 UNIT_TEST(IntervalIndex_Simple3)
 {
-  vector<pair<uint64_t, uint32_t> > data;
-  data.push_back(make_pair(0x0100ULL, 0));
-  data.push_back(make_pair(0x0200ULL, 1));
+  vector<CellIdFeaturePairForTest> data;
+  data.push_back(CellIdFeaturePairForTest(0x0100ULL, 0));
+  data.push_back(CellIdFeaturePairForTest(0x0200ULL, 1));
   vector<char> serializedIndex;
   MemWriter<vector<char> > writer(serializedIndex);
   BuildIntervalIndex<2>(data.begin(), data.end(), writer, 1);
@@ -118,9 +130,9 @@ UNIT_TEST(IntervalIndex_Simple3)
 
 UNIT_TEST(IntervalIndex_Simple4)
 {
-  vector<pair<uint64_t, uint32_t> > data;
-  data.push_back(make_pair(0x01030400ULL, 0));
-  data.push_back(make_pair(0x02030400ULL, 1));
+  vector<CellIdFeaturePairForTest> data;
+  data.push_back(CellIdFeaturePairForTest(0x01030400ULL, 0));
+  data.push_back(CellIdFeaturePairForTest(0x02030400ULL, 1));
   vector<char> serializedIndex;
   MemWriter<vector<char> > writer(serializedIndex);
   BuildIntervalIndex<4>(data.begin(), data.end(), writer, 1);
@@ -137,11 +149,11 @@ UNIT_TEST(IntervalIndex_Simple4)
 
 UNIT_TEST(IntervalIndex_Simple5)
 {
-  vector<pair<uint64_t, uint32_t> > data;
-  data.push_back(make_pair(0xA0B1C2D200ULL, 0));
-  data.push_back(make_pair(0xA0B1C2D200ULL, 1));
-  data.push_back(make_pair(0xA0B1C2D200ULL, 3));
-  data.push_back(make_pair(0xA0B2C2D200ULL, 2));
+  vector<CellIdFeaturePairForTest> data;
+  data.push_back(CellIdFeaturePairForTest(0xA0B1C2D200ULL, 0));
+  data.push_back(CellIdFeaturePairForTest(0xA0B1C2D200ULL, 1));
+  data.push_back(CellIdFeaturePairForTest(0xA0B1C2D200ULL, 3));
+  data.push_back(CellIdFeaturePairForTest(0xA0B2C2D200ULL, 2));
   vector<char> serializedIndex;
   MemWriter<vector<char> > writer(serializedIndex);
   BuildIntervalIndex<5>(data.begin(), data.end(), writer, 1);

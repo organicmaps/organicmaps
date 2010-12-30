@@ -96,10 +96,10 @@ public:
     for (; range.first != range.second; ++range.first)
     {
       cache::MappedWay const & w = range.first->second;
-      if (w.m_type != cache::MappedWay::coast_opposite && w.m_id != prevWay)
+      if (w.GetType() != cache::MappedWay::coast_opposite && w.GetId() != prevWay)
       {
-        this->m_ways.Read(w.m_id, e);
-        prevWay = w.m_id;
+        this->m_ways.Read(w.GetId(), e);
+        prevWay = w.GetId();
         return true;
       }
     }

@@ -54,10 +54,11 @@ public:
   {
     typedef cache::MappedWay way_t;
 
-    int const type = (emptyTags ? way_t::empty_direct : way_t::coast_direct);
+    way_t::WayType const directType = (emptyTags ? way_t::empty_direct : way_t::coast_direct);
+    way_t::WayType const oppositeType = (emptyTags ? way_t::empty_opposite : way_t::coast_opposite);
 
-    this->m_mappedWays.write(e.nodes.front(),  way_t(id, type));     // direct
-    this->m_mappedWays.write(e.nodes.back(), way_t(id, type + 2));   // opposite
+    this->m_mappedWays.write(e.nodes.front(),  way_t(id, directType));  // direct
+    this->m_mappedWays.write(e.nodes.back(), way_t(id, oppositeType));  // opposite
   }
 
   void SaveIndex()
