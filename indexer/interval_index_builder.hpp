@@ -19,29 +19,29 @@ void BuildIntervalIndex(CellIdValueIterT const & beg, CellIdValueIterT const & e
   {
     uint32_t count = 0;
     uint32_t maxCount = 0;
-    typename CellIdValueIterT::value_type mostPopulousCell;
+    typename CellIdValueIterT::value_type mostPopulousCell = *beg;
     CellIdValueIterT it = beg;
-    int64_t prev = it->first;
+    int64_t prev = it->GetCell();
     for (++it; it != end; ++it)
     {
-      ASSERT_GREATER(it->first, 0, ());
-      ASSERT_LESS_OR_EQUAL(prev, it->first, ());
-      count = (prev == it->first ? count + 1 : 0);
+      ASSERT_GREATER(it->GetCell(), 0, ());
+      ASSERT_LESS_OR_EQUAL(prev, it->GetCell(), ());
+      count = (prev == it->GetCell() ? count + 1 : 0);
       if (count > maxCount)
       {
         maxCount = count;
         mostPopulousCell = *it;
       }
-      prev = it->first;
+      prev = it->GetCell();
     }
     if (maxCount > 0)
     {
       LOG(LINFO, ("Most populous cell:", maxCount,
-                  mostPopulousCell.first, mostPopulousCell.second));
+                  mostPopulousCell.GetCell(), mostPopulousCell.GetFeature()));
     }
   }
   for (CellIdValueIterT it = beg; it != end; ++it)
-    ASSERT_LESS(it->first, 1ULL << 8 * kCellIdBytes, ());
+    ASSERT_LESS(it->GetCell(), 1ULL << 8 * kCellIdBytes, ());
 #endif
   // Write header.
   {
