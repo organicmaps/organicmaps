@@ -1,4 +1,5 @@
 #pragma once
+#include "base.hpp"
 
 namespace my
 {
@@ -48,3 +49,21 @@ namespace my
 #define PREDICT_TRUE(x) (x)
 #define PREDICT_FALSE(x) (x)
 #endif
+
+#define UINT16_FROM_UINT8(hi, lo) ((static_cast<uint16_t>(hi) << 8) | lo)
+#define UINT32_FROM_UINT16(hi, lo) ((static_cast<uint32_t>(hi) << 16) | lo)
+#define UINT64_FROM_UINT32(hi, lo) ((static_cast<uint64_t>(hi) << 32) | lo)
+
+#define UINT32_FROM_UINT8(u3, u2, u1, u0) \
+  UINT32_FROM_UINT16(UINT16_FROM_UINT8(u3, u2), UINT16_FROM_UINT8(u1, u0))
+#define UINT64_FROM_UINT8(u7, u6, u5, u4, u3, u2, u1, u0) \
+  UINT64_FROM_UINT32(UINT32_FROM_UINT8(u7, u6, u5, u4), UINT32_FROM_UINT8(u3, u2, u1, u0))
+
+#define UINT16_LO(x) (static_cast<uint8_t>(x & 0xFF))
+#define UINT16_HI(x) (static_cast<uint8_t>(x >> 8))
+#define UINT32_LO(x) (static_cast<uint16_t>(x & 0xFFFF))
+#define UINT32_HI(x) (static_cast<uint16_t>(x >> 16))
+#define UINT64_LO(x) (static_cast<uint32_t>(x & 0xFFFFFFFF))
+#define UINT64_HI(x) (static_cast<uint32_t>(x >> 32))
+
+
