@@ -69,7 +69,10 @@ public:
     {
       ASSERT_LESS(m_I, m_Size, (m_bValueRead));
       if (!m_bValueRead)
+      {
         ReadFromPos(*m_pReader, m_I * sizeof(T), &m_Value, sizeof(T));
+        m_bValueRead = true;
+      }
       return m_Value;
     }
 
