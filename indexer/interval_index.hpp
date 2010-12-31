@@ -4,6 +4,8 @@
 #include "../base/base.hpp"
 #include "../base/macros.hpp"
 
+#include "../std/memcpy.hpp"
+
 class IntervalIndexBase
 {
 public:

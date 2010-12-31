@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = qt_tstfrm yg map indexer platform geometry coding base expat sgitess
+DEPENDENCIES = qt_tstfrm yg map indexer platform geometry coding base expat sgitess freetype
 
 include($$ROOT_DIR/common.pri)
 
