@@ -23,6 +23,8 @@ public:
     OP_APPEND = 3
   };
 
+  /// Works like "move semantics".
+  /// Added for use in FilesContainerW interface.
   FileWriter(FileWriter const & rhs);
 
   explicit FileWriter(string const & fileName, Op operation = OP_WRITE_TRUNCATE);

@@ -25,7 +25,8 @@ SOURCES += ../../testing/testingmain.cpp \
   writer_test.cpp \
   var_record_reader_test.cpp \
   file_sort_test.cpp \
-  reader_cache_test.cpp
+  reader_cache_test.cpp \
+  file_container_test.cpp \
 
 HEADERS += \
   reader_test.hpp

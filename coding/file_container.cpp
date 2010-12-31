@@ -2,14 +2,15 @@
 
 #include "file_container.hpp"
 #include "varint.hpp"
+#include "write_to_sink.hpp"
 
 
 FilesContainerR::FilesContainerR(string const & fName)
 : m_source(fName)
 {
-  ReaderSource<FileReader> src(m_source);
+  uint64_t offset = ReadPrimitiveFromPos<uint64_t>(m_source, 0);
 
-  uint64_t const offset = ReadVarUint<uint64_t>(src);
+  ReaderSource<FileReader> src(m_source);
   src.Skip(offset);
 
   uint32_t const count = ReadVarUint<uint32_t>(src);
@@ -64,17 +65,16 @@ FileWriter FilesContainerW::GetWriter(Tag const & tag)
 
 void FilesContainerW::Finish()
 {
-  uint64_t const curr = SaveCurrentSize();
-
   {
+    uint64_t const curr = SaveCurrentSize();
     FileWriter writer(m_name, FileWriter::OP_WRITE_EXISTING);
-    writer.Write(&curr, sizeof(curr));
+    writer.Seek(0);
+    WriteToSink(writer, curr);
   }
 
-  FileWriter writer(m_name, FileWriter::OP_APPEND);
-  writer.Write(&curr, sizeof(curr));
-
   sort(m_info.begin(), m_info.end(), less_info());
+
+  FileWriter writer(m_name, FileWriter::OP_APPEND);
 
   uint32_t const count = m_info.size();
   WriteVarUint(writer, count);
