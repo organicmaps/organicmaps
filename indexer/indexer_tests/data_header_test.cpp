@@ -26,7 +26,7 @@ UNIT_TEST(DataHeaderSerialization)
   }
 
   feature::DataHeader header2;
-  TEST_GREATER(feature::ReadDataHeader(fileName, header2), 0, ());
+  TEST_GREATER(feature::ReadDataHeader(FileReader(fileName), header2), 0, ());
 
   TEST_EQUAL(header1.Bounds(), header2.Bounds(), ());
 

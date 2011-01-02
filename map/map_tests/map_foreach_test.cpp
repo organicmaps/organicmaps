@@ -233,14 +233,14 @@ namespace
 
 UNIT_TEST(IndexForEachTest)
 {
-  string const path = GetPlatform().WritablePathForFile("minsk-pass");
+  string const path = GetPlatform().WritablePathForFile("minsk-pass" DATA_FILE_EXTENSION);
 
   model::FeaturesFetcher src1;
   src1.InitClassificator();
-  src1.AddMap(path + DATA_FILE_EXTENSION);
+  src1.AddMap(path);
 
   feature::DataHeader mapInfo;
-  TEST_GREATER(feature::ReadDataHeader(path + ".dat", mapInfo), 0, ());
+  TEST_GREATER(feature::ReadDataHeader(path, mapInfo), 0, ());
 
   vector<m2::RectD> rects;
   rects.push_back(mapInfo.Bounds());
@@ -253,7 +253,7 @@ UNIT_TEST(IndexForEachTest)
     feature_cont_t v1, v2;
     for_each_in_rect<AccumulatorBase>(src1, v1, r);
 
-    file_source_t src2(path + ".dat");
+    file_source_t src2(path);
     for_each_in_rect<AccumulatorEtalon>(src2, v2, r);
 
     size_t errInd;

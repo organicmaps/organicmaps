@@ -19,10 +19,13 @@ namespace feature
 
   uint64_t ReadDataHeader(string const & datFileName, feature::DataHeader & outHeader)
   {
+    return ReadDataHeader(FilesContainerR(datFileName).GetReader(DATA_FILE_TAG), outHeader);
+  }
+
+  uint64_t ReadDataHeader(FileReader const & reader, feature::DataHeader & outHeader)
+  {
     try
     {
-      FileReader reader = FilesContainerR(datFileName).GetReader(DATA_FILE_TAG);
-
       uint64_t const toSkip = GetSkipHeaderSize(reader);
 
       ReaderSource<FileReader> src(reader);
