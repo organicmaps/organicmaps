@@ -2,8 +2,6 @@
 
 #include "feature_routine.hpp"
 
-#include "../../platform/platform.hpp"
-
 #include "../../coding/file_writer.hpp"
 
 
@@ -16,7 +14,7 @@ void WriteToFile(string const & fName, vector<char> const & buffer)
 
 void FeatureBuilder2Feature(FeatureBuilderGeomRef const & fb, FeatureGeomRef & f)
 {
-  string const datFile = GetPlatform().WritableDir() + "indexer_tests_tmp.dat";
+  string const datFile = "indexer_tests_tmp.dat";
 
   FeatureBuilderGeomRef::buffers_holder_t buffers;
   buffers.m_lineOffset = buffers.m_trgOffset = 0;
