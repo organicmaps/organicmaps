@@ -7,6 +7,7 @@
 class QTreeWidget;
 class QTreeWidgetItem;
 class QLabel;
+class QPushButton;
 
 namespace qt
 {
@@ -23,10 +24,14 @@ namespace qt
     void OnCountryChanged(storage::TIndex const & index);
     void OnCountryDownloadProgress(storage::TIndex const & index,
                                    TDownloadProgress const & progress);
+    /// @param updateSize if -1 then no update is available
+    /// @param readme optional, can be NULL
+    void OnUpdateCheck(int64_t updateSize, char const * readme);
     //@}
 
   private slots:
     void OnItemClick(QTreeWidgetItem * item, int column);
+    void OnButtonClick(bool checked = false);
 
   private:
     void FillTree();
@@ -34,6 +39,8 @@ namespace qt
 
   private:
     QTreeWidget * m_tree;
+    QLabel * m_label;
+    QPushButton * m_button;
     storage::Storage & m_storage;
    };
 } // namespace qt

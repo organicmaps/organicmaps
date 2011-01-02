@@ -2,14 +2,20 @@
 
 #include "../base/assert.hpp"
 
+#include "../version/version.hpp"
+
 #include <boost/bind.hpp>
 
 #include <QtGui/QVBoxLayout>
+#include <QtGui/QHBoxLayout>
 #include <QtGui/QLabel>
+#include <QtGui/QPushButton>
 #include <QtGui/QTreeWidget>
 #include <QtGui/QHeaderView>
 #include <QtGui/QMessageBox>
 #include <QtGui/QProgressBar>
+
+#define CHECK_FOR_UPDATE "Check for update"
 
 using namespace storage;
 
@@ -47,24 +53,33 @@ namespace qt
   UpdateDialog::UpdateDialog(QWidget * parent, Storage & storage)
     : QDialog(parent), m_storage(storage)
   {
+    m_label = new QLabel(QObject::tr("Version: ") + VERSION_STRING, this);
+
+    m_button = new QPushButton(QObject::tr(CHECK_FOR_UPDATE), this);
+    connect(m_button, SIGNAL(clicked(bool)), this, SLOT(OnButtonClick(bool)));
+
     m_tree = new QTreeWidget(this);
     m_tree->setColumnCount(KNumberOfColumns);
     QStringList columnLabels;
     columnLabels << tr("Country") << tr("Status") << tr("Size");
     m_tree->setHeaderLabels(columnLabels);
-
     connect(m_tree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(OnItemClick(QTreeWidgetItem *, int)));
 
-    QVBoxLayout * layout = new QVBoxLayout();
-    layout->addWidget(m_tree);
-    setLayout(layout);
+    QHBoxLayout * horizontalLayout = new QHBoxLayout();
+    horizontalLayout->addWidget(m_label);
+    horizontalLayout->addWidget(m_button);
+    QVBoxLayout * verticalLayout = new QVBoxLayout();
+    verticalLayout->addLayout(horizontalLayout);
+    verticalLayout->addWidget(m_tree);
+    setLayout(verticalLayout);
 
     setWindowTitle(tr("Geographical Regions"));
     resize(600, 500);
 
     // we want to receive all download progress and result events
     m_storage.Subscribe(boost::bind(&UpdateDialog::OnCountryChanged, this, _1),
-                        boost::bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2));
+                        boost::bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2),
+                        boost::bind(&UpdateDialog::OnUpdateCheck, this, _1, _2));
     FillTree();
   }
 
@@ -141,11 +156,42 @@ namespace qt
     return item;
   }
 
+  void UpdateDialog::OnButtonClick(bool)
+  {
+    m_button->setText(QObject::tr("Checking for update..."));
+    m_button->setDisabled(true);
+    m_storage.CheckForUpdate();
+  }
+
   /// Changes row's text color
   void SetRowColor(QTreeWidgetItem & item, QColor const & color)
   {
     for (int column = 0; column < item.columnCount(); ++column)
       item.setTextColor(column, color);
+  }
+
+  void UpdateDialog::OnUpdateCheck(int64_t updateSize, char const * readme)
+  {
+    if (updateSize < 0)
+      m_label->setText(QObject::tr("No update is available"));
+    else
+    {
+      QString title(QObject::tr("Update is available"));
+      QString text(readme ? readme : "");
+      if (updateSize / (1000 * 1000 * 1000) > 0)
+        text.append(QObject::tr("\n\nDo you want to perform update and download %1 GB?").arg(
+            uint(updateSize / (1000 * 1000 * 1000))));
+      else if (updateSize / (1000 * 1000) > 0)
+        text.append(QObject::tr("\n\nDo you want to perform update and download %1 MB?").arg(
+            uint(updateSize / (1000 * 1000))));
+      else
+        text.append(QObject::tr("\n\nDo you want to perform update and download %1 kB?").arg(
+            uint((updateSize + 999) / 1000)));
+      if (QMessageBox::Yes == QMessageBox::question(this, title, text, QMessageBox::Yes, QMessageBox::No))
+        m_storage.PerformUpdate();
+    }
+    m_button->setText(CHECK_FOR_UPDATE);
+    m_button->setDisabled(false);
   }
 
   void UpdateDialog::UpdateRowWithCountryInfo(TIndex const & index)

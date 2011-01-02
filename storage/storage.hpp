@@ -56,8 +56,10 @@ namespace storage
     //@{
     typedef boost::function<void (TIndex const &)> TObserverChangeCountryFunction;
     typedef boost::function<void (TIndex const &, TDownloadProgress const &)> TObserverProgressFunction;
+    typedef boost::function<void (int64_t, char const *)> TUpdateCheckFunction;
     TObserverChangeCountryFunction m_observerChange;
     TObserverProgressFunction m_observerProgress;
+    TUpdateCheckFunction m_observerUpdateCheck;
     //@}
 
     /// @name Communicate with Framework
@@ -70,7 +72,6 @@ namespace storage
 
     void DownloadNextCountryFromQueue();
     Country const & CountryByIndex(TIndex const & index) const;
-    bool UpdateCheck();
     string UpdateBaseUrl() const;
 
   public:
@@ -88,7 +89,9 @@ namespace storage
 
     /// @name Current impl supports only one observer
     //@{
-    void Subscribe(TObserverChangeCountryFunction change, TObserverProgressFunction progress);
+    void Subscribe(TObserverChangeCountryFunction change,
+                   TObserverProgressFunction progress,
+                   TUpdateCheckFunction check);
     void Unsubscribe();
     //@}
 
@@ -99,5 +102,8 @@ namespace storage
 
     void DownloadCountry(TIndex const & index);
     void DeleteCountry(TIndex const & index);
+
+    void CheckForUpdate();
+    void PerformUpdate();
   };
 }

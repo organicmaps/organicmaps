@@ -38,16 +38,6 @@ namespace storage
     return UPDATE_BASE_URL + utils::to_string(m_currentVersion) + "/";
   }
 
-  bool Storage::UpdateCheck()
-  {
-    GetDownloadManager().DownloadFile(
-        (UpdateBaseUrl() + UPDATE_CHECK_FILE).c_str(),
-        (GetPlatform().WritablePathForFile(UPDATE_CHECK_FILE)).c_str(),
-        boost::bind(&Storage::OnUpdateDownloadFinished, this, _1, _2),
-        TDownloadProgressFunction(), false);
-    return true;
-  }
-
   TCountriesContainer const & NodeFromIndex(TCountriesContainer const & root, TIndex const & index)
   {
     // complex logic to avoid [] out_of_bounds exceptions
@@ -161,7 +151,7 @@ namespace storage
         if (!IsTileDownloaded(*it))
         {
           GetDownloadManager().DownloadFile(
-              (UPDATE_BASE_URL + it->first).c_str(),
+              (UpdateBaseUrl() + it->first).c_str(),
               (GetPlatform().WritablePathForFile(it->first).c_str()),
               boost::bind(&Storage::OnMapDownloadFinished, this, _1, _2),
               boost::bind(&Storage::OnMapDownloadProgress, this, _1, _2),
@@ -245,10 +235,12 @@ namespace storage
       m_observerChange(index);
   }
 
-  void Storage::Subscribe(TObserverChangeCountryFunction change, TObserverProgressFunction progress)
+  void Storage::Subscribe(TObserverChangeCountryFunction change, TObserverProgressFunction progress,
+                          TUpdateCheckFunction check)
   {
     m_observerChange = change;
     m_observerProgress = progress;
+    m_observerUpdateCheck = check;
 
     TTilesContainer tiles;
     if (LoadTiles(tiles, GetPlatform().WritablePathForFile(UPDATE_CHECK_FILE), m_currentVersion))
@@ -266,6 +258,7 @@ namespace storage
   {
     m_observerChange.clear();
     m_observerProgress.clear();
+    m_observerUpdateCheck.clear();
     m_countries.Clear();
   }
 
@@ -316,12 +309,29 @@ namespace storage
           TDownloadProgress(m_countryProgress.first + progress.first, m_countryProgress.second));
   }
 
+  void Storage::CheckForUpdate()
+  {
+    string const update = UpdateBaseUrl() + UPDATE_CHECK_FILE;
+    GetDownloadManager().CancelDownload(update.c_str());
+    GetDownloadManager().DownloadFile(
+        update.c_str(),
+        (GetPlatform().WritablePathForFile(UPDATE_CHECK_FILE)).c_str(),
+        boost::bind(&Storage::OnUpdateDownloadFinished, this, _1, _2),
+        TDownloadProgressFunction(), false);
+  }
+
   void Storage::OnUpdateDownloadFinished(char const * url, bool successfully)
   {
     if (!successfully)
     {
       LOG(LWARNING, ("Update check failed for url:", url));
-      return;
+      if (m_observerUpdateCheck)
+        m_observerUpdateCheck(-1, NULL);
+    }
+    else
+    { // @TODO parse update file and notify GUI
+      if (m_observerUpdateCheck)
+        m_observerUpdateCheck(666000, "Arbaiten, Zmagary! Tasks for release:\n\n0. Fast YG\n1. Simplificator tuning\n2. Updater\n3. World map");
     }
 
     // parse update file
@@ -342,5 +352,10 @@ namespace storage
 //    m_countries.swap(tempCountries);
 //    // @TODO report to GUI about reloading all countries
 //    LOG(LINFO, ("Update check complete"));
+  }
+
+  void Storage::PerformUpdate()
+  {
+    // @TODO:
   }
 }
