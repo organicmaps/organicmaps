@@ -161,7 +161,7 @@ public:
   template <class ToDo>
   void ForEachFeature(m2::RectD const & /*rect*/, ToDo toDo)
   {
-    feature::ForEachFromDat<FeatureType>(m_fDat, toDo);
+    feature::ForEachFromDat(m_fDat, toDo);
   }
 };
 
@@ -237,7 +237,7 @@ UNIT_TEST(IndexForEachTest)
 
   model::FeaturesFetcher src1;
   src1.InitClassificator();
-  src1.AddMap(path + ".dat", path + ".dat.idx");
+  src1.AddMap(path + DATA_FILE_EXTENSION);
 
   feature::DataHeader mapInfo;
   TEST_GREATER(feature::ReadDataHeader(path + ".dat", mapInfo), 0, ());

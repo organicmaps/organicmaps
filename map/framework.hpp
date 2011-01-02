@@ -135,7 +135,7 @@ class FrameWork
 
   threads::Mutex m_modelSyn;
 
-  void AddMap(string const & datFile, string const & idxFile)
+  void AddMap(string const & datFile)
   {
     // update rect for Show All button
     feature::DataHeader header;
@@ -144,7 +144,7 @@ class FrameWork
       m_model.AddWorldRect(header.Bounds());
       {
         threads::MutexGuard lock(m_modelSyn);
-        m_model.AddMap(datFile, idxFile);
+        m_model.AddMap(datFile);
       }
     }
     else
@@ -183,7 +183,7 @@ public:
     m_model.InitClassificator();
 
     // initializes model with locally downloaded maps
-    storage.Init( boost::bind(&FrameWork::AddMap, this, _1, _2),
+    storage.Init( boost::bind(&FrameWork::AddMap, this, _1),
                   boost::bind(&FrameWork::RemoveMap, this, _1));
   }
 

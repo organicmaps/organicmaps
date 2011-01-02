@@ -21,7 +21,7 @@ void BuildIntervalIndex(CellIdValueIterT const & beg, CellIdValueIterT const & e
     uint32_t maxCount = 0;
     typename CellIdValueIterT::value_type mostPopulousCell = *beg;
     CellIdValueIterT it = beg;
-    int64_t prev = it->GetCell();
+    uint64_t prev = it->GetCell();
     for (++it; it != end; ++it)
     {
       ASSERT_GREATER(it->GetCell(), 0, ());

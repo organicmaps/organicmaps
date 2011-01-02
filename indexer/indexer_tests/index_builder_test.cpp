@@ -6,6 +6,8 @@
 #include "../features_vector.hpp"
 #include "../data_header_reader.hpp"
 
+#include "../../coding/file_container.hpp"
+
 #include "../../platform/platform.hpp"
 
 
@@ -16,11 +18,9 @@ UNIT_TEST(BuildIndexTest)
                       p.ReadPathForFile("classificator.txt"),
                       p.ReadPathForFile("visibility.txt"));
 
-  FileReader reader(p.WritablePathForFile("minsk-pass.dat"));
-  // skip xml metadata header
-  uint64_t const startOffset = feature::GetSkipHeaderSize(reader);
-  FileReader subReader = reader.SubReader(startOffset, reader.Size() - startOffset);
-  FeaturesVector<FileReader> featuresVector(subReader);
+  FilesContainerR container(p.WritablePathForFile("minsk-pass" DATA_FILE_EXTENSION));
+
+  FeaturesVector<FileReader> featuresVector(container);
 
   string serial;
   {
@@ -30,5 +30,5 @@ UNIT_TEST(BuildIndexTest)
 
   MemReader indexReader(&serial[0], serial.size());
   Index<FileReader, MemReader>::Type index;
-  index.Add(reader, indexReader);
+  index.Add(FeatureReaders<FileReader>(container), indexReader);
 }

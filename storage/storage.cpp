@@ -25,11 +25,12 @@ namespace storage
     m_removeMap = removeFunc;
 
     // activate all downloaded maps
+    Platform & p = GetPlatform();
     Platform::FilesList filesList;
-    string const dataPath = GetPlatform().WritableDir();
-    GetPlatform().GetFilesInDir(dataPath, "*" DATA_FILE_EXTENSION, filesList);
+    string const dataPath = p.WritableDir();
+    p.GetFilesInDir(dataPath, "*" DATA_FILE_EXTENSION, filesList);
     for (Platform::FilesList::iterator it = filesList.begin(); it != filesList.end(); ++it)
-      m_addMap(dataPath + *it, dataPath + *it + INDEX_FILE_EXTENSION);
+      m_addMap(dataPath + *it);
   }
 
   string Storage::UpdateBaseUrl() const
@@ -297,7 +298,7 @@ namespace storage
         m_countryProgress.first = (m_countryProgress.second - size.second);
       // activate downloaded map piece
       string const datFile = FileFromUrl(url);
-      m_addMap(datFile, datFile + INDEX_FILE_EXTENSION);
+      m_addMap(datFile);
     }
     DownloadNextCountryFromQueue();
   }

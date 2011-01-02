@@ -23,7 +23,7 @@ void FeatureBuilder2Feature(FeatureBuilderGeomRef const & fb, FeatureGeomRef & f
   WriteToFile(datFile + ".geom", buffers.m_buffers[1]);
   WriteToFile(datFile + ".trg", buffers.m_buffers[2]);
 
-  static FeatureGeomRef::read_source_t g_source(datFile);
+  static FeatureGeomRef::read_source_t g_source(FileReader(datFile + ".geom"), FileReader(datFile + ".trg"));
   g_source.m_data.swap(buffers.m_buffers[0]);
   f.Deserialize(g_source);
 }

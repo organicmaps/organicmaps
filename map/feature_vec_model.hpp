@@ -49,8 +49,8 @@ namespace model
   public:
     void InitClassificator();
 
-    void AddMap(string const & dataPath, string const & indexPath);
-    void RemoveMap(string const & dataPath);
+    void AddMap(string const & fName);
+    void RemoveMap(string const & fName);
     void Clean();
 
     // process features by param type indices

@@ -144,8 +144,7 @@ int main(int argc, char ** argv)
     if (FLAGS_generate_index)
     {
       LOG(LINFO, ("Generating index for", datFile));
-      if (!indexer::BuildIndexFromDatFile(datFile + INDEX_FILE_EXTENSION, datFile,
-                                          FLAGS_intermediate_data_path + FLAGS_output))
+      if (!indexer::BuildIndexFromDatFile(datFile, FLAGS_intermediate_data_path + FLAGS_output))
       {
         LOG(LCRITICAL, ("Error generating index."));
       }

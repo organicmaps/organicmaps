@@ -49,7 +49,7 @@ UNIT_TEST(WritablePathForFile)
 UNIT_TEST(ReadPathForFile)
 {
   char const * NON_EXISTING_FILE = "mgbwuerhsnmbui45efhdbn34.tmp";
-  char const * arr[] = { "drawing_rules.bin", "basic.skn", "classificator.txt", "minsk-pass.dat" };
+  char const * arr[] = { "drawing_rules.bin", "basic.skn", "classificator.txt", "minsk-pass.wmw" };
   Platform & p = GetPlatform();
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
   {
@@ -61,7 +61,7 @@ UNIT_TEST(ReadPathForFile)
   {
     p.ReadPathForFile(NON_EXISTING_FILE);
   }
-  catch (FileAbsentException const & e)
+  catch (FileAbsentException const &)
   {
     wasException = true;
   }

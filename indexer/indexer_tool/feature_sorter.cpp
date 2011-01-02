@@ -78,21 +78,16 @@ namespace feature
 
     // stores cellIds for middle points
     CalculateMidPoints midPoints;
-    ForEachFromDat<FeatureGeom>(tempDatFilePath, midPoints);
+    ForEachFromDatRawFormat(tempDatFilePath, midPoints);
 
     // sort features by their middle point
     std::sort(midPoints.m_vec.begin(), midPoints.m_vec.end(), &SortMidPointsFunc);
 
     // store sorted features
     {
-      //FileWriter writer(datFilePath);
       FileReader reader(tempDatFilePath);
 
-      //feature::DataHeader header;
-      //feature::ReadDataHeader(tempDatFilePath, header);
-      //feature::WriteDataHeader(writer, header);
-
-      FeaturesCollector collector(datFilePath);
+      FeaturesCollectorRef collector(datFilePath);
 
       for (size_t i = 0; i < midPoints.m_vec.size(); ++i)
       {
@@ -107,16 +102,14 @@ namespace feature
         buffer.m_data.resize(sz);
         src.Read(&buffer.m_data[0], sz);
 
+        // FeatureGeom -> FeatureBuilderTypes
         FeatureGeom f;
         f.Deserialize(buffer);
 
         FeatureBuilderType fb;
         f.InitFeatureBuilder(fb);
 
-        // write feature bytes
-        //WriteVarUint(writer, sz);
-        //writer.Write(&buffer[0], sz);
-
+        // emit the feature
         collector(fb);
       }
 
@@ -125,6 +118,12 @@ namespace feature
 
     // remove old not-sorted dat file
     if (removeOriginalFile)
+    {
       FileWriter::DeleteFile(tempDatFilePath);
+
+      FileWriter::DeleteFile(datFilePath + DATA_FILE_TAG);
+      FileWriter::DeleteFile(datFilePath + GEOMETRY_FILE_TAG);
+      FileWriter::DeleteFile(datFilePath + TRIANGLE_FILE_TAG);
+    }
   }
 } // namespace feature

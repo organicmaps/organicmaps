@@ -8,7 +8,8 @@
 #include "../indexer/scales.hpp"
 #include "../indexer/classif_routine.hpp"
 #include "../indexer/classificator.hpp"
-#include "../indexer/data_header_reader.hpp"
+
+#include "../coding/file_container.hpp"
 
 #include "../base/logging.hpp"
 
@@ -27,31 +28,18 @@ void FeaturesFetcher::InitClassificator()
                       p.ReadPathForFile("visibility.txt"));
 }
 
-void FeaturesFetcher::AddMap(string const & dataPath, string const & indexPath)
+void FeaturesFetcher::AddMap(string const & fName)
 {
-  if (m_multiIndex.IsExist(dataPath))
+  if (m_multiIndex.IsExist(fName))
     return;
 
   try
   {
-    uint32_t const datLogPageSize = 10;
-    uint32_t const datLogPageCount = 11;
+    uint32_t const logPageSize = 12;
+    uint32_t const logPageCount = 12;
 
-    uint32_t const idxLogPageSize = 8;
-    uint32_t const idxLogPageCount = 11;
-
-    FileReader dataReader(dataPath, datLogPageSize, datLogPageCount);
-    uint64_t const startOffset = feature::GetSkipHeaderSize(dataReader);
-
-#ifdef USE_BUFFER_READER
-    // readers from memory
-    m_multiIndex.Add(BufferReader(dataReader, startOffset), BufferReader(FileReader(indexPath)));
-#else
-    // readers from file
-    m_multiIndex.Add(
-        dataReader.SubReader(startOffset, dataReader.Size() - startOffset),
-        FileReader(indexPath, idxLogPageSize, idxLogPageCount));
-#endif
+    FilesContainerR container(fName, logPageSize, logPageCount);
+    m_multiIndex.Add(FeatureReaders<FileReader>(container), container.GetReader(INDEX_FILE_TAG));
   }
   catch (Reader::OpenException const & e)
   {
@@ -63,9 +51,9 @@ void FeaturesFetcher::AddMap(string const & dataPath, string const & indexPath)
   }
 }
 
-void FeaturesFetcher::RemoveMap(string const & dataPath)
+void FeaturesFetcher::RemoveMap(string const & fName)
 {
-  m_multiIndex.Remove(dataPath);
+  m_multiIndex.Remove(fName);
 }
 
 void FeaturesFetcher::Clean()

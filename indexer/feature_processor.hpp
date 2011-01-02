@@ -1,18 +1,25 @@
 #pragma once
 
-#include "feature.hpp"
-#include "data_header_reader.hpp"
+#include "features_vector.hpp"
 
-#include "../coding/varint.hpp"
-#include "../coding/file_reader.hpp"
+#include "../coding/file_container.hpp"
 
-#include "../std/vector.hpp"
+#include "../std/bind.hpp"
+
 
 namespace feature
 {
-  /// Read feature from feature source.
-  template <class TSource, class TFeature>
-  void ReadFromSource(TSource & src, TFeature & f, typename TFeature::read_source_t & buffer)
+  template <class ToDo>
+  void ForEachFromDat(string const & fName, ToDo & toDo)
+  {
+    FilesContainerR container(fName);
+    FeaturesVector<FileReader> featureSource(container);
+    featureSource.ForEachOffset(bind<void>(ref(toDo), _1, _2));
+  }
+
+   /// Read feature from feature source.
+  template <class TSource>
+  void ReadFromSource(TSource & src, FeatureGeom & f, typename FeatureGeom::read_source_t & buffer)
   {
     uint32_t const sz = ReadVarUint<uint32_t>(src);
     buffer.m_data.resize(sz);
@@ -21,14 +28,14 @@ namespace feature
   }
 
   /// Process features in .dat file.
-  template <class TFeature, class ToDo>
-  void ForEachFromDat(string const & fName, ToDo & toDo)
+  template <class ToDo>
+  void ForEachFromDatRawFormat(string const & fName, ToDo & toDo)
   {
     typedef ReaderSource<FileReader> source_t;
 
     FileReader reader(fName);
     source_t src(reader);
-    typename TFeature::read_source_t buffer(fName);
+    typename FeatureGeom::read_source_t buffer(fName);
 
     // skip header
     uint64_t currPos = feature::GetSkipHeaderSize(reader);
@@ -38,7 +45,7 @@ namespace feature
     // read features one by one
     while (currPos < fSize)
     {
-      TFeature f;
+      FeatureGeom f;
       ReadFromSource(src, f, buffer);
       toDo(f, currPos);
       currPos = src.Pos();

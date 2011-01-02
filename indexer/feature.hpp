@@ -234,8 +234,7 @@ public:
     vector<char> m_data;
     uint32_t m_offset;
 
-    read_source_t() : m_offset(0) {}
-    read_source_t(string const &) : m_offset(0) {}
+    read_source_t(...) : m_offset(0) {}
 
     void assign(char const * data, uint32_t size)
     {
@@ -341,8 +340,8 @@ public:
     FileReader m_gF;
     FileReader m_trgF;
 
-    read_source_t(string const & name)
-      : m_gF(name + GEOMETRY_FILE_EXTENSION), m_trgF(name + TRIANGLES_FILE_EXTENSION)
+    read_source_t(FileReader const & gF, FileReader const & trgF)
+      : m_gF(gF), m_trgF(trgF)
     {
     }
   };

@@ -22,7 +22,5 @@ namespace indexer
   }
 
   // doesn't throw exceptions
-  bool BuildIndexFromDatFile(string const & fullIndexFilePath,
-                             string const & fullDatFilePath,
-                             string const & tmpFilePath);
+  bool BuildIndexFromDatFile(string const & datFile, string const & tmpFile);
 }

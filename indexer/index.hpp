@@ -82,10 +82,10 @@ public:
       m_Indexes[i]->ForEachInIntervalAndScale(f, beg, end, scale, query);
   }
 
-  template <class DataReaderT, class IndexReaderT>
-  void Add(DataReaderT const & dataReader, IndexReaderT const & indexReader)
+  template <class DatReaderT, class IndexReaderT>
+  void Add(FeatureReaders<DatReaderT> const & dataR, IndexReaderT const & indexR)
   {
-    m_Indexes.push_back(new IndexT(dataReader, indexReader));
+    m_Indexes.push_back(new IndexT(dataR, indexR));
   }
 
   bool IsExist(string const & dataPath) const
@@ -123,9 +123,9 @@ template <class FeatureVectorT, class BaseT> class OffsetToFeatureAdapter : publ
 public:
   typedef typename BaseT::Query Query;
 
-  OffsetToFeatureAdapter(typename FeatureVectorT::ReaderType const & dataReader,
-                         typename BaseT::ReaderType const & indexReader)
-                           : BaseT(indexReader), m_FeatureVector(dataReader)
+  OffsetToFeatureAdapter( FeatureReaders<typename FeatureVectorT::ReaderType> const & dataR,
+                          typename BaseT::ReaderType const & indexR)
+  : BaseT(indexR), m_FeatureVector(dataR)
   {
   }
 

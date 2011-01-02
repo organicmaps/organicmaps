@@ -2,25 +2,24 @@
 #include "data_header_reader.hpp"
 #include "features_vector.hpp"
 
-#include "../coding/file_reader.hpp"
+#include "../storage/defines.hpp"
+
+#include "../coding/file_container.hpp"
 
 
 namespace indexer
 {
-  bool BuildIndexFromDatFile(string const & fullIndexFilePath, string const & fullDatFilePath,
-                             string const & tmpFilePath)
+  bool BuildIndexFromDatFile(string const & datFile, string const & tmpFile)
   {
     try
     {
-      FileReader dataReader(fullDatFilePath);
+      FilesContainerR readCont(datFile);
+      FeaturesVector<FileReader> featuresVector(readCont);
 
-      uint64_t startOffset = feature::GetSkipHeaderSize(dataReader);
-
-      FileReader subReader = dataReader.SubReader(startOffset, dataReader.Size() - startOffset);
-      FeaturesVector<FileReader> featuresVector(subReader);
-
-      FileWriter indexWriter(fullIndexFilePath.c_str());
-      BuildIndex(featuresVector, indexWriter, tmpFilePath);
+      FilesContainerW writeCont(datFile, FileWriter::OP_APPEND);
+      FileWriter writer = writeCont.GetWriter(INDEX_FILE_TAG);
+      BuildIndex(featuresVector, writer, tmpFile);
+      writeCont.Finish();
     }
     catch (Reader::OpenException const & e)
     {

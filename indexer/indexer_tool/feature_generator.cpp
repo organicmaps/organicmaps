@@ -142,16 +142,14 @@ void FeaturesCollector::Init()
 }
 
 FeaturesCollector::FeaturesCollector(string const & fName)
-: m_datFile(fName), m_geoFile(fName + GEOMETRY_FILE_EXTENSION), m_trgFile(fName + TRIANGLES_FILE_EXTENSION)
+: m_datFile(fName)
 {
   Init();
 }
 
 FeaturesCollector::FeaturesCollector(string const & bucket,
                                      FeaturesCollector::InitDataType const & prefix)
-: m_datFile(prefix.first + bucket + prefix.second),
-  m_geoFile(prefix.first + bucket + prefix.second + GEOMETRY_FILE_EXTENSION),
-  m_trgFile(prefix.first + bucket + prefix.second + TRIANGLES_FILE_EXTENSION)
+: m_datFile(prefix.first + bucket + prefix.second)
 {
   Init();
 }
@@ -193,7 +191,33 @@ void FeaturesCollector::operator() (FeatureBuilderGeom const & fb)
   WriteFeatureBase(bytes, fb);
 }
 
-void FeaturesCollector::operator() (FeatureBuilderGeomRef const & fb)
+void FeaturesCollector::WriteHeader()
+{
+  // rewrite map information with actual data
+  m_datFile.Seek(0);
+  feature::DataHeader header;
+  header.SetBounds(m_bounds);
+  WriteDataHeader(m_datFile, header);
+}
+
+FeaturesCollector::~FeaturesCollector()
+{
+  WriteHeader();
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// FeaturesCollectorRef implementation
+/////////////////////////////////////////////////////////////////////////////////////////
+
+FeaturesCollectorRef::FeaturesCollectorRef(string const & fName)
+: FeaturesCollector(fName + DATA_FILE_TAG),
+  m_writer(fName),
+  m_geoFile(fName + GEOMETRY_FILE_TAG),
+  m_trgFile(fName + TRIANGLE_FILE_TAG)
+{
+}
+
+void FeaturesCollectorRef::operator() (FeatureBuilderGeomRef const & fb)
 {
   FilePreCondition(m_datFile);
   FilePreCondition(m_geoFile);
@@ -210,13 +234,20 @@ void FeaturesCollector::operator() (FeatureBuilderGeomRef const & fb)
   WriteBuffer(m_trgFile, buffers.m_buffers[2]);
 }
 
-FeaturesCollector::~FeaturesCollector()
+FeaturesCollectorRef::~FeaturesCollectorRef()
 {
-  // rewrite map information with actual data
-  m_datFile.Seek(0);
-  feature::DataHeader header;
-  header.SetBounds(m_bounds);
-  WriteDataHeader(m_datFile, header);
+  WriteHeader();
+
+  // assume like we close files
+  m_datFile.Flush();
+  m_geoFile.Flush();
+  m_trgFile.Flush();
+
+  // make one file container
+  m_writer.Append(m_datFile.GetName(), DATA_FILE_TAG);
+  m_writer.Append(m_geoFile.GetName(), GEOMETRY_FILE_TAG);
+  m_writer.Append(m_trgFile.GetName(), TRIANGLE_FILE_TAG);
+  m_writer.Finish();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

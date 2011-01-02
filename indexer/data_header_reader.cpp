@@ -1,8 +1,11 @@
+#include "../base/SRC_FIRST.hpp"
+
 #include "data_header_reader.hpp"
 #include "data_header.hpp"
 
-#include "../coding/file_reader.hpp"
-#include "../coding/file_writer.hpp"
+#include "../storage/defines.hpp"
+
+#include "../coding/file_container.hpp"
 
 #include "../base/start_mem_debug.hpp"
 
@@ -18,7 +21,7 @@ namespace feature
   {
     try
     {
-      FileReader reader(datFileName);
+      FileReader reader = FilesContainerR(datFileName).GetReader(DATA_FILE_TAG);
 
       uint64_t const toSkip = GetSkipHeaderSize(reader);
 
@@ -50,5 +53,4 @@ namespace feature
     if (sz > 0)
       writer.Write(&buffer[0], buffer.size());
   }
-
 }

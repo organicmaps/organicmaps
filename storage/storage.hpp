@@ -62,7 +62,7 @@ namespace storage
 
     /// @name Communicate with Framework
     //@{
-    typedef boost::function<void (string const &, string const &)> TAddMapFunction;
+    typedef boost::function<void (string const &)> TAddMapFunction;
     typedef boost::function<void (string const &)> TRemoveMapFunction;
     TAddMapFunction m_addMap;
     TRemoveMapFunction m_removeMap;

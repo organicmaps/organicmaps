@@ -4,7 +4,7 @@
 
 #include "../../geometry/rect2d.hpp"
 
-#include "../../coding/file_writer.hpp"
+#include "../../coding/file_container.hpp"
 
 #include "../../std/vector.hpp"
 #include "../../std/string.hpp"
@@ -32,25 +32,40 @@ namespace feature
   // Writes features to dat file.
   class FeaturesCollector
   {
-    FileWriter m_datFile, m_geoFile, m_trgFile;
+  protected:
+    FileWriter m_datFile;
+
     m2::RectD m_bounds;
 
+  protected:
     void Init();
     void FilePreCondition(FileWriter const & f);
+
+    void WriteHeader();
 
     static void WriteBuffer(FileWriter & f, vector<char> const & bytes);
     void WriteFeatureBase(vector<char> const & bytes, FeatureBuilderGeom const & fb);
 
   public:
-    ~FeaturesCollector();
-
     // Stores prefix and suffix of a dat file name.
     typedef pair<string, string> InitDataType;
 
-    explicit FeaturesCollector(string const & fName);
+    FeaturesCollector(string const & fName);
     FeaturesCollector(string const & bucket, InitDataType const & prefix);
+    ~FeaturesCollector();
 
     void operator() (FeatureBuilderGeom const & f);
+  };
+
+  class FeaturesCollectorRef : public FeaturesCollector
+  {
+    FilesContainerW m_writer;
+    FileWriter m_geoFile, m_trgFile;
+
+  public:
+    explicit FeaturesCollectorRef(string const & fName);
+    ~FeaturesCollectorRef();
+
     void operator() (FeatureBuilderGeomRef const & f);
   };
 }
