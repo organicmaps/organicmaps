@@ -37,6 +37,7 @@ namespace tst
     shared_ptr<yg::gl::RenderBuffer> m_depthBuffer;
     shared_ptr<yg::Skin> m_skin;
     shared_ptr<qt::gl::RenderContext> m_primaryContext;
+    shared_ptr<yg::gl::Screen> m_primaryScreen;
 
   public:
 

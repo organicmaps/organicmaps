@@ -14,12 +14,7 @@ namespace qt
   void GLDrawWidgetT<T>::paintGL()
   {
     if (m_p)
-    {
-      m_p->beginFrame();
-      m_p->clear();
       DoDraw(m_p);
-      m_p->endFrame();
-    }
   }
 
   template <class T>

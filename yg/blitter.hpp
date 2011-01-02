@@ -2,6 +2,7 @@
 
 #include "color.hpp"
 #include "clipper.hpp"
+#include "storage.hpp"
 #include "../std/shared_ptr.hpp"
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
@@ -18,6 +19,10 @@ namespace yg
 
     class Blitter : public Clipper
     {
+    private:
+
+      yg::gl::Storage m_blitStorage;
+
     protected:
 
       typedef Clipper base_t;
@@ -27,6 +32,7 @@ namespace yg
     public:
 
       Blitter(base_t::Params const & params);
+      ~Blitter();
 
       void beginFrame();
       void endFrame();

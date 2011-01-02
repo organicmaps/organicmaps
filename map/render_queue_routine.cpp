@@ -59,8 +59,10 @@ void RenderQueueRoutine::processResize(ScreenBase const & /*frameScreen*/)
     size_t texW = m_renderState->m_textureWidth;
     size_t texH = m_renderState->m_textureHeight;
 
-    m_renderState->m_backBuffer.reset();
-    m_renderState->m_backBuffer = make_shared_ptr(new yg::gl::RawRGBA8Texture(texW, texH));
+    m_renderState->m_backBufferLayers.clear();
+    m_renderState->m_backBufferLayers.push_back(make_shared_ptr(new yg::gl::RawRGBA8Texture(texW, texH)));
+    /// layer for texts
+    m_renderState->m_backBufferLayers.push_back(make_shared_ptr(new yg::gl::RawRGBA8Texture(texW, texH)));
 
     m_renderState->m_depthBuffer.reset();
 
@@ -81,10 +83,13 @@ void RenderQueueRoutine::processResize(ScreenBase const & /*frameScreen*/)
     m_threadDrawer->screen()->clear();
     m_threadDrawer->screen()->endFrame();
 
-    m_threadDrawer->screen()->setRenderTarget(m_renderState->m_backBuffer);
-    m_threadDrawer->screen()->beginFrame();
-    m_threadDrawer->screen()->clear();
-    m_threadDrawer->screen()->endFrame();
+    for (size_t i = 0; i < m_renderState->m_backBufferLayers.size(); ++i)
+    {
+      m_threadDrawer->screen()->setRenderTarget(m_renderState->m_backBufferLayers[i]);
+      m_threadDrawer->screen()->beginFrame();
+      m_threadDrawer->screen()->clear();
+      m_threadDrawer->screen()->endFrame();
+    }
 
     m_renderState->m_doRepaintAll = true;
 
@@ -195,15 +200,21 @@ void RenderQueueRoutine::setVisualScale(double visualScale)
 void RenderQueueRoutine::Do()
 {
   m_renderContext->makeCurrent();
-  m_threadDrawer = make_shared_ptr(new DrawerYG(m_resourceManager, m_skinName, !m_isMultiSampled));
-  CHECK(m_visualScale != 0, ("Set the VisualScale first!"));
-  m_threadDrawer->SetVisualScale(m_visualScale);
-  m_threadDrawer->screen()->setIsMultiSampled(m_isMultiSampled);
-
-  m_fakeTarget = make_shared_ptr(new yg::gl::RGBA8Texture(2, 2));
 
   m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer());
-  m_threadDrawer->setFrameBuffer(m_frameBuffer);
+
+  DrawerYG::params_t params;
+
+  params.m_resourceManager = m_resourceManager;
+  params.m_isMultiSampled = m_isMultiSampled;
+  params.m_useTextLayer = true;
+  params.m_frameBuffer = m_frameBuffer;
+
+  m_threadDrawer = make_shared_ptr(new DrawerYG(m_skinName, params));
+  CHECK(m_visualScale != 0, ("Set the VisualScale first!"));
+  m_threadDrawer->SetVisualScale(m_visualScale);
+
+  m_fakeTarget = make_shared_ptr(new yg::gl::RGBA8Texture(2, 2));
 
   m_threadDrawer->screen()->setRenderState(m_renderState);
 
@@ -230,7 +241,7 @@ void RenderQueueRoutine::Do()
 
       processResize(m_currentRenderCommand->m_frameScreen);
 
-      m_threadDrawer->screen()->setRenderTarget(m_renderState->m_backBuffer);
+      m_threadDrawer->screen()->setRenderTarget(m_renderState->m_backBufferLayers.front());
 
       m_currentRenderCommand->m_paintEvent = make_shared_ptr(new PaintEvent(m_threadDrawer));
 
@@ -284,25 +295,6 @@ void RenderQueueRoutine::Do()
             continue;
 
           m_threadDrawer->screen()->setClipRect(areas[i]);
-
-/*          /// Debugging ClipRect rendering.
-          /// @{
-          m2::RectD pxRect;
-          frameScreen.GtoP(frameScreen.ClipRect(), pxRect);
-
-          m2::PointD pts[5] = {
-            pxRect.LeftBottom(),
-            pxRect.LeftTop(),
-            pxRect.RightTop(),
-            pxRect.RightBottom(),
-            pxRect.LeftBottom()
-          };
-
-          m_threadDrawer->screen()->drawPath(
-              pts, 5,
-              m_threadDrawer->screen()->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 255), 6, 0, 0, 0)),
-              10000);
-          /// @}*/
 
           m_currentRenderCommand->m_renderFn(
               m_currentRenderCommand->m_paintEvent,

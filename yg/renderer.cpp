@@ -11,9 +11,16 @@ namespace yg
 {
   namespace gl
   {
-    Renderer::Renderer(Params const & params) : m_isMultiSampled(false), m_isRendering(false)
+    Renderer::Params::Params() : m_isMultiSampled(false)
+    {}
+
+    Renderer::Renderer(Params const & params)
+      : m_isMultiSampled(params.m_isMultiSampled),
+        m_isRendering(false),
+        m_frameBuffer(params.m_frameBuffer)
     {
-      m_multiSampledFrameBuffer = make_shared_ptr(new FrameBuffer());
+      if (m_isMultiSampled)
+        m_multiSampledFrameBuffer = make_shared_ptr(new FrameBuffer());
       m_resourceManager = params.m_resourceManager;
     }
 
@@ -54,10 +61,10 @@ namespace yg
       return m_multiSampledFrameBuffer;
     }
 
-    void Renderer::setFrameBuffer(shared_ptr<FrameBuffer> const & fb)
+/*    void Renderer::setFrameBuffer(shared_ptr<FrameBuffer> const & fb)
     {
       m_frameBuffer = fb;
-    }
+    }*/
 
     shared_ptr<RenderTarget> const & Renderer::renderTarget() const
     {
@@ -103,11 +110,6 @@ namespace yg
 #endif
         OGLCHECK(glFinish());
       }
-    }
-
-    void Renderer::setIsMultiSampled(bool isMultiSampled)
-    {
-      m_isMultiSampled = isMultiSampled;
     }
 
     bool Renderer::isMultiSampled() const

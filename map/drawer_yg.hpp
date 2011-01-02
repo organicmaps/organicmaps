@@ -3,6 +3,7 @@
 #include "draw_info.hpp"
 
 #include "../yg/color.hpp"
+#include "../yg/screen.hpp"
 
 #include "../std/list.hpp"
 #include "../std/string.hpp"
@@ -67,13 +68,14 @@ protected:
 
 public:
   typedef yg::gl::Screen screen_t;
+  typedef screen_t::Params params_t;
 
-  DrawerYG(shared_ptr<yg::ResourceManager> const & tm, string const & skinName, bool isAntiAliased);
+  DrawerYG(string const & skinName, params_t const & params = params_t());
 
   void drawSymbol(m2::PointD const & pt, string const & symbolName, int depth);
 
   //render_target_t renderTarget() const;
-  void setFrameBuffer(frame_buffer_t frameBuffer);
+//  void setFrameBuffer(frame_buffer_t frameBuffer);
   //frame_buffer_t frameBuffer() const;
 
   void beginFrame();

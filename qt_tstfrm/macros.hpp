@@ -109,7 +109,10 @@ public:
 
   virtual void DoDraw(shared_ptr<yg::gl::Screen> p)
   {
+    p->beginFrame();
+    p->clear();
     test.DoDraw(p);
+    p->endFrame();
   }
   virtual void DoResize(int, int)
   {

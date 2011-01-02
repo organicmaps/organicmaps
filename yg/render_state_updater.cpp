@@ -51,34 +51,37 @@ namespace yg
         threads::MutexGuard guard(*m_renderState->m_mutex.get());
 
         m_renderState->m_actualTarget->attachToFrameBuffer();
-//        setRenderTarget(m_renderState->m_actualTarget, false);
 
         OGLCHECK(glDisable(GL_SCISSOR_TEST));
 
         OGLCHECK(glClearColor(192 / 255.0, 192 / 255.0, 192 / 255.0, 1.0));
         OGLCHECK(glClear(GL_COLOR_BUFFER_BIT));
 
-        size_t w = m_renderState->m_backBuffer->width();
-        size_t h = m_renderState->m_backBuffer->height();
+        shared_ptr<BaseTexture> backBuffer = m_renderState->m_backBufferLayers.front();
 
         immDrawTexturedRect(
-            m2::RectF(0, 0, w, h),
+            m2::RectF(0, 0, backBuffer->width(), backBuffer->height()),
             m2::RectF(0, 0, 1, 1),
-            m_renderState->m_backBuffer
+            backBuffer
             );
+
+/*        for (int i = 1; i < m_renderState->m_backBufferLayers.size(); ++i)
+        {
+          shared_ptr<BaseTexture> layer = m_renderState->m_backBufferLayers[i];
+          immDrawTexturedRect(
+              m2::RectF(0, 0, layer->width(), layer->height()),
+              m2::RectF(0, 0, 1, 1),
+              layer);
+        }*/
 
         if (clipRectEnabled())
           OGLCHECK(glEnable(GL_SCISSOR_TEST));
 
-        OGLCHECK(glFinish());
-
         m_renderState->m_actualScreen = m_renderState->m_currentScreen;
 
-//        setRenderTarget(m_renderState->m_backBuffer);
+        m_renderState->m_backBufferLayers.front()->attachToFrameBuffer();
 
-//        frameBuffer()->attachTexture(m_renderState->m_backBuffer);
-
-        m_renderState->m_backBuffer->attachToFrameBuffer();
+        OGLCHECK(glFinish());
       }
 
       if (isMultiSampled())

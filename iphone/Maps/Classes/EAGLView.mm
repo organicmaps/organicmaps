@@ -76,19 +76,32 @@
 		
 		renderContext->makeCurrent();
 		frameBuffer = shared_ptr<yg::gl::FrameBuffer>(new yg::gl::FrameBuffer());		
-
+		
+		int bigVBSize = pow(2, ceil(log2(15000 * sizeof(yg::gl::Vertex))));
+		int bigIBSize = pow(2, ceil(log2(30000 * sizeof(unsigned short))));
+												
+		int smallVBSize = pow(2, ceil(log2(1500 * sizeof(yg::gl::Vertex))));
+		int smallIBSize = pow(2, ceil(log2(3000 * sizeof(unsigned short))));		
+		
+		int blitVBSize = pow(2, ceil(log2(10 * sizeof(yg::gl::AuxVertex))));											
+		int blitIBSize = pow(2, ceil(log2(10 * sizeof(unsigned short))));
+		
 		resourceManager = shared_ptr<yg::ResourceManager>(new yg::ResourceManager(
-						15000 * sizeof(yg::gl::Vertex), 30000 * sizeof(unsigned short), 20,
-						1500 * sizeof(yg::gl::Vertex), 3000 * sizeof(unsigned short), 100,
-					  512, 256, 10,
-						2048, 2048, 20,																																	
-					  2000000));
-
+						bigVBSize, bigIBSize, 20,
+						smallVBSize, smallIBSize, 30,
+						blitVBSize, blitIBSize, 20,																																	
+						512, 256, 10,
+						2000000));
+		
 //		resourceManager->addFont(GetPlatform().ReadPathForFile("dejavusans.ttf").c_str());
 		resourceManager->addFont(GetPlatform().ReadPathForFile("wqy-microhei.ttf").c_str());		
+
+		DrawerYG::params_t p;
+		p.m_resourceManager = resourceManager;
+		p.m_isMultiSampled = false;
+		p.m_frameBuffer = frameBuffer;
 		
-		drawer = shared_ptr<DrawerYG>(new DrawerYG(resourceManager, GetPlatform().SkinName(), !GetPlatform().IsMultiSampled()));
-		drawer->setFrameBuffer(frameBuffer);
+		drawer = shared_ptr<DrawerYG>(new DrawerYG(GetPlatform().SkinName(), p));
 		
 //		frameBuffer->onSize(renderBuffer->width(), renderBuffer->height());
 //		frameBuffer->setRenderTarget(renderBuffer);		

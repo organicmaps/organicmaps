@@ -58,6 +58,7 @@ SOURCES += \
     ft2_debug.cpp \
     geometry_batcher.cpp \
     text_renderer.cpp \
+    layer_manager.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -98,7 +99,8 @@ HEADERS += \
     ft2_debug.hpp \
     text_renderer.hpp \
     geometry_batcher.hpp \
-    screen.hpp
+    screen.hpp \
+    layer_manager.hpp
 
 !iphonesimulator-g++42 {
   !iphonedevice-g++42 {

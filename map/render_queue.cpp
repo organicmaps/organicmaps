@@ -59,6 +59,11 @@ yg::gl::RenderState const RenderQueue::CopyState() const
   return state;
 }
 
+yg::gl::RenderState const & RenderQueue::renderState() const
+{
+  return *m_renderState.get();
+}
+
 
 
 

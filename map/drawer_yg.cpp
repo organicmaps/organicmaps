@@ -18,14 +18,10 @@
 #include "../base/start_mem_debug.hpp"
 
 
-DrawerYG::DrawerYG(shared_ptr<yg::ResourceManager> const & rm, string const & skinName, bool isAntiAliased)
+DrawerYG::DrawerYG(string const & skinName, screen_t::Params const & params)
 {
-  yg::gl::Screen::Params params;
-  params.m_resourceManager = rm;
-  params.m_isAntiAliased = isAntiAliased;
-
   m_pScreen = shared_ptr<yg::gl::Screen>(new yg::gl::Screen(params));
-  m_pSkin = shared_ptr<yg::Skin>(loadSkin(rm, skinName));
+  m_pSkin = shared_ptr<yg::Skin>(loadSkin(params.m_resourceManager, skinName));
   m_pScreen->setSkin(m_pSkin);
 
   if (m_pSkin)
@@ -163,21 +159,6 @@ void DrawerYG::drawPathText(vector<m2::PointD> const & pts, double pathLength, s
   if (fontSize > 3 * m_visualScale)
     m_pScreen->drawPathText(&pts[0], pts.size(), fontSize, name, pathLength, yg::gl::Screen::middle_line, true, 10000);
 }
-
-//render_target_t DrawerYG::renderTarget() const
-//{
-//  return m_pScreen->renderTarget();
-//}
-
-void DrawerYG::setFrameBuffer(frame_buffer_t frameBuffer)
-{
-  m_pScreen->setFrameBuffer(frameBuffer);
-}
-
-//frame_buffer_t DrawerYG::frameBuffer() const
-//{
-//  return m_pScreen->frameBuffer();
-//}
 
 shared_ptr<yg::gl::Screen> DrawerYG::screen() const
 {

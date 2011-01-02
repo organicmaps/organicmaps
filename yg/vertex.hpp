@@ -24,5 +24,16 @@ namespace yg
 
       static void setupLayout();
     };
+
+    struct AuxVertex
+    {
+      m2::PointF pt;
+      m2::PointF texPt;
+      yg::Color color;
+      static const int vertexOffs = 0;
+      static const int texCoordsOffs = sizeof(m2::PointF);
+      static const int colorOffs = sizeof(m2::PointF) + sizeof(m2::PointF);
+    };
+
   }
 }

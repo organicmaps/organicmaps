@@ -51,4 +51,6 @@ public:
   void OnSize(size_t w, size_t h);
   /// copy primary render state
   yg::gl::RenderState const CopyState() const;
+
+  yg::gl::RenderState const & renderState() const;
 };

@@ -150,6 +150,8 @@ namespace yg
 
       /// @}
 
+      void setRenderTarget(shared_ptr<RenderTarget> const & rt);
+
     private:
 
       void drawGlyph(m2::PointD const & ptOrg,

@@ -50,18 +50,18 @@ namespace yg
 
         m_textureWidth = pow(2, ceil(log(double(w)) / log2));
         m_textureHeight =  pow(2, ceil(log(double(h)) / log2));
-
-
-/*        int maxTextureSize;
-//        OGLCHECK(glGetIntegerv(GL_MAX_TEXTURE_SIZE, &maxTextureSize));
-        maxTextureSize = 2048;
-
-        m_textureWidth = min(m_textureWidth * 2, (unsigned) maxTextureSize);
-        m_textureHeight = min(m_textureHeight * 2, (unsigned) maxTextureSize);
-
-//        LOG(LINFO, ("TextureSize :", m_textureWidth, m_textureHeight));
-*/
       }
+    }
+
+    m2::PointD const RenderState::coordSystemShift(bool doLock) const
+    {
+      if (doLock)
+        m_mutex->Lock();
+      m2::PointD res((m_textureWidth - m_surfaceWidth) / 2,
+                     (m_textureHeight - m_surfaceHeight) / 2);
+      if (doLock)
+        m_mutex->Unlock();
+      return res;
     }
   }
 }

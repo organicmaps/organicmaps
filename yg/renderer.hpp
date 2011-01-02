@@ -20,6 +20,9 @@ namespace yg
       struct Params
       {
         shared_ptr<ResourceManager> m_resourceManager;
+        shared_ptr<FrameBuffer> m_frameBuffer;
+        bool m_isMultiSampled;
+        Params();
       };
 
     private:
@@ -56,7 +59,7 @@ namespace yg
       bool isMultiSampled() const;
 
       shared_ptr<FrameBuffer> const & frameBuffer() const;
-      void setFrameBuffer(shared_ptr<FrameBuffer> const & fb);
+//      void setFrameBuffer(shared_ptr<FrameBuffer> const & fb);
 
       shared_ptr<FrameBuffer> const & multiSampledFrameBuffer() const;
 

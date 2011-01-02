@@ -19,9 +19,6 @@ namespace yg
 
       typedef function<void()> invalidateFn;
 
-      shared_ptr<BaseTexture> m_backBuffer;
-      shared_ptr<RenderBuffer> m_depthBuffer;
-
       /// Already rendered model params
       /// @{
       /// Bitmap
@@ -30,10 +27,17 @@ namespace yg
       ScreenBase m_actualScreen;
       /// @}
 
+      /// In-Progress rendering operation params
+      /// @{
       /// Screen of the rendering operation in progress.
       ScreenBase m_currentScreen;
+      /// at least one backBuffer layer
+      vector<shared_ptr<BaseTexture> > m_backBufferLayers;
+      /// depth buffer used for rendering
+      shared_ptr<RenderBuffer> m_depthBuffer;
       /// Duration of the rendering operation
       double m_duration;
+      /// @}
 
       /// Surface height and width.
       unsigned int m_surfaceWidth;
@@ -50,10 +54,6 @@ namespace yg
 
       mutable shared_ptr<threads::Mutex> m_mutex;
 
-/*      RenderState(shared_ptr<RGBA8Texture> const & actualTarget,
-                  ScreenBase actualScreen);
- */
-
       list<invalidateFn> m_invalidateFns;
 
       RenderState();
@@ -67,6 +67,8 @@ namespace yg
       void addInvalidateFn(invalidateFn fn);
 
       void onSize(size_t w, size_t h);
+
+      m2::PointD const coordSystemShift(bool doLock = false) const;
     };
   }
 }

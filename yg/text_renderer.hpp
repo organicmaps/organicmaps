@@ -11,6 +11,8 @@ namespace yg
   class ResourceManager;
   namespace gl
   {
+    class BaseTexture;
+
     class TextRenderer : public GeometryBatcher
     {
       class TextObj
@@ -40,12 +42,18 @@ namespace yg
 
       m4::Tree<TextObj> m_tree;
 
+      bool m_useTextLayer;
+
     public:
 
-      typedef GeometryBatcher::Params Params;
+      typedef GeometryBatcher base_t;
+      struct Params : base_t::Params
+      {
+        bool m_useTextLayer;
+        Params();
+      };
 
-      TextRenderer(Params const & params) : GeometryBatcher(params)
-      {}
+      TextRenderer(Params const & params);
 
       void drawText(m2::PointD const & pt,
         float angle,

@@ -208,10 +208,7 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 {
 	shared_ptr<iphone::WindowHandle> windowHandle = [(EAGLView*)self.view windowHandle];
 	shared_ptr<PaintEvent> paintEvent(new PaintEvent(windowHandle->drawer()));
-	windowHandle->drawer()->beginFrame();
-	windowHandle->drawer()->clear();
 	m_framework->Paint(paintEvent);
-	windowHandle->drawer()->endFrame();
 }
 
 

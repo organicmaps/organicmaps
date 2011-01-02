@@ -29,7 +29,7 @@ namespace yg
   namespace gl
   {
     GeometryBatcher::GeometryBatcher(Params const & params)
-      : base_t(params), m_isAntiAliased(params.m_isAntiAliased)
+      : base_t(params), m_isAntiAliased(!params.m_isMultiSampled)
     {
       reset(-1);
       applyStates();
@@ -113,6 +113,12 @@ namespace yg
    {
      flush(-1);
      base_t::clear(c, clearRT, depth, clearDepth);
+   }
+
+   void GeometryBatcher::setRenderTarget(shared_ptr<RenderTarget> const & rt)
+   {
+     flush(-1);
+     base_t::setRenderTarget(rt);
    }
 
    void GeometryBatcher::endFrame()

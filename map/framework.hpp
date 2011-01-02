@@ -216,7 +216,7 @@ public:
 
     m_renderQueue.OnSize(w, h);
 
-    m2::PointD ptShift = GetCoordSystemShift();
+    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
 
     m_navigator.OnSize(ptShift.x, ptShift.y, w, h);
 
@@ -284,28 +284,33 @@ public:
   void Paint(shared_ptr<PaintEvent> e)
   {
     /// Making a copy of actualFrameInfo to compare without synchronizing.
-    typename yg::gl::RenderState state = m_renderQueue.CopyState();
+//    typename yg::gl::RenderState state = m_renderQueue.CopyState();
 
     DrawerYG * pDrawer = e->drawer().get();
 
-    if (state.m_actualTarget.get() != 0)
+    threads::MutexGuard guard(*m_renderQueue.renderState().m_mutex.get());
+
+    if (m_renderQueue.renderState().m_actualTarget.get() != 0)
     {
-      m2::PointD ptShift = GetCoordSystemShift();
+      e->drawer()->screen()->beginFrame();
+      e->drawer()->screen()->clear(/*yg::Color(255, 0, 0, 255)*/);
+
+      m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(false);
 
       OGLCHECK(glMatrixMode(GL_MODELVIEW));
       OGLCHECK(glPushMatrix());
       OGLCHECK(glTranslatef(-ptShift.x, -ptShift.y, 0));
 
-      pDrawer->screen()->blit(state.m_actualTarget,
-                              state.m_actualScreen,
+      pDrawer->screen()->blit(m_renderQueue.renderState().m_actualTarget,
+                              m_renderQueue.renderState().m_actualScreen,
                               m_navigator.Screen(),
                               yg::Color(0, 255, 0, 255),
                               m2::RectI(0, 0,
-                                        state.m_actualTarget->width(),
-                                        state.m_actualTarget->height()),
+                                        m_renderQueue.renderState().m_actualTarget->width(),
+                                        m_renderQueue.renderState().m_actualTarget->height()),
                               m2::RectU(0, 0,
-                                        state.m_actualTarget->width(),
-                                        state.m_actualTarget->height()));
+                                        m_renderQueue.renderState().m_actualTarget->width(),
+                                        m_renderQueue.renderState().m_actualTarget->height()));
 
       m2::PointD const center = m_navigator.Screen().ClipRect().Center();
 
@@ -313,8 +318,10 @@ public:
 
       OGLCHECK(glPopMatrix());
 
-      pDrawer->drawStats(state.m_duration, GetCurrentScale(),
+      pDrawer->drawStats(m_renderQueue.renderState().m_duration, GetCurrentScale(),
                          MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x));
+
+      e->drawer()->screen()->endFrame();
     }
   }
 
@@ -322,7 +329,7 @@ public:
   {
     if (m_isPositionEnabled)
     {
-      m2::PointD ptShift = GetCoordSystemShift();
+      m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(false);
       /// Drawing position and heading
       m2::PointD pxPosition = m_navigator.Screen().GtoP(m_position);
       pDrawer->drawSymbol(pxPosition - ptShift, "current-position", 12000);
@@ -438,15 +445,6 @@ public:
     Invalidate();
   }
 
-  m2::PointD const GetCoordSystemShift() const
-  {
-    yg::gl::RenderState s = m_renderQueue.CopyState();
-
-    return m2::PointD((s.m_textureWidth - s.m_surfaceWidth) / 2,
-                      (s.m_textureHeight - s.m_surfaceHeight) / 2);
-//    return m2::PointD(0, 0);
-  }
-
   void CenterViewport(m2::PointD const & pt)
   {
     m_navigator.CenterViewport(pt);
@@ -457,14 +455,14 @@ public:
   //@{
   void StartDrag(DragEvent const & e)
   {
-    m2::PointD ptShift = GetCoordSystemShift();
+    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
     m_navigator.StartDrag(m_navigator.OrientPoint(e.Pos() + ptShift),
                           GetPlatform().TimeInSec());
     Invalidate();
   }
   void DoDrag(DragEvent const & e)
   {
-    m2::PointD ptShift = GetCoordSystemShift();
+    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
 
     m_navigator.DoDrag(m_navigator.OrientPoint(e.Pos() + ptShift),
                        GetPlatform().TimeInSec());
@@ -472,7 +470,7 @@ public:
   }
   void StopDrag(DragEvent const & e)
   {
-    m2::PointD ptShift = GetCoordSystemShift();
+    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
 
     m_navigator.StopDrag(m_navigator.OrientPoint(e.Pos() + ptShift),
                          GetPlatform().TimeInSec(),
@@ -492,7 +490,7 @@ public:
   //@{
   void ScaleToPoint(ScaleToPointEvent const & e)
   {
-    m2::PointD ptShift = GetCoordSystemShift();
+    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
     m_navigator.ScaleToPoint(m_navigator.OrientPoint(e.Pt() + ptShift),
       e.ScaleFactor(),
       GetPlatform().TimeInSec());
@@ -513,7 +511,7 @@ public:
 
   void StartScale(ScaleEvent const & e)
   {
-    m2::PointD ptShift = GetCoordSystemShift();
+    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
 
     m_navigator.StartScale(m_navigator.OrientPoint(e.Pt1() + ptShift),
                            m_navigator.OrientPoint(e.Pt2() + ptShift),
@@ -522,7 +520,7 @@ public:
   }
   void DoScale(ScaleEvent const & e)
   {
-    m2::PointD ptShift = GetCoordSystemShift();
+    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
 
     m_navigator.DoScale(m_navigator.OrientPoint(e.Pt1() + ptShift),
                         m_navigator.OrientPoint(e.Pt2() + ptShift),
@@ -531,7 +529,7 @@ public:
   }
   void StopScale(ScaleEvent const & e)
   {
-    m2::PointD ptShift = GetCoordSystemShift();
+    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
 
     m_navigator.StopScale(m_navigator.OrientPoint(e.Pt1() + ptShift),
                           m_navigator.OrientPoint(e.Pt2() + ptShift),

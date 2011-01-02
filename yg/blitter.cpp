@@ -10,6 +10,7 @@
 #include "indexbuffer.hpp"
 #include "utils.hpp"
 #include "storage.hpp"
+#include "vertex.hpp"
 
 #include "../geometry/screenbase.hpp"
 
@@ -18,7 +19,14 @@ namespace yg
   namespace gl
   {
     Blitter::Blitter(base_t::Params const & params) : base_t(params)
-    {}
+    {
+//      m_blitStorage = resourceManager()->reserveBlitStorage();
+    }
+
+    Blitter::~Blitter()
+    {
+//      resourceManager()->freeBlitStorage(m_blitStorage);
+    }
 
     void Blitter::beginFrame()
     {
@@ -128,16 +136,6 @@ namespace yg
       immDrawTexturedPrimitives(rectPoints, texRectPoints, 4, texture, true, yg::Color(), false);
     }
 
-    struct AuxVertex
-    {
-      m2::PointF pt;
-      m2::PointF texPt;
-      yg::Color color;
-      static const int vertexOffs = 0;
-      static const int texCoordsOffs = sizeof(m2::PointF);
-      static const int colorOffs = sizeof(m2::PointF) + sizeof(m2::PointF);
-    };
-
     void Blitter::setupAuxVertexLayout(bool hasColor, bool hasTexture)
     {
       OGLCHECK(glEnableClientState(GL_VERTEX_ARRAY));
@@ -171,9 +169,9 @@ namespace yg
                                            yg::Color const & color,
                                            bool hasColor)
     {
-      yg::gl::Storage blitStorage = resourceManager()->reserveBlitStorage();
+      m_blitStorage = resourceManager()->reserveBlitStorage();
 
-      AuxVertex * pointsData = (AuxVertex*)blitStorage.m_vertices->lock();
+      AuxVertex * pointsData = (AuxVertex*)m_blitStorage.m_vertices->lock();
 
       for (size_t i = 0; i < size; ++i)
       {
@@ -184,7 +182,8 @@ namespace yg
         pointsData[i].color = color;
       }
 
-      blitStorage.m_vertices->unlock();
+      m_blitStorage.m_vertices->unlock();
+      m_blitStorage.m_vertices->makeCurrent();
 
       setupAuxVertexLayout(hasColor, hasTexture);
 
@@ -192,11 +191,12 @@ namespace yg
         texture->makeCurrent();
 
       unsigned short idxData[4] = {0, 1, 2, 3};
-      memcpy(blitStorage.m_indices->lock(), idxData, sizeof(idxData));
-      blitStorage.m_indices->unlock();
-      blitStorage.m_indices->makeCurrent();
+      memcpy(m_blitStorage.m_indices->lock(), idxData, sizeof(idxData));
+      m_blitStorage.m_indices->unlock();
+      m_blitStorage.m_indices->makeCurrent();
 
-      resourceManager()->freeBlitStorage(blitStorage);
+      resourceManager()->freeBlitStorage(m_blitStorage);
+      m_blitStorage = yg::gl::Storage();
 
       OGLCHECK(glDisable(GL_BLEND));
       OGLCHECK(glDisable(GL_DEPTH_TEST));
@@ -204,6 +204,8 @@ namespace yg
       OGLCHECK(glEnable(GL_DEPTH_TEST));
       OGLCHECK(glEnable(GL_TEXTURE_2D));
       OGLCHECK(glEnable(GL_BLEND));
+      /// This call is necessary to avoid parasite blitting in updateActualTarget() on IPhone.
+      OGLCHECK(glFinish());
     }
   }
 }
