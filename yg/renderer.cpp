@@ -16,8 +16,8 @@ namespace yg
 
     Renderer::Renderer(Params const & params)
       : m_isMultiSampled(params.m_isMultiSampled),
-        m_isRendering(false),
-        m_frameBuffer(params.m_frameBuffer)
+        m_frameBuffer(params.m_frameBuffer),
+        m_isRendering(false)
     {
       if (m_isMultiSampled)
         m_multiSampledFrameBuffer = make_shared_ptr(new FrameBuffer());
