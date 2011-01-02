@@ -108,7 +108,10 @@ int main(int argc, char ** argv)
                         path + "visibility.txt");
     classificator::PrepareForFeatureGeneration();
 
-    genInfo.datFilePrefix = path + FLAGS_output + (FLAGS_bucketing_level > 0 ? "-" : "");
+    if (FLAGS_output.empty())
+      genInfo.datFilePrefix = path;
+    else
+      genInfo.datFilePrefix = path + FLAGS_output + (FLAGS_bucketing_level > 0 ? "-" : "");
     genInfo.datFileSuffix = DATA_FILE_EXTENSION;
     genInfo.cellBucketingLevel = FLAGS_bucketing_level;
     genInfo.m_maxScaleForWorldFeatures = FLAGS_worldmap_max_zoom;
