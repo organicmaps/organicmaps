@@ -113,6 +113,9 @@ namespace qt
     case EDownloading:
       m_storage.DeleteCountry(countryIndex);
       break;
+
+    default:
+      break;
     }
   }
 
@@ -152,19 +155,23 @@ namespace qt
     {
       QColor rowColor;
       QString statusString;
+      TLocalAndRemoteSize size(0, 0);
       switch (m_storage.CountryStatus(index))
       {
       case ENotDownloaded:
         statusString = tr("Click to download");
         rowColor = COLOR_NOTDOWNLOADED;
+        size = m_storage.CountrySizeInBytes(index);
         break;
       case EOnDisk:
         statusString = tr("Installed (click to delete)");
         rowColor = COLOR_ONDISK;
+        size = m_storage.CountrySizeInBytes(index);
         break;
       case EDownloadFailed:
         statusString = tr("Download has failed :(");
         rowColor = COLOR_DOWNLOADFAILED;
+        size = m_storage.CountrySizeInBytes(index);
         break;
       case EDownloading:
         statusString = tr("Downloading...");
@@ -173,27 +180,31 @@ namespace qt
       case EInQueue:
         statusString = tr("Marked for download");
         rowColor = COLOR_INQUEUE;
+        size = m_storage.CountrySizeInBytes(index);
+        break;
+      default:
         break;
       }
-      item->setText(KColumnIndexStatus, statusString);
+      if (statusString.size())
+        item->setText(KColumnIndexStatus, statusString);
 
-      // update size column values
-//      QTableWidgetItem * sizeItem = m_table->item(row, KColumnIndexSize);
-//      if (status == EInQueue)
-//      {
-//        sizeItem->setText("In Queue");
-//      }
-//      else if (status != EDownloading)
-//      {
-//        uint64_t const size = m_storage.CountrySizeInBytes(index);
-//        if (size > 1000 * 1000)
-//          sizeItem->setText(QObject::tr("%1 MB").arg(uint(size / (1000 * 1000))));
-//        else
-//          sizeItem->setText(QObject::tr("%1 kB").arg(uint((size + 999) / 1000)));
-//        // needed for column sorting
-//        sizeItem->setData(Qt::UserRole, QVariant(qint64(size)));
-//      }
-      SetRowColor(*item, rowColor);
+      if (size.second)
+      {
+        if (size.second > 1000 * 1000 * 1000)
+          item->setText(KColumnIndexSize, QString("%1/%2 GB").arg(
+              uint(size.first / (1000 * 1000 * 1000))).arg(uint(size.second / (1000 * 1000 * 1000))));
+        else if (size.second > 1000 * 1000)
+          item->setText(KColumnIndexSize, QString("%1/%2 MB").arg(
+              uint(size.first / (1000 * 1000))).arg(uint(size.second / (1000 * 1000))));
+        else
+          item->setText(KColumnIndexSize, QString("%1/%2 kB").arg(
+              uint((size.first + 999) / 1000)).arg(uint((size.second + 999) / 1000)));
+        // needed for column sorting
+        item->setData(KColumnIndexSize, Qt::UserRole, QVariant(qint64(size.second)));
+      }
+
+      if (statusString.size())
+        SetRowColor(*item, rowColor);
     }
   }
 
