@@ -48,7 +48,6 @@ bada/Maps/Home
 bada/Maps/*.zip
 data/le9q663011
 data/settings.ini
-data/maps.update
 GeneratedFiles
 version/version.hpp
 tools/win/MapsWithMe*
