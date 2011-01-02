@@ -25,6 +25,12 @@ template <class TSink> void WriteToSink(TSink & sink, uint16_t v)
   sink.Write(&t, 2);
 }
 
+template <class TSink> void WriteToSink(TSink & sink, int16_t v)
+{
+  int16_t t = SwapIfBigEndian(v);
+  sink.Write(&t, 2);
+}
+
 template <class TSink> void WriteToSink(TSink & sink, int32_t v)
 {
   int32_t t = SwapIfBigEndian(v);

@@ -85,12 +85,22 @@ namespace stream
       WriteToSink(m_writer, t);
       return (*this);
     }
+    SinkWriterStream & operator << (uint16_t t)
+    {
+      WriteToSink(m_writer, t);
+      return (*this);
+    }
     SinkWriterStream & operator << (int64_t t)
     {
       WriteToSink(m_writer, t);
       return (*this);
     }
     SinkWriterStream & operator << (int32_t t)
+    {
+      WriteToSink(m_writer, t);
+      return (*this);
+    }
+    SinkWriterStream & operator << (int16_t t)
     {
       WriteToSink(m_writer, t);
       return (*this);
