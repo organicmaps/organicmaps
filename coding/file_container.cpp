@@ -5,12 +5,15 @@
 #include "write_to_sink.hpp"
 
 
-FilesContainerR::FilesContainerR(string const & fName)
-: m_source(fName)
-{
-  uint64_t offset = ReadPrimitiveFromPos<uint64_t>(m_source, 0);
+/////////////////////////////////////////////////////////////////////////////
+// FilesContainerBase
+/////////////////////////////////////////////////////////////////////////////
 
-  ReaderSource<FileReader> src(m_source);
+void FilesContainerBase::ReadInfo(FileReader & reader)
+{
+  uint64_t offset = ReadPrimitiveFromPos<uint64_t>(reader, 0);
+
+  ReaderSource<FileReader> src(reader);
   src.Skip(offset);
 
   uint32_t const count = ReadVarUint<uint32_t>(src);
@@ -27,7 +30,19 @@ FilesContainerR::FilesContainerR(string const & fName)
   }
 }
 
-FileReader FilesContainerR::GetReader(Tag const & tag)
+/////////////////////////////////////////////////////////////////////////////
+// FilesContainerR
+/////////////////////////////////////////////////////////////////////////////
+
+FilesContainerR::FilesContainerR(string const & fName,
+                                 uint32_t logPageSize,
+                                 uint32_t logPageCount)
+: m_source(fName, logPageSize, logPageCount)
+{
+  ReadInfo(m_source);
+}
+
+FileReader FilesContainerR::GetReader(Tag const & tag) const
 {
   info_cont_t::const_iterator i =
     lower_bound(m_info.begin(), m_info.end(), tag, less_info());
@@ -38,12 +53,27 @@ FileReader FilesContainerR::GetReader(Tag const & tag)
     MYTHROW(Reader::OpenException, (tag));
 }
 
-FilesContainerW::FilesContainerW(string const & fName)
+/////////////////////////////////////////////////////////////////////////////
+// FilesContainerW
+/////////////////////////////////////////////////////////////////////////////
+
+FilesContainerW::FilesContainerW(string const & fName, FileWriter::Op op)
 : m_name(fName)
 {
-  FileWriter writer(fName);
-  uint64_t skip = 0;
-  writer.Write(&skip, sizeof(skip));
+  if (op == FileWriter::OP_APPEND)
+  {
+    FileReader reader(fName);
+    ReadInfo(reader);
+    m_needRewrite = true;
+  }
+
+  if (m_info.empty())
+  {
+    FileWriter writer(fName);
+    uint64_t skip = 0;
+    writer.Write(&skip, sizeof(skip));
+    m_needRewrite = false;
+  }
 }
 
 uint64_t FilesContainerW::SaveCurrentSize()
@@ -56,11 +86,51 @@ uint64_t FilesContainerW::SaveCurrentSize()
 
 FileWriter FilesContainerW::GetWriter(Tag const & tag)
 {
-  uint64_t const curr = SaveCurrentSize();
+  if (m_needRewrite)
+  {
+    m_needRewrite = false;
+    ASSERT ( !m_info.empty(), () );
 
-  m_info.push_back(Info(tag, curr));
+    uint64_t const curr = m_info.back().m_offset + m_info.back().m_size;
+    m_info.push_back(Info(tag, curr));
 
-  return FileWriter(m_name, FileWriter::OP_APPEND);
+    FileWriter writer(m_name, FileWriter::OP_WRITE_EXISTING);
+    writer.Seek(curr);
+    return writer;
+  }
+  else
+  {
+    uint64_t const curr = SaveCurrentSize();
+    m_info.push_back(Info(tag, curr));
+    return FileWriter(m_name, FileWriter::OP_APPEND);
+  }
+}
+
+void FilesContainerW::Append(string const & fName, Tag const & tag)
+{
+  uint64_t const bufferSize = 4*1024;
+  char buffer[bufferSize];
+
+  FileReader reader(fName);
+  ReaderSource<FileReader> src(reader);
+  FileWriter writer = GetWriter(tag);
+
+  uint64_t size = reader.Size();
+  while (size > 0)
+  {
+    size_t const curr = static_cast<size_t>(min(bufferSize, size));
+
+    src.Read(&buffer[0], curr);
+    writer.Write(&buffer[0], curr);
+
+    size -= curr;
+  }
+}
+
+void FilesContainerW::Append(vector<char> const & buffer, Tag const & tag)
+{
+  if (!buffer.empty())
+    GetWriter(tag).Write(&buffer[0], buffer.size());
 }
 
 void FilesContainerW::Finish()

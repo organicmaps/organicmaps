@@ -39,6 +39,8 @@ protected:
 
   typedef vector<Info> info_cont_t;
   info_cont_t m_info;
+
+  void ReadInfo(FileReader & reader);
 };
 
 class FilesContainerR : public FilesContainerBase
@@ -48,9 +50,11 @@ class FilesContainerR : public FilesContainerBase
   FileReader m_source;
 
 public:
-  FilesContainerR(string const & fName);
+  explicit FilesContainerR(string const & fName,
+                           uint32_t logPageSize = 10,
+                           uint32_t logPageCount = 10);
 
-  FileReader GetReader(Tag const & tag);
+  FileReader GetReader(Tag const & tag) const;
 };
 
 class FilesContainerW : public FilesContainerBase
@@ -61,10 +65,16 @@ class FilesContainerW : public FilesContainerBase
 
   uint64_t SaveCurrentSize();
 
+  bool m_needRewrite;
+
 public:
-  FilesContainerW(string const & fName);
+  FilesContainerW(string const & fName,
+                  FileWriter::Op op = FileWriter::OP_WRITE_TRUNCATE);
 
   FileWriter GetWriter(Tag const & tag);
+
+  void Append(string const & fName, Tag const & tag);
+  void Append(vector<char> const & buffer, Tag const & tag);
 
   void Finish();
 };
