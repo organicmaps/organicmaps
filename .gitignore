@@ -37,8 +37,7 @@ data/*.mwm
 data/*.map
 data/*.osm
 data/*.bz2
-!data/minsk-pass.dat
-!data/minsk-pass.dat.idx
+!data/minsk-pass.mwm
 bada/.metadata
 bada/repository
 bada/Maps/.settings
