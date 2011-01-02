@@ -5,7 +5,8 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 ROOT_DIR = ..
-DEPENDENCIES = indexer platform geometry coding base
+
+DEPENDENCIES = indexer geometry coding base
 
 include($$ROOT_DIR/common.pri)
 

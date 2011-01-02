@@ -107,17 +107,17 @@ using namespace storage;
 
 - (NSInteger) numberOfSectionsInTableView: (UITableView *)tableView
 {
-	return g_pStorage->GroupsCount();
+	return 0;//g_pStorage->GroupsCount();
 }
 
 - (NSString *) tableView: (UITableView *)tableView titleForHeaderInSection: (NSInteger)section
 {	
-	return [NSString stringWithUTF8String: g_pStorage->GroupName(section).c_str()];
+	return @"TODO";//[NSString stringWithUTF8String: g_pStorage->GroupName(section).c_str()];
 }
 
 - (NSInteger) tableView: (UITableView *)tableView numberOfRowsInSection: (NSInteger)section
 {
-	return g_pStorage->CountriesCountInGroup(section);
+	return 0;//g_pStorage->CountriesCountInGroup(section);
 }
 
 - (void) UpdateCell: (UITableViewCell *) cell forCountry: (TIndex const &) countryIndex
@@ -128,7 +128,7 @@ using namespace storage;
   {
   case EOnDisk:
   	{
-    	uint64_t size = g_pStorage->CountrySizeInBytes(countryIndex);
+    	uint64_t size = 0;//g_pStorage->CountrySizeInBytes(countryIndex);
   		// convert size to human readable values
 			char const * kBorMBorGB = "kB";
       if (size > GB)
@@ -279,7 +279,7 @@ TIndex g_clickedIndex;
   	{	// display confirmation popup with country size
     	BOOL isWifiConnected = [CountriesViewController IsUsingWIFI];
       
-    	uint64_t size = g_pStorage->CountrySizeInBytes(g_clickedIndex);
+    	uint64_t size = 0;//g_pStorage->CountrySizeInBytes(g_clickedIndex);
   		// convert size to human readable values
       NSString * strTitle = nil;
       NSString * strDownload = nil;
@@ -341,17 +341,17 @@ TIndex g_clickedIndex;
 - (void) OnDownloadFinished: (TIndex const &) index
 {
   UITableView * tableView = (UITableView *)[self.view.subviews objectAtIndex: 1];
-  UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: index.second inSection: index.first]];
-  if (cell)
-		[self UpdateCell: cell forCountry: index];
+//  UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: index.second inSection: index.first]];
+//  if (cell)
+//		[self UpdateCell: cell forCountry: index];
 }
 
 - (void) OnDownload: (TIndex const &) index withProgress: (TDownloadProgress const &) progress
 {
   UITableView * tableView = (UITableView *)[self.view.subviews objectAtIndex: 1];
-  UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: index.second inSection: index.first]];
-  if (cell)
-		cell.detailTextLabel.text = [NSString stringWithFormat: @"Downloading %qu%%, touch to cancel", progress.first * 100 / progress.second];
+//  UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: index.second inSection: index.first]];
+//  if (cell)
+//		cell.detailTextLabel.text = [NSString stringWithFormat: @"Downloading %qu%%, touch to cancel", progress.first * 100 / progress.second];
 }
 
 @end
