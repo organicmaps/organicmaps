@@ -8,6 +8,7 @@
 #include "../geometry/rect2d.hpp"
 #include "../coding/varint.hpp"
 #include "../base/base.hpp"
+#include "../base/stl_add.hpp"
 
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
@@ -65,11 +66,6 @@ public:
 
 template <class IndexT> class MultiIndexAdapter
 {
-  struct deletor_t
-  {
-    template <class T> void operator() (T * p) { delete p; }
-  };
-
 public:
   typedef typename IndexT::Query Query;
 
@@ -114,7 +110,7 @@ public:
 
   void Clean()
   {
-    for_each(m_Indexes.begin(), m_Indexes.end(), deletor_t());
+    for_each(m_Indexes.begin(), m_Indexes.end(), DeleteFunctor());
     m_Indexes.clear();
   }
 

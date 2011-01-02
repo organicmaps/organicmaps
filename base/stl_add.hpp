@@ -82,3 +82,10 @@ template <class IterT> inline bool IsSortedAndUnique(IterT beg, IterT end)
   return IsSortedAndUnique(beg, end, less<typename iterator_traits<IterT>::value_type>());
 }
 
+struct DeleteFunctor
+{
+  template <typename T> void operator() (T const * p) const
+  {
+    delete p;
+  }
+};
