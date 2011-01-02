@@ -2,6 +2,8 @@
 
 #include "../country.hpp"
 
+#include "../../version/version.hpp"
+
 #include "../../coding/file_writer.hpp"
 #include "../../coding/file_reader.hpp"
 
@@ -63,8 +65,13 @@ UNIT_TEST(TilesSerialization)
   }
 
   {
+    uint32_t version;
+
     TTilesContainer tiles;
-    TEST( LoadTiles(tiles, FILE), ());
+    TEST( LoadTiles(tiles, FILE, version), ());
+
+    TEST_EQUAL(version, Version::BUILD, ());
+
     TEST_EQUAL( tiles.size(), 5, ());
     TEST_EQUAL( tiles[0], TTilesContainer::value_type(
         CountryCellId::FromBitsAndLevel(5, level).ToString(), 5), ());

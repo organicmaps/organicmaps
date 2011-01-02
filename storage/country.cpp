@@ -2,12 +2,13 @@
 
 #include "../base/logging.hpp"
 
-
 #include "../base/std_serialization.hpp"
 
 #include "../coding/streams_sink.hpp"
 #include "../coding/file_reader.hpp"
 #include "../coding/file_writer.hpp"
+
+#include "../version/version.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -152,13 +153,13 @@ namespace storage
   {
     FileWriter writer(file);
     stream::SinkWriterStream<Writer> wStream(writer);
-    wStream << MAPS_MAJOR_VERSION_BINARY_FORMAT;
+    wStream << static_cast<uint32_t>(Version::BUILD);
     wStream << level;
     wStream << cellFiles;
     wStream << commonFiles;
   }
 
-  bool LoadTiles(TTilesContainer & tiles, string const & tilesFile)
+  bool LoadTiles(TTilesContainer & tiles, string const & tilesFile, uint32_t & dataVersion)
   {
     tiles.clear();
 
@@ -171,11 +172,8 @@ namespace storage
       TDataFiles dataFiles;
       TCommonFiles commonFiles;
 
-      uint32_t version = 0;
       int32_t level = -1;
-      stream >> version;
-      if (version > MAPS_MAJOR_VERSION_BINARY_FORMAT)
-        return false;
+      stream >> dataVersion;
       stream >> level;
       stream >> dataFiles;
       stream >> commonFiles;

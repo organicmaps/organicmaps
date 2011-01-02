@@ -1,9 +1,12 @@
 #include "storage.hpp"
 
 #include "../base/logging.hpp"
+#include "../base/string_utils.hpp"
 
 #include "../coding/file_writer.hpp"
 #include "../coding/file_reader.hpp"
+
+#include "../version/version.hpp"
 
 #include "../std/set.hpp"
 #include "../std/algorithm.hpp"
@@ -16,6 +19,8 @@ namespace storage
 {
   void Storage::Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc)
   {
+    m_currentVersion = static_cast<uint32_t>(Version::BUILD);
+
     m_addMap = addFunc;
     m_removeMap = removeFunc;
 
@@ -27,15 +32,20 @@ namespace storage
       m_addMap(dataPath + *it, dataPath + *it + INDEX_FILE_EXTENSION);
   }
 
-//  bool Storage::UpdateCheck()
-//  {
-//    GetDownloadManager().DownloadFile(
-//        UPDATE_FULL_URL,
-//		(GetPlatform().WritablePathForFile(UPDATE_CHECK_FILE)).c_str(),
-//        boost::bind(&Storage::OnUpdateDownloadFinished, this, _1, _2),
-//        TDownloadProgressFunction(), false);
-//    return true;
-//  }
+  string Storage::UpdateBaseUrl() const
+  {
+    return UPDATE_BASE_URL + utils::to_string(m_currentVersion) + "/";
+  }
+
+  bool Storage::UpdateCheck()
+  {
+    GetDownloadManager().DownloadFile(
+        (UpdateBaseUrl() + UPDATE_CHECK_FILE).c_str(),
+        (GetPlatform().WritablePathForFile(UPDATE_CHECK_FILE)).c_str(),
+        boost::bind(&Storage::OnUpdateDownloadFinished, this, _1, _2),
+        TDownloadProgressFunction(), false);
+    return true;
+  }
 
   TCountriesContainer const & NodeFromIndex(TCountriesContainer const & root, TIndex const & index)
   {
@@ -86,7 +96,12 @@ namespace storage
 
     TLocalAndRemoteSize size = CountryByIndex(index).Size();
     if (size.first == size.second)
-      return EOnDisk;
+    {
+      if (size.second == 0)
+        return EUnknown;
+      else
+        return EOnDisk;
+    }
 
     return ENotDownloaded;
   }
@@ -169,16 +184,13 @@ namespace storage
 
   struct CancelDownloading
   {
+    string const m_baseUrl;
+    CancelDownloading(string const & baseUrl) : m_baseUrl(baseUrl) {}
     void operator()(TTile const & tile)
     {
-      GetDownloadManager().CancelDownload((UPDATE_BASE_URL + tile.first).c_str());
+      GetDownloadManager().CancelDownload((m_baseUrl + tile.first).c_str());
     }
   };
-
-  void CancelCountryDownload(Country const & country)
-  {
-    for_each(country.Tiles().begin(), country.Tiles().end(), CancelDownloading());
-  }
 
   class DeleteMap
   {
@@ -214,7 +226,7 @@ namespace storage
     {
       if (found == m_queue.begin())
       { // stop download
-        CancelCountryDownload(country);
+        for_each(country.Tiles().begin(), country.Tiles().end(), CancelDownloading(UpdateBaseUrl()));
         // remove from the queue
         m_queue.erase(found);
         // start another download if the queue is not empty
@@ -238,7 +250,7 @@ namespace storage
     m_observerProgress = progress;
 
     TTilesContainer tiles;
-    if (LoadTiles(tiles, GetPlatform().WritablePathForFile(UPDATE_CHECK_FILE)))
+    if (LoadTiles(tiles, GetPlatform().WritablePathForFile(UPDATE_CHECK_FILE), m_currentVersion))
     {
       if (!LoadCountries(GetPlatform().WritablePathForFile(COUNTRIES_FILE), tiles, m_countries))
         LOG(LWARNING, ("Can't load countries file", COUNTRIES_FILE));

@@ -22,7 +22,8 @@ namespace storage
     ENotDownloaded,
     EDownloadFailed,
     EDownloading,
-    EInQueue
+    EInQueue,
+    EUnknown
   };
 
   struct TIndex
@@ -41,6 +42,9 @@ namespace storage
   /// Can be used to store local maps and/or maps available for download
   class Storage
   {
+    /// stores timestamp for update checks
+    uint32_t m_currentVersion;
+
     TCountriesContainer m_countries;
 
     typedef list<TIndex> TQueue;
@@ -66,7 +70,8 @@ namespace storage
 
     void DownloadNextCountryFromQueue();
     Country const & CountryByIndex(TIndex const & index) const;
-//    bool UpdateCheck();
+    bool UpdateCheck();
+    string UpdateBaseUrl() const;
 
   public:
     Storage() {}

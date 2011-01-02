@@ -72,6 +72,6 @@ namespace storage
                      TCountriesContainer & countries);
   void SaveTiles(string const & file, int32_t level, TDataFiles const & cellFiles,
                  TCommonFiles const & commonFiles);
-  bool LoadTiles(TTilesContainer & tiles, string const & tilesFile);
+  bool LoadTiles(TTilesContainer & tiles, string const & tilesFile, uint32_t & dataVersion);
 //  void SaveCountries(TCountriesContainer const & countries, Writer & writer);
 }

@@ -4,9 +4,6 @@
 
 #include "../std/string.hpp"
 
-/// Should be incremented when binary format changes
-uint32_t const MAPS_MAJOR_VERSION_BINARY_FORMAT = 1;
-
 #define DATA_FILE_EXTENSION ".dat"
 #define GEOMETRY_FILE_EXTENSION ".geom"
 #define TRIANGLES_FILE_EXTENSION ".trg"
@@ -17,4 +14,3 @@ uint32_t const MAPS_MAJOR_VERSION_BINARY_FORMAT = 1;
 #define COUNTRIES_FILE  "countries.txt"
 #define UPDATE_CHECK_FILE "maps.update"
 #define UPDATE_BASE_URL "http://melnichek.ath.cx:34568/maps/"
-#define UPDATE_FULL_URL UPDATE_BASE_URL UPDATE_CHECK_FILE
