@@ -22,7 +22,7 @@ namespace yg
 
       public:
         TextObj(m2::PointD const & pt, string const & txt, uint8_t sz, double d)
-          : m_pt(pt), m_utf8Text(txt), m_size(sz), m_depth(d)
+          : m_pt(pt), m_size(sz), m_utf8Text(txt), m_depth(d)
         {
         }
 
