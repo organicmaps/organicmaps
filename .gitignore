@@ -33,10 +33,7 @@ tools/emacsmode/build
 iphone/Maps/Maps.xcodeproj/*.mode1v3
 iphone/Maps/Maps.xcodeproj/*.pbxuser
 iphone/Maps/Maps.xcodeproj/*.perspectivev3
-data/*.idx
-data/*.dat
-data/*.dat.geom
-data/*.dat.trg
+data/*.mwm
 data/*.map
 data/*.osm
 data/*.bz2
