@@ -258,7 +258,7 @@ void FeatureBuilderGeomRef::SimplifyPoints(points_t const & in, points_t & out, 
 {
   if (in.size() >= 2)
   {
-    SimplifyDP<mn::DistanceToLineSquare<m2::PointD> >(in.begin(), in.end()-1,
+    SimplifyNearOptimal<mn::DistanceToLineSquare<m2::PointD> >(50, in.begin(), in.end()-1,
       my::sq(scales::GetEpsilonForLevel(level)), MakeBackInsertFunctor(out));
 
     switch (out.size())
