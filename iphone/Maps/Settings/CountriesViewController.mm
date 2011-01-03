@@ -48,7 +48,7 @@ using namespace storage;
   	TProgressFunc progressImpl = (TProgressFunc)[self methodForSelector:progressSel];
     
   	storage.Subscribe(boost::bind(finishImpl, self, finishSel, _1),
-    		boost::bind(progressImpl, self, progressSel, _1, _2));
+    		boost::bind(progressImpl, self, progressSel, _1, _2), NULL);
   }
 	return self;
 }
