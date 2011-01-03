@@ -100,6 +100,9 @@ class FrameWork
   m2::PointD m_position;
   double m_confidenceRadius;
 
+  /// is AddRedrawCommand enabled?
+  bool m_isRedrawEnabled;
+
   void Invalidate()
   {
     m_windowHandle->invalidate();
@@ -113,7 +116,7 @@ class FrameWork
   void AddRedrawCommand()
   {
     yg::gl::RenderState const state = m_renderQueue.CopyState();
-    if (state.m_currentScreen != m_navigator.Screen())
+    if ((state.m_currentScreen != m_navigator.Screen()) && (m_isRedrawEnabled))
       AddRedrawCommandSure();
   }
 
@@ -163,7 +166,8 @@ public:
     : m_windowHandle(windowHandle),
       m_renderQueue(GetPlatform().SkinName(), GetPlatform().IsMultiSampled()),
       m_isHeadingEnabled(false),
-      m_isPositionEnabled(false)
+      m_isPositionEnabled(false),
+      m_isRedrawEnabled(true)
   {
     m_renderQueue.AddWindowHandle(m_windowHandle);
   }
@@ -221,6 +225,13 @@ public:
     m_navigator.OnSize(ptShift.x, ptShift.y, w, h);
 
     UpdateNow();
+  }
+
+  /// enabling/disabling AddRedrawCommand
+  void SetRedrawEnabled(bool isRedrawEnabled)
+  {
+    m_isRedrawEnabled = isRedrawEnabled;
+    AddRedrawCommand();
   }
 
   /// respond to device orientation changes

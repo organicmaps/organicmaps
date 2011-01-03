@@ -17,9 +17,12 @@ namespace qt
       m_handle(new handle_t(this)),
       m_framework(m_handle),
       m_isDrag(false),
-      m_pScale(0)
+      m_pScale(0),
+      m_redrawInterval(100)
   {
     m_framework.Init(storage);
+    m_timer = new QTimer(this);
+    connect(m_timer, SIGNAL(timeout()), this, SLOT(ScaleTimerElapsed()));
   }
 
   void DrawWidget::SetScaleControl(QSlider * pScale)
@@ -149,6 +152,7 @@ namespace qt
 
     if (e->button() == Qt::LeftButton)
     {
+      m_framework.SetRedrawEnabled(false);
       m_framework.StartDrag(get_drag_event(e));
 
       setCursor(Qt::CrossCursor);
@@ -163,6 +167,7 @@ namespace qt
     {
       if (m_isDrag)
       {
+        m_framework.SetRedrawEnabled(true);
         m_framework.StopDrag(get_drag_event(e));
         setCursor(Qt::ArrowCursor);
         m_isDrag = false;
@@ -186,6 +191,7 @@ namespace qt
 
     if (m_isDrag && e->button() == Qt::LeftButton)
     {
+      m_framework.SetRedrawEnabled(true);
       m_framework.StopDrag(get_drag_event(e));
 
       setCursor(Qt::ArrowCursor);
@@ -193,10 +199,22 @@ namespace qt
     }
   }
 
+  void DrawWidget::ScaleTimerElapsed()
+  {
+    m_framework.SetRedrawEnabled(true);
+    m_timer->stop();
+  }
+
   void DrawWidget::wheelEvent(QWheelEvent * e)
   {
     if (!m_isDrag)
     {
+      /// if we are inside the timer, cancel it
+      if (m_timer->isActive())
+        m_timer->stop();
+
+      m_framework.SetRedrawEnabled(false);
+      m_timer->start(m_redrawInterval);
       //m_framework.Scale(exp(e->delta() / 360.0));
 			m_framework.ScaleToPoint(ScaleToPointEvent(e->pos().x(), e->pos().y(), exp(e->delta() / 360.0)));
       UpdateScaleControl();

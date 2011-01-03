@@ -7,6 +7,7 @@
 #include "../map/framework.hpp"
 #include "../map/navigator.hpp"
 
+#include <QtCore/QTimer>
 
 class FileReader;
 template <class> class ReaderSource;
@@ -35,6 +36,9 @@ namespace qt
 
     bool m_isDrag;
 
+    QTimer * m_timer;
+    size_t m_redrawInterval;
+
     Q_OBJECT
 
   public Q_SLOTS:
@@ -47,6 +51,7 @@ namespace qt
     void ShowAll();
     void Repaint();
     void ScaleChanged(int action);
+    void ScaleTimerElapsed();
 
   public:
     DrawWidget(QWidget * pParent, storage::Storage & storage);
