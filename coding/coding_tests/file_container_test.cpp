@@ -9,6 +9,7 @@
 UNIT_TEST(FileContainer_Smoke)
 {
   string const fName = "file_container.tmp";
+  FileWriter::DeleteFile(fName);
   size_t const count = 10;
 
   // fill container one by one
@@ -67,4 +68,5 @@ UNIT_TEST(FileContainer_Smoke)
       CHECK_EQUAL(arrAppend[i], test, ());
     }
   }
+  FileWriter::DeleteFile(fName);
 }
