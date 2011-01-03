@@ -89,22 +89,14 @@ namespace feature
 
       FeaturesCollectorRef collector(datFilePath);
 
+      FeatureGeom::read_source_t buffer;
       for (size_t i = 0; i < midPoints.m_vec.size(); ++i)
       {
         ReaderSource<FileReader> src(reader);
-
-        // move to position
         src.Skip(midPoints.m_vec[i].second);
 
-        // read feature bytes
-        uint32_t const sz = ReadVarUint<uint32_t>(src);
-        FeatureGeom::read_source_t buffer;
-        buffer.m_data.resize(sz);
-        src.Read(&buffer.m_data[0], sz);
-
-        // FeatureGeom -> FeatureBuilderTypes
         FeatureGeom f;
-        f.Deserialize(buffer);
+        feature::ReadFromSource(src, f, buffer);
 
         FeatureBuilderType fb;
         f.InitFeatureBuilder(fb);

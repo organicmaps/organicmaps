@@ -31,18 +31,17 @@ namespace feature
   template <class ToDo>
   void ForEachFromDatRawFormat(string const & fName, ToDo & toDo)
   {
-    typedef ReaderSource<FileReader> source_t;
-
     FileReader reader(fName);
-    source_t src(reader);
-    typename FeatureGeom::read_source_t buffer(fName);
+    ReaderSource<FileReader> src(reader);
 
     // skip header
     uint64_t currPos = feature::GetSkipHeaderSize(reader);
     src.Skip(currPos);
 
     uint64_t const fSize = reader.Size();
+
     // read features one by one
+    typename FeatureGeom::read_source_t buffer;
     while (currPos < fSize)
     {
       FeatureGeom f;

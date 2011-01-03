@@ -234,7 +234,7 @@ public:
     vector<char> m_data;
     uint32_t m_offset;
 
-    read_source_t(...) : m_offset(0) {}
+    read_source_t() : m_offset(0) {}
 
     void assign(char const * data, uint32_t size)
     {
