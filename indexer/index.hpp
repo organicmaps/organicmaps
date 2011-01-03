@@ -6,8 +6,10 @@
 #include "scales.hpp"
 
 #include "../geometry/rect2d.hpp"
+#include "../coding/file_container.hpp"
 #include "../coding/varint.hpp"
 #include "../base/base.hpp"
+#include "../base/macros.hpp"
 #include "../base/stl_add.hpp"
 
 #include "../std/string.hpp"
@@ -26,7 +28,8 @@ public:
   {
     vector<pair<int64_t, int64_t> > intervals = covering::CoverViewportAndAppendLowerLevels(rect);
     for (size_t i = 0; i < intervals.size(); ++i)
-      BaseT::ForEachInIntervalAndScale(f, intervals[i].first, intervals[i].second, scale, query);
+      BaseT::ForEachInIntervalAndScale(f, intervals[i].first, intervals[i].second, scale,
+                                       rect, query);
   }
 
   template <typename F>
@@ -53,7 +56,8 @@ public:
   void ForEachInScale(F const & f, uint32_t scale, Query & query) const
   {
     int64_t const rootId = RectId("").ToInt64();
-    BaseT::ForEachInIntervalAndScale(f, rootId, rootId + RectId("").SubTreeSize(), scale, query);
+    BaseT::ForEachInIntervalAndScale(f, rootId, rootId + RectId("").SubTreeSize(), scale,
+                                     m2::RectD::GetInfiniteRect(), query);
   }
 
   template <typename F>
@@ -76,16 +80,20 @@ public:
 
   template <typename F>
   void ForEachInIntervalAndScale(F const & f, int64_t beg, int64_t end, uint32_t scale,
-                                 Query & query) const
+                                 m2::RectD const & occlusionRect, Query & query) const
   {
+    // TODO: Use occlusionRect.
+    UNUSED_VALUE(occlusionRect);
     for (size_t i = 0; i < m_Indexes.size(); ++i)
       m_Indexes[i]->ForEachInIntervalAndScale(f, beg, end, scale, query);
   }
 
-  template <class DatReaderT, class IndexReaderT>
-  void Add(FeatureReaders<DatReaderT> const & dataR, IndexReaderT const & indexR)
+  void Add(string const & path)
   {
-    m_Indexes.push_back(new IndexT(dataR, indexR));
+    uint32_t const logPageSize = 12;
+    uint32_t const logPageCount = 12;
+    FilesContainerR container(path, logPageSize, logPageCount);
+    m_Indexes.push_back(new IndexT(container));
   }
 
   bool IsExist(string const & dataPath) const
@@ -123,9 +131,9 @@ template <class FeatureVectorT, class BaseT> class OffsetToFeatureAdapter : publ
 public:
   typedef typename BaseT::Query Query;
 
-  OffsetToFeatureAdapter( FeatureReaders<typename FeatureVectorT::ReaderType> const & dataR,
-                          typename BaseT::ReaderType const & indexR)
-  : BaseT(indexR), m_FeatureVector(dataR)
+  explicit OffsetToFeatureAdapter(FilesContainerR const & container)
+  : BaseT(container.GetReader(INDEX_FILE_TAG)),
+    m_FeatureVector(FeatureReaders<FileReader>(container))
   {
   }
 
@@ -207,14 +215,14 @@ private:
   };
 };
 
-template <typename DataReaderT, typename IndexReaderT>
+template <typename ReaderT>
 struct Index
 {
   typedef IndexForEachAdapter<
             MultiIndexAdapter<
-              OffsetToFeatureAdapter<FeaturesVector<DataReaderT>,
+              OffsetToFeatureAdapter<FeaturesVector<ReaderT>,
                 UniqueOffsetAdapter<
-                  ScaleIndex<IndexReaderT>
+                  ScaleIndex<ReaderT>
                 >
               >
             >

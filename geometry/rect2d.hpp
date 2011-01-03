@@ -17,6 +17,7 @@ namespace m2
     template <typename T> struct min_max_value<T, true>
     {
       T get_min() { return numeric_limits<T>::max(); }
+      // TODO: There is an overflow here: -(-128) != 127.
       T get_max() { return -get_min(); }
     };
     template <typename T> struct min_max_value<T, false>
@@ -50,6 +51,16 @@ namespace m2
     explicit Rect(Rect<U> const & src)
       : m_minX(src.minX()), m_minY(src.minY()), m_maxX(src.maxX()), m_maxY(src.maxY())
     {
+    }
+
+    static Rect GetEmptyRect() { return Rect(); }
+
+    static Rect GetInfiniteRect()
+    {
+      T const tMax = numeric_limits<T>::max();
+      // This works for both ints and floats.
+      T const tMin = min(-tMax, numeric_limits<T>::min());
+      return Rect(tMin, tMin, tMax, tMax);
     }
 
     void MakeEmpty()

@@ -42,7 +42,7 @@ namespace model
     typedef FileReader reader_t;
 #endif
 
-    typedef Index<reader_t, reader_t>::Type index_t;
+    typedef Index<reader_t>::Type index_t;
 
     index_t m_multiIndex;
 
