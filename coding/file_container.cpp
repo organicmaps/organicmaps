@@ -58,7 +58,7 @@ FileReader FilesContainerR::GetReader(Tag const & tag) const
 /////////////////////////////////////////////////////////////////////////////
 
 FilesContainerW::FilesContainerW(string const & fName, FileWriter::Op op)
-: m_name(fName)
+: m_name(fName), m_bFinished(false)
 {
   if (op == FileWriter::OP_APPEND)
   {
@@ -76,8 +76,15 @@ FilesContainerW::FilesContainerW(string const & fName, FileWriter::Op op)
   }
 }
 
+FilesContainerW::~FilesContainerW()
+{
+  if (!m_bFinished)
+    Finish();
+}
+
 uint64_t FilesContainerW::SaveCurrentSize()
 {
+  ASSERT(!m_bFinished, ());
   uint64_t const curr = FileReader(m_name).Size();
   if (!m_info.empty())
     m_info.back().m_size = curr - m_info.back().m_offset;
@@ -86,6 +93,7 @@ uint64_t FilesContainerW::SaveCurrentSize()
 
 FileWriter FilesContainerW::GetWriter(Tag const & tag)
 {
+  ASSERT(!m_bFinished, ());
   if (m_needRewrite)
   {
     m_needRewrite = false;
@@ -108,6 +116,7 @@ FileWriter FilesContainerW::GetWriter(Tag const & tag)
 
 void FilesContainerW::Append(string const & fName, Tag const & tag)
 {
+  ASSERT(!m_bFinished, ());
   uint64_t const bufferSize = 4*1024;
   char buffer[bufferSize];
 
@@ -129,12 +138,14 @@ void FilesContainerW::Append(string const & fName, Tag const & tag)
 
 void FilesContainerW::Append(vector<char> const & buffer, Tag const & tag)
 {
+  ASSERT(!m_bFinished, ());
   if (!buffer.empty())
     GetWriter(tag).Write(&buffer[0], buffer.size());
 }
 
 void FilesContainerW::Finish()
 {
+  ASSERT(!m_bFinished, ());
   {
     uint64_t const curr = SaveCurrentSize();
     FileWriter writer(m_name, FileWriter::OP_WRITE_EXISTING);
@@ -158,4 +169,6 @@ void FilesContainerW::Finish()
     WriteVarUint(writer, m_info[i].m_offset);
     WriteVarUint(writer, m_info[i].m_size);
   }
+
+  m_bFinished = true;
 }

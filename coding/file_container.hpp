@@ -72,10 +72,12 @@ class FilesContainerW : public FilesContainerBase
   uint64_t SaveCurrentSize();
 
   bool m_needRewrite;
+  bool m_bFinished;
 
 public:
   FilesContainerW(string const & fName,
                   FileWriter::Op op = FileWriter::OP_WRITE_TRUNCATE);
+  ~FilesContainerW();
 
   FileWriter GetWriter(Tag const & tag);
 
