@@ -1,6 +1,9 @@
 #include "../../testing/testing.hpp"
 
 #include "../platform.hpp"
+
+#include "../../storage/defines.hpp"
+
 #include "../../std/stdio.hpp"
 
 #include "../../base/start_mem_debug.hpp"
@@ -72,7 +75,7 @@ UNIT_TEST(GetFilesInDir)
 {
   Platform & pl = GetPlatform();
   Platform::FilesList files;
-  TEST_GREATER(pl.GetFilesInDir(pl.WritableDir(), "*.dat", files), 0, ("/data/ folder should contain some *.dat files"));
+  TEST_GREATER(pl.GetFilesInDir(pl.WritableDir(), "*" DATA_FILE_EXTENSION, files), 0, ("/data/ folder should contain some data files"));
 
   TEST_EQUAL(pl.GetFilesInDir(pl.WritableDir(), "asdnonexistentfile.dsa", files), 0, ());
   TEST_EQUAL(files.size(), 0, ());
