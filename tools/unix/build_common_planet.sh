@@ -93,3 +93,5 @@ fi
 $PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
   --use_light_nodes=$LIGHT_NODES --bucketing_level=$BUCKETING_LEVEL \
   --generate_final_data --sort_features=true --generate_index --worldmap_max_zoom=5
+
+$INDEXER_TOOL --generate_update
