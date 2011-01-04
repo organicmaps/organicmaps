@@ -55,6 +55,12 @@ public:
                            uint32_t logPageCount = 10);
 
   FileReader GetReader(Tag const & tag) const;
+
+  template <typename F> void ForEachTag(F f) const
+  {
+    for (size_t i = 0; i < m_info.size(); ++i)
+      f(m_info[i].m_tag);
+  }
 };
 
 class FilesContainerW : public FilesContainerBase
