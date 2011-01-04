@@ -21,7 +21,7 @@ protected:
     Info(Tag const & tag, uint64_t offset) : m_tag(tag), m_offset(offset) {}
   };
 
-  struct less_info
+  struct LessInfo
   {
     bool operator() (Info const & t1, Info const & t2) const
     {
@@ -37,18 +37,14 @@ protected:
     }
   };
 
-  typedef vector<Info> info_cont_t;
-  info_cont_t m_info;
+  typedef vector<Info> InfoContainer;
+  InfoContainer m_info;
 
   void ReadInfo(FileReader & reader);
 };
 
 class FilesContainerR : public FilesContainerBase
 {
-  typedef FilesContainerBase base_type;
-
-  FileReader m_source;
-
 public:
   explicit FilesContainerR(string const & fName,
                            uint32_t logPageSize = 10,
@@ -61,19 +57,13 @@ public:
     for (size_t i = 0; i < m_info.size(); ++i)
       f(m_info[i].m_tag);
   }
+
+private:
+  FileReader m_source;
 };
 
 class FilesContainerW : public FilesContainerBase
 {
-  typedef FilesContainerBase base_type;
-
-  string m_name;
-
-  uint64_t SaveCurrentSize();
-
-  bool m_needRewrite;
-  bool m_bFinished;
-
 public:
   FilesContainerW(string const & fName,
                   FileWriter::Op op = FileWriter::OP_WRITE_TRUNCATE);
@@ -85,4 +75,11 @@ public:
   void Append(vector<char> const & buffer, Tag const & tag);
 
   void Finish();
+
+private:
+  uint64_t SaveCurrentSize();
+
+  string m_name;
+  bool m_bNeedRewrite;
+  bool m_bFinished;
 };

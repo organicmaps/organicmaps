@@ -44,8 +44,8 @@ FilesContainerR::FilesContainerR(string const & fName,
 
 FileReader FilesContainerR::GetReader(Tag const & tag) const
 {
-  info_cont_t::const_iterator i =
-    lower_bound(m_info.begin(), m_info.end(), tag, less_info());
+  InfoContainer::const_iterator i =
+    lower_bound(m_info.begin(), m_info.end(), tag, LessInfo());
 
   if (i != m_info.end() && i->m_tag == tag)
     return m_source.SubReader(i->m_offset, i->m_size);
@@ -64,7 +64,7 @@ FilesContainerW::FilesContainerW(string const & fName, FileWriter::Op op)
   {
     FileReader reader(fName);
     ReadInfo(reader);
-    m_needRewrite = true;
+    m_bNeedRewrite = true;
   }
 
   if (m_info.empty())
@@ -72,7 +72,7 @@ FilesContainerW::FilesContainerW(string const & fName, FileWriter::Op op)
     FileWriter writer(fName);
     uint64_t skip = 0;
     writer.Write(&skip, sizeof(skip));
-    m_needRewrite = false;
+    m_bNeedRewrite = false;
   }
 }
 
@@ -94,9 +94,9 @@ uint64_t FilesContainerW::SaveCurrentSize()
 FileWriter FilesContainerW::GetWriter(Tag const & tag)
 {
   ASSERT(!m_bFinished, ());
-  if (m_needRewrite)
+  if (m_bNeedRewrite)
   {
-    m_needRewrite = false;
+    m_bNeedRewrite = false;
     ASSERT ( !m_info.empty(), () );
 
     uint64_t const curr = m_info.back().m_offset + m_info.back().m_size;
@@ -153,7 +153,7 @@ void FilesContainerW::Finish()
     WriteToSink(writer, curr);
   }
 
-  sort(m_info.begin(), m_info.end(), less_info());
+  sort(m_info.begin(), m_info.end(), LessInfo());
 
   FileWriter writer(m_name, FileWriter::OP_APPEND);
 
