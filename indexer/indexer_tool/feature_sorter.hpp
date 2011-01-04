@@ -5,5 +5,5 @@
 namespace feature
 {
   // sorts features in the given file by their mid points
-  void SortDatFile(string const & datFile, bool removeOriginalFile = true);
+  bool SortDatFile(string const & datFile, bool removeOriginalFile = true);
 }

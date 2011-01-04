@@ -62,18 +62,18 @@ namespace
 
 namespace feature
 {
-  void SortDatFile(string const & datFilePath, bool removeOriginalFile)
+  bool SortDatFile(string const & datFilePath, bool removeOriginalFile)
   {
     // rename input file
     Platform & platform = GetPlatform();
     string tempDatFilePath(datFilePath);
     tempDatFilePath += ".notsorted";
 
-    // file doesn't exist
+    FileWriter::DeleteFile(tempDatFilePath);
     if (!platform.RenameFileX(datFilePath, tempDatFilePath))
     {
-      LOG(LINFO, ("File ", datFilePath, " doesn't exist or sharing violation!"));
-      return;
+      LOG(LWARNING, ("File ", datFilePath, " doesn't exist or sharing violation!"));
+      return false;
     }
 
     // stores cellIds for middle points
@@ -117,5 +117,7 @@ namespace feature
       FileWriter::DeleteFile(datFilePath + GEOMETRY_FILE_TAG);
       FileWriter::DeleteFile(datFilePath + TRIANGLE_FILE_TAG);
     }
+
+    return true;
   }
 } // namespace feature

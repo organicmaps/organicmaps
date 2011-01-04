@@ -134,11 +134,16 @@ int main(int argc, char ** argv)
   // Enumerate over all dat files that were created.
   for (size_t i = 0; i < genInfo.bucketNames.size(); ++i)
   {
-    string const datFile = genInfo.bucketNames[i];
+    string const & datFile = genInfo.bucketNames[i];
+
     if (FLAGS_sort_features)
     {
       LOG(LINFO, ("Sorting features inside", datFile));
-      feature::SortDatFile(datFile);
+      if (!feature::SortDatFile(datFile))
+      {
+        // If error - move to next bucket without index generation
+        continue;
+      }
     }
 
     if (FLAGS_generate_index)
