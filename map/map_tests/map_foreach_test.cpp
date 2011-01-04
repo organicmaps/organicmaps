@@ -26,20 +26,24 @@ typedef vector<pair<FeatureType, string> > feature_cont_t;
 
 class AccumulatorBase
 {
-  int m_scale;
-
+  mutable string m_dbgString;
   feature_cont_t & m_cont;
 
 protected:
+  int m_scale;
+
   bool is_drawable(FeatureType const & f) const
   {
-    return feature::IsDrawableForIndex(f, m_scale);
+    m_dbgString = f.DebugString(m_scale);
+    CHECK(m_dbgString == f.DebugString(m_scale), ());
+
+    // Feature that hasn't any geometry for m_scale returns empty DebugString().
+    return (!m_dbgString.empty() && feature::IsDrawableForIndex(f, m_scale));
   }
 
   void add(FeatureType const & f) const
   {
-    string const s = f.DebugString();
-    m_cont.push_back(make_pair(f, s));
+    m_cont.push_back(make_pair(f, m_dbgString));
   }
 
 public:
@@ -51,9 +55,6 @@ public:
 
   void operator() (FeatureType const & f) const
   {
-    string const dbg = f.DebugString();
-    ASSERT ( dbg == f.DebugString(), () );
-
     if (is_drawable(f))
       add(f);
   }
@@ -101,7 +102,7 @@ class AccumulatorEtalon : public AccumulatorBase
   bool is_intersect(FeatureType const & f) const
   {
     IntersectCheck check(m_rect);
-    f.ForEachPointRef(check, scales::GetScaleLevel(m_rect));
+    f.ForEachPointRef(check, m_scale);
     return check.IsIntersect();
   }
 
@@ -113,8 +114,6 @@ public:
 
   void operator() (FeatureType const & f, uint64_t /*offset*/) const
   {
-    ASSERT ( f.DebugString() == f.DebugString(), () );
-
     if (is_drawable(f) && is_intersect(f))
       add(f);
   }
@@ -186,20 +185,6 @@ bool compare_sequence(TCont const & etalon, TCont const & test, TCompare comp, s
       break;
     case -1:
       {
-        // *i1 exists in etalon, but not exists in test
-        //vector<int64_t> c = covering::CoverFeature((*i1).first);
-        //m2::RectD cRect;
-        //for (size_t i = 0; i < c.size(); ++i)
-        //{
-        //  RectId id = RectId::FromInt64(c[i]);
-        //  CoordT b[4];
-        //  CellIdConverter<MercatorBounds, RectId>::GetCellBounds(id, b[0], b[1], b[2], b[3]);
-        //  cRect.Add(m2::RectD(b[0], b[1], b[2], b[3]));
-        //}
-
-        //m2::RectD const fRect = (*i1).first.GetLimitRect();
-        //ASSERT ( cRect.IsPointInside(fRect.LeftTop()) && cRect.IsPointInside(fRect.RightBottom()), (fRect, cRect) );
-
         errInd = distance(etalon.begin(), i1);
         return false;
       }
@@ -217,16 +202,17 @@ namespace
   class FindOffset
   {
     pair<FeatureType, string> const & m_test;
+    int m_level;
+
   public:
-    FindOffset(pair<FeatureType, string> const & test) : m_test(test) {}
+    FindOffset(int level, pair<FeatureType, string> const & test)
+      : m_level(level), m_test(test)
+    {}
 
     void operator() (FeatureType const & f, uint64_t offset)
     {
-      if (f.DebugString() == m_test.second)
-      {
-        my::g_LogLevel = LDEBUG;
+      if (f.DebugString(m_level) == m_test.second)
         LOG(LINFO, ("Offset = ", offset));
-      }
     }
   };
 }
@@ -256,14 +242,17 @@ UNIT_TEST(IndexForEachTest)
     file_source_t src2(path);
     for_each_in_rect<AccumulatorEtalon>(src2, v2, r);
 
+    int const level = scales::GetScaleLevel(r);
+
     size_t errInd;
     if (!compare_sequence(v2, v1, compare_strings(), errInd))
     {
-      src2.ForEachFeature(r, FindOffset(v2[errInd]));
+      LOG(LINFO, ("Failed for rect: ", r, ". Etalon size = ", v2.size(), ". Index size = ", v1.size()));
+      src2.ForEachFeature(r, FindOffset(level, v2[errInd]));
       TEST(false, ("Error in ForEachFeature test"));
     }
 
-    if (!v2.empty() && (scales::GetScaleLevel(r) < scales::GetUpperScale()))
+    if (!v2.empty() && (level < scales::GetUpperScale()))
     {
       m2::RectD r1, r2;
       r.DivideByGreaterSize(r1, r2);

@@ -102,12 +102,14 @@ UNIT_TEST(Feature_Deserialize)
   //TEST_EQUAL(f.GetGeometrySize(), 4, ());
   //TEST_EQUAL(f.GetTriangleCount(), 1, ());
 
+  int const level = FeatureType::m_defScale;
+
   PointAccumulator featurePoints;
-  f.ForEachPointRef(featurePoints, FeatureType::m_defScale);
+  f.ForEachPointRef(featurePoints, level);
   TEST_EQUAL(points, featurePoints.m_V, ());
 
   PointAccumulator featureTriangles;
-  f.ForEachTriangleRef(featureTriangles, FeatureType::m_defScale);
+  f.ForEachTriangleRef(featureTriangles, level);
   TEST_EQUAL(triangles, featureTriangles.m_V, ());
 
   double const eps = MercatorBounds::GetCellID2PointAbsEpsilon();
@@ -122,6 +124,6 @@ UNIT_TEST(Feature_Deserialize)
 
     FeatureType fTest;
     FeatureBuilder2Feature(fbTest, fTest);
-    TEST_EQUAL(f.DebugString(), fTest.DebugString(), ());
+    TEST_EQUAL(f.DebugString(level), fTest.DebugString(level), ());
   }
 }

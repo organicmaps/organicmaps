@@ -321,10 +321,11 @@ protected:
   template <class TSource> void ParseGeometryImpl(TSource & src) const;
   template <class TSource> void ParseTrianglesImpl(TSource & src) const;
 
+  virtual string DebugString(int scale) const;
   virtual void ParseGeometry(int scale) const;
   virtual void ParseTriangles(int scale) const;
 
-  void ParseAll() const;
+  void ParseAll(int scale) const;
 
   mutable vector<m2::PointD> m_Geometry;
   mutable vector<m2::PointD> m_Triangles;
@@ -351,9 +352,10 @@ public:
 
   void Deserialize(read_source_t & src);
 
-protected:
   /// @name Overwrite from base_type.
   //@{
+  virtual string DebugString(int scale) const;
+protected:
   virtual void ParseGeometry(int scale) const;
   virtual void ParseTriangles(int scale) const;
   //@}
@@ -378,12 +380,6 @@ inline string debug_print(FeatureGeom const & f)
 {
   return f.DebugString();
 }
-
-inline string debug_print(FeatureGeomRef const & f)
-{
-  return f.DebugString();
-}
-
 
 typedef FeatureGeomRef FeatureType;
 typedef FeatureBuilderGeomRef FeatureBuilderType;

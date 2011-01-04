@@ -29,7 +29,7 @@ UNIT_TEST(BuildIndexTest)
   }
 
   // Create a new mwm file.
-  string const fileName = p.WritablePathForFile("build_index_test" DATA_FILE_EXTENSION);
+  string const fileName = "build_index_test" DATA_FILE_EXTENSION;
   FileWriter::DeleteFile(fileName);
 
   // Copy original mwm file and replace index in it.
@@ -50,12 +50,14 @@ UNIT_TEST(BuildIndexTest)
     containerWriter.Append(serialIndex, INDEX_FILE_TAG);
   }
 
-  // Check that index actually works.
-  Index<FileReader>::Type index;
-  index.Add(fileName);
+  {
+    // Check that index actually works.
+    Index<FileReader>::Type index;
+    index.Add(fileName);
 
-  // Make sure that index is actually parsed.
-  index.ForEachInScale(NoopFunctor(), 15);
+    // Make sure that index is actually parsed.
+    index.ForEachInScale(NoopFunctor(), 15);
+  }
 
   // Clean after the test.
   FileWriter::DeleteFile(fileName);

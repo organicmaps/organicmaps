@@ -490,27 +490,34 @@ void FeatureGeom::ParseTriangles(int scale) const
   ASSERT_EQUAL ( CalcOffset(source), m_Data.size() - m_Offset, () );
 }
 
-void FeatureGeom::ParseAll() const
+void FeatureGeom::ParseAll(int scale) const
 {
   if (!m_bGeometryParsed)
-    ParseGeometry(m_defScale);
+    ParseGeometry(scale);
 
   if (!m_bTrianglesParsed)
-    ParseTriangles(m_defScale);
+    ParseTriangles(scale);
 }
 
-string FeatureGeom::DebugString() const
+string FeatureGeom::DebugString(int scale) const
 {
-  ParseAll();
+  ParseAll(scale);
   string res = base_type::DebugString();
   res += debug_print(m_Geometry) + " ";
   res += debug_print(m_Triangles) + ")";
   return res;
 }
 
+string FeatureGeom::DebugString() const
+{
+  string ret = DebugString(m_defScale);
+  ASSERT ( !ret.empty(), () );
+  return ret;
+}
+
 void FeatureGeom::InitFeatureBuilder(FeatureBuilderGeom & fb) const
 {
-  ParseAll();
+  ParseAll(m_defScale);
   base_type::InitFeatureBuilder(fb);
 
   for (size_t i = 0; i < m_Geometry.size(); ++i)
@@ -552,10 +559,22 @@ uint32_t FeatureGeomRef::GetOffset(int scale) const
   return m_invalidOffset;
 }
 
+string FeatureGeomRef::DebugString(int scale) const
+{
+  if (!m_bOffsetsParsed)
+    ParseOffsets();
+
+  if (!m_bGeometryParsed && GetOffset(scale) == m_invalidOffset)
+    return string();
+  else
+    return base_type::DebugString(scale);
+}
+
 void FeatureGeomRef::ParseGeometry(int scale) const
 {
   if (!m_bOffsetsParsed)
     ParseOffsets();
+
   if (m_bGeometryParsed)
     return;
 
