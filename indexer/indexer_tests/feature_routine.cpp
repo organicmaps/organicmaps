@@ -26,6 +26,9 @@ void FeatureBuilder2Feature(FeatureBuilderGeomRef const & fb, FeatureGeomRef & f
   static FeatureGeomRef::read_source_t g_source(FileReader(datFile + ".geom"), FileReader(datFile + ".trg"));
   g_source.m_data.swap(buffers.m_buffers[0]);
   f.Deserialize(g_source);
+
+  FileWriter::DeleteFile(datFile + ".geom");
+  FileWriter::DeleteFile(datFile + ".trg");
 }
 
 void Feature2FeatureBuilder(FeatureGeomRef const & f, FeatureBuilderGeomRef & fb)
