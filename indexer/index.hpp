@@ -5,6 +5,7 @@
 #include "scale_index.hpp"
 #include "scales.hpp"
 
+#include "../../storage/defines.hpp"
 #include "../geometry/rect2d.hpp"
 #include "../coding/file_container.hpp"
 #include "../coding/varint.hpp"

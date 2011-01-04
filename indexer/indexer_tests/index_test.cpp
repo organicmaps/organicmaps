@@ -4,20 +4,9 @@
 #include "../../platform/platform.hpp"
 #include "../../coding/file_container.hpp"
 #include "../../base/macros.hpp"
+#include "../../base/stl_add.hpp"
 #include "../../std/string.hpp"
 
-namespace
-{
-
-struct NoopFunctor
-{
-  template <typename T> void operator () (T const & value) const
-  {
-    UNUSED_VALUE(value);
-  }
-};
-
-}
 
 UNIT_TEST(IndexParseTest)
 {

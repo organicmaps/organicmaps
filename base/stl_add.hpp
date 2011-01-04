@@ -89,3 +89,11 @@ struct DeleteFunctor
     delete p;
   }
 };
+
+struct NoopFunctor
+{
+  template <typename T> void operator () (T const & value) const
+  {
+    UNUSED_VALUE(value);
+  }
+};
