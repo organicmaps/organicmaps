@@ -5,18 +5,32 @@
 
 using namespace storage;
 
-// Settings are always present globally
-//static SettingsManager gInstance;
+static void OnCountryChange(TIndex const & index)
+{
 
+}
+
+static void OnCountryDownloadProgress(TIndex const & index, TDownloadProgress const & progress)
+{
+
+}
+
+static void OnUpdateCheck(int64_t size, char const * readme)
+{
+
+}
+
+// Settings are always present globally
 @implementation SettingsManager
 
-	CountriesViewController * m_countriesViewController = nil;
+	storage::Storage * g_storage = 0;
+  UINavigationController * g_navController = nil;
 
 // Destructor
 - (void) dealloc
 {
-	if (m_countriesViewController)
-  	[m_countriesViewController release];
+	if (g_navController)
+  	[g_navController release];
   [super dealloc];
 }
 
@@ -28,21 +42,28 @@ using namespace storage;
 
 // Currently displays only countries to download
 + (void) Show: (UIViewController *)parentController WithStorage: (Storage &)storage
-
 {
-	if (!m_countriesViewController)
-  	m_countriesViewController = [[CountriesViewController alloc] initWithStorage:storage];
+	g_storage = &storage;
+	if (!g_navController)
+  {
+  	CountriesViewController * rootViewController = [[CountriesViewController alloc] initWithStorage:storage
+    		andIndex:TIndex() andHeader:@"Download"];
+  	g_navController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
+    
+  	storage.Subscribe(&OnCountryChange, &OnCountryDownloadProgress, &OnUpdateCheck);
+  }
 
-  [parentController presentModalViewController:m_countriesViewController animated:YES];
+  [parentController presentModalViewController:g_navController animated:YES];
 }
 
 // Hides all opened settings windows
 + (void) Hide
 {
-	if (m_countriesViewController)
+	if (g_navController)
   {
-		[[m_countriesViewController parentViewController] dismissModalViewControllerAnimated:YES];
-  	m_countriesViewController = nil;
+    g_storage->Unsubscribe();
+		[[g_navController parentViewController] dismissModalViewControllerAnimated:YES];
+  	g_navController = nil;
   }
 }
 

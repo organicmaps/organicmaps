@@ -5,9 +5,6 @@
 #include <netinet/in.h>
 #import <SystemConfiguration/SCNetworkReachability.h>
 
-#include "../../../storage/storage.hpp"
-#include <boost/bind.hpp>
-
 #define NAVIGATION_BAR_HEIGHT	44
 #define MAX_3G_MEGABYTES 100
 
@@ -16,87 +13,48 @@
 
 using namespace storage;
 
-
-/////////////////////////////////////////////////////////////////
-// needed for trick with back button
-@interface NotAnimatedNavigationBar : UINavigationBar
-@end;
-@implementation NotAnimatedNavigationBar
-- (UINavigationItem *) popNavigationItemAnimated: (BOOL)animated
+TIndex CalculateIndex(TIndex const & parentIndex, NSIndexPath * indexPath)
 {
-	return [super popNavigationItemAnimated:NO];
+  TIndex index = parentIndex;
+  if (index.m_group == -1)
+  	index.m_group = indexPath.row;
+  else if (index.m_country == -1)
+  	index.m_country = indexPath.row;
+  else
+  	index.m_region = indexPath.row;
+  return index;
 }
-@end
-/////////////////////////////////////////////////////////////////
 
 @implementation CountriesViewController
 
-	Storage * g_pStorage = 0;
-
-- (id) initWithStorage: (Storage &)storage
-{
-	g_pStorage = &storage;
-  if ((self = [super initWithNibName:@"CountriesViewController" bundle:nil]))
-  {
-  	// tricky boost::bind for objC class methods
-  	typedef void (*TFinishFunc)(id, SEL, TIndex const &);
-    SEL finishSel = @selector(OnDownloadFinished:);
-  	TFinishFunc finishImpl = (TFinishFunc)[self methodForSelector:finishSel];
-    
-  	typedef void (*TProgressFunc)(id, SEL, TIndex const &, TDownloadProgress const &);
-    SEL progressSel = @selector(OnDownload:withProgress:);
-  	TProgressFunc progressImpl = (TProgressFunc)[self methodForSelector:progressSel];
-    
-  	storage.Subscribe(boost::bind(finishImpl, self, finishSel, _1),
-    		boost::bind(progressImpl, self, progressSel, _1, _2), NULL);
-  }
-	return self;
-}
-
-- (void) dealloc
-{
-	g_pStorage->Unsubscribe();
-  [super dealloc];
-}
-
-// called on Map button click
-- (void) navigationBar: (UINavigationBar *)navigationBar didPopItem: (UINavigationItem *)item
+- (void) OnCloseButton: (id) sender
 {
 	[SettingsManager Hide];
+}
+
+- (id) initWithStorage: (Storage &)storage andIndex: (TIndex const &) index andHeader: (NSString *)header
+{
+	m_storage = &storage;
+  m_index = index;
+  if ((self = [super initWithNibName:nil bundle:nil]))
+  {
+  	UIBarButtonItem * button = [[UIBarButtonItem alloc] initWithTitle:@"Close" style: UIBarButtonItemStyleDone
+				target:self action:@selector(OnCloseButton:)];
+  	self.navigationItem.rightBarButtonItem = button;
+    self.navigationItem.title = header;
+  }
+	return self;
 }
 
 - (void) loadView
 {
 	CGRect appRect = [UIScreen mainScreen].applicationFrame;
-	UIView * rootView = [[UIView alloc] initWithFrame:appRect];
-  rootView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-  
-  CGRect navBarRect = CGRectMake(0, 0, appRect.size.width, NAVIGATION_BAR_HEIGHT);
-  NotAnimatedNavigationBar * bar = [[NotAnimatedNavigationBar alloc] initWithFrame:navBarRect];
-  bar.delegate = self;
-  
-  UINavigationItem * item1 = [[UINavigationItem alloc] initWithTitle:@"Map"];	// title for Back button
-  [item1.backBarButtonItem setAction:@selector(OnBackClick:)];
-  [bar pushNavigationItem:item1 animated:NO];
-	[item1 release];
-  UINavigationItem * item2 = [[UINavigationItem alloc] initWithTitle:@"Download Manager"];
-  [item2 setHidesBackButton:NO animated:NO];
-  [bar pushNavigationItem:item2 animated:NO];
-  [item2 release];
-    
-  [rootView addSubview:bar];
-  [bar release];
-  
-  CGRect tableRect = CGRectMake(0, navBarRect.size.height, navBarRect.size.width, appRect.size.height - navBarRect.size.height);
-  UITableView * countriesTableView = [[UITableView alloc] initWithFrame:tableRect style:UITableViewStylePlain];
+  UITableView * countriesTableView = [[UITableView alloc] initWithFrame:appRect style:UITableViewStylePlain];
+  countriesTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
   countriesTableView.delegate = self;
-  countriesTableView.dataSource = self;
-  
-  [rootView addSubview:countriesTableView];
-  [countriesTableView release];
-  
-  self.view = rootView;
-	[rootView release];
+	countriesTableView.dataSource = self;
+  self.view = countriesTableView;
+  [countriesTableView release];  
 }
 
 // Override to allow orientations other than the default portrait orientation.
@@ -105,26 +63,26 @@ using namespace storage;
 	return YES;
 }
 
-- (NSInteger) numberOfSectionsInTableView: (UITableView *)tableView
-{
-	return 0;//g_pStorage->GroupsCount();
-}
-
-- (NSString *) tableView: (UITableView *)tableView titleForHeaderInSection: (NSInteger)section
-{	
-	return @"TODO";//[NSString stringWithUTF8String: g_pStorage->GroupName(section).c_str()];
-}
+//- (NSInteger) numberOfSectionsInTableView: (UITableView *)tableView
+//{
+//	return 0;
+//}
+//
+//- (NSString *) tableView: (UITableView *)tableView titleForHeaderInSection: (NSInteger)section
+//{	
+//	return nil;
+//}
 
 - (NSInteger) tableView: (UITableView *)tableView numberOfRowsInSection: (NSInteger)section
 {
-	return 0;//g_pStorage->CountriesCountInGroup(section);
+	return m_storage->CountriesCount(m_index);
 }
 
 - (void) UpdateCell: (UITableViewCell *) cell forCountry: (TIndex const &) countryIndex
 {
   UIActivityIndicatorView * indicator = (UIActivityIndicatorView *)cell.accessoryView;
 
-	switch (g_pStorage->CountryStatus(countryIndex))
+	switch (m_storage->CountryStatus(countryIndex))
   {
   case EOnDisk:
   	{
@@ -201,10 +159,13 @@ using namespace storage;
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier: cellId];
   if (cell == nil)
   	cell = [[[UITableViewCell alloc] initWithStyle: UITableViewCellStyleSubtitle reuseIdentifier:cellId] autorelease];
-  TIndex countryIndex(indexPath.section, indexPath.row);
-  cell.textLabel.text = [NSString stringWithUTF8String:g_pStorage->CountryName(countryIndex).c_str()];
-  cell.accessoryType = UITableViewCellAccessoryNone;
-  [self UpdateCell: cell forCountry: countryIndex];
+  TIndex index = CalculateIndex(m_index, indexPath);
+	cell.textLabel.text = [NSString stringWithUTF8String:m_storage->CountryName(index).c_str()];
+  if (m_storage->CountriesCount(index))
+  	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+  else
+  	cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+//  [self UpdateCell: cell forCountry: countryIndex];
   return cell;
 }
 
@@ -216,14 +177,14 @@ TIndex g_clickedIndex;
 {
     if (buttonIndex == 0)
     {	// Delete country
-    	switch (g_pStorage->CountryStatus(g_clickedIndex))
+    	switch (m_storage->CountryStatus(g_clickedIndex))
       {
       case ENotDownloaded:
       case EDownloadFailed:
-      	g_pStorage->DownloadCountry(g_clickedIndex);
+      	m_storage->DownloadCountry(g_clickedIndex);
         break;
       default:
-      	g_pStorage->DeleteCountry(g_clickedIndex);
+      	m_storage->DeleteCountry(g_clickedIndex);
       }
     }
 }
@@ -257,85 +218,90 @@ TIndex g_clickedIndex;
 	// deselect the current row (don't keep the table selection persistent)
 	[tableView deselectRowAtIndexPath: indexPath animated:YES];
   UITableViewCell * cell = [tableView cellForRowAtIndexPath: indexPath];
-	NSString * countryName = [[cell textLabel] text];
-
-	g_clickedIndex = TIndex(indexPath.section, indexPath.row);
-	switch (g_pStorage->CountryStatus(g_clickedIndex))
-  {
-  	case EOnDisk:
-    {	// display confirmation popup
-    	UIActionSheet * popupQuery = [[UIActionSheet alloc]
-      		initWithTitle: countryName
-        	delegate: self
-        	cancelButtonTitle: @"Cancel"
-        	destructiveButtonTitle: @"Delete"
-        	otherButtonTitles: nil];
-    	[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
-    	[popupQuery release];
-    }
-  	break;
-  	case ENotDownloaded:
-  	case EDownloadFailed:
-  	{	// display confirmation popup with country size
-    	BOOL isWifiConnected = [CountriesViewController IsUsingWIFI];
-      
-    	uint64_t size = 0;//g_pStorage->CountrySizeInBytes(g_clickedIndex);
-  		// convert size to human readable values
-      NSString * strTitle = nil;
-      NSString * strDownload = nil;
-  		if (size > GB)
-  		{
-    		size /= GB;
-				if (isWifiConnected)
-        	strTitle = [NSString stringWithFormat:@"%@", countryName];
-        else
-        	strTitle = [NSString stringWithFormat:@"We strongly recommend using WIFI for downloading %@", countryName];
-        strDownload = [NSString stringWithFormat:@"Download %qu GB", size];
-    	}
-  		else if (size > MB)
-  		{
-    		size /= MB;
-				if (isWifiConnected || size < MAX_3G_MEGABYTES)
-        	strTitle = [NSString stringWithFormat:@"%@", countryName];
-        else
-        	strTitle = [NSString stringWithFormat:@"We strongly recommend using WIFI for downloading %@", countryName];
-        strDownload = [NSString stringWithFormat:@"Download %qu MB", size];
-  		}
-  		else
-  		{
-    		size = (size + 999) / 1000;
-        strTitle = [NSString stringWithFormat:@"%@", countryName];
-        strDownload = [NSString stringWithFormat:@"Download %qu kB", size];
-  		}
-
-    	UIActionSheet * popupQuery = [[UIActionSheet alloc]
-      		initWithTitle: strTitle
-        	delegate: self
-        	cancelButtonTitle: @"Cancel"
-        	destructiveButtonTitle: strDownload
-        	otherButtonTitles: nil];
-    	[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
-    	[popupQuery release];    	
-//  	g_pStorage->DownloadCountry(g_clickedIndex);
-		}
-  	break;
-  	case EDownloading:
-    { // display confirmation popup
-    	UIActionSheet * popupQuery = [[UIActionSheet alloc]
-      		initWithTitle: countryName
-        	delegate: self
-        	cancelButtonTitle: @"Do Nothing"
-        	destructiveButtonTitle: @"Cancel Download"
-        	otherButtonTitles: nil];
-    	[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
-    	[popupQuery release];
-    }
-    break;
-  	case EInQueue:
-  	// cancel download
-    g_pStorage->DeleteCountry(g_clickedIndex);
-		break;
-  }
+  // Push the new table view on the stack
+	TIndex index = CalculateIndex(m_index, indexPath);
+	CountriesViewController * newController = [[CountriesViewController alloc] initWithStorage:*m_storage
+  		andIndex: index andHeader: cell.textLabel.text];
+	[self.navigationController pushViewController:newController animated:YES];
+//	NSString * countryName = [[cell textLabel] text];
+//
+//	g_clickedIndex = TIndex(indexPath.section, indexPath.row);
+//	switch (g_pStorage->CountryStatus(g_clickedIndex))
+//  {
+//  	case EOnDisk:
+//    {	// display confirmation popup
+//    	UIActionSheet * popupQuery = [[UIActionSheet alloc]
+//      		initWithTitle: countryName
+//        	delegate: self
+//        	cancelButtonTitle: @"Cancel"
+//        	destructiveButtonTitle: @"Delete"
+//        	otherButtonTitles: nil];
+//    	[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
+//    	[popupQuery release];
+//    }
+//  	break;
+//  	case ENotDownloaded:
+//  	case EDownloadFailed:
+//  	{	// display confirmation popup with country size
+//    	BOOL isWifiConnected = [CountriesViewController IsUsingWIFI];
+//      
+//    	uint64_t size = 0;//g_pStorage->CountrySizeInBytes(g_clickedIndex);
+//  		// convert size to human readable values
+//      NSString * strTitle = nil;
+//      NSString * strDownload = nil;
+//  		if (size > GB)
+//  		{
+//    		size /= GB;
+//				if (isWifiConnected)
+//        	strTitle = [NSString stringWithFormat:@"%@", countryName];
+//        else
+//        	strTitle = [NSString stringWithFormat:@"We strongly recommend using WIFI for downloading %@", countryName];
+//        strDownload = [NSString stringWithFormat:@"Download %qu GB", size];
+//    	}
+//  		else if (size > MB)
+//  		{
+//    		size /= MB;
+//				if (isWifiConnected || size < MAX_3G_MEGABYTES)
+//        	strTitle = [NSString stringWithFormat:@"%@", countryName];
+//        else
+//        	strTitle = [NSString stringWithFormat:@"We strongly recommend using WIFI for downloading %@", countryName];
+//        strDownload = [NSString stringWithFormat:@"Download %qu MB", size];
+//  		}
+//  		else
+//  		{
+//    		size = (size + 999) / 1000;
+//        strTitle = [NSString stringWithFormat:@"%@", countryName];
+//        strDownload = [NSString stringWithFormat:@"Download %qu kB", size];
+//  		}
+//
+//    	UIActionSheet * popupQuery = [[UIActionSheet alloc]
+//      		initWithTitle: strTitle
+//        	delegate: self
+//        	cancelButtonTitle: @"Cancel"
+//        	destructiveButtonTitle: strDownload
+//        	otherButtonTitles: nil];
+//    	[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
+//    	[popupQuery release];    	
+////  	g_pStorage->DownloadCountry(g_clickedIndex);
+//		}
+//  	break;
+//  	case EDownloading:
+//    { // display confirmation popup
+//    	UIActionSheet * popupQuery = [[UIActionSheet alloc]
+//      		initWithTitle: countryName
+//        	delegate: self
+//        	cancelButtonTitle: @"Do Nothing"
+//        	destructiveButtonTitle: @"Cancel Download"
+//        	otherButtonTitles: nil];
+//    	[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
+//    	[popupQuery release];
+//    }
+//    break;
+//  	case EInQueue:
+//  	// cancel download
+//    g_pStorage->DeleteCountry(g_clickedIndex);
+//		break;
+//  }
 }
 
 - (void) OnDownloadFinished: (TIndex const &) index

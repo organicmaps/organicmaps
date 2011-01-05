@@ -243,9 +243,9 @@ namespace storage
     m_observerUpdateCheck = check;
 
     TTilesContainer tiles;
-    if (LoadTiles(tiles, GetPlatform().WritablePathForFile(UPDATE_CHECK_FILE), m_currentVersion))
+    if (LoadTiles(tiles, GetPlatform().ReadPathForFile(UPDATE_CHECK_FILE), m_currentVersion))
     {
-      if (!LoadCountries(GetPlatform().WritablePathForFile(COUNTRIES_FILE), tiles, m_countries))
+      if (!LoadCountries(GetPlatform().ReadPathForFile(COUNTRIES_FILE), tiles, m_countries))
         LOG(LWARNING, ("Can't load countries file", COUNTRIES_FILE));
     }
     else

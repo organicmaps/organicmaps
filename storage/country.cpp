@@ -146,7 +146,7 @@ namespace storage
         return false;
       }
     }
-    return true;
+    return countries.SiblingsCount() > 0;
   }
 
   void SaveTiles(string const & file, int32_t level, TDataFiles const & cellFiles, TCommonFiles const & commonFiles)
