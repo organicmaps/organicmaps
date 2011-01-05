@@ -134,7 +134,13 @@ namespace storage
           }
 
           if (found != last && !(line < found->first))
-            currentCountry->AddTile(*found);
+          {
+            // fix extension for data files
+            if (found->first.find_last_of(DATA_FILE_EXTENSION) == string::npos)
+              currentCountry->AddTile(TTile(found->first + DATA_FILE_EXTENSION, found->second));
+            else
+              currentCountry->AddTile(*found);
+          }
         }
         break;
       case 1: // country group
