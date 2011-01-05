@@ -14,7 +14,7 @@ namespace indexer
     try
     {
       FilesContainerR readCont(datFile);
-      FeaturesVector<FileReader> featuresVector(readCont);
+      FeaturesVector featuresVector(readCont);
 
       FilesContainerW writeCont(datFile, FileWriter::OP_APPEND);
       FileWriter writer = writeCont.GetWriter(INDEX_FILE_TAG);

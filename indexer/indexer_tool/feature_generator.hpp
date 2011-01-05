@@ -39,11 +39,11 @@ namespace feature
 
   protected:
     void Init();
-    void FilePreCondition(FileWriter const & f);
+
+    uint32_t GetFileSize(FileWriter const & f);
 
     void WriteHeader();
 
-    static void WriteBuffer(FileWriter & f, vector<char> const & bytes);
     void WriteFeatureBase(vector<char> const & bytes, FeatureBuilderGeom const & fb);
 
   public:
@@ -55,17 +55,5 @@ namespace feature
     ~FeaturesCollector();
 
     void operator() (FeatureBuilderGeom const & f);
-  };
-
-  class FeaturesCollectorRef : public FeaturesCollector
-  {
-    FilesContainerW m_writer;
-    FileWriter m_geoFile, m_trgFile;
-
-  public:
-    explicit FeaturesCollectorRef(string const & fName);
-    ~FeaturesCollectorRef();
-
-    void operator() (FeatureBuilderGeomRef const & f);
   };
 }

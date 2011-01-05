@@ -102,7 +102,7 @@ UNIT_TEST(Feature_Deserialize)
   //TEST_EQUAL(f.GetGeometrySize(), 4, ());
   //TEST_EQUAL(f.GetTriangleCount(), 1, ());
 
-  int const level = FeatureType::m_defScale;
+  int const level = 0;
 
   PointAccumulator featurePoints;
   f.ForEachPointRef(featurePoints, level);

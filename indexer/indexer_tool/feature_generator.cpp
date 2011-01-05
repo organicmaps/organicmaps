@@ -154,18 +154,14 @@ FeaturesCollector::FeaturesCollector(string const & bucket,
   Init();
 }
 
-void FeaturesCollector::FilePreCondition(FileWriter const & f)
+uint32_t FeaturesCollector::GetFileSize(FileWriter const & f)
 {
   // .dat file should be less than 4Gb
   uint64_t const pos = f.Pos();
-  CHECK_EQUAL ( static_cast<uint64_t>(static_cast<uint32_t>(pos)), pos,
-    ("Feature offset is out of 32bit boundary!") );
-}
+  uint32_t const ret = static_cast<uint32_t>(pos);
 
-void FeaturesCollector::WriteBuffer(FileWriter & f, vector<char> const & bytes)
-{
-  if (!bytes.empty())
-    f.Write(&bytes[0], bytes.size());
+  CHECK_EQUAL(static_cast<uint64_t>(ret), pos, ("Feature offset is out of 32bit boundary!"));
+  return ret;
 }
 
 void FeaturesCollector::WriteFeatureBase(vector<char> const & bytes, FeatureBuilderGeom const & fb)
@@ -184,7 +180,7 @@ void FeaturesCollector::WriteFeatureBase(vector<char> const & bytes, FeatureBuil
 
 void FeaturesCollector::operator() (FeatureBuilderGeom const & fb)
 {
-  FilePreCondition(m_datFile);
+  (void)GetFileSize(m_datFile);
 
   FeatureBuilderGeom::buffers_holder_t bytes;
   fb.Serialize(bytes);
@@ -203,51 +199,6 @@ void FeaturesCollector::WriteHeader()
 FeaturesCollector::~FeaturesCollector()
 {
   WriteHeader();
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////
-// FeaturesCollectorRef implementation
-/////////////////////////////////////////////////////////////////////////////////////////
-
-FeaturesCollectorRef::FeaturesCollectorRef(string const & fName)
-: FeaturesCollector(fName + DATA_FILE_TAG),
-  m_writer(fName),
-  m_geoFile(fName + GEOMETRY_FILE_TAG),
-  m_trgFile(fName + TRIANGLE_FILE_TAG)
-{
-}
-
-void FeaturesCollectorRef::operator() (FeatureBuilderGeomRef const & fb)
-{
-  FilePreCondition(m_datFile);
-  FilePreCondition(m_geoFile);
-  FilePreCondition(m_trgFile);
-
-  FeatureBuilderGeomRef::buffers_holder_t buffers;
-  buffers.m_lineOffset = static_cast<uint32_t>(m_geoFile.Pos());
-  buffers.m_trgOffset = static_cast<uint32_t>(m_trgFile.Pos());
-
-  fb.Serialize(buffers);
-  WriteFeatureBase(buffers.m_buffers[0], fb);
-
-  WriteBuffer(m_geoFile, buffers.m_buffers[1]);
-  WriteBuffer(m_trgFile, buffers.m_buffers[2]);
-}
-
-FeaturesCollectorRef::~FeaturesCollectorRef()
-{
-  WriteHeader();
-
-  // assume like we close files
-  m_datFile.Flush();
-  m_geoFile.Flush();
-  m_trgFile.Flush();
-
-  // make one file container
-  m_writer.Append(m_datFile.GetName(), DATA_FILE_TAG);
-  m_writer.Append(m_geoFile.GetName(), GEOMETRY_FILE_TAG);
-  m_writer.Append(m_trgFile.GetName(), TRIANGLE_FILE_TAG);
-  m_writer.Finish();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

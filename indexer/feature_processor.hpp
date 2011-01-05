@@ -13,7 +13,7 @@ namespace feature
   void ForEachFromDat(string const & fName, ToDo & toDo)
   {
     FilesContainerR container(fName);
-    FeaturesVector<FileReader> featureSource(container);
+    FeaturesVector featureSource(container);
     featureSource.ForEachOffset(bind<void>(ref(toDo), _1, _2));
   }
 

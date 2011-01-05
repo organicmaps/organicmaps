@@ -7,7 +7,7 @@
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 
-#include "../coding/file_reader.hpp"
+#include "../coding/file_container.hpp"
 
 #include "../base/base.hpp"
 
@@ -60,7 +60,7 @@ protected:
   typedef vector<m2::PointD> points_t;
 
   void SerializeBase(buffer_t & data) const;
-  static void SerializePoints(points_t const & points, buffer_t & data);
+  void SerializePoints(buffer_t & data) const;
   void SerializeTriangles(buffer_t & data) const;
 
   uint8_t GetHeader() const;
@@ -82,22 +82,23 @@ class FeatureBuilderGeomRef : public FeatureBuilderGeom
 {
   typedef FeatureBuilderGeom base_type;
 
-  bool IsDrawable(int lowS, int highS) const;
-  void SimplifyPoints(points_t const & in, points_t & out, int level) const;
-
 public:
 
   struct buffers_holder_t
   {
-    uint32_t m_lineOffset, m_trgOffset; ///< in
-    base_type::buffer_t m_buffers[3];   ///< out
+    vector<uint32_t> m_lineOffset;  // in
+    vector<uint32_t> m_trgOffset;   // in
+    uint32_t m_mask;
 
-    void clear()
-    {
-      for (int i = 0; i < 3; ++i)
-        m_buffers[i].clear();
-    }
+    base_type::buffer_t m_buffer;   // out
+
+    buffers_holder_t() : m_mask(0) {}
   };
+
+  bool IsDrawableLikeLine(int lowS, int highS) const;
+
+  points_t const & GetGeometry() const { return m_Geometry; }
+  vector<int64_t> const & GetTriangles() const { return m_Triangles; }
 
   /// @name Overwrite from base_type.
   //@{
@@ -338,13 +339,8 @@ class FeatureGeomRef : public FeatureGeom
 public:
   struct read_source_t : public base_type::read_source_t
   {
-    FileReader m_gF;
-    FileReader m_trgF;
-
-    read_source_t(FileReader const & gF, FileReader const & trgF)
-      : m_gF(gF), m_trgF(trgF)
-    {
-    }
+    FilesContainerR m_cont;
+    read_source_t(FilesContainerR const & cont) : m_cont(cont) {}
   };
 
   FeatureGeomRef() {}
@@ -361,8 +357,7 @@ protected:
   //@}
 
 private:
-  FileReader * m_gF;
-  FileReader * m_trgF;
+  FilesContainerR * m_cont;
 
   void ParseOffsets() const;
   mutable bool m_bOffsetsParsed;

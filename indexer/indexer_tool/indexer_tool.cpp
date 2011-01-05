@@ -138,8 +138,8 @@ int main(int argc, char ** argv)
 
     if (FLAGS_sort_features)
     {
-      LOG(LINFO, ("Sorting features inside", datFile));
-      if (!feature::SortDatFile(datFile))
+      LOG(LINFO, ("Generating result features for ", datFile));
+      if (!feature::GenerateFinalFeatures(datFile, FLAGS_sort_features))
       {
         // If error - move to next bucket without index generation
         continue;
@@ -148,7 +148,7 @@ int main(int argc, char ** argv)
 
     if (FLAGS_generate_index)
     {
-      LOG(LINFO, ("Generating index for", datFile));
+      LOG(LINFO, ("Generating index for ", datFile));
       if (!indexer::BuildIndexFromDatFile(datFile, FLAGS_intermediate_data_path + FLAGS_output))
       {
         LOG(LCRITICAL, ("Error generating index."));

@@ -2,37 +2,36 @@
 
 #include "feature_routine.hpp"
 
+#include "../feature_impl.hpp"
+
 #include "../../coding/file_writer.hpp"
 
-
-void WriteToFile(string const & fName, vector<char> const & buffer)
-{
-  FileWriter writer(fName);
-  if (!buffer.empty())
-    writer.Write(&buffer[0], buffer.size());
-}
 
 namespace
 {
   class feature_source_initializer
   {
     string m_name;
-  public:
     FeatureGeomRef::read_source_t * m_source;
 
+  public:
     feature_source_initializer(string const & fName)
-      : m_name(fName)
+      : m_name(fName), m_source(0)
     {
-      m_source = new FeatureGeomRef::read_source_t(
-        FileReader(fName + ".geom"), FileReader(fName + ".trg"));
+    }
+
+    FeatureGeomRef::read_source_t & get_source(vector<char> & buffer)
+    {
+      delete m_source;
+      m_source = new FeatureGeomRef::read_source_t(FilesContainerR(m_name));
+      m_source->m_data.swap(buffer);
+      return *m_source;
     }
 
     ~feature_source_initializer()
     {
       delete m_source;
-
-      FileWriter::DeleteFile(m_name + ".geom");
-      FileWriter::DeleteFile(m_name + ".trg");
+      FileWriter::DeleteFile(m_name);
     }
   };
 }
@@ -42,15 +41,29 @@ void FeatureBuilder2Feature(FeatureBuilderGeomRef const & fb, FeatureGeomRef & f
   string const datFile = "indexer_tests_tmp.dat";
 
   FeatureBuilderGeomRef::buffers_holder_t buffers;
-  buffers.m_lineOffset = buffers.m_trgOffset = 0;
+  buffers.m_lineOffset.push_back(0);
+  buffers.m_trgOffset.push_back(0);
+  buffers.m_mask = 1;
   fb.Serialize(buffers);
 
-  WriteToFile(datFile + ".geom", buffers.m_buffers[1]);
-  WriteToFile(datFile + ".trg", buffers.m_buffers[2]);
+  {
+    FilesContainerW writer(datFile);
+
+    {
+      FileWriter geom = writer.GetWriter(string(GEOMETRY_FILE_TAG) + '0');
+      feature::SerializePoints(fb.GetGeometry(), geom);
+    }
+
+    {
+      FileWriter trg = writer.GetWriter(string(TRIANGLE_FILE_TAG) + '0');
+      feature::SerializeTriangles(fb.GetTriangles(), trg);
+    }
+
+    writer.Finish();
+  }
 
   static feature_source_initializer staticInstance(datFile);
-  staticInstance.m_source->m_data.swap(buffers.m_buffers[0]);
-  f.Deserialize(*staticInstance.m_source);
+  f.Deserialize(staticInstance.get_source(buffers.m_buffer));
 }
 
 void Feature2FeatureBuilder(FeatureGeomRef const & f, FeatureBuilderGeomRef & fb)

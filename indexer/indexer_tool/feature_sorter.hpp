@@ -4,6 +4,7 @@
 
 namespace feature
 {
-  // sorts features in the given file by their mid points
-  bool SortDatFile(string const & datFile, bool removeOriginalFile = true);
+  /// Final generation of data from input feature-dat-file.
+  /// @param[in] bSort sorts features in the given file by their mid points
+  bool GenerateFinalFeatures(string const & datFile, bool bSort);
 }

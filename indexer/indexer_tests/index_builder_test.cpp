@@ -23,7 +23,7 @@ UNIT_TEST(BuildIndexTest)
   // Build index.
   vector<char> serialIndex;
   {
-    FeaturesVector<FileReader> featuresVector(originalContainer);
+    FeaturesVector featuresVector(originalContainer);
     MemWriter<vector<char> > serialWriter(serialIndex);
     indexer::BuildIndex(featuresVector, serialWriter, "build_index_test");
   }
@@ -42,9 +42,13 @@ UNIT_TEST(BuildIndexTest)
       if (tags[i] != INDEX_FILE_TAG)
       {
         FileReader reader = originalContainer.GetReader(tags[i]);
-        vector<char> data(reader.Size());
-        reader.Read(0, &data[0], data.size());
-        containerWriter.Append(data, tags[i]);
+        uint64_t const sz = reader.Size();
+        if (sz > 0)
+        {
+          vector<char> data(sz);
+          reader.Read(0, &data[0], sz);
+          containerWriter.Append(data, tags[i]);
+        }
       }
     }
     containerWriter.Append(serialIndex, INDEX_FILE_TAG);

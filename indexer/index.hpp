@@ -91,7 +91,7 @@ public:
 
   void Add(string const & path)
   {
-    uint32_t const logPageSize = 12;
+    uint32_t const logPageSize = 10;
     uint32_t const logPageCount = 12;
     FilesContainerR container(path, logPageSize, logPageCount);
     m_Indexes.push_back(new IndexT(container));
@@ -134,7 +134,7 @@ public:
 
   explicit OffsetToFeatureAdapter(FilesContainerR const & container)
   : BaseT(container.GetReader(INDEX_FILE_TAG)),
-    m_FeatureVector(FeatureReaders<FileReader>(container))
+    m_FeatureVector(container)
   {
   }
 
@@ -221,7 +221,7 @@ struct Index
 {
   typedef IndexForEachAdapter<
             MultiIndexAdapter<
-              OffsetToFeatureAdapter<FeaturesVector<ReaderT>,
+              OffsetToFeatureAdapter<FeaturesVector,
                 UniqueOffsetAdapter<
                   ScaleIndex<ReaderT>
                 >

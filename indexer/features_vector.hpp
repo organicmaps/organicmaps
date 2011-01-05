@@ -11,30 +11,24 @@
 //#include "../std/bind.hpp"
 
 
-template <class ReaderT>
 struct FeatureReaders
 {
-  ReaderT m_datR, m_geomR, m_trgR;
+  FilesContainerR m_cont;
+  FileReader m_datR;
 
-  template <class ContainerT>
-  FeatureReaders(ContainerT const & cont)
-    : m_datR(cont.GetReader(DATA_FILE_TAG)),
-      m_geomR(cont.GetReader(GEOMETRY_FILE_TAG)),
-      m_trgR(cont.GetReader(TRIANGLE_FILE_TAG))
+  FeatureReaders(FilesContainerR const & cont)
+    : m_cont(cont), m_datR(cont.GetReader(DATA_FILE_TAG))
   {
     uint64_t const offset = feature::GetSkipHeaderSize(m_datR);
     m_datR = m_datR.SubReader(offset, m_datR.Size() - offset);
   }
 };
 
-template <typename ReaderT>
 class FeaturesVector
 {
 public:
-  typedef ReaderT ReaderType;
-
-  FeaturesVector(FeatureReaders<ReaderT> const & dataR)
-    : m_RecordReader(dataR.m_datR, 256), m_source(dataR.m_geomR, dataR.m_trgR)
+  FeaturesVector(FeatureReaders const & dataR)
+    : m_RecordReader(dataR.m_datR, 256), m_source(dataR.m_cont)
   {
   }
 
@@ -81,6 +75,6 @@ private:
     }
   };
 
-  VarRecordReader<ReaderT, &VarRecordSizeReaderVarint> m_RecordReader;
+  VarRecordReader<FileReader, &VarRecordSizeReaderVarint> m_RecordReader;
   mutable FeatureType::read_source_t m_source;
 };
