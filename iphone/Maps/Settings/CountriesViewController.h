@@ -11,4 +11,7 @@
 
 - (id) initWithStorage: (storage::Storage &) storage andIndex: (storage::TIndex const &) index andHeader: (NSString *) header;
 
+- (void) OnCountryChange: (storage::TIndex const &) index;
+- (void) OnDownload: (storage::TIndex const &) index withProgress: (TDownloadProgress const &) progress;
+
 @end

@@ -13,7 +13,7 @@
 
 using namespace storage;
 
-TIndex CalculateIndex(TIndex const & parentIndex, NSIndexPath * indexPath)
+static TIndex CalculateIndex(TIndex const & parentIndex, NSIndexPath * indexPath)
 {
   TIndex index = parentIndex;
   if (index.m_group == -1)
@@ -23,6 +23,16 @@ TIndex CalculateIndex(TIndex const & parentIndex, NSIndexPath * indexPath)
   else
   	index.m_region = indexPath.row;
   return index;
+}
+
+static NSInteger RowFromIndex(TIndex const & index)
+{
+	if (index.m_region != -1)
+  	return index.m_region;
+  else if (index.m_country != -1)
+  	return index.m_country;
+  else
+  	return index.m_group;
 }
 
 @implementation CountriesViewController
@@ -86,7 +96,7 @@ TIndex CalculateIndex(TIndex const & parentIndex, NSIndexPath * indexPath)
   {
   case EOnDisk:
   	{
-    	uint64_t size = 0;//g_pStorage->CountrySizeInBytes(countryIndex);
+    	TLocalAndRemoteSize::first_type size = m_storage->CountrySizeInBytes(countryIndex).first;
   		// convert size to human readable values
 			char const * kBorMBorGB = "kB";
       if (size > GB)
@@ -131,7 +141,6 @@ TIndex CalculateIndex(TIndex const & parentIndex, NSIndexPath * indexPath)
   case EInQueue:
   	{
   		cell.textLabel.textColor = [UIColor lightGrayColor];
-//    	cell.detailTextLabel.text = [NSString stringWithFormat: @"Waiting to download %qu %s", size, kBOrMB];
 			cell.detailTextLabel.text = [NSString stringWithFormat: @"Marked for downloading, touch to cancel"];
     	if (!indicator)
       {
@@ -145,10 +154,11 @@ TIndex CalculateIndex(TIndex const & parentIndex, NSIndexPath * indexPath)
     break;
   case ENotDownloaded:
   	cell.textLabel.textColor = [UIColor blackColor];
-//    cell.detailTextLabel.text = [NSString stringWithFormat: @"Click to download %qu %s", size, kBOrMB];
     cell.detailTextLabel.text = [NSString stringWithFormat: @"Touch to download"];
     cell.accessoryView = nil;
     break;
+  default:
+  	break;
   }
 }
 
@@ -164,8 +174,8 @@ TIndex CalculateIndex(TIndex const & parentIndex, NSIndexPath * indexPath)
   if (m_storage->CountriesCount(index))
   	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
   else
-  	cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-//  [self UpdateCell: cell forCountry: countryIndex];
+  	cell.accessoryType = UITableViewCellAccessoryNone;
+  [self UpdateCell: cell forCountry: index];
   return cell;
 }
 
@@ -220,104 +230,112 @@ TIndex g_clickedIndex;
   UITableViewCell * cell = [tableView cellForRowAtIndexPath: indexPath];
   // Push the new table view on the stack
 	TIndex index = CalculateIndex(m_index, indexPath);
-	CountriesViewController * newController = [[CountriesViewController alloc] initWithStorage:*m_storage
-  		andIndex: index andHeader: cell.textLabel.text];
-	[self.navigationController pushViewController:newController animated:YES];
-//	NSString * countryName = [[cell textLabel] text];
-//
-//	g_clickedIndex = TIndex(indexPath.section, indexPath.row);
-//	switch (g_pStorage->CountryStatus(g_clickedIndex))
-//  {
-//  	case EOnDisk:
-//    {	// display confirmation popup
-//    	UIActionSheet * popupQuery = [[UIActionSheet alloc]
-//      		initWithTitle: countryName
-//        	delegate: self
-//        	cancelButtonTitle: @"Cancel"
-//        	destructiveButtonTitle: @"Delete"
-//        	otherButtonTitles: nil];
-//    	[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
-//    	[popupQuery release];
-//    }
-//  	break;
-//  	case ENotDownloaded:
-//  	case EDownloadFailed:
-//  	{	// display confirmation popup with country size
-//    	BOOL isWifiConnected = [CountriesViewController IsUsingWIFI];
-//      
-//    	uint64_t size = 0;//g_pStorage->CountrySizeInBytes(g_clickedIndex);
-//  		// convert size to human readable values
-//      NSString * strTitle = nil;
-//      NSString * strDownload = nil;
-//  		if (size > GB)
-//  		{
-//    		size /= GB;
-//				if (isWifiConnected)
-//        	strTitle = [NSString stringWithFormat:@"%@", countryName];
-//        else
-//        	strTitle = [NSString stringWithFormat:@"We strongly recommend using WIFI for downloading %@", countryName];
-//        strDownload = [NSString stringWithFormat:@"Download %qu GB", size];
-//    	}
-//  		else if (size > MB)
-//  		{
-//    		size /= MB;
-//				if (isWifiConnected || size < MAX_3G_MEGABYTES)
-//        	strTitle = [NSString stringWithFormat:@"%@", countryName];
-//        else
-//        	strTitle = [NSString stringWithFormat:@"We strongly recommend using WIFI for downloading %@", countryName];
-//        strDownload = [NSString stringWithFormat:@"Download %qu MB", size];
-//  		}
-//  		else
-//  		{
-//    		size = (size + 999) / 1000;
-//        strTitle = [NSString stringWithFormat:@"%@", countryName];
-//        strDownload = [NSString stringWithFormat:@"Download %qu kB", size];
-//  		}
-//
-//    	UIActionSheet * popupQuery = [[UIActionSheet alloc]
-//      		initWithTitle: strTitle
-//        	delegate: self
-//        	cancelButtonTitle: @"Cancel"
-//        	destructiveButtonTitle: strDownload
-//        	otherButtonTitles: nil];
-//    	[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
-//    	[popupQuery release];    	
-////  	g_pStorage->DownloadCountry(g_clickedIndex);
-//		}
-//  	break;
-//  	case EDownloading:
-//    { // display confirmation popup
-//    	UIActionSheet * popupQuery = [[UIActionSheet alloc]
-//      		initWithTitle: countryName
-//        	delegate: self
-//        	cancelButtonTitle: @"Do Nothing"
-//        	destructiveButtonTitle: @"Cancel Download"
-//        	otherButtonTitles: nil];
-//    	[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
-//    	[popupQuery release];
-//    }
-//    break;
-//  	case EInQueue:
-//  	// cancel download
-//    g_pStorage->DeleteCountry(g_clickedIndex);
-//		break;
-//  }
+  if (m_storage->CountriesCount(index))
+  {
+		CountriesViewController * newController = [[CountriesViewController alloc] initWithStorage:*m_storage
+  			andIndex: index andHeader: cell.textLabel.text];
+		[self.navigationController pushViewController:newController animated:YES];
+  }
+  else
+  {
+		NSString * countryName = [[cell textLabel] text];
+
+		g_clickedIndex = index;
+		switch (m_storage->CountryStatus(g_clickedIndex))
+  	{
+  		case EOnDisk:
+    	{	// display confirmation popup
+    		UIActionSheet * popupQuery = [[UIActionSheet alloc]
+      			initWithTitle: countryName
+        		delegate: self
+        		cancelButtonTitle: @"Cancel"
+        		destructiveButtonTitle: @"Delete"
+        		otherButtonTitles: nil];
+    		[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
+    		[popupQuery release];
+    	}
+  		break;
+  		case ENotDownloaded:
+  		case EDownloadFailed:
+  		{	// display confirmation popup with country size
+    		BOOL isWifiConnected = [CountriesViewController IsUsingWIFI];
+      
+    		TLocalAndRemoteSize sizePair = m_storage->CountrySizeInBytes(g_clickedIndex);
+        TLocalAndRemoteSize::first_type size = sizePair.second - sizePair.first;
+  			// convert size to human readable values
+      	NSString * strTitle = nil;
+      	NSString * strDownload = nil;
+  			if (size > GB)
+  			{
+    			size /= GB;
+					if (isWifiConnected)
+        		strTitle = [NSString stringWithFormat:@"%@", countryName];
+        	else
+        		strTitle = [NSString stringWithFormat:@"We strongly recommend using WIFI for downloading %@", countryName];
+        	strDownload = [NSString stringWithFormat:@"Download %qu GB", size];
+    		}
+  			else if (size > MB)
+  			{
+    			size /= MB;
+					if (isWifiConnected || size < MAX_3G_MEGABYTES)
+        		strTitle = [NSString stringWithFormat:@"%@", countryName];
+        	else
+        		strTitle = [NSString stringWithFormat:@"We strongly recommend using WIFI for downloading %@", countryName];
+        	strDownload = [NSString stringWithFormat:@"Download %qu MB", size];
+  			}
+  			else
+  			{
+    			size = (size + 999) / 1000;
+        	strTitle = [NSString stringWithFormat:@"%@", countryName];
+        	strDownload = [NSString stringWithFormat:@"Download %qu kB", size];
+  			}
+
+    		UIActionSheet * popupQuery = [[UIActionSheet alloc]
+      			initWithTitle: strTitle
+        		delegate: self
+        		cancelButtonTitle: @"Cancel"
+        		destructiveButtonTitle: strDownload
+        		otherButtonTitles: nil];
+    		[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
+    		[popupQuery release];    	
+			}
+  		break;
+  		case EDownloading:
+    	{ // display confirmation popup
+    		UIActionSheet * popupQuery = [[UIActionSheet alloc]
+      			initWithTitle: countryName
+        		delegate: self
+        		cancelButtonTitle: @"Do Nothing"
+        		destructiveButtonTitle: @"Cancel Download"
+        		otherButtonTitles: nil];
+    		[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
+    		[popupQuery release];
+    	}
+    	break;
+  		case EInQueue:
+  		// cancel download
+    	m_storage->DeleteCountry(g_clickedIndex);
+			break;
+      default:
+      break;
+  	}
+  }
 }
 
-- (void) OnDownloadFinished: (TIndex const &) index
+- (void) OnCountryChange: (TIndex const &) index
 {
-  UITableView * tableView = (UITableView *)[self.view.subviews objectAtIndex: 1];
-//  UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: index.second inSection: index.first]];
-//  if (cell)
-//		[self UpdateCell: cell forCountry: index];
+  UITableView * tableView = (UITableView *)self.view;
+  UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: RowFromIndex(index) inSection: 0]];
+  if (cell)
+		[self UpdateCell: cell forCountry: index];
 }
 
 - (void) OnDownload: (TIndex const &) index withProgress: (TDownloadProgress const &) progress
 {
-  UITableView * tableView = (UITableView *)[self.view.subviews objectAtIndex: 1];
-//  UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: index.second inSection: index.first]];
-//  if (cell)
-//		cell.detailTextLabel.text = [NSString stringWithFormat: @"Downloading %qu%%, touch to cancel", progress.first * 100 / progress.second];
+  UITableView * tableView = (UITableView *)self.view;
+  UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: RowFromIndex(index) inSection: 0]];
+  if (cell)
+		cell.detailTextLabel.text = [NSString stringWithFormat: @"Downloading %qu%%, touch to cancel", progress.first * 100 / progress.second];
 }
 
 @end

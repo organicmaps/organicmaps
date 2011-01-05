@@ -3,22 +3,9 @@
 
 #include "../../../storage/storage.hpp"
 
+#include <boost/bind.hpp>
+
 using namespace storage;
-
-static void OnCountryChange(TIndex const & index)
-{
-
-}
-
-static void OnCountryDownloadProgress(TIndex const & index, TDownloadProgress const & progress)
-{
-
-}
-
-static void OnUpdateCheck(int64_t size, char const * readme)
-{
-
-}
 
 // Settings are always present globally
 @implementation SettingsManager
@@ -40,6 +27,25 @@ static void OnUpdateCheck(int64_t size, char const * readme)
 	[SettingsManager Hide];
 }
 
+
++ (void) OnCountryChange: (TIndex const &) index
+{
+	if (g_navController)
+  	[(CountriesViewController *)g_navController.topViewController OnCountryChange: index];
+}
+
++ (void) OnCountryDownload: (TIndex const &) index withProgress: (TDownloadProgress const &) progress
+{
+	if (g_navController)
+  	[(CountriesViewController *)g_navController.topViewController OnDownload: index withProgress: progress];
+}
+
++ (void) OnUpdateCheck: (int64_t) size withReadme: (char const *) readme
+{
+
+}
+
+
 // Currently displays only countries to download
 + (void) Show: (UIViewController *)parentController WithStorage: (Storage &)storage
 {
@@ -50,7 +56,21 @@ static void OnUpdateCheck(int64_t size, char const * readme)
     		andIndex:TIndex() andHeader:@"Download"];
   	g_navController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
     
-  	storage.Subscribe(&OnCountryChange, &OnCountryDownloadProgress, &OnUpdateCheck);
+    // tricky boost::bind for objC class methods
+		typedef void (*TChangeFunc)(SEL, TIndex const &);
+		SEL changeSel = @selector(OnCountryChange:);
+		TChangeFunc changeImpl = (TChangeFunc)[self methodForSelector:changeSel];
+
+		typedef void (*TProgressFunc)(SEL, TIndex const &, TDownloadProgress const &);
+		SEL progressSel = @selector(OnCountryDownload:withProgress:);
+		TProgressFunc progressImpl = (TProgressFunc)[self methodForSelector:progressSel];
+
+		typedef void (*TUpdateFunc)(SEL, int64_t, char const *);
+		SEL updateSel = @selector(OnUpdateCheck:);
+		TUpdateFunc updateImpl = (TUpdateFunc)[self methodForSelector:updateSel];
+
+		storage.Subscribe(boost::bind(changeImpl, changeSel, _1),
+    		boost::bind(progressImpl, progressSel, _1, _2), boost::bind(updateImpl, updateSel, _1, _2));
   }
 
   [parentController presentModalViewController:g_navController animated:YES];
@@ -63,7 +83,8 @@ static void OnUpdateCheck(int64_t size, char const * readme)
   {
     g_storage->Unsubscribe();
 		[[g_navController parentViewController] dismissModalViewControllerAnimated:YES];
-  	g_navController = nil;
+  	[g_navController release];
+    g_navController = nil;
   }
 }
 
