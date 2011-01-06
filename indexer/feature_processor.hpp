@@ -19,11 +19,11 @@ namespace feature
 
    /// Read feature from feature source.
   template <class TSource>
-  void ReadFromSource(TSource & src, FeatureGeom & f, typename FeatureGeom::read_source_t & buffer)
+  void ReadFromSourceRowFormat(TSource & src, FeatureBuilder1 & f)
   {
     uint32_t const sz = ReadVarUint<uint32_t>(src);
-    buffer.m_data.resize(sz);
-    src.Read(&buffer.m_data[0], sz);
+    typename FeatureBuilder1::buffer_t buffer(sz);
+    src.Read(&buffer[0], sz);
     f.Deserialize(buffer);
   }
 
@@ -41,11 +41,10 @@ namespace feature
     uint64_t const fSize = reader.Size();
 
     // read features one by one
-    typename FeatureGeom::read_source_t buffer;
     while (currPos < fSize)
     {
-      FeatureGeom f;
-      ReadFromSource(src, f, buffer);
+      FeatureBuilder1 f;
+      ReadFromSourceRowFormat(src, f);
       toDo(f, currPos);
       currPos = src.Pos();
     }

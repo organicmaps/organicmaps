@@ -211,8 +211,9 @@ namespace
 
     void operator() (FeatureType const & f, uint64_t offset)
     {
-      if (f.DebugString(m_level) == m_test.second)
-        LOG(LINFO, ("Offset = ", offset));
+      string const s = f.DebugString(m_level);
+      if (s == m_test.second)
+        LOG(LINFO, (s, "Feature offset = ", offset));
     }
   };
 }
@@ -247,9 +248,8 @@ UNIT_TEST(IndexForEachTest)
     size_t errInd;
     if (!compare_sequence(v2, v1, compare_strings(), errInd))
     {
-      LOG(LINFO, ("Failed for rect: ", r, ". Etalon size = ", v2.size(), ". Index size = ", v1.size()));
       src2.ForEachFeature(r, FindOffset(level, v2[errInd]));
-      TEST(false, ("Error in ForEachFeature test"));
+      TEST(false, ("Failed for rect: ", r, ". Etalon size = ", v2.size(), ". Index size = ", v1.size()));
     }
 
     if (!v2.empty() && (level < scales::GetUpperScale()))

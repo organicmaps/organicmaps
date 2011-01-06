@@ -9,8 +9,7 @@
 #include "../../std/vector.hpp"
 #include "../../std/string.hpp"
 
-class FeatureBuilderGeom;
-class FeatureBuilderGeomRef;
+class FeatureBuilder1;
 
 namespace feature
 {
@@ -44,7 +43,7 @@ namespace feature
 
     void WriteHeader();
 
-    void WriteFeatureBase(vector<char> const & bytes, FeatureBuilderGeom const & fb);
+    void WriteFeatureBase(vector<char> const & bytes, FeatureBuilder1 const & fb);
 
   public:
     // Stores prefix and suffix of a dat file name.
@@ -54,6 +53,6 @@ namespace feature
     FeaturesCollector(string const & bucket, InitDataType const & prefix);
     ~FeaturesCollector();
 
-    void operator() (FeatureBuilderGeom const & f);
+    void operator() (FeatureBuilder1 const & f);
   };
 }

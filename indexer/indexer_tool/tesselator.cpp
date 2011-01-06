@@ -1,4 +1,4 @@
-#include "osm_element.hpp"
+#include "../../base/SRC_FIRST.hpp"
 
 #include "../cell_id.hpp"
 
@@ -11,16 +11,17 @@ namespace feature
     tess::Tesselator & m_tess;
     AddTessPointF(tess::Tesselator & tess) : m_tess(tess)
     {}
-    void operator()(CoordPointT const & p)
+    void operator()(m2::PointD const & p)
     {
-      m_tess.add(tess::Vertex(p.first, p.second));
+      m_tess.add(tess::Vertex(p.x, p.y));
     }
   };
 
-  void TesselateInterior(FeatureBuilderGeom & fb, feature::holes_cont_t const & holes)
-  {
-    ASSERT(fb.IsGeometryClosed(), ());
+  typedef vector<m2::PointD> points_t;
 
+  void TesselateInterior( points_t const & bound, list<points_t> const & holes,
+                          points_t & triangles)
+  {
     tess::VectorDispatcher disp;
     tess::Tesselator tess;
     tess.setDispatcher(&disp);
@@ -29,19 +30,13 @@ namespace feature
     tess.beginPolygon();
 
     tess.beginContour();
-    {
-      FeatureGeom::read_source_t bytes;
-      fb.Serialize(bytes.m_data);
-      FeatureGeom f(bytes);
-      f.ForEachPoint(AddTessPointF(tess), FeatureGeom::m_defScale);
-    }
+    for_each(bound.begin(), bound.end(), AddTessPointF(tess));
     tess.endContour();
 
-    for (feature::holes_cont_t::const_iterator it = holes.begin(); it != holes.end(); ++it)
+    for (list<points_t>::const_iterator it = holes.begin(); it != holes.end(); ++it)
     {
       tess.beginContour();
-      for (size_t i = 0; i < (*it).size(); ++i)
-        tess.add(tess::Vertex((*it)[i].x, (*it)[i].y));
+      for_each(it->begin(), it->end(), AddTessPointF(tess));
       tess.endContour();
     }
 
@@ -49,7 +44,6 @@ namespace feature
 
     for (size_t i = 0; i < disp.indices().size(); ++i)
     {
-      vector<m2::PointD> vertices;
       switch (disp.indices()[i].first)
       {
       case tess::TrianglesFan:
@@ -63,13 +57,10 @@ namespace feature
       {
         int const idx = disp.indices()[i].second[j];
         tess::Vertex const & v = disp.vertices()[idx];
-        vertices.push_back(m2::PointD(v.x, v.y));
+        triangles.push_back(m2::PointD(v.x, v.y));
       }
 
-      ASSERT_EQUAL(vertices.size() % 3, 0, ());
-      size_t const triangleCount = vertices.size() / 3;
-      for (size_t i = 0; i < triangleCount; ++i)
-        fb.AddTriangle(vertices[3*i + 0], vertices[3*i + 1], vertices[3*i + 2]);
+      ASSERT_EQUAL(triangles.size() % 3, 0, ());
     }
   }
 }

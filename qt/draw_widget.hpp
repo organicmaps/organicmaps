@@ -30,7 +30,6 @@ namespace qt
     shared_ptr<handle_t> m_handle;
 
     typedef model::FeaturesFetcher model_t;
-    //typedef model::FeatureVector model_t;
 
     FrameWork<model_t, Navigator, handle_t> m_framework;
 

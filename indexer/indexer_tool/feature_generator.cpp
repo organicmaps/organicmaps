@@ -164,7 +164,7 @@ uint32_t FeaturesCollector::GetFileSize(FileWriter const & f)
   return ret;
 }
 
-void FeaturesCollector::WriteFeatureBase(vector<char> const & bytes, FeatureBuilderGeom const & fb)
+void FeaturesCollector::WriteFeatureBase(vector<char> const & bytes, FeatureBuilder1 const & fb)
 {
   size_t const sz = bytes.size();
   CHECK ( sz != 0, ("Empty feature not allowed here!") );
@@ -178,11 +178,11 @@ void FeaturesCollector::WriteFeatureBase(vector<char> const & bytes, FeatureBuil
   }
 }
 
-void FeaturesCollector::operator() (FeatureBuilderGeom const & fb)
+void FeaturesCollector::operator() (FeatureBuilder1 const & fb)
 {
   (void)GetFileSize(m_datFile);
 
-  FeatureBuilderGeom::buffers_holder_t bytes;
+  FeatureBuilder1::buffer_t bytes;
   fb.Serialize(bytes);
   WriteFeatureBase(bytes, fb);
 }

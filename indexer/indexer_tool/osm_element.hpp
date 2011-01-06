@@ -16,11 +16,6 @@
 
 #include "../../base/start_mem_debug.hpp"
 
-namespace feature
-{
-  typedef list<vector<m2::PointD> > holes_cont_t;
-  void TesselateInterior(FeatureBuilderGeom & featureBuilder, feature::holes_cont_t const & holes);
-}
 
 /// @param  TEmitter  Feature accumulating policy
 /// @param  THolder   Nodes, ways, relations holder
@@ -49,7 +44,7 @@ protected:
 
   public:
     /// @param[out] list of holes
-    feature::holes_cont_t m_holes;
+    list<vector<m2::PointD> > m_holes;
 
     multipolygon_processor(uint64_t id, THolder & holder) : m_id(id), m_holder(holder) {}
 
@@ -185,7 +180,7 @@ protected:
     }
   } m_typeProcessor;
 
-  typedef FeatureBuilderGeom feature_builder_t;
+  typedef FeatureBuilder1 feature_builder_t;
 
   bool GetPoint(uint64_t id, m2::PointD & pt)
   {
@@ -198,7 +193,7 @@ protected:
     {
       multipolygon_processor processor(id, m_holder);
       m_holder.ForEachRelationByWay(id, processor);
-      feature::TesselateInterior(ft, processor.m_holes);
+      ft.SetAreaAddHoles(processor.m_holes);
     }
   }
 
@@ -370,7 +365,7 @@ protected:
       if (p->childs.empty() || !base_type::GetPoint(id, pt))
         return;
 
-      ft.AddPoint(pt);
+      ft.SetCenter(pt);
     }
     else if (p->name == "way")
     {
@@ -396,12 +391,13 @@ protected:
         }
       }
 
-      if (ft.GetPointsCount() <= 1)
+      size_t const count = ft.GetPointsCount();
+      if (count < 2)
         return;
 
       // Get the tesselation for an area object (only if it has area drawing rules,
       // otherwise it will stay a linear object).
-      if (isArea)
+      if (isArea && count > 2)
         base_type::FinishAreaFeature(id, ft);
     }
     else

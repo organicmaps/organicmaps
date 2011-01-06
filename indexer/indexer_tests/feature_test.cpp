@@ -45,10 +45,7 @@ UNIT_TEST(Feature_Deserialize)
                       platform.ReadPathForFile("classificator.txt"),
                       platform.ReadPathForFile("visibility.txt"));
 
-  vector<int> a;
-  a.push_back(1);
-  a.push_back(2);
-  FeatureBuilderType fb;
+  FeatureBuilder2 fb;
 
   fb.AddName("name");
 
@@ -62,14 +59,14 @@ UNIT_TEST(Feature_Deserialize)
       fb.AddPoint(points[i]);
   }
 
-  vector<m2::PointD> triangles;
-  {
-    triangles.push_back(m2::PointD(0.5, 0.5));
-    triangles.push_back(m2::PointD(0.25, 0.5));
-    triangles.push_back(m2::PointD(1.0, 1.0));
-    for (size_t i = 0; i < triangles.size(); i += 3)
-      fb.AddTriangle(triangles[i], triangles[i+1], triangles[i+2]);
-  }
+  //vector<m2::PointD> triangles;
+  //{
+  //  triangles.push_back(m2::PointD(0.5, 0.5));
+  //  triangles.push_back(m2::PointD(0.25, 0.5));
+  //  triangles.push_back(m2::PointD(1.0, 1.0));
+  //  for (size_t i = 0; i < triangles.size(); i += 3)
+  //    fb.AddTriangle(triangles[i], triangles[i+1], triangles[i+2]);
+  //}
 
   fb.AddLayer(3);
 
@@ -91,7 +88,7 @@ UNIT_TEST(Feature_Deserialize)
   FeatureType f;
   FeatureBuilder2Feature(fb, f);
 
-  TEST_EQUAL(f.GetFeatureType(), FeatureBase::FEATURE_TYPE_AREA, ());
+  TEST_EQUAL(f.GetFeatureType(), FeatureBase::FEATURE_TYPE_LINE, ());
 
   FeatureBase::GetTypesFn doGetTypes;
   f.ForEachTypeRef(doGetTypes);
@@ -108,22 +105,24 @@ UNIT_TEST(Feature_Deserialize)
   f.ForEachPointRef(featurePoints, level);
   TEST_EQUAL(points, featurePoints.m_V, ());
 
-  PointAccumulator featureTriangles;
-  f.ForEachTriangleRef(featureTriangles, level);
-  TEST_EQUAL(triangles, featureTriangles.m_V, ());
+  //PointAccumulator featureTriangles;
+  //f.ForEachTriangleRef(featureTriangles, level);
+  //TEST_EQUAL(triangles, featureTriangles.m_V, ());
 
   double const eps = MercatorBounds::GetCellID2PointAbsEpsilon();
-  TEST_LESS(fabs(f.GetLimitRect().minX() - 0.25), eps, ());
-  TEST_LESS(fabs(f.GetLimitRect().minY() - 0.20), eps, ());
-  TEST_LESS(fabs(f.GetLimitRect().maxX() - 1.00), eps, ());
-  TEST_LESS(fabs(f.GetLimitRect().maxY() - 1.00), eps, ());
+  m2::RectD const & rect = f.GetLimitRect(level);
 
-  {
-    FeatureBuilderType fbTest;
-    Feature2FeatureBuilder(f, fbTest);
+  TEST_LESS(fabs(rect.minX() - 0.25), eps, ());
+  TEST_LESS(fabs(rect.minY() - 0.20), eps, ());
+  TEST_LESS(fabs(rect.maxX() - 1.00), eps, ());
+  TEST_LESS(fabs(rect.maxY() - 1.00), eps, ());
 
-    FeatureType fTest;
-    FeatureBuilder2Feature(fbTest, fTest);
-    TEST_EQUAL(f.DebugString(level), fTest.DebugString(level), ());
-  }
+  //{
+  //  FeatureBuilder2 fbTest;
+  //  Feature2FeatureBuilder(f, fbTest);
+
+  //  FeatureType fTest;
+  //  FeatureBuilder2Feature(fbTest, fTest);
+  //  TEST_EQUAL(f.DebugString(level), fTest.DebugString(level), ());
+  //}
 }

@@ -34,28 +34,28 @@ namespace
   public:
     std::vector<TCellAndOffset> m_vec;
 
-    void operator() (FeatureGeom const & ft, uint64_t pos)
+    void operator() (FeatureBuilder1 const & ft, uint64_t pos)
     {
       // reset state
       m_midX = 0.0;
       m_midY = 0.0;
       m_counter = 0;
-      ft.ForEachPointRef(*this, FeatureGeom::m_defScale);
+      ft.ForEachPointRef(*this);
       m_midX /= m_counter;
       m_midY /= m_counter;
 
       uint64_t const pointAsInt64 = PointToInt64(m_midX, m_midY);
-      uint64_t const minScale = feature::MinDrawableScaleForFeature(ft);
+      uint64_t const minScale = feature::MinDrawableScaleForFeature(ft.GetFeatureBase());
       CHECK(minScale <= scales::GetUpperScale(), ("Dat file contain invisible feature"));
 
       uint64_t const order = (minScale << 59) | (pointAsInt64 >> 5);
       m_vec.push_back(make_pair(order, pos));
     }
 
-    void operator() (CoordPointT const & point)
+    void operator() (m2::PointD const & p)
     {
-      m_midX += point.first;
-      m_midY += point.second;
+      m_midX += p.x;
+      m_midY += p.y;
       ++m_counter;
     }
   };
@@ -75,7 +75,7 @@ namespace feature
     if (in.size() >= 2)
     {
       SimplifyNearOptimal<mn::DistanceToLineSquare<m2::PointD> >(20, in.begin(), in.end()-1,
-        my::sq(scales::GetEpsilonForLevel(level + 1)), MakeBackInsertFunctor(out));
+        my::sq(scales::GetEpsilonForSimplify(level)), MakeBackInsertFunctor(out));
 
       switch (out.size())
       {
@@ -90,6 +90,8 @@ namespace feature
       }
     }
   }
+
+  void TesselateInterior(points_t const & bound, list<points_t> const & holes, points_t & triangles);
 
 
   class FeaturesCollectorRef : public FeaturesCollector
@@ -146,33 +148,54 @@ namespace feature
       m_writer.Finish();
     }
 
-    void operator() (FeatureBuilderGeomRef const & fb)
+    void operator() (FeatureBuilder2 & fb)
     {
       (void)GetFileSize(m_datFile);
 
-      FeatureBuilderGeomRef::buffers_holder_t buffer;
+      FeatureBuilder2::buffers_holder_t buffer;
 
       int lowS = 0;
       for (int i = 0; i < m_scales; ++i)
       {
         if (fb.IsDrawableLikeLine(lowS, g_arrScales[i]))
         {
-          buffer.m_mask |= (1 << i);
+          buffer.m_lineMask |= (1 << i);
 
           buffer.m_lineOffset.push_back(GetFileSize(*m_geoFile[i]));
 
-          // serialize points
+          // simplify and serialize geometry
           points_t points;
           SimplifyPoints(fb.GetGeometry(), points, g_arrScales[i]);
-          feature::SerializePoints(points, *m_geoFile[i]);
+          feature::SavePoints(points, *m_geoFile[i]);
+
+          if (fb.IsDrawableLikeArea() && points.size() > 2)
+          {
+            // simplify and serialize triangles
+
+            list<points_t> const & holes = fb.GetHoles();
+            list<points_t> simpleHoles;
+            for (list<points_t>::const_iterator iH = holes.begin(); iH != holes.end(); ++iH)
+            {
+              simpleHoles.push_back(points_t());
+
+              SimplifyPoints(*iH, simpleHoles.back(), g_arrScales[i]);
+
+              if (simpleHoles.back().size() < 3)
+                simpleHoles.pop_back();
+            }
+
+            points_t triangles;
+            feature::TesselateInterior(points, simpleHoles, triangles);
+
+            if (!triangles.empty())
+            {
+              buffer.m_trgMask |= (1 << i);
+              buffer.m_trgOffset.push_back(GetFileSize(*m_trgFile[i]));
+              feature::SaveTriangles(triangles, *m_trgFile[i]);
+            }
+          }
         }
         lowS = g_arrScales[i]+1;
-      }
-
-      if (!fb.GetTriangles().empty())
-      {
-        buffer.m_trgOffset.push_back(GetFileSize(*m_trgFile[0]));
-        feature::SerializeTriangles(fb.GetTriangles(), *m_trgFile[0]);
       }
 
       fb.Serialize(buffer);
@@ -210,20 +233,17 @@ namespace feature
 
       FeaturesCollectorRef collector(datFilePath);
 
-      FeatureGeom::read_source_t buffer;
+      FeatureBuilder1::buffer_t buffer;
       for (size_t i = 0; i < midPoints.m_vec.size(); ++i)
       {
         ReaderSource<FileReader> src(reader);
         src.Skip(midPoints.m_vec[i].second);
 
-        FeatureGeom f;
-        feature::ReadFromSource(src, f, buffer);
-
-        FeatureBuilderType fb;
-        f.InitFeatureBuilder(fb);
+        FeatureBuilder1 f;
+        feature::ReadFromSourceRowFormat(src, f);
 
         // emit the feature
-        collector(fb);
+        collector(static_cast<FeatureBuilder2 &>(f));
       }
 
       // at this point files should be closed

@@ -23,11 +23,12 @@ namespace
     {
     }
 
-    void operator() (FeatureBuilderGeom const & fb)
+    void operator() (FeatureBuilder1 const & fb)
     {
-      FeatureGeom f;
-      FeatureBuilder2Feature(fb, f);
-      m_pContainer->push_back(f.DebugString());
+      FeatureType f;
+      FeatureBuilder2Feature(
+        static_cast<FeatureBuilder2 &>(const_cast<FeatureBuilder1 &>(fb)), f);
+      m_pContainer->push_back(f.DebugString(0));
     }
 
   private:
@@ -47,14 +48,15 @@ UNIT_TEST(FeatureBucketerSmokeTest)
   map<string, vector<string> > out, expectedOut;
   FeatureBucketer bucketer(1, &out);
 
-  FeatureBuilderGeom fb;
+  FeatureBuilder2 fb;
   fb.AddPoint(m2::PointD(10, 10));
   fb.AddPoint(m2::PointD(20, 20));
+  fb.SetType(0);
   bucketer(fb);
 
-  FeatureGeom f;
+  FeatureType f;
   FeatureBuilder2Feature(fb, f);
-  expectedOut["3"].push_back(f.DebugString());
+  expectedOut["3"].push_back(f.DebugString(0));
   TEST_EQUAL(out, expectedOut, ());
 
   vector<string> bucketNames;

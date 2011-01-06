@@ -68,7 +68,7 @@ namespace
   };
 }
 
-vector<int64_t> covering::CoverFeature(FeatureGeom const & feature, int level)
+vector<int64_t> covering::CoverFeature(FeatureType const & feature, int level)
 {
   vector<CoordPointT> geometry;
   feature.ForEachPoint(MakeBackInsertFunctor(geometry), level);

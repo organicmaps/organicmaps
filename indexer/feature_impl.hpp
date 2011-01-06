@@ -9,50 +9,110 @@
 
 namespace feature
 {
+  namespace pts
+  {
+    inline int64_t FromPoint(m2::PointD const & p)
+    {
+      return PointToInt64(p.x, p.y);
+    }
+
+    inline m2::PointD ToPoint(int64_t i)
+    {
+      CoordPointT const pt = Int64ToPoint(i);
+      return m2::PointD(pt.first, pt.second);
+    }
+  }
+
   namespace detail
   {
-    struct pt_2_id
+    inline void TransformPoints(vector<m2::PointD> const & points, vector<int64_t> & cells)
     {
-      int64_t operator() (m2::PointD const & p) const
-      {
-        return PointToInt64(p.x, p.y);
-      }
-    };
-  }
-
-  template <class TSink>
-  void SerializePoints(vector<m2::PointD> const & points, TSink & sink)
-  {
-    uint32_t const ptsCount = points.size();
-    ASSERT_GREATER_OR_EQUAL(ptsCount, 1, ());
-
-    vector<int64_t> geom;
-    geom.reserve(ptsCount);
-    transform(points.begin(), points.end(), back_inserter(geom), detail::pt_2_id());
-
-    if (ptsCount == 1)
-    {
-      WriteVarInt(sink, geom[0]);
+      cells.reserve(points.size());
+      transform(points.begin(), points.end(), back_inserter(cells), &pts::FromPoint);
     }
-    else
+
+    template <class TSink>
+    void WriteCells(vector<int64_t> & cells, TSink & sink)
     {
-      WriteVarUint(sink, ptsCount - 1);
-      for (size_t i = 0; i < ptsCount; ++i)
-        WriteVarInt(sink, i == 0 ? geom[0] : geom[i] - geom[i-1]);
+      for (size_t i = 0; i < cells.size(); ++i)
+        WriteVarInt(sink, i == 0 ? cells[0] : cells[i] - cells[i-1]);
+    }
+
+    template <class TSource>
+    void ReadPoints(vector<m2::PointD> & points, TSource & src)
+    {
+      int64_t id = 0;
+      for (size_t i = 0; i < points.size(); ++i)
+        points[i] = pts::ToPoint(id += ReadVarInt<int64_t>(src));
     }
   }
 
   template <class TSink>
-  void SerializeTriangles(vector<int64_t> triangles, TSink & sink)
+  void SavePoints(vector<m2::PointD> const & points, TSink & sink)
   {
-    if (!triangles.empty())
-    {
-      ASSERT_EQUAL(triangles.size() % 3, 0, (triangles.size()));
-      WriteVarUint(sink, triangles.size() / 3 - 1);
-      for (size_t i = 0; i < triangles.size(); ++i)
-        WriteVarInt(sink, i == 0 ? triangles[i] : (triangles[i] - triangles[i-1]));
-    }
+    uint32_t const count = points.size();
+    ASSERT_GREATER(count, 1, ());
+
+    vector<int64_t> cells;
+    detail::TransformPoints(points, cells);
+
+    WriteVarUint(sink, count - 2);
+
+    detail::WriteCells(cells, sink);
   }
+
+  template <class TSource>
+  void LoadPoints(vector<m2::PointD> & points, TSource & src)
+  {
+    uint32_t const count = ReadVarUint<uint32_t>(src) + 2;
+    points.resize(count);
+
+    detail::ReadPoints(points, src);
+  }
+
+  template <class TSink>
+  void SaveTriangles(vector<m2::PointD> const & triangles, TSink & sink)
+  {
+    uint32_t const count = triangles.size();
+    ASSERT_GREATER(count, 0, ());
+    ASSERT_EQUAL(count % 3, 0, (count));
+
+    vector<int64_t> cells;
+    detail::TransformPoints(triangles, cells);
+
+    WriteVarUint(sink, count / 3 - 1);
+
+    detail::WriteCells(cells, sink);
+  }
+
+  template <class TSource>
+  void LoadTriangles(vector<m2::PointD> & points, TSource & src)
+  {
+    uint32_t const count = 3 * (ReadVarUint<uint32_t>(src) + 1);
+    points.resize(count);
+
+    detail::ReadPoints(points, src);
+  }
+
 
   static int g_arrScales[] = { 5, 10, 14, 17 };  // 17 = scales::GetUpperScale()
+
+  inline string GetTagForScale(char const * prefix, int scale)
+  {
+    string str;
+    str.reserve(strlen(prefix) + 1);
+    str = prefix;
+
+    static char arrChar[] = { '0', '1', '2', '3' };
+    STATIC_ASSERT ( ARRAY_SIZE(arrChar) == ARRAY_SIZE(g_arrScales) );
+
+    for (size_t i = 0; i < ARRAY_SIZE(feature::g_arrScales); ++i)
+      if (scale <= feature::g_arrScales[i])
+      {
+        str += arrChar[i];
+        break;
+      }
+
+    return str;
+  }
 }

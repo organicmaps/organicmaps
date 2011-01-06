@@ -12,7 +12,7 @@ namespace
   class feature_source_initializer
   {
     string m_name;
-    FeatureGeomRef::read_source_t * m_source;
+    FeatureType::read_source_t * m_source;
 
   public:
     feature_source_initializer(string const & fName)
@@ -20,10 +20,10 @@ namespace
     {
     }
 
-    FeatureGeomRef::read_source_t & get_source(vector<char> & buffer)
+    FeatureType::read_source_t & get_source(vector<char> & buffer)
     {
       delete m_source;
-      m_source = new FeatureGeomRef::read_source_t(FilesContainerR(m_name));
+      m_source = new FeatureType::read_source_t(FilesContainerR(m_name));
       m_source->m_data.swap(buffer);
       return *m_source;
     }
@@ -36,14 +36,14 @@ namespace
   };
 }
 
-void FeatureBuilder2Feature(FeatureBuilderGeomRef const & fb, FeatureGeomRef & f)
+void FeatureBuilder2Feature(FeatureBuilder2 & fb, FeatureType & f)
 {
   string const datFile = "indexer_tests_tmp.dat";
 
-  FeatureBuilderGeomRef::buffers_holder_t buffers;
+  FeatureBuilder2::buffers_holder_t buffers;
   buffers.m_lineOffset.push_back(0);
   buffers.m_trgOffset.push_back(0);
-  buffers.m_mask = 1;
+  buffers.m_lineMask = 1;
   fb.Serialize(buffers);
 
   {
@@ -51,13 +51,13 @@ void FeatureBuilder2Feature(FeatureBuilderGeomRef const & fb, FeatureGeomRef & f
 
     {
       FileWriter geom = writer.GetWriter(string(GEOMETRY_FILE_TAG) + '0');
-      feature::SerializePoints(fb.GetGeometry(), geom);
+      feature::SavePoints(fb.GetGeometry(), geom);
     }
 
-    {
-      FileWriter trg = writer.GetWriter(string(TRIANGLE_FILE_TAG) + '0');
-      feature::SerializeTriangles(fb.GetTriangles(), trg);
-    }
+    //{
+    //  FileWriter trg = writer.GetWriter(string(TRIANGLE_FILE_TAG) + '0');
+    //  feature::SaveTriangles(fb.GetTriangles(), trg);
+    //}
 
     writer.Finish();
   }
@@ -66,22 +66,7 @@ void FeatureBuilder2Feature(FeatureBuilderGeomRef const & fb, FeatureGeomRef & f
   f.Deserialize(staticInstance.get_source(buffers.m_buffer));
 }
 
-void Feature2FeatureBuilder(FeatureGeomRef const & f, FeatureBuilderGeomRef & fb)
-{
-  f.InitFeatureBuilder(fb);
-}
-
-void FeatureBuilder2Feature(FeatureBuilderGeom const & fb, FeatureGeom & f)
-{
-  FeatureBuilderGeom::buffers_holder_t buffers;
-  fb.Serialize(buffers);
-
-  FeatureGeom::read_source_t source;
-  source.m_data.swap(buffers);
-  f.Deserialize(source);
-}
-
-void Feature2FeatureBuilder(FeatureGeom const & f, FeatureBuilderGeom & fb)
+void Feature2FeatureBuilder(FeatureType const & f, FeatureBuilder2 & fb)
 {
   f.InitFeatureBuilder(fb);
 }

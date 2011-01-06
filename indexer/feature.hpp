@@ -18,20 +18,32 @@
 class ArrayByteSource;
 class FeatureBase;
 
-class FeatureBuilderGeom
+/// Used for serialization\deserialization of features during --generate_features.
+class FeatureBuilder1
 {
 public:
-  FeatureBuilderGeom();
+  FeatureBuilder1();
+
+  /// @name Geometry manipulating functions.
+  //@{
+  /// Set center (origin) point of feature.
+  void SetCenter(m2::PointD const & p);
+
+  /// Add point to geometry.
+  void AddPoint(m2::PointD const & p);
+
+  /// Set that featue is area and get ownership of holes.
+  void SetAreaAddHoles(list<vector<m2::PointD> > & holes);
+  //@}
 
   void AddName(string const & name);
-  void AddPoint(m2::PointD const & p);
-  void AddTriangle(m2::PointD const & a, m2::PointD const & b, m2::PointD const & c);
+
+  static const int m_maxTypesCount = 7;
 
   template <class TIter>
   inline void AddTypes(TIter beg, TIter end)
   {
-    // 15 - is the maximum count of types (@see Feature::GetTypesCount())
-    size_t const count = min(15, static_cast<int>(distance(beg, end)));
+    int const count = min(m_maxTypesCount, static_cast<int>(distance(beg, end)));
     m_Types.assign(beg, beg + count);
   }
   inline void SetType(uint32_t type)
@@ -43,71 +55,113 @@ public:
   void AddLayer(int32_t layer);
 
   typedef vector<char> buffer_t;
-  typedef buffer_t buffers_holder_t;
-  void Serialize(buffers_holder_t & data) const;
 
+  /// @name Serialization.
+  //@{
+  void Serialize(buffer_t & data) const;
+  void SerializeBase(buffer_t & data) const;
+
+  void Deserialize(buffer_t & data);
+  //@}
+
+  ///@name Selectors.
+  //@{
   inline m2::RectD GetLimitRect() const { return m_LimitRect; }
 
-  // Get common parameters of feature.
+  /// Get common parameters of feature.
   FeatureBase GetFeatureBase() const;
 
   bool IsGeometryClosed() const;
-  size_t GetPointsCount() const { return m_Geometry.size(); }
 
-  bool operator == (FeatureBuilderGeom const &) const;
+  inline size_t GetPointsCount() const { return m_Geometry.size(); }
+
+  template <class ToDo>
+  void ForEachPointRef(ToDo & toDo) const
+  {
+    for_each(m_Geometry.begin(), m_Geometry.end(), bind<void>(ref(toDo), _1));
+  }
+  //@}
 
 protected:
-  typedef vector<m2::PointD> points_t;
 
-  void SerializeBase(buffer_t & data) const;
-  void SerializePoints(buffer_t & data) const;
-  void SerializeTriangles(buffer_t & data) const;
+  /// @name For diagnostic use only.
+  //@{
+  bool operator == (FeatureBuilder1 const &) const;
+
+  bool CheckValid() const;
+  //@}
+
+  typedef vector<m2::PointD> points_t;
 
   uint8_t GetHeader() const;
 
-  bool CheckCorrect(vector<char> const & data) const;
-
-  int32_t m_Layer;
+  /// Name. Can be empty. Check HEADER_HAS_NAME.
   string m_Name;
+
+  /// Feature classificator-types. Can not be empty.
   vector<uint32_t> m_Types;
+
+  /// Drawable layer of feature. Can be empty, Check HEADER_HAS_LAYER.
+  int32_t m_Layer;
 
   m2::RectD m_LimitRect;
 
-  points_t m_Geometry;  // store points as is for further processing
+  /// Can be one of the following:
+  /// - point in point-feature
+  /// - origin point of text [future] in line-feature
+  /// - origin point of text or symbol in area-feature
+  m2::PointD m_Center;    // Check  HEADER_HAS_POINT
 
-  vector<int64_t> m_Triangles;
+  /// Can be one of the following:
+  /// - geometry in line-feature
+  /// - boundary in area-feature
+  points_t m_Geometry;    // Check HEADER_IS_LINE
+
+  /// List of holes in area-feature.
+  list<points_t> m_Holes; // Check HEADER_IS_AREA
+
+  bool m_bArea;       ///< this is area-feature
+  bool m_bHasCenter;  ///< m_center exists
 };
 
-class FeatureBuilderGeomRef : public FeatureBuilderGeom
+/// Used for serialization of features during final pass.
+class FeatureBuilder2 : public FeatureBuilder1
 {
-  typedef FeatureBuilderGeom base_type;
+  typedef FeatureBuilder1 base_type;
+
+  typedef vector<uint32_t> offsets_t;
+
+  static void SerializeOffsets(uint32_t mask, offsets_t const & offsets, buffer_t & buffer);
 
 public:
 
   struct buffers_holder_t
   {
-    vector<uint32_t> m_lineOffset;  // in
-    vector<uint32_t> m_trgOffset;   // in
-    uint32_t m_mask;
+    offsets_t m_lineOffset;  // in
+    offsets_t m_trgOffset;   // in
+    uint32_t m_lineMask, m_trgMask;
 
     base_type::buffer_t m_buffer;   // out
 
-    buffers_holder_t() : m_mask(0) {}
+    buffers_holder_t() : m_lineMask(0), m_trgMask(0) {}
   };
 
   bool IsDrawableLikeLine(int lowS, int highS) const;
+  bool IsDrawableLikeArea() const { return m_bArea; }
 
   points_t const & GetGeometry() const { return m_Geometry; }
-  vector<int64_t> const & GetTriangles() const { return m_Triangles; }
+  list<points_t> const & GetHoles() const { return m_Holes; }
 
   /// @name Overwrite from base_type.
   //@{
-  void Serialize(buffers_holder_t & data) const;
+  void Serialize(buffers_holder_t & data);
   //@}
 };
 
+/// Base feature class for storing common data (without geometry).
 class FeatureBase
 {
+  static const int m_maxTypesCount = 7;
 public:
   enum FeatureType
   {
@@ -119,22 +173,25 @@ public:
 
   FeatureBase() : m_Offset(0) {}
 
-  /// @name Use like polymorfic functions. Need to overwrite in derived classes.
-  //@{
-  void Deserialize(vector<char> & data, uint32_t offset = 0);
-  string DebugString() const;
-  void InitFeatureBuilder(FeatureBuilderGeom & fb) const;
-  //@}
+  typedef vector<char> buffer_t;
 
   inline FeatureType GetFeatureType() const
   {
-    ASSERT_NOT_EQUAL((Header() >> 4) & 3, 3, (DebugString()));
-    return static_cast<FeatureType>((Header() >> 4) & 3);
+    uint8_t const h = Header();
+    if (h & HEADER_IS_AREA)
+      return FEATURE_TYPE_AREA;
+    else if (h & HEADER_IS_LINE)
+      return FEATURE_TYPE_LINE;
+    else
+    {
+      ASSERT ( h & HEADER_HAS_POINT, () );
+      return FEATURE_TYPE_POINT;
+    }
   }
 
   inline uint32_t GetTypesCount() const
   {
-    return Header() & 0xF;
+    return Header() & m_maxTypesCount;
   }
 
   inline int32_t GetLayer() const
@@ -157,7 +214,7 @@ public:
 
   inline m2::RectD GetLimitRect() const
   {
-    ASSERT(m_bGeometryParsed, ());
+    ASSERT ( m_bGeometryParsed || m_bTrianglesParsed, () );
     return m_LimitRect;
   }
 
@@ -166,7 +223,7 @@ public:
   public:
     vector<uint32_t> m_types;
 
-    GetTypesFn() { m_types.reserve(16); }
+    GetTypesFn() { m_types.reserve(m_maxTypesCount); }
     void operator() (uint32_t t)
     {
       m_types.push_back(t);
@@ -178,6 +235,7 @@ public:
   {
     if (!m_bTypesParsed)
       ParseTypes();
+
     uint32_t const typeCount = GetTypesCount();
     for (size_t i = 0; i < typeCount; ++i)
       f(m_Types[i]);
@@ -188,14 +246,22 @@ public:
     HEADER_HAS_LAYER = 1U << 7,
     HEADER_HAS_NAME = 1U << 6,
     HEADER_IS_AREA = 1U << 5,
-    HEADER_IS_LINE = 1U << 4
+    HEADER_IS_LINE = 1U << 4,
+    HEADER_HAS_POINT = 1U << 3
   };
 
+  void InitFeatureBuilder(FeatureBuilder1 & fb) const;
+
 protected:
-  vector<char> m_Data;
+  void Deserialize(buffer_t & data, uint32_t offset = 0);
+  string DebugString() const;
+
+protected:
+
+  buffer_t m_Data;
   uint32_t m_Offset;
 
-  friend class FeatureBuilderGeom;
+  friend class FeatureBuilder1;
 
   void SetHeader(uint8_t h);
 
@@ -203,39 +269,48 @@ protected:
   inline uint8_t Header() const { return static_cast<uint8_t>(*DataPtr()); }
   uint32_t CalcOffset(ArrayByteSource const & source) const;
 
-  mutable uint32_t m_Types[16];
+  mutable uint32_t m_Types[m_maxTypesCount];
   mutable int32_t m_Layer;
   mutable string m_Name;
+  mutable m2::PointD m_Center;
 
   mutable m2::RectD m_LimitRect;
 
   mutable uint32_t m_LayerOffset;
   mutable uint32_t m_NameOffset;
+  mutable uint32_t m_CenterOffset;
   mutable uint32_t m_GeometryOffset;
   mutable uint32_t m_TrianglesOffset;
 
   mutable bool m_bTypesParsed;
   mutable bool m_bLayerParsed;
   mutable bool m_bNameParsed;
+  mutable bool m_bCenterParsed;
   mutable bool m_bGeometryParsed;
   mutable bool m_bTrianglesParsed;
 
   void ParseTypes() const;
   void ParseLayer() const;
   void ParseName() const;
+  void ParseCenter() const;
+
+  void ParseAll() const;
 };
 
-class FeatureGeom : public FeatureBase
+/// Working feature class with geometry.
+class FeatureType : public FeatureBase
 {
   typedef FeatureBase base_type;
 
 public:
   struct read_source_t
   {
-    vector<char> m_data;
+    buffer_t m_data;
     uint32_t m_offset;
 
-    read_source_t() : m_offset(0) {}
+    FilesContainerR m_cont;
+
+    read_source_t(FilesContainerR const & cont) : m_offset(0), m_cont(cont) {}
 
     void assign(char const * data, uint32_t size)
     {
@@ -243,53 +318,30 @@ public:
     }
   };
 
-  FeatureGeom() {}
-  FeatureGeom(read_source_t & src);
+  FeatureType() {}
+  FeatureType(read_source_t & src);
 
-  /// @name Overwrite from base_type.
-  //@{
   void Deserialize(read_source_t & src);
-  string DebugString() const;
-  void InitFeatureBuilder(FeatureBuilderGeom & fb) const;
-  //@}
 
-  inline m2::RectD GetLimitRect() const
-  {
-    if (!m_bGeometryParsed)
-    {
-      // this function use only in index generation,
-      // so get geometry for upper scale
-      ParseGeometry(m_defScale);
-    }
-    return base_type::GetLimitRect();
-  }
-
-  /// @name Used only in unit-tests. So remove it.
+  /// @name Geometry.
   //@{
-  //inline uint32_t GetGeometrySize() const
-  //{
-  //  if (!m_bGeometryParsed)
-  //    ParseGeometry();
-  //  return m_Geometry.size();
-  //}
-
-  //inline uint32_t GetTriangleCount() const
-  //{
-  //  if (!m_bTrianglesParsed)
-  //    ParseTriangles();
-  //  return (m_Triangles.size() / 3);
-  //}
-  //@}
-
-  static int const m_defScale = 17;
+  m2::RectD GetLimitRect(int scale) const;
 
   template <typename FunctorT>
   void ForEachPointRef(FunctorT & f, int scale) const
   {
     if (!m_bGeometryParsed)
       ParseGeometry(scale);
-    for (size_t i = 0; i < m_Geometry.size(); ++i)
-      f(CoordPointT(m_Geometry[i].x, m_Geometry[i].y));
+
+    if (m_Geometry.empty())
+    {
+      f(CoordPointT(m_Center.x, m_Center.y));
+    }
+    else
+    {
+      for (size_t i = 0; i < m_Geometry.size(); ++i)
+        f(CoordPointT(m_Geometry[i].x, m_Geometry[i].y));
+    }
   }
 
   template <typename FunctorT>
@@ -303,6 +355,7 @@ public:
   {
     if (!m_bTrianglesParsed)
       ParseTriangles(scale);
+
     for (size_t i = 0; i < m_Triangles.size();)
     {
       f(m_Triangles[i], m_Triangles[i+1], m_Triangles[i+2]);
@@ -317,64 +370,30 @@ public:
     ForEachTriangleRef(f, scale);
     f.EndPrimitive();
   }
+  //@}
 
-protected:
-  template <class TSource> void ParseGeometryImpl(TSource & src) const;
-  template <class TSource> void ParseTrianglesImpl(TSource & src) const;
+  /// For test cases only.
+  string DebugString(int scale) const;
 
-  virtual string DebugString(int scale) const;
-  virtual void ParseGeometry(int scale) const;
-  virtual void ParseTriangles(int scale) const;
-
-  void ParseAll(int scale) const;
+private:
+  void ParseOffsets() const;
+  void ParseGeometry(int scale) const;
+  void ParseTriangles(int scale) const;
 
   mutable vector<m2::PointD> m_Geometry;
   mutable vector<m2::PointD> m_Triangles;
-};
 
-class FeatureGeomRef : public FeatureGeom
-{
-  typedef FeatureGeom base_type;
-
-public:
-  struct read_source_t : public base_type::read_source_t
-  {
-    FilesContainerR m_cont;
-    read_source_t(FilesContainerR const & cont) : m_cont(cont) {}
-  };
-
-  FeatureGeomRef() {}
-  FeatureGeomRef(read_source_t & src);
-
-  void Deserialize(read_source_t & src);
-
-  /// @name Overwrite from base_type.
-  //@{
-  virtual string DebugString(int scale) const;
-protected:
-  virtual void ParseGeometry(int scale) const;
-  virtual void ParseTriangles(int scale) const;
-  //@}
-
-private:
   FilesContainerR * m_cont;
 
-  void ParseOffsets() const;
   mutable bool m_bOffsetsParsed;
+
+  typedef vector<uint32_t> offsets_t;
+
+  static void ReadOffsetsImpl(ArrayByteSource & src, offsets_t & offsets);
 
   static uint32_t const m_invalidOffset = uint32_t(-1);
 
-  uint32_t GetOffset(int scale) const;
+  uint32_t GetOffset(int scale, offsets_t const & offset) const;
 
-  mutable uint32_t m_mask;
-  mutable vector<uint32_t> m_gOffsets;
-  mutable uint32_t m_trgOffset;
+  mutable offsets_t m_lineOffsets, m_trgOffsets;
 };
-
-inline string debug_print(FeatureGeom const & f)
-{
-  return f.DebugString();
-}
-
-typedef FeatureGeomRef FeatureType;
-typedef FeatureBuilderGeomRef FeatureBuilderType;

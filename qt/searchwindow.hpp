@@ -25,7 +25,6 @@ namespace qt
 
     Q_OBJECT
 
-    //typedef model::FeatureVector model_t;
     typedef model::FeaturesFetcher model_t;
 
     FindEditorWnd * m_pEditor;

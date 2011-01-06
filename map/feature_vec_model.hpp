@@ -15,21 +15,6 @@
 
 namespace model
 {
-  class FeatureVector
-  {
-    vector<FeatureBuilderType> m_vec;
-    m2::RectD m_rect;
-
-  public:
-    template <class TParam, class ToDo>
-    void ForEachFeature(TParam const &, ToDo & toDo)
-    {
-      std::for_each(m_vec.begin(), m_vec.end(), toDo);
-    }
-
-    m2::RectD GetWorldRect() const { return m_rect; }
-  };
-
 //#define USE_BUFFER_READER
 
   class FeaturesFetcher

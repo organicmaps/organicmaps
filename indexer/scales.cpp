@@ -41,9 +41,22 @@ namespace scales
     return GetScaleLevel((dx + dy) / 2.0);
   }
 
+  namespace
+  {
+    double GetEpsilonImpl(int level, int logEps)
+    {
+      return (MercatorBounds::maxX - MercatorBounds::minX) / pow(2.0, double(level + logEps - initial_level));
+    }
+  }
+
   double GetEpsilonForLevel(int level)
   {
-    return (MercatorBounds::maxX - MercatorBounds::minX) / pow(2.0, double(level + 6 - initial_level));
+    return GetEpsilonImpl(level, 6);
+  }
+
+  double GetEpsilonForSimplify(int level)
+  {
+    return GetEpsilonImpl(level, 9);
   }
 
   bool IsGoodForLevel(int level, m2::RectD const & r)

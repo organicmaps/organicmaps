@@ -104,7 +104,7 @@ private:
 class SimpleFeatureClipper
 {
 public:
-  typedef FeatureBuilderGeom feature_builder_t;
+  typedef FeatureBuilder1 feature_builder_t;
 
 private:
   feature_builder_t const & m_Feature;

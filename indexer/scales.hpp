@@ -10,5 +10,6 @@ namespace scales
   int GetScaleLevel(double ratio);
   int GetScaleLevel(m2::RectD const & r);
   double GetEpsilonForLevel(int level);
+  double GetEpsilonForSimplify(int level);
   bool IsGoodForLevel(int level, m2::RectD const & r);
 }
