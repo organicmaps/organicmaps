@@ -123,6 +123,7 @@ static NSInteger RowFromIndex(TIndex const & index)
   case EDownloading:
   	{
     	cell.textLabel.textColor = [UIColor blueColor];
+      cell.detailTextLabel.text = @"Downloading...";
       if (!indicator)
       {
       	indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleGray];

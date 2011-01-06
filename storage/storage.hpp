@@ -10,6 +10,7 @@
 #include "../std/map.hpp"
 #include "../std/list.hpp"
 #include "../std/string.hpp"
+#include "../std/set.hpp"
 
 #include <boost/function.hpp>
 
@@ -37,6 +38,14 @@ namespace storage
     {
       return m_group == other.m_group && m_country == other.m_country && m_region == other.m_region;
     }
+    bool operator<(TIndex const & other) const
+    {
+      if (m_group != other.m_group)
+        return m_group < other.m_group;
+      else if (m_country != other.m_country)
+        return m_country < other.m_country;
+      return m_region < other.m_region;
+    }
   };
 
   /// Can be used to store local maps and/or maps available for download
@@ -51,6 +60,10 @@ namespace storage
     TQueue m_queue;
     /// used to correctly calculate total country download progress
     TDownloadProgress m_countryProgress;
+
+    typedef set<TIndex> TFailedCountries;
+    /// stores countries which download has failed recently
+    TFailedCountries m_failedCountries;
 
     /// @name Communicate with GUI
     //@{

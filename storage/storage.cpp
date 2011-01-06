@@ -85,6 +85,10 @@ namespace storage
         return EInQueue;
     }
 
+    // second, check if this country has failed while downloading
+    if (m_failedCountries.find(index) != m_failedCountries.end())
+      return EDownloadFailed;
+
     TLocalAndRemoteSize size = CountryByIndex(index).Size();
     if (size.first == size.second)
     {
@@ -105,7 +109,9 @@ namespace storage
     { // do nothing
       return;
     }
-    // otherwise add it into the queue
+    // remove it from failed list
+    m_failedCountries.erase(index);
+    // add it into the queue
     m_queue.push_back(index);
     // and start download if necessary
     if (m_queue.size() == 1)
@@ -280,6 +286,7 @@ namespace storage
       // remove failed country from the queue
       TIndex failedIndex = m_queue.front();
       m_queue.pop_front();
+      m_failedCountries.insert(failedIndex);
       // notify GUI about failed country
       if (m_observerChange)
         m_observerChange(failedIndex);

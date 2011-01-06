@@ -57,20 +57,20 @@ using namespace storage;
   	g_navController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
     
     // tricky boost::bind for objC class methods
-		typedef void (*TChangeFunc)(SEL, TIndex const &);
+		typedef void (*TChangeFunc)(id, SEL, TIndex const &);
 		SEL changeSel = @selector(OnCountryChange:);
 		TChangeFunc changeImpl = (TChangeFunc)[self methodForSelector:changeSel];
 
-		typedef void (*TProgressFunc)(SEL, TIndex const &, TDownloadProgress const &);
+		typedef void (*TProgressFunc)(id, SEL, TIndex const &, TDownloadProgress const &);
 		SEL progressSel = @selector(OnCountryDownload:withProgress:);
 		TProgressFunc progressImpl = (TProgressFunc)[self methodForSelector:progressSel];
 
-		typedef void (*TUpdateFunc)(SEL, int64_t, char const *);
+		typedef void (*TUpdateFunc)(id, SEL, int64_t, char const *);
 		SEL updateSel = @selector(OnUpdateCheck:);
 		TUpdateFunc updateImpl = (TUpdateFunc)[self methodForSelector:updateSel];
 
-		storage.Subscribe(boost::bind(changeImpl, changeSel, _1),
-    		boost::bind(progressImpl, progressSel, _1, _2), boost::bind(updateImpl, updateSel, _1, _2));
+		storage.Subscribe(boost::bind(changeImpl, self, changeSel, _1),
+    		boost::bind(progressImpl, self, progressSel, _1, _2), boost::bind(updateImpl, self, updateSel, _1, _2));
   }
 
   [parentController presentModalViewController:g_navController animated:YES];
