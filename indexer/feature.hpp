@@ -13,6 +13,7 @@
 
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
+#include "../std/array.hpp"
 
 
 class ArrayByteSource;
@@ -221,12 +222,13 @@ public:
   class GetTypesFn
   {
   public:
-    vector<uint32_t> m_types;
+    uint32_t m_types[m_maxTypesCount];
+    int m_size;
 
-    GetTypesFn() { m_types.reserve(m_maxTypesCount); }
+    GetTypesFn() : m_size(0) {}
     void operator() (uint32_t t)
     {
-      m_types.push_back(t);
+      m_types[m_size++] = t;
     }
   };
 
@@ -387,7 +389,7 @@ private:
 
   mutable bool m_bOffsetsParsed;
 
-  typedef vector<uint32_t> offsets_t;
+  typedef array<uint32_t, 4> offsets_t; // should be synhronized with ARRAY_SIZE(g_arrScales)
 
   static void ReadOffsetsImpl(ArrayByteSource & src, offsets_t & offsets);
 

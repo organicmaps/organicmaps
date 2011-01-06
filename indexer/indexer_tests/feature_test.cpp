@@ -90,9 +90,9 @@ UNIT_TEST(Feature_Deserialize)
 
   TEST_EQUAL(f.GetFeatureType(), FeatureBase::FEATURE_TYPE_LINE, ());
 
-  FeatureBase::GetTypesFn doGetTypes;
-  f.ForEachTypeRef(doGetTypes);
-  TEST_EQUAL(doGetTypes.m_types, types, ());
+  FeatureBase::GetTypesFn getTypes;
+  f.ForEachTypeRef(getTypes);
+  TEST_EQUAL(vector<uint32_t>(getTypes.m_types, getTypes.m_types + getTypes.m_size), types, ());
 
   TEST_EQUAL(f.GetLayer(), 3, ());
   TEST_EQUAL(f.GetName(), "name", ());

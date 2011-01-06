@@ -128,7 +128,7 @@ int GetDrawRule(FeatureBase const & f, int level, vector<drule::Key> & keys, str
   Classificator const & c = classif();
 
   get_draw_rule doRules(level, static_cast<feature_geo_t>(geoType), keys, names);
-  for (size_t i = 0; i < types.m_types.size(); ++i)
+  for (size_t i = 0; i < types.m_size; ++i)
     (void)c.ProcessObjects(types.m_types[i], doRules);
 
   return geoType;
@@ -208,7 +208,7 @@ bool IsDrawableForIndex(FeatureBase const & f, int level)
   Classificator const & c = classif();
 
   check_is_drawable doCheck(level);
-  for (size_t i = 0; i < types.m_types.size(); ++i)
+  for (size_t i = 0; i < types.m_size; ++i)
     if (c.ProcessObjects(types.m_types[i], doCheck))
       return true;
 

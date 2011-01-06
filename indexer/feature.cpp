@@ -487,8 +487,6 @@ void FeatureType::Deserialize(read_source_t & src)
   m_cont = &src.m_cont;
 
   m_bOffsetsParsed = false;
-  m_lineOffsets.clear();
-  m_trgOffsets.clear();
 
   base_type::Deserialize(src.m_data, src.m_offset);
 }
@@ -590,14 +588,15 @@ void FeatureType::ParseTriangles(int scale) const
 
 void FeatureType::ReadOffsetsImpl(ArrayByteSource & src, offsets_t & offsets)
 {
+  int index = 0;
+
   uint32_t mask = ReadVarUint<uint32_t>(src);
   ASSERT ( mask > 0, () );
   while (mask > 0)
   {
-    if (mask & 0x01)
-      offsets.push_back(ReadVarUint<uint32_t>(src));
-    else
-      offsets.push_back((uint32_t)m_invalidOffset);
+    ASSERT ( index < ARRAY_SIZE(g_arrScales), (index) );
+
+    offsets[index++] = (mask & 0x01) ? ReadVarUint<uint32_t>(src) : m_invalidOffset;
 
     mask = mask >> 1;
   }
