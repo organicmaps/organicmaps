@@ -48,6 +48,15 @@ namespace yg
 
     uint8_t m_startDynamicPage;
     uint8_t m_currentDynamicPage;
+    uint8_t m_dynamicPagesCount;
+
+    uint8_t m_startTextPage;
+    uint8_t m_currentTextPage;
+    uint8_t m_textPagesCount;
+
+    uint8_t m_startStaticPage;
+    uint8_t m_currentStaticPage;
+    uint8_t m_staticPagesCount;
 
     shared_ptr<ResourceManager> m_resourceManager;
 
@@ -82,7 +91,9 @@ namespace yg
 
     void clearPageHandles(uint8_t pageID);
     void onOverflow(uint8_t pageID);
+
     void changeCurrentDynamicPage();
+    void changeCurrentTextPage();
 
   public:
 

@@ -22,13 +22,16 @@ namespace yg
   Skin::Skin(shared_ptr<ResourceManager> const & resourceManager,
              Skin::TSkinPages const & pages)
     : m_pages(pages),
-      m_resourceManager(resourceManager)
+      m_resourceManager(resourceManager),
+      m_textPagesCount(2),
+      m_dynamicPagesCount(2),
+      m_staticPagesCount(pages.size())
   {
-    m_startDynamicPage = m_pages.size();
-    m_currentDynamicPage = m_pages.size();
-    /// adding at least two for proper double buffering,
-    /// although even 1 will work.
-    addDynamicPages(3);
+    m_startTextPage = m_currentTextPage = m_pages.size();
+    addDynamicPages(m_textPagesCount);
+
+    m_startDynamicPage = m_currentDynamicPage = m_pages.size();
+    addDynamicPages(m_dynamicPagesCount);
   }
 
   void Skin::addDynamicPages(int count)
@@ -115,6 +118,7 @@ namespace yg
   uint32_t Skin::mapGlyph(GlyphKey const & gk)
   {
     uint32_t res = invalidPageHandle();
+
     for (uint8_t i = 0; i < m_pages.size(); ++i)
     {
       res = m_pages[i]->findGlyph(gk);
@@ -122,10 +126,10 @@ namespace yg
         return packID(i, res);
     }
 
-    if (!m_pages[m_currentDynamicPage]->hasRoom(gk))
-      changeCurrentDynamicPage();
+    if (!m_pages[m_currentTextPage]->hasRoom(gk))
+      changeCurrentTextPage();
 
-    return packID(m_currentDynamicPage, m_pages[m_currentDynamicPage]->mapGlyph(gk));
+    return packID(m_currentTextPage, m_pages[m_currentTextPage]->mapGlyph(gk));
   }
 
   Skin::TSkinPages const & Skin::pages() const
@@ -187,13 +191,27 @@ namespace yg
     m_pages[m_currentDynamicPage]->clearFontHandles();
 
     /// 2. choose next dynamic page
-    if (m_currentDynamicPage == m_pages.size() - 1)
+    if (m_currentDynamicPage == m_startDynamicPage + m_dynamicPagesCount - 1)
       m_currentDynamicPage = m_startDynamicPage;
     else
       ++m_currentDynamicPage;
 
     /// 3. clear it if necessary and notify observers about this event(through clearPageFns)
     callClearPageFns(m_currentDynamicPage);
+  }
+
+  void Skin::changeCurrentTextPage()
+  {
+    callOverflowFns(m_currentTextPage);
+
+    m_pages[m_currentTextPage]->clearFontHandles();
+
+    if (m_currentTextPage == m_startTextPage + m_textPagesCount - 1)
+      m_currentTextPage = m_startTextPage;
+    else
+      ++m_currentTextPage;
+
+    callClearPageFns(m_currentTextPage);
   }
 
   uint32_t Skin::invalidHandle() const
