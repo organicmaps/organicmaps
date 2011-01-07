@@ -105,8 +105,8 @@ fi
 
 $PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
   --use_light_nodes=$LIGHT_NODES \
-  --generate_intermediate_data
+  --preprocess_xml
 
 $PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
   --use_light_nodes=$LIGHT_NODES \
-  --generate_final_data --sort_features  --generate_index --output=$1 --bucketing_level=$DEFAULT_BUCKETING_LEVEL
+  --generate_features --sort_features --generate_geometry --generate_index --output=$1 --bucketing_level=$DEFAULT_BUCKETING_LEVEL
