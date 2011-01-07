@@ -470,7 +470,10 @@ void FeatureBase::InitFeatureBuilder(FeatureBuilder1 & fb) const
     fb.SetCenter(m_Center);
 
   if (h & HEADER_IS_AREA)
-    fb.SetAreaAddHoles(list<vector<m2::PointD> >());
+  {
+    list<vector<m2::PointD> > l;
+    fb.SetAreaAddHoles(l);
+  }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -594,7 +597,7 @@ void FeatureType::ReadOffsetsImpl(ArrayByteSource & src, offsets_t & offsets)
   ASSERT ( mask > 0, () );
   while (mask > 0)
   {
-    ASSERT ( index < ARRAY_SIZE(g_arrScales), (index) );
+    ASSERT ( index < ARRAY_SIZE(feature::g_arrScales), (index) );
 
     offsets[index++] = (mask & 0x01) ? ReadVarUint<uint32_t>(src) : m_invalidOffset;
 
