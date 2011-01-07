@@ -295,8 +295,8 @@ TIndex g_clickedIndex;
       			initWithTitle: strTitle
         		delegate: self
         		cancelButtonTitle: @"Cancel"
-        		destructiveButtonTitle: strDownload
-        		otherButtonTitles: nil];
+        		destructiveButtonTitle: nil
+        		otherButtonTitles: strDownload, nil];
     		[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
     		[popupQuery release];    	
 			}
