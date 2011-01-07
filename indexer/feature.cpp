@@ -514,8 +514,7 @@ namespace
 
 string FeatureType::DebugString(int scale) const
 {
-  // force to load all geometry
-  (void)GetLimitRect(scale);
+  ParseAll(scale);
 
   string s = base_type::DebugString();
 
@@ -528,13 +527,23 @@ string FeatureType::DebugString(int scale) const
   return s;
 }
 
+bool FeatureType::IsEmptyGeometry(int scale) const
+{
+  ParseAll(scale);
+
+  switch (GetFeatureType())
+  {
+  case FEATURE_TYPE_AREA: return m_Triangles.empty();
+  case FEATURE_TYPE_LINE: return m_Geometry.empty();
+  default:
+    ASSERT ( Header() & HEADER_HAS_POINT, () );
+    return false;
+  }
+}
+
 m2::RectD FeatureType::GetLimitRect(int scale) const
 {
-  if (!m_bGeometryParsed)
-    ParseGeometry(scale);
-
-  if (!m_bTrianglesParsed)
-    ParseTriangles(scale);
+  ParseAll(scale);
 
   if (m_Triangles.empty() && m_Geometry.empty() && (Header() & HEADER_HAS_POINT) == 0)
   {
@@ -621,4 +630,13 @@ void FeatureType::ParseOffsets() const
     ReadOffsetsImpl(src, m_trgOffsets);
 
   m_bOffsetsParsed = true;
+}
+
+void FeatureType::ParseAll(int scale) const
+{
+  if (!m_bGeometryParsed)
+    ParseGeometry(scale);
+
+  if (!m_bTrianglesParsed)
+    ParseTriangles(scale);
 }

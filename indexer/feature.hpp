@@ -169,8 +169,7 @@ public:
   {
     FEATURE_TYPE_POINT = 0,
     FEATURE_TYPE_LINE = 1,
-    FEATURE_TYPE_AREA = 2,
-    FEATURE_TYPE_UNKNOWN = 17
+    FEATURE_TYPE_AREA = 2
   };
 
   FeatureBase() : m_Offset(0) {}
@@ -330,6 +329,8 @@ public:
   //@{
   m2::RectD GetLimitRect(int scale) const;
 
+  bool IsEmptyGeometry(int scale) const;
+
   template <typename FunctorT>
   void ForEachPointRef(FunctorT & f, int scale) const
   {
@@ -338,6 +339,7 @@ public:
 
     if (m_Geometry.empty())
     {
+      CHECK ( Header() & HEADER_HAS_POINT, ("Call ForEachPoint for empty geometry") );
       f(CoordPointT(m_Center.x, m_Center.y));
     }
     else
@@ -382,6 +384,8 @@ private:
   void ParseOffsets() const;
   void ParseGeometry(int scale) const;
   void ParseTriangles(int scale) const;
+
+  void ParseAll(int scale) const;
 
   mutable vector<m2::PointD> m_Geometry;
   mutable vector<m2::PointD> m_Triangles;

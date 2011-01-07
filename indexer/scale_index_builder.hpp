@@ -75,8 +75,8 @@ public:
   template <class TFeature>
   bool FeatureShouldBeIndexed(TFeature const & f) const
   {
-    // Call this to force TFeature::ParseGeometry
-    f.GetLimitRect(m_ScaleRange.second);
+     if (f.IsEmptyGeometry(m_ScaleRange.second-1))
+       return false;
 
     uint32_t const minScale = feature::MinDrawableScaleForFeature(f);
     return (m_ScaleRange.first <= minScale && minScale < m_ScaleRange.second);

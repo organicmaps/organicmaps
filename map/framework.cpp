@@ -141,9 +141,6 @@ namespace fwork
     case FeatureBase::FEATURE_TYPE_LINE:
       GET_POINTS(filter_screenpts_adapter<path_points>, ForEachPointRef, assign_path)
       break;
-
-    case FeatureBase::FEATURE_TYPE_UNKNOWN:
-      ASSERT(0, ("Feature type is unknown"));
     }
 
     // nothing to draw

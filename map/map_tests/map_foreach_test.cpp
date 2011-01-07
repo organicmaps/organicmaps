@@ -38,7 +38,7 @@ protected:
     CHECK(m_dbgString == f.DebugString(m_scale), ());
 
     // Feature that hasn't any geometry for m_scale returns empty DebugString().
-    return (!m_dbgString.empty() && feature::IsDrawableForIndex(f, m_scale));
+    return (!f.IsEmptyGeometry(m_scale) && feature::IsDrawableForIndex(f, m_scale));
   }
 
   void add(FeatureType const & f) const

@@ -115,11 +115,6 @@ namespace
 int GetDrawRule(FeatureBase const & f, int level, vector<drule::Key> & keys, string & names)
 {
   FeatureBase::FeatureType const geoType = f.GetFeatureType();
-  if (geoType == FeatureBase::FEATURE_TYPE_UNKNOWN)
-  {
-    ASSERT ( false, ("Logic Error! Unknown feature type.") );
-    return FeatureBase::FEATURE_TYPE_UNKNOWN;
-  }
 
   FeatureBase::GetTypesFn types;
   f.ForEachTypeRef(types);
