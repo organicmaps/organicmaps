@@ -297,7 +297,7 @@ namespace storage
       if (size.second != 0)
         m_countryProgress.first = (m_countryProgress.second - size.second);
       // activate downloaded map piece
-      string const datFile = FileFromUrl(url);
+      string const datFile = GetPlatform().ReadPathForFile(FileFromUrl(url));
       m_addMap(datFile);
     }
     DownloadNextCountryFromQueue();
