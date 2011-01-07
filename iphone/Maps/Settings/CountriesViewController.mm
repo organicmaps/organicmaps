@@ -92,87 +92,98 @@ static NSInteger RowFromIndex(TIndex const & index)
 {
   UIActivityIndicatorView * indicator = (UIActivityIndicatorView *)cell.accessoryView;
 
-	switch (m_storage->CountryStatus(countryIndex))
+	// do not show status for parent categories
+  if (cell.reuseIdentifier != @"ParentCell")
   {
-  case EOnDisk:
-  	{
-    	TLocalAndRemoteSize::first_type size = m_storage->CountrySizeInBytes(countryIndex).first;
-  		// convert size to human readable values
-			char const * kBorMBorGB = "kB";
-      if (size > GB)
+    switch (m_storage->CountryStatus(countryIndex))
+    {
+    case EOnDisk:
       {
-      	kBorMBorGB = "GB";
-        size /= GB;
+        TLocalAndRemoteSize::first_type size = m_storage->CountrySizeInBytes(countryIndex).first;
+        // convert size to human readable values
+        char const * kBorMBorGB = "kB";
+        if (size > GB)
+        {
+          kBorMBorGB = "GB";
+          size /= GB;
+        }
+        else if (size > MB)
+        {
+          kBorMBorGB = "MB";
+          size /= MB;
+        }
+        else
+        {
+          kBorMBorGB = "kB";
+          size = (size + 999) / 1000;  
+        }
+      
+        cell.textLabel.textColor = [UIColor greenColor];
+        cell.detailTextLabel.text = [NSString stringWithFormat: @"Downloaded (%qu %s), touch to delete", size, kBorMBorGB];
+        cell.accessoryView = nil;
       }
-      else if (size > MB)
+      break;
+    case EDownloading:
       {
-      	kBorMBorGB = "MB";
-        size /= MB;
+        cell.textLabel.textColor = [UIColor blueColor];
+        cell.detailTextLabel.text = @"Downloading...";
+        if (!indicator)
+        {
+          indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleGray];
+          indicator.hidesWhenStopped = NO;
+          cell.accessoryView = indicator;
+          [indicator release];
+        }
+        [indicator startAnimating];
       }
-      else
-      {
-      	kBorMBorGB = "kB";
-        size = (size + 999) / 1000;  
-      }
-    
-  		cell.textLabel.textColor = [UIColor greenColor];
-    	cell.detailTextLabel.text = [NSString stringWithFormat: @"Downloaded (%qu %s), touch to delete", size, kBorMBorGB];
+      break;
+    case EDownloadFailed:
+      cell.textLabel.textColor = [UIColor redColor];  
+      cell.detailTextLabel.text = @"Download has failed, touch again for one more try";
       cell.accessoryView = nil;
-    }
-    break;
-  case EDownloading:
-  	{
-    	cell.textLabel.textColor = [UIColor blueColor];
-      cell.detailTextLabel.text = @"Downloading...";
-      if (!indicator)
+      break;
+    case EInQueue:
       {
-      	indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleGray];
-        indicator.hidesWhenStopped = NO;
-				cell.accessoryView = indicator;
-        [indicator release];
+        cell.textLabel.textColor = [UIColor lightGrayColor];
+        cell.detailTextLabel.text = [NSString stringWithFormat: @"Marked for downloading, touch to cancel"];
+        if (!indicator)
+        {
+          indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleGray];
+          indicator.hidesWhenStopped = NO;
+          cell.accessoryView = indicator;
+          [indicator release];
+        }
+        [indicator stopAnimating];
       }
-      [indicator startAnimating];
+      break;
+    case ENotDownloaded:
+      cell.textLabel.textColor = [UIColor blackColor];
+      cell.detailTextLabel.text = [NSString stringWithFormat: @"Touch to download"];
+      cell.accessoryView = nil;
+      break;
+    default:
+      break;
     }
-    break;
-  case EDownloadFailed:
-  	cell.textLabel.textColor = [UIColor redColor];  
-    cell.detailTextLabel.text = @"Download has failed :(";
-    cell.accessoryView = nil;
-    break;
-  case EInQueue:
-  	{
-  		cell.textLabel.textColor = [UIColor lightGrayColor];
-			cell.detailTextLabel.text = [NSString stringWithFormat: @"Marked for downloading, touch to cancel"];
-    	if (!indicator)
-      {
-      	indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleGray];
-        indicator.hidesWhenStopped = NO;
-				cell.accessoryView = indicator;
-        [indicator release];
-      }
-      [indicator stopAnimating];
-    }
-    break;
-  case ENotDownloaded:
-  	cell.textLabel.textColor = [UIColor blackColor];
-    cell.detailTextLabel.text = [NSString stringWithFormat: @"Touch to download"];
-    cell.accessoryView = nil;
-    break;
-  default:
-  	break;
   }
 }
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *) tableView: (UITableView *)tableView cellForRowAtIndexPath: (NSIndexPath *)indexPath
 { 
-	static NSString * cellId = @"CountryCell";
+  TIndex index = CalculateIndex(m_index, indexPath);
+	bool hasChildren = m_storage->CountriesCount(index) != 0;
+  
+	NSString * cellId = hasChildren ? @"ParentCell" : @"DetailCell";
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier: cellId];
   if (cell == nil)
-  	cell = [[[UITableViewCell alloc] initWithStyle: UITableViewCellStyleSubtitle reuseIdentifier:cellId] autorelease];
-  TIndex index = CalculateIndex(m_index, indexPath);
-	cell.textLabel.text = [NSString stringWithUTF8String:m_storage->CountryName(index).c_str()];
-  if (m_storage->CountriesCount(index))
+  {
+  	if (hasChildren)
+    	cell = [[[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier:cellId] autorelease];
+  	else
+  		cell = [[[UITableViewCell alloc] initWithStyle: UITableViewCellStyleSubtitle reuseIdentifier:cellId] autorelease];
+	}
+  cell.textLabel.text = [NSString stringWithUTF8String:m_storage->CountryName(index).c_str()];
+  if (hasChildren)
   	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
   else
   	cell.accessoryType = UITableViewCellAccessoryNone;
