@@ -99,15 +99,19 @@ int main(int argc, char ** argv)
   feature::GenerateInfo genInfo;
   genInfo.dir = FLAGS_intermediate_data_path;
 
-  // Generate dat file
-  if (FLAGS_generate_features)
+  // load classificator only if necessary
+  if (FLAGS_generate_features || FLAGS_generate_geometry || FLAGS_generate_index)
   {
-    LOG(LINFO, ("Generating final data ..."));
-
     classificator::Read(path + "drawing_rules.bin",
                         path + "classificator.txt",
                         path + "visibility.txt");
     classificator::PrepareForFeatureGeneration();
+  }
+
+  // Generate dat file
+  if (FLAGS_generate_features)
+  {
+    LOG(LINFO, ("Generating final data ..."));
 
     if (FLAGS_output.empty())
       genInfo.datFilePrefix = path;
