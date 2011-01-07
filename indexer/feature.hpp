@@ -14,8 +14,7 @@
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 #include "../std/array.hpp"
-
-#include <boost/bind.hpp>
+#include "../std/bind.hpp"
 
 class ArrayByteSource;
 class FeatureBase;
@@ -45,6 +44,7 @@ public:
   template <class TIter>
   inline void AddTypes(TIter beg, TIter end)
   {
+    // !WTF! with GCC
     int const count = min(static_cast<int>(m_maxTypesCount), static_cast<int>(distance(beg, end)));
     m_Types.assign(beg, beg + count);
   }
@@ -80,7 +80,7 @@ public:
   template <class ToDo>
   void ForEachPointRef(ToDo & toDo) const
   {
-    for_each(m_Geometry.begin(), m_Geometry.end(), boost::bind<void>(ref(toDo), _1));
+    for_each(m_Geometry.begin(), m_Geometry.end(), bind<void>(ref(toDo), _1));
   }
   //@}
 
