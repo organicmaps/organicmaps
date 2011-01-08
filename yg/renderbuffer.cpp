@@ -53,7 +53,7 @@ namespace yg
 
         if (m_isMultiSampled)
           OGLCHECK(glRenderbufferStorageMultisampleAPPLE(target,
-                                                         4,
+                                                         2,
                                                          internalFormat,
                                                          width,
                                                          height));

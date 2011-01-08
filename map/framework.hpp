@@ -13,6 +13,7 @@
 
 #include "../platform/platform.hpp"
 
+#include "../yg/defines.hpp"
 #include "../yg/screen.hpp"
 #include "../yg/color.hpp"
 #include "../yg/render_state.hpp"
@@ -343,7 +344,7 @@ public:
       m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(false);
       /// Drawing position and heading
       m2::PointD pxPosition = m_navigator.Screen().GtoP(m_position);
-      pDrawer->drawSymbol(pxPosition - ptShift, "current-position", 12000);
+      pDrawer->drawSymbol(pxPosition - ptShift, "current-position", yg::maxDepth);
 
       double pxConfidenceRadius = pxPosition.Length(m_navigator.Screen().GtoP(m_position + m2::PointD(m_confidenceRadius, 0)));
 
@@ -374,14 +375,14 @@ public:
           &borderPts[0],
           borderPts.size(),
           pDrawer->screen()->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 255, 64), 4, 0, 0, 0)),
-          11999
+          yg::maxDepth - 1
           );
 
       pDrawer->screen()->drawTriangles(
           &areaPts[0],
           areaPts.size(),
           pDrawer->screen()->skin()->mapColor(yg::Color(0, 0, 255, 32)),
-          11998);
+          yg::maxDepth - 2);
 
 /*        if (m_isHeadingEnabled)
         {
@@ -397,7 +398,7 @@ public:
               pts,
               2,
               pDrawer->screen()->skin()->mapPenInfo(yg::PenInfo(yg::Color(255, 0, 0, 255), 4, 0, 0, 0)),
-              12000
+              yg::maxDepth
               );
         }
 */

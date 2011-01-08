@@ -100,7 +100,9 @@ HEADERS += \
     text_renderer.hpp \
     geometry_batcher.hpp \
     screen.hpp \
-    layer_manager.hpp
+    layer_manager.hpp \
+    gpu_state.hpp \
+    defines.hpp
 
 !iphonesimulator-g++42 {
   !iphonedevice-g++42 {

@@ -1,5 +1,6 @@
 #include "../base/SRC_FIRST.hpp"
 
+#include "defines.hpp"
 #include "utils.hpp"
 #include "memento.hpp"
 #include "vertexbuffer.hpp"
@@ -27,18 +28,16 @@ namespace yg
         OGLCHECK(glMatrixMode(GL_PROJECTION));
         OGLCHECK(glLoadIdentity());
 
-        int const bound = 12000;
-
 #ifdef OMIM_GL_ES
         if (!doSwap)
-          OGLCHECK(glOrthof(0, width, 0, height, -bound, bound));
+          OGLCHECK(glOrthof(0, width, 0, height, -yg::maxDepth, yg::maxDepth));
         else
-          OGLCHECK(glOrthof(0, width, height, 0, -bound, bound));
+          OGLCHECK(glOrthof(0, width, height, 0, -yg::maxDepth, yg::maxDepth));
 #else
         if (!doSwap)
-          OGLCHECK(glOrtho(0, width, 0, height, -bound, bound));
+          OGLCHECK(glOrtho(0, width, 0, height, -yg::maxDepth, yg::maxDepth));
         else
-          OGLCHECK(glOrtho(0, width, height, 0, -bound, bound));
+          OGLCHECK(glOrtho(0, width, height, 0, -yg::maxDepth, yg::maxDepth));
 #endif
       }
     }

@@ -1,9 +1,9 @@
 #include "drawer_yg.hpp"
 
-
 #include "../indexer/drawing_rules.hpp"
 #include "../indexer/scales.hpp"
 
+#include "../yg/defines.hpp"
 #include "../yg/screen.hpp"
 #include "../yg/skin.hpp"
 #include "../yg/resource_manager.hpp"
@@ -148,16 +148,15 @@ uint8_t DrawerYG::get_font_size(rule_ptr_t pRule)
 
 void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t pRule, int /*depth*/)
 {
-  uint8_t fontSize = get_font_size(pRule);
-  if (fontSize > 3 * m_visualScale)
-    m_pScreen->drawText(pt, 0.0, fontSize, name, 10000);
+  uint8_t fontSize = max(get_font_size(pRule), (uint8_t)(yg::minTextSize * m_visualScale));
+  m_pScreen->drawText(pt, 0.0, fontSize, name, yg::maxDepth);
 }
 
 void DrawerYG::drawPathText(vector<m2::PointD> const & pts, double pathLength, string const & name, rule_ptr_t pRule, int /*depth*/)
 {
-  uint8_t fontSize = get_font_size(pRule);
-  if (fontSize > 3 * m_visualScale)
-    m_pScreen->drawPathText(&pts[0], pts.size(), fontSize, name, pathLength, yg::gl::Screen::middle_line, true, 10000);
+  uint8_t fontSize = get_font_size(pRule) - 2;
+  if (fontSize >= yg::minTextSize * m_visualScale)
+    m_pScreen->drawPathText(&pts[0], pts.size(), fontSize, name, pathLength, yg::gl::Screen::middle_line, true, yg::maxDepth);
 }
 
 shared_ptr<yg::gl::Screen> DrawerYG::screen() const
@@ -251,9 +250,9 @@ void DrawerYG::drawStats(double duration, int scale, double lat, double lng)
     out << " FPS: inf";
   else
     out << " FPS: " << 1.0 / duration;
-  m_pScreen->drawText(m2::PointD(10, 20), 0, 14, out.str().c_str(), 10000);
+  m_pScreen->drawText(m2::PointD(10, 20), 0, 14, out.str().c_str(), yg::maxDepth);
 
   out.str("");
   out << "(" << lat << ", " << lng << ") Scale: " << scale;
-  m_pScreen->drawText(m2::PointD(10, 40), 0, 14, out.str().c_str(), 10000);*/
+  m_pScreen->drawText(m2::PointD(10, 40), 0, 14, out.str().c_str(), yg::maxDepth);*/
 }
