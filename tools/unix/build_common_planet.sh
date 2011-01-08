@@ -7,6 +7,12 @@
 # "set -x" is useful to see what is going on.
 set -e -u -x
 
+# global params
+LIGHT_NODES=false
+PROCESSORS=4
+DATA_PATH=../../data
+
+
 # displays usage and exits
 function Usage {
   echo ''
@@ -15,6 +21,20 @@ function Usage {
   echo "Planet squares size is (2^bucketing_level x 2^bucketing_level)"
   echo "If optional intermediate path is given, only second pass will be executed"
   exit 0
+}
+
+# for parallel builds
+function forky() {
+  local num_par_procs
+  if [[ -z $1 ]] ; then
+    num_par_procs=2
+  else
+    num_par_procs=$1
+  fi
+
+  while [[ $(jobs | wc -l) -ge $num_par_procs ]] ; do
+    sleep 1
+  done
 }
 
 if [ $# -lt 2 ]; then
@@ -81,15 +101,41 @@ then
   PV=pv
 fi
 
-LIGHT_NODES=false
-
 # skip 1st pass if intermediate data path was given
-if [ $# -lt 3 ]; then
-  $PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
-    --use_light_nodes=$LIGHT_NODES \
-    --preprocess_xml
-fi
+#if [ $# -lt 3 ]; then
+#  # 1st pass - not paralleled
+#  $PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
+#    --use_light_nodes=$LIGHT_NODES \
+#    --preprocess_xml
+#fi
 
-$PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
-  --use_light_nodes=$LIGHT_NODES --bucketing_level=$BUCKETING_LEVEL \
-  --generate_features --sort_features --generate_geometry --generate_index --worldmap_max_zoom=5
+# 2nd pass - not paralleled
+#$PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
+#  --use_light_nodes=$LIGHT_NODES --bucketing_level=$BUCKETING_LEVEL \
+#  --generate_features --worldmap_max_zoom=5
+
+# 3rd pass - do in parallel
+for file in $DATA_PATH/*.mwm; do
+  if [ $file != "minsk-pass"  ]; then
+    filename=$(basename $file)
+    extension=${filename##*.}
+    filename=${filename%.*}
+    $INDEXER_TOOL --generate_geometry --sort_features --output=$filename &
+    forky $PROCESSORS
+  fi
+done
+
+wait
+
+# 4th pass - do in parallel
+for file in $DATA_PATH/*.mwm; do
+  if [ $file != "minsk-pass"  ]; then
+    filename=$(basename $file)
+    extension=${filename##*.}
+    filename=${filename%.*}
+    $INDEXER_TOOL --generate_index --output=$filename &
+    forky $PROCESSORS
+  fi
+done
+
+wait
