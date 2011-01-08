@@ -398,7 +398,7 @@ private:
 
   static void ReadOffsetsImpl(ArrayByteSource & src, offsets_t & offsets);
 
-  static uint32_t const m_invalidOffset = uint32_t(-1);
+  static uint32_t const kInvalidOffset = uint32_t(-1);
 
   uint32_t GetOffset(int scale, offsets_t const & offset) const;
 

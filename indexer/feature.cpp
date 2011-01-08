@@ -353,7 +353,8 @@ void FeatureBase::Deserialize(buffer_t & data, uint32_t offset)
   m_Data.swap(data);
 
   m_LayerOffset = m_NameOffset = m_CenterOffset = m_GeometryOffset = m_TrianglesOffset = 0;
-  m_bTypesParsed = m_bLayerParsed = m_bNameParsed = m_bCenterParsed = m_bGeometryParsed = m_bTrianglesParsed = false;
+  m_bTypesParsed = m_bLayerParsed = m_bNameParsed = m_bCenterParsed = false;
+  m_bGeometryParsed = m_bTrianglesParsed = false;
 
   m_Layer = 0;
   m_Name.clear();
@@ -500,7 +501,7 @@ uint32_t FeatureType::GetOffset(int scale, offsets_t const & offsets) const
     if (scale <= feature::g_arrScales[i])
       return offsets[i];
 
-  return m_invalidOffset;
+  return kInvalidOffset;
 }
 
 namespace
@@ -564,9 +565,10 @@ void FeatureType::ParseGeometry(int scale) const
   if (Header() & HEADER_IS_LINE)
   {
     uint32_t const offset = GetOffset(scale, m_lineOffsets);
-    if (offset != m_invalidOffset)
+    if (offset != kInvalidOffset)
     {
-      ReaderSource<FileReader> src(m_cont->GetReader(feature::GetTagForScale(GEOMETRY_FILE_TAG, scale)));
+      ReaderSource<FileReader> src(
+            m_cont->GetReader(feature::GetTagForScale(GEOMETRY_FILE_TAG, scale)));
       src.Skip(offset);
       feature::LoadPoints(m_Geometry, src);
 
@@ -585,9 +587,10 @@ void FeatureType::ParseTriangles(int scale) const
   if (Header() & HEADER_IS_AREA)
   {
     uint32_t const offset = GetOffset(scale, m_trgOffsets);
-    if (offset != m_invalidOffset)
+    if (offset != kInvalidOffset)
     {
-      ReaderSource<FileReader> src(m_cont->GetReader(feature::GetTagForScale(TRIANGLE_FILE_TAG, scale)));
+      ReaderSource<FileReader> src(
+            m_cont->GetReader(feature::GetTagForScale(TRIANGLE_FILE_TAG, scale)));
       src.Skip(offset);
       feature::LoadTriangles(m_Triangles, src);
 
@@ -608,7 +611,7 @@ void FeatureType::ReadOffsetsImpl(ArrayByteSource & src, offsets_t & offsets)
   {
     ASSERT ( index < ARRAY_SIZE(feature::g_arrScales), (index) );
 
-    offsets[index++] = (mask & 0x01) ? ReadVarUint<uint32_t>(src) : m_invalidOffset;
+    offsets[index++] = (mask & 0x01) ? ReadVarUint<uint32_t>(src) : kInvalidOffset;
 
     mask = mask >> 1;
   }
