@@ -545,6 +545,23 @@ namespace
     }
   };
 
+  struct TestDrawFontFiltering
+  {
+    void DoDraw(shared_ptr<yg::gl::Screen> p)
+    {
+      int startSize = 20;
+      int sizesCount = 20;
+
+      int startY = 30;
+      for (size_t i = 0; i < sizesCount; ++i)
+      {
+        p->drawText(m2::PointD(10, startY), 0, startSize + i, "Simplicity is the ultimate sophistication. Leonardo Da Vinci", 0);
+        p->drawText(m2::PointD(10, startY + (startSize + i) / 2), 0, startSize + i, "This text should be filtered", 0);
+        startY += startSize + i;
+      }
+    }
+  };
+
   struct TestDrawUtilsRect
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
@@ -722,7 +739,8 @@ namespace
 //   UNIT_TEST_GL(TestDrawStringOnString);
 //   UNIT_TEST_GL(TestDrawFontOnPath);
 //   UNIT_TEST_GL(TestDrawFontOnPathWithOffset);
-   UNIT_TEST_GL(TestDrawFontOverflow);
+//   UNIT_TEST_GL(TestDrawFontOverflow);
+   UNIT_TEST_GL(TestDrawFontFiltering);
 //   UNIT_TEST_GL(TestDrawSGIConvex);
 //   UNIT_TEST_GL(TestDrawPoly);
 //   UNIT_TEST_GL(TestDrawSolidRect);
