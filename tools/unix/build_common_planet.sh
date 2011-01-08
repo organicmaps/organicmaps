@@ -102,17 +102,17 @@ then
 fi
 
 # skip 1st pass if intermediate data path was given
-#if [ $# -lt 3 ]; then
-#  # 1st pass - not paralleled
-#  $PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
-#    --use_light_nodes=$LIGHT_NODES \
-#    --preprocess_xml
-#fi
+if [ $# -lt 3 ]; then
+  # 1st pass - not paralleled
+  $PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
+    --use_light_nodes=$LIGHT_NODES \
+    --preprocess_xml
+fi
 
 # 2nd pass - not paralleled
-#$PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
-#  --use_light_nodes=$LIGHT_NODES --bucketing_level=$BUCKETING_LEVEL \
-#  --generate_features --worldmap_max_zoom=5
+$PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
+  --use_light_nodes=$LIGHT_NODES --bucketing_level=$BUCKETING_LEVEL \
+  --generate_features --worldmap_max_zoom=5
 
 # 3rd pass - do in parallel
 for file in $DATA_PATH/*.mwm; do
