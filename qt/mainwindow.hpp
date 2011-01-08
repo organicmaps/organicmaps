@@ -42,6 +42,7 @@ namespace qt
     //void OnFeatureClicked(int row, int col);
     void ShowUpdateDialog();
     void ShowClassifPanel();
+    void OnAbout();
   };
 }
 

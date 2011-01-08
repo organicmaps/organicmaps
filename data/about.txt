@@ -1,0 +1,3 @@
+<h3>MapsWithMe is an Offline Maps application.</h3>
+
+<center><font color="green">Insert your licensing information here</font></center>

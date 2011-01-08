@@ -14,6 +14,10 @@
 #include <QtGui/QDockWidget>
 #include <QtGui/QToolBar>
 #include <QtGui/QAction>
+#include <QtGui/QMenuBar>
+#include <QtGui/QMenu>
+#include <QtGui/QMessageBox>
+#include <QtCore/QFile>
 
 #include "../base/start_mem_debug.hpp"
 
@@ -31,6 +35,10 @@ MainWindow::MainWindow()
   setCentralWidget(m_pDrawWidget);
 
   setWindowTitle(tr("MapsWithMe"));
+
+  QMenu * helpMenu = new QMenu(tr("Help"), this);
+  menuBar()->addMenu(helpMenu);
+  helpMenu->addAction(tr("About"), this, SLOT(OnAbout()));
 
   LoadState();
 }
@@ -214,6 +222,17 @@ void MainWindow::ShowUpdateDialog()
 void MainWindow::ShowClassifPanel()
 {
   m_pClassifDock->show();
+}
+
+void MainWindow::OnAbout()
+{
+  QFile file(GetPlatform().ReadPathForFile("about.txt").c_str());
+  if (file.open(QIODevice::ReadOnly))
+  {
+    QByteArray data = file.readAll();
+    QMessageBox::about(this, QMenuBar::tr("About"), data);
+    file.close();
+  }
 }
 
 }
