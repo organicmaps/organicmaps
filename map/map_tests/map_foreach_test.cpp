@@ -201,8 +201,8 @@ namespace
 {
   class FindOffset
   {
-    pair<FeatureType, string> const & m_test;
     int m_level;
+    pair<FeatureType, string> const & m_test;
 
   public:
     FindOffset(int level, pair<FeatureType, string> const & test)

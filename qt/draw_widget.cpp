@@ -17,8 +17,8 @@ namespace qt
       m_handle(new handle_t(this)),
       m_framework(m_handle),
       m_isDrag(false),
-      m_pScale(0),
-      m_redrawInterval(100)
+      m_redrawInterval(100),
+      m_pScale(0)
   {
     m_framework.Init(storage);
     m_timer = new QTimer(this);
@@ -216,7 +216,7 @@ namespace qt
       m_framework.SetRedrawEnabled(false);
       m_timer->start(m_redrawInterval);
       //m_framework.Scale(exp(e->delta() / 360.0));
-			m_framework.ScaleToPoint(ScaleToPointEvent(e->pos().x(), e->pos().y(), exp(e->delta() / 360.0)));
+      m_framework.ScaleToPoint(ScaleToPointEvent(e->pos().x(), e->pos().y(), exp(e->delta() / 360.0)));
       UpdateScaleControl();
     }
   }
