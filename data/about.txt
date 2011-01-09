@@ -1,3 +1,20 @@
-<h3>MapsWithMe is an Offline Maps application.</h3>
-
-<center><font color="green">Insert your licensing information here</font></center>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+  <body>
+    <p>MapsWithMe is an Offline Maps application</p>
+    <br />
+    <p>&copy; MapsWithMe 2011</p>
+    <br />
+    <p>3rd parties copyrights and licenses:</p>
+    <br />
+    <p>Map data &copy; <a href="http://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/pcenses/by-sa/2.0/">CC-BY-SA</a></p>
+    <p><a href="http://www.boost.org/pCENSE_1_0.txt">Boost</a></p>
+    <p><a href="http://www.gnu.org/pcenses/lgpl-2.1.html">Qt GNU LGPL v2.1</a></p>
+    <p><a href="http://expat.cvs.sourceforge.net/viewvc/expat/expat/COPYING">expat</a></p>
+    <p><a href="http://www.freetype.org/FTL.TXT">freetype</a></p>
+    <p><a href="https://svn.met.no/viewvc/fimex/trunk/include/kdtree%2B%2B/COPYING?view=co">kdtree++</a></p>
+    <p><a href="http://utfcpp.sourceforge.net/#introduction">utf8cpp</a></p>
+  </body>
+</html>
