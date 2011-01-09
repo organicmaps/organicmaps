@@ -206,7 +206,7 @@ namespace
 
   public:
     FindOffset(int level, pair<FeatureType, string> const & test)
-      : m_level(level), m_test(test)
+      : m_test(test), m_level(level)
     {}
 
     void operator() (FeatureType const & f, uint64_t offset)

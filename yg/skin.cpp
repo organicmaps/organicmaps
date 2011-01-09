@@ -22,10 +22,10 @@ namespace yg
   Skin::Skin(shared_ptr<ResourceManager> const & resourceManager,
              Skin::TSkinPages const & pages)
     : m_pages(pages),
-      m_resourceManager(resourceManager),
-      m_textPagesCount(2),
       m_dynamicPagesCount(2),
-      m_staticPagesCount(pages.size())
+      m_textPagesCount(2),
+      m_staticPagesCount(pages.size()),
+      m_resourceManager(resourceManager)
   {
     m_startTextPage = m_currentTextPage = m_pages.size();
     addDynamicPages(m_textPagesCount);
