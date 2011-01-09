@@ -26,19 +26,22 @@ class CellFeatureBucketer
 
 public:
   CellFeatureBucketer(int level, typename FeatureOutT::InitDataType const & featureOutInitData,
-                      int maxWorldZoom = -1)
-  : m_Level(level), m_FeatureOutInitData(featureOutInitData), m_maxWorldZoom(maxWorldZoom)
+                      int maxWorldZoom = -1, bool worldOnly = false)
+  : m_Level(level), m_FeatureOutInitData(featureOutInitData), m_maxWorldZoom(maxWorldZoom),
+    m_worldOnly(worldOnly)
   {
-    uint32_t const size = 1 << 2 * m_Level;
-    m_Buckets.resize(size);
-    for (uint32_t i = 0; i < m_Buckets.size(); ++i)
+    if (!m_worldOnly)
     {
-      CellIdT cell = CellIdT::FromBitsAndLevel(i, m_Level);
-      double minX, minY, maxX, maxY;
-      CellIdConverter<BoundsT, CellIdT>::GetCellBounds(cell, minX, minY, maxX, maxY);
-      m_Buckets[i].m_Rect = m2::RectD(minX, minY, maxX, maxY);
+      uint32_t const size = 1 << 2 * m_Level;
+      m_Buckets.resize(size);
+      for (uint32_t i = 0; i < m_Buckets.size(); ++i)
+      {
+        CellIdT cell = CellIdT::FromBitsAndLevel(i, m_Level);
+        double minX, minY, maxX, maxY;
+        CellIdConverter<BoundsT, CellIdT>::GetCellBounds(cell, minX, minY, maxX, maxY);
+        m_Buckets[i].m_Rect = m2::RectD(minX, minY, maxX, maxY);
+      }
     }
-
     // create separate world bucket if necessary
     if (maxWorldZoom >= 0)
       m_worldBucket.reset(new FeatureOutT(WORLD_FILE_NAME, m_FeatureOutInitData));
@@ -50,22 +53,25 @@ public:
     if (m_worldBucket && m_maxWorldZoom >= feature::MinDrawableScaleForFeature(fb.GetFeatureBase()))
       (*m_worldBucket)(fb);
 
-    FeatureClipperT clipper(fb);
-    // TODO: Is feature fully inside GetLimitRect()?
-    m2::RectD const limitRect = fb.GetLimitRect();
-    for (uint32_t i = 0; i < m_Buckets.size(); ++i)
+    if (!m_worldOnly)
     {
-      // First quick and dirty limit rect intersection.
-      // Clipper may (or may not) do a better intersection.
-      if (m_Buckets[i].m_Rect.IsIntersect(limitRect))
+      FeatureClipperT clipper(fb);
+      // TODO: Is feature fully inside GetLimitRect()?
+      m2::RectD const limitRect = fb.GetLimitRect();
+      for (uint32_t i = 0; i < m_Buckets.size(); ++i)
       {
-        feature_builder_t clippedFb;
-        if (clipper(m_Buckets[i].m_Rect, clippedFb))
+        // First quick and dirty limit rect intersection.
+        // Clipper may (or may not) do a better intersection.
+        if (m_Buckets[i].m_Rect.IsIntersect(limitRect))
         {
-          if (!m_Buckets[i].m_pOut)
-            m_Buckets[i].m_pOut = new FeatureOutT(BucketName(i), m_FeatureOutInitData);
+          feature_builder_t clippedFb;
+          if (clipper(m_Buckets[i].m_Rect, clippedFb))
+          {
+            if (!m_Buckets[i].m_pOut)
+              m_Buckets[i].m_pOut = new FeatureOutT(BucketName(i), m_FeatureOutInitData);
 
-          (*(m_Buckets[i].m_pOut))(clippedFb);
+            (*(m_Buckets[i].m_pOut))(clippedFb);
+          }
         }
       }
     }
@@ -99,6 +105,8 @@ private:
   /// if NULL, separate world data file is not generated
   boost::scoped_ptr<FeatureOutT> m_worldBucket;
   int m_maxWorldZoom;
+  /// if true, only world features will be written
+  bool m_worldOnly;
 };
 
 class SimpleFeatureClipper

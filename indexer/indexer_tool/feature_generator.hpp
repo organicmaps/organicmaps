@@ -15,7 +15,7 @@ namespace feature
 {
   struct GenerateInfo
   {
-    GenerateInfo() : m_maxScaleForWorldFeatures(-1) {}
+    GenerateInfo() : m_maxScaleForWorldFeatures(-1), m_worldOnly(false) {}
     string dir, datFilePrefix, datFileSuffix;
     int cellBucketingLevel;
     vector<string> bucketNames;
@@ -23,6 +23,7 @@ namespace feature
     /// included into separate world data file
     /// @note if -1, world file will not be created
     int m_maxScaleForWorldFeatures;
+    bool m_worldOnly;
   };
 
   bool GenerateFeatures(GenerateInfo & info, bool lightNodes);

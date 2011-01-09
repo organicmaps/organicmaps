@@ -301,7 +301,8 @@ bool GenerateImpl(GenerateInfo & info)
 
     typedef CellFeatureBucketer<FeaturesCollector, SimpleFeatureClipper, MercatorBounds, RectId>
         FeatureBucketerType;
-    FeatureBucketerType bucketer(info.cellBucketingLevel, collectorInitData, info.m_maxScaleForWorldFeatures);
+    FeatureBucketerType bucketer(info.cellBucketingLevel, collectorInitData,
+                                 info.m_maxScaleForWorldFeatures, info.m_worldOnly);
     {
       TParser<FeatureBucketerType, holder_t> parser(bucketer, holder);
       ParseXMLFromStdIn(parser);

@@ -47,6 +47,7 @@ DEFINE_string(intermediate_data_path, "", "Path to store nodes, ways, relations.
 DEFINE_int32(bucketing_level, 7, "Level of cell ids for bucketing.");
 DEFINE_int32(worldmap_max_zoom, -1, "If specified, features for zoomlevels [0..this_value] "
              " which are enabled in classificator will be added to the separate world.map");
+DEFINE_bool(world_only, false, "Generate only world features for given worldmap_max_zoom");
 
 string AddSlashIfNeeded(string const & str)
 {
@@ -123,6 +124,7 @@ int main(int argc, char ** argv)
     genInfo.datFileSuffix = DATA_FILE_EXTENSION;
     genInfo.cellBucketingLevel = FLAGS_bucketing_level;
     genInfo.m_maxScaleForWorldFeatures = FLAGS_worldmap_max_zoom;
+    genInfo.m_worldOnly = FLAGS_world_only;
 
     if (!feature::GenerateFeatures(genInfo, FLAGS_use_light_nodes))
     {
