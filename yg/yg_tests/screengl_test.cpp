@@ -550,7 +550,7 @@ namespace
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
       int startSize = 20;
-      int sizesCount = 4;
+      int sizesCount = 20;
 
       int startY = 30;
       for (size_t i = 0; i < sizesCount; ++i)

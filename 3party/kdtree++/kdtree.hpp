@@ -110,8 +110,13 @@ namespace KDTree
       typedef _Node_compare<_Val, _Acc, _Cmp> _Node_compare_;
 
     public:
-      typedef _Region<__K, _Val, typename _Acc::result_type, _Acc, _Cmp>
-        _Region_;
+      typedef _Region<__K, _Val, typename _Acc::result_type, _Acc, _Cmp> _Region_;
+
+      template <size_t __Dim> struct dim_region_type
+      {
+        typedef _Region<__Dim, _Val, typename _Acc::result_type, _Acc, _Cmp> type;
+      };
+
       typedef _Val value_type;
       typedef value_type* pointer;
       typedef value_type const* const_pointer;
@@ -462,9 +467,9 @@ namespace KDTree
           }
         }
 
-      template <class Visitor>
+      template <class TRegion, class Visitor>
         void
-        visit_within_range(_Region_ const& REGION, Visitor visitor) const
+        visit_within_range(TRegion const & REGION, Visitor visitor) const
         {
           if (_M_get_root())
               _M_visit_within_range(visitor, _M_get_root(), REGION, REGION, 0);
@@ -954,11 +959,11 @@ namespace KDTree
         }
 
 
-      template <class Visitor>
+      template <class TRegion, class Visitor>
         void
         _M_visit_within_range(Visitor visitor,
-                             _Link_const_type N, _Region_ const& REGION,
-                             _Region_ const& BOUNDS,
+                             _Link_const_type N, TRegion const & REGION,
+                             TRegion const & BOUNDS,
                              size_type const L) const
         {
           // replace 'encloses' check with direct call
@@ -966,7 +971,7 @@ namespace KDTree
 
           if (_S_left(N))
             {
-              _Region_ bounds(BOUNDS);
+              TRegion bounds(BOUNDS);
               bounds.set_high_bound(_S_value(N), L);
               if (REGION.intersects_with(bounds))
                 _M_visit_within_range(visitor, _S_left(N),
@@ -974,7 +979,7 @@ namespace KDTree
             }
           if (_S_right(N))
             {
-              _Region_ bounds(BOUNDS);
+              TRegion bounds(BOUNDS);
               bounds.set_low_bound(_S_value(N), L);
               if (REGION.intersects_with(bounds))
                 _M_visit_within_range(visitor, _S_right(N),

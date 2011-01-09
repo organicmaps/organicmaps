@@ -58,12 +58,18 @@ UNIT_TEST(Tree4D_DrawTexts)
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
   {
+    size_t const count = theTree.GetSize();
+
     theTree.ReplaceIf(arr[i], arr[i], &compare_false);
+    TEST_EQUAL ( theTree.GetSize(), count + 1, () );
+
     theTree.ReplaceIf(arr1[i], arr1[i], &compare_false);
+    TEST_EQUAL ( theTree.GetSize(), count + 1, () );
   }
 
   vector<m2::RectD> test;
   theTree.ForEach(MakeBackInsertFunctor(test));
+
   TEST_EQUAL(4, test.size(), ());
   for (int i = 0; i < test.size(); ++i)
     TEST_EQUAL(test[i], arr[i], ());

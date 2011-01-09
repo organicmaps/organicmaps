@@ -38,7 +38,7 @@ namespace m4
     };
 
     typedef KDTree::KDTree<4, value_t> tree_t;
-    typedef typename tree_t::_Region_ region_t;
+    typedef typename tree_t::dim_region_type<2>::type region_t;
     tree_t m_tree;
 
     typedef vector<value_t const *> store_vec_t;
@@ -67,19 +67,10 @@ namespace m4
     void ReplaceIf(T const & obj, m2::RectD const & rect, TCompare comp)
     {
       region_t rgn;
-      for (size_t i = 0; i < 4; ++i)
-      {
-        if (i % 2 == 0)
-        {
-          rgn._M_low_bounds[i] = rect.minX();
-          rgn._M_high_bounds[i] = rect.maxX();
-        }
-        else
-        {
-          rgn._M_low_bounds[i] = rect.minY();
-          rgn._M_high_bounds[i] = rect.maxY();
-        }
-      }
+      rgn._M_low_bounds[0] = rect.minX();
+      rgn._M_high_bounds[0] = rect.maxX();
+      rgn._M_low_bounds[1] = rect.minY();
+      rgn._M_high_bounds[1] = rect.maxY();
 
       store_vec_t isect;
 
@@ -107,6 +98,8 @@ namespace m4
       for (typename tree_t::const_iterator i = m_tree.begin(); i != m_tree.end(); ++i)
         toDo((*i).m_val);
     }
+
+    size_t GetSize() const { return m_tree.size(); }
 
     void Clear() { m_tree.clear(); }
   };
