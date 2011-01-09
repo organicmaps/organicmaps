@@ -64,7 +64,7 @@ public:
   {
     if (FeatureShouldBeIndexed(f))
     {
-      vector<int64_t> const cells = covering::CoverFeature(f, m_ScaleRange.second);
+      vector<int64_t> const cells = covering::CoverFeature(f, m_ScaleRange.second-1);
       for (vector<int64_t>::const_iterator it = cells.begin(); it != cells.end(); ++it)
         m_Sorter.Add(CellFeaturePair(*it, offset));
       ++m_NumFeatures;
