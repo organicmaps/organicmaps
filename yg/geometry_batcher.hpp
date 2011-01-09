@@ -130,6 +130,9 @@ namespace yg
                     string const & utf8Text,
                     double depth);
 
+      m2::RectD const textRect(string const & utf8Text,
+                               uint8_t fontSize);
+
       /// Drawing text in the middle of the path.
       void drawPathText(m2::PointD const * path,
                         size_t s,

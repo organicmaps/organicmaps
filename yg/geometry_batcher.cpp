@@ -567,6 +567,25 @@ namespace yg
      ForEachGlyph(fontSize, text, false, bind(&GeometryBatcher::drawGlyph, this, cref(pt), _1, angle, 0, _2, depth));
    }
 
+   m2::RectD const GeometryBatcher::textRect(string const & utf8Text, uint8_t fontSize)
+   {
+     m2::RectD rect;
+     m2::PointD pt(0, 0);
+     wstring const text = FromUtf8(utf8Text);
+     for (size_t i = 0; i < text.size(); ++i)
+     {
+       GlyphMetrics const m = resourceManager()->getGlyphMetrics(GlyphKey(text[i], fontSize, false));
+
+       rect.Add(pt);
+       rect.Add(pt + m2::PointD(m.m_xOffset + m.m_width, - m.m_yOffset - m.m_height));
+       pt += m2::PointD(m.m_xAdvance, 0);
+     }
+
+     rect.Inflate(2, 2);
+
+     return rect;
+   }
+
    /// Incapsulate array of points in readable getting direction.
    class pts_array
    {

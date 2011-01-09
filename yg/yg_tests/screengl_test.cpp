@@ -550,13 +550,13 @@ namespace
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
       int startSize = 20;
-      int sizesCount = 20;
+      int sizesCount = 4;
 
       int startY = 30;
       for (size_t i = 0; i < sizesCount; ++i)
       {
-        p->drawText(m2::PointD(10, startY), 0, startSize + i, "Simplicity is the ultimate sophistication. Leonardo Da Vinci", 0);
-        p->drawText(m2::PointD(10, startY + (startSize + i) / 2), 0, startSize + i, "This text should be filtered", 0);
+        p->drawText(m2::PointD(10, startY), 0, startSize/* + i*/, "Simplicity is the ultimate sophistication. Leonardo Da Vinci", 100);
+        p->drawText(m2::PointD(5, startY + (startSize + i) / 2), 0, startSize/* + i*/, "This text should be filtered", 100);
         startY += startSize + i;
       }
     }

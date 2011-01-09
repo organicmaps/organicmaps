@@ -29,7 +29,7 @@ namespace yg
         }
 
         void Draw(GeometryBatcher * pBatcher) const;
-        m2::RectD GetLimitRect(GeometryBatcher * pBatcher) const;
+        m2::RectD const GetLimitRect(GeometryBatcher * pBatcher) const;
 
         struct better_depth
         {

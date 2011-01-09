@@ -146,10 +146,10 @@ uint8_t DrawerYG::get_font_size(rule_ptr_t pRule)
   return static_cast<uint8_t>(pRule->GetTextHeight() * m_scale * m_visualScale);
 }
 
-void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t pRule, int /*depth*/)
+void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t pRule, int depth)
 {
   uint8_t fontSize = max(get_font_size(pRule), (uint8_t)(yg::minTextSize * m_visualScale));
-  m_pScreen->drawText(pt, 0.0, fontSize, name, yg::maxDepth);
+  m_pScreen->drawText(pt, 0.0, fontSize, name, depth);
 }
 
 void DrawerYG::drawPathText(vector<m2::PointD> const & pts, double pathLength, string const & name, rule_ptr_t pRule, int /*depth*/)
