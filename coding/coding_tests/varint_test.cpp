@@ -1,8 +1,9 @@
-#include "../../base/SRC_FIRST.hpp"
+#include "../varint.hpp"
 #include "../../testing/testing.hpp"
 
 #include "../byte_stream.hpp"
-#include "../varint.hpp"
+#include "../../base/macros.hpp"
+#include "../../base/stl_add.hpp"
 
 namespace
 {
@@ -95,3 +96,53 @@ UNIT_TEST(VarIntMax)
   TestVarInt(int64_t(9223372036854775807LL));
   // TestVarInt(int64_t(-9223372036854775808LL));
 }
+
+UNIT_TEST(ReadVarInt64Array_EmptyArray)
+{
+  vector<int64_t> result;
+  ReadVarInt64Array(NULL, NULL, MakeBackInsertFunctor(result));
+  TEST_EQUAL(result, vector<int64_t>(), ());
+}
+
+UNIT_TEST(ReadVarInt64Array)
+{
+  vector<int64_t> values;
+
+  // Fill in values.
+  {
+    int64_t const baseValues [] =
+    {
+      0, 127, 128, (2 << 28) - 1, (2 << 28), (2 << 31), (2 << 31) - 1,
+      0xFFFFFFFF - 1, 0xFFFFFFFF, 0xFFFFFFFFFFULL
+    };
+    for (size_t i = 0; i < ARRAY_SIZE(baseValues); ++i)
+    {
+      values.push_back(baseValues[i]);
+      values.push_back(-baseValues[i]);
+    }
+    sort(values.begin(), values.end());
+    values.erase(unique(values.begin(), values.end()), values.end());
+  }
+
+  // Test all subsets.
+  for (size_t i = 1; i < 1 << values.size(); ++i)
+  {
+    vector<int64_t> testValues;
+    for (size_t j = 0; j < values.size(); ++j)
+      if (i & (1 << j))
+        testValues.push_back(values[j]);
+
+    vector<unsigned char> data;
+    {
+      PushBackByteSink<vector<unsigned char> > dst(data);
+      for (size_t j = 0; j < testValues.size(); ++j)
+        WriteVarInt(dst, testValues[j]);
+    }
+
+    vector<int64_t> result;
+    ASSERT_GREATER(data.size(), 0, ());
+    ReadVarInt64Array(&data[0], &data[0] + data.size(), MakeBackInsertFunctor(result));
+    TEST_EQUAL(result, testValues, ());
+  }
+}
+

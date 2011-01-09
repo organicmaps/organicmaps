@@ -3,7 +3,7 @@
 
 #include "../base/assert.hpp"
 #include "../base/base.hpp"
-
+#include "../base/exception.hpp"
 #include "../std/type_traits.hpp"
 
 
@@ -184,4 +184,40 @@ template <typename T, typename TSource> T ReadVarInt(TSource & src)
 {
   STATIC_ASSERT(is_signed<T>::value);
   return ZigZagDecode(ReadVarUint<typename make_unsigned<T>::type>(src));
+}
+
+DECLARE_EXCEPTION(ReadVarIntException, RootException);
+
+template <typename F> void ReadVarInt64Array(void const * pBeg, void const * pEnd, F f)
+{
+  uint8_t const * const pBegChar = static_cast<uint8_t const *>(pBeg);
+  uint8_t const * const pEndChar = static_cast<uint8_t const *>(pEnd);
+  uint64_t res64 = 0;
+  uint32_t res32 = 0;
+  uint32_t count32 = 0;
+  uint32_t count64 = 0;
+  for (uint8_t const * p = pBegChar; p < pEndChar; ++p)
+  {
+    uint8_t const t = *p;
+    res32 += (static_cast<uint32_t>(t & 127) << count32);
+    count32 += 7;
+    if (!(t & 128))
+    {
+      f(ZigZagDecode((static_cast<uint64_t>(res32) << count64) + res64));
+      res64 = 0;
+      res32 = 0;
+      count32 = 0;
+      count64 = 0;
+    }
+    else if (count32 == 28)
+    {
+      res64 += (static_cast<uint64_t>(res32) << count64);
+      res32 = 0;
+      count32 = 0;
+      count64 += 28;
+    }
+  }
+  ASSERT(count32 == 0 && res32 == 0 && res64 == 0, (res64, res32, count32));
+  if (count32 != 0)
+    MYTHROW(ReadVarIntException, ());
 }
