@@ -4,6 +4,7 @@
 
 #include "../feature_processor.hpp"
 #include "../classificator.hpp"
+#include "../feature_impl.hpp"
 
 #include "../../base/string_utils.hpp"
 
@@ -14,6 +15,23 @@
 
 namespace stats
 {
+  void FileContainerStatistic(string const & fName)
+  {
+    FilesContainerR cont(fName);
+
+    vector<string> tags;
+    tags.push_back(DATA_FILE_TAG);
+    for (int i = 0; i < ARRAY_SIZE(feature::g_arrScales); ++i)
+    {
+      tags.push_back(feature::GetTagForIndex(GEOMETRY_FILE_TAG, i));
+      tags.push_back(feature::GetTagForIndex(TRIANGLE_FILE_TAG, i));
+    }
+    tags.push_back(INDEX_FILE_TAG);
+
+    for (size_t i = 0; i < tags.size(); ++i)
+      cout << tags[i] << " : " << cont.GetReader(tags[i]).Size() << endl;
+  }
+
   class AccumulateStatistic
   {
     MapInfo & m_info;
@@ -38,18 +56,22 @@ namespace stats
     {
       f.ParseBeforeStatistic();
 
-      uint32_t const sz = f.GetAllSize();
-      m_info.m_all.Add(sz);
+      uint32_t const datSize = f.GetAllSize();
+      m_info.m_all.Add(datSize);
       m_info.m_names.Add(f.GetNameSize());
       m_info.m_types.Add(f.GetTypesSize());
 
-      int const level = 17;
+      FeatureType::geom_stat_t geom = f.GetGeometrySize(-1);
+      FeatureType::geom_stat_t trg = f.GetTrianglesSize(-1);
 
-      FeatureType::geom_stat_t geom = f.GetGeometrySize(level);
       m_info.AddToSet(geom.m_count, geom.m_size, m_info.m_byPointsCount);
-      m_info.AddToSet(f.GetFeatureType(), sz, m_info.m_byGeomType);
+      m_info.AddToSet(trg.m_count / 3, trg.m_size, m_info.m_byTrgCount);
 
-      ProcessType doProcess(m_info, sz);
+      uint32_t const allSize = datSize + geom.m_size + trg.m_size;
+
+      m_info.AddToSet(f.GetFeatureType(), allSize, m_info.m_byGeomType);
+
+      ProcessType doProcess(m_info, allSize);
       f.ForEachTypeRef(doProcess);
     }
   };
@@ -122,12 +144,13 @@ namespace stats
 
   void PrintStatistic(MapInfo & info)
   {
-    PrintInfo("ALL", info.m_all);
+    PrintInfo("DAT", info.m_all);
     PrintInfo("NAMES", info.m_names);
     PrintInfo("TYPES", info.m_types);
 
     PrintTop<greater_size>("Top SIZE by Geometry Type", info.m_byGeomType);
     PrintTop<greater_size>("Top SIZE by Classificator Type", info.m_byClassifType);
     PrintTop<greater_size>("Top SIZE by Points Count", info.m_byPointsCount);
+    PrintTop<greater_size>("Top SIZE by Triangles Count", info.m_byTrgCount);
   }
 }

@@ -53,7 +53,7 @@ namespace stats
   {
     set<GeneralInfoKey<FeatureBase::FeatureType> > m_byGeomType;
     set<GeneralInfoKey<TypeTag> > m_byClassifType;
-    set<GeneralInfoKey<uint32_t> > m_byPointsCount;
+    set<GeneralInfoKey<uint32_t> > m_byPointsCount, m_byTrgCount;
 
     GeneralInfo m_all, m_names, m_types;
 
@@ -65,6 +65,8 @@ namespace stats
           theSet.insert(GeneralInfoKey<TKey>(key)).first->m_info).Add(sz);
     }
   };
+
+  void FileContainerStatistic(string const & fName);
 
   void CalcStatistic(string const & fName, MapInfo & info);
   void PrintStatistic(MapInfo & info);
