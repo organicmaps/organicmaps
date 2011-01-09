@@ -119,7 +119,7 @@ namespace feature
 
   static int g_arrScales[] = { 5, 10, 14, 17 };  // 17 = scales::GetUpperScale()
 
-  inline string GetTagForScale(char const * prefix, int scale)
+  inline string GetTagForIndex(char const * prefix, int ind)
   {
     string str;
     str.reserve(strlen(prefix) + 1);
@@ -127,14 +127,9 @@ namespace feature
 
     static char arrChar[] = { '0', '1', '2', '3' };
     STATIC_ASSERT ( ARRAY_SIZE(arrChar) == ARRAY_SIZE(g_arrScales) );
+    ASSERT ( ind >= 0 && ind < ARRAY_SIZE(arrChar), (ind) );
 
-    for (size_t i = 0; i < ARRAY_SIZE(feature::g_arrScales); ++i)
-      if (scale <= feature::g_arrScales[i])
-      {
-        str += arrChar[i];
-        break;
-      }
-
+    str += arrChar[ind];
     return str;
   }
 }

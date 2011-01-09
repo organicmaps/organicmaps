@@ -495,13 +495,36 @@ void FeatureType::Deserialize(read_source_t & src)
   base_type::Deserialize(src.m_data, src.m_offset);
 }
 
-uint32_t FeatureType::GetOffset(int scale, offsets_t const & offsets) const
+namespace
 {
-  for (size_t i = 0; i < ARRAY_SIZE(feature::g_arrScales); ++i)
-    if (scale <= feature::g_arrScales[i])
-      return offsets[i];
+    uint32_t const kInvalidOffset = uint32_t(-1);
+}
 
-  return kInvalidOffset;
+int FeatureType::GetScaleIndex(int scale, offsets_t const & offsets) const
+{
+  if (scale == -1)
+  {
+    // Choose the best geometry for the last visible scale.
+    int i = offsets.size()-1;
+    while (i >= 0 && offsets[i] == kInvalidOffset) --i;
+    if (i >= 0)
+      return i;
+    else
+      CHECK ( false, ("Feature should have any geometry ...") );
+  }
+  else
+  {
+    for (size_t i = 0; i < ARRAY_SIZE(feature::g_arrScales); ++i)
+      if (scale <= feature::g_arrScales[i])
+      {
+        if (offsets[i] != kInvalidOffset)
+          return i;
+        else
+          break;
+      }
+  }
+
+  return -1;
 }
 
 namespace
@@ -565,16 +588,16 @@ uint32_t FeatureType::ParseGeometry(int scale) const
   uint32_t sz = 0;
   if (Header() & HEADER_IS_LINE)
   {
-    uint32_t const offset = GetOffset(scale, m_lineOffsets);
-    if (offset != kInvalidOffset)
+    int const ind = GetScaleIndex(scale, m_lineOffsets);
+    if (ind != -1)
     {
       ReaderSource<FileReader> src(
-            m_cont->GetReader(feature::GetTagForScale(GEOMETRY_FILE_TAG, scale)));
-      src.Skip(offset);
+            m_cont->GetReader(feature::GetTagForIndex(GEOMETRY_FILE_TAG, ind)));
+      src.Skip(m_lineOffsets[ind]);
       feature::LoadPoints(m_Geometry, src);
 
       CalcRect(m_Geometry, m_LimitRect);
-      sz = static_cast<uint32_t>(src.Pos() - offset);
+      sz = static_cast<uint32_t>(src.Pos() - m_lineOffsets[ind]);
     }
   }
 
@@ -590,16 +613,16 @@ uint32_t FeatureType::ParseTriangles(int scale) const
   uint32_t sz = 0;
   if (Header() & HEADER_IS_AREA)
   {
-    uint32_t const offset = GetOffset(scale, m_trgOffsets);
-    if (offset != kInvalidOffset)
+    uint32_t const ind = GetScaleIndex(scale, m_trgOffsets);
+    if (ind != -1)
     {
       ReaderSource<FileReader> src(
-            m_cont->GetReader(feature::GetTagForScale(TRIANGLE_FILE_TAG, scale)));
-      src.Skip(offset);
+            m_cont->GetReader(feature::GetTagForIndex(TRIANGLE_FILE_TAG, ind)));
+      src.Skip(m_trgOffsets[ind]);
       feature::LoadTriangles(m_Triangles, src);
 
       CalcRect(m_Triangles, m_LimitRect);
-      sz = static_cast<uint32_t>(src.Pos() - offset);
+      sz = static_cast<uint32_t>(src.Pos() - m_trgOffsets[ind]);
     }
   }
 

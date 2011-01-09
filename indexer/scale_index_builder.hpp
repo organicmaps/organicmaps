@@ -49,6 +49,13 @@ STATIC_ASSERT(sizeof(CellFeaturePair) == 12);
 template <class SorterT>
 class FeatureCoverer
 {
+  int GetGeometryScale() const
+  {
+    // Do not pass actual level. We should build index for the best geometry (pass -1).
+    return -1;
+    //return m_ScaleRange.second-1;
+  }
+
 public:
   FeatureCoverer(uint32_t bucket,
                  SorterT & sorter,
@@ -64,7 +71,7 @@ public:
   {
     if (FeatureShouldBeIndexed(f))
     {
-      vector<int64_t> const cells = covering::CoverFeature(f, m_ScaleRange.second-1);
+      vector<int64_t> const cells = covering::CoverFeature(f, GetGeometryScale());
       for (vector<int64_t>::const_iterator it = cells.begin(); it != cells.end(); ++it)
         m_Sorter.Add(CellFeaturePair(*it, offset));
       ++m_NumFeatures;
@@ -75,8 +82,8 @@ public:
   template <class TFeature>
   bool FeatureShouldBeIndexed(TFeature const & f) const
   {
-     if (f.IsEmptyGeometry(m_ScaleRange.second-1))
-       return false;
+    if (f.IsEmptyGeometry(GetGeometryScale()))
+      return false;
 
     uint32_t const minScale = feature::MinDrawableScaleForFeature(f);
     return (m_ScaleRange.first <= minScale && minScale < m_ScaleRange.second);
