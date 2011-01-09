@@ -407,7 +407,7 @@ public:
     {
     }
 
-    geom_stat_t() : m_count(0), m_size(0) {}
+    geom_stat_t() : m_size(0), m_count(0) {}
   };
 
   geom_stat_t GetGeometrySize(int scale) const;
