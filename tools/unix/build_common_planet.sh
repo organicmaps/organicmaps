@@ -120,20 +120,7 @@ for file in $DATA_PATH/*.mwm; do
     filename=$(basename $file)
     extension=${filename##*.}
     filename=${filename%.*}
-    $INDEXER_TOOL --generate_geometry --sort_features --output=$filename &
-    forky $PROCESSORS
-  fi
-done
-
-wait
-
-# 4th pass - do in parallel
-for file in $DATA_PATH/*.mwm; do
-  if [ $file != "minsk-pass"  ]; then
-    filename=$(basename $file)
-    extension=${filename##*.}
-    filename=${filename%.*}
-    $INDEXER_TOOL --generate_index --output=$filename &
+    $INDEXER_TOOL --generate_geometry --sort_features --generate_index --output=$filename &
     forky $PROCESSORS
   fi
 done
