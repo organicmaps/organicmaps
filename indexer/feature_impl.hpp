@@ -34,29 +34,53 @@ namespace feature
     template <class TSink>
     void WriteCells(vector<int64_t> & cells, TSink & sink)
     {
+      vector<char> buffer;
+      MemWriter<vector<char> > writer(buffer);
+
       for (size_t i = 0; i < cells.size(); ++i)
-        WriteVarInt(sink, i == 0 ? cells[0] : cells[i] - cells[i-1]);
+        WriteVarInt(writer, i == 0 ? cells[0] : cells[i] - cells[i-1]);
+
+      uint32_t const count = static_cast<uint32_t>(buffer.size());
+      WriteVarUint(sink, count);
+      sink.Write(&buffer[0], count);
     }
+
+    class points_emitter
+    {
+      vector<m2::PointD> & m_points;
+      int64_t m_id;
+
+    public:
+      points_emitter(vector<m2::PointD> & points, uint32_t count)
+        : m_points(points), m_id(0)
+      {
+        m_points.reserve(count / 2);
+      }
+      void operator() (int64_t id)
+      {
+        m_points.push_back(pts::ToPoint(m_id += id));
+      }
+    };
 
     template <class TSource>
     void ReadPoints(vector<m2::PointD> & points, TSource & src)
     {
-      int64_t id = 0;
-      for (size_t i = 0; i < points.size(); ++i)
-        points[i] = pts::ToPoint(id += ReadVarInt<int64_t>(src));
+      uint32_t const count = ReadVarUint<uint32_t>(src);
+      vector<char> buffer(count);
+      char * p = &buffer[0];
+      src.Read(p, count);
+
+      ReadVarInt64Array(p, p + count, points_emitter(points, count));
     }
   }
 
   template <class TSink>
   void SavePoints(vector<m2::PointD> const & points, TSink & sink)
   {
-    uint32_t const count = points.size();
-    ASSERT_GREATER(count, 1, ());
+    ASSERT_GREATER(points.size(), 1, ());
 
     vector<int64_t> cells;
     detail::TransformPoints(points, cells);
-
-    WriteVarUint(sink, count - 2);
 
     detail::WriteCells(cells, sink);
   }
@@ -64,9 +88,6 @@ namespace feature
   template <class TSource>
   void LoadPoints(vector<m2::PointD> & points, TSource & src)
   {
-    uint32_t const count = ReadVarUint<uint32_t>(src) + 2;
-    points.resize(count);
-
     detail::ReadPoints(points, src);
   }
 
@@ -80,17 +101,12 @@ namespace feature
     vector<int64_t> cells;
     detail::TransformPoints(triangles, cells);
 
-    WriteVarUint(sink, count / 3 - 1);
-
     detail::WriteCells(cells, sink);
   }
 
   template <class TSource>
   void LoadTriangles(vector<m2::PointD> & points, TSource & src)
   {
-    uint32_t const count = 3 * (ReadVarUint<uint32_t>(src) + 1);
-    points.resize(count);
-
     detail::ReadPoints(points, src);
   }
 
