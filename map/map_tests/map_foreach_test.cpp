@@ -13,11 +13,13 @@
 #include "../../indexer/scales.hpp"
 #include "../../indexer/feature_visibility.hpp"
 #include "../../indexer/feature_processor.hpp"
+#include "../../indexer/classificator.hpp"
 
 #include "../../base/logging.hpp"
 
 #include "../../std/string.hpp"
 #include "../../std/algorithm.hpp"
+#include "../../std/iostream.hpp"
 
 #include "../../base/start_mem_debug.hpp"
 
@@ -213,51 +215,73 @@ namespace
     {
       string const s = f.DebugString(m_level);
       if (s == m_test.second)
-        LOG(LINFO, (s, "Feature offset = ", offset));
+      {
+        cout << s << endl << "Feature offset = " << offset << endl;
+
+        cout << "Feature classificator types:\n";
+
+        FeatureType::GetTypesFn getTypes;
+        f.ForEachTypeRef(getTypes);
+        for (int i = 0; i < getTypes.m_size; ++i)
+          cout << classif().GetFullObjectName(getTypes.m_types[i]) << endl;
+      }
     }
   };
+
+  void RunTest(string const & path)
+  {
+    model::FeaturesFetcher src1;
+    src1.InitClassificator();
+    src1.AddMap(path);
+
+    feature::DataHeader mapInfo;
+    TEST_GREATER(feature::ReadDataHeader(path, mapInfo), 0, ());
+
+    vector<m2::RectD> rects;
+    rects.push_back(mapInfo.Bounds());
+
+    while (!rects.empty())
+    {
+      m2::RectD r = rects.back();
+      rects.pop_back();
+
+      feature_cont_t v1, v2;
+      for_each_in_rect<AccumulatorBase>(src1, v1, r);
+
+      file_source_t src2(path);
+      for_each_in_rect<AccumulatorEtalon>(src2, v2, r);
+
+      int const level = scales::GetScaleLevel(r);
+
+      size_t errInd;
+      if (!compare_sequence(v2, v1, compare_strings(), errInd))
+      {
+        src2.ForEachFeature(r, FindOffset(level, v2[errInd]));
+        TEST(false, ("Failed for rect: ", r, "; Scale level = ", level, ". Etalon size = ", v2.size(), ". Index size = ", v1.size()));
+      }
+
+      if (!v2.empty() && (level < scales::GetUpperScale()))
+      {
+        m2::RectD r1, r2;
+        r.DivideByGreaterSize(r1, r2);
+        rects.push_back(r1);
+        rects.push_back(r2);
+      }
+    }
+  }
+
+  void RunTestForChoice(string const & fName)
+  {
+    cout << "Run " << fName << "? (y/n)\n";
+    char c;
+    cin >> c;
+    if (c == 'y')
+      RunTest(GetPlatform().WritablePathForFile(fName + DATA_FILE_EXTENSION));
+  }
 }
 
 UNIT_TEST(IndexForEachTest)
 {
-  string const path = GetPlatform().WritablePathForFile("minsk-pass" DATA_FILE_EXTENSION);
-
-  model::FeaturesFetcher src1;
-  src1.InitClassificator();
-  src1.AddMap(path);
-
-  feature::DataHeader mapInfo;
-  TEST_GREATER(feature::ReadDataHeader(path, mapInfo), 0, ());
-
-  vector<m2::RectD> rects;
-  rects.push_back(mapInfo.Bounds());
-
-  while (!rects.empty())
-  {
-    m2::RectD r = rects.back();
-    rects.pop_back();
-
-    feature_cont_t v1, v2;
-    for_each_in_rect<AccumulatorBase>(src1, v1, r);
-
-    file_source_t src2(path);
-    for_each_in_rect<AccumulatorEtalon>(src2, v2, r);
-
-    int const level = scales::GetScaleLevel(r);
-
-    size_t errInd;
-    if (!compare_sequence(v2, v1, compare_strings(), errInd))
-    {
-      src2.ForEachFeature(r, FindOffset(level, v2[errInd]));
-      TEST(false, ("Failed for rect: ", r, ". Etalon size = ", v2.size(), ". Index size = ", v1.size()));
-    }
-
-    if (!v2.empty() && (level < scales::GetUpperScale()))
-    {
-      m2::RectD r1, r2;
-      r.DivideByGreaterSize(r1, r2);
-      rects.push_back(r1);
-      rects.push_back(r2);
-    }
-  }
+  RunTestForChoice("minsk-pass");
+  RunTestForChoice("london-center");
 }
