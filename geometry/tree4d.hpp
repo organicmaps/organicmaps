@@ -38,7 +38,7 @@ namespace m4
     };
 
     typedef KDTree::KDTree<4, value_t> tree_t;
-    typedef typename tree_t::dim_region_type<2>::type region_t;
+    typedef typename tree_t::template dim_region_type<2>::type region_t;
     tree_t m_tree;
 
     typedef vector<value_t const *> store_vec_t;

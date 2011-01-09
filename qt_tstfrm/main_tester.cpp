@@ -37,6 +37,7 @@ int BaseTester::Run(char const * name, function<QWidget * (void)> const & fn)
   QApplication app(argc, argv);
 
   MainWindow wnd(fn());
+  wnd.setWindowTitle(name);
   wnd.show();
 
   return app.exec();

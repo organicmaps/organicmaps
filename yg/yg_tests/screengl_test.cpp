@@ -412,7 +412,7 @@ namespace
     }
   };
 
-  struct TestDrawFont
+  struct TestDrawText
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
@@ -492,13 +492,13 @@ namespace
     return ret;
   }
 
-  struct TestDrawFontOnPath
+  struct TestDrawTextOnPath
   {
     std::vector<m2::PointD> m_path;
     std::string m_text;
     yg::PenInfo m_penInfo;
 
-    TestDrawFontOnPath()
+    TestDrawTextOnPath()
     {
       m_path.push_back(m2::PointD(40, 200));
       m_path.push_back(m2::PointD(100, 100));
@@ -517,7 +517,7 @@ namespace
     }
   };
 
-  struct TestDrawFontOnPathWithOffset : TestDrawFontOnPath
+  struct TestDrawTextOnPathWithOffset : TestDrawTextOnPath
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
@@ -529,7 +529,7 @@ namespace
     }
   };
 
-  struct TestDrawFontOverflow
+  struct TestDrawTextOverflow
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
@@ -545,7 +545,7 @@ namespace
     }
   };
 
-  struct TestDrawFontFiltering
+  struct TestDrawTextFiltering
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
@@ -559,6 +559,27 @@ namespace
         p->drawText(m2::PointD(5, startY + (startSize + i) / 2), 0, startSize/* + i*/, "This text should be filtered", 100);
         startY += startSize + i;
       }
+    }
+  };
+
+  struct TestDrawRandomTextFiltering
+  {
+    void DoDraw(shared_ptr<yg::gl::Screen> p)
+    {
+      char * texts [] = {"Simplicity is the ultimate sophistication", "Leonardo Da Vinci"};
+
+      int startSize = 20;
+      int endSize = 40;
+
+      int textsCount = 200;
+
+      for (int i = 0; i < textsCount; ++i)
+        p->drawText(
+            m2::PointD(rand() % 500, rand() % 500),
+            0,
+            rand() % (endSize - startSize) + startSize,
+            texts[rand() % (sizeof(texts) / sizeof(char*))],
+            rand() % 10);
     }
   };
 
@@ -730,26 +751,27 @@ namespace
     }
   };
 
-//   UNIT_TEST_GL(TestDrawPolyOverflow);
-//   UNIT_TEST_GL(TestDrawFont);
-//   UNIT_TEST_GL(TestDrawSingleSymbol);
-//   UNIT_TEST_GL(TestDrawEmptySymbol);
-//   UNIT_TEST_GL(TestDrawSingleSymbolAndSolidPath);
-//   UNIT_TEST_GL(TestDrawString);
-//   UNIT_TEST_GL(TestDrawStringOnString);
-//   UNIT_TEST_GL(TestDrawFontOnPath);
-//   UNIT_TEST_GL(TestDrawFontOnPathWithOffset);
-//   UNIT_TEST_GL(TestDrawFontOverflow);
-   UNIT_TEST_GL(TestDrawFontFiltering);
-//   UNIT_TEST_GL(TestDrawSGIConvex);
-//   UNIT_TEST_GL(TestDrawPoly);
-//   UNIT_TEST_GL(TestDrawSolidRect);
-//   UNIT_TEST_GL(TestDrawPathWithSkinPageMiss);
-//   UNIT_TEST_GL(TestDrawPathWithOffset);
-//   UNIT_TEST_GL(TestDrawPathJoin);
-//   UNIT_TEST_GL(TestDrawPathSolid);
-//   UNIT_TEST_GL(TestDrawPathSolidWithZ);
-//   UNIT_TEST_GL(TestDrawPathSolidWithClipRect);
-//   UNIT_TEST_GL(TestDrawUtilsRect);
-//   UNIT_TEST_GL(TestDrawUtilsRectFilledTexture);
+   UNIT_TEST_GL(TestDrawPolyOverflow);
+   UNIT_TEST_GL(TestDrawText);
+   UNIT_TEST_GL(TestDrawSingleSymbol);
+   UNIT_TEST_GL(TestDrawEmptySymbol);
+   UNIT_TEST_GL(TestDrawSingleSymbolAndSolidPath);
+   UNIT_TEST_GL(TestDrawString);
+   UNIT_TEST_GL(TestDrawStringOnString);
+   UNIT_TEST_GL(TestDrawTextOnPath);
+   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
+   UNIT_TEST_GL(TestDrawTextOverflow);
+   UNIT_TEST_GL(TestDrawTextFiltering);
+   UNIT_TEST_GL(TestDrawRandomTextFiltering);
+   UNIT_TEST_GL(TestDrawSGIConvex);
+   UNIT_TEST_GL(TestDrawPoly);
+   UNIT_TEST_GL(TestDrawSolidRect);
+   UNIT_TEST_GL(TestDrawPathWithSkinPageMiss);
+   UNIT_TEST_GL(TestDrawPathWithOffset);
+   UNIT_TEST_GL(TestDrawPathJoin);
+   UNIT_TEST_GL(TestDrawPathSolid);
+   UNIT_TEST_GL(TestDrawPathSolidWithZ);
+   UNIT_TEST_GL(TestDrawPathSolidWithClipRect);
+   UNIT_TEST_GL(TestDrawUtilsRect);
+   UNIT_TEST_GL(TestDrawUtilsRectFilledTexture);
 }
