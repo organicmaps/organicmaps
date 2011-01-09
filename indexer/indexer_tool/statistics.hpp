@@ -60,7 +60,9 @@ namespace stats
     template <class TKey, class TSet>
     void AddToSet(TKey key, uint32_t sz, TSet & theSet)
     {
-      theSet.insert(GeneralInfoKey<TKey>(key)).first->m_info.Add(sz);
+      // GCC doesn't allow to modify set value ...
+      const_cast<GeneralInfo &>(
+          theSet.insert(GeneralInfoKey<TKey>(key)).first->m_info).Add(sz);
     }
   };
 
