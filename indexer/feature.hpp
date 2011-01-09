@@ -254,6 +254,12 @@ public:
 
   void InitFeatureBuilder(FeatureBuilder1 & fb) const;
 
+  /// @name Statistic functions.
+  //@{
+  uint32_t GetNameSize() const { return m_CenterOffset - m_NameOffset; }
+  uint32_t GetTypesSize() const { return m_LayerOffset - m_TypesOffset; }
+  //@}
+
 protected:
   void Deserialize(buffer_t & data, uint32_t offset = 0);
   string DebugString() const;
@@ -278,6 +284,7 @@ protected:
 
   mutable m2::RectD m_LimitRect;
 
+  static uint32_t const m_TypesOffset = 1;
   mutable uint32_t m_LayerOffset;
   mutable uint32_t m_NameOffset;
   mutable uint32_t m_CenterOffset;
@@ -380,10 +387,37 @@ public:
   /// For test cases only.
   string DebugString(int scale) const;
 
+  /// @name Statistic functions.
+  //@{
+  void ParseBeforeStatistic() const
+  {
+    if (!m_bOffsetsParsed)
+      ParseOffsets();
+  }
+
+  uint32_t GetOffsetSize() const { return m_Size - m_GeometryOffset; }
+  uint32_t GetAllSize() const { return m_Size; }
+
+  struct geom_stat_t
+  {
+    uint32_t m_size, m_count;
+
+    geom_stat_t(uint32_t sz, size_t count)
+      : m_size(sz), m_count(static_cast<uint32_t>(count))
+    {
+    }
+
+    geom_stat_t() : m_count(0), m_size(0) {}
+  };
+
+  geom_stat_t GetGeometrySize(int scale) const;
+  geom_stat_t GetTrianglesSize(int scale) const;
+  //@}
+
 private:
   void ParseOffsets() const;
-  void ParseGeometry(int scale) const;
-  void ParseTriangles(int scale) const;
+  uint32_t ParseGeometry(int scale) const;
+  uint32_t ParseTriangles(int scale) const;
 
   void ParseAll(int scale) const;
 
@@ -393,6 +427,8 @@ private:
   FilesContainerR * m_cont;
 
   mutable bool m_bOffsetsParsed;
+
+  mutable uint32_t m_Size;
 
   typedef array<uint32_t, 4> offsets_t; // should be synhronized with ARRAY_SIZE(g_arrScales)
 

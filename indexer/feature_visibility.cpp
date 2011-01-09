@@ -75,6 +75,24 @@ ClassifObject const * Classificator::GetObject(uint32_t type) const
   return p;
 }
 
+string Classificator::GetFullObjectName(uint32_t type) const
+{
+  ClassifObject const * p = &m_root;
+  uint8_t i = 0;
+  string s;
+
+  // get the final ClassifObject
+  uint8_t v;
+  while (ftype::GetValue(type, i, v))
+  {
+    ++i;
+    p = p->GetObject(v);
+    s = s + p->GetName() + '-';
+  }
+
+  return s;
+}
+
 namespace feature
 {
 
@@ -123,7 +141,7 @@ int GetDrawRule(FeatureBase const & f, int level, vector<drule::Key> & keys, str
   Classificator const & c = classif();
 
   get_draw_rule doRules(level, static_cast<feature_geo_t>(geoType), keys, names);
-  for (size_t i = 0; i < types.m_size; ++i)
+  for (int i = 0; i < types.m_size; ++i)
     (void)c.ProcessObjects(types.m_types[i], doRules);
 
   return geoType;
@@ -203,7 +221,7 @@ bool IsDrawableForIndex(FeatureBase const & f, int level)
   Classificator const & c = classif();
 
   check_is_drawable doCheck(level);
-  for (size_t i = 0; i < types.m_size; ++i)
+  for (int i = 0; i < types.m_size; ++i)
     if (c.ProcessObjects(types.m_types[i], doCheck))
       return true;
 

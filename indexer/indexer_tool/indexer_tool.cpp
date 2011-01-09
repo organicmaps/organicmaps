@@ -4,6 +4,7 @@
 #include "update_generator.hpp"
 #include "feature_bucketer.hpp"
 #include "grid_generator.hpp"
+#include "statistics.hpp"
 
 #include "../classif_routine.hpp"
 #include "../features_vector.hpp"
@@ -37,6 +38,7 @@ DEFINE_bool(generate_features, false, "2nd pass - generate intermediate features
 DEFINE_bool(generate_geometry, false, "3rd pass - split and simplify geometry and triangles for features");
 DEFINE_bool(generate_index, false, "4rd pass - generate index");
 DEFINE_bool(generate_grid, false, "Generate grid for given bucketing_level");
+DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files");
 DEFINE_bool(use_light_nodes, false,
             "If true, use temporary vector of nodes, instead of huge temp file");
 DEFINE_string(data_path, "", "Working directory, 'path_to_exe/../../data' if empty.");
@@ -100,7 +102,8 @@ int main(int argc, char ** argv)
   genInfo.dir = FLAGS_intermediate_data_path;
 
   // load classificator only if necessary
-  if (FLAGS_generate_features || FLAGS_generate_geometry || FLAGS_generate_index)
+  if (FLAGS_generate_features || FLAGS_generate_geometry ||
+      FLAGS_generate_index || FLAGS_calc_statistics)
   {
     classificator::Read(path + "drawing_rules.bin",
                         path + "classificator.txt",
@@ -158,6 +161,15 @@ int main(int argc, char ** argv)
       {
         LOG(LCRITICAL, ("Error generating index."));
       }
+    }
+
+    if (FLAGS_calc_statistics)
+    {
+      LOG(LINFO, ("Calculating statistics for ", datFile));
+
+      stats::MapInfo info;
+      stats::CalcStatistic(datFile, info);
+      stats::PrintStatistic(info);
     }
   }
 

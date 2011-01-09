@@ -24,6 +24,7 @@ SOURCES += \
   tesselator.cpp \
   update_generator.cpp \
   grid_generator.cpp \
+  statistics.cpp \
 
 HEADERS += \
   osm_element.hpp \
@@ -35,3 +36,4 @@ HEADERS += \
   update_generator.hpp \
   feature_bucketer.hpp \
   grid_generator.hpp \
+  statistics.hpp \

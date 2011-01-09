@@ -377,7 +377,7 @@ void FeatureBase::ParseTypes() const
 {
   ASSERT(!m_bTypesParsed, ());
 
-  ArrayByteSource source(DataPtr() + 1);
+  ArrayByteSource source(DataPtr() + m_TypesOffset);
   for (size_t i = 0; i < GetTypesCount(); ++i)
     m_Types[i] = ReadVarUint<uint32_t>(source);
 
@@ -557,11 +557,12 @@ m2::RectD FeatureType::GetLimitRect(int scale) const
   return m_LimitRect;
 }
 
-void FeatureType::ParseGeometry(int scale) const
+uint32_t FeatureType::ParseGeometry(int scale) const
 {
   if (!m_bOffsetsParsed)
     ParseOffsets();
 
+  uint32_t sz = 0;
   if (Header() & HEADER_IS_LINE)
   {
     uint32_t const offset = GetOffset(scale, m_lineOffsets);
@@ -573,17 +574,20 @@ void FeatureType::ParseGeometry(int scale) const
       feature::LoadPoints(m_Geometry, src);
 
       CalcRect(m_Geometry, m_LimitRect);
+      sz = static_cast<uint32_t>(src.Pos() - offset);
     }
   }
 
   m_bGeometryParsed = true;
+  return sz;
 }
 
-void FeatureType::ParseTriangles(int scale) const
+uint32_t FeatureType::ParseTriangles(int scale) const
 {
   if (!m_bOffsetsParsed)
     ParseOffsets();
 
+  uint32_t sz = 0;
   if (Header() & HEADER_IS_AREA)
   {
     uint32_t const offset = GetOffset(scale, m_trgOffsets);
@@ -595,10 +599,12 @@ void FeatureType::ParseTriangles(int scale) const
       feature::LoadTriangles(m_Triangles, src);
 
       CalcRect(m_Triangles, m_LimitRect);
+      sz = static_cast<uint32_t>(src.Pos() - offset);
     }
   }
 
   m_bTrianglesParsed = true;
+  return sz;
 }
 
 void FeatureType::ReadOffsetsImpl(ArrayByteSource & src, offsets_t & offsets)
@@ -633,6 +639,7 @@ void FeatureType::ParseOffsets() const
     ReadOffsetsImpl(src, m_trgOffsets);
 
   m_bOffsetsParsed = true;
+  m_Size = CalcOffset(src);
 }
 
 void FeatureType::ParseAll(int scale) const
@@ -642,4 +649,16 @@ void FeatureType::ParseAll(int scale) const
 
   if (!m_bTrianglesParsed)
     ParseTriangles(scale);
+}
+
+FeatureType::geom_stat_t FeatureType::GetGeometrySize(int scale) const
+{
+  uint32_t sz = ParseGeometry(scale);
+  return geom_stat_t(sz, m_Geometry.size());
+}
+
+FeatureType::geom_stat_t FeatureType::GetTrianglesSize(int scale) const
+{
+  uint32_t sz = ParseTriangles(scale);
+  return geom_stat_t(sz, m_Triangles.size());
 }
