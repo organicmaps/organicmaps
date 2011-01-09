@@ -1,403 +1,1093 @@
 <!DOCTYPE skin>
 <skin>
- <page width="512" height="256" file="symbols_24.png">
-  <symbolStyle id="1" name="airport">
+ <page width="512" height="512" file="symbols_24.png">
+  <fontInfo size="12">
+   <charStyle id="32">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="4">
+     <resourceStyle width="4" x="105" y="168" height="4"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="0" yOffset="0" xAdvance="4">
+     <resourceStyle width="4" x="109" y="168" height="4"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="33">
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="5">
+     <resourceStyle width="6" x="113" y="168" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="5">
+     <resourceStyle width="10" x="119" y="168" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="34">
+    <glyphInfo xOffset="0" yOffset="6" xAdvance="5">
+     <resourceStyle width="8" x="129" y="168" height="7"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="4" xAdvance="5">
+     <resourceStyle width="12" x="137" y="168" height="11"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="35">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="10">
+     <resourceStyle width="14" x="149" y="168" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="10">
+     <resourceStyle width="18" x="163" y="168" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="36">
+    <glyphInfo xOffset="0" yOffset="-1" xAdvance="8">
+     <resourceStyle width="11" x="181" y="168" height="15"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-3" xAdvance="8">
+     <resourceStyle width="15" x="192" y="168" height="19"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="37">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="12">
+     <resourceStyle width="15" x="207" y="168" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="12">
+     <resourceStyle width="19" x="222" y="168" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="38">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="9">
+     <resourceStyle width="13" x="241" y="168" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="9">
+     <resourceStyle width="18" x="254" y="168" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="39">
+    <glyphInfo xOffset="0" yOffset="6" xAdvance="3">
+     <resourceStyle width="6" x="272" y="168" height="7"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="4" xAdvance="3">
+     <resourceStyle width="10" x="278" y="168" height="11"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="40">
+    <glyphInfo xOffset="0" yOffset="-1" xAdvance="5">
+     <resourceStyle width="8" x="288" y="168" height="15"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-3" xAdvance="5">
+     <resourceStyle width="12" x="296" y="168" height="19"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="41">
+    <glyphInfo xOffset="1" yOffset="-1" xAdvance="5">
+     <resourceStyle width="7" x="308" y="168" height="15"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-1" yOffset="-3" xAdvance="5">
+     <resourceStyle width="11" x="315" y="168" height="19"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="42">
+    <glyphInfo xOffset="0" yOffset="3" xAdvance="7">
+     <resourceStyle width="11" x="326" y="168" height="10"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="1" xAdvance="7">
+     <resourceStyle width="15" x="337" y="168" height="14"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="43">
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="352" y="168" height="12"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="364" y="168" height="16"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="44">
+    <glyphInfo xOffset="1" yOffset="-1" xAdvance="4">
+     <resourceStyle width="6" x="380" y="168" height="7"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-1" yOffset="-3" xAdvance="4">
+     <resourceStyle width="10" x="386" y="168" height="11"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="45">
+    <glyphInfo xOffset="1" yOffset="3" xAdvance="5">
+     <resourceStyle width="7" x="396" y="168" height="5"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-1" yOffset="1" xAdvance="5">
+     <resourceStyle width="11" x="403" y="168" height="9"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="46">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="3">
+     <resourceStyle width="6" x="414" y="168" height="5"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="3">
+     <resourceStyle width="10" x="420" y="168" height="9"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="47">
+    <glyphInfo xOffset="0" yOffset="-2" xAdvance="4">
+     <resourceStyle width="9" x="430" y="168" height="15"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-4" xAdvance="4">
+     <resourceStyle width="13" x="439" y="168" height="19"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="48">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
+     <resourceStyle width="11" x="452" y="168" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
+     <resourceStyle width="15" x="463" y="168" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="49">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
+     <resourceStyle width="10" x="478" y="168" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
+     <resourceStyle width="14" x="488" y="168" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="50">
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="8">
+     <resourceStyle width="10" x="502" y="168" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="8">
+     <resourceStyle width="14" x="0" y="190" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="51">
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="8">
+     <resourceStyle width="10" x="14" y="190" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="8">
+     <resourceStyle width="14" x="24" y="190" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="52">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
+     <resourceStyle width="12" x="38" y="190" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
+     <resourceStyle width="16" x="50" y="190" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="53">
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="8">
+     <resourceStyle width="10" x="66" y="190" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="8">
+     <resourceStyle width="14" x="76" y="190" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="54">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
+     <resourceStyle width="11" x="90" y="190" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
+     <resourceStyle width="15" x="101" y="190" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="55">
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="8">
+     <resourceStyle width="10" x="116" y="190" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="8">
+     <resourceStyle width="14" x="126" y="190" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="56">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
+     <resourceStyle width="11" x="140" y="190" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
+     <resourceStyle width="15" x="151" y="190" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="57">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
+     <resourceStyle width="11" x="166" y="190" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
+     <resourceStyle width="15" x="177" y="190" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="58">
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="4">
+     <resourceStyle width="6" x="192" y="190" height="10"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="4">
+     <resourceStyle width="10" x="198" y="190" height="14"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="59">
+    <glyphInfo xOffset="1" yOffset="-1" xAdvance="4">
+     <resourceStyle width="6" x="208" y="190" height="12"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-1" yOffset="-3" xAdvance="4">
+     <resourceStyle width="10" x="214" y="190" height="16"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="61">
+    <glyphInfo xOffset="1" yOffset="2" xAdvance="10">
+     <resourceStyle width="12" x="224" y="190" height="8"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-1" yOffset="0" xAdvance="10">
+     <resourceStyle width="16" x="236" y="190" height="12"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="63">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="6">
+     <resourceStyle width="9" x="252" y="190" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="6">
+     <resourceStyle width="13" x="261" y="190" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="64">
+    <glyphInfo xOffset="0" yOffset="-2" xAdvance="12">
+     <resourceStyle width="15" x="274" y="190" height="15"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-4" xAdvance="12">
+     <resourceStyle width="19" x="289" y="190" height="19"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="65">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
+     <resourceStyle width="13" x="308" y="190" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
+     <resourceStyle width="17" x="321" y="190" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="66">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
+     <resourceStyle width="11" x="338" y="190" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
+     <resourceStyle width="15" x="349" y="190" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="67">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
+     <resourceStyle width="12" x="364" y="190" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
+     <resourceStyle width="16" x="376" y="190" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="68">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="9">
+     <resourceStyle width="12" x="392" y="190" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="9">
+     <resourceStyle width="16" x="404" y="190" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="69">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
+     <resourceStyle width="11" x="420" y="190" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
+     <resourceStyle width="15" x="431" y="190" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="70">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
+     <resourceStyle width="10" x="446" y="190" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
+     <resourceStyle width="14" x="456" y="190" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="72">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="9">
+     <resourceStyle width="12" x="470" y="190" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="9">
+     <resourceStyle width="16" x="482" y="190" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="73">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="3">
+     <resourceStyle width="6" x="498" y="190" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="3">
+     <resourceStyle width="10" x="0" y="209" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="74">
+    <glyphInfo xOffset="-1" yOffset="-3" xAdvance="4">
+     <resourceStyle width="8" x="10" y="209" height="16"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-3" yOffset="-5" xAdvance="4">
+     <resourceStyle width="12" x="18" y="209" height="20"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="75">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
+     <resourceStyle width="12" x="30" y="209" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
+     <resourceStyle width="16" x="42" y="209" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="76">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="6">
+     <resourceStyle width="11" x="58" y="209" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="6">
+     <resourceStyle width="15" x="69" y="209" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="77">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="10">
+     <resourceStyle width="13" x="84" y="209" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="10">
+     <resourceStyle width="17" x="97" y="209" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="78">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
+     <resourceStyle width="11" x="114" y="209" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
+     <resourceStyle width="15" x="125" y="209" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="79">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="10">
+     <resourceStyle width="13" x="140" y="209" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="10">
+     <resourceStyle width="17" x="153" y="209" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="80">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="6">
+     <resourceStyle width="10" x="170" y="209" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="6">
+     <resourceStyle width="14" x="180" y="209" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="81">
+    <glyphInfo xOffset="0" yOffset="-2" xAdvance="10">
+     <resourceStyle width="13" x="194" y="209" height="15"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-4" xAdvance="10">
+     <resourceStyle width="17" x="207" y="209" height="19"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="82">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
+     <resourceStyle width="12" x="224" y="209" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
+     <resourceStyle width="16" x="236" y="209" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="83">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
+     <resourceStyle width="11" x="252" y="209" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
+     <resourceStyle width="15" x="263" y="209" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="84">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
+     <resourceStyle width="11" x="278" y="209" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
+     <resourceStyle width="15" x="289" y="209" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="85">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="9">
+     <resourceStyle width="12" x="304" y="209" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="9">
+     <resourceStyle width="16" x="316" y="209" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="86">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
+     <resourceStyle width="13" x="332" y="209" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-3" yOffset="-2" xAdvance="8">
+     <resourceStyle width="18" x="345" y="209" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="87">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="12">
+     <resourceStyle width="16" x="363" y="209" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="12">
+     <resourceStyle width="20" x="379" y="209" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="88">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
+     <resourceStyle width="12" x="399" y="209" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
+     <resourceStyle width="17" x="411" y="209" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="89">
+    <glyphInfo xOffset="-1" yOffset="0" xAdvance="7">
+     <resourceStyle width="13" x="428" y="209" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-3" yOffset="-2" xAdvance="7">
+     <resourceStyle width="17" x="441" y="209" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="90">
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="9">
+     <resourceStyle width="11" x="458" y="209" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="9">
+     <resourceStyle width="15" x="469" y="209" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="94">
+    <glyphInfo xOffset="1" yOffset="5" xAdvance="10">
+     <resourceStyle width="12" x="484" y="209" height="8"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-1" yOffset="3" xAdvance="10">
+     <resourceStyle width="17" x="0" y="229" height="12"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="95">
+    <glyphInfo xOffset="-1" yOffset="-3" xAdvance="6">
+     <resourceStyle width="12" x="17" y="229" height="5"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-3" yOffset="-5" xAdvance="6">
+     <resourceStyle width="16" x="29" y="229" height="9"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="96">
+    <glyphInfo xOffset="1" yOffset="8" xAdvance="6">
+     <resourceStyle width="7" x="45" y="229" height="7"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="6" xAdvance="6">
+     <resourceStyle width="13" x="52" y="229" height="11"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="97">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
+     <resourceStyle width="10" x="65" y="229" height="11"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
+     <resourceStyle width="14" x="75" y="229" height="15"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="98">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
+     <resourceStyle width="11" x="89" y="229" height="14"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
+     <resourceStyle width="15" x="100" y="229" height="18"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="99">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
+     <resourceStyle width="10" x="115" y="229" height="11"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
+     <resourceStyle width="14" x="125" y="229" height="15"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="100">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
+     <resourceStyle width="11" x="139" y="229" height="14"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
+     <resourceStyle width="15" x="150" y="229" height="18"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="101">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
+     <resourceStyle width="11" x="165" y="229" height="11"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
+     <resourceStyle width="15" x="176" y="229" height="15"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="102">
+    <glyphInfo xOffset="-1" yOffset="0" xAdvance="4">
+     <resourceStyle width="10" x="191" y="229" height="14"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-3" yOffset="-2" xAdvance="4">
+     <resourceStyle width="14" x="201" y="229" height="18"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="103">
+    <glyphInfo xOffset="0" yOffset="-3" xAdvance="8">
+     <resourceStyle width="11" x="215" y="229" height="14"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-5" xAdvance="8">
+     <resourceStyle width="15" x="226" y="229" height="18"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="104">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
+     <resourceStyle width="10" x="241" y="229" height="14"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
+     <resourceStyle width="14" x="251" y="229" height="18"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="105">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="3">
+     <resourceStyle width="6" x="265" y="229" height="14"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="3">
+     <resourceStyle width="10" x="271" y="229" height="18"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="106">
+    <glyphInfo xOffset="-1" yOffset="-3" xAdvance="3">
+     <resourceStyle width="7" x="281" y="229" height="17"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-3" yOffset="-5" xAdvance="3">
+     <resourceStyle width="11" x="288" y="229" height="21"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="107">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
+     <resourceStyle width="11" x="299" y="229" height="14"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
+     <resourceStyle width="15" x="310" y="229" height="18"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="108">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="3">
+     <resourceStyle width="6" x="325" y="229" height="14"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="3">
+     <resourceStyle width="10" x="331" y="229" height="18"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="109">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="11">
+     <resourceStyle width="14" x="341" y="229" height="11"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="11">
+     <resourceStyle width="18" x="355" y="229" height="15"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="110">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
+     <resourceStyle width="10" x="373" y="229" height="11"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
+     <resourceStyle width="14" x="383" y="229" height="15"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="111">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
+     <resourceStyle width="11" x="397" y="229" height="11"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
+     <resourceStyle width="15" x="408" y="229" height="15"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="112">
+    <glyphInfo xOffset="0" yOffset="-3" xAdvance="8">
+     <resourceStyle width="11" x="423" y="229" height="14"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-5" xAdvance="8">
+     <resourceStyle width="15" x="434" y="229" height="18"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="113">
+    <glyphInfo xOffset="0" yOffset="-3" xAdvance="8">
+     <resourceStyle width="11" x="449" y="229" height="14"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-5" xAdvance="8">
+     <resourceStyle width="15" x="460" y="229" height="18"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="114">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="5">
+     <resourceStyle width="9" x="475" y="229" height="12"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="5">
+     <resourceStyle width="13" x="484" y="229" height="16"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="115">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
+     <resourceStyle width="10" x="497" y="229" height="11"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
+     <resourceStyle width="14" x="0" y="250" height="15"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="116">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="4">
+     <resourceStyle width="9" x="14" y="250" height="13"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="4">
+     <resourceStyle width="13" x="23" y="250" height="17"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="117">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
+     <resourceStyle width="10" x="36" y="250" height="12"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
+     <resourceStyle width="14" x="46" y="250" height="15"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="118">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
+     <resourceStyle width="11" x="60" y="250" height="11"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
+     <resourceStyle width="15" x="71" y="250" height="15"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="119">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="10">
+     <resourceStyle width="14" x="86" y="250" height="11"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="10">
+     <resourceStyle width="18" x="100" y="250" height="15"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="120">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
+     <resourceStyle width="11" x="118" y="250" height="11"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
+     <resourceStyle width="15" x="129" y="250" height="15"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="121">
+    <glyphInfo xOffset="0" yOffset="-3" xAdvance="7">
+     <resourceStyle width="11" x="144" y="250" height="14"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-2" yOffset="-5" xAdvance="7">
+     <resourceStyle width="15" x="155" y="250" height="18"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="122">
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="7">
+     <resourceStyle width="10" x="170" y="250" height="11"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="7">
+     <resourceStyle width="14" x="180" y="250" height="15"/>
+    </glyphMaskInfo>
+   </charStyle>
+   <charStyle id="126">
+    <glyphInfo xOffset="1" yOffset="2" xAdvance="10">
+     <resourceStyle width="12" x="194" y="250" height="8"/>
+    </glyphInfo>
+    <glyphMaskInfo xOffset="-1" yOffset="0" xAdvance="10">
+     <resourceStyle width="16" x="206" y="250" height="12"/>
+    </glyphMaskInfo>
+   </charStyle>
+  </fontInfo>
+  <symbolStyle id="127" name="airport">
    <resourceStyle width="28" x="0" y="0" height="28"/>
   </symbolStyle>
-  <symbolStyle id="2" name="alpine_hut">
+  <symbolStyle id="128" name="alpine_hut">
    <resourceStyle width="28" x="28" y="0" height="28"/>
   </symbolStyle>
-  <symbolStyle id="3" name="archery-borderless">
+  <symbolStyle id="129" name="archery-borderless">
    <resourceStyle width="28" x="56" y="0" height="28"/>
   </symbolStyle>
-  <symbolStyle id="4" name="archery">
+  <symbolStyle id="130" name="archery">
    <resourceStyle width="28" x="84" y="0" height="28"/>
   </symbolStyle>
-  <symbolStyle id="5" name="athletics-borderless">
+  <symbolStyle id="131" name="athletics-borderless">
    <resourceStyle width="28" x="112" y="0" height="28"/>
   </symbolStyle>
-  <symbolStyle id="6" name="athletics">
+  <symbolStyle id="132" name="athletics">
    <resourceStyle width="28" x="140" y="0" height="28"/>
   </symbolStyle>
-  <symbolStyle id="7" name="atm">
+  <symbolStyle id="133" name="atm">
    <resourceStyle width="24" x="168" y="0" height="24"/>
   </symbolStyle>
-  <symbolStyle id="8" name="bakery">
+  <symbolStyle id="134" name="bakery">
    <resourceStyle width="26" x="192" y="0" height="20"/>
   </symbolStyle>
-  <symbolStyle id="9" name="bank">
+  <symbolStyle id="135" name="bank">
    <resourceStyle width="22" x="218" y="0" height="22"/>
   </symbolStyle>
-  <symbolStyle id="10" name="bar">
+  <symbolStyle id="136" name="bar">
    <resourceStyle width="20" x="240" y="0" height="20"/>
   </symbolStyle>
-  <symbolStyle id="11" name="baseball-borderless">
+  <symbolStyle id="137" name="baseball-borderless">
    <resourceStyle width="28" x="260" y="0" height="28"/>
   </symbolStyle>
-  <symbolStyle id="12" name="baseball">
+  <symbolStyle id="138" name="baseball">
    <resourceStyle width="28" x="288" y="0" height="28"/>
   </symbolStyle>
-  <symbolStyle id="13" name="basketball-borderless">
+  <symbolStyle id="139" name="basketball-borderless">
    <resourceStyle width="28" x="316" y="0" height="27"/>
   </symbolStyle>
-  <symbolStyle id="14" name="basketball">
+  <symbolStyle id="140" name="basketball">
    <resourceStyle width="28" x="344" y="0" height="28"/>
   </symbolStyle>
-  <symbolStyle id="15" name="bench">
+  <symbolStyle id="141" name="bench">
    <resourceStyle width="16" x="372" y="0" height="16"/>
   </symbolStyle>
-  <symbolStyle id="16" name="bicycle_rental">
+  <symbolStyle id="142" name="bicycle_rental">
    <resourceStyle width="20" x="388" y="0" height="20"/>
   </symbolStyle>
-  <symbolStyle id="17" name="bird">
+  <symbolStyle id="143" name="bird">
    <resourceStyle width="20" x="408" y="0" height="20"/>
   </symbolStyle>
-  <symbolStyle id="18" name="bowls-borderless">
+  <symbolStyle id="144" name="bowls-borderless">
    <resourceStyle width="28" x="428" y="0" height="28"/>
   </symbolStyle>
-  <symbolStyle id="19" name="bowls">
+  <symbolStyle id="145" name="bowls">
    <resourceStyle width="28" x="456" y="0" height="28"/>
   </symbolStyle>
-  <symbolStyle id="20" name="building">
+  <symbolStyle id="146" name="building">
    <resourceStyle width="13" x="484" y="0" height="13"/>
   </symbolStyle>
-  <symbolStyle id="21" name="bureau_de_change">
+  <symbolStyle id="147" name="bureau_de_change">
    <resourceStyle width="20" x="0" y="28" height="20"/>
   </symbolStyle>
-  <symbolStyle id="22" name="bus">
+  <symbolStyle id="148" name="bus">
    <resourceStyle width="28" x="20" y="28" height="28"/>
   </symbolStyle>
-  <symbolStyle id="23" name="bus_sta">
+  <symbolStyle id="149" name="bus_sta">
    <resourceStyle width="28" x="48" y="28" height="28"/>
   </symbolStyle>
-  <symbolStyle id="24" name="cafe">
+  <symbolStyle id="150" name="cafe">
    <resourceStyle width="18" x="76" y="28" height="18"/>
   </symbolStyle>
-  <symbolStyle id="25" name="campsite">
+  <symbolStyle id="151" name="campsite">
    <resourceStyle width="22" x="94" y="28" height="22"/>
   </symbolStyle>
-  <symbolStyle id="26" name="cannon">
+  <symbolStyle id="152" name="cannon">
    <resourceStyle width="28" x="116" y="28" height="28"/>
   </symbolStyle>
-  <symbolStyle id="27" name="car_sharing">
+  <symbolStyle id="153" name="car_sharing">
    <resourceStyle width="20" x="144" y="28" height="19"/>
   </symbolStyle>
-  <symbolStyle id="28" name="cave_entrance">
+  <symbolStyle id="154" name="cave_entrance">
    <resourceStyle width="20" x="164" y="28" height="20"/>
   </symbolStyle>
-  <symbolStyle id="29" name="church">
+  <symbolStyle id="155" name="church">
    <resourceStyle width="22" x="184" y="28" height="22"/>
   </symbolStyle>
-  <symbolStyle id="30" name="cinema">
+  <symbolStyle id="156" name="cinema">
    <resourceStyle width="27" x="206" y="28" height="27"/>
   </symbolStyle>
-  <symbolStyle id="31" name="cricket-borderless">
+  <symbolStyle id="157" name="cricket-borderless">
    <resourceStyle width="28" x="233" y="28" height="28"/>
   </symbolStyle>
-  <symbolStyle id="32" name="cricket">
+  <symbolStyle id="158" name="cricket">
    <resourceStyle width="28" x="261" y="28" height="28"/>
   </symbolStyle>
-  <symbolStyle id="33" name="curling-borderless">
+  <symbolStyle id="159" name="curling-borderless">
    <resourceStyle width="28" x="289" y="28" height="28"/>
   </symbolStyle>
-  <symbolStyle id="34" name="curling">
+  <symbolStyle id="160" name="curling">
    <resourceStyle width="28" x="317" y="28" height="28"/>
   </symbolStyle>
-  <symbolStyle id="35" name="current-position">
+  <symbolStyle id="161" name="current-position">
    <resourceStyle width="28" x="345" y="28" height="28"/>
   </symbolStyle>
-  <symbolStyle id="36" name="disused">
+  <symbolStyle id="162" name="disused">
    <resourceStyle width="13" x="373" y="28" height="13"/>
   </symbolStyle>
-  <symbolStyle id="37" name="diving-borderless">
+  <symbolStyle id="163" name="diving-borderless">
    <resourceStyle width="28" x="386" y="28" height="28"/>
   </symbolStyle>
-  <symbolStyle id="38" name="diving">
+  <symbolStyle id="164" name="diving">
    <resourceStyle width="28" x="414" y="28" height="28"/>
   </symbolStyle>
-  <symbolStyle id="39" name="doctor">
+  <symbolStyle id="165" name="doctor">
    <resourceStyle width="22" x="442" y="28" height="22"/>
   </symbolStyle>
-  <symbolStyle id="40" name="dog_park">
+  <symbolStyle id="166" name="dog_park">
    <resourceStyle width="20" x="464" y="28" height="20"/>
   </symbolStyle>
-  <symbolStyle id="41" name="drinking_water">
+  <symbolStyle id="167" name="drinking_water">
    <resourceStyle width="22" x="484" y="28" height="22"/>
   </symbolStyle>
-  <symbolStyle id="42" name="earthquakecamp">
+  <symbolStyle id="168" name="earthquakecamp">
    <resourceStyle width="22" x="0" y="56" height="22"/>
   </symbolStyle>
-  <symbolStyle id="43" name="equestrian-borderless">
+  <symbolStyle id="169" name="equestrian-borderless">
    <resourceStyle width="28" x="22" y="56" height="28"/>
   </symbolStyle>
-  <symbolStyle id="44" name="equestrian">
+  <symbolStyle id="170" name="equestrian">
    <resourceStyle width="28" x="50" y="56" height="28"/>
   </symbolStyle>
-  <symbolStyle id="45" name="fastfood">
+  <symbolStyle id="171" name="fastfood">
    <resourceStyle width="24" x="78" y="56" height="25"/>
   </symbolStyle>
-  <symbolStyle id="46" name="firebrigade">
+  <symbolStyle id="172" name="firebrigade">
    <resourceStyle width="28" x="102" y="56" height="28"/>
   </symbolStyle>
-  <symbolStyle id="47" name="football-borderless">
+  <symbolStyle id="173" name="football-borderless">
    <resourceStyle width="28" x="130" y="56" height="28"/>
   </symbolStyle>
-  <symbolStyle id="48" name="football">
+  <symbolStyle id="174" name="football">
    <resourceStyle width="28" x="158" y="56" height="28"/>
   </symbolStyle>
-  <symbolStyle id="49" name="fountain">
+  <symbolStyle id="175" name="fountain">
    <resourceStyle width="20" x="186" y="56" height="20"/>
   </symbolStyle>
-  <symbolStyle id="50" name="golfcourse">
+  <symbolStyle id="176" name="golfcourse">
    <resourceStyle width="28" x="206" y="56" height="28"/>
   </symbolStyle>
-  <symbolStyle id="51" name="gymnastics-borderless">
+  <symbolStyle id="177" name="gymnastics-borderless">
    <resourceStyle width="28" x="234" y="56" height="28"/>
   </symbolStyle>
-  <symbolStyle id="52" name="gymnastics">
+  <symbolStyle id="178" name="gymnastics">
    <resourceStyle width="28" x="262" y="56" height="28"/>
   </symbolStyle>
-  <symbolStyle id="53" name="hairdresser">
+  <symbolStyle id="179" name="hairdresser">
    <resourceStyle width="20" x="290" y="56" height="20"/>
   </symbolStyle>
-  <symbolStyle id="54" name="handball-borderless">
+  <symbolStyle id="180" name="handball-borderless">
    <resourceStyle width="28" x="310" y="56" height="28"/>
   </symbolStyle>
-  <symbolStyle id="55" name="handball">
+  <symbolStyle id="181" name="handball">
    <resourceStyle width="28" x="338" y="56" height="28"/>
   </symbolStyle>
-  <symbolStyle id="56" name="helipad">
+  <symbolStyle id="182" name="helipad">
    <resourceStyle width="28" x="366" y="56" height="28"/>
   </symbolStyle>
-  <symbolStyle id="57" name="hospital">
+  <symbolStyle id="183" name="hospital">
    <resourceStyle width="19" x="394" y="56" height="19"/>
   </symbolStyle>
-  <symbolStyle id="58" name="hostel">
+  <symbolStyle id="184" name="hostel">
    <resourceStyle width="28" x="413" y="56" height="28"/>
   </symbolStyle>
-  <symbolStyle id="59" name="hotel">
+  <symbolStyle id="185" name="hotel">
    <resourceStyle width="22" x="441" y="56" height="22"/>
   </symbolStyle>
-  <symbolStyle id="60" name="hotel_and_restaurant">
+  <symbolStyle id="186" name="hotel_and_restaurant">
    <resourceStyle width="17" x="463" y="56" height="17"/>
   </symbolStyle>
-  <symbolStyle id="61" name="housenumber">
+  <symbolStyle id="187" name="housenumber">
    <resourceStyle width="22" x="480" y="56" height="22"/>
   </symbolStyle>
-  <symbolStyle id="62" name="hunting_closed_high">
+  <symbolStyle id="188" name="hunting_closed_high">
    <resourceStyle width="28" x="0" y="84" height="28"/>
   </symbolStyle>
-  <symbolStyle id="63" name="information-guidepost">
+  <symbolStyle id="189" name="information-guidepost">
    <resourceStyle width="16" x="28" y="84" height="28"/>
   </symbolStyle>
-  <symbolStyle id="64" name="information-office">
+  <symbolStyle id="190" name="information-office">
    <resourceStyle width="24" x="44" y="84" height="24"/>
   </symbolStyle>
-  <symbolStyle id="65" name="information">
+  <symbolStyle id="191" name="information">
    <resourceStyle width="22" x="68" y="84" height="22"/>
   </symbolStyle>
-  <symbolStyle id="66" name="khanda">
+  <symbolStyle id="192" name="khanda">
    <resourceStyle width="26" x="90" y="84" height="26"/>
   </symbolStyle>
-  <symbolStyle id="67" name="kindergarten">
+  <symbolStyle id="193" name="kindergarten">
    <resourceStyle width="22" x="116" y="84" height="22"/>
   </symbolStyle>
-  <symbolStyle id="68" name="library">
+  <symbolStyle id="194" name="library">
    <resourceStyle width="22" x="138" y="84" height="22"/>
   </symbolStyle>
-  <symbolStyle id="69" name="lighthouse">
+  <symbolStyle id="195" name="lighthouse">
    <resourceStyle width="20" x="160" y="84" height="20"/>
   </symbolStyle>
-  <symbolStyle id="70" name="man-made-halfpipe">
+  <symbolStyle id="196" name="man-made-halfpipe">
    <resourceStyle width="28" x="180" y="84" height="28"/>
   </symbolStyle>
-  <symbolStyle id="71" name="mosque">
+  <symbolStyle id="197" name="mosque">
    <resourceStyle width="22" x="208" y="84" height="22"/>
   </symbolStyle>
-  <symbolStyle id="72" name="mountain_pass">
+  <symbolStyle id="198" name="mountain_pass">
    <resourceStyle width="28" x="230" y="84" height="28"/>
   </symbolStyle>
-  <symbolStyle id="73" name="museum">
+  <symbolStyle id="199" name="museum">
    <resourceStyle width="22" x="258" y="84" height="22"/>
   </symbolStyle>
-  <symbolStyle id="74" name="park_and_ride-permissive">
+  <symbolStyle id="200" name="park_and_ride-permissive">
    <resourceStyle width="28" x="280" y="84" height="16"/>
   </symbolStyle>
-  <symbolStyle id="75" name="park_and_ride">
+  <symbolStyle id="201" name="park_and_ride">
    <resourceStyle width="28" x="308" y="84" height="16"/>
   </symbolStyle>
-  <symbolStyle id="76" name="parking-permissive">
+  <symbolStyle id="202" name="parking-permissive">
    <resourceStyle width="24" x="336" y="84" height="24"/>
   </symbolStyle>
-  <symbolStyle id="77" name="parking-private">
+  <symbolStyle id="203" name="parking-private">
    <resourceStyle width="24" x="360" y="84" height="24"/>
   </symbolStyle>
-  <symbolStyle id="78" name="parking">
+  <symbolStyle id="204" name="parking">
    <resourceStyle width="24" x="384" y="84" height="24"/>
   </symbolStyle>
-  <symbolStyle id="79" name="parking_fee-permissive">
+  <symbolStyle id="205" name="parking_fee-permissive">
    <resourceStyle width="28" x="408" y="84" height="16"/>
   </symbolStyle>
-  <symbolStyle id="80" name="parking_fee">
+  <symbolStyle id="206" name="parking_fee">
    <resourceStyle width="28" x="436" y="84" height="16"/>
   </symbolStyle>
-  <symbolStyle id="81" name="parking_roof-permissive">
+  <symbolStyle id="207" name="parking_roof-permissive">
    <resourceStyle width="22" x="464" y="84" height="22"/>
   </symbolStyle>
-  <symbolStyle id="82" name="parking_roof">
+  <symbolStyle id="208" name="parking_roof">
    <resourceStyle width="22" x="486" y="84" height="22"/>
   </symbolStyle>
-  <symbolStyle id="83" name="parking_roof_fee-permissive">
+  <symbolStyle id="209" name="parking_roof_fee-permissive">
    <resourceStyle width="28" x="0" y="112" height="16"/>
   </symbolStyle>
-  <symbolStyle id="84" name="parking_roof_fee">
+  <symbolStyle id="210" name="parking_roof_fee">
    <resourceStyle width="28" x="28" y="112" height="16"/>
   </symbolStyle>
-  <symbolStyle id="85" name="peak">
+  <symbolStyle id="211" name="peak">
    <resourceStyle width="13" x="56" y="112" height="13"/>
   </symbolStyle>
-  <symbolStyle id="86" name="petrolstation">
+  <symbolStyle id="212" name="petrolstation">
    <resourceStyle width="22" x="69" y="112" height="22"/>
   </symbolStyle>
-  <symbolStyle id="87" name="pharmacy">
+  <symbolStyle id="213" name="pharmacy">
    <resourceStyle width="22" x="91" y="112" height="22"/>
   </symbolStyle>
-  <symbolStyle id="88" name="picnic">
+  <symbolStyle id="214" name="picnic">
    <resourceStyle width="16" x="113" y="112" height="16"/>
   </symbolStyle>
-  <symbolStyle id="89" name="playground">
+  <symbolStyle id="215" name="playground">
    <resourceStyle width="22" x="129" y="112" height="22"/>
   </symbolStyle>
-  <symbolStyle id="90" name="postbox">
+  <symbolStyle id="216" name="postbox">
    <resourceStyle width="17" x="151" y="112" height="17"/>
   </symbolStyle>
-  <symbolStyle id="91" name="postoffice">
+  <symbolStyle id="217" name="postoffice">
    <resourceStyle width="22" x="168" y="112" height="22"/>
   </symbolStyle>
-  <symbolStyle id="92" name="power-pole">
+  <symbolStyle id="218" name="power-pole">
    <resourceStyle width="9" x="190" y="112" height="9"/>
   </symbolStyle>
-  <symbolStyle id="93" name="power-tower">
+  <symbolStyle id="219" name="power-tower">
    <resourceStyle width="13" x="199" y="112" height="13"/>
   </symbolStyle>
-  <symbolStyle id="94" name="power_generic">
+  <symbolStyle id="220" name="power_generic">
    <resourceStyle width="20" x="212" y="112" height="20"/>
   </symbolStyle>
-  <symbolStyle id="95" name="power_hydro">
+  <symbolStyle id="221" name="power_hydro">
    <resourceStyle width="20" x="232" y="112" height="20"/>
   </symbolStyle>
-  <symbolStyle id="96" name="power_photovoltaic">
+  <symbolStyle id="222" name="power_photovoltaic">
    <resourceStyle width="20" x="252" y="112" height="20"/>
   </symbolStyle>
-  <symbolStyle id="97" name="power_wind">
+  <symbolStyle id="223" name="power_wind">
    <resourceStyle width="20" x="272" y="112" height="20"/>
   </symbolStyle>
-  <symbolStyle id="98" name="pub">
+  <symbolStyle id="224" name="pub">
    <resourceStyle width="17" x="292" y="112" height="17"/>
   </symbolStyle>
-  <symbolStyle id="99" name="pubx">
+  <symbolStyle id="225" name="pubx">
    <resourceStyle width="28" x="309" y="112" height="28"/>
   </symbolStyle>
-  <symbolStyle id="100" name="railway-crossing-small">
+  <symbolStyle id="226" name="railway-crossing-small">
    <resourceStyle width="28" x="337" y="112" height="28"/>
   </symbolStyle>
-  <symbolStyle id="101" name="railway-crossing">
+  <symbolStyle id="227" name="railway-crossing">
    <resourceStyle width="28" x="365" y="112" height="28"/>
   </symbolStyle>
-  <symbolStyle id="102" name="recycling">
+  <symbolStyle id="228" name="recycling">
    <resourceStyle width="22" x="393" y="112" height="22"/>
   </symbolStyle>
-  <symbolStyle id="103" name="religion">
+  <symbolStyle id="229" name="religion">
    <resourceStyle width="28" x="415" y="112" height="28"/>
   </symbolStyle>
-  <symbolStyle id="104" name="restaurant">
+  <symbolStyle id="230" name="restaurant">
    <resourceStyle width="24" x="443" y="112" height="24"/>
   </symbolStyle>
-  <symbolStyle id="105" name="roundabout_left">
+  <symbolStyle id="231" name="roundabout_left">
    <resourceStyle width="22" x="467" y="112" height="22"/>
   </symbolStyle>
-  <symbolStyle id="106" name="roundabout_right">
+  <symbolStyle id="232" name="roundabout_right">
    <resourceStyle width="22" x="489" y="112" height="22"/>
   </symbolStyle>
-  <symbolStyle id="107" name="school">
+  <symbolStyle id="233" name="school">
    <resourceStyle width="22" x="0" y="140" height="22"/>
   </symbolStyle>
-  <symbolStyle id="108" name="shelter-fireplace">
+  <symbolStyle id="234" name="shelter-fireplace">
    <resourceStyle width="28" x="22" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="109" name="shelter">
+  <symbolStyle id="235" name="shelter">
    <resourceStyle width="28" x="50" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="110" name="shooting-borderless">
+  <symbolStyle id="236" name="shooting-borderless">
    <resourceStyle width="28" x="78" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="111" name="shooting">
+  <symbolStyle id="237" name="shooting">
    <resourceStyle width="28" x="106" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="112" name="slipway">
+  <symbolStyle id="238" name="slipway">
    <resourceStyle width="28" x="134" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="113" name="soccer-borderless">
+  <symbolStyle id="239" name="soccer-borderless">
    <resourceStyle width="28" x="162" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="114" name="soccer">
+  <symbolStyle id="240" name="soccer">
    <resourceStyle width="28" x="190" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="115" name="speed_trap">
+  <symbolStyle id="241" name="speed_trap">
    <resourceStyle width="22" x="218" y="140" height="22"/>
   </symbolStyle>
-  <symbolStyle id="116" name="subway">
+  <symbolStyle id="242" name="subway">
    <resourceStyle width="20" x="240" y="140" height="20"/>
   </symbolStyle>
-  <symbolStyle id="117" name="supermarket">
+  <symbolStyle id="243" name="supermarket">
    <resourceStyle width="22" x="260" y="140" height="22"/>
   </symbolStyle>
-  <symbolStyle id="118" name="survey_point">
+  <symbolStyle id="244" name="survey_point">
    <resourceStyle width="12" x="282" y="140" height="12"/>
   </symbolStyle>
-  <symbolStyle id="119" name="swimming-borderless">
+  <symbolStyle id="245" name="swimming-borderless">
    <resourceStyle width="28" x="294" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="120" name="swimming">
+  <symbolStyle id="246" name="swimming">
    <resourceStyle width="28" x="322" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="121" name="synagogue">
+  <symbolStyle id="247" name="synagogue">
    <resourceStyle width="22" x="350" y="140" height="22"/>
   </symbolStyle>
-  <symbolStyle id="122" name="telephone">
+  <symbolStyle id="248" name="telephone">
    <resourceStyle width="10" x="372" y="140" height="22"/>
   </symbolStyle>
-  <symbolStyle id="123" name="tennis-borderless">
+  <symbolStyle id="249" name="tennis-borderless">
    <resourceStyle width="28" x="382" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="124" name="tennis">
+  <symbolStyle id="250" name="tennis">
    <resourceStyle width="28" x="410" y="140" height="28"/>
   </symbolStyle>
-  <symbolStyle id="125" name="theatre">
+  <symbolStyle id="251" name="theatre">
    <resourceStyle width="27" x="438" y="140" height="27"/>
   </symbolStyle>
-  <symbolStyle id="126" name="toilets">
+  <symbolStyle id="252" name="toilets">
    <resourceStyle width="22" x="465" y="140" height="22"/>
   </symbolStyle>
-  <symbolStyle id="127" name="traffic_signal">
+  <symbolStyle id="253" name="traffic_signal">
    <resourceStyle width="22" x="487" y="140" height="22"/>
   </symbolStyle>
-  <symbolStyle id="128" name="tree">
+  <symbolStyle id="254" name="tree">
    <resourceStyle width="8" x="0" y="168" height="8"/>
   </symbolStyle>
-  <symbolStyle id="129" name="university">
+  <symbolStyle id="255" name="university">
    <resourceStyle width="22" x="8" y="168" height="22"/>
   </symbolStyle>
-  <symbolStyle id="130" name="viewpoint">
+  <symbolStyle id="256" name="viewpoint">
    <resourceStyle width="20" x="30" y="168" height="20"/>
   </symbolStyle>
-  <symbolStyle id="131" name="vulcan">
+  <symbolStyle id="257" name="vulcan">
    <resourceStyle width="13" x="50" y="168" height="13"/>
   </symbolStyle>
-  <symbolStyle id="132" name="wastewater">
+  <symbolStyle id="258" name="wastewater">
    <resourceStyle width="20" x="63" y="168" height="20"/>
   </symbolStyle>
-  <symbolStyle id="133" name="windmill">
+  <symbolStyle id="259" name="windmill">
    <resourceStyle width="22" x="83" y="168" height="22"/>
   </symbolStyle>
  </page>

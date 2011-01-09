@@ -14,8 +14,7 @@ DEFINE_string(symbolsDir, "../../data/styles/symbols", "directory with svg symbo
 DEFINE_int32(symbolWidth, 24, "width of the rendered symbol");
 DEFINE_int32(symbolHeight, 24, "height of the rendered symbol");
 DEFINE_double(symbolScale, 1, "scale factor of the symbol");
-DEFINE_int32(smallGlyphSize, 12, "height of the small glyph");
-DEFINE_int32(bigGlyphSize, 16, "height of the big glyph");
+DEFINE_int32(fixedGlyphSize, 16, "height of the fixed font");
 DEFINE_string(skinName, "../../data/basic", "prefix for the skin and skinImage file name");
 
 int main(int argc, char *argv[])
@@ -27,17 +26,7 @@ int main(int argc, char *argv[])
 
   std::vector<int8_t> glyphSizes;
 
-//  glyphSizes.push_back(6);
-  glyphSizes.push_back(8);
-  glyphSizes.push_back(10);
-  glyphSizes.push_back(12);
-  glyphSizes.push_back(14);
-  glyphSizes.push_back(16);
-  glyphSizes.push_back(20);
-  glyphSizes.push_back(24);
-
-//  glyphSizes.push_back(FLAGS_smallGlyphSize);
-//  glyphSizes.push_back(FLAGS_bigGlyphSize);
+  glyphSizes.push_back(FLAGS_fixedGlyphSize);
 
   std::vector<QSize> symbolSizes;
   symbolSizes.push_back(QSize(FLAGS_symbolWidth, FLAGS_symbolHeight));
@@ -46,7 +35,8 @@ int main(int argc, char *argv[])
   symbolScales.push_back(FLAGS_symbolScale);
 
   gen.processSymbols(FLAGS_symbolsDir, FLAGS_skinName, symbolSizes, symbolScales);
-//  gen.processFont(FLAGS_fontFileName, FLAGS_skinName, FLAGS_symbolsFile, glyphSizes);
+  gen.processFont(FLAGS_fontFileName, FLAGS_skinName, glyphSizes, FLAGS_symbolScale);
+  gen.renderPages();
 
   gen.writeToFile(FLAGS_skinName);
 

@@ -28,7 +28,7 @@ namespace yg
 
     void TextRenderer::TextObj::Draw(GeometryBatcher * pBatcher) const
     {
-      pBatcher->drawText(m_pt, 0.0, m_size, m_utf8Text, yg::maxDepth);
+      pBatcher->drawText(m_pt, 0.0, m_size, m_utf8Text, yg::maxDepth, m_isFixedFont);
     }
 
     m2::RectD const TextRenderer::TextObj::GetLimitRect(GeometryBatcher * pBatcher) const
@@ -40,24 +40,30 @@ namespace yg
                   float angle,
                   uint8_t fontSize,
                   string const & utf8Text,
-                  double depth)
+                  double depth,
+                  bool isFixedFont)
     {
-      TextObj obj(pt, utf8Text, fontSize, depth);
-      m2::RectD r = obj.GetLimitRect(this);
-  /*
-      m2::PointD pts[5] =
+      if (isFixedFont)
+        base_t::drawText(pt, angle, fontSize, utf8Text, depth, isFixedFont);
+      else
       {
-        m2::PointD(r.minX(), r.minY()),
-        m2::PointD(r.minX(), r.maxY()),
-        m2::PointD(r.maxX(), r.maxY()),
-        m2::PointD(r.maxX(), r.minY()),
-        m2::PointD(r.minX(), r.minY())
-      };
+        TextObj obj(pt, utf8Text, fontSize, depth, isFixedFont);
+        m2::RectD r = obj.GetLimitRect(this);
+  /*
+        m2::PointD pts[5] =
+        {
+          m2::PointD(r.minX(), r.minY()),
+          m2::PointD(r.minX(), r.maxY()),
+          m2::PointD(r.maxX(), r.maxY()),
+          m2::PointD(r.maxX(), r.minY()),
+          m2::PointD(r.minX(), r.minY())
+        };
 
-      drawPath(pts, 5, skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 255), 2, 0, 0, 0)), depth);
+        drawPath(pts, 5, skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 255), 2, 0, 0, 0)), depth);
    */
 
-      m_tree.ReplaceIf(obj, r, TextObj::better_depth());
+        m_tree.ReplaceIf(obj, r, TextObj::better_depth());
+      }
     }
 
     void TextRenderer::endFrame()

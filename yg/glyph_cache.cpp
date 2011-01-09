@@ -19,6 +19,13 @@ namespace yg
     : m_id(id), m_fontSize(fontSize), m_isMask(isMask)
   {}
 
+  uint32_t GlyphKey::toUInt32() const
+  {
+    return static_cast<uint32_t>(m_id) << 16
+         | static_cast<uint32_t>(m_fontSize) << 8
+         | static_cast<uint32_t>(m_isMask);
+  }
+
   bool operator<(GlyphKey const & l, GlyphKey const & r)
   {
     if (l.m_id != r.m_id)

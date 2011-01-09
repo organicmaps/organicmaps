@@ -244,15 +244,15 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t pRule, int depth)
 
 void DrawerYG::drawStats(double duration, int scale, double lat, double lng)
 {
-/*  ostringstream out;
+  ostringstream out;
   out << "SPF: " << duration;
   if (duration == 0.0)
     out << " FPS: inf";
   else
     out << " FPS: " << 1.0 / duration;
-  m_pScreen->drawText(m2::PointD(10, 20), 0, 14, out.str().c_str(), yg::maxDepth);
+  m_pScreen->drawText(m2::PointD(10, 20), 0, 10, out.str().c_str(), yg::maxDepth, true);
 
   out.str("");
   out << "(" << lat << ", " << lng << ") Scale: " << scale;
-  m_pScreen->drawText(m2::PointD(10, 40), 0, 14, out.str().c_str(), yg::maxDepth);*/
+  m_pScreen->drawText(m2::PointD(10, 40), 0, 10, out.str().c_str(), yg::maxDepth, true);
 }

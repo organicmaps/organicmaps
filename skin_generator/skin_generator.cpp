@@ -57,23 +57,9 @@ namespace tools
     : m_baseLineOffset(0)
   {}
 
-  void SkinGenerator::processFont(string const & fileName, string const & skinName, string const & symFreqFile, vector<int8_t> const & fontSizes)
+  void SkinGenerator::processFont(string const & fileName, string const & skinName, vector<int8_t> const & fontSizes, int symbolScale)
   {
-    FILE * file = fopen(symFreqFile.c_str(), "rb");
-    if (!file)
-      throw std::exception();
-    std::vector<unsigned short> ucs2Symbols;
-
-    while (true)
-    {
-      unsigned short id;
-      int readBytes = fread(&id, 1, sizeof(unsigned short), file);
-      if (readBytes < 2)
-        break;
-      ucs2Symbols.push_back(id);
-    }
-
-    fclose(file);
+    string symbols(" 0123456789abcdefjhigklmnopqrstuvwxyzABCDEFJHIJKLMNOPQRSTUVWXYZ;:'\"/?.,`~!@#$%^&*()-_+=");
 
     FT_Library lib;
     FT_Error error;
@@ -84,7 +70,7 @@ namespace tools
 
     FT_Stroker stroker;
     FTCHECK(FT_Stroker_New(lib, &stroker));
-    size_t outlineWidth = 3;
+    size_t outlineWidth = 2;
     FT_Stroker_Set(stroker, outlineWidth * 64, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
 
     FT_Glyph_Metrics normalGlyphMetrics;
@@ -92,7 +78,7 @@ namespace tools
 
     for (size_t i = 0; i < fontSizes.size(); ++i)
     {
-      m_pages.push_back(SkinPageInfo());
+//      m_pages.push_back(SkinPageInfo());
       SkinPageInfo & page = m_pages.back();
 
       page.m_fonts.push_back(FontInfo());
@@ -101,10 +87,9 @@ namespace tools
       fontInfo.m_size = fontSizes[i];
 
       FTCHECK(FT_Set_Pixel_Sizes(face, 0, fontSizes[i]));
-//      FTCHECK(FT_Set_Pixel_Sizes(face, 0, 100));
-      for (size_t j = 0; j < ucs2Symbols.size(); ++j)
+      for (size_t j = 0; j < symbols.size(); ++j)
       {
-        unsigned short symbol = ucs2Symbols[j];
+        unsigned short symbol = (unsigned short)symbols[j];
 
         int symbolIdx = FT_Get_Char_Index(face, symbol);
 
@@ -112,7 +97,6 @@ namespace tools
           continue;
 
         FTCHECK(FT_Load_Glyph(face, symbolIdx, FT_LOAD_DEFAULT));
-//        FTCHECK(FT_Load_Glyph(face, FT_Get_Char_Index(face, '@'), FT_LOAD_DEFAULT));
 
         normalGlyphMetrics = face->glyph->metrics;
 
@@ -158,10 +142,6 @@ namespace tools
 
           gil::copy_pixels(grayview, gil::view(strokedCharInfo.m_image));
 
-/*          gil::lodepng_write_view(
-            "testchar_outline.png",
-            gil::view(strokedCharInfo.m_image));
-*/
           FT_Done_Glyph(strokedGlyph);
 
           FTCHECK(FT_Render_Glyph(glyphSlot, FT_RENDER_MODE_NORMAL));
@@ -181,112 +161,23 @@ namespace tools
 
           gil::copy_pixels(grayview, gil::view(normalCharInfo.m_image));
 
-/*          gil::lodepng_write_view(
-              "testchar.png",
-              gil::view(normalCharInfo.m_image)
-              );
- */
           FT_Done_Glyph(normalGlyph);
         }
 
         fontInfo.m_chars[symbol] = make_pair(normalCharInfo, strokedCharInfo);
       }
 
-      std::stringstream out;
+/*      std::stringstream out;
       out << getBaseFileName(fileName) + "_" << (int)fontSizes[i];
 
       page.m_fileName = out.str().c_str();
 
-      /// repacking symbols as tight as possible
-      page.m_width = 32;
-      page.m_height = 32;
-
-      while (true)
-      {
-        m_overflowDetected = false;
-
-        page.m_packer = m2::Packer(page.m_width, page.m_height);
-        page.m_packer.addOverflowFn(bind(&SkinGenerator::markOverflow, this), 10);
-
-        for (TChars::iterator it = fontInfo.m_chars.begin(); it != fontInfo.m_chars.end(); ++it)
-        {
-          it->second.first.m_handle = page.m_packer.pack(it->second.first.m_width + 4, it->second.first.m_height + 4);
-          if (m_overflowDetected)
-            break;
-          it->second.second.m_handle = page.m_packer.pack(it->second.second.m_width + 4, it->second.second.m_height + 4);
-          if (m_overflowDetected)
-            break;
-        }
-
-        if (m_overflowDetected)
-        {
-          if (page.m_width == page.m_height)
-            page.m_width *= 2;
-          else
-            page.m_height *= 2;
-          continue;
-        }
-        else
-          break;
-      }
-
       gil::bgra8_image_t skinImage(page.m_width, page.m_height);
       gil::fill_pixels(gil::view(skinImage), gil::rgba8_pixel_t(0, 0, 0, 0));
 
-      for (TChars::const_iterator it = fontInfo.m_chars.begin(); it != fontInfo.m_chars.end(); ++it)
-      {
-        /// Packing normal char
-        m2::RectU dstRect(page.m_packer.find(it->second.first.m_handle).second);
-
-        gil::rgba8_pixel_t color(0, 0, 0, 0);
-
-        gil::bgra8_view_t dstView = gil::subimage_view(gil::view(skinImage), dstRect.minX(), dstRect.minY(), dstRect.SizeX(), dstRect.SizeY());
-        gil::fill_pixels(dstView, color);
-
-        dstView = gil::subimage_view(gil::view(skinImage),
-                                     dstRect.minX() + 2,
-                                     dstRect.minY() + 2,
-                                     dstRect.SizeX() - 4,
-                                     dstRect.SizeY() - 4);
-
-        gil::gray8c_view_t srcView = gil::const_view(it->second.first.m_image);
-
-        for (size_t x = 0; x < dstRect.SizeX() - 4; ++x)
-          for (size_t y = 0; y < dstRect.SizeY() - 4; ++y)
-          {
-            color[3] = srcView(x, y);
-            dstView(x, y) = color;
-          }
-
-        /// packing stroked version
-
-        dstRect = m2::RectU(page.m_packer.find(it->second.second.m_handle).second);
-
-        color = gil::rgba8_pixel_t(255, 255, 255, 0);
-
-        dstView = gil::subimage_view(gil::view(skinImage), dstRect.minX(), dstRect.minY(), dstRect.SizeX(), dstRect.SizeY());
-        gil::fill_pixels(dstView, color);
-
-        dstView = gil::subimage_view(gil::view(skinImage),
-                                     dstRect.minX() + 2,
-                                     dstRect.minY() + 2,
-                                     dstRect.SizeX() - 4,
-                                     dstRect.SizeY() - 4);
-
-        srcView = gil::const_view(it->second.second.m_image);
-
-        for (size_t x = 0; x < dstRect.SizeX() - 4; ++x)
-          for (size_t y = 0; y < dstRect.SizeY() - 4; ++y)
-          {
-            color[3] = srcView(x, y);
-            dstView(x, y) = color;
-          }
-
-      }
-
       gil::lodepng_write_view(
           skinName.substr(0, skinName.find_last_of("/") + 1) + page.m_fileName + ".png",
-          gil::const_view(skinImage));
+          gil::const_view(skinImage));*/
     }
 
     FT_Done_Face(face);
@@ -328,6 +219,8 @@ namespace tools
       double symbolScale = symbolScales[i];
       QSize symbolSize = symbolSizes[i];
 
+      page.m_fileName = skinName.substr(0, skinName.find_last_of("/") + 1) + "symbols_" + QString("%1").arg(symbolSize.width()).toLocal8Bit().constData();
+
       for (int i = 0; i < fileNames.size(); ++i)
       {
         if (fileNames.at(i).endsWith(".svg"))
@@ -357,8 +250,14 @@ namespace tools
           }
         }
       }
-
-      /// Trying to repack symbols as tight as possible
+    }
+  }
+  void SkinGenerator::renderPages()
+  {
+    for (TSkinPages::iterator pageIt = m_pages.begin(); pageIt != m_pages.end(); ++pageIt)
+    {
+      SkinPageInfo & page = *pageIt;
+      /// Trying to repack all elements as tight as possible
       page.m_width = 64;
       page.m_height = 64;
 
@@ -374,23 +273,51 @@ namespace tools
         {
           it->m_handle = page.m_packer.pack(it->m_size.width(), it->m_size.height());
           if (m_overflowDetected)
-          {
-            /// enlarge packing area and try again
-            if (page.m_width == page.m_height)
-              page.m_width *= 2;
-            else
-              page.m_height *= 2;
             break;
-          }
         }
 
         if (m_overflowDetected)
+        {
+          /// enlarge packing area and try again
+          if (page.m_width == page.m_height)
+            page.m_width *= 2;
+          else
+            page.m_height *= 2;
           continue;
+        }
+
+        for (TFonts::iterator fontIt = page.m_fonts.begin(); fontIt != page.m_fonts.end(); ++fontIt)
+        {
+          for (TChars::iterator charIt = fontIt->m_chars.begin(); charIt != fontIt->m_chars.end(); ++charIt)
+          {
+            charIt->second.first.m_handle = page.m_packer.pack(
+                charIt->second.first.m_width + 4,
+                charIt->second.first.m_height + 4);
+            if (m_overflowDetected)
+             break;
+
+            charIt->second.second.m_handle = page.m_packer.pack(
+                charIt->second.second.m_width + 4,
+                charIt->second.second.m_height + 4);
+
+            if (m_overflowDetected)
+              break;
+          }
+          if (m_overflowDetected)
+            break;
+        }
+
+        if (m_overflowDetected)
+        {
+          if (page.m_width == page.m_height)
+            page.m_width *= 2;
+          else
+            page.m_height *= 2;
+          continue;
+        }
 
         break;
       }
-
-      /// rendering packed symbols
 
       gil::bgra8_image_t gilImage(page.m_width, page.m_height);
       gil::fill_pixels(gil::view(gilImage), gil::rgba8_pixel_t(0, 0, 0, 0));
@@ -411,8 +338,60 @@ namespace tools
         m_svgRenderer.render(&painter, QRect(dstRect.minX() + 2, dstRect.minY() + 2, dstRect.SizeX() - 4, dstRect.SizeY() - 4));
       }
 
-      page.m_fileName = skinName.substr(0, skinName.find_last_of("/") + 1) + "symbols_" + QString("%1").arg(symbolSize.width()).toLocal8Bit().constData();
+      /// Rendering packed fonts
+      for (TFonts::const_iterator fontIt = page.m_fonts.begin(); fontIt != page.m_fonts.end(); ++fontIt)
+      {
+        for (TChars::const_iterator charIt = fontIt->m_chars.begin(); charIt != fontIt->m_chars.end(); ++charIt)
+        {
+          /// Packing normal char
+          m2::RectU dstRect(page.m_packer.find(charIt->second.first.m_handle).second);
 
+          gil::rgba8_pixel_t color(0, 0, 0, 0);
+
+          gil::bgra8_view_t dstView = gil::subimage_view(gil::view(gilImage), dstRect.minX(), dstRect.minY(), dstRect.SizeX(), dstRect.SizeY());
+          gil::fill_pixels(dstView, color);
+
+          dstView = gil::subimage_view(gil::view(gilImage),
+                                       dstRect.minX() + 2,
+                                       dstRect.minY() + 2,
+                                       dstRect.SizeX() - 4,
+                                       dstRect.SizeY() - 4);
+
+          gil::gray8c_view_t srcView = gil::const_view(charIt->second.first.m_image);
+
+          for (size_t x = 0; x < dstRect.SizeX() - 4; ++x)
+            for (size_t y = 0; y < dstRect.SizeY() - 4; ++y)
+            {
+              color[3] = srcView(x, y);
+              dstView(x, y) = color;
+            }
+
+          /// packing stroked version
+
+          dstRect = m2::RectU(page.m_packer.find(charIt->second.second.m_handle).second);
+
+          color = gil::rgba8_pixel_t(255, 255, 255, 0);
+
+          dstView = gil::subimage_view(gil::view(gilImage), dstRect.minX(), dstRect.minY(), dstRect.SizeX(), dstRect.SizeY());
+          gil::fill_pixels(dstView, color);
+
+          dstView = gil::subimage_view(gil::view(gilImage),
+                                       dstRect.minX() + 2,
+                                       dstRect.minY() + 2,
+                                       dstRect.SizeX() - 4,
+                                       dstRect.SizeY() - 4);
+
+          srcView = gil::const_view(charIt->second.second.m_image);
+
+          for (size_t x = 0; x < dstRect.SizeX() - 4; ++x)
+            for (size_t y = 0; y < dstRect.SizeY() - 4; ++y)
+            {
+              color[3] = srcView(x, y);
+              dstView(x, y) = color;
+            }
+
+        }
+      }
       img.save((page.m_fileName + ".png").c_str());
     }
   }

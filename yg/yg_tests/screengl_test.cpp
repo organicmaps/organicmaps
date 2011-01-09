@@ -484,6 +484,14 @@ namespace
     }
   };
 
+  struct TestDrawStringWithFixedFont
+  {
+    void DoDraw(shared_ptr<yg::gl::Screen> p)
+    {
+      p->drawText(m2::PointD(40, 50), 0/*, math::pi / 18*/, 12, "Simplicity is the ultimate sophistication", 0, true);
+    }
+  };
+
   double calc_length(vector<m2::PointD> const & v)
   {
     double ret = 0.0;
@@ -751,27 +759,28 @@ namespace
     }
   };
 
-   UNIT_TEST_GL(TestDrawPolyOverflow);
-   UNIT_TEST_GL(TestDrawText);
-   UNIT_TEST_GL(TestDrawSingleSymbol);
-   UNIT_TEST_GL(TestDrawEmptySymbol);
-   UNIT_TEST_GL(TestDrawSingleSymbolAndSolidPath);
-   UNIT_TEST_GL(TestDrawString);
-   UNIT_TEST_GL(TestDrawStringOnString);
-   UNIT_TEST_GL(TestDrawTextOnPath);
-   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
-   UNIT_TEST_GL(TestDrawTextOverflow);
-   UNIT_TEST_GL(TestDrawTextFiltering);
-   UNIT_TEST_GL(TestDrawRandomTextFiltering);
-   UNIT_TEST_GL(TestDrawSGIConvex);
-   UNIT_TEST_GL(TestDrawPoly);
-   UNIT_TEST_GL(TestDrawSolidRect);
-   UNIT_TEST_GL(TestDrawPathWithSkinPageMiss);
-   UNIT_TEST_GL(TestDrawPathWithOffset);
-   UNIT_TEST_GL(TestDrawPathJoin);
-   UNIT_TEST_GL(TestDrawPathSolid);
-   UNIT_TEST_GL(TestDrawPathSolidWithZ);
-   UNIT_TEST_GL(TestDrawPathSolidWithClipRect);
-   UNIT_TEST_GL(TestDrawUtilsRect);
-   UNIT_TEST_GL(TestDrawUtilsRectFilledTexture);
+//   UNIT_TEST_GL(TestDrawPolyOverflow);
+//   UNIT_TEST_GL(TestDrawText);
+//   UNIT_TEST_GL(TestDrawSingleSymbol);
+//   UNIT_TEST_GL(TestDrawEmptySymbol);
+//   UNIT_TEST_GL(TestDrawSingleSymbolAndSolidPath);
+//   UNIT_TEST_GL(TestDrawString);
+   UNIT_TEST_GL(TestDrawStringWithFixedFont);
+//   UNIT_TEST_GL(TestDrawStringOnString);
+//   UNIT_TEST_GL(TestDrawTextOnPath);
+//   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
+//   UNIT_TEST_GL(TestDrawTextOverflow);
+//   UNIT_TEST_GL(TestDrawTextFiltering);
+//   UNIT_TEST_GL(TestDrawRandomTextFiltering);
+//   UNIT_TEST_GL(TestDrawSGIConvex);
+//   UNIT_TEST_GL(TestDrawPoly);
+//   UNIT_TEST_GL(TestDrawSolidRect);
+//   UNIT_TEST_GL(TestDrawPathWithSkinPageMiss);
+//   UNIT_TEST_GL(TestDrawPathWithOffset);
+//   UNIT_TEST_GL(TestDrawPathJoin);
+//   UNIT_TEST_GL(TestDrawPathSolid);
+//   UNIT_TEST_GL(TestDrawPathSolidWithZ);
+//   UNIT_TEST_GL(TestDrawPathSolidWithClipRect);
+//   UNIT_TEST_GL(TestDrawUtilsRect);
+//   UNIT_TEST_GL(TestDrawUtilsRectFilledTexture);
 }

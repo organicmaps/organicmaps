@@ -34,7 +34,7 @@ namespace yg
                            : m_penInfo(penInfo),
                              m_rect(rect){}
 
-  ResourceStyle * FontInfo::fromID(uint32_t id, bool primaryGlyph) const
+  ResourceStyle * FontInfo::fromID(uint32_t id, bool isMask) const
   {
     TChars::const_iterator it = m_chars.find(id);
     if (it == m_chars.end())
@@ -51,16 +51,16 @@ namespace yg
         m_invalidChar = pair<ResourceStyle*, ResourceStyle*>(it->second.first.get(), it->second.second.get());
       }
 
-      if (primaryGlyph)
-        return m_invalidChar.first;
-      else
+      if (isMask)
         return m_invalidChar.second;
+      else
+        return m_invalidChar.first;
     }
     else
-      if (primaryGlyph)
-        return it->second.first.get();
-      else
+      if (isMask)
         return it->second.second.get();
+      else
+        return it->second.first.get();
   }
 
   SkinPage::SkinPage(shared_ptr<ResourceManager> const & resourceManager,
@@ -161,8 +161,40 @@ namespace yg
       return it->second;
   }
 
-  uint32_t SkinPage::findGlyph(GlyphKey const & g) const
+  uint32_t SkinPage::findGlyph(GlyphKey const & g, bool isFixedFont) const
   {
+    if (isFixedFont)
+    {
+      TStyles::const_iterator styleIt = m_styles.find(g.toUInt32());
+      if (styleIt != m_styles.end())
+        return g.toUInt32();
+      TFonts::const_iterator fontIt = m_fonts.begin();
+      int lastFontSize = 0;
+      if (!m_fonts.empty())
+        lastFontSize = m_fonts[0].m_fontSize;
+
+      for (TFonts::const_iterator it = m_fonts.begin(); it != m_fonts.end(); ++it)
+        if ((lastFontSize < g.m_fontSize) && (g.m_fontSize >= it->m_fontSize))
+          fontIt = it;
+        else
+          lastFontSize = it->m_fontSize;
+
+      if (fontIt != m_fonts.end())
+      {
+        FontInfo::TChars::const_iterator charIt = fontIt->m_chars.find(g.m_id);
+        if (charIt != fontIt->m_chars.end())
+        {
+          if (g.m_isMask)
+            const_cast<TStyles&>(m_styles)[g.toUInt32()] = charIt->second.second;
+          else
+            const_cast<TStyles&>(m_styles)[g.toUInt32()]= charIt->second.first;
+          return g.toUInt32();
+        }
+      }
+
+      return m_packer.invalidHandle();
+    }
+
     TGlyphMap::const_iterator it = m_glyphMap.find(g);
     if (it == m_glyphMap.end())
       return m_packer.invalidHandle();
@@ -172,7 +204,7 @@ namespace yg
 
   uint32_t SkinPage::mapGlyph(yg::GlyphKey const & g)
   {
-    uint32_t foundHandle = findGlyph(g);
+    uint32_t foundHandle = findGlyph(g, false);
     if (foundHandle != m_packer.invalidHandle())
       return foundHandle;
 

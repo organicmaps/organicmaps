@@ -84,7 +84,8 @@ namespace tools
       int m_baseLineOffset;
       QString m_fontFileName;
 
-      vector<SkinPageInfo> m_pages;
+      typedef vector<SkinPageInfo> TSkinPages;
+      TSkinPages m_pages;
 
       bool m_overflowDetected;
       void markOverflow();
@@ -92,8 +93,9 @@ namespace tools
   public:
 
       SkinGenerator();
-      void processFont(string const & fileName, string const & skinName, string const & symFreqFile, vector<int8_t> const & fontSizes);
+      void processFont(string const & fileName, string const & skinName, vector<int8_t> const & fontSizes, int symbolScale);
       void processSymbols(string const & symbolsDir, string const & skinName, std::vector<QSize> const & symbolSizes, std::vector<double> const & symbolScales);
+      void renderPages();
       bool writeToFile(string const & skinName);
     };
 } // namespace tools

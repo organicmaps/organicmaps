@@ -86,7 +86,8 @@ namespace yg
                         double pathLength,
                         TextPos pos,
                         bool fromMask,
-                        double depth);
+                        double depth,
+                        bool isFixedFont);
 
     public:
 
@@ -120,7 +121,7 @@ namespace yg
 
     private:
       template <class ToDo>
-      void ForEachGlyph(uint8_t fontSize, wstring const & text, bool isMask, ToDo toDo);
+      void ForEachGlyph(uint8_t fontSize, wstring const & text, bool isMask, bool isFixedFont, ToDo toDo);
 
     public:
       /// Drawing text from point rotated by the angle.
@@ -128,7 +129,8 @@ namespace yg
                     float angle,
                     uint8_t fontSize,
                     string const & utf8Text,
-                    double depth);
+                    double depth,
+                    bool fixedFont = false);
 
       m2::RectD const textRect(string const & utf8Text,
                                uint8_t fontSize);
@@ -141,7 +143,8 @@ namespace yg
                         double pathLength,
                         TextPos pos,
                         bool isMasked,
-                        double depth);
+                        double depth,
+                        bool isFixedFont = false);
 
       /// This functions hide the base_t functions with the same name and signature
       /// to flush(-1) upon calling them

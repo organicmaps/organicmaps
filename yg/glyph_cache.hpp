@@ -29,6 +29,7 @@ namespace yg
     int m_id;
     int m_fontSize;
     bool m_isMask;
+    uint32_t toUInt32() const;
     GlyphKey(int id, int fontSize, bool isMask);
   };
 

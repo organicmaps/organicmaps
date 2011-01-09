@@ -115,16 +115,19 @@ namespace yg
     return packID(m_currentDynamicPage, m_pages[m_currentDynamicPage]->mapPenInfo(penInfo));
   }
 
-  uint32_t Skin::mapGlyph(GlyphKey const & gk)
+  uint32_t Skin::mapGlyph(GlyphKey const & gk, bool isFixedFont)
   {
     uint32_t res = invalidPageHandle();
 
     for (uint8_t i = 0; i < m_pages.size(); ++i)
     {
-      res = m_pages[i]->findGlyph(gk);
+      res = m_pages[i]->findGlyph(gk, isFixedFont);
       if (res != invalidPageHandle())
         return packID(i, res);
     }
+
+    if (isFixedFont)
+      return res;
 
     if (!m_pages[m_currentTextPage]->hasRoom(gk))
       changeCurrentTextPage();

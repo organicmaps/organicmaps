@@ -89,6 +89,16 @@ namespace yg
         m_stylesList.erase(prevIt);
       prevIt = it;
     }
+
+    for (TFonts::const_iterator it = m_fonts.begin(); it != m_fonts.end(); ++it)
+    {
+      FontInfo fontInfo;
+      fontInfo.m_fontSize = it->first;
+      fontInfo.m_chars = it->second;
+      m_pages.back()->m_fonts.push_back(fontInfo);
+    }
+
+    m_fonts.clear();
   }
 
   void SkinLoader::popSkin()

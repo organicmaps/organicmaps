@@ -56,7 +56,7 @@ namespace yg
     mutable pair<ResourceStyle *, ResourceStyle *> m_invalidChar;
     FontInfo() : m_invalidChar(0, 0){}
 
-    ResourceStyle * fromID(uint32_t id, bool primaryGlyph = true) const;
+    ResourceStyle * fromID(uint32_t id, bool isMask = false) const;
   };
 
   class SkinPage
@@ -95,6 +95,9 @@ namespace yg
     void uploadPenInfo();
     void uploadColors();
     void uploadGlyphs();
+
+    typedef vector<FontInfo> TFonts;
+    TFonts m_fonts;
 
     bool m_isDynamic;
     uint32_t m_pageID;
@@ -137,7 +140,7 @@ namespace yg
     uint32_t mapPenInfo(PenInfo const & penInfo);
     bool     hasRoom(PenInfo const & penInfo) const;
 
-    uint32_t findGlyph(GlyphKey const & g) const;
+    uint32_t findGlyph(GlyphKey const & g, bool isFixedFont) const;
     uint32_t mapGlyph(GlyphKey const & g);
     bool hasRoom(GlyphKey const & g) const;
 

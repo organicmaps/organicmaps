@@ -544,12 +544,12 @@ namespace yg
    }
 
    template <class ToDo>
-   void GeometryBatcher::ForEachGlyph(uint8_t fontSize, wstring const & text, bool isMask, ToDo toDo)
+   void GeometryBatcher::ForEachGlyph(uint8_t fontSize, wstring const & text, bool isMask, bool isFixedFont, ToDo toDo)
    {
      m2::PointD currPt(0, 0);
      for (size_t i = 0; i < text.size(); ++i)
      {
-       uint32_t glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, isMask));
+       uint32_t glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, isMask), isFixedFont);
        CharStyle const * p = static_cast<CharStyle const *>(m_skin->fromID(glyphID));
        if (p)
        {
@@ -559,12 +559,12 @@ namespace yg
      }
    }
 
-   void GeometryBatcher::drawText(m2::PointD const & pt, float angle, uint8_t fontSize, string const & utf8Text, double depth)
+   void GeometryBatcher::drawText(m2::PointD const & pt, float angle, uint8_t fontSize, string const & utf8Text, double depth, bool isFixedFont)
    {
      wstring text = FromUtf8(utf8Text);
 
-     ForEachGlyph(fontSize, text, true, bind(&GeometryBatcher::drawGlyph, this, cref(pt), _1, angle, 0, _2, depth));
-     ForEachGlyph(fontSize, text, false, bind(&GeometryBatcher::drawGlyph, this, cref(pt), _1, angle, 0, _2, depth));
+     ForEachGlyph(fontSize, text, true, isFixedFont, bind(&GeometryBatcher::drawGlyph, this, cref(pt), _1, angle, 0, _2, depth));
+     ForEachGlyph(fontSize, text, false, isFixedFont, bind(&GeometryBatcher::drawGlyph, this, cref(pt), _1, angle, 0, _2, depth));
    }
 
    m2::RectD const GeometryBatcher::textRect(string const & utf8Text, uint8_t fontSize)
@@ -646,15 +646,15 @@ namespace yg
    }
 
    void GeometryBatcher::drawPathText(m2::PointD const * path, size_t s, uint8_t fontSize, string const & utf8Text,
-                             double pathLength, TextPos pos, bool isMasked, double depth)
+                             double pathLength, TextPos pos, bool isMasked, double depth, bool isFixedFont)
    {
      if (isMasked)
-       drawPathTextImpl(path, s, fontSize, utf8Text, pathLength, pos, true, depth);
-     drawPathTextImpl(path, s, fontSize, utf8Text, pathLength, pos, false, depth);
+       drawPathTextImpl(path, s, fontSize, utf8Text, pathLength, pos, true, depth, isFixedFont);
+     drawPathTextImpl(path, s, fontSize, utf8Text, pathLength, pos, false, depth, isFixedFont);
    }
 
    void GeometryBatcher::drawPathTextImpl(m2::PointD const * path, size_t s, uint8_t fontSize, string const & utf8Text,
-                             double pathLength, TextPos pos, bool fromMask, double depth)
+                             double pathLength, TextPos pos, bool fromMask, double depth, bool isFixedFont)
    {
      pts_array arrPath(path, s);
 
@@ -678,7 +678,7 @@ namespace yg
      double strLength = 0.0;
      for (size_t i = 0; i < text.size(); ++i)
      {
-       uint32_t glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, fromMask));
+       uint32_t glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, fromMask), isFixedFont);
        CharStyle const * p = static_cast<CharStyle const *>(m_skin->fromID(glyphID));
        strLength += p->m_xAdvance;
      }
@@ -696,7 +696,7 @@ namespace yg
        if (!CalcPointAndAngle(arrPath, offset, ind, ptOrg, angle))
          break;
 
-       uint32_t glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, fromMask));
+       uint32_t glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, fromMask), isFixedFont);
        CharStyle const * p = static_cast<CharStyle const *>(m_skin->fromID(glyphID));
 
        drawGlyph(ptOrg, m2::PointD(0.0, 0.0), angle, blOffset, p, depth);
