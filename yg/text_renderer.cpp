@@ -57,27 +57,30 @@ namespace yg
                   double depth)
     {
       TextObj obj(pt, utf8Text, fontSize, depth);
-      m_tree.ReplaceIf(obj, obj.GetLimitRect(this), TextObj::better_depth());
+      m2::RectD r = obj.GetLimitRect(this);
+  /*
+      m2::PointD pts[5] =
+      {
+        m2::PointD(r.minX(), r.minY()),
+        m2::PointD(r.minX(), r.maxY()),
+        m2::PointD(r.maxX(), r.maxY()),
+        m2::PointD(r.maxX(), r.minY()),
+        m2::PointD(r.minX(), r.minY())
+      };
+
+      drawPath(pts, 5, skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 255), 2, 0, 0, 0)), depth);
+   */
+
+      m_tree.ReplaceIf(obj, r, TextObj::better_depth());
     }
 
     void TextRenderer::endFrame()
     {
       shared_ptr<RenderTarget> rt;
 
-/*      if ((m_useTextLayer) && (renderState()))
-      {
-        rt = renderTarget();
-        setRenderTarget(renderState()->m_backBufferLayers[1]);
-        clear(yg::Color(255, 255, 255, 0), true, 1.0, false);
-      }
- */
-
       m_tree.ForEach(bind(&TextObj::Draw, _1, this));
       m_tree.Clear();
 
-/*      if ((m_useTextLayer) && (renderState()))
-        setRenderTarget(rt);
- */
       base_t::endFrame();
     }
   }
