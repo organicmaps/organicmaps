@@ -31,7 +31,7 @@ private:
 
 public:
   /// constructor.
-  RenderQueue(string const & skinName, bool isMultiSampled);
+  RenderQueue(string const & skinName, bool isMultiSampled, bool doPeriodicalUpdate);
   /// destructor.
   ~RenderQueue();
   /// set the primary context. it starts the rendering thread.

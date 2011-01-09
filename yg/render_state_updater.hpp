@@ -22,12 +22,19 @@ namespace yg
       void updateActualTarget();
 
       int m_indicesCount;
+      bool m_doPeriodicalUpdate;
 
     public:
 
-      RenderStateUpdater(base_t::Params const & params);
+      struct Params : base_t::Params
+      {
+        bool m_doPeriodicalUpdate;
+        shared_ptr<RenderState> m_renderState;
+        Params();
+      };
 
-      void setRenderState(shared_ptr<RenderState> const & renderState);
+      RenderStateUpdater(Params const & params);
+
       shared_ptr<RenderState> const & renderState() const;
 
       void drawGeometry(shared_ptr<BaseTexture> const & texture,

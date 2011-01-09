@@ -351,6 +351,11 @@ public:
   {
     return true;
   }
+
+  bool DoPeriodicalUpdate() const
+  {
+    return false;
+  }
 };
 
 extern "C" Platform & GetPlatform()

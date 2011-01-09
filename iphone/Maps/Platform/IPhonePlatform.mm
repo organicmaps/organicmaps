@@ -31,6 +31,7 @@ IPhonePlatform::IPhonePlatform()
  	m_visualScale = 1.0;
 	m_skinName = "basic.skn";
 	m_isMultiSampled = true;
+	m_doPeriodicalUpdate = false;
 
 	/// Calculating resolution
 	UIDevice * device = [UIDevice currentDevice];
@@ -160,6 +161,11 @@ double IPhonePlatform::VisualScale() const
 bool IPhonePlatform::IsMultiSampled() const
 {
 	return m_isMultiSampled;
+}
+
+bool IPhonePlatform::DoPeriodicalUpdate() const
+{
+	return m_doPeriodicalUpdate;
 }
 
 Platform & GetPlatform()

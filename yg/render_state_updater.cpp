@@ -7,13 +7,15 @@ namespace yg
 {
   namespace gl
   {
-    RenderStateUpdater::RenderStateUpdater(base_t::Params const & params) : base_t(params)
+    RenderStateUpdater::Params::Params()
+      : m_doPeriodicalUpdate(false)
     {}
 
-    void RenderStateUpdater::setRenderState(shared_ptr<RenderState> const & renderState)
-    {
-      m_renderState = renderState;
-    }
+    RenderStateUpdater::RenderStateUpdater(Params const & params)
+      : base_t(params),
+      m_renderState(params.m_renderState),
+      m_doPeriodicalUpdate(params.m_doPeriodicalUpdate)
+    {}
 
     shared_ptr<RenderState> const & RenderStateUpdater::renderState() const
     {
@@ -27,7 +29,7 @@ namespace yg
     {
       base_t::drawGeometry(texture, vertices, indices, indicesCount);
       m_indicesCount += indicesCount;
-      if ((m_renderState) && (m_indicesCount > 20000))
+      if (m_doPeriodicalUpdate && m_renderState && (m_indicesCount > 20000))
       {
         updateActualTarget();
         m_indicesCount %= 20000;

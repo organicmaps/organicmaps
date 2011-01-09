@@ -18,12 +18,14 @@ public:
 	virtual double VisualScale() const;
 	virtual string const SkinName() const;
 	virtual bool IsMultiSampled() const;
+	virtual bool DoPeriodicalUpdate() const;
   
 private:
 	string m_skinName;
 	double m_visualScale;
   NSDate * m_StartDate;
 	bool m_isMultiSampled;
+	bool m_doPeriodicalUpdate;
   string m_resourcesPath;
   string m_writablePath;
 };

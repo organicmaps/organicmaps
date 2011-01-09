@@ -165,7 +165,7 @@ class FrameWork
 public:
   FrameWork(shared_ptr<window_handle_t> windowHandle)
     : m_windowHandle(windowHandle),
-      m_renderQueue(GetPlatform().SkinName(), GetPlatform().IsMultiSampled()),
+      m_renderQueue(GetPlatform().SkinName(), GetPlatform().IsMultiSampled(), GetPlatform().DoPeriodicalUpdate()),
       m_isHeadingEnabled(false),
       m_isPositionEnabled(false),
       m_isRedrawEnabled(true)

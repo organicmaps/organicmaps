@@ -64,6 +64,8 @@ public:
   virtual string const SkinName() const = 0;
 
   virtual bool IsMultiSampled() const = 0;
+
+  virtual bool DoPeriodicalUpdate() const = 0;
 };
 
 extern "C" Platform & GetPlatform();

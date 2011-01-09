@@ -31,13 +31,15 @@ RenderQueueRoutine::RenderModelCommand::RenderModelCommand(ScreenBase const & fr
 
 RenderQueueRoutine::RenderQueueRoutine(shared_ptr<yg::gl::RenderState> const & renderState,
                                        string const & skinName,
-                                       bool isMultiSampled)
+                                       bool isMultiSampled,
+                                       bool doPeriodicalUpdate)
 {
   m_skinName = skinName;
   m_visualScale = 0;
   m_renderState = renderState;
   m_renderState->addInvalidateFn(bind(&RenderQueueRoutine::invalidate, this));
   m_isMultiSampled = isMultiSampled;
+  m_doPeriodicalUpdate = doPeriodicalUpdate;
 }
 
 void RenderQueueRoutine::Cancel()
@@ -209,14 +211,14 @@ void RenderQueueRoutine::Do()
   params.m_isMultiSampled = m_isMultiSampled;
   params.m_useTextLayer = true;
   params.m_frameBuffer = m_frameBuffer;
+  params.m_renderState = m_renderState;
+  params.m_doPeriodicalUpdate = m_doPeriodicalUpdate;
 
   m_threadDrawer = make_shared_ptr(new DrawerYG(m_skinName, params));
   CHECK(m_visualScale != 0, ("Set the VisualScale first!"));
   m_threadDrawer->SetVisualScale(m_visualScale);
 
   m_fakeTarget = make_shared_ptr(new yg::gl::RGBA8Texture(2, 2));
-
-  m_threadDrawer->screen()->setRenderState(m_renderState);
 
   yg::gl::RenderState s;
 
@@ -323,6 +325,8 @@ void RenderQueueRoutine::Do()
         threads::MutexGuard guard(*m_renderState->m_mutex.get());
         m_renderState->m_duration = duration;
       }
+
+      invalidate();
     }
 
   }
