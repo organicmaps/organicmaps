@@ -81,7 +81,7 @@
 #include "allocator.hpp"
 #include "iterator.hpp"
 #include "node.hpp"
-#include "region.hpp"
+//#include "region.hpp"
 
 namespace KDTree
 {
@@ -110,12 +110,6 @@ namespace KDTree
       typedef _Node_compare<_Val, _Acc, _Cmp> _Node_compare_;
 
     public:
-      typedef _Region<__K, _Val, typename _Acc::result_type, _Acc, _Cmp> _Region_;
-
-      template <size_t __Dim> struct dim_region_type
-      {
-        typedef _Region<__Dim, _Val, typename _Acc::result_type, _Acc, _Cmp> type;
-      };
 
       typedef _Val value_type;
       typedef value_type* pointer;
@@ -388,22 +382,6 @@ namespace KDTree
         --_M_count;
       }
 
-/* this does not work since erasure changes sort order
-      void
-      erase(const_iterator __A, const_iterator const& __B)
-      {
-        if (0 && __A == this->begin() && __B == this->end())
-          {
-            this->clear();
-          }
-        else
-          {
-            while (__A != __B)
-              this->erase(__A++);
-          }
-      }
-*/
-
       // compares via equivalence
       // so if you are looking for any item with the same location,
       // according to the standard accessor comparisions,
@@ -414,6 +392,12 @@ namespace KDTree
       {
         if (!_M_get_root()) return this->end();
         return _M_find(_M_get_root(), __V, 0);
+      }
+
+      template <class ToDo> void for_each(ToDo toDo) const
+      {
+        if (_M_get_root())
+          _M_for_each(_M_get_root(), 0, toDo);
       }
 
       // compares via equality
@@ -437,79 +421,6 @@ namespace KDTree
         if (!_M_get_root()) return this->end();
         return _M_find_exact(_M_get_root(), __V, 0);
       }
-
-      size_type
-        count_within_range(const_reference __V, subvalue_type const __R) const
-        {
-          if (!_M_get_root()) return 0;
-          _Region_ __region(__V, __R, _M_acc, _M_cmp);
-          return this->count_within_range(__region);
-        }
-
-      size_type
-        count_within_range(_Region_ const& __REGION) const
-        {
-          if (!_M_get_root()) return 0;
-
-          _Region_ __bounds(__REGION);
-          return _M_count_within_range(_M_get_root(),
-                               __REGION, __bounds, 0);
-        }
-
-      template <typename SearchVal, class Visitor>
-        void
-        visit_within_range(SearchVal const& V, subvalue_type const R, Visitor visitor) const
-        {
-          if (_M_get_root())
-          {
-            _Region_ region(V, R, _M_acc, _M_cmp);
-            this->visit_within_range(region, visitor);
-          }
-        }
-
-      template <class TRegion, class Visitor>
-        void
-        visit_within_range(TRegion const & REGION, Visitor visitor) const
-        {
-          if (_M_get_root())
-              _M_visit_within_range(visitor, _M_get_root(), REGION, REGION, 0);
-        }
-
-      // WTF???
-      /*
-      const_iterator
-        find_within_range_iterative(const_reference __a, const_reference __b)
-	      {
-	        return const_iterator(begin());
-	      }
-      */
-
-      // No need for copy-paste
-      /*
-      template <typename SearchVal, typename _OutputIterator>
-        _OutputIterator
-        find_within_range(SearchVal const& val, subvalue_type const range,
-                          _OutputIterator out) const
-        {
-          if (!_M_get_root()) return out;
-          _Region_ region(val, range, _M_acc, _M_cmp);
-          return this->find_within_range(region, out);
-        }
-
-      template <typename _OutputIterator>
-        _OutputIterator
-        find_within_range(_Region_ const& region,
-                          _OutputIterator out) const
-        {
-          if (_M_get_root())
-            {
-              _Region_ bounds(region);
-              out = _M_find_within_range(out, _M_get_root(),
-                                   region, bounds, 0);
-            }
-          return out;
-        }
-      */
 
       template <class SearchVal>
       std::pair<const_iterator, distance_type>
@@ -735,6 +646,18 @@ namespace KDTree
       }
 
 
+      template <class ToDo>
+      void _M_for_each(_Link_const_type N, size_type const L, ToDo toDo) const
+      {
+        toDo(_S_value(N));
+
+        if (_S_left(N) && toDo.ScanLeft(L, _S_value(N)))
+          _M_for_each(_S_left(N), L+1, toDo);
+
+        if (_S_right(N) && toDo.ScanRight(L, _S_value(N)))
+          _M_for_each(_S_right(N), L+1, toDo);
+      }
+
 
       _Link_type
       _M_get_erase_replacement(_Link_type node, size_type const level)
@@ -928,98 +851,6 @@ namespace KDTree
           && _M_matches_node_in_other_ds(__N, __V, __L);
       }
 
-      size_type
-        _M_count_within_range(_Link_const_type __N, _Region_ const& __REGION,
-                             _Region_ const& __BOUNDS,
-                             size_type const __L) const
-        {
-          size_type count = 0;
-          if (__REGION.encloses(_S_value(__N)))
-            {
-               ++count;
-            }
-          if (_S_left(__N))
-            {
-              _Region_ __bounds(__BOUNDS);
-              __bounds.set_high_bound(_S_value(__N), __L);
-              if (__REGION.intersects_with(__bounds))
-                count += _M_count_within_range(_S_left(__N),
-                                     __REGION, __bounds, __L+1);
-            }
-          if (_S_right(__N))
-            {
-              _Region_ __bounds(__BOUNDS);
-              __bounds.set_low_bound(_S_value(__N), __L);
-              if (__REGION.intersects_with(__bounds))
-                count += _M_count_within_range(_S_right(__N),
-                                     __REGION, __bounds, __L+1);
-            }
-
-          return count;
-        }
-
-
-      template <class TRegion, class Visitor>
-        void
-        _M_visit_within_range(Visitor visitor,
-                             _Link_const_type N, TRegion const & REGION,
-                             TRegion const & BOUNDS,
-                             size_type const L) const
-        {
-          // replace 'encloses' check with direct call
-          visitor(_S_value(N));
-
-          if (_S_left(N))
-            {
-              TRegion bounds(BOUNDS);
-              bounds.set_high_bound(_S_value(N), L);
-              if (REGION.intersects_with(bounds))
-                _M_visit_within_range(visitor, _S_left(N),
-                                     REGION, bounds, L+1);
-            }
-          if (_S_right(N))
-            {
-              TRegion bounds(BOUNDS);
-              bounds.set_low_bound(_S_value(N), L);
-              if (REGION.intersects_with(bounds))
-                _M_visit_within_range(visitor, _S_right(N),
-                                     REGION, bounds, L+1);
-            }
-        }
-
-
-      /*
-      template <typename _OutputIterator>
-        _OutputIterator
-        _M_find_within_range(_OutputIterator out,
-                             _Link_const_type __N, _Region_ const& __REGION,
-                             _Region_ const& __BOUNDS,
-                             size_type const __L) const
-        {
-          if (__REGION.encloses(_S_value(__N)))
-            {
-              *out++ = _S_value(__N);
-            }
-          if (_S_left(__N))
-            {
-              _Region_ __bounds(__BOUNDS);
-              __bounds.set_high_bound(_S_value(__N), __L);
-              if (__REGION.intersects_with(__bounds))
-                out = _M_find_within_range(out, _S_left(__N),
-                                     __REGION, __bounds, __L+1);
-            }
-          if (_S_right(__N))
-            {
-              _Region_ __bounds(__BOUNDS);
-              __bounds.set_low_bound(_S_value(__N), __L);
-              if (__REGION.intersects_with(__bounds))
-                out = _M_find_within_range(out, _S_right(__N),
-                                     __REGION, __bounds, __L+1);
-            }
-
-          return out;
-        }
-      */
 
 
       template <typename _Iter>
@@ -1175,15 +1006,6 @@ namespace KDTree
          return new_node;
       }
 
-      /* WHAT was this for?
-      _Link_type
-      _M_clone_node(_Link_const_type __X)
-      {
-        _Link_type __ret = _M_allocate_node(__X->_M_value);
-        // TODO
-        return __ret;
-      }
-      */
 
       void
       _M_delete_node(_Link_type __p)

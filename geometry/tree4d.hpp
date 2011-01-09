@@ -38,7 +38,6 @@ namespace m4
     };
 
     typedef KDTree::KDTree<4, value_t> tree_t;
-    typedef typename tree_t::template dim_region_type<2>::type region_t;
     tree_t m_tree;
 
     typedef vector<value_t const *> store_vec_t;
@@ -59,6 +58,26 @@ namespace m4
         if (v.IsIntersect(m_rect))
           m_isect.push_back(&v);
       }
+
+      bool ScanLeft(size_t plane, value_t const & v) const
+      {
+        switch (plane & 3)    // % 4
+        {
+        case 2: return m_rect.minX() < v[2];
+        case 3: return m_rect.minY() < v[3];
+        default: return true;
+        }
+      }
+
+      bool ScanRight(size_t plane, value_t const & v) const
+      {
+        switch (plane & 3)  // % 4
+        {
+        case 0: return m_rect.maxX() > v[0];
+        case 1: return m_rect.maxY() > v[1];
+        default: return true;
+        }
+      }
     };
 
   public:
@@ -66,15 +85,8 @@ namespace m4
     template <class TCompare>
     void ReplaceIf(T const & obj, m2::RectD const & rect, TCompare comp)
     {
-      region_t rgn;
-      rgn._M_low_bounds[0] = rect.minX();
-      rgn._M_high_bounds[0] = rect.maxX();
-      rgn._M_low_bounds[1] = rect.minY();
-      rgn._M_high_bounds[1] = rect.maxY();
-
       store_vec_t isect;
-
-      m_tree.visit_within_range(rgn, insert_if_intersect(isect, rect));
+      m_tree.for_each(insert_if_intersect(isect, rect));
 
       for (size_t i = 0; i < isect.size(); ++i)
         if (!comp(obj, isect[i]->m_val))

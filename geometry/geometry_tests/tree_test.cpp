@@ -43,17 +43,17 @@ UNIT_TEST(Tree4D_DrawTexts)
   tree_t theTree;
 
   m2::RectD arr[] = {
-    m2::RectD(8, 13, 554, 32),
-    m2::RectD(8, 33, 554, 52),
-    m2::RectD(8, 54, 554, 73),
-    m2::RectD(8, 76, 554, 95)
+    m2::RectD(8, 13, 554, 32), m2::RectD(555, 13, 700, 32),
+    m2::RectD(8, 33, 554, 52), m2::RectD(555, 33, 700, 52),
+    m2::RectD(8, 54, 554, 73), m2::RectD(555, 54, 700, 73),
+    m2::RectD(8, 76, 554, 95), m2::RectD(555, 76, 700, 95)
   };
 
   m2::RectD arr1[] = {
-    m2::RectD(3, 23, 257, 42),
-    m2::RectD(3, 43, 257, 62),
-    m2::RectD(3, 65, 257, 84),
-    m2::RectD(3, 87, 257, 106)
+    m2::RectD(3, 23, 257, 42), m2::RectD(600, 23, 800, 42),
+    m2::RectD(3, 43, 257, 62), m2::RectD(600, 43, 800, 62),
+    m2::RectD(3, 65, 257, 84), m2::RectD(600, 65, 800, 84),
+    m2::RectD(3, 87, 257, 106), m2::RectD(600, 87, 800, 106)
   };
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
@@ -70,7 +70,7 @@ UNIT_TEST(Tree4D_DrawTexts)
   vector<m2::RectD> test;
   theTree.ForEach(MakeBackInsertFunctor(test));
 
-  TEST_EQUAL(4, test.size(), ());
-  for (int i = 0; i < test.size(); ++i)
+  TEST_EQUAL(ARRAY_SIZE(arr), test.size(), ());
+  for (size_t i = 0; i < test.size(); ++i)
     TEST_EQUAL(test[i], arr[i], ());
 }
