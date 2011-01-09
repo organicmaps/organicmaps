@@ -89,6 +89,8 @@ namespace feature
   void LoadPoints(vector<m2::PointD> & points, TSource & src)
   {
     detail::ReadPoints(points, src);
+
+    ASSERT_GREATER ( points.size(), 1, () );
   }
 
   template <class TSink>
@@ -108,6 +110,10 @@ namespace feature
   void LoadTriangles(vector<m2::PointD> & points, TSource & src)
   {
     detail::ReadPoints(points, src);
+
+    uint32_t const count = points.size();
+    ASSERT_GREATER(count, 0, ());
+    ASSERT_EQUAL(count % 3, 0, (count));
   }
 
 
