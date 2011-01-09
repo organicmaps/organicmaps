@@ -57,6 +57,7 @@ UNIT_TEST(Feature_Deserialize)
     points.push_back(m2::PointD(1.0, 1.0));
     for (size_t i = 0; i < points.size(); ++i)
       fb.AddPoint(points[i]);
+    fb.SetLinear();
   }
 
   //vector<m2::PointD> triangles;

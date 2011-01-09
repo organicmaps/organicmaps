@@ -154,21 +154,26 @@ namespace feature
 
       FeatureBuilder2::buffers_holder_t buffer;
 
+      bool const isLine = fb.IsLine();
+      bool const isArea = fb.IsArea();
+
       int lowS = 0;
       for (int i = 0; i < m_scales; ++i)
       {
-        if (fb.IsDrawableLikeLine(lowS, g_arrScales[i]))
+        if (fb.IsDrawableInRange(lowS, g_arrScales[i]))
         {
-          buffer.m_lineMask |= (1 << i);
-
-          buffer.m_lineOffset.push_back(GetFileSize(*m_geoFile[i]));
-
           // simplify and serialize geometry
           points_t points;
           SimplifyPoints(fb.GetGeometry(), points, g_arrScales[i]);
-          feature::SavePoints(points, *m_geoFile[i]);
 
-          if (fb.IsDrawableLikeArea() && points.size() > 2)
+          if (isLine)
+          {
+            buffer.m_lineMask |= (1 << i);
+            buffer.m_lineOffset.push_back(GetFileSize(*m_geoFile[i]));
+            feature::SavePoints(points, *m_geoFile[i]);
+          }
+
+          if (isArea && points.size() > 2)
           {
             // simplify and serialize triangles
 
@@ -198,9 +203,12 @@ namespace feature
         lowS = g_arrScales[i]+1;
       }
 
-      fb.Serialize(buffer);
+      if (fb.PreSerialize(buffer))
+      {
+        fb.Serialize(buffer);
 
-      WriteFeatureBase(buffer.m_buffer, fb);
+        WriteFeatureBase(buffer.m_buffer, fb);
+      }
     }
   };
 

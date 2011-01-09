@@ -19,7 +19,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 FeatureBuilder1::FeatureBuilder1()
-: m_Layer(0), m_bArea(false), m_bHasCenter(false)
+: m_Layer(0), m_bPoint(false), m_bLinear(false), m_bArea(false)
 {
 }
 
@@ -31,7 +31,7 @@ bool FeatureBuilder1::IsGeometryClosed() const
 void FeatureBuilder1::SetCenter(m2::PointD const & p)
 {
   m_Center = p;
-  m_bHasCenter = true;
+  m_bPoint = true;
   m_LimitRect.Add(p);
 }
 
@@ -126,13 +126,13 @@ bool FeatureBuilder1::operator == (FeatureBuilder1 const & fb) const
   if (m_Types != fb.m_Types ||
       m_Layer != fb.m_Layer ||
       m_Name != fb.m_Name ||
-      m_bHasCenter != fb.m_bHasCenter ||
+      m_bPoint != fb.m_bPoint ||
       m_bArea != fb.m_bArea)
   {
     return false;
   }
 
-  if (m_bHasCenter && !is_equal(m_Center, fb.m_Center))
+  if (m_bPoint && !is_equal(m_Center, fb.m_Center))
     return false;
 
   if (!is_equal(m_LimitRect, fb.m_LimitRect))
@@ -159,7 +159,9 @@ bool FeatureBuilder1::CheckValid() const
 
   CHECK(m_Layer >= -10 && m_Layer <= 10, ());
 
-  CHECK(m_bHasCenter || m_Geometry.size() >= 2, ());
+  CHECK(m_bPoint || m_bLinear || m_bArea, ());
+
+  CHECK(!m_bLinear || m_Geometry.size() >= 2, ());
 
   CHECK(!m_bArea || m_Geometry.size() >= 3, ());
 
@@ -181,30 +183,20 @@ uint8_t FeatureBuilder1::GetHeader() const
   if (m_Layer != 0)
     header |= FeatureBase::HEADER_HAS_LAYER;
 
-  if (m_bHasCenter)
+  if (m_bPoint)
     header |= FeatureBase::HEADER_HAS_POINT;
 
-  size_t const count = m_Geometry.size();
-
-  if (count > 0)
-  {
-    ASSERT ( count > 1, (count) );
+  if (m_bLinear)
     header |= FeatureBase::HEADER_IS_LINE;
 
-    if (m_bArea)
-    {
-      ASSERT ( count > 2, (count) );
-      header |= FeatureBase::HEADER_IS_AREA;
-    }
-  }
+  if (m_bArea)
+    header |= FeatureBase::HEADER_IS_AREA;
 
   return header;
 }
 
 void FeatureBuilder1::SerializeBase(buffer_t & data) const
 {
-  CHECK ( CheckValid(), () );
-
   PushBackByteSink<buffer_t> sink(data);
 
   WriteToSink(sink, GetHeader());
@@ -221,12 +213,14 @@ void FeatureBuilder1::SerializeBase(buffer_t & data) const
     sink.Write(&m_Name[0], m_Name.size());
   }
 
-  if (m_bHasCenter)
+  if (m_bPoint)
     WriteVarInt(sink, feature::pts::FromPoint(m_Center));
 }
 
 void FeatureBuilder1::Serialize(buffer_t & data) const
 {
+  CHECK ( CheckValid(), () );
+
   data.clear();
 
   SerializeBase(data);
@@ -279,6 +273,9 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
     CalcRect(m_Geometry, m_LimitRect);
   }
 
+  if (ft == FeatureBase::FEATURE_TYPE_LINE)
+    m_bLinear = true;
+
   if (ft == FeatureBase::FEATURE_TYPE_AREA)
   {
     m_bArea = true;
@@ -298,7 +295,7 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
 // FeatureBuilderGeomRef implementation
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-bool FeatureBuilder2::IsDrawableLikeLine(int lowS, int highS) const
+bool FeatureBuilder2::IsDrawableInRange(int lowS, int highS) const
 {
   if (!m_Geometry.empty())
   {
@@ -324,16 +321,28 @@ void FeatureBuilder2::SerializeOffsets(uint32_t mask, offsets_t const & offsets,
   }
 }
 
+bool FeatureBuilder2::PreSerialize(buffers_holder_t const & data)
+{
+  // make flags actual before header serialization
+  if (data.m_lineMask == 0)
+  {
+    m_bLinear = false;
+    m_Geometry.clear();
+  }
+
+  if (data.m_trgMask == 0)
+  {
+    m_bArea = false;
+    m_Holes.clear();
+  }
+
+  // we don't need empty features without geometry
+  return base_type::PreSerialize();
+}
+
 void FeatureBuilder2::Serialize(buffers_holder_t & data)
 {
   data.m_buffer.clear();
-
-  // make flags actual before header serialization
-  if (data.m_lineMask == 0)
-    m_Geometry.clear();
-
-  if (data.m_trgMask == 0)
-    m_bArea = false;
 
   // header data serialization
   SerializeBase(data.m_buffer);

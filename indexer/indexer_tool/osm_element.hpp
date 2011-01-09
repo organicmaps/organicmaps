@@ -189,12 +189,11 @@ protected:
 
   void FinishAreaFeature(uint64_t id, feature_builder_t & ft)
   {
-    if (ft.IsGeometryClosed())
-    {
-      multipolygon_processor processor(id, m_holder);
-      m_holder.ForEachRelationByWay(id, processor);
-      ft.SetAreaAddHoles(processor.m_holes);
-    }
+    ASSERT ( ft.IsGeometryClosed(), () );
+
+    multipolygon_processor processor(id, m_holder);
+    m_holder.ForEachRelationByWay(id, processor);
+    ft.SetAreaAddHoles(processor.m_holes);
   }
 
   bool ParseType(XMLElement * p, uint64_t & id, value_t & fValue)
@@ -369,9 +368,10 @@ protected:
     }
     else if (p->name == "way")
     {
+      bool const isLine = feature::IsDrawableLike(fValue.types, feature::fline);
       bool const isArea = feature::IsDrawableLike(fValue.types, feature::farea);
 
-      if (!feature::IsDrawableLike(fValue.types, feature::fline) && !isArea)
+      if (!isLine && !isArea)
         return;
 
       // geometry of feature
@@ -395,9 +395,12 @@ protected:
       if (count < 2)
         return;
 
+      if (isLine)
+        ft.SetLinear();
+
       // Get the tesselation for an area object (only if it has area drawing rules,
       // otherwise it will stay a linear object).
-      if (isArea && count > 2)
+      if (isArea && count > 2 && ft.IsGeometryClosed())
         base_type::FinishAreaFeature(id, ft);
     }
     else
@@ -406,7 +409,8 @@ protected:
       return;
     }
 
-    base_type::m_emitter(ft);
+    if (ft.PreSerialize())
+      base_type::m_emitter(ft);
   }
 
 public:

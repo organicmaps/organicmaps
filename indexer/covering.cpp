@@ -68,26 +68,28 @@ namespace
   };
 }
 
-vector<int64_t> covering::CoverFeature(FeatureType const & feature, int level)
+vector<int64_t> covering::CoverFeature(FeatureType const & f, int level)
 {
   vector<CoordPointT> geometry;
-  feature.ForEachPoint(MakeBackInsertFunctor(geometry), level);
-
-  ASSERT(!geometry.empty(), ());
-  if (geometry.empty())
-    return vector<int64_t>();
+  f.ForEachPoint(MakeBackInsertFunctor(geometry), level);
 
   vector<RectId> ids;
-  if (geometry.size() > 1)
-    // TODO: Tweak CoverPolyLine() depth level.
-    CoverPolyLine<MercatorBounds, RectId>(geometry, RectId::DEPTH_LEVELS - 1, ids);
-  else
-    ids.push_back(CoverPoint<MercatorBounds, RectId>(geometry[0]));
+  if (!geometry.empty())
+  {
+    if (geometry.size() > 1)
+    {
+      // TODO: Tweak CoverPolyLine() depth level.
+      CoverPolyLine<MercatorBounds, RectId>(geometry, RectId::DEPTH_LEVELS - 1, ids);
+    }
+    else
+      ids.push_back(CoverPoint<MercatorBounds, RectId>(geometry[0]));
+  }
 
   typedef covering::Covering<RectId> CoveringType;
   typedef TriangleCoverer<MercatorBounds, CoveringType> CovererType;
   CovererType coverer = CovererType(CoveringType(ids));
-  feature.ForEachTriangleRef(coverer, level);
+  f.ForEachTriangleRef(coverer, level);
+
   vector<int64_t> res;
   coverer.GetCovering().OutputToVector(res);
   return res;

@@ -27,11 +27,14 @@ public:
 
   /// @name Geometry manipulating functions.
   //@{
-  /// Set center (origin) point of feature.
+  /// Set center (origin) point of feature and set that feature is point.
   void SetCenter(m2::PointD const & p);
 
   /// Add point to geometry.
   void AddPoint(m2::PointD const & p);
+
+  /// Set that feature is linear type.
+  void SetLinear() { m_bLinear = true; }
 
   /// Set that featue is area and get ownership of holes.
   void SetAreaAddHoles(list<vector<m2::PointD> > & holes);
@@ -84,6 +87,8 @@ public:
   }
   //@}
 
+  bool PreSerialize() { return m_bPoint || m_bLinear || m_bArea; }
+
 protected:
 
   /// @name For diagnostic use only.
@@ -122,8 +127,12 @@ protected:
   /// List of holes in area-feature.
   list<points_t> m_Holes; // Check HEADER_IS_AREA
 
-  bool m_bArea;       ///< this is area-feature
-  bool m_bHasCenter;  ///< m_center exists
+  /// @name This flags can be combined.
+  //@{
+  bool m_bPoint;    ///< this is point feature (also m_Center exists)
+  bool m_bLinear;   ///< this is linear-feature
+  bool m_bArea;     ///< this is area-feature
+  //@}
 };
 
 /// Used for serialization of features during final pass.
@@ -148,14 +157,16 @@ public:
     buffers_holder_t() : m_lineMask(0), m_trgMask(0) {}
   };
 
-  bool IsDrawableLikeLine(int lowS, int highS) const;
-  bool IsDrawableLikeArea() const { return m_bArea; }
+  bool IsLine() const { return m_bLinear; }
+  bool IsArea() const { return m_bArea; }
+  bool IsDrawableInRange(int lowS, int highS) const;
 
   points_t const & GetGeometry() const { return m_Geometry; }
   list<points_t> const & GetHoles() const { return m_Holes; }
 
   /// @name Overwrite from base_type.
   //@{
+  bool PreSerialize(buffers_holder_t const & data);
   void Serialize(buffers_holder_t & data);
   //@}
 };
@@ -265,7 +276,6 @@ protected:
   string DebugString() const;
 
 protected:
-
   buffer_t m_Data;
   uint32_t m_Offset;
 
@@ -346,8 +356,8 @@ public:
 
     if (m_Geometry.empty())
     {
-      CHECK ( Header() & HEADER_HAS_POINT, ("Call ForEachPoint for empty geometry") );
-      f(CoordPointT(m_Center.x, m_Center.y));
+      if (Header() & HEADER_HAS_POINT)
+        f(CoordPointT(m_Center.x, m_Center.y));
     }
     else
     {
