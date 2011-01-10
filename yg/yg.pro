@@ -10,8 +10,6 @@ DEPENDENCIES = geometry coding base freetype fribidi
 
 INCLUDEPATH += $$ROOT_DIR/3party/freetype/include
 
-LIBS += lfreetype lfribidi
-
 include($$ROOT_DIR/common.pri)
 
 !iphonesimulator-g++42 {

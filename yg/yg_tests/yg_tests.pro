@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = qt_tstfrm map yg geometry platform coding base expat sgitess
+DEPENDENCIES = qt_tstfrm map yg geometry platform coding base sgitess freetype fribidi
 
 include($$ROOT_DIR/common.pri)
 
@@ -13,8 +13,6 @@ QT += opengl gui core
 win32-g++ {
   LIBS += -lpthread -lopengl32
 }
-
-LIBS += -lfreetype
 
 SOURCES += \
     ../../testing/testingmain.cpp \
