@@ -17,7 +17,7 @@ namespace di
     vector<m2::PointD> m_path;
 
     // -1.0 means "not" initialized
-    PathInfo() : m_length(-1.0), m_offset(-1.0) {}
+    PathInfo(double offset = -1.0) : m_length(-1.0), m_offset(offset) {}
 
     void swap(PathInfo & r)
     {
@@ -33,18 +33,26 @@ namespace di
 
     size_t size() const { return m_path.size(); }
 
-    // lazy evaluation of path's length
+    void SetLength(double len) { m_length = len; }
+
     double GetLength() const
     {
       // m_length not initialized - calculate it
-      if (m_length < 0.0)
-      {
-        m_length = 0.0;
-        for (size_t i = 1; i < m_path.size(); ++i)
-          m_length += m_path[i-1].Length(m_path[i]);
-      }
+      //if (m_length < 0.0)
+      //{
+      //  m_length = 0.0;
+      //  for (size_t i = 1; i < m_path.size(); ++i)
+      //    m_length += m_path[i-1].Length(m_path[i]);
+      //}
 
+      ASSERT ( m_length > 0.0, (m_length) );
       return m_length;
+    }
+
+    double GetOffset() const
+    {
+      ASSERT ( m_offset >= 0.0, (m_offset) );
+      return m_offset;
     }
   };
 

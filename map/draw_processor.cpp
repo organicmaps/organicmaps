@@ -3,7 +3,10 @@
 #include "../geometry/screenbase.hpp"
 #include "../geometry/rect_intersect.hpp"
 
+#include "../std/bind.hpp"
+
 #include "../base/start_mem_debug.hpp"
+
 
 namespace get_pts {
 
@@ -34,12 +37,12 @@ void one_point::operator() (CoordPointT const & p)
   else m_exist = false;
 }
 
-void path_points::StartPL()
+void path_points::StartPL(m2::PointD const & pt)
 {
   EndPL();
 
-  m_points.push_back(PathInfo());
-  push_point(m_prev);
+  m_points.push_back(PathInfo(m_length + m_prev.Length(pt)));
+  push_point(pt);
 
   m_newPL = false;
 }
@@ -59,13 +62,18 @@ void path_points::simple_filtration(m2::PointD const & pt)
     else
     {
       if (m_newPL)
-        StartPL();
+        StartPL(m_prev);
 
       push_point(pt);
     }
+
+    m_length += m_prev.Length(pt);
   }
   else
+  {
     m_prevPt = true;
+    m_length = 0.0;
+  }
 
   m_prev = pt;
 }
@@ -76,27 +84,30 @@ void path_points::best_filtration(m2::PointD const & pt)
   {
     m2::PointD prev = m_prev;
     m2::PointD curr = pt;
+
     if (!m2::Intersect(m_rect, prev, curr))
       m_newPL = true;
     else
     {
       if (!equal_glb_pts(prev, m_prev))
-      {
-        m_prev = prev;
         m_newPL = true;
-      }
 
       if (m_newPL)
-        StartPL();
+        StartPL(prev);
 
       push_point(curr);
 
       if (!equal_glb_pts(curr, pt))
         m_newPL = true;
     }
+
+    m_length += m_prev.Length(pt);
   }
   else
+  {
     m_prevPt = true;
+    m_length = 0.0;
+  }
 
   m_prev = pt;
 }
@@ -107,6 +118,15 @@ void path_points::operator() (m2::PointD const & p)
 
   //simple_filtration(p);
   best_filtration(p);
+}
+
+bool path_points::IsExist()
+{
+  // finally, assign whole length to every cutted path
+  for_each(m_points.begin(), m_points.end(), bind(&di::PathInfo::SetLength, _1, m_length));
+
+  EndPL();
+  return base_type::IsExist();
 }
 
 void area_tess_points::StartPrimitive(size_t ptsCount)

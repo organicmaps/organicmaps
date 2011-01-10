@@ -127,6 +127,7 @@ bool FeatureBuilder1::operator == (FeatureBuilder1 const & fb) const
       m_Layer != fb.m_Layer ||
       m_Name != fb.m_Name ||
       m_bPoint != fb.m_bPoint ||
+      m_bLinear != fb.m_bLinear ||
       m_bArea != fb.m_bArea)
   {
     return false;

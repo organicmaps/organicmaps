@@ -142,7 +142,7 @@ void DrawerYG::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int de
 
 uint8_t DrawerYG::get_font_size(rule_ptr_t pRule)
 {
-  /// @todo calc font size
+  /// @todo calculate font size
   return static_cast<uint8_t>(pRule->GetTextHeight() * m_scale * m_visualScale);
 }
 
@@ -152,11 +152,14 @@ void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t p
   m_pScreen->drawText(pt, 0.0, fontSize, name, depth);
 }
 
-void DrawerYG::drawPathText(vector<m2::PointD> const & pts, double pathLength, string const & name, rule_ptr_t pRule, int /*depth*/)
+void DrawerYG::drawPathText(di::PathInfo const & info, string const & name, rule_ptr_t pRule, int /*depth*/)
 {
   uint8_t fontSize = get_font_size(pRule) - 2;
   if (fontSize >= yg::minTextSize * m_visualScale)
-    m_pScreen->drawPathText(&pts[0], pts.size(), fontSize, name, pathLength, yg::gl::Screen::middle_line, true, yg::maxDepth);
+  {
+    m_pScreen->drawPathText(&info.m_path[0], info.m_path.size(), fontSize, name, info.GetLength(), info.GetOffset(),
+                            yg::gl::Screen::middle_line, true, yg::maxDepth);
+  }
 }
 
 shared_ptr<yg::gl::Screen> DrawerYG::screen() const
@@ -231,7 +234,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t pRule, int depth)
       if (isPath && !isArea && isN)
       {
         for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
-          drawPathText(i->m_path, i->GetLength(), pInfo->m_name, pRule, depth);
+          drawPathText(*i, pInfo->m_name, pRule, depth);
       }
 
       // draw point text

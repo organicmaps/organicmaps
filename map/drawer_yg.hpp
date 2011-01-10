@@ -61,7 +61,7 @@ protected:
   void drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth);
 
   void drawText(m2::PointD const & pt, string const & name, rule_ptr_t pRule, int depth);
-  void drawPathText(vector<m2::PointD> const & pts, double pathLength, string const & name, rule_ptr_t pRule, int depth);
+  void drawPathText(di::PathInfo const & info, string const & name, rule_ptr_t pRule, int depth);
 
   typedef shared_ptr<yg::gl::BaseTexture> texture_t;
   typedef shared_ptr<yg::gl::FrameBuffer> frame_buffer_t;

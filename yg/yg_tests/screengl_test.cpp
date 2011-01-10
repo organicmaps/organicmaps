@@ -521,7 +521,7 @@ namespace
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
       p->drawPath(&m_path[0], m_path.size(), p->skin()->mapPenInfo(m_penInfo), 0);
-      p->drawPathText(&m_path[0], m_path.size(), 10, m_text, calc_length(m_path), yg::gl::Screen::middle_line, true, 0);
+      p->drawPathText(&m_path[0], m_path.size(), 10, m_text, calc_length(m_path), 0.0, yg::gl::Screen::middle_line, true, 0);
     }
   };
 
@@ -532,8 +532,8 @@ namespace
       p->drawPath(&m_path[0], m_path.size(), p->skin()->mapPenInfo(m_penInfo), 0);
 
       double const len = calc_length(m_path);
-      p->drawPathText(&m_path[0], m_path.size(), 10, m_text, len, yg::gl::Screen::above_line, true, 0);
-      p->drawPathText(&m_path[0], m_path.size(), 10, m_text, len, yg::gl::Screen::under_line, true, 0);
+      p->drawPathText(&m_path[0], m_path.size(), 10, m_text, len, 0.0, yg::gl::Screen::above_line, true, 0);
+      p->drawPathText(&m_path[0], m_path.size(), 10, m_text, len, 0.0, yg::gl::Screen::under_line, true, 0);
     }
   };
 

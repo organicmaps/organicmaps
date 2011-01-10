@@ -112,9 +112,10 @@ namespace get_pts
 
     bool m_newPL, m_prevPt;
     m2::PointD m_prev;
-    size_t m_count;
 
-    void StartPL();
+    double m_length;
+
+    void StartPL(m2::PointD const & pt);
     void EndPL();
 
     static bool equal_glb_pts(m2::PointD const & p1, m2::PointD const & p2)
@@ -127,17 +128,13 @@ namespace get_pts
 
   public:
     path_points(ScreenBase const & convertor, m2::RectD const & rect)
-      : base_type(convertor, rect), m_newPL(true), m_prevPt(false)
+      : base_type(convertor, rect), m_newPL(true), m_prevPt(false), m_length(0.0)
     {
     }
 
     void operator() (m2::PointD const & p);
 
-    bool IsExist()
-    {
-      EndPL();
-      return base_type::IsExist();
-    }
+    bool IsExist();
   };
 
   /// @name Policies for filling area.

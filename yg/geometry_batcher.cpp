@@ -619,9 +619,11 @@ namespace yg
         *  /   or  \
         * o         \
        */
-       double const a = ang::AngleTo(get(0), get(1));
-       if (fabs(a) > math::pi / 2.0)
-         m_reverse = true;
+
+       /// @todo temporary removed - need to synchronize with path offset
+       //double const a = ang::AngleTo(get(0), get(1));
+       //if (fabs(a) > math::pi / 2.0)
+       //  m_reverse = true;
      }
 
      size_t size() const { return m_size; }
@@ -659,16 +661,18 @@ namespace yg
      return true;
    }
 
-   void GeometryBatcher::drawPathText(m2::PointD const * path, size_t s, uint8_t fontSize, string const & utf8Text,
-                             double pathLength, TextPos pos, bool isMasked, double depth, bool isFixedFont)
+   void GeometryBatcher::drawPathText(
+                              m2::PointD const * path, size_t s, uint8_t fontSize, string const & utf8Text,
+                              double fullLength, double pathOffset, TextPos pos, bool isMasked, double depth, bool isFixedFont)
    {
      if (isMasked)
-       drawPathTextImpl(path, s, fontSize, utf8Text, pathLength, pos, true, depth, isFixedFont);
-     drawPathTextImpl(path, s, fontSize, utf8Text, pathLength, pos, false, depth, isFixedFont);
+       drawPathTextImpl(path, s, fontSize, utf8Text, fullLength, pathOffset, pos, true, depth, isFixedFont);
+     drawPathTextImpl(path, s, fontSize, utf8Text, fullLength, pathOffset, pos, false, depth, isFixedFont);
    }
 
-   void GeometryBatcher::drawPathTextImpl(m2::PointD const * path, size_t s, uint8_t fontSize, string const & utf8Text,
-                             double pathLength, TextPos pos, bool fromMask, double depth, bool isFixedFont)
+   void GeometryBatcher::drawPathTextImpl(
+                              m2::PointD const * path, size_t s, uint8_t fontSize, string const & utf8Text,
+                              double fullLength, double pathOffset, TextPos pos, bool fromMask, double depth, bool isFixedFont)
    {
      pts_array arrPath(path, s);
 
@@ -679,7 +683,7 @@ namespace yg
 
 //     fontSize = translateFontSize(fontSize);
 
-     // calc base line offset
+     // calculate base line offset
      float blOffset = 2;
      switch (pos)
      {
@@ -688,34 +692,45 @@ namespace yg
      case above_line: blOffset -= 0; break;
      }
 
-     // calc string length
+     size_t const count = text.size();
+     vector<CharStyle const *> glyphs(count);
+
+     // get vector of glyphs and calculate string length
      double strLength = 0.0;
-     for (size_t i = 0; i < text.size(); ++i)
+     for (size_t i = 0; i < count; ++i)
      {
-       uint32_t glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, fromMask), isFixedFont);
-       CharStyle const * p = static_cast<CharStyle const *>(m_skin->fromID(glyphID));
-       strLength += p->m_xAdvance;
+       uint32_t const glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, fromMask), isFixedFont);
+       glyphs[i] = static_cast<CharStyle const *>(m_skin->fromID(glyphID));
+       strLength += glyphs[i]->m_xAdvance;
      }
 
-     // offset of the text fromt path's start
-     double offset = (pathLength - strLength) / 2.0;
+     // offset of the text from path's start
+     double offset = (fullLength - strLength) / 2.0;
      if (offset < 0.0) return;
+     offset -= pathOffset;
+     if (-offset >= strLength) return;
+
+     // find first visible glyph
+     size_t i = 0;
+     while (offset < 0)
+     {
+       offset += glyphs[i]->m_xAdvance;
+       ++i;
+     }
 
      size_t ind = 0;
      m2::PointD ptOrg = arrPath[0];
      double angle = angle_not_inited;
 
-     for (size_t i = 0; i < text.size(); ++i)
+     // draw visible glyphs
+     for (; i < count; ++i)
      {
        if (!CalcPointAndAngle(arrPath, offset, ind, ptOrg, angle))
          break;
 
-       uint32_t glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, fromMask), isFixedFont);
-       CharStyle const * p = static_cast<CharStyle const *>(m_skin->fromID(glyphID));
+       drawGlyph(ptOrg, m2::PointD(0.0, 0.0), angle, blOffset, glyphs[i], depth);
 
-       drawGlyph(ptOrg, m2::PointD(0.0, 0.0), angle, blOffset, p, depth);
-
-       offset = p->m_xAdvance;
+       offset = glyphs[i]->m_xAdvance;
      }
    }
 
