@@ -1,0 +1,64 @@
+.\" WARNING! THIS FILE WAS GENERATED AUTOMATICALLY BY c2man!
+.\" DO NOT EDIT! CHANGES MADE TO THIS FILE WILL BE LOST!
+.TH "fribidi_get_mirror_char" 3 "30 January 2006" "GNU FriBidi 0.19.2" "Programmer's Manual"
+.SH "NAME"
+fribidi_get_mirror_char \- get mirrored character
+.SH "SYNOPSIS"
+.ft B
+#include <fribidi.h>
+.sp
+fribidi_boolean fribidi_get_mirror_char
+.br
+(
+.br
+	FriBidiChar ch,
+.br
+	FriBidiChar *mirrored_ch
+.br
+);
+.ft R
+.SH "PARAMETERS"
+.TP
+.B "FriBidiChar ch"
+Input character.
+.TP
+.B "FriBidiChar *mirrored_ch"
+Output mirrored character.
+.SH "DESCRIPTION"
+This function finds the mirrored equivalent of a character as defined in
+the file BidiMirroring.txt of the Unicode Character Database available at
+http://www.unicode.org/Public/UNIDATA/BidiMirroring.txt.
+
+If  the input character is a declared as a mirroring character in the
+Unicode standard and has a mirrored equivalent.  The matching mirrored
+character is put in the output, otherwise the input character itself is
+put.
+.SH "RETURNS"
+If the character has a mirroring equivalent or not.
+.SH "SEE ALSO"
+fribidi_charset_to_unicode(3),
+fribidi_unicode_to_charset(3),
+fribidi_parse_charset(3),
+fribidi_shape_arabic(3),
+fribidi_get_par_direction(3),
+fribidi_get_par_embedding_levels(3),
+fribidi_reorder_line(3),
+fribidi_get_bidi_type(3),
+fribidi_get_bidi_types(3),
+fribidi_get_bidi_type_name(3),
+fribidi_debug_status(3),
+fribidi_mirroring_status(3),
+fribidi_set_mirroring(3),
+fribidi_reorder_nsm_status(3),
+fribidi_set_reorder_nsm(3),
+fribidi_log2vis_get_embedding_levels(3),
+fribidi_get_type(3),
+fribidi_get_type_internal(3),
+fribidi_remove_bidi_marks(3),
+fribidi_log2vis(3),
+fribidi_join_arabic(3),
+fribidi_get_joining_type(3),
+fribidi_get_joining_types(3),
+fribidi_get_joining_type_name(3),
+fribidi_shape_mirroring(3),
+fribidi_shape(3)

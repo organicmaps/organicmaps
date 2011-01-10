@@ -12,15 +12,18 @@
 #include "../coding/strutil.hpp"
 
 #include "../geometry/angles.hpp"
+#include "../geometry/rect2d.hpp"
 
 #include "../base/assert.hpp"
 #include "../base/profiler.hpp"
 #include "../base/math.hpp"
 #include "../base/mutex.hpp"
 #include "../base/logging.hpp"
-#include "../geometry/rect2d.hpp"
+
 #include "../std/algorithm.hpp"
 #include "../std/bind.hpp"
+
+#include "../3party/fribidi/lib/fribidi-deprecated.h"
 
 #include "../base/start_mem_debug.hpp"
 
@@ -128,6 +131,17 @@ namespace yg
      enableClipRect(false);
      OGLCHECK(glFinish());
      base_t::endFrame();
+   }
+
+   wstring GeometryBatcher::GetDrawString(string const & utf8Str)
+   {
+     wstring const wstr = FromUtf8(utf8Str);
+     size_t const count = wstr.size();
+     wstring res;
+     res.resize(count);
+     FriBidiParType dir = FRIBIDI_PAR_LTR;  // requested base direction
+     fribidi_log2vis(wstr.c_str(), count, &dir, &res[0], 0, 0, 0);
+     return res;
    }
 
    bool GeometryBatcher::hasRoom(size_t verticesCount, size_t indicesCount, int pageID) const
@@ -561,7 +575,7 @@ namespace yg
 
    void GeometryBatcher::drawText(m2::PointD const & pt, float angle, uint8_t fontSize, string const & utf8Text, double depth, bool isFixedFont)
    {
-     wstring text = FromUtf8(utf8Text);
+     wstring const text = GetDrawString(utf8Text);
 
      ForEachGlyph(fontSize, text, true, isFixedFont, bind(&GeometryBatcher::drawGlyph, this, cref(pt), _1, angle, 0, _2, depth));
      ForEachGlyph(fontSize, text, false, isFixedFont, bind(&GeometryBatcher::drawGlyph, this, cref(pt), _1, angle, 0, _2, depth));
@@ -571,7 +585,7 @@ namespace yg
    {
      m2::RectD rect;
      m2::PointD pt(0, 0);
-     wstring const text = FromUtf8(utf8Text);
+     wstring const text = GetDrawString(utf8Text);
      for (size_t i = 0; i < text.size(); ++i)
      {
        GlyphMetrics const m = resourceManager()->getGlyphMetrics(GlyphKey(text[i], fontSize, false));
@@ -658,7 +672,7 @@ namespace yg
    {
      pts_array arrPath(path, s);
 
-     wstring const text = FromUtf8(utf8Text);
+     wstring const text = GetDrawString(utf8Text);
 
 //     FontInfo const & fontInfo = fontSize > 0 ? m_skin->getBigFont() : m_skin->getSmallFont();
 //     FontInfo const & fontInfo = m_skin->getFont(translateFontSize(fontSize));

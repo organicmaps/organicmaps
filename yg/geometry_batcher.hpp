@@ -39,6 +39,8 @@ namespace yg
 
     private:
 
+      static wstring GetDrawString(string const & utf8Str);
+
       typedef RenderStateUpdater base_t;
 
       shared_ptr<yg::Skin> m_skin;

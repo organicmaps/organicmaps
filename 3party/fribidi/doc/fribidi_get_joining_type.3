@@ -1,0 +1,83 @@
+.\" WARNING! THIS FILE WAS GENERATED AUTOMATICALLY BY c2man!
+.\" DO NOT EDIT! CHANGES MADE TO THIS FILE WILL BE LOST!
+.TH "fribidi_get_joining_type" 3 "30 January 2006" "GNU FriBidi 0.19.2" "Programmer's Manual"
+.SH "NAME"
+fribidi_get_joining_type \- get character joining type
+.SH "SYNOPSIS"
+.ft B
+#include <fribidi.h>
+.sp
+FriBidiJoiningType fribidi_get_joining_type(FriBidiChar ch);
+.ft R
+.SH "PARAMETERS"
+.TP
+.B "FriBidiChar ch"
+Input character.
+.SH "DESCRIPTION"
+This function returns the joining type of a character as defined in Table
+8-2 Primary Arabic Joining Classes of the Unicode standard available at
+http://www.unicode.org/versions/Unicode4.0.0/ch08.pdf#G7462, using data
+provided in file ArabicShaping.txt and UnicodeData.txt of the Unicode
+Character Database available at
+http://www.unicode.org/Public/UNIDATA/ArabicShaping.txt and
+http://www.unicode.org/Public/UNIDATA/UnicodeData.txt.
+
+There are a few macros defined in fribidi-joining-types.h for querying a
+joining type.
+.SH "RETURNS"
+Possible values for a \fBFriBidiJoiningType\fR are as follows:
+.RS 0.75in
+.PD 0
+.ft B
+.nr TL \w'FRIBIDI_JOINING_TYPE_U'u+0.2i
+.ft R
+.TP \n(TLu
+\fBFRIBIDI_JOINING_TYPE_U\fR
+NUn-joining, e.g. Full Stop.
+.TP \n(TLu
+\fBFRIBIDI_JOINING_TYPE_R\fR
+Right-joining, e.g. Arabic Letter Dal.
+.TP \n(TLu
+\fBFRIBIDI_JOINING_TYPE_D\fR
+Dual-joining, e.g. Arabic Letter Ain.
+.TP \n(TLu
+\fBFRIBIDI_JOINING_TYPE_C\fR
+Join-Causing, e.g. Tatweel, ZWJ.
+.TP \n(TLu
+\fBFRIBIDI_JOINING_TYPE_T\fR
+Transparent, e.g. Arabic Fatha.
+.TP \n(TLu
+\fBFRIBIDI_JOINING_TYPE_L\fR
+Left-joining, i.e. Fictional.
+.TP \n(TLu
+\fBFRIBIDI_JOINING_TYPE_G\fR
+IGnored, e.g. LRE, RLE, ZWNBSP.
+.RE
+.PD
+.SH "SEE ALSO"
+fribidi_charset_to_unicode(3),
+fribidi_unicode_to_charset(3),
+fribidi_parse_charset(3),
+fribidi_shape_arabic(3),
+fribidi_get_par_direction(3),
+fribidi_get_par_embedding_levels(3),
+fribidi_reorder_line(3),
+fribidi_get_bidi_type(3),
+fribidi_get_bidi_types(3),
+fribidi_get_bidi_type_name(3),
+fribidi_debug_status(3),
+fribidi_mirroring_status(3),
+fribidi_set_mirroring(3),
+fribidi_reorder_nsm_status(3),
+fribidi_set_reorder_nsm(3),
+fribidi_log2vis_get_embedding_levels(3),
+fribidi_get_type(3),
+fribidi_get_type_internal(3),
+fribidi_remove_bidi_marks(3),
+fribidi_log2vis(3),
+fribidi_join_arabic(3),
+fribidi_get_joining_types(3),
+fribidi_get_joining_type_name(3),
+fribidi_get_mirror_char(3),
+fribidi_shape_mirroring(3),
+fribidi_shape(3)

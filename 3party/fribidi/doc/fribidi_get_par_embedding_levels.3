@@ -1,0 +1,168 @@
+.\" WARNING! THIS FILE WAS GENERATED AUTOMATICALLY BY c2man!
+.\" DO NOT EDIT! CHANGES MADE TO THIS FILE WILL BE LOST!
+.TH "fribidi_get_par_embedding_levels" 3 "30 January 2006" "GNU FriBidi 0.19.2" "Programmer's Manual"
+.SH "NAME"
+fribidi_get_par_embedding_levels \- get bidi embedding levels of a paragraph
+.SH "SYNOPSIS"
+.ft B
+#include <fribidi.h>
+.sp
+FriBidiLevel fribidi_get_par_embedding_levels
+.br
+(
+.br
+	const FriBidiCharType *bidi_types,
+.br
+	const FriBidiStrIndex len,
+.br
+	FriBidiParType *pbase_dir,
+.br
+	FriBidiLevel *embedding_levels
+.br
+);
+.ft R
+.SH "PARAMETERS"
+.TP
+.B "const FriBidiCharType *bidi_types"
+Input list of bidi types as returned by
+fribidi_get_bidi_types().
+.sp
+Possible values for a \fBconst FriBidiCharType\fR are as follows:
+.RS 0.75in
+.PD 0
+.ft B
+.nr TL \w'FRIBIDI_TYPE_LTR'u+0.2i
+.ft R
+.TP \n(TLu
+\fBFRIBIDI_TYPE_LTR\fR
+Left-To-Right letter.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_RTL\fR
+Right-To-Left letter.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_AL\fR
+Arabic Letter.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_EN\fR
+European Numeral.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_AN\fR
+Arabic Numeral.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_ES\fR
+European number Separator.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_ET\fR
+European number Terminator.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_CS\fR
+Common Separator.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_NSM\fR
+Non Spacing Mark.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_BN\fR
+Boundary Neutral.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_BS\fR
+Block Separator.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_SS\fR
+Segment Separator.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_WS\fR
+WhiteSpace.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_ON\fR
+Other Neutral.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_LRE\fR
+Left-to-Right Embedding.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_RLE\fR
+Right-to-Left Embedding.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_LRO\fR
+Left-to-Right Override.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_RLO\fR
+Right-to-Left Override.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_PDF\fR
+Pop Directional Flag.
+.RE
+.PD
+.TP
+.B "const FriBidiStrIndex len"
+Input string length of the paragraph.
+.TP
+.B "FriBidiParType *pbase_dir"
+Requested and resolved paragraph
+base direction.
+.sp
+Possible values for a \fBFriBidiParType\fR are as follows:
+.RS 0.75in
+.PD 0
+.ft B
+.nr TL \w'FRIBIDI_PAR_WLTR'u+0.2i
+.ft R
+.TP \n(TLu
+\fBFRIBIDI_PAR_LTR\fR
+Left-To-Right paragraph.
+.TP \n(TLu
+\fBFRIBIDI_PAR_RTL\fR
+Right-To-Left paragraph.
+.TP \n(TLu
+\fBFRIBIDI_PAR_ON\fR
+DirectiOn-Neutral paragraph.
+.TP \n(TLu
+\fBFRIBIDI_PAR_WLTR\fR
+Weak Left To Right paragraph.
+.TP \n(TLu
+\fBFRIBIDI_PAR_WRTL\fR
+Weak Right To Left paragraph.
+.RE
+.PD
+.TP
+.B "FriBidiLevel *embedding_levels"
+Output list of embedding levels.
+.SH "DESCRIPTION"
+This function finds the bidi embedding levels of a single paragraph,
+as defined by the Unicode Bidirectional Algorithm available at
+http://www.unicode.org/reports/tr9/.  This function implements rules P2 to
+I1 inclusive, and parts 1 to 3 of L1, except for rule X9 which is
+implemented in fribidi_remove_bidi_marks().  Part 4 of L1 is implemented
+in fribidi_reorder_line().
+
+There are a few macros defined in fribidi-bidi-types.h to work with this
+embedding levels.
+.SH "RETURNS"
+Maximum level found plus one, or zero if any error occured
+(memory allocation failure most probably).
+.SH "SEE ALSO"
+fribidi_charset_to_unicode(3),
+fribidi_unicode_to_charset(3),
+fribidi_parse_charset(3),
+fribidi_shape_arabic(3),
+fribidi_get_par_direction(3),
+fribidi_reorder_line(3),
+fribidi_get_bidi_type(3),
+fribidi_get_bidi_types(3),
+fribidi_get_bidi_type_name(3),
+fribidi_debug_status(3),
+fribidi_mirroring_status(3),
+fribidi_set_mirroring(3),
+fribidi_reorder_nsm_status(3),
+fribidi_set_reorder_nsm(3),
+fribidi_log2vis_get_embedding_levels(3),
+fribidi_get_type(3),
+fribidi_get_type_internal(3),
+fribidi_remove_bidi_marks(3),
+fribidi_log2vis(3),
+fribidi_join_arabic(3),
+fribidi_get_joining_type(3),
+fribidi_get_joining_types(3),
+fribidi_get_joining_type_name(3),
+fribidi_get_mirror_char(3),
+fribidi_shape_mirroring(3),
+fribidi_shape(3)

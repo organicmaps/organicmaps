@@ -1,0 +1,92 @@
+.\" WARNING! THIS FILE WAS GENERATED AUTOMATICALLY BY c2man!
+.\" DO NOT EDIT! CHANGES MADE TO THIS FILE WILL BE LOST!
+.TH "fribidi_remove_bidi_marks" 3 "30 January 2006" "GNU FriBidi 0.19.2" "Programmer's Manual"
+.SH "NAME"
+fribidi_remove_bidi_marks \- remove bidi marks out of an string
+.SH "SYNOPSIS"
+.ft B
+#include <fribidi.h>
+.sp
+FriBidiStrIndex fribidi_remove_bidi_marks
+.br
+(
+.br
+	FriBidiChar *str,
+.br
+	const FriBidiStrIndex len,
+.br
+	FriBidiStrIndex *positions_to_this,
+.br
+	FriBidiStrIndex *position_from_this_list,
+.br
+	FriBidiLevel *embedding_levels
+.br
+);
+.ft R
+.SH "PARAMETERS"
+.TP
+.B "FriBidiChar *str"
+Input string to clean.
+.TP
+.B "const FriBidiStrIndex len"
+Input string length.
+.TP
+.B "FriBidiStrIndex *positions_to_this"
+List mapping positions to the
+order used in str.
+.TP
+.B "FriBidiStrIndex *position_from_this_list"
+List mapping positions from the
+order used in str.
+.TP
+.B "FriBidiLevel *embedding_levels"
+List of embedding levels.
+.SH "DESCRIPTION"
+This function removes the bidi and boundary-neutral marks out of an string
+and the accompanying lists.  It implements rule X9 of the Unicode
+Bidirectional Algorithm available at
+http://www.unicode.org/reports/tr9/#X9, with the exception that it removes
+U+200E LEFT-TO-RIGHT MARK and U+200F RIGHT-TO-LEFT MARK too.
+
+If any of the input lists are NULL, the list is skipped.  If str is the
+visual string, then positions_to_this is  positions_L_to_V and
+position_from_this_list is positions_V_to_L;  if str is the logical
+string, the other way. Moreover, the position maps should be filled with
+valid entries.
+
+A position map pointing to a removed character is filled with -1. By the
+way, you should not use embedding_levels if str is visual string.
+
+For best results this function should be run on a whole paragraph, not
+lines; but feel free to do otherwise if you know what you are doing.
+Deprecated.  Use fribidi_remove_special_chars instead.
+.SH "RETURNS"
+New length of the string, or -1 if an error occured (memory
+allocation failure most probably).
+.SH "SEE ALSO"
+fribidi_charset_to_unicode(3),
+fribidi_unicode_to_charset(3),
+fribidi_parse_charset(3),
+fribidi_shape_arabic(3),
+fribidi_get_par_direction(3),
+fribidi_get_par_embedding_levels(3),
+fribidi_reorder_line(3),
+fribidi_get_bidi_type(3),
+fribidi_get_bidi_types(3),
+fribidi_get_bidi_type_name(3),
+fribidi_debug_status(3),
+fribidi_mirroring_status(3),
+fribidi_set_mirroring(3),
+fribidi_reorder_nsm_status(3),
+fribidi_set_reorder_nsm(3),
+fribidi_log2vis_get_embedding_levels(3),
+fribidi_get_type(3),
+fribidi_get_type_internal(3),
+fribidi_log2vis(3),
+fribidi_join_arabic(3),
+fribidi_get_joining_type(3),
+fribidi_get_joining_types(3),
+fribidi_get_joining_type_name(3),
+fribidi_get_mirror_char(3),
+fribidi_shape_mirroring(3),
+fribidi_shape(3)

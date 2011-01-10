@@ -1,0 +1,120 @@
+.\" WARNING! THIS FILE WAS GENERATED AUTOMATICALLY BY c2man!
+.\" DO NOT EDIT! CHANGES MADE TO THIS FILE WILL BE LOST!
+.TH "fribidi_log2vis" 3 "30 January 2006" "GNU FriBidi 0.19.2" "Programmer's Manual"
+.SH "NAME"
+fribidi_log2vis \- get visual string
+.SH "SYNOPSIS"
+.ft B
+#include <fribidi.h>
+.sp
+FriBidiLevel fribidi_log2vis
+.br
+(
+.br
+	const FriBidiChar *str,
+.br
+	const FriBidiStrIndex len,
+.br
+	FriBidiParType *pbase_dir,
+.br
+	FriBidiChar *visual_str,
+.br
+	FriBidiStrIndex *positions_L_to_V,
+.br
+	FriBidiStrIndex *positions_V_to_L,
+.br
+	FriBidiLevel *embedding_levels
+.br
+);
+.ft R
+.SH "PARAMETERS"
+.TP
+.B "const FriBidiChar *str"
+Input logical string.
+.TP
+.B "const FriBidiStrIndex len"
+Input string length.
+.TP
+.B "FriBidiParType *pbase_dir"
+Requested and resolved paragraph
+base direction.
+.sp
+Possible values for a \fBFriBidiParType\fR are as follows:
+.RS 0.75in
+.PD 0
+.ft B
+.nr TL \w'FRIBIDI_PAR_WLTR'u+0.2i
+.ft R
+.TP \n(TLu
+\fBFRIBIDI_PAR_LTR\fR
+Left-To-Right paragraph.
+.TP \n(TLu
+\fBFRIBIDI_PAR_RTL\fR
+Right-To-Left paragraph.
+.TP \n(TLu
+\fBFRIBIDI_PAR_ON\fR
+DirectiOn-Neutral paragraph.
+.TP \n(TLu
+\fBFRIBIDI_PAR_WLTR\fR
+Weak Left To Right paragraph.
+.TP \n(TLu
+\fBFRIBIDI_PAR_WRTL\fR
+Weak Right To Left paragraph.
+.RE
+.PD
+.TP
+.B "FriBidiChar *visual_str"
+Output visual string.
+.TP
+.B "FriBidiStrIndex *positions_L_to_V"
+Output mapping from logical to
+visual string positions.
+.TP
+.B "FriBidiStrIndex *positions_V_to_L"
+Output mapping from visual string
+back to the logical string
+positions.
+.TP
+.B "FriBidiLevel *embedding_levels"
+Output list of embedding levels.
+.SH "DESCRIPTION"
+This function converts the logical input string to the visual output
+strings as specified by the Unicode Bidirectional Algorithm.  As a side
+effect it also generates mapping lists between the two strings, and the
+list of embedding levels as defined by the algorithm.
+
+If NULL is passed as any of the the lists, the list is ignored and not
+filled.
+
+This function is obsolete because it only handles one-line paragraphs.
+Please consider using other functions instead.  Deprecated.
+.SH "RETURNS"
+Maximum level found plus one, or zero if any error occured
+(memory allocation failure most probably).
+.SH "SEE ALSO"
+fribidi_charset_to_unicode(3),
+fribidi_unicode_to_charset(3),
+fribidi_parse_charset(3),
+fribidi_shape_arabic(3),
+fribidi_get_par_direction(3),
+fribidi_get_par_embedding_levels(3),
+fribidi_reorder_line(3),
+fribidi_get_bidi_type(3),
+fribidi_get_bidi_types(3),
+fribidi_get_bidi_type_name(3),
+fribidi_debug_status(3),
+fribidi_mirroring_status(3),
+fribidi_set_mirroring(3),
+fribidi_reorder_nsm_status(3),
+fribidi_set_reorder_nsm(3),
+fribidi_log2vis_get_embedding_levels(3),
+fribidi_get_type(3),
+fribidi_get_type_internal(3),
+fribidi_remove_bidi_marks(3),
+fribidi_join_arabic(3),
+fribidi_get_joining_type(3),
+fribidi_get_joining_types(3),
+fribidi_get_joining_type_name(3),
+fribidi_get_mirror_char(3),
+fribidi_shape_mirroring(3),
+fribidi_shape(3)

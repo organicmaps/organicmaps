@@ -1,8 +1,8 @@
-# Projct that includes all third party projects.
+# Project that includes all third party projects.
 
 TEMPLATE = subdirs
 
-SUBDIRS = expat freetype
+SUBDIRS = expat freetype fribidi
 
 !iphonesimulator-g++42 {
   !iphonedevice-g++42 {

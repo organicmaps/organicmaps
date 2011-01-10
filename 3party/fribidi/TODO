@@ -1,0 +1,88 @@
+Before release:
+
+* Use gtk-doc?
+
+* Implement fribidi_wcwidth()?
+
+* Port fribidi-main.c to new API.
+
+* help2man.
+
+Implementation issues:
+
+* Add API to get and pass on TypeLink*, to not allocate bidi levels.
+  Something like that.  Also the UTF-8 stuff from pango/mini-fribidi.
+
+* Explore vis2log.
+
+* Clean caprtl2utf8 to do arbitrary charset conversion?
+
+* add --output-charset.
+
+* Update README, etc...
+
+* Mix __attr... with DLLIMPORT?
+
+* Update all files headers/footers.  For c/h files, lib/fribidi-mirroring.[ch]
+  is always the reference.
+
+* In fribidi_main.c reorder after line break.
+
+* Change fribidi-main cmd-line parameters: --mirror --no-mirror...  change the
+  defaults too.
+
+* Add an option to fribidi_main.c to assume two consecutive returns as
+  paragraph separators.
+
+* Add more tests.  For:
+  - Checking that not removing explicit marks in analyze is not changing the
+    output in anyway.
+  - Tests with BN.  Right now ^ is BN in CapRTL scheme.
+  - Test tables.
+
+* indent:  support function attributes and _PARAMS like things.  Also
+  FRIBIDI_BEGIN_DECLS, and LIKELY.
+
+* Cleanup gen.tab/gen-*.c files.
+
+* Override pkgincludedir and append interface version.  Should we go the GNOME
+  parallel install way?
+
+* c2man:  parse Author and Copyright from the whole file.
+
+* Write texinfo documentation.
+
+* Set up gnu.org web pages, and update the entry in Free Software Directory.
+
+* Use gengetopt.
+
+* Add FriBidiEnv functionality at compile time.  Also, ifdef out the memory
+  cleanup stuff if asked to fail on memory allocation failure (xmalloc).  When
+  this is done, FRIBIDI_GNUC_WARN_UNUSEDS can be turned off conditionally.
+
+* Generate HTML and DVI documentation.
+
+* Rewrite fribidi.spec.in
+
+* Add make rules for lib/$(BUILT_SOURCES) to depend on gen.tab/ stuff?
+
+* When called in interactive mode, fribidi cmd-line should greet, write
+  about copyrtight stuff, and shared-libs' version and Unicode version.
+
+* Configure gen.tab/ with host=build to avoid cross-compiling table
+  generators.
+
+* Replace test/run.tests with something better, Makefile foo, etc.
+
+* Clean up README and NEWS, and check all files' headers.  Write
+  gen.tab/README.  Also add UniData license file.
+
+From GNU Coding Standards:
+
+* The distribution should contain a file named `README' which gives the name
+  of the package, and a general description of what it does. It is also good
+  to explain the purpose of each of the first-level subdirectories in the
+  package, if there are any. The `README' file should either state the version
+  number of the package, or refer to where in the package it can be found.
+
+* Add ^L to all sources.

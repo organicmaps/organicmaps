@@ -1,0 +1,152 @@
+.\" WARNING! THIS FILE WAS GENERATED AUTOMATICALLY BY c2man!
+.\" DO NOT EDIT! CHANGES MADE TO THIS FILE WILL BE LOST!
+.TH "fribidi_join_arabic" 3 "30 January 2006" "GNU FriBidi 0.19.2" "Programmer's Manual"
+.SH "NAME"
+fribidi_join_arabic \- do Arabic joining
+.SH "SYNOPSIS"
+.ft B
+#include <fribidi.h>
+.sp
+void fribidi_join_arabic
+.br
+(
+.br
+	const FriBidiCharType *bidi_types,
+.br
+	const FriBidiStrIndex len,
+.br
+	const FriBidiLevel *embedding_levels,
+.br
+	FriBidiArabicProp *ar_props
+.br
+);
+.ft R
+.SH "PARAMETERS"
+.TP
+.B "const FriBidiCharType *bidi_types"
+Input list of bidi types as
+returned by
+fribidi_get_bidi_types().
+.sp
+Possible values for a \fBconst FriBidiCharType\fR are as follows:
+.RS 0.75in
+.PD 0
+.ft B
+.nr TL \w'FRIBIDI_TYPE_LTR'u+0.2i
+.ft R
+.TP \n(TLu
+\fBFRIBIDI_TYPE_LTR\fR
+Left-To-Right letter.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_RTL\fR
+Right-To-Left letter.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_AL\fR
+Arabic Letter.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_EN\fR
+European Numeral.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_AN\fR
+Arabic Numeral.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_ES\fR
+European number Separator.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_ET\fR
+European number Terminator.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_CS\fR
+Common Separator.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_NSM\fR
+Non Spacing Mark.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_BN\fR
+Boundary Neutral.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_BS\fR
+Block Separator.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_SS\fR
+Segment Separator.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_WS\fR
+WhiteSpace.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_ON\fR
+Other Neutral.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_LRE\fR
+Left-to-Right Embedding.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_RLE\fR
+Right-to-Left Embedding.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_LRO\fR
+Left-to-Right Override.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_RLO\fR
+Right-to-Left Override.
+.TP \n(TLu
+\fBFRIBIDI_TYPE_PDF\fR
+Pop Directional Flag.
+.RE
+.PD
+.TP
+.B "const FriBidiStrIndex len"
+Input string length.
+.TP
+.B "const FriBidiLevel *embedding_levels"
+Input list of embedding
+levels, as returned by
+fribidi_get_par_embedding_levels.
+.TP
+.B "FriBidiArabicProp *ar_props"
+Arabic properties to analyze, initilized by
+joining types, as returned by
+fribidi_get_joining_types.
+.SH "DESCRIPTION"
+This function does the Arabic joining algorithm.  Means, given Arabic
+joining types of the characters in ar_props (don't worry,
+FriBidiJoiningType can be casted to FriBidiArabicProp automagically), this
+function modifies this properties to grasp the effect of neighboring
+characters.  You probably need this information later to do Arabic shaping.
+
+This function implements rules R1 to R7 inclusive (all rules) of the Arabic
+Cursive Joining algorithm of the Unicode standard as available at
+http://www.unicode.org/versions/Unicode4.0.0/ch08.pdf#G7462.  It also
+interacts correctly with the bidirection algorithm as defined in Section
+.br
+3.5 Shaping of the Unicode Bidirectional Algorithm available at
+http://www.unicode.org/reports/tr9/#Shaping.
+
+There are a few macros defined in fribidi-joining-types.h for querying the
+Arabic properties computed by this function.
+.SH "SEE ALSO"
+fribidi_charset_to_unicode(3),
+fribidi_unicode_to_charset(3),
+fribidi_parse_charset(3),
+fribidi_shape_arabic(3),
+fribidi_get_par_direction(3),
+fribidi_get_par_embedding_levels(3),
+fribidi_reorder_line(3),
+fribidi_get_bidi_type(3),
+fribidi_get_bidi_types(3),
+fribidi_get_bidi_type_name(3),
+fribidi_debug_status(3),
+fribidi_mirroring_status(3),
+fribidi_set_mirroring(3),
+fribidi_reorder_nsm_status(3),
+fribidi_set_reorder_nsm(3),
+fribidi_log2vis_get_embedding_levels(3),
+fribidi_get_type(3),
+fribidi_get_type_internal(3),
+fribidi_remove_bidi_marks(3),
+fribidi_log2vis(3),
+fribidi_get_joining_type(3),
+fribidi_get_joining_types(3),
+fribidi_get_joining_type_name(3),
+fribidi_get_mirror_char(3),
+fribidi_shape_mirroring(3),
+fribidi_shape(3)

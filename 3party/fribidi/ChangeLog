@@ -1,0 +1,894 @@
+2009-03-26   Behdad Esfahbod <behdad@gnu.org>
+
+	* NEWS, configure.ac: NEWS, configure.ac: Released GNU FriBidi
+	0.19.2.
+
+2009-03-26   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/arabic-misc.tab.i: Bugzilla – Bug 20887 Problem with
+	handling a certain sequence of arabic characters in fribidi 0.19.1
+
+	Fix typo in ligature table.
+
+2008-12-30   Behdad Esfahbod <behdad@gnu.org>
+
+	* USERS: Add AbsoluteTelnet.
+
+2008-11-24   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/fribidi-bidi-types.h: Fix typos.
+
+2008-04-22   Behdad Esfahbod <behdad@gnu.org>
+
+	* charset/fribidi-char-sets-cp1255.c: Handle RLM/LRM in CP1255
+	charset converter.  (#15328, Artyom)
+
+2008-04-08   Behdad Esfahbod <behdad@gnu.org>
+
+	* gen.tab/unidata/ArabicShaping.txt,
+	gen.tab/unidata/BidiMirroring.txt, gen.tab/unidata/ReadMe.txt,
+	gen.tab/unidata/UnicodeData.txt, lib/Makefile.am, lib/common.h:
+	Update to Unicode Character Database 5.1.0
+
+2008-01-15   Behdad Esfahbod <behdad@gnu.org>
+
+	* NEWS, README, configure.ac: Released GNU FriBidi 0.19.1.
+
+2008-01-15   Behdad Esfahbod <behdad@gnu.org>
+
+	* configure.ac: Remove RPM versioning cruft.
+
+2008-01-15   Behdad Esfahbod <behdad@gnu.org>
+
+	* configure.ac, fribidi.spec.in: Remove spec file.  Nobody uses
+	upstream spec files these days.
+
+2007-06-07   Behdad Esfahbod <behdad@gnu.org>
+
+	* TODO: Add remaining issues before a release can be made.
+
+2007-04-05   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/fribidi-arabic.c: Avoid non-const struct initializer.
+
+2007-04-05   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/common.h: Make sure we err if stringize is not available.
+
+2007-04-05   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/common.h, lib/fribidi-common.h: Check for (defined(WIN32)) ||
+	(defined(_WIN32_WCE)) to detect WinCE too
+
+2007-03-15   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/fribidi-bidi.c: Skip explicits-list reinsertion if list is
+	empty.
+
+2006-07-21   Behdad Esfahbod <behdad@gnu.org>
+
+	* gen.tab/unidata/ArabicShaping.txt,
+	gen.tab/unidata/BidiMirroring.txt, gen.tab/unidata/ReadMe.txt,
+	gen.tab/unidata/UnicodeData.txt: Update to Unicode Character
+	Database 5.0.0.
+
+2006-06-13   Behdad Esfahbod <behdad@gnu.org>
+
+	* USERS: Add Nokia 9110 Hebrew Support package.
+
+2006-06-01   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/fribidi-deprecated.c: More comments.
+
+2006-06-01   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/fribidi-deprecated.c: Note about line-breaking.
+
+2006-04-28   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/Makefile.am: Use -no-undefined unconditionally.
+
+2006-01-31   Behdad Esfahbod <behdad@gnu.org>
+
+	* configure.ac, bin/fribidi-benchmark.c, bin/fribidi-main.c,
+	charset/fribidi-char-sets.c, gen.tab/gen-arabic-shaping-tab.c,
+	gen.tab/gen-bidi-type-tab.c, gen.tab/gen-joining-type-tab.c,
+	gen.tab/gen-mirroring-tab.c, gen.tab/gen-unicode-version.c,
+	gen.tab/packtab.c, lib/bidi-types.h, lib/common.h, lib/debug.h,
+	lib/fribidi-arabic.c, lib/fribidi-bidi-types.c,
+	lib/fribidi-bidi-types.h, lib/fribidi-bidi.c, lib/fribidi-common.h,
+	lib/fribidi-deprecated.c, lib/fribidi-deprecated.h,
+	lib/fribidi-joining-types.c, lib/fribidi-joining.c,
+	lib/fribidi-mem.c, lib/fribidi-run.c, lib/fribidi-types.h,
+	lib/fribidi-unicode.h, lib/fribidi.c, lib/fribidi.h,
+	lib/joining-types.h, lib/mem.h, lib/run.h: Add an option
+	--disable-deprecated.
+
+2006-01-22   Behdad Esfahbod <behdad@gnu.org>
+
+	* charset/fribidi-char-sets-cap-rtl.c, lib/debug.h, lib/run.h: Add
+	extra braces to shut gcc warnings up.
+
+2006-01-22   Behdad Esfahbod <behdad@gnu.org>
+
+	* bin/fribidi-main.c: Shut gcc warnings up.
+
+2006-01-22   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/fribidi-deprecated.c: Use memcpy for duplicating str.
+
+2006-01-22   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/common.h: Include string.h.
+
+2006-01-21   Behdad Esfahbod <behdad@gnu.org>
+
+	* USERS: Added HebrewService.
+
+2006-01-14   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/fribidi-deprecated.c, lib/fribidi-deprecated.h,
+	lib/fribidi-shape.h, lib/fribidi.def: Added
+	fribidi_get_type_internal as a deprecated symbol.
+
+2005-11-23   Behdad Esfahbod <behdad@gnu.org>
+
+	* USERS: Added Nano-X.
+
+2005-11-15   Behdad Esfahbod <behdad@gnu.org>
+
+	* test/Makefile.am: Set TESTS_ENVIRONMENT=/bin/sh to avoid problem
+	when running with \r\n line endings on Linux.
+
+2005-11-09   Behdad Esfahbod <behdad@gnu.org>
+
+	* gen.tab/gen-bidi-type-tab.c: Added a FIXME about not handling
+	First..Last ranges in UnicodeData.txt.
+
+2005-11-03   Behdad Esfahbod <behdad@gnu.org>
+
+	* HACKING, TODO, configure.ac, bin/fribidi-main.c, doc/Makefile.am,
+	gen.tab/Makefile.am, gen.tab/gen-arabic-liga.sh,
+	gen.tab/gen-arabic-shaping-tab.c, gen.tab/gen-bidi-type-tab.c,
+	gen.tab/gen-joining-type-tab.c, gen.tab/gen-mirroring-tab.c,
+	gen.tab/gen-unicode-version.c, gen.tab/packtab.c, lib/Headers.mk,
+	lib/Makefile.am, lib/arabic-misc.tab.i, lib/debug.h, lib/env.h,
+	lib/fribidi-arabic.c, lib/fribidi-arabic.h, lib/fribidi-bidi.c,
+	lib/fribidi-bidi.h, lib/fribidi-common.h, lib/fribidi-config.h.in,
+	lib/fribidi-deprecated.c, lib/fribidi-deprecated.h,
+	lib/fribidi-env.c, lib/fribidi-env.h, lib/fribidi-flags.h,
+	lib/fribidi-joining-types.c, lib/fribidi-joining-types.h,
+	lib/fribidi-joining.c, lib/fribidi-mem.c, lib/fribidi-mirroring.c,
+	lib/fribidi-run.c, lib/fribidi-shape.c, lib/fribidi-shape.h,
+	lib/fribidi-types.h, lib/fribidi-unicode.h, lib/fribidi.c,
+	lib/fribidi.h, lib/joining-types.h,
+	test/test_UTF-8_persian.reference,
+	test/test_UTF-8_reordernsm.reference: Arabic shaping support added.
+
+2005-09-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* configure.ac: Replaced bug URL.
+
+2005-09-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* test/Makefile.am: Use sed instead of $(SED).
+
+2005-09-24   Behdad Esfahbod <behdad@gnu.org>
+
+	* USERS: Updated and annotated.
+
+2005-09-24   Behdad Esfahbod <behdad@gnu.org>
+
+	* USERS: Moved BiCon up, since it's an easy sample to study.
+
+2005-09-04   Behdad Esfahbod <behdad@gnu.org>
+
+	* configure.ac, bin/fribidi-benchmark.c: Better handling of
+	sys/times.h.  Also, don't pass -pedantic to gcc.
+
+2005-09-04   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/fribidi.def: Added fribidi_version_info.
+
+2005-09-04   Behdad Esfahbod <behdad@gnu.org>
+
+	* bin/fribidi-bidi-types.c: Use capital hex digits.
+
+2005-08-27   Behdad Esfahbod <behdad@gnu.org>
+
+	* bootstrap: Small change to not run libtool if the package doesn't
+	use it.
+
+2005-08-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* Makefile.am: Minor.
+
+2005-08-22   Behdad Esfahbod <behdad@gnu.org>
+
+	* CVSROOT/cvsignore: Added vi swap files: .*.swp
+
+2005-08-10   Behdad Esfahbod <behdad@gnu.org>
+
+	* TODO: Couple items added ;).
+
+2005-07-30   Behdad Esfahbod <behdad@gnu.org>
+
+	* .cvsignore, Makefile.am, USERS, configure.ac,
+	bin/fribidi-benchmark.c, bin/fribidi-bidi-types.c,
+	bin/fribidi-caprtl2utf8.c, bin/fribidi-main.c,
+	charset/fribidi-char-sets-cap-rtl.c,
+	charset/fribidi-char-sets-utf8.c, gen.tab/gen-unicode-version.c,
+	lib/fribidi-bidi.c, lib/fribidi-types.h, lib/fribidi.c: Small
+	changes to shut gcc warnings up.
+
+2005-06-08   Behdad Esfahbod <behdad@gnu.org>
+
+	* README, THANKS, TODO: Small edits.
+
+2005-06-07   Behdad Esfahbod <behdad@gnu.org>
+
+	* TODO, USERS, configure.ac: Misc fixes.
+
+2005-06-07   Behdad Esfahbod <behdad@gnu.org>
+
+	* gen.tab/Makefile.am, gen.tab/gen-unicode-version.c,
+	gen.tab/unidata/ReadMe.txt: In Unicode 4.1.0, the ReadMe.txt
+	doesn't contain the Unicode version anymore.  Updated to read
+	version from BidiMirroring.txt, if not found in ReadMe.txt.
+
+2005-06-07   Behdad Esfahbod <behdad@gnu.org>
+
+	* gen.tab/gen-bidi-type-tab.c, gen.tab/gen-joining-type-tab.c,
+	gen.tab/gen-mirroring-tab.c: Extra space removed!
+
+2005-06-07   Behdad Esfahbod <behdad@gnu.org>
+
+	* THANKS: Small fixes.
+
+2005-06-07   Behdad Esfahbod <behdad@gnu.org>
+
+	* bin/Makefile.am, bin/fribidi-caprtl2utf8.c,
+	test/caprtl2unicode.py: An integrated CapRTL to UTF-8 converter
+	added.
+
+2005-06-07   Behdad Esfahbod <behdad@gnu.org>
+
+	* bin/Makefile.am, bin/fribidi-bidi-types.c: Added.  Enumerates
+	bidi char types into stdout.
+
+2005-06-07   Behdad Esfahbod <behdad@gnu.org>
+
+	* gen.tab/unidata/ArabicShaping.txt,
+	gen.tab/unidata/BidiMirroring.txt, gen.tab/unidata/ReadMe.txt,
+	gen.tab/unidata/UnicodeData.txt: Unicode 4.1 character database
+	update.
+
+2005-01-10   Behdad Esfahbod <behdad@gnu.org>
+
+	* charset/fribidi-char-sets-cap-rtl.c: Better conversion table from
+	CapRTL to Unicode.
+
+2005-01-09   Roozbeh Pournader <roozbeh@gnu.org>
+
+	* AUTHORS: Made the wording a little more formal, removed jokes and
+	sad stories.
+
+2005-01-08  behnam
+
+	* test/caprtl2unicode.py: Correcting the table.
+
+2005-01-08  behnam
+
+	* test/caprtl2unicode.py: Clearing some typos.
+
+2005-01-05  behnam
+
+	* test/caprtl2unicode.py: Adding CapRTL to Unicode (UTF-8)
+	convertor.
+
+2004-10-29   Behdad Esfahbod <behdad@gnu.org>
+
+	* USERS: Added Geresh.
+
+2004-09-28   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/fribidi-mirroring.c, lib/fribidi-mirroring.h: Minor change in
+	comments:  Using "Authors(s)" in the file header.
+
+2004-08-27   Behdad Esfahbod <behdad@gnu.org>
+
+	* Makefile.am, TODO, USERS, configure.ac,
+	gen.tab/gen-bidi-type-tab.c, gen.tab/gen-joining-type-tab.c,
+	gen.tab/gen-mirroring-tab.c, gen.tab/gen-unicode-version.c: Here
+	and there small improvements.
+
+2004-07-16   Behdad Esfahbod <behdad@gnu.org>
+
+	* USERS: Added.  List of projects using FriBidi.
+
+2004-07-03   Behdad Esfahbod <behdad@gnu.org>
+
+	* test/Makefile.am: Added test_UTF-8_reordernsm to Makefile.
+
+2004-07-03   Behdad Esfahbod <behdad@gnu.org>
+
+	* AUTHORS, TODO, configure.ac, gen.tab/Makefile.am,
+	lib/Makefile.am, lib/fribidi-types.h: Here and there fixes, found
+	by trying to compile on sf.net Compile Farm!
+
+2004-07-03   Behdad Esfahbod <behdad@gnu.org>
+
+	* HACKING: Well, just testing new maildiff script.
+
+2004-07-03   Behdad Esfahbod <behdad@gnu.org>
+
+	* CVSROOT/checkoutlist: Renamed syncmail to maildiff
+
+2004-07-03   Behdad Esfahbod <behdad@gnu.org>
+
+	* CVSROOT/syncmail: Renamed syncmail to notifymail, updated to new
+	CVS (1.12) loginfo syntax.
+
+2004-07-03   Behdad Esfahbod <behdad@gnu.org>
+
+	* CVSROOT/loginfo, CVSROOT/maildiff: Renamed syncmail to maildiff,
+	updated to new CVS (1.12) loginfo syntax.
+
+2004-07-03   Behdad Esfahbod <behdad@gnu.org>
+
+	* TODO: Another TODO item added.
+
+2004-07-03   Behdad Esfahbod <behdad@gnu.org>
+
+	* TODO: Boring addition of new TODO items :-(.
+
+2004-06-28   Behdad Esfahbod <behdad@gnu.org>
+
+	* CVSROOT/config, CVSROOT/loginfo: Added #fdo-commits through CIA
+	report.
+
+2004-06-23   Behdad Esfahbod <behdad@gnu.org>
+
+	* bin/fribidi-main.c, lib/fribidi-common.h: Two small fixes to make
+	compilation with -DDONT_HAVE_FRIBIDI_CONFIG_H go on.
+
+2004-06-21   Behdad Esfahbod <behdad@gnu.org>
+
+	* .indent.pro, lib/fribidi-bidi.h, lib/fribidi-joining-types.h,
+	lib/fribidi-joining.c, lib/fribidi-joining.h,
+	lib/fribidi-unicode.h, lib/fribidi.c, lib/fribidi.h: Reimplemented
+	Arabic joining.  Hopefullly it's conforming to the standard now,
+	with the exception that we assume "level run" instead of
+	"directional run", which is a proposed changed to be applied for
+	Unicode 4.1.
+
+2004-06-21   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/bidi-types.h, lib/common.h, lib/fribidi-bidi-types.h,
+	lib/fribidi-bidi.c, lib/fribidi-bidi.h, lib/fribidi-joining.c,
+	lib/fribidi-run.c, lib/fribidi-unicode.h, lib/fribidi.c, lib/run.h:
+	We need bidi_types all over the place (in joining, in shaping,
+	...), so make them mandatory.  As a consequence, many of our
+	functions don't need str anymore:  they just need this bidi_types.
+
+2004-06-21   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/fribidi-bidi.c, lib/fribidi-bidi.h, lib/fribidi.c: Fixed a
+	bug in fribidi_log2vis(), also changed fribidi_reorder_line() api
+	to allow not passing visual_str, by passing str instead.
+
+2004-06-18   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/fribidi-bidi.c, test/Makefile.am,
+	test/test_CapRTL_explicit.input,
+	test/test_CapRTL_explicit.reference: Rever back to our old level
+	setting for BN and explicits.  The new method was buggy.  A test
+	case added to capture that.
+
+2004-06-18   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/fribidi-bidi-types.h, lib/fribidi-bidi.c, lib/fribidi-bidi.h,
+	lib/fribidi-types.h, lib/fribidi.c: Fixed good catch by Mark Davis
+	that rule L1 is partly done after line breaking.  Also calculate
+	more reasonable levels for explicit marks and BN.
+
+2004-06-15   Behdad Esfahbod <behdad@gnu.org>
+
+	* gen.tab/Makefile.am, lib/Makefile.am, lib/fribidi-bidi-types.h:
+	Oh, no need to add tables for general category Cf, it can roughly
+	be obtained by doing JOINING_TYPE_T - BIDI_TYPE_NSM...
+
+2004-06-15   Behdad Esfahbod <behdad@gnu.org>
+
+	* .indent.pro, TODO, configure.ac,
+	charset/fribidi-char-sets-cap-rtl.c, gen.tab/Makefile.am,
+	gen.tab/gen-bidi-type-tab.c, gen.tab/gen-joining-type-tab.c,
+	gen.tab/gen-mirroring-tab.c, gen.tab/gen-unicode-version.c,
+	lib/Makefile.am, lib/common.h, lib/fribidi-bidi-types.c,
+	lib/fribidi-bidi-types.h, lib/fribidi-bidi.c, lib/fribidi-bidi.h,
+	lib/fribidi-joining-types-list.h, lib/fribidi-joining-types.c,
+	lib/fribidi-joining-types.h, lib/fribidi-joining.c,
+	lib/fribidi-joining.h, lib/fribidi-mirroring.c,
+	lib/fribidi-mirroring.h, lib/fribidi-types.h, lib/fribidi.c,
+	lib/fribidi.def, lib/fribidi.h, lib/joining-types.h: Arabic joining
+	is almost complete.  Going for Shaping.
+
+2004-06-15   Behdad Esfahbod <behdad@gnu.org>
+
+	* test/test_UTF-8_persian.input, test/test_UTF-8_persian.reference:
+	Oops, I changed Persian Yeh to Arabic Yeh last time :">.
+
+2004-06-15   Behdad Esfahbod <behdad@gnu.org>
+
+	* test/test_UTF-8_persian.input, test/test_UTF-8_persian.reference:
+	Replace Arabic Yeh with Persian Yeh.
+
+2004-06-14   Behdad Esfahbod <behdad@gnu.org>
+
+	* configure.ac, charset/fribidi-char-sets-cap-rtl.c,
+	doc/Makefile.am, lib/Headers.mk, lib/Makefile.am,
+	lib/fribidi-bidi-type.c, lib/fribidi-bidi-type.h,
+	lib/fribidi-bidi-types.c, lib/fribidi-bidi-types.h,
+	lib/fribidi-bidi.c, lib/fribidi-bidi.h, lib/fribidi-config.h.in,
+	lib/fribidi-joining-type.c, lib/fribidi-joining-type.h,
+	lib/fribidi-joining-types.c, lib/fribidi-joining-types.h,
+	lib/fribidi-mirroring.c, lib/fribidi-mirroring.h,
+	lib/fribidi-run.c, lib/fribidi.c, lib/fribidi.def, lib/fribidi.h:
+	fribidi-bidi-type.[ch] merged into fribidi-bidi-types.[ch].
+	fribidi-joining-type.[ch] merged into fribidi-joining-types.[ch].
+
+2004-06-14   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/bidi-types.h, lib/fribidi-bidi-type.c,
+	lib/fribidi-bidi-type.h, lib/fribidi-bidi.c, lib/fribidi-bidi.h,
+	lib/fribidi-run.c, lib/fribidi.c, lib/run.h: fribidi_get_bidi_types
+	is back.  Allow passing bidi types to get_par_embedding_levels and
+	reorder_line functions.
+
+2004-06-13   Behdad Esfahbod <behdad@gnu.org>
+
+	* .indent.pro, TODO, charset/Makefile.am,
+	charset/fribidi-char-sets-cap-rtl.c, doc/Makefile.am,
+	gen.tab/Makefile.am, gen.tab/gen-bidi-type-tab.c,
+	gen.tab/gen-joining-type-tab.c, gen.tab/gen-mirroring-tab.c,
+	gen.tab/gen-unicode-version.c, gen.tab/packtab.c,
+	gen.tab/packtab.h, lib/Headers.mk, lib/Makefile.am, lib/common.h,
+	lib/debug.h, lib/env.h, lib/fribidi-bidi-type.c,
+	lib/fribidi-bidi-types-list.h, lib/fribidi-bidi-types.c,
+	lib/fribidi-bidi-types.h, lib/fribidi-joining-type.c,
+	lib/fribidi-joining-type.h, lib/fribidi-joining-types-list.h,
+	lib/fribidi-joining-types.c, lib/fribidi-joining-types.h,
+	lib/fribidi-joining.c, lib/fribidi-joining.h,
+	lib/fribidi-mirroring.c, lib/fribidi.def, lib/joining-types.h,
+	lib/run.h: First joining stuff checked in.  Generate joining table
+	using my beloved packtab, in gen-joining-type-tab.c.  Defined
+	FriBidiJoiningType type and wrote accompanying functions and
+	macros.
+
+2004-06-09   Behdad Esfahbod <behdad@gnu.org>
+
+	* configure.ac, bin/fribidi-main.c, charset/fribidi-char-sets.c,
+	gen.tab/Makefile.am, gen.tab/gen-bidi-type-tab.c,
+	gen.tab/gen-mirroring-tab.c, gen.tab/packtab.c, gen.tab/packtab.h,
+	lib/fribidi-bidi-type.c, lib/fribidi-bidi-types.h,
+	lib/fribidi-mirroring.c, lib/fribidi-types.h, lib/fribidi.h: Wow!!!
+	I use the wonderful packtab to compress the mirroring table now!
+	It gives an smaller and faster table than the old binary search
+	one!  Moreover, packtab deals with tables with empty heads much
+	better.  Voila!
+
+2004-06-09   Behdad Esfahbod <behdad@gnu.org>
+
+	* configure.ac, bin/fribidi-main.c, charset/Headers.mk,
+	charset/fribidi-char-sets-cap-rtl.h,
+	charset/fribidi-char-sets-cp1255.h,
+	charset/fribidi-char-sets-cp1256.h,
+	charset/fribidi-char-sets-iso8859-6.h,
+	charset/fribidi-char-sets-iso8859-8.h,
+	charset/fribidi-char-sets-list.h, charset/fribidi-char-sets-utf8.h,
+	charset/fribidi-char-sets.c, charset/fribidi-char-sets.h,
+	doc/Makefile.am, lib/common.h, lib/debug.h,
+	lib/fribidi-bidi-type.c, lib/fribidi-bidi-type.h,
+	lib/fribidi-bidi-types-list.h, lib/fribidi-bidi-types.h,
+	lib/fribidi-bidi.h, lib/fribidi-common.h, lib/fribidi-mirroring.c,
+	lib/fribidi-mirroring.h, lib/fribidi-types.h, lib/fribidi.c,
+	lib/fribidi.def, lib/fribidi.h, lib/mem.h: Redundant and
+	compatibility stuff removed.  A few macros added, to compile
+	AbiWord from CVS.  The most important is the FRIBIDI_TYPE_PRIVATE
+	in fribidi-bidi-types.h
+
+2004-06-09   Behdad Esfahbod <behdad@gnu.org>
+
+	* bin/fribidi-benchmark.c, bin/fribidi-main.c,
+	lib/fribidi-bidi-type.h, lib/fribidi.h: Not serious changed.  Going
+	to remove easy-to-replace compatibility stuff.
+
+2004-06-07   Behdad Esfahbod <behdad@gnu.org>
+
+	* .cvsignore, .indent.pro, TODO, lib/fribidi-bidi-types-list.h,
+	lib/fribidi-bidi-types.h, lib/fribidi-bidi.c, lib/fribidi-bidi.h,
+	lib/fribidi-mirroring.c, lib/fribidi-mirroring.h, lib/fribidi.c,
+	lib/fribidi.def, lib/fribidi.h, test/test_UTF-8_persian.reference:
+	Finally done with the clean API for bidi functionality.  The API is
+	not final yet, but does the job.  Also define FriBidiCharType as an
+	enum if possible.  Added type FriBidiParType for paragraph
+	direction types.
+
+2004-06-04   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/fribidi-bidi.c, lib/fribidi-bidi.h, lib/fribidi-run.c,
+	lib/run.h: Isolating bidi reordering call, take 1.
+
+2004-06-04   Behdad Esfahbod <behdad@gnu.org>
+
+	* doc/Makefile.am: Anyone seen my log ;-).
+
+2004-06-04   Behdad Esfahbod <behdad@gnu.org>
+
+	* Makefile.am, TODO, bootstrap, configure.ac, bin/fribidi-main.c,
+	charset/fribidi-char-sets-cap-rtl.c, doc/Makefile.am,
+	gen.tab/.cvsignore, gen.tab/Makefile.am,
+	gen.tab/gen-bidi-type-tab.c, lib/Headers.mk,
+	lib/fribidi-bidi-type.c, lib/fribidi-bidi-type.h,
+	lib/fribidi-bidi-types-list.h, lib/fribidi-bidi-types.c,
+	lib/fribidi-bidi-types.h, lib/fribidi-bidi.c, lib/fribidi-bidi.h,
+	lib/fribidi-common.h, lib/fribidi-config.h.in, lib/fribidi.def:
+	Cleaning up here and there.  Last lingers before adding joining.
+
+2004-05-31   Behdad Esfahbod <behdad@gnu.org>
+
+	* AUTHORS, Makefile.am, README, THANKS, TODO, configure.ac,
+	bin/fribidi-main.c, charset/fribidi-char-sets-cap-rtl.c,
+	doc/Makefile.am, gen.tab/Makefile.am, gen.tab/gen-bidi-type-tab.c,
+	gen.tab/gen-mirroring-tab.c, gen.tab/gen-unicode-version.c,
+	lib/bidi-types-list.h, lib/fribidi-bidi-type.c,
+	lib/fribidi-bidi-types-list.h: GNU Coding Standards applied and
+	typos fixed.
+
+2004-05-31   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/Headers.mk, lib/Makefile.am, lib/common.h, lib/debug.h,
+	lib/fribidi-bidi-types.c, lib/fribidi-bidi.c, lib/fribidi-common.h,
+	lib/fribidi-config.h.in, lib/fribidi.c, lib/run.h: GNU Coding
+	Standards applied where appropriate.
+
+2004-05-31   Behdad Esfahbod <behdad@gnu.org>
+
+	* gen.tab/unidata/README: To be moved to gen.tab/
+
+2004-05-31   Behdad Esfahbod <behdad@gnu.org>
+
+	* gen.tab/unidata/ArabicShaping.txt, gen.tab/unidata/README,
+	gen.tab/unidata/UnicodeData.txt: We need UnicodeData.txt for
+	shaping tables, so seems like we are forced to use the big fat huge
+	UnicodeData.txt, so no need to used extracted/Derived files
+	anymore. :-(
+
+2004-05-29   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/fribidi-mirroring.c, lib/fribidi-mirroring.h, lib/fribidi.c:
+	Tweaked the headers again.  According to GNU GPL now.
+
+2004-05-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/Makefile.am: Ok, now DLL build works with Cygwin.  Still
+	remains to test with Mingw.
+
+2004-05-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* configure.ac: Ok, seems like there are a few bits wrong in Pango,
+	and I simply copied :">.
+
+2004-05-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* configure.ac: Seems like using $build_os instead of broken $host
+	should fix the problem.
+
+2004-05-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* configure.ac: Trying to build DLL on Cygwin.
+
+2004-05-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/fribidi-common.h: Define extra GNU function attributes only
+	if using GLIB.
+
+2004-05-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* bin/Makefile.am, bin/gettext.h: Added a dummy gettext.h that
+	simply defines "gettext" to null.
+
+2004-05-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* gen.tab/Makefile.am: Another oops.  You know, it's 7:30 in the
+	morning!
+
+2004-05-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* gen.tab/Makefile.am: My oops.  Sorry.
+
+2004-05-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* gen.tab/Makefile.am: Added $(EXEEXT) to binaries we build and
+	run, to make cygwin-safe.
+
+2004-05-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* Makefile.am: Moved gen.tab to the first subdir.
+
+2004-05-24   Behdad Esfahbod <behdad@gnu.org>
+
+	* AUTHORS, HACKING, doc/Makefile.am, gen.tab/gen-bidi-type-tab.c,
+	gen.tab/gen-mirroring-tab.c, gen.tab/gen-unicode-version.c: Small
+	fixes.
+
+2004-05-22   Behdad Esfahbod <behdad@gnu.org>
+
+	* TODO, gen.tab/gen-bidi-type-tab.c: When reading
+	DerivedBidiClass.txt, should only default to L.
+
+2004-05-22   Behdad Esfahbod <behdad@gnu.org>
+
+	* Makefile.am, bin/Makefile.am, bin/fribidi-benchmark.c,
+	charset/fribidi-char-sets-cap-rtl.c, charset/fribidi-char-sets.c,
+	gen.tab/Makefile.am, gen.tab/gen-bidi-type-tab.c,
+	gen.tab/gen-mirroring-tab.c, gen.tab/gen-unicode-version.c,
+	lib/common.h, lib/fribidi-bidi-type.c, lib/fribidi-mem.c: Make
+	gen-mirroring-tab and gen-unicode-version work.  gen.tab/ works
+	now.
+
+2004-05-22   Behdad Esfahbod <behdad@gnu.org>
+
+	* configure.ac, fribidi.pc.in, bin/Makefile.am,
+	charset/Makefile.am, doc/Makefile.am, gen.tab/Makefile.am,
+	gen.tab/gen-bidi-type-tab.c, gen.tab/gen-mirroring-tab.c,
+	gen.tab/gen-unicode-version.c, gen.tab/packtab.c,
+	gen.tab/packtab.h, lib/Makefile.am, lib/common.h,
+	lib/fribidi-bidi.h, lib/fribidi-mirroring.c,
+	lib/fribidi-mirroring.h: Making gen-bidi-tab work, and more clean
+	up.
+
+2004-05-12   Behdad Esfahbod <behdad@gnu.org>
+
+	* gen.tab/.cvsignore, gen.tab/Makefile.am,
+	gen.tab/gen-bidi-type-tab.c, gen.tab/gen-mirroring-tab.c,
+	gen.tab/gen-unicode-version.c: gen-unicode-version is operational
+	now.
+
+2004-05-12   Behdad Esfahbod <behdad@gnu.org>
+
+	* gen.tab/gen-bidi-type-tab.c, lib/.cvsignore, lib/Makefile.am,
+	lib/common.h, lib/fribidi-bidi-type.c, lib/fribidi-common.h,
+	lib/fribidi-unicode.h: Better handling with Unicode info.
+
+2004-05-12   Behdad Esfahbod <behdad@gnu.org>
+
+	* doc/.cvsignore, lib/.cvsignore, lib/fribidi-unicode-version.h:
+	Updated .cvsignore files.
+
+2004-05-12   Behdad Esfahbod <behdad@gnu.org>
+
+	* .indent.pro, TODO, bootstrap, bin/fribidi-main.c,
+	charset/fribidi-char-sets.c, gen.tab/Makefile.am,
+	gen.tab/gen-bidi-type-tab.c, gen.tab/gen-mirroring-tab.c,
+	gen.tab/packtab.c, lib/bidi-types-list.h, lib/common.h,
+	lib/fribidi-bidi-type.c, lib/fribidi-mirroring.h: Updated the
+	gen.tab to work again.	Other fixes here and there.
+
+2004-05-07   Behdad Esfahbod <behdad@gnu.org>
+
+	* Makefile.am, TODO, configure.ac, bin/fribidi-main.c,
+	charset/fribidi-char-sets-cap-rtl.c, doc/Makefile.am,
+	lib/Makefile.am, lib/bidi-type-table.i, lib/bidi-types-list.h,
+	lib/bidi-types.h, lib/common.h, lib/debug.h,
+	lib/fribidi-bidi-type.c, lib/fribidi-bidi.c, lib/fribidi-common.h,
+	lib/fribidi-mem.c, lib/fribidi-mirroring.c, lib/fribidi-types.h,
+	lib/fribidi-unicode.h, lib/fribidi.c, lib/mem.h,
+	lib/mirroring-table.i: Cleaning here and there.  We may be ready
+	for a release tonight :).
+
+2004-05-05   Behdad Esfahbod <behdad@gnu.org>
+
+	* TODO, configure.ac: More TODO.  And change autoconf requirement
+	to 2.56 from 2.59.
+
+2004-05-03   Behdad Esfahbod <behdad@gnu.org>
+
+	* .indent.pro, TODO, configure.ac, bin/fribidi-benchmark.c,
+	bin/fribidi-main.c, charset/fribidi-char-sets-cap-rtl.c,
+	charset/fribidi-char-sets-cp1255.c,
+	charset/fribidi-char-sets-cp1256.c,
+	charset/fribidi-char-sets-iso8859-6.c,
+	charset/fribidi-char-sets-iso8859-8.c,
+	charset/fribidi-char-sets-utf8.c, charset/fribidi-char-sets.c,
+	charset/fribidi-char-sets.h, doc/Makefile.am, lib/Headers.mk,
+	lib/Makefile.am, lib/bidi-type-table.i, lib/bidi-types-list.h,
+	lib/bidi-types.h, lib/common.h, lib/debug.h, lib/env.h,
+	lib/fribidi-bidi-type.c, lib/fribidi-bidi-type.h,
+	lib/fribidi-bidi-types.c, lib/fribidi-bidi-types.h,
+	lib/fribidi-bidi.c, lib/fribidi-bidi.h, lib/fribidi-common.h,
+	lib/fribidi-env.c, lib/fribidi-env.h, lib/fribidi-mem.c,
+	lib/fribidi-mirroring.c, lib/fribidi-run.c, lib/fribidi-types.h,
+	lib/fribidi.c, lib/fribidi.def, lib/mem.h, lib/mirroring-table.i,
+	lib/run.h, test/run.tests: Changed the run data structure from a
+	double-terminated deque, to a circular deque with a single
+	sentinel.  To debug that, also added some assert stuff, added
+	function attributes, deprecated old interfaces, and humm, that it
+	for now.
+
+2004-04-28   Behdad Esfahbod <behdad@gnu.org>
+
+	* THANKS, bin/fribidi-main.c, charset/Makefile.am, doc/Makefile.am,
+	lib/Makefile.am, lib/fribidi-common.h: Cleaning up exported
+	symbols.
+
+2004-04-28   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/Makefile.am, lib/bidi-types.h, lib/common.h, lib/env.h,
+	lib/fribidi-bidi-type.c, lib/fribidi-bidi-types.c,
+	lib/fribidi-bidi-types.h, lib/fribidi-bidi.c, lib/fribidi-env.c,
+	lib/fribidi-mem.c, lib/fribidi-run.c, lib/mem.h, lib/run.h: Added
+	FriBidiRun type, private for now.  Moved all library-wide static
+	variables to env.h.
+
+2004-04-27   Behdad Esfahbod <behdad@gnu.org>
+
+	* doc/Makefile.am, lib/common.h, lib/fribidi-mirroring.c: Nothing
+	really important.
+
+2004-04-27   Behdad Esfahbod <behdad@gnu.org>
+
+	* charset/Headers.mk, charset/fribidi-char-sets-list.h,
+	doc/Makefile.am, lib/Headers.mk, lib/bidi-types-list.h,
+	lib/common.h, lib/debug.h, lib/fribidi-begindecls.h,
+	lib/fribidi-enddecls.h, lib/fribidi-types.h, lib/mem.h: First try
+	to integrate c2man manual generation in build system.
+
+2004-04-27   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/fribidi-mirroring.c, lib/fribidi-mirroring.h: Header changed
+	so RCS header and Authors follow the copyright notice.
+
+2004-04-27   Behdad Esfahbod <behdad@gnu.org>
+
+	* TODO: New items added.  Should be cleared before the release.
+
+2004-04-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* bin/.cvsignore, gen.tab/.cvsignore, lib/.cvsignore: More
+	.cvsignore's added.
+
+2004-04-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* Makefile.am, configure.ac: Renamed subdir tablegen to gentable.
+
+2004-04-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* lib/fribidi-bidi.c, lib/fribidi.c: More recovery after the
+	unintentionaly rm -f *.c!
+
+2004-04-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* configure.ac, lib/fribidi-bidi.c, lib/fribidi-mem.c: No #ifdef or
+	#ifndef when possible.	#if or #if ! is a better way most of the
+	times.	See the examples in source.
+
+2004-04-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* CVSROOT/syncmail: dos2unix'ed.
+
+2004-04-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* ChangeLog.old: The ChangeLog from the old days.
+
+2004-04-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* AUTHORS, bootstrap, configure.ac, .cvsignore, .indent.pro,
+	COPYING, HACKING, HISTORY, Makefile.am, NEWS, README, THANKS, TODO,
+	fribidi.pc.in, fribidi.spec.in, bin/Makefile.am,
+	bin/fribidi-benchmark.c, bin/fribidi-main.c, bin/getopt.c,
+	bin/getopt.h, bin/getopt1.c, bin/getopt_int.h, charset/Headers.mk,
+	charset/Makefile.am, charset/fribidi-char-sets-cap-rtl.c,
+	charset/fribidi-char-sets-cap-rtl.h,
+	charset/fribidi-char-sets-cp1255.c,
+	charset/fribidi-char-sets-cp1255.h,
+	charset/fribidi-char-sets-cp1256.c,
+	charset/fribidi-char-sets-cp1256.h,
+	charset/fribidi-char-sets-iso8859-6.c,
+	charset/fribidi-char-sets-iso8859-6.h,
+	charset/fribidi-char-sets-iso8859-8.c,
+	charset/fribidi-char-sets-iso8859-8.h,
+	charset/fribidi-char-sets-list.h, charset/fribidi-char-sets-utf8.c,
+	charset/fribidi-char-sets-utf8.h, charset/fribidi-char-sets.c,
+	charset/fribidi-char-sets.h, doc/Makefile.am, gen.tab/Makefile.am,
+	gen.tab/gen-bidi-type-tab.c, gen.tab/gen-mirroring-tab.c,
+	gen.tab/packtab.c, gen.tab/packtab.h,
+	gen.tab/unidata/BidiMirroring.txt, gen.tab/unidata/ReadMe.txt,
+	lib/Headers.mk, lib/Makefile.am, lib/bidi-type-table.i,
+	lib/bidi-types-list.h, lib/bidi-types.h, lib/common.h, lib/debug.h,
+	lib/fribidi-begindecls.h, lib/fribidi-bidi-type.c,
+	lib/fribidi-bidi-type.h, lib/fribidi-bidi-types.c,
+	lib/fribidi-bidi-types.h, lib/fribidi-bidi.c, lib/fribidi-bidi.h,
+	lib/fribidi-common.h, lib/fribidi-config.h.in,
+	lib/fribidi-enddecls.h, lib/fribidi-env.c, lib/fribidi-env.h,
+	lib/fribidi-mem.c, lib/fribidi-mirroring.c,
+	lib/fribidi-mirroring.h, lib/fribidi-types.h,
+	lib/fribidi-unicode-version.h, lib/fribidi-unicode.h,
+	lib/fribidi.c, lib/fribidi.h, lib/mem.h, lib/mirroring-table.i,
+	test/Makefile.am, test/run.tests, test/test_CapRTL_explicit.input,
+	test/test_CapRTL_explicit.reference,
+	test/test_CapRTL_implicit.input,
+	test/test_CapRTL_implicit.reference,
+	test/test_ISO8859-8_hebrew.input,
+	test/test_ISO8859-8_hebrew.reference,
+	test/test_UTF-8_persian.input, test/test_UTF-8_persian.reference,
+	test/test_UTF-8_reordernsm.input,
+	test/test_UTF-8_reordernsm.reference: Initial checkin into
+	FreeDesktop repository.  After major restructuring and
+	improvements.
+
+2004-04-25   Behdad Esfahbod <behdad@gnu.org>
+
+	* AUTHORS, bootstrap, configure.ac, .cvsignore, .indent.pro,
+	COPYING, HACKING, HISTORY, Makefile.am, NEWS, README, THANKS, TODO,
+	fribidi.pc.in, fribidi.spec.in, bin/Makefile.am,
+	bin/fribidi-benchmark.c, bin/fribidi-main.c, bin/getopt.c,
+	bin/getopt.h, bin/getopt1.c, bin/getopt_int.h, charset/Headers.mk,
+	charset/Makefile.am, charset/fribidi-char-sets-cap-rtl.c,
+	charset/fribidi-char-sets-cap-rtl.h,
+	charset/fribidi-char-sets-cp1255.c,
+	charset/fribidi-char-sets-cp1255.h,
+	charset/fribidi-char-sets-cp1256.c,
+	charset/fribidi-char-sets-cp1256.h,
+	charset/fribidi-char-sets-iso8859-6.c,
+	charset/fribidi-char-sets-iso8859-6.h,
+	charset/fribidi-char-sets-iso8859-8.c,
+	charset/fribidi-char-sets-iso8859-8.h,
+	charset/fribidi-char-sets-list.h, charset/fribidi-char-sets-utf8.c,
+	charset/fribidi-char-sets-utf8.h, charset/fribidi-char-sets.c,
+	charset/fribidi-char-sets.h, doc/Makefile.am, gen.tab/Makefile.am,
+	gen.tab/gen-bidi-type-tab.c, gen.tab/gen-mirroring-tab.c,
+	gen.tab/packtab.c, gen.tab/packtab.h,
+	gen.tab/unidata/BidiMirroring.txt, gen.tab/unidata/ReadMe.txt,
+	lib/Headers.mk, lib/Makefile.am, lib/bidi-type-table.i,
+	lib/bidi-types-list.h, lib/bidi-types.h, lib/common.h, lib/debug.h,
+	lib/fribidi-begindecls.h, lib/fribidi-bidi-type.c,
+	lib/fribidi-bidi-type.h, lib/fribidi-bidi-types.c,
+	lib/fribidi-bidi-types.h, lib/fribidi-bidi.c, lib/fribidi-bidi.h,
+	lib/fribidi-common.h, lib/fribidi-config.h.in,
+	lib/fribidi-enddecls.h, lib/fribidi-env.c, lib/fribidi-env.h,
+	lib/fribidi-mem.c, lib/fribidi-mirroring.c,
+	lib/fribidi-mirroring.h, lib/fribidi-types.h,
+	lib/fribidi-unicode-version.h, lib/fribidi-unicode.h,
+	lib/fribidi.c, lib/fribidi.h, lib/mem.h, lib/mirroring-table.i,
+	test/Makefile.am, test/run.tests, test/test_CapRTL_explicit.input,
+	test/test_CapRTL_explicit.reference,
+	test/test_CapRTL_implicit.input,
+	test/test_CapRTL_implicit.reference,
+	test/test_ISO8859-8_hebrew.input,
+	test/test_ISO8859-8_hebrew.reference,
+	test/test_UTF-8_persian.input, test/test_UTF-8_persian.reference,
+	test/test_UTF-8_reordernsm.input,
+	test/test_UTF-8_reordernsm.reference: Initial revision
+
+2004-04-21   Behdad Esfahbod <behdad@gnu.org>
+
+	* CVSROOT/checkoutlist, CVSROOT/loginfo, CVSROOT/syncmail:
+	fribidi-commit list notification added.
+
+2004-04-10   Behdad Esfahbod <behdad@gnu.org>
+
+	* CVSROOT/cvsignore: Added *~ and *.tmp.
+
+2004-04-07   Behdad Esfahbod <behdad@gnu.org>
+
+	* CVSROOT/cvsignore: Added with defaults for autotools projects.
+
+2004-03-13   Behdad Esfahbod <behdad@gnu.org>
+
+	* CVSROOT/checkoutlist, CVSROOT/commitinfo, CVSROOT/config,
+	CVSROOT/cvswrappers, CVSROOT/editinfo, CVSROOT/loginfo,
+	CVSROOT/modules, CVSROOT/notify, CVSROOT/rcsinfo, CVSROOT/taginfo,
+	CVSROOT/verifymsg: initial checkin
+
+For older changes see ChangeLog.old

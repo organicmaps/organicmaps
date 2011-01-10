@@ -1,0 +1,85 @@
+.\" WARNING! THIS FILE WAS GENERATED AUTOMATICALLY BY c2man!
+.\" DO NOT EDIT! CHANGES MADE TO THIS FILE WILL BE LOST!
+.TH "fribidi_shape" 3 "30 January 2006" "GNU FriBidi 0.19.2" "Programmer's Manual"
+.SH "NAME"
+fribidi_shape \- do bidi-aware shaping
+.SH "SYNOPSIS"
+.ft B
+#include <fribidi.h>
+.sp
+void fribidi_shape
+.br
+(
+.br
+	FriBidiFlags flags,
+.br
+	const FriBidiLevel *embedding_levels,
+.br
+	const FriBidiStrIndex len,
+.br
+	FriBidiArabicProp *ar_props,
+.br
+	FriBidiChar *str
+.br
+);
+.ft R
+.SH "PARAMETERS"
+.TP
+.B "FriBidiFlags flags"
+Shaping flags.
+.TP
+.B "const FriBidiLevel *embedding_levels"
+Input list of embedding
+levels, as returned by
+fribidi_get_par_embedding_levels.
+.TP
+.B "const FriBidiStrIndex len"
+Input string length.
+.TP
+.B "FriBidiArabicProp *ar_props"
+Input/output Arabic properties as
+computed by fribidi_join_arabic.
+.TP
+.B "FriBidiChar *str"
+String to shape.
+.SH "DESCRIPTION"
+This function does all shaping work that depends on the resolved embedding
+levels of the characters.  Currently it does mirroring and Arabic shaping,
+but the list may grow in the future.  This function is a wrapper around
+fribidi_shape_mirroring and fribidi_shape_arabic.
+
+The flags parameter specifies which shapings are applied.  The only flags
+affecting the functionality of this function are those beginning with
+FRIBIDI_FLAG_SHAPE_.  Of these, only FRIBIDI_FLAG_SHAPE_MIRRORING is on
+in FRIBIDI_FLAGS_DEFAULT.  For details of the Arabic-specific flags see
+fribidi_shape_arabic.  If ar_props is NULL, no Arabic shaping is performed.
+
+Feel free to do your own shaping before or after calling this function,
+but you should take care of embedding levels yourself then.
+.SH "SEE ALSO"
+fribidi_charset_to_unicode(3),
+fribidi_unicode_to_charset(3),
+fribidi_parse_charset(3),
+fribidi_shape_arabic(3),
+fribidi_get_par_direction(3),
+fribidi_get_par_embedding_levels(3),
+fribidi_reorder_line(3),
+fribidi_get_bidi_type(3),
+fribidi_get_bidi_types(3),
+fribidi_get_bidi_type_name(3),
+fribidi_debug_status(3),
+fribidi_mirroring_status(3),
+fribidi_set_mirroring(3),
+fribidi_reorder_nsm_status(3),
+fribidi_set_reorder_nsm(3),
+fribidi_log2vis_get_embedding_levels(3),
+fribidi_get_type(3),
+fribidi_get_type_internal(3),
+fribidi_remove_bidi_marks(3),
+fribidi_log2vis(3),
+fribidi_join_arabic(3),
+fribidi_get_joining_type(3),
+fribidi_get_joining_types(3),
+fribidi_get_joining_type_name(3),
+fribidi_get_mirror_char(3),
+fribidi_shape_mirroring(3)

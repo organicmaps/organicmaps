@@ -1,0 +1,74 @@
+.\" WARNING! THIS FILE WAS GENERATED AUTOMATICALLY BY c2man!
+.\" DO NOT EDIT! CHANGES MADE TO THIS FILE WILL BE LOST!
+.TH "fribidi_parse_charset" 3 "30 January 2006" "GNU FriBidi 0.19.2" "Programmer's Manual"
+.SH "NAME"
+fribidi_parse_charset \- parse character set name
+.SH "SYNOPSIS"
+.ft B
+#include <fribidi.h>
+.sp
+FriBidiCharSet fribidi_parse_charset(const char *s);
+.ft R
+.SH "PARAMETERS"
+.TP
+.B "const char *s"
+Input name of the character set.
+.SH "DESCRIPTION"
+Parse character set name.
+.SH "RETURNS"
+The character set named s, or FRIBIDI_CHAR_SET_NOT_FOUND if the
+character set is not available.
+.sp
+Possible values for a \fBFriBidiCharSet\fR are as follows:
+.RS 0.75in
+.PD 0
+.ft B
+.nr TL \w'FRIBIDI_CHAR_SET_ISO8859_6'u+0.2i
+.ft R
+.TP \n(TLu
+\fBFRIBIDI_CHAR_SET_UTF8\fR
+UTF-8 (Unicode).
+.TP \n(TLu
+\fBFRIBIDI_CHAR_SET_CAP_RTL\fR
+CapRTL (Test).
+.TP \n(TLu
+\fBFRIBIDI_CHAR_SET_ISO8859_6\fR
+ISO8859-6 (Arabic).
+.TP \n(TLu
+\fBFRIBIDI_CHAR_SET_ISO8859_8\fR
+ISO8859-8 (Hebrew).
+.TP \n(TLu
+\fBFRIBIDI_CHAR_SET_CP1255\fR
+CP1255 (MS Hebrew/Yiddish).
+.TP \n(TLu
+\fBFRIBIDI_CHAR_SET_CP1256\fR
+CP1256 (MS Arabic).
+.RE
+.PD
+.SH "SEE ALSO"
+fribidi_charset_to_unicode(3),
+fribidi_unicode_to_charset(3),
+fribidi_shape_arabic(3),
+fribidi_get_par_direction(3),
+fribidi_get_par_embedding_levels(3),
+fribidi_reorder_line(3),
+fribidi_get_bidi_type(3),
+fribidi_get_bidi_types(3),
+fribidi_get_bidi_type_name(3),
+fribidi_debug_status(3),
+fribidi_mirroring_status(3),
+fribidi_set_mirroring(3),
+fribidi_reorder_nsm_status(3),
+fribidi_set_reorder_nsm(3),
+fribidi_log2vis_get_embedding_levels(3),
+fribidi_get_type(3),
+fribidi_get_type_internal(3),
+fribidi_remove_bidi_marks(3),
+fribidi_log2vis(3),
+fribidi_join_arabic(3),
+fribidi_get_joining_type(3),
+fribidi_get_joining_types(3),
+fribidi_get_joining_type_name(3),
+fribidi_get_mirror_char(3),
+fribidi_shape_mirroring(3),
+fribidi_shape(3)
