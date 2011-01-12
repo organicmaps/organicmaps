@@ -326,7 +326,7 @@ namespace yg
            texture->mapPixel(m2::PointF(texMaxX, texMinY))
          };
 
-         addTexturedVertices(coords, texCoords, 4, depth, lineStyle->m_pageID);
+         addTexturedFan(coords, texCoords, 4, depth, lineStyle->m_pageID);
 
          segLenRemain -= rawTileLen;
 
@@ -385,7 +385,7 @@ namespace yg
              m2::PointF(points[i + 1] + prevStartVec * geomHalfWidth)
            };
 
-           addTexturedVertices(joinSeg, joinSegTex, 3, depth, lineStyle->m_pageID);
+           addTexturedFan(joinSeg, joinSegTex, 3, depth, lineStyle->m_pageID);
 
            prevStartVec = startVec;
          }
@@ -506,10 +506,10 @@ namespace yg
        m2::PointF(texMaxX, texMinY)
      };
 
-     addTexturedVertices(coords, texCoords, 4, depth, pageID);
+     addTexturedFan(coords, texCoords, 4, depth, pageID);
    }
 
-   void GeometryBatcher::addTexturedVertices(m2::PointF const * coords, m2::PointF const * texCoords, unsigned size, double depth, int pageID)
+   void GeometryBatcher::addTexturedFan(m2::PointF const * coords, m2::PointF const * texCoords, unsigned size, double depth, int pageID)
    {
      if (!hasRoom(size, (size - 2) * 3, pageID))
        flush(pageID);
@@ -538,6 +538,42 @@ namespace yg
 
      m_pipelines[pageID].m_currentIndex += (size - 2) * 3;
    }
+
+   void GeometryBatcher::addTexturedStrip(m2::PointF const * coords, m2::PointF const * texCoords, unsigned size, double depth, int pageID)
+   {
+     if (!hasRoom(size, (size - 2) * 3, pageID))
+       flush(pageID);
+
+     ASSERT(size > 2, ());
+
+     size_t vOffset = m_pipelines[pageID].m_currentVertex;
+     size_t iOffset = m_pipelines[pageID].m_currentIndex;
+
+     for (unsigned i = 0; i < size; ++i)
+     {
+       m_pipelines[pageID].m_vertices[vOffset + i].pt = coords[i];
+       m_pipelines[pageID].m_vertices[vOffset + i].tex = texCoords[i];
+       m_pipelines[pageID].m_vertices[vOffset + i].depth = depth;
+     }
+
+     m_pipelines[pageID].m_currentVertex += size;
+
+     size_t oldIdx1 = vOffset;
+     size_t oldIdx2 = vOffset + 1;
+
+     for (size_t j = 0; j < size - 2; ++j)
+     {
+       m_pipelines[pageID].m_indices[iOffset + j * 3] = oldIdx1;
+       m_pipelines[pageID].m_indices[iOffset + j * 3 + 1] = oldIdx2;
+       m_pipelines[pageID].m_indices[iOffset + j * 3 + 2] = vOffset + j + 2;
+
+       oldIdx1 = oldIdx2;
+       oldIdx2 = vOffset + j + 2;
+     }
+
+     m_pipelines[pageID].m_currentIndex += (size - 2) * 3;
+   }
+
 
    void GeometryBatcher::drawGlyph(m2::PointD const & ptOrg, m2::PointD const & ptGlyph, float angle, float blOffset, CharStyle const * p, double depth)
    {

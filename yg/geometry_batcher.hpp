@@ -162,11 +162,17 @@ namespace yg
 
       void setRenderTarget(shared_ptr<RenderTarget> const & rt);
 
-      void addTexturedVertices(m2::PointF const * coords,
-                               m2::PointF const * texCoords,
-                               unsigned size,
-                               double depth,
-                               int pageID);
+      void addTexturedFan(m2::PointF const * coords,
+                          m2::PointF const * texCoords,
+                          unsigned size,
+                          double depth,
+                          int pageID);
+
+      void addTexturedStrip(m2::PointF const * coords,
+                            m2::PointF const * texCoords,
+                            unsigned size,
+                            double depth,
+                            int pageID);
 
       int aaShift() const;
 

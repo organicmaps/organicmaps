@@ -42,49 +42,36 @@ namespace yg
           m2::PointF const fNorm = norm * geomHalfWidth;  // enough to calc it once
           m2::PointF const fDir(fNorm.y, -fNorm.x);
 
-          m2::PointF coords[12] =
+          m2::PointF coords[8] =
           {
             /// left round cap
-            m2::PointF(points[i].x - fDir.x + fNorm.x, points[i].y - fDir.y + fNorm.y),
-            m2::PointF(points[i].x - fDir.x - fNorm.x, points[i].y - fDir.y - fNorm.y),
-            m2::PointF(points[i].x - fNorm.x, points[i].y - fNorm.y),
-            m2::PointF(points[i].x + fNorm.x, points[i].y + fNorm.y),
+            points[i] - fDir + fNorm,
+            points[i] - fDir - fNorm,
+            points[i] + fNorm,
             /// inner part
-            m2::PointF(points[i].x + fNorm.x, points[i].y + fNorm.y),
-            m2::PointF(points[i].x - fNorm.x, points[i].y - fNorm.y),
-            m2::PointF(points[i + 1].x - fNorm.x, points[i + 1].y - fNorm.y),
-            m2::PointF(points[i + 1].x + fNorm.x, points[i + 1].y + fNorm.y),
+            points[i] - fNorm,
+            points[i + 1] + fNorm,
+            points[i + 1] - fNorm,
             /// right round cap
-            m2::PointF(points[i + 1].x + fNorm.x, points[i + 1].y + fNorm.y),
-            m2::PointF(points[i + 1].x - fNorm.x, points[i + 1].y - fNorm.y),
-            m2::PointF(points[i + 1].x + fDir.x - fNorm.x, points[i + 1].y + fDir.y - fNorm.y),
-            m2::PointF(points[i + 1].x + fDir.x + fNorm.x, points[i + 1].y + fDir.y + fNorm.y)
+            points[i + 1] + fDir + fNorm,
+            points[i + 1] + fDir - fNorm
           };
 
           shared_ptr<BaseTexture> texture = skin()->pages()[lineStyle->m_pageID]->texture();
 
-          m2::PointF texCoords[12] =
+          m2::PointF texCoords[8] =
           {
-            /// left round cap
             texture->mapPixel(m2::PointF(texMinX, texMinY)),
             texture->mapPixel(m2::PointF(texMinX, texMaxY)),
-            texture->mapPixel(m2::PointF(texCenterX, texMaxY)),
-            texture->mapPixel(m2::PointF(texCenterX, texMinY)),
-            /// inner part
             texture->mapPixel(m2::PointF(texCenterX, texMinY)),
             texture->mapPixel(m2::PointF(texCenterX, texMaxY)),
-            texture->mapPixel(m2::PointF(texCenterX, texMaxY)),
-            texture->mapPixel(m2::PointF(texCenterX, texMinY)),
-            /// right round cap
             texture->mapPixel(m2::PointF(texCenterX, texMinY)),
             texture->mapPixel(m2::PointF(texCenterX, texMaxY)),
-            texture->mapPixel(m2::PointF(texMaxX, texMaxY)),
-            texture->mapPixel(m2::PointF(texMaxX, texMinY))
+            texture->mapPixel(m2::PointF(texMaxX, texMinY)),
+            texture->mapPixel(m2::PointF(texMaxX, texMaxY))
           };
 
-          addTexturedVertices(coords, texCoords, 4, depth, lineStyle->m_pageID);
-          addTexturedVertices(coords + 4, texCoords + 4, 4, depth, lineStyle->m_pageID);
-          addTexturedVertices(coords + 8, texCoords + 8, 4, depth, lineStyle->m_pageID);
+          addTexturedStrip(coords, texCoords, 8, depth, lineStyle->m_pageID);
         }
       }
       else
