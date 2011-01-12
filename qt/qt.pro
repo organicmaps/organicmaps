@@ -46,6 +46,7 @@ SOURCES += \
   classificator_tree.cpp \
   proxystyle.cpp \
   slider_ctrl.cpp \
+  about.cpp
 
 HEADERS += \
   mainwindow.hpp \
@@ -57,5 +58,6 @@ HEADERS += \
   classificator_tree.hpp \
   proxystyle.hpp \
   slider_ctrl.hpp \
+  about.hpp \
 
 RESOURCES += res/resources.qrc \

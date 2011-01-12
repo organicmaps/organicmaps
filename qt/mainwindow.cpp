@@ -6,17 +6,15 @@
 #include "searchwindow.hpp"
 #include "classificator_tree.hpp"
 #include "slider_ctrl.hpp"
+#include "about.hpp"
 
 #include "../indexer/classificator.hpp"
-
-#include "../platform/platform.hpp"
 
 #include <QtGui/QDockWidget>
 #include <QtGui/QToolBar>
 #include <QtGui/QAction>
 #include <QtGui/QMenuBar>
 #include <QtGui/QMenu>
-#include <QtGui/QMessageBox>
 #include <QtCore/QFile>
 
 #include "../base/start_mem_debug.hpp"
@@ -35,6 +33,7 @@ MainWindow::MainWindow()
   setCentralWidget(m_pDrawWidget);
 
   setWindowTitle(tr("MapsWithMe"));
+  setWindowIcon(QIcon(":logo.png"));
 
   QMenu * helpMenu = new QMenu(tr("Help"), this);
   menuBar()->addMenu(helpMenu);
@@ -226,13 +225,8 @@ void MainWindow::ShowClassifPanel()
 
 void MainWindow::OnAbout()
 {
-  QFile file(GetPlatform().ReadPathForFile("about.txt").c_str());
-  if (file.open(QIODevice::ReadOnly))
-  {
-    QByteArray data = file.readAll();
-    QMessageBox::about(this, QMenuBar::tr("About"), data);
-    file.close();
-  }
+  AboutDialog dlg(this);
+  dlg.exec();
 }
 
 }

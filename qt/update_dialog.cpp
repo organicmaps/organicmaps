@@ -2,8 +2,6 @@
 
 #include "../base/assert.hpp"
 
-#include "../version/version.hpp"
-
 #include <boost/bind.hpp>
 
 #include <QtGui/QVBoxLayout>
@@ -53,7 +51,7 @@ namespace qt
   UpdateDialog::UpdateDialog(QWidget * parent, Storage & storage)
     : QDialog(parent), m_storage(storage)
   {
-    m_label = new QLabel(QObject::tr("Version: ") + VERSION_STRING, this);
+    //m_label = new QLabel(QObject::tr("Version: ") + VERSION_STRING, this);
 
     m_button = new QPushButton(QObject::tr(CHECK_FOR_UPDATE), this);
     connect(m_button, SIGNAL(clicked(bool)), this, SLOT(OnButtonClick(bool)));
@@ -66,7 +64,7 @@ namespace qt
     connect(m_tree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(OnItemClick(QTreeWidgetItem *, int)));
 
     QHBoxLayout * horizontalLayout = new QHBoxLayout();
-    horizontalLayout->addWidget(m_label);
+//    horizontalLayout->addWidget(m_label);
     horizontalLayout->addWidget(m_button);
     QVBoxLayout * verticalLayout = new QVBoxLayout();
     verticalLayout->addLayout(horizontalLayout);
@@ -173,7 +171,7 @@ namespace qt
   void UpdateDialog::OnUpdateCheck(int64_t updateSize, char const * readme)
   {
     if (updateSize < 0)
-      m_label->setText(QObject::tr("No update is available"));
+      ;//m_label->setText(QObject::tr("No update is available"));
     else
     {
       QString title(QObject::tr("Update is available"));

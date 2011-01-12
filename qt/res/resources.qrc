@@ -15,4 +15,7 @@
 		<file>plus.png</file>
 		<file>minus.png</file>
 	</qresource>
+	<qresource>
+	  <file>logo.png</file>
+	</qresource>
 </RCC>
