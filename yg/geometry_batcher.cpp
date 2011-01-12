@@ -762,11 +762,8 @@ namespace yg
 
      // find first visible glyph
      size_t i = 0;
-     while (offset < 0)
-     {
-       offset += glyphs[i]->m_xAdvance;
-       ++i;
-     }
+     while (offset < 0 && i < count)
+       offset += glyphs[i++]->m_xAdvance;
 
      size_t ind = 0;
      m2::PointD ptOrg = arrPath[0];
