@@ -707,27 +707,25 @@ namespace yg
      return true;
    }
 
-   void GeometryBatcher::drawPathText(
+   bool GeometryBatcher::drawPathText(
                               m2::PointD const * path, size_t s, uint8_t fontSize, string const & utf8Text,
                               double fullLength, double pathOffset, TextPos pos, bool isMasked, double depth, bool isFixedFont)
    {
      if (isMasked)
-       drawPathTextImpl(path, s, fontSize, utf8Text, fullLength, pathOffset, pos, true, depth, isFixedFont);
-     drawPathTextImpl(path, s, fontSize, utf8Text, fullLength, pathOffset, pos, false, depth, isFixedFont);
+     {
+       if (!drawPathTextImpl(path, s, fontSize, utf8Text, fullLength, pathOffset, pos, true, depth, isFixedFont))
+         return false;
+     }
+     return drawPathTextImpl(path, s, fontSize, utf8Text, fullLength, pathOffset, pos, false, depth, isFixedFont);
    }
 
-   void GeometryBatcher::drawPathTextImpl(
+   bool GeometryBatcher::drawPathTextImpl(
                               m2::PointD const * path, size_t s, uint8_t fontSize, string const & utf8Text,
                               double fullLength, double pathOffset, TextPos pos, bool fromMask, double depth, bool isFixedFont)
    {
      pts_array arrPath(path, s, fullLength, pathOffset);
 
      wstring const text = GetDrawString(utf8Text);
-
-//     FontInfo const & fontInfo = fontSize > 0 ? m_skin->getBigFont() : m_skin->getSmallFont();
-//     FontInfo const & fontInfo = m_skin->getFont(translateFontSize(fontSize));
-
-//     fontSize = translateFontSize(fontSize);
 
      // calculate base line offset
      float blOffset = 2;
@@ -752,9 +750,9 @@ namespace yg
 
      // offset of the text from path's start
      double offset = (fullLength - strLength) / 2.0;
-     if (offset < 0.0) return;
+     if (offset < 0.0) return false;
      offset -= pathOffset;
-     if (-offset >= strLength) return;
+     if (-offset >= strLength) return false;
 
      // find first visible glyph
      size_t i = 0;
@@ -778,6 +776,8 @@ namespace yg
 
        offset = glyphs[i]->m_xAdvance;
      }
+
+     return true;
    }
 
    void GeometryBatcher::enableClipRect(bool flag)

@@ -81,7 +81,7 @@ namespace yg
 
       int m_aaShift;
 
-      void drawPathTextImpl(m2::PointD const * path,
+      bool drawPathTextImpl(m2::PointD const * path,
                         size_t s,
                         uint8_t fontSize,
                         string const & utf8Text,
@@ -139,7 +139,7 @@ namespace yg
                                uint8_t fontSize);
 
       /// Drawing text in the middle of the path.
-      void drawPathText(m2::PointD const * path,
+      bool drawPathText(m2::PointD const * path,
                         size_t s,
                         uint8_t fontSize,
                         string const & utf8Text,

@@ -58,6 +58,7 @@ void DrawerYG::beginFrame()
 void DrawerYG::endFrame()
 {
   m_pScreen->endFrame();
+  m_pathsOrg.clear();
 }
 
 void DrawerYG::clear(yg::Color const & c, bool clearRT, float depth, bool clearDepth)
@@ -152,14 +153,15 @@ void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t p
   m_pScreen->drawText(pt, 0.0, fontSize, name, depth);
 }
 
-void DrawerYG::drawPathText(di::PathInfo const & info, string const & name, rule_ptr_t pRule, int /*depth*/)
+bool DrawerYG::drawPathText(di::PathInfo const & info, string const & name, uint8_t fontSize, int /*depth*/)
 {
-  uint8_t fontSize = get_font_size(pRule) - 2;
   if (fontSize >= yg::minTextSize * m_visualScale)
   {
-    m_pScreen->drawPathText(&info.m_path[0], info.m_path.size(), fontSize, name, info.GetLength(), info.GetOffset(),
-                            yg::gl::Screen::middle_line, true, yg::maxDepth);
+    return m_pScreen->drawPathText( &info.m_path[0], info.m_path.size(), fontSize, name,
+                                    info.GetLength(), info.GetOffset(),
+                                    yg::gl::Screen::middle_line, true, yg::maxDepth);
   }
+  return false;
 }
 
 shared_ptr<yg::gl::Screen> DrawerYG::screen() const
@@ -234,7 +236,26 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t pRule, int depth)
       if (isPath && !isArea && isN)
       {
         for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
-          drawPathText(*i, pInfo->m_name, pRule, depth);
+        {
+          uint8_t const fontSize = get_font_size(pRule) - 2;  // subtract to fit name in path
+
+          list<m2::RectD> & lst = m_pathsOrg[pInfo->m_name];
+
+          m2::RectD r = i->GetLimitRect();
+          r.Inflate(-r.SizeX() / 4.0, -r.SizeY() / 4.0);
+          r.Inflate(fontSize, fontSize);
+
+          bool needDraw = true;
+          for (list<m2::RectD>::const_iterator j = lst.begin(); j != lst.end(); ++j)
+            if (r.IsIntersect(*j))
+            {
+              needDraw = false;
+              break;
+            }
+
+          if (needDraw && drawPathText(*i, pInfo->m_name, fontSize, depth))
+            lst.push_back(r);
+        }
       }
 
       // draw point text

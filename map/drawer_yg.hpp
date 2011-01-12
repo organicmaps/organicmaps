@@ -8,9 +8,12 @@
 #include "../std/list.hpp"
 #include "../std/string.hpp"
 #include "../std/shared_ptr.hpp"
+#include "../std/map.hpp"
+
 
 class ScreenBase;
 namespace drule { class BaseRule; }
+
 
 namespace yg
 {
@@ -55,13 +58,16 @@ private:
 
   uint8_t get_font_size(rule_ptr_t pRule);
 
+  typedef map<string, list<m2::RectD> > org_map_t;
+  org_map_t m_pathsOrg;
+
 protected:
   void drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, int depth);
   void drawPath(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth);
   void drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth);
 
   void drawText(m2::PointD const & pt, string const & name, rule_ptr_t pRule, int depth);
-  void drawPathText(di::PathInfo const & info, string const & name, rule_ptr_t pRule, int depth);
+  bool drawPathText(di::PathInfo const & info, string const & name, uint8_t fontSize, int depth);
 
   typedef shared_ptr<yg::gl::BaseTexture> texture_t;
   typedef shared_ptr<yg::gl::FrameBuffer> frame_buffer_t;
@@ -73,10 +79,6 @@ public:
   DrawerYG(string const & skinName, params_t const & params = params_t());
 
   void drawSymbol(m2::PointD const & pt, string const & symbolName, int depth);
-
-  //render_target_t renderTarget() const;
-//  void setFrameBuffer(frame_buffer_t frameBuffer);
-  //frame_buffer_t frameBuffer() const;
 
   void beginFrame();
   void endFrame();

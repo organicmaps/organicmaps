@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../geometry/point2d.hpp"
+#include "../geometry/rect2d.hpp"
 
 #include "../std/vector.hpp"
 #include "../std/algorithm.hpp"
@@ -53,6 +54,14 @@ namespace di
     {
       ASSERT ( m_offset >= 0.0, (m_offset) );
       return m_offset;
+    }
+
+    m2::RectD GetLimitRect() const
+    {
+      m2::RectD rect;
+      for (size_t i = 0; i < m_path.size(); ++i)
+        rect.Add(m_path[i]);
+      return rect;
     }
   };
 
