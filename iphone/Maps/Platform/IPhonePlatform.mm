@@ -19,7 +19,7 @@ IPhonePlatform::IPhonePlatform()
   NSString * path = [bundle resourcePath];
 	m_resourcesPath = [path UTF8String];
   m_resourcesPath += '/';
-  
+	
   NSArray * dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString * docsDir = [dirPaths objectAtIndex:0];
   m_writablePath = [docsDir UTF8String];
@@ -162,7 +162,7 @@ bool IPhonePlatform::IsMultiSampled() const
 {
 	return m_isMultiSampled;
 }
-
+ 
 bool IPhonePlatform::DoPeriodicalUpdate() const
 {
 	return m_doPeriodicalUpdate;

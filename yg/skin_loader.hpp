@@ -104,12 +104,16 @@ namespace yg
     TStylesList m_stylesList;
 
     shared_ptr<ResourceManager> m_resourceManager;
+    size_t m_dynamicPagesCount;
+    size_t m_textPagesCount;
 
     Skin * m_skin;
 
   public:
 
-    SkinLoader(shared_ptr<ResourceManager> const & resourceManager);
+    SkinLoader(shared_ptr<ResourceManager> const & resourceManager,
+               size_t dynamicPagesCount,
+               size_t textPagesCount);
 
     bool Push(string const & element);
     void Pop(string const & element);

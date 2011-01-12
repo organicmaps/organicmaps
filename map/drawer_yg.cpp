@@ -17,11 +17,19 @@
 
 #include "../base/start_mem_debug.hpp"
 
+DrawerYG::Params::Params()
+  : m_dynamicPagesCount(2),
+    m_textPagesCount(2)
+{
+}
 
-DrawerYG::DrawerYG(string const & skinName, screen_t::Params const & params)
+DrawerYG::DrawerYG(string const & skinName, params_t const & params)
 {
   m_pScreen = shared_ptr<yg::gl::Screen>(new yg::gl::Screen(params));
-  m_pSkin = shared_ptr<yg::Skin>(loadSkin(params.m_resourceManager, skinName));
+  m_pSkin = shared_ptr<yg::Skin>(loadSkin(params.m_resourceManager,
+                                          skinName,
+                                          params.m_dynamicPagesCount,
+                                          params.m_textPagesCount));
   m_pScreen->setSkin(m_pSkin);
 
   if (m_pSkin)
@@ -266,7 +274,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t pRule, int depth)
   }
 }
 
-void DrawerYG::drawStats(double duration, int scale, double lat, double lng)
+void DrawerYG::drawStats(double duration, int scale, double lat, double lng, bool log2vis)
 {
   ostringstream out;
   out << "SPF: " << duration;
@@ -274,9 +282,9 @@ void DrawerYG::drawStats(double duration, int scale, double lat, double lng)
     out << " FPS: inf";
   else
     out << " FPS: " << 1.0 / duration;
-  m_pScreen->drawText(m2::PointD(10, 20), 0, 10, out.str().c_str(), yg::maxDepth, true);
+  m_pScreen->drawText(m2::PointD(10, 20), 0, 10, out.str().c_str(), yg::maxDepth, true, log2vis);
 
   out.str("");
   out << "(" << lat << ", " << lng << ") Scale: " << scale;
-  m_pScreen->drawText(m2::PointD(10, 40), 0, 10, out.str().c_str(), yg::maxDepth, true);
+  m_pScreen->drawText(m2::PointD(10, 40), 0, 10, out.str().c_str(), yg::maxDepth, true, log2vis);
 }

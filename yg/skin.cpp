@@ -20,10 +20,12 @@
 namespace yg
 {
   Skin::Skin(shared_ptr<ResourceManager> const & resourceManager,
-             Skin::TSkinPages const & pages)
+             Skin::TSkinPages const & pages,
+             size_t dynamicPagesCount,
+             size_t textPagesCount)
     : m_pages(pages),
-      m_dynamicPagesCount(2),
-      m_textPagesCount(2),
+      m_dynamicPagesCount(dynamicPagesCount),
+      m_textPagesCount(dynamicPagesCount),
       m_staticPagesCount(pages.size()),
       m_resourceManager(resourceManager)
   {

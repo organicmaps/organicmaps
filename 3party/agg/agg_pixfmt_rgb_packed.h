@@ -83,27 +83,30 @@ namespace agg
                                          unsigned)
         {
             pixel_type rgb = *p;
-            calc_type r = (rgb >> 7) & 0xF8;
-            calc_type g = (rgb >> 2) & 0xF8;
-            calc_type b = (rgb << 3) & 0xF8;
+
+            calc_type b = (rgb >> 4) & 0xF0;
+            calc_type g = (rgb     ) & 0xF0;
+            calc_type r = (rgb << 4) & 0xF0;
+
             *p = (pixel_type)
-               (((((cr - r) * alpha + (r << 8)) >> 1)  & 0x7C00) |
-                ((((cg - g) * alpha + (g << 8)) >> 6)  & 0x03E0) |
-                 (((cb - b) * alpha + (b << 8)) >> 11) | 0x8000);
+               (((((cb - b) * alpha + (b << 8)) >> 4)  & 0x0F00) |
+                ((((cg - g) * alpha + (g << 8)) >> 8)  & 0x00F0) |
+                 (((cr - r) * alpha + (r << 8)) >> 12) | 0xF000);
         }
 
         static AGG_INLINE pixel_type make_pix(unsigned r, unsigned g, unsigned b)
         {
-            return (pixel_type)(((r & 0xF8) << 7) |
-                                ((g & 0xF8) << 2) |
-                                 (b >> 3) | 0x8000);
+            return (pixel_type)(((b & 0xF0) << 4) |
+                                ((g & 0xF0)     ) |
+                                 (r >> 4) |
+                                 0xF000);
         }
 
         static AGG_INLINE color_type make_color(pixel_type p)
         {
-            return color_type((p >> 7) & 0xF8,
-                              (p >> 2) & 0xF8,
-                              (p << 3) & 0xF8);
+            return color_type((p << 4) & 0xF0,
+                              (p     ) & 0xF0,
+                              (p >> 4) & 0xF0);
         }
     };
 

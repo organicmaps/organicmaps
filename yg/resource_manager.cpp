@@ -54,11 +54,11 @@ namespace yg
     return m_staticTextures[fileName];
   }
 
-  Skin * loadSkin(shared_ptr<ResourceManager> const & resourceManager, string const & fileName)
+  Skin * loadSkin(shared_ptr<ResourceManager> const & resourceManager, string const & fileName, size_t dynamicPagesCount, size_t textPagesCount)
   {
     if (fileName.empty())
       return 0;
-    SkinLoader loader(resourceManager);
+    SkinLoader loader(resourceManager, dynamicPagesCount, textPagesCount);
     FileReader skinFile(GetPlatform().ReadPathForFile(fileName));
     ReaderSource<FileReader> source(skinFile);
     bool parseResult = ParseXML(source, loader);

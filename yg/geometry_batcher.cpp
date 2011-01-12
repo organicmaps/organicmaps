@@ -133,14 +133,13 @@ namespace yg
      base_t::endFrame();
    }
 
-   wstring GeometryBatcher::GetDrawString(string const & utf8Str)
+   wstring GeometryBatcher::Log2Vis(wstring const & str)
    {
-     wstring const wstr = FromUtf8(utf8Str);
-     size_t const count = wstr.size();
+     size_t const count = str.size();
      wstring res;
      res.resize(count);
      FriBidiParType dir = FRIBIDI_PAR_LTR;  // requested base direction
-     fribidi_log2vis(wstr.c_str(), count, &dir, &res[0], 0, 0, 0);
+     fribidi_log2vis(str.c_str(), count, &dir, &res[0], 0, 0, 0);
      return res;
    }
 
@@ -609,19 +608,26 @@ namespace yg
      }
    }
 
-   void GeometryBatcher::drawText(m2::PointD const & pt, float angle, uint8_t fontSize, string const & utf8Text, double depth, bool isFixedFont)
+   void GeometryBatcher::drawText(m2::PointD const & pt, float angle, uint8_t fontSize, string const & utf8Text, double depth, bool isFixedFont, bool log2vis)
    {
-     wstring const text = GetDrawString(utf8Text);
+     wstring text = FromUtf8(utf8Text);
+
+     if (log2vis)
+       text = Log2Vis(text);
 
      ForEachGlyph(fontSize, text, true, isFixedFont, bind(&GeometryBatcher::drawGlyph, this, cref(pt), _1, angle, 0, _2, depth));
      ForEachGlyph(fontSize, text, false, isFixedFont, bind(&GeometryBatcher::drawGlyph, this, cref(pt), _1, angle, 0, _2, depth));
    }
 
-   m2::RectD const GeometryBatcher::textRect(string const & utf8Text, uint8_t fontSize)
+   m2::RectD const GeometryBatcher::textRect(string const & utf8Text, uint8_t fontSize, bool log2vis)
    {
      m2::RectD rect;
      m2::PointD pt(0, 0);
-     wstring const text = GetDrawString(utf8Text);
+
+     wstring text = FromUtf8(utf8Text);
+     if (log2vis)
+       text = Log2Vis(text);
+
      for (size_t i = 0; i < text.size(); ++i)
      {
        GlyphMetrics const m = resourceManager()->getGlyphMetrics(GlyphKey(text[i], fontSize, false));
@@ -725,7 +731,7 @@ namespace yg
    {
      pts_array arrPath(path, s, fullLength, pathOffset);
 
-     wstring const text = GetDrawString(utf8Text);
+     wstring const text = Log2Vis(FromUtf8(utf8Text));
 
      // calculate base line offset
      float blOffset = 2;

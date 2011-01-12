@@ -10,7 +10,9 @@
 
 namespace yg
 {
-  SkinLoader::SkinLoader(shared_ptr<ResourceManager> const & resourceManager)
+  SkinLoader::SkinLoader(shared_ptr<ResourceManager> const & resourceManager,
+                         size_t dynamicPagesCount,
+                         size_t textPagesCount)
     : m_id(-1),
     m_texRect(0, 0, 0, 0),
     m_xOffset(0),
@@ -18,7 +20,9 @@ namespace yg
     m_xAdvance(0),
     m_fileName(""),
     m_resourceManager(resourceManager),
-    m_skin(0)
+    m_skin(0),
+    m_dynamicPagesCount(dynamicPagesCount),
+    m_textPagesCount(textPagesCount)
   {
     m_mode.push_back(ERoot);
   }
@@ -103,7 +107,7 @@ namespace yg
 
   void SkinLoader::popSkin()
   {
-    m_skin = new Skin(m_resourceManager, m_pages);
+    m_skin = new Skin(m_resourceManager, m_pages, m_dynamicPagesCount, m_textPagesCount);
   }
 
 #define PUSH_MODE(mode, name) \

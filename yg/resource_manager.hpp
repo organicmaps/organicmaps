@@ -70,6 +70,9 @@ namespace yg
     void addFont(char const * fileName);
   };
 
-  Skin * loadSkin(shared_ptr<ResourceManager> const & resourceManager, string const & fileName);
+  Skin * loadSkin(shared_ptr<ResourceManager> const & resourceManager,
+                  string const & fileName,
+                  size_t dynamicPagesCount,
+                  size_t textPagesCount);
 }
 

@@ -370,10 +370,12 @@ namespace yg
 
         agg_pixfmt_t pixfmt(buf);
         agg::renderer_base<agg_pixfmt_t> rbase(pixfmt);
-        rbase.clear(agg::rgba8(penInfo.m_color.r,
+/*        rbase.clear(agg::rgba8(penInfo.m_color.r,
                                penInfo.m_color.g,
                                penInfo.m_color.b,
-                               0));
+                               0));*/
+
+        gil::fill_pixels(v, penColorTranslucent);
 
         agg::scanline_u8 s;
         agg::rasterizer_scanline_aa<> rasterizer;
@@ -400,7 +402,7 @@ namespace yg
               if (alpha != 0)
               {
                 v(x, y) = penColor;
-                gil::get_color(v(x, y), gil::alpha_t()) = alpha;
+//                gil::get_color(v(x, y), gil::alpha_t()) = alpha;
               }
             }
         }
@@ -469,7 +471,6 @@ namespace yg
 
       dynTexture->upload(&v(0, 0), rect);
 
-      lodepng_write_view("test.png", v);
     }
     m_penUploadCommands.clear();
   }

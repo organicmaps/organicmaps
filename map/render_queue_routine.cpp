@@ -105,13 +105,13 @@ void RenderQueueRoutine::getUpdateAreas(vector<m2::RectI> & areas)
   size_t w = m_renderState->m_textureWidth;
   size_t h = m_renderState->m_textureHeight;
 
-  if (m_renderState->m_doRepaintAll)
+/*  if (m_renderState->m_doRepaintAll)
   {
     m_renderState->m_doRepaintAll = false;
     areas.push_back(m2::RectI(0, 0, w, h));
     return;
-  }
-/*
+  }*/
+
   if (m_renderState->isPanning())
   {
     /// adding two rendering sub-commands to render new areas, opened by panning.
@@ -158,7 +158,7 @@ void RenderQueueRoutine::getUpdateAreas(vector<m2::RectI> & areas)
         areas.push_back(m2::RectI(0, minY, minX, maxY));
     }
   }
-  else */
+  else
   {
     areas.push_back(m2::RectI(0, 0, w, h));
 
@@ -293,6 +293,7 @@ void RenderQueueRoutine::Do()
         if ((areas[i].SizeX() != 0) && (areas[i].SizeY() != 0))
         {
           frameScreen.PtoG(m2::Inflate<double>(m2::RectD(areas[i]), 30 * m_visualScale, 30 * m_visualScale), glbRect);
+//          frameScreen.PtoG(m2::Inflate<double>(m2::RectD(areas[i]), (double)200, (double)200), glbRect);
           if ((glbRect.SizeX() == 0) || (glbRect.SizeY() == 0))
             continue;
 

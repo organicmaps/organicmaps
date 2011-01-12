@@ -39,7 +39,7 @@ namespace yg
 
     private:
 
-      static wstring GetDrawString(string const & utf8Str);
+      static wstring Log2Vis(wstring const & str);
 
       typedef RenderStateUpdater base_t;
 
@@ -133,10 +133,12 @@ namespace yg
                     uint8_t fontSize,
                     string const & utf8Text,
                     double depth,
-                    bool fixedFont = false);
+                    bool fixedFont = false,
+                    bool log2vis = false);
 
       m2::RectD const textRect(string const & utf8Text,
-                               uint8_t fontSize);
+                               uint8_t fontSize,
+                               bool log2vis);
 
       /// Drawing text in the middle of the path.
       bool drawPathText(m2::PointD const * path,

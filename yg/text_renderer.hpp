@@ -22,10 +22,11 @@ namespace yg
         string m_utf8Text;
         double m_depth;
         bool m_isFixedFont;
+        bool m_log2vis;
 
       public:
-        TextObj(m2::PointD const & pt, string const & txt, uint8_t sz, double d, bool isFixedFont)
-          : m_pt(pt), m_size(sz), m_utf8Text(txt), m_depth(d), m_isFixedFont(isFixedFont)
+        TextObj(m2::PointD const & pt, string const & txt, uint8_t sz, double d, bool isFixedFont, bool log2vis)
+          : m_pt(pt), m_size(sz), m_utf8Text(txt), m_depth(d), m_isFixedFont(isFixedFont), m_log2vis(log2vis)
         {
         }
 
@@ -61,7 +62,8 @@ namespace yg
         uint8_t fontSize,
         string const & utf8Text,
         double depth,
-        bool isFixedFont = false);
+        bool isFixedFont = false,
+        bool log2vis = false);
 
       void endFrame();
     };

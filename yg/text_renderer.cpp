@@ -28,12 +28,12 @@ namespace yg
 
     void TextRenderer::TextObj::Draw(GeometryBatcher * pBatcher) const
     {
-      pBatcher->drawText(m_pt, 0.0, m_size, m_utf8Text, yg::maxDepth, m_isFixedFont);
+      pBatcher->drawText(m_pt, 0.0, m_size, m_utf8Text, yg::maxDepth, m_isFixedFont, m_log2vis);
     }
 
     m2::RectD const TextRenderer::TextObj::GetLimitRect(GeometryBatcher * pBatcher) const
     {
-      return m2::Offset(pBatcher->textRect(m_utf8Text, m_size), m_pt);
+      return m2::Offset(pBatcher->textRect(m_utf8Text, m_size, m_log2vis), m_pt);
     }
 
     void TextRenderer::drawText(m2::PointD const & pt,
@@ -41,13 +41,14 @@ namespace yg
                   uint8_t fontSize,
                   string const & utf8Text,
                   double depth,
-                  bool isFixedFont)
+                  bool isFixedFont,
+                  bool log2vis)
     {
       if (isFixedFont)
-        base_t::drawText(pt, angle, fontSize, utf8Text, depth, isFixedFont);
+        base_t::drawText(pt, angle, fontSize, utf8Text, depth, isFixedFont, log2vis);
       else
       {
-        TextObj obj(pt, utf8Text, fontSize, depth, isFixedFont);
+        TextObj obj(pt, utf8Text, fontSize, depth, isFixedFont, log2vis);
         m2::RectD r = obj.GetLimitRect(this);
   /*
         m2::PointD pts[5] =

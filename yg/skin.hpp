@@ -63,7 +63,9 @@ namespace yg
     void clearHandles();
 
     Skin(shared_ptr<ResourceManager> const & resourceManager,
-         TSkinPages const & pages);
+         TSkinPages const & pages,
+         size_t dynamicPagesCount,
+         size_t textPagesCount);
 
     friend class SkinLoader;
 

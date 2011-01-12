@@ -74,7 +74,15 @@ protected:
 
 public:
   typedef yg::gl::Screen screen_t;
-  typedef screen_t::Params params_t;
+
+  struct Params : screen_t::Params
+  {
+    size_t m_dynamicPagesCount;
+    size_t m_textPagesCount;
+    Params();
+  };
+
+  typedef Params params_t;
 
   DrawerYG(string const & skinName, params_t const & params = params_t());
 
@@ -87,7 +95,7 @@ public:
 
   void onSize(int w, int h);
 
-  void drawStats(double duration, int scale, double lat, double lng);
+  void drawStats(double duration, int scale, double lat, double lng, bool log2vis = false);
 
   shared_ptr<yg::gl::Screen> screen() const;
 
