@@ -33,30 +33,34 @@ namespace interprocess {
 class interprocess_exception : public std::exception
 {
    public:
-   interprocess_exception(error_code_t ec = other_error )
-      :  m_err(ec)
+   interprocess_exception(const char *err/*error_code_t ec = other_error*/)
+      :  m_err(other_error)
    {
-      try   {  m_str = "boost::interprocess_exception::library_error"; }
+//      try   {  m_str = "boost::interprocess_exception::library_error"; }
+      try   {  m_str = err; }
       catch (...) {}
    }
-
+/*
    interprocess_exception(native_error_t sys_err_code)
       :  m_err(sys_err_code)
    {
       try   {  fill_system_message(m_err.get_native_error(), m_str); }
       catch (...) {}
-   }
+   }*/
 
-   interprocess_exception(const error_info &err_info)
+   interprocess_exception(const error_info &err_info, const char *str = 0)
       :  m_err(err_info)
    {
       try{
          if(m_err.get_native_error() != 0){
             fill_system_message(m_err.get_native_error(), m_str);
-         }/*
+         }
+         else if(str){
+            m_str = str;
+         }
          else{
             m_str = "boost::interprocess_exception::library_error";
-         }*/
+         }
       }
       catch(...){}
    }
@@ -132,7 +136,8 @@ class not_previously_created : public interprocess_exception
 class bad_alloc : public interprocess_exception
 {
  public:
-    virtual const char* what() const throw()
+   bad_alloc() : interprocess_exception("::boost::interprocess::bad_alloc"){}
+   virtual const char* what() const throw()
       {  return "boost::interprocess::bad_alloc";  }
 };
 

@@ -22,6 +22,7 @@ namespace std{
 #endif
 
 #include <boost/detail/workaround.hpp>
+#include <boost/detail/endian.hpp>
 
 #include <boost/archive/basic_binary_iarchive.hpp>
 
@@ -76,7 +77,38 @@ basic_binary_iarchive<Archive>::init(){
     // make sure the version of the reading archive library can
     // support the format of the archive being read
     library_version_type input_library_version;
-    * this->This() >> input_library_version;
+    //* this->This() >> input_library_version;
+    {
+        int v = 0;
+        v = this->This()->m_sb.sbumpc();
+        #if defined(BOOST_LITTLE_ENDIAN)
+        if(v < 6){
+            ;
+        }
+        else
+        if(v < 7){
+            // version 6 - next byte should be zero
+            this->This()->m_sb.sbumpc();
+        }
+        else
+        if(v < 8){
+            int x1;
+            // version 7 = might be followed by zero or some other byte
+            x1 = this->This()->m_sb.sgetc();
+            // it's =a zero, push it back
+            if(0 == x1)
+                this->This()->m_sb.sbumpc();
+        }
+        else{
+            // version 8+ followed by a zero
+            this->This()->m_sb.sbumpc();
+        }
+        #elif defined(BOOST_BIG_ENDIAN)
+        if(v == 0)
+            v = this->This()->m_sb.sbumpc();
+        #endif
+        input_library_version = static_cast<library_version_type>(v);
+    }
     
     #if BOOST_WORKAROUND(__MWERKS__, BOOST_TESTED_AT(0x3205))
     this->set_library_version(input_library_version);

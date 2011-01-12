@@ -471,7 +471,7 @@ namespace boost { namespace polygon{
     typedef typename interval_traits<interval_type>::coordinate_type Unit;
     Unit coords[4] = {low(interval), high(interval), low(b), high(b)};
     //consider implementing faster sorting of small fixed length range
-    std::sort(coords, coords+4);
+    gtlsort(coords, coords+4);
     low(interval, coords[1]);
     high(interval, coords[2]);
     return interval;

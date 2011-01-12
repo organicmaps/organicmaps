@@ -33,9 +33,13 @@ template <
 class directed_graph
 {
 public:
-    typedef typename graph_detail::vertex_prop<VertexProp>::type vertex_property_type;
+    typedef typename graph_detail::graph_prop<GraphProp>::property graph_property_type;
+    typedef typename graph_detail::graph_prop<GraphProp>::bundle graph_bundled;
+
+    typedef typename graph_detail::vertex_prop<VertexProp>::property vertex_property_type;
     typedef typename graph_detail::vertex_prop<VertexProp>::bundle vertex_bundled;
-    typedef typename graph_detail::edge_prop<EdgeProp>::type edge_property_type;
+
+    typedef typename graph_detail::edge_prop<EdgeProp>::property edge_property_type;
     typedef typename graph_detail::edge_prop<EdgeProp>::bundle edge_bundled;
 
 private:
@@ -58,9 +62,6 @@ private:
     typedef typename graph_type::directed_selector directed_selector;
 
 public:
-    typedef directed_graph_tag graph_tag;
-    typedef typename graph_type::graph_property_type graph_property_type;
-
     // more commonly used graph types
     typedef typename graph_type::stored_vertex stored_vertex;
     typedef typename graph_type::vertices_size_type vertices_size_type;
@@ -77,6 +78,7 @@ public:
     typedef typename graph_type::adjacency_iterator adjacency_iterator;
 
     // miscellaneous types
+    typedef directed_graph_tag graph_tag;
     typedef typename graph_type::directed_category directed_category;
     typedef typename graph_type::edge_parallel_category edge_parallel_category;
     typedef typename graph_type::traversal_category traversal_category;
@@ -283,6 +285,12 @@ public:
 
     edge_bundled const& operator[](edge_descriptor e) const
     { return m_graph[e]; }
+
+    graph_bundled& operator[](graph_bundle_t)
+    { return get_property(*this); }
+
+    graph_bundled const& operator[](graph_bundle_t) const
+    { return get_property(*this); }
 #endif
 
     // Graph concepts
@@ -345,14 +353,12 @@ private:
 // IncidenceGraph concepts
 template <DIRECTED_GRAPH_PARAMS>
 inline typename DIRECTED_GRAPH::vertex_descriptor
-source(typename DIRECTED_GRAPH::edge_descriptor e,
-    DIRECTED_GRAPH const& g)
+source(typename DIRECTED_GRAPH::edge_descriptor e, DIRECTED_GRAPH const& g)
 { return source(e, g.impl()); }
 
 template <DIRECTED_GRAPH_PARAMS>
 inline typename DIRECTED_GRAPH::vertex_descriptor
-target(typename DIRECTED_GRAPH::edge_descriptor e,
-    DIRECTED_GRAPH const& g)
+target(typename DIRECTED_GRAPH::edge_descriptor e, DIRECTED_GRAPH const& g)
 { return target(e, g.impl()); }
 
 template <DIRECTED_GRAPH_PARAMS>

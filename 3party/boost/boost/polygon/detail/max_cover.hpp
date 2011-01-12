@@ -213,7 +213,7 @@ namespace boost { namespace polygon{
         Interval rectIvl = nodep->rect.get(orient);
         leadingEdges.push_back(EdgeAssociation(std::pair<Unit, Interval>(leading, rectIvl), nodep));
       }
-      std::sort(leadingEdges.begin(), leadingEdges.end(), lessEdgeAssociation());
+      gtlsort(leadingEdges.begin(), leadingEdges.end(), lessEdgeAssociation());
       typename std::vector<EdgeAssociation>::iterator leadingBegin = leadingEdges.begin();
       iT trailingBegin = beginNode;
       while(leadingBegin != leadingEdges.end()) {

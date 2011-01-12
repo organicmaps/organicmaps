@@ -71,7 +71,7 @@ namespace boost {
             };
 
             template<typename InputT, typename FindResultT>
-            bool check_find_result(InputT& Input, FindResultT& FindResult)
+            bool check_find_result(InputT&, FindResultT& FindResult)
             {
                 typedef BOOST_STRING_TYPENAME 
                     range_const_iterator<InputT>::type input_iterator_type; 

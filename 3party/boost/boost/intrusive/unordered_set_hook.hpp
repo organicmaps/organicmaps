@@ -16,6 +16,7 @@
 
 #include <boost/intrusive/detail/config_begin.hpp>
 #include <boost/intrusive/intrusive_fwd.hpp>
+#include <boost/pointer_cast.hpp>
 #include <boost/intrusive/detail/utilities.hpp>
 #include <boost/intrusive/detail/pointer_to_other.hpp>
 #include <boost/intrusive/slist_hook.hpp>
@@ -76,7 +77,12 @@ struct unordered_node_traits
    static const bool optimize_multikey = OptimizeMultiKey;
 
    static node_ptr get_next(const_node_ptr n)
-   {  return node_ptr(&static_cast<node &>(*n->next_));  }
+   {
+//      This still fails in gcc < 4.4 so forget about it
+//      using ::boost::static_pointer_cast;
+//      return static_pointer_cast<node>(n->next_);
+      return node_ptr(&static_cast<node&>(*n->next_));
+   }
 
    static void set_next(node_ptr n, node_ptr next)
    {  n->next_ = next;  }

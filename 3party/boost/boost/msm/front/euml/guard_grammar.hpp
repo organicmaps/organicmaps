@@ -321,21 +321,29 @@ template<>
 struct BuildGuardsCases::case_<proto::tag::terminal>
     : proto::or_<
         proto::when <
-                        proto::terminal<action_tag>,
-                        get_action_name<proto::_ >()
-                    >,
+            proto::terminal<action_tag>,
+            get_action_name<proto::_ >()
+            >,
         proto::when<
-                        proto::terminal<state_tag>,
-                        proto::_
-                >,
+            proto::terminal<state_tag>,
+            proto::_
+            >,
         proto::when<
-                        proto::terminal<flag_tag>,
-                        proto::_
-                >,
+            proto::terminal<flag_tag>,
+            proto::_
+            >,
         proto::when<
-                        proto::terminal<event_tag>,
-                        proto::_
-                   >
+            proto::terminal<event_tag>,
+            proto::_
+            >,
+        proto::when<
+            proto::terminal<fsm_artefact_tag>,
+            get_fct<proto::_ >()
+            >,
+        proto::when<
+            proto::terminal<proto::_>,
+            proto::_child
+            >
     >
 {};
 

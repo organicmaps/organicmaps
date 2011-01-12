@@ -1,6 +1,6 @@
 
 // Copyright (C) 2003-2004 Jeremy B. Maitin-Shepard.
-// Copyright (C) 2005-2009 Daniel James
+// Copyright (C) 2005-2010 Daniel James
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
@@ -98,6 +98,8 @@ namespace boost { namespace unordered_detail {
         void insert_range(InputIt i, InputIt j);
         template <class InputIt>
         void insert_range_impl(key_type const&, InputIt i, InputIt j);
+        template <class InputIt>
+        void insert_range_impl2(node_constructor&, key_type const&, InputIt i, InputIt j);
         template <class InputIt>
         void insert_range_impl(no_key, InputIt i, InputIt j);
     };
@@ -422,6 +424,36 @@ namespace boost { namespace unordered_detail {
 
     template <class T>
     template <class InputIt>
+    inline void hash_unique_table<T>::insert_range_impl2(
+        node_constructor& a, key_type const& k, InputIt i, InputIt j)
+    {
+        // No side effects in this initial code
+        std::size_t hash_value = this->hash_function()(k);
+        bucket_ptr bucket = this->bucket_ptr_from_hash(hash_value);
+        node_ptr pos = this->find_iterator(bucket, k);
+
+        if (!BOOST_UNORDERED_BORLAND_BOOL(pos)) {
+            // Doesn't already exist, add to bucket.
+            // Side effects only in this block.
+
+            // Create the node before rehashing in case it throws an
+            // exception (need strong safety in such a case).
+            a.construct(*i);
+
+            // reserve has basic exception safety if the hash function
+            // throws, strong otherwise.
+            if(this->size_ + 1 >= this->max_load_) {
+                this->reserve_for_insert(this->size_ + insert_size(i, j));
+                bucket = this->bucket_ptr_from_hash(hash_value);
+            }
+
+            // Nothing after this point can throw.
+            add_node(a, bucket);
+        }
+    }
+
+    template <class T>
+    template <class InputIt>
     inline void hash_unique_table<T>::insert_range_impl(
         key_type const&, InputIt i, InputIt j)
     {
@@ -435,33 +467,14 @@ namespace boost { namespace unordered_detail {
         }
 
         do {
-            // No side effects in this initial code
             // Note: can't use get_key as '*i' might not be value_type - it
             // could be a pair with first_types as key_type without const or a
             // different second_type.
-            key_type const& k = extractor::extract(*i);
-            std::size_t hash_value = this->hash_function()(k);
-            bucket_ptr bucket = this->bucket_ptr_from_hash(hash_value);
-            node_ptr pos = this->find_iterator(bucket, k);
-
-            if (!BOOST_UNORDERED_BORLAND_BOOL(pos)) {
-                // Doesn't already exist, add to bucket.
-                // Side effects only in this block.
-
-                // Create the node before rehashing in case it throws an
-                // exception (need strong safety in such a case).
-                a.construct(*i);
-
-                // reserve has basic exception safety if the hash function
-                // throws, strong otherwise.
-                if(this->size_ + 1 >= this->max_load_) {
-                    this->reserve_for_insert(this->size_ + insert_size(i, j));
-                    bucket = this->bucket_ptr_from_hash(hash_value);
-                }
-
-                // Nothing after this point can throw.
-                add_node(a, bucket);
-            }
+            //
+            // TODO: Might be worth storing the value_type instead of the key
+            // here. Could be more efficient if '*i' is expensive. Could be
+            // less efficient if copying the full value_type is expensive.
+            insert_range_impl2(a, extractor::extract(*i), i, j);
         } while(++i != j);
     }
 

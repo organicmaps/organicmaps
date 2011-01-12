@@ -147,7 +147,7 @@ class splaytree_algorithms
    private:
    static node_ptr uncast(const_node_ptr ptr)
    {
-      return node_ptr(const_cast<node*>(::boost::intrusive::detail::get_pointer(ptr)));
+      return node_ptr(const_cast<node*>(::boost::intrusive::detail::boost_intrusive_get_pointer(ptr)));
    }
    /// @endcond
 

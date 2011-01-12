@@ -25,6 +25,7 @@
 #include <boost/static_assert.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/assert.hpp>
+#include <boost/detail/sp_typeinfo.hpp>
 
 #include <stdexcept>
 #include <typeinfo>
@@ -44,7 +45,7 @@ namespace boost { namespace spirit
     struct bad_any_cast
       : std::bad_cast
     {
-        bad_any_cast(std::type_info const& src, std::type_info const& dest)
+        bad_any_cast(boost::detail::sp_typeinfo const& src, boost::detail::sp_typeinfo const& dest)
           : from(src.name()), to(dest.name())
         {}
 
@@ -59,7 +60,7 @@ namespace boost { namespace spirit
         // function pointer table
         struct fxn_ptr_table
         {
-            std::type_info const& (*get_type)();
+            boost::detail::sp_typeinfo const& (*get_type)();
             void (*static_delete)(void**);
             void (*destruct)(void**);
             void (*clone)(void* const*, void**);
@@ -78,9 +79,9 @@ namespace boost { namespace spirit
             template<typename T>
             struct type
             {
-                static std::type_info const& get_type()
+                static boost::detail::sp_typeinfo const& get_type()
                 {
-                    return typeid(T);
+                    return BOOST_SP_TYPEID(T);
                 }
                 static void static_delete(void** x)
                 {
@@ -120,9 +121,9 @@ namespace boost { namespace spirit
             template<typename T>
             struct type
             {
-                static std::type_info const& get_type()
+                static boost::detail::sp_typeinfo const& get_type()
                 {
-                    return typeid(T);
+                    return BOOST_SP_TYPEID(T);
                 }
                 static void static_delete(void** x)
                 {
@@ -302,7 +303,7 @@ namespace boost { namespace spirit
             return *this;
         }
 
-        std::type_info const& type() const
+        boost::detail::sp_typeinfo const& type() const
         {
             return table->get_type();
         }
@@ -310,8 +311,8 @@ namespace boost { namespace spirit
         template <typename T>
         T const& cast() const
         {
-            if (type() != typeid(T))
-              throw bad_any_cast(type(), typeid(T));
+            if (type() != BOOST_SP_TYPEID(T))
+              throw bad_any_cast(type(), BOOST_SP_TYPEID(T));
 
             return spirit::detail::get_table<T>::is_small::value ?
                 *reinterpret_cast<T const*>(&object) :
@@ -370,7 +371,7 @@ namespace boost { namespace spirit
     template <typename T>
     inline T* any_cast (hold_any* operand)
     {
-        if (operand && operand->type() == typeid(T)) {
+        if (operand && operand->type() == BOOST_SP_TYPEID(T)) {
             return spirit::detail::get_table<T>::is_small::value ?
                 reinterpret_cast<T*>(&operand->object) :
                 reinterpret_cast<T*>(operand->object);
@@ -401,7 +402,7 @@ namespace boost { namespace spirit
 
         nonref* result = any_cast<nonref>(&operand);
         if(!result)
-            boost::throw_exception(bad_any_cast(operand.type(), typeid(T)));
+            boost::throw_exception(bad_any_cast(operand.type(), BOOST_SP_TYPEID(T)));
         return *result;
     }
 

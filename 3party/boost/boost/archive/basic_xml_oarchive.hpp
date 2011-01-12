@@ -89,7 +89,7 @@ public:
         // If your program fails to compile here, its most likely due to
         // not specifying an nvp wrapper around the variable to
         // be serialized.
-        BOOST_MPL_ASSERT((serialization::is_wrapper<T>));
+        BOOST_MPL_ASSERT((serialization::is_wrapper< T >));
         this->detail_common_oarchive::save_override(t, 0);
     }
 
@@ -100,7 +100,7 @@ public:
         #ifndef BOOST_NO_FUNCTION_TEMPLATE_ORDERING
         const
         #endif
-        ::boost::serialization::nvp<T> & t,
+        ::boost::serialization::nvp< T > & t,
         int
     ){
         this->This()->save_start(t.name());

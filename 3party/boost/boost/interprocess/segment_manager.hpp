@@ -38,6 +38,7 @@
 #include <string>    //char_traits
 #include <new>       //std::nothrow
 #include <utility>   //std::pair
+#include <boost/assert.hpp>
 #ifndef BOOST_NO_EXCEPTIONS
 #include <exception>
 #endif
@@ -94,7 +95,7 @@ class segment_manager_base
    segment_manager_base(std::size_t size, std::size_t reserved_bytes)
       :  MemoryAlgorithm(size, reserved_bytes)
    {
-      assert((sizeof(segment_manager_base<MemoryAlgorithm>) == sizeof(MemoryAlgorithm)));
+      BOOST_ASSERT((sizeof(segment_manager_base<MemoryAlgorithm>) == sizeof(MemoryAlgorithm)));
    }
 
    //!Returns the size of the memory
@@ -300,7 +301,7 @@ class segment_manager_base
 
       if(ctrl_data->alloc_type() != anonymous_type){
          //This is not an anonymous object, the pointer is wrong!
-         assert(0);
+         BOOST_ASSERT(0);
       }
 
       //Call destructors and free memory
@@ -407,7 +408,7 @@ class segment_manager
       ,  m_header(static_cast<Base*>(get_this_pointer()))
    {
       (void) anonymous_instance;   (void) unique_instance;
-      assert(static_cast<const void*>(this) == static_cast<const void*>(static_cast<Base*>(this)));
+      BOOST_ASSERT(static_cast<const void*>(this) == static_cast<const void*>(static_cast<Base*>(this)));
    }
 
    //!Tries to find a previous named allocation. Returns the address
@@ -498,6 +499,24 @@ class segment_manager
    template <class Func>
    void atomic_func(Func &f)
    {  scoped_lock<rmutex> guard(m_header);  f();  }
+
+   //!Tries to calls a functor guaranteeing that no new construction, search or
+   //!destruction will be executed by any process while executing the object
+   //!function call. If the atomic function can't be immediatelly executed
+   //!because the internal mutex is already locked, returns false.
+   //!If the functor throws, this function throws.
+   template <class Func>
+   bool try_atomic_func(Func &f)
+   {
+      scoped_lock<rmutex> guard(m_header, try_to_lock);
+      if(guard){
+         f();
+         return true;
+      }
+      else{
+         return false;
+      }
+   }
 
    //!Destroys a previously created unique instance.
    //!Returns false if the object was not present.
@@ -692,7 +711,7 @@ class segment_manager
    std::pair<T*, std::size_t> priv_find_impl (const CharType* name, bool lock)
    {  
       //The name can't be null, no anonymous object can be found by name
-      assert(name != 0);
+      BOOST_ASSERT(name != 0);
       detail::placement_destroy<T> table;
       std::size_t size;
       void *ret;
@@ -766,7 +785,7 @@ class segment_manager
 
          default:
             //This type is unknown, bad pointer passed to this function!
-            assert(0);
+            BOOST_ASSERT(0);
          break;
       }
    }
@@ -777,22 +796,22 @@ class segment_manager
    {
       boost::interprocess::allocation_type type = ctrl_data->alloc_type();
       if(type != named_type){
-         assert((type == anonymous_type && ctrl_data->m_num_char == 0) ||
+         BOOST_ASSERT((type == anonymous_type && ctrl_data->m_num_char == 0) ||
                 (type == unique_type    && ctrl_data->m_num_char != 0) );
          return 0;
       }
       CharType *name = static_cast<CharType*>(ctrl_data->template name<CharType>());
    
       //Sanity checks
-      assert(ctrl_data->sizeof_char() == sizeof(CharType));
-      assert(ctrl_data->m_num_char == std::char_traits<CharType>::length(name));
+      BOOST_ASSERT(ctrl_data->sizeof_char() == sizeof(CharType));
+      BOOST_ASSERT(ctrl_data->m_num_char == std::char_traits<CharType>::length(name));
       return name;
    }
 
    static std::size_t priv_get_instance_length(block_header_t *ctrl_data, std::size_t sizeofvalue)
    {
       //Get header
-      assert((ctrl_data->value_bytes() %sizeofvalue) == 0);
+      BOOST_ASSERT((ctrl_data->value_bytes() %sizeofvalue) == 0);
       return ctrl_data->value_bytes()/sizeofvalue;
    }
 
@@ -801,7 +820,7 @@ class segment_manager
    static instance_type priv_get_instance_type(block_header_t *ctrl_data)
    {
       //Get header
-      assert((instance_type)ctrl_data->alloc_type() < max_allocation_type);
+      BOOST_ASSERT((instance_type)ctrl_data->alloc_type() < max_allocation_type);
       return (instance_type)ctrl_data->alloc_type();
    }
 
@@ -844,8 +863,8 @@ class segment_manager
          block_header_t *ctrl_data = it->get_block_header();
 
          //Sanity check
-         assert((ctrl_data->m_value_bytes % table.size) == 0);
-         assert(ctrl_data->sizeof_char() == sizeof(CharT));
+         BOOST_ASSERT((ctrl_data->m_value_bytes % table.size) == 0);
+         BOOST_ASSERT(ctrl_data->sizeof_char() == sizeof(CharT));
          ret_ptr  = ctrl_data->value();
          length  = ctrl_data->m_value_bytes/table.size;
       }
@@ -883,8 +902,8 @@ class segment_manager
                                     (detail::get_pointer(it->second.m_ptr));
 
          //Sanity check
-         assert((ctrl_data->m_value_bytes % table.size) == 0);
-         assert(ctrl_data->sizeof_char() == sizeof(CharT));
+         BOOST_ASSERT((ctrl_data->m_value_bytes % table.size) == 0);
+         BOOST_ASSERT(ctrl_data->sizeof_char() == sizeof(CharT));
          ret_ptr  = ctrl_data->value();
          length  = ctrl_data->m_value_bytes/table.size;
       }
@@ -940,7 +959,7 @@ class segment_manager
       //If not found, return false
       if(it == index.end()){
          //This name is not present in the index, wrong pointer or name!
-         //assert(0);
+         //BOOST_ASSERT(0);
          return false;
       }
 
@@ -951,8 +970,8 @@ class segment_manager
       std::size_t num = ctrl_data->m_value_bytes/table.size;
       
       //Sanity check
-      assert((ctrl_data->m_value_bytes % table.size) == 0);
-      assert(sizeof(CharT) == ctrl_data->sizeof_char());
+      BOOST_ASSERT((ctrl_data->m_value_bytes % table.size) == 0);
+      BOOST_ASSERT(sizeof(CharT) == ctrl_data->sizeof_char());
 
       //Erase node from index
       index.erase(it);
@@ -989,7 +1008,7 @@ class segment_manager
       //If not found, return false
       if(it == index.end()){
          //This name is not present in the index, wrong pointer or name!
-         //assert(0);
+         //BOOST_ASSERT(0);
          return false;
       }
       return this->priv_generic_named_destroy_impl<CharT>(it, index, table);
@@ -1016,9 +1035,9 @@ class segment_manager
       void *values = ctrl_data->value();
 
       //Sanity check
-      assert((ctrl_data->m_value_bytes % table.size) == 0);
-      assert(static_cast<void*>(stored_name) == static_cast<void*>(ctrl_data->template name<CharT>()));
-      assert(sizeof(CharT) == ctrl_data->sizeof_char());
+      BOOST_ASSERT((ctrl_data->m_value_bytes % table.size) == 0);
+      BOOST_ASSERT(static_cast<void*>(stored_name) == static_cast<void*>(ctrl_data->template name<CharT>()));
+      BOOST_ASSERT(sizeof(CharT) == ctrl_data->sizeof_char());
 
       //Erase node from index
       index.erase(it);

@@ -11,6 +11,11 @@
 #ifndef BOOST_UNITS_IS_QUANTITY_OF_SYSTEM_HPP
 #define BOOST_UNITS_IS_QUANTITY_OF_SYSTEM_HPP
 
+///
+/// \file
+/// \brief Check that a type is a quantity in a specified system.
+///
+
 #include <boost/mpl/bool.hpp>
 #include <boost/units/units_fwd.hpp>
 #include <boost/units/is_unit_of_system.hpp>
@@ -19,7 +24,7 @@ namespace boost {
 
 namespace units {
 
-/// check that a type is a quantity in a specified system
+/// Check that a type is a quantity in a specified system. 
 template<class T,class System>
 struct is_quantity_of_system :
     public mpl::false_

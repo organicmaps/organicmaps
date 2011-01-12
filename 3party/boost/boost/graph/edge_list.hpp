@@ -15,7 +15,7 @@
 #include <boost/config.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/bool.hpp>
-#include <boost/pending/integer_range.hpp>
+#include <boost/range/irange.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/properties.hpp>
 
@@ -37,7 +37,7 @@ namespace boost {
   // If the iterators are random access, then Graph::edge_descriptor
   // is of Integral type, otherwise it is a struct, though it is
   // convertible to an Integral type.
-  // 
+  //
 
   struct edge_list_tag { };
 
@@ -129,7 +129,7 @@ namespace boost {
       typedef type const_type;
     };
   };
-  template <>  
+  template <>
   struct edge_property_selector<edge_list_tag> {
     typedef edge_list_edge_property_selector type;
   };
@@ -137,7 +137,7 @@ namespace boost {
   template <class G, class EI, class T, class D>
   typename property_map< edge_list_impl<G,EI,T,D>, edge_index_t>::type
   get(edge_index_t, const edge_list_impl<G,EI,T,D>&) {
-    typedef typename property_map< edge_list_impl<G,EI,T,D>, 
+    typedef typename property_map< edge_list_impl<G,EI,T,D>,
       edge_index_t>::type EdgeIndexMap;
     return EdgeIndexMap();
   }
@@ -180,7 +180,7 @@ namespace boost {
     const G& g = static_cast<const G&>(g_);
     typedef typename edge_list_impl_ra<G,EI,T,D>::edge_iterator edge_iterator;
     return std::make_pair(edge_iterator(0), edge_iterator(g._last - g._first));
-  }    
+  }
   template <class G, class EI, class T, class D>
   typename edge_list_impl_ra<G,EI,T,D>::vertex_descriptor
   source(typename edge_list_impl_ra<G,EI,T,D>::edge_descriptor e,
@@ -217,22 +217,22 @@ namespace boost {
       typedef type const_type;
     };
   };
-  template <>  
+  template <>
   struct edge_property_selector<edge_list_ra_tag> {
     typedef edge_list_ra_edge_property_selector type;
   };
   template <class G, class EI, class T, class D>
-  inline 
+  inline
   typename property_map< edge_list_impl_ra<G,EI,T,D>, edge_index_t>::type
   get(edge_index_t, const edge_list_impl_ra<G,EI,T,D>&) {
-    typedef typename property_map< edge_list_impl_ra<G,EI,T,D>, 
+    typedef typename property_map< edge_list_impl_ra<G,EI,T,D>,
       edge_index_t>::type EdgeIndexMap;
     return EdgeIndexMap();
   }
 
   template <class G, class EI, class T, class D>
   inline D
-  get(edge_index_t, const edge_list_impl_ra<G,EI,T,D>&, 
+  get(edge_index_t, const edge_list_impl_ra<G,EI,T,D>&,
       typename edge_list_impl_ra<G,EI,T,D>::edge_descriptor e) {
     return e;
   }
@@ -241,31 +241,31 @@ namespace boost {
   // Some helper classes for determining if the iterators are random access
   template <class Cat>
   struct is_random {
-    enum { RET = false }; 
-    typedef mpl::false_ type; 
+    enum { RET = false };
+    typedef mpl::false_ type;
   };
   template <>
-  struct is_random<std::random_access_iterator_tag> { 
-    enum { RET = true }; typedef mpl::true_ type; 
+  struct is_random<std::random_access_iterator_tag> {
+    enum { RET = true }; typedef mpl::true_ type;
   };
 
   // The edge_list class conditionally inherits from one of the
   // above two classes.
 
-  template <class EdgeIter, 
+  template <class EdgeIter,
 #if !defined BOOST_NO_STD_ITERATOR_TRAITS
             class T = typename std::iterator_traits<EdgeIter>::value_type,
             class D = typename std::iterator_traits<EdgeIter>::difference_type,
             class Cat = typename std::iterator_traits<EdgeIter>::iterator_category>
 #else
             class T,
-            class D, 
+            class D,
             class Cat>
 #endif
   class edge_list
     : public mpl::if_< typename is_random<Cat>::type,
                     edge_list_impl_ra< edge_list<EdgeIter,T,D,Cat>, EdgeIter,T,D>,
-                    edge_list_impl< edge_list<EdgeIter,T,D,Cat>, EdgeIter,T,D> 
+                    edge_list_impl< edge_list<EdgeIter,T,D,Cat>, EdgeIter,T,D>
              >::type
   {
   public:
@@ -275,12 +275,12 @@ namespace boost {
     typedef std::size_t edges_size_type;
     typedef std::size_t vertices_size_type;
     typedef std::size_t degree_size_type;
-    edge_list(EdgeIter first, EdgeIter last) : _first(first), _last(last) { 
+    edge_list(EdgeIter first, EdgeIter last) : _first(first), _last(last) {
       m_num_edges = std::distance(first, last);
     }
     edge_list(EdgeIter first, EdgeIter last, edges_size_type E)
-      : _first(first), _last(last), m_num_edges(E) { }  
-    
+      : _first(first), _last(last), m_num_edges(E) { }
+
     EdgeIter _first, _last;
     edges_size_type m_num_edges;
   };
@@ -298,7 +298,7 @@ namespace boost {
     return edge_list<EdgeIter>(first, last);
   }
 #endif
-  
+
 } /* namespace boost */
 
 #endif /* BOOST_GRAPH_EDGE_LIST_HPP */

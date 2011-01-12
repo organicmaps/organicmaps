@@ -18,7 +18,7 @@
 
 // If Boost has the endian library, use it, otherwise use an adapted version 
 // included with Spirit
-#if BOOST_VERSION >= 104500
+#if BOOST_VERSION >= 104600
 #include <boost/integer/endian.hpp>
 #else
 #include <boost/spirit/home/support/detail/integer/endian.hpp>

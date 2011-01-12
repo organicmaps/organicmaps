@@ -146,7 +146,7 @@ namespace detail
             break;
         }
 
-        handler_(ec, static_cast<const std::size_t>(total_transferred_));
+        handler_(ec, static_cast<const std::size_t&>(total_transferred_));
       }
     }
 
@@ -198,7 +198,7 @@ namespace detail
             break;
         }
 
-        handler_(ec, static_cast<const std::size_t>(total_transferred_));
+        handler_(ec, static_cast<const std::size_t&>(total_transferred_));
       }
     }
 
@@ -249,7 +249,7 @@ namespace detail
             break;
         }
 
-        handler_(ec, static_cast<const std::size_t>(total_transferred_));
+        handler_(ec, static_cast<const std::size_t&>(total_transferred_));
       }
     }
 

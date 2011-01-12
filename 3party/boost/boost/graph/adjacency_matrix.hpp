@@ -25,7 +25,7 @@
 #include <boost/graph/detail/edge.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/filter_iterator.hpp>
-#include <boost/pending/integer_range.hpp>
+#include <boost/range/irange.hpp>
 #include <boost/graph/properties.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/static_assert.hpp>
@@ -80,36 +80,36 @@ namespace boost {
     }
 
 
-
+    // NOTE: These functions collide with the get_property function for
+    // accessing bundled graph properties. Be excplicit when using them.
     template <typename EdgeProperty>
     const EdgeProperty&
-    get_property(const std::pair<bool, EdgeProperty>& stored_edge) {
+    get_edge_property(const std::pair<bool, EdgeProperty>& stored_edge) {
       return stored_edge.second;
     }
     template <typename EdgeProperty>
     EdgeProperty&
-    get_property(std::pair<bool, EdgeProperty>& stored_edge) {
+    get_edge_property(std::pair<bool, EdgeProperty>& stored_edge) {
       return stored_edge.second;
     }
 
     template <typename StoredEdgeProperty, typename EdgeProperty>
     inline void
-    set_property(std::pair<bool, StoredEdgeProperty>& stored_edge,
-                 const EdgeProperty& ep, int) {
+    set_edge_property(std::pair<bool, StoredEdgeProperty>& stored_edge,
+                      const EdgeProperty& ep, int) {
       stored_edge.second = ep;
     }
 
-    inline const no_property& get_property(const char&) {
+    inline const no_property& get_edge_property(const char&) {
       static no_property s_prop;
       return s_prop;
     }
-    inline no_property& get_property(char&) {
+    inline no_property& get_edge_property(char&) {
       static no_property s_prop;
       return s_prop;
     }
     template <typename EdgeProxy, typename EdgeProperty>
-    inline void
-    set_property(EdgeProxy, const EdgeProperty&, ...) {}
+    inline void set_edge_property(EdgeProxy, const EdgeProperty&, ...) {}
 
     //=======================================================================
     // Directed Out Edge Iterator
@@ -155,8 +155,9 @@ namespace boost {
         inline EdgeDescriptor
         dereference() const
         {
-            return EdgeDescriptor(get_edge_exists(*this->base(), 0), m_src, m_targ,
-                                  &get_property(*this->base()));
+            return EdgeDescriptor(get_edge_exists(*this->base(), 0),
+                                  m_src, m_targ,
+                                  &get_edge_property(*this->base()));
         }
         VertexDescriptor m_src, m_targ;
         VerticesSizeType m_n;
@@ -211,8 +212,9 @@ namespace boost {
         inline EdgeDescriptor
         dereference() const
         {
-            return EdgeDescriptor(get_edge_exists(*this->base(), 0), m_src, m_targ,
-                                  &get_property(*this->base()));
+            return EdgeDescriptor(get_edge_exists(*this->base(), 0),
+                                  m_src, m_targ,
+                                  &get_edge_property(*this->base()));
         }
         MatrixIter m_last;
         VertexDescriptor m_src, m_targ;
@@ -276,10 +278,9 @@ namespace boost {
         inline EdgeDescriptor
         dereference() const
         {
-            return EdgeDescriptor(
-                get_edge_exists(*this->base(), 0), m_src, m_targ
-              , &get_property(*this->base())
-            );
+            return EdgeDescriptor(get_edge_exists(*this->base(), 0),
+                                  m_src, m_targ,
+                                  &get_edge_property(*this->base()));
         }
 
         VertexDescriptor m_src, m_inc, m_targ;
@@ -343,10 +344,9 @@ namespace boost {
         inline EdgeDescriptor
         dereference() const
         {
-            return EdgeDescriptor(
-                     get_edge_exists(*this->base(), 0), m_targ, m_src
-              , &get_property(*this->base())
-            );
+            return EdgeDescriptor(get_edge_exists(*this->base(), 0),
+                                  m_targ, m_src,
+                                  &get_edge_property(*this->base()));
         }
 
         VertexDescriptor m_src, m_inc, m_targ;
@@ -418,10 +418,9 @@ namespace boost {
         inline EdgeDescriptor
         dereference() const
         {
-            return EdgeDescriptor(
-                get_edge_exists(
-                    *this->base(), 0), m_src, m_targ, &get_property(*this->base())
-            );
+            return EdgeDescriptor(get_edge_exists(*this->base(), 0),
+                                  m_src, m_targ,
+                                  &get_edge_property(*this->base()));
         }
 
         MatrixIter m_start;
@@ -485,34 +484,25 @@ namespace boost {
     BOOST_STATIC_ASSERT(!(is_same<Directed, bidirectionalS>::value));
 #endif
 
-#ifndef BOOST_GRAPH_NO_BUNDLED_PROPERTIES
-    typedef typename detail::retag_property_list<vertex_bundle_t, VertexProperty>::type
-      vertex_property_type;
-    typedef typename detail::retag_property_list<edge_bundle_t, EdgeProperty>::type
-      edge_property_type;
+#if !defined(BOOST_GRAPH_NO_BUNDLED_PROPERTIES)
+    typedef typename graph_detail::graph_prop<GraphProperty>::property graph_property_type;
+    typedef typename graph_detail::graph_prop<GraphProperty>::bundle graph_bundled;
 
-  private:
-    typedef typename detail::retag_property_list<vertex_bundle_t, VertexProperty>::retagged
-      maybe_vertex_bundled;
+    typedef typename graph_detail::vertex_prop<VertexProperty>::property vertex_property_type;
+    typedef typename graph_detail::vertex_prop<VertexProperty>::bundle vertex_bundled;
 
-    typedef typename detail::retag_property_list<edge_bundle_t, EdgeProperty>::retagged
-      maybe_edge_bundled;
-
-  public:
-    // The types that are actually bundled
-    typedef typename mpl::if_c<(is_same<maybe_vertex_bundled, no_property>::value),
-                           no_vertex_bundle,
-                           maybe_vertex_bundled>::type vertex_bundled;
-    typedef typename mpl::if_c<(is_same<maybe_edge_bundled, no_property>::value),
-                           no_edge_bundle,
-                           maybe_edge_bundled>::type edge_bundled;
+    typedef typename graph_detail::edge_prop<EdgeProperty>::property edge_property_type;
+    typedef typename graph_detail::edge_prop<EdgeProperty>::bundle edge_bundled;
 #else
-    typedef EdgeProperty     edge_property_type;
-    typedef VertexProperty   vertex_property_type;
+    typedef GraphProperty graph_property_type;
+    typedef no_graph_bundle graph_bundled;
+
+    typedef VertexProperty vertex_property_type;
     typedef no_vertex_bundle vertex_bundled;
-    typedef no_edge_bundle   edge_bundled;
+
+    typedef EdgeProperty edge_property_type;
+    typedef no_edge_bundle edge_bundled;
 #endif
-    typedef GraphProperty    graph_property_type;
 
   public: // should be private
     typedef typename mpl::if_<typename has_property<edge_property_type>::type,
@@ -660,6 +650,12 @@ namespace boost {
 
     const edge_bundled& operator[](edge_descriptor e) const
     { return get(edge_bundle, *this)[e]; }
+
+    graph_bundled& operator[](graph_bundle_t)
+    { return get_property(*this); }
+
+    const graph_bundled& operator[](graph_bundle_t) const
+    { return get_property(*this); }
 #endif
 
     //private: if friends worked, these would be private
@@ -689,7 +685,7 @@ namespace boost {
     VertexList m_vertex_set;
     std::vector<vertex_property_type> m_vertex_properties;
     size_type m_num_edges;
-    GraphProperty m_property;
+    graph_property_type m_property;
   };
 
   //=========================================================================
@@ -704,7 +700,7 @@ namespace boost {
   {
     bool exists = detail::get_edge_exists(g.get_edge(u,v), 0);
     typename adjacency_matrix<D,VP,EP,GP,A>::edge_descriptor
-      e(exists, u, v, &detail::get_property(g.get_edge(u,v)));
+      e(exists, u, v, &detail::get_edge_property(g.get_edge(u,v)));
     return std::make_pair(e, exists);
   }
 
@@ -937,14 +933,14 @@ namespace boost {
       edge_descriptor;
     if (detail::get_edge_exists(g.get_edge(u,v), 0) == false) {
       ++(g.m_num_edges);
-      detail::set_property(g.get_edge(u,v), EP(ep), 0);
+      detail::set_edge_property(g.get_edge(u,v), EP(ep), 0);
       detail::set_edge_exists(g.get_edge(u,v), true, 0);
       return std::make_pair
-        (edge_descriptor(true, u, v, &detail::get_property(g.get_edge(u,v))),
+        (edge_descriptor(true, u, v, &detail::get_edge_property(g.get_edge(u,v))),
          true);
     } else
       return std::make_pair
-        (edge_descriptor(true, u, v, &detail::get_property(g.get_edge(u,v))),
+        (edge_descriptor(true, u, v, &detail::get_edge_property(g.get_edge(u,v))),
          false);
   }
   // O(1)
@@ -1050,8 +1046,7 @@ namespace boost {
 
   template <typename D, typename VP, typename EP, typename GP, typename A,
             typename Tag>
-  inline
-  typename graph_property<adjacency_matrix<D,VP,EP,GP,A>, Tag>::type&
+  inline typename graph_property<adjacency_matrix<D,VP,EP,GP,A>, Tag>::type&
   get_property(adjacency_matrix<D,VP,EP,GP,A>& g, Tag)
   {
       return get_property_value(g.m_property, Tag());
@@ -1059,9 +1054,7 @@ namespace boost {
 
   template <typename D, typename VP, typename EP, typename GP, typename A,
             typename Tag>
-  inline
-  const
-  typename graph_property<adjacency_matrix<D,VP,EP,GP,A>, Tag>::type&
+  inline const typename graph_property<adjacency_matrix<D,VP,EP,GP,A>, Tag>::type&
   get_property(const adjacency_matrix<D,VP,EP,GP,A>& g, Tag)
   {
       return get_property_value(g.m_property, Tag());

@@ -31,6 +31,16 @@
 #  pragma pack (pop)
 # endif
 
+# if defined(__OBJC__)
+#  if !defined(__APPLE_CC__) || (__APPLE_CC__ <= 1)
+#   if defined(BOOST_ASIO_OBJC_WORKAROUND)
+#    undef Protocol
+#    undef id
+#    undef BOOST_ASIO_OBJC_WORKAROUND
+#   endif
+#  endif
+# endif
+
 #elif defined(__KCC)
 
 // Kai C++

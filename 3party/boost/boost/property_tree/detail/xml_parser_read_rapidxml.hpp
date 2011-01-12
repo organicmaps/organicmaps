@@ -21,49 +21,58 @@ namespace boost { namespace property_tree { namespace xml_parser
 {
 
     template<class Ptree, class Ch>
-    void read_xml_node(rapidxml::xml_node<Ch> *node, Ptree &pt, int flags)
+    void read_xml_node(detail::rapidxml::xml_node<Ch> *node,
+                       Ptree &pt, int flags)
     {
+        using namespace detail::rapidxml;
         switch (node->type())
         {
             // Element nodes
-            case rapidxml::node_element: 
+            case node_element: 
             {
                 // Create node
-                Ptree &pt_node = pt.push_back(std::make_pair(node->name(), Ptree()))->second;
-                
+                Ptree &pt_node = pt.push_back(std::make_pair(node->name(),
+                                                             Ptree()))->second;
+
                 // Copy attributes
                 if (node->first_attribute())
                 {
-                    Ptree &pt_attr_root = pt_node.push_back(std::make_pair(xmlattr<Ch>(), Ptree()))->second;
-                    for (rapidxml::xml_attribute<Ch> *attr = node->first_attribute(); attr; attr = attr->next_attribute())
+                    Ptree &pt_attr_root = pt_node.push_back(
+                        std::make_pair(xmlattr<Ch>(), Ptree()))->second;
+                    for (xml_attribute<Ch> *attr = node->first_attribute();
+                         attr; attr = attr->next_attribute())
                     {
-                        Ptree &pt_attr = pt_attr_root.push_back(std::make_pair(attr->name(), Ptree()))->second;
+                        Ptree &pt_attr = pt_attr_root.push_back(
+                            std::make_pair(attr->name(), Ptree()))->second;
                         pt_attr.data() = attr->value();
                     }
                 }
 
                 // Copy children
-                for (rapidxml::xml_node<Ch> *child = node->first_node(); child; child = child->next_sibling())
+                for (xml_node<Ch> *child = node->first_node();
+                     child; child = child->next_sibling())
                     read_xml_node(child, pt_node, flags);
             }
             break;
 
             // Data nodes
-            case rapidxml::node_data:
-            case rapidxml::node_cdata:
+            case node_data:
+            case node_cdata:
             {
                 if (flags & no_concat_text)
-                    pt.push_back(std::make_pair(xmltext<Ch>(), Ptree(node->value())));
+                    pt.push_back(std::make_pair(xmltext<Ch>(),
+                                                Ptree(node->value())));
                 else
                     pt.data() += node->value();
             }
             break;
 
             // Comment nodes
-            case rapidxml::node_comment:
+            case node_comment:
             {
                 if (!(flags & no_comments))
-                    pt.push_back(std::make_pair(xmlcomment<Ch>(), Ptree(node->value())));
+                    pt.push_back(std::make_pair(xmlcomment<Ch>(),
+                                                Ptree(node->value())));
             }
             break;
 
@@ -81,6 +90,7 @@ namespace boost { namespace property_tree { namespace xml_parser
                            const std::string &filename)
     {
         typedef typename Ptree::key_type::value_type Ch;
+        using namespace detail::rapidxml;
 
         // Load data into vector
         stream.unsetf(std::ios::skipws);
@@ -93,10 +103,13 @@ namespace boost { namespace property_tree { namespace xml_parser
 
         try {
             // Parse using appropriate flags
-            using namespace rapidxml;
             const int f_tws = parse_normalize_whitespace
                             | parse_trim_whitespace;
             const int f_c = parse_comment_nodes;
+            // Some compilers don't like the bitwise or in the template arg.
+            const int f_tws_c = parse_normalize_whitespace
+                              | parse_trim_whitespace
+                              | parse_comment_nodes;
             xml_document<Ch> doc;
             if (flags & no_comments) {
                 if (flags & trim_whitespace)
@@ -105,19 +118,20 @@ namespace boost { namespace property_tree { namespace xml_parser
                     doc.BOOST_NESTED_TEMPLATE parse<0>(&v.front());
             } else {
                 if (flags & trim_whitespace)
-                    doc.BOOST_NESTED_TEMPLATE parse<f_tws | f_c>(&v.front());
+                    doc.BOOST_NESTED_TEMPLATE parse<f_tws_c>(&v.front());
                 else
                     doc.BOOST_NESTED_TEMPLATE parse<f_c>(&v.front());
             }
 
             // Create ptree from nodes
             Ptree local;
-            for (rapidxml::xml_node<Ch> *child = doc.first_node(); child; child = child->next_sibling())
+            for (xml_node<Ch> *child = doc.first_node();
+                 child; child = child->next_sibling())
                 read_xml_node(child, local, flags);
 
             // Swap local and result ptrees
             pt.swap(local);
-        } catch (rapidxml::parse_error &e) {
+        } catch (parse_error &e) {
             long line = static_cast<long>(
                 std::count(&v.front(), e.where<Ch>(), Ch('\n')) + 1);
             BOOST_PROPERTY_TREE_THROW(

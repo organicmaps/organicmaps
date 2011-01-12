@@ -17,6 +17,11 @@
 #include <vector>
 #include <utility>
 
+#if defined(BOOST_MSVC)
+#   pragma warning (push)
+#   pragma warning (disable:4251) // class 'std::vector<_Ty>' needs to have dll-interface to be used by clients of class 'boost::program_options::basic_parsed_options<wchar_t>'
+#endif
+
 namespace boost { namespace program_options {
 
     class options_description;

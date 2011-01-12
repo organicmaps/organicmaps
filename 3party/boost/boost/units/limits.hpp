@@ -7,8 +7,14 @@
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
+
 #ifndef BOOST_UNITS_LIMITS_HPP
 #define BOOST_UNITS_LIMITS_HPP
+
+///
+/// \file
+/// \brief specialize std::numeric_limits for units.
+///
 
 #include <limits>
 

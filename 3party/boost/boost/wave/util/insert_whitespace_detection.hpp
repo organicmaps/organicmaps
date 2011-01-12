@@ -476,6 +476,11 @@ public:
                 return true;    // prevent ->*
             }
             break;
+
+        case T_POUND:
+            if (T_POUND == prev)
+                return true;
+            break;
         }
 
     // FIXME: else, handle operators separately (will catch to many cases)

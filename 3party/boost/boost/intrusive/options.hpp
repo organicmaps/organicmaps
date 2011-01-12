@@ -343,6 +343,24 @@ struct member_hook
 };
 
 
+//!This option setter specifies the function object that will
+//!be used to convert between values to be inserted in a container
+//!and the hook to be used for that purpose.
+template< typename Functor>
+struct function_hook
+{
+/// @cond
+   typedef detail::function_hook_traits
+      <Functor> function_value_traits;
+   template<class Base>
+   struct pack : Base
+   {
+      typedef function_value_traits value_traits;
+   };
+/// @endcond
+};
+
+
 //!This option setter specifies that the container
 //!must use the specified base hook
 template<typename BaseHook>

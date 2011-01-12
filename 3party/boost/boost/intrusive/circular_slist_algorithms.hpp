@@ -63,7 +63,7 @@ class circular_slist_algorithms
 
    //! <b>Effects</b>: Constructs an non-used list element, putting the next
    //!   pointer to null:
-   //!  <tt>NodeTraits::get_next(this_node) == 0
+   //!  <tt>NodeTraits::get_next(this_node) == 0</tt>
    //! 
    //! <b>Complexity</b>: Constant 
    //! 

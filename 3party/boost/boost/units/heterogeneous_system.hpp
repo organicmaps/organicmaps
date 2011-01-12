@@ -11,6 +11,9 @@
 #ifndef BOOST_UNITS_HETEROGENEOUS_SYSTEM_HPP
 #define BOOST_UNITS_HETEROGENEOUS_SYSTEM_HPP
 
+/// \file
+/// \brief A heterogeneous system is a sorted list of base unit/exponent pairs.
+
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/plus.hpp>
 #include <boost/mpl/times.hpp>
@@ -45,7 +48,7 @@ namespace detail {
 // A normal system is a sorted list of base units.
 // A heterogeneous system is a sorted list of base unit/exponent pairs.
 // As long as we don't need to convert heterogeneous systems
-// directly everything is cool
+// directly everything is cool.
 
 template<class T>
 struct is_zero : mpl::false_ {};

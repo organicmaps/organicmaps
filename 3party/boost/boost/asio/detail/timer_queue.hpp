@@ -79,36 +79,37 @@ public:
   // function call may need to be interrupted and restarted.
   bool enqueue_timer(const time_type& time, per_timer_data& timer, timer_op* op)
   {
-    // Ensure that there is space for the timer in the heap. We reserve here so
-    // that the push_back below will not throw due to a reallocation failure.
-    heap_.reserve(heap_.size() + 1);
-
-    timer.op_queue_.push(op);
+    // Enqueue the timer object.
     if (timer.prev_ == 0 && &timer != timers_)
     {
+      if (this->is_positive_infinity(time))
+      {
+        // No heap entry is required for timers that never expire.
+        timer.heap_index_ = (std::numeric_limits<std::size_t>::max)();
+      }
+      else
+      {
+        // Put the new timer at the correct position in the heap. This is done
+        // first since push_back() can throw due to allocation failure.
+        timer.heap_index_ = heap_.size();
+        heap_entry entry = { time, &timer };
+        heap_.push_back(entry);
+        up_heap(heap_.size() - 1);
+      }
+
       // Insert the new timer into the linked list of active timers.
       timer.next_ = timers_;
       timer.prev_ = 0;
       if (timers_)
         timers_->prev_ = &timer;
       timers_ = &timer;
-
-      // Put the new timer at the correct position in the heap.
-      if (this->is_positive_infinity(time))
-      {
-        timer.heap_index_ = (std::numeric_limits<std::size_t>::max)();
-        return false; // No need to interrupt reactor as timer never expires.
-      }
-      else
-      {
-        timer.heap_index_ = heap_.size();
-        heap_entry entry = { time, &timer };
-        heap_.push_back(entry);
-        up_heap(heap_.size() - 1);
-      }
     }
 
-    return (heap_[0].timer_ == &timer);
+    // Enqueue the individual timer operation.
+    timer.op_queue_.push(op);
+
+    // Interrupt reactor only if newly added timer is first to expire.
+    return timer.heap_index_ == 0 && timer.op_queue_.front() == op;
   }
 
   // Whether there are no timers in the queue.

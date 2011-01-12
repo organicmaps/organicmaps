@@ -44,6 +44,9 @@ namespace boost { namespace property_tree { namespace xml_parser
     template<class Ch>
     std::basic_string<Ch> encode_char_entities(const std::basic_string<Ch> &s)
     {
+        // Don't do anything for empty strings.
+        if(s.empty()) return s;
+
         typedef typename std::basic_string<Ch> Str;
         Str r;
         // To properly round-trip spaces and not uglify the XML beyond

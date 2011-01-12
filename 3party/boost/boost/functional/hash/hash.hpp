@@ -209,9 +209,15 @@ namespace boost
     template <class T> std::size_t hash_value(T* v)
 #endif
     {
+#if defined(__VMS) && __INITIAL_POINTER_SIZE == 64
+	// for some reason ptrdiff_t on OpenVMS compiler with
+	// 64 bit is not 64 bit !!!
+        std::size_t x = static_cast<std::size_t>(
+           reinterpret_cast<long long int>(v));
+#else
         std::size_t x = static_cast<std::size_t>(
            reinterpret_cast<std::ptrdiff_t>(v));
-
+#endif
         return x + (x >> 3);
     }
 

@@ -37,6 +37,7 @@
 #  define BOOST_NO_STD_UNORDERED        // deprecated; see following
 #  define BOOST_NO_0X_HDR_UNORDERED_MAP
 #  define BOOST_NO_0X_HDR_UNORDERED_SET
+#  define BOOST_NO_NUMERIC_LIMITS_LOWEST
 
 #define BOOST_STDLIB "Visual Age default standard library"
 

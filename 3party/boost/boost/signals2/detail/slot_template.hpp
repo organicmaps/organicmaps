@@ -108,8 +108,7 @@ namespace boost
         return _slot_function(BOOST_SIGNALS2_SIGNATURE_ARG_NAMES(BOOST_SIGNALS2_NUM_ARGS));
       }
       // tracking
-      BOOST_SIGNALS2_SLOT_CLASS_NAME(BOOST_SIGNALS2_NUM_ARGS)& track(const weak_ptr<void> &tracked)
-      {
+      BOOST_SIGNALS2_SLOT_CLASS_NAME(BOOST_SIGNALS2_NUM_ARGS)& track(const weak_ptr<void> &tracked)      {
         _tracked_objects.push_back(tracked);
         return *this;
       }
@@ -123,8 +122,28 @@ namespace boost
         tracked_container_type::const_iterator it;
         for(it = slot.tracked_objects().begin(); it != slot.tracked_objects().end(); ++it)
         {
-          track(*it);
+          _tracked_objects.push_back(*it);
         }
+        return *this;
+      }
+      template<typename ForeignWeakPtr>
+      BOOST_SIGNALS2_SLOT_CLASS_NAME(BOOST_SIGNALS2_NUM_ARGS)& track_foreign(const ForeignWeakPtr &tracked,
+        typename weak_ptr_traits<ForeignWeakPtr>::shared_type * /*SFINAE*/ = 0)
+      {
+        _tracked_objects.push_back(detail::foreign_void_weak_ptr(tracked));
+        return *this;
+      }
+      template<typename ForeignSharedPtr>
+      BOOST_SIGNALS2_SLOT_CLASS_NAME(BOOST_SIGNALS2_NUM_ARGS)& track_foreign(const ForeignSharedPtr &tracked,
+        typename shared_ptr_traits<ForeignSharedPtr>::weak_type * /*SFINAE*/ = 0)
+      {
+        _tracked_objects.push_back
+        (
+          detail::foreign_void_weak_ptr
+          (
+            typename shared_ptr_traits<ForeignSharedPtr>::weak_type(tracked)
+          )
+        );
         return *this;
       }
 

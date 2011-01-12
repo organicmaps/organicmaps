@@ -29,7 +29,7 @@
 #include <string>    //char_traits
 #include <new>       //std::nothrow
 #include <utility>   //std::pair
-#include <cassert>   //assert
+#include <boost/assert.hpp>   //BOOST_ASSERT
 #include <functional>   //unary_function
 #ifndef BOOST_NO_EXCEPTIONS
 #include <exception>
@@ -178,8 +178,8 @@ struct block_header
                get_rounded_size(sizeof(block_header), algn)));
       (void)sz;
       //Some sanity checks
-      assert(hdr->m_value_alignment == algn);
-      assert(hdr->m_value_bytes % sz == 0);
+      BOOST_ASSERT(hdr->m_value_alignment == algn);
+      BOOST_ASSERT(hdr->m_value_bytes % sz == 0);
       return hdr;
    }
 

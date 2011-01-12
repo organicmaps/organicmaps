@@ -11,6 +11,7 @@
 #ifndef BOOST_UNITS_MAKE_SCALED_UNIT_HPP_INCLUDED
 #define BOOST_UNITS_MAKE_SCALED_UNIT_HPP_INCLUDED
 
+#include <boost/units/units_fwd.hpp>
 #include <boost/units/heterogeneous_system.hpp>
 #include <boost/units/unit.hpp>
 
@@ -34,6 +35,20 @@ struct make_scaled_unit<unit<Dimension, heterogeneous_system<heterogeneous_syste
                     OldScale,
                     list<scale_list_dim<Scale>, dimensionless_type>
                 >::type
+            >
+        >
+    > type;
+};
+
+template<class Dimension, class UnitList, class OldScale, long Base>
+struct make_scaled_unit<unit<Dimension, heterogeneous_system<heterogeneous_system_impl<UnitList, Dimension, OldScale> > >, scale<Base, static_rational<0> > > {
+    typedef unit<
+        Dimension,
+        heterogeneous_system<
+            heterogeneous_system_impl<
+                UnitList,
+                Dimension,
+                OldScale
             >
         >
     > type;

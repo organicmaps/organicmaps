@@ -25,6 +25,12 @@
 
 #include <iosfwd>
 
+#if defined(BOOST_MSVC)
+#   pragma warning (push)
+#   pragma warning (disable:4251) // class 'boost::shared_ptr<T>' needs to have dll-interface to be used by clients of class 'boost::program_options::option_description'
+#endif
+
+
 /** Boost namespace */
 namespace boost { 
 /** Namespace for the library. */
@@ -250,5 +256,9 @@ namespace program_options {
         duplicate_option_error(const std::string& xwhat) : error(xwhat) {}
     };
 }}
+
+#if defined(BOOST_MSVC)
+#   pragma warning (pop)
+#endif
 
 #endif

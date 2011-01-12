@@ -148,11 +148,11 @@ namespace boost { namespace spirit { namespace qi
         typedef skip_parser<Subject, skipper_type> result_type;
 
         template <typename Terminal>
-        result_type operator()(
-            Terminal const& term, Subject const& subject, unused_type) const
+        result_type operator()(Terminal const& term, Subject const& subject
+          , Modifiers const& modifiers) const
         {
             return result_type(subject
-              , compile<qi::domain>(fusion::at_c<0>(term.args)));
+              , compile<qi::domain>(fusion::at_c<0>(term.args), modifiers));
         }
     };
 

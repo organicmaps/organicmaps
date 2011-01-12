@@ -68,16 +68,16 @@ struct dispatch_table
                  HandledEnum res = first_row::execute(fsm,region_index,state,evt);
                  if (HANDLED_TRUE!=res)
                  {
-                     // if the first rejected, move on to the next one
+                    // if the first rejected, move on to the next one
                     HandledEnum sub_res = 
                          execute<typename ::boost::mpl::pop_front<Sequence>::type>(fsm,region_index,state,evt,
                             ::boost::mpl::bool_<
                                 ::boost::mpl::empty<typename ::boost::mpl::pop_front<Sequence>::type>::type::value>());
-                     // if at least one guards rejects, the event will not generate a call to no_transition
-                     HandledEnum handled = ((HANDLED_GUARD_REJECT==sub_res) || 
-                                            (HANDLED_GUARD_REJECT==res))?
-                                                HANDLED_GUARD_REJECT:sub_res;
-                     return handled;
+                    // if at least one guards rejects, the event will not generate a call to no_transition
+                    if ((HANDLED_FALSE==sub_res) && (HANDLED_GUARD_REJECT==res) )
+                        return HANDLED_GUARD_REJECT;
+                    else
+                        return sub_res;
                  }
                  return res;
             }

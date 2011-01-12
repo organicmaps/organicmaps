@@ -820,7 +820,11 @@ escape_type_class_jump:
             return false;
          }
          // maybe have \g{ddd}
-         if(this->m_traits.syntax_type(*m_position) == regex_constants::syntax_open_brace)
+         regex_constants::syntax_type syn = this->m_traits.syntax_type(*m_position);
+         regex_constants::syntax_type syn_end = 0;
+         if((syn == regex_constants::syntax_open_brace) 
+            || (syn == regex_constants::escape_type_left_word)
+            || (syn == regex_constants::escape_type_end_buffer))
          {
             if(++m_position == m_end)
             {
@@ -828,6 +832,18 @@ escape_type_class_jump:
                return false;
             }
             have_brace = true;
+            switch(syn)
+            {
+            case regex_constants::syntax_open_brace:
+               syn_end = regex_constants::syntax_close_brace;
+               break;
+            case regex_constants::escape_type_left_word:
+               syn_end = regex_constants::escape_type_right_word;
+               break;
+            default:
+               syn_end = regex_constants::escape_type_end_buffer;
+               break;
+            }
          }
          negative = (*m_position == static_cast<charT>('-'));
          if((negative) && (++m_position == m_end))
@@ -837,18 +853,20 @@ escape_type_class_jump:
          }
          const charT* pc = m_position;
          int i = this->m_traits.toi(pc, m_end, 10);
-         if(i < 0)
+         if((i < 0) && syn_end)
          {
-            // Check for a named capture:
+            // Check for a named capture, get the leftmost one if there is more than one:
             const charT* base = m_position;
-            while((m_position != m_end) && (this->m_traits.syntax_type(*m_position) != regex_constants::syntax_close_brace))
+            while((m_position != m_end) && (this->m_traits.syntax_type(*m_position) != syn_end))
+            {
                ++m_position;
-            i = this->m_pdata->get_id(base, m_position);
+            }
+            i = hash_value_from_capture_name(base, m_position);
             pc = m_position;
          }
          if(negative)
             i = 1 + m_mark_count - i;
-         if((i > 0) && (this->m_backrefs & (1u << (i-1))))
+         if(((i > 0) && (this->m_backrefs & (1u << (i-1)))) || ((i > 10000) && (this->m_pdata->get_id(i) > 0) && (this->m_backrefs & (1u << (this->m_pdata->get_id(i)-1)))))
          {
             m_position = pc;
             re_brace* pb = static_cast<re_brace*>(this->append_state(syntax_element_backref, sizeof(re_brace)));
@@ -863,7 +881,7 @@ escape_type_class_jump:
          m_position = pc;
          if(have_brace)
          {
-            if((m_position == m_end) || (this->m_traits.syntax_type(*m_position) != regex_constants::syntax_close_brace))
+            if((m_position == m_end) || (this->m_traits.syntax_type(*m_position) != syn_end))
             {
                fail(regex_constants::error_escape, m_position - m_base, incomplete_message);
                return false;
@@ -1003,6 +1021,21 @@ bool basic_regex_parser<charT, traits>::parse_repeat(std::size_t low, std::size_
    //
    if(pocessive)
    {
+      if(m_position != m_end)
+      {
+         //
+         // Check for illegal following quantifier, we have to do this here, because
+         // the extra states we insert below circumvents are usual error checking :-(
+         //
+         switch(this->m_traits.syntax_type(*m_position))
+         {
+         case regex_constants::syntax_star:
+         case regex_constants::syntax_plus:
+         case regex_constants::syntax_question:
+            fail(regex_constants::error_badrepeat, m_position - m_base);
+            return false;
+         }
+      }
       re_brace* pb = static_cast<re_brace*>(this->insert_state(insert_point, syntax_element_startmark, sizeof(re_brace)));
       pb->index = -3;
       pb->icase = this->flags() & regbase::icase;

@@ -74,6 +74,8 @@ class splay_set_impl
    typedef typename implementation_defined::const_node_ptr           const_node_ptr;
    typedef typename implementation_defined::node_algorithms          node_algorithms;
 
+   static const bool constant_time_size = Config::constant_time_size;
+
    /// @cond
    private:
    tree_type tree_;
@@ -1285,6 +1287,8 @@ class splay_multiset_impl
    typedef typename implementation_defined::node_ptr                 node_ptr;
    typedef typename implementation_defined::const_node_ptr           const_node_ptr;
    typedef typename implementation_defined::node_algorithms          node_algorithms;
+
+   static const bool constant_time_size = Config::constant_time_size;
 
    /// @cond
    private:

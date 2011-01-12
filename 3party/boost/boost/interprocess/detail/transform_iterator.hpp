@@ -50,7 +50,7 @@ struct operator_arrow_proxy<T&>
       :  m_value(px)
    {}
 
-   T* operator->() const { return &m_value; }
+   T* operator->() const { return const_cast<T*>(&m_value); }
    // This function is needed for MWCW and BCC, which won't call operator->
    // again automatically per 13.3.1.2 para 8
 //   operator T*() const { return &m_value; }
@@ -87,13 +87,25 @@ class transform_iterator
       return result;
    }
 
+   transform_iterator& operator--() 
+   { decrement();   return *this;   }
+
+   transform_iterator operator--(int)
+   {
+      transform_iterator result (*this);
+      decrement();
+      return result;
+   }
+
    friend bool operator== (const transform_iterator& i, const transform_iterator& i2)
    { return i.equal(i2); }
 
    friend bool operator!= (const transform_iterator& i, const transform_iterator& i2)
    { return !(i == i2); }
 
-/*
+   friend bool operator< (const transform_iterator& i, const transform_iterator& i2)
+   { return i < i2; }
+
    friend bool operator> (const transform_iterator& i, const transform_iterator& i2)
    { return i2 < i; }
 
@@ -102,7 +114,7 @@ class transform_iterator
 
    friend bool operator>= (const transform_iterator& i, const transform_iterator& i2)
    { return !(i < i2); }
-*/
+
    friend typename Iterator::difference_type operator- (const transform_iterator& i, const transform_iterator& i2)
    { return i2.distance_to(i); }
 
@@ -128,6 +140,9 @@ class transform_iterator
 
    typename UnaryFunction::result_type operator*() const
    { return dereference(); }
+
+   typename UnaryFunction::result_type operator[](typename Iterator::difference_type off) const
+   { return UnaryFunction::operator()(m_it[off]); }
 
    operator_arrow_proxy<typename UnaryFunction::result_type>
       operator->() const

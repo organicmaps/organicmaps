@@ -64,11 +64,9 @@ class list_iterator
    :  public std::iterator
          < std::bidirectional_iterator_tag
          , typename Container::value_type
-         , typename std::iterator_traits<typename Container::value_type*>::difference_type
-         , typename detail::add_const_if_c
-                     <typename Container::value_type, IsConst>::type *
-         , typename detail::add_const_if_c
-                     <typename Container::value_type, IsConst>::type &
+         , typename Container::difference_type
+         , typename detail::if_c<IsConst,typename Container::const_pointer,typename Container::pointer>::type
+         , typename detail::if_c<IsConst,typename Container::const_reference,typename Container::reference>::type
          >
 {
    protected:
@@ -83,10 +81,8 @@ class list_iterator
 
    public:
    typedef typename Container::value_type    value_type;
-   typedef  typename detail::add_const_if_c
-                     <typename Container::value_type, IsConst>::type *pointer;
-   typedef typename detail::add_const_if_c
-                     <typename Container::value_type, IsConst>::type &reference;
+   typedef typename detail::if_c<IsConst,typename Container::const_pointer,typename Container::pointer>::type pointer;
+   typedef typename detail::if_c<IsConst,typename Container::const_reference,typename Container::reference>::type reference;
 
    list_iterator()
       : members_ (node_ptr(0), 0)
@@ -133,17 +129,17 @@ class list_iterator
       return result;
    }
 
-   bool operator== (const list_iterator& i) const
-   {  return members_.nodeptr_ == i.pointed_node();   }
+   friend bool operator== (const list_iterator& l, const list_iterator& r)
+   {  return l.pointed_node() == r.pointed_node();   }
 
-   bool operator!= (const list_iterator& i) const
-   {  return !operator== (i); }
+   friend bool operator!= (const list_iterator& l, const list_iterator& r)
+   {  return !(l == r); }
 
    reference operator*() const
    {  return *operator->();   }
 
    pointer operator->() const
-   { return detail::get_pointer(this->get_real_value_traits()->to_value_ptr(members_.nodeptr_)); }
+   { return detail::boost_intrusive_get_pointer(this->get_real_value_traits()->to_value_ptr(members_.nodeptr_)); }
 
    const Container *get_container() const
    {

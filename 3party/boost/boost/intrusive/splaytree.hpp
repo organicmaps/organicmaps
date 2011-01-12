@@ -166,7 +166,7 @@ class splaytree_impl
 
    static node_ptr uncast(const_node_ptr ptr)
    {
-      return node_ptr(const_cast<node*>(detail::get_pointer(ptr)));
+      return node_ptr(const_cast<node*>(detail::boost_intrusive_get_pointer(ptr)));
    }
 
    size_traits &priv_size_traits()
@@ -1405,7 +1405,7 @@ class splaytree_impl
    static splaytree_impl &priv_container_from_end_iterator(const const_iterator &end_iterator)
    {
       header_plus_size *r = detail::parent_from_member<header_plus_size, node>
-         ( detail::get_pointer(end_iterator.pointed_node()), &header_plus_size::header_);
+         ( detail::boost_intrusive_get_pointer(end_iterator.pointed_node()), &header_plus_size::header_);
       node_plus_pred_t *n = detail::parent_from_member
          <node_plus_pred_t, header_plus_size>(r, &node_plus_pred_t::header_plus_size_);
       data_t *d = detail::parent_from_member<data_t, node_plus_pred_t>(n, &data_t::node_plus_pred_);

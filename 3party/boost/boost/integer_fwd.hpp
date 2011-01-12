@@ -136,22 +136,6 @@ template < std::size_t Bits >
 template <  >
     struct low_bits_mask_t< ::std::numeric_limits<unsigned char>::digits >;
 
-#if USHRT_MAX > UCHAR_MAX
-template <  >
-    struct low_bits_mask_t< ::std::numeric_limits<unsigned short>::digits >;
-#endif
-
-#if UINT_MAX > USHRT_MAX
-template <  >
-    struct low_bits_mask_t< ::std::numeric_limits<unsigned int>::digits >;
-#endif
-
-#if ULONG_MAX > UINT_MAX
-template <  >
-    struct low_bits_mask_t< ::std::numeric_limits<unsigned long>::digits >;
-#endif
-
-
 //  From <boost/integer/static_log2.hpp>  ------------------------------------//
 
 template <static_log2_argument_type Value >

@@ -175,6 +175,12 @@ public:
     polymorphic_oarchive & operator&(T & t){
         return polymorphic_oarchive::operator&(t);
     }
+    // register type function
+    template<class T>
+    const basic_pointer_oserializer * 
+    register_type(T * t = NULL){
+        return ArchiveImplementation::register_type(t);
+    }
     // all current archives take a stream as constructor argument
     template <class _Elem, class _Tr>
     polymorphic_oarchive_route(

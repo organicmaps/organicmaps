@@ -390,6 +390,11 @@ inline float log1p(float x, const Policy& pol)
 {
    return static_cast<float>(boost::math::log1p(static_cast<double>(x), pol));
 }
+#ifndef _WIN32_WCE
+//
+// For some reason this fails to compile under WinCE...
+// Needs more investigation.
+//
 template <class Policy>
 inline long double log1p(long double x, const Policy& pol)
 {
@@ -405,6 +410,7 @@ inline long double log1p(long double x, const Policy& pol)
    else
       return ::logl(u)*(x/(u-1.0));
 }
+#endif
 #endif
 
 template <class T>

@@ -201,7 +201,7 @@ class file_lock
 
 inline file_lock::file_lock(const char *name)
 {
-   m_file_hnd = detail::open_existing_file(name);
+   m_file_hnd = detail::open_existing_file(name, read_write);
 
    if(m_file_hnd == detail::invalid_file()){
       error_info err(system_error_code());

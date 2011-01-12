@@ -44,7 +44,7 @@
 #include <ostream>
 #include <string>    // char traits            
 #include <cstddef>   // ptrdiff_t
-#include <cassert>
+#include <boost/assert.hpp>
 #include <boost/interprocess/interprocess_fwd.hpp>
 
 namespace boost {  namespace interprocess {

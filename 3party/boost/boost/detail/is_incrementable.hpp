@@ -70,10 +70,10 @@ namespace is_incrementable_
 # endif 
 
   // two check overloads help us identify which operator++ was picked
-  char (& check(tag) )[2];
+  char (& check_(tag) )[2];
   
   template <class T>
-  char check(T const&);
+  char check_(T const&);
   
 
   template <class T>
@@ -83,7 +83,7 @@ namespace is_incrementable_
 
       BOOST_STATIC_CONSTANT(
           bool
-        , value = sizeof(is_incrementable_::check(BOOST_comma(++x,0))) == 1
+        , value = sizeof(is_incrementable_::check_(BOOST_comma(++x,0))) == 1
       );
   };
 
@@ -94,7 +94,7 @@ namespace is_incrementable_
 
       BOOST_STATIC_CONSTANT(
           bool
-        , value = sizeof(is_incrementable_::check(BOOST_comma(x++,0))) == 1
+        , value = sizeof(is_incrementable_::check_(BOOST_comma(x++,0))) == 1
       );
   };
 

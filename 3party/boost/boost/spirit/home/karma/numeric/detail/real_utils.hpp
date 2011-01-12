@@ -142,8 +142,13 @@ namespace boost { namespace spirit { namespace karma
                 dim = log10(n);
                 if (dim > 0) 
                     n /= spirit::detail::pow10<U>(detail::truncate_to_long::call(dim));
-                else if (n < 1.) 
-                    n *= spirit::detail::pow10<U>(detail::truncate_to_long::call(-dim) + 1);
+                else if (n < 1.) {
+                    long exp = detail::truncate_to_long::call(-dim);
+                    if (exp != -dim)
+                        ++exp;
+                    dim = -exp;
+                    n *= spirit::detail::pow10<U>(exp);
+                }
             }
 
         // prepare numbers (sign, integer and fraction part)
@@ -206,7 +211,7 @@ namespace boost { namespace spirit { namespace karma
 
             if (r && 0 == (Policies::fmtflags::fixed & flags)) {
                 return p.template exponent<CharEncoding, Tag>(sink, 
-                    detail::truncate_to_long::call(dim >= 0 ? dim : dim - 1));
+                    detail::truncate_to_long::call(dim));
             }
             return r;
         }

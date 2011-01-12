@@ -10,19 +10,23 @@
 #ifndef BOOST_GRAPH_NAMED_FUNCTION_PARAMS_HPP
 #define BOOST_GRAPH_NAMED_FUNCTION_PARAMS_HPP
 
-#include <boost/graph/properties.hpp>
+#include <functional>
+#include <vector>
 #include <boost/ref.hpp>
 #include <boost/parameter/name.hpp>
 #include <boost/parameter/binding.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/type_traits/add_reference.hpp>
-#include <boost/graph/named_function_params.hpp>
+#include <boost/graph/properties.hpp>
+#include <boost/graph/detail/d_ary_heap.hpp>
 #include <boost/property_map/property_map.hpp>
 #include <boost/property_map/shared_array_property_map.hpp>
 
 namespace boost {
 
+  struct parity_map_t { };
+  struct vertex_assignment_map_t { };
   struct distance_compare_t { };
   struct distance_combine_t { };
   struct distance_inf_t { };
@@ -51,6 +55,8 @@ namespace boost {
   struct learning_constant_range_t { };
   struct vertices_equivalent_t { };
   struct edges_equivalent_t { };
+  struct index_in_heap_map_t { };
+  struct max_priority_queue_t { };
 
 #define BOOST_BGL_DECLARE_NAMED_PARAMS \
     BOOST_BGL_ONE_PARAM_CREF(weight_map, edge_weight) \
@@ -62,6 +68,7 @@ namespace boost {
     BOOST_BGL_ONE_PARAM_CREF(root_vertex, root_vertex) \
     BOOST_BGL_ONE_PARAM_CREF(edge_centrality_map, edge_centrality) \
     BOOST_BGL_ONE_PARAM_CREF(centrality_map, vertex_centrality) \
+    BOOST_BGL_ONE_PARAM_CREF(parity_map, parity_map) \
     BOOST_BGL_ONE_PARAM_CREF(color_map, vertex_color) \
     BOOST_BGL_ONE_PARAM_CREF(edge_color_map, edge_color) \
     BOOST_BGL_ONE_PARAM_CREF(capacity_map, edge_capacity) \
@@ -72,6 +79,7 @@ namespace boost {
     BOOST_BGL_ONE_PARAM_CREF(vertex_index_map, vertex_index) \
     BOOST_BGL_ONE_PARAM_CREF(vertex_index1_map, vertex_index1) \
     BOOST_BGL_ONE_PARAM_CREF(vertex_index2_map, vertex_index2) \
+    BOOST_BGL_ONE_PARAM_CREF(vertex_assignment_map, vertex_assignment_map) \
     BOOST_BGL_ONE_PARAM_CREF(visitor, graph_visitor) \
     BOOST_BGL_ONE_PARAM_CREF(distance_compare, distance_compare) \
     BOOST_BGL_ONE_PARAM_CREF(distance_combine, distance_combine) \
@@ -98,7 +106,9 @@ namespace boost {
     BOOST_BGL_ONE_PARAM_CREF(diameter_range, diameter_range) \
     BOOST_BGL_ONE_PARAM_CREF(learning_constant_range, learning_constant_range) \
     BOOST_BGL_ONE_PARAM_CREF(vertices_equivalent, vertices_equivalent) \
-    BOOST_BGL_ONE_PARAM_CREF(edges_equivalent, edges_equivalent)
+    BOOST_BGL_ONE_PARAM_CREF(edges_equivalent, edges_equivalent) \
+    BOOST_BGL_ONE_PARAM_CREF(index_in_heap_map, index_in_heap_map) \
+    BOOST_BGL_ONE_PARAM_REF(max_priority_queue, max_priority_queue)
 
   template <typename T, typename Tag, typename Base = no_property>
   struct bgl_named_params : public Base
@@ -382,8 +392,8 @@ BOOST_BGL_DECLARE_NAMED_PARAMS
 
     template <typename ArgType, typename Prop, typename Graph, bool Exists>
     struct override_const_property_t {
-      typedef ArgType result_type;
-      result_type operator()(const Graph&, const typename boost::add_reference<ArgType>::type a) const {return a;}
+      typedef typename boost::remove_const<ArgType>::type result_type;
+      result_type operator()(const Graph&, const ArgType& a) const {return a;}
     };
 
     template <typename ArgType, typename Prop, typename Graph>
@@ -541,7 +551,68 @@ BOOST_BGL_DECLARE_NAMED_PARAMS
         boost::graph::keywords::tag::color_map,
         default_color_type>
       make_color_map_from_arg_pack(white_color);
-  }
+
+    template <bool Exists, class Graph, class ArgPack, class KeyT, class ValueT, class KeyMapTag, class IndexInHeapMapTag, class Compare, class Q>
+    struct priority_queue_maker_helper {
+      typedef Q priority_queue_type;
+
+      static priority_queue_type
+      make_queue(const Graph& g, const ArgPack& ap, KeyT defaultKey, const Q& q) {
+        return q;
+      }
+    };
+
+    template <class Graph, class ArgPack, class KeyT, class ValueT, class KeyMapTag, class IndexInHeapMapTag, class Compare, class Q>
+    struct priority_queue_maker_helper<false, Graph, ArgPack, KeyT, ValueT, KeyMapTag, IndexInHeapMapTag, Compare, Q> {
+      typedef typename std::vector<ValueT>::size_type default_index_in_heap_type;
+      typedef typename map_maker<Graph, ArgPack, IndexInHeapMapTag, default_index_in_heap_type>::helper::map_type index_in_heap_map;
+      typedef boost::d_ary_heap_indirect<ValueT, 4, index_in_heap_map, typename map_maker<Graph, ArgPack, KeyMapTag, KeyT>::helper::map_type, Compare> priority_queue_type;
+
+      static priority_queue_type
+      make_queue(const Graph& g, const ArgPack& ap, KeyT defaultKey, const Q& q) {
+        return priority_queue_type(
+            map_maker<Graph, ArgPack, KeyMapTag, KeyT>::make_map(g, ap, defaultKey),
+            map_maker<Graph, ArgPack, IndexInHeapMapTag, default_index_in_heap_type>::make_map(g, ap, typename boost::property_traits<index_in_heap_map>::value_type(-1))
+          );
+      }
+    };
+
+    template <class Graph, class ArgPack, class KeyT, class ValueT, class PriorityQueueTag, class KeyMapTag, class IndexInHeapMapTag, class Compare>
+    struct priority_queue_maker {
+      BOOST_STATIC_CONSTANT(
+        bool,
+        g_hasQ =
+          (parameter_exists<ArgPack, PriorityQueueTag>
+           ::value));
+      typedef priority_queue_maker_helper<g_hasQ, Graph, ArgPack, KeyT, ValueT, KeyMapTag, IndexInHeapMapTag, Compare,
+                                          typename boost::remove_const<
+                                            typename boost::parameter::value_type<
+                                                       ArgPack,
+                                                       PriorityQueueTag,
+                                                       boost::reference_wrapper<int>
+                                                     >::type::type
+                                                   >::type> helper;
+      typedef typename helper::priority_queue_type priority_queue_type;
+
+      static priority_queue_type make_queue(const Graph& g, const ArgPack& ap, KeyT defaultKey) {
+        return helper::make_queue(g, ap, defaultKey, ap[::boost::parameter::keyword<PriorityQueueTag>::instance | 0]);
+      }
+    };
+
+    template <class PriorityQueueTag, class KeyT, class ValueT, class Compare = std::less<KeyT>, class KeyMapTag = boost::graph::keywords::tag::distance_map, class IndexInHeapMapTag = boost::graph::keywords::tag::index_in_heap_map>
+    struct make_priority_queue_from_arg_pack_gen {
+      KeyT defaultKey;
+
+      make_priority_queue_from_arg_pack_gen(KeyT defaultKey_) : defaultKey(defaultKey_) { }
+
+      template <class Graph, class ArgPack>
+      typename priority_queue_maker<Graph, ArgPack, KeyT, ValueT, PriorityQueueTag, KeyMapTag, IndexInHeapMapTag, Compare>::priority_queue_type
+      operator()(const Graph& g, const ArgPack& ap) const {
+        return priority_queue_maker<Graph, ArgPack, KeyT, ValueT, PriorityQueueTag, KeyMapTag, IndexInHeapMapTag, Compare>::make_queue(g, ap, defaultKey);
+      }
+    };
+
+  } // namespace detail
 
 } // namespace boost
 

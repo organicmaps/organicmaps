@@ -44,7 +44,7 @@ namespace boost {
         template<class Archive, class T>
         inline void load(
             Archive & ar,
-            boost::shared_ptr<T> &t,
+            boost::shared_ptr< T > &t,
             const unsigned int file_version
         );
     }
@@ -95,7 +95,7 @@ public:
     template<class Archive, class T>
     friend inline void boost::serialization::load(
         Archive & ar,
-        boost::shared_ptr<T> &t,
+        boost::shared_ptr< T > &t,
         const unsigned int file_version
     );
 #endif
@@ -130,7 +130,7 @@ public:
         get_object_identifier(T & t){
             return & boost::serialization::singleton<
                 BOOST_DEDUCED_TYPENAME 
-                boost::serialization::type_info_implementation<T>::type
+                boost::serialization::type_info_implementation< T >::type
             >::get_const_instance();
         }
     };
@@ -140,27 +140,27 @@ public:
         get_object_identifier(T & t){
             return boost::serialization::singleton<
                 BOOST_DEDUCED_TYPENAME 
-                boost::serialization::type_info_implementation<T>::type
+                boost::serialization::type_info_implementation< T >::type
             >::get_const_instance().get_derived_extended_type_info(t);
         }
     };
 public:
     template<class T>
-    void reset(shared_ptr<T> & s, T * t){
+    void reset(shared_ptr< T > & s, T * t){
         if(NULL == t){
             s.reset();
             return;
         }
         const boost::serialization::extended_type_info * this_type
-            = & boost::serialization::type_info_implementation<T>::type
+            = & boost::serialization::type_info_implementation< T >::type
                     ::get_const_instance();
 
         // get pointer to the most derived object.  This is effectively
         // the object identifern
         typedef BOOST_DEDUCED_TYPENAME mpl::eval_if<
-            is_polymorphic<T>,
-            mpl::identity<polymorphic<T> >,
-            mpl::identity<non_polymorphic<T> >
+            is_polymorphic< T >,
+            mpl::identity<polymorphic< T > >,
+            mpl::identity<non_polymorphic< T > >
         >::type type;
 
         const boost::serialization::extended_type_info * true_type
@@ -192,7 +192,7 @@ public:
             append(sp);
         }
         else{
-            s = shared_ptr<T>(
+            s = shared_ptr< T >(
                 r,
                 static_cast<T *>(r.get())
             );

@@ -11,6 +11,11 @@
 #ifndef BOOST_UNITS_IS_DIMENSIONLESS_HPP
 #define BOOST_UNITS_IS_DIMENSIONLESS_HPP
 
+///
+/// \file
+/// \brief Check if a unit or quantity is dimensionless.
+///
+
 #include <boost/mpl/bool.hpp>
 #include <boost/units/units_fwd.hpp>
 
@@ -23,13 +28,13 @@ struct is_dimensionless :
     public mpl::false_
 { };
 
-/// check if a unit is dimensionless
+/// Check if a unit is dimensionless.
 template<class System>
 struct is_dimensionless< unit<dimensionless_type,System> > :
     public mpl::true_
 { };
 
-/// check if a quantity is dimensionless
+/// Check if a quantity is dimensionless.
 template<class Unit,class Y>
 struct is_dimensionless< quantity<Unit,Y> > :
     public is_dimensionless<Unit>

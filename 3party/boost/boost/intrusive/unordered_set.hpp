@@ -248,7 +248,7 @@ class unordered_set_impl
    //! <b>Effects</b>: Returns the number of elements stored in the unordered_set.
    //! 
    //! <b>Complexity</b>: Linear to elements contained in *this if
-   //!   constant-time size option is enabled. Constant-time otherwise.
+   //!   constant-time size option is disabled. Constant-time otherwise.
    //! 
    //! <b>Throws</b>: Nothing.
    size_type size() const
@@ -395,8 +395,8 @@ class unordered_set_impl
    //! 
    //! <b>Note</b>: Invalidates the iterators (but not the references)
    //!    to the erased element. No destructors are called.
-   iterator erase(const_iterator i)
-   {  return table_.erase(i);  }
+   void erase(const_iterator i)
+   {  table_.erase(i);  }
 
    //! <b>Effects</b>: Erases the range pointed to by b end e. 
    //! 
@@ -407,8 +407,8 @@ class unordered_set_impl
    //! 
    //! <b>Note</b>: Invalidates the iterators (but not the references)
    //!    to the erased elements. No destructors are called.
-   iterator erase(const_iterator b, const_iterator e)
-   {  return table_.erase(b, e);  }
+   void erase(const_iterator b, const_iterator e)
+   {  table_.erase(b, e);  }
 
    //! <b>Effects</b>: Erases all the elements with the given value.
    //! 
@@ -460,12 +460,12 @@ class unordered_set_impl
    //! <b>Note</b>: Invalidates the iterators 
    //!    to the erased elements.
    template<class Disposer>
-   iterator erase_and_dispose(const_iterator i, Disposer disposer
+   void erase_and_dispose(const_iterator i, Disposer disposer
                               /// @cond
                               , typename detail::enable_if_c<!detail::is_convertible<Disposer, const_iterator>::value >::type * = 0
                               /// @endcond
                               )
-   {  return table_.erase_and_dispose(i, disposer);  }
+   {  table_.erase_and_dispose(i, disposer);  }
 
    //! <b>Requires</b>: Disposer::operator()(pointer) shouldn't throw.
    //!
@@ -480,8 +480,8 @@ class unordered_set_impl
    //! <b>Note</b>: Invalidates the iterators
    //!    to the erased elements.
    template<class Disposer>
-   iterator erase_and_dispose(const_iterator b, const_iterator e, Disposer disposer)
-   {  return table_.erase_and_dispose(b, e, disposer);  }
+   void erase_and_dispose(const_iterator b, const_iterator e, Disposer disposer)
+   {  table_.erase_and_dispose(b, e, disposer);  }
 
    //! <b>Requires</b>: Disposer::operator()(pointer) shouldn't throw.
    //!
@@ -1305,7 +1305,7 @@ class unordered_multiset_impl
    //! <b>Effects</b>: Returns the number of elements stored in the unordered_multiset.
    //! 
    //! <b>Complexity</b>: Linear to elements contained in *this if
-   //!   constant-time size option is enabled. Constant-time otherwise.
+   //!   constant-time size option is disabled. Constant-time otherwise.
    //! 
    //! <b>Throws</b>: Nothing.
    size_type size() const
@@ -1387,8 +1387,8 @@ class unordered_multiset_impl
    //! 
    //! <b>Note</b>: Invalidates the iterators (but not the references)
    //!    to the erased element. No destructors are called.
-   iterator erase(const_iterator i)
-   {  return table_.erase(i);  }
+   void erase(const_iterator i)
+   {  table_.erase(i);  }
 
    //! <b>Effects</b>: Erases the range pointed to by b end e. 
    //! 
@@ -1399,8 +1399,8 @@ class unordered_multiset_impl
    //! 
    //! <b>Note</b>: Invalidates the iterators (but not the references)
    //!    to the erased elements. No destructors are called.
-   iterator erase(const_iterator b, const_iterator e)
-   {  return table_.erase(b, e);  }
+   void erase(const_iterator b, const_iterator e)
+   {  table_.erase(b, e);  }
 
    //! <b>Effects</b>: Erases all the elements with the given value.
    //! 
@@ -1453,17 +1453,17 @@ class unordered_multiset_impl
    //! <b>Note</b>: Invalidates the iterators 
    //!    to the erased elements.
    template<class Disposer>
-   iterator erase_and_dispose(const_iterator i, Disposer disposer
+   void erase_and_dispose(const_iterator i, Disposer disposer
                               /// @cond
                               , typename detail::enable_if_c<!detail::is_convertible<Disposer, const_iterator>::value >::type * = 0
                               /// @endcond
                               )
-   {  return table_.erase_and_dispose(i, disposer);  }
+   {  table_.erase_and_dispose(i, disposer);  }
 
    #if !defined(BOOST_INTRUSIVE_DOXYGEN_INVOKED)
    template<class Disposer>
-   iterator erase_and_dispose(const_iterator i, Disposer disposer)
-   {  return this->erase_and_dispose(const_iterator(i), disposer);   }
+   void erase_and_dispose(const_iterator i, Disposer disposer)
+   {  this->erase_and_dispose(const_iterator(i), disposer);   }
    #endif
 
    //! <b>Requires</b>: Disposer::operator()(pointer) shouldn't throw.
@@ -1479,8 +1479,8 @@ class unordered_multiset_impl
    //! <b>Note</b>: Invalidates the iterators
    //!    to the erased elements.
    template<class Disposer>
-   iterator erase_and_dispose(const_iterator b, const_iterator e, Disposer disposer)
-   {  return table_.erase_and_dispose(b, e, disposer);  }
+   void erase_and_dispose(const_iterator b, const_iterator e, Disposer disposer)
+   {  table_.erase_and_dispose(b, e, disposer);  }
 
    //! <b>Requires</b>: Disposer::operator()(pointer) shouldn't throw.
    //!

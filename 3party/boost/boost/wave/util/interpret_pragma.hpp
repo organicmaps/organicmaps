@@ -85,16 +85,18 @@ interpret_pragma(ContextT &ctx, typename ContextT::token_type const &act_token,
                                 [
                                     spirit_assign_actor(option)
                                 ] 
-                            |   pattern_p(KeywordTokenType, TokenTypeMask)
+                            |   pattern_p(KeywordTokenType, 
+                                    TokenTypeMask|PPTokenFlag)
                                 [
                                     spirit_assign_actor(option)
                                 ] 
                             |   pattern_p(OperatorTokenType|AltExtTokenType, 
-                                    ExtTokenTypeMask)   // and, bit_and etc.
+                                    ExtTokenTypeMask|PPTokenFlag)   // and, bit_and etc.
                                 [
                                     spirit_assign_actor(option)
                                 ] 
-                            |   pattern_p(BoolLiteralTokenType, TokenTypeMask)
+                            |   pattern_p(BoolLiteralTokenType, 
+                                    TokenTypeMask|PPTokenFlag)
                                 [
                                     spirit_assign_actor(option)
                                 ] 
@@ -103,12 +105,13 @@ interpret_pragma(ContextT &ctx, typename ContextT::token_type const &act_token,
                                 ch_p(T_LEFTPAREN),
                                 ch_p(T_RIGHTPAREN)
                             )[spirit_assign_actor(values)],
-                    pattern_p(WhiteSpaceTokenType, TokenTypeMask)).hit)
+                    pattern_p(WhiteSpaceTokenType, TokenTypeMask|PPTokenFlag)).hit)
             {
+                typename ContextT::string_type msg(
+                    impl::as_string<string_type>(it, end));
                 BOOST_WAVE_THROW_CTX(ctx, preprocess_exception, 
                     ill_formed_pragma_option,
-                    impl::as_string<string_type>(it, end).c_str(), 
-                    act_token.get_position());
+                    msg.c_str(), act_token.get_position());
                 return false;
             }
 
@@ -163,14 +166,15 @@ interpret_pragma(ContextT &ctx, typename ContextT::token_type const &act_token,
                                     *(anychar_p[spirit_append_actor(values)] - ch_p(T_NEWLINE))
                                 ]
                             ),
-                            pattern_p(WhiteSpaceTokenType, TokenTypeMask)
+                            pattern_p(WhiteSpaceTokenType, TokenTypeMask|PPTokenFlag)
                        ).hit
                )
             {
+                typename ContextT::string_type msg(
+                    impl::as_string<string_type>(it, end));
                 BOOST_WAVE_THROW_CTX(ctx, preprocess_exception, 
                     ill_formed_pragma_message,
-                    impl::as_string<string_type>(it, end).c_str(), 
-                    act_token.get_position());
+                    msg.c_str(), act_token.get_position());
                 return false;
             }
 
@@ -182,9 +186,10 @@ interpret_pragma(ContextT &ctx, typename ContextT::token_type const &act_token,
             }
 
         // output the message itself
+            typename ContextT::string_type msg(impl::as_string(values));
             BOOST_WAVE_THROW_CTX(ctx, preprocess_exception, 
                 pragma_message_directive, 
-                impl::as_string(values).c_str(), act_token.get_position());
+                msg.c_str(), act_token.get_position());
             return false;
         }
 #endif

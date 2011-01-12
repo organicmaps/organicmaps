@@ -244,37 +244,47 @@ namespace boost { namespace polygon{
     // get the scanline orientation of the polygon set
     inline orientation_2d orient() const { return orient_; }
 
-    polygon_90_set_data<coordinate_type>& operator-=(const polygon_90_set_data& that) {
-      sort();
-      that.sort();
-      value_type data;
-      std::swap(data, data_);
-      applyBooleanBinaryOp(data.begin(), data.end(),
-                           that.begin(), that.end(), boolean_op::BinaryCount<boolean_op::BinaryNot>()); 
-      return *this;
-    }
-    polygon_90_set_data<coordinate_type>& operator^=(const polygon_90_set_data& that) {
-      sort();
-      that.sort();
-      value_type data;
-      std::swap(data, data_);
-      applyBooleanBinaryOp(data.begin(), data.end(),
-                           that.begin(), that.end(),  boolean_op::BinaryCount<boolean_op::BinaryXor>()); 
-      return *this;
-    }
-    polygon_90_set_data<coordinate_type>& operator&=(const polygon_90_set_data& that) {
-      sort();
-      that.sort();
-      value_type data;
-      std::swap(data, data_);
-      applyBooleanBinaryOp(data.begin(), data.end(),
-                           that.begin(), that.end(), boolean_op::BinaryCount<boolean_op::BinaryAnd>()); 
-      return *this;
-    }
-    polygon_90_set_data<coordinate_type>& operator|=(const polygon_90_set_data& that) {
-      insert(that);
-      return *this;
-    }
+    // Start BM
+    // The problem: If we have two polygon sets with two different scanline orientations:
+    // I tried changing the orientation of one to coincide with other (If not, resulting boolean operation
+    // produces spurious results).
+    // First I tried copying polygon data from one of the sets into another set with corrected orientation
+    // using one of the copy constructor that takes in orientation (see somewhere above in this file) --> copy constructor throws error
+    // Then I tried another approach:(see below). This approach also fails to produce the desired results when test case is run.
+    // Here is the part that beats me: If I comment out the whole section, I can do all the operations (^=, -=, &= )these commented out
+    // operations perform. So then why do we need them?. Hence, I commented out this whole section.
+    // End BM
+    // polygon_90_set_data<coordinate_type>& operator-=(const polygon_90_set_data& that) {
+    //   sort();
+    //   that.sort();
+    //   value_type data;
+    //   std::swap(data, data_);
+    //   applyBooleanBinaryOp(data.begin(), data.end(),
+    //                        that.begin(), that.end(), boolean_op::BinaryCount<boolean_op::BinaryNot>()); 
+    //   return *this;
+    // }
+    // polygon_90_set_data<coordinate_type>& operator^=(const polygon_90_set_data& that) {
+    //   sort();
+    //   that.sort();
+    //   value_type data;
+    //   std::swap(data, data_);
+    //   applyBooleanBinaryOp(data.begin(), data.end(),
+    //                        that.begin(), that.end(),  boolean_op::BinaryCount<boolean_op::BinaryXor>()); 
+    //   return *this;
+    // }
+    // polygon_90_set_data<coordinate_type>& operator&=(const polygon_90_set_data& that) {
+    //   sort();
+    //   that.sort();
+    //   value_type data;
+    //   std::swap(data, data_);
+    //   applyBooleanBinaryOp(data.begin(), data.end(),
+    //                        that.begin(), that.end(), boolean_op::BinaryCount<boolean_op::BinaryAnd>()); 
+    //   return *this;
+    // }
+    // polygon_90_set_data<coordinate_type>& operator|=(const polygon_90_set_data& that) {
+    //   insert(that);
+    //   return *this;
+    // }
 
     void clean() const {
       sort();
@@ -286,7 +296,7 @@ namespace boost { namespace polygon{
 
     void sort() const{
       if(unsorted_) {
-        std::sort(data_.begin(), data_.end());
+        gtlsort(data_.begin(), data_.end());
         unsorted_ = false;
       }
     }
@@ -439,7 +449,7 @@ namespace boost { namespace polygon{
 
     static bool remove_colinear_pts(std::vector<point_data<coordinate_type> >& poly) {
       bool found_colinear = true;
-      while(found_colinear) {
+      while(found_colinear && poly.size() >= 4) {
         found_colinear = false;
         typename std::vector<point_data<coordinate_type> >::iterator itr = poly.begin(); 
         itr += poly.size() - 1; //get last element position
@@ -504,9 +514,9 @@ namespace boost { namespace polygon{
           //polygon_45_data<coordinate_type> testpoly(*itrh);
           if(resize_poly_down((*itrh).coords_, west_bloating, east_bloating, south_bloating, north_bloating)) {
             iterator_geometry_to_set<polygon_90_concept, view_of<polygon_90_concept, polygon_45_data<coordinate_type> > >
-              begin_input(view_as<polygon_90_concept>(*itrh), LOW, orient_, true, true), 
-              end_input(view_as<polygon_90_concept>(*itrh), HIGH, orient_, true, true);
-            insert(begin_input, end_input, orient_);
+              begin_input2(view_as<polygon_90_concept>(*itrh), LOW, orient_, true, true), 
+              end_input2(view_as<polygon_90_concept>(*itrh), HIGH, orient_, true, true);
+            insert(begin_input2, end_input2, orient_);
             //polygon_90_set_data<coordinate_type> pstesthole;
             //pstesthole.insert(rect);
             //iterator_geometry_to_set<polygon_90_concept, view_of<polygon_90_concept, polygon_45_data<coordinate_type> > >
@@ -569,9 +579,9 @@ namespace boost { namespace polygon{
             //polygon_45_data<coordinate_type> testpoly(*itrh);
             resize_poly_up((*itrh).coords_, -west_shrinking, -east_shrinking, -south_shrinking, -north_shrinking);
             iterator_geometry_to_set<polygon_90_concept, view_of<polygon_90_concept, polygon_45_data<coordinate_type> > >
-              begin_input(view_as<polygon_90_concept>(*itrh), LOW, orient_, true, true), 
-              end_input(view_as<polygon_90_concept>(*itrh), HIGH, orient_, true, true);
-            insert(begin_input, end_input, orient_);
+              begin_input2(view_as<polygon_90_concept>(*itrh), LOW, orient_, true, true), 
+              end_input2(view_as<polygon_90_concept>(*itrh), HIGH, orient_, true, true);
+            insert(begin_input2, end_input2, orient_);
             //polygon_90_set_data<coordinate_type> pstesthole;
             //pstesthole.insert(rect);
             //iterator_geometry_to_set<polygon_90_concept, view_of<polygon_90_concept, polygon_45_data<coordinate_type> > >
@@ -638,8 +648,7 @@ namespace boost { namespace polygon{
         return shrink(0, shrinking, 0, 0);
       if(dir == SOUTH)
         return shrink(0, 0, shrinking, 0);
-      if(dir == NORTH)
-        return shrink(0, 0, 0, shrinking);
+      return shrink(0, 0, 0, shrinking);
     }
 
     polygon_90_set_data&
@@ -650,8 +659,7 @@ namespace boost { namespace polygon{
         return bloat(0, shrinking, 0, 0);
       if(dir == SOUTH)
         return bloat(0, 0, shrinking, 0);
-      if(dir == NORTH)
-        return bloat(0, 0, 0, shrinking);
+      return bloat(0, 0, 0, shrinking);
     }
 
     polygon_90_set_data&

@@ -368,20 +368,20 @@ namespace boost { namespace spirit { namespace qi
       , typename T3_, typename T4_, typename Expr>
     rule<OutputIterator_, T1_, T2_, T3_, T4_>& operator%=(
         rule<OutputIterator_, T1_, T2_, T3_, T4_>& r, Expr const& expr)
-	{
-		// Report invalid expression error as early as possible.
-		// If you got an error_invalid_expression error message here,
-		// then the expression (expr) is not a valid spirit qi expression.
-		BOOST_SPIRIT_ASSERT_MATCH(qi::domain, Expr);
+    {
+        // Report invalid expression error as early as possible.
+        // If you got an error_invalid_expression error message here,
+        // then the expression (expr) is not a valid spirit qi expression.
+        BOOST_SPIRIT_ASSERT_MATCH(qi::domain, Expr);
 
         typedef typename 
             rule<OutputIterator_, T1_, T2_, T3_, T4_>::encoding_modifier_type
         encoding_modifier_type;
 
         r.f = detail::bind_parser<mpl::true_>(
-			compile<qi::domain>(expr, encoding_modifier_type()));
-		return r;
-	}
+            compile<qi::domain>(expr, encoding_modifier_type()));
+        return r;
+    }
 
     template <typename Iterator_, typename T1_, typename T2_
       , typename T3_, typename T4_, typename Expr>

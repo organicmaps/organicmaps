@@ -118,7 +118,7 @@ T inverse_students_t_tail_series(T df, T v, const Policy& pol)
    T rn = sqrt(df);
    T div = pow(rn * w, 1 / df);
    T power = div * div;
-   T result = tools::evaluate_polynomial(d, power);
+   T result = tools::evaluate_polynomial<7, T, T>(d, power);
    result *= rn;
    result /= div;
    return -result;
@@ -200,7 +200,7 @@ T inverse_students_t_body_series(T df, T u, const Policy& pol)
    //
    // The result is then a polynomial in v (see Eq 56 of Shaw):
    //
-   return tools::evaluate_odd_polynomial(c, v);
+   return tools::evaluate_odd_polynomial<11, T, T>(c, v);
 }
 
 template <class T, class Policy>

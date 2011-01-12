@@ -81,7 +81,7 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
 
         template <typename ResultT, typename ParserT, typename ScannerT>
         ResultT& post_parse(ResultT& hit, ParserT const&, ScannerT const&)
-        { hit.value(frame[phoenix::tuple_index<0>()]); return hit; }
+        { hit.value(frame[::phoenix::tuple_index<0>()]); return hit; }
 
     private:
 
@@ -121,7 +121,7 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
 
         template <typename ResultT, typename ParserT, typename ScannerT>
         ResultT& post_parse(ResultT& hit, ParserT const&, ScannerT const&)
-        { hit.value(frame[phoenix::tuple_index<0>()]); return hit; }
+        { hit.value(frame[::phoenix::tuple_index<0>()]); return hit; }
 
     private:
 
@@ -1046,14 +1046,14 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
 
     template <typename BaseT>
     inline f_chseq<
-        ::phoenix::actor<container_begin<phoenix::actor<BaseT> > >,
-        ::phoenix::actor<container_end<phoenix::actor<BaseT> > >
+        ::phoenix::actor<container_begin< ::phoenix::actor<BaseT> > >,
+        ::phoenix::actor<container_end< ::phoenix::actor<BaseT> > >
     >
-    f_chseq_p(phoenix::actor<BaseT> const& a)
+    f_chseq_p(::phoenix::actor<BaseT> const& a)
     {
-        typedef ::phoenix::actor<container_begin<phoenix::actor<BaseT> > >
+        typedef ::phoenix::actor<container_begin< ::phoenix::actor<BaseT> > >
             container_begin_t;
-        typedef ::phoenix::actor<container_end<phoenix::actor<BaseT> > >
+        typedef ::phoenix::actor<container_end< ::phoenix::actor<BaseT> > >
             container_end_t;
         typedef f_chseq<container_begin_t, container_end_t> result_t;
 
@@ -1062,14 +1062,14 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
 
     template <typename BaseT>
     inline f_strlit<
-        ::phoenix::actor<container_begin<phoenix::actor<BaseT> > >,
-        ::phoenix::actor<container_end<phoenix::actor<BaseT> > >
+        ::phoenix::actor<container_begin< ::phoenix::actor<BaseT> > >,
+        ::phoenix::actor<container_end< ::phoenix::actor<BaseT> > >
     >
-    f_str_p(phoenix::actor<BaseT> const& a)
+    f_str_p(::phoenix::actor<BaseT> const& a)
     {
-        typedef ::phoenix::actor<container_begin<phoenix::actor<BaseT> > >
+        typedef ::phoenix::actor<container_begin< ::phoenix::actor<BaseT> > >
             container_begin_t;
-        typedef ::phoenix::actor<container_end<phoenix::actor<BaseT> > >
+        typedef ::phoenix::actor<container_end< ::phoenix::actor<BaseT> > >
             container_end_t;
         typedef f_strlit<container_begin_t, container_end_t> result_t;
 

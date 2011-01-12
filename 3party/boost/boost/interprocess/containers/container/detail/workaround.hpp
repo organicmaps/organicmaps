@@ -11,14 +11,14 @@
 #ifndef BOOST_CONTAINERS_DETAIL_WORKAROUND_HPP
 #define BOOST_CONTAINERS_DETAIL_WORKAROUND_HPP
 
-#include <boost/interprocess/containers/container/detail/config_begin.hpp>
+#include "config_begin.hpp"
 
-#if     defined(BOOST_HAS_RVALUE_REFS) && defined(BOOST_HAS_VARIADIC_TMPL)\
-    && !defined(BOOST_INTERPROCESS_DISABLE_VARIADIC_TMPL)
+#if    !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_NO_VARIADIC_TEMPLATES)\
+    && !defined(BOOST_MOVE_MACRO_DISABLE_VARIADIC_TMPL)
 #define BOOST_CONTAINERS_PERFECT_FORWARDING
 
 #endif
 
-#include <boost/interprocess/containers/container/detail/config_end.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_CONFIG_END_HPP
 
 #endif   //#ifndef BOOST_CONTAINERS_DETAIL_WORKAROUND_HPP

@@ -248,7 +248,7 @@ namespace boost { namespace polygon {
         data.push_back(vertex_half_edge((*itr).first.first, (*itr).first.second, (*itr).second));
         data.push_back(vertex_half_edge((*itr).first.second, (*itr).first.first, -1 * (*itr).second));
       }
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(container, data.begin(), data.end());
       //std::cout << "DONE FORMING POLYGONS\n";
     }
@@ -321,7 +321,7 @@ namespace boost { namespace polygon {
 
     void sort() const{
       if(unsorted_) {
-        std::sort(data_.begin(), data_.end());
+        gtlsort(data_.begin(), data_.end());
         unsorted_ = false;
       }
     }
@@ -359,24 +359,7 @@ namespace boost { namespace polygon {
     }
 
     inline polygon_set_data&
-    resize(coordinate_type resizing, bool corner_fill_arc = false, unsigned int num_circle_segments=0) {
-      if(!corner_fill_arc) {
-        if(resizing < 0)
-          return shrink(-resizing);
-        if(resizing > 0)
-          return bloat(-resizing);
-        return *this;
-      }
-      if(resizing == 0) return *this;
-      std::list<polygon_with_holes_data<coordinate_type> > pl;
-      get(pl);
-      clear();
-      for(typename std::list<polygon_with_holes_data<coordinate_type> >::iterator itr = pl.begin(); itr != pl.end(); ++itr) {
-        insert_with_resize(*itr, resizing, corner_fill_arc, num_circle_segments);
-      }
-      clean();
-      return *this;
-    }
+    resize(coordinate_type resizing, bool corner_fill_arc = false, unsigned int num_circle_segments=0);
 
     template <typename transform_type>
     inline polygon_set_data& 
@@ -425,37 +408,53 @@ namespace boost { namespace polygon {
       return *this;
     }
 
-    static inline void compute_offset_edge(point_data<coordinate_type>& pt1, point_data<coordinate_type>& pt2, 
-                                           const point_data<coordinate_type>&  prev_pt,
-                                           const point_data<coordinate_type>&  current_pt,
-                                           coordinate_type distance, int multiplier) {
-      coordinate_type dx = current_pt.x() - prev_pt.x();
-      coordinate_type dy = current_pt.y() - prev_pt.y();
-      double ddx = (double)dx;
-      double ddy = (double)dy;
-      double edge_length = std::sqrt(ddx*ddx + ddy*ddy);
-      double dnx = dy;
-      double dny = -dx;
-      dnx = dnx * (double)distance / edge_length;
-      dny = dny * (double)distance / edge_length;
-      dnx = std::floor(dnx+0.5);
-      dny = std::floor(dny+0.5);
-      pt1.x(prev_pt.x() + (coordinate_type)dnx * (coordinate_type)multiplier);
-      pt2.x(current_pt.x() + (coordinate_type)dnx * (coordinate_type)multiplier);
-      pt1.y(prev_pt.y() + (coordinate_type)dny * (coordinate_type)multiplier);
-      pt2.y(current_pt.y() + (coordinate_type)dny * (coordinate_type)multiplier);
+    static inline void compute_offset_edge(point_data<long double>& pt1, point_data<long double>& pt2, 
+                                           const point_data<long double>&  prev_pt,
+                                           const point_data<long double>&  current_pt,
+                                           long double distance, int multiplier) {
+      long double dx = current_pt.x() - prev_pt.x();
+      long double dy = current_pt.y() - prev_pt.y();
+      long double edge_length = std::sqrt(dx*dx + dy*dy);
+      long double dnx = dy;
+      long double dny = -dx;
+      dnx = dnx * (long double)distance / edge_length;
+      dny = dny * (long double)distance / edge_length;
+      pt1.x(prev_pt.x() + (long double)dnx * (long double)multiplier);
+      pt2.x(current_pt.x() + (long double)dnx * (long double)multiplier);
+      pt1.y(prev_pt.y() + (long double)dny * (long double)multiplier);
+      pt2.y(current_pt.y() + (long double)dny * (long double)multiplier);
     }
 
     static inline void modify_pt(point_data<coordinate_type>& pt, const point_data<coordinate_type>&  prev_pt,
                                  const point_data<coordinate_type>&  current_pt,  const point_data<coordinate_type>&  next_pt,
                                  coordinate_type distance, coordinate_type multiplier) {
-      std::pair<point_data<coordinate_type>, point_data<coordinate_type> > he1(prev_pt, current_pt), he2(current_pt, next_pt);
+      std::pair<point_data<long double>, point_data<long double> > he1, he2;
+      he1.first.x((long double)(prev_pt.x()));
+      he1.first.y((long double)(prev_pt.y()));
+      he1.second.x((long double)(current_pt.x()));
+      he1.second.y((long double)(current_pt.y()));
+      he2.first.x((long double)(current_pt.x()));
+      he2.first.y((long double)(current_pt.y()));
+      he2.second.x((long double)(next_pt.x()));
+      he2.second.y((long double)(next_pt.y()));
       compute_offset_edge(he1.first, he1.second, prev_pt, current_pt, distance, multiplier);
       compute_offset_edge(he2.first, he2.second, current_pt, next_pt, distance, multiplier);
-      typename scanline_base<coordinate_type>::compute_intersection_pack pack;
-      if(!pack.compute_lazy_intersection(pt, he1, he2, true, true)) {
-        pt = he1.second; //colinear offset edges use shared point
+      typename scanline_base<long double>::compute_intersection_pack pack;
+      point_data<long double> rpt;
+      point_data<long double> bisectorpt((he1.second.x()+he2.first.x())/2,
+                                         (he1.second.y()+he2.first.y())/2);
+      point_data<long double> orig_pt((long double)pt.x(), (long double)pt.y());
+      if(euclidean_distance(bisectorpt, orig_pt) < distance/2) {
+        if(!pack.compute_lazy_intersection(rpt, he1, he2, true, false)) {
+          rpt = he1.second; //colinear offset edges use shared point
+        }
+      } else {
+        if(!pack.compute_lazy_intersection(rpt, he1, std::pair<point_data<long double>, point_data<long double> >(orig_pt, bisectorpt), true, false)) {
+          rpt = he1.second; //colinear offset edges use shared point
+        }
       }
+      pt.x((coordinate_type)(std::floor(rpt.x()+0.5)));
+      pt.y((coordinate_type)(std::floor(rpt.y()+0.5)));
     }
 
     static void resize_poly_up(std::vector<point_data<coordinate_type> >& poly, coordinate_type distance, coordinate_type multiplier) {
@@ -615,7 +614,7 @@ namespace boost { namespace polygon {
 
       // for all corners
       polygon_set_data<T> sizingSet;
-      bool sizing_sign = resizing>0;
+      bool sizing_sign = resizing<0;
       bool prev_concave = true;
       point_data<T> prev_point;
       //int iCtr=0;
@@ -791,7 +790,7 @@ namespace boost { namespace polygon {
         data.push_back(vertex_half_edge((*itr).first.first, (*itr).first.second, (*itr).second));
         data.push_back(vertex_half_edge((*itr).first.second, (*itr).first.first, -1 * (*itr).second));
       }
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(container, data.begin(), data.end());
     }
   };
@@ -911,7 +910,7 @@ namespace boost { namespace polygon {
       }
       return_points.push_back(round_down<T>(center));
       return_points.push_back(round_down<T>(start));
-      int i=0;
+      unsigned int i=0;
       double curr_angle = ps+delta_angle;
       while( curr_angle < pe - 0.01 && i < 2 * num_circle_segments) {
          i++;
@@ -996,5 +995,6 @@ namespace boost { namespace polygon {
 #include "detail/polygon_set_view.hpp"
 
 #include "polygon_set_concept.hpp"
+#include "detail/minkowski.hpp"
 #endif
 

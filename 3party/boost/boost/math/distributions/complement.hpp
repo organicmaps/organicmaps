@@ -9,7 +9,7 @@
 
 //
 // This code really defines our own tuple type.
-// It would be nice to reuse std::tr1::tuple
+// It would be nice to reuse boost::math::tuple
 // while retaining our own type safety, but it's
 // not clear if that's possible.  In any case this
 // code is *very* lightweight.

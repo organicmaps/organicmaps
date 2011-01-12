@@ -341,12 +341,13 @@ BOOST_MPI_DATATYPE(boost::archive::object_reference_type, get_mpi_datatype(uint_
 BOOST_MPI_DATATYPE(boost::archive::tracking_type, get_mpi_datatype(bool()), builtin);
 BOOST_MPI_DATATYPE(boost::serialization::collection_size_type, get_mpi_datatype(std::size_t()), integer);
 BOOST_MPI_DATATYPE(boost::serialization::item_version_type, get_mpi_datatype(uint_least8_t()), integer);
-
 #endif // Doxygen
 
 
 } } // end namespace boost::mpi
 
+// direct support for special primitive data types of the serialization library
+// in the case of homogeneous systems
 // define a macro to make explicit designation of this more transparent
 #define BOOST_IS_MPI_DATATYPE(T)              \
 namespace boost {                             \

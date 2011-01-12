@@ -92,6 +92,8 @@ namespace boost {
     public:
     typedef typename Container::size_type size_type;
     typedef Value value_type;
+    typedef typename boost::property_traits<DistanceMap>::value_type key_type;
+    typedef DistanceMap key_map;
 
     d_ary_heap_indirect(DistanceMap distance,
                         IndexInHeapPropertyMap index_in_heap,
@@ -162,6 +164,10 @@ namespace boost {
       }
       preserve_heap_property_up(index);
       verify_heap();
+    }
+
+    DistanceMap keys() const {
+      return distance;
     }
 
     private:

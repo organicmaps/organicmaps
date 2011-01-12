@@ -11,6 +11,11 @@
 #ifndef BOOST_UNITS_IS_DIMENSION_LIST_HPP
 #define BOOST_UNITS_IS_DIMENSION_LIST_HPP
 
+///
+/// \file
+/// \brief Check that a type is a valid dimension list.
+///
+
 #include <boost/mpl/bool.hpp>
 
 #include <boost/units/units_fwd.hpp>

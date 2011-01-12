@@ -16,11 +16,14 @@
 #include <cstddef>
 #include <cstring>
 #include <string>
+#include <vector>
 #include <memory>
 
 #if (defined _MSC_VER) && (_MSC_VER >= 1200)
 #  pragma once
 #  pragma comment( lib, "advapi32.lib" )
+#  pragma comment( lib, "oleaut32.lib" )
+#  pragma comment( lib, "Ole32.lib" )
 #endif
 
 #if (defined BOOST_INTERPROCESS_WINDOWS)
@@ -29,6 +32,7 @@
 #else
 # error "This file can only be included in Windows OS"
 #endif
+
 
 //The structures used in Interprocess with the
 //same binary interface as windows ones
@@ -154,15 +158,393 @@ static const unsigned long MaxPath           = 260;
 static void * const  hkey_local_machine = (void*)(unsigned long*)(long)(0x80000002);
 static unsigned long key_query_value    = 0x0001;
 
+//COM API
+const long RPC_C_AUTHN_LEVEL_PKT_IG = 4;
+const long RPC_C_IMP_LEVEL_IMPERSONATE_IG = 3;
+const long EOAC_NONE_IG = 0;
+const long CLSCTX_INPROC_SERVER_IG   = 0x1;
+const long CLSCTX_LOCAL_SERVER_IG   = 0x4;
+const long WBEM_FLAG_RETURN_IMMEDIATELY_IG = 0x10;
+const long WBEM_INFINITE_IG = 0xffffffff;
+
 }  //namespace winapi {
 }  //namespace interprocess  {
 }  //namespace boost  {
 
-#if !defined( BOOST_USE_WINDOWS_H )
 
 namespace boost  {
 namespace interprocess  {
 namespace winapi {
+
+struct GUID_IG
+{
+   unsigned long  Data1;
+   unsigned short Data2;
+   unsigned short Data3;
+   unsigned char  Data4[8];
+};
+
+const GUID_IG CLSID_WbemAdministrativeLocator =
+   { 0xcb8555cc, 0x9128, 0x11d1, {0xad, 0x9b, 0x00, 0xc0, 0x4f, 0xd8, 0xfd, 0xff}};
+
+const GUID_IG IID_IUnknown = { 0x00000000, 0x0000, 0x0000, {0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46}};
+
+struct wchar_variant
+{
+   unsigned long  long dummy;
+   union value_t{
+      wchar_t *pbstrVal;
+      unsigned long  long dummy;
+   } value;
+};
+
+   struct IUnknown_IG
+   {
+      public:
+      virtual long __stdcall QueryInterface( 
+            /* [in] */ const GUID_IG &riid,
+            /* [iid_is][out] */ void **ppvObject) = 0;
+      
+      virtual unsigned long __stdcall AddRef( void) = 0;
+      
+      virtual unsigned long __stdcall Release( void) = 0;
+   };
+
+struct IWbemClassObject_IG : public IUnknown_IG
+{
+   public:
+   virtual long __stdcall GetQualifierSet( 
+      /* [out] */ void **ppQualSet) = 0;
+   
+   virtual long __stdcall Get( 
+      /* [string][in] */ const wchar_t * wszName,
+      /* [in] */ long lFlags,
+      /* [unique][in][out] */ wchar_variant *pVal,
+      /* [unique][in][out] */ long *pType,
+      /* [unique][in][out] */ long *plFlavor) = 0;
+   
+   virtual long __stdcall Put( 
+      /* [string][in] */ const wchar_t * wszName,
+      /* [in] */ long lFlags,
+      /* [in] */ wchar_variant *pVal,
+      /* [in] */ long Type) = 0;
+   
+   virtual long __stdcall Delete( 
+      /* [string][in] */ const wchar_t * wszName) = 0;
+   
+   virtual long __stdcall GetNames( 
+      /* [string][in] */ const wchar_t * wszQualifierName,
+      /* [in] */ long lFlags,
+      /* [in] */ wchar_variant *pQualifierVal,
+      /* [out] */ void * *pNames) = 0;
+   
+   virtual long __stdcall BeginEnumeration( 
+      /* [in] */ long lEnumFlags) = 0;
+   
+   virtual long __stdcall Next( 
+      /* [in] */ long lFlags,
+      /* [unique][in][out] */ wchar_t * *strName,
+      /* [unique][in][out] */ wchar_variant *pVal,
+      /* [unique][in][out] */ long *pType,
+      /* [unique][in][out] */ long *plFlavor) = 0;
+   
+   virtual long __stdcall EndEnumeration( void) = 0;
+   
+   virtual long __stdcall GetPropertyQualifierSet( 
+      /* [string][in] */ const wchar_t * wszProperty,
+      /* [out] */ void **ppQualSet) = 0;
+   
+   virtual long __stdcall Clone( 
+      /* [out] */ IWbemClassObject_IG **ppCopy) = 0;
+   
+   virtual long __stdcall GetObjectText( 
+      /* [in] */ long lFlags,
+      /* [out] */ wchar_t * *pstrObjectText) = 0;
+   
+   virtual long __stdcall SpawnDerivedClass( 
+      /* [in] */ long lFlags,
+      /* [out] */ IWbemClassObject_IG **ppNewClass) = 0;
+   
+   virtual long __stdcall SpawnInstance( 
+      /* [in] */ long lFlags,
+      /* [out] */ IWbemClassObject_IG **ppNewInstance) = 0;
+   
+   virtual long __stdcall CompareTo( 
+      /* [in] */ long lFlags,
+      /* [in] */ IWbemClassObject_IG *pCompareTo) = 0;
+   
+   virtual long __stdcall GetPropertyOrigin( 
+      /* [string][in] */ const wchar_t * wszName,
+      /* [out] */ wchar_t * *pstrClassName) = 0;
+   
+   virtual long __stdcall InheritsFrom( 
+      /* [in] */ const wchar_t * strAncestor) = 0;
+   
+   virtual long __stdcall GetMethod( 
+      /* [string][in] */ const wchar_t * wszName,
+      /* [in] */ long lFlags,
+      /* [out] */ IWbemClassObject_IG **ppInSignature,
+      /* [out] */ IWbemClassObject_IG **ppOutSignature) = 0;
+   
+   virtual long __stdcall PutMethod( 
+      /* [string][in] */ const wchar_t * wszName,
+      /* [in] */ long lFlags,
+      /* [in] */ IWbemClassObject_IG *pInSignature,
+      /* [in] */ IWbemClassObject_IG *pOutSignature) = 0;
+   
+   virtual long __stdcall DeleteMethod( 
+      /* [string][in] */ const wchar_t * wszName) = 0;
+   
+   virtual long __stdcall BeginMethodEnumeration( 
+      /* [in] */ long lEnumFlags) = 0;
+   
+   virtual long __stdcall NextMethod( 
+      /* [in] */ long lFlags,
+      /* [unique][in][out] */ wchar_t * *pstrName,
+      /* [unique][in][out] */ IWbemClassObject_IG **ppInSignature,
+      /* [unique][in][out] */ IWbemClassObject_IG **ppOutSignature) = 0;
+   
+   virtual long __stdcall EndMethodEnumeration( void) = 0;
+   
+   virtual long __stdcall GetMethodQualifierSet( 
+      /* [string][in] */ const wchar_t * wszMethod,
+      /* [out] */ void **ppQualSet) = 0;
+   
+   virtual long __stdcall GetMethodOrigin( 
+      /* [string][in] */ const wchar_t * wszMethodName,
+      /* [out] */ wchar_t * *pstrClassName) = 0;
+   
+};
+
+
+struct IWbemContext_IG : public IUnknown_IG
+{
+public:
+   virtual long __stdcall Clone( 
+      /* [out] */ IWbemContext_IG **ppNewCopy) = 0;
+   
+   virtual long __stdcall GetNames( 
+      /* [in] */ long lFlags,
+      /* [out] */ void * *pNames) = 0;
+   
+   virtual long __stdcall BeginEnumeration( 
+      /* [in] */ long lFlags) = 0;
+   
+   virtual long __stdcall Next( 
+      /* [in] */ long lFlags,
+      /* [out] */ wchar_t * *pstrName,
+      /* [out] */ wchar_variant *pValue) = 0;
+   
+   virtual long __stdcall EndEnumeration( void) = 0;
+   
+   virtual long __stdcall SetValue( 
+      /* [string][in] */ const wchar_t * wszName,
+      /* [in] */ long lFlags,
+      /* [in] */ wchar_variant *pValue) = 0;
+   
+   virtual long __stdcall GetValue( 
+      /* [string][in] */ const wchar_t * wszName,
+      /* [in] */ long lFlags,
+      /* [out] */ wchar_variant *pValue) = 0;
+   
+   virtual long __stdcall DeleteValue( 
+      /* [string][in] */ const wchar_t * wszName,
+      /* [in] */ long lFlags) = 0;
+   
+   virtual long __stdcall DeleteAll( void) = 0;
+   
+};
+
+
+struct IEnumWbemClassObject_IG : public IUnknown_IG
+{
+public:
+   virtual long __stdcall Reset( void) = 0;
+   
+   virtual long __stdcall Next( 
+      /* [in] */ long lTimeout,
+      /* [in] */ unsigned long uCount,
+      /* [length_is][size_is][out] */ IWbemClassObject_IG **apObjects,
+      /* [out] */ unsigned long *puReturned) = 0;
+   
+   virtual long __stdcall NextAsync( 
+      /* [in] */ unsigned long uCount,
+      /* [in] */ void *pSink) = 0;
+   
+   virtual long __stdcall Clone( 
+      /* [out] */ void **ppEnum) = 0;
+   
+   virtual long __stdcall Skip( 
+      /* [in] */ long lTimeout,
+      /* [in] */ unsigned long nCount) = 0;
+   
+};
+
+struct IWbemServices_IG : public IUnknown_IG
+{
+public:
+   virtual long __stdcall OpenNamespace( 
+      /* [in] */ const wchar_t * strNamespace,
+      /* [in] */ long lFlags,
+      /* [in] */ void *pCtx,
+      /* [unique][in][out] */ void **ppWorkingNamespace,
+      /* [unique][in][out] */ void **ppResult) = 0;
+   
+   virtual long __stdcall CancelAsyncCall( 
+      /* [in] */ void *pSink) = 0;
+   
+   virtual long __stdcall QueryObjectSink( 
+      /* [in] */ long lFlags,
+      /* [out] */ void **ppResponseHandler) = 0;
+   
+   virtual long __stdcall GetObject( 
+      /* [in] */ const wchar_t * strObjectPath,
+      /* [in] */ long lFlags,
+      /* [in] */ void *pCtx,
+      /* [unique][in][out] */ void **ppObject,
+      /* [unique][in][out] */ void **ppCallResult) = 0;
+   
+   virtual long __stdcall GetObjectAsync( 
+      /* [in] */ const wchar_t * strObjectPath,
+      /* [in] */ long lFlags,
+      /* [in] */ void *pCtx,
+      /* [in] */ void *pResponseHandler) = 0;
+   
+   virtual long __stdcall PutClass( 
+      /* [in] */ IWbemClassObject_IG *pObject,
+      /* [in] */ long lFlags,
+      /* [in] */ void *pCtx,
+      /* [unique][in][out] */ void **ppCallResult) = 0;
+   
+   virtual long __stdcall PutClassAsync( 
+      /* [in] */ IWbemClassObject_IG *pObject,
+      /* [in] */ long lFlags,
+      /* [in] */ void *pCtx,
+      /* [in] */ void *pResponseHandler) = 0;
+   
+   virtual long __stdcall DeleteClass( 
+      /* [in] */ const wchar_t * strClass,
+      /* [in] */ long lFlags,
+      /* [in] */ void *pCtx,
+      /* [unique][in][out] */ void **ppCallResult) = 0;
+   
+   virtual long __stdcall DeleteClassAsync( 
+      /* [in] */ const wchar_t * strClass,
+      /* [in] */ long lFlags,
+      /* [in] */ void *pCtx,
+      /* [in] */ void *pResponseHandler) = 0;
+   
+   virtual long __stdcall CreateClassEnum( 
+      /* [in] */ const wchar_t * strSuperclass,
+      /* [in] */ long lFlags,
+      /* [in] */ void *pCtx,
+      /* [out] */ void **ppEnum) = 0;
+   
+   virtual long __stdcall CreateClassEnumAsync( 
+      /* [in] */ const wchar_t * strSuperclass,
+      /* [in] */ long lFlags,
+      /* [in] */ void *pCtx,
+      /* [in] */ void *pResponseHandler) = 0;
+   
+   virtual long __stdcall PutInstance( 
+      /* [in] */ void *pInst,
+      /* [in] */ long lFlags,
+      /* [in] */ void *pCtx,
+      /* [unique][in][out] */ void **ppCallResult) = 0;
+   
+   virtual long __stdcall PutInstanceAsync( 
+      /* [in] */ void *pInst,
+      /* [in] */ long lFlags,
+      /* [in] */ void *pCtx,
+      /* [in] */ void *pResponseHandler) = 0;
+   
+   virtual long __stdcall DeleteInstance( 
+      /* [in] */ const wchar_t * strObjectPath,
+      /* [in] */ long lFlags,
+      /* [in] */ void *pCtx,
+      /* [unique][in][out] */ void **ppCallResult) = 0;
+   
+   virtual long __stdcall DeleteInstanceAsync( 
+      /* [in] */ const wchar_t * strObjectPath,
+      /* [in] */ long lFlags,
+      /* [in] */ void *pCtx,
+      /* [in] */ void *pResponseHandler) = 0;
+   
+   virtual long __stdcall CreateInstanceEnum( 
+      /* [in] */ const wchar_t * strFilter,
+      /* [in] */ long lFlags,
+      /* [in] */ void *pCtx,
+      /* [out] */ void **ppEnum) = 0;
+   
+   virtual long __stdcall CreateInstanceEnumAsync( 
+      /* [in] */ const wchar_t * strFilter,
+      /* [in] */ long lFlags,
+      /* [in] */ void *pCtx,
+      /* [in] */ void *pResponseHandler) = 0;
+   
+   virtual long __stdcall ExecQuery( 
+      /* [in] */ const wchar_t * strQueryLanguage,
+      /* [in] */ const wchar_t * strQuery,
+      /* [in] */ long lFlags,
+      /* [in] */ IWbemContext_IG *pCtx,
+      /* [out] */ IEnumWbemClassObject_IG **ppEnum) = 0;
+
+   virtual long __stdcall ExecQueryAsync( 
+      /* [in] */ const wchar_t * strQueryLanguage,
+      /* [in] */ const wchar_t * strQuery,
+      /* [in] */ long lFlags,
+      /* [in] */ IWbemContext_IG *pCtx,
+      /* [in] */ void *pResponseHandler) = 0;
+   
+   virtual long __stdcall ExecNotificationQuery( 
+      /* [in] */ const wchar_t * strQueryLanguage,
+      /* [in] */ const wchar_t * strQuery,
+      /* [in] */ long lFlags,
+      /* [in] */ IWbemContext_IG *pCtx,
+      /* [out] */ void **ppEnum) = 0;
+   
+   virtual long __stdcall ExecNotificationQueryAsync( 
+      /* [in] */ const wchar_t * strQueryLanguage,
+      /* [in] */ const wchar_t * strQuery,
+      /* [in] */ long lFlags,
+      /* [in] */ IWbemContext_IG *pCtx,
+      /* [in] */ void *pResponseHandler) = 0;
+   
+   virtual long __stdcall ExecMethod( 
+      /* [in] */ const wchar_t * strObjectPath,
+      /* [in] */ const wchar_t * strMethodName,
+      /* [in] */ long lFlags,
+      /* [in] */ IWbemContext_IG *pCtx,
+      /* [in] */ IWbemClassObject_IG *pInParams,
+      /* [unique][in][out] */ IWbemClassObject_IG **ppOutParams,
+      /* [unique][in][out] */ void **ppCallResult) = 0;
+   
+   virtual long __stdcall ExecMethodAsync( 
+      /* [in] */ const wchar_t * strObjectPath,
+      /* [in] */ const wchar_t * strMethodName,
+      /* [in] */ long lFlags,
+      /* [in] */ IWbemContext_IG *pCtx,
+      /* [in] */ IWbemClassObject_IG *pInParams,
+      /* [in] */ void *pResponseHandler) = 0;
+   
+};
+
+struct IWbemLocator_IG : public IUnknown_IG
+{
+public:
+   virtual long __stdcall ConnectServer( 
+      /* [in] */ const wchar_t * strNetworkResource,
+      /* [in] */ const wchar_t * strUser,
+      /* [in] */ const wchar_t * strPassword,
+      /* [in] */ const wchar_t * strLocale,
+      /* [in] */ long lSecurityFlags,
+      /* [in] */ const wchar_t * strAuthority,
+      /* [in] */ void *pCtx,
+      /* [out] */ IWbemServices_IG **ppNamespace) = 0;
+   
+};
+ 
+
 
 struct interprocess_overlapped 
 {
@@ -349,6 +731,20 @@ union system_timeofday_information
    unsigned char Reserved1[SystemTimeOfDayInfoLength];
 };
 
+struct interprocess_by_handle_file_information
+{
+    unsigned long dwFileAttributes;
+    interprocess_filetime ftCreationTime;
+    interprocess_filetime ftLastAccessTime;
+    interprocess_filetime ftLastWriteTime;
+    unsigned long dwVolumeSerialNumber;
+    unsigned long nFileSizeHigh;
+    unsigned long nFileSizeLow;
+    unsigned long nNumberOfLinks;
+    unsigned long nFileIndexHigh;
+    unsigned long nFileIndexLow;
+};
+
 enum system_information_class {
    system_basic_information = 0,
    system_performance_information = 2,
@@ -379,6 +775,10 @@ struct object_name_information_t
 //Some windows API declarations
 extern "C" __declspec(dllimport) unsigned long __stdcall GetCurrentProcessId();
 extern "C" __declspec(dllimport) unsigned long __stdcall GetCurrentThreadId();
+extern "C" __declspec(dllimport) int __stdcall GetProcessTimes
+   ( void *hProcess, interprocess_filetime* lpCreationTime
+   , interprocess_filetime *lpExitTime,interprocess_filetime *lpKernelTime
+   , interprocess_filetime *lpUserTime );
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError();
 extern "C" __declspec(dllimport) void * __stdcall GetCurrentProcess();
@@ -409,6 +809,7 @@ extern "C" __declspec(dllimport) int __stdcall    DeleteFileA (const char *);
 extern "C" __declspec(dllimport) int __stdcall    MoveFileExA (const char *, const char *, unsigned long);
 extern "C" __declspec(dllimport) void __stdcall GetSystemInfo (struct system_info *);
 extern "C" __declspec(dllimport) int __stdcall FlushViewOfFile (void *, std::size_t);
+extern "C" __declspec(dllimport) int __stdcall FlushFileBuffers (void *);
 extern "C" __declspec(dllimport) int __stdcall GetFileSizeEx (void *, __int64 *size);
 extern "C" __declspec(dllimport) unsigned long __stdcall FormatMessageA
    (unsigned long dwFlags,       const void *lpSource,   unsigned long dwMessageId, 
@@ -433,6 +834,28 @@ extern "C" __declspec(dllimport) void *__stdcall LoadLibraryA(const char *);
 extern "C" __declspec(dllimport) int   __stdcall FreeLibrary(void *);
 extern "C" __declspec(dllimport) void *__stdcall GetProcAddress(void *, const char*);
 extern "C" __declspec(dllimport) void *__stdcall GetModuleHandleA(const char*);
+extern "C" __declspec(dllimport) void *__stdcall GetFileInformationByHandle(void *, interprocess_by_handle_file_information*);
+
+
+//COM API
+extern "C" __declspec(dllimport) long __stdcall CoInitialize(void *pvReserved);
+extern "C" __declspec(dllimport) long __stdcall CoInitializeSecurity(
+                    void*         pSecDesc,
+                    long                         cAuthSvc,
+                    void *asAuthSvc,
+                    void                        *pReserved1,
+                    unsigned long                        dwAuthnLevel,
+                    unsigned long                        dwImpLevel,
+                    void                        *pAuthList,
+                    unsigned long                        dwCapabilities,
+                    void                        *pReserved3 );
+
+extern "C" __declspec(dllimport) long __stdcall VariantClear(wchar_variant * pvarg);
+extern "C" __declspec(dllimport) long __stdcall CoCreateInstance(const GUID_IG & rclsid, IUnknown_IG *pUnkOuter,
+                    unsigned long dwClsContext, const GUID_IG & riid, void** ppv);
+extern "C" __declspec(dllimport) void __stdcall CoUninitialize(void);
+
+
 
 //API function typedefs
 //Pointer to functions
@@ -458,10 +881,6 @@ typedef long          (__stdcall * RegCloseKey_t)(void *);
 }  //namespace winapi {
 }  //namespace interprocess  {
 }  //namespace boost  {
-
-#else
-#  include <windows.h>
-#endif   //#if !defined( BOOST_USE_WINDOWS_H )
 
 namespace boost {
 namespace interprocess {
@@ -491,6 +910,12 @@ inline void sched_yield()
 
 inline unsigned long get_current_thread_id()
 {  return GetCurrentThreadId();  }
+
+inline bool get_process_times
+   ( void *hProcess, interprocess_filetime* lpCreationTime
+   , interprocess_filetime *lpExitTime, interprocess_filetime *lpKernelTime
+   , interprocess_filetime *lpUserTime )
+{  return 0 != GetProcessTimes(hProcess, lpCreationTime, lpExitTime, lpKernelTime, lpUserTime); }
 
 inline unsigned long get_current_process_id()
 {  return GetCurrentProcessId();  }
@@ -547,20 +972,33 @@ inline int release_semaphore(void *handle, long release_count, long *prev_count)
 inline void *open_semaphore(const char *name)
 {  return OpenSemaphoreA(semaphore_all_access, 1, name); }
 
-inline void * create_file_mapping (void * handle, unsigned long access, unsigned long high_size, unsigned long low_size, const char * name)
+class interprocess_all_access_security
 {
    interprocess_security_attributes sa;
    interprocess_security_descriptor sd; 
+   bool initialized;
 
-   if(!InitializeSecurityDescriptor(&sd, security_descriptor_revision))
-      return 0;
-   if(!SetSecurityDescriptorDacl(&sd, true, 0, false))
-      return 0;
-   sa.lpSecurityDescriptor = &sd;
-   sa.nLength = sizeof(interprocess_security_attributes);
-   sa.bInheritHandle = false;
-   return CreateFileMappingA (handle, &sa, access, high_size, low_size, name); 
-  //return CreateFileMappingA (handle, 0, access, high_size, low_size, name);  
+   public:
+   interprocess_all_access_security()
+      : initialized(false)
+   {
+      if(!InitializeSecurityDescriptor(&sd, security_descriptor_revision))
+         return;
+      if(!SetSecurityDescriptorDacl(&sd, true, 0, false))
+         return;
+      sa.lpSecurityDescriptor = &sd;
+      sa.nLength = sizeof(interprocess_security_attributes);
+      sa.bInheritHandle = false;
+      initialized = false;
+   }
+
+   interprocess_security_attributes *get_attributes()
+   {  return &sa; }
+};
+
+inline void * create_file_mapping (void * handle, unsigned long access, unsigned long high_size, unsigned long low_size, const char * name, interprocess_security_attributes *psec)
+{
+   return CreateFileMappingA (handle, psec, access, high_size, low_size, name); 
 }
 
 inline void * open_file_mapping (unsigned long access, const char *name)
@@ -569,12 +1007,12 @@ inline void * open_file_mapping (unsigned long access, const char *name)
 inline void *map_view_of_file_ex(void *handle, unsigned long file_access, unsigned long highoffset, unsigned long lowoffset, std::size_t numbytes, void *base_addr)
 {  return MapViewOfFileEx(handle, file_access, highoffset, lowoffset, numbytes, base_addr);  }
 
-inline void *create_file(const char *name, unsigned long access, unsigned long creation_flags, unsigned long attributes = 0)
+inline void *create_file(const char *name, unsigned long access, unsigned long creation_flags, unsigned long attributes, interprocess_security_attributes *psec)
 {
    for (unsigned int attempt(0); attempt < error_sharing_violation_tries; ++attempt){
       void * const handle = CreateFileA(name, access,
                                         file_share_read | file_share_write | file_share_delete,
-                                        0, creation_flags, attributes, 0);
+                                        psec, creation_flags, attributes, 0);
       bool const invalid(invalid_handle_value == handle);
       if (!invalid){
          return handle;
@@ -596,14 +1034,20 @@ inline bool move_file_ex(const char *source_filename, const char *destination_fi
 inline void get_system_info(system_info *info)
 {  GetSystemInfo(info); }
 
-inline int flush_view_of_file(void *base_addr, std::size_t numbytes)
-{  return FlushViewOfFile(base_addr, numbytes); }
+inline bool flush_view_of_file(void *base_addr, std::size_t numbytes)
+{  return 0 != FlushViewOfFile(base_addr, numbytes); }
+
+inline bool flush_file_buffers(void *handle)
+{  return 0 != FlushFileBuffers(handle); }
 
 inline bool get_file_size(void *handle, __int64 &size)
 {  return 0 != GetFileSizeEx(handle, &size);  }
 
-inline bool create_directory(const char *name, interprocess_security_attributes* security)
-{  return 0 != CreateDirectoryA(name, security);   }
+inline bool create_directory(const char *name)
+{  
+   interprocess_all_access_security sec;
+   return 0 != CreateDirectoryA(name, sec.get_attributes());   
+}
 
 inline bool remove_directory(const char *lpPathName)
 {  return 0 != RemoveDirectoryA(lpPathName);   }
@@ -625,6 +1069,9 @@ inline bool unlock_file_ex(void *hnd, unsigned long reserved, unsigned long size
 
 inline bool write_file(void *hnd, const void *buffer, unsigned long bytes_to_write, unsigned long *bytes_written, interprocess_overlapped* overlapped)
 {  return 0 != WriteFile(hnd, buffer, bytes_to_write, bytes_written, overlapped);  }
+
+inline bool get_file_information_by_handle(void *hnd, interprocess_by_handle_file_information *info)
+{  return 0 != GetFileInformationByHandle(hnd, info);  }
 
 inline long interlocked_increment(long volatile *addr)
 {  return BOOST_INTERLOCKED_INCREMENT(addr);  }
@@ -709,7 +1156,7 @@ inline bool get_file_name_from_handle_function
    bool bSuccess = false;
 
    // Create a file mapping object.
-   void * hFileMap = create_file_mapping(hFile, page_readonly, 0, 1, 0);
+   void * hFileMap = create_file_mapping(hFile, page_readonly, 0, 1, 0, 0);
    if(hFileMap)
    {
       // Create a file mapping to get the file name.
@@ -836,7 +1283,7 @@ inline bool unlink_file(const char *filename)
 
       //First step: Obtain a handle to the file using Win32 rules. This resolves relative paths
       void *fh = create_file(filename, generic_read | delete_access, open_existing,
-         file_flag_backup_semantics | file_flag_delete_on_close); 
+         file_flag_backup_semantics | file_flag_delete_on_close, 0); 
       if(fh == invalid_handle_value){
          return false;
       }
@@ -952,6 +1399,181 @@ inline void get_shared_documents_folder(std::string &s)
       }
    }
 }
+
+
+inline void get_registry_value(const char *folder, const char *value_key, std::vector<unsigned char> &s)
+{
+   s.clear();
+   void *hAdvapi = load_library("Advapi32.dll");
+   if (hAdvapi){
+      library_unloader unloader(hAdvapi);
+      //  Pointer to function RegOpenKeyA
+      RegOpenKeyEx_t pRegOpenKey =
+         (RegOpenKeyEx_t)get_proc_address(hAdvapi, "RegOpenKeyExA");
+      if (pRegOpenKey){
+         //  Pointer to function RegCloseKey
+         RegCloseKey_t pRegCloseKey =
+            (RegCloseKey_t)get_proc_address(hAdvapi, "RegCloseKey");
+         if (pRegCloseKey){
+            //  Pointer to function RegQueryValueA
+            RegQueryValueEx_t pRegQueryValue =
+               (RegQueryValueEx_t)get_proc_address(hAdvapi, "RegQueryValueExA");
+            if (pRegQueryValue){
+               //Open the key
+               void *key;
+               if ((*pRegOpenKey)( hkey_local_machine
+                                 , folder
+                                 , 0
+                                 , key_query_value
+                                 , &key) == 0){
+                  reg_closer key_closer(pRegCloseKey, key);
+
+                  //Obtain the value
+                  unsigned long size;
+                  unsigned long type;
+                  const char *const reg_value = value_key;
+                  long err = (*pRegQueryValue)( key, reg_value, 0, &type, 0, &size);
+                  if(!err){
+                     //Size includes terminating NULL
+                     s.resize(size);
+                     err = (*pRegQueryValue)( key, reg_value, 0, &type, (unsigned char*)(&s[0]), &size);
+                     if(!err)
+                        s.erase(s.end()-1);
+                     (void)err;
+                  }
+               }
+            }
+         }
+      }
+   }
+}
+
+inline bool get_wmi_class_attribute( std::wstring& strValue, const wchar_t *wmi_class, const wchar_t *wmi_class_var)
+{
+   CoInitialize(0);
+ 
+   bool bRet = false;
+ 
+   if( 0 == CoInitializeSecurity( 0, -1, 0, 0, RPC_C_AUTHN_LEVEL_PKT_IG, RPC_C_IMP_LEVEL_IMPERSONATE_IG, 0, EOAC_NONE_IG, 0 ) )
+   {
+      IWbemLocator_IG * pIWbemLocator = 0;
+
+      IWbemServices_IG * pWbemServices = 0;
+      IEnumWbemClassObject_IG * pEnumObject  = 0;
+ 
+      const wchar_t * bstrNamespace = L"root\\cimv2";
+ 
+      if( 0 != CoCreateInstance(
+            CLSID_WbemAdministrativeLocator,
+            0,
+            CLSCTX_INPROC_SERVER_IG | CLSCTX_LOCAL_SERVER_IG,
+            IID_IUnknown,
+            ( void ** )&pIWbemLocator
+            )
+         )
+      {
+         return false;
+      }
+ 
+      if( 0 != pIWbemLocator->ConnectServer(
+            bstrNamespace,  // Namespace
+            0,          // Userid
+            0,           // PW
+            0,           // Locale
+            0,              // flags
+            0,           // Authority
+            0,           // Context
+            &pWbemServices
+            )
+         )
+      {
+         pIWbemLocator->Release();
+ 
+         return false;
+      }
+ 
+      strValue.clear();
+      strValue += L"Select ";
+      strValue += wmi_class_var;
+      strValue += L" from ";
+      strValue += wmi_class;
+
+      if ( 0 != pWbemServices->ExecQuery(
+            L"WQL",
+            strValue.c_str(),
+            WBEM_FLAG_RETURN_IMMEDIATELY_IG,
+            0,
+            &pEnumObject
+            )
+         )
+      {
+         pIWbemLocator->Release();
+         pWbemServices->Release();
+ 
+         return false;
+      }
+      
+      unsigned long uCount = 1, uReturned;
+      IWbemClassObject_IG * pClassObject = 0;
+ 
+      if ( 0 != pEnumObject->Reset() )
+      {
+         pIWbemLocator->Release();
+         pWbemServices->Release();
+         pEnumObject->Release();
+ 
+         return false;
+      }
+
+      wchar_variant vwchar;
+
+      while( 0 == pEnumObject->Next( WBEM_INFINITE_IG, uCount, &pClassObject, &uReturned ) )
+      {
+         if ( 0 == pClassObject->Get( L"LastBootUpTime", 0, &vwchar, 0, 0 ) )
+         {
+            bRet = true;
+             strValue = vwchar.value.pbstrVal;
+             VariantClear(&vwchar );
+             break;
+         }
+      }
+ 
+      pIWbemLocator->Release();
+      pWbemServices->Release();
+      pEnumObject->Release();
+      pClassObject->Release();
+   }
+ 
+   CoUninitialize();
+ 
+   return bRet;
+}
+
+inline bool get_last_bootup_time( std::wstring& strValue )
+{
+   bool ret = get_wmi_class_attribute(strValue, L"Win32_OperatingSystem", L"LastBootUpTime");
+   std::size_t timezone = strValue.find(L'+');
+   if(timezone != std::wstring::npos){
+      strValue.erase(timezone);
+   }
+   timezone = strValue.find(L'-');
+   if(timezone != std::wstring::npos){
+      strValue.erase(timezone);
+   }
+   return ret;
+}
+
+inline bool get_last_bootup_time( std::string& str )
+{
+   std::wstring wstr;
+   bool ret = get_last_bootup_time(wstr);
+   str.resize(wstr.size());
+   for(std::size_t i = 0, max = str.size(); i != max; ++i){
+      str[i] = '0' + (wstr[i]-L'0');
+   }
+   return ret;
+}
+
 
 }  //namespace winapi 
 }  //namespace interprocess

@@ -421,8 +421,9 @@ token_id id = token_id(*begin);
         !IS_EXTCATEGORY(id, OperatorTokenType|AltExtTokenType) &&
         !IS_CATEGORY(id, BoolLiteralTokenType)) 
     {
+        std::string msg(impl::get_full_name(begin, end));
         BOOST_WAVE_THROW_CTX(ctx, preprocess_exception, invalid_macroname, 
-            impl::get_full_name(begin, end).c_str(), main_pos);
+            msg.c_str(), main_pos);
         return false;
     }
 
@@ -432,8 +433,9 @@ typename defined_macros_type::iterator cit;
 
     if (++it != end) {
     // there should be only one token as the inspected name
+        std::string msg(impl::get_full_name(begin, end));
         BOOST_WAVE_THROW_CTX(ctx, preprocess_exception, invalid_macroname, 
-            impl::get_full_name(begin, end).c_str(), main_pos);
+            msg.c_str(), main_pos);
         return false;
     }
     return is_defined(name, cit, 0);
@@ -970,7 +972,7 @@ bool adjacent_stringize = false;
         typename ContainerT::size_type i;
 #if BOOST_WAVE_SUPPORT_VARIADICS_PLACEMARKERS != 0
         bool is_ellipsis = false;
-        
+
             if (IS_EXTCATEGORY((*cit), ExtParameterTokenType)) {
                 BOOST_ASSERT(boost::wave::need_variadics(ctx.get_language()));
                 i = token_id(*cit) - T_EXTPARAMETERBASE;
@@ -981,10 +983,10 @@ bool adjacent_stringize = false;
             {
                 i = token_id(*cit) - T_PARAMETERBASE;
             }
-            
+
             BOOST_ASSERT(i < arguments.size());
             if (use_replaced_arg) {
-                
+
 #if BOOST_WAVE_SUPPORT_VARIADICS_PLACEMARKERS != 0
                 if (is_ellipsis) {
                 position_type const &pos = (*cit).get_position();
@@ -1276,8 +1278,9 @@ ContainerT replacement_list;
                     seqstart, seqend))
             {
                 // do not expand this macro, just copy the whole sequence 
+                expanded.push_back(curr_token);
                 std::copy(seqstart, first, 
-                    std::inserter(replacement_list, replacement_list.end()));
+                    std::inserter(expanded, expanded.end()));
                 return false;           // no further preprocessing required
             }
 #endif
@@ -1296,7 +1299,7 @@ ContainerT replacement_list;
                   macro_def.macroname, macro_def.macrodefinition, curr_token))
             {
                 // do not expand this macro, just copy the whole sequence 
-                replacement_list.push_back(curr_token);
+                expanded.push_back(curr_token);
                 ++first;                // skip macro name
                 return false;           // no further preprocessing required
             }
@@ -1339,7 +1342,7 @@ ContainerT replacement_list;
                   macro_def.macroname, macro_def.macrodefinition, curr_token))
             {
                 // do not expand this macro, just copy the whole sequence 
-                replacement_list.push_back(curr_token);
+                expanded.push_back(curr_token);
                 ++first;                // skip macro name
                 return false;           // no further preprocessing required
             }
@@ -1636,7 +1639,13 @@ macromap<ContextT>::is_valid_concat(string_type new_value,
         lang);
     lexer_type end = lexer_type();
     for (/**/; it != end && T_EOF != token_id(*it); ++it) 
+    {
+        // as of Wave V2.0.7 pasting of tokens is valid only if the resulting
+        // tokens are pp_tokens (as mandated by C++0x)
+        if (!is_pp_token(*it))
+            return false;
         rescanned.push_back(*it);
+    }
 
 #if BOOST_WAVE_SUPPORT_VARIADICS_PLACEMARKERS != 0
     if (boost::wave::need_variadics(ctx.get_language()))
@@ -1644,8 +1653,6 @@ macromap<ContextT>::is_valid_concat(string_type new_value,
 #endif 
 
 // test if the newly generated token sequence contains more than 1 token
-// the second one is the T_EOF token
-//    BOOST_ASSERT(T_EOF == token_id(rescanned.back()));
     return 1 == rescanned.size();
 }
 
@@ -1655,6 +1662,22 @@ macromap<ContextT>::is_valid_concat(string_type new_value,
 //  token sequence.
 //
 ///////////////////////////////////////////////////////////////////////////////
+template <typename Context>
+inline void report_invalid_concatenation(Context& ctx, 
+    typename Context::token_type const& prev, 
+    typename Context::token_type const& next,
+    typename Context::position_type const& main_pos)
+{
+typename Context::string_type error_string("\"");
+
+    error_string += prev.get_value();
+    error_string += "\" and \"";
+    error_string += next.get_value();
+    error_string += "\"";
+    BOOST_WAVE_THROW_CTX(ctx, preprocess_exception, invalid_concat,
+        error_string.c_str(), main_pos);
+}
+
 template <typename ContextT>
 template <typename ContainerT>
 inline bool 
@@ -1725,14 +1748,7 @@ macromap<ContextT>::concat_tokensequence(ContainerT &expanded)
                 !IS_CATEGORY(*prev, WhiteSpaceTokenType) && 
                 !IS_CATEGORY(*next, WhiteSpaceTokenType)) 
             {
-            string_type error_string("\"");
-
-                error_string += (*prev).get_value();
-                error_string += "\" and \"";
-                error_string += (*next).get_value();
-                error_string += "\"";
-                BOOST_WAVE_THROW_CTX(ctx, preprocess_exception, invalid_concat,
-                    error_string.c_str(), main_pos);
+                report_invalid_concatenation(ctx, *prev, *next, main_pos);
                 return false;
             }
 

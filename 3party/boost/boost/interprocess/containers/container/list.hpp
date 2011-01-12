@@ -6,39 +6,6 @@
 //
 // See http://www.boost.org/libs/container for documentation.
 //
-//////////////////////////////////////////////////////////////////////////////
-//
-// This file comes from SGI's stl_list.h file. Modified by Ion Gaztanaga 2004
-// Renaming, isolating and porting to generic algorithms. Pointer typedef 
-// set to allocator::pointer to allow placing it in shared memory.
-//
-///////////////////////////////////////////////////////////////////////////////
-/*
- *
- * Copyright (c) 1994
- * Hewlett-Packard Company
- *
- * Permission to use, copy, modify, distribute and sell this software
- * and its documentation for any purpose is hereby granted without fee,
- * provided that the above copyright notice appear in all copies and
- * that both that copyright notice and this permission notice appear
- * in supporting documentation.  Hewlett-Packard Company makes no
- * representations about the suitability of this software for any
- * purpose.  It is provided "as is" without express or implied warranty.
- *
- *
- * Copyright (c) 1996
- * Silicon Graphics Computer Systems, Inc.
- *
- * Permission to use, copy, modify, distribute and sell this software
- * and its documentation for any purpose is hereby granted without fee,
- * provided that the above copyright notice appear in all copies and
- * that both that copyright notice and this permission notice appear
- * in supporting documentation.  Silicon Graphics makes no
- * representations about the suitability of this software for any
- * purpose.  It is provided "as is" without express or implied warranty.
- *
- */
 
 #ifndef BOOST_CONTAINERS_LIST_HPP_
 #define BOOST_CONTAINERS_LIST_HPP_
@@ -47,23 +14,23 @@
 #  pragma once
 #endif
 
-#include <boost/interprocess/containers/container/detail/config_begin.hpp>
-#include <boost/interprocess/containers/container/detail/workaround.hpp>
-#include <boost/interprocess/containers/container/container_fwd.hpp>
-#include <boost/interprocess/containers/container/detail/version_type.hpp>
-#include <boost/interprocess/detail/move.hpp>
+#include "detail/config_begin.hpp"
+#include INCLUDE_BOOST_CONTAINER_DETAIL_WORKAROUND_HPP
+#include INCLUDE_BOOST_CONTAINER_CONTAINER_FWD_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_VERSION_TYPE_HPP
+#include INCLUDE_BOOST_CONTAINER_MOVE_HPP
 #include <boost/pointer_to_other.hpp>
-#include <boost/interprocess/containers/container/detail/utilities.hpp>
-#include <boost/interprocess/containers/container/detail/algorithms.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_UTILITIES_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_ALGORITHMS_HPP
 #include <boost/type_traits/has_trivial_destructor.hpp>
-#include <boost/interprocess/containers/container/detail/mpl.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_MPL_HPP
 #include <boost/intrusive/list.hpp>
-#include <boost/interprocess/containers/container/detail/node_alloc_holder.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_NODE_ALLOC_HOLDER_HPP
 
 #if defined(BOOST_CONTAINERS_PERFECT_FORWARDING) || defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
 #else
 //Preprocessor library to emulate perfect forwarding
-#include <boost/interprocess/containers/container/detail/preprocessor.hpp> 
+#include INCLUDE_BOOST_CONTAINER_DETAIL_PREPROCESSOR_HPP 
 #endif
 
 #include <stdexcept>
@@ -105,7 +72,7 @@ struct list_node
 
    template<class ...Args>
    list_node(Args &&...args)
-      : m_data(boost::interprocess::forward<Args>(args)...)
+      : m_data(BOOST_CONTAINER_MOVE_NAMESPACE::forward<Args>(args)...)
    {}
 
    #else //#ifndef BOOST_CONTAINERS_PERFECT_FORWARDING
@@ -231,7 +198,7 @@ class list
 
    /// @cond
    private:
-   BOOST_COPYABLE_AND_MOVABLE(list)
+   BOOST_MOVE_MACRO_COPYABLE_AND_MOVABLE(list)
    typedef difference_type                         list_difference_type;
    typedef pointer                                 list_pointer;
    typedef const_pointer                           list_const_pointer;
@@ -390,8 +357,8 @@ class list
    //! <b>Throws</b>: If allocator_type's copy constructor throws.
    //! 
    //! <b>Complexity</b>: Constant.
-   list(BOOST_INTERPROCESS_RV_REF(list) x)
-      : AllocHolder(boost::interprocess::move(static_cast<AllocHolder&>(x)))
+   list(BOOST_MOVE_MACRO_RV_REF(list) x)
+      : AllocHolder(BOOST_CONTAINER_MOVE_NAMESPACE::move(static_cast<AllocHolder&>(x)))
    {}
 
    //! <b>Effects</b>: Constructs a list that will use a copy of allocator a
@@ -572,11 +539,11 @@ class list
    void push_front(insert_const_ref_type x)   
    {  this->insert(this->cbegin(), x);  }
 
-   #if !defined(BOOST_HAS_RVALUE_REFS) && !defined(BOOST_MOVE_DOXYGEN_INVOKED)
+   #if defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_MOVE_DOXYGEN_INVOKED)
    void push_front(T &x) { push_front(const_cast<const T &>(x)); }
 
    template<class U>
-   void push_front(const U &u, typename containers_detail::enable_if_c<containers_detail::is_same<T, U>::value && !::boost::interprocess::is_movable<U>::value >::type* =0)
+   void push_front(const U &u, typename containers_detail::enable_if_c<containers_detail::is_same<T, U>::value && !::BOOST_CONTAINER_MOVE_NAMESPACE::is_movable<U>::value >::type* =0)
    {  this->insert(this->cbegin(), u);  }
    #endif
 
@@ -586,8 +553,8 @@ class list
    //! <b>Throws</b>: If memory allocation throws.
    //!
    //! <b>Complexity</b>: Amortized constant time.
-   void push_front(BOOST_INTERPROCESS_RV_REF(T) x)
-   {  this->insert(this->cbegin(), boost::interprocess::move(x));  }
+   void push_front(BOOST_MOVE_MACRO_RV_REF(T) x)
+   {  this->insert(this->cbegin(), BOOST_CONTAINER_MOVE_NAMESPACE::move(x));  }
 
    //! <b>Effects</b>: Removes the last element from the list.
    //!
@@ -597,11 +564,11 @@ class list
    void push_back (insert_const_ref_type x)   
    {  this->insert(this->cend(), x);    }
 
-   #if !defined(BOOST_HAS_RVALUE_REFS) && !defined(BOOST_MOVE_DOXYGEN_INVOKED)
+   #if defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_MOVE_DOXYGEN_INVOKED)
    void push_back(T &x) { push_back(const_cast<const T &>(x)); }
 
    template<class U>
-   void push_back(const U &u, typename containers_detail::enable_if_c<containers_detail::is_same<T, U>::value && !::boost::interprocess::is_movable<U>::value >::type* =0)
+   void push_back(const U &u, typename containers_detail::enable_if_c<containers_detail::is_same<T, U>::value && !::BOOST_CONTAINER_MOVE_NAMESPACE::is_movable<U>::value >::type* =0)
    {  this->insert(this->cend(), u);    }
 
    #endif
@@ -611,8 +578,8 @@ class list
    //! <b>Throws</b>: Nothing.
    //!
    //! <b>Complexity</b>: Amortized constant time.
-   void push_back (BOOST_INTERPROCESS_RV_REF(T) x)
-   {  this->insert(this->cend(), boost::interprocess::move(x));    }
+   void push_back (BOOST_MOVE_MACRO_RV_REF(T) x)
+   {  this->insert(this->cend(), BOOST_CONTAINER_MOVE_NAMESPACE::move(x));    }
 
    //! <b>Effects</b>: Removes the first element from the list.
    //!
@@ -749,7 +716,7 @@ class list
    //! <b>Throws</b>: If memory allocation throws or T's copy constructor throws.
    //!
    //! <b>Complexity</b>: Linear to the number of elements in x.
-   ThisType& operator=(BOOST_INTERPROCESS_COPY_ASSIGN_REF(ThisType) x)
+   ThisType& operator=(BOOST_MOVE_MACRO_COPY_ASSIGN_REF(ThisType) x)
    {
       if (this != &x) {
          this->assign(x.begin(), x.end());
@@ -765,7 +732,7 @@ class list
    //! <b>Throws</b>: If allocator_type's copy constructor throws.
    //!
    //! <b>Complexity</b>: Constant.
-   ThisType& operator=(BOOST_INTERPROCESS_RV_REF(ThisType) mx)
+   ThisType& operator=(BOOST_MOVE_MACRO_RV_REF(ThisType) mx)
    {
       this->clear();
       this->swap(mx);
@@ -808,11 +775,11 @@ class list
    iterator insert(const_iterator position, insert_const_ref_type x) 
    {  return this->priv_insert(position, x); }
 
-   #if !defined(BOOST_HAS_RVALUE_REFS) && !defined(BOOST_MOVE_DOXYGEN_INVOKED)
+   #if defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_MOVE_DOXYGEN_INVOKED)
    iterator insert(const_iterator position, T &x) { return this->insert(position, const_cast<const T &>(x)); }
 
    template<class U>
-   iterator insert(const_iterator position, const U &u, typename containers_detail::enable_if_c<containers_detail::is_same<T, U>::value && !::boost::interprocess::is_movable<U>::value >::type* =0)
+   iterator insert(const_iterator position, const U &u, typename containers_detail::enable_if_c<containers_detail::is_same<T, U>::value && !::BOOST_CONTAINER_MOVE_NAMESPACE::is_movable<U>::value >::type* =0)
    {  return this->priv_insert(position, u); }
    #endif
 
@@ -823,9 +790,9 @@ class list
    //! <b>Throws</b>: If memory allocation throws.
    //!
    //! <b>Complexity</b>: Amortized constant time.
-   iterator insert(const_iterator p, BOOST_INTERPROCESS_RV_REF(T) x) 
+   iterator insert(const_iterator p, BOOST_MOVE_MACRO_RV_REF(T) x) 
    {
-      NodePtr tmp = AllocHolder::create_node(boost::interprocess::move(x));
+      NodePtr tmp = AllocHolder::create_node(BOOST_CONTAINER_MOVE_NAMESPACE::move(x));
       return iterator(this->icont().insert(p.get(), *tmp));
    }
 
@@ -841,7 +808,7 @@ class list
    template <class... Args>
    void emplace_back(Args&&... args)
    {
-      this->emplace(this->cend(), boost::interprocess::forward<Args>(args)...);
+      this->emplace(this->cend(), BOOST_CONTAINER_MOVE_NAMESPACE::forward<Args>(args)...);
    }
 
    //! <b>Effects</b>: Inserts an object of type T constructed with
@@ -854,7 +821,7 @@ class list
    template <class... Args>
    void emplace_front(Args&&... args)
    {
-      this->emplace(this->cbegin(), boost::interprocess::forward<Args>(args)...);
+      this->emplace(this->cbegin(), BOOST_CONTAINER_MOVE_NAMESPACE::forward<Args>(args)...);
    }
 
    //! <b>Effects</b>: Inserts an object of type T constructed with
@@ -868,7 +835,7 @@ class list
    iterator emplace(const_iterator p, Args&&... args)
    {
       typename AllocHolder::Deallocator d(AllocHolder::create_node_and_deallocator());
-      new ((void*)containers_detail::get_pointer(d.get())) Node(boost::interprocess::forward<Args>(args)...);
+      new ((void*)containers_detail::get_pointer(d.get())) Node(BOOST_CONTAINER_MOVE_NAMESPACE::forward<Args>(args)...);
       NodePtr node = d.get();
       d.release();
       return iterator(this->icont().insert(p.get(), *node));
@@ -1399,6 +1366,6 @@ namespace container {
 
 }}
 
-#include <boost/interprocess/containers/container/detail/config_end.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_CONFIG_END_HPP
 
 #endif // BOOST_CONTAINERS_LIST_HPP_

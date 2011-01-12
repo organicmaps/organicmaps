@@ -10,6 +10,7 @@
 #ifdef BOOST_POLYGON_DEBUG_FILE
 #include <fstream>
 #endif
+#include "polygon_sort_adaptor.hpp"
 namespace boost { namespace polygon{
 
   template <typename Unit>
@@ -75,7 +76,7 @@ namespace boost { namespace polygon{
         ends.push_back(std::make_pair((*itr).first.first.y(), count));
         ends.push_back(std::make_pair((*itr).first.second.y(), -count));
       }
-      std::sort(ends.begin(), ends.end());
+      gtlsort(ends.begin(), ends.end());
       histogram.reserve(ends.size());
       histogram.push_back(std::make_pair(ends.front().first, std::make_pair(0, 0)));
       for(typename std::vector<std::pair<Unit, int> >::iterator itr = ends.begin(); itr != ends.end(); ++itr) {
@@ -160,7 +161,7 @@ namespace boost { namespace polygon{
         }
       }
       typename scanline_base<Unit>::compute_intersection_pack pack_;
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       //find all intersection points
       for(typename std::vector<std::pair<half_edge, segment_id> >::iterator outer = data.begin();
           outer != data.end(); ++outer) {
@@ -191,11 +192,13 @@ namespace boost { namespace polygon{
             if(pack_.compute_intersection(intersection, he1, he2)) {
               //their intersection point
               pts.push_back(intersection);
+              intersection_points[(*inner).second].insert(intersection);
+              intersection_points[(*outer).second].insert(intersection);
             } 
           }
         }
       }
-      std::sort(pts.begin(), pts.end());
+      gtlsort(pts.begin(), pts.end());
       typename std::vector<Point>::iterator newend = std::unique(pts.begin(), pts.end());
       typename std::vector<Point>::iterator lfinger = pts.begin();
       //find all segments that interact with intersection points
@@ -286,7 +289,7 @@ namespace boost { namespace polygon{
           std::swap(data[i].first.first, data[i].first.second);
         }
       }
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       for(typename std::vector<std::pair<half_edge, segment_id> >::iterator outer = data.begin();
           outer != data.end(); ++outer) {
         const half_edge& he1 = (*outer).first;
@@ -356,7 +359,7 @@ namespace boost { namespace polygon{
             tmpPts.reserve(pts.size());
             tmpPts.insert(tmpPts.end(), pts.begin(), pts.end());
             less_point_down_slope lpds;
-            std::sort(tmpPts.begin(), tmpPts.end(), lpds);
+            gtlsort(tmpPts.begin(), tmpPts.end(), lpds);
             segment_edge(output_segments, he, id, tmpPts.begin(), tmpPts.end());
           } else {
             segment_edge(output_segments, he, id, pts.begin(), pts.end());
@@ -498,7 +501,7 @@ namespace boost { namespace polygon{
 //       }
         
 //       //merge sloping element data
-//       std::sort(sloping_ends.begin(), sloping_ends.end());
+//       gtlsort(sloping_ends.begin(), sloping_ends.end());
 //       std::map<Unit, std::set<iterator> > sloping_elements;
 //       std::set<iterator> merge_elements;
 //       for(typename std::vector<std::pair<Unit, iterator> >::iterator slop_iter = sloping_ends.begin();
@@ -1310,7 +1313,7 @@ namespace boost { namespace polygon{
         output.push_back(vertex_half_edge(he.first, he.second, count));
         output.push_back(vertex_half_edge(he.second, he.first, -count));
       }
-      std::sort(output.begin(), output.end());
+      gtlsort(output.begin(), output.end());
     }
 
     class test_functor {
@@ -1514,7 +1517,7 @@ namespace boost { namespace polygon{
     public:
       less_vertex_data() : pack_() {}
       less_vertex_data(typename scanline_base<Unit>::evalAtXforYPack* pack) : pack_(pack) {}
-      bool operator()(const vertex_data_type& lvalue, const vertex_data_type& rvalue) {
+      bool operator() (const vertex_data_type& lvalue, const vertex_data_type& rvalue) const {
         less_point lp;
         if(lp(lvalue.first.first, rvalue.first.first)) return true;
         if(lp(rvalue.first.first, lvalue.first.first)) return false;
@@ -1528,7 +1531,7 @@ namespace boost { namespace polygon{
 
     inline void sort_property_merge_data() {
       less_vertex_data<vertex_property> lvd(&evalAtXforYPack_);
-      std::sort(pmd.begin(), pmd.end(), lvd);
+      gtlsort(pmd.begin(), pmd.end(), lvd);
     }
   public:
     inline property_merge_data& get_property_merge_data() { return pmd; }
@@ -1573,7 +1576,7 @@ namespace boost { namespace polygon{
         pts.push_back(lines[i].first.first);
         pts.push_back(lines[i].first.second);
       }
-      std::sort(pts.begin(), pts.end());
+      gtlsort(pts.begin(), pts.end());
       for(std::size_t i = 0; i < pts.size(); i+=2) {
         if(pts[i] != pts[i+1]) {
           //stdcout << "Non-closed figures after line intersection!\n";
@@ -1683,7 +1686,7 @@ namespace boost { namespace polygon{
 
     static inline void sort_vertex_half_edges(vertex_data& vertex) {
       less_half_edge_pair lessF(vertex.first);
-      std::sort(vertex.second.begin(), vertex.second.end(), lessF);
+      gtlsort(vertex.second.begin(), vertex.second.end(), lessF);
     }
 
     class less_half_edge_pair {
@@ -2165,7 +2168,7 @@ pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 
           outpts.push_back((*itr).first.first);
           outpts.push_back((*itr).first.second);
         }
-        std::sort(outpts.begin(), outpts.end());
+        gtlsort(outpts.begin(), outpts.end());
         for(std::size_t i = 0; i < outpts.size(); i+=2) {
           if(outpts[i] != outpts[i+1]) {
             stdcout << "Polygon set not a closed figure\n";
@@ -2514,7 +2517,7 @@ pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 
     public:
       less_vertex_data() : pack_() {}
       less_vertex_data(typename scanline_base<Unit>::evalAtXforYPack* pack) : pack_(pack) {}
-      bool operator()(const vertex_data_type& lvalue, const vertex_data_type& rvalue) {
+      bool operator()(const vertex_data_type& lvalue, const vertex_data_type& rvalue) const {
         less_point lp;
         if(lp(lvalue.first.first, rvalue.first.first)) return true;
         if(lp(rvalue.first.first, lvalue.first.first)) return false;
@@ -2580,7 +2583,7 @@ pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 
 
     inline void sort_property_merge_data() {
       less_vertex_data<vertex_property> lvd(&evalAtXforYPack_);
-      std::sort(pmd.begin(), pmd.end(), lvd);
+      gtlsort(pmd.begin(), pmd.end(), lvd);
     }
   public:
     inline arbitrary_boolean_op() : pmd(), evalAtXforYPack_() {}
@@ -2732,7 +2735,7 @@ pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 
     public:
       less_vertex_data() : pack_() {}
       less_vertex_data(typename scanline_base<Unit>::evalAtXforYPack* pack) : pack_(pack) {}
-      bool operator()(const vertex_data_type& lvalue, const vertex_data_type& rvalue) {
+      bool operator()(const vertex_data_type& lvalue, const vertex_data_type& rvalue) const {
         less_point lp;
         if(lp(lvalue.first.first, rvalue.first.first)) return true;
         if(lp(rvalue.first.first, lvalue.first.first)) return false;
@@ -2804,7 +2807,7 @@ pts.push_back(Point(12344171, 6695983 )); pts.push_back(Point(12287208, 6672388 
 
     inline void sort_property_merge_data() {
       less_vertex_data<vertex_property> lvd(&evalAtXforYPack_);
-      std::sort(pmd.begin(), pmd.end(), lvd);
+      gtlsort(pmd.begin(), pmd.end(), lvd);
     }
   public:
     inline arbitrary_connectivity_extraction() : pmd(), evalAtXforYPack_() {}

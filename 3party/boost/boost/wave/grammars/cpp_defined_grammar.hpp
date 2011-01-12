@@ -85,15 +85,16 @@ struct defined_grammar :
                     [
                         spirit_append_actor(self.result_seq)
                     ] 
-                |   pattern_p(KeywordTokenType, TokenTypeMask)
+                |   pattern_p(KeywordTokenType, TokenTypeMask|PPTokenFlag)
                     [
                         spirit_append_actor(self.result_seq)
                     ] 
-                |   pattern_p(OperatorTokenType|AltExtTokenType, ExtTokenTypeMask)
+                |   pattern_p(OperatorTokenType|AltExtTokenType, 
+                        ExtTokenTypeMask|PPTokenFlag)
                     [
                         spirit_append_actor(self.result_seq)
                     ] 
-                |   pattern_p(BoolLiteralTokenType, TokenTypeMask)
+                |   pattern_p(BoolLiteralTokenType, TokenTypeMask|PPTokenFlag)
                     [
                         spirit_append_actor(self.result_seq)
                     ] 

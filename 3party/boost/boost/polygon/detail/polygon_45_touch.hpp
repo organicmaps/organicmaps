@@ -186,7 +186,7 @@ namespace boost { namespace polygon{
     template <typename graph_type>
     static void performTouch(graph_type& graph, TouchSetData& tsd) {
       
-      std::sort(tsd.begin(), tsd.end(), lessVertex45Compact());
+      gtlsort(tsd.begin(), tsd.end(), lessVertex45Compact());
       typedef std::vector<std::pair<Point, typename boolean_op_45<Unit>::template Scan45CountT<CountTouch> > > TSD;
       TSD tsd_;
       tsd_.reserve(tsd.size());

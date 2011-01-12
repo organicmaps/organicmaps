@@ -21,6 +21,7 @@
 #include <boost/interprocess/exceptions.hpp>
 #include <boost/interprocess/sync/emulation/named_creation_functor.hpp>
 #include <boost/interprocess/detail/interprocess_tester.hpp>
+#include <boost/interprocess/permissions.hpp>
 
 #if defined(BOOST_INTERPROCESS_NAMED_MUTEX_USES_POSIX_SEMAPHORES)
    #include <boost/interprocess/sync/posix/semaphore_wrapper.hpp>
@@ -56,7 +57,7 @@ class named_mutex
    public:
    //!Creates a global interprocess_mutex with a name.
    //!Throws interprocess_exception on error.
-   named_mutex(create_only_t create_only, const char *name);
+   named_mutex(create_only_t create_only, const char *name, const permissions &perm = permissions());
 
    //!Opens or creates a global mutex with a name. 
    //!If the mutex is created, this call is equivalent to
@@ -64,7 +65,7 @@ class named_mutex
    //!If the mutex is already created, this call is equivalent
    //!named_mutex(open_only_t, ... )
    //!Does not throw
-   named_mutex(open_or_create_t open_or_create, const char *name);
+   named_mutex(open_or_create_t open_or_create, const char *name, const permissions &perm = permissions());
 
    //!Opens a global mutex with a name if that mutex is previously
    //!created. If it is not previously created this function throws
@@ -122,16 +123,16 @@ class named_mutex
 
 #if defined(BOOST_INTERPROCESS_NAMED_MUTEX_USES_POSIX_SEMAPHORES)
 
-inline named_mutex::named_mutex(create_only_t, const char *name)
-   :  m_sem(detail::DoCreate, name, read_write, 1)
+inline named_mutex::named_mutex(create_only_t, const char *name, const permissions &perm)
+   :  m_sem(detail::DoCreate, name, 1, perm)
 {}
 
-inline named_mutex::named_mutex(open_or_create_t, const char *name)
-   :  m_sem(detail::DoOpenOrCreate, name, read_write, 1)
+inline named_mutex::named_mutex(open_or_create_t, const char *name, const permissions &perm)
+   :  m_sem(detail::DoOpenOrCreate, name, 1, perm)
 {}
 
 inline named_mutex::named_mutex(open_only_t, const char *name)
-   :  m_sem(detail::DoOpen, name, read_write, 1)
+   :  m_sem(detail::DoOpen, name, 1, permissions())
 {}
 
 inline void named_mutex::dont_close_on_destruction()
@@ -169,7 +170,7 @@ inline void named_mutex::dont_close_on_destruction()
 inline named_mutex::~named_mutex()
 {}
 
-inline named_mutex::named_mutex(create_only_t, const char *name)
+inline named_mutex::named_mutex(create_only_t, const char *name, const permissions &perm)
    :  m_shmem  (create_only
                ,name
                ,sizeof(interprocess_mutex) +
@@ -177,10 +178,11 @@ inline named_mutex::named_mutex(create_only_t, const char *name)
                      ManagedOpenOrCreateUserOffset
                ,read_write
                ,0
-               ,construct_func_t(detail::DoCreate))
+               ,construct_func_t(detail::DoCreate)
+               ,perm)
 {}
 
-inline named_mutex::named_mutex(open_or_create_t, const char *name)
+inline named_mutex::named_mutex(open_or_create_t, const char *name, const permissions &perm)
    :  m_shmem  (open_or_create
                ,name
                ,sizeof(interprocess_mutex) +
@@ -188,7 +190,8 @@ inline named_mutex::named_mutex(open_or_create_t, const char *name)
                      ManagedOpenOrCreateUserOffset
                ,read_write
                ,0
-               ,construct_func_t(detail::DoOpenOrCreate))
+               ,construct_func_t(detail::DoOpenOrCreate)
+               ,perm)
 {}
 
 inline named_mutex::named_mutex(open_only_t, const char *name)

@@ -559,8 +559,10 @@ void r_c_shortest_paths
                                dominance, 
                                la, 
                                vis );
-  pareto_optimal_solution = pareto_optimal_solutions[0];
-  pareto_optimal_resource_container = pareto_optimal_resource_containers[0];
+  if (!pareto_optimal_solutions.empty()) {
+    pareto_optimal_solution = pareto_optimal_solutions[0];
+    pareto_optimal_resource_container = pareto_optimal_resource_containers[0];
+  }
 }
 
 // third overload:
@@ -644,8 +646,10 @@ void r_c_shortest_paths
                                dominance, 
                                default_r_c_shortest_paths_allocator(), 
                                default_r_c_shortest_paths_visitor() );
-  pareto_optimal_solution = pareto_optimal_solutions[0];
-  pareto_optimal_resource_container = pareto_optimal_resource_containers[0];
+  if (!pareto_optimal_solutions.empty()) {
+    pareto_optimal_solution = pareto_optimal_solutions[0];
+    pareto_optimal_resource_container = pareto_optimal_resource_containers[0];
+  }
 }
 // r_c_shortest_paths
 

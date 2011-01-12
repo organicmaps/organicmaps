@@ -255,6 +255,10 @@
 #  define BOOST_REGEX_USE_CPP_LOCALE
 #endif
 
+#if defined(__CYGWIN__)
+#  define BOOST_REGEX_USE_C_LOCALE
+#endif
+
 /* Win32 defaults to native Win32 locale: */
 #if defined(_WIN32) && !defined(BOOST_REGEX_USE_WIN32_LOCALE) && !defined(BOOST_REGEX_USE_C_LOCALE) && !defined(BOOST_REGEX_USE_CPP_LOCALE) && !defined(BOOST_REGEX_NO_W32)
 #  define BOOST_REGEX_USE_WIN32_LOCALE

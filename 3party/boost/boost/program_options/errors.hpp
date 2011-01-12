@@ -13,7 +13,11 @@
 #include <stdexcept>
 #include <vector>
 
-
+#if defined(BOOST_MSVC)
+#   pragma warning (push)
+#   pragma warning (disable:4275) // non dll-interface class 'std::logic_error' used as base for dll-interface class 'boost::program_options::error'
+#   pragma warning (disable:4251) // class 'std::vector<_Ty>' needs to have dll-interface to be used by clients of class 'boost::program_options::ambiguous_option'
+#endif
 
 namespace boost { namespace program_options {
 
@@ -232,5 +236,8 @@ namespace boost { namespace program_options {
      };
 }}
 
+#if defined(BOOST_MSVC)
+#   pragma warning (pop)
+#endif
 
 #endif

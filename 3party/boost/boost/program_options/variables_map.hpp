@@ -16,6 +16,11 @@
 #include <map>
 #include <set>
 
+#if defined(BOOST_MSVC)
+#   pragma warning (push)
+#   pragma warning (disable:4251) // 'boost::program_options::variable_value::v' : class 'boost::any' needs to have dll-interface to be used by clients of class 'boost::program_options::variable_value
+#endif
+
 namespace boost { namespace program_options {
 
     template<class charT>

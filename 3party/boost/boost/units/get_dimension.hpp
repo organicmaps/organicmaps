@@ -11,6 +11,12 @@
 #ifndef BOOST_UNITS_GET_DIMENSION_HPP
 #define BOOST_UNITS_GET_DIMENSION_HPP
 
+///
+/// \file
+/// \brief Get the dimension of a unit, absolute unit and quantity.
+/// \details
+///
+
 #include <boost/units/units_fwd.hpp>
 
 namespace boost {
@@ -20,21 +26,21 @@ namespace units {
 template<class T>
 struct get_dimension {};
 
-/// get the dimension of a unit
+/// Get the dimension of a unit.
 template<class Dim,class System>
 struct get_dimension< unit<Dim,System> >
 {
     typedef Dim type;
 };
 
-/// get the dimension of an absolute unit
+/// Get the dimension of an absolute unit.
 template<class Unit>
 struct get_dimension< absolute<Unit> >
 {
     typedef typename get_dimension<Unit>::type  type;
 };
 
-/// get the dimension of a quantity
+/// Get the dimension of a quantity.
 template<class Unit,class Y>
 struct get_dimension< quantity<Unit,Y> >
 {

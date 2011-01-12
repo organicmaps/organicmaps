@@ -13,6 +13,8 @@
 
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
+#include <boost/interprocess/streams/bufferstream.hpp>
+#include <boost/interprocess/detail/posix_time_types_wrk.hpp>
 
 #if (defined BOOST_INTERPROCESS_WINDOWS)
 #  include <boost/interprocess/detail/win32_api.hpp>
@@ -77,6 +79,20 @@ inline OS_systemwide_thread_id_t get_invalid_systemwide_thread_id()
 {
    return get_invalid_thread_id();
 }
+
+inline long double get_current_process_creation_time()
+{
+   winapi::interprocess_filetime CreationTime, ExitTime, KernelTime, UserTime;
+
+   get_process_times
+      ( winapi::get_current_process(), &CreationTime, &ExitTime, &KernelTime, &UserTime);
+
+   typedef long double ldouble_t;
+   const ldouble_t resolution = (100.0l/1000000000.0l);
+   return CreationTime.dwHighDateTime*(ldouble_t(1u<<31u)*2.0l*resolution) +
+              CreationTime.dwLowDateTime*resolution;
+}
+
 
 #else    //#if (defined BOOST_INTERPROCESS_WINDOWS)
 
@@ -160,7 +176,21 @@ inline OS_systemwide_thread_id_t get_invalid_systemwide_thread_id()
    return OS_systemwide_thread_id_t(get_invalid_process_id(), get_invalid_thread_id());
 }
 
+inline long double get_current_process_creation_time()
+{ return 0.0L; }
+
 #endif   //#if (defined BOOST_INTERPROCESS_WINDOWS)
+
+typedef char pid_str_t[sizeof(OS_process_id_t)*3+1];
+
+inline void get_pid_str(pid_str_t &pid_str, OS_process_id_t pid)
+{
+   bufferstream bstream(pid_str, sizeof(pid_str));
+   bstream << pid << std::ends;
+}
+
+inline void get_pid_str(pid_str_t &pid_str)
+{  get_pid_str(pid_str, get_current_process_id());  }
 
 }  //namespace detail{
 }  //namespace interprocess {

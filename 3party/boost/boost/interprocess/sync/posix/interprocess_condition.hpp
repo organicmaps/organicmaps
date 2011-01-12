@@ -10,6 +10,7 @@
 
 #include <boost/interprocess/sync/posix/ptime_to_timespec.hpp>
 #include <boost/interprocess/detail/posix_time_types_wrk.hpp>
+#include <boost/assert.hpp>
 
 namespace boost {
 
@@ -21,7 +22,7 @@ inline interprocess_condition::interprocess_condition()
    pthread_condattr_t cond_attr;
    res = pthread_condattr_init(&cond_attr);
    if(res != 0){
-      throw interprocess_exception();
+      throw interprocess_exception("pthread_condattr_init failed");
    }
    res = pthread_condattr_setpshared(&cond_attr, PTHREAD_PROCESS_SHARED);
    if(res != 0){
@@ -39,21 +40,21 @@ inline interprocess_condition::~interprocess_condition()
 {
     int res = 0;
     res = pthread_cond_destroy(&m_condition);
-    assert(res == 0);
+    BOOST_ASSERT(res == 0);
 }
 
 inline void interprocess_condition::notify_one()
 {
     int res = 0;
     res = pthread_cond_signal(&m_condition);
-    assert(res == 0);
+    BOOST_ASSERT(res == 0);
 }
 
 inline void interprocess_condition::notify_all()
 {
     int res = 0;
     res = pthread_cond_broadcast(&m_condition);
-    assert(res == 0);
+    BOOST_ASSERT(res == 0);
 }
 
 inline void interprocess_condition::do_wait(interprocess_mutex &mut)
@@ -61,7 +62,7 @@ inline void interprocess_condition::do_wait(interprocess_mutex &mut)
    pthread_mutex_t* pmutex = &mut.m_mut;
    int res = 0;
    res = pthread_cond_wait(&m_condition, pmutex);
-   assert(res == 0);
+   BOOST_ASSERT(res == 0);
 }
 
 inline bool interprocess_condition::do_timed_wait
@@ -71,7 +72,7 @@ inline bool interprocess_condition::do_timed_wait
    pthread_mutex_t* pmutex = &mut.m_mut;
    int res = 0;
    res = pthread_cond_timedwait(&m_condition, pmutex, &ts);
-   assert(res == 0 || res == ETIMEDOUT);
+   BOOST_ASSERT(res == 0 || res == ETIMEDOUT);
 
    return res != ETIMEDOUT;
 }

@@ -277,12 +277,12 @@ T erf_inv_imp(const T& p, const T& q, const Policy&, const boost::mpl::int_<64>*
 template <class T, class Policy>
 struct erf_roots
 {
-   std::tr1::tuple<T,T,T> operator()(const T& guess)
+   boost::math::tuple<T,T,T> operator()(const T& guess)
    {
       BOOST_MATH_STD_USING
       T derivative = sign * (2 / sqrt(constants::pi<T>())) * exp(-(guess * guess));
       T derivative2 = -2 * guess * derivative;
-      return std::tr1::make_tuple(((sign > 0) ? boost::math::erf(guess, Policy()) : boost::math::erfc(guess, Policy())) - target, derivative, derivative2);
+      return boost::math::make_tuple(((sign > 0) ? boost::math::erf(guess, Policy()) : boost::math::erfc(guess, Policy())) - target, derivative, derivative2);
    }
    erf_roots(T z, int s) : target(z), sign(s) {}
 private:

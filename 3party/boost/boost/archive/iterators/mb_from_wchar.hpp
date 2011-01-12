@@ -115,7 +115,7 @@ public:
     // make composible buy using templated constructor
     template<class T>
     mb_from_wchar(BOOST_PFTO_WRAPPER(T) start) :
-        super_t(Base(BOOST_MAKE_PFTO_WRAPPER(static_cast<T>(start)))),
+        super_t(Base(BOOST_MAKE_PFTO_WRAPPER(static_cast< T >(start)))),
         m_bend(0),
         m_bnext(0),
         m_full(false)

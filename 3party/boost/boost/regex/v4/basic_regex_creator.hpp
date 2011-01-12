@@ -806,7 +806,13 @@ void basic_regex_creator<charT, traits>::fixup_recursions(re_syntax_base* state)
             re_syntax_base* p = base;
             std::ptrdiff_t idx = static_cast<re_jump*>(state)->alt.i;
             if(idx > 10000)
-               idx = m_pdata->get_id(idx);
+            {
+               //
+               // There may be more than one capture group with this hash, just do what Perl
+               // does and recurse to the leftmost:
+               //
+               idx = m_pdata->get_id(static_cast<int>(idx));
+            }
             while(p)
             {
                if((p->type == syntax_element_startmark) && (static_cast<re_brace*>(p)->index == idx))

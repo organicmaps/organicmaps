@@ -6,12 +6,13 @@
  * Boost Software License, Version 1.0. (See accompanying
  * file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  * Author: Jeff Garland, Bart Garst
- * $Date: 2008-11-12 14:37:53 -0500 (Wed, 12 Nov 2008) $
+ * $Date: 2010-11-11 15:19:38 -0500 (Thu, 11 Nov 2010) $
  */
 
 #include "boost/date_time/gregorian/gregorian_types.hpp"
 #include "boost/date_time/gregorian/parsers.hpp"
 #include "boost/serialization/split_free.hpp"
+#include "boost/serialization/nvp.hpp"
 
   
 // macros to split serialize functions into save & load functions

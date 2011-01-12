@@ -484,23 +484,27 @@ struct BuildActionsCases::case_<proto::tag::terminal>
         proto::when<
             proto::terminal<action_tag>,
             get_action_name<proto::_ >()
-                >,
+            >,
         proto::when<
             proto::terminal<state_tag>,
             proto::_
-                >,
+            >,
         proto::when<
             proto::terminal<flag_tag>,
             proto::_
-                >,
+            >,
         proto::when<
             proto::terminal<event_tag>,
             proto::_
-                >,
+            >,
         proto::when<
-                proto::terminal<proto::_>,
-                get_fct<proto::_ >()
-                >
+            proto::terminal<fsm_artefact_tag>,
+            get_fct<proto::_ >()
+            >,
+        proto::when<
+            proto::terminal<proto::_>,
+            proto::_child
+            >
     >
 {};
 struct BuildActions

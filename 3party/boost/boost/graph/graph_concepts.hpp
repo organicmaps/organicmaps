@@ -18,6 +18,7 @@
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/properties.hpp>
 #include <boost/graph/numeric_values.hpp>
+#include <boost/graph/buffer_concepts.hpp>
 #include <boost/concept_check.hpp>
 #include <boost/detail/workaround.hpp>
 
@@ -493,28 +494,6 @@ typename T::ThereReallyIsNoMemberByThisNameInT vertices(T const&);
         Graph g;
     };
 
-    // This needs to move out of the graph library
-    BOOST_concept(Buffer,(B))
-    {
-        BOOST_CONCEPT_USAGE(Buffer) {
-        b.push(t);
-        b.pop();
-        typename B::value_type& v = b.top();
-        const_constraints(b);
-        ignore_unused_variable_warning(v);
-        }
-        void const_constraints(const B& cb) {
-        const typename B::value_type& v = cb.top();
-        n = cb.size();
-        bool e = cb.empty();
-        ignore_unused_variable_warning(v);
-        ignore_unused_variable_warning(e);
-        }
-        typename B::size_type n;
-        typename B::value_type t;
-        B b;
-    };
-
     BOOST_concept(ColorValue,(C))
         : EqualityComparable<C>
         , DefaultConstructible<C>
@@ -614,7 +593,6 @@ using boost::concepts::VertexIndexGraphConcept;
 using boost::concepts::EdgeIndexGraphConcept;
 
 // Utility concepts
-using boost::concepts::BufferConcept;
 using boost::concepts::ColorValueConcept;
 using boost::concepts::BasicMatrixConcept;
 using boost::concepts::NumericValueConcept;

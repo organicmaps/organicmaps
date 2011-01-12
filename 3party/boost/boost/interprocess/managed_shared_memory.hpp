@@ -19,9 +19,11 @@
 #include <boost/interprocess/detail/workaround.hpp>
 
 #include <boost/interprocess/detail/managed_memory_impl.hpp>
+#include <boost/interprocess/exceptions.hpp>
 #include <boost/interprocess/detail/managed_open_or_create_impl.hpp>
 #include <boost/interprocess/shared_memory_object.hpp>
 #include <boost/interprocess/creation_tags.hpp>
+#include <boost/interprocess/permissions.hpp>
 
 namespace boost {
 
@@ -82,10 +84,10 @@ class basic_managed_shared_memory
    //!Creates shared memory and creates and places the segment manager. 
    //!This can throw.
    basic_managed_shared_memory(create_only_t create_only, const char *name,
-                             std::size_t size, const void *addr = 0)
+                             std::size_t size, const void *addr = 0, const permissions& perm = permissions())
       : base_t()
       , base2_t(create_only, name, size, read_write, addr, 
-                create_open_func_t(get_this_pointer(), detail::DoCreate))
+                create_open_func_t(get_this_pointer(), detail::DoCreate), perm)
    {}
 
    //!Creates shared memory and creates and places the segment manager if
@@ -94,11 +96,11 @@ class basic_managed_shared_memory
    //!This can throw.
    basic_managed_shared_memory (open_or_create_t open_or_create,
                               const char *name, std::size_t size, 
-                              const void *addr = 0)
+                              const void *addr = 0, const permissions& perm = permissions())
       : base_t()
       , base2_t(open_or_create, name, size, read_write, addr, 
                 create_open_func_t(get_this_pointer(), 
-                detail::DoOpenOrCreate))
+                detail::DoOpenOrCreate), perm)
    {}
 
    //!Connects to a created shared memory and its segment manager.
@@ -178,6 +180,11 @@ class basic_managed_shared_memory
    {
       return base_t::template shrink_to_fit
          <basic_managed_shared_memory>(shmname);
+   }
+
+   bool flush()
+   {
+      return this->base2_t::flush();
    }
 
    /// @cond

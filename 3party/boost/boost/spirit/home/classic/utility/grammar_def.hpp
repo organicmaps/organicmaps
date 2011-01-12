@@ -97,7 +97,7 @@ namespace impl {
     struct assign_zero_to_tuple_member {
 
         template <typename TupleT>
-        static void do_(TupleT &t) { t[phoenix::tuple_index<N>()] = 0; }
+        static void do_(TupleT &t) { t[::phoenix::tuple_index<N>()] = 0; }
     };
 
     template <int N>
@@ -289,9 +289,9 @@ public:
     //  Another reason may be, that there is a count mismatch between
     //  the number of template parameters to the grammar_def<> class and the
     //  number of parameters used while calling start_parsers().
-        BOOST_SPIRIT_ASSERT(0 != t[phoenix::tuple_index<N>()]);
+        BOOST_SPIRIT_ASSERT(0 != t[::phoenix::tuple_index<N>()]);
 
-        return t[phoenix::tuple_index<N>()];
+        return t[::phoenix::tuple_index<N>()];
     }
 
 private:

@@ -455,6 +455,10 @@ namespace boost { namespace polygon{
         //truncate downward if it went up due to negative number
         if(x < x_unit) --x_unit;
         if(y < y_unit) --y_unit;
+        if(is_horizontal(he1))
+          y_unit = he1.first.y();
+        if(is_horizontal(he2))
+          y_unit = he2.first.y();
         //if(x != exp_x || y != exp_y)
         //  std::cout << exp_x << " " << exp_y << " " << x << " " << y << std::endl;
         //Unit y1 = evalAtXforY(exp_x, he1.first, he1.second);
@@ -464,11 +468,11 @@ namespace boost { namespace polygon{
         if(!projected && !contains(rect1, result, true)) return false;
         if(!projected && !contains(rect2, result, true)) return false;
         if(projected) {
-          rectangle_data<long double> inf_rect((long double)(std::numeric_limits<Unit>::min)(), 
-                                               (long double) (std::numeric_limits<Unit>::min)(), 
+          rectangle_data<long double> inf_rect(-(long double)(std::numeric_limits<Unit>::max)(), 
+                                               -(long double) (std::numeric_limits<Unit>::max)(), 
                                                (long double)(std::numeric_limits<Unit>::max)(), 
                                                (long double) (std::numeric_limits<Unit>::max)() );
-          if(contains(inf_rect, intersection, true)) {
+          if(contains(inf_rect, point_data<long double>(x, y), true)) {
             intersection = result;
             return true;
           } else
@@ -477,6 +481,7 @@ namespace boost { namespace polygon{
         intersection = result;
         return true;
       }
+
       inline bool compute_intersection(Point& intersection, const half_edge& he1, const half_edge& he2, 
                                        bool projected = false, bool round_closest = false) {
         if(!projected && !intersects(he1, he2))
@@ -491,6 +496,13 @@ namespace boost { namespace polygon{
         } else {
           return lazy_success;
         }
+        return compute_exact_intersection(intersection, he1, he2, projected, round_closest);
+      }
+
+      inline bool compute_exact_intersection(Point& intersection, const half_edge& he1, const half_edge& he2, 
+                                             bool projected = false, bool round_closest = false) {
+        if(!projected && !intersects(he1, he2))
+           return false;
         typedef rectangle_data<Unit> Rectangle;
         Rectangle rect1, rect2;
         set_points(rect1, he1.first, he1.second);
@@ -542,6 +554,7 @@ namespace boost { namespace polygon{
         y_den = (dx1 * dy2 - dx2 * dy1);
         x = x_num / x_den;
         y = y_num / y_den;
+	//std::cout << x << " " << y << std::endl;
         //std::cout << "cross1 " << dy1 << " " << dx2 << " " << dy1 * dx2 << std::endl;
         //std::cout << "cross2 " << dy2 << " " << dx1 << " " << dy2 * dx1 << std::endl;
         //Unit exp_x = compute_x_intercept<at>(x11, x21, y11, y21, dy1, dy2, dx1, dx2);
@@ -555,6 +568,10 @@ namespace boost { namespace polygon{
         //truncate downward if it went up due to negative number
         if(x < (high_precision)x_unit) --x_unit;
         if(y < (high_precision)y_unit) --y_unit;
+        if(is_horizontal(he1))
+          y_unit = he1.first.y();
+        if(is_horizontal(he2))
+          y_unit = he2.first.y();
         //if(x != exp_x || y != exp_y)
         //  std::cout << exp_x << " " << exp_y << " " << x << " " << y << std::endl;
         //Unit y1 = evalAtXforY(exp_x, he1.first, he1.second);
@@ -564,14 +581,9 @@ namespace boost { namespace polygon{
         if(!contains(rect1, result, true)) return false;
         if(!contains(rect2, result, true)) return false;
         if(projected) {
-          rectangle_data<long double> inf_rect((long double)(std::numeric_limits<Unit>::min)(), 
-                                               (long double) (std::numeric_limits<Unit>::min)(), 
-                                               (long double)(std::numeric_limits<Unit>::max)(), 
-                                               (long double) (std::numeric_limits<Unit>::max)() );
-          if(contains(inf_rect, intersection, true)) {
-            intersection = result;
-            return true;
-          } else
+          high_precision b1 = (high_precision) (std::numeric_limits<Unit>::min)();
+          high_precision b2 = (high_precision) (std::numeric_limits<Unit>::max)();
+          if(x > b2 || y > b2 || x < b1 || y < b1)
             return false;
         }
         intersection = result;
@@ -641,6 +653,10 @@ namespace boost { namespace polygon{
       //truncate downward if it went up due to negative number
       if(x < (high_precision)x_unit) --x_unit;
       if(y < (high_precision)y_unit) --y_unit;
+      if(is_horizontal(he1))
+        y_unit = he1.first.y();
+      if(is_horizontal(he2))
+        y_unit = he2.first.y();
       //if(x != exp_x || y != exp_y)
       //  std::cout << exp_x << " " << exp_y << " " << x << " " << y << std::endl;
       //Unit y1 = evalAtXforY(exp_x, he1.first, he1.second);
@@ -1203,7 +1219,7 @@ namespace boost { namespace polygon{
 
     static inline void sort_vertex_arbitrary_count(vertex_arbitrary_count& count, const Point& pt) {
       less_half_edge_count lfec(pt);
-      std::sort(count.begin(), count.end(), lfec);
+      gtlsort(count.begin(), count.end(), lfec);
     }
 
     typedef std::vector<std::pair<std::pair<std::pair<Point, Point>, int>, active_tail_arbitrary*> > incoming_count;
@@ -1227,7 +1243,7 @@ namespace boost { namespace polygon{
 
     static inline void sort_incoming_count(incoming_count& count, const Point& pt) {
       less_incoming_count lfec(pt);
-      std::sort(count.begin(), count.end(), lfec);
+      gtlsort(count.begin(), count.end(), lfec);
     }
 
     static inline void compact_vertex_arbitrary_count(const Point& pt, vertex_arbitrary_count &count) {
@@ -1798,7 +1814,7 @@ namespace boost { namespace polygon{
       data.push_back(vertex_half_edge(Point(10, 0), Point(10, 10), -1));
       data.push_back(vertex_half_edge(Point(10, 10), Point(10, 0), 1));
       data.push_back(vertex_half_edge(Point(10, 10), Point(0, 10), 1));
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1822,7 +1838,7 @@ namespace boost { namespace polygon{
       data.push_back(vertex_half_edge(Point(10, 10), Point(10, 20), -1));
       data.push_back(vertex_half_edge(Point(10, 20), Point(10, 10), 1));
       data.push_back(vertex_half_edge(Point(10, 20), Point(0, 10), 1));
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1846,7 +1862,7 @@ namespace boost { namespace polygon{
       data.push_back(vertex_half_edge(Point(2, -4), Point(2, 4), -1));
       data.push_back(vertex_half_edge(Point(2, 4), Point(-2, 2), 1));
       data.push_back(vertex_half_edge(Point(2, 4), Point(2, -4), 1));
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1892,7 +1908,7 @@ namespace boost { namespace polygon{
       data.push_back(vertex_half_edge(Point(10, 22), Point(10, 12), -1));
       data.push_back(vertex_half_edge(Point(10, 22), Point(2, 22), -1));
 
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1939,7 +1955,7 @@ namespace boost { namespace polygon{
       data.push_back(vertex_half_edge(Point(7, 2), Point(5, 5), -1));
       data.push_back(vertex_half_edge(Point(7, 2), Point(5, 2), 1));
       
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1979,7 +1995,7 @@ namespace boost { namespace polygon{
       data.push_back(vertex_half_edge(Point(7, 2), Point(5, 5), -1));
       data.push_back(vertex_half_edge(Point(7, 2), Point(4, 1), 1));
       
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -2019,7 +2035,7 @@ namespace boost { namespace polygon{
       data.push_back(vertex_half_edge(Point(7, 2), Point(5, 5), -1));
       data.push_back(vertex_half_edge(Point(7, 2), Point(4, 1), 1));
       
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -2047,7 +2063,7 @@ namespace boost { namespace polygon{
 
       data.push_back(vertex_half_edge(Point(-1, 4), Point(0, 2), -1));
       data.push_back(vertex_half_edge(Point(0, 2), Point(-1, 4), 1));
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -2753,7 +2769,7 @@ namespace boost { namespace polygon{
       data.push_back(vertex_half_edge(Point(10, 0), Point(10, 10), -1));
       data.push_back(vertex_half_edge(Point(10, 10), Point(10, 0), 1));
       data.push_back(vertex_half_edge(Point(10, 10), Point(0, 10), 1));
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -2776,7 +2792,7 @@ namespace boost { namespace polygon{
       data.push_back(vertex_half_edge(Point(10, 10), Point(10, 20), -1));
       data.push_back(vertex_half_edge(Point(10, 20), Point(10, 10), 1));
       data.push_back(vertex_half_edge(Point(10, 20), Point(0, 10), 1));
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -2799,7 +2815,7 @@ namespace boost { namespace polygon{
       data.push_back(vertex_half_edge(Point(2, -4), Point(2, 4), -1));
       data.push_back(vertex_half_edge(Point(2, 4), Point(-2, 2), 1));
       data.push_back(vertex_half_edge(Point(2, 4), Point(2, -4), 1));
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -2844,7 +2860,7 @@ namespace boost { namespace polygon{
       data.push_back(vertex_half_edge(Point(10, 22), Point(10, 12), -1));
       data.push_back(vertex_half_edge(Point(10, 22), Point(2, 22), -1));
 
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -2891,7 +2907,7 @@ namespace boost { namespace polygon{
       data.push_back(vertex_half_edge(Point(7, 2), Point(5, 5), -1));
       data.push_back(vertex_half_edge(Point(7, 2), Point(5, 2), 1));
       
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {

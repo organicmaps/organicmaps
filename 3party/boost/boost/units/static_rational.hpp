@@ -46,7 +46,7 @@ struct static_abs
     BOOST_STATIC_CONSTANT(integer_type,value = Value < 0 ? -Value : Value);
 };
 
-/// Compile time rational number.
+// Compile time rational number.
 /** 
 This is an implementation of a compile time rational number, where @c static_rational<N,D> represents
 a rational number with numerator @c N and denominator @c D. Because of the potential for ambiguity arising 

@@ -53,7 +53,7 @@ void bubble_down_one(I first, I last)
    if(first != last)
    {
       I next = last - 1;
-      while((next != first) && !(*(next-1) < *next))
+      while((next != first) && (*next < *(next-1)))
       {
          (next-1)->swap(*next);
          --next;
@@ -61,70 +61,59 @@ void bubble_down_one(I first, I last)
    }
 }
 
-//
-// Class named_subexpressions
-// Contains information about named subexpressions within the regex.
-//
-template <class charT>
-class named_subexpressions_base
-{
-public:
-   virtual int get_id(const charT* i, const charT* j)const = 0;
-   virtual int get_id(std::size_t hash)const = 0;
-#ifdef __GNUC__
-   // warning supression:
-   virtual ~named_subexpressions_base(){}
-#endif
-};
-
 template <class Iterator>
-inline std::size_t hash_value_from_capture_name(Iterator i, Iterator j)
+inline int hash_value_from_capture_name(Iterator i, Iterator j)
 {
    std::size_t r = boost::hash_range(i, j);
    r %= ((std::numeric_limits<int>::max)() - 10001);
    r += 10000;
-   return r;
+   return static_cast<int>(r);
 }
 
-template <class charT>
-class named_subexpressions : public named_subexpressions_base<charT>
+class named_subexpressions
 {
+public:
    struct name
    {
+      template <class charT>
       name(const charT* i, const charT* j, int idx)
-         : /*n(i, j), */ index(idx) 
+         : index(idx) 
       { 
          hash = hash_value_from_capture_name(i, j); 
       }
-      name(std::size_t h, int idx)
+      name(int h, int idx)
          : index(idx), hash(h)
       { 
       }
-      //std::vector<charT> n;
       int index;
-      std::size_t hash;
+      int hash;
       bool operator < (const name& other)const
       {
-         return hash < other.hash; //std::lexicographical_compare(n.begin(), n.end(), other.n.begin(), other.n.end());
+         return hash < other.hash;
       }
       bool operator == (const name& other)const
       {
-         return hash == other.hash; //n == other.n;
+         return hash == other.hash; 
       }
       void swap(name& other)
       {
-         //n.swap(other.n);
          std::swap(index, other.index);
          std::swap(hash, other.hash);
       }
    };
-public:
+
+   typedef std::vector<name>::const_iterator const_iterator;
+   typedef std::pair<const_iterator, const_iterator> range_type;
+
    named_subexpressions(){}
+
+   template <class charT>
    void set_name(const charT* i, const charT* j, int index)
    {
       m_sub_names.push_back(name(i, j, index));
       bubble_down_one(m_sub_names.begin(), m_sub_names.end());
    }
+   template <class charT>
    int get_id(const charT* i, const charT* j)const
    {
       name t(i, j, 0);
@@ -135,72 +124,37 @@ public:
       }
       return -1;
    }
-   int get_id(std::size_t h)const
+   template <class charT>
+   range_type equal_range(const charT* i, const charT* j)const
+   {
+      name t(i, j, 0);
+      return std::equal_range(m_sub_names.begin(), m_sub_names.end(), t);
+   }
+   int get_id(int h)const
    {
       name t(h, 0);
-      typename std::vector<name>::const_iterator pos = std::lower_bound(m_sub_names.begin(), m_sub_names.end(), t);
+      std::vector<name>::const_iterator pos = std::lower_bound(m_sub_names.begin(), m_sub_names.end(), t);
       if((pos != m_sub_names.end()) && (*pos == t))
       {
          return pos->index;
       }
       return -1;
    }
+   range_type equal_range(int h)const
+   {
+      name t(h, 0);
+      return std::equal_range(m_sub_names.begin(), m_sub_names.end(), t);
+   }
 private:
    std::vector<name> m_sub_names;
 };
 
-template <class charT, class Other>
-class named_subexpressions_converter : public named_subexpressions_base<charT>
-{
-   boost::shared_ptr<named_subexpressions<Other> > m_converter;
-public:
-   named_subexpressions_converter(boost::shared_ptr<named_subexpressions<Other> > s)
-      : m_converter(s) {}
-   int get_id(const charT* i, const charT* j)const
-   {
-      if(i == j)
-         return -1;
-      std::vector<Other> v;
-      while(i != j)
-      {
-         v.push_back(*i);
-         ++i;
-      }
-      return m_converter->get_id(&v[0], &v[0] + v.size());
-   }
-   int get_id(std::size_t h)const
-   {
-      return m_converter->get_id(h);
-   }
-};
-
-template <class To>
-inline boost::shared_ptr<named_subexpressions_base<To> > convert_to_named_subs_imp(
-   boost::shared_ptr<named_subexpressions<To> > s, 
-   boost::integral_constant<bool,true> const&)
-{
-   return s;
-}
-template <class To, class From>
-inline boost::shared_ptr<named_subexpressions_base<To> > convert_to_named_subs_imp(
-   boost::shared_ptr<named_subexpressions<From> > s, 
-   boost::integral_constant<bool,false> const&)
-{
-   return boost::shared_ptr<named_subexpressions_converter<To, From> >(new named_subexpressions_converter<To, From>(s));
-}
-template <class To, class From>
-inline boost::shared_ptr<named_subexpressions_base<To> > convert_to_named_subs(
-   boost::shared_ptr<named_subexpressions<From> > s)
-{
-   typedef typename boost::is_same<To, From>::type tag_type;
-   return convert_to_named_subs_imp<To>(s, tag_type());
-}
 //
 // class regex_data:
 // represents the data we wish to expose to the matching algorithms.
 //
 template <class charT, class traits>
-struct regex_data : public named_subexpressions<charT>
+struct regex_data : public named_subexpressions
 {
    typedef regex_constants::syntax_option_type   flag_type;
    typedef std::size_t                           size_type;  
@@ -672,7 +626,7 @@ public:
       BOOST_ASSERT(0 != m_pimpl.get());
       return m_pimpl->get_data();
    }
-   boost::shared_ptr<re_detail::named_subexpressions<charT> > get_named_subs()const
+   boost::shared_ptr<re_detail::named_subexpressions > get_named_subs()const
    {
       return m_pimpl;
    }

@@ -75,13 +75,14 @@ public:
 
 private:
   // Initialise a service's key based on its id.
-  BOOST_ASIO_DECL void init_key(boost::asio::io_service::service::key& key,
+  BOOST_ASIO_DECL static void init_key(
+      boost::asio::io_service::service::key& key,
       const boost::asio::io_service::id& id);
 
 #if !defined(BOOST_ASIO_NO_TYPEID)
   // Initialise a service's key based on its id.
   template <typename Service>
-  void init_key(boost::asio::io_service::service::key& key,
+  static void init_key(boost::asio::io_service::service::key& key,
       const boost::asio::detail::service_id<Service>& /*id*/);
 #endif // !defined(BOOST_ASIO_NO_TYPEID)
 

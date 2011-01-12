@@ -47,7 +47,7 @@ namespace boost { namespace gil {
 ///
 ////////////////////////////////////////////////////////////////////////////////////////
 
-template <typename Pixel, bool IsPlanar, typename Alloc=std::allocator<unsigned char> >    
+template< typename Pixel, bool IsPlanar = false, typename Alloc=std::allocator<unsigned char> >    
 class image {
 public:
     typedef typename Alloc::template rebind<unsigned char>::other allocator_type;
@@ -194,13 +194,24 @@ private:
     }
 
     std::size_t total_allocated_size_in_bytes(const point_t& dimensions) const {
+
+        typedef typename view_t::x_iterator x_iterator; 
+
+        // when value_type is a non-pixel, like int or float, num_channels< ... > doesn't work.
+        const std::size_t _channels_in_image = mpl::eval_if< is_pixel< value_type >
+                                                           , num_channels< view_t >
+                                                           , mpl::int_< 1 > 
+														   >::type::value;
+
         std::size_t size_in_units = get_row_size_in_memunits(dimensions.x)*dimensions.y;
+
         if (IsPlanar)
-            size_in_units = size_in_units*num_channels<view_t>::value;
+            size_in_units = size_in_units * _channels_in_image ;
 
         // return the size rounded up to the nearest byte
-        return (size_in_units + byte_to_memunit<typename view_t::x_iterator>::value - 1) / byte_to_memunit<typename view_t::x_iterator>::value
-            + (_align_in_bytes>0 ? _align_in_bytes-1:0);    // add extra padding in case we need to align the first image pixel
+        return ( size_in_units + byte_to_memunit< x_iterator >::value - 1 ) 
+            / byte_to_memunit<x_iterator>::value 
+            + ( _align_in_bytes > 0 ? _align_in_bytes - 1 : 0 ); // add extra padding in case we need to align the first image pixel
     }
 
     std::size_t get_row_size_in_memunits(x_coord_t width) const {   // number of units per row

@@ -1188,7 +1188,9 @@ namespace boost
     using filesystem2::copy_file;
     using filesystem2::copy_option;
     using filesystem2::create_directory;
+# if !defined(BOOST_WINDOWS_API) || defined(BOOST_FS_HARD_LINK)
     using filesystem2::create_hard_link;
+# endif
     using filesystem2::create_symlink;
     using filesystem2::current_path;
     using filesystem2::directory_entry;

@@ -155,28 +155,6 @@ inline bool interprocess_condition::do_timed_wait(bool tout_enabled,
          break;
       }
       else{
-         //Notification occurred, we will lock the checking interprocess_mutex so that
-         //if a notify_one notification occurs, only one thread can exit
-         //---------------------------------------------------------------
-         /*
-         InternalLock lock;
-         if(tout_enabled){
-            InternalLock dummy(m_check_mut, abs_time);
-            lock = boost::interprocess::move(dummy);
-         }
-         else{
-            InternalLock dummy(m_check_mut);
-            lock = boost::interprocess::move(dummy);
-         }
-         if(!lock){
-            timed_out = true;
-            unlock_enter_mut = true;
-            detail::atomic_dec32(const_cast<boost::uint32_t*>(&m_num_waiters));
-            break;
-         }
-         //---------------------------------------------------------------
-         */
-         //InternalLock lock(m_check_mut);
          boost::uint32_t result = detail::atomic_cas32
                         (const_cast<boost::uint32_t*>(&m_command), SLEEP, NOTIFY_ONE);
          if(result == SLEEP){

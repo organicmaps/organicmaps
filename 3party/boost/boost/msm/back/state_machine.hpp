@@ -17,6 +17,9 @@
 #include <functional>
 #include <numeric>
 #include <utility>
+
+#define BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
+
 #include <boost/mpl/contains.hpp>
 #include <boost/mpl/deref.hpp>
 
@@ -44,7 +47,11 @@
 #ifndef BOOST_NO_RTTI
 #include <boost/any.hpp>
 #endif
+
+#include <boost/serialization/base_object.hpp> 
+
 #include <boost/msm/row_tags.hpp>
+#include <boost/msm/back/fold_to_list.hpp>
 #include <boost/msm/back/metafunctions.hpp>
 #include <boost/msm/back/history_policies.hpp>
 #include <boost/msm/back/bind_helpers.hpp>
@@ -58,6 +65,7 @@ BOOST_MPL_HAS_XXX_TRAIT_DEF(no_automatic_create)
 BOOST_MPL_HAS_XXX_TRAIT_DEF(non_forwarding_flag)
 BOOST_MPL_HAS_XXX_TRAIT_DEF(direct_entry)
 BOOST_MPL_HAS_XXX_TRAIT_DEF(initial_event)
+BOOST_MPL_HAS_XXX_TRAIT_DEF(do_serialize)
 
 #ifndef BOOST_MSM_CONSTRUCTOR_ARG_SIZE
 #define BOOST_MSM_CONSTRUCTOR_ARG_SIZE 5 // default max number of arguments for constructors
@@ -80,6 +88,7 @@ struct direct_entry_event
 template <class Fsm,class Stt, class Event,class CompilePolicy>
 const boost::msm::back::dispatch_table<Fsm,Stt, Event,CompilePolicy>
 dispatch_table<Fsm,Stt, Event,CompilePolicy>::instance;
+
 
 // library-containing class for state machines.  Pass the actual FSM class as
 // the Concrete parameter.
@@ -991,17 +1000,17 @@ private:
             {
                 ret_handled = HANDLED_TRUE;
             }
+
+            // process completion transitions BEFORE any other event in the pool (UML Standard 2.3 §15.3.14)
+            handle_eventless_transitions_helper<library_sm> eventless_helper(this,(handled == HANDLED_TRUE));
+            eventless_helper.process_completion_event();
+
             // after handling, take care of the deferred events
             defer_helper.do_post_handle_deferred(handled);
 
             // now check if some events were generated in a transition and was not handled
             // because of another processing, and if yes, start handling them
             do_post_msg_queue_helper(::boost::mpl::bool_<is_no_message_queue<library_sm>::type::value>());
-
-            // event can be handled, processing
-            // handle with lowest priority event-less transitions
-            handle_eventless_transitions_helper<library_sm> eventless_helper(this,(handled!=HANDLED_FALSE));
-            eventless_helper.process_completion_event();
 
             return ret_handled;
         }       
@@ -1011,6 +1020,53 @@ private:
     const int* current_state() const
     {
         return this->m_states;
+    }
+
+    template <class Archive>
+    struct serialize_state
+    {
+        serialize_state(Archive& ar):ar_(ar){}
+
+        template<typename T>
+        typename ::boost::enable_if< 
+            typename ::boost::mpl::or_<
+                typename has_do_serialize<T>::type,
+                typename is_composite_state<T>::type
+            >::type
+            ,void 
+        >::type
+        operator()(T& t) const
+        {
+            ar_ & t;
+        }
+        template<typename T>
+        typename ::boost::disable_if< 
+            typename ::boost::mpl::or_<
+                typename has_do_serialize<T>::type,
+                typename is_composite_state<T>::type
+            >::type
+            ,void 
+        >::type
+        operator()(T& t) const
+        {
+            // no state to serialize
+        }
+        Archive& ar_;
+    };
+    
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int)
+    {
+        // invoke serialization of the base class 
+        (serialize_state<Archive>(ar))(boost::serialization::base_object<Derived>(*this));
+        // now our attributes
+        ar & m_states;
+        // queues cannot be serialized => skip
+        ar & m_history;
+        ar & m_event_processing;
+        ar & m_is_included;
+        // visitors cannot be serialized => skip
+        ::boost::fusion::for_each(m_substate_list, serialize_state<Archive>(ar));
     }
 
     // linearly search for the state with the given id
@@ -1138,7 +1194,24 @@ private:
          int* const m_initial_states;
          int m_index;
      };
-     public:
+ public:
+     struct update_state
+     {
+         update_state(substate_list& to_overwrite_):to_overwrite(&to_overwrite_){}
+         template<typename StateType>
+         void operator()(StateType const& astate) const
+         {
+             ::boost::fusion::at_key<StateType>(*to_overwrite)=astate;
+         }
+         substate_list* to_overwrite;
+     };
+     template <class Expr>
+     void set_states(Expr const& expr)
+     {
+         ::boost::fusion::for_each( 
+             ::boost::fusion::as_vector(FoldToList()(expr, boost::fusion::nil())),update_state(this->m_substate_list));
+     }
+
      // Construct with the default initial states
      state_machine<Derived,HistoryPolicy,CompilePolicy   >()
          :Derived()
@@ -1157,13 +1230,38 @@ private:
          // create states
          fill_states(this);
      }
+     template <class Expr>
+     state_machine<Derived,HistoryPolicy,CompilePolicy   >
+         (Expr const& expr,typename ::boost::enable_if<typename ::boost::proto::is_expr<Expr>::type >::type* dummy=0)
+         :Derived()
+         ,m_events_queue() 
+         ,m_deferred_events_queue()
+         ,m_history()
+         ,m_event_processing(false)
+         ,m_is_included(false)
+         ,m_visitors()
+         ,m_substate_list()
+     {
+         BOOST_MPL_ASSERT_MSG(
+             ( ::boost::proto::matches<Expr, FoldToList>::value),
+             THE_STATES_EXPRESSION_PASSED_DOES_NOT_MATCH_GRAMMAR,
+             (FoldToList));
 
+         // initialize our list of states with the ones defined in Derived::initial_state
+         ::boost::mpl::for_each< seq_initial_states, ::boost::msm::wrap<mpl::placeholders::_1> >
+                        (init_states(m_states));
+         m_history.set_initial_states(m_states);
+         // create states
+         fill_states(this);
+         set_states(expr);
+     }
      // Construct with the default initial states and some default argument(s)
 #define MSM_CONSTRUCTOR_HELPER_EXECUTE_SUB(z, n, unused) ARG ## n t ## n
 #define MSM_CONSTRUCTOR_HELPER_EXECUTE(z, n, unused)                                \
         template <BOOST_PP_ENUM_PARAMS(n, class ARG)>                               \
         state_machine<Derived,HistoryPolicy,CompilePolicy                           \
-        >(BOOST_PP_ENUM(n, MSM_CONSTRUCTOR_HELPER_EXECUTE_SUB, ~ ) )                \
+        >(BOOST_PP_ENUM(n, MSM_CONSTRUCTOR_HELPER_EXECUTE_SUB, ~ ),                 \
+        typename ::boost::disable_if<typename ::boost::proto::is_expr<ARG0>::type >::type* dummy=0 )                \
         :Derived(BOOST_PP_ENUM_PARAMS(n,t))                                         \
          ,m_events_queue()                                                          \
          ,m_deferred_events_queue()                                                 \
@@ -1177,7 +1275,31 @@ private:
                         (init_states(m_states));                                    \
          m_history.set_initial_states(m_states);                                    \
          fill_states(this);                                                         \
+     }                                                                              \
+        template <class Expr,BOOST_PP_ENUM_PARAMS(n, class ARG)>                    \
+        state_machine<Derived,HistoryPolicy,CompilePolicy                           \
+        >(Expr const& expr,BOOST_PP_ENUM(n, MSM_CONSTRUCTOR_HELPER_EXECUTE_SUB, ~ ), \
+        typename ::boost::enable_if<typename ::boost::proto::is_expr<Expr>::type >::type* dummy=0 ) \
+        :Derived(BOOST_PP_ENUM_PARAMS(n,t))                                         \
+         ,m_events_queue()                                                          \
+         ,m_deferred_events_queue()                                                 \
+         ,m_history()                                                               \
+         ,m_event_processing(false)                                                 \
+         ,m_is_included(false)                                                      \
+         ,m_visitors()                                                              \
+         ,m_substate_list()                                                         \
+     {                                                                              \
+         BOOST_MPL_ASSERT_MSG(                                                      \
+         ( ::boost::proto::matches<Expr, FoldToList>::value),                       \
+             THE_STATES_EXPRESSION_PASSED_DOES_NOT_MATCH_GRAMMAR,                   \
+             (FoldToList));                                                         \
+         ::boost::mpl::for_each< seq_initial_states, ::boost::msm::wrap<mpl::placeholders::_1> > \
+                        (init_states(m_states));                                    \
+         m_history.set_initial_states(m_states);                                    \
+         fill_states(this);                                                         \
+         set_states(expr);                                                          \
      }
+
      BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_ADD(BOOST_MSM_CONSTRUCTOR_ARG_SIZE,1), MSM_CONSTRUCTOR_HELPER_EXECUTE, ~)
 #undef MSM_CONSTRUCTOR_HELPER_EXECUTE
 #undef MSM_CONSTRUCTOR_HELPER_EXECUTE_SUB
@@ -1650,12 +1772,21 @@ BOOST_PP_REPEAT(BOOST_PP_ADD(BOOST_MSM_VISITOR_ARG_SIZE,1), MSM_VISITOR_ARGS_EXE
 #undef MSM_VISITOR_ARGS_EXECUTE
 #undef MSM_VISITOR_ARGS_SUB
 
+// the IBM compiler seems to have problems with nested classes
+// the same seems to apply to the Apple version of gcc 4.0.1 (just in case we do for < 4.1)
+// and also to MS VC < 8
+#if defined (__IBMCPP__) || (defined (__APPLE_CC__) && (__GNUC__ == 4 && __GNUC_MINOR__ < 1)) || (defined(_MSC_VER) && (_MSC_VER < 1400))
+     public:
+#endif
     template<class ContainingSM>
     void set_containing_sm(ContainingSM* sm)
     {
         m_is_included=true;
         ::boost::fusion::for_each(m_substate_list,add_state<ContainingSM>(this,sm));
     }
+#if defined (__IBMCPP__) || (defined (__APPLE_CC__) && (__GNUC__ == 4 && __GNUC_MINOR__ < 1)) || (defined(_MSC_VER) && (_MSC_VER < 1400))
+     private:
+#endif
     // A function object for use with mpl::for_each that stuffs
     // states into the state list.
     template<class ContainingSM>
@@ -2012,6 +2143,10 @@ BOOST_PP_REPEAT(BOOST_PP_ADD(BOOST_MSM_VISITOR_ARG_SIZE,1), MSM_VISITOR_ARGS_EXE
         m_history.history_exit(this->m_states);
      }
 
+    // the IBM and VC<8 compilers seem to have problems with the friend declaration of dispatch_table
+#if defined (__IBMCPP__) || (defined(_MSC_VER) && (_MSC_VER < 1400))
+     public:
+#endif
     // no transition for event.
     template <class Event>
     static HandledEnum call_no_transition(library_sm& , int , int , Event const& )
@@ -2025,7 +2160,6 @@ BOOST_PP_REPEAT(BOOST_PP_ADD(BOOST_MSM_VISITOR_ARG_SIZE,1), MSM_VISITOR_ARGS_EXE
         fsm.defer_event(e);
         return HANDLED_DEFERRED;
     }
-
     // called for completion events. Default address set in the dispatch_table at init
     // prevents no-transition detection for completion events
     template <class Event>
@@ -2033,7 +2167,9 @@ BOOST_PP_REPEAT(BOOST_PP_ADD(BOOST_MSM_VISITOR_ARG_SIZE,1), MSM_VISITOR_ARGS_EXE
     {
         return HANDLED_FALSE;
     }
-
+#if defined (__IBMCPP__) || (defined(_MSC_VER) && (_MSC_VER < 1400))
+     private:
+#endif
     // puts a deferred event in the queue
     void post_deferred_event(deferred_fct& deferred)
     {

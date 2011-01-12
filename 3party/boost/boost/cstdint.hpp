@@ -137,7 +137,7 @@ namespace boost
 
 } // namespace boost
 
-#elif defined(__FreeBSD__) && (__FreeBSD__ <= 4) || defined(__osf__)
+#elif defined(__FreeBSD__) && (__FreeBSD__ <= 4) || defined(__osf__) || defined(__VMS)
 // FreeBSD and Tru64 have an <inttypes.h> that contains much of what we need.
 # include <inttypes.h>
 
@@ -256,20 +256,27 @@ namespace boost
 
 //  32-bit types  -----------------------------------------------------------//
 
-# if ULONG_MAX == 0xffffffff
-     typedef long            int32_t;
-     typedef long            int_least32_t;
-     typedef long            int_fast32_t;
-     typedef unsigned long   uint32_t;
-     typedef unsigned long   uint_least32_t;
-     typedef unsigned long   uint_fast32_t;
-# elif UINT_MAX == 0xffffffff
+# if UINT_MAX == 0xffffffff
      typedef int             int32_t;
      typedef int             int_least32_t;
      typedef int             int_fast32_t;
      typedef unsigned int    uint32_t;
      typedef unsigned int    uint_least32_t;
      typedef unsigned int    uint_fast32_t;
+# elif (USHRT_MAX == 0xffffffff)
+     typedef short             int32_t;
+     typedef short             int_least32_t;
+     typedef short             int_fast32_t;
+     typedef unsigned short    uint32_t;
+     typedef unsigned short    uint_least32_t;
+     typedef unsigned short    uint_fast32_t;
+# elif ULONG_MAX == 0xffffffff
+     typedef long            int32_t;
+     typedef long            int_least32_t;
+     typedef long            int_fast32_t;
+     typedef unsigned long   uint32_t;
+     typedef unsigned long   uint_least32_t;
+     typedef unsigned long   uint_fast32_t;
 # elif (UINT_MAX == 0xffffffffffffffff) && defined(__MTA__) 
       // Integers are 64 bits on the MTA / XMT 
       typedef __int32           int32_t; 

@@ -49,13 +49,13 @@ struct member_value_traits
    static pointer to_value_ptr(node_ptr n)
    {
       return pointer(detail::parent_from_member<value_type, node>
-         (detail::get_pointer(n), PtrToMember)); 
+         (detail::boost_intrusive_get_pointer(n), PtrToMember)); 
    }
 
    static const_pointer to_value_ptr(const_node_ptr n)
    {
       return pointer(detail::parent_from_member<value_type, node>
-         (detail::get_pointer(n), PtrToMember)); 
+         (detail::boost_intrusive_get_pointer(n), PtrToMember)); 
    }
 };
 

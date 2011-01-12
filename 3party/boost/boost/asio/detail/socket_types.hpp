@@ -52,9 +52,10 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# if defined(__hpux) && !defined(__HP_aCC)
+# if defined(__hpux)
 #  include <sys/time.h>
-# else
+# endif
+# if !defined(__hpux) || defined(__SELECT)
 #  include <sys/select.h>
 # endif
 # include <sys/socket.h>

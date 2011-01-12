@@ -21,6 +21,7 @@
 #include <boost/mpi/datatype.hpp>
 #include <boost/archive/detail/auto_link_archive.hpp>
 #include <boost/archive/detail/common_oarchive.hpp>
+#include <boost/archive/shared_ptr_helper.hpp>
 #include <boost/mpi/detail/packed_oprimitive.hpp>
 #include <boost/mpi/detail/binary_buffer_oprimitive.hpp>
 #include <boost/serialization/string.hpp>
@@ -45,8 +46,9 @@ namespace boost { namespace mpi {
  */
   
 class BOOST_MPI_DECL packed_oarchive
-  : public oprimitive,
-    public archive::detail::common_oarchive<packed_oarchive>
+  : public oprimitive
+  , public archive::detail::common_oarchive<packed_oarchive>
+  , public archive::detail::shared_ptr_helper
 {
 public:
   /**
@@ -105,6 +107,9 @@ public:
     typedef typename mpl::apply1<use_array_optimization,T>::type use_optimized;
     save_override(x, version, use_optimized());
   }
+
+  // input archives need to ignore  the optional information 
+  void save_override(const archive::class_id_optional_type & /*t*/, int){}
 
   // explicitly convert to char * to avoid compile ambiguities
   void save_override(const archive::class_name_type & t, int){

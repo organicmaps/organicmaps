@@ -326,7 +326,7 @@ public:
           peer_endpoint ? &addr_len : 0, ec));
 
     // On success, assign new connection to peer socket object.
-    if (new_socket.get() >= 0)
+    if (new_socket.get() != invalid_socket)
     {
       if (peer_endpoint)
         peer_endpoint->resize(addr_len);

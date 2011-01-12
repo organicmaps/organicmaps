@@ -26,7 +26,7 @@ namespace boost
          typedef Policy policy_type;
 
          non_central_f_distribution(RealType v1_, RealType v2_, RealType lambda) : v1(v1_), v2(v2_), ncp(lambda)
-         { 
+         {
             const char* function = "boost::math::non_central_f_distribution<%1%>::non_central_f_distribution(%1%,%1%)";
             RealType r;
             detail::check_df(
@@ -69,7 +69,7 @@ namespace boost
       inline const std::pair<RealType, RealType> range(const non_central_f_distribution<RealType, Policy>& /* dist */)
       { // Range of permissible values for random variable k.
          using boost::math::tools::max_value;
-         return std::pair<RealType, RealType>(0, max_value<RealType>());
+         return std::pair<RealType, RealType>(static_cast<RealType>(0), max_value<RealType>());
       }
 
       template <class RealType, class Policy>
@@ -77,12 +77,12 @@ namespace boost
       { // Range of supported values for random variable k.
          // This is range where cdf rises from 0 to 1, and outside it, the pdf is zero.
          using boost::math::tools::max_value;
-         return std::pair<RealType, RealType>(0, max_value<RealType>());
+         return std::pair<RealType, RealType>(static_cast<RealType>(0), max_value<RealType>());
       }
 
       template <class RealType, class Policy>
       inline RealType mean(const non_central_f_distribution<RealType, Policy>& dist)
-      { 
+      {
          const char* function = "mean(non_central_f_distribution<%1%> const&)";
          RealType v1 = dist.degrees_of_freedom1();
          RealType v2 = dist.degrees_of_freedom2();
@@ -104,8 +104,8 @@ namespace boost
                return r;
          if(v2 <= 2)
             return policies::raise_domain_error(
-               function, 
-               "Second degrees of freedom parameter was %1%, but must be > 2 !", 
+               function,
+               "Second degrees of freedom parameter was %1%, but must be > 2 !",
                v2, Policy());
          return v2 * (v1 + l) / (v1 * (v2 - 2));
       } // mean
@@ -134,8 +134,8 @@ namespace boost
                Policy()))
                return r;
          return detail::generic_find_mode(
-            dist, 
-            m * (n + l) / (n * (m - 2)), 
+            dist,
+            m * (n + l) / (n * (m - 2)),
             function);
       }
 
@@ -163,8 +163,8 @@ namespace boost
                return r;
          if(m <= 4)
             return policies::raise_domain_error(
-               function, 
-               "Second degrees of freedom parameter was %1%, but must be > 4 !", 
+               function,
+               "Second degrees of freedom parameter was %1%, but must be > 4 !",
                m, Policy());
          RealType result = 2 * m * m * ((n + l) * (n + l)
             + (m - 2) * (n + 2 * l));
@@ -200,8 +200,8 @@ namespace boost
                return r;
          if(m <= 6)
             return policies::raise_domain_error(
-               function, 
-               "Second degrees of freedom parameter was %1%, but must be > 6 !", 
+               function,
+               "Second degrees of freedom parameter was %1%, but must be > 6 !",
                m, Policy());
          RealType result = 2 * constants::root_two<RealType>();
          result *= sqrt(m - 4);
@@ -214,7 +214,7 @@ namespace boost
 
       template <class RealType, class Policy>
       inline RealType kurtosis_excess(const non_central_f_distribution<RealType, Policy>& dist)
-      { 
+      {
          const char* function = "kurtosis_excess(non_central_f_distribution<%1%> const&)";
          BOOST_MATH_STD_USING
          RealType n = dist.degrees_of_freedom1();
@@ -237,18 +237,18 @@ namespace boost
                return r;
          if(m <= 8)
             return policies::raise_domain_error(
-               function, 
-               "Second degrees of freedom parameter was %1%, but must be > 8 !", 
+               function,
+               "Second degrees of freedom parameter was %1%, but must be > 8 !",
                m, Policy());
          RealType l2 = l * l;
          RealType l3 = l2 * l;
          RealType l4 = l2 * l2;
          RealType result = (3 * (m - 4) * (n * (m + n - 2)
-            * (4 * (m - 2) * (m - 2) 
+            * (4 * (m - 2) * (m - 2)
             + (m - 2) * (m + 10) * n
             + (10 + m) * n * n)
             + 4 * (m + n - 2) * (4 * (m - 2) * (m - 2)
-            + (m - 2) * (10 + m) * n 
+            + (m - 2) * (10 + m) * n
             + (10 + m) * n * n) * l + 2 * (10 + m)
             * (m + n - 2) * (2 * m + 3 * n - 4) * l2
             + 4 * (10 + m) * (-2 + m + n) * l3
@@ -270,9 +270,9 @@ namespace boost
       { // Probability Density/Mass Function.
          typedef typename policies::evaluation<RealType, Policy>::type value_type;
          typedef typename policies::normalise<
-            Policy, 
-            policies::promote_float<false>, 
-            policies::promote_double<false>, 
+            Policy,
+            policies::promote_float<false>,
+            policies::promote_double<false>,
             policies::discrete_quantile<>,
             policies::assert_undefined<> >::type forwarding_policy;
 
@@ -287,7 +287,7 @@ namespace boost
 
       template <class RealType, class Policy>
       RealType cdf(const non_central_f_distribution<RealType, Policy>& dist, const RealType& x)
-      { 
+      {
          const char* function = "cdf(const non_central_f_distribution<%1%>&, %1%)";
          RealType r;
          if(!detail::check_df(
@@ -304,7 +304,7 @@ namespace boost
                &r,
                Policy()))
                return r;
-         
+
          if((x < 0) || !(boost::math::isfinite)(x))
          {
             return policies::raise_domain_error<RealType>(
@@ -321,7 +321,7 @@ namespace boost
          // non-central beta cdf routine, this ensures accuracy
          // even when we compute x to be ~ 1:
          //
-         r = detail::non_central_beta_cdf(c, cp, alpha, beta, 
+         r = detail::non_central_beta_cdf(c, cp, alpha, beta,
             dist.non_centrality(), false, Policy());
          return r;
       } // cdf
@@ -345,7 +345,7 @@ namespace boost
                &r,
                Policy()))
                return r;
-         
+
          if((c.param < 0) || !(boost::math::isfinite)(c.param))
          {
             return policies::raise_domain_error<RealType>(
@@ -362,7 +362,7 @@ namespace boost
          // non-central beta cdf routine, this ensures accuracy
          // even when we compute x to be ~ 1:
          //
-         r = detail::non_central_beta_cdf(x, cx, alpha, beta, 
+         r = detail::non_central_beta_cdf(x, cx, alpha, beta,
             c.dist.non_centrality(), true, Policy());
          return r;
       } // ccdf
@@ -375,8 +375,8 @@ namespace boost
          RealType x = quantile(boost::math::non_central_beta_distribution<RealType, Policy>(alpha, beta, dist.non_centrality()), p);
          if(x == 1)
             return policies::raise_overflow_error<RealType>(
-               "quantile(const non_central_f_distribution<%1%>&, %1%)", 
-               "Result of non central F quantile is too large to represent.", 
+               "quantile(const non_central_f_distribution<%1%>&, %1%)",
+               "Result of non central F quantile is too large to represent.",
                Policy());
          return (x / (1 - x)) * (dist.degrees_of_freedom2() / dist.degrees_of_freedom1());
       } // quantile
@@ -389,8 +389,8 @@ namespace boost
          RealType x = quantile(complement(boost::math::non_central_beta_distribution<RealType, Policy>(alpha, beta, c.dist.non_centrality()), c.param));
          if(x == 1)
             return policies::raise_overflow_error<RealType>(
-               "quantile(complement(const non_central_f_distribution<%1%>&, %1%))", 
-               "Result of non central F quantile is too large to represent.", 
+               "quantile(complement(const non_central_f_distribution<%1%>&, %1%))",
+               "Result of non central F quantile is too large to represent.",
                Policy());
          return (x / (1 - x)) * (c.dist.degrees_of_freedom2() / c.dist.degrees_of_freedom1());
       } // quantile complement.

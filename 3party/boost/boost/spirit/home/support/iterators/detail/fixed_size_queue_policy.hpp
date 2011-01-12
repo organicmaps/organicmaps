@@ -41,11 +41,11 @@ namespace boost { namespace spirit { namespace iterator_policies
             unique() {}
 
             unique(unique const& x)
-              : queuePosition(x.queuePosition) {}
+              : queued_position(x.queued_position) {}
 
             void swap(unique& x)
             {
-                boost::swap(queuePosition, x.queuePosition);
+                boost::swap(queued_position, x.queued_position);
             }
 
             //  This is called when the iterator is dereferenced. It's a 
@@ -55,11 +55,13 @@ namespace boost { namespace spirit { namespace iterator_policies
             static typename MultiPass::reference 
             dereference(MultiPass const& mp)
             {
-                if (mp.queuePosition == mp.shared()->queuedElements.end())
-                {
+                if (!mp.queued_position.get_position().is_initialized())
+                   mp.queued_position.get_position().set_queue(&mp.shared()->queued_elements);
+
+                if (mp.queued_position == mp.shared()->queued_elements.end())
                     return MultiPass::get_input(mp);
-                }
-                return *mp.queuePosition;
+
+                return *mp.queued_position;
             }
 
             //  This is called when the iterator is incremented. It's a 
@@ -68,17 +70,20 @@ namespace boost { namespace spirit { namespace iterator_policies
             template <typename MultiPass>
             static void increment(MultiPass& mp)
             {
-                if (mp.queuePosition == mp.shared()->queuedElements.end())
+                if (!mp.queued_position.get_position().is_initialized())
+                    mp.queued_position.get_position().set_queue(&mp.shared()->queued_elements);
+
+                if (mp.queued_position == mp.shared()->queued_elements.end())
                 {
                     // don't let the queue get larger than N
-                    if (mp.shared()->queuedElements.size() >= N)
-                        mp.shared()->queuedElements.pop_front();
+                    if (mp.shared()->queued_elements.size() >= N)
+                        mp.shared()->queued_elements.pop_front();
 
-                    mp.shared()->queuedElements.push_back(
+                    mp.shared()->queued_elements.push_back(
                         MultiPass::get_input(mp));
                     MultiPass::advance_input(mp);
                 }
-                ++mp.queuePosition;
+                ++mp.queued_position;
             }
 
             // clear_queue is a no-op
@@ -87,7 +92,7 @@ namespace boost { namespace spirit { namespace iterator_policies
             template <typename MultiPass>
             static bool is_eof(MultiPass const& mp)
             {
-                return mp.queuePosition == mp.shared()->queuedElements.end() &&
+                return mp.queued_position == mp.shared()->queued_elements.end() &&
                        MultiPass::input_at_eof(mp);
             }
 
@@ -95,18 +100,18 @@ namespace boost { namespace spirit { namespace iterator_policies
             template <typename MultiPass>
             static bool equal_to(MultiPass const& mp, MultiPass const& x) 
             {
-                return mp.queuePosition == x.queuePosition;
+                return mp.queued_position == x.queued_position;
             }
 
             // called by operator<
             template <typename MultiPass>
             static bool less_than(MultiPass const& mp, MultiPass const& x)
             {
-                return mp.queuePosition < x.queuePosition;
+                return mp.queued_position < x.queued_position;
             }
 
         protected:
-            mutable typename queue_type::iterator queuePosition;
+            mutable typename queue_type::iterator queued_position;
         }; 
 
         ///////////////////////////////////////////////////////////////////////
@@ -114,7 +119,7 @@ namespace boost { namespace spirit { namespace iterator_policies
         struct shared
         {
             typedef detail::fixed_size_queue<Value, N> queue_type;
-            queue_type queuedElements;
+            queue_type queued_elements;
         }; 
     }; 
 

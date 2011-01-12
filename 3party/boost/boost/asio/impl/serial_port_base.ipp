@@ -253,18 +253,26 @@ boost::system::error_code serial_port_base::flow_control::store(
     storage.c_iflag &= ~(IXOFF | IXON);
 # if defined(_BSD_SOURCE)
     storage.c_cflag &= ~CRTSCTS;
+# elif defined(__QNXNTO__)
+    storage.c_cflag &= ~(IHFLOW | OHFLOW);
 # endif
     break;
   case software:
     storage.c_iflag |= IXOFF | IXON;
 # if defined(_BSD_SOURCE)
     storage.c_cflag &= ~CRTSCTS;
+# elif defined(__QNXNTO__)
+    storage.c_cflag &= ~(IHFLOW | OHFLOW);
 # endif
     break;
   case hardware:
 # if defined(_BSD_SOURCE)
     storage.c_iflag &= ~(IXOFF | IXON);
     storage.c_cflag |= CRTSCTS;
+    break;
+# elif defined(__QNXNTO__)
+    storage.c_iflag &= ~(IXOFF | IXON);
+    storage.c_cflag |= (IHFLOW | OHFLOW);
     break;
 # else
     ec = boost::asio::error::operation_not_supported;
@@ -301,6 +309,11 @@ boost::system::error_code serial_port_base::flow_control::load(
   }
 # if defined(_BSD_SOURCE)
   else if (storage.c_cflag & CRTSCTS)
+  {
+    value_ = hardware;
+  }
+# elif defined(__QNXNTO__)
+  else if (storage.c_cflag & IHFLOW && storage.c_cflag & OHFLOW)
   {
     value_ = hardware;
   }

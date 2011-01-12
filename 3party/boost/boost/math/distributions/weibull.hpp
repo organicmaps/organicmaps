@@ -103,7 +103,7 @@ template <class RealType, class Policy>
 inline const std::pair<RealType, RealType> range(const weibull_distribution<RealType, Policy>& /*dist*/)
 { // Range of permissible values for random variable x.
    using boost::math::tools::max_value;
-   return std::pair<RealType, RealType>(0, max_value<RealType>());
+   return std::pair<RealType, RealType>(static_cast<RealType>(0), max_value<RealType>());
 }
 
 template <class RealType, class Policy>
@@ -133,7 +133,7 @@ inline RealType pdf(const weibull_distribution<RealType, Policy>& dist, const Re
       return result;
 
    if(x == 0)
-   { // Special case, but x == min, pdf = 1 for shape = 1, 
+   { // Special case, but x == min, pdf = 1 for shape = 1,
       return 0;
    }
    result = exp(-pow(x / scale, shape));

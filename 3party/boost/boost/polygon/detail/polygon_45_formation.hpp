@@ -478,7 +478,7 @@ namespace boost { namespace polygon{
       ct counts[4];
     };
 
-    typedef Vertex45CountT<signed char> Vertex45Count;
+    typedef Vertex45CountT<int> Vertex45Count;
 
 //     inline std::ostream& operator<< (std::ostream& o, const Vertex45Count& c) {
 //       o << c[0] << ", " << c[1] << ", ";
@@ -904,7 +904,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 0), 2, -1));
       data.push_back(Vertex45(Point(10, 10), 2, 1));
       data.push_back(Vertex45(Point(10, 10), 0, 1));
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -928,7 +928,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 10), 2, -1));
       data.push_back(Vertex45(Point(10, 20), 2, 1));
       data.push_back(Vertex45(Point(10, 20), 1, 1));
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -953,7 +953,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 10), 0, -1));
       data.push_back(Vertex45(Point(20, 10), 1, -1));
       data.push_back(Vertex45(Point(20, 10), 0, 1)); 
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1018,7 +1018,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(12, 8), 1, -1));
       // result == 12 8 -1 1
       data.push_back(Vertex45(Point(12, 8), -1, 1));
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1051,7 +1051,7 @@ namespace boost { namespace polygon{
       stdcout << "scanning\n";
       scan45.scan(result, vertices.begin(), vertices.end());
    
-      std::sort(result.begin(), result.end());
+      gtlsort(result.begin(), result.end());
       pf.scan(polys, result.begin(), result.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1123,7 +1123,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(8, 6), -1, -1));
       data.push_back(Vertex45(Point(8, 6), 1, 1));
 
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1195,7 +1195,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 8), -1, -1));
       data.push_back(Vertex45(Point(10, 8), 1, 1));
 
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1239,7 +1239,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 22), 2, -1));
       data.push_back(Vertex45(Point(10, 22), 0, -1));
 
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1668,7 +1668,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 0), 2, -1));
       data.push_back(Vertex45(Point(10, 10), 2, 1));
       data.push_back(Vertex45(Point(10, 10), 0, 1));
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1692,7 +1692,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 10), 2, -1));
       data.push_back(Vertex45(Point(10, 20), 2, 1));
       data.push_back(Vertex45(Point(10, 20), 1, 1));
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1716,7 +1716,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 10), 0, -1));
       data.push_back(Vertex45(Point(20, 10), 1, -1));
       data.push_back(Vertex45(Point(20, 10), 0, 1)); 
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1742,7 +1742,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 10), 0, 1));
       data.push_back(Vertex45(Point(20, 20), 1, 1));
       data.push_back(Vertex45(Point(20, 20), 2, 1));
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1768,7 +1768,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(20, 10), 0, 1));
       data.push_back(Vertex45(Point(20, -10), -1, -1));
       data.push_back(Vertex45(Point(20, -10), 2, -1));
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1801,7 +1801,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(2, 2), 0, 1));
       data.push_back(Vertex45(Point(3, 2), 1, 1));
       data.push_back(Vertex45(Point(3, 2), 0, -1)); 
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1835,7 +1835,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(2, 2), 2, -1));
       data.push_back(Vertex45(Point(2, 2), 0, -1));
 
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1899,7 +1899,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(12, 8), 1, -1));
       // result == 12 8 -1 1
       data.push_back(Vertex45(Point(12, 8), -1, 1));
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -1933,7 +1933,7 @@ namespace boost { namespace polygon{
       stdcout << "scanning\n";
       scan45.scan(result, vertices.begin(), vertices.end());
    
-      std::sort(result.begin(), result.end());
+      gtlsort(result.begin(), result.end());
       pf.scan(polys, result.begin(), result.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -2005,7 +2005,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(8, 6), -1, -1));
       data.push_back(Vertex45(Point(8, 6), 1, 1));
 
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -2077,7 +2077,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 8), -1, -1));
       data.push_back(Vertex45(Point(10, 8), 1, 1));
 
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {
@@ -2121,7 +2121,7 @@ namespace boost { namespace polygon{
       data.push_back(Vertex45(Point(10, 22), 2, -1));
       data.push_back(Vertex45(Point(10, 22), 0, -1));
 
-      std::sort(data.begin(), data.end());
+      gtlsort(data.begin(), data.end());
       pf.scan(polys, data.begin(), data.end());
       stdcout << "result size: " << polys.size() << std::endl;
       for(std::size_t i = 0; i < polys.size(); ++i) {

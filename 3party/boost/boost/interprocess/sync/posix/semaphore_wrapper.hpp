@@ -16,8 +16,10 @@
 #include <boost/interprocess/creation_tags.hpp>
 #include <boost/interprocess/detail/os_file_functions.hpp>
 #include <boost/interprocess/detail/tmp_dir_helpers.hpp>
+#include <boost/interprocess/permissions.hpp>
 #include <string>
 #include <semaphore.h>
+#include <boost/assert.hpp>
 
 #ifdef SEM_FAILED
 #define BOOST_INTERPROCESS_POSIX_SEM_FAILED (reinterpret_cast<sem_t*>(SEM_FAILED))
@@ -41,29 +43,18 @@ namespace detail{ class interprocess_tester; }
 namespace detail {
 
 inline bool semaphore_open
-   (sem_t *&handle, detail::create_enum_t type, const char *origname, mode_t mode,
-    unsigned int count)
+   (sem_t *&handle, detail::create_enum_t type, const char *origname, 
+    unsigned int count, const permissions &perm = permissions())
 {
    std::string name;
    #ifndef BOOST_INTERPROCESS_FILESYSTEM_BASED_POSIX_SEMAPHORES
    detail::add_leading_slash(origname, name);
    #else
-   detail::create_tmp_dir_and_get_filename(origname, name);
+   detail::create_tmp_and_clean_old_and_get_filename(origname, name);
    #endif
 
    //Create new mapping
    int oflag = 0;
-   if(mode == read_only){
-      oflag |= O_RDONLY;
-   }
-   else if(mode == read_write){
-      oflag |= O_RDWR;
-   }
-   else{
-      error_info err(mode_error);
-      throw interprocess_exception(err);
-   }
-
    switch(type){
       case detail::DoOpen:
          //No addition
@@ -83,7 +74,7 @@ inline bool semaphore_open
 
    //Open file using POSIX API
    if(oflag & O_CREAT)
-      handle = sem_open(name.c_str(), oflag, S_IRWXO | S_IRWXG | S_IRWXU, count);
+      handle = sem_open(name.c_str(), oflag, perm.get_permissions(), count);
    else
       handle = sem_open(name.c_str(), oflag);
 
@@ -99,7 +90,7 @@ inline void semaphore_close(sem_t *handle)
 {
    int ret = sem_close(handle);
    if(ret != 0){  
-      assert(0);
+      BOOST_ASSERT(0);
    }
 }
 
@@ -134,7 +125,7 @@ inline void semaphore_destroy(sem_t *handle)
 {
    int ret = sem_destroy(handle);
    if(ret != 0){  
-      assert(0);
+      BOOST_ASSERT(0);
    }
 }
 
@@ -204,8 +195,8 @@ class named_semaphore_wrapper
 
    public:
    named_semaphore_wrapper
-      (detail::create_enum_t type, const char *name, mode_t mode, unsigned int count)
-   {  semaphore_open(mp_sem, type, name, mode, count);   }
+      (detail::create_enum_t type, const char *name, unsigned int count, const permissions &perm = permissions())
+   {  semaphore_open(mp_sem, type, name, count, perm);   }
 
    ~named_semaphore_wrapper()
    {

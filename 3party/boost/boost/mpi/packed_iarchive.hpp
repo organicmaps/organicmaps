@@ -118,6 +118,9 @@ public:
     load_override(x, version, use_optimized());
   }
 
+  // input archives need to ignore  the optional information 
+  void load_override(archive::class_id_optional_type & /*t*/, int){}
+
   void load_override(archive::class_name_type & t, int)
   {
     std::string cn;

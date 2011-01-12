@@ -18,9 +18,9 @@
 #  pragma once
 #endif
 
-#include <boost/interprocess/containers/container/detail/config_begin.hpp>
-#include <boost/interprocess/containers/container/detail/workaround.hpp>
-#include <boost/interprocess/containers/container/detail/type_traits.hpp>
+#include "config_begin.hpp"
+#include INCLUDE_BOOST_CONTAINER_DETAIL_WORKAROUND_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_TYPE_TRAITS_HPP
 #include <iterator>
 
 namespace boost {
@@ -47,7 +47,7 @@ struct operator_arrow_proxy<T&>
       :  m_value(px)
    {}
 
-   T* operator->() const { return &m_value; }
+   T* operator->() const { return const_cast<T*>(&m_value); }
    // This function is needed for MWCW and BCC, which won't call operator->
    // again automatically per 13.3.1.2 para 8
 //   operator T*() const { return &m_value; }
@@ -171,6 +171,6 @@ make_transform_iterator(Iterator it, UnaryFunc fun)
 }  //namespace container { 
 }  //namespace boost {
 
-#include <boost/interprocess/containers/container/detail/config_end.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_CONFIG_END_HPP
 
 #endif   //#ifndef BOOST_CONTAINERS_DETAIL_TRANSFORM_ITERATORS_HPP

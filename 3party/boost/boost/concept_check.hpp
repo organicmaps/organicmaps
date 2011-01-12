@@ -1,5 +1,7 @@
 //
 // (C) Copyright Jeremy Siek 2000.
+// Copyright 2002 The Trustees of Indiana University.
+//
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -999,6 +1001,42 @@ namespace boost
 
   // HashedAssociativeContainer
 
+  BOOST_concept(Collection,(C))
+  {
+      BOOST_CONCEPT_USAGE(Collection)
+      {
+        boost::function_requires<boost::InputIteratorConcept<iterator> >();
+        boost::function_requires<boost::InputIteratorConcept<const_iterator> >();
+        boost::function_requires<boost::CopyConstructibleConcept<value_type> >();
+        const_constraints(c);
+        i = c.begin();
+        i = c.end();
+        c.swap(c);
+      }
+
+      void const_constraints(const C& c) {
+        ci = c.begin();
+        ci = c.end();
+        n = c.size();
+        b = c.empty();
+      }
+
+    private:
+      typedef typename C::value_type value_type;
+      typedef typename C::iterator iterator;
+      typedef typename C::const_iterator const_iterator;
+      typedef typename C::reference reference;
+      typedef typename C::const_reference const_reference;
+      // typedef typename C::pointer pointer;
+      typedef typename C::difference_type difference_type;
+      typedef typename C::size_type size_type;
+
+      C c;
+      bool b;
+      iterator i;
+      const_iterator ci;
+      size_type n;
+  };
 } // namespace boost
 
 # include <boost/concept/detail/concept_undef.hpp>

@@ -114,27 +114,54 @@ namespace boost { namespace numeric {
         typedef typename L::orientation_category orientation_category;
 
         // Construction and destruction
+	  
+	  /// Default dense matrix constructor. Make a dense matrix of size (0,0)
         BOOST_UBLAS_INLINE
         matrix ():
             matrix_container<self_type> (),
             size1_ (0), size2_ (0), data_ () {}
+
+	  /** Dense matrix constructor with defined size
+	   * \param size1 number of rows
+	   * \param size2 number of columns
+	   */
         BOOST_UBLAS_INLINE
         matrix (size_type size1, size_type size2):
             matrix_container<self_type> (),
             size1_ (size1), size2_ (size2), data_ (layout_type::storage_size (size1, size2)) {
         }
+
+	  /** Dense matrix constructor with defined size a initial value for all the matrix elements
+	   * \param size1 number of rows
+	   * \param size2 number of columns
+	   * \param init initial value assigned to all elements
+	   */
         matrix (size_type size1, size_type size2, const value_type &init):
             matrix_container<self_type> (),
             size1_ (size1), size2_ (size2), data_ (layout_type::storage_size (size1, size2), init) {
         }
+
+	  /** Dense matrix constructor with defined size and an initial data array
+	   * \param size1 number of rows
+	   * \param size2 number of columns
+	   * \param data array to copy into the matrix. Must have the same dimension as the matrix
+	   */
         BOOST_UBLAS_INLINE
         matrix (size_type size1, size_type size2, const array_type &data):
             matrix_container<self_type> (),
             size1_ (size1), size2_ (size2), data_ (data) {}
+
+	  /** Copy-constructor of a dense matrix
+	   * \param m is a dense matrix
+	   */
         BOOST_UBLAS_INLINE
         matrix (const matrix &m):
             matrix_container<self_type> (),
             size1_ (m.size1_), size2_ (m.size2_), data_ (m.data_) {}
+
+	  /** Copy-constructor of a dense matrix from a matrix expression
+	   * \param ae is a matrix expression
+	   */
         template<class AE>
         BOOST_UBLAS_INLINE
         matrix (const matrix_expression<AE> &ae):
@@ -144,26 +171,46 @@ namespace boost { namespace numeric {
         }
 
         // Accessors
+	  /** Return the number of rows of the matrix
+	   * You can also use the free size<>() function in operation/size.hpp as size<1>(m) where m is a matrix
+	   */
         BOOST_UBLAS_INLINE
         size_type size1 () const {
             return size1_;
         }
+
+	  /** Return the number of colums of the matrix
+	   * You can also use the free size<>() function in operation/size.hpp as size<2>(m) where m is a matrix
+	   */
         BOOST_UBLAS_INLINE
         size_type size2 () const {
             return size2_;
         }
 
         // Storage accessors
+	  /** Return a constant reference to the internal storage of a dense matrix, i.e. the raw data
+	   * It's type depends on the type used by the matrix to store its data
+	   */
         BOOST_UBLAS_INLINE
         const array_type &data () const {
             return data_;
         }
+	  /** Return a reference to the internal storage of a dense matrix, i.e. the raw data
+	   * It's type depends on the type used by the matrix to store its data
+	   */
         BOOST_UBLAS_INLINE
         array_type &data () {
             return data_;
         }
 
         // Resizing
+	  /** Resize a matrix to new dimensions
+	   * If data are preserved, then if the size if bigger at least on one dimension, extra values are filled with zeros.
+	   * If data are not preserved, then nothing has to be assumed regarding the content of the matrix after resizing.
+	   * \param size1 the new number of rows
+	   * \param size2 the new number of colums
+	   * \param preserve a boolean to say if one wants the data to be preserved during the resizing. Default is true.
+	   */
         BOOST_UBLAS_INLINE
         void resize (size_type size1, size_type size2, bool preserve = true) {
             if (preserve) {

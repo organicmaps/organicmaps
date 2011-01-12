@@ -38,6 +38,7 @@
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/graph/graph_selectors.hpp>
+#include <boost/graph/properties.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/functional/hash.hpp>
 #include <boost/utility.hpp>
@@ -170,7 +171,7 @@ namespace detail {
  * Vertex and EdgeIndex should be unsigned integral types and should
  * specialize numeric_limits.
  */
-template<typename Directed = directedS, 
+template<typename Directed = directedS,
          typename VertexProperty = no_property,
          typename EdgeProperty = no_property,
          typename GraphProperty = no_property,
@@ -194,13 +195,14 @@ class compressed_sparse_row_graph<directedS, VertexProperty, EdgeProperty, Graph
 
  public:
   // For Property Graph
-  typedef GraphProperty graph_property_type;
+  typedef typename graph_detail::graph_prop<GraphProperty>::property graph_property_type;
+  typedef typename graph_detail::graph_prop<GraphProperty>::bundle graph_bundled;
 
   typedef detail::compressed_sparse_row_structure<EdgeProperty, Vertex, EdgeIndex> forward_type;
 
  public:
   /* At this time, the compressed sparse row graph can only be used to
-   * create directed and bidirectional graphs. In the future, 
+   * create directed and bidirectional graphs. In the future,
    * undirected CSR graphs will also be supported.
    */
   // BOOST_STATIC_ASSERT((is_same<Directed, directedS>::value));
@@ -623,7 +625,7 @@ class compressed_sparse_row_graph<directedS, VertexProperty, EdgeProperty, Graph
     m_forward.add_edges_sorted_internal(first_sorted, last_sorted, detail::default_construct_iterator<edge_bundled>(), global_to_local);
   }
 
-  template <typename BidirectionalIteratorOrig, typename EPIterOrig, 
+  template <typename BidirectionalIteratorOrig, typename EPIterOrig,
             typename GlobalToLocal>
   void
   add_edges_sorted_internal_global(
@@ -637,7 +639,7 @@ class compressed_sparse_row_graph<directedS, VertexProperty, EdgeProperty, Graph
   // Add edges from a range of (source, target) pairs that are unsorted
   template <typename InputIterator, typename GlobalToLocal>
   inline void
-  add_edges_internal(InputIterator first, InputIterator last, 
+  add_edges_internal(InputIterator first, InputIterator last,
                      const GlobalToLocal& global_to_local) {
     typedef compressed_sparse_row_graph Graph;
     typedef typename boost::graph_traits<Graph>::vertex_descriptor vertex_t;
@@ -711,6 +713,13 @@ class compressed_sparse_row_graph<directedS, VertexProperty, EdgeProperty, Graph
   const edge_push_back_type& operator[](const edge_descriptor& v) const
   { return m_forward.m_edge_properties[get(edge_index, *this, v)]; }
 
+  // Directly access a graph bundle
+  graph_bundled& operator[](graph_bundle_t)
+  { return get_property(*this); }
+
+  const graph_bundled& operator[](graph_bundle_t) const
+  { return get_property(*this); }
+
   // private: non-portable, requires friend templates
   inherited_vertex_properties&       vertex_properties()       {return *this;}
   const inherited_vertex_properties& vertex_properties() const {return *this;}
@@ -737,7 +746,9 @@ class compressed_sparse_row_graph<bidirectionalS, VertexProperty, EdgeProperty, 
 
  public:
   // For Property Graph
-  typedef GraphProperty graph_property_type;
+  typedef typename graph_detail::graph_prop<GraphProperty>::property graph_property_type;
+  typedef typename graph_detail::graph_prop<GraphProperty>::bundle graph_bundled;
+  // typedef GraphProperty graph_property_type;
 
   typedef detail::compressed_sparse_row_structure<EdgeProperty, Vertex, EdgeIndex> forward_type;
   typedef EdgeIndex /* typename boost::mpl::if_c<boost::is_same<EdgeProperty, boost::no_property>, boost::no_property, EdgeIndex> */ backward_edge_property;
@@ -990,7 +1001,7 @@ class compressed_sparse_row_graph<bidirectionalS, VertexProperty, EdgeProperty, 
     m_forward.add_edges_sorted_internal(first_sorted, last_sorted, detail::default_construct_iterator<edge_bundled>(), global_to_local);
   }
 
-  template <typename BidirectionalIteratorOrig, typename EPIterOrig, 
+  template <typename BidirectionalIteratorOrig, typename EPIterOrig,
             typename GlobalToLocal>
   void
   add_edges_sorted_internal_global(
@@ -1004,7 +1015,7 @@ class compressed_sparse_row_graph<bidirectionalS, VertexProperty, EdgeProperty, 
   // Add edges from a range of (source, target) pairs that are unsorted
   template <typename InputIterator, typename GlobalToLocal>
   inline void
-  add_edges_internal(InputIterator first, InputIterator last, 
+  add_edges_internal(InputIterator first, InputIterator last,
                      const GlobalToLocal& global_to_local) {
     typedef compressed_sparse_row_graph Graph;
     typedef typename boost::graph_traits<Graph>::vertex_descriptor vertex_t;
@@ -1098,7 +1109,7 @@ add_vertex(BOOST_CSR_GRAPH_TYPE& g) {
 
 template<BOOST_DIR_CSR_GRAPH_TEMPLATE_PARMS>
 inline Vertex
-add_vertex(BOOST_DIR_CSR_GRAPH_TYPE& g, 
+add_vertex(BOOST_DIR_CSR_GRAPH_TYPE& g,
            typename BOOST_DIR_CSR_GRAPH_TYPE::vertex_bundled const& p) {
   Vertex old_num_verts_plus_one = g.m_forward.m_rowstart.size();
   g.m_forward.m_rowstart.push_back(g.m_forward.m_rowstart.back());
@@ -1108,7 +1119,7 @@ add_vertex(BOOST_DIR_CSR_GRAPH_TYPE& g,
 
 template<BOOST_BIDIR_CSR_GRAPH_TEMPLATE_PARMS>
 inline Vertex
-add_vertex(BOOST_BIDIR_CSR_GRAPH_TYPE& g, 
+add_vertex(BOOST_BIDIR_CSR_GRAPH_TYPE& g,
            typename BOOST_BIDIR_CSR_GRAPH_TYPE::vertex_bundled const& p) {
   Vertex old_num_verts_plus_one = g.m_forward.m_rowstart.size();
   g.m_forward.m_rowstart.push_back(g.m_forward.m_rowstart.back());
@@ -1160,7 +1171,7 @@ add_vertices(typename BOOST_DIR_CSR_GRAPH_TYPE::vertices_size_type count, BOOST_
       EPIterOrig ep_iter_sorted,
       const GlobalToLocal& global_to_local,
       BOOST_DIR_CSR_GRAPH_TYPE& g) {
-    g.add_edges_sorted_internal_global(first_sorted, last_sorted, ep_iter_sorted, 
+    g.add_edges_sorted_internal_global(first_sorted, last_sorted, ep_iter_sorted,
                                        global_to_local);
   }
 
@@ -1180,7 +1191,7 @@ add_vertices(typename BOOST_DIR_CSR_GRAPH_TYPE::vertices_size_type count, BOOST_
   template <BOOST_DIR_CSR_GRAPH_TEMPLATE_PARMS, typename InputIterator,
             typename GlobalToLocal>
   inline void
-  add_edges_global(InputIterator first, InputIterator last, 
+  add_edges_global(InputIterator first, InputIterator last,
                    const GlobalToLocal& global_to_local, BOOST_DIR_CSR_GRAPH_TYPE& g) {
     g.add_edges_internal(first, last, global_to_local);
   }
@@ -1303,7 +1314,7 @@ adjacent_vertices(Vertex v, const BOOST_CSR_GRAPH_TYPE& g)
 // Extra, common functions
 template<BOOST_CSR_GRAPH_TEMPLATE_PARMS>
 inline typename graph_traits<BOOST_CSR_GRAPH_TYPE>::vertex_descriptor
-vertex(typename graph_traits<BOOST_CSR_GRAPH_TYPE>::vertex_descriptor i, 
+vertex(typename graph_traits<BOOST_CSR_GRAPH_TYPE>::vertex_descriptor i,
        const BOOST_CSR_GRAPH_TYPE&)
 {
   return i;

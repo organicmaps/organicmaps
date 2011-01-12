@@ -7,6 +7,9 @@
 // 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
+#ifndef BOOST_SIGNALS2_HPP
+#define BOOST_SIGNALS2_HPP
+
 // For documentation, see http://www.boost.org/libs/signals2/
 
 #include <boost/signals2/deconstruct.hpp>
@@ -16,3 +19,5 @@
 #include <boost/signals2/signal.hpp>
 #include <boost/signals2/signal_type.hpp>
 #include <boost/signals2/shared_connection_block.hpp>
+
+#endif

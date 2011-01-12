@@ -27,8 +27,17 @@ namespace boost { namespace fusion
     {
         struct no_such_member;
 
-        template<typename Seq, int N>
-        struct struct_member;
+        struct access
+        {
+            template<typename Seq, int N>
+            struct struct_member;
+
+            template<typename Seq, int N>
+            struct adt_attribute_access;
+        };
+
+        template <typename T, int N, bool Const>
+        struct adt_attribute_proxy;
 
         template<typename Seq, int N>
         struct struct_member_name;

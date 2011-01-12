@@ -30,6 +30,7 @@
 #include <algorithm>
 #include <functional>
 #include <cstddef>
+//iG pending #include <boost/pointer_cast.hpp>
 
 namespace boost {
 namespace intrusive {
@@ -129,8 +130,8 @@ class list_impl
    //Const cast emulation for smart pointers
    static node_ptr uncast(const_node_ptr ptr)
    {
-      //return node_ptr(detail::get_pointer(ptr)));
-      return const_cast<node*>(detail::get_pointer(ptr));
+      return const_cast<node*>(detail::boost_intrusive_get_pointer(ptr));
+      //iG pending return node_ptr(boost::const_pointer_cast<node>(ptr));
    }
 
    node_ptr get_root_node()
@@ -171,6 +172,22 @@ class list_impl
 
    real_value_traits &get_real_value_traits(detail::bool_<true>)
    {  return data_.get_value_traits(*this);  }
+
+   const value_traits &get_value_traits() const
+   {  return data_;  }
+
+   value_traits &get_value_traits()
+   {  return data_;  }
+
+   protected:
+   node &prot_root_node()
+   {  return data_.root_plus_size_.root_; }
+
+   node const &prot_root_node() const
+   {  return data_.root_plus_size_.root_; }
+
+   void prot_set_size(size_type s)
+   {  data_.root_plus_size_.set_size(s);  }
 
    /// @endcond
 
@@ -971,8 +988,8 @@ class list_impl
    {
       if(node_traits::get_next(this->get_root_node()) 
          != node_traits::get_previous(this->get_root_node())){
-         list_impl carry;
-         list_impl counter[64];
+         list_impl carry(this->get_value_traits());
+         detail::array_initializer<list_impl, 64> counter(this->get_value_traits());
          int fill = 0;
          while(!this->empty()){
             carry.splice(carry.cbegin(), *this, this->cbegin());
@@ -1268,7 +1285,7 @@ class list_impl
    static list_impl &priv_container_from_end_iterator(const const_iterator &end_iterator)
    {
       root_plus_size *r = detail::parent_from_member<root_plus_size, node>
-         ( detail::get_pointer(end_iterator.pointed_node()), &root_plus_size::root_);
+         ( detail::boost_intrusive_get_pointer(end_iterator.pointed_node()), &root_plus_size::root_);
       data_t *d = detail::parent_from_member<data_t, root_plus_size>
          ( r, &data_t::root_plus_size_);
       list_impl *s  = detail::parent_from_member<list_impl, data_t>(d, &list_impl::data_);

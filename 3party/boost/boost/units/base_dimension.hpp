@@ -8,6 +8,10 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
+/// \file
+/// \brief base dimensions (mass, length, time...).
+/// \details base dimension definition registration.
+
 #ifndef BOOST_UNITS_BASE_DIMENSION_HPP
 #define BOOST_UNITS_BASE_DIMENSION_HPP
 

@@ -36,7 +36,7 @@ public:
     }
     // returns the state where the state machine should be at start
     template <class Event>
-    int* const history_entry(Event const& )
+    const int* history_entry(Event const& )
     {
         // always come back to the original state
         return m_initialStates;
@@ -48,6 +48,11 @@ public:
              m_initialStates[i] = rhs.m_initialStates[i];
          }
          return *this;
+    }
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int)
+    {
+        ar & m_initialStates;
     }
 private:
     int m_initialStates[NumberOfRegions];
@@ -72,7 +77,7 @@ public:
     }
     // returns the state where the state machine should be at start
     template <class Event>
-    int* const history_entry(Event const& )
+    const int* history_entry(Event const& )
     {
         // always load back the last active state
         return m_initialStates;
@@ -84,6 +89,11 @@ public:
              m_initialStates[i] = rhs.m_initialStates[i];
          }
          return *this;
+    }
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int)
+    {
+        ar & m_initialStates;
     }
 private:
     int m_initialStates[NumberOfRegions];
@@ -111,7 +121,7 @@ public:
     }
     // returns the state where the state machine should be at start
     template <class Event>
-    int* const history_entry(Event const&)
+    const int* history_entry(Event const&)
     {
         if ( ::boost::mpl::contains<Events,Event>::value)
         {
@@ -128,6 +138,12 @@ public:
              m_currentStates[i] = rhs.m_currentStates[i];
          }
          return *this;
+    }
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int)
+    {
+        ar & m_initialStates;
+        ar & m_currentStates;
     }
 private:
     int m_initialStates[NumberOfRegions];

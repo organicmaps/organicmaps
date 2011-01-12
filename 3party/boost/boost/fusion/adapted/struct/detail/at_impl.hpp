@@ -22,7 +22,7 @@ namespace boost { namespace fusion { namespace extension
     {
         template <typename Seq, typename N>
         struct apply
-          : extension::struct_member<
+          : access::struct_member<
                 typename remove_const<Seq>::type
               , N::value
             >::template apply<Seq>

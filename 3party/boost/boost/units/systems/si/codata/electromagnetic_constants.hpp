@@ -11,6 +11,13 @@
 #ifndef BOOST_UNITS_CODATA_ELECTROMAGNETIC_CONSTANTS_HPP
 #define BOOST_UNITS_CODATA_ELECTROMAGNETIC_CONSTANTS_HPP
 
+///
+/// \file
+/// \brief CODATA recommended values of fundamental electromagnetic constants.
+/// \details CODATA recommended values of the fundamental physical constants: NIST SP 961
+///   CODATA 2006 values as of 2007/03/30
+///
+
 #include <boost/units/static_constant.hpp>
 
 #include <boost/units/systems/detail/constants.hpp>
@@ -26,10 +33,6 @@
 
 #include <boost/units/systems/si/codata/typedefs.hpp>
 
-/// \file
-/// CODATA recommended values of fundamental electromagnetic constants
-/// CODATA 2006 values as of 2007/03/30
-
 namespace boost {
 
 namespace units { 
@@ -39,8 +42,6 @@ namespace si {
 namespace constants {
 
 namespace codata {
-
-/// CODATA recommended values of the fundamental physical constants: NIST SP 961
 
 // ELECTROMAGNETIC
 /// elementary charge

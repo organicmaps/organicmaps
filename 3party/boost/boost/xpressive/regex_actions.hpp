@@ -62,6 +62,21 @@
 #pragma warning(disable : 4610) // can never be instantiated - user defined constructor required
 #endif
 
+namespace boost
+{
+    namespace detail
+    {
+        // Bit of a hack to make lexical_cast work with wide sub_match
+        template<typename T>
+        struct stream_char;
+
+        template<typename BidiIter>
+        struct stream_char<xpressive::sub_match<BidiIter> >
+          : boost::iterator_value<BidiIter>
+        {};
+    }
+}
+
 namespace boost { namespace xpressive
 {
 

@@ -56,7 +56,7 @@
 #endif
 
 #if !((defined(__FreeBSD__) && (__FreeBSD__ >= 5)) \
-      || (__NetBSD_GCC__ >= 2095003) || defined(__DragonFly__))
+      || (defined(__NetBSD_GCC__) && (__NetBSD_GCC__ >= 2095003)) || defined(__DragonFly__))
 #  define BOOST_NO_CWCHAR
 #endif
 //

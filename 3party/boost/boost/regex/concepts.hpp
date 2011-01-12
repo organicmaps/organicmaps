@@ -412,7 +412,7 @@ struct BaseRegexConcept
 
       // access:
       const Regex ce;
-      unsigned i = ce.mark_count();
+      typename Regex::size_type i = ce.mark_count();
       ignore_unused_variable_warning(i);
       m_flags = ce.flags();
       e.imbue(ce.getloc());

@@ -31,6 +31,7 @@
 #include <algorithm>
 #include <cstddef>   //std::size_t
 #include <utility>   //std::pair
+//iG pending #include <boost/pointer_cast.hpp>
 
 namespace boost {
 namespace intrusive {
@@ -129,10 +130,9 @@ class slist_impl
    typedef slist_iterator<slist_impl, true>                          const_iterator;
    typedef typename real_value_traits::node_traits                   node_traits;
    typedef typename node_traits::node                                node;
-   typedef typename boost::pointer_to_other
-      <pointer, node>::type                                          node_ptr;
-   typedef typename boost::pointer_to_other
-      <pointer, const node>::type                                    const_node_ptr;
+   typedef typename node_traits::node_ptr                            node_ptr;
+   typedef typename node_traits::const_node_ptr                      const_node_ptr;
+
    typedef typename detail::if_c
       < Config::linear
       , linear_slist_algorithms<node_traits>
@@ -206,7 +206,8 @@ class slist_impl
    {  data_.root_plus_size_.last_ = n;  }
 
    static node_ptr uncast(const_node_ptr ptr)
-   {  return node_ptr(const_cast<node*>(detail::get_pointer(ptr)));  }
+   {  return node_ptr(const_cast<node*>(detail::boost_intrusive_get_pointer(ptr)));  }
+//iG pending  {  return boost::const_pointer_cast<node>(ptr); }
 
    void set_default_constructed_state()
    {
@@ -250,6 +251,22 @@ class slist_impl
 
    real_value_traits &get_real_value_traits(detail::bool_<true>)
    {  return data_.get_value_traits(*this);  }
+
+   const value_traits &get_value_traits() const
+   {  return data_;  }
+
+   value_traits &get_value_traits()
+   {  return data_;  }
+
+   protected:
+   node &prot_root_node()
+   {  return data_.root_plus_size_.root_; }
+
+   node const &prot_root_node() const
+   {  return data_.root_plus_size_.root_; }
+
+   void prot_set_size(size_type s)
+   {  data_.root_plus_size_.set_size(s);  }
 
    /// @endcond
 
@@ -1220,7 +1237,7 @@ class slist_impl
    //!   assigned to the last spliced element or prev if x is empty.
    //!   This iterator can be used as new "prev" iterator for a new splice_after call.
    //!   that will splice new values after the previously spliced values.
-   void splice(const_iterator it, slist_impl &x, iterator *last = 0)
+   void splice(const_iterator it, slist_impl &x, const_iterator *last = 0)
    {  this->splice_after(this->previous(it), x, last);   }
 
    //! <b>Requires</b>: it p must be a valid iterator of *this.
@@ -1295,8 +1312,9 @@ class slist_impl
    {
       if (node_traits::get_next(node_traits::get_next(this->get_root_node()))
          != this->get_root_node()) {
-         slist_impl carry;
-         slist_impl counter[64];
+
+         slist_impl carry(this->get_value_traits());
+         detail::array_initializer<slist_impl, 64> counter(this->get_value_traits());
          int fill = 0;
          const_iterator last_inserted;
          while(!this->empty()){
@@ -1879,7 +1897,7 @@ class slist_impl
       //singly linked lists (because "end" is represented by the null pointer)
       BOOST_STATIC_ASSERT(!linear);
       root_plus_size *r = detail::parent_from_member<root_plus_size, node>
-         ( detail::get_pointer(end_iterator.pointed_node()), (&root_plus_size::root_));
+         ( detail::boost_intrusive_get_pointer(end_iterator.pointed_node()), (&root_plus_size::root_));
       data_t *d = detail::parent_from_member<data_t, root_plus_size>
          ( r, &data_t::root_plus_size_);
       slist_impl *s  = detail::parent_from_member<slist_impl, data_t>(d, &slist_impl::data_);

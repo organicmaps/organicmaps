@@ -31,14 +31,18 @@ namespace boost { namespace property_tree { namespace xml_parser
     void write_xml_comment(std::basic_ostream<Ch> &stream,
                            const std::basic_string<Ch> &s, 
                            int indent,
+                           bool separate_line,
                            const xml_writer_settings<Ch> & settings
                            )
     {
         typedef typename std::basic_string<Ch> Str;
-        write_xml_indent(stream,indent,settings);
+        if (separate_line)
+            write_xml_indent(stream,indent,settings);
         stream << Ch('<') << Ch('!') << Ch('-') << Ch('-');
         stream << s;
-        stream << Ch('-') << Ch('-') << Ch('>') << std::endl;
+        stream << Ch('-') << Ch('-') << Ch('>');
+        if (separate_line)
+            stream << Ch('\n');
     }
     
     template<class Ch>
@@ -52,7 +56,7 @@ namespace boost { namespace property_tree { namespace xml_parser
         if (separate_line)    
             write_xml_indent(stream,indent,settings);
         stream << encode_char_entities(s);
-        if (separate_line)    
+        if (separate_line)
             stream << Ch('\n');
     }
 
@@ -92,7 +96,9 @@ namespace boost { namespace property_tree { namespace xml_parser
             {
                 write_xml_indent(stream,indent,settings);
                 stream << Ch('<') << key << 
-                          Ch('/') << Ch('>') << std::endl;
+                          Ch('/') << Ch('>');
+                if (want_pretty)
+                    stream << Ch('\n');
             }
         }
         else    // Nonempty key
@@ -144,7 +150,7 @@ namespace boost { namespace property_tree { namespace xml_parser
                 else if (it->first == xmlcomment<Ch>())
                     write_xml_comment(stream,
                         it->second.template get_value<std::basic_string<Ch> >(),
-                        indent + 1, settings);
+                        indent + 1, want_pretty, settings);
                 else if (it->first == xmltext<Ch>())
                     write_xml_text(stream,
                         it->second.template get_value<std::basic_string<Ch> >(),

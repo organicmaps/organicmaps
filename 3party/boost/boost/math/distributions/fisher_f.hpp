@@ -58,7 +58,7 @@ template <class RealType, class Policy>
 inline const std::pair<RealType, RealType> range(const fisher_f_distribution<RealType, Policy>& /*dist*/)
 { // Range of permissible values for random variable x.
    using boost::math::tools::max_value;
-   return std::pair<RealType, RealType>(0, max_value<RealType>());
+   return std::pair<RealType, RealType>(static_cast<RealType>(0), max_value<RealType>());
 }
 
 template <class RealType, class Policy>
@@ -66,7 +66,7 @@ inline const std::pair<RealType, RealType> support(const fisher_f_distribution<R
 { // Range of supported values for random variable x.
    // This is range where cdf rises from 0 to 1, and outside it, the pdf is zero.
    using boost::math::tools::max_value;
-   return std::pair<RealType, RealType>(0,  max_value<RealType>());
+   return std::pair<RealType, RealType>(static_cast<RealType>(0),  max_value<RealType>());
 }
 
 template <class RealType, class Policy>
@@ -177,7 +177,7 @@ inline RealType quantile(const fisher_f_distribution<RealType, Policy>& dist, co
             function, p, &error_result, Policy()))
       return error_result;
 
-   // With optimizations turned on, gcc wrongly warns about y being used 
+   // With optimizations turned on, gcc wrongly warns about y being used
    // uninitializated unless we initialize it to something:
    RealType x, y(0);
 

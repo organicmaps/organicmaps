@@ -33,6 +33,7 @@
 #include <boost/intrusive/options.hpp>
 #include <boost/intrusive/rbtree_algorithms.hpp>
 #include <boost/intrusive/link_mode.hpp>
+//iG pending #include <boost/pointer_cast.hpp>
 
 namespace boost {
 namespace intrusive {
@@ -110,10 +111,8 @@ class rbtree_impl
    typedef std::reverse_iterator<const_iterator>                     const_reverse_iterator;
    typedef typename real_value_traits::node_traits                   node_traits;
    typedef typename node_traits::node                                node;
-   typedef typename boost::pointer_to_other
-      <pointer, node>::type                                          node_ptr;
-   typedef typename boost::pointer_to_other
-      <node_ptr, const node>::type                                   const_node_ptr;
+   typedef typename node_traits::node_ptr                            node_ptr;
+   typedef typename node_traits::const_node_ptr                      const_node_ptr;
    typedef rbtree_algorithms<node_traits>                            node_algorithms;
 
    static const bool constant_time_size = Config::constant_time_size;
@@ -152,7 +151,7 @@ class rbtree_impl
       {}
       node_plus_pred_t node_plus_pred_;
    } data_;
-  
+
    const value_compare &priv_comp() const
    {  return data_.node_plus_pred_.get();  }
 
@@ -167,7 +166,8 @@ class rbtree_impl
 
    static node_ptr uncast(const_node_ptr ptr)
    {
-      return node_ptr(const_cast<node*>(detail::get_pointer(ptr)));
+      return node_ptr(const_cast<node*>(detail::boost_intrusive_get_pointer(ptr)));
+//iG pending return node_ptr(boost::const_pointer_cast<node>(ptr));
    }
 
    size_traits &priv_size_traits()
@@ -187,6 +187,19 @@ class rbtree_impl
 
    real_value_traits &get_real_value_traits(detail::bool_<true>)
    {  return data_.get_value_traits(*this);  }
+
+   protected:
+   value_compare &prot_comp()
+   {  return priv_comp(); }
+
+   const node &prot_header_node() const
+   {  return priv_header(); }
+
+   node &prot_header_node()
+   {  return priv_header(); }
+
+   void prot_set_size(size_type s)
+   {  this->priv_size_traits().set_size(s);  }
 
    /// @endcond
 
@@ -1390,7 +1403,7 @@ class rbtree_impl
    static rbtree_impl &priv_container_from_end_iterator(const const_iterator &end_iterator)
    {
       header_plus_size *r = detail::parent_from_member<header_plus_size, node>
-         ( detail::get_pointer(end_iterator.pointed_node()), &header_plus_size::header_);
+         ( detail::boost_intrusive_get_pointer(end_iterator.pointed_node()), &header_plus_size::header_);
       node_plus_pred_t *n = detail::parent_from_member
          <node_plus_pred_t, header_plus_size>(r, &node_plus_pred_t::header_plus_size_);
       data_t *d = detail::parent_from_member<data_t, node_plus_pred_t>(n, &data_t::node_plus_pred_);

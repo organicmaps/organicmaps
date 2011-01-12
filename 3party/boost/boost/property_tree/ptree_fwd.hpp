@@ -13,6 +13,7 @@
 
 #include <boost/config.hpp>
 #include <boost/optional/optional_fwd.hpp>
+#include <boost/throw_exception.hpp>
 #include <functional>           // for std::less
 #include <memory>               // for std::allocator
 #include <string>
@@ -87,9 +88,6 @@ namespace boost { namespace property_tree
     /** Implements a path using a std::string as the key. */
     typedef string_path<std::string, id_translator<std::string> > path;
 
-    /** Implements a path using a std::wstring as the key. */
-    typedef string_path<std::wstring, id_translator<std::wstring> > wpath;
-
     /**
      * A property tree with std::string for key and data, and default
      * comparison.
@@ -104,7 +102,10 @@ namespace boost { namespace property_tree
                         detail::less_nocase<std::string> >
         iptree;
 
-#ifndef BOOST_NO_CWCHAR
+#ifndef BOOST_NO_STD_WSTRING
+    /** Implements a path using a std::wstring as the key. */
+    typedef string_path<std::wstring, id_translator<std::wstring> > wpath;
+
     /**
      * A property tree with std::wstring for key and data, and default
      * comparison.
@@ -136,7 +137,7 @@ namespace boost { namespace property_tree
 
 #if !defined(BOOST_PROPERTY_TREE_DOXYGEN_INVOKED)
     // Throwing macro to avoid no return warnings portably
-#   define BOOST_PROPERTY_TREE_THROW(e) { throw_exception(e); std::exit(1); }
+#   define BOOST_PROPERTY_TREE_THROW(e) BOOST_THROW_EXCEPTION(e)
 #endif
 
 #endif

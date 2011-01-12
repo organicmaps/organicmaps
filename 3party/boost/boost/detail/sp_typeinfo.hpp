@@ -74,7 +74,13 @@ template<class T> struct sp_typeid_
     }
 };
 
+#if defined(__SUNPRO_CC)
+// see #4199, the Sun Studio compiler gets confused about static initialization 
+// constructor arguments. But an assignment works just fine. 
 template<class T> sp_typeinfo sp_typeid_< T >::ti_ = sp_typeid_< T >::name();
+#else
+template<class T> sp_typeinfo sp_typeid_< T >::ti_(sp_typeid_< T >::name());
+#endif
 
 template<class T> struct sp_typeid_< T & >: sp_typeid_< T >
 {

@@ -12,6 +12,7 @@
 #include <boost/thread/mutex.hpp>
 #include <boost/optional.hpp>
 #include <pthread.h>
+#include <boost/assert.hpp>
 #include "condition_variable_fwd.hpp"
 #include <map>
 
@@ -55,6 +56,7 @@ namespace boost
             std::map<void const*,boost::detail::tss_data_node> tss_data;
             bool interrupt_enabled;
             bool interrupt_requested;
+            pthread_mutex_t* cond_mutex;
             pthread_cond_t* current_cond;
 
             thread_data_base():
@@ -76,6 +78,8 @@ namespace boost
         class interruption_checker
         {
             thread_data_base* const thread_info;
+            pthread_mutex_t* m;
+            bool set;
 
             void check_for_interruption()
             {
@@ -88,23 +92,35 @@ namespace boost
             
             void operator=(interruption_checker&);
         public:
-            explicit interruption_checker(pthread_cond_t* cond):
-                thread_info(detail::get_current_thread_data())
+            explicit interruption_checker(pthread_mutex_t* cond_mutex,pthread_cond_t* cond):
+                thread_info(detail::get_current_thread_data()),m(cond_mutex),
+                set(thread_info && thread_info->interrupt_enabled)
             {
-                if(thread_info && thread_info->interrupt_enabled)
+                if(set)
                 {
                     lock_guard<mutex> guard(thread_info->data_mutex);
                     check_for_interruption();
+                    thread_info->cond_mutex=cond_mutex;
                     thread_info->current_cond=cond;
+                    BOOST_VERIFY(!pthread_mutex_lock(m));
+                }
+                else
+                {
+                    BOOST_VERIFY(!pthread_mutex_lock(m));
                 }
             }
             ~interruption_checker()
             {
-                if(thread_info && thread_info->interrupt_enabled)
+                if(set)
                 {
+                    BOOST_VERIFY(!pthread_mutex_unlock(m));
                     lock_guard<mutex> guard(thread_info->data_mutex);
+                    thread_info->cond_mutex=NULL;
                     thread_info->current_cond=NULL;
-                    check_for_interruption();
+                }
+                else
+                {
+                    BOOST_VERIFY(!pthread_mutex_unlock(m));
                 }
             }
         };

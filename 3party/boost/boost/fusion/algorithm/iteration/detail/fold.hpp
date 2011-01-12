@@ -68,7 +68,7 @@ namespace boost { namespace fusion
     namespace detail
     {
         template<typename State, typename It, typename F>
-        struct BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _rvalue_state)
+        struct BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _lvalue_state)
           : boost::result_of<
                 F(
                 typename add_reference<typename add_const<State>::type>::type,
@@ -102,24 +102,20 @@ namespace boost { namespace fusion
                 It3;
                 It3 it3 = fusion::BOOST_FUSION_FOLD_IMPL_NEXT_IT_FUNCTION(it2);
 
+                typedef typename BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _lvalue_state)<State,It0,F>::type State1;
+                State1 const state1=f(state,BOOST_FUSION_FOLD_IMPL_INVOKE_IT_TRANSFORM(it0));
+
+                typedef typename BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _lvalue_state)<State1,It1,F>::type State2;
+                State2 const state2=f(state1,BOOST_FUSION_FOLD_IMPL_INVOKE_IT_TRANSFORM(it1));
+
+                typedef typename BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _lvalue_state)<State2,It2,F>::type State3;
+                State3 const state3=f(state2,BOOST_FUSION_FOLD_IMPL_INVOKE_IT_TRANSFORM(it2));
+
                 return BOOST_PP_CAT(unrolled_,BOOST_FUSION_FOLD_NAME)<
                     Result
                   , N-4
                 >::call(
-                    f(
-                        f(
-                            f(
-                                f(
-                                    state,
-                                    BOOST_FUSION_FOLD_IMPL_INVOKE_IT_TRANSFORM(
-                                        it0)
-                                ),
-                                BOOST_FUSION_FOLD_IMPL_INVOKE_IT_TRANSFORM(it1)
-                            ),
-                            BOOST_FUSION_FOLD_IMPL_INVOKE_IT_TRANSFORM(it2)
-                        ),
-                        BOOST_FUSION_FOLD_IMPL_INVOKE_IT_TRANSFORM(it3)
-                    ),
+                    f(state3,BOOST_FUSION_FOLD_IMPL_INVOKE_IT_TRANSFORM(it3)),
                     fusion::BOOST_FUSION_FOLD_IMPL_NEXT_IT_FUNCTION(it3),
                     f);
             }
@@ -145,17 +141,13 @@ namespace boost { namespace fusion
                 It2;
                 It2 it2 = fusion::BOOST_FUSION_FOLD_IMPL_NEXT_IT_FUNCTION(it1);
 
-                return f(
-                        f(
-                            f(
-                                state,
-                                BOOST_FUSION_FOLD_IMPL_INVOKE_IT_TRANSFORM(it0)
-                            ),
-                            BOOST_FUSION_FOLD_IMPL_INVOKE_IT_TRANSFORM(it1)
-                        ),
-                        BOOST_FUSION_FOLD_IMPL_INVOKE_IT_TRANSFORM(
-                            fusion::BOOST_FUSION_FOLD_IMPL_NEXT_IT_FUNCTION(it1)
-                        ));
+                typedef typename BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _lvalue_state)<State,It0,F>::type State1;
+                State1 const state1=f(state,BOOST_FUSION_FOLD_IMPL_INVOKE_IT_TRANSFORM(it0));
+
+                typedef typename BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _lvalue_state)<State1,It1,F>::type State2;
+                State2 const state2=f(state1,BOOST_FUSION_FOLD_IMPL_INVOKE_IT_TRANSFORM(it1));
+
+                return f(state2,BOOST_FUSION_FOLD_IMPL_INVOKE_IT_TRANSFORM(it2));
             }
         };
 
@@ -166,9 +158,11 @@ namespace boost { namespace fusion
             static Result
             call(State const& state,It0 const& it0,F f)
             {
+                typedef typename BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _lvalue_state)<State,It0,F>::type State1;
+                State1 const state1=f(state,BOOST_FUSION_FOLD_IMPL_INVOKE_IT_TRANSFORM(it0));
+
                 return f(
-                    f(state,
-                        BOOST_FUSION_FOLD_IMPL_INVOKE_IT_TRANSFORM(it0)),
+                    state1,
                     BOOST_FUSION_FOLD_IMPL_INVOKE_IT_TRANSFORM(
                         fusion::BOOST_FUSION_FOLD_IMPL_NEXT_IT_FUNCTION(it0)));
             }
@@ -201,7 +195,7 @@ namespace boost { namespace fusion
         struct BOOST_PP_CAT(result_of_unrolled_,BOOST_FUSION_FOLD_NAME)
         {
             typedef typename
-                BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _rvalue_state)<
+                BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _lvalue_state)<
                     StateRef
                   , It0 const
                   , F
@@ -213,7 +207,7 @@ namespace boost { namespace fusion
                 >::type
             it1;
             typedef typename
-                BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _rvalue_state)<
+                BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _lvalue_state)<
                     rest1
                   , it1
                   , F
@@ -223,7 +217,7 @@ namespace boost { namespace fusion
                 result_of::BOOST_FUSION_FOLD_IMPL_NEXT_IT_FUNCTION<it1>::type
             it2;
             typedef typename
-                BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _rvalue_state)<
+                BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _lvalue_state)<
                     rest2
                   , it2
                   , F
@@ -236,7 +230,7 @@ namespace boost { namespace fusion
             typedef typename
                 BOOST_PP_CAT(result_of_unrolled_,BOOST_FUSION_FOLD_NAME)<
                     typename BOOST_PP_CAT(
-                        BOOST_FUSION_FOLD_NAME, _rvalue_state)<
+                        BOOST_FUSION_FOLD_NAME, _lvalue_state)<
                         rest3
                       , it3
                       , F
@@ -259,7 +253,7 @@ namespace boost { namespace fusion
         >
         {
             typedef typename
-                BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _rvalue_state)<
+                BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _lvalue_state)<
                     StateRef
                   , It0 const
                   , F
@@ -272,9 +266,9 @@ namespace boost { namespace fusion
             it1;
 
             typedef typename
-                BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _rvalue_state)<
+                BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _lvalue_state)<
                     typename BOOST_PP_CAT(
-                        BOOST_FUSION_FOLD_NAME, _rvalue_state)<
+                        BOOST_FUSION_FOLD_NAME, _lvalue_state)<
                         rest1
                       , it1
                       , F
@@ -294,8 +288,8 @@ namespace boost { namespace fusion
           , F
           , 2
         >
-          : BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _rvalue_state)<
-                typename BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _rvalue_state)<
+          : BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _lvalue_state)<
+                typename BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _lvalue_state)<
                     StateRef
                   , It0 const
                   , F
@@ -314,7 +308,7 @@ namespace boost { namespace fusion
           , F
           , 1
         >
-          : BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _rvalue_state)<
+          : BOOST_PP_CAT(BOOST_FUSION_FOLD_NAME, _lvalue_state)<
                 StateRef
               , It0 const
               , F
@@ -405,7 +399,11 @@ namespace boost { namespace fusion
     }
 
     template<typename Seq, typename State, typename F>
-    inline typename result_of::fold<Seq,State const,F>::type
+    inline typename result_of::BOOST_FUSION_FOLD_NAME<
+        Seq
+      , State const
+      , F
+    >::type
     BOOST_FUSION_FOLD_NAME(Seq& seq,State const& state,F f)
     {
         return result_of::BOOST_FUSION_FOLD_NAME<Seq,State const,F>::call(
@@ -415,7 +413,11 @@ namespace boost { namespace fusion
     }
 
     template<typename Seq, typename State, typename F>
-    inline typename result_of::fold<Seq const,State const,F>::type
+    inline typename result_of::BOOST_FUSION_FOLD_NAME<
+        Seq const
+      , State const
+      , F
+    >::type
     BOOST_FUSION_FOLD_NAME(Seq const& seq,State const& state,F f)
     {
         return result_of::BOOST_FUSION_FOLD_NAME<Seq const,State const,F>::call(

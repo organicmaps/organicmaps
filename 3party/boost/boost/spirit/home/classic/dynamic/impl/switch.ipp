@@ -410,7 +410,7 @@ struct parse_switch;
                 return delegate_parse(                                      \
                     chain_parser<                                           \
                         case_chain<ParserT>::depth, ParserT                 \
-                    >::left(p), scan, save);                                \
+               >::left(p), scan, save);                                \
                                                                             \
             BOOST_PP_REPEAT_FROM_TO_ ## z(1, BOOST_PP_INC(N),               \
                 BOOST_SPIRIT_PARSE_SWITCH_CASES, _)                         \
@@ -523,12 +523,12 @@ struct cond_actor {
 };
 
 template <typename ActorT>
-struct make_cond_functor<phoenix::actor<ActorT> > {
+struct make_cond_functor< ::phoenix::actor<ActorT> > {
 
-    static cond_actor<phoenix::actor<ActorT> >
-    do_(phoenix::actor<ActorT> const &actor)
+    static cond_actor< ::phoenix::actor<ActorT> >
+    do_(::phoenix::actor<ActorT> const &actor)
     {
-        return cond_actor<phoenix::actor<ActorT> >(actor);
+        return cond_actor< ::phoenix::actor<ActorT> >(actor);
     }
 };
 

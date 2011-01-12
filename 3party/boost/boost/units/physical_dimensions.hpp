@@ -2,7 +2,7 @@
 // unit/quantity manipulation and conversion
 //
 // Copyright (C) 2003-2008 Matthias Christian Schabel
-// Copyright (C) 2007-2008 Steven Watanabe
+// Copyright (C) 2007-2010 Steven Watanabe
 //
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
@@ -11,25 +11,29 @@
 #ifndef BOOST_UNITS_PHYSICAL_UNITS_HPP
 #define BOOST_UNITS_PHYSICAL_UNITS_HPP
 
-/// \file Includes all of the physical_dimension headers.
 ///
-/// \brief Physical dimensions according to the SI system
-///
-/// \detail This header includes all physical dimension headers for both base
-/// derived dimensions. Base dimensions are extended to include plane and
-/// solid angle for convenience. 
+/// \file
+/// \brief Physical dimensions according to the SI system.
+/// \details This header includes all physical dimension headers for both base
+///   and derived dimensions.
 ///
 
+// Include all of the physical_dimension headers.
+
+// SI seven fundamental dimensions.
 #include <boost/units/physical_dimensions/amount.hpp>
 #include <boost/units/physical_dimensions/current.hpp>
 #include <boost/units/physical_dimensions/length.hpp>
 #include <boost/units/physical_dimensions/luminous_intensity.hpp>
 #include <boost/units/physical_dimensions/mass.hpp>
-#include <boost/units/physical_dimensions/plane_angle.hpp>
-#include <boost/units/physical_dimensions/solid_angle.hpp>
 #include <boost/units/physical_dimensions/temperature.hpp>
 #include <boost/units/physical_dimensions/time.hpp>
 
+// Base dimensions are extended to include plane and solid angle for convenience.
+#include <boost/units/physical_dimensions/plane_angle.hpp>
+#include <boost/units/physical_dimensions/solid_angle.hpp>
+
+// Derived dimensions.
 #include <boost/units/physical_dimensions/absorbed_dose.hpp>
 #include <boost/units/physical_dimensions/acceleration.hpp>
 #include <boost/units/physical_dimensions/action.hpp>

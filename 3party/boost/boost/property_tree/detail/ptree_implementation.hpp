@@ -14,6 +14,7 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
 #include <memory>
+#include <cassert>
 
 #if defined(BOOST_MSVC) && \
     (_MSC_FULL_VER >= 160000000 && _MSC_FULL_VER < 170000000)
@@ -183,8 +184,8 @@ namespace boost { namespace property_tree
     }
 
     template<class K, class D, class C> inline
-    basic_ptree<K, D, C>::basic_ptree(const data_type &data)
-        : m_data(data), m_children(new typename subs::base_container)
+    basic_ptree<K, D, C>::basic_ptree(const data_type &d)
+        : m_data(d), m_children(new typename subs::base_container)
     {
     }
 
@@ -467,8 +468,8 @@ namespace boost { namespace property_tree
         std::pair<typename subs::by_name_index::iterator,
                   typename subs::by_name_index::iterator> r(
             subs::assoc(this).equal_range(key));
-        return std::pair<assoc_iterator, assoc_iterator>(r.first.base(),
-                                                         r.second.base());
+        return std::pair<assoc_iterator, assoc_iterator>(
+          assoc_iterator(r.first), assoc_iterator(r.second));
     }
 
     template<class K, class D, class C> inline
@@ -481,7 +482,7 @@ namespace boost { namespace property_tree
                   typename subs::by_name_index::const_iterator> r(
             subs::assoc(this).equal_range(key));
         return std::pair<const_assoc_iterator, const_assoc_iterator>(
-            r.first.base(), r.second.base());
+            const_assoc_iterator(r.first), const_assoc_iterator(r.second));
     }
 
     template<class K, class D, class C> inline
@@ -770,7 +771,8 @@ namespace boost { namespace property_tree
                                                          Translator tr) const
     {
         if (optional<const self_type&> child = get_child_optional(path))
-            return child.get().BOOST_NESTED_TEMPLATE get_value_optional<Type>(tr);
+            return child.get().
+                BOOST_NESTED_TEMPLATE get_value_optional<Type>(tr);
         else
             return optional<Type>();
     }

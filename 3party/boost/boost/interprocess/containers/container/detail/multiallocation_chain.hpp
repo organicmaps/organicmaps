@@ -11,14 +11,14 @@
 #ifndef BOOST_CONTAINERS_DETAIL_MULTIALLOCATION_CHAIN_HPP
 #define BOOST_CONTAINERS_DETAIL_MULTIALLOCATION_CHAIN_HPP
 
-#include <boost/interprocess/containers/container/detail/config_begin.hpp>
-#include <boost/interprocess/containers/container/container_fwd.hpp>
-#include <boost/interprocess/containers/container/detail/utilities.hpp>
-#include <boost/interprocess/containers/container/detail/type_traits.hpp>
-#include <boost/interprocess/containers/container/detail/transform_iterator.hpp>
+#include "config_begin.hpp"
+#include INCLUDE_BOOST_CONTAINER_CONTAINER_FWD_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_UTILITIES_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_TYPE_TRAITS_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_TRANSFORM_ITERATOR_HPP
 #include <boost/intrusive/slist.hpp>
 #include <boost/pointer_to_other.hpp>
-#include <boost/interprocess/detail/move.hpp>
+#include INCLUDE_BOOST_CONTAINER_MOVE_HPP
 
 namespace boost {
 namespace container {
@@ -41,7 +41,7 @@ class basic_multiallocation_chain
    static node & to_node(VoidPointer p)
    {  return *static_cast<node*>(static_cast<void*>(containers_detail::get_pointer(p))); }
 
-   BOOST_INTERPROCESS_MOVABLE_BUT_NOT_COPYABLE(basic_multiallocation_chain)
+   BOOST_MOVE_MACRO_MOVABLE_BUT_NOT_COPYABLE(basic_multiallocation_chain)
 
    public:
 
@@ -53,13 +53,13 @@ class basic_multiallocation_chain
       :  slist_impl_()
    {}
 
-   basic_multiallocation_chain(BOOST_INTERPROCESS_RV_REF(basic_multiallocation_chain) other)
+   basic_multiallocation_chain(BOOST_MOVE_MACRO_RV_REF(basic_multiallocation_chain) other)
       :  slist_impl_()
    {  slist_impl_.swap(other.slist_impl_); }
 
-   basic_multiallocation_chain& operator=(BOOST_INTERPROCESS_RV_REF(basic_multiallocation_chain) other)
+   basic_multiallocation_chain& operator=(BOOST_MOVE_MACRO_RV_REF(basic_multiallocation_chain) other)
    {
-      basic_multiallocation_chain tmp(boost::interprocess::move(other));
+      basic_multiallocation_chain tmp(BOOST_CONTAINER_MOVE_NAMESPACE::move(other));
       this->swap(tmp);
       return *this;
    }
@@ -144,7 +144,7 @@ template<class MultiallocationChain, class T>
 class transform_multiallocation_chain
 {
    private:
-   BOOST_INTERPROCESS_MOVABLE_BUT_NOT_COPYABLE(transform_multiallocation_chain)
+   BOOST_MOVE_MACRO_MOVABLE_BUT_NOT_COPYABLE(transform_multiallocation_chain)
 
    MultiallocationChain   holder_;
    typedef typename MultiallocationChain::void_pointer   void_pointer;
@@ -165,17 +165,17 @@ class transform_multiallocation_chain
       : holder_()
    {}
 
-   transform_multiallocation_chain(BOOST_INTERPROCESS_RV_REF(transform_multiallocation_chain) other)
+   transform_multiallocation_chain(BOOST_MOVE_MACRO_RV_REF(transform_multiallocation_chain) other)
       : holder_()
    {  this->swap(other); }
 
-   transform_multiallocation_chain(BOOST_INTERPROCESS_RV_REF(MultiallocationChain) other)
-      : holder_(boost::interprocess::move(other))
+   transform_multiallocation_chain(BOOST_MOVE_MACRO_RV_REF(MultiallocationChain) other)
+      : holder_(BOOST_CONTAINER_MOVE_NAMESPACE::move(other))
    {}
 
-   transform_multiallocation_chain& operator=(BOOST_INTERPROCESS_RV_REF(transform_multiallocation_chain) other)
+   transform_multiallocation_chain& operator=(BOOST_MOVE_MACRO_RV_REF(transform_multiallocation_chain) other)
    {
-      transform_multiallocation_chain tmp(boost::interprocess::move(other));
+      transform_multiallocation_chain tmp(BOOST_CONTAINER_MOVE_NAMESPACE::move(other));
       this->swap(tmp);
       return *this;
    }
@@ -230,7 +230,7 @@ class transform_multiallocation_chain
 
    MultiallocationChain extract_multiallocation_chain()
    {
-      return MultiallocationChain(boost::interprocess::move(holder_));
+      return MultiallocationChain(BOOST_CONTAINER_MOVE_NAMESPACE::move(holder_));
    }
 };
 
@@ -240,6 +240,6 @@ class transform_multiallocation_chain
 // namespace container {
 // namespace boost {
 
-#include <boost/interprocess/containers/container/detail/config_end.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_CONFIG_END_HPP
 
 #endif   //BOOST_CONTAINERS_DETAIL_MULTIALLOCATION_CHAIN_HPP

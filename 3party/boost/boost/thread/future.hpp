@@ -912,10 +912,10 @@ namespace boost
 
         void lazy_init()
         {
-            if(!future)
+            if(!atomic_load(&future))
             {
-                future_obtained=false;
-                future.reset(new detail::future_object<R>);
+                future_ptr blank;
+                atomic_compare_exchange(&future,&blank,future_ptr(new detail::future_object<R>));
             }
         }
         
@@ -945,12 +945,14 @@ namespace boost
             future_obtained(rhs.future_obtained)
         {
             future.swap(rhs.future);
+            rhs.future_obtained=false;
         }
         promise & operator=(promise&& rhs)
         {
             future.swap(rhs.future);
             future_obtained=rhs.future_obtained;
             rhs.future.reset();
+            rhs.future_obtained=false;
             return *this;
         }
 #else
@@ -958,12 +960,14 @@ namespace boost
             future(rhs->future),future_obtained(rhs->future_obtained)
         {
             rhs->future.reset();
+            rhs->future_obtained=false;
         }
         promise & operator=(boost::detail::thread_move_t<promise> rhs)
         {
             future=rhs->future;
             future_obtained=rhs->future_obtained;
             rhs->future.reset();
+            rhs->future_obtained=false;
             return *this;
         }
 
@@ -1047,10 +1051,10 @@ namespace boost
 
         void lazy_init()
         {
-            if(!future)
+            if(!atomic_load(&future))
             {
-                future_obtained=false;
-                future.reset(new detail::future_object<void>);
+                future_ptr blank;
+                atomic_compare_exchange(&future,&blank,future_ptr(new detail::future_object<void>));
             }
         }
     public:
@@ -1079,12 +1083,14 @@ namespace boost
             future_obtained(rhs.future_obtained)
         {
             future.swap(rhs.future);
+            rhs.future_obtained=false;
         }
         promise & operator=(promise&& rhs)
         {
             future.swap(rhs.future);
             future_obtained=rhs.future_obtained;
             rhs.future.reset();
+            rhs.future_obtained=false;
             return *this;
         }
 #else
@@ -1092,12 +1098,14 @@ namespace boost
             future(rhs->future),future_obtained(rhs->future_obtained)
         {
             rhs->future.reset();
+            rhs->future_obtained=false;
         }
         promise & operator=(boost::detail::thread_move_t<promise> rhs)
         {
             future=rhs->future;
             future_obtained=rhs->future_obtained;
             rhs->future.reset();
+            rhs->future_obtained=false;
             return *this;
         }
 

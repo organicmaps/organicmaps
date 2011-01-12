@@ -159,6 +159,33 @@
 #   define BOOST_HAS_TYPE_TRAITS_INTRINSICS
 #endif
 
+#if defined(__ghs__) && (__GHS_VERSION_NUMBER >= 600)
+#   include <boost/type_traits/is_same.hpp>
+#   include <boost/type_traits/is_reference.hpp>
+#   include <boost/type_traits/is_volatile.hpp>
+
+#   define BOOST_IS_UNION(T) __is_union(T)
+#   define BOOST_IS_POD(T) __is_pod(T)
+#   define BOOST_IS_EMPTY(T) __is_empty(T)
+#   define BOOST_HAS_TRIVIAL_CONSTRUCTOR(T) __has_trivial_constructor(T)
+#   define BOOST_HAS_TRIVIAL_COPY(T) (__has_trivial_copy(T) && !is_reference<T>::value)
+#   define BOOST_HAS_TRIVIAL_ASSIGN(T) __has_trivial_assign(T)
+#   define BOOST_HAS_TRIVIAL_DESTRUCTOR(T) __has_trivial_destructor(T)
+#   define BOOST_HAS_NOTHROW_CONSTRUCTOR(T) __has_nothrow_constructor(T)
+#   define BOOST_HAS_NOTHROW_COPY(T) (__has_nothrow_copy(T) && !is_volatile<T>::value && !is_reference<T>::value)
+#   define BOOST_HAS_NOTHROW_ASSIGN(T) (__has_nothrow_assign(T) && !is_volatile<T>::value)
+#   define BOOST_HAS_VIRTUAL_DESTRUCTOR(T) __has_virtual_destructor(T)
+
+#   define BOOST_IS_ABSTRACT(T) __is_abstract(T)
+#   define BOOST_IS_BASE_OF(T,U) (__is_base_of(T,U) && !is_same<T,U>::value)
+#   define BOOST_IS_CLASS(T) __is_class(T)
+#   define BOOST_IS_ENUM(T) __is_enum(T)
+#   define BOOST_IS_POLYMORPHIC(T) __is_polymorphic(T)
+#   define BOOST_ALIGNMENT_OF(T) __alignof__(T)
+
+#   define BOOST_HAS_TYPE_TRAITS_INTRINSICS
+#endif
+
 # if defined(__CODEGEARC__)
 #   include <boost/type_traits/is_same.hpp>
 #   include <boost/type_traits/is_reference.hpp>

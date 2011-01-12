@@ -10,7 +10,7 @@
 #pragma once
 #endif
 
-#include <boost/tr1/tuple.hpp>
+#include <boost/math/tools/tuple.hpp>
 #include <boost/math/special_functions/gamma.hpp>
 #include <boost/math/special_functions/sign.hpp>
 #include <boost/math/tools/roots.hpp>
@@ -122,7 +122,7 @@ T find_inverse_gamma(T a, T p, T q, const Policy& pol, bool* p_has_10_digits)
       BOOST_MATH_INSTRUMENT_VARIABLE(b);
       if((b > 0.6) || ((b >= 0.45) && (a >= 0.3)))
       {
-         // DiDonato & Morris Eq 21:
+         // DiDonato & Morris Eq 21: 
          //
          // There is a slight variation from DiDonato and Morris here:
          // the first form given here is unstable when p is close to 1,
@@ -275,16 +275,18 @@ T find_inverse_gamma(T a, T p, T q, const Policy& pol, bool* p_has_10_digits)
       {
          T z = w;
          T ap1 = a + 1;
+         T ap2 = a + 2;
          if(w < 0.15f * ap1)
          {
             // DiDonato and Morris Eq 35:
             T v = log(p) + boost::math::lgamma(ap1, pol);
             T s = 1;
             z = exp((v + w) / a);
-            s = boost::math::log1p(z / ap1 * (1 + z / (a + 2)));
+            s = boost::math::log1p(z / ap1 * (1 + z / ap2));
             z = exp((v + z - s) / a);
+            s = boost::math::log1p(z / ap1 * (1 + z / ap2));
             z = exp((v + z - s) / a);
-            s = boost::math::log1p(z / ap1 * (1 + z / (a + 2) * (1 + z / (a + 3))));
+            s = boost::math::log1p(z / ap1 * (1 + z / ap2 * (1 + z / (a + 3))));
             z = exp((v + z - s) / a);
             BOOST_MATH_INSTRUMENT_VARIABLE(z);
          }
@@ -332,7 +334,7 @@ struct gamma_p_inverse_func
       }
    }
 
-   std::tr1::tuple<T, T, T> operator()(const T& x)const
+   boost::math::tuple<T, T, T> operator()(const T& x)const
    {
       BOOST_FPU_EXCEPTION_GUARD
       //
@@ -377,7 +379,7 @@ struct gamma_p_inverse_func
          f2 = -f2;
       }
 
-      return std::tr1::make_tuple(f - p, f1, f2);
+      return boost::math::make_tuple(f - p, f1, f2);
    }
 private:
    T a, p;

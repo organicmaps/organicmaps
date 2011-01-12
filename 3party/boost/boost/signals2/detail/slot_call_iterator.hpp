@@ -36,7 +36,7 @@ namespace boost {
           disconnected_slot_count(0)
         {}
         optional<ResultType> result;
-        typedef auto_buffer<boost::shared_ptr<void>, store_n_objects<10> > tracked_ptrs_type;
+        typedef auto_buffer<void_shared_ptr_variant, store_n_objects<10> > tracked_ptrs_type;
         tracked_ptrs_type tracked_ptrs;
         Function f;
         unsigned connected_slot_count;

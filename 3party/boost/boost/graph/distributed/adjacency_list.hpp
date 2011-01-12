@@ -1371,6 +1371,7 @@ namespace boost {
     typedef typename inherited::graph_property_type graph_property_type;
     typedef typename inherited::vertex_bundled vertex_bundled;
     typedef typename inherited::edge_bundled edge_bundled;
+    typedef typename inherited::graph_bundled graph_bundled;
 
     typedef typename container_gen<edge_list_selector, edge_descriptor>::type
       local_edge_list_type;
@@ -1712,6 +1713,12 @@ namespace boost {
       assert(e.owner() == processor());
       return base()[e.local];
     }
+
+    graph_bundled& operator[](graph_bundle_t)
+    { return get_property(*this); }
+
+    graph_bundled const& operator[](graph_bundle_t) const
+    { return get_property(*this); }
 
     template<typename OStreamConstructibleArchive>
     void save(std::string const& filename) const;

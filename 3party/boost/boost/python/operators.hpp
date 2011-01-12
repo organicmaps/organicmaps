@@ -212,7 +212,11 @@ namespace self_ns                                       \
 BOOST_PYTHON_BINARY_OPERATOR(add, radd, +)
 BOOST_PYTHON_BINARY_OPERATOR(sub, rsub, -)
 BOOST_PYTHON_BINARY_OPERATOR(mul, rmul, *)
-BOOST_PYTHON_BINARY_OPERATOR(div, rdiv, /)
+#if PY_VERSION_HEX >= 0x03000000
+    BOOST_PYTHON_BINARY_OPERATOR(truediv, rtruediv, /)
+#else
+    BOOST_PYTHON_BINARY_OPERATOR(div, rdiv, /)
+#endif
 BOOST_PYTHON_BINARY_OPERATOR(mod, rmod, %)
 BOOST_PYTHON_BINARY_OPERATOR(lshift, rlshift, <<)
 BOOST_PYTHON_BINARY_OPERATOR(rshift, rrshift, >>)

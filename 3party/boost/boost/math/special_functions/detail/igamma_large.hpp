@@ -257,7 +257,7 @@ T igamma_temme_large(T a, T x, const Policy& pol, mpl::int_<64> const *)
    };
    workspace[12] = tools::evaluate_polynomial(C12, z);
 
-   T result = tools::evaluate_polynomial(workspace, 1/a);
+   T result = tools::evaluate_polynomial<13, T, T>(workspace, 1/a);
    result *= exp(-y) / sqrt(2 * constants::pi<T>() * a);
    if(x < a)
       result = -result;
@@ -399,7 +399,7 @@ T igamma_temme_large(T a, T x, const Policy& pol, mpl::int_<53> const *)
    workspace[8] = tools::evaluate_polynomial(C8, z);
    workspace[9] = static_cast<T>(-0.00059676129019274625L);
 
-   T result = tools::evaluate_polynomial(workspace, 1/a);
+   T result = tools::evaluate_polynomial<10, T, T>(workspace, 1/a);
    result *= exp(-y) / sqrt(2 * constants::pi<T>() * a);
    if(x < a)
       result = -result;

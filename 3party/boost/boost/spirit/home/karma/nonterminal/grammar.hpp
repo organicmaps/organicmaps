@@ -52,6 +52,12 @@ namespace boost { namespace spirit { namespace karma
 
         static size_t const params_size = start_type::params_size;
 
+        template <typename Context, typename Unused>
+        struct attribute
+        {
+            typedef typename start_type::attr_type type;
+        };
+
         // the output iterator is always wrapped by karma
         typedef detail::output_iterator<OutputIterator, properties> 
             output_iterator;

@@ -15,8 +15,13 @@
 #  pragma once
 #endif
 
-#include <boost/interprocess/containers/container/detail/config_begin.hpp>
-#include <boost/interprocess/containers/container/detail/workaround.hpp>
+#include "config_begin.hpp"
+
+#ifndef BOOST_NO_RVALUE_REFERENCES
+#include INCLUDE_BOOST_CONTAINER_DETAIL_STORED_REF_HPP
+#endif
+
+#include INCLUDE_BOOST_CONTAINER_DETAIL_WORKAROUND_HPP
 
 #ifdef BOOST_CONTAINERS_PERFECT_FORWARDING
 #error "This file is not needed when perfect forwarding is available"
@@ -36,7 +41,7 @@
 //This cast is ugly but it is necessary until "perfect forwarding"
 //is achieved in C++0x. Meanwhile, if we want to be able to
 //bind rvalues with non-const references, we have to be ugly
-#ifdef BOOST_HAS_RVALUE_REFS
+#ifndef BOOST_NO_RVALUE_REFERENCES
    #define BOOST_CONTAINERS_PP_PARAM_LIST(z, n, data) \
    BOOST_PP_CAT(P, n) && BOOST_PP_CAT(p, n) \
    //!
@@ -46,7 +51,7 @@
    //!
 #endif
 
-#ifdef BOOST_HAS_RVALUE_REFS
+#ifndef BOOST_NO_RVALUE_REFERENCES
    #define BOOST_CONTAINERS_PARAM(U, u) \
    U && u \
    //!
@@ -56,10 +61,22 @@
    //!
 #endif
 
-#ifdef BOOST_HAS_RVALUE_REFS
+#ifndef BOOST_NO_RVALUE_REFERENCES
+
+#ifdef BOOST_MOVE_OLD_RVALUE_REF_BINDING_RULES
+
 #define BOOST_CONTAINERS_AUX_PARAM_INIT(z, n, data) \
-  BOOST_PP_CAT(m_p, n) (BOOST_PP_CAT(p, n))           \
+  BOOST_PP_CAT(m_p, n) (BOOST_CONTAINER_MOVE_NAMESPACE::forward< BOOST_PP_CAT(P, n) >( BOOST_PP_CAT(p, n) ))           \
 //!
+
+#else
+
+#define BOOST_CONTAINERS_AUX_PARAM_INIT(z, n, data) \
+  BOOST_PP_CAT(m_p, n) (static_cast<BOOST_PP_CAT(P, n)>( BOOST_PP_CAT(p, n) ))           \
+//!
+
+#endif
+
 #else
 #define BOOST_CONTAINERS_AUX_PARAM_INIT(z, n, data) \
   BOOST_PP_CAT(m_p, n) (const_cast<BOOST_PP_CAT(P, n) &>(BOOST_PP_CAT(p, n))) \
@@ -70,10 +87,23 @@
   BOOST_PP_CAT(++m_p, n)                        \
 //!
 
-#ifdef BOOST_HAS_RVALUE_REFS
+#ifndef BOOST_NO_RVALUE_REFERENCES
+
+#if defined(BOOST_MOVE_MSVC_10_MEMBER_RVALUE_REF_BUG)
+
+#define BOOST_CONTAINERS_AUX_PARAM_DEFINE(z, n, data)  \
+  BOOST_PP_CAT(P, n) & BOOST_PP_CAT(m_p, n);            \
+//!
+
+#else
+
 #define BOOST_CONTAINERS_AUX_PARAM_DEFINE(z, n, data)  \
   BOOST_PP_CAT(P, n) && BOOST_PP_CAT(m_p, n);            \
 //!
+
+#endif //defined(BOOST_MOVE_MSVC_10_MEMBER_RVALUE_REF_BUG)
+
+
 #else
 #define BOOST_CONTAINERS_AUX_PARAM_DEFINE(z, n, data)  \
   BOOST_PP_CAT(P, n) & BOOST_PP_CAT(m_p, n);             \
@@ -81,18 +111,28 @@
 #endif
 
 #define BOOST_CONTAINERS_PP_PARAM_FORWARD(z, n, data) \
-boost::interprocess::forward< BOOST_PP_CAT(P, n) >( BOOST_PP_CAT(p, n) ) \
+BOOST_CONTAINER_MOVE_NAMESPACE::forward< BOOST_PP_CAT(P, n) >( BOOST_PP_CAT(p, n) ) \
 //!
 
+#if !defined(BOOST_NO_RVALUE_REFERENCES) && defined(BOOST_MOVE_MSVC_10_MEMBER_RVALUE_REF_BUG)
+
 #define BOOST_CONTAINERS_PP_MEMBER_FORWARD(z, n, data) \
-boost::interprocess::forward< BOOST_PP_CAT(P, n) >( BOOST_PP_CAT(m_p, n) ) \
+::boost::container::containers_detail::stored_ref< BOOST_PP_CAT(P, n) >::forward( BOOST_PP_CAT(m_p, n) ) \
 //!
+
+#else
+
+#define BOOST_CONTAINERS_PP_MEMBER_FORWARD(z, n, data) \
+BOOST_CONTAINER_MOVE_NAMESPACE::forward< BOOST_PP_CAT(P, n) >( BOOST_PP_CAT(m_p, n) ) \
+//!
+
+#endif   //!defined(BOOST_NO_RVALUE_REFERENCES) && defined(BOOST_MOVE_MSVC_10_MEMBER_RVALUE_REF_BUG)
 
 #define BOOST_CONTAINERS_PP_MEMBER_IT_FORWARD(z, n, data) \
 BOOST_PP_CAT(*m_p, n) \
 //!
 
-#include <boost/interprocess/containers/container/detail/config_end.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_CONFIG_END_HPP
 
 #else
 #ifdef BOOST_CONTAINERS_PERFECT_FORWARDING

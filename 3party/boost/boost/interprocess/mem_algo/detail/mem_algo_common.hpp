@@ -31,6 +31,7 @@
 #include <algorithm>
 #include <utility>
 #include <iterator>
+#include <boost/assert.hpp>
 
 //!\file
 //!Implements common operations for memory algorithms.
@@ -119,7 +120,7 @@ class memory_algorithm_common
          //biggest of all possibilities
          current_forward = detail::get_truncated_size_po2(received_size, backwards_multiple);
          needs_backwards = size_to_achieve - current_forward;
-         assert((needs_backwards % backwards_multiple) == 0);
+         BOOST_ASSERT((needs_backwards % backwards_multiple) == 0);
          needs_backwards_lcmed = detail::get_rounded_size_po2(needs_backwards, lcm);
          lcm_out = lcm;
          needs_backwards_lcmed_out = needs_backwards_lcmed;
@@ -131,7 +132,7 @@ class memory_algorithm_common
          current_forward = detail::get_truncated_size(received_size, backwards_multiple);
          //No need to round needs_backwards because backwards_multiple == lcm
          needs_backwards_lcmed = needs_backwards = size_to_achieve - current_forward;
-         assert((needs_backwards_lcmed & (Alignment - 1u)) == 0);
+         BOOST_ASSERT((needs_backwards_lcmed & (Alignment - 1u)) == 0);
          lcm_out = lcm;
          needs_backwards_lcmed_out = needs_backwards_lcmed;
          return true;
@@ -144,7 +145,7 @@ class memory_algorithm_common
          if(0 != (needs_backwards_lcmed & (Alignment-1)))
          //while(0 != (needs_backwards_lcmed & (Alignment-1)))
             needs_backwards_lcmed += backwards_multiple;
-         assert((needs_backwards_lcmed % lcm) == 0);
+         BOOST_ASSERT((needs_backwards_lcmed % lcm) == 0);
          lcm_out = lcm;
          needs_backwards_lcmed_out = needs_backwards_lcmed;
          return true;
@@ -165,7 +166,7 @@ class memory_algorithm_common
                needs_backwards_lcmed += (4-remainder)*backwards_multiple;
             }
          }
-         assert((needs_backwards_lcmed % lcm) == 0);
+         BOOST_ASSERT((needs_backwards_lcmed % lcm) == 0);
          lcm_out = lcm;
          needs_backwards_lcmed_out = needs_backwards_lcmed;
          return true;
@@ -178,7 +179,7 @@ class memory_algorithm_common
       //biggest of all possibilities
       current_forward = detail::get_truncated_size(received_size, backwards_multiple);
       needs_backwards = size_to_achieve - current_forward;
-      assert((needs_backwards % backwards_multiple) == 0);
+      BOOST_ASSERT((needs_backwards % backwards_multiple) == 0);
       needs_backwards_lcmed = detail::get_rounded_size(needs_backwards, lcm);
       lcm_out = lcm;
       needs_backwards_lcmed_out = needs_backwards_lcmed;
@@ -279,9 +280,9 @@ class memory_algorithm_common
       //Now obtain the address of the blocks
       block_ctrl *first  = memory_algo->priv_get_block(buffer);
       block_ctrl *second = memory_algo->priv_get_block(pos);
-      assert(pos <= (reinterpret_cast<char*>(first) + first->m_size*Alignment));
-      assert(first->m_size >= 2*MinBlockUnits);
-      assert((pos + MinBlockUnits*Alignment - AllocatedCtrlBytes + nbytes*Alignment/Alignment) <=
+      BOOST_ASSERT(pos <= (reinterpret_cast<char*>(first) + first->m_size*Alignment));
+      BOOST_ASSERT(first->m_size >= 2*MinBlockUnits);
+      BOOST_ASSERT((pos + MinBlockUnits*Alignment - AllocatedCtrlBytes + nbytes*Alignment/Alignment) <=
              (reinterpret_cast<char*>(first) + first->m_size*Alignment));
       //Set the new size of the first block
       std::size_t old_size = first->m_size;
@@ -314,7 +315,7 @@ class memory_algorithm_common
       }
       else{
          second->m_size = old_size - first->m_size;
-         assert(second->m_size >= MinBlockUnits);
+         BOOST_ASSERT(second->m_size >= MinBlockUnits);
          memory_algo->priv_mark_new_allocated_block(second);
       }
 
@@ -517,7 +518,7 @@ class memory_algorithm_common
             block_address += new_block->m_size*Alignment;
             total_used_units += new_block->m_size;
             //Check we have enough room to overwrite the intrusive pointer
-            assert((new_block->m_size*Alignment - AllocatedCtrlUnits) >= sizeof(void_pointer));
+            BOOST_ASSERT((new_block->m_size*Alignment - AllocatedCtrlUnits) >= sizeof(void_pointer));
             void_pointer p = new(memory_algo->priv_get_user_buffer(new_block))void_pointer(0);
             chain.push_back(p);
             ++low_idx;

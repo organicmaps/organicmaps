@@ -37,10 +37,8 @@ namespace detail {
 #if defined (BOOST_INTERPROCESS_HAS_WINDOWS_KERNEL_BOOTTIME)
 inline void get_bootstamp(std::string &s, bool add = false)
 {
-   char bootstamp[winapi::BootstampLength*2+1];
-   std::size_t bootstamp_length = winapi::BootstampLength*2;
-   winapi::get_boot_time_str(bootstamp, bootstamp_length);
-   bootstamp[winapi::BootstampLength*2] = 0;
+   std::string bootstamp;
+   winapi::get_last_bootup_time(bootstamp);
    if(add){
       s += bootstamp;
    }
@@ -102,26 +100,30 @@ inline void get_tmp_base_dir(std::string &tmp_name)
    tmp_name += "/boost_interprocess";
 }
 
+inline void tmp_folder(std::string &tmp_name)
+{
+   get_tmp_base_dir(tmp_name);
+   #ifdef BOOST_INTERPROCESS_HAS_KERNEL_BOOTTIME
+   tmp_name += "/";
+   get_bootstamp(tmp_name, true);
+   #endif
+}
 
 inline void tmp_filename(const char *filename, std::string &tmp_name)
 {
-   get_tmp_base_dir(tmp_name);
-   //Remove final null.
+   tmp_folder(tmp_name);
    tmp_name += "/";
-   #ifdef BOOST_INTERPROCESS_HAS_KERNEL_BOOTTIME
-   get_bootstamp(tmp_name, true);
-   tmp_name += '/';
-   #endif
    tmp_name += filename;
 }
 
-inline void create_tmp_dir_and_get_filename(const char *filename, std::string &tmp_name)
+inline void create_tmp_and_clean_old(std::string &tmp_name)
 {
    //First get the temp directory
-   get_tmp_base_dir(tmp_name);
+   std::string root_tmp_name;
+   get_tmp_base_dir(root_tmp_name);
 
    //If fails, check that it's because already exists
-   if(!create_directory(tmp_name.c_str())){
+   if(!create_directory(root_tmp_name.c_str())){
       error_info info(system_error_code());
       if(info.get_error_code() != already_exists_error){
          throw interprocess_exception(info);
@@ -129,13 +131,7 @@ inline void create_tmp_dir_and_get_filename(const char *filename, std::string &t
    }
 
    #ifdef BOOST_INTERPROCESS_HAS_KERNEL_BOOTTIME
-   //Create a new subdirectory with the bootstamp
-   std::string root_tmp_name = tmp_name;
-   tmp_name += '/';
-   //Obtain bootstamp string
-   std::string bootstamp;
-   get_bootstamp(bootstamp);
-   tmp_name += bootstamp; 
+   tmp_folder(tmp_name);
 
    //If fails, check that it's because already exists
    if(!create_directory(tmp_name.c_str())){
@@ -145,12 +141,18 @@ inline void create_tmp_dir_and_get_filename(const char *filename, std::string &t
       }
    }
    //Now erase all old directories created in the previous boot sessions
-   delete_subdirectories(root_tmp_name, bootstamp.c_str());
+   std::string subdir = tmp_name;
+   subdir.erase(0, root_tmp_name.size()+1);
+   delete_subdirectories(root_tmp_name, subdir.c_str());
+   #else
+   tmp_name = root_tmp_name;
    #endif
+}
 
-   //Add filename
-   tmp_name += '/';
-   tmp_name += filename;
+inline void create_tmp_and_clean_old_and_get_filename(const char *filename, std::string &tmp_name)
+{
+   create_tmp_and_clean_old(tmp_name);
+   tmp_filename(filename, tmp_name);
 }
 
 inline void add_leading_slash(const char *name, std::string &new_name)

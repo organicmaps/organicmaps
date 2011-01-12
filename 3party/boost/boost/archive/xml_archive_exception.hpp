@@ -19,9 +19,10 @@
 #include <exception>
 #include <cassert>
 
-#include <boost/archive/archive_exception.hpp>
+#include <boost/config.hpp> 
 #include <boost/preprocessor/empty.hpp>
 #include <boost/archive/detail/decl.hpp>
+#include <boost/archive/archive_exception.hpp>
 
 #include <boost/archive/detail/abi_prefix.hpp> // must be the last header
 
@@ -32,7 +33,7 @@ namespace archive {
 // exceptions thrown by xml archives
 //
 class BOOST_ARCHIVE_DECL(BOOST_PP_EMPTY()) xml_archive_exception : 
-    public virtual archive_exception
+    public virtual boost::archive::archive_exception
 {
 public:
     typedef enum {

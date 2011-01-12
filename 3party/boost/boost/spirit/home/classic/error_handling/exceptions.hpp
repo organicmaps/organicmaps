@@ -222,9 +222,9 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
 
         error_status(
             result_t result_ = fail,
-            std::ptrdiff_t length = -1,
+            std::ptrdiff_t length_ = -1,
             T const& value_ = T())
-        : result(result_), length(length), value(value_) {}
+        : result(result_), length(length_), value(value_) {}
 
         result_t        result;
         std::ptrdiff_t  length;

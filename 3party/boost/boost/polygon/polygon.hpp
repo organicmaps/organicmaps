@@ -7,6 +7,7 @@
 */
 #ifndef BOOST_POLYGON_POLYGON_HPP
 #define BOOST_POLYGON_POLYGON_HPP
+#define BOOST_POLYGON_VERSION 014401
 
 #include "isotropy.hpp"
 

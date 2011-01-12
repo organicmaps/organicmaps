@@ -252,7 +252,7 @@ namespace boost { namespace spirit { namespace karma
                 // is not optimal but much better than letting _all_ repetitive
                 // components fail.
                 Pred1::value ||
-                detail::attribute_size<attr_type_>::value == detail::attr_size(attr_));
+                std::size_t(detail::attribute_size<attr_type_>::value) == detail::attr_size(attr_));
         }
 
         // Special case when Attribute is an stl container and the sequence's

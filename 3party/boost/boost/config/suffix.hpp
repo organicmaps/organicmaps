@@ -25,6 +25,14 @@
 #ifndef BOOST_CONFIG_SUFFIX_HPP
 #define BOOST_CONFIG_SUFFIX_HPP
 
+#if defined(__GNUC__) && (__GNUC__ >= 4)
+//
+// Some GCC-4.x versions issue warnings even when __extension__ is used,
+// so use this as a workaround:
+//
+#pragma GCC system_header
+#endif
+
 //
 // ensure that visibility macros are always defined, thus symplifying use
 //

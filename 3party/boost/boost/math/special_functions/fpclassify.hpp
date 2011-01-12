@@ -87,7 +87,7 @@ is used.
 
 namespace boost{ 
 
-#if defined(BOOST_HAS_FPCLASSIFY) || defined(isnan)
+#if (defined(BOOST_HAS_FPCLASSIFY) || defined(isnan)) && !defined(BOOST_MATH_DISABLE_STD_FPCLASSIFY)
 //
 // This must not be located in any namespace under boost::math
 // otherwise we can get into an infinite loop if isnan is
@@ -133,7 +133,7 @@ inline int fpclassify_imp BOOST_NO_MACRO_EXPAND(T t, const generic_tag<true>&)
    BOOST_MATH_INSTRUMENT_VARIABLE(t);
 
    // whenever possible check for Nan's first:
-#ifdef BOOST_HAS_FPCLASSIFY
+#if defined(BOOST_HAS_FPCLASSIFY)  && !defined(BOOST_MATH_DISABLE_STD_FPCLASSIFY)
    if(::boost::math_detail::is_nan_helper(t, ::boost::is_floating_point<T>()))
       return FP_NAN;
 #elif defined(isnan)

@@ -108,7 +108,7 @@ class shared_ptr
    typedef typename boost::pointer_to_other
             <typename VoidAllocator::pointer, const VoidAllocator>::type   const_allocator_pointer;
 
-   BOOST_COPYABLE_AND_MOVABLE(shared_ptr)
+   BOOST_INTERPROCESS_COPYABLE_AND_MOVABLE(shared_ptr)
    public:
 
    //!Constructs an empty shared_ptr.

@@ -46,6 +46,8 @@
 // Borland C++Builder 5, command-line compiler 5.5:
 #       define BOOST_NO_OPERATORS_IN_NAMESPACE
 #     endif
+// Variadic macros do not exist for C++ Builder versions 5 and below
+#define BOOST_NO_VARIADIC_MACROS
 #   endif
 
 // Version 5.51 and below:

@@ -115,6 +115,16 @@
 #define BOOST_NO_TEMPLATE_ALIASES
 #define BOOST_NO_UNICODE_LITERALS
 #define BOOST_NO_VARIADIC_TEMPLATES
+
+/* 
+  See https://forums13.itrc.hp.com/service/forums/questionanswer.do?threadId=1443331 and
+      https://forums13.itrc.hp.com/service/forums/questionanswer.do?threadId=1443436
+*/
+
+#if (__HP_aCC < 62500) || !defined(HP_CXX0x_SOURCE)
+  #define BOOST_NO_VARIADIC_MACROS
+#endif
+
 #endif
 
 //

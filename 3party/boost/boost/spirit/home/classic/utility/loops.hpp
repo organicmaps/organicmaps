@@ -47,8 +47,8 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
         typedef fixed_loop<ParserT, ExactT>     self_t;
         typedef unary<ParserT, parser<self_t> >  base_t;
 
-        fixed_loop (ParserT const & subject, ExactT const & exact)
-        : base_t(subject), m_exact(exact) {}
+        fixed_loop (ParserT const & subject_, ExactT const & exact)
+        : base_t(subject_), m_exact(exact) {}
 
         template <typename ScannerT>
         typename parser_result <self_t, ScannerT>::type
@@ -112,8 +112,8 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
         typedef finite_loop <ParserT, MinT, MaxT> self_t;
         typedef unary<ParserT, parser<self_t> >   base_t;
 
-        finite_loop (ParserT const & subject, MinT const & min, MaxT const & max)
-        : base_t(subject), m_min(min), m_max(max) {}
+        finite_loop (ParserT const & subject_, MinT const & min, MaxT const & max)
+        : base_t(subject_), m_min(min), m_max(max) {}
 
         template <typename ScannerT>
         typename parser_result <self_t, ScannerT>::type
@@ -196,11 +196,11 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
         typedef unary<ParserT, parser<self_t> > base_t;
 
         infinite_loop (
-            ParserT const& subject,
+            ParserT const& subject_,
             MinT const& min,
             more_t const&
         )
-        : base_t(subject), m_min(min) {}
+        : base_t(subject_), m_min(min) {}
 
         template <typename ScannerT>
         typename parser_result <self_t, ScannerT>::type
@@ -253,9 +253,9 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
 
         template <typename ParserT>
         fixed_loop <ParserT, ExactT>
-        operator[](parser <ParserT> const & subject) const
+        operator[](parser <ParserT> const & subject_) const
         {
-            return fixed_loop <ParserT, ExactT> (subject.derived (), m_exact);
+            return fixed_loop <ParserT, ExactT> (subject_.derived (), m_exact);
         }
 
         ExactT m_exact;
@@ -283,11 +283,11 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
 
        template <typename ParserT>
        typename impl::loop_traits<ParserT, MinT, MaxT>::type
-       operator[](parser <ParserT> const & subject) const
+       operator[](parser <ParserT> const & subject_) const
        {
            typedef typename impl::loop_traits<ParserT, MinT, MaxT>::type ret_t;
            return ret_t(
-                subject.derived(),
+                subject_.derived(),
                 m_min,
                 m_max);
        }

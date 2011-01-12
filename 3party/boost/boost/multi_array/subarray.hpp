@@ -80,7 +80,7 @@ public:
   template <typename IndexList>
   const element& operator()(const IndexList& indices) const {
     boost::function_requires<
-      detail::multi_array::CollectionConcept<IndexList> >();
+      CollectionConcept<IndexList> >();
     return super_type::access_element(boost::type<const element&>(),
                                       indices,origin(),
                                       shape(),strides(),index_bases());
@@ -231,7 +231,7 @@ public:
   // Assignment from other ConstMultiArray types.
   template <typename ConstMultiArray>
   sub_array& operator=(const ConstMultiArray& other) {
-    function_requires< boost::detail::multi_array::ConstMultiArrayConcept< 
+    function_requires< boost::multi_array_concepts::ConstMultiArrayConcept< 
         ConstMultiArray, NumDims> >();
 
     // make sure the dimensions agree
@@ -288,7 +288,7 @@ public:
   template <class IndexList>
   element& operator()(const IndexList& indices) {
     boost::function_requires<
-      detail::multi_array::CollectionConcept<IndexList> >();
+      CollectionConcept<IndexList> >();
     return super_type::access_element(boost::type<element&>(),
                                       indices,origin(),
                                       this->shape(),this->strides(),
@@ -323,7 +323,7 @@ public:
   template <class IndexList>
   const element& operator()(const IndexList& indices) const {
     boost::function_requires<
-      detail::multi_array::CollectionConcept<IndexList> >();
+      CollectionConcept<IndexList> >();
     return super_type::operator()(indices);
   }
 

@@ -38,7 +38,7 @@ namespace detail{
             pthread_mutexattr_setpshared(&m_attr, PTHREAD_PROCESS_SHARED)!= 0 ||
              (recursive &&
               pthread_mutexattr_settype(&m_attr, PTHREAD_MUTEX_RECURSIVE)!= 0 ))
-            throw boost::interprocess::interprocess_exception();
+            throw interprocess_exception("pthread_mutexattr_xxxx failed");
       }
 
       //!Destructor
@@ -58,7 +58,7 @@ namespace detail{
       {
          if(pthread_condattr_init(&m_attr)!=0 ||
             pthread_condattr_setpshared(&m_attr, PTHREAD_PROCESS_SHARED)!= 0)
-            throw boost::interprocess::interprocess_exception();
+            throw interprocess_exception("pthread_condattr_xxxx failed");
       }
 
       //!Destructor
@@ -79,7 +79,7 @@ namespace detail{
       : mp_mut(&mut)
       {
          if(pthread_mutex_init(mp_mut, &mut_attr) != 0)
-            throw boost::interprocess::interprocess_exception();
+            throw interprocess_exception("pthread_mutex_init failed");
       }
 
      ~mutex_initializer() {  if(mp_mut) pthread_mutex_destroy(mp_mut);  }
@@ -98,7 +98,7 @@ namespace detail{
       : mp_cond(&cond)
       {
          if(pthread_cond_init(mp_cond, &cond_attr)!= 0)
-            throw boost::interprocess::interprocess_exception();
+            throw interprocess_exception("pthread_cond_init failed");
       }
 
      ~condition_initializer()   {  if(mp_cond) pthread_cond_destroy(mp_cond);  }
@@ -121,7 +121,7 @@ namespace detail{
       {
          if(pthread_barrierattr_init(&m_attr)!=0 ||
             pthread_barrierattr_setpshared(&m_attr, PTHREAD_PROCESS_SHARED)!= 0)
-            throw boost::interprocess::interprocess_exception();
+            throw interprocess_exception("pthread_barrierattr_xxx failed");
       }
 
       //!Destructor
@@ -144,7 +144,7 @@ namespace detail{
       : mp_barrier(&mut)
       {
          if(pthread_barrier_init(mp_barrier, &mut_attr, count) != 0)
-            throw boost::interprocess::interprocess_exception();
+            throw interprocess_exception("pthread_barrier_init failed");
       }
 
      ~barrier_initializer() {  if(mp_barrier) pthread_barrier_destroy(mp_barrier);  }

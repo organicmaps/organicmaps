@@ -67,7 +67,7 @@ class basic_managed_heap_memory
    {
       if(!base_t::create_impl(&m_heapmem[0], size)){
          this->priv_close();
-         throw interprocess_exception();
+         throw interprocess_exception("Could not initialize heap in basic_managed_heap_memory constructor");
       }
    }
 

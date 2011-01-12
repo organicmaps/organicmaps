@@ -21,6 +21,7 @@
 #include <utility>   //std::pair
 #include <boost/utility/addressof.hpp> //boost::addressof
 #include <boost/assert.hpp>   //BOOST_ASSERT
+#include <boost/assert.hpp>
 #include <boost/interprocess/exceptions.hpp> //bad_alloc
 #include <boost/interprocess/sync/scoped_lock.hpp> //scoped_lock
 #include <boost/interprocess/containers/allocation_type.hpp> //boost::interprocess::allocation_type
@@ -290,6 +291,14 @@ class cache_impl
       //Deallocate all new linked list at once
       mp_node_pool->deallocate_nodes(boost::interprocess::move(chain));
    }
+
+   public:
+   void swap(cache_impl &other)
+   {
+      detail::do_swap(mp_node_pool, other.mp_node_pool); 
+      m_cached_nodes.swap(other.m_cached_nodes); 
+      detail::do_swap(m_max_cached_nodes, other.m_max_cached_nodes); 
+   } 
 };
 
 template<class Derived, class T, class SegmentManager>
@@ -656,11 +665,7 @@ class cached_allocator_impl
    //!Swaps allocators. Does not throw. If each allocator is placed in a
    //!different shared memory segments, the result is undefined.
    friend void swap(cached_allocator_impl &alloc1, cached_allocator_impl &alloc2)
-   {
-      detail::do_swap(alloc1.mp_node_pool,       alloc2.mp_node_pool);
-      alloc1.m_cached_nodes.swap(alloc2.m_cached_nodes);
-      detail::do_swap(alloc1.m_max_cached_nodes, alloc2.m_max_cached_nodes);
-   }
+   {  alloc1.m_cache.swap(alloc2.m_cache);   }
 
    void deallocate_cache()
    {  m_cache.deallocate_all_cached_nodes(); }
@@ -808,7 +813,7 @@ class shared_pool_impl
       //-----------------------
       boost::interprocess::scoped_lock<mutex_type> guard(m_header);
       //-----------------------
-      assert(m_header.m_usecount > 0);
+      BOOST_ASSERT(m_header.m_usecount > 0);
       return --m_header.m_usecount;
    }
 

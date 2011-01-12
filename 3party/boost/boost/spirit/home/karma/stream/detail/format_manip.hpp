@@ -202,7 +202,6 @@ namespace boost { namespace spirit { namespace karma { namespace detail
         }
         return os;
     }
-
 }}}}
 
 #endif

@@ -22,12 +22,7 @@ namespace boost
         ResultSlot replace_slot_function(const SlotIn &slot_in, const SlotFunction &fun)
       {
         ResultSlot slot(fun);
-        slot_base::tracked_container_type tracked_objects = slot_in.tracked_objects();
-        slot_base::tracked_container_type::const_iterator it;
-        for(it = tracked_objects.begin(); it != tracked_objects.end(); ++it)
-        {
-          slot.track(*it);
-        }
+        slot.track(slot_in);
         return slot;
       }
     } // namespace detail

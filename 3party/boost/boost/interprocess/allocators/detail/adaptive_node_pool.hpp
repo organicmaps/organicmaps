@@ -29,7 +29,7 @@
 #include <cstddef>
 #include <boost/config/no_tr1/cmath.hpp>
 #include <boost/interprocess/containers/container/detail/adaptive_node_pool_impl.hpp>
-#include <cassert>
+#include <boost/assert.hpp>
 
 //!\file
 //!Describes the real adaptive pool shared by many Interprocess pool allocators

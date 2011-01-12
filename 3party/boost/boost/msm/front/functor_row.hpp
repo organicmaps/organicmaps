@@ -11,6 +11,8 @@
 #ifndef BOOST_MSM_FRONT_FUNCTOR_ROW_H
 #define BOOST_MSM_FRONT_FUNCTOR_ROW_H
 
+#define BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
+
 #include <boost/mpl/set.hpp>
 #include <boost/mpl/for_each.hpp>
 

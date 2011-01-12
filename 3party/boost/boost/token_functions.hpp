@@ -418,7 +418,7 @@ namespace boost{
   class char_separator
   {
     typedef tokenizer_detail::traits_extension<Tr> Traits;
-    typedef std::basic_string<Char,Traits> string_type;
+    typedef std::basic_string<Char,Tr> string_type;
   public:
     explicit 
     char_separator(const Char* dropped_delims,
@@ -561,7 +561,7 @@ namespace boost{
   private:
 
     typedef tokenizer_detail::traits_extension<Tr> Traits;
-    typedef std::basic_string<Char,Traits> string_type;
+    typedef std::basic_string<Char,Tr> string_type;
     string_type returnable_;
     string_type nonreturnable_;
     bool return_delims_;

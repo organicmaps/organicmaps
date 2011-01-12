@@ -278,10 +278,13 @@ public:
     typedef typename graph_traits<graph_type>::edge_iterator edge_iterator;
     typedef typename graph_traits<graph_type>::edges_size_type edges_size_type;
 
-    typedef typename graph_type::vertex_property_type vertex_property_type;
-    typedef typename graph_type::edge_property_type edge_property_type;
     typedef typename graph_type::graph_property_type graph_property_type;
+    typedef typename graph_type::graph_bundled graph_bundled;
+
+    typedef typename graph_type::vertex_property_type vertex_property_type;
     typedef typename graph_type::vertex_bundled vertex_bundled;
+
+    typedef typename graph_type::edge_property_type edge_property_type;
     typedef typename graph_type::edge_bundled edge_bundled;
 
     typedef typename Base::label_type label_type;

@@ -108,19 +108,25 @@ namespace boost
         template<typename OutputIterator>
           void nolock_grab_tracked_objects(OutputIterator inserter) const
         {
-            slot_base::tracked_container_type::const_iterator it;
-            for(it = slot.tracked_objects().begin();
-              it != slot.tracked_objects().end();
-              ++it)
+          slot_base::tracked_container_type::const_iterator it;
+          for(it = slot.tracked_objects().begin();
+            it != slot.tracked_objects().end();
+            ++it)
+          {
+            void_shared_ptr_variant locked_object
+            (
+              apply_visitor
+              (
+                detail::lock_weak_ptr_visitor(),
+                *it
+              )
+            );
+            if(apply_visitor(detail::expired_weak_ptr_visitor(), *it))
             {
-              boost::shared_ptr<void> locked_object = it->lock();
-              boost::shared_ptr<void> empty;
-              if(!(empty < locked_object) && !(locked_object < empty))
-              {
-                _connected = false;
-                return;
-              }
-              *inserter++ = locked_object;
+              _connected = false;
+              return;
+            }
+            *inserter++ = locked_object;
           }
         }
         // expose Lockable concept of mutex

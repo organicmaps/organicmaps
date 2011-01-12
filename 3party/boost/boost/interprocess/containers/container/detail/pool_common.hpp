@@ -15,7 +15,7 @@
 #  pragma once
 #endif
 
-#include <boost/interprocess/containers/container/detail/config_begin.hpp>
+#include "config_begin.hpp"
 #include <boost/intrusive/slist.hpp>
 #include <new>
 
@@ -47,6 +47,6 @@ struct is_stateless_segment_manager
 }  //namespace container {
 }  //namespace boost {
 
-#include <boost/interprocess/containers/container/detail/config_end.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_CONFIG_END_HPP
 
 #endif   //#ifndef BOOST_CONTAINER_DETAIL_ADAPTIVE_NODE_POOL_IMPL_HPP

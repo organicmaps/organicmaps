@@ -53,6 +53,9 @@ enum operator_id
     op_nonzero,
 #endif
     op_repr
+#if PY_VERSION_HEX >= 0x03000000
+    ,op_truediv
+#endif
 };
 
 }}} // namespace boost::python::detail

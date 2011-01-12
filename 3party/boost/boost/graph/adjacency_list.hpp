@@ -28,6 +28,8 @@
 #  endif
 #endif
 
+#include <boost/scoped_ptr.hpp>
+
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/graph_mutability_traits.hpp>
 #include <boost/graph/graph_selectors.hpp>
@@ -368,37 +370,24 @@ namespace boost {
                                        EdgeListS>::vertex_descriptor,
         VertexProperty>
   {
-      public: // TODO Remove me
+      public:
 #if !defined(BOOST_GRAPH_NO_BUNDLED_PROPERTIES)
-    typedef typename detail::retag_property_list<vertex_bundle_t,
-                                                 VertexProperty>::retagged
-      maybe_vertex_bundled;
+    typedef typename graph_detail::graph_prop<GraphProperty>::property graph_property_type;
+    typedef typename graph_detail::graph_prop<GraphProperty>::bundle graph_bundled;
 
-     typedef typename detail::retag_property_list<edge_bundle_t,
-                                                  EdgeProperty>::retagged
-      maybe_edge_bundled;
-#endif
+    typedef typename graph_detail::vertex_prop<VertexProperty>::property vertex_property_type;
+    typedef typename graph_detail::vertex_prop<VertexProperty>::bundle vertex_bundled;
 
-  public:
-#if !defined(BOOST_GRAPH_NO_BUNDLED_PROPERTIES)
-    typedef typename detail::retag_property_list<vertex_bundle_t,
-                                                 VertexProperty>::type
-      vertex_property_type;
-    typedef typename detail::retag_property_list<edge_bundle_t,
-                                                 EdgeProperty>::type
-      edge_property_type;
-
-    // The types that are actually bundled
-    typedef typename mpl::if_c<(is_same<maybe_vertex_bundled, no_property>::value),
-                           no_vertex_bundle,
-                           maybe_vertex_bundled>::type vertex_bundled;
-    typedef typename mpl::if_c<(is_same<maybe_edge_bundled, no_property>::value),
-                           no_edge_bundle,
-                           maybe_edge_bundled>::type edge_bundled;
+    typedef typename graph_detail::edge_prop<EdgeProperty>::property edge_property_type;
+    typedef typename graph_detail::edge_prop<EdgeProperty>::bundle edge_bundled;
 #else
+    typedef GraphProperty graph_property_type;
+    typedef no_graph_bundle graph_bundled;
+
     typedef VertexProperty vertex_property_type;
-    typedef EdgeProperty edge_property_type;
     typedef no_vertex_bundle vertex_bundled;
+
+    typedef EdgeProperty edge_property_type;
     typedef no_edge_bundle edge_bundled;
 #endif
 
@@ -421,44 +410,51 @@ namespace boost {
     typedef DirectedS directed_selector;
     typedef EdgeListS edge_list_selector;
 
-    typedef GraphProperty graph_property_type;
 
-    inline adjacency_list(const GraphProperty& p = GraphProperty())
-      : m_property(p) { }
+    adjacency_list(const GraphProperty& p = GraphProperty())
+      : m_property(new graph_property_type(p))
+    { }
 
-    inline adjacency_list(const adjacency_list& x)
-      : Base(x), m_property(x.m_property) { }
+    adjacency_list(const adjacency_list& x)
+      : Base(x), m_property(new graph_property_type(*x.m_property))
+    { }
 
-    inline adjacency_list& operator=(const adjacency_list& x) {
+    adjacency_list& operator=(const adjacency_list& x) {
       // TBD: probably should give the strong guarantee
       if (&x != this) {
         Base::operator=(x);
-        m_property = x.m_property;
+
+        // Copy/swap the ptr since we can't just assign it...
+        property_ptr p(new graph_property_type(*x.m_property));
+        m_property.swap(p);
       }
       return *this;
     }
 
     // Required by Mutable Graph
-    inline adjacency_list(vertices_size_type num_vertices,
+    adjacency_list(vertices_size_type num_vertices,
                           const GraphProperty& p = GraphProperty())
-      : Base(num_vertices), m_property(p) { }
+      : Base(num_vertices), m_property(new graph_property_type(p))
+    { }
 
 #if !defined(BOOST_MSVC) || BOOST_MSVC >= 1300
     // Required by Iterator Constructible Graph
     template <class EdgeIterator>
-    inline adjacency_list(EdgeIterator first, EdgeIterator last,
+    adjacency_list(EdgeIterator first, EdgeIterator last,
                           vertices_size_type n,
                           edges_size_type = 0,
                           const GraphProperty& p = GraphProperty())
-      : Base(n, first, last), m_property(p) { }
+      : Base(n, first, last), m_property(new graph_property_type(p))
+    { }
 
     template <class EdgeIterator, class EdgePropertyIterator>
-    inline adjacency_list(EdgeIterator first, EdgeIterator last,
+    adjacency_list(EdgeIterator first, EdgeIterator last,
                           EdgePropertyIterator ep_iter,
                           vertices_size_type n,
                           edges_size_type = 0,
                           const GraphProperty& p = GraphProperty())
-      : Base(n, first, last, ep_iter), m_property(p) { }
+      : Base(n, first, last, ep_iter), m_property(new graph_property_type(p))
+    { }
 #endif
 
     void swap(adjacency_list& x) {
@@ -487,35 +483,39 @@ namespace boost {
 
     const edge_bundled& operator[](edge_descriptor e) const
     { return get(edge_bundle, *this)[e]; }
+
+    graph_bundled& operator[](graph_bundle_t)
+    { return get_property(*this); }
+
+    graph_bundled const& operator[](graph_bundle_t) const
+    { return get_property(*this); }
 #endif
 
     //  protected:  (would be protected if friends were more portable)
-    GraphProperty m_property;
+    typedef scoped_ptr<graph_property_type> property_ptr;
+    property_ptr  m_property;
   };
 
-  template <class OEL, class VL, class DirS, class VP,class EP, class GP,
-            class EL, class Tag, class Value>
-  inline void
-  set_property(adjacency_list<OEL,VL,DirS,VP,EP,GP,EL>& g, Tag,
-               const Value& value) {
-    get_property_value(g.m_property, Tag()) = value;;
+#define ADJLIST_PARAMS \
+    typename OEL, typename VL, typename D, typename VP, typename EP, \
+    typename GP, typename EL
+#define ADJLIST adjacency_list<OEL,VL,D,VP,EP,GP,EL>
+
+  template<ADJLIST_PARAMS, typename Tag, typename Value>
+  inline void set_property(ADJLIST& g, Tag, Value const& value) {
+    get_property_value(*g.m_property, Tag()) = value;
   }
 
-  template <class OEL, class VL, class DirS, class VP, class EP, class GP,
-            class Tag, class EL>
-  inline
-  typename graph_property<adjacency_list<OEL,VL,DirS,VP,EP,GP,EL>, Tag>::type&
-  get_property(adjacency_list<OEL,VL,DirS,VP,EP,GP,EL>& g, Tag) {
-    return get_property_value(g.m_property, Tag());
+  template<ADJLIST_PARAMS, typename Tag>
+  inline typename graph_property<ADJLIST, Tag>::type&
+  get_property(ADJLIST& g, Tag) {
+    return get_property_value(*g.m_property, Tag());
   }
 
-  template <class OEL, class VL, class DirS, class VP, class EP, class GP,
-            class Tag, class EL>
-  inline
-  const
-  typename graph_property<adjacency_list<OEL,VL,DirS,VP,EP,GP,EL>, Tag>::type&
-  get_property(const adjacency_list<OEL,VL,DirS,VP,EP,GP,EL>& g, Tag) {
-    return get_property_value(g.m_property, Tag());
+  template<ADJLIST_PARAMS, typename Tag>
+  inline typename graph_property<ADJLIST, Tag>::type const&
+  get_property(ADJLIST const& g, Tag) {
+    return get_property_value(*g.m_property, Tag());
   }
 
   // dwa 09/25/00 - needed to be more explicit so reverse_graph would work.
@@ -598,10 +598,6 @@ namespace boost {
 #endif
 
 // Mutability Traits
-#define ADJLIST_PARAMS \
-    typename OEL, typename VL, typename D, typename VP, typename EP, \
-    typename GP, typename EL
-#define ADJLIST adjacency_list<OEL,VL,D,VP,EP,GP,EL>
 template <ADJLIST_PARAMS>
 struct graph_mutability_traits<ADJLIST> {
     typedef mutable_property_graph_tag category;

@@ -89,7 +89,7 @@ public:
   explicit const_multi_array_ref(TPtr base, const ExtentList& extents) :
     base_(base), storage_(c_storage_order()) {
     boost::function_requires<
-      detail::multi_array::CollectionConcept<ExtentList> >();
+      CollectionConcept<ExtentList> >();
 
     index_base_list_.assign(0);
     init_multi_array_ref(extents.begin());
@@ -100,7 +100,7 @@ public:
                        const general_storage_order<NumDims>& so) : 
     base_(base), storage_(so) {
     boost::function_requires<
-      detail::multi_array::CollectionConcept<ExtentList> >();
+      CollectionConcept<ExtentList> >();
 
     index_base_list_.assign(0);
     init_multi_array_ref(extents.begin());
@@ -145,7 +145,7 @@ public:
 #endif // BOOST_NO_SFINAE
   reindex(const BaseList& values) {
     boost::function_requires<
-      detail::multi_array::CollectionConcept<BaseList> >();
+      CollectionConcept<BaseList> >();
     boost::detail::multi_array::
       copy_n(values.begin(),num_dimensions(),index_base_list_.begin());
     origin_offset_ =
@@ -163,7 +163,7 @@ public:
   template <typename SizeList>
   void reshape(const SizeList& extents) {
     boost::function_requires<
-      detail::multi_array::CollectionConcept<SizeList> >();
+      CollectionConcept<SizeList> >();
     BOOST_ASSERT(num_elements_ ==
                  std::accumulate(extents.begin(),extents.end(),
                                  size_type(1),std::multiplies<size_type>()));
@@ -210,7 +210,7 @@ public:
   template <typename IndexList>
   const element& operator()(IndexList indices) const {
     boost::function_requires<
-      detail::multi_array::CollectionConcept<IndexList> >();
+      CollectionConcept<IndexList> >();
     return super_type::access_element(boost::type<const element&>(),
                                       indices,origin(),
                                       shape(),strides(),index_bases());
@@ -448,7 +448,7 @@ public:
   explicit multi_array_ref(T* base, const ExtentList& extents) :
     super_type(base,extents) {
     boost::function_requires<
-      detail::multi_array::CollectionConcept<ExtentList> >();
+      CollectionConcept<ExtentList> >();
   }
 
   template <class ExtentList>
@@ -456,7 +456,7 @@ public:
                            const general_storage_order<NumDims>& so) :
     super_type(base,extents,so) {
     boost::function_requires<
-      detail::multi_array::CollectionConcept<ExtentList> >();
+      CollectionConcept<ExtentList> >();
   }
 
 
@@ -478,7 +478,7 @@ public:
   template <typename ConstMultiArray>
   multi_array_ref& operator=(const ConstMultiArray& other) {
     function_requires< 
-      detail::multi_array::
+      multi_array_concepts::
       ConstMultiArrayConcept<ConstMultiArray,NumDims> >();
 
     // make sure the dimensions agree
@@ -511,7 +511,7 @@ public:
   template <class IndexList>
   element& operator()(const IndexList& indices) {
     boost::function_requires<
-      detail::multi_array::CollectionConcept<IndexList> >();
+      CollectionConcept<IndexList> >();
     return super_type::access_element(boost::type<element&>(),
                                       indices,origin(),
                                       this->shape(),this->strides(),
@@ -578,7 +578,7 @@ public:
   template <class IndexList>
   const element& operator()(const IndexList& indices) const {
     boost::function_requires<
-      detail::multi_array::CollectionConcept<IndexList> >();
+      CollectionConcept<IndexList> >();
     return super_type::operator()(indices);
   }
 

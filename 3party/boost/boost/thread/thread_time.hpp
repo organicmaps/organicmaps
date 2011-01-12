@@ -6,6 +6,7 @@
 //  accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
+#include <boost/date_time/time_clock.hpp>
 #include <boost/date_time/microsec_time_clock.hpp>
 #include <boost/date_time/posix_time/posix_time_types.hpp>
 
@@ -17,7 +18,11 @@ namespace boost
     
     inline system_time get_system_time()
     {
+#if defined(BOOST_DATE_TIME_HAS_HIGH_PRECISION_CLOCK)
         return boost::date_time::microsec_clock<system_time>::universal_time();
+#else // defined(BOOST_DATE_TIME_HAS_HIGH_PRECISION_CLOCK)
+        return boost::date_time::second_clock<system_time>::universal_time();
+#endif // defined(BOOST_DATE_TIME_HAS_HIGH_PRECISION_CLOCK)
     }
 
     namespace detail

@@ -30,6 +30,7 @@
 #ifndef BOOST_INTERPROCESS_POSIX_TIMEOUTS
 #  include <boost/interprocess/detail/os_thread_functions.hpp>
 #endif
+#include <boost/assert.hpp>
 
 namespace boost {
 
@@ -45,7 +46,7 @@ inline interprocess_recursive_mutex::interprocess_recursive_mutex()
 inline interprocess_recursive_mutex::~interprocess_recursive_mutex()
 {
    int res = pthread_mutex_destroy(&m_mut);
-   assert(res == 0);(void)res;
+   BOOST_ASSERT(res == 0);(void)res;
 }
 
 inline void interprocess_recursive_mutex::lock()
@@ -104,7 +105,7 @@ inline void interprocess_recursive_mutex::unlock()
 {
    int res = 0;
    res = pthread_mutex_unlock(&m_mut);
-   assert(res == 0);
+   BOOST_ASSERT(res == 0);
 }
 
 }  //namespace interprocess {

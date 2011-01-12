@@ -91,7 +91,7 @@ public:
     template<class T>
     base64_from_binary(BOOST_PFTO_WRAPPER(T) start) :
         super_t(
-            Base(BOOST_MAKE_PFTO_WRAPPER(static_cast<T>(start))),
+            Base(BOOST_MAKE_PFTO_WRAPPER(static_cast< T >(start))),
             detail::from_6_bit<CharType>()
         )
     {}

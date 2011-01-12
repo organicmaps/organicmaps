@@ -39,6 +39,7 @@ namespace boost { namespace proto
         private:
             typedef basic_expr<tag::terminal, term<T>, 0> terminal_type;
             typedef extends<terminal_type, literal<T, Domain>, Domain> base_type;
+            typedef literal<T, Domain> literal_t;
 
         public:
             typedef typename detail::term_traits<T>::value_type       value_type;
@@ -64,7 +65,7 @@ namespace boost { namespace proto
               : base_type(terminal_type::make(u.get()))
             {}
 
-            BOOST_PROTO_EXTENDS_USING_ASSIGN(literal)
+            BOOST_PROTO_EXTENDS_USING_ASSIGN(literal_t)
 
             reference get()
             {

@@ -27,6 +27,7 @@
 #include <boost/interprocess/detail/posix_time_types_wrk.hpp>
 #include <boost/interprocess/sync/emulation/named_creation_functor.hpp>
 #include <boost/interprocess/sync/named_mutex.hpp>
+#include <boost/interprocess/permissions.hpp>
 #if defined BOOST_INTERPROCESS_NAMED_MUTEX_USES_POSIX_SEMAPHORES
 #include <boost/interprocess/sync/interprocess_mutex.hpp>
 #include <boost/interprocess/sync/scoped_lock.hpp>
@@ -57,7 +58,7 @@ class named_condition
    public:
    //!Creates a global condition with a name.
    //!If the condition can't be created throws interprocess_exception
-   named_condition(create_only_t create_only, const char *name);
+   named_condition(create_only_t create_only, const char *name, const permissions &perm = permissions());
 
    //!Opens or creates a global condition with a name. 
    //!If the condition is created, this call is equivalent to
@@ -65,7 +66,7 @@ class named_condition
    //!If the condition is already created, this call is equivalent
    //!named_condition(open_only_t, ... )
    //!Does not throw
-   named_condition(open_or_create_t open_or_create, const char *name);
+   named_condition(open_or_create_t open_or_create, const char *name, const permissions &perm = permissions());
 
    //!Opens a global condition with a name if that condition is previously
    //!created. If it is not previously created this function throws
@@ -199,7 +200,7 @@ class named_condition
 inline named_condition::~named_condition()
 {}
 
-inline named_condition::named_condition(create_only_t, const char *name)
+inline named_condition::named_condition(create_only_t, const char *name, const permissions &perm)
    :  m_shmem  (create_only
                ,name
                ,sizeof(condition_holder) +
@@ -207,10 +208,11 @@ inline named_condition::named_condition(create_only_t, const char *name)
                      ManagedOpenOrCreateUserOffset
                ,read_write
                ,0
-               ,construct_func_t(detail::DoCreate))
+               ,construct_func_t(detail::DoCreate)
+               ,perm)
 {}
 
-inline named_condition::named_condition(open_or_create_t, const char *name)
+inline named_condition::named_condition(open_or_create_t, const char *name, const permissions &perm)
    :  m_shmem  (open_or_create
                ,name
                ,sizeof(condition_holder) +
@@ -218,7 +220,8 @@ inline named_condition::named_condition(open_or_create_t, const char *name)
                      ManagedOpenOrCreateUserOffset
                ,read_write
                ,0
-               ,construct_func_t(detail::DoOpenOrCreate))
+               ,construct_func_t(detail::DoOpenOrCreate)
+               ,perm)
 {}
 
 inline named_condition::named_condition(open_only_t, const char *name)

@@ -129,14 +129,20 @@ class compressed_sparse_row_graph<
 
   // -----------------------------------------------------------------
   // Workarounds
+  // NOTE: This graph type does not have old-style graph properties. It only
+  // accepts bundles.
   typedef no_property vertex_property_type;
   typedef no_property edge_property_type;
+  typedef no_property graph_property_type;
   typedef typename mpl::if_<is_void<VertexProperty>,
                             void****,
                             VertexProperty>::type vertex_bundled;
   typedef typename mpl::if_<is_void<EdgeProperty>,
                             void****,
                             EdgeProperty>::type edge_bundled;
+  typedef typename mpl::if_<is_void<GraphProperty>,
+                            void****,
+                            GraphProperty>::type graph_bundled;
 
   // -----------------------------------------------------------------
   // Useful types

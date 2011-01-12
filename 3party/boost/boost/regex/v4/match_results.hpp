@@ -38,7 +38,6 @@ namespace boost{
 
 namespace re_detail{
 
-template <class charT>
 class named_subexpressions;
 
 }
@@ -69,7 +68,7 @@ public:
    typedef typename re_detail::regex_iterator_traits<
                                     BidiIterator>::value_type               char_type;
    typedef          std::basic_string<char_type>                            string_type;
-   typedef          re_detail::named_subexpressions_base<char_type>         named_sub_type;
+   typedef          re_detail::named_subexpressions                         named_sub_type;
 
    // construct/copy/destroy:
    explicit match_results(const Allocator& a = Allocator())
@@ -225,10 +224,15 @@ public:
    //
    const_reference named_subexpression(const char_type* i, const char_type* j) const
    {
+      //
+      // Scan for the leftmost *matched* subexpression with the specified named:
+      //
       if(m_is_singular)
          raise_logic_error();
-      int index = m_named_subs->get_id(i, j);
-      return index > 0 ? (*this)[index] : m_null;
+      re_detail::named_subexpressions::range_type r = m_named_subs->equal_range(i, j);
+      while((r.first != r.second) && ((*this)[r.first->index].matched == false))
+         ++r.first;
+      return r.first != r.second ? (*this)[r.first->index] : m_null;
    }
    template <class charT>
    const_reference named_subexpression(const charT* i, const charT* j) const
@@ -243,10 +247,20 @@ public:
    }
    int named_subexpression_index(const char_type* i, const char_type* j) const
    {
+      //
+      // Scan for the leftmost *matched* subexpression with the specified named.
+      // If none found then return the leftmost expression with that name,
+      // otherwise an invalid index:
+      //
       if(m_is_singular)
          raise_logic_error();
-      int index = m_named_subs->get_id(i, j);
-      return index > 0 ? index : -20;
+      re_detail::named_subexpressions::range_type s, r;
+      s = r = m_named_subs->equal_range(i, j);
+      while((r.first != r.second) && ((*this)[r.first->index].matched == false))
+         ++r.first;
+      if(r.first == r.second)
+         r = s;
+      return r.first != r.second ? r.first->index : -20;
    }
    template <class charT>
    int named_subexpression_index(const charT* i, const charT* j) const

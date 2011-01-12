@@ -92,7 +92,7 @@ typename Dist::value_type
    // Max bounds of the distribution:
    //
    value_type min_bound, max_bound;
-   std::tr1::tie(min_bound, max_bound) = support(dist);
+   boost::math::tie(min_bound, max_bound) = support(dist);
 
    if(guess > max_bound)
       guess = max_bound;

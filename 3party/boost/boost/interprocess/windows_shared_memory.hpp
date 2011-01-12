@@ -14,6 +14,7 @@
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 #include <boost/detail/workaround.hpp>
+#include <boost/interprocess/permissions.hpp>
 
 #if !defined(BOOST_INTERPROCESS_WINDOWS)
 #error "This header can only be used in Windows operating systems"
@@ -62,24 +63,25 @@ class windows_shared_memory
    //!Creates a new native shared memory with name "name" and mode "mode",
    //!with the access mode "mode".
    //!If the file previously exists, throws an error.
-   windows_shared_memory(create_only_t, const char *name, mode_t mode, std::size_t size)
-   {  this->priv_open_or_create(detail::DoCreate, name, mode, size);  }
+   windows_shared_memory(create_only_t, const char *name, mode_t mode, std::size_t size, const permissions& perm = permissions())
+   {  this->priv_open_or_create(detail::DoCreate, name, mode, size, perm);  }
 
    //!Tries to create a shared memory object with name "name" and mode "mode", with the
    //!access mode "mode". If the file previously exists, it tries to open it with mode "mode".
    //!Otherwise throws an error.
-   windows_shared_memory(open_or_create_t, const char *name, mode_t mode, std::size_t size)
-   {  this->priv_open_or_create(detail::DoOpenOrCreate, name, mode, size);  }
+   windows_shared_memory(open_or_create_t, const char *name, mode_t mode, std::size_t size, const permissions& perm = permissions())
+   {  this->priv_open_or_create(detail::DoOpenOrCreate, name, mode, size, perm);  }
 
    //!Tries to open a shared memory object with name "name", with the access mode "mode". 
    //!If the file does not previously exist, it throws an error.
    windows_shared_memory(open_only_t, const char *name, mode_t mode)
-   {  this->priv_open_or_create(detail::DoOpen, name, mode, 0);  }
+   {  this->priv_open_or_create(detail::DoOpen, name, mode, 0, permissions());  }
 
    //!Moves the ownership of "moved"'s shared memory object to *this. 
    //!After the call, "moved" does not represent any shared memory object. 
    //!Does not throw
    windows_shared_memory(BOOST_INTERPROCESS_RV_REF(windows_shared_memory) moved)
+      : m_handle(0)
    {  this->swap(moved);   }
 
    //!Moves the ownership of "moved"'s shared memory to *this.
@@ -117,7 +119,7 @@ class windows_shared_memory
    void priv_close();
 
    //!Closes a previously opened file mapping. Never throws.
-   bool priv_open_or_create(detail::create_enum_t type, const char *filename, mode_t mode, std::size_t size);
+   bool priv_open_or_create(detail::create_enum_t type, const char *filename, mode_t mode, std::size_t size, const permissions& perm = permissions());
 
    void *         m_handle;
    mode_t         m_mode;
@@ -151,7 +153,7 @@ inline mode_t windows_shared_memory::get_mode() const
 {  return m_mode; }
 
 inline bool windows_shared_memory::priv_open_or_create
-   (detail::create_enum_t type, const char *filename, mode_t mode, std::size_t size)
+   (detail::create_enum_t type, const char *filename, mode_t mode, std::size_t size, const permissions& perm)
 {
    m_name = filename ? filename : "";
 
@@ -191,7 +193,8 @@ inline bool windows_shared_memory::priv_open_or_create
          __int64 s = size;
          unsigned long high_size(s >> 32), low_size((boost::uint32_t)s);
          m_handle = winapi::create_file_mapping
-            (winapi::invalid_handle_value, file_map_access, high_size, low_size, filename);
+            ( winapi::invalid_handle_value, file_map_access, high_size, low_size, filename
+            , (winapi::interprocess_security_attributes*)perm.get_permissions());
       }
       break;
       default:

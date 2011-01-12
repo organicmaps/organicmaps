@@ -8,10 +8,10 @@
 #if !defined(BOOST_FUSION_ADAPTED_30122005_1420)
 #define BOOST_FUSION_ADAPTED_30122005_1420
 
+#include <boost/fusion/adapted/adt.hpp>
 #include <boost/fusion/adapted/array.hpp>
 #include <boost/fusion/adapted/boost_array.hpp>
 #include <boost/fusion/adapted/boost_tuple.hpp>
-#include <boost/fusion/adapted/class.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/adapted/std_pair.hpp>
 #include <boost/fusion/adapted/struct.hpp>

@@ -119,6 +119,11 @@
             {};
 
             template<typename T, std::size_t M>
+            struct lambda_matches<T[M], _ BOOST_MPL_AUX_LAMBDA_ARITY_PARAM(-1)>
+              : mpl::true_
+            {};
+
+            template<typename T, std::size_t M>
             struct lambda_matches<T[M], T[M] BOOST_MPL_AUX_LAMBDA_ARITY_PARAM(-1)>
               : mpl::true_
             {};

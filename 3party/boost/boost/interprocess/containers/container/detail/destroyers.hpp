@@ -17,10 +17,10 @@
 #  pragma once
 #endif
 
-#include <boost/interprocess/containers/container/detail/config_begin.hpp>
-#include <boost/interprocess/containers/container/detail/workaround.hpp>
-#include <boost/interprocess/containers/container/detail/version_type.hpp>
-#include <boost/interprocess/containers/container/detail/utilities.hpp>
+#include "config_begin.hpp"
+#include INCLUDE_BOOST_CONTAINER_DETAIL_WORKAROUND_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_VERSION_TYPE_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_UTILITIES_HPP
 
 namespace boost {
 namespace container { 
@@ -149,6 +149,6 @@ class allocator_destroyer
 }  //namespace container { 
 }  //namespace boost {
 
-#include <boost/interprocess/containers/container/detail/config_end.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_CONFIG_END_HPP
 
 #endif   //#ifndef BOOST_CONTAINERS_DESTROYERS_HPP

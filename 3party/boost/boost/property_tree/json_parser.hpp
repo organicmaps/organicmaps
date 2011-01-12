@@ -85,14 +85,17 @@ namespace boost { namespace property_tree { namespace json_parser
      * @param stream The stream to which to write the JSON representation of the
      *               property tree.
      * @param pt The property tree to tranlsate to JSON and output.
+     * @param pretty Whether to pretty-print. Defaults to true for backward
+     *               compatibility.
      */
     template<class Ptree>
     void write_json(std::basic_ostream<
                         typename Ptree::key_type::value_type
                     > &stream,
-                    const Ptree &pt)
+                    const Ptree &pt,
+                    bool pretty = true)
     {
-        write_json_internal(stream, pt, std::string());
+        write_json_internal(stream, pt, std::string(), pretty);
     }
 
     /**
@@ -106,11 +109,14 @@ namespace boost { namespace property_tree { namespace json_parser
      *                 representation of the property tree.
      * @param pt The property tree to translate to JSON and output.
      * @param loc The locale to use when writing out to the output file.
+     * @param pretty Whether to pretty-print. Defaults to true and last place
+     *               for backward compatibility.
      */
     template<class Ptree>
     void write_json(const std::string &filename,
                     const Ptree &pt,
-                    const std::locale &loc = std::locale())
+                    const std::locale &loc = std::locale(),
+                    bool pretty = true)
     {
         std::basic_ofstream<typename Ptree::key_type::value_type>
             stream(filename.c_str());
@@ -118,7 +124,7 @@ namespace boost { namespace property_tree { namespace json_parser
             BOOST_PROPERTY_TREE_THROW(json_parser_error(
                 "cannot open file", filename, 0));
         stream.imbue(loc);
-        write_json_internal(stream, pt, filename);
+        write_json_internal(stream, pt, filename, pretty);
     }
 
 } } }

@@ -90,7 +90,7 @@ public:
     // make composible buy using templated constructor
     template<class T>
     wchar_from_mb(BOOST_PFTO_WRAPPER(T) start) : 
-        super_t(Base(BOOST_MAKE_PFTO_WRAPPER(static_cast<T>(start)))),
+        super_t(Base(BOOST_MAKE_PFTO_WRAPPER(static_cast< T >(start)))),
         m_full(false)
     {}
     // intel 7.1 doesn't like default copy constructor

@@ -31,6 +31,18 @@
 #  pragma pack (push, 8)
 # endif
 
+# if defined(__OBJC__)
+#  if !defined(__APPLE_CC__) || (__APPLE_CC__ <= 1)
+#   if !defined(BOOST_ASIO_DISABLE_OBJC_WORKAROUND)
+#    if !defined(Protocol) && !defined(id)
+#     define Protocol cpp_Protocol
+#     define id cpp_id
+#     define BOOST_ASIO_OBJC_WORKAROUND
+#    endif
+#   endif
+#  endif
+# endif
+
 #elif defined(__KCC)
 
 // Kai C++

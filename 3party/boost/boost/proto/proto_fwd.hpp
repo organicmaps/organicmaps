@@ -337,7 +337,9 @@ namespace boost { namespace proto
     template<typename Grammar>
     struct vararg;
 
-    int const N = INT_MAX;
+    // Boost bug https://svn.boost.org/trac/boost/ticket/4602
+    //int const N = INT_MAX;
+    int const N = (INT_MAX >> 10);
 
     namespace context
     {

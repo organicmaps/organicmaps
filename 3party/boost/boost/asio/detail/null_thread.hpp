@@ -35,7 +35,7 @@ class null_thread
 public:
   // Constructor.
   template <typename Function>
-  null_thread(Function)
+  null_thread(Function, unsigned int = 0)
   {
     boost::asio::detail::throw_error(
         boost::asio::error::operation_not_supported, "thread");

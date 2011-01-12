@@ -11,6 +11,11 @@
 #ifndef BOOST_UNITS_IS_DIM_HPP
 #define BOOST_UNITS_IS_DIM_HPP
 
+///
+/// \file
+/// \brief Check that a type is a valid @c dim.
+///
+
 #include <boost/mpl/bool.hpp>
 
 #include <boost/units/units_fwd.hpp>

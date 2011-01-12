@@ -11,6 +11,9 @@
 #ifndef BOOST_UNITS_GET_SYSTEM_HPP
 #define BOOST_UNITS_GET_SYSTEM_HPP
 
+/// \file
+/// \brief Get the system of a unit, absolute unit or quantity.
+
 #include <boost/units/units_fwd.hpp>
 
 namespace boost {
@@ -20,21 +23,21 @@ namespace units {
 template<class T>
 struct get_system {};
 
-/// get the system of a unit
+/// Get the system of a unit.
 template<class Dim,class System>
 struct get_system< unit<Dim,System> >
 {
     typedef System type;
 };
 
-/// get the system of an absolute unit
+/// Get the system of an absolute unit.
 template<class Unit>
 struct get_system< absolute<Unit> >
 {
     typedef typename get_system<Unit>::type type;
 };
 
-/// get the system of a quantity
+/// Get the system of a quantity.
 template<class Unit,class Y>
 struct get_system< quantity<Unit,Y> >
 {

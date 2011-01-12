@@ -1,6 +1,6 @@
 //
-//  Copyright (c) 2000-2002
-//  Joerg Walter, Mathias Koch
+//  Copyright (c) 2000-2010
+//  Joerg Walter, Mathias Koch. David Bellot
 //
 //  Distributed under the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at
@@ -22,10 +22,10 @@
 
 namespace boost { namespace numeric { namespace ublas {
 
-    /** \brief Base class for uBLAS staticaly derived expressions using the the Barton Nackman trick
+    /** \brief Base class for uBLAS statically derived expressions using the the Barton Nackman trick
      *
-     * This class provides the numeric properties for linear algebra.
      * This is a NonAssignable class
+     * Directly implement nonassignable - simplifes debugging call trace!
      * 
      * \tparam E an expression type
      */
@@ -38,7 +38,6 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename E::value_type value_type;
         */
         
-        // Directly implement nonassignable - simplifes debugging call trace!
     protected:
         ublas_expression () {}
         ~ublas_expression () {}

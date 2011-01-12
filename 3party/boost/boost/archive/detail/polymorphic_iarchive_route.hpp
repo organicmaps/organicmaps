@@ -180,13 +180,17 @@ public:
     polymorphic_iarchive & operator>>(T & t){
         return polymorphic_iarchive::operator>>(t);
     }
-
     // the & operator
     template<class T>
     polymorphic_iarchive & operator&(T & t){
         return polymorphic_iarchive::operator&(t);
     }
-
+    // register type function
+    template<class T>
+    const basic_pointer_iserializer * 
+    register_type(T * t = NULL){
+        return ArchiveImplementation::register_type(t);
+    }
     // all current archives take a stream as constructor argument
     template <class _Elem, class _Tr>
     polymorphic_iarchive_route(

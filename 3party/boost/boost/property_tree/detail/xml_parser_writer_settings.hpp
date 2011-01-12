@@ -35,18 +35,18 @@ namespace boost { namespace property_tree { namespace xml_parser
     class xml_writer_settings
     {
     public:
-        xml_writer_settings(Ch indent_char = Ch(' '),
-                typename std::basic_string<Ch>::size_type indent_count = 0,
-                const std::basic_string<Ch> &encoding = widen<Ch>("utf-8"))
-            : indent_char(indent_char)
-            , indent_count(indent_count)
-            , encoding(encoding)
+        xml_writer_settings(Ch inchar = Ch(' '),
+                typename std::basic_string<Ch>::size_type incount = 0,
+                const std::basic_string<Ch> &enc = widen<Ch>("utf-8"))
+            : indent_char(inchar)
+            , indent_count(incount)
+            , encoding(enc)
         {
         }
 
-        const Ch indent_char;
-        const typename std::basic_string<Ch>::size_type indent_count;
-        const std::basic_string<Ch> encoding;
+        Ch indent_char;
+        typename std::basic_string<Ch>::size_type indent_count;
+        std::basic_string<Ch> encoding;
     };
 
     template <class Ch>

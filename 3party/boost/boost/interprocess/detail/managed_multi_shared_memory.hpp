@@ -27,11 +27,13 @@
 #include <boost/interprocess/containers/list.hpp>//list
 #include <boost/interprocess/mapped_region.hpp> //mapped_region
 #include <boost/interprocess/shared_memory_object.hpp>
+#include <boost/interprocess/permissions.hpp>
 #include <boost/interprocess/detail/managed_open_or_create_impl.hpp> //managed_open_or_create_impl
 #include <new>
 #include <boost/interprocess/containers/string.hpp>
 #include <boost/interprocess/streams/vectorstream.hpp>
 #include <memory>
+#include <boost/assert.hpp>
 
 //!\file
 //!Describes a named shared memory object allocation user class.
@@ -39,6 +41,11 @@
 namespace boost {
 
 namespace interprocess {
+
+//TODO: We must somehow obtain the permissions of the first segment
+//to apply them to subsequent segments
+//-Use GetSecurityInfo?
+//-Change everything to use only a shared memory object expanded via truncate()?
 
 //!A basic shared memory named object creation class. Initializes the 
 //!shared memory segment. Inherits all basic functionality from 
@@ -113,7 +120,7 @@ class basic_managed_multi_shared_memory
          alloc_size = (m_min_segment_size > alloc_size) ? 
                        m_min_segment_size : alloc_size;
          if(mp_frontend->priv_new_segment(create_open_func::DoCreate,
-                                          alloc_size, 0)){
+                                          alloc_size, 0, permissions())){
             shmem_list_t::value_type &m_impl = *mp_frontend->m_shmem_list.rbegin();
             return result_type(m_impl.get_real_address(), m_impl.get_real_size()-1);
          }
@@ -190,7 +197,7 @@ class basic_managed_multi_shared_memory
          }
          if(mapped){
             bool ret = void_pointer::erase_last_mapping(group);
-            assert(ret);(void)ret;
+            BOOST_ASSERT(ret);(void)ret;
          }
          return false;
       }
@@ -233,24 +240,26 @@ class basic_managed_multi_shared_memory
 
    basic_managed_multi_shared_memory(create_only_t,
                                      const char *name,
-                                     std::size_t size)
+                                     std::size_t size,
+                                     const permissions &perm = permissions())
       :  m_group_services(get_this_pointer())
    {
-      priv_open_or_create(create_open_func::DoCreate,name, size);  
+      priv_open_or_create(create_open_func::DoCreate,name, size, perm);  
    }
 
    basic_managed_multi_shared_memory(open_or_create_t,
                                      const char *name,
-                                     std::size_t size)
+                                     std::size_t size,
+                                     const permissions &perm = permissions())
       :  m_group_services(get_this_pointer())
    {
-      priv_open_or_create(create_open_func::DoOpenOrCreate, name, size);
+      priv_open_or_create(create_open_func::DoOpenOrCreate, name, size, perm);
    }
 
    basic_managed_multi_shared_memory(open_only_t, const char *name)
       :  m_group_services(get_this_pointer())
    {
-      priv_open_or_create(create_open_func::DoOpen, name, 0);
+      priv_open_or_create(create_open_func::DoOpen, name, 0, permissions());
    }
 
    ~basic_managed_multi_shared_memory()
@@ -259,7 +268,8 @@ class basic_managed_multi_shared_memory
    private:
    bool  priv_open_or_create(typename create_open_func::type_t type, 
                              const char *name,
-                             std::size_t size)
+                             std::size_t size,
+                             const permissions &perm)
    {
       if(!m_shmem_list.empty())
          return false;
@@ -273,7 +283,7 @@ class basic_managed_multi_shared_memory
          m_group_services.set_min_segment_size(size);
 
          if(group){
-            if(this->priv_new_segment(type, size, 0)){
+            if(this->priv_new_segment(type, size, 0, perm)){
                return true;
             }
          }
@@ -289,7 +299,8 @@ class basic_managed_multi_shared_memory
 
    bool  priv_new_segment(typename create_open_func::type_t type,
                           std::size_t size,
-                          const void *addr)
+                          const void *addr,
+                          const permissions &perm)
    {
       BOOST_TRY{
          //Get the number of groups of this multi_segment group
@@ -314,7 +325,7 @@ class basic_managed_multi_shared_memory
          switch(type){
             case create_open_func::DoCreate:
             {
-               managed_impl shm(create_only, name, size, read_write, addr, func);
+               managed_impl shm(create_only, name, size, read_write, addr, func, perm);
                mshm = boost::interprocess::move(shm);
             }
             break;
@@ -328,7 +339,7 @@ class basic_managed_multi_shared_memory
 
             case create_open_func::DoOpenOrCreate:
             {
-               managed_impl shm(open_or_create, name, size, read_write, addr, func);
+               managed_impl shm(open_or_create, name, size, read_write, addr, func, perm);
                mshm = boost::interprocess::move(shm);
             }
             break;
@@ -362,7 +373,7 @@ class basic_managed_multi_shared_memory
          //(*itbeg)->close_with_func(close_func(this));
          //Delete group. All mappings are erased too.
          ret = void_pointer::delete_group(group);
-         assert(ret);
+         BOOST_ASSERT(ret);
          m_shmem_list.clear();
       }
    }

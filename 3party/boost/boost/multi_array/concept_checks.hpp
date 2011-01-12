@@ -22,9 +22,9 @@
 #include "boost/iterator/iterator_concepts.hpp"
 
 namespace boost {
-namespace detail {
-namespace multi_array {
+namespace multi_array_concepts {
 
+namespace detail {
   //
   // idgen_helper -
   //   This is a helper for generating index_gen instantiations with
@@ -56,6 +56,8 @@ namespace multi_array {
     }
   };
 
+} // namespace detail
+
 
   template <typename Array, std::size_t NumDims >
   struct ConstMultiArrayConcept
@@ -70,10 +72,10 @@ namespace multi_array {
       // RG - a( CollectionArchetype) when available...
       a[ id ];
       // Test slicing, keeping only the first dimension, losing the rest
-      idgen_helper<NumDims-1>::call(a,idgen[range],id);
+      detail::idgen_helper<NumDims-1>::call(a,idgen[range],id);
 
       // Test slicing, keeping all dimensions.
-      idgen_helper<NumDims-1>::call(a,idgen[range],range);
+      detail::idgen_helper<NumDims-1>::call(a,idgen[range],range);
 
       st = a.size();
       st = a.num_dimensions();
@@ -134,10 +136,10 @@ namespace multi_array {
       value_type vt = a[ id ];
 
       // Test slicing, keeping only the first dimension, losing the rest
-      idgen_helper<NumDims-1>::call(a,idgen[range],id);
+      detail::idgen_helper<NumDims-1>::call(a,idgen[range],id);
 
       // Test slicing, keeping all dimensions.
-      idgen_helper<NumDims-1>::call(a,idgen[range],range);
+      detail::idgen_helper<NumDims-1>::call(a,idgen[range],range);
 
       st = a.size();
       st = a.num_dimensions();
@@ -158,10 +160,10 @@ namespace multi_array {
       //      value_type vt = a[ id ];
 
       // Test slicing, keeping only the first dimension, losing the rest
-      idgen_helper<NumDims-1>::call(a,idgen[range],id);
+      detail::idgen_helper<NumDims-1>::call(a,idgen[range],id);
 
       // Test slicing, keeping all dimensions.
-      idgen_helper<NumDims-1>::call(a,idgen[range],range);
+      detail::idgen_helper<NumDims-1>::call(a,idgen[range],range);
 
       st = a.size();
       st = a.num_dimensions();
@@ -208,7 +210,14 @@ namespace multi_array {
 
 
 } // namespace multi_array
-} // namespace detail
+
+namespace detail {
+  namespace multi_array { // Old locations for these
+    using boost::multi_array_concepts::ConstMultiArrayConcept;
+    using boost::multi_array_concepts::MutableMultiArrayConcept;
+  }
+}
+
 } // namespace boost
 
 

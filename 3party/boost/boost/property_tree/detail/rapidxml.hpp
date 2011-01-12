@@ -7,17 +7,14 @@
 //
 // For more information, see www.boost.org
 // ----------------------------------------------------------------------------
-#ifndef RAPIDXML_HPP_INCLUDED
-#define RAPIDXML_HPP_INCLUDED
+#ifndef BOOST_PROPERTY_TREE_RAPIDXML_HPP_INCLUDED
+#define BOOST_PROPERTY_TREE_RAPIDXML_HPP_INCLUDED
 
 //! \file rapidxml.hpp This file contains rapidxml parser and DOM implementation
 
-// If standard library is disabled, user must provide implementations of required functions and typedefs
-#if !defined(RAPIDXML_NO_STDLIB)
-    #include <cstdlib>      // For std::size_t
-    #include <cassert>      // For assert
-    #include <new>          // For placement new
-#endif
+#include <cstdlib>      // For std::size_t
+#include <cassert>      // For assert
+#include <new>          // For placement new
 
 // On MSVC, disable "conditional expression is constant" warning (level 4). 
 // This warning is almost impossible to avoid with certain types of templated code
@@ -27,40 +24,13 @@
 #endif
 
 ///////////////////////////////////////////////////////////////////////////
-// RAPIDXML_PARSE_ERROR
-    
-#if defined(RAPIDXML_NO_EXCEPTIONS)
-
-#define RAPIDXML_PARSE_ERROR(what, where) { parse_error_handler(what, where); assert(0); }
-
-namespace rapidxml
-{
-    //! When exceptions are disabled by defining RAPIDXML_NO_EXCEPTIONS, 
-    //! this function is called to notify user about the error.
-    //! It must be defined by the user.
-    //! <br><br>
-    //! This function cannot return. If it does, the results are undefined.
-    //! <br><br>
-    //! A very simple definition might look like that:
-    //! <pre>
-    //! void %rapidxml::%parse_error_handler(const char *what, void *where)
-    //! {
-    //!     std::cout << "Parse error: " << what << "\n";
-    //!     std::abort();
-    //! }
-    //! </pre>
-    //! \param what Human readable description of the error.
-    //! \param where Pointer to character data where error was detected.
-    void parse_error_handler(const char *what, void *where);
-}
-
-#else
+// BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR
     
 #include <exception>    // For std::exception
 
-#define RAPIDXML_PARSE_ERROR(what, where) throw parse_error(what, where)
+#define BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR(what, where) throw parse_error(what, where)
 
-namespace rapidxml
+namespace boost { namespace property_tree { namespace detail {namespace rapidxml
 {
 
     //! Parse error exception. 
@@ -80,9 +50,9 @@ namespace rapidxml
     public:
     
         //! Constructs parse error
-        parse_error(const char *what, void *where)
-            : m_what(what)
-            , m_where(where)
+        parse_error(const char *wa, void *we)
+            : m_what(wa)
+            , m_where(we)
         {
         }
 
@@ -108,36 +78,34 @@ namespace rapidxml
         void *m_where;
 
     };
-}
-
-#endif
+}}}}
 
 ///////////////////////////////////////////////////////////////////////////
 // Pool sizes
 
-#ifndef RAPIDXML_STATIC_POOL_SIZE
+#ifndef BOOST_PROPERTY_TREE_RAPIDXML_STATIC_POOL_SIZE
     // Size of static memory block of memory_pool.
-    // Define RAPIDXML_STATIC_POOL_SIZE before including rapidxml.hpp if you want to override the default value.
+    // Define BOOST_PROPERTY_TREE_RAPIDXML_STATIC_POOL_SIZE before including rapidxml.hpp if you want to override the default value.
     // No dynamic memory allocations are performed by memory_pool until static memory is exhausted.
-    #define RAPIDXML_STATIC_POOL_SIZE (64 * 1024)
+    #define BOOST_PROPERTY_TREE_RAPIDXML_STATIC_POOL_SIZE (64 * 1024)
 #endif
 
-#ifndef RAPIDXML_DYNAMIC_POOL_SIZE
+#ifndef BOOST_PROPERTY_TREE_RAPIDXML_DYNAMIC_POOL_SIZE
     // Size of dynamic memory block of memory_pool.
-    // Define RAPIDXML_DYNAMIC_POOL_SIZE before including rapidxml.hpp if you want to override the default value.
+    // Define BOOST_PROPERTY_TREE_RAPIDXML_DYNAMIC_POOL_SIZE before including rapidxml.hpp if you want to override the default value.
     // After the static block is exhausted, dynamic blocks with approximately this size are allocated by memory_pool.
-    #define RAPIDXML_DYNAMIC_POOL_SIZE (64 * 1024)
+    #define BOOST_PROPERTY_TREE_RAPIDXML_DYNAMIC_POOL_SIZE (64 * 1024)
 #endif
 
-#ifndef RAPIDXML_ALIGNMENT
+#ifndef BOOST_PROPERTY_TREE_RAPIDXML_ALIGNMENT
     // Memory allocation alignment.
-    // Define RAPIDXML_ALIGNMENT before including rapidxml.hpp if you want to override the default value, which is the size of pointer.
+    // Define BOOST_PROPERTY_TREE_RAPIDXML_ALIGNMENT before including rapidxml.hpp if you want to override the default value, which is the size of pointer.
     // All memory allocations for nodes, attributes and strings will be aligned to this value.
     // This must be a power of 2 and at least 1, otherwise memory_pool will not work.
-    #define RAPIDXML_ALIGNMENT sizeof(void *)
+    #define BOOST_PROPERTY_TREE_RAPIDXML_ALIGNMENT sizeof(void *)
 #endif
 
-namespace rapidxml
+namespace boost { namespace property_tree { namespace detail {namespace rapidxml
 {
     // Forward declarations
     template<class Ch> class xml_node;
@@ -341,6 +309,17 @@ namespace rapidxml
             }
             return true;
         }
+
+        template<class Ch>
+        inline size_t get_index(const Ch c)
+        {
+            // If not ASCII char, its sematic is same as plain 'z'
+            if (c > 255)
+            {
+                return 'z';
+            }
+            return c;
+        }
     }
     //! \endcond
 
@@ -364,20 +343,20 @@ namespace rapidxml
     //! It is also possible to create a standalone memory_pool, and use it 
     //! to allocate nodes, whose lifetime will not be tied to any document.
     //! <br><br>
-    //! Pool maintains <code>RAPIDXML_STATIC_POOL_SIZE</code> bytes of statically allocated memory. 
+    //! Pool maintains <code>BOOST_PROPERTY_TREE_RAPIDXML_STATIC_POOL_SIZE</code> bytes of statically allocated memory. 
     //! Until static memory is exhausted, no dynamic memory allocations are done.
-    //! When static memory is exhausted, pool allocates additional blocks of memory of size <code>RAPIDXML_DYNAMIC_POOL_SIZE</code> each,
+    //! When static memory is exhausted, pool allocates additional blocks of memory of size <code>BOOST_PROPERTY_TREE_RAPIDXML_DYNAMIC_POOL_SIZE</code> each,
     //! by using global <code>new[]</code> and <code>delete[]</code> operators. 
     //! This behaviour can be changed by setting custom allocation routines. 
     //! Use set_allocator() function to set them.
     //! <br><br>
-    //! Allocations for nodes, attributes and strings are aligned at <code>RAPIDXML_ALIGNMENT</code> bytes.
+    //! Allocations for nodes, attributes and strings are aligned at <code>BOOST_PROPERTY_TREE_RAPIDXML_ALIGNMENT</code> bytes.
     //! This value defaults to the size of pointer on target architecture.
     //! <br><br>
     //! To obtain absolutely top performance from the parser,
     //! it is important that all nodes are allocated from a single, contiguous block of memory.
     //! Otherwise, cache misses when jumping between two (or more) disjoint blocks of memory can slow down parsing quite considerably.
-    //! If required, you can tweak <code>RAPIDXML_STATIC_POOL_SIZE</code>, <code>RAPIDXML_DYNAMIC_POOL_SIZE</code> and <code>RAPIDXML_ALIGNMENT</code> 
+    //! If required, you can tweak <code>BOOST_PROPERTY_TREE_RAPIDXML_STATIC_POOL_SIZE</code>, <code>BOOST_PROPERTY_TREE_RAPIDXML_DYNAMIC_POOL_SIZE</code> and <code>BOOST_PROPERTY_TREE_RAPIDXML_ALIGNMENT</code> 
     //! to obtain best wasted memory to performance compromise.
     //! To do it, define their values before rapidxml.hpp file is included.
     //! \param Ch Character type of created nodes. 
@@ -578,7 +557,7 @@ namespace rapidxml
         
         char *align(char *ptr)
         {
-            std::size_t alignment = ((RAPIDXML_ALIGNMENT - (std::size_t(ptr) & (RAPIDXML_ALIGNMENT - 1))) & (RAPIDXML_ALIGNMENT - 1));
+            std::size_t alignment = ((BOOST_PROPERTY_TREE_RAPIDXML_ALIGNMENT - (std::size_t(ptr) & (BOOST_PROPERTY_TREE_RAPIDXML_ALIGNMENT - 1))) & (BOOST_PROPERTY_TREE_RAPIDXML_ALIGNMENT - 1));
             return ptr + alignment;
         }
         
@@ -594,10 +573,6 @@ namespace rapidxml
             else
             {
                 memory = new char[size];
-#ifdef RAPIDXML_NO_EXCEPTIONS
-                if (!memory)            // If exceptions are disabled, verify memory allocation, because new will not be able to throw bad_alloc
-                    RAPIDXML_PARSE_ERROR("out of memory", 0);
-#endif
             }
             return static_cast<char *>(memory);
         }
@@ -610,13 +585,13 @@ namespace rapidxml
             // If not enough memory left in current pool, allocate a new pool
             if (result + size > m_end)
             {
-                // Calculate required pool size (may be bigger than RAPIDXML_DYNAMIC_POOL_SIZE)
-                std::size_t pool_size = RAPIDXML_DYNAMIC_POOL_SIZE;
+                // Calculate required pool size (may be bigger than BOOST_PROPERTY_TREE_RAPIDXML_DYNAMIC_POOL_SIZE)
+                std::size_t pool_size = BOOST_PROPERTY_TREE_RAPIDXML_DYNAMIC_POOL_SIZE;
                 if (pool_size < size)
                     pool_size = size;
                 
                 // Allocate
-                std::size_t alloc_size = sizeof(header) + (2 * RAPIDXML_ALIGNMENT - 2) + pool_size;     // 2 alignments required in worst case: one for header, one for actual allocation
+                std::size_t alloc_size = sizeof(header) + (2 * BOOST_PROPERTY_TREE_RAPIDXML_ALIGNMENT - 2) + pool_size;     // 2 alignments required in worst case: one for header, one for actual allocation
                 char *raw_memory = allocate_raw(alloc_size);
                     
                 // Setup new pool in allocated memory
@@ -639,7 +614,7 @@ namespace rapidxml
         char *m_begin;                                      // Start of raw memory making up current pool
         char *m_ptr;                                        // First free byte in current pool
         char *m_end;                                        // One past last available byte in current pool
-        char m_static_memory[RAPIDXML_STATIC_POOL_SIZE];    // Static raw memory
+        char m_static_memory[BOOST_PROPERTY_TREE_RAPIDXML_STATIC_POOL_SIZE];    // Static raw memory
         alloc_func *m_alloc_func;                           // Allocator function, or 0 if default is to be used
         free_func *m_free_func;                             // Free function, or 0 if default is to be used
     };
@@ -722,20 +697,20 @@ namespace rapidxml
         //! <br><br>
         //! Size of name must be specified separately, because name does not have to be zero terminated.
         //! Use name(const Ch *) function to have the length automatically calculated (string must be zero terminated).
-        //! \param name Name of node to set. Does not have to be zero terminated.
+        //! \param n Name of node to set. Does not have to be zero terminated.
         //! \param size Size of name, in characters. This does not include zero terminator, if one is present.
-        void name(const Ch *name, std::size_t size)
+        void name(const Ch *n, std::size_t size)
         {
-            m_name = const_cast<Ch *>(name);
+            m_name = const_cast<Ch *>(n);
             m_name_size = size;
         }
 
         //! Sets name of node to a zero-terminated string.
         //! See also \ref ownership_of_strings and xml_node::name(const Ch *, std::size_t).
-        //! \param name Name of node to set. Must be zero terminated.
-        void name(const Ch *name)
+        //! \param n Name of node to set. Must be zero terminated.
+        void name(const Ch *n)
         {
-            this->name(name, internal::measure(name));
+            name(n, internal::measure(n));
         }
 
         //! Sets value of node to a non zero-terminated string.
@@ -752,20 +727,20 @@ namespace rapidxml
         //! <br><br>
         //! If an element has a child node of type node_data, it will take precedence over element value when printing.
         //! If you want to manipulate data of elements using values, use parser flag rapidxml::parse_no_data_nodes to prevent creation of data nodes by the parser.
-        //! \param value value of node to set. Does not have to be zero terminated.
+        //! \param val value of node to set. Does not have to be zero terminated.
         //! \param size Size of value, in characters. This does not include zero terminator, if one is present.
-        void value(const Ch *value, std::size_t size)
+        void value(const Ch *val, std::size_t size)
         {
-            m_value = const_cast<Ch *>(value);
+            m_value = const_cast<Ch *>(val);
             m_value_size = size;
         }
 
         //! Sets value of node to a zero-terminated string.
         //! See also \ref ownership_of_strings and xml_node::value(const Ch *, std::size_t).
-        //! \param value Vame of node to set. Must be zero terminated.
-        void value(const Ch *value)
+        //! \param val Vame of node to set. Must be zero terminated.
+        void value(const Ch *val)
         {
-            this->value(value, internal::measure(value));
+            this->value(val, internal::measure(val));
         }
 
         ///////////////////////////////////////////////////////////////////////////
@@ -835,18 +810,18 @@ namespace rapidxml
         }
 
         //! Gets previous attribute, optionally matching attribute name. 
-        //! \param name Name of attribute to find, or 0 to return previous attribute regardless of its name; this string doesn't have to be zero-terminated if name_size is non-zero
-        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from string
+        //! \param n Name of attribute to find, or 0 to return previous attribute regardless of its name; this string doesn't have to be zero-terminated if nsize is non-zero
+        //! \param nsize Size of name, in characters, or 0 to have size calculated automatically from string
         //! \param case_sensitive Should name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
         //! \return Pointer to found attribute, or 0 if not found.
-        xml_attribute<Ch> *previous_attribute(const Ch *name = 0, std::size_t name_size = 0, bool case_sensitive = true) const
+        xml_attribute<Ch> *previous_attribute(const Ch *n = 0, std::size_t nsize = 0, bool case_sensitive = true) const
         {
-            if (name)
+            if (n)
             {
-                if (name_size == 0)
-                    name_size = internal::measure(name);
+                if (nsize == 0)
+                    nsize = internal::measure(n);
                 for (xml_attribute<Ch> *attribute = m_prev_attribute; attribute; attribute = attribute->m_prev_attribute)
-                    if (internal::compare(attribute->name(), attribute->name_size(), name, name_size, case_sensitive))
+                    if (internal::compare(attribute->name(), attribute->name_size(), n, nsize, case_sensitive))
                         return attribute;
                 return 0;
             }
@@ -855,18 +830,18 @@ namespace rapidxml
         }
 
         //! Gets next attribute, optionally matching attribute name. 
-        //! \param name Name of attribute to find, or 0 to return next attribute regardless of its name; this string doesn't have to be zero-terminated if name_size is non-zero
-        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from string
+        //! \param n Name of attribute to find, or 0 to return next attribute regardless of its name; this string doesn't have to be zero-terminated if nsize is non-zero
+        //! \param nsize Size of name, in characters, or 0 to have size calculated automatically from string
         //! \param case_sensitive Should name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
         //! \return Pointer to found attribute, or 0 if not found.
-        xml_attribute<Ch> *next_attribute(const Ch *name = 0, std::size_t name_size = 0, bool case_sensitive = true) const
+        xml_attribute<Ch> *next_attribute(const Ch *n = 0, std::size_t nsize = 0, bool case_sensitive = true) const
         {
-            if (name)
+            if (n)
             {
-                if (name_size == 0)
-                    name_size = internal::measure(name);
+                if (nsize == 0)
+                    nsize = internal::measure(n);
                 for (xml_attribute<Ch> *attribute = m_next_attribute; attribute; attribute = attribute->m_next_attribute)
-                    if (internal::compare(attribute->name(), attribute->name_size(), name, name_size, case_sensitive))
+                    if (internal::compare(attribute->name(), attribute->name_size(), n, nsize, case_sensitive))
                         return attribute;
                 return 0;
             }
@@ -903,9 +878,9 @@ namespace rapidxml
     
         //! Constructs an empty node with the specified type. 
         //! Consider using memory_pool of appropriate document to allocate nodes manually.
-        //! \param type Type of node to construct.
-        xml_node(node_type type)
-            : m_type(type)
+        //! \param t Type of node to construct.
+        xml_node(node_type t)
+            : m_type(t)
             , m_first_node(0)
             , m_first_attribute(0)
         {
@@ -935,18 +910,18 @@ namespace rapidxml
         }
 
         //! Gets first child node, optionally matching node name.
-        //! \param name Name of child to find, or 0 to return first child regardless of its name; this string doesn't have to be zero-terminated if name_size is non-zero
-        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from string
+        //! \param n Name of child to find, or 0 to return first child regardless of its name; this string doesn't have to be zero-terminated if nsize is non-zero
+        //! \param nsize Size of name, in characters, or 0 to have size calculated automatically from string
         //! \param case_sensitive Should name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
         //! \return Pointer to found child, or 0 if not found.
-        xml_node<Ch> *first_node(const Ch *name = 0, std::size_t name_size = 0, bool case_sensitive = true) const
+        xml_node<Ch> *first_node(const Ch *n = 0, std::size_t nsize = 0, bool case_sensitive = true) const
         {
-            if (name)
+            if (n)
             {
-                if (name_size == 0)
-                    name_size = internal::measure(name);
+                if (nsize == 0)
+                    nsize = internal::measure(n);
                 for (xml_node<Ch> *child = m_first_node; child; child = child->next_sibling())
-                    if (internal::compare(child->name(), child->name_size(), name, name_size, case_sensitive))
+                    if (internal::compare(child->name(), child->name_size(), n, nsize, case_sensitive))
                         return child;
                 return 0;
             }
@@ -957,19 +932,19 @@ namespace rapidxml
         //! Gets last child node, optionally matching node name. 
         //! Behaviour is undefined if node has no children.
         //! Use first_node() to test if node has children.
-        //! \param name Name of child to find, or 0 to return last child regardless of its name; this string doesn't have to be zero-terminated if name_size is non-zero
-        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from string
+        //! \param n Name of child to find, or 0 to return last child regardless of its name; this string doesn't have to be zero-terminated if nsize is non-zero
+        //! \param nsize Size of name, in characters, or 0 to have size calculated automatically from string
         //! \param case_sensitive Should name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
         //! \return Pointer to found child, or 0 if not found.
-        xml_node<Ch> *last_node(const Ch *name = 0, std::size_t name_size = 0, bool case_sensitive = true) const
+        xml_node<Ch> *last_node(const Ch *n = 0, std::size_t nsize = 0, bool case_sensitive = true) const
         {
             assert(m_first_node);  // Cannot query for last child if node has no children
-            if (name)
+            if (n)
             {
-                if (name_size == 0)
-                    name_size = internal::measure(name);
+                if (nsize == 0)
+                    nsize = internal::measure(n);
                 for (xml_node<Ch> *child = m_last_node; child; child = child->previous_sibling())
-                    if (internal::compare(child->name(), child->name_size(), name, name_size, case_sensitive))
+                    if (internal::compare(child->name(), child->name_size(), n, nsize, case_sensitive))
                         return child;
                 return 0;
             }
@@ -980,19 +955,19 @@ namespace rapidxml
         //! Gets previous sibling node, optionally matching node name. 
         //! Behaviour is undefined if node has no parent.
         //! Use parent() to test if node has a parent.
-        //! \param name Name of sibling to find, or 0 to return previous sibling regardless of its name; this string doesn't have to be zero-terminated if name_size is non-zero
-        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from string
+        //! \param n Name of sibling to find, or 0 to return previous sibling regardless of its name; this string doesn't have to be zero-terminated if nsize is non-zero
+        //! \param nsize Size of name, in characters, or 0 to have size calculated automatically from string
         //! \param case_sensitive Should name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
         //! \return Pointer to found sibling, or 0 if not found.
-        xml_node<Ch> *previous_sibling(const Ch *name = 0, std::size_t name_size = 0, bool case_sensitive = true) const
+        xml_node<Ch> *previous_sibling(const Ch *n = 0, std::size_t nsize = 0, bool case_sensitive = true) const
         {
             assert(this->m_parent);     // Cannot query for siblings if node has no parent
-            if (name)
+            if (n)
             {
-                if (name_size == 0)
-                    name_size = internal::measure(name);
+                if (nsize == 0)
+                    nsize = internal::measure(n);
                 for (xml_node<Ch> *sibling = m_prev_sibling; sibling; sibling = sibling->m_prev_sibling)
-                    if (internal::compare(sibling->name(), sibling->name_size(), name, name_size, case_sensitive))
+                    if (internal::compare(sibling->name(), sibling->name_size(), n, nsize, case_sensitive))
                         return sibling;
                 return 0;
             }
@@ -1003,19 +978,19 @@ namespace rapidxml
         //! Gets next sibling node, optionally matching node name. 
         //! Behaviour is undefined if node has no parent.
         //! Use parent() to test if node has a parent.
-        //! \param name Name of sibling to find, or 0 to return next sibling regardless of its name; this string doesn't have to be zero-terminated if name_size is non-zero
-        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from string
+        //! \param n Name of sibling to find, or 0 to return next sibling regardless of its name; this string doesn't have to be zero-terminated if nsize is non-zero
+        //! \param nsize Size of name, in characters, or 0 to have size calculated automatically from string
         //! \param case_sensitive Should name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
         //! \return Pointer to found sibling, or 0 if not found.
-        xml_node<Ch> *next_sibling(const Ch *name = 0, std::size_t name_size = 0, bool case_sensitive = true) const
+        xml_node<Ch> *next_sibling(const Ch *n = 0, std::size_t nsize = 0, bool case_sensitive = true) const
         {
             assert(this->m_parent);     // Cannot query for siblings if node has no parent
-            if (name)
+            if (n)
             {
-                if (name_size == 0)
-                    name_size = internal::measure(name);
+                if (nsize == 0)
+                    nsize = internal::measure(n);
                 for (xml_node<Ch> *sibling = m_next_sibling; sibling; sibling = sibling->m_next_sibling)
-                    if (internal::compare(sibling->name(), sibling->name_size(), name, name_size, case_sensitive))
+                    if (internal::compare(sibling->name(), sibling->name_size(), n, nsize, case_sensitive))
                         return sibling;
                 return 0;
             }
@@ -1024,18 +999,18 @@ namespace rapidxml
         }
 
         //! Gets first attribute of node, optionally matching attribute name.
-        //! \param name Name of attribute to find, or 0 to return first attribute regardless of its name; this string doesn't have to be zero-terminated if name_size is non-zero
-        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from string
+        //! \param n Name of attribute to find, or 0 to return first attribute regardless of its name; this string doesn't have to be zero-terminated if nsize is non-zero
+        //! \param nsize Size of name, in characters, or 0 to have size calculated automatically from string
         //! \param case_sensitive Should name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
         //! \return Pointer to found attribute, or 0 if not found.
-        xml_attribute<Ch> *first_attribute(const Ch *name = 0, std::size_t name_size = 0, bool case_sensitive = true) const
+        xml_attribute<Ch> *first_attribute(const Ch *n = 0, std::size_t nsize = 0, bool case_sensitive = true) const
         {
-            if (name)
+            if (n)
             {
-                if (name_size == 0)
-                    name_size = internal::measure(name);
+                if (nsize == 0)
+                    nsize = internal::measure(n);
                 for (xml_attribute<Ch> *attribute = m_first_attribute; attribute; attribute = attribute->m_next_attribute)
-                    if (internal::compare(attribute->name(), attribute->name_size(), name, name_size, case_sensitive))
+                    if (internal::compare(attribute->name(), attribute->name_size(), n, nsize, case_sensitive))
                         return attribute;
                 return 0;
             }
@@ -1044,18 +1019,18 @@ namespace rapidxml
         }
 
         //! Gets last attribute of node, optionally matching attribute name.
-        //! \param name Name of attribute to find, or 0 to return last attribute regardless of its name; this string doesn't have to be zero-terminated if name_size is non-zero
-        //! \param name_size Size of name, in characters, or 0 to have size calculated automatically from string
+        //! \param n Name of attribute to find, or 0 to return last attribute regardless of its name; this string doesn't have to be zero-terminated if nsize is non-zero
+        //! \param nsize Size of name, in characters, or 0 to have size calculated automatically from string
         //! \param case_sensitive Should name comparison be case-sensitive; non case-sensitive comparison works properly only for ASCII characters
         //! \return Pointer to found attribute, or 0 if not found.
-        xml_attribute<Ch> *last_attribute(const Ch *name = 0, std::size_t name_size = 0, bool case_sensitive = true) const
+        xml_attribute<Ch> *last_attribute(const Ch *n = 0, std::size_t nsize = 0, bool case_sensitive = true) const
         {
-            if (name)
+            if (n)
             {
-                if (name_size == 0)
-                    name_size = internal::measure(name);
+                if (nsize == 0)
+                    nsize = internal::measure(n);
                 for (xml_attribute<Ch> *attribute = m_last_attribute; attribute; attribute = attribute->m_prev_attribute)
-                    if (internal::compare(attribute->name(), attribute->name_size(), name, name_size, case_sensitive))
+                    if (internal::compare(attribute->name(), attribute->name_size(), n, nsize, case_sensitive))
                         return attribute;
                 return 0;
             }
@@ -1067,10 +1042,10 @@ namespace rapidxml
         // Node modification
     
         //! Sets type of node.
-        //! \param type Type of node to set.
-        void type(node_type type)
+        //! \param t Type of node to set.
+        void type(node_type t)
         {
-            m_type = type;
+            m_type = t;
         }
 
         ///////////////////////////////////////////////////////////////////////////
@@ -1411,7 +1386,7 @@ namespace rapidxml
                         this->append_node(node);
                 }
                 else
-                    RAPIDXML_PARSE_ERROR("expected <", text);
+                    BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("expected <", text);
             }
 
         }
@@ -1435,7 +1410,7 @@ namespace rapidxml
         {
             static unsigned char test(Ch ch)
             {
-                return internal::lookup_tables<0>::lookup_whitespace[static_cast<unsigned char>(ch)];
+                return internal::lookup_tables<0>::lookup_whitespace[internal::get_index(ch)];
             }
         };
 
@@ -1444,7 +1419,7 @@ namespace rapidxml
         {
             static unsigned char test(Ch ch)
             {
-                return internal::lookup_tables<0>::lookup_node_name[static_cast<unsigned char>(ch)];
+                return internal::lookup_tables<0>::lookup_node_name[internal::get_index(ch)];
             }
         };
 
@@ -1453,7 +1428,7 @@ namespace rapidxml
         {
             static unsigned char test(Ch ch)
             {
-                return internal::lookup_tables<0>::lookup_attribute_name[static_cast<unsigned char>(ch)];
+                return internal::lookup_tables<0>::lookup_attribute_name[internal::get_index(ch)];
             }
         };
 
@@ -1462,7 +1437,7 @@ namespace rapidxml
         {
             static unsigned char test(Ch ch)
             {
-                return internal::lookup_tables<0>::lookup_text[static_cast<unsigned char>(ch)];
+                return internal::lookup_tables<0>::lookup_text[internal::get_index(ch)];
             }
         };
 
@@ -1471,7 +1446,7 @@ namespace rapidxml
         {
             static unsigned char test(Ch ch)
             {
-                return internal::lookup_tables<0>::lookup_text_pure_no_ws[static_cast<unsigned char>(ch)];
+                return internal::lookup_tables<0>::lookup_text_pure_no_ws[internal::get_index(ch)];
             }
         };
 
@@ -1480,7 +1455,7 @@ namespace rapidxml
         {
             static unsigned char test(Ch ch)
             {
-                return internal::lookup_tables<0>::lookup_text_pure_with_ws[static_cast<unsigned char>(ch)];
+                return internal::lookup_tables<0>::lookup_text_pure_with_ws[internal::get_index(ch)];
             }
         };
 
@@ -1491,9 +1466,9 @@ namespace rapidxml
             static unsigned char test(Ch ch)
             {
                 if (Quote == Ch('\''))
-                    return internal::lookup_tables<0>::lookup_attribute_data_1[static_cast<unsigned char>(ch)];
+                    return internal::lookup_tables<0>::lookup_attribute_data_1[internal::get_index(ch)];
                 if (Quote == Ch('\"'))
-                    return internal::lookup_tables<0>::lookup_attribute_data_2[static_cast<unsigned char>(ch)];
+                    return internal::lookup_tables<0>::lookup_attribute_data_2[internal::get_index(ch)];
                 return 0;       // Should never be executed, to avoid warnings on Comeau
             }
         };
@@ -1505,9 +1480,9 @@ namespace rapidxml
             static unsigned char test(Ch ch)
             {
                 if (Quote == Ch('\''))
-                    return internal::lookup_tables<0>::lookup_attribute_data_1_pure[static_cast<unsigned char>(ch)];
+                    return internal::lookup_tables<0>::lookup_attribute_data_1_pure[internal::get_index(ch)];
                 if (Quote == Ch('\"'))
-                    return internal::lookup_tables<0>::lookup_attribute_data_2_pure[static_cast<unsigned char>(ch)];
+                    return internal::lookup_tables<0>::lookup_attribute_data_2_pure[internal::get_index(ch)];
                 return 0;       // Should never be executed, to avoid warnings on Comeau
             }
         };
@@ -1554,7 +1529,7 @@ namespace rapidxml
                 }
                 else    // Invalid, only codes up to 0x10FFFF are allowed in Unicode
                 {
-                    RAPIDXML_PARSE_ERROR("invalid numeric character entity", text);
+                    BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("invalid numeric character entity", text);
                 }
             }
         }
@@ -1685,7 +1660,7 @@ namespace rapidxml
                             if (*src == Ch(';'))
                                 ++src;
                             else
-                                RAPIDXML_PARSE_ERROR("expected ;", src);
+                                BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("expected ;", src);
                             continue;
 
                         // Something else
@@ -1735,7 +1710,7 @@ namespace rapidxml
                 static_cast<unsigned char>(text[1]) == 0xBB && 
                 static_cast<unsigned char>(text[2]) == 0xBF)
             {
-                text += 3;      // Skup utf-8 bom
+                text += 3;      // Skip utf-8 bom
             }
         }
 
@@ -1750,7 +1725,7 @@ namespace rapidxml
                 while (text[0] != Ch('?') || text[1] != Ch('>'))
                 {
                     if (!text[0])
-                        RAPIDXML_PARSE_ERROR("unexpected end of data", text);
+                        BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("unexpected end of data", text);
                     ++text;
                 }
                 text += 2;    // Skip '?>'
@@ -1768,7 +1743,7 @@ namespace rapidxml
             
             // Skip ?>
             if (text[0] != Ch('?') || text[1] != Ch('>'))
-                RAPIDXML_PARSE_ERROR("expected ?>", text);
+                BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("expected ?>", text);
             text += 2;
             
             return declaration;
@@ -1785,7 +1760,7 @@ namespace rapidxml
                 while (text[0] != Ch('-') || text[1] != Ch('-') || text[2] != Ch('>'))
                 {
                     if (!text[0])
-                        RAPIDXML_PARSE_ERROR("unexpected end of data", text);
+                        BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("unexpected end of data", text);
                     ++text;
                 }
                 text += 3;     // Skip '-->'
@@ -1793,19 +1768,19 @@ namespace rapidxml
             }
 
             // Remember value start
-            Ch *value = text;
+            Ch *val = text;
 
             // Skip until end of comment
             while (text[0] != Ch('-') || text[1] != Ch('-') || text[2] != Ch('>'))
             {
                 if (!text[0])
-                    RAPIDXML_PARSE_ERROR("unexpected end of data", text);
+                    BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("unexpected end of data", text);
                 ++text;
             }
 
             // Create comment node
             xml_node<Ch> *comment = this->allocate_node(node_comment);
-            comment->value(value, text - value);
+            comment->value(val, text - val);
             
             // Place zero terminator after comment value
             if (!(Flags & parse_no_string_terminators))
@@ -1820,7 +1795,7 @@ namespace rapidxml
         xml_node<Ch> *parse_doctype(Ch *&text)
         {
             // Remember value start
-            Ch *value = text;
+            Ch *val = text;
 
             // Skip to >
             while (*text != Ch('>'))
@@ -1841,7 +1816,8 @@ namespace rapidxml
                         {
                             case Ch('['): ++depth; break;
                             case Ch(']'): --depth; break;
-                            case 0: RAPIDXML_PARSE_ERROR("unexpected end of data", text);
+                            case 0: BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("unexpected end of data", text);
+                            default: break;
                         }
                         ++text;
                     }
@@ -1850,7 +1826,7 @@ namespace rapidxml
                 
                 // Error on end of text
                 case Ch('\0'):
-                    RAPIDXML_PARSE_ERROR("unexpected end of data", text);
+                    BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("unexpected end of data", text);
                 
                 // Other character, skip it
                 default:
@@ -1864,7 +1840,7 @@ namespace rapidxml
             {
                 // Create a new doctype node
                 xml_node<Ch> *doctype = this->allocate_node(node_doctype);
-                doctype->value(value, text - value);
+                doctype->value(val, text - val);
                 
                 // Place zero terminator after value
                 if (!(Flags & parse_no_string_terminators))
@@ -1892,29 +1868,29 @@ namespace rapidxml
                 xml_node<Ch> *pi = this->allocate_node(node_pi);
 
                 // Extract PI target name
-                Ch *name = text;
+                Ch *n = text;
                 skip<node_name_pred, Flags>(text);
-                if (text == name)
-                    RAPIDXML_PARSE_ERROR("expected PI target", text);
-                pi->name(name, text - name);
+                if (text == n)
+                    BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("expected PI target", text);
+                pi->name(n, text - n);
                 
                 // Skip whitespace between pi target and pi
                 skip<whitespace_pred, Flags>(text);
 
                 // Remember start of pi
-                Ch *value = text;
+                Ch *val = text;
                 
                 // Skip to '?>'
                 while (text[0] != Ch('?') || text[1] != Ch('>'))
                 {
                     if (*text == Ch('\0'))
-                        RAPIDXML_PARSE_ERROR("unexpected end of data", text);
+                        BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("unexpected end of data", text);
                     ++text;
                 }
 
                 // Set pi value (verbatim, no entity expansion or whitespace normalization)
-                pi->value(value, text - value);     
-                
+                pi->value(val, text - val);
+
                 // Place zero terminator after name and value
                 if (!(Flags & parse_no_string_terminators))
                 {
@@ -1931,7 +1907,7 @@ namespace rapidxml
                 while (text[0] != Ch('?') || text[1] != Ch('>'))
                 {
                     if (*text == Ch('\0'))
-                        RAPIDXML_PARSE_ERROR("unexpected end of data", text);
+                        BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("unexpected end of data", text);
                     ++text;
                 }
                 text += 2;    // Skip '?>'
@@ -1950,7 +1926,7 @@ namespace rapidxml
                 text = contents_start;     
             
             // Skip until end of data
-            Ch *value = text, *end;
+            Ch *val = text, *end;
             if (Flags & parse_normalize_whitespace)
                 end = skip_and_expand_character_refs<text_pred, text_pure_with_ws_pred, Flags>(text);   
             else
@@ -1978,14 +1954,14 @@ namespace rapidxml
             if (!(Flags & parse_no_data_nodes))
             {
                 xml_node<Ch> *data = this->allocate_node(node_data);
-                data->value(value, end - value);
+                data->value(val, end - val);
                 node->append_node(data);
             }
 
             // Add data to parent node if no data exists yet
             if (!(Flags & parse_no_element_values)) 
                 if (*node->value() == Ch('\0'))
-                    node->value(value, end - value);
+                    node->value(val, end - val);
 
             // Place zero terminator after value
             if (!(Flags & parse_no_string_terminators))
@@ -2010,7 +1986,7 @@ namespace rapidxml
                 while (text[0] != Ch(']') || text[1] != Ch(']') || text[2] != Ch('>'))
                 {
                     if (!text[0])
-                        RAPIDXML_PARSE_ERROR("unexpected end of data", text);
+                        BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("unexpected end of data", text);
                     ++text;
                 }
                 text += 3;      // Skip ]]>
@@ -2018,17 +1994,17 @@ namespace rapidxml
             }
 
             // Skip until end of cdata
-            Ch *value = text;
+            Ch *val = text;
             while (text[0] != Ch(']') || text[1] != Ch(']') || text[2] != Ch('>'))
             {
                 if (!text[0])
-                    RAPIDXML_PARSE_ERROR("unexpected end of data", text);
+                    BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("unexpected end of data", text);
                 ++text;
             }
 
             // Create new cdata node
             xml_node<Ch> *cdata = this->allocate_node(node_cdata);
-            cdata->value(value, text - value);
+            cdata->value(val, text - val);
 
             // Place zero terminator after value
             if (!(Flags & parse_no_string_terminators))
@@ -2046,11 +2022,11 @@ namespace rapidxml
             xml_node<Ch> *element = this->allocate_node(node_element);
 
             // Extract element name
-            Ch *name = text;
+            Ch *n = text;
             skip<node_name_pred, Flags>(text);
-            if (text == name)
-                RAPIDXML_PARSE_ERROR("expected element name", text);
-            element->name(name, text - name);
+            if (text == n)
+                BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("expected element name", text);
+            element->name(n, text - n);
             
             // Skip whitespace between element name and attributes or >
             skip<whitespace_pred, Flags>(text);
@@ -2068,11 +2044,11 @@ namespace rapidxml
             {
                 ++text;
                 if (*text != Ch('>'))
-                    RAPIDXML_PARSE_ERROR("expected >", text);
+                    BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("expected >", text);
                 ++text;
             }
             else
-                RAPIDXML_PARSE_ERROR("expected >", text);
+                BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("expected >", text);
 
             // Place zero terminator after name
             if (!(Flags & parse_no_string_terminators))
@@ -2151,6 +2127,9 @@ namespace rapidxml
                         text += 9;      // skip '!DOCTYPE '
                         return parse_doctype<Flags>(text);
                     }
+                    break;
+
+                default: break;
 
                 }   // switch
 
@@ -2159,7 +2138,7 @@ namespace rapidxml
                 while (*text != Ch('>'))
                 {
                     if (*text == 0)
-                        RAPIDXML_PARSE_ERROR("unexpected end of data", text);
+                        BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("unexpected end of data", text);
                     ++text;
                 }
                 ++text;     // Skip '>'
@@ -2177,7 +2156,8 @@ namespace rapidxml
             {
                 // Skip whitespace between > and node contents
                 Ch *contents_start = text;      // Store start of node contents before whitespace is skipped
-                skip<whitespace_pred, Flags>(text);
+                if (Flags & parse_trim_whitespace)
+                    skip<whitespace_pred, Flags>(text);
                 Ch next_char = *text;
 
             // After data nodes, instead of continuing the loop, control jumps here.
@@ -2202,7 +2182,7 @@ namespace rapidxml
                             Ch *closing_name = text;
                             skip<node_name_pred, Flags>(text);
                             if (!internal::compare(node->name(), node->name_size(), closing_name, text - closing_name, true))
-                                RAPIDXML_PARSE_ERROR("invalid closing tag name", text);
+                                BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("invalid closing tag name", text);
                         }
                         else
                         {
@@ -2212,7 +2192,7 @@ namespace rapidxml
                         // Skip remaining whitespace after node name
                         skip<whitespace_pred, Flags>(text);
                         if (*text != Ch('>'))
-                            RAPIDXML_PARSE_ERROR("expected >", text);
+                            BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("expected >", text);
                         ++text;     // Skip '>'
                         return;     // Node closed, finished parsing contents
                     }
@@ -2227,7 +2207,7 @@ namespace rapidxml
 
                 // End of data - error
                 case Ch('\0'):
-                    RAPIDXML_PARSE_ERROR("unexpected end of data", text);
+                    BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("unexpected end of data", text);
 
                 // Data node
                 default:
@@ -2246,15 +2226,15 @@ namespace rapidxml
             while (attribute_name_pred::test(*text))
             {
                 // Extract attribute name
-                Ch *name = text;
+                Ch *n = text;
                 ++text;     // Skip first character of attribute name
                 skip<attribute_name_pred, Flags>(text);
-                if (text == name)
-                    RAPIDXML_PARSE_ERROR("expected attribute name", name);
+                if (text == n)
+                    BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("expected attribute name", n);
 
                 // Create new attribute
                 xml_attribute<Ch> *attribute = this->allocate_attribute();
-                attribute->name(name, text - name);
+                attribute->name(n, text - n);
                 node->append_attribute(attribute);
 
                 // Skip whitespace after attribute name
@@ -2262,7 +2242,7 @@ namespace rapidxml
 
                 // Skip =
                 if (*text != Ch('='))
-                    RAPIDXML_PARSE_ERROR("expected =", text);
+                    BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("expected =", text);
                 ++text;
 
                 // Add terminating zero after name
@@ -2275,11 +2255,11 @@ namespace rapidxml
                 // Skip quote and remember if it was ' or "
                 Ch quote = *text;
                 if (quote != Ch('\'') && quote != Ch('"'))
-                    RAPIDXML_PARSE_ERROR("expected ' or \"", text);
+                    BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("expected ' or \"", text);
                 ++text;
 
                 // Extract attribute value and expand char refs in it
-                Ch *value = text, *end;
+                Ch *val = text, *end;
                 const int AttFlags = Flags & ~parse_normalize_whitespace;   // No whitespace normalization in attributes
                 if (quote == Ch('\''))
                     end = skip_and_expand_character_refs<attribute_value_pred<Ch('\'')>, attribute_value_pure_pred<Ch('\'')>, AttFlags>(text);
@@ -2287,11 +2267,11 @@ namespace rapidxml
                     end = skip_and_expand_character_refs<attribute_value_pred<Ch('"')>, attribute_value_pure_pred<Ch('"')>, AttFlags>(text);
                 
                 // Set attribute value
-                attribute->value(value, end - value);
+                attribute->value(val, end - val);
                 
                 // Make sure that end quote is present
                 if (*text != quote)
-                    RAPIDXML_PARSE_ERROR("expected ' or \"", text);
+                    BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR("expected ' or \"", text);
                 ++text;     // Skip quote
 
                 // Add terminating zero after value
@@ -2589,10 +2569,10 @@ namespace rapidxml
     }
     //! \endcond
 
-}
+}}}}
 
 // Undefine internal macros
-#undef RAPIDXML_PARSE_ERROR
+#undef BOOST_PROPERTY_TREE_RAPIDXML_PARSE_ERROR
 
 // On MSVC, restore warnings state
 #ifdef _MSC_VER

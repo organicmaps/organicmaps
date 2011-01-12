@@ -9,6 +9,7 @@
 #include <boost/ptr_container/detail/reversible_ptr_container.hpp>
 #include <boost/ptr_container/detail/serialize_xml_names.hpp>
 #include <boost/serialization/split_free.hpp>
+#include <boost/serialization/nvp.hpp>
 
 namespace boost 
 {

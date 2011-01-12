@@ -14,17 +14,55 @@
 
 namespace boost
 {
+    namespace this_thread
+    {
+        void BOOST_THREAD_DECL interruption_point();
+    }
+    
+    namespace thread_cv_detail
+    {
+        template<typename MutexType>
+        struct lock_on_exit
+        {
+            MutexType* m;
+            
+            lock_on_exit():
+                m(0)
+            {}
+
+            void activate(MutexType& m_)
+            {
+                m_.unlock();
+                m=&m_;
+            }
+            ~lock_on_exit()
+            {
+                if(m)
+                {
+                    m->lock();
+                }
+           }
+        };
+    }
+    
     inline void condition_variable::wait(unique_lock<mutex>& m)
     {
-        detail::interruption_checker check_for_interruption(&cond);
-        BOOST_VERIFY(!pthread_cond_wait(&cond,m.mutex()->native_handle()));
+        thread_cv_detail::lock_on_exit<unique_lock<mutex> > guard;
+        detail::interruption_checker check_for_interruption(&internal_mutex,&cond);
+        guard.activate(m);
+        int const res=pthread_cond_wait(&cond,&internal_mutex);
+        BOOST_ASSERT(!res);
+        this_thread::interruption_point();
     }
 
     inline bool condition_variable::timed_wait(unique_lock<mutex>& m,boost::system_time const& wait_until)
     {
-        detail::interruption_checker check_for_interruption(&cond);
+        thread_cv_detail::lock_on_exit<unique_lock<mutex> > guard;
+        detail::interruption_checker check_for_interruption(&internal_mutex,&cond);
+        guard.activate(m);
         struct timespec const timeout=detail::get_timespec(wait_until);
-        int const cond_res=pthread_cond_timedwait(&cond,m.mutex()->native_handle(),&timeout);
+        int const cond_res=pthread_cond_timedwait(&cond,&internal_mutex,&timeout);
+        this_thread::interruption_point();
         if(cond_res==ETIMEDOUT)
         {
             return false;
@@ -35,11 +73,13 @@ namespace boost
 
     inline void condition_variable::notify_one()
     {
+        boost::pthread::pthread_mutex_scoped_lock internal_lock(&internal_mutex);
         BOOST_VERIFY(!pthread_cond_signal(&cond));
     }
         
     inline void condition_variable::notify_all()
     {
+        boost::pthread::pthread_mutex_scoped_lock internal_lock(&internal_mutex);
         BOOST_VERIFY(!pthread_cond_broadcast(&cond));
     }
     
@@ -77,13 +117,11 @@ namespace boost
         {
             int res=0;
             {
-                detail::interruption_checker check_for_interruption(&cond);
-                {
-                    boost::pthread::pthread_mutex_scoped_lock internal_lock(&internal_mutex);
-                    m.unlock();
-                    res=pthread_cond_wait(&cond,&internal_mutex);
-                }
-                m.lock();
+                thread_cv_detail::lock_on_exit<lock_type> guard;
+                detail::interruption_checker check_for_interruption(&internal_mutex,&cond);
+                guard.activate(m);
+                res=pthread_cond_wait(&cond,&internal_mutex);
+                this_thread::interruption_point();
             }
             if(res)
             {
@@ -103,13 +141,11 @@ namespace boost
             struct timespec const timeout=detail::get_timespec(wait_until);
             int res=0;
             {
-                detail::interruption_checker check_for_interruption(&cond);
-                {
-                    boost::pthread::pthread_mutex_scoped_lock internal_lock(&internal_mutex);
-                    m.unlock();
-                    res=pthread_cond_timedwait(&cond,&internal_mutex,&timeout);
-                }
-                m.lock();
+                thread_cv_detail::lock_on_exit<lock_type> guard;
+                detail::interruption_checker check_for_interruption(&internal_mutex,&cond);
+                guard.activate(m);
+                res=pthread_cond_timedwait(&cond,&internal_mutex,&timeout);
+                this_thread::interruption_point();
             }
             if(res==ETIMEDOUT)
             {

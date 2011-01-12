@@ -1532,6 +1532,11 @@ namespace boost
   {
     using filesystem2::basic_path;
     using filesystem2::path_traits;
+
+    using filesystem2::slash;
+    using filesystem2::dot;
+    using filesystem2::colon;
+
     using filesystem2::path;
 # ifndef BOOST_FILESYSTEM2_NARROW_ONLY
     using filesystem2::wpath_traits;

@@ -682,13 +682,13 @@ namespace ntl{
    {
       asin_root(RR const& target) : t(target){}
 
-      std::tr1::tuple<RR, RR, RR> operator()(RR const& p)
+      boost::math::tuple<RR, RR, RR> operator()(RR const& p)
       {
          RR f0 = sin(p);
          RR f1 = cos(p);
          RR f2 = -f0;
          f0 -= t;
-         return std::tr1::make_tuple(f0, f1, f2);
+         return boost::math::make_tuple(f0, f1, f2);
       }
    private:
       RR t;
@@ -710,13 +710,13 @@ namespace ntl{
    {
       acos_root(RR const& target) : t(target){}
 
-      std::tr1::tuple<RR, RR, RR> operator()(RR const& p)
+      boost::math::tuple<RR, RR, RR> operator()(RR const& p)
       {
          RR f0 = cos(p);
          RR f1 = -sin(p);
          RR f2 = -f0;
          f0 -= t;
-         return std::tr1::make_tuple(f0, f1, f2);
+         return boost::math::make_tuple(f0, f1, f2);
       }
    private:
       RR t;
@@ -738,14 +738,14 @@ namespace ntl{
    {
       atan_root(RR const& target) : t(target){}
 
-      std::tr1::tuple<RR, RR, RR> operator()(RR const& p)
+      boost::math::tuple<RR, RR, RR> operator()(RR const& p)
       {
          RR c = cos(p);
          RR ta = tan(p);
          RR f0 = ta - t;
          RR f1 = 1 / (c * c);
          RR f2 = 2 * ta / (c * c);
-         return std::tr1::make_tuple(f0, f1, f2);
+         return boost::math::make_tuple(f0, f1, f2);
       }
    private:
       RR t;

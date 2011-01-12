@@ -15,18 +15,18 @@
 #  pragma once
 #endif
 
-#include <boost/interprocess/containers/container/detail/config_begin.hpp>
-#include <boost/interprocess/containers/container/container_fwd.hpp>
-#include <boost/interprocess/containers/container/detail/workaround.hpp>
-#include <boost/interprocess/containers/container/detail/utilities.hpp>
+#include "config_begin.hpp"
+#include INCLUDE_BOOST_CONTAINER_CONTAINER_FWD_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_WORKAROUND_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_UTILITIES_HPP
 #include <boost/pointer_to_other.hpp>
 #include <boost/intrusive/set.hpp>
 #include <boost/intrusive/slist.hpp>
-#include <boost/interprocess/containers/container/detail/type_traits.hpp>
-#include <boost/interprocess/containers/container/detail/math_functions.hpp>
-#include <boost/interprocess/containers/container/detail/mpl.hpp>
-#include <boost/interprocess/containers/container/detail/pool_common.hpp>
-#include <cassert>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_TYPE_TRAITS_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_MATH_FUNCTIONS_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_MPL_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_POOL_COMMON_HPP
+#include <boost/assert.hpp>
 #include <cstddef>
 
 namespace boost {
@@ -69,6 +69,9 @@ struct adaptive_pool_types
          const bool is_equal = l.free_nodes.size() == r.free_nodes.size();
          return is_less || (is_equal && (&l < &r));
       }
+
+      friend bool operator ==(const block_info_t &l, const block_info_t &r)
+      {  return &l == &r;  }
    };
    typedef typename bi::make_multiset
       <block_info_t, bi::base_hook<multiset_hook_t> >::type  block_multiset_t;
@@ -270,11 +273,11 @@ class private_adaptive_node_pool_impl
          }
       }
       catch(...){
-         this->deallocate_nodes(boost::interprocess::move(chain));
+         this->deallocate_nodes(BOOST_CONTAINER_MOVE_NAMESPACE::move(chain));
          throw;
       }
       priv_invariants();
-      return boost::interprocess::move(chain);
+      return BOOST_CONTAINER_MOVE_NAMESPACE::move(chain);
    }
 
    //!Deallocates a linked list of nodes. Never throws
@@ -302,10 +305,10 @@ class private_adaptive_node_pool_impl
 
    void swap(private_adaptive_node_pool_impl &other)
    {
-      assert(m_max_free_blocks == other.m_max_free_blocks);
-      assert(m_real_node_size == other.m_real_node_size);
-      assert(m_real_block_alignment == other.m_real_block_alignment);
-      assert(m_real_num_node == other.m_real_num_node);
+      BOOST_ASSERT(m_max_free_blocks == other.m_max_free_blocks);
+      BOOST_ASSERT(m_real_node_size == other.m_real_node_size);
+      BOOST_ASSERT(m_real_block_alignment == other.m_real_block_alignment);
+      BOOST_ASSERT(m_real_num_node == other.m_real_num_node);
       std::swap(mp_segment_mngr_base, other.mp_segment_mngr_base);
       std::swap(m_totally_free_blocks, other.m_totally_free_blocks);
       m_block_multiset.swap(other.m_block_multiset);
@@ -326,10 +329,10 @@ class private_adaptive_node_pool_impl
          ; m_totally_free_blocks > max_free_blocks
          ; --m_totally_free_blocks
          ){
-         assert(!m_block_multiset.empty());
+         BOOST_ASSERT(!m_block_multiset.empty());
          block_iterator it = itend;
          --it;
-         assert(it->free_nodes.size() == m_real_num_node);
+         BOOST_ASSERT(it->free_nodes.size() == m_real_num_node);
          m_block_multiset.erase_and_dispose(it, block_destroyer(this));
       }
    }
@@ -342,7 +345,7 @@ class private_adaptive_node_pool_impl
          chain.pop_front();
          priv_invariants();
          block_info_t *block_info = this->priv_block_from_node(pElem);
-         assert(block_info->free_nodes.size() < m_real_num_node);
+         BOOST_ASSERT(block_info->free_nodes.size() < m_real_num_node);
          //We put the node at the beginning of the free node list
          node_t * to_deallocate = static_cast<node_t*>(pElem);
          block_info->free_nodes.push_front(*to_deallocate);
@@ -379,12 +382,12 @@ class private_adaptive_node_pool_impl
 
    node_t *priv_take_first_node()
    {
-      assert(m_block_multiset.begin() != m_block_multiset.end());
+      BOOST_ASSERT(m_block_multiset.begin() != m_block_multiset.end());
       //We take the first free node the multiset can't be empty
       free_nodes_t &free_nodes = m_block_multiset.begin()->free_nodes;
       node_t *first_node = &free_nodes.front();
       const std::size_t free_nodes_count = free_nodes.size();
-      assert(0 != free_nodes_count);
+      BOOST_ASSERT(0 != free_nodes_count);
       free_nodes.pop_front();
       if(free_nodes_count == 1){
          m_block_multiset.erase(m_block_multiset.begin());
@@ -414,7 +417,7 @@ class private_adaptive_node_pool_impl
       {
          std::size_t free_nodes = to_deallocate->free_nodes.size();
          (void)free_nodes;
-         assert(free_nodes == mp_impl->m_real_num_node);
+         BOOST_ASSERT(free_nodes == mp_impl->m_real_num_node);
          mp_impl->mp_segment_mngr_base->deallocate(to_deallocate);
       }
 
@@ -422,8 +425,8 @@ class private_adaptive_node_pool_impl
       {
          std::size_t free_nodes = to_deallocate->free_nodes.size();
          (void)free_nodes;
-         assert(free_nodes == mp_impl->m_real_num_node);
-         assert(0 == to_deallocate->hdr_offset);
+         BOOST_ASSERT(free_nodes == mp_impl->m_real_num_node);
+         BOOST_ASSERT(0 == to_deallocate->hdr_offset);
          hdr_offset_holder *hdr_off_holder = mp_impl->priv_first_subblock_from_block(containers_detail::get_pointer(to_deallocate));
          mp_impl->mp_segment_mngr_base->deallocate(hdr_off_holder);
       }
@@ -446,7 +449,7 @@ class private_adaptive_node_pool_impl
             --prev;
             std::size_t sp = prev->free_nodes.size(),
                         si = it->free_nodes.size();
-            assert(sp <= si);
+            BOOST_ASSERT(sp <= si);
             (void)sp;   (void)si;
          }
       }
@@ -457,7 +460,7 @@ class private_adaptive_node_pool_impl
       for(; it != itend; ++it){
          total_free_nodes += it->free_nodes.size();
       }
-      assert(total_free_nodes >= m_totally_free_blocks*m_real_num_node);
+      BOOST_ASSERT(total_free_nodes >= m_totally_free_blocks*m_real_num_node);
 
       //Check that the total totally free blocks are correct
       it    = m_block_multiset.begin();
@@ -466,7 +469,7 @@ class private_adaptive_node_pool_impl
       for(; it != itend; ++it){
          total_free += it->free_nodes.size() == m_real_num_node;
       }
-      assert(total_free >= m_totally_free_blocks);
+      BOOST_ASSERT(total_free >= m_totally_free_blocks);
 
       if(!AlignOnly){
          //Check that header offsets are correct
@@ -474,9 +477,9 @@ class private_adaptive_node_pool_impl
          for(; it != itend; ++it){
             hdr_offset_holder *hdr_off_holder = priv_first_subblock_from_block(&*it);
             for(std::size_t i = 0, max = m_num_subblocks; i < max; ++i){
-               assert(hdr_off_holder->hdr_offset == std::size_t(reinterpret_cast<char*>(&*it)- reinterpret_cast<char*>(hdr_off_holder)));
-               assert(0 == ((std::size_t)hdr_off_holder & (m_real_block_alignment - 1)));
-               assert(0 == (hdr_off_holder->hdr_offset & (m_real_block_alignment - 1)));
+               BOOST_ASSERT(hdr_off_holder->hdr_offset == std::size_t(reinterpret_cast<char*>(&*it)- reinterpret_cast<char*>(hdr_off_holder)));
+               BOOST_ASSERT(0 == ((std::size_t)hdr_off_holder & (m_real_block_alignment - 1)));
+               BOOST_ASSERT(0 == (hdr_off_holder->hdr_offset & (m_real_block_alignment - 1)));
                hdr_off_holder = reinterpret_cast<hdr_offset_holder *>(reinterpret_cast<char*>(hdr_off_holder) + m_real_block_alignment);
             }
          }
@@ -495,10 +498,10 @@ class private_adaptive_node_pool_impl
       std::size_t num_free_nodes = 0;
       for(; it != itend; ++it){
          //Check for memory leak
-         assert(it->free_nodes.size() == m_real_num_node);
+         BOOST_ASSERT(it->free_nodes.size() == m_real_num_node);
          ++num_free_nodes;
       }
-      assert(num_free_nodes == m_totally_free_blocks);
+      BOOST_ASSERT(num_free_nodes == m_totally_free_blocks);
       #endif
       //Check for memory leaks
       priv_invariants();
@@ -510,11 +513,11 @@ class private_adaptive_node_pool_impl
    {
       hdr_offset_holder *hdr_off_holder =
          reinterpret_cast<hdr_offset_holder*>((std::size_t)node & std::size_t(~(m_real_block_alignment - 1)));
-      assert(0 == ((std::size_t)hdr_off_holder & (m_real_block_alignment - 1)));
-      assert(0 == (hdr_off_holder->hdr_offset & (m_real_block_alignment - 1)));
+      BOOST_ASSERT(0 == ((std::size_t)hdr_off_holder & (m_real_block_alignment - 1)));
+      BOOST_ASSERT(0 == (hdr_off_holder->hdr_offset & (m_real_block_alignment - 1)));
       block_info_t *block = reinterpret_cast<block_info_t *>
          (reinterpret_cast<char*>(hdr_off_holder) + hdr_off_holder->hdr_offset);
-      assert(block->hdr_offset == 0);
+      BOOST_ASSERT(block->hdr_offset == 0);
       return block;
    }
 
@@ -530,9 +533,9 @@ class private_adaptive_node_pool_impl
    {
       hdr_offset_holder *hdr_off_holder = reinterpret_cast<hdr_offset_holder*>
             (reinterpret_cast<char*>(block) - (m_num_subblocks-1)*m_real_block_alignment);
-      assert(hdr_off_holder->hdr_offset == std::size_t(reinterpret_cast<char*>(block) - reinterpret_cast<char*>(hdr_off_holder)));
-      assert(0 == ((std::size_t)hdr_off_holder & (m_real_block_alignment - 1)));
-      assert(0 == (hdr_off_holder->hdr_offset & (m_real_block_alignment - 1)));
+      BOOST_ASSERT(hdr_off_holder->hdr_offset == std::size_t(reinterpret_cast<char*>(block) - reinterpret_cast<char*>(hdr_off_holder)));
+      BOOST_ASSERT(0 == ((std::size_t)hdr_off_holder & (m_real_block_alignment - 1)));
+      BOOST_ASSERT(0 == (hdr_off_holder->hdr_offset & (m_real_block_alignment - 1)));
       return hdr_off_holder;
    }
 
@@ -579,7 +582,7 @@ class private_adaptive_node_pool_impl
          char *hdr_addr = mem_address + m_real_block_alignment*(m_num_subblocks-1);
          block_info_t *c_info = new(hdr_addr)block_info_t;
          //Some structural checks
-         assert(static_cast<void*>(&static_cast<hdr_offset_holder*>(c_info)->hdr_offset) ==
+         BOOST_ASSERT(static_cast<void*>(&static_cast<hdr_offset_holder*>(c_info)->hdr_offset) ==
                 static_cast<void*>(c_info));
          typename free_nodes_t::iterator prev_insert_pos = c_info->free_nodes.before_begin();
          for( std::size_t subblock = 0, maxsubblock = m_num_subblocks - 1
@@ -633,6 +636,6 @@ class private_adaptive_node_pool_impl
 }  //namespace container {
 }  //namespace boost {
 
-#include <boost/interprocess/containers/container/detail/config_end.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_CONFIG_END_HPP
 
 #endif   //#ifndef BOOST_CONTAINER_DETAIL_ADAPTIVE_NODE_POOL_IMPL_HPP

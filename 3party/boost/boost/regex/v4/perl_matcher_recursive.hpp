@@ -200,11 +200,11 @@ bool perl_matcher<BidiIterator, Allocator, traits>::match_startmark()
          BidiIterator saved_position = position;
          const re_syntax_base* next_pstate = static_cast<const re_jump*>(pstate->next.p)->alt.p->next.p;
          pstate = pstate->next.p->next.p;
-         bool r = match_all_states();
+         bool res = match_all_states();
          position = saved_position;
          if(negated)
-            r = !r;
-         if(r)
+            res = !res;
+         if(res)
             pstate = next_pstate;
          else
             pstate = alt->alt.p;
@@ -901,7 +901,7 @@ bool perl_matcher<BidiIterator, Allocator, traits>::match_endmark()
          {
             recursion_info<results_type> saved = recursion_stack.back();
             recursion_stack.pop_back();
-            const re_syntax_base* saved_state = pstate = saved.preturn_address;
+            pstate = saved.preturn_address;
             repeater_count<BidiIterator>* saved_count = next_count;
             next_count = saved.repeater_stack;
             *m_presult = saved.results;

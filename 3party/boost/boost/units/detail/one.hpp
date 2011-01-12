@@ -97,6 +97,11 @@ inline one operator/(const one&, const one&)
     return(result);
 }
 
+template<class T>
+inline bool operator>(const boost::units::one&, const T& t) {
+    return(1 > t);
+}
+
 } // namespace units
 
 } // namespace boost

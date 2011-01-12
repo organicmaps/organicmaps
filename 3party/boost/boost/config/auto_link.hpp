@@ -362,7 +362,7 @@ BOOST_LIB_VERSION:    The Boost version, in the form x_y, for Boost version x.y.
       && defined(BOOST_LIB_VERSION)
 
 #ifdef BOOST_AUTO_LINK_TAGGED
-#  pragma commentcomment(lib, BOOST_LIB_PREFIX BOOST_STRINGIZE(BOOST_LIB_NAME) BOOST_LIB_THREAD_OPT BOOST_LIB_RT_OPT ".lib")
+#  pragma comment(lib, BOOST_LIB_PREFIX BOOST_STRINGIZE(BOOST_LIB_NAME) BOOST_LIB_THREAD_OPT BOOST_LIB_RT_OPT ".lib")
 #  ifdef BOOST_LIB_DIAGNOSTIC
 #     pragma message ("Linking to lib file: " BOOST_LIB_PREFIX BOOST_STRINGIZE(BOOST_LIB_NAME) "-" BOOST_LIB_TOOLSET BOOST_LIB_THREAD_OPT BOOST_LIB_RT_OPT "-" BOOST_LIB_VERSION ".lib")
 #  endif

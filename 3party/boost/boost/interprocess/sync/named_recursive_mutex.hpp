@@ -24,6 +24,7 @@
 #include <boost/interprocess/detail/managed_open_or_create_impl.hpp>
 #include <boost/interprocess/sync/interprocess_recursive_mutex.hpp>
 #include <boost/interprocess/sync/emulation/named_creation_functor.hpp>
+#include <boost/interprocess/permissions.hpp>
 
 //!\file
 //!Describes a named named_recursive_mutex class for inter-process synchronization
@@ -50,7 +51,7 @@ class named_recursive_mutex
 
    //!Creates a global recursive_mutex with a name.
    //!If the recursive_mutex can't be created throws interprocess_exception
-   named_recursive_mutex(create_only_t create_only, const char *name);
+   named_recursive_mutex(create_only_t create_only, const char *name, const permissions &perm = permissions());
 
    //!Opens or creates a global recursive_mutex with a name. 
    //!If the recursive_mutex is created, this call is equivalent to
@@ -58,7 +59,7 @@ class named_recursive_mutex
    //!If the recursive_mutex is already created, this call is equivalent
    //!named_recursive_mutex(open_only_t, ... )
    //!Does not throw
-   named_recursive_mutex(open_or_create_t open_or_create, const char *name);
+   named_recursive_mutex(open_or_create_t open_or_create, const char *name, const permissions &perm = permissions());
 
    //!Opens a global recursive_mutex with a name if that recursive_mutex is previously
    //!created. If it is not previously created this function throws
@@ -116,7 +117,7 @@ inline named_recursive_mutex::~named_recursive_mutex()
 inline void named_recursive_mutex::dont_close_on_destruction()
 {  detail::interprocess_tester::dont_close_on_destruction(m_shmem);  }
 
-inline named_recursive_mutex::named_recursive_mutex(create_only_t, const char *name)
+inline named_recursive_mutex::named_recursive_mutex(create_only_t, const char *name, const permissions &perm)
    :  m_shmem  (create_only
                ,name
                ,sizeof(interprocess_recursive_mutex) +
@@ -124,10 +125,11 @@ inline named_recursive_mutex::named_recursive_mutex(create_only_t, const char *n
                      ManagedOpenOrCreateUserOffset
                ,read_write
                ,0
-               ,construct_func_t(detail::DoCreate))
+               ,construct_func_t(detail::DoCreate)
+               ,perm)
 {}
 
-inline named_recursive_mutex::named_recursive_mutex(open_or_create_t, const char *name)
+inline named_recursive_mutex::named_recursive_mutex(open_or_create_t, const char *name, const permissions &perm)
    :  m_shmem  (open_or_create
                ,name
                ,sizeof(interprocess_recursive_mutex) +
@@ -135,7 +137,8 @@ inline named_recursive_mutex::named_recursive_mutex(open_or_create_t, const char
                      ManagedOpenOrCreateUserOffset
                ,read_write
                ,0
-               ,construct_func_t(detail::DoOpenOrCreate))
+               ,construct_func_t(detail::DoOpenOrCreate)
+               ,perm)
 {}
 
 inline named_recursive_mutex::named_recursive_mutex(open_only_t, const char *name)

@@ -55,7 +55,7 @@ void kqueue_reactor::schedule_timer(timer_queue<Time_Traits>& queue,
   bool earliest = queue.enqueue_timer(time, timer, op);
   io_service_.work_started();
   if (earliest)
-    interrupter_.interrupt();
+    interrupt();
 }
 
 template <typename Time_Traits>

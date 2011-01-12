@@ -81,6 +81,8 @@
 #  define BOOST_NO_SWPRINTF
 // Our extern template tests also fail for this compiler:
 #  define BOOST_NO_EXTERN_TEMPLATE
+// Variadic macros do not exist for VC7.1 and lower
+#  define BOOST_NO_VARIADIC_MACROS
 #endif
 
 #if defined(UNDER_CE)

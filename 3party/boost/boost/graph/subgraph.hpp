@@ -677,17 +677,35 @@ remove_edge(typename subgraph<G>::edge_descriptor e, subgraph<G>& g)
     }
 }
 
-// TODO: This is wrong...
+// This is slow, but there may not be a good way to do it safely otherwise
 template <typename Predicate, typename G>
 void
-remove_edge_if(Predicate p, subgraph<G>& g)
-{ remove_edge_if(p, g.m_graph); }
+remove_edge_if(Predicate p, subgraph<G>& g) {
+  while (true) {
+    bool any_removed = false;
+    typedef typename subgraph<G>::edge_iterator ei_type;
+    for (std::pair<ei_type, ei_type> ep = edges(g);
+         ep.first != ep.second; ++ep.first) {
+      if (p(*ep.first)) {
+        any_removed = true;
+        remove_edge(*ep.first, g);
+        continue; /* Since iterators may be invalidated */
+      }
+    }
+    if (!any_removed) break;
+  }
+}
 
-// TODO: Ths is wrong
 template <typename G>
 void
-clear_vertex(typename subgraph<G>::vertex_descriptor v, subgraph<G>& g)
-{ clear_vertex(v, g.m_graph); }
+clear_vertex(typename subgraph<G>::vertex_descriptor v, subgraph<G>& g) {
+  while (true) {
+    typedef typename subgraph<G>::out_edge_iterator oei_type;
+    std::pair<oei_type, oei_type> p = out_edges(v, g);
+    if (p.first == p.second) break;
+    remove_edge(*p.first, g);
+  }
+}
 
 namespace detail {
     template <typename G>
@@ -727,10 +745,12 @@ add_vertex(subgraph<G>& g)
 }
 
 
+#if 0
 // TODO: Under Construction
 template <typename G>
 void remove_vertex(typename subgraph<G>::vertex_descriptor u, subgraph<G>& g)
 { assert(false); }
+#endif
 
 //===========================================================================
 // Functions required by the PropertyGraph concept

@@ -33,21 +33,22 @@ namespace boost { namespace spirit { namespace detail
     ///////////////////////////////////////////////////////////////////////////
     template <typename Queue, typename T, typename Pointer>
     class fsq_iterator
-    :   public boost::iterator_adaptor<
-            fsq_iterator<Queue, T, Pointer>, Pointer, T,
+    :   public boost::iterator_facade<
+            fsq_iterator<Queue, T, Pointer>, T,
             std::random_access_iterator_tag
         >
     {
     public:
         typedef typename Queue::position_type position_type;
-        typedef boost::iterator_adaptor<
-                fsq_iterator<Queue, T, Pointer>, Pointer, T,
+        typedef boost::iterator_facade<
+                fsq_iterator<Queue, T, Pointer>, T,
                 std::random_access_iterator_tag
             > base_type;
 
         fsq_iterator() {}
         fsq_iterator(position_type const &p_) : p(p_) {}
 
+        position_type &get_position() { return p; }
         position_type const &get_position() const { return p; }
 
     private:
@@ -73,30 +74,30 @@ namespace boost { namespace spirit { namespace detail
                 --p.pos;
         }
 
-        template <
-            typename OtherDerived, typename OtherIterator, 
-            typename V, typename C, typename R, typename D
-        >   
-        bool equal(iterator_adaptor<OtherDerived, OtherIterator, V, C, R, D> 
-            const &x) const
+        bool is_eof() const
         {
-            position_type const &rhs_pos = 
-                static_cast<OtherDerived const &>(x).get_position();
+            return p.self == 0 || p.pos == p.self->size();
+        }
+
+        template <typename Q, typename T_, typename P>   
+        bool equal(fsq_iterator<Q, T_, P> const &x) const
+        {
+            if (is_eof())
+                return x.is_eof();
+            if (x.is_eof())
+                return false;
+
+            position_type const &rhs_pos = x.get_position();
             return (p.self == rhs_pos.self) && (p.pos == rhs_pos.pos);
         }
 
-        template <
-            typename OtherDerived, typename OtherIterator, 
-            typename V, typename C, typename R, typename D
-        >   
+        template <typename Q, typename T_, typename P>   
         typename base_type::difference_type distance_to(
-            iterator_adaptor<OtherDerived, OtherIterator, V, C, R, D> 
-            const &x) const
+            fsq_iterator<Q, T_, P> const &x) const
         {
             typedef typename base_type::difference_type difference_type;
 
-            position_type const &p2 = 
-                static_cast<OtherDerived const &>(x).get_position();
+            position_type const &p2 = x.get_position();
             std::size_t pos1 = p.pos;
             std::size_t pos2 = p2.pos;
 
@@ -161,6 +162,9 @@ namespace boost { namespace spirit { namespace detail
             position(const fixed_size_queue* s, std::size_t p)
               : self(const_cast<fixed_size_queue*>(s)), pos(p)
             {}
+
+            bool is_initialized() const { return self != 0; }
+            void set_queue(fixed_size_queue* q) { self = q; }
         };
 
     public:
@@ -206,12 +210,12 @@ namespace boost { namespace spirit { namespace detail
 
         iterator end()
         {
-            return iterator(position(this, m_tail));
+            return iterator(position(0, m_tail));
         }
 
         const_iterator end() const
         {
-            return const_iterator(position(this, m_tail));
+            return const_iterator(position(0, m_tail));
         }
 
         std::size_t size() const

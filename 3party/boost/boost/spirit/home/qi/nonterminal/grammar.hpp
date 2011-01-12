@@ -51,6 +51,12 @@ namespace boost { namespace spirit { namespace qi
 
         static size_t const params_size = start_type::params_size;
 
+        template <typename Context, typename Iterator_>
+        struct attribute
+        {
+            typedef typename start_type::attr_type type;
+        };
+
         grammar(
             start_type const& start
           , std::string const& name_ = "unnamed-grammar")

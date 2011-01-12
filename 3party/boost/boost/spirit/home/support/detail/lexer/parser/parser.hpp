@@ -452,7 +452,7 @@ private:
             for (std::size_t i_ = 2; i_ < top_; ++i_)
             {
                 curr_ = prev_->copy (node_ptr_vector_);
-                tree_node_stack_.push (static_cast<node*>(0));
+                tree_node_stack_.push (static_cast<node *>(0));
                 tree_node_stack_.top () = prev_;
                 sequence (node_ptr_vector_, tree_node_stack_);
                 prev_ = curr_;
@@ -463,7 +463,7 @@ private:
                 if (token_._min > 1)
                 {
                     curr_ = prev_->copy (node_ptr_vector_);
-                    tree_node_stack_.push (static_cast<node*>(0));
+                    tree_node_stack_.push (static_cast<node *>(0));
                     tree_node_stack_.top () = prev_;
                     sequence (node_ptr_vector_, tree_node_stack_);
                     prev_ = curr_;
@@ -471,7 +471,7 @@ private:
 
                 if (token_._comma && token_._max)
                 {
-                    tree_node_stack_.push (static_cast<node*>(0));
+                    tree_node_stack_.push (static_cast<node *>(0));
                     tree_node_stack_.top () = prev_;
                     optional (greedy_, node_ptr_vector_, tree_node_stack_);
                     prev_ = tree_node_stack_.top ();
@@ -482,7 +482,7 @@ private:
                     for (std::size_t i_ = 1; i_ < count_; ++i_)
                     {
                         curr_ = prev_->copy (node_ptr_vector_);
-                        tree_node_stack_.push (static_cast<node*>(0));
+                        tree_node_stack_.push (static_cast<node *>(0));
                         tree_node_stack_.top () = prev_;
                         sequence (node_ptr_vector_, tree_node_stack_);
                         prev_ = curr_;
@@ -490,7 +490,7 @@ private:
                 }
                 else
                 {
-                    tree_node_stack_.push (static_cast<node*>(0));
+                    tree_node_stack_.push (static_cast<node *>(0));
                     tree_node_stack_.top () = prev_;
                     zero_or_more (greedy_, node_ptr_vector_, tree_node_stack_);
                     prev_ = tree_node_stack_.top ();
@@ -498,7 +498,7 @@ private:
                 }
             }
 
-            tree_node_stack_.push (static_cast<node*>(0));
+            tree_node_stack_.push (static_cast<node *>(0));
             tree_node_stack_.top () = prev_;
             sequence (node_ptr_vector_, tree_node_stack_);
         }

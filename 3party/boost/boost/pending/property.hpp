@@ -150,7 +150,7 @@ namespace boost {
         typedef FinalType retagged;
     };
 
-    // A final base case of the retag_propert_list, this will terminate a
+    // A final base case of the retag_property_list, this will terminate a
     // properly structured list.
     template<typename FinalTag>
     struct retag_property_list<FinalTag, no_property>

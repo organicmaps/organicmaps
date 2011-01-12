@@ -125,6 +125,7 @@ namespace boost {
      bool self_edges = false)
   {
     typedef graph_traits<MutableGraph> Traits;
+    typedef typename Traits::edge_descriptor edge_t;
     typedef typename Traits::vertices_size_type v_size_t;
     typedef typename Traits::edges_size_type e_size_t;
     typedef typename Traits::vertex_descriptor vertex_descriptor;
@@ -149,12 +150,23 @@ namespace boost {
       for (v_size_t i = 0; i < V; ++i)
         add_vertex(g);
 
-      for (e_size_t j = 0; j < E; ++j) {
+      e_size_t not_inserted_counter = 0; /* Number of edge insertion failures */
+      e_size_t num_vertices_squared = num_vertices(g) * num_vertices(g);
+      for (e_size_t j = 0; j < E; /* Increment in body */) {
         vertex_descriptor a = random_vertex(g, gen), b;
         do {
           b = random_vertex(g, gen);
         } while (self_edges == false && a == b);
-        add_edge(a, b, g);
+        edge_t e; bool inserted;
+        boost::tie(e, inserted) = add_edge(a, b, g);
+        if (inserted) {
+          ++j;
+        } else {
+          ++not_inserted_counter;
+        }
+        if (not_inserted_counter >= num_vertices_squared) {
+          return; /* Rather than looping forever on complete graph */
+        }
       }
     }
   }
@@ -191,15 +203,24 @@ namespace boost {
     for (v_size_t i = 0; i < V; ++i)
       *vertex_out++ = add_vertex(g);
 
-    for (e_size_t j = 0; j < E; ++j) {
+    e_size_t not_inserted_counter = 0; /* Number of edge insertion failures */
+    e_size_t num_vertices_squared = num_vertices(g) * num_vertices(g);
+    for (e_size_t j = 0; j < E; /* Increment in body */) {
       vertex_t a = random_vertex(g, gen), b;
       do {
         b = random_vertex(g, gen);
       } while (self_edges == false && a == b);
       edge_t e; bool inserted;
       boost::tie(e, inserted) = add_edge(a, b, g);
-      if (inserted)
+      if (inserted) {
         *edge_out++ = std::make_pair(source(e, g), target(e, g));
+        ++j;
+      } else {
+        ++not_inserted_counter;
+      }
+      if (not_inserted_counter >= num_vertices_squared) {
+        return; /* Rather than looping forever on complete graph */
+      }
     }
   }
 

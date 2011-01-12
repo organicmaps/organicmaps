@@ -122,10 +122,10 @@ public:
         template <class T>  
         #if defined(BOOST_NO_DEPENDENT_NESTED_DERIVATIONS)  
             struct apply {  
-                typedef BOOST_DEDUCED_TYPENAME boost::serialization::is_bitwise_serializable<T>::type type;  
+                typedef BOOST_DEDUCED_TYPENAME boost::serialization::is_bitwise_serializable< T >::type type;  
             };
         #else
-            struct apply : public boost::serialization::is_bitwise_serializable<T> {};  
+            struct apply : public boost::serialization::is_bitwise_serializable< T > {};  
         #endif
     };
     

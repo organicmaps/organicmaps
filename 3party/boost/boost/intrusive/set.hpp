@@ -75,9 +75,19 @@ class set_impl
    typedef typename implementation_defined::const_node_ptr           const_node_ptr;
    typedef typename implementation_defined::node_algorithms          node_algorithms;
 
+   static const bool constant_time_size = Config::constant_time_size;
+   //static const bool stateful_value_traits = detail::is_stateful_value_traits<real_value_traits>::value;
+
    /// @cond
    private:
    tree_type tree_;
+
+   protected:
+   node &prot_header_node(){ return tree_.prot_header_node(); }
+   node const &prot_header_node() const{ return tree_.prot_header_node(); }
+   void prot_set_size(size_type s){ tree_.prot_set_size(s); }
+   value_compare &prot_comp(){ return tree_.prot_comp(); }
+
    /// @endcond
 
    public:
@@ -1265,9 +1275,18 @@ class multiset_impl
    typedef typename implementation_defined::const_node_ptr           const_node_ptr;
    typedef typename implementation_defined::node_algorithms          node_algorithms;
 
+   static const bool constant_time_size = Config::constant_time_size;
+   //static const bool stateful_value_traits = detail::is_stateful_value_traits<real_value_traits>::value;
+
    /// @cond
    private:
    tree_type tree_;
+
+   protected:
+   node &prot_header_node(){ return tree_.prot_header_node(); }
+   node const &prot_header_node() const{ return tree_.prot_header_node(); }
+   void prot_set_size(size_type s){ tree_.prot_set_size(s); }
+   value_compare &prot_comp(){ return tree_.prot_comp(); }
    /// @endcond
 
    public:
@@ -1450,7 +1469,7 @@ class multiset_impl
    //! 
    //! <b>Throws</b>: Nothing.
    //! 
-   //! <b>Complexity</b>: Constant.
+   //! <b>Complexity</b>: Logarithmic.
    static multiset_impl &container_from_iterator(iterator it)
    {
       return *detail::parent_from_member<multiset_impl, tree_type>
@@ -1464,7 +1483,7 @@ class multiset_impl
    //! 
    //! <b>Throws</b>: Nothing.
    //! 
-   //! <b>Complexity</b>: Constant.
+   //! <b>Complexity</b>: Logarithmic.
    static const multiset_impl &container_from_iterator(const_iterator it)
    {
       return *detail::parent_from_member<multiset_impl, tree_type>

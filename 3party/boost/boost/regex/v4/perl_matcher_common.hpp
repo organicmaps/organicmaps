@@ -200,7 +200,7 @@ bool perl_matcher<BidiIterator, Allocator, traits>::match_imp()
    m_match_flags |= regex_constants::match_all;
    m_presult->set_size((m_match_flags & match_nosubs) ? 1 : re.mark_count(), search_base, last);
    m_presult->set_base(base);
-   m_presult->set_named_subs(re_detail::convert_to_named_subs<typename match_results<BidiIterator>::char_type>(this->re.get_named_subs()));
+   m_presult->set_named_subs(this->re.get_named_subs());
    if(m_match_flags & match_posix)
       m_result = *m_presult;
    verify_options(re.flags(), m_match_flags);
@@ -262,7 +262,7 @@ bool perl_matcher<BidiIterator, Allocator, traits>::find_imp()
       pstate = re.get_first_state();
       m_presult->set_size((m_match_flags & match_nosubs) ? 1 : re.mark_count(), base, last);
       m_presult->set_base(base);
-      m_presult->set_named_subs(re_detail::convert_to_named_subs<typename match_results<BidiIterator>::char_type>(this->re.get_named_subs()));
+      m_presult->set_named_subs(this->re.get_named_subs());
       m_match_flags |= regex_constants::match_init;
    }
    else
@@ -588,8 +588,23 @@ bool perl_matcher<BidiIterator, Allocator, traits>::match_backref()
    // in the match, this is in line with ECMAScript, but not Perl
    // or PCRE.
    //
-   BidiIterator i = (*m_presult)[static_cast<const re_brace*>(pstate)->index].first;
-   BidiIterator j = (*m_presult)[static_cast<const re_brace*>(pstate)->index].second;
+   int index = static_cast<const re_brace*>(pstate)->index;
+   if(index >= 10000)
+   {
+      named_subexpressions::range_type r = re.get_data().equal_range(index);
+      BOOST_ASSERT(r.first != r.second);
+      do
+      {
+         index = r.first->index;
+         ++r.first;
+      }while((r.first != r.second) && ((*m_presult)[index].matched != true));
+   }
+
+   if((m_match_flags & match_perl) && !(*m_presult)[index].matched)
+      return false;
+
+   BidiIterator i = (*m_presult)[index].first;
+   BidiIterator j = (*m_presult)[index].second;
    while(i != j)
    {
       if((position == last) || (traits_inst.translate(*position, icase) != traits_inst.translate(*i, icase)))
@@ -713,7 +728,7 @@ inline bool perl_matcher<BidiIterator, Allocator, traits>::match_assert_backref(
 {
    // return true if marked sub-expression N has been matched:
    int index = static_cast<const re_brace*>(pstate)->index;
-   bool result;
+   bool result = false;
    if(index == 9999)
    {
       // Magic value for a (DEFINE) block:
@@ -721,11 +736,25 @@ inline bool perl_matcher<BidiIterator, Allocator, traits>::match_assert_backref(
    }
    else if(index > 0)
    {
+      // Have we matched subexpression "index"?
       // Check if index is a hash value:
       if(index >= 10000)
-         index = re.get_data().get_id(index);
-      // Have we matched subexpression "index"?
-      result = (*m_presult)[index].matched;
+      {
+         named_subexpressions::range_type r = re.get_data().equal_range(index);
+         while(r.first != r.second)
+         {
+            if((*m_presult)[r.first->index].matched)
+            {
+               result = true;
+               break;
+            }
+            ++r.first;
+         }
+      }
+      else
+      {
+         result = (*m_presult)[index].matched;
+      }
       pstate = pstate->next.p;
    }
    else
@@ -734,8 +763,20 @@ inline bool perl_matcher<BidiIterator, Allocator, traits>::match_assert_backref(
       // If index == 0 then check for any recursion at all, otherwise for recursion to -index-1.
       int idx = -index-1;
       if(idx >= 10000)
-         idx = re.get_data().get_id(idx);
-      result = !recursion_stack.empty() && ((recursion_stack.back().idx == idx) || (index == 0));
+      {
+         named_subexpressions::range_type r = re.get_data().equal_range(idx);
+         int stack_index = recursion_stack.empty() ? -1 : recursion_stack.back().idx;
+         while(r.first != r.second)
+         {
+            result |= (stack_index == r.first->index);
+            if(result)break;
+            ++r.first;
+         }
+      }
+      else
+      {
+         result = !recursion_stack.empty() && ((recursion_stack.back().idx == idx) || (index == 0));
+      }
       pstate = pstate->next.p;
    }
    return result;

@@ -12,25 +12,10 @@
 #define BOOST_MSM_FRONT_EUML_COMMON_H
 
 #include <boost/config.hpp>
-
-#ifdef BOOST_MPL_LIMIT_METAFUNCTION_ARITY
-#undef BOOST_MPL_LIMIT_METAFUNCTION_ARITY
-#endif
-
-#ifdef BOOST_PROTO_MAX_ARITY
-#undef BOOST_PROTO_MAX_ARITY
-#endif
+#include <boost/msm/proto_config.hpp>
 
 #ifndef BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
 #define BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
-#endif
-
-#ifdef BOOST_MSVC 
-#define BOOST_MPL_LIMIT_METAFUNCTION_ARITY 7
-#define BOOST_PROTO_MAX_ARITY 7
-#else
-#define BOOST_MPL_LIMIT_METAFUNCTION_ARITY 6
-#define BOOST_PROTO_MAX_ARITY 6
 #endif
 
 #include <iterator>
@@ -197,6 +182,18 @@ struct sm_domain
     : proto::domain< proto::generator<euml_terminal>, terminal_grammar >
 {};
 
+struct state_grammar : 
+    proto::and_<
+        proto::not_<proto::address_of<proto::_> >,
+        proto::not_<proto::shift_right<proto::_,proto::_> >,
+        proto::not_<proto::shift_left<proto::_,proto::_> >,
+        proto::not_<proto::bitwise_and<proto::_,proto::_> >
+    >
+{};
+struct state_domain
+    : proto::domain< proto::generator<euml_terminal>, state_grammar,sm_domain >
+{};
+
 template<typename Expr>
 struct euml_terminal
     : proto::extends<Expr, euml_terminal<Expr>, sm_domain>
@@ -229,10 +226,10 @@ struct euml_event: proto::extends<typename proto::terminal<event_tag>::type, EVT
     };
 };
 template <class STATE>
-struct euml_state: proto::extends<typename proto::terminal<state_tag>::type, STATE, sm_domain>
+struct euml_state: proto::extends<typename proto::terminal<state_tag>::type, STATE, state_domain>
 {
     typedef state_tag euml_tag_type;
-    using proto::extends<typename proto::terminal<state_tag>::type, STATE, sm_domain>::operator=;
+    using proto::extends<typename proto::terminal<state_tag>::type, STATE, state_domain>::operator=;
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 
 #ifdef BOOST_MSVC 
  ,class Arg6 
@@ -362,6 +359,7 @@ struct NoAction : euml_action<NoAction>
 };
 NoAction const no_action;
 
+struct fsm_artefact_tag {};
 template <class Index=void>
 struct GetSource_ : euml_action<GetSource_<Index> >
 {
@@ -397,8 +395,7 @@ struct GetSource_<void> : euml_action<GetSource_<void> >
         return src;
     }
 };
-struct get_source_tag {};
-struct GetSource_Helper: proto::extends< proto::terminal<get_source_tag>::type, GetSource_Helper, sm_domain>
+struct GetSource_Helper: proto::extends< proto::terminal<fsm_artefact_tag>::type, GetSource_Helper, sm_domain>
 {
     GetSource_Helper(){}
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 
@@ -448,8 +445,7 @@ struct GetTarget_<void> : euml_action<GetTarget_<void> >
         return tgt;
     }
 };
-struct get_target_tag {};
-struct GetTarget_Helper: proto::extends< proto::terminal<get_target_tag>::type, GetTarget_Helper, sm_domain>
+struct GetTarget_Helper: proto::extends< proto::terminal<fsm_artefact_tag>::type, GetTarget_Helper, sm_domain>
 {
     GetTarget_Helper(){}
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 
@@ -501,8 +497,7 @@ struct GetState_<void> : euml_action<GetState_<void> >
         return state;
     }
 };
-struct get_state_tag {};
-struct GetState_Helper: proto::extends< proto::terminal<get_state_tag>::type, GetState_Helper, sm_domain>
+struct GetState_Helper: proto::extends< proto::terminal<fsm_artefact_tag>::type, GetState_Helper, sm_domain>
 {
     GetState_Helper(){}
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 
@@ -577,8 +572,7 @@ struct GetEvent_<void> : euml_action<GetEvent_<void> >
         return evt;
     }
 };
-struct get_event_tag {};
-struct GetEvent_Helper: proto::extends< proto::terminal<get_event_tag>::type, GetEvent_Helper, sm_domain>
+struct GetEvent_Helper: proto::extends< proto::terminal<fsm_artefact_tag>::type, GetEvent_Helper, sm_domain>
 {
     GetEvent_Helper(){}
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 
@@ -653,8 +647,7 @@ struct GetFsm_<void> : euml_action<GetFsm_<void> >
         return fsm;
     }
 };
-struct get_fsm_tag {};
-struct GetFsm_Helper: proto::extends< proto::terminal<get_fsm_tag>::type, GetFsm_Helper, sm_domain>
+struct GetFsm_Helper: proto::extends< proto::terminal<fsm_artefact_tag>::type, GetFsm_Helper, sm_domain>
 {
     GetFsm_Helper(){}
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 
@@ -725,11 +718,10 @@ struct SubState_ <StateName,void>
     }
 };
 
-struct substate_tag {};
-struct SubState_Helper: proto::extends< proto::terminal<substate_tag>::type, SubState_Helper, sm_domain>
+struct SubState_Helper: proto::extends< proto::terminal<fsm_artefact_tag>::type, SubState_Helper, sm_domain>
 {
     SubState_Helper(){}
-    using proto::extends< proto::terminal<substate_tag>::type, SubState_Helper, sm_domain>::operator=;
+    using proto::extends< proto::terminal<fsm_artefact_tag>::type, SubState_Helper, sm_domain>::operator=;
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 
 #ifdef BOOST_MSVC 
  ,class Arg6 
@@ -789,10 +781,7 @@ struct GetAttribute_  : euml_action<GetAttribute_<Target, Index> >
     }
 };
 
-struct get_attribute_tag 
-{
-};
-struct GetAttribute_Helper: proto::extends< proto::terminal<get_attribute_tag>::type, GetAttribute_Helper, sm_domain>
+struct GetAttribute_Helper: proto::extends< proto::terminal<fsm_artefact_tag>::type, GetAttribute_Helper, sm_domain>
 {
     GetAttribute_Helper(){}
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 
@@ -1544,10 +1533,7 @@ struct Get_Flag_ <Flag,Param1
     }
 };
 
-struct get_flag_tag 
-{
-};
-struct Get_Flag_Helper: proto::extends< proto::terminal<get_flag_tag>::type, Get_Flag_Helper, sm_domain>
+struct Get_Flag_Helper: proto::extends< proto::terminal<fsm_artefact_tag>::type, Get_Flag_Helper, sm_domain>
 {
     Get_Flag_Helper(){}
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 
@@ -1572,11 +1558,10 @@ struct DeferEvent_ : euml_action< DeferEvent_ >
         fsm.defer_event(evt);
     }
 };
-struct defer_event_tag {};
-struct Defer_Helper : proto::extends< proto::terminal<defer_event_tag>::type, Defer_Helper, sm_domain>
+struct Defer_Helper : proto::extends< proto::terminal<fsm_artefact_tag>::type, Defer_Helper, sm_domain>
 {
     Defer_Helper(){}
-    using proto::extends< proto::terminal<defer_event_tag>::type, Defer_Helper, sm_domain>::operator=;
+    using proto::extends< proto::terminal<fsm_artefact_tag>::type, Defer_Helper, sm_domain>::operator=;
     template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5 
 #ifdef BOOST_MSVC 
  ,class Arg6 

@@ -253,8 +253,13 @@ public:
             typename polygon_with_holes_traits<polygon_with_holes_type>::hole_type>(*itrhb, HIGH, orient_, !is_hole_);
           ++itrhb;
         } else {
-          itrhib = itrhie = iterator_geometry_to_set<polygon_90_concept, 
-            typename polygon_with_holes_traits<polygon_with_holes_type>::hole_type>();
+          //in this case we have no holes so we just need the iterhib == itrhie, which
+          //is always true if they were default initialized in the initial case or
+          //both point to end of the previous hole processed
+          //no need to explicitly reset them, and it causes an stl debug assertion to use
+          //the default constructed iterator this way
+          //itrhib = itrhie = iterator_geometry_to_set<polygon_90_concept, 
+          //  typename polygon_with_holes_traits<polygon_with_holes_type>::hole_type>();
         }
       } else {
         ++itrhib;
@@ -266,8 +271,9 @@ public:
               typename polygon_with_holes_traits<polygon_with_holes_type>::hole_type>(*itrhb, HIGH, orient_, !is_hole_);
             ++itrhb;
           } else {
-            itrhib = itrhie = iterator_geometry_to_set<polygon_90_concept, 
-              typename polygon_with_holes_traits<polygon_with_holes_type>::hole_type>();
+            //this is the same case as above
+            //itrhib = itrhie = iterator_geometry_to_set<polygon_90_concept, 
+            //  typename polygon_with_holes_traits<polygon_with_holes_type>::hole_type>();
           }
         }
       }

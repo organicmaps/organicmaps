@@ -26,7 +26,7 @@
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/type_traits/integral_constant.hpp>
 #include <boost/tr1/random.hpp>
-#include <boost/tr1/tuple.hpp>
+#include <boost/math/tools/tuple.hpp>
 #include <boost/math/tools/real_cast.hpp>
 
 #include <set>
@@ -120,11 +120,11 @@ inline void unpack_and_append_tuple(Seq& s,
 {
    // extract the N'th element, append, and recurse:
    typedef typename Seq::value_type value_type;
-   value_type val = std::tr1::get<N>(data);
+   value_type val = boost::math::get<N>(data);
    s.push_back(val);
 
    typedef boost::integral_constant<int, N+1> next_value;
-   typedef boost::integral_constant<bool, (std::tr1::tuple_size<Item>::value > N+1)> terminate;
+   typedef boost::integral_constant<bool, (boost::math::tuple_size<Item>::value > N+1)> terminate;
 
    unpack_and_append_tuple(s, data, next_value(), terminate());
 }
@@ -140,7 +140,7 @@ inline void unpack_and_append(Seq& s, const Item& data, const boost::false_type&
 {
    // Item had better be a tuple-like type or we've had it!!!!
    typedef boost::integral_constant<int, 0> next_value;
-   typedef boost::integral_constant<bool, (std::tr1::tuple_size<Item>::value > 0)> terminate;
+   typedef boost::integral_constant<bool, (boost::math::tuple_size<Item>::value > 0)> terminate;
 
    unpack_and_append_tuple(s, data, next_value(), terminate());
 }

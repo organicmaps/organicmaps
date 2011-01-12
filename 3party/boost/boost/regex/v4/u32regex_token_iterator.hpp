@@ -361,7 +361,7 @@ inline u32regex_token_iterator<const UChar*> make_u32regex_token_iterator(const 
    return u32regex_token_iterator<const UChar*>(s.getBuffer(), s.getBuffer() + s.length(), e, submatch, m);
 }
 
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
+#if BOOST_WORKAROUND(BOOST_MSVC, > 1300)
 #  pragma warning(pop)
 #endif
 #ifdef BOOST_HAS_ABI_HEADERS

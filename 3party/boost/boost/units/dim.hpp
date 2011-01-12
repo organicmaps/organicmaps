@@ -21,7 +21,7 @@
 #include <boost/units/static_rational.hpp>
 #include <boost/units/detail/dim_impl.hpp>
 
-/// \file 
+/// \file dim.hpp
 /// \brief Handling of fundamental dimension/exponent pairs.
 
 namespace boost {
@@ -36,7 +36,7 @@ struct dim_tag { };
 
 /// \brief Dimension tag/exponent pair for a single fundamental dimension.
 ///
-/// \detailed 
+/// \details 
 /// The dim class represents a single dimension tag/dimension exponent pair.
 /// That is, @c dim<tag_type,value_type> is a pair where @c tag_type represents the
 /// fundamental dimension being represented and @c value_type represents the 

@@ -57,7 +57,7 @@ public:
 
     template<class T>
     xml_unescape(BOOST_PFTO_WRAPPER(T) start) : 
-        super_t(Base(BOOST_MAKE_PFTO_WRAPPER(static_cast<T>(start))))
+        super_t(Base(BOOST_MAKE_PFTO_WRAPPER(static_cast< T >(start))))
     {}
     // intel 7.1 doesn't like default copy constructor
     xml_unescape(const xml_unescape & rhs) : 

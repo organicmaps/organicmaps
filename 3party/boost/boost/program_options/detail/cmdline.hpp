@@ -22,6 +22,11 @@
 #include <string>
 #include <vector>
 
+#if defined(BOOST_MSVC)
+#   pragma warning (push)
+#   pragma warning (disable:4251) // class 'std::vector<_Ty>' needs to have dll-interface to be used by clients of class 'boost::program_options::positional_options_description'
+#endif
+
 namespace boost { namespace program_options { namespace detail {
 
     /** Command line parser class. Main requirements were:
@@ -133,6 +138,10 @@ namespace boost { namespace program_options { namespace detail {
     void test_cmdline_detail();
     
 }}}
+
+#if defined(BOOST_MSVC)
+#   pragma warning (pop)
+#endif
 
 #endif
 

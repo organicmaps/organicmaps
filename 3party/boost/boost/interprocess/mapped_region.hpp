@@ -34,7 +34,7 @@
 #    if defined(BOOST_INTERPROCESS_XSI_SHARED_MEMORY_OBJECTS)
 #      include <sys/shm.h>      //System V shared memory...
 #    endif
-#    include <cassert>
+#    include <boost/assert.hpp>
 #  else
 #    error Unknown platform
 #  endif
@@ -42,7 +42,7 @@
 #endif   //#if (defined BOOST_INTERPROCESS_WINDOWS)
 
 //!\file
-//!Describes memory_mappable and mapped region classes
+//!Describes mapped region class
 
 namespace boost {
 namespace interprocess {
@@ -81,7 +81,17 @@ class mapped_region
 
    //!Move constructor. *this will be constructed taking ownership of "other"'s 
    //!region and "other" will be left in default constructor state.
-   mapped_region(BOOST_INTERPROCESS_RV_REF(mapped_region) other);
+   mapped_region(BOOST_INTERPROCESS_RV_REF(mapped_region) other)
+   #if defined (BOOST_INTERPROCESS_WINDOWS)
+   :  m_base(0), m_size(0), m_offset(0)
+   ,  m_extra_offset(0)
+   ,  m_mode(read_only)
+   ,  m_file_mapping_hnd(detail::invalid_file())
+   #else
+   :  m_base(MAP_FAILED), m_size(0), m_offset(0),  m_extra_offset(0), m_mode(read_only), m_is_xsi(false)
+   #endif
+   {  this->swap(other);   }
+
 
    //!Destroys the mapped region.
    //!Does not throw
@@ -89,7 +99,12 @@ class mapped_region
 
    //!Move assignment. If *this owns a memory mapped region, it will be
    //!destroyed and it will take ownership of "other"'s memory mapped region.
-   mapped_region &operator=(BOOST_INTERPROCESS_RV_REF(mapped_region) other);
+   mapped_region &operator=(BOOST_INTERPROCESS_RV_REF(mapped_region) other)
+   {
+      mapped_region tmp(boost::interprocess::move(other));
+      this->swap(tmp);
+      return *this;
+   }
 
    //!Returns the size of the mapping. Note for windows users: If
    //!windows_shared_memory is mapped using 0 as the size, it returns 0
@@ -154,13 +169,6 @@ class mapped_region
 inline void swap(mapped_region &x, mapped_region &y)
 {  x.swap(y);  }
 
-inline mapped_region &mapped_region::operator=(BOOST_INTERPROCESS_RV_REF(mapped_region) moved)
-{
-   mapped_region tmp(boost::interprocess::move(moved));
-   this->swap(tmp);
-   return *this;
-}
-
 inline mapped_region::~mapped_region() 
 {  this->priv_close(); }
 
@@ -176,19 +184,12 @@ inline mode_t mapped_region::get_mode()  const
 inline void*    mapped_region::get_address()  const  
 {  return m_base; }
 
-#if (defined BOOST_INTERPROCESS_WINDOWS)
+#if defined (BOOST_INTERPROCESS_WINDOWS)
 
 inline mapped_region::mapped_region()
    :  m_base(0), m_size(0), m_offset(0),  m_extra_offset(0), m_mode(read_only)
    ,  m_file_mapping_hnd(detail::invalid_file())
 {}
-
-inline mapped_region::mapped_region(BOOST_INTERPROCESS_RV_REF(mapped_region) other)
-   :  m_base(0), m_size(0), m_offset(0)
-   ,  m_extra_offset(0)
-   ,  m_mode(read_only)
-   ,  m_file_mapping_hnd(detail::invalid_file())
-{  this->swap(other);   }
 
 template<int dummy>
 inline std::size_t mapped_region::page_size_holder<dummy>::get_page_size()
@@ -218,6 +219,7 @@ inline mapped_region::mapped_region
    switch(mode)
    {
       case read_only:
+      case read_private:
          file_map_access   |= winapi::page_readonly;
          map_access        |= winapi::file_map_read;
       break;
@@ -259,7 +261,7 @@ inline mapped_region::mapped_region
       //Create file mapping
       native_mapping_handle = 
          winapi::create_file_mapping
-         (detail::file_handle_from_mapping_handle(mapping.get_mapping_handle()), file_map_access, 0, 0, 0);
+         (detail::file_handle_from_mapping_handle(mapping.get_mapping_handle()), file_map_access, 0, 0, 0, 0);
 
       //Check if all is correct
       if(!native_mapping_handle){
@@ -350,7 +352,7 @@ inline bool mapped_region::flush(std::size_t mapping_offset, std::size_t numbyte
    }
 
    //Flush it all
-   return 0 == winapi::flush_view_of_file
+   return winapi::flush_view_of_file
       (static_cast<char*>(m_base)+mapping_offset, 
        static_cast<std::size_t>(numbytes));
 }
@@ -377,10 +379,6 @@ inline void mapped_region::dont_close_on_destruction()
 inline mapped_region::mapped_region()
    :  m_base(MAP_FAILED), m_size(0), m_offset(0),  m_extra_offset(0), m_mode(read_only), m_is_xsi(false)
 {}
-
-inline mapped_region::mapped_region(BOOST_INTERPROCESS_RV_REF(mapped_region) other)
-   :  m_base(MAP_FAILED), m_size(0), m_offset(0),  m_extra_offset(0), m_mode(read_only), m_is_xsi(false)
-{  this->swap(other);   }
 
 template<int dummy>
 inline std::size_t mapped_region::page_size_holder<dummy>::get_page_size()
@@ -467,6 +465,11 @@ inline mapped_region::mapped_region
          flags |= MAP_SHARED;
       break;
 
+      case read_private:
+         prot  |= (PROT_READ);
+         flags |= MAP_PRIVATE;
+      break;
+
       case read_write:
          prot  |= (PROT_WRITE | PROT_READ);
          flags |= MAP_SHARED;
@@ -538,7 +541,7 @@ inline bool mapped_region::flush(std::size_t mapping_offset, std::size_t numbyte
    }
    //Flush it all
    return msync(static_cast<char*>(m_base)+mapping_offset, 
-                numbytes, MS_SYNC) == 0;
+                numbytes, MS_ASYNC) == 0;
 }
 
 inline void mapped_region::priv_close()
@@ -547,7 +550,7 @@ inline void mapped_region::priv_close()
       #ifdef BOOST_INTERPROCESS_XSI_SHARED_MEMORY_OBJECTS
       if(m_is_xsi){
          int ret = ::shmdt(m_base);
-         assert(ret == 0);
+         BOOST_ASSERT(ret == 0);
          (void)ret;
          return;
       }

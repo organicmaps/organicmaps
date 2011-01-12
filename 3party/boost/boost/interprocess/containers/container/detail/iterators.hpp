@@ -18,14 +18,15 @@
 #  pragma once
 #endif
 
-#include <boost/interprocess/containers/container/detail/config_begin.hpp>
-#include <boost/interprocess/containers/container/detail/workaround.hpp>
-#include <boost/interprocess/detail/move.hpp>
+#include "config_begin.hpp"
+#include INCLUDE_BOOST_CONTAINER_DETAIL_WORKAROUND_HPP
+#include INCLUDE_BOOST_CONTAINER_MOVE_HPP
 
 #ifdef BOOST_CONTAINERS_PERFECT_FORWARDING
-#include <boost/interprocess/containers/container/detail/variadic_templates_tools.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_VARIADIC_TEMPLATES_TOOLS_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_STORED_REF_HPP
 #else
-#include <boost/interprocess/containers/container/detail/preprocessor.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_PREPROCESSOR_HPP
 #endif
 
 #include <iterator>
@@ -55,6 +56,16 @@ class constant_iterator
    {
       constant_iterator result (*this);
       increment();
+      return result;
+   }
+
+   constant_iterator& operator--() 
+   { decrement();   return *this;   }
+   
+   constant_iterator operator--(int)
+   {
+      constant_iterator result (*this);
+      decrement();
       return result;
    }
 
@@ -100,6 +111,9 @@ class constant_iterator
    {  return *this + (-off);  }
 
    const T& operator*() const
+   { return dereference(); }
+
+   const T& operator[] (Difference n) const
    { return dereference(); }
 
    const T* operator->() const
@@ -156,6 +170,16 @@ class default_construct_iterator
       return result;
    }
 
+   default_construct_iterator& operator--() 
+   { decrement();   return *this;   }
+   
+   default_construct_iterator operator--(int)
+   {
+      default_construct_iterator result (*this);
+      decrement();
+      return result;
+   }
+
    friend bool operator== (const default_construct_iterator& i, const default_construct_iterator& i2)
    { return i.equal(i2); }
 
@@ -202,6 +226,9 @@ class default_construct_iterator
 
    const T* operator->() const
    { return &(dereference()); }
+
+   const T& operator[] (Difference n) const
+   { return dereference(); }
 
    private:
    Difference  m_num;
@@ -255,6 +282,16 @@ class repeat_iterator
       return result;
    }
 
+   this_type& operator--() 
+   { increment();   return *this;   }
+   
+   this_type operator--(int)
+   {
+      this_type result (*this);
+      increment();
+      return result;
+   }
+
    friend bool operator== (const this_type& i, const this_type& i2)
    { return i.equal(i2); }
 
@@ -297,6 +334,9 @@ class repeat_iterator
    {  return *this + (-off);  }
 
    T& operator*() const
+   { return dereference(); }
+
+   T& operator[] (Difference n) const
    { return dereference(); }
 
    T *operator->() const
@@ -352,6 +392,16 @@ class emplace_iterator
       return result;
    }
 
+   this_type& operator--() 
+   { decrement();   return *this;   }
+   
+   this_type operator--(int)
+   {
+      this_type result (*this);
+      decrement();
+      return result;
+   }
+
    friend bool operator== (const this_type& i, const this_type& i2)
    { return i.equal(i2); }
 
@@ -394,6 +444,9 @@ class emplace_iterator
    {  return *this + (-off);  }
 
    const T& operator*() const
+   { return dereference(); }
+
+   const T& operator[](std::ptrdiff_t) const
    { return dereference(); }
 
    const T* operator->() const
@@ -447,9 +500,9 @@ struct emplace_functor
 
    template<int ...IdxPack>
    void inplace_impl(T* ptr, const containers_detail::index_tuple<IdxPack...>&)
-   {  ::new(ptr) T(boost::interprocess::forward<Args>(containers_detail::get<IdxPack>(args_))...); }
+   {  ::new(ptr) T(containers_detail::stored_ref<Args>::forward(containers_detail::get<IdxPack>(args_))...); }
 
-   containers_detail::tuple<Args&&...> args_;
+   containers_detail::tuple<Args&...> args_;
 };
 
 #else
@@ -486,7 +539,7 @@ struct emplace_functor
 }  //namespace container { 
 }  //namespace boost {
 
-#include <boost/interprocess/containers/container/detail/config_end.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_CONFIG_END_HPP
 
 #endif   //#ifndef BOOST_CONTAINERS_DETAIL_ITERATORS_HPP
 

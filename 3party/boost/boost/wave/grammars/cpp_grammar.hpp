@@ -331,10 +331,12 @@ struct cpp_grammar :
                         >> +ppsp
                     ]
                     >>  (   ch_p(T_IDENTIFIER) 
-                        |   pattern_p(KeywordTokenType, TokenTypeMask)
+                        |   pattern_p(KeywordTokenType, 
+                                TokenTypeMask|PPTokenFlag)
                         |   pattern_p(OperatorTokenType|AltExtTokenType, 
-                                ExtTokenTypeMask)   // and, bit_and etc.
-                        |   pattern_p(BoolLiteralTokenType, TokenTypeMask)  // true/false
+                                ExtTokenTypeMask|PPTokenFlag)   // and, bit_and etc.
+                        |   pattern_p(BoolLiteralTokenType, 
+                                TokenTypeMask|PPTokenFlag)  // true/false
                         )
                     >>  (   (   no_node_d[eps_p(ch_p(T_LEFTPAREN))]
                                 >>  macro_parameters
@@ -353,10 +355,12 @@ struct cpp_grammar :
                         no_node_d[ch_p(T_LEFTPAREN) >> *ppsp],
                        !list_p(
                             (   ch_p(T_IDENTIFIER) 
-                            |   pattern_p(KeywordTokenType, TokenTypeMask)
+                            |   pattern_p(KeywordTokenType, 
+                                    TokenTypeMask|PPTokenFlag)
                             |   pattern_p(OperatorTokenType|AltExtTokenType, 
-                                    ExtTokenTypeMask)   // and, bit_and etc.
-                            |   pattern_p(BoolLiteralTokenType, TokenTypeMask)  // true/false
+                                    ExtTokenTypeMask|PPTokenFlag)   // and, bit_and etc.
+                            |   pattern_p(BoolLiteralTokenType, 
+                                    TokenTypeMask|PPTokenFlag)  // true/false
 #if BOOST_WAVE_SUPPORT_VARIADICS_PLACEMARKERS != 0
                             |   ch_p(T_ELLIPSIS)
 #endif
@@ -384,10 +388,12 @@ struct cpp_grammar :
                         >> +ppsp
                     ]
                     >>  (   ch_p(T_IDENTIFIER) 
-                        |   pattern_p(KeywordTokenType, TokenTypeMask)
+                        |   pattern_p(KeywordTokenType, 
+                                TokenTypeMask|PPTokenFlag)
                         |   pattern_p(OperatorTokenType|AltExtTokenType, 
-                                ExtTokenTypeMask)   // and, bit_and etc.
-                        |   pattern_p(BoolLiteralTokenType, TokenTypeMask)  // true/false
+                                ExtTokenTypeMask|PPTokenFlag)   // and, bit_and etc.
+                        |   pattern_p(BoolLiteralTokenType, 
+                                TokenTypeMask|PPTokenFlag)  // true/false
                         )
                 ;
 
@@ -417,7 +423,7 @@ struct cpp_grammar :
                     [
                         ch_p(T_PP_IF) 
                         [ store_found_directive_type(self.found_directive) ]
-                        >> *ppsp
+//                        >> *ppsp
                     ]
                     >> +(   anychar_p -
                             (ch_p(T_NEWLINE) | ch_p(T_CPPCOMMENT) | ch_p(T_EOF)) 
@@ -437,7 +443,7 @@ struct cpp_grammar :
                     [
                         ch_p(T_PP_ELIF) 
                         [ store_found_directive_type(self.found_directive) ]
-                        >> *ppsp
+//                        >> *ppsp
                     ]
                     >> +(   anychar_p -
                             (ch_p(T_NEWLINE) | ch_p(T_CPPCOMMENT) | ch_p(T_EOF)) 
@@ -546,10 +552,12 @@ struct cpp_grammar :
             ppqualifiedname
                 =   no_node_d[*ppsp]
                     >>  (   ch_p(T_IDENTIFIER) 
-                        |   pattern_p(KeywordTokenType, TokenTypeMask)
+                        |   pattern_p(KeywordTokenType, 
+                                TokenTypeMask|PPTokenFlag)
                         |   pattern_p(OperatorTokenType|AltExtTokenType, 
-                                ExtTokenTypeMask)   // and, bit_and etc.
-                        |   pattern_p(BoolLiteralTokenType, TokenTypeMask)  // true/false
+                                ExtTokenTypeMask|PPTokenFlag)   // and, bit_and etc.
+                        |   pattern_p(BoolLiteralTokenType, 
+                                TokenTypeMask|PPTokenFlag)  // true/false
                         ) 
                 ;
 

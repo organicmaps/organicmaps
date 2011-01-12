@@ -54,7 +54,7 @@ public:
         return *this;
     }
     // used for text output
-    operator const base_type () const {
+    operator base_type () const {
         return t;
     }                
     // used for text input
@@ -90,7 +90,7 @@ public:
         return *this;
     }
     // used for text output
-    operator const base_type () const {
+    operator base_type () const {
         return t;
     }                
     // used for text intput
@@ -127,7 +127,7 @@ public:
     }
 
     // used for text output
-    operator const int () const {
+    operator int () const {
         return t;
     }                
     // used for text input
@@ -161,7 +161,7 @@ public:
         return *this;
     }
     // used for text output
-    operator const uint_least32_t () const {
+    operator uint_least32_t () const {
         return t;
     }                
     // used for text input
@@ -281,5 +281,20 @@ BOOST_CLASS_IMPLEMENTATION(boost::archive::class_name_type, primitive_type)
 BOOST_CLASS_IMPLEMENTATION(boost::archive::object_id_type, primitive_type)
 BOOST_CLASS_IMPLEMENTATION(boost::archive::object_reference_type, primitive_type)
 BOOST_CLASS_IMPLEMENTATION(boost::archive::tracking_type, primitive_type)
+
+#include <boost/serialization/is_bitwise_serializable.hpp>
+
+// set types used internally by the serialization library 
+// to be bitwise serializable
+
+BOOST_IS_BITWISE_SERIALIZABLE(boost::archive::library_version_type)
+BOOST_IS_BITWISE_SERIALIZABLE(boost::archive::version_type)
+BOOST_IS_BITWISE_SERIALIZABLE(boost::archive::class_id_type)
+BOOST_IS_BITWISE_SERIALIZABLE(boost::archive::class_id_reference_type)
+BOOST_IS_BITWISE_SERIALIZABLE(boost::archive::class_id_optional_type)
+BOOST_IS_BITWISE_SERIALIZABLE(boost::archive::class_name_type)
+BOOST_IS_BITWISE_SERIALIZABLE(boost::archive::object_id_type)
+BOOST_IS_BITWISE_SERIALIZABLE(boost::archive::object_reference_type)
+BOOST_IS_BITWISE_SERIALIZABLE(boost::archive::tracking_type)
 
 #endif //BOOST_ARCHIVE_BASIC_ARCHIVE_HPP

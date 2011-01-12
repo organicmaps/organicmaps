@@ -11,6 +11,16 @@
 #ifndef BOOST_UNITS_MAKE_SYSTEM_HPP
 #define BOOST_UNITS_MAKE_SYSTEM_HPP
 
+/// \file
+/// \brief Metafunction returning a homogeneous system that can
+///    represent any combination of the base units.
+/// \details
+/// Metafunction make_system returning a homogeneous system that can
+/// represent any combination of the base units.  There must
+/// be no way to represent any of the base units in terms
+/// of the others.  make_system<foot_base_unit, meter_base_unit>::type
+/// is not allowed, for example.
+
 #include <boost/units/config.hpp>
 #include <boost/units/dimensionless_type.hpp>
 #include <boost/units/homogeneous_system.hpp>

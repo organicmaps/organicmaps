@@ -835,7 +835,7 @@ T gamma_incomplete_imp(T a, T x, bool normalised, bool invert,
 
    typedef typename lanczos::lanczos<T, Policy>::type lanczos_type;
 
-   T result;
+   T result = 0; // Just to avoid warning C4701: potentially uninitialized local variable 'result' used
 
    BOOST_ASSERT((p_derivative == 0) || (normalised == true));
 

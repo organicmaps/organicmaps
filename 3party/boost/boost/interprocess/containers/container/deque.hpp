@@ -1,29 +1,3 @@
-/*
- *
- * Copyright (c) 1994
- * Hewlett-Packard Company
- *
- * Permission to use, copy, modify, distribute and sell this software
- * and its documentation for any purpose is hereby granted without fee,
- * provided that the above copyright notice appear in all copies and
- * that both that copyright notice and this permission notice appear
- * in supporting documentation.  Hewlett-Packard Company makes no
- * representations about the suitability of this software for any
- * purpose.  It is provided "as is" without express or implied warranty.
- *
- *
- * Copyright (c) 1996
- * Silicon Graphics Computer Systems, Inc.
- *
- * Permission to use, copy, modify, distribute and sell this software
- * and its documentation for any purpose is hereby granted without fee,
- * provided that the above copyright notice appear in all copies and
- * that both that copyright notice and this permission notice appear
- * in supporting documentation.  Silicon Graphics makes no
- * representations about the suitability of this software for any
- * purpose.  It is provided "as is" without express or implied warranty.
- *
- */
 //////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Ion Gaztanaga 2005-2006. Distributed under the Boost
@@ -33,13 +7,6 @@
 // See http://www.boost.org/libs/container for documentation.
 //
 //////////////////////////////////////////////////////////////////////////////
-//
-// This file comes from SGI's stl_deque.h and stl_uninitialized.h files. 
-// Modified by Ion Gaztanaga 2005.
-// Renaming, isolating and porting to generic algorithms. Pointer typedef 
-// set to allocator::pointer to allow placing it in shared memory.
-//
-///////////////////////////////////////////////////////////////////////////////
 
 #ifndef BOOST_CONTAINERS_DEQUE_HPP
 #define BOOST_CONTAINERS_DEQUE_HPP
@@ -48,17 +15,17 @@
 #  pragma once
 #endif
 
-#include <boost/interprocess/containers/container/detail/config_begin.hpp>
-#include <boost/interprocess/containers/container/detail/workaround.hpp>
+#include "detail/config_begin.hpp"
+#include INCLUDE_BOOST_CONTAINER_DETAIL_WORKAROUND_HPP
 
-#include <boost/interprocess/containers/container/detail/utilities.hpp>
-#include <boost/interprocess/containers/container/detail/iterators.hpp>
-#include <boost/interprocess/containers/container/detail/algorithms.hpp>
-#include <boost/interprocess/containers/container/detail/mpl.hpp>
-#include <boost/interprocess/containers/container/container_fwd.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_UTILITIES_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_ITERATORS_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_ALGORITHMS_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_MPL_HPP
+#include INCLUDE_BOOST_CONTAINER_CONTAINER_FWD_HPP
 #include <cstddef>
 #include <iterator>
-#include <cassert>
+#include <boost/assert.hpp>
 #include <memory>
 #include <algorithm>
 #include <stdexcept>
@@ -68,8 +35,8 @@
 #include <boost/type_traits/has_trivial_assign.hpp>
 #include <boost/type_traits/has_nothrow_copy.hpp>
 #include <boost/type_traits/has_nothrow_assign.hpp>
-#include <boost/interprocess/detail/move.hpp>
-#include <boost/interprocess/containers/container/detail/advanced_insert_int.hpp>
+#include INCLUDE_BOOST_CONTAINER_MOVE_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_ADVANCED_INSERT_INT_HPP
 
 #ifdef BOOST_CONTAINER_DOXYGEN_INVOKED
 namespace boost {
@@ -532,13 +499,13 @@ class deque : protected deque_base<T, Alloc>
 
    /// @cond
    private:                      // Internal typedefs
-   BOOST_COPYABLE_AND_MOVABLE(deque)
+   BOOST_MOVE_MACRO_COPYABLE_AND_MOVABLE(deque)
    typedef ptr_alloc_ptr index_pointer;
    static std::size_t s_buffer_size() 
       { return Base::s_buffer_size(); }
    typedef containers_detail::advanced_insert_aux_int<value_type, iterator> advanced_insert_aux_int_t;
    typedef repeat_iterator<T, difference_type>  r_iterator;
-   typedef boost::interprocess::move_iterator<r_iterator>    move_it;
+   typedef BOOST_CONTAINER_MOVE_NAMESPACE::move_iterator<r_iterator>    move_it;
 
    /// @endcond
 
@@ -628,7 +595,7 @@ class deque : protected deque_base<T, Alloc>
       }
    }
 
-   deque(BOOST_INTERPROCESS_RV_REF(deque) mx) 
+   deque(BOOST_MOVE_MACRO_RV_REF(deque) mx) 
       :  Base(mx.alloc())
    {  this->swap(mx);   }
 
@@ -655,7 +622,7 @@ class deque : protected deque_base<T, Alloc>
       priv_destroy_range(this->members_.m_start, this->members_.m_finish);
    }
 
-   deque& operator= (BOOST_INTERPROCESS_COPY_ASSIGN_REF(deque) x) 
+   deque& operator= (BOOST_MOVE_MACRO_COPY_ASSIGN_REF(deque) x) 
    {
       const size_type len = size();
       if (&x != this) {
@@ -670,7 +637,7 @@ class deque : protected deque_base<T, Alloc>
       return *this;
    }        
 
-   deque& operator= (BOOST_INTERPROCESS_RV_REF(deque) x)
+   deque& operator= (BOOST_MOVE_MACRO_RV_REF(deque) x)
    {
       this->clear();
       this->swap(x);
@@ -697,21 +664,21 @@ class deque : protected deque_base<T, Alloc>
       this->priv_assign_dispatch(first, last, Result());
    }
 
-   #if !defined(BOOST_HAS_RVALUE_REFS) && !defined(BOOST_MOVE_DOXYGEN_INVOKED)
+   #if defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_MOVE_DOXYGEN_INVOKED)
    void push_back(T &x) { push_back(const_cast<const T &>(x)); }
 
    template<class U>
-   void push_back(const U &u, typename containers_detail::enable_if_c<containers_detail::is_same<T, U>::value && !::boost::interprocess::is_movable<U>::value >::type* =0)
+   void push_back(const U &u, typename containers_detail::enable_if_c<containers_detail::is_same<T, U>::value && !::BOOST_CONTAINER_MOVE_NAMESPACE::is_movable<U>::value >::type* =0)
    { return priv_push_back(u); }
    #endif
 
    void push_back(insert_const_ref_type t)
    {  return priv_push_back(t);  }
 
-   void push_back(BOOST_INTERPROCESS_RV_REF(value_type) t) 
+   void push_back(BOOST_MOVE_MACRO_RV_REF(value_type) t) 
    {
       if(this->priv_push_back_simple_available()){
-         new(this->priv_push_back_simple_pos())value_type(boost::interprocess::move(t));
+         new(this->priv_push_back_simple_pos())value_type(BOOST_CONTAINER_MOVE_NAMESPACE::move(t));
          this->priv_push_back_simple_commit();
       }
       else{
@@ -719,21 +686,21 @@ class deque : protected deque_base<T, Alloc>
       }
    }
 
-   #if !defined(BOOST_HAS_RVALUE_REFS) && !defined(BOOST_MOVE_DOXYGEN_INVOKED)
+   #if defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_MOVE_DOXYGEN_INVOKED)
    void push_front(T &x) { push_front(const_cast<const T &>(x)); }
 
    template<class U>
-   void push_front(const U &u, typename containers_detail::enable_if_c<containers_detail::is_same<T, U>::value && !::boost::interprocess::is_movable<U>::value >::type* =0)
+   void push_front(const U &u, typename containers_detail::enable_if_c<containers_detail::is_same<T, U>::value && !::BOOST_CONTAINER_MOVE_NAMESPACE::is_movable<U>::value >::type* =0)
    { return priv_push_front(u); }
    #endif
 
    void push_front(insert_const_ref_type t)
    { return priv_push_front(t); }
 
-   void push_front(BOOST_INTERPROCESS_RV_REF(value_type) t)
+   void push_front(BOOST_MOVE_MACRO_RV_REF(value_type) t)
    {
       if(this->priv_push_front_simple_available()){
-         new(this->priv_push_front_simple_pos())value_type(boost::interprocess::move(t));
+         new(this->priv_push_front_simple_pos())value_type(BOOST_CONTAINER_MOVE_NAMESPACE::move(t));
          this->priv_push_front_simple_commit();
       }
       else{
@@ -761,26 +728,26 @@ class deque : protected deque_base<T, Alloc>
          this->priv_pop_front_aux();
    }
 
-   #if !defined(BOOST_HAS_RVALUE_REFS) && !defined(BOOST_MOVE_DOXYGEN_INVOKED)
+   #if defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_MOVE_DOXYGEN_INVOKED)
    iterator insert(const_iterator position, T &x)
    { return this->insert(position, const_cast<const T &>(x)); }
 
    template<class U>
-   iterator insert(const_iterator position, const U &u, typename containers_detail::enable_if_c<containers_detail::is_same<T, U>::value && !::boost::interprocess::is_movable<U>::value >::type* =0)
+   iterator insert(const_iterator position, const U &u, typename containers_detail::enable_if_c<containers_detail::is_same<T, U>::value && !::BOOST_CONTAINER_MOVE_NAMESPACE::is_movable<U>::value >::type* =0)
    {  return this->priv_insert(position, u); }
    #endif
 
    iterator insert(const_iterator position, insert_const_ref_type x) 
    {  return this->priv_insert(position, x); }
 
-   iterator insert(const_iterator position, BOOST_INTERPROCESS_RV_REF(value_type) mx) 
+   iterator insert(const_iterator position, BOOST_MOVE_MACRO_RV_REF(value_type) mx) 
    {
       if (position == cbegin()) {
-         this->push_front(boost::interprocess::move(mx));
+         this->push_front(BOOST_CONTAINER_MOVE_NAMESPACE::move(mx));
          return begin();
       }
       else if (position == cend()) {
-         this->push_back(boost::interprocess::move(mx));
+         this->push_back(BOOST_CONTAINER_MOVE_NAMESPACE::move(mx));
          return(end()-1);
       }
       else {
@@ -810,12 +777,12 @@ class deque : protected deque_base<T, Alloc>
    void emplace_back(Args&&... args)
    {
       if(this->priv_push_back_simple_available()){
-         new(this->priv_push_back_simple_pos())value_type(boost::interprocess::forward<Args>(args)...);
+         new(this->priv_push_back_simple_pos())value_type(BOOST_CONTAINER_MOVE_NAMESPACE::forward<Args>(args)...);
          this->priv_push_back_simple_commit();
       }
       else{
          typedef containers_detail::advanced_insert_aux_emplace<T, iterator, Args...> type;
-         type &&proxy = type(boost::interprocess::forward<Args>(args)...);
+         type &&proxy = type(BOOST_CONTAINER_MOVE_NAMESPACE::forward<Args>(args)...);
          this->priv_insert_aux_impl(this->cend(), 1, proxy);
       }
    }
@@ -824,12 +791,12 @@ class deque : protected deque_base<T, Alloc>
    void emplace_front(Args&&... args)
    {
       if(this->priv_push_front_simple_available()){
-         new(this->priv_push_front_simple_pos())value_type(boost::interprocess::forward<Args>(args)...);
+         new(this->priv_push_front_simple_pos())value_type(BOOST_CONTAINER_MOVE_NAMESPACE::forward<Args>(args)...);
          this->priv_push_front_simple_commit();
       }
       else{
          typedef containers_detail::advanced_insert_aux_emplace<T, iterator, Args...> type;
-         type &&proxy = type(boost::interprocess::forward<Args>(args)...);
+         type &&proxy = type(BOOST_CONTAINER_MOVE_NAMESPACE::forward<Args>(args)...);
          this->priv_insert_aux_impl(this->cbegin(), 1, proxy);
       }
    }
@@ -838,17 +805,17 @@ class deque : protected deque_base<T, Alloc>
    iterator emplace(const_iterator p, Args&&... args)
    {
       if(p == this->cbegin()){
-         this->emplace_front(boost::interprocess::forward<Args>(args)...);
+         this->emplace_front(BOOST_CONTAINER_MOVE_NAMESPACE::forward<Args>(args)...);
          return this->begin();
       }
       else if(p == this->cend()){
-         this->emplace_back(boost::interprocess::forward<Args>(args)...);
+         this->emplace_back(BOOST_CONTAINER_MOVE_NAMESPACE::forward<Args>(args)...);
          return (this->end()-1);
       }
       else{
          size_type n = p - this->cbegin();
          typedef containers_detail::advanced_insert_aux_emplace<T, iterator, Args...> type;
-         type &&proxy = type(boost::interprocess::forward<Args>(args)...);
+         type &&proxy = type(BOOST_CONTAINER_MOVE_NAMESPACE::forward<Args>(args)...);
          this->priv_insert_aux_impl(p, 1, proxy);
          return iterator(this->begin() + n);
       }
@@ -986,11 +953,11 @@ class deque : protected deque_base<T, Alloc>
       ++next;
       difference_type index = pos - this->members_.m_start;
       if (size_type(index) < (this->size() >> 1)) {
-         boost::interprocess::move_backward(begin(), iterator(pos), iterator(next));
+         BOOST_CONTAINER_MOVE_NAMESPACE::move_backward(begin(), iterator(pos), iterator(next));
          pop_front();
       }
       else {
-         boost::interprocess::move(iterator(next), end(), iterator(pos));
+         BOOST_CONTAINER_MOVE_NAMESPACE::move(iterator(next), end(), iterator(pos));
          pop_back();
       }
       return this->members_.m_start + index;
@@ -1006,7 +973,7 @@ class deque : protected deque_base<T, Alloc>
          difference_type n = last - first;
          difference_type elems_before = first - this->members_.m_start;
          if (elems_before < static_cast<difference_type>(this->size() - n) - elems_before) {
-            boost::interprocess::move_backward(begin(), iterator(first), iterator(last));
+            BOOST_CONTAINER_MOVE_NAMESPACE::move_backward(begin(), iterator(first), iterator(last));
             iterator new_start = this->members_.m_start + n;
             if(!Base::traits_t::trivial_dctr_after_move)
                this->priv_destroy_range(this->members_.m_start, new_start);
@@ -1014,7 +981,7 @@ class deque : protected deque_base<T, Alloc>
             this->members_.m_start = new_start;
          }
          else {
-            boost::interprocess::move(iterator(last), end(), iterator(first));
+            BOOST_CONTAINER_MOVE_NAMESPACE::move(iterator(last), end(), iterator(first));
             iterator new_finish = this->members_.m_finish - n;
             if(!Base::traits_t::trivial_dctr_after_move)
                this->priv_destroy_range(new_finish, this->members_.m_finish);
@@ -1120,7 +1087,7 @@ class deque : protected deque_base<T, Alloc>
    void priv_insert_aux(const_iterator pos, InpIt first, InpIt last, std::input_iterator_tag)
    {
       for(;first != last; ++first){
-         this->insert(pos, boost::interprocess::move(value_type(*first)));
+         this->insert(pos, BOOST_CONTAINER_MOVE_NAMESPACE::move(value_type(*first)));
       }
    }
 
@@ -1172,7 +1139,7 @@ class deque : protected deque_base<T, Alloc>
 
    template <class Integer>
    void priv_assign_dispatch(Integer n, Integer val, containers_detail::true_)
-      { this->priv_fill_assign((size_type) n, (T) val); }
+      { this->priv_fill_assign((size_type) n, (value_type)val); }
 
    template <class InpIt>
    void priv_assign_dispatch(InpIt first, InpIt last, containers_detail::false_) 
@@ -1209,7 +1176,7 @@ class deque : protected deque_base<T, Alloc>
 
    template <class Integer>
    void priv_insert_dispatch(const_iterator pos, Integer n, Integer x, containers_detail::true_) 
-   {  this->priv_fill_insert(pos, (size_type) n, (value_type) x); }
+   {  this->priv_fill_insert(pos, (size_type) n, (value_type)x); }
 
    template <class InpIt>
    void priv_insert_dispatch(const_iterator pos,InpIt first, InpIt last, containers_detail::false_) 
@@ -1248,9 +1215,9 @@ class deque : protected deque_base<T, Alloc>
          pos = this->members_.m_start + elemsbefore;
          if (elemsbefore >= difference_type(n)) {
             iterator start_n = this->members_.m_start + difference_type(n); 
-            ::boost::interprocess::uninitialized_move(this->members_.m_start, start_n, new_start);
+            ::BOOST_CONTAINER_MOVE_NAMESPACE::uninitialized_move(this->members_.m_start, start_n, new_start);
             this->members_.m_start = new_start;
-            boost::interprocess::move(start_n, pos, old_start);
+            BOOST_CONTAINER_MOVE_NAMESPACE::move(start_n, pos, old_start);
             interf.copy_all_to(pos - difference_type(n));
          }
          else {
@@ -1258,7 +1225,7 @@ class deque : protected deque_base<T, Alloc>
             iterator mid_start = old_start - mid_count;
             interf.uninitialized_copy_some_and_update(mid_start, mid_count, true);
             this->members_.m_start = mid_start;
-            ::boost::interprocess::uninitialized_move(old_start, pos, new_start);
+            ::BOOST_CONTAINER_MOVE_NAMESPACE::uninitialized_move(old_start, pos, new_start);
             this->members_.m_start = new_start;
             interf.copy_all_to(old_start);
          }
@@ -1271,15 +1238,15 @@ class deque : protected deque_base<T, Alloc>
          pos = this->members_.m_finish - elemsafter;
          if (elemsafter >= difference_type(n)) {
             iterator finish_n = this->members_.m_finish - difference_type(n);
-            ::boost::interprocess::uninitialized_move(finish_n, this->members_.m_finish, this->members_.m_finish);
+            ::BOOST_CONTAINER_MOVE_NAMESPACE::uninitialized_move(finish_n, this->members_.m_finish, this->members_.m_finish);
             this->members_.m_finish = new_finish;
-            boost::interprocess::move_backward(pos, finish_n, old_finish);
+            BOOST_CONTAINER_MOVE_NAMESPACE::move_backward(pos, finish_n, old_finish);
             interf.copy_all_to(pos);
          }
          else {
             interf.uninitialized_copy_some_and_update(old_finish, elemsafter, false);
             this->members_.m_finish += n-elemsafter;
-            ::boost::interprocess::uninitialized_move(pos, old_finish, this->members_.m_finish);
+            ::BOOST_CONTAINER_MOVE_NAMESPACE::uninitialized_move(pos, old_finish, this->members_.m_finish);
             this->members_.m_finish = new_finish;
             interf.copy_all_to(pos);
          }
@@ -1339,10 +1306,10 @@ class deque : protected deque_base<T, Alloc>
                ++cur_node) {
             FwdIt mid = first;
             std::advance(mid, this->s_buffer_size());
-            ::boost::interprocess::uninitialized_copy_or_move(first, mid, *cur_node);
+            ::BOOST_CONTAINER_MOVE_NAMESPACE::uninitialized_copy_or_move(first, mid, *cur_node);
             first = mid;
          }
-         ::boost::interprocess::uninitialized_copy_or_move(first, last, this->members_.m_finish.m_first);
+         ::BOOST_CONTAINER_MOVE_NAMESPACE::uninitialized_copy_or_move(first, last, this->members_.m_finish.m_first);
       }
       BOOST_CATCH(...){
          this->priv_destroy_range(this->members_.m_start, iterator(*cur_node, cur_node));
@@ -1433,9 +1400,9 @@ class deque : protected deque_base<T, Alloc>
          new_nstart = this->members_.m_map + (this->members_.m_map_size - new_num_nodes) / 2 
                            + (add_at_front ? nodes_to_add : 0);
          if (new_nstart < this->members_.m_start.m_node)
-            boost::interprocess::move(this->members_.m_start.m_node, this->members_.m_finish.m_node + 1, new_nstart);
+            BOOST_CONTAINER_MOVE_NAMESPACE::move(this->members_.m_start.m_node, this->members_.m_finish.m_node + 1, new_nstart);
          else
-            boost::interprocess::move_backward
+            BOOST_CONTAINER_MOVE_NAMESPACE::move_backward
                (this->members_.m_start.m_node, this->members_.m_finish.m_node + 1, new_nstart + old_num_nodes);
       }
       else {
@@ -1445,7 +1412,7 @@ class deque : protected deque_base<T, Alloc>
          index_pointer new_map = this->priv_allocate_map(new_map_size);
          new_nstart = new_map + (new_map_size - new_num_nodes) / 2
                               + (add_at_front ? nodes_to_add : 0);
-         boost::interprocess::move(this->members_.m_start.m_node, this->members_.m_finish.m_node + 1, new_nstart);
+         BOOST_CONTAINER_MOVE_NAMESPACE::move(this->members_.m_start.m_node, this->members_.m_finish.m_node + 1, new_nstart);
          this->priv_deallocate_map(this->members_.m_map, this->members_.m_map_size);
 
          this->members_.m_map = new_map;
@@ -1516,6 +1483,6 @@ struct has_trivial_destructor_after_move<boost::container::deque<T, A> >
 
 /// @endcond
 
-#include <boost/interprocess/containers/container/detail/config_end.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_CONFIG_END_HPP
 
 #endif //   #ifndef  BOOST_CONTAINERS_DEQUE_HPP

@@ -164,7 +164,7 @@ namespace boost
     inline const std::pair<RealType, RealType> range(const pareto_distribution<RealType, Policy>& /*dist*/)
     { // Range of permissible values for random variable x.
       using boost::math::tools::max_value;
-      return std::pair<RealType, RealType>(0, max_value<RealType>()); // scale zero to + infinity.
+      return std::pair<RealType, RealType>(static_cast<RealType>(0), max_value<RealType>()); // scale zero to + infinity.
     } // range
 
     template <class RealType, class Policy>

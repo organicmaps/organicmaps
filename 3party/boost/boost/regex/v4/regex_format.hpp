@@ -153,6 +153,11 @@ private:
       typedef typename boost::is_convertible<ForwardIter, const char_type*>::type tag_type;
       return get_named_sub_index(i, j, tag_type());
    }
+#ifdef BOOST_MSVC
+   // msvc-8.0 issues a spurious warning on the call to std::advance here:
+#pragma warning(push)
+#pragma warning(disable:4244)
+#endif
    inline int toi(ForwardIter& i, ForwardIter j, int base, const boost::mpl::false_&)
    {
       if(i != j)
@@ -166,6 +171,9 @@ private:
       }
       return -1;
    }
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
    inline int toi(ForwardIter& i, ForwardIter j, int base, const boost::mpl::true_&)
    {
       return m_traits.toi(i, j, base);

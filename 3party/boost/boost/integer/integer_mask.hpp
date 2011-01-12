@@ -20,6 +20,17 @@
 
 #include <boost/limits.hpp>  // for std::numeric_limits
 
+//
+// We simply cannot include this header on gcc without getting copious warnings of the kind:
+//
+// boost/integer/integer_mask.hpp:93:35: warning: use of C99 long long integer constant
+//
+// And yet there is no other reasonable implementation, so we declare this a system header
+// to suppress these warnings.
+//
+#if defined(__GNUC__) && (__GNUC__ >= 4)
+#pragma GCC system_header
+#endif
 
 namespace boost
 {
@@ -87,6 +98,19 @@ BOOST_LOW_BITS_MASK_SPECIALIZE( unsigned int );
 
 #if ULONG_MAX > UINT_MAX
 BOOST_LOW_BITS_MASK_SPECIALIZE( unsigned long );
+#endif
+
+#if defined(BOOST_HAS_LONG_LONG)
+    #if ((defined(ULLONG_MAX) && (ULLONG_MAX > ULONG_MAX)) ||\
+        (defined(ULONG_LONG_MAX) && (ULONG_LONG_MAX > ULONG_MAX)) ||\
+        (defined(ULONGLONG_MAX) && (ULONGLONG_MAX > ULONG_MAX)) ||\
+        (defined(_ULLONG_MAX) && (_ULLONG_MAX > ULONG_MAX)))
+    BOOST_LOW_BITS_MASK_SPECIALIZE( boost::ulong_long_type );
+    #endif
+#elif defined(BOOST_HAS_MS_INT64)
+    #if 18446744073709551615ui64 > ULONG_MAX
+    BOOST_LOW_BITS_MASK_SPECIALIZE( unsigned __int64 );
+    #endif
 #endif
 
 #ifdef BOOST_MSVC

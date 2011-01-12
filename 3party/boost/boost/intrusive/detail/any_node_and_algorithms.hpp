@@ -19,6 +19,7 @@
 #include <boost/intrusive/detail/pointer_to_other.hpp>
 #include <cstddef>
 #include <boost/intrusive/detail/mpl.hpp> 
+#include <boost/pointer_cast.hpp>
 
 namespace boost {
 namespace intrusive {
@@ -87,7 +88,10 @@ struct any_unordered_node_traits
    static const bool optimize_multikey = true;
 
    static node_ptr get_next(const_node_ptr n)
-   {  return node_ptr(&static_cast<node &>(*n->node_ptr_1));  }
+   {
+      using ::boost::static_pointer_cast;
+      return static_pointer_cast<node>(n->node_ptr_1);
+   }
 
    static void set_next(node_ptr n, node_ptr next)
    {  n->node_ptr_1 = next;  }

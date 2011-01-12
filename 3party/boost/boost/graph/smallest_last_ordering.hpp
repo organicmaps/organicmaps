@@ -29,6 +29,7 @@
 #include <algorithm>
 #include <boost/config.hpp>
 #include <boost/graph/graph_traits.hpp>
+#include <boost/graph/properties.hpp>
 #include <boost/pending/bucket_sorter.hpp>
 
 namespace boost {
@@ -44,7 +45,7 @@ namespace boost {
     
     const size_type num = num_vertices(G);
     
-    typedef typename boost::detail::vertex_property_map<VertexListGraph, vertex_index_t>::type ID;
+    typedef typename boost::property_map<VertexListGraph, vertex_index_t>::type ID;
     typedef bucket_sorter<size_type, Vertex, Degree, ID> BucketSorter;
     
     BucketSorter degree_bucket_sorter(num, num, degree,  
@@ -116,6 +117,23 @@ namespace boost {
     //at this point, order[i] = v_i;
   }
   
+  template <class VertexListGraph, class Order>
+  void 
+  smallest_last_vertex_ordering(const VertexListGraph& G, Order order) {
+    typedef typename graph_traits<VertexListGraph>::vertex_descriptor vertex_descriptor;
+    typedef typename graph_traits<VertexListGraph>::degree_size_type degree_size_type;
+    smallest_last_vertex_ordering(G, order,
+                                  make_shared_array_property_map(num_vertices(G), degree_size_type(0), get(vertex_index, G)),
+                                  make_shared_array_property_map(num_vertices(G), (std::size_t)(0), get(vertex_index, G)));
+  }
+
+  template <class VertexListGraph>
+  std::vector<typename graph_traits<VertexListGraph>::vertex_descriptor>
+  smallest_last_vertex_ordering(const VertexListGraph& G) {
+    std::vector<typename graph_traits<VertexListGraph>::vertex_descriptor> o(num_vertices(G));
+    smallest_last_vertex_ordering(G, make_iterator_property_map(o.begin(), typed_identity_property_map<std::size_t>()));
+    return o;
+  }
 }
 
 #endif

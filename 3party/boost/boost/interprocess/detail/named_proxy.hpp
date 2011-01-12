@@ -92,7 +92,7 @@ struct CtorNArg : public placement_destroy<T>
    void do_increment(detail::false_, const index_tuple<IdxPack...>&)
    {}
 
-   tuple<Args&&...> args_;
+   tuple<Args&...> args_;
 };                                                                      
 
 //!Describes a proxy class that implements named
@@ -120,7 +120,8 @@ class named_proxy
    template<class ...Args>
    T *operator()(Args &&...args) const
    {  
-      CtorNArg<T, is_iterator, Args...> &&ctor_obj = CtorNArg<T, is_iterator, Args...>(boost::interprocess::forward<Args>(args)...);
+      CtorNArg<T, is_iterator, Args...> &&ctor_obj = CtorNArg<T, is_iterator, Args...>
+         (boost::interprocess::forward<Args>(args)...);
       return mp_mngr->template 
          generic_construct<T>(mp_name, m_num, m_find, m_dothrow, ctor_obj);
    }

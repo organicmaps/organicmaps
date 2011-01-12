@@ -19,7 +19,7 @@
 #  pragma once
 #endif
 
-#include <boost/interprocess/containers/container/detail/config_begin.hpp>
+#include "config_begin.hpp"
 
 namespace boost {
 namespace container { 
@@ -162,5 +162,5 @@ struct is_same
 
 #endif   //#ifndef BOOST_CONTAINERS_CONTAINER_DETAIL_TYPE_TRAITS_HPP
 
-#include <boost/interprocess/containers/container/detail/config_end.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_CONFIG_END_HPP
 

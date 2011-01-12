@@ -8,6 +8,12 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
+///
+/// \file
+/// \brief Absolute units (points rather than vectors).
+/// \details Operations between absolute units, and relative units like temperature differences.
+///
+
 #ifndef BOOST_UNITS_ABSOLUTE_HPP
 #define BOOST_UNITS_ABSOLUTE_HPP
 
@@ -23,7 +29,7 @@ namespace units {
 /// originally for temperatures, this class implements operators for absolute units 
 /// so that addition of a relative unit to an absolute unit results in another
 /// absolute unit : absolute<T> +/- T -> absolute<T> and subtraction of one absolute
-/// unit from another results in a relative unit : absolute<T> - absolute<T> -> T
+/// unit from another results in a relative unit : absolute<T> - absolute<T> -> T.
 template<class Y>
 class absolute
 {

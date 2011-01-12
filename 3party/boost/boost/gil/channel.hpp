@@ -208,6 +208,18 @@ namespace detail {
                     >::type
             >::type
           > {};
+
+    template <int NumBits>
+    struct num_value_fn : public mpl::if_c< ( NumBits < 32 )
+                                          , uint32_t
+                                          , uint64_t
+                                          > {};
+
+    template <int NumBits>
+    struct max_value_fn : public mpl::if_c< ( NumBits <= 32 )
+                                          , uint32_t
+                                          , uint64_t
+                                          > {};
 }
 
 /**
@@ -230,9 +242,13 @@ BOOST_STATIC_ASSERT((boost::is_integral<bits4>::value));
 /// \brief The value of a subbyte channel. Models: ChannelValueConcept
 template <int NumBits>
 class packed_channel_value {
-    static const std::size_t num_values = 1<<NumBits;
+
+    typedef  typename detail::num_value_fn< NumBits >::type num_value_t;
+    static const num_value_t num_values = static_cast< num_value_t >( 1 ) << NumBits ;
+   
 public:
     typedef typename detail::min_fast_uint<NumBits>::type integer_t;
+
 
     typedef packed_channel_value   value_type;
     typedef value_type&            reference;
@@ -245,9 +261,12 @@ public:
     BOOST_STATIC_CONSTANT(bool, is_mutable=true);
 
     packed_channel_value() {}
-    packed_channel_value(integer_t v) : _value(v % num_values) {}
+    packed_channel_value(integer_t v) { _value = static_cast< integer_t >( v % num_values ); }
     packed_channel_value(const packed_channel_value& v) : _value(v._value) {}
-    template <typename Scalar> packed_channel_value(Scalar v) : _value(integer_t(v) % num_values) {}     // suppress GCC implicit conversion warnings in channel regression file 
+    template <typename Scalar> packed_channel_value(Scalar v) { _value = static_cast< integer_t >( v ) % num_values; }
+
+    static unsigned int num_bits() { return NumBits; }
+
 
     operator integer_t() const { return _value; }
 private:
@@ -307,8 +326,13 @@ public:
     operator integer_t() const { return get(); }
     data_ptr_t operator &() const {return _data_ptr;}
 protected:
-    static const integer_t max_val    = (1<<NumBits) - 1;
 
+    typedef  typename detail::num_value_fn< NumBits >::type num_value_t;
+    typedef  typename detail::max_value_fn< NumBits >::type max_value_t;
+    
+    static const num_value_t num_values = static_cast< num_value_t >( 1 ) << NumBits ;
+    static const max_value_t max_val    = static_cast< max_value_t >( num_values - 1 );
+    
 #ifdef GIL_NONWORD_POINTER_ALIGNMENT_SUPPORTED
     const bitfield_t& get_data()                      const { return *static_cast<const bitfield_t*>(_data_ptr); }
     void              set_data(const bitfield_t& val) const {        *static_cast<      bitfield_t*>(_data_ptr) = val; }
@@ -368,6 +392,7 @@ class packed_channel_reference<BitField,FirstBit,NumBits,false>
     friend class packed_channel_reference<BitField,FirstBit,NumBits,true>;
 
     static const BitField channel_mask = static_cast< BitField >( parent_t::max_val ) << FirstBit;
+
     void operator=(const packed_channel_reference&);
 public:
     typedef const packed_channel_reference<BitField,FirstBit,NumBits,false> const_reference;
@@ -392,6 +417,7 @@ class packed_channel_reference<BitField,FirstBit,NumBits,true>
     friend class packed_channel_reference<BitField,FirstBit,NumBits,false>;
 
     static const BitField channel_mask = static_cast< BitField >( parent_t::max_val ) << FirstBit;
+
 public:
     typedef const packed_channel_reference<BitField,FirstBit,NumBits,false> const_reference;
     typedef const packed_channel_reference<BitField,FirstBit,NumBits,true>  mutable_reference;
@@ -409,8 +435,8 @@ public:
 
     unsigned first_bit() const { return FirstBit; }
 
-    integer_t get()                               const { return integer_t((this->get_data()&channel_mask) >> FirstBit); }
-    void set_unsafe(integer_t value)              const { this->set_data((this->get_data() & ~channel_mask) | (( static_cast< BitField >( value )<<FirstBit))); }
+    integer_t get()                  const { return integer_t((this->get_data()&channel_mask) >> FirstBit); }
+    void set_unsafe(integer_t value) const { this->set_data((this->get_data() & ~channel_mask) | (( static_cast< BitField >( value )<<FirstBit))); }
 private:
     void set_from_reference(const BitField& other_bits) const { this->set_data((this->get_data() & ~channel_mask) | (other_bits & channel_mask)); }
 };
@@ -491,8 +517,8 @@ public:
     unsigned first_bit() const { return _first_bit; }
 
     integer_t get() const { 
-        const BitField channel_mask = parent_t::max_val<<_first_bit;
-        return ( static_cast< integer_t >( this->get_data()&channel_mask ) >> _first_bit );
+        const BitField channel_mask = static_cast< integer_t >( parent_t::max_val ) <<_first_bit;
+        return static_cast< integer_t >(( this->get_data()&channel_mask ) >> _first_bit );
     }
 };
 
@@ -526,11 +552,12 @@ public:
     unsigned first_bit() const { return _first_bit; }
 
     integer_t get() const { 
-        const BitField channel_mask = parent_t::max_val<<_first_bit;
-        return ( static_cast< integer_t >( this->get_data()&channel_mask ) >> _first_bit );
+        const BitField channel_mask = static_cast< integer_t >( parent_t::max_val ) << _first_bit;
+        return static_cast< integer_t >(( this->get_data()&channel_mask ) >> _first_bit );
     }
+
     void set_unsafe(integer_t value) const { 
-        const BitField channel_mask = parent_t::max_val<<_first_bit;
+        const BitField channel_mask = static_cast< integer_t >( parent_t::max_val ) << _first_bit;
         this->set_data((this->get_data() & ~channel_mask) | value<<_first_bit); 
     }
 };

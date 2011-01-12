@@ -22,18 +22,18 @@
 #  pragma once
 #endif
 
-#include <boost/interprocess/containers/container/detail/config_begin.hpp>
-#include <boost/interprocess/containers/container/detail/workaround.hpp>
-#include <boost/interprocess/containers/container/container_fwd.hpp>
+#include "detail/config_begin.hpp"
+#include INCLUDE_BOOST_CONTAINER_DETAIL_WORKAROUND_HPP
+#include INCLUDE_BOOST_CONTAINER_CONTAINER_FWD_HPP
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/type_traits/is_integral.hpp>
-#include <boost/interprocess/containers/container/detail/version_type.hpp>
-#include <boost/interprocess/containers/container/detail/multiallocation_chain.hpp>
-#include <boost/interprocess/containers/container/detail/utilities.hpp>
-#include <boost/interprocess/containers/container/detail/iterators.hpp>
-#include <boost/interprocess/containers/container/detail/algorithms.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_VERSION_TYPE_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_MULTIALLOCATION_CHAIN_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_UTILITIES_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_ITERATORS_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_ALGORITHMS_HPP
 #include <boost/pointer_to_other.hpp>
 #include <boost/get_pointer.hpp>
 
@@ -46,7 +46,7 @@
 #define STABLE_VECTOR_USE_CONTAINERS_VECTOR
 
 #if defined (STABLE_VECTOR_USE_CONTAINERS_VECTOR)
-#include <boost/interprocess/containers/container/vector.hpp>
+#include INCLUDE_BOOST_CONTAINER_VECTOR_HPP
 #else
 #include <vector>
 #endif   //STABLE_VECTOR_USE_CONTAINERS_VECTOR
@@ -140,7 +140,7 @@ struct node_type
 
    template<class ...Args>
    node_type(Args &&...args)
-      : value(boost::interprocess::forward<Args>(args)...)
+      : value(BOOST_CONTAINER_MOVE_NAMESPACE::forward<Args>(args)...)
    {}
 
    #else //BOOST_CONTAINERS_PERFECT_FORWARDING
@@ -454,7 +454,7 @@ class stable_vector
 
    ///@cond
    private:
-   BOOST_COPYABLE_AND_MOVABLE(stable_vector)
+   BOOST_MOVE_MACRO_COPYABLE_AND_MOVABLE(stable_vector)
    static const size_type ExtraPointers = 3;
    typedef typename stable_vector_detail::
       select_multiallocation_chain
@@ -508,7 +508,7 @@ class stable_vector
       cod.release();
    }
 
-   stable_vector(BOOST_INTERPROCESS_RV_REF(stable_vector) x) 
+   stable_vector(BOOST_MOVE_MACRO_RV_REF(stable_vector) x) 
       : internal_data(x.get_al()),impl(x.get_al())
    {  this->swap(x);   }
 
@@ -518,7 +518,7 @@ class stable_vector
       clear_pool();  
    }
 
-   stable_vector& operator=(BOOST_INTERPROCESS_COPY_ASSIGN_REF(stable_vector) x)
+   stable_vector& operator=(BOOST_MOVE_MACRO_COPY_ASSIGN_REF(stable_vector) x)
    {
       STABLE_VECTOR_CHECK_INVARIANT;
       if (this != &x) {
@@ -527,7 +527,7 @@ class stable_vector
       return *this;
    }
 
-   stable_vector& operator=(BOOST_INTERPROCESS_RV_REF(stable_vector) x)
+   stable_vector& operator=(BOOST_MOVE_MACRO_RV_REF(stable_vector) x)
    {
       if (&x != this){
          this->swap(x);
@@ -672,16 +672,16 @@ class stable_vector
    void push_back(insert_const_ref_type x) 
    {  return priv_push_back(x);  }
 
-   #if !defined(BOOST_HAS_RVALUE_REFS) && !defined(BOOST_MOVE_DOXYGEN_INVOKED)
+   #if defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_MOVE_DOXYGEN_INVOKED)
    void push_back(T &x) { push_back(const_cast<const T &>(x)); }
 
    template<class U>
-   void push_back(const U &u, typename containers_detail::enable_if_c<containers_detail::is_same<T, U>::value && !::boost::interprocess::is_movable<U>::value >::type* =0)
+   void push_back(const U &u, typename containers_detail::enable_if_c<containers_detail::is_same<T, U>::value && !::BOOST_CONTAINER_MOVE_NAMESPACE::is_movable<U>::value >::type* =0)
    { return priv_push_back(u); }
    #endif
 
-   void push_back(BOOST_INTERPROCESS_RV_REF(T) t) 
-   {  this->insert(end(), boost::interprocess::move(t));  }
+   void push_back(BOOST_MOVE_MACRO_RV_REF(T) t) 
+   {  this->insert(end(), BOOST_CONTAINER_MOVE_NAMESPACE::move(t));  }
 
    void pop_back()
    {  this->erase(this->end()-1);   }
@@ -689,18 +689,18 @@ class stable_vector
    iterator insert(const_iterator position, insert_const_ref_type x) 
    {  return this->priv_insert(position, x); }
 
-   #if !defined(BOOST_HAS_RVALUE_REFS) && !defined(BOOST_MOVE_DOXYGEN_INVOKED)
+   #if defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_MOVE_DOXYGEN_INVOKED)
    iterator insert(const_iterator position, T &x) { return this->insert(position, const_cast<const T &>(x)); }
 
    template<class U>
-   iterator insert(const_iterator position, const U &u, typename containers_detail::enable_if_c<containers_detail::is_same<T, U>::value && !::boost::interprocess::is_movable<U>::value >::type* =0)
+   iterator insert(const_iterator position, const U &u, typename containers_detail::enable_if_c<containers_detail::is_same<T, U>::value && !::BOOST_CONTAINER_MOVE_NAMESPACE::is_movable<U>::value >::type* =0)
    {  return this->priv_insert(position, u); }
    #endif
 
-   iterator insert(const_iterator position, BOOST_INTERPROCESS_RV_REF(T) x) 
+   iterator insert(const_iterator position, BOOST_MOVE_MACRO_RV_REF(T) x) 
    {
       typedef repeat_iterator<T, difference_type>           repeat_it;
-      typedef boost::interprocess::move_iterator<repeat_it> repeat_move_it;
+      typedef BOOST_CONTAINER_MOVE_NAMESPACE::move_iterator<repeat_it> repeat_move_it;
       //Just call more general insert(pos, size, value) and return iterator
       size_type pos_n = position - cbegin();
       this->insert(position
@@ -736,7 +736,7 @@ class stable_vector
    {
       typedef emplace_functor<node_type_t, Args...>         EmplaceFunctor;
       typedef emplace_iterator<node_type_t, EmplaceFunctor> EmplaceIterator;
-      EmplaceFunctor &&ef = EmplaceFunctor(boost::interprocess::forward<Args>(args)...);
+      EmplaceFunctor &&ef = EmplaceFunctor(BOOST_CONTAINER_MOVE_NAMESPACE::forward<Args>(args)...);
       this->insert(this->cend(), EmplaceIterator(ef), EmplaceIterator());
    }
 
@@ -756,7 +756,7 @@ class stable_vector
       size_type pos_n = position - cbegin();
       typedef emplace_functor<node_type_t, Args...>         EmplaceFunctor;
       typedef emplace_iterator<node_type_t, EmplaceFunctor> EmplaceIterator;
-      EmplaceFunctor &&ef = EmplaceFunctor(boost::interprocess::forward<Args>(args)...);
+      EmplaceFunctor &&ef = EmplaceFunctor(BOOST_CONTAINER_MOVE_NAMESPACE::forward<Args>(args)...);
       this->insert(position, EmplaceIterator(ef), EmplaceIterator());
       return iterator(this->begin() + pos_n);
    }
@@ -870,7 +870,7 @@ class stable_vector
          void_ptr &p2 = impl.back();
          multiallocation_chain holder;
          holder.incorporate_after(holder.before_begin(), p1, p2, internal_data.pool_size);
-         get_al().deallocate_individual(boost::interprocess::move(holder));
+         get_al().deallocate_individual(BOOST_CONTAINER_MOVE_NAMESPACE::move(holder));
          p1 = p2 = 0;
          this->internal_data.pool_size = 0;
       }
@@ -900,7 +900,7 @@ class stable_vector
       void_ptr &p2 = impl.back();
       multiallocation_chain holder;
       holder.incorporate_after(holder.before_begin(), p1, p2, internal_data.pool_size);
-      BOOST_STATIC_ASSERT((::boost::interprocess::is_movable<multiallocation_chain>::value == true));
+      BOOST_STATIC_ASSERT((::BOOST_CONTAINER_MOVE_NAMESPACE::is_movable<multiallocation_chain>::value == true));
       multiallocation_chain m (get_al().allocate_individual(n));
       holder.splice_after(holder.before_begin(), m, m.before_begin(), m.last(), n);
       this->internal_data.pool_size += n;
@@ -1169,7 +1169,7 @@ class stable_vector
       }
       catch(...){
          get_al().deallocate_one(p);
-         get_al().deallocate_many(boost::interprocess::move(mem));
+         get_al().deallocate_many(BOOST_CONTAINER_MOVE_NAMESPACE::move(mem));
          impl.erase(it+i, it+n);
          this->align_nodes(it+i,get_last_align());
          throw;
@@ -1324,6 +1324,6 @@ void swap(stable_vector<T,Allocator>& x,stable_vector<T,Allocator>& y)
 
 }}
 
-#include <boost/interprocess/containers/container/detail/config_end.hpp>
+#include INCLUDE_BOOST_CONTAINER_DETAIL_CONFIG_END_HPP
 
 #endif   //BOOST_CONTAINER_STABLE_VECTOR_HPP

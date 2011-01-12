@@ -22,6 +22,7 @@
 #include <boost/interprocess/creation_tags.hpp>
 #include <boost/interprocess/detail/mpl.hpp>
 #include <boost/interprocess/detail/move.hpp>
+#include <boost/interprocess/permissions.hpp>
 #include <boost/cstdint.hpp>
 
 namespace boost {
@@ -60,8 +61,9 @@ class managed_open_or_create_impl
    managed_open_or_create_impl(create_only_t, 
                  const char *name,
                  std::size_t size,
-                 mode_t mode = read_write,
-                 const void *addr = 0)
+                 mode_t mode,
+                 const void *addr,
+                 const permissions &perm)
    {
       m_name = name;
       priv_open_or_create
@@ -69,13 +71,14 @@ class managed_open_or_create_impl
          , size
          , mode
          , addr
+         , perm
          , null_mapped_region_function());
    }
 
    managed_open_or_create_impl(open_only_t, 
                  const char *name,
-                 mode_t mode = read_write,
-                 const void *addr = 0)
+                 mode_t mode,
+                 const void *addr)
    {
       m_name = name;
       priv_open_or_create
@@ -83,6 +86,7 @@ class managed_open_or_create_impl
          , 0
          , mode
          , addr
+         , permissions()
          , null_mapped_region_function());
    }
 
@@ -90,8 +94,9 @@ class managed_open_or_create_impl
    managed_open_or_create_impl(open_or_create_t, 
                  const char *name,
                  std::size_t size,
-                 mode_t mode = read_write,
-                 const void *addr = 0)
+                 mode_t mode,
+                 const void *addr,
+                 const permissions &perm)
    {
       m_name = name;
       priv_open_or_create
@@ -99,6 +104,7 @@ class managed_open_or_create_impl
          , size
          , mode
          , addr
+         , perm
          , null_mapped_region_function());
    }
 
@@ -108,7 +114,8 @@ class managed_open_or_create_impl
                  std::size_t size,
                  mode_t mode,
                  const void *addr,
-                 const ConstructFunc &construct_func)
+                 const ConstructFunc &construct_func,
+                 const permissions &perm)
    {
       m_name = name;
       priv_open_or_create
@@ -116,6 +123,7 @@ class managed_open_or_create_impl
          , size
          , mode
          , addr
+         , perm
          , construct_func);
    }
 
@@ -132,6 +140,7 @@ class managed_open_or_create_impl
          , 0
          , mode
          , addr
+         , permissions()
          , construct_func);
    }
 
@@ -141,7 +150,8 @@ class managed_open_or_create_impl
                  std::size_t size,
                  mode_t mode,
                  const void *addr,
-                 const ConstructFunc &construct_func)
+                 const ConstructFunc &construct_func,
+                 const permissions &perm)
    {
       m_name = name;
       priv_open_or_create
@@ -149,6 +159,7 @@ class managed_open_or_create_impl
          , size
          , mode
          , addr
+         , perm
          , construct_func);
    }
 
@@ -206,16 +217,16 @@ class managed_open_or_create_impl
 
    //These are templatized to allow explicit instantiations
    template<bool dummy>
-   static void create_device(DeviceAbstraction &dev, const char *name, std::size_t size, detail::false_)
+   static void create_device(DeviceAbstraction &dev, const char *name, std::size_t size, const permissions &perm, detail::false_)
    {
-      DeviceAbstraction tmp(create_only, name, read_write, size);
+      DeviceAbstraction tmp(create_only, name, read_write, size, perm);
       tmp.swap(dev);
    }
 
    template<bool dummy>
-   static void create_device(DeviceAbstraction &dev, const char *name, std::size_t, detail::true_)
+   static void create_device(DeviceAbstraction &dev, const char *name, std::size_t, const permissions &perm, detail::true_)
    {
-      DeviceAbstraction tmp(create_only, name, read_write);
+      DeviceAbstraction tmp(create_only, name, read_write, perm);
       tmp.swap(dev);
    }
 
@@ -223,6 +234,7 @@ class managed_open_or_create_impl
    void priv_open_or_create
       (detail::create_enum_t type, std::size_t size,
        mode_t mode, const void *addr,
+       const permissions &perm,
        ConstructFunc construct_func)
    {
       typedef detail::bool_<FileBased> file_like_t;
@@ -255,7 +267,7 @@ class managed_open_or_create_impl
          cow     = true;
       }
       else if(type == detail::DoCreate){
-         create_device<FileBased>(dev, m_name.c_str(), size, file_like_t());
+         create_device<FileBased>(dev, m_name.c_str(), size, perm, file_like_t());
          created = true;
       }
       else if(type == detail::DoOpenOrCreate){
@@ -266,7 +278,7 @@ class managed_open_or_create_impl
          bool completed = false;
          while(!completed){
             try{
-               create_device<FileBased>(dev, m_name.c_str(), size, file_like_t());
+               create_device<FileBased>(dev, m_name.c_str(), size, perm, file_like_t());
                created     = true;
                completed   = true;
             }

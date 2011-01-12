@@ -33,56 +33,91 @@ namespace boost { namespace polygon{
     static inline bool sorted(const polygon_90_set_view<ltype, rtype, op_type>& polygon_set);
   };
 
-  template <typename value_type, typename ltype, typename rtype, typename op_type>
-  struct compute_90_set_value {
-    static
-    void value(value_type& output_, const ltype& lvalue_, const rtype& rvalue_, orientation_2d orient_) {
-      value_type linput_(orient_);
-      value_type rinput_(orient_);
-      insert_into_view_arg(linput_, lvalue_, orient_);
-      insert_into_view_arg(rinput_, rvalue_, orient_);
-      output_.applyBooleanBinaryOp(linput_.begin(), linput_.end(),
-                                   rinput_.begin(), rinput_.end(), boolean_op::BinaryCount<op_type>()); 
-    }
-  };
+    template <typename value_type, typename ltype, typename rtype, typename op_type>
+    struct compute_90_set_value {
+      static
+      void value(value_type& output_, const ltype& lvalue_, const rtype& rvalue_, orientation_2d orient_) {
+        value_type linput_(orient_);
+        value_type rinput_(orient_);
+        orientation_2d orient_l = polygon_90_set_traits<ltype>::orient(lvalue_);
+        orientation_2d orient_r = polygon_90_set_traits<rtype>::orient(rvalue_);
+        //std::cout << "compute_90_set_value-0 orientations (left, right, out):\t" << orient_l.to_int()
+        //        << "," << orient_r.to_int() << "," << orient_.to_int() << std::endl;
+        insert_into_view_arg(linput_, lvalue_, orient_l);
+        insert_into_view_arg(rinput_, rvalue_, orient_r);
+        output_.applyBooleanBinaryOp(linput_.begin(), linput_.end(),
+                                     rinput_.begin(), rinput_.end(), boolean_op::BinaryCount<op_type>()); 
+      }
+    };
 
-  template <typename value_type, typename lcoord, typename rcoord, typename op_type>
-  struct compute_90_set_value<value_type, polygon_90_set_data<lcoord>, polygon_90_set_data<rcoord>, op_type> {
-    static
-    void value(value_type& output_, const polygon_90_set_data<lcoord>& lvalue_,
-               const polygon_90_set_data<rcoord>& rvalue_, orientation_2d) {
-      lvalue_.sort();
-      rvalue_.sort();
-      output_.applyBooleanBinaryOp(lvalue_.begin(), lvalue_.end(),
-                                   rvalue_.begin(), rvalue_.end(), boolean_op::BinaryCount<op_type>()); 
-    }
-  };
+    template <typename value_type, typename lcoord, typename rcoord, typename op_type>
+    struct compute_90_set_value<value_type, polygon_90_set_data<lcoord>, polygon_90_set_data<rcoord>, op_type> {
+      static
+      void value(value_type& output_, const polygon_90_set_data<lcoord>& lvalue_,
+                 const polygon_90_set_data<rcoord>& rvalue_, orientation_2d orient_) {
+        orientation_2d orient_l = lvalue_.orient();
+        orientation_2d orient_r = rvalue_.orient();
+        value_type linput_(orient_);
+        value_type rinput_(orient_);
+        //std::cout << "compute_90_set_value-1 orientations (left, right, out):\t" << orient_l.to_int()
+        //          << "," << orient_r.to_int() << "," << orient_.to_int() << std::endl;
+        if((orient_ == orient_l) && (orient_== orient_r)){ // assume that most of the time this condition is met
+          lvalue_.sort();
+          rvalue_.sort();
+          output_.applyBooleanBinaryOp(lvalue_.begin(), lvalue_.end(),
+                                       rvalue_.begin(), rvalue_.end(), boolean_op::BinaryCount<op_type>()); 
+        }else if((orient_ != orient_l) && (orient_!= orient_r)){ // both the orientations are not equal to input
+          // easier way is to ignore the input orientation and use the input data's orientation, but not done so
+          insert_into_view_arg(linput_, lvalue_, orient_l);
+          insert_into_view_arg(rinput_, rvalue_, orient_r);
+          output_.applyBooleanBinaryOp(linput_.begin(), linput_.end(),
+                                       rinput_.begin(), rinput_.end(), boolean_op::BinaryCount<op_type>()); 
+        }else if(orient_ != orient_l){ // left hand side orientation is different
+          insert_into_view_arg(linput_, lvalue_, orient_l);
+          rvalue_.sort();
+          output_.applyBooleanBinaryOp(linput_.begin(), linput_.end(),
+                                       rvalue_.begin(), rvalue_.end(), boolean_op::BinaryCount<op_type>()); 
+        } else if(orient_ != orient_r){ // right hand side orientation is different
+          insert_into_view_arg(rinput_, rvalue_, orient_r);
+          lvalue_.sort();
+          output_.applyBooleanBinaryOp(lvalue_.begin(), lvalue_.end(),
+                                       rinput_.begin(), rinput_.end(), boolean_op::BinaryCount<op_type>()); 
+        }
+      }
+    };
 
-  template <typename value_type, typename lcoord, typename rtype, typename op_type>
-  struct compute_90_set_value<value_type, polygon_90_set_data<lcoord>, rtype, op_type> {
-    static
-    void value(value_type& output_, const polygon_90_set_data<lcoord>& lvalue_,
-               const rtype& rvalue_, orientation_2d orient_) {
-      value_type rinput_(orient_);
-      lvalue_.sort();
-      insert_into_view_arg(rinput_, rvalue_, orient_);
-      output_.applyBooleanBinaryOp(lvalue_.begin(), lvalue_.end(),
-                                   rinput_.begin(), rinput_.end(), boolean_op::BinaryCount<op_type>()); 
-    }
-  };
+    template <typename value_type, typename lcoord, typename rtype, typename op_type>
+    struct compute_90_set_value<value_type, polygon_90_set_data<lcoord>, rtype, op_type> {
+      static
+      void value(value_type& output_, const polygon_90_set_data<lcoord>& lvalue_,
+                 const rtype& rvalue_, orientation_2d orient_) {
+         value_type rinput_(orient_);
+         lvalue_.sort();
+         orientation_2d orient_r = polygon_90_set_traits<rtype>::orient(rvalue_);
+         //std::cout << "compute_90_set_value-2 orientations (right, out):\t" << orient_r.to_int()
+         //          << "," << orient_.to_int() << std::endl;
+         insert_into_view_arg(rinput_, rvalue_, orient_r);
+         output_.applyBooleanBinaryOp(lvalue_.begin(), lvalue_.end(),
+                                      rinput_.begin(), rinput_.end(), boolean_op::BinaryCount<op_type>()); 
+      }
+    };
 
-  template <typename value_type, typename ltype, typename rcoord, typename op_type>
-  struct compute_90_set_value<value_type, ltype, polygon_90_set_data<rcoord>, op_type> {
-    static
-    void value(value_type& output_, const ltype& lvalue_,
-               const polygon_90_set_data<rcoord>& rvalue_, orientation_2d orient_) {
-      value_type linput_(orient_);
-      insert_into_view_arg(linput_, lvalue_, orient_);
-      rvalue_.sort();
-      output_.applyBooleanBinaryOp(linput_.begin(), linput_.end(),
-                                   rvalue_.begin(), rvalue_.end(), boolean_op::BinaryCount<op_type>()); 
-    }
-  };
+    template <typename value_type, typename ltype, typename rcoord, typename op_type>
+    struct compute_90_set_value<value_type, ltype, polygon_90_set_data<rcoord>, op_type> {
+      static
+      void value(value_type& output_, const ltype& lvalue_,
+                 const polygon_90_set_data<rcoord>& rvalue_, orientation_2d orient_) {
+        value_type linput_(orient_);
+        orientation_2d orient_l = polygon_90_set_traits<ltype>::orient(lvalue_);
+        insert_into_view_arg(linput_, lvalue_, orient_l);
+        rvalue_.sort();
+        //std::cout << "compute_90_set_value-3 orientations (left, out):\t" << orient_l.to_int()
+        //          << "," << orient_.to_int() << std::endl;
+
+        output_.applyBooleanBinaryOp(linput_.begin(), linput_.end(),
+                                     rvalue_.begin(), rvalue_.end(), boolean_op::BinaryCount<op_type>()); 
+      }
+    };
 
   template <typename ltype, typename rtype, typename op_type>
   class polygon_90_set_view {
@@ -129,7 +164,7 @@ namespace boost { namespace polygon{
 //       orient_ = orient;
 //       output_.clear();
 //       output_.insert(output_.end(), input_begin, input_end);
-//       std::sort(output_.begin(), output_.end());
+//       gtlsort(output_.begin(), output_.end());
 //     }
     void sort() const {} //is always sorted
   };
@@ -206,23 +241,34 @@ namespace boost { namespace polygon{
     typedef type_1 type;
   };
     
-  template <typename geometry_type_1, typename geometry_type_2, typename op_type>
-  geometry_type_1& self_assignment_boolean_op(geometry_type_1& lvalue_, const geometry_type_2& rvalue_) {
-    typedef geometry_type_1 ltype;
-    typedef geometry_type_2 rtype;
-    typedef typename polygon_90_set_traits<ltype>::coordinate_type coordinate_type;
-    typedef polygon_90_set_data<coordinate_type> value_type;
-    orientation_2d orient_ = polygon_90_set_traits<ltype>::orient(lvalue_);
-    value_type linput_(orient_);
-    value_type rinput_(orient_);
-    value_type output_(orient_);
-    insert_into_view_arg(linput_, lvalue_, orient_);
-    insert_into_view_arg(rinput_, rvalue_, orient_);
-    output_.applyBooleanBinaryOp(linput_.begin(), linput_.end(),
-                                 rinput_.begin(), rinput_.end(), boolean_op::BinaryCount<op_type>()); 
-    polygon_90_set_mutable_traits<geometry_type_1>::set(lvalue_, output_.begin(), output_.end(), orient_);
-    return lvalue_;
-  }
+    template <typename geometry_type_1, typename geometry_type_2, typename op_type>
+    geometry_type_1& self_assignment_boolean_op(geometry_type_1& lvalue_, const geometry_type_2& rvalue_) {
+      typedef geometry_type_1 ltype;
+      typedef geometry_type_2 rtype;
+      typedef typename polygon_90_set_traits<ltype>::coordinate_type coordinate_type;
+      typedef polygon_90_set_data<coordinate_type> value_type;
+      orientation_2d orient_ = polygon_90_set_traits<ltype>::orient(lvalue_);
+      //BM: rvalue_ data set may have its own orientation for scanline
+      orientation_2d orient_r = polygon_90_set_traits<rtype>::orient(rvalue_);
+      //std::cout << "self-assignment boolean-op (left, right, out):\t" << orient_.to_int()
+      //          << "," << orient_r.to_int() << "," << orient_.to_int() << std::endl;
+      value_type linput_(orient_);
+      // BM: the rinput_ set's (that stores the rvalue_ dataset  polygons) scanline orientation is *forced*
+      // to be same as linput
+      value_type rinput_(orient_);
+      //BM: The output dataset's scanline orient is set as equal to first input dataset's (lvalue_) orientation
+      value_type output_(orient_); 
+      insert_into_view_arg(linput_, lvalue_, orient_);
+      // BM: The last argument orient_r is the user initialized scanline orientation for rvalue_ data set.
+      // But since rinput (see above) is initialized to scanline orientation consistent with the lvalue_
+      // data set, this insertion operation will change the incoming rvalue_ dataset's scanline orientation
+      insert_into_view_arg(rinput_, rvalue_, orient_r);
+      // BM: boolean operation and output uses lvalue_ dataset's scanline orientation.
+      output_.applyBooleanBinaryOp(linput_.begin(), linput_.end(),
+                                   rinput_.begin(), rinput_.end(), boolean_op::BinaryCount<op_type>()); 
+      polygon_90_set_mutable_traits<geometry_type_1>::set(lvalue_, output_.begin(), output_.end(), orient_);
+      return lvalue_;
+    }
   
   namespace operators {
   struct y_ps90_b : gtl_yes {};

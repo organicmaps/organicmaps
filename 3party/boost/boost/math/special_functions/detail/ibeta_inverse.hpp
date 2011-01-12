@@ -27,7 +27,7 @@ struct temme_root_finder
 {
    temme_root_finder(const T t_, const T a_) : t(t_), a(a_) {}
 
-   std::tr1::tuple<T, T> operator()(T x)
+   boost::math::tuple<T, T> operator()(T x)
    {
       BOOST_MATH_STD_USING // ADL of std names
 
@@ -35,16 +35,16 @@ struct temme_root_finder
       if(y == 0)
       {
          T big = tools::max_value<T>() / 4;
-         return std::tr1::make_tuple(-big, -big);
+         return boost::math::make_tuple(-big, -big);
       }
       if(x == 0)
       {
          T big = tools::max_value<T>() / 4;
-         return std::tr1::make_tuple(-big, big);
+         return boost::math::make_tuple(-big, big);
       }
       T f = log(x) + a * log(y) + t;
       T f1 = (1 / x) - (a / (y));
-      return std::tr1::make_tuple(f, f1);
+      return boost::math::make_tuple(f, f1);
    }
 private:
    T t, a;
@@ -416,7 +416,7 @@ struct ibeta_roots
    ibeta_roots(T _a, T _b, T t, bool inv = false)
       : a(_a), b(_b), target(t), invert(inv) {}
 
-   std::tr1::tuple<T, T, T> operator()(T x)
+   boost::math::tuple<T, T, T> operator()(T x)
    {
       BOOST_MATH_STD_USING // ADL of std names
 
@@ -442,7 +442,7 @@ struct ibeta_roots
       if(f1 == 0)
          f1 = (invert ? -1 : 1) * tools::min_value<T>() * 64;
 
-      return std::tr1::make_tuple(f, f1, f2);
+      return boost::math::make_tuple(f, f1, f2);
    }
 private:
    T a, b, target;

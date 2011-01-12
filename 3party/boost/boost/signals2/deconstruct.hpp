@@ -45,9 +45,9 @@ namespace detail
 {
 
 #if !defined(BOOST_NO_RVALUE_REFERENCES)
-  template< class T > T&& forward( T &&t )
+  template< class T > T&& forward( T & t )
   {
-      return t;
+    return static_cast< T&& >( t );
   }
 #endif
 

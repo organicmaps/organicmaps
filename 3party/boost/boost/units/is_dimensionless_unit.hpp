@@ -11,6 +11,9 @@
 #ifndef BOOST_UNITS_IS_DIMENSIONLESS_UNIT_HPP
 #define BOOST_UNITS_IS_DIMENSIONLESS_UNIT_HPP
 
+/// \file
+/// \brief Check that a type is a dimensionless unit.
+
 #include <boost/units/is_unit_of_dimension.hpp>
 #include <boost/units/units_fwd.hpp>
 
@@ -18,7 +21,7 @@ namespace boost {
 
 namespace units {
 
-/// check that a type is a dimensionless unit
+/// Check that a type is a dimensionless unit.
 template<class T>
 struct is_dimensionless_unit :
     public is_unit_of_dimension<T,dimensionless_type>

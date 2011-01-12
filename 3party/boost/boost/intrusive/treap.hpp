@@ -116,7 +116,7 @@ class treap_impl
       <pointer, node>::type                                          node_ptr;
    typedef typename boost::pointer_to_other
       <node_ptr, const node>::type                                   const_node_ptr;
-   typedef treap_algorithms<node_traits>                              node_algorithms;
+   typedef treap_algorithms<node_traits>                             node_algorithms;
 
    static const bool constant_time_size = Config::constant_time_size;
    static const bool stateful_value_traits = detail::is_stateful_value_traits<real_value_traits>::value;
@@ -184,7 +184,7 @@ class treap_impl
 
    static node_ptr uncast(const_node_ptr ptr)
    {
-      return node_ptr(const_cast<node*>(detail::get_pointer(ptr)));
+      return node_ptr(const_cast<node*>(detail::boost_intrusive_get_pointer(ptr)));
    }
 
    size_traits &priv_size_traits()
@@ -1482,7 +1482,7 @@ class treap_impl
    static treap_impl &priv_container_from_end_iterator(const const_iterator &end_iterator)
    {
       header_plus_size *r = detail::parent_from_member<header_plus_size, node>
-         ( detail::get_pointer(end_iterator.pointed_node()), &header_plus_size::header_);
+         ( detail::boost_intrusive_get_pointer(end_iterator.pointed_node()), &header_plus_size::header_);
       typename node_plus_pred_t::header_plus_priority_size *n =
          detail::parent_from_member
          < typename node_plus_pred_t::header_plus_priority_size

@@ -392,8 +392,15 @@ namespace detail
             break;
         }
 
-        handler_(search_position_ == not_found ? error::not_found : ec,
-            ec || search_position_ == not_found ? 0 : search_position_);
+        const boost::system::error_code result_ec =
+          (search_position_ == not_found)
+          ? error::not_found : ec;
+
+        const std::size_t result_n =
+          (ec || search_position_ == not_found)
+          ? 0 : search_position_;
+
+        handler_(result_ec, result_n);
       }
     }
 
@@ -529,8 +536,15 @@ namespace detail
             break;
         }
 
-        handler_(search_position_ == not_found ? error::not_found : ec,
-            ec || search_position_ == not_found ? 0 : search_position_);
+        const boost::system::error_code result_ec =
+          (search_position_ == not_found)
+          ? error::not_found : ec;
+
+        const std::size_t result_n =
+          (ec || search_position_ == not_found)
+          ? 0 : search_position_;
+
+        handler_(result_ec, result_n);
       }
     }
 
@@ -671,8 +685,15 @@ namespace detail
             break;
         }
 
-        handler_(search_position_ == not_found ? error::not_found : ec,
-            ec || search_position_ == not_found ? 0 : search_position_);
+        const boost::system::error_code result_ec =
+          (search_position_ == not_found)
+          ? error::not_found : ec;
+
+        const std::size_t result_n =
+          (ec || search_position_ == not_found)
+          ? 0 : search_position_;
+
+        handler_(result_ec, result_n);
       }
     }
 
@@ -811,8 +832,15 @@ namespace detail
             break;
         }
 
-        handler_(search_position_ == not_found ? error::not_found : ec,
-            ec || search_position_ == not_found ? 0 : search_position_);
+        const boost::system::error_code result_ec =
+          (search_position_ == not_found)
+          ? error::not_found : ec;
+
+        const std::size_t result_n =
+          (ec || search_position_ == not_found)
+          ? 0 : search_position_;
+
+        handler_(result_ec, result_n);
       }
     }
 

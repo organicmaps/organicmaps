@@ -54,7 +54,7 @@ namespace boost
   {
      namespace detail{
       template <class Dist>
-      inline typename Dist::value_type 
+      inline typename Dist::value_type
          inverse_discrete_quantile(
             const Dist& dist,
             const typename Dist::value_type& p,
@@ -64,7 +64,7 @@ namespace boost
             const policies::discrete_quantile<policies::integer_round_nearest>&,
             boost::uintmax_t& max_iter);
       template <class Dist>
-      inline typename Dist::value_type 
+      inline typename Dist::value_type
          inverse_discrete_quantile(
             const Dist& dist,
             const typename Dist::value_type& p,
@@ -74,7 +74,7 @@ namespace boost
             const policies::discrete_quantile<policies::integer_round_up>&,
             boost::uintmax_t& max_iter);
       template <class Dist>
-      inline typename Dist::value_type 
+      inline typename Dist::value_type
          inverse_discrete_quantile(
             const Dist& dist,
             const typename Dist::value_type& p,
@@ -84,7 +84,7 @@ namespace boost
             const policies::discrete_quantile<policies::integer_round_down>&,
             boost::uintmax_t& max_iter);
       template <class Dist>
-      inline typename Dist::value_type 
+      inline typename Dist::value_type
          inverse_discrete_quantile(
             const Dist& dist,
             const typename Dist::value_type& p,
@@ -94,7 +94,7 @@ namespace boost
             const policies::discrete_quantile<policies::integer_round_outwards>&,
             boost::uintmax_t& max_iter);
       template <class Dist>
-      inline typename Dist::value_type 
+      inline typename Dist::value_type
          inverse_discrete_quantile(
             const Dist& dist,
             const typename Dist::value_type& p,
@@ -104,7 +104,7 @@ namespace boost
             const policies::discrete_quantile<policies::integer_round_inwards>&,
             boost::uintmax_t& max_iter);
       template <class Dist>
-      inline typename Dist::value_type 
+      inline typename Dist::value_type
          inverse_discrete_quantile(
             const Dist& dist,
             const typename Dist::value_type& p,
@@ -235,7 +235,7 @@ namespace boost
     inline const std::pair<RealType, RealType> range(const poisson_distribution<RealType, Policy>& /* dist */)
     { // Range of permissible values for random variable k.
        using boost::math::tools::max_value;
-       return std::pair<RealType, RealType>(0, max_value<RealType>()); // Max integer?
+       return std::pair<RealType, RealType>(static_cast<RealType>(0), max_value<RealType>()); // Max integer?
     }
 
     template <class RealType, class Policy>
@@ -243,7 +243,7 @@ namespace boost
     { // Range of supported values for random variable k.
        // This is range where cdf rises from 0 to 1, and outside it, the pdf is zero.
        using boost::math::tools::max_value;
-       return std::pair<RealType, RealType>(0,  max_value<RealType>());
+       return std::pair<RealType, RealType>(static_cast<RealType>(0),  max_value<RealType>());
     }
 
     template <class RealType, class Policy>

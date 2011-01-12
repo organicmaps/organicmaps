@@ -1,4 +1,4 @@
-/* Copyright 2006-2009 Joaquin M Lopez Munoz.
+/* Copyright 2006-2010 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -15,7 +15,6 @@
 
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
 #include <algorithm>
-#include <boost/assert.hpp>
 #include <boost/detail/atomic_count.hpp>
 #include <boost/detail/workaround.hpp>
 #include <boost/flyweight/refcounted_fwd.hpp>
@@ -36,7 +35,9 @@
  * Here is where the deleter count comes into play. This count is
  * incremented when the reference count changes from 0 to 1, and decremented
  * when a thread is about to check a value for erasure; it can be seen that a
- * value is effectively erasable only when the deleter count goes down to 0.
+ * value is effectively erasable only when the deleter count goes down to 0
+ * (unless there are dangling references due to abnormal program termination,
+ * for instance if std::exit is called).
  */
 
 namespace boost{
@@ -56,17 +57,6 @@ public:
   refcounted_value(const refcounted_value& r):
     x(r.x),ref(0),del_ref(0)
   {}
-
-  ~refcounted_value()
-  {
-    /* count()!=0 most likely indicates that the flyweight factory
-     * has been destructed before some of the flyweight objects using
-     * it. Check for static initialization order problems with this
-     * flyweight type.
-     */
-
-    BOOST_ASSERT(count()==0);
-  }
 
   refcounted_value& operator=(const refcounted_value& r)
   {

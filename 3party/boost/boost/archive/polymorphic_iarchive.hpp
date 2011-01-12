@@ -114,7 +114,7 @@ public:
         #ifndef BOOST_NO_FUNCTION_TEMPLATE_ORDERING
         const
         #endif
-        boost::serialization::nvp<T> & t,
+        boost::serialization::nvp< T > & t,
         int
     ){
         load_start(t.name());

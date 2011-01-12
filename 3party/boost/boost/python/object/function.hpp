@@ -39,6 +39,8 @@ struct BOOST_PYTHON_DECL function : PyObject
     void doc(object const& x);
     
     object const& name() const;
+
+    object const& get_namespace() const { return m_namespace; }
     
  private: // helper functions
     object signature(bool show_return_type=false) const;

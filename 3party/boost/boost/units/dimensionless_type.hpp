@@ -11,6 +11,11 @@
 #ifndef BOOST_UNITS_DIMENSIONLESS_TYPE_HPP
 #define BOOST_UNITS_DIMENSIONLESS_TYPE_HPP
 
+///
+/// \file
+/// \brief Dimension lists in which all exponents resolve to zero reduce to @c dimensionless_type.
+///
+
 #include <boost/mpl/long.hpp>
 #include <boost/mpl/deref.hpp>
 #include <boost/mpl/arithmetic.hpp>

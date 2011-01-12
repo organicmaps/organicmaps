@@ -1865,7 +1865,7 @@ namespace boost { namespace numeric { namespace ublas {
         // return nearest valid index in column j
         static
         BOOST_UBLAS_INLINE
-        size_type restrict1 (size_type i, size_type j, size_type size1, size_type size2) {
+        size_type restrict1 (size_type i, size_type j, size_type size1, size_type /* size2 */) {
             return (std::max)(j, (std::min) (size1, i));
         }
         // return nearest valid index in row i

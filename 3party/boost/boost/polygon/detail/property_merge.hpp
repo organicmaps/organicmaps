@@ -112,7 +112,7 @@ public:
   inline void perform_merge(result_type& result, property_merge_data& data) {
     if(data.empty()) return;
     //sort
-    std::sort(data.begin(), data.end(), less_vertex_data<vertex_property>());
+    gtlsort(data.begin(), data.end(), less_vertex_data<vertex_property>());
     //scanline
     bool firstIteration = true;
     scanlinePosition = scanline.end();
@@ -156,7 +156,7 @@ private:
   class less_vertex_data {
   public:
     less_vertex_data() {}
-    bool operator()(const T& lvalue, const T& rvalue) {
+    bool operator()(const T& lvalue, const T& rvalue) const {
       if(lvalue.first.x() < rvalue.first.x()) return true;
       if(lvalue.first.x() > rvalue.first.x()) return false;
       if(lvalue.first.y() < rvalue.first.y()) return true;
@@ -442,7 +442,7 @@ private:
   inline void performExtract(T& result, property_merge_data& data) {
     if(data.empty()) return;
     //sort
-    std::sort(data.begin(), data.end(), less_vertex_data<vertex_property>());
+    gtlsort(data.begin(), data.end(), less_vertex_data<vertex_property>());
     
     //scanline
     bool firstIteration = true;

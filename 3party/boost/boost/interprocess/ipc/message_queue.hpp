@@ -22,6 +22,7 @@
 #include <boost/interprocess/offset_ptr.hpp>
 #include <boost/interprocess/creation_tags.hpp>
 #include <boost/interprocess/exceptions.hpp>
+#include <boost/interprocess/permissions.hpp>
 #include <boost/detail/no_exceptions_support.hpp>
 #include <boost/interprocess/detail/type_traits.hpp>
 
@@ -56,7 +57,8 @@ class message_queue
    message_queue(create_only_t create_only,
                  const char *name, 
                  std::size_t max_num_msg, 
-                 std::size_t max_msg_size);
+                 std::size_t max_msg_size,
+                 const permissions &perm = permissions());
 
    //!Opens or creates a process shared message queue with name "name". 
    //!If the queue is created, the maximum number of messages will be "max_num_msg" 
@@ -66,7 +68,8 @@ class message_queue
    message_queue(open_or_create_t open_or_create,
                  const char *name, 
                  std::size_t max_num_msg, 
-                 std::size_t max_msg_size);
+                 std::size_t max_msg_size,
+                 const permissions &perm = permissions());
 
    //!Opens a previously created process shared message queue with name "name". 
    //!If the was not previously created or there are no free resources, 
@@ -379,7 +382,8 @@ inline std::size_t message_queue::get_mem_size
 inline message_queue::message_queue(create_only_t create_only,
                                     const char *name, 
                                     std::size_t max_num_msg, 
-                                    std::size_t max_msg_size)
+                                    std::size_t max_msg_size,
+                                    const permissions &perm)
       //Create shared memory and execute functor atomically
    :  m_shmem(create_only, 
               name, 
@@ -387,13 +391,15 @@ inline message_queue::message_queue(create_only_t create_only,
               read_write,
               static_cast<void*>(0),
               //Prepare initialization functor
-              detail::initialization_func_t (max_num_msg, max_msg_size))
+              detail::initialization_func_t (max_num_msg, max_msg_size),
+              perm)
 {}
 
 inline message_queue::message_queue(open_or_create_t open_or_create,
                                     const char *name, 
                                     std::size_t max_num_msg, 
-                                    std::size_t max_msg_size)
+                                    std::size_t max_msg_size,
+                                    const permissions &perm)
       //Create shared memory and execute functor atomically
    :  m_shmem(open_or_create, 
               name, 
@@ -401,7 +407,8 @@ inline message_queue::message_queue(open_or_create_t open_or_create,
               read_write,
               static_cast<void*>(0),
               //Prepare initialization functor
-              detail::initialization_func_t (max_num_msg, max_msg_size))
+              detail::initialization_func_t (max_num_msg, max_msg_size),
+              perm)
 {}
 
 inline message_queue::message_queue(open_only_t open_only,
@@ -474,14 +481,14 @@ inline bool message_queue::do_send(block_t block,
                while (p_hdr->is_full());
             break;
             default:
-               throw interprocess_exception();
+            break;
          }
       }
       
       //Get the first free message from free message queue
       detail::msg_hdr_t *free_msg = p_hdr->free_msg();
       if (free_msg == 0) {
-         throw interprocess_exception();
+         throw interprocess_exception("boost::interprocess::message_queue corrupted");
       }
 
       //Copy control data to the free message
@@ -568,7 +575,7 @@ inline bool
 
             //Paranoia check
             default:
-               throw interprocess_exception();
+            break;
          }
       }
 
@@ -577,7 +584,7 @@ inline bool
 
       //Paranoia check
       if (top_msg == 0) {
-         throw interprocess_exception();
+         throw interprocess_exception("boost::interprocess::message_queue corrupted");
       }
 
       //Get data from the message

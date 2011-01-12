@@ -56,7 +56,7 @@ struct sub_match : public std::pair<BidiIterator, BidiIterator>
    template <class T, class A>
    operator std::basic_string<value_type, T, A> ()const
    {
-      return std::basic_string<value_type, T, A>(this->first, this->second);
+      return matched ? std::basic_string<value_type, T, A>(this->first, this->second) : std::basic_string<value_type, T, A>();
    }
 #else
    operator std::basic_string<value_type> ()const
@@ -66,19 +66,22 @@ struct sub_match : public std::pair<BidiIterator, BidiIterator>
 #endif
    difference_type BOOST_REGEX_CALL length()const
    {
-      difference_type n = ::boost::re_detail::distance((BidiIterator)this->first, (BidiIterator)this->second);
+      difference_type n = matched ? ::boost::re_detail::distance((BidiIterator)this->first, (BidiIterator)this->second) : 0;
       return n;
    }
    std::basic_string<value_type> str()const
    {
       std::basic_string<value_type> result;
-      std::size_t len = ::boost::re_detail::distance((BidiIterator)this->first, (BidiIterator)this->second);
-      result.reserve(len);
-      BidiIterator i = this->first;
-      while(i != this->second)
+      if(matched)
       {
-         result.append(1, *i);
-         ++i;
+         std::size_t len = ::boost::re_detail::distance((BidiIterator)this->first, (BidiIterator)this->second);
+         result.reserve(len);
+         BidiIterator i = this->first;
+         while(i != this->second)
+         {
+            result.append(1, *i);
+            ++i;
+         }
       }
       return result;
    }

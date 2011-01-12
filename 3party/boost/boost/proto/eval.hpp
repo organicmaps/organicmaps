@@ -75,6 +75,24 @@ namespace boost { namespace proto
             {
                 return typename Context::template eval<Expr>()(e, ctx);
             }
+
+            /// \overload
+            ///
+            template<typename Expr, typename Context>
+            typename proto::result_of::eval<Expr const, Context>::type
+            operator ()(Expr const &e, Context &ctx) const
+            {
+                return typename Context::template eval<Expr const>()(e, ctx);
+            }
+
+            /// \overload
+            ///
+            template<typename Expr, typename Context>
+            typename proto::result_of::eval<Expr const, Context>::type
+            operator ()(Expr const &e, Context const &ctx) const
+            {
+                return typename Context::template eval<Expr const>()(e, ctx);
+            }
         };
     }
 
@@ -98,6 +116,24 @@ namespace boost { namespace proto
     eval(Expr &e, Context const &ctx)
     {
         return typename Context::template eval<Expr>()(e, ctx);
+    }
+
+    /// \overload
+    ///
+    template<typename Expr, typename Context>
+    typename proto::result_of::eval<Expr const, Context>::type
+    eval(Expr const &e, Context &ctx)
+    {
+        return typename Context::template eval<Expr const>()(e, ctx);
+    }
+
+    /// \overload
+    ///
+    template<typename Expr, typename Context>
+    typename proto::result_of::eval<Expr const, Context>::type
+    eval(Expr const &e, Context const &ctx)
+    {
+        return typename Context::template eval<Expr const>()(e, ctx);
     }
 }}
 

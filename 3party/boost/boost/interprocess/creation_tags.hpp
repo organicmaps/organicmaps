@@ -30,6 +30,10 @@ struct open_only_t {};
 struct open_read_only_t {};
 
 //!Tag to indicate that the resource must
+//!be only opened privately for reading
+struct open_read_private_t {};
+
+//!Tag to indicate that the resource must
 //!be only opened for reading
 struct open_copy_on_write_t {};
 

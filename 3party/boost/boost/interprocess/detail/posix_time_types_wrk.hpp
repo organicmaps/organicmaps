@@ -20,9 +20,8 @@
 #endif   //#ifndef WIN32_LEAN_AND_MEAN
 #endif   //#ifdef _WIN32
 
-//#include <boost/date_time/posix_time/ptime.hpp>
-//#include <boost/date_time/microsec_time_clock.hpp>
 #include <boost/date_time/posix_time/posix_time_types.hpp>
+#include <boost/date_time/posix_time/conversion.hpp>
 
 namespace boost {
 namespace interprocess {

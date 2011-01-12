@@ -8,6 +8,10 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
+/// \file
+/// \brief base unit (meter, kg, sec...).
+/// \details base unit definition registration.
+
 #ifndef BOOST_UNITS_BASE_UNIT_HPP
 #define BOOST_UNITS_BASE_UNIT_HPP
 

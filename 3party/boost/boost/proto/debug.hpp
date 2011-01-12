@@ -19,6 +19,7 @@
 #include <boost/proto/matches.hpp>
 #include <boost/proto/fusion.hpp>
 #include <boost/fusion/algorithm/iteration/for_each.hpp>
+#include <boost/detail/sp_typeinfo.hpp>
 
 namespace boost { namespace proto
 {
@@ -96,7 +97,7 @@ namespace boost { namespace proto
         template<typename Tag>
         std::ostream &operator <<(ostream_wrapper sout_wrap, Tag const &)
         {
-            return sout_wrap.sout_ << typeid(Tag).name();
+            return sout_wrap.sout_ << BOOST_SP_TYPEID(Tag).name();
         }
     }
 

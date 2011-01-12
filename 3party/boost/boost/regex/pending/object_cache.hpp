@@ -41,10 +41,10 @@ public:
    typedef std::map<Key, list_iterator> map_type;
    typedef typename map_type::iterator map_iterator;
    typedef typename list_type::size_type size_type;
-   static boost::shared_ptr<Object const> get(const Key& k, size_type max_cache_size);
+   static boost::shared_ptr<Object const> get(const Key& k, size_type l_max_cache_size);
 
 private:
-   static boost::shared_ptr<Object const> do_get(const Key& k, size_type max_cache_size);
+   static boost::shared_ptr<Object const> do_get(const Key& k, size_type l_max_cache_size);
 
    struct data
    {
@@ -58,7 +58,7 @@ private:
 };
 
 template <class Key, class Object>
-boost::shared_ptr<Object const> object_cache<Key, Object>::get(const Key& k, size_type max_cache_size)
+boost::shared_ptr<Object const> object_cache<Key, Object>::get(const Key& k, size_type l_max_cache_size)
 {
 #ifdef BOOST_HAS_THREADS
    static boost::static_mutex mut = BOOST_STATIC_MUTEX_INIT;
@@ -66,7 +66,7 @@ boost::shared_ptr<Object const> object_cache<Key, Object>::get(const Key& k, siz
    boost::static_mutex::scoped_lock l(mut);
    if(l)
    {
-      return do_get(k, max_cache_size);
+      return do_get(k, l_max_cache_size);
    }
    //
    // what do we do if the lock fails?
@@ -77,12 +77,12 @@ boost::shared_ptr<Object const> object_cache<Key, Object>::get(const Key& k, siz
    return boost::shared_ptr<Object>();
 #endif
 #else
-   return do_get(k, max_cache_size);
+   return do_get(k, l_max_cache_size);
 #endif
 }
 
 template <class Key, class Object>
-boost::shared_ptr<Object const> object_cache<Key, Object>::do_get(const Key& k, size_type max_cache_size)
+boost::shared_ptr<Object const> object_cache<Key, Object>::do_get(const Key& k, size_type l_max_cache_size)
 {
    typedef typename object_cache<Key, Object>::data object_data;
    typedef typename map_type::size_type map_size_type;
@@ -128,7 +128,7 @@ boost::shared_ptr<Object const> object_cache<Key, Object>::do_get(const Key& k, 
    BOOST_ASSERT(s_data.index[k]->first.get() == result.get());
    BOOST_ASSERT(&(s_data.index.find(k)->first) == s_data.cont.back().second);
    BOOST_ASSERT(s_data.index.find(k)->first == k);
-   if(s > max_cache_size)
+   if(s > l_max_cache_size)
    {
       //
       // We have too many items in the list, so we need to start
@@ -137,7 +137,7 @@ boost::shared_ptr<Object const> object_cache<Key, Object>::do_get(const Key& k, 
       //
       list_iterator pos = s_data.cont.begin();
       list_iterator last = s_data.cont.end();
-      while((pos != last) && (s > max_cache_size))
+      while((pos != last) && (s > l_max_cache_size))
       {
          if(pos->first.unique())
          {

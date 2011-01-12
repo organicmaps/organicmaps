@@ -22,7 +22,7 @@
 # endif
 
 #include <boost/filesystem/v3/config.hpp>
-#include <boost/filesystem/v3/path_traits.hpp>
+#include <boost/filesystem/v3/path_traits.hpp>  // includes <cwchar>
 #include <boost/system/error_code.hpp>
 #include <boost/system/system_error.hpp>
 #include <boost/iterator/iterator_facade.hpp>
@@ -127,7 +127,9 @@ namespace filesystem3
     path(const path& p) : m_pathname(p.m_pathname) {}
  
     template <class Source>
-    path(Source const& source)
+    path(Source const& source,
+      typename boost::enable_if<path_traits::is_pathable<
+        typename boost::decay<Source>::type> >::type* =0)
     {
       path_traits::dispatch(source, m_pathname, codecvt());
     }
@@ -170,7 +172,9 @@ namespace filesystem3
     }
 
     template <class Source>
-    path& operator=(Source const& source)
+      typename boost::enable_if<path_traits::is_pathable<
+        typename boost::decay<Source>::type>, path&>::type
+    operator=(Source const& source)
     {
       m_pathname.clear();
       path_traits::dispatch(source, m_pathname, codecvt());
@@ -212,7 +216,9 @@ namespace filesystem3
     path& operator/=(const path& p);
 
     template <class Source>
-    path& operator/=(Source const& source)
+      typename boost::enable_if<path_traits::is_pathable<
+        typename boost::decay<Source>::type>, path&>::type
+    operator/=(Source const& source)
     {
       return append(source, codecvt());
     }

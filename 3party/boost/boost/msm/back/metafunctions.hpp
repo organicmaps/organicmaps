@@ -648,7 +648,7 @@ template <class StateType,class OwnerFct,class FSM>
 inline
 typename ::boost::disable_if<typename ::boost::mpl::and_<typename is_composite_state<FSM>::type,
                                                          typename is_pseudo_exit<StateType>::type>,bool >::type
-is_exit_state_active(FSM& fsm)
+is_exit_state_active(FSM&)
 {
     return false;
 }

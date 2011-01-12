@@ -23,7 +23,6 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_const.hpp>
-#include <boost/utility/enable_if.hpp>
 
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit { namespace lex

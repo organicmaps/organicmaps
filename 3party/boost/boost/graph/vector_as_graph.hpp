@@ -19,8 +19,8 @@
 #include <vector>
 #include <cstddef>
 #include <boost/iterator.hpp>
+#include <boost/range/irange.hpp>
 #include <boost/graph/graph_traits.hpp>
-#include <boost/pending/integer_range.hpp>
 #include <boost/property_map/property_map.hpp>
 #include <boost/graph/properties.hpp>
 #include <algorithm>
@@ -315,14 +315,14 @@ namespace boost {
   };
 
   template<typename EdgeList, typename Allocator>
-  identity_property_map 
+  identity_property_map
   get(vertex_index_t, const std::vector<EdgeList, Allocator>&)
   {
     return identity_property_map();
   }
 
   template<typename EdgeList, typename Allocator>
-  identity_property_map 
+  identity_property_map
   get(vertex_index_t, std::vector<EdgeList, Allocator>&)
   {
     return identity_property_map();

@@ -35,7 +35,7 @@
 #include <utility>
 #include <fstream>
 #include <new>
-#include <cassert>
+#include <boost/assert.hpp>
 
 //!\file
 //!Describes a named shared memory allocation user class. 
@@ -519,7 +519,16 @@ class basic_managed_memory_impl
    //!function call. If the functor throws, this function throws.
    template <class Func>
    void atomic_func(Func &f)
-   {   mp_header->atomic_func(f); }
+   {   mp_header->atomic_func(f);  }
+
+   //!Tries to call a functor guaranteeing that no new construction, search or
+   //!destruction will be executed by any process while executing the object
+   //!function call. If the atomic function can't be immediatelly executed
+   //!because the internal mutex is already locked, returns false.
+   //!If the functor throws, this function throws.
+   template <class Func>
+   bool try_atomic_func(Func &f)
+   {   return mp_header->try_atomic_func(f); }
 
    //!Destroys a named memory object or array.
    //!
@@ -673,7 +682,7 @@ class basic_managed_memory_impl
    template<class T>
    typename allocator<T>::type
       get_allocator()
-   {   return mp_header->BOOST_NESTED_TEMPLATE get_allocator<T>(); }
+   {   return mp_header->template get_allocator<T>(); }
 
    //!This is the default deleter to delete types T
    //!from this managed segment.
@@ -688,7 +697,7 @@ class basic_managed_memory_impl
    template<class T>
    typename deleter<T>::type
       get_deleter()
-   {   return mp_header->BOOST_NESTED_TEMPLATE get_deleter<T>(); }
+   {   return mp_header->template get_deleter<T>(); }
 
    /// @cond
    //!Tries to find a previous named allocation address. Returns a memory

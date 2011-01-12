@@ -20,7 +20,7 @@
 #include <boost/interprocess/creation_tags.hpp>
 #include <boost/interprocess/detail/managed_memory_impl.hpp>
 #include <boost/interprocess/detail/move.hpp>
-#include <cassert>
+#include <boost/assert.hpp>
 
 //!\file
 //!Describes a named user memory allocation user class. 
@@ -58,9 +58,9 @@ class basic_managed_external_buffer
       (create_only_t, void *addr, std::size_t size)
    {
       //Check if alignment is correct
-      assert((0 == (((std::size_t)addr) & (AllocationAlgorithm::Alignment - std::size_t(1u)))));
+      BOOST_ASSERT((0 == (((std::size_t)addr) & (AllocationAlgorithm::Alignment - std::size_t(1u)))));
       if(!base_t::create_impl(addr, size)){
-         throw interprocess_exception();
+         throw interprocess_exception("Could not initialize buffer in basic_managed_external_buffer constructor");
       }
    }
 
@@ -69,9 +69,9 @@ class basic_managed_external_buffer
       (open_only_t, void *addr, std::size_t size)
    {
       //Check if alignment is correct
-      assert((0 == (((std::size_t)addr) & (AllocationAlgorithm::Alignment - std::size_t(1u)))));
+      BOOST_ASSERT((0 == (((std::size_t)addr) & (AllocationAlgorithm::Alignment - std::size_t(1u)))));
       if(!base_t::open_impl(addr, size)){
-         throw interprocess_exception();
+         throw interprocess_exception("Could not initialize buffer in basic_managed_external_buffer constructor");
       }
    }
 

@@ -18,15 +18,25 @@ namespace boost
         class pthread_mutex_scoped_lock
         {
             pthread_mutex_t* m;
+            bool locked;
         public:
             explicit pthread_mutex_scoped_lock(pthread_mutex_t* m_):
-                m(m_)
+                m(m_),locked(true)
             {
                 BOOST_VERIFY(!pthread_mutex_lock(m));
             }
-            ~pthread_mutex_scoped_lock()
+            void unlock()
             {
                 BOOST_VERIFY(!pthread_mutex_unlock(m));
+                locked=false;
+            }
+            
+            ~pthread_mutex_scoped_lock()
+            {
+                if(locked)
+                {
+                    unlock();
+                }
             }
             
         };

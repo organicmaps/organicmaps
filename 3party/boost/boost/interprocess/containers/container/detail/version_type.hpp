@@ -16,8 +16,10 @@
 #ifndef BOOST_CONTAINERS_DETAIL_VERSION_TYPE_HPP
 #define BOOST_CONTAINERS_DETAIL_VERSION_TYPE_HPP
 
-#include <boost/interprocess/containers/container/detail/mpl.hpp>
-#include <boost/interprocess/containers/container/detail/type_traits.hpp>
+#include "config_begin.hpp"
+
+#include INCLUDE_BOOST_CONTAINER_DETAIL_MPL_HPP
+#include INCLUDE_BOOST_CONTAINER_DETAIL_TYPE_TRAITS_HPP
 
 
 namespace boost{
