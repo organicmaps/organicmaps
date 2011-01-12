@@ -636,7 +636,7 @@ namespace yg
      return rect;
    }
 
-   /// Incapsulate array of points in readable getting direction.
+   /// Encapsulate array of points in readable getting direction.
    class pts_array
    {
      m2::PointD const * m_arr;
@@ -644,7 +644,7 @@ namespace yg
      bool m_reverse;
 
    public:
-     pts_array(m2::PointD const * arr, size_t sz)
+     pts_array(m2::PointD const * arr, size_t sz, double fullLength, double & pathOffset)
        : m_arr(arr), m_size(sz), m_reverse(false)
      {
        ASSERT ( m_size > 1, () );
@@ -656,10 +656,20 @@ namespace yg
         * o         \
        */
 
-       /// @todo temporary removed - need to synchronize with path offset
-       //double const a = ang::AngleTo(get(0), get(1));
-       //if (fabs(a) > math::pi / 2.0)
-       //  m_reverse = true;
+       double const a = ang::AngleTo(m_arr[0], m_arr[m_size-1]);
+       if (fabs(a) > math::pi / 2.0)
+       {
+         // if we swap direction, we need to recalculate path offset from the end
+         double len = 0.0;
+         for (size_t i = 1; i < m_size; ++i)
+           len += m_arr[i-1].Length(m_arr[i]);
+
+         pathOffset = fullLength - pathOffset - len;
+         ASSERT ( pathOffset >= -1.0E-6, () );
+         if (pathOffset < 0.0) pathOffset = 0.0;
+
+         m_reverse = true;
+       }
      }
 
      size_t size() const { return m_size; }
@@ -710,7 +720,7 @@ namespace yg
                               m2::PointD const * path, size_t s, uint8_t fontSize, string const & utf8Text,
                               double fullLength, double pathOffset, TextPos pos, bool fromMask, double depth, bool isFixedFont)
    {
-     pts_array arrPath(path, s);
+     pts_array arrPath(path, s, fullLength, pathOffset);
 
      wstring const text = GetDrawString(utf8Text);
 
