@@ -1,5 +1,16 @@
 #include "../base/SRC_FIRST.hpp"
 
+#include <agg_basics.h>
+#include <agg_pixfmt_gray.h>
+#include <agg_pixfmt_rgba.h>
+#include <agg_pixfmt_rgb_packed.h>
+#include <agg_renderer_scanline.h>
+#include <agg_rasterizer_scanline_aa.h>
+#include <agg_path_storage.h>
+#include <agg_scanline_u.h>
+#include <agg_ellipse.h>
+#include <boost/gil/gil_all.hpp>
+
 #include "data_formats.hpp"
 #include "skin_page.hpp"
 #include "texture.hpp"
@@ -11,6 +22,23 @@
 
 #include "../std/bind.hpp"
 #include "../std/numeric.hpp"
+
+template <typename Traits>
+struct AggTraits
+{
+};
+
+template <>
+struct AggTraits<yg::RGBA8Traits>
+{
+  typedef agg::pixfmt_rgba32 pixfmt_t;
+};
+
+template <>
+struct AggTraits<yg::RGBA4Traits>
+{
+  typedef agg::pixfmt_rgb4444 pixfmt_t;
+};
 
 namespace yg
 {
@@ -252,14 +280,18 @@ namespace yg
 
     if (penInfo.m_isSolid)
     {
-      uint32_t colorHandle = mapColor(penInfo.m_color);
-      m2::RectU texRect = m_packer.find(colorHandle).second;
-      m_styles[colorHandle] = boost::shared_ptr<ResourceStyle>(
+      m2::Packer::handle_t handle = m_packer.pack(
+          ceil(penInfo.m_w + 4),
+          ceil(penInfo.m_w + 4));
+      m2::RectU texRect = m_packer.find(handle).second;
+      m_penUploadCommands.push_back(PenUploadCmd(penInfo, texRect));
+      m_penInfoMap[penInfo] = handle;
+
+      m_styles[handle] = boost::shared_ptr<ResourceStyle>(
           new LineStyle(false,
                         texRect,
                         m_pageID,
                         penInfo));
-      m_penInfoMap[penInfo] = colorHandle;
     }
     else
     {
@@ -324,56 +356,120 @@ namespace yg
       TDynamicTexture::pixel_t penColor = penColorTranslucent;
       gil::get_color(penColor, gil::alpha_t()) = penInfoColor.a;
 
-      /// First two and last two rows of a pattern are filled
-      /// with a penColorTranslucent pixel for the antialiasing.
-      for (size_t y = 0; y < 2; ++y)
-        for (size_t x = 0; x < rect.SizeX(); ++x)
-          v(x, y) = penColorTranslucent;
-
-      for (size_t y = rect.SizeY() - 2; y < rect.SizeY(); ++y)
-        for (size_t x = 0; x < rect.SizeX(); ++x)
-          v(x, y) = penColorTranslucent;
-
-      for (size_t y = 2; y < rect.SizeY() - 2; ++y)
+      if (penInfo.m_isSolid)
       {
-        v(0, y) = penColor;
-        v(1, y) = penColor;
-        v(rect.SizeX() - 2, y) = penColor;
-        v(rect.SizeX() - 1, y) = penColor;
-      }
-      for (size_t y = 2; y < rect.SizeY() - 2; ++y)
-      {
-        double curLen = 0;
+        /// draw circle
+        agg::rendering_buffer buf(
+            (unsigned char *)&v(0, 0),
+            rect.SizeX(),
+            rect.SizeY(),
+            rect.SizeX() * sizeof(TDynamicTexture::pixel_t)
+            );
 
-        TDynamicTexture::pixel_t px = penColor;
+        typedef AggTraits<TDynamicTexture::traits_t>::pixfmt_t agg_pixfmt_t;
 
-        /// In general case this code is incorrect.
-        /// TODO : Make a pattern start and end with a dash.
-        v(curLen, y) = px;
-        v(curLen + 1, y) = px;
+        agg_pixfmt_t pixfmt(buf);
+        agg::renderer_base<agg_pixfmt_t> rbase(pixfmt);
+        rbase.clear(agg::rgba8(penInfo.m_color.r,
+                               penInfo.m_color.g,
+                               penInfo.m_color.b,
+                               0));
 
-        for (size_t i = 0; i < penInfo.m_pat.size(); ++i)
+        agg::scanline_u8 s;
+        agg::rasterizer_scanline_aa<> rasterizer;
+        if (penInfo.m_w > 2)
         {
-          for (size_t j = 0; j < penInfo.m_pat[i]; ++j)
+          agg::ellipse ell;
+          float r = penInfo.m_w / 2.0;
+          ell.init(r + 2, r + 2, r, r, 100);
+          rasterizer.add_path(ell);
+
+          agg::render_scanlines_aa_solid(rasterizer,
+                                         s,
+                                         rbase,
+                                         agg::rgba8(penInfo.m_color.r,
+                                                    penInfo.m_color.g,
+                                                    penInfo.m_color.b,
+                                                    penInfo.m_color.a));
+
+          /// making alpha channel opaque
+          for (size_t x = 2; x < v.width() - 2; ++x)
+            for (size_t y = 2; y < v.height() - 2; ++y)
+            {
+              unsigned char alpha = gil::get_color(v(x, y), gil::alpha_t());
+              if (alpha != 0)
+              {
+                v(x, y) = penColor;
+                gil::get_color(v(x, y), gil::alpha_t()) = alpha;
+              }
+            }
+        }
+        else
+        {
+          gil::fill_pixels(
+              gil::subimage_view(v, 2, 2, rect.SizeX() - 4, rect.SizeY() - 4),
+              penColor
+              );
+        }
+      }
+      else
+      {
+        /// First two and last two rows of a pattern are filled
+        /// with a penColorTranslucent pixel for the antialiasing.
+        for (size_t y = 0; y < 2; ++y)
+          for (size_t x = 0; x < rect.SizeX(); ++x)
+            v(x, y) = penColorTranslucent;
+
+        for (size_t y = rect.SizeY() - 2; y < rect.SizeY(); ++y)
+          for (size_t x = 0; x < rect.SizeX(); ++x)
+            v(x, y) = penColorTranslucent;
+
+        /// first and last two pixels filled with penColorTranslucent
+        for (size_t y = 2; y < rect.SizeY() - 2; ++y)
+        {
+          v(0, y) = penColorTranslucent;
+          v(1, y) = penColorTranslucent;
+          v(rect.SizeX() - 2, y) = penColorTranslucent;
+          v(rect.SizeX() - 1, y) = penColorTranslucent;
+        }
+
+        /// draw pattern
+        for (size_t y = 2; y < rect.SizeY() - 2; ++y)
+        {
+          double curLen = 0;
+
+          TDynamicTexture::pixel_t px = penColor;
+
+          /// In general case this code is incorrect.
+          /// TODO : Make a pattern start and end with a dash.
+          v(curLen, y) = px;
+          v(curLen + 1, y) = px;
+
+          for (size_t i = 0; i < penInfo.m_pat.size(); ++i)
           {
-            uint32_t val = (i + 1) % 2;
+            for (size_t j = 0; j < penInfo.m_pat[i]; ++j)
+            {
+              uint32_t val = (i + 1) % 2;
 
-            if (val == 0)
-              gil::get_color(px, gil::alpha_t()) = 0;
-            else
-              gil::get_color(px, gil::alpha_t()) = penInfoColor.a;
+              if (val == 0)
+                gil::get_color(px, gil::alpha_t()) = 0;
+              else
+                gil::get_color(px, gil::alpha_t()) = penInfoColor.a;
 
-            v(curLen + j + 2, y) = px;
+              v(curLen + j + 2, y) = px;
+            }
+
+            v(curLen + 2 + penInfo.m_pat[i], y) = px;
+            v(curLen + 2 + penInfo.m_pat[i] + 1, y) = px;
+
+            curLen += penInfo.m_pat[i];
           }
-
-          v(curLen + 2 + penInfo.m_pat[i], y) = px;
-          v(curLen + 2 + penInfo.m_pat[i] + 1, y) = px;
-
-          curLen += penInfo.m_pat[i];
         }
       }
 
       dynTexture->upload(&v(0, 0), rect);
+
+      lodepng_write_view("test.png", v);
     }
     m_penUploadCommands.clear();
   }

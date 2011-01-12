@@ -8,7 +8,7 @@ DEFINES += YG_LIBRARY
 ROOT_DIR = ..
 DEPENDENCIES = geometry coding base freetype fribidi expat
 
-INCLUDEPATH += $$ROOT_DIR/3party/freetype/include
+INCLUDEPATH += $$ROOT_DIR/3party/freetype/include $$ROOT_DIR/3party/agg
 
 include($$ROOT_DIR/common.pri)
 
@@ -56,7 +56,8 @@ SOURCES += \
     ft2_debug.cpp \
     geometry_batcher.cpp \
     text_renderer.cpp \
-    layer_manager.cpp
+    layer_manager.cpp \
+    path_renderer.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -100,7 +101,8 @@ HEADERS += \
     screen.hpp \
     layer_manager.hpp \
     gpu_state.hpp \
-    defines.hpp
+    defines.hpp \
+    path_renderer.hpp
 
 !iphonesimulator-g++42 {
   !iphonedevice-g++42 {

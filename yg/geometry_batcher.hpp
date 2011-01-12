@@ -162,6 +162,14 @@ namespace yg
 
       void setRenderTarget(shared_ptr<RenderTarget> const & rt);
 
+      void addTexturedVertices(m2::PointF const * coords,
+                               m2::PointF const * texCoords,
+                               unsigned size,
+                               double depth,
+                               int pageID);
+
+      int aaShift() const;
+
     private:
 
       void drawGlyph(m2::PointD const & ptOrg,
@@ -181,12 +189,6 @@ namespace yg
           float x0, float y0, float x1, float y1,
           double depth,
           int pageID);
-
-      void addTexturedVertices(m2::PointF const * coords,
-                               m2::PointF const * texCoords,
-                               unsigned size,
-                               double depth,
-                               int pageID);
     };
   }
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "geometry_batcher.hpp"
+#include "path_renderer.hpp"
 
 #include "../geometry/tree4d.hpp"
 
@@ -13,7 +13,7 @@ namespace yg
   {
     class BaseTexture;
 
-    class TextRenderer : public GeometryBatcher
+    class TextRenderer : public PathRenderer
     {
       class TextObj
       {
@@ -47,7 +47,7 @@ namespace yg
 
     public:
 
-      typedef GeometryBatcher base_t;
+      typedef PathRenderer base_t;
       struct Params : base_t::Params
       {
         bool m_useTextLayer;

@@ -99,6 +99,17 @@ namespace
           p->drawPath(&m_pathes[i][0], m_pathes[i].size(), p->skin()->mapPenInfo(m_axisPenInfo), m_depthes[i]);
       }
     }
+
+    void makeStar(vector<m2::PointD> & pts, m2::RectD const & r)
+    {
+      pts.push_back(m2::PointD(r.minX(), r.maxY()));
+      pts.push_back(m2::PointD(r.Center().x, r.minY()));
+      pts.push_back(m2::PointD(r.maxX(), r.maxY()));
+      pts.push_back(m2::PointD(r.minX(), r.minY() + r.SizeY() / 3));
+      pts.push_back(m2::PointD(r.maxX(), r.minY() + r.SizeY() / 3));
+      pts.push_back(m2::PointD(r.minX(), r.maxY()));
+    }
+
   };
 
   struct TestDrawPathWithSkinPageMiss : public TestDrawPathBase
@@ -326,8 +337,31 @@ namespace
     }
   };
 
+  struct TestDrawPathSolidDiffWidth : TestDrawPathBase
+  {
+    typedef TestDrawPathBase base_t;
 
-  struct TestDrawPathSolid : TestDrawPathBase
+    void Init()
+    {
+      base_t::Init();
+
+      vector<m2::PointD> testPoints;
+
+      int starCount = 10;
+      m2::PointD starSize(50, 50);
+      m2::PointD pt(10, 10);
+
+      for (int i = 0; i < starCount; ++i)
+      {
+        base_t::makeStar(testPoints, m2::RectD(pt, pt + starSize));
+        AddTest(testPoints, vector<double>(), yg::Color(255, 0, 0, 255), i + 1);
+        pt = pt + m2::PointD(starSize.x + i + 3, 0);
+        testPoints.clear();
+      }
+    }
+  };
+
+  struct TestDrawPathSolid1PX : TestDrawPathBase
   {
     typedef TestDrawPathBase base_t;
 
@@ -343,6 +377,73 @@ namespace
       testPoints.push_back(m2::PointD(220, 269));
       testPoints.push_back(m2::PointD(320, 270));
 
+      AddTest(testPoints, testPattern, yg::Color(255, 0, 0, 255), 1);
+
+      testPattern.push_back(20);
+      testPattern.push_back(20);
+      testPattern.push_back(20);
+      testPattern.push_back(20);
+
+      testPoints.clear();
+      testPoints.push_back(m2::PointD(420, 300));
+      testPoints.push_back(m2::PointD(480, 240));
+      testPoints.push_back(m2::PointD(520, 369));
+      testPoints.push_back(m2::PointD(620, 370));
+
+      AddTest(testPoints, testPattern, yg::Color(255, 0, 0, 255), 1);
+    }
+  };
+
+  struct TestDrawPathSolid2PX : TestDrawPathBase
+  {
+    typedef TestDrawPathBase base_t;
+
+    void Init()
+    {
+      base_t::Init();
+
+      std::vector<m2::PointD> testPoints;
+      std::vector<double> testPattern;
+
+      testPoints.push_back(m2::PointD(120, 200));
+      testPoints.push_back(m2::PointD(180, 140));
+      testPoints.push_back(m2::PointD(220, 269));
+      testPoints.push_back(m2::PointD(320, 270));
+
+      AddTest(testPoints, testPattern, yg::Color(255, 0, 0, 255), 2);
+
+      testPattern.push_back(20);
+      testPattern.push_back(20);
+      testPattern.push_back(20);
+      testPattern.push_back(20);
+
+      testPoints.clear();
+      testPoints.push_back(m2::PointD(420, 300));
+      testPoints.push_back(m2::PointD(480, 240));
+      testPoints.push_back(m2::PointD(520, 369));
+      testPoints.push_back(m2::PointD(620, 370));
+
+      AddTest(testPoints, testPattern, yg::Color(255, 0, 0, 255), 2);
+    }
+  };
+
+
+  struct TestDrawPathSolid : TestDrawPathBase
+  {
+    typedef TestDrawPathBase base_t;
+
+    void Init()
+    {
+      base_t::Init();
+
+      std::vector<m2::PointD> testPoints;
+      std::vector<double> testPattern;
+
+//      testPoints.push_back(m2::PointD(120, 200));
+//      testPoints.push_back(m2::PointD(180, 140));
+      testPoints.push_back(m2::PointD(220, 269));
+      testPoints.push_back(m2::PointD(320, 270));
+
       AddTest(testPoints, testPattern, yg::Color(255, 0, 0, 255), 40);
 
       testPattern.push_back(20);
@@ -351,10 +452,10 @@ namespace
       testPattern.push_back(20);
 
       testPoints.clear();
-      testPoints.push_back(m2::PointD(320, 300));
-      testPoints.push_back(m2::PointD(380, 240));
-      testPoints.push_back(m2::PointD(420, 369));
-      testPoints.push_back(m2::PointD(520, 370));
+      testPoints.push_back(m2::PointD(420, 300));
+      testPoints.push_back(m2::PointD(480, 240));
+      testPoints.push_back(m2::PointD(520, 369));
+      testPoints.push_back(m2::PointD(620, 370));
 
       AddTest(testPoints, testPattern, yg::Color(0, 255, 0, 255), 40);
     }
@@ -765,7 +866,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawEmptySymbol);
 //   UNIT_TEST_GL(TestDrawSingleSymbolAndSolidPath);
 //   UNIT_TEST_GL(TestDrawString);
-   UNIT_TEST_GL(TestDrawStringWithFixedFont);
+//   UNIT_TEST_GL(TestDrawStringWithFixedFont);
 //   UNIT_TEST_GL(TestDrawStringOnString);
 //   UNIT_TEST_GL(TestDrawTextOnPath);
 //   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
@@ -778,7 +879,10 @@ namespace
 //   UNIT_TEST_GL(TestDrawPathWithSkinPageMiss);
 //   UNIT_TEST_GL(TestDrawPathWithOffset);
 //   UNIT_TEST_GL(TestDrawPathJoin);
+   UNIT_TEST_GL(TestDrawPathSolid1PX);
+   UNIT_TEST_GL(TestDrawPathSolid2PX);
 //   UNIT_TEST_GL(TestDrawPathSolid);
+   UNIT_TEST_GL(TestDrawPathSolidDiffWidth);
 //   UNIT_TEST_GL(TestDrawPathSolidWithZ);
 //   UNIT_TEST_GL(TestDrawPathSolidWithClipRect);
 //   UNIT_TEST_GL(TestDrawUtilsRect);

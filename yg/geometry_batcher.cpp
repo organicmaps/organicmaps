@@ -746,5 +746,11 @@ namespace yg
      base_t::setClipRect(rect);
    }
 
+   int GeometryBatcher::aaShift() const
+   {
+     return m_aaShift;
+   }
+
+
  } // namespace gl
 } // namespace yg

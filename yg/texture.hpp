@@ -111,6 +111,7 @@ namespace yg
     {
     public:
 
+      typedef Traits traits_t;
       typedef typename Traits::pixel_t pixel_t;
       typedef typename Traits::const_pixel_t const_pixel_t;
       typedef typename Traits::view_t view_t;
