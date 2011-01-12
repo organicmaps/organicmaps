@@ -228,7 +228,7 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
 
   PushBackByteSink<buffer_t> sink(data);
 
-  if (!m_Geometry.empty())
+  if (m_bLinear || m_bArea)
     feature::SavePoints(m_Geometry, sink);
 
   if (m_bArea)
@@ -265,22 +265,14 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
 
   ArrayByteSource src(f.DataPtr() + f.m_GeometryOffset);
 
-  FeatureBase::FeatureType const ft = f.GetFeatureType();
-
-  if (ft != FeatureBase::FEATURE_TYPE_POINT)
+  if (m_bLinear || m_bArea)
   {
     feature::LoadPoints(m_Geometry, src);
-
     CalcRect(m_Geometry, m_LimitRect);
   }
 
-  if (ft == FeatureBase::FEATURE_TYPE_LINE)
-    m_bLinear = true;
-
-  if (ft == FeatureBase::FEATURE_TYPE_AREA)
+  if (m_bArea)
   {
-    m_bArea = true;
-
     uint32_t const count = ReadVarUint<uint32_t>(src);
     for (uint32_t i = 0; i < count; ++i)
     {
@@ -479,6 +471,9 @@ void FeatureBase::InitFeatureBuilder(FeatureBuilder1 & fb) const
 
   if (h & HEADER_HAS_POINT)
     fb.SetCenter(m_Center);
+
+  if (h & HEADER_IS_LINE)
+    fb.SetLinear();
 
   if (h & HEADER_IS_AREA)
   {
