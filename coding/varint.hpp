@@ -188,22 +188,51 @@ template <typename T, typename TSource> T ReadVarInt(TSource & src)
 
 DECLARE_EXCEPTION(ReadVarIntException, RootException);
 
-template <typename F> void ReadVarInt64Array(void const * pBeg, void const * pEnd, F f)
+namespace impl
+{
+
+class ReadVarInt64ArrayUntilBufferEnd
+{
+public:
+  explicit ReadVarInt64ArrayUntilBufferEnd(void const * pEnd) : m_pEnd(pEnd) {}
+  bool Continue(void const * p) const
+  {
+    ASSERT_LESS_OR_EQUAL(reinterpret_cast<uintptr_t>(p), reinterpret_cast<uintptr_t>(m_pEnd), ());
+    return p < m_pEnd;
+  }
+  void NextVarInt() {}
+private:
+  void const * m_pEnd;
+};
+
+class ReadVarInt64ArrayGivenSize
+{
+public:
+  explicit ReadVarInt64ArrayGivenSize(size_t const count) : m_Remaining(count) {}
+  bool Continue(void const *) const { return m_Remaining > 0; }
+  void NextVarInt() { --m_Remaining; }
+private:
+  size_t m_Remaining;
+};
+
+template <typename F, class WhileConditionT>
+void const * ReadVarInt64Array(void const * pBeg, WhileConditionT whileCondition, F f)
 {
   uint8_t const * const pBegChar = static_cast<uint8_t const *>(pBeg);
-  uint8_t const * const pEndChar = static_cast<uint8_t const *>(pEnd);
   uint64_t res64 = 0;
   uint32_t res32 = 0;
   uint32_t count32 = 0;
   uint32_t count64 = 0;
-  for (uint8_t const * p = pBegChar; p < pEndChar; ++p)
+  uint8_t const * p = pBegChar;
+  while (whileCondition.Continue(p))
   {
-    uint8_t const t = *p;
+    uint8_t const t = *p++;
     res32 += (static_cast<uint32_t>(t & 127) << count32);
     count32 += 7;
     if (!(t & 128))
     {
       f(ZigZagDecode((static_cast<uint64_t>(res32) << count64) + res64));
+      whileCondition.NextVarInt();
       res64 = 0;
       res32 = 0;
       count32 = 0;
@@ -220,4 +249,20 @@ template <typename F> void ReadVarInt64Array(void const * pBeg, void const * pEn
   ASSERT(count32 == 0 && res32 == 0 && res64 == 0, (res64, res32, count32));
   if (count32 != 0)
     MYTHROW(ReadVarIntException, ());
+  return p;
 }
+
+}
+
+template <typename F> inline
+void const * ReadVarInt64Array(void const * pBeg, void const * pEnd, F f)
+{
+  return impl::ReadVarInt64Array(pBeg, impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f);
+}
+
+template <typename F> inline
+void const * ReadVarInt64Array(void const * pBeg, size_t count, F f)
+{
+  return impl::ReadVarInt64Array(pBeg, impl::ReadVarInt64ArrayGivenSize(count), f);
+}
+

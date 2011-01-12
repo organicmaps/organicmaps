@@ -100,8 +100,12 @@ UNIT_TEST(VarIntMax)
 UNIT_TEST(ReadVarInt64Array_EmptyArray)
 {
   vector<int64_t> result;
-  ReadVarInt64Array(NULL, NULL, MakeBackInsertFunctor(result));
-  TEST_EQUAL(result, vector<int64_t>(), ());
+  void const * pEnd = ReadVarInt64Array(NULL, (void *)0, MakeBackInsertFunctor(result));
+  TEST_EQUAL(result, vector<int64_t>(), ("UntilBufferEnd"));
+  TEST_EQUAL(reinterpret_cast<uintptr_t>(pEnd), 0, ("UntilBufferEnd"));
+  pEnd = ReadVarInt64Array(NULL, (size_t)0, MakeBackInsertFunctor(result));
+  TEST_EQUAL(result, vector<int64_t>(), ("GivenSize"));
+  TEST_EQUAL(reinterpret_cast<uintptr_t>(pEnd), 0, ("GivenSize"));
 }
 
 UNIT_TEST(ReadVarInt64Array)
@@ -139,10 +143,21 @@ UNIT_TEST(ReadVarInt64Array)
         WriteVarInt(dst, testValues[j]);
     }
 
-    vector<int64_t> result;
     ASSERT_GREATER(data.size(), 0, ());
-    ReadVarInt64Array(&data[0], &data[0] + data.size(), MakeBackInsertFunctor(result));
-    TEST_EQUAL(result, testValues, ());
+    {
+      vector<int64_t> result;
+      void const * pEnd = ReadVarInt64Array(&data[0], &data[0] + data.size(),
+                                            MakeBackInsertFunctor(result));
+      TEST_EQUAL(pEnd, &data[0] + data.size(), ("UntilBufferEnd", data.size()));
+      TEST_EQUAL(result, testValues, ("UntilBufferEnd", data.size()));
+    }
+    {
+      vector<int64_t> result;
+      void const * pEnd = ReadVarInt64Array(&data[0], testValues.size(),
+                                            MakeBackInsertFunctor(result));
+      TEST_EQUAL(pEnd, &data[0] + data.size(), ("GivenSize", data.size()));
+      TEST_EQUAL(result, testValues, ("GivenSize", data.size()));
+    }
   }
 }
 
