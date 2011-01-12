@@ -6,7 +6,7 @@ CONFIG += staticlib
 DEFINES += YG_LIBRARY
 
 ROOT_DIR = ..
-DEPENDENCIES = geometry coding base freetype fribidi
+DEPENDENCIES = geometry coding base freetype fribidi expat
 
 INCLUDEPATH += $$ROOT_DIR/3party/freetype/include
 
