@@ -104,7 +104,7 @@
 		EEE4C93D1298A2F3007231A9 /* symbols_24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = symbols_24.png; path = ../../data/symbols_24.png; sourceTree = SOURCE_ROOT; };
 		EEE4C93F1298A303007231A9 /* symbols_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = symbols_48.png; path = ../../data/symbols_48.png; sourceTree = SOURCE_ROOT; };
 		EEE4C9411298A31B007231A9 /* basic_highres.skn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic_highres.skn; path = ../../data/basic_highres.skn; sourceTree = SOURCE_ROOT; };
-		EEF5745412DE1AD50082F472 /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfribidi.a; path = libfribidi.a; sourceTree = SOURCE_ROOT; };
+		EEF5745412DE1AD50082F472 /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfribidi.a; sourceTree = SOURCE_ROOT; };
 		EEFC0A9512B561B7002914FF /* dejavusans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = dejavusans.ttf; path = ../../data/dejavusans.ttf; sourceTree = "<group>"; };
 		FA04373112CAB83F00017494 /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libstorage.a; sourceTree = SOURCE_ROOT; };
 		FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = SOURCE_ROOT; };

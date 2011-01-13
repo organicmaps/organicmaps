@@ -675,7 +675,7 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      char * texts [] = {"Simplicity is the ultimate sophistication", "Leonardo Da Vinci"};
+      char const * texts [] = {"Simplicity is the ultimate sophistication", "Leonardo Da Vinci"};
 
       int startSize = 20;
       int endSize = 40;
