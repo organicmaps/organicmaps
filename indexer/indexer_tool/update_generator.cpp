@@ -41,7 +41,7 @@ namespace update
     Platform & platform = GetPlatform();
 
     Platform::FilesList files;
-    if (!platform.GetFilesInDir(dataDir, "*", files))
+    if (!platform.GetFilesInDir(dataDir, "*" DATA_FILE_EXTENSION, files))
     {
       LOG(LERROR, ("Can't find any files at path", dataDir));
       return false;
