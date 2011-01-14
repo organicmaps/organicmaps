@@ -167,6 +167,18 @@ namespace m2
     return res;
   }
 
+  template <typename T, typename U>
+      Point<T> const Shift(Point<T> const & pt, U const & dx, U const & dy)
+  {
+    return Point<T>(pt.x + dx, pt.y + dy);
+  }
+
+  template <typename T, typename U>
+      Point<T> const Shift(Point<T> const & pt, Point<U> const & offset)
+  {
+    return Shift(pt, offset.x, offset.y);
+  }
+
   template <typename T>
   bool IsPointStrictlyInsideTriangle(Point<T> const & p,
                                      Point<T> const & a, Point<T> const & b, Point<T> const & c)

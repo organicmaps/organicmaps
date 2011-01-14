@@ -1,6 +1,6 @@
 #pragma once
 
-#include "text_renderer.hpp"
+#include "shape_renderer.hpp"
 #include "../std/shared_ptr.hpp"
 
 namespace yg
@@ -8,14 +8,14 @@ namespace yg
   class ResourceManager;
   namespace gl
   {
-    class Screen : public TextRenderer
+    class Screen : public ShapeRenderer
     {
     private:
     public:
 
-      typedef TextRenderer::Params Params;
+      typedef ShapeRenderer::Params Params;
 
-      Screen(Params const & params) : TextRenderer(params)
+      Screen(Params const & params) : ShapeRenderer(params)
       {}
     };
   }

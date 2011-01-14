@@ -55,8 +55,8 @@ namespace qt
       p.m_resourceManager = m_resourceManager;
       p.m_isMultiSampled = false;
       p.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
-      p.m_dynamicPagesCount = 1;
-      p.m_textPagesCount = 0;
+      p.m_dynamicPagesCount = 2;
+      p.m_textPagesCount = 2;
 
       m_p = shared_ptr<DrawerYG>(new DrawerYG(GetPlatform().SkinName(), p));
     }

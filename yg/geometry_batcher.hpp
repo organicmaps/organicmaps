@@ -117,10 +117,11 @@ namespace yg
                     uint32_t styleID,
                     double depth);
 
-      void drawTriangles(m2::PointD const * points,
-                       size_t pointsCount,
-                       uint32_t styleID,
-                       double depth);
+      /// drawing triangles list. assuming that each 3 points compose a triangle
+      void drawTrianglesList(m2::PointD const * points,
+                            size_t pointsCount,
+                            uint32_t styleID,
+                            double depth);
 
     private:
       template <class ToDo>

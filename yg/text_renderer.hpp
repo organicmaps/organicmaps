@@ -65,6 +65,8 @@ namespace yg
         bool isFixedFont = false,
         bool log2vis = false);
 
+      void setClipRect(m2::RectI const & rect);
+
       void endFrame();
     };
   }

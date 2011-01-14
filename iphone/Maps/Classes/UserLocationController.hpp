@@ -9,8 +9,7 @@
 - (void) OnLocation: (m2::PointD const &) mercatorPoint 
 withConfidenceRadius: (double) confidenceRadius
 			withTimestamp: (NSDate *) timestamp;
-- (void) OnHeading: (double) heading
-		 withTimestamp: (NSDate *) timestamp;
+- (void) OnHeading: (CLHeading *)heading;
 - (void) OnLocationError: (NSString *) errorDescription;
 @end
 

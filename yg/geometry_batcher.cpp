@@ -392,10 +392,10 @@ namespace yg
      }
    }
 
-   void GeometryBatcher::drawTriangles(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth)
+   void GeometryBatcher::drawTrianglesList(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth)
    {
      ResourceStyle const * style = m_skin->fromID(styleID);
-     if (!hasRoom(pointsCount, (pointsCount - 2) * 3, style->m_pageID))
+     if (!hasRoom(pointsCount, pointsCount, style->m_pageID))
        flush(style->m_pageID);
 
      ASSERT_GREATER_OR_EQUAL(pointsCount, 2, ());

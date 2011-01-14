@@ -60,6 +60,7 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 		shared_ptr<yg::ResourceManager> resourceManager = [(EAGLView*)self.view resourceManager];
 		m_framework = new framework_t(windowHandle);
 		m_framework->Init(m_storage);
+		m_StickyThreshold = 10;
 		
 		m_locationController = [[UserLocationController alloc] initWithDelegate:self];
 		
@@ -79,10 +80,9 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 	return self;
 }
 
-- (void) OnHeading: (double) heading
-		 withTimestamp: (NSDate *)timestamp
+- (void) OnHeading: (CLHeading*) newHeading
 {
-	m_framework->SetHeading(heading);
+	m_framework->SetHeading(newHeading.trueHeading, newHeading.magneticHeading, newHeading.headingAccuracy);
 }
 
 - (void) OnLocation: (m2::PointD const &) mercatorPoint 
@@ -126,8 +126,9 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 	{
 		CGPoint pt1 = [[[allTouches allObjects] objectAtIndex:0] locationInView:nil];
 		CGPoint pt2 = [[[allTouches allObjects] objectAtIndex:1] locationInView:nil];
+		
 		m_Pt1 = m2::PointD(pt1.x * self.view.contentScaleFactor, pt1.y * self.view.contentScaleFactor);
-		m_Pt2 = m2::PointD(pt2.x * self.view.contentScaleFactor, pt2.y * self.view.contentScaleFactor);
+	  m_Pt2 = m2::PointD(pt2.x * self.view.contentScaleFactor, pt2.y * self.view.contentScaleFactor);
 	}
 }
 
@@ -162,18 +163,34 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 		m_framework->StartScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
 		m_CurrentAction = SCALING;
 	}
+	
+	m_isSticking = true;
 }
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
 {
+	m2::PointD TempPt1 = m_Pt1;
+	m2::PointD TempPt2 = m_Pt2;
+	
 	[self updatePointsFromEvent:event];
 	
 	bool needRedraw = false;
+
+	if (m_isSticking)
+	{
+		if ((TempPt1.Length(m_Pt1) > m_StickyThreshold) || (TempPt2.Length(m_Pt2) > m_StickyThreshold))
+			m_isSticking = false;
+		else
+		{
+			/// Still stickying. Restoring old points and return.
+			m_Pt1 = TempPt1;
+			m_Pt2 = TempPt2;
+			return;
+		}
+	}
 	
 	switch (m_CurrentAction)
 	{
-	case NOTHING:
-		return;
 	case DRAGGING:
 		m_framework->DoDrag(DragEvent(m_Pt1.x, m_Pt1.y));
 		needRedraw = true;
@@ -187,6 +204,8 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 			needRedraw = true;
 		}
 		break;
+	case NOTHING:
+		return;
 	}
 }
 

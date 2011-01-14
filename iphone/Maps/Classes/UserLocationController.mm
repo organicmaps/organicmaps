@@ -38,7 +38,7 @@
   [m_locationManager startUpdatingLocation];
 	if ([m_locationManager headingAvailable])
 	{
-		m_locationManager.headingFilter = 5;
+		m_locationManager.headingFilter = 1;
 		[m_locationManager startUpdatingHeading];
 	}
 	else
@@ -55,8 +55,7 @@
 - (void) locationManager: (CLLocationManager *) manager
 				didUpdateHeading:	(CLHeading *) newHeading
 {
-	double trueHeading = [newHeading trueHeading];
-	[self.delegate OnHeading: trueHeading withTimestamp: newHeading.timestamp];
+	[self.delegate OnHeading: newHeading];
 }
 
 - (void) locationManager: (CLLocationManager *) manager

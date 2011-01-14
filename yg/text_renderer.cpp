@@ -67,10 +67,15 @@ namespace yg
       }
     }
 
+    void TextRenderer::setClipRect(m2::RectI const & rect)
+    {
+      m_tree.ForEach(bind(&TextObj::Draw, _1, this));
+      m_tree.Clear();
+      base_t::setClipRect(rect);
+    }
+
     void TextRenderer::endFrame()
     {
-      shared_ptr<RenderTarget> rt;
-
       m_tree.ForEach(bind(&TextObj::Draw, _1, this));
       m_tree.Clear();
 

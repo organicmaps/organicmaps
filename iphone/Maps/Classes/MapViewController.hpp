@@ -22,6 +22,8 @@
 	} m_CurrentAction; 
 	
 	bool m_isDirtyPosition;
+	bool m_isSticking;
+	size_t m_StickyThreshold;
 	
 	m2::PointD m_Pt1, m_Pt2;
 }
@@ -31,8 +33,7 @@
 - (void)  OnLocation: (m2::PointD const &) mercatorPoint 
 withConfidenceRadius: (double) confidenceRadius
 			 withTimestamp: (NSDate *) timestamp;      
-- (void) OnHeading: (double) heading
-			withTimestamp: (NSDate *) timestamp;
+- (void) OnHeading: (CLHeading*) heading;
 
 - (void) OnLocationError: (NSString *) errorDescription;
 

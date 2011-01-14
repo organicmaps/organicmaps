@@ -472,7 +472,7 @@ namespace
 //      p->drawTriangles(ptsFan, 5, yg::TriangleFan, p->skin()->mapColor(yg::Color(0, 255, 0, 255)));
 
       m2::PointD ptsList[6] = {m2::PointD(20, 80), m2::PointD(50, 120), m2::PointD(80, 80), m2::PointD(110, 80), m2::PointD(140, 120), m2::PointD(80, 120)};
-      p->drawTriangles(ptsList, 6, /*yg::TriangleList, */p->skin()->mapColor(yg::Color(0, 0, 255, 255)), 0);
+      p->drawTrianglesList(ptsList, 6, /*yg::TriangleList, */p->skin()->mapColor(yg::Color(0, 0, 255, 255)), 0);
     }
   };
 
@@ -507,9 +507,9 @@ namespace
         prevPt = nextPt;
       }
 
-      p->drawTriangles(&vertices[0],
-                       vertices.size(),
-                       p->skin()->mapColor(yg::Color(0, 0, 255, 255)), 0);
+      p->drawTrianglesList(&vertices[0],
+                           vertices.size(),
+                           p->skin()->mapColor(yg::Color(0, 0, 255, 255)), 0);
     }
   };
 
@@ -726,6 +726,16 @@ namespace
     }
   };
 
+  struct TestDrawSector
+  {
+  public:
+    void DoDraw(shared_ptr<yg::gl::Screen> p)
+    {
+      p->drawArc(m2::PointD(100, 100), 0, math::pi * 2, 30, yg::Color(0, 0, 255, 128), 12000);
+      p->fillSector(m2::PointD(100, 100), 0, math::pi * 2, 30, yg::Color(0, 0, 255, 64), 12000);
+    }
+  };
+
   struct TestDrawSGIConvex
   {
     tess::VectorDispatcher m_d;
@@ -881,7 +891,8 @@ namespace
 //   UNIT_TEST_GL(TestDrawPathJoin);
 //   UNIT_TEST_GL(TestDrawPathSolid1PX);
 //   UNIT_TEST_GL(TestDrawPathSolid2PX);
-   UNIT_TEST_GL(TestDrawPathSolid);
+//   UNIT_TEST_GL(TestDrawPathSolid);
+   UNIT_TEST_GL(TestDrawSector);
 //   UNIT_TEST_GL(TestDrawPathSolidDiffWidth);
 //   UNIT_TEST_GL(TestDrawPathSolidWithZ);
 //   UNIT_TEST_GL(TestDrawPathSolidWithClipRect);

@@ -36,6 +36,7 @@
 
 #include "../base/start_mem_debug.hpp"
 
+//#define DRAW_TOUCH_POINTS
 
 namespace di { class DrawInfo; }
 namespace drule { class BaseRule; }
@@ -95,7 +96,9 @@ class FrameWork
   RenderQueue m_renderQueue;
 
   bool m_isHeadingEnabled;
-  double m_heading;
+  double m_trueHeading;
+  double m_magneticHeading;
+  double m_headingAccuracy;
 
   bool m_isPositionEnabled;
   m2::PointD m_position;
@@ -103,6 +106,8 @@ class FrameWork
 
   /// is AddRedrawCommand enabled?
   bool m_isRedrawEnabled;
+
+  m2::PointD m_DebugPts[2];
 
   void Invalidate()
   {
@@ -170,6 +175,8 @@ public:
       m_isPositionEnabled(false),
       m_isRedrawEnabled(true)
   {
+    m_DebugPts[0] = m2::PointD(0, 0);
+    m_DebugPts[1] = m2::PointD(0, 0);
     m_renderQueue.AddWindowHandle(m_windowHandle);
   }
 
@@ -326,14 +333,31 @@ public:
 
       m2::PointD const center = m_navigator.Screen().ClipRect().Center();
 
+#ifdef DRAW_TOUCH_POINTS
+
+      if (m_DebugPts[0] != m2::PointD(0, 0))
+      {
+        pDrawer->screen()->drawArc(m_DebugPts[0], 0, math::pi * 2, 30, yg::Color(0, 0, 255, 32), yg::maxDepth);
+        pDrawer->screen()->fillSector(m_DebugPts[0], 0, math::pi * 2, 30, yg::Color(0, 0, 255, 32), yg::maxDepth);
+      }
+
+      if (m_DebugPts[1] != m2::PointD(0, 0))
+      {
+        pDrawer->screen()->drawArc(m_DebugPts[1], 0, math::pi * 2, 30, yg::Color(0, 0, 255, 64), yg::maxDepth);
+        pDrawer->screen()->fillSector(m_DebugPts[1], 0, math::pi * 2, 30, yg::Color(0, 0, 255, 32), yg::maxDepth);
+      }
+#endif
+
       DrawPosition(pDrawer);
+
+      pDrawer->drawStats(m_renderQueue.renderState().m_duration, GetCurrentScale(),
+                         MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x),
+                         ptShift);
+
+      e->drawer()->screen()->endFrame();
 
       OGLCHECK(glPopMatrix());
 
-      pDrawer->drawStats(m_renderQueue.renderState().m_duration, GetCurrentScale(),
-                         MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x));
-
-      e->drawer()->screen()->endFrame();
     }
   }
 
@@ -344,65 +368,62 @@ public:
       m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(false);
       /// Drawing position and heading
       m2::PointD pxPosition = m_navigator.Screen().GtoP(m_position);
-      pDrawer->drawSymbol(pxPosition - ptShift, "current-position", yg::maxDepth);
+      pDrawer->drawSymbol(pxPosition, "current-position", yg::maxDepth);
 
       double pxConfidenceRadius = pxPosition.Length(m_navigator.Screen().GtoP(m_position + m2::PointD(m_confidenceRadius, 0)));
 
-      size_t sectorsCount = 360;
-      vector<m2::PointD> borderPts;
-      vector<m2::PointD> areaPts;
-      m2::PointD prevPt = pxPosition + m2::PointD(pxConfidenceRadius, 0) - ptShift;
+      pDrawer->screen()->drawArc(pxPosition, 0, math::pi * 2, pxConfidenceRadius, yg::Color(0, 0, 255, 64), yg::maxDepth - 2);
+      pDrawer->screen()->fillSector(pxPosition, 0, math::pi * 2, pxConfidenceRadius, yg::Color(0, 0, 255, 32), yg::maxDepth - 3);
 
-      for (size_t i = 0; i < sectorsCount; ++i)
+      if (m_isHeadingEnabled)
       {
-        m2::PointD curPt = pxPosition + m2::Rotate(m2::PointD(pxConfidenceRadius, 0), i / 180.0 * math::pi) - ptShift;
-        borderPts.push_back(curPt);
-        if (prevPt != curPt)
-        {
-          areaPts.push_back(pxPosition - ptShift);
-          areaPts.push_back(prevPt);
-          areaPts.push_back(curPt);
-        }
-        prevPt = curPt;
+        double trueHeadingRad = m_trueHeading / 180 * math::pi;
+        double magneticHeadingRad = m_magneticHeading / 180 * math::pi;
+        double headingAccuracyRad = m_headingAccuracy / 180 * math::pi;
+
+        /// true heading
+        pDrawer->screen()->drawSector(pxPosition,
+                                      trueHeadingRad - headingAccuracyRad,
+                                      trueHeadingRad + headingAccuracyRad,
+                                      pxConfidenceRadius,
+                                      yg::Color(255, 0, 0, 64),
+                                      yg::maxDepth);
+        pDrawer->screen()->fillSector(pxPosition,
+                                      trueHeadingRad - headingAccuracyRad,
+                                      trueHeadingRad + headingAccuracyRad,
+                                      pxConfidenceRadius,
+                                      yg::Color(255, 0, 0, 32),
+                                      yg::maxDepth - 1);
+/*        /// magnetic heading
+        pDrawer->screen()->drawSector(pxPosition,
+                                      magneticHeadingRad - headingAccuracyRad,
+                                      magneticHeadingRad + headingAccuracyRad,
+                                      pxConfidenceRadius,
+                                      yg::Color(0, 255, 0, 64),
+                                      yg::maxDepth);
+        pDrawer->screen()->fillSector(pxPosition,
+                                      magneticHeadingRad - headingAccuracyRad,
+                                      magneticHeadingRad + headingAccuracyRad,
+                                      pxConfidenceRadius,
+                                      yg::Color(0, 255, 0, 32),
+                                      yg::maxDepth - 1);
+ */
       }
-
-      borderPts.push_back(pxPosition + m2::PointD(pxConfidenceRadius, 0) - ptShift);
-      areaPts.push_back(pxPosition - ptShift);
-      areaPts.push_back(prevPt);
-      areaPts.push_back(pxPosition + m2::PointD(pxConfidenceRadius, 0) - ptShift);
-
-      pDrawer->screen()->drawPath(
-          &borderPts[0],
-          borderPts.size(),
-          pDrawer->screen()->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 255, 64), 4, 0, 0, 0)),
-          yg::maxDepth - 1
-          );
-
-      pDrawer->screen()->drawTriangles(
-          &areaPts[0],
-          areaPts.size(),
-          pDrawer->screen()->skin()->mapColor(yg::Color(0, 0, 255, 32)),
-          yg::maxDepth - 2);
-
-/*        if (m_isHeadingEnabled)
-        {
-          LOG(LINFO, ("Drawing Heading", m_heading));
-          m2::PointD v(0, 1);
-          v.Rotate(m_heading / 180 * math::pi);
-          m2::PointD pts[2] = {m_navigator.Screen().GtoP(m_position),
-                               m_navigator.Screen().GtoP(m_position + v)};
-
-
-
-          pDrawer->screen()->drawPath(
-              pts,
-              2,
-              pDrawer->screen()->skin()->mapPenInfo(yg::PenInfo(yg::Color(255, 0, 0, 255), 4, 0, 0, 0)),
-              yg::maxDepth
-              );
-        }
-*/
     }
+  }
+
+  void DrawScaleLiner(DrawerYG * pDrawer)
+  {
+    /// Compute Scaler
+    /// scaler should be between minPixSize and maxPixSize
+    int minPixSize = 40;
+    int maxPixSize = 80;
+
+    m2::PointD lowerBoundPt = m2::PointD(0, m_renderQueue.renderState().m_surfaceHeight)
+                            + m_renderQueue.renderState().coordSystemShift();
+
+    double minMetersSize = m_navigator.Screen().PtoG(lowerBoundPt + m2::PointD(minPixSize, 0)).x;
+    double maxMetersSize = m_navigator.Screen().PtoG(lowerBoundPt + m2::PointD(maxPixSize, 0)).x;
   }
 
 	void DisableMyPositionAndHeading()
@@ -429,10 +450,12 @@ public:
     UpdateNow();
   }
 
-  void SetHeading(double heading)
+  void SetHeading(double trueHeading, double magneticHeading, double accuracy)
   {
     m_isHeadingEnabled = true;
-    m_heading = heading;
+    m_trueHeading = trueHeading;
+    m_magneticHeading = magneticHeading;
+    m_headingAccuracy = accuracy;
 
     UpdateNow();
   }
@@ -468,25 +491,43 @@ public:
   void StartDrag(DragEvent const & e)
   {
     m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
-    m_navigator.StartDrag(m_navigator.OrientPoint(e.Pos() + ptShift),
+    m2::PointD pos = m_navigator.OrientPoint(e.Pos()) + ptShift;
+    m_navigator.StartDrag(pos,
                           GetPlatform().TimeInSec());
+
+#ifdef DRAW_TOUCH_POINTS
+    m_DebugPts[0] = pos;
+#endif
+
     Invalidate();
   }
   void DoDrag(DragEvent const & e)
   {
     m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
 
-    m_navigator.DoDrag(m_navigator.OrientPoint(e.Pos() + ptShift),
+    m2::PointD pos = m_navigator.OrientPoint(e.Pos()) + ptShift;
+    m_navigator.DoDrag(pos,
                        GetPlatform().TimeInSec());
+
+#ifdef DRAW_TOUCH_POINTS
+    m_DebugPts[0] = pos;
+#endif
+
     Invalidate();
   }
   void StopDrag(DragEvent const & e)
   {
     m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
 
-    m_navigator.StopDrag(m_navigator.OrientPoint(e.Pos() + ptShift),
+    m2::PointD pos = m_navigator.OrientPoint(e.Pos()) + ptShift;
+
+    m_navigator.StopDrag(pos,
                          GetPlatform().TimeInSec(),
                          true);
+
+#ifdef DRAW_TOUCH_POINTS
+    m_DebugPts[0] = m2::PointD(0, 0);
+#endif
 
     UpdateNow();
   }
@@ -503,7 +544,10 @@ public:
   void ScaleToPoint(ScaleToPointEvent const & e)
   {
     m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
-    m_navigator.ScaleToPoint(m_navigator.OrientPoint(e.Pt() + ptShift),
+
+    m2::PointD pt = m_navigator.OrientPoint(e.Pt()) + ptShift;
+
+    m_navigator.ScaleToPoint(pt,
       e.ScaleFactor(),
       GetPlatform().TimeInSec());
 
@@ -525,27 +569,47 @@ public:
   {
     m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
 
-    m_navigator.StartScale(m_navigator.OrientPoint(e.Pt1() + ptShift),
-                           m_navigator.OrientPoint(e.Pt2() + ptShift),
-                           GetPlatform().TimeInSec());
+    m2::PointD pt1 = m_navigator.OrientPoint(e.Pt1()) + ptShift;
+    m2::PointD pt2 = m_navigator.OrientPoint(e.Pt2()) + ptShift;
+
+    m_navigator.StartScale(pt1, pt2, GetPlatform().TimeInSec());
+
+#ifdef DRAW_TOUCH_POINTS
+    m_DebugPts[0] = pt1;
+    m_DebugPts[1] = pt2;
+#endif
+
     Invalidate();
   }
   void DoScale(ScaleEvent const & e)
   {
     m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
 
-    m_navigator.DoScale(m_navigator.OrientPoint(e.Pt1() + ptShift),
-                        m_navigator.OrientPoint(e.Pt2() + ptShift),
-                        GetPlatform().TimeInSec());
+    m2::PointD pt1 = m_navigator.OrientPoint(e.Pt1()) + ptShift;
+    m2::PointD pt2 = m_navigator.OrientPoint(e.Pt2()) + ptShift;
+
+    m_navigator.DoScale(pt1, pt2, GetPlatform().TimeInSec());
+
+#ifdef DRAW_TOUCH_POINTS
+    m_DebugPts[0] = pt1;
+    m_DebugPts[1] = pt2;
+#endif
+
     Invalidate();
   }
   void StopScale(ScaleEvent const & e)
   {
     m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
 
-    m_navigator.StopScale(m_navigator.OrientPoint(e.Pt1() + ptShift),
-                          m_navigator.OrientPoint(e.Pt2() + ptShift),
-                          GetPlatform().TimeInSec());
+    m2::PointD pt1 = m_navigator.OrientPoint(e.Pt1()) + ptShift;
+    m2::PointD pt2 = m_navigator.OrientPoint(e.Pt2()) + ptShift;
+
+    m_navigator.StopScale(pt1, pt2, GetPlatform().TimeInSec());
+
+#ifdef DRAW_TOUCH_POINTS
+    m_DebugPts[0] = m2::PointD(0, 0);
+    m_DebugPts[1] = m2::PointD(0, 0);
+#endif
 
     UpdateNow();
   }
