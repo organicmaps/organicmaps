@@ -10,6 +10,9 @@
 #include "../coding/byte_stream.hpp"
 
 #include "../base/logging.hpp"
+#include "../base/stl_add.hpp"
+
+#include "../std/algorithm.hpp"
 
 #include "../base/start_mem_debug.hpp"
 
@@ -411,8 +414,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data)
     else
     {
       // offsets was pushed from high scale index to low
-      std::reverse(data.m_ptsOffset.begin(), data.m_ptsOffset.end());
-
+      reverse(data.m_ptsOffset.begin(), data.m_ptsOffset.end());
       WriteVarUintArray(data.m_ptsOffset, sink);
     }
   }
@@ -424,8 +426,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data)
     else
     {
       // offsets was pushed from high scale index to low
-      std::reverse(data.m_trgOffset.begin(), data.m_trgOffset.end());
-
+      reverse(data.m_trgOffset.begin(), data.m_trgOffset.end());
       WriteVarUintArray(data.m_trgOffset, sink);
     }
   }
@@ -579,7 +580,10 @@ namespace
 
 int FeatureType::GetScaleIndex(int scale)
 {
-  for (size_t i = 0; i < ARRAY_SIZE(feature::g_arrScales); ++i)
+  int const count = ARRAY_SIZE(feature::g_arrScales);
+  if (scale == -1) return count-1;
+
+  for (size_t i = 0; i < count; ++i)
     if (scale <= feature::g_arrScales[i])
       return i;
   return -1;
@@ -755,7 +759,9 @@ void FeatureType::ParseHeader2() const
         m_ptsSimpMask += (mask << (i << 3));
       }
 
-      ReadInnerPoints(src, m_Points, ptsCount);
+      m_InnerPoints.reserve(ptsCount);
+      src = ArrayByteSource(ReadVarInt64Array(
+        src.Ptr(), ptsCount, MakeBackInsertFunctor(m_InnerPoints)));
     }
     else
       ReadOffsets(src, ptsMask, m_ptsOffsets);
@@ -780,19 +786,49 @@ uint32_t FeatureType::ParseGeometry(int scale) const
     ParseHeader2();
 
   uint32_t sz = 0;
-  if (m_Points.empty() && Header() & HEADER_IS_LINE)
+  if (Header() & HEADER_IS_LINE)
   {
-    int const ind = GetScaleIndex(scale, m_ptsOffsets);
-    if (ind != -1)
+    if (m_InnerPoints.empty())
     {
-      ReaderSource<FileReader> src(
-            m_cont->GetReader(feature::GetTagForIndex(GEOMETRY_FILE_TAG, ind)));
-      src.Skip(m_ptsOffsets[ind]);
-      feature::LoadPoints(m_Points, src);
+      // outer geometry
+      int const ind = GetScaleIndex(scale, m_ptsOffsets);
+      if (ind != -1)
+      {
+        ReaderSource<FileReader> src(
+              m_cont->GetReader(feature::GetTagForIndex(GEOMETRY_FILE_TAG, ind)));
+        src.Skip(m_ptsOffsets[ind]);
+        feature::LoadPoints(m_Points, src);
 
-      CalcRect(m_Points, m_LimitRect);
-      sz = static_cast<uint32_t>(src.Pos() - m_ptsOffsets[ind]);
+        sz = static_cast<uint32_t>(src.Pos() - m_ptsOffsets[ind]);
+      }
     }
+    else
+    {
+      // inner geometry
+      size_t const count = m_InnerPoints.size();
+      ASSERT_GREATER ( count, 1, () );
+
+      m_Points.reserve(count);
+
+      uint32_t const scaleIndex = GetScaleIndex(scale);
+      ASSERT_LESS ( scaleIndex, ARRAY_SIZE(feature::g_arrScales), () );
+
+      int64_t id = m_InnerPoints.front();
+      m_Points.push_back(feature::pts::ToPoint(id));
+
+      for (size_t i = 1; i < count-1; ++i)
+      {
+        id += m_InnerPoints[i];
+        // check for point visibility in needed scaleIndex
+        if (((m_ptsSimpMask >> (2*(i-1))) & 0x3) <= scaleIndex)
+          m_Points.push_back(feature::pts::ToPoint(id));
+      }
+
+      id += m_InnerPoints.back();
+      m_Points.push_back(feature::pts::ToPoint(id));
+    }
+
+    CalcRect(m_Points, m_LimitRect);
   }
 
   m_bPointsParsed = true;
@@ -838,16 +874,10 @@ void FeatureType::ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & o
   }
 }
 
-void FeatureType::ReadInnerPoints(ArrayByteSource & src, vector<m2::PointD> & v, uint8_t count) const
+void FeatureType::ReadInnerPoints(ArrayByteSource & src, vector<m2::PointD> & points, uint8_t count) const
 {
-  ASSERT_GREATER ( count, 0, () );
-  v.reserve(count);
-
-  int64_t id = 0;
-  for (uint8_t i = 0; i < count; ++i)
-    v.push_back(feature::pts::ToPoint(id += ReadVarInt<int64_t>(src)));
-
-  CalcRect(v, m_LimitRect);
+  src = ArrayByteSource(feature::LoadPointsSimple(src.Ptr(), count, points));
+  CalcRect(points, m_LimitRect);
 }
 
 void FeatureType::ParseAll(int scale) const

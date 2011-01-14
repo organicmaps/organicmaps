@@ -357,30 +357,8 @@ public:
     }
     else
     {
-      if (m_ptsSimpMask != 0 && scale != -1)
-      {
-        // inner geometry
-        uint32_t const scaleIndex = GetScaleIndex(scale);
-        ASSERT_LESS(scaleIndex, 4, ());
-
-        f(CoordPointT(m_Points[0].x, m_Points[0].y));
-
-        size_t const last = m_Points.size()-1;
-        for (size_t i = 1; i < last; ++i)
-        {
-          // check for point visibility in needed scaleIndex
-          if (((m_ptsSimpMask >> (2*(i-1))) & 0x3) <= scaleIndex)
-            f(CoordPointT(m_Points[i].x, m_Points[i].y));
-        }
-
-        f(CoordPointT(m_Points[last].x, m_Points[last].y));
-      }
-      else
-      {
-        // loaded outer geometry
-        for (size_t i = 0; i < m_Points.size(); ++i)
-          f(CoordPointT(m_Points[i].x, m_Points[i].y));
-      }
+      for (size_t i = 0; i < m_Points.size(); ++i)
+        f(CoordPointT(m_Points[i].x, m_Points[i].y));
     }
   }
 
@@ -448,6 +426,7 @@ private:
 
   void ParseAll(int scale) const;
 
+  mutable vector<int64_t> m_InnerPoints;
   mutable vector<m2::PointD> m_Points, m_Triangles;
 
   FilesContainerR * m_cont;
@@ -461,7 +440,7 @@ private:
   typedef array<uint32_t, 4> offsets_t; // should be synchronized with ARRAY_SIZE(g_arrScales)
 
   static void ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets);
-  void ReadInnerPoints(ArrayByteSource & src, vector<m2::PointD> & v, uint8_t count) const;
+  void ReadInnerPoints(ArrayByteSource & src, vector<m2::PointD> & points, uint8_t count) const;
 
   static int GetScaleIndex(int scale);
   static int GetScaleIndex(int scale, offsets_t const & offset);

@@ -60,13 +60,19 @@ namespace feature
       points_emitter(vector<m2::PointD> & points, uint32_t count)
         : m_points(points), m_id(0)
       {
-        m_points.reserve(count / 2);
+        m_points.reserve(count);
       }
       void operator() (int64_t id)
       {
         m_points.push_back(pts::ToPoint(m_id += id));
       }
     };
+
+    inline void const * ReadPointsSimple( void const * p, size_t count,
+                                          vector<m2::PointD> & points)
+    {
+      return ReadVarInt64Array(p, count, points_emitter(points, count));
+    }
 
     template <class TSource>
     void ReadPoints(vector<m2::PointD> & points, TSource & src)
@@ -76,7 +82,7 @@ namespace feature
       char * p = &buffer[0];
       src.Read(p, count);
 
-      ReadVarInt64Array(p, p + count, points_emitter(points, count));
+      ReadVarInt64Array(p, p + count, points_emitter(points, count / 2));
     }
   }
 
@@ -100,6 +106,15 @@ namespace feature
     detail::TransformPoints(points, cells);
 
     detail::WriteCells(cells, sink);
+  }
+
+  inline void const * LoadPointsSimple( void const * p, size_t count,
+                                        vector<m2::PointD> & points)
+  {
+    ASSERT_GREATER ( count, 1, () );
+    void const * ret = detail::ReadPointsSimple(p, count, points);
+    ASSERT_GREATER ( points.size(), 1, () );
+    return ret;
   }
 
   template <class TSource>
