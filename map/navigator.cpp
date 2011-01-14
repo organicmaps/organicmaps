@@ -37,9 +37,17 @@ void Navigator::SetFromRect(m2::RectD const & r)
 
 void Navigator::CenterViewport(m2::PointD const & p)
 {
-  m_Screen.SetOrg(p);
+  /// Rounding center point to a pixel
+  /// boundary to obtain crisp centered picture.
+  m2::PointD pt = m_Screen.GtoP(p);
+  pt.x = ceil(pt.x);
+  pt.y = ceil(pt.y);
+
+  pt = m_Screen.PtoG(pt);
+
+  m_Screen.SetOrg(pt);
   if (!m_InAction)
-    m_StartScreen.SetOrg(p);
+    m_StartScreen.SetOrg(pt);
 }
 
 void Navigator::SaveState(FileWriter & writer)
