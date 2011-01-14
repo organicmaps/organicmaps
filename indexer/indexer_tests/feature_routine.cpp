@@ -41,9 +41,9 @@ void FeatureBuilder2Feature(FeatureBuilder2 & fb, FeatureType & f)
   string const datFile = "indexer_tests_tmp.dat";
 
   FeatureBuilder2::buffers_holder_t buffers;
-  buffers.m_lineOffset.push_back(0);
+  buffers.m_ptsOffset.push_back(0);
   buffers.m_trgOffset.push_back(0);
-  buffers.m_lineMask = 1;
+  buffers.m_ptsMask = 1;
   fb.Serialize(buffers);
 
   {

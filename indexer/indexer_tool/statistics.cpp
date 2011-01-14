@@ -58,7 +58,7 @@ namespace stats
 
       uint32_t const datSize = f.GetAllSize();
       m_info.m_all.Add(datSize);
-      m_info.m_names.Add(f.GetNameSize());
+      //m_info.m_names.Add(f.GetNameSize());
       m_info.m_types.Add(f.GetTypesSize());
 
       FeatureType::geom_stat_t geom = f.GetGeometrySize(-1);

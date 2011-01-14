@@ -82,7 +82,7 @@ FeatureBase FeatureBuilder1::GetFeatureBase() const
   f.m_LimitRect = m_LimitRect;
   f.m_Name = m_Name;
 
-  f.m_bTypesParsed = f.m_bLayerParsed = f.m_bNameParsed = f.m_bGeometryParsed = true;
+  f.m_bTypesParsed = f.m_bCommonParsed = true;
 
   return f;
 }
@@ -263,7 +263,7 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
   f.Deserialize(data, 0);
   f.InitFeatureBuilder(*this);
 
-  ArrayByteSource src(f.DataPtr() + f.m_GeometryOffset);
+  ArrayByteSource src(f.DataPtr() + f.m_Header2Offset);
 
   if (m_bLinear || m_bArea)
   {
@@ -302,35 +302,63 @@ bool FeatureBuilder2::IsDrawableInRange(int lowS, int highS) const
   return false;
 }
 
-void FeatureBuilder2::SerializeOffsets(uint32_t mask, offsets_t const & offsets, buffer_t & buffer)
-{
-  if (mask > 0)
-  {
-    PushBackByteSink<buffer_t> sink(buffer);
-
-    WriteVarUint(sink, mask);
-    for (size_t i = 0; i < offsets.size(); ++i)
-      WriteVarUint(sink, offsets[i]);
-  }
-}
-
 bool FeatureBuilder2::PreSerialize(buffers_holder_t const & data)
 {
   // make flags actual before header serialization
-  if (data.m_lineMask == 0)
-  {
+  if (data.m_ptsMask == 0 && data.m_innerPts.empty())
     m_bLinear = false;
-    m_Geometry.clear();
-  }
 
-  if (data.m_trgMask == 0)
-  {
+  if (data.m_trgMask == 0 && data.m_innerTrg.empty())
     m_bArea = false;
-    m_Holes.clear();
-  }
 
   // we don't need empty features without geometry
   return base_type::PreSerialize();
+}
+
+namespace 
+{
+  template <class T, class TSink>
+  void WriteVarUintArray(vector<T> const & v, TSink & sink)
+  {
+    size_t const count = v.size();
+    ASSERT_GREATER ( count, 0, () );
+
+    for (size_t i = 0; i < count; ++i)
+      WriteVarUint(sink, v[i]);
+  }
+
+  template <class TSink> class BitSink
+  {
+    TSink & m_sink;
+
+    uint8_t m_current;
+    uint8_t m_pos;
+
+  public:
+    BitSink(TSink & sink) : m_sink(sink), m_pos(0), m_current(0) {}
+
+    void Finish()
+    {
+      if (m_pos > 0)
+      {
+        WriteToSink(m_sink, m_current);
+        m_pos = 0;
+        m_current = 0;
+      }
+    }
+
+    void Write(uint8_t value, uint8_t count)
+    {
+      ASSERT_LESS ( count, 9, () );
+      ASSERT_EQUAL ( value >> count, 0, () );
+
+      if (m_pos + count > 8)
+        Finish();
+
+      m_current |= (value << m_pos);
+      m_pos += count;
+    }
+  };
 }
 
 void FeatureBuilder2::Serialize(buffers_holder_t & data)
@@ -340,9 +368,67 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data)
   // header data serialization
   SerializeBase(data.m_buffer);
 
-  // geometry offsets serialization
-  SerializeOffsets(data.m_lineMask, data.m_lineOffset, data.m_buffer);
-  SerializeOffsets(data.m_trgMask, data.m_trgOffset, data.m_buffer);
+  PushBackByteSink<buffer_t> sink(data.m_buffer);
+
+  uint8_t const ptsCount = static_cast<uint8_t>(data.m_innerPts.size());
+  uint8_t const trgCount = static_cast<uint8_t>(data.m_innerTrg.size() / 3);
+
+  BitSink< PushBackByteSink<buffer_t> > bitSink(sink);
+
+  if (m_bLinear)
+  {
+    bitSink.Write(ptsCount, 4);
+    if (ptsCount == 0)
+      bitSink.Write(data.m_ptsMask, 4);
+  }
+
+  if (m_bArea)
+  {
+    bitSink.Write(trgCount, 4);
+    if (trgCount == 0)
+      bitSink.Write(data.m_trgMask, 4);
+  }
+
+  bitSink.Finish();
+
+  if (m_bLinear)
+  {
+    if (ptsCount > 0)
+    {
+      if (ptsCount > 2)
+      {
+        uint32_t v = data.m_ptsSimpMask;
+        int const count = (ptsCount - 2 + 3) / 4;
+        for (int i = 0; i < count; ++i)
+        {
+          WriteToSink(sink, static_cast<uint8_t>(v));
+          v >>= 8;
+        }
+      }
+
+      feature::SavePointsSimple(data.m_innerPts, sink);
+    }
+    else
+    {
+      // offsets was pushed from high scale index to low
+      std::reverse(data.m_ptsOffset.begin(), data.m_ptsOffset.end());
+
+      WriteVarUintArray(data.m_ptsOffset, sink);
+    }
+  }
+
+  if (m_bArea)
+  {
+    if (trgCount > 0)
+      feature::SavePointsSimple(data.m_innerTrg, sink);
+    else
+    {
+      // offsets was pushed from high scale index to low
+      std::reverse(data.m_trgOffset.begin(), data.m_trgOffset.end());
+
+      WriteVarUintArray(data.m_trgOffset, sink);
+    }
+  }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -354,13 +440,12 @@ void FeatureBase::Deserialize(buffer_t & data, uint32_t offset)
   m_Offset = offset;
   m_Data.swap(data);
 
-  m_LayerOffset = m_NameOffset = m_CenterOffset = m_GeometryOffset = m_TrianglesOffset = 0;
-  m_bTypesParsed = m_bLayerParsed = m_bNameParsed = m_bCenterParsed = false;
-  m_bGeometryParsed = m_bTrianglesParsed = false;
+  m_CommonOffset = m_Header2Offset = 0;
+  m_bTypesParsed = m_bCommonParsed = false;
 
   m_Layer = 0;
   m_Name.clear();
-  m_LimitRect = m2::RectD();
+  m_LimitRect = m2::RectD::GetEmptyRect();
 }
 
 uint32_t FeatureBase::CalcOffset(ArrayByteSource const & source) const
@@ -384,66 +469,47 @@ void FeatureBase::ParseTypes() const
     m_Types[i] = ReadVarUint<uint32_t>(source);
 
   m_bTypesParsed = true;
-  m_LayerOffset = CalcOffset(source);
+  m_CommonOffset = CalcOffset(source);
 }
 
-void FeatureBase::ParseLayer() const
+void FeatureBase::ParseCommon() const
 {
-  ASSERT(!m_bLayerParsed, ());
+  ASSERT(!m_bCommonParsed, ());
   if (!m_bTypesParsed)
     ParseTypes();
 
-  ArrayByteSource source(DataPtr() + m_LayerOffset);
-  if (Header() & HEADER_HAS_LAYER)
+  ArrayByteSource source(DataPtr() + m_CommonOffset);
+
+  uint8_t const h = Header();
+
+  if (h & HEADER_HAS_LAYER)
     m_Layer = ReadVarInt<int32_t>(source);
 
-  m_bLayerParsed = true;
-  m_NameOffset = CalcOffset(source);
-}
-
-void FeatureBase::ParseName() const
-{
-  ASSERT(!m_bNameParsed, ());
-  if (!m_bLayerParsed)
-    ParseLayer();
-
-  ArrayByteSource source(DataPtr() + m_NameOffset);
-  if (Header() & HEADER_HAS_NAME)
+  if (h & HEADER_HAS_NAME)
   {
     m_Name.resize(ReadVarUint<uint32_t>(source) + 1);
     source.Read(&m_Name[0], m_Name.size());
   }
 
-  m_bNameParsed = true;
-  m_CenterOffset = CalcOffset(source);
-}
-
-void FeatureBase::ParseCenter() const
-{
-  ASSERT(!m_bCenterParsed, ());
-  if (!m_bNameParsed)
-    ParseName();
-
-  ArrayByteSource source(DataPtr() + m_CenterOffset);
-  if (Header() & HEADER_HAS_POINT)
+  if (h & HEADER_HAS_POINT)
   {
     m_Center = feature::pts::ToPoint(ReadVarInt<int64_t>(source));
     m_LimitRect.Add(m_Center);
   }
 
-  m_bCenterParsed = true;
-  m_GeometryOffset = CalcOffset(source);
+  m_bCommonParsed = true;
+  m_Header2Offset = CalcOffset(source);
 }
 
 void FeatureBase::ParseAll() const
 {
-  if (!m_bCenterParsed)
-    ParseCenter();
+  if (!m_bCommonParsed)
+    ParseCommon();
 }
 
 string FeatureBase::DebugString() const
 {
-  ASSERT(m_bNameParsed, ());
+  ASSERT(m_bCommonParsed, ());
 
   string res("FEATURE: ");
   res +=  "'" + m_Name + "' ";
@@ -495,7 +561,13 @@ void FeatureType::Deserialize(read_source_t & src)
 {
   m_cont = &src.m_cont;
 
-  m_bOffsetsParsed = false;
+  m_Points.clear();
+  m_Triangles.clear();
+
+  m_bHeader2Parsed = m_bPointsParsed = m_bTrianglesParsed = false;
+  m_ptsSimpMask = 0;
+
+  m_Size = 0;
 
   base_type::Deserialize(src.m_data, src.m_offset);
 }
@@ -505,7 +577,15 @@ namespace
     uint32_t const kInvalidOffset = uint32_t(-1);
 }
 
-int FeatureType::GetScaleIndex(int scale, offsets_t const & offsets) const
+int FeatureType::GetScaleIndex(int scale)
+{
+  for (size_t i = 0; i < ARRAY_SIZE(feature::g_arrScales); ++i)
+    if (scale <= feature::g_arrScales[i])
+      return i;
+  return -1;
+}
+
+int FeatureType::GetScaleIndex(int scale, offsets_t const & offsets)
 {
   if (scale == -1)
   {
@@ -548,7 +628,7 @@ string FeatureType::DebugString(int scale) const
   string s = base_type::DebugString();
 
   s += "Points:";
-  Points2String(s, m_Geometry);
+  Points2String(s, m_Points);
 
   s += "Triangles:";
   Points2String(s, m_Triangles);
@@ -563,7 +643,7 @@ bool FeatureType::IsEmptyGeometry(int scale) const
   switch (GetFeatureType())
   {
   case FEATURE_TYPE_AREA: return m_Triangles.empty();
-  case FEATURE_TYPE_LINE: return m_Geometry.empty();
+  case FEATURE_TYPE_LINE: return m_Points.empty();
   default:
     ASSERT ( Header() & HEADER_HAS_POINT, () );
     return false;
@@ -574,49 +654,159 @@ m2::RectD FeatureType::GetLimitRect(int scale) const
 {
   ParseAll(scale);
 
-  if (m_Triangles.empty() && m_Geometry.empty() && (Header() & HEADER_HAS_POINT) == 0)
+  if (m_Triangles.empty() && m_Points.empty() && (Header() & HEADER_HAS_POINT) == 0)
   {
     // This function is called during indexing, when we need
     // to check visibility according to feature sizes.
-    // So, if no geometry for this scale, assume tha rect has zero dimensions.
+    // So, if no geometry for this scale, assume that rect has zero dimensions.
     m_LimitRect = m2::RectD(0, 0, 0, 0);
   }
 
   return m_LimitRect;
 }
 
+namespace
+{
+  class BitSource
+  {
+    char const * m_ptr;
+    uint8_t m_pos;
+
+  public:
+    BitSource(char const * p) : m_ptr(p), m_pos(0) {}
+
+    uint8_t Read(uint8_t count)
+    {
+      ASSERT_LESS ( count, 9, () );
+
+      uint8_t v = *m_ptr;
+      v >>= m_pos;
+      v &= ((1 << count) - 1);
+
+      m_pos += count;
+      if (m_pos >= 8)
+      {
+        ASSERT_EQUAL ( m_pos, 8, () );
+        ++m_ptr;
+        m_pos = 0;
+      }
+
+      return v;
+    }
+
+    char const * RoundPtr()
+    {
+      if (m_pos > 0)
+      {
+        ++m_ptr;
+        m_pos = 0;
+      }
+      return m_ptr;
+    }
+  };
+
+  template <class TSource> uint8_t ReadByte(TSource & src)
+  {
+    uint8_t v;
+    src.Read(&v, 1);
+    return v; 
+  }
+}
+
+void FeatureType::ParseHeader2() const
+{
+  ASSERT(!m_bHeader2Parsed, ());
+  if (!m_bCommonParsed)
+    ParseCommon();
+
+  uint8_t ptsCount, ptsMask, trgCount, trgMask;
+
+  uint8_t const commonH = Header();
+  BitSource bitSource(DataPtr() + m_Header2Offset);
+
+  if (commonH & HEADER_IS_LINE)
+  {
+    ptsCount = bitSource.Read(4);
+    if (ptsCount == 0)
+      ptsMask = bitSource.Read(4);
+    else
+      ASSERT_GREATER ( ptsCount, 1, () );
+  }
+
+  if (commonH & HEADER_IS_AREA)
+  {
+    trgCount = bitSource.Read(4);
+    if (trgCount == 0)
+      trgMask = bitSource.Read(4);
+  }
+
+  ArrayByteSource src(bitSource.RoundPtr());
+
+  if (commonH & HEADER_IS_LINE)
+  {
+    if (ptsCount > 0)
+    {
+      int const count = (ptsCount - 2 + 3) / 4;
+      ASSERT_LESS ( count, 4, () );
+
+      for (int i = 0; i < count; ++i)
+      {
+        uint32_t mask = ReadByte(src);
+        m_ptsSimpMask += (mask << (i << 3));
+      }
+
+      ReadInnerPoints(src, m_Points, ptsCount);
+    }
+    else
+      ReadOffsets(src, ptsMask, m_ptsOffsets);
+  }
+
+  if (commonH & HEADER_IS_AREA)
+  {
+    if (trgCount > 0)
+      ReadInnerPoints(src, m_Triangles, 3*trgCount);
+    else
+      ReadOffsets(src, trgMask, m_trgOffsets);
+  }
+
+  m_bHeader2Parsed = true;
+  m_Size = static_cast<char const *>(src.Ptr()) - DataPtr();
+}
+
 uint32_t FeatureType::ParseGeometry(int scale) const
 {
-  if (!m_bOffsetsParsed)
-    ParseOffsets();
+  ASSERT(!m_bPointsParsed, ());
+  if (!m_bHeader2Parsed)
+    ParseHeader2();
 
   uint32_t sz = 0;
-  if (Header() & HEADER_IS_LINE)
+  if (m_Points.empty() && Header() & HEADER_IS_LINE)
   {
-    int const ind = GetScaleIndex(scale, m_lineOffsets);
+    int const ind = GetScaleIndex(scale, m_ptsOffsets);
     if (ind != -1)
     {
       ReaderSource<FileReader> src(
             m_cont->GetReader(feature::GetTagForIndex(GEOMETRY_FILE_TAG, ind)));
-      src.Skip(m_lineOffsets[ind]);
-      feature::LoadPoints(m_Geometry, src);
+      src.Skip(m_ptsOffsets[ind]);
+      feature::LoadPoints(m_Points, src);
 
-      CalcRect(m_Geometry, m_LimitRect);
-      sz = static_cast<uint32_t>(src.Pos() - m_lineOffsets[ind]);
+      CalcRect(m_Points, m_LimitRect);
+      sz = static_cast<uint32_t>(src.Pos() - m_ptsOffsets[ind]);
     }
   }
 
-  m_bGeometryParsed = true;
+  m_bPointsParsed = true;
   return sz;
 }
 
 uint32_t FeatureType::ParseTriangles(int scale) const
 {
-  if (!m_bOffsetsParsed)
-    ParseOffsets();
+  ASSERT(!m_bTrianglesParsed, ());
+  if (!m_bHeader2Parsed)
+    ParseHeader2();
 
   uint32_t sz = 0;
-  if (Header() & HEADER_IS_AREA)
+  if (m_Triangles.empty() && Header() & HEADER_IS_AREA)
   {
     uint32_t const ind = GetScaleIndex(scale, m_trgOffsets);
     if (ind != -1)
@@ -635,44 +825,34 @@ uint32_t FeatureType::ParseTriangles(int scale) const
   return sz;
 }
 
-void FeatureType::ReadOffsetsImpl(ArrayByteSource & src, offsets_t & offsets)
+void FeatureType::ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets)
 {
-  int index = 0;
+  ASSERT_GREATER ( mask, 0, () );
 
-  uint32_t mask = ReadVarUint<uint32_t>(src);
-  ASSERT ( mask > 0, () );
+  int index = 0;
   while (mask > 0)
   {
-    ASSERT ( index < ARRAY_SIZE(feature::g_arrScales), (index) );
-
+    ASSERT_LESS ( index, ARRAY_SIZE(feature::g_arrScales), () );
     offsets[index++] = (mask & 0x01) ? ReadVarUint<uint32_t>(src) : kInvalidOffset;
-
     mask = mask >> 1;
   }
 }
 
-void FeatureType::ParseOffsets() const
+void FeatureType::ReadInnerPoints(ArrayByteSource & src, vector<m2::PointD> & v, uint8_t count) const
 {
-  if (!m_bCenterParsed)
-    ParseCenter();
+  ASSERT_GREATER ( count, 0, () );
+  v.reserve(count);
 
-  ArrayByteSource src(DataPtr() + m_GeometryOffset);
+  int64_t id = 0;
+  for (uint8_t i = 0; i < count; ++i)
+    v.push_back(feature::pts::ToPoint(id += ReadVarInt<int64_t>(src)));
 
-  uint8_t const h = Header();
-
-  if (h & HEADER_IS_LINE)
-    ReadOffsetsImpl(src, m_lineOffsets);
-
-  if (h & HEADER_IS_AREA)
-    ReadOffsetsImpl(src, m_trgOffsets);
-
-  m_bOffsetsParsed = true;
-  m_Size = CalcOffset(src);
+  CalcRect(v, m_LimitRect);
 }
 
 void FeatureType::ParseAll(int scale) const
 {
-  if (!m_bGeometryParsed)
+  if (!m_bPointsParsed)
     ParseGeometry(scale);
 
   if (!m_bTrianglesParsed)
@@ -682,7 +862,7 @@ void FeatureType::ParseAll(int scale) const
 FeatureType::geom_stat_t FeatureType::GetGeometrySize(int scale) const
 {
   uint32_t sz = ParseGeometry(scale);
-  return geom_stat_t(sz, m_Geometry.size());
+  return geom_stat_t(sz, m_Points.size());
 }
 
 FeatureType::geom_stat_t FeatureType::GetTrianglesSize(int scale) const

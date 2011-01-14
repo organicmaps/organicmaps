@@ -70,6 +70,14 @@ namespace feature
 {
   typedef vector<m2::PointD> points_t;
 
+  namespace
+  {
+    bool is_equal(m2::PointD const & p1, m2::PointD const & p2)
+    {
+      return p1.EqualDxDy(p2, MercatorBounds::GetCellID2PointAbsEpsilon());
+    }
+  }
+
   void SimplifyPoints(points_t const & in, points_t & out, int level)
   {
     if (in.size() >= 2)
@@ -81,11 +89,12 @@ namespace feature
       {
       case 0:
         out.push_back(in.front());
+        // no break
       case 1:
         out.push_back(in.back());
         break;
       default:
-        if (!out.back().EqualDxDy(in.back(), MercatorBounds::GetCellID2PointAbsEpsilon()))
+        if (!is_equal(out.back(), in.back()))
           out.push_back(in.back());
       }
     }
@@ -94,7 +103,7 @@ namespace feature
   void TesselateInterior(points_t const & bound, list<points_t> const & holes, points_t & triangles);
 
 
-  class FeaturesCollectorRef : public FeaturesCollector
+  class FeaturesCollector2 : public FeaturesCollector
   {
     FilesContainerW m_writer;
 
@@ -103,7 +112,7 @@ namespace feature
     static const int m_scales = ARRAY_SIZE(g_arrScales);
 
   public:
-    explicit FeaturesCollectorRef(string const & fName)
+    explicit FeaturesCollector2(string const & fName)
       : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName)
     {
       for (int i = 0; i < m_scales; ++i)
@@ -114,7 +123,7 @@ namespace feature
       }
     }
 
-    ~FeaturesCollectorRef()
+    ~FeaturesCollector2()
     {
       WriteHeader();
 
@@ -148,32 +157,131 @@ namespace feature
       m_writer.Finish();
     }
 
+    class GeometryHolder
+    {
+    public:
+      FeatureBuilder2::buffers_holder_t m_buffer;
+
+    private:
+      FeaturesCollector2 & m_rMain;
+      FeatureBuilder2 & m_rFB;
+
+      typedef vector<m2::PointD> points_t;
+
+      points_t m_current;
+
+      void WriteOuterPoints(points_t const & points, int i)
+      {
+        m_buffer.m_ptsMask |= (1 << i);
+        m_buffer.m_ptsOffset.push_back(m_rMain.GetFileSize(*m_rMain.m_geoFile[i]));
+        feature::SavePoints(points, *m_rMain.m_geoFile[i]);
+      }
+
+      void WriteOuterTriangles(points_t const & triangles, int i)
+      {
+        m_buffer.m_trgMask |= (1 << i);
+        m_buffer.m_trgOffset.push_back(m_rMain.GetFileSize(*m_rMain.m_trgFile[i]));
+        feature::SaveTriangles(triangles, *m_rMain.m_trgFile[i]);
+      }
+
+      void FillInnerPointsMask(points_t const & points, uint32_t scaleIndex)
+      {
+        points_t const & src = m_buffer.m_innerPts;
+        ASSERT ( !src.empty(), () );
+
+        ASSERT ( is_equal(src.front(), points.front()), () );
+        ASSERT ( is_equal(src.back(), points.back()), () );
+
+        size_t j = 1;
+        for (size_t i = 1; i < points.size()-1; ++i)
+        {
+          for (; j < src.size()-1; ++j)
+          {
+            if (is_equal(src[j], points[i]))
+            {
+              // set corresponding 2 bits for source point [j] to scaleIndex
+              uint32_t mask = 0x3;
+              m_buffer.m_ptsSimpMask &= ~(mask << (2*(j-1)));
+              m_buffer.m_ptsSimpMask |= (scaleIndex << (2*(j-1)));
+              break;
+            }
+          }
+
+          ASSERT_LESS ( j, src.size()-1, ("Simplified point not found in source point array") );
+        }
+      }
+
+      bool m_ptsInner, m_trgInner;
+
+    public:
+      GeometryHolder(FeaturesCollector2 & rMain, FeatureBuilder2 & fb)
+        : m_rMain(rMain), m_rFB(fb), m_ptsInner(true), m_trgInner(true)
+      {
+      }
+
+      points_t const & GetSourcePoints()
+      {
+        return (!m_current.empty() ? m_current : m_rFB.GetGeometry());
+      }
+
+      void AddPoints(points_t const & points, int scaleIndex)
+      {
+        if (m_ptsInner && points.size() < 15)
+        {
+          if (m_buffer.m_innerPts.empty())
+            m_buffer.m_innerPts = points;
+          else
+            FillInnerPointsMask(points, scaleIndex);
+          m_current = points;
+        }
+        else
+        {
+          m_ptsInner = false;
+          WriteOuterPoints(points, scaleIndex);
+        }
+      }
+
+      bool NeedProcessTriangles() const
+      {
+        return (!m_trgInner || m_buffer.m_innerTrg.empty());
+      }
+
+      void AddTriangles(points_t & triangles, int scaleIndex)
+      {
+        if (m_trgInner && triangles.size() < 16)
+        {
+          if (m_buffer.m_innerTrg.empty())
+            m_buffer.m_innerTrg.swap(triangles);
+        }
+        else
+        {
+          m_trgInner = false;
+          WriteOuterTriangles(triangles, scaleIndex);
+        }
+      }
+    };
+
     void operator() (FeatureBuilder2 & fb)
     {
       (void)GetFileSize(m_datFile);
 
-      FeatureBuilder2::buffers_holder_t buffer;
+      GeometryHolder holder(*this, fb);
 
       bool const isLine = fb.IsLine();
       bool const isArea = fb.IsArea();
 
-      int lowS = 0;
-      for (int i = 0; i < m_scales; ++i)
+      for (int i = m_scales-1; i >= 0; --i)
       {
-        if (fb.IsDrawableInRange(lowS, g_arrScales[i]))
+        if (fb.IsDrawableInRange(i > 0 ? g_arrScales[i-1] : 0, g_arrScales[i]))
         {
           // simplify and serialize geometry
           points_t points;
-          SimplifyPoints(fb.GetGeometry(), points, g_arrScales[i]);
+          SimplifyPoints(holder.GetSourcePoints(), points, g_arrScales[i]);
 
           if (isLine)
-          {
-            buffer.m_lineMask |= (1 << i);
-            buffer.m_lineOffset.push_back(GetFileSize(*m_geoFile[i]));
-            feature::SavePoints(points, *m_geoFile[i]);
-          }
+            holder.AddPoints(points, i);
 
-          if (isArea && points.size() > 2)
+          if (isArea && points.size() > 2 && holder.NeedProcessTriangles())
           {
             // simplify and serialize triangles
 
@@ -193,24 +301,25 @@ namespace feature
             feature::TesselateInterior(points, simpleHoles, triangles);
 
             if (!triangles.empty())
-            {
-              buffer.m_trgMask |= (1 << i);
-              buffer.m_trgOffset.push_back(GetFileSize(*m_trgFile[i]));
-              feature::SaveTriangles(triangles, *m_trgFile[i]);
-            }
+              holder.AddTriangles(triangles, i);
           }
         }
-        lowS = g_arrScales[i]+1;
       }
 
-      if (fb.PreSerialize(buffer))
+      if (fb.PreSerialize(holder.m_buffer))
       {
-        fb.Serialize(buffer);
+        fb.Serialize(holder.m_buffer);
 
-        WriteFeatureBase(buffer.m_buffer, fb);
+        WriteFeatureBase(holder.m_buffer.m_buffer, fb);
       }
     }
   };
+
+  /// Simplify geometry for the upper scale.
+  FeatureBuilder2 & GetFeatureBuilder2(FeatureBuilder1 & fb)
+  {
+    return static_cast<FeatureBuilder2 &>(fb);
+  }
 
 
   bool GenerateFinalFeatures(string const & datFilePath, bool bSort)
@@ -239,7 +348,7 @@ namespace feature
     {
       FileReader reader(tempDatFilePath);
 
-      FeaturesCollectorRef collector(datFilePath);
+      FeaturesCollector2 collector(datFilePath);
 
       FeatureBuilder1::buffer_t buffer;
       for (size_t i = 0; i < midPoints.m_vec.size(); ++i)
@@ -251,7 +360,7 @@ namespace feature
         feature::ReadFromSourceRowFormat(src, f);
 
         // emit the feature
-        collector(static_cast<FeatureBuilder2 &>(f));
+        collector(GetFeatureBuilder2(f));
       }
 
       // at this point files should be closed

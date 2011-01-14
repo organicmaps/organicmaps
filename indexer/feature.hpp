@@ -148,13 +148,20 @@ public:
 
   struct buffers_holder_t
   {
-    offsets_t m_lineOffset;  // in
-    offsets_t m_trgOffset;   // in
-    uint32_t m_lineMask, m_trgMask;
+    /// @name input
+    //@{
+    offsets_t m_ptsOffset, m_trgOffset;
+    uint8_t m_ptsMask, m_trgMask;
 
-    base_type::buffer_t m_buffer;   // out
+    uint32_t m_ptsSimpMask;
 
-    buffers_holder_t() : m_lineMask(0), m_trgMask(0) {}
+    points_t m_innerPts, m_innerTrg;
+    //@}
+
+    /// @name output
+    base_type::buffer_t m_buffer;
+
+    buffers_holder_t() : m_ptsMask(0), m_trgMask(0), m_ptsSimpMask(0) {}
   };
 
   bool IsLine() const { return m_bLinear; }
@@ -210,8 +217,8 @@ public:
   {
     if (!(Header() & HEADER_HAS_LAYER))
       return 0;
-    if (!m_bLayerParsed)
-      ParseLayer();
+    if (!m_bCommonParsed)
+      ParseCommon();
     return m_Layer;
   }
 
@@ -219,15 +226,15 @@ public:
   {
     if (!(Header() & HEADER_HAS_NAME))
       return string();
-    if (!m_bNameParsed)
-      ParseName();
+    if (!m_bCommonParsed)
+      ParseCommon();
     return m_Name;
   }
 
   inline m2::RectD GetLimitRect() const
   {
-    ASSERT ( m_bGeometryParsed || m_bTrianglesParsed, () );
-    return m_LimitRect;
+    ASSERT ( m_LimitRect != m2::RectD::GetEmptyRect(), () );
+    return m_LimitRect ;
   }
 
   class GetTypesFn
@@ -267,8 +274,7 @@ public:
 
   /// @name Statistic functions.
   //@{
-  uint32_t GetNameSize() const { return m_CenterOffset - m_NameOffset; }
-  uint32_t GetTypesSize() const { return m_LayerOffset - m_TypesOffset; }
+  uint32_t GetTypesSize() const { return m_CommonOffset - m_TypesOffset; }
   //@}
 
 protected:
@@ -295,23 +301,12 @@ protected:
   mutable m2::RectD m_LimitRect;
 
   static uint32_t const m_TypesOffset = 1;
-  mutable uint32_t m_LayerOffset;
-  mutable uint32_t m_NameOffset;
-  mutable uint32_t m_CenterOffset;
-  mutable uint32_t m_GeometryOffset;
-  mutable uint32_t m_TrianglesOffset;
+  mutable uint32_t m_CommonOffset, m_Header2Offset;
 
-  mutable bool m_bTypesParsed;
-  mutable bool m_bLayerParsed;
-  mutable bool m_bNameParsed;
-  mutable bool m_bCenterParsed;
-  mutable bool m_bGeometryParsed;
-  mutable bool m_bTrianglesParsed;
+  mutable bool m_bTypesParsed, m_bCommonParsed;
 
   void ParseTypes() const;
-  void ParseLayer() const;
-  void ParseName() const;
-  void ParseCenter() const;
+  void ParseCommon() const;
 
   void ParseAll() const;
 };
@@ -351,18 +346,41 @@ public:
   template <typename FunctorT>
   void ForEachPointRef(FunctorT & f, int scale) const
   {
-    if (!m_bGeometryParsed)
+    if (!m_bPointsParsed)
       ParseGeometry(scale);
 
-    if (m_Geometry.empty())
+    if (m_Points.empty())
     {
+      // it's a point feature
       if (Header() & HEADER_HAS_POINT)
         f(CoordPointT(m_Center.x, m_Center.y));
     }
     else
     {
-      for (size_t i = 0; i < m_Geometry.size(); ++i)
-        f(CoordPointT(m_Geometry[i].x, m_Geometry[i].y));
+      if (m_ptsSimpMask != 0 && scale != -1)
+      {
+        // inner geometry
+        uint32_t const scaleIndex = GetScaleIndex(scale);
+        ASSERT_LESS(scaleIndex, 4, ());
+
+        f(CoordPointT(m_Points[0].x, m_Points[0].y));
+
+        size_t const last = m_Points.size()-1;
+        for (size_t i = 1; i < last; ++i)
+        {
+          // check for point visibility in needed scaleIndex
+          if (((m_ptsSimpMask >> (2*(i-1))) & 0x3) <= scaleIndex)
+            f(CoordPointT(m_Points[i].x, m_Points[i].y));
+        }
+
+        f(CoordPointT(m_Points[last].x, m_Points[last].y));
+      }
+      else
+      {
+        // loaded outer geometry
+        for (size_t i = 0; i < m_Points.size(); ++i)
+          f(CoordPointT(m_Points[i].x, m_Points[i].y));
+      }
     }
   }
 
@@ -401,11 +419,10 @@ public:
   //@{
   void ParseBeforeStatistic() const
   {
-    if (!m_bOffsetsParsed)
-      ParseOffsets();
+    if (!m_bHeader2Parsed)
+      ParseHeader2();
   }
 
-  uint32_t GetOffsetSize() const { return m_Size - m_GeometryOffset; }
   uint32_t GetAllSize() const { return m_Size; }
 
   struct geom_stat_t
@@ -425,26 +442,29 @@ public:
   //@}
 
 private:
-  void ParseOffsets() const;
+  void ParseHeader2() const;
   uint32_t ParseGeometry(int scale) const;
   uint32_t ParseTriangles(int scale) const;
 
   void ParseAll(int scale) const;
 
-  mutable vector<m2::PointD> m_Geometry;
-  mutable vector<m2::PointD> m_Triangles;
+  mutable vector<m2::PointD> m_Points, m_Triangles;
 
   FilesContainerR * m_cont;
 
-  mutable bool m_bOffsetsParsed;
+  mutable bool m_bHeader2Parsed, m_bPointsParsed, m_bTrianglesParsed;
 
   mutable uint32_t m_Size;
 
-  typedef array<uint32_t, 4> offsets_t; // should be synhronized with ARRAY_SIZE(g_arrScales)
+  mutable uint32_t m_ptsSimpMask;
 
-  static void ReadOffsetsImpl(ArrayByteSource & src, offsets_t & offsets);
+  typedef array<uint32_t, 4> offsets_t; // should be synchronized with ARRAY_SIZE(g_arrScales)
 
-  int GetScaleIndex(int scale, offsets_t const & offset) const;
+  static void ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets);
+  void ReadInnerPoints(ArrayByteSource & src, vector<m2::PointD> & v, uint8_t count) const;
 
-  mutable offsets_t m_lineOffsets, m_trgOffsets;
+  static int GetScaleIndex(int scale);
+  static int GetScaleIndex(int scale, offsets_t const & offset);
+
+  mutable offsets_t m_ptsOffsets, m_trgOffsets;
 };

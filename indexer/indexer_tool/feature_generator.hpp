@@ -40,7 +40,7 @@ namespace feature
   protected:
     void Init();
 
-    uint32_t GetFileSize(FileWriter const & f);
+    static uint32_t GetFileSize(FileWriter const & f);
 
     void WriteHeader();
 

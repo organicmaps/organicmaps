@@ -32,13 +32,19 @@ namespace feature
     }
 
     template <class TSink>
+    void WriteCellsSimple(vector<int64_t> & cells, TSink & sink)
+    {
+      for (size_t i = 0; i < cells.size(); ++i)
+        WriteVarInt(sink, i == 0 ? cells[0] : cells[i] - cells[i-1]);
+    }
+
+    template <class TSink>
     void WriteCells(vector<int64_t> & cells, TSink & sink)
     {
       vector<char> buffer;
       MemWriter<vector<char> > writer(buffer);
 
-      for (size_t i = 0; i < cells.size(); ++i)
-        WriteVarInt(writer, i == 0 ? cells[0] : cells[i] - cells[i-1]);
+      WriteCellsSimple(cells, writer);
 
       uint32_t const count = static_cast<uint32_t>(buffer.size());
       WriteVarUint(sink, count);
@@ -75,9 +81,20 @@ namespace feature
   }
 
   template <class TSink>
+  void SavePointsSimple(vector<m2::PointD> const & points, TSink & sink)
+  {
+    ASSERT_GREATER ( points.size(), 1, () );
+
+    vector<int64_t> cells;
+    detail::TransformPoints(points, cells);
+
+    detail::WriteCellsSimple(cells, sink);
+  }
+
+  template <class TSink>
   void SavePoints(vector<m2::PointD> const & points, TSink & sink)
   {
-    ASSERT_GREATER(points.size(), 1, ());
+    ASSERT_GREATER ( points.size(), 1, () );
 
     vector<int64_t> cells;
     detail::TransformPoints(points, cells);
@@ -97,8 +114,8 @@ namespace feature
   void SaveTriangles(vector<m2::PointD> const & triangles, TSink & sink)
   {
     uint32_t const count = triangles.size();
-    ASSERT_GREATER(count, 0, ());
-    ASSERT_EQUAL(count % 3, 0, (count));
+    ASSERT_GREATER ( count, 0, () );
+    ASSERT_EQUAL ( count % 3, 0, (count) );
 
     vector<int64_t> cells;
     detail::TransformPoints(triangles, cells);
@@ -112,8 +129,8 @@ namespace feature
     detail::ReadPoints(points, src);
 
     uint32_t const count = points.size();
-    ASSERT_GREATER(count, 0, ());
-    ASSERT_EQUAL(count % 3, 0, (count));
+    ASSERT_GREATER ( count, 0, () );
+    ASSERT_EQUAL ( count % 3, 0, (count) );
   }
 
 
