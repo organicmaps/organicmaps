@@ -132,24 +132,41 @@ namespace qt
     }
   }
 
+  QTreeWidgetItem * MatchedItem(QTreeWidgetItem & parent, int index)
+  {
+    if (index >= 0)
+    {
+      for (int i = 0; i < parent.childCount(); ++i)
+      {
+        QTreeWidgetItem * item = parent.child(i);
+        if (index == item->data(KColumnIndexCountry, Qt::UserRole).toInt())
+          return item;
+      }
+    }
+    return NULL;
+  }
+
   /// @return can be null if index is invalid
   QTreeWidgetItem * GetTreeItemByIndex(QTreeWidget & tree, TIndex const & index)
   {
     QTreeWidgetItem * item = 0;
-    if (index.m_group >= 0 && index.m_group < tree.topLevelItemCount())
+    if (index.m_group >= 0)
     {
-      item = tree.topLevelItem(index.m_group);
-      ASSERT_EQUAL( item->data(KColumnIndexCountry, Qt::UserRole).toInt(), index.m_group, () );
-      if (index.m_country >= 0 && index.m_country < item->childCount())
+      for (int i = 0; i < tree.topLevelItemCount(); ++i)
       {
-        item = item->child(index.m_country);
-        ASSERT_EQUAL( item->data(KColumnIndexCountry, Qt::UserRole).toInt(), index.m_country, () );
-        if (index.m_region >= 0 && index.m_region < item->childCount())
+        QTreeWidgetItem * grItem = tree.topLevelItem(i);
+        if (index.m_group == grItem->data(KColumnIndexCountry, Qt::UserRole).toInt())
         {
-          item = item->child(index.m_region);
-          ASSERT_EQUAL( item->data(KColumnIndexCountry, Qt::UserRole).toInt(), index.m_region, () );
+          item = grItem;
+          break;
         }
       }
+    }
+    if (item && index.m_country >= 0)
+    {
+      item = MatchedItem(*item, index.m_country);
+      if (item && index.m_region >= 0)
+        item = MatchedItem(*item, index.m_region);
     }
     return item;
   }
