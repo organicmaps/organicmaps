@@ -4,17 +4,15 @@
 
 template <class ContainerT> class BackInsertFunctor
 {
+  ContainerT & m_Container;
 public:
   explicit BackInsertFunctor(ContainerT & container) : m_Container(container)
   {
   }
-
   void operator() (typename ContainerT::value_type const & t) const
   {
-    m_Container.insert(m_Container.end(), t);
+    m_Container.push_back(t);
   }
-private:
-  ContainerT & m_Container;
 };
 
 template <class ContainerT>
@@ -25,17 +23,15 @@ BackInsertFunctor<ContainerT> MakeBackInsertFunctor(ContainerT & container)
 
 template <class ContainerT> class InsertFunctor
 {
+  ContainerT & m_Container;
 public:
   explicit InsertFunctor(ContainerT & container) : m_Container(container)
   {
   }
-
   void operator() (typename ContainerT::value_type const & t) const
   {
     m_Container.insert(t);
   }
-private:
-  ContainerT & m_Container;
 };
 
 template <class ContainerT>

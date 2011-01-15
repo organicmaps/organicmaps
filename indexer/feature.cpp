@@ -5,6 +5,8 @@
 #include "feature_visibility.hpp"
 #include "scales.hpp"
 
+#include "../storage/defines.hpp" // just for file extensions
+
 #include "../geometry/rect2d.hpp"
 
 #include "../coding/byte_stream.hpp"
@@ -253,7 +255,8 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
 
 namespace
 {
-  void CalcRect(vector<m2::PointD> const & points, m2::RectD & rect)
+  template <class TCont>
+  void CalcRect(TCont const & points, m2::RectD & rect)
   {
     for (size_t i = 0; i < points.size(); ++i)
       rect.Add(points[i]);
@@ -564,6 +567,7 @@ void FeatureType::Deserialize(read_source_t & src)
 
   m_Points.clear();
   m_Triangles.clear();
+  m_InnerPoints.clear();
 
   m_bHeader2Parsed = m_bPointsParsed = m_bTrianglesParsed = false;
   m_ptsSimpMask = 0;
@@ -618,7 +622,8 @@ int FeatureType::GetScaleIndex(int scale, offsets_t const & offsets)
 
 namespace
 {
-  void Points2String(string & s, vector<m2::PointD> const & points)
+  template <class TCont>
+  void Points2String(string & s, TCont const & points)
   {
     for (size_t i = 0; i < points.size(); ++i)
       s += debug_print(points[i]) + " ";
@@ -874,7 +879,7 @@ void FeatureType::ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & o
   }
 }
 
-void FeatureType::ReadInnerPoints(ArrayByteSource & src, vector<m2::PointD> & points, uint8_t count) const
+void FeatureType::ReadInnerPoints(ArrayByteSource & src, points_t & points, uint8_t count) const
 {
   src = ArrayByteSource(feature::LoadPointsSimple(src.Ptr(), count, points));
   CalcRect(points, m_LimitRect);

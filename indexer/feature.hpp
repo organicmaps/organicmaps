@@ -2,19 +2,17 @@
 
 #include "cell_id.hpp"
 
-#include "../storage/defines.hpp" // just for file extensions
-
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 
 #include "../coding/file_container.hpp"
 
 #include "../base/base.hpp"
+#include "../base/buffer_vector.hpp"
 
 #include "../std/string.hpp"
-#include "../std/vector.hpp"
-#include "../std/array.hpp"
 #include "../std/bind.hpp"
+
 
 class ArrayByteSource;
 class FeatureBase;
@@ -426,8 +424,10 @@ private:
 
   void ParseAll(int scale) const;
 
-  mutable vector<int64_t> m_InnerPoints;
-  mutable vector<m2::PointD> m_Points, m_Triangles;
+  mutable buffer_vector<int64_t, 16> m_InnerPoints;
+
+  typedef buffer_vector<m2::PointD, 16> points_t;
+  mutable points_t m_Points, m_Triangles;
 
   FilesContainerR * m_cont;
 
@@ -440,7 +440,7 @@ private:
   typedef array<uint32_t, 4> offsets_t; // should be synchronized with ARRAY_SIZE(g_arrScales)
 
   static void ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets);
-  void ReadInnerPoints(ArrayByteSource & src, vector<m2::PointD> & points, uint8_t count) const;
+  void ReadInnerPoints(ArrayByteSource & src, points_t & points, uint8_t count) const;
 
   static int GetScaleIndex(int scale);
   static int GetScaleIndex(int scale, offsets_t const & offset);

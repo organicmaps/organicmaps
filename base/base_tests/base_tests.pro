@@ -14,7 +14,8 @@ win32-g++ {
   LIBS += -lpthread
 }
 
-SOURCES += ../../testing/testingmain.cpp \
+SOURCES += \
+  ../../testing/testingmain.cpp \
   const_helper.cpp \
   math_test.cpp \
   scope_guard_test.cpp \
@@ -26,6 +27,7 @@ SOURCES += ../../testing/testingmain.cpp \
   stl_add_test.cpp \
   string_utils_test.cpp \
   matrix_test.cpp \
-  commands_queue_test.cpp
+  commands_queue_test.cpp \
+  buffer_vector_test.cpp \
 
 HEADERS +=

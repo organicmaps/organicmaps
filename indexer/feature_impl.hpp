@@ -51,13 +51,13 @@ namespace feature
       sink.Write(&buffer[0], count);
     }
 
-    class points_emitter
+    template <class TCont> class points_emitter
     {
-      vector<m2::PointD> & m_points;
+      TCont & m_points;
       int64_t m_id;
 
     public:
-      points_emitter(vector<m2::PointD> & points, uint32_t count)
+      points_emitter(TCont & points, uint32_t count)
         : m_points(points), m_id(0)
       {
         m_points.reserve(count);
@@ -68,21 +68,21 @@ namespace feature
       }
     };
 
-    inline void const * ReadPointsSimple( void const * p, size_t count,
-                                          vector<m2::PointD> & points)
+    template <class TCont>
+    void const * ReadPointsSimple(void const * p, size_t count, TCont & points)
     {
-      return ReadVarInt64Array(p, count, points_emitter(points, count));
+      return ReadVarInt64Array(p, count, points_emitter<TCont>(points, count));
     }
 
-    template <class TSource>
-    void ReadPoints(vector<m2::PointD> & points, TSource & src)
+    template <class TCont, class TSource>
+    void ReadPoints(TCont & points, TSource & src)
     {
       uint32_t const count = ReadVarUint<uint32_t>(src);
       vector<char> buffer(count);
       char * p = &buffer[0];
       src.Read(p, count);
 
-      ReadVarInt64Array(p, p + count, points_emitter(points, count / 2));
+      ReadVarInt64Array(p, p + count, points_emitter<TCont>(points, count / 2));
     }
   }
 
@@ -108,8 +108,8 @@ namespace feature
     detail::WriteCells(cells, sink);
   }
 
-  inline void const * LoadPointsSimple( void const * p, size_t count,
-                                        vector<m2::PointD> & points)
+  template <class TCont>
+  void const * LoadPointsSimple(void const * p, size_t count, TCont & points)
   {
     ASSERT_GREATER ( count, 1, () );
     void const * ret = detail::ReadPointsSimple(p, count, points);
@@ -117,8 +117,8 @@ namespace feature
     return ret;
   }
 
-  template <class TSource>
-  void LoadPoints(vector<m2::PointD> & points, TSource & src)
+  template <class TCont, class TSource>
+  void LoadPoints(TCont & points, TSource & src)
   {
     detail::ReadPoints(points, src);
 
@@ -138,8 +138,8 @@ namespace feature
     detail::WriteCells(cells, sink);
   }
 
-  template <class TSource>
-  void LoadTriangles(vector<m2::PointD> & points, TSource & src)
+  template <class TCont, class TSource>
+  void LoadTriangles(TCont & points, TSource & src)
   {
     detail::ReadPoints(points, src);
 

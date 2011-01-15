@@ -2,6 +2,8 @@
 
 #include "feature_routine.hpp"
 
+#include "../../storage/defines.hpp" // just for file extensions
+
 #include "../feature_impl.hpp"
 
 #include "../../coding/file_writer.hpp"

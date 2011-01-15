@@ -8,7 +8,8 @@ DEPENDENCIES =
 
 include($$ROOT_DIR/common.pri)
 
-SOURCES += base.cpp \
+SOURCES += \
+    base.cpp \
     internal/debug_new.cpp \
     logging.cpp \
     thread.cpp \
@@ -16,9 +17,10 @@ SOURCES += base.cpp \
     profiler.cpp \
     commands_queue.cpp \
     shared_buffer_manager.cpp \
-    memory_mapped_file.cpp
+    memory_mapped_file.cpp \
 
-HEADERS += SRC_FIRST.hpp \
+HEADERS += \
+    SRC_FIRST.hpp \
     assert.hpp \
     const_helper.hpp \
     internal/debug_new.hpp \
@@ -55,4 +57,5 @@ HEADERS += SRC_FIRST.hpp \
     stats.hpp \
     monitor.hpp \
     shared_buffer_manager.hpp \
-    memory_mapped_file.hpp
+    memory_mapped_file.hpp \
+    buffer_vector.hpp \
