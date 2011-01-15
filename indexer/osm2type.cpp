@@ -499,7 +499,11 @@ namespace ftype {
         ++m_count;
 
         // do not call is_name_tag(k), but exactly "name" tag
-        if (k == "name" && m_name.empty())
+        if (m_name.empty() && k == "name")
+          m_name = v;
+
+        // add house number as name
+        if (m_name.empty() && k == "addr:housenumber")
           m_name = v;
 
         if (k == "layer" && m_layer == 0)
