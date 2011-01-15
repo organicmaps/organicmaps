@@ -147,18 +147,22 @@ void DrawerYG::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int de
   m_pScreen->drawTrianglesList(&pts[0], pts.size()/*, res*/, id, depth);
 }
 
-namespace { double const minTextSize = 10.0; }
+namespace
+{
+  double const min_text_height = 7.99;      // 8
+  double const min_text_height_mask = 9.99; // 10
+}
 
 uint8_t DrawerYG::get_text_font_size(rule_ptr_t pRule) const
 {
   double const h = pRule->GetTextHeight() * m_scale;
-  return my::rounds(max(h, minTextSize) * m_visualScale);
+  return my::rounds(max(h, min_text_height) * m_visualScale);
 }
 
 uint8_t DrawerYG::get_pathtext_font_size(rule_ptr_t pRule) const
 {
   double const h = pRule->GetTextHeight() * m_scale - 2.0;
-  return my::rounds(max(h, minTextSize) * m_visualScale);
+  return my::rounds(max(h, min_text_height) * m_visualScale);
 }
 
 void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t pRule, int depth)
@@ -168,9 +172,11 @@ void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t p
 
 bool DrawerYG::drawPathText(di::PathInfo const & info, string const & name, uint8_t fontSize, int /*depth*/)
 {
-    return m_pScreen->drawPathText( &info.m_path[0], info.m_path.size(), fontSize, name,
-                                    info.GetLength(), info.GetOffset(),
-                                    yg::gl::Screen::middle_line, true, yg::maxDepth);
+  bool const isMasked = (double(fontSize) / m_visualScale >= min_text_height_mask);
+
+  return m_pScreen->drawPathText( &info.m_path[0], info.m_path.size(), fontSize, name,
+                                  info.GetLength(), info.GetOffset(),
+                                  yg::gl::Screen::middle_line, isMasked, yg::maxDepth);
 }
 
 shared_ptr<yg::gl::Screen> DrawerYG::screen() const
