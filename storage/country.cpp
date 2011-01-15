@@ -57,8 +57,7 @@ namespace storage
     {
       if (IsTileDownloaded(tile))
         m_localSize += tile.second;
-      else
-        m_remoteSize += tile.second;
+      m_remoteSize += tile.second;
     }
   };
 
