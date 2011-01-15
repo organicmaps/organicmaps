@@ -149,7 +149,7 @@ namespace feature
   }
 
 
-  static int g_arrScales[] = { 5, 10, 14, 17 };  // 17 = scales::GetUpperScale()
+  static int g_arrScales[] = { 7, 10, 14, 17 };  // 17 = scales::GetUpperScale()
 
   inline string GetTagForIndex(char const * prefix, int ind)
   {

@@ -272,7 +272,7 @@ namespace feature
 
       for (int i = m_scales-1; i >= 0; --i)
       {
-        if (fb.IsDrawableInRange(i > 0 ? g_arrScales[i-1] : 0, g_arrScales[i]))
+        if (fb.IsDrawableInRange(i > 0 ? g_arrScales[i-1] + 1 : 0, g_arrScales[i]))
         {
           // simplify and serialize geometry
           points_t points;
