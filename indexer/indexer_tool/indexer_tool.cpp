@@ -5,6 +5,7 @@
 #include "feature_bucketer.hpp"
 #include "grid_generator.hpp"
 #include "statistics.hpp"
+#include "kml_parser.hpp"
 
 #include "../classif_routine.hpp"
 #include "../features_vector.hpp"
@@ -48,6 +49,7 @@ DEFINE_int32(bucketing_level, 7, "Level of cell ids for bucketing.");
 DEFINE_int32(worldmap_max_zoom, -1, "If specified, features for zoomlevels [0..this_value] "
              " which are enabled in classificator will be added to the separate world.map");
 DEFINE_bool(world_only, false, "Generate only world features for given worldmap_max_zoom");
+DEFINE_bool(split_by_polygons, false, "Use kml shape files to split planet by regions and countries");
 
 string AddSlashIfNeeded(string const & str)
 {
@@ -182,6 +184,13 @@ int main(int argc, char ** argv)
   {
     LOG(LINFO, ("Creating maps.update file..."));
     update::GenerateFilesList(path);
+  }
+
+  if (FLAGS_split_by_polygons)
+  {
+    kml::CountryPolygons country;
+    kml::LoadPolygonsFromKml(FLAGS_output, country);
+    LOG(LINFO, (country.m_name, country.m_rect));
   }
 
   return 0;

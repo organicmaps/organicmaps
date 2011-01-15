@@ -25,6 +25,7 @@ SOURCES += \
   update_generator.cpp \
   grid_generator.cpp \
   statistics.cpp \
+  kml_parser.cpp \
 
 HEADERS += \
   osm_element.hpp \
@@ -37,3 +38,4 @@ HEADERS += \
   feature_bucketer.hpp \
   grid_generator.hpp \
   statistics.hpp \
+  kml_parser.hpp \
