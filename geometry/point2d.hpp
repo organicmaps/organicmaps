@@ -156,7 +156,7 @@ namespace m2
   template <typename T>
   T const CrossProduct(Point<T> const & a, Point<T> const & b)
   {
-    return a.y * b.x - a.x * b.y;
+    return a.x * b.y - a.y * b.x;
   }
 
   template <typename T>
