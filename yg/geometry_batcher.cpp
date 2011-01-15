@@ -224,20 +224,16 @@ namespace yg
      if (!hasRoom(4, 6, style->m_pageID))
        flush(style->m_pageID);
 
-     m2::RectU texRect(style->m_texRect.minX() + 1,
-                       style->m_texRect.minY() + 1,
-                       style->m_texRect.maxX() - 1,
-                       style->m_texRect.maxY() - 1);
+     m2::RectU texRect(style->m_texRect);
+     texRect.Inflate(-1, -1);
 
-     float polyMinX = my::rounds(pt.x - (style->m_texRect.SizeX() - 2) / 2.0);
-     float polyMaxX = polyMinX + (style->m_texRect.SizeX() - 2);
+     float const polyMinY = my::rounds(pt.y - texRect.SizeY() / 2.0);
+     float const polyMaxY = polyMinY + texRect.SizeY();
 
-     float polyMinY = my::rounds(pt.y - (style->m_texRect.SizeY() - 2) / 2.0);
-     float polyMaxY = polyMinY + (style->m_texRect.SizeY() - 2);
-
-     drawTexturedPolygon(m2::PointU(0, 0), 0,
+     drawTexturedPolygon(m2::PointD(0.0, 0.0), 0.0,
                          texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
-                         polyMinX, polyMinY, polyMaxX, polyMaxY,
+                         // move symbol to the left from origin point (do not mix with texts)
+                         pt.x - texRect.SizeX(), polyMinY, pt.x, polyMaxY,
                          depth,
                          style->m_pageID);
    }
