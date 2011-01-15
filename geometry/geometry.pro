@@ -28,3 +28,4 @@ HEADERS += \
   simplification.hpp \
   transformations.hpp \
   tree4d.hpp \
+  polygon.hpp \
