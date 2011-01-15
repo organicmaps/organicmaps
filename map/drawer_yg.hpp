@@ -96,8 +96,6 @@ public:
 
   void onSize(int w, int h);
 
-  void drawStats(double duration, int scale, double lat, double lng, m2::PointD const & startPt = m2::PointD(0, 0), bool log2vis = false);
-
   shared_ptr<yg::gl::Screen> screen() const;
 
   void SetVisualScale(double visualScale);

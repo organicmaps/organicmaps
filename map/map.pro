@@ -20,6 +20,7 @@ HEADERS += \
     window_handle.hpp \
     render_queue.hpp \
     render_queue_routine.hpp \
+    information_display.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -29,6 +30,7 @@ SOURCES += \
     draw_processor.cpp \
     render_queue.cpp \
     render_queue_routine.cpp \
+    information_display.cpp
 
 !iphonesimulator-g++42 {
   !iphonedevice-g++42 {

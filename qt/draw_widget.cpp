@@ -15,7 +15,7 @@ namespace qt
   DrawWidget::DrawWidget(QWidget * pParent, Storage & storage)
     : base_type(pParent),
       m_handle(new handle_t(this)),
-      m_framework(m_handle),
+      m_framework(m_handle, 0),
       m_isDrag(false),
       m_redrawInterval(100),
       m_pScale(0)

@@ -104,10 +104,9 @@ namespace yg
     TStylesList m_stylesList;
 
     shared_ptr<ResourceManager> m_resourceManager;
+    Skin * m_skin;
     size_t m_dynamicPagesCount;
     size_t m_textPagesCount;
-
-    Skin * m_skin;
 
   public:
 

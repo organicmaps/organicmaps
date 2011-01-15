@@ -32,12 +32,13 @@ struct MercatorBounds
     return lon;
   }
 
+  static double const degreeInMetres;
+
   /// @return mercator bound points in rect
   inline static m2::RectD ErrorToRadius(double lon, double lat, double errorInMetres)
   {
     // We use approximate number of metres per degree
-    static double const metresInDegree = 1.0 / 111111.0;
-    double const offset = errorInMetres / 2.0 * metresInDegree;
+    double const offset = errorInMetres / 2.0 * degreeInMetres;
     return m2::RectD(LonToX(lon - offset), LatToY(lat - offset), LonToX(lon + offset), LatToY(lat + offset));
   }
 

@@ -59,7 +59,7 @@ namespace tools
 
   void SkinGenerator::processFont(string const & fileName, string const & skinName, vector<int8_t> const & fontSizes, int symbolScale)
   {
-    string symbols(" 0123456789abcdefjhigklmnopqrstuvwxyzABCDEFJHIJKLMNOPQRSTUVWXYZ;:'\"/?.,`~!@#$%^&*()-_+=");
+    string symbols(" 0123456789abcdefjhigklmnopqrstuvwxyzABCDEFJHIJKLMNOPQRSTUVWXYZ;:'\"/?.,`~!@#$%^&*()-_+=<>");
 
     FT_Library lib;
     FT_Error error;

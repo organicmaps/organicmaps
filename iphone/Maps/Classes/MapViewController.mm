@@ -58,7 +58,7 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 		
 		shared_ptr<iphone::WindowHandle> windowHandle = [(EAGLView*)self.view windowHandle];
 		shared_ptr<yg::ResourceManager> resourceManager = [(EAGLView*)self.view resourceManager];
-		m_framework = new framework_t(windowHandle);
+		m_framework = new framework_t(windowHandle, 40);
 		m_framework->Init(m_storage);
 		m_StickyThreshold = 10;
 		

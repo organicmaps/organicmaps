@@ -25,7 +25,7 @@ namespace yg
              size_t textPagesCount)
     : m_pages(pages),
       m_dynamicPagesCount(dynamicPagesCount),
-      m_textPagesCount(dynamicPagesCount),
+      m_textPagesCount(textPagesCount),
       m_staticPagesCount(pages.size()),
       m_resourceManager(resourceManager)
   {

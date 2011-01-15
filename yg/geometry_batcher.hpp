@@ -135,7 +135,7 @@ namespace yg
                     string const & utf8Text,
                     double depth,
                     bool fixedFont = false,
-                    bool log2vis = false);
+                    bool log2vis = true);
 
       m2::RectD const textRect(string const & utf8Text,
                                uint8_t fontSize,

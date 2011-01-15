@@ -61,6 +61,8 @@ namespace yg
 
   bool operator < (PenInfo const & l, PenInfo const & r)
   {
+    if (l.m_isSolid != r.m_isSolid)
+      return l.m_isSolid < r.m_isSolid;
     if (l.m_color != r.m_color)
       return l.m_color < r.m_color;
     if (l.m_w != r.m_w)
