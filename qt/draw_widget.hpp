@@ -87,6 +87,8 @@ namespace qt
 
   private:
     void UpdateScaleControl();
+    void StopDragging(QMouseEvent * e);
+
     QSlider * m_pScale;
   };
 }

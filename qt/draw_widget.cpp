@@ -105,7 +105,7 @@ namespace qt
 
   void DrawWidget::ScaleChanged(int action)
   {
-    if (action == QAbstractSlider::SliderMove)
+    if (action != QAbstractSlider::SliderNoAction)
     {
       int const oldV = m_pScale->value();
       int const newV = m_pScale->sliderPosition();
@@ -163,17 +163,14 @@ namespace qt
   void DrawWidget::mouseDoubleClickEvent(QMouseEvent * e)
   {
     base_type::mouseDoubleClickEvent(e);
+
     if (e->button() == Qt::LeftButton)
     {
-      if (m_isDrag)
-      {
-        m_framework.SetRedrawEnabled(true);
-        m_framework.StopDrag(get_drag_event(e));
-        setCursor(Qt::ArrowCursor);
-        m_isDrag = false;
-      }
+      StopDragging(e);
 
       m_framework.ScaleToPoint(ScaleToPointEvent(e->pos().x(), e->pos().y(), 1.5));
+
+      UpdateScaleControl();
     }
   }
 
@@ -189,6 +186,11 @@ namespace qt
   {
     base_type::mouseReleaseEvent(e);
 
+    StopDragging(e);
+  }
+
+  void DrawWidget::StopDragging(QMouseEvent * e)
+  {
     if (m_isDrag && e->button() == Qt::LeftButton)
     {
       m_framework.SetRedrawEnabled(true);
