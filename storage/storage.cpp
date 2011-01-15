@@ -295,7 +295,7 @@ namespace storage
     {
       TLocalAndRemoteSize size = CountryByIndex(m_queue.front()).Size();
       if (size.second != 0)
-        m_countryProgress.first = (m_countryProgress.second - size.second);
+        m_countryProgress.first = size.first;
       // activate downloaded map piece
       string const datFile = GetPlatform().ReadPathForFile(FileFromUrl(url));
       m_addMap(datFile);
