@@ -12,8 +12,9 @@ class XmlParser : public CExpatImpl< XmlParser<DispatcherT> >
 public:
   typedef CExpatImpl< XmlParser<DispatcherT> > BaseT;
 
-  XmlParser(DispatcherT& dispatcher)
-    : m_depth(0), m_restrictDepth(-1), m_dispatcher(dispatcher)
+  XmlParser(DispatcherT& dispatcher, bool enableCharHandler = false)
+    : m_depth(0), m_restrictDepth(-1), m_dispatcher(dispatcher),
+    m_enableCharHandler(enableCharHandler)
   {
   }
 
@@ -22,6 +23,8 @@ public:
   {
     // Enable all the event routines we want
     BaseT::EnableElementHandler();
+    if (m_enableCharHandler)
+      BaseT::EnableCharacterDataHandler();
   }
 
   // Start element handler
@@ -55,10 +58,16 @@ public:
     }
   }
 
+  void OnCharacterData (const XML_Char *pszData, int nLength)
+  {
+    m_dispatcher.CharData(string(pszData, nLength));
+  }
+
 private:
   size_t m_depth;
   size_t m_restrictDepth;
-  DispatcherT& m_dispatcher;
+  DispatcherT & m_dispatcher;
+  bool m_enableCharHandler;
 };
 
 #include "../../base/stop_mem_debug.hpp"

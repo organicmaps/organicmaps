@@ -38,6 +38,7 @@ public:
   bool Push(string const & name);
   void AddAttr(string const & name, string const & value);
   void Pop(string const &);
+  void CharData(string const &) {}
 
 protected:
   virtual void EmitElement(XMLElement * p) = 0;

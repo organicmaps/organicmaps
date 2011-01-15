@@ -157,6 +157,7 @@ namespace ftype {
     public:
       OSMTypesStream() : m_priority(0), m_forceSkip(false) {}
 
+      void CharData(string const &) {}
       bool Push(string const & name)
       {
         if (!m_forceSkip && is_our_element(name))

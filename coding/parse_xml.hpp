@@ -9,10 +9,10 @@
 static const size_t KMaxXMLFileBufferSize = 16384;
 
 template <typename XMLDispatcherT, typename SourceT>
-bool ParseXML(SourceT & source, XMLDispatcherT & dispatcher)
+bool ParseXML(SourceT & source, XMLDispatcherT & dispatcher, bool useCharData = false)
 {
   // Create the parser
-  XmlParser<XMLDispatcherT> parser(dispatcher);
+  XmlParser<XMLDispatcherT> parser(dispatcher, useCharData);
   if (!parser.Create())
     return false;
 

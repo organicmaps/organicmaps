@@ -118,6 +118,7 @@ namespace yg
     bool Push(string const & element);
     void Pop(string const & element);
     void AddAttr(string const & attribute, string const & value);
+    void CharData(string const &) {}
 
     void popCharStyle();
     void popGlyphInfo();
