@@ -216,7 +216,7 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
   double scalerWidthXDiff = MercatorBounds::LatToY(pt0.x + scalerWidthLatDiff) - MercatorBounds::LatToY(pt0.x);
 
   double scalerWidthInPx = m_screen.GtoP(pt0).x - m_screen.GtoP(pt0 + m2::PointD(scalerWidthXDiff, 0)).x;
-  scalerWidthInPx = (lessThanMin || isInfinity) ? minPixSize : fabs(my::rounds(scalerWidthInPx));
+  scalerWidthInPx = (lessThanMin || isInfinity) ? minPixSize : abs(my::rounds(scalerWidthInPx));
 
   string scalerText;
 
