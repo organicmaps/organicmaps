@@ -105,4 +105,14 @@ template <typename T> inline T PowUint(T x, uint64_t n)
   return res;
 }
 
+template <typename T> inline T NextModN(T x, T n)
+{
+  return x + 1 == n ? 0 : x + 1;
+}
+
+template <typename T> inline T PrevModN(T x, T n)
+{
+  return x == 0 ? n - 1 : x - 1;
+}
+
 }

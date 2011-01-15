@@ -93,3 +93,18 @@ struct NoopFunctor
     UNUSED_VALUE(value);
   }
 };
+
+template <typename IterT> IterT NextIterInCycle(IterT it, IterT beg, IterT end)
+{
+  if (++it == end)
+    return beg;
+  return it;
+}
+
+template <typename IterT> IterT PrevIterInCycle(IterT it, IterT beg, IterT end)
+{
+  if (it == beg)
+    it = end;
+  return --it;
+}
+
