@@ -336,9 +336,7 @@ namespace
   template <class TSink> class BitSink
   {
     TSink & m_sink;
-
-    uint8_t m_current;
-    uint8_t m_pos;
+    uint8_t m_pos, m_current;
 
   public:
     BitSink(TSink & sink) : m_sink(sink), m_current(0), m_pos(0) {}
@@ -744,7 +742,9 @@ void FeatureType::ParseHeader2() const
     if (ptsCount == 0)
       ptsMask = bitSource.Read(4);
     else
+    {
       ASSERT_GREATER ( ptsCount, 1, () );
+    }
   }
 
   if (commonH & HEADER_IS_AREA)
