@@ -78,7 +78,8 @@ UNIT_TEST(BufferVectorSwap)
     v1.resize(7);
     TEST_EQUAL ( v1[0].size(), 1, () );
     TEST_EQUAL ( v1[0][0], 666, () );
-    TEST_NOT_EQUAL ( dd1, v1[0].data(), () );
+		// stl implementation can reuse buffer of vector after clear
+    //TEST_NOT_EQUAL ( dd1, v1[0].data(), () );
   }
 
   {
