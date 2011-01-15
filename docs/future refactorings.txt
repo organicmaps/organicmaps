@@ -1,2 +1,3 @@
 Move 'mmap_file_reader' to 'coding' folder.
 Make common library for 'indexer_tool' and 'indexer_tests'. Move there stuff from 'indexer'.
+Unit tests!

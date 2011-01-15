@@ -6,9 +6,12 @@
 #include "scales.hpp"
 
 #include "../../storage/defines.hpp"
+
 #include "../geometry/rect2d.hpp"
+
 #include "../coding/file_container.hpp"
-#include "../coding/varint.hpp"
+//#include "../coding/varint.hpp"
+
 #include "../base/base.hpp"
 #include "../base/macros.hpp"
 #include "../base/stl_add.hpp"
@@ -18,6 +21,7 @@
 #include "../std/unordered_set.hpp"
 #include "../std/utility.hpp"
 #include "../std/bind.hpp"
+
 
 template <class BaseT> class IndexForEachAdapter : public BaseT
 {
