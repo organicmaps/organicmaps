@@ -11,5 +11,7 @@
  - Запустить прогу и сохранить visibility.txt, замержить его с предидущей версией в репозитории
    (удобно делать при помощи git diff data/visibility.txt):
 	- забрать все настройки невидимости;
-	- забрать настройки видимости по boundary:administrative:2;
+	- забрать настройки видимости по:
+		- boundary:administrative:2
+		- amenity:fuel, amenity:restourant;
  

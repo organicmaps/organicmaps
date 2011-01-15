@@ -123,10 +123,8 @@ void DrawerYG::drawPath(vector<m2::PointD> const & pts, rule_ptr_t pRule, int de
     for (size_t i = 0; i < pattern.size(); ++i)
       pattern[i] *= m_scale * m_visualScale;
 
-    double penWidth = max(pRule->GetWidth() * m_scale * m_visualScale, m_visualScale);
-
     yg::PenInfo rd(yg::Color::fromXRGB(pRule->GetColor(), pRule->GetAlpha()),
-                   penWidth,
+                   max(pRule->GetWidth() * m_scale, 1.0) * m_visualScale,
                    pattern.empty() ? 0 : &pattern[0], pattern.size(), offset * m_scale);
 
     id = m_pSkin->mapPenInfo(rd);
@@ -149,27 +147,30 @@ void DrawerYG::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int de
   m_pScreen->drawTrianglesList(&pts[0], pts.size()/*, res*/, id, depth);
 }
 
-uint8_t DrawerYG::get_font_size(rule_ptr_t pRule)
+namespace { double const minTextSize = 10.0; }
+
+uint8_t DrawerYG::get_text_font_size(rule_ptr_t pRule) const
 {
-  /// @todo calculate font size
-  return static_cast<uint8_t>(pRule->GetTextHeight() * m_scale * m_visualScale);
+  double const h = pRule->GetTextHeight() * m_scale;
+  return my::rounds(max(h, minTextSize) * m_visualScale);
+}
+
+uint8_t DrawerYG::get_pathtext_font_size(rule_ptr_t pRule) const
+{
+  double const h = pRule->GetTextHeight() * m_scale - 2.0;
+  return my::rounds(max(h, minTextSize) * m_visualScale);
 }
 
 void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t pRule, int depth)
 {
-  uint8_t fontSize = max(get_font_size(pRule), (uint8_t)(yg::minTextSize * m_visualScale));
-  m_pScreen->drawText(pt, 0.0, fontSize, name, depth);
+  m_pScreen->drawText(pt, 0.0, get_text_font_size(pRule), name, depth);
 }
 
 bool DrawerYG::drawPathText(di::PathInfo const & info, string const & name, uint8_t fontSize, int /*depth*/)
 {
-  if (fontSize >= yg::minTextSize * m_visualScale)
-  {
     return m_pScreen->drawPathText( &info.m_path[0], info.m_path.size(), fontSize, name,
                                     info.GetLength(), info.GetOffset(),
                                     yg::gl::Screen::middle_line, true, yg::maxDepth);
-  }
-  return false;
 }
 
 shared_ptr<yg::gl::Screen> DrawerYG::screen() const
@@ -245,7 +246,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t pRule, int depth)
       {
         for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
         {
-          uint8_t const fontSize = get_font_size(pRule) - 2;  // subtract to fit name in path
+          uint8_t const fontSize = get_pathtext_font_size(pRule);
 
           list<m2::RectD> & lst = m_pathsOrg[pInfo->m_name];
 
