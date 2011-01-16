@@ -30,3 +30,4 @@ SOURCES += \
   transformations_test.cpp \
   tree_test.cpp \
   polygon_test.cpp \
+	region_test.cpp \

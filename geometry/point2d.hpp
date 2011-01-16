@@ -16,6 +16,8 @@ namespace m2
   class Point
   {
   public:
+    typedef T value_type;
+
     T x, y;
 
     Point() {}

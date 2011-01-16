@@ -29,3 +29,4 @@ HEADERS += \
   transformations.hpp \
   tree4d.hpp \
   polygon.hpp \
+	region2d.hpp \
