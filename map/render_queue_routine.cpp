@@ -148,14 +148,19 @@ void RenderQueueRoutine::getUpdateAreas(vector<m2::RectI> & areas)
 
     maxY = minY + my::Abs(dy);
 
-    if (minX != maxX)
-      areas.push_back(m2::RectI(minX, 0, maxX, h));
-    if (minY != maxY)
+    if ((my::Abs(dx) > w) || (my::Abs(dy) > h))
+      areas.push_back(m2::RectI(0, 0, w, h));
+    else
     {
-      if (minX == 0)
-        areas.push_back(m2::RectI(maxX, minY, w, maxY));
-      else
-        areas.push_back(m2::RectI(0, minY, minX, maxY));
+      if (minX != maxX)
+        areas.push_back(m2::RectI(minX, 0, maxX, h));
+      if (minY != maxY)
+      {
+        if (minX == 0)
+          areas.push_back(m2::RectI(maxX, minY, w, maxY));
+        else
+          areas.push_back(m2::RectI(0, minY, minX, maxY));
+      }
     }
   }
   else
