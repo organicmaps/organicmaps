@@ -66,7 +66,7 @@ namespace
   void TestFindStrip(P const * beg, size_t n)
   {
     size_t const i = FindSingleStrip(n, IsDiagonalVisibleFunctor<P const *>(beg, beg + n));
-    TEST_LESS(i, n, ());
+    TEST_LESS ( i, n, () );
 
     vector<size_t> test;
     MakeSingleStripFromIndex(i, n, MakeBackInsertFunctor(test));
@@ -74,7 +74,7 @@ namespace
     sort(test.begin(), test.end());
     unique(test.begin(), test.end());
 
-    TEST_EQUAL(test.size(), n, ());
+    TEST_EQUAL ( test.size(), n, () );
   }
 
   void TestFindStripMulti(P const * beg, size_t n)
@@ -92,8 +92,9 @@ UNIT_TEST(FindSingleStrip)
   }
 
   {
-    P poly[] = { P(0, 0), P(2, -1), P(3, -1), P(3, 2), P(2, 2), P(2, 1), P(0, 1) };
-    TestFindStripMulti(poly, ARRAY_SIZE(poly));
+    P poly[] = { P(0, 0), P(2, 0), P(2, -1), P(3, -1), P(3, 2), P(2, 2), P(2, 1), P(0, 1) };
+    size_t const n = ARRAY_SIZE(poly);
+    TEST_EQUAL ( FindSingleStrip(n, IsDiagonalVisibleFunctor<P const *>(poly, poly + n)), n, () );
   }
 
   {

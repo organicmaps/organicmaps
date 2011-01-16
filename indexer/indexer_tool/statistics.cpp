@@ -59,7 +59,7 @@ namespace stats
       uint32_t const datSize = f.GetAllSize();
       m_info.m_all.Add(datSize);
       //m_info.m_names.Add(f.GetNameSize());
-      m_info.m_types.Add(f.GetTypesSize());
+      //m_info.m_types.Add(f.GetTypesSize());
 
       FeatureType::geom_stat_t geom = f.GetGeometrySize(-1);
       FeatureType::geom_stat_t trg = f.GetTrianglesSize(-1);
@@ -145,8 +145,8 @@ namespace stats
   void PrintStatistic(MapInfo & info)
   {
     PrintInfo("DAT", info.m_all);
-    PrintInfo("NAMES", info.m_names);
-    PrintInfo("TYPES", info.m_types);
+    //PrintInfo("NAMES", info.m_names);
+    //PrintInfo("TYPES", info.m_types);
 
     PrintTop<greater_size>("Top SIZE by Geometry Type", info.m_byGeomType);
     PrintTop<greater_size>("Top SIZE by Classificator Type", info.m_byClassifType);

@@ -55,14 +55,17 @@ namespace stats
     set<GeneralInfoKey<TypeTag> > m_byClassifType;
     set<GeneralInfoKey<uint32_t> > m_byPointsCount, m_byTrgCount;
 
-    GeneralInfo m_all, m_names, m_types;
+    GeneralInfo m_all;  //, m_names, m_types;
 
     template <class TKey, class TSet>
     void AddToSet(TKey key, uint32_t sz, TSet & theSet)
     {
-      // GCC doesn't allow to modify set value ...
-      const_cast<GeneralInfo &>(
-          theSet.insert(GeneralInfoKey<TKey>(key)).first->m_info).Add(sz);
+      if (sz > 0)
+      {
+        // GCC doesn't allow to modify set value ...
+        const_cast<GeneralInfo &>(
+            theSet.insert(GeneralInfoKey<TKey>(key)).first->m_info).Add(sz);
+      }
     }
   };
 
