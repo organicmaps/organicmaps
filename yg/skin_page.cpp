@@ -315,7 +315,10 @@ namespace yg
   bool SkinPage::hasRoom(const PenInfo &penInfo) const
   {
     if (penInfo.m_isSolid)
-      return hasRoom(penInfo.m_color);
+    {
+      return m_packer.hasRoom(penInfo.m_w + 4, penInfo.m_w + 4);
+    //  return hasRoom(penInfo.m_color);
+    }
     else
     {
       uint32_t len = static_cast<uint32_t>(accumulate(penInfo.m_pat.begin(), penInfo.m_pat.end(), 0.0));

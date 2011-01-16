@@ -70,6 +70,7 @@ namespace yg
     friend class SkinLoader;
 
     void addDynamicPages(int count);
+    void addTextPages(int count);
 
     typedef pair<uint8_t, uint32_t> id_pair_t;
     id_pair_t unpackID(uint32_t id) const;
@@ -92,7 +93,7 @@ namespace yg
     void callOverflowFns(uint8_t pageID);
 
     void clearPageHandles(uint8_t pageID);
-    void onOverflow(uint8_t pageID);
+//    void onOverflow(uint8_t pageID);
 
     void changeCurrentDynamicPage();
     void changeCurrentTextPage();

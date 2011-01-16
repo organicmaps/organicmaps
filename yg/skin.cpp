@@ -30,10 +30,24 @@ namespace yg
       m_resourceManager(resourceManager)
   {
     m_startTextPage = m_currentTextPage = m_pages.size();
-    addDynamicPages(m_textPagesCount);
+    addTextPages(m_textPagesCount);
 
     m_startDynamicPage = m_currentDynamicPage = m_pages.size();
     addDynamicPages(m_dynamicPagesCount);
+  }
+
+  void Skin::addTextPages(int count)
+  {
+    m_pages.reserve(m_pages.size() + count);
+
+    addClearPageFn(bind(&Skin::clearPageHandles, this, _1), 0);
+
+    for (size_t i = 0; i < count; ++i)
+    {
+      uint8_t pageID = (uint8_t)m_pages.size();
+      m_pages.push_back(make_shared_ptr(new SkinPage(m_resourceManager, pageID)));
+      m_pages.back()->addOverflowFn(bind(&Skin::changeCurrentTextPage, this), 0);
+    }
   }
 
   void Skin::addDynamicPages(int count)
@@ -46,7 +60,7 @@ namespace yg
     {
       uint8_t pageID = (uint8_t)m_pages.size();
       m_pages.push_back(make_shared_ptr(new SkinPage(m_resourceManager, pageID)));
-      m_pages.back()->addOverflowFn(bind(&Skin::onOverflow, this, pageID), 0);
+      m_pages.back()->addOverflowFn(bind(&Skin::changeCurrentDynamicPage, this), 0);
     }
   }
 
@@ -180,11 +194,12 @@ namespace yg
   /// Called from the skin page on handles overflow.
   /// Never called on texture overflow, as this situation
   /// are explicitly checked in the mapXXX() functions.
-  void Skin::onOverflow(uint8_t pageID)
+/*  void Skin::onOverflow(uint8_t pageID)
   {
     LOG(LINFO, ("Called from SkinPage as a reaction on handles overflow for pageID=", (uint32_t)pageID));
     changeCurrentDynamicPage();
   }
+ */
 
   void Skin::changeCurrentDynamicPage()
   {
