@@ -424,9 +424,13 @@ private:
 
   void ParseAll(int scale) const;
 
-  mutable buffer_vector<int64_t, 16> m_InnerPoints;
+  // For better result this value should be greater than 17
+  // (number of points in inner triangle-strips).
+  static const size_t static_buffer = 32;
 
-  typedef buffer_vector<m2::PointD, 16> points_t;
+  mutable buffer_vector<int64_t, static_buffer> m_InnerPoints;
+
+  typedef buffer_vector<m2::PointD, static_buffer> points_t;
   mutable points_t m_Points, m_Triangles;
 
   FilesContainerR * m_cont;
