@@ -317,7 +317,7 @@ namespace agg
         rasterizer_sl_no_clip() : m_x1(0), m_y1(0) {}
 
         void reset_clipping() {}
-        void clip_box(coord_type x1, coord_type y1, coord_type x2, coord_type y2) {}
+        void clip_box(coord_type /*x1*/, coord_type /*y1*/, coord_type /*x2*/, coord_type /*y2*/) {}
         void move_to(coord_type x1, coord_type y1) { m_x1 = x1; m_y1 = y1; }
 
         template<class Rasterizer>

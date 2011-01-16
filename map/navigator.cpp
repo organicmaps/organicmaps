@@ -118,7 +118,7 @@ void Navigator::StartScale(m2::PointD const & pt1, m2::PointD const & pt2, doubl
   m_InAction = true;
 }
 
-void Navigator::ScaleToPoint(m2::PointD const & pt, double factor, double timeInSec)
+void Navigator::ScaleToPoint(m2::PointD const & pt, double factor, double /*timeInSec*/)
 {
   m2::PointD startPt;
   m2::PointD endPt;

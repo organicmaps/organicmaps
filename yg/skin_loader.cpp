@@ -20,9 +20,9 @@ namespace yg
     m_xAdvance(0),
     m_fileName(""),
     m_resourceManager(resourceManager),
+    m_skin(0),
     m_dynamicPagesCount(dynamicPagesCount),
-    m_textPagesCount(textPagesCount),
-    m_skin(0)
+    m_textPagesCount(textPagesCount)
   {
     m_mode.push_back(ERoot);
   }

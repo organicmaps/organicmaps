@@ -63,7 +63,7 @@ private:
   org_map_t m_pathsOrg;
 
 protected:
-  void drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, int depth);
+  void drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth);
   void drawPath(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth);
   void drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth);
 
@@ -87,7 +87,7 @@ public:
 
   DrawerYG(string const & skinName, params_t const & params = params_t());
 
-  void drawSymbol(m2::PointD const & pt, string const & symbolName, int depth);
+  void drawSymbol(m2::PointD const & pt, string const & symbolName, yg::EPosition pos, int depth);
 
   void beginFrame();
   void endFrame();

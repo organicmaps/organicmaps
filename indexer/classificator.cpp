@@ -119,6 +119,7 @@ void ClassifObject::VisSavePolicy::Serialize(ostream & s) const
 
 void ClassifObject::VisLoadPolicy::Name(string const & name) const
 {
+  static_cast<void>(name);
   // Assume that classificator doesn't changed for saved visibility.
   ASSERT ( name == Current()->m_name, () );
 }

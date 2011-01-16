@@ -46,7 +46,7 @@ namespace yg
     FT_Done_FreeType(m_lib);
   }
 
-  FT_Error GlyphCacheImpl::RequestFace(FTC_FaceID faceID, FT_Library library, FT_Pointer requestData, FT_Face * face)
+  FT_Error GlyphCacheImpl::RequestFace(FTC_FaceID faceID, FT_Library library, FT_Pointer /*requestData*/, FT_Face * face)
   {
     //GlyphCacheImpl * glyphCacheImpl = reinterpret_cast<GlyphCacheImpl*>(requestData);
     Font * font = reinterpret_cast<Font*>(faceID);

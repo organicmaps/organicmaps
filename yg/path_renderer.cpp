@@ -25,10 +25,11 @@ namespace yg
         for (size_t i = 0; i < pointsCount - 1; ++i)
         {
           m2::PointD dir = points[i + 1] - points[i];
-          dir *= 1.0 / dir.Length(m2::PointD(0, 0));
+          double len = dir.Length(m2::PointD(0, 0));
+          dir *= 1.0 / len;
           m2::PointD norm(-dir.y, dir.x);
+          m2::PointD const & nextPt = points[i + 1];
 
-          float segLen = points[i + 1].Length(points[i]);
           float geomHalfWidth = (lineStyle->m_penInfo.m_w + 4 - aaShift() * 2) / 2.0;
 
           float texMinX = lineStyle->m_texRect.minX() + 1;
@@ -50,11 +51,11 @@ namespace yg
             points[i] + fNorm,
             /// inner part
             points[i] - fNorm,
-            points[i + 1] + fNorm,
-            points[i + 1] - fNorm,
+            nextPt + fNorm,
+            nextPt - fNorm,
             /// right round cap
-            points[i + 1] + fDir + fNorm,
-            points[i + 1] + fDir - fNorm
+            nextPt + fDir + fNorm,
+            nextPt + fDir - fNorm
           };
 
           shared_ptr<BaseTexture> texture = skin()->pages()[lineStyle->m_pageID]->texture();

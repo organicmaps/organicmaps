@@ -79,7 +79,7 @@ void InformationDisplay::drawPosition(DrawerYG * pDrawer)
 {
   /// Drawing position and heading
   m2::PointD pxPosition = m_screen.GtoP(m_position);
-  pDrawer->drawSymbol(pxPosition, "current-position", yg::maxDepth);
+  pDrawer->drawSymbol(pxPosition, "current-position", yg::EPosCenter, yg::maxDepth);
 
   double pxConfidenceRadius = pxPosition.Length(m_screen.GtoP(m_position + m2::PointD(m_confidenceRadius, 0)));
 

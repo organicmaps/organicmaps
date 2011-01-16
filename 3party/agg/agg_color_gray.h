@@ -335,7 +335,7 @@ namespace agg
                 return *this;
             }
             calc_type v_ = (calc_type(v) * base_mask) / a;
-            v = value_type((v_ > base_mask) ? base_mask : v_);
+            v = value_type((v_ > (calc_type)base_mask) ? (calc_type)base_mask : v_);
             return *this;
         }
 

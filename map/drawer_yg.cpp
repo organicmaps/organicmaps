@@ -79,12 +79,12 @@ void DrawerYG::onSize(int w, int h)
   m_pScreen->onSize(w, h);
 }
 
-void DrawerYG::drawSymbol(m2::PointD const & pt, string const & symbolName, int depth)
+void DrawerYG::drawSymbol(m2::PointD const & pt, string const & symbolName, yg::EPosition pos, int depth)
 {
-  m_pScreen->drawPoint(pt, m_pSkin->mapSymbol(symbolName.c_str()), depth);
+  m_pScreen->drawPoint(pt, m_pSkin->mapSymbol(symbolName.c_str()), pos, depth);
 }
 
-void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, int depth)
+void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth)
 {
   // Use BaseRule::m_id to cache for point draw rule.
   // This rules doesn't mix with other rule-types.
@@ -105,7 +105,7 @@ void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, int depth)
     }
   }
 
-  m_pScreen->drawPoint(pt, id, depth);
+  m_pScreen->drawPoint(pt, id, pos, depth);
 }
 
 void DrawerYG::drawPath(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth)
@@ -226,13 +226,13 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t pRule, int depth)
         if (isFill)
           drawArea(i->m_path, pRule, depth);
         else if (isSym)
-          drawSymbol(i->GetCenter(), pRule, depth);
+          drawSymbol(i->GetCenter(), pRule, yg::EPosLeft, depth);
       }
     }
 
     // draw point symbol
     if (!isPath && !isArea && isSymbol && ((pRule->GetType() & drule::node) != 0))
-      drawSymbol(pInfo->m_point, pRule, depth);
+      drawSymbol(pInfo->m_point, pRule, yg::EPosLeft, depth);
   }
   else
   {

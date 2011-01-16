@@ -144,6 +144,7 @@ namespace agg
                                          unsigned alpha, 
                                          unsigned cover=0)
         {
+            static_cast<void>(cover);
             calc_type r = p[Order::R];
             calc_type g = p[Order::G];
             calc_type b = p[Order::B];

@@ -50,16 +50,6 @@ namespace yg
 
     FTC_FaceID faceID = reinterpret_cast<FTC_FaceID>(font);
 
-    FTC_ScalerRec fontScaler =
-    {
-      faceID,
-      key.m_fontSize,
-      key.m_fontSize,
-      1,
-      0,
-      0
-    };
-
     int charIDX = FTC_CMapCache_Lookup(
         m_impl->m_charMapCache,
         faceID,
@@ -220,7 +210,7 @@ namespace yg
     return info;
   }
 
-  void GlyphInfo::dump(const char *fileName)
+  void GlyphInfo::dump(const char * /*fileName */)
   {
 /*    gil::lodepng_write_view(fileName,
                             gil::interleaved_view(m_width,

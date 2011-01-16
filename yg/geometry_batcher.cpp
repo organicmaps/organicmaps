@@ -217,7 +217,7 @@ namespace yg
 //     }
    }
 
-   void GeometryBatcher::drawPoint(m2::PointD const & pt, uint32_t styleID, double depth)
+   void GeometryBatcher::drawPoint(m2::PointD const & pt, uint32_t styleID, EPosition pos, double depth)
    {
      ResourceStyle const * style(m_skin->fromID(styleID));
 
@@ -227,13 +227,26 @@ namespace yg
      m2::RectU texRect(style->m_texRect);
      texRect.Inflate(-1, -1);
 
-     float const polyMinY = my::rounds(pt.y - texRect.SizeY() / 2.0);
-     float const polyMaxY = polyMinY + texRect.SizeY();
+     m2::PointD posPt;
+
+     if (pos & EPosLeft)
+       posPt.x = pt.x - texRect.SizeX();
+     else if (pos & EPosRight)
+       posPt.x = pt.x;
+     else
+       posPt.x = pt.x - texRect.SizeX() / 2;
+
+     if (pos & EPosAbove)
+       posPt.y = pt.y - texRect.SizeY();
+     else if (pos & EPosUnder)
+       posPt.y = pt.y;
+     else
+       posPt.y = pt.y - texRect.SizeY() / 2;
+
 
      drawTexturedPolygon(m2::PointD(0.0, 0.0), 0.0,
                          texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
-                         // move symbol to the left from origin point (do not mix with texts)
-                         pt.x - texRect.SizeX(), polyMinY, pt.x, polyMaxY,
+                         posPt.x, posPt.y, posPt.x + texRect.SizeX(), posPt.y + texRect.SizeY(),
                          depth,
                          style->m_pageID);
    }

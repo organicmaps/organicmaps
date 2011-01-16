@@ -21,9 +21,9 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      p->drawPoint(m2::PointD(40, 40), 0, 0);
-      p->drawPoint(m2::PointD(40.5, 60), 0, 0);
-      p->drawPoint(m2::PointD(41, 80), 0, 0);
+      p->drawPoint(m2::PointD(40, 40), 0, yg::EPosCenter, 0);
+      p->drawPoint(m2::PointD(40.5, 60), 0, yg::EPosCenter, 0);
+      p->drawPoint(m2::PointD(41, 80), 0, yg::EPosCenter, 0);
     }
   };
 

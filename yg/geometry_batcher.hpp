@@ -27,6 +27,19 @@ namespace yg
   class Skin;
   struct CharStyle;
 
+  enum EPosition
+  {
+    EPosCenter = 0x00,
+    EPosAbove = 0x01,
+    EPosUnder = 0x02,
+    EPosLeft = 0x04,
+    EPosRight = 0x10,
+    EPosAboveLeft = EPosAbove | EPosLeft,
+    EPosAboveRight = EPosAbove | EPosRight,
+    EPosUnderLeft = EPosUnder | EPosLeft,
+    EPosUnderRight = EPosUnder | EPosRight
+  };
+
   namespace gl
   {
     class GeometryBatcher : public RenderStateUpdater
@@ -111,7 +124,9 @@ namespace yg
 
       void drawPoint(m2::PointD const & pt,
                      uint32_t styleID,
+                     EPosition pos,
                      double depth);
+
       void drawPath(m2::PointD const * points,
                     size_t pointsCount,
                     uint32_t styleID,
