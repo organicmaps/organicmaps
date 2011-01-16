@@ -75,7 +75,7 @@ namespace feature
   {
     bool is_equal(m2::PointD const & p1, m2::PointD const & p2)
     {
-      return p1.EqualDxDy(p2, MercatorBounds::GetCellID2PointAbsEpsilon());
+      return AlmostEqual(p1, p2);
     }
   }
 
@@ -265,6 +265,11 @@ namespace feature
 
       bool TryToMakeStrip(points_t & points)
       {
+        ASSERT ( is_equal(points.front(), points.back()), () );
+        // At this point we don't need last point equal to first.
+        // If you try to remove it in first step, 'simplify' will work bad for such polygons.
+        points.pop_back();
+
         size_t const count = points.size();
         if (!m_trgInner || count > 15 + 2)
         {

@@ -48,13 +48,6 @@ void FeatureBuilder1::AddPoint(m2::PointD const & p)
 
 void FeatureBuilder1::SetAreaAddHoles(list<vector<m2::PointD> > & holes)
 {
-  // this function is called from InitFeatureBuilder, when no geometry present
-  if (!m_Geometry.empty())
-  {
-    ASSERT ( IsGeometryClosed(), () );
-    m_Geometry.pop_back();
-  }
-
   m_bArea = true;
 
   m_Holes.swap(holes);
