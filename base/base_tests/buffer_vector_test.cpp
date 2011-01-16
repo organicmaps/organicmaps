@@ -10,9 +10,9 @@ namespace
   template <class TCont>
   void CheckVector(TCont & cont, size_t count)
   {
-    CHECK_EQUAL ( cont.size(), count, () );
+    TEST_EQUAL ( cont.size(), count, () );
     for (size_t i = 0; i < count; ++i)
-      CHECK_EQUAL ( cont[i], i, () );
+      TEST_EQUAL ( cont[i], i, () );
   }
 }
 
@@ -60,8 +60,8 @@ UNIT_TEST(BufferVectorSwap)
   value_t const * d2 = v2.data();
 
   swap(v1, v2);
-  CHECK_EQUAL ( d1, v2.data(), () );
-  CHECK_EQUAL ( d2, v1.data(), () );
+  TEST_EQUAL ( d1, v2.data(), () );
+  TEST_EQUAL ( d2, v1.data(), () );
 
   // check swap in resized data
   {
@@ -71,14 +71,14 @@ UNIT_TEST(BufferVectorSwap)
     int const * dd1 = v1[0].data();
 
     v1.resize(1);
-    CHECK_EQUAL ( v1[0].size(), 1, () );
-    CHECK_EQUAL ( v1[0][0], 666, () );
-    CHECK_NOT_EQUAL ( dd1, v1[0].data(), () );
+    TEST_EQUAL ( v1[0].size(), 1, () );
+    TEST_EQUAL ( v1[0][0], 666, () );
+    TEST_NOT_EQUAL ( dd1, v1[0].data(), () );
 
     v1.resize(7);
-    CHECK_EQUAL ( v1[0].size(), 1, () );
-    CHECK_EQUAL ( v1[0][0], 666, () );
-    CHECK_NOT_EQUAL ( dd1, v1[0].data(), () );
+    TEST_EQUAL ( v1[0].size(), 1, () );
+    TEST_EQUAL ( v1[0][0], 666, () );
+    TEST_NOT_EQUAL ( dd1, v1[0].data(), () );
   }
 
   {
@@ -89,11 +89,11 @@ UNIT_TEST(BufferVectorSwap)
     int const * dd2 = v2[0].data();
 
     v2.resize(1);
-    CHECK_EQUAL ( v2[0].size(), 5, () );
-    CHECK_EQUAL ( dd2, v2[0].data(), () );
+    TEST_EQUAL ( v2[0].size(), 5, () );
+    TEST_EQUAL ( dd2, v2[0].data(), () );
 
     v1.resize(7);
-    CHECK_EQUAL ( v2[0].size(), 5, () );
-    CHECK_EQUAL ( dd2, v2[0].data(), () );
+    TEST_EQUAL ( v2[0].size(), 5, () );
+    TEST_EQUAL ( dd2, v2[0].data(), () );
   }
 }
