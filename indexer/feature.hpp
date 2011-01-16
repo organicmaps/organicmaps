@@ -83,6 +83,17 @@ public:
   {
     for_each(m_Geometry.begin(), m_Geometry.end(), bind<void>(ref(toDo), _1));
   }
+
+  // stops processing when functor returns false
+  template <class ToDo>
+  void ForEachTruePointRef(ToDo & toDo) const
+  {
+    for (points_t::const_iterator it = m_Geometry.begin(); it != m_Geometry.end(); ++it)
+      if (!toDo(*it))
+        return;
+  }
+
+  m2::PointD CenterPoint() const { return m_Center; }
   //@}
 
   bool PreSerialize() { return m_bPoint || m_bLinear || m_bArea; }

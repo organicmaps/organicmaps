@@ -39,3 +39,4 @@ HEADERS += \
   grid_generator.hpp \
   statistics.hpp \
   kml_parser.hpp \
+  polygonizer.hpp \

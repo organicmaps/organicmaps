@@ -5,14 +5,16 @@
 #include "../../coding/parse_xml.hpp"
 #include "../../coding/file_reader.hpp"
 
+#include "../../geometry/rect2d.hpp"
+
 #include "../../indexer/cell_id.hpp"
 #include "../../indexer/mercator.hpp"
 
-#include "../../storage/simple_tree.hpp"
-
-#include "../../std/iostream.hpp"
-#include "../../std/vector.hpp"
 #include "../../std/fstream.hpp"
+
+#define POLYGONS_FILE "polygons.lst"
+#define BORDERS_DIR "borders/"
+#define BORDERS_EXTENSION ".kml"
 
 namespace kml
 {
@@ -45,33 +47,31 @@ namespace kml
     return true;
   }
 
-  typedef boost::polygon::point_data<TCoordType> Point;
-  typedef vector<Point> PointsContainer;
-
+  template <class RegionT>
   class PointsCollector
   {
-    PointsContainer & m_points;
+    RegionT & m_region;
     m2::RectD & m_rect;
 
   public:
-    PointsCollector(PointsContainer & container, m2::RectD & rect)
-      : m_points(container), m_rect(rect) {}
+    PointsCollector(RegionT & region, m2::RectD & rect)
+      : m_region(region), m_rect(rect) {}
 
     void operator()(string const & latLon)
     {
       size_t const firstCommaPos = latLon.find(',');
       CHECK(firstCommaPos != string::npos, ("invalid latlon", latLon));
-      string const latStr = latLon.substr(0, firstCommaPos);
-      double lat;
-      CHECK(utils::to_double(latStr, lat), ("invalid lat", latStr));
-      size_t const secondCommaPos = latLon.find(',', firstCommaPos + 1);
-      string lonStr;
-      if (secondCommaPos == string::npos)
-        lonStr = latLon.substr(firstCommaPos + 1);
-      else
-        lonStr = latLon.substr(firstCommaPos + 1, secondCommaPos - firstCommaPos - 1);
+      string const lonStr = latLon.substr(0, firstCommaPos);
       double lon;
       CHECK(utils::to_double(lonStr, lon), ("invalid lon", lonStr));
+      size_t const secondCommaPos = latLon.find(',', firstCommaPos + 1);
+      string latStr;
+      if (secondCommaPos == string::npos)
+        latStr = latLon.substr(firstCommaPos + 1);
+      else
+        latStr = latLon.substr(firstCommaPos + 1, secondCommaPos - firstCommaPos - 1);
+      double lat;
+      CHECK(utils::to_double(latStr, lat), ("invalid lon", latStr));
       // to mercator
       double const x = MercatorBounds::LonToX(lon);
       double const y = MercatorBounds::LatToY(lat);
@@ -80,7 +80,7 @@ namespace kml
       typedef CellIdConverter<MercatorBounds, RectId> CellIdConverterType;
       uint32_t const ix = static_cast<uint32_t>(CellIdConverterType::XToCellIdX(x));
       uint32_t const iy = static_cast<uint32_t>(CellIdConverterType::YToCellIdY(y));
-      m_points.push_back(Point(ix, iy));
+      m_region.AddPoint(Region::value_type(ix, iy));
     }
   };
 
@@ -91,22 +91,21 @@ namespace kml
     }
     else if (element == "coordinates")
     {
-      PointsContainer points;
-      PointsCollector collector(points, m_country.m_rect);
-      utils::TokenizeString(m_data, " \n\r\a", collector);
-      CHECK(!points.empty(), ());
-
       size_t const size = m_tags.size();
       CHECK(m_tags.size() > 3, ());
       CHECK(m_tags[size - 2] == "LinearRing", ());
 
-      using namespace boost::polygon::operators;
-
       if (m_tags[size - 3] == "outerBoundaryIs")
       {
-        Polygon polygon;
-        set_points(polygon, points.begin(), points.end());
-        m_country.m_polygons.push_back(polygon);
+        Region reg;
+        m2::RectD rect;
+        PointsCollector<Region> collector(reg, rect);
+        utils::TokenizeString(m_data, " \n\r\a", collector);
+        if (reg.IsValid())
+        {
+          m_country.m_regions.push_back(reg);
+          m_country.m_rect.Add(rect);
+        }
       }
       else if (m_tags[size - 3] == "innerBoundaryIs")
       { // currently we're ignoring holes
@@ -139,53 +138,61 @@ namespace kml
     }
   }
 
-  void LoadPolygonsFromKml(string const & kmlFile, CountryPolygons & country)
+  bool LoadPolygonsFromKml(string const & kmlFile, CountryPolygons & country)
   {
     KmlParser parser(country);
+    try
     {
       FileReader file(kmlFile);
       ReaderSource<FileReader> source(file);
-      CHECK(ParseXML(source, parser, true), ("Error while parsing", kmlFile));
+      return ParseXML(source, parser, true);
     }
+    catch (std::exception const &)
+    {
+    }
+    return false;
   }
 
-  typedef SimpleTree<CountryPolygons> TCountriesTree;
-  bool LoadCountriesList(string const & countriesListFile, TCountriesTree & countries)
+  class PolygonLoader
   {
-    countries.Clear();
-    ifstream stream(countriesListFile.c_str());
+    string m_baseDir;
+    CountryPolygons & m_out;
+
+  public:
+    PolygonLoader(string const & basePolygonsDir, CountryPolygons & polygons)
+      : m_baseDir(basePolygonsDir), m_out(polygons) {}
+    void operator()(string const & name)
+    {
+      if (m_out.m_name.empty())
+        m_out.m_name = name;
+      CountryPolygons current;
+      if (LoadPolygonsFromKml(m_baseDir + BORDERS_DIR + name + BORDERS_EXTENSION, current)
+          && current.m_regions.size())
+      {
+        m_out.m_regions.insert(m_out.m_regions.end(),
+                          current.m_regions.begin(), current.m_regions.end());
+        m_out.m_rect.Add(current.m_rect);
+      }
+    }
+  };
+
+  bool LoadCountriesList(string const & baseDir, CountriesContainerT & countries)
+  {
+    countries.clear();
+    ifstream stream((baseDir + POLYGONS_FILE).c_str());
     std::string line;
-    CountryPolygons * currentCountry = &countries.Value();
+
     while (stream.good())
     {
       std::getline(stream, line);
       if (line.empty())
         continue;
-
-      // calculate spaces - depth inside the tree
-      int spaces = 0;
-      for (size_t i = 0; i < line.size(); ++i)
-      {
-        if (line[i] == ' ')
-          ++spaces;
-        else
-          break;
-      }
-      switch (spaces)
-      {
-      case 0: // this is value for current tree node
-        CHECK(false, ());
-        break;
-      case 1: // country group
-      case 2: // country name
-      case 3: // region
-        currentCountry = &countries.AddAtDepth(spaces - 1, CountryPolygons(line.substr(spaces)));
-        break;
-      default:
-        return false;
-      }
+      CountryPolygons country;
+      PolygonLoader loader(baseDir, country);
+      utils::TokenizeString(line, ",", loader);
+      if (!country.m_regions.empty())
+        countries.push_back(country);
     }
-    return countries.SiblingsCount() > 0;
+    return !countries.empty();
   }
-
 }

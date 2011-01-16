@@ -5,7 +5,6 @@
 #include "feature_bucketer.hpp"
 #include "grid_generator.hpp"
 #include "statistics.hpp"
-#include "kml_parser.hpp"
 
 #include "../classif_routine.hpp"
 #include "../features_vector.hpp"
@@ -124,14 +123,16 @@ int main(int argc, char ** argv)
     else
       genInfo.datFilePrefix = path + FLAGS_output + (FLAGS_bucketing_level > 0 ? "-" : "");
     genInfo.datFileSuffix = DATA_FILE_EXTENSION;
+
+    // split data by countries polygons
+    genInfo.m_splitByPolygons = FLAGS_split_by_polygons;
+
     genInfo.cellBucketingLevel = FLAGS_bucketing_level;
     genInfo.m_maxScaleForWorldFeatures = FLAGS_worldmap_max_zoom;
     genInfo.m_worldOnly = FLAGS_world_only;
 
     if (!feature::GenerateFeatures(genInfo, FLAGS_use_light_nodes))
-    {
       return -1;
-    }
 
     for (size_t i = 0; i < genInfo.bucketNames.size(); ++i)
       genInfo.bucketNames[i] = genInfo.datFilePrefix + genInfo.bucketNames[i] + genInfo.datFileSuffix;
@@ -184,13 +185,6 @@ int main(int argc, char ** argv)
   {
     LOG(LINFO, ("Creating maps.update file..."));
     update::GenerateFilesList(path);
-  }
-
-  if (FLAGS_split_by_polygons)
-  {
-    kml::CountryPolygons country;
-    kml::LoadPolygonsFromKml(FLAGS_output, country);
-    LOG(LINFO, (country.m_name, country.m_rect));
   }
 
   return 0;

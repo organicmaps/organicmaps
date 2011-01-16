@@ -1,5 +1,5 @@
-
 #pragma once
+
 #include "../../indexer/osm_decl.hpp"
 
 #include "../../geometry/rect2d.hpp"
@@ -15,7 +15,8 @@ namespace feature
 {
   struct GenerateInfo
   {
-    GenerateInfo() : m_maxScaleForWorldFeatures(-1), m_worldOnly(false) {}
+    GenerateInfo()
+      : m_maxScaleForWorldFeatures(-1), m_worldOnly(false), m_splitByPolygons(false) {}
     string dir, datFilePrefix, datFileSuffix;
     int cellBucketingLevel;
     vector<string> bucketNames;
@@ -24,6 +25,7 @@ namespace feature
     /// @note if -1, world file will not be created
     int m_maxScaleForWorldFeatures;
     bool m_worldOnly;
+    bool m_splitByPolygons;
   };
 
   bool GenerateFeatures(GenerateInfo & info, bool lightNodes);

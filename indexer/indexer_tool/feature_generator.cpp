@@ -2,6 +2,7 @@
 #include "feature_bucketer.hpp"
 #include "data_cache_file.hpp"
 #include "osm_element.hpp"
+#include "polygonizer.hpp"
 
 #include "../../storage/defines.hpp"
 
@@ -285,9 +286,6 @@ public:
 template <class TNodesHolder, template <class, class> class TParser>
 bool GenerateImpl(GenerateInfo & info)
 {
-  CHECK_GREATER_OR_EQUAL(info.cellBucketingLevel, 0, ());
-  CHECK_LESS(info.cellBucketingLevel, 10, ());
-
   try
   {
     TNodesHolder nodes(info.dir + NODES_FILE);
@@ -299,15 +297,29 @@ bool GenerateImpl(GenerateInfo & info)
 
     FeaturesCollector::InitDataType collectorInitData(info.datFilePrefix, info.datFileSuffix);
 
-    typedef CellFeatureBucketer<FeaturesCollector, SimpleFeatureClipper, MercatorBounds, RectId>
-        FeatureBucketerType;
-    FeatureBucketerType bucketer(info.cellBucketingLevel, collectorInitData,
-                                 info.m_maxScaleForWorldFeatures, info.m_worldOnly);
+    if (info.m_splitByPolygons)
     {
+      typedef Polygonizer<FeaturesCollector, MercatorBounds, RectId> FeaturePolygonizerType;
+      // prefix is data dir
+      FeaturePolygonizerType bucketer(info.datFilePrefix, collectorInitData);
+      TParser<FeaturePolygonizerType, holder_t> parser(bucketer, holder);
+      ParseXMLFromStdIn(parser);
+      bucketer.GetBucketNames(MakeBackInsertFunctor(info.bucketNames));
+    }
+    else
+    {
+      CHECK_GREATER_OR_EQUAL(info.cellBucketingLevel, 0, ());
+      CHECK_LESS(info.cellBucketingLevel, 10, ());
+
+      typedef CellFeatureBucketer<FeaturesCollector, SimpleFeatureClipper, MercatorBounds, RectId>
+          FeatureBucketerType;
+      FeatureBucketerType bucketer(info.cellBucketingLevel, collectorInitData,
+                                 info.m_maxScaleForWorldFeatures, info.m_worldOnly);
       TParser<FeatureBucketerType, holder_t> parser(bucketer, holder);
       ParseXMLFromStdIn(parser);
+      bucketer.GetBucketNames(MakeBackInsertFunctor(info.bucketNames));
     }
-    bucketer.GetBucketNames(MakeBackInsertFunctor(info.bucketNames));
+
   }
   catch (Reader::Exception const & e)
   {

@@ -1,43 +1,25 @@
 #pragma once
 
-#include "../../geometry/rect2d.hpp"
+#include "../../geometry/region2d.hpp"
 
 #include "../../std/string.hpp"
 #include "../../std/vector.hpp"
 
-#include <boost/polygon/polygon.hpp>
-
-namespace boost
-{
-  namespace polygon
-  {
-    template <>
-    struct coordinate_traits<uint32_t> {
-         typedef uint32_t coordinate_type;
-         typedef long double area_type;
-         typedef int64_t manhattan_area_type;
-         typedef uint64_t unsigned_area_type;
-         typedef int64_t coordinate_difference;
-         typedef long double coordinate_distance;
-    };
-  }
-}
-
 namespace kml
 {
-
-  typedef uint32_t TCoordType;
-  typedef boost::polygon::polygon_data<TCoordType> Polygon;
-  typedef std::vector<Polygon> PolygonSet;
+  typedef m2::RegionU Region;
+  typedef std::vector<Region> RegionsContainerT;
 
   struct CountryPolygons
   {
     CountryPolygons(string const & name = "") : m_name(name) {}
-    PolygonSet m_polygons;
+    RegionsContainerT m_regions;
     string m_name;
+    /// limit rect for all country polygons
     m2::RectD m_rect;
   };
 
-  void LoadPolygonsFromKml(string const & kmlFile, CountryPolygons & country);
+  typedef vector<CountryPolygons> CountriesContainerT;
 
+  bool LoadCountriesList(string const & baseDir, CountriesContainerT & countries);
 }
