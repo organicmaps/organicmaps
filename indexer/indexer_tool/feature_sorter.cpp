@@ -10,6 +10,7 @@
 
 #include "../../geometry/distance.hpp"
 #include "../../geometry/simplification.hpp"
+#include "../../geometry/polygon.hpp"
 
 #include "../../platform/platform.hpp"
 
@@ -213,6 +214,22 @@ namespace feature
 
       bool m_ptsInner, m_trgInner;
 
+      class strip_emitter
+      {
+        points_t const & m_src;
+        points_t & m_dest;
+      public:
+        strip_emitter(points_t const & src, points_t & dest)
+          : m_src(src), m_dest(dest)
+        {
+          m_dest.reserve(m_src.size());
+        }
+        void operator() (size_t i)
+        {
+          m_dest.push_back(m_src[i]);
+        }
+      };
+
     public:
       GeometryHolder(FeaturesCollector2 & rMain, FeatureBuilder2 & fb)
         : m_rMain(rMain), m_rFB(fb), m_ptsInner(true), m_trgInner(true)
@@ -246,18 +263,41 @@ namespace feature
         return (!m_trgInner || m_buffer.m_innerTrg.empty());
       }
 
-      void AddTriangles(points_t & triangles, int scaleIndex)
+      bool TryToMakeStrip(points_t & points)
       {
-        if (m_trgInner && triangles.size() < 16)
-        {
-          if (m_buffer.m_innerTrg.empty())
-            m_buffer.m_innerTrg.swap(triangles);
-        }
-        else
+        size_t const count = points.size();
+        if (!m_trgInner || count > 15 + 2)
         {
           m_trgInner = false;
-          WriteOuterTriangles(triangles, scaleIndex);
+          return false;
         }
+
+        ASSERT ( m_buffer.m_innerTrg.empty(), () );
+
+        if (!IsPolygonCCW(points.begin(), points.end()))
+          reverse(points.begin(), points.end());
+
+        size_t const index = FindSingleStrip(count,
+          IsDiagonalVisibleFunctor<points_t::const_iterator>(points.begin(), points.end()));
+
+        if (index == count)
+        {
+          m_trgInner = false;
+          return false;
+        }
+
+        MakeSingleStripFromIndex(index, count, strip_emitter(points, m_buffer.m_innerTrg));
+
+        ASSERT_EQUAL ( count, m_buffer.m_innerTrg.size(), () );
+        return true;
+      }
+
+      void AddTriangles(points_t const & triangles, int scaleIndex)
+      {
+        ASSERT ( m_buffer.m_innerTrg.empty(), () );
+        m_trgInner = false;
+
+        WriteOuterTriangles(triangles, scaleIndex);
       }
     };
 
@@ -286,6 +326,10 @@ namespace feature
             // simplify and serialize triangles
 
             list<points_t> const & holes = fb.GetHoles();
+
+            if (holes.empty() && holder.TryToMakeStrip(points))
+              continue;
+
             list<points_t> simpleHoles;
             for (list<points_t>::const_iterator iH = holes.begin(); iH != holes.end(); ++iH)
             {

@@ -48,6 +48,13 @@ void FeatureBuilder1::AddPoint(m2::PointD const & p)
 
 void FeatureBuilder1::SetAreaAddHoles(list<vector<m2::PointD> > & holes)
 {
+  // this function is called from InitFeatureBuilder, when no geometry present
+  if (!m_Geometry.empty())
+  {
+    ASSERT ( IsGeometryClosed(), () );
+    m_Geometry.pop_back();
+  }
+
   m_bArea = true;
 
   m_Holes.swap(holes);
@@ -377,7 +384,12 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data)
   PushBackByteSink<buffer_t> sink(data.m_buffer);
 
   uint8_t const ptsCount = static_cast<uint8_t>(data.m_innerPts.size());
-  uint8_t const trgCount = static_cast<uint8_t>(data.m_innerTrg.size() / 3);
+  uint8_t trgCount = static_cast<uint8_t>(data.m_innerTrg.size());
+  if (trgCount > 0)
+  {
+    ASSERT_GREATER ( trgCount, 2, () );
+    trgCount -= 2;
+  }
 
   BitSink< PushBackByteSink<buffer_t> > bitSink(sink);
 
@@ -775,7 +787,19 @@ void FeatureType::ParseHeader2() const
   if (commonH & HEADER_IS_AREA)
   {
     if (trgCount > 0)
-      ReadInnerPoints(src, m_Triangles, 3*trgCount);
+    {
+      trgCount += 2;
+
+      points_t points;
+      ReadInnerPoints(src, points, trgCount);
+
+      for (uint8_t i = 2; i < trgCount; ++i)
+      {
+        m_Triangles.push_back(points[i-2]);
+        m_Triangles.push_back(points[i-1]);
+        m_Triangles.push_back(points[i]);
+      }
+    }
     else
       ReadOffsets(src, trgMask, m_trgOffsets);
   }
