@@ -33,6 +33,25 @@ void Test()
 
 }
 
+UNIT_TEST(Region)
+{
+  typedef m2::PointD P;
+  P p1[] = { P(0.1, 0.2) };
+
+  m2::Region<P> region(p1, p1 + ARRAY_SIZE(p1));
+  TEST(!region.IsValid(), ());
+
+  {
+    P p2[] = { P(1.0, 2.0), P(55.0, 33.0) };
+    region.Assign(p2, p2 + ARRAY_SIZE(p2));
+  }
+  TEST(!region.IsValid(), ());
+
+  region.AddPoint(P(34.4, 33.2));
+  TEST(region.IsValid(), ());
+
+}
+
 UNIT_TEST(Region_Contains)
 {
   Test<m2::PointU>();
@@ -67,4 +86,30 @@ UNIT_TEST(Region_Contains)
     TEST(region.Contains(P(3, 1)), ());
     TEST(!region.Contains(P(1, 1)), ());
   }
+}
+
+template <class TPoint>
+struct PointsSummator
+{
+  double m_xSumm;
+  double m_ySumm;
+  PointsSummator() : m_xSumm(0), m_ySumm(0) {}
+  void operator()(TPoint const & pt)
+  {
+    m_xSumm += pt.x;
+    m_ySumm += pt.y;
+  }
+};
+
+UNIT_TEST(Region_ForEachPoint)
+{
+  typedef m2::PointF P;
+  P const points[] = { P(0.0, 1.0), P(1.0, 2.0), P(10.5, 11.5) };
+  m2::Region<P> region(points, points + ARRAY_SIZE(points));
+
+  PointsSummator<P> s;
+  region.ForEachPoint(s);
+
+  TEST_EQUAL(s.m_xSumm, 11.5, ());
+  TEST_EQUAL(s.m_ySumm, 14.5, ());
 }

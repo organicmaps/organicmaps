@@ -10,6 +10,8 @@ namespace m2
   template <class TPoint>
   class Region
   {
+    typedef vector<TPoint> internal_container;
+
   public:
     typedef TPoint value_type;
     typedef typename TPoint::value_type coord_type;
@@ -38,6 +40,14 @@ namespace m2
     {
       m_points.push_back(pt);
       m_rect.Add(pt);
+    }
+
+    template <class TFunctor>
+    void ForEachPoint(TFunctor & f) const
+    {
+      for (typename internal_container::const_iterator it = m_points.begin();
+            it != m_points.end(); ++it)
+        f(*it);
     }
 
     m2::Rect<coord_type> Rect() const { return m_rect; }
@@ -165,7 +175,7 @@ namespace m2
     */
 
   private:
-    vector<TPoint> m_points;
+    internal_container m_points;
     m2::Rect<coord_type> m_rect;
   };
 
