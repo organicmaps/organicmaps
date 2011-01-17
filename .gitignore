@@ -51,6 +51,8 @@ data/settings.ini
 GeneratedFiles
 version/version.hpp
 tools/win/MapsWithMe*
+data/borders
+data/intermediate_data
 
 syntax: regexp
 (.*/)?\#[^/]*\#$
