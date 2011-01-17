@@ -339,7 +339,7 @@ namespace
     uint8_t m_pos, m_current;
 
   public:
-    BitSink(TSink & sink) : m_sink(sink), m_current(0), m_pos(0) {}
+    BitSink(TSink & sink) : m_sink(sink), m_pos(0), m_current(0) {}
 
     void Finish()
     {
