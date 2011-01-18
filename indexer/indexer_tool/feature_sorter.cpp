@@ -7,11 +7,8 @@
 #include "../../indexer/feature_processor.hpp"
 #include "../../indexer/feature_visibility.hpp"
 #include "../../indexer/feature_impl.hpp"
-#include "../../indexer/scales.hpp"
 #include "../../indexer/cell_id.hpp"
 
-#include "../../geometry/distance.hpp"
-#include "../../geometry/simplification.hpp"
 #include "../../geometry/polygon.hpp"
 
 #include "../../platform/platform.hpp"
@@ -75,15 +72,7 @@ namespace
 namespace feature
 {
   typedef vector<m2::PointD> points_t;
-
-  namespace
-  {
-    bool is_equal(m2::PointD const & p1, m2::PointD const & p2)
-    {
-      return AlmostEqual(p1, p2);
-    }
-  }
-
+/*
   void SimplifyPoints(points_t const & in, points_t & out, int level)
   {
     if (in.size() >= 2)
@@ -116,7 +105,7 @@ namespace feature
 #endif
     }
   }
-
+*/
   void TesselateInterior(points_t const & bound, list<points_t> const & holes, points_t & triangles);
 
 
@@ -216,15 +205,15 @@ namespace feature
         points_t const & src = m_buffer.m_innerPts;
         ASSERT ( !src.empty(), () );
 
-        ASSERT ( is_equal(src.front(), points.front()), () );
-        ASSERT ( is_equal(src.back(), points.back()), () );
+        ASSERT ( are_points_equal(src.front(), points.front()), () );
+        ASSERT ( are_points_equal(src.back(), points.back()), () );
 
         size_t j = 1;
         for (size_t i = 1; i < points.size()-1; ++i)
         {
           for (; j < src.size()-1; ++j)
           {
-            if (is_equal(src[j], points[i]))
+            if (are_points_equal(src[j], points[i]))
             {
               // set corresponding 2 bits for source point [j] to scaleIndex
               uint32_t mask = 0x3;
@@ -291,7 +280,7 @@ namespace feature
 
       bool TryToMakeStrip(points_t & points)
       {
-        ASSERT ( is_equal(points.front(), points.back()), () );
+        ASSERT ( are_points_equal(points.front(), points.back()), () );
         // At this point we don't need last point equal to first.
         // If you try to remove it in first step, 'simplify' will work bad for such polygons.
         points.pop_back();
