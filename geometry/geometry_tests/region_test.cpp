@@ -4,19 +4,30 @@
 
 #include "../region2d.hpp"
 
-template<class TPoint>
+template<class RegionT> struct ContainsChecker
+{
+  RegionT & m_region;
+  ContainsChecker(RegionT & region) : m_region(region) {}
+  void operator()(typename RegionT::value_type const & pt)
+  {
+    TEST(m_region.Contains(pt), ("Region should contain all it's points"));
+  }
+};
+
+template<class RegionT>
 void Test()
 {
-  m2::Region<TPoint> region;
+  RegionT region;
 
-  typedef TPoint P;
+  // point type
+  typedef typename RegionT::value_type P;
 
   // rectangular polygon
   {
     P const data[] = { P(1, 1), P(10, 1), P(10, 10), P(1, 10) };
     region.Assign(data, data + ARRAY_SIZE(data));
   }
-  TEST_EQUAL(region.Rect(), m2::Rect<typename TPoint::value_type>(1, 1, 10, 10), ());
+  TEST_EQUAL(region.Rect(), m2::Rect<typename P::value_type>(1, 1, 10, 10), ());
 
   TEST(region.Contains(P(1, 1)), ());
   TEST(region.Contains(P(2, 2)), ());
@@ -24,13 +35,37 @@ void Test()
   TEST(region.Contains(P(1, 6)), ());
   TEST(!region.Contains(P(0, 0)), ());
   TEST(!region.Contains(P(100, 0)), ());
+  ContainsChecker<RegionT> checker(region);
+  region.ForEachPoint(checker);
 
   // triangle
   {
-    P const data[] = {P(1, 1), P(10, 1), P(10, 10), P(1, 10)};
+    P const data[] = {P(0, 0), P(2, 0), P(2, 2) };
     region.Assign(data, data + ARRAY_SIZE(data));
   }
+  TEST_EQUAL(region.Rect(), m2::Rect<typename P::value_type>(0, 0, 2, 2), ());
+  TEST(region.Contains(P(2, 0)), ());
+  TEST(region.Contains(P(1, 1)), ("point on diagonal"));
+  TEST(!region.Contains(P(33, 0)), ());
+  region.ForEachPoint(checker);
 
+  // complex polygon
+  {
+    P const data[] = { P(0, 0), P(2, 0), P(2, 2), P(3, 1), P(4, 2), P(5, 2),
+        P(3, 3), P(3, 2), P(2, 4), P(6, 3), P(7, 4), P(7, 2), P(8, 5), P(8, 7),
+        P(7, 7), P(8, 8), P(5, 9), P(6, 6), P(5, 7), P(4, 6), P(4, 8), P(3, 7),
+        P(2, 7), P(3, 6), P(4, 4), P(0, 7), P(2, 3), P(0, 2) };
+    region.Assign(data, data + ARRAY_SIZE(data));
+  }
+  TEST_EQUAL(region.Rect(), m2::Rect<typename P::value_type>(0, 0, 8, 9), ());
+  TEST(region.Contains(P(0, 0)), ());
+  TEST(region.Contains(P(3, 7)), ());
+  TEST(region.Contains(P(1, 2)), ());
+  TEST(region.Contains(P(1, 1)), ());
+  TEST(!region.Contains(P(6, 2)), ());
+  TEST(!region.Contains(P(3, 5)), ());
+  TEST(!region.Contains(P(5, 8)), ());
+  region.ForEachPoint(checker);
 }
 
 UNIT_TEST(Region)
@@ -54,10 +89,10 @@ UNIT_TEST(Region)
 
 UNIT_TEST(Region_Contains)
 {
-  Test<m2::PointU>();
-  Test<m2::PointD>();
-  Test<m2::PointF>();
-  Test<m2::PointI>();
+  Test<m2::RegionU>();
+  Test<m2::RegionD>();
+  Test<m2::RegionF>();
+  Test<m2::RegionI>();
 
   // negative triangle
   {
