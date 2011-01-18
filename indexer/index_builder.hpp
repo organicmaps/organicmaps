@@ -9,16 +9,14 @@ namespace indexer
                   WriterT & writer,
                   string const & tmpFilePrefix)
   {
+    LOG(LINFO, ("Building scale index."));
+    uint64_t indexSize;
     {
-      LOG(LINFO, ("Building scale index."));
-      uint64_t indexSize;
-      {
-        SubWriter<WriterT> subWriter(writer);
-        IndexScales(featuresVector, subWriter, tmpFilePrefix);
-        indexSize = subWriter.Size();
-      }
-      LOG(LINFO, ("Built scale index. Size =", indexSize));
+      SubWriter<WriterT> subWriter(writer);
+      IndexScales(featuresVector, subWriter, tmpFilePrefix);
+      indexSize = subWriter.Size();
     }
+    LOG(LINFO, ("Built scale index. Size =", indexSize));
   }
 
   // doesn't throw exceptions

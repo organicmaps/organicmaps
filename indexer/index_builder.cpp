@@ -17,8 +17,11 @@ namespace indexer
       FeaturesVector featuresVector(readCont);
 
       FilesContainerW writeCont(datFile, FileWriter::OP_APPEND);
+
       FileWriter writer = writeCont.GetWriter(INDEX_FILE_TAG);
       BuildIndex(featuresVector, writer, tmpFile);
+      writer.Flush();
+
       writeCont.Finish();
     }
     catch (Reader::OpenException const & e)
@@ -35,6 +38,13 @@ namespace indexer
     {
       LOG(LERROR, ("Error writing index file", e.what()));
     }
+
+#ifdef DEBUG
+    FilesContainerR readCont(datFile);
+    FileReader r = readCont.GetReader(HEADER_FILE_TAG);
+    int64_t const base = ReadPrimitiveFromPos<int64_t>(r, 0);
+    LOG(LINFO, ("OFFSET = ", base));
+#endif
 
     return true;
   }

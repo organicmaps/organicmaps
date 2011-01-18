@@ -62,7 +62,7 @@ public:
   /// @name Serialization.
   //@{
   void Serialize(buffer_t & data) const;
-  void SerializeBase(buffer_t & data) const;
+  void SerializeBase(buffer_t & data, int64_t base) const;
 
   void Deserialize(buffer_t & data);
   //@}
@@ -183,7 +183,7 @@ public:
   /// @name Overwrite from base_type.
   //@{
   bool PreSerialize(buffers_holder_t const & data);
-  void Serialize(buffers_holder_t & data);
+  void Serialize(buffers_holder_t & data, int64_t base);
   //@}
 };
 
@@ -287,7 +287,7 @@ public:
   //@}
 
 protected:
-  void Deserialize(buffer_t & data, uint32_t offset = 0);
+  void Deserialize(buffer_t & data, uint32_t offset, int64_t base);
   string DebugString() const;
 
 protected:
@@ -309,6 +309,8 @@ protected:
 
   mutable m2::RectD m_LimitRect;
 
+  int64_t m_base;
+
   static uint32_t const m_TypesOffset = 1;
   mutable uint32_t m_CommonOffset, m_Header2Offset;
 
@@ -328,12 +330,17 @@ class FeatureType : public FeatureBase
 public:
   struct read_source_t
   {
+    FilesContainerR m_cont;
+
     buffer_t m_data;
     uint32_t m_offset;
 
-    FilesContainerR m_cont;
+    int64_t m_base;
 
-    read_source_t(FilesContainerR const & cont) : m_offset(0), m_cont(cont) {}
+    read_source_t(FilesContainerR const & cont)
+      : m_cont(cont), m_offset(0), m_base(0)
+    {
+    }
 
     void assign(char const * data, uint32_t size)
     {

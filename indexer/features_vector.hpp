@@ -6,9 +6,7 @@
 
 #include "../coding/var_record_reader.hpp"
 
-#include "../base/base.hpp"
-
-//#include "../std/bind.hpp"
+#include "../base/logging.hpp"
 
 
 struct FeatureReaders
@@ -30,6 +28,9 @@ public:
   FeaturesVector(FeatureReaders const & dataR)
     : m_RecordReader(dataR.m_datR, 256), m_source(dataR.m_cont)
   {
+    FileReader r = dataR.m_cont.GetReader(HEADER_FILE_TAG);
+    m_source.m_base = ReadPrimitiveFromPos<int64_t>(r, 0);
+    LOG(LINFO, ("OFFSET = ", m_source.m_base));
   }
 
   void Get(uint64_t pos, FeatureType & feature) const

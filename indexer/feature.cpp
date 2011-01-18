@@ -201,7 +201,7 @@ uint8_t FeatureBuilder1::GetHeader() const
   return header;
 }
 
-void FeatureBuilder1::SerializeBase(buffer_t & data) const
+void FeatureBuilder1::SerializeBase(buffer_t & data, int64_t base) const
 {
   PushBackByteSink<buffer_t> sink(data);
 
@@ -220,7 +220,7 @@ void FeatureBuilder1::SerializeBase(buffer_t & data) const
   }
 
   if (m_bPoint)
-    WriteVarInt(sink, feature::pts::FromPoint(m_Center));
+    WriteVarInt(sink, feature::pts::FromPoint(m_Center) - base);
 }
 
 void FeatureBuilder1::Serialize(buffer_t & data) const
@@ -229,19 +229,19 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
 
   data.clear();
 
-  SerializeBase(data);
+  SerializeBase(data, 0);
 
   PushBackByteSink<buffer_t> sink(data);
 
   if (m_bLinear || m_bArea)
-    feature::SavePoints(m_Geometry, sink);
+    feature::SavePoints(m_Geometry, 0, sink);
 
   if (m_bArea)
   {
     WriteVarUint(sink, uint32_t(m_Holes.size()));
 
     for (list<points_t>::const_iterator i = m_Holes.begin(); i != m_Holes.end(); ++i)
-      feature::SavePoints(*i, sink);
+      feature::SavePoints(*i, 0, sink);
   }
 
   // check for correct serialization
@@ -266,14 +266,14 @@ namespace
 void FeatureBuilder1::Deserialize(buffer_t & data)
 {
   FeatureBase f;
-  f.Deserialize(data, 0);
+  f.Deserialize(data, 0, 0);
   f.InitFeatureBuilder(*this);
 
   ArrayByteSource src(f.DataPtr() + f.m_Header2Offset);
 
   if (m_bLinear || m_bArea)
   {
-    feature::LoadPoints(m_Geometry, src);
+    feature::LoadPoints(m_Geometry, 0, src);
     CalcRect(m_Geometry, m_LimitRect);
   }
 
@@ -283,7 +283,7 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
     for (uint32_t i = 0; i < count; ++i)
     {
       m_Holes.push_back(points_t());
-      feature::LoadPoints(m_Holes.back(), src);
+      feature::LoadPoints(m_Holes.back(), 0, src);
     }
   }
 
@@ -365,12 +365,12 @@ namespace
   };
 }
 
-void FeatureBuilder2::Serialize(buffers_holder_t & data)
+void FeatureBuilder2::Serialize(buffers_holder_t & data, int64_t base)
 {
   data.m_buffer.clear();
 
   // header data serialization
-  SerializeBase(data.m_buffer);
+  SerializeBase(data.m_buffer, base);
 
   PushBackByteSink<buffer_t> sink(data.m_buffer);
 
@@ -415,7 +415,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data)
         }
       }
 
-      feature::SavePointsSimple(data.m_innerPts, sink);
+      feature::SavePointsSimple(data.m_innerPts, base, sink);
     }
     else
     {
@@ -428,7 +428,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data)
   if (m_bArea)
   {
     if (trgCount > 0)
-      feature::SavePointsSimple(data.m_innerTrg, sink);
+      feature::SavePointsSimple(data.m_innerTrg, base, sink);
     else
     {
       // offsets was pushed from high scale index to low
@@ -442,10 +442,12 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data)
 // FeatureBase implementation
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-void FeatureBase::Deserialize(buffer_t & data, uint32_t offset)
+void FeatureBase::Deserialize(buffer_t & data, uint32_t offset, int64_t base)
 {
   m_Offset = offset;
   m_Data.swap(data);
+
+  m_base = base;
 
   m_CommonOffset = m_Header2Offset = 0;
   m_bTypesParsed = m_bCommonParsed = false;
@@ -500,7 +502,7 @@ void FeatureBase::ParseCommon() const
 
   if (h & HEADER_HAS_POINT)
   {
-    m_Center = feature::pts::ToPoint(ReadVarInt<int64_t>(source));
+    m_Center = feature::pts::ToPoint(ReadVarInt<int64_t>(source) + m_base);
     m_LimitRect.Add(m_Center);
   }
 
@@ -577,7 +579,7 @@ void FeatureType::Deserialize(read_source_t & src)
 
   m_Size = 0;
 
-  base_type::Deserialize(src.m_data, src.m_offset);
+  base_type::Deserialize(src.m_data, src.m_offset, src.m_base);
 }
 
 namespace
@@ -719,9 +721,7 @@ namespace
 
   template <class TSource> uint8_t ReadByte(TSource & src)
   {
-    uint8_t v;
-    src.Read(&v, 1);
-    return v; 
+    return ReadPrimitiveFromSource<uint8_t>(src);
   }
 }
 
@@ -819,7 +819,7 @@ uint32_t FeatureType::ParseGeometry(int scale) const
         ReaderSource<FileReader> src(
               m_cont->GetReader(feature::GetTagForIndex(GEOMETRY_FILE_TAG, ind)));
         src.Skip(m_ptsOffsets[ind]);
-        feature::LoadPoints(m_Points, src);
+        feature::LoadPoints(m_Points, m_base, src);
 
         sz = static_cast<uint32_t>(src.Pos() - m_ptsOffsets[ind]);
       }
@@ -835,7 +835,7 @@ uint32_t FeatureType::ParseGeometry(int scale) const
       uint32_t const scaleIndex = GetScaleIndex(scale);
       ASSERT_LESS ( scaleIndex, ARRAY_SIZE(feature::g_arrScales), () );
 
-      int64_t id = m_InnerPoints.front();
+      int64_t id = m_InnerPoints.front() + m_base;
       m_Points.push_back(feature::pts::ToPoint(id));
 
       for (size_t i = 1; i < count-1; ++i)
@@ -872,7 +872,7 @@ uint32_t FeatureType::ParseTriangles(int scale) const
       ReaderSource<FileReader> src(
             m_cont->GetReader(feature::GetTagForIndex(TRIANGLE_FILE_TAG, ind)));
       src.Skip(m_trgOffsets[ind]);
-      feature::LoadTriangles(m_Triangles, src);
+      feature::LoadTriangles(m_Triangles, m_base, src);
 
       CalcRect(m_Triangles, m_LimitRect);
       sz = static_cast<uint32_t>(src.Pos() - m_trgOffsets[ind]);
@@ -898,7 +898,7 @@ void FeatureType::ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & o
 
 void FeatureType::ReadInnerPoints(ArrayByteSource & src, points_t & points, uint8_t count) const
 {
-  src = ArrayByteSource(feature::LoadPointsSimple(src.Ptr(), count, points));
+  src = ArrayByteSource(feature::LoadPointsSimple(src.Ptr(), count, m_base, points));
   CalcRect(points, m_LimitRect);
 }
 

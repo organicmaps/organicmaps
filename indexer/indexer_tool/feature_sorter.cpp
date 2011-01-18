@@ -1,6 +1,8 @@
 #include "feature_sorter.hpp"
 #include "feature_generator.hpp"
 
+#include "../../storage/defines.hpp"
+
 #include "../../indexer/data_header.hpp"
 #include "../../indexer/feature_processor.hpp"
 #include "../../indexer/feature_visibility.hpp"
@@ -28,24 +30,24 @@ namespace
 
   class CalculateMidPoints
   {
-    double m_midX;
-    double m_midY;
-    size_t m_counter;
+    m2::PointD m_midLoc, m_midAll;
+    size_t m_locCount, m_allCount;
 
   public:
+    CalculateMidPoints() : m_midAll(0, 0), m_allCount(0) {}
+
     std::vector<TCellAndOffset> m_vec;
 
     void operator() (FeatureBuilder1 const & ft, uint64_t pos)
     {
       // reset state
-      m_midX = 0.0;
-      m_midY = 0.0;
-      m_counter = 0;
-      ft.ForEachPointRef(*this);
-      m_midX /= m_counter;
-      m_midY /= m_counter;
+      m_midLoc = m2::PointD(0, 0);
+      m_locCount = 0;
 
-      uint64_t const pointAsInt64 = PointToInt64(m_midX, m_midY);
+      ft.ForEachPointRef(*this);
+      m_midLoc = m_midLoc / m_locCount;
+
+      uint64_t const pointAsInt64 = PointToInt64(m_midLoc.x, m_midLoc.y);
       uint64_t const minScale = feature::MinDrawableScaleForFeature(ft.GetFeatureBase());
       CHECK(minScale <= scales::GetUpperScale(), ("Dat file contain invisible feature"));
 
@@ -55,10 +57,13 @@ namespace
 
     void operator() (m2::PointD const & p)
     {
-      m_midX += p.x;
-      m_midY += p.y;
-      ++m_counter;
+      m_midLoc += p;
+      m_midAll += p;
+      ++m_locCount;
+      ++m_allCount;
     }
+
+    m2::PointD GetCenter() const { return m_midAll / m_allCount; }
   };
 
   bool SortMidPointsFunc(TCellAndOffset const & c1, TCellAndOffset const & c2)
@@ -110,11 +115,13 @@ namespace feature
 
     vector<FileWriter*> m_geoFile, m_trgFile;
 
+    int64_t m_base;
+
     static const int m_scales = ARRAY_SIZE(g_arrScales);
 
   public:
-    explicit FeaturesCollector2(string const & fName)
-      : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName)
+    FeaturesCollector2(string const & fName, int64_t base)
+      : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName), m_base(base)
     {
       for (int i = 0; i < m_scales; ++i)
       {
@@ -127,6 +134,12 @@ namespace feature
     ~FeaturesCollector2()
     {
       WriteHeader();
+
+      // write own mwm header (now it's a base point only)
+      LOG(LINFO, ("OFFSET = ", m_base));
+      FileWriter w = m_writer.GetWriter(HEADER_FILE_TAG);
+      WriteToSink(w, m_base);
+      w.Flush();
 
       // assume like we close files
       m_datFile.Flush();
@@ -171,18 +184,20 @@ namespace feature
 
       points_t m_current;
 
+      int64_t m_base;
+
       void WriteOuterPoints(points_t const & points, int i)
       {
         m_buffer.m_ptsMask |= (1 << i);
         m_buffer.m_ptsOffset.push_back(m_rMain.GetFileSize(*m_rMain.m_geoFile[i]));
-        feature::SavePoints(points, *m_rMain.m_geoFile[i]);
+        feature::SavePoints(points, m_base, *m_rMain.m_geoFile[i]);
       }
 
       void WriteOuterTriangles(points_t const & triangles, int i)
       {
         m_buffer.m_trgMask |= (1 << i);
         m_buffer.m_trgOffset.push_back(m_rMain.GetFileSize(*m_rMain.m_trgFile[i]));
-        feature::SaveTriangles(triangles, *m_rMain.m_trgFile[i]);
+        feature::SaveTriangles(triangles, m_base, *m_rMain.m_trgFile[i]);
       }
 
       void FillInnerPointsMask(points_t const & points, uint32_t scaleIndex)
@@ -231,8 +246,8 @@ namespace feature
       };
 
     public:
-      GeometryHolder(FeaturesCollector2 & rMain, FeatureBuilder2 & fb)
-        : m_rMain(rMain), m_rFB(fb), m_ptsInner(true), m_trgInner(true)
+      GeometryHolder(FeaturesCollector2 & rMain, FeatureBuilder2 & fb, int64_t base)
+        : m_rMain(rMain), m_rFB(fb), m_base(base), m_ptsInner(true), m_trgInner(true)
       {
       }
 
@@ -310,7 +325,7 @@ namespace feature
     {
       (void)GetFileSize(m_datFile);
 
-      GeometryHolder holder(*this, fb);
+      GeometryHolder holder(*this, fb, m_base);
 
       bool const isLine = fb.IsLine();
       bool const isArea = fb.IsArea();
@@ -357,7 +372,7 @@ namespace feature
 
       if (fb.PreSerialize(holder.m_buffer))
       {
-        fb.Serialize(holder.m_buffer);
+        fb.Serialize(holder.m_buffer, m_base);
 
         WriteFeatureBase(holder.m_buffer.m_buffer, fb);
       }
@@ -397,7 +412,7 @@ namespace feature
     {
       FileReader reader(tempDatFilePath);
 
-      FeaturesCollector2 collector(datFilePath);
+      FeaturesCollector2 collector(datFilePath, feature::pts::FromPoint(midPoints.GetCenter()));
 
       FeatureBuilder1::buffer_t buffer;
       for (size_t i = 0; i < midPoints.m_vec.size(); ++i)

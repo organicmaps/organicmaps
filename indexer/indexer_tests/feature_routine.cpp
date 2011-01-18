@@ -46,14 +46,14 @@ void FeatureBuilder2Feature(FeatureBuilder2 & fb, FeatureType & f)
   buffers.m_ptsOffset.push_back(0);
   buffers.m_trgOffset.push_back(0);
   buffers.m_ptsMask = 1;
-  fb.Serialize(buffers);
+  fb.Serialize(buffers, 0);
 
   {
     FilesContainerW writer(datFile);
 
     {
       FileWriter geom = writer.GetWriter(string(GEOMETRY_FILE_TAG) + '0');
-      feature::SavePoints(fb.GetGeometry(), geom);
+      feature::SavePoints(fb.GetGeometry(), 0, geom);
     }
 
     //{
