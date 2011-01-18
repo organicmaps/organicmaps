@@ -207,6 +207,7 @@ namespace m2
   template <typename T> string debug_print(m2::Point<T> const & p)
   {
     ostringstream out;
+    out.precision(15);
     out << "m2::Point<" << typeid(T).name() << ">(" << p.x << ", " << p.y << ")";
     return out.str();
   }

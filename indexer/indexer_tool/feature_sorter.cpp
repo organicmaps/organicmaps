@@ -88,8 +88,11 @@ namespace feature
   {
     if (in.size() >= 2)
     {
-      SimplifyNearOptimal<mn::DistanceToLineSquare<m2::PointD> >(20, in.begin(), in.end()-1,
-        my::sq(scales::GetEpsilonForSimplify(level)), MakeBackInsertFunctor(out));
+      typedef mn::DistanceToLineSquare<m2::PointD> DistanceF;
+      double const eps = my::sq(scales::GetEpsilonForSimplify(level));
+
+      SimplifyNearOptimal<DistanceF>(20, in.begin(), in.end()-1,
+        eps, MakeBackInsertFunctor(out));
 
       switch (out.size())
       {
@@ -103,6 +106,14 @@ namespace feature
         if (!is_equal(out.back(), in.back()))
           out.push_back(in.back());
       }
+
+#ifdef DEBUG
+      for (size_t i = 2; i < out.size(); ++i)
+      {
+        double const dist = DistanceF(out[i-2], out[i])(out[i-1]);
+        ASSERT_GREATER(dist,  eps, ());
+      }
+#endif
     }
   }
 

@@ -80,7 +80,8 @@ template <typename PointT> bool IsSegmentInCone(PointT v, PointT v1, PointT vPre
   PointT const edgeL = vPrev - v;
   PointT const edgeR = vNext - v;
   double const cpLR = CrossProduct(edgeR, edgeL);
-  ASSERT(!my::AlmostEqual(cpLR, 0.0),
+  //ASSERT(!my::AlmostEqual(cpLR, 0.0),
+  ASSERT_NOT_EQUAL(cpLR, 0.0,
          ("vPrev, v, vNext shouldn't be collinear!", edgeL, edgeR, v, v1, vPrev, vNext));
   if (cpLR > 0)
   {

@@ -1,10 +1,16 @@
 #include "../../testing/testing.hpp"
+
 #include "../simplification.hpp"
+
+#include "../../indexer/scales.hpp"
+
 #include "../../geometry/distance.hpp"
 #include "../../geometry/point2d.hpp"
+
 #include "../../base/logging.hpp"
 #include "../../base/macros.hpp"
 #include "../../base/stl_add.hpp"
+
 #include "../../std/limits.hpp"
 #include "../../std/vector.hpp"
 
@@ -112,6 +118,39 @@ UNIT_TEST(Simplification_Opt20_Polyline)
 {
   TestSimplificationOfPoly(LargePolylineTestData::m_Data, LargePolylineTestData::m_Size,
                            &SimplifyNearOptimal20);
+}
+
+namespace
+{
+  void CheckDistance(P const * arr)
+  {
+    double const eps = my::sq(scales::GetEpsilonForSimplify(17));
+
+    for (int prev = 0; prev < 3; ++prev)
+    {
+      int const curr = (prev+1) % 3;
+      int const next = (prev+2) % 3;
+
+      double const dist = DistanceF(arr[prev], arr[next])(arr[curr]);
+      TEST_GREATER(dist, eps, ("Iteration = ", prev));
+
+      P const edgeL = arr[prev] - arr[curr];
+      P const edgeR = arr[next] - arr[curr];
+      double const cpLR = CrossProduct(edgeR, edgeL);
+
+      TEST_NOT_EQUAL(cpLR, 0.0, ("Iteration = ", prev));
+    }
+  }
+}
+
+UNIT_TEST(Simpfication_DataSets)
+{
+  P arr1[] = {
+    P(23.6662673950195, 61.6197395324707),
+    P(23.6642074584961, 61.6190528869629),
+    P(23.6631774902344, 61.618709564209)
+  };
+  CheckDistance(arr1);
 }
 
 // This is actually part of coastline of Australia.
