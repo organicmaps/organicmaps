@@ -336,7 +336,8 @@ namespace
   template <class TSink> class BitSink
   {
     TSink & m_sink;
-    uint8_t m_pos, m_current;
+    uint8_t m_current;
+    uint8_t m_pos;
 
   public:
     BitSink(TSink & sink) : m_sink(sink), m_pos(0), m_current(0) {}

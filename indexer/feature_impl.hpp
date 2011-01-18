@@ -128,9 +128,11 @@ namespace feature
   template <class TSink>
   void SaveTriangles(vector<m2::PointD> const & triangles, int64_t base, TSink & sink)
   {
+#ifdef DEBUG
     uint32_t const count = triangles.size();
     ASSERT_GREATER ( count, 0, () );
     ASSERT_EQUAL ( count % 3, 0, (count) );
+#endif
 
     vector<int64_t> cells;
     detail::TransformPoints(triangles, cells);
@@ -143,9 +145,11 @@ namespace feature
   {
     detail::ReadPoints(points, base, src);
 
+#ifdef DEBUG
     uint32_t const count = points.size();
     ASSERT_GREATER ( count, 0, () );
     ASSERT_EQUAL ( count % 3, 0, (count) );
+#endif
   }
 
 
