@@ -1,5 +1,8 @@
 #pragma once
+
 #include "../base/base.hpp"
+
+#include <boost/type_traits/is_unsigned.hpp>
 
 // Similarly to namespace m2 - 2d math, this is a namespace for nd math.
 namespace mn
@@ -7,6 +10,10 @@ namespace mn
 
 template <typename PointT> class DistanceToLineSquare
 {
+private:
+  // we do not support unsigned points!!!
+  STATIC_ASSERT(std::numeric_limits<typename PointT::value_type>::is_signed);
+
 public:
   DistanceToLineSquare(PointT p0, PointT p1)
     : m_P0(p0), m_P1(p1), m_D(m_P1 - m_P0), m_D2(DotProduct(m_D, m_D)), m_InvD2(1.0 / m_D2)
