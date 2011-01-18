@@ -50,9 +50,9 @@ namespace feature
       {
         for (size_t i = 0; i < m_regions.size(); ++i)
         {
-          m2::PointU uPoint(static_cast<uint32_t>(CellIdConverterType::XToCellIdX(pt.x)),
+          kml::Region::value_type const point(static_cast<uint32_t>(CellIdConverterType::XToCellIdX(pt.x)),
                static_cast<uint32_t>(CellIdConverterType::YToCellIdY(pt.y)));
-          if (m_regions[i].Contains(uPoint))
+          if (m_regions[i].Contains(point))
           {
             m_belongs = true;
             // stop points processing

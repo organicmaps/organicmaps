@@ -1,6 +1,7 @@
 #include "kml_parser.hpp"
 
 #include "../../base/string_utils.hpp"
+#include "../../base/logging.hpp"
 
 #include "../../coding/parse_xml.hpp"
 #include "../../coding/file_reader.hpp"
@@ -47,15 +48,15 @@ namespace kml
     return true;
   }
 
-  template <class RegionT>
+  template <class PointsContainerT>
   class PointsCollector
   {
-    RegionT & m_region;
+    PointsContainerT & m_container;
     m2::RectD & m_rect;
 
   public:
-    PointsCollector(RegionT & region, m2::RectD & rect)
-      : m_region(region), m_rect(rect) {}
+    PointsCollector(PointsContainerT & container, m2::RectD & rect)
+      : m_container(container), m_rect(rect) {}
 
     void operator()(string const & latLon)
     {
@@ -80,7 +81,7 @@ namespace kml
       typedef CellIdConverter<MercatorBounds, RectId> CellIdConverterType;
       uint32_t const ix = static_cast<uint32_t>(CellIdConverterType::XToCellIdX(x));
       uint32_t const iy = static_cast<uint32_t>(CellIdConverterType::YToCellIdY(y));
-      m_region.AddPoint(Region::value_type(ix, iy));
+      m_container.push_back(Region::value_type(ix, iy));
     }
   };
 
@@ -97,14 +98,22 @@ namespace kml
 
       if (m_tags[size - 3] == "outerBoundaryIs")
       {
-        Region reg;
+        typedef vector<Region::value_type> ContainerT;
+        ContainerT points;
         m2::RectD rect;
-        PointsCollector<Region> collector(reg, rect);
+        PointsCollector<ContainerT> collector(points, rect);
         utils::TokenizeString(m_data, " \n\r\a", collector);
-        if (reg.IsValid())
+        size_t const numPoints = points.size();
+        if (numPoints > 3 && points[numPoints - 1] == points[0])
         {
-          m_country.m_regions.push_back(reg);
+          // remove last point which is equal to first
+          points.pop_back();
+          m_country.m_regions.push_back(Region(points.begin(), points.end()));
           m_country.m_rect.Add(rect);
+        }
+        else
+        {
+          LOG(LWARNING, ("Invalid region for country", m_country.m_name));
         }
       }
       else if (m_tags[size - 3] == "innerBoundaryIs")
