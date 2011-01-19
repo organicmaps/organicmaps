@@ -72,42 +72,7 @@ namespace
 namespace feature
 {
   typedef vector<m2::PointD> points_t;
-/*
-  void SimplifyPoints(points_t const & in, points_t & out, int level)
-  {
-    if (in.size() >= 2)
-    {
-      typedef mn::DistanceToLineSquare<m2::PointD> DistanceF;
-      double const eps = my::sq(scales::GetEpsilonForSimplify(level));
-
-      SimplifyNearOptimal<DistanceF>(20, in.begin(), in.end()-1,
-        eps, MakeBackInsertFunctor(out));
-
-      switch (out.size())
-      {
-      case 0:
-        out.push_back(in.front());
-        // no break
-      case 1:
-        out.push_back(in.back());
-        break;
-      default:
-        if (!is_equal(out.back(), in.back()))
-          out.push_back(in.back());
-      }
-
-#ifdef DEBUG
-      for (size_t i = 2; i < out.size(); ++i)
-      {
-        double const dist = DistanceF(out[i-2], out[i])(out[i-1]);
-        ASSERT_GREATER(dist,  eps, ());
-      }
-#endif
-    }
-  }
-*/
   void TesselateInterior(points_t const & bound, list<points_t> const & holes, points_t & triangles);
-
 
   class FeaturesCollector2 : public FeaturesCollector
   {
