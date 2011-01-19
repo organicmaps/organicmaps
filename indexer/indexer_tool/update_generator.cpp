@@ -11,11 +11,18 @@
 
 #include "../../base/string_utils.hpp"
 #include "../../base/logging.hpp"
+#include "../../base/macros.hpp"
 
 #include "../../std/target_os.hpp"
 #include "../../std/fstream.hpp"
+#include "../../std/iterator.hpp"
 
 using namespace storage;
+
+/// files which can be updated through downloader
+char const * gExtensionsToUpdate[] = {
+  "*" DATA_FILE_EXTENSION, "*.txt", "*.bin", "*.skn", "*.ttf", "*.png"
+};
 
 namespace update
 {
@@ -41,10 +48,25 @@ namespace update
     Platform & platform = GetPlatform();
 
     Platform::FilesList files;
-    if (!platform.GetFilesInDir(dataDir, "*" DATA_FILE_EXTENSION, files))
+    for (size_t i = 0; i < ARRAY_SIZE(gExtensionsToUpdate); ++i)
+    {
+      Platform::FilesList otherFiles;
+      platform.GetFilesInDir(dataDir, gExtensionsToUpdate[i], otherFiles);
+      std::copy(otherFiles.begin(), otherFiles.end(), std::back_inserter(files));
+    }
+    { // remove minsk-pass from list
+      Platform::FilesList::iterator minskPassIt = std::find(files.begin(), files.end(), "minsk-pass" DATA_FILE_EXTENSION);
+      if (minskPassIt != files.end())
+        files.erase(minskPassIt);
+    }
+    if (files.empty())
     {
       LOG(LERROR, ("Can't find any files at path", dataDir));
       return false;
+    }
+    else
+    {
+      LOG_SHORT(LINFO, ("Files count included in update file:", files.size()));
     }
 
     TDataFiles cellFiles;
@@ -87,7 +109,7 @@ namespace update
 
     SaveTiles(dataDir + UPDATE_CHECK_FILE, level, cellFiles, commonFiles);
 
-    LOG_SHORT(LINFO, ("Created update file with", cellFiles.size(), "data files and",
+    LOG_SHORT(LINFO, ("Created update file with", cellFiles.size(), "cell data files and",
                       commonFiles.size(), "other files"));
 
     return true;
