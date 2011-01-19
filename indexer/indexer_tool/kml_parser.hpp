@@ -21,5 +21,7 @@ namespace kml
 
   typedef vector<CountryPolygons> CountriesContainerT;
 
-  bool LoadCountriesList(string const & baseDir, CountriesContainerT & countries);
+  /// @param[in] simplifyCountriesLevel if positive, used as a level for simplificator
+  bool LoadCountriesList(string const & baseDir, CountriesContainerT & countries,
+                         int simplifyCountriesLevel = -1);
 }

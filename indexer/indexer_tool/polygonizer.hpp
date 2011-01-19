@@ -23,14 +23,15 @@ namespace feature
   class Polygonizer
   {
   public:
-    Polygonizer(string const & dir, typename FeatureOutT::InitDataType const & featureOutInitData)
+    Polygonizer(string const & dir, typename FeatureOutT::InitDataType const & featureOutInitData,
+                int simplifyCountriesLevel)
     : m_FeatureOutInitData(featureOutInitData)
     {
-      CHECK(kml::LoadCountriesList(dir, m_countries), ("Error loading polygons"));
-      LOG(LINFO, ("Loaded polygons count for regions:"));
+      CHECK(kml::LoadCountriesList(dir, m_countries, simplifyCountriesLevel), ("Error loading polygons"));
+      LOG_SHORT(LINFO, ("Loaded polygons count for regions:"));
       for (size_t i = 0; i < m_countries.size(); ++i)
       {
-        LOG(LINFO, (m_countries[i].m_name, m_countries[i].m_regions.size()));
+        LOG_SHORT(LINFO, (m_countries[i].m_name, m_countries[i].m_regions.size()));
       }
 
       m_Buckets.resize(m_countries.size());

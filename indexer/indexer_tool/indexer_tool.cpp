@@ -49,6 +49,7 @@ DEFINE_int32(worldmap_max_zoom, -1, "If specified, features for zoomlevels [0..t
              " which are enabled in classificator will be added to the separate world.map");
 DEFINE_bool(world_only, false, "Generate only world features for given worldmap_max_zoom");
 DEFINE_bool(split_by_polygons, false, "Use kml shape files to split planet by regions and countries");
+DEFINE_int32(simplify_countries_level, -1, "If positive, simplifies country polygons. Recommended values [10..15]");
 
 string AddSlashIfNeeded(string const & str)
 {
@@ -126,6 +127,7 @@ int main(int argc, char ** argv)
 
     // split data by countries polygons
     genInfo.m_splitByPolygons = FLAGS_split_by_polygons;
+    genInfo.m_simplifyCountriesLevel = FLAGS_simplify_countries_level;
 
     genInfo.cellBucketingLevel = FLAGS_bucketing_level;
     genInfo.m_maxScaleForWorldFeatures = FLAGS_worldmap_max_zoom;

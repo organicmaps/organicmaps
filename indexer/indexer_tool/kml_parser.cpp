@@ -1,4 +1,5 @@
 #include "kml_parser.hpp"
+#include "feature_sorter.hpp"
 
 #include "../../base/string_utils.hpp"
 #include "../../base/logging.hpp"
@@ -27,9 +28,10 @@ namespace kml
     string m_data;
 
     CountryPolygons & m_country;
+    int m_simplifyCountriesLevel;
 
   public:
-    KmlParser(CountryPolygons & country);
+    KmlParser(CountryPolygons & country, int simplifyCountriesLevel);
 
     bool Push(string const & element);
     void Pop(string const & element);
@@ -37,7 +39,8 @@ namespace kml
     void CharData(string const & data);
   };
 
-  KmlParser::KmlParser(CountryPolygons & country) : m_country(country)
+  KmlParser::KmlParser(CountryPolygons & country, int simplifyCountriesLevel)
+    : m_country(country), m_simplifyCountriesLevel(simplifyCountriesLevel)
   {
   }
 
@@ -74,16 +77,19 @@ namespace kml
       double lat;
       CHECK(utils::to_double(latStr, lat), ("invalid lon", latStr));
       // to mercator
-      double const x = MercatorBounds::LonToX(lon);
-      double const y = MercatorBounds::LatToY(lat);
-      m_rect.Add(m2::PointD(x, y));
-      // convert points to uint32_t
-      typedef CellIdConverter<MercatorBounds, RectId> CellIdConverterType;
-      uint32_t const ix = static_cast<uint32_t>(CellIdConverterType::XToCellIdX(x));
-      uint32_t const iy = static_cast<uint32_t>(CellIdConverterType::YToCellIdY(y));
-      m_container.push_back(Region::value_type(ix, iy));
+      m2::PointD const mercPoint(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
+      m_rect.Add(mercPoint);
+      m_container.push_back(mercPoint);
     }
   };
+
+  m2::PointU MercatorPointToPointU(m2::PointD const & pt)
+  {
+    typedef CellIdConverter<MercatorBounds, RectId> CellIdConverterType;
+    uint32_t const ix = static_cast<uint32_t>(CellIdConverterType::XToCellIdX(pt.x));
+    uint32_t const iy = static_cast<uint32_t>(CellIdConverterType::YToCellIdY(pt.y));
+    return m2::PointU(ix, iy);
+  }
 
   void KmlParser::Pop(string const & element)
   {
@@ -98,17 +104,33 @@ namespace kml
 
       if (m_tags[size - 3] == "outerBoundaryIs")
       {
-        typedef vector<Region::value_type> ContainerT;
-        ContainerT points;
+        // first, collect points in Mercator
+        typedef vector<m2::PointD> MercPointsContainerT;
+        MercPointsContainerT points;
         m2::RectD rect;
-        PointsCollector<ContainerT> collector(points, rect);
+        PointsCollector<MercPointsContainerT> collector(points, rect);
         utils::TokenizeString(m_data, " \n\r\a", collector);
         size_t const numPoints = points.size();
         if (numPoints > 3 && points[numPoints - 1] == points[0])
         {
           // remove last point which is equal to first
           points.pop_back();
-          m_country.m_regions.push_back(Region(points.begin(), points.end()));
+
+          // second, simplify points if necessary
+          if (m_simplifyCountriesLevel > 0)
+          {
+            MercPointsContainerT simplifiedPoints;
+            feature::SimplifyPoints(points, simplifiedPoints, m_simplifyCountriesLevel);
+            LOG_SHORT(LINFO, (m_country.m_name, numPoints, "simplified to ", simplifiedPoints.size()));
+            points.swap(simplifiedPoints);
+          }
+
+          // third, convert mercator doubles to uint points
+          Region region;
+          for (MercPointsContainerT::iterator it = points.begin(); it != points.end(); ++it)
+            region.AddPoint(MercatorPointToPointU(*it));
+
+          m_country.m_regions.push_back(region);
           m_country.m_rect.Add(rect);
         }
         else
@@ -147,9 +169,10 @@ namespace kml
     }
   }
 
-  bool LoadPolygonsFromKml(string const & kmlFile, CountryPolygons & country)
+  bool LoadPolygonsFromKml(string const & kmlFile, CountryPolygons & country,
+                           int simplifyCountriesLevel)
   {
-    KmlParser parser(country);
+    KmlParser parser(country, simplifyCountriesLevel);
     try
     {
       FileReader file(kmlFile);
@@ -166,16 +189,19 @@ namespace kml
   {
     string m_baseDir;
     CountryPolygons & m_out;
+    int m_simplifyCountriesLevel;
 
   public:
-    PolygonLoader(string const & basePolygonsDir, CountryPolygons & polygons)
-      : m_baseDir(basePolygonsDir), m_out(polygons) {}
+    PolygonLoader(string const & basePolygonsDir, CountryPolygons & polygons,
+                  int simplifyCountriesLevel)
+      : m_baseDir(basePolygonsDir), m_out(polygons),
+        m_simplifyCountriesLevel(simplifyCountriesLevel) {}
     void operator()(string const & name)
     {
       if (m_out.m_name.empty())
         m_out.m_name = name;
       CountryPolygons current;
-      if (LoadPolygonsFromKml(m_baseDir + BORDERS_DIR + name + BORDERS_EXTENSION, current)
+      if (LoadPolygonsFromKml(m_baseDir + BORDERS_DIR + name + BORDERS_EXTENSION, current, m_simplifyCountriesLevel)
           && current.m_regions.size())
       {
         m_out.m_regions.insert(m_out.m_regions.end(),
@@ -185,8 +211,14 @@ namespace kml
     }
   };
 
-  bool LoadCountriesList(string const & baseDir, CountriesContainerT & countries)
+  bool LoadCountriesList(string const & baseDir, CountriesContainerT & countries,
+                         int simplifyCountriesLevel)
   {
+    if (simplifyCountriesLevel > 0)
+    {
+      LOG_SHORT(LINFO, ("Simplificator level for country polygons:", simplifyCountriesLevel));
+    }
+
     countries.clear();
     ifstream stream((baseDir + POLYGONS_FILE).c_str());
     std::string line;
@@ -197,7 +229,7 @@ namespace kml
       if (line.empty())
         continue;
       CountryPolygons country;
-      PolygonLoader loader(baseDir, country);
+      PolygonLoader loader(baseDir, country, simplifyCountriesLevel);
       utils::TokenizeString(line, ",", loader);
       if (!country.m_regions.empty())
         countries.push_back(country);

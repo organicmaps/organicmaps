@@ -16,7 +16,8 @@ namespace feature
   struct GenerateInfo
   {
     GenerateInfo()
-      : m_maxScaleForWorldFeatures(-1), m_worldOnly(false), m_splitByPolygons(false) {}
+      : m_maxScaleForWorldFeatures(-1), m_worldOnly(false), m_splitByPolygons(false),
+        m_simplifyCountriesLevel(-1) {}
     string dir, datFilePrefix, datFileSuffix;
     int cellBucketingLevel;
     vector<string> bucketNames;
@@ -26,6 +27,7 @@ namespace feature
     int m_maxScaleForWorldFeatures;
     bool m_worldOnly;
     bool m_splitByPolygons;
+    int m_simplifyCountriesLevel;
   };
 
   bool GenerateFeatures(GenerateInfo & info, bool lightNodes);

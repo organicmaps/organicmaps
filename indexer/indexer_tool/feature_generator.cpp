@@ -301,7 +301,7 @@ bool GenerateImpl(GenerateInfo & info)
     {
       typedef Polygonizer<FeaturesCollector, MercatorBounds, RectId> FeaturePolygonizerType;
       // prefix is data dir
-      FeaturePolygonizerType bucketer(info.datFilePrefix, collectorInitData);
+      FeaturePolygonizerType bucketer(info.datFilePrefix, collectorInitData, info.m_simplifyCountriesLevel);
       TParser<FeaturePolygonizerType, holder_t> parser(bucketer, holder);
       ParseXMLFromStdIn(parser);
       bucketer.GetBucketNames(MakeBackInsertFunctor(info.bucketNames));
