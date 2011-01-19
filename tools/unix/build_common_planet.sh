@@ -118,7 +118,8 @@ fi
 # 2nd pass - not paralleled
 $PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
   --use_light_nodes=$LIGHT_NODES --bucketing_level=$BUCKETING_LEVEL \
-  --generate_features --worldmap_max_zoom=5 --world_only=$WORLD_ONLY
+  --generate_features --split_by_polygons
+#--worldmap_max_zoom=5 --world_only=$WORLD_ONLY
 
 # 3rd pass - do in parallel
 for file in $DATA_PATH/*.mwm; do
