@@ -11,6 +11,6 @@
 
 //#define WORLD_DATA_FILE "world" DATA_FILE_EXTENSION
 
-#define COUNTRIES_FILE  "countries.txt"
+#define COUNTRIES_FILE  "countries_poly.txt"
 #define UPDATE_CHECK_FILE "maps.update"
 #define UPDATE_BASE_URL "http://melnichek.ath.cx:34568/maps/"

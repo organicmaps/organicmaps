@@ -1,0 +1,262 @@
+ Antarctic Region
+  Antarctica
+  Heard Island and McDonald Islands
+ Africa
+  Algeria
+  Angola
+  Benin
+  Botswana
+  Burkina Faso
+  Burundi
+  Cameroon
+  Central African Republic
+  Chad
+  Comoros
+  Democratic Republic of the Congo
+  Djibouti
+  Egypt
+  Equatorial Guinea
+  Eritrea
+  Ethiopia
+  Gabon
+  Gambia
+  Ghana
+  Guinea
+  Guinea-Bissau
+  Ivory Coast
+  Kenya
+  Lesotho
+  Liberia
+  Libya
+  Malawi
+  Mali
+  Mauritania
+  Morocco
+  Mozambique
+  Namibia
+  Nigeria
+  Niger
+  Republic of Congo
+  Rwanda
+  Sao Tome and Principe
+  Senegal
+  Sierra Leone
+  Somalia
+  South Africa
+  Sudan
+  Swaziland
+  Tanzania
+  Togo
+  Tunisia
+  Uganda
+  Western Sahara
+  Zambia
+  Zimbabwe
+ Asia
+  Afghanistan
+  Armenia
+  Azerbaijan
+  Bahrain
+  Bangladesh
+  Bhutan
+  Brunei
+  Cambodia
+  China
+  East Timor
+  Georgia
+  Hong Kong
+  India
+  Indonesia
+  Iran
+  Iraq
+  Japan
+  Jordan
+  Kazakhstan
+  Kuwait
+  Kyrgyzstan
+  Laos
+  Lebanon
+  Macao
+  Malaysia
+  Mongolia
+  Myanmar
+  Nepal
+  North Korea
+  Oman
+  Pakistan
+  Singapore
+  South Korea
+  Sri Lanka
+  Syria
+  Taiwan
+  Tajikistan
+  Thailand
+  Turkmenistan
+  Uzbekistan
+  Vietnam
+  Yemen
+ Atlantic Ocean
+  Bouvet Island
+  Cape Verde
+  Saint Helena
+  Saint Pierre and Miquelon
+  South Georgia and the South Sandwich Islands
+ Australia and Oceania
+  Christmas Island
+  Cocos Islands
+  Cook Islands
+  Fiji
+  French Polynesia
+  Indonesia
+  New Zealand
+  Norfolk Island
+  Papua New Guinea
+  Solomon Islands
+ Caribbean
+  Anguilla
+  Antigua and Barbuda
+  Aruba
+  Bahamas
+  Barbados
+  British Virgin Islands
+  Cayman Islands
+  Cuba
+  Dominica
+  Dominican Republic
+  Grenada
+  Guadeloupe
+  Haiti
+  Jamaica
+  Martinique
+  Montserrat
+  Netherlands Antilles
+  Puerto Rico
+  Saint Kitts and Nevis
+  Saint Lucia
+  Saint Vincent and the Grenadines
+  Trinidad and Tobago
+  Turks and Caicos Islands
+  Virgin Islands, U.S
+ Central America
+  Costa Rica
+  El Salvador
+  Guatemala
+  Honduras
+  Nicaragua
+  Panama
+ Europe
+  Albania
+  Andorra
+  Armenia
+  Austria
+  Azerbaijan
+  Belarus
+  Belgium
+  Bosnia and Herzegovina
+  Bulgaria
+  Croatia
+  Cyprus
+  Czech Republic
+  Denmark
+  Estonia
+  Faroe Islands
+  Finland
+  France
+  Georgia
+  Germany
+  Gibraltar
+  Greece
+  Guernsey
+  Hungary
+  Iceland
+  Ireland
+  Isle of Man
+  Italy
+  Jersey
+  Kosovo
+  Latvia
+  Liechtenstein
+  Lithuania
+  Luxembourg
+  Macedonia
+  Malta
+  Moldova
+  Monaco
+  Montenegro
+  Netherlands
+  Norway
+  Poland
+  Portugal
+  Romania
+  San Marino
+  Turkey
+  Serbia
+  Slovakia
+  Slovenia
+  Spain
+  Svalbard and Jan Mayen
+  Sweden
+  Switzerland
+  Ukraine
+  United Kingdom
+  Vatican City  
+ Indian Ocean
+  British Indian Ocean Territory
+  Comoros
+  French Southern Territories
+  Madagascar
+  Maldives
+  Mauritius
+  Mayotte
+  Reunion
+  Seychelles
+ Middle East
+  Israel
+  Palestina
+  Qatar
+  Saudi Arabia
+  United Arab Emirates  
+ North America
+  Belize
+  Bermuda
+  Canada
+  Greenland
+  Mexico
+  USA
+   Alaska
+   American Samoa
+   United States
+ Pacific Ocean
+  Guam
+  Kiribati
+  Marshall Islands
+  Micronesia
+  Nauru
+  New Caledonia
+  Niue
+  Northern Mariana Islands
+  Palau
+  Philippines
+  Pitcairn Islands
+  Samoa
+  Tokelau
+  Tonga
+  Tuvalu
+  United States Minor Outlying Islands
+  Vanuatu
+  Wallis and Futuna
+ South America
+  Argentina
+  Bolivia
+  Brazil
+  Chile
+  Colombia
+  Ecuador
+  Falkland Islands
+  French Guiana
+  Guyana
+  Paraguay
+  Peru
+  Suriname
+  Uruguay
+  Venezuela  
