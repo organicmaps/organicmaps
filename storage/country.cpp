@@ -99,6 +99,9 @@ namespace storage
   bool LoadCountries(string const & countriesFile, TTilesContainer const & sortedTiles,
                      TCountriesContainer & countries)
   {
+    // small prediction - are we using cells or simple countries?
+    bool const cellsAreUsed = sortedTiles.size() > 1000;
+
     countries.Clear();
     ifstream stream(countriesFile.c_str());
     std::string line;
@@ -145,7 +148,20 @@ namespace storage
       case 1: // country group
       case 2: // country name
       case 3: // region
-        currentCountry = &countries.AddAtDepth(spaces - 1, Country(line.substr(spaces)));
+        {
+          string const name = line.substr(spaces);
+          currentCountry = &countries.AddAtDepth(spaces - 1, Country(name));
+          if (!cellsAreUsed)
+          { // we trying to load countries by name instead of square cell tiles
+            TTilesContainer::const_iterator const first = sortedTiles.begin();
+            TTilesContainer::const_iterator const last = sortedTiles.end();
+            string const nameWithExt = name + DATA_FILE_EXTENSION;
+            TTilesContainer::const_iterator found = lower_bound(
+                first, last, TTile(nameWithExt, 0));
+            if (found != last && !(nameWithExt < found->first))
+              currentCountry->AddTile(*found);
+          }
+        }
         break;
       default:
         return false;
