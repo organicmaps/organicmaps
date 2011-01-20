@@ -80,13 +80,14 @@ namespace m2
 
       size_t const numPoints = m_points.size();
 
+      size_t i1 = numPoints - 1;
       /* For each edge e=(i-1,i), see if crosses ray. */
       for (size_t i = 0; i < numPoints; ++i)
       {
         /* First see if q=(0,0) is a vertex. */
         if (m_points[i] == pt)
           return true;  // vertex
-        size_t const i1 = (i + numPoints - 1) % numPoints;
+        //size_t const i1 = (i + numPoints - 1) % numPoints;
 
         /* if e "straddles" the x-axis... */
         /* The commented-out statement is logically equivalent to the one
@@ -124,14 +125,15 @@ namespace m2
           if (x < 0)
             lCross++;
         }
+        i1 = i;
       }
 
       /* q on the edge if left and right cross are not the same parity. */
-      if ((rCross % 2) != (lCross % 2))
+      if ((rCross & 1) != (lCross & 1))
         return true;  // on the edge
 
       /* q inside iff an odd number of crossings. */
-      if ((rCross % 2) == 1)
+      if (rCross & 1)
         return true;  // inside
       else
         return false; // outside
