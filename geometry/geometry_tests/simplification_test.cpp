@@ -32,8 +32,8 @@ void TestSimplificationSmoke(SimplifyFn simplifyFn)
 {
   m2::PointD const points[] = { P(0.0, 1.0), P(2.2, 3.6), P(3.2, 3.6)  };
   double const epsilon = 0.1;
-  vector<m2::PointD> result, expectedResult(points, points + 2);
-  simplifyFn(&points[0], &points[2], epsilon, MakeBackInsertFunctor(result));
+  vector<m2::PointD> result, expectedResult(points, points + 3);
+  simplifyFn(points, points + 3, epsilon, MakeBackInsertFunctor(result));
   TEST_EQUAL(result, expectedResult, (epsilon));
 }
 
@@ -42,21 +42,24 @@ void TestSimplificationOfLine(SimplifyFn simplifyFn)
   m2::PointD const points[] = { P(0.0, 1.0), P(2.2, 3.6) };
   for (double epsilon = numeric_limits<double>::denorm_min(); epsilon < 1000; epsilon *= 2)
   {
-    vector<m2::PointD> result, expectedResult(points, points + 1);
-    simplifyFn(&points[0], &points[1], epsilon, MakeBackInsertFunctor(result));
+    vector<m2::PointD> result, expectedResult(points, points + 2);
+    simplifyFn(points, points + 2, epsilon, MakeBackInsertFunctor(result));
     TEST_EQUAL(result, expectedResult, (epsilon));
   }
 }
 
-void TestSimplificationOfPoly(m2::PointD const * points, size_t pointsSize, SimplifyFn simplifyFn)
+void TestSimplificationOfPoly(m2::PointD const * points, size_t count, SimplifyFn simplifyFn)
 {
   for (double epsilon = 0.00001; epsilon < 0.11; epsilon *= 10)
   {
     vector<m2::PointD> result;
-    simplifyFn(points, points + pointsSize, epsilon, MakeBackInsertFunctor(result));
+    simplifyFn(points, points + count, epsilon, MakeBackInsertFunctor(result));
     LOG(LINFO, ("eps:", epsilon, "size:", result.size()));
-    TEST_EQUAL(result[0], *points, (epsilon));
-    TEST_LESS(result.size(), pointsSize, (epsilon));
+
+    TEST_GREATER(result.size(), 1, ());
+    TEST_EQUAL(result.front(), points[0], (epsilon));
+    TEST_EQUAL(result.back(), points[count - 1], (epsilon));
+    TEST_LESS(result.size(), count, (epsilon));
   }
 }
 
@@ -100,57 +103,60 @@ void SimplifyNearOptimal20(m2::PointD const * f, m2::PointD const * l, double e,
 
 UNIT_TEST(Simplification_Opt_Smoke)
 {
-  TestSimplificationSmoke(&SimplifyNearOptimal10);
+  //TestSimplificationSmoke(&SimplifyNearOptimal10);
 }
 
 UNIT_TEST(Simplification_Opt_Line)
 {
-  TestSimplificationOfLine(&SimplifyNearOptimal10);
+  //TestSimplificationOfLine(&SimplifyNearOptimal10);
 }
 
 UNIT_TEST(Simplification_Opt10_Polyline)
 {
-  TestSimplificationOfPoly(LargePolylineTestData::m_Data, LargePolylineTestData::m_Size,
-                           &SimplifyNearOptimal10);
+  //TestSimplificationOfPoly(LargePolylineTestData::m_Data, LargePolylineTestData::m_Size,
+  //                         &SimplifyNearOptimal10);
 }
 
 UNIT_TEST(Simplification_Opt20_Polyline)
 {
-  TestSimplificationOfPoly(LargePolylineTestData::m_Data, LargePolylineTestData::m_Size,
-                           &SimplifyNearOptimal20);
+  //TestSimplificationOfPoly(LargePolylineTestData::m_Data, LargePolylineTestData::m_Size,
+  //                         &SimplifyNearOptimal20);
 }
 
 namespace
 {
-  void CheckDistance(P const * arr)
+  void CheckDPStrict(P const * arr, size_t n, double eps, size_t expectedCount)
   {
-    double const eps = my::sq(scales::GetEpsilonForSimplify(17));
+    vector<P> vec;
+    SimplifyDP<DistanceF>(arr, arr + n, eps,
+      AccumulateSkipSmallTrg<DistanceF, P>(vec, eps));
 
-    for (int prev = 0; prev < 3; ++prev)
+    TEST_GREATER(vec.size(), 1, ());
+    TEST_EQUAL(arr[0], vec.front(), ());
+    TEST_EQUAL(arr[n-1], vec.back(), ());
+
+    if (expectedCount > 0)
+      TEST_EQUAL(expectedCount, vec.size(), ());
+
+    for (size_t i = 2; i < vec.size(); ++i)
     {
-      int const curr = (prev+1) % 3;
-      int const next = (prev+2) % 3;
-
-      double const dist = DistanceF(arr[prev], arr[next])(arr[curr]);
-      TEST_GREATER(dist, eps, ("Iteration = ", prev));
-
-      P const edgeL = arr[prev] - arr[curr];
-      P const edgeR = arr[next] - arr[curr];
-      double const cpLR = CrossProduct(edgeR, edgeL);
-
-      TEST_NOT_EQUAL(cpLR, 0.0, ("Iteration = ", prev));
+      DistanceF fun(vec[i-2], vec[i]);
+      TEST_GREATER_OR_EQUAL(fun(vec[i-1]), eps, ());
     }
   }
 }
 
-UNIT_TEST(Simpfication_DataSets)
+UNIT_TEST(Simpfication_DP_DegenerateTrg)
 {
-  P arr1[] = {
-    P(23.6662673950195, 61.6197395324707),
-    P(23.6642074584961, 61.6190528869629),
-    P(23.6631774902344, 61.618709564209)
+  P arr1[] = { P(0, 0), P(100, 100), P(100, 500), P(0, 600) };
+  CheckDPStrict(arr1, ARRAY_SIZE(arr1), 1.0, 4);
+
+  P arr2[] = {
+    P(0, 0), P(100, 100),
+    P(100.1, 150), P(100.2, 200), P(100.3, 250), P(100.4, 300), P(100.3, 350), P(100.2, 400), P(100.1, 450),
+    P(100, 500), P(0, 600)
   };
-  CheckDistance(arr1);
+  CheckDPStrict(arr2, ARRAY_SIZE(arr2), 1.0, 4);
 }
 
 // This is actually part of coastline of Australia.
