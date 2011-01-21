@@ -123,7 +123,7 @@ namespace
   }
 }
 
-UNIT_TEST(IsPolygonCCW)
+UNIT_TEST(IsPolygonCCW_Smoke)
 {
   P arr1[] = { P(1, 1), P(2, 0), P(3, 2) };
   TestPolygonCCW(arr1, arr1 + ARRAY_SIZE(arr1));
@@ -133,4 +133,17 @@ UNIT_TEST(IsPolygonCCW)
 
   P arr3[] = { P(0, 1), P(1, 1), P(1, 0), P(2, 0), P(2, 1), P(1, 1), P(1, 2), P(0, 2) };
   TestPolygonCCW(arr3, arr3 + ARRAY_SIZE(arr3));
+}
+
+UNIT_TEST(IsPolygonCCW_DataSet)
+{
+  P arr[] = { P(27.3018836975098, 61.7740631103516), P(27.2981071472168, 61.7816162109375), P(27.2962188720703, 61.7831611633301),
+              P(27.293815612793, 61.7814445495605), P(27.2926139831543, 61.783332824707), P(27.2919273376465, 61.787109375),
+              P(27.2948455810547, 61.7865943908691), P(27.2958755493164, 61.7883110046387), P(27.3001670837402, 61.779899597168),
+              P(27.3036003112793, 61.7771530151367), P(27.3015403747559, 61.7747497558594) };
+
+  size_t const n = ARRAY_SIZE(arr);
+  if (!IsPolygonCCW(arr, arr + n))
+    reverse(arr, arr + n);
+  TestPolygonCCW(arr, arr + n);
 }

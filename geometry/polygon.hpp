@@ -57,6 +57,7 @@ template <typename IterT> bool IsPolygonCCW(IterT beg, IterT end)
 {
   ASSERT ( TestPolygonPreconditions(beg, end), () );
 
+  // find the most down (left) point
   double minY = numeric_limits<double>::max();
   IterT iRes;
   for (IterT i = beg; i != end; ++i)
@@ -68,8 +69,26 @@ template <typename IterT> bool IsPolygonCCW(IterT beg, IterT end)
     }
   }
 
-  return CrossProduct(*iRes - *PrevIterInCycle(iRes, beg, end),
-                      *NextIterInCycle(iRes, beg, end) - *iRes) > 0;
+  double cp = CrossProduct(*iRes - *PrevIterInCycle(iRes, beg, end),
+                           *NextIterInCycle(iRes, beg, end) - *iRes);
+  if (cp != 0.0)
+    return (cp > 0.0);
+
+  // fid the most up (left) point
+  double maxY = numeric_limits<double>::min();
+  for (IterT i = beg; i != end; ++i)
+  {
+    if ((*i).y > maxY || ((*i).y == maxY && (*i).x < (*iRes).x))
+    {
+      iRes = i;
+      maxY = (*i).y;
+    }
+  }
+
+  cp =  CrossProduct(*iRes - *PrevIterInCycle(iRes, beg, end),
+                     *NextIterInCycle(iRes, beg, end) - *iRes);
+  ASSERT_NOT_EQUAL ( cp, 0.0, () );
+  return (cp > 0.0);
 }
 
 /// Is segment (v, v1) in cone (vPrev, v, vNext)?
@@ -80,18 +99,23 @@ template <typename PointT> bool IsSegmentInCone(PointT v, PointT v1, PointT vPre
   PointT const edgeL = vPrev - v;
   PointT const edgeR = vNext - v;
   double const cpLR = CrossProduct(edgeR, edgeL);
-  //ASSERT(!my::AlmostEqual(cpLR, 0.0),
-  ASSERT_NOT_EQUAL(cpLR, 0.0,
-         ("vPrev, v, vNext shouldn't be collinear!", edgeL, edgeR, v, v1, vPrev, vNext));
+
+  if (my::AlmostEqual(cpLR,  0.0))
+  {
+    // Points vPrev, v, vNext placed on one line;
+    // use property that polygon has CCW orientation.
+    return CrossProduct(vNext - vPrev, v1 - vPrev) > 0.0;
+  }
+
   if (cpLR > 0)
   {
     // vertex is convex
-    return CrossProduct(diff, edgeR) < 0 && CrossProduct(diff, edgeL) > 0;
+    return CrossProduct(diff, edgeR) < 0 && CrossProduct(diff, edgeL) > 0.0;
   }
   else
   {
     // vertex is reflex
-    return CrossProduct(diff, edgeR) < 0 || CrossProduct(diff, edgeL) > 0;
+    return CrossProduct(diff, edgeR) < 0 || CrossProduct(diff, edgeL) > 0.0;
   }
 }
 
