@@ -260,7 +260,10 @@ namespace feature
         ASSERT ( m_buffer.m_innerTrg.empty(), () );
 
         if (!IsPolygonCCW(points.begin(), points.end()))
+        {
           reverse(points.begin(), points.end());
+          ASSERT ( IsPolygonCCW(points.begin(), points.end()), (points) );
+        }
 
         size_t const index = FindSingleStrip(count,
           IsDiagonalVisibleFunctor<points_t::const_iterator>(points.begin(), points.end()));
@@ -306,7 +309,7 @@ namespace feature
           if (isLine)
             holder.AddPoints(points, i);
 
-          if (isArea && points.size() > 2 && holder.NeedProcessTriangles())
+          if (isArea && points.size() > 3 && holder.NeedProcessTriangles())
           {
             // simplify and serialize triangles
 
