@@ -8,12 +8,11 @@
 
 #include "../../indexer/feature.hpp"
 #include "../../indexer/feature_visibility.hpp"
+#include "../../storage/defines.hpp"
 
 #include "../../std/string.hpp"
 
 #include <boost/scoped_ptr.hpp>
-
-#define WORLD_FILE_NAME "world"
 
 namespace feature
 {
