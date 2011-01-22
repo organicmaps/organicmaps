@@ -1,6 +1,6 @@
 #pragma once
 
-#include "defines.hpp"
+#include "../defines.hpp"
 #include "simple_tree.hpp"
 
 #include "../geometry/rect2d.hpp"

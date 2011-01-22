@@ -5,7 +5,7 @@
 #include "feature_visibility.hpp"
 #include "scales.hpp"
 
-#include "../storage/defines.hpp" // just for file extensions
+#include "../defines.hpp" // just for file extensions
 
 #include "../geometry/rect2d.hpp"
 

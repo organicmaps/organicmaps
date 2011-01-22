@@ -2,7 +2,7 @@
 #include "feature.hpp"
 #include "data_header_reader.hpp"
 
-#include "../storage/defines.hpp"
+#include "../defines.hpp"
 
 #include "../coding/var_record_reader.hpp"
 

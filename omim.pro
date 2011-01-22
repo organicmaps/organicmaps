@@ -3,6 +3,8 @@
 TEMPLATE = subdirs
 CONFIG += ordered
 
+HEADERS += defines.hpp
+
 # desktop projects
 win32|macx|unix {
 SUBDIRS = 3party \

@@ -5,7 +5,7 @@
 #include "scale_index.hpp"
 #include "scales.hpp"
 
-#include "../../storage/defines.hpp"
+#include "../../defines.hpp"
 
 #include "../geometry/rect2d.hpp"
 

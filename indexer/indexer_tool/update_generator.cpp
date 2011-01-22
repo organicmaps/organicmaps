@@ -7,7 +7,7 @@
 #include "../../platform/platform.hpp"
 
 #include "../../storage/country.hpp"
-#include "../../storage/defines.hpp"
+#include "../../defines.hpp"
 
 #include "../../base/string_utils.hpp"
 #include "../../base/logging.hpp"

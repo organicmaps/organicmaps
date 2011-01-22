@@ -4,7 +4,7 @@
 #include "osm_element.hpp"
 #include "polygonizer.hpp"
 
-#include "../../storage/defines.hpp"
+#include "../../defines.hpp"
 
 #include "../../indexer/data_header.hpp"
 #include "../../indexer/osm_decl.hpp"

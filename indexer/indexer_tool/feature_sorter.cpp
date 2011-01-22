@@ -1,7 +1,7 @@
 #include "feature_sorter.hpp"
 #include "feature_generator.hpp"
 
-#include "../../storage/defines.hpp"
+#include "../../defines.hpp"
 
 #include "../../indexer/data_header.hpp"
 #include "../../indexer/feature_processor.hpp"

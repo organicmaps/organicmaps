@@ -5,7 +5,7 @@
 #include "../classif_routine.hpp"
 #include "../features_vector.hpp"
 #include "../data_header_reader.hpp"
-#include "../../storage/defines.hpp"
+#include "../../defines.hpp"
 #include "../../platform/platform.hpp"
 #include "../../coding/file_container.hpp"
 #include "../../base/stl_add.hpp"

@@ -12,7 +12,6 @@ include($$ROOT_DIR/common.pri)
 
 HEADERS += \
   country.hpp \
-  defines.hpp \
   simple_tree.hpp \
   storage.hpp \
 

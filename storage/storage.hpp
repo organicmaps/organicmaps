@@ -3,7 +3,7 @@
 #include "../platform/download_manager.hpp"
 #include "../platform/platform.hpp"
 
-#include "../storage/defines.hpp"
+#include "../defines.hpp"
 #include "../storage/country.hpp"
 
 #include "../std/vector.hpp"

@@ -3,7 +3,7 @@
 #include "data_header_reader.hpp"
 #include "data_header.hpp"
 
-#include "../storage/defines.hpp"
+#include "../defines.hpp"
 
 #include "../coding/file_container.hpp"
 

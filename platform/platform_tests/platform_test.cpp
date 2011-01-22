@@ -2,7 +2,7 @@
 
 #include "../platform.hpp"
 
-#include "../../storage/defines.hpp"
+#include "../../defines.hpp"
 
 #include "../../std/stdio.hpp"
 

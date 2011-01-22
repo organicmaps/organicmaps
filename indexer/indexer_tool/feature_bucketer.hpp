@@ -8,7 +8,7 @@
 
 #include "../../indexer/feature.hpp"
 #include "../../indexer/feature_visibility.hpp"
-#include "../../storage/defines.hpp"
+#include "../../defines.hpp"
 
 #include "../../std/string.hpp"
 

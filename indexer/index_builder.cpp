@@ -2,7 +2,7 @@
 #include "data_header_reader.hpp"
 #include "features_vector.hpp"
 
-#include "../storage/defines.hpp"
+#include "../defines.hpp"
 
 #include "../coding/file_container.hpp"
 
