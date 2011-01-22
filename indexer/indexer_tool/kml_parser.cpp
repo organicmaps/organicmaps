@@ -18,6 +18,8 @@
 #define BORDERS_DIR "borders/"
 #define BORDERS_EXTENSION ".kml"
 
+#define MIN_SIMPLIFIED_POINTS_COUNT 10
+
 namespace kml
 {
 
@@ -121,8 +123,11 @@ namespace kml
           {
             MercPointsContainerT simplifiedPoints;
             feature::SimplifyPoints(points, simplifiedPoints, m_simplifyCountriesLevel);
-            LOG_SHORT(LINFO, (m_country.m_name, numPoints, "simplified to ", simplifiedPoints.size()));
-            points.swap(simplifiedPoints);
+            if (simplifiedPoints.size() > MIN_SIMPLIFIED_POINTS_COUNT)
+            {
+              LOG_SHORT(LINFO, (m_country.m_name, numPoints, "simplified to ", simplifiedPoints.size()));
+              points.swap(simplifiedPoints);
+            }
           }
 
           // third, convert mercator doubles to uint points
