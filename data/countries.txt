@@ -22552,12 +22552,8 @@
 02220203
 02220230
  Other
-  Features 0-5
-00000000
-  World Grid 7
-00000001
-  World Grid 8
-00000002
+  World
+World
  South America
   Argentina
 03021111
