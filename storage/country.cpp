@@ -128,21 +128,8 @@ namespace storage
           TTilesContainer::const_iterator const first = sortedTiles.begin();
           TTilesContainer::const_iterator const last = sortedTiles.end();
           TTilesContainer::const_iterator found = lower_bound(first, last, TTile(line, 0));
-          // @TODO current implementation supports only cellId level 8 and 7
-          if (!(found != last && !(line < found->first)) && IsCellId(line))
-          {
-            line.resize(line.size() - 1);
-            found = lower_bound(first, last, TTile(line, 0));
-          }
-
           if (found != last && !(line < found->first))
-          {
-            // fix extension for data files
-            if (found->first.find_last_of(DATA_FILE_EXTENSION) == string::npos)
-              currentCountry->AddTile(TTile(found->first + DATA_FILE_EXTENSION, found->second));
-            else
-              currentCountry->AddTile(*found);
-          }
+            currentCountry->AddTile(TTile(found->first + DATA_FILE_EXTENSION, found->second));
         }
         break;
       case 1: // country group
