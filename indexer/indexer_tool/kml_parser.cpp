@@ -235,7 +235,7 @@ namespace kml
         continue;
       CountryPolygons country;
       PolygonLoader loader(baseDir, country, simplifyCountriesLevel);
-      utils::TokenizeString(line, ",", loader);
+      utils::TokenizeString(line, "|", loader);
       if (!country.m_regions.empty())
         countries.push_back(country);
     }
