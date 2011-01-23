@@ -136,7 +136,9 @@ namespace
     TEST_EQUAL(arr[n-1], vec.back(), ());
 
     if (expectedCount > 0)
+    {
       TEST_EQUAL(expectedCount, vec.size(), ());
+    }
 
     for (size_t i = 2; i < vec.size(); ++i)
     {
