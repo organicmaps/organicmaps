@@ -49,8 +49,8 @@ void SimplifyDP(IterT first, IterT last, double epsilon, OutT & out)
   }
   else
   {
-    SimplifyDP<DistanceF>(first, maxDist.second, epsilon, out);
-    SimplifyDP<DistanceF>(maxDist.second, last, epsilon, out);
+    impl::SimplifyDP<DistanceF>(first, maxDist.second, epsilon, out);
+    impl::SimplifyDP<DistanceF>(maxDist.second, last, epsilon, out);
   }
 }
 //@}
