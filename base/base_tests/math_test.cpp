@@ -41,8 +41,13 @@ UNIT_TEST(PowUInt)
 
 UNIT_TEST(AlmostEqual_Smoke)
 {
-  TEST(my::AlmostEqual(3.0, 3.0), ());
-  TEST(my::AlmostEqual(+0.0, -0.0), ());
+  TEST_ALMOST_EQUAL(3.0, 3.0, ());
+  TEST_ALMOST_EQUAL(+0.0, -0.0, ());
+
+  double const eps = numeric_limits<double>::epsilon();
+  TEST_ALMOST_EQUAL(1.0 + eps, 1.0, ());
+  TEST_ALMOST_EQUAL(1.0 - eps, 1.0, ());
+  TEST_ALMOST_EQUAL(1.0 - eps, 1.0 + eps, ());
 }
 
 namespace
