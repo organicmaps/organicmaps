@@ -103,24 +103,24 @@ void SimplifyNearOptimal20(m2::PointD const * f, m2::PointD const * l, double e,
 
 UNIT_TEST(Simplification_Opt_Smoke)
 {
-  //TestSimplificationSmoke(&SimplifyNearOptimal10);
+  TestSimplificationSmoke(&SimplifyNearOptimal10);
 }
 
 UNIT_TEST(Simplification_Opt_Line)
 {
-  //TestSimplificationOfLine(&SimplifyNearOptimal10);
+  TestSimplificationOfLine(&SimplifyNearOptimal10);
 }
 
 UNIT_TEST(Simplification_Opt10_Polyline)
 {
-  //TestSimplificationOfPoly(LargePolylineTestData::m_Data, LargePolylineTestData::m_Size,
-  //                         &SimplifyNearOptimal10);
+  TestSimplificationOfPoly(LargePolylineTestData::m_Data, LargePolylineTestData::m_Size,
+                           &SimplifyNearOptimal10);
 }
 
 UNIT_TEST(Simplification_Opt20_Polyline)
 {
-  //TestSimplificationOfPoly(LargePolylineTestData::m_Data, LargePolylineTestData::m_Size,
-  //                         &SimplifyNearOptimal20);
+  TestSimplificationOfPoly(LargePolylineTestData::m_Data, LargePolylineTestData::m_Size,
+                           &SimplifyNearOptimal20);
 }
 
 namespace
@@ -155,8 +155,8 @@ UNIT_TEST(Simpfication_DP_DegenerateTrg)
 
   P arr2[] = {
     P(0, 0), P(100, 100),
-    P(100.1, 150), P(100.2, 200), P(100.3, 250), P(100.4, 300), P(100.3, 350), P(100.2, 400), P(100.1, 450),
-    P(100, 500), P(0, 600)
+    P(100.1, 150), P(100.2, 200), P(100.3, 250), P(100.4, 300), P(100.3, 350), P(100.2, 400),
+    P(100.1, 450), P(100, 500), P(0, 600)
   };
   CheckDPStrict(arr2, ARRAY_SIZE(arr2), 1.0, 4);
 }

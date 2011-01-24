@@ -16,7 +16,7 @@
 namespace impl
 {
 
-///@name This functions take input range NOT like STL do: [first, last].
+///@name This functions take input range NOT like STL does: [first, last].
 //@{
 template <typename DistanceF, typename IterT>
 pair<double, IterT> MaxDistance(IterT first, IterT last)
@@ -67,16 +67,16 @@ struct SimplifyOptimalRes
 
 }
 
-// Douglas-Peucker algorithm for STL-like range [first, last).
+// Douglas-Peucker algorithm for STL-like range [beg, end).
 // Iteratively includes the point with max distance form the current simplification.
 // Average O(n log n), worst case O(n^2).
 template <typename DistanceF, typename IterT, typename OutT>
-void SimplifyDP(IterT first, IterT last, double epsilon, OutT out)
+void SimplifyDP(IterT beg, IterT end, double epsilon, OutT out)
 {
-  if (first != last)
+  if (beg != end)
   {
-    out(*first);
-    impl::SimplifyDP<DistanceF>(first, last-1, epsilon, out);
+    out(*beg);
+    impl::SimplifyDP<DistanceF>(beg, end-1, epsilon, out);
   }
 }
 
@@ -87,12 +87,13 @@ void SimplifyDP(IterT first, IterT last, double epsilon, OutT out)
 // Essentially, it's a trade-off between optimality and performance.
 // Values around 20 - 200 are reasonable.
 template <typename DistanceF, typename IterT, typename OutT>
-void SimplifyNearOptimal(int kMaxFalseLookAhead, IterT first, IterT last, double epsilon, OutT out)
+void SimplifyNearOptimal(int kMaxFalseLookAhead, IterT beg, IterT end, double epsilon, OutT out)
 {
-  int32_t const n = last - first + 1;
+  int32_t const n = end - beg;
   if (n <= 2)
   {
-    out(*first);
+    for (IterT it = beg; it != end; ++it)
+      out(*it);
     return;
   }
 
@@ -105,7 +106,7 @@ void SimplifyNearOptimal(int kMaxFalseLookAhead, IterT first, IterT last, double
       uint32_t const newPointCount = F[j].m_PointCount + 1;
       if (newPointCount < F[i].m_PointCount)
       {
-          if (impl::MaxDistance<DistanceF>(first + i, first + j).first < epsilon)
+          if (impl::MaxDistance<DistanceF>(beg + i, beg + j).first < epsilon)
           {
             F[i].m_NextPoint = j;
             F[i].m_PointCount = newPointCount;
@@ -118,8 +119,8 @@ void SimplifyNearOptimal(int kMaxFalseLookAhead, IterT first, IterT last, double
     }
   }
 
-  for (int32_t i = 0; i < n - 1; i = F[i].m_NextPoint)
-    out(*(first + i));
+  for (int32_t i = 0; i < n; i = F[i].m_NextPoint)
+    out(*(beg + i));
 }
 
 
