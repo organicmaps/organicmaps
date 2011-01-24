@@ -2,7 +2,7 @@
 
 #include "opengl_win32.hpp"
 
-#include "../../base/assert.hpp"
+#include "../../base/logging.hpp"
 
 #include "../../base/start_mem_debug.hpp"
 
@@ -34,7 +34,13 @@ namespace win32
   template <class TRet>
   TRet GetGLProc(HMODULE hInst, char const * name)
   {
-    return reinterpret_cast<TRet>(::wglGetProcAddress(name));
+    PROC p = ::wglGetProcAddress(name);
+    if (p == 0)
+    {
+      DWORD const err = ::GetLastError();
+      LOG(LCRITICAL, ("OpenGL extension function ", name, " not found. Last error = ", err);
+    }
+    return reinterpret_cast<TRet>(p);
   }
 
   void InitOpenGL()
