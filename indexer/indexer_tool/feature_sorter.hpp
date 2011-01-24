@@ -35,22 +35,8 @@ namespace feature
       typedef mn::DistanceToLineSquare<m2::PointD> DistanceF;
       double const eps = my::sq(scales::GetEpsilonForSimplify(level));
 
-      //SimplifyNearOptimal<DistanceF>(20, in.begin(), in.end()-1, eps, MakeBackInsertFunctor(out));
-      //switch (out.size())
-      //{
-      //case 0:
-      //  out.push_back(in.front());
-      //  // no break
-      //case 1:
-      //  out.push_back(in.back());
-      //  break;
-      //default:
-      //  if (!are_points_equal(out.back(), in.back()))
-      //    out.push_back(in.back());
-      //}
-
-      SimplifyDP<DistanceF>(in.begin(), in.end(), eps,
-                            AccumulateSkipSmallTrg<DistanceF, m2::PointD>(out, eps));
+      SimplifyNearOptimal<DistanceF>(20, in.begin(), in.end(), eps,
+                                     AccumulateSkipSmallTrg<DistanceF, m2::PointD>(out, eps));
 
       ASSERT_GREATER ( out.size(), 1, () );
       ASSERT ( are_points_equal(in.front(), out.front()), () );
