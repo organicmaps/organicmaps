@@ -2,20 +2,15 @@
 
 #include "../std/target_os.hpp"
 
-#ifdef OMIM_OS_WINDOWS_NATIVE
+#ifdef OMIM_OS_WINDOWS
   #include "../std/windows.hpp"
-#else
-  #include <sys/mman.h>
-  #include <sys/errno.h>
-  #include <sys/stat.h>
-  #include <sys/fcntl.h>
 #endif
 
 class MemoryMappedFile
 {
   bool m_isReadOnly;
 
-#ifdef OMIM_OS_WINDOWS_NATIVE
+#ifdef OMIM_OS_WINDOWS
   FILE * m_fp;
 #else
   int    m_fd;
