@@ -4,20 +4,63 @@
 
 #include "../region2d.hpp"
 
-template<class RegionT> struct ContainsChecker
+
+namespace {
+
+template <class RegionT> struct ContainsChecker
 {
-  RegionT & m_region;
-  ContainsChecker(RegionT & region) : m_region(region) {}
+  RegionT const & m_region;
+  ContainsChecker(RegionT const & region) : m_region(region) {}
   void operator()(typename RegionT::value_type const & pt)
   {
     TEST(m_region.Contains(pt), ("Region should contain all it's points"));
   }
 };
 
-template<class RegionT>
-void Test()
+/// Region should have CCW orientation from left, down corner.
+template <class PointT>
+void TestContainsRectangular(PointT const * arr)
+{
+  m2::Region<PointT> region;
+
+  size_t const count = 4;
+  region.Assign(arr, arr + count);
+
+  for (size_t i = 0; i < count; ++i)
+  {
+    region.Contains(arr[i]);
+    region.Contains((arr[i] + arr[(i + count - 1) % count]) / 2);
+  }
+
+  PointT dx(1, 0);
+  PointT dy(0, 1);
+
+  TEST(!region.Contains(arr[0] - dx), ());
+  TEST(!region.Contains(arr[0] - dy), ());
+  TEST(!region.Contains(arr[0] - dx - dy), ());
+  TEST(region.Contains(arr[0] + dx + dy), ());
+
+  TEST(!region.Contains(arr[1] + dx), ());
+  TEST(!region.Contains(arr[1] - dy), ());
+  TEST(!region.Contains(arr[1] + dx - dy), ());
+  TEST(region.Contains(arr[1] - dx + dy), ());
+
+  TEST(!region.Contains(arr[2] + dx), ());
+  TEST(!region.Contains(arr[2] + dy), ());
+  TEST(!region.Contains(arr[2] + dx + dy), ());
+  TEST(region.Contains(arr[2] - dx - dy), ());
+
+  TEST(!region.Contains(arr[3] - dx), ());
+  TEST(!region.Contains(arr[3] + dy), ());
+  TEST(!region.Contains(arr[3] - dx + dy), ());
+  TEST(region.Contains(arr[3] + dx - dy), ());
+}
+
+template <class RegionT>
+void TestContaints()
 {
   RegionT region;
+  ContainsChecker<RegionT> checker(region);
 
   // point type
   typedef typename RegionT::value_type P;
@@ -25,18 +68,22 @@ void Test()
   // rectangular polygon
   {
     P const data[] = { P(1, 1), P(10, 1), P(10, 10), P(1, 10) };
-    region.Assign(data, data + ARRAY_SIZE(data));
+    TestContainsRectangular(data);
   }
-  TEST_EQUAL(region.Rect(), m2::Rect<typename P::value_type>(1, 1, 10, 10), ());
-
-  TEST(region.Contains(P(1, 1)), ());
-  TEST(region.Contains(P(2, 2)), ());
-  TEST(region.Contains(P(10, 5)), ());
-  TEST(region.Contains(P(1, 6)), ());
-  TEST(!region.Contains(P(0, 0)), ());
-  TEST(!region.Contains(P(100, 0)), ());
-  ContainsChecker<RegionT> checker(region);
-  region.ForEachPoint(checker);
+  {
+    P const data[] = { P(-100, -100), P(-50, -100), P(-50, -50), P(-100, -50) };
+    TestContainsRectangular(data);
+  }
+  {
+    P const data[] = { P(-2000000000, -2000000000), P(-1000000000, -2000000000),
+                       P(-1000000000, -1000000000), P(-2000000000, -1000000000) };
+    TestContainsRectangular(data);
+  }
+  {
+    P const data[] = { P(1000000000, 1000000000), P(2000000000, 1000000000),
+                       P(2000000000, 2000000000), P(1000000000, 2000000000) };
+    TestContainsRectangular(data);
+  }
 
   // triangle
   {
@@ -68,6 +115,8 @@ void Test()
   region.ForEachPoint(checker);
 }
 
+}
+
 UNIT_TEST(Region)
 {
   typedef m2::PointD P;
@@ -89,9 +138,9 @@ UNIT_TEST(Region)
 
 UNIT_TEST(Region_Contains)
 {
-  Test<m2::RegionD>();
-  Test<m2::RegionF>();
-  Test<m2::RegionI>();
+  TestContaints<m2::RegionU>();
+  TestContaints<m2::RegionD>();
+  TestContaints<m2::RegionI>();
 
   // negative triangle
   {
@@ -122,16 +171,14 @@ UNIT_TEST(Region_Contains)
   }
 }
 
-template <class TPoint>
-struct PointsSummator
+template <class TPoint> class PointsSummator
 {
-  double m_xSumm;
-  double m_ySumm;
-  PointsSummator() : m_xSumm(0), m_ySumm(0) {}
+  TPoint & m_res;
+public:
+  PointsSummator(TPoint & res) : m_res(res) {}
   void operator()(TPoint const & pt)
   {
-    m_xSumm += pt.x;
-    m_ySumm += pt.y;
+    m_res += pt;
   }
 };
 
@@ -141,9 +188,8 @@ UNIT_TEST(Region_ForEachPoint)
   P const points[] = { P(0.0, 1.0), P(1.0, 2.0), P(10.5, 11.5) };
   m2::Region<P> region(points, points + ARRAY_SIZE(points));
 
-  PointsSummator<P> s;
-  region.ForEachPoint(s);
+  P res(0, 0);
+  region.ForEachPoint(PointsSummator<P>(res));
 
-  TEST_EQUAL(s.m_xSumm, 11.5, ());
-  TEST_EQUAL(s.m_ySumm, 14.5, ());
+  TEST_EQUAL(res, P(11.5, 14.5), ());
 }
