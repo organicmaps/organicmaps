@@ -9,6 +9,14 @@
 
 namespace m2
 {
+  namespace detail
+  {
+    // Get a big type for storing middle calculations (x*y) to avoid overflow.
+    template <int floating> struct BigType;
+    template <> struct BigType<0> { typedef int64_t type; };
+    template <> struct BigType<1> { typedef double type; };
+  }
+
   template <class PointT>
   class Region
   {
@@ -54,12 +62,6 @@ namespace m2
 
     bool IsValid() const { return m_points.size() > 2; }
 
-  private:
-    // Get a big type for storing middle calculations (x*y) to avoid overflow.
-    template <int floating> struct BigType;
-    template <> struct BigType<0> { typedef int64_t type; };
-    template <> struct BigType<1> { typedef double type; };
-
   public:
     /// Taken from Computational Geometry in C and modified
     bool Contains(PointT const & pt) const
@@ -72,7 +74,7 @@ namespace m2
 
       size_t const numPoints = m_points.size();
 
-      typedef typename BigType<is_floating_point<coord_type>::value>::type BigCoordT;
+      typedef typename detail::BigType<is_floating_point<coord_type>::value>::type BigCoordT;
       typedef Point<BigCoordT> BigPointT;
 
       BigPointT prev = BigPointT(m_points[numPoints - 1]) - BigPointT(pt);
