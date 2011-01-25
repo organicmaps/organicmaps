@@ -20,6 +20,7 @@ object_script.*.Release
 out/*
 .obj/*
 iphone/Maps/build/*
+iphone/Tests/build/*
 *.mmp
 *.cache
 *.inf
@@ -33,6 +34,9 @@ tools/emacsmode/build
 iphone/Maps/Maps.xcodeproj/*.mode1v3
 iphone/Maps/Maps.xcodeproj/*.pbxuser
 iphone/Maps/Maps.xcodeproj/*.perspectivev3
+iphone/Tests/Tests.xcodeproj/*.mode1v3
+iphone/Tests/Tests.xcodeproj/*.pbxuser
+iphone/Tests/Tests.xcodeproj/*.perspectivev3
 data/*.mwm
 data/*.map
 data/*.osm
