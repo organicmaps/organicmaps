@@ -92,7 +92,7 @@ namespace
 
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      for (int i = 0; i < m_pathes.size(); ++i)
+      for (size_t i = 0; i < m_pathes.size(); ++i)
       {
         p->drawPath(&m_pathes[i][0], m_pathes[i].size(), p->skin()->mapPenInfo(m_penInfos[i]), m_depthes[i]);
         if (m_drawAxis)
@@ -124,8 +124,8 @@ namespace
       vector<m2::PointD> points;
       vector<double> pattern;
 
-      int columns = 30;
-      int rows = 6;
+      size_t const columns = 30;
+      size_t const rows = 6;
 
       for (size_t j = 0; j < rows; ++j)
       {
@@ -487,19 +487,18 @@ namespace
       double r = 200;
       m2::PointD offsetPt(300, 300);
 
-      m2::PointF centerPt(0, 0);
-      m2::PointF prevPt(r, 0);
+      m2::PointD centerPt(0, 0);
+      m2::PointD prevPt(r, 0);
 
-      float AngleDelta = 2 * 3.1415 / verticesCount;
+      double const Angle = 2 * 3.1415 / verticesCount;
+      double const sinA = sin(Angle);
+      double const cosA = cos(Angle);
 
       for (size_t i = 0; i < verticesCount; ++i)
       {
         vertices.push_back(centerPt + offsetPt);
 
-        m2::PointD nextPt(
-             prevPt.x * cos(AngleDelta) + prevPt.y * sin(AngleDelta),
-            -prevPt.x * sin(AngleDelta) + prevPt.y * cos(AngleDelta)
-            );
+        m2::PointD nextPt(prevPt.x * cosA + prevPt.y * sinA, -prevPt.x * sinA + prevPt.y * cosA);
 
         vertices.push_back(prevPt + offsetPt);
         vertices.push_back(nextPt + offsetPt);
@@ -550,8 +549,8 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      int maxTimes = 10;
-      int yStep = 30;
+      size_t const maxTimes = 10;
+      size_t const yStep = 30;
 
       for (size_t i = 0; i < maxTimes; ++i)
         for (size_t j = 1; j <= i+1; ++j)
@@ -642,8 +641,8 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      int startSize = 20;
-      int sizesCount = 20;
+      int const startSize = 20;
+      size_t const sizesCount = 20;
 
       int startY = 30;
       for (size_t i = 0; i < sizesCount; ++i)
@@ -658,8 +657,8 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      int startSize = 20;
-      int sizesCount = 20;
+      int const startSize = 20;
+      size_t const sizesCount = 20;
 
       int startY = 30;
       for (size_t i = 0; i < sizesCount; ++i)
@@ -789,7 +788,7 @@ namespace
 
       p->drawPath((m2::PointD const *)&m_vertices[0], m_vertices.size(), inputDataID, 0);
 
-      for (int i = 0; i < m_d.indices().size(); ++i)
+      for (size_t i = 0; i < m_d.indices().size(); ++i)
       {
         std::vector<std::vector<m2::PointD > > poly;
 

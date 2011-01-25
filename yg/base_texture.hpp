@@ -36,7 +36,7 @@ namespace yg
         void makeCurrent();
         void attachToFrameBuffer();
 
-        m2::PointF const mapPixel(m2::PointU const & p) const;
+        m2::PointF const mapPixel(m2::PointF const & p) const;
         m2::RectF const mapRect(m2::RectF const & r) const;
         void mapPixel(float & x, float & y) const;
 

@@ -60,10 +60,10 @@ namespace yg
 
       m2::PointF texPts[4] =
       {
-        srcSurface->mapPixel(m2::PointU(texRect.minX(), texRect.minY())),
-        srcSurface->mapPixel(m2::PointU(texRect.maxX(), texRect.minY())),
-        srcSurface->mapPixel(m2::PointU(texRect.maxX(), texRect.maxY())),
-        srcSurface->mapPixel(m2::PointU(texRect.minX(), texRect.maxY()))
+        srcSurface->mapPixel(m2::PointF(texRect.minX(), texRect.minY())),
+        srcSurface->mapPixel(m2::PointF(texRect.maxX(), texRect.minY())),
+        srcSurface->mapPixel(m2::PointF(texRect.maxX(), texRect.maxY())),
+        srcSurface->mapPixel(m2::PointF(texRect.minX(), texRect.maxY()))
       };
 
       immDrawTexturedPrimitives(pts, texPts, 4, srcSurface, true, color, false);

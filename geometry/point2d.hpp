@@ -91,7 +91,7 @@ namespace m2
       return m2::Point<T>(-x, -y);
     }
 
-    m2::Point<T> operator * (double scale) const
+    m2::Point<T> operator * (T scale) const
     {
       return m2::Point<T>(x * scale, y * scale);
     }
@@ -104,7 +104,7 @@ namespace m2
       return res;
     }
 
-    m2::Point<T> operator / (double scale) const
+    m2::Point<T> operator / (T scale) const
     {
       return m2::Point<T>(x / scale, y / scale);
     }
