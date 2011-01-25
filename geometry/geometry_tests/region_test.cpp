@@ -89,7 +89,6 @@ UNIT_TEST(Region)
 
 UNIT_TEST(Region_Contains)
 {
-  Test<m2::RegionU>();
   Test<m2::RegionD>();
   Test<m2::RegionF>();
   Test<m2::RegionI>();

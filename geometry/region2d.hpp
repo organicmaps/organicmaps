@@ -5,6 +5,8 @@
 
 #include "../std/vector.hpp"
 #include "../std/algorithm.hpp"
+#include "../std/limits.hpp"
+#include "../std/static_assert.hpp"
 
 namespace m2
 {
@@ -12,18 +14,6 @@ namespace m2
   class Region
   {
     typedef vector<PointT> internal_container;
-
-    static int AreaSign(PointT const & start, PointT const & end, PointT const & pt)
-    {
-      double const area = (end.x - start.x) * (double)(pt.y - start.y)
-                          - (pt.x - start.x) * (double)(end.y - start.y);
-      if (area >  0.5)
-        return 1;
-      else if (area < -0.5)
-        return -1;
-      else
-        return 0;
-    }
 
   public:
     typedef PointT value_type;
@@ -67,9 +57,34 @@ namespace m2
 
     bool IsValid() const { return m_points.size() > 2; }
 
+  private:
+    class cp_calc
+    {
+      bool m_calc;
+      bool m_cpG0;
+      bool m_pGc;
+
+    public:
+      cp_calc() : m_calc(true) {}
+
+      void calc(PointT const & curr, PointT const & prev)
+      {
+        if (m_calc)
+        {
+          ASSERT_NOT_EQUAL ( curr.y, prev.y, () );
+
+          m_calc = false;
+          m_cpG0 = CrossProduct(curr, prev) > 0;
+          m_pGc = (prev.y > curr.y);
+        }
+      }
+
+      bool equal() const { return m_cpG0 == m_pGc; }
+      bool not_equal() const { return m_cpG0 != m_pGc; }
+    };
+
+  public:
     /// Taken from Computational Geometry in C and modified
-    /// @TODO: use only one ray instead of two and avoid division by
-    /// using AreaSign() function above
     bool Contains(PointT const pt) const
     {
       if (!IsValid() || !m_rect.IsPointInside(pt))
@@ -87,44 +102,27 @@ namespace m2
         /* First see if q=(0,0) is a vertex. */
         if (m_points[i] == pt)
           return true;  // vertex
-        //size_t const i1 = (i + numPoints - 1) % numPoints;
 
-        /* if e "straddles" the x-axis... */
-        /* The commented-out statement is logically equivalent to the one
-           following. */
-        /* if( ( ( P[i][Y] > 0 ) && ( P[i1][Y] <= 0 ) ) ||
-           ( ( P[i1][Y] > 0 ) && ( P[i] [Y] <= 0 ) ) ) { */
+        PointT const curr = m_points[i] - pt;
+        PointT const prev = m_points[i1] - pt;
 
-        m2::PointD const curr((double)m_points[i].x - (double)pt.x, (double)m_points[i].y - (double)pt.y);
-        m2::PointD const prev((double)m_points[i1].x - (double)pt.x, (double)m_points[i1].y - (double)pt.y);
-
+        cp_calc calc;
         if ((curr.y > 0) != (prev.y > 0))
         {
-          /* e straddles ray, so compute intersection with ray. */
-          double const x = ((double)curr.x * (double)prev.y
-                      - (double)prev.x * (double)curr.y)
-                      / ((double)prev.y - (double)curr.y);
-          /* printf("straddles: x = %g\t", x); */
-
           /* crosses ray if strictly positive intersection. */
-          if (x > 0)
+          calc.calc(curr, prev);
+          if (calc.equal())
             ++rCross;
         }
 
-        /* if e straddles the x-axis when reversed... */
-        /* if( ( ( P[i] [Y] < 0 ) && ( P[i1][Y] >= 0 ) ) ||
-           ( ( P[i1][Y] < 0 ) && ( P[i] [Y] >= 0 ) ) )  { */
-
-        if ( ( curr.y < 0 ) != ( prev.y < 0 ) )
+        if ((curr.y < 0) != (prev.y < 0))
         {
-          /* e straddles ray, so compute intersection with ray. */
-          double const x = ((double)curr.x * (double)prev.y - (double)prev.x * (double)curr.y)
-              / ((double)prev.y - (double)curr.y);
-
           /* crosses ray if strictly positive intersection. */
-          if (x < 0)
-            lCross++;
+          calc.calc(curr, prev);
+          if (calc.not_equal())
+            ++lCross;
         }
+
         i1 = i;
       }
 
@@ -377,11 +375,11 @@ namespace m2
   private:
     internal_container m_points;
     m2::Rect<coord_type> m_rect;
+
+    STATIC_ASSERT(numeric_limits<coord_type>::is_signed);
   };
 
   typedef Region<m2::PointF> RegionF;
   typedef Region<m2::PointD> RegionD;
-  typedef Region<m2::PointU> RegionU;
   typedef Region<m2::PointI> RegionI;
-
 }
