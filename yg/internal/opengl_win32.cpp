@@ -38,7 +38,7 @@ namespace win32
     if (p == 0)
     {
       DWORD const err = ::GetLastError();
-      LOG(LCRITICAL, ("OpenGL extension function ", name, " not found. Last error = ", err);
+      LOG(LCRITICAL, ("OpenGL extension function ", name, " not found. Last error = ", err));
     }
     return reinterpret_cast<TRet>(p);
   }
