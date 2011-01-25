@@ -6,6 +6,7 @@
 
 #include "../std/algorithm.hpp"
 #include "../std/limits.hpp"
+#include "../std/type_traits.hpp"
 
 #include "../base/start_mem_debug.hpp"
 
@@ -16,14 +17,13 @@ namespace m2
     template <typename T, bool has_sign> struct min_max_value;
     template <typename T> struct min_max_value<T, true>
     {
-      T get_min() { return numeric_limits<T>::max(); }
-      // TODO: There is an overflow here: -(-128) != 127.
-      T get_max() { return -get_min(); }
+      T get_min() { return -get_max(); }
+      T get_max() { return numeric_limits<T>::max(); }
     };
     template <typename T> struct min_max_value<T, false>
     {
-      T get_min() { return numeric_limits<T>::max(); }
-      T get_max() { return numeric_limits<T>::min(); }
+      T get_min() { return numeric_limits<T>::min(); }
+      T get_max() { return numeric_limits<T>::max(); }
     };
   }
 
@@ -31,6 +31,8 @@ namespace m2
   template <typename T>
   class Rect
   {
+    enum { IsSigned = numeric_limits<T>::is_signed };
+
     T m_minX, m_minY, m_maxX, m_maxY;
 
   public:
@@ -57,16 +59,21 @@ namespace m2
 
     static Rect GetInfiniteRect()
     {
-      T const tMax = numeric_limits<T>::max();
-      // This works for both ints and floats.
-      T const tMin = min(-tMax, numeric_limits<T>::min());
-      return Rect(tMin, tMin, tMax, tMax);
+      Rect r;
+      r.MakeInfinite();
+      return r;
     }
 
     void MakeEmpty()
     {
-      m_minX = m_minY = impl::min_max_value<T, numeric_limits<T>::is_signed>().get_min();
-      m_maxX = m_maxY = impl::min_max_value<T, numeric_limits<T>::is_signed>().get_max();
+      m_minX = m_minY = impl::min_max_value<T, IsSigned>().get_max();
+      m_maxX = m_maxY = impl::min_max_value<T, IsSigned>().get_min();
+    }
+
+    void MakeInfinite()
+    {
+      m_minX = m_minY = impl::min_max_value<T, IsSigned>().get_min();
+      m_maxX = m_maxY = impl::min_max_value<T, IsSigned>().get_max();
     }
 
     void Add(m2::Point<T> const & p)

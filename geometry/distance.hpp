@@ -2,7 +2,8 @@
 
 #include "../base/base.hpp"
 
-#include <boost/type_traits/is_unsigned.hpp>
+#include "../std/limits.hpp"
+#include "../std/static_assert.hpp"
 
 // Similarly to namespace m2 - 2d math, this is a namespace for nd math.
 namespace mn
@@ -12,7 +13,7 @@ template <typename PointT> class DistanceToLineSquare
 {
 private:
   // we do not support unsigned points!!!
-  STATIC_ASSERT(std::numeric_limits<typename PointT::value_type>::is_signed);
+  STATIC_ASSERT(numeric_limits<typename PointT::value_type>::is_signed);
 
 public:
   DistanceToLineSquare(PointT p0, PointT p1)
