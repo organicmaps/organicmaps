@@ -55,7 +55,7 @@ namespace stats
     set<GeneralInfoKey<TypeTag> > m_byClassifType;
     set<GeneralInfoKey<uint32_t> > m_byPointsCount, m_byTrgCount;
 
-    GeneralInfo m_all;  //, m_names, m_types;
+    GeneralInfo m_inner[3];
 
     template <class TKey, class TSet>
     void AddToSet(TKey key, uint32_t sz, TSet & theSet)

@@ -417,7 +417,17 @@ public:
       ParseHeader2();
   }
 
-  uint32_t GetAllSize() const { return m_Size; }
+  struct inner_geom_stat_t
+  {
+    uint32_t m_Points, m_Strips, m_Size;
+
+    void MakeZero()
+    {
+      m_Points = m_Strips = m_Size = 0;
+    }
+  };
+
+  inner_geom_stat_t GetInnerStatistic() const { return m_InnerStats; }
 
   struct geom_stat_t
   {
@@ -455,7 +465,7 @@ private:
 
   mutable bool m_bHeader2Parsed, m_bPointsParsed, m_bTrianglesParsed;
 
-  mutable uint32_t m_Size;
+  mutable inner_geom_stat_t m_InnerStats;
 
   mutable uint32_t m_ptsSimpMask;
 

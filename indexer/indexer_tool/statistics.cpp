@@ -56,18 +56,19 @@ namespace stats
     {
       f.ParseBeforeStatistic();
 
-      uint32_t const datSize = f.GetAllSize();
-      m_info.m_all.Add(datSize);
-      //m_info.m_names.Add(f.GetNameSize());
-      //m_info.m_types.Add(f.GetTypesSize());
+      FeatureType::inner_geom_stat_t const innerStats = f.GetInnerStatistic();
 
-      FeatureType::geom_stat_t geom = f.GetGeometrySize(-1);
-      FeatureType::geom_stat_t trg = f.GetTrianglesSize(-1);
+      m_info.m_inner[0].Add(innerStats.m_Points);
+      m_info.m_inner[1].Add(innerStats.m_Strips);
+      m_info.m_inner[2].Add(innerStats.m_Size);
+
+      FeatureType::geom_stat_t const geom = f.GetGeometrySize(-1);
+      FeatureType::geom_stat_t const trg = f.GetTrianglesSize(-1);
 
       m_info.AddToSet(geom.m_count, geom.m_size, m_info.m_byPointsCount);
       m_info.AddToSet(trg.m_count / 3, trg.m_size, m_info.m_byTrgCount);
 
-      uint32_t const allSize = datSize + geom.m_size + trg.m_size;
+      uint32_t const allSize = innerStats.m_Size + geom.m_size + trg.m_size;
 
       m_info.AddToSet(f.GetFeatureType(), allSize, m_info.m_byGeomType);
 
@@ -144,9 +145,9 @@ namespace stats
 
   void PrintStatistic(MapInfo & info)
   {
-    PrintInfo("DAT", info.m_all);
-    //PrintInfo("NAMES", info.m_names);
-    //PrintInfo("TYPES", info.m_types);
+    PrintInfo("DAT header", info.m_inner[2]);
+    PrintInfo("Points header", info.m_inner[0]);
+    PrintInfo("Strips header", info.m_inner[1]);
 
     PrintTop<greater_size>("Top SIZE by Geometry Type", info.m_byGeomType);
     PrintTop<greater_size>("Top SIZE by Classificator Type", info.m_byClassifType);

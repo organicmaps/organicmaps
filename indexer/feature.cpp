@@ -364,6 +364,37 @@ namespace
       m_pos += count;
     }
   };
+
+  /// @name Rearrange strips for optimal save size.
+  /// Save in this order: 0, 2, 4, ..., 15, 13, ..., 1
+  //@{
+  void RearrangeStripsSave(vector<m2::PointD> const & src, vector<m2::PointD> & dest)
+  {
+    size_t const count = src.size();
+    dest.resize(count);
+    for (size_t i = 0; i < count; ++i)
+    {
+      if (i & 1)
+        dest[count-1 - (i/2)] = src[i];
+      else
+        dest[i/2] = src[i];
+    }
+  }
+
+  void RearrangeStripsLoad( buffer_vector<m2::PointD, 32> const & src,
+                            buffer_vector<m2::PointD, 32> & dest)
+  {
+    size_t const count = src.size();
+    dest.resize(count);
+    for (size_t i = 0; i < count; ++i)
+    {
+      if (i & 1)
+        dest[i] = src[count-1 - (i/2)];
+      else
+        dest[i] = src[i/2];
+    }
+  }
+  //@}
 }
 
 void FeatureBuilder2::Serialize(buffers_holder_t & data, int64_t base)
@@ -429,7 +460,11 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, int64_t base)
   if (m_bArea)
   {
     if (trgCount > 0)
-      feature::SavePointsSimple(data.m_innerTrg, base, sink);
+    {
+      vector<m2::PointD> toSave;
+      RearrangeStripsSave(data.m_innerTrg, toSave);
+      feature::SavePointsSimple(toSave, base, sink);
+    }
     else
     {
       // offsets was pushed from high scale index to low
@@ -578,7 +613,7 @@ void FeatureType::Deserialize(read_source_t & src)
   m_bHeader2Parsed = m_bPointsParsed = m_bTrianglesParsed = false;
   m_ptsSimpMask = 0;
 
-  m_Size = 0;
+  m_InnerStats.MakeZero();
 
   base_type::Deserialize(src.m_data, src.m_offset, src.m_base);
 }
@@ -770,9 +805,13 @@ void FeatureType::ParseHeader2() const
         m_ptsSimpMask += (mask << (i << 3));
       }
 
+      char const * start = static_cast<char const *>(src.Ptr());
+
       m_InnerPoints.reserve(ptsCount);
       src = ArrayByteSource(ReadVarInt64Array(
         src.Ptr(), ptsCount, MakeBackInsertFunctor(m_InnerPoints)));
+
+      m_InnerStats.m_Points = static_cast<char const *>(src.Ptr()) - start;
     }
     else
       ReadOffsets(src, ptsMask, m_ptsOffsets);
@@ -784,8 +823,13 @@ void FeatureType::ParseHeader2() const
     {
       trgCount += 2;
 
-      points_t points;
-      ReadInnerPoints(src, points, trgCount);
+      char const * start = static_cast<char const *>(src.Ptr());
+
+      points_t toLoad, points;
+      ReadInnerPoints(src, toLoad, trgCount);
+      RearrangeStripsLoad(toLoad, points);
+
+      m_InnerStats.m_Strips = static_cast<char const *>(src.Ptr()) - start;
 
       for (uint8_t i = 2; i < trgCount; ++i)
       {
@@ -799,7 +843,7 @@ void FeatureType::ParseHeader2() const
   }
 
   m_bHeader2Parsed = true;
-  m_Size = static_cast<char const *>(src.Ptr()) - DataPtr();
+  m_InnerStats.m_Size = static_cast<char const *>(src.Ptr()) - DataPtr();
 }
 
 uint32_t FeatureType::ParseGeometry(int scale) const
