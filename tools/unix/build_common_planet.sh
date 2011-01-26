@@ -10,8 +10,6 @@ set -e -u -x
 # global params
 LIGHT_NODES=false
 PROCESSORS=4
-DATA_PATH=../../data
-
 
 # displays usage and exits
 function Usage {
@@ -41,6 +39,7 @@ if [ $# -lt 2 ]; then
   Usage
 fi
 
+DATA_PATH=$1
 BUCKETING_LEVEL=$2
 
 # set up necessary Windows MinGW settings
@@ -77,7 +76,7 @@ if [[ ! -n $INDEXER_TOOL ]]; then
   Usage
 fi
 
-OSM_BZ2=$1/planet.osm.bz2
+OSM_BZ2=$DATA_PATH/planet.osm.bz2
 
 if ! [ -f $OSM_BZ2 ]; then
   echo "Can't open file $OSM_BZ2, did you forgot to specify dataDir?"
@@ -85,7 +84,7 @@ if ! [ -f $OSM_BZ2 ]; then
   Usage
 fi
 
-TMPDIR=$1/intermediate_data/
+TMPDIR=$DATA_PATH/intermediate_data/
 
 if [ $# -ge 3 ]; then
   TMPDIR=$3/
@@ -118,7 +117,8 @@ fi
 # 2nd pass - not paralleled
 $PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
   --use_light_nodes=$LIGHT_NODES --bucketing_level=$BUCKETING_LEVEL \
-  --generate_features --worldmap_max_zoom=5 --world_only=$WORLD_ONLY
+  --generate_features --worldmap_max_zoom=5 --world_only=$WORLD_ONLY \
+  --data_path=$DATA_PATH
 
 # 3rd pass - do in parallel
 for file in $DATA_PATH/*.mwm; do
@@ -126,7 +126,7 @@ for file in $DATA_PATH/*.mwm; do
     filename=$(basename $file)
     extension=${filename##*.}
     filename=${filename%.*}
-    $INDEXER_TOOL --generate_geometry --sort_features --generate_index --output=$filename &
+    $INDEXER_TOOL --data_path=$DATA_PATH --generate_geometry --sort_features --generate_index --output=$filename &
     forky $PROCESSORS
   fi
 done
