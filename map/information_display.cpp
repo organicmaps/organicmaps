@@ -19,6 +19,7 @@ InformationDisplay::InformationDisplay()
   enableRuler(false);
   enableCenter(false);
   enableDebugInfo(false);
+  enableMemoryWarning(false);
 
   for (int i = 0; i < sizeof(m_DebugPts) / sizeof(m2::PointD); ++i)
     m_DebugPts[i] = m2::PointD(0, 0);
@@ -322,6 +323,39 @@ void InformationDisplay::drawDebugInfo(DrawerYG * drawer)
                              false);
 }
 
+void InformationDisplay::enableMemoryWarning(bool flag)
+{
+  m_isMemoryWarningEnabled = flag;
+}
+
+void InformationDisplay::memoryWarning()
+{
+  enableMemoryWarning(true);
+  m_lastMemoryWarning = my::Timer();
+}
+
+void InformationDisplay::drawMemoryWarning(DrawerYG * drawer)
+{
+  m2::PointD pos(m_displayRect.minX() + 10, m_displayRect.minY() + 20);
+  if (m_isDebugInfoEnabled)
+    pos += m2::PointD(0, 30);
+  if (m_isCenterEnabled)
+    pos += m2::PointD(0, 30);
+
+  ostringstream out;
+  out << "MemoryWarning : " << m_lastMemoryWarning.ElapsedSeconds() << " sec. ago.";
+
+  drawer->screen()->drawText(pos,
+                             0, 10,
+                             out.str().c_str(),
+                             yg::maxDepth,
+                             true,
+                             false);
+
+  if (m_lastMemoryWarning.ElapsedSeconds() > 5)
+    enableMemoryWarning(false);
+}
+
 void InformationDisplay::doDraw(DrawerYG *drawer)
 {
   if (m_isHeadingEnabled)
@@ -336,4 +370,6 @@ void InformationDisplay::doDraw(DrawerYG *drawer)
     drawCenter(drawer);
   if (m_isDebugInfoEnabled)
     drawDebugInfo(drawer);
+  if (m_isMemoryWarningEnabled)
+    drawMemoryWarning(drawer);
 }

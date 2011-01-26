@@ -370,6 +370,11 @@ public:
     UpdateNow();
   }
 
+  void MemoryWarning()
+  {
+    m_informationDisplay.memoryWarning();
+  }
+
   void CenterViewport()
   {
     m_navigator.CenterViewport(m_informationDisplay.position());

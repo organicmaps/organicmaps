@@ -255,6 +255,9 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
 	
+	m_framework->MemoryWarning();
+	m_framework->Repaint();
+	
 	// Release any cached data, images, etc that aren't in use.
 }
 

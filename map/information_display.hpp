@@ -3,6 +3,7 @@
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"
+#include "../base/timer.hpp"
 
 class DrawerYG;
 
@@ -43,6 +44,9 @@ private:
   double m_bottomShift;
   double m_visualScale;
 
+  my::Timer m_lastMemoryWarning;
+  bool m_isMemoryWarningEnabled;
+
 public:
 
   InformationDisplay();
@@ -76,6 +80,10 @@ public:
   void enableDebugInfo(bool doEnable);
   void setDebugInfo(double frameDuration, int currentScale);
   void drawDebugInfo(DrawerYG * pDrawer);
+
+  void enableMemoryWarning(bool doEnable);
+  void memoryWarning();
+  void drawMemoryWarning(DrawerYG * pDrawer);
 
   void doDraw(DrawerYG * drawer);
 };
