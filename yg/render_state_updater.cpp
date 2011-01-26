@@ -100,7 +100,7 @@ namespace yg
 
     void RenderStateUpdater::endFrame()
     {
-      if (m_indicesCount && m_renderState)
+      if (m_renderState)
         updateActualTarget();
       base_t::endFrame();
     }

@@ -80,18 +80,22 @@ void RenderQueueRoutine::processResize(ScreenBase const & /*frameScreen*/)
     m_renderState->m_actualTarget.reset();
     m_renderState->m_actualTarget = make_shared_ptr(new yg::gl::RawRGBA8Texture(texW, texH));
 
-    m_threadDrawer->screen()->setRenderTarget(m_renderState->m_actualTarget);
-    m_threadDrawer->screen()->beginFrame();
-    m_threadDrawer->screen()->clear();
-    m_threadDrawer->screen()->endFrame();
+    m_auxScreen->onSize(texW, texH);
+    m_auxScreen->setRenderTarget(m_renderState->m_actualTarget);
+    m_auxScreen->beginFrame();
+    m_auxScreen->clear();
+    m_auxScreen->endFrame();
+//    m_renderState->m_actualTarget->fill(yg::Color(192, 192, 192, 255));
 
     for (size_t i = 0; i < m_renderState->m_backBufferLayers.size(); ++i)
     {
-      m_threadDrawer->screen()->setRenderTarget(m_renderState->m_backBufferLayers[i]);
-      m_threadDrawer->screen()->beginFrame();
-      m_threadDrawer->screen()->clear();
-      m_threadDrawer->screen()->endFrame();
+      m_auxScreen->setRenderTarget(m_renderState->m_backBufferLayers[i]);
+      m_auxScreen->beginFrame();
+      m_auxScreen->clear();
+      m_auxScreen->endFrame();
     }
+
+//      m_renderState->m_backBufferLayers[i]->fill(yg::Color(192, 192, 192, 255));
 
     m_renderState->m_doRepaintAll = true;
 
@@ -105,12 +109,12 @@ void RenderQueueRoutine::getUpdateAreas(vector<m2::RectI> & areas)
   size_t w = m_renderState->m_textureWidth;
   size_t h = m_renderState->m_textureHeight;
 
-/*  if (m_renderState->m_doRepaintAll)
+  if (m_renderState->m_doRepaintAll)
   {
     m_renderState->m_doRepaintAll = false;
     areas.push_back(m2::RectI(0, 0, w, h));
     return;
-  }*/
+  }
 
   if (m_renderState->isPanning())
   {
@@ -220,6 +224,12 @@ void RenderQueueRoutine::Do()
   params.m_doPeriodicalUpdate = m_doPeriodicalUpdate;
 
   m_threadDrawer = make_shared_ptr(new DrawerYG(m_skinName, params));
+
+  yg::gl::Screen::Params auxParams;
+  auxParams.m_frameBuffer = m_frameBuffer;
+
+  m_auxScreen = make_shared_ptr(new yg::gl::Screen(auxParams));
+
   CHECK(m_visualScale != 0, ("Set the VisualScale first!"));
   m_threadDrawer->SetVisualScale(m_visualScale);
 

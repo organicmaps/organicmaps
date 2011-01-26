@@ -31,6 +31,7 @@ namespace yg
     class BaseTexture;
     class RenderState;
     class RenderState;
+    class Screen;
   }
 }
 
@@ -57,6 +58,7 @@ private:
   shared_ptr<yg::gl::RenderContext> m_renderContext;
   shared_ptr<yg::gl::FrameBuffer> m_frameBuffer;
   shared_ptr<DrawerYG> m_threadDrawer;
+  shared_ptr<yg::gl::Screen> m_auxScreen;
 
   threads::Condition m_hasRenderCommands;
   shared_ptr<RenderModelCommand> m_currentRenderCommand;

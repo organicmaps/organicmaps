@@ -95,9 +95,9 @@ namespace yg
         OGLCHECK(glResolveMultisampleFramebufferAPPLE());
         OGLCHECK(glBindFramebufferOES(GL_DRAW_FRAMEBUFFER_APPLE, m_multiSampledFrameBuffer->id()));
 
+
 #else
         /// Somehow this does the trick with the "trash-texture" upon first application redraw.
-        m_multiSampledFrameBuffer->makeCurrent();
 
         OGLCHECK(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_multiSampledFrameBuffer->id()));
         OGLCHECK(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_frameBuffer->id()));
@@ -108,6 +108,7 @@ namespace yg
         OGLCHECK(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_multiSampledFrameBuffer->id()));
 
 #endif
+//        m_multiSampledFrameBuffer->makeCurrent();
         OGLCHECK(glFinish());
       }
     }
