@@ -1,4 +1,5 @@
 #pragma once
+#include "base.hpp"
 
 #include "../std/target_os.hpp"
 
