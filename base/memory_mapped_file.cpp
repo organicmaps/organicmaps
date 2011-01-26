@@ -1,10 +1,6 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "memory_mapped_file.hpp"
 
-#ifdef OMIM_OS_WINDOWS
-  #include "../coding/internal/file64_api.hpp"
-#else
+#ifndef OMIM_OS_WINDOWS
   #include <sys/mman.h>
   #include <sys/errno.h>
   #include <sys/stat.h>
@@ -21,7 +17,7 @@ MemoryMappedFile::MemoryMappedFile(char const * fileName, bool isReadOnly)
   m_size = ftell(m_fp);
   fseek(m_fp, 0, SEEK_SET);
 
-  m_data = malloc(m_size);
+  m_data = reinterpret_cast<void *>(new char[m_size]);
   fread(m_data, 1, m_size, m_fp);
 #else
   struct stat s;
@@ -40,7 +36,7 @@ MemoryMappedFile::~MemoryMappedFile()
     fwrite(m_data, 1, m_size, m_fp);
   }
   fclose(m_fp);
-  free(m_data);
+  delete[] reinterpret_cast<char *>(m_data);
 #else
   munmap(m_data, m_size);
   close(m_fd);

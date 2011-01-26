@@ -4,6 +4,7 @@
 
 #ifdef OMIM_OS_WINDOWS
   #include "../std/windows.hpp"
+  #include "../std/stdio.hpp"
 #endif
 
 class MemoryMappedFile
