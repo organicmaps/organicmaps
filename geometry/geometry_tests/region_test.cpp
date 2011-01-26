@@ -90,7 +90,7 @@ void TestContaints()
     P const data[] = {P(0, 0), P(2, 0), P(2, 2) };
     region.Assign(data, data + ARRAY_SIZE(data));
   }
-  TEST_EQUAL(region.Rect(), m2::Rect<typename P::value_type>(0, 0, 2, 2), ());
+  TEST_EQUAL(region.GetRect(), m2::Rect<typename P::value_type>(0, 0, 2, 2), ());
   TEST(region.Contains(P(2, 0)), ());
   TEST(region.Contains(P(1, 1)), ("point on diagonal"));
   TEST(!region.Contains(P(33, 0)), ());
@@ -104,7 +104,7 @@ void TestContaints()
         P(2, 7), P(3, 6), P(4, 4), P(0, 7), P(2, 3), P(0, 2) };
     region.Assign(data, data + ARRAY_SIZE(data));
   }
-  TEST_EQUAL(region.Rect(), m2::Rect<typename P::value_type>(0, 0, 8, 9), ());
+  TEST_EQUAL(region.GetRect(), m2::Rect<typename P::value_type>(0, 0, 8, 9), ());
   TEST(region.Contains(P(0, 0)), ());
   TEST(region.Contains(P(3, 7)), ());
   TEST(region.Contains(P(1, 2)), ());
@@ -149,7 +149,7 @@ UNIT_TEST(Region_Contains)
     P const data[] = { P(1, -1), P(-2, -2), P(-3, 1) };
     region.Assign(data, data + ARRAY_SIZE(data));
 
-    TEST_EQUAL(region.Rect(), m2::Rect<P::value_type>(-3, -2, 1, 1), ());
+    TEST_EQUAL(region.GetRect(), m2::Rect<P::value_type>(-3, -2, 1, 1), ());
 
     TEST(region.Contains(P(-2, -2)), ());
     TEST(region.Contains(P(-2, 0)), ());
@@ -162,7 +162,7 @@ UNIT_TEST(Region_Contains)
     P const data[] = { P(1, -1), P(3, 0), P(3, 3), P(0, 3), P(0, 2), P(0, 1), P(2, 2) };
     region.Assign(data, data + ARRAY_SIZE(data));
 
-    TEST_EQUAL(region.Rect(), m2::Rect<P::value_type>(0, -1, 3, 3), ());
+    TEST_EQUAL(region.GetRect(), m2::Rect<P::value_type>(0, -1, 3, 3), ());
 
     TEST(region.Contains(P(2, 2)), ());
     TEST(region.Contains(P(1, 3)), ());

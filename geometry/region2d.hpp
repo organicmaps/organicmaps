@@ -58,7 +58,7 @@ namespace m2
       for_each(m_points.begin(), m_points.end(), toDo);
     }
 
-    m2::Rect<coord_type> Rect() const { return m_rect; }
+    m2::Rect<coord_type> GetRect() const { return m_rect; }
 
     bool IsValid() const { return m_points.size() > 2; }
 
