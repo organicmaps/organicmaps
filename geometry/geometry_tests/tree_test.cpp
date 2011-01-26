@@ -29,6 +29,12 @@ UNIT_TEST(Tree4D_Smoke)
   theTree.ForEach(MakeBackInsertFunctor(test));
   TEST_EQUAL(3, test.size(), ());
 
+  test.clear();
+  m2::RectD const searchR(1.5, 1.5, 1.5, 1.5);
+  theTree.ForEachInRect(searchR, MakeBackInsertFunctor(test));
+  TEST_EQUAL(1, test.size(), ());
+  TEST_EQUAL(test[0], arr[1], ());
+
   m2::RectD const replaceR(0.5, 0.5, 2.5, 2.5);
   theTree.ReplaceIf(replaceR, replaceR, &compare_true);
 
@@ -36,9 +42,13 @@ UNIT_TEST(Tree4D_Smoke)
   theTree.ForEach(MakeBackInsertFunctor(test));
   TEST_EQUAL(1, test.size(), ());
   TEST_EQUAL(test[0], replaceR, ());
+
+  test.clear();
+  theTree.ForEachInRect(searchR, MakeBackInsertFunctor(test));
+  TEST_EQUAL(1, test.size(), ());
 }
 
-UNIT_TEST(Tree4D_DrawTexts)
+UNIT_TEST(Tree4D_ReplaceIf)
 {
   tree_t theTree;
 

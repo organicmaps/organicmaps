@@ -42,21 +42,15 @@ namespace m4
 
     typedef vector<value_t const *> store_vec_t;
 
-    class insert_if_intersect
+    // Base do-class for rect-iteration in tree.
+    class for_each_base
     {
-      store_vec_t & m_isect;
+    protected:
       m2::RectD const & m_rect;
 
     public:
-      insert_if_intersect(store_vec_t & isect, m2::RectD const & r)
-        : m_isect(isect), m_rect(r)
+      for_each_base(m2::RectD const & r) : m_rect(r)
       {
-      }
-
-      void operator() (value_t const & v)
-      {
-        if (v.IsIntersect(m_rect))
-          m_isect.push_back(&v);
       }
 
       bool ScanLeft(size_t plane, value_t const & v) const
@@ -80,7 +74,49 @@ namespace m4
       }
     };
 
+    // Do-class for getting elements in rect.
+    class insert_if_intersect : public for_each_base
+    {
+      typedef for_each_base base_t;
+
+      store_vec_t & m_isect;
+
+    public:
+      insert_if_intersect(store_vec_t & isect, m2::RectD const & r)
+        : for_each_base(r), m_isect(isect)
+      {
+      }
+      void operator() (value_t const & v)
+      {
+        if (v.IsIntersect(base_t::m_rect))
+          m_isect.push_back(&v);
+      }
+    };
+
+    // Do-class for processing elements in rect.
+    template <class ToDo> class for_each_in_rect : public for_each_base
+    {
+      typedef for_each_base base_t;
+
+      ToDo & m_toDo;
+    public:
+      for_each_in_rect(ToDo & toDo, m2::RectD const & rect)
+        : for_each_base(rect), m_toDo(toDo)
+      {
+      }
+      void operator() (value_t const & v)
+      {
+        if (v.IsIntersect(base_t::m_rect))
+          m_toDo(v.m_val);
+      }
+    };
+
   public:
+
+    void Add(T const & obj, m2::RectD const & rect)
+    {
+      m_tree.insert(value_t(obj, rect));
+    }
 
     template <class TCompare>
     void ReplaceIf(T const & obj, m2::RectD const & rect, TCompare comp)
@@ -95,7 +131,7 @@ namespace m4
       for (typename store_vec_t::const_iterator i = isect.begin(); i != isect.end(); ++i)
         m_tree.erase(**i);
 
-      m_tree.insert(value_t(obj, rect));
+      Add(obj, rect);
     }
 
     template <class TCompare>
@@ -110,6 +146,14 @@ namespace m4
       for (typename tree_t::const_iterator i = m_tree.begin(); i != m_tree.end(); ++i)
         toDo((*i).m_val);
     }
+
+    template <class ToDo>
+    void ForEachInRect(m2::RectD const & rect, ToDo toDo) const
+    {
+      m_tree.for_each(for_each_in_rect<ToDo>(toDo, rect));
+    }
+
+    bool IsEmpty() const { return m_tree.empty(); }
 
     size_t GetSize() const { return m_tree.size(); }
 
