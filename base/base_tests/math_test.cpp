@@ -45,9 +45,21 @@ UNIT_TEST(AlmostEqual_Smoke)
   TEST_ALMOST_EQUAL(+0.0, -0.0, ());
 
   double const eps = numeric_limits<double>::epsilon();
+  double const dmax = numeric_limits<double>::max();
+
   TEST_ALMOST_EQUAL(1.0 + eps, 1.0, ());
   TEST_ALMOST_EQUAL(1.0 - eps, 1.0, ());
   TEST_ALMOST_EQUAL(1.0 - eps, 1.0 + eps, ());
+
+  TEST_ALMOST_EQUAL(dmax, dmax, ());
+  TEST_ALMOST_EQUAL(-dmax, -dmax, ());
+  TEST_ALMOST_EQUAL(dmax/2.0, dmax/2.0, ());
+  TEST_ALMOST_EQUAL(1.0/dmax, 1.0/dmax, ());
+  TEST_ALMOST_EQUAL(-1.0/dmax, -1.0/dmax, ());
+
+  TEST(!my::AlmostEqual(1.0, -1.0), ());
+  TEST(!my::AlmostEqual(2.0, -2.0), ());
+  TEST(!my::AlmostEqual(dmax, -dmax), ());
 }
 
 namespace

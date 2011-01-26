@@ -1,9 +1,11 @@
 #pragma once
-#include "../base/assert.hpp"
 #include "../base/base.hpp"
+#include "../base/assert.hpp"
+
 #include "../std/cmath.hpp"
 #include "../std/limits.hpp"
 #include "../std/type_traits.hpp"
+
 #include <boost/integer.hpp>
 
 namespace my
@@ -20,25 +22,28 @@ template <typename FloatT> bool AlmostEqual(FloatT x, FloatT y, unsigned int max
   STATIC_ASSERT(numeric_limits<FloatT>::is_iec559);
   STATIC_ASSERT(!numeric_limits<FloatT>::is_exact);
   STATIC_ASSERT(!numeric_limits<FloatT>::is_integer);
+
   // Make sure maxUlps is non-negative and small enough that the
   // default NAN won't compare as equal to anything.
   ASSERT_LESS(maxULPs, 4 * 1024 * 1024, ());
 
-  typedef typename boost::int_t<8 * sizeof(FloatT)>::exact IntType;
+  int const bits = 8 * sizeof(FloatT);
+  typedef typename boost::int_t<bits>::exact IntType;
+  typedef typename boost::uint_t<bits>::exact UIntType;
 
   IntType xInt = *reinterpret_cast<IntType const *>(&x);
   IntType yInt = *reinterpret_cast<IntType const *>(&y);
 
   // Make xInt and yInt lexicographically ordered as a twos-complement int
-  IntType const highestBit = IntType(1) << (sizeof(FloatT) * 8 - 1);
+  IntType const highestBit = IntType(1) << (bits - 1);
   if (xInt < 0)
     xInt = highestBit - xInt;
   if (yInt < 0)
     yInt = highestBit - yInt;
 
-  IntType const diff = Abs(xInt - yInt);
+  UIntType const diff = Abs(xInt - yInt);
 
-  return diff <= static_cast<IntType>(maxULPs);
+  return (diff <= maxULPs);
 }
 
 template <typename TFloat> inline TFloat DegToRad(TFloat deg)
@@ -72,7 +77,7 @@ template <typename T, typename TMinMax> inline T clamp(T x, TMinMax xmin, TMinMa
 
 template <typename T> inline T Abs(T x)
 {
-  return x >= 0 ? x : -x;
+  return (x < 0 ? -x : x);
 }
 
 template <typename T> inline bool between_s(T a, T b, T x)
