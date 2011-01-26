@@ -93,7 +93,8 @@ namespace yg
     void callOverflowFns(uint8_t pageID);
 
     void clearPageHandles(uint8_t pageID);
-//    void onOverflow(uint8_t pageID);
+    void onDynamicOverflow(uint8_t pageID);
+    void onTextOverflow(uint8_t pageID);
 
     void changeCurrentDynamicPage();
     void changeCurrentTextPage();
