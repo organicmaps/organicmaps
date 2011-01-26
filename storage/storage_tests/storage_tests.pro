@@ -10,6 +10,10 @@ DEPENDENCIES = storage indexer geometry platform coding base
 
 include($$ROOT_DIR/common.pri)
 
+win32 {
+  LIBS += -lshell32
+}
+
 QT += core
 
 HEADERS +=
