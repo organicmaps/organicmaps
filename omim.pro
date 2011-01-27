@@ -13,9 +13,9 @@ SUBDIRS = 3party \
           geometry \
           indexer \
           geometry/geometry_tests \
+          version \
           platform platform/platform_tests \
           yg \
-          version \
           storage storage/storage_tests \
           map \
           map/map_tests \

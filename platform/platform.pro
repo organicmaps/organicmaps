@@ -5,7 +5,7 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 ROOT_DIR = ..
-DEPENDENCIES = base
+DEPENDENCIES = base version
 
 include($$ROOT_DIR/common.pri)
 

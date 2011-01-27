@@ -4,8 +4,75 @@
 #include "../base/logging.hpp"
 #include "../base/assert.hpp"
 
+#include "../version/version.hpp"
+
+#include "../std/target_os.hpp"
+
+#include <QNetworkInterface>
+#include <QFSFileEngine>
+#include <QDateTime>
+
 // How many times we try to automatically reconnect in the case of network errors
 #define MAX_AUTOMATIC_RETRIES 2
+
+/// @return mac address of active interface without colons or empty string if not found
+/// @note mac is converted to decimal from hex
+static QString MacAddress()
+{
+  QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
+  for (int i = 0; i < interfaces.size(); ++i)
+  {
+    QNetworkInterface const & iface = interfaces.at(i);
+    QString hwAddr = iface.hardwareAddress();
+    if (!iface.addressEntries().empty()
+      && (iface.flags() & (QNetworkInterface::IsUp | QNetworkInterface::IsRunning
+                           | QNetworkInterface::CanBroadcast | QNetworkInterface::CanMulticast))
+         == iface.flags()
+      && hwAddr.size() == 17) // mac length with semicolons
+    {
+      hwAddr.remove(':');
+      bool success = false;
+      qulonglong numAddr = hwAddr.toULongLong(&success, 16);
+      if (success)
+        return QString("%1").arg(numAddr);
+    }
+  }
+  // no valid interface was found
+  return QString();
+}
+
+/// @return creation time of the root file system or empty string
+static QString FsCreationTime()
+{
+  QFileInfoList drives = QFSFileEngine::drives();
+  for (int i = 0; i < drives.size(); ++i)
+  {
+    QFileInfo const & info = drives.at(i);
+    QString const path = info.absolutePath();
+    if (path == "/" || path.startsWith("C:"))
+      return QString("%1").arg(info.created().toTime_t());
+  }
+  return QString();
+}
+
+static QString UniqueClientId()
+{
+  QString result = MacAddress();
+  if (result.size() == 0)
+  {
+    result = FsCreationTime();
+    if (result.size() == 0)
+      result = QString("------------");
+  }
+  return result;
+}
+
+static QString UserAgent()
+{
+  static QString userAgent = QString("MWM(" OMIM_OS_NAME ")/") + QString(VERSION_STRING)
+                             + QString("/") + UniqueClientId();
+  return userAgent;
+}
 
 QtDownload::QtDownload(QtDownloadManager & manager, char const * url,
   char const * fileName, TDownloadFinishedFunction & finish,
@@ -63,6 +130,8 @@ void QtDownload::StartDownload(QtDownloadManager & manager, char const * url,
 void QtDownload::StartRequest()
 {
   QNetworkRequest httpRequest(m_currentUrl);
+  // set user-agent with unique client id
+  httpRequest.setRawHeader("User-Agent", UserAgent().toAscii());
   qint64 fileSize = m_file->size();
   if (fileSize > 0) // need resume
     httpRequest.setRawHeader("Range", QString("bytes=%1-").arg(fileSize).toAscii());
