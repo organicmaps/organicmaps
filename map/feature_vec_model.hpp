@@ -32,6 +32,8 @@ namespace model
     index_t m_multiIndex;
 
   public:
+    FeaturesFetcher();
+
     void InitClassificator();
 
     void AddMap(string const & fName);

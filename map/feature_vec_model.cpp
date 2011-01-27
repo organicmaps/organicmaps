@@ -18,6 +18,11 @@
 namespace model
 {
 
+FeaturesFetcher::FeaturesFetcher()
+{
+  Clean();
+}
+
 void FeaturesFetcher::InitClassificator()
 {
   Platform & p = GetPlatform();
@@ -52,7 +57,11 @@ void FeaturesFetcher::RemoveMap(string const & fName)
 
 void FeaturesFetcher::Clean()
 {
-  m_rect.MakeEmpty();
+  m_rect = m2::RectD(MercatorBounds::minX,
+                     MercatorBounds::minY,
+                     MercatorBounds::maxX,
+                     MercatorBounds::maxY);
+//  m_rect.MakeEmpty();
   m_multiIndex.Clean();
 }
 
