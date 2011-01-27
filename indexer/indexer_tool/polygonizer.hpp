@@ -22,6 +22,8 @@ namespace feature
   template <class FeatureOutT, class BoundsT, typename CellIdT>
   class Polygonizer
   {
+    typedef CellIdConverter<BoundsT, RectId> CellIdConverterType;
+
   public:
     template <class TInfo>
     Polygonizer(TInfo & info)
@@ -41,10 +43,14 @@ namespace feature
       for_each(m_Buckets.begin(), m_Buckets.end(), DeleteFunctor());
     }
 
+    static m2::PointU Mercator2CellId(m2::PointD const & pt)
+    {
+      return m2::PointU(static_cast<uint32_t>(CellIdConverterType::XToCellIdX(pt.x)),
+                        static_cast<uint32_t>(CellIdConverterType::YToCellIdY(pt.y)));
+    }
+
     struct PointChecker
     {
-      typedef CellIdConverter<BoundsT, RectId> CellIdConverterType;
-
       kml::RegionsContainerT const & m_regions;
       bool m_belongs;
 
@@ -53,9 +59,7 @@ namespace feature
 
       bool operator()(m2::PointD const & pt)
       {
-        kml::Region::value_type const point(
-              static_cast<uint32_t>(CellIdConverterType::XToCellIdX(pt.x)),
-              static_cast<uint32_t>(CellIdConverterType::YToCellIdY(pt.y)));
+        kml::Region::value_type const point = Mercator2CellId(pt);
 
         m_regions.ForEachInRect(m2::RectD(point, point), bind<void>(ref(*this), _1, cref(point)));
 
@@ -71,7 +75,10 @@ namespace feature
 
     void operator () (FeatureBuilder1 const & fb)
     {
-      m_countries.ForEachInRect(fb.GetLimitRect(), bind<void>(ref(*this), _1, cref(fb)));
+      m2::RectD const r = fb.GetLimitRect();
+      m_countries.ForEachInRect(
+          m2::RectD(Mercator2CellId(r.LeftBottom()), Mercator2CellId(r.RightTop())),
+          bind<void>(ref(*this), _1, cref(fb)));
     }
 
     void operator() (kml::CountryPolygons const & country, FeatureBuilder1 const & fb)
