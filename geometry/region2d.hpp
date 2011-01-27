@@ -15,6 +15,38 @@ namespace m2
     template <int floating> struct BigType;
     template <> struct BigType<0> { typedef int64_t type; };
     template <> struct BigType<1> { typedef double type; };
+
+    struct DefEqualFloat
+    {
+      template <class PointT>
+      bool EqualPoints(PointT const & p1, PointT const & p2) const
+      {
+        return m2::AlmostEqual(p1, p2);
+      }
+      template <class CoordT>
+      bool EqualZero(CoordT val, CoordT exp) const
+      {
+        return my::AlmostEqual(val + exp, exp);
+      }
+    };
+
+    struct DefEqualInt
+    {
+      template <class PointT>
+      bool EqualPoints(PointT const & p1, PointT const & p2) const
+      {
+        return p1 == p2;
+      }
+      template <class CoordT>
+      bool EqualZero(CoordT val, CoordT) const
+      {
+        return val == 0;
+      }
+    };
+
+    template <int floating> struct EqualSelector;
+    template <> struct EqualSelector<1> { typedef DefEqualFloat type; };
+    template <> struct EqualSelector<0> { typedef DefEqualInt type; };
   }
 
   template <class PointT>
@@ -64,7 +96,8 @@ namespace m2
 
   public:
     /// Taken from Computational Geometry in C and modified
-    bool Contains(PointT const & pt) const
+    template <class EqualF>
+    bool Contains(PointT const & pt, EqualF equalF) const
     {
       if (!m_rect.IsPointInside(pt))
         return false;
@@ -80,7 +113,7 @@ namespace m2
       BigPointT prev = BigPointT(m_points[numPoints - 1]) - BigPointT(pt);
       for (size_t i = 0; i < numPoints; ++i)
       {
-        if (m_points[i] == pt)
+        if (equalF.EqualPoints(m_points[i], pt))
           return true;
 
         BigPointT const curr = BigPointT(m_points[i]) - BigPointT(pt);
@@ -90,11 +123,14 @@ namespace m2
 
         if (rCheck || lCheck)
         {
+          ASSERT_NOT_EQUAL ( curr.y, prev.y, () );
+
+          BigCoordT const delta = prev.y - curr.y;
           BigCoordT cp = CrossProduct(curr, prev);
-          if (cp != 0)
+
+          if (!equalF.EqualZero(cp, delta))
           {
-            ASSERT_NOT_EQUAL ( curr.y, prev.y, () );
-            bool const PrevGreaterCurr = (prev.y > curr.y);
+            bool const PrevGreaterCurr = delta > 0.0;
 
             if (rCheck && (cp > 0 == PrevGreaterCurr)) ++rCross;
             if (lCheck && (cp > 0 != PrevGreaterCurr)) ++lCross;
@@ -113,6 +149,11 @@ namespace m2
         return true;  // inside
       else
         return false; // outside
+    }
+
+    bool Contains(PointT const & pt) const
+    {
+      return Contains(pt, typename detail::EqualSelector<is_floating_point<coord_type>::value>::type());
     }
 
   private:
