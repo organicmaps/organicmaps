@@ -18,7 +18,7 @@
 #define BORDERS_DIR "borders/"
 #define BORDERS_EXTENSION ".kml"
 
-#define MIN_SIMPLIFIED_POINTS_COUNT 10
+#define MIN_SIMPLIFIED_POINTS_COUNT 4
 
 namespace kml
 {
@@ -29,6 +29,7 @@ namespace kml
     vector<string> m_tags;
     /// buffer for text with points
     string m_data;
+    string m_name;
 
     PolygonsContainerT & m_country;
     int m_level;
@@ -106,9 +107,6 @@ namespace kml
         size_t const numPoints = points.size();
         if (numPoints > 3 && points[numPoints - 1] == points[0])
         {
-          // remove last point which is equal to first
-          points.pop_back();
-
           // second, simplify points if necessary
           if (m_level > 0)
           {
@@ -116,18 +114,22 @@ namespace kml
             feature::SimplifyPoints(points, simplifiedPoints, m_level);
             if (simplifiedPoints.size() > MIN_SIMPLIFIED_POINTS_COUNT)
             {
-              //LOG_SHORT(LINFO, (m_country.m_name, numPoints, "simplified to ", simplifiedPoints.size()));
+              LOG_SHORT(LINFO, (m_name, numPoints, "simplified to ", simplifiedPoints.size()));
               points.swap(simplifiedPoints);
+            }
+            else
+            {
+              LOG_SHORT(LINFO, (m_name, numPoints, "NOT simplified"));
             }
           }
 
-          // third, convert mercator doubles to uint points
-          if (!points.empty())
-          {
-            m_country.push_back(Region());
-            for (MercPointsContainerT::iterator it = points.begin(); it != points.end(); ++it)
-              m_country.back().AddPoint(*it);
-          }
+          // remove last point which is equal to first
+          // it's not needed for Region::Contains
+          points.pop_back();
+
+          m_country.push_back(Region());
+          for (MercPointsContainerT::iterator it = points.begin(); it != points.end(); ++it)
+            m_country.back().AddPoint(*it);
         }
         else
         {
@@ -157,7 +159,7 @@ namespace kml
 
     if (size > 1 && m_tags[size - 1] == "name" && m_tags[size - 2] == "Placemark")
     {
-      //m_country.m_name = data;
+      m_name = data;
     }
     else if (size > 4 && m_tags[size - 1] == "coordinates"
         && m_tags[size - 2] == "LinearRing" && m_tags[size - 4] == "Polygon")
