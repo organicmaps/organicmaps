@@ -52,7 +52,8 @@ static char const * sRequiredResourcesList[] =
   "basic_highres.skn",
   "visibility.txt",
   "symbols_24.png",
-  "symbols_48.png"
+  "symbols_48.png"//,
+  //"countries.txt"
 };
 
 #ifdef OMIM_OS_MAC
