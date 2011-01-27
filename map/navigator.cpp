@@ -155,8 +155,12 @@ void Navigator::ScaleToPoint(m2::PointD const & pt, double factor, double /*time
 void Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2, m2::PointD const & oldPt1, m2::PointD const & oldPt2)
 {
   math::Matrix<double, 3, 3> newM = m_Screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1, oldPt2, newPt1, newPt2);
-  m_Screen.SetGtoPMatrix(newM);
-  m_Screen.Rotate(m_Screen.GetAngle());
+  ScreenBase TmpScreen = m_Screen;
+  TmpScreen.SetGtoPMatrix(newM);
+  TmpScreen.Rotate(TmpScreen.GetAngle());
+  if ((TmpScreen.GlobalRect().SizeX() <= (MercatorBounds::maxX - MercatorBounds::minX))
+    || ((TmpScreen.GlobalRect().SizeY() <= (MercatorBounds::maxY - MercatorBounds::minY))))
+    m_Screen = TmpScreen;
 }
 
 void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double /*timeInSec*/)
