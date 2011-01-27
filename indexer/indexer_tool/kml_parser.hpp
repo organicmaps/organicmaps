@@ -8,7 +8,7 @@
 
 namespace kml
 {
-  typedef m2::RegionU Region;
+  typedef m2::RegionD Region;
   typedef m4::Tree<Region> RegionsContainerT;
 
   struct CountryPolygons
