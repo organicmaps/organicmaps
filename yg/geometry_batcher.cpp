@@ -752,15 +752,15 @@ namespace yg
      }
 
      size_t const count = text.size();
-     vector<CharStyle const *> glyphs(count);
+
+     vector<GlyphMetrics> glyphs(count);
 
      // get vector of glyphs and calculate string length
      double strLength = 0.0;
      for (size_t i = 0; i < count; ++i)
      {
-       uint32_t const glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, fromMask), isFixedFont);
-       glyphs[i] = static_cast<CharStyle const *>(m_skin->fromID(glyphID));
-       strLength += glyphs[i]->m_xAdvance;
+       glyphs[i] = resourceManager()->getGlyphMetrics(GlyphKey(text[i], fontSize, fromMask));
+       strLength += glyphs[i].m_xAdvance;
      }
 
      // offset of the text from path's start
@@ -772,7 +772,7 @@ namespace yg
      // find first visible glyph
      size_t i = 0;
      while (offset < 0 && i < count)
-       offset += glyphs[i++]->m_xAdvance;
+       offset += glyphs[i++].m_xAdvance;
 
      size_t ind = 0;
      m2::PointD ptOrg = arrPath[0];
@@ -784,9 +784,12 @@ namespace yg
        if (!CalcPointAndAngle(arrPath, offset, ind, ptOrg, angle))
          break;
 
-       drawGlyph(ptOrg, m2::PointD(0.0, 0.0), angle, blOffset, glyphs[i], depth);
+       uint32_t const glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, fromMask), isFixedFont);
+       CharStyle const * charStyle = static_cast<CharStyle const *>(m_skin->fromID(glyphID));
 
-       offset = glyphs[i]->m_xAdvance;
+       drawGlyph(ptOrg, m2::PointD(0.0, 0.0), angle, blOffset, charStyle, depth);
+
+       offset = glyphs[i].m_xAdvance;
      }
 
      return true;
