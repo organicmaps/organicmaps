@@ -22,6 +22,7 @@
 
 namespace kml
 {
+  typedef vector<Region> PolygonsContainerT;
 
   class KmlParser
   {
@@ -29,11 +30,11 @@ namespace kml
     /// buffer for text with points
     string m_data;
 
-    CountryPolygons & m_country;
-    int m_simplifyCountriesLevel;
+    PolygonsContainerT & m_country;
+    int m_level;
 
   public:
-    KmlParser(CountryPolygons & country, int simplifyCountriesLevel);
+    KmlParser(PolygonsContainerT & country, int level);
 
     bool Push(string const & element);
     void Pop(string const & element);
@@ -41,8 +42,8 @@ namespace kml
     void CharData(string const & data);
   };
 
-  KmlParser::KmlParser(CountryPolygons & country, int simplifyCountriesLevel)
-    : m_country(country), m_simplifyCountriesLevel(simplifyCountriesLevel)
+  KmlParser::KmlParser(PolygonsContainerT & country, int level)
+    : m_country(country), m_level(level)
   {
   }
 
@@ -57,11 +58,11 @@ namespace kml
   class PointsCollector
   {
     PointsContainerT & m_container;
-    m2::RectD & m_rect;
 
   public:
-    PointsCollector(PointsContainerT & container, m2::RectD & rect)
-      : m_container(container), m_rect(rect) {}
+    PointsCollector(PointsContainerT & container) : m_container(container)
+    {
+    }
 
     void operator()(string const & latLon)
     {
@@ -80,7 +81,6 @@ namespace kml
       CHECK(utils::to_double(latStr, lat), ("invalid lon", latStr));
       // to mercator
       m2::PointD const mercPoint(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
-      m_rect.Add(mercPoint);
       m_container.push_back(mercPoint);
     }
   };
@@ -109,8 +109,7 @@ namespace kml
         // first, collect points in Mercator
         typedef vector<m2::PointD> MercPointsContainerT;
         MercPointsContainerT points;
-        m2::RectD rect;
-        PointsCollector<MercPointsContainerT> collector(points, rect);
+        PointsCollector<MercPointsContainerT> collector(points);
         utils::TokenizeString(m_data, " \n\r\a", collector);
         size_t const numPoints = points.size();
         if (numPoints > 3 && points[numPoints - 1] == points[0])
@@ -119,28 +118,28 @@ namespace kml
           points.pop_back();
 
           // second, simplify points if necessary
-          if (m_simplifyCountriesLevel > 0)
+          if (m_level > 0)
           {
             MercPointsContainerT simplifiedPoints;
-            feature::SimplifyPoints(points, simplifiedPoints, m_simplifyCountriesLevel);
+            feature::SimplifyPoints(points, simplifiedPoints, m_level);
             if (simplifiedPoints.size() > MIN_SIMPLIFIED_POINTS_COUNT)
             {
-              LOG_SHORT(LINFO, (m_country.m_name, numPoints, "simplified to ", simplifiedPoints.size()));
+              //LOG_SHORT(LINFO, (m_country.m_name, numPoints, "simplified to ", simplifiedPoints.size()));
               points.swap(simplifiedPoints);
             }
           }
 
           // third, convert mercator doubles to uint points
-          Region region;
-          for (MercPointsContainerT::iterator it = points.begin(); it != points.end(); ++it)
-            region.AddPoint(MercatorPointToPointU(*it));
-
-          m_country.m_regions.push_back(region);
-          m_country.m_rect.Add(rect);
+          if (!points.empty())
+          {
+            m_country.push_back(Region());
+            for (MercPointsContainerT::iterator it = points.begin(); it != points.end(); ++it)
+              m_country.back().AddPoint(MercatorPointToPointU(*it));
+          }
         }
         else
         {
-          LOG(LWARNING, ("Invalid region for country", m_country.m_name));
+          LOG(LWARNING, ("Invalid region for country"/*, m_country.m_name*/));
         }
       }
       else if (m_tags[size - 3] == "innerBoundaryIs")
@@ -165,7 +164,9 @@ namespace kml
     size_t const size = m_tags.size();
 
     if (size > 1 && m_tags[size - 1] == "name" && m_tags[size - 2] == "Placemark")
-      m_country.m_name = data;
+    {
+      //m_country.m_name = data;
+    }
     else if (size > 4 && m_tags[size - 1] == "coordinates"
         && m_tags[size - 2] == "LinearRing" && m_tags[size - 4] == "Polygon")
     {
@@ -174,10 +175,9 @@ namespace kml
     }
   }
 
-  bool LoadPolygonsFromKml(string const & kmlFile, CountryPolygons & country,
-                           int simplifyCountriesLevel)
+  bool LoadPolygonsFromKml(string const & kmlFile, PolygonsContainerT & country, int level)
   {
-    KmlParser parser(country, simplifyCountriesLevel);
+    KmlParser parser(country, level);
     try
     {
       FileReader file(kmlFile);
@@ -193,25 +193,31 @@ namespace kml
   class PolygonLoader
   {
     string m_baseDir;
-    CountryPolygons & m_out;
-    int m_simplifyCountriesLevel;
+    int m_level;
+
+    CountryPolygons & m_polygons;
+    m2::RectD & m_rect;
 
   public:
-    PolygonLoader(string const & basePolygonsDir, CountryPolygons & polygons,
-                  int simplifyCountriesLevel)
-      : m_baseDir(basePolygonsDir), m_out(polygons),
-        m_simplifyCountriesLevel(simplifyCountriesLevel) {}
+    PolygonLoader(string const & basePolygonsDir, int level, CountryPolygons & polygons, m2::RectD & rect)
+      : m_baseDir(basePolygonsDir), m_level(level), m_polygons(polygons), m_rect(rect)
+    {
+    }
+
     void operator()(string const & name)
     {
-      if (m_out.m_name.empty())
-        m_out.m_name = name;
-      CountryPolygons current;
-      if (LoadPolygonsFromKml(m_baseDir + BORDERS_DIR + name + BORDERS_EXTENSION, current, m_simplifyCountriesLevel)
-          && current.m_regions.size())
+      if (m_polygons.m_name.empty())
+        m_polygons.m_name = name;
+
+      PolygonsContainerT current;
+      if (LoadPolygonsFromKml(m_baseDir + BORDERS_DIR + name + BORDERS_EXTENSION, current, m_level))
       {
-        m_out.m_regions.insert(m_out.m_regions.end(),
-                          current.m_regions.begin(), current.m_regions.end());
-        m_out.m_rect.Add(current.m_rect);
+        for (size_t i = 0; i < current.size(); ++i)
+        {
+          m2::RectD const rect(current[i].GetRect());
+          m_rect.Add(rect);
+          m_polygons.m_regions.Add(current[i], rect);
+        }
       }
     }
   };
@@ -224,21 +230,25 @@ namespace kml
       LOG_SHORT(LINFO, ("Simplificator level for country polygons:", simplifyCountriesLevel));
     }
 
-    countries.clear();
+    countries.Clear();
     ifstream stream((baseDir + POLYGONS_FILE).c_str());
-    std::string line;
+    string line;
 
     while (stream.good())
     {
       std::getline(stream, line);
       if (line.empty())
         continue;
+
       CountryPolygons country;
-      PolygonLoader loader(baseDir, country, simplifyCountriesLevel);
+      m2::RectD rect;
+
+      PolygonLoader loader(baseDir, simplifyCountriesLevel, country, rect);
       utils::TokenizeString(line, "|", loader);
-      if (!country.m_regions.empty())
-        countries.push_back(country);
+      if (!country.m_regions.IsEmpty())
+        countries.Add(country, rect);
     }
-    return !countries.empty();
+
+    return !countries.IsEmpty();
   }
 }

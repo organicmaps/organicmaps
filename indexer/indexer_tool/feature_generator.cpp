@@ -295,31 +295,25 @@ bool GenerateImpl(GenerateInfo & info)
 
     holder.LoadIndex();
 
-    FeaturesCollector::InitDataType collectorInitData(info.datFilePrefix, info.datFileSuffix);
-
     if (info.m_splitByPolygons)
     {
       typedef Polygonizer<FeaturesCollector, MercatorBounds, RectId> FeaturePolygonizerType;
       // prefix is data dir
-      FeaturePolygonizerType bucketer(info.datFilePrefix, collectorInitData, info.m_simplifyCountriesLevel);
+      FeaturePolygonizerType bucketer(info);
       TParser<FeaturePolygonizerType, holder_t> parser(bucketer, holder);
       ParseXMLFromStdIn(parser);
-      bucketer.GetBucketNames(MakeBackInsertFunctor(info.bucketNames));
     }
     else
     {
       CHECK_GREATER_OR_EQUAL(info.cellBucketingLevel, 0, ());
       CHECK_LESS(info.cellBucketingLevel, 10, ());
 
-      typedef CellFeatureBucketer<FeaturesCollector, SimpleFeatureClipper, MercatorBounds, RectId>
-          FeatureBucketerType;
-      FeatureBucketerType bucketer(info.cellBucketingLevel, collectorInitData,
-                                 info.m_maxScaleForWorldFeatures, info.m_worldOnly);
+      typedef CellFeatureBucketer<FeaturesCollector, SimpleFeatureClipper, MercatorBounds, RectId> FeatureBucketerType;
+      FeatureBucketerType bucketer(info);
       TParser<FeatureBucketerType, holder_t> parser(bucketer, holder);
       ParseXMLFromStdIn(parser);
       bucketer.GetBucketNames(MakeBackInsertFunctor(info.bucketNames));
     }
-
   }
   catch (Reader::Exception const & e)
   {

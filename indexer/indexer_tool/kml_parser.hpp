@@ -1,25 +1,26 @@
 #pragma once
 
 #include "../../geometry/region2d.hpp"
+#include "../../geometry/tree4d.hpp"
 
 #include "../../std/string.hpp"
-#include "../../std/vector.hpp"
+
 
 namespace kml
 {
   typedef m2::RegionU Region;
-  typedef std::vector<Region> RegionsContainerT;
+  typedef m4::Tree<Region> RegionsContainerT;
 
   struct CountryPolygons
   {
-    CountryPolygons(string const & name = "") : m_name(name) {}
+    CountryPolygons(string const & name = "") : m_name(name), m_index(-1) {}
+
     RegionsContainerT m_regions;
     string m_name;
-    /// limit rect for all country polygons
-    m2::RectD m_rect;
+    mutable int m_index;
   };
 
-  typedef vector<CountryPolygons> CountriesContainerT;
+  typedef m4::Tree<CountryPolygons> CountriesContainerT;
 
   /// @param[in] simplifyCountriesLevel if positive, used as a level for simplificator
   bool LoadCountriesList(string const & baseDir, CountriesContainerT & countries,

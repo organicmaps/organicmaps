@@ -23,11 +23,7 @@ class CellFeatureBucketer
 {
   typedef typename FeatureClipperT::feature_builder_t feature_builder_t;
 
-public:
-  CellFeatureBucketer(int level, typename FeatureOutT::InitDataType const & featureOutInitData,
-                      int maxWorldZoom = -1, bool worldOnly = false)
-  : m_Level(level), m_FeatureOutInitData(featureOutInitData), m_maxWorldZoom(maxWorldZoom),
-    m_worldOnly(worldOnly)
+  void Init()
   {
     if (!m_worldOnly)
     {
@@ -42,8 +38,23 @@ public:
       }
     }
     // create separate world bucket if necessary
-    if (maxWorldZoom >= 0)
+    if (m_maxWorldZoom >= 0)
       m_worldBucket.reset(new FeatureOutT(WORLD_FILE_NAME, m_FeatureOutInitData));
+  }
+
+public:
+  template <class TInfo>
+  explicit CellFeatureBucketer(TInfo & info)
+  : m_Level(info.cellBucketingLevel), m_FeatureOutInitData(info.datFilePrefix, info.datFileSuffix),
+    m_maxWorldZoom(info.m_maxScaleForWorldFeatures), m_worldOnly(info.m_worldOnly)
+  {
+    Init();
+  }
+
+  CellFeatureBucketer(int level, typename FeatureOutT::InitDataType const & initData)
+    : m_Level(level), m_FeatureOutInitData(initData), m_maxWorldZoom(-1), m_worldOnly(false)
+  {
+    Init();
   }
 
   void operator () (feature_builder_t const & fb)

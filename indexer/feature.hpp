@@ -88,9 +88,14 @@ public:
   template <class ToDo>
   void ForEachTruePointRef(ToDo & toDo) const
   {
-    for (points_t::const_iterator it = m_Geometry.begin(); it != m_Geometry.end(); ++it)
-      if (!toDo(*it))
-        return;
+    if (m_bPoint)
+      toDo(m_Center);
+    else
+    {
+      for (points_t::const_iterator it = m_Geometry.begin(); it != m_Geometry.end(); ++it)
+        if (!toDo(*it))
+          return;
+    }
   }
 
   m2::PointD CenterPoint() const { return m_Center; }
