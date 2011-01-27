@@ -241,6 +241,26 @@ namespace storage
       m_observerChange(index);
   }
 
+  void Storage::ReInitCountries(bool forceReload)
+  {
+    if (forceReload)
+      m_countries.Clear();
+
+    if (m_countries.SiblingsCount() == 0)
+    {
+      TTilesContainer tiles;
+      if (LoadTiles(tiles, GetPlatform().ReadPathForFile(UPDATE_CHECK_FILE), m_currentVersion))
+      {
+        if (!LoadCountries(GetPlatform().ReadPathForFile(COUNTRIES_FILE), tiles, m_countries))
+          LOG(LWARNING, ("Can't load countries file", COUNTRIES_FILE));
+      }
+      else
+      {
+        LOG(LWARNING, ("Can't load update file", UPDATE_CHECK_FILE));
+      }
+    }
+  }
+
   void Storage::Subscribe(TObserverChangeCountryFunction change, TObserverProgressFunction progress,
                           TUpdateCheckFunction check)
   {
@@ -248,16 +268,7 @@ namespace storage
     m_observerProgress = progress;
     m_observerUpdateCheck = check;
 
-    TTilesContainer tiles;
-    if (LoadTiles(tiles, GetPlatform().ReadPathForFile(UPDATE_CHECK_FILE), m_currentVersion))
-    {
-      if (!LoadCountries(GetPlatform().ReadPathForFile(COUNTRIES_FILE), tiles, m_countries))
-        LOG(LWARNING, ("Can't load countries file", COUNTRIES_FILE));
-    }
-    else
-    {
-      LOG(LWARNING, ("Can't load update file", UPDATE_CHECK_FILE));
-    }
+    ReInitCountries(false);
   }
 
   void Storage::Unsubscribe()
@@ -265,7 +276,6 @@ namespace storage
     m_observerChange.clear();
     m_observerProgress.clear();
     m_observerUpdateCheck.clear();
-    m_countries.Clear();
   }
 
   string FileFromUrl(string const & url)

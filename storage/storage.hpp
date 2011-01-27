@@ -86,6 +86,7 @@ namespace storage
     void DownloadNextCountryFromQueue();
     Country const & CountryByIndex(TIndex const & index) const;
     string UpdateBaseUrl() const;
+    void ReInitCountries(bool forceReload);
 
   public:
     Storage() {}
