@@ -59,12 +59,13 @@ namespace feature
 
         m_regions.ForEachInRect(m2::RectD(point, point), bind<void>(ref(*this), _1, cref(point)));
 
-        return m_belongs;
+        return !m_belongs;
       }
 
       void operator() (kml::Region const & rgn, kml::Region::value_type const & point)
       {
-        m_belongs = rgn.Contains(point);
+        if (!m_belongs)
+          m_belongs = rgn.Contains(point);
       }
     };
 
