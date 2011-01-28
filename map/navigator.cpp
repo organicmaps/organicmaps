@@ -127,13 +127,13 @@ void Navigator::ScaleToPoint(m2::PointD const & pt, double factor, double /*time
 
   if (pt.x != m_Screen.PixelRect().maxX())
   {
-    /// start scaling point is 1 / factor way between pt and right border
+    // start scaling point is 1 / factor way between pt and right border
     startPt.x = pt.x + ((m_Screen.PixelRect().maxX() - pt.x) / factor);
     endPt.x = m_Screen.PixelRect().maxX();
   }
   else
   {
-    /// start scaling point is 1 - 1/factor way between left border and pt
+    // start scaling point is 1 - 1/factor way between left border and pt
     startPt.x = pt.x + (m_Screen.PixelRect().minX() - pt.x) / factor;
     endPt.x = m_Screen.PixelRect().minX();
   }
@@ -152,15 +152,28 @@ void Navigator::ScaleToPoint(m2::PointD const & pt, double factor, double /*time
   ScaleImpl(pt, endPt, pt, startPt);
 }
 
-void Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2, m2::PointD const & oldPt1, m2::PointD const & oldPt2)
+namespace
+{
+  bool CheckMaxScale(ScreenBase const & screen)
+  {
+    m2::RectD const r = screen.GlobalRect();
+    return ((r.SizeX() <= (MercatorBounds::maxX - MercatorBounds::minX)) ||
+            (r.SizeY() <= (MercatorBounds::maxY - MercatorBounds::minY)));
+  }
+}
+
+void Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
+                          m2::PointD const & oldPt1, m2::PointD const & oldPt2)
 {
   math::Matrix<double, 3, 3> newM = m_Screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1, oldPt2, newPt1, newPt2);
-  ScreenBase TmpScreen = m_Screen;
-  TmpScreen.SetGtoPMatrix(newM);
-  TmpScreen.Rotate(TmpScreen.GetAngle());
-  if ((TmpScreen.GlobalRect().SizeX() <= (MercatorBounds::maxX - MercatorBounds::minX))
-    || ((TmpScreen.GlobalRect().SizeY() <= (MercatorBounds::maxY - MercatorBounds::minY))))
-    m_Screen = TmpScreen;
+
+  ScreenBase tmp = m_Screen;
+  tmp.SetGtoPMatrix(newM);
+  tmp.Rotate(tmp.GetAngle());
+
+  // limit max scale to MercatorBounds
+  if (CheckMaxScale(tmp))
+    m_Screen = tmp;
 }
 
 void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double /*timeInSec*/)
@@ -191,7 +204,12 @@ void Navigator::StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double
 
 void Navigator::Scale(double scale)
 {
-  m_Screen.Scale(scale);
+  ScreenBase tmp = m_Screen;
+  tmp.Scale(scale);
+
+  // limit max scale to MercatorBounds
+  if (CheckMaxScale(tmp))
+    m_Screen = tmp;
 }
 
 void Navigator::Rotate(double angle)

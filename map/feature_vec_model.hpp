@@ -32,7 +32,6 @@ namespace model
     index_t m_multiIndex;
 
   public:
-    FeaturesFetcher();
 
     void InitClassificator();
 
@@ -56,7 +55,7 @@ namespace model
     }
 
     void AddWorldRect(m2::RectD const & r) { m_rect.Add(r); }
-    m2::RectD GetWorldRect() const { return m_rect; }
+    m2::RectD GetWorldRect() const;
   };
 }
 

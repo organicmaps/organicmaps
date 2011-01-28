@@ -18,11 +18,6 @@
 namespace model
 {
 
-FeaturesFetcher::FeaturesFetcher()
-{
-  Clean();
-}
-
 void FeaturesFetcher::InitClassificator()
 {
   Platform & p = GetPlatform();
@@ -57,12 +52,22 @@ void FeaturesFetcher::RemoveMap(string const & fName)
 
 void FeaturesFetcher::Clean()
 {
-  m_rect = m2::RectD(MercatorBounds::minX,
+  m_rect.MakeEmpty();
+  m_multiIndex.Clean();
+}
+
+m2::RectD FeaturesFetcher::GetWorldRect() const
+{
+  if (m_rect == m2::RectD())
+  {
+    // rect is empty when now countries are loaded
+    // return max global rect
+    return m2::RectD(MercatorBounds::minX,
                      MercatorBounds::minY,
                      MercatorBounds::maxX,
                      MercatorBounds::maxY);
-//  m_rect.MakeEmpty();
-  m_multiIndex.Clean();
+  }
+  return m_rect;
 }
 
 }
