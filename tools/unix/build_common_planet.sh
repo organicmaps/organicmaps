@@ -122,11 +122,11 @@ $PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
 
 # 3rd pass - do in parallel
 for file in $DATA_PATH/*.mwm; do
-  if [ $file != "minsk-pass"  ]; then
-    filename=$(basename $file)
-    extension=${filename##*.}
-    filename=${filename%.*}
-    $INDEXER_TOOL --data_path=$DATA_PATH --generate_geometry --sort_features --generate_index --output=$filename &
+  if [ "$file" != "minsk-pass"  ]; then
+    filename=$(basename "$file")
+    extension="${filename##*.}"
+    filename="${filename%.*}"
+    $INDEXER_TOOL -output="$filename" -data_path=$DATA_PATH -generate_geometry -sort_features -generate_index -intermediate_data_path=$TMPDIR &
     forky $PROCESSORS
   fi
 done
