@@ -8,9 +8,12 @@
 #include "../../coding/file_reader.hpp"
 
 #include "../../geometry/rect2d.hpp"
+#include "../../geometry/cellid.hpp"
 
 #include "../../indexer/cell_id.hpp"
 #include "../../indexer/mercator.hpp"
+#include "../../indexer/feature.hpp"
+#include "../../indexer/covering.hpp"
 
 #include "../../std/fstream.hpp"
 
@@ -19,6 +22,13 @@
 #define BORDERS_EXTENSION ".kml"
 
 #define MIN_SIMPLIFIED_POINTS_COUNT 4
+
+namespace feature
+{
+  typedef vector<m2::PointD> points_t;
+  void TesselateInterior(points_t const & bound, list<points_t> const & holes,
+                        points_t & triangles);
+}
 
 namespace kml
 {
@@ -86,6 +96,39 @@ namespace kml
     }
   };
 
+  m2::PointU MercatorPointToPointU(m2::PointD const & pt)
+  {
+    typedef CellIdConverter<MercatorBounds, RectId> CellIdConverterType;
+    uint32_t const ix = static_cast<uint32_t>(CellIdConverterType::XToCellIdX(pt.x));
+    uint32_t const iy = static_cast<uint32_t>(CellIdConverterType::YToCellIdY(pt.y));
+    return m2::PointU(ix, iy);
+  }
+  
+  class AreaFeature : public FeatureType
+  {
+  public:
+    template <class IterT>
+    AreaFeature(IterT beg, IterT end)
+    {
+      // manually fill bordering geometry points
+      m_bPointsParsed = true;
+      for (IterT it = beg; it != end; ++it)
+      {
+        m_Points.push_back(*it);
+        m_LimitRect.Add(*it);
+      }
+
+      // manually fill triangles points
+      m_bTrianglesParsed = true;
+      list<feature::points_t> const holes;
+      feature::points_t points(beg, end);
+      feature::points_t triangles;
+      feature::TesselateInterior(points, holes, triangles);
+      CHECK(!triangles.empty(), ("Tesselation unsuccessfull?"));
+      for (size_t i = 0; i < triangles.size(); ++i)
+        m_Triangles.push_back(triangles[i]);
+    }
+  };
   void KmlParser::Pop(string const & element)
   {
     if (element == "Placemark")
@@ -107,6 +150,20 @@ namespace kml
         size_t const numPoints = points.size();
         if (numPoints > 3 && points[numPoints - 1] == points[0])
         {
+//          // create feature for country's polygon
+//          AreaFeature ft(points.begin(), points.end());
+//          // get polygon covering (cellids)
+//          vector<int64_t> ids;
+//          ids = covering::CoverFeature(ft, -1);
+//          // debug output
+//          set<int64_t> ids8;
+//          for (size_t i = 0; i < ids.size(); ++i)
+//          {
+//            int64_t a = ids[i] >> (2 * 11);
+//            if (ids8.insert(a).second)
+//              LOG(LINFO, (RectId::FromInt64(a).ToString()));
+//          }
+//          LOG(LINFO, ("Total cellids:", ids8.size()));
           // second, simplify points if necessary
           if (m_level > 0)
           {

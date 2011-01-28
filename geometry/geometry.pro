@@ -12,6 +12,7 @@ include($$ROOT_DIR/common.pri)
 SOURCES += \
   screenbase.cpp \
   packer.cpp \
+  tesselator.cpp \
 
 HEADERS += \
   rect2d.hpp \
@@ -30,3 +31,4 @@ HEADERS += \
   tree4d.hpp \
   polygon.hpp \
 	region2d.hpp \
+  tesselator.hpp \

@@ -21,7 +21,6 @@ SOURCES += \
   data_generator.cpp \
   feature_generator.cpp \
   feature_sorter.cpp \
-  tesselator.cpp \
   update_generator.cpp \
   grid_generator.cpp \
   statistics.cpp \

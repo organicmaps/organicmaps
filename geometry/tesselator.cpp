@@ -1,10 +1,10 @@
-#include "../../base/SRC_FIRST.hpp"
+#include "tesselator.hpp"
 
-#include "../cell_id.hpp"
+#include "../base/assert.hpp"
 
 #include "../../3party/sgitess/interface.h"
 
-namespace feature
+namespace tesselator
 {
   struct AddTessPointF
   {
@@ -17,10 +17,8 @@ namespace feature
     }
   };
 
-  typedef vector<m2::PointD> points_t;
-
-  void TesselateInterior( points_t const & bound, list<points_t> const & holes,
-                          points_t & triangles)
+  void TesselateInterior(points_container const & bound, holes_container const & holes,
+                         points_container & triangles)
   {
     tess::VectorDispatcher disp;
     tess::Tesselator tess;
@@ -33,7 +31,7 @@ namespace feature
     for_each(bound.begin(), bound.end(), AddTessPointF(tess));
     tess.endContour();
 
-    for (list<points_t>::const_iterator it = holes.begin(); it != holes.end(); ++it)
+    for (holes_container::const_iterator it = holes.begin(); it != holes.end(); ++it)
     {
       tess.beginContour();
       for_each(it->begin(), it->end(), AddTessPointF(tess));

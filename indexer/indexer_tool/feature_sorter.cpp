@@ -10,6 +10,7 @@
 #include "../../indexer/cell_id.hpp"
 
 #include "../../geometry/polygon.hpp"
+#include "../../geometry/tesselator.hpp"
 
 #include "../../platform/platform.hpp"
 
@@ -71,9 +72,6 @@ namespace
 
 namespace feature
 {
-  typedef vector<m2::PointD> points_t;
-  void TesselateInterior(points_t const & bound, list<points_t> const & holes, points_t & triangles);
-
   class FeaturesCollector2 : public FeaturesCollector
   {
     FilesContainerW m_writer;
@@ -303,7 +301,7 @@ namespace feature
         if (fb.IsDrawableInRange(i > 0 ? g_arrScales[i-1] + 1 : 0, g_arrScales[i]))
         {
           // simplify and serialize geometry
-          points_t points;
+          tesselator::points_container points;
           SimplifyPoints(holder.GetSourcePoints(), points, g_arrScales[i]);
 
           if (isLine)
@@ -313,15 +311,15 @@ namespace feature
           {
             // simplify and serialize triangles
 
-            list<points_t> const & holes = fb.GetHoles();
+            tesselator::holes_container const & holes = fb.GetHoles();
 
             if (holes.empty() && holder.TryToMakeStrip(points))
               continue;
 
-            list<points_t> simpleHoles;
-            for (list<points_t>::const_iterator iH = holes.begin(); iH != holes.end(); ++iH)
+            tesselator::holes_container simpleHoles;
+            for (tesselator::holes_container::const_iterator iH = holes.begin(); iH != holes.end(); ++iH)
             {
-              simpleHoles.push_back(points_t());
+              simpleHoles.push_back(tesselator::points_container());
 
               SimplifyPoints(*iH, simpleHoles.back(), g_arrScales[i]);
 
@@ -329,8 +327,8 @@ namespace feature
                 simpleHoles.pop_back();
             }
 
-            points_t triangles;
-            feature::TesselateInterior(points, simpleHoles, triangles);
+            tesselator::points_container triangles;
+            tesselator::TesselateInterior(points, simpleHoles, triangles);
 
             if (!triangles.empty())
               holder.AddTriangles(triangles, i);
