@@ -11,7 +11,7 @@
 // used with "file name = country name" engine
 //#define COUNTRIES_FILE  "countries_poly.txt"
 // used with bucket storage engine
-#define COUNTRIES_FILE  "countries.txt"
+#define COUNTRIES_FILE  "countries_poly.txt"
 #define UPDATE_CHECK_FILE "maps.update"
 #define UPDATE_BASE_URL "http://melnichek.ath.cx:34568/maps/"
 
