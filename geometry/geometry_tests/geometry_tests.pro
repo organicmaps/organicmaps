@@ -10,7 +10,9 @@ DEPENDENCIES = indexer geometry base
 
 include($$ROOT_DIR/common.pri)
 
-HEADERS += equality.hpp
+HEADERS += \
+  equality.hpp \
+  large_polygon.hpp \
 
 SOURCES += \
   ../../testing/testingmain.cpp \
@@ -30,4 +32,4 @@ SOURCES += \
   transformations_test.cpp \
   tree_test.cpp \
   polygon_test.cpp \
-	region_test.cpp \
+  region_test.cpp \
