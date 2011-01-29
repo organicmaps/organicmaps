@@ -1,5 +1,6 @@
 #pragma once
 #include "base.hpp"
+#include "../std/type_traits.hpp"
 
 namespace bits
 {
@@ -73,6 +74,18 @@ namespace bits
     return (x << 1) | (x >> (sizeof(T) * 8 - 1));
   }
 
+  template <typename T> inline typename make_unsigned<T>::type ZigZagEncode(T x)
+  {
+    STATIC_ASSERT(is_signed<T>::value);
+    return (x << 1) ^ (x >> (sizeof(x) * 8 - 1));
+  }
+
+  template <typename T> inline typename make_signed<T>::type ZigZagDecode(T x)
+  {
+    STATIC_ASSERT(is_unsigned<T>::value);
+    return (x >> 1) ^ -static_cast<typename make_signed<T>::type>(x & 1);
+  }
+
   inline uint32_t PerfectShuffle(uint32_t x)
   {
     x = ((x & 0x0000FF00) << 8) | ((x >> 8) & 0x0000FF00) | (x & 0xFF0000FF);
@@ -89,5 +102,20 @@ namespace bits
     x = ((x & 0x00F000F0) << 4) | ((x >> 4) & 0x00F000F0) | (x & 0xF00FF00F);
     x = ((x & 0x0000FF00) << 8) | ((x >> 8) & 0x0000FF00) | (x & 0xFF0000FF);
     return x;
+  }
+
+  inline uint64_t BitwiseMerge(uint32_t x, uint32_t y)
+  {
+    uint32_t const hi = PerfectShuffle((y & 0xFFFF0000) | (x >> 16));
+    uint32_t const lo = PerfectShuffle(((y & 0xFFFF) << 16 ) | (x & 0xFFFF));
+    return (static_cast<uint64_t>(hi) << 32) + lo;
+  }
+
+  inline void BitwiseSplit(uint64_t v, uint32_t & x, uint32_t & y)
+  {
+    uint32_t const hi = bits::PerfectUnshuffle(static_cast<uint32_t>(v >> 32));
+    uint32_t const lo = bits::PerfectUnshuffle(static_cast<uint32_t>(v & 0xFFFFFFFFULL));
+    x = ((hi & 0xFFFF) << 16) | (lo & 0xFFFF);
+    y =     (hi & 0xFFFF0000) | (lo >> 16);
   }
 }

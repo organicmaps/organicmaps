@@ -1,8 +1,8 @@
 #pragma once
 #include "write_to_sink.hpp"
-
 #include "../base/assert.hpp"
 #include "../base/base.hpp"
+#include "../base/bits.hpp"
 #include "../base/exception.hpp"
 #include "../base/stl_add.hpp"
 #include "../std/type_traits.hpp"
@@ -163,28 +163,16 @@ template <typename T, typename TSource> T ReadVarUint(TSource & src)
   */
 }
 
-template <typename T> inline typename make_unsigned<T>::type ZigZagEncode(T x)
-{
-  STATIC_ASSERT(is_signed<T>::value);
-  return (x << 1) ^ (x >> (sizeof(x) * 8 - 1));
-}
-
-template <typename T> inline typename make_signed<T>::type ZigZagDecode(T x)
-{
-  STATIC_ASSERT(is_unsigned<T>::value);
-  return (x >> 1) ^ -static_cast<typename make_signed<T>::type>(x & 1);
-}
-
 template <typename T, typename TSink> void WriteVarInt(TSink & dst, T value)
 {
   STATIC_ASSERT(is_signed<T>::value);
-  WriteVarUint(dst, ZigZagEncode(value));
+  WriteVarUint(dst, bits::ZigZagEncode(value));
 }
 
 template <typename T, typename TSource> T ReadVarInt(TSource & src)
 {
   STATIC_ASSERT(is_signed<T>::value);
-  return ZigZagDecode(ReadVarUint<typename make_unsigned<T>::type>(src));
+  return bits::ZigZagDecode(ReadVarUint<typename make_unsigned<T>::type>(src));
 }
 
 DECLARE_EXCEPTION(ReadVarIntException, RootException);
@@ -260,7 +248,7 @@ template <typename F> inline
 void const * ReadVarInt64Array(void const * pBeg, void const * pEnd, F f)
 {
   return impl::ReadVarInt64Array<int64_t (*)(uint64_t)>(
-        pBeg, impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f, &ZigZagDecode);
+        pBeg, impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f, &bits::ZigZagDecode);
 }
 
 template <typename F> inline
@@ -273,7 +261,7 @@ template <typename F> inline
 void const * ReadVarInt64Array(void const * pBeg, size_t count, F f)
 {
   return impl::ReadVarInt64Array<int64_t (*)(uint64_t)>(
-        pBeg, impl::ReadVarInt64ArrayGivenSize(count), f, &ZigZagDecode);
+        pBeg, impl::ReadVarInt64ArrayGivenSize(count), f, &bits::ZigZagDecode);
 }
 
 template <typename F> inline
