@@ -7,6 +7,9 @@
 #include "classificator_tree.hpp"
 #include "slider_ctrl.hpp"
 #include "about.hpp"
+#include "preferences_dialog.hpp"
+
+#include "../defines.hpp"
 
 #include "../indexer/classificator.hpp"
 
@@ -38,6 +41,7 @@ MainWindow::MainWindow()
   QMenu * helpMenu = new QMenu(tr("Help"), this);
   menuBar()->addMenu(helpMenu);
   helpMenu->addAction(tr("About"), this, SLOT(OnAbout()));
+  helpMenu->addAction(tr("Preferences"), this, SLOT(OnPreferences()));
 
   LoadState();
 }
@@ -51,7 +55,7 @@ MainWindow::~MainWindow()
 
 string MainWindow::GetIniFile()
 {
-  return GetPlatform().WritablePathForFile("settings.ini");
+  return GetPlatform().WritablePathForFile(SETTINGS_FILE_NAME);
 }
 
 void MainWindow::SaveState()
@@ -226,6 +230,13 @@ void MainWindow::ShowClassifPanel()
 void MainWindow::OnAbout()
 {
   AboutDialog dlg(this);
+  dlg.exec();
+}
+
+void MainWindow::OnPreferences()
+{
+  bool autoUpdatesEnabled = true;
+  PreferencesDialog dlg(this, autoUpdatesEnabled);
   dlg.exec();
 }
 

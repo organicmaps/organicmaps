@@ -43,6 +43,7 @@ namespace qt
     void ShowUpdateDialog();
     void ShowClassifPanel();
     void OnAbout();
+    void OnPreferences();
   };
 }
 

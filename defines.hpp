@@ -1,6 +1,5 @@
 #pragma once
 
-
 #define DATA_FILE_EXTENSION ".mwm"
 #define DATA_FILE_TAG "dat"
 #define GEOMETRY_FILE_TAG "geom"
@@ -16,3 +15,5 @@
 #define UPDATE_BASE_URL "http://melnichek.ath.cx:34568/maps/"
 
 #define WORLD_FILE_NAME "World"
+
+#define SETTINGS_FILE_NAME "settings.ini"

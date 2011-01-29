@@ -64,7 +64,8 @@ SOURCES += \
   classificator_tree.cpp \
   proxystyle.cpp \
   slider_ctrl.cpp \
-  about.cpp
+  about.cpp \
+  preferences_dialog.cpp \
 
 HEADERS += \
   mainwindow.hpp \
@@ -77,5 +78,6 @@ HEADERS += \
   proxystyle.hpp \
   slider_ctrl.hpp \
   about.hpp \
+  preferences_dialog.hpp \
 
 RESOURCES += res/resources.qrc \
