@@ -88,9 +88,16 @@ struct DeleteFunctor
 
 struct NoopFunctor
 {
-  template <typename T> void operator () (T const & value) const
+  template <typename T> inline void operator () (T const &) const
   {
-    UNUSED_VALUE(value);
+  }
+};
+
+struct IdFunctor
+{
+  template <typename T> inline T operator () (T const & x) const
+  {
+    return x;
   }
 };
 
