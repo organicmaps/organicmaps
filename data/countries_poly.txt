@@ -136,7 +136,6 @@
   Saint Vincent and the Grenadines
   Trinidad and Tobago
   Turks and Caicos Islands
-  Virgin Islands, U.S
  Central America
   Costa Rica
   El Salvador
@@ -199,7 +198,7 @@
   Switzerland
   Ukraine
   United Kingdom
-  Vatican City  
+  Vatican City
  Indian Ocean
   British Indian Ocean Territory
   Comoros
@@ -215,7 +214,7 @@
   Palestina
   Qatar
   Saudi Arabia
-  United Arab Emirates  
+  United Arab Emirates
  North America
   Belize
   Bermuda
@@ -259,4 +258,4 @@
   Peru
   Suriname
   Uruguay
-  Venezuela  
+  Venezuela
