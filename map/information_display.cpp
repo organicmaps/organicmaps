@@ -245,7 +245,7 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
       pDrawer->screen()->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 255), 2, 0, 0, 0)),
       yg::maxDepth);
 
-  m2::RectD textRect = pDrawer->screen()->textRect(scalerText.c_str(), 10, false);
+  m2::RectD textRect = pDrawer->screen()->textRect(scalerText.c_str(), 10, true, false);
   pDrawer->screen()->drawText(scalerPts[1] + m2::PointD(7, -7),
                               0,
                               10,

@@ -33,7 +33,7 @@ namespace yg
 
     m2::RectD const TextRenderer::TextObj::GetLimitRect(GeometryBatcher * pBatcher) const
     {
-      return m2::Offset(pBatcher->textRect(m_utf8Text, m_size, m_log2vis), m_pt);
+      return m2::Offset(pBatcher->textRect(m_utf8Text, m_size, false, m_log2vis), m_pt);
     }
 
     void TextRenderer::drawText(m2::PointD const & pt,

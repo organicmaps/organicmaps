@@ -628,7 +628,7 @@ namespace yg
      ForEachGlyph(fontSize, text, false, isFixedFont, bind(&GeometryBatcher::drawGlyph, this, cref(pt), _1, angle, 0, _2, depth));
    }
 
-   m2::RectD const GeometryBatcher::textRect(string const & utf8Text, uint8_t fontSize, bool log2vis)
+   m2::RectD const GeometryBatcher::textRect(string const & utf8Text, uint8_t fontSize, bool fixedFont, bool log2vis)
    {
      m2::RectD rect;
      m2::PointD pt(0, 0);
@@ -639,11 +639,22 @@ namespace yg
 
      for (size_t i = 0; i < text.size(); ++i)
      {
-       GlyphMetrics const m = resourceManager()->getGlyphMetrics(GlyphKey(text[i], fontSize, false));
+       if (fixedFont)
+       {
+         uint32_t glyphID = m_skin->mapGlyph(GlyphKey(text[i], fontSize, false), fixedFont);
+         CharStyle const * p = static_cast<CharStyle const *>(m_skin->fromID(glyphID));
+         rect.Add(pt);
+         rect.Add(pt + m2::PointD(p->m_xOffset + p->m_texRect.SizeX() - 4, -p->m_yOffset - (int)p->m_texRect.SizeY() + 4));
+         pt += m2::PointD(p->m_xAdvance, 0);
+       }
+       else
+       {
+         GlyphMetrics const m = resourceManager()->getGlyphMetrics(GlyphKey(text[i], fontSize, false));
 
-       rect.Add(pt);
-       rect.Add(pt + m2::PointD(m.m_xOffset + m.m_width, - m.m_yOffset - m.m_height));
-       pt += m2::PointD(m.m_xAdvance, 0);
+         rect.Add(pt);
+         rect.Add(pt + m2::PointD(m.m_xOffset + m.m_width, - m.m_yOffset - m.m_height));
+         pt += m2::PointD(m.m_xAdvance, 0);
+       }
      }
 
      rect.Inflate(2, 2);

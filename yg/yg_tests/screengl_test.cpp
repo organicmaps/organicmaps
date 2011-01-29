@@ -140,7 +140,7 @@ namespace
     }
   };
 
-  struct TestDrawPathWithOffset : TestDrawPathBase
+  struct PathWithOffset : TestDrawPathBase
   {
     typedef TestDrawPathBase base_t;
 
@@ -592,6 +592,31 @@ namespace
     }
   };
 
+  struct TestDrawTextRectWithFixedFont : TestDrawStringWithFixedFont
+  {
+    typedef TestDrawStringWithFixedFont base_t;
+    void DoDraw(shared_ptr<yg::gl::Screen> p)
+    {
+      m2::RectD r = p->textRect("Simplicity is the ultimate sophistication", 12, true, false);
+
+      m2::PointD startPt(40, 50);
+
+      m2::PointD pts[6] = {
+        startPt + m2::PointD(r.minX(), r.minY()),
+        startPt + m2::PointD(r.maxX(), r.minY()),
+        startPt + m2::PointD(r.maxX(), r.maxY()),
+        startPt + m2::PointD(r.minX(), r.minY()),
+        startPt + m2::PointD(r.maxX(), r.maxY()),
+        startPt + m2::PointD(r.minX(), r.maxY())
+      };
+
+      p->drawTrianglesList(pts, 6, p->skin()->mapColor(yg::Color(0, 0, 255, 255)), 0);
+
+      base_t::DoDraw(p);
+    }
+  };
+
+
   double calc_length(vector<m2::PointD> const & v)
   {
     double ret = 0.0;
@@ -876,6 +901,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawSingleSymbolAndSolidPath);
 //   UNIT_TEST_GL(TestDrawString);
 //   UNIT_TEST_GL(TestDrawStringWithFixedFont);
+     UNIT_TEST_GL(TestDrawTextRectWithFixedFont);
 //   UNIT_TEST_GL(TestDrawStringOnString);
 //   UNIT_TEST_GL(TestDrawTextOnPath);
 //   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
@@ -891,7 +917,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawPathSolid1PX);
 //   UNIT_TEST_GL(TestDrawPathSolid2PX);
 //   UNIT_TEST_GL(TestDrawPathSolid);
-   UNIT_TEST_GL(TestDrawSector);
+//   UNIT_TEST_GL(TestDrawSector);
 //   UNIT_TEST_GL(TestDrawPathSolidDiffWidth);
 //   UNIT_TEST_GL(TestDrawPathSolidWithZ);
 //   UNIT_TEST_GL(TestDrawPathSolidWithClipRect);

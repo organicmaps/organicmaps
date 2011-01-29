@@ -154,7 +154,8 @@ namespace yg
 
       m2::RectD const textRect(string const & utf8Text,
                                uint8_t fontSize,
-                               bool log2vis);
+                               bool fixedFont = false,
+                               bool log2vis = true);
 
       /// Drawing text in the middle of the path.
       bool drawPathText(m2::PointD const * path,
