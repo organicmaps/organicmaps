@@ -959,11 +959,17 @@ void FeatureType::ParseAll(int scale) const
 FeatureType::geom_stat_t FeatureType::GetGeometrySize(int scale) const
 {
   uint32_t sz = ParseGeometry(scale);
+  if (sz == 0 && !m_Points.empty())
+    sz = m_InnerStats.m_Points;
+
   return geom_stat_t(sz, m_Points.size());
 }
 
 FeatureType::geom_stat_t FeatureType::GetTrianglesSize(int scale) const
 {
   uint32_t sz = ParseTriangles(scale);
+  if (sz == 0 && !m_Triangles.empty())
+    sz = m_InnerStats.m_Strips;
+
   return geom_stat_t(sz, m_Triangles.size());
 }
