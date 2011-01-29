@@ -53,8 +53,8 @@ namespace qt
   {
     //m_label = new QLabel(QObject::tr("Version: ") + VERSION_STRING, this);
 
-    m_button = new QPushButton(QObject::tr(CHECK_FOR_UPDATE), this);
-    connect(m_button, SIGNAL(clicked(bool)), this, SLOT(OnButtonClick(bool)));
+    QPushButton * m_updateButton = new QPushButton(QObject::tr(CHECK_FOR_UPDATE), this);
+    connect(m_updateButton, SIGNAL(clicked(bool)), this, SLOT(OnButtonClick(bool)));
 
     m_tree = new QTreeWidget(this);
     m_tree->setColumnCount(KNumberOfColumns);
@@ -65,7 +65,7 @@ namespace qt
 
     QHBoxLayout * horizontalLayout = new QHBoxLayout();
 //    horizontalLayout->addWidget(m_label);
-    horizontalLayout->addWidget(m_button);
+    horizontalLayout->addWidget(m_updateButton);
     QVBoxLayout * verticalLayout = new QVBoxLayout();
     verticalLayout->addLayout(horizontalLayout);
     verticalLayout->addWidget(m_tree);
@@ -173,8 +173,8 @@ namespace qt
 
   void UpdateDialog::OnButtonClick(bool)
   {
-    m_button->setText(QObject::tr("Checking for update..."));
-    m_button->setDisabled(true);
+    m_updateButton->setText(QObject::tr("Checking for update..."));
+    m_updateButton->setDisabled(true);
     m_storage.CheckForUpdate();
   }
 
@@ -205,8 +205,8 @@ namespace qt
       if (QMessageBox::Yes == QMessageBox::question(this, title, text, QMessageBox::Yes, QMessageBox::No))
         m_storage.PerformUpdate();
     }
-    m_button->setText(CHECK_FOR_UPDATE);
-    m_button->setDisabled(false);
+    m_updateButton->setText(CHECK_FOR_UPDATE);
+    m_updateButton->setDisabled(false);
   }
 
   void UpdateDialog::UpdateRowWithCountryInfo(TIndex const & index)

@@ -16,7 +16,7 @@ namespace qt
     Q_OBJECT
 
   public:
-    UpdateDialog(QWidget * parent, storage::Storage & storage);
+    explicit UpdateDialog(QWidget * parent, storage::Storage & storage);
     ~UpdateDialog();
 
     /// @name Called from downloader to notify GUI
@@ -40,7 +40,7 @@ namespace qt
   private:
     QTreeWidget * m_tree;
     //QLabel * m_label;
-    QPushButton * m_button;
+    QPushButton * m_updateButton;
     storage::Storage & m_storage;
-   };
+  };
 } // namespace qt
