@@ -157,8 +157,10 @@ namespace
   bool CheckMaxScale(ScreenBase const & screen)
   {
     m2::RectD const r = screen.GlobalRect();
-    return ((r.SizeX() <= (MercatorBounds::maxX - MercatorBounds::minX)) ||
-            (r.SizeY() <= (MercatorBounds::maxY - MercatorBounds::minY)));
+
+    // multiple by 2 to allow scale on zero level
+    double const maxSize = 2.0 * (MercatorBounds::maxX - MercatorBounds::minX);
+    return (r.SizeX() <= maxSize || r.SizeY() <= maxSize);
   }
 }
 
