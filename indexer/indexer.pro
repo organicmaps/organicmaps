@@ -38,6 +38,7 @@ SOURCES += \
   feature_visibility.cpp \
   data_header.cpp \
   data_header_reader.cpp \
+  geometry_coding.cpp \
 
 HEADERS += \
   feature.hpp \
@@ -68,3 +69,4 @@ HEADERS += \
   data_header_reader.hpp \
   tree_structure.hpp \
   feature_impl.hpp \
+  geometry_coding.hpp \
