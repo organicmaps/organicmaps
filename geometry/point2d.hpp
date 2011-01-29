@@ -220,7 +220,9 @@ namespace m2
   typedef Point<float> PointF;
   typedef Point<double> PointD;
   typedef Point<uint32_t> PointU;
-  typedef Point<int> PointI;
+  typedef Point<uint64_t> PointU64;
+  typedef Point<int32_t> PointI;
+  typedef Point<int64_t> PointI64;
 }
 
 #include "../base/stop_mem_debug.hpp"
