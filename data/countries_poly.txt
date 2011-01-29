@@ -1,6 +1,3 @@
- Antarctic Region
-  Antarctica
-  Heard Island and McDonald Islands
  Africa
   Algeria
   Angola
@@ -9,6 +6,7 @@
   Burkina Faso
   Burundi
   Cameroon
+  Cape Verde
   Central African Republic
   Chad
   Comoros
@@ -28,18 +26,24 @@
   Lesotho
   Liberia
   Libya
+  Madagascar
   Malawi
   Mali
   Mauritania
+  Mauritius
+  Mayotte
   Morocco
   Mozambique
   Namibia
   Nigeria
   Niger
   Republic of Congo
+  Reunion
   Rwanda
+  Saint Helena
   Sao Tome and Principe
   Senegal
+  Seychelles
   Sierra Leone
   Somalia
   South Africa
@@ -52,13 +56,19 @@
   Western Sahara
   Zambia
   Zimbabwe
+ Antarctic
+  Antarctica
+  Bouvet Island
+  French Southern Territories
+  Heard Island and McDonald Islands
+  South Georgia and the South Sandwich Islands
  Asia
   Afghanistan
   Armenia
   Azerbaijan
-  Bahrain
   Bangladesh
   Bhutan
+  British Indian Ocean Territory
   Brunei
   Cambodia
   China
@@ -67,51 +77,55 @@
   Hong Kong
   India
   Indonesia
-  Iran
-  Iraq
   Japan
-  Jordan
   Kazakhstan
-  Kuwait
   Kyrgyzstan
   Laos
-  Lebanon
   Macao
   Malaysia
+  Maldives
   Mongolia
   Myanmar
   Nepal
   North Korea
-  Oman
   Pakistan
+  Philippines
   Singapore
   South Korea
   Sri Lanka
-  Syria
   Taiwan
   Tajikistan
   Thailand
   Turkmenistan
   Uzbekistan
   Vietnam
-  Yemen
- Atlantic Ocean
-  Bouvet Island
-  Cape Verde
-  Saint Helena
-  Saint Pierre and Miquelon
-  South Georgia and the South Sandwich Islands
  Australia and Oceania
+  American Samoa
   Christmas Island
   Cocos Islands
   Cook Islands
   Fiji
   French Polynesia
-  Indonesia
+  Guam
+  Kiribati
+  Marshall Islands
+  Micronesia
+  Nauru
+  New Caledonia
   New Zealand
+  Niue
   Norfolk Island
+  Northern Mariana Islands
+  Palau
   Papua New Guinea
+  Pitcairn Islands
+  Samoa
   Solomon Islands
+  Tokelau
+  Tonga
+  Tuvalu
+  Vanuatu
+  Wallis and Futuna
  Caribbean
   Anguilla
   Antigua and Barbuda
@@ -137,6 +151,7 @@
   Trinidad and Tobago
   Turks and Caicos Islands
  Central America
+  Belize
   Costa Rica
   El Salvador
   Guatemala
@@ -146,7 +161,6 @@
  Europe
   Albania
   Andorra
-  Armenia
   Austria
   Azerbaijan
   Belarus
@@ -154,7 +168,6 @@
   Bosnia and Herzegovina
   Bulgaria
   Croatia
-  Cyprus
   Czech Republic
   Denmark
   Estonia
@@ -187,8 +200,8 @@
   Poland
   Portugal
   Romania
+  Russia
   San Marino
-  Turkey
   Serbia
   Slovakia
   Slovenia
@@ -199,51 +212,33 @@
   Ukraine
   United Kingdom
   Vatican City
- Indian Ocean
-  British Indian Ocean Territory
-  Comoros
-  French Southern Territories
-  Madagascar
-  Maldives
-  Mauritius
-  Mayotte
-  Reunion
-  Seychelles
  Middle East
+  Bahrain
+  Cyprus
+  Iran
+  Iraq
   Israel
+  Jordan
+  Kuwait
+  Lebanon
+  Oman
   Palestina
   Qatar
   Saudi Arabia
+  Syria
+  Turkey
   United Arab Emirates
+  Yemen
  North America
-  Belize
   Bermuda
   Canada
   Greenland
   Mexico
+  Saint Pierre and Miquelon
   USA
    Alaska
-   American Samoa
    United States
- Pacific Ocean
-  Guam
-  Kiribati
-  Marshall Islands
-  Micronesia
-  Nauru
-  New Caledonia
-  Niue
-  Northern Mariana Islands
-  Palau
-  Philippines
-  Pitcairn Islands
-  Samoa
-  Tokelau
-  Tonga
-  Tuvalu
-  United States Minor Outlying Islands
-  Vanuatu
-  Wallis and Futuna
+   United States Minor Outlying Islands
  South America
   Argentina
   Bolivia
