@@ -163,5 +163,5 @@ UNIT_TEST(Simpfication_DP_DegenerateTrg)
 
 #include "large_polygon.hpp"
 
-m2::PointD const * LargePolylineTestData::m_Data = kLargePolygon;
-size_t LargePolylineTestData::m_Size = ARRAY_SIZE(kLargePolygon);
+m2::PointD const * LargePolylineTestData::m_Data = LargePolygon::kLargePolygon;
+size_t LargePolylineTestData::m_Size = ARRAY_SIZE(LargePolygon::kLargePolygon);

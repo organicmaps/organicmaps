@@ -131,7 +131,7 @@ void TestEncodePolyline(string name, m2::PointU maxPoint, vector<m2::PointU> con
 
 UNIT_TEST(EncodePolyline)
 {
-  size_t const kSizes [] = { 0, 1, 2, 3, 4, ARRAY_SIZE(kLargePolygon) };
+  size_t const kSizes [] = { 0, 1, 2, 3, 4, ARRAY_SIZE(LargePolygon::kLargePolygon) };
   m2::PointU const maxPoint(1000000000, 1000000000);
   for (size_t iSize = 0; iSize < ARRAY_SIZE(kSizes); ++iSize)
   {
@@ -139,8 +139,8 @@ UNIT_TEST(EncodePolyline)
     vector<m2::PointU> points;
     points.reserve(polygonSize);
     for (size_t i = 0; i < polygonSize; ++i)
-      points.push_back(m2::PointU(static_cast<uint32_t>(kLargePolygon[i].x * 10000),
-                                  static_cast<uint32_t>((kLargePolygon[i].y + 200) * 10000)));
+      points.push_back(m2::PointU(static_cast<uint32_t>(LargePolygon::kLargePolygon[i].x * 10000),
+                                  static_cast<uint32_t>((LargePolygon::kLargePolygon[i].y + 200) * 10000)));
 
     TestEncodePolyline("Unsimp", maxPoint, points);
     TestEncodePolyline("1simp", maxPoint, SimplifyPoints(points, 1));

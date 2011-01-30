@@ -1,5 +1,8 @@
 #include "../point2d.hpp"
 
+namespace LargePolygon
+{
+
 typedef m2::PointD P;
 
 // This is actually part of coastline of Australia.
@@ -5545,3 +5548,5 @@ m2::PointD const kLargePolygon[] =
   P(136.0341491699219,-12.4697208404541),
   P(136.0397033691406,-12.47166633605957)
 };
+
+} // namespace LargePolygon
