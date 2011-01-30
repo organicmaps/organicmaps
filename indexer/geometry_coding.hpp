@@ -32,51 +32,56 @@ m2::PointU PredictPointInPolyline(m2::PointU const & maxPoint,
                                   m2::PointU const & p2,
                                   m2::PointU const & p3);
 
+namespace geo_coding
+{
+  typedef vector<m2::PointU> InPointsT;
+  typedef vector<m2::PointU> OutPointsT;
+  typedef vector<uint64_t> DeltasT;
 
-void EncodePolylinePrev1(vector<m2::PointU> const & points,
+void EncodePolylinePrev1(InPointsT const & points,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         vector<char> & serialOutput);
+                         DeltasT & deltas);
 
-void DecodePolylinePrev1(char const * pBeg, char const * pEnd,
+void DecodePolylinePrev1(DeltasT const & deltas,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         vector<m2::PointU> & points);
+                         OutPointsT & points);
 
-void EncodePolylinePrev2(vector<m2::PointU> const & points,
+void EncodePolylinePrev2(InPointsT const & points,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         vector<char> & serialOutput);
+                         DeltasT & deltas);
 
-void DecodePolylinePrev2(char const * pBeg, char const * pEnd,
+void DecodePolylinePrev2(DeltasT const & deltas,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         vector<m2::PointU> & points);
+                         OutPointsT & points);
 
-void EncodePolylinePrev3(vector<m2::PointU> const & points,
+void EncodePolylinePrev3(InPointsT const & points,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         vector<char> & serialOutput);
+                         DeltasT & deltas);
 
-void DecodePolylinePrev3(char const * pBeg, char const * pEnd,
+void DecodePolylinePrev3(DeltasT const & deltas,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         vector<m2::PointU> & points);
+                         OutPointsT & points);
 
-inline void EncodePolyline(vector<m2::PointU> const & points,
+inline void EncodePolyline(InPointsT const & points,
                            m2::PointU const & basePoint,
                            m2::PointU const & maxPoint,
-                           vector<char> & serialOutput)
+                           DeltasT & deltas)
 {
-  EncodePolylinePrev3(points, basePoint, maxPoint, serialOutput);
+  EncodePolylinePrev2(points, basePoint, maxPoint, deltas);
 }
 
-inline void DecodePolyline(char const * pBeg, char const * pEnd,
+inline void DecodePolyline(DeltasT const & deltas,
                            m2::PointU const & basePoint,
                            m2::PointU const & maxPoint,
-                           vector<m2::PointU> & points)
+                           OutPointsT & points)
 {
-  DecodePolylinePrev3(pBeg, pEnd, basePoint, maxPoint, points);
+  DecodePolylinePrev2(deltas, basePoint, maxPoint, points);
 }
 
 void EncodeTriangles(vector<m2::PointU> const & points,
@@ -100,3 +105,4 @@ void DecodeTriangleStrip(char const * pBeg, char const * pEnd,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
                          vector<m2::PointU> & points);
+}

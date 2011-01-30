@@ -1,45 +1,22 @@
 #include "geometry_coding.hpp"
+
 #include "../../geometry/distance.hpp"
-#include "../coding/byte_stream.hpp"
+
 #include "../base/assert.hpp"
 #include "../base/stl_add.hpp"
+
 #include "../std/complex.hpp"
 #include "../std/vector.hpp"
 
+
 namespace
 {
-
-inline void EncodeVarUints(vector<uint64_t> const & varints, vector<char> & serialOutput)
-{
-  PushBackByteSink<vector<char> > sink(serialOutput);
-  for (vector<uint64_t>::const_iterator it = varints.begin(); it != varints.end(); ++it)
-    WriteVarUint(sink, *it);
-}
-
-template <typename T>
-inline m2::PointU ClampPoint(m2::PointU const & maxPoint, m2::Point<T> point)
-{
-  return m2::PointU(
-        point.x < 0 ? 0 : (point.x < maxPoint.x ? static_cast<uint32_t>(point.x) : maxPoint.x),
-        point.y < 0 ? 0 : (point.y < maxPoint.y ? static_cast<uint32_t>(point.y) : maxPoint.y));
-}
-
-bool TestDecoding(vector<m2::PointU> const & points,
-                  m2::PointU const & basePoint,
-                  m2::PointU const & maxPoint,
-                  vector<char> & serialOutput,
-                  void (* fnDecode)(char const * pBeg, char const * pEnd,
-                                    m2::PointU const & basePoint,
-                                    m2::PointU const & maxPoint,
-                                    vector<m2::PointU> & points))
-{
-  vector<m2::PointU> decoded;
-  decoded.reserve(points.size());
-  fnDecode(&serialOutput[0], &serialOutput[0] + serialOutput.size(), basePoint, maxPoint, decoded);
-  ASSERT_EQUAL(points, decoded, (basePoint, maxPoint));
-  return true;
-}
-
+  template <typename T>
+  inline m2::PointU ClampPoint(m2::PointU const & maxPoint, m2::Point<T> const & point)
+  {
+    return m2::PointU(my::clamp(static_cast<uint32_t>(point.x), 0, maxPoint.x),
+                      my::clamp(static_cast<uint32_t>(point.y), 0, maxPoint.y));
+  }
 }
 
 m2::PointU PredictPointInPolyline(m2::PointU const & maxPoint,
@@ -77,12 +54,29 @@ m2::PointU PredictPointInPolyline(m2::PointU const & maxPoint,
   return ClampPoint(maxPoint, m2::PointD(c0.real(), c0.imag()));
 }
 
-void EncodePolylinePrev1(vector<m2::PointU> const & points,
+namespace geo_coding
+{
+  bool TestDecoding(InPointsT const & points,
+                    m2::PointU const & basePoint,
+                    m2::PointU const & maxPoint,
+                    DeltasT const & deltas,
+                    void (* fnDecode)(DeltasT const & deltas,
+                                      m2::PointU const & basePoint,
+                                      m2::PointU const & maxPoint,
+                                      OutPointsT & points))
+  {
+    vector<m2::PointU> decoded;
+    decoded.reserve(points.size());
+    fnDecode(deltas, basePoint, maxPoint, decoded);
+    ASSERT_EQUAL(points, decoded, (basePoint, maxPoint));
+    return true;
+  }
+
+void EncodePolylinePrev1(InPointsT const & points,
                          m2::PointU const & basePoint,
                          m2::PointU const & /*maxPoint*/,
-                         vector<char> & serialOutput)
+                         DeltasT & deltas)
 {
-  vector<uint64_t> deltas;
   deltas.reserve(points.size());
   if (points.size() > 0)
   {
@@ -91,19 +85,14 @@ void EncodePolylinePrev1(vector<m2::PointU> const & points,
       deltas.push_back(EncodeDelta(points[i], points[i-1]));
   }
 
-  EncodeVarUints(deltas, serialOutput);
-  ASSERT(TestDecoding(points, basePoint, m2::PointU(), serialOutput, &DecodePolylinePrev1), ());
+  ASSERT(TestDecoding(points, basePoint, m2::PointU(), deltas, &DecodePolylinePrev1), ());
 }
 
-void DecodePolylinePrev1(char const * pBeg, char const * pEnd,
+void DecodePolylinePrev1(DeltasT const & deltas,
                          m2::PointU const & basePoint,
                          m2::PointU const & /*maxPoint*/,
-                         vector<m2::PointU> & points)
+                         OutPointsT & points)
 {
-  vector<uint64_t> deltas;
-  ReadVarUint64Array(pBeg, pEnd, MakeBackInsertFunctor(deltas));
-  points.reserve(points.size() + deltas.size());
-
   if (deltas.size() > 0)
   {
     points.push_back(DecodeDelta(deltas[0], basePoint));
@@ -112,13 +101,11 @@ void DecodePolylinePrev1(char const * pBeg, char const * pEnd,
   }
 }
 
-void EncodePolylinePrev2(vector<m2::PointU> const & points,
+void EncodePolylinePrev2(InPointsT const & points,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         vector<char> & serialOutput)
+                         DeltasT & deltas)
 {
-  vector<uint64_t> deltas;
-  deltas.reserve(points.size());
   if (points.size() > 0)
   {
     deltas.push_back(EncodeDelta(points[0], basePoint));
@@ -131,19 +118,14 @@ void EncodePolylinePrev2(vector<m2::PointU> const & points,
     }
   }
 
-  EncodeVarUints(deltas, serialOutput);
-  ASSERT(TestDecoding(points, basePoint, maxPoint, serialOutput, &DecodePolylinePrev2), ());
+  ASSERT(TestDecoding(points, basePoint, maxPoint, deltas, &DecodePolylinePrev2), ());
 }
 
-void DecodePolylinePrev2(char const * pBeg, char const * pEnd,
+void DecodePolylinePrev2(DeltasT const & deltas,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         vector<m2::PointU> & points)
+                         OutPointsT & points)
 {
-  vector<uint64_t> deltas;
-  ReadVarUint64Array(pBeg, pEnd, MakeBackInsertFunctor(deltas));
-  points.reserve(points.size() + deltas.size());
-
   if (deltas.size() > 0)
   {
     points.push_back(DecodeDelta(deltas[0], basePoint));
@@ -160,17 +142,14 @@ void DecodePolylinePrev2(char const * pBeg, char const * pEnd,
   }
 }
 
-
-void EncodePolylinePrev3(vector<m2::PointU> const & points,
+void EncodePolylinePrev3(InPointsT const & points,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         vector<char> & serialOutput)
+                         DeltasT & deltas)
 {
   ASSERT_LESS_OR_EQUAL(basePoint.x, maxPoint.x, (basePoint, maxPoint));
   ASSERT_LESS_OR_EQUAL(basePoint.y, maxPoint.y, (basePoint, maxPoint));
 
-  vector<uint64_t> deltas;
-  deltas.reserve(points.size());
   if (points.size() > 0)
   {
     deltas.push_back(EncodeDelta(points[0], basePoint));
@@ -190,21 +169,17 @@ void EncodePolylinePrev3(vector<m2::PointU> const & points,
       }
     }
   }
-  EncodeVarUints(deltas, serialOutput);
-  ASSERT(TestDecoding(points, basePoint, maxPoint, serialOutput, &DecodePolylinePrev3), ());
+
+  ASSERT(TestDecoding(points, basePoint, maxPoint, deltas, &DecodePolylinePrev3), ());
 }
 
-void DecodePolylinePrev3(char const * pBeg, char const * pEnd,
+void DecodePolylinePrev3(DeltasT const & deltas,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         vector<m2::PointU> & points)
+                         OutPointsT & points)
 {
   ASSERT_LESS_OR_EQUAL(basePoint.x, maxPoint.x, (basePoint, maxPoint));
   ASSERT_LESS_OR_EQUAL(basePoint.y, maxPoint.y, (basePoint, maxPoint));
-
-  vector<uint64_t> deltas;
-  ReadVarUint64Array(pBeg, pEnd, MakeBackInsertFunctor(deltas));
-  points.reserve(points.size() + deltas.size());
 
   if (deltas.size() > 0)
   {
@@ -227,4 +202,6 @@ void DecodePolylinePrev3(char const * pBeg, char const * pEnd,
       }
     }
   }
+}
+
 }

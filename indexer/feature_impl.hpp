@@ -7,6 +7,10 @@
 
 #include "../geometry/point2d.hpp"
 
+#include "../std/algorithm.hpp"
+#include "../std/iterator.hpp"
+
+
 namespace feature
 {
   namespace pts

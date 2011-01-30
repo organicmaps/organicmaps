@@ -8,6 +8,7 @@
 #include "../../indexer/feature_visibility.hpp"
 #include "../../indexer/feature_impl.hpp"
 #include "../../indexer/cell_id.hpp"
+#include "../../indexer/geometry_serialization.hpp"
 
 #include "../../geometry/polygon.hpp"
 #include "../../geometry/tesselator.hpp"
@@ -153,7 +154,7 @@ namespace feature
       {
         m_buffer.m_ptsMask |= (1 << i);
         m_buffer.m_ptsOffset.push_back(m_rMain.GetFileSize(*m_rMain.m_geoFile[i]));
-        feature::SavePoints(points, m_base, *m_rMain.m_geoFile[i]);
+        serial::SaveOuterPath(points, m_base, *m_rMain.m_geoFile[i]);
       }
 
       void WriteOuterTriangles(points_t const & triangles, int i)

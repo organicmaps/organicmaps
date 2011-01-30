@@ -39,6 +39,7 @@ SOURCES += \
   data_header.cpp \
   data_header_reader.cpp \
   geometry_coding.cpp \
+    geometry_serialization.cpp
 
 HEADERS += \
   feature.hpp \
@@ -70,3 +71,5 @@ HEADERS += \
   tree_structure.hpp \
   feature_impl.hpp \
   geometry_coding.hpp \
+    geometry_serialization.hpp \
+    point_to_int64.hpp

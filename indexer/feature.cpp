@@ -4,6 +4,7 @@
 #include "feature_impl.hpp"
 #include "feature_visibility.hpp"
 #include "scales.hpp"
+#include "geometry_serialization.hpp"
 
 #include "../defines.hpp" // just for file extensions
 
@@ -323,16 +324,6 @@ bool FeatureBuilder2::PreSerialize(buffers_holder_t const & data)
 
 namespace 
 {
-  template <class T, class TSink>
-  void WriteVarUintArray(vector<T> const & v, TSink & sink)
-  {
-    size_t const count = v.size();
-    ASSERT_GREATER ( count, 0, () );
-
-    for (size_t i = 0; i < count; ++i)
-      WriteVarUint(sink, v[i]);
-  }
-
   template <class TSink> class BitSink
   {
     TSink & m_sink;
@@ -447,13 +438,13 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, int64_t base)
         }
       }
 
-      feature::SavePointsSimple(data.m_innerPts, base, sink);
+      serial::SaveInnerPath(data.m_innerPts, base, sink);
     }
     else
     {
       // offsets was pushed from high scale index to low
       reverse(data.m_ptsOffset.begin(), data.m_ptsOffset.end());
-      WriteVarUintArray(data.m_ptsOffset, sink);
+      serial::WriteVarUintArray(data.m_ptsOffset, sink);
     }
   }
 
@@ -469,7 +460,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, int64_t base)
     {
       // offsets was pushed from high scale index to low
       reverse(data.m_trgOffset.begin(), data.m_trgOffset.end());
-      WriteVarUintArray(data.m_trgOffset, sink);
+      serial::WriteVarUintArray(data.m_trgOffset, sink);
     }
   }
 }
@@ -608,7 +599,6 @@ void FeatureType::Deserialize(read_source_t & src)
 
   m_Points.clear();
   m_Triangles.clear();
-  m_InnerPoints.clear();
 
   m_bHeader2Parsed = m_bPointsParsed = m_bTrianglesParsed = false;
   m_ptsSimpMask = 0;
@@ -807,9 +797,7 @@ void FeatureType::ParseHeader2() const
 
       char const * start = static_cast<char const *>(src.Ptr());
 
-      m_InnerPoints.reserve(ptsCount);
-      src = ArrayByteSource(ReadVarInt64Array(
-        src.Ptr(), ptsCount, MakeBackInsertFunctor(m_InnerPoints)));
+      src = ArrayByteSource(serial::LoadInnerPath(src.Ptr(), ptsCount, m_base, m_Points));
 
       m_InnerStats.m_Points = static_cast<char const *>(src.Ptr()) - start;
     }
@@ -855,7 +843,7 @@ uint32_t FeatureType::ParseGeometry(int scale) const
   uint32_t sz = 0;
   if (Header() & HEADER_IS_LINE)
   {
-    if (m_InnerPoints.empty())
+    if (m_Points.empty())
     {
       // outer geometry
       int const ind = GetScaleIndex(scale, m_ptsOffsets);
@@ -864,35 +852,32 @@ uint32_t FeatureType::ParseGeometry(int scale) const
         ReaderSource<FileReader> src(
               m_cont->GetReader(feature::GetTagForIndex(GEOMETRY_FILE_TAG, ind)));
         src.Skip(m_ptsOffsets[ind]);
-        feature::LoadPoints(m_Points, m_base, src);
+        serial::LoadOuterPath(src, m_base, m_Points);
 
         sz = static_cast<uint32_t>(src.Pos() - m_ptsOffsets[ind]);
       }
     }
     else
     {
-      // inner geometry
-      size_t const count = m_InnerPoints.size();
-      ASSERT_GREATER ( count, 1, () );
+      // filter inner geometry
 
-      m_Points.reserve(count);
+      size_t const count = m_Points.size();
+      points_t points;
+      points.reserve(count);
 
       uint32_t const scaleIndex = GetScaleIndex(scale);
       ASSERT_LESS ( scaleIndex, ARRAY_SIZE(feature::g_arrScales), () );
 
-      int64_t id = m_InnerPoints.front() + m_base;
-      m_Points.push_back(feature::pts::ToPoint(id));
-
+      points.push_back(m_Points.front());
       for (size_t i = 1; i < count-1; ++i)
       {
-        id += m_InnerPoints[i];
         // check for point visibility in needed scaleIndex
         if (((m_ptsSimpMask >> (2*(i-1))) & 0x3) <= scaleIndex)
-          m_Points.push_back(feature::pts::ToPoint(id));
+          points.push_back(m_Points[i]);
       }
+      points.push_back(m_Points.back());
 
-      id += m_InnerPoints.back();
-      m_Points.push_back(feature::pts::ToPoint(id));
+      m_Points.swap(points);
     }
 
     CalcRect(m_Points, m_LimitRect);
