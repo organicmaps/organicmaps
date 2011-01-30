@@ -30,9 +30,14 @@ namespace m2
       return ((fabs(x - p.x) < eps) && (fabs(y - p.y) < eps));
     }
 
+    double SquareLength(m2::Point<T> const & p) const
+    {
+      return math::sqr(x - p.x) + math::sqr(y - p.y);
+    }
+
     double Length(m2::Point<T> const & p) const
     {
-      return sqrt(math::sqr(x - p.x) + math::sqr(y - p.y));
+      return sqrt(SquareLength(p));
     }
 
     m2::Point<T> Move(T len, T ang) const
