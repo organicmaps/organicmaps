@@ -156,6 +156,9 @@ inline void CoverRect(CoordT minX, CoordT minY,
   if (maxX > BoundsT::maxX) maxX = BoundsT::maxX;
   if (maxY > BoundsT::maxY) maxY = BoundsT::maxY;
 
+  if (minX >= maxX || minY >= maxY)
+    return;
+
   CellIdT commonCell =
       CellIdConverter<BoundsT, CellIdT>::Cover2PointsWithCell(minX, minY, maxX, maxY);
 
