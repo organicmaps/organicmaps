@@ -95,14 +95,6 @@ namespace kml
       m_container.push_back(mercPoint);
     }
   };
-
-  m2::PointU MercatorPointToPointU(m2::PointD const & pt)
-  {
-    typedef CellIdConverter<MercatorBounds, RectId> CellIdConverterType;
-    uint32_t const ix = static_cast<uint32_t>(CellIdConverterType::XToCellIdX(pt.x));
-    uint32_t const iy = static_cast<uint32_t>(CellIdConverterType::YToCellIdY(pt.y));
-    return m2::PointU(ix, iy);
-  }
   
   class AreaFeature : public FeatureType
   {
