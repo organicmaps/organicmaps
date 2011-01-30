@@ -6,9 +6,11 @@
 #endif
 
 #include <iterator>
+
+using std::back_inserter;
+using std::distance;
 using std::iterator_traits;
 using std::istream_iterator;
-using std::distance;
 using std::insert_iterator;
 
 #ifdef DEBUG_NEW

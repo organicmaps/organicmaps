@@ -20,11 +20,12 @@ using std::unique;
 using std::equal_range;
 using std::for_each;
 using std::copy;
+using std::reverse;
 using std::set_union;
 using std::set_intersection;
 using std::set_difference;
 using std::set_symmetric_difference;
-using std::reverse;
+using std::transform;
 
 #ifdef DEBUG_NEW
 #define new DEBUG_NEW

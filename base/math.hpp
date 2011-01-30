@@ -66,7 +66,8 @@ template <typename T> inline T sq(T const & x)
   return x * x;
 }
 
-template <typename T, typename TMinMax> inline T clamp(T x, TMinMax xmin, TMinMax xmax)
+template <typename T, typename TMin, typename TMax>
+inline T clamp(T x, TMin xmin, TMax xmax)
 {
   if (x > xmax)
     return xmax;
