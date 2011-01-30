@@ -1,4 +1,5 @@
 #include "geometry_coding.hpp"
+#include "../../geometry/distance.hpp"
 #include "../coding/byte_stream.hpp"
 #include "../base/assert.hpp"
 #include "../base/stl_add.hpp"
@@ -45,7 +46,9 @@ m2::PointU PredictPointInPolyline(m2::PointU const & maxPoint,
                                   m2::PointU const & p1,
                                   m2::PointU const & p2)
 {
-  return ClampPoint(maxPoint, m2::PointI64(p1) + m2::PointI64(p1) - m2::PointI64(p2));
+  // return ClampPoint(maxPoint, m2::PointI64(p1) + m2::PointI64(p1) - m2::PointI64(p2));
+  // return ClampPoint(maxPoint, m2::PointI64(p1) + (m2::PointI64(p1) - m2::PointI64(p2)) / 2);
+  return ClampPoint(maxPoint, m2::PointD(p1) + (m2::PointD(p1) - m2::PointD(p2)) / 2);
 }
 
 m2::PointU PredictPointInPolyline(m2::PointU const & maxPoint,
@@ -55,12 +58,40 @@ m2::PointU PredictPointInPolyline(m2::PointU const & maxPoint,
 {
   CHECK_NOT_EQUAL(p2, p3, ());
 
+  complex<double> const c1(p1.x, p1.y);
+  complex<double> const c2(p2.x, p2.y);
+  complex<double> const c3(p3.x, p3.y);
+  complex<double> const d = (c1 - c2) / (c2 - c3);
+  complex<double> const c0 = c1 + (c1 - c2) * polar(0.5, 0.5 * arg(d));
+
+  /*
+  complex<double> const c1(p1.x, p1.y);
+  complex<double> const c2(p2.x, p2.y);
+  complex<double> const c3(p3.x, p3.y);
+  complex<double> const d = (c1 - c2) / (c2 - c3);
+  complex<double> const c01 = c1 + (c1 - c2) * polar(0.5, arg(d));
+  complex<double> const c02 = c1 + (c1 - c2) * complex<double>(0.5, 0.0);
+  complex<double> const c0 = (c01 + c02) * complex<double>(0.5, 0.0);
+  */
+
+  /*
+  complex<double> const c1(p1.x, p1.y);
+  complex<double> const c2(p2.x, p2.y);
+  complex<double> const c3(p3.x, p3.y);
+  complex<double> d = (c1 - c2) / (c2 - c3);
+  d /= abs(d);
+  complex<double> const c0 = c1 + (c1 - c2) * d * complex<double>(0.5, 0.0);
+  */
+
+  /*
   // In complex numbers:
   // Ci = Ci-1 + (Ci-1 - Ci-2) * (Ci-1 - Ci-2) / (Ci-2 - Ci-3)
   complex<double> const c1(p1.x, p1.y);
   complex<double> const c2(p2.x, p2.y);
   complex<double> const c3(p3.x, p3.y);
   complex<double> const c0 = c1 + (c1 - c2) * (c1 - c2) / (c2 - c3);
+  */
+
   return ClampPoint(maxPoint, m2::PointD(c0.real(), c0.imag()));
 }
 

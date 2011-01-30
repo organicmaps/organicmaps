@@ -118,8 +118,8 @@ UNIT_TEST(EncodePolyline)
     vector<m2::PointU> points;
     points.reserve(polygonSize);
     for (size_t i = 0; i < polygonSize; ++i)
-      points.push_back(m2::PointU(static_cast<uint32_t>(kLargePolygon[i].x * 1000),
-                                  static_cast<uint32_t>((kLargePolygon[i].y + 200) * 1000)));
+      points.push_back(m2::PointU(static_cast<uint32_t>(kLargePolygon[i].x * 10000),
+                                  static_cast<uint32_t>((kLargePolygon[i].y + 200) * 10000)));
 
     TestEncodePolyline("Unsimp", maxPoint, points);
     TestEncodePolyline("1simp", maxPoint, SimplifyPoints(points, 1));
