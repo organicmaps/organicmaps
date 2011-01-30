@@ -11,36 +11,48 @@
 
 #define POINT_COORD_BITS 30
 
-int64_t PointToInt64(CoordT x, CoordT y)
+
+m2::PointU PointD2PointU(CoordT x, CoordT y)
 {
   if (x < MercatorBounds::minX) x = MercatorBounds::minX;
   if (y < MercatorBounds::minY) y = MercatorBounds::minY;
   if (x > MercatorBounds::maxX) x = MercatorBounds::maxX;
   if (y > MercatorBounds::maxY) y = MercatorBounds::maxY;
+
   uint32_t const ix = static_cast<uint32_t>(0.5 + (x - MercatorBounds::minX)
-                      / (MercatorBounds::maxX - MercatorBounds::minX) * (1 << POINT_COORD_BITS));
+                         / (MercatorBounds::maxX - MercatorBounds::minX) * (1 << POINT_COORD_BITS));
   uint32_t const iy = static_cast<uint32_t>(0.5 + (y - MercatorBounds::minY)
-                      / (MercatorBounds::maxY - MercatorBounds::minY) * (1 << POINT_COORD_BITS));
-  int64_t res =  static_cast<int64_t>(m2::PointUToUint64(m2::PointU(ix, iy)));
+                         / (MercatorBounds::maxY - MercatorBounds::minY) * (1 << POINT_COORD_BITS));
+
   ASSERT_LESS_OR_EQUAL(ix, 1 << POINT_COORD_BITS, ());
   ASSERT_LESS_OR_EQUAL(iy, 1 << POINT_COORD_BITS, ());
+
+  return m2::PointU(ix, iy);
+}
+
+int64_t PointToInt64(CoordT x, CoordT y)
+{
+  int64_t const res =  static_cast<int64_t>(m2::PointUToUint64(PointD2PointU(x, y)));
+
   ASSERT_LESS_OR_EQUAL(res, 3ULL << 2 * POINT_COORD_BITS, ());
   ASSERT_GREATER_OR_EQUAL(res, 0,
                           ("Highest bits of (ix, iy) are not used, so res should be > 0."));
   return res;
 }
 
+CoordPointT PointU2PointD(m2::PointU const & pt)
+{
+  return CoordPointT(
+        static_cast<CoordT>(pt.x) * (MercatorBounds::maxX - MercatorBounds::minX)
+            / (1 << POINT_COORD_BITS) + MercatorBounds::minX,
+        static_cast<CoordT>(pt.y) * (MercatorBounds::maxY - MercatorBounds::minY)
+            / (1 << POINT_COORD_BITS) + MercatorBounds::minY);
+}
+
 CoordPointT Int64ToPoint(int64_t v)
 {
   ASSERT_LESS_OR_EQUAL(v, 3ULL << 2 * POINT_COORD_BITS, ());
-  m2::PointU const pt = m2::Uint64ToPointU(static_cast<uint64_t>(v));
-  CoordT const fx = static_cast<CoordT>(pt.x);
-  CoordT const fy = static_cast<CoordT>(pt.y);
-  return CoordPointT(
-       fx * (MercatorBounds::maxX - MercatorBounds::minX)
-         / (1 << POINT_COORD_BITS) + MercatorBounds::minX,
-       fy * (MercatorBounds::maxY - MercatorBounds::minY)
-         / (1 << POINT_COORD_BITS) + MercatorBounds::minY);
+  return PointU2PointD(m2::Uint64ToPointU(static_cast<uint64_t>(v)));
 }
 
 pair<int64_t, int64_t> RectToInt64(m2::RectD const & r)

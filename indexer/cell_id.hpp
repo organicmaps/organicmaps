@@ -1,26 +1,9 @@
 #pragma once
 #include "mercator.hpp"
+#include "point_to_int64.hpp"
 
-#include "../geometry/cellid.hpp"
-#include "../geometry/rect2d.hpp"
-
-#include "../base/base.hpp"
 #include "../base/assert.hpp"
 
-#include "../std/utility.hpp"
-#include "../std/string.hpp"
-
-typedef double CoordT;
-typedef pair<CoordT, CoordT> CoordPointT;
-
-typedef m2::CellId<19> RectId;
-
-int64_t PointToInt64(CoordT x, CoordT y);
-inline int64_t PointToInt64(CoordPointT const & pt) { return PointToInt64(pt.first, pt.second); }
-CoordPointT Int64ToPoint(int64_t v);
-
-pair<int64_t, int64_t> RectToInt64(m2::RectD const & r);
-m2::RectD Int64ToRect(pair<int64_t, int64_t> const & p);
 
 template <int MinX, int MinY, int MaxX, int MaxY>
 struct Bounds
@@ -40,7 +23,6 @@ template <typename BoundsT, typename CellIdT>
 class CellIdConverter
 {
 public:
-
   static CoordT XToCellIdX(CoordT x)
   {
     return (x - BoundsT::minX) / StepX();
@@ -48,6 +30,15 @@ public:
   static CoordT YToCellIdY(CoordT y)
   {
     return (y - BoundsT::minY) / StepY();
+  }
+
+  static CoordT CellIdXToX(CoordT x)
+  {
+    return (x*StepX() + BoundsT::minX);
+  }
+  static CoordT CellIdYToY(CoordT y)
+  {
+    return (y*StepY() + BoundsT::minY);
   }
 
   static CellIdT ToCellId(CoordT x, CoordT y)
@@ -90,7 +81,7 @@ public:
   static CoordPointT FromCellId(CellIdT id)
   {
     pair<uint32_t, uint32_t> const xy = id.XY();
-    return CoordPointT(xy.first * StepX() + BoundsT::minX, xy.second * StepY() + BoundsT::minY);
+    return CoordPointT(CellIdXToX(xy.first), CellIdYToY(xy.second));
   }
 
   static void GetCellBounds(CellIdT id, CoordT & minX, CoordT &  minY, CoordT & maxX, CoordT & maxY)
