@@ -3,9 +3,31 @@
 #include "../../geometry/geometry_tests/large_polygon.hpp"
 #include "../../geometry/distance.hpp"
 #include "../../geometry/simplification.hpp"
+#include "../../coding/byte_stream.hpp"
+#include "../../coding/varint.hpp"
 #include "../../base/logging.hpp"
 
 typedef m2::PointU PU;
+
+UNIT_TEST(EncodeDelta)
+{
+  for (int x = -100; x <= 100; ++x)
+  {
+    for (int y = -100; y <= 100; ++y)
+    {
+      PU orig = PU(100 + x, 100 + y);
+      PU pred = PU(100, 100);
+      TEST_EQUAL(orig, DecodeDelta(EncodeDelta(orig, pred), pred), ());
+      vector<char> data;
+      PushBackByteSink<vector<char> > sink(data);
+      WriteVarUint(sink, EncodeDelta(orig, pred));
+      size_t expectedSize = 1;
+      if (x >= 8 || x < -8 || y >= 4 || y < -4) expectedSize = 2;
+      if (x >= 64 || x < -64 || y >= 64 || y < -64) expectedSize = 3;
+      TEST_EQUAL(data.size(), expectedSize, (x, y));
+    }
+  }
+}
 
 UNIT_TEST(PredictPointsInPolyline2)
 {
@@ -36,7 +58,6 @@ UNIT_TEST(PredictPointsInPolyline3_SquareClamp0)
   TEST_EQUAL(PU(4, 0), PredictPointInPolyline(PU(6, 6), PU(2, 0), PU(3, 2), PU(5, 1)), ());
 }
 
-
 UNIT_TEST(PredictPointsInPolyline3_90deg)
 {
   TEST_EQUAL(PU(3, 2), PredictPointInPolyline(PU(8, 8), PU(3, 6), PU(1, 6), PU(1, 5)), ());
@@ -45,7 +66,7 @@ UNIT_TEST(PredictPointsInPolyline3_90deg)
 namespace
 {
 
-void TestPolylineEncode(char const * testName,
+void TestPolylineEncode(string testName,
                         vector<m2::PointU> const & points,
                         m2::PointU const & maxPoint,
                         void (* fnEncode)(vector<m2::PointU> const & points,
@@ -78,11 +99,11 @@ vector<m2::PointU> SimplifyPoints(vector<m2::PointU> const & points, double eps)
   return simpPoints;
 }
 
-void TestEncodePolyline(char const * name, m2::PointU maxPoint, vector<m2::PointU> const & points)
+void TestEncodePolyline(string name, m2::PointU maxPoint, vector<m2::PointU> const & points)
 {
-  TestPolylineEncode(name, points, maxPoint, &EncodePolylinePrev1, &DecodePolylinePrev1);
-  TestPolylineEncode(name, points, maxPoint, &EncodePolylinePrev2, &DecodePolylinePrev2);
-  TestPolylineEncode(name, points, maxPoint, &EncodePolylinePrev3, &DecodePolylinePrev3);
+  TestPolylineEncode(name + "1", points, maxPoint, &EncodePolylinePrev1, &DecodePolylinePrev1);
+  TestPolylineEncode(name + "2", points, maxPoint, &EncodePolylinePrev2, &DecodePolylinePrev2);
+  TestPolylineEncode(name + "3", points, maxPoint, &EncodePolylinePrev3, &DecodePolylinePrev3);
 }
 
 }

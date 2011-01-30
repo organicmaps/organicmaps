@@ -1,9 +1,25 @@
 #pragma once
 
 #include "../geometry/point2d.hpp"
+#include "../coding/varint.hpp"
 #include "../base/base.hpp"
+#include "../base/bits.hpp"
 #include "../std/vector.hpp"
 #include "../std/tuple.hpp"
+
+inline uint64_t EncodeDelta(m2::PointU const & actual, m2::PointU const & prediction)
+{
+  return bits::BitwiseMerge(
+        bits::ZigZagEncode(static_cast<int32_t>(actual.x) - static_cast<int32_t>(prediction.x)),
+        bits::ZigZagEncode(static_cast<int32_t>(actual.y) - static_cast<int32_t>(prediction.y)));
+}
+
+inline m2::PointU DecodeDelta(uint64_t delta, m2::PointU const & prediction)
+{
+  uint32_t x, y;
+  bits::BitwiseSplit(delta, x, y);
+  return m2::PointU(prediction.x + bits::ZigZagDecode(x), prediction.y + bits::ZigZagDecode(y));
+}
 
 // Predict point p0 given previous (p1, p2).
 m2::PointU PredictPointInPolyline(m2::PointU const & maxPoint,

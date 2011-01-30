@@ -1,28 +1,12 @@
 #include "geometry_coding.hpp"
 #include "../coding/byte_stream.hpp"
-#include "../coding/varint.hpp"
 #include "../base/assert.hpp"
-#include "../base/bits.hpp"
 #include "../base/stl_add.hpp"
 #include "../std/complex.hpp"
 #include "../std/vector.hpp"
 
 namespace
 {
-
-inline uint64_t EncodeDelta(m2::PointU const & actual, m2::PointU const & prediction)
-{
-  return bits::BitwiseMerge(
-        bits::ZigZagEncode(static_cast<int32_t>(actual.x) - static_cast<int32_t>(prediction.x)),
-        bits::ZigZagEncode(static_cast<int32_t>(actual.y) - static_cast<int32_t>(prediction.y)));
-}
-
-inline m2::PointU DecodeDelta(uint64_t delta, m2::PointU const & prediction)
-{
-  uint32_t x, y;
-  bits::BitwiseSplit(delta, x, y);
-  return m2::PointU(prediction.x + bits::ZigZagDecode(x), prediction.y + bits::ZigZagDecode(y));
-}
 
 inline void EncodeVarUints(vector<uint64_t> const & varints, vector<char> & serialOutput)
 {
