@@ -1,6 +1,6 @@
 set -e -u -x
 MY_PATH=`echo $0 | grep -o '.*/'`
-INDEXER_TOOL=$MY_PATH../../../omim-build/out/$1/indexer_tool
+INDEXER_TOOL=$MY_PATH../../../omim-build-$1/out/$1/indexer_tool
 
 TMPDIR=../../../omim-indexer-tmp/
 
