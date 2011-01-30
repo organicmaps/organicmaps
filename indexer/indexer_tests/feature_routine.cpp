@@ -2,9 +2,10 @@
 
 #include "feature_routine.hpp"
 
-#include "../../defines.hpp" // just for file extensions
+#include "../../defines.hpp"    // just for file extensions
 
 #include "../feature_impl.hpp"
+#include "../geometry_serialization.hpp"
 
 #include "../../coding/file_writer.hpp"
 
@@ -53,7 +54,7 @@ void FeatureBuilder2Feature(FeatureBuilder2 & fb, FeatureType & f)
 
     {
       FileWriter geom = writer.GetWriter(string(GEOMETRY_FILE_TAG) + '0');
-      feature::SavePoints(fb.GetGeometry(), 0, geom);
+      serial::SaveOuterPath(fb.GetGeometry(), 0, geom);
     }
 
     //{
