@@ -74,24 +74,6 @@ m2::PointU PredictPointInPolyline(m2::PointU const & maxPoint,
   complex<double> const c0 = (c01 + c02) * complex<double>(0.5, 0.0);
   */
 
-  /*
-  complex<double> const c1(p1.x, p1.y);
-  complex<double> const c2(p2.x, p2.y);
-  complex<double> const c3(p3.x, p3.y);
-  complex<double> d = (c1 - c2) / (c2 - c3);
-  d /= abs(d);
-  complex<double> const c0 = c1 + (c1 - c2) * d * complex<double>(0.5, 0.0);
-  */
-
-  /*
-  // In complex numbers:
-  // Ci = Ci-1 + (Ci-1 - Ci-2) * (Ci-1 - Ci-2) / (Ci-2 - Ci-3)
-  complex<double> const c1(p1.x, p1.y);
-  complex<double> const c2(p2.x, p2.y);
-  complex<double> const c3(p3.x, p3.y);
-  complex<double> const c0 = c1 + (c1 - c2) * (c1 - c2) / (c2 - c3);
-  */
-
   return ClampPoint(maxPoint, m2::PointD(c0.real(), c0.imag()));
 }
 
