@@ -1,6 +1,8 @@
 #pragma once
 #include "cell_id.hpp"
 #include "covering.hpp"
+#include "data_header.hpp"
+#include "data_header_reader.hpp"
 #include "features_vector.hpp"
 #include "scale_index.hpp"
 #include "scales.hpp"
@@ -87,30 +89,27 @@ public:
   void ForEachInIntervalAndScale(F const & f, int64_t beg, int64_t end, uint32_t scale,
                                  m2::RectD const & occlusionRect, Query & query) const
   {
-    // TODO: Use occlusionRect.
-    UNUSED_VALUE(occlusionRect);
     for (size_t i = 0; i < m_Indexes.size(); ++i)
-      m_Indexes[i]->ForEachInIntervalAndScale(f, beg, end, scale, query);
+      if (IndexT * pIndex = m_Indexes[i]->GetIndex(scale, occlusionRect))
+        pIndex->ForEachInIntervalAndScale(f, beg, end, scale, query);
   }
 
   void Add(string const & path)
   {
-    uint32_t const logPageSize = 10;
-    uint32_t const logPageCount = 12;
-    FilesContainerR container(path, logPageSize, logPageCount);
-    m_Indexes.push_back(new IndexT(container));
+    m_Indexes.push_back(new IndexProxy(path));
   }
 
   bool IsExist(string const & dataPath) const
   {
     return (find_if(m_Indexes.begin(), m_Indexes.end(),
-                    bind(&IndexT::IsMyData, _1, cref(dataPath))) !=
+                    bind(&IndexProxy::IsMyData, _1, cref(dataPath))) !=
             m_Indexes.end());
   }
 
   void Remove(string const & dataPath)
   {
-    for (typename vector<IndexT *>::iterator it = m_Indexes.begin(); it != m_Indexes.end(); ++it)
+    for (typename vector<IndexProxy *>::iterator it = m_Indexes.begin();
+         it != m_Indexes.end(); ++it)
     {
       if ((*it)->IsMyData(dataPath))
       {
@@ -128,7 +127,77 @@ public:
   }
 
 private:
-  vector<IndexT *> m_Indexes;
+
+  class IndexProxy
+  {
+  public:
+    IndexProxy(string const & path) : m_Path(path), m_pIndex(NULL)
+    {
+      // TODO: If path is cellid-style-square, make rect from cellid and don't open the file.
+      feature::DataHeader header;
+      feature::ReadDataHeader(path, header);
+      m_Rect = header.Bounds();
+    }
+
+    // TODO: GetIndex(), Open() and Close() make Index single-threaded!
+    IndexT * GetIndex(uint32_t /*scale*/, m2::RectD const & occlusionRect)
+    {
+      // TODO: Scale should also be taken into account, to skip irrelevant mwm files.
+      if (m_Rect.IsIntersect(occlusionRect))
+      {
+        Open();
+        m_QueriesSkipped = 0;
+        return m_pIndex;
+      }
+      else
+      {
+        if (++m_QueriesSkipped > 8)
+          Close();
+        return NULL;
+      }
+    }
+
+    bool IsMyData(string path) const
+    {
+      return m_Path == path;
+    }
+
+    ~IndexProxy()
+    {
+      Close();
+    }
+
+  private:
+
+    void Open()
+    {
+      if (!m_pIndex)
+      {
+        // LOG(LINFO, (m_Path));
+        uint32_t const logPageSize = 10;
+        uint32_t const logPageCount = 12;
+        FilesContainerR container(m_Path, logPageSize, logPageCount);
+        m_pIndex = new IndexT(container);
+      }
+    }
+
+    void Close()
+    {
+      if (m_pIndex)
+      {
+        // LOG(LINFO, (m_Path));
+        delete m_pIndex;
+        m_pIndex = NULL;
+      }
+    }
+
+    m2::RectD m_Rect;
+    string m_Path; // TODO: Store prefix and suffix of path in MultiIndexAdapter.
+    IndexT * m_pIndex;
+    uint8_t m_QueriesSkipped;
+  };
+
+  vector<IndexProxy *> m_Indexes;
 };
 
 template <class FeatureVectorT, class BaseT> class OffsetToFeatureAdapter : public BaseT
