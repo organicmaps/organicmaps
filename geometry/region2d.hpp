@@ -11,11 +11,6 @@ namespace m2
 {
   namespace detail
   {
-    // Get a big type for storing middle calculations (x*y) to avoid overflow.
-    template <int floating> struct BigType;
-    template <> struct BigType<0> { typedef int64_t type; };
-    template <> struct BigType<1> { typedef double type; };
-
     struct DefEqualFloat
     {
       template <class PointT>
@@ -44,20 +39,31 @@ namespace m2
       }
     };
 
-    template <int floating> struct EqualSelector;
-    template <> struct EqualSelector<1> { typedef DefEqualFloat type; };
-    template <> struct EqualSelector<0> { typedef DefEqualInt type; };
+    template <int floating> struct TraitsType;
+    template <> struct TraitsType<1>
+    {
+      typedef DefEqualFloat EqualType;
+      typedef double BigType;
+    };
+    template <> struct TraitsType<0>
+    {
+      typedef DefEqualInt EqualType;
+      typedef int64_t BigType;
+    };
   }
 
   template <class PointT>
   class Region
-  {
-    typedef vector<PointT> internal_container;
-
+  {    
   public:
     typedef PointT value_type;
     typedef typename PointT::value_type coord_type;
 
+  private:
+    typedef vector<PointT> internal_container;
+    typedef detail::TraitsType<is_floating_point<coord_type>::value> traits_type;
+
+  public:
     Region() {}
 
     template <class TInputIterator>
@@ -107,7 +113,7 @@ namespace m2
 
       size_t const numPoints = m_points.size();
 
-      typedef typename detail::BigType<is_floating_point<coord_type>::value>::type BigCoordT;
+      typedef typename traits_type::BigType BigCoordT;
       typedef Point<BigCoordT> BigPointT;
 
       BigPointT prev = BigPointT(m_points[numPoints - 1]) - BigPointT(pt);
@@ -126,7 +132,7 @@ namespace m2
           ASSERT_NOT_EQUAL ( curr.y, prev.y, () );
 
           BigCoordT const delta = prev.y - curr.y;
-          BigCoordT cp = CrossProduct(curr, prev);
+          BigCoordT const cp = CrossProduct(curr, prev);
 
           if (!equalF.EqualZero(cp, delta))
           {
@@ -153,7 +159,7 @@ namespace m2
 
     bool Contains(PointT const & pt) const
     {
-      return Contains(pt, typename detail::EqualSelector<is_floating_point<coord_type>::value>::type());
+      return Contains(pt, typename traits_type::EqualType());
     }
 
   private:
