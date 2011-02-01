@@ -19,6 +19,7 @@ public:
 	virtual string const SkinName() const;
 	virtual bool IsMultiSampled() const;
 	virtual bool DoPeriodicalUpdate() const;
+	virtual vector<string> GetFontNames() const;
   
 private:
 	string m_skinName;

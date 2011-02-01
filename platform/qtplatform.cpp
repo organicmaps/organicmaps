@@ -357,6 +357,28 @@ public:
   {
     return false;
   }
+
+  vector<string> GetFontNames() const
+  {
+     vector<string> res;
+
+/*#if defined(OMIM_OS_WINDOWS)
+     string fontFolder = "C:\\Windows\\Fonts\\"
+#elif defined(OMIM_OS_MAC)
+     string fontFolder = "/System/Library/Fonts/";
+#endif
+
+     GetFilesInDir(fontFolder, "*.ttf", res);
+
+     for (int i = 0; i < res.size(); ++i)
+       res[i] = fontFolder + res[i];
+*/
+     res.push_back(ReadPathForFile("wqy-microhei.ttf"));
+     res.push_back(ReadPathForFile("dejavusans.ttf"));
+     res.push_back(ReadPathForFile("mangal.ttf"));
+
+     return res;
+  }
 };
 
 extern "C" Platform & GetPlatform()

@@ -49,7 +49,7 @@ namespace yg
                     size_t smallVBSize, size_t smallIBSize, size_t smallStoragesCount,
                     size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
                     size_t texWidth, size_t texHeight, size_t texCount,
-                    size_t maxGlyphCacheSize);
+                    char const * blocksFileName, size_t maxGlyphCacheSize);
 
     shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
 
@@ -67,7 +67,8 @@ namespace yg
 
     shared_ptr<GlyphInfo> const getGlyph(GlyphKey const & key);
     GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
-    void addFont(char const * fileName);
+
+    void addFonts(vector<string> const & fontNames);
   };
 
   Skin * loadSkin(shared_ptr<ResourceManager> const & resourceManager,

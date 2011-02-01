@@ -91,10 +91,10 @@
 						smallVBSize, smallIBSize, 30,
 						blitVBSize, blitIBSize, 20,																																	
 						512, 256, 10,
-						2000000));
+						GetPlatform().ReadPathForFile("unicode_blocks.txt").c_str(), 2000000));
 		
-//		resourceManager->addFont(GetPlatform().ReadPathForFile("dejavusans.ttf").c_str());
-		resourceManager->addFont(GetPlatform().ReadPathForFile("wqy-microhei.ttf").c_str());		
+		
+		resourceManager->addFonts(GetPlatform().GetFontNames());
 
 		DrawerYG::params_t p;
 		p.m_resourceManager = resourceManager;

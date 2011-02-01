@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../std/shared_ptr.hpp"
+#include "../std/vector.hpp"
+#include "../std/string.hpp"
 #include "color.hpp"
 
 namespace yg
@@ -45,10 +47,11 @@ namespace yg
 
   public:
 
-    GlyphCache(size_t maxSize);
+    GlyphCache(string const & blocksFileName, size_t maxSize);
 
     void reset();
     void addFont(char const * fileName);
+    void addFonts(vector<string> const & fontNames);
 
     int getCharIDX(GlyphKey const & key);
 

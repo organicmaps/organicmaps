@@ -35,20 +35,25 @@ namespace yg
     return l.m_isMask < r.m_isMask;
   }
 
-  GlyphCache::GlyphCache(size_t maxSize) : m_impl(new GlyphCacheImpl(maxSize))
+  GlyphCache::GlyphCache(string const & blocksFileName, size_t maxSize) : m_impl(new GlyphCacheImpl(blocksFileName, maxSize))
   {
   }
 
-  void GlyphCache::addFont(char const * fileName)
+  void GlyphCache::addFont(const char *fileName)
   {
-    m_impl->m_fonts.push_back(make_shared_ptr(new Font(fileName)));
+    m_impl->addFont(fileName);
+  }
+
+  void GlyphCache::addFonts(vector<string> const & fontNames)
+  {
+    m_impl->addFonts(fontNames);
   }
 
   int GlyphCache::getCharIDX(GlyphKey const & key)
   {
-    Font * font = m_impl->m_fonts.back().get();
+    vector<shared_ptr<Font> > & fonts = m_impl->getFonts(key.m_id);
 
-    FTC_FaceID faceID = reinterpret_cast<FTC_FaceID>(font);
+    FTC_FaceID faceID = reinterpret_cast<FTC_FaceID>(fonts.front().get());
 
     int charIDX = FTC_CMapCache_Lookup(
         m_impl->m_charMapCache,
@@ -79,9 +84,9 @@ namespace yg
 
   GlyphMetrics const GlyphCache::getGlyphMetrics(GlyphKey const & key)
   {
-    Font * font = m_impl->m_fonts.back().get();
+    vector<shared_ptr<Font> > & fonts = m_impl->getFonts(key.m_id);
 
-    FTC_FaceID faceID = reinterpret_cast<FTC_FaceID>(font);
+    FTC_FaceID faceID = reinterpret_cast<FTC_FaceID>(fonts.front().get());
 
     FTC_ScalerRec fontScaler =
     {
@@ -121,8 +126,8 @@ namespace yg
 
   shared_ptr<GlyphInfo> const GlyphCache::getGlyph(GlyphKey const & key)
   {
-    Font * font = m_impl->m_fonts.back().get();
-    FTC_FaceID faceID = reinterpret_cast<FTC_FaceID>(font);
+    vector<shared_ptr<Font> > & fonts = m_impl->getFonts(key.m_id);
+    FTC_FaceID faceID = reinterpret_cast<FTC_FaceID>(fonts.front().get());
     FTC_ScalerRec fontScaler =
     {
       faceID,

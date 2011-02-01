@@ -31,7 +31,7 @@ IPhonePlatform::IPhonePlatform()
  	m_visualScale = 1.0;
 	m_skinName = "basic.skn";
 	m_isMultiSampled = true;
-	m_doPeriodicalUpdate = false;
+	m_doPeriodicalUpdate = true;
 
 	/// Calculating resolution
 	UIDevice * device = [UIDevice currentDevice];
@@ -166,6 +166,23 @@ bool IPhonePlatform::IsMultiSampled() const
 bool IPhonePlatform::DoPeriodicalUpdate() const
 {
 	return m_doPeriodicalUpdate;
+}
+
+vector<string> IPhonePlatform::GetFontNames() const
+{
+	vector<string> res;
+/*	string fontFolder("/System/Library/Fonts/");
+
+	GetFilesInDir(fontFolder, ".ttf", res);
+	for (int i = 0; i < res.size(); ++i)
+	  res[i] = fontFolder + res[i];
+*/
+	
+	res.push_back(ReadPathForFile("wqy-microhei.ttf"));		
+	res.push_back(ReadPathForFile("dejavusans.ttf"));
+  res.push_back(ReadPathForFile("mangal.ttf"));
+	
+	return res;
 }
 
 Platform & GetPlatform()

@@ -20,7 +20,7 @@ namespace yg
                                    size_t smallVBSize, size_t smallIBSize, size_t smallStoragesCount,
                                    size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
                                    size_t texWidth, size_t texHeight, size_t texCount,
-                                   size_t maxGlyphCacheSize) : m_glyphCache(maxGlyphCacheSize)
+                                   char const * blocksFileName, size_t maxGlyphCacheSize) : m_glyphCache(blocksFileName, maxGlyphCacheSize)
   {
     for (size_t i = 0; i < storagesCount; ++i)
       m_storages.push_back(gl::Storage(vbSize, ibSize));
@@ -170,8 +170,8 @@ namespace yg
     return m_glyphCache.getGlyphMetrics(key);
   }
 
-  void ResourceManager::addFont(char const * fileName)
+  void ResourceManager::addFonts(vector<string> const & fontNames)
   {
-    m_glyphCache.addFont(fileName);
+    m_glyphCache.addFonts(fontNames);
   }
 }

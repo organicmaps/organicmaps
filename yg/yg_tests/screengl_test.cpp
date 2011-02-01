@@ -592,6 +592,15 @@ namespace
     }
   };
 
+  struct TestDrawUnicodeSymbols
+  {
+    void DoDraw(shared_ptr<yg::gl::Screen> p)
+    {
+      p->drawText(m2::PointD(40, 50), 0, 12, "Latin Symbol : A", 0);
+      p->drawText(m2::PointD(40, 80), 0, 12, "Cyrillic Symbol : Ы", 0);
+    }
+  };
+
   struct TestDrawTextRectWithFixedFont : TestDrawStringWithFixedFont
   {
     typedef TestDrawStringWithFixedFont base_t;
@@ -901,6 +910,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawSingleSymbolAndSolidPath);
 //   UNIT_TEST_GL(TestDrawString);
 //   UNIT_TEST_GL(TestDrawStringWithFixedFont);
+     UNIT_TEST_GL(TestDrawUnicodeSymbols);
      UNIT_TEST_GL(TestDrawTextRectWithFixedFont);
 //   UNIT_TEST_GL(TestDrawStringOnString);
 //   UNIT_TEST_GL(TestDrawTextOnPath);

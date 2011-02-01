@@ -66,6 +66,8 @@ public:
   virtual bool IsMultiSampled() const = 0;
 
   virtual bool DoPeriodicalUpdate() const = 0;
+
+  virtual vector<string> GetFontNames() const = 0;
 };
 
 extern "C" Platform & GetPlatform();

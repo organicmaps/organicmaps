@@ -45,10 +45,9 @@ namespace qt
           50,
           512, 256,
           15,
-          2000000));
+          GetPlatform().ReadPathForFile("unicode_blocks.txt").c_str(), 2000000));
 
-//      m_resourceManager->addFont(GetPlatform().ReadPathForFile("dejavusans.ttf").c_str());
-      m_resourceManager->addFont(GetPlatform().ReadPathForFile("wqy-microhei.ttf").c_str());
+      m_resourceManager->addFonts(GetPlatform().GetFontNames());
 
       DrawerYG::params_t p;
 
