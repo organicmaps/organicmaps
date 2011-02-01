@@ -18,6 +18,7 @@ SOURCES += \
     commands_queue.cpp \
     shared_buffer_manager.cpp \
     memory_mapped_file.cpp \
+    path_utils.cpp
 
 HEADERS += \
     SRC_FIRST.hpp \
@@ -59,3 +60,4 @@ HEADERS += \
     shared_buffer_manager.hpp \
     memory_mapped_file.hpp \
     buffer_vector.hpp \
+    path_utils.hpp

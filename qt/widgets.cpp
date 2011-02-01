@@ -45,7 +45,10 @@ namespace qt
           50,
           512, 256,
           15,
-          GetPlatform().ReadPathForFile("unicode_blocks.txt").c_str(), 2000000));
+          GetPlatform().ReadPathForFile("unicode_blocks.txt").c_str(),
+          GetPlatform().ReadPathForFile("fonts_whitelist.txt").c_str(),
+          GetPlatform().ReadPathForFile("fonts_blacklist.txt").c_str(),
+          2000000));
 
       m_resourceManager->addFonts(GetPlatform().GetFontNames());
 

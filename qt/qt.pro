@@ -29,7 +29,30 @@ macx {
   CLASSIFICATOR_RESOURCES.path = Contents/Resources
   SKIN_RESOURCES.files = ../data/basic.skn ../data/basic_highres.skn ../data/symbols_48.png ../data/symbols_24.png
   SKIN_RESOURCES.path = Contents/Resources
-  FONT_RESOURCES.files = ../data/wqy-microhei.ttf
+  FONT_RESOURCES.files = ../data/01_dejavusans.ttf \
+                         ../data/02_wqy-microhei.ttf \
+                         ../data/03_jomolhari-id-a3d.ttf \
+                         ../data/04_padauk.ttf \
+                         ../data/05_khmeros.ttf \
+                         ../data/06_umpush.ttf \
+                         ../data/07_abyssinica_sil_r.ttf \
+                         ../data/08_lohit_as.ttf \
+                         ../data/09_lohit_bn.ttf \
+                         ../data/10_lohit_gu.ttf \
+                         ../data/11_lohit_hi.ttf \
+                         ../data/12_lohit_kn.ttf \
+                         ../data/13_lohit_kok.ttf \
+                         ../data/14_lohit_ks.ttf \
+                         ../data/15_lohit_mai.ttf \
+                         ../data/16_lohit_ml.ttf \
+                         ../data/17_lohit_mr.ttf \
+                         ../data/18_lohit_ne.ttf \
+                         ../data/19_lohit_or.ttf \
+                         ../data/20_lohit_pa.ttf \
+                         ../data/21_lohit_sd.ttf \
+                         ../data/22_lohit_ta.ttf \
+                         ../data/23_lohit_te.ttf
+
   FONT_RESOURCES.path = Contents/Resources
   QMAKE_BUNDLE_DATA += CLASSIFICATOR_RESOURCES SKIN_RESOURCES FONT_RESOURCES
 }

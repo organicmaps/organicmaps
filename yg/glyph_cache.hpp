@@ -3,6 +3,7 @@
 #include "../std/shared_ptr.hpp"
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
+#include "../std/utility.hpp"
 #include "color.hpp"
 
 namespace yg
@@ -35,6 +36,8 @@ namespace yg
     GlyphKey(int id, int fontSize, bool isMask);
   };
 
+  struct Font;
+
   bool operator<(GlyphKey const & l, GlyphKey const & r);
 
   struct GlyphCacheImpl;
@@ -47,13 +50,22 @@ namespace yg
 
   public:
 
-    GlyphCache(string const & blocksFileName, size_t maxSize);
+    struct Params
+    {
+      string m_blocksFile;
+      string m_whiteListFile;
+      string m_blackListFile;
+      size_t m_maxSize;
+      Params(char const * blocksFile, char const * whiteListFile, char const * blackListFile, size_t maxSize);
+    };
+
+    GlyphCache(Params const & params);
 
     void reset();
     void addFont(char const * fileName);
     void addFonts(vector<string> const & fontNames);
 
-    int getCharIDX(GlyphKey const & key);
+    pair<Font*, int> getCharIDX(GlyphKey const & key);
 
     shared_ptr<GlyphInfo> const getGlyph(GlyphKey const & key);
     /// return control box(could be slightly larger than the precise bound box).

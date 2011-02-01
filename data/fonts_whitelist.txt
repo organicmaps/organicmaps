@@ -1,0 +1,4 @@
+Basic_Latin 01_dejavusans.ttf
+Latin-1_Supplement 01_dejavusans.ttf
+Latin_Extended-A 01_dejavusans.ttf
+Latin_Extended-B 01_dejavusans.ttf

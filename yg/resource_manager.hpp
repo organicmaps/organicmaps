@@ -49,7 +49,7 @@ namespace yg
                     size_t smallVBSize, size_t smallIBSize, size_t smallStoragesCount,
                     size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
                     size_t texWidth, size_t texHeight, size_t texCount,
-                    char const * blocksFileName, size_t maxGlyphCacheSize);
+                    char const * blocksFile, char const * whileListFile, char const * blackListFile, size_t maxGlyphCacheSize);
 
     shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
 

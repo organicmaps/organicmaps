@@ -26,7 +26,6 @@
 		EE12020F11CD464100ABDD5D /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020511CD464100ABDD5D /* libindexer.a */; };
 		EE12021011CD464100ABDD5D /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020611CD464100ABDD5D /* libmap.a */; };
 		EE12021211CD464100ABDD5D /* libyg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020811CD464100ABDD5D /* libyg.a */; };
-		EE12092C12BD67C900068DC3 /* wqy-microhei.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE12092B12BD67C900068DC3 /* wqy-microhei.ttf */; };
 		EE583CBB12F773F00042CBE3 /* unicode_blocks.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */; };
 		EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */; };
 		EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297E1219ECA300EB67A9 /* RenderContext.mm */; };
@@ -38,9 +37,32 @@
 		EEE4C9401298A303007231A9 /* symbols_48.png in Resources */ = {isa = PBXBuildFile; fileRef = EEE4C93F1298A303007231A9 /* symbols_48.png */; };
 		EEE4C9421298A31B007231A9 /* basic_highres.skn in Resources */ = {isa = PBXBuildFile; fileRef = EEE4C9411298A31B007231A9 /* basic_highres.skn */; };
 		EEF5745512DE1AD50082F472 /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF5745412DE1AD50082F472 /* libfribidi.a */; };
-		EEFC0A9612B561B7002914FF /* dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFC0A9512B561B7002914FF /* dejavusans.ttf */; };
 		EEFC0BBF12B5656A002914FF /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020311CD464100ABDD5D /* libfreetype.a */; };
-		EEFE7BBA12F78091006AF8C3 /* mangal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7BB912F78091006AF8C3 /* mangal.ttf */; };
+		EEFE7C1412F8C9E1006AF8C3 /* fonts_blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */; };
+		EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */; };
+		EEFE7C4812F8CC2D006AF8C3 /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3112F8CC2D006AF8C3 /* 01_dejavusans.ttf */; };
+		EEFE7C4912F8CC2D006AF8C3 /* 02_wqy-microhei.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3212F8CC2D006AF8C3 /* 02_wqy-microhei.ttf */; };
+		EEFE7C4A12F8CC2D006AF8C3 /* 03_jomolhari-id-a3d.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3312F8CC2D006AF8C3 /* 03_jomolhari-id-a3d.ttf */; };
+		EEFE7C4B12F8CC2D006AF8C3 /* 04_padauk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3412F8CC2D006AF8C3 /* 04_padauk.ttf */; };
+		EEFE7C4C12F8CC2D006AF8C3 /* 05_khmeros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3512F8CC2D006AF8C3 /* 05_khmeros.ttf */; };
+		EEFE7C4D12F8CC2D006AF8C3 /* 06_umpush.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3612F8CC2D006AF8C3 /* 06_umpush.ttf */; };
+		EEFE7C4E12F8CC2D006AF8C3 /* 07_abyssinica_sil_r.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3712F8CC2D006AF8C3 /* 07_abyssinica_sil_r.ttf */; };
+		EEFE7C4F12F8CC2D006AF8C3 /* 08_lohit_as.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3812F8CC2D006AF8C3 /* 08_lohit_as.ttf */; };
+		EEFE7C5012F8CC2D006AF8C3 /* 09_lohit_bn.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3912F8CC2D006AF8C3 /* 09_lohit_bn.ttf */; };
+		EEFE7C5112F8CC2D006AF8C3 /* 10_lohit_gu.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3A12F8CC2D006AF8C3 /* 10_lohit_gu.ttf */; };
+		EEFE7C5212F8CC2D006AF8C3 /* 11_lohit_hi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3B12F8CC2D006AF8C3 /* 11_lohit_hi.ttf */; };
+		EEFE7C5312F8CC2D006AF8C3 /* 12_lohit_kn.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3C12F8CC2D006AF8C3 /* 12_lohit_kn.ttf */; };
+		EEFE7C5412F8CC2D006AF8C3 /* 13_lohit_kok.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3D12F8CC2D006AF8C3 /* 13_lohit_kok.ttf */; };
+		EEFE7C5512F8CC2D006AF8C3 /* 14_lohit_ks.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3E12F8CC2D006AF8C3 /* 14_lohit_ks.ttf */; };
+		EEFE7C5612F8CC2D006AF8C3 /* 15_lohit_mai.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3F12F8CC2D006AF8C3 /* 15_lohit_mai.ttf */; };
+		EEFE7C5712F8CC2D006AF8C3 /* 16_lohit_ml.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C4012F8CC2D006AF8C3 /* 16_lohit_ml.ttf */; };
+		EEFE7C5812F8CC2D006AF8C3 /* 17_lohit_mr.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C4112F8CC2D006AF8C3 /* 17_lohit_mr.ttf */; };
+		EEFE7C5912F8CC2D006AF8C3 /* 18_lohit_ne.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C4212F8CC2D006AF8C3 /* 18_lohit_ne.ttf */; };
+		EEFE7C5A12F8CC2D006AF8C3 /* 19_lohit_or.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C4312F8CC2D006AF8C3 /* 19_lohit_or.ttf */; };
+		EEFE7C5B12F8CC2D006AF8C3 /* 20_lohit_pa.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C4412F8CC2D006AF8C3 /* 20_lohit_pa.ttf */; };
+		EEFE7C5C12F8CC2D006AF8C3 /* 21_lohit_sd.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C4512F8CC2D006AF8C3 /* 21_lohit_sd.ttf */; };
+		EEFE7C5D12F8CC2D006AF8C3 /* 22_lohit_ta.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C4612F8CC2D006AF8C3 /* 22_lohit_ta.ttf */; };
+		EEFE7C5E12F8CC2D006AF8C3 /* 23_lohit_te.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C4712F8CC2D006AF8C3 /* 23_lohit_te.ttf */; };
 		FA04373212CAB83F00017494 /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA04373112CAB83F00017494 /* libstorage.a */; };
 		FA065FED128614C400FEA989 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */; };
 		FA065FFF1286167A00FEA989 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA065FFD1286167A00FEA989 /* Default@2x.png */; };
@@ -93,7 +115,6 @@
 		EE12020511CD464100ABDD5D /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libindexer.a; sourceTree = SOURCE_ROOT; };
 		EE12020611CD464100ABDD5D /* libmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmap.a; sourceTree = SOURCE_ROOT; };
 		EE12020811CD464100ABDD5D /* libyg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libyg.a; sourceTree = SOURCE_ROOT; };
-		EE12092B12BD67C900068DC3 /* wqy-microhei.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "wqy-microhei.ttf"; path = "../../data/wqy-microhei.ttf"; sourceTree = "<group>"; };
 		EE16192B126E374500622BD0 /* RenderContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RenderContext.hpp; path = Classes/RenderContext.hpp; sourceTree = SOURCE_ROOT; };
 		EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = unicode_blocks.txt; path = ../../data/unicode_blocks.txt; sourceTree = "<group>"; };
 		EE7F297C1219ECA300EB67A9 /* RenderBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RenderBuffer.hpp; path = Classes/RenderBuffer.hpp; sourceTree = SOURCE_ROOT; };
@@ -109,8 +130,31 @@
 		EEE4C93F1298A303007231A9 /* symbols_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = symbols_48.png; path = ../../data/symbols_48.png; sourceTree = SOURCE_ROOT; };
 		EEE4C9411298A31B007231A9 /* basic_highres.skn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic_highres.skn; path = ../../data/basic_highres.skn; sourceTree = SOURCE_ROOT; };
 		EEF5745412DE1AD50082F472 /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfribidi.a; sourceTree = SOURCE_ROOT; };
-		EEFC0A9512B561B7002914FF /* dejavusans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = dejavusans.ttf; path = ../../data/dejavusans.ttf; sourceTree = "<group>"; };
-		EEFE7BB912F78091006AF8C3 /* mangal.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = mangal.ttf; path = ../../data/mangal.ttf; sourceTree = "<group>"; };
+		EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_blacklist.txt; path = ../../data/fonts_blacklist.txt; sourceTree = "<group>"; };
+		EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_whitelist.txt; path = ../../data/fonts_whitelist.txt; sourceTree = "<group>"; };
+		EEFE7C3112F8CC2D006AF8C3 /* 01_dejavusans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 01_dejavusans.ttf; path = ../../data/01_dejavusans.ttf; sourceTree = "<group>"; };
+		EEFE7C3212F8CC2D006AF8C3 /* 02_wqy-microhei.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "02_wqy-microhei.ttf"; path = "../../data/02_wqy-microhei.ttf"; sourceTree = "<group>"; };
+		EEFE7C3312F8CC2D006AF8C3 /* 03_jomolhari-id-a3d.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "03_jomolhari-id-a3d.ttf"; path = "../../data/03_jomolhari-id-a3d.ttf"; sourceTree = "<group>"; };
+		EEFE7C3412F8CC2D006AF8C3 /* 04_padauk.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 04_padauk.ttf; path = ../../data/04_padauk.ttf; sourceTree = "<group>"; };
+		EEFE7C3512F8CC2D006AF8C3 /* 05_khmeros.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 05_khmeros.ttf; path = ../../data/05_khmeros.ttf; sourceTree = "<group>"; };
+		EEFE7C3612F8CC2D006AF8C3 /* 06_umpush.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 06_umpush.ttf; path = ../../data/06_umpush.ttf; sourceTree = "<group>"; };
+		EEFE7C3712F8CC2D006AF8C3 /* 07_abyssinica_sil_r.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 07_abyssinica_sil_r.ttf; path = ../../data/07_abyssinica_sil_r.ttf; sourceTree = "<group>"; };
+		EEFE7C3812F8CC2D006AF8C3 /* 08_lohit_as.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 08_lohit_as.ttf; path = ../../data/08_lohit_as.ttf; sourceTree = "<group>"; };
+		EEFE7C3912F8CC2D006AF8C3 /* 09_lohit_bn.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 09_lohit_bn.ttf; path = ../../data/09_lohit_bn.ttf; sourceTree = "<group>"; };
+		EEFE7C3A12F8CC2D006AF8C3 /* 10_lohit_gu.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 10_lohit_gu.ttf; path = ../../data/10_lohit_gu.ttf; sourceTree = "<group>"; };
+		EEFE7C3B12F8CC2D006AF8C3 /* 11_lohit_hi.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 11_lohit_hi.ttf; path = ../../data/11_lohit_hi.ttf; sourceTree = "<group>"; };
+		EEFE7C3C12F8CC2D006AF8C3 /* 12_lohit_kn.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 12_lohit_kn.ttf; path = ../../data/12_lohit_kn.ttf; sourceTree = "<group>"; };
+		EEFE7C3D12F8CC2D006AF8C3 /* 13_lohit_kok.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 13_lohit_kok.ttf; path = ../../data/13_lohit_kok.ttf; sourceTree = "<group>"; };
+		EEFE7C3E12F8CC2D006AF8C3 /* 14_lohit_ks.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 14_lohit_ks.ttf; path = ../../data/14_lohit_ks.ttf; sourceTree = "<group>"; };
+		EEFE7C3F12F8CC2D006AF8C3 /* 15_lohit_mai.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 15_lohit_mai.ttf; path = ../../data/15_lohit_mai.ttf; sourceTree = "<group>"; };
+		EEFE7C4012F8CC2D006AF8C3 /* 16_lohit_ml.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 16_lohit_ml.ttf; path = ../../data/16_lohit_ml.ttf; sourceTree = "<group>"; };
+		EEFE7C4112F8CC2D006AF8C3 /* 17_lohit_mr.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 17_lohit_mr.ttf; path = ../../data/17_lohit_mr.ttf; sourceTree = "<group>"; };
+		EEFE7C4212F8CC2D006AF8C3 /* 18_lohit_ne.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 18_lohit_ne.ttf; path = ../../data/18_lohit_ne.ttf; sourceTree = "<group>"; };
+		EEFE7C4312F8CC2D006AF8C3 /* 19_lohit_or.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 19_lohit_or.ttf; path = ../../data/19_lohit_or.ttf; sourceTree = "<group>"; };
+		EEFE7C4412F8CC2D006AF8C3 /* 20_lohit_pa.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 20_lohit_pa.ttf; path = ../../data/20_lohit_pa.ttf; sourceTree = "<group>"; };
+		EEFE7C4512F8CC2D006AF8C3 /* 21_lohit_sd.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 21_lohit_sd.ttf; path = ../../data/21_lohit_sd.ttf; sourceTree = "<group>"; };
+		EEFE7C4612F8CC2D006AF8C3 /* 22_lohit_ta.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 22_lohit_ta.ttf; path = ../../data/22_lohit_ta.ttf; sourceTree = "<group>"; };
+		EEFE7C4712F8CC2D006AF8C3 /* 23_lohit_te.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 23_lohit_te.ttf; path = ../../data/23_lohit_te.ttf; sourceTree = "<group>"; };
 		FA04373112CAB83F00017494 /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libstorage.a; sourceTree = SOURCE_ROOT; };
 		FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = SOURCE_ROOT; };
 		FA065FFD1286167A00FEA989 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = SOURCE_ROOT; };
@@ -256,13 +300,35 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
-				EEFE7BB912F78091006AF8C3 /* mangal.ttf */,
+				EEFE7C3112F8CC2D006AF8C3 /* 01_dejavusans.ttf */,
+				EEFE7C3212F8CC2D006AF8C3 /* 02_wqy-microhei.ttf */,
+				EEFE7C3312F8CC2D006AF8C3 /* 03_jomolhari-id-a3d.ttf */,
+				EEFE7C3412F8CC2D006AF8C3 /* 04_padauk.ttf */,
+				EEFE7C3512F8CC2D006AF8C3 /* 05_khmeros.ttf */,
+				EEFE7C3612F8CC2D006AF8C3 /* 06_umpush.ttf */,
+				EEFE7C3712F8CC2D006AF8C3 /* 07_abyssinica_sil_r.ttf */,
+				EEFE7C3812F8CC2D006AF8C3 /* 08_lohit_as.ttf */,
+				EEFE7C3912F8CC2D006AF8C3 /* 09_lohit_bn.ttf */,
+				EEFE7C3A12F8CC2D006AF8C3 /* 10_lohit_gu.ttf */,
+				EEFE7C3B12F8CC2D006AF8C3 /* 11_lohit_hi.ttf */,
+				EEFE7C3C12F8CC2D006AF8C3 /* 12_lohit_kn.ttf */,
+				EEFE7C3D12F8CC2D006AF8C3 /* 13_lohit_kok.ttf */,
+				EEFE7C3E12F8CC2D006AF8C3 /* 14_lohit_ks.ttf */,
+				EEFE7C3F12F8CC2D006AF8C3 /* 15_lohit_mai.ttf */,
+				EEFE7C4012F8CC2D006AF8C3 /* 16_lohit_ml.ttf */,
+				EEFE7C4112F8CC2D006AF8C3 /* 17_lohit_mr.ttf */,
+				EEFE7C4212F8CC2D006AF8C3 /* 18_lohit_ne.ttf */,
+				EEFE7C4312F8CC2D006AF8C3 /* 19_lohit_or.ttf */,
+				EEFE7C4412F8CC2D006AF8C3 /* 20_lohit_pa.ttf */,
+				EEFE7C4512F8CC2D006AF8C3 /* 21_lohit_sd.ttf */,
+				EEFE7C4612F8CC2D006AF8C3 /* 22_lohit_ta.ttf */,
+				EEFE7C4712F8CC2D006AF8C3 /* 23_lohit_te.ttf */,
+				EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */,
+				EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */,
 				EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */,
 				FA57ADF312F338FB002BFB9D /* countries_poly.txt */,
 				FA46DA2B12D4166E00968C36 /* countries.txt */,
 				FA46DA0412D414D200968C36 /* maps.update */,
-				EE12092B12BD67C900068DC3 /* wqy-microhei.ttf */,
-				EEFC0A9512B561B7002914FF /* dejavusans.ttf */,
 				EEE4C9411298A31B007231A9 /* basic_highres.skn */,
 				EEE4C93F1298A303007231A9 /* symbols_48.png */,
 				EEE4C93D1298A2F3007231A9 /* symbols_24.png */,
@@ -396,13 +462,35 @@
 				EEE4C93E1298A2F3007231A9 /* symbols_24.png in Resources */,
 				EEE4C9401298A303007231A9 /* symbols_48.png in Resources */,
 				EEE4C9421298A31B007231A9 /* basic_highres.skn in Resources */,
-				EEFC0A9612B561B7002914FF /* dejavusans.ttf in Resources */,
-				EE12092C12BD67C900068DC3 /* wqy-microhei.ttf in Resources */,
 				FA46DA0512D414D200968C36 /* maps.update in Resources */,
 				FA46DA2C12D4166E00968C36 /* countries.txt in Resources */,
 				FA57ADF412F338FB002BFB9D /* countries_poly.txt in Resources */,
 				EE583CBB12F773F00042CBE3 /* unicode_blocks.txt in Resources */,
-				EEFE7BBA12F78091006AF8C3 /* mangal.ttf in Resources */,
+				EEFE7C1412F8C9E1006AF8C3 /* fonts_blacklist.txt in Resources */,
+				EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */,
+				EEFE7C4812F8CC2D006AF8C3 /* 01_dejavusans.ttf in Resources */,
+				EEFE7C4912F8CC2D006AF8C3 /* 02_wqy-microhei.ttf in Resources */,
+				EEFE7C4A12F8CC2D006AF8C3 /* 03_jomolhari-id-a3d.ttf in Resources */,
+				EEFE7C4B12F8CC2D006AF8C3 /* 04_padauk.ttf in Resources */,
+				EEFE7C4C12F8CC2D006AF8C3 /* 05_khmeros.ttf in Resources */,
+				EEFE7C4D12F8CC2D006AF8C3 /* 06_umpush.ttf in Resources */,
+				EEFE7C4E12F8CC2D006AF8C3 /* 07_abyssinica_sil_r.ttf in Resources */,
+				EEFE7C4F12F8CC2D006AF8C3 /* 08_lohit_as.ttf in Resources */,
+				EEFE7C5012F8CC2D006AF8C3 /* 09_lohit_bn.ttf in Resources */,
+				EEFE7C5112F8CC2D006AF8C3 /* 10_lohit_gu.ttf in Resources */,
+				EEFE7C5212F8CC2D006AF8C3 /* 11_lohit_hi.ttf in Resources */,
+				EEFE7C5312F8CC2D006AF8C3 /* 12_lohit_kn.ttf in Resources */,
+				EEFE7C5412F8CC2D006AF8C3 /* 13_lohit_kok.ttf in Resources */,
+				EEFE7C5512F8CC2D006AF8C3 /* 14_lohit_ks.ttf in Resources */,
+				EEFE7C5612F8CC2D006AF8C3 /* 15_lohit_mai.ttf in Resources */,
+				EEFE7C5712F8CC2D006AF8C3 /* 16_lohit_ml.ttf in Resources */,
+				EEFE7C5812F8CC2D006AF8C3 /* 17_lohit_mr.ttf in Resources */,
+				EEFE7C5912F8CC2D006AF8C3 /* 18_lohit_ne.ttf in Resources */,
+				EEFE7C5A12F8CC2D006AF8C3 /* 19_lohit_or.ttf in Resources */,
+				EEFE7C5B12F8CC2D006AF8C3 /* 20_lohit_pa.ttf in Resources */,
+				EEFE7C5C12F8CC2D006AF8C3 /* 21_lohit_sd.ttf in Resources */,
+				EEFE7C5D12F8CC2D006AF8C3 /* 22_lohit_ta.ttf in Resources */,
+				EEFE7C5E12F8CC2D006AF8C3 /* 23_lohit_te.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

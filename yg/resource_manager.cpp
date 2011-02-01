@@ -20,7 +20,8 @@ namespace yg
                                    size_t smallVBSize, size_t smallIBSize, size_t smallStoragesCount,
                                    size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
                                    size_t texWidth, size_t texHeight, size_t texCount,
-                                   char const * blocksFileName, size_t maxGlyphCacheSize) : m_glyphCache(blocksFileName, maxGlyphCacheSize)
+                                   char const * blocksFile, char const * whiteListFile, char const * blackListFile, size_t maxGlyphCacheSize)
+                                     : m_glyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, maxGlyphCacheSize))
   {
     for (size_t i = 0; i < storagesCount; ++i)
       m_storages.push_back(gl::Storage(vbSize, ibSize));

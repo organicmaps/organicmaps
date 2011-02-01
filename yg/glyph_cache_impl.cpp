@@ -8,13 +8,15 @@
 #include <../cache/ftccache.h>
 
 #include "../std/fstream.hpp"
+#include "../std/bind.hpp"
+#include "../base/path_utils.hpp"
 #include "../base/ptr_utils.hpp"
 
 
 namespace yg
 {
   UnicodeBlock::UnicodeBlock(string const & name, uint32_t start, uint32_t end)
-    : m_start(start), m_end(end), m_name(name)
+    : m_name(name), m_start(start), m_end(end)
   {}
 
   bool UnicodeBlock::hasSymbol(uint16_t sym) const
@@ -49,6 +51,58 @@ namespace yg
     m_lastUsedBlock = m_unicodeBlocks.end();
   }
 
+  bool find_ub_by_name(string const & ubName, UnicodeBlock const & ub)
+  {
+    return ubName == ub.m_name;
+  }
+
+  void GlyphCacheImpl::initFonts(string const & whiteListFile, string const & blackListFile)
+  {
+    {
+      ifstream fin(whiteListFile.c_str());
+      while (true)
+      {
+        string ubName;
+        string fontName;
+        fin >> ubName >> fontName;
+        if (!fin)
+          break;
+
+        if (ubName == "*")
+          for (unicode_blocks_t::iterator it = m_unicodeBlocks.begin(); it != m_unicodeBlocks.end(); ++it)
+            it->m_whitelist.push_back(fontName);
+        else
+        {
+          unicode_blocks_t::iterator it = find_if(m_unicodeBlocks.begin(), m_unicodeBlocks.end(), bind(&find_ub_by_name, ubName, _1));
+          if (it != m_unicodeBlocks.end())
+            it->m_whitelist.push_back(fontName);
+        }
+      }
+    }
+
+    {
+      ifstream fin(blackListFile.c_str());
+      while (true)
+      {
+        string ubName;
+        string fontName;
+        fin >> ubName >> fontName;
+        if (!fin)
+          break;
+
+        if (ubName == "*")
+          for (unicode_blocks_t::iterator it = m_unicodeBlocks.begin(); it != m_unicodeBlocks.end(); ++it)
+            it->m_blacklist.push_back(fontName);
+        else
+        {
+          unicode_blocks_t::iterator it = find_if(m_unicodeBlocks.begin(), m_unicodeBlocks.end(), bind(&find_ub_by_name, ubName, _1));
+          if (it != m_unicodeBlocks.end())
+            it->m_blacklist.push_back(fontName);
+        }
+      }
+    }
+  }
+
   bool sym_in_block(UnicodeBlock & b, uint16_t sym)
   {
     return (b.m_start <= sym);
@@ -65,14 +119,17 @@ namespace yg
       addFont(fontNames[i].c_str());
 
     for (unicode_blocks_t::const_iterator it = m_unicodeBlocks.begin(); it != m_unicodeBlocks.end(); ++it)
-    {
       if (it->m_fonts.empty())
-        LOG(LINFO, (it->m_name, " unicode block is empty"));
-    }
+        LOG(LINFO, (it->m_name, " unicode block of ", it->m_end + 1 - it->m_start, " symbols is empty"));
   }
 
   void GlyphCacheImpl::addFont(char const * fileName)
   {
+    string fontName = extract_name(fileName);
+    for (int i = 0; i < fontName.size(); ++i)
+      if (fontName[i] == ' ')
+        fontName[i] = '_';
+
     m_fonts.push_back(make_shared_ptr(new Font(fileName)));
 
     /// obtaining all glyphs, supported by this font
@@ -98,12 +155,15 @@ namespace yg
     unicode_blocks_t::iterator ubIt = m_unicodeBlocks.begin();
     vector<FT_ULong>::iterator ccIt = charcodes.begin();
 
+    typedef vector<unicode_blocks_t::const_iterator> touched_blocks_t;
+    touched_blocks_t touchedBlocks;
+
     while (true)
     {
       while (ubIt != m_unicodeBlocks.end())
       {
         if ((*ccIt > lastUBEnd) && (*ccIt < ubIt->m_start))
-          LOG(LINFO, ("Symbol with code ", (uint16_t)*ccIt, "lies between two unicode blocks!"));
+          LOG(LINFO, ("Symbol with code ", (uint16_t)*ccIt, " present in font lies between two unicode blocks!"));
         if (ubIt->hasSymbol(*ccIt))
           break;
         lastUBEnd = ubIt->m_end;
@@ -118,10 +178,39 @@ namespace yg
       {
         ubIt->m_fonts.push_back(m_fonts.back());
         ubIt->m_coverage.push_back(0);
+        touchedBlocks.push_back(ubIt);
+
+        /// checking blacklist and whitelist
+
+        for (int i = 0; i < ubIt->m_blacklist.size(); ++i)
+          if (ubIt->m_blacklist[i] == fontName)
+            /// if font is blacklisted for this unicode block
+            ubIt->m_coverage.back() = -1;
+
+        for (int i = 0; i < ubIt->m_whitelist.size(); ++i)
+          if (ubIt->m_whitelist[i] == fontName)
+          {
+            if (ubIt->m_coverage.back() == -1)
+              LOG(LWARNING, ("font ", fontName, "is present both at blacklist and whitelist. whitelist prevails."));
+
+            /// weight used for sorting are boosted to the top.
+            /// the order of elements are saved by adding 'i' value as a shift.
+            ubIt->m_coverage.back() = ubIt->m_end + 1 - ubIt->m_start + i + 1;
+          }
       }
 
-      ++ubIt->m_coverage.back();
+      if ((ubIt->m_coverage.back() >= 0) && (ubIt->m_coverage.back() < ubIt->m_end + 1 - ubIt->m_start))
+        ++ubIt->m_coverage.back();
       ++ccIt;
+    }
+
+    LOG(LINFO, ("-----------------------------------------"));
+    LOG(LINFO, ("Unicode Blocks for Font : ", extract_name(fileName)));
+    LOG(LINFO, ("-----------------------------------------"));
+    /// dumping touched unicode blocks
+    for (touched_blocks_t::const_iterator it = touchedBlocks.begin(); it != touchedBlocks.end(); ++it)
+    {
+      LOG(LINFO, ((*it)->m_name, " with coverage ", (*it)->m_coverage.back(), " out of ", (*it)->m_end + 1 - (*it)->m_start));
     }
 
     /// rearrange fonts in all unicode blocks according to it's coverage
@@ -164,7 +253,10 @@ namespace yg
     if ((it != m_unicodeBlocks.end()) && (it->hasSymbol(sym)))
     {
       if (it->m_fonts.empty())
+      {
+        LOG(LINFO, ("querying symbol for empty ", it->m_name, " unicode block"));
         it->m_fonts.push_back(m_fonts.front());
+      }
 
       return it->m_fonts;
     }
@@ -173,14 +265,15 @@ namespace yg
   }
 
 
-  GlyphCacheImpl::GlyphCacheImpl(std::string const & blocksFileName, size_t maxSize)
+  GlyphCacheImpl::GlyphCacheImpl(GlyphCache::Params const & params)
   {
-    initBlocks(blocksFileName);
+    initBlocks(params.m_blocksFile);
+    initFonts(params.m_whiteListFile, params.m_blackListFile);
 
     FTCHECK(FT_Init_FreeType(&m_lib));
 
     /// Initializing caches
-    FTCHECK(FTC_Manager_New(m_lib, 3, 10, maxSize, &RequestFace, 0, &m_manager));
+    FTCHECK(FTC_Manager_New(m_lib, 3, 10, params.m_maxSize, &RequestFace, 0, &m_manager));
 
     FTCHECK(FTC_ImageCache_New(m_manager, &m_normalGlyphCache));
     FTCHECK(FTC_ImageCache_New(m_manager, &m_glyphMetricsCache));

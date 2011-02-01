@@ -171,17 +171,16 @@ bool IPhonePlatform::DoPeriodicalUpdate() const
 vector<string> IPhonePlatform::GetFontNames() const
 {
 	vector<string> res;
-/*	string fontFolder("/System/Library/Fonts/");
+	string fontFolder = m_resourcesPath;
 
 	GetFilesInDir(fontFolder, ".ttf", res);
 	for (int i = 0; i < res.size(); ++i)
 	  res[i] = fontFolder + res[i];
-*/
 	
-	res.push_back(ReadPathForFile("wqy-microhei.ttf"));		
+/*	res.push_back(ReadPathForFile("wqy-microhei.ttf"));		
 	res.push_back(ReadPathForFile("dejavusans.ttf"));
   res.push_back(ReadPathForFile("mangal.ttf"));
-	
+*/	
 	return res;
 }
 

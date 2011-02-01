@@ -362,20 +362,15 @@ public:
   {
      vector<string> res;
 
-/*#if defined(OMIM_OS_WINDOWS)
-     string fontFolder = "C:\\Windows\\Fonts\\"
-#elif defined(OMIM_OS_MAC)
-     string fontFolder = "/System/Library/Fonts/";
-#endif
+     string fontFolder = m_resourcesDir;
+     //string fontFolder = "/Library/Fonts/";
 
      GetFilesInDir(fontFolder, "*.ttf", res);
 
+     sort(res.begin(), res.end());
+
      for (int i = 0; i < res.size(); ++i)
        res[i] = fontFolder + res[i];
-*/
-     res.push_back(ReadPathForFile("wqy-microhei.ttf"));
-     res.push_back(ReadPathForFile("dejavusans.ttf"));
-     res.push_back(ReadPathForFile("mangal.ttf"));
 
      return res;
   }

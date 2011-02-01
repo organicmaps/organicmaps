@@ -91,7 +91,10 @@
 						smallVBSize, smallIBSize, 30,
 						blitVBSize, blitIBSize, 20,																																	
 						512, 256, 10,
-						GetPlatform().ReadPathForFile("unicode_blocks.txt").c_str(), 2000000));
+						GetPlatform().ReadPathForFile("unicode_blocks.txt").c_str(), 
+						GetPlatform().ReadPathForFile("fonts_whitelist.txt").c_str(),
+ 						GetPlatform().ReadPathForFile("fonts_blacklist.txt").c_str(),
+						2000000));
 		
 		
 		resourceManager->addFonts(GetPlatform().GetFontNames());

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "glyph_cache.hpp"
+
 #include "ft2_debug.hpp"
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
@@ -26,6 +28,15 @@ namespace yg
   struct UnicodeBlock
   {
     string m_name;
+
+    /// @{ Font Tuning
+    /// whitelist has priority over the blacklist in case of duplicates.
+    /// this fonts are promoted to the top of the font list for this block.
+    vector<string> m_whitelist;
+    /// this fonts are removed from the font list for this block.
+    vector<string> m_blacklist;
+    /// @}
+
     uint32_t m_start;
     uint32_t m_end;
     /// sorted indices in m_fonts, from the best to the worst
@@ -60,12 +71,13 @@ namespace yg
     static FT_Error RequestFace(FTC_FaceID faceID, FT_Library library, FT_Pointer requestData, FT_Face * face);
 
     void initBlocks(string const & fileName);
+    void initFonts(string const & whiteListFile, string const & blackListFile);
 
     vector<shared_ptr<Font> > & getFonts(uint16_t sym);
     void addFont(char const * fileName);
     void addFonts(vector<string> const & fontNames);
 
-    GlyphCacheImpl(string const & blocksFileName, size_t maxSize);
+    GlyphCacheImpl(GlyphCache::Params const & params);
     ~GlyphCacheImpl();
   };
 }
