@@ -355,37 +355,6 @@ namespace
       m_pos += count;
     }
   };
-
-  /// @name Rearrange strips for optimal save size.
-  /// Save in this order: 0, 2, 4, ..., 15, 13, ..., 1
-  //@{
-  void RearrangeStripsSave(vector<m2::PointD> const & src, vector<m2::PointD> & dest)
-  {
-    size_t const count = src.size();
-    dest.resize(count);
-    for (size_t i = 0; i < count; ++i)
-    {
-      if (i & 1)
-        dest[count-1 - (i/2)] = src[i];
-      else
-        dest[i/2] = src[i];
-    }
-  }
-
-  void RearrangeStripsLoad( buffer_vector<m2::PointD, 32> const & src,
-                            buffer_vector<m2::PointD, 32> & dest)
-  {
-    size_t const count = src.size();
-    dest.resize(count);
-    for (size_t i = 0; i < count; ++i)
-    {
-      if (i & 1)
-        dest[i] = src[count-1 - (i/2)];
-      else
-        dest[i] = src[i/2];
-    }
-  }
-  //@}
 }
 
 void FeatureBuilder2::Serialize(buffers_holder_t & data, int64_t base)
@@ -451,11 +420,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, int64_t base)
   if (m_bArea)
   {
     if (trgCount > 0)
-    {
-      vector<m2::PointD> toSave;
-      RearrangeStripsSave(data.m_innerTrg, toSave);
-      feature::SavePointsSimple(toSave, base, sink);
-    }
+      serial::SaveInnerTriangles(data.m_innerTrg, base, sink);
     else
     {
       // offsets was pushed from high scale index to low
@@ -813,9 +778,8 @@ void FeatureType::ParseHeader2() const
 
       char const * start = static_cast<char const *>(src.Ptr());
 
-      points_t toLoad, points;
-      ReadInnerPoints(src, toLoad, trgCount);
-      RearrangeStripsLoad(toLoad, points);
+      points_t points;
+      src = ArrayByteSource(serial::LoadInnerTriangles(src.Ptr(), trgCount, m_base, points));
 
       m_InnerStats.m_Strips = static_cast<char const *>(src.Ptr()) - start;
 
@@ -894,19 +858,23 @@ uint32_t FeatureType::ParseTriangles(int scale) const
     ParseHeader2();
 
   uint32_t sz = 0;
-  if (m_Triangles.empty() && Header() & HEADER_IS_AREA)
+  if (Header() & HEADER_IS_AREA)
   {
-    uint32_t const ind = GetScaleIndex(scale, m_trgOffsets);
-    if (ind != -1)
+    if (m_Triangles.empty())
     {
-      ReaderSource<FileReader> src(
-            m_cont->GetReader(feature::GetTagForIndex(TRIANGLE_FILE_TAG, ind)));
-      src.Skip(m_trgOffsets[ind]);
-      feature::LoadTriangles(m_Triangles, m_base, src);
+      uint32_t const ind = GetScaleIndex(scale, m_trgOffsets);
+      if (ind != -1)
+      {
+        ReaderSource<FileReader> src(
+              m_cont->GetReader(feature::GetTagForIndex(TRIANGLE_FILE_TAG, ind)));
+        src.Skip(m_trgOffsets[ind]);
+        feature::LoadTriangles(m_Triangles, m_base, src);
 
-      CalcRect(m_Triangles, m_LimitRect);
-      sz = static_cast<uint32_t>(src.Pos() - m_trgOffsets[ind]);
+        sz = static_cast<uint32_t>(src.Pos() - m_trgOffsets[ind]);
+      }
     }
+
+    CalcRect(m_Triangles, m_LimitRect);
   }
 
   m_bTrianglesParsed = true;
@@ -924,12 +892,6 @@ void FeatureType::ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & o
     offsets[index++] = (mask & 0x01) ? ReadVarUint<uint32_t>(src) : kInvalidOffset;
     mask = mask >> 1;
   }
-}
-
-void FeatureType::ReadInnerPoints(ArrayByteSource & src, points_t & points, uint8_t count) const
-{
-  src = ArrayByteSource(feature::LoadPointsSimple(src.Ptr(), count, m_base, points));
-  CalcRect(points, m_LimitRect);
 }
 
 void FeatureType::ParseAll(int scale) const

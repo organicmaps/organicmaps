@@ -1,5 +1,7 @@
 #pragma once
 
+#include "geometry_coding.hpp"
+
 #include "../geometry/point2d.hpp"
 
 #include "../coding/writer.hpp"
@@ -18,24 +20,27 @@ namespace serial
       WriteVarUint(sink, v[i]);
   }
 
-  void EncodePath(vector<m2::PointD> const & points, int64_t base, vector<uint64_t> & deltas);
+  typedef void (*EncodeFunT)(vector<m2::PointU> const &, m2::PointU const &, m2::PointU const &, vector<uint64_t> &);
+  typedef void (*DecodeFunT)(vector<uint64_t> const &, m2::PointU const &, m2::PointU const &, vector<m2::PointU> &);
+
+  void Encode(EncodeFunT fn, vector<m2::PointD> const & points, int64_t base, vector<uint64_t> & deltas);
 
   typedef buffer_vector<m2::PointD, 32> OutPointsT;
-  void DecodePath(vector<uint64_t> const & deltas, int64_t base, OutPointsT & points);
+  void Decode(DecodeFunT fn, vector<uint64_t> const & deltas, int64_t base, OutPointsT & points);
 
   template <class TSink>
-  void SaveInnerPath(vector<m2::PointD> const & points, int64_t base, TSink & sink)
+  void SaveInner(EncodeFunT fn, vector<m2::PointD> const & points, int64_t base, TSink & sink)
   {
     vector<uint64_t> deltas;
-    EncodePath(points, base, deltas);
+    Encode(fn, points, base, deltas);
     WriteVarUintArray(deltas, sink);
   }
 
   template <class TSink>
-  void SaveOuterPath(vector<m2::PointD> const & points, int64_t base, TSink & sink)
+  void SaveOuter(EncodeFunT fn, vector<m2::PointD> const & points, int64_t base, TSink & sink)
   {
     vector<uint64_t> deltas;
-    EncodePath(points, base, deltas);
+    Encode(fn, points, base, deltas);
 
     vector<char> buffer;
     MemWriter<vector<char> > writer(buffer);
@@ -46,10 +51,10 @@ namespace serial
     sink.Write(&buffer[0], count);
   }
 
-  void const * LoadInnerPath(void const * pBeg, size_t count, int64_t base, OutPointsT & points);
+  void const * LoadInner(DecodeFunT fn, void const * pBeg, size_t count, int64_t base, OutPointsT & points);
 
   template <class TSource>
-  void LoadOuterPath(TSource & src, int64_t base, OutPointsT & points)
+  void LoadOuter(DecodeFunT fn, TSource & src, int64_t base, OutPointsT & points)
   {
     uint32_t const count = ReadVarUint<uint32_t>(src);
     vector<char> buffer(count);
@@ -60,6 +65,46 @@ namespace serial
     deltas.reserve(count / 2);
     ReadVarUint64Array(p, p + count, MakeBackInsertFunctor(deltas));
 
-    DecodePath(deltas, base, points);
+    Decode(fn, deltas, base, points);
   }
+
+
+  /// @name Pathes.
+  //@{
+  template <class TSink>
+  void SaveInnerPath(vector<m2::PointD> const & points, int64_t base, TSink & sink)
+  {
+    SaveInner(&geo_coding::EncodePolyline, points, base, sink);
+  }
+  template <class TSink>
+  void SaveOuterPath(vector<m2::PointD> const & points, int64_t base, TSink & sink)
+  {
+    SaveOuter(&geo_coding::EncodePolyline, points, base, sink);
+  }
+
+  inline void const * LoadInnerPath(void const * pBeg, size_t count, int64_t base, OutPointsT & points)
+  {
+    return LoadInner(&geo_coding::DecodePolyline, pBeg, count, base, points);
+  }
+
+  template <class TSource>
+  void LoadOuterPath(TSource & src, int64_t base, OutPointsT & points)
+  {
+    LoadOuter(&geo_coding::DecodePolyline, src, base, points);
+  }
+  //@}
+
+  /// @name Triangles.
+  //@{
+  template <class TSink>
+  void SaveInnerTriangles(vector<m2::PointD> const & points, int64_t base, TSink & sink)
+  {
+    SaveInner(&geo_coding::EncodeTriangleStrip, points, base, sink);
+  }
+
+  inline void const * LoadInnerTriangles(void const * pBeg, size_t count, int64_t base, OutPointsT & points)
+  {
+    return LoadInner(&geo_coding::DecodeTriangleStrip, pBeg, count, base, points);
+  }
+  //@}
 }

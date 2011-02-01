@@ -84,25 +84,27 @@ inline void DecodePolyline(DeltasT const & deltas,
   DecodePolylinePrev2(deltas, basePoint, maxPoint, points);
 }
 
-void EncodeTriangles(vector<m2::PointU> const & points,
-                     vector<tuple<uint32_t, uint32_t, uint32_t> > const & triangles,
+typedef vector<tuple<uint32_t, uint32_t, uint32_t> > TrianglesT;
+
+void EncodeTriangles(InPointsT const & points,
+                     TrianglesT const & triangles,
                      m2::PointU const & basePoint,
                      m2::PointU const & maxPoint,
-                     vector<char> & serialOutput);
+                     DeltasT & deltas);
 
-void DecodeTriangles(char const * pBeg, char const * pEnd,
+void DecodeTriangles(DeltasT const & deltas,
                      m2::PointU const & basePoint,
                      m2::PointU const & maxPoint,
-                     vector<m2::PointU> & points,
-                     vector<tuple<uint32_t, uint32_t, uint32_t> > & triangles);
+                     OutPointsT & points,
+                     TrianglesT & triangles);
 
-void EncodeTriangleStrip(vector<m2::PointU> const & points,
+void EncodeTriangleStrip(InPointsT const & points,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         vector<char> & serialOutput);
+                         DeltasT & deltas);
 
-void DecodeTriangleStrip(char const * pBeg, char const * pEnd,
+void DecodeTriangleStrip(DeltasT const & deltas,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         vector<m2::PointU> & points);
+                         OutPointsT & points);
 }

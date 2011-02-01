@@ -77,11 +77,11 @@ void EncodePolylinePrev1(InPointsT const & points,
                          m2::PointU const & /*maxPoint*/,
                          DeltasT & deltas)
 {
-  deltas.reserve(points.size());
-  if (points.size() > 0)
+  size_t const count = points.size();
+  if (count > 0)
   {
     deltas.push_back(EncodeDelta(points[0], basePoint));
-    for (size_t i = 1; i < points.size(); ++i)
+    for (size_t i = 1; i < count; ++i)
       deltas.push_back(EncodeDelta(points[i], points[i-1]));
   }
 
@@ -93,10 +93,11 @@ void DecodePolylinePrev1(DeltasT const & deltas,
                          m2::PointU const & /*maxPoint*/,
                          OutPointsT & points)
 {
-  if (deltas.size() > 0)
+  size_t const count = deltas.size();
+  if (count > 0)
   {
     points.push_back(DecodeDelta(deltas[0], basePoint));
-    for (size_t i = 1; i < deltas.size(); ++i)
+    for (size_t i = 1; i < count; ++i)
       points.push_back(DecodeDelta(deltas[i], points.back()));
   }
 }
@@ -106,13 +107,14 @@ void EncodePolylinePrev2(InPointsT const & points,
                          m2::PointU const & maxPoint,
                          DeltasT & deltas)
 {
-  if (points.size() > 0)
+  size_t const count = points.size();
+  if (count > 0)
   {
     deltas.push_back(EncodeDelta(points[0], basePoint));
-    if (points.size() > 1)
+    if (count > 1)
     {
       deltas.push_back(EncodeDelta(points[1], points[0]));
-      for (size_t i = 2; i < points.size(); ++i)
+      for (size_t i = 2; i < count; ++i)
         deltas.push_back(EncodeDelta(points[i],
                                      PredictPointInPolyline(maxPoint, points[i-1], points[i-2])));
     }
@@ -126,13 +128,14 @@ void DecodePolylinePrev2(DeltasT const & deltas,
                          m2::PointU const & maxPoint,
                          OutPointsT & points)
 {
-  if (deltas.size() > 0)
+  size_t const count = deltas.size();
+  if (count > 0)
   {
     points.push_back(DecodeDelta(deltas[0], basePoint));
-    if (deltas.size() > 1)
+    if (count > 1)
     {
       points.push_back(DecodeDelta(deltas[1], points.back()));
-      for (size_t i = 2; i < deltas.size(); ++i)
+      for (size_t i = 2; i < count; ++i)
       {
         size_t const n = points.size();
         points.push_back(DecodeDelta(deltas[i],
@@ -150,17 +153,18 @@ void EncodePolylinePrev3(InPointsT const & points,
   ASSERT_LESS_OR_EQUAL(basePoint.x, maxPoint.x, (basePoint, maxPoint));
   ASSERT_LESS_OR_EQUAL(basePoint.y, maxPoint.y, (basePoint, maxPoint));
 
-  if (points.size() > 0)
+  size_t const count = points.size();
+  if (count > 0)
   {
     deltas.push_back(EncodeDelta(points[0], basePoint));
-    if (points.size() > 1)
+    if (count > 1)
     {
       deltas.push_back(EncodeDelta(points[1], points[0]));
-      if (points.size() > 2)
+      if (count > 2)
       {
         m2::PointU const prediction = PredictPointInPolyline(maxPoint, points[1], points[0]);
         deltas.push_back(EncodeDelta(points[2], prediction));
-        for (size_t i = 3; i < points.size(); ++i)
+        for (size_t i = 3; i < count; ++i)
         {
           m2::PointU const prediction =
               PredictPointInPolyline(maxPoint, points[i-1], points[i-2], points[i-3]);
@@ -181,18 +185,19 @@ void DecodePolylinePrev3(DeltasT const & deltas,
   ASSERT_LESS_OR_EQUAL(basePoint.x, maxPoint.x, (basePoint, maxPoint));
   ASSERT_LESS_OR_EQUAL(basePoint.y, maxPoint.y, (basePoint, maxPoint));
 
-  if (deltas.size() > 0)
+  size_t const count = deltas.size();
+  if (count> 0)
   {
     points.push_back(DecodeDelta(deltas[0], basePoint));
-    if (deltas.size() > 1)
+    if (count > 1)
     {
       m2::PointU const pt0 = points.back();
       points.push_back(DecodeDelta(deltas[1], pt0));
-      if (deltas.size() > 2)
+      if (count > 2)
       {
         points.push_back(DecodeDelta(deltas[2],
                                      PredictPointInPolyline(maxPoint, points.back(), pt0)));
-        for (size_t i = 3; i < deltas.size(); ++i)
+        for (size_t i = 3; i < count; ++i)
         {
           size_t const n = points.size();
           m2::PointU const prediction =
@@ -200,6 +205,63 @@ void DecodePolylinePrev3(DeltasT const & deltas,
           points.push_back(DecodeDelta(deltas[i], prediction));
         }
       }
+    }
+  }
+}
+
+
+m2::PointU PredictPointInTriangle(m2::PointU const & maxPoint,
+                                  m2::PointU const & p1,
+                                  m2::PointU const & p2,
+                                  m2::PointU const & p3)
+{
+  // parallelogramm prediction
+  return ClampPoint(maxPoint, p2 + p3 - p1);
+}
+
+void EncodeTriangleStrip(InPointsT const & points,
+                         m2::PointU const & basePoint,
+                         m2::PointU const & maxPoint,
+                         DeltasT & deltas)
+{
+  size_t const count = points.size();
+  if (count > 0)
+  {
+    ASSERT_GREATER(count, 2, ());
+
+    deltas.push_back(EncodeDelta(points[0], basePoint));
+    deltas.push_back(EncodeDelta(points[1], points[0]));
+    deltas.push_back(EncodeDelta(points[2], points[1]));
+
+    for (size_t i = 3; i < count; ++i)
+    {
+      m2::PointU const prediction =
+          PredictPointInTriangle(maxPoint, points[i-1], points[i-2], points[i-3]);
+      deltas.push_back(EncodeDelta(points[i], prediction));
+    }
+  }
+}
+
+void DecodeTriangleStrip(DeltasT const & deltas,
+                         m2::PointU const & basePoint,
+                         m2::PointU const & maxPoint,
+                         OutPointsT & points)
+{
+  size_t const count = deltas.size();
+  if (count > 0)
+  {
+    ASSERT_GREATER(count, 2, ());
+
+    points.push_back(DecodeDelta(deltas[0], basePoint));
+    points.push_back(DecodeDelta(deltas[1], points.back()));
+    points.push_back(DecodeDelta(deltas[2], points.back()));
+
+    for (size_t i = 3; i < count; ++i)
+    {
+      size_t const n = points.size();
+      m2::PointU const prediction =
+          PredictPointInTriangle(maxPoint, points[n-1], points[n-2], points[n-3]);
+      points.push_back(DecodeDelta(deltas[i], prediction));
     }
   }
 }

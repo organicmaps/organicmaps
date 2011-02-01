@@ -475,7 +475,6 @@ private:
   typedef array<uint32_t, 4> offsets_t; // should be synchronized with ARRAY_SIZE(g_arrScales)
 
   static void ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets);
-  void ReadInnerPoints(ArrayByteSource & src, points_t & points, uint8_t count) const;
 
   static int GetScaleIndex(int scale);
   static int GetScaleIndex(int scale, offsets_t const & offset);

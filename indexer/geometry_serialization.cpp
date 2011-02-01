@@ -35,35 +35,35 @@ namespace serial
     }
   }
 
-  void EncodePath(vector<m2::PointD> const & points, int64_t base, vector<uint64_t> & deltas)
+  void Encode(EncodeFunT fn, vector<m2::PointD> const & points, int64_t base, vector<uint64_t> & deltas)
   {
     vector<m2::PointU> upoints;
     upoints.reserve(points.size());
 
     transform(points.begin(), points.end(), back_inserter(upoints), &pts::D2U);
 
-    geo_coding::EncodePolyline(upoints, pts::GetBasePoint(base), pts::GetMaxPoint(), deltas);
+    (*fn)(upoints, pts::GetBasePoint(base), pts::GetMaxPoint(), deltas);
   }
 
-  void DecodePath(vector<uint64_t> const & deltas, int64_t base, OutPointsT & points)
+  void Decode(DecodeFunT fn, vector<uint64_t> const & deltas, int64_t base, OutPointsT & points)
   {
     vector<m2::PointU> upoints;
     upoints.reserve(deltas.size());
 
-    geo_coding::DecodePolyline(deltas, pts::GetBasePoint(base), pts::GetMaxPoint(), upoints);
+    (*fn)(deltas, pts::GetBasePoint(base), pts::GetMaxPoint(), upoints);
 
     points.reserve(upoints.size());
     transform(upoints.begin(), upoints.end(), back_inserter(points), &pts::U2D);
   }
 
-  void const * LoadInnerPath(void const * pBeg, size_t count, int64_t base, OutPointsT & points)
+  void const * LoadInner(DecodeFunT fn, void const * pBeg, size_t count, int64_t base, OutPointsT & points)
   {
     vector<uint64_t> deltas;
     deltas.reserve(count);
     void const * ret = ReadVarUint64Array(static_cast<char const *>(pBeg), count,
                                           MakeBackInsertFunctor(deltas));
 
-    DecodePath(deltas, base, points);
+    Decode(fn, deltas, base, points);
     return ret;
   }
 }
