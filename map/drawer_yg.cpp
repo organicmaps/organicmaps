@@ -149,7 +149,7 @@ void DrawerYG::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int de
 
 namespace
 {
-  double const min_text_height = 12;      // 8
+  double const min_text_height = 14;      // 8
 //  double const min_text_height_mask = 9.99; // 10
 }
 
