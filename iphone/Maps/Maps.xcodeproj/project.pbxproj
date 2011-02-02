@@ -48,19 +48,12 @@
 		EEFE7C4D12F8CC2D006AF8C3 /* 06_umpush.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3612F8CC2D006AF8C3 /* 06_umpush.ttf */; };
 		EEFE7C4E12F8CC2D006AF8C3 /* 07_abyssinica_sil_r.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3712F8CC2D006AF8C3 /* 07_abyssinica_sil_r.ttf */; };
 		EEFE7C4F12F8CC2D006AF8C3 /* 08_lohit_as.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3812F8CC2D006AF8C3 /* 08_lohit_as.ttf */; };
-		EEFE7C5012F8CC2D006AF8C3 /* 09_lohit_bn.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3912F8CC2D006AF8C3 /* 09_lohit_bn.ttf */; };
 		EEFE7C5112F8CC2D006AF8C3 /* 10_lohit_gu.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3A12F8CC2D006AF8C3 /* 10_lohit_gu.ttf */; };
-		EEFE7C5212F8CC2D006AF8C3 /* 11_lohit_hi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3B12F8CC2D006AF8C3 /* 11_lohit_hi.ttf */; };
 		EEFE7C5312F8CC2D006AF8C3 /* 12_lohit_kn.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3C12F8CC2D006AF8C3 /* 12_lohit_kn.ttf */; };
-		EEFE7C5412F8CC2D006AF8C3 /* 13_lohit_kok.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3D12F8CC2D006AF8C3 /* 13_lohit_kok.ttf */; };
-		EEFE7C5512F8CC2D006AF8C3 /* 14_lohit_ks.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3E12F8CC2D006AF8C3 /* 14_lohit_ks.ttf */; };
-		EEFE7C5612F8CC2D006AF8C3 /* 15_lohit_mai.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C3F12F8CC2D006AF8C3 /* 15_lohit_mai.ttf */; };
 		EEFE7C5712F8CC2D006AF8C3 /* 16_lohit_ml.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C4012F8CC2D006AF8C3 /* 16_lohit_ml.ttf */; };
 		EEFE7C5812F8CC2D006AF8C3 /* 17_lohit_mr.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C4112F8CC2D006AF8C3 /* 17_lohit_mr.ttf */; };
-		EEFE7C5912F8CC2D006AF8C3 /* 18_lohit_ne.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C4212F8CC2D006AF8C3 /* 18_lohit_ne.ttf */; };
 		EEFE7C5A12F8CC2D006AF8C3 /* 19_lohit_or.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C4312F8CC2D006AF8C3 /* 19_lohit_or.ttf */; };
 		EEFE7C5B12F8CC2D006AF8C3 /* 20_lohit_pa.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C4412F8CC2D006AF8C3 /* 20_lohit_pa.ttf */; };
-		EEFE7C5C12F8CC2D006AF8C3 /* 21_lohit_sd.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C4512F8CC2D006AF8C3 /* 21_lohit_sd.ttf */; };
 		EEFE7C5D12F8CC2D006AF8C3 /* 22_lohit_ta.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C4612F8CC2D006AF8C3 /* 22_lohit_ta.ttf */; };
 		EEFE7C5E12F8CC2D006AF8C3 /* 23_lohit_te.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C4712F8CC2D006AF8C3 /* 23_lohit_te.ttf */; };
 		FA04373212CAB83F00017494 /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA04373112CAB83F00017494 /* libstorage.a */; };
@@ -140,19 +133,12 @@
 		EEFE7C3612F8CC2D006AF8C3 /* 06_umpush.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 06_umpush.ttf; path = ../../data/06_umpush.ttf; sourceTree = "<group>"; };
 		EEFE7C3712F8CC2D006AF8C3 /* 07_abyssinica_sil_r.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 07_abyssinica_sil_r.ttf; path = ../../data/07_abyssinica_sil_r.ttf; sourceTree = "<group>"; };
 		EEFE7C3812F8CC2D006AF8C3 /* 08_lohit_as.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 08_lohit_as.ttf; path = ../../data/08_lohit_as.ttf; sourceTree = "<group>"; };
-		EEFE7C3912F8CC2D006AF8C3 /* 09_lohit_bn.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 09_lohit_bn.ttf; path = ../../data/09_lohit_bn.ttf; sourceTree = "<group>"; };
 		EEFE7C3A12F8CC2D006AF8C3 /* 10_lohit_gu.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 10_lohit_gu.ttf; path = ../../data/10_lohit_gu.ttf; sourceTree = "<group>"; };
-		EEFE7C3B12F8CC2D006AF8C3 /* 11_lohit_hi.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 11_lohit_hi.ttf; path = ../../data/11_lohit_hi.ttf; sourceTree = "<group>"; };
 		EEFE7C3C12F8CC2D006AF8C3 /* 12_lohit_kn.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 12_lohit_kn.ttf; path = ../../data/12_lohit_kn.ttf; sourceTree = "<group>"; };
-		EEFE7C3D12F8CC2D006AF8C3 /* 13_lohit_kok.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 13_lohit_kok.ttf; path = ../../data/13_lohit_kok.ttf; sourceTree = "<group>"; };
-		EEFE7C3E12F8CC2D006AF8C3 /* 14_lohit_ks.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 14_lohit_ks.ttf; path = ../../data/14_lohit_ks.ttf; sourceTree = "<group>"; };
-		EEFE7C3F12F8CC2D006AF8C3 /* 15_lohit_mai.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 15_lohit_mai.ttf; path = ../../data/15_lohit_mai.ttf; sourceTree = "<group>"; };
 		EEFE7C4012F8CC2D006AF8C3 /* 16_lohit_ml.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 16_lohit_ml.ttf; path = ../../data/16_lohit_ml.ttf; sourceTree = "<group>"; };
 		EEFE7C4112F8CC2D006AF8C3 /* 17_lohit_mr.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 17_lohit_mr.ttf; path = ../../data/17_lohit_mr.ttf; sourceTree = "<group>"; };
-		EEFE7C4212F8CC2D006AF8C3 /* 18_lohit_ne.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 18_lohit_ne.ttf; path = ../../data/18_lohit_ne.ttf; sourceTree = "<group>"; };
 		EEFE7C4312F8CC2D006AF8C3 /* 19_lohit_or.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 19_lohit_or.ttf; path = ../../data/19_lohit_or.ttf; sourceTree = "<group>"; };
 		EEFE7C4412F8CC2D006AF8C3 /* 20_lohit_pa.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 20_lohit_pa.ttf; path = ../../data/20_lohit_pa.ttf; sourceTree = "<group>"; };
-		EEFE7C4512F8CC2D006AF8C3 /* 21_lohit_sd.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 21_lohit_sd.ttf; path = ../../data/21_lohit_sd.ttf; sourceTree = "<group>"; };
 		EEFE7C4612F8CC2D006AF8C3 /* 22_lohit_ta.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 22_lohit_ta.ttf; path = ../../data/22_lohit_ta.ttf; sourceTree = "<group>"; };
 		EEFE7C4712F8CC2D006AF8C3 /* 23_lohit_te.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 23_lohit_te.ttf; path = ../../data/23_lohit_te.ttf; sourceTree = "<group>"; };
 		FA04373112CAB83F00017494 /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libstorage.a; sourceTree = SOURCE_ROOT; };
@@ -308,19 +294,12 @@
 				EEFE7C3612F8CC2D006AF8C3 /* 06_umpush.ttf */,
 				EEFE7C3712F8CC2D006AF8C3 /* 07_abyssinica_sil_r.ttf */,
 				EEFE7C3812F8CC2D006AF8C3 /* 08_lohit_as.ttf */,
-				EEFE7C3912F8CC2D006AF8C3 /* 09_lohit_bn.ttf */,
 				EEFE7C3A12F8CC2D006AF8C3 /* 10_lohit_gu.ttf */,
-				EEFE7C3B12F8CC2D006AF8C3 /* 11_lohit_hi.ttf */,
 				EEFE7C3C12F8CC2D006AF8C3 /* 12_lohit_kn.ttf */,
-				EEFE7C3D12F8CC2D006AF8C3 /* 13_lohit_kok.ttf */,
-				EEFE7C3E12F8CC2D006AF8C3 /* 14_lohit_ks.ttf */,
-				EEFE7C3F12F8CC2D006AF8C3 /* 15_lohit_mai.ttf */,
 				EEFE7C4012F8CC2D006AF8C3 /* 16_lohit_ml.ttf */,
 				EEFE7C4112F8CC2D006AF8C3 /* 17_lohit_mr.ttf */,
-				EEFE7C4212F8CC2D006AF8C3 /* 18_lohit_ne.ttf */,
 				EEFE7C4312F8CC2D006AF8C3 /* 19_lohit_or.ttf */,
 				EEFE7C4412F8CC2D006AF8C3 /* 20_lohit_pa.ttf */,
-				EEFE7C4512F8CC2D006AF8C3 /* 21_lohit_sd.ttf */,
 				EEFE7C4612F8CC2D006AF8C3 /* 22_lohit_ta.ttf */,
 				EEFE7C4712F8CC2D006AF8C3 /* 23_lohit_te.ttf */,
 				EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */,
@@ -476,19 +455,12 @@
 				EEFE7C4D12F8CC2D006AF8C3 /* 06_umpush.ttf in Resources */,
 				EEFE7C4E12F8CC2D006AF8C3 /* 07_abyssinica_sil_r.ttf in Resources */,
 				EEFE7C4F12F8CC2D006AF8C3 /* 08_lohit_as.ttf in Resources */,
-				EEFE7C5012F8CC2D006AF8C3 /* 09_lohit_bn.ttf in Resources */,
 				EEFE7C5112F8CC2D006AF8C3 /* 10_lohit_gu.ttf in Resources */,
-				EEFE7C5212F8CC2D006AF8C3 /* 11_lohit_hi.ttf in Resources */,
 				EEFE7C5312F8CC2D006AF8C3 /* 12_lohit_kn.ttf in Resources */,
-				EEFE7C5412F8CC2D006AF8C3 /* 13_lohit_kok.ttf in Resources */,
-				EEFE7C5512F8CC2D006AF8C3 /* 14_lohit_ks.ttf in Resources */,
-				EEFE7C5612F8CC2D006AF8C3 /* 15_lohit_mai.ttf in Resources */,
 				EEFE7C5712F8CC2D006AF8C3 /* 16_lohit_ml.ttf in Resources */,
 				EEFE7C5812F8CC2D006AF8C3 /* 17_lohit_mr.ttf in Resources */,
-				EEFE7C5912F8CC2D006AF8C3 /* 18_lohit_ne.ttf in Resources */,
 				EEFE7C5A12F8CC2D006AF8C3 /* 19_lohit_or.ttf in Resources */,
 				EEFE7C5B12F8CC2D006AF8C3 /* 20_lohit_pa.ttf in Resources */,
-				EEFE7C5C12F8CC2D006AF8C3 /* 21_lohit_sd.ttf in Resources */,
 				EEFE7C5D12F8CC2D006AF8C3 /* 22_lohit_ta.ttf in Resources */,
 				EEFE7C5E12F8CC2D006AF8C3 /* 23_lohit_te.ttf in Resources */,
 			);

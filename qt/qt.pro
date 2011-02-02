@@ -37,19 +37,12 @@ macx {
                          ../data/06_umpush.ttf \
                          ../data/07_abyssinica_sil_r.ttf \
                          ../data/08_lohit_as.ttf \
-                         ../data/09_lohit_bn.ttf \
                          ../data/10_lohit_gu.ttf \
-                         ../data/11_lohit_hi.ttf \
                          ../data/12_lohit_kn.ttf \
-                         ../data/13_lohit_kok.ttf \
-                         ../data/14_lohit_ks.ttf \
-                         ../data/15_lohit_mai.ttf \
                          ../data/16_lohit_ml.ttf \
                          ../data/17_lohit_mr.ttf \
-                         ../data/18_lohit_ne.ttf \
                          ../data/19_lohit_or.ttf \
                          ../data/20_lohit_pa.ttf \
-                         ../data/21_lohit_sd.ttf \
                          ../data/22_lohit_ta.ttf \
                          ../data/23_lohit_te.ttf
 
