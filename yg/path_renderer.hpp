@@ -10,6 +10,9 @@ namespace yg
     class PathRenderer : public GeometryBatcher
     {
     private:
+
+      void drawSolidPath(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth);
+
     public:
 
       typedef GeometryBatcher base_t;

@@ -15,8 +15,8 @@ namespace gil = boost::gil;
 
 namespace yg
 {
-  GlyphKey::GlyphKey(int id, int fontSize, bool isMask)
-    : m_id(id), m_fontSize(fontSize), m_isMask(isMask)
+  GlyphKey::GlyphKey(int id, int fontSize, bool isMask, yg::Color const & color)
+    : m_id(id), m_fontSize(fontSize), m_isMask(isMask), m_color(color)
   {}
 
   uint32_t GlyphKey::toUInt32() const
@@ -32,7 +32,9 @@ namespace yg
       return l.m_id < r.m_id;
     if (l.m_fontSize != r.m_fontSize)
       return l.m_fontSize < r.m_fontSize;
-    return l.m_isMask < r.m_isMask;
+    if (l.m_isMask != r.m_isMask)
+      return l.m_isMask < r.m_isMask;
+    return l.m_color < r.m_color;
   }
 
   GlyphCache::Params::Params(char const * blocksFile, char const * whiteListFile, char const * blackListFile, size_t maxSize)
@@ -169,11 +171,6 @@ namespace yg
           0
           ));
 
-    /// glyph could appear in cache from getGlyphMetrics method,
-    /// so we should explicitly check this situation
-//    if (glyph.format == FT_GLYPH_FORMAT_OUTLINE)
-//      FTCHECK(FT_Glyph_To_Bitmap(&glyph, FT_RENDER_MODE_NORMAL, 0, 1));
-
     FT_BitmapGlyph bitmapGlyph = (FT_BitmapGlyph)glyph;
 
     shared_ptr<GlyphInfo> info(new GlyphInfo());
@@ -184,7 +181,7 @@ namespace yg
     info->m_metrics.m_yOffset = bitmapGlyph ? bitmapGlyph->top - info->m_metrics.m_height : 0;
     info->m_metrics.m_xAdvance = bitmapGlyph ? int(bitmapGlyph->root.advance.x >> 16) : 0;
     info->m_metrics.m_yAdvance = bitmapGlyph ? int(bitmapGlyph->root.advance.y >> 16) : 0;
-    info->m_color = key.m_isMask ? yg::Color(255, 255, 255, 0) : yg::Color(0, 0, 0, 0);
+    info->m_color = key.m_color;
 
     if ((info->m_metrics.m_width != 0) && (info->m_metrics.m_height != 0))
     {
@@ -206,10 +203,10 @@ namespace yg
 
       DATA_TRAITS::pixel_t c;
 
-      gil::get_color(c, gil::red_t()) = key.m_isMask ? DATA_TRAITS::maxChannelVal : 0;
-      gil::get_color(c, gil::green_t()) = key.m_isMask ? DATA_TRAITS::maxChannelVal : 0;
-      gil::get_color(c, gil::blue_t()) = key.m_isMask ? DATA_TRAITS::maxChannelVal : 0;
-      gil::get_color(c, gil::alpha_t()) = 0;
+      gil::get_color(c, gil::red_t()) = key.m_color.r / DATA_TRAITS::channelScaleFactor;
+      gil::get_color(c, gil::green_t()) = key.m_color.g / DATA_TRAITS::channelScaleFactor;
+      gil::get_color(c, gil::blue_t()) = key.m_color.b / DATA_TRAITS::channelScaleFactor;
+      gil::get_color(c, gil::alpha_t()) = key.m_color.a / DATA_TRAITS::channelScaleFactor;
 
       for (size_t y = 0; y < srcView.height(); ++y)
         for (size_t x = 0; x < srcView.width(); ++x)

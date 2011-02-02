@@ -218,7 +218,6 @@ void RenderQueueRoutine::Do()
 
   params.m_resourceManager = m_resourceManager;
   params.m_isMultiSampled = m_isMultiSampled;
-  params.m_useTextLayer = true;
   params.m_frameBuffer = m_frameBuffer;
   params.m_renderState = m_renderState;
   params.m_doPeriodicalUpdate = m_doPeriodicalUpdate;

@@ -48,11 +48,7 @@ namespace yg
 
       typedef function<void()> onFlushFinishedFn;
 
-      enum TextPos { under_line, middle_line, above_line };
-
     private:
-
-      static wstring Log2Vis(wstring const & str);
 
       typedef RenderStateUpdater base_t;
 
@@ -94,16 +90,6 @@ namespace yg
 
       int m_aaShift;
 
-      bool drawPathTextImpl(m2::PointD const * path,
-                        size_t s,
-                        uint8_t fontSize,
-                        string const & utf8Text,
-                        double fullLength,
-                        double pathOffset,
-                        TextPos pos,
-                        bool fromMask,
-                        double depth,
-                        bool isFixedFont);
 
     public:
 
@@ -138,36 +124,8 @@ namespace yg
                             uint32_t styleID,
                             double depth);
 
-    private:
-      template <class ToDo>
-      void ForEachGlyph(uint8_t fontSize, wstring const & text, bool isMask, bool isFixedFont, ToDo toDo);
 
     public:
-      /// Drawing text from point rotated by the angle.
-      void drawText(m2::PointD const & pt,
-                    float angle,
-                    uint8_t fontSize,
-                    string const & utf8Text,
-                    double depth,
-                    bool fixedFont = false,
-                    bool log2vis = true);
-
-      m2::RectD const textRect(string const & utf8Text,
-                               uint8_t fontSize,
-                               bool fixedFont = false,
-                               bool log2vis = true);
-
-      /// Drawing text in the middle of the path.
-      bool drawPathText(m2::PointD const * path,
-                        size_t s,
-                        uint8_t fontSize,
-                        string const & utf8Text,
-                        double fullLength,
-                        double pathOffset,
-                        TextPos pos,
-                        bool isMasked,
-                        double depth,
-                        bool isFixedFont = false);
 
       /// This functions hide the base_t functions with the same name and signature
       /// to flush(-1) upon calling them
@@ -194,15 +152,6 @@ namespace yg
                             int pageID);
 
       int aaShift() const;
-
-    private:
-
-      void drawGlyph(m2::PointD const & ptOrg,
-                     m2::PointD const & ptGlyph,
-                     float angle,
-                     float blOffset,
-                     CharStyle const * p,
-                     double depth);
 
       /// drawing textured polygon with antialiasing
       /// we assume that the (tx0, ty0, tx1, ty1) area on texture is surrounded by (0, 0, 0, 0) pixels,

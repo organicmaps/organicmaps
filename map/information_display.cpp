@@ -249,7 +249,10 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
   pDrawer->screen()->drawText(scalerPts[1] + m2::PointD(7, -7),
                               0,
                               10,
+                              yg::Color(0, 0, 0, 0),
                               scalerText.c_str(),
+                              true,
+                              yg::Color(255, 255, 255, 255),
                               yg::maxDepth,
                               true,
                               false);
@@ -289,7 +292,10 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
   drawer->screen()->drawText(
       m2::PointD(m_displayRect.minX(), m_displayRect.minY()) + m2::PointD(10, m_isDebugInfoEnabled ? 40 : 20),
       0, 10,
+      yg::Color(0, 0, 0, 0),
       out.str().c_str(),
+      true,
+      yg::Color(255, 255, 255, 255),
       yg::maxDepth,
       true,
       false);
@@ -317,7 +323,10 @@ void InformationDisplay::drawDebugInfo(DrawerYG * drawer)
 
   drawer->screen()->drawText(m2::PointD(m_displayRect.minX(), m_displayRect.minY()) + m2::PointD(10, 20),
                              0, 10,
+                             yg::Color(0, 0, 0, 0),
                              out.str().c_str(),
+                             true,
+                             yg::Color(255, 255, 255, 255),
                              yg::maxDepth,
                              true,
                              false);
@@ -347,7 +356,10 @@ void InformationDisplay::drawMemoryWarning(DrawerYG * drawer)
 
   drawer->screen()->drawText(pos,
                              0, 10,
+                             yg::Color(0, 0, 0, 0),
                              out.str().c_str(),
+                             true,
+                             yg::Color(255, 255, 255, 255),
                              yg::maxDepth,
                              true,
                              false);

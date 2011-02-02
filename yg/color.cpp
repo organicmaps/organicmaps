@@ -62,4 +62,9 @@ namespace yg
   {
     return (l.r != r.r) || (l.g != r.g) || (l.b != r.b) || (l.a != r.a);
   }
+
+  bool operator == (Color const & l, Color const & r)
+  {
+    return !(l != r);
+  }
 }

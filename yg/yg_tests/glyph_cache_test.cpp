@@ -7,8 +7,8 @@ UNIT_TEST(GlyphCacheTest_Main)
 {
   yg::GlyphCache cache(yg::GlyphCache::Params("", "", "", 200000));
   cache.addFont(GetPlatform().ReadPathForFile("dejavusans.ttf").c_str());
-  shared_ptr<yg::GlyphInfo> g1 = cache.getGlyph(yg::GlyphKey('#', 40, true));
+  shared_ptr<yg::GlyphInfo> g1 = cache.getGlyph(yg::GlyphKey('#', 40, true, yg::Color(255, 255, 255, 255)));
 //  g1->dump(GetPlatform().WritablePathForFile("#_mask.png").c_str());
-  shared_ptr<yg::GlyphInfo> g2 = cache.getGlyph(yg::GlyphKey('#', 40, false));
+  shared_ptr<yg::GlyphInfo> g2 = cache.getGlyph(yg::GlyphKey('#', 40, false, yg::Color(0, 0, 0, 0)));
 //  g2->dump(GetPlatform().WritablePathForFile("#.png").c_str());
 }

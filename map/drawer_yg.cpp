@@ -149,7 +149,7 @@ void DrawerYG::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int de
 
 namespace
 {
-  double const min_text_height = 7.99;      // 8
+  double const min_text_height = 12;      // 8
 //  double const min_text_height_mask = 9.99; // 10
 }
 
@@ -167,16 +167,39 @@ uint8_t DrawerYG::get_pathtext_font_size(rule_ptr_t pRule) const
 
 void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t pRule, int depth)
 {
-  m_pScreen->drawText(pt, 0.0, get_text_font_size(pRule), name, depth);
+  yg::Color textColor(pRule->GetColor() == -1 ? yg::Color(0, 0, 0, 0) : yg::Color::fromXRGB(pRule->GetColor(), pRule->GetAlpha()));
+  if (textColor == yg::Color(255, 255, 255, 255))
+    textColor = yg::Color(0, 0, 0, 0);
+
+  m_pScreen->drawText(
+      pt,
+      0.0,
+      get_text_font_size(pRule),
+      textColor,
+      name,
+      true, //pRule->GetOutlineColor() != -1,
+      yg::Color(255, 255, 255, 255), //yg::Color::fromXRGB(pRule->GetOutlineColor(), pRule->GetAlpha()),
+      depth,
+      false,
+      true);
 }
 
 bool DrawerYG::drawPathText(di::PathInfo const & info, string const & name, uint8_t fontSize, int /*depth*/)
 {
 //  bool const isMasked = (double(fontSize) / m_visualScale >= min_text_height);
 
-  return m_pScreen->drawPathText( &info.m_path[0], info.m_path.size(), fontSize, name,
-                                  info.GetLength(), info.GetOffset(),
-                                  yg::gl::Screen::middle_line, true, yg::maxDepth);
+  return m_pScreen->drawPathText( &info.m_path[0],
+                                  info.m_path.size(),
+                                  fontSize,
+                                  yg::Color(0, 0, 0, 0),
+                                  name,
+                                  info.GetLength(),
+                                  info.GetOffset(),
+                                  yg::gl::Screen::middle_line,
+                                  true,
+                                  yg::Color(255, 255, 255, 255),
+                                  yg::maxDepth,
+                                  false);
 }
 
 shared_ptr<yg::gl::Screen> DrawerYG::screen() const

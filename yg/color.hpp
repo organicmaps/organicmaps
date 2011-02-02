@@ -22,6 +22,7 @@ namespace yg
 
   bool operator < (Color const & l, Color const & r);
   bool operator !=(Color const & l, Color const & r);
+  bool operator ==(Color const & l, Color const & r);
 
   inline int redFromARGB(uint32_t c)   {return (c >> 16) & 0xFF;};
   inline int greenFromARGB(uint32_t c) {return (c >> 8) & 0xFF;};

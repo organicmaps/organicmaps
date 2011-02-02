@@ -520,12 +520,12 @@ namespace
       double pat[2] = {2, 2};
       p->drawPath(path, sizeof(path) / sizeof(m2::PointD), p->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 0xFF), 2, pat, 2, 0)), 0);
 
-      p->drawText(m2::PointD(200, 200), 0                , 20, "0", 0);
-      p->drawText(m2::PointD(240, 200), math::pi / 2     , 20, "0", 0);
-      p->drawText(m2::PointD(280, 200), math::pi         , 20, "0", 0);
-      p->drawText(m2::PointD(320, 200), math::pi * 3 / 2 , 20, "0", 0);
-      p->drawText(m2::PointD(360, 200), math::pi / 18, 20, "0", 0);
-      p->drawText(m2::PointD(40, 50), math::pi / 18, 20, "Simplicity is the ultimate sophistication", 0);
+      p->drawText(m2::PointD(200, 200), 0                , 20, yg::Color(0, 0, 0, 0), "0", true, yg::Color(255, 255, 255, 255), 0, false, true);
+      p->drawText(m2::PointD(240, 200), math::pi / 2     , 20, yg::Color(0, 0, 0, 0), "0", true, yg::Color(255, 255, 255, 255), 0, false, true);
+      p->drawText(m2::PointD(280, 200), math::pi         , 20, yg::Color(0, 0, 0, 0), "0", true, yg::Color(255, 255, 255, 255), 0, false, true);
+      p->drawText(m2::PointD(320, 200), math::pi * 3 / 2 , 20, yg::Color(0, 0, 0, 0), "0", true, yg::Color(255, 255, 255, 255), 0, false, true);
+      p->drawText(m2::PointD(360, 200), math::pi / 18, 20, yg::Color(0, 0, 0, 0), "0", true, yg::Color(255, 255, 255, 255), 0, false, true);
+      p->drawText(m2::PointD(40, 50), math::pi / 18, 20, yg::Color(0, 0, 0, 0), "Simplicity is the ultimate sophistication", true, yg::Color(255, 255, 255, 255), 0, false, true);
     }
   };
 
@@ -533,7 +533,7 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      p->drawText(m2::PointD(40, 50), 0, 20, "X", 1);
+      p->drawText(m2::PointD(40, 50), 0, 20, yg::Color(0, 0, 0, 0), "X", true, yg::Color(255, 255, 255, 255), 1, false, true);
     }
   };
 
@@ -541,7 +541,7 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      p->drawText(m2::PointD(40, 50), 0, 20, " ", 1);
+      p->drawText(m2::PointD(40, 50), 0, 20, yg::Color(0, 0, 0, 0), " ", true, yg::Color(255, 255, 255, 255), 1, false, true);
     }
   };
 
@@ -554,7 +554,7 @@ namespace
 
       for (size_t i = 0; i < maxTimes; ++i)
         for (size_t j = 1; j <= i+1; ++j)
-          p->drawText(m2::PointD(40, 10 + yStep * i), math::pi / 6, 20, "Simplicity is the ultimate sophistication", 0);
+          p->drawText(m2::PointD(40, 10 + yStep * i), math::pi / 6, 20, yg::Color(0, 0, 0, 0), "Simplicity is the ultimate sophistication", true, yg::Color(255, 255, 255, 255), 0, false, true);
     }
   };
 
@@ -570,7 +570,7 @@ namespace
       yg::PenInfo penInfo = yg::PenInfo(yg::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
       yg::PenInfo solidPenInfo = yg::PenInfo(yg::Color(0xFF, 0, 0, 0xFF), 4, 0, 0, 0);
 
-      p->drawText(m2::PointD(40, 50), 0, 20, "S", 0);
+      p->drawText(m2::PointD(40, 50), 0, 20, yg::Color(0, 0, 0, 0), "S", true, yg::Color(255, 255, 255, 255), 0, false, true);
       p->drawPath(&path[0], path.size(), p->skin()->mapPenInfo(solidPenInfo), 0);
 
     }
@@ -580,7 +580,7 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      p->drawText(m2::PointD(40, 50), 0/*, math::pi / 18*/, 20, "Simplicity is the ultimate sophistication", 0);
+      p->drawText(m2::PointD(40, 50), 0/*, math::pi / 18*/, 20, yg::Color(0, 0, 0, 0), "Simplicity is the ultimate sophistication", true, yg::Color(255, 255, 255, 255), 0, false, true);
     }
   };
 
@@ -588,16 +588,25 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      p->drawText(m2::PointD(40, 50), 0/*, math::pi / 18*/, 12, "Simplicity is the ultimate sophistication", 0, true);
+      p->drawText(m2::PointD(40, 50), 0/*, math::pi / 18*/, 12, yg::Color(0, 0, 0, 0), "Simplicity is the ultimate sophistication", true, yg::Color(255, 255, 255, 255), 0, true, true);
     }
   };
+
+  struct TestDrawStringWithColor
+  {
+    void DoDraw(shared_ptr<yg::gl::Screen> p)
+    {
+      p->drawText(m2::PointD(40, 50), 0/*, math::pi / 18*/, 25, yg::Color(0, 0, 255, 255), "Simplicity is the ultimate sophistication", true, yg::Color(255, 255, 255, 255), 0, false, true);
+    }
+  };
+
 
   struct TestDrawUnicodeSymbols
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      p->drawText(m2::PointD(40, 50), 0, 12, "Latin Symbol : A", 0);
-      p->drawText(m2::PointD(40, 80), 0, 12, "Cyrillic Symbol : Ы", 0);
+      p->drawText(m2::PointD(40, 50), 0, 12, yg::Color(0, 0, 0, 0), "Latin Symbol : A", true, yg::Color(255, 255, 255, 255), 0, false, true);
+      p->drawText(m2::PointD(40, 80), 0, 12, yg::Color(0, 0, 0, 0), "Cyrillic Symbol : Ы", true, yg::Color(255, 255, 255, 255), 0, false, true);
     }
   };
 
@@ -655,7 +664,7 @@ namespace
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
       p->drawPath(&m_path[0], m_path.size(), p->skin()->mapPenInfo(m_penInfo), 0);
-      p->drawPathText(&m_path[0], m_path.size(), 10, m_text, calc_length(m_path), 0.0, yg::gl::Screen::middle_line, true, 0);
+      p->drawPathText(&m_path[0], m_path.size(), 10, yg::Color(0, 0, 0, 0), m_text, calc_length(m_path), 0.0, yg::gl::Screen::middle_line, true, yg::Color(255, 255, 255, 255), 0, false);
     }
   };
 
@@ -666,8 +675,8 @@ namespace
       p->drawPath(&m_path[0], m_path.size(), p->skin()->mapPenInfo(m_penInfo), 0);
 
       double const len = calc_length(m_path);
-      p->drawPathText(&m_path[0], m_path.size(), 10, m_text, len, 0.0, yg::gl::Screen::above_line, true, 0);
-      p->drawPathText(&m_path[0], m_path.size(), 10, m_text, len, 0.0, yg::gl::Screen::under_line, true, 0);
+      p->drawPathText(&m_path[0], m_path.size(), 10, yg::Color(0, 0, 0, 0), m_text, len, 0.0, yg::gl::Screen::above_line, true, yg::Color(255, 255, 255, 255), 0, false);
+      p->drawPathText(&m_path[0], m_path.size(), 10, yg::Color(0, 0, 0, 0), m_text, len, 0.0, yg::gl::Screen::under_line, true, yg::Color(255, 255, 255, 255), 0, false);
     }
   };
 
@@ -681,7 +690,7 @@ namespace
       int startY = 30;
       for (size_t i = 0; i < sizesCount; ++i)
       {
-        p->drawText(m2::PointD(10, startY), 0, startSize + i, "Simplicity is the ultimate sophistication. Leonardo Da Vinci", 0);
+        p->drawText(m2::PointD(10, startY), 0, startSize + i, yg::Color(0, 0, 0, 0), "Simplicity is the ultimate sophistication. Leonardo Da Vinci", true, yg::Color(255, 255, 255, 255), 0, false, true);
         startY += startSize + i;
       }
     }
@@ -697,8 +706,8 @@ namespace
       int startY = 30;
       for (size_t i = 0; i < sizesCount; ++i)
       {
-        p->drawText(m2::PointD(10, startY), 0, startSize/* + i*/, "Simplicity is the ultimate sophistication. Leonardo Da Vinci", 100);
-        p->drawText(m2::PointD(5, startY + (startSize + i) / 2), 0, startSize/* + i*/, "This text should be filtered", 100);
+        p->drawText(m2::PointD(10, startY), 0, startSize/* + i*/, yg::Color(0, 0, 0, 0), "Simplicity is the ultimate sophistication. Leonardo Da Vinci", true, yg::Color(255, 255, 255, 255), 100, false, true);
+        p->drawText(m2::PointD(5, startY + (startSize + i) / 2), 0, startSize/* + i*/, yg::Color(0, 0, 0, 0), "This text should be filtered", true, yg::Color(255, 255, 255, 255), 100, false, true);
         startY += startSize + i;
       }
     }
@@ -720,8 +729,13 @@ namespace
             m2::PointD(rand() % 500, rand() % 500),
             0,
             rand() % (endSize - startSize) + startSize,
+            yg::Color(rand() % 255, rand() % 255, rand() % 255, 255),
             texts[rand() % (sizeof(texts) / sizeof(char*))],
-            rand() % 10);
+            true,
+            yg::Color(255, 255, 255, 255),
+            rand() % 10,
+            false,
+            true);
     }
   };
 
@@ -910,14 +924,15 @@ namespace
 //   UNIT_TEST_GL(TestDrawSingleSymbolAndSolidPath);
 //   UNIT_TEST_GL(TestDrawString);
 //   UNIT_TEST_GL(TestDrawStringWithFixedFont);
-     UNIT_TEST_GL(TestDrawUnicodeSymbols);
-     UNIT_TEST_GL(TestDrawTextRectWithFixedFont);
+     UNIT_TEST_GL(TestDrawStringWithColor);
+//   UNIT_TEST_GL(TestDrawUnicodeSymbols);
+//   UNIT_TEST_GL(TestDrawTextRectWithFixedFont);
 //   UNIT_TEST_GL(TestDrawStringOnString);
 //   UNIT_TEST_GL(TestDrawTextOnPath);
 //   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
 //   UNIT_TEST_GL(TestDrawTextOverflow);
 //   UNIT_TEST_GL(TestDrawTextFiltering);
-//   UNIT_TEST_GL(TestDrawRandomTextFiltering);
+   UNIT_TEST_GL(TestDrawRandomTextFiltering);
 //   UNIT_TEST_GL(TestDrawSGIConvex);
 //   UNIT_TEST_GL(TestDrawPoly);
 //   UNIT_TEST_GL(TestDrawSolidRect);

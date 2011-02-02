@@ -32,8 +32,10 @@ namespace yg
     int m_id;
     int m_fontSize;
     bool m_isMask;
+    yg::Color m_color;
+    /// as it's used for fixed fonts only, the color doesn't matter
     uint32_t toUInt32() const;
-    GlyphKey(int id, int fontSize, bool isMask);
+    GlyphKey(int id, int fontSize, bool isMask, yg::Color const & color);
   };
 
   struct Font;
