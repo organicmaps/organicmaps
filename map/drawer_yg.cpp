@@ -161,7 +161,7 @@ uint8_t DrawerYG::get_text_font_size(rule_ptr_t pRule) const
 
 uint8_t DrawerYG::get_pathtext_font_size(rule_ptr_t pRule) const
 {
-  double const h = pRule->GetTextHeight() * m_scale - 2.0;
+  double const h = pRule->GetTextHeight() * m_scale;
   return my::rounds(max(h, min_text_height) * m_visualScale);
 }
 
