@@ -205,39 +205,6 @@ namespace yg
 //     }
    }
 
-   void GeometryBatcher::drawPoint(m2::PointD const & pt, uint32_t styleID, EPosition pos, double depth)
-   {
-     ResourceStyle const * style(m_skin->fromID(styleID));
-
-     if (!hasRoom(4, 6, style->m_pageID))
-       flush(style->m_pageID);
-
-     m2::RectU texRect(style->m_texRect);
-     texRect.Inflate(-1, -1);
-
-     m2::PointD posPt;
-
-     if (pos & EPosLeft)
-       posPt.x = pt.x - texRect.SizeX();
-     else if (pos & EPosRight)
-       posPt.x = pt.x;
-     else
-       posPt.x = pt.x - texRect.SizeX() / 2;
-
-     if (pos & EPosAbove)
-       posPt.y = pt.y - texRect.SizeY();
-     else if (pos & EPosUnder)
-       posPt.y = pt.y;
-     else
-       posPt.y = pt.y - texRect.SizeY() / 2;
-
-
-     drawTexturedPolygon(m2::PointD(0.0, 0.0), 0.0,
-                         texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
-                         posPt.x, posPt.y, posPt.x + texRect.SizeX(), posPt.y + texRect.SizeY(),
-                         depth,
-                         style->m_pageID);
-   }
 
 
    void GeometryBatcher::drawTrianglesList(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth)

@@ -58,7 +58,8 @@ SOURCES += \
     text_renderer.cpp \
     layer_manager.cpp \
     path_renderer.cpp \
-    shape_renderer.cpp
+    shape_renderer.cpp \
+    symbol_renderer.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -104,7 +105,8 @@ HEADERS += \
     gpu_state.hpp \
     defines.hpp \
     path_renderer.hpp \
-    shape_renderer.hpp
+    shape_renderer.hpp \
+    symbol_renderer.hpp
 
 !iphonesimulator-g++42 {
   !iphonedevice-g++42 {

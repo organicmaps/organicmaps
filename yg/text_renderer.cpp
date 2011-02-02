@@ -53,19 +53,6 @@ namespace yg
       {
         TextObj obj(pt, utf8Text, fontSize, color, isMasked, maskColor, depth, isFixedFont, log2vis);
         m2::RectD r = obj.GetLimitRect(this);
-  /*
-        m2::PointD pts[5] =
-        {
-          m2::PointD(r.minX(), r.minY()),
-          m2::PointD(r.minX(), r.maxY()),
-          m2::PointD(r.maxX(), r.maxY()),
-          m2::PointD(r.maxX(), r.minY()),
-          m2::PointD(r.minX(), r.minY())
-        };
-
-        drawPath(pts, 5, skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 255), 2, 0, 0, 0)), depth);
-   */
-
         m_tree.ReplaceIf(obj, r, TextObj::better_depth());
       }
     }

@@ -81,7 +81,7 @@ void DrawerYG::onSize(int w, int h)
 
 void DrawerYG::drawSymbol(m2::PointD const & pt, string const & symbolName, yg::EPosition pos, int depth)
 {
-  m_pScreen->drawPoint(pt, m_pSkin->mapSymbol(symbolName.c_str()), pos, depth);
+  m_pScreen->drawSymbol(pt, m_pSkin->mapSymbol(symbolName.c_str()), pos, depth);
 }
 
 void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth)
@@ -105,7 +105,7 @@ void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition
     }
   }
 
-  m_pScreen->drawPoint(pt, id, pos, depth);
+  m_pScreen->drawSymbol(pt, id, pos, depth);
 }
 
 void DrawerYG::drawPath(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth)

@@ -917,6 +917,15 @@ namespace
     }
   };
 
+  struct TestDrawSymbolFiltering
+  {
+    void DoDraw(shared_ptr<yg::gl::Screen> const & p)
+    {
+      for (int i = 0; i < 40; ++i)
+        p->drawSymbol(m2::PointD(100 + i, 100), p->skin()->mapSymbol("hospital"), yg::EPosCenter, 0);
+    }
+  };
+
 //   UNIT_TEST_GL(TestDrawPolyOverflow);
 //   UNIT_TEST_GL(TestDrawText);
 //   UNIT_TEST_GL(TestDrawSingleSymbol);
@@ -924,7 +933,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawSingleSymbolAndSolidPath);
 //   UNIT_TEST_GL(TestDrawString);
 //   UNIT_TEST_GL(TestDrawStringWithFixedFont);
-     UNIT_TEST_GL(TestDrawStringWithColor);
+//   UNIT_TEST_GL(TestDrawStringWithColor);
 //   UNIT_TEST_GL(TestDrawUnicodeSymbols);
 //   UNIT_TEST_GL(TestDrawTextRectWithFixedFont);
 //   UNIT_TEST_GL(TestDrawStringOnString);
@@ -932,7 +941,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
 //   UNIT_TEST_GL(TestDrawTextOverflow);
 //   UNIT_TEST_GL(TestDrawTextFiltering);
-   UNIT_TEST_GL(TestDrawRandomTextFiltering);
+//   UNIT_TEST_GL(TestDrawRandomTextFiltering);
 //   UNIT_TEST_GL(TestDrawSGIConvex);
 //   UNIT_TEST_GL(TestDrawPoly);
 //   UNIT_TEST_GL(TestDrawSolidRect);
@@ -948,4 +957,5 @@ namespace
 //   UNIT_TEST_GL(TestDrawPathSolidWithClipRect);
 //   UNIT_TEST_GL(TestDrawUtilsRect);
 //   UNIT_TEST_GL(TestDrawUtilsRectFilledTexture);
+   UNIT_TEST_GL(TestDrawSymbolFiltering);
 }
