@@ -2,8 +2,6 @@
 
 #include "../defines.hpp"
 
-#include "../base/logging.hpp"
-
 #include "../geometry/rect2d.hpp"
 
 #include "../platform/platform.hpp"
@@ -33,10 +31,7 @@ namespace Settings
       string const key = line.substr(0, delimPos);
       string const value = line.substr(delimPos + 1);
       if (!key.empty() && !value.empty())
-      {
         m_values[key] = value;
-        LOG(LINFO, ("Loaded settings:", key, value));
-      }
     }
   }
 
