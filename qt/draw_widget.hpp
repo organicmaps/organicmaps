@@ -61,11 +61,11 @@ namespace qt
 
     //void ShowFeature(Feature const & p);
 
-    void SaveState(FileWriter & writer);
-    void LoadState(ReaderSource<FileReader> & reader);
+    void SaveState();
+    /// @return false if can't load previously saved values
+    bool LoadState();
 
   protected:
-    string GetIniFile();
     static const uint32_t ini_file_version = 0;
 
   protected:

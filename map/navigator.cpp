@@ -1,4 +1,5 @@
 #include "navigator.hpp"
+#include "settings.hpp"
 
 #include "../indexer/cell_id.hpp"
 
@@ -50,20 +51,18 @@ void Navigator::CenterViewport(m2::PointD const & p)
     m_StartScreen.SetOrg(pt);
 }
 
-void Navigator::SaveState(FileWriter & writer)
+void Navigator::SaveState()
 {
-  stream::SinkWriterStream<FileWriter> ss(writer);
-  ss << RectToInt64(m_Screen.ClipRect());
+  Settings::Set("ScreenClipRect", m_Screen.ClipRect());
 }
 
-void Navigator::LoadState(ReaderSource<FileReader> & reader)
+bool Navigator::LoadState()
 {
-  stream::SinkReaderStream<ReaderSource<FileReader> > ss(reader);
-
-  pair<int64_t, int64_t> p;
-  ss >> p;
-
-  SetFromRect(Int64ToRect(p));
+  m2::RectD rect;
+  if (!Settings::Get("ScreenClipRect", rect))
+    return false;
+  SetFromRect(rect);
+  return true;
 }
 
 void Navigator::OnSize(int x0, int y0, int w, int h)

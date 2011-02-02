@@ -11,6 +11,8 @@
 
 #include "../defines.hpp"
 
+#include "../map/settings.hpp"
+
 #include "../indexer/classificator.hpp"
 
 #include <QtGui/QDockWidget>
@@ -53,47 +55,31 @@ MainWindow::~MainWindow()
   GetDownloadManager().CancelAllDownloads();
 }
 
-string MainWindow::GetIniFile()
-{
-  return GetPlatform().WritablePathForFile(SETTINGS_FILE_NAME);
-}
-
 void MainWindow::SaveState()
 {
-  try
-  {
-    FileWriter writer(GetIniFile());
-    stream::SinkWriterStream<FileWriter> ss(writer);
+  pair<uint32_t, uint32_t> xAndY(x(), y());
+  pair<uint32_t, uint32_t> widthAndHeight(width(), height());
+  Settings::Set("MainWindowXY", xAndY);
+  Settings::Set("MainWindowSize", widthAndHeight);
 
-    ss << (uint32_t)x();
-    ss << (uint32_t)y();
-    ss << (uint32_t)width();
-    ss << (uint32_t)height();
-
-    m_pDrawWidget->SaveState(writer);
-  }
-  catch (Writer::Exception const &)
-  {
-  }
+  m_pDrawWidget->SaveState();
 }
 
 void MainWindow::LoadState()
 {
-  try
+  pair<uint32_t, uint32_t> xAndY;
+  pair<uint32_t, uint32_t> widthAndHeight;
+  bool loaded = Settings::Get("MainWindowXY", xAndY)
+      && Settings::Get("MainWindowSize", widthAndHeight);
+  if (loaded)
   {
-    FileReader reader(GetIniFile());
-    ReaderSource<FileReader> src(reader);
+    move(xAndY.first, xAndY.second);
+    resize(widthAndHeight.first, widthAndHeight.second);
 
-    stream::SinkReaderStream<ReaderSource<FileReader> > ss(src);
-
-    uint32_t x, y, width, height;
-    ss >> x >> y >> width >> height;
-    move(x, y);
-    resize(width, height);
-
-    m_pDrawWidget->LoadState(src);
+    loaded = m_pDrawWidget->LoadState();
   }
-  catch(Reader::Exception const &)
+
+  if (!loaded)
   {
     showMaximized();
     m_pDrawWidget->ShowAll();
@@ -235,9 +221,11 @@ void MainWindow::OnAbout()
 
 void MainWindow::OnPreferences()
 {
-  bool autoUpdatesEnabled = true;
+  bool autoUpdatesEnabled = DEFAULT_AUTO_UPDATES_ENABLED;
+  Settings::Get("AutomaticUpdateCheck", autoUpdatesEnabled);
   PreferencesDialog dlg(this, autoUpdatesEnabled);
   dlg.exec();
+  Settings::Set("AutomaticUpdateCheck", autoUpdatesEnabled);
 }
 
 }

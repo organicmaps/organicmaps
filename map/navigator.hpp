@@ -20,8 +20,9 @@ public:
   void SetFromRect(m2::RectD const & r);
   void CenterViewport(m2::PointD const & p);
 
-  void SaveState(FileWriter & writer);
-  void LoadState(ReaderSource<FileReader> & reader);
+  void SaveState();
+  /// @return false if can't load previously saved values
+  bool LoadState();
 
   void OnSize(int x0, int y0, int w, int h);
 

@@ -210,15 +210,18 @@ public:
   /// Save and load framework state to ini file between sessions.
   //@{
 public:
-  void SaveState(FileWriter & writer)
+  void SaveState()
   {
-    m_navigator.SaveState(writer);
+    m_navigator.SaveState();
   }
 
-  void LoadState(ReaderSource<FileReader> & reader)
+  bool LoadState()
   {
-    m_navigator.LoadState(reader);
+    if (!m_navigator.LoadState())
+      return false;
+
     UpdateNow();
+    return true;
   }
   //@}
 

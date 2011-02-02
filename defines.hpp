@@ -17,3 +17,6 @@
 #define WORLD_FILE_NAME "World"
 
 #define SETTINGS_FILE_NAME "settings.ini"
+
+
+#define DEFAULT_AUTO_UPDATES_ENABLED true

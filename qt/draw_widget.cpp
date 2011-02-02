@@ -3,6 +3,8 @@
 
 #include "../storage/storage.hpp"
 
+#include "../map/settings.hpp"
+
 #include <QtGui/QMouseEvent>
 #include <QtGui/QSlider>
 
@@ -32,27 +34,27 @@ namespace qt
     connect(m_pScale, SIGNAL(actionTriggered(int)), this, SLOT(ScaleChanged(int)));
   }
 
-  void DrawWidget::LoadState(ReaderSource<FileReader> & reader)
+  bool DrawWidget::LoadState()
   {
-      stream::SinkReaderStream<ReaderSource<FileReader> > ss(reader);
+    pair<uint32_t, uint32_t> widthAndHeight;
+    if (!Settings::Get("DrawWidgetSize", widthAndHeight))
+      return false;
 
-      uint32_t width, height;
-      ss >> width >> height;
+    m_framework.OnSize(widthAndHeight.first, widthAndHeight.second);
 
-      m_framework.OnSize(width, height);
-      m_framework.LoadState(reader);
+    if (!m_framework.LoadState())
+      return false;
 
-      UpdateScaleControl();
+    UpdateScaleControl();
+    return true;
   }
 
-  void DrawWidget::SaveState(FileWriter & writer)
+  void DrawWidget::SaveState()
   {
-      stream::SinkWriterStream<FileWriter> ss(writer);
+    pair<uint32_t, uint32_t> widthAndHeight(width(), height());
+    Settings::Set("DrawWidgetSize", widthAndHeight);
 
-      ss << (uint32_t)width();
-      ss << (uint32_t)height();
-
-      m_framework.SaveState(writer);
+    m_framework.SaveState();
   }
 
   //void DrawWidget::ShowFeature(Feature const & p)

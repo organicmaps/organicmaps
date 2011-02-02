@@ -36,6 +36,8 @@ namespace m2
     T m_minX, m_minY, m_maxX, m_maxY;
 
   public:
+    typedef T value_type;
+
     Rect() { MakeEmpty(); }
     Rect(T minX, T minY, T maxX, T maxY)
       : m_minX(minX), m_minY(minY), m_maxX(maxX), m_maxY(maxY)
