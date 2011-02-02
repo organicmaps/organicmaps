@@ -72,6 +72,9 @@ win32-msvc2008 {
 unix|win32-g++ {
   QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-compare
 #  QMAKE_CXXFLAGS_RELEASE += -g
+  # experimental
+  QMAKE_CFLAGS_RELEASE *= -ffast-math
+  QMAKE_CXXFLAGS_RELEASE *= -ffast-math
 }
 
 win32-g++ {
