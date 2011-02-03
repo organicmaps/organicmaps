@@ -269,7 +269,7 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 
 - (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
 {
-	EOrientation newOrientation;
+	EOrientation newOrientation = EOrientation0;
 	switch (self.interfaceOrientation)
   {
 		case UIInterfaceOrientationPortrait: newOrientation = EOrientation0;break;
