@@ -27,7 +27,7 @@ SOURCES += ../../testing/testingmain.cpp \
   file_sort_test.cpp \
   reader_cache_test.cpp \
   file_container_test.cpp \
+  strutil_test.cpp \
 
 HEADERS += \
-  reader_test.hpp
-
+  reader_test.hpp \

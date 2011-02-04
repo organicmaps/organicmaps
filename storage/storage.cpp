@@ -5,6 +5,7 @@
 
 #include "../coding/file_writer.hpp"
 #include "../coding/file_reader.hpp"
+#include "../coding/strutil.hpp"
 
 #include "../version/version.hpp"
 
@@ -157,7 +158,7 @@ namespace storage
         if (!IsTileDownloaded(*it))
         {
           GetDownloadManager().DownloadFile(
-              (UpdateBaseUrl() + it->first).c_str(),
+              (UpdateBaseUrl() + UrlEncode(it->first)).c_str(),
               (GetPlatform().WritablePathForFile(it->first).c_str()),
               boost::bind(&Storage::OnMapDownloadFinished, this, _1, _2),
               boost::bind(&Storage::OnMapDownloadProgress, this, _1, _2),
@@ -280,7 +281,7 @@ namespace storage
 
   string FileFromUrl(string const & url)
   {
-    return url.substr(url.find_last_of('/') + 1, string::npos);
+    return UrlDecode(url.substr(url.find_last_of('/') + 1, string::npos));
   }
 
   void Storage::OnMapDownloadFinished(char const * url, bool successfully)

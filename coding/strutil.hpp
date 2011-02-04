@@ -1,6 +1,9 @@
 #pragma once
 
+#include "hex.hpp"
+
 #include "../base/base.hpp"
+#include "../base/macros.hpp"
 
 #include "../std/string.hpp"
 #include "../std/memcpy.hpp"
@@ -67,6 +70,40 @@ inline bool IsPrefixOf(string const & s1, string const & s2)
   }
 
   return true;
+}
+
+inline string UrlEncode(string const & rawUrl)
+{
+  string result(rawUrl);
+  for (size_t i = 0; i < result.size(); ++i)
+  {
+    char const c = result[i];
+    if (c < '.' || c == '/' || (c > '9' && c < 'A') || (c > 'Z' && c < '_')
+        || c == '`' || (c > 'z' && c < '~') || c > '~')
+    {
+      string hexStr("%");
+      hexStr += NumToHex(c);
+      result.replace(i, 1, hexStr);
+      i += 2;
+    }
+  }
+  return result;
+}
+
+inline string UrlDecode(string const & encodedUrl)
+{
+  string result;
+  for (size_t i = 0; i < encodedUrl.size(); ++i)
+  {
+    if (encodedUrl[i] == '%')
+    {
+      result += FromHex(encodedUrl.substr(i + 1, 2));
+      i += 2;
+    }
+    else
+      result += encodedUrl[i];
+  }
+  return result;
 }
 
 #include "../base/stop_mem_debug.hpp"
