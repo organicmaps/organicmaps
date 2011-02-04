@@ -25,7 +25,7 @@ m2::PointU PredictPointInPolyline(m2::PointU const & maxPoint,
 {
   // return ClampPoint(maxPoint, m2::PointI64(p1) + m2::PointI64(p1) - m2::PointI64(p2));
   // return ClampPoint(maxPoint, m2::PointI64(p1) + (m2::PointI64(p1) - m2::PointI64(p2)) / 2);
-  return ClampPoint(maxPoint, m2::PointD(p1) + (m2::PointD(p1) - m2::PointD(p2)) / 2);
+  return ClampPoint(maxPoint, m2::PointD(p1) + (m2::PointD(p1) - m2::PointD(p2)) / 2.0);
 }
 
 m2::PointU PredictPointInPolyline(m2::PointU const & maxPoint,
@@ -53,6 +53,16 @@ m2::PointU PredictPointInPolyline(m2::PointU const & maxPoint,
 
   return ClampPoint(maxPoint, m2::PointD(c0.real(), c0.imag()));
 }
+
+m2::PointU PredictPointInTriangle(m2::PointU const & maxPoint,
+                                  m2::PointU const & p1,
+                                  m2::PointU const & p2,
+                                  m2::PointU const & p3)
+{
+  // parallelogramm prediction
+  return ClampPoint(maxPoint, p1 + p2 - p3);
+}
+
 
 namespace geo_coding
 {
@@ -207,16 +217,6 @@ void DecodePolylinePrev3(DeltasT const & deltas,
       }
     }
   }
-}
-
-
-m2::PointU PredictPointInTriangle(m2::PointU const & maxPoint,
-                                  m2::PointU const & p1,
-                                  m2::PointU const & p2,
-                                  m2::PointU const & p3)
-{
-  // parallelogramm prediction
-  return ClampPoint(maxPoint, p2 + p3 - p1);
 }
 
 void EncodeTriangleStrip(InPointsT const & points,
