@@ -4,6 +4,8 @@
 #include "resource_style.hpp"
 #include "skin.hpp"
 
+#include "../base/logging.hpp"
+
 namespace yg
 {
   namespace gl
@@ -24,6 +26,12 @@ namespace yg
 
       ASSERT_GREATER_OR_EQUAL(pointsCount, 2, ());
       ResourceStyle const * style(skin()->fromID(styleID));
+
+      if (style == 0)
+      {
+        LOG(LINFO, ("styleID=", styleID, " wasn't found on current skin"));
+        return;
+      }
 
       ASSERT(style->m_cat == ResourceStyle::ELineStyle, ());
       LineStyle const * lineStyle = static_cast<LineStyle const *>(style);

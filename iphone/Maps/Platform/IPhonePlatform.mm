@@ -162,7 +162,7 @@ bool IPhonePlatform::IsMultiSampled() const
 {
 	return m_isMultiSampled;
 }
- 
+
 bool IPhonePlatform::DoPeriodicalUpdate() const
 {
 	return m_doPeriodicalUpdate;
@@ -172,9 +172,8 @@ vector<string> IPhonePlatform::GetFontNames() const
 {
 	vector<string> res;
 	string fontFolder = m_resourcesPath;
-
 	GetFilesInDir(fontFolder, ".ttf", res);
-	for (int i = 0; i < res.size(); ++i)
+	for (size_t i = 0; i < res.size(); ++i)
 	  res[i] = fontFolder + res[i];
 	
 /*	res.push_back(ReadPathForFile("wqy-microhei.ttf"));		

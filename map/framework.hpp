@@ -54,6 +54,8 @@ namespace fwork
 
     shared_ptr<PaintEvent> m_paintEvent;
     vector<drule::Key> m_keys;
+    vector<drule::BaseRule const * > m_rules;
+    vector<int> m_depthVec;
 
     int m_zoom;
 
@@ -64,6 +66,7 @@ namespace fwork
     inline DrawerYG * GetDrawer() const { return m_paintEvent->drawer().get(); }
 
     void PreProcessKeys();
+    void ConvertKeysToRules(int layer);
 
   public:
     DrawProcessor(m2::RectD const & r,

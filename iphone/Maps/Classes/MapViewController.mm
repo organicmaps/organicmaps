@@ -1,6 +1,6 @@
 #import "MapViewController.hpp"
 #import "EAGLView.hpp"
-#import "SettingsManager.h"
+#import "../Settings/SettingsManager.h"
 
 #include "RenderContext.hpp"
 #include "WindowHandle.hpp"

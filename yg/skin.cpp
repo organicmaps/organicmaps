@@ -131,6 +131,39 @@ namespace yg
     return packID(m_currentDynamicPage, m_pages[m_currentDynamicPage]->mapPenInfo(penInfo));
   }
 
+  bool Skin::mapPenInfo(PenInfo const * penInfos, uint32_t * styleIDS, size_t count)
+  {
+    uint8_t savedDynamicPage = m_currentDynamicPage;
+
+    int i = 0;
+
+    do
+    {
+      styleIDS[i] = m_pages[m_currentDynamicPage]->findPenInfo(penInfos[i]);
+
+      if ((styleIDS[i] == invalidPageHandle()) || (unpackID(styleIDS[i]).first != m_currentDynamicPage))
+      {
+        /// try to pack on the currentDynamicPage
+        while (!m_pages[m_currentDynamicPage]->hasRoom(penInfos[i]))
+        {
+          /// no room - switch the page
+          changeCurrentDynamicPage();
+          if (savedDynamicPage == m_currentDynamicPage)
+            return false; //<cycling
+          /// re-start packing
+          i = 0;
+        }
+
+        styleIDS[i] = packID(m_currentDynamicPage, m_pages[m_currentDynamicPage]->mapPenInfo(penInfos[i]));
+      }
+
+      ++i;
+    }
+    while (i != count);
+
+    return true;
+  }
+
   uint32_t Skin::mapGlyph(GlyphKey const & gk, bool isFixedFont)
   {
     uint32_t res = invalidPageHandle();
@@ -208,12 +241,11 @@ namespace yg
 
   void Skin::changeCurrentDynamicPage()
   {
-    /// 1. flush screen(through overflowFns)
-    callOverflowFns(m_currentDynamicPage);
+    /// flush screen(through overflowFns)
+    /// callOverflowFns(m_currentDynamicPage);
+    /// 1. clear currentDynamicPage
+    callClearPageFns(m_currentDynamicPage);
     /// page should be frozen after flushing(activeCommands > 0)
-
-    /// 2. forget all fonts packed on previous page
-    m_pages[m_currentDynamicPage]->clearFontHandles();
 
     /// 2. choose next dynamic page
     if (m_currentDynamicPage == m_startDynamicPage + m_dynamicPagesCount - 1)
@@ -221,15 +253,14 @@ namespace yg
     else
       ++m_currentDynamicPage;
 
-    /// 3. clear it if necessary and notify observers about this event(through clearPageFns)
+    /// 3. clear new currentDynamicPage
     callClearPageFns(m_currentDynamicPage);
   }
 
   void Skin::changeCurrentTextPage()
   {
-    callOverflowFns(m_currentTextPage);
-
-    m_pages[m_currentTextPage]->clearFontHandles();
+    //callOverflowFns(m_currentTextPage);
+    callClearPageFns(m_currentTextPage);
 
     if (m_currentTextPage == m_startTextPage + m_textPagesCount - 1)
       m_currentTextPage = m_startTextPage;

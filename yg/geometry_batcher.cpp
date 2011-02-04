@@ -210,6 +210,13 @@ namespace yg
    void GeometryBatcher::drawTrianglesList(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth)
    {
      ResourceStyle const * style = m_skin->fromID(styleID);
+
+     if (style == 0)
+     {
+       LOG(LINFO, ("styleID=", styleID, " wasn't found on current skin."));
+       return;
+     }
+
      if (!hasRoom(pointsCount, pointsCount, style->m_pageID))
        flush(style->m_pageID);
 

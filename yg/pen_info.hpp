@@ -1,5 +1,3 @@
-#ifndef RULE_DEFINITION_H
-#define RULE_DEFINITION_H
 #pragma once
 
 #include "color.hpp"
@@ -34,4 +32,3 @@ namespace yg
 
   bool operator < (PenInfo const & l, PenInfo const & r);
 }
-#endif // RULE_DEFINITION_H

@@ -12,6 +12,7 @@
 
 #include "../base/profiler.hpp"
 #include "../base/logging.hpp"
+#include "../base/buffer_vector.hpp"
 
 #include "../std/sstream.hpp"
 
@@ -108,32 +109,57 @@ void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition
   m_pScreen->drawSymbol(pt, id, pos, depth);
 }
 
-void DrawerYG::drawPath(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth)
+void DrawerYG::drawPath(vector<m2::PointD> const & pts, rule_ptr_t * rules, int * depthVec, size_t count)
 {
-  // Use BaseRule::m_id to cache for line draw rule.
-  // This rule type is used for line and area drawing, so leave m_id for line type.
+  // if any rule needs caching - cache as a whole vector
+  // check whether we needs caching
+  bool flag = false;
 
-  uint32_t id = pRule->GetID();
-  if (id == drule::BaseRule::empty_id)
+  for (int i = 0; i < count; ++i)
   {
-    vector<double> pattern;
-    double offset;
-    pRule->GetPattern(pattern, offset);
-
-    for (size_t i = 0; i < pattern.size(); ++i)
-      pattern[i] *= m_scale * m_visualScale;
-
-    yg::PenInfo rd(yg::Color::fromXRGB(pRule->GetColor(), pRule->GetAlpha()),
-                   max(pRule->GetWidth() * m_scale, 1.0) * m_visualScale,
-                   pattern.empty() ? 0 : &pattern[0], pattern.size(), offset * m_scale);
-
-    id = m_pSkin->mapPenInfo(rd);
-
-    ASSERT ( id != drule::BaseRule::empty_id, () );
-    pRule->SetID(id);
+    if (rules[i]->GetID() == drule::BaseRule::empty_id)
+    {
+      flag = true;
+      break;
+    }
   }
 
-  m_pScreen->drawPath(&pts[0], pts.size(), id, depth);
+  buffer_vector<yg::PenInfo, 8> penInfos(count);
+  buffer_vector<uint32_t, 8> styleIDs(count);
+
+  if (flag)
+  {
+    /// collect yg::PenInfo into array and pack them as a whole
+    for (int i = 0; i < count; ++i)
+    {
+      rule_ptr_t pRule = rules[i];
+      vector<double> pattern;
+      double offset;
+      pRule->GetPattern(pattern, offset);
+
+      for (size_t j = 0; j < pattern.size(); ++j)
+        pattern[j] *= m_scale * m_visualScale;
+
+      penInfos[i] = yg::PenInfo (yg::Color::fromXRGB(pRule->GetColor(), pRule->GetAlpha()),
+                                 max(pRule->GetWidth() * m_scale, 1.0) * m_visualScale,
+                                 pattern.empty() ? 0 : &pattern[0], pattern.size(), offset * m_scale);
+      styleIDs[i] = m_pSkin->invalidHandle();
+    }
+
+    if (m_pSkin->mapPenInfo(&penInfos[0], &styleIDs[0], count))
+      for (int i = 0; i < count; ++i)
+        rules[i]->SetID(styleIDs[i]);
+    else
+      LOG(LINFO, ("couldn't successfully pack a sequence of path styles as a whole"));
+  }
+
+  for (int i = 0; i < count; ++i)
+    m_pScreen->drawPath(&pts[0], pts.size(), rules[i]->GetID(), depthVec[i]);
+}
+
+void DrawerYG::drawPath(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth)
+{
+  drawPath(pts, &pRule, &depth, 1);
 }
 
 void DrawerYG::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth)
@@ -168,6 +194,8 @@ uint8_t DrawerYG::get_pathtext_font_size(rule_ptr_t pRule) const
 void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t pRule, int depth)
 {
   yg::Color textColor(pRule->GetColor() == -1 ? yg::Color(0, 0, 0, 0) : yg::Color::fromXRGB(pRule->GetColor(), pRule->GetAlpha()));
+
+  /// to prevent white text on white outline
   if (textColor == yg::Color(255, 255, 255, 255))
     textColor = yg::Color(0, 0, 0, 0);
 
@@ -177,8 +205,8 @@ void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t p
       get_text_font_size(pRule),
       textColor,
       name,
-      true, //pRule->GetOutlineColor() != -1,
-      yg::Color(255, 255, 255, 255), //yg::Color::fromXRGB(pRule->GetOutlineColor(), pRule->GetAlpha()),
+      true,
+      yg::Color(255, 255, 255, 255),
       depth,
       false,
       true);
@@ -217,89 +245,125 @@ void DrawerYG::SetScale(int level)
   m_scale = scales::GetM2PFactor(level);
 }
 
-void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t pRule, int depth)
+void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t * rules, int * depthVec, size_t count)
 {
-  bool const isCaption = pRule->GetTextHeight() >= 0.0;
+  buffer_vector<rule_ptr_t, 8> pathRules;
+  buffer_vector<int, 8> pathDepthes;
 
-  string symbol;
-  pRule->GetSymbol(symbol);
-  bool const isSymbol = !symbol.empty();
+  /// separating path rules from other
 
-  bool const isPath = !pInfo->m_pathes.empty();
-  bool const isArea = !pInfo->m_areas.empty();
-  bool const isName = !pInfo->m_name.empty();
-
-  if (!isCaption)
+  for (unsigned i = 0; i < count; ++i)
   {
-    // draw path
-    if (isPath && !isSymbol && (pRule->GetColor() != -1))
+    rule_ptr_t pRule = rules[i];
+    string symbol;
+    pRule->GetSymbol(symbol);
+
+    bool const isSymbol = !symbol.empty();
+    bool const isCaption = pRule->GetTextHeight() >= 0.0;
+    bool const isPath = !pInfo->m_pathes.empty();
+
+    if (!isCaption && isPath && !isSymbol && (pRule->GetColor() != -1))
     {
-      for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
-        drawPath(i->m_path, pRule, depth);
+      pathRules.push_back(rules[i]);
+      pathDepthes.push_back(depthVec[i]);
     }
-
-    // draw area
-    if (isArea)
-    {
-      bool const isFill = pRule->GetFillColor() != -1;
-      bool isSym = isSymbol && ((pRule->GetType() & drule::way) != 0);
-
-      for (list<di::AreaInfo>::const_iterator i = pInfo->m_areas.begin(); i != pInfo->m_areas.end(); ++i)
-      {
-        if (isFill)
-          drawArea(i->m_path, pRule, depth);
-        else if (isSym)
-          drawSymbol(i->GetCenter(), pRule, yg::EPosLeft, depth);
-      }
-    }
-
-    // draw point symbol
-    if (!isPath && !isArea && isSymbol && ((pRule->GetType() & drule::node) != 0))
-      drawSymbol(pInfo->m_point, pRule, yg::EPosLeft, depth);
   }
-  else
+
+  if (!pathRules.empty())
   {
-    if (isName)
+    for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
+      drawPath(i->m_path, &pathRules[0], &pathDepthes[0], pathRules.size());
+  }
+
+  for (unsigned i = 0; i < count; ++i)
+  {
+    rule_ptr_t pRule = rules[i];
+    int depth = depthVec[i];
+
+    bool const isCaption = pRule->GetTextHeight() >= 0.0;
+
+    string symbol;
+    pRule->GetSymbol(symbol);
+    bool const isSymbol = !symbol.empty();
+
+    bool const isPath = !pInfo->m_pathes.empty();
+    bool const isArea = !pInfo->m_areas.empty();
+    bool const isName = !pInfo->m_name.empty();
+
+    if (!isCaption)
     {
-      bool isN = ((pRule->GetType() & drule::way) != 0);
-
-      // draw area text
-      if (isArea && isN)
-      {
-        for (list<di::AreaInfo>::const_iterator i = pInfo->m_areas.begin(); i != pInfo->m_areas.end(); ++i)
-          drawText(i->GetCenter(), pInfo->m_name, pRule, depth);
-      }
-
-      // draw way name
-      if (isPath && !isArea && isN)
+      /// path is drawn separately in the code above
+/*      // draw path
+      if (isPath && !isSymbol && (pRule->GetColor() != -1))
       {
         for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
+          drawPath(i->m_path, pRule, depth);
+      }
+ */
+
+      // draw area
+      if (isArea)
+      {
+        bool const isFill = pRule->GetFillColor() != -1;
+        bool isSym = isSymbol && ((pRule->GetType() & drule::way) != 0);
+
+        for (list<di::AreaInfo>::const_iterator i = pInfo->m_areas.begin(); i != pInfo->m_areas.end(); ++i)
         {
-          uint8_t const fontSize = get_pathtext_font_size(pRule);
-
-          list<m2::RectD> & lst = m_pathsOrg[pInfo->m_name];
-
-          m2::RectD r = i->GetLimitRect();
-          r.Inflate(-r.SizeX() / 4.0, -r.SizeY() / 4.0);
-          r.Inflate(fontSize, fontSize);
-
-          bool needDraw = true;
-          for (list<m2::RectD>::const_iterator j = lst.begin(); j != lst.end(); ++j)
-            if (r.IsIntersect(*j))
-            {
-              needDraw = false;
-              break;
-            }
-
-          if (needDraw && drawPathText(*i, pInfo->m_name, fontSize, depth))
-            lst.push_back(r);
+          if (isFill)
+            drawArea(i->m_path, pRule, depth);
+          else if (isSym)
+            drawSymbol(i->GetCenter(), pRule, yg::EPosLeft, depth);
         }
       }
 
-      // draw point text
-      isN = ((pRule->GetType() & drule::node) != 0);
-      if (!isPath && !isArea && isN)
-        drawText(pInfo->m_point, pInfo->m_name, pRule, depth);
+      // draw point symbol
+      if (!isPath && !isArea && isSymbol && ((pRule->GetType() & drule::node) != 0))
+        drawSymbol(pInfo->m_point, pRule, yg::EPosLeft, depth);
+    }
+    else
+    {
+      if (isName)
+      {
+        bool isN = ((pRule->GetType() & drule::way) != 0);
+
+        // draw area text
+        if (isArea && isN)
+        {
+          for (list<di::AreaInfo>::const_iterator i = pInfo->m_areas.begin(); i != pInfo->m_areas.end(); ++i)
+            drawText(i->GetCenter(), pInfo->m_name, pRule, depth);
+        }
+
+        // draw way name
+        if (isPath && !isArea && isN)
+        {
+          for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
+          {
+            uint8_t const fontSize = get_pathtext_font_size(pRule);
+
+            list<m2::RectD> & lst = m_pathsOrg[pInfo->m_name];
+
+            m2::RectD r = i->GetLimitRect();
+            r.Inflate(-r.SizeX() / 4.0, -r.SizeY() / 4.0);
+            r.Inflate(fontSize, fontSize);
+
+            bool needDraw = true;
+            for (list<m2::RectD>::const_iterator j = lst.begin(); j != lst.end(); ++j)
+              if (r.IsIntersect(*j))
+              {
+                needDraw = false;
+                break;
+              }
+
+            if (needDraw && drawPathText(*i, pInfo->m_name, fontSize, depth))
+              lst.push_back(r);
+          }
+        }
+
+        // draw point text
+        isN = ((pRule->GetType() & drule::node) != 0);
+        if (!isPath && !isArea && isN)
+          drawText(pInfo->m_point, pInfo->m_name, pRule, depth);
+      }
     }
   }
 }

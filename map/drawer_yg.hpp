@@ -14,7 +14,6 @@
 class ScreenBase;
 namespace drule { class BaseRule; }
 
-
 namespace yg
 {
   namespace gl
@@ -65,6 +64,7 @@ private:
 protected:
   void drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth);
   void drawPath(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth);
+  void drawPath(vector<m2::PointD> const & pts, rule_ptr_t * rules, int * depthVec, size_t count);
   void drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth);
 
   void drawText(m2::PointD const & pt, string const & name, rule_ptr_t pRule, int depth);
@@ -100,5 +100,5 @@ public:
 
   void SetVisualScale(double visualScale);
   void SetScale(int level);
-  void Draw(di::DrawInfo const * pInfo, rule_ptr_t pRule, int depth);
+  void Draw(di::DrawInfo const * pInfo, rule_ptr_t * rules, int * depthVec, size_t count);
 };

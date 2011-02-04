@@ -2,6 +2,7 @@
 
 #include "resource_style.hpp"
 #include "pen_info.hpp"
+#include "circle_info.hpp"
 #include "skin_page.hpp"
 #include "../geometry/rect2d.hpp"
 #include "../std/unordered_map.hpp"
@@ -114,6 +115,9 @@ namespace yg
     /// if found - return id.
     /// if not - pack and return id.
     uint32_t mapPenInfo(PenInfo const & penInfo);
+    /// map an array of PenInfo on the same skin page
+    /// returns the completion flag
+    bool mapPenInfo(PenInfo const * penInfos, uint32_t * styleIDS, size_t count);
     /// find brushDef on the texture.
     /// if found - return id.
     /// if not - pack and return id.
@@ -122,6 +126,10 @@ namespace yg
     /// if found - return id
     /// if not - pack and return id
     uint32_t mapGlyph(GlyphKey const & gk, bool isFixedFont);
+    /// find circleStyle on texture
+    /// if found - return id
+    /// if not - pack and return id
+    uint32_t mapCircleInfo(CircleInfo const & circleInfo);
 
     void addClearPageFn(clearPageFn fn, int priority);
     void addOverflowFn(overflowFn, int priority);

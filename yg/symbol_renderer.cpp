@@ -1,7 +1,9 @@
 #include "../base/SRC_FIRST.hpp"
 #include "symbol_renderer.hpp"
 #include "skin.hpp"
+
 #include "../std/bind.hpp"
+#include "../base/logging.hpp"
 
 namespace yg
 {
@@ -75,6 +77,13 @@ namespace yg
 
     void SymbolRenderer::drawSymbol(m2::PointD const & pt, uint32_t styleID, EPosition pos, int depth)
     {
+      ResourceStyle const * style(skin()->fromID(styleID));
+      if (style == 0)
+      {
+        LOG(LINFO, ("styleID=", styleID, " wasn't found on the current skin"));
+        return;
+      }
+
       SymbolObject obj(pt, styleID, pos, depth);
       m2::RectD r = obj.GetLimitRect(this);
 

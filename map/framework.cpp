@@ -87,6 +87,22 @@ namespace fwork
     m_keys.erase(unique(m_keys.begin(), m_keys.end(), equal_key()), m_keys.end());
   }
 
+  void DrawProcessor::ConvertKeysToRules(int layer)
+  {
+    m_rules.resize(m_keys.size());
+    m_depthVec.resize(m_keys.size());
+    // push rules to drawing queue
+    for (size_t i = 0; i < m_keys.size(); ++i)
+    {
+      int depth = m_keys[i].m_priority;
+      if (layer != 0)
+        depth = (layer * drule::layer_base_priority) + (depth % drule::layer_base_priority);
+
+      m_rules[i] = drule::rules().Find(m_keys[i]);
+      m_depthVec[i] = depth;
+    }
+  }
+
 #define GET_POINTS(functor_t, for_each_fun, assign_fun) \
   {                                                     \
     functor_t fun(m_convertor, m_rect);                 \
@@ -152,19 +168,14 @@ namespace fwork
     // remove duplicating identical drawing keys
     PreProcessKeys();
 
-    // push rules to drawing queue
-    for (size_t i = 0; i < m_keys.size(); ++i)
-    {
-      int depth = m_keys[i].m_priority;
-      if (layer != 0)
-        depth = (layer * drule::layer_base_priority) + (depth % drule::layer_base_priority);
+    // get drawing rules for the m_keys array
+    ConvertKeysToRules(layer);
 
 #ifdef PROFILER_DRAWING
-      ++m_drawCount;
+      m_drawCount += m_keys.size();
 #endif
 
-      pDrawer->Draw(ptr.get(), drule::rules().Find(m_keys[i]), depth);
-    }
+    pDrawer->Draw(ptr.get(), &m_rules[0], &m_depthVec[0], m_keys.size());
 
     return true;
   }
