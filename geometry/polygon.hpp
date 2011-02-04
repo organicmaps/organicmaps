@@ -74,7 +74,7 @@ template <typename IterT> bool IsPolygonCCW(IterT beg, IterT end)
   if (cp != 0.0)
     return (cp > 0.0);
 
-  // fid the most up (left) point
+  // find the most up (left) point
   double maxY = numeric_limits<double>::min();
   for (IterT i = beg; i != end; ++i)
   {
@@ -85,9 +85,11 @@ template <typename IterT> bool IsPolygonCCW(IterT beg, IterT end)
     }
   }
 
-  cp =  CrossProduct(*iRes - *PrevIterInCycle(iRes, beg, end),
-                     *NextIterInCycle(iRes, beg, end) - *iRes);
-  ASSERT_NOT_EQUAL ( cp, 0.0, () );
+  IterT iPrev = PrevIterInCycle(iRes, beg, end);
+  IterT iNext = NextIterInCycle(iRes, beg, end);
+  cp =  CrossProduct(*iRes - *iPrev, *iNext - *iRes);
+
+  ASSERT_NOT_EQUAL ( cp, 0.0, (*iPrev, *iRes, *iNext) );
   return (cp > 0.0);
 }
 
