@@ -37,5 +37,5 @@ SOURCES += \
   data_header_test.cpp \
   feature_bucketer_test.cpp \
   feature_routine.cpp \
-  geometry_coding_test.cpp
-
+  geometry_coding_test.cpp \
+    triangles_tree_coding_test.cpp

@@ -3,22 +3,12 @@
 TARGET = indexer
 TEMPLATE = lib
 CONFIG += staticlib
-#!macx:DEFINES += COMPILED_FROM_DSP # needed for Expat
-#macx:DEFINES += HAVE_MEMMOVE # needed for Expat
 
 ROOT_DIR = ..
 DEPENDENCIES = geometry coding base expat
 
 include($$ROOT_DIR/common.pri)
 
-!iphonesimulator-g++42 {
-  !iphonedevice-g++42 {
-    !bada-simulator {
-      PRE_TARGETDEPS += $$BINARIES_PATH/$${LIB_PREFIX}sgitess$$LIB_EXT
-      LIBS += -lsgitess
-    }
-  }
-}
 
 SOURCES += \
   osm2type.cpp \
@@ -39,7 +29,8 @@ SOURCES += \
   data_header.cpp \
   data_header_reader.cpp \
   geometry_coding.cpp \
-    geometry_serialization.cpp
+  geometry_serialization.cpp \
+  tesselator.cpp \
 
 HEADERS += \
   feature.hpp \
@@ -71,5 +62,7 @@ HEADERS += \
   tree_structure.hpp \
   feature_impl.hpp \
   geometry_coding.hpp \
-    geometry_serialization.hpp \
-    point_to_int64.hpp
+  geometry_serialization.hpp \
+  point_to_int64.hpp \
+  tesselator.hpp \
+  tesselator_decl.hpp \

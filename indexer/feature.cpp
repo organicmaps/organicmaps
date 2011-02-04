@@ -868,7 +868,7 @@ uint32_t FeatureType::ParseTriangles(int scale) const
         ReaderSource<FileReader> src(
               m_cont->GetReader(feature::GetTagForIndex(TRIANGLE_FILE_TAG, ind)));
         src.Skip(m_trgOffsets[ind]);
-        feature::LoadTriangles(m_Triangles, m_base, src);
+        serial::LoadOuterTriangles(src, m_base, m_Triangles);
 
         sz = static_cast<uint32_t>(src.Pos() - m_trgOffsets[ind]);
       }
