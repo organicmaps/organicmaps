@@ -140,3 +140,9 @@ public:
 
 template <class T, size_t N>
 void swap(buffer_vector<T, N> & r1, buffer_vector<T, N> & r2) { r1.swap(r2); }
+
+template <typename T, size_t N>
+inline string debug_print(buffer_vector<T, N> const & v)
+{
+  return ::my::impl::DebugPrintSequence(v.data(), v.data() + v.size());
+}
