@@ -4,7 +4,6 @@
 #include "framebuffer.hpp"
 #include "renderbuffer.hpp"
 #include "resource_manager.hpp"
-#include "../base/ptr_utils.hpp"
 #include "internal/opengl.hpp"
 
 namespace yg

@@ -126,8 +126,10 @@ namespace serial
         // fill 2 tree-struct bites
         ASSERT_NOT_EQUAL(i->m_side, -1, ());
 
+        uint64_t const one = 1;
+
         // first child
-        delta |= (1 << i->m_side);
+        delta |= (one << i->m_side);
 
         vector<EdgeT>::iterator j = i+1;
         if (j != edges.end() && j->m_p[0] == nextNode)
@@ -136,7 +138,7 @@ namespace serial
           ASSERT_EQUAL(i->m_side, 0, ());
           ASSERT_EQUAL(j->m_side, 1, ());
 
-          delta |= (1 << j->m_side);
+          delta |= (one << j->m_side);
 
           // push to stack for further processing
           st.push(*j);

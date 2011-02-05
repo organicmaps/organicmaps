@@ -54,7 +54,6 @@ HEADERS += \
     set_operations.hpp \
     condition.hpp \
     commands_queue.hpp \
-    ptr_utils.hpp \
     stats.hpp \
     monitor.hpp \
     shared_buffer_manager.hpp \

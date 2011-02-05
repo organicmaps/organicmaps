@@ -1,21 +1,22 @@
 #include "skin.hpp"
-
 #include "texture.hpp"
 #include "skin_page.hpp"
 #include "resource_style.hpp"
 #include "resource_manager.hpp"
 
 #include "../platform/platform.hpp"
+
 #include "../base/logging.hpp"
 #include "../base/profiler.hpp"
-#include "../base/ptr_utils.hpp"
 
 #include "../std/iterator.hpp"
 #include "../std/bind.hpp"
 #include "../std/numeric.hpp"
 
-#include "../base/start_mem_debug.hpp"
 #include "internal/opengl.hpp"
+
+#include "../base/start_mem_debug.hpp"
+
 
 namespace yg
 {

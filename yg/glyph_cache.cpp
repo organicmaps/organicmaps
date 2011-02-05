@@ -1,15 +1,20 @@
 #include "../base/SRC_FIRST.hpp"
-#include "../base/logging.hpp"
-#include "../base/ptr_utils.hpp"
-#include "../coding/lodepng_io.hpp"
-#include "../std/vector.hpp"
-#include "../std/map.hpp"
-#include <boost/gil/gil_all.hpp>
+
 #include "glyph_cache.hpp"
 #include "glyph_cache_impl.hpp"
 #include "data_formats.hpp"
 #include "internal/opengl.hpp"
 #include "ft2_debug.hpp"
+
+#include "../coding/lodepng_io.hpp"
+
+#include "../base/logging.hpp"
+
+#include "../std/vector.hpp"
+#include "../std/map.hpp"
+
+#include <boost/gil/gil_all.hpp>
+
 
 namespace gil = boost::gil;
 

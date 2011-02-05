@@ -1,6 +1,9 @@
 #include "../base/SRC_FIRST.hpp"
 #include "glyph_cache_impl.hpp"
 
+#include "../base/path_utils.hpp"
+#include "../base/assert.hpp"
+
 #include <../cache/ftcglyph.h>
 #include <../cache/ftcimage.h>
 #include <../cache/ftcsbits.h>
@@ -9,8 +12,6 @@
 
 #include "../std/fstream.hpp"
 #include "../std/bind.hpp"
-#include "../base/path_utils.hpp"
-#include "../base/ptr_utils.hpp"
 
 
 namespace yg
@@ -103,11 +104,6 @@ namespace yg
     }
   }
 
-  bool sym_in_block(UnicodeBlock & b, uint16_t sym)
-  {
-    return (b.m_start <= sym);
-  }
-
   bool greater_coverage(pair<int, shared_ptr<Font> > const & l, pair<int, shared_ptr<Font> > const & r)
   {
     return l.first > r.first;
@@ -144,7 +140,7 @@ namespace yg
       charcodes.push_back(FT_Get_Next_Char(face, charcodes.back(), &gindex));
 
     sort(charcodes.begin(), charcodes.end());
-    unique(charcodes.begin(), charcodes.end());
+    charcodes.erase(unique(charcodes.begin(), charcodes.end()), charcodes.end());
 
     FT_Done_Face(face);
 
@@ -158,12 +154,14 @@ namespace yg
     typedef vector<unicode_blocks_t::const_iterator> touched_blocks_t;
     touched_blocks_t touchedBlocks;
 
-    while (true)
+    while (ccIt != charcodes.end())
     {
       while (ubIt != m_unicodeBlocks.end())
       {
+        ASSERT ( ccIt != charcodes.end(), () );
         if ((*ccIt > lastUBEnd) && (*ccIt < ubIt->m_start))
           LOG(LINFO, ("Symbol with code ", (uint16_t)*ccIt, " present in font lies between two unicode blocks!"));
+
         if (ubIt->hasSymbol(*ccIt))
           break;
         lastUBEnd = ubIt->m_end;
@@ -229,8 +227,23 @@ namespace yg
         ubIt->m_fonts[i] = sortData[i].second;
       }
     }
-
   }
+
+  struct sym_in_block
+  {
+    bool operator() (UnicodeBlock const & b, uint16_t sym) const
+    {
+      return (b.m_start < sym);
+    }
+    bool operator() (uint16_t sym, UnicodeBlock const & b) const
+    {
+      return (sym < b.m_start);
+    }
+    bool operator() (UnicodeBlock const & b1, UnicodeBlock const & b2) const
+    {
+      return (b1.m_start < b2.m_start);
+    }
+  };
 
   vector<shared_ptr<Font> > & GlyphCacheImpl::getFonts(uint16_t sym)
   {
@@ -240,7 +253,7 @@ namespace yg
     unicode_blocks_t::iterator it = lower_bound(m_unicodeBlocks.begin(),
                                                 m_unicodeBlocks.end(),
                                                 sym,
-                                                &sym_in_block);
+                                                sym_in_block());
 
     if (it == m_unicodeBlocks.end())
      it = (--m_unicodeBlocks.rbegin()).base();

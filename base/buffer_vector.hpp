@@ -56,6 +56,7 @@ template <class T, size_t N> class buffer_vector
 public:
   typedef T value_type;
   typedef T const & const_reference;
+  typedef T & reference;
 
   buffer_vector() : m_size(0) {}
   buffer_vector(size_t n) : m_size(0)

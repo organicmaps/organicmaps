@@ -4,7 +4,6 @@
 
 #include "../base/assert.hpp"
 #include "../base/logging.hpp"
-#include "../base/ptr_utils.hpp"
 
 #include <QtOpenGL/QGLContext>
 #include <QtOpenGL/QGLWidget>

@@ -6,8 +6,6 @@
 
 #include "../platform/platform.hpp"
 
-#include "../base/ptr_utils.hpp"
-
 #include "../yg/rendercontext.hpp"
 
 #ifdef WIN32
@@ -15,6 +13,7 @@
 #endif
 
 #include "../base/start_mem_debug.hpp"
+
 
 namespace qt
 {

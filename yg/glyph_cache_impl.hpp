@@ -1,12 +1,14 @@
 #pragma once
 
 #include "glyph_cache.hpp"
-
 #include "ft2_debug.hpp"
+
+#include "../base/memory_mapped_file.hpp"
+
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
-#include "../base/memory_mapped_file.hpp"
+
 
 namespace yg
 {

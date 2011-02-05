@@ -1,5 +1,4 @@
 #include "../base/SRC_FIRST.hpp"
-#include "../base/ptr_utils.hpp"
 
 #include "blitter.hpp"
 #include "framebuffer.hpp"
