@@ -30,7 +30,7 @@ IPhonePlatform::IPhonePlatform()
 	/// Hardcoding screen resolution depending on the device we are running.
  	m_visualScale = 1.0;
 	m_skinName = "basic.skn";
-	m_isMultiSampled = true;
+	m_isMultiSampled = false;
 	m_doPeriodicalUpdate = true;
 	m_periodicalUpdateInterval = 0.3;
 
