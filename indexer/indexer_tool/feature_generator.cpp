@@ -288,14 +288,14 @@ bool GenerateImpl(GenerateInfo & info)
 {
   try
   {
-    TNodesHolder nodes(info.dir + NODES_FILE);
+    TNodesHolder nodes(info.tmpDir + NODES_FILE);
 
     typedef FileHolder<TNodesHolder> holder_t;
-    holder_t holder(nodes, info.dir);
+    holder_t holder(nodes, info.tmpDir);
 
     holder.LoadIndex();
 
-    if (info.m_splitByPolygons)
+    if (info.splitByPolygons)
     {
       typedef Polygonizer<FeaturesCollector, MercatorBounds, RectId> FeaturePolygonizerType;
       // prefix is data dir

@@ -16,18 +16,18 @@ namespace feature
   struct GenerateInfo
   {
     GenerateInfo()
-      : m_maxScaleForWorldFeatures(-1), m_worldOnly(false), m_splitByPolygons(false),
-        m_simplifyCountriesLevel(-1) {}
-    string dir, datFilePrefix, datFileSuffix;
+      : maxScaleForWorldFeatures(-1), splitByPolygons(false),
+        simplifyCountriesLevel(-1) {}
+    string tmpDir, datFilePrefix, datFileSuffix;
+    /// If not -1, world will be split by buckets with specified level
     int cellBucketingLevel;
     vector<string> bucketNames;
     /// Features with scale level [0..maxScaleForWorldFeatures] will be
     /// included into separate world data file
     /// @note if -1, world file will not be created
-    int m_maxScaleForWorldFeatures;
-    bool m_worldOnly;
-    bool m_splitByPolygons;
-    int m_simplifyCountriesLevel;
+    int maxScaleForWorldFeatures;
+    bool splitByPolygons;
+    int simplifyCountriesLevel;
   };
 
   bool GenerateFeatures(GenerateInfo & info, bool lightNodes);

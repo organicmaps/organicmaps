@@ -29,7 +29,7 @@ namespace feature
     Polygonizer(TInfo & info)
     : m_FeatureOutInitData(info.datFilePrefix, info.datFileSuffix), m_Names(info.bucketNames)
     {
-      CHECK(kml::LoadCountriesList(info.datFilePrefix, m_countries, info.m_simplifyCountriesLevel),
+      CHECK(kml::LoadCountriesList(info.datFilePrefix, m_countries, info.simplifyCountriesLevel),
             ("Error loading polygons"));
 
       //LOG_SHORT(LINFO, ("Loaded polygons count for regions:"));

@@ -44,10 +44,9 @@ DEFINE_bool(use_light_nodes, false,
 DEFINE_string(data_path, "", "Working directory, 'path_to_exe/../../data' if empty.");
 DEFINE_string(output, "", "Prefix of filenames of outputted .dat and .idx files.");
 DEFINE_string(intermediate_data_path, "", "Path to store nodes, ways, relations.");
-DEFINE_int32(bucketing_level, 7, "Level of cell ids for bucketing.");
-DEFINE_int32(worldmap_max_zoom, -1, "If specified, features for zoomlevels [0..this_value] "
-             " which are enabled in classificator will be added to the separate world.map");
-DEFINE_bool(world_only, false, "Generate only world features for given worldmap_max_zoom");
+DEFINE_int32(bucketing_level, -1, "If positive, level of cell ids for bucketing.");
+DEFINE_int32(generate_world_scale, -1, "If specified, features for zoomlevels [0..this_value] "
+             "which are enabled in classificator will be MOVED to the separate world file");
 DEFINE_bool(split_by_polygons, false, "Use kml shape files to split planet by regions and countries");
 DEFINE_int32(simplify_countries_level, -1, "If positive, simplifies country polygons. Recommended values [10..15]");
 
@@ -102,7 +101,7 @@ int main(int argc, char ** argv)
   }
 
   feature::GenerateInfo genInfo;
-  genInfo.dir = FLAGS_intermediate_data_path;
+  genInfo.tmpDir = FLAGS_intermediate_data_path;
 
   // load classificator only if necessary
   if (FLAGS_generate_features || FLAGS_generate_geometry ||
@@ -126,19 +125,18 @@ int main(int argc, char ** argv)
     genInfo.datFileSuffix = DATA_FILE_EXTENSION;
 
     // split data by countries polygons
-    genInfo.m_splitByPolygons = FLAGS_split_by_polygons;
-    genInfo.m_simplifyCountriesLevel = FLAGS_simplify_countries_level;
+    genInfo.splitByPolygons = FLAGS_split_by_polygons;
+    genInfo.simplifyCountriesLevel = FLAGS_simplify_countries_level;
 
     genInfo.cellBucketingLevel = FLAGS_bucketing_level;
-    genInfo.m_maxScaleForWorldFeatures = FLAGS_worldmap_max_zoom;
-    genInfo.m_worldOnly = FLAGS_world_only;
+    genInfo.maxScaleForWorldFeatures = FLAGS_generate_world_scale;
 
     if (!feature::GenerateFeatures(genInfo, FLAGS_use_light_nodes))
       return -1;
 
     for (size_t i = 0; i < genInfo.bucketNames.size(); ++i)
       genInfo.bucketNames[i] = genInfo.datFilePrefix + genInfo.bucketNames[i] + genInfo.datFileSuffix;
-    if (FLAGS_worldmap_max_zoom >= 0)
+    if (FLAGS_generate_world_scale >= 0)
       genInfo.bucketNames.push_back(genInfo.datFilePrefix + WORLD_FILE_NAME + genInfo.datFileSuffix);
   }
   else

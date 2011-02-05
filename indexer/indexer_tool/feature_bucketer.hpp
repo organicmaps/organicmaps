@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../base/base.hpp"
+#include "../../base/logging.hpp"
 
 #include "../../coding/file_writer.hpp"
 
@@ -25,17 +26,14 @@ class CellFeatureBucketer
 
   void Init()
   {
-    if (!m_worldOnly)
+    uint32_t const size = 1 << 2 * m_Level;
+    m_Buckets.resize(size);
+    for (uint32_t i = 0; i < m_Buckets.size(); ++i)
     {
-      uint32_t const size = 1 << 2 * m_Level;
-      m_Buckets.resize(size);
-      for (uint32_t i = 0; i < m_Buckets.size(); ++i)
-      {
-        CellIdT cell = CellIdT::FromBitsAndLevel(i, m_Level);
-        double minX, minY, maxX, maxY;
-        CellIdConverter<BoundsT, CellIdT>::GetCellBounds(cell, minX, minY, maxX, maxY);
-        m_Buckets[i].m_Rect = m2::RectD(minX, minY, maxX, maxY);
-      }
+      CellIdT cell = CellIdT::FromBitsAndLevel(i, m_Level);
+      double minX, minY, maxX, maxY;
+      CellIdConverter<BoundsT, CellIdT>::GetCellBounds(cell, minX, minY, maxX, maxY);
+      m_Buckets[i].m_Rect = m2::RectD(minX, minY, maxX, maxY);
     }
     // create separate world bucket if necessary
     if (m_maxWorldZoom >= 0)
@@ -46,42 +44,45 @@ public:
   template <class TInfo>
   explicit CellFeatureBucketer(TInfo & info)
   : m_Level(info.cellBucketingLevel), m_FeatureOutInitData(info.datFilePrefix, info.datFileSuffix),
-    m_maxWorldZoom(info.m_maxScaleForWorldFeatures), m_worldOnly(info.m_worldOnly)
+    m_maxWorldZoom(info.maxScaleForWorldFeatures)
   {
     Init();
   }
 
   CellFeatureBucketer(int level, typename FeatureOutT::InitDataType const & initData)
-    : m_Level(level), m_FeatureOutInitData(initData), m_maxWorldZoom(-1), m_worldOnly(false)
+    : m_Level(level), m_FeatureOutInitData(initData), m_maxWorldZoom(-1)
   {
     Init();
   }
 
   void operator () (feature_builder_t const & fb)
   {
+    int minScale = feature::MinDrawableScaleForFeature(fb.GetFeatureBase());
+    if (minScale == -1)
+    {
+      LOG(LWARNING, ("Non-drawable feature found, ignoring"));
+      return;
+    }
     // separately store features needed for world map
-    if (m_worldBucket && m_maxWorldZoom >= feature::MinDrawableScaleForFeature(fb.GetFeatureBase()))
+    if (m_worldBucket && m_maxWorldZoom >= minScale)
       (*m_worldBucket)(fb);
 
-    if (!m_worldOnly)
+    FeatureClipperT clipper(fb);
+    // TODO: Is feature fully inside GetLimitRect()?
+    m2::RectD const limitRect = fb.GetLimitRect();
+    for (uint32_t i = 0; i < m_Buckets.size(); ++i)
     {
-      FeatureClipperT clipper(fb);
-      // TODO: Is feature fully inside GetLimitRect()?
-      m2::RectD const limitRect = fb.GetLimitRect();
-      for (uint32_t i = 0; i < m_Buckets.size(); ++i)
+      // First quick and dirty limit rect intersection.
+      // Clipper may (or may not) do a better intersection.
+      if (m_Buckets[i].m_Rect.IsIntersect(limitRect))
       {
-        // First quick and dirty limit rect intersection.
-        // Clipper may (or may not) do a better intersection.
-        if (m_Buckets[i].m_Rect.IsIntersect(limitRect))
+        feature_builder_t clippedFb;
+        if (clipper(m_Buckets[i].m_Rect, clippedFb))
         {
-          feature_builder_t clippedFb;
-          if (clipper(m_Buckets[i].m_Rect, clippedFb))
-          {
-            if (!m_Buckets[i].m_pOut)
-              m_Buckets[i].m_pOut = new FeatureOutT(BucketName(i), m_FeatureOutInitData);
+          if (!m_Buckets[i].m_pOut)
+            m_Buckets[i].m_pOut = new FeatureOutT(BucketName(i), m_FeatureOutInitData);
 
-            (*(m_Buckets[i].m_pOut))(clippedFb);
-          }
+          (*(m_Buckets[i].m_pOut))(clippedFb);
         }
       }
     }
@@ -115,8 +116,6 @@ private:
   /// if NULL, separate world data file is not generated
   boost::scoped_ptr<FeatureOutT> m_worldBucket;
   int m_maxWorldZoom;
-  /// if true, only world features will be written
-  bool m_worldOnly;
 };
 
 class SimpleFeatureClipper
