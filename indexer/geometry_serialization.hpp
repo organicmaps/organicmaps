@@ -36,7 +36,7 @@ namespace serial
   void Encode(EncodeFunT fn, vector<m2::PointD> const & points, int64_t base, DeltasT & deltas);
 
   typedef buffer_vector<m2::PointD, 32> OutPointsT;
-  void Decode(DecodeFunT fn, DeltasT const & deltas, int64_t base, OutPointsT & points);
+  void Decode(DecodeFunT fn, DeltasT const & deltas, int64_t base, OutPointsT & points, size_t reserveF = 1);
 
   template <class TSink>
   void SaveInner(EncodeFunT fn, vector<m2::PointD> const & points, int64_t base, TSink & sink)
@@ -70,7 +70,7 @@ namespace serial
   void const * LoadInner(DecodeFunT fn, void const * pBeg, size_t count, int64_t base, OutPointsT & points);
 
   template <class TSource>
-  void LoadOuter(DecodeFunT fn, TSource & src, int64_t base, OutPointsT & points)
+  void LoadOuter(DecodeFunT fn, TSource & src, int64_t base, OutPointsT & points, size_t reserveF = 1)
   {
     uint32_t const count = ReadVarUint<uint32_t>(src);
     vector<char> buffer(count);
@@ -81,8 +81,7 @@ namespace serial
     deltas.reserve(count / 2);
     ReadVarUint64Array(p, p + count, MakeBackInsertFunctor(deltas));
 
-    points.reserve(deltas.size());
-    Decode(fn, deltas, base, points);
+    Decode(fn, deltas, base, points, reserveF);
   }
 
 
@@ -163,7 +162,7 @@ namespace serial
     int const count = ReadPrimitiveFromSource<uint8_t>(src);
 
     for (int i = 0; i < count; ++i)
-      LoadOuter(&DecodeTriangles, src, base, triangles);
+      LoadOuter(&DecodeTriangles, src, base, triangles, 3);
   }
   //@}
 }

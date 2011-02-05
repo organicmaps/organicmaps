@@ -40,22 +40,30 @@ namespace serial
 
   void Encode(EncodeFunT fn, vector<m2::PointD> const & points, int64_t base, DeltasT & deltas)
   {
+    size_t const count = points.size();
+
     PointsT upoints;
-    upoints.reserve(points.size());
+    upoints.reserve(count);
 
     transform(points.begin(), points.end(), back_inserter(upoints), &pts::D2U);
 
+    ASSERT ( deltas.empty(), () );
+    deltas.reserve(count);
     (*fn)(upoints, pts::GetBasePoint(base), pts::GetMaxPoint(), deltas);
   }
 
-  void Decode(DecodeFunT fn, DeltasT const & deltas, int64_t base, OutPointsT & points)
+  void Decode(DecodeFunT fn, DeltasT const & deltas, int64_t base, OutPointsT & points, size_t reserveF/* = 1*/)
   {
+    size_t const count = deltas.size() * reserveF;
+
     PointsT upoints;
-    upoints.reserve(deltas.size());
+    upoints.reserve(count);
 
     (*fn)(deltas, pts::GetBasePoint(base), pts::GetMaxPoint(), upoints);
 
-    // Don't make reserve for points. It may be not empty.
+    // It is may be not empty, when storing triangles.
+    if (points.empty())
+      points.reserve(count);
     transform(upoints.begin(), upoints.end(), back_inserter(points), &pts::U2D);
   }
 
@@ -171,8 +179,6 @@ namespace serial
   {
     size_t const count = deltas.size();
     ASSERT_GREATER ( count, 2, () );
-
-    points.reserve(3*count);
 
     points.push_back(DecodeDelta(deltas[0], basePoint));
     points.push_back(DecodeDelta(deltas[1], points.back()));
