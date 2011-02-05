@@ -957,9 +957,9 @@ namespace
 //   UNIT_TEST_GL(TestDrawPathWithSkinPageMiss);
 //   UNIT_TEST_GL(TestDrawPathWithOffset);
 //   UNIT_TEST_GL(TestDrawPathJoin);
-   UNIT_TEST_GL(TestDrawPathSolid1PX);
-   UNIT_TEST_GL(TestDrawPathSolid2PX);
-   UNIT_TEST_GL(TestDrawPathSolid);
+//   UNIT_TEST_GL(TestDrawPathSolid1PX);
+//   UNIT_TEST_GL(TestDrawPathSolid2PX);
+//   UNIT_TEST_GL(TestDrawPathSolid);
 //   UNIT_TEST_GL(TestDrawSector);
    UNIT_TEST_GL(TestDrawPathSolidDiffWidth);
 //   UNIT_TEST_GL(TestDrawPathSolidWithZ);
@@ -967,5 +967,5 @@ namespace
 //   UNIT_TEST_GL(TestDrawUtilsRect);
 //   UNIT_TEST_GL(TestDrawUtilsRectFilledTexture);
 //   UNIT_TEST_GL(TestDrawSymbolFiltering);
-   UNIT_TEST_GL(TestDrawCircle);
+//   UNIT_TEST_GL(TestDrawCircle);
 }

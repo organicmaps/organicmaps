@@ -48,6 +48,6 @@ namespace
     }
   };
 
-  UNIT_TEST_GL(TestDrawPath);
+//  UNIT_TEST_GL(TestDrawPath);
 }
 
