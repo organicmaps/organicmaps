@@ -39,6 +39,7 @@ namespace yg
       SymbolRenderer(base_t::Params const & params);
 
       void drawSymbol(m2::PointD const & pt, uint32_t styleID, EPosition pos, int depth);
+      void drawCircle(m2::PointD const & pt, uint32_t styleID, EPosition pos, int depth);
 
       void setClipRect(m2::RectI const & rect);
       void endFrame();

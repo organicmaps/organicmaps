@@ -85,14 +85,18 @@ void DrawerYG::drawSymbol(m2::PointD const & pt, string const & symbolName, yg::
   m_pScreen->drawSymbol(pt, m_pSkin->mapSymbol(symbolName.c_str()), pos, depth);
 }
 
-void DrawerYG::drawCircle(m2::PointD const & pt, rule_ptr_t pRule, int depth)
+void DrawerYG::drawCircle(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth)
 {
   uint32_t id = pRule->GetID();
   if (id == drule::BaseRule::empty_id)
   {
-    yg::CircleInfo info(pRule->GetRadius(),
+    double radius = min(max(pRule->GetRadius(), 3.0), 6.0) * m_visualScale;
+
+    yg::CircleInfo info(radius,
                         yg::Color::fromXRGB(pRule->GetColor(), pRule->GetAlpha()),
-                        true);
+                        true,
+                        m_visualScale,
+                        yg::Color::fromXRGB(pRule->GetStrokeColor(), pRule->GetAlpha()));
 
     id = m_pSkin->mapCircleInfo(info);
 
@@ -105,7 +109,7 @@ void DrawerYG::drawCircle(m2::PointD const & pt, rule_ptr_t pRule, int depth)
     }
   }
 
-  m_pScreen->drawCircle(pt, id, depth);
+  m_pScreen->drawCircle(pt, id, pos, depth);
 }
 
 void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth)
@@ -347,7 +351,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t * rules, int * depthV
         if (isSymbol)
           drawSymbol(pInfo->m_point, pRule, yg::EPosLeft, depth);
         if (isCircle)
-          drawCircle(pInfo->m_point, pRule, depth);
+          drawCircle(pInfo->m_point, pRule, yg::EPosLeft, depth);
       }
     }
     else

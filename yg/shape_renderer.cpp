@@ -65,23 +65,5 @@ namespace yg
       drawTrianglesList(&sectorPts[0], sectorPts.size(), skin()->mapColor(c), depth);
     }
 
-    void ShapeRenderer::drawCircle(m2::PointD const & center, uint32_t styleID, double depth)
-    {
-      ResourceStyle const * style(skin()->fromID(styleID));
-
-      m2::RectU texRect(style->m_texRect);
-      texRect.Inflate(-1, -1);
-
-      m2::PointD pt(center - m2::PointD(texRect.SizeX() / 2, texRect.SizeY() / 2));
-      pt.x = ceil(pt.x);
-      pt.y = ceil(pt.y);
-
-
-      drawTexturedPolygon(m2::PointD(0, 0), 0,
-                          texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
-                          pt.x, pt.y, pt.x + texRect.SizeX(), pt.y + texRect.SizeY(),
-                          depth,
-                          style->m_pageID);
-    }
   }
 }

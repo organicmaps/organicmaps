@@ -434,7 +434,7 @@ namespace yg
         if (penInfo.m_w > 2)
         {
           agg::ellipse ell;
-          float r = penInfo.m_w / 2.0;
+          float r = ceil(penInfo.m_w) / 2.0;
           ell.init(r + 2, r + 2, r, r, 100);
           rasterizer.add_path(ell);
 
@@ -446,12 +446,18 @@ namespace yg
                                                     penInfo.m_color.b,
                                                     penInfo.m_color.a));
 
-/*          /// in non-transparent areas - premultiply color value with alpha and make it opaque
+          /// pixels that are used to texture inner part of the line should be fully opaque
+          v(2 + r - 1, 2) = penColor;
+          v(2 + r    , 2) = penColor;
+          v(2 + r - 1, 2 + r * 2 - 1) = penColor;
+          v(2 + r    , 2 + r * 2 - 1) = penColor;
+
+          /// in non-transparent areas - premultiply color value with alpha and make it opaque
           for (size_t x = 2; x < v.width() - 2; ++x)
             for (size_t y = 2; y < v.height() - 2; ++y)
             {
               unsigned char alpha = gil::get_color(v(x, y), gil::alpha_t());
-              float fAlpha = alpha / (float)TDynamicTexture::maxChannelVal;
+//              float fAlpha = alpha / (float)TDynamicTexture::maxChannelVal;
               if (alpha != 0)
               {
 //                gil::get_color(v(x, y), gil::red_t()) *= fAlpha;
@@ -462,12 +468,11 @@ namespace yg
                 v(x, y) = penColor;
               }
             }
-*/
         }
         else
         {
           gil::fill_pixels(
-              gil::subimage_view(v, 1, 1, rect.SizeX() - 2, rect.SizeY() - 2),
+              gil::subimage_view(v, 2, 2, rect.SizeX() - 4, rect.SizeY() - 4),
               penColor
               );
         }

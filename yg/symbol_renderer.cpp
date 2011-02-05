@@ -70,6 +70,23 @@ namespace yg
                           style->m_pageID);
     }
 
+    void SymbolRenderer::drawCircle(m2::PointD const & pt, uint32_t styleID, EPosition pos, int depth)
+    {
+      ResourceStyle const * style(skin()->fromID(styleID));
+
+      m2::RectU texRect(style->m_texRect);
+      texRect.Inflate(-1, -1);
+
+      m2::PointD posPt = getPosPt(pt, m2::RectD(texRect), pos);
+
+      drawTexturedPolygon(m2::PointD(0, 0), 0,
+                          texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
+                          posPt.x, posPt.y, posPt.x + texRect.SizeX(), posPt.y + texRect.SizeY(),
+                          depth,
+                          style->m_pageID);
+    }
+
+
     void mark_intersect(bool & flag)
     {
       flag = true;
