@@ -930,8 +930,8 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> const & p)
     {
-      p->drawCircle(m2::PointD(200, 200), p->skin()->mapCircleInfo(yg::CircleInfo(10, yg::Color(255, 0, 0, 255))), 100);
-      p->drawCircle(m2::PointD(100, 200), p->skin()->mapCircleInfo(yg::CircleInfo(10, yg::Color(255, 0, 0, 255), true, 4, yg::Color(255, 255, 255, 255))), 100);
+      p->drawCircle(m2::PointD(200, 200), p->skin()->mapCircleInfo(yg::CircleInfo(10, yg::Color(255, 0, 0, 255))), yg::EPosCenter, 100);
+      p->drawCircle(m2::PointD(100, 200), p->skin()->mapCircleInfo(yg::CircleInfo(10, yg::Color(255, 0, 0, 255), true, 4, yg::Color(255, 255, 255, 255))), yg::EPosCenter, 100);
     }
   };
 
