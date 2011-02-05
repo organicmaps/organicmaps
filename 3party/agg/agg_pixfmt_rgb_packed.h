@@ -82,6 +82,7 @@ namespace agg
                                          unsigned alpha,
                                          unsigned)
         {
+/*            /// from the least bit to most significant (r, g, b, a)
             pixel_type rgb = *p;
 
             calc_type b = (rgb >> 4) & 0xF0;
@@ -92,21 +93,43 @@ namespace agg
                (((((cb - b) * alpha + (b << 8)) >> 4)  & 0x0F00) |
                 ((((cg - g) * alpha + (g << 8)) >> 8)  & 0x00F0) |
                  (((cr - r) * alpha + (r << 8)) >> 12) | 0xF000);
-        }
+*/
+            /// from the least bit to most significant (a, b, g, r)
+
+            pixel_type rgb = *p;
+
+            calc_type r = (rgb >> 8) & 0xF0;
+            calc_type g = (rgb >> 4) & 0xF0;
+            calc_type b = (rgb     ) & 0xF0;
+
+            *p = (pixel_type)
+               (((((cr - r) * alpha + (r << 8))     )  & 0xF000) |
+                ((((cg - g) * alpha + (g << 8)) >> 4)  & 0x0F00) |
+                ((((cb - b) * alpha + (b << 8)) >> 8)  & 0x00F0) | 0x000F);
+          }
 
         static AGG_INLINE pixel_type make_pix(unsigned r, unsigned g, unsigned b)
         {
+/*
             return (pixel_type)(((b & 0xF0) << 4) |
                                 ((g & 0xF0)     ) |
                                  (r >> 4) |
                                  0xF000);
+ */
+            return (pixel_type)(((r & 0xF0) << 8) |
+                                ((g & 0xF0) << 4) |
+                                 (b & 0xF0) |
+                                 0x000F);
         }
 
         static AGG_INLINE color_type make_color(pixel_type p)
         {
-            return color_type((p << 4) & 0xF0,
+/*            return color_type((p << 4) & 0xF0,
                               (p     ) & 0xF0,
-                              (p >> 4) & 0xF0);
+                              (p >> 4) & 0xF0);*/
+            return color_type((p >> 8) & 0xF0,
+                              (p >> 4) & 0xF0,
+                              (p     ) & 0xF0);
         }
     };
 

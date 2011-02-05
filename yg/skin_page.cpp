@@ -292,7 +292,7 @@ namespace yg
     if (foundHandle != m_packer.invalidHandle())
       return foundHandle;
 
-    unsigned r = circleInfo.m_isOutlined ? circleInfo.m_radius + 1 : circleInfo.m_radius;
+    unsigned r = circleInfo.m_isOutlined ? circleInfo.m_radius + circleInfo.m_outlineWidth : circleInfo.m_radius;
 
     m2::Packer::handle_t handle = m_packer.pack(
         r * 2 + 4,
@@ -309,7 +309,7 @@ namespace yg
 
   bool SkinPage::hasRoom(CircleInfo const & circleInfo) const
   {
-    unsigned r = circleInfo.m_isOutlined ? circleInfo.m_radius + 1 : circleInfo.m_radius;
+    unsigned r = circleInfo.m_isOutlined ? circleInfo.m_radius + circleInfo.m_outlineWidth : circleInfo.m_radius;
     return m_packer.hasRoom(r * 2 + 4,
                             r * 2 + 4);
   }
@@ -396,10 +396,7 @@ namespace yg
 
       yg::Color penInfoColor = penInfo.m_color;
 
-      penInfoColor.r /= TDynamicTexture::channelScaleFactor;
-      penInfoColor.g /= TDynamicTexture::channelScaleFactor;
-      penInfoColor.b /= TDynamicTexture::channelScaleFactor;
-      penInfoColor.a /= TDynamicTexture::channelScaleFactor;
+      penInfoColor /= TDynamicTexture::channelScaleFactor;
 
       TDynamicTexture::pixel_t penColorTranslucent;
 
@@ -455,20 +452,22 @@ namespace yg
             {
               unsigned char alpha = gil::get_color(v(x, y), gil::alpha_t());
               float fAlpha = alpha / (float)TDynamicTexture::maxChannelVal;
-//              if (alpha != 0)
-//              {
-                gil::get_color(v(x, y), gil::red_t()) *= fAlpha;
-                gil::get_color(v(x, y), gil::green_t()) *= fAlpha;
-                gil::get_color(v(x, y), gil::blue_t()) *= fAlpha;
+              if (alpha != 0)
+              {
+//                gil::get_color(v(x, y), gil::red_t()) *= fAlpha;
+//                gil::get_color(v(x, y), gil::green_t()) *= fAlpha;
+//                gil::get_color(v(x, y), gil::blue_t()) *= fAlpha;
 
 //                gil::get_color(v(x, y), gil::alpha_t()) = TDynamicTexture::maxChannelVal;
-//              }
-            }*/
+                v(x, y) = penColor;
+              }
+            }
+*/
         }
         else
         {
           gil::fill_pixels(
-              gil::subimage_view(v, 2, 2, rect.SizeX() - 4, rect.SizeY() - 4),
+              gil::subimage_view(v, 1, 1, rect.SizeX() - 2, rect.SizeY() - 2),
               penColor
               );
         }
@@ -600,7 +599,7 @@ namespace yg
       m2::PointD center(circleInfo.m_radius + 2, circleInfo.m_radius + 2);
 
       if (circleInfo.m_isOutlined)
-        center += m2::PointD(1, 1);
+        center += m2::PointD(circleInfo.m_outlineWidth, circleInfo.m_outlineWidth);
 
       agg::scanline_u8 s;
       agg::rasterizer_scanline_aa<> rasterizer;
@@ -609,8 +608,8 @@ namespace yg
 
       ell.init(center.x,
                center.y,
-               circleInfo.m_isOutlined ? circleInfo.m_radius + 1 : circleInfo.m_radius,
-               circleInfo.m_isOutlined ? circleInfo.m_radius + 1 : circleInfo.m_radius,
+               circleInfo.m_isOutlined ? circleInfo.m_radius + circleInfo.m_outlineWidth : circleInfo.m_radius,
+               circleInfo.m_isOutlined ? circleInfo.m_radius + circleInfo.m_outlineWidth : circleInfo.m_radius,
                100);
 
       rasterizer.add_path(ell);

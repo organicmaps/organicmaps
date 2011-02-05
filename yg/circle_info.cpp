@@ -7,10 +7,12 @@ namespace yg
   CircleInfo::CircleInfo(unsigned radius,
                          Color const & color,
                          bool isOutlined,
+                         unsigned outlineWidth,
                          Color const & outlineColor)
      : m_radius(radius),
      m_color(color),
      m_isOutlined(isOutlined),
+     m_outlineWidth(outlineWidth),
      m_outlineColor(outlineColor)
   {}
 
@@ -25,6 +27,8 @@ namespace yg
       return l.m_color < r.m_color;
     if (l.m_isOutlined != r.m_isOutlined)
       return l.m_isOutlined < r.m_isOutlined;
+    if (l.m_outlineWidth != r.m_outlineWidth)
+      return l.m_outlineWidth < r.m_outlineWidth;
     return l.m_outlineColor < r.m_outlineColor;
   }
 }

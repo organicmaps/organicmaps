@@ -15,12 +15,7 @@ namespace yg
 
     /// if pattern is solid
     if ((pattern == 0 ) || (patternSize == 0))
-    {
       m_isSolid = true;
-//      m_pat.push_back(5);
-//      m_pat.push_back(50);
-//      m_pat.push_back(0);
-    }
     else
     {
       copy(pattern, pattern + patternSize, back_inserter(m_pat));
