@@ -19,7 +19,7 @@ namespace yg
       void drawSector(m2::PointD const & center, double startA, double endA, double r, yg::Color const & c, double depth);
       void fillSector(m2::PointD const & center, double startA, double endA, double r, yg::Color const & c, double depth);
 
-//      void drawCircle(m2::PointD const & center, uint32_t styleID, double depth);
+      void drawCircle(m2::PointD const & center, uint32_t styleID, double depth);
     };
   }
 }

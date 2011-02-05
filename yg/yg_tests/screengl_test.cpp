@@ -926,6 +926,15 @@ namespace
     }
   };
 
+  struct TestDrawCircle
+  {
+    void DoDraw(shared_ptr<yg::gl::Screen> const & p)
+    {
+      p->drawCircle(m2::PointD(200, 200), p->skin()->mapCircleInfo(yg::CircleInfo(10, yg::Color(255, 0, 0, 255))), 100);
+      p->drawCircle(m2::PointD(100, 200), p->skin()->mapCircleInfo(yg::CircleInfo(10, yg::Color(255, 0, 0, 255), true, yg::Color(255, 255, 255, 255))), 100);
+    }
+  };
+
 //   UNIT_TEST_GL(TestDrawPolyOverflow);
 //   UNIT_TEST_GL(TestDrawText);
 //   UNIT_TEST_GL(TestDrawSingleSymbol);
@@ -948,14 +957,15 @@ namespace
 //   UNIT_TEST_GL(TestDrawPathWithSkinPageMiss);
 //   UNIT_TEST_GL(TestDrawPathWithOffset);
 //   UNIT_TEST_GL(TestDrawPathJoin);
-//   UNIT_TEST_GL(TestDrawPathSolid1PX);
-//   UNIT_TEST_GL(TestDrawPathSolid2PX);
-//   UNIT_TEST_GL(TestDrawPathSolid);
+   UNIT_TEST_GL(TestDrawPathSolid1PX);
+   UNIT_TEST_GL(TestDrawPathSolid2PX);
+   UNIT_TEST_GL(TestDrawPathSolid);
 //   UNIT_TEST_GL(TestDrawSector);
-//   UNIT_TEST_GL(TestDrawPathSolidDiffWidth);
+   UNIT_TEST_GL(TestDrawPathSolidDiffWidth);
 //   UNIT_TEST_GL(TestDrawPathSolidWithZ);
 //   UNIT_TEST_GL(TestDrawPathSolidWithClipRect);
 //   UNIT_TEST_GL(TestDrawUtilsRect);
 //   UNIT_TEST_GL(TestDrawUtilsRectFilledTexture);
-   UNIT_TEST_GL(TestDrawSymbolFiltering);
+//   UNIT_TEST_GL(TestDrawSymbolFiltering);
+   UNIT_TEST_GL(TestDrawCircle);
 }

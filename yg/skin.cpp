@@ -131,6 +131,22 @@ namespace yg
     return packID(m_currentDynamicPage, m_pages[m_currentDynamicPage]->mapPenInfo(penInfo));
   }
 
+  uint32_t Skin::mapCircleInfo(CircleInfo const & circleInfo)
+  {
+    uint32_t res = invalidPageHandle();
+    for (uint8_t i = 0; i < m_pages.size(); ++i)
+    {
+      res = m_pages[i]->findCircleInfo(circleInfo);
+      if (res != invalidPageHandle())
+        return packID(i, res);
+    }
+
+    if (!m_pages[m_currentDynamicPage]->hasRoom(circleInfo))
+      changeCurrentDynamicPage();
+
+    return packID(m_currentDynamicPage, m_pages[m_currentDynamicPage]->mapCircleInfo(circleInfo));
+  }
+
   bool Skin::mapPenInfo(PenInfo const * penInfos, uint32_t * styleIDS, size_t count)
   {
     uint8_t savedDynamicPage = m_currentDynamicPage;

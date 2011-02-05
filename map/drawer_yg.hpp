@@ -63,6 +63,7 @@ private:
 
 protected:
   void drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth);
+  void drawCircle(m2::PointD const & pt, rule_ptr_t pRule, int depth);
   void drawPath(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth);
   void drawPath(vector<m2::PointD> const & pts, rule_ptr_t * rules, int * depthVec, size_t count);
   void drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth);

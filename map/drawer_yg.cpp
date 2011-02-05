@@ -85,6 +85,29 @@ void DrawerYG::drawSymbol(m2::PointD const & pt, string const & symbolName, yg::
   m_pScreen->drawSymbol(pt, m_pSkin->mapSymbol(symbolName.c_str()), pos, depth);
 }
 
+void DrawerYG::drawCircle(m2::PointD const & pt, rule_ptr_t pRule, int depth)
+{
+  uint32_t id = pRule->GetID();
+  if (id == drule::BaseRule::empty_id)
+  {
+    yg::CircleInfo info(pRule->GetRadius(),
+                        yg::Color::fromXRGB(pRule->GetColor(), pRule->GetAlpha()),
+                        true);
+
+    id = m_pSkin->mapCircleInfo(info);
+
+    if (id != drule::BaseRule::empty_id)
+      pRule->SetID(id);
+    else
+    {
+      //ASSERT ( false, ("Can't find symbol by id = ", (name)) );
+      return;
+    }
+  }
+
+  m_pScreen->drawCircle(pt, id, depth);
+}
+
 void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth)
 {
   // Use BaseRule::m_id to cache for point draw rule.
@@ -290,6 +313,8 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t * rules, int * depthV
     bool const isArea = !pInfo->m_areas.empty();
     bool const isName = !pInfo->m_name.empty();
 
+    bool const isCircle = (pRule->GetRadius() != -1);
+
     if (!isCaption)
     {
       /// path is drawn separately in the code above
@@ -313,6 +338,8 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t * rules, int * depthV
             drawArea(i->m_path, pRule, depth);
           else if (isSym)
             drawSymbol(i->GetCenter(), pRule, yg::EPosLeft, depth);
+          if (isCircle)
+            drawCircle(i->GetCenter(), pRule, depth);
         }
       }
 
@@ -330,7 +357,11 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t * rules, int * depthV
         if (isArea && isN)
         {
           for (list<di::AreaInfo>::const_iterator i = pInfo->m_areas.begin(); i != pInfo->m_areas.end(); ++i)
+          {
             drawText(i->GetCenter(), pInfo->m_name, pRule, depth);
+            if (isCircle)
+              drawCircle(i->GetCenter(), pRule, depth);
+          }
         }
 
         // draw way name
@@ -363,6 +394,10 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t * rules, int * depthV
         isN = ((pRule->GetType() & drule::node) != 0);
         if (!isPath && !isArea && isN)
           drawText(pInfo->m_point, pInfo->m_name, pRule, depth);
+
+        if (isCircle)
+          drawCircle(pInfo->m_point, pRule, depth);
+
       }
     }
   }

@@ -18,6 +18,8 @@ namespace yg
 
     static Color const fromARGB(uint32_t _c);
     static Color const fromXRGB(uint32_t _c, unsigned char _a = 0);
+
+    Color const & operator /= (unsigned k);
   };
 
   bool operator < (Color const & l, Color const & r);

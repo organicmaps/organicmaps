@@ -4,7 +4,7 @@
 
 namespace yg
 {
-  CircleInfo::CircleInfo(double radius,
+  CircleInfo::CircleInfo(unsigned radius,
                          Color const & color,
                          bool isOutlined,
                          Color const & outlineColor)
@@ -13,4 +13,18 @@ namespace yg
      m_isOutlined(isOutlined),
      m_outlineColor(outlineColor)
   {}
+
+  CircleInfo::CircleInfo()
+  {}
+
+  bool operator< (CircleInfo const & l, CircleInfo const & r)
+  {
+    if (l.m_radius != r.m_radius)
+      return l.m_radius < r.m_radius;
+    if (l.m_color != r.m_color)
+      return l.m_color < r.m_color;
+    if (l.m_isOutlined != r.m_isOutlined)
+      return l.m_isOutlined < r.m_isOutlined;
+    return l.m_outlineColor < r.m_outlineColor;
+  }
 }

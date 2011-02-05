@@ -62,6 +62,12 @@ namespace yg
                            : m_penInfo(penInfo),
                              m_rect(rect){}
 
+  CircleUploadCmd::CircleUploadCmd(){}
+  CircleUploadCmd::CircleUploadCmd(yg::CircleInfo const & circleInfo,
+                                   m2::RectU const & rect)
+                                 : m_circleInfo(circleInfo),
+                                 m_rect(rect){}
+
   ResourceStyle * FontInfo::fromID(uint32_t id, bool isMask) const
   {
     TChars::const_iterator it = m_chars.find(id);
@@ -120,6 +126,7 @@ namespace yg
     clearPenInfoHandles();
     clearColorHandles();
     clearFontHandles();
+    clearCircleInfoHandles();
 
     m_packer.reset();
   }
@@ -138,6 +145,14 @@ namespace yg
       m_styles.erase(it->second);
 
     m_penInfoMap.clear();
+  }
+
+  void SkinPage::clearCircleInfoHandles()
+  {
+    for (TCircleInfoMap::const_iterator it = m_circleInfoMap.begin(); it != m_circleInfoMap.end(); ++it)
+      m_styles.erase(it->second);
+
+    m_circleInfoMap.clear();
   }
 
   void SkinPage::clearFontHandles()
@@ -261,6 +276,43 @@ namespace yg
     return m_packer.hasRoom(gi->m_metrics.m_width + 4, gi->m_metrics.m_height + 4);
   }
 
+  uint32_t SkinPage::findCircleInfo(CircleInfo const & circleInfo) const
+  {
+    TCircleInfoMap::const_iterator it = m_circleInfoMap.find(circleInfo);
+    if (it == m_circleInfoMap.end())
+      return m_packer.invalidHandle();
+    else
+      return it->second;
+  }
+
+  uint32_t SkinPage::mapCircleInfo(CircleInfo const & circleInfo)
+  {
+    uint32_t foundHandle = findCircleInfo(circleInfo);
+
+    if (foundHandle != m_packer.invalidHandle())
+      return foundHandle;
+
+    unsigned r = circleInfo.m_isOutlined ? circleInfo.m_radius + 1 : circleInfo.m_radius;
+
+    m2::Packer::handle_t handle = m_packer.pack(
+        r * 2 + 4,
+        r * 2 + 4);
+
+    m2::RectU texRect = m_packer.find(handle).second;
+    m_circleUploadCommands.push_back(CircleUploadCmd(circleInfo, texRect));
+    m_circleInfoMap[circleInfo] = handle;
+
+    m_styles[handle] = shared_ptr<ResourceStyle>(new GenericStyle(texRect, m_pageID) );
+
+    return m_circleInfoMap[circleInfo];
+  }
+
+  bool SkinPage::hasRoom(CircleInfo const & circleInfo) const
+  {
+    unsigned r = circleInfo.m_isOutlined ? circleInfo.m_radius + 1 : circleInfo.m_radius;
+    return m_packer.hasRoom(r * 2 + 4,
+                            r * 2 + 4);
+  }
 
   uint32_t SkinPage::findPenInfo(PenInfo const & penInfo) const
   {
@@ -397,17 +449,21 @@ namespace yg
                                                     penInfo.m_color.b,
                                                     penInfo.m_color.a));
 
-          /// making alpha channel opaque
+/*          /// in non-transparent areas - premultiply color value with alpha and make it opaque
           for (size_t x = 2; x < v.width() - 2; ++x)
             for (size_t y = 2; y < v.height() - 2; ++y)
             {
               unsigned char alpha = gil::get_color(v(x, y), gil::alpha_t());
-              if (alpha != 0)
-              {
-                v(x, y) = penColor;
-//                gil::get_color(v(x, y), gil::alpha_t()) = alpha;
-              }
-            }
+              float fAlpha = alpha / (float)TDynamicTexture::maxChannelVal;
+//              if (alpha != 0)
+//              {
+                gil::get_color(v(x, y), gil::red_t()) *= fAlpha;
+                gil::get_color(v(x, y), gil::green_t()) *= fAlpha;
+                gil::get_color(v(x, y), gil::blue_t()) *= fAlpha;
+
+//                gil::get_color(v(x, y), gil::alpha_t()) = TDynamicTexture::maxChannelVal;
+//              }
+            }*/
         }
         else
         {
@@ -476,6 +532,150 @@ namespace yg
 
     }
     m_penUploadCommands.clear();
+  }
+
+  void SkinPage::uploadCircleInfo()
+  {
+    for (size_t i = 0; i < m_circleUploadCommands.size(); ++i)
+    {
+      yg::CircleInfo & circleInfo = m_circleUploadCommands[i].m_circleInfo;
+      m2::RectU const & rect = m_circleUploadCommands[i].m_rect;
+
+      TDynamicTexture * dynTexture = static_cast<TDynamicTexture*>(m_texture.get());
+
+      TDynamicTexture::view_t v = dynTexture->view(rect.SizeX(), rect.SizeY());
+
+      agg::rgba8 aggColor(circleInfo.m_color.r,
+                          circleInfo.m_color.g,
+                          circleInfo.m_color.b,
+                          circleInfo.m_color.a);
+
+      agg::rgba8 aggOutlineColor(circleInfo.m_outlineColor.r,
+                                 circleInfo.m_outlineColor.g,
+                                 circleInfo.m_outlineColor.b,
+                                 circleInfo.m_outlineColor.a);
+
+      circleInfo.m_color /= TDynamicTexture::channelScaleFactor;
+
+      TDynamicTexture::pixel_t gilColorTranslucent;
+
+      gil::get_color(gilColorTranslucent, gil::red_t()) = circleInfo.m_color.r;
+      gil::get_color(gilColorTranslucent, gil::green_t()) = circleInfo.m_color.g;
+      gil::get_color(gilColorTranslucent, gil::blue_t()) = circleInfo.m_color.b;
+      gil::get_color(gilColorTranslucent, gil::alpha_t()) = 0;
+
+      circleInfo.m_outlineColor /= TDynamicTexture::channelScaleFactor;
+
+      TDynamicTexture::pixel_t gilOutlineColorTranslucent;
+
+      gil::get_color(gilOutlineColorTranslucent, gil::red_t()) = circleInfo.m_outlineColor.r;
+      gil::get_color(gilOutlineColorTranslucent, gil::green_t()) = circleInfo.m_outlineColor.g;
+      gil::get_color(gilOutlineColorTranslucent, gil::blue_t()) = circleInfo.m_outlineColor.b;
+      gil::get_color(gilOutlineColorTranslucent, gil::alpha_t()) = 0;
+
+      TDynamicTexture::pixel_t gilColor = gilColorTranslucent;
+      gil::get_color(gilColor, gil::alpha_t()) = circleInfo.m_color.a;
+
+      TDynamicTexture::pixel_t gilOutlineColor = gilOutlineColorTranslucent;
+      gil::get_color(gilOutlineColor, gil::alpha_t()) = circleInfo.m_outlineColor.a;
+
+      /// draw circle
+      agg::rendering_buffer buf(
+          (unsigned char *)&v(0, 0),
+          rect.SizeX(),
+          rect.SizeY(),
+          rect.SizeX() * sizeof(TDynamicTexture::pixel_t)
+          );
+
+      typedef AggTraits<TDynamicTexture::traits_t>::pixfmt_t agg_pixfmt_t;
+
+      agg_pixfmt_t pixfmt(buf);
+      agg::renderer_base<agg_pixfmt_t> rbase(pixfmt);
+
+      if (circleInfo.m_isOutlined)
+        gil::fill_pixels(v, gilOutlineColorTranslucent);
+      else
+        gil::fill_pixels(v, gilColorTranslucent);
+
+      m2::PointD center(circleInfo.m_radius + 2, circleInfo.m_radius + 2);
+
+      if (circleInfo.m_isOutlined)
+        center += m2::PointD(1, 1);
+
+      agg::scanline_u8 s;
+      agg::rasterizer_scanline_aa<> rasterizer;
+
+      agg::ellipse ell;
+
+      ell.init(center.x,
+               center.y,
+               circleInfo.m_isOutlined ? circleInfo.m_radius + 1 : circleInfo.m_radius,
+               circleInfo.m_isOutlined ? circleInfo.m_radius + 1 : circleInfo.m_radius,
+               100);
+
+      rasterizer.add_path(ell);
+
+      agg::render_scanlines_aa_solid(rasterizer,
+                                     s,
+                                     rbase,
+                                     circleInfo.m_isOutlined ? aggOutlineColor : aggColor);
+
+      TDynamicTexture::pixel_t px = circleInfo.m_isOutlined ? gilOutlineColor : gilColor;
+
+      /// making alpha channel opaque
+/*      for (size_t x = 2; x < v.width() - 2; ++x)
+        for (size_t y = 2; y < v.height() - 2; ++y)
+        {
+          unsigned char alpha = gil::get_color(v(x, y), gil::alpha_t());
+
+          float fAlpha = alpha / (float)TDynamicTexture::maxChannelVal;
+
+          if (alpha != 0)
+          {
+            gil::get_color(v(x, y), gil::red_t()) *= fAlpha;
+            gil::get_color(v(x, y), gil::green_t()) *= fAlpha;
+            gil::get_color(v(x, y), gil::blue_t()) *= fAlpha;
+
+            gil::get_color(v(x, y), gil::alpha_t()) = TDynamicTexture::maxChannelVal;
+          }
+        }
+  */
+      if (circleInfo.m_isOutlined)
+      {
+        /// drawing inner circle
+        ell.init(center.x,
+                 center.y,
+                 circleInfo.m_radius,
+                 circleInfo.m_radius,
+                 100);
+
+        rasterizer.reset();
+        rasterizer.add_path(ell);
+
+        agg::render_scanlines_aa_solid(rasterizer,
+                                       s,
+                                       rbase,
+                                       aggColor);
+/*        for (size_t x = 2; x < v.width() - 2; ++x)
+          for (size_t y = 2; y < v.height() - 2; ++y)
+          {
+            unsigned char alpha = gil::get_color(v(x, y), gil::alpha_t());
+            float fAlpha = alpha / (float)TDynamicTexture::maxChannelVal;
+//            if (alpha != 0)
+//            {
+              gil::get_color(v(x, y), gil::red_t()) *= fAlpha;
+              gil::get_color(v(x, y), gil::green_t()) *= fAlpha;
+              gil::get_color(v(x, y), gil::blue_t()) *= fAlpha;
+
+//              gil::get_color(v(x, y), gil::alpha_t()) = TDynamicTexture::maxChannelVal;
+//            }
+          }*/
+      }
+
+      dynTexture->upload(&v(0, 0), rect);
+    }
+
+    m_circleUploadCommands.clear();
   }
 
   void SkinPage::uploadGlyphs()
@@ -566,6 +766,7 @@ namespace yg
       uploadColors();
       uploadPenInfo();
       uploadGlyphs();
+      uploadCircleInfo();
       static_cast<gl::ManagedTexture*>(m_texture.get())->unlock();
     }
   }

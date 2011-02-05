@@ -49,6 +49,16 @@ namespace yg
         alphaFromARGB(_c));
   }
 
+  Color const & Color::operator /= (unsigned k)
+  {
+    r /= k;
+    g /= k;
+    b /= k;
+    a /= k;
+
+    return *this;
+  }
+
   bool operator < (Color const & l, Color const & r)
   {
     if (l.r != r.r) return l.r < r.r;

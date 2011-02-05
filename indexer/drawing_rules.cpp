@@ -607,6 +607,10 @@ namespace drule {
     virtual void Read(FileReaderStream & ar) { read_rules(ar, this); }
     virtual void Write(FileWriterStream & ar) const { write_rules(ar, this); }
 
+    virtual double GetRadius() const {return m_params.get<0>().m_v;}
+    virtual int GetStrokeColor() const {return m_params.get<3>().m_v;}
+    virtual int GetColor() const {return m_params.get<1>().m_v;}
+
     static string arrKeys[6];
   };
   string CircleRule::arrKeys[] = {

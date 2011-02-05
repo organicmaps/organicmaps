@@ -9,6 +9,7 @@
 #include "../geometry/rect2d.hpp"
 
 #include "pen_info.hpp"
+#include "circle_info.hpp"
 #include "color.hpp"
 #include "glyph_cache.hpp"
 
@@ -47,6 +48,14 @@ namespace yg
     PenUploadCmd();
   };
 
+  struct CircleUploadCmd
+  {
+    yg::CircleInfo m_circleInfo;
+    m2::RectU m_rect;
+    CircleUploadCmd(yg::CircleInfo const & circleInfo, m2::RectU const & rect);
+    CircleUploadCmd();
+  };
+
   struct FontInfo
   {
     int8_t m_fontSize;
@@ -67,16 +76,17 @@ namespace yg
 
   private:
 
-//    typedef unordered_map<uint32_t, shared_ptr<ResourceStyle> > TStyles;
     typedef map<uint32_t, shared_ptr<ResourceStyle> > TStyles;
     TStyles m_styles;
 
-//    typedef unordered_map<string, uint32_t> TPointNameMap;
     typedef map<string, uint32_t> TPointNameMap;
     TPointNameMap m_pointNameMap;
 
     typedef map<PenInfo, uint32_t> TPenInfoMap;
     TPenInfoMap m_penInfoMap;
+
+    typedef map<CircleInfo, uint32_t> TCircleInfoMap;
+    TCircleInfoMap m_circleInfoMap;
 
     typedef map<Color, uint32_t> TColorMap;
     TColorMap m_colorMap;
@@ -91,10 +101,12 @@ namespace yg
     vector<ColorUploadCmd> m_colorUploadCommands;
     vector<PenUploadCmd> m_penUploadCommands;
     vector<GlyphUploadCmd> m_glyphUploadCommands;
+    vector<CircleUploadCmd> m_circleUploadCommands;
 
     void uploadPenInfo();
     void uploadColors();
     void uploadGlyphs();
+    void uploadCircleInfo();
 
     typedef vector<FontInfo> TFonts;
     TFonts m_fonts;
@@ -113,6 +125,7 @@ namespace yg
     void clearColorHandles();
     void clearPenInfoHandles();
     void clearFontHandles();
+    void clearCircleInfoHandles();
 
     void clearHandles();
 
@@ -139,6 +152,10 @@ namespace yg
     uint32_t findPenInfo(PenInfo const & penInfo) const;
     uint32_t mapPenInfo(PenInfo const & penInfo);
     bool     hasRoom(PenInfo const & penInfo) const;
+
+    uint32_t findCircleInfo(CircleInfo const & circleInfo) const;
+    uint32_t mapCircleInfo(CircleInfo const & circleInfo);
+    bool hasRoom(CircleInfo const & circleInfo) const;
 
     uint32_t findGlyph(GlyphKey const & g, bool isFixedFont) const;
     uint32_t mapGlyph(GlyphKey const & g);
