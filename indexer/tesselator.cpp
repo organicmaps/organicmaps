@@ -1,6 +1,8 @@
 #include "tesselator.hpp"
 #include "geometry_coding.hpp"
 
+#include "../coding/writer.hpp"
+
 #include "../base/assert.hpp"
 #include "../base/logging.hpp"
 
@@ -81,7 +83,7 @@ namespace tesselator
   void TrianglesInfo::ListInfo::AddNeighbour(int p1, int p2, int trg)
   {
     // find or insert element for key
-    pair<neighbours_t::iterator, bool> ret = m_neighbours.insert(make_pair(make_pair(p1, p2), trg));
+    pair<neighbors_t::iterator, bool> ret = m_neighbors.insert(make_pair(make_pair(p1, p2), trg));
 
     // triangles should not duplicate
     CHECK ( ret.second, ("Duplicating triangles for indices : ", p1, p2) );
@@ -97,18 +99,42 @@ namespace tesselator
       AddNeighbour(arr32[i], arr32[(i+1)%3], trg);
   }
 
+  template <class IterT> size_t GetBufferSize(IterT b, IterT e)
+  {
+    vector<char> buffer;
+    MemWriter<vector<char> > writer(buffer);
+    while (b != e) WriteVarUint(writer, *b++);
+    return buffer.size();
+  }
+
   /// Find best (cheap in serialization) start edge for processing.
   TrianglesInfo::ListInfo::iter_t
-  TrianglesInfo::ListInfo::FindStartTriangle() const
+  TrianglesInfo::ListInfo::FindStartTriangle(PointsInfo const & points) const
   {
-    for (iter_t i = m_neighbours.begin(); i != m_neighbours.end(); ++i)
+    iter_t ret = m_neighbors.end();
+    size_t cr = numeric_limits<size_t>::max();
+
+    for (iter_t i = m_neighbors.begin(); i != m_neighbors.end(); ++i)
     {
-      if (m_neighbours.find(make_pair(i->first.second, i->first.first)) == m_neighbours.end())
-        return i;
+      if (m_neighbors.find(make_pair(i->first.second, i->first.first)) == m_neighbors.end())
+      {
+        uint64_t deltas[3];
+        deltas[0] = EncodeDelta(points.m_points[i->first.first], points.m_base);
+        deltas[1] = EncodeDelta(points.m_points[i->first.second], points.m_points[i->first.first]);
+        deltas[2] = EncodeDelta(points.m_points[m_triangles[i->second].GetPoint3(i->first)],
+                                points.m_points[i->first.second]);
+
+        size_t const sz = GetBufferSize(deltas, deltas + 3);
+        if (sz < cr)
+        {
+          ret = i;
+          cr = sz;
+        }
+      }
     }
 
-    ASSERT ( false, ("?WTF? There is no border triangles!") );
-    return m_neighbours.end();
+    ASSERT ( ret != m_neighbors.end(), ("?WTF? There is no border triangles!") );
+    return ret;
   }
 
   /// Return indexes of common edges of [to, from] triangles.
@@ -123,26 +149,26 @@ namespace tesselator
       }
     }
 
-    ASSERT ( false, ("?WTF? Triangles not neighbours!") );
+    ASSERT ( false, ("?WTF? Triangles not neighbors!") );
     return make_pair(-1, -1);
   }
 
-  /// Get neighbours of 'trg' triangle, wich was riched from 'from' triangle.
-  /// @param[out] nb  Neighbours indexes of 'trg' if 0->1 is common edge with'from':
+  /// Get neighbors of 'trg' triangle, which was achieved from 'from' triangle.
+  /// @param[out] nb  neighbors indexes of 'trg' if 0->1 is common edge with'from':
   /// - nb[0] - by 1->2 edge;
   /// - nb[1] - by 2->0 edge;
-  void TrianglesInfo::ListInfo::GetNeighbours(
+  void TrianglesInfo::ListInfo::GetNeighbors(
       Triangle const & trg, Triangle const & from, int * nb) const
   {
     int i = my::NextModN(CommonEdge(trg, from).first, 3);
     int j = my::NextModN(i, 3);
 
     int ind = 0;
-    iter_t it = m_neighbours.find(make_pair(trg.m_p[j], trg.m_p[i]));
-    nb[ind++] = (it != m_neighbours.end()) ? it->second : empty_key;
+    iter_t it = m_neighbors.find(make_pair(trg.m_p[j], trg.m_p[i]));
+    nb[ind++] = (it != m_neighbors.end()) ? it->second : empty_key;
 
-    it = m_neighbours.find(make_pair(trg.m_p[my::NextModN(j, 3)], trg.m_p[j]));
-    nb[ind++] = (it != m_neighbours.end()) ? it->second : empty_key;
+    it = m_neighbors.find(make_pair(trg.m_p[my::NextModN(j, 3)], trg.m_p[j]));
+    nb[ind++] = (it != m_neighbors.end()) ? it->second : empty_key;
   }
 
   /// Calc delta of 'from'->'to' graph edge.
@@ -163,22 +189,14 @@ namespace tesselator
     return EncodeDelta(points.m_points[to.m_p[(p.first+2) % 3]], prediction);
   }
 
-  // Element with less m_delta is better than another one.
-  struct edge_greater_delta
-  {
-    bool operator() (Edge const & e1, Edge const & e2) const
-    {
-      return (e1.m_delta > e2.m_delta);
-    }
-  };
-
-  void TrianglesInfo::ListInfo::MakeTrianglesChain(
+  template <class TPopOrder>
+  void TrianglesInfo::ListInfo::MakeTrianglesChainImpl(
       PointsInfo const & points, iter_t start, vector<Edge> & chain) const
   {
     Triangle const fictive(start->first.second, start->first.first, -1);
 
-    priority_queue<Edge, vector<Edge>, edge_greater_delta> q;
-    q.push(Edge(-1, start->second, 0.0, -1));
+    priority_queue<Edge, vector<Edge>, TPopOrder> q;
+    q.push(Edge(-1, start->second, 0, -1));
 
     // marks of visited nodes
     vector<bool> visited;
@@ -200,19 +218,48 @@ namespace tesselator
 
       Triangle const & trg = m_triangles[e.m_p[1]];
 
-      // get neighbours
+      // get neighbors
       int nb[2];
-      GetNeighbours(trg, (e.m_p[0] == -1) ? fictive : m_triangles[e.m_p[0]], nb);
+      GetNeighbors(trg, (e.m_p[0] == -1) ? fictive : m_triangles[e.m_p[0]], nb);
 
-      // push neighbours to queue
+      // push neighbors to queue
       for (int i = 0; i < 2; ++i)
         if (nb[i] != empty_key && !visited[nb[i]])
           q.push(Edge(e.m_p[1], nb[i], CalcDelta(points, trg, m_triangles[nb[i]]), i));
     }
   }
 
+  // Element with less m_delta is better than another one.
+  struct edge_greater_delta
+  {
+    bool operator() (Edge const & e1, Edge const & e2) const
+    {
+      return (e1.m_delta > e2.m_delta);
+    }
+  };
+
+  // Experimental ...
+  struct edge_less_delta
+  {
+    bool operator() (Edge const & e1, Edge const & e2) const
+    {
+      return (e1.m_delta < e2.m_delta);
+    }
+  };
+
+  void TrianglesInfo::ListInfo::MakeTrianglesChain(
+    PointsInfo const & points, iter_t start, vector<Edge> & chain, bool goodOrder) const
+  {
+    //if (goodOrder)
+      MakeTrianglesChainImpl<edge_greater_delta>(points, start, chain);
+    //else
+    //  MakeTrianglesChainImpl<edge_less_delta>(points, start, chain);
+  }
+
   void TrianglesInfo::Add(uintptr_t const * arr)
   {
+    // When adding triangles, check that they all have identical orientation!
+
     m2::PointD arrP[] = { m_points[arr[0]], m_points[arr[1]], m_points[arr[2]] };
     double const cp = m2::CrossProduct(arrP[1] - arrP[0], arrP[2] - arrP[1]);
 
@@ -227,5 +274,17 @@ namespace tesselator
     }
 
     m_triangles.back().Add(arr);
+  }
+
+  void TrianglesInfo::GetPointsInfo(m2::PointU const & baseP, m2::PointU const & maxP,
+                                    m2::PointU (*convert) (m2::PointD const &), PointsInfo & info) const
+  {
+    info.m_base = baseP;
+    info.m_max = maxP;
+
+    size_t const count = m_points.size();
+    info.m_points.reserve(count);
+    for (size_t i = 0; i < count; ++i)
+      info.m_points.push_back((*convert)(m_points[i]));
   }
 }

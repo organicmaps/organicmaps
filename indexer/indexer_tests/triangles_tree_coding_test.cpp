@@ -56,7 +56,11 @@ namespace
       info.Add(arrT[i]);
 
     serial::TrianglesChainSaver saver(0);
-    info.ProcessPortions(saver.GetBasePoint(), saver.GetMaxPoint(), &serial::pts::D2U, saver);
+
+    tesselator::PointsInfo points;
+    info.GetPointsInfo(saver.GetBasePoint(), saver.GetMaxPoint(), &serial::pts::D2U, points);
+
+    info.ProcessPortions(points, saver);
 
     vector<char> buffer;
     MemWriter<vector<char> > writer(buffer);

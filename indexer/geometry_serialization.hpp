@@ -141,6 +141,14 @@ namespace serial
 
     void operator() (PointT arr[3], vector<EdgeT> edges);
 
+    size_t GetBufferSize() const
+    {
+      size_t sz = 0;
+      for (list<BufferT>::const_iterator i = m_buffers.begin(); i != m_buffers.end(); ++i)
+        sz += i->size();
+      return sz;
+    }
+
     template <class TSink> void Save(TSink & sink)
     {
       size_t const count = m_buffers.size();

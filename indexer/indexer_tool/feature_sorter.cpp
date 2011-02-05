@@ -167,9 +167,20 @@ namespace feature
         tesselator::TrianglesInfo info;
         tesselator::TesselateInterior(bound, holes, info);
 
-        // triangles processing
         serial::TrianglesChainSaver saver(m_base);
-        info.ProcessPortions(saver.GetBasePoint(), saver.GetMaxPoint(), &serial::pts::D2U, saver);
+
+        // points conversion
+        tesselator::PointsInfo points;
+        info.GetPointsInfo(saver.GetBasePoint(), saver.GetMaxPoint(), &serial::pts::D2U, points);
+
+        // triangles processing (should be optimal)
+        info.ProcessPortions(points, saver, true);
+
+        // check triangles processing (to compare with optimal)
+        //serial::TrianglesChainSaver checkSaver(m_base);
+        //info.ProcessPortions(points, checkSaver, false);
+
+        //CHECK_LESS_OR_EQUAL(saver.GetBufferSize(), checkSaver.GetBufferSize(), ());
 
         // saving to file
         saver.Save(*m_rMain.m_trgFile[i]);

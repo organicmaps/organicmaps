@@ -48,11 +48,6 @@ namespace tesselator
     typedef m2::PointU PointT;
     vector<PointT> m_points;
     PointT m_base, m_max;
-
-    PointsInfo(PointT const & baseP, PointT const & maxP)
-      : m_base(baseP), m_max(maxP)
-    {
-    }
   };
 
   class TrianglesInfo
@@ -66,19 +61,19 @@ namespace tesselator
       vector<Triangle> m_triangles;
 
       // directed edge -> triangle
-      typedef unordered_map<pair<int, int>, int> neighbours_t;
-      neighbours_t m_neighbours;
+      typedef unordered_map<pair<int, int>, int> neighbors_t;
+      neighbors_t m_neighbors;
 
       void AddNeighbour(int p1, int p2, int trg);
 
-      void GetNeighbours(
+      void GetNeighbors(
           Triangle const & trg, Triangle const & from, int * nb) const;
 
       uint64_t CalcDelta(
           PointsInfo const & points, Triangle const & from, Triangle const & to) const;
 
     public:
-      typedef neighbours_t::const_iterator iter_t;
+      typedef neighbors_t::const_iterator iter_t;
 
       ListInfo(size_t count)
       {
@@ -87,9 +82,13 @@ namespace tesselator
 
       void Add(uintptr_t const * arr);
 
-      iter_t FindStartTriangle() const;
+      iter_t FindStartTriangle(PointsInfo const & points) const;
 
-      void MakeTrianglesChain(PointsInfo const & points, iter_t start, vector<Edge> & chain) const;
+    private:
+      template <class TPopOrder>
+      void MakeTrianglesChainImpl(PointsInfo const & points, iter_t start, vector<Edge> & chain) const;
+    public:
+      void MakeTrianglesChain(PointsInfo const & points, iter_t start, vector<Edge> & chain, bool goodOrder) const;
 
       Triangle GetTriangle(int i) const { return m_triangles[i]; }
     };
@@ -118,30 +117,25 @@ namespace tesselator
     void Add(uintptr_t const * arr);
     //@{
 
+    // Convert points from double to uint.
+    void GetPointsInfo( m2::PointU const & baseP, m2::PointU const & maxP,
+                        m2::PointU (*convert) (m2::PointD const &), PointsInfo & info) const;
+
     /// Triangles chains processing function.
     template <class EmitterT>
-    void ProcessPortions(m2::PointU const & baseP, m2::PointU const & maxP,
-                         m2::PointU (*convert) (m2::PointD const &), EmitterT & emitter)
+    void ProcessPortions(PointsInfo const & points, EmitterT & emitter, bool goodOrder = true) const
     {
-      // convert points from double to uint
-      size_t const count = m_points.size();
-      PointsInfo points(baseP, maxP);
-      points.m_points.reserve(count);
-      for (size_t i = 0; i < count; ++i)
-        points.m_points.push_back((*convert)(m_points[i]));
-
       // process portions and push out result chains
       vector<Edge> chain;
       for (list<ListInfo>::const_iterator i = m_triangles.begin(); i != m_triangles.end(); ++i)
       {
         chain.clear();
-        typename ListInfo::iter_t start = i->FindStartTriangle();
-        i->MakeTrianglesChain(points, start, chain);
+        typename ListInfo::iter_t start = i->FindStartTriangle(points);
+        i->MakeTrianglesChain(points, start, chain, goodOrder);
 
-        Triangle const trg = i->GetTriangle(start->second);
         m2::PointU arr[] = { points.m_points[start->first.first],
                              points.m_points[start->first.second],
-                             points.m_points[trg.GetPoint3(start->first)] };
+                             points.m_points[i->GetTriangle(start->second).GetPoint3(start->first)] };
 
         emitter(arr, chain);
       }
