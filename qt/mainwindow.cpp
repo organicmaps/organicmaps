@@ -40,10 +40,12 @@ MainWindow::MainWindow()
   setWindowTitle(tr("MapsWithMe"));
   setWindowIcon(QIcon(":logo.png"));
 
+#ifndef OMIM_OS_WINDOWS
   QMenu * helpMenu = new QMenu(tr("Help"), this);
   menuBar()->addMenu(helpMenu);
   helpMenu->addAction(tr("About"), this, SLOT(OnAbout()));
   helpMenu->addAction(tr("Preferences"), this, SLOT(OnPreferences()));
+#endif
 
   LoadState();
 }

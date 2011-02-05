@@ -9,7 +9,7 @@
 #include "../yg/renderbuffer.hpp"
 #include "../yg/resource_manager.hpp"
 
-#ifdef WIN32
+#ifdef OMIM_OS_WINDOWS
 #include "../yg/internal/opengl_win32.hpp"
 #endif
 
@@ -32,7 +32,7 @@ GLDrawWidget::~GLDrawWidget()
 
 void GLDrawWidget::initializeGL()
 {
-#ifdef WIN32
+#ifdef OMIM_OS_WINDOWS
   win32::InitOpenGL();
 #endif
 

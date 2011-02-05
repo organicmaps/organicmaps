@@ -8,7 +8,7 @@
 
 #include "../yg/rendercontext.hpp"
 
-#ifdef WIN32
+#ifdef OMIM_OS_WINDOWS
 #include "../yg/internal/opengl_win32.hpp"
 #endif
 
@@ -28,7 +28,7 @@ namespace qt
   {
     if (m_p == 0)
     {
-#ifdef WIN32
+#ifdef OMIM_OS_WINDOWS
       win32::InitOpenGL();
 #endif
       m_renderContext = shared_ptr<yg::gl::RenderContext>(new qt::gl::RenderContext(this));
