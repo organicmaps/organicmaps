@@ -17,6 +17,7 @@
 #include <boost/scoped_ptr.hpp>
 
 #include "kml_parser.hpp"
+#include "world_map_generator.hpp"
 
 namespace feature
 {
@@ -26,11 +27,11 @@ namespace feature
   {
   public:
     template <class TInfo>
-    Polygonizer(TInfo & info)
-    : m_FeatureOutInitData(info.datFilePrefix, info.datFileSuffix), m_Names(info.bucketNames)
+    Polygonizer(TInfo & info) : m_FeatureOutInitData(info.datFilePrefix, info.datFileSuffix),
+      m_worldMap(info.maxScaleForWorldFeatures, m_FeatureOutInitData)
     {
       CHECK(kml::LoadCountriesList(info.datFilePrefix, m_countries, info.simplifyCountriesLevel),
-            ("Error loading polygons"));
+            ("Error loading country polygons files"));
 
       //LOG_SHORT(LINFO, ("Loaded polygons count for regions:"));
       //for (size_t i = 0; i < m_countries.size(); ++i)
@@ -79,6 +80,9 @@ namespace feature
 
     void operator () (FeatureBuilder1 const & fb)
     {
+      if (m_worldMap(fb))
+        return; // do not duplicate feature in any country if it's stored in world map
+
       buffer_vector<kml::CountryPolygons const *, 32> vec;
       m_countries.ForEachInRect(fb.GetLimitRect(), InsertCountriesPtr(vec));
 
@@ -112,6 +116,11 @@ namespace feature
       (*(m_Buckets[country->m_index]))(fb);
     }
 
+    vector<string> const & Names()
+    {
+      return m_Names;
+    }
+
   private:
     typename FeatureOutT::InitDataType m_FeatureOutInitData;
 
@@ -119,5 +128,7 @@ namespace feature
     vector<string> m_Names;
 
     kml::CountriesContainerT m_countries;
+
+    WorldMapGenerator<FeatureOutT> m_worldMap;
   };
 }

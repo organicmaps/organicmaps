@@ -14,8 +14,7 @@ PROCESSORS=4
 # displays usage and exits
 function Usage {
   echo ''
-  echo "Usage: $0 [path_to_data_folder_with_classsif_and_planet.osm.bz2] [bucketing_level] [optional_path_to_intermediate_data] [world_only]"
-  echo "Note, that for coastlines bucketing_level should be 0"
+  echo "Usage: $0 [path_to_data_folder_with_classsif_and_planet.osm.bz2] [bucketing_level] [optional_path_to_intermediate_data]"
   echo "Planet squares size is (2^bucketing_level x 2^bucketing_level)"
   echo "If optional intermediate path is given, only second pass will be executed"
   exit 0
@@ -100,12 +99,6 @@ then
   PV=pv
 fi
 
-WORLD_ONLY=false
-if [ $# -ge 4  ]; then
-  WORLD_ONLY=true
-fi
-
-
 # skip 1st pass if intermediate data path was given
 if [ $# -lt 3 ]; then
   # 1st pass - not paralleled
@@ -117,7 +110,7 @@ fi
 # 2nd pass - not paralleled
 $PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
   --use_light_nodes=$LIGHT_NODES --bucketing_level=$BUCKETING_LEVEL \
-  --generate_features --worldmap_max_zoom=5 --world_only=$WORLD_ONLY \
+  --generate_features --generate_world_scale=5 \
   --data_path=$DATA_PATH
 
 # 3rd pass - do in parallel

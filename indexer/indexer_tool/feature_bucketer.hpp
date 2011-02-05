@@ -1,19 +1,16 @@
 #pragma once
 
+#include "world_map_generator.hpp"
+
 #include "../../base/base.hpp"
-#include "../../base/logging.hpp"
 
 #include "../../coding/file_writer.hpp"
 
 #include "../../geometry/rect2d.hpp"
 
 #include "../../indexer/feature.hpp"
-#include "../../indexer/feature_visibility.hpp"
-#include "../../defines.hpp"
 
 #include "../../std/string.hpp"
-
-#include <boost/scoped_ptr.hpp>
 
 namespace feature
 {
@@ -35,37 +32,28 @@ class CellFeatureBucketer
       CellIdConverter<BoundsT, CellIdT>::GetCellBounds(cell, minX, minY, maxX, maxY);
       m_Buckets[i].m_Rect = m2::RectD(minX, minY, maxX, maxY);
     }
-    // create separate world bucket if necessary
-    if (m_maxWorldZoom >= 0)
-      m_worldBucket.reset(new FeatureOutT(WORLD_FILE_NAME, m_FeatureOutInitData));
   }
 
 public:
   template <class TInfo>
   explicit CellFeatureBucketer(TInfo & info)
   : m_Level(info.cellBucketingLevel), m_FeatureOutInitData(info.datFilePrefix, info.datFileSuffix),
-    m_maxWorldZoom(info.maxScaleForWorldFeatures)
+    m_worldMap(info.maxScaleForWorldFeatures, m_FeatureOutInitData)
   {
     Init();
   }
 
+  /// @note this constructor doesn't support world file generation
   CellFeatureBucketer(int level, typename FeatureOutT::InitDataType const & initData)
-    : m_Level(level), m_FeatureOutInitData(initData), m_maxWorldZoom(-1)
+    : m_Level(level), m_FeatureOutInitData(initData), m_worldMap(-1, initData)
   {
     Init();
   }
 
   void operator () (feature_builder_t const & fb)
   {
-    int minScale = feature::MinDrawableScaleForFeature(fb.GetFeatureBase());
-    if (minScale == -1)
-    {
-      LOG(LWARNING, ("Non-drawable feature found, ignoring"));
-      return;
-    }
-    // separately store features needed for world map
-    if (m_worldBucket && m_maxWorldZoom >= minScale)
-      (*m_worldBucket)(fb);
+    if (m_worldMap(fb))
+      return; // we do not duplicate features in world and bucket files
 
     FeatureClipperT clipper(fb);
     // TODO: Is feature fully inside GetLimitRect()?
@@ -113,9 +101,7 @@ private:
   int m_Level;
   typename FeatureOutT::InitDataType m_FeatureOutInitData;
   vector<Bucket> m_Buckets;
-  /// if NULL, separate world data file is not generated
-  boost::scoped_ptr<FeatureOutT> m_worldBucket;
-  int m_maxWorldZoom;
+  WorldMapGenerator<FeatureOutT> m_worldMap;
 };
 
 class SimpleFeatureClipper

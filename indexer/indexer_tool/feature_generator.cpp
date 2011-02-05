@@ -302,13 +302,15 @@ bool GenerateImpl(GenerateInfo & info)
       FeaturePolygonizerType bucketer(info);
       TParser<FeaturePolygonizerType, holder_t> parser(bucketer, holder);
       ParseXMLFromStdIn(parser);
+      info.bucketNames = bucketer.Names();
     }
     else
     {
       CHECK_GREATER_OR_EQUAL(info.cellBucketingLevel, 0, ());
       CHECK_LESS(info.cellBucketingLevel, 10, ());
 
-      typedef CellFeatureBucketer<FeaturesCollector, SimpleFeatureClipper, MercatorBounds, RectId> FeatureBucketerType;
+      typedef CellFeatureBucketer<FeaturesCollector, SimpleFeatureClipper,
+              MercatorBounds, RectId> FeatureBucketerType;
       FeatureBucketerType bucketer(info);
       TParser<FeatureBucketerType, holder_t> parser(bucketer, holder);
       ParseXMLFromStdIn(parser);
