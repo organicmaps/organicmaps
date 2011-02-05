@@ -330,7 +330,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t * rules, int * depthV
       if (isArea)
       {
         bool const isFill = pRule->GetFillColor() != -1;
-        bool isSym = isSymbol && ((pRule->GetType() & drule::way) != 0);
+        bool const isSym = isSymbol && ((pRule->GetType() & drule::way) != 0);
 
         for (list<di::AreaInfo>::const_iterator i = pInfo->m_areas.begin(); i != pInfo->m_areas.end(); ++i)
         {
@@ -338,14 +338,17 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t * rules, int * depthV
             drawArea(i->m_path, pRule, depth);
           else if (isSym)
             drawSymbol(i->GetCenter(), pRule, yg::EPosLeft, depth);
-          if (isCircle)
-            drawCircle(i->GetCenter(), pRule, depth);
         }
       }
 
       // draw point symbol
-      if (!isPath && !isArea && isSymbol && ((pRule->GetType() & drule::node) != 0))
-        drawSymbol(pInfo->m_point, pRule, yg::EPosLeft, depth);
+      if (!isPath && !isArea && ((pRule->GetType() & drule::node) != 0))
+      {
+        if (isSymbol)
+          drawSymbol(pInfo->m_point, pRule, yg::EPosLeft, depth);
+        if (isCircle)
+          drawCircle(pInfo->m_point, pRule, depth);
+      }
     }
     else
     {
@@ -357,11 +360,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t * rules, int * depthV
         if (isArea && isN)
         {
           for (list<di::AreaInfo>::const_iterator i = pInfo->m_areas.begin(); i != pInfo->m_areas.end(); ++i)
-          {
             drawText(i->GetCenter(), pInfo->m_name, pRule, depth);
-            if (isCircle)
-              drawCircle(i->GetCenter(), pRule, depth);
-          }
         }
 
         // draw way name
@@ -394,10 +393,6 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t * rules, int * depthV
         isN = ((pRule->GetType() & drule::node) != 0);
         if (!isPath && !isArea && isN)
           drawText(pInfo->m_point, pInfo->m_name, pRule, depth);
-
-        if (isCircle)
-          drawCircle(pInfo->m_point, pRule, depth);
-
       }
     }
   }

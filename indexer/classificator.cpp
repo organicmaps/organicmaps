@@ -286,7 +286,7 @@ namespace
     void add_rule(int ft, iter_t i)
     {
       static const int visible[3][drule::count_of_rules] = {
-        {0, 0, 1, 1, 0, 0, 0},   // fpoint
+        {0, 0, 1, 1, 1, 0, 0},   // fpoint
         {1, 0, 0, 0, 0, 1, 0},   // fline
         {1, 1, 1, 1, 0, 0, 0}    // farea
       };
@@ -406,7 +406,7 @@ bool ClassifObject::IsDrawableLike(feature_t ft) const
   ASSERT ( ft <= farea, () );
 
   static const int visible[3][drule::count_of_rules] = {
-    {0, 0, 1, 1, 0, 0, 0},   // fpoint
+    {0, 0, 1, 1, 1, 0, 0},   // fpoint
     {1, 0, 0, 0, 0, 1, 0},   // fline
     {0, 1, 0, 0, 0, 0, 0}    // farea (!!! key difference with GetSuitable !!!)
   };
