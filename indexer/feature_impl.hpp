@@ -72,12 +72,6 @@ namespace feature
       }
     };
 
-    template <class TCont>
-    void const * ReadPointsSimple(void const * p, size_t count, int64_t base, TCont & points)
-    {
-      return ReadVarInt64Array(p, count, points_emitter<TCont>(points, count, base));
-    }
-
     template <class TCont, class TSource>
     void ReadPoints(TCont & points, int64_t base, TSource & src)
     {
@@ -91,17 +85,6 @@ namespace feature
   }
 
   template <class TSink>
-  void SavePointsSimple(vector<m2::PointD> const & points, int64_t base, TSink & sink)
-  {
-    ASSERT_GREATER ( points.size(), 1, () );
-
-    vector<int64_t> cells;
-    detail::TransformPoints(points, cells);
-
-    detail::WriteCellsSimple(cells, base, sink);
-  }
-
-  template <class TSink>
   void SavePoints(vector<m2::PointD> const & points, int64_t base, TSink & sink)
   {
     ASSERT_GREATER ( points.size(), 1, () );
@@ -112,48 +95,12 @@ namespace feature
     detail::WriteCells(cells, base, sink);
   }
 
-  template <class TCont>
-  void const * LoadPointsSimple(void const * p, size_t count, int64_t base, TCont & points)
-  {
-    ASSERT_GREATER ( count, 1, () );
-    void const * ret = detail::ReadPointsSimple(p, count, base, points);
-    ASSERT_GREATER ( points.size(), 1, () );
-    return ret;
-  }
-
   template <class TCont, class TSource>
   void LoadPoints(TCont & points, int64_t base, TSource & src)
   {
     detail::ReadPoints(points, base, src);
 
     ASSERT_GREATER ( points.size(), 1, () );
-  }
-
-  template <class TSink>
-  void SaveTriangles(vector<m2::PointD> const & triangles, int64_t base, TSink & sink)
-  {
-#ifdef DEBUG
-    uint32_t const count = triangles.size();
-    ASSERT_GREATER ( count, 0, () );
-    ASSERT_EQUAL ( count % 3, 0, (count) );
-#endif
-
-    vector<int64_t> cells;
-    detail::TransformPoints(triangles, cells);
-
-    detail::WriteCells(cells, base, sink);
-  }
-
-  template <class TCont, class TSource>
-  void LoadTriangles(TCont & points, int64_t base, TSource & src)
-  {
-    detail::ReadPoints(points, base, src);
-
-#ifdef DEBUG
-    uint32_t const count = points.size();
-    ASSERT_GREATER ( count, 0, () );
-    ASSERT_EQUAL ( count % 3, 0, (count) );
-#endif
   }
 
 

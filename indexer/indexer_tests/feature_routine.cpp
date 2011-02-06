@@ -4,7 +4,6 @@
 
 #include "../../defines.hpp"    // just for file extensions
 
-#include "../feature_impl.hpp"
 #include "../geometry_serialization.hpp"
 
 #include "../../coding/file_writer.hpp"
