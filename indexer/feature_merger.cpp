@@ -2,6 +2,8 @@
 
 //#include "../base/logging.hpp"
 
+#define MAX_MERGED_POINTS_COUNT 10000
+
 FeatureBuilder1Merger::FeatureBuilder1Merger(FeatureBuilder1 const & fb)
   : FeatureBuilder1(fb)
 {
@@ -15,6 +17,12 @@ bool FeatureBuilder1Merger::MergeWith(FeatureBuilder1 const & fb)
 
   // check that classificator types are the same
   if (fb.m_Types != m_Types)
+    return false;
+
+  // do not create too long features
+  if (m_Geometry.size() > MAX_MERGED_POINTS_COUNT)
+    return false;
+  if (fb.m_Geometry.size() > MAX_MERGED_POINTS_COUNT)
     return false;
 
   // check last-first points equality
