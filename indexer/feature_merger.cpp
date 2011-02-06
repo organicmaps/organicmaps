@@ -1,6 +1,6 @@
 #include "feature_merger.hpp"
 
-#include "../base/logging.hpp"
+//#include "../base/logging.hpp"
 
 FeatureBuilder1Merger::FeatureBuilder1Merger(FeatureBuilder1 const & fb)
   : FeatureBuilder1(fb)
@@ -41,9 +41,9 @@ bool FeatureBuilder1Merger::MergeWith(FeatureBuilder1 const & fb)
     return false; // no common points were found...
 
 
-  static int counter = 0;
+  //static int counter = 0;
   // @TODO check if we got AREA feature after merging, this can be useful for coastlines
-  LOG(LINFO, (++counter, "features were merged!"));
+  //LOG(LINFO, (++counter, "features were merged!"));
 
   return true;
 }

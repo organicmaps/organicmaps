@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../../base/logging.hpp"
+
 #include "../../defines.hpp"
 
 #include "../../indexer/feature.hpp"
@@ -68,6 +70,10 @@ public:
 
   ~WorldMapGenerator()
   {
+    if (m_mergeCoastlines)
+    {
+      LOG(LINFO, ("Final merging of coastlines started"));
+    }
     // try to merge all merged features with each other
     while (ReMergeFeatures())
     {
@@ -76,6 +82,12 @@ public:
     // emit all merged features
     for (FeaturesContainerT::iterator it = m_features.begin(); it != m_features.end(); ++it)
       (*m_worldBucket)(*it);
+
+    if (m_mergeCoastlines)
+    {
+      LOG(LINFO, ("Final merging of coastlines ended"));
+    }
+
   }
 
   bool operator()(FeatureBuilder1 const & fb)
