@@ -12,14 +12,16 @@ namespace qt
 {
   class FindTableWnd;
   class DrawWidget;
+  class UpdateDialog;
 
   class MainWindow : public QMainWindow
   {
     DrawWidget * m_pDrawWidget;
     QDockWidget * m_pClassifDock;
     //FindTableWnd * m_pFindTable;
+    UpdateDialog * m_updateDialog;
 
-    storage::Storage m_Storage;
+    storage::Storage m_storage;
 
     Q_OBJECT
 

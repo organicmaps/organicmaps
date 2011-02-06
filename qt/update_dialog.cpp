@@ -73,18 +73,6 @@ namespace qt
 
     setWindowTitle(tr("Geographical Regions"));
     resize(600, 500);
-
-    // we want to receive all download progress and result events
-    m_storage.Subscribe(boost::bind(&UpdateDialog::OnCountryChanged, this, _1),
-                        boost::bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2),
-                        boost::bind(&UpdateDialog::OnUpdateCheck, this, _1, _2));
-    FillTree();
-  }
-
-  UpdateDialog::~UpdateDialog()
-  {
-    // tell download manager that we're gone...
-    m_storage.Unsubscribe();
   }
 
   /// when user clicks on any map row in the table
@@ -326,6 +314,19 @@ namespace qt
     QTreeWidgetItem * item = GetTreeItemByIndex(*m_tree, index);
     if (item)
       item->setText(KColumnIndexSize, QString("%1%").arg(progress.first * 100 / progress.second));
+  }
+
+  void UpdateDialog::ShowDialog()
+  {
+    // we want to receive all download progress and result events
+    m_storage.Subscribe(boost::bind(&UpdateDialog::OnCountryChanged, this, _1),
+                        boost::bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2),
+                        boost::bind(&UpdateDialog::OnUpdateCheck, this, _1, _2));
+    // if called for first time
+    if (!m_tree->topLevelItemCount())
+      FillTree();
+
+    exec();
   }
 
 }

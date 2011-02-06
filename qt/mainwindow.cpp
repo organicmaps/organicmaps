@@ -27,9 +27,9 @@
 namespace qt
 {
 
-MainWindow::MainWindow()
+MainWindow::MainWindow() : m_updateDialog(0)
 {
-  m_pDrawWidget = new DrawWidget(this, m_Storage);
+  m_pDrawWidget = new DrawWidget(this, m_storage);
 
   CreateNavigationBar();
 
@@ -206,8 +206,11 @@ void MainWindow::CreateNavigationBar()
 
 void MainWindow::ShowUpdateDialog()
 {
-  UpdateDialog dlg(this, m_Storage);
-  dlg.exec();
+  if (!m_updateDialog)
+    m_updateDialog = new UpdateDialog(this, m_storage);
+  m_updateDialog->ShowDialog();
+  // tell download manager that we're gone...
+  m_storage.Unsubscribe();
 }
 
 void MainWindow::ShowClassifPanel()

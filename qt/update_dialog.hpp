@@ -17,7 +17,6 @@ namespace qt
 
   public:
     explicit UpdateDialog(QWidget * parent, storage::Storage & storage);
-    ~UpdateDialog();
 
     /// @name Called from downloader to notify GUI
     //@{
@@ -28,6 +27,8 @@ namespace qt
     /// @param readme optional, can be NULL
     void OnUpdateCheck(int64_t updateSize, char const * readme);
     //@}
+
+    void ShowDialog();
 
   private slots:
     void OnItemClick(QTreeWidgetItem * item, int column);
