@@ -38,14 +38,14 @@ public:
   template <class TInfo>
   explicit CellFeatureBucketer(TInfo & info)
   : m_Level(info.cellBucketingLevel), m_FeatureOutInitData(info.datFilePrefix, info.datFileSuffix),
-    m_worldMap(info.maxScaleForWorldFeatures, m_FeatureOutInitData)
+    m_worldMap(info.maxScaleForWorldFeatures, info.mergeCoastlines, m_FeatureOutInitData)
   {
     Init();
   }
 
   /// @note this constructor doesn't support world file generation
   CellFeatureBucketer(int level, typename FeatureOutT::InitDataType const & initData)
-    : m_Level(level), m_FeatureOutInitData(initData), m_worldMap(-1, initData)
+    : m_Level(level), m_FeatureOutInitData(initData), m_worldMap(-1, false, initData)
   {
     Init();
   }

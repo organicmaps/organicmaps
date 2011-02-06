@@ -17,7 +17,7 @@ namespace feature
   {
     GenerateInfo()
       : maxScaleForWorldFeatures(-1), splitByPolygons(false),
-        simplifyCountriesLevel(-1) {}
+        simplifyCountriesLevel(-1), mergeCoastlines(false) {}
     string tmpDir, datFilePrefix, datFileSuffix;
     /// If not -1, world will be split by buckets with specified level
     int cellBucketingLevel;
@@ -28,6 +28,7 @@ namespace feature
     int maxScaleForWorldFeatures;
     bool splitByPolygons;
     int simplifyCountriesLevel;
+    bool mergeCoastlines;
   };
 
   bool GenerateFeatures(GenerateInfo & info, bool lightNodes);

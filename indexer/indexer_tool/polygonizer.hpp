@@ -28,7 +28,7 @@ namespace feature
   public:
     template <class TInfo>
     Polygonizer(TInfo & info) : m_FeatureOutInitData(info.datFilePrefix, info.datFileSuffix),
-      m_worldMap(info.maxScaleForWorldFeatures, m_FeatureOutInitData)
+      m_worldMap(info.maxScaleForWorldFeatures, info.mergeCoastlines, m_FeatureOutInitData)
     {
       CHECK(kml::LoadCountriesList(info.datFilePrefix, m_countries, info.simplifyCountriesLevel),
             ("Error loading country polygons files"));

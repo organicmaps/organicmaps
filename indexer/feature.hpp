@@ -20,6 +20,9 @@ class FeatureBase;
 /// Used for serialization\deserialization of features during --generate_features.
 class FeatureBuilder1
 {
+  // needed for hacky coastlines merging
+  friend class FeatureBuilder1Merger;
+
 public:
   FeatureBuilder1();
 

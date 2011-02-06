@@ -24,7 +24,7 @@ SOURCES += \
   update_generator.cpp \
   grid_generator.cpp \
   statistics.cpp \
-  kml_parser.cpp
+  kml_parser.cpp \
 
 HEADERS += \
   osm_element.hpp \
@@ -39,4 +39,4 @@ HEADERS += \
   statistics.hpp \
   kml_parser.hpp \
   polygonizer.hpp \
-    world_map_generator.hpp
+  world_map_generator.hpp \
