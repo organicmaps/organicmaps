@@ -2,17 +2,20 @@
 
 #include "circle_info.hpp"
 
+#include "../base/math.hpp"
+
+
 namespace yg
 {
-  CircleInfo::CircleInfo(unsigned radius,
+  CircleInfo::CircleInfo(double radius,
                          Color const & color,
                          bool isOutlined,
-                         unsigned outlineWidth,
+                         double outlineWidth,
                          Color const & outlineColor)
-     : m_radius(radius),
+   : m_radius(my::rounds(radius)),
      m_color(color),
      m_isOutlined(isOutlined),
-     m_outlineWidth(outlineWidth),
+     m_outlineWidth(my::rounds(outlineWidth)),
      m_outlineColor(outlineColor)
   {}
 

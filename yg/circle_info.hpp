@@ -14,10 +14,10 @@ namespace yg
 
     CircleInfo();
     CircleInfo(
-        unsigned radius,
+        double radius,
         Color const & color = Color(0, 0, 0, 255),
         bool isOutlined = false,
-        unsigned outlineWidth = 1,
+        double outlineWidth = 1,
         Color const & outlineColor = Color(255, 255, 255, 255));
   };
 

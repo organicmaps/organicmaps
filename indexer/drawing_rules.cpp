@@ -171,11 +171,12 @@ namespace drule {
     }
     else if (s == "none") v = color_t::none;
     else if (s == "black") { /*already initialized*/ }
-    else if (s == "white") v = 0x00FFFFFF;
-    else if (s == "red") v = 0x00FF0000;
-    else if (s == "green") v = 0x0000FF00;
-    else if (s == "blue") v = 0x000000FF;
+    else if (s == "white") v = 0xFFFFFF;
+    else if (s == "red") v = 0xFF0000;
+    else if (s == "green") v = 0x00FF00;
+    else if (s == "blue") v = 0x0000FF;
     else if (s == "lightblue") v = 0xADD8E6;
+    else if (s == "yellow") v = 0xFFFF00;
     else
     {
       ASSERT ( !"check color values", (s) );
@@ -486,11 +487,11 @@ namespace drule {
     // Specify the minimum and the maximum width. If the way doesn't have the width tag,
     // the line is drawn with the width specified by CSS
     "minimum-width", "maximum-width",
-    // The colour of the line.
+    // The color of the line.
     "stroke",
     // The width of the line.
     "stroke-width",
-    // Specifing the line style.
+    // Specifying the line style.
     "stroke-dasharray",
     // How to draw the terminal. Choice one from round, butt or square.
     "stroke-linecap",
@@ -588,10 +589,10 @@ namespace drule {
 
     "font-family",  // The font family of the text. (ex. serif, "DejaVu Sans")
     "font-size",    // The size of the font.
-    "fill",         // The colour of the text.
+    "fill",         // The color of the text.
     "fill-opacity", // The opacity of the text. The value takes from 0.0 (completely transparent)
                     // to 1.0 (completely overdrawing). The default is 1.0 .
-    "stroke"        // The colour of the font outline. Usually it should be none.
+    "stroke"        // The color of the font outline. Usually it should be none.
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////
@@ -601,26 +602,29 @@ namespace drule {
   {
     tuple<px_metric_t, color_t, double, color_t, px_metric_t, double> m_params;
 
-    CircleRule() : m_params(make_tuple(1, color_t(), 1.0, color_t::none, 1.0, 1.0)) {}
+    CircleRule() : m_params(make_tuple(1, color_t(), 1.0, color_t::none, 0.0, 1.0)) {}
 
     virtual bool IsEqual(BaseRule const * p) const { return is_equal_rules(this, p); }
     virtual void Read(FileReaderStream & ar) { read_rules(ar, this); }
     virtual void Write(FileWriterStream & ar) const { write_rules(ar, this); }
 
-    virtual double GetRadius() const {return m_params.get<0>().m_v;}
-    virtual int GetStrokeColor() const {return m_params.get<3>().m_v;}
-    virtual int GetColor() const {return m_params.get<1>().m_v;}
+    virtual double GetRadius() const { return m_params.get<0>().m_v; }
+    virtual int GetFillColor() const { return m_params.get<1>().m_v; }
+    virtual unsigned char GetAlpha() const { return alpha_opacity(m_params.get<2>()); }
+
+    virtual int GetColor() const { return m_params.get<3>().m_v; }
+    virtual double GetWidth() const { return m_params.get<4>().m_v; }
 
     static string arrKeys[6];
   };
   string CircleRule::arrKeys[] = {
-    "r",            // The radius of a circle.
-    "fill"          // The colour of the filling.
-    "fill-opacity"  // The opacity of the filling. The value takes from 0.0 (completely transparent)
-                    // to 1.0 (completely overdrawing). The default is 1.0 .
-    "stroke"        // The colour of the outline. If you don't want to draw the outline,
-                    // set it as none.
-    "stroke-width"  // The width of the outline.
+    "r",              // The radius of a circle.
+    "fill",           // The color of the filling.
+    "fill-opacity",   // The opacity of the filling. The value takes from 0.0 (completely transparent)
+                      // to 1.0 (completely overdrawing). The default is 1.0 .
+    "stroke",         // The color of the outline. If you don't want to draw the outline,
+                      // set it as none.
+    "stroke-width",   // The width of the outline.
     "stroke-opacity"  // The opacity of the line.
   };
 
@@ -665,10 +669,10 @@ namespace drule {
 
     "font-family",  // The font family of the text. (ex. serif, "DejaVu Sans")
     "font-size",    // The size of the font.
-    "fill",         // The colour of the text.
+    "fill",         // The color of the text.
     "fill-opacity", // The opacity of the text. The value takes from 0.0 (completely transparent)
                     // to 1.0 (completely overdrawing). The default is 1.0 .
-    "stroke"        // The colour of the font outline. Usually it should be none.
+    "stroke"        // The color of the font outline. Usually it should be none.
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////
@@ -689,7 +693,7 @@ namespace drule {
   string WayMarkerRule::arrKeys[] = {
     // It specified the key of the way that passes through the node. (eg k="highway" ).
     "k",
-    "stroke",           // The colour of the line.
+    "stroke",           // The color of the line.
     "stroke-width",     // The width of the line.
     "stroke-linecap",   // How to draw the terminal. Choice one from round, butt or square.
     "stroke-opacity"    // The opacity of the line. The value takes from 0.0 (completely invisible)

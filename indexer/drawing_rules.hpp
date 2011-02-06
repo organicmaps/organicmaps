@@ -59,8 +59,7 @@ namespace drule
     virtual void GetPattern(vector<double> &, double &) const {}
     virtual void GetSymbol(string &) const {}
 
-    virtual double GetRadius() const {return -1;}
-    virtual int GetStrokeColor() const {return -1;}
+    virtual double GetRadius() const { return -1; }
   };
 
   class RulesHolder

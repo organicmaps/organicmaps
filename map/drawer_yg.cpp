@@ -90,15 +90,16 @@ void DrawerYG::drawCircle(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition
   uint32_t id = pRule->GetID();
   if (id == drule::BaseRule::empty_id)
   {
-    double radius = min(max(pRule->GetRadius(), 3.0), 6.0) * m_visualScale;
+    double const radius = min(max(pRule->GetRadius() * m_scale, 3.0), 6.0) * m_visualScale;
+    unsigned char const alpha = pRule->GetAlpha();
+    int const lineC = pRule->GetColor();
 
-    yg::CircleInfo info(radius,
-                        yg::Color::fromXRGB(pRule->GetColor(), pRule->GetAlpha()),
-                        true,
-                        m_visualScale,
-                        yg::Color::fromXRGB(pRule->GetStrokeColor(), pRule->GetAlpha()));
-
-    id = m_pSkin->mapCircleInfo(info);
+    id = m_pSkin->mapCircleInfo(yg::CircleInfo(
+                  radius,
+                  yg::Color::fromXRGB(pRule->GetFillColor(), alpha),
+                  lineC != -1,
+                  (lineC != -1) ? min(max(pRule->GetWidth() * m_scale * m_visualScale, 1.0), 3.0) : 1.0,
+                  yg::Color::fromXRGB(lineC, alpha)));
 
     if (id != drule::BaseRule::empty_id)
       pRule->SetID(id);
