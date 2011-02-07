@@ -24,6 +24,9 @@
 
 #include "../base/start_mem_debug.hpp"
 
+#define IDM_ABOUT_DIALOG        1001
+#define IDM_PREFERENCES_DIALOG  1002
+
 namespace qt
 {
 
@@ -45,10 +48,53 @@ MainWindow::MainWindow() : m_updateDialog(0)
   menuBar()->addMenu(helpMenu);
   helpMenu->addAction(tr("About"), this, SLOT(OnAbout()));
   helpMenu->addAction(tr("Preferences"), this, SLOT(OnPreferences()));
+#else
+  { // create items in the system menu
+    QByteArray const aboutStr = tr("About MapsWithMe...").toLocal8Bit();
+    QByteArray const prefsStr = tr("Preferences...").toLocal8Bit();
+    // we use system menu for our items
+    HMENU menu = ::GetSystemMenu(winId(), FALSE);
+    MENUITEMINFOA item;
+    item.cbSize = sizeof(MENUITEMINFOA);
+    item.fMask = MIIM_FTYPE | MIIM_ID | MIIM_STRING;
+    item.fType = MFT_STRING;
+    item.wID = IDM_PREFERENCES_DIALOG;
+    item.dwTypeData = const_cast<char *>(prefsStr.data());
+    item.cch = prefsStr.size();
+    ::InsertMenuItemA(menu, ::GetMenuItemCount(menu) - 1, TRUE, &item);
+    item.wID = IDM_ABOUT_DIALOG;
+    item.dwTypeData = const_cast<char *>(aboutStr.data());
+    item.cch = aboutStr.size();
+    ::InsertMenuItemA(menu, ::GetMenuItemCount(menu) - 1, TRUE, &item);
+    item.fType = MFT_SEPARATOR;
+    ::InsertMenuItemA(menu, ::GetMenuItemCount(menu) - 1, TRUE, &item);
+  }
 #endif
 
   LoadState();
 }
+
+#if defined(Q_WS_WIN)
+bool MainWindow::winEvent(MSG * msg, long * result)
+{
+  if (msg->message == WM_SYSCOMMAND)
+  {
+    if (msg->wParam == IDM_PREFERENCES_DIALOG)
+    {
+      OnPreferences();
+      *result = 0;
+      return true;
+    }
+    else if (msg->wParam == IDM_ABOUT_DIALOG)
+    {
+      OnAbout();
+      *result = 0;
+      return true;
+    }
+  }
+  return false;
+}
+#endif
 
 MainWindow::~MainWindow()
 {
