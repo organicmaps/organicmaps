@@ -151,8 +151,11 @@ private:
       }
       else
       {
-        if (++m_QueriesSkipped > 8)
-          Close();
+        if (m_pIndex)
+        {
+          if (++m_QueriesSkipped > 8)
+            Close();
+        }
         return NULL;
       }
     }
@@ -167,6 +170,17 @@ private:
       Close();
     }
 
+    void Close()
+    {
+      if (m_pIndex)
+      {
+        // LOG(LINFO, (m_Path));
+        delete m_pIndex;
+        m_pIndex = NULL;
+        m_QueriesSkipped = 0;
+      }
+    }
+
   private:
 
     void Open()
@@ -178,16 +192,6 @@ private:
         uint32_t const logPageCount = 12;
         FilesContainerR container(m_Path, logPageSize, logPageCount);
         m_pIndex = new IndexT(container);
-      }
-    }
-
-    void Close()
-    {
-      if (m_pIndex)
-      {
-        // LOG(LINFO, (m_Path));
-        delete m_pIndex;
-        m_pIndex = NULL;
       }
     }
 
