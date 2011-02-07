@@ -22,19 +22,43 @@ namespace yg
 {
   namespace gl
   {
-    TextRenderer::TextRenderer(base_t::Params const & params)
-      : base_t(params)
+    TextRenderer::Params::Params()
+      : m_textTreeAutoClean(true)
+    {}
+
+    TextRenderer::TextRenderer(Params const & params)
+      : base_t(params), m_textTreeAutoClean(params.m_textTreeAutoClean)
     {}
 
     void TextRenderer::TextObj::Draw(TextRenderer * pTextRenderer) const
     {
-      pTextRenderer->drawTextImpl(m_pt, 0.0, m_size, m_color, m_utf8Text, m_isMasked, m_maskColor, yg::maxDepth, m_isFixedFont, m_log2vis);
+      /// this value is assigned inside offsetTextRect function to the texts which completely
+      /// lies inside the testing rect and therefore should be skipped.
+      if (m_needRedraw)
+      {
+        pTextRenderer->drawTextImpl(m_pt, 0.0, m_size, m_color, m_utf8Text, m_isMasked, m_maskColor, yg::maxDepth, m_isFixedFont, m_log2vis);
+        /// boosting its depth to "out of range" value,
+        /// to mark it as a rendered text and prevent it from
+        /// popping out of tree, when more important text arrives
+        m_depth = yg::maxDepth;
+      }
     }
 
     m2::RectD const TextRenderer::TextObj::GetLimitRect(TextRenderer* pTextRenderer) const
     {
       return m2::Offset(pTextRenderer->textRect(m_utf8Text, m_size, false, m_log2vis), m_pt);
     }
+
+    void TextRenderer::TextObj::SetNeedRedraw(bool flag) const
+    {
+      m_needRedraw = flag;
+    }
+
+    void TextRenderer::TextObj::Offset(m2::PointD const & offs)
+    {
+      m_pt += offs;
+    }
+
 
     void TextRenderer::drawText(m2::PointD const & pt,
                   float angle,
@@ -59,17 +83,49 @@ namespace yg
 
     void TextRenderer::setClipRect(m2::RectI const & rect)
     {
-      m_tree.ForEach(bind(&TextObj::Draw, _1, this));
-      m_tree.Clear();
+//      m_tree.ForEach(bind(&TextObj::Draw, _1, this));
+//      m_tree.ForEach(bind(&TextObj::BoostPriority, _1));
+//      if (m_textTreeAutoClean)
+//        m_tree.Clear();
       base_t::setClipRect(rect);
     }
 
     void TextRenderer::endFrame()
     {
       m_tree.ForEach(bind(&TextObj::Draw, _1, this));
-      m_tree.Clear();
+      if (m_textTreeAutoClean)
+        m_tree.Clear();
 
       base_t::endFrame();
+    }
+
+    void TextRenderer::clearTextTree()
+    {
+      m_tree.Clear();
+    }
+
+    void TextRenderer::offsetTextTree(m2::PointD const & offs, m2::RectD const & rect)
+    {
+      vector<TextObj> texts;
+      m_tree.ForEach(bind(&vector<TextObj>::push_back, ref(texts), _1));
+      m_tree.Clear();
+      for (vector<TextObj>::iterator it = texts.begin(); it != texts.end(); ++it)
+      {
+        it->Offset(offs);
+
+        m2::RectD limitRect = it->GetLimitRect(this);
+
+        /// fully inside shouldn't be rendered
+        if (rect.IsRectInside(limitRect))
+          it->SetNeedRedraw(false);
+        else
+          /// intersecting the borders, should be re-rendered
+          if (rect.IsIntersect(limitRect))
+            it->SetNeedRedraw(true);
+
+        if (limitRect.IsIntersect(rect))
+          m_tree.Add(*it, limitRect);
+      }
     }
 
     template <class ToDo>

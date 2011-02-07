@@ -220,6 +220,7 @@ void RenderQueueRoutine::Do()
   params.m_frameBuffer = m_frameBuffer;
   params.m_renderState = m_renderState;
   params.m_doPeriodicalUpdate = m_doPeriodicalUpdate;
+  params.m_textTreeAutoClean = false;
 
   m_threadDrawer = make_shared_ptr(new DrawerYG(m_skinName, params));
 
@@ -287,17 +288,29 @@ void RenderQueueRoutine::Do()
       m_threadDrawer->screen()->setClipRect(m2::RectI(0, 0, s.m_textureWidth, s.m_textureHeight));
       m_threadDrawer->clear();
 
-//      m_threadDrawer->screen()->setClipRect(m2::RectI(0, 0, s.m_surfaceWidth, s.m_surfaceHeight));
-
       if (s.isPanning())
+      {
         m_threadDrawer->screen()->blit(
             s.m_actualTarget,
             s.m_actualScreen,
             s.m_currentScreen);
 
+        m2::RectD curRect(0, 0, s.m_textureWidth, s.m_textureHeight);
+        m2::RectD oldRect(s.m_currentScreen.GtoP(s.m_actualScreen.PtoG(m2::PointD(0, 0))),
+                          s.m_currentScreen.GtoP(s.m_actualScreen.PtoG(m2::PointD(s.m_textureWidth, s.m_textureHeight))));
+
+        if (!curRect.Intersect(oldRect))
+          curRect = m2::RectD(0, 0, 0, 0);
+
+        m_threadDrawer->screen()->offsetTextTree(
+            s.m_currentScreen.GtoP(s.m_actualScreen.PtoG(m2::PointD(0, 0))),
+            curRect);
+      }
+      else
+        m_threadDrawer->screen()->clearTextTree();
+
       ScreenBase const & frameScreen = m_currentRenderCommand->m_frameScreen;
       m2::RectD glbRect;
-//      frameScreen.PtoG(m2::RectD(0, 0, m_renderState->m_surfaceWidth, m_renderState->m_surfaceHeight), glbRect);
       frameScreen.PtoG(m2::RectD(0, 0, s.m_surfaceWidth, s.m_surfaceHeight), glbRect);
       int scaleLevel = scales::GetScaleLevel(glbRect);
 
@@ -306,7 +319,6 @@ void RenderQueueRoutine::Do()
         if ((areas[i].SizeX() != 0) && (areas[i].SizeY() != 0))
         {
           frameScreen.PtoG(m2::Inflate<double>(m2::RectD(areas[i]), 30 * m_visualScale, 30 * m_visualScale), glbRect);
-//          frameScreen.PtoG(m2::Inflate<double>(m2::RectD(areas[i]), (double)200, (double)200), glbRect);
           if ((glbRect.SizeX() == 0) || (glbRect.SizeY() == 0))
             continue;
 
@@ -320,6 +332,8 @@ void RenderQueueRoutine::Do()
         }
       }
 
+      /// setting the "whole texture" clip rect to render texts opened by panning.
+      m_threadDrawer->screen()->setClipRect(m2::RectI(0, 0, s.m_textureWidth, s.m_textureHeight));
       m_threadDrawer->endFrame();
     }
 
