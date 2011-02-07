@@ -257,7 +257,7 @@ void RenderQueueRoutine::Do()
 
       processResize(m_currentRenderCommand->m_frameScreen);
 
-      m_threadDrawer->screen()->setRenderTarget(m_renderState->m_backBufferLayers.front());
+//    m_threadDrawer->screen()->setRenderTarget(m_renderState->m_backBufferLayers.front());
 
       m_currentRenderCommand->m_paintEvent = make_shared_ptr(new PaintEvent(m_threadDrawer));
 
@@ -283,6 +283,10 @@ void RenderQueueRoutine::Do()
       getUpdateAreas(areas);
 
       m_threadDrawer->beginFrame();
+
+      /// this fixes some strange issue with multisampled framebuffer.
+      /// setRenderTarget should be made here.
+      m_threadDrawer->screen()->setRenderTarget(s.m_backBufferLayers.front());
 
       m_threadDrawer->screen()->enableClipRect(true);
       m_threadDrawer->screen()->setClipRect(m2::RectI(0, 0, s.m_textureWidth, s.m_textureHeight));
