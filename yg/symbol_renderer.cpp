@@ -1,6 +1,7 @@
 #include "../base/SRC_FIRST.hpp"
 #include "symbol_renderer.hpp"
 #include "skin.hpp"
+#include "defines.hpp"
 
 #include "../std/bind.hpp"
 #include "../base/logging.hpp"
@@ -57,6 +58,11 @@ namespace yg
     void SymbolRenderer::drawSymbolImpl(m2::PointD const & pt, uint32_t styleID, EPosition pos, int depth)
     {
       ResourceStyle const * style(skin()->fromID(styleID));
+      if (style == 0)
+      {
+        LOG(LINFO, ("styleID=", styleID, " wasn't found on the current skin"));
+        return;
+      }
 
       m2::RectU texRect(style->m_texRect);
       texRect.Inflate(-1, -1);
@@ -69,23 +75,6 @@ namespace yg
                           depth,
                           style->m_pageID);
     }
-
-    void SymbolRenderer::drawCircle(m2::PointD const & pt, uint32_t styleID, EPosition pos, int depth)
-    {
-      ResourceStyle const * style(skin()->fromID(styleID));
-
-      m2::RectU texRect(style->m_texRect);
-      texRect.Inflate(-1, -1);
-
-      m2::PointD posPt = getPosPt(pt, m2::RectD(texRect), pos);
-
-      drawTexturedPolygon(m2::PointD(0, 0), 0,
-                          texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
-                          posPt.x, posPt.y, posPt.x + texRect.SizeX(), posPt.y + texRect.SizeY(),
-                          depth,
-                          style->m_pageID);
-    }
-
 
     void mark_intersect(bool & flag)
     {
@@ -110,6 +99,11 @@ namespace yg
 
       if (!isIntersect)
         m_symbolsMap[styleID].Add(obj, r);
+    }
+
+    void SymbolRenderer::drawCircle(m2::PointD const & pt, uint32_t styleID, EPosition pos, int depth)
+    {
+      drawSymbolImpl(pt, styleID, pos, yg::maxDepth);
     }
 
     void SymbolRenderer::setClipRect(m2::RectI const & rect)
