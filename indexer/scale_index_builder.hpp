@@ -165,20 +165,21 @@ inline void IndexScales(FeaturesVectorT const & featuresVector,
       SorterType sorter(1024*1024, tmpFilePrefix + ".c2f.tmp", out);
       */
       featuresVector.ForEachOffset(FeatureCoverer<SorterType>(bucket, sorter, numFeatures));
-      LOG(LINFO, ("Sorting..."));
+      // LOG(LINFO, ("Sorting..."));
       sorter.SortAndFinish();
     }
-    LOG(LINFO, ("Indexing..."));
+    // LOG(LINFO, ("Indexing..."));
     {
       FileReader reader(tmpFilePrefix + ".c2f.sorted");
       uint64_t const numCells = reader.Size() / sizeof(CellFeaturePair);
       DDVector<CellFeaturePair, FileReader, uint64_t> cellsToFeatures(reader, numCells);
-      LOG(LINFO, ("Being indexed", "features:", numFeatures, "cells:", numCells));
+      LOG(LINFO, ("Being indexed", "features:", numFeatures, "cells:", numCells,
+                  "cells per feature:", (numCells + 1.0) / (numFeatures + 1.0)));
       SubWriter<WriterT> subWriter(writer);
       BuildIntervalIndex<5>(cellsToFeatures.begin(), cellsToFeatures.end(), subWriter);
     }
     FileWriter::DeleteFile(tmpFilePrefix + ".c2f.sorted");
-    LOG(LINFO, ("Indexing done."));
+    // LOG(LINFO, ("Indexing done."));
     recordWriter.FinishRecord();
   }
   LOG(LINFO, ("All scale indexes done."));
