@@ -5,7 +5,7 @@
 #include "../yg/render_state.hpp"
 #include "../yg/rendercontext.hpp"
 
-RenderQueue::RenderQueue(string const & skinName, bool isMultiSampled, bool doPeriodicalUpdate)
+RenderQueue::RenderQueue(string const & skinName, bool isMultiSampled, bool doPeriodicalUpdate, double updateInterval)
   : m_renderState(new yg::gl::RenderState())
 {
   m_renderState->m_surfaceWidth = 100;
@@ -13,7 +13,7 @@ RenderQueue::RenderQueue(string const & skinName, bool isMultiSampled, bool doPe
   m_renderState->m_textureWidth = 256;
   m_renderState->m_textureHeight = 256;
 
-  m_routine = new RenderQueueRoutine(m_renderState, skinName, isMultiSampled, doPeriodicalUpdate);
+  m_routine = new RenderQueueRoutine(m_renderState, skinName, isMultiSampled, doPeriodicalUpdate, updateInterval);
 }
 
 void RenderQueue::initializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,

@@ -355,7 +355,12 @@ public:
 
   bool DoPeriodicalUpdate() const
   {
-    return false;
+    return true;
+  }
+
+  double PeriodicalUpdateInterval() const
+  {
+    return 0.3;
   }
 
   vector<string> GetFontNames() const

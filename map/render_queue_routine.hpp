@@ -74,6 +74,7 @@ private:
 
   bool m_isMultiSampled;
   bool m_doPeriodicalUpdate;
+  double m_updateInterval;
   double m_visualScale;
   string m_skinName;
 
@@ -81,7 +82,8 @@ public:
   RenderQueueRoutine(shared_ptr<yg::gl::RenderState> const & renderState,
                      string const & skinName,
                      bool isMultiSampled,
-                     bool doPeriodicalUpdate);
+                     bool doPeriodicalUpdate,
+                     double updateInterval);
   /// initialize GL rendering
   /// this function is called just before the thread starts.
   void initializeGL(shared_ptr<yg::gl::RenderContext> const & renderContext,

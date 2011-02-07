@@ -67,6 +67,8 @@ public:
 
   virtual bool DoPeriodicalUpdate() const = 0;
 
+  virtual double PeriodicalUpdateInterval() const = 0;
+
   virtual vector<string> GetFontNames() const = 0;
 };
 

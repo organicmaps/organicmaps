@@ -10,11 +10,13 @@ namespace my
   class Timer
   {
   public:
-    Timer() : m_StartTime(clock()) {}
+    Timer() {Reset();}
     double ElapsedSeconds() const
     {
       return (clock() - m_StartTime) / static_cast<double>(CLOCKS_PER_SEC);
     }
+
+    void Reset() { m_StartTime = clock(); }
   private:
     clock_t m_StartTime;
   };

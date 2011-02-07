@@ -2,6 +2,7 @@
 
 #include "../std/shared_ptr.hpp"
 #include "../geometry/screenbase.hpp"
+#include "../base/timer.hpp"
 
 #include "geometry_renderer.hpp"
 
@@ -23,12 +24,15 @@ namespace yg
 
       int m_indicesCount;
       bool m_doPeriodicalUpdate;
+      double m_updateInterval;
+      my::Timer m_updateTimer;
 
     public:
 
       struct Params : base_t::Params
       {
         bool m_doPeriodicalUpdate;
+        double m_updateInterval;
         shared_ptr<RenderState> m_renderState;
         Params();
       };

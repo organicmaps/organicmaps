@@ -19,6 +19,7 @@ public:
 	virtual string const SkinName() const;
 	virtual bool IsMultiSampled() const;
 	virtual bool DoPeriodicalUpdate() const;
+	virtual double PeriodicalUpdateInterval() const;
 	virtual vector<string> GetFontNames() const;
   
 private:
@@ -27,6 +28,7 @@ private:
   NSDate * m_StartDate;
 	bool m_isMultiSampled;
 	bool m_doPeriodicalUpdate;
+	double m_periodicalUpdateInterval;
   string m_resourcesPath;
   string m_writablePath;
 };

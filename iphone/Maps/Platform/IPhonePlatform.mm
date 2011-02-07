@@ -32,6 +32,7 @@ IPhonePlatform::IPhonePlatform()
 	m_skinName = "basic.skn";
 	m_isMultiSampled = true;
 	m_doPeriodicalUpdate = true;
+	m_periodicalUpdateInterval = 0.3;
 
 	/// Calculating resolution
 	UIDevice * device = [UIDevice currentDevice];
@@ -166,6 +167,11 @@ bool IPhonePlatform::IsMultiSampled() const
 bool IPhonePlatform::DoPeriodicalUpdate() const
 {
 	return m_doPeriodicalUpdate;
+}
+
+double IPhonePlatform::PeriodicalUpdateInterval() const
+{
+	return m_periodicalUpdateInterval;
 }
 
 vector<string> IPhonePlatform::GetFontNames() const

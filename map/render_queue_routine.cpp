@@ -31,7 +31,8 @@ RenderQueueRoutine::RenderModelCommand::RenderModelCommand(ScreenBase const & fr
 RenderQueueRoutine::RenderQueueRoutine(shared_ptr<yg::gl::RenderState> const & renderState,
                                        string const & skinName,
                                        bool isMultiSampled,
-                                       bool doPeriodicalUpdate)
+                                       bool doPeriodicalUpdate,
+                                       double updateInterval)
 {
   m_skinName = skinName;
   m_visualScale = 0;
@@ -39,6 +40,7 @@ RenderQueueRoutine::RenderQueueRoutine(shared_ptr<yg::gl::RenderState> const & r
   m_renderState->addInvalidateFn(bind(&RenderQueueRoutine::invalidate, this));
   m_isMultiSampled = isMultiSampled;
   m_doPeriodicalUpdate = doPeriodicalUpdate;
+  m_updateInterval = updateInterval;
 }
 
 void RenderQueueRoutine::Cancel()
@@ -220,6 +222,7 @@ void RenderQueueRoutine::Do()
   params.m_frameBuffer = m_frameBuffer;
   params.m_renderState = m_renderState;
   params.m_doPeriodicalUpdate = m_doPeriodicalUpdate;
+  params.m_updateInterval = m_updateInterval;
   params.m_textTreeAutoClean = false;
 
   m_threadDrawer = make_shared_ptr(new DrawerYG(m_skinName, params));

@@ -164,7 +164,10 @@ class FrameWork
 public:
   FrameWork(shared_ptr<window_handle_t> windowHandle, size_t bottomShift)
     : m_windowHandle(windowHandle),
-      m_renderQueue(GetPlatform().SkinName(), GetPlatform().IsMultiSampled(), GetPlatform().DoPeriodicalUpdate()),
+      m_renderQueue(GetPlatform().SkinName(),
+                    GetPlatform().IsMultiSampled(),
+                    GetPlatform().DoPeriodicalUpdate(),
+                    GetPlatform().PeriodicalUpdateInterval()),
       m_isRedrawEnabled(true)
   {
     m_informationDisplay.setBottomShift(bottomShift);
