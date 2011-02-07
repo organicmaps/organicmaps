@@ -235,14 +235,14 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
   PushBackByteSink<buffer_t> sink(data);
 
   if (m_bLinear || m_bArea)
-    feature::SavePoints(m_Geometry, 0, sink);
+    serial::SaveOuterPath(m_Geometry, 0, sink);
 
   if (m_bArea)
   {
     WriteVarUint(sink, uint32_t(m_Holes.size()));
 
     for (list<points_t>::const_iterator i = m_Holes.begin(); i != m_Holes.end(); ++i)
-      feature::SavePoints(*i, 0, sink);
+      serial::SaveOuterPath(*i, 0, sink);
   }
 
   // check for correct serialization
@@ -274,7 +274,7 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
 
   if (m_bLinear || m_bArea)
   {
-    feature::LoadPoints(m_Geometry, 0, src);
+    serial::LoadOuterPath(src, 0, m_Geometry);
     CalcRect(m_Geometry, m_LimitRect);
   }
 
@@ -284,7 +284,7 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
     for (uint32_t i = 0; i < count; ++i)
     {
       m_Holes.push_back(points_t());
-      feature::LoadPoints(m_Holes.back(), 0, src);
+      serial::LoadOuterPath(src, 0, m_Holes.back());
     }
   }
 

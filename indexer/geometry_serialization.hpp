@@ -30,13 +30,20 @@ namespace serial
   typedef vector<m2::PointU> PointsT;
   typedef vector<uint64_t> DeltasT;
 
+  /// @name Encode and Decode function types.
+  //@{
   typedef void (*EncodeFunT)(PointsT const &, m2::PointU const &, m2::PointU const &, DeltasT &);
   typedef void (*DecodeFunT)(DeltasT const &, m2::PointU const &, m2::PointU const &, PointsT &);
+  //@}
 
   void Encode(EncodeFunT fn, vector<m2::PointD> const & points, int64_t base, DeltasT & deltas);
 
   typedef buffer_vector<m2::PointD, 32> OutPointsT;
+  /// @name Overloads for different out container types.
+  //@{
   void Decode(DecodeFunT fn, DeltasT const & deltas, int64_t base, OutPointsT & points, size_t reserveF = 1);
+  void Decode(DecodeFunT fn, DeltasT const & deltas, int64_t base, vector<m2::PointD> & points, size_t reserveF = 1);
+  //@}
 
   template <class TSink>
   void SaveInner(EncodeFunT fn, vector<m2::PointD> const & points, int64_t base, TSink & sink)
@@ -69,8 +76,8 @@ namespace serial
 
   void const * LoadInner(DecodeFunT fn, void const * pBeg, size_t count, int64_t base, OutPointsT & points);
 
-  template <class TSource>
-  void LoadOuter(DecodeFunT fn, TSource & src, int64_t base, OutPointsT & points, size_t reserveF = 1)
+  template <class TSource, class TPoints>
+  void LoadOuter(DecodeFunT fn, TSource & src, int64_t base, TPoints & points, size_t reserveF = 1)
   {
     uint32_t const count = ReadVarUint<uint32_t>(src);
     vector<char> buffer(count);
@@ -103,8 +110,8 @@ namespace serial
     return LoadInner(&geo_coding::DecodePolyline, pBeg, count, base, points);
   }
 
-  template <class TSource>
-  void LoadOuterPath(TSource & src, int64_t base, OutPointsT & points)
+  template <class TSource, class TPoints>
+  void LoadOuterPath(TSource & src, int64_t base, TPoints & points)
   {
     LoadOuter(&geo_coding::DecodePolyline, src, base, points);
   }

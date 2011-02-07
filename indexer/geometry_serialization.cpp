@@ -52,7 +52,8 @@ namespace serial
     (*fn)(upoints, pts::GetBasePoint(base), pts::GetMaxPoint(), deltas);
   }
 
-  void Decode(DecodeFunT fn, DeltasT const & deltas, int64_t base, OutPointsT & points, size_t reserveF/* = 1*/)
+  template <class TDecodeFun, class TOutPoints>
+  void DecodeImpl(TDecodeFun fn, DeltasT const & deltas, int64_t base, TOutPoints & points, size_t reserveF)
   {
     size_t const count = deltas.size() * reserveF;
 
@@ -65,6 +66,16 @@ namespace serial
     if (points.empty())
       points.reserve(count);
     transform(upoints.begin(), upoints.end(), back_inserter(points), &pts::U2D);
+  }
+
+  void Decode(DecodeFunT fn, DeltasT const & deltas, int64_t base, OutPointsT & points, size_t reserveF)
+  {
+    DecodeImpl(fn, deltas, base, points, reserveF);
+  }
+
+  void Decode(DecodeFunT fn, DeltasT const & deltas, int64_t base, vector<m2::PointD> & points, size_t reserveF)
+  {
+    DecodeImpl(fn, deltas, base, points, reserveF);
   }
 
   void const * LoadInner(DecodeFunT fn, void const * pBeg, size_t count, int64_t base, OutPointsT & points)

@@ -1,14 +1,8 @@
 #pragma once
 
-#include "cell_id.hpp"
-
-#include "../coding/write_to_sink.hpp"
-#include "../coding/varint.hpp"
+#include "point_to_int64.hpp"
 
 #include "../geometry/point2d.hpp"
-
-#include "../std/algorithm.hpp"
-#include "../std/iterator.hpp"
 
 
 namespace feature
@@ -25,82 +19,6 @@ namespace feature
       CoordPointT const pt = Int64ToPoint(i);
       return m2::PointD(pt.first, pt.second);
     }
-  }
-
-  namespace detail
-  {
-    inline void TransformPoints(vector<m2::PointD> const & points, vector<int64_t> & cells)
-    {
-      cells.reserve(points.size());
-      transform(points.begin(), points.end(), back_inserter(cells), &pts::FromPoint);
-    }
-
-    template <class TSink>
-    void WriteCellsSimple(vector<int64_t> const & cells, int64_t base, TSink & sink)
-    {
-      for (size_t i = 0; i < cells.size(); ++i)
-        WriteVarInt(sink, i == 0 ? cells[0] - base : cells[i] - cells[i-1]);
-    }
-
-    template <class TSink>
-    void WriteCells(vector<int64_t> const & cells, int64_t base, TSink & sink)
-    {
-      vector<char> buffer;
-      MemWriter<vector<char> > writer(buffer);
-
-      WriteCellsSimple(cells, base, writer);
-
-      uint32_t const count = static_cast<uint32_t>(buffer.size());
-      WriteVarUint(sink, count);
-      sink.Write(&buffer[0], count);
-    }
-
-    template <class TCont> class points_emitter
-    {
-      TCont & m_points;
-      int64_t m_id;
-
-    public:
-      points_emitter(TCont & points, uint32_t count, int64_t base)
-        : m_points(points), m_id(base)
-      {
-        m_points.reserve(count);
-      }
-      void operator() (int64_t id)
-      {
-        m_points.push_back(pts::ToPoint(m_id += id));
-      }
-    };
-
-    template <class TCont, class TSource>
-    void ReadPoints(TCont & points, int64_t base, TSource & src)
-    {
-      uint32_t const count = ReadVarUint<uint32_t>(src);
-      vector<char> buffer(count);
-      char * p = &buffer[0];
-      src.Read(p, count);
-
-      ReadVarInt64Array(p, p + count, points_emitter<TCont>(points, count / 2, base));
-    }
-  }
-
-  template <class TSink>
-  void SavePoints(vector<m2::PointD> const & points, int64_t base, TSink & sink)
-  {
-    ASSERT_GREATER ( points.size(), 1, () );
-
-    vector<int64_t> cells;
-    detail::TransformPoints(points, cells);
-
-    detail::WriteCells(cells, base, sink);
-  }
-
-  template <class TCont, class TSource>
-  void LoadPoints(TCont & points, int64_t base, TSource & src)
-  {
-    detail::ReadPoints(points, base, src);
-
-    ASSERT_GREATER ( points.size(), 1, () );
   }
 
 
