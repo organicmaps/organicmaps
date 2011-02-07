@@ -126,6 +126,12 @@ namespace m2
       return !(m_minX > pt.x || pt.x > m_maxX || m_minY > pt.y || pt.y > m_maxY);
     }
 
+    bool IsRectInside(Rect<T> const & rect) const
+    {
+      return (IsPointInside(Point<T>(rect.minX(), rect.minY()))
+           && IsPointInside(Point<T>(rect.maxX(), rect.maxY())));
+    }
+
     Point<T> Center() const { return Point<T>((m_minX + m_maxX) / 2.0, (m_minY + m_maxY) / 2.0); }
     T SizeX() const { return (m_maxX - m_minX); }
     T SizeY() const { return (m_maxY - m_minY); }
