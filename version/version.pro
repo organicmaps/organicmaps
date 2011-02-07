@@ -21,6 +21,9 @@ win32 {
 versiontarget.depends = FORCE
 
 PRE_TARGETDEPS += $$VERSION_HEADER
-QMAKE_EXTRA_TARGETS += versiontarget
+# regenerate version only in release builds
+CONFIG(release, debug|release) {
+  QMAKE_EXTRA_TARGETS += versiontarget
+}
 
 SOURCES += empty_stub.cpp
