@@ -114,9 +114,10 @@ namespace yg
     for (int i = 0; i < fontNames.size(); ++i)
       addFont(fontNames[i].c_str());
 
-    for (unicode_blocks_t::const_iterator it = m_unicodeBlocks.begin(); it != m_unicodeBlocks.end(); ++it)
+/*    for (unicode_blocks_t::const_iterator it = m_unicodeBlocks.begin(); it != m_unicodeBlocks.end(); ++it)
       if (it->m_fonts.empty())
         LOG(LINFO, (it->m_name, " unicode block of ", it->m_end + 1 - it->m_start, " symbols is empty"));
+ */
   }
 
   void GlyphCacheImpl::addFont(char const * fileName)
@@ -202,14 +203,14 @@ namespace yg
       ++ccIt;
     }
 
-    LOG(LINFO, ("-----------------------------------------"));
-    LOG(LINFO, ("Unicode Blocks for Font : ", extract_name(fileName)));
-    LOG(LINFO, ("-----------------------------------------"));
-    /// dumping touched unicode blocks
-    for (touched_blocks_t::const_iterator it = touchedBlocks.begin(); it != touchedBlocks.end(); ++it)
-    {
-      LOG(LINFO, ((*it)->m_name, " with coverage ", (*it)->m_coverage.back(), " out of ", (*it)->m_end + 1 - (*it)->m_start));
-    }
+//    LOG(LINFO, ("-----------------------------------------"));
+//    LOG(LINFO, ("Unicode Blocks for Font : ", extract_name(fileName)));
+//    LOG(LINFO, ("-----------------------------------------"));
+//    /// dumping touched unicode blocks
+//    for (touched_blocks_t::const_iterator it = touchedBlocks.begin(); it != touchedBlocks.end(); ++it)
+//    {
+//      LOG(LINFO, ((*it)->m_name, " with coverage ", (*it)->m_coverage.back(), " out of ", (*it)->m_end + 1 - (*it)->m_start));
+//    }
 
     /// rearrange fonts in all unicode blocks according to it's coverage
     for (ubIt = m_unicodeBlocks.begin(); ubIt != m_unicodeBlocks.end(); ++ubIt)
