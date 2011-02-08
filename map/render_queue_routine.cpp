@@ -283,6 +283,9 @@ void RenderQueueRoutine::Do()
       /// update areas in pixel coordinates.
       vector<m2::RectI> areas;
 
+      if (s.m_doRepaintAll)
+        m_threadDrawer->screen()->clearTextTree();
+
       getUpdateAreas(areas);
 
       m_threadDrawer->beginFrame();
