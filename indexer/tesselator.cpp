@@ -248,7 +248,7 @@ namespace tesselator
   };
 
   void TrianglesInfo::ListInfo::MakeTrianglesChain(
-    PointsInfo const & points, iter_t start, vector<Edge> & chain, bool goodOrder) const
+    PointsInfo const & points, iter_t start, vector<Edge> & chain, bool /*goodOrder*/) const
   {
     //if (goodOrder)
       MakeTrianglesChainImpl<edge_greater_delta>(points, start, chain);
