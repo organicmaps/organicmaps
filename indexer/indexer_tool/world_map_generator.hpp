@@ -8,7 +8,9 @@
 #include "../../indexer/feature_merger.hpp"
 #include "../../indexer/feature_visibility.hpp"
 
+#include "../../std/map.hpp"
 #include "../../std/list.hpp"
+#include "../../std/vector.hpp"
 
 #include <boost/scoped_ptr.hpp>
 
@@ -22,41 +24,47 @@ class WorldMapGenerator
   bool m_mergeCoastlines;
 
   typedef list<FeatureBuilder1Merger> FeaturesContainerT;
-  FeaturesContainerT m_features;
+  typedef map<vector<uint32_t>, FeaturesContainerT> TypesContainerT;
+  TypesContainerT m_features;
 
 private:
   /// scans all features and tries to merge them with each other
   /// @return true if one feature was merged
-  bool ReMergeFeatures()
+  bool ReMergeFeatures(FeaturesContainerT & features)
   {
     bool merged = false;
-    for (FeaturesContainerT::iterator base = m_features.begin(); base != m_features.end(); ++base)
+    for (FeaturesContainerT::iterator base = features.begin(); base != features.end();)
     {
       FeaturesContainerT::iterator ft = base;
-      for (++ft; ft != m_features.end();)
+      for (++ft; ft != features.end();)
       {
         if (base->MergeWith(*ft))
         {
-          m_features.erase(ft++);
+          features.erase(ft++);
           merged = true;
         }
+        else if (base->ReachedMaxPointsCount())
+          break;
         else
           ++ft;
       }
+
+      if (base->ReachedMaxPointsCount())
+      {
+        // emit "overflowed" features
+        (*m_worldBucket)(*base);
+        features.erase(base++);
+      }
+      else
+        ++base;
     }
     return merged;
   }
 
   void TryToMerge(FeatureBuilder1 const & fb)
   {
-    // @TODO group features by types (use map of lists?)
-    for (FeaturesContainerT::iterator it = m_features.begin(); it != m_features.end(); ++it)
-    {
-      if (it->MergeWith(fb))
-        return;
-    }
-    // do not loose feature if it wasn't merged
-    m_features.push_back(fb);
+    FeatureBuilder1Merger const fbm(fb);
+    m_features[fbm.Type()].push_back(fbm);
   }
 
 public:
@@ -75,13 +83,14 @@ public:
       LOG(LINFO, ("Final merging of coastlines started"));
     }
     // try to merge all merged features with each other
-    while (ReMergeFeatures())
+    for (TypesContainerT::iterator it = m_features.begin(); it != m_features.end(); ++it)
     {
+      while (ReMergeFeatures(it->second))
+      {}
+      // emit all merged features
+      for (FeaturesContainerT::iterator itF = it->second.begin(); itF != it->second.end(); ++itF)
+        (*m_worldBucket)(*itF);
     }
-
-    // emit all merged features
-    for (FeaturesContainerT::iterator it = m_features.begin(); it != m_features.end(); ++it)
-      (*m_worldBucket)(*it);
 
     if (m_mergeCoastlines)
     {

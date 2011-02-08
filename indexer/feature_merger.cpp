@@ -2,11 +2,16 @@
 
 //#include "../base/logging.hpp"
 
-#define MAX_MERGED_POINTS_COUNT 10000
+#define MAX_MERGED_POINTS_COUNT 1000
 
 FeatureBuilder1Merger::FeatureBuilder1Merger(FeatureBuilder1 const & fb)
   : FeatureBuilder1(fb)
 {
+}
+
+bool FeatureBuilder1Merger::ReachedMaxPointsCount() const
+{
+  return m_Geometry.size() > MAX_MERGED_POINTS_COUNT;
 }
 
 bool FeatureBuilder1Merger::MergeWith(FeatureBuilder1 const & fb)
