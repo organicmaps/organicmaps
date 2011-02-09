@@ -31,7 +31,7 @@ namespace yg
 
     void SymbolRenderer::SymbolObject::Draw(SymbolRenderer * p) const
     {
-      p->drawSymbolImpl(m_pt, m_styleID, m_pos, m_depth);
+      p->drawSymbolImpl(m_pt, m_styleID, m_pos, yg::maxDepth);
     }
 
     m2::PointD const SymbolRenderer::getPosPt(m2::PointD const & pt, m2::RectD const & texRect, EPosition pos)
