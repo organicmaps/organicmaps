@@ -1,8 +1,8 @@
 #include "feature_merger.hpp"
 
-//#include "../base/logging.hpp"
+#include "../base/logging.hpp"
 
-#define MAX_MERGED_POINTS_COUNT 1000
+#define MAX_MERGED_POINTS_COUNT 10000
 
 FeatureBuilder1Merger::FeatureBuilder1Merger(FeatureBuilder1 const & fb)
   : FeatureBuilder1(fb)
@@ -14,50 +14,22 @@ bool FeatureBuilder1Merger::ReachedMaxPointsCount() const
   return m_Geometry.size() > MAX_MERGED_POINTS_COUNT;
 }
 
-bool FeatureBuilder1Merger::MergeWith(FeatureBuilder1 const & fb)
+void FeatureBuilder1Merger::AppendFeature(FeatureBuilder1Merger const & fb)
 {
   // check that both features are of linear type
-  if (!fb.m_bLinear || !m_bLinear)
-    return false;
+  CHECK(fb.m_bLinear && m_bLinear, ("Not linear feature"));
 
   // check that classificator types are the same
-  if (fb.m_Types != m_Types)
-    return false;
-
-  // do not create too long features
-  if (m_Geometry.size() > MAX_MERGED_POINTS_COUNT)
-    return false;
-  if (fb.m_Geometry.size() > MAX_MERGED_POINTS_COUNT)
-    return false;
+  CHECK_EQUAL(fb.m_Types, m_Types, ("Not equal types"));
 
   // check last-first points equality
-  //if (m2::AlmostEqual(m_Geometry.back(), fb.m_Geometry.front()))
-  if (m_Geometry.back() == fb.m_Geometry.front())
+  CHECK_EQUAL(m_Geometry.back(), fb.m_Geometry.front(), ("End and Start point are no equal"));
+  // merge fb at the end
+  size_t const size = fb.m_Geometry.size();
+  for (size_t i = 1; i < size; ++i)
   {
-    // merge fb at the end
-    for (size_t i = 1; i < fb.m_Geometry.size(); ++i)
-    {
-      m_Geometry.push_back(fb.m_Geometry[i]);
-      m_LimitRect.Add(m_Geometry.back());
-    }
+    m_Geometry.push_back(fb.m_Geometry[i]);
+    m_LimitRect.Add(fb.m_Geometry[i]);
   }
-  // check first-last points equality
-  //else if (m2::AlmostEqual(m_Geometry.front(), fb.m_Geometry.back()))
-  else if (m_Geometry.front() == fb.m_Geometry.back())
-  {
-    // merge fb in the beginning
-    m_Geometry.insert(m_Geometry.begin(), fb.m_Geometry.begin(), fb.m_Geometry.end());
-    for (size_t i = 0; i < fb.m_Geometry.size() - 1; ++i)
-      m_LimitRect.Add(fb.m_Geometry[i]);
-  }
-  else
-    return false; // no common points were found...
-
-
-  //static int counter = 0;
-  // @TODO check if we got AREA feature after merging, this can be useful for coastlines
-  //LOG(LINFO, (++counter, "features were merged!"));
-
-  return true;
+  //LOG(LINFO, ("Appended feature", m_Geometry.size()));
 }
-

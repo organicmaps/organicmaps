@@ -10,7 +10,14 @@
 
 typedef std::pair<int64_t, int64_t> TDownloadProgress;
 typedef boost::function<void (char const *, TDownloadProgress)> TDownloadProgressFunction;
-typedef boost::function<void (char const *, bool)> TDownloadFinishedFunction;
+enum DownloadResult
+{
+  EHttpDownloadOk,
+  EHttpDownloadFileNotFound,    // HTTP 404
+  EHttpDownloadFailed,
+  EHttpDownloadFileIsLocked // downloaded file can't replace existing locked file
+};
+typedef boost::function<void (char const *, DownloadResult)> TDownloadFinishedFunction;
 
 /// Platform-dependent implementations should derive it
 /// and implement pure virtual methods

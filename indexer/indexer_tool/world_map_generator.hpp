@@ -7,12 +7,23 @@
 #include "../../indexer/feature.hpp"
 #include "../../indexer/feature_merger.hpp"
 #include "../../indexer/feature_visibility.hpp"
+#include "../../indexer/point_to_int64.hpp"
 
 #include "../../std/map.hpp"
 #include "../../std/list.hpp"
 #include "../../std/vector.hpp"
+#include "../../std/functional.hpp"
 
 #include <boost/scoped_ptr.hpp>
+#include <boost/unordered_map.hpp>
+
+namespace m2
+{
+  inline size_t hash_value(m2::PointD const & pt)
+  {
+    return PointToInt64(pt.x, pt.y);
+  }
+}
 
 template <class FeatureOutT>
 class WorldMapGenerator
@@ -23,7 +34,7 @@ class WorldMapGenerator
   int m_maxWorldScale;
   bool m_mergeCoastlines;
 
-  typedef list<FeatureBuilder1Merger> FeaturesContainerT;
+  typedef boost::unordered_map<m2::PointD, FeatureBuilder1Merger> FeaturesContainerT;
   typedef map<vector<uint32_t>, FeaturesContainerT> TypesContainerT;
   TypesContainerT m_features;
 
@@ -32,39 +43,41 @@ private:
   /// @return true if one feature was merged
   bool ReMergeFeatures(FeaturesContainerT & features)
   {
-    bool merged = false;
-    for (FeaturesContainerT::iterator base = features.begin(); base != features.end();)
+    //bool merged = false;
+    for (FeaturesContainerT::iterator base = features.begin(); base != features.end(); ++base)
     {
-      FeaturesContainerT::iterator ft = base;
-      for (++ft; ft != features.end();)
+      FeaturesContainerT::iterator found = features.find(base->second.LastPoint());
+      if (found != features.end())
       {
-        if (base->MergeWith(*ft))
-        {
-          features.erase(ft++);
-          merged = true;
-        }
-        else if (base->ReachedMaxPointsCount())
-          break;
-        else
-          ++ft;
+        base->second.AppendFeature(found->second);
+        features.erase(found);
+        return true;
+        //merged = true;
       }
-
-      if (base->ReachedMaxPointsCount())
-      {
-        // emit "overflowed" features
-        (*m_worldBucket)(*base);
-        features.erase(base++);
-      }
-      else
-        ++base;
     }
-    return merged;
+    //return merged;
+    return false;
   }
 
   void TryToMerge(FeatureBuilder1 const & fb)
   {
-    FeatureBuilder1Merger const fbm(fb);
-    m_features[fbm.Type()].push_back(fbm);
+    FeatureBuilder1Merger fbm(fb);
+    FeaturesContainerT & container = m_features[fbm.Type()];
+    FeaturesContainerT::iterator found = container.find(fbm.LastPoint());
+    if (found != container.end())
+    {
+      fbm.AppendFeature(found->second);
+      container.erase(found);
+    }
+
+    pair<FeaturesContainerT::iterator, bool> result = container.insert(make_pair(fbm.FirstPoint(), fbm));
+    // if we found feature with the same starting point, emit it directly
+    if (!result.second)
+    {
+      LOG(LWARNING, ("Found features with common first point, points counts are:",
+                     result.first->second.GetPointsCount(), fb.GetPointsCount()));
+      (*m_worldBucket)(fb);
+    }
   }
 
 public:
@@ -89,7 +102,7 @@ public:
       {}
       // emit all merged features
       for (FeaturesContainerT::iterator itF = it->second.begin(); itF != it->second.end(); ++itF)
-        (*m_worldBucket)(*itF);
+        (*m_worldBucket)(itF->second);
     }
 
     if (m_mergeCoastlines)

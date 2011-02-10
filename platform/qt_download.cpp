@@ -94,7 +94,7 @@ QtDownload::QtDownload(QtDownloadManager & manager, char const * url,
     m_file = 0;
 
     if (m_finish)
-      m_finish(url, false);
+      m_finish(url, EHttpDownloadFailed);
     // mark itself to delete
     deleteLater();
     return;
@@ -186,7 +186,8 @@ void QtDownload::OnHttpFinished()
     m_reply = 0;
 
     if (m_finish)
-      m_finish(objectName().toUtf8().data(), false);
+      m_finish(objectName().toUtf8().data(), netError == QNetworkReply::ContentNotFoundError
+               ? EHttpDownloadFileNotFound : EHttpDownloadFailed);
     // selfdestruct
     deleteLater();
   }
@@ -212,7 +213,7 @@ void QtDownload::OnHttpFinished()
     { // sh*t... file is locked and can't be removed
       m_file->remove();
       // report error to GUI
-      LOG(LERROR, ("File exists and can't be replaced by downloaded one:", qPrintable(originalFileName)));
+      LOG(LWARNING, ("File exists and can't be replaced by downloaded one:", qPrintable(originalFileName)));
       resultForGui = false;
     }
 
@@ -222,7 +223,7 @@ void QtDownload::OnHttpFinished()
     m_reply = 0;
 
     if (m_finish)
-      m_finish(qPrintable(objectName()), resultForGui);
+      m_finish(qPrintable(objectName()), resultForGui ? EHttpDownloadOk : EHttpDownloadFileIsLocked);
     // selfdestruct
     deleteLater();
   }
