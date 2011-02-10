@@ -31,6 +31,9 @@ namespace fwork
     template <class TSrc> void assign_area(di::DrawInfo * p, TSrc & src)
     {
       p->m_areas.swap(src.m_points);
+
+      ASSERT ( !p->m_areas.empty(), () );
+      p->m_areas.back().SetCenter(src.GetCenter());
     }
   }
 

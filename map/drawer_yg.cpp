@@ -141,7 +141,7 @@ void DrawerYG::drawPath(vector<m2::PointD> const & pts, di::DrawRule const * rul
 {
   // if any rule needs caching - cache as a whole vector
   bool flag = false;
-  for (int i = 0; i < count; ++i)
+  for (size_t i = 0; i < count; ++i)
   {
     if (rules[i].m_rule->GetID() == drule::BaseRule::empty_id)
     {
@@ -156,7 +156,7 @@ void DrawerYG::drawPath(vector<m2::PointD> const & pts, di::DrawRule const * rul
   if (flag)
   {
     // collect yg::PenInfo into array and pack them as a whole
-    for (int i = 0; i < count; ++i)
+    for (size_t i = 0; i < count; ++i)
     {
       rule_ptr_t pRule = rules[i].m_rule;
       vector<double> pattern;
@@ -175,7 +175,7 @@ void DrawerYG::drawPath(vector<m2::PointD> const & pts, di::DrawRule const * rul
     // map array of pens
     if (m_pSkin->mapPenInfo(&penInfos[0], &styleIDs[0], count))
     {
-      for (int i = 0; i < count; ++i)
+      for (size_t i = 0; i < count; ++i)
         rules[i].m_rule->SetID(styleIDs[i]);
     }
     else
@@ -186,7 +186,7 @@ void DrawerYG::drawPath(vector<m2::PointD> const & pts, di::DrawRule const * rul
   }
 
   // draw path with array of rules
-  for (int i = 0; i < count; ++i)
+  for (size_t i = 0; i < count; ++i)
     m_pScreen->drawPath(&pts[0], pts.size(), rules[i].m_rule->GetID(), rules[i].m_depth);
 }
 

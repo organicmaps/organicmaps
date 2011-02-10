@@ -153,20 +153,4 @@ bool area_tess_points::IsExist() const
   return !m_points.empty();
 }
 
-area_path_points::area_path_points(ScreenBase const & convertor, m2::RectD const & rect)
-: area_base(convertor, rect)
-{
-  m_points.push_back(AreaInfo());
-}
-
-void area_path_points::operator() (m2::PointD const & p)
-{
-  push_point(p);
-}
-
-bool area_path_points::IsExist() const
-{
-  return (m_points.back().size() >= 3);
-}
-
 }

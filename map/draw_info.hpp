@@ -67,14 +67,10 @@ namespace di
 
   class AreaInfo
   {
-    mutable m2::PointD m_center;
-
-    inline static double ic() { return -1.0E10; }
+    m2::PointD m_center;
 
   public:
     vector<m2::PointD> m_path;
-
-    AreaInfo() : m_center(ic(), ic()) {}
 
     void reserve(size_t ptsCount)
     {
@@ -94,21 +90,8 @@ namespace di
 
     size_t size() const { return m_path.size(); }
 
-    // lazy evaluation of area's center point
-    m2::PointD GetCenter() const
-    {
-      if (m_center.EqualDxDy(m2::PointD(ic(), ic()), 1.0E-8))
-      {
-        m_center = m2::PointD(0.0, 0.0);
-        size_t count = m_path.size();
-        for (size_t i = 0; i < count; ++i)
-          m_center += m_path[i];
-
-        m_center *= (1.0/static_cast<double>(count));
-      }
-
-      return m_center;
-    }
+    void SetCenter(m2::PointD const & p) { m_center = p; }
+    m2::PointD GetCenter() const { return m_center; }
   };
 }
 
