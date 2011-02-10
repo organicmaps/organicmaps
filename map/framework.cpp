@@ -46,9 +46,8 @@ namespace fwork
       , m_drawCount(0)
 #endif
   {
-    m_keys.reserve(16);
+    m_keys.reserve(reserve_rules_count);
 
-    // calc current scale (pixels in 1 global unit)
     GetDrawer()->SetScale(m_zoom);
   }
 
@@ -85,22 +84,6 @@ namespace fwork
   {
     sort(m_keys.begin(), m_keys.end(), less_key());
     m_keys.erase(unique(m_keys.begin(), m_keys.end(), equal_key()), m_keys.end());
-  }
-
-  void DrawProcessor::ConvertKeysToRules(int layer)
-  {
-    m_rules.resize(m_keys.size());
-    m_depthVec.resize(m_keys.size());
-    // push rules to drawing queue
-    for (size_t i = 0; i < m_keys.size(); ++i)
-    {
-      int depth = m_keys[i].m_priority;
-      if (layer != 0)
-        depth = (layer * drule::layer_base_priority) + (depth % drule::layer_base_priority);
-
-      m_rules[i] = drule::rules().Find(m_keys[i]);
-      m_depthVec[i] = depth;
-    }
   }
 
 #define GET_POINTS(functor_t, for_each_fun, assign_fun) \
@@ -169,13 +152,25 @@ namespace fwork
     PreProcessKeys();
 
     // get drawing rules for the m_keys array
-    ConvertKeysToRules(layer);
+    size_t const count = m_keys.size();
+
+    buffer_vector<di::DrawRule, reserve_rules_count> rules;
+    rules.resize(count);
+
+    for (size_t i = 0; i < count; ++i)
+    {
+      int depth = m_keys[i].m_priority;
+      if (layer != 0)
+        depth = (layer * drule::layer_base_priority) + (depth % drule::layer_base_priority);
+
+      rules[i] = di::DrawRule(drule::rules().Find(m_keys[i]), depth);
+    }
 
 #ifdef PROFILER_DRAWING
       m_drawCount += m_keys.size();
 #endif
 
-    pDrawer->Draw(ptr.get(), &m_rules[0], &m_depthVec[0], m_keys.size());
+    pDrawer->Draw(ptr.get(), rules.data(), count);
 
     return true;
   }

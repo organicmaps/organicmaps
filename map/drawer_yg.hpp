@@ -40,12 +40,22 @@ namespace di
 
     string m_name;
   };
+
+  struct DrawRule
+  {
+    typedef drule::BaseRule const * rule_ptr_t;
+
+    rule_ptr_t m_rule;
+    int m_depth;
+
+    DrawRule() : m_rule(0) {}
+    DrawRule(rule_ptr_t p, int d) : m_rule(p), m_depth(d) {}
+  };
 }
 
 class DrawerYG
 {
-private:
-  typedef drule::BaseRule const * rule_ptr_t;
+  typedef di::DrawRule::rule_ptr_t rule_ptr_t;
 
   double m_scale;
   double m_visualScale;
@@ -64,8 +74,7 @@ private:
 protected:
   void drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth);
   void drawCircle(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth);
-  void drawPath(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth);
-  void drawPath(vector<m2::PointD> const & pts, rule_ptr_t * rules, int * depthVec, size_t count);
+  void drawPath(vector<m2::PointD> const & pts, di::DrawRule const * rules, size_t count);
   void drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth);
 
   void drawText(m2::PointD const & pt, string const & name, rule_ptr_t pRule, int depth);
@@ -101,5 +110,6 @@ public:
 
   void SetVisualScale(double visualScale);
   void SetScale(int level);
-  void Draw(di::DrawInfo const * pInfo, rule_ptr_t * rules, int * depthVec, size_t count);
+
+  void Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t count);
 };

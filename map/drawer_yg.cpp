@@ -137,15 +137,13 @@ void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition
   m_pScreen->drawSymbol(pt, id, pos, depth);
 }
 
-void DrawerYG::drawPath(vector<m2::PointD> const & pts, rule_ptr_t * rules, int * depthVec, size_t count)
+void DrawerYG::drawPath(vector<m2::PointD> const & pts, di::DrawRule const * rules, size_t count)
 {
   // if any rule needs caching - cache as a whole vector
-  // check whether we needs caching
   bool flag = false;
-
   for (int i = 0; i < count; ++i)
   {
-    if (rules[i]->GetID() == drule::BaseRule::empty_id)
+    if (rules[i].m_rule->GetID() == drule::BaseRule::empty_id)
     {
       flag = true;
       break;
@@ -157,10 +155,10 @@ void DrawerYG::drawPath(vector<m2::PointD> const & pts, rule_ptr_t * rules, int 
 
   if (flag)
   {
-    /// collect yg::PenInfo into array and pack them as a whole
+    // collect yg::PenInfo into array and pack them as a whole
     for (int i = 0; i < count; ++i)
     {
-      rule_ptr_t pRule = rules[i];
+      rule_ptr_t pRule = rules[i].m_rule;
       vector<double> pattern;
       double offset;
       pRule->GetPattern(pattern, offset);
@@ -174,20 +172,22 @@ void DrawerYG::drawPath(vector<m2::PointD> const & pts, rule_ptr_t * rules, int 
       styleIDs[i] = m_pSkin->invalidHandle();
     }
 
+    // map array of pens
     if (m_pSkin->mapPenInfo(&penInfos[0], &styleIDs[0], count))
+    {
       for (int i = 0; i < count; ++i)
-        rules[i]->SetID(styleIDs[i]);
+        rules[i].m_rule->SetID(styleIDs[i]);
+    }
     else
-      LOG(LINFO, ("couldn't successfully pack a sequence of path styles as a whole"));
+    {
+      LOG(LERROR, ("couldn't successfully pack a sequence of path styles as a whole"));
+      return;
+    }
   }
 
+  // draw path with array of rules
   for (int i = 0; i < count; ++i)
-    m_pScreen->drawPath(&pts[0], pts.size(), rules[i]->GetID(), depthVec[i]);
-}
-
-void DrawerYG::drawPath(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth)
-{
-  drawPath(pts, &pRule, &depth, 1);
+    m_pScreen->drawPath(&pts[0], pts.size(), rules[i].m_rule->GetID(), rules[i].m_depth);
 }
 
 void DrawerYG::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth)
@@ -273,16 +273,15 @@ void DrawerYG::SetScale(int level)
   m_scale = scales::GetM2PFactor(level);
 }
 
-void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t * rules, int * depthVec, size_t count)
+void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t count)
 {
-  buffer_vector<rule_ptr_t, 8> pathRules;
-  buffer_vector<int, 8> pathDepthes;
+  buffer_vector<di::DrawRule, 8> pathRules;
 
   /// separating path rules from other
 
   for (unsigned i = 0; i < count; ++i)
   {
-    rule_ptr_t pRule = rules[i];
+    rule_ptr_t pRule = rules[i].m_rule;
     string symbol;
     pRule->GetSymbol(symbol);
 
@@ -291,22 +290,19 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, rule_ptr_t * rules, int * depthV
     bool const isPath = !pInfo->m_pathes.empty();
 
     if (!isCaption && isPath && !isSymbol && (pRule->GetColor() != -1))
-    {
       pathRules.push_back(rules[i]);
-      pathDepthes.push_back(depthVec[i]);
-    }
   }
 
   if (!pathRules.empty())
   {
     for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
-      drawPath(i->m_path, &pathRules[0], &pathDepthes[0], pathRules.size());
+      drawPath(i->m_path, pathRules.data(), pathRules.size());
   }
 
   for (unsigned i = 0; i < count; ++i)
   {
-    rule_ptr_t pRule = rules[i];
-    int depth = depthVec[i];
+    rule_ptr_t pRule = rules[i].m_rule;
+    int const depth = rules[i].m_depth;
 
     bool const isCaption = pRule->GetTextHeight() >= 0.0;
 
