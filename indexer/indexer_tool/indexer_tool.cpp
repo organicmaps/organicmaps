@@ -49,7 +49,7 @@ DEFINE_int32(generate_world_scale, -1, "If specified, features for zoomlevels [0
              "which are enabled in classificator will be MOVED to the separate world file");
 DEFINE_bool(split_by_polygons, false, "Use kml shape files to split planet by regions and countries");
 DEFINE_int32(simplify_countries_level, -1, "If positive, simplifies country polygons. Recommended values [10..15]");
-DEFINE_bool(merge_coastlines, true, "If defined, tries to merge coastlines when renerating World file");
+DEFINE_bool(merge_coastlines, false, "If defined, tries to merge coastlines when renerating World file");
 
 string AddSlashIfNeeded(string const & str)
 {
