@@ -13,9 +13,11 @@ typedef boost::function<void (char const *, TDownloadProgress)> TDownloadProgres
 enum DownloadResult
 {
   EHttpDownloadOk,
-  EHttpDownloadFileNotFound,    // HTTP 404
+  EHttpDownloadFileNotFound,  // HTTP 404
   EHttpDownloadFailed,
-  EHttpDownloadFileIsLocked // downloaded file can't replace existing locked file
+  EHttpDownloadFileIsLocked,  // downloaded file can't replace existing locked file
+  EHttpDownloadCantCreateFile, // file for downloading can't be created
+  EHttpDownloadNoConnectionAvailable
 };
 typedef boost::function<void (char const *, DownloadResult)> TDownloadFinishedFunction;
 

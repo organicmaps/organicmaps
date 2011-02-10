@@ -22,6 +22,12 @@
 
 #define TEST_INVALID_URL "http://very_invalid_url.kotorogo.net/okak.test"
 
+#define TEST_ABSENT_FILE_URL "http://mapswithme.com/unit_tests/not_existing_file"
+#define TEST_ABSENT_FILE_NAME "not_existing_file"
+
+#define TEST_LOCKED_FILE_URL  "http://mapswithme.com/unit_tests/1.txt"
+#define TEST_LOCKED_FILE_NAME "locked_file.tmp"
+
 #define TEST_BIG_FILE_URL "http://mapswithme.com/unit_tests/47kb.file"
 
 int gArgc = 1;
@@ -49,7 +55,7 @@ template<int TMaxDownloadsNum>
 struct DlObserver
 {
   size_t m_downloadsProcessed;
-  bool m_result[TMaxDownloadsNum];
+  DownloadResult m_result[TMaxDownloadsNum];
   string m_url[TMaxDownloadsNum];
 
   string m_progressUrl;
@@ -57,14 +63,14 @@ struct DlObserver
   DlObserver() : m_downloadsProcessed(0)
   {
     for (size_t i = 0; i < TMaxDownloadsNum; ++i)
-      m_result[i] = false;
+      m_result[i] = EHttpDownloadFailed;
   }
 
-  void OnDownloadFinished(char const * url, bool successfully)
+  void OnDownloadFinished(char const * url, DownloadResult result)
   {
     ASSERT_EQUAL( m_progressUrl, url, () );
     m_url[m_downloadsProcessed] = url;
-    m_result[m_downloadsProcessed] = successfully;
+    m_result[m_downloadsProcessed] = result;
     ++m_downloadsProcessed;
     if (m_downloadsProcessed >= TMaxDownloadsNum)
       STOP_WAITING_FOR_ASYNC_DOWNLOAD;  // return control to test function body
@@ -93,7 +99,7 @@ UNIT_TEST(SingleDownload)
       boost::bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
       boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
   WAIT_FOR_ASYNC_DOWNLOAD;
-  TEST( observer.m_result[0], ("Do you have internet connection?") );
+  TEST_EQUAL( observer.m_result[0], EHttpDownloadOk, ("Do you have internet connection?") );
   TEST( gPlatform.IsFileExists(TEST_FILE_NAME1), () );
   FileWriter::DeleteFile(TEST_FILE_NAME1);
 }
@@ -117,15 +123,15 @@ UNIT_TEST(MultiDownload)
       boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
   WAIT_FOR_ASYNC_DOWNLOAD;
 
-  TEST( observer.m_result[0], ("Do you have internet connection?") );
+  TEST_EQUAL( observer.m_result[0], EHttpDownloadOk, ("Do you have internet connection?") );
   TEST( gPlatform.IsFileExists(TEST_FILE_NAME1), () );
   FileWriter::DeleteFile(TEST_FILE_NAME1);
 
-  TEST( observer.m_result[1], ("Do you have internet connection?") );
+  TEST_EQUAL( observer.m_result[1], EHttpDownloadOk, ("Do you have internet connection?") );
   TEST( gPlatform.IsFileExists(TEST_FILE_NAME2), () );
   FileWriter::DeleteFile(TEST_FILE_NAME2);
 
-  TEST( observer.m_result[2], ("Do you have internet connection?") );
+  TEST_EQUAL( observer.m_result[2], EHttpDownloadOk, ("Do you have internet connection?") );
   TEST( gPlatform.IsFileExists(TEST_FILE_NAME3), () );
   FileWriter::DeleteFile(TEST_FILE_NAME3);
 }
@@ -134,15 +140,15 @@ UNIT_TEST(InvalidUrl)
 {
   size_t const NUM = 1;
   DlObserver<NUM> observer;
-  // this should be set to false on error
-  observer.m_result[0] = true;
+  // this should be set to error
+  observer.m_result[0] = EHttpDownloadOk;
 
   gMgr.DownloadFile(TEST_INVALID_URL, TEST_FILE_NAME1,
       boost::bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
       boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
   WAIT_FOR_ASYNC_DOWNLOAD;
 
-  TEST_EQUAL( observer.m_result[0], false, () );
+  TEST_EQUAL( observer.m_result[0], EHttpDownloadFailed, () );
 
   FileWriter::DeleteFile(TEST_FILE_NAME1);
 }
@@ -182,7 +188,7 @@ UNIT_TEST(DownloadFileExists)
       boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
   WAIT_FOR_ASYNC_DOWNLOAD;
 
-  TEST_EQUAL( observer.m_result[0], true, () );
+  TEST_EQUAL( observer.m_result[0], EHttpDownloadOk, () );
 
   {
     string str;
@@ -192,21 +198,7 @@ UNIT_TEST(DownloadFileExists)
 
   FileWriter::DeleteFile(TEST_FILE_NAME1);
 }
-/* not actual, now dlmgr doesn't notify client on canceling
-UNIT_TEST(LongDownloadCanceling)
-{
-  // download is canceled inside OnDownloadProgress method in observer
-  DlObserver<1> observer;
-  observer.m_result[0] = true;
-  gMgr.DownloadFile(TEST_BIG_FILE_URL, TEST_FILE_NAME1, observer);
-  WAIT_FOR_ASYNC_DOWNLOAD;
 
-  TEST_EQUAL( observer.m_result[0], false, () );
-  TEST_EQUAL( gPlatform.IsFileExists(TEST_FILE_NAME1), false, ("File should be deleted if download was canceled") );
-
-  FileWriter::DeleteFile(TEST_FILE_NAME1);
-}
-*/
 UNIT_TEST(DownloadResume)
 {
   size_t const NUM = 1;
@@ -224,7 +216,7 @@ UNIT_TEST(DownloadResume)
       boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer1, _1, _2),
       false);
   WAIT_FOR_ASYNC_DOWNLOAD;
-  TEST_EQUAL( observer1.m_result[0], true, () );
+  TEST_EQUAL( observer1.m_result[0], EHttpDownloadOk, () );
 
   DlObserver<NUM> observer2;
   gMgr.DownloadFile(TEST_FILE_URL1, TEST_FILE_NAME2,
@@ -232,7 +224,7 @@ UNIT_TEST(DownloadResume)
       boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer2, _1, _2),
       false);
   WAIT_FOR_ASYNC_DOWNLOAD;
-  TEST_EQUAL( observer2.m_result[0], true, () );
+  TEST_EQUAL( observer2.m_result[0], EHttpDownloadOk, () );
 
   uint64_t size1 = 4, size2 = 5;
   TEST( GetPlatform().GetFileSize(TEST_FILE_NAME1, size1), ());
@@ -251,7 +243,7 @@ UNIT_TEST(DownloadResume)
       boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer3, _1, _2),
       true);
   WAIT_FOR_ASYNC_DOWNLOAD;
-  TEST_EQUAL( observer3.m_result[0], true, () );
+  TEST_EQUAL( observer3.m_result[0], EHttpDownloadOk, () );
 
   TEST( GetPlatform().GetFileSize(TEST_FILE_NAME1, size1), ());
   TEST_EQUAL( size1, size2, () );
@@ -266,3 +258,41 @@ UNIT_TEST(DownloadResume)
   FileWriter::DeleteFile(TEST_FILE_NAME1);
   FileWriter::DeleteFile(TEST_FILE_NAME2);
 }
+
+UNIT_TEST(DownloadAbsentFile)
+{
+  size_t const NUM = 1;
+  DlObserver<NUM> observer;
+
+  gMgr.DownloadFile(TEST_ABSENT_FILE_URL, TEST_ABSENT_FILE_NAME,
+      boost::bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
+      boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
+  WAIT_FOR_ASYNC_DOWNLOAD;
+
+  TEST_EQUAL( observer.m_result[0], EHttpDownloadFileNotFound, () );
+  TEST( !GetPlatform().IsFileExists(TEST_ABSENT_FILE_NAME), () );
+
+  FileWriter::DeleteFile(TEST_ABSENT_FILE_NAME);
+}
+
+// only on Windows files are actually locked by system
+#ifdef OMIM_OS_WINDOWS
+UNIT_TEST(DownloadLockedFile)
+{
+  {
+    size_t const NUM = 1;
+    DlObserver<NUM> observer;
+
+    FileWriter lockedFile(TEST_LOCKED_FILE_NAME);
+    TEST( GetPlatform().IsFileExists(TEST_LOCKED_FILE_NAME), () );
+
+    gMgr.DownloadFile(TEST_LOCKED_FILE_URL, TEST_LOCKED_FILE_NAME,
+        boost::bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
+        boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
+    WAIT_FOR_ASYNC_DOWNLOAD;
+
+    TEST_EQUAL( observer.m_result[0], EHttpDownloadFileIsLocked, () );
+  }
+  FileWriter::DeleteFile(TEST_LOCKED_FILE_NAME);
+}
+#endif

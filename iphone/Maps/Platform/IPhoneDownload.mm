@@ -72,7 +72,7 @@
   	NSLog(@"Error opening %s file for download: %s", tmpFile.c_str(), strerror(errno));
   	// notify observer about error and exit
     if (m_finishObserver)
-    	m_finishObserver(originalUrl, false);
+    	m_finishObserver(originalUrl, EHttpDownloadCantCreateFile);
     return NO;
   }
 
@@ -87,7 +87,7 @@
 		NSLog(@"Can't create connection for url %s", originalUrl);
 		// notify observer about error and exit
     if (m_finishObserver)
-    	m_finishObserver(originalUrl, false);
+    	m_finishObserver(originalUrl, EHttpDownloadNoConnectionAvailable);
     return NO;
 	}
 
@@ -112,7 +112,7 @@
       remove((m_requestedFileName + DOWNLOADING_FILE_EXTENSION).c_str());
       // notify user
 		  if (m_finishObserver)
-      	m_finishObserver(m_url.c_str(), false);
+      	m_finishObserver(m_url.c_str(), statusCode == 404 ? EHttpDownloadFileNotFound : EHttpDownloadFailed);
   		// and selfdestruct...
   		GetDownloadManager().CancelDownload(m_url.c_str());
 			return;
@@ -160,7 +160,7 @@
   }
   
   if (m_finishObserver)
-	  m_finishObserver(m_url.c_str(), false);
+	  m_finishObserver(m_url.c_str(), EHttpDownloadFailed);
   // and selfdestruct...
   GetDownloadManager().CancelDownload(m_url.c_str());
 }
@@ -184,7 +184,7 @@
   }
   
   if (m_finishObserver)
-	  m_finishObserver(m_url.c_str(), resultForGUI);
+	  m_finishObserver(m_url.c_str(), resultForGUI ? EHttpDownloadOk : EHttpDownloadFileIsLocked);
   // and selfdestruct...
   GetDownloadManager().CancelDownload(m_url.c_str());
 }

@@ -94,7 +94,7 @@ QtDownload::QtDownload(QtDownloadManager & manager, char const * url,
     m_file = 0;
 
     if (m_finish)
-      m_finish(url, EHttpDownloadFailed);
+      m_finish(url, EHttpDownloadCantCreateFile);
     // mark itself to delete
     deleteLater();
     return;

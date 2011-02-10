@@ -96,9 +96,9 @@ namespace storage
 
     /// @name Called from DownloadManager
     //@{
-    void OnMapDownloadFinished(char const * url, bool successfully);
+    void OnMapDownloadFinished(char const * url, DownloadResult result);
     void OnMapDownloadProgress(char const * url, TDownloadProgress progress);
-    void OnUpdateDownloadFinished(char const * url, bool successfully);
+    void OnUpdateDownloadFinished(char const * url, DownloadResult result);
     //@}
 
     /// @name Current impl supports only one observer

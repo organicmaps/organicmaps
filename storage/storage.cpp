@@ -286,7 +286,7 @@ namespace storage
     return UrlDecode(url.substr(url.find_last_of('/') + 1, string::npos));
   }
 
-  void Storage::OnMapDownloadFinished(char const * url, bool successfully)
+  void Storage::OnMapDownloadFinished(char const * url, DownloadResult result)
   {
     if (m_queue.empty())
     {
@@ -294,7 +294,7 @@ namespace storage
       return;
     }
 
-    if (!successfully)
+    if (result != EHttpDownloadOk)
     {
       // remove failed country from the queue
       TIndex failedIndex = m_queue.front();
@@ -340,9 +340,9 @@ namespace storage
         TDownloadProgressFunction(), false);
   }
 
-  void Storage::OnUpdateDownloadFinished(char const * url, bool successfully)
+  void Storage::OnUpdateDownloadFinished(char const * url, DownloadResult result)
   {
-    if (!successfully)
+    if (result != EHttpDownloadOk)
     {
       LOG(LWARNING, ("Update check failed for url:", url));
       if (m_observerUpdateCheck)
