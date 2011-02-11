@@ -34,6 +34,7 @@
 #include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
 #include "../std/target_os.hpp"
+#include "../std/fstream.hpp"
 
 #include "../base/start_mem_debug.hpp"
 
@@ -96,6 +97,12 @@ class FrameWork
   model_t m_model;
   navigator_t m_navigator;
   shared_ptr<window_handle_t> m_windowHandle;
+
+  bool m_isBenchmarking;
+  bool m_isBenchmarkInitialized;
+  vector<pair<string, m2::RectD> > m_benchmarks;
+  unsigned m_currentBenchmark;
+
   RenderQueue m_renderQueue;
   InformationDisplay m_informationDisplay;
 
@@ -127,12 +134,7 @@ class FrameWork
 
   void SetMaxWorldRect()
   {
-#ifdef PROFILER_DRAWING
-    // London
-    m_navigator.SetFromRect(m2::RectD(-0.423781, 60.0613, 0.210893, 60.5272));
-#else
     m_navigator.SetFromRect(m_model.GetWorldRect());
-#endif
   }
 
   threads::Mutex m_modelSyn;
@@ -163,23 +165,49 @@ class FrameWork
 public:
   FrameWork(shared_ptr<window_handle_t> windowHandle, size_t bottomShift)
     : m_windowHandle(windowHandle),
+      m_isBenchmarking(GetPlatform().IsBenchmarking()),
+      m_isBenchmarkInitialized(false),
+      m_currentBenchmark(0),
       m_renderQueue(GetPlatform().SkinName(),
                     GetPlatform().IsMultiSampled(),
                     GetPlatform().DoPeriodicalUpdate(),
-                    GetPlatform().PeriodicalUpdateInterval()),
+                    GetPlatform().PeriodicalUpdateInterval(),
+                    GetPlatform().IsBenchmarking()),
       m_isRedrawEnabled(true)
   {
     m_informationDisplay.setBottomShift(bottomShift);
 #ifdef DRAW_TOUCH_POINTS
     m_informationDisplay.enableDebugPoints(true);
 #endif
-    m_informationDisplay.enableCenter(true);
+    m_informationDisplay.enableCenter(false);
+    m_informationDisplay.enableGlobalRect(!m_isBenchmarking);
     m_informationDisplay.enableRuler(true);
+
 #ifdef DEBUG
     m_informationDisplay.enableDebugInfo(true);
 #endif
+
+    m_informationDisplay.enableBenchmarkInfo(m_isBenchmarking);
+
     m_informationDisplay.setVisualScale(GetPlatform().VisualScale());
     m_renderQueue.AddWindowHandle(m_windowHandle);
+  }
+
+  void InitBenchmark()
+  {
+    ifstream fin(GetPlatform().WritablePathForFile("benchmark.txt").c_str());
+    while (true)
+    {
+      string name;
+      double x0, y0, x1, y1;
+      fin >> name >> x0 >> y0 >> x1 >> y1;
+      if (!fin)
+        break;
+      m_navigator.SetFromRect(m2::RectD(x0, y0, x1, y1));
+      m_renderQueue.AddBenchmarkCommand(boost::bind(&this_type::PaintImpl, this, _1, _2, _3, _4), m_navigator.Screen());
+      m_benchmarks.push_back(make_pair(name, m2::RectD(x0, y0, x1, y1)));
+    }
+    Invalidate();
   }
 
   void initializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
@@ -243,6 +271,12 @@ public:
     m_informationDisplay.setDisplayRect(m2::RectI(ptShift, ptShift + m2::PointD(w, h)));
 
     m_navigator.OnSize(ptShift.x, ptShift.y, w, h);
+
+    if ((m_isBenchmarking) && (!m_isBenchmarkInitialized))
+    {
+      m_isBenchmarkInitialized = true;
+      InitBenchmark();
+    }
 
     UpdateNow();
   }
@@ -321,18 +355,45 @@ public:
     DrawerYG * pDrawer = e->drawer().get();
 
     m_informationDisplay.setScreen(m_navigator.Screen());
+
     m_informationDisplay.setDebugInfo(m_renderQueue.renderState().m_duration, GetCurrentScale());
 
     m_informationDisplay.enableRuler(!IsEmptyModel());
 
     m2::PointD const center = m_navigator.Screen().ClipRect().Center();
+
+    m_informationDisplay.setGlobalRect(m_navigator.Screen().GlobalRect());
     m_informationDisplay.setCenter(m2::PointD(MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x)));
 
     {
       threads::MutexGuard guard(*m_renderQueue.renderState().m_mutex.get());
 
+      if (m_isBenchmarking)
+      {
+        m2::PointD const center = m_renderQueue.renderState().m_actualScreen.ClipRect().Center();
+        m_informationDisplay.setScreen(m_renderQueue.renderState().m_actualScreen);
+        m_informationDisplay.setCenter(m2::PointD(MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x)));
+
+        if (m_benchmarks.empty())
+        {
+          e->drawer()->screen()->beginFrame();
+          e->drawer()->screen()->clear();
+          m_informationDisplay.setDisplayRect(m2::RectI(0, 0, 100, 100));
+          m_informationDisplay.enableRuler(false);
+          m_informationDisplay.doDraw(e->drawer().get());
+          e->drawer()->screen()->endFrame();
+        }
+      }
+
       if (m_renderQueue.renderState().m_actualTarget.get() != 0)
       {
+        if (m_isBenchmarking
+         && !m_benchmarks.empty()
+         && m_informationDisplay.addBenchmarkInfo(m_benchmarks[m_currentBenchmark].first,
+                                                  m_benchmarks[m_currentBenchmark].second,
+                                                  m_renderQueue.renderState().m_duration))
+            m_currentBenchmark++;
+
         e->drawer()->screen()->beginFrame();
         e->drawer()->screen()->clear(/*yg::Color(255, 0, 0, 255)*/);
 
@@ -342,9 +403,13 @@ public:
         OGLCHECK(glPushMatrix());
         OGLCHECK(glTranslatef(-ptShift.x, -ptShift.y, 0));
 
+        ScreenBase currentScreen = m_navigator.Screen();
+        if (m_isBenchmarking)
+          currentScreen = m_renderQueue.renderState().m_actualScreen;
+
         pDrawer->screen()->blit(m_renderQueue.renderState().m_actualTarget,
                                 m_renderQueue.renderState().m_actualScreen,
-                                m_navigator.Screen(),
+                                currentScreen,
                                 yg::Color(0, 255, 0, 255),
                                 m2::RectI(0, 0,
                                           m_renderQueue.renderState().m_actualTarget->width(),

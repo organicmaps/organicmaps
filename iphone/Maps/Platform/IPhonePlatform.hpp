@@ -21,6 +21,7 @@ public:
 	virtual bool DoPeriodicalUpdate() const;
 	virtual double PeriodicalUpdateInterval() const;
 	virtual vector<string> GetFontNames() const;
+	virtual bool IsBenchmarking() const;
   
 private:
 	string m_skinName;

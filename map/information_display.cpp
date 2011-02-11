@@ -20,6 +20,8 @@ InformationDisplay::InformationDisplay()
   enableCenter(false);
   enableDebugInfo(false);
   enableMemoryWarning(false);
+  enableBenchmarkInfo(false);
+  enableGlobalRect(false);
 
   for (int i = 0; i < sizeof(m_DebugPts) / sizeof(m2::PointD); ++i)
     m_DebugPts[i] = m2::PointD(0, 0);
@@ -287,10 +289,38 @@ void InformationDisplay::setCenter(m2::PointD const & pt)
 
 void InformationDisplay::drawCenter(DrawerYG * drawer)
 {
+  m_yOffset += 20;
   ostringstream out;
   out << "(" << m_centerPt.x << ", " << m_centerPt.y << ") Scale : " << m_currentScale;
   drawer->screen()->drawText(
-      m2::PointD(m_displayRect.minX(), m_displayRect.minY()) + m2::PointD(10, m_isDebugInfoEnabled ? 40 : 20),
+      m2::PointD(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset),
+      0, 10,
+      yg::Color(0, 0, 0, 0),
+      out.str().c_str(),
+      true,
+      yg::Color(255, 255, 255, 255),
+      yg::maxDepth,
+      true,
+      false);
+}
+
+void InformationDisplay::enableGlobalRect(bool doEnable)
+{
+  m_isGlobalRectEnabled = doEnable;
+}
+
+void InformationDisplay::setGlobalRect(m2::RectD const & r)
+{
+  m_globalRect = r;
+}
+
+void InformationDisplay::drawGlobalRect(DrawerYG *pDrawer)
+{
+  m_yOffset += 20;
+  ostringstream out;
+  out << "(" << m_globalRect.minX() << ", " << m_globalRect.minY() << ", " << m_globalRect.maxX() << ", " << m_globalRect.maxY() << ") Scale : " << m_currentScale;
+  pDrawer->screen()->drawText(
+      m2::PointD(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset),
       0, 10,
       yg::Color(0, 0, 0, 0),
       out.str().c_str(),
@@ -321,7 +351,11 @@ void InformationDisplay::drawDebugInfo(DrawerYG * drawer)
   else
     out << " FPS: " << 1.0 / m_frameDuration;
 
-  drawer->screen()->drawText(m2::PointD(m_displayRect.minX(), m_displayRect.minY()) + m2::PointD(10, 20),
+  m_yOffset += 20;
+
+  m2::PointD pos = m2::PointD(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset);
+
+  drawer->screen()->drawText(pos,
                              0, 10,
                              yg::Color(0, 0, 0, 0),
                              out.str().c_str(),
@@ -345,11 +379,8 @@ void InformationDisplay::memoryWarning()
 
 void InformationDisplay::drawMemoryWarning(DrawerYG * drawer)
 {
-  m2::PointD pos(m_displayRect.minX() + 10, m_displayRect.minY() + 20);
-  if (m_isDebugInfoEnabled)
-    pos += m2::PointD(0, 30);
-  if (m_isCenterEnabled)
-    pos += m2::PointD(0, 30);
+  m_yOffset += 20;
+  m2::PointD pos(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset);
 
   ostringstream out;
   out << "MemoryWarning : " << m_lastMemoryWarning.ElapsedSeconds() << " sec. ago.";
@@ -368,8 +399,71 @@ void InformationDisplay::drawMemoryWarning(DrawerYG * drawer)
     enableMemoryWarning(false);
 }
 
+void InformationDisplay::enableBenchmarkInfo(bool doEnable)
+{
+  m_isBenchmarkInfoEnabled = doEnable;
+}
+
+bool InformationDisplay::addBenchmarkInfo(string const & name, m2::RectD const & globalRect, double frameDuration)
+{
+  if (frameDuration == 0)
+    return false;
+  if ((m_benchmarkInfo.empty())
+    ||(m_benchmarkInfo.back().m_duration != frameDuration))
+    {
+      BenchmarkInfo info;
+      info.m_name = name;
+      info.m_duration = frameDuration;
+      info.m_rect = globalRect;
+      m_benchmarkInfo.push_back(info);
+      return true;
+    }
+  return false;
+}
+
+void InformationDisplay::drawBenchmarkInfo(DrawerYG * pDrawer)
+{
+  m_yOffset += 20;
+  m2::PointD pos(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset);
+  pDrawer->screen()->drawText(pos,
+                              0, 10,
+                              yg::Color(0, 0, 0, 0),
+                              "benchmark info :",
+                              true,
+                              yg::Color(255, 255, 255, 255),
+                              yg::maxDepth,
+                              true,
+                              false);
+
+  for (unsigned i = 0; i < m_benchmarkInfo.size(); ++i)
+  {
+    ostringstream out;
+    m2::RectD const & r = m_benchmarkInfo[i].m_rect;
+    out << "  " << m_benchmarkInfo[i].m_name
+                << ", " << "rect: (" << r.minX()
+                << ", " << r.minY()
+                << ", " << r.maxX()
+                << ", " << r.maxY()
+                << "), duration : " << m_benchmarkInfo[i].m_duration;
+    m_yOffset += 20;
+    pos.y += 20;
+    pDrawer->screen()->drawText(pos,
+                                0, 10,
+                                yg::Color(0, 0, 0, 0),
+                                out.str().c_str(),
+                                true,
+                                yg::Color(255, 255, 255, 255),
+                                yg::maxDepth,
+                                true,
+                                false
+                                );
+  }
+
+}
+
 void InformationDisplay::doDraw(DrawerYG *drawer)
 {
+  m_yOffset = 0;
   if (m_isHeadingEnabled)
     drawHeading(drawer);
   if (m_isPositionEnabled)
@@ -380,8 +474,12 @@ void InformationDisplay::doDraw(DrawerYG *drawer)
     drawRuler(drawer);
   if (m_isCenterEnabled)
     drawCenter(drawer);
+  if (m_isGlobalRectEnabled)
+    drawGlobalRect(drawer);
   if (m_isDebugInfoEnabled)
     drawDebugInfo(drawer);
   if (m_isMemoryWarningEnabled)
     drawMemoryWarning(drawer);
+  if (m_isBenchmarkInfoEnabled)
+    drawBenchmarkInfo(drawer);
 }

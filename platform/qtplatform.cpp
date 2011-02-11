@@ -379,6 +379,11 @@ public:
 
      return res;
   }
+
+  bool IsBenchmarking() const
+  {
+    return false;
+  }
 };
 
 extern "C" Platform & GetPlatform()

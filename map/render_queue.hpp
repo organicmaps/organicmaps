@@ -31,7 +31,11 @@ private:
 
 public:
   /// constructor.
-  RenderQueue(string const & skinName, bool isMultiSampled, bool doPeriodicalUpdate, double updateInterval);
+  RenderQueue(string const & skinName,
+              bool isMultiSampled,
+              bool doPeriodicalUpdate,
+              double updateInterval,
+              bool isBenchmarking);
   /// destructor.
   ~RenderQueue();
   /// set the primary context. it starts the rendering thread.
@@ -40,6 +44,7 @@ public:
                     double ppmScale);
   /// add command to the commands queue.
   void AddCommand(RenderQueueRoutine::render_fn_t const & fn, ScreenBase const & frameScreen);
+  void AddBenchmarkCommand(RenderQueueRoutine::render_fn_t const & fn, ScreenBase const & frameScreen);
 
   void SetRedrawAll();
 

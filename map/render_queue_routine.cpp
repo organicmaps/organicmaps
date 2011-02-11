@@ -32,7 +32,8 @@ RenderQueueRoutine::RenderQueueRoutine(shared_ptr<yg::gl::RenderState> const & r
                                        string const & skinName,
                                        bool isMultiSampled,
                                        bool doPeriodicalUpdate,
-                                       double updateInterval)
+                                       double updateInterval,
+                                       bool isBenchmarking)
 {
   m_skinName = skinName;
   m_visualScale = 0;
@@ -41,6 +42,7 @@ RenderQueueRoutine::RenderQueueRoutine(shared_ptr<yg::gl::RenderState> const & r
   m_isMultiSampled = isMultiSampled;
   m_doPeriodicalUpdate = doPeriodicalUpdate;
   m_updateInterval = updateInterval;
+  m_isBenchmarking = isBenchmarking;
 }
 
 void RenderQueueRoutine::Cancel()
@@ -209,6 +211,17 @@ void RenderQueueRoutine::setVisualScale(double visualScale)
   m_visualScale = visualScale;
 }
 
+void RenderQueueRoutine::waitForRenderCommand(list<shared_ptr<RenderModelCommand> > & cmdList,
+                                              threads::ConditionGuard & guard)
+{
+  while (cmdList.empty())
+  {
+    guard.Wait();
+    if (IsCancelled())
+      break;
+  }
+}
+
 void RenderQueueRoutine::Do()
 {
   m_renderContext->makeCurrent();
@@ -244,23 +257,27 @@ void RenderQueueRoutine::Do()
     {
       threads::ConditionGuard guard(m_hasRenderCommands);
 
-      while (m_renderCommands.empty())
-      {
-        guard.Wait();
-        if (IsCancelled())
-          break;
-      }
+      if (m_isBenchmarking)
+        waitForRenderCommand(m_benchmarkRenderCommands, guard);
+      else
+        waitForRenderCommand(m_renderCommands, guard);
 
       if (IsCancelled())
         break;
 
       /// Preparing render command for execution.
-      m_currentRenderCommand = m_renderCommands.front();
-      m_renderCommands.erase(m_renderCommands.begin());
+      if (m_isBenchmarking)
+      {
+        m_currentRenderCommand = m_benchmarkRenderCommands.front();
+        m_benchmarkRenderCommands.erase(m_benchmarkRenderCommands.begin());
+      }
+      else
+      {
+        m_currentRenderCommand = m_renderCommands.front();
+        m_renderCommands.erase(m_renderCommands.begin());
+      }
 
       processResize(m_currentRenderCommand->m_frameScreen);
-
-//    m_threadDrawer->screen()->setRenderTarget(m_renderState->m_backBufferLayers.front());
 
       m_currentRenderCommand->m_paintEvent = make_shared_ptr(new PaintEvent(m_threadDrawer));
 
@@ -349,8 +366,6 @@ void RenderQueueRoutine::Do()
 
     double duration = timer.ElapsedSeconds();
 
-//    LOG(LINFO, ("FrameDuration: ", duration));
-
     if (!IsCancelled())
     {
       /// We shouldn't update the actual target as it's already happened (through callback function)
@@ -399,9 +414,25 @@ void RenderQueueRoutine::addCommand(render_fn_t const & fn, ScreenBase const & f
   /// pushing back new RenderCommand.
   m_renderCommands.push_back(make_shared_ptr(new RenderModelCommand(frameScreen, fn)));
 
-  /// if we are not panning, we should cancel the render command in progress to start a new one
-  if ((m_currentRenderCommand != 0) && (!IsPanning(m_currentRenderCommand->m_frameScreen, frameScreen)))
+  /// if we are in benchmarking mode, we shouldn't cancel any render command
+  /// else, if we are not panning, we should cancel the render command in progress to start a new one
+  if ((!m_isBenchmarking)
+   && (m_currentRenderCommand != 0)
+   && (!IsPanning(m_currentRenderCommand->m_frameScreen, frameScreen)))
     m_currentRenderCommand->m_paintEvent->setIsCancelled(true);
+
+  if (needToSignal)
+    guard.Signal();
+}
+
+void RenderQueueRoutine::addBenchmarkCommand(render_fn_t const & fn, ScreenBase const & frameScreen)
+{
+  /// Command queue modification is syncronized by mutex
+  threads::ConditionGuard guard(m_hasRenderCommands);
+
+  bool needToSignal = m_renderCommands.empty();
+
+  m_benchmarkRenderCommands.push_back(make_shared_ptr(new RenderModelCommand(frameScreen, fn)));
 
   if (needToSignal)
     guard.Signal();

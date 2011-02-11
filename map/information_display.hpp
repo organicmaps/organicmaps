@@ -15,6 +15,7 @@ private:
 
   ScreenBase m_screen;
   m2::RectI m_displayRect;
+  int m_yOffset;
 
   double m_headingOrientation;
 
@@ -39,8 +40,23 @@ private:
   m2::PointD m_centerPt;
   int m_currentScale;
 
+  bool m_isGlobalRectEnabled;
+  m2::RectD m_globalRect;
+
   bool m_isDebugInfoEnabled;
   double m_frameDuration;
+
+  bool m_isBenchmarkInfoEnabled;
+
+  struct BenchmarkInfo
+  {
+    string m_name;
+    m2::RectD m_rect;
+    double m_duration;
+  };
+
+  vector<BenchmarkInfo> m_benchmarkInfo;
+
   double m_bottomShift;
   double m_visualScale;
 
@@ -77,6 +93,10 @@ public:
   void setCenter(m2::PointD const & latLongPt);
   void drawCenter(DrawerYG * pDrawer);
 
+  void enableGlobalRect(bool doEnable);
+  void setGlobalRect(m2::RectD const & r);
+  void drawGlobalRect(DrawerYG * pDrawer);
+
   void enableDebugInfo(bool doEnable);
   void setDebugInfo(double frameDuration, int currentScale);
   void drawDebugInfo(DrawerYG * pDrawer);
@@ -84,6 +104,10 @@ public:
   void enableMemoryWarning(bool doEnable);
   void memoryWarning();
   void drawMemoryWarning(DrawerYG * pDrawer);
+
+  void enableBenchmarkInfo(bool doEnable);
+  bool addBenchmarkInfo(string const & name, m2::RectD const & globalRect, double frameDuration);
+  void drawBenchmarkInfo(DrawerYG * pDrawer);
 
   void doDraw(DrawerYG * drawer);
 };

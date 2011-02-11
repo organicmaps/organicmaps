@@ -5,15 +5,27 @@
 #include "../yg/render_state.hpp"
 #include "../yg/rendercontext.hpp"
 
-RenderQueue::RenderQueue(string const & skinName, bool isMultiSampled, bool doPeriodicalUpdate, double updateInterval)
+RenderQueue::RenderQueue(
+    string const & skinName,
+    bool isMultiSampled,
+    bool doPeriodicalUpdate,
+    double updateInterval,
+    bool isBenchmarking)
   : m_renderState(new yg::gl::RenderState())
 {
   m_renderState->m_surfaceWidth = 100;
   m_renderState->m_surfaceHeight = 100;
   m_renderState->m_textureWidth = 256;
   m_renderState->m_textureHeight = 256;
+  m_renderState->m_duration = 0;
 
-  m_routine = new RenderQueueRoutine(m_renderState, skinName, isMultiSampled, doPeriodicalUpdate, updateInterval);
+  m_routine = new RenderQueueRoutine(
+      m_renderState,
+      skinName,
+      isMultiSampled,
+      doPeriodicalUpdate,
+      updateInterval,
+      isBenchmarking);
 }
 
 void RenderQueue::initializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
@@ -35,6 +47,11 @@ RenderQueue::~RenderQueue()
 void RenderQueue::AddCommand(RenderQueueRoutine::render_fn_t const & fn, ScreenBase const & frameScreen)
 {
   m_routine->addCommand(fn, frameScreen);
+}
+
+void RenderQueue::AddBenchmarkCommand(RenderQueueRoutine::render_fn_t const & fn, ScreenBase const & frameScreen)
+{
+  m_routine->addBenchmarkCommand(fn, frameScreen);
 }
 
 void RenderQueue::SetRedrawAll()

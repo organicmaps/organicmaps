@@ -189,6 +189,11 @@ vector<string> IPhonePlatform::GetFontNames() const
 	return res;
 }
 
+bool IPhonePlatform::IsBenchmarking() const
+{
+	return false;
+}
+
 Platform & GetPlatform()
 {
   static IPhonePlatform platform;

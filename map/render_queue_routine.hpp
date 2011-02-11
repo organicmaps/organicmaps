@@ -63,6 +63,7 @@ private:
   threads::Condition m_hasRenderCommands;
   shared_ptr<RenderModelCommand> m_currentRenderCommand;
   list<shared_ptr<RenderModelCommand> > m_renderCommands;
+  list<shared_ptr<RenderModelCommand> > m_benchmarkRenderCommands;
 
   shared_ptr<yg::gl::RenderState> m_renderState;
   shared_ptr<yg::gl::BaseTexture> m_fakeTarget;
@@ -77,13 +78,18 @@ private:
   double m_updateInterval;
   double m_visualScale;
   string m_skinName;
+  bool m_isBenchmarking;
+
+  void waitForRenderCommand(list<shared_ptr<RenderModelCommand> > & cmdList,
+                            threads::ConditionGuard & guard);
 
 public:
   RenderQueueRoutine(shared_ptr<yg::gl::RenderState> const & renderState,
                      string const & skinName,
                      bool isMultiSampled,
                      bool doPeriodicalUpdate,
-                     double updateInterval);
+                     double updateInterval,
+                     bool isBenchmarking);
   /// initialize GL rendering
   /// this function is called just before the thread starts.
   void initializeGL(shared_ptr<yg::gl::RenderContext> const & renderContext,
@@ -102,6 +108,8 @@ public:
   void addWindowHandle(shared_ptr<WindowHandle> window);
   /// add model rendering command to rendering queue
   void addCommand(render_fn_t const & fn, ScreenBase const & frameScreen);
+  /// add benchmark rendering command
+  void addBenchmarkCommand(render_fn_t const & fn, ScreenBase const & frameScreen);
   /// set the resolution scale factor to the main thread drawer;
   void setVisualScale(double visualScale);
 };
