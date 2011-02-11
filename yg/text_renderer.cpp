@@ -36,7 +36,7 @@ namespace yg
       /// lies inside the testing rect and therefore should be skipped.
       if (m_needRedraw)
       {
-        pTextRenderer->drawTextImpl(m_pt, 0.0, m_size, m_color, m_utf8Text, m_isMasked, m_maskColor, yg::maxDepth, m_isFixedFont, m_log2vis);
+        pTextRenderer->drawTextImpl(m_pt, 0.0, m_size, m_color, m_utf8Text, true, m_maskColor, yg::maxDepth, m_isFixedFont, m_log2vis);
         /// boosting its depth to "out of range" value,
         /// to mark it as a rendered text and prevent it from
         /// popping out of tree, when more important text arrives
@@ -59,6 +59,12 @@ namespace yg
       m_pt += offs;
     }
 
+    bool TextRenderer::TextObj::better_text(TextObj const & r1, TextObj const & r2)
+    {
+      if ((r1.m_isMasked) && (!r2.m_isMasked))
+        return true;
+      return r1.m_depth > r2.m_depth;
+    }
 
     void TextRenderer::drawText(m2::PointD const & pt,
                   float angle,
@@ -72,12 +78,12 @@ namespace yg
                   bool log2vis)
     {
       if (isFixedFont)
-        drawTextImpl(pt, angle, fontSize, color, utf8Text, isMasked, maskColor, depth, isFixedFont, log2vis);
+        drawTextImpl(pt, angle, fontSize, color, utf8Text, true, maskColor, depth, isFixedFont, log2vis);
       else
       {
         TextObj obj(pt, utf8Text, fontSize, color, isMasked, maskColor, depth, isFixedFont, log2vis);
         m2::RectD r = obj.GetLimitRect(this);
-        m_tree.ReplaceIf(obj, r, TextObj::better_depth());
+        m_tree.ReplaceIf(obj, r, &TextObj::better_text);
       }
     }
 

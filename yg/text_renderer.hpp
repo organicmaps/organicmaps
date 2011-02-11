@@ -46,13 +46,7 @@ namespace yg
         void SetNeedRedraw(bool needRedraw) const;
         void Offset(m2::PointD const & pt);
 
-        struct better_depth
-        {
-          bool operator() (TextObj const & r1, TextObj const & r2) const
-          {
-            return r1.m_depth > r2.m_depth;
-          }
-        };
+        static bool better_text(TextObj const & r1, TextObj const & r2);
       };
 
       m4::Tree<TextObj> m_tree;
