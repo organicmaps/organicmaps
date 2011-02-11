@@ -67,6 +67,7 @@ class DrawerYG
 
   uint8_t get_text_font_size(rule_ptr_t pRule) const;
   uint8_t get_pathtext_font_size(rule_ptr_t pRule) const;
+  bool filter_text_size(rule_ptr_t pRule) const;
 
   typedef map<string, list<m2::RectD> > org_map_t;
   org_map_t m_pathsOrg;

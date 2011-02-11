@@ -203,6 +203,7 @@ void DrawerYG::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int de
 
 namespace
 {
+  double const min_text_height_filtered = 4;
   double const min_text_height = 12;      // 8
 //  double const min_text_height_mask = 9.99; // 10
 }
@@ -219,6 +220,11 @@ uint8_t DrawerYG::get_pathtext_font_size(rule_ptr_t pRule) const
   return my::rounds(max(h, min_text_height) * m_visualScale);
 }
 
+bool DrawerYG::filter_text_size(rule_ptr_t pRule) const
+{
+  return pRule->GetTextHeight() * m_scale <= min_text_height_filtered;
+}
+
 void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t pRule, int depth)
 {
   yg::Color textColor(pRule->GetColor() == -1 ? yg::Color(0, 0, 0, 0) : yg::Color::fromXRGB(pRule->GetColor(), pRule->GetAlpha()));
@@ -227,13 +233,14 @@ void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t p
   if (textColor == yg::Color(255, 255, 255, 255))
     textColor = yg::Color(0, 0, 0, 0);
 
-  m_pScreen->drawText(
+  if (!filter_text_size(pRule))
+    m_pScreen->drawText(
       pt,
       0.0,
       get_text_font_size(pRule),
       textColor,
       name,
-      true,
+      pRule->GetStrokeColor() != -1,
       yg::Color(255, 255, 255, 255),
       depth,
       false,
@@ -369,6 +376,9 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
         {
           for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
           {
+            if (filter_text_size(pRule))
+              continue;
+
             uint8_t const fontSize = get_pathtext_font_size(pRule);
 
             list<m2::RectD> & lst = m_pathsOrg[pInfo->m_name];

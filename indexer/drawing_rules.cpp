@@ -574,6 +574,7 @@ namespace drule {
 
     virtual double GetTextHeight() const { return m_params.get<5>().m_v; }
     virtual int GetColor() const { return m_params.get<6>().m_v; }
+    virtual int GetStrokeColor() const {return m_params.get<8>().m_v; }
 
     static string arrKeys[9];
   };

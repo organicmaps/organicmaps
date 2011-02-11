@@ -55,6 +55,7 @@ namespace drule
     //@}
 
     virtual unsigned char GetAlpha () const { return 255; }
+    virtual int GetStrokeColor() const {return -1;}
     virtual double GetWidth() const { return -1; }
     virtual void GetPattern(vector<double> &, double &) const {}
     virtual void GetSymbol(string &) const {}
