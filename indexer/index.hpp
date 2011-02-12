@@ -126,6 +126,11 @@ public:
     m_Indexes.clear();
   }
 
+  void ClearCaches()
+  {
+    for_each(m_Indexes.begin(), m_Indexes.end(), bind(&IndexProxy::Close, _1));
+  }
+
 private:
 
   class IndexProxy
