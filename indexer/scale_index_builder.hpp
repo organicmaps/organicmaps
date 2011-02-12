@@ -142,9 +142,7 @@ inline void IndexScales(FeaturesVectorT const & featuresVector,
                         WriterT & writer,
                         string const & tmpFilePrefix)
 {
-  // TODO: Add global feature covering optimization.
   // TODO: Make scale bucketing dynamic.
-  // TODO: Compute covering only once?
 
   //typedef pair<int64_t, uint32_t> CellFeaturePair;
   STATIC_ASSERT(sizeof(CellFeaturePair) == 12);
