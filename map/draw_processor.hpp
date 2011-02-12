@@ -170,8 +170,8 @@ namespace get_pts
   /// Adapter for points filtering, before they will go for processing
   template <class TBase> class filter_screenpts_adapter : public TBase
   {
-    m2::PointD m_prev, m_center;
     size_t m_count;
+    m2::PointD m_prev, m_center;
 
     static bool equal_scr_pts(m2::PointD const & p1, m2::PointD const & p2)
     {
