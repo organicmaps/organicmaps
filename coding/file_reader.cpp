@@ -116,3 +116,11 @@ string FileReader::GetName() const
 {
   return m_pFileData->GetName();
 }
+
+string FileReader::ReadAsText() const
+{
+  vector<char> buffer(Size());
+  buffer.resize(Size());
+  Read(0, &buffer[0], Size());
+  return string(reinterpret_cast<char const *>(&buffer[0]), buffer.size());
+}

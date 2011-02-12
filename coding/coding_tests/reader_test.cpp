@@ -66,3 +66,18 @@ UNIT_TEST(FileReaderNonExistentFileTest)
   {
   }
 }
+
+UNIT_TEST(FileReaderReadAsText)
+{
+  char const fName[] = "zzzuuuuuummmba";
+  {
+    FileWriter f(fName);
+    f.Write(fName, ARRAY_SIZE(fName) - 1);
+  }
+  {
+    FileReader f(fName);
+    string const text = f.ReadAsText();
+    TEST_EQUAL(text, fName, ());
+  }
+  FileWriter::DeleteFile(fName);
+}

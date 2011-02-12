@@ -22,6 +22,7 @@ public:
 
   bool IsEqual(string const & fName) const;
   string GetName() const;
+  string ReadAsText() const;
 
 private:
   FileReader(shared_ptr<FileReaderData> const & pFileData, uint64_t offset, uint64_t size);
