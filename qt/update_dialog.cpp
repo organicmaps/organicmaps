@@ -53,8 +53,8 @@ namespace qt
   {
     //m_label = new QLabel(QObject::tr("Version: ") + VERSION_STRING, this);
 
-    QPushButton * m_updateButton = new QPushButton(QObject::tr(CHECK_FOR_UPDATE), this);
-    connect(m_updateButton, SIGNAL(clicked(bool)), this, SLOT(OnButtonClick(bool)));
+    m_updateButton = new QPushButton(QObject::tr(CHECK_FOR_UPDATE), this);
+    connect(m_updateButton, SIGNAL(clicked()), this, SLOT(OnUpdateClick()));
 
     m_tree = new QTreeWidget(this);
     m_tree->setColumnCount(KNumberOfColumns);
@@ -159,7 +159,7 @@ namespace qt
     return item;
   }
 
-  void UpdateDialog::OnButtonClick(bool)
+  void UpdateDialog::OnUpdateClick()
   {
     m_updateButton->setText(QObject::tr("Checking for update..."));
     m_updateButton->setDisabled(true);
