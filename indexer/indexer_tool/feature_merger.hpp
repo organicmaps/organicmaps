@@ -1,6 +1,6 @@
 #pragma once
 
-#include "feature.hpp"
+#include "../feature.hpp"
 
 class FeatureBuilder1Merger : public FeatureBuilder1
 {

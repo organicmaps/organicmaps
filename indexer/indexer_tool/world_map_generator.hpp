@@ -1,11 +1,12 @@
 #pragma once
 
+#include "feature_merger.hpp"
+
 #include "../../base/logging.hpp"
 
 #include "../../defines.hpp"
 
 #include "../../indexer/feature.hpp"
-#include "../../indexer/feature_merger.hpp"
 #include "../../indexer/feature_visibility.hpp"
 #include "../../indexer/point_to_int64.hpp"
 

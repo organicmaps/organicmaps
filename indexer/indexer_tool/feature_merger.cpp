@@ -1,6 +1,6 @@
 #include "feature_merger.hpp"
 
-#include "../base/logging.hpp"
+#include "../../base/logging.hpp"
 
 #define MAX_MERGED_POINTS_COUNT 10000
 
