@@ -66,8 +66,6 @@ void RenderQueueRoutine::processResize(ScreenBase const & /*frameScreen*/)
 
     m_renderState->m_backBufferLayers.clear();
     m_renderState->m_backBufferLayers.push_back(make_shared_ptr(new yg::gl::RawRGBA8Texture(texW, texH)));
-    /// layer for texts
-    m_renderState->m_backBufferLayers.push_back(make_shared_ptr(new yg::gl::RawRGBA8Texture(texW, texH)));
 
     m_renderState->m_depthBuffer.reset();
 
