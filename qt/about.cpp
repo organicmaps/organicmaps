@@ -39,6 +39,8 @@ AboutDialog::AboutDialog(QWidget * parent)
     file.close();
 
     QLabel * labelAbout = new QLabel(aboutData);
+    labelAbout->setOpenExternalLinks(true);
+
     QVBoxLayout * vBox = new QVBoxLayout();
     vBox->addLayout(hBox);
     vBox->addWidget(labelAbout);

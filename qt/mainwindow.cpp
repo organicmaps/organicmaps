@@ -50,7 +50,8 @@ MainWindow::MainWindow() : m_updateDialog(0)
   helpMenu->addAction(tr("About"), this, SLOT(OnAbout()));
   helpMenu->addAction(tr("Preferences"), this, SLOT(OnPreferences()));
 #else
-  { // create items in the system menu
+  {
+    // create items in the system menu
     QByteArray const aboutStr = tr("About MapsWithMe...").toLocal8Bit();
     QByteArray const prefsStr = tr("Preferences...").toLocal8Bit();
     // we use system menu for our items
@@ -75,8 +76,10 @@ MainWindow::MainWindow() : m_updateDialog(0)
   LoadState();
 
   // Show intro dialog if necessary
-  bool bShow = false;
-  if (!Settings::Get("ShowWelcome", bShow))
+  bool bShow = true;
+  (void)Settings::Get("ShowWelcome", bShow);
+
+  if (bShow)
   {
     QFile welcomeTextFile(GetPlatform().ReadPathForFile("welcome.html").c_str());
     if (welcomeTextFile.open(QIODevice::ReadOnly))
@@ -90,7 +93,7 @@ MainWindow::MainWindow() : m_updateDialog(0)
       welcomeDlg.SetCustomButtons(buttons);
       welcomeDlg.exec();
     }
-    Settings::Set("ShowWelcome", bool(false));
+    Settings::Set("ShowWelcome", false);
 
     ShowUpdateDialog();
   }
@@ -139,8 +142,8 @@ void MainWindow::LoadState()
 {
   pair<uint32_t, uint32_t> xAndY;
   pair<uint32_t, uint32_t> widthAndHeight;
-  bool loaded = Settings::Get("MainWindowXY", xAndY)
-      && Settings::Get("MainWindowSize", widthAndHeight);
+  bool loaded = Settings::Get("MainWindowXY", xAndY) &&
+                Settings::Get("MainWindowSize", widthAndHeight);
   if (loaded)
   {
     move(xAndY.first, xAndY.second);
@@ -296,8 +299,10 @@ void MainWindow::OnPreferences()
 {
   bool autoUpdatesEnabled = DEFAULT_AUTO_UPDATES_ENABLED;
   Settings::Get("AutomaticUpdateCheck", autoUpdatesEnabled);
+
   PreferencesDialog dlg(this, autoUpdatesEnabled);
   dlg.exec();
+
   Settings::Set("AutomaticUpdateCheck", autoUpdatesEnabled);
 }
 
