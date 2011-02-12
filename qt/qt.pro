@@ -55,29 +55,31 @@ win32-g++ {
 }
 
 SOURCES += \
-  main.cpp \
-  mainwindow.cpp \
-  searchwindow.cpp \
-  widgets.cpp \
-  update_dialog.cpp \
-  draw_widget.cpp \
-  classificator_tree.cpp \
-  proxystyle.cpp \
-  slider_ctrl.cpp \
-  about.cpp \
-  preferences_dialog.cpp \
+    main.cpp \
+    mainwindow.cpp \
+    searchwindow.cpp \
+    widgets.cpp \
+    update_dialog.cpp \
+    draw_widget.cpp \
+    classificator_tree.cpp \
+    proxystyle.cpp \
+    slider_ctrl.cpp \
+    about.cpp \
+    preferences_dialog.cpp \
+    info_dialog.cpp
 
 HEADERS += \
-  mainwindow.hpp \
-  searchwindow.hpp \
-  widgets.hpp \
-  update_dialog.hpp \
-  draw_widget.hpp \
-  qt_window_handle.hpp \
-  classificator_tree.hpp \
-  proxystyle.hpp \
-  slider_ctrl.hpp \
-  about.hpp \
-  preferences_dialog.hpp \
+    mainwindow.hpp \
+    searchwindow.hpp \
+    widgets.hpp \
+    update_dialog.hpp \
+    draw_widget.hpp \
+    qt_window_handle.hpp \
+    classificator_tree.hpp \
+    proxystyle.hpp \
+    slider_ctrl.hpp \
+    about.hpp \
+    preferences_dialog.hpp \
+    info_dialog.hpp
 
 RESOURCES += res/resources.qrc \

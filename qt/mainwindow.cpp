@@ -8,6 +8,7 @@
 #include "slider_ctrl.hpp"
 #include "about.hpp"
 #include "preferences_dialog.hpp"
+#include "info_dialog.hpp"
 
 #include "../defines.hpp"
 
@@ -72,6 +73,27 @@ MainWindow::MainWindow() : m_updateDialog(0)
 #endif
 
   LoadState();
+
+  // Show intro dialog if necessary
+  bool bShow = false;
+  if (!Settings::Get("ShowWelcome", bShow))
+  {
+    QFile welcomeTextFile(GetPlatform().ReadPathForFile("welcome.html").c_str());
+    if (welcomeTextFile.open(QIODevice::ReadOnly))
+    {
+      QByteArray text = welcomeTextFile.readAll();
+      welcomeTextFile.close();
+
+      InfoDialog welcomeDlg(tr("Welcome to MapsWithMe!"), text, this);
+      QStringList buttons;
+      buttons << tr("Download Maps");
+      welcomeDlg.SetCustomButtons(buttons);
+      welcomeDlg.exec();
+    }
+    Settings::Set("ShowWelcome", bool(false));
+
+    ShowUpdateDialog();
+  }
 }
 
 #if defined(Q_WS_WIN)
