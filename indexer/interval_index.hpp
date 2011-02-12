@@ -43,6 +43,8 @@ public:
 
   class Query
   {
+  public:
+    void Clear() {}
   private:
     friend class IntervalIndex;
     vector<char> m_IntervalIndexCache;

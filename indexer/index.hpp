@@ -259,6 +259,16 @@ public:
   // Defines base Query type.
   class Query : public BaseT::Query
   {
+  public:
+    // Clear query, so that it can be reused.
+    // This function doesn't release caches!
+    void Clear()
+    {
+      m_Offsets.clear();
+      BaseT::Query::Clear();
+    }
+
+  private:
     // TODO: Remember max offsets.size() and initialize offsets with it?
     unordered_set<uint32_t> m_Offsets;
     friend class UniqueOffsetAdapter;
