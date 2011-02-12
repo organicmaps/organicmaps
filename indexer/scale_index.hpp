@@ -55,6 +55,8 @@ class ScaleIndex : public ScaleIndexBase
 {
 public:
   typedef ReaderT ReaderType;
+  typedef IntervalIndex<uint32_t, ReaderT> IntervalIndexType;
+  typedef typename IntervalIndexType::Query Query;
 
   ScaleIndex() {}
   explicit ScaleIndex(ReaderT const & reader) { Attach(reader); }
@@ -70,15 +72,15 @@ public:
   }
 
   template <typename F>
-  void ForEachInIntervalAndScale(F const & f, uint64_t beg, uint64_t end, uint32_t scale) const
+  void ForEachInIntervalAndScale(F const & f, uint64_t beg, uint64_t end, uint32_t scale,
+                                 Query & query) const
   {
     int scaleBucket = BucketByScale(scale);
     ASSERT_LESS(scaleBucket, static_cast<int>(m_IndexForScale.size()), ());
     for (int i = 0; i <= scaleBucket; ++i)
-      m_IndexForScale[i].ForEach(f, beg, end);
+      m_IndexForScale[i].ForEach(f, beg, end, query);
   }
 
 private:
-  typedef IntervalIndex<uint32_t, ReaderT> IntervalIndexType;
   vector<IntervalIndexType> m_IndexForScale;
 };

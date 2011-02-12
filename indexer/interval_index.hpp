@@ -40,6 +40,14 @@ template <typename ValueT, class ReaderT>
 class IntervalIndex : public IntervalIndexBase
 {
 public:
+
+  class Query
+  {
+  private:
+    friend class IntervalIndex;
+    vector<char> m_IntervalIndexCache;
+  };
+
   IntervalIndex(ReaderT const & reader, int cellIdBytes = 5)
     : m_Reader(reader), m_CellIdBytes(cellIdBytes)
   {
@@ -48,18 +56,26 @@ public:
   }
 
   template <typename F>
-  void ForEach(F const & f, uint64_t beg, uint64_t end) const
+  void ForEach(F const & f, uint64_t beg, uint64_t end, Query & query) const
   {
     ASSERT_LESS(beg, 1ULL << 8 * m_CellIdBytes, (beg, end));
     ASSERT_LESS_OR_EQUAL(end, 1ULL << 8 * m_CellIdBytes, (beg, end));
     // end is inclusive in ForEachImpl().
     --end;
-    ForEachImpl(f, beg, end, m_Level0Index, m_CellIdBytes - 1);
+    ForEachImpl(f, beg, end, m_Level0Index, m_CellIdBytes - 1, query);
+  }
+
+  template <typename F>
+  void ForEach(F const & f, uint64_t beg, uint64_t end) const
+  {
+    Query query;
+    ForEach(f, beg, end, query);
   }
 
 private:
   template <typename F>
-  void ForEachImpl(F const & f, uint64_t beg, uint64_t end, Index const & index, int level) const
+  void ForEachImpl(F const & f, uint64_t beg, uint64_t end, Index const & index, int level,
+                   Query & query) const
   {
     uint32_t const beg0 = static_cast<uint32_t>(beg >> (8 * level));
     uint32_t const end0 = static_cast<uint32_t>(end >> (8 * level));
@@ -78,7 +94,7 @@ private:
         {
           Index index1;
           ReadIndex(index.GetBaseOffset() + (cumCount * sizeof(Index)), index1);
-          ForEachImpl(f, b1, e1, index1, level - 1);
+          ForEachImpl(f, b1, e1, index1, level - 1, query);
         }
         else
         {
@@ -86,9 +102,10 @@ private:
           uint32_t const step = sizeof(ValueT) + m_Header.m_CellIdLeafBytes;
           uint32_t const count = index.m_Count[i];
           uint32_t pos = index.GetBaseOffset() + (cumCount * step);
-          vector<char> data(step * count);
-          char const * pData = &data[0];
-          m_Reader.Read(pos, &data[0], data.size());
+          size_t const readSize = step * count;
+          query.m_IntervalIndexCache.assign(readSize, 0);
+          char * pData = &query.m_IntervalIndexCache[0];
+          m_Reader.Read(pos, pData, readSize);
           for (uint32_t j = 0; j < count; ++j, pData += step)
           // for (uint32_t j = 0; j < count; ++j, pos += step)
           {

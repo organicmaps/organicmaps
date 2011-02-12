@@ -257,9 +257,7 @@ template <class BaseT> class UniqueOffsetAdapter : public BaseT
 {
 public:
   // Defines base Query type.
-  // If someone in BaseT want's to do that, use the following line and pass query in ForEachXXX().
-  // class Query : public typename BaseT::Query
-  class Query
+  class Query : public BaseT::Query
   {
     // TODO: Remember max offsets.size() and initialize offsets with it?
     unordered_set<uint32_t> m_Offsets;
@@ -277,7 +275,7 @@ public:
                                  Query & query) const
   {
     UniqueOffsetFunctorAdapter<F> uniqueOffsetFunctorAdapter(query.m_Offsets, f);
-    BaseT::ForEachInIntervalAndScale(uniqueOffsetFunctorAdapter, beg, end, scale);
+    BaseT::ForEachInIntervalAndScale(uniqueOffsetFunctorAdapter, beg, end, scale, query);
   }
 
 private:
