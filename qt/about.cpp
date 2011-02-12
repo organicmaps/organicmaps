@@ -32,7 +32,7 @@ AboutDialog::AboutDialog(QWidget * parent)
   hBox->addWidget(labelIcon);
   hBox->addWidget(labelVersion);
 
-  QFile file(GetPlatform().ReadPathForFile("about.txt").c_str());
+  QFile file(GetPlatform().ReadPathForFile("about.html").c_str());
   if (file.open(QIODevice::ReadOnly))
   {
     QByteArray aboutData = file.readAll();
