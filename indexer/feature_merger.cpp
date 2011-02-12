@@ -27,9 +27,5 @@ void FeatureBuilder1Merger::AppendFeature(FeatureBuilder1Merger const & fb)
   // merge fb at the end
   size_t const size = fb.m_Geometry.size();
   for (size_t i = 1; i < size; ++i)
-  {
-    m_Geometry.push_back(fb.m_Geometry[i]);
-    m_LimitRect.Add(fb.m_Geometry[i]);
-  }
-  //LOG(LINFO, ("Appended feature", m_Geometry.size()));
+    AddPoint(fb.m_Geometry[i]);
 }

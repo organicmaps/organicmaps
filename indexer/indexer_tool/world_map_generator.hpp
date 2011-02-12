@@ -43,19 +43,22 @@ private:
   /// @return true if one feature was merged
   bool ReMergeFeatures(FeaturesContainerT & features)
   {
-    //bool merged = false;
     for (FeaturesContainerT::iterator base = features.begin(); base != features.end(); ++base)
     {
       FeaturesContainerT::iterator found = features.find(base->second.LastPoint());
       if (found != features.end())
       {
+        CHECK(found != base, ());
         base->second.AppendFeature(found->second);
         features.erase(found);
+        if (base->second.FirstPoint() == base->second.LastPoint())
+        { // @TODO create area feature
+          (*m_worldBucket)(base->second);
+          features.erase(base);
+        }
         return true;
-        //merged = true;
       }
     }
-    //return merged;
     return false;
   }
 
@@ -70,13 +73,19 @@ private:
       container.erase(found);
     }
 
+    if (fbm.FirstPoint() == fbm.LastPoint())
+    {
+      // @TODO create area feature
+      (*m_worldBucket)(fbm);
+      return;
+    }
     pair<FeaturesContainerT::iterator, bool> result = container.insert(make_pair(fbm.FirstPoint(), fbm));
     // if we found feature with the same starting point, emit it directly
     if (!result.second)
     {
       LOG(LWARNING, ("Found features with common first point, points counts are:",
                      result.first->second.GetPointsCount(), fb.GetPointsCount()));
-      (*m_worldBucket)(fb);
+      (*m_worldBucket)(fbm);
     }
   }
 
