@@ -69,23 +69,29 @@ namespace geo_coding
   bool TestDecoding(InPointsT const & points,
                     m2::PointU const & basePoint,
                     m2::PointU const & maxPoint,
-                    DeltasT const & deltas,
-                    void (* fnDecode)(DeltasT const & deltas,
+                    OutDeltasT const & deltas,
+                    void (* fnDecode)(InDeltasT const & deltas,
                                       m2::PointU const & basePoint,
                                       m2::PointU const & maxPoint,
                                       OutPointsT & points))
   {
+    size_t const count = points.size();
+
     vector<m2::PointU> decoded;
-    decoded.reserve(points.size());
-    fnDecode(deltas, basePoint, maxPoint, decoded);
-    ASSERT_EQUAL(points, decoded, (basePoint, maxPoint));
+    decoded.resize(count);
+
+    OutPointsT decodedA(decoded);
+    fnDecode(make_read_adapter(deltas), basePoint, maxPoint, decodedA);
+
+    for (size_t i = 0; i < count; ++i)
+      ASSERT_EQUAL(points[i], decoded[i], ());
     return true;
   }
 
 void EncodePolylinePrev1(InPointsT const & points,
                          m2::PointU const & basePoint,
-                         m2::PointU const & /*maxPoint*/,
-                         DeltasT & deltas)
+                         m2::PointU const & maxPoint,
+                         OutDeltasT & deltas)
 {
   size_t const count = points.size();
   if (count > 0)
@@ -95,10 +101,10 @@ void EncodePolylinePrev1(InPointsT const & points,
       deltas.push_back(EncodeDelta(points[i], points[i-1]));
   }
 
-  ASSERT(TestDecoding(points, basePoint, m2::PointU(), deltas, &DecodePolylinePrev1), ());
+  ASSERT(TestDecoding(points, basePoint, maxPoint, deltas, &DecodePolylinePrev1), ());
 }
 
-void DecodePolylinePrev1(DeltasT const & deltas,
+void DecodePolylinePrev1(InDeltasT const & deltas,
                          m2::PointU const & basePoint,
                          m2::PointU const & /*maxPoint*/,
                          OutPointsT & points)
@@ -115,7 +121,7 @@ void DecodePolylinePrev1(DeltasT const & deltas,
 void EncodePolylinePrev2(InPointsT const & points,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         DeltasT & deltas)
+                         OutDeltasT & deltas)
 {
   size_t const count = points.size();
   if (count > 0)
@@ -133,7 +139,7 @@ void EncodePolylinePrev2(InPointsT const & points,
   ASSERT(TestDecoding(points, basePoint, maxPoint, deltas, &DecodePolylinePrev2), ());
 }
 
-void DecodePolylinePrev2(DeltasT const & deltas,
+void DecodePolylinePrev2(InDeltasT const & deltas,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
                          OutPointsT & points)
@@ -158,7 +164,7 @@ void DecodePolylinePrev2(DeltasT const & deltas,
 void EncodePolylinePrev3(InPointsT const & points,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         DeltasT & deltas)
+                         OutDeltasT & deltas)
 {
   ASSERT_LESS_OR_EQUAL(basePoint.x, maxPoint.x, (basePoint, maxPoint));
   ASSERT_LESS_OR_EQUAL(basePoint.y, maxPoint.y, (basePoint, maxPoint));
@@ -187,7 +193,7 @@ void EncodePolylinePrev3(InPointsT const & points,
   ASSERT(TestDecoding(points, basePoint, maxPoint, deltas, &DecodePolylinePrev3), ());
 }
 
-void DecodePolylinePrev3(DeltasT const & deltas,
+void DecodePolylinePrev3(InDeltasT const & deltas,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
                          OutPointsT & points)
@@ -222,7 +228,7 @@ void DecodePolylinePrev3(DeltasT const & deltas,
 void EncodeTriangleStrip(InPointsT const & points,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         DeltasT & deltas)
+                         OutDeltasT & deltas)
 {
   size_t const count = points.size();
   if (count > 0)
@@ -242,7 +248,7 @@ void EncodeTriangleStrip(InPointsT const & points,
   }
 }
 
-void DecodeTriangleStrip(DeltasT const & deltas,
+void DecodeTriangleStrip(InDeltasT const & deltas,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
                          OutPointsT & points)

@@ -1,12 +1,12 @@
 #pragma once
 
 #include "../geometry/point2d.hpp"
+
 #include "../coding/varint.hpp"
+
 #include "../base/base.hpp"
 #include "../base/bits.hpp"
-#include "../std/vector.hpp"
-#include "../std/tuple.hpp"
-
+#include "../base/array_adapters.h"
 
 //@{
 inline uint64_t EncodeDelta(m2::PointU const & actual, m2::PointU const & prediction)
@@ -45,16 +45,18 @@ m2::PointU PredictPointInTriangle(m2::PointU const & maxPoint,
 /// Geometry Coding-Decoding functions.
 namespace geo_coding
 {
-  typedef vector<m2::PointU> InPointsT;
-  typedef vector<m2::PointU> OutPointsT;
-  typedef vector<uint64_t> DeltasT;
+  typedef array_read<m2::PointU> InPointsT;
+  typedef array_write<m2::PointU> OutPointsT;
+
+  typedef array_read<uint64_t> InDeltasT;
+  typedef array_write<uint64_t> OutDeltasT;
 
 void EncodePolylinePrev1(InPointsT const & points,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         DeltasT & deltas);
+                         OutDeltasT & deltas);
 
-void DecodePolylinePrev1(DeltasT const & deltas,
+void DecodePolylinePrev1(InDeltasT const & deltas,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
                          OutPointsT & points);
@@ -62,9 +64,9 @@ void DecodePolylinePrev1(DeltasT const & deltas,
 void EncodePolylinePrev2(InPointsT const & points,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         DeltasT & deltas);
+                         OutDeltasT & deltas);
 
-void DecodePolylinePrev2(DeltasT const & deltas,
+void DecodePolylinePrev2(InDeltasT const & deltas,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
                          OutPointsT & points);
@@ -72,9 +74,9 @@ void DecodePolylinePrev2(DeltasT const & deltas,
 void EncodePolylinePrev3(InPointsT const & points,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         DeltasT & deltas);
+                         OutDeltasT & deltas);
 
-void DecodePolylinePrev3(DeltasT const & deltas,
+void DecodePolylinePrev3(InDeltasT const & deltas,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
                          OutPointsT & points);
@@ -82,12 +84,12 @@ void DecodePolylinePrev3(DeltasT const & deltas,
 inline void EncodePolyline(InPointsT const & points,
                            m2::PointU const & basePoint,
                            m2::PointU const & maxPoint,
-                           DeltasT & deltas)
+                           OutDeltasT & deltas)
 {
   EncodePolylinePrev2(points, basePoint, maxPoint, deltas);
 }
 
-inline void DecodePolyline(DeltasT const & deltas,
+inline void DecodePolyline(InDeltasT const & deltas,
                            m2::PointU const & basePoint,
                            m2::PointU const & maxPoint,
                            OutPointsT & points)
@@ -98,9 +100,9 @@ inline void DecodePolyline(DeltasT const & deltas,
 void EncodeTriangleStrip(InPointsT const & points,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
-                         DeltasT & deltas);
+                         OutDeltasT & deltas);
 
-void DecodeTriangleStrip(DeltasT const & deltas,
+void DecodeTriangleStrip(InDeltasT const & deltas,
                          m2::PointU const & basePoint,
                          m2::PointU const & maxPoint,
                          OutPointsT & points);

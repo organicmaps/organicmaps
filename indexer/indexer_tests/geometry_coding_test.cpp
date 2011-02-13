@@ -78,22 +78,31 @@ namespace
 void TestPolylineEncode(string testName,
                         vector<m2::PointU> const & points,
                         m2::PointU const & maxPoint,
-                        void (* fnEncode)(vector<m2::PointU> const & points,
+                        void (* fnEncode)(geo_coding::InPointsT const & points,
                                           m2::PointU const & basePoint,
                                           m2::PointU const & maxPoint,
-                                          vector<uint64_t> & deltas),
-                        void (* fnDecode)(vector<uint64_t> const & deltas,
+                                          geo_coding::OutDeltasT & deltas),
+                        void (* fnDecode)(geo_coding::InDeltasT const & deltas,
                                           m2::PointU const & basePoint,
                                           m2::PointU const & maxPoint,
-                                          vector<m2::PointU> & points))
+                                          geo_coding::OutPointsT & points))
 {
-  m2::PointU const basePoint = (points.empty() ? m2::PointU(0, 0) : points[points.size() / 2]);
+  size_t const count = points.size();
+  if (count == 0) return;
+
+  m2::PointU const basePoint = points[count / 2];
 
   vector<uint64_t> deltas;
-  fnEncode(points, basePoint, maxPoint, deltas);
+  deltas.resize(count);
+
+  geo_coding::OutDeltasT deltasA(deltas);
+  fnEncode(make_read_adapter(points), basePoint, maxPoint, deltasA);
 
   vector<m2::PointU> decodedPoints;
-  fnDecode(deltas, basePoint, maxPoint, decodedPoints);
+  decodedPoints.resize(count);
+
+  geo_coding::OutPointsT decodedPointsA(decodedPoints);
+  fnDecode(make_read_adapter(deltas), basePoint, maxPoint, decodedPointsA);
 
   TEST_EQUAL(points, decodedPoints, ());
 

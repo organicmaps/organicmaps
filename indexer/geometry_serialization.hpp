@@ -18,8 +18,8 @@
 
 namespace serial
 {
-  template <class T, class TSink>
-  inline void WriteVarUintArray(vector<T> const & v, TSink & sink)
+  template <class TCont, class TSink>
+  inline void WriteVarUintArray(TCont const & v, TSink & sink)
   {
     for (size_t i = 0; i != v.size(); ++i)
       WriteVarUint(sink, v[i]);
@@ -27,18 +27,21 @@ namespace serial
 
   namespace pts { m2::PointU D2U(m2::PointD const & p); }
 
-  typedef vector<m2::PointU> PointsT;
-  typedef vector<uint64_t> DeltasT;
-
   /// @name Encode and Decode function types.
   //@{
-  typedef void (*EncodeFunT)(PointsT const &, m2::PointU const &, m2::PointU const &, DeltasT &);
-  typedef void (*DecodeFunT)(DeltasT const &, m2::PointU const &, m2::PointU const &, PointsT &);
+  typedef void (*EncodeFunT)( geo_coding::InPointsT const &,
+                              m2::PointU const &, m2::PointU const &,
+                              geo_coding::OutDeltasT &);
+  typedef void (*DecodeFunT)( geo_coding::InDeltasT const &,
+                              m2::PointU const &, m2::PointU const &,
+                              geo_coding::OutPointsT &);
   //@}
+
+  typedef buffer_vector<uint64_t, 32> DeltasT;
+  typedef buffer_vector<m2::PointD, 32> OutPointsT;
 
   void Encode(EncodeFunT fn, vector<m2::PointD> const & points, int64_t base, DeltasT & deltas);
 
-  typedef buffer_vector<m2::PointD, 32> OutPointsT;
   /// @name Overloads for different out container types.
   //@{
   void Decode(DecodeFunT fn, DeltasT const & deltas, int64_t base, OutPointsT & points, size_t reserveF = 1);
@@ -92,7 +95,7 @@ namespace serial
   }
 
 
-  /// @name Pathes.
+  /// @name Paths.
   //@{
   template <class TSink>
   void SaveInnerPath(vector<m2::PointD> const & points, int64_t base, TSink & sink)
@@ -166,10 +169,10 @@ namespace serial
     }
   };
 
-  void DecodeTriangles(DeltasT const & deltas,
+  void DecodeTriangles(geo_coding::InDeltasT const & deltas,
                       m2::PointU const & basePoint,
                       m2::PointU const & maxPoint,
-                      PointsT & triangles);
+                      geo_coding::OutPointsT & triangles);
 
   template <class TSource>
   void LoadOuterTriangles(TSource & src, int64_t base, OutPointsT & triangles)

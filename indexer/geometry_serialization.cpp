@@ -36,20 +36,24 @@ namespace serial
     {
       return m2::Uint64ToPointU(base);
     }
+
+    typedef buffer_vector<m2::PointU, 32> upoints_t;
   }
 
   void Encode(EncodeFunT fn, vector<m2::PointD> const & points, int64_t base, DeltasT & deltas)
   {
     size_t const count = points.size();
 
-    PointsT upoints;
+    pts::upoints_t upoints;
     upoints.reserve(count);
 
     transform(points.begin(), points.end(), back_inserter(upoints), &pts::D2U);
 
     ASSERT ( deltas.empty(), () );
-    deltas.reserve(count);
-    (*fn)(upoints, pts::GetBasePoint(base), pts::GetMaxPoint(), deltas);
+    deltas.resize(count);
+
+    geo_coding::OutDeltasT adapt(deltas);
+    (*fn)(make_read_adapter(upoints), pts::GetBasePoint(base), pts::GetMaxPoint(), adapt);
   }
 
   template <class TDecodeFun, class TOutPoints>
@@ -57,15 +61,16 @@ namespace serial
   {
     size_t const count = deltas.size() * reserveF;
 
-    PointsT upoints;
-    upoints.reserve(count);
+    pts::upoints_t upoints;
+    upoints.resize(count);
 
-    (*fn)(deltas, pts::GetBasePoint(base), pts::GetMaxPoint(), upoints);
+    geo_coding::OutPointsT adapt(upoints);
+    (*fn)(make_read_adapter(deltas), pts::GetBasePoint(base), pts::GetMaxPoint(), adapt);
 
     // It is may be not empty, when storing triangles.
     if (points.empty())
       points.reserve(count);
-    transform(upoints.begin(), upoints.end(), back_inserter(points), &pts::U2D);
+    transform(upoints.begin(), upoints.begin() + adapt.size(), back_inserter(points), &pts::U2D);
   }
 
   void Decode(DecodeFunT fn, DeltasT const & deltas, int64_t base, OutPointsT & points, size_t reserveF)
@@ -183,10 +188,10 @@ namespace serial
     }
   }
 
-  void DecodeTriangles(DeltasT const & deltas,
+  void DecodeTriangles(geo_coding::InDeltasT const & deltas,
                       m2::PointU const & basePoint,
                       m2::PointU const & maxPoint,
-                      PointsT & points)
+                      geo_coding::OutPointsT & points)
   {
     size_t const count = deltas.size();
     ASSERT_GREATER ( count, 2, () );
