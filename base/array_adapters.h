@@ -54,6 +54,8 @@ template <class T> class array_write : public detail::array_impl<T, T *>
 {
   size_t m_capacity;
 
+  typedef detail::array_impl<T, T *> base_t;
+
 public:
   template <class TCont> explicit array_write(TCont & cont)
     : detail::array_impl<T, T *>(cont.empty() ? 0 : &cont[0], 0), m_capacity(cont.size())
@@ -62,7 +64,7 @@ public:
 
   void push_back(T const & t)
   {
-    ASSERT_LESS ( m_size, m_capacity, () );
-    m_p[m_size++] = t; 
+    ASSERT_LESS ( base_t::m_size, m_capacity, () );
+    base_t::m_p[base_t::m_size++] = t;
   }
 };
