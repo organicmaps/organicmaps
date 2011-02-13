@@ -17,13 +17,11 @@ namespace qt
     setWindowIcon(icon);
     setWindowTitle(title);
 
-//    QTextEdit * textEdit = new QTextEdit(text, this);
-//    textEdit->setReadOnly(true);
-
     QVBoxLayout * vBox = new QVBoxLayout();
     QLabel * label = new QLabel(text);
+    label->setOpenExternalLinks(true);
     vBox->addWidget(label);
-    //vBox->addWidget(textEdit);
+
     // this horizontal layout is for buttons
     QHBoxLayout * hBox = new QHBoxLayout();
     vBox->addLayout(hBox);
@@ -31,7 +29,7 @@ namespace qt
     setLayout(vBox);
   }
 
-  void InfoDialog::OnButtonClick(bool)
+  void InfoDialog::OnButtonClick()
   {
     // @TODO determine which button is pressed
     done(0);
@@ -51,7 +49,7 @@ namespace qt
     for (int i = 0; i < buttons.size(); ++i)
     {
       QPushButton * button = new QPushButton(buttons[i]);
-      connect(button, SIGNAL(clicked(bool)), this, SLOT(OnButtonClick(bool)));
+      connect(button, SIGNAL(clicked()), this, SLOT(OnButtonClick()));
       hBox->addWidget(button);
     }
   }
