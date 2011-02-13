@@ -420,7 +420,10 @@ bool InformationDisplay::addBenchmarkInfo(string const & name, m2::RectD const &
       info.m_rect = globalRect;
       m_benchmarkInfo.push_back(info);
 
-      ofstream fout(GetPlatform().WritablePathForFile("benchmark_results.txt").c_str(), ios::app);
+      string deviceID = GetPlatform().DeviceID();
+      transform(deviceID.begin(), deviceID.end(), deviceID.begin(), ::tolower);
+
+      ofstream fout(GetPlatform().WritablePathForFile(deviceID + "_benchmark_results.txt").c_str(), ios::app);
       fout << GetPlatform().DeviceID() << " "
            << VERSION_STRING << " "
            << info.m_name << " "
