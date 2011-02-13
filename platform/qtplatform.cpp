@@ -382,7 +382,7 @@ public:
 
   bool IsBenchmarking() const
   {
-    return true;
+    return false;
   }
 
   string const DeviceID() const

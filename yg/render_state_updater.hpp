@@ -20,8 +20,6 @@ namespace yg
 
       shared_ptr<RenderState> m_renderState;
 
-      void updateActualTarget();
-
       int m_indicesCount;
       bool m_doPeriodicalUpdate;
       double m_updateInterval;
@@ -48,6 +46,7 @@ namespace yg
 
       void beginFrame();
       void endFrame();
+      virtual void updateActualTarget();
     };
   }
 }

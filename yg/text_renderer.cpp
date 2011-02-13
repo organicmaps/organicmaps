@@ -15,6 +15,7 @@
 
 #include "../3party/fribidi/lib/fribidi-deprecated.h"
 
+#include "../base/logging.hpp"
 #include "../base/start_mem_debug.hpp"
 
 
@@ -23,12 +24,20 @@ namespace yg
   namespace gl
   {
     TextRenderer::Params::Params()
-      : m_textTreeAutoClean(true)
+      : m_textTreeAutoClean(true), m_useTextTree(false)
     {}
 
     TextRenderer::TextRenderer(Params const & params)
-      : base_t(params), m_textTreeAutoClean(params.m_textTreeAutoClean)
+      : base_t(params),
+      m_needTextRedraw(false),
+      m_textTreeAutoClean(params.m_textTreeAutoClean),
+      m_useTextTree(params.m_useTextTree)
     {}
+
+    TextRenderer::TextObj::TextObj(m2::PointD const & pt, string const & txt, uint8_t sz, yg::Color const & c, bool isMasked, yg::Color const & maskColor, double d, bool isFixedFont, bool log2vis)
+       : m_pt(pt), m_size(sz), m_utf8Text(txt), m_isMasked(isMasked), m_depth(d), m_needRedraw(true), m_frozen(false), m_isFixedFont(isFixedFont), m_log2vis(log2vis), m_color(c), m_maskColor(maskColor)
+    {
+    }
 
     void TextRenderer::TextObj::Draw(TextRenderer * pTextRenderer) const
     {
@@ -37,10 +46,7 @@ namespace yg
       if (m_needRedraw)
       {
         pTextRenderer->drawTextImpl(m_pt, 0.0, m_size, m_color, m_utf8Text, true, m_maskColor, yg::maxDepth, m_isFixedFont, m_log2vis);
-        /// boosting its depth to "out of range" value,
-        /// to mark it as a rendered text and prevent it from
-        /// popping out of tree, when more important text arrives
-        m_depth = yg::maxDepth;
+        m_frozen = true;
       }
     }
 
@@ -61,6 +67,10 @@ namespace yg
 
     bool TextRenderer::TextObj::better_text(TextObj const & r1, TextObj const & r2)
     {
+      /// any text is worse than a frozen one,
+      /// because frozen texts shouldn't be popped out by newly arrived texts.
+      if (r2.m_frozen)
+        return false;
       if ((r1.m_isMasked) && (!r2.m_isMasked))
         return true;
       return r1.m_depth > r2.m_depth;
@@ -77,41 +87,64 @@ namespace yg
                   bool isFixedFont,
                   bool log2vis)
     {
-      if (isFixedFont)
-        drawTextImpl(pt, angle, fontSize, color, utf8Text, true, maskColor, depth, isFixedFont, log2vis);
+      if (!m_useTextTree || isFixedFont)
+         drawTextImpl(pt, angle, fontSize, color, utf8Text, true, maskColor, depth, isFixedFont, log2vis);
       else
       {
+        checkTextRedraw();
         TextObj obj(pt, utf8Text, fontSize, color, isMasked, maskColor, depth, isFixedFont, log2vis);
         m2::RectD r = obj.GetLimitRect(this);
         m_tree.ReplaceIf(obj, r, &TextObj::better_text);
       }
     }
 
+    void TextRenderer::checkTextRedraw()
+    {
+      ASSERT(m_useTextTree, ());
+      if (m_needTextRedraw)
+      {
+        m_tree.ForEach(bind(&TextObj::Draw, _1, this));
+        /// flushing only texts
+        base_t::flush(skin()->currentTextPage());
+        m_needTextRedraw = false;
+      }
+    }
+
     void TextRenderer::setClipRect(m2::RectI const & rect)
     {
-//      m_tree.ForEach(bind(&TextObj::Draw, _1, this));
-//      m_tree.ForEach(bind(&TextObj::BoostPriority, _1));
-//      if (m_textTreeAutoClean)
-//        m_tree.Clear();
-      base_t::setClipRect(rect);
+      if (m_useTextTree)
+      {
+        bool needTextRedraw = m_needTextRedraw;
+        checkTextRedraw();
+        base_t::setClipRect(rect);
+        setNeedTextRedraw(needTextRedraw);
+      }
+      else
+        base_t::setClipRect(rect);
     }
 
     void TextRenderer::endFrame()
     {
-      m_tree.ForEach(bind(&TextObj::Draw, _1, this));
-      if (m_textTreeAutoClean)
-        m_tree.Clear();
+      if (m_useTextTree)
+      {
+        m_tree.ForEach(bind(&TextObj::Draw, _1, this));
+        if (m_textTreeAutoClean)
+          m_tree.Clear();
 
+        m_needTextRedraw = false;
+      }
       base_t::endFrame();
     }
 
     void TextRenderer::clearTextTree()
     {
+      ASSERT(m_useTextTree, ());
       m_tree.Clear();
     }
 
     void TextRenderer::offsetTextTree(m2::PointD const & offs, m2::RectD const & rect)
     {
+      ASSERT(m_useTextTree, ());
       vector<TextObj> texts;
       m_tree.ForEach(bind(&vector<TextObj>::push_back, ref(texts), _1));
       m_tree.Clear();
@@ -132,6 +165,19 @@ namespace yg
         if (limitRect.IsIntersect(rect))
           m_tree.Add(*it, limitRect);
       }
+    }
+
+    void TextRenderer::setNeedTextRedraw(bool flag)
+    {
+      ASSERT(m_useTextTree, ());
+      m_needTextRedraw = flag;
+    }
+
+    void TextRenderer::updateActualTarget()
+    {
+      if (m_useTextTree)
+        setNeedTextRedraw(true);
+      base_t::updateActualTarget();
     }
 
     template <class ToDo>
@@ -174,6 +220,9 @@ namespace yg
 
     m2::RectD const TextRenderer::textRect(string const & utf8Text, uint8_t fontSize, bool fixedFont, bool log2vis)
     {
+      if (m_useTextTree)
+        checkTextRedraw();
+
       m2::RectD rect;
       m2::PointD pt(0, 0);
 
@@ -281,6 +330,9 @@ namespace yg
         m2::PointD const * path, size_t s, uint8_t fontSize, yg::Color const & color, string const & utf8Text,
         double fullLength, double pathOffset, TextPos pos, bool isMasked, yg::Color const & maskColor, double depth, bool isFixedFont)
     {
+      if (m_useTextTree)
+        checkTextRedraw();
+
       if (isMasked)
         if (!drawPathTextImpl(path, s, fontSize, maskColor, utf8Text, fullLength, pathOffset, pos, true, depth, isFixedFont))
           return false;
@@ -366,5 +418,11 @@ namespace yg
                           p->m_pageID);
     }
 
+    void TextRenderer::drawPath(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth)
+    {
+      if (m_useTextTree)
+        checkTextRedraw();
+      base_t::drawPath(points, pointsCount, styleID, depth);
+    }
   }
 }

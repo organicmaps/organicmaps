@@ -141,6 +141,9 @@ namespace yg
     uint32_t invalidHandle() const;
     uint32_t invalidPageHandle() const;
 
+    uint8_t currentTextPage() const;
+    uint8_t currentDynamicPage() const;
+
     void memoryWarning();
     void enterBackground();
     void enterForeground();

@@ -27,8 +27,9 @@ namespace yg
         uint8_t m_size;
         string m_utf8Text;
         bool m_isMasked;
-        mutable double m_depth;
+        double m_depth;
         mutable bool m_needRedraw;
+        mutable bool m_frozen;
         bool m_isFixedFont;
         bool m_log2vis;
         yg::Color m_color;
@@ -36,11 +37,7 @@ namespace yg
 
       public:
 
-        TextObj(m2::PointD const & pt, string const & txt, uint8_t sz, yg::Color const & c, bool isMasked, yg::Color const & maskColor, double d, bool isFixedFont, bool log2vis)
-          : m_pt(pt), m_size(sz), m_utf8Text(txt), m_isMasked(isMasked), m_depth(d), m_needRedraw(true), m_isFixedFont(isFixedFont), m_log2vis(log2vis), m_color(c), m_maskColor(maskColor)
-        {
-        }
-
+        TextObj(m2::PointD const & pt, string const & txt, uint8_t sz, yg::Color const & c, bool isMasked, yg::Color const & maskColor, double d, bool isFixedFont, bool log2vis);
         void Draw(TextRenderer * pTextRenderer) const;
         m2::RectD const GetLimitRect(TextRenderer * pTextRenderer) const;
         void SetNeedRedraw(bool needRedraw) const;
@@ -50,6 +47,9 @@ namespace yg
       };
 
       m4::Tree<TextObj> m_tree;
+
+      void checkTextRedraw();
+      bool m_needTextRedraw;
 
       static wstring Log2Vis(wstring const & str);
 
@@ -89,6 +89,7 @@ namespace yg
                         bool log2vis);
 
       bool m_textTreeAutoClean;
+      bool m_useTextTree;
 
     public:
 
@@ -97,6 +98,7 @@ namespace yg
       struct Params : base_t::Params
       {
         bool m_textTreeAutoClean;
+        bool m_useTextTree;
         Params();
       };
 
@@ -144,6 +146,13 @@ namespace yg
       /// boosting their priority to the top for them not to be filtered away,
       /// when the new texts arrive
       void offsetTextTree(m2::PointD const & offs, m2::RectD const & r);
+
+      /// flush texts upon any function call.
+      void setNeedTextRedraw(bool flag);
+
+      void drawPath(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth);
+
+      void updateActualTarget();
     };
   }
 }

@@ -235,6 +235,7 @@ void RenderQueueRoutine::Do()
   params.m_doPeriodicalUpdate = m_doPeriodicalUpdate;
   params.m_updateInterval = m_updateInterval;
   params.m_textTreeAutoClean = false;
+  params.m_useTextTree = true;
 
   m_threadDrawer = make_shared_ptr(new DrawerYG(m_skinName, params));
 
@@ -333,6 +334,8 @@ void RenderQueueRoutine::Do()
       }
       else
         m_threadDrawer->screen()->clearTextTree();
+
+      m_threadDrawer->screen()->setNeedTextRedraw(s.isPanning());
 
       ScreenBase const & frameScreen = m_currentRenderCommand->m_frameScreen;
       m2::RectD glbRect;

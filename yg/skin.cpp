@@ -297,6 +297,16 @@ namespace yg
     return 0x00FFFFFF;
   }
 
+  uint8_t Skin::currentTextPage() const
+  {
+    return m_currentTextPage;
+  }
+
+  uint8_t Skin::currentDynamicPage() const
+  {
+    return m_currentDynamicPage;
+  }
+
   void Skin::memoryWarning()
   {
   }

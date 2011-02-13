@@ -79,7 +79,6 @@ namespace yg
       size_t indicesLeft(int pageID);
 
       void reset(int pageID);
-      void flush(int pageID);
 
       void switchTextures(int pageID);
 
@@ -92,6 +91,9 @@ namespace yg
 
 
     public:
+
+      /// INTERNAL API! USE WITH CAUTION
+      void flush(int pageID);
 
       struct Params : base_t::Params
       {
