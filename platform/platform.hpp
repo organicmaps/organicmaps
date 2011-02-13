@@ -72,6 +72,8 @@ public:
   virtual vector<string> GetFontNames() const = 0;
 
   virtual bool IsBenchmarking() const = 0;
+
+  virtual string const DeviceID() const = 0;
 };
 
 extern "C" Platform & GetPlatform();

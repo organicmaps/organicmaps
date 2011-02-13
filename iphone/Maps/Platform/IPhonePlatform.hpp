@@ -22,8 +22,10 @@ public:
 	virtual double PeriodicalUpdateInterval() const;
 	virtual vector<string> GetFontNames() const;
 	virtual bool IsBenchmarking() const;
-  
+  virtual string const DeviceID() const;
+	
 private:
+	string m_deviceID;
 	string m_skinName;
 	double m_visualScale;
   NSDate * m_StartDate;

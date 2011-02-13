@@ -4,10 +4,13 @@
 #include "drawer_yg.hpp"
 
 #include "../indexer/mercator.hpp"
-#include "../base/string_utils.hpp"
 #include "../yg/defines.hpp"
 #include "../yg/skin.hpp"
 
+#include "../std/fstream.hpp"
+#include "../version/version.hpp"
+
+#include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
 
 InformationDisplay::InformationDisplay()
@@ -416,6 +419,17 @@ bool InformationDisplay::addBenchmarkInfo(string const & name, m2::RectD const &
       info.m_duration = frameDuration;
       info.m_rect = globalRect;
       m_benchmarkInfo.push_back(info);
+
+      ofstream fout(GetPlatform().WritablePathForFile("benchmark_results.txt").c_str(), ios::app);
+      fout << GetPlatform().DeviceID() << " "
+           << VERSION_STRING << " "
+           << info.m_name << " "
+           << info.m_rect.minX() << " "
+           << info.m_rect.minY() << " "
+           << info.m_rect.maxX() << " "
+           << info.m_rect.maxY() << " "
+           << info.m_duration << endl;
+
       return true;
     }
   return false;

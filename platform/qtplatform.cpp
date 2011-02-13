@@ -382,7 +382,12 @@ public:
 
   bool IsBenchmarking() const
   {
-    return false;
+    return true;
+  }
+
+  string const DeviceID() const
+  {
+    return "DesktopVersion";
   }
 };
 

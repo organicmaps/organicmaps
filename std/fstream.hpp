@@ -16,6 +16,7 @@ using std::ofstream;
 using std::ostream;
 using std::ifstream;
 using std::istream;
+using std::ios;
 
 #ifdef DEBUG_NEW
 #define new DEBUG_NEW
