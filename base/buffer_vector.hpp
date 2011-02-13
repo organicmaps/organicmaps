@@ -89,6 +89,9 @@ public:
     m_dynamic.clear();
   }
 
+  T const * begin() const { return data(); }
+  T const * end() const { return (data() + m_size); }
+
   T const * data() const
   {
     return (m_size > N ? &m_dynamic[0] : m_static.data());
