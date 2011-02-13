@@ -163,6 +163,10 @@ namespace yg
           float x0, float y0, float x1, float y1,
           double depth,
           int pageID);
+
+      void memoryWarning();
+      void enterBackground();
+      void enterForeground();
     };
   }
 }

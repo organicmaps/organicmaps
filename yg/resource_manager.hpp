@@ -69,6 +69,10 @@ namespace yg
     GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
 
     void addFonts(vector<string> const & fontNames);
+
+    void memoryWarning();
+    void enterBackground();
+    void enterForeground();
   };
 
   Skin * loadSkin(shared_ptr<ResourceManager> const & resourceManager,

@@ -81,6 +81,19 @@ yg::gl::RenderState const & RenderQueue::renderState() const
   return *m_renderState.get();
 }
 
+void RenderQueue::memoryWarning()
+{
+  m_routine->memoryWarning();
+}
 
+void RenderQueue::enterBackground()
+{
+  m_routine->enterBackground();
+}
+
+void RenderQueue::enterForeground()
+{
+  m_routine->enterForeground();
+}
 
 

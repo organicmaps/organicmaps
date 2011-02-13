@@ -175,4 +175,17 @@ namespace yg
   {
     m_glyphCache.addFonts(fontNames);
   }
+
+  void ResourceManager::memoryWarning()
+  {
+  }
+
+  void ResourceManager::enterBackground()
+  {
+  }
+
+  void ResourceManager::enterForeground()
+  {
+  }
+
 }

@@ -444,3 +444,18 @@ void RenderQueueRoutine::initializeGL(shared_ptr<yg::gl::RenderContext> const & 
   m_threadRenderer.init(renderContext->createShared(), m_renderState);
 }
 
+void RenderQueueRoutine::memoryWarning()
+{
+  m_threadDrawer->screen()->memoryWarning();
+}
+
+void RenderQueueRoutine::enterBackground()
+{
+  m_threadDrawer->screen()->enterBackground();
+}
+
+void RenderQueueRoutine::enterForeground()
+{
+  m_threadDrawer->screen()->enterForeground();
+}
+

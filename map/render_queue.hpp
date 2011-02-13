@@ -58,4 +58,12 @@ public:
   yg::gl::RenderState const CopyState() const;
 
   yg::gl::RenderState const & renderState() const;
+
+  /// free all possible memory caches
+  void memoryWarning();
+  /// free all possible memory caches, opengl resources,
+  /// and make sure no opengl call will be made in background
+  void enterBackground();
+  /// load all necessary memory caches and opengl resources.
+  void enterForeground();
 };

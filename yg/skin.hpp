@@ -140,5 +140,9 @@ namespace yg
 
     uint32_t invalidHandle() const;
     uint32_t invalidPageHandle() const;
+
+    void memoryWarning();
+    void enterBackground();
+    void enterForeground();
   };
 }

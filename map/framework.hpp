@@ -19,6 +19,7 @@
 #include "../yg/color.hpp"
 #include "../yg/render_state.hpp"
 #include "../yg/skin.hpp"
+#include "../yg/resource_manager.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/file_writer.hpp"
@@ -104,6 +105,7 @@ class FrameWork
   unsigned m_currentBenchmark;
 
   RenderQueue m_renderQueue;
+  shared_ptr<yg::ResourceManager> m_resourceManager;
   InformationDisplay m_informationDisplay;
 
   /// is AddRedrawCommand enabled?
@@ -213,7 +215,8 @@ public:
   void initializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
                     shared_ptr<yg::ResourceManager> const & resourceManager)
   {
-    m_renderQueue.initializeGL(primaryContext, resourceManager, GetPlatform().VisualScale());
+    m_resourceManager = resourceManager;
+    m_renderQueue.initializeGL(primaryContext, m_resourceManager, GetPlatform().VisualScale());
   }
 
   model_t & get_model() { return m_model; }
@@ -446,6 +449,35 @@ public:
   void MemoryWarning()
   {
     m_informationDisplay.memoryWarning();
+    m_renderQueue.memoryWarning();
+
+    if (m_windowHandle)
+      m_windowHandle->drawer()->screen()->memoryWarning();
+
+    if (m_resourceManager)
+      m_resourceManager->memoryWarning();
+  }
+
+  void EnterBackground()
+  {
+    m_renderQueue.enterBackground();
+
+    if (m_windowHandle)
+      m_windowHandle->drawer()->screen()->enterBackground();
+
+    if (m_resourceManager)
+      m_resourceManager->enterBackground();
+  }
+
+  void EnterForeground()
+  {
+    if (m_resourceManager)
+      m_resourceManager->enterForeground();
+
+    if (m_windowHandle)
+      m_windowHandle->drawer()->screen()->enterForeground();
+
+    m_renderQueue.enterForeground();
   }
 
   void CenterViewport()

@@ -112,4 +112,10 @@ public:
   void addBenchmarkCommand(render_fn_t const & fn, ScreenBase const & frameScreen);
   /// set the resolution scale factor to the main thread drawer;
   void setVisualScale(double visualScale);
+  /// free all available memory
+  void memoryWarning();
+  /// free all easily recreatable opengl resources and make sure that no opengl call will be made.
+  void enterBackground();
+  /// recreate all necessary opengl resources and prepare to run in foreground.
+  void enterForeground();
 };

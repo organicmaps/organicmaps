@@ -412,6 +412,22 @@ namespace yg
      return m_aaShift;
    }
 
+   void GeometryBatcher::memoryWarning()
+   {
+     if (m_skin)
+       m_skin->memoryWarning();
+   }
 
+   void GeometryBatcher::enterBackground()
+   {
+     if (m_skin)
+       m_skin->enterBackground();
+   }
+
+   void GeometryBatcher::enterForeground()
+   {
+     if (m_skin)
+       m_skin->enterForeground();
+   }
  } // namespace gl
 } // namespace yg

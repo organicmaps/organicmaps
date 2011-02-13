@@ -241,9 +241,9 @@ namespace yg
     m_pages[pageID]->clearHandles();
   }
 
-  /// Called from the skin page on handles overflow.
-  /// Never called on texture overflow, as this situation
-  /// are explicitly checked in the mapXXX() functions.
+  /// This function is set to perform as a callback on texture or handles overflow
+  /// BUT! Never called on texture overflow, as this situation
+  /// is explicitly checked in the mapXXX() functions.
   void Skin::onDynamicOverflow(uint8_t pageID)
   {
     LOG(LINFO, ("DynamicPage switching, pageID=", (uint32_t)pageID));
@@ -295,5 +295,17 @@ namespace yg
   uint32_t Skin::invalidPageHandle() const
   {
     return 0x00FFFFFF;
+  }
+
+  void Skin::memoryWarning()
+  {
+  }
+
+  void Skin::enterBackground()
+  {
+  }
+
+  void Skin::enterForeground()
+  {
   }
 }

@@ -20,7 +20,6 @@ namespace yg
       m_doPeriodicalUpdate(params.m_doPeriodicalUpdate),
       m_updateInterval(params.m_updateInterval)
     {
-      LOG(LINFO, ("UpdateInterval: ", m_updateInterval));
     }
 
     shared_ptr<RenderState> const & RenderStateUpdater::renderState() const
