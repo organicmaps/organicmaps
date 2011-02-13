@@ -59,4 +59,5 @@ HEADERS += \
     shared_buffer_manager.hpp \
     memory_mapped_file.hpp \
     buffer_vector.hpp \
-    path_utils.hpp
+    path_utils.hpp \
+    array_adapters.hpp \
