@@ -121,8 +121,9 @@ FT_BEGIN_HEADER
   /* performance-critical functions (e.g. FT_MulFix).  You should only do  */
   /* that to verify that the assembler function works properly, or to      */
   /* execute benchmark tests of the various implementations.               */
-/* #define FT_CONFIG_OPTION_NO_ASSEMBLER */
-
+#if defined( __arm__ ) && !defined( __thumb__ )
+#define FT_CONFIG_OPTION_NO_ASSEMBLER
+#endif
 
   /*************************************************************************/
   /*                                                                       */
