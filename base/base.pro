@@ -18,7 +18,7 @@ SOURCES += \
     commands_queue.cpp \
     shared_buffer_manager.cpp \
     memory_mapped_file.cpp \
-    path_utils.cpp
+    path_utils.cpp \
 
 HEADERS += \
     SRC_FIRST.hpp \

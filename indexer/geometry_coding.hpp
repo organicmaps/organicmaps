@@ -6,7 +6,7 @@
 
 #include "../base/base.hpp"
 #include "../base/bits.hpp"
-#include "../base/array_adapters.h"
+#include "../base/array_adapters.hpp"
 
 //@{
 inline uint64_t EncodeDelta(m2::PointU const & actual, m2::PointU const & prediction)
