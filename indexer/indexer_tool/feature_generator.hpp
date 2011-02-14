@@ -32,7 +32,7 @@ namespace feature
   };
 
   bool GenerateFeatures(GenerateInfo & info, bool lightNodes);
-  bool GenerateCoastlines(GenerateInfo & info, bool lightNodes);
+  //bool GenerateCoastlines(GenerateInfo & info, bool lightNodes);
 
   // Writes features to dat file.
   class FeaturesCollector

@@ -115,6 +115,12 @@ public:
     this->m_ways2rel.for_each_ret(id, processor);
   }
 
+  template <class ToDo> void ForEachRelationByNodeCached(user_id_t id, ToDo & toDo)
+  {
+    process_relation_cached<ToDo> processor(this->m_relations, toDo);
+    this->m_nodes2rel.for_each_ret(id, processor);
+  }
+
   template <class ToDo> void ForEachRelationByWayCached(user_id_t id, ToDo & toDo)
   {
     process_relation_cached<ToDo> processor(this->m_relations, toDo);
@@ -334,6 +340,7 @@ bool GenerateFeatures(GenerateInfo & info, bool lightNodes)
     return GenerateImpl<points_in_file, SecondPassParserUsual>(info);
 }
 
+/*
 bool GenerateCoastlines(GenerateInfo & info, bool lightNodes)
 {
   if (lightNodes)
@@ -341,5 +348,6 @@ bool GenerateCoastlines(GenerateInfo & info, bool lightNodes)
   else
     return GenerateImpl<points_in_file, SecondPassParserJoin>(info);
 }
+*/
 
 }

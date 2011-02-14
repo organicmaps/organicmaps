@@ -31,7 +31,7 @@ FeatureBuilder1::FeatureBuilder1()
 
 bool FeatureBuilder1::IsGeometryClosed() const
 {
-  return !m_Geometry.empty() && m_Geometry.front() == m_Geometry.back();
+  return (m_Geometry.size() > 2 && m_Geometry.front() == m_Geometry.back());
 }
 
 void FeatureBuilder1::SetCenter(m2::PointD const & p)
@@ -53,13 +53,14 @@ void FeatureBuilder1::SetAreaAddHoles(list<vector<m2::PointD> > & holes)
 
   m_Holes.swap(holes);
 
-  for (list<points_t>::iterator i = m_Holes.begin(); i != m_Holes.end();)
-  {
-    if (i->size() < 3)
-      i = m_Holes.erase(i);
-    else
-      ++i;
-  }
+  // This is filtering during osm parsing.
+  //for (list<points_t>::iterator i = m_Holes.begin(); i != m_Holes.end();)
+  //{
+  //  if (i->size() < 3)
+  //    i = m_Holes.erase(i);
+  //  else
+  //    ++i;
+  //}
 }
 
 void FeatureBuilder1::AddName(string const & name)

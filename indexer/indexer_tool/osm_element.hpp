@@ -32,8 +32,13 @@ protected:
   SecondPassParserBase(TEmitter & emitter, THolder & holder)
     : m_emitter(emitter), m_holder(holder)
   {
-    static char const * tags[] = { "osm", "node", "way" };
+    static char const * tags[] = { "osm", "node", "way", "relation" };
     SetTags(tags);
+  }
+
+  static bool IsValidHole(vector<m2::PointD> const & pts)
+  {
+    return (pts.size() > 2 && pts.front() == pts.back());
   }
 
   /// Finding of "holes" in area objects (multipolygon).
@@ -63,6 +68,7 @@ protected:
       }
       return false;
     }
+
     /// 2. "ways in relation" process function
     void operator() (uint64_t id, string const & role)
     {
@@ -72,10 +78,15 @@ protected:
         if (m_holder.GetWay(id, e))
         {
           m_holes.push_back(vector<m2::PointD>());
+
           e.ForEachPoint(*this);
+
+          if (!SecondPassParserBase::IsValidHole(m_holes.back()))
+            m_holes.pop_back();
         }
       }
     }
+
     /// 3. "points in way" process function
     void operator () (uint64_t id)
     {
@@ -124,14 +135,17 @@ protected:
       }
     }
 
+    /// @param[in]  ID of processing feature.
     uint64_t m_featureID;
-    /// @param[out] feature value as result
+
+    /// @param[out] Feature value as result.
     value_t * m_val;
 
-    /// cache: relation id -> feature value (for fast feature parsing)
+    /// Cache: relation id -> feature value (for fast feature parsing)
     unordered_map<uint64_t, value_t> m_typeCache;
 
   public:
+    /// Start process new feature.
     void Reset(uint64_t fID, value_t * val)
     {
       m_featureID = fID;
@@ -153,27 +167,26 @@ protected:
     /// 2. "relation from file" process
     bool operator() (uint64_t id, RelationElement const & rel)
     {
-      // "multipolygon relations" process only for "outer" way-features
-      if (rel.GetType() == "multipolygon")
-      {
-        string role;
-        if (rel.FindWay(m_featureID, role)) // feature is way ...
-          if (role != "outer")
-            return false;
-      }
-
       // make XMLElement struct from relation's tags for GetNameAndType function.
       XMLElement e;
       make_xml_element(rel, e);
 
-      value_t val;
-      if (ftype::GetNameAndType(&e, val.types, val.name, val.layer))
+      if (rel.GetType() == "multipolygon")
       {
-        m_typeCache[id] = val;
-        m_val->Add(val);
+        // we will process multipolygons later
       }
       else
-        m_typeCache[id] = value_t();
+      {
+        // process types of relation and add them to m_val
+        value_t val;
+        if (ftype::GetNameAndType(&e, val.types, val.name, val.layer))
+        {
+          m_typeCache[id] = val;
+          m_val->Add(val);
+        }
+        else
+          m_typeCache[id] = value_t();
+      }
 
       // continue process relations
       return false;
@@ -206,7 +219,11 @@ protected:
 
     // try to get type from relations tags
     m_typeProcessor.Reset(id, &fValue);
-    m_holder.ForEachRelationByWayCached(id, m_typeProcessor);
+
+    if (p->name == "node")
+      m_holder.ForEachRelationByNodeCached(id, m_typeProcessor);
+    else if (p->name == "way")
+      m_holder.ForEachRelationByWayCached(id, m_typeProcessor);
 
     // remove duplicating types
     sort(fValue.types.begin(), fValue.types.end());
@@ -217,6 +234,7 @@ protected:
   }
 };
 
+/*
 template <class TEmitter, class THolder>
 class SecondPassParserJoin : public SecondPassParserBase<TEmitter, THolder>
 {
@@ -336,11 +354,44 @@ public:
   {
   }
 };
+*/
 
 template <class TEmitter, class THolder>
 class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
 {
   typedef SecondPassParserBase<TEmitter, THolder> base_type;
+
+  template <class ToDo> class process_points
+  {
+    THolder & m_holder;
+    ToDo & m_toDo;
+
+  public:
+    process_points(THolder & holder, ToDo & toDo)
+      : m_holder(holder), m_toDo(toDo)
+    {
+    }
+    void operator () (uint64_t id)
+    {
+      double lat, lng;
+      if (m_holder.GetNode(id, lat, lng))
+      {
+        // lng is "x", lat is "y" - see Feature::AddPoint
+        m_toDo(m2::PointD(lng, lat));
+      }
+    }
+  };
+
+  template <class ToDo>
+  void ForEachWayPoint(uint64_t id, ToDo toDo)
+  {
+    WayElement e;
+    if (m_holder.GetWay(id, e))
+    {
+      process_points<ToDo> process(m_holder, toDo);
+      e.ForEachPoint(process);
+    }
+  }
 
 protected:
   virtual void EmitElement(XMLElement * p)
@@ -379,12 +430,12 @@ protected:
       {
         if (p->childs[i].name == "nd")
         {
-          uint64_t id;
-          VERIFY ( utils::to_uint64(p->childs[i].attrs["ref"], id),
+          uint64_t nodeID;
+          VERIFY ( utils::to_uint64(p->childs[i].attrs["ref"], nodeID),
                    ("Bad node ref in way : ", p->childs[i].attrs["ref"]) );
 
           m2::PointD pt;
-          if (!base_type::GetPoint(id, pt))
+          if (!base_type::GetPoint(nodeID, pt))
             return;
 
           ft.AddPoint(pt);
@@ -403,10 +454,56 @@ protected:
       if (isArea && count > 2 && ft.IsGeometryClosed())
         base_type::FinishAreaFeature(id, ft);
     }
-    else
+    else if (p->name == "relation")
     {
-      ASSERT ( false, ("Unknown osm element : ", p->name) );
-      return;
+      if (!feature::IsDrawableLike(fValue.types, feature::farea))
+        return;
+
+      // check, if this is our processable relation
+      bool isProcess = false;
+      for (size_t i = 0; i < p->childs.size(); ++i)
+      {
+        if (p->childs[i].name == "tag" &&
+            p->childs[i].attrs["k"] == "type" &&
+            p->childs[i].attrs["v"] == "multipolygon")
+        {
+          isProcess = true;
+        }
+      }
+      if (!isProcess)
+        return;
+
+      list<vector<m2::PointD> > holes;
+
+      // iterate ways to get 'outer' and 'inner' geometries
+      for (size_t i = 0; i < p->childs.size(); ++i)
+      {
+        if (p->childs[i].name == "member" &&
+            p->childs[i].attrs["type"] == "way")
+        {
+          string const & role = p->childs[i].attrs["role"];
+          uint64_t wayID;
+          VERIFY ( utils::to_uint64(p->childs[i].attrs["ref"], wayID),
+            ("Bad way ref in relation : ", p->childs[i].attrs["ref"]) );
+
+          if (role == "outer")
+          {
+            ForEachWayPoint(wayID, bind(&feature_builder_t::AddPoint, ref(ft), _1));
+          }
+          else if (role == "inner")
+          {
+            holes.push_back(vector<m2::PointD>());
+
+            ForEachWayPoint(wayID, MakeBackInsertFunctor(holes.back()));
+
+            if (!IsValidHole(holes.back()))
+              holes.pop_back();
+          }
+        }
+      }
+
+      if (ft.IsGeometryClosed())
+        ft.SetAreaAddHoles(holes);
     }
 
     if (ft.PreSerialize())

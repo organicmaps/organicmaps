@@ -73,16 +73,14 @@ UNIT_TEST(Feature_Deserialize)
 
   vector<uint32_t> types;
   {
-    uint32_t type = ftype::GetEmptyValue();
+    vector<string> path;
+    path.push_back("natural");
+    path.push_back("coastline");
 
-    ClassifObjectPtr pObj = classif().GetRoot()->BinaryFind("natural");
-    ASSERT ( pObj, () );
-    ftype::PushValue(type, pObj.GetIndex());
-
-    pObj->BinaryFind("coastline");
-    ftype::PushValue(type, pObj.GetIndex());
-
+    uint32_t const type = classif().GetTypeByPath(path);
+    TEST_NOT_EQUAL(type, ftype::GetEmptyValue(), () );
     types.push_back(type);
+
     fb.AddTypes(types.begin(), types.end());
   }
 
