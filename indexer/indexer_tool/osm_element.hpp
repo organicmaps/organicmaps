@@ -8,6 +8,7 @@
 
 #include "../../base/string_utils.hpp"
 #include "../../base/logging.hpp"
+#include "../../base/stl_add.hpp"
 
 #include "../../std/unordered_map.hpp"
 #include "../../std/list.hpp"
@@ -386,9 +387,9 @@ class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
   void ForEachWayPoint(uint64_t id, ToDo toDo)
   {
     WayElement e;
-    if (m_holder.GetWay(id, e))
+    if (base_type::m_holder.GetWay(id, e))
     {
-      process_points<ToDo> process(m_holder, toDo);
+      process_points<ToDo> process(base_type::m_holder, toDo);
       e.ForEachPoint(process);
     }
   }
@@ -488,7 +489,7 @@ protected:
 
           if (role == "outer")
           {
-            ForEachWayPoint(wayID, bind(&feature_builder_t::AddPoint, ref(ft), _1));
+            ForEachWayPoint(wayID, bind(&base_type::feature_builder_t::AddPoint, ref(ft), _1));
           }
           else if (role == "inner")
           {
@@ -496,7 +497,7 @@ protected:
 
             ForEachWayPoint(wayID, MakeBackInsertFunctor(holes.back()));
 
-            if (!IsValidHole(holes.back()))
+            if (!base_type::IsValidHole(holes.back()))
               holes.pop_back();
           }
         }
