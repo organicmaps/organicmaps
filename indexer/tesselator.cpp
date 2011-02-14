@@ -116,7 +116,8 @@ namespace tesselator
 
     for (iter_t i = m_neighbors.begin(); i != m_neighbors.end(); ++i)
     {
-      if (m_neighbors.find(make_pair(i->first.second, i->first.first)) == m_neighbors.end())
+      if (!m_visited[i->second] &&
+          m_neighbors.find(make_pair(i->first.second, i->first.first)) == m_neighbors.end())
       {
         uint64_t deltas[3];
         deltas[0] = EncodeDelta(points.m_points[i->first.first], points.m_base);
@@ -193,14 +194,12 @@ namespace tesselator
   void TrianglesInfo::ListInfo::MakeTrianglesChainImpl(
       PointsInfo const & points, iter_t start, vector<Edge> & chain) const
   {
+    chain.clear();
+
     Triangle const fictive(start->first.second, start->first.first, -1);
 
     priority_queue<Edge, vector<Edge>, TPopOrder> q;
     q.push(Edge(-1, start->second, 0, -1));
-
-    // marks of visited nodes
-    vector<bool> visited;
-    visited.resize(m_triangles.size());
 
     while (!q.empty())
     {
@@ -209,9 +208,9 @@ namespace tesselator
       q.pop();
 
       // check if already processed
-      if (visited[e.m_p[1]])
+      if (m_visited[e.m_p[1]])
         continue;
-      visited[e.m_p[1]] = true;
+      m_visited[e.m_p[1]] = true;
 
       // push to chain
       chain.push_back(e);
@@ -224,7 +223,7 @@ namespace tesselator
 
       // push neighbors to queue
       for (int i = 0; i < 2; ++i)
-        if (nb[i] != empty_key && !visited[nb[i]])
+        if (nb[i] != empty_key && !m_visited[nb[i]])
           q.push(Edge(e.m_p[1], nb[i], CalcDelta(points, trg, m_triangles[nb[i]]), i));
     }
   }

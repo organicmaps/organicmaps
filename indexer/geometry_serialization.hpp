@@ -161,9 +161,11 @@ namespace serial
 
     template <class TSink> void Save(TSink & sink)
     {
+      // assume that 2 byte is enough for triangles count
       size_t const count = m_buffers.size();
-      CHECK_LESS(count, 256, ());
-      WriteToSink(sink, static_cast<uint8_t>(count));
+      CHECK_LESS_OR_EQUAL(count, 0x3FFF, ());
+
+      WriteVarUint(sink, static_cast<uint32_t>(count));
 
       for_each(m_buffers.begin(), m_buffers.end(), bind(&WriteBufferToSink<TSink>, _1, ref(sink)));
     }
@@ -177,7 +179,7 @@ namespace serial
   template <class TSource>
   void LoadOuterTriangles(TSource & src, int64_t base, OutPointsT & triangles)
   {
-    int const count = ReadPrimitiveFromSource<uint8_t>(src);
+    int const count = ReadVarUint<uint32_t>(src);
 
     for (int i = 0; i < count; ++i)
       LoadOuter(&DecodeTriangles, src, base, triangles, 3);

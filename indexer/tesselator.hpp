@@ -60,6 +60,8 @@ namespace tesselator
 
       vector<Triangle> m_triangles;
 
+      mutable vector<bool> m_visited;
+
       // directed edge -> triangle
       typedef unordered_map<pair<int, int>, int> neighbors_t;
       neighbors_t m_neighbors;
@@ -81,6 +83,18 @@ namespace tesselator
       }
 
       void Add(uintptr_t const * arr);
+
+      void Start() const
+      {
+        m_visited.resize(m_triangles.size());
+      }
+
+      bool HasUnvisited() const
+      {
+        vector<bool> test;
+        test.assign(m_triangles.size(), true);
+        return (m_visited != test);
+      }
 
       iter_t FindStartTriangle(PointsInfo const & points) const;
 
@@ -129,15 +143,19 @@ namespace tesselator
       vector<Edge> chain;
       for (list<ListInfo>::const_iterator i = m_triangles.begin(); i != m_triangles.end(); ++i)
       {
-        chain.clear();
-        typename ListInfo::iter_t start = i->FindStartTriangle(points);
-        i->MakeTrianglesChain(points, start, chain, goodOrder);
+        i->Start();
 
-        m2::PointU arr[] = { points.m_points[start->first.first],
-                             points.m_points[start->first.second],
-                             points.m_points[i->GetTriangle(start->second).GetPoint3(start->first)] };
+        do
+        {
+          typename ListInfo::iter_t start = i->FindStartTriangle(points);
+          i->MakeTrianglesChain(points, start, chain, goodOrder);
 
-        emitter(arr, chain);
+          m2::PointU arr[] = { points.m_points[start->first.first],
+                               points.m_points[start->first.second],
+                               points.m_points[i->GetTriangle(start->second).GetPoint3(start->first)] };
+
+          emitter(arr, chain);
+        } while (i->HasUnvisited());
       }
     }
   };
