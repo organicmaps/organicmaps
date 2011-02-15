@@ -37,22 +37,77 @@ protected:
     SetTags(tags);
   }
 
-  static bool IsValidHole(vector<m2::PointD> const & pts)
+  static bool IsValidAreaPath(vector<m2::PointD> const & pts)
   {
     return (pts.size() > 2 && pts.front() == pts.back());
   }
 
-  /// Finding of "holes" in area objects (multipolygon).
-  class multipolygon_processor
+  bool GetPoint(uint64_t id, m2::PointD & pt)
   {
-    uint64_t m_id;      ///< id of way to find it's holes
-    THolder & m_holder;
+    return m_holder.GetNode(id, pt.y, pt.x);
+  }
+
+  template <class ToDo> class process_points
+  {
+    SecondPassParserBase * m_pMain;
+    ToDo & m_toDo;
+
+  public:
+    process_points(SecondPassParserBase * pMain, ToDo & toDo)
+      : m_pMain(pMain), m_toDo(toDo)
+    {
+    }
+    void operator () (uint64_t id)
+    {
+      m2::PointD pt;
+      if (m_pMain->GetPoint(id, pt))
+        m_toDo(pt);
+    }
+  };
+
+  template <class ToDo>
+  void ForEachWayPoint(uint64_t id, ToDo toDo)
+  {
+    WayElement e;
+    if (m_holder.GetWay(id, e))
+    {
+      process_points<ToDo> process(this, toDo);
+      e.ForEachPoint(process);
+    }
+  }
+
+  class holes_accumulator
+  {
+    SecondPassParserBase * m_pMain;
 
   public:
     /// @param[out] list of holes
     list<vector<m2::PointD> > m_holes;
 
-    multipolygon_processor(uint64_t id, THolder & holder) : m_id(id), m_holder(holder) {}
+    holes_accumulator(SecondPassParserBase * pMain) : m_pMain(pMain) {}
+
+    void operator() (uint64_t id)
+    {
+      m_holes.push_back(vector<m2::PointD>());
+
+      m_pMain->ForEachWayPoint(id, MakeBackInsertFunctor(m_holes.back()));
+
+      if (!m_pMain->IsValidAreaPath(m_holes.back()))
+        m_holes.pop_back();
+    }
+  };
+
+  /// Find holes for way with 'id' in first relation.
+  class multipolygon_holes_processor
+  {
+    uint64_t m_id;      ///< id of way to find it's holes
+    holes_accumulator m_holes;
+
+  public:
+    multipolygon_holes_processor(uint64_t id, SecondPassParserBase * pMain)
+      : m_id(id), m_holes(pMain)
+    {
+    }
 
     /// 1. relations process function
     bool operator() (uint64_t /*id*/, RelationElement const & e)
@@ -74,30 +129,10 @@ protected:
     void operator() (uint64_t id, string const & role)
     {
       if (id != m_id && role == "inner")
-      {
-        WayElement e;
-        if (m_holder.GetWay(id, e))
-        {
-          m_holes.push_back(vector<m2::PointD>());
-
-          e.ForEachPoint(*this);
-
-          if (!SecondPassParserBase::IsValidHole(m_holes.back()))
-            m_holes.pop_back();
-        }
-      }
+        m_holes(id);
     }
 
-    /// 3. "points in way" process function
-    void operator () (uint64_t id)
-    {
-      double lat, lng;
-      if (m_holder.GetNode(id, lat, lng))
-      {
-        // lng is "x", lat is "y" - see Feature::AddPoint
-        m_holes.back().push_back(m2::PointD(lng, lat));
-      }
-    }
+    list<vector<m2::PointD> > & GetHoles() { return m_holes.m_holes; }
   };
 
   /// Feature description struct.
@@ -196,18 +231,13 @@ protected:
 
   typedef FeatureBuilder1 feature_builder_t;
 
-  bool GetPoint(uint64_t id, m2::PointD & pt)
-  {
-    return m_holder.GetNode(id, pt.y, pt.x);
-  }
-
   void FinishAreaFeature(uint64_t id, feature_builder_t & ft)
   {
     ASSERT ( ft.IsGeometryClosed(), () );
 
-    multipolygon_processor processor(id, m_holder);
+    multipolygon_holes_processor processor(id, this);
     m_holder.ForEachRelationByWay(id, processor);
-    ft.SetAreaAddHoles(processor.m_holes);
+    ft.SetAreaAddHoles(processor.GetHoles());
   }
 
   bool ParseType(XMLElement * p, uint64_t & id, value_t & fValue)
@@ -362,38 +392,6 @@ class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
 {
   typedef SecondPassParserBase<TEmitter, THolder> base_type;
 
-  template <class ToDo> class process_points
-  {
-    THolder & m_holder;
-    ToDo & m_toDo;
-
-  public:
-    process_points(THolder & holder, ToDo & toDo)
-      : m_holder(holder), m_toDo(toDo)
-    {
-    }
-    void operator () (uint64_t id)
-    {
-      double lat, lng;
-      if (m_holder.GetNode(id, lat, lng))
-      {
-        // lng is "x", lat is "y" - see Feature::AddPoint
-        m_toDo(m2::PointD(lng, lat));
-      }
-    }
-  };
-
-  template <class ToDo>
-  void ForEachWayPoint(uint64_t id, ToDo toDo)
-  {
-    WayElement e;
-    if (base_type::m_holder.GetWay(id, e))
-    {
-      process_points<ToDo> process(base_type::m_holder, toDo);
-      e.ForEachPoint(process);
-    }
-  }
-
 protected:
   virtual void EmitElement(XMLElement * p)
   {
@@ -474,7 +472,7 @@ protected:
       if (!isProcess)
         return;
 
-      list<vector<m2::PointD> > holes;
+      holes_accumulator holes(this);
 
       // iterate ways to get 'outer' and 'inner' geometries
       for (size_t i = 0; i < p->childs.size(); ++i)
@@ -493,18 +491,13 @@ protected:
           }
           else if (role == "inner")
           {
-            holes.push_back(vector<m2::PointD>());
-
-            ForEachWayPoint(wayID, MakeBackInsertFunctor(holes.back()));
-
-            if (!base_type::IsValidHole(holes.back()))
-              holes.pop_back();
+            holes(wayID);
           }
         }
       }
 
       if (ft.IsGeometryClosed())
-        ft.SetAreaAddHoles(holes);
+        ft.SetAreaAddHoles(holes.m_holes);
     }
 
     if (ft.PreSerialize())
