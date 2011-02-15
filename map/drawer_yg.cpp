@@ -227,7 +227,8 @@ bool DrawerYG::filter_text_size(rule_ptr_t pRule) const
 
 void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t pRule, int depth)
 {
-  yg::Color textColor(pRule->GetColor() == -1 ? yg::Color(0, 0, 0, 0) : yg::Color::fromXRGB(pRule->GetColor(), pRule->GetAlpha()));
+  int const color = pRule->GetFillColor();
+  yg::Color textColor(color == -1 ? yg::Color(0, 0, 0, 0) : yg::Color::fromXRGB(color, pRule->GetAlpha()));
 
   /// to prevent white text on white outline
   if (textColor == yg::Color(255, 255, 255, 255))
@@ -240,7 +241,7 @@ void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t p
       get_text_font_size(pRule),
       textColor,
       name,
-      pRule->GetStrokeColor() != -1,
+      pRule->GetColor() != -1,
       yg::Color(255, 255, 255, 255),
       depth,
       false,
@@ -325,14 +326,13 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
 
     if (!isCaption)
     {
-      /// path is drawn separately in the code above
-/*      // draw path
-      if (isPath && !isSymbol && (pRule->GetColor() != -1))
-      {
-        for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
-          drawPath(i->m_path, pRule, depth);
-      }
- */
+      // path is drawn separately in the code above
+      // draw path
+      //if (isPath && !isSymbol && (pRule->GetColor() != -1))
+      //{
+      //  for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
+      //    drawPath(i->m_path, pRule, depth);
+      //}
 
       // draw area
       if (isArea)
