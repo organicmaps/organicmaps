@@ -11,7 +11,11 @@ include($$ROOT_DIR/common.pri)
 QT += opengl gui core
 
 win32-g++ {
-  LIBS += -lpthread -lopengl32
+  LIBS += -lpthread
+}
+
+win32 {
+  LIBS += -lopengl32 -lshell32
 }
 
 SOURCES += \
