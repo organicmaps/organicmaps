@@ -251,10 +251,16 @@ protected:
     // try to get type from relations tags
     m_typeProcessor.Reset(id, &fValue);
 
-    if (p->name == "node")
+    if (p->name == "node" && !fValue.IsValid())
+    {
+      // additional process of nodes ONLY if there is no native types
       m_holder.ForEachRelationByNodeCached(id, m_typeProcessor);
+    }
     else if (p->name == "way")
+    {
+      // always make additional process of ways
       m_holder.ForEachRelationByWayCached(id, m_typeProcessor);
+    }
 
     // remove duplicating types
     sort(fValue.types.begin(), fValue.types.end());
