@@ -67,13 +67,11 @@ namespace yg
 
     bool TextRenderer::TextObj::better_text(TextObj const & r1, TextObj const & r2)
     {
-      /// any text is worse than a frozen one,
-      /// because frozen texts shouldn't be popped out by newly arrived texts.
+      // any text is worse than a frozen one,
+      // because frozen texts shouldn't be popped out by newly arrived texts.
       if (r2.m_frozen)
         return false;
-      if ((r1.m_isMasked) && (!r2.m_isMasked))
-        return true;
-      return r1.m_depth > r2.m_depth;
+      return (r1.m_depth > r2.m_depth);
     }
 
     void TextRenderer::drawText(m2::PointD const & pt,
