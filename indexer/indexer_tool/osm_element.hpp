@@ -478,7 +478,7 @@ protected:
       if (!isProcess)
         return;
 
-      holes_accumulator holes(this);
+      typename base_type::holes_accumulator holes(this);
 
       // iterate ways to get 'outer' and 'inner' geometries
       for (size_t i = 0; i < p->childs.size(); ++i)
