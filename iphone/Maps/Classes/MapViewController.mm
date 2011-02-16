@@ -113,10 +113,16 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 	m_framework->OnSize(width, height);
 }
 
+NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
+{
+	return l < r;
+}
+
 - (void)updatePointsFromEvent:(UIEvent*)event
 {
 	NSSet * allTouches = [event allTouches];
 	int touchCount = [allTouches count];
+	
 	if (touchCount == 1)
 	{
 		CGPoint pt = [[[allTouches allObjects] objectAtIndex:0] locationInView:nil];
@@ -124,8 +130,9 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 	}
 	else
 	{
-		CGPoint pt1 = [[[allTouches allObjects] objectAtIndex:0] locationInView:nil];
-		CGPoint pt2 = [[[allTouches allObjects] objectAtIndex:1] locationInView:nil];
+		NSArray * sortedTouches = [[allTouches allObjects] sortedArrayUsingFunction:compareAddress context:NULL];
+		CGPoint pt1 = [[sortedTouches objectAtIndex:0] locationInView:nil];
+		CGPoint pt2 = [[sortedTouches objectAtIndex:1] locationInView:nil];
 		
 		m_Pt1 = m2::PointD(pt1.x * self.view.contentScaleFactor, pt1.y * self.view.contentScaleFactor);
 	  m_Pt2 = m2::PointD(pt2.x * self.view.contentScaleFactor, pt2.y * self.view.contentScaleFactor);
@@ -220,7 +227,11 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 
 - (void)touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event
 {
+	[self updatePointsFromEvent:event];
 	[self stopCurrentAction];
+	
+	if (((UITouch*)[touches anyObject]).tapCount == 2)
+		m_framework->ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2));
 }
 
 - (void)onPaint
