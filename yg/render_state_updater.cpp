@@ -112,6 +112,8 @@ namespace yg
     {
       if (m_renderState)
         updateActualTarget();
+      m_indicesCount = 0;
+      m_updateTimer.Reset();
       base_t::endFrame();
     }
   }
