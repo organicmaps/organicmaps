@@ -28,10 +28,10 @@ public:
 
   /// Throws FileAbsentException
   /// @param[in] file just file name which we want to read
-  /// @param[out] fullPath fully resolved path including file name
-  /// @return false if file is absent
+  /// @return fullPath fully resolved path including file name
   virtual string ReadPathForFile(char const * file) const = 0;
   /// Throws FileAbsentException
+  /// @return fullPath fully resolved path including file name
   string ReadPathForFile(string const & file) const
   {
     return ReadPathForFile(file.c_str());

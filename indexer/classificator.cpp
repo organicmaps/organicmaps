@@ -143,7 +143,7 @@ void ClassifObject::VisLoadPolicy::Start(size_t i)
 void ClassifObject::Sort()
 {
   sort(m_objs.begin(), m_objs.end(), less_name_t());
-  for_each(m_objs.begin(), m_objs.end(), boost::bind(&ClassifObject::Sort, _1));
+  for_each(m_objs.begin(), m_objs.end(), bind(&ClassifObject::Sort, _1));
 }
 
 void ClassifObject::Swap(ClassifObject & r)

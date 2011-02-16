@@ -96,8 +96,8 @@ UNIT_TEST(SingleDownload)
 
   FileWriter::DeleteFile(TEST_FILE_NAME1);
   gMgr.DownloadFile(TEST_FILE_URL1, TEST_FILE_NAME1,
-      boost::bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
-      boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
+      bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
+      bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
   WAIT_FOR_ASYNC_DOWNLOAD;
   TEST_EQUAL( observer.m_result[0], EHttpDownloadOk, ("Do you have internet connection?") );
   TEST( gPlatform.IsFileExists(TEST_FILE_NAME1), () );
@@ -113,14 +113,14 @@ UNIT_TEST(MultiDownload)
   FileWriter::DeleteFile(TEST_FILE_NAME2);
   FileWriter::DeleteFile(TEST_FILE_NAME3);
   gMgr.DownloadFile(TEST_FILE_URL1, TEST_FILE_NAME1,
-      boost::bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
-      boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
+      bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
+      bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
   gMgr.DownloadFile(TEST_FILE_URL2, TEST_FILE_NAME2,
-      boost::bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
-      boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
+      bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
+      bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
   gMgr.DownloadFile(TEST_FILE_URL3, TEST_FILE_NAME3,
-      boost::bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
-      boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
+      bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
+      bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
   WAIT_FOR_ASYNC_DOWNLOAD;
 
   TEST_EQUAL( observer.m_result[0], EHttpDownloadOk, ("Do you have internet connection?") );
@@ -144,8 +144,8 @@ UNIT_TEST(InvalidUrl)
   observer.m_result[0] = EHttpDownloadOk;
 
   gMgr.DownloadFile(TEST_INVALID_URL, TEST_FILE_NAME1,
-      boost::bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
-      boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
+      bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
+      bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
   WAIT_FOR_ASYNC_DOWNLOAD;
 
   TEST_EQUAL( observer.m_result[0], EHttpDownloadFailed, () );
@@ -184,8 +184,8 @@ UNIT_TEST(DownloadFileExists)
   }
 
   gMgr.DownloadFile(TEST_FILE_URL1, TEST_FILE_NAME1,
-      boost::bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
-      boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
+      bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
+      bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
   WAIT_FOR_ASYNC_DOWNLOAD;
 
   TEST_EQUAL( observer.m_result[0], EHttpDownloadOk, () );
@@ -212,16 +212,16 @@ UNIT_TEST(DownloadResume)
 
  DlObserver<NUM> observer1;
   gMgr.DownloadFile(TEST_FILE_URL1, TEST_FILE_NAME1,
-      boost::bind(&DlObserver<NUM>::OnDownloadFinished, &observer1, _1, _2),
-      boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer1, _1, _2),
+      bind(&DlObserver<NUM>::OnDownloadFinished, &observer1, _1, _2),
+      bind(&DlObserver<NUM>::OnDownloadProgress, &observer1, _1, _2),
       false);
   WAIT_FOR_ASYNC_DOWNLOAD;
   TEST_EQUAL( observer1.m_result[0], EHttpDownloadOk, () );
 
   DlObserver<NUM> observer2;
   gMgr.DownloadFile(TEST_FILE_URL1, TEST_FILE_NAME2,
-      boost::bind(&DlObserver<NUM>::OnDownloadFinished, &observer2, _1, _2),
-      boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer2, _1, _2),
+      bind(&DlObserver<NUM>::OnDownloadFinished, &observer2, _1, _2),
+      bind(&DlObserver<NUM>::OnDownloadProgress, &observer2, _1, _2),
       false);
   WAIT_FOR_ASYNC_DOWNLOAD;
   TEST_EQUAL( observer2.m_result[0], EHttpDownloadOk, () );
@@ -239,8 +239,8 @@ UNIT_TEST(DownloadResume)
   }
   DlObserver<NUM> observer3;
   gMgr.DownloadFile(TEST_FILE_URL1, TEST_FILE_NAME1,
-      boost::bind(&DlObserver<NUM>::OnDownloadFinished, &observer3, _1, _2),
-      boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer3, _1, _2),
+      bind(&DlObserver<NUM>::OnDownloadFinished, &observer3, _1, _2),
+      bind(&DlObserver<NUM>::OnDownloadProgress, &observer3, _1, _2),
       true);
   WAIT_FOR_ASYNC_DOWNLOAD;
   TEST_EQUAL( observer3.m_result[0], EHttpDownloadOk, () );
@@ -265,8 +265,8 @@ UNIT_TEST(DownloadAbsentFile)
   DlObserver<NUM> observer;
 
   gMgr.DownloadFile(TEST_ABSENT_FILE_URL, TEST_ABSENT_FILE_NAME,
-      boost::bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
-      boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
+      bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
+      bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
   WAIT_FOR_ASYNC_DOWNLOAD;
 
   TEST_EQUAL( observer.m_result[0], EHttpDownloadFileNotFound, () );
@@ -287,8 +287,8 @@ UNIT_TEST(DownloadLockedFile)
     TEST( GetPlatform().IsFileExists(TEST_LOCKED_FILE_NAME), () );
 
     gMgr.DownloadFile(TEST_LOCKED_FILE_URL, TEST_LOCKED_FILE_NAME,
-        boost::bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
-        boost::bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
+        bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
+        bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
     WAIT_FOR_ASYNC_DOWNLOAD;
 
     TEST_EQUAL( observer.m_result[0], EHttpDownloadFileIsLocked, () );

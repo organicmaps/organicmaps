@@ -118,7 +118,7 @@ class FrameWork
 
   void AddRedrawCommandSure()
   {
-    m_renderQueue.AddCommand(boost::bind(&this_type::PaintImpl, this, _1, _2, _3, _4), m_navigator.Screen());
+    m_renderQueue.AddCommand(bind(&this_type::PaintImpl, this, _1, _2, _3, _4), m_navigator.Screen());
   }
 
   void AddRedrawCommand()
@@ -208,7 +208,7 @@ public:
       if (!fin)
         break;
       m_navigator.SetFromRect(m2::RectD(x0, y0, x1, y1));
-      m_renderQueue.AddBenchmarkCommand(boost::bind(&this_type::PaintImpl, this, _1, _2, _3, _4), m_navigator.Screen());
+      m_renderQueue.AddBenchmarkCommand(bind(&this_type::PaintImpl, this, _1, _2, _3, _4), m_navigator.Screen());
       m_benchmarks.push_back(make_pair(name, m2::RectD(x0, y0, x1, y1)));
     }
     Invalidate();
@@ -230,8 +230,8 @@ public:
     m_model.InitClassificator();
 
     // initializes model with locally downloaded maps
-    storage.Init( boost::bind(&FrameWork::AddMap, this, _1),
-                  boost::bind(&FrameWork::RemoveMap, this, _1));
+    storage.Init(bind(&FrameWork::AddMap, this, _1),
+                 bind(&FrameWork::RemoveMap, this, _1));
   }
 
   bool IsEmptyModel()

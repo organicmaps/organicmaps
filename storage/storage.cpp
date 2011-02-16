@@ -160,8 +160,8 @@ namespace storage
           GetDownloadManager().DownloadFile(
               (UpdateBaseUrl() + UrlEncode(it->first)).c_str(),
               (GetPlatform().WritablePathForFile(it->first).c_str()),
-              boost::bind(&Storage::OnMapDownloadFinished, this, _1, _2),
-              boost::bind(&Storage::OnMapDownloadProgress, this, _1, _2),
+              bind(&Storage::OnMapDownloadFinished, this, _1, _2),
+              bind(&Storage::OnMapDownloadProgress, this, _1, _2),
               true);  // enabled resume support by default
           // notify GUI - new status for country, "Downloading"
           if (m_observerChange)
@@ -336,7 +336,7 @@ namespace storage
     GetDownloadManager().DownloadFile(
         update.c_str(),
         (GetPlatform().WritablePathForFile(UPDATE_CHECK_FILE)).c_str(),
-        boost::bind(&Storage::OnUpdateDownloadFinished, this, _1, _2),
+        bind(&Storage::OnDataUpdateCheckFinished, this, _1, _2),
         TDownloadProgressFunction(), false);
   }
 
