@@ -66,7 +66,6 @@ private:
   list<shared_ptr<RenderModelCommand> > m_benchmarkRenderCommands;
 
   shared_ptr<yg::gl::RenderState> m_renderState;
-  shared_ptr<yg::gl::BaseTexture> m_fakeTarget;
 
   shared_ptr<yg::ResourceManager> m_resourceManager;
 

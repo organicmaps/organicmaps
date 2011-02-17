@@ -41,11 +41,11 @@ namespace yg
         OGLCHECK(glTexImage2D(
           GL_TEXTURE_2D,
           0,
-          GL_RGBA,
+          Traits::gl_pixel_format_type,
           width(),
           height(),
           0,
-          GL_RGBA,
+          Traits::gl_pixel_format_type,
           Traits::gl_pixel_data_type,
           data));
       }
@@ -71,10 +71,7 @@ namespace yg
 
         typename Traits::image_t image(width(), height());
 
-        typename Traits::pixel_t val((c.r / 255.0f) * Traits::maxChannelVal,
-                                     (c.g / 255.0f) * Traits::maxChannelVal,
-                                     (c.b / 255.0f) * Traits::maxChannelVal,
-                                     (c.a / 255.0f) * Traits::maxChannelVal);
+        typename Traits::pixel_t val = Traits::createPixel(c);
 
         typename Traits::view_t v = gil::view(image);
 
@@ -96,10 +93,10 @@ namespace yg
       OGLCHECK(glGetTexImage(
           GL_TEXTURE_2D,
           0,
-          GL_RGBA,
+          Traits::gl_pixel_format_type,
           Traits::gl_pixel_data_type,
           &gil::view(image)(0, 0)));
-      boost::gil::lodepng_write_view(fullPath.c_str(), gil::view(image));
+//      boost::gil::lodepng_write_view(fullPath.c_str(), gil::view(image));
 #endif
 
 
@@ -121,6 +118,7 @@ namespace yg
       static const int maxChannelVal = Traits::maxChannelVal;
       static const int channelScaleFactor = Traits::channelScaleFactor;
       static const int gl_pixel_data_type = Traits::gl_pixel_data_type;
+      static const int gl_pixel_format_type = Traits::gl_pixel_format_type;
 
     private:
 
@@ -159,6 +157,8 @@ namespace yg
 
     typedef Texture<RGBA8Traits, false> RawRGBA8Texture;
     typedef Texture<RGBA4Traits, false> RawRGBA4Texture;
+
+    typedef Texture<RGB565Traits, false> RawRGB565Texture;
 
     template <typename Traits>
     Texture<Traits, true>::Texture(const m2::RectU &r)
@@ -210,11 +210,11 @@ namespace yg
       OGLCHECK(glTexImage2D(
          GL_TEXTURE_2D,
          0,
-         GL_RGBA,
+         gl_pixel_format_type,
          width(),
          height(),
          0,
-         GL_RGBA,
+         gl_pixel_format_type,
          gl_pixel_data_type,
          data));
     }
@@ -231,7 +231,7 @@ namespace yg
          r.minY(),
          r.SizeX(),
          r.SizeY(),
-         GL_RGBA,
+         gl_pixel_format_type,
          gl_pixel_data_type,
          data));
     }
@@ -259,7 +259,7 @@ namespace yg
       OGLCHECK(glGetTexImage(
           GL_TEXTURE_2D,
           0,
-          GL_RGBA,
+          gl_pixel_format_type,
           Traits::gl_pixel_data_type,
           &view(width(), height())(0, 0)));
 #else
@@ -274,7 +274,7 @@ namespace yg
       readback();
       std::string const fullPath = GetPlatform().WritablePathForFile(fileName);
 #ifndef OMIM_GL_ES
-      boost::gil::lodepng_write_view(fullPath.c_str(), view(width(), height()));
+//      boost::gil::lodepng_write_view(fullPath.c_str(), view(width(), height()));
 #endif
       unlock();
     }

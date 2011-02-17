@@ -65,7 +65,7 @@ void RenderQueueRoutine::processResize(ScreenBase const & /*frameScreen*/)
     size_t texH = m_renderState->m_textureHeight;
 
     m_renderState->m_backBufferLayers.clear();
-    m_renderState->m_backBufferLayers.push_back(make_shared_ptr(new yg::gl::RawRGBA8Texture(texW, texH)));
+    m_renderState->m_backBufferLayers.push_back(make_shared_ptr(new yg::gl::RawRGB565Texture(texW, texH)));
 
     m_renderState->m_depthBuffer.reset();
 
@@ -79,7 +79,7 @@ void RenderQueueRoutine::processResize(ScreenBase const & /*frameScreen*/)
     m_threadDrawer->screen()->frameBuffer()->onSize(texW, texH);
 
     m_renderState->m_actualTarget.reset();
-    m_renderState->m_actualTarget = make_shared_ptr(new yg::gl::RawRGBA8Texture(texW, texH));
+    m_renderState->m_actualTarget = make_shared_ptr(new yg::gl::RawRGB565Texture(texW, texH));
 
     m_auxScreen->onSize(texW, texH);
     m_auxScreen->setRenderTarget(m_renderState->m_actualTarget);
@@ -246,8 +246,6 @@ void RenderQueueRoutine::Do()
 
   CHECK(m_visualScale != 0, ("Set the VisualScale first!"));
   m_threadDrawer->SetVisualScale(m_visualScale);
-
-  m_fakeTarget = make_shared_ptr(new yg::gl::RGBA8Texture(2, 2));
 
   yg::gl::RenderState s;
 

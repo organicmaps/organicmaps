@@ -267,7 +267,7 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
   [super didReceiveMemoryWarning];
 	
 	m_framework->MemoryWarning();
-	m_framework->Repaint();
+//	m_framework->Repaint();
 	
 	// Release any cached data, images, etc that aren't in use.
 }

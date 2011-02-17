@@ -33,7 +33,6 @@ namespace qt
   public:
 
     typedef DrawerYG drawer_t;
-    typedef yg::gl::RGBA8Texture render_target_t;
 
     GLDrawWidget(QWidget * pParent);
 
