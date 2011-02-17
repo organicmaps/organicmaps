@@ -88,7 +88,7 @@ namespace yg
     static pixel_t const createPixel(yg::Color const & c)
     {
       return pixel_t((c.r / 255.0f) * maxChannelVal,
-                     (c.g / 255.0f) * maxChannelVal,
+                     (c.g / 255.0f) * maxChannelVal, //< fix this channel
                      (c.b / 255.0f) * maxChannelVal);
     }
   };
