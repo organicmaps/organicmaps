@@ -41,12 +41,12 @@
     
     eaglLayer.opaque = YES;
 		
-		/// ColorFormat : RGBA8
-		/// Backbuffer : NO
+		/// ColorFormat : RGB565
+		/// Backbuffer : YES, (to prevent from loosing content when mixing with ordinary layers).
     eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [NSNumber numberWithBool:NO],
+                                    [NSNumber numberWithBool:YES],
                                     kEAGLDrawablePropertyRetainedBacking,
-                                    kEAGLColorFormatRGBA8,
+                                    kEAGLColorFormatRGB565,
                                     kEAGLDrawablePropertyColorFormat,
                                     nil];
     
