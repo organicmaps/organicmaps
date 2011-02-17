@@ -38,6 +38,7 @@ iphone/Tests/Tests.xcodeproj/*.mode1v3
 iphone/Tests/Tests.xcodeproj/*.pbxuser
 iphone/Tests/Tests.xcodeproj/*.perspectivev3
 data/*.mwm
+data/*.mwm.downloading
 data/*.map
 data/*.osm
 data/*.bz2
