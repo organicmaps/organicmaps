@@ -107,7 +107,7 @@ namespace update
       }
     }
 
-    SaveTiles(dataDir + UPDATE_CHECK_FILE, level, cellFiles, commonFiles);
+    SaveTiles(dataDir + DATA_UPDATE_FILE, level, cellFiles, commonFiles);
 
     LOG_SHORT(LINFO, ("Created update file with", cellFiles.size(), "cell data files and",
                       commonFiles.size(), "other files"));

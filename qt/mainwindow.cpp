@@ -87,10 +87,7 @@ MainWindow::MainWindow() : m_updateDialog(0)
       QByteArray text = welcomeTextFile.readAll();
       welcomeTextFile.close();
 
-      InfoDialog welcomeDlg(tr("Welcome to MapsWithMe!"), text, this);
-      QStringList buttons;
-      buttons << tr("Download Maps");
-      welcomeDlg.SetCustomButtons(buttons);
+      InfoDialog welcomeDlg(tr("Welcome to MapsWithMe!"), text, this, QStringList(tr("Download Maps")));
       welcomeDlg.exec();
     }
     Settings::Set("ShowWelcome", false);

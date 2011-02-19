@@ -18,6 +18,30 @@
 
 namespace storage
 {
+  static string ErrorString(DownloadResult res)
+  {
+    switch (res)
+    {
+    case EHttpDownloadCantCreateFile:
+      return "File can't be created. Probably, you have no disk space available or "
+                         "using read-only file system.";
+    case EHttpDownloadFailed:
+      return "Download failed due to missing or poor connection. "
+                         "Please, try again later.";
+    case EHttpDownloadFileIsLocked:
+      return "Download can't be finished because file is locked. "
+                         "Please, try again after restarting application.";
+    case EHttpDownloadFileNotFound:
+      return "Requested file is absent on the server.";
+    case EHttpDownloadNoConnectionAvailable:
+      return "No network connection is available.";
+    case EHttpDownloadOk:
+      return "Download finished successfully.";
+    }
+    return "Unknown error";
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
   void Storage::Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc)
   {
     m_currentVersion = static_cast<uint32_t>(Version::BUILD);
@@ -250,7 +274,7 @@ namespace storage
     if (m_countries.SiblingsCount() == 0)
     {
       TTilesContainer tiles;
-      if (LoadTiles(tiles, GetPlatform().ReadPathForFile(UPDATE_CHECK_FILE), m_currentVersion))
+      if (LoadTiles(tiles, GetPlatform().ReadPathForFile(DATA_UPDATE_FILE), m_currentVersion))
       {
         if (!LoadCountries(GetPlatform().ReadPathForFile(COUNTRIES_FILE), tiles, m_countries))
         {
@@ -259,17 +283,17 @@ namespace storage
       }
       else
       {
-        LOG(LWARNING, ("Can't load update file", UPDATE_CHECK_FILE));
+        LOG(LWARNING, ("Can't load update file", DATA_UPDATE_FILE));
       }
     }
   }
 
   void Storage::Subscribe(TObserverChangeCountryFunction change, TObserverProgressFunction progress,
-                          TUpdateCheckFunction check)
+                          TUpdateRequestFunction updateRequest)
   {
     m_observerChange = change;
     m_observerProgress = progress;
-    m_observerUpdateCheck = check;
+    m_observerUpdateRequest = updateRequest;
 
     ReInitCountries(false);
   }
@@ -278,7 +302,7 @@ namespace storage
   {
     m_observerChange.clear();
     m_observerProgress.clear();
-    m_observerUpdateCheck.clear();
+    m_observerUpdateRequest.clear();
   }
 
   string FileFromUrl(string const & url)
@@ -331,32 +355,31 @@ namespace storage
 
   void Storage::CheckForUpdate()
   {
-    string const update = UpdateBaseUrl() + UPDATE_CHECK_FILE;
+    // at this moment we support only binary update checks
+    string const update = UpdateBaseUrl() + BINARY_UPDATE_FILE/*DATA_UPDATE_FILE*/;
     GetDownloadManager().CancelDownload(update.c_str());
     GetDownloadManager().DownloadFile(
         update.c_str(),
-        (GetPlatform().WritablePathForFile(UPDATE_CHECK_FILE)).c_str(),
-        bind(&Storage::OnDataUpdateCheckFinished, this, _1, _2),
+        (GetPlatform().WritablePathForFile(DATA_UPDATE_FILE)).c_str(),
+        bind(&Storage::OnBinaryUpdateCheckFinished, this, _1, _2),
         TDownloadProgressFunction(), false);
   }
 
-  void Storage::OnUpdateDownloadFinished(char const * url, DownloadResult result)
+  void Storage::OnDataUpdateCheckFinished(char const * url, DownloadResult result)
   {
     if (result != EHttpDownloadOk)
     {
       LOG(LWARNING, ("Update check failed for url:", url));
-      if (m_observerUpdateCheck)
-        m_observerUpdateCheck(-1, NULL);
+      if (m_observerUpdateRequest)
+        m_observerUpdateRequest(EDataCheckFailed, ErrorString(result));
     }
     else
     { // @TODO parse update file and notify GUI
-      if (m_observerUpdateCheck)
-        m_observerUpdateCheck(666000, "Arbaiten, Zmagary! Tasks for release:\n\n0. Fast YG\n1. Simplificator tuning\n2. Updater\n3. World map");
     }
 
     // parse update file
 //    TCountriesContainer tempCountries;
-//    if (!LoadCountries(tempCountries, GetPlatform().WritablePathForFile(UPDATE_CHECK_FILE)))
+//    if (!LoadCountries(tempCountries, GetPlatform().WritablePathForFile(DATA_UPDATE_FILE)))
 //    {
 //      LOG(LWARNING, ("New application version should be downloaded, "
 //                     "update file format can't be parsed"));
@@ -374,8 +397,35 @@ namespace storage
 //    LOG(LINFO, ("Update check complete"));
   }
 
-  void Storage::PerformUpdate()
+  void Storage::OnBinaryUpdateCheckFinished(char const * url, DownloadResult result)
   {
-    // @TODO:
+    if (result == EHttpDownloadFileNotFound)
+    { // no binary update is available
+      if (m_observerUpdateRequest)
+        m_observerUpdateRequest(ENoAnyUpdateAvailable, "No update is available");
+    }
+    else if (result == EHttpDownloadOk)
+    { // update is available!
+      try
+      {
+        if (m_observerUpdateRequest)
+        {
+          string const updateTextFilePath = GetPlatform().ReadPathForFile(FileFromUrl(url));
+          FileReader file(updateTextFilePath);
+          m_observerUpdateRequest(ENewBinaryAvailable, file.ReadAsText());
+        }
+      }
+      catch (std::exception const & e)
+      {
+        if (m_observerUpdateRequest)
+          m_observerUpdateRequest(EBinaryCheckFailed,
+                                    string("Error loading b-update text file ") + e.what());
+      }
+    }
+    else
+    { // connection error
+      if (m_observerUpdateRequest)
+        m_observerUpdateRequest(EBinaryCheckFailed, ErrorString(result));
+    }
   }
 }

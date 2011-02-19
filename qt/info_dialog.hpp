@@ -10,11 +10,8 @@ namespace qt
     Q_OBJECT
 
   public:
-    /// Default constructor creates dialog without any buttons
-    explicit InfoDialog(QString const & title, QString const & text, QWidget * parent);
-    /// Sets buttons in dialog
-    void SetCustomButtons(QStringList const & buttons);
-
+    explicit InfoDialog(QString const & title, QString const & text,
+                        QWidget * parent, QStringList const & buttons = QStringList());
   public Q_SLOTS:
     void OnButtonClick();
   };

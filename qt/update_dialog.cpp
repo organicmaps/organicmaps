@@ -1,4 +1,5 @@
 #include "update_dialog.hpp"
+#include "info_dialog.hpp"
 
 #include "../base/assert.hpp"
 
@@ -173,26 +174,52 @@ namespace qt
       item.setTextColor(column, color);
   }
 
-  void UpdateDialog::OnUpdateCheck(int64_t updateSize, char const * readme)
+  void UpdateDialog::OnUpdateRequest(storage::TUpdateResult res, string const & description)
   {
-    if (updateSize < 0)
-      ;//m_label->setText(QObject::tr("No update is available"));
-    else
+    switch (res)
     {
-      QString title(QObject::tr("Update is available"));
-      QString text(readme ? readme : "");
-      if (updateSize / (1000 * 1000 * 1000) > 0)
-        text.append(QObject::tr("\n\nDo you want to perform update and download %1 GB?").arg(
-            uint(updateSize / (1000 * 1000 * 1000))));
-      else if (updateSize / (1000 * 1000) > 0)
-        text.append(QObject::tr("\n\nDo you want to perform update and download %1 MB?").arg(
-            uint(updateSize / (1000 * 1000))));
-      else
-        text.append(QObject::tr("\n\nDo you want to perform update and download %1 kB?").arg(
-            uint((updateSize + 999) / 1000)));
-      if (QMessageBox::Yes == QMessageBox::question(this, title, text, QMessageBox::Yes, QMessageBox::No))
-        m_storage.PerformUpdate();
+    case ENoAnyUpdateAvailable:
+      {
+        // @TODO do not show it for automatic update checks
+        InfoDialog dlg(tr("No update is available"),
+                       tr("At this moment, no new version is available. Please, try again later or "
+                          "visit our <a href=\"http://www.mapswithme.com\">site</a> for latest news."),
+                       this, QStringList(tr("Ok")));
+        dlg.exec();
+      }
+      break;
+    case ENewBinaryAvailable:
+      {
+        InfoDialog dlg(tr("New version is available!"), description.c_str(), this,
+                       QStringList(tr("Postpone update")));
+        dlg.exec();
+      }
+      break;
+    case storage::EBinaryCheckFailed:
+      {
+        InfoDialog dlg(tr("Update check failed"), description.c_str(), this, QStringList(tr("Ok")));
+        dlg.exec();
+      }
+      break;
     }
+//    if (updateSize < 0)
+//      ;//m_label->setText(QObject::tr("No update is available"));
+//    else
+//    {
+//      QString title(QObject::tr("Update is available"));
+//      QString text(readme ? readme : "");
+//      if (updateSize / (1000 * 1000 * 1000) > 0)
+//        text.append(QObject::tr("\n\nDo you want to perform update and download %1 GB?").arg(
+//            uint(updateSize / (1000 * 1000 * 1000))));
+//      else if (updateSize / (1000 * 1000) > 0)
+//        text.append(QObject::tr("\n\nDo you want to perform update and download %1 MB?").arg(
+//            uint(updateSize / (1000 * 1000))));
+//      else
+//        text.append(QObject::tr("\n\nDo you want to perform update and download %1 kB?").arg(
+//            uint((updateSize + 999) / 1000)));
+//      if (QMessageBox::Yes == QMessageBox::question(this, title, text, QMessageBox::Yes, QMessageBox::No))
+//        m_storage.PerformUpdate();
+//    }
     m_updateButton->setText(CHECK_FOR_UPDATE);
     m_updateButton->setDisabled(false);
   }
@@ -319,9 +346,9 @@ namespace qt
   void UpdateDialog::ShowDialog()
   {
     // we want to receive all download progress and result events
-    m_storage.Subscribe(boost::bind(&UpdateDialog::OnCountryChanged, this, _1),
-                        boost::bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2),
-                        boost::bind(&UpdateDialog::OnUpdateCheck, this, _1, _2));
+    m_storage.Subscribe(bind(&UpdateDialog::OnCountryChanged, this, _1),
+                        bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2),
+                        bind(&UpdateDialog::OnUpdateRequest, this, _1, _2));
     // if called for first time
     if (!m_tree->topLevelItemCount())
       FillTree();

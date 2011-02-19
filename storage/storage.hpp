@@ -27,6 +27,17 @@ namespace storage
     EUnknown
   };
 
+  enum TUpdateResult
+  {
+    ENoAnyUpdateAvailable = 0,
+    ENewBinaryAvailable = 0x01,
+    EBinaryCheckFailed = 0x02,
+    EBinaryUpdateFailed = 0x04,
+    ENewDataAvailable = 0x08,
+    EDataCheckFailed = 0x10,
+    EDataUpdateFailed = 0x20
+  };
+
   struct TIndex
   {
     int m_group;
@@ -69,10 +80,10 @@ namespace storage
     //@{
     typedef boost::function<void (TIndex const &)> TObserverChangeCountryFunction;
     typedef boost::function<void (TIndex const &, TDownloadProgress const &)> TObserverProgressFunction;
-    typedef boost::function<void (int64_t, char const *)> TUpdateCheckFunction;
+    typedef boost::function<void (TUpdateResult, string const &)> TUpdateRequestFunction;
     TObserverChangeCountryFunction m_observerChange;
     TObserverProgressFunction m_observerProgress;
-    TUpdateCheckFunction m_observerUpdateCheck;
+    TUpdateRequestFunction m_observerUpdateRequest;
     //@}
 
     /// @name Communicate with Framework
@@ -98,14 +109,15 @@ namespace storage
     //@{
     void OnMapDownloadFinished(char const * url, DownloadResult result);
     void OnMapDownloadProgress(char const * url, TDownloadProgress progress);
-    void OnUpdateDownloadFinished(char const * url, DownloadResult result);
+    void OnDataUpdateCheckFinished(char const * url, DownloadResult result);
+    void OnBinaryUpdateCheckFinished(char const * url, DownloadResult result);
     //@}
 
     /// @name Current impl supports only one observer
     //@{
     void Subscribe(TObserverChangeCountryFunction change,
                    TObserverProgressFunction progress,
-                   TUpdateCheckFunction check);
+                   TUpdateRequestFunction dataCheck);
     void Unsubscribe();
     //@}
 
@@ -118,6 +130,5 @@ namespace storage
     void DeleteCountry(TIndex const & index);
 
     void CheckForUpdate();
-    void PerformUpdate();
   };
 }

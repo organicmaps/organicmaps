@@ -23,9 +23,7 @@ namespace qt
     void OnCountryChanged(storage::TIndex const & index);
     void OnCountryDownloadProgress(storage::TIndex const & index,
                                    TDownloadProgress const & progress);
-    /// @param updateSize if -1 then no update is available
-    /// @param readme optional, can be NULL
-    void OnUpdateCheck(int64_t updateSize, char const * readme);
+    void OnUpdateRequest(storage::TUpdateResult result, string const & description);
     //@}
 
     void ShowDialog();

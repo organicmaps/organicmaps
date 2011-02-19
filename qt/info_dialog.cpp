@@ -10,12 +10,14 @@
 
 namespace qt
 {
-  InfoDialog::InfoDialog(QString const & title, QString const & text, QWidget * parent)
+  InfoDialog::InfoDialog(QString const & title, QString const & text, QWidget * parent,
+                         QStringList const & buttons)
   : QDialog(parent)
   {
     QIcon icon(":logo.png");
     setWindowIcon(icon);
     setWindowTitle(title);
+    setFocus();
 
     QVBoxLayout * vBox = new QVBoxLayout();
     QLabel * label = new QLabel(text);
@@ -24,8 +26,15 @@ namespace qt
 
     // this horizontal layout is for buttons
     QHBoxLayout * hBox = new QHBoxLayout();
-    vBox->addLayout(hBox);
+    hBox->addSpacing(label->width() / 4 * (3.5 - buttons.size()));
+    for (int i = 0; i < buttons.size(); ++i)
+    {
+      QPushButton * button = new QPushButton(buttons[i], this);
+      connect(button, SIGNAL(clicked()), this, SLOT(OnButtonClick()));
+      hBox->addWidget(button);
+    }
 
+    vBox->addLayout(hBox);
     setLayout(vBox);
   }
 
@@ -33,24 +42,5 @@ namespace qt
   {
     // @TODO determine which button is pressed
     done(0);
-  }
-
-  void InfoDialog::SetCustomButtons(QStringList const & buttons)
-  {
-    QLayout * hBox = layout()->layout();
-    // @TODO clear old buttons if any
-//    for (int i = 0; i < hBox->count(); ++i)
-//    {
-//      QLayoutItem * item = hBox->itemAt(i);
-//      hBox->removeItem(item);
-//      delete item;
-//    }
-
-    for (int i = 0; i < buttons.size(); ++i)
-    {
-      QPushButton * button = new QPushButton(buttons[i]);
-      connect(button, SIGNAL(clicked()), this, SLOT(OnButtonClick()));
-      hBox->addWidget(button);
-    }
   }
 }

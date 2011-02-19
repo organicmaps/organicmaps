@@ -40,7 +40,7 @@ using namespace storage;
   	[(CountriesViewController *)g_navController.topViewController OnDownload: index withProgress: progress];
 }
 
-+ (void) OnUpdateCheck: (int64_t) size withReadme: (char const *) readme
++ (void) OnUpdateCheck: (TUpdateResult) result withText: (string const &) text
 {
 
 }
@@ -65,12 +65,13 @@ using namespace storage;
 		SEL progressSel = @selector(OnCountryDownload:withProgress:);
 		TProgressFunc progressImpl = (TProgressFunc)[self methodForSelector:progressSel];
 
-		typedef void (*TUpdateFunc)(id, SEL, int64_t, char const *);
+		typedef void (*TUpdateFunc)(id, SEL, bool, string const &);
 		SEL updateSel = @selector(OnUpdateCheck:);
 		TUpdateFunc updateImpl = (TUpdateFunc)[self methodForSelector:updateSel];
 
 		storage.Subscribe(boost::bind(changeImpl, self, changeSel, _1),
-    		boost::bind(progressImpl, self, progressSel, _1, _2), boost::bind(updateImpl, self, updateSel, _1, _2));
+    		boost::bind(progressImpl, self, progressSel, _1, _2),
+        boost::bind(updateImpl, self, updateSel, _1, _2));
   }
 
   [parentController presentModalViewController:g_navController animated:YES];

@@ -11,8 +11,9 @@
 //#define COUNTRIES_FILE  "countries_poly.txt"
 // used with bucket storage engine
 #define COUNTRIES_FILE  "countries_poly.txt"
-#define UPDATE_CHECK_FILE "maps.update"
-#define UPDATE_BASE_URL "http://melnichek.ath.cx:34568/maps/"
+#define DATA_UPDATE_FILE "maps.update"
+#define BINARY_UPDATE_FILE "binary.update"
+#define UPDATE_BASE_URL "http://data.mapswithme.com/maps/"
 
 #define WORLD_FILE_NAME "World"
 
