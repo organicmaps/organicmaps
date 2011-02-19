@@ -65,6 +65,17 @@ namespace Settings
   StringStorage StringStorage::m_instance;
 ////////////////////////////////////////////////////////////////////////////////////////////
 
+  template <> string ToString<string>(string const & str)
+  {
+    return str;
+  }
+
+  template <> bool FromString<string>(string const & strIn, string & strOut)
+  {
+    strOut = strIn;
+    return true;
+  }
+
   template <> string ToString<m2::RectD>(m2::RectD const & rect)
   {
     ostringstream stream;

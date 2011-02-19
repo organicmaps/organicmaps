@@ -38,7 +38,7 @@ namespace qt
 
   private:
     QTreeWidget * m_tree;
-    //QLabel * m_label;
+    QLabel * m_label;
     QPushButton * m_updateButton;
     storage::Storage & m_storage;
   };

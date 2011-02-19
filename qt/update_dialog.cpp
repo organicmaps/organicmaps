@@ -3,6 +3,8 @@
 
 #include "../base/assert.hpp"
 
+#include "../map/settings.hpp"
+
 #include <boost/bind.hpp>
 
 #include <QtGui/QVBoxLayout>
@@ -13,8 +15,12 @@
 #include <QtGui/QHeaderView>
 #include <QtGui/QMessageBox>
 #include <QtGui/QProgressBar>
+#include <QtCore/QDateTime>
 
 #define CHECK_FOR_UPDATE "Check for update"
+#define LAST_UPDATE_CHECK "Last update check: "
+/// used in settings
+#define LAST_CHECK_TIME_KEY "LastUpdateCheckTime"
 
 using namespace storage;
 
@@ -52,7 +58,10 @@ namespace qt
   UpdateDialog::UpdateDialog(QWidget * parent, Storage & storage)
     : QDialog(parent), m_storage(storage)
   {
-    //m_label = new QLabel(QObject::tr("Version: ") + VERSION_STRING, this);
+    string timeString;
+    if (!Settings::Get(LAST_CHECK_TIME_KEY, timeString))
+      timeString = "Never checked";
+    m_label = new QLabel(QString(QObject::tr(LAST_UPDATE_CHECK)) + timeString.c_str(), this);
 
     m_updateButton = new QPushButton(QObject::tr(CHECK_FOR_UPDATE), this);
     connect(m_updateButton, SIGNAL(clicked()), this, SLOT(OnUpdateClick()));
@@ -65,7 +74,7 @@ namespace qt
     connect(m_tree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(OnItemClick(QTreeWidgetItem *, int)));
 
     QHBoxLayout * horizontalLayout = new QHBoxLayout();
-//    horizontalLayout->addWidget(m_label);
+    horizontalLayout->addWidget(m_label);
     horizontalLayout->addWidget(m_updateButton);
     QVBoxLayout * verticalLayout = new QVBoxLayout();
     verticalLayout->addLayout(horizontalLayout);
@@ -220,6 +229,10 @@ namespace qt
 //      if (QMessageBox::Yes == QMessageBox::question(this, title, text, QMessageBox::Yes, QMessageBox::No))
 //        m_storage.PerformUpdate();
 //    }
+    QString labelText(LAST_UPDATE_CHECK);
+    QString const textDate = QDateTime::currentDateTime().toString();
+    Settings::Set(LAST_CHECK_TIME_KEY, string(textDate.toLocal8Bit().data()));
+    m_label->setText(labelText.append(textDate));
     m_updateButton->setText(CHECK_FOR_UPDATE);
     m_updateButton->setDisabled(false);
   }
