@@ -28,8 +28,11 @@ namespace yg
 {
   namespace gl
   {
+    GeometryBatcher::Params::Params() : m_doLogFlushes(false)
+    {}
+
     GeometryBatcher::GeometryBatcher(Params const & params)
-      : base_t(params), m_isAntiAliased(!params.m_isMultiSampled)
+      : base_t(params), m_isAntiAliased(!params.m_isMultiSampled), m_doLogFlushes(params.m_doLogFlushes)
     {
       reset(-1);
       applyStates();
@@ -173,7 +176,8 @@ namespace yg
                           pipeline.m_currentIndex);
 
 
-//             LOG(LINFO, ("Pipeline #", i - 1, "draws ", pipeline.m_currentIndex / 3, " triangles"));
+             if (m_doLogFlushes)
+               LOG(LINFO, ("Pipeline #", i - 1, "draws ", pipeline.m_currentIndex / 3, "/", pipeline.m_maxIndices / 3," triangles"));
 
              renderedData = true;
 

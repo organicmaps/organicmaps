@@ -86,6 +86,7 @@ namespace yg
       void applyStates();
 
       bool m_isAntiAliased;
+      bool m_doLogFlushes;
 
       int m_aaShift;
 
@@ -97,8 +98,8 @@ namespace yg
 
       struct Params : base_t::Params
       {
-        bool m_isAntiAliased;
-        Params() : m_isAntiAliased(false) {}
+        bool m_doLogFlushes;
+        Params();
       };
 
       GeometryBatcher(Params const & params);
