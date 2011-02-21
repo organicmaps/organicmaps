@@ -18,7 +18,7 @@ namespace yg
       m_isSolid = true;
     else
     {
-/*      buffer_vector<double, 8> vec;
+      buffer_vector<double, 4> vec;
       copy(pattern, pattern + patternSize, back_inserter(vec));
       double length = 0;
       for (size_t i = 0; i < vec.size(); ++i)
@@ -28,24 +28,19 @@ namespace yg
         length += vec[i];
       }
 
-      int periods = min(20, max(int(100 / length), 1));
+      int periods = min(20, max(int(128 / length), 1));
       m_pat.reserve(periods * vec.size());
       for (int i = 0; i < periods; ++i)
         copy(vec.begin(), vec.end(), back_inserter(m_pat));
-        */
-      copy(pattern, pattern + patternSize, back_inserter(m_pat));
+
+/*      copy(pattern, pattern + patternSize, back_inserter(m_pat));
       double length = 0;
       for (size_t i = 0; i < m_pat.size(); ++i)
       {
         if ((m_pat[i] < 2) && (m_pat[i] > 0))
           m_pat[i] = 2;
-//        length += m_pat[i];
+        length += m_pat[i];
       }
-
-/*      int periods = min(20, max(int(100 / length), 1));
-      m_pat.reserve(periods * vec.size());
-      for (int i = 0; i < periods; ++i)
-        copy(vec.begin(), vec.end(), back_inserter(m_pat));
 */
     }
   }
