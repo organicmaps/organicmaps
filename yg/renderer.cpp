@@ -10,12 +10,13 @@ namespace yg
 {
   namespace gl
   {
-    Renderer::Params::Params() : m_isMultiSampled(false)
+    Renderer::Params::Params() : m_isMultiSampled(false), m_isDebugging(false)
     {}
 
     Renderer::Renderer(Params const & params)
       : m_frameBuffer(params.m_frameBuffer),
         m_isMultiSampled(params.m_isMultiSampled),
+        m_isDebugging(params.m_isDebugging),
         m_isRendering(false)
     {
       if (m_isMultiSampled)
@@ -174,5 +175,9 @@ namespace yg
       return m_height;
     }
 
+    bool Renderer::isDebugging() const
+    {
+      return m_isDebugging;
+    }
   }
 }

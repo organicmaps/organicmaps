@@ -236,7 +236,10 @@ void RenderQueueRoutine::Do()
   params.m_updateInterval = m_updateInterval;
   params.m_textTreeAutoClean = false;
   params.m_useTextTree = true;
-  params.m_doLogFlushes = true;
+/*  params.m_isDebugging = true;
+  params.m_drawPathes = false;
+  params.m_drawAreas = false;
+  params.m_drawTexts = false;*/
 
   m_threadDrawer = make_shared_ptr(new DrawerYG(m_skinName, params));
 

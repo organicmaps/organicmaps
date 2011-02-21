@@ -24,14 +24,15 @@ namespace yg
   namespace gl
   {
     TextRenderer::Params::Params()
-      : m_textTreeAutoClean(true), m_useTextTree(false)
+      : m_textTreeAutoClean(true), m_useTextTree(false), m_drawTexts(true)
     {}
 
     TextRenderer::TextRenderer(Params const & params)
       : base_t(params),
       m_needTextRedraw(false),
       m_textTreeAutoClean(params.m_textTreeAutoClean),
-      m_useTextTree(params.m_useTextTree)
+      m_useTextTree(params.m_useTextTree),
+      m_drawTexts(params.m_drawTexts)
     {}
 
     TextRenderer::TextObj::TextObj(m2::PointD const & pt, string const & txt, uint8_t sz, yg::Color const & c, bool isMasked, yg::Color const & maskColor, double d, bool isFixedFont, bool log2vis)
@@ -85,6 +86,9 @@ namespace yg
                   bool isFixedFont,
                   bool log2vis)
     {
+      if (!m_drawTexts)
+        return;
+
       if (!m_useTextTree || isFixedFont)
          drawTextImpl(pt, angle, fontSize, color, utf8Text, true, maskColor, depth, isFixedFont, log2vis);
       else
@@ -328,6 +332,8 @@ namespace yg
         m2::PointD const * path, size_t s, uint8_t fontSize, yg::Color const & color, string const & utf8Text,
         double fullLength, double pathOffset, TextPos pos, bool isMasked, yg::Color const & maskColor, double depth, bool isFixedFont)
     {
+      if (!m_drawTexts)
+        return false;
       if (m_useTextTree)
         checkTextRedraw();
 

@@ -73,11 +73,6 @@ namespace yg
 
       vector<GeometryPipeline> m_pipelines;
 
-      bool hasRoom(size_t verticesCount, size_t indicesCount, int pageID) const;
-
-      size_t verticesLeft(int pageID);
-      size_t indicesLeft(int pageID);
-
       void reset(int pageID);
 
       void switchTextures(int pageID);
@@ -86,7 +81,6 @@ namespace yg
       void applyStates();
 
       bool m_isAntiAliased;
-      bool m_doLogFlushes;
 
       int m_aaShift;
 
@@ -95,14 +89,11 @@ namespace yg
 
       /// INTERNAL API! USE WITH CAUTION
       void flush(int pageID);
+      bool hasRoom(size_t verticesCount, size_t indicesCount, int pageID) const;
+      size_t verticesLeft(int pageID);
+      size_t indicesLeft(int pageID);
 
-      struct Params : base_t::Params
-      {
-        bool m_doLogFlushes;
-        Params();
-      };
-
-      GeometryBatcher(Params const & params);
+      GeometryBatcher(base_t::Params const & params);
       ~GeometryBatcher();
 
       void setSkin(shared_ptr<Skin> skin);
@@ -110,23 +101,6 @@ namespace yg
 
       void beginFrame();
       void endFrame();
-
-      void drawPoint(m2::PointD const & pt,
-                     uint32_t styleID,
-                     EPosition pos,
-                     double depth);
-
-      void drawPath(m2::PointD const * points,
-                    size_t pointsCount,
-                    uint32_t styleID,
-                    double depth);
-
-      /// drawing triangles list. assuming that each 3 points compose a triangle
-      void drawTrianglesList(m2::PointD const * points,
-                            size_t pointsCount,
-                            uint32_t styleID,
-                            double depth);
-
 
     public:
 
@@ -153,6 +127,28 @@ namespace yg
                             unsigned size,
                             double depth,
                             int pageID);
+
+      void addTexturedListStrided(m2::PointD const * coords,
+                                  size_t coordsStride,
+                                  m2::PointF const * texCoords,
+                                  size_t texCoordsStride,
+                                  unsigned size,
+                                  double depth,
+                                  int pageID);
+
+      void addTexturedListStrided(m2::PointF const * coords,
+                                  size_t coordsStride,
+                                  m2::PointF const * texCoords,
+                                  size_t texCoordsStride,
+                                  unsigned size,
+                                  double depth,
+                                  int pageID);
+
+      void addTexturedList(m2::PointF const * coords,
+                           m2::PointF const * texCoords,
+                           unsigned size,
+                           double depth,
+                           int pageID);
 
       int aaShift() const;
 

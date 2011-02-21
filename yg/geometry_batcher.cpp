@@ -28,11 +28,8 @@ namespace yg
 {
   namespace gl
   {
-    GeometryBatcher::Params::Params() : m_doLogFlushes(false)
-    {}
-
-    GeometryBatcher::GeometryBatcher(Params const & params)
-      : base_t(params), m_isAntiAliased(!params.m_isMultiSampled), m_doLogFlushes(params.m_doLogFlushes)
+    GeometryBatcher::GeometryBatcher(base_t::Params const & params)
+      : base_t(params), m_isAntiAliased(!params.m_isMultiSampled)
     {
       reset(-1);
       applyStates();
@@ -176,7 +173,7 @@ namespace yg
                           pipeline.m_currentIndex);
 
 
-             if (m_doLogFlushes)
+             if (isDebugging())
                LOG(LINFO, ("Pipeline #", i - 1, "draws ", pipeline.m_currentIndex / 3, "/", pipeline.m_maxIndices / 3," triangles"));
 
              renderedData = true;
@@ -207,72 +204,6 @@ namespace yg
        m_skin->pages()[pageID]->freeTexture();
        m_skin->pages()[pageID]->reserveTexture();
 //     }
-   }
-
-
-
-   void GeometryBatcher::drawTrianglesList(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth)
-   {
-     ResourceStyle const * style = m_skin->fromID(styleID);
-
-     if (style == 0)
-     {
-       LOG(LINFO, ("styleID=", styleID, " wasn't found on current skin."));
-       return;
-     }
-
-     if (!hasRoom(pointsCount, pointsCount, style->m_pageID))
-       flush(style->m_pageID);
-
-     ASSERT_GREATER_OR_EQUAL(pointsCount, 2, ());
-
-     float texX = style->m_texRect.minX() + 1.0f;
-     float texY = style->m_texRect.minY() + 1.0f;
-
-     m_skin->pages()[style->m_pageID]->texture()->mapPixel(texX, texY);
-
-     size_t pointsLeft = pointsCount;
-     size_t batchOffset = 0;
-
-     while (true)
-     {
-       size_t batchSize = pointsLeft;
-
-       if (batchSize > verticesLeft(style->m_pageID))
-         /// Rounding to the boundary of 3 vertices
-         batchSize = verticesLeft(style->m_pageID) / 3 * 3;
-
-       if (batchSize > indicesLeft(style->m_pageID))
-         batchSize = indicesLeft(style->m_pageID) / 3 * 3;
-
-       bool needToFlush = (batchSize < pointsLeft);
-
-       int vOffset = m_pipelines[style->m_pageID].m_currentVertex;
-       int iOffset = m_pipelines[style->m_pageID].m_currentIndex;
-
-       for (size_t i = 0; i < batchSize; ++i)
-       {
-         m_pipelines[style->m_pageID].m_vertices[vOffset + i].pt = points[batchOffset + i];
-         m_pipelines[style->m_pageID].m_vertices[vOffset + i].tex = m2::PointF(texX, texY);
-         m_pipelines[style->m_pageID].m_vertices[vOffset + i].depth = depth;
-       }
-
-       for (size_t i = 0; i < batchSize; ++i)
-         m_pipelines[style->m_pageID].m_indices[iOffset + i] = vOffset + i;
-
-       batchOffset += batchSize;
-
-       m_pipelines[style->m_pageID].m_currentVertex += batchSize;
-       m_pipelines[style->m_pageID].m_currentIndex += batchSize;
-
-       pointsLeft -= batchSize;
-
-       if (needToFlush)
-         flush(style->m_pageID);
-
-       if (pointsLeft == 0)
-         break;
-     }
    }
 
    void GeometryBatcher::drawTexturedPolygon(
@@ -397,6 +328,80 @@ namespace yg
      }
 
      m_pipelines[pageID].m_currentIndex += (size - 2) * 3;
+   }
+
+   void GeometryBatcher::addTexturedListStrided(
+       m2::PointD const * coords,
+       size_t coordsStride,
+       m2::PointF const * texCoords,
+       size_t texCoordsStride,
+       unsigned size,
+       double depth,
+       int pageID)
+   {
+     if (!hasRoom(size, size, pageID))
+       flush(pageID);
+
+     ASSERT(size > 2, ());
+
+     size_t vOffset = m_pipelines[pageID].m_currentVertex;
+     size_t iOffset = m_pipelines[pageID].m_currentIndex;
+
+     for (size_t i = 0; i < size; ++i)
+     {
+       m_pipelines[pageID].m_vertices[vOffset + i].pt = m2::PointF(coords->x, coords->y);
+       m_pipelines[pageID].m_vertices[vOffset + i].tex = *texCoords;
+       m_pipelines[pageID].m_vertices[vOffset + i].depth = depth;
+       coords = reinterpret_cast<m2::PointD const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
+       texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
+     }
+
+     m_pipelines[pageID].m_currentVertex += size;
+
+     for (size_t i = 0; i < size; ++i)
+       m_pipelines[pageID].m_indices[iOffset + i] = vOffset + i;
+
+     m_pipelines[pageID].m_currentIndex += size;
+   }
+
+
+   void GeometryBatcher::addTexturedListStrided(
+       m2::PointF const * coords,
+       size_t coordsStride,
+       m2::PointF const * texCoords,
+       size_t texCoordsStride,
+       unsigned size,
+       double depth,
+       int pageID)
+   {
+     if (!hasRoom(size, size, pageID))
+       flush(pageID);
+
+     ASSERT(size > 2, ());
+
+     size_t vOffset = m_pipelines[pageID].m_currentVertex;
+     size_t iOffset = m_pipelines[pageID].m_currentIndex;
+
+     for (size_t i = 0; i < size; ++i)
+     {
+       m_pipelines[pageID].m_vertices[vOffset + i].pt = *coords;
+       m_pipelines[pageID].m_vertices[vOffset + i].tex = *texCoords;
+       m_pipelines[pageID].m_vertices[vOffset + i].depth = depth;
+       coords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
+       texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
+     }
+
+     m_pipelines[pageID].m_currentVertex += size;
+
+     for (size_t i = 0; i < size; ++i)
+       m_pipelines[pageID].m_indices[iOffset + i] = vOffset + i;
+
+     m_pipelines[pageID].m_currentIndex += size;
+   }
+
+   void GeometryBatcher::addTexturedList(m2::PointF const * coords, m2::PointF const * texCoords, unsigned size, double depth, int pageID)
+   {
+     addTexturedListStrided(coords, sizeof(m2::PointF), texCoords, sizeof(m2::PointF), size, depth, pageID);
    }
 
    void GeometryBatcher::enableClipRect(bool flag)

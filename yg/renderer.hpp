@@ -22,6 +22,7 @@ namespace yg
         shared_ptr<ResourceManager> m_resourceManager;
         shared_ptr<FrameBuffer> m_frameBuffer;
         bool m_isMultiSampled;
+        bool m_isDebugging;
         Params();
       };
 
@@ -38,6 +39,7 @@ namespace yg
       shared_ptr<RenderBuffer> m_multiSampledDepthBuffer;
 
       bool m_isMultiSampled;
+      bool m_isDebugging;
 
       bool m_isRendering;
 
@@ -79,6 +81,8 @@ namespace yg
 
       unsigned int width() const;
       unsigned int height() const;
+
+      bool isDebugging() const;
     };
   }
 }

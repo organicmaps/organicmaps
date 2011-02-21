@@ -10,12 +10,21 @@ namespace yg
 {
   namespace gl
   {
+    PathRenderer::Params::Params() : m_drawPathes(true)
+    {}
 
-    PathRenderer::PathRenderer(base_t::Params const & params) : base_t(params)
+    PathRenderer::PathRenderer(Params const & params)
+      : base_t(params), m_drawPathes(params.m_drawPathes)
     {}
 
     void PathRenderer::drawPath(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth)
     {
+      ++m_pathCount;
+      m_pointsCount += pointsCount;
+
+      if (!m_drawPathes)
+        return;
+
  #ifdef PROFILER_YG
       prof::block<prof::yg_draw_path> draw_path_block;
  #endif
@@ -238,6 +247,21 @@ namespace yg
 
         addTexturedStrip(coords, texCoords, 8, depth, lineStyle->m_pageID);
       }
+    }
+
+    void PathRenderer::beginFrame()
+    {
+      base_t::beginFrame();
+      m_pathCount = 0;
+      m_pointsCount = 0;
+    }
+
+    void PathRenderer::endFrame()
+    {
+      if (isDebugging())
+        LOG(LINFO, ("Drawing ", m_pathCount, " pathes comprised of ", m_pointsCount, " points total"));
+
+      base_t::endFrame();
     }
   }
 }

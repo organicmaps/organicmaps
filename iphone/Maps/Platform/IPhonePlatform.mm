@@ -186,10 +186,6 @@ vector<string> IPhonePlatform::GetFontNames() const
 	for (size_t i = 0; i < res.size(); ++i)
 	  res[i] = fontFolder + res[i];
 	
-/*	res.push_back(ReadPathForFile("wqy-microhei.ttf"));		
-	res.push_back(ReadPathForFile("dejavusans.ttf"));
-  res.push_back(ReadPathForFile("mangal.ttf"));
-*/	
 	return res;
 }
 
