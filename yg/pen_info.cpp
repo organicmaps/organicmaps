@@ -28,7 +28,7 @@ namespace yg
         length += vec[i];
       }
 
-      int periods = min(20, max(int(128 / length), 1));
+      int periods = min(20, max(int(64 / length), 1));
       m_pat.reserve(periods * vec.size());
       for (int i = 0; i < periods; ++i)
         copy(vec.begin(), vec.end(), back_inserter(m_pat));
