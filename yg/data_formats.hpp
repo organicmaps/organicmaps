@@ -50,10 +50,10 @@ namespace yg
 
     static pixel_t const createPixel(yg::Color const & c)
     {
-      return pixel_t((c.r / 255.0f) * maxChannelVal,
-                     (c.g / 255.0f) * maxChannelVal,
-                     (c.b / 255.0f) * maxChannelVal,
-                     (c.a / 255.0f) * maxChannelVal);
+      return pixel_t((unsigned char)(c.r / 255.0f) * maxChannelVal,
+                     (unsigned char)(c.g / 255.0f) * maxChannelVal,
+                     (unsigned char)(c.b / 255.0f) * maxChannelVal,
+                     (unsigned char)(c.a / 255.0f) * maxChannelVal);
     }
   };
 
@@ -87,9 +87,9 @@ namespace yg
 
     static pixel_t const createPixel(yg::Color const & c)
     {
-      return pixel_t((c.r / 255.0f) * maxChannelVal,
-                     (c.g / 255.0f) * maxChannelVal, //< fix this channel
-                     (c.b / 255.0f) * maxChannelVal);
+      return pixel_t((int)(c.r / 255.0f) * maxChannelVal,
+                     (int)(c.g / 255.0f) * maxChannelVal, //< fix this channel
+                     (int)(c.b / 255.0f) * maxChannelVal);
     }
   };
 
@@ -123,10 +123,10 @@ namespace yg
 
     static pixel_t const createPixel(yg::Color const & c)
     {
-      return pixel_t((c.r / 255.0f) * maxChannelVal,
-                     (c.g / 255.0f) * maxChannelVal,
-                     (c.b / 255.0f) * maxChannelVal,
-                     (c.a / 255.0f) * maxChannelVal);
+      return pixel_t((int)(c.r / 255.0f) * maxChannelVal,
+                     (int)(c.g / 255.0f) * maxChannelVal,
+                     (int)(c.b / 255.0f) * maxChannelVal,
+                     (int)(c.a / 255.0f) * maxChannelVal);
     }
   };
 }
@@ -136,5 +136,5 @@ namespace yg
   #define RT_TRAITS yg::RGB565Traits
 #else
   #define DATA_TRAITS yg::RGBA8Traits
-  #define RT_TRAITS yg::RGBA4Traits
+  #define RT_TRAITS yg::RGBA8Traits
 #endif
