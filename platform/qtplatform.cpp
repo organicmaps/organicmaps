@@ -389,6 +389,11 @@ public:
   {
     return "DesktopVersion";
   }
+
+  bool IsVisualLog() const
+  {
+    return false;
+  }
 };
 
 extern "C" Platform & GetPlatform()

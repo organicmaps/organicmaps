@@ -14,8 +14,12 @@ namespace my
     LCRITICAL
   };
 
-  extern void (*LogMessage)(LogLevel level, SrcPoint const &, string const &);
+  typedef void (*LogMessageFn)(LogLevel level, SrcPoint const &, string const &);
+
+  extern LogMessageFn LogMessage;
   extern LogLevel g_LogLevel;
+
+  void SetLogMessageFn(LogMessageFn fn);
 }
 
 using ::my::LDEBUG;

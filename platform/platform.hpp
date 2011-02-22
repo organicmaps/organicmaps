@@ -73,6 +73,8 @@ public:
 
   virtual bool IsBenchmarking() const = 0;
 
+  virtual bool IsVisualLog() const = 0;
+
   virtual string const DeviceID() const = 0;
 };
 

@@ -1,9 +1,11 @@
 #pragma once
 
+#include "window_handle.hpp"
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"
 #include "../base/timer.hpp"
+#include "../base/logging.hpp"
 
 class DrawerYG;
 
@@ -63,6 +65,12 @@ private:
   my::Timer m_lastMemoryWarning;
   bool m_isMemoryWarningEnabled;
 
+  static bool s_isLogEnabled;
+  static my::LogMessageFn s_oldLogFn;
+  static list<string> s_log;
+  static size_t s_logSize;
+  static WindowHandle * s_windowHandle;
+
 public:
 
   InformationDisplay();
@@ -110,4 +118,10 @@ public:
   void drawBenchmarkInfo(DrawerYG * pDrawer);
 
   void doDraw(DrawerYG * drawer);
+
+  void enableLog(bool doEnable, WindowHandle * windowHandle);
+  void setLogSize(size_t logSize);
+  void drawLog(DrawerYG * pDrawer);
+
+  static void logMessage(my::LogLevel, my::SrcPoint const &, string const &);
 };

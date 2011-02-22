@@ -12,6 +12,7 @@
 
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
+#include "../base/mutex.hpp"
 
 InformationDisplay::InformationDisplay()
   : m_headingOrientation(-math::pi / 2)
@@ -402,6 +403,75 @@ void InformationDisplay::drawMemoryWarning(DrawerYG * drawer)
     enableMemoryWarning(false);
 }
 
+bool InformationDisplay::s_isLogEnabled = false;
+list<string> InformationDisplay::s_log;
+size_t InformationDisplay::s_logSize = 10;
+my::LogMessageFn InformationDisplay::s_oldLogFn = 0;
+threads::Mutex s_logMutex;
+WindowHandle * InformationDisplay::s_windowHandle = 0;
+
+void InformationDisplay::logMessage(my::LogLevel level, my::SrcPoint const & srcPoint, string const & msg)
+{
+  {
+    threads::MutexGuard guard(s_logMutex);
+    ostringstream out;
+    char const * names[] = { "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL" };
+    out << "LOG ";
+    if (level >= 0 && level <= static_cast<int>(ARRAY_SIZE(names)))
+      out << names[level];
+    else
+      out << level;
+//    out << " " << srcPoint.FileName() << ":" << srcPoint.Line() << " " << srcPoint.Function()
+//        << "() " << msg << endl;
+    out << msg << endl;
+    s_log.push_back(out.str());
+    while (s_log.size() > s_logSize)
+      s_log.pop_front();
+  }
+
+  /// call redisplay
+  s_windowHandle->invalidate();
+}
+
+void InformationDisplay::enableLog(bool doEnable, WindowHandle * windowHandle)
+{
+  if (doEnable == s_isLogEnabled)
+    return;
+  s_isLogEnabled = doEnable;
+  if (s_isLogEnabled)
+  {
+    s_oldLogFn = my::LogMessage;
+    my::LogMessage = logMessage;
+    s_windowHandle = windowHandle;
+  }
+  else
+  {
+    my::LogMessage = s_oldLogFn;
+    s_windowHandle = 0;
+  }
+}
+
+void InformationDisplay::drawLog(DrawerYG * pDrawer)
+{
+  threads::MutexGuard guard(s_logMutex);
+
+  for (list<string>::const_iterator it = s_log.begin(); it != s_log.end(); ++it)
+  {
+    m_yOffset += 20;
+    pDrawer->screen()->drawText(
+        m2::PointD(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset),
+        0, 10,
+        yg::Color(0, 0, 0, 255),
+        it->c_str(),
+        true,
+        yg::Color(255, 255, 255, 255),
+        yg::maxDepth,
+        true,
+        false
+        );
+  }
+}
+
 void InformationDisplay::enableBenchmarkInfo(bool doEnable)
 {
   m_isBenchmarkInfoEnabled = doEnable;
@@ -499,4 +569,6 @@ void InformationDisplay::doDraw(DrawerYG *drawer)
     drawMemoryWarning(drawer);
   if (m_isBenchmarkInfoEnabled)
     drawBenchmarkInfo(drawer);
+  if (s_isLogEnabled)
+    drawLog(drawer);
 }

@@ -3,6 +3,7 @@
 #include "macros.hpp"
 #include "timer.hpp"
 #include "../std/iostream.hpp"
+#include "../std/iomanip.hpp"
 
 namespace my
 {
@@ -36,7 +37,7 @@ namespace my
     else
       std::cerr << level;
     int64_t const milliseconds = static_cast<int64_t>(s_Timer.ElapsedSeconds() * 1000 + 0.5);
-    std::cerr << " " << milliseconds / 1000 << "." << (milliseconds % 1000);
+    std::cerr << " " << std::setw(3) << milliseconds / 1000 << "." << std::setw(4) << std::setiosflags(std::ios::left) << (milliseconds % 1000) << std::resetiosflags(std::ios::left);
     std::cerr << " " << srcPoint.FileName() << ":" << srcPoint.Line() << " " << srcPoint.Function()
         << "() " << msg << endl;
 
@@ -44,7 +45,12 @@ namespace my
   }
 #endif
 
-  void (*LogMessage)(LogLevel, SrcPoint const &, string const &) = &LogMessageDefault;
+  LogMessageFn LogMessage = &LogMessageDefault;
+
+  void SetLogMessageFn(LogMessageFn fn)
+  {
+    LogMessage = fn;
+  };
 
 #ifdef DEBUG
   LogLevel g_LogLevel = LDEBUG;

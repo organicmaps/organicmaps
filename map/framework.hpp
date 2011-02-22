@@ -189,6 +189,8 @@ public:
     m_informationDisplay.enableDebugInfo(true);
 #endif
 
+    m_informationDisplay.enableLog(GetPlatform().IsVisualLog(), m_windowHandle.get());
+
     m_informationDisplay.enableBenchmarkInfo(m_isBenchmarking);
 
     m_informationDisplay.setVisualScale(GetPlatform().VisualScale());

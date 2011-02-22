@@ -56,6 +56,9 @@ namespace yg
 
       struct GeometryPipeline
       {
+        size_t m_verticesDrawn;
+        size_t m_indicesDrawn;
+
         size_t m_currentVertex;
         size_t m_currentIndex;
 

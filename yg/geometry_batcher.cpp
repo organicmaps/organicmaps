@@ -107,6 +107,11 @@ namespace yg
    {
      base_t::beginFrame();
      reset(-1);
+     for (size_t i = 0; i < m_pipelines.size(); ++i)
+     {
+       m_pipelines[i].m_verticesDrawn = 0;
+       m_pipelines[i].m_indicesDrawn = 0;
+     }
    }
 
    void GeometryBatcher::clear(yg::Color const & c, bool clearRT, float depth, bool clearDepth)
@@ -127,6 +132,13 @@ namespace yg
      /// Syncronization point.
      enableClipRect(false);
      OGLCHECK(glFinish());
+
+     if (isDebugging())
+     {
+       for (size_t i = 0; i < m_pipelines.size(); ++i)
+         LOG(LINFO, ("pipeline #", i, " vertices=", m_pipelines[i].m_verticesDrawn, ", triangles=", m_pipelines[i].m_indicesDrawn / 3));
+     }
+
      base_t::endFrame();
    }
 
@@ -174,7 +186,11 @@ namespace yg
 
 
              if (isDebugging())
-               LOG(LINFO, ("Pipeline #", i - 1, "draws ", pipeline.m_currentIndex / 3, "/", pipeline.m_maxIndices / 3," triangles"));
+             {
+               pipeline.m_verticesDrawn += pipeline.m_currentVertex;
+               pipeline.m_indicesDrawn += pipeline.m_currentIndex;
+//               LOG(LINFO, ("Pipeline #", i - 1, "draws ", pipeline.m_currentIndex / 3, "/", pipeline.m_maxIndices / 3," triangles"));
+             }
 
              renderedData = true;
 

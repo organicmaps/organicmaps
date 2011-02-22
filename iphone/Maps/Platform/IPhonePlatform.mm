@@ -188,8 +188,13 @@ vector<string> IPhonePlatform::GetFontNames() const
 	
 	return res;
 }
-
+	
 bool IPhonePlatform::IsBenchmarking() const
+{
+	return false;
+}
+
+bool IPhonePlatform::IsVisualLog() const
 {
 	return false;
 }

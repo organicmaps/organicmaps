@@ -22,6 +22,7 @@ public:
 	virtual double PeriodicalUpdateInterval() const;
 	virtual vector<string> GetFontNames() const;
 	virtual bool IsBenchmarking() const;
+	virtual bool IsVisualLog() const;
   virtual string const DeviceID() const;
 	
 private:
