@@ -4,6 +4,7 @@
 
 #include "../../defines.hpp"
 
+#include "../../indexer/classificator.hpp"
 #include "../../indexer/feature.hpp"
 #include "../../indexer/feature_merger.hpp"
 #include "../../indexer/feature_visibility.hpp"
@@ -13,6 +14,7 @@
 #include "../../std/list.hpp"
 #include "../../std/vector.hpp"
 #include "../../std/functional.hpp"
+#include "../../std/iostream.hpp"
 
 #include <boost/scoped_ptr.hpp>
 #include <boost/unordered_map.hpp>
@@ -34,6 +36,9 @@ class WorldMapGenerator
   int m_maxWorldScale;
   bool m_mergeCoastlines;
 
+  size_t m_mergedCounter;
+  size_t m_areasCounter;
+
   typedef boost::unordered_map<m2::PointD, FeatureBuilder1Merger> FeaturesContainerT;
   typedef map<vector<uint32_t>, FeaturesContainerT> TypesContainerT;
   TypesContainerT m_features;
@@ -51,10 +56,12 @@ private:
         CHECK(found != base, ());
         base->second.AppendFeature(found->second);
         features.erase(found);
+        ++m_mergedCounter;
         if (base->second.FirstPoint() == base->second.LastPoint())
         { // @TODO create area feature
           (*m_worldBucket)(base->second);
           features.erase(base);
+          ++m_areasCounter;
         }
         return true;
       }
@@ -71,12 +78,14 @@ private:
     {
       fbm.AppendFeature(found->second);
       container.erase(found);
+      ++m_mergedCounter;
     }
 
     if (fbm.FirstPoint() == fbm.LastPoint())
     {
       // @TODO create area feature
       (*m_worldBucket)(fbm);
+      ++m_areasCounter;
       return;
     }
     pair<FeaturesContainerT::iterator, bool> result = container.insert(make_pair(fbm.FirstPoint(), fbm));
@@ -89,10 +98,19 @@ private:
     }
   }
 
+  struct FeatureTypePrinter
+  {
+    void operator()(uint32_t type) const
+    {
+      cout << classif().GetFullObjectName(type) << ".";
+    }
+  };
+
 public:
   WorldMapGenerator(int maxWorldScale, bool mergeCoastlines,
                     typename FeatureOutT::InitDataType featureOutInitData)
-  : m_maxWorldScale(maxWorldScale), m_mergeCoastlines(mergeCoastlines)
+  : m_maxWorldScale(maxWorldScale), m_mergeCoastlines(mergeCoastlines),
+    m_mergedCounter(0), m_areasCounter(0)
   {
     if (maxWorldScale >= 0)
       m_worldBucket.reset(new FeatureOutT(WORLD_FILE_NAME, featureOutInitData));
@@ -107,6 +125,7 @@ public:
     // try to merge all merged features with each other
     for (TypesContainerT::iterator it = m_features.begin(); it != m_features.end(); ++it)
     {
+      LOG(LINFO, (it->second.size()));
       while (ReMergeFeatures(it->second))
       {}
       // emit all merged features
@@ -117,8 +136,8 @@ public:
     if (m_mergeCoastlines)
     {
       LOG(LINFO, ("Final merging of coastlines ended"));
+      LOG(LINFO, ("Merged features:", m_mergedCounter, "new areas created:", m_areasCounter));
     }
-
   }
 
   bool operator()(FeatureBuilder1 const & fb)
@@ -130,6 +149,9 @@ public:
       CHECK_GREATER(minScale, -1, ("Non-drawable feature found!?"));
       if (m_maxWorldScale >= minScale)
       {
+        FeatureTypePrinter typePrinter;
+        fBase.ForEachTypeRef(typePrinter);
+        cout << endl;
         if (m_mergeCoastlines)
         {
           // we're merging only linear features,
