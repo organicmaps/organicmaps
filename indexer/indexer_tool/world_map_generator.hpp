@@ -23,7 +23,7 @@ namespace m2
 {
   inline size_t hash_value(m2::PointD const & pt)
   {
-    return PointToInt64(pt.x, pt.y);
+    return static_cast<size_t>(PointToInt64(pt.x, pt.y));
   }
 }
 
