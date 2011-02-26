@@ -11,6 +11,7 @@ SUBDIRS = \
           geometry geometry/geometry_tests \
           platform platform/platform_tests \
           yg \
+          storage storage/storage_tests \
           indexer \
           map \
           qt_tstfrm \
