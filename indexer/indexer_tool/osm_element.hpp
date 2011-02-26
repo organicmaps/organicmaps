@@ -65,6 +65,15 @@ protected:
     }
   };
 
+  typedef map<uint64_t, WayElement> way_map_t;
+
+  void GetWay(uint64_t id, way_map_t & m)
+  {
+    WayElement e;
+    if (m_holder.GetWay(id, e) && e.IsValid())
+      m[e.nodes.front()] = e;
+  }
+
   template <class ToDo>
   void ForEachWayPoint(uint64_t id, ToDo toDo)
   {
@@ -74,6 +83,25 @@ protected:
       process_points<ToDo> process(this, toDo);
       e.ForEachPoint(process);
     }
+  }
+
+  template <class ToDo>
+  void ProcessWayPoints(way_map_t & m, ToDo toDo)
+  {
+    uint64_t id = m.begin()->first;
+    uint64_t const first = id;
+
+    process_points<ToDo> process(this, toDo);
+    do
+    {
+      way_map_t::const_iterator i = m.find(id);
+      if (i == m.end())
+        break;
+      else
+        i->second.ForEachPoint(process);
+
+      id = i->second.GetOtherEndPoint(id);
+    } while(id != first);
   }
 
   class holes_accumulator
@@ -424,6 +452,11 @@ protected:
     }
     else if (p->name == "way")
     {
+//#ifdef DEBUG
+//      if (id == 41082185 || id == 64452462 || id == 48922414)
+//        __debugbreak();
+//#endif
+
       bool const isLine = feature::IsDrawableLike(fValue.types, feature::fline);
       bool const isArea = feature::IsDrawableLike(fValue.types, feature::farea);
 
@@ -461,6 +494,11 @@ protected:
     }
     else if (p->name == "relation")
     {
+//#ifdef DEBUG
+//      if (id == 254789)
+//        __debugbreak();
+//#endif
+
       if (!feature::IsDrawableLike(fValue.types, feature::farea))
         return;
 
@@ -479,6 +517,7 @@ protected:
         return;
 
       typename base_type::holes_accumulator holes(this);
+      way_map_t wayMap;
 
       // iterate ways to get 'outer' and 'inner' geometries
       for (size_t i = 0; i < p->childs.size(); ++i)
@@ -493,7 +532,7 @@ protected:
 
           if (role == "outer")
           {
-            ForEachWayPoint(wayID, bind(&base_type::feature_builder_t::AddPoint, ref(ft), _1));
+            GetWay(wayID, wayMap);
           }
           else if (role == "inner")
           {
@@ -501,6 +540,8 @@ protected:
           }
         }
       }
+
+      ProcessWayPoints(wayMap, bind(&base_type::feature_builder_t::AddPoint, ref(ft), _1));
 
       if (ft.IsGeometryClosed())
         ft.SetAreaAddHoles(holes.m_holes);

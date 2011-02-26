@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../base/std_serialization.hpp"
+#include "../base/assert.hpp"
 
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
@@ -62,6 +63,17 @@ struct WayElement
   vector<uint64_t> nodes;
 
   bool IsValid() const { return !nodes.empty(); }
+
+  uint64_t GetOtherEndPoint(uint64_t id) const
+  {
+    if (id == nodes.front())
+      return nodes.back();
+    else
+    {
+      ASSERT ( id == nodes.back(), () );
+      return nodes.front();
+    }
+  }
 
   template <class ToDo> void ForEachPoint(ToDo & toDo) const
   {
