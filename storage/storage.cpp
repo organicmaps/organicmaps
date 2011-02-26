@@ -210,7 +210,7 @@ namespace storage
     CancelDownloading(string const & baseUrl) : m_baseUrl(baseUrl) {}
     void operator()(TTile const & tile)
     {
-      GetDownloadManager().CancelDownload((m_baseUrl + tile.first).c_str());
+      GetDownloadManager().CancelDownload((m_baseUrl + UrlEncode(tile.first)).c_str());
     }
   };
 
