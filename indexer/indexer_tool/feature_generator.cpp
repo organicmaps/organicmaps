@@ -308,6 +308,7 @@ bool GenerateImpl(GenerateInfo & info)
       FeaturePolygonizerType bucketer(info);
       TParser<FeaturePolygonizerType, holder_t> parser(bucketer, holder);
       ParseXMLFromStdIn(parser);
+      bucketer.Finish();
       info.bucketNames = bucketer.Names();
     }
     else
