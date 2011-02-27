@@ -116,7 +116,7 @@ fi
 # 2nd pass - not paralleled
 $PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
   --use_light_nodes=$LIGHT_NODES --split_by_polygons -simplify_countries_level=10 \
-  --generate_features --generate_world_scale=5 --merge_coastlines=true \
+  --generate_features --generate_world_scale=6 --merge_coastlines=true \
   --data_path=$DATA_PATH
 
 # 3rd pass - do in parallel
