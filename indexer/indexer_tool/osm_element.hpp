@@ -517,7 +517,7 @@ protected:
         return;
 
       typename base_type::holes_accumulator holes(this);
-      way_map_t wayMap;
+      typename base_type::way_map_t wayMap;
 
       // iterate ways to get 'outer' and 'inner' geometries
       for (size_t i = 0; i < p->childs.size(); ++i)
