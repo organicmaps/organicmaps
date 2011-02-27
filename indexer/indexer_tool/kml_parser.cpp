@@ -225,9 +225,7 @@ namespace kml
     {
       FileReader file(kmlFile);
       ReaderSource<FileReader> source(file);
-      LOG(LINFO, ("Parsing XML"));
       bool const bRes = ParseXML(source, parser, true);
-      LOG(LINFO, (bRes));
       return bRes;
     }
     catch (std::exception const &)
@@ -279,7 +277,7 @@ namespace kml
     countries.Clear();
     ifstream stream((baseDir + POLYGONS_FILE).c_str());
     string line;
-
+    LOG(LINFO, ("Loading countries."));
     while (stream.good())
     {
       std::getline(stream, line);
@@ -294,7 +292,7 @@ namespace kml
       if (!country.m_regions.IsEmpty())
         countries.Add(country, rect);
     }
-
+    LOG(LINFO, ("Countries loaded:", countries.GetSize()));
     return !countries.IsEmpty();
   }
 }
