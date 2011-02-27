@@ -225,7 +225,10 @@ namespace kml
     {
       FileReader file(kmlFile);
       ReaderSource<FileReader> source(file);
-      return ParseXML(source, parser, true);
+      LOG(LINFO, ("Parsing XML"));
+      bool const bRes = ParseXML(source, parser, true);
+      LOG(LINFO, (bRes));
+      return bRes;
     }
     catch (std::exception const &)
     {

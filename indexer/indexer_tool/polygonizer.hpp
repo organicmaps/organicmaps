@@ -34,9 +34,10 @@ namespace feature
     Polygonizer(TInfo & info) : m_FeatureOutInitData(info.datFilePrefix, info.datFileSuffix),
       m_worldMap(info.maxScaleForWorldFeatures, info.mergeCoastlines, m_FeatureOutInitData)
 #if PARALLEL_POLYGONIZER
-    , m_ThreadPoolSemaphore(m_ThreadPool.maxThreadCount() * 4)
+    , m_ThreadPoolSemaphore(m_ThreadPool.maxThreadCount() * 8)
 #endif
     {
+      LOG(LINFO, ("Polygonizer thread pool threads:", m_ThreadPool.maxThreadCount()));
       CHECK(kml::LoadCountriesList(info.datFilePrefix, m_countries, info.simplifyCountriesLevel),
             ("Error loading country polygons files"));
 
