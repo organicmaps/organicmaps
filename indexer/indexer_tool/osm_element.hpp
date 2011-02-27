@@ -88,6 +88,8 @@ protected:
   template <class ToDo>
   void ProcessWayPoints(way_map_t & m, ToDo toDo)
   {
+    if (m.empty()) return;
+
     uint64_t id = m.begin()->first;
     uint64_t const first = id;
 
