@@ -119,7 +119,7 @@ int main(int argc, char ** argv)
   {
     LOG(LINFO, ("Generating final data ..."));
 
-    if (FLAGS_output.empty())
+    if (FLAGS_output.empty() || FLAGS_split_by_polygons)  // do not break data path for polygons
       genInfo.datFilePrefix = path;
     else
       genInfo.datFilePrefix = path + FLAGS_output + (FLAGS_bucketing_level > 0 ? "-" : "");
