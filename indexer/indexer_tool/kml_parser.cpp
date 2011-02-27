@@ -95,7 +95,7 @@ namespace kml
       m_container.push_back(mercPoint);
     }
   };
-  
+
   class AreaFeature : public FeatureType
   {
   public:
@@ -163,12 +163,12 @@ namespace kml
             feature::SimplifyPoints(points, simplifiedPoints, m_level);
             if (simplifiedPoints.size() > MIN_SIMPLIFIED_POINTS_COUNT)
             {
-              LOG_SHORT(LINFO, (m_name, numPoints, "simplified to ", simplifiedPoints.size()));
+              // LOG_SHORT(LINFO, (m_name, numPoints, "simplified to ", simplifiedPoints.size()));
               points.swap(simplifiedPoints);
             }
             else
             {
-              LOG_SHORT(LINFO, (m_name, numPoints, "NOT simplified"));
+              // LOG_SHORT(LINFO, (m_name, numPoints, "NOT simplified"));
             }
           }
 
