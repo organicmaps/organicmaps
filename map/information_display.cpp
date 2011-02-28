@@ -409,6 +409,7 @@ size_t InformationDisplay::s_logSize = 10;
 my::LogMessageFn InformationDisplay::s_oldLogFn = 0;
 threads::Mutex s_logMutex;
 WindowHandle * InformationDisplay::s_windowHandle = 0;
+size_t s_msgNum = 0;
 
 void InformationDisplay::logMessage(my::LogLevel level, my::SrcPoint const & srcPoint, string const & msg)
 {
@@ -416,13 +417,11 @@ void InformationDisplay::logMessage(my::LogLevel level, my::SrcPoint const & src
     threads::MutexGuard guard(s_logMutex);
     ostringstream out;
     char const * names[] = { "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL" };
-    out << "LOG ";
+    out << s_msgNum++ << ":";
     if (level >= 0 && level <= static_cast<int>(ARRAY_SIZE(names)))
       out << names[level];
     else
       out << level;
-//    out << " " << srcPoint.FileName() << ":" << srcPoint.Line() << " " << srcPoint.Function()
-//        << "() " << msg << endl;
     out << msg << endl;
     s_log.push_back(out.str());
     while (s_log.size() > s_logSize)

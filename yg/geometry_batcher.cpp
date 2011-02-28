@@ -136,7 +136,8 @@ namespace yg
      if (isDebugging())
      {
        for (size_t i = 0; i < m_pipelines.size(); ++i)
-         LOG(LINFO, ("pipeline #", i, " vertices=", m_pipelines[i].m_verticesDrawn, ", triangles=", m_pipelines[i].m_indicesDrawn / 3));
+         if ((m_pipelines[i].m_verticesDrawn != 0) || (m_pipelines[i].m_indicesDrawn != 0))
+           LOG(LINFO, ("pipeline #", i, " vertices=", m_pipelines[i].m_verticesDrawn, ", triangles=", m_pipelines[i].m_indicesDrawn / 3));
      }
 
      base_t::endFrame();

@@ -259,7 +259,7 @@ namespace yg
     void PathRenderer::endFrame()
     {
       if (isDebugging())
-        LOG(LINFO, ("Drawing ", m_pathCount, " pathes, ", m_pointsCount, " points total"));
+        LOG(LINFO, ("drawing ", m_pathCount, " pathes, ", m_pointsCount, " points total"));
 
       base_t::endFrame();
     }
