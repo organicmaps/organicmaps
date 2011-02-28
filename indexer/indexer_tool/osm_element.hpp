@@ -65,13 +65,16 @@ protected:
     }
   };
 
-  typedef map<uint64_t, WayElement> way_map_t;
+  typedef multimap<uint64_t, shared_ptr<WayElement> > way_map_t;
 
   void GetWay(uint64_t id, way_map_t & m)
   {
-    WayElement e;
-    if (m_holder.GetWay(id, e) && e.IsValid())
-      m[e.nodes.front()] = e;
+    shared_ptr<WayElement> e(new WayElement());
+    if (m_holder.GetWay(id, *e) && e->IsValid())
+    {
+      m.insert(make_pair(e->nodes.front(), e));
+      m.insert(make_pair(e->nodes.back(), e));
+    }
   }
 
   template <class ToDo>
@@ -90,20 +93,44 @@ protected:
   {
     if (m.empty()) return;
 
-    uint64_t id = m.begin()->first;
+    typedef way_map_t::iterator iter_t;
+
+    // start
+    iter_t i = m.begin();
+    uint64_t id = i->first;
+
+    // remember the very first node id
     uint64_t const first = id;
 
     process_points<ToDo> process(this, toDo);
     do
     {
-      way_map_t::const_iterator i = m.find(id);
-      if (i == m.end())
-        break;
-      else
-        i->second.ForEachPoint(process);
+      // process way
+      shared_ptr<WayElement> e = i->second;
+      e->ForEachPoint(process);
 
-      id = i->second.GetOtherEndPoint(id);
-    } while(id != first);
+      m.erase(i);
+
+      // find next way iterator in chain
+      id = e->GetOtherEndPoint(id);
+      pair<iter_t, iter_t> r = m.equal_range(id);
+
+      i = r.second;
+      while (r.first != r.second)
+      {
+        if (r.first->second == e)
+          m.erase(r.first++);
+        else
+        {
+          i = r.first;
+          ++r.first;
+        }
+      }
+
+      if (i == r.second) break;
+    } while (id != first);
+
+    //ASSERT ( m.empty(), ("NOL ALL paths in way are processed") );
   }
 
   class holes_accumulator
