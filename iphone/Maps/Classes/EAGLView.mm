@@ -151,8 +151,13 @@
 - (void)layoutSubviews
 {
 	NSLog(@"layoutSubviews");
-	[[self controller] onResize:self.frame.size.width * self.contentScaleFactor withHeight:self.frame.size.height * self.contentScaleFactor];
-	[self onSize:self.frame.size.width * self.contentScaleFactor withHeight:self.frame.size.height * self.contentScaleFactor];
+  
+  CGFloat scaleFactor = 1.0;
+  if ([self respondsToSelector:@selector(contentScaleFactor)])
+  	scaleFactor = self.contentScaleFactor;
+  
+	[[self controller] onResize:self.frame.size.width * scaleFactor withHeight:self.frame.size.height * scaleFactor];
+	[self onSize:self.frame.size.width * scaleFactor withHeight:self.frame.size.height * scaleFactor];
 	[self drawView];
 }
 

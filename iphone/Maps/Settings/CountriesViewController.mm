@@ -276,7 +276,10 @@ TIndex g_clickedIndex;
         		cancelButtonTitle: @"Cancel"
         		destructiveButtonTitle: @"Delete"
         		otherButtonTitles: nil];
-    		[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
+        if([popupQuery respondsToSelector:@selector(showFromRect)])
+    			[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
+      	else
+        	[popupQuery showInView: tableView];
     		[popupQuery release];
     	}
   		break;
@@ -321,7 +324,10 @@ TIndex g_clickedIndex;
         		cancelButtonTitle: @"Cancel"
         		destructiveButtonTitle: nil
         		otherButtonTitles: strDownload, nil];
-    		[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
+        if([popupQuery respondsToSelector:@selector(showFromRect)])
+    			[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
+      	else
+        	[popupQuery showInView: tableView];
     		[popupQuery release];    	
 			}
   		break;
@@ -333,7 +339,10 @@ TIndex g_clickedIndex;
         		cancelButtonTitle: @"Do Nothing"
         		destructiveButtonTitle: @"Cancel Download"
         		otherButtonTitles: nil];
-    		[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
+        if([popupQuery respondsToSelector:@selector(showFromRect)])
+    			[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
+      	else
+        	[popupQuery showInView: tableView];
     		[popupQuery release];
     	}
     	break;

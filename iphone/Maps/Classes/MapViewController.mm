@@ -123,10 +123,14 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 	NSSet * allTouches = [event allTouches];
 	int touchCount = [allTouches count];
 	
+  CGFloat scaleFactor = 1.0;
+  if ([self.view respondsToSelector:@selector(contentScaleFactor)])
+  	scaleFactor = self.view.contentScaleFactor;
+  
 	if (touchCount == 1)
 	{
 		CGPoint pt = [[[allTouches allObjects] objectAtIndex:0] locationInView:nil];
-		m_Pt1 = m2::PointD(pt.x * self.view.contentScaleFactor, pt.y * self.view.contentScaleFactor);
+		m_Pt1 = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
 	}
 	else
 	{
@@ -134,8 +138,8 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 		CGPoint pt1 = [[sortedTouches objectAtIndex:0] locationInView:nil];
 		CGPoint pt2 = [[sortedTouches objectAtIndex:1] locationInView:nil];
 		
-		m_Pt1 = m2::PointD(pt1.x * self.view.contentScaleFactor, pt1.y * self.view.contentScaleFactor);
-	  m_Pt2 = m2::PointD(pt2.x * self.view.contentScaleFactor, pt2.y * self.view.contentScaleFactor);
+		m_Pt1 = m2::PointD(pt1.x * scaleFactor, pt1.y * scaleFactor);
+	  m_Pt2 = m2::PointD(pt2.x * scaleFactor, pt2.y * scaleFactor);
 	}
 }
 
