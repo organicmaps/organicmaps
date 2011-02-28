@@ -42,7 +42,12 @@ namespace iphone
 	void RenderBuffer::present()
 	{
 		makeCurrent();
-    [m_renderContext->getEAGLContext() presentRenderbuffer:GL_RENDERBUFFER_OES];
+		int tryCount = 0;
+    while (!([m_renderContext->getEAGLContext() presentRenderbuffer:GL_RENDERBUFFER_OES])
+					&& (tryCount++ < 100));
+		
+		if (tryCount != 0)
+			NSLog(@"renderBuffer was presented from %d try");
 	}
 	
 	unsigned RenderBuffer::width() const
