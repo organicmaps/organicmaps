@@ -51,49 +51,37 @@ namespace yg
       OGLCHECK(glFinish());
       updateFrameBuffer();
 
+      {
+        threads::MutexGuard guard(*m_renderState->m_mutex.get());
+        swap(m_renderState->m_actualTarget, m_renderState->m_backBufferLayers.front());
+        m_renderState->m_actualScreen = m_renderState->m_currentScreen;
+      }
+
       /// blitting will be performed through
       /// non-multisampled framebuffer for the sake of speed
-      if (isMultiSampled())
-        frameBuffer()->makeCurrent();
+
+      frameBuffer()->setRenderTarget(m_renderState->m_backBufferLayers.front());
+      frameBuffer()->makeCurrent();
 
       OGLCHECK(glFinish());
 
-      {
-        threads::MutexGuard guard(*m_renderState->m_mutex.get());
+      OGLCHECK(glDisable(GL_SCISSOR_TEST));
 
-        m_renderState->m_actualTarget->attachToFrameBuffer();
+      OGLCHECK(glClearColor(192 / 255.0, 192 / 255.0, 192 / 255.0, 1.0));
+      OGLCHECK(glClear(GL_COLOR_BUFFER_BIT));
 
-        OGLCHECK(glDisable(GL_SCISSOR_TEST));
+      shared_ptr<BaseTexture> actualTarget = m_renderState->m_actualTarget;
 
-        OGLCHECK(glClearColor(192 / 255.0, 192 / 255.0, 192 / 255.0, 1.0));
-        OGLCHECK(glClear(GL_COLOR_BUFFER_BIT));
+      immDrawTexturedRect(
+          m2::RectF(0, 0, actualTarget->width(), actualTarget->height()),
+          m2::RectF(0, 0, 1, 1),
+          actualTarget
+          );
 
-        shared_ptr<BaseTexture> backBuffer = m_renderState->m_backBufferLayers.front();
+      if (clipRectEnabled())
+        OGLCHECK(glEnable(GL_SCISSOR_TEST));
 
-        immDrawTexturedRect(
-            m2::RectF(0, 0, backBuffer->width(), backBuffer->height()),
-            m2::RectF(0, 0, 1, 1),
-            backBuffer
-            );
-
-/*        for (int i = 1; i < m_renderState->m_backBufferLayers.size(); ++i)
-        {
-          shared_ptr<BaseTexture> layer = m_renderState->m_backBufferLayers[i];
-          immDrawTexturedRect(
-              m2::RectF(0, 0, layer->width(), layer->height()),
-              m2::RectF(0, 0, 1, 1),
-              layer);
-        }*/
-
-        if (clipRectEnabled())
-          OGLCHECK(glEnable(GL_SCISSOR_TEST));
-
-        m_renderState->m_actualScreen = m_renderState->m_currentScreen;
-
-        m_renderState->m_backBufferLayers.front()->attachToFrameBuffer();
-
-        OGLCHECK(glFinish());
-      }
+      OGLCHECK(glFinish());
 
       if (isMultiSampled())
         multiSampledFrameBuffer()->makeCurrent();
