@@ -491,7 +491,7 @@ public:
   void SetHeading(double trueHeading, double magneticHeading, double accuracy)
   {
     m_informationDisplay.setHeading(trueHeading, magneticHeading, accuracy);
-    UpdateNow();
+    Invalidate();
   }
 
   /// Show all model by it's worl rect.
