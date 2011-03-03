@@ -621,14 +621,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-build/out/debug\"";
 				LINK_WITH_STANDARD_LIBRARIES = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = MapsWithMe;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
-				VALID_ARCHS = armv6;
+				VALID_ARCHS = "armv7 armv6";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Device Debug";
