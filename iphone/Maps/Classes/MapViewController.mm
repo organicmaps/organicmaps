@@ -74,7 +74,10 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 		
 		// to perform a proper resize
 		[(EAGLView*)self.view layoutSubviews];
-		m_framework->ShowAll();
+    
+    // restore previous screen position
+    if (!m_framework->LoadState())
+			m_framework->ShowAll();
 	}
 	
 	return self;
@@ -293,6 +296,14 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 		case UIInterfaceOrientationLandscapeRight: newOrientation = EOrientation270; break;
   }
 	m_framework->SetOrientation(newOrientation);
+}
+
+- (void) OnTerminate
+{
+	if (m_framework)
+  {	// save world rect for next launch
+  	m_framework->SaveState();
+  }
 }
 
 @end

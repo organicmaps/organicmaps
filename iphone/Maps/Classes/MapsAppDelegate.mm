@@ -6,6 +6,11 @@
 @synthesize window;
 @synthesize mapViewController;
 
+// here we're 
+- (void) applicationWillTerminate: (UIApplication *) application
+{
+	[mapViewController OnTerminate];
+}
 
 - (void) applicationDidFinishLaunching: (UIApplication *) application
 {

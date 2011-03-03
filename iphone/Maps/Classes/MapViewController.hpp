@@ -40,4 +40,7 @@ withConfidenceRadius: (double) confidenceRadius
 - (void) onResize: (GLint)width withHeight: (GLint)height;
 - (void) onPaint;
 
+// called when app is terminated by system
+- (void) OnTerminate;
+
 @end
