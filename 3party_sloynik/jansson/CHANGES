@@ -1,0 +1,198 @@
+Version 1.3
+===========
+
+Released 2010-06-13
+
+* New encoding flags:
+
+  - ``JSON_PRESERVE_ORDER``: Preserve the insertion order of object
+    keys.
+
+* Bug fixes:
+
+  - Fix an error that occured when an array or object was first
+    encoded as empty, then populated with some data, and then
+    re-encoded
+
+  - Fix the situation like above, but when the first encoding resulted
+    in an error
+
+* Documentation:
+
+  - Clarify the documentation on reference stealing, providing an
+    example usage pattern
+
+
+Version 1.2.1
+=============
+
+Released 2010-04-03
+
+* Bug fixes:
+
+  - Fix reference counting on ``true``, ``false`` and ``null``
+  - Estimate real number underflows in decoder with 0.0 instead of
+    issuing an error
+
+* Portability:
+
+  - Make ``int32_t`` available on all systems
+  - Support compilers that don't have the ``inline`` keyword
+  - Require Autoconf 2.60 (for ``int32_t``)
+
+* Tests:
+
+  - Print test names correctly when ``VERBOSE=1``
+  - ``test/suites/api``: Fail when a test fails
+  - Enhance tests for iterators
+  - Enhance tests for decoding texts that contain null bytes
+
+* Documentation:
+
+  - Don't remove ``changes.rst`` in ``make clean``
+  - Add a chapter on RFC conformance
+
+
+Version 1.2
+===========
+
+Released 2010-01-21
+
+* New functions:
+
+  - `json_equal()`: Test whether two JSON values are equal
+  - `json_copy()` and `json_deep_copy()`: Make shallow and deep copies
+    of JSON values
+  - Add a version of all functions taking a string argument that
+    doesn't check for valid UTF-8: `json_string_nocheck()`,
+    `json_string_set_nocheck()`, `json_object_set_nocheck()`,
+    `json_object_set_new_nocheck()`
+
+* New encoding flags:
+
+  - ``JSON_SORT_KEYS``: Sort objects by key
+  - ``JSON_ENSURE_ASCII``: Escape all non-ASCII Unicode characters
+  - ``JSON_COMPACT``: Use a compact representation with all unneeded
+    whitespace stripped
+
+* Bug fixes:
+
+  - Revise and unify whitespace usage in encoder: Add spaces between
+    array and object items, never append newline to output.
+  - Remove const qualifier from the ``json_t`` parameter in
+    `json_string_set()`, `json_integer_set()` and `json_real_set`.
+  - Use ``int32_t`` internally for representing Unicode code points
+    (int is not enough on all platforms)
+
+* Other changes:
+
+  - Convert ``CHANGES`` (this file) to reStructured text and add it to
+    HTML documentation
+  - The test system has been refactored. Python is no longer required
+    to run the tests.
+  - Documentation can now be built by invoking ``make html``
+  - Support for pkg-config
+
+
+Version 1.1.3
+=============
+
+Released 2009-12-18
+
+* Encode reals correctly, so that first encoding and then decoding a
+  real always produces the same value
+* Don't export private symbols in ``libjansson.so``
+
+
+Version 1.1.2
+=============
+
+Released 2009-11-08
+
+* Fix a bug where an error message was not produced if the input file
+  could not be opened in `json_load_file()`
+* Fix an assertion failure in decoder caused by a minus sign without a
+  digit after it
+* Remove an unneeded include of ``stdint.h`` in ``jansson.h``
+
+
+Version 1.1.1
+=============
+
+Released 2009-10-26
+
+* All documentation files were not distributed with v1.1; build
+  documentation in make distcheck to prevent this in the future
+* Fix v1.1 release date in ``CHANGES``
+
+
+Version 1.1
+===========
+
+Released 2009-10-20
+
+* API additions and improvements:
+
+  - Extend array and object APIs
+  - Add functions to modify integer, real and string values
+  - Improve argument validation
+  - Use unsigned int instead of ``uint32_t`` for encoding flags
+
+* Enhance documentation
+
+  - Add getting started guide and tutorial
+  - Fix some typos
+  - General clarifications and cleanup
+
+* Check for integer and real overflows and underflows in decoder
+* Make singleton values thread-safe (``true``, ``false`` and ``null``)
+* Enhance circular reference handling
+* Don't define ``-std=c99`` in ``AM_CFLAGS``
+* Add C++ guards to ``jansson.h``
+* Minor performance and portability improvements
+* Expand test coverage
+
+
+Version 1.0.4
+=============
+
+Released 2009-10-11
+
+* Relax Autoconf version requirement to 2.59
+* Make Jansson compile on platforms where plain ``char`` is unsigned
+* Fix API tests for object
+
+
+Version 1.0.3
+=============
+
+Released 2009-09-14
+
+* Check for integer and real overflows and underflows in decoder
+* Use the Python json module for tests, or simplejson if the json
+  module is not found
+* Distribute changelog (this file)
+
+
+Version 1.0.2
+=============
+
+Released 2009-09-08
+
+* Handle EOF correctly in decoder
+
+
+Version 1.0.1
+=============
+
+Released 2009-09-04
+
+* Fixed broken `json_is_boolean()`
+
+
+Version 1.0
+===========
+
+Released 2009-08-25
+
+* Initial release
