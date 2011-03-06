@@ -11,13 +11,10 @@
 #include "../../indexer/point_to_int64.hpp"
 
 #include "../../std/map.hpp"
-#include "../../std/list.hpp"
 #include "../../std/vector.hpp"
-#include "../../std/functional.hpp"
 #include "../../std/iostream.hpp"
-
-#include <boost/scoped_ptr.hpp>
-#include <boost/unordered_map.hpp>
+#include "../../std/scoped_ptr.hpp"
+#include "../../std/unordered_map.hpp"
 
 namespace m2
 {
@@ -31,7 +28,7 @@ template <class FeatureOutT>
 class WorldMapGenerator
 {
   /// if NULL, separate world data file is not generated
-  boost::scoped_ptr<FeatureOutT> m_worldBucket;
+  scoped_ptr<FeatureOutT> m_worldBucket;
   /// features visible before or at this scale level will go to World map
   int m_maxWorldScale;
   bool m_mergeCoastlines;
@@ -39,7 +36,7 @@ class WorldMapGenerator
   size_t m_mergedCounter;
   size_t m_areasCounter;
 
-  typedef boost::unordered_map<m2::PointD, FeatureBuilder1Merger> FeaturesContainerT;
+  typedef unordered_map<m2::PointD, FeatureBuilder1Merger> FeaturesContainerT;
   typedef map<vector<uint32_t>, FeaturesContainerT> TypesContainerT;
   TypesContainerT m_features;
 
