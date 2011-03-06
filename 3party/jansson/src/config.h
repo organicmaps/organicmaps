@@ -5,7 +5,9 @@
 #define HAVE_DLFCN_H 1
 
 /* Define to 1 if you have the <inttypes.h> header file. */
+#ifndef _MSC_VER
 #define HAVE_INTTYPES_H 1
+#endif
 
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
@@ -37,7 +39,13 @@
 /* Define to `__inline__' or `__inline' if that's what the C compiler
    calls it, or to nothing if 'inline' is not supported under any name.  */
 #ifndef __cplusplus
-/* #undef inline */
+  #ifdef _MSC_VER
+    #define JSON_INLINE
+  #else
+    #define JSON_INLINE inline
+  #endif
+#else
+  #define JSON_INLINE inline
 #endif
 
 /* Define to the type of a signed integer type of width exactly 32 bits if

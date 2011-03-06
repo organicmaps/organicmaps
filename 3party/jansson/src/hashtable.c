@@ -19,13 +19,13 @@ typedef struct hashtable_bucket bucket_t;
 
 #define list_to_pair(list_)  container_of(list_, pair_t, list)
 
-static inline void list_init(list_t *list)
+static JSON_INLINE void list_init(list_t *list)
 {
     list->next = list;
     list->prev = list;
 }
 
-static inline void list_insert(list_t *list, list_t *node)
+static JSON_INLINE void list_insert(list_t *list, list_t *node)
 {
     node->next = list;
     node->prev = list->prev;
@@ -33,13 +33,13 @@ static inline void list_insert(list_t *list, list_t *node)
     list->prev = node;
 }
 
-static inline void list_remove(list_t *list)
+static JSON_INLINE void list_remove(list_t *list)
 {
     list->prev->next = list->next;
     list->next->prev = list->prev;
 }
 
-static inline int bucket_is_empty(hashtable_t *hashtable, bucket_t *bucket)
+static JSON_INLINE int bucket_is_empty(hashtable_t *hashtable, bucket_t *bucket)
 {
     return bucket->first == &hashtable->list && bucket->first == bucket->last;
 }
@@ -67,7 +67,7 @@ static unsigned int primes[] = {
 };
 static const unsigned int num_primes = sizeof(primes) / sizeof(unsigned int);
 
-static inline unsigned int num_buckets(hashtable_t *hashtable)
+static JSON_INLINE unsigned int num_buckets(hashtable_t *hashtable)
 {
     return primes[hashtable->num_buckets];
 }

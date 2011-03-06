@@ -19,7 +19,7 @@
 #include "util.h"
 
 
-static inline void json_init(json_t *json, json_type type)
+static JSON_INLINE void json_init(json_t *json, json_type type)
 {
     json->type = type;
     json->refcount = 1;
@@ -835,8 +835,8 @@ double json_number_value(const json_t *json)
 json_t *json_true(void)
 {
     static json_t the_true = {
-        .type = JSON_TRUE,
-        .refcount = (unsigned int)-1
+        JSON_TRUE,
+        (unsigned int)-1
     };
     return &the_true;
 }
@@ -845,8 +845,8 @@ json_t *json_true(void)
 json_t *json_false(void)
 {
     static json_t the_false = {
-        .type = JSON_FALSE,
-        .refcount = (unsigned int)-1
+        JSON_FALSE,
+        (unsigned int)-1
     };
     return &the_false;
 }
@@ -855,8 +855,8 @@ json_t *json_false(void)
 json_t *json_null(void)
 {
     static json_t the_null = {
-        .type = JSON_NULL,
-        .refcount = (unsigned int)-1
+        JSON_NULL,
+        (unsigned int)-1
     };
     return &the_null;
 }

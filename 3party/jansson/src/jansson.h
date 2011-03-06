@@ -8,12 +8,11 @@
 #ifndef JANSSON_H
 #define JANSSON_H
 
+#include "config.h"
+
 #include <stdio.h>
 
-#ifndef __cplusplus
-#define JSON_INLINE inline
-#else
-#define JSON_INLINE inline
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -106,7 +105,7 @@ int json_object_set_nocheck(json_t *object, const char *key, json_t *value)
     return json_object_set_new_nocheck(object, key, json_incref(value));
 }
 
-static inline
+static JSON_INLINE
 int json_object_iter_set(json_t *object, void *iter, json_t *value)
 {
     return json_object_iter_set_new(object, iter, json_incref(value));

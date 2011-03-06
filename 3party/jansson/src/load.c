@@ -810,8 +810,8 @@ json_t *json_loads(const char *string, json_error_t *error)
     json_t *result;
 
     string_data_t stream_data = {
-        .data = string,
-        .pos = 0
+        string,
+        0
     };
 
     if(lex_init(&lex, string_get, string_eof, (void *)&stream_data))
