@@ -1,7 +1,7 @@
 #pragma once
 #include "common.hpp"
 #include "dictionary.hpp"
-#include "../coding_sloynik/polymorph_reader.hpp"
+#include "../coding/polymorph_reader.hpp"
 #include "../coding/dd_vector.hpp"
 #include "../coding/file_reader.hpp"
 #include "../base/base.hpp"

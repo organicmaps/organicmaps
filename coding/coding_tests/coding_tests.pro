@@ -5,7 +5,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = coding base
+DEPENDENCIES = bzip2 zlib base coding
 
 include($$ROOT_DIR/common.pri)
 
@@ -28,6 +28,10 @@ SOURCES += ../../testing/testingmain.cpp \
   reader_cache_test.cpp \
   file_container_test.cpp \
   strutil_test.cpp \
+  bzip2_test.cpp \
+  gzip_test.cpp \
+  coder_util_test.cpp \
 
 HEADERS += \
   reader_test.hpp \
+  coder_test.hpp \

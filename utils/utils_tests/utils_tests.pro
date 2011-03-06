@@ -4,7 +4,7 @@ CONFIG += console
 CONFIG -= app_bundle
 
 ROOT_DIR = ../..
-DEPENDENCIES = protobuf base coding coding_sloynik utils
+DEPENDENCIES = protobuf base coding utils
 
 include($$ROOT_DIR/common.pri)
 

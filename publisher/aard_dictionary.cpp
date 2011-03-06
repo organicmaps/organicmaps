@@ -1,6 +1,6 @@
 #include "aard_dictionary.hpp"
-#include "../coding_sloynik/bzip2_compressor.hpp"
-#include "../coding_sloynik/gzip_compressor.hpp"
+#include "../coding/bzip2_compressor.hpp"
+#include "../coding/gzip_compressor.hpp"
 #include "../coding/endianness.hpp"
 #include "../coding/reader.hpp"
 #include "../base/logging.hpp"

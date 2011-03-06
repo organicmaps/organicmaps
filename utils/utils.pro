@@ -3,7 +3,7 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 ROOT_DIR = ..
-DEPENDENCIES = base coding coding_sloynik
+DEPENDENCIES = base coding
 
 include($$ROOT_DIR/common.pri)
 

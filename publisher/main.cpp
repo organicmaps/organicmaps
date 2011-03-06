@@ -1,6 +1,6 @@
 #include "aard_dictionary.hpp"
 #include "slof_indexer.hpp"
-#include "../coding_sloynik/bzip2_compressor.hpp"
+#include "../coding/bzip2_compressor.hpp"
 #include "../coding/file_reader.hpp"
 #include "../coding/file_writer.hpp"
 #include "../base/base.hpp"

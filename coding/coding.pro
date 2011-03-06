@@ -4,7 +4,7 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 ROOT_DIR = ..
-DEPENDENCIES = base
+DEPENDENCIES = bzip2 zlib base
 
 include($$ROOT_DIR/common.pri)
 
@@ -14,6 +14,9 @@ SOURCES += \
   file_writer.cpp \
   lodepng.cpp \
   file_container.cpp \
+  bzip2_compressor.cpp \
+  gzip_compressor.cpp \
+  timsort/timsort.c \
 
 
 HEADERS += \
@@ -61,3 +64,9 @@ HEADERS += \
   streams_sink.hpp \
   streams_common.hpp \
   file_container.hpp \
+  polymorph_reader.hpp \
+  coder.hpp \
+  coder_util.hpp \
+  bzip2_compressor.hpp \
+  gzip_compressor.hpp \
+  timsort/timsort.h \

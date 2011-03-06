@@ -7,7 +7,7 @@
 #include "../std/bind.hpp"
 
 extern "C" {
-  #include "../coding_sloynik/timsort/timsort.h"
+  #include "../coding/timsort/timsort.h"
 }
 
 

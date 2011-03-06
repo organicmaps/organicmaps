@@ -1,5 +1,5 @@
 #include "slof_dictionary.hpp"
-#include "../coding_sloynik/bzip2_compressor.hpp"
+#include "../coding/bzip2_compressor.hpp"
 #include "../coding/byte_stream.hpp"
 #include "../coding/endianness.hpp"
 #include "../coding/reader.hpp"
