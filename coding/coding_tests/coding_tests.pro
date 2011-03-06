@@ -5,7 +5,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = bzip2 zlib base coding
+DEPENDENCIES = coding base bzip2 zlib
 
 include($$ROOT_DIR/common.pri)
 
