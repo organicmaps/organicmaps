@@ -99,22 +99,20 @@ protected:
     iter_t i = m.begin();
     uint64_t id = i->first;
 
-    // remember the very first node id
-    uint64_t const first = id;
-
     process_points<ToDo> process(this, toDo);
     do
     {
-      // process way
+      // process way points
       shared_ptr<WayElement> e = i->second;
       e->ForEachPoint(process);
 
       m.erase(i);
 
-      // find next way iterator in chain
+      // next 'id' to process
       id = e->GetOtherEndPoint(id);
       pair<iter_t, iter_t> r = m.equal_range(id);
 
+      // finally erase element 'e' and find next way in chain
       i = r.second;
       while (r.first != r.second)
       {
@@ -128,9 +126,7 @@ protected:
       }
 
       if (i == r.second) break;
-    } while (id != first);
-
-    //ASSERT ( m.empty(), ("NOL ALL paths in way are processed") );
+    } while (true);
   }
 
   class holes_accumulator
@@ -455,18 +451,26 @@ class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
 {
   typedef SecondPassParserBase<TEmitter, THolder> base_type;
 
+  typedef typename base_type::value_t type_t;
+  typedef typename base_type::feature_builder_t feature_t;
+
+  void InitFeature(type_t const & fValue, feature_t & ft)
+  {
+    ft.AddName(fValue.name);
+    ft.AddTypes(fValue.types.begin(), fValue.types.end());
+    ft.AddLayer(fValue.layer);
+  }
+
 protected:
   virtual void EmitElement(XMLElement * p)
   {
     uint64_t id;
-    typename base_type::value_t fValue;
+    type_t fValue;
     if (!ParseType(p, id, fValue))
       return;
 
-    typename base_type::feature_builder_t ft;
-    ft.AddName(fValue.name);
-    ft.AddTypes(fValue.types.begin(), fValue.types.end());
-    ft.AddLayer(fValue.layer);
+    feature_t ft;
+    InitFeature(fValue, ft);
 
     if (p->name == "node")
     {
@@ -570,10 +574,23 @@ protected:
         }
       }
 
-      ProcessWayPoints(wayMap, bind(&base_type::feature_builder_t::AddPoint, ref(ft), _1));
+      // cycle through the ways in map
+      while (!wayMap.empty())
+      {
+        feature_t f;
+        InitFeature(fValue, f);
 
-      if (ft.IsGeometryClosed())
-        ft.SetAreaAddHoles(holes.m_holes);
+        ProcessWayPoints(wayMap, bind(&base_type::feature_builder_t::AddPoint, ref(f), _1));
+
+        if (f.IsGeometryClosed())
+        {
+          f.SetAreaAddHoles(holes.m_holes);
+          if (f.PreSerialize())
+            base_type::m_emitter(f);
+        }
+      }
+
+      return;
     }
 
     if (ft.PreSerialize())
