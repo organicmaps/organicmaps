@@ -1,8 +1,11 @@
 #include "bzip2_compressor.hpp"
 #include "coder_util.hpp"
+
 #include "../base/assert.hpp"
+
 #include "../std/vector.hpp"
-#include <bzlib.h>
+
+#include "../3party/bzip2/bzlib.h"
 
 size_t DecompressBZip2IntoFixedSize(char const * pSrc, size_t srcSize, char * pDst, size_t dstSize)
 {
