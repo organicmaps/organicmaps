@@ -2,10 +2,10 @@ TARGET = coding_sloynik
 TEMPLATE = lib
 CONFIG += staticlib
 
-SLOYNIK_DIR = ..
+ROOT_DIR = ..
 DEPENDENCIES = bzip2 zlib base coding
 
-include($$SLOYNIK_DIR/sloynik_common.pri)
+include($$ROOT_DIR/common.pri)
 
 HEADERS += \
   bzip2_compressor.hpp \

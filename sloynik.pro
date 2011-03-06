@@ -3,7 +3,7 @@ TEMPLATE = subdirs
 CONFIG += ordered
 
 SUBDIRS = \
-    3party 3party_sloynik \
+    3party \
     base base/base_tests \
     coding coding/coding_tests \
     coding_sloynik coding_sloynik/coding_sloynik_tests \

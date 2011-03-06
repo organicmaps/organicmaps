@@ -2,10 +2,10 @@ TARGET = utils
 TEMPLATE = lib
 CONFIG += staticlib
 
-SLOYNIK_DIR = ..
+ROOT_DIR = ..
 DEPENDENCIES = base coding coding_sloynik
 
-include($$SLOYNIK_DIR/sloynik_common.pri)
+include($$ROOT_DIR/common.pri)
 
 HEADERS += \
 

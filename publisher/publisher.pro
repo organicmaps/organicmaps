@@ -3,10 +3,10 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= app_bundle
 
-SLOYNIK_DIR = ..
+ROOT_DIR = ..
 DEPENDENCIES = gflags bzip2 zlib jansson base coding coding_sloynik words
 
-include($$SLOYNIK_DIR/sloynik_common.pri)
+include($$ROOT_DIR/common.pri)
 
 HEADERS += \
   aard_dictionary.hpp \

@@ -4,7 +4,7 @@
 #include "../coding/endianness.hpp"
 #include "../coding/reader.hpp"
 #include "../base/logging.hpp"
-#include "../3party_sloynik/jansson/myjansson.hpp"
+#include "../3party/jansson/myjansson.hpp"
 #include "../std/exception.hpp"
 
 namespace

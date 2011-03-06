@@ -53,6 +53,8 @@ for(project, DEPENDENCIES) {
   LIBS += -l$$project
 }
 
+INCLUDEPATH += $$ROOT_DIR/3party/protobuf/src/
+
 # Windows-specific options for all projects
 win32-msvc2008 {
   QMAKE_CLEAN += *.user

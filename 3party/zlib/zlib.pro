@@ -1,6 +1,6 @@
 TARGET = zlib
-SLOYNIK_DIR = ../..
-include($$SLOYNIK_DIR/sloynik_common.pri)
+ROOT_DIR = ../..
+include($$ROOT_DIR/common.pri)
 
 TEMPLATE = lib
 CONFIG += staticlib
