@@ -300,10 +300,16 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 
 - (void) OnTerminate
 {
+	[self OnEnterBackground];
+}
+
+- (void) OnEnterBackground
+{
 	if (m_framework)
   {	// save world rect for next launch
   	m_framework->SaveState();
   }
 }
+
 
 @end
