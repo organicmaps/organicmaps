@@ -8,6 +8,8 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-#define max(a, b)  ((a) > (b) ? (a) : (b))
+#ifndef max
+  #define max(a, b)  ((a) > (b) ? (a) : (b))
+#endif
 
 #endif

@@ -55,6 +55,6 @@ typedef struct {
     char key[];
 } object_key_t;
 
-const object_key_t *jsonp_object_iter_fullkey(void *iter);
+object_key_t *jsonp_object_iter_fullkey(void *iter);
 
 #endif

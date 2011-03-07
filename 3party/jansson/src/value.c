@@ -232,7 +232,7 @@ void *json_object_iter_next(json_t *json, void *iter)
     return hashtable_iter_next(&object->hashtable, iter);
 }
 
-const object_key_t *jsonp_object_iter_fullkey(void *iter)
+object_key_t *jsonp_object_iter_fullkey(void *iter)
 {
     if(!iter)
         return NULL;

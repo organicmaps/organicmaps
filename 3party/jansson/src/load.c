@@ -20,6 +20,11 @@
 #include "strbuffer.h"
 #include "utf.h"
 
+// Visual Studio fix
+#ifdef _MSC_VER
+  #define snprintf _snprintf
+#endif
+
 #define TOKEN_INVALID         -1
 #define TOKEN_EOF              0
 #define TOKEN_STRING         256
