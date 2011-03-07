@@ -24,7 +24,13 @@ Compilation and Installation
 If you obtained a source tarball, just use the standard autotools
 commands::
 
-   $ ./configure && make && make install
+   $ ./configure
+   $ make
+   $ make install
+
+To run the test suite, invoke::
+
+   $ make check
 
 If the source has been checked out from a Git repository, the
 ./configure script has to be generated fist. The easiest way is to use
@@ -32,28 +38,22 @@ autoreconf::
 
    $ autoreconf -i
 
-To run the test suite, invoke::
-
-   $ make check
-
 
 Documentation
 -------------
 
-Documentation is in the ``doc/`` subdirectory. It's written in
-reStructuredText_ with Sphinx_ annotations, so reading it in plain may
-be inconvenient. For this reason, prebuilt HTML documentation is
-available at http://www.digip.org/jansson/doc/.
+Prebuilt HTML documentation is available at
+http://www.digip.org/jansson/doc/.
 
-To generate HTML documentation yourself, invoke::
+The documentation source is in the ``doc/`` subdirectory. To generate
+HTML documentation, invoke::
 
-   make html
+   $ make html
 
-and point your browser to ``doc/_build/html/index.html``. Sphinx_ is
-required to generate the documentation.
+Then, point your browser to ``doc/_build/html/index.html``. Sphinx_
+1.0 or newer is required to generate the documentation.
 
 
 .. _Jansson: http://www.digip.org/jansson/
 .. _`MIT license`: http://www.opensource.org/licenses/mit-license.php
-.. _reStructuredText: http://docutils.sourceforge.net/rst.html
 .. _Sphinx: http://sphinx.pocoo.org/

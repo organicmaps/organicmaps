@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2010 Petri Lehtinen <petri@digip.org>
+ * Copyright (c) 2009-2011 Petri Lehtinen <petri@digip.org>
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the MIT license. See LICENSE for details.
@@ -8,7 +8,7 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
-typedef unsigned int (*key_hash_fn)(const void *key);
+typedef size_t (*key_hash_fn)(const void *key);
 typedef int (*key_cmp_fn)(const void *key1, const void *key2);
 typedef void (*free_fn)(void *key);
 
@@ -20,7 +20,7 @@ struct hashtable_list {
 struct hashtable_pair {
     void *key;
     void *value;
-    unsigned int hash;
+    size_t hash;
     struct hashtable_list list;
 };
 
@@ -30,9 +30,9 @@ struct hashtable_bucket {
 };
 
 typedef struct hashtable {
-    unsigned int size;
+    size_t size;
     struct hashtable_bucket *buckets;
-    unsigned int num_buckets;  /* index to primes[] */
+    size_t num_buckets;  /* index to primes[] */
     struct hashtable_list list;
 
     key_hash_fn hash_key;

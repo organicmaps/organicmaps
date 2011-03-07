@@ -17,7 +17,7 @@ public:
   explicit Json(char const * s)
   {
     json_error_t jsonError;
-    m_pJson = json_loads(s, &jsonError);
+    m_pJson = json_loads(s, 0, &jsonError);
     if (!m_pJson)
       MYTHROW(Exception, (jsonError.line, jsonError.text));
   }

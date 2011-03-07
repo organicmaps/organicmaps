@@ -1,7 +1,75 @@
+Version 2.0
+===========
+
+Released 2011-02-28
+
+This release is backwards incompatible with the 1.x release series.
+See the chapter "Upgrading from older versions" in documentation for
+details.
+
+* Backwards incompatible changes:
+
+  - Unify unsigned integer usage in the API: All occurences of
+    unsigned int and unsigned long have been replaced with size_t.
+
+  - Change JSON integer's underlying type to the widest signed integer
+    type available, i.e. long long if it's supported, otherwise long.
+    Add a typedef json_int_t that defines the type.
+
+  - Change the maximum indentation depth to 31 spaces in encoder. This
+    frees up bits from the flags parameter of encoding functions
+    `json_dumpf()`, `json_dumps()` and `json_dump_file()`.
+
+  - For future needs, add a flags parameter to all decoding functions
+    `json_loadf()`, `json_loads()` and `json_load_file()`.
+
+* New features
+
+  - `json_pack()`, `json_pack_ex()`, `json_vpack_ex()`: Create JSON
+    values based on a format string.
+
+  - `json_unpack()`, `json_unpack_ex()`, `json_vunpack_ex()`: Simple
+    value extraction and validation functionality based on a format
+    string.
+
+  - Add column, position and source fields to the ``json_error_t``
+    struct.
+
+  - Enhance error reporting in the decoder.
+
+  - ``JANSSON_VERSION`` et al.: Preprocessor constants that define the
+    library version.
+
+  - `json_set_alloc_funcs()`: Set custom memory allocation functions.
+
+* Fix many portability issues, especially on Windows.
+
+* Configuration
+
+  - Add file ``jansson_config.h`` that contains site specific
+    configuration. It's created automatically by the configure script,
+    or can be created by hand if the configure script cannot be used.
+    The file ``jansson_config.h.win32`` can be used without
+    modifications on Windows systems.
+
+  - Add a section to documentation describing how to build Jansson on
+    Windows.
+
+  - Documentation now requires Sphinx 1.0 or newer.
+
+
 Version 1.3
 ===========
 
 Released 2010-06-13
+
+* New functions:
+
+  - `json_object_iter_set()`, `json_object_iter_set_new()`: Change
+    object contents while iterating over it.
+
+  - `json_object_iter_at()`: Return an iterator that points to a
+    specific object item.
 
 * New encoding flags:
 
