@@ -84,6 +84,9 @@ namespace yg
         utils::setupCoordinates(width(), height(), true);
       if (m_depthBuffer)
         m_depthBuffer->attachToFrameBuffer();
+
+      /// !!! it's a must for a correct work.
+      checkStatus();
     }
 
     void FrameBuffer::setRenderTarget(shared_ptr<RenderTarget> const & renderTarget)
@@ -135,6 +138,21 @@ namespace yg
     {
       m_width = width;
       m_height = height;
+    }
+
+    void FrameBuffer::checkStatus()
+    {
+#ifdef OMIM_GL_ES
+      GLenum res = glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES);
+      if (res != GL_FRAMEBUFFER_COMPLETE_OES)
+        LOG(LERROR, ("incomplete framebuffer"));
+#else
+      GLenum res = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
+      if (res == GL_FRAMEBUFFER_UNSUPPORTED)
+        LOG(LINFO, ("unsupported combination of attached target formats. could be possibly skipped"));
+      else if (res != GL_FRAMEBUFFER_COMPLETE_EXT)
+        LOG(LERROR, ("incomplete framebuffer"));
+#endif
     }
   }
 }

@@ -47,6 +47,8 @@ namespace yg
       static unsigned current();
       static void pushCurrent();
       static void popCurrent();
+
+      void checkStatus();
     };
   }
 }

@@ -5,6 +5,7 @@
 #include "renderbuffer.hpp"
 #include "resource_manager.hpp"
 #include "internal/opengl.hpp"
+#include "../base/logging.hpp"
 
 namespace yg
 {
@@ -97,8 +98,6 @@ namespace yg
 
 
 #else
-        /// Somehow this does the trick with the "trash-texture" upon first application redraw.
-
         OGLCHECK(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_multiSampledFrameBuffer->id()));
         OGLCHECK(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_frameBuffer->id()));
         OGLCHECK(glBlitFramebuffer(0, 0, width(), height(),

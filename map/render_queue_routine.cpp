@@ -245,7 +245,7 @@ void RenderQueueRoutine::Do()
   m_threadDrawer = make_shared_ptr(new DrawerYG(m_skinName, params));
 
   yg::gl::Screen::Params auxParams;
-  auxParams.m_frameBuffer = m_frameBuffer;
+  auxParams.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer());
   auxParams.m_resourceManager = m_resourceManager;
 
   m_auxScreen = make_shared_ptr(new yg::gl::Screen(auxParams));
@@ -351,11 +351,11 @@ void RenderQueueRoutine::Do()
 
     if (m_currentRenderCommand != 0)
     {
-      m_threadDrawer->beginFrame();
-
       /// this fixes some strange issue with multisampled framebuffer.
       /// setRenderTarget should be made here.
       m_threadDrawer->screen()->setRenderTarget(m_renderState->m_backBufferLayers.front());
+
+      m_threadDrawer->beginFrame();
 
       m_threadDrawer->screen()->enableClipRect(true);
       m_threadDrawer->screen()->setClipRect(textureRect);
