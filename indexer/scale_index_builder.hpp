@@ -150,7 +150,7 @@ inline void IndexScales(FeaturesVectorT const & featuresVector,
   VarSerialVectorWriter<WriterT> recordWriter(writer, ScaleIndexBase::NUM_BUCKETS);
   for (uint32_t bucket = 0; bucket < ScaleIndexBase::NUM_BUCKETS; ++bucket)
   {
-    LOG(LINFO, ("Building scale index for bucket:", bucket))
+    LOG(LINFO, ("Building scale index for bucket:", bucket));
     uint32_t numFeatures = 0;
     {
       FileWriter cellsToFeaturesWriter(tmpFilePrefix + ".c2f.sorted");
