@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2010 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -66,7 +66,7 @@ namespace boost { namespace spirit { namespace qi { namespace detail
         find(tst_node* start, Iterator& first, Iterator last, Filter filter)
         {
             if (first == last)
-                return false;
+                return 0;
 
             Iterator i = first;
             Iterator latest = first;

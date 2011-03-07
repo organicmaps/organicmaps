@@ -24,6 +24,7 @@
 //
 
 #include <boost/current_function.hpp>
+#include <boost/assert.hpp>
 #include <iostream>
 
 namespace boost
@@ -32,9 +33,26 @@ namespace boost
 namespace detail
 {
 
+struct report_errors_reminder
+{
+  bool called_report_errors_function;
+  report_errors_reminder() : called_report_errors_function(false) {}
+ ~report_errors_reminder()
+  {
+    BOOST_ASSERT(called_report_errors_function);  // verify report_errors() was called  
+  }
+};
+
+inline report_errors_reminder& report_errors_remind()
+{
+  static report_errors_reminder r;
+  return r;
+}
+
 inline int & test_errors()
 {
     static int x = 0;
+    report_errors_remind();
     return x;
 }
 
@@ -68,6 +86,8 @@ template<class T, class U> inline void test_eq_impl( char const * expr1, char co
 
 inline int report_errors()
 {
+    detail::report_errors_remind().called_report_errors_function = true;
+
     int errors = detail::test_errors();
 
     if( errors == 0 )

@@ -3,7 +3,7 @@
 
     http://www.boost.org/
 
-    Copyright (c) 2001-2010 Hartmut Kaiser. Distributed under the Boost
+    Copyright (c) 2001-2011 Hartmut Kaiser. Distributed under the Boost
     Software License, Version 1.0. (See accompanying file
     LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
@@ -273,7 +273,7 @@ bool include_paths::add_include_path (
 {
     namespace fs = boost::filesystem;
     if (path_) {
-    fs::path newpath = fs::complete(create_path(path_), current_dir);
+    fs::path newpath = util::complete_path(create_path(path_), current_dir);
 
         if (!fs::exists(newpath) || !fs::is_directory(newpath)) {
         // the given path does not form a name of a valid file system directory
@@ -441,7 +441,7 @@ void include_paths::set_current_directory(char const *path_)
     namespace fs = boost::filesystem;
     
     fs::path filepath (create_path(path_));
-    fs::path filename = fs::complete(filepath, current_dir);
+    fs::path filename = util::complete_path(filepath, current_dir);
     if (fs::exists(filename) && fs::is_directory(filename)) {
         current_rel_dir.clear();
         if (!as_relative_to(filepath, current_dir, current_rel_dir))

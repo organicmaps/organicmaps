@@ -212,8 +212,6 @@ namespace boost {
       depth_first_search (graph, vertex_index_map (index_map).visitor (make_dfs_visitor (std::make_pair (
           detail::colorize_bipartition (partition_map), std::make_pair (detail::check_bipartition (partition_map),
               put_property (partition_map, color_traits <partition_color_t>::white (), on_start_vertex ()))))));
-
-      //      depth_first_search (graph, vertex_index_map (index_map).visitor (dfs_visitor));
     }
     catch (detail::bipartite_visitor_error <vertex_descriptor_t> error)
     {
@@ -284,11 +282,9 @@ namespace boost {
     typedef std::vector <vertex_descriptor_t> predecessors_t;
     typedef iterator_property_map <typename predecessors_t::iterator, IndexMap, vertex_descriptor_t,
         vertex_descriptor_t&> predecessor_map_t;
-    typedef predecessor_recorder <predecessor_map_t, IndexMap> predecessor_recorder_t;
 
     predecessors_t predecessors (num_vertices (graph), graph_traits <Graph>::null_vertex ());
     predecessor_map_t predecessor_map (predecessors.begin (), index_map);
-    predecessor_recorder_t predecessor_recorder (predecessor_map);
 
     /// Initialize predecessor map
     for (boost::tie (vertex_iter, vertex_end) = vertices (graph); vertex_iter != vertex_end; ++vertex_iter)

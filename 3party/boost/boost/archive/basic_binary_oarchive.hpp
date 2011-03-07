@@ -23,7 +23,7 @@
 // IN GENERAL, ARCHIVES CREATED WITH THIS CLASS WILL NOT BE READABLE
 // ON PLATFORM APART FROM THE ONE THEY ARE CREATE ON
 
-#include <cassert>
+#include <boost/assert.hpp>
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 #include <boost/serialization/pfto.hpp>

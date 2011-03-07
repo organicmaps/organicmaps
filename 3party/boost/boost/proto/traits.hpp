@@ -66,6 +66,7 @@
             struct is_callable_
               : is_callable2_<T>
             {};
+
         }
 
         /// \brief Boolean metafunction which detects whether a type is
@@ -107,6 +108,13 @@
           : mpl::false_
         {};
 
+        /// INTERNAL ONLY
+        ///
+        template<typename PrimitiveTransform, typename X>
+        struct is_callable<proto::transform<PrimitiveTransform, X> >
+          : mpl::false_
+        {};
+
         #if BOOST_WORKAROUND(__GNUC__, == 3) || (__GNUC__ == 4 && __GNUC_MINOR__ == 0)
         // work around GCC bug
         template<typename Tag, typename Args, long N>
@@ -120,6 +128,31 @@
           : mpl::false_
         {};
         #endif
+
+        /// \brief Boolean metafunction which detects whether a type is
+        /// a PrimitiveTransform type or not.
+        ///
+        /// <tt>is_transform\<\></tt> is used by the <tt>call\<\></tt> transform
+        /// to determine whether the function types <tt>R()</tt>, <tt>R(A1)</tt>,
+        /// and <tt>R(A1, A2)</tt> should be passed the expression, state and data
+        /// parameters (as needed).
+        ///
+        /// Unless specialized for a type \c T, <tt>is_transform\<T\>::value</tt>
+        /// is computed as follows:
+        ///
+        /// \li If \c T has a nested type \c proto_is_transform_ that is a typedef
+        /// for \c void, <tt>is_transform\<T\>::value</tt> is \c true. (Note: this is
+        /// the case for any type that derives from an instantiation of \c proto::transform.)
+        /// \li Otherwise, <tt>is_transform\<T\>::value</tt> is \c false.
+        template<typename T, typename Void /*= void*/>
+        struct is_transform
+          : mpl::false_
+        {};
+
+        template<typename T>
+        struct is_transform<T, typename T::proto_is_transform_>
+          : mpl::true_
+        {};
 
         /// \brief A Boolean metafunction that indicates whether a type requires
         /// aggregate initialization.
@@ -150,17 +183,6 @@
         /// INTERNAL ONLY
         template<typename T>
         struct is_aggregate<T, typename T::proto_is_aggregate_>
-          : mpl::true_
-        {};
-
-        /// TODO document me!
-        template<typename T, typename Void /* = void*/>
-        struct is_transform
-          : mpl::false_
-        {};
-
-        template<typename T>
-        struct is_transform<T, typename T::proto_is_transform_>
           : mpl::true_
         {};
 

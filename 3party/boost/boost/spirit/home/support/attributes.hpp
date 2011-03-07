@@ -1,6 +1,6 @@
 /*=============================================================================
-    Copyright (c) 2001-2010 Joel de Guzman
-    Copyright (c) 2001-2010 Hartmut Kaiser
+    Copyright (c) 2001-2011 Joel de Guzman
+    Copyright (c) 2001-2011 Hartmut Kaiser
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -27,7 +27,6 @@
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/fusion/include/for_each.hpp>
 #include <boost/fusion/include/is_view.hpp>
-#include <boost/fusion/include/is_sequence.hpp>
 #include <boost/foreach.hpp>
 #include <boost/utility/value_init.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -69,7 +68,7 @@ namespace boost { namespace spirit { namespace traits
         >::type>
       : mpl::true_ {};
 
-    template <typename T, typename Domain>
+    template <typename T, typename Domain, typename Enable/* = void*/>
     struct not_is_variant
       : mpl::true_
     {};
@@ -204,7 +203,7 @@ namespace boost { namespace spirit { namespace traits
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    template <typename T, typename Domain>
+    template <typename T, typename Domain, typename Enable/* = void*/>
     struct not_is_optional
       : mpl::true_
     {};
@@ -251,6 +250,98 @@ namespace boost { namespace spirit { namespace traits
     ///////////////////////////////////////////////////////////////////////////
     template <typename Attribute, typename Enable/* = void*/>
     struct attribute_type : mpl::identity<Attribute> {};
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Retrieve the size of a fusion sequence (compile time)
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename T>
+    struct sequence_size
+      : fusion::result_of::size<T>
+    {};
+
+    template <>
+    struct sequence_size<unused_type>
+      : mpl::int_<0>
+    {};
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Retrieve the size of an attribute (runtime)
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename Attribute, typename Enable/* = void*/>
+    struct attribute_size
+    {
+        typedef std::size_t type;
+
+        static type call(Attribute const&)
+        {
+            return 1;
+        }
+    };
+
+    template <typename Attribute>
+    struct attribute_size<Attribute
+      , typename enable_if<
+            mpl::and_<
+                fusion::traits::is_sequence<Attribute>
+              , mpl::not_<traits::is_container<Attribute> >
+            >
+        >::type
+    > {
+        typedef typename fusion::result_of::size<Attribute>::value_type type;
+
+        static type call(Attribute const& attr)
+        {
+            return fusion::size(attr);
+        }
+    };
+
+    template <typename Attribute>
+    struct attribute_size<Attribute
+      , typename enable_if<
+            mpl::and_<
+                traits::is_container<Attribute>
+              , mpl::not_<traits::is_iterator_range<Attribute> >
+            >
+        >::type
+    > {
+        typedef typename Attribute::size_type type;
+
+        static type call(Attribute const& attr)
+        {
+            return attr.size();
+        }
+    };
+
+    template <typename Iterator>
+    struct attribute_size<iterator_range<Iterator> >
+    {
+        typedef typename boost::detail::iterator_traits<Iterator>::
+            difference_type type;
+
+        static type call(iterator_range<Iterator> const& r)
+        {
+            return boost::detail::distance(r.begin(), r.end());
+        }
+    };
+
+    template <>
+    struct attribute_size<unused_type>
+    {
+        typedef std::size_t type;
+
+        static type call(unused_type)
+        {
+            return 0;
+        }
+    };
+
+    template <typename Attribute>
+    typename attribute_size<Attribute>::type
+    size(Attribute const& attr)
+    {
+        return attribute_size<Attribute>::call(attr);
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // pass_attribute
@@ -344,6 +435,44 @@ namespace boost { namespace spirit { namespace traits
     {};
 
     ///////////////////////////////////////////////////////////////////////////
+    // sequence_attribute_transform
+    // 
+    // This transform is invoked for every attribute in a sequence allowing
+    // to modify the attribute type exposed by a component to the enclosing 
+    // sequence component. By default no transformation is performed.
+    /////////////////////////////////////////////////////////////////////////// 
+    template <typename Attribute, typename Domain> 
+    struct sequence_attribute_transform
+      : mpl::identity<Attribute>
+    {};
+
+    ///////////////////////////////////////////////////////////////////////////
+    // permutation_attribute_transform
+    // 
+    // This transform is invoked for every attribute in a sequence allowing
+    // to modify the attribute type exposed by a component to the enclosing 
+    // permutation component. By default a build_optional transformation is 
+    // performed.
+    /////////////////////////////////////////////////////////////////////////// 
+    template <typename Attribute, typename Domain> 
+    struct permutation_attribute_transform
+      : traits::build_optional<Attribute>
+    {};
+
+    ///////////////////////////////////////////////////////////////////////////
+    // sequential_or_attribute_transform
+    // 
+    // This transform is invoked for every attribute in a sequential_or allowing
+    // to modify the attribute type exposed by a component to the enclosing 
+    // sequential_or component. By default a build_optional transformation is 
+    // performed.
+    /////////////////////////////////////////////////////////////////////////// 
+    template <typename Attribute, typename Domain> 
+    struct sequential_or_attribute_transform
+      : traits::build_optional<Attribute>
+    {};
+
+    ///////////////////////////////////////////////////////////////////////////
     // build_fusion_vector
     //
     // Build a fusion vector from a fusion sequence. All unused attributes
@@ -385,7 +514,8 @@ namespace boost { namespace spirit { namespace traits
     // components. Transform<T>::type is called on each element.
     ///////////////////////////////////////////////////////////////////////////
     template <typename Sequence, typename Context
-      , template <typename T> class Transform, typename Iterator = unused_type>
+      , template <typename T, typename D> class Transform
+      , typename Iterator = unused_type, typename Domain = unused_type>
     struct build_attribute_sequence
     {
         struct element_attribute
@@ -399,6 +529,7 @@ namespace boost { namespace spirit { namespace traits
                 typedef typename
                     Transform<
                         typename attribute_of<Element, Context, Iterator>::type
+                      , Domain
                     >::type
                 type;
             };
@@ -478,6 +609,18 @@ namespace boost { namespace spirit { namespace traits
             type;
         };
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // alternative_attribute_transform
+    // 
+    // This transform is invoked for every attribute in an alternative allowing
+    // to modify the attribute type exposed by a component to the enclosing 
+    // alternative component. By default no transformation is performed.
+    /////////////////////////////////////////////////////////////////////////// 
+    template <typename Attribute, typename Domain> 
+    struct alternative_attribute_transform
+      : mpl::identity<Attribute>
+    {};
 
     ///////////////////////////////////////////////////////////////////////////
     // build_variant
@@ -570,24 +713,25 @@ namespace boost { namespace spirit { namespace traits
     template <typename Attribute, typename ActualAttribute>
     struct make_attribute
     {
+        typedef typename remove_const<Attribute>::type attribute_type;
         typedef typename
             mpl::if_<
                 is_same<typename remove_const<ActualAttribute>::type, unused_type>
-              , typename remove_const<Attribute>::type
+              , attribute_type
               , ActualAttribute&>::type
         type;
 
         typedef typename
             mpl::if_<
                 is_same<typename remove_const<ActualAttribute>::type, unused_type>
-              , typename remove_const<Attribute>::type
+              , attribute_type
               , ActualAttribute>::type
         value_type;
 
         static Attribute call(unused_type)
         {
              // synthesize the attribute/parameter
-            return boost::get(value_initialized<Attribute>());
+            return boost::get(value_initialized<attribute_type>());
         }
 
         template <typename T>
@@ -604,7 +748,7 @@ namespace boost { namespace spirit { namespace traits
 
     template <typename Attribute, typename ActualAttribute>
     struct make_attribute<Attribute const&, ActualAttribute>
-      : make_attribute<Attribute, ActualAttribute>
+      : make_attribute<Attribute const, ActualAttribute>
     {};
 
     template <typename ActualAttribute>
@@ -678,13 +822,15 @@ namespace boost { namespace spirit { namespace traits
     // meta function to return whether the argument is a one element fusion
     // sequence
     ///////////////////////////////////////////////////////////////////////////
-    template <typename T, bool IsSeq = fusion::traits::is_sequence<T>::value>
+    template <typename T
+      , bool IsFusionSeq = fusion::traits::is_sequence<T>::value
+      , bool IsProtoExpr = proto::is_expr<T>::value>
     struct one_element_sequence
       : mpl::false_
     {};
 
     template <typename T>
-    struct one_element_sequence<T, true>
+    struct one_element_sequence<T, true, false>
       : mpl::bool_<mpl::size<T>::value == 1>
     {};
 

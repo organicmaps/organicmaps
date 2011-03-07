@@ -54,7 +54,7 @@ class dynamic_bitset
   // of VC++ are likely able to digest a more drinking form of the
   // code; but changing it now is probably not worth the risks...]
 
-  BOOST_STATIC_ASSERT(detail::dynamic_bitset_impl::allowed_block_type<Block>::value);
+  BOOST_STATIC_ASSERT((bool)detail::dynamic_bitset_impl::allowed_block_type<Block>::value);
 
 public:
     typedef Block block_type;
@@ -670,7 +670,7 @@ resize(size_type num_bits, bool value) // strong guarantee
 
   if (value && (num_bits > m_num_bits)) {
 
-    const size_type extra_bits = count_extra_bits();
+    const block_width_type extra_bits = count_extra_bits();
     if (extra_bits) {
         assert(old_num_blocks >= 1 && old_num_blocks <= m_bits.size());
 

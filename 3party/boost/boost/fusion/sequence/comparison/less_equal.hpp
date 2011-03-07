@@ -2,7 +2,7 @@
     Copyright (c) 1999-2003 Jaakko Jarvi
     Copyright (c) 2001-2006 Joel de Guzman
 
-    Distributed under the Boost Software License, Version 1.0. (See accompanying 
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
 #if !defined(FUSION_LESS_EQUAL_05052005_0432)
@@ -11,7 +11,8 @@
 #include <boost/fusion/sequence/intrinsic/begin.hpp>
 #include <boost/fusion/sequence/intrinsic/end.hpp>
 #include <boost/fusion/sequence/intrinsic/size.hpp>
-#include <boost/fusion/sequence/comparison/detail/enable_comparison.hpp>
+#include <boost/fusion/sequence/comparison/enable_comparison.hpp>
+#include <boost/fusion/support/is_sequence.hpp>
 
 #if defined(FUSION_DIRECT_OPERATOR_USAGE)
 #include <boost/fusion/sequence/comparison/detail/less_equal.hpp>
@@ -35,7 +36,7 @@ namespace boost { namespace fusion
 
     namespace operators
     {
-#if defined(BOOST_MSVC) && (BOOST_MSVC <= 1400) 
+#if defined(BOOST_MSVC) && (BOOST_MSVC <= 1400)
 // Workaround for  VC8.0 and VC7.1
         template <typename Seq1, typename Seq2>
         inline bool
@@ -60,12 +61,12 @@ namespace boost { namespace fusion
 
 #else
 // Somehow VC8.0 and VC7.1 does not like this code
-// but barfs somewhere else. 
+// but barfs somewhere else.
 
         template <typename Seq1, typename Seq2>
         inline typename
             enable_if<
-                detail::enable_comparison<Seq1, Seq2>
+                traits::enable_comparison<Seq1, Seq2>
               , bool
             >::type
         operator<=(Seq1 const& a, Seq2 const& b)

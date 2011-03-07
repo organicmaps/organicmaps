@@ -16,7 +16,7 @@
 
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#include <cassert>
+#include <boost/assert.hpp>
 #include <cstddef> // NULL
 
 #include <boost/noncopyable.hpp>
@@ -42,7 +42,7 @@ protected:
     ) : 
         m_eti(& eti)
     {
-        assert(NULL != & eti);
+        BOOST_ASSERT(NULL != & eti);
     }
 public:
     inline bool 

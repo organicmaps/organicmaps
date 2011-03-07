@@ -1,5 +1,7 @@
 /*=============================================================================
-    Copyright (c) 2001-2010 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
+    Copyright (c) 2001-2011 Hartmut Kaiser
+    Copyright (c)      2010 Bryce Lelbach
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -20,9 +22,11 @@
 #include <boost/spirit/home/qi/char/char_class.hpp>
 #include <boost/spirit/home/qi/meta_compiler.hpp>
 #include <boost/spirit/home/qi/auxiliary/lazy.hpp>
+#include <boost/spirit/home/qi/detail/enable_lit.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/assert.hpp>
+#include <boost/mpl/identity.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <string>
@@ -88,11 +92,19 @@ namespace boost { namespace spirit
     template <>
     struct use_terminal<qi::domain, wchar_t[2]>         // enables L"x"
       : mpl::true_ {};
+
+    // enables lit(...)
+    template <typename A0>
+    struct use_terminal<qi::domain
+          , terminal_ex<tag::lit, fusion::vector1<A0> > 
+          , typename enable_if<traits::is_char<A0> >::type>
+      : mpl::true_ {};
 }}
 
 namespace boost { namespace spirit { namespace qi
 {
     using spirit::lit; // lit('x') is equivalent to 'x'
+    using spirit::lit_type;
 
     ///////////////////////////////////////////////////////////////////////////
     // Parser for a single character
@@ -253,9 +265,11 @@ namespace boost { namespace spirit { namespace qi
     ///////////////////////////////////////////////////////////////////////////
     // Parser for a character set
     ///////////////////////////////////////////////////////////////////////////
-    template <typename CharEncoding, bool no_case = false>
+    template <typename CharEncoding, bool no_attribute, bool no_case = false>
     struct char_set
-      : char_parser<char_set<CharEncoding, false>, typename CharEncoding::char_type>
+      : char_parser<char_set<CharEncoding, no_attribute, false>
+          , typename mpl::if_c<no_attribute, unused_type
+              , typename CharEncoding::char_type>::type>
     {
         typedef typename CharEncoding::char_type char_type;
         typedef CharEncoding char_encoding;
@@ -319,9 +333,11 @@ namespace boost { namespace spirit { namespace qi
         support::detail::basic_chset<char_type> chset;
     };
 
-    template <typename CharEncoding>
-    struct char_set<CharEncoding, true> // case insensitive
-      : char_parser<char_set<CharEncoding, true>, typename CharEncoding::char_type>
+    template <typename CharEncoding, bool no_attribute>
+    struct char_set<CharEncoding, no_attribute, true> // case insensitive
+      : char_parser<char_set<CharEncoding, no_attribute, true>
+          , typename mpl::if_c<no_attribute, unused_type
+              , typename CharEncoding::char_type>::type>
     {
         typedef typename CharEncoding::char_type char_type;
         typedef CharEncoding char_encoding;
@@ -454,12 +470,13 @@ namespace boost { namespace spirit { namespace qi
         }
     };
 
+    ///////////////////////////////////////////////////////////////////////////
+    // char_('x')
     template <typename CharEncoding, typename Modifiers, typename A0>
     struct make_primitive<
         terminal_ex<
             tag::char_code<tag::char_, CharEncoding>
-          , fusion::vector1<A0>
-        >
+          , fusion::vector1<A0> >
       , Modifiers>
     {
         static bool const no_case =
@@ -472,7 +489,7 @@ namespace boost { namespace spirit { namespace qi
         typedef typename
             mpl::if_<
                 traits::is_string<A0>
-              , char_set<char_encoding, no_case>
+              , char_set<char_encoding, false, no_case>
               , literal_char<char_encoding, false, no_case>
             >::type
         result_type;
@@ -484,6 +501,36 @@ namespace boost { namespace spirit { namespace qi
         }
     };
 
+    // lit('x')
+    template <typename Modifiers, typename A0>
+    struct make_primitive<
+        terminal_ex<tag::lit, fusion::vector1<A0> >
+      , Modifiers
+      , typename enable_if<traits::is_char<A0> >::type>
+    {
+        static bool const no_case =
+            has_modifier<
+                Modifiers
+              , tag::char_code_base<tag::no_case>
+            >::value;
+
+        typedef typename traits::char_encoding_from_char<
+                typename traits::char_type_of<A0>::type>::type encoding;
+
+        typedef literal_char<
+            typename spirit::detail::get_encoding_with_case<
+                Modifiers, encoding, no_case>::type
+          , true, no_case>
+        result_type;
+
+        template <typename Terminal>
+        result_type operator()(Terminal const& term, unused_type) const
+        {
+            return result_type(fusion::at_c<0>(term.args));
+        }
+    };
+
+    ///////////////////////////////////////////////////////////////////////////
     template <typename CharEncoding, typename Modifiers, typename Char>
     struct make_primitive<
         terminal_ex<

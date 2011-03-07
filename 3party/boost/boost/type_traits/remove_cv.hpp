@@ -32,7 +32,7 @@ namespace detail{
 template <class T>
 struct rvalue_ref_filter_rem_cv
 {
-	typedef typename boost::detail::cv_traits_imp<T*>::unqualified_type type;
+   typedef typename boost::detail::cv_traits_imp<T*>::unqualified_type type;
 };
 
 #ifndef BOOST_NO_RVALUE_REFERENCES
@@ -43,7 +43,7 @@ struct rvalue_ref_filter_rem_cv
 template <class T>
 struct rvalue_ref_filter_rem_cv<T&&>
 {
-	typedef T&& type;
+   typedef T&& type;
 };
 #endif
 

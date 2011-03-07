@@ -13,7 +13,7 @@
 #endif
 
 #include <algorithm>                               // min.
-#include <cassert>
+#include <boost/assert.hpp>
 #include <memory>                                  // allocator.
 #include <string>
 #include <boost/config.hpp>                        // BOOST_STATIC_CONSTANT.
@@ -73,7 +73,7 @@ public:
     std::streamsize read(Source& src, char_type* s, std::streamsize n)
     {
         using namespace std;
-        assert(!(flags_ & f_write));
+        BOOST_ASSERT(!(flags_ & f_write));
         flags_ |= f_read;
 
         // Handle unfinished business.
@@ -98,7 +98,7 @@ public:
     std::streamsize write(Sink& snk, const char_type* s, std::streamsize n)
     {
         using namespace std;
-        assert(!(flags_ & f_read));
+        BOOST_ASSERT(!(flags_ & f_read));
         flags_ |= f_write;
 
         // Handle unfinished business.

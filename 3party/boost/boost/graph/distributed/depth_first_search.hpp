@@ -19,6 +19,7 @@
 #include <boost/graph/properties.hpp>
 #include <boost/graph/distributed/concepts.hpp>
 #include <boost/static_assert.hpp>
+#include <boost/assert.hpp>
 #include <boost/graph/parallel/process_group.hpp>
 #include <boost/graph/parallel/container_traits.hpp>
 
@@ -163,7 +164,7 @@ namespace boost {
             break;
 
           default:
-            assert(false);
+            BOOST_ASSERT(false);
           }
         }
       }

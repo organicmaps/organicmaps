@@ -16,7 +16,7 @@
 
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#include <cassert>
+#include <boost/assert.hpp>
 #include <cstddef> // size_t
 #include <cstdlib> // for wctomb()
 
@@ -90,9 +90,9 @@ class mb_from_wchar
         #else
         m_bend = std::wctomb(m_buffer, value);
         #endif
-        assert(-1 != m_bend);
-        assert((std::size_t)m_bend <= sizeof(m_buffer));
-        assert(m_bend > 0);
+        BOOST_ASSERT(-1 != m_bend);
+        BOOST_ASSERT((std::size_t)m_bend <= sizeof(m_buffer));
+        BOOST_ASSERT(m_bend > 0);
         m_bnext = 0;
     }
 

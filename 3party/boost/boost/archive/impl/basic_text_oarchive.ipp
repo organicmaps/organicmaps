@@ -8,7 +8,7 @@
 
 //  See http://www.boost.org for updates, documentation, and revision history.
 #include <string>
-#include <cassert>
+#include <boost/assert.hpp>
 #include <cstring>
 
 #include <boost/config.hpp> // for BOOST_DEDUCED_TYPENAME
@@ -32,7 +32,7 @@ basic_text_oarchive<Archive>::newtoken()
 {
     switch(delimiter){
     default:
-        assert(false);
+        BOOST_ASSERT(false);
         break;
     case eol:
         this->This()->put('\n');

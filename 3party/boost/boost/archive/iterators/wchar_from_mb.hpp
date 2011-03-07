@@ -16,7 +16,7 @@
 
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#include <cassert>
+#include <boost/assert.hpp>
 #include <cctype>
 #include <cstddef> // size_t
 #include <cstdlib> // mblen

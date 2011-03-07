@@ -17,7 +17,7 @@
 //  See http://www.boost.org for updates, documentation, and revision history.
 
 #include <exception>
-#include <cassert>
+#include <boost/assert.hpp>
 
 #include <boost/config.hpp> 
 #include <boost/preprocessor/empty.hpp>

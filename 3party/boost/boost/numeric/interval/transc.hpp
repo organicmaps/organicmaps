@@ -176,7 +176,7 @@ interval<T, Policies> cosh(const interval<T, Policies>& x)
   else if (!interval_lib::user::is_neg(x.lower()))
     return I(rnd.cosh_down(x.lower()), rnd.cosh_up(x.upper()), true);
   else
-    return I(static_cast<T>(0), rnd.cosh_up(-x.lower() > x.upper() ? x.lower() : x.upper()), true);
+    return I(static_cast<T>(1), rnd.cosh_up(-x.lower() > x.upper() ? x.lower() : x.upper()), true);
 }
 
 template<class T, class Policies> inline

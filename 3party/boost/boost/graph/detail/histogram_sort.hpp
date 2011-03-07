@@ -10,6 +10,8 @@
 #ifndef BOOST_GRAPH_DETAIL_HISTOGRAM_SORT_HPP
 #define BOOST_GRAPH_DETAIL_HISTOGRAM_SORT_HPP
 
+#include <boost/assert.hpp>
+
 namespace boost {
   namespace graph {
     namespace detail {
@@ -165,7 +167,7 @@ histogram_sort_inplace(KeyIterator key_begin,
     while (!(i >= rowstart[key_transform(key_begin[i])] && i < insert_positions[key_transform(key_begin[i])])) {
       // Add a slot in the right bucket
       size_t target_pos = insert_positions[key_transform(key_begin[i])]++;
-      assert (target_pos < rowstart[key_transform(key_begin[i]) + 1]);
+      BOOST_ASSERT (target_pos < rowstart[key_transform(key_begin[i]) + 1]);
       if (target_pos == i) continue;
       // Swap this edge into place
       using std::swap;
@@ -199,7 +201,7 @@ histogram_sort_inplace(KeyIterator key_begin,
     while (!(i >= rowstart[key_transform(key_begin[i])] && i < insert_positions[key_transform(key_begin[i])])) {
       // Add a slot in the right bucket
       size_t target_pos = insert_positions[key_transform(key_begin[i])]++;
-      assert (target_pos < rowstart[key_transform(key_begin[i]) + 1]);
+      BOOST_ASSERT (target_pos < rowstart[key_transform(key_begin[i]) + 1]);
       if (target_pos == i) continue;
       // Swap this edge into place
       using std::swap;

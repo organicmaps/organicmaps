@@ -20,7 +20,7 @@ namespace boost
     namespace range_detail
     {
         template< class P, class R >
-        struct filter_range :
+        struct filtered_range :
             boost::iterator_range<
                 boost::filter_iterator< P,
                     BOOST_DEDUCED_TYPENAME range_iterator<R>::type
@@ -34,7 +34,7 @@ namespace boost
                         >
                     > base;
         public:
-            filter_range( P p, R& r )
+            filtered_range( P p, R& r )
             : base( make_filter_iterator( p, boost::begin(r), boost::end(r) ),
                     make_filter_iterator( p, boost::end(r), boost::end(r) ) )
             { }
@@ -48,19 +48,19 @@ namespace boost
         };
 
         template< class InputRng, class Predicate >
-        inline filter_range<Predicate, InputRng>
+        inline filtered_range<Predicate, InputRng>
         operator|( InputRng& r,
                    const filter_holder<Predicate>& f )
         {
-            return filter_range<Predicate, InputRng>( f.val, r );
+            return filtered_range<Predicate, InputRng>( f.val, r );
         }
 
         template< class InputRng, class Predicate >
-        inline filter_range<Predicate, const InputRng>
+        inline filtered_range<Predicate, const InputRng>
         operator|( const InputRng& r,
                    const filter_holder<Predicate>& f )
         {
-            return filter_range<Predicate, const InputRng>( f.val, r );
+            return filtered_range<Predicate, const InputRng>( f.val, r );
         }
 
     } // 'range_detail'
@@ -70,7 +70,7 @@ namespace boost
     // argument dependent lookup.
     // filter_range logically needs to be in the boost namespace to allow user of
     // the library to define the return type for filter()
-    using range_detail::filter_range;
+    using range_detail::filtered_range;
 
     namespace adaptors
     {
@@ -82,17 +82,17 @@ namespace boost
         }
 
         template<class InputRange, class Predicate>
-        inline filter_range<Predicate, InputRange>
+        inline filtered_range<Predicate, InputRange>
         filter(InputRange& rng, Predicate filter_pred)
         {
-            return range_detail::filter_range<Predicate, InputRange>( filter_pred, rng );
+            return range_detail::filtered_range<Predicate, InputRange>( filter_pred, rng );
         }
 
         template<class InputRange, class Predicate>
-        inline filter_range<Predicate, const InputRange>
+        inline filtered_range<Predicate, const InputRange>
         filter(const InputRange& rng, Predicate filter_pred)
         {
-            return range_detail::filter_range<Predicate, const InputRange>( filter_pred, rng );
+            return range_detail::filtered_range<Predicate, const InputRange>( filter_pred, rng );
         }
     } // 'adaptors'
 

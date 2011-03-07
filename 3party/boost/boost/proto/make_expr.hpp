@@ -33,7 +33,6 @@
     #include <boost/mpl/assert.hpp>
     #include <boost/mpl/eval_if.hpp>
     #include <boost/utility/enable_if.hpp>
-    #include <boost/type_traits/is_same.hpp>
     #include <boost/type_traits/add_const.hpp>
     #include <boost/type_traits/add_reference.hpp>
     #include <boost/type_traits/remove_cv.hpp>
@@ -52,19 +51,6 @@
     # pragma warning(push)
     # pragma warning(disable: 4180) // qualifier applied to function type has no meaning; ignored
     #endif
-
-    namespace boost
-    {
-        /// INTERNAL ONLY
-        ///
-        namespace fusion
-        {
-            /// INTERNAL ONLY
-            ///
-            template<typename Function>
-            class unfused_generic;
-        }
-    }
 
     namespace boost { namespace proto
     {
@@ -481,8 +467,7 @@
                 BOOST_PROTO_CALLABLE()
 
                 template<typename Sig>
-                struct result
-                {};
+                struct result;
 
                 template<typename This, typename Sequence>
                 struct result<This(Sequence)>
@@ -512,50 +497,6 @@
                       , fusion::result_of::size<Sequence>::type::value
                     >::call(sequence);
                 }
-            };
-
-            /// INTERNAL ONLY
-            ///
-            template<typename Tag, typename Domain>
-            struct unfused_expr_fun
-            {
-                BOOST_PROTO_CALLABLE()
-
-                template<typename Sig>
-                struct result;
-
-                template<typename This, typename Sequence>
-                struct result<This(Sequence)>
-                {
-                    typedef
-                        typename result_of::unpack_expr<
-                            Tag
-                          , Domain
-                          , typename remove_reference<Sequence>::type
-                        >::type
-                    type;
-                };
-
-                template<typename Sequence>
-                typename proto::result_of::unpack_expr<Tag, Domain, Sequence const>::type const
-                operator ()(Sequence const &sequence) const
-                {
-                    return proto::detail::unpack_expr_<
-                        Tag
-                      , Domain
-                      , Sequence const
-                      , fusion::result_of::size<Sequence>::type::value
-                    >::call(sequence);
-                }
-            };
-
-            /// INTERNAL ONLY
-            ///
-            template<typename Tag, typename Domain>
-            struct unfused_expr
-              : fusion::unfused_generic<unfused_expr_fun<Tag, Domain> >
-            {
-                BOOST_PROTO_CALLABLE()
             };
 
         } // namespace functional
@@ -690,13 +631,6 @@
         ///
         template<typename Tag, typename Domain>
         struct is_callable<functional::unpack_expr<Tag, Domain> >
-          : mpl::true_
-        {};
-
-        /// INTERNAL ONLY
-        ///
-        template<typename Tag, typename Domain>
-        struct is_callable<functional::unfused_expr<Tag, Domain> >
           : mpl::true_
         {};
 

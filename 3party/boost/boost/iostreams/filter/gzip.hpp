@@ -19,7 +19,7 @@
 #include <boost/config.hpp> // STATIC_CONSTANT, STDC_NAMESPACE, 
                             // DINKUMWARE_STDLIB, __STL_CONFIG_H.
 #include <algorithm>                      // min.
-#include <cassert>
+#include <boost/assert.hpp>
 #include <cstdio>                         // EOF.
 #include <cstddef>                        // size_t.
 #include <ctime>                          // std::time_t.
@@ -548,7 +548,7 @@ public:
                 else if(footer_.crc() != this->crc())
                     boost::throw_exception(gzip_error(gzip::bad_crc));
             } else {
-                assert(!"Bad state");
+                BOOST_ASSERT(!"Bad state");
             }
         }
         state_ = s_start;

@@ -5,7 +5,7 @@
     
     http://www.boost.org/
 
-    Copyright (c) 2001-2010 Hartmut Kaiser. Distributed under the Boost
+    Copyright (c) 2001-2011 Hartmut Kaiser. Distributed under the Boost
     Software License, Version 1.0. (See accompanying file
     LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
@@ -75,9 +75,9 @@ namespace util {
                 "Jan", "Feb", "Mar", "Apr", "May", "Jun",
                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
             };
-        
+
         // for some systems sprintf, time_t etc. is in namespace std
-            using namespace std;    
+            using namespace std;
 
         time_t tt = time(0);
         struct tm *tb = 0;
@@ -98,7 +98,7 @@ namespace util {
         void reset_timestr()
         {
         // for some systems sprintf, time_t etc. is in namespace std
-            using namespace std;    
+            using namespace std;
 
         time_t tt = time(0);
         struct tm *tb = 0;
@@ -119,9 +119,9 @@ namespace util {
         void reset_version()
         {
         char buffer[sizeof("0x00000000")+1];
-                
+
         // for some systems sprintf, time_t etc. is in namespace std
-            using namespace std;    
+            using namespace std;
 
         // calculate the number of days since Dec 13 2001 
         // (the day the Wave project was started)
@@ -140,13 +140,13 @@ namespace util {
                  seconds/(3600*24));
             version_ = buffer;
         }
-    
+
         void reset_versionstr()
         {
         char buffer[sizeof("\"00.00.00.0000 \"")+sizeof(BOOST_PLATFORM)+sizeof(BOOST_COMPILER)+4];
 
         // for some systems sprintf, time_t etc. is in namespace std
-            using namespace std;    
+            using namespace std;
 
         // calculate the number of days since Dec 13 2001 
         // (the day the Wave project was started)
@@ -164,11 +164,11 @@ namespace util {
                  seconds/(3600*24), BOOST_PLATFORM, BOOST_COMPILER);
             versionstr_ = buffer;
         }
-    
+
     // dynamic predefined macros
         string_type get_date() const { return datestr_; }     // __DATE__ 
         string_type get_time() const { return timestr_; }     // __TIME__
-        
+
     // __SPIRIT_PP__/__WAVE__
         string_type get_version() const
         {
@@ -179,7 +179,7 @@ namespace util {
                 BOOST_WAVE_VERSION_MINOR, BOOST_WAVE_VERSION_SUBMINOR);
             return buffer;
         }
-    
+
     // __WAVE_CONFIG__
         string_type get_config() const
         {
@@ -189,7 +189,7 @@ namespace util {
             sprintf(buffer, "0x%08x", BOOST_WAVE_CONFIG);
             return buffer;
         }
-    
+
     public:
         predefined_macros() 
           : compilation_time_(__DATE__ " " __TIME__)
@@ -198,19 +198,19 @@ namespace util {
             reset_version();
             reset_versionstr();
         }
-        
+
         void reset()
         {
             reset_datestr();
             reset_timestr();
         }
-        
+
     // __SPIRIT_PP_VERSION__/__WAVE_VERSION__
         string_type get_fullversion() const { return version_; }
-        
+
     // __SPIRIT_PP_VERSION_STR__/__WAVE_VERSION_STR__
         string_type get_versionstr() const { return versionstr_; }
-        
+
     // C++ mode 
         static_macros const& static_data_cpp(std::size_t i) const
         {
@@ -222,7 +222,24 @@ namespace util {
             BOOST_ASSERT(i < sizeof(data)/sizeof(data[0]));
             return data[i];
         }
-        
+
+#if BOOST_WAVE_SUPPORT_CPP0X != 0
+    // C++0x mode 
+        static_macros const& static_data_cpp0x(std::size_t i) const
+        {
+        static static_macros data[] = {
+                { "__STDC__", T_INTLIT, "1" },
+                { "__cplusplus", T_INTLIT, "201101L" },
+                { "__STDC_VERSION__", T_INTLIT, "199901L" },
+                { "__STDC_HOSTED__", T_INTLIT, "0" },
+                { "__WAVE_HAS_VARIADICS__", T_INTLIT, "1" },
+                { 0, T_EOF, 0 }
+            }; 
+            BOOST_ASSERT(i < sizeof(data)/sizeof(data[0]));
+            return data[i];
+        }
+#endif
+
 #if BOOST_WAVE_SUPPORT_VARIADICS_PLACEMARKERS != 0
     // C99 mode
         static_macros const& static_data_c99(std::size_t i) const
@@ -256,7 +273,6 @@ namespace util {
             BOOST_ASSERT(i < sizeof(data)/sizeof(data[0]));
             return data[i];
         }
-    
     };   // predefined_macros
 
 ///////////////////////////////////////////////////////////////////////////////

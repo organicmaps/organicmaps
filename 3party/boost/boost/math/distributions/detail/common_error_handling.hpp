@@ -94,7 +94,28 @@ inline bool check_x(
    // Note that this test catches both infinity and NaN.
    // Some special cases permit x to be infinite, so these must be tested 1st,
    // leaving this test to catch any NaNs.  see Normal and cauchy for example.
-}
+} // bool check_x
+
+template <class RealType, class Policy>
+inline bool check_x_gt0(
+      const char* function,
+      RealType x,
+      RealType* result,
+      const Policy& pol)
+{
+   if(x <= 0)
+   {
+      *result = policies::raise_domain_error<RealType>(
+         function,
+         "Random variate x is %1%, but must be > 0!", x, pol);
+      return false;
+   }
+
+   return true;
+   // Note that this test catches both infinity and NaN.
+   // Some special cases permit x to be infinite, so these must be tested 1st,
+   // leaving this test to catch any NaNs.  See Normal and cauchy for example.
+} // bool check_x_gt0
 
 template <class RealType, class Policy>
 inline bool check_positive_x(

@@ -87,7 +87,8 @@ protected:
     init();
     BOOST_ARCHIVE_DECL(BOOST_PP_EMPTY()) 
     text_iarchive_impl(std::istream & is, unsigned int flags);
-    BOOST_ARCHIVE_DECL(BOOST_PP_EMPTY()) 
+    // don't import inline definitions! leave this as a reminder.
+    //BOOST_ARCHIVE_DECL(BOOST_PP_EMPTY()) 
     ~text_iarchive_impl(){};
 };
 

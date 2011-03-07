@@ -23,13 +23,13 @@ namespace boost
         class A = std::allocator<T> >
     class unordered_set;
     template <class T, class H, class P, class A>
-    bool operator==(unordered_set<T, H, P, A> const&,
+    inline bool operator==(unordered_set<T, H, P, A> const&,
         unordered_set<T, H, P, A> const&);
     template <class T, class H, class P, class A>
-    bool operator!=(unordered_set<T, H, P, A> const&,
+    inline bool operator!=(unordered_set<T, H, P, A> const&,
         unordered_set<T, H, P, A> const&);
     template <class T, class H, class P, class A>
-    void swap(unordered_set<T, H, P, A> &m1,
+    inline void swap(unordered_set<T, H, P, A> &m1,
             unordered_set<T, H, P, A> &m2);
 
     template <class T,
@@ -38,13 +38,13 @@ namespace boost
         class A = std::allocator<T> >
     class unordered_multiset;
     template <class T, class H, class P, class A>
-    bool operator==(unordered_multiset<T, H, P, A> const&,
+    inline bool operator==(unordered_multiset<T, H, P, A> const&,
         unordered_multiset<T, H, P, A> const&);
     template <class T, class H, class P, class A>
-    bool operator!=(unordered_multiset<T, H, P, A> const&,
+    inline bool operator!=(unordered_multiset<T, H, P, A> const&,
         unordered_multiset<T, H, P, A> const&);
     template <class T, class H, class P, class A>
-    void swap(unordered_multiset<T, H, P, A> &m1,
+    inline void swap(unordered_multiset<T, H, P, A> &m1,
             unordered_multiset<T, H, P, A> &m2);
 }
 

@@ -185,7 +185,7 @@ interval<T, Policies> pow(const interval<T, Policies>& x, int pwr)
       return I(yl, yu, true);
   } else if (interval_lib::user::is_neg(x.lower())) { // [-1,1]
     if (pwr & 1) {   // [-1,1]^1
-      return I(-pow_up(-x.lower(), pwr, rnd), pow_up(x.upper(), pwr, rnd), true);
+      return I(-pow_up(static_cast<T>(-x.lower()), pwr, rnd), pow_up(x.upper(), pwr, rnd), true);
     } else {         // [-1,1]^2
       return I(static_cast<T>(0), pow_up(max BOOST_PREVENT_MACRO_SUBSTITUTION(static_cast<T>(-x.lower()), x.upper()), pwr, rnd), true);
     }

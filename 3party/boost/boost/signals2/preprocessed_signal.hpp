@@ -44,8 +44,8 @@ namespace boost
       typedef typename detail::signalN<boost::function_traits<Signature>::arity,
         Signature, Combiner, Group, GroupCompare, SlotFunction, ExtendedSlotFunction, Mutex>::type base_type;
     public:
-      signal(const Combiner &combiner = Combiner(), const GroupCompare &group_compare = GroupCompare()):
-        base_type(combiner, group_compare)
+      signal(const Combiner &combiner_arg = Combiner(), const GroupCompare &group_compare = GroupCompare()):
+        base_type(combiner_arg, group_compare)
       {}
     };
   }

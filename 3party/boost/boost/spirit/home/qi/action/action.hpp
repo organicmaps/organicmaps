@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2010 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -19,6 +19,7 @@
 #include <boost/spirit/home/support/unused.hpp>
 #include <boost/spirit/home/support/info.hpp>
 #include <boost/spirit/home/support/action_dispatch.hpp>
+#include <boost/spirit/home/support/handles_container.hpp>
 
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/if.hpp>
@@ -126,10 +127,17 @@ namespace boost { namespace spirit
 
 namespace boost { namespace spirit { namespace traits
 {
+    ///////////////////////////////////////////////////////////////////////////
     template <typename Subject, typename Action>
     struct has_semantic_action<qi::action<Subject, Action> >
       : mpl::true_ {};
 
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename Subject, typename Action, typename Attribute
+        , typename Context, typename Iterator>
+    struct handles_container<qi::action<Subject, Action>, Attribute
+        , Context, Iterator>
+      : unary_handles_container<Subject, Attribute, Context, Iterator> {};
 }}}
 
 #endif

@@ -1,6 +1,7 @@
 /*=============================================================================
-    Copyright (c) 2001-2010 Hartmut Kaiser
-    Copyright (c) 2001-2010 Joel de Guzman
+    Copyright (c) 2001-2011 Hartmut Kaiser
+    Copyright (c) 2001-2011 Joel de Guzman
+    Copyright (c)      2010 Bryce Lelbach
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,6 +18,7 @@
     (defined(__APPLE__) && defined(__INTEL_COMPILER))
 #include <boost/utility/enable_if.hpp>
 #endif
+#include <boost/spirit/home/support/unused.hpp>
 
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit { namespace result_of
@@ -24,6 +26,9 @@ namespace boost { namespace spirit { namespace result_of
     // forward declaration only
     template <typename Exposed, typename Attribute>
     struct extract_from;
+
+    template <typename T, typename Attribute>
+    struct attribute_as;
 
     template <typename Exposed, typename Transformed, typename Domain>
     struct pre_transform;
@@ -58,6 +63,22 @@ namespace boost { namespace spirit { namespace traits
     ///////////////////////////////////////////////////////////////////////////
     template <typename Attribute, typename Enable = void>
     struct attribute_type;
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // Retrieve the size of a fusion sequence (compile time)
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename T>
+    struct sequence_size;
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Retrieve the size of an attribute (runtime)
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename Attribute, typename Enable = void>
+    struct attribute_size;
+
+    template <typename Attribute>
+    typename attribute_size<Attribute>::type
+    size(Attribute const& attr);
 
     ///////////////////////////////////////////////////////////////////////////
     // Determines how we pass attributes to semantic actions. This
@@ -97,6 +118,9 @@ namespace boost { namespace spirit { namespace traits
     template <typename Attribute, typename T, typename Enable = void>
     struct assign_to_attribute_from_value;
 
+    template <typename Attribute, typename T, typename Enable = void>
+    struct assign_to_container_from_value;
+
     template <typename T, typename Attribute>
     void assign_to(T const& val, Attribute& attr);
 
@@ -118,16 +142,37 @@ namespace boost { namespace spirit { namespace traits
     );
 
     ///////////////////////////////////////////////////////////////////////////
+    // Karma only
+    template <typename T, typename Attribute, typename Enable = void>
+    struct attribute_as;
+
+    template <typename T, typename Attribute>
+    typename spirit::result_of::attribute_as<T, Attribute>::type
+    as(Attribute const& attr);
+    
+    template <typename T, typename Attribute>
+    bool valid_as(Attribute const& attr);
+
+    ///////////////////////////////////////////////////////////////////////////
     // return the type currently stored in the given variant
     ///////////////////////////////////////////////////////////////////////////
     template <typename T, typename Enable = void>
     struct variant_which;
 
+    template <typename T>
+    int which(T const& v);
+
     ///////////////////////////////////////////////////////////////////////////
     // Determine, whether T is a variant like type
     ///////////////////////////////////////////////////////////////////////////
-    template <typename T, typename Domain = void>
+    template <typename T, typename Domain = unused_type, typename Enable = void>
     struct not_is_variant;
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Determine, whether T is a variant like type
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename T, typename Domain = unused_type, typename Enable = void>
+    struct not_is_optional;
 
     ///////////////////////////////////////////////////////////////////////////
     // Clear data efficiently
@@ -146,6 +191,14 @@ namespace boost { namespace spirit { namespace traits
 
     template <typename T, typename Enable = void>
     struct is_container;
+    
+    template <typename T, typename Enable = void>
+    struct is_iterator_range;
+
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename T, typename Attribute, typename Context = unused_type
+            , typename Iterator = unused_type, typename Enable = void>
+    struct handles_container;
 
     ///////////////////////////////////////////////////////////////////////////
     // Qi only
@@ -154,6 +207,9 @@ namespace boost { namespace spirit { namespace traits
 
     template <typename Container, typename Enable = void>
     struct is_empty_container;
+
+    template <typename Container, typename Enable = void>
+    struct make_container_attribute;
 
     ///////////////////////////////////////////////////////////////////////
     // Determine the iterator type of the given container type
@@ -193,6 +249,29 @@ namespace boost { namespace spirit { namespace traits
     template<typename Out, typename T>
     void print_token(Out&, T const&);
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Access attributes from a karma symbol table
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename T, typename Attribute, typename Enable = void>
+    struct symbols_lookup;
+
+    template <typename Attribute, typename T, typename Enable = void>
+    struct symbols_value;
+
+    ///////////////////////////////////////////////////////////////////////////
+    // transform attribute types exposed from compound operator components
+    /////////////////////////////////////////////////////////////////////////// 
+    template <typename Attribute, typename Domain>
+    struct alternative_attribute_transform;
+
+    template <typename Attribute, typename Domain>
+    struct sequence_attribute_transform;
+
+    template <typename Attribute, typename Domain>
+    struct permutation_attribute_transform;
+
+    template <typename Attribute, typename Domain>
+    struct sequential_or_attribute_transform;
 }}}
 
 #endif

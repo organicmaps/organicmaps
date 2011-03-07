@@ -24,7 +24,7 @@
 // in such cases.   So we can't use basic_ostream<IStream::char_type> but rather
 // use two template parameters
 
-#include <cassert>
+#include <boost/assert.hpp>
 #include <locale>
 #include <cstddef> // size_t
 

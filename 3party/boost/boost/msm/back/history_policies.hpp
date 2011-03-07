@@ -152,6 +152,7 @@ private:
 
 struct NoHistory
 {
+    typedef int history_policy;
     template <int NumberOfRegions>
     struct apply
     {
@@ -160,6 +161,7 @@ struct NoHistory
 };
 struct AlwaysHistory
 {
+    typedef int history_policy;
     template <int NumberOfRegions>
     struct apply
     {
@@ -169,6 +171,7 @@ struct AlwaysHistory
 template <class Events>
 struct ShallowHistory
 {
+    typedef int history_policy;
     template <int NumberOfRegions>
     struct apply
     {

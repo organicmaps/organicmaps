@@ -27,6 +27,7 @@
 #define BOOST_TUPLE_BASIC_NO_PARTIAL_SPEC_HPP
 
 #include "boost/type_traits.hpp"
+#include "boost/utility/swap.hpp"
 #include <utility>
 
 #if defined BOOST_MSVC
@@ -835,6 +836,29 @@ namespace tuples {
     // "ignore" allows tuple positions to be ignored when using "tie".
 
 detail::swallow_assign const ignore = detail::swallow_assign();
+
+template <class T0, class T1, class T2, class T3, class T4,
+          class T5, class T6, class T7, class T8, class T9>
+void swap(tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>& lhs,
+          tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>& rhs);
+inline void swap(null_type&, null_type&) {}
+template<class HH>
+inline void swap(cons<HH, null_type>& lhs, cons<HH, null_type>& rhs) {
+  ::boost::swap(lhs.head, rhs.head);
+}
+template<class HH, class TT>
+inline void swap(cons<HH, TT>& lhs, cons<HH, TT>& rhs) {
+  ::boost::swap(lhs.head, rhs.head);
+  ::boost::tuples::swap(lhs.tail, rhs.tail);
+}
+template <class T0, class T1, class T2, class T3, class T4,
+          class T5, class T6, class T7, class T8, class T9>
+inline void swap(tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>& lhs,
+          tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>& rhs) {
+  typedef tuple<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9> tuple_type;
+  typedef typename tuple_type::inherited base;
+  ::boost::tuples::swap(static_cast<base&>(lhs), static_cast<base&>(rhs));
+}
 
 } // namespace tuples
 } // namespace boost

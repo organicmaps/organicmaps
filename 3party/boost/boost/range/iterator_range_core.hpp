@@ -27,6 +27,7 @@
 #include <boost/range/iterator.hpp>
 #include <boost/range/difference_type.hpp>
 #include <boost/range/algorithm/equal.hpp>
+#include <boost/range/detail/safe_bool.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <iterator>
 #include <algorithm>
@@ -81,7 +82,6 @@ namespace boost
 
         struct range_tag { };
         struct const_range_tag { };
-
     }
 
 //  iterator range template class -----------------------------------------//
@@ -106,13 +106,14 @@ namespace boost
         template<class IteratorT>
         class iterator_range
         {
+            typedef range_detail::safe_bool< IteratorT iterator_range<IteratorT>::* > safe_bool_t;
         protected: // Used by sub_range
             //! implementation class
             typedef iterator_range_detail::iterator_range_impl<IteratorT> impl;
         public:
-
             //! this type
             typedef iterator_range<IteratorT> type;
+            typedef BOOST_DEDUCED_TYPENAME safe_bool_t::unspecified_bool_type unspecified_bool_type;
             //BOOST_BROKEN_COMPILER_TYPE_TRAITS_SPECIALIZATION(value_type);
 
             //! Encapsulated value type
@@ -230,7 +231,7 @@ namespace boost
 
             difference_type size() const
             {
-                return m_End - m_Begin;
+				return m_End - m_Begin;
             }
 
             bool empty() const
@@ -238,18 +239,15 @@ namespace boost
                 return m_Begin == m_End;
             }
 
-#if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564))
-            operator bool() const
-            {
-                return !empty();
-            }
-#else
-            typedef iterator (iterator_range::*unspecified_bool_type) () const;
             operator unspecified_bool_type() const
             {
-                return empty() ? 0: &iterator_range::end;
+                return safe_bool_t::to_unspecified_bool(m_Begin != m_End, &iterator_range::m_Begin);
             }
-#endif
+
+            bool operator!() const
+            {
+                return empty();
+            }
 
             bool equal( const iterator_range& r ) const
             {
@@ -288,6 +286,20 @@ namespace boost
                BOOST_ASSERT( !empty() );
                IteratorT last( m_End );
                return *--last;
+           }
+
+           // pop_front() - added to model the SinglePassRangePrimitiveConcept
+           void pop_front()
+           {
+               BOOST_ASSERT( !empty() );
+               ++m_Begin;
+           }
+
+           // pop_back() - added to model the BidirectionalRangePrimitiveConcept
+           void pop_back()
+           {
+               BOOST_ASSERT( !empty() );
+               --m_End;
            }
 
            reference operator[]( difference_type at ) const

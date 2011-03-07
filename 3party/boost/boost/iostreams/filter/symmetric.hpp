@@ -41,7 +41,7 @@
 # pragma once
 #endif
 
-#include <cassert>
+#include <boost/assert.hpp>
 #include <memory>                               // allocator, auto_ptr.
 #include <boost/config.hpp>                     // BOOST_DEDUCED_TYPENAME.
 #include <boost/iostreams/char_traits.hpp>
@@ -89,7 +89,7 @@ public:
               BOOST_PP_ENUM_BINARY_PARAMS(n, const T, &t) ) \
             : pimpl_(new impl(buffer_size BOOST_PP_COMMA_IF(n) \
                      BOOST_PP_ENUM_PARAMS(n, t))) \
-            { assert(buffer_size > 0); } \
+            { BOOST_ASSERT(buffer_size > 0); } \
         /**/
     #define BOOST_PP_LOCAL_LIMITS (0, BOOST_IOSTREAMS_MAX_FORWARDING_ARITY)
     #include BOOST_PP_LOCAL_ITERATE()
@@ -275,7 +275,7 @@ BOOST_IOSTREAMS_PIPABLE(symmetric_filter, 2)
 template<typename SymmetricFilter, typename Alloc>
 void symmetric_filter<SymmetricFilter, Alloc>::begin_read()
 {
-    assert(!(state() & f_write));
+    BOOST_ASSERT(!(state() & f_write));
     state() |= f_read;
     buf().set(0, 0);
 }
@@ -283,7 +283,7 @@ void symmetric_filter<SymmetricFilter, Alloc>::begin_read()
 template<typename SymmetricFilter, typename Alloc>
 void symmetric_filter<SymmetricFilter, Alloc>::begin_write()
 {
-    assert(!(state() & f_read));
+    BOOST_ASSERT(!(state() & f_read));
     state() |= f_write;
     buf().set(0, buf().size());
 }

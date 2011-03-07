@@ -15,17 +15,36 @@
 
 #include <boost/mpl/set.hpp>
 #include <boost/mpl/for_each.hpp>
+#include <boost/mpl/has_xxx.hpp>
 
 #include <boost/typeof/typeof.hpp>
 
+#include <boost/msm/back/common_types.hpp>
 #include <boost/msm/row_tags.hpp>
 #include <boost/msm/common.hpp>
 #include <boost/msm/front/completion_event.hpp>
 
 #include BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP()
 
+BOOST_MPL_HAS_XXX_TRAIT_DEF(deferring_action)
+
 namespace boost { namespace msm { namespace front
 {
+    template <class Func,class Enable=void>
+    struct get_functor_return_value 
+    {
+        static const ::boost::msm::back::HandledEnum value = ::boost::msm::back::HANDLED_TRUE;
+    };
+    template <class Func>
+    struct get_functor_return_value<Func, 
+        typename ::boost::enable_if<
+            typename has_deferring_action<Func>::type 
+        >::type
+    > 
+    {
+        static const ::boost::msm::back::HandledEnum value = ::boost::msm::back::HANDLED_DEFERRED;
+    };
+
     template <class SOURCE,class EVENT,class TARGET,class ACTION=none,class GUARD=none>
     struct Row
     {
@@ -37,10 +56,11 @@ namespace boost { namespace msm { namespace front
         // action plus guard
         typedef row_tag row_type_tag;
         template <class EVT,class FSM,class SourceState,class TargetState,class AllStates>
-        static void action_call(FSM& fsm,EVT const& evt,SourceState& src,TargetState& tgt, AllStates&)
+        static ::boost::msm::back::HandledEnum action_call(FSM& fsm,EVT const& evt,SourceState& src,TargetState& tgt, AllStates&)
         {
             // create functor, call it
             Action()(evt,fsm,src,tgt);
+            return get_functor_return_value<Action>::value;
         }
         template <class EVT,class FSM,class SourceState,class TargetState,class AllStates>
         static bool guard_call(FSM& fsm,EVT const& evt,SourceState& src,TargetState& tgt,AllStates&)
@@ -72,10 +92,11 @@ namespace boost { namespace msm { namespace front
         // no guard
         typedef a_row_tag row_type_tag;
         template <class EVT,class FSM,class SourceState,class TargetState,class AllStates>
-        static void action_call(FSM& fsm,EVT const& evt,SourceState& src,TargetState& tgt, AllStates&)
+        static ::boost::msm::back::HandledEnum action_call(FSM& fsm,EVT const& evt,SourceState& src,TargetState& tgt, AllStates&)
         {
             // create functor, call it
             Action()(evt,fsm,src,tgt);
+            return get_functor_return_value<Action>::value;
         }
     };
     template<class SOURCE,class EVENT,class TARGET,class GUARD>
@@ -107,10 +128,11 @@ namespace boost { namespace msm { namespace front
         // no guard
         typedef a_irow_tag row_type_tag;
         template <class EVT,class FSM,class SourceState,class TargetState,class AllStates>
-        static void action_call(FSM& fsm,EVT const& evt,SourceState& src,TargetState& tgt, AllStates&)
+        static ::boost::msm::back::HandledEnum action_call(FSM& fsm,EVT const& evt,SourceState& src,TargetState& tgt, AllStates&)
         {
             // create functor, call it
             Action()(evt,fsm,src,tgt);
+            return get_functor_return_value<Action>::value;
         }
     };
     template<class SOURCE,class EVENT,class GUARD>
@@ -141,10 +163,11 @@ namespace boost { namespace msm { namespace front
         // action + guard
         typedef irow_tag row_type_tag;
         template <class EVT,class FSM,class SourceState,class TargetState,class AllStates>
-        static void action_call(FSM& fsm,EVT const& evt,SourceState& src,TargetState& tgt, AllStates&)
+        static ::boost::msm::back::HandledEnum action_call(FSM& fsm,EVT const& evt,SourceState& src,TargetState& tgt, AllStates&)
         {
             // create functor, call it
             Action()(evt,fsm,src,tgt);
+            return get_functor_return_value<Action>::value;
         }
         template <class EVT,class FSM,class SourceState,class TargetState,class AllStates>
         static bool guard_call(FSM& fsm,EVT const& evt,SourceState& src,TargetState& tgt, AllStates&)
@@ -179,10 +202,11 @@ namespace boost { namespace msm { namespace front
         // action plus guard
         typedef sm_i_row_tag row_type_tag;
         template <class EVT,class FSM,class SourceState,class TargetState,class AllStates>
-        static void action_call(FSM& fsm,EVT const& evt,SourceState& src,TargetState& tgt, AllStates&)
+        static ::boost::msm::back::HandledEnum action_call(FSM& fsm,EVT const& evt,SourceState& src,TargetState& tgt, AllStates&)
         {
             // create functor, call it
             Action()(evt,fsm,src,tgt);
+            return get_functor_return_value<Action>::value;
         }
         template <class EVT,class FSM,class SourceState,class TargetState,class AllStates>
         static bool guard_call(FSM& fsm,EVT const& evt,SourceState& src,TargetState& tgt, AllStates&)
@@ -201,10 +225,11 @@ namespace boost { namespace msm { namespace front
         // no guard
         typedef sm_a_i_row_tag row_type_tag;
         template <class EVT,class FSM,class SourceState,class TargetState,class AllStates>
-        static void action_call(FSM& fsm,EVT const& evt,SourceState& src,TargetState& tgt, AllStates&)
+        static ::boost::msm::back::HandledEnum action_call(FSM& fsm,EVT const& evt,SourceState& src,TargetState& tgt, AllStates&)
         {
             // create functor, call it
             Action()(evt,fsm,src,tgt);
+            return get_functor_return_value<Action>::value;
         }
     };
     template<class EVENT,class GUARD>
@@ -304,6 +329,8 @@ namespace boost { namespace msm { namespace front
     // functor pre-defined for basic functionality
     struct Defer 
     {
+        // mark as deferring to avoid stack overflows in certain conditions
+        typedef int deferring_action;
         template <class EVT,class FSM,class SourceState,class TargetState>
         void operator()(EVT const& evt,FSM& fsm,SourceState& ,TargetState& ) const
         {

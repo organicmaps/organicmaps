@@ -22,7 +22,7 @@
 #include <utility>
 #include <boost/graph/iteration_macros.hpp>
 #include <boost/optional.hpp>
-#include <cassert>
+#include <boost/assert.hpp>
 #include <boost/graph/parallel/container_traits.hpp>
 #include <boost/graph/properties.hpp>
 
@@ -220,7 +220,7 @@ boman_et_al_graph_coloring
 
         // Receive boundary colors from other processors
         while (optional<std::pair<process_id_type, int> > stp = probe(pg)) {
-          assert(stp->second == 17);
+          BOOST_ASSERT(stp->second == 17);
           message_type msg;
           receive(pg, stp->first, stp->second, msg);
           cache(color, msg.first, msg.second);
@@ -279,7 +279,7 @@ boman_et_al_graph_coloring
 
     // Receive boundary colors from other processors
     while (optional<std::pair<process_id_type, int> > stp = probe(pg)) {
-      assert(stp->second == 17);
+      BOOST_ASSERT(stp->second == 17);
       message_type msg;
       receive(pg, stp->first, stp->second, msg);
       cache(color, msg.first, msg.second);
@@ -298,7 +298,7 @@ boman_et_al_graph_coloring
   color_type num_colors = 0;
   BGL_FORALL_VERTICES_T(v, g, DistributedGraph) {
     color_type k = get(color, v);
-    assert(k != no_color);
+    BOOST_ASSERT(k != no_color);
     if (k != no_color) {
       if (k >= (color_type)marked.size()) marked.resize(k + 1, 0); // TBD: perf?
       if (marked[k] != iter_num) {

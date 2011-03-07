@@ -6,7 +6,7 @@
 #ifndef BOOST_LEXER_NODE_HPP
 #define BOOST_LEXER_NODE_HPP
 
-#include <assert.h>
+#include <boost/assert.hpp>
 #include "../../containers/ptr_vector.hpp"
 #include "../../runtime_error.hpp"
 #include "../../size_t.hpp"
@@ -96,7 +96,7 @@ public:
             }
         }
 
-        assert (new_node_stack_.size () == 1);
+        BOOST_ASSERT(new_node_stack_.size () == 1);
         new_root_ = new_node_stack_.top ();
         new_node_stack_.pop ();
         return new_root_;

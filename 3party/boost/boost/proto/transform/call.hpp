@@ -91,7 +91,7 @@
             struct impl2
               : transform_impl<Expr, State, Data>
             {
-                typedef typename boost::tr1_result_of<Fun()>::type result_type;
+                typedef typename BOOST_PROTO_RESULT_OF<Fun()>::type result_type;
 
                 result_type operator()(
                     typename impl2::expr_param

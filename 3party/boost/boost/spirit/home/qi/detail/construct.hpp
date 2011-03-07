@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2010 Hartmut Kaiser
+    Copyright (c) 2001-2011 Hartmut Kaiser
     http://spirit.sourceforge.net/
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -33,6 +33,26 @@ namespace boost { namespace spirit { namespace traits
         }
     };
 
+    template <typename Iterator>
+    struct assign_to_attribute_from_iterators<signed char, Iterator>
+    {
+        static void 
+        call(Iterator const& first, Iterator const& last, signed char& attr)
+        {
+            attr = *first;
+        }
+    };
+
+    template <typename Iterator>
+    struct assign_to_attribute_from_iterators<unsigned char, Iterator>
+    {
+        static void 
+        call(Iterator const& first, Iterator const& last, unsigned char& attr)
+        {
+            attr = *first;
+        }
+    };
+
     // wchar_t is intrinsic
     template <typename Iterator>
     struct assign_to_attribute_from_iterators<wchar_t, Iterator>
@@ -61,7 +81,7 @@ namespace boost { namespace spirit { namespace traits
     struct assign_to_attribute_from_iterators<bool, Iterator>
     {
         static void 
-        call(Iterator const& first, Iterator const& last, char& attr)
+        call(Iterator const& first, Iterator const& last, bool& attr)
         {
             Iterator first_ = first;
             qi::parse(first_, last, bool_, attr);

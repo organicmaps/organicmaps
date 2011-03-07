@@ -64,7 +64,7 @@ namespace boost { namespace unordered_detail {
     inline void hash_buckets<A, G>::delete_node(node_ptr b)
     {
         node* raw_ptr = static_cast<node*>(&*b);
-        boost::unordered_detail::destroy(&raw_ptr->value());
+        boost::unordered_detail::destroy(raw_ptr->value_ptr());
         real_node_ptr n(node_alloc().address(*raw_ptr));
         node_alloc().destroy(n);
         node_alloc().deallocate(n, 1);

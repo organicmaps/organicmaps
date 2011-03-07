@@ -128,7 +128,7 @@ template <class RealType, class Policy>
 inline const std::pair<RealType, RealType> range(const inverse_gamma_distribution<RealType, Policy>& /* dist */)
 {  // Range of permissible values for random variable x.
    using boost::math::tools::max_value;
-   return std::pair<RealType, RealType>(0, max_value<RealType>());
+   return std::pair<RealType, RealType>(static_cast<RealType>(0), max_value<RealType>());
 }
 
 template <class RealType, class Policy>
@@ -137,7 +137,7 @@ inline const std::pair<RealType, RealType> support(const inverse_gamma_distribut
    // This is range where cdf rises from 0 to 1, and outside it, the pdf is zero.
    using boost::math::tools::max_value;
    using boost::math::tools::min_value;
-   return std::pair<RealType, RealType>(0,  max_value<RealType>());
+   return std::pair<RealType, RealType>(static_cast<RealType>(0),  max_value<RealType>());
 }
 
 template <class RealType, class Policy>

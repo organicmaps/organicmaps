@@ -233,6 +233,13 @@ namespace boost {
     typedef typename edge_property_type<Graph>::type type;
   };
 
+  template <typename Graph, 
+            typename EdgePredicate,
+            typename VertexPredicate>
+  struct graph_property_type<filtered_graph<Graph, EdgePredicate, VertexPredicate> > {
+    typedef typename graph_property_type<Graph>::type type;
+  };
+
 
 #ifndef BOOST_GRAPH_NO_BUNDLED_PROPERTIES
   template<typename Graph, typename EdgePredicate, typename VertexPredicate>
@@ -244,6 +251,11 @@ namespace boost {
   struct edge_bundle_type<filtered_graph<Graph, EdgePredicate, 
                                          VertexPredicate> > 
     : edge_bundle_type<Graph> { };
+
+  template<typename Graph, typename EdgePredicate, typename VertexPredicate>
+  struct graph_bundle_type<filtered_graph<Graph, EdgePredicate, 
+                                          VertexPredicate> > 
+    : graph_bundle_type<Graph> { };
 #endif // BOOST_GRAPH_NO_BUNDLED_PROPERTIES
 
   //===========================================================================

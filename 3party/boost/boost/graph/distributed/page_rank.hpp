@@ -15,6 +15,7 @@
 #error "Parallel BGL files should not be included unless <boost/graph/use_mpi.hpp> has been included"
 #endif
 
+#include <boost/assert.hpp>
 #include <boost/graph/overloading.hpp>
 #include <boost/graph/page_rank.hpp>
 #include <boost/graph/distributed/concepts.hpp>
@@ -53,7 +54,7 @@ namespace detail {
                              1, MPI_DOUBLE,
                              get(owner, v), local(v), 
                              1, MPI_DOUBLE, MPI_SUM, to_win);
-        assert(MPI_SUCCESS == ret);
+        BOOST_ASSERT(MPI_SUCCESS == ret);
       }
     }
     MPI_Win_fence(0, to_win);
@@ -100,14 +101,14 @@ page_rank_impl(const Graph& g, RankMap rank_map, Done done,
   process_group_type pg = process_group(g);
   process_id_type id = process_id(pg);
 
-  assert(me == id);
+  BOOST_ASSERT(me == id);
 
   rank_type initial_rank = rank_type(rank_type(1) / n);
   BGL_FORALL_VERTICES_T(v, g, Graph) put(rank_map, v, initial_rank);
 
 #ifdef WANT_MPI_ONESIDED
 
-  assert(sizeof(rank_type) == sizeof(double));
+  BOOST_ASSERT(sizeof(rank_type) == sizeof(double));
 
   bool to_map_2 = true;
   MPI_Win win, win2;

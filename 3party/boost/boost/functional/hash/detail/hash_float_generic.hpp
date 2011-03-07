@@ -53,7 +53,7 @@ namespace boost
 
             v = ldexp(v, limits<std::size_t>::digits);
             std::size_t seed = static_cast<std::size_t>(v);
-            v -= seed;
+            v -= static_cast<T>(seed);
 
             // ceiling(digits(T) * log2(radix(T))/ digits(size_t)) - 1;
             std::size_t const length
@@ -66,7 +66,7 @@ namespace boost
             {
                 v = ldexp(v, limits<std::size_t>::digits);
                 std::size_t part = static_cast<std::size_t>(v);
-                v -= part;
+                v -= static_cast<T>(part);
                 hash_float_combine(seed, part);
             }
 

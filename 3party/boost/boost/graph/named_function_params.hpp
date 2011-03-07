@@ -584,14 +584,18 @@ BOOST_BGL_DECLARE_NAMED_PARAMS
         g_hasQ =
           (parameter_exists<ArgPack, PriorityQueueTag>
            ::value));
+      typedef boost::reference_wrapper<int> int_refw;
+      typedef typename boost::parameter::value_type<
+                         ArgPack,
+                         PriorityQueueTag,
+                         int_refw
+                       >::type
+        param_value_type_wrapper;
+      typedef typename param_value_type_wrapper::type
+        param_value_type;
+      typedef typename boost::remove_const<param_value_type>::type param_value_type_no_const;
       typedef priority_queue_maker_helper<g_hasQ, Graph, ArgPack, KeyT, ValueT, KeyMapTag, IndexInHeapMapTag, Compare,
-                                          typename boost::remove_const<
-                                            typename boost::parameter::value_type<
-                                                       ArgPack,
-                                                       PriorityQueueTag,
-                                                       boost::reference_wrapper<int>
-                                                     >::type::type
-                                                   >::type> helper;
+                                          param_value_type_no_const> helper;
       typedef typename helper::priority_queue_type priority_queue_type;
 
       static priority_queue_type make_queue(const Graph& g, const ArgPack& ap, KeyT defaultKey) {

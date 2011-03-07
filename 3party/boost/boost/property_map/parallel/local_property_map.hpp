@@ -20,7 +20,7 @@
 #error "Parallel BGL files should not be included unless <boost/graph/use_mpi.hpp> has been included"
 #endif
 
-#include <cassert>
+#include <boost/assert.hpp>
 
 namespace boost {
   /** Property map that accesses an underlying, local property map
@@ -47,7 +47,7 @@ namespace boost {
     reference operator[](const key_type& key) 
     { 
       owner_local_pair p = get(global_, key);
-      assert(p.first == process_id(process_group_));
+      BOOST_ASSERT(p.first == process_id(process_group_));
       return storage[p.second]; 
     }
 
@@ -84,7 +84,7 @@ namespace boost {
                  ::value_type const& v)
   {
     typename property_traits<GlobalMap>::value_type p = get(pm.global(), key);
-    assert(p.first == process_id(pm.process_group()));
+    BOOST_ASSERT(p.first == process_id(pm.process_group()));
     put(pm.base(), p.second, v);
   }
 } // end namespace boost

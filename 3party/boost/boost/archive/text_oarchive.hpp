@@ -80,7 +80,8 @@ protected:
     #endif
     BOOST_ARCHIVE_DECL(BOOST_PP_EMPTY()) 
     text_oarchive_impl(std::ostream & os, unsigned int flags);
-    BOOST_ARCHIVE_DECL(BOOST_PP_EMPTY()) 
+    // don't import inline definitions! leave this as a reminder.
+    //BOOST_ARCHIVE_DECL(BOOST_PP_EMPTY()) 
     ~text_oarchive_impl(){};
 public:
     BOOST_ARCHIVE_DECL(void) 

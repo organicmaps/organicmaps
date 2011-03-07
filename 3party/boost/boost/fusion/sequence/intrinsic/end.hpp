@@ -8,6 +8,8 @@
 #define FUSION_END_04052005_1141
 
 #include <boost/fusion/support/tag_of.hpp>
+#include <boost/fusion/support/is_sequence.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace boost { namespace fusion
 {
@@ -57,14 +59,22 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence>
-    inline typename result_of::end<Sequence>::type const
+    inline typename
+        lazy_enable_if<
+            traits::is_sequence<Sequence>
+          , result_of::end<Sequence>
+        >::type const
     end(Sequence& seq)
     {
         return result_of::end<Sequence>::call(seq);
     }
 
     template <typename Sequence>
-    inline typename result_of::end<Sequence const>::type const
+    inline typename
+        lazy_enable_if<
+            traits::is_sequence<Sequence>
+          , result_of::end<Sequence const>
+        >::type const
     end(Sequence const& seq)
     {
         return result_of::end<Sequence const>::call(seq);

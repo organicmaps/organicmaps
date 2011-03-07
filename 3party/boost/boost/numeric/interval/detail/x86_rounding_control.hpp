@@ -17,7 +17,7 @@
 #  include <boost/numeric/interval/detail/bcc_rounding_control.hpp>
 #elif defined(_MSC_VER)
 #  include <boost/numeric/interval/detail/msvc_rounding_control.hpp>
-#elif defined(__MWERKS__) || defined(__ICC)
+#elif defined(__MWERKS__) || defined(__ICC) || defined (__SUNPRO_CC)
 #  define BOOST_NUMERIC_INTERVAL_USE_C99_SUBSYSTEM
 #  include <boost/numeric/interval/detail/c99sub_rounding_control.hpp>
 #else
@@ -31,7 +31,7 @@ namespace interval_lib {
 namespace detail {
 
 #ifdef BOOST_NUMERIC_INTERVAL_USE_C99_SUBSYSTEM
-typedef c99_rounding x86_rounding_control;
+typedef c99_rounding_control x86_rounding_control;
 #undef BOOST_NUMERIC_INTERVAL_USE_C99_SUBSYSTEM
 #else
 struct fpu_rounding_modes

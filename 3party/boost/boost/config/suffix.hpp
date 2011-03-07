@@ -349,6 +349,13 @@
 #define BOOST_HAS_RVALUE_REFS
 #endif
 
+//
+// Set BOOST_HAS_VARIADIC_TMPL when BOOST_NO_VARIADIC_TEMPLATES is not defined
+//
+#if !defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(BOOST_HAS_VARIADIC_TMPL)
+#define BOOST_HAS_VARIADIC_TMPL
+#endif
+
 //  BOOST_HAS_ABI_HEADERS
 //  This macro gets set if we have headers that fix the ABI,
 //  and prevent ODR violations when linking to external libraries:
@@ -632,6 +639,10 @@ namespace std{ using ::typeinfo; }
 #     if defined(unix) || defined(__unix) || defined(_XOPEN_SOURCE) \
          || defined(_POSIX_SOURCE)
 #        define BOOST_PLATFORM "Generic Unix"
+#        define BOOST_NIX            1 
+//#        define BOOST_GENETIC_NIX    1
+//#        define BOOST_TRADEMARK_NIX  1
+#        define BOOST_FUNCTIONAL_NIX 1
 #     else
 #        define BOOST_PLATFORM "Unknown"
 #     endif
@@ -643,5 +654,19 @@ namespace std{ using ::typeinfo; }
 #  ifndef BOOST_GPU_ENABLED
 #  define BOOST_GPU_ENABLED 
 #  endif
+
+//
+// constexpr workarounds
+// 
+#if defined(BOOST_NO_CONSTEXPR)
+#define BOOST_CONSTEXPR
+#define BOOST_CONSTEXPR_OR_CONST const
+#else
+#define BOOST_CONSTEXPR constexpr
+#define BOOST_CONSTEXPR_OR_CONST constexpr
+#endif
+
+#define BOOST_STATIC_CONSTEXPR  static BOOST_CONSTEXPR_OR_CONST
+
 #endif
 

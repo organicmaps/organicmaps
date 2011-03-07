@@ -5,7 +5,7 @@
 
     http://www.boost.org/
 
-    Copyright (c) 2001-2010 Hartmut Kaiser. Distributed under the Boost
+    Copyright (c) 2001-2011 Hartmut Kaiser. Distributed under the Boost
     Software License, Version 1.0. (See accompanying file
     LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
@@ -16,11 +16,11 @@
 //  BOOST_WAVE_VERSION & 0x0000FF is the sub-minor version
 //  BOOST_WAVE_VERSION & 0x00FF00 is the minor version
 //  BOOST_WAVE_VERSION & 0xFF0000 is the major version
-#define BOOST_WAVE_VERSION                 0x020100
+#define BOOST_WAVE_VERSION                 0x020200
 
 //  The following defines contain the same information as above
 #define BOOST_WAVE_VERSION_MAJOR           2
-#define BOOST_WAVE_VERSION_MINOR           1
+#define BOOST_WAVE_VERSION_MINOR           2
 #define BOOST_WAVE_VERSION_SUBMINOR        0
 
 #endif // !defined(WAVE_VERSION_H_9D79ABDB_AC54_4C0A_89B1_F70A2DCFE21E_INCLUDED)

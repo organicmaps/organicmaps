@@ -8,7 +8,7 @@
 
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#include <cassert>
+#include <boost/assert.hpp>
 #include <cstddef> // size_t, NULL
 #include <cstring> // memcpy
 

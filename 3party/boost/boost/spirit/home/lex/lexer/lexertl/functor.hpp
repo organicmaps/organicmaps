@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -134,6 +134,8 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         template <typename MultiPass>
         static result_type& get_next(MultiPass& mp, result_type& result)
         {
+            typedef typename result_type::id_type id_type;
+
             shared& data = mp.shared()->ftor;
             for(;;) 
             {
@@ -147,7 +149,11 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
                 data.reset_value();
                 Iterator end = data.get_first();
                 std::size_t unique_id = boost::lexer::npos;
-                std::size_t id = data.next(end, unique_id);
+                bool prev_bol = false;
+
+                // lexer matching might change state
+                std::size_t state = data.get_state();
+                std::size_t id = data.next(end, unique_id, prev_bol);
 
                 if (boost::lexer::npos == id) {   // no match
 #if defined(BOOST_SPIRIT_LEXERTL_DEBUG)
@@ -156,7 +162,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
                     for (std::size_t i = 0; i < 10 && it != data.get_last(); ++it, ++i)
                         next += *it;
 
-                    std::cerr << "Not matched, in state: " << data.get_state() 
+                    std::cerr << "Not matched, in state: " << state 
                               << ", lookahead: >" << next << "<" << std::endl;
 #endif
                     return result = result_type(0);
@@ -177,19 +183,21 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
                         next += *it;
 
                     std::cerr << "Matched: " << id << ", in state: " 
-                              << data.get_state() << ", string: >" 
+                              << state << ", string: >" 
                               << std::basic_string<char_type>(data.get_first(), end) << "<"
                               << ", lookahead: >" << next << "<" << std::endl;
+                    if (data.get_state() != state) {
+                        std::cerr << "Switched to state: " 
+                                  << data.get_state() << std::endl;
+                    }
                 }
 #endif
-                // invoke_actions might change state, id, data.first_, and/or end
-                std::size_t state = data.get_state();
-
                 // account for a possibly pending lex::more(), i.e. moving 
                 // data.first_ back to the start of the previously matched token.
                 bool adjusted = data.adjust_start();
 
-                // invoke attached semantic actions, if defined
+                // invoke attached semantic actions, if defined, might change
+                // state, id, data.first_, and/or end
                 BOOST_SCOPED_ENUM(pass_flags) pass = 
                     data.invoke_actions(state, id, unique_id, end);
 
@@ -198,23 +206,35 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
                     // using data.set_value(), advancing 'data.first_' past the 
                     // matched sequence
                     assign_on_exit<Iterator> on_exit(data.get_first(), end);
-                    return result = result_type(id, state, data.get_value());
+                    return result = result_type(id_type(id), state, data.get_value());
                 }
                 else if (pass_flags::pass_normal == pass) {
                     // return matched token, advancing 'data.first_' past the 
                     // matched sequence
                     assign_on_exit<Iterator> on_exit(data.get_first(), end);
-                    return result = result_type(id, state, data.get_first(), end);
+                    return result = result_type(id_type(id), state, data.get_first(), end);
                 }
                 else if (pass_flags::pass_fail == pass) {
+#if defined(BOOST_SPIRIT_LEXERTL_DEBUG)
+                    std::cerr << "Matching forced to fail" << std::endl; 
+#endif
                     // if the data.first_ got adjusted above, revert this adjustment
                     if (adjusted)
                         data.revert_adjust_start();
 
                     // one of the semantic actions signaled no-match
-                    return result = result_type(0); 
+                    data.reset_bol(prev_bol);
+                    if (state != data.get_state())
+                        continue;       // retry matching if state has changed
+
+                    // if the state is unchanged repeating the match wouldn't
+                    // move the input forward, causing an infinite loop
+                    return result = result_type(0);
                 }
 
+#if defined(BOOST_SPIRIT_LEXERTL_DEBUG)
+                std::cerr << "Token ignored, continuing matching" << std::endl; 
+#endif
             // if this token needs to be ignored, just repeat the matching,
             // while starting right after the current match
                 data.get_first() = end;

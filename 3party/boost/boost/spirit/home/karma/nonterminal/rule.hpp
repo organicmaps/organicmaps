@@ -1,5 +1,5 @@
-//  Copyright (c) 2001-2010 Joel de Guzman
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Joel de Guzman
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -35,6 +35,7 @@
 #include <boost/spirit/home/support/nonterminal/locals.hpp>
 #include <boost/spirit/home/karma/reference.hpp>
 #include <boost/spirit/home/karma/detail/output_iterator.hpp>
+#include <boost/spirit/home/karma/nonterminal/nonterminal_fwd.hpp>
 #include <boost/spirit/home/karma/nonterminal/detail/generator_binder.hpp>
 #include <boost/spirit/home/karma/nonterminal/detail/parameterized.hpp>
 
@@ -64,12 +65,8 @@ namespace boost { namespace spirit { namespace karma
     using spirit::locals;
 
     template <
-        typename OutputIterator
-      , typename T1 = unused_type
-      , typename T2 = unused_type
-      , typename T3 = unused_type
-      , typename T4 = unused_type
-    >
+        typename OutputIterator, typename T1, typename T2, typename T3
+      , typename T4>
     struct rule
       : proto::extends<
             typename proto::terminal<
@@ -181,7 +178,7 @@ namespace boost { namespace spirit { namespace karma
             // from an uninitialized one. Did you mean to refer to the right
             // hand side rule instead of assigning from it? In this case you 
             // should write lhs = rhs.alias();
-            BOOST_ASSERT(rhs.f);
+            BOOST_ASSERT(rhs.f && "Did you mean rhs.alias() instead of rhs?");
 
             f = rhs.f;
             name_ = rhs.name_;
@@ -387,6 +384,33 @@ namespace boost { namespace spirit { namespace karma
         return r %= static_cast<Expr const&>(expr);
     }
 #endif
+}}}
+
+namespace boost { namespace spirit { namespace traits
+{
+    namespace detail
+    {
+        template <typename RuleAttribute, typename Attribute>
+        struct nonterminal_handles_container
+          : mpl::and_<
+                traits::is_container<RuleAttribute>
+              , is_convertible<Attribute, RuleAttribute> >
+        {};
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    template <
+        typename IteratorA, typename IteratorB, typename Attribute
+      , typename Context, typename T1, typename T2, typename T3, typename T4>
+    struct handles_container<
+            karma::rule<IteratorA, T1, T2, T3, T4>, Attribute, Context
+          , IteratorB>
+      : detail::nonterminal_handles_container< 
+            typename attribute_of<
+                karma::rule<IteratorA, T1, T2, T3, T4>
+              , Context, IteratorB
+          >::type, Attribute>
+    {};
 }}}
 
 #if defined(BOOST_MSVC)

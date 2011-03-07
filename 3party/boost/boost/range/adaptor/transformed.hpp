@@ -14,6 +14,7 @@
 #include <boost/range/adaptor/argument_fwd.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/iterator/transform_iterator.hpp>
+#include <boost/utility/result_of.hpp>
 
 namespace boost
 {
@@ -21,17 +22,17 @@ namespace boost
     {
 
         template< class F, class R >
-        struct transform_range : 
-            public boost::iterator_range< 
+        struct transformed_range :
+            public boost::iterator_range<
                       boost::transform_iterator< F,
-                          BOOST_DEDUCED_TYPENAME range_iterator<R>::type 
+                          BOOST_DEDUCED_TYPENAME range_iterator<R>::type
                                               >
                                          >
         {
         private:
-            typedef boost::iterator_range< 
+            typedef boost::iterator_range<
                       boost::transform_iterator< F,
-                        BOOST_DEDUCED_TYPENAME range_iterator<R>::type 
+                        BOOST_DEDUCED_TYPENAME range_iterator<R>::type
                                               >
                                          >
                 base;
@@ -39,11 +40,11 @@ namespace boost
         public:
             typedef F transform_fn_type;
             typedef R source_range_type;
-            
-            transform_range( F f, R& r )
+
+            transformed_range( F f, R& r )
                 : base( make_transform_iterator( boost::begin(r), f ),
-                        make_transform_iterator( boost::end(r), f ) ) 
-            
+                        make_transform_iterator( boost::end(r), f ) )
+
             { }
         };
 
@@ -53,51 +54,51 @@ namespace boost
             transform_holder( T r ) : holder<T>(r)
             { }
         };
-        
+
         template< class InputRng, class UnaryFunction >
-        inline transform_range<UnaryFunction,InputRng> 
-        operator|( InputRng& r, 
+        inline transformed_range<UnaryFunction,InputRng>
+        operator|( InputRng& r,
                    const transform_holder<UnaryFunction>& f )
         {
-            return transform_range<UnaryFunction,InputRng>( f.val, r );   
+            return transformed_range<UnaryFunction,InputRng>( f.val, r );
         }
-    
+
         template< class InputRng, class UnaryFunction >
-        inline transform_range<UnaryFunction, const InputRng> 
-        operator|( const InputRng& r, 
+        inline transformed_range<UnaryFunction, const InputRng>
+        operator|( const InputRng& r,
                    const transform_holder<UnaryFunction>& f )
         {
-           return transform_range<UnaryFunction, const InputRng>( f.val, r );   
+           return transformed_range<UnaryFunction, const InputRng>( f.val, r );
         }
-        
+
     } // 'range_detail'
 
-    using range_detail::transform_range;
-        
+    using range_detail::transformed_range;
+
     namespace adaptors
-    { 
+    {
         namespace
         {
-            const range_detail::forwarder<range_detail::transform_holder> 
-                    transformed = 
+            const range_detail::forwarder<range_detail::transform_holder>
+                    transformed =
                       range_detail::forwarder<range_detail::transform_holder>();
         }
-        
+
         template<class UnaryFunction, class InputRange>
-        inline transform_range<UnaryFunction, InputRange>
+        inline transformed_range<UnaryFunction, InputRange>
         transform(InputRange& rng, UnaryFunction fn)
         {
-            return transform_range<UnaryFunction, InputRange>(fn, rng);
+            return transformed_range<UnaryFunction, InputRange>(fn, rng);
         }
-        
+
         template<class UnaryFunction, class InputRange>
-        inline transform_range<UnaryFunction, const InputRange>
+        inline transformed_range<UnaryFunction, const InputRange>
         transform(const InputRange& rng, UnaryFunction fn)
         {
-            return transform_range<UnaryFunction, const InputRange>(fn, rng);
+            return transformed_range<UnaryFunction, const InputRange>(fn, rng);
         }
     } // 'adaptors'
-    
+
 }
 
 #endif

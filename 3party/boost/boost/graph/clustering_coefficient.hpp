@@ -37,8 +37,8 @@ namespace detail
     template <class Graph>
     inline typename graph_traits<Graph>::degree_size_type
     count_edges(const Graph& g,
-                typename Graph::vertex_descriptor u,
-                typename Graph::vertex_descriptor v,
+                typename graph_traits<Graph>::vertex_descriptor u,
+                typename graph_traits<Graph>::vertex_descriptor v,
                 directed_tag)
 
     {
@@ -51,8 +51,8 @@ namespace detail
     template <class Graph>
     inline typename graph_traits<Graph>::degree_size_type
     count_edges(const Graph& g,
-                typename Graph::vertex_descriptor u,
-                typename Graph::vertex_descriptor v,
+                typename graph_traits<Graph>::vertex_descriptor u,
+                typename graph_traits<Graph>::vertex_descriptor v,
                 undirected_tag)
     {
         function_requires< AdjacencyMatrixConcept<Graph> >();

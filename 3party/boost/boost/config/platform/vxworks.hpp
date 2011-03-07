@@ -1,4 +1,5 @@
 //  (C) Copyright Dustin Spicuzza 2009. 
+// (C) Copyright Bryce Lelbach 2010
 //  Use, modification and distribution are subject to the 
 //  Boost Software License, Version 1.0. (See accompanying file 
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -22,6 +23,11 @@
 // define them itself
 #define _POSIX_TIMERS 1
 #define _POSIX_THREADS 1
+
+#define BOOST_NIX            1 
+//#define BOOST_GENETIC_NIX    1
+#define BOOST_TRADEMARK_NIX  1
+//#define BOOST_FUNCTIONAL_NIX 1
 
 // vxworks doesn't work with asio serial ports
 #define BOOST_ASIO_DISABLE_SERIAL_PORT

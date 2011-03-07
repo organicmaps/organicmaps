@@ -19,6 +19,7 @@
     #include <boost/fusion/include/fold.hpp>
     #include <boost/proto/proto_fwd.hpp>
     #include <boost/proto/fusion.hpp>
+    #include <boost/proto/functional/fusion/reverse.hpp>
     #include <boost/proto/traits.hpp>
     #include <boost/proto/transform/call.hpp>
     #include <boost/proto/transform/impl.hpp>

@@ -15,7 +15,7 @@
 #include <cstddef>
 #include <algorithm>
 #include <utility>
-#include <cassert>
+#include <boost/assert.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/shared_array.hpp>
 #include <boost/property_map/property_map.hpp>
@@ -213,7 +213,7 @@ namespace boost {
 #if 0
       for (size_t i = 1; i < data.size(); ++i) {
         if (compare_indirect(data[i], data[parent(i)])) {
-          assert (!"Element is smaller than its parent");
+          BOOST_ASSERT (!"Element is smaller than its parent");
         }
       }
 #endif

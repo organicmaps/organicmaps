@@ -17,7 +17,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org for updates, documentation, and revision history.
-#include <cassert>
+#include <boost/assert.hpp>
 
 #include <boost/config.hpp>
 #include <boost/static_assert.hpp>
@@ -115,7 +115,7 @@ public:
         // function. So if the is not a polymporphic type it's likely an error
         BOOST_STATIC_WARNING(boost::is_polymorphic< T >::value);
         const char * derived_key = t.get_key();
-        assert(NULL != derived_key);
+        BOOST_ASSERT(NULL != derived_key);
         return boost::serialization::extended_type_info::find(derived_key);
     }
     const char * get_key() const{
@@ -140,7 +140,7 @@ public:
         case 4:
             return factory<BOOST_DEDUCED_TYPENAME boost::remove_const< T >::type, 4>(ap);
         default:
-            assert(false); // too many arguments
+            BOOST_ASSERT(false); // too many arguments
             // throw exception here?
             return NULL;
         }

@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -112,7 +112,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
     class static_lexer 
     {
     private:
-        struct dummy { void true_() {}; };
+        struct dummy { void true_() {} };
         typedef void (dummy::*safe_bool)();
 
     public:
@@ -195,12 +195,13 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
 
     public:
         // interface for token definition management
-        std::size_t add_token (char_type const*, char_type, std::size_t) 
+        std::size_t add_token (char_type const*, char_type, std::size_t
+          , char_type const*) 
         {
             return unique_id_++;
         }
         std::size_t add_token (char_type const*, string_type const&
-          , std::size_t) 
+          , std::size_t, char_type const*) 
         {
             return unique_id_++;
         }

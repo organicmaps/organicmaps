@@ -12,6 +12,7 @@
 #ifndef BOOST_FILESYSTEM2_FSTREAM_HPP
 #define BOOST_FILESYSTEM2_FSTREAM_HPP
 
+#include <boost/filesystem/v2/config.hpp>
 #include <boost/filesystem/v2/operations.hpp> // for 8.3 hack (see below)
 #include <boost/utility/enable_if.hpp>
 #include <boost/detail/workaround.hpp>

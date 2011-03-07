@@ -1,5 +1,5 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
-//  Copyright (c) 2001-2010 Joel de Guzman
+//  Copyright (c) 2001-2011 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Joel de Guzman
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -23,11 +23,13 @@ namespace boost { namespace spirit { namespace lex
         typedef Derived derived_type;
         typedef lex::domain domain;
 
-        // Requirement: l.collect(def, state) -> void
+        // Requirement: l.collect(def, state, targetstate) -> void
         //
-        //  l:          a lexer component
-        //  def:        token definition container
-        //  state:      lexer state this token definition needs to be added to
+        //  l:           a lexer component
+        //  def:         token definition container
+        //  state:       lexer state this token definition needs to be added to
+        //  targetstate: an optional lexer state the lexer should be switched 
+        //               into after matching this token 
 
         Derived const& derived() const
         {

@@ -11,7 +11,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 #include <boost/spirit/home/classic/phoenix/actor.hpp>
-#include <cassert>
+#include <boost/assert.hpp>
 
 #ifdef PHOENIX_THREADSAFE
 #include <boost/thread/tss.hpp>
@@ -270,7 +270,7 @@ public:
     eval(TupleT const& /*args*/) const
     {
         using namespace std;
-        assert(frame.get() != 0);
+        BOOST_ASSERT(frame.get() != 0);
         return (*frame.get())[tuple_index<N>()];
     }
 

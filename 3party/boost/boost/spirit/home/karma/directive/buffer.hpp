@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 //
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,6 +17,8 @@
 #include <boost/spirit/home/support/unused.hpp>
 #include <boost/spirit/home/support/info.hpp>
 #include <boost/spirit/home/support/common_terminals.hpp>
+#include <boost/spirit/home/support/has_semantic_action.hpp>
+#include <boost/spirit/home/support/handles_container.hpp>
 #include <boost/spirit/home/karma/detail/attributes.hpp>
 
 namespace boost { namespace spirit
@@ -36,8 +38,8 @@ namespace boost { namespace spirit { namespace karma
     using spirit::buffer_type;
 
     ///////////////////////////////////////////////////////////////////////////
-    // omit_directive consumes the attribute of subject generator without
-    // generating anything
+    // buffer_directive buffers all generated output of the embedded generator
+    // and flushes it only if the whole embedded generator succeeds
     ///////////////////////////////////////////////////////////////////////////
     template <typename Subject>
     struct buffer_directive : unary_generator<buffer_directive<Subject> >
@@ -112,10 +114,17 @@ namespace boost { namespace spirit { namespace karma
 
 namespace boost { namespace spirit { namespace traits
 {
+    ///////////////////////////////////////////////////////////////////////////
     template <typename Subject>
     struct has_semantic_action<karma::buffer_directive<Subject> >
       : unary_has_semantic_action<Subject> {};
 
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename Subject, typename Attribute, typename Context
+        , typename Iterator>
+    struct handles_container<karma::buffer_directive<Subject>, Attribute
+        , Context, Iterator>
+      : unary_handles_container<Subject, Attribute, Context, Iterator> {};
 }}}
 
 #endif

@@ -1,5 +1,5 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
-//  Copyright (c) 2001-2010 Joel de Guzman
+//  Copyright (c) 2001-2011 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Joel de Guzman
 //  Copyright (c) 2009 Carl Barron
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
@@ -168,7 +168,6 @@ namespace boost { namespace spirit { namespace qi
         return qi::phrase_parse(first, last, expr, skipper, skip_flag::postskip
           , BOOST_PP_ENUM_PARAMS(N, attr));
     }
-
 }}}
 
 #undef BOOST_SPIRIT_QI_ATTRIBUTE_REFERENCE

@@ -89,7 +89,6 @@
 # define BOOST_NO_EXCEPTIONS
 #endif
 
-
 //
 // Threading support: Turn this on unconditionally here (except for
 // those platforms where we can know for sure). It will get turned off again
@@ -148,8 +147,6 @@
 
 // C++0x features not implemented in any GCC version
 //
-#define BOOST_NO_CONSTEXPR
-#define BOOST_NO_NULLPTR
 #define BOOST_NO_TEMPLATE_ALIASES
 
 // C++0x features in 4.3.n and later
@@ -211,6 +208,13 @@
 #  define BOOST_NO_UNICODE_LITERALS
 #endif
 
+// C++0x features in 4.5.n and later
+//
+#if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6) || !defined(__GXX_EXPERIMENTAL_CXX0X__)
+#define BOOST_NO_CONSTEXPR
+#define BOOST_NO_NULLPTR
+#endif
+
 // ConceptGCC compiler:
 //   http://www.generic-programming.org/software/ConceptGCC/
 #ifdef __GXX_CONCEPTS__
@@ -231,8 +235,8 @@
 #  error "Compiler not configured - please reconfigure"
 #endif
 //
-// last known and checked version is 4.4 (Pre-release):
-#if (__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ > 4))
+// last known and checked version is 4.6 (Pre-release):
+#if (__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ > 6))
 #  if defined(BOOST_ASSERT_CONFIG)
 #     error "Unknown compiler version - please run the configure tests and report the results"
 #  else

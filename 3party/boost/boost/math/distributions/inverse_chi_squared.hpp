@@ -146,7 +146,7 @@ RealType pdf(const inverse_chi_squared_distribution<RealType, Policy>& dist, con
    if(result < tools::min_value<RealType>())
       return 0; // Random variable is near enough infinite.
    result = gamma_p_derivative(df/2, result, Policy()) * df * scale/2;
-   if(result != 0) // prevent 0 / 0:
+   if(result != 0) // prevent 0 / 0,  gamma_p_derivative -> 0 faster than x^2
       result /= (x * x);
    return result;
 } // pdf
@@ -298,7 +298,7 @@ inline RealType variance(const inverse_chi_squared_distribution<RealType, Policy
       return policies::raise_domain_error<RealType>(
          function,
          "inverse Chi-Squared distribution only has a variance for degrees of freedom > 4, but got degrees of freedom = %1%.",
-         df, Policy());  return 2 * dist.degrees_of_freedom();
+         df, Policy());
    }
    return 2 * df * df * scale * scale / ((df - 2)*(df - 2) * (df - 4));
 } // variance

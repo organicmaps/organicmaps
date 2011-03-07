@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -9,7 +9,10 @@
 #include <boost/spirit/home/support/common_terminals.hpp>
 #include <boost/spirit/home/support/info.hpp>
 #include <boost/spirit/home/support/unused.hpp>
+#include <boost/spirit/home/support/attributes_fwd.hpp>
+#include <boost/spirit/home/support/detail/get_encoding.hpp>
 #include <boost/spirit/home/karma/detail/attributes.hpp>
+#include <boost/spirit/home/karma/detail/extract_from.hpp>
 #include <boost/spirit/home/karma/domain.hpp>
 #include <boost/spirit/home/karma/meta_compiler.hpp>
 #include <boost/spirit/home/karma/reference.hpp>
@@ -31,12 +34,12 @@
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit { namespace traits
 {
-    template <typename T, typename Attribute, typename Enable = void>
+    template <typename T, typename Attribute, typename Enable>
     struct symbols_lookup
     {
         typedef 
             mpl::eval_if<fusion::traits::is_sequence<T>
-              , detail::value_at_c<T, 0>
+              , traits::detail::value_at_c<T, 0>
               , detail::add_const_ref<T> > sequence_type;
         typedef typename 
             mpl::eval_if<traits::is_container<T>
@@ -84,12 +87,12 @@ namespace boost { namespace spirit { namespace traits
         }
     };
 
-    template <typename Attribute, typename T, typename Enable = void>
+    template <typename Attribute, typename T, typename Enable>
     struct symbols_value
     {
         typedef 
             mpl::eval_if<fusion::traits::is_sequence<T>
-              , detail::value_at_c<T, 1>
+              , traits::detail::value_at_c<T, 1>
               , mpl::identity<unused_type> > sequence_type;
         typedef typename 
             mpl::eval_if<traits::is_container<T>
@@ -208,11 +211,12 @@ namespace boost { namespace spirit { namespace karma
             typedef Attribute type;
         };
 
-        symbols()
+        symbols(std::string const& name = "symbols")
           : base_type(terminal::make(reference_(*this)))
           , add(*this)
           , remove(*this)
           , lookup(new Lookup())
+          , name_(name)
         {}
 
         symbols(symbols const& syms)
@@ -220,6 +224,7 @@ namespace boost { namespace spirit { namespace karma
           , add(*this)
           , remove(*this)
           , lookup(syms.lookup)
+          , name_(syms.name_)
         {}
 
         template <typename CharEncoding_, typename Tag_>
@@ -228,14 +233,17 @@ namespace boost { namespace spirit { namespace karma
           , add(*this)
           , remove(*this)
           , lookup(syms.lookup)
+          , name_(syms.name_)
         {}
 
         template <typename Symbols, typename Data>
-        symbols(Symbols const& syms, Data const& data)
+        symbols(Symbols const& syms, Data const& data
+              , std::string const& name = "symbols")
           : base_type(terminal::make(reference_(*this)))
           , add(*this)
           , remove(*this)
           , lookup(new Lookup())
+          , name_(name)
         {
             typename range_const_iterator<Symbols>::type si = boost::begin(syms);
             typename range_const_iterator<Data>::type di = boost::begin(data);
@@ -247,6 +255,7 @@ namespace boost { namespace spirit { namespace karma
         operator=(symbols const& rhs)
         {
             *lookup = *rhs.lookup;
+            name_ = rhs.name_;
             return *this;
         }
 
@@ -255,6 +264,7 @@ namespace boost { namespace spirit { namespace karma
         operator=(symbols<Attribute, T, Lookup, CharEncoding_, Tag_> const& rhs)
         {
             *lookup = *rhs.lookup;
+            name_ = rhs.name_;
             return *this;
         }
 
@@ -343,7 +353,16 @@ namespace boost { namespace spirit { namespace karma
         template <typename Context>
         info what(Context&) const
         {
-            return info("symbols");
+            return info(name_);
+        }
+
+        void name(std::string const &str)
+        {
+            name_ = str;
+        }
+        std::string const &name() const
+        {
+            return name_;
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -416,6 +435,7 @@ namespace boost { namespace spirit { namespace karma
         adder add;
         remover remove;
         shared_ptr<Lookup> lookup;
+        std::string name_;
     };
 
     ///////////////////////////////////////////////////////////////////////////
@@ -446,11 +466,12 @@ namespace boost { namespace spirit { namespace karma
             typedef Attribute type;
         };
 
-        symbols()
+        symbols(std::string const& name = "symbols")
           : base_type(terminal::make(reference_(*this)))
           , add(*this)
           , remove(*this)
           , lookup(new Lookup())
+          , name_(name)
         {}
 
         symbols(symbols const& syms)
@@ -458,6 +479,7 @@ namespace boost { namespace spirit { namespace karma
           , add(*this)
           , remove(*this)
           , lookup(syms.lookup)
+          , name_(syms.name_)
         {}
 
         template <typename CharEncoding_, typename Tag_>
@@ -466,14 +488,17 @@ namespace boost { namespace spirit { namespace karma
           , add(*this)
           , remove(*this)
           , lookup(syms.lookup)
+          , name_(syms.name_)
         {}
 
         template <typename Symbols, typename Data>
-        symbols(Symbols const& syms, Data const& data)
+        symbols(Symbols const& syms, Data const& data
+              , std::string const& name = "symbols")
           : base_type(terminal::make(reference_(*this)))
           , add(*this)
           , remove(*this)
           , lookup(new Lookup())
+          , name_(name)
         {
             typename range_const_iterator<Symbols>::type si = boost::begin(syms);
             typename range_const_iterator<Data>::type di = boost::begin(data);
@@ -485,6 +510,7 @@ namespace boost { namespace spirit { namespace karma
         operator=(symbols const& rhs)
         {
             *lookup = *rhs.lookup;
+            name_ = rhs.name_;
             return *this;
         }
 
@@ -493,6 +519,7 @@ namespace boost { namespace spirit { namespace karma
         operator=(symbols<Attribute, unused_type, Lookup, CharEncoding_, Tag_> const& rhs)
         {
             *lookup = *rhs.lookup;
+            name_ = rhs.name_;
             return *this;
         }
 
@@ -585,7 +612,16 @@ namespace boost { namespace spirit { namespace karma
         template <typename Context>
         info what(Context&) const
         {
-            return info("symbols");
+            return info(name_);
+        }
+
+        void name(std::string const &str)
+        {
+            name_ = str;
+        }
+        std::string const &name() const
+        {
+            return name_;
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -658,6 +694,7 @@ namespace boost { namespace spirit { namespace karma
         adder add;
         remover remove;
         shared_ptr<Lookup> lookup;
+        std::string name_;
     };
 
     ///////////////////////////////////////////////////////////////////////////

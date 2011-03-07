@@ -13,7 +13,7 @@
 #endif              
 
 #include <algorithm>                          // copy, min.
-#include <cassert>
+#include <boost/assert.hpp>
 #include <iterator>                           // back_inserter
 #include <vector>
 #include <boost/iostreams/constants.hpp>      // default_device_buffer_size 
@@ -58,7 +58,7 @@ public:
     std::streamsize read(Source& src, char_type* s, std::streamsize n)
     {
         using namespace std;
-        assert(!(state_ & f_write));
+        BOOST_ASSERT(!(state_ & f_write));
         state_ |= f_read;
         if (!(state_ & f_eof))
             do_read(src);
@@ -74,7 +74,7 @@ public:
     template<typename Sink>
     std::streamsize write(Sink&, const char_type* s, std::streamsize n)
     {
-        assert(!(state_ & f_read));
+        BOOST_ASSERT(!(state_ & f_read));
         state_ |= f_write;
         data_.insert(data_.end(), s, s + n);
         return n;

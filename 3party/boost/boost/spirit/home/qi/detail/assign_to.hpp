@@ -1,6 +1,6 @@
 /*=============================================================================
-    Copyright (c) 2001-2010 Joel de Guzman
-    Copyright (c) 2001-2010 Hartmut Kaiser
+    Copyright (c) 2001-2011 Joel de Guzman
+    Copyright (c) 2001-2011 Hartmut Kaiser
     http://spirit.sourceforge.net/
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -158,11 +158,103 @@ namespace boost { namespace spirit { namespace traits
     };
 
     ///////////////////////////////////////////////////////////////////////////
+    template <typename Attribute, typename T, typename Enable>
+    struct assign_to_container_from_value
+    {
+        // T is not a container and not a string
+        template <typename T_>
+        static void call(T_ const& val, Attribute& attr, mpl::false_, mpl::false_)
+        {
+            traits::push_back(attr, val);
+        }
+
+        // T is a container (but not a string)
+        template <typename T_>
+        static void call(T_ const& val, Attribute& attr, mpl::true_, mpl::false_)
+        {
+            typedef typename traits::container_iterator<T_ const>::type 
+                iterator_type;
+            iterator_type end = traits::end(val);
+            for (iterator_type i = traits::begin(val); i != end; traits::next(i))
+                push_back(attr, traits::deref(i));
+        }
+
+        // T is a string 
+        template <typename Iterator>
+        static void append_to_string(Attribute& attr, Iterator begin, Iterator end)
+        {
+            for (Iterator i = begin; i != end; ++i)
+                push_back(attr, *i);
+        }
+
+        template <typename T_, typename Pred>
+        static void call(T_ const& val, Attribute& attr, Pred, mpl::true_)
+        {
+            typedef typename char_type_of<T_>::type char_type;
+            append_to_string(attr, traits::get_begin<char_type>(val)
+              , traits::get_end<char_type>(val));
+        }
+
+        static void call(T const& val, Attribute& attr)
+        {
+            typedef typename traits::is_container<T>::type is_container;
+            typedef typename traits::is_string<T>::type is_string;
+
+            call(val, attr, is_container(), is_string());
+        }
+    };
+
+    template <typename Attribute, typename T>
+    struct assign_to_container_from_value<reference_wrapper<Attribute>, T>
+    {
+        static void 
+        call(T const& val, reference_wrapper<Attribute> attr)
+        {
+            assign_to(val.get(), attr);
+        }
+    };
+
+    template <typename Attribute>
+    struct assign_to_container_from_value<optional<Attribute>, unused_type>
+    {
+        static void 
+        call(unused_type, optional<Attribute> const&)
+        {
+        }
+    };
+
+    ///////////////////////////////////////////////////////////////////////////
+    namespace detail
+    {
+        // overload for non-container attributes
+        template <typename T, typename Attribute, typename P1, typename P2>
+        inline void
+        assign_to(T const& val, Attribute& attr, P1, P2)
+        {
+            assign_to_attribute_from_value<Attribute, T>::call(val, attr);
+        }
+
+        // overload for containers (but not for variants or optionals 
+        // holding containers)
+        template <typename T, typename Attribute>
+        inline void
+        assign_to(T const& val, Attribute& attr, mpl::true_, mpl::true_)
+        {
+            assign_to_container_from_value<Attribute, T>::call(val, attr);
+        }
+    }
+
     template <typename T, typename Attribute>
     inline void
     assign_to(T const& val, Attribute& attr)
     {
-        assign_to_attribute_from_value<Attribute, T>::call(val, attr);
+        typedef typename traits::is_container<Attribute>::type is_container;
+        typedef typename mpl::and_<
+            traits::not_is_variant<Attribute>
+          , traits::not_is_optional<Attribute> 
+        >::type is_not_wrapped_container;
+
+        detail::assign_to(val, attr, is_container(), is_not_wrapped_container());
     }
 
     template <typename T>

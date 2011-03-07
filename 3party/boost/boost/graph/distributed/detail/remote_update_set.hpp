@@ -16,7 +16,7 @@
 #include <boost/graph/parallel/process_group.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <vector>
-#include <cassert>
+#include <boost/assert.hpp>
 #include <boost/optional.hpp>
 #include <queue>
 
@@ -110,7 +110,7 @@ private:
       case msg_updates:
         {
           updates_size_type num_updates = update_sizes[source];
-          assert(num_updates);
+          BOOST_ASSERT(num_updates);
 
           // Receive the actual updates
           std::vector<updates_pair_type> updates(num_updates);
@@ -207,7 +207,7 @@ private:
     void operator()(process_id_type source, int tag) 
     { 
       // Receive the # of updates
-      assert(tag == msg_update);
+      BOOST_ASSERT(tag == msg_update);
       update_pair_type update;
       receive(self->process_group, source, tag, update);
       

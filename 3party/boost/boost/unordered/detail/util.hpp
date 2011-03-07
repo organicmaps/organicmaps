@@ -299,7 +299,7 @@ namespace boost { namespace unordered_detail {
 #if BOOST_WORKAROUND(__CODEGEARC__, BOOST_TESTED_AT(0x0613))
                 struct dummy { hash_node<Alloc, Grouped> x; };
 #endif
-                boost::unordered_detail::destroy(&node_->value());
+                boost::unordered_detail::destroy(node_->value_ptr());
             }
 
             if (node_constructed_)
@@ -322,7 +322,7 @@ namespace boost { namespace unordered_detail {
         }
         else {
             BOOST_ASSERT(node_constructed_ && value_constructed_);
-            boost::unordered_detail::destroy(&node_->value());
+            boost::unordered_detail::destroy(node_->value_ptr());
             value_constructed_ = false;
         }
     }

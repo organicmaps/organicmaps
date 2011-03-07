@@ -24,6 +24,10 @@
 #include <boost/type_traits/is_pointer.hpp>
 #endif
 
+#if !defined(BOOST_NO_0X_HDR_TYPEINDEX)
+#include <typeindex>
+#endif
+
 #if BOOST_WORKAROUND(__GNUC__, < 3) \
     && !defined(__SGI_STL_PORT) && !defined(_STLPORT_VERSION)
 #define BOOST_HASH_CHAR_TRAITS string_char_traits
@@ -86,6 +90,10 @@ namespace boost
     template <class Ch, class A>
     std::size_t hash_value(
         std::basic_string<Ch, std::BOOST_HASH_CHAR_TRAITS<Ch>, A> const&);
+
+#if !defined(BOOST_NO_0X_HDR_TYPEINDEX)
+    std::size_t hash_value(std::type_index);
+#endif
 
     // Implementation
 
@@ -210,8 +218,8 @@ namespace boost
 #endif
     {
 #if defined(__VMS) && __INITIAL_POINTER_SIZE == 64
-	// for some reason ptrdiff_t on OpenVMS compiler with
-	// 64 bit is not 64 bit !!!
+    // for some reason ptrdiff_t on OpenVMS compiler with
+    // 64 bit is not 64 bit !!!
         std::size_t x = static_cast<std::size_t>(
            reinterpret_cast<long long int>(v));
 #else
@@ -331,6 +339,13 @@ namespace boost
         return boost::hash_detail::float_hash_value(v);
     }
 
+#if !defined(BOOST_NO_0X_HDR_TYPEINDEX)
+    inline std::size_t hash_value(std::type_index v)
+    {
+        return v.hash_code();
+    }
+#endif
+
     //
     // boost::hash
     //
@@ -433,6 +448,10 @@ namespace boost
 #if !defined(BOOST_NO_LONG_LONG)
     BOOST_HASH_SPECIALIZE(boost::long_long_type)
     BOOST_HASH_SPECIALIZE(boost::ulong_long_type)
+#endif
+
+#if !defined(BOOST_NO_0X_HDR_TYPEINDEX)
+    BOOST_HASH_SPECIALIZE(std::type_index)
 #endif
 
 #undef BOOST_HASH_SPECIALIZE

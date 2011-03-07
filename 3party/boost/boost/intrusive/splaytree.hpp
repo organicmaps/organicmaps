@@ -466,9 +466,10 @@ class splaytree_impl
       node_ptr to_insert(get_real_value_traits().to_node_ptr(value));
       if(safemode_or_autounlink)
          BOOST_INTRUSIVE_SAFE_HOOK_DEFAULT_ASSERT(node_algorithms::unique(to_insert));
-      this->priv_size_traits().increment();
-      return iterator(node_algorithms::insert_equal_lower_bound
+      iterator ret (node_algorithms::insert_equal_lower_bound
          (node_ptr(&priv_header()), to_insert, key_node_comp), this);
+      this->priv_size_traits().increment();
+      return ret;
    }
 
    //! <b>Requires</b>: value must be an lvalue, and "hint" must be
@@ -492,9 +493,10 @@ class splaytree_impl
       node_ptr to_insert(get_real_value_traits().to_node_ptr(value));
       if(safemode_or_autounlink)
          BOOST_INTRUSIVE_SAFE_HOOK_DEFAULT_ASSERT(node_algorithms::unique(to_insert));
-      this->priv_size_traits().increment();
-      return iterator(node_algorithms::insert_equal
+      iterator ret(node_algorithms::insert_equal
          (node_ptr(&priv_header()), hint.pointed_node(), to_insert, key_node_comp), this);
+      this->priv_size_traits().increment();
+      return ret;
    }
 
    //! <b>Requires</b>: Dereferencing iterator must yield an lvalue 
@@ -693,9 +695,9 @@ class splaytree_impl
       node_ptr to_insert(get_real_value_traits().to_node_ptr(value));
       if(safemode_or_autounlink)
          BOOST_INTRUSIVE_SAFE_HOOK_DEFAULT_ASSERT(node_algorithms::unique(to_insert));
-      this->priv_size_traits().increment();
       node_algorithms::insert_unique_commit
                (node_ptr(&priv_header()), to_insert, commit_data);
+      this->priv_size_traits().increment();
       return iterator(to_insert, this);
    }
 

@@ -35,7 +35,7 @@ namespace serialization {
 // default implementation does nothing.
 template<class T, int N>
 T * factory(std::va_list){
-    assert(false);
+    BOOST_ASSERT(false);
     // throw exception here?
     return NULL;
 }

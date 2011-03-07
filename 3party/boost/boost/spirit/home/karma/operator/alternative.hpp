@@ -1,5 +1,5 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
-//  Copyright (c) 2001-2010 Joel de Guzman
+//  Copyright (c) 2001-2011 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Joel de Guzman
 //
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -18,6 +18,8 @@
 #include <boost/spirit/home/karma/meta_compiler.hpp>
 #include <boost/spirit/home/support/info.hpp>
 #include <boost/spirit/home/support/unused.hpp>
+#include <boost/spirit/home/support/has_semantic_action.hpp>
+#include <boost/spirit/home/support/handles_container.hpp>
 #include <boost/spirit/home/support/detail/what_function.hpp>
 #include <boost/fusion/include/any.hpp>
 #include <boost/fusion/include/mpl.hpp>
@@ -87,7 +89,8 @@ namespace boost { namespace spirit { namespace karma
         {
             // Put all the element attributes in a tuple
             typedef typename traits::build_attribute_sequence<
-                Elements, Context, mpl::identity, Iterator
+                Elements, Context, traits::alternative_attribute_transform
+              , Iterator, karma::domain
             >::type all_attributes;
 
             // Ok, now make a variant over the attribute sequence. Note that
@@ -176,6 +179,7 @@ namespace boost { namespace spirit { namespace karma
 
 namespace boost { namespace spirit { namespace traits
 {
+    ///////////////////////////////////////////////////////////////////////////
     template <typename Elements>
     struct has_semantic_action<karma::alternative<Elements> >
       : nary_has_semantic_action<Elements> {};
@@ -183,6 +187,19 @@ namespace boost { namespace spirit { namespace traits
     template <typename Elements>
     struct has_semantic_action<karma::strict_alternative<Elements> >
       : nary_has_semantic_action<Elements> {};
+
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename Elements, typename Attribute, typename Context
+      , typename Iterator>
+    struct handles_container<karma::alternative<Elements>, Attribute, Context
+      , Iterator>
+      : nary_handles_container<Elements, Attribute, Context, Iterator> {};
+    
+    template <typename Elements, typename Attribute, typename Context
+      , typename Iterator>
+    struct handles_container<karma::strict_alternative<Elements>, Attribute
+      , Context, Iterator>
+      : nary_handles_container<Elements, Attribute, Context, Iterator> {};
 }}}
 
 #endif

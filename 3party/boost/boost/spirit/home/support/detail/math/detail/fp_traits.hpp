@@ -193,7 +193,8 @@ template<class T, class U> void fp_traits_impl<T,U>::do_init_()
             // If we do get here, then we have failed to detect the Motorola
             // processor at compile time.
 
-            BOOST_ASSERT(false);        
+            BOOST_ASSERT(false && 
+                "Failed to detect the Motorola processor at compile time");        
             return;
 
         case 0x3ffe8000:      // IEEE extended double precision format

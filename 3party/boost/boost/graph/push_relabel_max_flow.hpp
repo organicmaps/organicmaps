@@ -11,7 +11,7 @@
 #define BOOST_PUSH_RELABEL_MAX_FLOW_HPP
 
 #include <boost/config.hpp>
-#include <cassert>
+#include <boost/assert.hpp>
 #include <vector>
 #include <list>
 #include <iosfwd>
@@ -266,7 +266,7 @@ namespace boost {
       // but it is called "discharge" in the paper and in hi_pr.c.
       void discharge(vertex_descriptor u)
       {
-        assert(get(excess_flow, u) > 0);
+        BOOST_ASSERT(get(excess_flow, u) > 0);
         while (1) {
           out_edge_iterator ai, ai_end;
           for (boost::tie(ai, ai_end) = current[u]; ai != ai_end; ++ai) {
@@ -703,8 +703,8 @@ namespace boost {
     
     algo.convert_preflow_to_flow();
     
-    assert(algo.is_flow());
-    assert(algo.is_optimal());
+    BOOST_ASSERT(algo.is_flow());
+    BOOST_ASSERT(algo.is_optimal());
     
     return flow;
   } // push_relabel_max_flow()

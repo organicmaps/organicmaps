@@ -90,7 +90,7 @@ int read_dimacs_max_flow_internal(Graph& g,
   const int EN20 = 19;
   const int EN22 = 20;
 
-  static char *err_message[] =
+  static const char *err_message[] =
   {
     /* 0*/    "more than one problem line.",
     /* 1*/    "wrong number of parameters in the problem line.",

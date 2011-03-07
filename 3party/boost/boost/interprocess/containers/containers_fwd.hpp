@@ -35,4 +35,6 @@ using boost::container::ordered_unique_range;
 
 #include <boost/interprocess/detail/config_end.hpp>
 
+/// @endcond
+
 #endif //   #ifndef  BOOST_INTERPROCESS_CONTAINERS_CONTAINERS_FWD_HPP

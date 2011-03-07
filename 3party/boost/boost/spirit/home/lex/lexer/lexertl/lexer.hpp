@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -24,6 +24,8 @@
 #if defined(BOOST_SPIRIT_LEXERTL_DEBUG)
 #include <boost/spirit/home/support/detail/lexer/debug.hpp>
 #endif
+
+#include <boost/foreach.hpp>
 
 namespace boost { namespace spirit { namespace lex { namespace lexertl
 { 
@@ -145,8 +147,10 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
     class lexer 
     {
     private:
-        struct dummy { void true_() {}; };
+        struct dummy { void true_() {} };
         typedef void (dummy::*safe_bool)();
+
+        static std::size_t const all_states_id = static_cast<std::size_t>(-2);
 
     public:
         operator safe_bool() const
@@ -155,6 +159,8 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         typedef typename boost::detail::iterator_traits<Iterator>::value_type 
             char_type;
         typedef std::basic_string<char_type> string_type;
+
+        typedef boost::lexer::basic_rules<char_type> basic_rules_type;
 
         //  Every lexer type to be used as a lexer for Spirit has to conform to 
         //  a public interface .
@@ -215,18 +221,32 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
     public:
         // interface for token definition management
         std::size_t add_token(char_type const* state, char_type tokendef, 
-            std::size_t token_id)
+            std::size_t token_id, char_type const* targetstate)
         {
             add_state(state);
             initialized_dfa_ = false;
-            return rules_.add(state, detail::escape(tokendef), token_id, state);
+            if (state == all_states())
+                return rules_.add(state, detail::escape(tokendef), token_id, rules_.dot());
+
+            if (0 == targetstate)
+                targetstate = state;
+            else
+                add_state(targetstate);
+            return rules_.add(state, detail::escape(tokendef), token_id, targetstate);
         }
         std::size_t add_token(char_type const* state, string_type const& tokendef, 
-            std::size_t token_id)
+            std::size_t token_id, char_type const* targetstate)
         {
             add_state(state);
             initialized_dfa_ = false;
-            return rules_.add(state, tokendef, token_id, state);
+            if (state == all_states())
+                return rules_.add(state, tokendef, token_id, rules_.dot());
+
+            if (0 == targetstate)
+                targetstate = state;
+            else
+                add_state(targetstate);
+            return rules_.add(state, tokendef, token_id, targetstate);
         }
 
         // interface for pattern definition management
@@ -249,6 +269,9 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         }
         std::size_t add_state(char_type const* state)
         {
+            if (state == all_states()) 
+                return all_states_id;
+
             std::size_t stateid = rules_.state(state);
             if (boost::lexer::npos == stateid) {
                 stateid = rules_.add_state(state);
@@ -260,20 +283,34 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         { 
             return string_type(rules_.initial());
         }
+        string_type all_states() const 
+        { 
+            return string_type(rules_.all_states());
+        }
 
         //  Register a semantic action with the given id
         template <typename F>
-        void add_action(id_type unique_id, std::size_t state, F act)
+        void add_action(std::size_t unique_id, std::size_t state, F act)
         {
             // If you see an error here stating add_action is not a member of
-            // fusion::unused_type the you are probably having semantic actions 
+            // fusion::unused_type then you are probably having semantic actions 
             // attached to at least one token in the lexer definition without
             // using the lex::lexertl::actor_lexer<> as its base class.
             typedef typename Functor::wrap_action_type wrapper_type;
-            actions_.add_action(unique_id, state, wrapper_type::call(act));
+            if (state == all_states_id) {
+                // add the action to all known states
+                typedef typename 
+                    basic_rules_type::string_size_t_map::value_type 
+                state_type;
+                BOOST_FOREACH(state_type const& s, rules_.statemap())
+                    actions_.add_action(unique_id, s.second, wrapper_type::call(act));
+            }
+            else {
+                actions_.add_action(unique_id, state, wrapper_type::call(act));
+            }
         }
 //         template <typename F>
-//         void add_action(id_type unique_id, char_type const* state, F act)
+//         void add_action(std::size_t unique_id, char_type const* state, F act)
 //         {
 //             typedef typename Functor::wrap_action_type wrapper_type;
 //             actions_.add_action(unique_id, add_state(state), wrapper_type::call(act));
@@ -304,7 +341,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         // lexertl specific data
         mutable boost::lexer::basic_state_machine<char_type> state_machine_;
         boost::lexer::regex_flags flags_;
-        boost::lexer::basic_rules<char_type> rules_;
+        basic_rules_type rules_;
 
         typename Functor::semantic_actions_type actions_;
         mutable bool initialized_dfa_;

@@ -43,14 +43,6 @@ namespace signals2
 
 namespace detail
 {
-
-#if !defined(BOOST_NO_RVALUE_REFERENCES)
-  template< class T > T&& forward( T & t )
-  {
-    return static_cast< T&& >( t );
-  }
-#endif
-
   inline void adl_predestruct(...) {}
 } // namespace detail
 
@@ -78,7 +70,7 @@ public:
         if(!_postconstructed)
         {
             adl_postconstruct(_sp, const_cast<typename boost::remove_const<T>::type *>(_sp.get()),
-                detail::forward<Args>(args)...);
+                std::forward<Args>(args)...);
             _postconstructed = true;
         }
         return _sp;
@@ -305,7 +297,7 @@ public:
 
         void * pv = pd->address();
 
-        new( pv ) T( detail::forward<Args>( args )... );
+        new( pv ) T( std::forward<Args>( args )... );
         pd->set_initialized();
 
         boost::shared_ptr< T > retval( pt, static_cast< T* >( pv ) );
@@ -486,7 +478,7 @@ template< class T > postconstructor_invoker<T> deconstruct()
 
 template< class T, class... Args > postconstructor_invoker< T > deconstruct( Args && ... args )
 {
-    return deconstruct_access::deconstruct<T>( detail::forward<Args>( args )... );
+    return deconstruct_access::deconstruct<T>( std::forward<Args>( args )... );
 }
 
 #else

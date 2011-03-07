@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 //
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -11,8 +11,12 @@
 #endif
 
 #include <boost/config/no_tr1/cmath.hpp>
+#include <boost/config.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <boost/spirit/home/support/common_terminals.hpp>
 #include <boost/spirit/home/support/string_traits.hpp>
+#include <boost/spirit/home/support/numeric_traits.hpp>
 #include <boost/spirit/home/support/info.hpp>
 #include <boost/spirit/home/support/char_class.hpp>
 #include <boost/spirit/home/support/container.hpp>
@@ -23,6 +27,7 @@
 #include <boost/spirit/home/karma/auxiliary/lazy.hpp>
 #include <boost/spirit/home/karma/detail/get_casetag.hpp>
 #include <boost/spirit/home/karma/detail/extract_from.hpp>
+#include <boost/spirit/home/karma/detail/enable_lit.hpp>
 #include <boost/spirit/home/karma/domain.hpp>
 #include <boost/spirit/home/karma/numeric/real_policies.hpp>
 #include <boost/spirit/home/karma/numeric/detail/real_utils.hpp>
@@ -40,7 +45,7 @@ namespace boost { namespace spirit
         struct real_policies;
 
         ///////////////////////////////////////////////////////////////////////
-        // This one is the class that the user can instantiate directly in 
+        // This is the class that the user can instantiate directly in 
         // order to create a customized real generator
         template <typename T = double, typename Policies = real_policies<T> >
         struct real_generator
@@ -71,7 +76,7 @@ namespace boost { namespace spirit
 
     ///////////////////////////////////////////////////////////////////////////
     template <>
-    struct use_terminal<karma::domain, float>             // enables lit(1.of)
+    struct use_terminal<karma::domain, float>             // enables lit(1.0f)
       : mpl::true_ {};
 
     template <>
@@ -132,6 +137,12 @@ namespace boost { namespace spirit
       , 1 // arity
     > : mpl::true_ {};
 
+    // enables lit(double)
+    template <typename A0>
+    struct use_terminal<karma::domain
+          , terminal_ex<tag::lit, fusion::vector1<A0> >
+          , typename enable_if<traits::is_real<A0> >::type>
+      : mpl::true_ {};
 }}
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -406,6 +417,33 @@ namespace boost { namespace spirit { namespace karma
     struct make_primitive<long double, Modifiers> 
       : detail::basic_real_literal<long double, Modifiers> {};
 
+    // lit(double)
+    template <typename Modifiers, typename A0>
+    struct make_primitive<
+            terminal_ex<tag::lit, fusion::vector1<A0> >
+          , Modifiers
+          , typename enable_if<traits::is_real<A0> >::type>
+      : detail::basic_real_literal<A0, Modifiers> 
+    {
+        static bool const lower =
+            has_modifier<Modifiers, tag::char_code_base<tag::lower> >::value;
+        static bool const upper =
+            has_modifier<Modifiers, tag::char_code_base<tag::upper> >::value;
+
+        typedef literal_real_generator<
+            A0, real_policies<A0>
+          , typename spirit::detail::get_encoding_with_case<
+                Modifiers, unused_type, lower || upper>::type
+          , typename detail::get_casetag<Modifiers, lower || upper>::type
+          , true
+        > result_type;
+
+        template <typename Terminal>
+        result_type operator()(Terminal const& term, unused_type) const
+        {
+            return result_type(fusion::at_c<0>(term.args));
+        }
+    };
 }}}
 
 #endif // defined(BOOST_SPIRIT_KARMA_REAL_FEB_26_2007_0512PM)

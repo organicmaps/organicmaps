@@ -12,6 +12,7 @@
 #include <map>
 #include <list>
 #include <boost/graph/iteration_macros.hpp>
+#include <boost/assert.hpp>
 
 namespace boost { namespace graph {
 
@@ -124,7 +125,7 @@ std::map<unsigned long, double> weight_degree_dist( Graph& g ) {
 
   for( std::map<unsigned long, double>::iterator iter = dist.begin();
        iter != dist.end(); ++iter ) {
-    assert( n[iter->first] != 0 );
+    BOOST_ASSERT( n[iter->first] != 0 );
     dist[iter->first] /= n[iter->first];
   }
 

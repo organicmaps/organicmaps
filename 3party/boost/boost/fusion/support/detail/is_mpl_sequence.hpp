@@ -9,17 +9,17 @@
 #define FUSION_DETAIL_IS_MPL_SEQUENCE_29122006_1105
 
 #include <boost/fusion/support/sequence_base.hpp>
-#include <boost/type_traits/is_base_of.hpp>
 #include <boost/mpl/is_sequence.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
+#include <boost/type_traits/is_convertible.hpp>
 
 namespace boost { namespace fusion { namespace detail
 {
     template <typename T>
     struct is_mpl_sequence
         : mpl::and_<
-            mpl::not_<is_base_of<sequence_root, T> >
+            mpl::not_<is_convertible<T, from_sequence_convertible_type> >
           , mpl::is_sequence<T> >
     {};
 }}}

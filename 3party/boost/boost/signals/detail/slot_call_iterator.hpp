@@ -47,9 +47,9 @@ namespace boost {
         friend class iterator_core_access;
 
       public:
-        slot_call_iterator(Iterator iter_in, Iterator end_in, Function f,
+        slot_call_iterator(Iterator iter_in, Iterator end_in, Function func,
                            optional<result_type> &c)
-          : iter(iter_in), end(end_in), f(f), cache(&c)
+          : iter(iter_in), end(end_in), f(func), cache(&c)
         {
           iter = std::find_if(iter, end, is_callable());
         }

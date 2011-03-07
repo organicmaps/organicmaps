@@ -365,7 +365,7 @@ class simple_state : public detail::simple_state_base_type< MostDerived,
       {
         if ( this->deferred_events() )
         {
-          outermost_context_base().release_events( this );
+          outermost_context_base().release_events();
         }
 
         pContext_->remove_inner_state( orthogonal_position::value );
@@ -490,19 +490,12 @@ class simple_state : public detail::simple_state_base_type< MostDerived,
 
       // At this point we can only safely access pContext_ if the handler did
       // not return do_discard_event!
-      switch ( reactionResult )
+      if ( reactionResult == detail::do_forward_event )
       {
-        case detail::do_forward_event:
-          // TODO: The following call to react_impl of our outer state should
-          // be made with a context_type:: prefix to call directly instead of
-          // virtually. For some reason the compiler complains...
-          reactionResult = pContext_->react_impl( evt, eventType );
-          break;
-        case detail::do_defer_event:
-          outermost_context_base().defer_event( evt, this );
-          break;
-        default:
-          break;
+        // TODO: The following call to react_impl of our outer state should
+        // be made with a context_type:: prefix to call directly instead of
+        // virtually. For some reason the compiler complains...
+        reactionResult = pContext_->react_impl( evt, eventType );
       }
 
       return reactionResult;

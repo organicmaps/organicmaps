@@ -137,7 +137,7 @@ boost
                 }
 #ifndef BOOST_NO_RTTI
             tmp << std::string("Dynamic exception type: ") <<
-                units::detail::demangle((be?BOOST_EXCEPTION_DYNAMIC_TYPEID(*be):BOOST_EXCEPTION_DYNAMIC_TYPEID(*se)).type_.name()) << '\n';
+                units::detail::demangle((be?(BOOST_EXCEPTION_DYNAMIC_TYPEID(*be)):(BOOST_EXCEPTION_DYNAMIC_TYPEID(*se))).type_.name()) << '\n';
 #endif
             if( with_what && se )
                 tmp << "std::exception::what: " << wh << '\n';

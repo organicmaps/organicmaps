@@ -1170,7 +1170,7 @@ namespace boost { namespace polygon{
     //odd count implies boundary condition
     if(counts[0] % 2 || counts[1] % 2) return consider_touch;
     //an odd number of edges to the left implies interior pt
-    return counts[0] % 4 != 0; 
+    return counts[winding(polygon) == COUNTERCLOCKWISE ? 0 : 1] % 4 != 0; 
   }
 
   //TODO: refactor to expose as user APIs

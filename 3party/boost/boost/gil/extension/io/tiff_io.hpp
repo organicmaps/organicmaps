@@ -122,9 +122,13 @@ class tiff_reader {
 protected:
     TIFF *_tp;
 public:
-    tiff_reader(const char* filename) {
+    tiff_reader(const char* filename,tdir_t dirnum=0) {
         io_error_if((_tp=TIFFOpen(filename,"r"))==NULL,
                     "tiff_reader: fail to open file");
+        if(dirnum>0) {
+            io_error_if(TIFFSetDirectory(_tp,dirnum)!=1,
+                        "tiff_reader: fail to set directory");
+        }
     }
     ~tiff_reader() { TIFFClose(_tp); }
     template <typename View>
@@ -171,10 +175,10 @@ class tiff_reader_color_convert : public tiff_reader {
 private:
     CC _cc;
 public:
-    tiff_reader_color_convert(const char* filename) : 
-        tiff_reader(filename) {}
-    tiff_reader_color_convert(const char* filename,CC cc_in) : 
-        tiff_reader(filename),_cc(cc_in) {}
+    tiff_reader_color_convert(const char* filename,tdir_t dirnum=0) :
+        tiff_reader(filename,dirnum) {}
+    tiff_reader_color_convert(const char* filename,CC cc_in,tdir_t dirnum=0) :
+        tiff_reader(filename,dirnum),_cc(cc_in) {}
     template <typename View>
     void apply(const View& view) {
         point2<std::ptrdiff_t> dims=get_dimensions();
@@ -336,18 +340,34 @@ struct tiff_read_support {
 };
 
 /// \ingroup TIFF_IO
+/// \brief Returns the number of directories in the TIFF file
+inline int tiff_get_directory_count(const char* filename) {
+    TIFF *tif;
+    io_error_if((tif=TIFFOpen(filename,"r"))==NULL,
+                    "tiff_get_count: fail to open file");
+
+    int dircount = 0;
+    do {
+        dircount++;
+    } while (TIFFReadDirectory(tif));
+
+    TIFFClose(tif);
+    return dircount;
+}
+
+/// \ingroup TIFF_IO
 /// \brief Returns the width and height of the TIFF file at the specified location.
 /// Throws std::ios_base::failure if the location does not correspond to a valid TIFF file
-inline point2<std::ptrdiff_t> tiff_read_dimensions(const char* filename) {
-    detail::tiff_reader m(filename);
+inline point2<std::ptrdiff_t> tiff_read_dimensions(const char* filename,tdir_t dirnum=0) {
+    detail::tiff_reader m(filename,dirnum);
     return m.get_dimensions();
 }
 
 /// \ingroup TIFF_IO
 /// \brief Returns the width and height of the TIFF file at the specified location.
 /// Throws std::ios_base::failure if the location does not correspond to a valid TIFF file
-inline point2<std::ptrdiff_t> tiff_read_dimensions(const std::string& filename) {
-    return tiff_read_dimensions(filename.c_str());
+inline point2<std::ptrdiff_t> tiff_read_dimensions(const std::string& filename,tdir_t dirnum=0) {
+    return tiff_read_dimensions(filename.c_str(),dirnum);
 }
 
 /// \ingroup TIFF_IO
@@ -356,17 +376,17 @@ inline point2<std::ptrdiff_t> tiff_read_dimensions(const std::string& filename) 
 /// Throws std::ios_base::failure if the file is not a valid TIFF file, or if its color space or channel depth are not 
 /// compatible with the ones specified by View, or if its dimensions don't match the ones of the view.
 template <typename View>
-inline void tiff_read_view(const char* filename,const View& view) {
+inline void tiff_read_view(const char* filename,const View& view,tdir_t dirnum=0) {
     BOOST_STATIC_ASSERT(tiff_read_support<View>::is_supported);
-    detail::tiff_reader m(filename);
+    detail::tiff_reader m(filename,dirnum);
     m.apply(view);
 }
 
 /// \ingroup TIFF_IO
 /// \brief Loads the image specified by the given tiff image file name into the given view.
 template <typename View>
-inline void tiff_read_view(const std::string& filename,const View& view) {
-    tiff_read_view(filename.c_str(),view);
+inline void tiff_read_view(const std::string& filename,const View& view,tdir_t dirnum=0) {
+    tiff_read_view(filename.c_str(),view,dirnum);
 }
 
 /// \ingroup TIFF_IO
@@ -375,25 +395,25 @@ inline void tiff_read_view(const std::string& filename,const View& view) {
 /// Throws std::ios_base::failure if the file is not a valid TIFF file, or if its color space or channel depth are not 
 /// compatible with the ones specified by Image
 template <typename Image>
-void tiff_read_image(const char* filename,Image& im) {
+void tiff_read_image(const char* filename,Image& im,tdir_t dirnum=0) {
     BOOST_STATIC_ASSERT(tiff_read_support<typename Image::view_t>::is_supported);
-    detail::tiff_reader m(filename);
+    detail::tiff_reader m(filename,dirnum);
     m.read_image(im);
 }
 
 /// \ingroup TIFF_IO
 /// \brief Allocates a new image whose dimensions are determined by the given tiff image file, and loads the pixels into it.
 template <typename Image>
-inline void tiff_read_image(const std::string& filename,Image& im) {
-    tiff_read_image(filename.c_str(),im);
+inline void tiff_read_image(const std::string& filename,Image& im,tdir_t dirnum=0) {
+    tiff_read_image(filename.c_str(),im,dirnum);
 }
 
 /// \ingroup TIFF_IO
 /// \brief Loads and color-converts the image specified by the given tiff image file name into the given view.
 /// Throws std::ios_base::failure if the file is not a valid TIFF file, or if its dimensions don't match the ones of the view.
 template <typename View,typename CC>
-inline void tiff_read_and_convert_view(const char* filename,const View& view,CC cc) {
-    detail::tiff_reader_color_convert<CC> m(filename,cc);
+inline void tiff_read_and_convert_view(const char* filename,const View& view,CC cc,tdir_t dirnum=0) {
+    detail::tiff_reader_color_convert<CC> m(filename,cc,dirnum);
     m.apply(view);
 }
 
@@ -401,31 +421,31 @@ inline void tiff_read_and_convert_view(const char* filename,const View& view,CC 
 /// \brief Loads and color-converts the image specified by the given tiff image file name into the given view.
 /// Throws std::ios_base::failure if the file is not a valid TIFF file, or if its dimensions don't match the ones of the view.
 template <typename View>
-inline void tiff_read_and_convert_view(const char* filename,const View& view) {
-    detail::tiff_reader_color_convert<default_color_converter> m(filename,default_color_converter());
+inline void tiff_read_and_convert_view(const char* filename,const View& view,tdir_t dirnum=0) {
+    detail::tiff_reader_color_convert<default_color_converter> m(filename,default_color_converter(),dirnum);
     m.apply(view);
 }
 
 /// \ingroup TIFF_IO
 /// \brief Loads and color-converts the image specified by the given tiff image file name into the given view.
 template <typename View,typename CC>
-inline void tiff_read_and_convert_view(const std::string& filename,const View& view,CC cc) {
-    tiff_read_and_convert_view(filename.c_str(),view,cc);
+inline void tiff_read_and_convert_view(const std::string& filename,const View& view,CC cc,tdir_t dirnum=0) {
+    tiff_read_and_convert_view(filename.c_str(),view,cc,dirnum);
 }
 
 /// \ingroup TIFF_IO
 /// \brief Loads and color-converts the image specified by the given tiff image file name into the given view.
 template <typename View>
-inline void tiff_read_and_convert_view(const std::string& filename,const View& view) {
-    tiff_read_and_convert_view(filename.c_str(),view);
+inline void tiff_read_and_convert_view(const std::string& filename,const View& view,tdir_t dirnum=0) {
+    tiff_read_and_convert_view(filename.c_str(),view,dirnum);
 }
 
 /// \ingroup TIFF_IO
 /// \brief Allocates a new image whose dimensions are determined by the given tiff image file, loads and color-converts the pixels into it.
 /// Throws std::ios_base::failure if the file is not a valid TIFF file
 template <typename Image,typename CC>
-void tiff_read_and_convert_image(const char* filename,Image& im,CC cc) {
-    detail::tiff_reader_color_convert<CC> m(filename,cc);
+void tiff_read_and_convert_image(const char* filename,Image& im,CC cc,tdir_t dirnum=0) {
+    detail::tiff_reader_color_convert<CC> m(filename,cc,dirnum);
     m.read_image(im);
 }
 
@@ -433,23 +453,23 @@ void tiff_read_and_convert_image(const char* filename,Image& im,CC cc) {
 /// \brief Allocates a new image whose dimensions are determined by the given tiff image file, loads and color-converts the pixels into it.
 /// Throws std::ios_base::failure if the file is not a valid TIFF file
 template <typename Image>
-void tiff_read_and_convert_image(const char* filename,Image& im) {
-    detail::tiff_reader_color_convert<default_color_converter> m(filename,default_color_converter());
+void tiff_read_and_convert_image(const char* filename,Image& im,tdir_t dirnum=0) {
+    detail::tiff_reader_color_convert<default_color_converter> m(filename,default_color_converter(),dirnum);
     m.read_image(im);
 }
 
 /// \ingroup TIFF_IO
 /// \brief Allocates a new image whose dimensions are determined by the given tiff image file, loads and color-converts the pixels into it.
 template <typename Image,typename CC>
-inline void tiff_read_and_convert_image(const std::string& filename,Image& im,CC cc) {
-    tiff_read_and_convert_image(filename.c_str(),im,cc);
+inline void tiff_read_and_convert_image(const std::string& filename,Image& im,CC cc,tdir_t dirnum=0) {
+    tiff_read_and_convert_image(filename.c_str(),im,cc,dirnum);
 }
 
 /// \ingroup TIFF_IO
 /// \brief Allocates a new image whose dimensions are determined by the given tiff image file, loads and color-converts the pixels into it.
 template <typename Image>
-inline void tiff_read_and_convert_image(const std::string& filename,Image& im) {
-    tiff_read_and_convert_image(filename.c_str(),im);
+inline void tiff_read_and_convert_image(const std::string& filename,Image& im,tdir_t dirnum=0) {
+    tiff_read_and_convert_image(filename.c_str(),im,dirnum);
 }
 
 /// \ingroup TIFF_IO

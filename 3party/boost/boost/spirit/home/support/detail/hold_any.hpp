@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2007-2010 Hartmut Kaiser
+    Copyright (c) 2007-2011 Hartmut Kaiser
     Copyright (c) Christopher Diggins 2005
     Copyright (c) Pablo Aguilar 2005
     Copyright (c) Kevlin Henney 2001
@@ -193,7 +193,9 @@ namespace boost { namespace spirit
             // value of the required type to the hold_any instance you want to
             // stream to. This assignment has to be executed before the actual
             // call to the operator>>().
-            BOOST_ASSERT(false);
+            BOOST_ASSERT(false && 
+                "Tried to insert from a std istream into an empty "
+                "hold_any instance");
             return i;
         }
 
@@ -210,7 +212,7 @@ namespace boost { namespace spirit
     public:
         // constructors
         template <typename T>
-        hold_any(T const& x)
+        explicit hold_any(T const& x)
           : table(spirit::detail::get_table<T>::get()), object(0)
         {
             if (spirit::detail::get_table<T>::is_small::value)

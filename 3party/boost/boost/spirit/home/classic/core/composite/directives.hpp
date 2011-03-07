@@ -364,7 +364,7 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
 
             if (l || r)
             {
-                if (l.length() < r.length() && l || !r)
+                if ((l.length() < r.length() && l) || !r)
                 {
                     scan.first = save;
                     return l;

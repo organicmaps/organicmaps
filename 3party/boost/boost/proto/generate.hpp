@@ -12,6 +12,7 @@
     #define BOOST_PROTO_GENERATE_HPP_EAN_02_13_2007
 
     #include <boost/config.hpp>
+    #include <boost/version.hpp>
     #include <boost/preprocessor/cat.hpp>
     #include <boost/preprocessor/iteration/iterate.hpp>
     #include <boost/preprocessor/facilities/intercept.hpp>
@@ -369,7 +370,8 @@
 
     }}
 
-    // Specialization of boost::result_of to eliminate some unnecessary template instantiations
+    // Specializations of boost::result_of and boost::tr1_result_of to eliminate
+    // some unnecessary template instantiations
     namespace boost
     {
         template<typename Expr>
@@ -383,6 +385,20 @@
         {
             typedef Expr type;
         };
+
+        #if BOOST_VERSION >= 104400
+        template<typename Expr>
+        struct tr1_result_of<proto::default_domain(Expr)>
+        {
+            typedef Expr type;
+        };
+
+        template<typename Expr>
+        struct tr1_result_of<proto::default_generator(Expr)>
+        {
+            typedef Expr type;
+        };
+        #endif
     }
 
     #endif // BOOST_PROTO_GENERATE_HPP_EAN_02_13_2007

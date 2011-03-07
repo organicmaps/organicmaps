@@ -19,9 +19,9 @@
 # include <boost/range/value_type.hpp>
 #endif
 
-namespace boost 
+namespace boost
 {
-    
+
     namespace range_detail
     {
         template< typename T >
@@ -30,7 +30,7 @@ namespace boost
         //////////////////////////////////////////////////////////////////////
         // default
         //////////////////////////////////////////////////////////////////////
-        
+
         template<>
         struct range_begin<std_container_>
         {
@@ -40,11 +40,11 @@ namespace boost
                 return c.begin();
             };
         };
-                    
+
         //////////////////////////////////////////////////////////////////////
         // pair
         //////////////////////////////////////////////////////////////////////
-        
+
         template<>
         struct range_begin<std_pair_>
         {
@@ -54,11 +54,11 @@ namespace boost
                 return p.first;
             }
         };
- 
+
         //////////////////////////////////////////////////////////////////////
         // array
         //////////////////////////////////////////////////////////////////////
-        
+
         template<>
         struct range_begin<array_>
         {
@@ -78,14 +78,16 @@ namespace boost
         };
 
     } // namespace 'range_detail'
-    
-    template< typename C >
-    inline BOOST_RANGE_DEDUCED_TYPENAME range_iterator<C>::type 
-    begin( C& c )
+
+    namespace range_adl_barrier
     {
-        return range_detail::range_begin< BOOST_RANGE_DEDUCED_TYPENAME range_detail::range<C>::type >::fun( c );
+        template< typename C >
+        inline BOOST_RANGE_DEDUCED_TYPENAME range_iterator<C>::type
+        begin( C& c )
+        {
+            return range_detail::range_begin< BOOST_RANGE_DEDUCED_TYPENAME range_detail::range<C>::type >::fun( c );
+        }
     }
-    
 } // namespace 'boost'
 
 

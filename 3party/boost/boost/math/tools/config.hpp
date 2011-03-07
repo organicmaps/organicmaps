@@ -257,7 +257,7 @@ inline T max BOOST_PREVENT_MACRO_SUBSTITUTION(T a, T b, T c, T d)
 
 #if (defined(__linux__) && !defined(__UCLIBC__)) || defined(__QNX__) || defined(__IBMCPP__)
 
-   #include <fenv.h>
+   #include <boost/detail/fenv.hpp>
 
    namespace boost{ namespace math{
    namespace detail

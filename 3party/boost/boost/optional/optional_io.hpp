@@ -13,19 +13,20 @@
 #define BOOST_OPTIONAL_OPTIONAL_IO_FLC_19NOV2002_HPP
 
 #if defined __GNUC__
-#  if (__GNUC__ == 2 && __GNUC_MINOR__ <= 97) 
+#  if (__GNUC__ == 2 && __GNUC_MINOR__ <= 97)
 #    define BOOST_OPTIONAL_NO_TEMPLATED_STREAMS
 #  endif
 #endif // __GNUC__
 
 #if defined BOOST_OPTIONAL_NO_TEMPLATED_STREAMS
 #  include <iostream>
-#else 
+#else
 #  include <istream>
 #  include <ostream>
-#endif  
+#endif
 
-
+#include <boost/none.hpp>
+#include <boost/assert.hpp>
 #include "boost/optional/optional.hpp"
 #include "boost/utility/value_init.hpp"
 
@@ -62,17 +63,30 @@ std::basic_istream<CharType, CharTrait>&
 operator>>(std::basic_istream<CharType, CharTrait>& in, optional<T>& v)
 #endif
 {
-  if ( in.good() )
+  if (in.good())
   {
     int d = in.get();
-    if ( d == ' ' )
+    if (d == ' ')
     {
-      T x ;
+      T x;
       in >> x;
-      v = x ;
+      v = x;
     }
     else
-      v = optional<T>() ;
+    {
+      if (d == '-')
+      {
+        d = in.get();
+
+        if (d == '-')
+        {
+          v = none;
+          return in;
+        }
+      }
+
+      in.setstate( std::ios::failbit );
+    }
   }
 
   return in;

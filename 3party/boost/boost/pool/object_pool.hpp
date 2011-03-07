@@ -53,26 +53,26 @@ class object_pool: protected pool<UserAllocator>
 
   public:
     // This constructor parameter is an extension!
-    explicit object_pool(const size_type next_size = 32)
-    :pool<UserAllocator>(sizeof(T), next_size) { }
+    explicit object_pool(const size_type next_size = 32, const size_type max_size = 0)
+    :pool<UserAllocator>(sizeof(T), next_size, max_size) { }
 
     ~object_pool();
 
     // Returns 0 if out-of-memory
-    element_type * malloc()
+    element_type * malloc BOOST_PREVENT_MACRO_SUBSTITUTION()
     { return static_cast<element_type *>(store().ordered_malloc()); }
-    void free(element_type * const chunk)
+    void free BOOST_PREVENT_MACRO_SUBSTITUTION(element_type * const chunk)
     { store().ordered_free(chunk); }
     bool is_from(element_type * const chunk) const
     { return store().is_from(chunk); }
 
     element_type * construct()
     {
-      element_type * const ret = malloc();
+      element_type * const ret = (malloc)();
       if (ret == 0)
         return ret;
       try { new (ret) element_type(); }
-      catch (...) { free(ret); throw; }
+      catch (...) { (free)(ret); throw; }
       return ret;
     }
 
@@ -87,7 +87,7 @@ class object_pool: protected pool<UserAllocator>
     void destroy(element_type * const chunk)
     {
       chunk->~T();
-      free(chunk);
+      (free)(chunk);
     }
 
     // These functions are extensions!
@@ -136,7 +136,7 @@ object_pool<T, UserAllocator>::~object_pool()
     }
 
     // free storage
-    UserAllocator::free(iter.begin());
+    (UserAllocator::free)(iter.begin());
 
     // increment iter
     iter = next;

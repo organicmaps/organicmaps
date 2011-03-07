@@ -54,13 +54,22 @@
 #  define BOOST_HAS_THREADS
 #endif
 
-
 #if !defined(_GLIBCPP_USE_LONG_LONG) \
     && !defined(_GLIBCXX_USE_LONG_LONG)\
     && defined(BOOST_HAS_LONG_LONG)
 // May have been set by compiler/*.hpp, but "long long" without library
 // support is useless.
 #  undef BOOST_HAS_LONG_LONG
+#endif
+
+// Apple doesn't seem to reliably defined a *unix* macro
+#if !defined(CYGWIN) && (  defined(__unix__)  \
+                        || defined(__unix)    \
+                        || defined(unix)      \
+                        || defined(__APPLE__) \
+                        || defined(__APPLE)   \
+                        || defined(APPLE))
+#  include <unistd.h>
 #endif
 
 #if defined(__GLIBCXX__) || (defined(__GLIBCPP__) && __GLIBCPP__>=20020514) // GCC >= 3.1.0

@@ -24,6 +24,8 @@
 // character and 8 bit bytes. Lowest common multiple is 24 => 4 6 bit characters
 // or 3 8 bit characters
 
+#include <algorithm>
+
 #include <boost/config.hpp> // for BOOST_DEDUCED_TYPENAME & PTFO
 #include <boost/serialization/pfto.hpp>
 

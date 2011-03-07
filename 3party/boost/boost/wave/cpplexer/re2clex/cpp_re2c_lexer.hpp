@@ -5,7 +5,7 @@
 
     http://www.boost.org/
 
-    Copyright (c) 2001-2010 Hartmut Kaiser. Distributed under the Boost
+    Copyright (c) 2001-2011 Hartmut Kaiser. Distributed under the Boost
     Software License, Version 1.0. (See accompanying file
     LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
@@ -152,6 +152,12 @@ lexer<IteratorT, PositionT, TokenT>::lexer(IteratorT const &first,
 
     scanner.detect_pp_numbers = boost::wave::need_prefer_pp_numbers(language_);
     scanner.single_line_only = boost::wave::need_single_line(language_);
+
+#if BOOST_WAVE_SUPPORT_CPP0X != 0
+    scanner.act_in_cpp0x_mode = boost::wave::need_cpp0x(language_);
+#else
+    scanner.act_in_cpp0x_mode = false;
+#endif
 }
 
 template <typename IteratorT, typename PositionT, typename TokenT>
@@ -186,6 +192,7 @@ lexer<IteratorT, PositionT, TokenT>::get(TokenT& result)
 
     case T_STRINGLIT:
     case T_CHARLIT:
+    case T_RAWSTRINGLIT:
     // test literal characters for validity (throws if invalid chars found)
         value = string_type((char const *)scanner.tok, 
             scanner.cur-scanner.tok);
@@ -212,7 +219,7 @@ lexer<IteratorT, PositionT, TokenT>::get(TokenT& result)
       }
 #endif
 
-    case T_LONGINTLIT:  // supported in C99 and long_long mode
+    case T_LONGINTLIT:  // supported in C++0x, C99 and long_long mode
         value = string_type((char const *)scanner.tok, 
             scanner.cur-scanner.tok);
         if (!boost::wave::need_long_long(language)) {

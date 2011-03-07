@@ -116,7 +116,7 @@ namespace boost
         };
 
         template< class P, class R, bool default_pass >
-        struct adjacent_filter_range
+        struct adjacent_filtered_range
             : iterator_range< skip_iterator<
                                 BOOST_DEDUCED_TYPENAME range_iterator<R>::type,
                                 P,
@@ -138,7 +138,7 @@ namespace boost
             typedef BOOST_DEDUCED_TYPENAME range_iterator<R>::type raw_iterator;
 
         public:
-            adjacent_filter_range( const P& p, R& r )
+            adjacent_filtered_range( const P& p, R& r )
             : base_range(skip_iter(boost::begin(r), boost::end(r), p),
                          skip_iter(boost::end(r), boost::end(r), p))
             {
@@ -164,37 +164,37 @@ namespace boost
         };
 
         template< class ForwardRng, class BinPredicate >
-        inline adjacent_filter_range<BinPredicate, ForwardRng, true>
+        inline adjacent_filtered_range<BinPredicate, ForwardRng, true>
         operator|( ForwardRng& r,
                    const adjacent_holder<BinPredicate>& f )
         {
-            return adjacent_filter_range<BinPredicate, ForwardRng, true>( f.val, r );
+            return adjacent_filtered_range<BinPredicate, ForwardRng, true>( f.val, r );
         }
 
         template< class ForwardRng, class BinPredicate >
-        inline adjacent_filter_range<BinPredicate, const ForwardRng, true>
+        inline adjacent_filtered_range<BinPredicate, const ForwardRng, true>
         operator|( const ForwardRng& r,
                    const adjacent_holder<BinPredicate>& f )
         {
-            return adjacent_filter_range<BinPredicate,
-                                         const ForwardRng, true>( f.val, r );
+            return adjacent_filtered_range<BinPredicate,
+                                           const ForwardRng, true>( f.val, r );
         }
 
         template< class ForwardRng, class BinPredicate >
-        inline adjacent_filter_range<BinPredicate, ForwardRng, false>
+        inline adjacent_filtered_range<BinPredicate, ForwardRng, false>
         operator|( ForwardRng& r,
                    const adjacent_excl_holder<BinPredicate>& f )
         {
-            return adjacent_filter_range<BinPredicate, ForwardRng, false>( f.val, r );
+            return adjacent_filtered_range<BinPredicate, ForwardRng, false>( f.val, r );
         }
 
         template< class ForwardRng, class BinPredicate >
-        inline adjacent_filter_range<BinPredicate, ForwardRng, false>
+        inline adjacent_filtered_range<BinPredicate, ForwardRng, false>
         operator|( const ForwardRng& r,
                    const adjacent_excl_holder<BinPredicate>& f )
         {
-            return adjacent_filter_range<BinPredicate,
-                                         const ForwardRng, false>( f.val, r );
+            return adjacent_filtered_range<BinPredicate,
+                                           const ForwardRng, false>( f.val, r );
         }
 
     } // 'range_detail'
@@ -202,7 +202,7 @@ namespace boost
     // Bring adjacent_filter_range into the boost namespace so that users of
     // this library may specify the return type of the '|' operator and
     // adjacent_filter()
-    using range_detail::adjacent_filter_range;
+    using range_detail::adjacent_filtered_range;
 
     namespace adaptors
     {
@@ -218,17 +218,17 @@ namespace boost
         }
 
         template<class ForwardRng, class BinPredicate>
-        inline adjacent_filter_range<BinPredicate, ForwardRng, true>
+        inline adjacent_filtered_range<BinPredicate, ForwardRng, true>
         adjacent_filter(ForwardRng& rng, BinPredicate filter_pred)
         {
-            return adjacent_filter_range<BinPredicate, ForwardRng, true>(filter_pred, rng);
+            return adjacent_filtered_range<BinPredicate, ForwardRng, true>(filter_pred, rng);
         }
 
         template<class ForwardRng, class BinPredicate>
-        inline adjacent_filter_range<BinPredicate, const ForwardRng, true>
+        inline adjacent_filtered_range<BinPredicate, const ForwardRng, true>
         adjacent_filter(const ForwardRng& rng, BinPredicate filter_pred)
         {
-            return adjacent_filter_range<BinPredicate, const ForwardRng, true>(filter_pred, rng);
+            return adjacent_filtered_range<BinPredicate, const ForwardRng, true>(filter_pred, rng);
         }
 
     } // 'adaptors'

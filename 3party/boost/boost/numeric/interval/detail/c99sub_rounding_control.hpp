@@ -20,11 +20,11 @@ namespace detail {
 
 extern "C" { double rint(double); }
 
-struct c99_rounding
+struct c99_rounding_control
 {
   typedef int rounding_mode;
 
-  static void set_rounding_mode(const rounding_mode mode) { fesetround(mode); }
+  static void set_rounding_mode(rounding_mode mode)  { fesetround(mode); }
   static void get_rounding_mode(rounding_mode &mode) { mode = fegetround(); }
   static void downward()    { set_rounding_mode(FE_DOWNWARD);   }
   static void upward()      { set_rounding_mode(FE_UPWARD);     }

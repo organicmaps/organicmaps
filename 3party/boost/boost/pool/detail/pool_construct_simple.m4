@@ -40,10 +40,9 @@ m4_dnl Begin the generated file.
 m4_dnl
 // Copyright (C) 2000 Stephen Cleary
 //
-// This file can be redistributed and/or modified under the terms found
-//  in "copyright.html"
-// This software and its documentation is provided "as is" without express or
-//  implied warranty, and with no claim as to its suitability for any purpose.
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
 //
 // See http://www.boost.org for updates, documentation, and revision history.
 
@@ -63,11 +62,11 @@ BOOST_M4_FOR(N, 1, NumberOfArguments + 1,
 element_type * construct(BOOST_M4_FOR(i, 0, N,
     `const T`'i & a`'i', `, '))
 {
-  element_type * const ret = malloc();
+  element_type * const ret = (malloc)();
   if (ret == 0)
     return ret;
   try { new (ret) element_type(BOOST_M4_FOR(i, 0, N, `a`'i', `, ')); }
-  catch (...) { free(ret); throw; }
+  catch (...) { (free)(ret); throw; }
   return ret;
 }
 ')

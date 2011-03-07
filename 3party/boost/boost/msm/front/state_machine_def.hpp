@@ -19,6 +19,7 @@
 #include <boost/mpl/vector.hpp>
 
 #include <boost/msm/row_tags.hpp>
+#include <boost/msm/back/common_types.hpp>
 #include <boost/msm/front/states.hpp>
 #include <boost/msm/front/completion_event.hpp>
 #include <boost/msm/front/common_states.hpp>
@@ -51,10 +52,11 @@ struct state_machine_def :  public boost::msm::front::detail::state_base<BaseSta
         typedef T2 Target;
         typedef Event Evt;
         template <class FSM,class SourceState,class TargetState,class AllStates>
-        static void action_call(FSM& fsm,Event const& evt,SourceState&,TargetState&, AllStates&)
+        static ::boost::msm::back::HandledEnum action_call(FSM& fsm,Event const& evt,SourceState&,TargetState&, AllStates&)
         {
             // in this front-end, we don't need to know source and target states
             (fsm.*action)(evt);
+            return ::boost::msm::back::HANDLED_TRUE;
         }
     };
 
@@ -85,10 +87,11 @@ struct state_machine_def :  public boost::msm::front::detail::state_base<BaseSta
         typedef T2 Target;
         typedef Event Evt;
         template <class FSM,class SourceState,class TargetState, class AllStates>
-        static void action_call(FSM& fsm,Event const& evt,SourceState&,TargetState&,AllStates&)
+        static ::boost::msm::back::HandledEnum action_call(FSM& fsm,Event const& evt,SourceState&,TargetState&,AllStates&)
         {
             // in this front-end, we don't need to know source and target states
             (fsm.*action)(evt);
+            return ::boost::msm::back::HANDLED_TRUE;
         }
         template <class FSM,class SourceState,class TargetState,class AllStates>
         static bool guard_call(FSM& fsm,Event const& evt,SourceState&,TargetState&,AllStates&)
@@ -129,10 +132,11 @@ struct state_machine_def :  public boost::msm::front::detail::state_base<BaseSta
         typedef T1 Target;
         typedef Event Evt;
         template <class FSM,class SourceState,class TargetState,class AllStates>
-        static void action_call(FSM& fsm,Event const& evt,SourceState&,TargetState&,AllStates&)
+        static ::boost::msm::back::HandledEnum action_call(FSM& fsm,Event const& evt,SourceState&,TargetState&,AllStates&)
         {
             // in this front-end, we don't need to know source and target states
             (fsm.*action)(evt);
+            return ::boost::msm::back::HANDLED_TRUE;
         }
     };
 
@@ -149,10 +153,11 @@ struct state_machine_def :  public boost::msm::front::detail::state_base<BaseSta
         typedef T1 Target;
         typedef Event Evt;
         template <class FSM,class SourceState,class TargetState,class AllStates>
-        static void action_call(FSM& fsm,Event const& evt,SourceState&,TargetState&,AllStates&)
+        static ::boost::msm::back::HandledEnum action_call(FSM& fsm,Event const& evt,SourceState&,TargetState&,AllStates&)
         {
             // in this front-end, we don't need to know source and target states
             (fsm.*action)(evt);
+            return ::boost::msm::back::HANDLED_TRUE;
         }
         template <class FSM,class SourceState,class TargetState,class AllStates>
         static bool guard_call(FSM& fsm,Event const& evt,SourceState&,TargetState&,AllStates&)

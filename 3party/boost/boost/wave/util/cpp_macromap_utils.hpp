@@ -5,7 +5,7 @@
 
     http://www.boost.org/
 
-    Copyright (c) 2001-2010 Hartmut Kaiser. Distributed under the Boost
+    Copyright (c) 2001-2011 Hartmut Kaiser. Distributed under the Boost
     Software License, Version 1.0. (See accompanying file
     LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
@@ -427,18 +427,33 @@ is_whitespace_only (ContainerT const &argument)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+// call 'skipped_token' preprocessing hook
+template <typename ContextT>
+void call_skipped_token_hook(ContextT& ctx, 
+    typename ContextT::token_type const& skipped)
+{
+#if BOOST_WAVE_USE_DEPRECIATED_PREPROCESSING_HOOKS != 0
+    ctx.get_hooks().skipped_token(skipped);     
+#else
+    ctx.get_hooks().skipped_token(ctx.derived(), skipped);
+#endif
+}
+
+///////////////////////////////////////////////////////////////////////////////
 //
 //  Skip forward to a given token
 //
 ///////////////////////////////////////////////////////////////////////////////
-template <typename IteratorT>
+template <typename ContextT, typename IteratorT>
 inline bool 
-skip_to_token(IteratorT &it, IteratorT const &end, token_id id, 
-    bool& seen_newline)
+skip_to_token(ContextT& ctx, IteratorT &it, IteratorT const &end, 
+    token_id id, bool& seen_newline)
 {
     using namespace boost::wave;
     if (token_id(*it) == id) 
         return true;
+
+//     call_skipped_token_hook(ctx, *it);
     if (++it == end) 
         return false;
 
@@ -447,6 +462,8 @@ skip_to_token(IteratorT &it, IteratorT const &end, token_id id,
     {
         if (T_NEWLINE == token_id(*it))
             seen_newline = true;
+
+//         call_skipped_token_hook(ctx, *it);
         if (++it == end)
             return false;
     }
@@ -539,19 +556,6 @@ inline typename impl::to_string_helper<Target, Src>::type
 to_string(Src const& src)
 {
     return impl::to_string_helper<Target, Src>::call(src);
-}
-
-///////////////////////////////////////////////////////////////////////////////
-// call 'skipped_token' preprocessing hook
-template <typename ContextT>
-void call_skipped_token_hook(ContextT& ctx, 
-    typename ContextT::token_type const& skipped)
-{
-#if BOOST_WAVE_USE_DEPRECIATED_PREPROCESSING_HOOKS != 0
-    ctx.get_hooks().skipped_token(skipped);     
-#else
-    ctx.get_hooks().skipped_token(ctx.derived(), skipped);
-#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////

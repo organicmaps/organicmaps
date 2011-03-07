@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2010 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -16,6 +16,8 @@
 #include <boost/spirit/home/qi/parser.hpp>
 #include <boost/spirit/home/qi/detail/attributes.hpp>
 #include <boost/spirit/home/support/info.hpp>
+#include <boost/spirit/home/support/has_semantic_action.hpp>
+#include <boost/spirit/home/support/handles_container.hpp>
 #include <boost/fusion/include/at.hpp>
 
 namespace boost { namespace spirit
@@ -94,9 +96,17 @@ namespace boost { namespace spirit { namespace qi
 
 namespace boost { namespace spirit { namespace traits
 {
+    ///////////////////////////////////////////////////////////////////////////
     template <typename Left, typename Right>
     struct has_semantic_action<qi::difference<Left, Right> >
       : binary_has_semantic_action<Left, Right> {};
+
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename Left, typename Right, typename Attribute
+      , typename Context, typename Iterator>
+    struct handles_container<qi::difference<Left, Right>, Attribute, Context
+      , Iterator>
+      : binary_handles_container<Left, Right, Attribute, Context, Iterator> {};
 }}}
 
 #endif

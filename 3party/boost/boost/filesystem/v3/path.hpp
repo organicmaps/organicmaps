@@ -479,7 +479,7 @@ namespace filesystem3
  
   class path::iterator
     : public boost::iterator_facade<
-      iterator,
+      path::iterator,
       path const,
       boost::bidirectional_traversal_tag >
   {

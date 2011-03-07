@@ -67,7 +67,7 @@
 
         namespace detail
         {
-            template<typename Expr, typename Grammar>
+            template<typename Expr, typename BasicExpr, typename Grammar>
             struct matches_;
 
             template<bool B, typename Pred>
@@ -138,24 +138,26 @@
             struct vararg_matches_impl;
 
             // vararg_matches
-            template<typename Args1, typename Args2, typename Back, bool Can, bool Zero, typename Void = void>
+            template<typename Expr, typename Args1, typename Args2, typename Back, bool Can, bool Zero, typename Void = void>
             struct vararg_matches
               : mpl::false_
             {};
 
-            template<typename Args1, typename Args2, typename Back>
-            struct vararg_matches<Args1, Args2, Back, true, true, typename Back::proto_is_vararg_>
+            template<typename Expr, typename Args1, typename Args2, typename Back>
+            struct vararg_matches<Expr, Args1, Args2, Back, true, true, typename Back::proto_is_vararg_>
               : matches_<
-                    proto::basic_expr<ignore, Args1, Args1::arity>
+                    Expr
+                  , proto::basic_expr<ignore, Args1, Args1::arity>
                   , proto::basic_expr<ignore, Args2, Args1::arity>
                 >
             {};
 
-            template<typename Args1, typename Args2, typename Back>
-            struct vararg_matches<Args1, Args2, Back, true, false, typename Back::proto_is_vararg_>
+            template<typename Expr, typename Args1, typename Args2, typename Back>
+            struct vararg_matches<Expr, Args1, Args2, Back, true, false, typename Back::proto_is_vararg_>
               : and_2<
                     matches_<
-                        proto::basic_expr<ignore, Args1, Args2::arity>
+                        Expr
+                      , proto::basic_expr<ignore, Args1, Args2::arity>
                       , proto::basic_expr<ignore, Args2, Args2::arity>
                     >::value
                   , vararg_matches_impl<Args1, typename Back::proto_grammar, Args2::arity + 1, Args1::arity>
@@ -297,66 +299,70 @@
             {};
 
             // matches_
-            template<typename Expr, typename Grammar>
+            template<typename Expr, typename BasicExpr, typename Grammar>
             struct matches_
               : mpl::false_
             {};
 
-            template<typename Expr>
-            struct matches_< Expr, proto::_ >
+            template<typename Expr, typename BasicExpr>
+            struct matches_< Expr, BasicExpr, proto::_ >
               : mpl::true_
             {};
 
-            template<typename Tag, typename Args1, long N1, typename Args2, long N2>
-            struct matches_< proto::basic_expr<Tag, Args1, N1>, proto::basic_expr<Tag, Args2, N2> >
-              : vararg_matches< Args1, Args2, typename Args2::back_, (N1+2 > N2), (N2 > N1) >
+            template<typename Expr, typename Tag, typename Args1, long N1, typename Args2, long N2>
+            struct matches_< Expr, proto::basic_expr<Tag, Args1, N1>, proto::basic_expr<Tag, Args2, N2> >
+              : vararg_matches< Expr, Args1, Args2, typename Args2::back_, (N1+2 > N2), (N2 > N1) >
             {};
 
-            template<typename Tag, typename Args1, long N1, typename Args2, long N2>
-            struct matches_< proto::basic_expr<Tag, Args1, N1>, proto::basic_expr<proto::_, Args2, N2> >
-              : vararg_matches< Args1, Args2, typename Args2::back_, (N1+2 > N2), (N2 > N1) >
+            template<typename Expr, typename Tag, typename Args1, long N1, typename Args2, long N2>
+            struct matches_< Expr, proto::basic_expr<Tag, Args1, N1>, proto::basic_expr<proto::_, Args2, N2> >
+              : vararg_matches< Expr, Args1, Args2, typename Args2::back_, (N1+2 > N2), (N2 > N1) >
             {};
 
-            template<typename Tag, typename Args1, typename Args2>
-            struct matches_< proto::basic_expr<Tag, Args1, 0>, proto::basic_expr<Tag, Args2, 0> >
+            template<typename Expr, typename Tag, typename Args1, typename Args2>
+            struct matches_< Expr, proto::basic_expr<Tag, Args1, 0>, proto::basic_expr<Tag, Args2, 0> >
               : terminal_matches<typename Args1::child0, typename Args2::child0>
             {};
 
-            template<typename Tag, typename Args1, typename Args2, long N2>
-            struct matches_< proto::basic_expr<Tag, Args1, 0>, proto::basic_expr<proto::_, Args2, N2> >
+            template<typename Expr, typename Tag, typename Args1, typename Args2, long N2>
+            struct matches_< Expr, proto::basic_expr<Tag, Args1, 0>, proto::basic_expr<proto::_, Args2, N2> >
               : mpl::false_
             {};
 
-            template<typename Tag, typename Args1, typename Args2>
-            struct matches_< proto::basic_expr<Tag, Args1, 0>, proto::basic_expr<proto::_, Args2, 0> >
+            template<typename Expr, typename Tag, typename Args1, typename Args2>
+            struct matches_< Expr, proto::basic_expr<Tag, Args1, 0>, proto::basic_expr<proto::_, Args2, 0> >
               : terminal_matches<typename Args1::child0, typename Args2::child0>
             {};
 
-            template<typename Tag, typename Args1, typename Args2>
-            struct matches_< proto::basic_expr<Tag, Args1, 1>, proto::basic_expr<Tag, Args2, 1> >
+            template<typename Expr, typename Tag, typename Args1, typename Args2>
+            struct matches_< Expr, proto::basic_expr<Tag, Args1, 1>, proto::basic_expr<Tag, Args2, 1> >
               : matches_<
-					typename detail::expr_traits<typename Args1::child0>::value_type::proto_grammar
-				  , typename Args2::child0::proto_grammar
-				>
+                    typename detail::expr_traits<typename Args1::child0>::value_type::proto_derived_expr
+                  , typename detail::expr_traits<typename Args1::child0>::value_type::proto_grammar
+                  , typename Args2::child0::proto_grammar
+                >
             {};
 
-            template<typename Tag, typename Args1, typename Args2>
-            struct matches_< proto::basic_expr<Tag, Args1, 1>, proto::basic_expr<proto::_, Args2, 1> >
+            template<typename Expr, typename Tag, typename Args1, typename Args2>
+            struct matches_< Expr, proto::basic_expr<Tag, Args1, 1>, proto::basic_expr<proto::_, Args2, 1> >
               : matches_<
-					typename detail::expr_traits<typename Args1::child0>::value_type::proto_grammar
-				  , typename Args2::child0::proto_grammar
-				>
+                    typename detail::expr_traits<typename Args1::child0>::value_type::proto_derived_expr
+                  , typename detail::expr_traits<typename Args1::child0>::value_type::proto_grammar
+                  , typename Args2::child0::proto_grammar
+                >
             {};
 
         #define BOOST_PROTO_MATCHES_N_FUN(Z, N, DATA)                                               \
             matches_<                                                                               \
-                typename detail::expr_traits<typename Args1::BOOST_PP_CAT(child, N)>::value_type::proto_grammar\
+                typename detail::expr_traits<typename Args1::BOOST_PP_CAT(child, N)>::value_type::proto_derived_expr \
+              , typename detail::expr_traits<typename Args1::BOOST_PP_CAT(child, N)>::value_type::proto_grammar \
               , typename Args2::BOOST_PP_CAT(child, N)::proto_grammar                               \
             >
 
         #define BOOST_PROTO_DEFINE_MATCHES(Z, N, DATA)                                              \
             matches_<                                                                               \
                 Expr                                                                                \
+              , BasicExpr                                                                           \
               , typename BOOST_PP_CAT(G, N)::proto_grammar                                          \
             >
 
@@ -381,66 +387,70 @@
         #undef BOOST_PROTO_DEFINE_LAMBDA_MATCHES
 
             // handle proto::if_
-            template<typename Tag, typename Args, long Arity, typename If, typename Then, typename Else>
-            struct matches_<proto::basic_expr<Tag, Args, Arity>, proto::if_<If, Then, Else> >
+            template<typename Expr, typename Tag, typename Args, long Arity, typename If, typename Then, typename Else>
+            struct matches_<Expr, proto::basic_expr<Tag, Args, Arity>, proto::if_<If, Then, Else> >
               : mpl::eval_if_c<
                     remove_reference<
-                        typename when<_, If>::
-                            template impl<proto::expr<Tag, Args, Arity>, int, int>::result_type
+                        typename when<_, If>::template impl<Expr, int, int>::result_type
                     >::type::value
-                  , matches_<proto::basic_expr<Tag, Args, Arity>, typename Then::proto_grammar>
-                  , matches_<proto::basic_expr<Tag, Args, Arity>, typename Else::proto_grammar>
+                  , matches_<Expr, proto::basic_expr<Tag, Args, Arity>, typename Then::proto_grammar>
+                  , matches_<Expr, proto::basic_expr<Tag, Args, Arity>, typename Else::proto_grammar>
                 >::type
-            {};
-
-            template<typename Tag, typename Args, long Arity, typename If>
-            struct matches_<proto::basic_expr<Tag, Args, Arity>, proto::if_<If> >
-              : detail::uncvref<
-					typename when<_, If>::
-                        template impl<proto::expr<Tag, Args, Arity>, int, int>::result_type
-				>::type
-            {};
+            {
+                typedef
+                    typename mpl::if_c<
+                        remove_reference<
+                            typename when<_, If>::template impl<Expr, int, int>::result_type
+                        >::type::value
+                      , Then
+                      , Else
+                    >::type
+                which;
+            };
 
             // handle degenerate cases of proto::or_
-            template<typename Expr>
-            struct matches_<Expr, or_<> >
+            template<typename Expr, typename BasicExpr>
+            struct matches_<Expr, BasicExpr, or_<> >
               : mpl::false_
             {
                 typedef not_<_> which;
             };
 
-            template<typename Expr, typename G0>
-            struct matches_<Expr, or_<G0> >
-              : matches_<Expr, typename G0::proto_grammar>
+            template<typename Expr, typename BasicExpr, typename G0>
+            struct matches_<Expr, BasicExpr, or_<G0> >
+              : matches_<Expr, BasicExpr, typename G0::proto_grammar>
             {
                 typedef G0 which;
             };
 
             // handle degenerate cases of proto::and_
-            template<typename Expr>
-            struct matches_<Expr, and_<> >
+            template<typename Expr, typename BasicExpr>
+            struct matches_<Expr, BasicExpr, and_<> >
               : mpl::true_
             {};
 
-            template<typename Expr, typename G0>
-            struct matches_<Expr, and_<G0> >
-              : matches_<Expr, typename G0::proto_grammar>
+            template<typename Expr, typename BasicExpr, typename G0>
+            struct matches_<Expr, BasicExpr, and_<G0> >
+              : matches_<Expr, BasicExpr, typename G0::proto_grammar>
             {};
 
             // handle proto::not_
-            template<typename Expr, typename Grammar>
-            struct matches_<Expr, not_<Grammar> >
-              : mpl::not_<matches_<Expr, typename Grammar::proto_grammar> >
+            template<typename Expr, typename BasicExpr, typename Grammar>
+            struct matches_<Expr, BasicExpr, not_<Grammar> >
+              : mpl::not_<matches_<Expr, BasicExpr, typename Grammar::proto_grammar> >
             {};
 
             // handle proto::switch_
-            template<typename Tag, typename Args, long Arity, typename Cases>
-            struct matches_<proto::basic_expr<Tag, Args, Arity>, switch_<Cases> >
+            template<typename Expr, typename Tag, typename Args, long Arity, typename Cases>
+            struct matches_<Expr, proto::basic_expr<Tag, Args, Arity>, switch_<Cases> >
               : matches_<
-                    proto::basic_expr<Tag, Args, Arity>
+                    Expr
+                  , proto::basic_expr<Tag, Args, Arity>
                   , typename Cases::template case_<Tag>::proto_grammar
                 >
-            {};
+            {
+                typedef typename Cases::template case_<Tag> which;
+            };
         }
 
         /// \brief A Boolean metafunction that evaluates whether a given
@@ -508,7 +518,8 @@
         template<typename Expr, typename Grammar>
         struct matches
           : detail::matches_<
-                typename Expr::proto_grammar
+                typename Expr::proto_derived_expr
+              , typename Expr::proto_grammar
               , typename Grammar::proto_grammar
             >
         {};
@@ -518,7 +529,8 @@
         template<typename Expr, typename Grammar>
         struct matches<Expr &, Grammar>
           : detail::matches_<
-                typename Expr::proto_grammar
+                typename Expr::proto_derived_expr
+              , typename Expr::proto_grammar
               , typename Grammar::proto_grammar
             >
         {};
@@ -757,14 +769,20 @@
 
             template<typename Expr, typename State, typename Data>
             struct impl
-                : detail::matches_<typename Expr::proto_grammar, or_>
-                    ::which::template impl<Expr, State, Data>
+              : detail::matches_<
+                    typename Expr::proto_derived_expr
+                  , typename Expr::proto_grammar
+                  , or_
+                >::which::template impl<Expr, State, Data>
             {};
 
             template<typename Expr, typename State, typename Data>
             struct impl<Expr &, State, Data>
-                : detail::matches_<typename Expr::proto_grammar, or_>
-                    ::which::template impl<Expr &, State, Data>
+              : detail::matches_<
+                    typename Expr::proto_derived_expr
+                  , typename Expr::proto_grammar
+                  , or_
+                >::which::template impl<Expr &, State, Data>
             {};
         };
 
@@ -785,7 +803,7 @@
 
             template<typename Expr, typename State, typename Data>
             struct impl
-                : detail::_and_impl<and_, Expr, State, Data>
+              : detail::_and_impl<and_, Expr, State, Data>
             {};
         };
 
@@ -819,12 +837,12 @@
 
             template<typename Expr, typename State, typename Data>
             struct impl
-                : Cases::template case_<typename Expr::proto_tag>::template impl<Expr, State, Data>
+              : Cases::template case_<typename Expr::proto_tag>::template impl<Expr, State, Data>
             {};
 
             template<typename Expr, typename State, typename Data>
             struct impl<Expr &, State, Data>
-                : Cases::template case_<typename Expr::proto_tag>::template impl<Expr &, State, Data>
+              : Cases::template case_<typename Expr::proto_tag>::template impl<Expr &, State, Data>
             {};
         };
 
@@ -920,6 +938,13 @@
           : mpl::true_
         {};
 
+        /// INTERNAL ONLY
+        ///
+        template<typename Cases>
+        struct is_callable<switch_<Cases> >
+          : mpl::true_
+        {};
+
     }}
 
     #if defined(_MSC_VER) && (_MSC_VER >= 1020)
@@ -965,6 +990,7 @@
                 BOOST_PP_CAT(Gimpl, N);                                                           \
                 /**/
                 BOOST_PP_REPEAT(N, M0, ~)
+                #undef M0
 
                 typedef typename BOOST_PP_CAT(Gimpl, BOOST_PP_DEC(N))::result_type result_type;
 
@@ -974,47 +1000,51 @@
                   , typename _and_impl::data_param d
                 ) const
                 {
-                    // expands to (G0()(e,s,d),G1()(e,s,d),...);
-                    return (BOOST_PP_ENUM_BINARY_PARAMS(N, Gimpl, ()(e,s,d) BOOST_PP_INTERCEPT));
+                    // Fix: jfalcou - 12/29/2010
+                    // Avoid the use of comma operator here so as not to find Proto's
+                    // by accident.
+                    // expands to G0()(e,s,d); G1()(e,s,d); ... G{N-1}()(e,s,d);
+                    #define M0(Z,N,DATA) BOOST_PP_CAT(Gimpl,N)()(e,s,d);
+                    BOOST_PP_REPEAT(BOOST_PP_DEC(N),M0,~)
+                    return BOOST_PP_CAT(Gimpl,BOOST_PP_DEC(N))()(e,s,d);
+                    #undef M0
                 }
-
-                #undef M0
             };
 
-            template<bool B, typename Expr, BOOST_PP_ENUM_PARAMS(N, typename G)>
+            template<bool B, typename Expr, typename BasicExpr, BOOST_PP_ENUM_PARAMS(N, typename G)>
             struct BOOST_PP_CAT(or_, N)
             #if 2 == N
-              : mpl::bool_<matches_<Expr, typename G1::proto_grammar>::value>
+              : mpl::bool_<matches_<Expr, BasicExpr, typename G1::proto_grammar>::value>
             {
                 typedef G1 which;
             };
             #else
               : BOOST_PP_CAT(or_, BOOST_PP_DEC(N))<
-                    matches_<Expr, typename G1::proto_grammar>::value
-                  , Expr, BOOST_PP_ENUM_SHIFTED_PARAMS(N, G)
+                    matches_<Expr, BasicExpr, typename G1::proto_grammar>::value
+                  , Expr, BasicExpr, BOOST_PP_ENUM_SHIFTED_PARAMS(N, G)
                 >
             {};
             #endif
 
-            template<typename Expr BOOST_PP_ENUM_TRAILING_PARAMS(N, typename G)>
-            struct BOOST_PP_CAT(or_, N)<true, Expr, BOOST_PP_ENUM_PARAMS(N, G)>
+            template<typename Expr, typename BasicExpr BOOST_PP_ENUM_TRAILING_PARAMS(N, typename G)>
+            struct BOOST_PP_CAT(or_, N)<true, Expr, BasicExpr, BOOST_PP_ENUM_PARAMS(N, G)>
               : mpl::true_
             {
                 typedef G0 which;
             };
 
             // handle proto::or_
-            template<typename Expr, BOOST_PP_ENUM_PARAMS(N, typename G)>
-            struct matches_<Expr, proto::or_<BOOST_PP_ENUM_PARAMS(N, G)> >
+            template<typename Expr, typename BasicExpr BOOST_PP_ENUM_TRAILING_PARAMS(N, typename G)>
+            struct matches_<Expr, BasicExpr, proto::or_<BOOST_PP_ENUM_PARAMS(N, G)> >
               : BOOST_PP_CAT(or_, N)<
-                    matches_<Expr, typename G0::proto_grammar>::value,
-                    Expr, BOOST_PP_ENUM_PARAMS(N, G)
+                    matches_<Expr, BasicExpr, typename G0::proto_grammar>::value,
+                    Expr, BasicExpr BOOST_PP_ENUM_TRAILING_PARAMS(N, G)
                 >
             {};
 
             // handle proto::and_
-            template<typename Expr, BOOST_PP_ENUM_PARAMS(N, typename G)>
-            struct matches_<Expr, proto::and_<BOOST_PP_ENUM_PARAMS(N, G)> >
+            template<typename Expr, typename BasicExpr, BOOST_PP_ENUM_PARAMS(N, typename G)>
+            struct matches_<Expr, BasicExpr, proto::and_<BOOST_PP_ENUM_PARAMS(N, G)> >
               : detail::BOOST_PP_CAT(and_, N)<
                     BOOST_PROTO_DEFINE_MATCHES(~, 0, ~)::value,
                     BOOST_PP_ENUM_SHIFTED(N, BOOST_PROTO_DEFINE_MATCHES, ~)
@@ -1032,9 +1062,10 @@
             struct vararg_matches_impl<Args, Back, N, To>
               : and_2<
                     matches_<
-						typename detail::expr_traits<typename Args::BOOST_PP_CAT(child, BOOST_PP_DEC(N))>::value_type::proto_grammar
-					  , Back
-					>::value
+                        typename detail::expr_traits<typename Args::BOOST_PP_CAT(child, BOOST_PP_DEC(N))>::value_type::proto_derived_expr
+                      , typename detail::expr_traits<typename Args::BOOST_PP_CAT(child, BOOST_PP_DEC(N))>::value_type::proto_grammar
+                      , Back
+                    >::value
                   , vararg_matches_impl<Args, Back, N + 1, To>
                 >
             {};
@@ -1042,9 +1073,10 @@
             template<typename Args, typename Back>
             struct vararg_matches_impl<Args, Back, N, N>
               : matches_<
-					typename detail::expr_traits<typename Args::BOOST_PP_CAT(child, BOOST_PP_DEC(N))>::value_type::proto_grammar
-				  , Back
-				>
+                    typename detail::expr_traits<typename Args::BOOST_PP_CAT(child, BOOST_PP_DEC(N))>::value_type::proto_derived_expr
+                  , typename detail::expr_traits<typename Args::BOOST_PP_CAT(child, BOOST_PP_DEC(N))>::value_type::proto_grammar
+                  , Back
+                >
             {};
 
             template<
@@ -1053,26 +1085,26 @@
                 BOOST_PP_ENUM_TRAILING_PARAMS(N, typename Grammar)
             >
             struct lambda_matches<
-				T<BOOST_PP_ENUM_PARAMS(N, Expr)>
-			  , T<BOOST_PP_ENUM_PARAMS(N, Grammar)>
-			    BOOST_MPL_AUX_LAMBDA_ARITY_PARAM(N)
-			>
+                T<BOOST_PP_ENUM_PARAMS(N, Expr)>
+              , T<BOOST_PP_ENUM_PARAMS(N, Grammar)>
+                BOOST_MPL_AUX_LAMBDA_ARITY_PARAM(N)
+            >
               : BOOST_PP_CAT(and_, N)<
                     BOOST_PROTO_DEFINE_LAMBDA_MATCHES(~, 0, ~)::value,
                     BOOST_PP_ENUM_SHIFTED(N, BOOST_PROTO_DEFINE_LAMBDA_MATCHES, ~)
                 >
             {};
 
-            template<typename Tag, typename Args1, typename Args2>
-            struct matches_< proto::basic_expr<Tag, Args1, N>, proto::basic_expr<Tag, Args2, N> >
+            template<typename Expr, typename Tag, typename Args1, typename Args2>
+            struct matches_< Expr, proto::basic_expr<Tag, Args1, N>, proto::basic_expr<Tag, Args2, N> >
               : BOOST_PP_CAT(and_, N)<
                     BOOST_PROTO_MATCHES_N_FUN(~, 0, ~)::value,
                     BOOST_PP_ENUM_SHIFTED(N, BOOST_PROTO_MATCHES_N_FUN, ~)
                 >
             {};
 
-            template<typename Tag, typename Args1, typename Args2>
-            struct matches_< proto::basic_expr<Tag, Args1, N>, proto::basic_expr<proto::_, Args2, N> >
+            template<typename Expr, typename Tag, typename Args1, typename Args2>
+            struct matches_< Expr, proto::basic_expr<Tag, Args1, N>, proto::basic_expr<proto::_, Args2, N> >
               : BOOST_PP_CAT(and_, N)<
                     BOOST_PROTO_MATCHES_N_FUN(~, 0, ~)::value,
                     BOOST_PP_ENUM_SHIFTED(N, BOOST_PROTO_MATCHES_N_FUN, ~)

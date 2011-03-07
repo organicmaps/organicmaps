@@ -17,6 +17,7 @@
 
 #include <boost/config/no_tr1/cmath.hpp>
 #include <boost/throw_exception.hpp>
+#include <boost/assert.hpp>
 #include <vector>
 #include <exception>
 #include <algorithm>
@@ -169,7 +170,7 @@ gursoy_atun_step
     }
     min_distance_unset = false;
   }
-  assert (!min_distance_unset); // Graph must have at least one vertex
+  BOOST_ASSERT (!min_distance_unset); // Graph must have at least one vertex
   boost::detail::update_position_visitor<
       PositionMap, NodeDistanceMap, Topology,
       VertexListAndIncidenceGraph> 

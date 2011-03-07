@@ -17,6 +17,7 @@
 #include <utility>
 #include <iterator>
 #include <vector>
+#include <iostream>
 #include <boost/limits.hpp>
 #include <boost/config/no_tr1/cmath.hpp>
 
@@ -216,11 +217,13 @@ namespace boost {
         weight_type edge_length = 
           detail::graph::compute_edge_length(g, distance, index,
                                              edge_or_side_length);
+
+        std::cerr << "edge_length = " << edge_length << std::endl;
         
         // Compute l_{ij} and k_{ij}
         const weight_type K = spring_constant;
-        vertex_iterator ui, end = vertices(g).second;
-        for (ui = vertices(g).first; ui != end; ++ui) {
+        vertex_iterator ui, end;
+        for (ui = vertices(g).first, end = vertices(g).second; ui != end; ++ui) {
           vertex_iterator vi = ui;
           for (++vi; vi != end; ++vi) {
             weight_type dij = distance[get(index, *ui)][get(index, *vi)];
@@ -237,7 +240,7 @@ namespace boost {
         vertex_descriptor p = *vertices(g).first;
         weight_type delta_p(0);
 
-        for (ui = vertices(g).first; ui != end; ++ui) {
+        for (ui = vertices(g).first, end = vertices(g).second; ui != end; ++ui) {
           deriv_type deriv = compute_partial_derivatives(*ui);
           put(partial_derivatives, *ui, deriv);
 
@@ -255,12 +258,25 @@ namespace boost {
           // update the delta_i values in O(n) time instead of O(n^2)
           // time.
           std::vector<deriv_type> p_partials(num_vertices(g));
-          for (ui = vertices(g).first; ui != end; ++ui) {
+          for (ui = vertices(g).first, end = vertices(g).second; ui != end; ++ui) {
             vertex_descriptor i = *ui;
             p_partials[get(index, i)] = compute_partial_derivative(i, p);
           }
 
           do {
+            // For debugging, compute the energy value E
+            double E = 0.;
+            for (ui = vertices(g).first, end = vertices(g).second; ui != end; ++ui) {
+              vertex_iterator vi = ui;
+              for (++vi; vi != end; ++vi) {
+                double dist = topology.distance(position[*ui], position[*vi]);
+                weight_type k_ij = spring_strength[get(index,*ui)][get(index,*vi)];
+                weight_type l_ij = distance[get(index, *ui)][get(index, *vi)];
+                E += .5 * k_ij * (dist - l_ij) * (dist - l_ij);
+              }
+            }
+            std::cerr << "E = " << E << std::endl;
+
             // Compute the elements of the Jacobian
             // From
             // http://www.cs.panam.edu/~rfowler/papers/1994_kumar_fowler_A_Spring_UTPACSTR.pdf
@@ -269,7 +285,7 @@ namespace boost {
             for (std::size_t i = 0; i < Point::dimensions; ++i)
               for (std::size_t j = 0; j < Point::dimensions; ++j)
                 dE_d_d[i][j] = 0.;
-            for (ui = vertices(g).first; ui != end; ++ui) {
+            for (ui = vertices(g).first, end = vertices(g).second; ui != end; ++ui) {
               vertex_descriptor i = *ui;
               if (i != p) {
                 point_difference_type diff = topology.difference(position[p], position[i]);
@@ -284,6 +300,7 @@ namespace boost {
                       dE_d_d[i][i] += k_mi * (1 + (l_mi * (diff[i] * diff[i] - dist_squared) * inv_dist_cubed));
                     } else {
                       dE_d_d[i][j] += k_mi * l_mi * diff[i] * diff[j] * inv_dist_cubed;
+                      // dE_d_d[i][j] += k_mi * l_mi * sqrt(hypot(diff[i], diff[j])) * inv_dist_cubed;
                     }
                   }
                 }
@@ -292,7 +309,7 @@ namespace boost {
 
             deriv_type dE_d = get(partial_derivatives, p);
 
-            // Solve dE_d_d * delta = dE_d to get delta
+            // Solve dE_d_d * delta = -dE_d to get delta
             point_difference_type delta = -linear_solver<Point::dimensions>::solve(dE_d_d, dE_d);
 
             // Move p by delta
@@ -307,7 +324,7 @@ namespace boost {
 
           // Select new p by updating each partial derivative and delta
           vertex_descriptor old_p = p;
-          for (ui = vertices(g).first; ui != end; ++ui) {
+          for (ui = vertices(g).first, end = vertices(g).second; ui != end; ++ui) {
             deriv_type old_deriv_p = p_partials[get(index, *ui)];
             deriv_type old_p_partial = 
               compute_partial_derivative(*ui, old_p);

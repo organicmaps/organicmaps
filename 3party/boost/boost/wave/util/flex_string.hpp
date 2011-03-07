@@ -102,7 +102,13 @@ class StoragePolicy
 #include <functional>
 #include <limits>
 #include <stdexcept>
-#include <iosfwd>
+
+#if defined(__PATHSCALE__)
+  #include <ios>
+#else
+  #include <iosfwd>
+#endif
+
 #include <cstddef>
 #include <cstring>
 #include <cstdlib>
@@ -1818,7 +1824,7 @@ private:
 #ifndef NDEBUG
         Invariant checker(*this); 
 #endif
-        assert(begin() <= p && p <= end());
+        BOOST_ASSERT(begin() <= p && p <= end());
         const size_type insertOffset(p - begin());
         const size_type originalSize(size());
         if(n < originalSize - insertOffset)
@@ -1884,16 +1890,16 @@ private:
         const typename std::iterator_traits<FwdIterator>::difference_type n2 = 
             std::distance(s1, s2);
 
-        assert(n2 >= 0);
+        BOOST_ASSERT(n2 >= 0);
         using namespace flex_string_details;
-        assert(pos <= size());
+        BOOST_ASSERT(pos <= size());
 
         const typename std::iterator_traits<FwdIterator>::difference_type maxn2 = 
             capacity() - size();
         if (maxn2 < n2)
         {
             // Reallocate the string.
-            assert(!IsAliasedRange(s1, s2));
+            BOOST_ASSERT(!IsAliasedRange(s1, s2));
             reserve(size() + n2);
             i = begin() + pos;
         }
@@ -1910,7 +1916,7 @@ private:
             FwdIterator t = s1;
             const size_type old_size = size();
             std::advance(t, old_size - pos);
-            assert(std::distance(t, s2) >= 0);
+            BOOST_ASSERT(std::distance(t, s2) >= 0);
             Storage::append(t, s2);
             Storage::append(data() + pos, data() + old_size);
             std::copy(s1, t, i);
@@ -2011,9 +2017,9 @@ private:
     flex_string& ReplaceImplDiscr(iterator i1, iterator i2, 
         const value_type* s, size_type n, Selector<2>)
     { 
-        assert(i1 <= i2);
-        assert(begin() <= i1 && i1 <= end());
-        assert(begin() <= i2 && i2 <= end());
+        BOOST_ASSERT(i1 <= i2);
+        BOOST_ASSERT(begin() <= i1 && i1 <= end());
+        BOOST_ASSERT(begin() <= i2 && i2 <= end());
         return replace(i1, i2, s, s + n); 
     }
     
@@ -2052,10 +2058,10 @@ private:
 #endif
         const typename std::iterator_traits<iterator>::difference_type n1 = 
             i2 - i1;
-        assert(n1 >= 0);
+        BOOST_ASSERT(n1 >= 0);
         const typename std::iterator_traits<FwdIterator>::difference_type n2 = 
         std::distance(s1, s2);
-        assert(n2 >= 0);
+        BOOST_ASSERT(n2 >= 0);
 
         if (IsAliasedRange(s1, s2))
         {

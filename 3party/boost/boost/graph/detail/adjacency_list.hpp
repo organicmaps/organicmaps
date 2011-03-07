@@ -35,6 +35,7 @@
 #include <boost/pending/property.hpp>
 #include <boost/graph/adjacency_iterator.hpp>
 #include <boost/static_assert.hpp>
+#include <boost/assert.hpp>
 
 // Symbol truncation problems with MSVC, trying to shorten names.
 #define stored_edge se_
@@ -1216,7 +1217,7 @@ namespace boost {
         std::pair<out_edge_iterator, out_edge_iterator> rng =
           get_parallel_edge_sublist(e, g, (OutEdgeListS*)(0));
         rng.first = std::find(rng.first, rng.second, e);
-        assert(rng.first != rng.second);
+        BOOST_ASSERT(rng.first != rng.second);
         remove_edge(rng.first);
       }
 

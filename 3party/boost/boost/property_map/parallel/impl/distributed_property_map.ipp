@@ -7,6 +7,7 @@
 //  Authors: Douglas Gregor
 //           Nick Edmonds
 //           Andrew Lumsdaine
+#include <boost/assert.hpp>
 #include <boost/property_map/parallel/distributed_property_map.hpp>
 #include <boost/graph/parallel/detail/untracked_pair.hpp>
 #include <boost/type_traits/is_base_and_derived.hpp>
@@ -46,7 +47,7 @@ PBGL_DISTRIB_PMAP::set_reduce(const Reduce& reduce)
   typedef handle_message<Reduce> Handler;
   data->process_group.replace_handler(Handler(data, reduce));
   Handler* handler = data->process_group.template get_receiver<Handler>();
-  assert(handler);
+  BOOST_ASSERT(handler);
   handler->setup_triggers(data->process_group);
   data->get_default_value = reduce;
   data->has_default_resolver = Reduce::non_default_resolver;
@@ -121,7 +122,7 @@ void
 PBGL_DISTRIB_PMAP
 ::handle_message<Reduce>::operator()(process_id_type source, int tag)
 {
-  assert(false);
+  BOOST_ASSERT(false);
 }
 
 template<typename ProcessGroup, typename GlobalMap, typename StorageMap>
@@ -136,7 +137,7 @@ handle_put(int /*source*/, int /*tag*/,
   shared_ptr<data_t> data(data_ptr);
 
   owner_local_pair p = get(data->global, req.first);
-  assert(p.first == process_id(data->process_group));
+  BOOST_ASSERT(p.first == process_id(data->process_group));
 
   detail::maybe_put(data->storage, p.second,
                     reduce(req.first,
@@ -154,7 +155,7 @@ handle_get(int source, int /*tag*/, const key_type& key,
   using boost::get;
 
   shared_ptr<data_t> data(data_ptr);
-  assert(data);
+  BOOST_ASSERT(data);
 
   owner_local_pair p = get(data->global, key);
   return get(data->storage, p.second);
@@ -168,7 +169,7 @@ handle_multiget(int source, int tag, const std::vector<key_type>& keys,
                 trigger_receive_context)
 {
   shared_ptr<data_t> data(data_ptr);
-  assert(data);
+  BOOST_ASSERT(data);
 
   typedef boost::parallel::detail::untracked_pair<key_type, value_type> key_value;
   std::vector<key_value> results;
@@ -194,7 +195,7 @@ handle_multiget_reply
    trigger_receive_context)
 {
   shared_ptr<data_t> data(data_ptr);
-  assert(data);
+  BOOST_ASSERT(data);
 
   // Index by key
   ghost_cells_key_index_type const& key_index 
@@ -223,7 +224,7 @@ handle_multiput
   using boost::get;
 
   shared_ptr<data_t> data(data_ptr);
-  assert(data);
+  BOOST_ASSERT(data);
 
   std::size_t n = values.size();
   for (std::size_t i = 0; i < n; ++i) {
@@ -261,7 +262,7 @@ PBGL_DISTRIB_PMAP
 {
   int stage=0; // we only get called at the start now
   shared_ptr<data_t> data(data_ptr);
-  assert(data);
+  BOOST_ASSERT(data);
 
   // Determine in which stage backward consistency messages should be sent.
   int backward_stage = -1;
@@ -422,7 +423,7 @@ template<typename Resolver>
 void PBGL_DISTRIB_PMAP::data_t::do_reset()
 {
   Resolver* resolver = get_default_value.template target<Resolver>();
-  assert(resolver);
+  BOOST_ASSERT(resolver);
 
   for (iterator i = ghost_cells->begin(); i != ghost_cells->end(); ++i)
     const_cast<value_type&>(i->second) = (*resolver)(i->first);

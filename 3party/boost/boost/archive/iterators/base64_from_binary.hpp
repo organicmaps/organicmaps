@@ -16,7 +16,7 @@
 
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#include <cassert>
+#include <boost/assert.hpp>
 
 #include <cstddef> // size_t
 #include <boost/config.hpp> // for BOOST_DEDUCED_TYPENAME
@@ -49,7 +49,7 @@ struct from_6_bit {
             "abcdefghijklmnopqrstuvwxyz"
             "0123456789"
             "+/";
-        assert(t < 64);
+        BOOST_ASSERT(t < 64);
         return lookup_table[static_cast<size_t>(t)];
     }
 };

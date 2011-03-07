@@ -40,7 +40,7 @@ namespace boost
         virtual ~connection_body_base() {}
         void disconnect()
         {
-          unique_lock<connection_body_base> lock(*this);
+          unique_lock<connection_body_base> local_lock(*this);
           nolock_disconnect();
         }
         void nolock_disconnect()
@@ -50,7 +50,7 @@ namespace boost
         virtual bool connected() const = 0;
         shared_ptr<void> get_blocker()
         {
-          unique_lock<connection_body_base> lock(*this);
+          unique_lock<connection_body_base> local_lock(*this);
           shared_ptr<void> blocker = _weak_blocker.lock();
           if(blocker == shared_ptr<void>())
           {
@@ -90,7 +90,7 @@ namespace boost
         virtual ~connection_body() {}
         virtual bool connected() const
         {
-          unique_lock<mutex_type> lock(_mutex);
+          unique_lock<mutex_type> local_lock(_mutex);
           nolock_grab_tracked_objects(detail::null_output_iterator());
           return nolock_nograb_connected();
         }

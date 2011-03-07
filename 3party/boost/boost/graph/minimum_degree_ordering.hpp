@@ -12,7 +12,7 @@
 #define MINIMUM_DEGREE_ORDERING_HPP
 
 #include <vector>
-#include <cassert>
+#include <boost/assert.hpp>
 #include <boost/config.hpp>
 #include <boost/pending/bucket_sorter.hpp>
 #include <boost/detail/numeric_traits.hpp> // for integer_traits
@@ -53,7 +53,7 @@ namespace boost {
           : data(_data), current(-(std::numeric_limits<value_type>::max)()) {}
         
         void pop() {
-          assert(! empty());
+          BOOST_ASSERT(! empty());
           current = data[current];
         }
         void push(value_type v) {

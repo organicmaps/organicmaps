@@ -18,6 +18,7 @@
 #include <boost/graph/properties.hpp>
 #include <boost/shared_array.hpp>
 #include <boost/config.hpp>
+#include <boost/assert.hpp>
 #include <algorithm>
 #include <limits>
 
@@ -65,7 +66,7 @@ get(const one_bit_color_map<IndexMap>& pm,
 {
   BOOST_STATIC_CONSTANT(int, bits_per_char = one_bit_color_map<IndexMap>::bits_per_char);
   typename property_traits<IndexMap>::value_type i = get(pm.index, key);
-  assert ((std::size_t)i < pm.n);
+  BOOST_ASSERT ((std::size_t)i < pm.n);
   return one_bit_color_type((pm.data.get()[i / bits_per_char] >> (i % bits_per_char)) & 1);
 }
 
@@ -77,8 +78,8 @@ put(const one_bit_color_map<IndexMap>& pm,
 {
   BOOST_STATIC_CONSTANT(int, bits_per_char = one_bit_color_map<IndexMap>::bits_per_char);
   typename property_traits<IndexMap>::value_type i = get(pm.index, key);
-  assert ((std::size_t)i < pm.n);
-  assert (value >= 0 && value < 2);
+  BOOST_ASSERT ((std::size_t)i < pm.n);
+  BOOST_ASSERT (value >= 0 && value < 2);
   std::size_t byte_num = i / bits_per_char;
   std::size_t bit_position = (i % bits_per_char);
     pm.data.get()[byte_num] =

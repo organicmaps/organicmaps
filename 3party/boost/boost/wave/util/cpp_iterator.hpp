@@ -5,7 +5,7 @@
 
     http://www.boost.org/
 
-    Copyright (c) 2001-2010 Hartmut Kaiser. Distributed under the Boost
+    Copyright (c) 2001-2011 Hartmut Kaiser. Distributed under the Boost
     Software License, Version 1.0. (See accompanying file
     LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
@@ -550,6 +550,13 @@ pp_iterator_functor<ContextT>::operator()()
         ++iter_ctx->emitted_lines;
         break;
 
+#if BOOST_WAVE_SUPPORT_CPP0X != 0
+    case T_RAWSTRINGLIT:
+        iter_ctx->emitted_lines += 
+            context_policies::util::rawstring_count_newlines(act_token);
+        break;
+#endif
+
     case T_CCOMMENT:          // will come here only if whitespace is preserved
         iter_ctx->emitted_lines += 
             context_policies::util::ccomment_count_newlines(act_token);
@@ -576,7 +583,7 @@ pp_iterator_functor<ContextT>::operator()()
             pending_queue.pop_front();
         }
         break;
-        
+
     case T_EOF:
         seen_newline = true;
         break;
@@ -663,7 +670,7 @@ bool returned_from_include_file = returned_from_include();
                 if (!ctx.get_if_block_status()) {
                 // skip this token because of the disabled #if block
                     whitespace.shift_tokens(id);  // whitespace controller
-                    util::call_skipped_token_hook(ctx, act_token);
+                    util::impl::call_skipped_token_hook(ctx, act_token);
                     continue;
                 }
                 return act_token; 
@@ -695,7 +702,7 @@ bool returned_from_include_file = returned_from_include();
                 }
 
             // next token
-                util::call_skipped_token_hook(ctx, act_token);
+                util::impl::call_skipped_token_hook(ctx, act_token);
                 ++iter_ctx->first;
             }
 
@@ -875,17 +882,17 @@ namespace impl {
         return false;
     }
 
-    // call 'skipped_token' preprocessing hook
-    template <typename ContextT>
-    void call_skipped_token_hook(ContextT& ctx, 
-        typename ContextT::token_type const& skipped)
-    {
-#if BOOST_WAVE_USE_DEPRECIATED_PREPROCESSING_HOOKS != 0
-        ctx.get_hooks().skipped_token(skipped);     
-#else
-        ctx.get_hooks().skipped_token(ctx.derived(), skipped);
-#endif
-    }
+//     // call 'skipped_token' preprocessing hook
+//     template <typename ContextT>
+//     void call_skipped_token_hook(ContextT& ctx, 
+//         typename ContextT::token_type const& skipped)
+//     {
+// #if BOOST_WAVE_USE_DEPRECIATED_PREPROCESSING_HOOKS != 0
+//         ctx.get_hooks().skipped_token(skipped);     
+// #else
+//         ctx.get_hooks().skipped_token(ctx.derived(), skipped);
+// #endif
+//     }
 
     template <typename ContextT, typename IteratorT>
     bool next_token_is_pp_directive(ContextT &ctx, IteratorT &it, IteratorT const &end)
@@ -906,7 +913,7 @@ namespace impl {
             }
 
             // this token gets skipped
-            util::call_skipped_token_hook(ctx, *it);
+            util::impl::call_skipped_token_hook(ctx, *it);
         }
         BOOST_ASSERT(it == end || id != T_UNKNOWN);
         return it != end && IS_CATEGORY(id, PPTokenType);
@@ -921,7 +928,7 @@ namespace impl {
 
         // this token gets skipped
         if (call_hook)
-            util::call_skipped_token_hook(ctx, *it);
+            util::impl::call_skipped_token_hook(ctx, *it);
 
         for (++it; it != end; ++it) {
         token_id id = token_id(*it);
@@ -930,7 +937,7 @@ namespace impl {
                 context_policies::util::ccomment_has_newline(*it)) 
             {
                 if (call_hook)
-                    util::call_skipped_token_hook(ctx, *it);
+                    util::impl::call_skipped_token_hook(ctx, *it);
                 ++it;           // skip eol/C/C++ comment
                 return true;    // no more significant tokens on this line
             }
@@ -940,7 +947,7 @@ namespace impl {
 
             // this token gets skipped
             if (call_hook)
-                util::call_skipped_token_hook(ctx, *it);
+                util::impl::call_skipped_token_hook(ctx, *it);
         }
         return false;
     }
@@ -959,13 +966,13 @@ namespace impl {
                 context_policies::util::ccomment_has_newline(*it)) 
             {
                 // always call hook for eol 
-                util::call_skipped_token_hook(ctx, *it);
+                util::impl::call_skipped_token_hook(ctx, *it);
                 ++it;           // skip eol/C/C++ comment
                 return true;    // found eol
             }
 
             if (call_hook)
-                util::call_skipped_token_hook(ctx, *it);
+                util::impl::call_skipped_token_hook(ctx, *it);
         }
         return false;
     }
@@ -979,7 +986,7 @@ namespace impl {
         while (IS_CATEGORY(*it, WhiteSpaceTokenType)) {
             typename ContainerT::iterator save = it++;
             if (call_hook)
-                util::call_skipped_token_hook(ctx, *save);
+                util::impl::call_skipped_token_hook(ctx, *save);
             c.erase(save);
         }
     }
@@ -1135,7 +1142,7 @@ pp_iterator_functor<ContextT>::handle_pp_directive(IteratorT &it)
             }
         }
         else {
-            util::call_skipped_token_hook(ctx, *it);
+            util::impl::call_skipped_token_hook(ctx, *it);
             ++it;
         }
     }

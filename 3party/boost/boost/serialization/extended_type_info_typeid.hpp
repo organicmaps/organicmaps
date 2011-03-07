@@ -20,7 +20,7 @@
 
 #include <typeinfo>
 #include <cstdarg>
-#include <cassert>
+#include <boost/assert.hpp>
 #include <boost/config.hpp>
 
 #include <boost/static_assert.hpp>
@@ -124,7 +124,7 @@ public:
         case 4:
             return factory<BOOST_DEDUCED_TYPENAME boost::remove_const< T >::type, 4>(ap);
         default:
-            assert(false); // too many arguments
+            BOOST_ASSERT(false); // too many arguments
             // throw exception here?
             return NULL;
         }

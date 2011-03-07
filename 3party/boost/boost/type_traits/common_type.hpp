@@ -120,6 +120,11 @@ namespace type_traits_detail {
     public:
         typedef BOOST_TYPEOF_TPL(declval_b() ? declval_T() : declval_U()) type;
 #endif
+
+#if defined(__GNUC__) && __GNUC__ == 3 && (__GNUC_MINOR__ == 2 || __GNUC_MINOR__ == 3)
+    public:
+        void public_dummy_function_just_to_silence_warning();
+#endif
     };
 
     template <class T>

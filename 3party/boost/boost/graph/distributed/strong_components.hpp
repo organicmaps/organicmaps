@@ -16,6 +16,7 @@
 
 // #define PBGL_SCC_DEBUG
 
+#include <boost/assert.hpp>
 #include <boost/property_map/property_map.hpp>
 #include <boost/property_map/parallel/distributed_property_map.hpp>
 #include <boost/property_map/parallel/caching_property_map.hpp>
@@ -511,7 +512,7 @@ namespace boost { namespace graph { namespace distributed {
 
         // Receive predecessor and successor messages and handle them
         while (optional<std::pair<process_id_type, int> > m = probe(pg)) {
-          assert(m->second == fhp_succ_size_msg || m->second == fhp_pred_size_msg);
+          BOOST_ASSERT(m->second == fhp_succ_size_msg || m->second == fhp_pred_size_msg);
           std::size_t num_requests;
           receive(pg, m->first, m->second, num_requests);
           VertexPairVec requests(num_requests);
@@ -791,7 +792,7 @@ namespace boost { namespace graph { namespace distributed {
 
       // Receive edge addition requests and handle them
       while (optional<std::pair<process_id_type, int> > m = probe(pg)) {
-        assert(m->second == fhp_edges_size_msg);
+        BOOST_ASSERT(m->second == fhp_edges_size_msg);
         std::size_t num_requests;
         receive(pg, m->first, m->second, num_requests);
         VertexPairVec requests(num_requests);

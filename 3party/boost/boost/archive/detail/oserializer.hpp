@@ -22,7 +22,7 @@
 
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#include <cassert>
+#include <boost/assert.hpp>
 #include <cstddef> // NULL
 
 #include <boost/config.hpp>
@@ -186,7 +186,7 @@ BOOST_DLLEXPORT void pointer_oserializer<Archive, T>::save_object_ptr(
     basic_oarchive & ar,
     const void * x
 ) const {
-    assert(NULL != x);
+    BOOST_ASSERT(NULL != x);
     // make sure call is routed through the highest interface that might
     // be specialized by the user.
     T * t = static_cast<T *>(const_cast<void *>(x));
@@ -384,7 +384,7 @@ struct save_pointer_type {
 
             // retrieve the true type of the object pointed to
             // if this assertion fails its an error in this library
-            assert(NULL != this_type);
+            BOOST_ASSERT(NULL != this_type);
 
             const boost::serialization::extended_type_info * true_type =
                 i.get_derived_extended_type_info(t);
@@ -433,12 +433,12 @@ struct save_pointer_type {
                         archive_serializer_map<Archive>
                     >::get_const_instance().find(*true_type)
                 );
-            assert(NULL != bpos);
+            BOOST_ASSERT(NULL != bpos);
             if(NULL == bpos)
                 boost::serialization::throw_exception(
                     archive_exception(
                         archive_exception::unregistered_class,
-                        bpos->get_debug_info()
+                        "derived class not registered or exported"
                     )
                 );
             ar.save_pointer(vp, bpos);

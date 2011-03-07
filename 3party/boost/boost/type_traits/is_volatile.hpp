@@ -46,9 +46,9 @@ template <class T>
 struct is_volatile_rval_filter
 {
 #if BOOST_WORKAROUND(BOOST_MSVC, < 1400)
-	BOOST_STATIC_CONSTANT(bool, value = ::boost::detail::cv_traits_imp<typename boost::remove_bounds<T>::type*>::is_volatile);
+   BOOST_STATIC_CONSTANT(bool, value = ::boost::detail::cv_traits_imp<typename boost::remove_bounds<T>::type*>::is_volatile);
 #else
-	BOOST_STATIC_CONSTANT(bool, value = ::boost::detail::cv_traits_imp<T*>::is_volatile);
+   BOOST_STATIC_CONSTANT(bool, value = ::boost::detail::cv_traits_imp<T*>::is_volatile);
 #endif
 };
 #ifndef BOOST_NO_RVALUE_REFERENCES
@@ -59,7 +59,7 @@ struct is_volatile_rval_filter
 template <class T>
 struct is_volatile_rval_filter<T&&>
 {
-	BOOST_STATIC_CONSTANT(bool, value = false);
+   BOOST_STATIC_CONSTANT(bool, value = false);
 };
 #endif
 }

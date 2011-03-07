@@ -152,12 +152,12 @@ protected:
         // allocate/initialize the image information data
         _info_ptr = png_create_info_struct(_png_ptr);
         if (_info_ptr == NULL) {
-            png_destroy_read_struct(&_png_ptr,png_infopp_NULL,png_infopp_NULL);
+            png_destroy_read_struct(&_png_ptr,NULL,NULL);
             io_error("png_get_file_size: fail to call png_create_info_struct()");
         }
         if (setjmp(png_jmpbuf(_png_ptr))) {
             //free all of the memory associated with the png_ptr and info_ptr
-            png_destroy_read_struct(&_png_ptr, &_info_ptr, png_infopp_NULL);
+            png_destroy_read_struct(&_png_ptr, &_info_ptr, NULL);
             io_error("png_get_file_size: fail to call setjmp()");
         }
         png_init_io(_png_ptr, get());
@@ -171,7 +171,7 @@ public:
     png_reader(const char* filename) : file_mgr(filename, "rb") { init(); }
 
     ~png_reader() {
-        png_destroy_read_struct(&_png_ptr,&_info_ptr,png_infopp_NULL);
+        png_destroy_read_struct(&_png_ptr,&_info_ptr,NULL);
     }
     point2<std::ptrdiff_t> get_dimensions() {
         return point2<std::ptrdiff_t>(png_get_image_width(_png_ptr,_info_ptr),
@@ -183,7 +183,7 @@ public:
         int bit_depth, color_type, interlace_type;
         png_get_IHDR(_png_ptr, _info_ptr,
                      &width, &height,&bit_depth,&color_type,&interlace_type,
-                     int_p_NULL, int_p_NULL);
+                     NULL, NULL);
         io_error_if(((png_uint_32)view.width()!=width || (png_uint_32)view.height()!= height),
                     "png_read_view: input view size does not match PNG file size");
         
@@ -314,7 +314,7 @@ protected:
         io_error_if(!_png_ptr,"png_write_initialize: fail to call png_create_write_struct()");
         _info_ptr = png_create_info_struct(_png_ptr);
         if (!_info_ptr) {
-            png_destroy_write_struct(&_png_ptr,png_infopp_NULL);
+            png_destroy_write_struct(&_png_ptr,NULL);
             io_error("png_write_initialize: fail to call png_create_info_struct()");
         }
         if (setjmp(png_jmpbuf(_png_ptr))) {

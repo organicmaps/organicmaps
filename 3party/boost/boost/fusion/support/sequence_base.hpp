@@ -12,10 +12,14 @@
 
 namespace boost { namespace fusion
 {
-    struct sequence_root {};
+    namespace detail
+    {
+        struct from_sequence_convertible_type
+        {};
+    }
 
     template <typename Sequence>
-    struct sequence_base : sequence_root
+    struct sequence_base
     {
         Sequence const&
         derived() const
@@ -27,6 +31,11 @@ namespace boost { namespace fusion
         derived()
         {
             return static_cast<Sequence&>(*this);
+        }
+
+        operator detail::from_sequence_convertible_type()const
+        {
+            return detail::from_sequence_convertible_type();
         }
     };
 

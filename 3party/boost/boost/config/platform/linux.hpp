@@ -1,5 +1,6 @@
 //  (C) Copyright John Maddock 2001 - 2003. 
 //  (C) Copyright Jens Maurer 2001 - 2003. 
+// (C) Copyright Bryce Lelbach 2010
 //  Use, modification and distribution are subject to the 
 //  Boost Software License, Version 1.0. (See accompanying file 
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -12,6 +13,13 @@
 
 // make sure we have __GLIBC_PREREQ if available at all
 #include <cstdlib>
+
+#define BOOST_NIX            1 
+//#define BOOST_GENETIC_NIX    1
+//#define BOOST_TRADEMARK_NIX  1
+#define BOOST_FUNCTIONAL_NIX 1
+
+#define BOOST_LINUX 1
 
 //
 // <stdint.h> added to glibc 2.1.1

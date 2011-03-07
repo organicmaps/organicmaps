@@ -79,16 +79,6 @@ class reverse_graph {
 
     typedef reverse_graph_tag graph_tag;
 
-    // Graph, vertex, and edge properties
-    typedef typename graph_property_type<base_type>::type graph_property_type;
-    typedef typename graph_bundle_type<base_type>::type graph_bundled;
-
-    typedef typename vertex_property_type<base_type>::type vertex_property_type;
-    typedef typename vertex_bundle_type<base_type>::type vertex_bundled;
-
-    typedef typename edge_property_type<base_type>::type edge_property_type;
-    typedef typename edge_bundle_type<base_type>::type edge_bundled;
-
 #ifndef BOOST_GRAPH_NO_BUNDLED_PROPERTIES
     // Bundled properties support
     template<typename Descriptor>
@@ -101,10 +91,10 @@ class reverse_graph {
     operator[](Descriptor x) const
     { return m_g[x]; }
 
-    graph_bundled& operator[](graph_bundle_t)
+    typename boost::graph_property_type<base_type>::type& operator[](graph_bundle_t)
     { return get_property(*this); }
 
-    graph_bundled const& operator[](graph_bundle_t) const
+    typename boost::graph_property_type<base_type>::type const& operator[](graph_bundle_t) const
     { return get_property(*this); }
 #endif // BOOST_GRAPH_NO_BUNDLED_PROPERTIES
 
@@ -128,6 +118,11 @@ struct edge_property_type<reverse_graph<BidirectionalGraph, GraphRef> > {
   typedef typename boost::edge_property_type<BidirectionalGraph>::type type;
 };
 
+template <class BidirectionalGraph, class GraphRef>
+struct graph_property_type<reverse_graph<BidirectionalGraph, GraphRef> > {
+  typedef typename boost::graph_property_type<BidirectionalGraph>::type type;
+};
+
 #ifndef BOOST_GRAPH_NO_BUNDLED_PROPERTIES
   template<typename Graph, typename GraphRef>
   struct vertex_bundle_type<reverse_graph<Graph, GraphRef> >
@@ -136,6 +131,10 @@ struct edge_property_type<reverse_graph<BidirectionalGraph, GraphRef> > {
   template<typename Graph, typename GraphRef>
   struct edge_bundle_type<reverse_graph<Graph, GraphRef> >
     : edge_bundle_type<Graph> { };
+
+  template<typename Graph, typename GraphRef>
+  struct graph_bundle_type<reverse_graph<Graph, GraphRef> >
+    : graph_bundle_type<Graph> { };
 #endif // BOOST_GRAPH_NO_BUNDLED_PROPERTIES
 
 template <class BidirectionalGraph>

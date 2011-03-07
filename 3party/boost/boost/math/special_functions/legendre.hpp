@@ -164,7 +164,7 @@ inline T legendre_p_imp(int l, int m, T x, const Policy& pol)
 {
    BOOST_MATH_STD_USING
    // TODO: we really could use that mythical "pow1p" function here:
-   return legendre_p_imp(l, m, x, pow(1 - x*x, T(abs(m))/2), pol);
+   return legendre_p_imp(l, m, x, static_cast<T>(pow(1 - x*x, T(abs(m))/2)), pol);
 }
 
 }

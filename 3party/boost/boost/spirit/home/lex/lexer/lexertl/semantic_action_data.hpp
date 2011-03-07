@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -35,8 +35,8 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
             typedef boost::function<functor_type> functor_wrapper_type;
 
             // add a semantic action function object
-            template <typename Idtype, typename F>
-            void add_action(Idtype unique_id, std::size_t, F act) 
+            template <typename F>
+            void add_action(std::size_t unique_id, std::size_t, F act) 
             {
                 if (actions_.size() <= unique_id)
                     actions_.resize(unique_id + 1); 
@@ -75,8 +75,8 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
             typedef boost::function<functor_type> functor_wrapper_type;
 
             // add a semantic action function object
-            template <typename Idtype, typename F>
-            void add_action(Idtype unique_id, std::size_t state, F act) 
+            template <typename F>
+            void add_action(std::size_t unique_id, std::size_t state, F act) 
             {
                 if (actions_.size() <= state)
                     actions_.resize(state + 1); 

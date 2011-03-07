@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 //
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -20,6 +20,8 @@
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/fusion/include/fold.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/not.hpp>
 
 // needed for workaround below
 #if defined(__GNUC__) && ((__GNUC__ < 4) || (__GNUC__ == 4) && (__GNUC_MINOR__ < 3))
@@ -189,6 +191,21 @@ namespace boost { namespace spirit
             return fusion::fold(Sequence(), unused, make_proto_expr());
         }
     };
+
+    ///////////////////////////////////////////////////////////////////////////
+    namespace detail
+    {
+        // Starting with newer versions of Proto, all Proto expressions are at 
+        // the same time Fusion sequences. This is the correct behavior, but
+        // we need to distinguish between Fusion sequences and Proto 
+        // expressions. This meta-function does exactly that.
+        template <typename T>
+        struct is_fusion_sequence_but_not_proto_expr
+          : mpl::and_<
+                fusion::traits::is_sequence<T>
+              , mpl::not_<proto::is_expr<T> > >
+        {};
+    }
 }}
 
 #endif

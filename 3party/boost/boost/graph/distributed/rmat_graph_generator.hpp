@@ -13,6 +13,7 @@
 #error "Parallel BGL files should not be included unless <boost/graph/use_mpi.hpp> has been included"
 #endif
 
+#include <boost/assert.hpp>
 #include <boost/graph/parallel/algorithm.hpp>
 #include <boost/graph/parallel/process_group.hpp>
 #include <math.h>
@@ -51,7 +52,7 @@ namespace boost {
                              double d, bool permute_vertices = true)
           : gen(), done(false)
       {
-          assert(a + b + c + d == 1);
+          BOOST_ASSERT(a + b + c + d == 1);
           int id = process_id(pg);
 
           this->gen.reset(new uniform_01<RandomGenerator>(gen));

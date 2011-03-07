@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2001-2010 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -19,6 +19,8 @@
 #include <boost/spirit/home/support/common_terminals.hpp>
 #include <boost/spirit/home/qi/detail/attributes.hpp>
 #include <boost/spirit/home/support/info.hpp>
+#include <boost/spirit/home/support/has_semantic_action.hpp>
+#include <boost/spirit/home/support/handles_container.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/foreach.hpp>
 #include <vector>
@@ -216,6 +218,9 @@ namespace boost { namespace spirit { namespace qi
             value_type val = value_type();
             typename LoopIter::type i = iter.start();
 
+            // ensure the attribute is actually a container type
+            traits::make_container(attr);
+
             // parse the minimum required
             Iterator save = first;
             if (!iter.got_min(i) &&
@@ -320,9 +325,17 @@ namespace boost { namespace spirit { namespace qi
 
 namespace boost { namespace spirit { namespace traits
 {
+    ///////////////////////////////////////////////////////////////////////////
     template <typename Subject, typename LoopIter>
     struct has_semantic_action<qi::repeat_parser<Subject, LoopIter> >
       : unary_has_semantic_action<Subject> {};
+
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename Subject, typename LoopIter, typename Attribute
+      , typename Context, typename Iterator>
+    struct handles_container<qi::repeat_parser<Subject, LoopIter>
+      , Attribute, Context, Iterator>
+      : mpl::true_ {};
 }}}
 
 #endif

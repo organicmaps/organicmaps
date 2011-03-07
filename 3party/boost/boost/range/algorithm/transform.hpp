@@ -84,7 +84,7 @@ namespace boost
         {
             BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
             BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
-            return range_detail::transform_impl(
+            return boost::range_detail::transform_impl(
                         boost::begin(rng1), boost::end(rng1),
                         boost::begin(rng2), boost::end(rng2),
                         out, fun);

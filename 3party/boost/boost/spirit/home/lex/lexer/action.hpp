@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -29,11 +29,12 @@ namespace boost { namespace spirit { namespace lex
           : subject(subject), f(f) {}
 
         template <typename LexerDef, typename String>
-        void collect(LexerDef& lexdef, String const& state) const
+        void collect(LexerDef& lexdef, String const& state
+          , String const& targetstate) const
         {
             // collect the token definition information for the token_def 
             // this action is attached to
-            subject.collect(lexdef, state);
+            subject.collect(lexdef, state, targetstate);
         }
 
         template <typename LexerDef>

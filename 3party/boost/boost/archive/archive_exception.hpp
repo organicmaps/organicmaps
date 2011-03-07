@@ -17,7 +17,7 @@
 //  See http://www.boost.org for updates, documentation, and revision history.
 
 #include <exception>
-#include <cassert>
+#include <boost/assert.hpp>
 #include <string>
 
 #include <boost/config.hpp> 

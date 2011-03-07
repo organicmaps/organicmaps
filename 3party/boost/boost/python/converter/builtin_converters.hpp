@@ -122,7 +122,7 @@ BOOST_PYTHON_TO_INT(short)
 BOOST_PYTHON_TO_INT(int)
 BOOST_PYTHON_TO_INT(long)
 
-# if defined(_MSC_VER) && defined(_WIN64)
+# if defined(_MSC_VER) && defined(_WIN64) && PY_VERSION_HEX < 0x03000000
 /* Under 64-bit Windows std::size_t is "unsigned long long". To avoid
    getting a Python long for each std::size_t the value is checked before
    the conversion. A std::size_t is converted to a simple Python int

@@ -10,7 +10,7 @@
 #ifndef BOOST_GRAPH_ERDOS_RENYI_GENERATOR_HPP
 #define BOOST_GRAPH_ERDOS_RENYI_GENERATOR_HPP
 
-#include <cassert>
+#include <boost/assert.hpp>
 #include <iterator>
 #include <utility>
 #include <boost/shared_ptr.hpp>
@@ -155,8 +155,8 @@ namespace boost {
       // bernoulli_distribution would need to be run until it returns true.
       // Thus, this distribution can be used to step through the edges
       // which are actually present.
-      assert (src != (std::numeric_limits<vertices_size_type>::max)() &&
-              src != n);
+      BOOST_ASSERT (src != (std::numeric_limits<vertices_size_type>::max)() &&
+                    src != n);
       while (src != n) {
         vertices_size_type increment = rand_vertex(*gen);
         size_t tgt_index_limit =

@@ -27,7 +27,7 @@
 #include <iomanip>
 #include <locale>
 #include <boost/config/no_tr1/cmath.hpp> // isnan
-#include <cassert>
+#include <boost/assert.hpp>
 #include <cstddef> // size_t
 
 #include <boost/config.hpp>
@@ -97,7 +97,7 @@ public:
     void save(const bool t){
         // trap usage of invalid uninitialized boolean which would
         // otherwise crash on load.
-        assert(0 == static_cast<int>(t) || 1 == static_cast<int>(t));
+        BOOST_ASSERT(0 == static_cast<int>(t) || 1 == static_cast<int>(t));
         if(os.fail())
             boost::serialization::throw_exception(
                 archive_exception(archive_exception::output_stream_error)

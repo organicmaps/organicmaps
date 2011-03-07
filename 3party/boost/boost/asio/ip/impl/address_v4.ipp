@@ -2,7 +2,7 @@
 // ip/impl/address_v4.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2010 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -141,7 +141,7 @@ bool address_v4::is_multicast() const
 
 address_v4 address_v4::broadcast(const address_v4& addr, const address_v4& mask)
 {
-  return address_v4(addr.to_ulong() | ~mask.to_ulong());
+  return address_v4(addr.to_ulong() | (mask.to_ulong() ^ 0xFFFFFFFF));
 }
 
 address_v4 address_v4::netmask(const address_v4& addr)

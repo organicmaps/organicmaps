@@ -59,16 +59,16 @@ template <class T>
 struct is_const_rvalue_filter
 {
 #if BOOST_WORKAROUND(BOOST_MSVC, < 1400)
-	BOOST_STATIC_CONSTANT(bool, value = ::boost::detail::cv_traits_imp<typename boost::remove_bounds<T>::type*>::is_const);
+   BOOST_STATIC_CONSTANT(bool, value = ::boost::detail::cv_traits_imp<typename boost::remove_bounds<T>::type*>::is_const);
 #else
-	BOOST_STATIC_CONSTANT(bool, value = ::boost::detail::cv_traits_imp<T*>::is_const);
+   BOOST_STATIC_CONSTANT(bool, value = ::boost::detail::cv_traits_imp<T*>::is_const);
 #endif
 };
 #ifndef BOOST_NO_RVALUE_REFERENCES
 template <class T>
 struct is_const_rvalue_filter<T&&>
 {
-	BOOST_STATIC_CONSTANT(bool, value = false);
+   BOOST_STATIC_CONSTANT(bool, value = false);
 };
 #endif
 }

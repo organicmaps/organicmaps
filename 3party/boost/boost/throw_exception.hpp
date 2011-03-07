@@ -79,7 +79,7 @@ template<class E> BOOST_ATTRIBUTE_NORETURN inline void throw_exception( E const 
                 set_info(
                     set_info(
                         set_info(
-                            enable_error_info(x),
+                            boost::enable_error_info(x),
                             throw_function(current_function)),
                         throw_file(file)),
                     throw_line(line)));

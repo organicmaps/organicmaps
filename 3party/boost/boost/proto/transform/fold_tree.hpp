@@ -176,6 +176,7 @@ namespace boost { namespace proto
     struct is_callable<reverse_fold_tree<Sequence, State0, Fun> >
       : mpl::true_
     {};
+
 }}
 
 #endif

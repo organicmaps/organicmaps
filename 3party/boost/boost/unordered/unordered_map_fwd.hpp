@@ -24,13 +24,13 @@ namespace boost
         class A = std::allocator<std::pair<const K, T> > >
     class unordered_map;
     template <class K, class T, class H, class P, class A>
-    bool operator==(unordered_map<K, T, H, P, A> const&,
+    inline bool operator==(unordered_map<K, T, H, P, A> const&,
         unordered_map<K, T, H, P, A> const&);
     template <class K, class T, class H, class P, class A>
-    bool operator!=(unordered_map<K, T, H, P, A> const&,
+    inline bool operator!=(unordered_map<K, T, H, P, A> const&,
         unordered_map<K, T, H, P, A> const&);
     template <class K, class T, class H, class P, class A>
-    void swap(unordered_map<K, T, H, P, A>&,
+    inline void swap(unordered_map<K, T, H, P, A>&,
             unordered_map<K, T, H, P, A>&);
 
     template <class K,
@@ -40,13 +40,13 @@ namespace boost
         class A = std::allocator<std::pair<const K, T> > >
     class unordered_multimap;
     template <class K, class T, class H, class P, class A>
-    bool operator==(unordered_multimap<K, T, H, P, A> const&,
+    inline bool operator==(unordered_multimap<K, T, H, P, A> const&,
         unordered_multimap<K, T, H, P, A> const&);
     template <class K, class T, class H, class P, class A>
-    bool operator!=(unordered_multimap<K, T, H, P, A> const&,
+    inline bool operator!=(unordered_multimap<K, T, H, P, A> const&,
         unordered_multimap<K, T, H, P, A> const&);
     template <class K, class T, class H, class P, class A>
-    void swap(unordered_multimap<K, T, H, P, A>&,
+    inline void swap(unordered_multimap<K, T, H, P, A>&,
             unordered_multimap<K, T, H, P, A>&);
 }
 

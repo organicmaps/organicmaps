@@ -91,6 +91,11 @@ namespace range_detail
 } // namespace 'range_detail'
 #endif
 
+// Use a ADL namespace barrier to avoid ambiguity with other unqualified
+// calls. This is particularly important with C++0x encouraging
+// unqualified calls to begin/end.
+namespace range_adl_barrier
+{
 
 template< class T >
 inline BOOST_DEDUCED_TYPENAME range_iterator<T>::type begin( T& r )
@@ -114,19 +119,25 @@ inline BOOST_DEDUCED_TYPENAME range_iterator<const T>::type begin( const T& r )
     return range_begin( r );
 }
 
+    } // namespace range_adl_barrier
 } // namespace boost
 
 #endif // BOOST_NO_FUNCTION_TEMPLATE_ORDERING
 
 namespace boost
 {
-    template< class T >
-    inline BOOST_DEDUCED_TYPENAME range_iterator<const T>::type
-    const_begin( const T& r )
+    namespace range_adl_barrier
     {
-        return boost::begin( r );
-    }
-}
+        template< class T >
+        inline BOOST_DEDUCED_TYPENAME range_iterator<const T>::type
+        const_begin( const T& r )
+        {
+            return boost::range_adl_barrier::begin( r );
+        }
+    } // namespace range_adl_barrier
+
+    using namespace range_adl_barrier;
+} // namespace boost
 
 #endif
 

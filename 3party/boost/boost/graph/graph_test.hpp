@@ -213,7 +213,7 @@ namespace boost {
       IsoMap iso_map(iso_vec.begin(), get(vertex_index, g));
       copy_graph(g, cpy, orig_to_copy(iso_map));
 
-      assert((verify_isomorphism(g, cpy, iso_map)));
+      BOOST_CHECK((verify_isomorphism(g, cpy, iso_map)));
 
       vertex_t v = add_vertex(g);
       

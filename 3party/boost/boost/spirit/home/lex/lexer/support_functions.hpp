@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -22,12 +22,12 @@
 namespace boost { namespace spirit { namespace lex
 {
     ///////////////////////////////////////////////////////////////////////////
-    // The function less() is used by the implementation of the support
-    // function lex::less(). Its functionality is equivalent to flex' function 
-    // yyless(): it returns an iterator positioned to the nth input character 
-    // beyond the current start iterator (i.e. by assigning the return value to 
-    // the placeholder '_end' it is possible to return all but the first n 
-    // characters of the current token back to the input stream. 
+    // The function object less_type is used by the implementation of the 
+    // support function lex::less(). Its functionality is equivalent to flex' 
+    // function yyless(): it returns an iterator positioned to the nth input 
+    // character beyond the current start iterator (i.e. by assigning the 
+    // return value to the placeholder '_end' it is possible to return all but
+    // the first n characters of the current token back to the input stream. 
     //
     //  This Phoenix actor is invoked whenever the function lex::less(n) is 
     //  used inside a lexer semantic action:
@@ -82,13 +82,13 @@ namespace boost { namespace spirit { namespace lex
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // The function more() is used by the implemention of the support function 
-    // lex::more(). Its functionality is equivalent to flex' function yymore(): 
-    // it tells the lexer that the next time it matches a rule, the 
-    // corresponding token should be appended onto the current token value 
-    // rather than replacing it.
+    // The function object more_type is used by the implementation of the  
+    // support function lex::more(). Its functionality is equivalent to flex' 
+    // function yymore(): it tells the lexer that the next time it matches a 
+    // rule, the corresponding token should be appended onto the current token 
+    // value rather than replacing it.
     //
-    //  This Phoenix actor is invoked whenever the function lex::less(n) is 
+    //  This Phoenix actor is invoked whenever the function lex::more(n) is 
     //  used inside a lexer semantic action:
     //
     //      lex::token_def<> identifier = "[a-zA-Z_][a-zA-Z0-9_]*";
@@ -122,7 +122,14 @@ namespace boost { namespace spirit { namespace lex
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    template <typename Actor>
+    // The function object lookahead_type is used by the implementation of the  
+    // support function lex::lookahead(). Its functionality is needed to 
+    // emulate the flex' lookahead operator a/b. Use lex::lookahead() inside
+    // of lexer semantic actions to test whether the argument to this function
+    // matches the current look ahead input. lex::lookahead() can be used with
+    // either a token id or a token_def instance as its argument. It returns
+    // a bool indicating whether the look ahead has been matched.
+    template <typename IdActor, typename StateActor>
     struct lookahead_type
     {
         typedef mpl::true_ no_nullary;
@@ -136,32 +143,56 @@ namespace boost { namespace spirit { namespace lex
         template <typename Env>
         bool eval(Env const& env) const
         {
-            return fusion::at_c<4>(env.args()).lookahead(actor_());
+            return fusion::at_c<4>(env.args()).
+                lookahead(id_actor_(), state_actor_());
         }
 
-        lookahead_type(Actor const& actor)
-          : actor_(actor) {}
+        lookahead_type(IdActor const& id_actor, StateActor const& state_actor)
+          : id_actor_(id_actor), state_actor_(state_actor) {}
 
-        Actor actor_;
+        IdActor id_actor_;
+        StateActor state_actor_;
     };
 
+    //  The function lex::lookahead() is used to create a Phoenix actor 
+    //  allowing to implement functionality similar to flex' lookahead operator
+    //  a/b. 
     template <typename T>
     inline phoenix::actor<
-        lookahead_type<typename phoenix::as_actor<T>::type> >
+        lookahead_type<
+            typename phoenix::as_actor<T>::type
+          , typename phoenix::as_actor<std::size_t>::type> >
     lookahead(T const& id)
     {
-        typedef typename phoenix::as_actor<T>::type actor_type;
-        return lookahead_type<actor_type>(phoenix::as_actor<T>::convert(id));
+        typedef typename phoenix::as_actor<T>::type id_actor_type;
+        typedef typename phoenix::as_actor<std::size_t>::type state_actor_type;
+
+        return lookahead_type<id_actor_type, state_actor_type>(
+            phoenix::as_actor<T>::convert(id),
+            phoenix::as_actor<std::size_t>::convert(std::size_t(~0)));
     }
 
     template <typename Attribute, typename Char, typename Idtype>
     inline phoenix::actor<
-        lookahead_type<typename phoenix::as_actor<Idtype>::type> >
+        lookahead_type<
+            typename phoenix::as_actor<Idtype>::type
+          , typename phoenix::as_actor<std::size_t>::type> >
     lookahead(token_def<Attribute, Char, Idtype> const& tok)
     {
-        typedef typename phoenix::as_actor<Idtype>::type actor_type;
-        return lookahead_type<actor_type>(
-            phoenix::as_actor<Idtype>::convert(tok.id()));
+        typedef typename phoenix::as_actor<Idtype>::type id_actor_type;
+        typedef typename phoenix::as_actor<std::size_t>::type state_actor_type;
+
+        std::size_t state = tok.state();
+
+        // The following assertion fires if you pass a token_def instance to 
+        // lex::lookahead without first associating this instance with the 
+        // lexer.
+        BOOST_ASSERT(std::size_t(~0) != state && 
+            "token_def instance not associated with lexer yet");
+
+        return lookahead_type<id_actor_type, state_actor_type>(
+            phoenix::as_actor<Idtype>::convert(tok.id()),
+            phoenix::as_actor<std::size_t>::convert(state));
     }
 
     ///////////////////////////////////////////////////////////////////////////

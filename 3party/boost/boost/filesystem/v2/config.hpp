@@ -51,6 +51,16 @@
 #   endif
 # endif
 
+//  throw an exception  ----------------------------------------------------------------//
+//
+//  Exceptions were originally thrown via boost::throw_exception().
+//  As throw_exception() became more complex, it caused user error reporting
+//  to be harder to interpret, since the exception reported became much more complex.
+//  The immediate fix was to throw directly, wrapped in a macro to make any later change
+//  easier.
+
+#define BOOST_FILESYSTEM_THROW(EX) throw EX
+
 //  narrow support only for badly broken compilers or libraries  -------------//
 
 # if defined(BOOST_NO_STD_WSTRING) || defined(BOOST_NO_SFINAE) || defined(BOOST_NO_STD_LOCALE) || BOOST_WORKAROUND(__BORLANDC__, <0x610)

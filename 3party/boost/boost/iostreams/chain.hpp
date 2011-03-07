@@ -12,7 +12,7 @@
 # pragma once
 #endif
 
-#include <cassert>
+#include <boost/assert.hpp>
 #include <exception>
 #include <functional>                           // unary_function.
 #include <iterator>                             // advance.
@@ -573,7 +573,7 @@ bool chain_base<Self, Ch, Tr, Alloc, Mode>::strict_sync()
 template<typename Self, typename Ch, typename Tr, typename Alloc, typename Mode>
 void chain_base<Self, Ch, Tr, Alloc, Mode>::pop()
 {
-    assert(!empty());
+    BOOST_ASSERT(!empty());
     if (auto_close())
         pimpl_->close();
     streambuf_type* buf = 0;

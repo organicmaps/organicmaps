@@ -17,7 +17,7 @@
 #include <utility>
 #include <algorithm>
 #include <climits>
-#include <cassert>
+#include <boost/assert.hpp>
 #include <iterator>
 #if 0
 #include <iostream> // For some debugging code below
@@ -1342,7 +1342,7 @@ inline typename BOOST_CSR_GRAPH_TYPE::edge_descriptor
 edge_from_index(EdgeIndex idx, const BOOST_CSR_GRAPH_TYPE& g)
 {
   typedef typename std::vector<EdgeIndex>::const_iterator row_start_iter;
-  assert (idx < num_edges(g));
+  BOOST_ASSERT (idx < num_edges(g));
   row_start_iter src_plus_1 =
     std::upper_bound(g.m_forward.m_rowstart.begin(),
                      g.m_forward.m_rowstart.end(),

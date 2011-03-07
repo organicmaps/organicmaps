@@ -154,6 +154,7 @@ static const long BootAndSystemstampLength   = 16;
 static const long BootstampLength            = 8;
 static const unsigned long MaxPath           = 260;
 
+
 //Keys
 static void * const  hkey_local_machine = (void*)(unsigned long*)(long)(0x80000002);
 static unsigned long key_query_value    = 0x0001;
@@ -165,7 +166,10 @@ const long EOAC_NONE_IG = 0;
 const long CLSCTX_INPROC_SERVER_IG   = 0x1;
 const long CLSCTX_LOCAL_SERVER_IG   = 0x4;
 const long WBEM_FLAG_RETURN_IMMEDIATELY_IG = 0x10;
-const long WBEM_INFINITE_IG = 0xffffffff;
+const long WBEM_INFINITE_IG = 0xffffffffL;
+const long RPC_E_TOO_LATE_IG = 0x80010119L;
+const long S_OK_IG = 0L;
+const long S_FALSE_IG = 1;
 
 }  //namespace winapi {
 }  //namespace interprocess  {
@@ -1448,33 +1452,54 @@ inline void get_registry_value(const char *folder, const char *value_key, std::v
    }
 }
 
+struct co_uninitializer
+{  ~co_uninitializer()  {  CoUninitialize(); }  };
+
+template<class Object>
+struct com_releaser
+{
+   Object *&object_;
+   com_releaser(Object *&object) : object_(object) {}
+   ~com_releaser()  {  object_->Release();    object_ = 0;  }
+};
+
 inline bool get_wmi_class_attribute( std::wstring& strValue, const wchar_t *wmi_class, const wchar_t *wmi_class_var)
 {
-   CoInitialize(0);
- 
+   //See example http://msdn.microsoft.com/en-us/library/aa390423%28v=VS.85%29.aspx
+   long co_init_ret = CoInitialize(0);
+   if(co_init_ret != S_OK_IG && co_init_ret != S_FALSE_IG)
+      return false;
+   co_uninitializer co_initialize_end;
+
    bool bRet = false;
- 
-   if( 0 == CoInitializeSecurity( 0, -1, 0, 0, RPC_C_AUTHN_LEVEL_PKT_IG, RPC_C_IMP_LEVEL_IMPERSONATE_IG, 0, EOAC_NONE_IG, 0 ) )
+   long sec_init_ret = CoInitializeSecurity
+      ( 0   //pVoid 
+      ,-1   //cAuthSvc 
+      , 0   //asAuthSvc 
+      , 0   //pReserved1 
+      , RPC_C_AUTHN_LEVEL_PKT_IG //dwAuthnLevel 
+      , RPC_C_IMP_LEVEL_IMPERSONATE_IG //dwImpLevel 
+      , 0   //pAuthList 
+      , EOAC_NONE_IG //dwCapabilities 
+      , 0   //pReserved3 
+      );
+   if( 0 == sec_init_ret || RPC_E_TOO_LATE_IG == sec_init_ret)
    {
       IWbemLocator_IG * pIWbemLocator = 0;
-
-      IWbemServices_IG * pWbemServices = 0;
-      IEnumWbemClassObject_IG * pEnumObject  = 0;
- 
       const wchar_t * bstrNamespace = L"root\\cimv2";
  
       if( 0 != CoCreateInstance(
             CLSID_WbemAdministrativeLocator,
             0,
             CLSCTX_INPROC_SERVER_IG | CLSCTX_LOCAL_SERVER_IG,
-            IID_IUnknown,
-            ( void ** )&pIWbemLocator
-            )
-         )
-      {
+            IID_IUnknown, (void **)&pIWbemLocator)){
          return false;
       }
  
+      com_releaser<IWbemLocator_IG> IWbemLocator_releaser(pIWbemLocator);
+
+      IWbemServices_IG *pWbemServices = 0;
+
       if( 0 != pIWbemLocator->ConnectServer(
             bstrNamespace,  // Namespace
             0,          // Userid
@@ -1485,18 +1510,19 @@ inline bool get_wmi_class_attribute( std::wstring& strValue, const wchar_t *wmi_
             0,           // Context
             &pWbemServices
             )
-         )
-      {
-         pIWbemLocator->Release();
- 
+         ){
          return false;
       }
- 
+
+      com_releaser<IWbemServices_IG> IWbemServices_releaser(pWbemServices);
+
       strValue.clear();
       strValue += L"Select ";
       strValue += wmi_class_var;
       strValue += L" from ";
       strValue += wmi_class;
+
+      IEnumWbemClassObject_IG * pEnumObject  = 0;
 
       if ( 0 != pWbemServices->ExecQuery(
             L"WQL",
@@ -1505,47 +1531,30 @@ inline bool get_wmi_class_attribute( std::wstring& strValue, const wchar_t *wmi_
             0,
             &pEnumObject
             )
-         )
-      {
-         pIWbemLocator->Release();
-         pWbemServices->Release();
- 
+         ){
          return false;
       }
-      
-      unsigned long uCount = 1, uReturned;
-      IWbemClassObject_IG * pClassObject = 0;
- 
-      if ( 0 != pEnumObject->Reset() )
-      {
-         pIWbemLocator->Release();
-         pWbemServices->Release();
-         pEnumObject->Release();
- 
+
+      com_releaser<IEnumWbemClassObject_IG> IEnumWbemClassObject_releaser(pEnumObject);
+
+      if ( 0 != pEnumObject->Reset() ){
          return false;
       }
 
       wchar_variant vwchar;
-
+      unsigned long uCount = 1, uReturned;
+      IWbemClassObject_IG * pClassObject = 0;
       while( 0 == pEnumObject->Next( WBEM_INFINITE_IG, uCount, &pClassObject, &uReturned ) )
       {
-         if ( 0 == pClassObject->Get( L"LastBootUpTime", 0, &vwchar, 0, 0 ) )
-         {
+         com_releaser<IWbemClassObject_IG> IWbemClassObject_releaser(pClassObject);
+         if ( 0 == pClassObject->Get( L"LastBootUpTime", 0, &vwchar, 0, 0 ) ){
             bRet = true;
-             strValue = vwchar.value.pbstrVal;
-             VariantClear(&vwchar );
-             break;
+            strValue = vwchar.value.pbstrVal;
+            VariantClear(&vwchar );
+            break;
          }
       }
- 
-      pIWbemLocator->Release();
-      pWbemServices->Release();
-      pEnumObject->Release();
-      pClassObject->Release();
    }
- 
-   CoUninitialize();
- 
    return bRet;
 }
 

@@ -60,7 +60,7 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
         ParserT const&
         get() const
         {
-            assert(ptr != 0);
+            BOOST_ASSERT(ptr != 0);
             return *ptr;
         }
     

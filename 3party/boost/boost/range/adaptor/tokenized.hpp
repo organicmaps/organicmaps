@@ -20,7 +20,7 @@ namespace boost
     {
 
         template< class R >
-        struct token_range : 
+        struct tokenized_range : 
             public boost::iterator_range< 
                       boost::regex_token_iterator< 
                           BOOST_DEDUCED_TYPENAME range_iterator<R>::type 
@@ -42,7 +42,7 @@ namespace boost
 
         public:
             template< class Regex, class Submatch, class Flag >
-            token_range( R& r, const Regex& re, const Submatch& sub, Flag f )
+            tokenized_range( R& r, const Regex& re, const Submatch& sub, Flag f )
               : base( regex_iter( boost::begin(r), boost::end(r), 
                                   regex_type(re), sub, f ),
                       regex_iter() )
@@ -90,24 +90,24 @@ namespace boost
         };
         
         template< class BidirectionalRng, class R, class S, class F >
-        inline token_range<BidirectionalRng> 
+        inline tokenized_range<BidirectionalRng> 
         operator|( BidirectionalRng& r, 
                    const regex_holder<R,S,F>& f )
         {
-            return token_range<BidirectionalRng>( r, f.re, f.sub, f.f );   
+            return tokenized_range<BidirectionalRng>( r, f.re, f.sub, f.f );   
         }
 
         template< class BidirectionalRng, class R, class S, class F  >
-        inline token_range<const BidirectionalRng> 
+        inline tokenized_range<const BidirectionalRng> 
         operator|( const BidirectionalRng& r, 
                    const regex_holder<R,S,F>& f )
         {
-            return token_range<const BidirectionalRng>( r, f.re, f.sub, f.f );
+            return tokenized_range<const BidirectionalRng>( r, f.re, f.sub, f.f );
         }
         
     } // 'range_detail'
 
-    using range_detail::token_range;
+    using range_detail::tokenized_range;
 
     namespace adaptors
     { 
@@ -118,17 +118,17 @@ namespace boost
         }
         
         template<class BidirectionalRange, class Regex, class Submatch, class Flag>
-        inline token_range<BidirectionalRange>
+        inline tokenized_range<BidirectionalRange>
         tokenize(BidirectionalRange& rng, const Regex& reg, const Submatch& sub, Flag f)
         {
-            return token_range<BidirectionalRange>(rng, reg, sub, f);
+            return tokenized_range<BidirectionalRange>(rng, reg, sub, f);
         }
         
         template<class BidirectionalRange, class Regex, class Submatch, class Flag>
-        inline token_range<const BidirectionalRange>
+        inline tokenized_range<const BidirectionalRange>
         tokenize(const BidirectionalRange& rng, const Regex& reg, const Submatch& sub, Flag f)
         {
-            return token_range<const BidirectionalRange>(rng, reg, sub, f);
+            return tokenized_range<const BidirectionalRange>(rng, reg, sub, f);
         }
     } // 'adaptors'
     

@@ -18,6 +18,7 @@
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <boost/assert.hpp>
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/random/uniform_int.hpp>
 #include <boost/shared_ptr.hpp>
@@ -194,7 +195,7 @@ struct uneven_block
   explicit uneven_block(const LinearProcessGroup& pg, const std::vector<std::size_t>& local_sizes) 
     : id(process_id(pg)), p(num_processes(pg)), local_sizes(local_sizes)
   { 
-    assert(local_sizes.size() == p);
+    BOOST_ASSERT(local_sizes.size() == p);
     local_starts.resize(p + 1);
     local_starts[0] = 0;
     std::partial_sum(local_sizes.begin(), local_sizes.end(), &local_starts[1]);
@@ -219,7 +220,7 @@ struct uneven_block
   template<typename SizeType>
   SizeType operator()(SizeType i) const
   {
-    assert (i >= (SizeType) 0 && i < (SizeType) n); // check for valid range
+    BOOST_ASSERT (i >= (SizeType) 0 && i < (SizeType) n); // check for valid range
     size_vector::const_iterator lb = std::lower_bound(local_starts.begin(), local_starts.end(), (std::size_t) i);
     return ((SizeType)(*lb) == i ? lb : --lb) - local_starts.begin();
   }
@@ -402,7 +403,7 @@ struct twod_block_cyclic
 
     std::cerr << "global(" << i << "@" << id << ") = " << result 
               << " =? " << local(result) << std::endl;
-    assert(i == local(result));
+    BOOST_ASSERT(i == local(result));
     return result;
   }
 

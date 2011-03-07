@@ -26,7 +26,7 @@
 #include <boost/type_traits/is_convertible.hpp>
 
 #include <iostream>
-#include <cassert>
+#include <boost/assert.hpp>
 
 namespace boost {
 
@@ -104,7 +104,7 @@ namespace boost {
         chosen_weight -= w;
       }
     }
-    assert (false); // Should not get here
+    BOOST_ASSERT (false); // Should not get here
   }
 
   namespace detail {

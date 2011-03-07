@@ -30,8 +30,8 @@ namespace boost {
         class slot_call_iterator_cache
       {
       public:
-        slot_call_iterator_cache(const Function &f):
-          f(f),
+        slot_call_iterator_cache(const Function &f_arg):
+          f(f_arg),
           connected_slot_count(0),
           disconnected_slot_count(0)
         {}

@@ -1,5 +1,5 @@
 //  Copyright (c) 2001, Daniel C. Nuffer
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 //  http://spirit.sourceforge.net/
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying

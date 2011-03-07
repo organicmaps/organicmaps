@@ -18,6 +18,7 @@
 #include <boost/math/distributions/detail/common_error_handling.hpp> // error checks
 #include <boost/math/special_functions/fpclassify.hpp> // isnan.
 #include <boost/math/tools/roots.hpp> // for root finding.
+#include <boost/math/tools/series.hpp>
 
 namespace boost
 {
@@ -42,13 +43,25 @@ namespace boost
             T l2 = lam / 2;
             //
             // k is the starting point for iteration, and is the
-            // maximum of the poisson weighting term:
+            // maximum of the poisson weighting term,
+            // note that unlike other similar code, we do not set
+            // k to zero, when l2 is small, as forward iteration
+            // is unstable:
             //
             int k = itrunc(l2);
             if(k == 0)
                k = 1;
-            // Starting Poisson weight:
-            T pois = gamma_p_derivative(T(k+1), l2, pol);
+            T pois;
+            if(k == 0)
+            {
+               // Starting Poisson weight:
+               pois = exp(-l2);
+            }
+            else
+            {
+               // Starting Poisson weight:
+               pois = gamma_p_derivative(T(k+1), l2, pol);
+            }
             if(pois == 0)
                return init_val;
             // recurance term:
@@ -123,10 +136,27 @@ namespace boost
             // maximum of the poisson weighting term:
             //
             int k = itrunc(l2);
+            T pois;
+            if(k <= 30)
+            {
+               //
+               // Might as well start at 0 since we'll likely have this number of terms anyway:
+               //
+               if(a + b > 1)
+                  k = 0;
+               else if(k == 0)
+                  k = 1;
+            }
             if(k == 0)
-               k = 1;
-            // Starting Poisson weight:
-            T pois = gamma_p_derivative(T(k+1), l2, pol);
+            {
+               // Starting Poisson weight:
+               pois = exp(-l2);
+            }
+            else
+            {
+               // Starting Poisson weight:
+               pois = gamma_p_derivative(T(k+1), l2, pol);
+            }
             if(pois == 0)
                return init_val;
             // recurance term:
@@ -598,6 +628,46 @@ namespace boost
                "function");
          }
 
+         template <class T>
+         struct hypergeometric_2F2_sum
+         {
+            typedef T result_type;
+            hypergeometric_2F2_sum(T a1_, T a2_, T b1_, T b2_, T z_) : a1(a1_), a2(a2_), b1(b1_), b2(b2_), z(z_), term(1), k(0) {}
+            T operator()()
+            {
+               T result = term;
+               term *= a1 * a2 / (b1 * b2);
+               a1 += 1;
+               a2 += 1;
+               b1 += 1;
+               b2 += 1;
+               k += 1;
+               term /= k;
+               term *= z;
+               return result;
+            }
+            T a1, a2, b1, b2, z, term, k;
+         };
+
+         template <class T, class Policy>
+         T hypergeometric_2F2(T a1, T a2, T b1, T b2, T z, const Policy& pol)
+         {
+            typedef typename policies::evaluation<T, Policy>::type value_type;
+
+            const char* function = "boost::math::detail::hypergeometric_2F2<%1%>(%1%,%1%,%1%,%1%,%1%)";
+
+            hypergeometric_2F2_sum<value_type> s(a1, a2, b1, b2, z);
+            boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
+#if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x582))
+            value_type zero = 0;
+            value_type result = boost::math::tools::sum_series(s, boost::math::policies::get_epsilon<value_type, Policy>(), max_iter, zero);
+#else
+            value_type result = boost::math::tools::sum_series(s, boost::math::policies::get_epsilon<value_type, Policy>(), max_iter);
+#endif
+            policies::check_series_iterations(function, max_iter, pol);
+            return policies::checked_narrowing_cast<T, Policy>(result, function);
+         }
+
       } // namespace detail
 
       template <class RealType = double, class Policy = policies::policy<> >
@@ -693,7 +763,6 @@ namespace boost
             function);
       }
 
-#if 0
       //
       // We don't have the necessary information to implement
       // these at present.  These are just disabled for now,
@@ -703,35 +772,58 @@ namespace boost
       template <class RealType, class Policy>
       inline RealType mean(const non_central_beta_distribution<RealType, Policy>& dist)
       {
-         // TODO
-         return 0;
+         BOOST_MATH_STD_USING
+         RealType a = dist.alpha();
+         RealType b = dist.beta();
+         RealType d = dist.non_centrality();
+         RealType apb = a + b;
+         return exp(-d / 2) * a * detail::hypergeometric_2F2<RealType, Policy>(1 + a, apb, a, 1 + apb, d / 2, Policy()) / apb;
       } // mean
 
       template <class RealType, class Policy>
       inline RealType variance(const non_central_beta_distribution<RealType, Policy>& dist)
-      { // variance.
-         const char* function = "boost::math::non_central_beta_distribution<%1%>::variance()";
-         // TODO
-         return 0;
+      { 
+         //
+         // Relative error of this function may be arbitarily large... absolute
+         // error will be small however... that's the best we can do for now.
+         //
+         BOOST_MATH_STD_USING
+         RealType a = dist.alpha();
+         RealType b = dist.beta();
+         RealType d = dist.non_centrality();
+         RealType apb = a + b;
+         RealType result = detail::hypergeometric_2F2(RealType(1 + a), apb, a, RealType(1 + apb), RealType(d / 2), Policy());
+         result *= result * -exp(-d) * a * a / (apb * apb);
+         result += exp(-d / 2) * a * (1 + a) * detail::hypergeometric_2F2(RealType(2 + a), apb, a, RealType(2 + apb), RealType(d / 2), Policy()) / (apb * (1 + apb));
+         return result;
       }
 
       // RealType standard_deviation(const non_central_beta_distribution<RealType, Policy>& dist)
       // standard_deviation provided by derived accessors.
-
       template <class RealType, class Policy>
-      inline RealType skewness(const non_central_beta_distribution<RealType, Policy>& dist)
+      inline RealType skewness(const non_central_beta_distribution<RealType, Policy>& /*dist*/)
       { // skewness = sqrt(l).
          const char* function = "boost::math::non_central_beta_distribution<%1%>::skewness()";
-         // TODO
-         return 0;
+         typedef typename Policy::assert_undefined_type assert_type;
+         BOOST_STATIC_ASSERT(assert_type::value == 0);
+
+         return policies::raise_evaluation_error<RealType>(
+            function,
+            "This function is not yet implemented, the only sensible result is %1%.",
+            std::numeric_limits<RealType>::quiet_NaN(), Policy()); // infinity?
       }
 
       template <class RealType, class Policy>
-      inline RealType kurtosis_excess(const non_central_beta_distribution<RealType, Policy>& dist)
+      inline RealType kurtosis_excess(const non_central_beta_distribution<RealType, Policy>& /*dist*/)
       {
          const char* function = "boost::math::non_central_beta_distribution<%1%>::kurtosis_excess()";
-         // TODO
-         return 0;
+         typedef typename Policy::assert_undefined_type assert_type;
+         BOOST_STATIC_ASSERT(assert_type::value == 0);
+
+         return policies::raise_evaluation_error<RealType>(
+            function,
+            "This function is not yet implemented, the only sensible result is %1%.",
+            std::numeric_limits<RealType>::quiet_NaN(), Policy()); // infinity?
       } // kurtosis_excess
 
       template <class RealType, class Policy>
@@ -739,7 +831,7 @@ namespace boost
       {
          return kurtosis_excess(dist) + 3;
       }
-#endif
+
       template <class RealType, class Policy>
       inline RealType pdf(const non_central_beta_distribution<RealType, Policy>& dist, const RealType& x)
       { // Probability Density/Mass Function.

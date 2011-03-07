@@ -32,35 +32,35 @@ namespace boost
         };
 
         template<class ForwardRng>
-        class unique_range : public adjacent_filter_range<unique_not_equal_to, ForwardRng, true>
+        class uniqued_range : public adjacent_filtered_range<unique_not_equal_to, ForwardRng, true>
         {
-            typedef adjacent_filter_range<unique_not_equal_to, ForwardRng, true> base;
+            typedef adjacent_filtered_range<unique_not_equal_to, ForwardRng, true> base;
         public:
-            explicit unique_range(ForwardRng& rng)
+            explicit uniqued_range(ForwardRng& rng)
                 : base(unique_not_equal_to(), rng)
             {
             }
         };
 
         template< class ForwardRng >
-        inline unique_range<ForwardRng>
+        inline uniqued_range<ForwardRng>
         operator|( ForwardRng& r,
                    unique_forwarder )
         {
-            return unique_range<ForwardRng>(r);
+            return uniqued_range<ForwardRng>(r);
         }
 
         template< class ForwardRng >
-        inline unique_range<const ForwardRng>
+        inline uniqued_range<const ForwardRng>
         operator|( const ForwardRng& r,
                    unique_forwarder )
         {
-            return unique_range<const ForwardRng>(r);
+            return uniqued_range<const ForwardRng>(r);
         }
 
     } // 'range_detail'
 
-    using range_detail::unique_range;
+    using range_detail::uniqued_range;
 
     namespace adaptors
     {
@@ -71,17 +71,17 @@ namespace boost
         }
 
         template<class ForwardRange>
-        inline unique_range<ForwardRange>
+        inline uniqued_range<ForwardRange>
         unique(ForwardRange& rng)
         {
-            return unique_range<ForwardRange>(rng);
+            return uniqued_range<ForwardRange>(rng);
         }
 
         template<class ForwardRange>
-        inline unique_range<const ForwardRange>
+        inline uniqued_range<const ForwardRange>
         unique(const ForwardRange& rng)
         {
-            return unique_range<const ForwardRange>(rng);
+            return uniqued_range<const ForwardRange>(rng);
         }
     } // 'adaptors'
 

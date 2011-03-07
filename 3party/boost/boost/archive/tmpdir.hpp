@@ -18,7 +18,7 @@
 
 #include <cstdlib> // getenv
 #include <cstddef> // NULL
-//#include <cassert>
+//#include <boost/assert.hpp>
 
 #include <boost/config.hpp>
 #ifdef BOOST_NO_STDC_NAMESPACE
@@ -38,7 +38,7 @@ inline const char * tmpdir(){
     if(NULL == dirname)
         dirname = std::getenv("TEMP");
     if(NULL == dirname){
-        //assert(false); // no temp directory found
+        //BOOST_ASSERT(false); // no temp directory found
         dirname = ".";
     }
     return dirname;

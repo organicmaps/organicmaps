@@ -20,6 +20,7 @@
 #include <boost/graph/distributed/concepts.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/config.hpp>
+#include <boost/assert.hpp>
 
 // For additive_reducer
 #include <boost/graph/distributed/distributed_graph_utility.hpp>
@@ -929,7 +930,7 @@ namespace boost {
         for (incoming_iterator vw = el.begin(); vw != el.end(); ++vw) {
           vertex_descriptor v = *vw;
 
-          assert(get(path_count, w) != 0);
+          BOOST_ASSERT(get(path_count, w) != 0);
 
           dependency_type factor = dependency_type(get(path_count, v))
             / dependency_type(get(path_count, w));

@@ -1,5 +1,6 @@
 /*=============================================================================
-    Copyright (c) 2001-2010 Joel de Guzman
+    Copyright (c) 2001-2011 Joel de Guzman
+    Copyright (c) 2001-2011 Hartmut Kaiser
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -11,14 +12,63 @@
 #pragma once
 #endif
 
-#include <boost/fusion/include/unused.hpp>
+#include <boost/config.hpp>
 #include <boost/mpl/bool.hpp>
 
+#if defined(BOOST_MSVC)
+# pragma warning(push)
+# pragma warning(disable: 4522) // multiple assignment operators specified warning
+#endif
+
 ///////////////////////////////////////////////////////////////////////////////
-// implement streaming operators for unused_type for older versions of Fusion
-#if !defined(BOOST_FUSION_UNUSED_HAS_IO)
-namespace boost { namespace fusion
+namespace boost { namespace spirit
 {
+    ///////////////////////////////////////////////////////////////////////////
+    // We do not import fusion ::unused_type anymore to avoid boost::fusion
+    // being turned into an associate namespace for boost::spirit, as this
+    // interferes with ADL in unexpected ways. We rather copy the full 
+    // unused_type implementation from boost::fusion.
+    ///////////////////////////////////////////////////////////////////////////
+    struct unused_type
+    {
+        unused_type()
+        {
+        }
+
+        template <typename T>
+        unused_type(T const&)
+        {
+        }
+
+        template <typename T>
+        unused_type const&
+        operator=(T const&) const
+        {
+            return *this;
+        }
+
+        template <typename T>
+        unused_type&
+        operator=(T const&)
+        {
+            return *this;
+        }
+
+        unused_type const&
+        operator=(unused_type const&) const
+        {
+            return *this;
+        }
+
+        unused_type&
+        operator=(unused_type const&)
+        {
+            return *this;
+        }
+    };
+
+    unused_type const unused = unused_type();
+
     namespace detail
     {
         struct unused_only
@@ -38,18 +88,6 @@ namespace boost { namespace fusion
     {
         return in;
     }
-}}
-#endif
-
-///////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace spirit
-{
-    ///////////////////////////////////////////////////////////////////////////
-    // since boost::fusion now supports exactly what we need, unused is simply
-    // imported from the fusion namespace
-    ///////////////////////////////////////////////////////////////////////////
-    using boost::fusion::unused_type;
-    using boost::fusion::unused;
 
     ///////////////////////////////////////////////////////////////////////////
     namespace traits
@@ -59,5 +97,9 @@ namespace boost { namespace spirit
         template <> struct not_is_unused<unused_type> : mpl::false_ {};
     }
 }}
+
+#if defined(BOOST_MSVC)
+# pragma warning(pop)
+#endif
 
 #endif

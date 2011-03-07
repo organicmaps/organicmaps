@@ -11,6 +11,7 @@
 #define BOOST_GRAPH_RANDOM_SPANNING_TREE_HPP
 
 #include <vector>
+#include <boost/assert.hpp>
 #include <boost/graph/loop_erased_random_walk.hpp>
 #include <boost/graph/random.hpp>
 #include <boost/graph/iteration_macros.hpp>
@@ -34,7 +35,7 @@ namespace boost {
       typedef typename graph_traits<Graph>::vertex_descriptor vertex_descriptor;
       typedef typename graph_traits<Graph>::edge_descriptor edge_descriptor;
 
-      assert (num_vertices(g) >= 1); // g must also be undirected (or symmetric) and connected
+      BOOST_ASSERT (num_vertices(g) >= 1); // g must also be undirected (or symmetric) and connected
 
       typedef color_traits<typename property_traits<ColorMap>::value_type> color_gen;
       BGL_FORALL_VERTICES_T(v, g, Graph) put(color, v, color_gen::white());
@@ -53,7 +54,7 @@ namespace boost {
              ++i) {
           typename std::vector<vertex_descriptor>::const_reverse_iterator j = i;
           ++j;
-          assert (get(color, *j) == color_gen::gray());
+          BOOST_ASSERT (get(color, *j) == color_gen::gray());
           put(color, *j, color_gen::black());
           put(pred, *j, *i);
         }

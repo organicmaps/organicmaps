@@ -1,6 +1,7 @@
 //  (C) Copyright John Maddock 2001 - 2003. 
 //  (C) Copyright Darin Adler 2001 - 2002. 
 //  (C) Copyright Bill Kempf 2002. 
+// (C) Copyright Bryce Lelbach 2010
 //  Use, modification and distribution are subject to the 
 //  Boost Software License, Version 1.0. (See accompanying file 
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -12,6 +13,11 @@
 #define BOOST_PLATFORM "Mac OS"
 
 #if __MACH__ && !defined(_MSL_USING_MSL_C)
+
+#define BOOST_NIX            1 
+//#define BOOST_GENETIC_NIX    1
+#define BOOST_TRADEMARK_NIX  1
+//#define BOOST_FUNCTIONAL_NIX 1
 
 // Using the Mac OS X system BSD-style C library.
 

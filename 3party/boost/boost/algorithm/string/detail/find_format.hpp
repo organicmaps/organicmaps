@@ -74,17 +74,17 @@ namespace boost {
                 const InputT& Input,
                 FormatterT Formatter,
                 const FindResultT& FindResult )
-            {       
+            {   
                 if( ::boost::algorithm::detail::check_find_result(Input, FindResult) ) {
-                return ::boost::algorithm::detail::find_format_copy_impl2( 
-                    Output,
-                    Input,
-                    Formatter,
-                    FindResult,
-                    Formatter(FindResult) );
+                    return ::boost::algorithm::detail::find_format_copy_impl2( 
+                        Output,
+                        Input,
+                        Formatter,
+                        FindResult,
+                        Formatter(FindResult) );
                 } else {
                     return std::copy( ::boost::begin(Input), ::boost::end(Input), Output );
-            }
+                }
             }
 
  
@@ -137,14 +137,14 @@ namespace boost {
                 const FindResultT& FindResult)
             {
                 if( ::boost::algorithm::detail::check_find_result(Input, FindResult) ) {
-                return ::boost::algorithm::detail::find_format_copy_impl2(
-                    Input,
-                    Formatter,
-                    FindResult,
-                    Formatter(FindResult) );
+                    return ::boost::algorithm::detail::find_format_copy_impl2(
+                        Input,
+                        Formatter,
+                        FindResult,
+                        Formatter(FindResult) );
                 } else {
                     return Input;
-            }
+                }
             }
 
  // replace implementation ----------------------------------------------------//
@@ -189,12 +189,12 @@ namespace boost {
                 const FindResultT& FindResult)
             {
                 if( ::boost::algorithm::detail::check_find_result(Input, FindResult) ) {
-                ::boost::algorithm::detail::find_format_impl2(
-                    Input,
-                    Formatter,
-                    FindResult,
-                    Formatter(FindResult) );
-            }
+                    ::boost::algorithm::detail::find_format_impl2(
+                        Input,
+                        Formatter,
+                        FindResult,
+                        Formatter(FindResult) );
+                }
             }
 
         } // namespace detail

@@ -12,7 +12,7 @@
 # pragma once
 #endif
 
-#include <cassert>
+#include <boost/assert.hpp>
 #include <boost/config.hpp>  // BOOST_DEDUCE_TYPENAME.
 #include <boost/iostreams/categories.hpp>
 #include <boost/iostreams/detail/adapter/device_adapter.hpp>
@@ -66,7 +66,7 @@ public:
         if (result != -1) {
             std::streamsize result2 = iostreams::write(this->component(), s, result);
             (void) result2; // Suppress 'unused variable' warning.
-            assert(result == result2);
+            BOOST_ASSERT(result == result2);
         }
         return result;
     }
@@ -77,7 +77,7 @@ public:
         std::streamsize result = iostreams::write(snk, s, n);
         std::streamsize result2 = iostreams::write(this->component(), s, result);
         (void) result2; // Suppress 'unused variable' warning.
-        assert(result == result2);
+        BOOST_ASSERT(result == result2);
         return result;
     }
 
@@ -158,7 +158,7 @@ public:
             std::streamsize result2 = iostreams::write(sink_, s, result1);
             (void) result1; // Suppress 'unused variable' warning.
             (void) result2;
-            assert(result1 == result2);
+            BOOST_ASSERT(result1 == result2);
         }
         return result1;
     }
@@ -173,7 +173,7 @@ public:
         std::streamsize result2 = iostreams::write(sink_, s, n);
         (void) result1; // Suppress 'unused variable' warning.
         (void) result2;
-        assert(result1 == n && result2 == n);
+        BOOST_ASSERT(result1 == n && result2 == n);
         return n;
     }
     void close()

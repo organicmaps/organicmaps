@@ -115,7 +115,7 @@
                 typedef typename proto::result_of::value<Expr const &>::type value_type;
 
                 typedef
-                    typename boost::tr1_result_of<
+                    typename BOOST_PROTO_RESULT_OF<
                         Context(typename Expr::proto_tag, value_type)
                     >::type
                 result_type;
@@ -294,7 +294,7 @@
                 BOOST_PP_REPEAT(N, BOOST_PROTO_CHILD_N_TYPE, Expr)
 
                 typedef
-                    typename boost::tr1_result_of<
+                    typename BOOST_PROTO_RESULT_OF<
                         Context(
                             typename Expr::proto_tag
                             BOOST_PP_ENUM_TRAILING_PARAMS(N, child)

@@ -13,7 +13,7 @@
 #endif              
 
 #include <algorithm>                             // copy, min.  
-#include <cassert>
+#include <boost/assert.hpp>
 #include <boost/config.hpp>                      // BOOST_DEDUCED_TYPENAME.       
 #include <boost/detail/workaround.hpp>           // default_filter_buffer_size.
 #include <boost/iostreams/char_traits.hpp>
@@ -78,7 +78,7 @@ public:
         typedef detail::counted_array_sink<char_type>  array_sink;
         typedef composite<filter_ref, array_sink>      filtered_array_sink;
 
-        assert((flags() & f_write) == 0);
+        BOOST_ASSERT((flags() & f_write) == 0);
         if (flags() == 0) {
             flags() = f_read;
             buf().set(0, 0);
@@ -106,7 +106,7 @@ public:
         typedef detail::counted_array_source<char_type>  array_source;
         typedef composite<filter_ref, array_source>      filtered_array_source;
 
-        assert((flags() & f_read) == 0);
+        BOOST_ASSERT((flags() & f_read) == 0);
         if (flags() == 0) {
             flags() = f_write;
             buf().set(0, 0);

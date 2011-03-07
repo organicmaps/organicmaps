@@ -46,7 +46,8 @@ class object_pool;
 template <typename Tag, unsigned RequestedSize,
     typename UserAllocator = default_user_allocator_new_delete,
     typename Mutex = details::pool::default_mutex,
-    unsigned NextSize = 32>
+    unsigned NextSize = 32,
+    unsigned MaxSize = 0>
 struct singleton_pool;
 
 //
@@ -57,7 +58,8 @@ struct pool_allocator_tag;
 template <typename T,
     typename UserAllocator = default_user_allocator_new_delete,
     typename Mutex = details::pool::default_mutex,
-    unsigned NextSize = 32>
+    unsigned NextSize = 32,
+    unsigned MaxSize = 0>
 class pool_allocator;
 
 struct fast_pool_allocator_tag;
@@ -65,7 +67,8 @@ struct fast_pool_allocator_tag;
 template <typename T,
     typename UserAllocator = default_user_allocator_new_delete,
     typename Mutex = details::pool::default_mutex,
-    unsigned NextSize = 32>
+    unsigned NextSize = 32,
+    unsigned MaxSize = 0>
 class fast_pool_allocator;
 
 } // namespace boost

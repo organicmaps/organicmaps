@@ -322,7 +322,7 @@
                 function_type;
 
                 typedef
-                    typename boost::tr1_result_of<function_type()>::type
+                    typename BOOST_PROTO_RESULT_OF<function_type()>::type
                 result_type;
 
                 result_type operator ()(Expr &expr, Context &context) const
@@ -423,7 +423,7 @@
             function_type;
 
             typedef
-                typename boost::tr1_result_of<
+                typename BOOST_PROTO_RESULT_OF<
                     function_type(BOOST_PP_ENUM_SHIFTED(N, BOOST_PROTO_DEFAULT_EVAL_TYPE, Expr))
                 >::type
             result_type;

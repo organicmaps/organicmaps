@@ -24,7 +24,7 @@
 // ON PLATFORM APART FROM THE ONE THEY ARE CREATE ON
 
 #include <iosfwd>
-#include <cassert>
+#include <boost/assert.hpp>
 #include <locale>
 #include <streambuf> // basic_streambuf
 #include <string>
@@ -88,7 +88,7 @@ public:
     // trap usage of invalid uninitialized boolean which would
     // otherwise crash on load.
     void save(const bool t){
-        assert(0 == static_cast<int>(t) || 1 == static_cast<int>(t));
+        BOOST_ASSERT(0 == static_cast<int>(t) || 1 == static_cast<int>(t));
         save_binary(& t, sizeof(t));
     }
     BOOST_ARCHIVE_OR_WARCHIVE_DECL(void)
@@ -146,7 +146,7 @@ basic_binary_oprimitive<Archive, Elem, Tr>::save_binary(
     const void *address, 
     std::size_t count
 ){
-    //assert(
+    //BOOST_ASSERT(
     //    static_cast<std::size_t>((std::numeric_limits<std::streamsize>::max)()) >= count
     //);
     // note: if the following assertions fail
@@ -160,7 +160,7 @@ basic_binary_oprimitive<Archive, Elem, Tr>::save_binary(
     // figure number of elements to output - round up
     count = ( count + sizeof(Elem) - 1) 
         / sizeof(Elem);
-    assert(count <= std::size_t(boost::integer_traits<std::streamsize>::const_max));
+    BOOST_ASSERT(count <= std::size_t(boost::integer_traits<std::streamsize>::const_max));
     std::streamsize scount = m_sb.sputn(
         static_cast<const Elem *>(address), 
         static_cast<std::streamsize>(count)
@@ -173,7 +173,7 @@ basic_binary_oprimitive<Archive, Elem, Tr>::save_binary(
     //    static_cast<const BOOST_DEDUCED_TYPENAME OStream::char_type *>(address), 
     //    count
     //);
-    //assert(os.good());
+    //BOOST_ASSERT(os.good());
 }
 
 } //namespace boost 

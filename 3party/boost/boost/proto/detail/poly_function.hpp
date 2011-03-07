@@ -15,6 +15,7 @@
     #include <boost/ref.hpp>
     #include <boost/mpl/bool.hpp>
     #include <boost/mpl/void.hpp>
+    #include <boost/mpl/size_t.hpp>
     #include <boost/mpl/eval_if.hpp>
     #include <boost/preprocessor/cat.hpp>
     #include <boost/preprocessor/facilities/intercept.hpp>
@@ -185,7 +186,7 @@
         template<typename T> unknown_function_t test_poly_function(T *, ...);
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
-        template<typename Fun, typename Sig, std::size_t Switch = sizeof(test_poly_function<Fun>(0,0))>
+        template<typename Fun, typename Sig, typename Switch = mpl::size_t<sizeof(test_poly_function<Fun>(0,0))> >
         struct poly_function_traits
         {
             typedef typename Fun::template result<Sig>::type result_type;
@@ -194,7 +195,7 @@
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
         template<typename Fun, typename Sig>
-        struct poly_function_traits<Fun, Sig, sizeof(mono_function_t)>
+        struct poly_function_traits<Fun, Sig, mpl::size_t<sizeof(mono_function_t)> >
         {
             typedef typename Fun::result_type result_type;
             typedef Fun function_type;
@@ -265,7 +266,7 @@
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
         template<typename PolyFun BOOST_PP_ENUM_TRAILING_PARAMS(N, typename A)>
-        struct poly_function_traits<PolyFun, PolyFun(BOOST_PP_ENUM_PARAMS(N, A)), sizeof(poly_function_t)>
+        struct poly_function_traits<PolyFun, PolyFun(BOOST_PP_ENUM_PARAMS(N, A)), mpl::size_t<sizeof(poly_function_t)> >
         {
             typedef typename PolyFun::template impl<BOOST_PP_ENUM_PARAMS(N, const A)> function_type;
             typedef typename function_type::result_type result_type;

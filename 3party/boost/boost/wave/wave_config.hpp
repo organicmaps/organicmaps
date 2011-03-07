@@ -5,7 +5,7 @@
     
     http://www.boost.org/
 
-    Copyright (c) 2001-2010 Hartmut Kaiser. Distributed under the Boost
+    Copyright (c) 2001-2011 Hartmut Kaiser. Distributed under the Boost
     Software License, Version 1.0. (See accompanying file
     LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
@@ -80,6 +80,18 @@
 //
 #if !defined(BOOST_WAVE_SUPPORT_INCLUDE_NEXT)
 #define BOOST_WAVE_SUPPORT_INCLUDE_NEXT 1
+#endif
+
+///////////////////////////////////////////////////////////////////////////////
+//  Decide, whether to support C++0x
+//
+//  To implement C++0x keywords and preprocessor semantics define the following 
+//  to something not equal to zero.
+//
+#if !defined(BOOST_WAVE_SUPPORT_CPP0X)
+#define BOOST_WAVE_SUPPORT_CPP0X 1
+#undef BOOST_WAVE_SUPPORT_VARIADICS_PLACEMARKERS
+#define BOOST_WAVE_SUPPORT_VARIADICS_PLACEMARKERS 1
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -93,7 +93,7 @@ inline const char *get_temporary_path()
 
 
 inline file_handle_t create_new_file
-   (const char *name, mode_t mode, const permissions & perm, bool temporary = false)
+   (const char *name, mode_t mode, const permissions & perm = permissions(), bool temporary = false)
 {  
    unsigned long attr = temporary ? winapi::file_attribute_temporary : 0;
    return winapi::create_file
@@ -102,7 +102,7 @@ inline file_handle_t create_new_file
 }
 
 inline file_handle_t create_or_open_file
-   (const char *name, mode_t mode, const permissions & perm, bool temporary = false)
+   (const char *name, mode_t mode, const permissions & perm = permissions(), bool temporary = false)
 {  
    unsigned long attr = temporary ? winapi::file_attribute_temporary : 0;
    return winapi::create_file
@@ -395,7 +395,7 @@ inline const char *get_temporary_path()
 }
 
 inline file_handle_t create_new_file
-   (const char *name, mode_t mode, const permissions & perm, bool temporary = false)
+   (const char *name, mode_t mode, const permissions & perm = permissions(), bool temporary = false)
 {  
    (void)temporary;
    int ret = ::open(name, ((int)mode) | O_EXCL | O_CREAT, perm.get_permissions());
@@ -406,12 +406,23 @@ inline file_handle_t create_new_file
 }
 
 inline file_handle_t create_or_open_file
-   (const char *name, mode_t mode, const permissions & perm, bool temporary = false)
-{  
+   (const char *name, mode_t mode, const permissions & perm = permissions(), bool temporary = false)
+{
    (void)temporary;
-   int ret = ::open(name, ((int)mode) | O_CREAT, perm.get_permissions());
-   if(ret >= 0){
-      ::fchmod(ret, perm.get_permissions());
+   int ret = -1;
+   //We need a loop to change permissions correctly using fchmod, since
+   //with "O_CREAT only" ::open we don't know if we've created or opened the file.
+   while(1){
+      ret = ::open(name, ((int)mode) | O_EXCL | O_CREAT, perm.get_permissions());
+      if(ret >= 0){
+         ::fchmod(ret, perm.get_permissions());
+         break;
+      }
+      else if(errno == EEXIST){
+         if((ret = ::open(name, (int)mode)) >= 0 || errno != ENOENT){
+            break;
+         }
+      }
    }
    return ret;
 }
@@ -420,7 +431,7 @@ inline file_handle_t open_existing_file
    (const char *name, mode_t mode, bool temporary = false)
 {  
    (void)temporary;
-   return ::open(name, (int)mode, 0666);
+   return ::open(name, (int)mode);
 }
 
 inline bool delete_file(const char *name)

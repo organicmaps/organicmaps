@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 //
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -11,9 +11,12 @@
 #endif
 
 #include <limits>
+#include <boost/mpl/bool.hpp>
+#include <boost/utility/enable_if.hpp>
 
 #include <boost/spirit/home/support/common_terminals.hpp>
 #include <boost/spirit/home/support/string_traits.hpp>
+#include <boost/spirit/home/support/numeric_traits.hpp>
 #include <boost/spirit/home/support/info.hpp>
 #include <boost/spirit/home/support/char_class.hpp>
 #include <boost/spirit/home/karma/meta_compiler.hpp>
@@ -21,6 +24,7 @@
 #include <boost/spirit/home/karma/auxiliary/lazy.hpp>
 #include <boost/spirit/home/karma/detail/get_casetag.hpp>
 #include <boost/spirit/home/karma/detail/extract_from.hpp>
+#include <boost/spirit/home/karma/detail/enable_lit.hpp>
 #include <boost/spirit/home/karma/domain.hpp>
 #include <boost/spirit/home/karma/numeric/bool_policies.hpp>
 #include <boost/spirit/home/karma/numeric/detail/bool_utils.hpp>
@@ -36,8 +40,8 @@ namespace boost { namespace spirit
         struct bool_policies;
 
         ///////////////////////////////////////////////////////////////////////
-        // This one is the class that the user can instantiate directly in 
-        // order to create a customized int generator
+        // This is the class that the user can instantiate directly in 
+        // order to create a customized bool generator
         template <typename T = bool, typename Policies = bool_policies<T> >
         struct bool_generator
           : spirit::terminal<tag::stateful_tag<Policies, tag::bool_, T> >
@@ -98,6 +102,12 @@ namespace boost { namespace spirit
           , tag::stateful_tag<Policies, tag::bool_, T>, 1> 
       : mpl::true_ {};
 
+    // enables lit(bool)
+    template <typename A0>
+    struct use_terminal<karma::domain
+          , terminal_ex<tag::lit, fusion::vector1<A0> >
+          , typename enable_if<traits::is_bool<A0> >::type>
+      : mpl::true_ {};
 }}
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -111,6 +121,7 @@ namespace boost { namespace spirit { namespace karma
     using spirit::false__type;
 
     using spirit::lit;    // lit(true) is equivalent to true
+    using spirit::lit_type;
 
     ///////////////////////////////////////////////////////////////////////////
     //  This specialization is used for bool generators not having a direct
@@ -337,7 +348,7 @@ namespace boost { namespace spirit { namespace karma
     ///////////////////////////////////////////////////////////////////////////
     template <typename Modifiers, typename A0>
     struct make_primitive<
-        terminal_ex<tag::bool_, fusion::vector1<A0> >, Modifiers>
+            terminal_ex<tag::bool_, fusion::vector1<A0> >, Modifiers>
       : detail::make_bool_direct<Modifiers> {};
 
     template <typename T, typename Policies, typename A0, typename Modifiers>
@@ -378,6 +389,32 @@ namespace boost { namespace spirit { namespace karma
     struct make_primitive<bool, Modifiers> 
       : detail::basic_bool_literal<Modifiers> {};
 
+    template <typename Modifiers, typename A0>
+    struct make_primitive<
+            terminal_ex<tag::lit, fusion::vector1<A0> >
+          , Modifiers
+          , typename enable_if<traits::is_bool<A0> >::type>
+      : detail::basic_bool_literal<Modifiers> 
+    {
+        static bool const lower =
+            has_modifier<Modifiers, tag::char_code_base<tag::lower> >::value;
+        static bool const upper =
+            has_modifier<Modifiers, tag::char_code_base<tag::upper> >::value;
+
+        typedef literal_bool_generator<
+            bool
+          , typename spirit::detail::get_encoding_with_case<
+                Modifiers, unused_type, lower || upper>::type
+          , typename detail::get_casetag<Modifiers, lower || upper>::type
+          , bool_policies<>, true
+        > result_type;
+
+        template <typename Terminal>
+        result_type operator()(Terminal const& term, unused_type) const
+        {
+            return result_type(fusion::at_c<0>(term.args));
+        }
+    };
 }}}
 
 #endif

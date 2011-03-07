@@ -15,7 +15,7 @@
 # pragma once
 #endif
 
-#include <cassert>
+#include <boost/assert.hpp>
 #include <cstdio>
 #include <stdexcept>                       // logic_error.
 #include <boost/config.hpp>                // BOOST_STATIC_CONSTANT.
@@ -34,7 +34,7 @@
 #include <boost/iostreams/detail/config/disable_warnings.hpp>
 
 #define BOOST_IOSTREAMS_ASSERT_UNREACHABLE(val) \
-    (assert("unreachable code" == 0), val) \
+    (BOOST_ASSERT("unreachable code" == 0), val) \
     /**/
 
 namespace boost { namespace iostreams {
@@ -135,7 +135,7 @@ public:
         using iostreams::newline::CR;
         using iostreams::newline::LF;
 
-        assert((flags_ & f_write) == 0);
+        BOOST_ASSERT((flags_ & f_write) == 0);
         flags_ |= f_read;
 
         if (flags_ & (f_has_LF | f_has_EOF)) {
@@ -187,7 +187,7 @@ public:
         using iostreams::newline::CR;
         using iostreams::newline::LF;
 
-        assert((flags_ & f_read) == 0);
+        BOOST_ASSERT((flags_ & f_read) == 0);
         flags_ |= f_write;
 
         if ((flags_ & f_has_LF) != 0)

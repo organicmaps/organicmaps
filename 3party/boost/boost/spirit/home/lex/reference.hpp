@@ -1,5 +1,5 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
-//  Copyright (c) 2001-2010 Joel de Guzman
+//  Copyright (c) 2001-2011 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Joel de Guzman
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -15,6 +15,7 @@
 #include <boost/spirit/home/lex/lexer_type.hpp>
 #include <boost/spirit/home/qi/reference.hpp>
 #include <boost/spirit/home/support/info.hpp>
+#include <boost/spirit/home/support/handles_container.hpp>
 #include <boost/ref.hpp>
 
 namespace boost { namespace spirit { namespace lex
@@ -35,9 +36,10 @@ namespace boost { namespace spirit { namespace lex
           : qi::reference<Subject>(subject) {}
 
         template <typename LexerDef, typename String>
-        void collect(LexerDef& lexdef, String const& state) const
+        void collect(LexerDef& lexdef, String const& state
+          , String const& targetstate) const
         {
-            this->ref.get().collect(lexdef, state);
+            this->ref.get().collect(lexdef, state, targetstate);
         }
 
         template <typename LexerDef>
@@ -66,7 +68,18 @@ namespace boost { namespace spirit { namespace lex
             return this->ref.get().state(); 
         }
     };
+}}}
 
+namespace boost { namespace spirit { namespace traits
+{
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename Subject, typename IdType
+      , typename Attribute, typename Context, typename Iterator>
+    struct handles_container<lex::reference<Subject, IdType>
+          , Attribute, Context, Iterator>
+      : handles_container<
+            typename remove_const<Subject>::type, Attribute, Context, Iterator> 
+    {};
 }}}
 
 #endif

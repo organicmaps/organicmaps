@@ -6,7 +6,7 @@
 #ifndef BOOST_LEXER_PARSER_HPP
 #define BOOST_LEXER_PARSER_HPP
 
-#include <assert.h>
+#include <boost/assert.hpp>
 #include "tree/end_node.hpp"
 #include "tree/iteration_node.hpp"
 #include "tree/leaf_node.hpp"
@@ -101,7 +101,7 @@ Grammar:
             throw runtime_error ("Empty rules are not allowed.");
         }
 
-        assert (tree_node_stack_.size () == 1);
+        BOOST_ASSERT(tree_node_stack_.size () == 1);
 
         node *lhs_node_ = tree_node_stack_.top ();
 
@@ -161,7 +161,7 @@ private:
             }
         } while (!token_stack_.empty () && action_ == '=');
 
-        assert (token_stack_.empty () || action_ == '<');
+        BOOST_ASSERT(token_stack_.empty () || action_ == '<');
 
         switch (rhs_._type)
         {
@@ -231,7 +231,7 @@ private:
     static void orexp (token_stack &handle_, token_stack &token_stack_,
         node_ptr_vector &node_ptr_vector_, tree_node_stack &tree_node_stack_)
     {
-        assert (handle_.top ()._type == token::OREXP &&
+        BOOST_ASSERT(handle_.top ()._type == token::OREXP &&
             (handle_.size () == 1 || handle_.size () == 3));
 
         if (handle_.size () == 1)
@@ -241,9 +241,9 @@ private:
         else
         {
             handle_.pop ();
-            assert (handle_.top ()._type == token::OR);
+            BOOST_ASSERT(handle_.top ()._type == token::OR);
             handle_.pop ();
-            assert (handle_.top ()._type == token::SEQUENCE);
+            BOOST_ASSERT(handle_.top ()._type == token::SEQUENCE);
             perform_or (node_ptr_vector_, tree_node_stack_);
             token_stack_.push (token::OREXP);
         }
@@ -252,7 +252,7 @@ private:
     static void sub (token_stack &handle_, token_stack &token_stack_,
         node_ptr_vector &node_ptr_vector_, tree_node_stack &tree_node_stack_)
     {
-        assert (handle_.top ()._type == token::SUB &&
+        BOOST_ASSERT(handle_.top ()._type == token::SUB &&
             (handle_.size () == 1 || handle_.size () == 2));
 
         if (handle_.size () == 1)
@@ -262,7 +262,7 @@ private:
         else
         {
             handle_.pop ();
-            assert (handle_.top ()._type == token::EXPRESSION);
+            BOOST_ASSERT(handle_.top ()._type == token::EXPRESSION);
             // perform join
             sequence (node_ptr_vector_, tree_node_stack_);
             token_stack_.push (token::SUB);
@@ -271,7 +271,7 @@ private:
 
     static void repeat (token_stack &handle_, token_stack &token_stack_)
     {
-        assert (handle_.top ()._type == token::REPEAT &&
+        BOOST_ASSERT(handle_.top ()._type == token::REPEAT &&
             handle_.size () >= 1 && handle_.size () <= 3);
 
         if (handle_.size () == 1)
@@ -281,7 +281,7 @@ private:
         else
         {
             handle_.pop ();
-            assert (handle_.top ()._type == token::DUP);
+            BOOST_ASSERT(handle_.top ()._type == token::DUP);
             token_stack_.push (token::REPEAT);
         }
     }
@@ -289,7 +289,7 @@ private:
     static void charset (token_stack &handle_, token_stack &token_stack_,
         node_ptr_vector &node_ptr_vector_, tree_node_stack &tree_node_stack_)
     {
-        assert (handle_.top ()._type == token::CHARSET &&
+        BOOST_ASSERT(handle_.top ()._type == token::CHARSET &&
             handle_.size () == 1);
         // store charset
         node_ptr_vector_->push_back (static_cast<leaf_node *>(0));
@@ -307,7 +307,7 @@ private:
     {
         token &top_ = handle_.top ();
 
-        assert (top_._type == token::MACRO && handle_.size () == 1);
+        BOOST_ASSERT(top_._type == token::MACRO && handle_.size () == 1);
 
         typename macro_map::const_iterator iter_ =
             macromap_.find (top_._macro);
@@ -335,12 +335,12 @@ private:
 
     static void openparen (token_stack &handle_, token_stack &token_stack_)
     {
-        assert (handle_.top ()._type == token::OPENPAREN &&
+        BOOST_ASSERT(handle_.top ()._type == token::OPENPAREN &&
             handle_.size () == 3);
         handle_.pop ();
-        assert (handle_.top ()._type == token::REGEX);
+        BOOST_ASSERT(handle_.top ()._type == token::REGEX);
         handle_.pop ();
-        assert (handle_.top ()._type == token::CLOSEPAREN);
+        BOOST_ASSERT(handle_.top ()._type == token::CLOSEPAREN);
         token_stack_.push (token::REPEAT);
     }
 

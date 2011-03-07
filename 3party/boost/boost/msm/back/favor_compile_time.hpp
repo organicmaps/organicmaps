@@ -63,6 +63,7 @@ private:
 
 struct favor_compile_time 
 {
+    typedef int compile_policy;
     typedef ::boost::mpl::false_ add_forwarding_rows;
 };
 

@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -62,15 +62,36 @@ namespace boost { namespace spirit { namespace lex
         typedef std::basic_string<char_type> string_type;
 
         string_token_def(typename add_reference<String>::type str)
-          : str_(str), id_(std::size_t(~0)) {}
+          : str_(str), id_(std::size_t(~0)), unique_id_(std::size_t(~0))
+          , token_state_(std::size_t(~0)) 
+        {}
 
-        template <typename LexerDef, typename State>
-        void collect(LexerDef& lexdef, State const& state) const
+        template <typename LexerDef, typename String_>
+        void collect(LexerDef& lexdef, String_ const& state
+          , String_ const& targetstate) const
         {
+            std::size_t state_id = lexdef.add_state(state.c_str());
+
+            // If the following assertion fires you are probably trying to use 
+            // a single string_token_def instance in more than one lexer state. 
+            // This is not possible. Please create a separate token_def instance 
+            // from the same regular expression for each lexer state it needs 
+            // to be associated with.
+            BOOST_ASSERT(
+                (std::size_t(~0) == token_state_ || state_id == token_state_) &&
+                "Can't use single string_token_def with more than one lexer state");
+
+            char_type const* target = targetstate.empty() ? 0 : targetstate.c_str();
+            if (target)
+                lexdef.add_state(target);
+
+            token_state_ = state_id;
+
             typedef typename LexerDef::id_type id_type;
             if (std::size_t(~0) == id_)
                 id_ = lexdef.get_next_id();
-            unique_id_ = lexdef.add_token (state.c_str(), str_, id_);
+
+            unique_id_ = lexdef.add_token (state.c_str(), str_, id_, target);
         }
 
         template <typename LexerDef>
@@ -78,10 +99,12 @@ namespace boost { namespace spirit { namespace lex
 
         std::size_t id() const { return id_; }
         std::size_t unique_id() const { return unique_id_; }
+        std::size_t state() const { return token_state_; }
 
         string_type str_;
         mutable std::size_t id_;
         mutable std::size_t unique_id_;
+        mutable std::size_t token_state_;
     };
 
     ///////////////////////////////////////////////////////////////////////////

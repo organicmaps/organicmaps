@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -30,6 +30,11 @@ namespace boost { namespace spirit
     ///////////////////////////////////////////////////////////////////////////
     // Enablers
     ///////////////////////////////////////////////////////////////////////////
+
+    // enables token
+    template <>
+    struct use_terminal<qi::domain, tag::token>
+      : mpl::true_ {};
 
     // enables token(id)
     template <typename A0>
@@ -82,7 +87,7 @@ namespace boost { namespace spirit { namespace qi
                 typedef typename token_type::id_type id_type;
 
                 token_type const& t = *first;
-                if (id_type(id) == t.id()) {
+                if (std::size_t(~0) == t.id() || id_type(id) == t.id()) {
                     spirit::traits::assign_to(t, attr);
                     ++first;
                     return true;
@@ -103,6 +108,17 @@ namespace boost { namespace spirit { namespace qi
     ///////////////////////////////////////////////////////////////////////////
     // Parser generators: make_xxx function (objects)
     ///////////////////////////////////////////////////////////////////////////
+    template <typename Modifiers>
+    struct make_primitive<tag::token, Modifiers>
+    {
+        typedef plain_token<std::size_t> result_type;
+
+        result_type operator()(unused_type, unused_type) const
+        {
+            return result_type(std::size_t(~0));
+        }
+    };
+
     template <typename Modifiers, typename TokenId>
     struct make_primitive<terminal_ex<tag::token, fusion::vector1<TokenId> >
       , Modifiers>
@@ -115,7 +131,6 @@ namespace boost { namespace spirit { namespace qi
             return result_type(fusion::at_c<0>(term.args));
         }
     };
-
 }}}
 
 #endif

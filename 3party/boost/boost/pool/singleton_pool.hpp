@@ -27,7 +27,8 @@ namespace boost {
 template <typename Tag, unsigned RequestedSize,
     typename UserAllocator,
     typename Mutex,
-    unsigned NextSize>
+    unsigned NextSize,
+    unsigned MaxSize>
 struct singleton_pool
 {
   public:
@@ -52,11 +53,11 @@ struct singleton_pool
     singleton_pool();
 
   public:
-    static void * malloc()
+    static void * malloc BOOST_PREVENT_MACRO_SUBSTITUTION()
     {
       pool_type & p = singleton::instance();
       details::pool::guard<Mutex> g(p);
-      return p.p.malloc();
+      return (p.p.malloc)();
     }
     static void * ordered_malloc()
     {
@@ -76,11 +77,11 @@ struct singleton_pool
       details::pool::guard<Mutex> g(p);
       return p.p.is_from(ptr);
     }
-    static void free(void * const ptr)
+    static void free BOOST_PREVENT_MACRO_SUBSTITUTION(void * const ptr)
     {
       pool_type & p = singleton::instance();
       details::pool::guard<Mutex> g(p);
-      p.p.free(ptr);
+      (p.p.free)(ptr);
     }
     static void ordered_free(void * const ptr)
     {
@@ -88,11 +89,11 @@ struct singleton_pool
       details::pool::guard<Mutex> g(p);
       p.p.ordered_free(ptr);
     }
-    static void free(void * const ptr, const size_type n)
+    static void free BOOST_PREVENT_MACRO_SUBSTITUTION(void * const ptr, const size_type n)
     {
       pool_type & p = singleton::instance();
       details::pool::guard<Mutex> g(p);
-      p.p.free(ptr, n);
+      (p.p.free)(ptr, n);
     }
     static void ordered_free(void * const ptr, const size_type n)
     {

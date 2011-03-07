@@ -22,7 +22,7 @@
 
 // helper function templates for serialization of collections
 
-#include <cassert>
+#include <boost/assert.hpp>
 #include <cstddef> // size_t
 #include <boost/config.hpp> // msvc 6.0 needs this for warning suppression
 #if defined(BOOST_NO_STDC_NAMESPACE)

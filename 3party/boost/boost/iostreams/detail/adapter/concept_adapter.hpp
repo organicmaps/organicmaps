@@ -106,7 +106,10 @@ public:
     template<typename Device>
     bool flush( Device* dev )
     {
-        return any_impl::flush(t_, dev);
+        bool result = any_impl::flush(t_, dev);
+        if (dev && dev->BOOST_IOSTREAMS_PUBSYNC() == -1)
+            result = false;
+        return result;
     }
 
     template<typename Locale> // Avoid dependency on <locale>

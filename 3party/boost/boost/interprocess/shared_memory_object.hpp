@@ -298,29 +298,48 @@ inline bool shared_memory_object::priv_open_or_create
       error_info err(mode_error);
       throw interprocess_exception(err);
    }
+   int unix_perm = perm.get_permissions();
 
    switch(type){
       case detail::DoOpen:
-         //No addition
+      {
+         //No oflag addition
+         m_handle = shm_open(m_filename.c_str(), oflag, unix_perm);
+      }
       break;
       case detail::DoCreate:
+      {
          oflag |= (O_CREAT | O_EXCL);
+         m_handle = shm_open(m_filename.c_str(), oflag, unix_perm);
+         if(m_handle >= 0){
+            ::fchmod(m_handle, unix_perm);
+         }
+      }
       break;
       case detail::DoOpenOrCreate:
+      {
          oflag |= O_CREAT;
+         //We need a loop to change permissions correctly using fchmod, since
+         //with "O_CREAT only" shm_open we don't know if we've created or opened the file.
+         while(1){
+            m_handle = shm_open(m_filename.c_str(), oflag, unix_perm);
+            if(m_handle >= 0){
+               ::fchmod(m_handle, unix_perm);
+               break;
+            }
+            else if(errno == EEXIST){
+               if((m_handle = shm_open(m_filename.c_str(), oflag, unix_perm)) >= 0 || errno != ENOENT){
+                  break;
+               }
+            }
+         }
+      }
       break;
       default:
-         {
-            error_info err = other_error;
-            throw interprocess_exception(err);
-         }
-   }
-
-   //Open file using POSIX API
-   m_handle = shm_open(m_filename.c_str(), oflag, perm.get_permissions());
-
-   if(m_handle >= 0){
-      ::fchmod(m_handle, perm.get_permissions());
+      {
+         error_info err = other_error;
+         throw interprocess_exception(err);
+      }
    }
 
    //Check for error

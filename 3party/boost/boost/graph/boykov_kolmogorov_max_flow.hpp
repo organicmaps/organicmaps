@@ -33,7 +33,7 @@
 #define BOOST_BOYKOV_KOLMOGOROV_MAX_FLOW_HPP
 
 #include <boost/config.hpp>
-#include <cassert>
+#include <boost/assert.hpp>
 #include <vector>
 #include <list>
 #include <utility>
@@ -126,7 +126,7 @@ class bk_max_flow {
         edge_iterator ei, e_end;
         for(boost::tie(ei, e_end) = edges(m_g); ei != e_end; ++ei) {
           m_res_cap_map[*ei] = m_cap_map[*ei];
-          assert(m_rev_edge_map[m_rev_edge_map[*ei]] == *ei); //check if the reverse edge map is build up properly
+          BOOST_ASSERT(m_rev_edge_map[m_rev_edge_map[*ei]] == *ei); //check if the reverse edge map is build up properly
         }
         //init the search trees with the two terminals
         set_tree(m_source, tColorTraits::black());
@@ -235,13 +235,13 @@ class bk_max_flow {
        * target(returnVal, m_g) is the beginning of the path found in the sink-tree
        */
       std::pair<edge_descriptor, bool> grow(){
-        assert(m_orphans.empty());
+        BOOST_ASSERT(m_orphans.empty());
         vertex_descriptor current_node;
         while((current_node = get_next_active_node()) != graph_traits<Graph>::null_vertex()){ //if there is one
-          assert(get_tree(current_node) != tColorTraits::gray() &&
-                (has_parent(current_node) ||
-                  current_node == m_source ||
-                  current_node == m_sink));
+          BOOST_ASSERT(get_tree(current_node) != tColorTraits::gray() &&
+                       (has_parent(current_node) ||
+                         current_node == m_source ||
+                         current_node == m_sink));
 
           if(get_tree(current_node) == tColorTraits::black()){
             //source tree growing
@@ -269,7 +269,7 @@ class bk_max_flow {
                     m_time_map[other_node] = m_time_map[current_node];
                   }
                 } else{
-                  assert(get_tree(other_node)==tColorTraits::white());
+                  BOOST_ASSERT(get_tree(other_node)==tColorTraits::white());
                   //kewl, found a path from one to the other search tree, return
                   // the connecting edge in src->sink dir
                   return std::make_pair(out_edge, true);
@@ -278,7 +278,7 @@ class bk_max_flow {
             } //for all out-edges
           } //source-tree-growing
           else{
-            assert(get_tree(current_node) == tColorTraits::white());
+            BOOST_ASSERT(get_tree(current_node) == tColorTraits::white());
             out_edge_iterator ei, e_end;
             if(current_node != m_last_grow_vertex){
               m_last_grow_vertex = current_node;
@@ -302,7 +302,7 @@ class bk_max_flow {
                     m_time_map[other_node] = m_time_map[current_node];
                   }
                 } else{
-                  assert(get_tree(other_node)==tColorTraits::black());
+                  BOOST_ASSERT(get_tree(other_node)==tColorTraits::black());
                   //kewl, found a path from one to the other search tree,
                   // return the connecting edge in src->sink dir
                   return std::make_pair(in_edge, true);
@@ -332,16 +332,16 @@ class bk_max_flow {
        * and so we process the nearest verts to the terminals first
        */
       void augment(edge_descriptor e) {
-        assert(get_tree(target(e, m_g)) == tColorTraits::white());
-        assert(get_tree(source(e, m_g)) == tColorTraits::black());
-        assert(m_orphans.empty());
+        BOOST_ASSERT(get_tree(target(e, m_g)) == tColorTraits::white());
+        BOOST_ASSERT(get_tree(source(e, m_g)) == tColorTraits::black());
+        BOOST_ASSERT(m_orphans.empty());
 
         const tEdgeVal bottleneck = find_bottleneck(e);
         //now we push the found flow through the path
         //for each edge we saturate we have to look for the verts that belong to that edge, one of them becomes an orphans
         //now process the connecting edge
         m_res_cap_map[e] -= bottleneck;
-        assert(m_res_cap_map[e] >= 0);
+        BOOST_ASSERT(m_res_cap_map[e] >= 0);
         m_res_cap_map[m_rev_edge_map[e]] += bottleneck;
 
         //now we follow the path back to the source
@@ -349,7 +349,7 @@ class bk_max_flow {
         while(current_node != m_source){
           edge_descriptor pred = get_edge_to_parent(current_node);
           m_res_cap_map[pred] -= bottleneck;
-          assert(m_res_cap_map[pred] >= 0);
+          BOOST_ASSERT(m_res_cap_map[pred] >= 0);
           m_res_cap_map[m_rev_edge_map[pred]] += bottleneck;
           if(m_res_cap_map[pred] == 0){
             set_no_parent(current_node);
@@ -362,7 +362,7 @@ class bk_max_flow {
         while(current_node != m_sink){
           edge_descriptor pred = get_edge_to_parent(current_node);
           m_res_cap_map[pred] -= bottleneck;
-          assert(m_res_cap_map[pred] >= 0);
+          BOOST_ASSERT(m_res_cap_map[pred] >= 0);
           m_res_cap_map[m_rev_edge_map[pred]] += bottleneck;
           if(m_res_cap_map[pred] == 0){
             set_no_parent(current_node);
@@ -421,7 +421,7 @@ class bk_max_flow {
             out_edge_iterator ei, e_end;
             for(boost::tie(ei, e_end) = out_edges(current_node, m_g); ei != e_end; ++ei){
               const edge_descriptor in_edge = m_rev_edge_map[*ei];
-              assert(target(in_edge, m_g) == current_node); //we should be the target of this edge
+              BOOST_ASSERT(target(in_edge, m_g) == current_node); //we should be the target of this edge
               if(m_res_cap_map[in_edge] > 0){
                 vertex_descriptor other_node = source(in_edge, m_g);
                 if(get_tree(other_node) == tColorTraits::black() && has_source_connect(other_node)){
@@ -458,7 +458,7 @@ class bk_max_flow {
           } //source-tree-adoption
           else{
             //now we should be in the sink-tree, check that...
-            assert(get_tree(current_node) == tColorTraits::white());
+            BOOST_ASSERT(get_tree(current_node) == tColorTraits::white());
             out_edge_iterator ei, e_end;
             edge_descriptor new_parent_edge;
             tDistanceVal min_distance = (std::numeric_limits<tDistanceVal>::max)();
@@ -513,7 +513,7 @@ class bk_max_flow {
             m_active_nodes.pop();
             m_in_active_list_map[v] = false;
           } else{
-            assert(get_tree(v) == tColorTraits::black() || get_tree(v) == tColorTraits::white());
+            BOOST_ASSERT(get_tree(v) == tColorTraits::black() || get_tree(v) == tColorTraits::white());
             return v;
           }
         }
@@ -523,7 +523,7 @@ class bk_max_flow {
        * adds v as an active vertex, but only if its not in the list already
        */
       inline void add_active_node(vertex_descriptor v){
-        assert(get_tree(v) != tColorTraits::gray());
+        BOOST_ASSERT(get_tree(v) != tColorTraits::gray());
         if(m_in_active_list_map[v]){
           return;
         } else{
@@ -536,7 +536,7 @@ class bk_max_flow {
        * finish_node removes a node from the front of the active queue (its called in grow phase, if no more paths can be found using this node)
        */
       inline void finish_node(vertex_descriptor v){
-        assert(m_active_nodes.front() == v);
+        BOOST_ASSERT(m_active_nodes.front() == v);
         m_active_nodes.pop();
         m_in_active_list_map[v] = false;
         m_last_grow_vertex = graph_traits<Graph>::null_vertex();
@@ -548,7 +548,7 @@ class bk_max_flow {
        * being no more active)
        */
       inline void remove_active_node(vertex_descriptor v){
-        assert(!has_parent(v));
+        BOOST_ASSERT(!has_parent(v));
       }
 
       /**
@@ -585,7 +585,7 @@ class bk_max_flow {
        * sets edge to parent vertex of v;
        */
       inline void set_edge_to_parent(vertex_descriptor v, edge_descriptor f_edge_to_parent){
-        assert(m_res_cap_map[f_edge_to_parent] > 0);
+        BOOST_ASSERT(m_res_cap_map[f_edge_to_parent] > 0);
         m_pre_map[v] = f_edge_to_parent;
         m_has_parent_map[v] = true;
       }
@@ -750,7 +750,7 @@ boykov_kolmogorov_max_flow(Graph& g,
   function_requires<Mutable_LvaluePropertyMapConcept<ColorMap, vertex_descriptor> >(); //write corresponding tree
   function_requires<Mutable_LvaluePropertyMapConcept<DistanceMap, vertex_descriptor> >(); //write distance to source/sink
   function_requires<ReadablePropertyMapConcept<IndexMap, vertex_descriptor> >(); //get index 0...|V|-1
-  assert(num_vertices(g) >= 2 && src != sink);
+  BOOST_ASSERT(num_vertices(g) >= 2 && src != sink);
 
   detail::bk_max_flow<
     Graph, CapacityEdgeMap, ResidualCapacityEdgeMap, ReverseEdgeMap,

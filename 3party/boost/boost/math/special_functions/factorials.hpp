@@ -1,4 +1,4 @@
-//  Copyright John Maddock 2006.
+//  Copyright John Maddock 2006, 2010.
 //  Use, modification and distribution are subject to the
 //  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -31,6 +31,13 @@ template <class T, class Policy>
 inline T factorial(unsigned i, const Policy& pol)
 {
    BOOST_STATIC_ASSERT(!boost::is_integral<T>::value);
+   // factorial<unsigned int>(n) is not implemented
+   // because it would overflow integral type T for too small n
+   // to be useful. Use instead a floating-point type,
+   // and convert to an unsigned type if essential, for example:
+   // unsigned int nfac = static_cast<unsigned int>(factorial<double>(n));
+   // See factorial documentation for more detail.
+
    BOOST_MATH_STD_USING // Aid ADL for floor.
 
    if(i <= max_factorial<T>::value)
@@ -78,12 +85,12 @@ T double_factorial(unsigned i, const Policy& pol)
          return ceil(unchecked_factorial<T>(i) / (ldexp(T(1), (int)n) * unchecked_factorial<T>(n)) - 0.5f);
       }
       //
-      // Fallthrough: i is too large to use table lookup, try the 
+      // Fallthrough: i is too large to use table lookup, try the
       // gamma function instead.
       //
       T result = boost::math::tgamma(static_cast<T>(i) / 2 + 1, pol) / sqrt(constants::pi<T>());
       if(ldexp(tools::max_value<T>(), -static_cast<int>(i+1) / 2) > result)
-         return ceil(result * ldexp(T(1), (i+1) / 2) - 0.5f);
+         return ceil(result * ldexp(T(1), static_cast<int>(i+1) / 2) - 0.5f);
    }
    else
    {
@@ -181,7 +188,7 @@ inline T falling_factorial_imp(T x, unsigned n, const Policy& pol)
    //
    // Simple case: just the ratio of two
    // (positive argument) gamma functions.
-   // Note that we don't optimise this for small n, 
+   // Note that we don't optimise this for small n,
    // because tgamma_delta_ratio is alreay optimised
    // for that use case:
    //
@@ -191,7 +198,7 @@ inline T falling_factorial_imp(T x, unsigned n, const Policy& pol)
 } // namespace detail
 
 template <class RT>
-inline typename tools::promote_args<RT>::type 
+inline typename tools::promote_args<RT>::type
    falling_factorial(RT x, unsigned n)
 {
    typedef typename tools::promote_args<RT>::type result_type;
@@ -200,7 +207,7 @@ inline typename tools::promote_args<RT>::type
 }
 
 template <class RT, class Policy>
-inline typename tools::promote_args<RT>::type 
+inline typename tools::promote_args<RT>::type
    falling_factorial(RT x, unsigned n, const Policy& pol)
 {
    typedef typename tools::promote_args<RT>::type result_type;
@@ -209,7 +216,7 @@ inline typename tools::promote_args<RT>::type
 }
 
 template <class RT>
-inline typename tools::promote_args<RT>::type 
+inline typename tools::promote_args<RT>::type
    rising_factorial(RT x, int n)
 {
    typedef typename tools::promote_args<RT>::type result_type;
@@ -218,7 +225,7 @@ inline typename tools::promote_args<RT>::type
 }
 
 template <class RT, class Policy>
-inline typename tools::promote_args<RT>::type 
+inline typename tools::promote_args<RT>::type
    rising_factorial(RT x, int n, const Policy& pol)
 {
    typedef typename tools::promote_args<RT>::type result_type;

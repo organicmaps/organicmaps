@@ -28,7 +28,7 @@ namespace boost { namespace math
 template <class T>
 struct max_factorial;
 
-// efinitions:
+// Definitions:
 template <>
 inline float unchecked_factorial<float>(unsigned i BOOST_MATH_APPEND_EXPLICIT_TEMPLATE_TYPE_SPEC(float))
 {
@@ -282,6 +282,14 @@ struct max_factorial<double>
 template <class T>
 inline T unchecked_factorial(unsigned i BOOST_MATH_APPEND_EXPLICIT_TEMPLATE_TYPE_SPEC(T))
 {
+   BOOST_STATIC_ASSERT(!boost::is_integral<T>::value);
+   // factorial<unsigned int>(n) is not implemented
+   // because it would overflow integral type T for too small n
+   // to be useful. Use instead a floating-point type,
+   // and convert to an unsigned type if essential, for example:
+   // unsigned int nfac = static_cast<unsigned int>(factorial<double>(n));
+   // See factorial documentation for more detail.
+
    static const boost::array<T, 101> factorials = {{
       boost::lexical_cast<T>("1"),
       boost::lexical_cast<T>("1"),

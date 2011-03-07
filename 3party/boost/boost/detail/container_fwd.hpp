@@ -68,7 +68,11 @@ namespace std
     template <class charT> struct char_traits;
 #endif
 
-    template <class T> class complex;
+    #if BOOST_CLANG
+        template <class T> struct complex;
+    #else
+        template <class T> class complex;
+    #endif
 }
 
 // gcc 3.4 and greater

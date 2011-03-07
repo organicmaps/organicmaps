@@ -14,6 +14,8 @@
 
 #include "boost/config/compiler/common_edg.hpp"
 
+#define BOOST_COMO __COMO_VERSION__
+
 #if (__COMO_VERSION__ <= 4245)
 
 #  if defined(_MSC_VER) && _MSC_VER <= 1300

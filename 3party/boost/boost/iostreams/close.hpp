@@ -97,7 +97,7 @@ template<typename T>
 void close(T& t, BOOST_IOS::openmode which)
 { 
 #ifdef BOOST_IOSTREAMS_STRICT
-    assert(which == BOOST_IOS::in || which == BOOST_IOS::out);
+    BOOST_ASSERT(which == BOOST_IOS::in || which == BOOST_IOS::out);
 #else
     if (which == (BOOST_IOS::in | BOOST_IOS::out)) {
         detail::close_all(t);
@@ -111,7 +111,7 @@ template<typename T, typename Sink>
 void close(T& t, Sink& snk, BOOST_IOS::openmode which)
 { 
 #ifdef BOOST_IOSTREAMS_STRICT
-    assert(which == BOOST_IOS::in || which == BOOST_IOS::out);
+    BOOST_ASSERT(which == BOOST_IOS::in || which == BOOST_IOS::out);
 #else
     if (which == (BOOST_IOS::in | BOOST_IOS::out)) {
         detail::close_all(t, snk);

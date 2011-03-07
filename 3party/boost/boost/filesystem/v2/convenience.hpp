@@ -13,7 +13,8 @@
 #ifndef BOOST_FILESYSTEM2_CONVENIENCE_HPP
 #define BOOST_FILESYSTEM2_CONVENIENCE_HPP
 
-#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/v2/config.hpp>
+#include <boost/filesystem/v2/operations.hpp>
 #include <boost/system/error_code.hpp>
 #include <vector>
 #include <stack>
@@ -85,11 +86,11 @@ namespace boost
 #   if !defined(_STLPORT_VERSION)
       return ph.parent_path() / (basename(ph) + new_extension); 
 #   else
-	    typedef BOOST_FS_TYPENAME Path::string_type string_type; 
-	    string_type filename = basename(ph) + new_extension; 
-	    return ph.parent_path() / filename;
+      typedef BOOST_FS_TYPENAME Path::string_type string_type; 
+      string_type filename = basename(ph) + new_extension; 
+      return ph.parent_path() / filename;
 #   endif
-	  } 
+    } 
 # endif
 
 # ifndef BOOST_FILESYSTEM2_NARROW_ONLY

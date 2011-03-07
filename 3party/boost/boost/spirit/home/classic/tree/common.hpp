@@ -27,6 +27,7 @@
 #include <boost/spirit/home/classic/namespace.hpp>
 #include <boost/spirit/home/classic/core.hpp>
 #include <boost/detail/iterator.hpp> // for boost::detail::iterator_traits
+#include <boost/assert.hpp>
 
 #if defined(BOOST_SPIRIT_DEBUG) && \
     (BOOST_SPIRIT_DEBUG_FLAGS & BOOST_SPIRIT_DEBUG_FLAGS_NODES)
@@ -462,7 +463,7 @@ public:
             {
                 // See docs: reduced_node_d cannot be used with a
                 // rule inside the [].
-                assert(i->children.size() == 0);
+                BOOST_ASSERT(i->children.size() == 0);
                 c.insert(c.end(), i->value.begin(), i->value.end());
             }
             return node_t(c.begin(), c.end());
@@ -504,7 +505,7 @@ public:
             for (typename ContainerT::const_iterator i = nodes.begin();
                     i != i_end; ++i)
             {
-                assert(i->children.size() == 0);
+                BOOST_ASSERT(i->children.size() == 0);
                 c.insert(c.end(), i->value.begin(), i->value.end());
             }
             return node_t(c.begin(), c.end());

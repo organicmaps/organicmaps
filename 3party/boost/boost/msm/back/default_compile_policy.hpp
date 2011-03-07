@@ -17,6 +17,7 @@ namespace boost { namespace msm { namespace back
 {
 struct favor_runtime_speed 
 {
+    typedef int compile_policy;
     typedef ::boost::mpl::true_ add_forwarding_rows;
 };
 

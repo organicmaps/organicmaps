@@ -11,7 +11,23 @@
 #ifndef BOOST_MATH_MPLFR_BINDINGS_HPP
 #define BOOST_MATH_MPLFR_BINDINGS_HPP
 
+#include <boost/config.hpp>
+
+#ifdef BOOST_MSVC
+//
+// We get a lot of warnings from the gmp, mpfr and gmpfrxx headers, 
+// disable them here, so we only see warnings from *our* code:
+//
+#pragma warning(push)
+#pragma warning(disable: 4127 4800 4512)
+#endif
+
 #include <gmpfrxx.h>
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
+
 #include <boost/math/tools/precision.hpp>
 #include <boost/math/tools/real_cast.hpp>
 #include <boost/math/policies/policy.hpp>

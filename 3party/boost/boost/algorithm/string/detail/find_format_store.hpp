@@ -53,7 +53,7 @@ namespace boost {
                 {
                     iterator_range<ForwardIteratorT>::operator=(FindResult);
                     if( !this->empty() ) {
-                    m_FormatResult=m_Formatter(FindResult);
+                        m_FormatResult=m_Formatter(FindResult);
                     }
                     
                     return *this;

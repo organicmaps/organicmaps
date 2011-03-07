@@ -144,8 +144,8 @@ bool overlap(const interval<T, Policies1>& x,
              const interval<T, Policies2>& y)
 {
   if (interval_lib::detail::test_input(x, y)) return false;
-  return x.lower() <= y.lower() && y.lower() <= x.upper() ||
-         y.lower() <= x.lower() && x.lower() <= y.upper();
+  return (x.lower() <= y.lower() && y.lower() <= x.upper()) ||
+         (y.lower() <= x.lower() && x.lower() <= y.upper());
 }
 
 template<class T, class Policies> inline

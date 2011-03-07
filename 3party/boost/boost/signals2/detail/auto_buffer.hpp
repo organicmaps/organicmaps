@@ -158,19 +158,19 @@ namespace detail
                                                       optimized_const_reference;
     private:
 
-        pointer allocate( size_type capacity )
+        pointer allocate( size_type capacity_arg )
         {
-            if( capacity > N )
-                return &*get_allocator().allocate( capacity );
+            if( capacity_arg > N )
+                return &*get_allocator().allocate( capacity_arg );
             else
                 return static_cast<T*>( members_.address() );
         }
 
-        void deallocate( pointer where, size_type capacity )
+        void deallocate( pointer where, size_type capacity_arg )
         {
-            if( capacity <= N )
+            if( capacity_arg <= N )
                 return;
-            get_allocator().deallocate( allocator_pointer(where), capacity );
+            get_allocator().deallocate( allocator_pointer(where), capacity_arg );
         }
 
         template< class I >
@@ -368,12 +368,12 @@ namespace detail
         }
 
         template< class I >
-        void insert_impl( const_iterator before, I begin, I end,
+        void insert_impl( const_iterator before, I begin_arg, I end_arg,
                           std::input_iterator_tag )
         {
-            for( ; begin != end; ++begin )
+            for( ; begin_arg != end_arg; ++begin_arg )
             {
-                before = insert( before, *begin );
+                before = insert( before, *begin_arg );
                 ++before;
             }
         }
@@ -411,10 +411,10 @@ namespace detail
         }
 
         template< class I >
-        void insert_impl( const_iterator before, I begin, I end,
+        void insert_impl( const_iterator before, I begin_arg, I end_arg,
                           std::forward_iterator_tag )
         {
-            difference_type n = std::distance(begin,end);
+            difference_type n = std::distance(begin_arg, end_arg);
 
             if( size_ + n <= members_.capacity_ )
             {
@@ -424,11 +424,11 @@ namespace detail
                     grow_back( n );
                     iterator where = const_cast<T*>(before);
                     std::copy( before, cend() - n, where + n );
-                    assign_impl( begin, end, where );
+                    assign_impl( begin_arg, end_arg, where );
                 }
                 else
                 {
-                    unchecked_push_back( begin, end );
+                    unchecked_push_back( begin_arg, end_arg );
                 }
                 BOOST_ASSERT( is_valid() );
                 return;
@@ -436,7 +436,7 @@ namespace detail
 
             auto_buffer temp( new_capacity_impl( size_ + n ) );
             temp.unchecked_push_back( cbegin(), before );
-            temp.unchecked_push_back( begin, end );
+            temp.unchecked_push_back( begin_arg, end_arg );
             temp.unchecked_push_back( before, cend() );
             one_sided_swap( temp );
             BOOST_ASSERT( is_valid() );
@@ -528,53 +528,53 @@ namespace detail
             return *this;
         }
 
-        explicit auto_buffer( size_type capacity )
-            : members_( (std::max)(capacity,size_type(N)) ),
+        explicit auto_buffer( size_type capacity_arg )
+            : members_( (std::max)(capacity_arg, size_type(N)) ),
               buffer_( allocate(members_.capacity_) ),
               size_( 0 )
         {
             BOOST_ASSERT( is_valid() );
         }
 
-        auto_buffer( size_type size, optimized_const_reference init_value )
-            : members_( (std::max)(size,size_type(N)) ),
+        auto_buffer( size_type size_arg, optimized_const_reference init_value )
+            : members_( (std::max)(size_arg, size_type(N)) ),
               buffer_( allocate(members_.capacity_) ),
               size_( 0 )
         {
-            std::uninitialized_fill( buffer_, buffer_ + size, init_value );
-            size_ = size;
+            std::uninitialized_fill( buffer_, buffer_ + size_arg, init_value );
+            size_ = size_arg;
             BOOST_ASSERT( is_valid() );
         }
 
-        auto_buffer( size_type capacity, const allocator_type& a )
+        auto_buffer( size_type capacity_arg, const allocator_type& a )
             : allocator_type( a ),
-              members_( (std::max)(capacity,size_type(N)) ),
+              members_( (std::max)(capacity_arg, size_type(N)) ),
               buffer_( allocate(members_.capacity_) ),
               size_( 0 )
         {
             BOOST_ASSERT( is_valid() );
         }
 
-        auto_buffer( size_type size, optimized_const_reference init_value,
+        auto_buffer( size_type size_arg, optimized_const_reference init_value,
                      const allocator_type& a )
             : allocator_type( a ),
-              members_( (std::max)(size,size_type(N)) ),
+              members_( (std::max)(size_arg, size_type(N)) ),
               buffer_( allocate(members_.capacity_) ),
               size_( 0 )
         {
             std::uninitialized_fill( buffer_, buffer_ + size, init_value );
-            size_ = size;
+            size_ = size_arg;
             BOOST_ASSERT( is_valid() );
         }
 
         template< class ForwardIterator >
-        auto_buffer( ForwardIterator begin, ForwardIterator end )
+        auto_buffer( ForwardIterator begin_arg, ForwardIterator end_arg )
             :
-              members_( std::distance(begin,end) ),
+              members_( std::distance(begin_arg, end_arg) ),
               buffer_( allocate(members_.capacity_) ),
               size_( 0 )
         {
-            copy_impl( begin, end, buffer_ );
+            copy_impl( begin_arg, end_arg, buffer_ );
             size_ = members_.capacity_;
             if( members_.capacity_ < N )
                 members_.capacity_ = N;
@@ -582,14 +582,14 @@ namespace detail
         }
 
         template< class ForwardIterator >
-        auto_buffer( ForwardIterator begin, ForwardIterator end,
+        auto_buffer( ForwardIterator begin_arg, ForwardIterator end_arg,
                      const allocator_type& a )
             : allocator_type( a ),
-              members_( std::distance(begin,end) ),
+              members_( std::distance(begin_arg, end_arg) ),
               buffer_( allocate(members_.capacity_) ),
               size_( 0 )
         {
-            copy_impl( begin, end, buffer_ );
+            copy_impl( begin_arg, end_arg, buffer_ );
             size_ = members_.capacity_;
             if( members_.capacity_ < N )
                 members_.capacity_ = N;
@@ -766,12 +766,12 @@ namespace detail
         }
 
         template< class ForwardIterator >
-        void unchecked_push_back( ForwardIterator begin,
-                                  ForwardIterator end ) // non-growing
+        void unchecked_push_back( ForwardIterator begin_arg,
+                                  ForwardIterator end_arg ) // non-growing
         {
-            BOOST_ASSERT( size_ + std::distance(begin,end) <= members_.capacity_ );
-            copy_impl( begin, end, buffer_ + size_ );
-            size_ += std::distance(begin,end);
+            BOOST_ASSERT( size_ + std::distance(begin_arg, end_arg) <= members_.capacity_ );
+            copy_impl( begin_arg, end_arg, buffer_ + size_ );
+            size_ += std::distance(begin_arg, end_arg);
         }
 
         void reserve_precisely( size_type n )
@@ -822,12 +822,12 @@ namespace detail
         }
 
         template< class ForwardIterator >
-        void push_back( ForwardIterator begin, ForwardIterator end )
+        void push_back( ForwardIterator begin_arg, ForwardIterator end_arg )
         {
-            difference_type diff = std::distance(begin,end);
+            difference_type diff = std::distance(begin_arg, end_arg);
             if( size_ + diff > members_.capacity_ )
                 reserve( size_ + diff );
-            unchecked_push_back( begin, end );
+            unchecked_push_back( begin_arg, end_arg );
         }
 
         iterator insert( const_iterator before, optimized_const_reference x ) // basic
@@ -887,11 +887,11 @@ namespace detail
 
         template< class ForwardIterator >
         void insert( const_iterator before,
-                     ForwardIterator begin, ForwardIterator end ) // basic
+                     ForwardIterator begin_arg, ForwardIterator end_arg ) // basic
         {
             typedef typename std::iterator_traits<ForwardIterator>
                 ::iterator_category category;
-            insert_impl( before, begin, end, category() );
+            insert_impl( before, begin_arg, end_arg, category() );
         }
 
         void pop_back()

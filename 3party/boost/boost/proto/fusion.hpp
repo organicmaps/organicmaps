@@ -11,26 +11,27 @@
 
 #include <boost/config.hpp>
 #include <boost/mpl/if.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/mpl/long.hpp>
 #include <boost/mpl/sequence_tag_fwd.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <boost/fusion/include/is_view.hpp>
 #include <boost/fusion/include/tag_of_fwd.hpp>
 #include <boost/fusion/include/category_of.hpp>
 #include <boost/fusion/include/iterator_base.hpp>
 #include <boost/fusion/include/intrinsic.hpp>
-#include <boost/fusion/include/pop_front.hpp>
-#include <boost/fusion/include/reverse.hpp>
 #include <boost/fusion/include/single_view.hpp>
 #include <boost/fusion/include/transform_view.hpp>
 #include <boost/fusion/support/ext_/is_segmented.hpp>
 #include <boost/fusion/sequence/intrinsic/ext_/segments.hpp>
 #include <boost/fusion/sequence/intrinsic/ext_/size_s.hpp>
+#include <boost/fusion/sequence/comparison/enable_comparison.hpp>
 #include <boost/fusion/view/ext_/segmented_iterator.hpp>
 #include <boost/proto/proto_fwd.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/proto/eval.hpp>
 
-#if BOOST_MSVC
+#ifdef BOOST_MSVC
 #pragma warning(push)
 #pragma warning(disable : 4510) // default constructor could not be generated
 #pragma warning(disable : 4512) // assignment operator could not be generated
@@ -39,10 +40,8 @@
 
 namespace boost { namespace proto
 {
-
     namespace detail
     {
-
         template<typename Expr, long Pos>
         struct expr_iterator
           : fusion::iterator_base<expr_iterator<Expr, Pos> >
@@ -171,92 +170,6 @@ namespace boost { namespace proto
                 return proto::detail::flat_view<Expr const>(e);
             }
         };
-
-        /// \brief A PolymorphicFunctionObject type that invokes the
-        /// \c fusion::pop_front() algorithm on its argument.
-        ///
-        /// A PolymorphicFunctionObject type that invokes the
-        /// \c fusion::pop_front() algorithm on its argument. This is
-        /// useful for defining a CallableTransform like \c pop_front(_)
-        /// which removes the first child from a Proto expression node.
-        /// Such a transform might be used as the first argument to the
-        /// \c proto::fold\<\> transform; that is, fold all but
-        /// the first child.
-        struct pop_front
-        {
-            BOOST_PROTO_CALLABLE()
-
-            template<typename Sig>
-            struct result;
-
-            template<typename This, typename Expr>
-            struct result<This(Expr)>
-              : result<This(Expr const &)>
-            {};
-
-            template<typename This, typename Expr>
-            struct result<This(Expr &)>
-              : fusion::result_of::pop_front<Expr>
-            {};
-
-            template<typename Expr>
-            typename fusion::result_of::pop_front<Expr>::type
-            operator ()(Expr &e) const
-            {
-                // Work around a const-correctness issue in Fusion
-                typedef typename fusion::result_of::pop_front<Expr>::type result_type;
-                return result_type(fusion::next(fusion::begin(e)), fusion::end(e));
-            }
-
-            template<typename Expr>
-            typename fusion::result_of::pop_front<Expr const>::type
-            operator ()(Expr const &e) const
-            {
-                return fusion::pop_front(e);
-            }
-        };
-
-        /// \brief A PolymorphicFunctionObject type that invokes the
-        /// \c fusion::reverse() algorithm on its argument.
-        ///
-        /// A PolymorphicFunctionObject type that invokes the
-        /// \c fusion::reverse() algorithm on its argument. This is
-        /// useful for defining a CallableTransform like \c reverse(_)
-        /// which reverses the order of the children of a Proto
-        /// expression node.
-        struct reverse
-        {
-            BOOST_PROTO_CALLABLE()
-
-            template<typename Sig>
-            struct result;
-
-            template<typename This, typename Expr>
-            struct result<This(Expr)>
-              : result<This(Expr const &)>
-            {};
-
-            template<typename This, typename Expr>
-            struct result<This(Expr &)>
-              : fusion::result_of::reverse<Expr>
-            {};
-
-            template<typename Expr>
-            typename fusion::result_of::reverse<Expr>::type
-            operator ()(Expr &e) const
-            {
-                // Work around a const-correctness issue in Fusion
-                typedef typename fusion::result_of::reverse<Expr>::type result_type;
-                return result_type(e);
-            }
-
-            template<typename Expr>
-            typename fusion::result_of::reverse<Expr const>::type
-            operator ()(Expr const &e) const
-            {
-                return fusion::reverse(e);
-            }
-        };
     }
 
     /// \brief A function that returns a "flattened"
@@ -288,29 +201,9 @@ namespace boost { namespace proto
 
     /// INTERNAL ONLY
     ///
-    template<>
-    struct is_callable<functional::flatten>
-      : mpl::true_
-    {};
-
-    /// INTERNAL ONLY
-    ///
-    template<>
-    struct is_callable<functional::pop_front>
-      : mpl::true_
-    {};
-
-    /// INTERNAL ONLY
-    ///
-    template<>
-    struct is_callable<functional::reverse>
-      : mpl::true_
-    {};
-
-    /// INTERNAL ONLY
-    ///
     template<typename Context>
     struct eval_fun
+      : proto::callable
     {
         explicit eval_fun(Context &ctx)
           : ctx_(ctx)
@@ -346,12 +239,39 @@ namespace boost { namespace proto
     private:
         Context &ctx_;
     };
+
+    /// INTERNAL ONLY
+    ///
+    template<typename Context>
+    struct is_callable<eval_fun<Context> >
+      : mpl::true_
+    {};
 }}
 
 namespace boost { namespace fusion
 {
     namespace extension
     {
+        template<typename Tag>
+        struct is_sequence_impl;
+
+        template<>
+        struct is_sequence_impl<proto::tag::proto_flat_view>
+        {
+            template<typename Sequence>
+            struct apply
+              : mpl::true_
+            {};
+        };
+
+        template<>
+        struct is_sequence_impl<proto::tag::proto_expr>
+        {
+            template<typename Sequence>
+            struct apply
+              : mpl::true_
+            {};
+        };
 
         template<typename Tag>
         struct is_view_impl;
@@ -719,6 +639,37 @@ namespace boost { namespace fusion
 
     }
 
+    namespace traits
+    {
+        template<typename Seq1, typename Seq2>
+        struct enable_equality<
+            Seq1
+          , Seq2
+          , typename enable_if_c<
+                mpl::or_<
+                    proto::is_expr<Seq1>
+                  , proto::is_expr<Seq2>
+                >::value
+            >::type
+        >
+            : mpl::false_
+        {};
+
+        template<typename Seq1, typename Seq2>
+        struct enable_comparison<
+            Seq1
+          , Seq2
+          , typename enable_if_c<
+                mpl::or_<
+                    proto::is_expr<Seq1>
+                  , proto::is_expr<Seq2>
+                >::value
+            >::type
+        >
+          : mpl::false_
+        {};
+    }
+
 }}
 
 namespace boost { namespace mpl
@@ -736,7 +687,7 @@ namespace boost { namespace mpl
     };
 }} 
 
-#if BOOST_MSVC
+#ifdef BOOST_MSVC
 #pragma warning(pop)
 #endif
 

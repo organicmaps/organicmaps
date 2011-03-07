@@ -1,5 +1,5 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
-//  Copyright (c) 2001-2010 Joel de Guzman
+//  Copyright (c) 2001-2011 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Joel de Guzman
 //
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -19,6 +19,8 @@
 #include <boost/spirit/home/karma/operator/kleene.hpp>
 #include <boost/spirit/home/support/container.hpp>
 #include <boost/spirit/home/support/common_terminals.hpp>
+#include <boost/spirit/home/support/has_semantic_action.hpp>
+#include <boost/spirit/home/support/handles_container.hpp>
 #include <boost/spirit/home/karma/detail/attributes.hpp>
 #include <boost/spirit/home/support/info.hpp>
 #include <boost/fusion/include/at.hpp>
@@ -349,6 +351,7 @@ namespace boost { namespace spirit { namespace karma
 
 namespace boost { namespace spirit { namespace traits
 {
+    ///////////////////////////////////////////////////////////////////////////
     template <typename Subject, typename LoopIter>
     struct has_semantic_action<karma::repeat_generator<Subject, LoopIter> >
       : unary_has_semantic_action<Subject> {};
@@ -356,6 +359,21 @@ namespace boost { namespace spirit { namespace traits
     template <typename Subject, typename LoopIter>
     struct has_semantic_action<karma::strict_repeat_generator<Subject, LoopIter> >
       : unary_has_semantic_action<Subject> {};
+
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename Subject, typename LoopIter, typename Attribute
+      , typename Context, typename Iterator>
+    struct handles_container<
+            karma::repeat_generator<Subject, LoopIter>, Attribute
+          , Context, Iterator> 
+      : mpl::true_ {};
+
+    template <typename Subject, typename LoopIter, typename Attribute
+      , typename Context, typename Iterator>
+    struct handles_container<
+            karma::strict_repeat_generator<Subject, LoopIter>, Attribute
+          , Context, Iterator> 
+      : mpl::true_ {};
 }}}
 
 #endif

@@ -41,6 +41,9 @@ template <class RealType, class Policy>
 class gamma_distribution;
 
 template <class RealType, class Policy>
+class geometric_distribution;
+
+template <class RealType, class Policy>
 class hypergeometric_distribution;
 
 template <class RealType, class Policy>
@@ -48,6 +51,12 @@ class inverse_chi_squared_distribution;
 
 template <class RealType, class Policy>
 class inverse_gamma_distribution;
+
+template <class RealType, class Policy>
+class inverse_gaussian_distribution;
+
+template <class RealType, class Policy>
+class inverse_uniform_distribution;
 
 template <class RealType, class Policy>
 class laplace_distribution;
@@ -126,5 +135,10 @@ class weibull_distribution;
    typedef boost::math::non_central_f_distribution<Type, Policy> non_central_f;\
    typedef boost::math::non_central_t_distribution<Type, Policy> non_central_t;\
    typedef boost::math::hypergeometric_distribution<Type, Policy> hypergeometric;\
+   typedef boost::math::inverse_uniform_distribution<Type, Policy> inverse_uniform;\
+   typedef boost::math::geometric_distribution<Type, Policy> geometric;\
+   typedef boost::math::inverse_chi_squared_distribution<Type, Policy> inverse_chi_squared;\
+   typedef boost::math::inverse_gamma_distribution<Type, Policy> inverse_gamma;\
+   typedef boost::math::inverse_gaussian_distribution<Type, Policy> inverse_gaussian;\
 
 #endif // BOOST_MATH_DISTRIBUTIONS_FWD_HPP

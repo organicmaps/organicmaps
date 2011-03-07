@@ -384,6 +384,8 @@ extract_and_check_delimiter(
     if (is.good() && c!=d) {
       is.setstate(std::ios::failbit);
     } 
+  } else {
+    is >> std::ws;
   }
   return is;
 }
@@ -478,6 +480,8 @@ extract_and_check_delimiter(
     if (is.good() && c!=d) { 
       is.setstate(std::ios::failbit);
     }
+  } else {
+    is >> std::ws;
   }
   return is;
 }

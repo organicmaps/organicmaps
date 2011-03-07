@@ -1,5 +1,6 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
-//  Copyright (c) 2001-2010 Joel de Guzman
+//  Copyright (c) 2001-2011 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Joel de Guzman
+//  Copyright (c)      2010 Bryce Lelbach
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -91,6 +92,14 @@ namespace boost { namespace spirit { namespace lex
         template <typename Env>
         void eval(Env const& env) const
         {
+            typedef typename
+                remove_const<
+                    typename mpl::at_c<typename Env::args_type, 4>::type
+                >::type
+            context_type;
+
+            typedef typename context_type::state_name_type string;
+
             fusion::at_c<4>(env.args()).set_state_name(
                 traits::get_c_string(actor_.eval(env)));
         }

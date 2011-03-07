@@ -36,8 +36,8 @@
 
 #define N BOOST_PP_ITERATION()
 
-    template <typename Derived, BOOST_PP_ENUM_PARAMS(N, typename T)>
-    struct BOOST_PP_CAT(vector_data, N) : sequence_base<Derived>
+    template <BOOST_PP_ENUM_PARAMS(N, typename T)>
+    struct BOOST_PP_CAT(vector_data, N)
     {
         BOOST_PP_CAT(vector_data, N)()
             : BOOST_PP_ENUM(N, FUSION_MEMBER_DEFAULT_INIT, _) {}
@@ -73,12 +73,11 @@
 
     template <BOOST_PP_ENUM_PARAMS(N, typename T)>
     struct BOOST_PP_CAT(vector, N)
-        : BOOST_PP_CAT(vector_data, N)<
-            BOOST_PP_CAT(vector, N)<BOOST_PP_ENUM_PARAMS(N, T)>
-          , BOOST_PP_ENUM_PARAMS(N, T)>
+      : BOOST_PP_CAT(vector_data, N)<BOOST_PP_ENUM_PARAMS(N, T)>
+      , sequence_base<BOOST_PP_CAT(vector, N)<BOOST_PP_ENUM_PARAMS(N, T)> >
     {
         typedef BOOST_PP_CAT(vector, N)<BOOST_PP_ENUM_PARAMS(N, T)> this_type;
-        typedef BOOST_PP_CAT(vector_data, N)<this_type, BOOST_PP_ENUM_PARAMS(N, T)> base_type;
+        typedef BOOST_PP_CAT(vector_data, N)<BOOST_PP_ENUM_PARAMS(N, T)> base_type;
         typedef mpl::BOOST_PP_CAT(vector, N)<BOOST_PP_ENUM_PARAMS(N, T)> types;
         typedef vector_tag fusion_tag;
         typedef fusion_sequence_tag tag; // this gets picked up by MPL

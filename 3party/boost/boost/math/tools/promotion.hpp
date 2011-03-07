@@ -33,6 +33,7 @@
 #include <boost/mpl/if.hpp> // for boost::mpl::if_c.
 #include <boost/mpl/and.hpp> // for boost::mpl::if_c.
 #include <boost/mpl/or.hpp> // for boost::mpl::if_c.
+#include <boost/mpl/not.hpp> // for boost::mpl::if_c.
 
 #ifdef BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS
 #include <boost/static_assert.hpp>
@@ -93,7 +94,7 @@ namespace boost
           >::type
           >::type,
           // else one or the other is a user-defined type:
-          typename mpl::if_< ::boost::is_convertible<T1P, T2P>, T2P, T1P>::type>::type type;
+          typename mpl::if_< typename mpl::and_<mpl::not_<is_floating_point<T2P> >, ::boost::is_convertible<T1P, T2P> >, T2P, T1P>::type>::type type;
       }; // promote_arg2
       // These full specialisations reduce mpl::if_ usage and speed up
       // compilation:

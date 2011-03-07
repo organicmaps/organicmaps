@@ -67,7 +67,8 @@ namespace boost {
     if (regex_match(s, valid_unquoted_id)) {
       return s;
     } else {
-      return "\"" + regex_replace(s, sregex(as_xpr('"')), "\\\"") + "\"";
+      boost::algorithm::replace_all(s, "\"", "\\\"");
+      return "\"" + s + "\"";
     }
   }
 

@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -25,12 +25,12 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         ///////////////////////////////////////////////////////////////////////
         template <typename Iterator, typename HasActors, typename HasState
           , typename TokenValue>
-        struct data;    // no default specialization
+        class data;    // no default specialization
 
         ///////////////////////////////////////////////////////////////////////
         //  neither supports state, nor actors
         template <typename Iterator, typename TokenValue>
-        struct data<Iterator, mpl::false_, mpl::false_, TokenValue>
+        class data<Iterator, mpl::false_, mpl::false_, TokenValue>
         {
         protected:
             typedef typename 
@@ -98,7 +98,9 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
                 // The following assertion fires most likely because you are 
                 // using lexer semantic actions without using the actor_lexer
                 // as the base class for your token definition class.
-                BOOST_ASSERT(false);
+                BOOST_ASSERT(false && 
+                    "Are you using lexer semantic actions without using the "
+                    "actor_lexer base?");
                 return it; 
             }
 
@@ -115,7 +117,9 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
                 // The following assertion fires most likely because you are 
                 // using lexer semantic actions without using the actor_lexer
                 // as the base class for your token definition class.
-                BOOST_ASSERT(false); 
+                BOOST_ASSERT(false && 
+                    "Are you using lexer semantic actions without using the "
+                    "actor_lexer base?"); 
             }
             bool adjust_start() { return false; }
             void revert_adjust_start() {}
@@ -127,12 +131,14 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
             //
             // This function does nothing as long as no semantic actions are 
             // used.
-            bool lookahead(std::size_t id) 
+            bool lookahead(std::size_t id, std::size_t state = std::size_t(~0)) 
             { 
                 // The following assertion fires most likely because you are 
                 // using lexer semantic actions without using the actor_lexer
                 // as the base class for your token definition class.
-                BOOST_ASSERT(false);
+                BOOST_ASSERT(false && 
+                    "Are you using lexer semantic actions without using the "
+                    "actor_lexer base?");
                 return false; 
             }
 
@@ -141,8 +147,10 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
 
             // The function next() tries to match the next token from the 
             // underlying input sequence. 
-            std::size_t next(Iterator& end, std::size_t& unique_id)
+            std::size_t next(Iterator& end, std::size_t& unique_id, bool& prev_bol)
             {
+                prev_bol = bol_;
+
                 typedef basic_iterator_tokeniser<Iterator> tokenizer;
                 return tokenizer::next(state_machine_, bol_, end, last_
                   , unique_id);
@@ -169,6 +177,8 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
             bool has_value() const { return false; }
             void reset_value() {}
 
+            void reset_bol(bool bol) { bol_ = bol; }
+
         protected:
             Iterator& first_;
             Iterator last_;
@@ -184,10 +194,10 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         };
 
         ///////////////////////////////////////////////////////////////////////
-        //  doesn't support lexer semantic actions
+        //  doesn't support lexer semantic actions, but supports state
         template <typename Iterator, typename TokenValue>
-        struct data<Iterator, mpl::false_, mpl::true_, TokenValue>
-          : data<Iterator, mpl::false_, mpl::false_, TokenValue>
+        class data<Iterator, mpl::false_, mpl::true_, TokenValue>
+          : public data<Iterator, mpl::false_, mpl::false_, TokenValue>
         {
         protected:
             typedef data<Iterator, mpl::false_, mpl::false_, TokenValue> base_type;
@@ -236,8 +246,10 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
 
             // The function next() tries to match the next token from the 
             // underlying input sequence. 
-            std::size_t next(Iterator& end, std::size_t& unique_id)
+            std::size_t next(Iterator& end, std::size_t& unique_id, bool& prev_bol)
             {
+                prev_bol = this->bol_;
+
                 typedef basic_iterator_tokeniser<Iterator> tokenizer;
                 return tokenizer::next(this->state_machine_, state_, 
                     this->bol_, end, this->get_eoi(), unique_id);
@@ -257,8 +269,8 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         ///////////////////////////////////////////////////////////////////////
         //  does support lexer semantic actions, may support state
         template <typename Iterator, typename HasState, typename TokenValue>
-        struct data<Iterator, mpl::true_, HasState, TokenValue> 
-          : data<Iterator, mpl::false_, HasState, TokenValue>
+        class data<Iterator, mpl::true_, HasState, TokenValue> 
+          : public data<Iterator, mpl::false_, HasState, TokenValue>
         {
         public:
             typedef semantic_actions<Iterator, HasState, data> 
@@ -285,7 +297,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
               : base_type(data_, first, last)
               , actions_(data_.actions_), hold_()
               , value_(iterator_range<Iterator>(first, last))
-              , has_hold_(false), has_value_(false) {}
+              , has_value_(false), has_hold_(false) {}
 
             // invoke attached semantic actions, if defined
             BOOST_SCOPED_ENUM(pass_flags) invoke_actions(std::size_t state
@@ -323,11 +335,18 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
             // support function lex::lookahead. It can be used to implement 
             // lookahead for lexer engines not supporting constructs like flex'
             // a/b  (match a, but only when followed by b)
-            bool lookahead(std::size_t id)
+            bool lookahead(std::size_t id, std::size_t state = std::size_t(~0))
             {
-                Iterator end = this->get_first();
+                Iterator end = end_;
                 std::size_t unique_id = boost::lexer::npos;
-                return id == this->next(end, unique_id);
+                bool bol = this->bol_;
+
+                if (std::size_t(~0) == state)
+                    state = this->state_;
+
+                typedef basic_iterator_tokeniser<Iterator> tokenizer;
+                return id == tokenizer::next(this->state_machine_, state, 
+                    bol, end, this->get_eoi(), unique_id);
             }
 
             // The adjust_start() and revert_adjust_start() are helper 
@@ -383,7 +402,6 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
             data& operator= (data const&);
         };
     }
-
 }}}}
 
 #endif

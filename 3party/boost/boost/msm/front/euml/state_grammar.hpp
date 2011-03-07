@@ -18,6 +18,7 @@
 
 #include <boost/mpl/remove_if.hpp>
 #include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/assert.hpp>
 
 #include <boost/msm/row_tags.hpp>
 #include <boost/msm/front/common_states.hpp>

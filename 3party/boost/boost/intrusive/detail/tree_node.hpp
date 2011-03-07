@@ -96,7 +96,7 @@ class tree_iterator
 
 
    tree_iterator()
-      : members_ (0, 0)
+      : members_ (node_ptr(0), (const void *)0)
    {}
 
    explicit tree_iterator(node_ptr nodeptr, const Container *cont_ptr)

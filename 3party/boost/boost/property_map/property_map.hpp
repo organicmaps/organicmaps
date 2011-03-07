@@ -11,7 +11,7 @@
 #ifndef BOOST_PROPERTY_MAP_HPP
 #define BOOST_PROPERTY_MAP_HPP
 
-#include <cassert>
+#include <boost/assert.hpp>
 #include <boost/config.hpp>
 #include <boost/pending/cstddef.hpp>
 #include <boost/detail/iterator.hpp>
@@ -444,7 +444,7 @@ namespace boost {
       : iter(first), n(n_), index(_id) { }
     inline safe_iterator_property_map() { }
     inline R operator[](key_type v) const {
-      assert(get(index, v) < n);
+      BOOST_ASSERT(get(index, v) < n);
       return *(iter + get(index, v)) ;
     }
     typename property_traits<IndexMap>::value_type size() const { return n; }

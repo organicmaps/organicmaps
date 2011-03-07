@@ -336,7 +336,7 @@ namespace boost { namespace proto
             // member object pointers.
             template<typename T, typename Void = void>
             struct result_of_
-              : boost::tr1_result_of<T>
+              : BOOST_PROTO_RESULT_OF<T>
             {};
 
             template<typename T, typename U, typename V>
@@ -486,7 +486,7 @@ namespace boost { namespace proto
         {
             typedef typename uncvref<PMF>::type pmf_type;
             typedef typename classtypeof<pmf_type>::type V;
-            typedef typename boost::tr1_result_of<pmf_type(T)>::type result_type;
+            typedef typename BOOST_PROTO_RESULT_OF<pmf_type(T)>::type result_type;
 
             memfun(T t, PMF p)
               : obj(t)

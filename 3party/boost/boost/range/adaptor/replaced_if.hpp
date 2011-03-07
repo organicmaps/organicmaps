@@ -47,7 +47,7 @@ namespace boost
         };
 
         template< class Pred, class R >
-        class replace_if_range :
+        class replaced_if_range :
             public boost::iterator_range<
                 boost::transform_iterator<
                     replace_value_if< Pred, BOOST_DEDUCED_TYPENAME range_value<R>::type >,
@@ -64,7 +64,7 @@ namespace boost
         public:
             typedef BOOST_DEDUCED_TYPENAME range_value<R>::type value_type;
 
-            replace_if_range( R& r, const Pred& pred, value_type to )
+            replaced_if_range( R& r, const Pred& pred, value_type to )
                 : base_t( make_transform_iterator( boost::begin(r), Fn(pred, to) ),
                           make_transform_iterator( boost::end(r), Fn(pred, to) ) )
             { }
@@ -87,23 +87,23 @@ namespace boost
         };
 
         template< class Pred, class InputRng >
-        inline replace_if_range<Pred, InputRng>
+        inline replaced_if_range<Pred, InputRng>
         operator|( InputRng& r,
                    const replace_if_holder<Pred, BOOST_DEDUCED_TYPENAME range_value<InputRng>::type>& f )
         {
-            return replace_if_range<Pred, InputRng>(r, f.pred(), f.to());
+            return replaced_if_range<Pred, InputRng>(r, f.pred(), f.to());
         }
 
         template< class Pred, class InputRng >
-        inline replace_if_range<Pred, const InputRng>
+        inline replaced_if_range<Pred, const InputRng>
         operator|( const InputRng& r,
                    const replace_if_holder<Pred, BOOST_DEDUCED_TYPENAME range_value<InputRng>::type>& f )
         {
-            return replace_if_range<Pred, const InputRng>(r, f.pred(), f.to());
+            return replaced_if_range<Pred, const InputRng>(r, f.pred(), f.to());
         }
     } // 'range_detail'
 
-    using range_detail::replace_if_range;
+    using range_detail::replaced_if_range;
 
     namespace adaptors
     {
@@ -115,19 +115,19 @@ namespace boost
         }
         
         template<class Pred, class InputRange>
-        inline replace_if_range<Pred, InputRange>
+        inline replaced_if_range<Pred, InputRange>
         replace_if(InputRange& rng, Pred pred,
                    BOOST_DEDUCED_TYPENAME range_value<InputRange>::type to)
         {
-            return range_detail::replace_if_range<Pred, InputRange>(rng, pred, to);
+            return range_detail::replaced_if_range<Pred, InputRange>(rng, pred, to);
         }
 
         template<class Pred, class InputRange>
-        inline replace_if_range<Pred, const InputRange>
+        inline replaced_if_range<Pred, const InputRange>
         replace_if(const InputRange& rng, Pred pred,
                    BOOST_DEDUCED_TYPENAME range_value<const InputRange>::type to)
         {
-            return range_detail::replace_if_range<Pred, const InputRange>(rng, pred, to);
+            return range_detail::replaced_if_range<Pred, const InputRange>(rng, pred, to);
         }
     } // 'adaptors'
     

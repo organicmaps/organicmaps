@@ -18,7 +18,7 @@
 # pragma once
 #endif
 
-#include <cassert>
+#include <boost/assert.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/type_traits/aligned_storage.hpp>
 #include <boost/type_traits/alignment_of.hpp>
@@ -52,32 +52,32 @@ public:
     ~optional() { reset(); }
     T& operator*() 
     { 
-        assert(initialized_);
+        BOOST_ASSERT(initialized_);
         return *static_cast<T*>(address()); 
     }
     const T& operator*() const
     { 
-        assert(initialized_);
+        BOOST_ASSERT(initialized_);
         return *static_cast<const T*>(address()); 
     }
     T* operator->() 
     { 
-        assert(initialized_);
+        BOOST_ASSERT(initialized_);
         return static_cast<T*>(address()); 
     }
     const T* operator->() const
     { 
-        assert(initialized_);
+        BOOST_ASSERT(initialized_);
         return static_cast<const T*>(address()); 
     }
     T* get() 
     { 
-        assert(initialized_);
+        BOOST_ASSERT(initialized_);
         return static_cast<T*>(address()); 
     }
     const T* get() const
     { 
-        assert(initialized_);
+        BOOST_ASSERT(initialized_);
         return static_cast<const T*>(address()); 
     }
     void reset() 

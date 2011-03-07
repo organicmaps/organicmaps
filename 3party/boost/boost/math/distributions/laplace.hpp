@@ -66,23 +66,17 @@ public:
          return true;
    }
 
-
 private:
    RealType m_location;
    RealType m_scale;
-
 }; // class laplace_distribution
 
-
-
 //
-// Convenient type synonym
-//
+// Convenient type synonym for double
 typedef laplace_distribution<double> laplace;
 
 //
 // Non member functions
-//
 template <class RealType, class Policy>
 inline const std::pair<RealType, RealType> range(const laplace_distribution<RealType, Policy>&)
 {
@@ -137,7 +131,7 @@ inline RealType cdf(const laplace_distribution<RealType, Policy>& dist, const Re
    if (false == dist.check_parameters(function, &result)) return result;
    if (false == detail::check_x(function, x, &result, Policy())) return result;
 
-   // Special cdf values
+   // Special cdf values:
    if((boost::math::isinf)(x))
    {
      if(x < 0) return 0; // -infinity
@@ -160,7 +154,7 @@ inline RealType cdf(const laplace_distribution<RealType, Policy>& dist, const Re
 template <class RealType, class Policy>
 inline RealType quantile(const laplace_distribution<RealType, Policy>& dist, const RealType& p)
 {
-   BOOST_MATH_STD_USING // for ADL of std functions
+   BOOST_MATH_STD_USING // for ADL of std functions.
 
    // Checking function argument
    RealType result;
@@ -168,10 +162,20 @@ inline RealType quantile(const laplace_distribution<RealType, Policy>& dist, con
    if (false == dist.check_parameters(function, &result)) return result;
    if(false == detail::check_probability(function, p, &result, Policy())) return result;
 
-   // extreme values
-   if(p == 0) return -std::numeric_limits<RealType>::infinity();
-   if(p == 1) return std::numeric_limits<RealType>::infinity();
-
+   // Extreme values of p:
+   if(p == 0)
+   {
+      result = policies::raise_overflow_error<RealType>(function,
+        "probability parameter is 0, but must be > 0!", Policy());
+      return -result; // -std::numeric_limits<RealType>::infinity();
+   }
+  
+   if(p == 1)
+   {
+      result = policies::raise_overflow_error<RealType>(function,
+        "probability parameter is 1, but must be < 1!", Policy());
+      return result; // std::numeric_limits<RealType>::infinity();
+   }
    // Calculate Quantile
    RealType scale( dist.scale() );
    RealType location( dist.location() );

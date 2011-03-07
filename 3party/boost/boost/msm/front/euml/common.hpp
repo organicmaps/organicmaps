@@ -351,7 +351,7 @@ struct NoAction : euml_action<NoAction>
         return true;
     }
     template <class EVT,class FSM,class SourceState,class TargetState>
-    bool operator()(EVT const& evt ,FSM& ,SourceState& ,TargetState&)const
+    bool operator()(EVT const& ,FSM& ,SourceState& ,TargetState&)const
     {
         // does nothing
         return true;

@@ -34,7 +34,7 @@
 # pragma once
 #endif 
 
-#include <cassert>
+#include <boost/assert.hpp>
 #include <boost/config.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/serialization/force_include.hpp>
@@ -128,13 +128,13 @@ private:
         static detail::singleton_wrapper< T > t;
         // refer to instance, causing it to be instantiated (and
         // initialized at startup on working compilers)
-        assert(! detail::singleton_wrapper< T >::m_is_destroyed);
+        BOOST_ASSERT(! detail::singleton_wrapper< T >::m_is_destroyed);
         use(instance);
         return static_cast<T &>(t);
     }
 public:
     BOOST_DLLEXPORT static T & get_mutable_instance(){
-        assert(! is_locked());
+        BOOST_ASSERT(! is_locked());
         return get_instance();
     }
     BOOST_DLLEXPORT static const T & get_const_instance(){

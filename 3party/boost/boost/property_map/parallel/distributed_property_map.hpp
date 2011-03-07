@@ -21,6 +21,7 @@
 #error "Parallel BGL files should not be included unless <boost/graph/use_mpi.hpp> has been included"
 #endif
 
+#include <boost/assert.hpp>
 #include <boost/type_traits/is_base_and_derived.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
@@ -83,7 +84,7 @@ namespace detail {
     template<typename PropertyMap, typename Key, typename Value>
     static inline void
     do_put(PropertyMap, const Key&, const Value&)
-    { assert(false); }
+    { BOOST_ASSERT(false); }
   };
 
   template<>
@@ -134,7 +135,7 @@ namespace detail {
   template<typename PropertyMap, typename Key, typename Value>
   inline void
   maybe_put_impl(PropertyMap, const Key&, const Value&, ...)
-  { assert(false); }
+  { BOOST_ASSERT(false); }
 
   template<typename PropertyMap, typename Key, typename Value>
   inline void

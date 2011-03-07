@@ -72,7 +72,6 @@ public:
 
     // include these to trap a change in binary format which
     // isn't specifically handled
-    BOOST_STATIC_ASSERT(sizeof(tracking_type) == sizeof(bool));
     // upto 32K classes
     BOOST_STATIC_ASSERT(sizeof(class_id_type) == sizeof(int_least16_t));
     BOOST_STATIC_ASSERT(sizeof(class_id_reference_type) == sizeof(int_least16_t));
@@ -83,6 +82,19 @@ public:
     // binary files don't include the optional information 
     void load_override(class_id_optional_type & /* t */, int){}
 
+    void load_override(tracking_type & t, int /*version*/){
+        library_version_type lvt = this->get_library_version();
+        if(boost::archive::library_version_type(6) < lvt){
+            int_least8_t x=0;
+            * this->This() >> x;
+            t = boost::archive::tracking_type(x);
+        }
+        else{
+            bool x=0;
+            * this->This() >> x;
+            t = boost::archive::tracking_type(x);
+        }
+    }
     void load_override(class_id_type & t, int version){
         library_version_type lvt = this->get_library_version();
         if(boost::archive::library_version_type(7) < lvt){
@@ -134,9 +146,22 @@ public:
         }
         else
         if(boost::archive::library_version_type(6) < lvt){
+            uint_least8_t x=0;
+            * this->This() >> x;
+            t = boost::archive::version_type(x);
+        }
+        else
+        if(boost::archive::library_version_type(5) < lvt){
             uint_least16_t x=0;
             * this->This() >> x;
             t = boost::archive::version_type(x);
+        }
+        else
+        if(boost::archive::library_version_type(2) < lvt){
+            // upto 255 versions
+            unsigned char x=0;
+            * this->This() >> x;
+            t = version_type(x);
         }
         else{
             unsigned int x=0;
@@ -147,7 +172,8 @@ public:
 
     void load_override(boost::serialization::item_version_type & t, int version){
         library_version_type lvt = this->get_library_version();
-        if(boost::archive::library_version_type(7) < lvt){
+//        if(boost::archive::library_version_type(7) < lvt){
+        if(boost::archive::library_version_type(6) < lvt){
             this->detail_common_iarchive::load_override(t, version);
         }
         else

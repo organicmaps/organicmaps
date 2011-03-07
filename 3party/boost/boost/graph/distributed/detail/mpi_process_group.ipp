@@ -18,7 +18,7 @@
 #error "Parallel BGL files should not be included unless <boost/graph/use_mpi.hpp> has been included"
 #endif
 
-#include <cassert>
+#include <boost/assert.hpp>
 #include <algorithm>
 #include <boost/graph/parallel/detail/untracked_pair.hpp>
 #include <numeric>
@@ -166,7 +166,7 @@ void
 mpi_process_group::send_impl(int dest, int tag, const T& value,
                              mpl::true_ /*is_mpi_datatype*/) const
 {
-  assert(tag <  msg_reserved_first || tag > msg_reserved_last);
+  BOOST_ASSERT(tag <  msg_reserved_first || tag > msg_reserved_last);
 
   impl::outgoing_messages& outgoing = impl_->outgoing[dest];
 
@@ -197,7 +197,7 @@ void
 mpi_process_group::send_impl(int dest, int tag, const T& value,
                              mpl::false_ /*is_mpi_datatype*/) const
 {
-  assert(tag <  msg_reserved_first || tag > msg_reserved_last);
+  BOOST_ASSERT(tag <  msg_reserved_first || tag > msg_reserved_last);
 
   impl::outgoing_messages& outgoing = impl_->outgoing[dest];
 
@@ -246,7 +246,7 @@ typename disable_if<boost::mpi::is_mpi_datatype<T>, void>::type
 mpi_process_group::
 array_send_impl(int dest, int tag, const T values[], std::size_t n) const
 {
-  assert(tag <  msg_reserved_first || tag > msg_reserved_last);
+  BOOST_ASSERT(tag <  msg_reserved_first || tag > msg_reserved_last);
 
   impl::outgoing_messages& outgoing = impl_->outgoing[dest];
 
@@ -454,7 +454,7 @@ array_receive_impl(int source, int tag, T* values, std::size_t& n) const
 template<typename Type, typename Handler>
 void mpi_process_group::trigger(int tag, const Handler& handler)
 {
-  assert(block_num);
+  BOOST_ASSERT(block_num);
   install_trigger(tag,my_block_number(),shared_ptr<trigger_base>(
     new trigger_launcher<Type, Handler>(*this, tag, handler)));
 }
@@ -462,7 +462,7 @@ void mpi_process_group::trigger(int tag, const Handler& handler)
 template<typename Type, typename Handler>
 void mpi_process_group::trigger_with_reply(int tag, const Handler& handler)
 {
-  assert(block_num);
+  BOOST_ASSERT(block_num);
   install_trigger(tag,my_block_number(),shared_ptr<trigger_base>(
     new reply_trigger_launcher<Type, Handler>(*this, tag, handler)));
 }
@@ -570,7 +570,7 @@ receive(mpi_process_group const&, int source, int tag,
             << " receive from source " << source << " and tag " << tag
         << " in block " << (block == -1 ? self.my_block_number() : block) << std::endl;
 #endif
-  assert(context == trc_out_of_band);
+  BOOST_ASSERT(context == trc_out_of_band);
 
   boost::parallel::detail::untracked_pair<int, Type> data;
 
@@ -631,7 +631,7 @@ receive(mpi_process_group const& self, int source, int tag,
   if (context == trc_out_of_band) {
     return;
   }
-  assert (context == trc_irecv_out_of_band);
+  BOOST_ASSERT (context == trc_irecv_out_of_band);
 
   // force posting of new MPI_Irecv, even though buffer is already allocated
   boost::mpi::packed_iarchive ia(self.impl_->comm,self.impl_->buffers[tag]);
@@ -656,7 +656,7 @@ prepare_receive(mpi_process_group const& self, int tag, bool force) const
     self.impl_->buffers[tag].resize(buffer_size);
     force = true;
   }
-  assert(static_cast<int>(self.impl_->buffers[tag].size()) >= buffer_size);
+  BOOST_ASSERT(static_cast<int>(self.impl_->buffers[tag].size()) >= buffer_size);
   
   //BOOST_MPL_ASSERT(mpl::not_<is_mpi_datatype<Type> >);
   if (force) {
@@ -677,7 +677,7 @@ receive(const mpi_process_group& pg, int tag, T& value)
                         value, boost::mpi::is_mpi_datatype<T>()))
       return source;
   }
-  assert (false);
+  BOOST_ASSERT (false);
 }
 
 template<typename T>
@@ -694,7 +694,7 @@ receive(const mpi_process_group& pg, int tag, T values[], std::size_t n)
     if (result) 
       return std::make_pair(source, n);
   }
-  assert(false);
+  BOOST_ASSERT(false);
 }
 
 template<typename T>
@@ -708,7 +708,7 @@ receive(const mpi_process_group& pg, int tag, T values[], std::size_t n)
                               values, n))
       return std::make_pair(source, n);
   }
-  assert(false);
+  BOOST_ASSERT(false);
 }
 
 template<typename T>
@@ -724,7 +724,7 @@ receive(const mpi_process_group& pg,
             "Process %d failed to receive a message from process %d with tag %d in block %d.\n",
             process_id(pg), source, tag, pg.my_block_number());
 
-    assert(false);
+    BOOST_ASSERT(false);
     exit(1);
   }
 }
@@ -745,7 +745,7 @@ receive(const mpi_process_group& pg, int source, int tag, T values[],
             "Process %d failed to receive a message from process %d with tag %d in block %d.\n",
             process_id(pg), source, tag, pg.my_block_number());
 
-    assert(false);
+    BOOST_ASSERT(false);
     exit(1);
   }
 }
@@ -837,7 +837,7 @@ all_gather(const mpi_process_group& pg, InputIterator first,
   int result = MPI_Allgather(&size, 1, MPI_INT,
                              &sizes[0], 1, MPI_INT,
                              communicator(pg));
-  assert(result == MPI_SUCCESS);
+  BOOST_ASSERT(result == MPI_SUCCESS);
 
   // Adjust sizes based on the number of bytes
   std::transform(sizes.begin(), sizes.end(), sizes.begin(),
@@ -860,7 +860,7 @@ all_gather(const mpi_process_group& pg, InputIterator first,
                             &out[0], &sizes[0], &displacements[0], MPI_BYTE,
                             communicator(pg));
   }
-  assert(result == MPI_SUCCESS);
+  BOOST_ASSERT(result == MPI_SUCCESS);
 }
 
 template<typename InputIterator>
@@ -878,25 +878,25 @@ process_subgroup(const mpi_process_group& pg,
 
   MPI_Group current_group;
   int result = MPI_Comm_group(communicator(pg), &current_group);
-  assert(result == MPI_SUCCESS);
+  BOOST_ASSERT(result == MPI_SUCCESS);
 
   MPI_Group new_group;
   result = MPI_Group_incl(current_group, ranks.size(), &ranks[0], &new_group);
-  assert(result == MPI_SUCCESS);
+  BOOST_ASSERT(result == MPI_SUCCESS);
 
   MPI_Comm new_comm;
   result = MPI_Comm_create(communicator(pg), new_group, &new_comm);
-  assert(result == MPI_SUCCESS);
+  BOOST_ASSERT(result == MPI_SUCCESS);
 
   result = MPI_Group_free(&new_group);
-  assert(result == MPI_SUCCESS);
+  BOOST_ASSERT(result == MPI_SUCCESS);
   result = MPI_Group_free(&current_group);
-  assert(result == MPI_SUCCESS);
+  BOOST_ASSERT(result == MPI_SUCCESS);
 
   if (new_comm != MPI_COMM_NULL) {
     mpi_process_group result_pg(boost::mpi::communicator(new_comm,boost::mpi::comm_attach));
     result = MPI_Comm_free(&new_comm);
-    assert(result == 0);
+    BOOST_ASSERT(result == 0);
     return result_pg;
   } else {
     return mpi_process_group(mpi_process_group::create_empty());

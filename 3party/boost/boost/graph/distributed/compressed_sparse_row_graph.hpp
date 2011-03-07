@@ -17,6 +17,7 @@
 #error "Parallel BGL files should not be included unless <boost/graph/use_mpi.hpp> has been included"
 #endif
 
+#include <boost/assert.hpp>
 #include <boost/graph/compressed_sparse_row_graph.hpp>
 #include <boost/graph/distributed/selector.hpp>
 #include <boost/mpl/if.hpp>
@@ -366,7 +367,7 @@ class compressed_sparse_row_graph<
   {
     std::pair<process_id_type, vertex_descriptor> locator
       = get(vertex_global, *this, v);
-    assert(locator.first == process_id(m_process_group));
+    BOOST_ASSERT(locator.first == process_id(m_process_group));
     return base().m_vertex_properties[locator.second];
   }
 
@@ -374,19 +375,19 @@ class compressed_sparse_row_graph<
   {
     std::pair<process_id_type, vertex_descriptor> locator
       = get(vertex_global, *this, v);
-    assert(locator.first == process_id(m_process_group));
+    BOOST_ASSERT(locator.first == process_id(m_process_group));
     return base().m_process_group[locator.second];
   }
 
   edge_bundled& operator[](edge_descriptor e)
   {
-    assert(get(vertex_owner, *this, e.src) == process_id(m_process_group));
+    BOOST_ASSERT(get(vertex_owner, *this, e.src) == process_id(m_process_group));
     return base().m_edge_properties[e.idx];
   }
 
   const edge_bundled& operator[](edge_descriptor e) const
   {
-    assert(get(vertex_owner, *this, e.src) == process_id(m_process_group));
+    BOOST_ASSERT(get(vertex_owner, *this, e.src) == process_id(m_process_group));
     return base().m_edge_properties[e.idx];
   }
 

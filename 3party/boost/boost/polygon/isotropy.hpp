@@ -48,7 +48,7 @@ typedef boost::ulong_long_type polygon_ulong_long_type;
 #include <boost/mpl/or.hpp>
 #else
 
-#ifdef WIN32
+#ifdef _WIN32
 #define BOOST_POLYGON_MSVC
 #endif
 #ifdef __ICC
@@ -290,7 +290,7 @@ namespace boost { namespace polygon{
 
   template <typename T>
   struct gtl_if {
-#ifdef WIN32
+#ifdef BOOST_POLYGON_MSVC
     typedef gtl_no type;
 #endif
   };

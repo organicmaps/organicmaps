@@ -125,15 +125,15 @@ namespace boost
       std::basic_istream<Char, Traits>& operator>>(std::basic_istream<Char, Traits>& is, 
         const quoted_proxy<std::basic_string<Char, Traits, Alloc>&, Char>& proxy)
       {
+        proxy.string.clear();
         Char c;
         is >> c;
         if (c != proxy.delim)
         {
-          proxy.string = c;
+          is.unget();
           is >> proxy.string;
           return is;
         }
-        proxy.string.clear();
         {
           boost::io::ios_flags_saver ifs(is);
           is >> std::noskipws;

@@ -37,6 +37,9 @@
    //
 #endif
 
+/// Visual Studio has no fenv.h
+#define BOOST_NO_FENV_H
+
 #if (_MSC_VER <= 1300)  // 1300 == VC++ 7.0
 
 #  if !defined(_MSC_EXTENSIONS) && !defined(BOOST_NO_DEPENDENT_TYPES_IN_TEMPLATE_VALUE_PARAMETERS)      // VC7 bug with /Za
@@ -92,10 +95,6 @@
 
 #if _MSC_VER <= 1400  // 1400 == VC++ 8.0
 #  define BOOST_NO_MEMBER_TEMPLATE_FRIENDS
-#endif
-
-#if _MSC_VER <= 1600  // 1600 == VC++ 10.0
-#  define BOOST_NO_TWO_PHASE_NAME_LOOKUP
 #endif
 
 #if _MSC_VER == 1500  // 1500 == VC++ 9.0
@@ -181,6 +180,7 @@
 #define BOOST_NO_STATIC_ASSERT
 #define BOOST_NO_NULLPTR
 #endif // _MSC_VER < 1600
+
 #if _MSC_VER >= 1600
 #define BOOST_HAS_STDINT_H
 #endif
@@ -198,10 +198,11 @@
 #define BOOST_NO_INITIALIZER_LISTS
 #define BOOST_NO_RAW_LITERALS
 #define BOOST_NO_SCOPED_ENUMS
-#define BOOST_NO_SFINAE_EXPR
 #define BOOST_NO_TEMPLATE_ALIASES
 #define BOOST_NO_UNICODE_LITERALS
 #define BOOST_NO_VARIADIC_TEMPLATES
+#define BOOST_NO_SFINAE_EXPR
+#define BOOST_NO_TWO_PHASE_NAME_LOOKUP
 //
 // prefix and suffix headers:
 //

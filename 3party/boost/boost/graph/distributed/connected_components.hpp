@@ -14,6 +14,7 @@
 #error "Parallel BGL files should not be included unless <boost/graph/use_mpi.hpp> has been included"
 #endif
 
+#include <boost/assert.hpp>
 #include <boost/property_map/property_map.hpp>
 #include <boost/property_map/parallel/caching_property_map.hpp>
 #include <boost/graph/parallel/algorithm.hpp>
@@ -116,7 +117,7 @@ namespace boost { namespace graph { namespace distributed {
 
         // Receive remote roots and edges
         while (optional<std::pair<process_id_type, int> > m = probe(pg)) {
-          assert(m->second == root_adj_msg);
+          BOOST_ASSERT(m->second == root_adj_msg);
 
           std::vector<vertex_descriptor> adjs;
           receive(pg, m->first, m->second, adjs);
@@ -554,12 +555,12 @@ namespace boost { namespace graph { namespace distributed {
                                adj[*liter].begin(), adj[*liter].end() );
 #ifdef PBGL_IN_PLACE_MERGE
 #ifdef PBGL_SORT_ASSERT
-                assert(__gnu_cxx::is_sorted(my_adj.begin(),
-                                            my_adj.end() - adj[*liter].size(),
-                                            std::less<vertex_descriptor>()));
-                assert(__gnu_cxx::is_sorted(my_adj.end() - adj[*liter].size(),
-                                            my_adj.end(),
-                                            std::less<vertex_descriptor>()));
+                BOOST_ASSERT(__gnu_cxx::is_sorted(my_adj.begin(),
+                                                  my_adj.end() - adj[*liter].size(),
+                                                  std::less<vertex_descriptor>()));
+                BOOST_ASSERT(__gnu_cxx::is_sorted(my_adj.end() - adj[*liter].size(),
+                                                  my_adj.end(),
+                                                  std::less<vertex_descriptor>()));
 #endif
                 std::inplace_merge(my_adj.begin(),
                                    my_adj.end() - adj[*liter].size(),
@@ -602,12 +603,12 @@ namespace boost { namespace graph { namespace distributed {
 #ifdef PBGL_IN_PLACE_MERGE
             std::size_t num_incoming_edges = incoming_edges.size();
 #ifdef PBGL_SORT_ASSERT
-            assert(__gnu_cxx::is_sorted(my_adj.begin(),
-                                        my_adj.end() - (num_incoming_edges-1),
-                                        std::less<vertex_descriptor>()));
-            assert(__gnu_cxx::is_sorted(my_adj.end() - (num_incoming_edges-1),
-                                        my_adj.end(),
-                                        std::less<vertex_descriptor>()));
+            BOOST_ASSERT(__gnu_cxx::is_sorted(my_adj.begin(),
+                                              my_adj.end() - (num_incoming_edges-1),
+                                              std::less<vertex_descriptor>()));
+            BOOST_ASSERT(__gnu_cxx::is_sorted(my_adj.end() - (num_incoming_edges-1),
+                                              my_adj.end(),
+                                              std::less<vertex_descriptor>()));
 #endif
             std::inplace_merge(my_adj.begin(),
                                my_adj.end() - (num_incoming_edges - 1),

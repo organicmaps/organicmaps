@@ -60,8 +60,8 @@ template <class T>
 T user_denorm_error(const char* function, const char* message, const T& val);
 template <class T>
 T user_evaluation_error(const char* function, const char* message, const T& val);
-template <class T>
-T user_rounding_error(const char* function, const char* message, const T& val);
+template <class T, class TargetType>
+T user_rounding_error(const char* function, const char* message, const T& val, const TargetType& t);
 template <class T>
 T user_indeterminate_result_error(const char* function, const char* message, const T& val);
 
@@ -381,11 +381,12 @@ inline T raise_evaluation_error(
    return user_evaluation_error(function, message, val);
 }
 
-template <class T>
+template <class T, class TargetType>
 inline T raise_rounding_error(
            const char* function, 
            const char* message, 
            const T& val, 
+           const TargetType&,
            const  ::boost::math::policies::rounding_error< ::boost::math::policies::throw_on_error>&)
 {
    raise_error<boost::math::rounding_error, T>(function, message, val);
@@ -393,39 +394,42 @@ inline T raise_rounding_error(
    return T(0);
 }
 
-template <class T>
+template <class T, class TargetType>
 inline T raise_rounding_error(
            const char* , 
            const char* , 
            const T& val, 
+           const TargetType&,
            const  ::boost::math::policies::rounding_error< ::boost::math::policies::ignore_error>&)
 {
    // This may or may not do the right thing, but the user asked for the error
    // to be ignored so here we go anyway:
-   return val;
+   return std::numeric_limits<T>::is_specialized ? (val > 0 ? (std::numeric_limits<T>::max)() : -(std::numeric_limits<T>::max)()): val;
 }
 
-template <class T>
+template <class T, class TargetType>
 inline T raise_rounding_error(
            const char* , 
            const char* , 
            const T& val, 
+           const TargetType&,
            const  ::boost::math::policies::rounding_error< ::boost::math::policies::errno_on_error>&)
 {
    errno = ERANGE;
    // This may or may not do the right thing, but the user asked for the error
    // to be silent so here we go anyway:
-   return val;
+   return std::numeric_limits<T>::is_specialized ? (val > 0 ? (std::numeric_limits<T>::max)() : -(std::numeric_limits<T>::max)()): val;
 }
 
-template <class T>
+template <class T, class TargetType>
 inline T raise_rounding_error(
            const char* function, 
            const char* message, 
            const T& val, 
+           const TargetType& t,
            const  ::boost::math::policies::rounding_error< ::boost::math::policies::user_error>&)
 {
-   return user_rounding_error(function, message, val);
+   return user_rounding_error(function, message, val, t);
 }
 
 template <class T, class R>
@@ -536,13 +540,13 @@ inline T raise_evaluation_error(const char* function, const char* message, const
       val, policy_type());
 }
 
-template <class T, class Policy>
-inline T raise_rounding_error(const char* function, const char* message, const T& val, const Policy&)
+template <class T, class TargetType, class Policy>
+inline T raise_rounding_error(const char* function, const char* message, const T& val, const TargetType& t, const Policy&)
 {
    typedef typename Policy::rounding_error_type policy_type;
    return detail::raise_rounding_error(
       function, message ? message : "Value %1% can not be represented in the target integer type.", 
-      val, policy_type());
+      val, t, policy_type());
 }
 
 template <class T, class R, class Policy>

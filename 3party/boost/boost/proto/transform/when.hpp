@@ -14,7 +14,9 @@
     #include <boost/preprocessor/repetition/enum_params.hpp>
     #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
     #include <boost/preprocessor/iteration/iterate.hpp>
+    #include <boost/mpl/at.hpp>
     #include <boost/mpl/if.hpp>
+    #include <boost/mpl/map.hpp>
     #include <boost/proto/proto_fwd.hpp>
     #include <boost/proto/traits.hpp>
     #include <boost/proto/transform/call.hpp>
@@ -55,6 +57,8 @@
         struct when
           : PrimitiveTransform
         {
+            typedef Grammar first;
+            typedef PrimitiveTransform second;
             typedef typename Grammar::proto_grammar proto_grammar;
         };
 
@@ -97,8 +101,97 @@
           : when<_, Fun>
         {};
 
+        /// \brief This specialization uses the Data parameter as a collection
+        /// of transforms that can be indexed by the specified rule.
+        ///
+        /// Use <tt>when\<T, external_transform\></tt> in your code when you would like
+        /// to define a grammar once and use it to evaluate expressions with
+        /// many different sets of transforms. The transforms are found by
+        /// using the Data parameter as a map from rules to transforms.
+        ///
+        /// See \c action_map for an example.
+        template<typename Grammar>
+        struct when<Grammar, external_transform>
+          : proto::transform<when<Grammar, external_transform> >
+        {
+            typedef Grammar first;
+            typedef external_transform second;
+            typedef typename Grammar::proto_grammar proto_grammar;
+
+            template<typename Expr, typename State, typename Data>
+            struct impl
+              : Data::template when<Grammar>::template impl<Expr, State, Data>
+            {};
+
+            template<typename Expr, typename State, typename Data>
+            struct impl<Expr, State, Data &>
+              : Data::template when<Grammar>::template impl<Expr, State, Data &>
+            {};
+        };
+
+        /// \brief For defining a map of Rule/Transform pairs for use with
+        /// <tt>when\<T, external_transform\></tt> to make transforms external to the grammar
+        ///
+        /// The following code defines a grammar with a couple of external transforms.
+        /// It also defines an action_map that maps from rules to transforms. It then
+        /// passes that transforms map at the Data parameter to the grammar. In this way,
+        /// the behavior of the grammar can be modified post-hoc by passing a different
+        /// action_map.
+        ///
+        /// \code
+        /// struct int_terminal
+        ///   : proto::terminal<int>
+        /// {};
+        /// 
+        /// struct char_terminal
+        ///   : proto::terminal<char>
+        /// {};
+        /// 
+        /// struct my_grammar
+        ///   : proto::or_<
+        ///         proto::when< int_terminal, proto::external_transform >
+        ///       , proto::when< char_terminal, proto::external_transform >
+        ///       , proto::when<
+        ///             proto::plus< my_grammar, my_grammar >
+        ///           , proto::fold< _, int(), my_grammar >
+        ///         >
+        ///     >
+        /// {};
+        /// 
+        /// struct my_transforms
+        ///   : proto::external_transforms<
+        ///         proto::when<int_terminal, print(proto::_value)>
+        ///       , proto::when<char_terminal, print(proto::_value)>
+        ///     >
+        /// {};
+        ///
+        /// proto::literal<int> i(1);
+        /// proto::literal<char> c('a');
+        /// my_transforms trx;
+        ///
+        /// // Evaluate "i+c" using my_grammar with the specified transforms:
+        /// my_grammar()(i + c, 0, trx);
+        /// \endcode
+        template<BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(BOOST_MPL_LIMIT_MAP_SIZE, typename T, mpl::na)>
+        struct external_transforms
+        {
+            typedef mpl::map<BOOST_PP_ENUM_PARAMS(BOOST_MPL_LIMIT_MAP_SIZE, T)> map_type;
+
+            template<typename Rule>
+            struct when
+              : proto::when<_, typename mpl::at<map_type, Rule>::type>
+            {};
+        };
+
         #define BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PROTO_MAX_ARITY, <boost/proto/transform/when.hpp>))
         #include BOOST_PP_ITERATE()
+
+        /// INTERNAL ONLY
+        ///
+        template<typename Grammar, typename Transform>
+        struct is_callable<when<Grammar, Transform> >
+          : mpl::true_
+        {};
 
     }} // namespace boost::proto
 
@@ -138,6 +231,8 @@
         struct when<Grammar, R(BOOST_PP_ENUM_PARAMS(N, A))>
           : transform<when<Grammar, R(BOOST_PP_ENUM_PARAMS(N, A))> >
         {
+            typedef Grammar first;
+            typedef R second(BOOST_PP_ENUM_PARAMS(N, A));
             typedef typename Grammar::proto_grammar proto_grammar;
 
             // Note: do not evaluate is_callable<R> in this scope.

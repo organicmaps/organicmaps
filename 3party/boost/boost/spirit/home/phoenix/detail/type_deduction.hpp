@@ -242,6 +242,10 @@ namespace boost { namespace type_deduction_detail
         typedef typename C::reference type;
     };
 
+    template <typename T>
+    struct reference_type<T const>
+        : reference_type<T> {};
+
     template <typename T, std::size_t N>
     struct reference_type<T[N]>
     {
@@ -252,6 +256,12 @@ namespace boost { namespace type_deduction_detail
     struct reference_type<T*>
     {
         typedef T& type;
+    };
+
+    template <typename T>
+    struct reference_type<T* const>
+    {
+        typedef T const& type;
     };
 
     template <typename C>

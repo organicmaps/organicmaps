@@ -32,13 +32,13 @@ namespace detail{
 template <class T>
 struct remove_rvalue_ref
 {
-	typedef T type;
+   typedef T type;
 };
 #ifndef BOOST_NO_RVALUE_REFERENCES
 template <class T>
 struct remove_rvalue_ref<T&&>
 {
-	typedef T type;
+   typedef T type;
 };
 #endif
 

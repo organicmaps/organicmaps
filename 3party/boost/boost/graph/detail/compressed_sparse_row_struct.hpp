@@ -21,7 +21,7 @@
 #include <utility>
 #include <algorithm>
 #include <climits>
-#include <cassert>
+#include <boost/assert.hpp>
 #include <iterator>
 #if 0
 #include <iostream> // For some debugging code below
@@ -255,7 +255,7 @@ namespace detail {
                                            std::vector<vertex_descriptor>& targets,
                                            vertices_size_type numverts,
                                            GlobalToLocal global_to_local) {
-      assert (sources.size() == targets.size());
+      BOOST_ASSERT (sources.size() == targets.size());
       // Do an in-place histogram sort (at least that's what I think it is) to
       // sort sources and targets
       m_rowstart.clear();
@@ -281,8 +281,8 @@ namespace detail {
                                            std::vector<typename inherited_edge_properties::edge_bundled>& edge_props,
                                            vertices_size_type numverts,
                                            GlobalToLocal global_to_local) {
-      assert (sources.size() == targets.size());
-      assert (sources.size() == edge_props.size());
+      BOOST_ASSERT (sources.size() == targets.size());
+      BOOST_ASSERT (sources.size() == edge_props.size());
       // Do an in-place histogram sort (at least that's what I think it is) to
       // sort sources and targets
       m_rowstart.clear();

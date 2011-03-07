@@ -21,7 +21,7 @@
 #include <exception>
 #endif //BOOST_NO_EXCEPTIONS
 
-#include <cassert>
+#include <boost/assert.hpp>
 
 namespace boost {
 namespace archive {
@@ -66,7 +66,7 @@ public:
             msg = "invalid multbyte/wide char conversion";
             break;
         default:
-            assert(false);
+            BOOST_ASSERT(false);
             break;
         }
         return msg;

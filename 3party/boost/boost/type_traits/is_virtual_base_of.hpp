@@ -22,7 +22,7 @@ namespace detail {
 
 #ifdef BOOST_MSVC
 #pragma warning( push )
-#pragma warning( disable : 4584 )
+#pragma warning( disable : 4584 4250)
 #elif defined __GNUC__
 #pragma GCC system_header
 #endif

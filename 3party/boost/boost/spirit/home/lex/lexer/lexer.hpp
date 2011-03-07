@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -121,7 +121,8 @@ namespace boost { namespace spirit { namespace lex
                 {
                     if (id_type() == token_id)
                         token_id = static_cast<id_type>(c);
-                    def.def.add_token (def.state.c_str(), c, token_id);
+                    def.def.add_token (def.state.c_str(), c, token_id
+                        , def.targetstate.empty() ? 0 : def.targetstate.c_str());
                     return *this;
                 }
 
@@ -135,7 +136,8 @@ namespace boost { namespace spirit { namespace lex
                 {
                     if (id_type() == token_id)
                         token_id = def.def.get_next_id();
-                    def.def.add_token (def.state.c_str(), s, token_id);
+                    def.def.add_token (def.state.c_str(), s, token_id
+                        , def.targetstate.empty() ? 0 : def.targetstate.c_str());
                     return *this;
                 }
 
@@ -213,7 +215,7 @@ namespace boost { namespace spirit { namespace lex
             template <typename TokenExpr>
             void compile2pass(TokenExpr const& expr) 
             {
-                expr.collect(def, state);
+                expr.collect(def, state, targetstate);
                 expr.add_actions(def);
             }
 
@@ -225,9 +227,11 @@ namespace boost { namespace spirit { namespace lex
                 compile2pass(compile<lex::domain>(expr));
             }
 
-            lexer_def_(LexerDef& def_, string_type const& state_)
+            lexer_def_(LexerDef& def_, string_type const& state_
+                  , string_type const& targetstate_ = string_type())
               : proto_base_type(terminal_type::make(alias()))
-              , add(this_()), add_pattern(this_()), def(def_), state(state_)
+              , add(this_()), add_pattern(this_()), def(def_)
+              , state(state_), targetstate(targetstate_)
             {}
 
             // allow to switch states
@@ -235,9 +239,15 @@ namespace boost { namespace spirit { namespace lex
             {
                 return lexer_def_(def, state);
             }
-            lexer_def_ operator()(string_type const& state) const
+            lexer_def_ operator()(char_type const* state
+              , char_type const* targetstate) const
             {
-                return lexer_def_(def, state);
+                return lexer_def_(def, state, targetstate);
+            }
+            lexer_def_ operator()(string_type const& state
+              , string_type const& targetstate = string_type()) const
+            {
+                return lexer_def_(def, state, targetstate);
             }
 
             // allow to assign a token definition expression
@@ -261,6 +271,7 @@ namespace boost { namespace spirit { namespace lex
         private:
             LexerDef& def;
             string_type state;
+            string_type targetstate;
 
         private:
             // silence MSVC warning C4512: assignment operator could not be generated
@@ -329,7 +340,7 @@ namespace boost { namespace spirit { namespace lex
         // avoid warnings about using 'this' in constructor
         lexer& this_() { return *this; }
 
-        typename Lexer::id_type next_token_id;
+        std::size_t next_token_id;   // has to be an integral type
 
     public:
         typedef Lexer lexer_type;
@@ -342,7 +353,7 @@ namespace boost { namespace spirit { namespace lex
         typedef std::basic_string<char_type> string_type;
 
         lexer(unsigned int flags = match_flags::match_default
-            , id_type first_id = min_token_id) 
+            , id_type first_id = id_type(min_token_id)) 
           : lexer_type(flags)
           , next_token_id(first_id)
           , self(this_(), lexer_type::initial_state()) 
@@ -360,7 +371,7 @@ namespace boost { namespace spirit { namespace lex
             { return this->lexer_type::add_state(state); }
 
         //  create a unique token id
-        id_type get_next_id() { return next_token_id++; }
+        id_type get_next_id() { return id_type(next_token_id++); }
 
         lexer_def self;  // allow for easy token definition
     };

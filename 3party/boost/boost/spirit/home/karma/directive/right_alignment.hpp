@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2010 Hartmut Kaiser
+//  Copyright (c) 2001-2011 Hartmut Kaiser
 //
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -19,6 +19,8 @@
 #include <boost/spirit/home/karma/auxiliary/lazy.hpp>
 #include <boost/spirit/home/support/unused.hpp>
 #include <boost/spirit/home/support/common_terminals.hpp>
+#include <boost/spirit/home/support/has_semantic_action.hpp>
+#include <boost/spirit/home/support/handles_container.hpp>
 #include <boost/spirit/home/karma/detail/attributes.hpp>
 #include <boost/spirit/home/support/info.hpp>
 #include <boost/spirit/home/support/unused.hpp>
@@ -293,6 +295,7 @@ namespace boost { namespace spirit { namespace karma
 
 namespace boost { namespace spirit { namespace traits
 {
+    ///////////////////////////////////////////////////////////////////////////
     template <typename Subject, typename Width>
     struct has_semantic_action<karma::simple_right_alignment<Subject, Width> >
       : unary_has_semantic_action<Subject> {};
@@ -302,8 +305,21 @@ namespace boost { namespace spirit { namespace traits
             karma::padding_right_alignment<Subject, Padding, Width> >
       : unary_has_semantic_action<Subject> {};
 
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename Subject, typename Width, typename Attribute
+      , typename Context, typename Iterator>
+    struct handles_container<
+            karma::simple_right_alignment<Subject, Width>
+          , Attribute, Context, Iterator>
+      : unary_handles_container<Subject, Attribute, Context, Iterator> {};
+
+    template <typename Subject, typename Padding, typename Width
+      , typename Attribute, typename Context, typename Iterator>
+    struct handles_container<
+            karma::padding_right_alignment<Subject, Padding, Width>
+          , Attribute, Context, Iterator>
+      : unary_handles_container<Subject, Attribute, Context, Iterator> {};
 }}}
 
 #endif
-
 
