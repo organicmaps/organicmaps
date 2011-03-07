@@ -16,6 +16,10 @@ typedef struct hashtable_bucket bucket_t;
 
 #define list_to_pair(list_)  container_of(list_, pair_t, list)
 
+#if defined(_MSC_VER) && !defined(__cplusplus)
+  #define inline __inline
+#endif
+
 static inline void list_init(list_t *list)
 {
     list->next = list;

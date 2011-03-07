@@ -14,6 +14,10 @@
 
 //#include <jansson_config.h>
 
+#if defined(_MSC_VER) && !defined(__cplusplus)
+  #define inline __inline
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -240,6 +244,10 @@ void json_set_alloc_funcs(json_malloc_t malloc_fn, json_free_t free_fn);
 
 #ifdef __cplusplus
 }
+#endif
+
+#if defined(_MSC_VER) && !defined(__cplusplus)
+  #undef inline
 #endif
 
 #endif

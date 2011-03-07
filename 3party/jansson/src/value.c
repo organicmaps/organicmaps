@@ -16,6 +16,9 @@
 #include "jansson_private.h"
 #include "utf.h"
 
+#if defined(_MSC_VER) && !defined(__cplusplus)
+  #define inline __inline
+#endif
 
 static inline void json_init(json_t *json, json_type type)
 {

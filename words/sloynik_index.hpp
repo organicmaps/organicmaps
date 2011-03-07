@@ -15,6 +15,10 @@ class Writer;
 
 namespace sl
 {
+  namespace impl
+  { // needed for friend declaration
+    template <class T> struct LessRefProxy;
+  }
 
 // Sorted index of keys.
 // Two locale-aware comparators are used: primary and secondary.
@@ -62,7 +66,7 @@ private:
     uint8_t m_Lo, m_Mi, m_Hi;
   };
 #pragma pack(pop)
-  friend class LessRefProxy;
+  template <class T> friend struct impl::LessRefProxy;
 
   typedef DDVector<DicId, PolymorphReader> DDVectorType;
 
