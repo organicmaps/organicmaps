@@ -16,7 +16,7 @@ SOURCES += \
   file_container.cpp \
   bzip2_compressor.cpp \
   gzip_compressor.cpp \
-  timsort/timsort.c \
+  timsort/timsort.cpp \
 
 
 HEADERS += \
@@ -69,4 +69,4 @@ HEADERS += \
   coder_util.hpp \
   bzip2_compressor.hpp \
   gzip_compressor.hpp \
-  timsort/timsort.h \
+  timsort/timsort.hpp \

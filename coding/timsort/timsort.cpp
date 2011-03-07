@@ -1,4 +1,7 @@
-#include "timsort.h"
+#include "timsort.hpp"
+
+#include "../../std/memcpy.hpp"
+#include "../../std/stdlib.hpp"
 
 typedef int cmpFunc(const void *, const void *);
 
@@ -676,7 +679,7 @@ static void timMergeLow(timMergeState *aState,
      */
     timMergeGetMem(aState, aLen1);
     memcpy(aState->mMergeMem, sArray + aBase1 * sWidth, sWidth * aLen1);
-    sTmp = aState->mMergeMem;
+    sTmp = static_cast<uint8_t *>(aState->mMergeMem);
 
     sCursor1    = 0;
     sCursor2    = aBase2;
@@ -896,7 +899,7 @@ static void timMergeHigh(timMergeState *aState,
 
     /* Copy second run into temp memory */
     memcpy(aState->mMergeMem, sArray + aBase2 * sWidth, sWidth * aLen2);
-    sTmp = aState->mMergeMem;
+    sTmp = static_cast<uint8_t *>(aState->mMergeMem);
 
     sCursor1   = aBase1 + aLen1 - 1;
     sCursor2   = aLen2 - 1;
@@ -1105,7 +1108,7 @@ static void timMergeAt(timMergeState *aState, uint32_t aWhere, cmpFunc *aCmpCb)
      * Prior elements in run1 can be ignored (because they are already in place).
      */
     k = timGallopRight((uint8_t *)aState->mArray + sBaseB * aState->mWidth,
-                       aState->mArray,
+                       static_cast<uint8_t const *>(aState->mArray),
                        aState->mWidth,
                        sBaseA,
                        sLenA,
@@ -1123,7 +1126,7 @@ static void timMergeAt(timMergeState *aState, uint32_t aWhere, cmpFunc *aCmpCb)
      * (because they are already in place).
      */
     sLenB = timGallopLeft((uint8_t *)aState->mArray + (sBaseA + sLenA - 1) * aState->mWidth,
-                          aState->mArray,
+                          static_cast<uint8_t const *>(aState->mArray),
                           aState->mWidth,
                           sBaseB,
                           sLenB,
