@@ -96,7 +96,7 @@ namespace yg
           Traits::gl_pixel_format_type,
           Traits::gl_pixel_data_type,
           &gil::view(image)(0, 0)));
-//      boost::gil::lodepng_write_view(fullPath.c_str(), gil::view(image));
+      boost::gil::lodepng_write_view(fullPath.c_str(), gil::view(image));
 #endif
 
 
@@ -274,7 +274,7 @@ namespace yg
       readback();
       std::string const fullPath = GetPlatform().WritablePathForFile(fileName);
 #ifndef OMIM_GL_ES
-//      boost::gil::lodepng_write_view(fullPath.c_str(), view(width(), height()));
+      boost::gil::lodepng_write_view(fullPath.c_str(), view(width(), height()));
 #endif
       unlock();
     }

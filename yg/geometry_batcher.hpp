@@ -125,6 +125,14 @@ namespace yg
                           double depth,
                           int pageID);
 
+      void addTexturedStripStrided(m2::PointF const * coords,
+                                   size_t coordsStride,
+                                   m2::PointF const * texCoords,
+                                   size_t texCoordsStride,
+                                   unsigned size,
+                                   double depth,
+                                   int pageID);
+
       void addTexturedStrip(m2::PointF const * coords,
                             m2::PointF const * texCoords,
                             unsigned size,

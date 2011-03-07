@@ -312,7 +312,25 @@ namespace yg
      m_pipelines[pageID].m_currentIndex += (size - 2) * 3;
    }
 
-   void GeometryBatcher::addTexturedStrip(m2::PointF const * coords, m2::PointF const * texCoords, unsigned size, double depth, int pageID)
+   void GeometryBatcher::addTexturedStrip(
+       m2::PointF const * coords,
+       m2::PointF const * texCoords,
+       unsigned size,
+       double depth,
+       int pageID
+       )
+   {
+     addTexturedStripStrided(coords, sizeof(m2::PointF), texCoords, sizeof(m2::PointF), size, depth, pageID);
+   }
+
+   void GeometryBatcher::addTexturedStripStrided(
+       m2::PointF const * coords,
+       size_t coordsStride,
+       m2::PointF const * texCoords,
+       size_t texCoordsStride,
+       unsigned size,
+       double depth,
+       int pageID)
    {
      if (!hasRoom(size, (size - 2) * 3, pageID))
        flush(pageID);
@@ -324,9 +342,11 @@ namespace yg
 
      for (unsigned i = 0; i < size; ++i)
      {
-       m_pipelines[pageID].m_vertices[vOffset + i].pt = coords[i];
-       m_pipelines[pageID].m_vertices[vOffset + i].tex = texCoords[i];
+       m_pipelines[pageID].m_vertices[vOffset + i].pt = *coords;
+       m_pipelines[pageID].m_vertices[vOffset + i].tex = *texCoords;
        m_pipelines[pageID].m_vertices[vOffset + i].depth = depth;
+       coords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
+       texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
      }
 
      m_pipelines[pageID].m_currentVertex += size;

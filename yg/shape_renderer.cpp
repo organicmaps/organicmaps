@@ -2,6 +2,8 @@
 #include "shape_renderer.hpp"
 #include "skin.hpp"
 
+#include "../base/logging.hpp"
+
 namespace yg
 {
   namespace gl
@@ -65,5 +67,34 @@ namespace yg
       drawTrianglesList(&sectorPts[0], sectorPts.size(), skin()->mapColor(c), depth);
     }
 
+    void ShapeRenderer::drawRectangle(m2::RectD const & r, yg::Color const & c, double depth)
+    {
+      ResourceStyle const * style = skin()->fromID(skin()->mapColor(c));
+
+      if (style == 0)
+      {
+        LOG(LINFO, ("cannot map color"));
+        return;
+      }
+
+      m2::PointF rectPts[4] = {
+          m2::PointF(r.minX(), r.minY()),
+          m2::PointF(r.maxX(), r.minY()),
+          m2::PointF(r.minX(), r.maxY()),
+          m2::PointD(r.maxX(), r.maxY())
+        };
+
+      m2::PointF texPt = style->m_texRect.Center();
+
+      addTexturedStripStrided(
+          rectPts,
+          sizeof(m2::PointF),
+          &texPt,
+          0,
+          4,
+          depth,
+          style->m_pageID
+          );
+    }
   }
 }

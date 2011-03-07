@@ -238,9 +238,12 @@ namespace yg
         {
           uint32_t glyphID = skin()->mapGlyph(GlyphKey(text[i], fontSize, false, yg::Color(0, 0, 0, 0)), fixedFont);
           CharStyle const * p = static_cast<CharStyle const *>(skin()->fromID(glyphID));
-          rect.Add(pt);
-          rect.Add(pt + m2::PointD(p->m_xOffset + p->m_texRect.SizeX() - 4, -p->m_yOffset - (int)p->m_texRect.SizeY() + 4));
-          pt += m2::PointD(p->m_xAdvance, 0);
+          if (p != 0)
+          {
+            rect.Add(pt);
+            rect.Add(pt + m2::PointD(p->m_xOffset + p->m_texRect.SizeX() - 4, -p->m_yOffset - (int)p->m_texRect.SizeY() + 4));
+            pt += m2::PointD(p->m_xAdvance, 0);
+          }
         }
         else
         {
