@@ -302,7 +302,7 @@ namespace qt
     m_tree->setSortingEnabled(false);
     m_tree->clear();
 
-    for (int group = 0; group < m_storage.CountriesCount(TIndex()); ++group)
+    for (int group = 0; group < static_cast<int>(m_storage.CountriesCount(TIndex())); ++group)
     {
       TIndex const grIndex(group);
       QStringList groupText(m_storage.CountryName(grIndex).c_str());
@@ -312,7 +312,7 @@ namespace qt
       // set color by status and update country size
       UpdateRowWithCountryInfo(grIndex);
 
-      for (int country = 0; country < m_storage.CountriesCount(grIndex); ++country)
+      for (int country = 0; country < static_cast<int>(m_storage.CountriesCount(grIndex)); ++country)
       {
         TIndex cIndex(group, country);
         QStringList countryText(m_storage.CountryName(cIndex).c_str());
@@ -321,7 +321,7 @@ namespace qt
         // set color by status and update country size
         UpdateRowWithCountryInfo(cIndex);
 
-        for (int region = 0; region < m_storage.CountriesCount(cIndex); ++region)
+        for (int region = 0; region < static_cast<int>(m_storage.CountriesCount(cIndex)); ++region)
         {
           TIndex const rIndex(group, country, region);
           QStringList regionText(m_storage.CountryName(rIndex).c_str());

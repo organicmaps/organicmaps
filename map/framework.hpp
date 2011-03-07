@@ -271,9 +271,9 @@ public:
 
     m_renderQueue.OnSize(w, h);
 
-    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
+    m2::PointU ptShift = m_renderQueue.renderState().coordSystemShift(true);
 
-    m_informationDisplay.setDisplayRect(m2::RectI(ptShift, ptShift + m2::PointD(w, h)));
+    m_informationDisplay.setDisplayRect(m2::RectI(ptShift, ptShift + m2::PointU(w, h)));
 
     m_navigator.OnSize(ptShift.x, ptShift.y, w, h);
 

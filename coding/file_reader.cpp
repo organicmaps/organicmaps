@@ -17,7 +17,7 @@ namespace
   {
   public:
     explicit FileDataWithCachedSize(string const & fileName)
-      : FileData(fileName, FileData::OP_READ), m_Size(static_cast<FileData *>(this)->Size()) {}
+      : FileData(fileName, FileData::OP_READ), m_Size(FileData::Size()) {}
 
     uint64_t Size() const { return m_Size; }
 
@@ -119,8 +119,9 @@ string FileReader::GetName() const
 
 string FileReader::ReadAsText() const
 {
-  vector<char> buffer(Size());
-  buffer.resize(Size());
-  Read(0, &buffer[0], Size());
-  return string(reinterpret_cast<char const *>(&buffer[0]), buffer.size());
+  size_t size = static_cast<size_t>(Size());
+  vector<char> buffer(size);
+  buffer.resize(size);
+  Read(0, &buffer[0], size);
+  return string(reinterpret_cast<char const *>(&buffer[0]), size);
 }

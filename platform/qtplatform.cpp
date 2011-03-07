@@ -374,7 +374,7 @@ public:
 
      sort(res.begin(), res.end());
 
-     for (int i = 0; i < res.size(); ++i)
+     for (size_t i = 0; i < res.size(); ++i)
        res[i] = fontFolder + res[i];
 
      return res;

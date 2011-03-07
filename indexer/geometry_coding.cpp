@@ -14,8 +14,8 @@ namespace
   template <typename T>
   inline m2::PointU ClampPoint(m2::PointU const & maxPoint, m2::Point<T> const & point)
   {
-    return m2::PointU(my::clamp(static_cast<uint32_t>(point.x), 0, maxPoint.x),
-                      my::clamp(static_cast<uint32_t>(point.y), 0, maxPoint.y));
+    return m2::PointU(my::clamp(static_cast<m2::PointU::value_type>(point.x), static_cast<m2::PointU::value_type>(0), maxPoint.x),
+                      my::clamp(static_cast<m2::PointU::value_type>(point.y), static_cast<m2::PointU::value_type>(0), maxPoint.y));
   }
 }
 

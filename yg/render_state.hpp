@@ -68,7 +68,7 @@ namespace yg
 
       void onSize(size_t w, size_t h);
 
-      m2::PointD const coordSystemShift(bool doLock = false) const;
+      m2::PointU const coordSystemShift(bool doLock = false) const;
     };
   }
 }
