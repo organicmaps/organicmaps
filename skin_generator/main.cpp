@@ -8,7 +8,7 @@
 
 #include "../3party/gflags/src/gflags/gflags.h"
 
-DEFINE_string(fontFileName, "../../data/dejavusans.ttf", "path to TrueType font file");
+DEFINE_string(fontFileName, "../../data/01_dejavusans.ttf", "path to TrueType font file");
 DEFINE_string(symbolsFile, "../../data/results.unicode", "file with 2bytes symbols for which the skin should be generated");
 DEFINE_string(symbolsDir, "../../data/styles/symbols", "directory with svg symbol files");
 DEFINE_int32(symbolWidth, 24, "width of the rendered symbol");
