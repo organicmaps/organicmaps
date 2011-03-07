@@ -457,8 +457,24 @@ void InformationDisplay::drawLog(DrawerYG * pDrawer)
   for (list<string>::const_iterator it = s_log.begin(); it != s_log.end(); ++it)
   {
     m_yOffset += 20;
+
+    m2::PointD startPt(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset);
+
+    m2::RectD textRect = pDrawer->screen()->textRect(
+        it->c_str(),
+        10,
+        true,
+        false
+        );
+
+    pDrawer->screen()->drawRectangle(
+        m2::Inflate(m2::Offset(textRect, startPt), m2::PointD(2, 2)),
+        yg::Color(0, 0, 0, 128),
+        yg::maxDepth - 1
+        );
+
     pDrawer->screen()->drawText(
-        m2::PointD(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset),
+        startPt,
         0, 10,
         yg::Color(0, 0, 0, 255),
         it->c_str(),

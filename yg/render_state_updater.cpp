@@ -96,6 +96,18 @@ namespace yg
       m_updateTimer.Reset();
     }
 
+    void RenderStateUpdater::setClipRect(m2::RectI const & rect)
+    {
+      if ((m_renderState) && (m_indicesCount))
+      {
+        updateActualTarget();
+        m_indicesCount = 0;
+        m_updateTimer.Reset();
+      }
+
+      base_t::setClipRect(rect);
+    }
+
     void RenderStateUpdater::endFrame()
     {
       if (m_renderState)

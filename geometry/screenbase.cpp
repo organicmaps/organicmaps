@@ -151,8 +151,14 @@ void ScreenBase::PtoG(m2::RectD const & sr, m2::RectD & gr) const
 
 bool IsPanning(ScreenBase const & s1, ScreenBase const & s2)
 {
-  return (s1.GetScale() == s2.GetScale())
-      && (s1.GetAngle() == s2.GetAngle());
+  m2::PointD globPt(s1.GlobalRect().Center().x - s1.GlobalRect().minX(),
+                    s1.GlobalRect().Center().y - s1.GlobalRect().minY());
+
+  m2::PointD p1 = s1.GtoP(s1.GlobalRect().Center()) - s1.GtoP(s1.GlobalRect().Center() + globPt);
+
+  m2::PointD p2 = s2.GtoP(s2.GlobalRect().Center()) - s2.GtoP(s2.GlobalRect().Center() + globPt);
+
+  return p1.EqualDxDy(p2, 0.00001);
 }
 
 void ScreenBase::ExtractGtoPParams(math::Matrix<double, 3, 3> const & m, double &a, double &s, double &dx, double &dy)

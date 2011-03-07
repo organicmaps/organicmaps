@@ -55,17 +55,12 @@ void RenderQueueRoutine::Cancel()
     m_currentRenderCommand->m_paintEvent->setIsCancelled(true);
 }
 
-void RenderQueueRoutine::processResize(ScreenBase const & /*frameScreen*/)
+void RenderQueueRoutine::processResize(ScreenBase const & frameScreen)
 {
-  threads::MutexGuard guard(*m_renderState->m_mutex.get());
-
   if (m_renderState->m_isResized)
   {
     size_t texW = m_renderState->m_textureWidth;
     size_t texH = m_renderState->m_textureHeight;
-
-    m_renderState->m_backBufferLayers.clear();
-    m_renderState->m_backBufferLayers.push_back(make_shared_ptr(new yg::gl::Texture<RT_TRAITS, false>(texW, texH)));
 
     m_renderState->m_depthBuffer.reset();
 
@@ -78,6 +73,8 @@ void RenderQueueRoutine::processResize(ScreenBase const & /*frameScreen*/)
     m_threadDrawer->onSize(texW, texH);
     m_threadDrawer->screen()->frameBuffer()->onSize(texW, texH);
 
+    shared_ptr<yg::gl::BaseTexture> oldActualTarget = m_renderState->m_actualTarget;
+
     m_renderState->m_actualTarget.reset();
     m_renderState->m_actualTarget = make_shared_ptr(new yg::gl::Texture<RT_TRAITS, false>(texW, texH));
 
@@ -85,92 +82,96 @@ void RenderQueueRoutine::processResize(ScreenBase const & /*frameScreen*/)
     m_auxScreen->setRenderTarget(m_renderState->m_actualTarget);
     m_auxScreen->beginFrame();
     m_auxScreen->clear();
+
+    if (oldActualTarget != 0)
+    {
+      m_auxScreen->blit(oldActualTarget,
+                        m_renderState->m_actualScreen,
+                        frameScreen);
+      oldActualTarget.reset();
+    }
     m_auxScreen->endFrame();
-//    m_renderState->m_actualTarget->fill(yg::Color(192, 192, 192, 255));
 
     for (size_t i = 0; i < m_renderState->m_backBufferLayers.size(); ++i)
     {
+      shared_ptr<yg::gl::BaseTexture> oldBackBuffer = m_renderState->m_backBufferLayers[i];
+      m_renderState->m_backBufferLayers[i].reset();
+      m_renderState->m_backBufferLayers[i] = make_shared_ptr(new yg::gl::Texture<RT_TRAITS, false>(texW, texH));
+
       m_auxScreen->setRenderTarget(m_renderState->m_backBufferLayers[i]);
       m_auxScreen->beginFrame();
       m_auxScreen->clear();
+
+      if (oldBackBuffer != 0)
+      {
+        m_auxScreen->blit(oldBackBuffer,
+                          m_renderState->m_actualScreen,
+                          frameScreen);
+        oldBackBuffer.reset();
+      }
       m_auxScreen->endFrame();
+
+      m_renderState->m_actualScreen = frameScreen;
     }
-
-//      m_renderState->m_backBufferLayers[i]->fill(yg::Color(192, 192, 192, 255));
-
-    m_renderState->m_doRepaintAll = true;
 
     m_renderState->m_isResized = false;
   }
 }
 
-void RenderQueueRoutine::getUpdateAreas(vector<m2::RectI> & areas)
+void RenderQueueRoutine::getUpdateAreas(
+    ScreenBase const & oldScreen,
+    m2::RectI const & oldRect,
+    ScreenBase const & newScreen,
+    m2::RectI const & newRect,
+    vector<m2::RectI> & areas)
 {
-  threads::MutexGuard guard(*m_renderState->m_mutex.get());
-  size_t w = m_renderState->m_textureWidth;
-  size_t h = m_renderState->m_textureHeight;
+  areas.clear();
 
-  if (m_renderState->m_doRepaintAll)
+  if (IsPanning(oldScreen, newScreen))
   {
-    m_renderState->m_doRepaintAll = false;
-    areas.push_back(m2::RectI(0, 0, w, h));
-    return;
-  }
+    m2::RectD o(newScreen.GtoP(oldScreen.PtoG(m2::PointD(oldRect.minX(), oldRect.minY()))),
+                 newScreen.GtoP(oldScreen.PtoG(m2::PointD(oldRect.maxX(), oldRect.maxY()))));
+    m2::RectD n(newRect);
 
-  if (m_renderState->isPanning())
-  {
-    /// adding two rendering sub-commands to render new areas, opened by panning.
-
-    double dx = 0;
-    double dy = 0;
-
-    m_renderState->m_actualScreen.PtoG(dx, dy);
-    m_renderState->m_currentScreen.GtoP(dx, dy);
-
-    if (dx > 0)
-      dx = ceil(dx);
-    else
-      dx = floor(dx);
-    if (dy > 0)
-      dy = ceil(dy);
-    else
-      dy = floor(dy);
-
-    double minX, maxX;
-    double minY, maxY;
-
-    if (dx > 0)
-      minX = 0;
-    else
-      minX = w + dx;
-
-    maxX = minX + my::Abs(dx);
-
-    if (dy > 0)
-      minY = 0;
-    else
-      minY = h + dy;
-
-    maxY = minY + my::Abs(dy);
-
-    if ((my::Abs(dx) > w) || (my::Abs(dy) > h))
-      areas.push_back(m2::RectI(0, 0, w, h));
-    else
+    /// checking two corner cases
+    if (o.IsRectInside(n))
+      return;
+    if (!o.IsIntersect(n))
     {
-      if (minX != maxX)
-        areas.push_back(m2::RectI(minX, 0, maxX, h));
-      if (minY != maxY)
-      {
-        if (minX == 0)
-          areas.push_back(m2::RectI(maxX, minY, w, maxY));
-        else
-          areas.push_back(m2::RectI(0, minY, minX, maxY));
-      }
+      areas.push_back(m2::RectI(n));
+      return;
     }
+
+    double leftBarMinX = 0;
+    double leftBarMaxX = 0;
+    double rightBarMinX = n.maxX();
+    double rightBarMaxX = n.maxX();
+    double topBarMinY = 0;
+    double topBarMaxY = 0;
+    double bottomBarMinY = n.maxY();
+    double bottomBarMaxY = n.maxY();
+
+    if (o.minX() > n.minX())
+      leftBarMaxX = ceil(o.minX());
+    if (o.maxX() < n.maxX())
+      rightBarMinX = floor(o.maxX());
+    if (o.minY() > n.minY())
+      topBarMaxY = ceil(o.minY());
+    if (o.maxY() < n.maxY())
+      bottomBarMinY = floor(o.maxY());
+
+    if (leftBarMinX != leftBarMaxX)
+      areas.push_back(m2::RectI(leftBarMinX, topBarMinY, leftBarMaxX, bottomBarMinY));
+    if (topBarMinY != topBarMaxY)
+      areas.push_back(m2::RectI(leftBarMaxX, topBarMinY, rightBarMaxX, topBarMaxY));
+    if (rightBarMinX != rightBarMaxX)
+      areas.push_back(m2::RectI(rightBarMinX, topBarMaxY, rightBarMaxX, bottomBarMaxY));
+    if (bottomBarMinY != bottomBarMaxY)
+      areas.push_back(m2::RectI(leftBarMinX, bottomBarMinY, rightBarMinX, bottomBarMaxY));
   }
   else
   {
-    areas.push_back(m2::RectI(0, 0, w, h));
+    areas.push_back(newRect);
 
 /*    int rectW = (w + 9) / 5;
     int rectH = (h + 9) / 5;
@@ -245,13 +246,19 @@ void RenderQueueRoutine::Do()
 
   yg::gl::Screen::Params auxParams;
   auxParams.m_frameBuffer = m_frameBuffer;
+  auxParams.m_resourceManager = m_resourceManager;
 
   m_auxScreen = make_shared_ptr(new yg::gl::Screen(auxParams));
 
   CHECK(m_visualScale != 0, ("Set the VisualScale first!"));
   m_threadDrawer->SetVisualScale(m_visualScale);
 
-  yg::gl::RenderState s;
+  bool isPanning = false;
+  /// update areas in pixel coordinates.
+  vector<m2::RectI> areas;
+
+  m2::RectI  surfaceRect;
+  m2::RectI  textureRect;
 
   while (!IsCancelled())
   {
@@ -278,15 +285,61 @@ void RenderQueueRoutine::Do()
         m_renderCommands.erase(m_renderCommands.begin());
       }
 
-      processResize(m_currentRenderCommand->m_frameScreen);
-
       m_currentRenderCommand->m_paintEvent = make_shared_ptr(new PaintEvent(m_threadDrawer));
 
       /// this prevents the framework from flooding us with a bunch of RenderCommands with the same screen.
       {
         threads::MutexGuard guard(*m_renderState->m_mutex.get());
+
         m_renderState->m_currentScreen = m_currentRenderCommand->m_frameScreen;
-        s = *m_renderState.get();
+
+        m2::RectI prevRect(0, 0, 0, 0);
+        ScreenBase prevScreen = m_renderState->m_actualScreen;
+
+        if (m_renderState->m_actualTarget != 0)
+          prevRect = m2::RectI(0, 0,
+                               m_renderState->m_actualTarget->width(),
+                               m_renderState->m_actualTarget->height());
+
+        processResize(m_currentRenderCommand->m_frameScreen);
+
+        /// saving parameters, which might be changed from the GUI thread for later use.
+        surfaceRect = m2::RectI(0, 0, m_renderState->m_surfaceWidth, m_renderState->m_surfaceHeight);
+        textureRect = m2::RectI(0, 0, m_renderState->m_textureWidth, m_renderState->m_textureHeight);
+
+        m2::RectI curRect = textureRect;
+
+        if (m_renderState->m_doRepaintAll)
+        {
+          areas.clear();
+          areas.push_back(curRect);
+          m_threadDrawer->screen()->clearTextTree();
+          m_renderState->m_doRepaintAll = false;
+        }
+        else
+          getUpdateAreas(prevScreen,
+                         prevRect,
+                         m_currentRenderCommand->m_frameScreen,
+                         curRect,
+                         areas);
+
+        isPanning = IsPanning(prevScreen, m_renderState->m_currentScreen);
+
+        if (isPanning)
+        {
+          m2::RectD oldRect = m2::RectD(m_renderState->m_currentScreen.GtoP(prevScreen.PtoG(m2::PointD(prevRect.minX(), prevRect.minY()))),
+                                        m_renderState->m_currentScreen.GtoP(prevScreen.PtoG(m2::PointD(prevRect.maxX(), prevRect.maxY()))));
+          m2::RectD redrawTextRect(curRect);
+
+          if (!redrawTextRect.Intersect(oldRect))
+            redrawTextRect = m2::RectD(0, 0, 0, 0);
+
+          m_threadDrawer->screen()->offsetTextTree(
+              m_renderState->m_currentScreen.GtoP(prevScreen.PtoG(m2::PointD(0, 0))),
+              redrawTextRect);
+        }
+        else
+          m_threadDrawer->screen()->clearTextTree();
       }
     }
 
@@ -298,50 +351,29 @@ void RenderQueueRoutine::Do()
 
     if (m_currentRenderCommand != 0)
     {
-      /// update areas in pixel coordinates.
-      vector<m2::RectI> areas;
-
-      if (s.m_doRepaintAll)
-        m_threadDrawer->screen()->clearTextTree();
-
-      getUpdateAreas(areas);
-
       m_threadDrawer->beginFrame();
 
       /// this fixes some strange issue with multisampled framebuffer.
       /// setRenderTarget should be made here.
-      m_threadDrawer->screen()->setRenderTarget(s.m_backBufferLayers.front());
+      m_threadDrawer->screen()->setRenderTarget(m_renderState->m_backBufferLayers.front());
 
       m_threadDrawer->screen()->enableClipRect(true);
-      m_threadDrawer->screen()->setClipRect(m2::RectI(0, 0, s.m_textureWidth, s.m_textureHeight));
+      m_threadDrawer->screen()->setClipRect(textureRect);
       m_threadDrawer->clear();
 
-      if (s.isPanning())
+      if (isPanning)
       {
         m_threadDrawer->screen()->blit(
-            s.m_actualTarget,
-            s.m_actualScreen,
-            s.m_currentScreen);
-
-        m2::RectD curRect(0, 0, s.m_textureWidth, s.m_textureHeight);
-        m2::RectD oldRect(s.m_currentScreen.GtoP(s.m_actualScreen.PtoG(m2::PointD(0, 0))),
-                          s.m_currentScreen.GtoP(s.m_actualScreen.PtoG(m2::PointD(s.m_textureWidth, s.m_textureHeight))));
-
-        if (!curRect.Intersect(oldRect))
-          curRect = m2::RectD(0, 0, 0, 0);
-
-        m_threadDrawer->screen()->offsetTextTree(
-            s.m_currentScreen.GtoP(s.m_actualScreen.PtoG(m2::PointD(0, 0))),
-            curRect);
+            m_renderState->m_actualTarget,
+            m_renderState->m_actualScreen,
+            m_renderState->m_currentScreen);
       }
-      else
-        m_threadDrawer->screen()->clearTextTree();
 
-      m_threadDrawer->screen()->setNeedTextRedraw(s.isPanning());
+      m_threadDrawer->screen()->setNeedTextRedraw(isPanning);
 
       ScreenBase const & frameScreen = m_currentRenderCommand->m_frameScreen;
       m2::RectD glbRect;
-      frameScreen.PtoG(m2::RectD(0, 0, s.m_surfaceWidth, s.m_surfaceHeight), glbRect);
+      frameScreen.PtoG(m2::RectD(surfaceRect), glbRect);
       int scaleLevel = scales::GetScaleLevel(glbRect);
 
       for (size_t i = 0; i < areas.size(); ++i)
@@ -363,7 +395,7 @@ void RenderQueueRoutine::Do()
       }
 
       /// setting the "whole texture" clip rect to render texts opened by panning.
-      m_threadDrawer->screen()->setClipRect(m2::RectI(0, 0, s.m_textureWidth, s.m_textureHeight));
+      m_threadDrawer->screen()->setClipRect(textureRect);
       m_threadDrawer->endFrame();
     }
 

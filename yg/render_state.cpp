@@ -11,7 +11,8 @@ namespace yg
     RenderState::RenderState()
       :  m_isResized(false),
       m_doRepaintAll(false),
-      m_mutex(new threads::Mutex())
+      m_mutex(new threads::Mutex()),
+      m_backBufferLayers(1)
     {}
 
     bool RenderState::isPanning() const
@@ -48,8 +49,22 @@ namespace yg
 
         double const log2 = log(2.0);
 
+        unsigned oldTextureWidth = m_textureWidth;
+        unsigned oldTextureHeight = m_textureHeight;
+
         m_textureWidth = pow(2, ceil(log(double(w)) / log2));
         m_textureHeight =  pow(2, ceil(log(double(h)) / log2));
+
+/*
+        bool hasChangedTextureSize;
+        if ((oldTextureWidth != m_textureWidth) || (oldTextureHeight != m_textureHeight))
+          hasChangedTextureSize = true;
+        else
+          hasChangedTextureSize = false;
+
+        if (hasChangedTextureSize)
+          LOG(LINFO, ("TextureSize: ", m_textureWidth, m_textureHeight));
+*/
       }
     }
 

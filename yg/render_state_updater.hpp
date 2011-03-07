@@ -46,6 +46,7 @@ namespace yg
 
       void beginFrame();
       void endFrame();
+      void setClipRect(m2::RectI const & rect);
       virtual void updateActualTarget();
     };
   }

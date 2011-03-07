@@ -98,7 +98,9 @@ public:
   /// Check, whether the resize command is queued, and resize accordingly.
   void processResize(ScreenBase const & frameScreen);
   /// Get update areas for the current render state
-  void getUpdateAreas(vector<m2::RectI> & areas);
+  void getUpdateAreas(ScreenBase const & oldScreen, m2::RectI const & oldRect,
+                      ScreenBase const & newScreen, m2::RectI const & newRect,
+                      vector<m2::RectI> & areas);
   /// Thread procedure
   void Do();
   /// invalidate all connected window handles
