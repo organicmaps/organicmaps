@@ -6,10 +6,7 @@
 #include "../base/cache.hpp"
 #include "../std/bind.hpp"
 
-extern "C" {
-  #include "../coding/timsort/timsort.h"
-}
-
+#include "../coding/timsort/timsort.hpp"
 
 #define FILE_SORTER_LOG_BATCH_SIZE 11
 
