@@ -4,6 +4,8 @@
 #include "../base/logging.hpp"
 #include "../base/assert.hpp"
 
+#include "../coding/bit_shift.hpp"
+
 #include "../version/version.hpp"
 
 #include "../std/target_os.hpp"
@@ -16,7 +18,7 @@
 #define MAX_AUTOMATIC_RETRIES 2
 
 /// @return mac address of active interface without colons or empty string if not found
-/// @note mac is converted to decimal from hex
+/// @note mac is converted to decimal from hex and slightly crypted
 static QString MacAddress()
 {
   QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
@@ -33,6 +35,7 @@ static QString MacAddress()
       hwAddr.remove(':');
       bool success = false;
       qulonglong numAddr = hwAddr.toULongLong(&success, 16);
+      numAddr = bits::ror(numAddr, 11);
       if (success)
         return QString("%1").arg(numAddr);
     }
