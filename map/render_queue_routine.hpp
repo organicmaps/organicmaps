@@ -78,6 +78,7 @@ private:
   double m_visualScale;
   string m_skinName;
   bool m_isBenchmarking;
+  unsigned m_scaleEtalonSize;
 
   void waitForRenderCommand(list<shared_ptr<RenderModelCommand> > & cmdList,
                             threads::ConditionGuard & guard);
@@ -88,7 +89,8 @@ public:
                      bool isMultiSampled,
                      bool doPeriodicalUpdate,
                      double updateInterval,
-                     bool isBenchmarking);
+                     bool isBenchmarking,
+                     unsigned scaleEtalonSize);
   /// initialize GL rendering
   /// this function is called just before the thread starts.
   void initializeGL(shared_ptr<yg::gl::RenderContext> const & renderContext,

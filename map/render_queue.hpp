@@ -35,7 +35,8 @@ public:
               bool isMultiSampled,
               bool doPeriodicalUpdate,
               double updateInterval,
-              bool isBenchmarking);
+              bool isBenchmarking,
+              unsigned scaleEtalonSize);
   /// destructor.
   ~RenderQueue();
   /// set the primary context. it starts the rendering thread.

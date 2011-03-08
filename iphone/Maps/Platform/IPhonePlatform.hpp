@@ -24,6 +24,7 @@ public:
 	virtual bool IsBenchmarking() const;
 	virtual bool IsVisualLog() const;
   virtual string const DeviceID() const;
+	virtual unsigned ScaleEtalonSize() const;
 	
 private:
 	string m_deviceID;
@@ -35,4 +36,5 @@ private:
 	double m_periodicalUpdateInterval;
   string m_resourcesPath;
   string m_writablePath;
+	unsigned m_scaleEtalonSize;
 };

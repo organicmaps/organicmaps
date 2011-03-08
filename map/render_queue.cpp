@@ -10,7 +10,8 @@ RenderQueue::RenderQueue(
     bool isMultiSampled,
     bool doPeriodicalUpdate,
     double updateInterval,
-    bool isBenchmarking)
+    bool isBenchmarking,
+    unsigned scaleEtalonSize)
   : m_renderState(new yg::gl::RenderState())
 {
   m_renderState->m_surfaceWidth = 100;
@@ -25,7 +26,8 @@ RenderQueue::RenderQueue(
       isMultiSampled,
       doPeriodicalUpdate,
       updateInterval,
-      isBenchmarking);
+      isBenchmarking,
+      scaleEtalonSize);
 }
 
 void RenderQueue::initializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,

@@ -33,7 +33,8 @@ RenderQueueRoutine::RenderQueueRoutine(shared_ptr<yg::gl::RenderState> const & r
                                        bool isMultiSampled,
                                        bool doPeriodicalUpdate,
                                        double updateInterval,
-                                       bool isBenchmarking)
+                                       bool isBenchmarking,
+                                       unsigned scaleEtalonSize)
 {
   m_skinName = skinName;
   m_visualScale = 0;
@@ -43,6 +44,7 @@ RenderQueueRoutine::RenderQueueRoutine(shared_ptr<yg::gl::RenderState> const & r
   m_doPeriodicalUpdate = doPeriodicalUpdate;
   m_updateInterval = updateInterval;
   m_isBenchmarking = isBenchmarking;
+  m_scaleEtalonSize = scaleEtalonSize;
 }
 
 void RenderQueueRoutine::Cancel()
@@ -373,7 +375,10 @@ void RenderQueueRoutine::Do()
 
       ScreenBase const & frameScreen = m_currentRenderCommand->m_frameScreen;
       m2::RectD glbRect;
-      frameScreen.PtoG(m2::RectD(surfaceRect), glbRect);
+      frameScreen.PtoG(m2::RectD(textureRect.Center() - m2::PointD(m_scaleEtalonSize / 2, m_scaleEtalonSize / 2),
+                                 textureRect.Center() + m2::PointD(m_scaleEtalonSize / 2, m_scaleEtalonSize / 2)),
+                       glbRect);
+//      frameScreen.PtoG(m2::RectD(surfaceRect), glbRect);
       int scaleLevel = scales::GetScaleLevel(glbRect);
 
       for (size_t i = 0; i < areas.size(); ++i)

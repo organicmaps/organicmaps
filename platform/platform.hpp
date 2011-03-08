@@ -76,6 +76,8 @@ public:
   virtual bool IsVisualLog() const = 0;
 
   virtual string const DeviceID() const = 0;
+
+  virtual unsigned ScaleEtalonSize() const = 0;
 };
 
 extern "C" Platform & GetPlatform();

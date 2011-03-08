@@ -394,6 +394,11 @@ public:
   {
     return false;
   }
+
+  unsigned ScaleEtalonSize() const
+  {
+    return 512;
+  }
 };
 
 extern "C" Platform & GetPlatform()

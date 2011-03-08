@@ -174,7 +174,8 @@ public:
                     GetPlatform().IsMultiSampled(),
                     GetPlatform().DoPeriodicalUpdate(),
                     GetPlatform().PeriodicalUpdateInterval(),
-                    GetPlatform().IsBenchmarking()),
+                    GetPlatform().IsBenchmarking(),
+                    GetPlatform().ScaleEtalonSize()),
       m_isRedrawEnabled(true)
   {
     m_informationDisplay.setBottomShift(bottomShift);
@@ -309,7 +310,15 @@ public:
 
   int GetCurrentScale() const
   {
-    return scales::GetScaleLevel(m_navigator.Screen().ClipRect());
+    m2::PointD textureCenter(m_renderQueue.renderState().m_textureWidth / 2,
+                             m_renderQueue.renderState().m_textureHeight / 2);
+    m2::RectD glbRect;
+
+    unsigned scaleEtalonSize = GetPlatform().ScaleEtalonSize();
+    m_navigator.Screen().PtoG(m2::RectD(textureCenter - m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2),
+                                        textureCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
+                              glbRect);
+    return scales::GetScaleLevel(glbRect);
   }
 
   /// Actual rendering function.

@@ -60,6 +60,8 @@ IPhonePlatform::IPhonePlatform()
 		}
 	}
 	
+	m_scaleEtalonSize = 256 * m_visualScale;
+	
 	NSLog(@"Device Name : %@, SystemName : %@, SystemVersion : %@", device.name, device.systemName, device.systemVersion);
 
   [pool release];
@@ -197,6 +199,11 @@ bool IPhonePlatform::IsBenchmarking() const
 bool IPhonePlatform::IsVisualLog() const
 {
 	return false;
+}
+
+unsigned IPhonePlatform::ScaleEtalonSize() const
+{
+	return m_scaleEtalonSize;
 }
 
 string const IPhonePlatform::DeviceID() const
