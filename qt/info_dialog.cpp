@@ -5,7 +5,6 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QVBoxLayout>
-
 #include <QtGui/QLabel>
 
 namespace qt
@@ -17,7 +16,8 @@ namespace qt
     QIcon icon(":logo.png");
     setWindowIcon(icon);
     setWindowTitle(title);
-    setFocus();
+    setFocusPolicy(Qt::StrongFocus);
+    setWindowModality(Qt::WindowModal);
 
     QVBoxLayout * vBox = new QVBoxLayout();
     QLabel * label = new QLabel(text);

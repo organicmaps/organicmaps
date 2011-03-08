@@ -58,6 +58,8 @@ namespace qt
   UpdateDialog::UpdateDialog(QWidget * parent, Storage & storage)
     : QDialog(parent), m_storage(storage)
   {
+    setWindowModality(Qt::WindowModal);
+
     string timeString;
     if (!Settings::Get(LAST_CHECK_TIME_KEY, timeString))
       timeString = "Never checked";
