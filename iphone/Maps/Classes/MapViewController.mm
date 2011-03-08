@@ -228,7 +228,7 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 	[self updatePointsFromEvent:event];
 	[self stopCurrentAction];
 	
-	if (((UITouch*)[touches anyObject]).tapCount == 2)
+	if ((((UITouch*)[touches anyObject]).tapCount == 2) && ([[event allTouches] count] < 2))
 		m_framework->ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2));
 }
 
@@ -237,7 +237,7 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 	[self updatePointsFromEvent:event];
 	[self stopCurrentAction];
 	
-	if (((UITouch*)[touches anyObject]).tapCount == 2)
+	if ((((UITouch*)[touches anyObject]).tapCount == 2) && ([[event allTouches] count] < 2))
 		m_framework->ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2));
 }
 
