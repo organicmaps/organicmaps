@@ -75,7 +75,7 @@ namespace yg
       /// @warning this function respects the clipping rect set and enabled(!)
       ///          by the setClipRect/enableClipRect. Whether the clipping is
       ///          not enabled -  the entire currently bound render surface is used.
-      void clear(yg::Color const & c = yg::Color(192, 192, 192, 255), bool clearRT = true, float depth = 1.0, bool clearDepth = true);
+      void clear(yg::Color const & c = yg::Color(187, 187, 187, 255), bool clearRT = true, float depth = 1.0, bool clearDepth = true);
 
       void onSize(unsigned width, unsigned height);
 

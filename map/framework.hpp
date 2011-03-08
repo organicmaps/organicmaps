@@ -409,7 +409,7 @@ public:
             m_currentBenchmark++;
 
         e->drawer()->screen()->beginFrame();
-        e->drawer()->screen()->clear(/*yg::Color(255, 0, 0, 255)*/);
+        e->drawer()->screen()->clear();
 
         m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(false);
 
@@ -423,15 +423,7 @@ public:
 
         pDrawer->screen()->blit(m_renderQueue.renderState().m_actualTarget,
                                 m_renderQueue.renderState().m_actualScreen,
-                                currentScreen,
-                                yg::Color(0, 255, 0, 255),
-                                m2::RectI(0, 0,
-                                          m_renderQueue.renderState().m_actualTarget->width(),
-                                          m_renderQueue.renderState().m_actualTarget->height()),
-                                m2::RectU(0, 0,
-                                          m_renderQueue.renderState().m_actualTarget->width(),
-                                          m_renderQueue.renderState().m_actualTarget->height()));
-
+                                currentScreen);
 
         m_informationDisplay.doDraw(pDrawer);
 

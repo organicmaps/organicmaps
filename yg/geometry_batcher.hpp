@@ -113,7 +113,7 @@ namespace yg
       void enableClipRect(bool flag);
       void setClipRect(m2::RectI const & rect);
 
-      void clear(yg::Color const & c = yg::Color(192, 192, 192, 255), bool clearRT = true, float depth = 1.0, bool clearDepth = true);
+      void clear(yg::Color const & c = yg::Color(187, 187, 187, 255), bool clearRT = true, float depth = 1.0, bool clearDepth = true);
 
       /// @}
 
