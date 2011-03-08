@@ -133,7 +133,7 @@ namespace yg
 
 #ifdef OMIM_GL_ES
   #define DATA_TRAITS yg::RGBA4Traits
-  #define RT_TRAITS yg::RGB565Traits
+  #define RT_TRAITS yg::RGBA4Traits
 #else
   #define DATA_TRAITS yg::RGBA8Traits
   #define RT_TRAITS yg::RGBA8Traits
