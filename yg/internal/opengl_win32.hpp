@@ -28,6 +28,7 @@ extern PFNGLRENDERBUFFERSTORAGEEXTPROC glRenderbufferStorageEXT;
 extern PFNGLDELETERENDERBUFFERSEXTPROC glDeleteRenderbuffersEXT;
 extern PFNGLMAPBUFFERPROC glMapBuffer;
 extern PFNGLUNMAPBUFFERPROC glUnmapBuffer;
+extern PFNGLCHECKFRAMEBUFFERSTATUSEXTPROC glCheckFramebufferStatusEXT;
 
 namespace win32
 {

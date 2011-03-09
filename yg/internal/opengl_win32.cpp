@@ -28,11 +28,12 @@ PFNGLRENDERBUFFERSTORAGEEXTPROC glRenderbufferStorageEXT;
 PFNGLDELETERENDERBUFFERSEXTPROC glDeleteRenderbuffersEXT;
 PFNGLMAPBUFFERPROC glMapBuffer;
 PFNGLUNMAPBUFFERPROC glUnmapBuffer;
+PFNGLCHECKFRAMEBUFFERSTATUSEXTPROC glCheckFramebufferStatusEXT;
 
 namespace win32
 {
   template <class TRet>
-  TRet GetGLProc(HMODULE hInst, char const * name)
+  TRet GetGLProc(HMODULE, char const * name)
   {
     PROC p = ::wglGetProcAddress(name);
     if (p == 0)
@@ -67,6 +68,7 @@ namespace win32
     glUnmapBuffer = GetGLProc<PFNGLUNMAPBUFFERPROC>(hInst, "glUnmapBuffer");
     glBlitFramebuffer = GetGLProc<PFNGLBLITFRAMEBUFFERPROC>(hInst, "glBlitFramebuffer");
     glRenderbufferStorageMultisample = GetGLProc<PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC>(hInst, "glRenderbufferStorageMultisample");
+    glCheckFramebufferStatusEXT = GetGLProc<PFNGLCHECKFRAMEBUFFERSTATUSEXTPROC>(hInst, "glCheckFramebufferStatusEXT");
   }
 }
 
