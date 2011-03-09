@@ -11,7 +11,7 @@ namespace qt
 {
   InfoDialog::InfoDialog(QString const & title, QString const & text, QWidget * parent,
                          QStringList const & buttons)
-  : QDialog(parent)
+  : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint)
   {
     QIcon icon(":logo.png");
     setWindowIcon(icon);

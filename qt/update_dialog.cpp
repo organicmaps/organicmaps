@@ -56,7 +56,7 @@ namespace qt
 ////////////////////////////////////////////////////////////////////////////////
 
   UpdateDialog::UpdateDialog(QWidget * parent, Storage & storage)
-    : QDialog(parent), m_storage(storage)
+    : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint), m_storage(storage)
   {
     setWindowModality(Qt::WindowModal);
 

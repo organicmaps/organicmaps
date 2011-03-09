@@ -12,7 +12,7 @@
 #include <QtGui/QLabel>
 
 AboutDialog::AboutDialog(QWidget * parent)
-  : QDialog(parent)
+  : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint)
 {
   QIcon icon(":logo.png");
   setWindowIcon(icon);
