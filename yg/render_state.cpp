@@ -9,10 +9,10 @@ namespace yg
   namespace gl
   {
     RenderState::RenderState()
-      :  m_isResized(false),
+      : m_backBufferLayers(1),
+      m_isResized(false),
       m_doRepaintAll(false),
-      m_mutex(new threads::Mutex()),
-      m_backBufferLayers(1)
+      m_mutex(new threads::Mutex())
     {}
 
     bool RenderState::isPanning() const
