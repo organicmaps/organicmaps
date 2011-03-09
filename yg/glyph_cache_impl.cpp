@@ -161,8 +161,9 @@ namespace yg
       {
         ASSERT ( ccIt != charcodes.end(), () );
         if ((*ccIt > lastUBEnd) && (*ccIt < ubIt->m_start))
+        {
           LOG(LINFO, ("Symbol with code ", (uint16_t)*ccIt, " present in font lies between two unicode blocks!"));
-
+        }
         if (ubIt->hasSymbol(*ccIt))
           break;
         lastUBEnd = ubIt->m_end;
@@ -190,8 +191,9 @@ namespace yg
           if (ubIt->m_whitelist[i] == fontName)
           {
             if (ubIt->m_coverage.back() == -1)
+            {
               LOG(LWARNING, ("font ", fontName, "is present both at blacklist and whitelist. whitelist prevails."));
-
+            }
             /// weight used for sorting are boosted to the top.
             /// the order of elements are saved by adding 'i' value as a shift.
             ubIt->m_coverage.back() = ubIt->m_end + 1 - ubIt->m_start + i + 1;

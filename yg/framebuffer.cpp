@@ -145,15 +145,23 @@ namespace yg
 #ifdef OMIM_GL_ES
       GLenum res = glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES);
       if (res == GL_FRAMEBUFFER_UNSUPPORTED_OES)
+      {
         LOG(LINFO, ("unsupported combination of attached target formats. could be possibly skipped"));
+      }
       else if (res != GL_FRAMEBUFFER_COMPLETE_OES)
+      {
         LOG(LERROR, ("incomplete framebuffer"));
+      }
 #else
       GLenum res = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
       if (res == GL_FRAMEBUFFER_UNSUPPORTED)
+      {
         LOG(LINFO, ("unsupported combination of attached target formats. could be possibly skipped"));
+      }
       else if (res != GL_FRAMEBUFFER_COMPLETE_EXT)
+      {
         LOG(LERROR, ("incomplete framebuffer"));
+      }
 #endif
     }
   }

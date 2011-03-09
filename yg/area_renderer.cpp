@@ -27,7 +27,9 @@ namespace yg
     void AreaRenderer::endFrame()
     {
       if (isDebugging())
+      {
         LOG(LINFO, ("drawing ", m_areasCount, " areas, ", m_trianglesCount, " triangles total"));
+      }
       base_t::endFrame();
     }
 

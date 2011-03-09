@@ -30,6 +30,8 @@ char const * FT_Error_Description(FT_Error error)
 void CheckError(FT_Error error)
 {
   if (error != 0)
+  {
     LOG(LINFO, ("FT_Error : ", FT_Error_Description(error)));
+  }
 }
 
