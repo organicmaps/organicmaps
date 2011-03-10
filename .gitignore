@@ -41,6 +41,7 @@ tools/emacsmode/build/*
 # GeneratedFiles
 version/version.hpp
 tools/win/MapsWithMe*
+GeneratedFiles
 
 # bada
 bada/.metadata
