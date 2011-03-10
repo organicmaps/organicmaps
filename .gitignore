@@ -19,8 +19,6 @@ object_script.*.Release
 *.pdb
 out/*
 .obj/*
-iphone/Maps/build/*
-iphone/Tests/build/*
 *.mmp
 *.cache
 *.inf
@@ -30,19 +28,21 @@ iphone/Tests/build/*
 *.mk
 *.d
 *.BAT
-tools/emacsmode/build
-iphone/Maps/Maps.xcodeproj/*.mode1v3
-iphone/Maps/Maps.xcodeproj/*.pbxuser
-iphone/Maps/Maps.xcodeproj/*.perspectivev3
-iphone/Tests/Tests.xcodeproj/*.mode1v3
-iphone/Tests/Tests.xcodeproj/*.pbxuser
-iphone/Tests/Tests.xcodeproj/*.perspectivev3
-data/*.mwm
-data/*.mwm.downloading
-data/*.map
-data/*.osm
-data/*.bz2
-!data/minsk-pass.mwm
+
+# XCode
+iphone*/*.xcodeproj/*.mode1v3
+iphone*/*.xcodeproj/*.pbxuser
+iphone*/*.xcodeproj/*.perspectivev3
+iphone*/*.xcodeproj/project.xcworkspace/*
+iphone*/*.xcodeproj/xcuserdata/*
+iphone*/build/*
+tools/emacsmode/build/*
+
+# GeneratedFiles
+version/version.hpp
+tools/win/MapsWithMe*
+
+# bada
 bada/.metadata
 bada/repository
 bada/Maps/.settings
@@ -51,13 +51,18 @@ bada/Maps/.Simulator-Release
 bada/Maps/Res
 bada/Maps/Home
 bada/Maps/*.zip
-data/le9q663011
-data/settings.ini
-GeneratedFiles
-version/version.hpp
-tools/win/MapsWithMe*
+
+# data
 data/borders
 data/intermediate_data
+data/*.mwm
+data/*.mwm.downloading
+data/*.map
+data/*.osm
+data/*.bz2
+data/settings.ini
+!data/minsk-pass.mwm
+!data/dictionary.slf
 
 syntax: regexp
 (.*/)?\#[^/]*\#$
