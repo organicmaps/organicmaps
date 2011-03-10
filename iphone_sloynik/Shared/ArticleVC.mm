@@ -248,7 +248,13 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
  navigationType:(UIWebViewNavigationType)navigationType
 {
-  string const url([[[request URL] path] UTF8String]);
+  char const * urlChars = [[[request URL] path] UTF8String];
+  if (!urlChars)
+  {
+    LOG(LWARNING, ("Strange URL: path is empty."));
+    return NO;
+  }
+  string const url(urlChars);
   size_t const lastSlash = url.find_last_of('/');
   if (lastSlash == string::npos)
   {
