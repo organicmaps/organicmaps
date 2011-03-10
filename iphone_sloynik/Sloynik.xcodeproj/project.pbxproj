@@ -63,7 +63,7 @@
 		4910D0E8123AD32200628676 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4916E8121310685A00EC6069 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back.png; path = Images/back.png; sourceTree = "<group>"; };
 		4916E8131310685A00EC6069 /* forw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = forw.png; path = Images/forw.png; sourceTree = "<group>"; };
-		4916FA1B12D2B34900B0BDF1 /* timsort.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = timsort.c; path = ../coding_sloynik/timsort/timsort.c; sourceTree = SOURCE_ROOT; };
+		4916FA1B12D2B34900B0BDF1 /* timsort.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = timsort.c; path = ../coding/timsort/timsort.c; sourceTree = SOURCE_ROOT; };
 		491EC27C120CD33600A376CC /* Icon.png */ = {isa = PBXFileReference; explicitFileType = image.png; name = Icon.png; path = Images/Icon.png; sourceTree = "<group>"; };
 		491EC284120CD4C700A376CC /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Images/Icon-72.png"; sourceTree = "<group>"; };
 		491F5E5512E8F4650072775A /* global.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = global.hpp; path = Shared/global.hpp; sourceTree = "<group>"; };
@@ -79,40 +79,40 @@
 		496982CD121DE31000048CF1 /* dictionary.slf */ = {isa = PBXFileReference; lastKnownFileType = file; name = dictionary.slf; path = ../data/dictionary.slf; sourceTree = SOURCE_ROOT; };
 		496982CF121DE3F700048CF1 /* SearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchVC.h; path = Shared/SearchVC.h; sourceTree = "<group>"; };
 		496982D0121DE3F700048CF1 /* SearchVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SearchVC.mm; path = Shared/SearchVC.mm; sourceTree = "<group>"; };
-		496983D3121E85D300048CF1 /* base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = base.cpp; path = ../../maps/base/base.cpp; sourceTree = SOURCE_ROOT; };
-		496983D6121E85FC00048CF1 /* file_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_reader.cpp; path = ../../maps/coding/file_reader.cpp; sourceTree = SOURCE_ROOT; };
-		496983D7121E85FC00048CF1 /* file_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_writer.cpp; path = ../../maps/coding/file_writer.cpp; sourceTree = SOURCE_ROOT; };
-		496983DE121E866100048CF1 /* bzip2_compressor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bzip2_compressor.cpp; path = ../coding_sloynik/bzip2_compressor.cpp; sourceTree = SOURCE_ROOT; };
-		496983DF121E866100048CF1 /* gzip_compressor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gzip_compressor.cpp; path = ../coding_sloynik/gzip_compressor.cpp; sourceTree = SOURCE_ROOT; };
-		496983EC121E86D300048CF1 /* bzlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bzlib.c; path = ../3party_sloynik/bzip2/bzlib.c; sourceTree = SOURCE_ROOT; };
-		496983EE121E86EA00048CF1 /* zutil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zutil.c; path = ../3party_sloynik/zlib/zutil.c; sourceTree = SOURCE_ROOT; };
-		496983F4121E874300048CF1 /* decompress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = decompress.c; path = ../3party_sloynik/bzip2/decompress.c; sourceTree = SOURCE_ROOT; };
-		496983F6121E875200048CF1 /* logging.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = logging.cpp; path = ../../maps/base/logging.cpp; sourceTree = SOURCE_ROOT; };
-		496983FC121E877E00048CF1 /* blocksort.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = blocksort.c; path = ../3party_sloynik/bzip2/blocksort.c; sourceTree = SOURCE_ROOT; };
-		496983FD121E877E00048CF1 /* compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = compress.c; path = ../3party_sloynik/bzip2/compress.c; sourceTree = SOURCE_ROOT; };
-		496983FE121E877E00048CF1 /* crctable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = crctable.c; path = ../3party_sloynik/bzip2/crctable.c; sourceTree = SOURCE_ROOT; };
-		496983FF121E877E00048CF1 /* huffman.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = huffman.c; path = ../3party_sloynik/bzip2/huffman.c; sourceTree = SOURCE_ROOT; };
-		49698400121E877E00048CF1 /* randtable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = randtable.c; path = ../3party_sloynik/bzip2/randtable.c; sourceTree = SOURCE_ROOT; };
-		49698407121E87A600048CF1 /* compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = compress.c; path = ../3party_sloynik/zlib/compress.c; sourceTree = SOURCE_ROOT; };
-		49698408121E87A600048CF1 /* crc32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = crc32.c; path = ../3party_sloynik/zlib/crc32.c; sourceTree = SOURCE_ROOT; };
-		49698409121E87A600048CF1 /* crc32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = crc32.h; path = ../3party_sloynik/zlib/crc32.h; sourceTree = SOURCE_ROOT; };
-		4969840A121E87A600048CF1 /* deflate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = deflate.c; path = ../3party_sloynik/zlib/deflate.c; sourceTree = SOURCE_ROOT; };
-		4969840B121E87A600048CF1 /* deflate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = deflate.h; path = ../3party_sloynik/zlib/deflate.h; sourceTree = SOURCE_ROOT; };
-		4969840C121E87A600048CF1 /* inftrees.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = inftrees.c; path = ../3party_sloynik/zlib/inftrees.c; sourceTree = SOURCE_ROOT; };
-		4969840D121E87A600048CF1 /* inftrees.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inftrees.h; path = ../3party_sloynik/zlib/inftrees.h; sourceTree = SOURCE_ROOT; };
-		4969840E121E87A600048CF1 /* trees.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = trees.c; path = ../3party_sloynik/zlib/trees.c; sourceTree = SOURCE_ROOT; };
-		4969840F121E87A600048CF1 /* trees.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = trees.h; path = ../3party_sloynik/zlib/trees.h; sourceTree = SOURCE_ROOT; };
-		49698410121E87A600048CF1 /* uncompr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = uncompr.c; path = ../3party_sloynik/zlib/uncompr.c; sourceTree = SOURCE_ROOT; };
-		49698411121E87A600048CF1 /* zconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zconf.h; path = ../3party_sloynik/zlib/zconf.h; sourceTree = SOURCE_ROOT; };
-		49698412121E87A600048CF1 /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlib.h; path = ../3party_sloynik/zlib/zlib.h; sourceTree = SOURCE_ROOT; };
-		49698413121E87A600048CF1 /* zutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zutil.h; path = ../3party_sloynik/zlib/zutil.h; sourceTree = SOURCE_ROOT; };
-		49698421121E87F600048CF1 /* adler32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = adler32.c; path = ../3party_sloynik/zlib/adler32.c; sourceTree = SOURCE_ROOT; };
-		49698422121E87F600048CF1 /* infback.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = infback.c; path = ../3party_sloynik/zlib/infback.c; sourceTree = SOURCE_ROOT; };
-		49698423121E87F600048CF1 /* inffast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = inffast.c; path = ../3party_sloynik/zlib/inffast.c; sourceTree = SOURCE_ROOT; };
-		49698424121E87F600048CF1 /* inffast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inffast.h; path = ../3party_sloynik/zlib/inffast.h; sourceTree = SOURCE_ROOT; };
-		49698425121E87F600048CF1 /* inffixed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inffixed.h; path = ../3party_sloynik/zlib/inffixed.h; sourceTree = SOURCE_ROOT; };
-		49698426121E87F600048CF1 /* inflate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = inflate.c; path = ../3party_sloynik/zlib/inflate.c; sourceTree = SOURCE_ROOT; };
-		49698427121E87F600048CF1 /* inflate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inflate.h; path = ../3party_sloynik/zlib/inflate.h; sourceTree = SOURCE_ROOT; };
+		496983D3121E85D300048CF1 /* base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = base.cpp; path = ../base/base.cpp; sourceTree = SOURCE_ROOT; };
+		496983D6121E85FC00048CF1 /* file_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_reader.cpp; path = ../coding/file_reader.cpp; sourceTree = SOURCE_ROOT; };
+		496983D7121E85FC00048CF1 /* file_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_writer.cpp; path = ../coding/file_writer.cpp; sourceTree = SOURCE_ROOT; };
+		496983DE121E866100048CF1 /* bzip2_compressor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bzip2_compressor.cpp; path = ../coding/bzip2_compressor.cpp; sourceTree = SOURCE_ROOT; };
+		496983DF121E866100048CF1 /* gzip_compressor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gzip_compressor.cpp; path = ../coding/gzip_compressor.cpp; sourceTree = SOURCE_ROOT; };
+		496983EC121E86D300048CF1 /* bzlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bzlib.c; path = ../3party/bzip2/bzlib.c; sourceTree = SOURCE_ROOT; };
+		496983EE121E86EA00048CF1 /* zutil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zutil.c; path = ../3party/zlib/zutil.c; sourceTree = SOURCE_ROOT; };
+		496983F4121E874300048CF1 /* decompress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = decompress.c; path = ../3party/bzip2/decompress.c; sourceTree = SOURCE_ROOT; };
+		496983F6121E875200048CF1 /* logging.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = logging.cpp; path = ../base/logging.cpp; sourceTree = SOURCE_ROOT; };
+		496983FC121E877E00048CF1 /* blocksort.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = blocksort.c; path = ../3party/bzip2/blocksort.c; sourceTree = SOURCE_ROOT; };
+		496983FD121E877E00048CF1 /* compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = compress.c; path = ../3party/bzip2/compress.c; sourceTree = SOURCE_ROOT; };
+		496983FE121E877E00048CF1 /* crctable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = crctable.c; path = ../3party/bzip2/crctable.c; sourceTree = SOURCE_ROOT; };
+		496983FF121E877E00048CF1 /* huffman.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = huffman.c; path = ../3party/bzip2/huffman.c; sourceTree = SOURCE_ROOT; };
+		49698400121E877E00048CF1 /* randtable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = randtable.c; path = ../3party/bzip2/randtable.c; sourceTree = SOURCE_ROOT; };
+		49698407121E87A600048CF1 /* compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = compress.c; path = ../3party/zlib/compress.c; sourceTree = SOURCE_ROOT; };
+		49698408121E87A600048CF1 /* crc32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = crc32.c; path = ../3party/zlib/crc32.c; sourceTree = SOURCE_ROOT; };
+		49698409121E87A600048CF1 /* crc32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = crc32.h; path = ../3party/zlib/crc32.h; sourceTree = SOURCE_ROOT; };
+		4969840A121E87A600048CF1 /* deflate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = deflate.c; path = ../3party/zlib/deflate.c; sourceTree = SOURCE_ROOT; };
+		4969840B121E87A600048CF1 /* deflate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = deflate.h; path = ../3party/zlib/deflate.h; sourceTree = SOURCE_ROOT; };
+		4969840C121E87A600048CF1 /* inftrees.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = inftrees.c; path = ../3party/zlib/inftrees.c; sourceTree = SOURCE_ROOT; };
+		4969840D121E87A600048CF1 /* inftrees.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inftrees.h; path = ../3party/zlib/inftrees.h; sourceTree = SOURCE_ROOT; };
+		4969840E121E87A600048CF1 /* trees.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = trees.c; path = ../3party/zlib/trees.c; sourceTree = SOURCE_ROOT; };
+		4969840F121E87A600048CF1 /* trees.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = trees.h; path = ../3party/zlib/trees.h; sourceTree = SOURCE_ROOT; };
+		49698410121E87A600048CF1 /* uncompr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = uncompr.c; path = ../3party/zlib/uncompr.c; sourceTree = SOURCE_ROOT; };
+		49698411121E87A600048CF1 /* zconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zconf.h; path = ../3party/zlib/zconf.h; sourceTree = SOURCE_ROOT; };
+		49698412121E87A600048CF1 /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlib.h; path = ../3party/zlib/zlib.h; sourceTree = SOURCE_ROOT; };
+		49698413121E87A600048CF1 /* zutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zutil.h; path = ../3party/zlib/zutil.h; sourceTree = SOURCE_ROOT; };
+		49698421121E87F600048CF1 /* adler32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = adler32.c; path = ../3party/zlib/adler32.c; sourceTree = SOURCE_ROOT; };
+		49698422121E87F600048CF1 /* infback.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = infback.c; path = ../3party/zlib/infback.c; sourceTree = SOURCE_ROOT; };
+		49698423121E87F600048CF1 /* inffast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = inffast.c; path = ../3party/zlib/inffast.c; sourceTree = SOURCE_ROOT; };
+		49698424121E87F600048CF1 /* inffast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inffast.h; path = ../3party/zlib/inffast.h; sourceTree = SOURCE_ROOT; };
+		49698425121E87F600048CF1 /* inffixed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inffixed.h; path = ../3party/zlib/inffixed.h; sourceTree = SOURCE_ROOT; };
+		49698426121E87F600048CF1 /* inflate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = inflate.c; path = ../3party/zlib/inflate.c; sourceTree = SOURCE_ROOT; };
+		49698427121E87F600048CF1 /* inflate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inflate.h; path = ../3party/zlib/inflate.h; sourceTree = SOURCE_ROOT; };
 		4972C89A120CB8D5001F025D /* menu-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "menu-20.png"; path = "Images/menu-20.png"; sourceTree = "<group>"; };
 		499A290D120CDF4000E14B47 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Shared/AppDelegate.h; sourceTree = "<group>"; };
 		499A290E120CDF4000E14B47 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = Shared/AppDelegate.mm; sourceTree = "<group>"; };
@@ -224,7 +224,6 @@
 				496983E8121E867B00048CF1 /* 3party */,
 				496983D2121E859A00048CF1 /* base */,
 				496983D5121E85D900048CF1 /* coding */,
-				496983DA121E860300048CF1 /* coding_sloynik */,
 				496983DB121E862E00048CF1 /* words */,
 			);
 			name = "C++ Sources";
@@ -242,20 +241,13 @@
 		496983D5121E85D900048CF1 /* coding */ = {
 			isa = PBXGroup;
 			children = (
+				4916FA1B12D2B34900B0BDF1 /* timsort.c */,
+				496983DE121E866100048CF1 /* bzip2_compressor.cpp */,
+				496983DF121E866100048CF1 /* gzip_compressor.cpp */,
 				496983D6121E85FC00048CF1 /* file_reader.cpp */,
 				496983D7121E85FC00048CF1 /* file_writer.cpp */,
 			);
 			name = coding;
-			sourceTree = "<group>";
-		};
-		496983DA121E860300048CF1 /* coding_sloynik */ = {
-			isa = PBXGroup;
-			children = (
-				4916FA1B12D2B34900B0BDF1 /* timsort.c */,
-				496983DE121E866100048CF1 /* bzip2_compressor.cpp */,
-				496983DF121E866100048CF1 /* gzip_compressor.cpp */,
-			);
-			name = coding_sloynik;
 			sourceTree = "<group>";
 		};
 		496983DB121E862E00048CF1 /* words */ = {
@@ -349,7 +341,7 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "sloynik" */;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Sloynik" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -469,7 +461,7 @@
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					../3party_sloynik/bzip2,
+					../3party/bzip2,
 					../3party/boost,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
@@ -506,7 +498,7 @@
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					../3party_sloynik/bzip2,
+					../3party/bzip2,
 					../3party/boost,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
@@ -531,7 +523,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "sloynik" */ = {
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Sloynik" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
