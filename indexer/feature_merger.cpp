@@ -11,7 +11,7 @@ FeatureBuilder1Merger::FeatureBuilder1Merger(FeatureBuilder1 const & fb)
 
 bool FeatureBuilder1Merger::ReachedMaxPointsCount() const
 {
-  return m_Geometry.size() > MAX_MERGED_POINTS_COUNT;
+  return (m_Geometry.size() > MAX_MERGED_POINTS_COUNT);
 }
 
 void FeatureBuilder1Merger::AppendFeature(FeatureBuilder1Merger const & fb)

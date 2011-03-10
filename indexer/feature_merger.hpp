@@ -11,7 +11,12 @@ public:
   /// but only if they have common point
   void AppendFeature(FeatureBuilder1Merger const & fb);
 
-  vector<uint32_t> const & Type() const { return m_Types; }
+  uint32_t KeyType() const
+  {
+    ASSERT_EQUAL ( m_Types.size(), 1, () );
+    return m_Types.front();
+  }
+
   bool ReachedMaxPointsCount() const;
 
   m2::PointD FirstPoint() const { return m_Geometry.front(); }

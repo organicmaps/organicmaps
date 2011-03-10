@@ -87,7 +87,7 @@ namespace feature
       }
     };
 
-    void operator () (FeatureBuilder1 const & fb)
+    void operator () (FeatureBuilder1 & fb)
     {
       if (m_worldMap(fb))
         return; // do not duplicate feature in any country if it's stored in world map

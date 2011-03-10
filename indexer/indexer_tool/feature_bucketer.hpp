@@ -50,7 +50,7 @@ public:
     Init();
   }
 
-  void operator () (feature_builder_t const & fb)
+  void operator () (feature_builder_t & fb)
   {
     if (m_worldMap(fb))
       return; // we do not duplicate features in world and bucket files

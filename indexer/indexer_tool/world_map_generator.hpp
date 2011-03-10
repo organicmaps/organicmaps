@@ -37,7 +37,7 @@ class WorldMapGenerator
   size_t m_areasCounter;
 
   typedef unordered_map<m2::PointD, FeatureBuilder1Merger> FeaturesContainerT;
-  typedef map<vector<uint32_t>, FeaturesContainerT> TypesContainerT;
+  typedef map<uint32_t, FeaturesContainerT> TypesContainerT;
   TypesContainerT m_features;
 
 private:
@@ -54,8 +54,9 @@ private:
         base->second.AppendFeature(found->second);
         features.erase(found);
         ++m_mergedCounter;
+
         if (base->second.FirstPoint() == base->second.LastPoint())
-        { // @TODO create area feature
+        {
           (*m_worldBucket)(base->second);
           features.erase(base);
           ++m_areasCounter;
@@ -66,10 +67,9 @@ private:
     return false;
   }
 
-  void TryToMerge(FeatureBuilder1 const & fb)
+  void TryToMerge(FeatureBuilder1Merger & fbm)
   {
-    FeatureBuilder1Merger fbm(fb);
-    FeaturesContainerT & container = m_features[fbm.Type()];
+    FeaturesContainerT & container = m_features[fbm.KeyType()];
     FeaturesContainerT::iterator found = container.find(fbm.LastPoint());
     if (found != container.end())
     {
@@ -80,28 +80,31 @@ private:
 
     if (fbm.FirstPoint() == fbm.LastPoint())
     {
-      // @TODO create area feature
       (*m_worldBucket)(fbm);
       ++m_areasCounter;
-      return;
     }
-    pair<FeaturesContainerT::iterator, bool> result = container.insert(make_pair(fbm.FirstPoint(), fbm));
-    // if we found feature with the same starting point, emit it directly
-    if (!result.second)
+    else
     {
-      LOG(LWARNING, ("Found features with common first point, points counts are:",
-                     result.first->second.GetPointsCount(), fb.GetPointsCount()));
-      (*m_worldBucket)(fbm);
+      pair<FeaturesContainerT::iterator, bool> result = container.insert(make_pair(fbm.FirstPoint(), fbm));
+      // if we found feature with the same starting point, emit it directly
+      if (!result.second)
+      {
+        LOG(LWARNING, ("Found features with common first point, points counts are:",
+                       result.first->second.GetPointsCount(), fbm.GetPointsCount()));
+        (*m_worldBucket)(fbm);
+      }
     }
   }
 
-  struct FeatureTypePrinter
-  {
-    void operator()(uint32_t type) const
-    {
-      cout << classif().GetFullObjectName(type) << ".";
-    }
-  };
+  //struct FeatureTypePrinter
+  //{
+  //  void operator()(uint32_t type) const
+  //  {
+  //    cout << classif().GetFullObjectName(type) << ".";
+  //  }
+  //};
+
+  vector<uint32_t> m_MergeTypes;
 
 public:
   WorldMapGenerator(int maxWorldScale, bool mergeCoastlines,
@@ -111,6 +114,21 @@ public:
   {
     if (maxWorldScale >= 0)
       m_worldBucket.reset(new FeatureOutT(WORLD_FILE_NAME, featureOutInitData));
+
+    // fill vector with types that need to be merged
+    char const * arrMerge[][2] = { {"natural", "coastline"} };
+
+    for (size_t i = 0; i < ARRAY_SIZE(arrMerge); ++i)
+    {
+      vector<string> path(2);
+      path[0] = arrMerge[i][0];
+      path[1] = arrMerge[i][1];
+      m_MergeTypes.push_back(classif().GetTypeByPath(path));
+
+      ASSERT_NOT_EQUAL ( m_MergeTypes.back(), ftype::GetEmptyValue(), () );
+    }
+
+    sort(m_MergeTypes.begin(), m_MergeTypes.end());
   }
 
   ~WorldMapGenerator()
@@ -119,6 +137,7 @@ public:
     {
       LOG(LINFO, ("Final merging of coastlines started"));
     }
+
     // try to merge all merged features with each other
     for (TypesContainerT::iterator it = m_features.begin(); it != m_features.end(); ++it)
     {
@@ -137,29 +156,35 @@ public:
     }
   }
 
-  bool operator()(FeatureBuilder1 const & fb)
+  bool operator()(FeatureBuilder1 & fb)
   {
     if (m_worldBucket)
     {
       FeatureBase fBase = fb.GetFeatureBase();
-      int minScale = feature::MinDrawableScaleForFeature(fBase);
+      int const minScale = feature::MinDrawableScaleForFeature(fBase);
       CHECK_GREATER(minScale, -1, ("Non-drawable feature found!?"));
       if (m_maxWorldScale >= minScale)
       {
-        FeatureTypePrinter typePrinter;
-        fBase.ForEachTypeRef(typePrinter);
-        cout << endl;
-        if (m_mergeCoastlines)
+        //FeatureTypePrinter typePrinter;
+        //fBase.ForEachTypeRef(typePrinter);
+        //cout << endl;
+
+        if (m_mergeCoastlines && fBase.GetFeatureType() == FeatureBase::FEATURE_TYPE_LINE)
         {
-          // we're merging only linear features,
-          // areas and points are written immediately
-          if (fBase.GetFeatureType() != FeatureBase::FEATURE_TYPE_LINE)
-            (*m_worldBucket)(fb);
-          else
-            TryToMerge(fb);
+          for (size_t i = 0; i < m_MergeTypes.size(); ++i)
+          {
+            if (fb.IsTypeExist(m_MergeTypes[i]))
+            {
+              FeatureBuilder1Merger fbm(fb);
+              fbm.SetType(m_MergeTypes[i]);
+              TryToMerge(fbm);
+            }
+          }
+
+          if (!fb.AssignType_SetDifference(m_MergeTypes))
+            return true;
         }
-        else
-          (*m_worldBucket)(fb);
+        (*m_worldBucket)(fb);
         return true;
       }
     }

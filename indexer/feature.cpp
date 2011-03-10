@@ -68,6 +68,22 @@ void FeatureBuilder1::AddName(string const & name)
   m_Name = name;
 }
 
+bool FeatureBuilder1::IsTypeExist(uint32_t t) const
+{
+  return (find(m_Types.begin(), m_Types.end(), t) != m_Types.end());
+}
+
+bool FeatureBuilder1::AssignType_SetDifference(vector<uint32_t> const & diffTypes)
+{
+  vector<uint32_t> src;
+  src.swap(m_Types);
+
+  sort(src.begin(), src.end());
+  set_difference(src.begin(), src.end(), diffTypes.begin(), diffTypes.end(), back_inserter(m_Types));
+
+  return !m_Types.empty();
+}
+
 void FeatureBuilder1::AddLayer(int32_t layer)
 {
   int const bound = 10;

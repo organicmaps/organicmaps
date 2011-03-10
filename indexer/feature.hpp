@@ -20,9 +20,6 @@ class FeatureBase;
 /// Used for serialization\deserialization of features during --generate_features.
 class FeatureBuilder1
 {
-  // needed for hacky coastlines merging
-  friend class FeatureBuilder1Merger;
-
 public:
   FeatureBuilder1();
 
@@ -57,6 +54,9 @@ public:
     m_Types.clear();
     m_Types.push_back(type);
   }
+  
+  bool IsTypeExist(uint32_t t) const;
+  bool AssignType_SetDifference(vector<uint32_t> const & diffTypes);
 
   void AddLayer(int32_t layer);
 
