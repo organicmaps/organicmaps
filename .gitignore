@@ -36,7 +36,7 @@ iphone/*/*.xcodeproj/*.perspectivev3
 iphone/*/*.xcodeproj/project.xcworkspace/*
 iphone/*/*.xcodeproj/xcuserdata/*
 iphone/*/build/*
-tools/emacsmode/build/*
+tools/emacsmode/build
 
 # GeneratedFiles
 version/version.hpp
@@ -64,6 +64,7 @@ data/*.bz2
 data/settings.ini
 !data/minsk-pass.mwm
 !data/dictionary.slf
+
 
 syntax: regexp
 (.*/)?\#[^/]*\#$

@@ -84,7 +84,8 @@ using namespace storage;
   {
     g_storage->Unsubscribe();
 		[[g_navController parentViewController] dismissModalViewControllerAnimated:YES];
-  	[g_navController release];
+  	[[g_navController parentViewController] Invalidate];
+		[g_navController release];
     g_navController = nil;
   }
 }

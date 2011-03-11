@@ -44,4 +44,6 @@ withConfidenceRadius: (double) confidenceRadius
 - (void) OnTerminate;
 - (void) OnEnterBackground;
 
+- (void) Invalidate;
+
 @end

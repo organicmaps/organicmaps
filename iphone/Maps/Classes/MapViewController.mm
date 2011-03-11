@@ -303,6 +303,15 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 	[self OnEnterBackground];
 }
 
+- (void) Invalidate
+{
+	if (m_framework)
+	{
+		NSLog(@"invalidate");
+	  m_framework->Invalidate();
+	}
+}
+	
 - (void) OnEnterBackground
 {
 	if (m_framework)

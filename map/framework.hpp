@@ -111,11 +111,6 @@ class FrameWork
   /// is AddRedrawCommand enabled?
   bool m_isRedrawEnabled;
 
-  void Invalidate()
-  {
-    m_windowHandle->invalidate();
-  }
-
   void AddRedrawCommandSure()
   {
     m_renderQueue.AddCommand(bind(&this_type::PaintImpl, this, _1, _2, _3, _4), m_navigator.Screen());
@@ -249,6 +244,12 @@ public:
   /// Save and load framework state to ini file between sessions.
   //@{
 public:
+
+  void Invalidate()
+  {
+    m_windowHandle->invalidate();
+  }
+
   void SaveState()
   {
     m_navigator.SaveState();
