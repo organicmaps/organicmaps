@@ -30,12 +30,12 @@ out/*
 *.BAT
 
 # XCode
-iphone*/*.xcodeproj/*.mode1v3
-iphone*/*.xcodeproj/*.pbxuser
-iphone*/*.xcodeproj/*.perspectivev3
-iphone*/*.xcodeproj/project.xcworkspace/*
-iphone*/*.xcodeproj/xcuserdata/*
-iphone*/build/*
+iphone/*/*.xcodeproj/*.mode1v3
+iphone/*/*.xcodeproj/*.pbxuser
+iphone/*/*.xcodeproj/*.perspectivev3
+iphone/*/*.xcodeproj/project.xcworkspace/*
+iphone/*/*.xcodeproj/xcuserdata/*
+iphone/*/build/*
 tools/emacsmode/build/*
 
 # GeneratedFiles
