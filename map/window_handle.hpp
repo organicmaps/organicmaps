@@ -3,6 +3,7 @@
 #include "../std/shared_ptr.hpp"
 #include "events.hpp"
 #include "drawer_yg.hpp"
+#include "../base/logging.hpp"
 
 namespace yg
 {
@@ -19,7 +20,13 @@ private:
   shared_ptr<DrawerYG> m_drawer;
   shared_ptr<yg::gl::RenderContext> m_renderContext;
 
+  bool m_hasPendingUpdates;
+  bool m_isUpdatesEnabled;
+
 public:
+
+  WindowHandle() : m_hasPendingUpdates(false), m_isUpdatesEnabled(true)
+  {}
 
   shared_ptr<DrawerYG> const & drawer()
   {
@@ -41,5 +48,26 @@ public:
     m_drawer = drawer;
   }
 
-  virtual void invalidate() = 0;
+  bool setUpdatesEnabled(bool doEnable)
+  {
+    bool res = false;
+    if ((!m_isUpdatesEnabled) && (doEnable) && (m_hasPendingUpdates))
+    {
+      invalidateImpl();
+      m_hasPendingUpdates = false;
+      res = true;
+    }
+    m_isUpdatesEnabled = doEnable;
+    return res;
+  }
+
+  void invalidate()
+  {
+    if (m_isUpdatesEnabled)
+      invalidateImpl();
+    else
+      m_hasPendingUpdates = true;
+  }
+
+  virtual void invalidateImpl() = 0;
 };

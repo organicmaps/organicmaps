@@ -13,9 +13,10 @@ namespace qt
     QWidget * m_pWnd;
 
   public:
+
     WindowHandle(QWidget * p) : m_pWnd(p) {}
 
-    void invalidate()
+    void invalidateImpl()
     {
       ASSERT ( m_pWnd != 0, () );
       m_pWnd->setUpdatesEnabled(true);

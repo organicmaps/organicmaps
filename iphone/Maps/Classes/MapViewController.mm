@@ -35,6 +35,7 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 
 - (void) OnSettingsClicked: (id)sender
 {
+    m_framework->SetUpdatesEnabled(false);
 	[SettingsManager Show:self WithStorage:m_storage];
 }
 
@@ -65,18 +66,18 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 		m_locationController = [[UserLocationController alloc] initWithDelegate:self];
 		
 		m_CurrentAction = NOTHING;
-    m_isDirtyPosition = false;
+        m_isDirtyPosition = false;
 		
 		// initialize with currently active screen orientation
-    [self didRotateFromInterfaceOrientation: self.interfaceOrientation];
+        [self didRotateFromInterfaceOrientation: self.interfaceOrientation];
     
 		m_framework->initializeGL([(EAGLView*)self.view renderContext], resourceManager);		
 		
 		// to perform a proper resize
 		[(EAGLView*)self.view layoutSubviews];
     
-    // restore previous screen position
-    if (!m_framework->LoadState())
+        // restore previous screen position
+        if (!m_framework->LoadState())
 			m_framework->ShowAll();
 	}
 	
@@ -307,8 +308,8 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 {
 	if (m_framework)
 	{
-		NSLog(@"invalidate");
-	  m_framework->Invalidate();
+        if (!m_framework->SetUpdatesEnabled(true))
+            m_framework->Invalidate();
 	}
 }
 	

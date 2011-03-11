@@ -288,6 +288,11 @@ public:
     UpdateNow();
   }
 
+  bool SetUpdatesEnabled(bool doEnable)
+  {
+    return m_windowHandle->setUpdatesEnabled(doEnable);
+  }
+
   /// enabling/disabling AddRedrawCommand
   void SetRedrawEnabled(bool isRedrawEnabled)
   {

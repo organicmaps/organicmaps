@@ -16,11 +16,11 @@ namespace iphone
 { 
   class WindowHandle : public ::WindowHandle
   {
-	private:
-  	EAGLView * m_view;
+    private:
+      EAGLView * m_view;
 	public:
-  	WindowHandle(EAGLView * view);
+      WindowHandle(EAGLView * view);
 	
-	  void invalidate();
+	  void invalidateImpl();
   };
 }

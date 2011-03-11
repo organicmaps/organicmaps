@@ -36,60 +36,60 @@
 {
   if ((self = [super initWithCoder:coder]))
   {
-    // Setup Layer Properties
-    CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
+      // Setup Layer Properties
+      CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
     
-    eaglLayer.opaque = YES;
+      eaglLayer.opaque = YES;
 		
-		/// ColorFormat : RGB565
-		/// Backbuffer : YES, (to prevent from loosing content when mixing with ordinary layers).
-    eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [NSNumber numberWithBool:YES],
-                                    kEAGLDrawablePropertyRetainedBacking,
-                                    kEAGLColorFormatRGB565,
-                                    kEAGLDrawablePropertyColorFormat,
-                                    nil];
+      /// ColorFormat : RGB565
+      /// Backbuffer : YES, (to prevent from loosing content when mixing with ordinary layers).
+      eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
+                                      [NSNumber numberWithBool:NO],
+                                      kEAGLDrawablePropertyRetainedBacking,
+                                      kEAGLColorFormatRGB565,
+                                      kEAGLDrawablePropertyColorFormat,
+                                      nil];
     
-		int etalonW = 320;
-		int scrW = etalonW;
+      int etalonW = 320;
+      int scrW = etalonW;
 		
-		UIDevice * device = [UIDevice currentDevice];
+      UIDevice * device = [UIDevice currentDevice];
 		
-		float ver = [device.systemVersion floatValue];
-		NSLog(@"%@", device.systemVersion);
-		/// rounding problems
-		if (ver >= 3.199)
-		{
-			UIScreen * mainScr = [UIScreen mainScreen];
-			scrW = mainScr.currentMode.size.width;
-		  if (scrW == 640)
-				self.contentScaleFactor = 2.0;
-		}
+      float ver = [device.systemVersion floatValue];
+      NSLog(@"%@", device.systemVersion);
+      /// rounding problems
+      if (ver >= 3.199)
+      {
+        UIScreen * mainScr = [UIScreen mainScreen];
+		scrW = mainScr.currentMode.size.width;
+        if (scrW == 640)
+            self.contentScaleFactor = 2.0;
+      }
 		
-		renderContext = shared_ptr<iphone::RenderContext>(new iphone::RenderContext());
+      renderContext = shared_ptr<iphone::RenderContext>(new iphone::RenderContext());
 
-    if (!renderContext.get())
-    {
-      [self release];
-      return nil;
-    }
+      if (!renderContext.get())
+      {
+          [self release];
+          return nil;
+      }
 		
-		renderContext->makeCurrent();
-		frameBuffer = shared_ptr<yg::gl::FrameBuffer>(new yg::gl::FrameBuffer());		
+      renderContext->makeCurrent();
+      frameBuffer = shared_ptr<yg::gl::FrameBuffer>(new yg::gl::FrameBuffer());		
 		
-		int bigVBSize = pow(2, ceil(log2(15000 * sizeof(yg::gl::Vertex))));
-		int bigIBSize = pow(2, ceil(log2(30000 * sizeof(unsigned short))));
+      int bigVBSize = pow(2, ceil(log2(15000 * sizeof(yg::gl::Vertex))));
+      int bigIBSize = pow(2, ceil(log2(30000 * sizeof(unsigned short))));
 												
-		int smallVBSize = pow(2, ceil(log2(1500 * sizeof(yg::gl::Vertex))));
-		int smallIBSize = pow(2, ceil(log2(3000 * sizeof(unsigned short))));		
+      int smallVBSize = pow(2, ceil(log2(1500 * sizeof(yg::gl::Vertex))));
+      int smallIBSize = pow(2, ceil(log2(3000 * sizeof(unsigned short))));		
 		
-		int blitVBSize = pow(2, ceil(log2(10 * sizeof(yg::gl::AuxVertex))));											
-		int blitIBSize = pow(2, ceil(log2(10 * sizeof(unsigned short))));
+      int blitVBSize = pow(2, ceil(log2(10 * sizeof(yg::gl::AuxVertex))));											
+      int blitIBSize = pow(2, ceil(log2(10 * sizeof(unsigned short))));
 		
-		resourceManager = shared_ptr<yg::ResourceManager>(new yg::ResourceManager(
+      resourceManager = shared_ptr<yg::ResourceManager>(new yg::ResourceManager(
 						bigVBSize, bigIBSize, 20,
 						smallVBSize, smallIBSize, 30,
-						blitVBSize, blitIBSize, 20,																																	
+						blitVBSize, blitIBSize, 20,											
 						512, 256, 10,
 						GetPlatform().ReadPathForFile("unicode_blocks.txt").c_str(), 
 						GetPlatform().ReadPathForFile("fonts_whitelist.txt").c_str(),
