@@ -194,7 +194,8 @@ namespace qt
         // @TODO do not show it for automatic update checks
         InfoDialog dlg(tr("No update is available"),
                        tr("At this moment, no new version is available. Please, try again later or "
-                          "visit our <a href=\"http://www.mapswithme.com\">site</a> for latest news."),
+                          "visit our web site <a href=\"http://www.mapswithme.com\">www.mapswithme.com</a> "
+                          "for latest news."),
                        this, QStringList(tr("Ok")));
         dlg.exec();
       }
