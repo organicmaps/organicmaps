@@ -1,9 +1,14 @@
 #include "mainwindow.hpp"
+#include "info_dialog.hpp"
+
+#include "../map/settings.hpp"
 
 #include "../platform/platform.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/macros.hpp"
+
+#include "../coding/file_reader.hpp"
 
 #include "../version/version.hpp"
 
@@ -26,6 +31,8 @@ Q_GLOBAL_STATIC_WITH_ARGS(QFactoryLoader, bearerLoader,
                           (QBearerEngineFactoryInterface_iid, QLatin1String("/bearer")))
 #endif
 
+
+#define SETTING_EULA_ACCEPTED "EulaAccepted"
 
 namespace
 {
@@ -77,12 +84,28 @@ int main(int argc, char *argv[])
 
   (void)GetPlatform();
 
-  qt::MainWindow w;
+  // display EULA if needed
+  bool eulaAccepted = false;
+  if (!Settings::Get(SETTING_EULA_ACCEPTED, eulaAccepted) || !eulaAccepted)
+  {
+    QStringList buttons;
+    buttons << "Accept" << "Decline";
 
-  w.show();
+    FileReader f(GetPlatform().ReadPathForFile("eula.html"));
+    qt::InfoDialog eulaDialog("MapsWithMe End User Licensing Agreement", f.ReadAsText().c_str(), NULL, buttons);
+    eulaAccepted = (eulaDialog.exec() == 1);
+    Settings::Set(SETTING_EULA_ACCEPTED, eulaAccepted);
+  }
+  int returnCode = -1;
+  if (eulaAccepted)
+  {
+    // User has accepted EULA
+    qt::MainWindow w;
 
-  int const ret = a.exec();
+    w.show();
 
+    returnCode = a.exec();
+  }
   // QTBUG: Fix memory leaks. Nobody delete created plugins.
 #ifdef OMIM_OS_WINDOWS
   QFactoryLoader * arr[] = { imageLoader(), bearerLoader() };
@@ -95,7 +118,7 @@ int main(int argc, char *argv[])
   }
 #endif
 
-  LOG(LINFO, ("MapsWithMe finished with code : ", ret));
+  LOG(LINFO, ("MapsWithMe finished with code : ", returnCode));
 
-  return ret;
+  return returnCode;
 }
