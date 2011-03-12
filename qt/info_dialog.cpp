@@ -1,7 +1,9 @@
 #include "info_dialog.hpp"
 
+#include "../base/assert.hpp"
+
 #include <QtGui/QIcon>
-#include <QtGui/QTextEdit>
+#include <QtGui/QTextBrowser>
 #include <QtGui/QPushButton>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QVBoxLayout>
@@ -20,17 +22,27 @@ namespace qt
     setWindowModality(Qt::WindowModal);
 
     QVBoxLayout * vBox = new QVBoxLayout();
-    QLabel * label = new QLabel(text);
-    label->setOpenExternalLinks(true);
-    vBox->addWidget(label);
+    QTextBrowser * browser = new QTextBrowser();
+    browser->setReadOnly(true);
+    browser->setOpenLinks(true);
+    browser->setOpenExternalLinks(true);
+    browser->setText(text);
+    vBox->addWidget(browser);
 
     // this horizontal layout is for buttons
     QHBoxLayout * hBox = new QHBoxLayout();
-    hBox->addSpacing(label->width() / 4 * (3.5 - buttons.size()));
+    hBox->addSpacing(browser->width() / 4 * (3.5 - buttons.size()));
     for (int i = 0; i < buttons.size(); ++i)
     {
       QPushButton * button = new QPushButton(buttons[i], this);
-      connect(button, SIGNAL(clicked()), this, SLOT(OnButtonClick()));
+      switch (i)
+      {
+      case 0: connect(button, SIGNAL(clicked()), this, SLOT(OnButtonClick1())); break;
+      case 1: connect(button, SIGNAL(clicked()), this, SLOT(OnButtonClick2())); break;
+      case 2: connect(button, SIGNAL(clicked()), this, SLOT(OnButtonClick3())); break;
+      default:
+        ASSERT(false, ("Only 3 buttons are currently supported in info dialog"));
+      }
       hBox->addWidget(button);
     }
 
@@ -38,9 +50,16 @@ namespace qt
     setLayout(vBox);
   }
 
-  void InfoDialog::OnButtonClick()
+  void InfoDialog::OnButtonClick1()
   {
-    // @TODO determine which button is pressed
-    done(0);
+    done(1);
+  }
+  void InfoDialog::OnButtonClick2()
+  {
+    done(2);
+  }
+  void InfoDialog::OnButtonClick3()
+  {
+    done(3);
   }
 }
