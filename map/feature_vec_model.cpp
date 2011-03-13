@@ -28,9 +28,6 @@ void FeaturesFetcher::InitClassificator()
 
 void FeaturesFetcher::AddMap(string const & fName)
 {
-  if (m_multiIndex.IsExist(fName))
-    return;
-
   try
   {
     m_multiIndex.Add(fName);

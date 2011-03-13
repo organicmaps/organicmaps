@@ -16,14 +16,15 @@
 
 #include "../base/base.hpp"
 #include "../base/macros.hpp"
+#include "../base/mutex.hpp"
 #include "../base/stl_add.hpp"
 
+#include "../std/algorithm.hpp"
+#include "../std/bind.hpp"
 #include "../std/string.hpp"
-#include "../std/vector.hpp"
 #include "../std/unordered_set.hpp"
 #include "../std/utility.hpp"
-#include "../std/bind.hpp"
-
+#include "../std/vector.hpp"
 
 template <class BaseT> class IndexForEachAdapter : public BaseT
 {
@@ -89,32 +90,88 @@ public:
   void ForEachInIntervalAndScale(F const & f, int64_t beg, int64_t end, uint32_t scale,
                                  m2::RectD const & occlusionRect, Query & query) const
   {
-    for (size_t i = 0; i < m_Indexes.size(); ++i)
-      if (IndexT * pIndex = m_Indexes[i]->GetIndex(scale, occlusionRect))
+    size_t iIndex = 0;
+    m_pActiveForEachIndex = NULL;
+    m_eActiveForEachIndexAction = ACTIVE_FOR_EACH_INDEX_DO_NOTHING;
+
+    while (true)
+    {
+      {
+        threads::MutexGuard mutexGuard(m_Mutex);
+        UNUSED_VALUE(mutexGuard);
+
+        // Do the operation that was delayed because ForEach was active.
+        if (m_pActiveForEachIndex)
+        {
+          switch (m_eActiveForEachIndexAction)
+          {
+          case ACTIVE_FOR_EACH_INDEX_DO_NOTHING:
+            break;
+          case ACTIVE_FOR_EACH_INDEX_CLOSE:
+            m_pActiveForEachIndex->Close();
+            break;
+          case ACTIVE_FOR_EACH_INDEX_REMOVE:
+            for (size_t i = 0; i < m_Indexes.size(); ++i)
+            {
+              if (m_Indexes[i] == m_pActiveForEachIndex)
+              {
+                delete m_Indexes[i];
+                m_Indexes.erase(m_Indexes.begin() + i);
+                break;
+              }
+            }
+            break;
+          }
+        }
+
+        // Move iIndex to the next not visited index.
+        if (iIndex >= m_Indexes.size())
+          break;
+        if (m_pActiveForEachIndex == m_Indexes[iIndex])
+          ++iIndex;
+        if (iIndex >= m_Indexes.size())
+          break;
+
+        m_pActiveForEachIndex = m_Indexes[iIndex];
+        m_eActiveForEachIndexAction = ACTIVE_FOR_EACH_INDEX_DO_NOTHING;
+      }
+
+      if (IndexT * pIndex = m_pActiveForEachIndex->GetIndex(scale, occlusionRect))
         pIndex->ForEachInIntervalAndScale(f, beg, end, scale, query);
+    }
+
+    m_pActiveForEachIndex = NULL;
+    m_eActiveForEachIndexAction = ACTIVE_FOR_EACH_INDEX_DO_NOTHING;
   }
 
   void Add(string const & path)
   {
+    threads::MutexGuard mutexGuard(m_Mutex);
+    UNUSED_VALUE(mutexGuard);
+
+    for (size_t i = 0; i < m_Indexes.size(); ++i)
+      if (m_Indexes[i]->IsMyData(path))
+        return;
+
     m_Indexes.push_back(new IndexProxy(path));
   }
 
-  bool IsExist(string const & dataPath) const
+  void Remove(string const & path)
   {
-    return (find_if(m_Indexes.begin(), m_Indexes.end(),
-                    bind(&IndexProxy::IsMyData, _1, cref(dataPath))) !=
-            m_Indexes.end());
-  }
+    threads::MutexGuard mutexGuard(m_Mutex);
+    UNUSED_VALUE(mutexGuard);
 
-  void Remove(string const & dataPath)
-  {
-    for (typename vector<IndexProxy *>::iterator it = m_Indexes.begin();
-         it != m_Indexes.end(); ++it)
+    for (size_t i = 0; i < m_Indexes.size(); ++i)
     {
-      if ((*it)->IsMyData(dataPath))
+      if (m_Indexes[i]->IsMyData(path))
       {
-        delete *it;
-        m_Indexes.erase(it);
+        if (m_Indexes[i] != m_pActiveForEachIndex)
+        {
+          delete m_Indexes[i];
+          m_Indexes.erase(m_Indexes.begin() + i);
+        }
+        else
+          m_eActiveForEachIndexAction = ACTIVE_FOR_EACH_INDEX_REMOVE;
         break;
       }
     }
@@ -122,13 +179,36 @@ public:
 
   void Clean()
   {
-    for_each(m_Indexes.begin(), m_Indexes.end(), DeleteFunctor());
+    threads::MutexGuard mutexGuard(m_Mutex);
+    UNUSED_VALUE(mutexGuard);
+
+    for (size_t i = 0; i < m_Indexes.size(); ++i)
+    {
+      if (m_Indexes[i] != m_pActiveForEachIndex)
+        delete m_Indexes[i];
+    }
+
     m_Indexes.clear();
+    if (m_pActiveForEachIndex != NULL)
+    {
+      IndexProxy * pIndex = m_pActiveForEachIndex;
+      m_Indexes.push_back(pIndex);
+    }
   }
 
   void ClearCaches()
   {
-    for_each(m_Indexes.begin(), m_Indexes.end(), bind(&IndexProxy::Close, _1));
+    threads::MutexGuard mutexGuard(m_Mutex);
+    UNUSED_VALUE(mutexGuard);
+
+    for (size_t i = 0; i < m_Indexes.size(); ++i)
+    {
+      if (m_Indexes[i] != m_pActiveForEachIndex)
+        m_Indexes[i]->Close();
+      else
+        if (m_eActiveForEachIndexAction != ACTIVE_FOR_EACH_INDEX_REMOVE)
+          m_eActiveForEachIndexAction = ACTIVE_FOR_EACH_INDEX_CLOSE;
+    }
   }
 
 private:
@@ -206,7 +286,17 @@ private:
     uint8_t m_QueriesSkipped;
   };
 
-  vector<IndexProxy *> m_Indexes;
+  enum ActiveForEachIndexAction
+  {
+    ACTIVE_FOR_EACH_INDEX_DO_NOTHING = 0,
+    ACTIVE_FOR_EACH_INDEX_CLOSE = 1,
+    ACTIVE_FOR_EACH_INDEX_REMOVE = 2
+  };
+
+  mutable vector<IndexProxy *> m_Indexes;
+  mutable IndexProxy * volatile m_pActiveForEachIndex;
+  mutable ActiveForEachIndexAction volatile m_eActiveForEachIndexAction;
+  mutable threads::Mutex m_Mutex;
 };
 
 template <class FeatureVectorT, class BaseT> class OffsetToFeatureAdapter : public BaseT
