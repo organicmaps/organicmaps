@@ -70,6 +70,21 @@ namespace yg
      }
    }
 
+   void GeometryBatcher::GeometryPipeline::checkStorage(shared_ptr<ResourceManager> const & resourceManager, bool isDynamic) const
+   {
+     if (!m_hasStorage)
+     {
+       m_storage = isDynamic ? resourceManager->reserveStorage() : resourceManager->reserveSmallStorage();
+
+       m_maxVertices = m_storage.m_vertices->size() / sizeof(Vertex);
+       m_maxIndices = m_storage.m_indices->size() / sizeof(unsigned short);
+
+       m_vertices = (Vertex*)m_storage.m_vertices->lock();
+       m_indices = (unsigned short *)m_storage.m_indices->lock();
+       m_hasStorage = true;
+     }
+   }
+
    void GeometryBatcher::setSkin(shared_ptr<Skin> skin)
    {
      m_skin = skin;
@@ -87,13 +102,13 @@ namespace yg
          m_pipelines[i].m_currentVertex = 0;
          m_pipelines[i].m_currentIndex = 0;
 
-         m_pipelines[i].m_storage = m_skin->pages()[i]->isDynamic() ? resourceManager()->reserveStorage() : resourceManager()->reserveSmallStorage();
+         m_pipelines[i].m_hasStorage = false;
 
-         m_pipelines[i].m_maxVertices = m_pipelines[i].m_storage.m_vertices->size() / sizeof(Vertex);
-         m_pipelines[i].m_maxIndices = m_pipelines[i].m_storage.m_indices->size() / sizeof(unsigned short);
+         m_pipelines[i].m_maxVertices = 0;
+         m_pipelines[i].m_maxIndices = 0;
 
-         m_pipelines[i].m_vertices = (Vertex*)m_pipelines[i].m_storage.m_vertices->lock();
-         m_pipelines[i].m_indices = (unsigned short *)m_pipelines[i].m_storage.m_indices->lock();
+         m_pipelines[i].m_vertices = 0;
+         m_pipelines[i].m_indices = 0;
        }
      }
    }
@@ -148,17 +163,22 @@ namespace yg
 
    bool GeometryBatcher::hasRoom(size_t verticesCount, size_t indicesCount, int pageID) const
    {
+     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->isDynamic());
+
      return ((m_pipelines[pageID].m_currentVertex + verticesCount <= m_pipelines[pageID].m_maxVertices)
          &&  (m_pipelines[pageID].m_currentIndex + indicesCount <= m_pipelines[pageID].m_maxIndices));
    }
 
    size_t GeometryBatcher::verticesLeft(int pageID)
    {
+     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->isDynamic());
+
      return m_pipelines[pageID].m_maxVertices - m_pipelines[pageID].m_currentVertex;
    }
 
    size_t GeometryBatcher::indicesLeft(int pageID)
    {
+     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->isDynamic());
      return m_pipelines[pageID].m_maxIndices - m_pipelines[pageID].m_currentIndex;
    }
 
@@ -201,12 +221,14 @@ namespace yg
                resourceManager()->freeStorage(pipeline.m_storage);
              else
                resourceManager()->freeSmallStorage(pipeline.m_storage);
-             pipeline.m_storage = skinPage->isDynamic() ? resourceManager()->reserveStorage() : resourceManager()->reserveSmallStorage();
-             pipeline.m_maxVertices = pipeline.m_storage.m_vertices->size() / sizeof(Vertex);
-             pipeline.m_maxIndices = pipeline.m_storage.m_indices->size() / sizeof(unsigned short);
 
-             pipeline.m_vertices = (Vertex*)pipeline.m_storage.m_vertices->lock();
-             pipeline.m_indices = (unsigned short*)pipeline.m_storage.m_indices->lock();
+             pipeline.m_hasStorage = false;
+             pipeline.m_storage = Storage();
+             pipeline.m_maxIndices = 0;
+             pipeline.m_maxVertices = 0;
+             pipeline.m_vertices = 0;
+             pipeline.m_indices = 0;
+
            }
 
            reset(i - 1);
@@ -217,12 +239,8 @@ namespace yg
 
    void GeometryBatcher::switchTextures(int pageID)
    {
-//     if (m_pipelines[pageID].m_currentIndex > 0)
-//     {
-//       LOG(LINFO, ("Improving Parallelism ;)"));
        m_skin->pages()[pageID]->freeTexture();
        m_skin->pages()[pageID]->reserveTexture();
-//     }
    }
 
    void GeometryBatcher::drawTexturedPolygon(
@@ -235,6 +253,8 @@ namespace yg
    {
      if (!hasRoom(4, 6, pageID))
        flush(pageID);
+
+     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->isDynamic());
 
      float texMinX = tx0;
      float texMaxX = tx1;
@@ -289,6 +309,8 @@ namespace yg
      if (!hasRoom(size, (size - 2) * 3, pageID))
        flush(pageID);
 
+     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->isDynamic());
+
      ASSERT(size > 2, ());
 
      size_t vOffset = m_pipelines[pageID].m_currentVertex;
@@ -337,6 +359,8 @@ namespace yg
      if (!hasRoom(size, (size - 2) * 3, pageID))
        flush(pageID);
 
+     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->isDynamic());
+
      ASSERT(size > 2, ());
 
      size_t vOffset = m_pipelines[pageID].m_currentVertex;
@@ -381,6 +405,8 @@ namespace yg
      if (!hasRoom(size, size, pageID))
        flush(pageID);
 
+     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->isDynamic());
+
      ASSERT(size > 2, ());
 
      size_t vOffset = m_pipelines[pageID].m_currentVertex;
@@ -415,6 +441,8 @@ namespace yg
    {
      if (!hasRoom(size, size, pageID))
        flush(pageID);
+
+     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->isDynamic());
 
      ASSERT(size > 2, ());
 

@@ -62,16 +62,22 @@ namespace yg
         size_t m_currentVertex;
         size_t m_currentIndex;
 
-        size_t m_maxVertices;
-        size_t m_maxIndices;
+        /// made mutable to implement lazy reservation of m_storage
+        /// @{
+        mutable size_t m_maxVertices;
+        mutable size_t m_maxIndices;
 
-        Storage m_storage;
+        mutable bool m_hasStorage;
+        mutable Storage m_storage;
 
-        Vertex * m_vertices;
-        unsigned short * m_indices;
+        mutable Vertex * m_vertices;
+        mutable unsigned short * m_indices;
+        /// @}
 
         size_t verticesLeft();
         size_t indicesLeft();
+
+        void checkStorage(shared_ptr<ResourceManager> const & resourceManager, bool isDynamic) const;
       };
 
       vector<GeometryPipeline> m_pipelines;
