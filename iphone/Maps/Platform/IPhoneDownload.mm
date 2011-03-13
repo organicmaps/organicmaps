@@ -1,9 +1,54 @@
 #import "IPhoneDownload.h"
 
+#import <CommonCrypto/CommonDigest.h>
+
 #include "../../platform/download_manager.hpp"
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <ifaddrs.h>
+#include <net/if_dl.h>
+#include <net/if.h>
+
+#if !defined(IFT_ETHER)
+  #define IFT_ETHER 0x6 /* Ethernet CSMACD */
+#endif
 
 #define TIMEOUT_IN_SECONDS 15.0
 #define MAX_AUTOMATIC_RETRIES 3
+
+NSString * GetEncryptedMac()
+{
+  // get wifi mac addr
+  ifaddrs * addresses = NULL;
+  if (getifaddrs(&addresses) == 0 && addresses != NULL)
+  {
+    ifaddrs * currentAddr = addresses;
+    do
+    {
+      if (currentAddr->ifa_addr->sa_family == AF_LINK
+          && ((const struct sockaddr_dl *) currentAddr->ifa_addr)->sdl_type == IFT_ETHER)
+      {
+        const struct sockaddr_dl * dlAddr = (const struct sockaddr_dl *) currentAddr->ifa_addr;
+        const uint8_t * base = (const uint8_t *) &dlAddr->sdl_data[dlAddr->sdl_nlen];
+        // generate sha1 hash for mac address
+        uint8_t outHash[CC_SHA1_DIGEST_LENGTH + 1] = { 0 };
+        CC_SHA1(base, dlAddr->sdl_alen, outHash);
+        
+        NSMutableString * output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+        
+        for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; ++i)
+          [output appendFormat:@"%02x", outHash[i]];
+        return output;
+      }
+      currentAddr = currentAddr->ifa_next;
+    }
+    while (currentAddr->ifa_next);
+    freeifaddrs(addresses);
+  }
+  return nil;
+}
+
 
 @implementation IPhoneDownload
 
@@ -51,6 +96,10 @@
 		[request addValue:val forHTTPHeaderField:@"Range"];
 		[val release];
   }
+   
+  static NSString * macStr = GetEncryptedMac();
+  if (macStr)
+    [request addValue:macStr forHTTPHeaderField:@"User-Agent"];
   return request;
 }
 
