@@ -8,7 +8,8 @@
 #define TOMCRYPT_CFG_H
 
 #if defined(_WIN32) || defined(_MSC_VER)
-#define LTC_CALL __cdecl
+  #define LTC_CALL __cdecl
+  #define LTC_NO_PROTOTYPES
 #else
 #ifndef LTC_CALL
    #define LTC_CALL
