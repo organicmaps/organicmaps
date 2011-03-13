@@ -40,8 +40,8 @@ IPhonePlatform::IPhonePlatform()
 	NSRange range = [device.name rangeOfString:@"iPad"];
 	if (range.location != NSNotFound)
 	{
-		m_deviceID = "iPad";
-		m_visualScale = 1.3;
+    m_deviceID = "iPad";
+    m_visualScale = 1.3;
 	}
 	else {
 		range = [device.name rangeOfString:@"iPod"];
@@ -60,7 +60,7 @@ IPhonePlatform::IPhonePlatform()
 		}
 	}
 	
-	m_scaleEtalonSize = 256 * m_visualScale;
+	m_scaleEtalonSize = (256 * 1.5) * m_visualScale;
 	
 	NSLog(@"Device Name : %@, SystemName : %@, SystemVersion : %@", device.name, device.systemName, device.systemVersion);
 
