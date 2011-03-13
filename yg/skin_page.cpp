@@ -330,52 +330,26 @@ namespace yg
     if (foundHandle != m_packer.invalidHandle())
       return foundHandle;
 
-    if (penInfo.m_isSolid)
-    {
-      m2::Packer::handle_t handle = m_packer.pack(
-          ceil(penInfo.m_w + 4),
-          ceil(penInfo.m_w + 4));
-      m2::RectU texRect = m_packer.find(handle).second;
-      m_penUploadCommands.push_back(PenUploadCmd(penInfo, texRect));
-      m_penInfoMap[penInfo] = handle;
+    m2::PointU p = penInfo.patternSize();
 
-      m_styles[handle] = boost::shared_ptr<ResourceStyle>(
-          new LineStyle(false,
-                        texRect,
-                        m_pageID,
-                        penInfo));
-    }
-    else
-    {
-      uint32_t len = static_cast<uint32_t>(accumulate(penInfo.m_pat.begin(), penInfo.m_pat.end(), 0.0));
+    m2::Packer::handle_t handle = m_packer.pack(p.x, p.y);
+    m2::RectU texRect = m_packer.find(handle).second;
+    m_penUploadCommands.push_back(PenUploadCmd(penInfo, texRect));
+    m_penInfoMap[penInfo] = handle;
 
-      m2::Packer::handle_t handle = m_packer.pack(len + 4, penInfo.m_w + 4);
-      m2::RectU texRect = m_packer.find(handle).second;
-      m_penUploadCommands.push_back(PenUploadCmd(penInfo, texRect));
-      m_penInfoMap[penInfo] = handle;
-
-      m_styles[handle] = boost::shared_ptr<ResourceStyle>(
-          new LineStyle(false,
-                        texRect,
-                        m_pageID,
-                        penInfo));
-    }
+    m_styles[handle] = boost::shared_ptr<ResourceStyle>(
+        new LineStyle(false,
+                      texRect,
+                      m_pageID,
+                      penInfo));
 
     return m_penInfoMap[penInfo];
   }
 
   bool SkinPage::hasRoom(const PenInfo &penInfo) const
   {
-    if (penInfo.m_isSolid)
-    {
-      return m_packer.hasRoom(penInfo.m_w + 4, penInfo.m_w + 4);
-    //  return hasRoom(penInfo.m_color);
-    }
-    else
-    {
-      uint32_t len = static_cast<uint32_t>(accumulate(penInfo.m_pat.begin(), penInfo.m_pat.end(), 0.0));
-      return m_packer.hasRoom(len + 4, penInfo.m_w + 4);
-    }
+    m2::PointU p = penInfo.patternSize();
+    return m_packer.hasRoom(p.x, p.y);
   }
 
   bool SkinPage::isDynamic() const

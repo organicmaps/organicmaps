@@ -2,6 +2,7 @@
 
 #include "color.hpp"
 
+#include "../geometry/point2d.hpp"
 #include "../std/vector.hpp"
 #include "../base/buffer_vector.hpp"
 
@@ -30,6 +31,8 @@ namespace yg
 
     double firstDashOffset() const;
     bool atDashOffset(double offset) const;
+
+    m2::PointU const patternSize() const;
   };
 
   bool operator < (PenInfo const & l, PenInfo const & r);

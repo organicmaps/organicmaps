@@ -1,6 +1,7 @@
 #include "pen_info.hpp"
 #include "../std/algorithm.hpp"
 #include "../std/iterator.hpp"
+#include "../std/numeric.hpp"
 
 namespace yg
 {
@@ -70,6 +71,18 @@ namespace yg
       nextDashStart += m_pat[i * 2] + m_pat[i * 2 + 1];
     }
     return false;
+  }
+
+  m2::PointU const PenInfo::patternSize() const
+  {
+    if (m_isSolid)
+      return m2::PointU(ceil(m_w) + 4,
+                        ceil(m_w) + 4);
+    else
+    {
+      uint32_t len = static_cast<uint32_t>(accumulate(m_pat.begin(), m_pat.end(), 0.0));
+      return m2::PointU(len + 4, m_w + 4);
+    }
   }
 
   bool operator < (PenInfo const & l, PenInfo const & r)
