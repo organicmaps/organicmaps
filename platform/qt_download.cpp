@@ -4,9 +4,10 @@
 #include "../base/logging.hpp"
 #include "../base/assert.hpp"
 
-#include "../std/target_os.hpp"
+#include "../coding/sha2.hpp"
+#include "../coding/base64.hpp"
 
-#include <tomcrypt.h>
+#include "../std/target_os.hpp"
 
 #include <QNetworkInterface>
 #include <QFSFileEngine>
@@ -63,17 +64,8 @@ static QString UniqueClientId()
   }
   // calculate one-way hash
   QByteArray const original = QByteArray::fromHex(result.toLocal8Bit());
-  unsigned char out[100] = { 0 };
-  hash_state md;
-  if (CRYPT_OK == sha1_init(&md)
-      && CRYPT_OK == sha1_process(&md, reinterpret_cast<unsigned char const *>(original.constData()),
-                                  original.size())
-      && CRYPT_OK == sha1_done(&md, out))
-  {
-    return QByteArray(reinterpret_cast<char const *>(out)).toHex();
-  }
-  // if encryption failed, do not encrypt data
-  return result;
+  string const hash = sha2::digest224(original.constData(), original.size(), false);
+  return base64::encode(hash).c_str();
 }
 
 static QString UserAgent()

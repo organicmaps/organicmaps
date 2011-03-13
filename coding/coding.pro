@@ -4,9 +4,11 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 ROOT_DIR = ..
-DEPENDENCIES = bzip2 zlib base
+DEPENDENCIES = base bzip2 zlib tomcrypt
 
 include($$ROOT_DIR/common.pri)
+
+INCLUDEPATH += ../3party/tomcrypt/src/headers
 
 SOURCES += \
     hex.cpp \
@@ -17,6 +19,8 @@ SOURCES += \
     bzip2_compressor.cpp \
     gzip_compressor.cpp \
     timsort/timsort.cpp \
+    base64.cpp \
+    sha2.cpp \
 
 HEADERS += \
     internal/xmlparser.h \
@@ -70,3 +74,5 @@ HEADERS += \
     gzip_compressor.hpp \
     timsort/timsort.hpp \
     bit_shift.hpp \
+    base64.hpp \
+    sha2.hpp \

@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../base/base.hpp"
-#include "../std/string.hpp"
+#include "../base/assert.hpp"
 
-#include "../base/start_mem_debug.hpp"
+#include "../std/string.hpp"
 
 #include <boost/type_traits/is_integral.hpp>
 

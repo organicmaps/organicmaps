@@ -5,7 +5,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = coding base bzip2 zlib
+DEPENDENCIES = coding base bzip2 zlib tomcrypt
 
 include($$ROOT_DIR/common.pri)
 
@@ -32,6 +32,8 @@ SOURCES += ../../testing/testingmain.cpp \
     gzip_test.cpp \
     coder_util_test.cpp \
     bit_shift_test.cpp \
+    base64_test.cpp \
+    sha2_test.cpp
 
 HEADERS += \
     reader_test.hpp \

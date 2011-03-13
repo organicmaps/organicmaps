@@ -10,8 +10,10 @@ CONFIG += staticlib
 DEFINES += LTC_NO_ROLC
 
 SOURCES += \
+    src/hashes/sha2/sha224.c \
     src/hashes/sha2/sha256.c \
-    src/hashes/sha1.c \
+    src/hashes/sha2/sha384.c \
+    src/hashes/sha2/sha512.c \
 
 HEADERS += \
     src/headers/tomcrypt.h \

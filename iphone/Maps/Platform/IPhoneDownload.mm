@@ -1,8 +1,9 @@
 #import "IPhoneDownload.h"
 
-#import <CommonCrypto/CommonDigest.h>
-
 #include "../../platform/download_manager.hpp"
+
+#include "../../coding/base64.hpp"
+#include "../../coding/sha2.hpp"
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -30,16 +31,11 @@ NSString * GetEncryptedMac()
           && ((const struct sockaddr_dl *) currentAddr->ifa_addr)->sdl_type == IFT_ETHER)
       {
         const struct sockaddr_dl * dlAddr = (const struct sockaddr_dl *) currentAddr->ifa_addr;
-        const uint8_t * base = (const uint8_t *) &dlAddr->sdl_data[dlAddr->sdl_nlen];
-        // generate sha1 hash for mac address
-        uint8_t outHash[CC_SHA1_DIGEST_LENGTH + 1] = { 0 };
-        CC_SHA1(base, dlAddr->sdl_alen, outHash);
-        
-        NSMutableString * output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
-        
-        for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; ++i)
-          [output appendFormat:@"%02x", outHash[i]];
-        return output;
+        const char * base = &dlAddr->sdl_data[dlAddr->sdl_nlen];
+        // generate sha2 hash for mac address
+        string const hash = sha2::digest224(base, dlAddr->sdl_alen, false);
+        // and use base64 encoding
+        return [NSString stringWithUTF8String: base64::encode(hash).c_str()];
       }
       currentAddr = currentAddr->ifa_next;
     }
