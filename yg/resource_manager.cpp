@@ -21,7 +21,11 @@ namespace yg
                                    size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
                                    size_t texWidth, size_t texHeight, size_t texCount,
                                    char const * blocksFile, char const * whiteListFile, char const * blackListFile, size_t maxGlyphCacheSize)
-                                     : m_glyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, maxGlyphCacheSize))
+                                     : m_vbSize(vbSize), m_ibSize(ibSize),
+                                     m_smallVBSize(smallVBSize), m_smallIBSize(smallIBSize),
+                                     m_blitVBSize(blitVBSize), m_blitIBSize(blitIBSize),
+                                     m_textureWidth(texWidth), m_textureHeight(texHeight),
+                                     m_glyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, maxGlyphCacheSize))
   {
     for (size_t i = 0; i < storagesCount; ++i)
       m_storages.push_back(gl::Storage(vbSize, ibSize));
@@ -145,6 +149,16 @@ namespace yg
     shared_ptr<gl::BaseTexture> res = m_dynamicTextures.front();
     m_dynamicTextures.pop_front();
     return res;
+  }
+
+  size_t ResourceManager::textureWidth() const
+  {
+    return m_textureWidth;
+  }
+
+  size_t ResourceManager::textureHeight() const
+  {
+    return m_textureHeight;
   }
 
   void ResourceManager::freeTexture(shared_ptr<gl::BaseTexture> const & texture, bool doSignal)

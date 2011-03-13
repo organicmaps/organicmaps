@@ -240,7 +240,7 @@ namespace yg
    void GeometryBatcher::switchTextures(int pageID)
    {
        m_skin->pages()[pageID]->freeTexture();
-       m_skin->pages()[pageID]->reserveTexture();
+//       m_skin->pages()[pageID]->reserveTexture();
    }
 
    void GeometryBatcher::drawTexturedPolygon(

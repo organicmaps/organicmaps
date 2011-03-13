@@ -110,12 +110,13 @@ namespace yg
 
   SkinPage::SkinPage(shared_ptr<ResourceManager> const & resourceManager,
                      uint8_t pageID)
-    : m_texture(resourceManager->reserveTexture()),
-      m_resourceManager(resourceManager),
+    : m_resourceManager(resourceManager),
       m_isDynamic(true),
       m_pageID(pageID)
   {
-    m_packer = m2::Packer(m_texture->width(), m_texture->height(), 0x00FFFFFF - 1),
+    m_packer = m2::Packer(m_resourceManager->textureWidth(),
+                          m_resourceManager->textureHeight(),
+                          0x00FFFFFF - 1);
     /// clear handles will be called only upon handles overflow,
     /// as the texture overflow is processed separately
     m_packer.addOverflowFn(bind(&SkinPage::clearHandles, this), 0);
@@ -736,10 +737,25 @@ namespace yg
     m_colorUploadCommands.clear();
   }
 
+  bool SkinPage::hasData()
+  {
+    return ((!m_colorUploadCommands.empty())
+        || (!m_penUploadCommands.empty())
+        || (!m_glyphUploadCommands.empty())
+        || (!m_circleUploadCommands.empty()));
+  }
+
+  void SkinPage::checkTexture() const
+  {
+    if ((m_isDynamic) && (m_texture == 0))
+      reserveTexture();
+  }
+
   void SkinPage::uploadData()
   {
-    if (m_isDynamic)
+    if ((m_isDynamic) && (hasData()))
     {
+      checkTexture();
       static_cast<gl::ManagedTexture*>(m_texture.get())->lock();
       uploadColors();
       uploadPenInfo();
@@ -766,15 +782,18 @@ namespace yg
 
   shared_ptr<gl::BaseTexture> const & SkinPage::texture() const
   {
+    checkTexture();
     return m_texture;
   }
 
   void SkinPage::freeTexture()
   {
-    m_resourceManager->freeTexture(m_texture);
+    if (m_texture)
+      m_resourceManager->freeTexture(m_texture);
+    m_texture.reset();
   }
 
-  void SkinPage::reserveTexture()
+  void SkinPage::reserveTexture() const
   {
     m_texture = m_resourceManager->reserveTexture();
   }

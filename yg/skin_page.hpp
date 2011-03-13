@@ -95,8 +95,11 @@ namespace yg
     TGlyphMap m_glyphMap;
 
     m2::Packer m_packer;
-    shared_ptr<gl::BaseTexture> m_texture;
-    shared_ptr<ResourceManager> m_resourceManager;
+    /// made mutable to implement lazy reservation of texture
+    /// @{
+    mutable shared_ptr<gl::BaseTexture> m_texture;
+    mutable shared_ptr<ResourceManager> m_resourceManager;
+    /// @}
 
     vector<ColorUploadCmd> m_colorUploadCommands;
     vector<PenUploadCmd> m_penUploadCommands;
@@ -129,7 +132,10 @@ namespace yg
 
     void clearHandles();
 
+    bool hasData();
     void uploadData();
+
+    void checkTexture() const;
 
     SkinPage();
 
@@ -142,7 +148,7 @@ namespace yg
     SkinPage(shared_ptr<ResourceManager> const & resourceManager,
              uint8_t pageID);
 
-    void reserveTexture();
+    void reserveTexture() const;
     void freeTexture();
 
     uint32_t findColor(Color const & c) const;

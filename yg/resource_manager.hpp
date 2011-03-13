@@ -34,6 +34,18 @@ namespace yg
 
     list<shared_ptr<gl::BaseTexture> > m_dynamicTextures;
 
+    size_t m_vbSize;
+    size_t m_ibSize;
+
+    size_t m_smallVBSize;
+    size_t m_smallIBSize;
+
+    size_t m_blitVBSize;
+    size_t m_blitIBSize;
+
+    size_t m_textureWidth;
+    size_t m_textureHeight;
+
     list<gl::Storage> m_storages;
     list<gl::Storage> m_smallStorages;
     list<gl::Storage> m_blitStorages;
@@ -64,6 +76,9 @@ namespace yg
 
     shared_ptr<gl::BaseTexture> const reserveTexture(bool doWait = false);
     void freeTexture(shared_ptr<gl::BaseTexture> const & texture, bool doSignal = false);
+
+    size_t textureWidth() const;
+    size_t textureHeight() const;
 
     shared_ptr<GlyphInfo> const getGlyph(GlyphKey const & key);
     GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
