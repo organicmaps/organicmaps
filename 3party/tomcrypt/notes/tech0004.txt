@@ -1,0 +1,91 @@
+Tech Note 0004
+Using Yarrow, Fortuna and SOBER-128
+Tom St Denis
+
+Introduction
+------------
+
+This tech note explains how to use three of the more useful pseudo random number generators and their 
+own little "issues".  While all of the PRNGs have the same API and are roughly used in the same 
+manner their effectiveness really depends on the user knowing how they work.
+
+
+Yarrow
+------
+
+Yarrow is by far the simplest of the PRNGs.  It gathers bits of entropy by hashing the pool state
+plus the additional bits storing the message digest back in the pool.  E.g.
+
+pool = hash(pool || newbits)
+
+Simply dump bits into the PRNG via yarrow_add_entropy() and call yarrow_ready() when you want to 
+put them to use.  This PRNG while simple is not entirely safe.  An attacker who learns the state
+of the pool and can control future events can control the PRNG.  This requires an active attacker but 
+isn't entire impossible.
+
+The pool is then used as a key for a cipher that is used in CTR mode.  
+
+Yarrow is mostly meant for short-term programs [e.g. like file utils].  This particular implementation
+is not meant for long-term usage.
+
+Fortuna
+-------
+
+Fortuna was designed by Niels Fergusson and Bruce Schneier [Bruce is also the guy who invented Yarrow].  It
+operates on a more defensive level than Yarrow.  Instead of 1 entropy pool it has 32 and the new entropy 
+is spread [round robin] in all of the pools. 
+
+That is, each call to fortuna_add_entropy() puts the bits in the next [in the sequenece] pool of entropy.  
+Effective bits are added to the pool by sending them through a hash [but not terminating the hash].  
+
+Here's the main catch though.  When the PRNG must be reseeded [so that you can extract bits from it] only
+certain pools are used.  More precisely the i'th pool is used every 2**i'th reseeding.  For example, pool[0]
+is always used.  pool[1] is used every second reseeding, pool[2] every fourth.
+
+The pools are hashed together along with the current key and the result is the new key for a cipher which
+operates in CTR mode [more about that in a sec].
+
+Now this may seem odd at first however there is a good reason behind it.  An attacker who learns pool[0] won't
+strictly know the other pools.  So the recovery rate of is not 0.  In fact pool[0] can be completely 
+compromised and the PRNG will still eventually recover.  The value FORTUNA_WD is the "WatchDog" counter.
+Every FORTUNA_WD calls to fortuna_read will invoke the reseed operation.  By default this is set to 10 which 
+means after 10 calls the PRNG will reseed itself.  
+
+The pools are combined with the running cipher key [256 bits] so that a cipher in CTR mode can produce 
+the stream.  Unlike Yarrow the cipher is re-keyed after every call to fortuna_read() [so one big call 
+would be faster than many smaller calls].  This prevents too much data being encrypted under the same
+key [and mitigates a flaw in CTR mode that the same block can't be emitted twice under the same key].
+
+Fortuna is really meant for a kernel-level PRNG.  The more sources [and often] you feed into it the 
+healthier it will be.  It's also meant to be used for long term purposes.  Since it can recover from
+compromises it is harder to control it.  
+
+SOBER-128
+------
+
+SOBER-128 is actually a stream cipher but like most ciphers can easily be modelled in the context of a PRNG.
+This PRNG is extremely fast [4 cycles/byte on a P4] and was designed by a well known cryptographer [Greg Rose].
+
+SOBER-128 doesn't really "act" like the other two PRNGs.  It's meant to be seeded once and then read as 
+required.  In such a sense it isn't a "system PRNG" but useful short term purposes.  In particular
+the sober128_read() function actually XORs against the input buffer you specify.  This allows the 
+read() function to be used as an "encrypt" function as well.  
+
+You can only key SOBER-128 once [by calling sober128_add_entropy()].  Once it it is keyed subsequent
+calls to add_entropy() will be considered a "re-IV" operation.  Changing the IV allows you to use same
+initial key and not produce the same output stream.  It also lets you differentiate packets.  E.g. each
+packet has it's own IV.
+
+All inputs to sober128_add_entropy() must have a length that is a multiple of four.
+
+Overall
+-------
+
+Since SOBER-128 is *much* faster than the other two PRNGs a good setup would be to use Fortuna as your 
+system-wide PRNG and use SOBER-128 [key'ed from Fortuna] for encrypting streams or as a PRNG for 
+simulations.
+
+Yarrow is still a good candidate but only for "short lived" programs.  However, since Fortuna is faster
+[by about 10 cycles/byte on a P4] I'd use Fortuna anyways...
+
+Tom

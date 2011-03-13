@@ -1,0 +1,20 @@
+Tech Note 0005
+Minimizing Code Space
+Tom St Denis
+
+Introduction
+------------
+
+Tweaking...
+
+You can disable whole classes of algorithms on the command line with the LTC_NO_* defines.  From there you can manually turn on what you want to enable.  
+
+The following build with GCC 3.4.4 on an AMD64 box gets you AES, CTR mode, SHA-256, HMAC, Yarrow, full RSA PKCS #1, PKCS #5 and ASN.1 DER in 
+roughly 40KB of code (49KB on the ARMv4) (both excluding the math library).
+
+CFLAGS="-DLTC_NO_CIPHERS -DLTC_NO_HASHES -DLTC_NO_PRNGS -DLTC_NO_MACS -DLTC_NO_MODES -DLTC_NO_PK -DLTC_RIJNDAEL -DLTC_CTR_MODE -DSHA256 \
+-DLTC_HMAC -DYARROW -DMRSA -DMPI -DTFM_DESC -DARGTYPE=3 -Os -DLTC_SMALL_CODE -fomit-frame-pointer" make IGNORE_SPEED=1
+
+Obviously this won't get you performance but if you need to pack a crypto lib in a device with limited means it's more than enough...
+
+Neato eh?

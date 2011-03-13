@@ -1,0 +1,152 @@
+#MSVC Makefile [tested with MSVC 6.00 with SP5]
+#
+#Tom St Denis
+CFLAGS = /Isrc/headers/ /Itestprof/ /Ox /DWIN32 /DLTC_SOURCE /W3 /Fo$@ $(CF)
+
+#START_INS
+OBJECTS=src/ciphers/aes/aes_enc.obj src/ciphers/aes/aes.obj src/ciphers/anubis.obj src/ciphers/blowfish.obj \
+src/ciphers/cast5.obj src/ciphers/des.obj src/ciphers/kasumi.obj src/ciphers/khazad.obj src/ciphers/kseed.obj \
+src/ciphers/multi2.obj src/ciphers/noekeon.obj src/ciphers/rc2.obj src/ciphers/rc5.obj src/ciphers/rc6.obj \
+src/ciphers/safer/safer.obj src/ciphers/safer/saferp.obj src/ciphers/safer/safer_tab.obj \
+src/ciphers/skipjack.obj src/ciphers/twofish/twofish.obj src/ciphers/xtea.obj src/encauth/ccm/ccm_memory.obj \
+src/encauth/ccm/ccm_test.obj src/encauth/eax/eax_addheader.obj src/encauth/eax/eax_decrypt.obj \
+src/encauth/eax/eax_decrypt_verify_memory.obj src/encauth/eax/eax_done.obj \
+src/encauth/eax/eax_encrypt_authenticate_memory.obj src/encauth/eax/eax_encrypt.obj \
+src/encauth/eax/eax_init.obj src/encauth/eax/eax_test.obj src/encauth/gcm/gcm_add_aad.obj \
+src/encauth/gcm/gcm_add_iv.obj src/encauth/gcm/gcm_done.obj src/encauth/gcm/gcm_gf_mult.obj \
+src/encauth/gcm/gcm_init.obj src/encauth/gcm/gcm_memory.obj src/encauth/gcm/gcm_mult_h.obj \
+src/encauth/gcm/gcm_process.obj src/encauth/gcm/gcm_reset.obj src/encauth/gcm/gcm_test.obj \
+src/encauth/ocb/ocb_decrypt.obj src/encauth/ocb/ocb_decrypt_verify_memory.obj \
+src/encauth/ocb/ocb_done_decrypt.obj src/encauth/ocb/ocb_done_encrypt.obj \
+src/encauth/ocb/ocb_encrypt_authenticate_memory.obj src/encauth/ocb/ocb_encrypt.obj \
+src/encauth/ocb/ocb_init.obj src/encauth/ocb/ocb_ntz.obj src/encauth/ocb/ocb_shift_xor.obj \
+src/encauth/ocb/ocb_test.obj src/encauth/ocb/s_ocb_done.obj src/hashes/chc/chc.obj \
+src/hashes/helper/hash_file.obj src/hashes/helper/hash_filehandle.obj src/hashes/helper/hash_memory.obj \
+src/hashes/helper/hash_memory_multi.obj src/hashes/md2.obj src/hashes/md4.obj src/hashes/md5.obj \
+src/hashes/rmd128.obj src/hashes/rmd160.obj src/hashes/rmd256.obj src/hashes/rmd320.obj src/hashes/sha1.obj \
+src/hashes/sha2/sha256.obj src/hashes/sha2/sha512.obj src/hashes/tiger.obj src/hashes/whirl/whirl.obj \
+src/mac/f9/f9_done.obj src/mac/f9/f9_file.obj src/mac/f9/f9_init.obj src/mac/f9/f9_memory.obj \
+src/mac/f9/f9_memory_multi.obj src/mac/f9/f9_process.obj src/mac/f9/f9_test.obj src/mac/hmac/hmac_done.obj \
+src/mac/hmac/hmac_file.obj src/mac/hmac/hmac_init.obj src/mac/hmac/hmac_memory.obj \
+src/mac/hmac/hmac_memory_multi.obj src/mac/hmac/hmac_process.obj src/mac/hmac/hmac_test.obj \
+src/mac/omac/omac_done.obj src/mac/omac/omac_file.obj src/mac/omac/omac_init.obj src/mac/omac/omac_memory.obj \
+src/mac/omac/omac_memory_multi.obj src/mac/omac/omac_process.obj src/mac/omac/omac_test.obj \
+src/mac/pelican/pelican.obj src/mac/pelican/pelican_memory.obj src/mac/pelican/pelican_test.obj \
+src/mac/pmac/pmac_done.obj src/mac/pmac/pmac_file.obj src/mac/pmac/pmac_init.obj src/mac/pmac/pmac_memory.obj \
+src/mac/pmac/pmac_memory_multi.obj src/mac/pmac/pmac_ntz.obj src/mac/pmac/pmac_process.obj \
+src/mac/pmac/pmac_shift_xor.obj src/mac/pmac/pmac_test.obj src/mac/xcbc/xcbc_done.obj \
+src/mac/xcbc/xcbc_file.obj src/mac/xcbc/xcbc_init.obj src/mac/xcbc/xcbc_memory.obj \
+src/mac/xcbc/xcbc_memory_multi.obj src/mac/xcbc/xcbc_process.obj src/mac/xcbc/xcbc_test.obj \
+src/math/fp/ltc_ecc_fp_mulmod.obj src/math/gmp_desc.obj src/math/ltm_desc.obj src/math/multi.obj \
+src/math/rand_prime.obj src/math/tfm_desc.obj src/misc/base64/base64_decode.obj \
+src/misc/base64/base64_encode.obj src/misc/burn_stack.obj src/misc/crypt/crypt_argchk.obj \
+src/misc/crypt/crypt.obj src/misc/crypt/crypt_cipher_descriptor.obj src/misc/crypt/crypt_cipher_is_valid.obj \
+src/misc/crypt/crypt_find_cipher_any.obj src/misc/crypt/crypt_find_cipher.obj \
+src/misc/crypt/crypt_find_cipher_id.obj src/misc/crypt/crypt_find_hash_any.obj \
+src/misc/crypt/crypt_find_hash.obj src/misc/crypt/crypt_find_hash_id.obj \
+src/misc/crypt/crypt_find_hash_oid.obj src/misc/crypt/crypt_find_prng.obj src/misc/crypt/crypt_fsa.obj \
+src/misc/crypt/crypt_hash_descriptor.obj src/misc/crypt/crypt_hash_is_valid.obj \
+src/misc/crypt/crypt_ltc_mp_descriptor.obj src/misc/crypt/crypt_prng_descriptor.obj \
+src/misc/crypt/crypt_prng_is_valid.obj src/misc/crypt/crypt_register_cipher.obj \
+src/misc/crypt/crypt_register_hash.obj src/misc/crypt/crypt_register_prng.obj \
+src/misc/crypt/crypt_unregister_cipher.obj src/misc/crypt/crypt_unregister_hash.obj \
+src/misc/crypt/crypt_unregister_prng.obj src/misc/error_to_string.obj src/misc/pkcs5/pkcs_5_1.obj \
+src/misc/pkcs5/pkcs_5_2.obj src/misc/zeromem.obj src/modes/cbc/cbc_decrypt.obj src/modes/cbc/cbc_done.obj \
+src/modes/cbc/cbc_encrypt.obj src/modes/cbc/cbc_getiv.obj src/modes/cbc/cbc_setiv.obj \
+src/modes/cbc/cbc_start.obj src/modes/cfb/cfb_decrypt.obj src/modes/cfb/cfb_done.obj \
+src/modes/cfb/cfb_encrypt.obj src/modes/cfb/cfb_getiv.obj src/modes/cfb/cfb_setiv.obj \
+src/modes/cfb/cfb_start.obj src/modes/ctr/ctr_decrypt.obj src/modes/ctr/ctr_done.obj \
+src/modes/ctr/ctr_encrypt.obj src/modes/ctr/ctr_getiv.obj src/modes/ctr/ctr_setiv.obj \
+src/modes/ctr/ctr_start.obj src/modes/ctr/ctr_test.obj src/modes/ecb/ecb_decrypt.obj src/modes/ecb/ecb_done.obj \
+src/modes/ecb/ecb_encrypt.obj src/modes/ecb/ecb_start.obj src/modes/f8/f8_decrypt.obj src/modes/f8/f8_done.obj \
+src/modes/f8/f8_encrypt.obj src/modes/f8/f8_getiv.obj src/modes/f8/f8_setiv.obj src/modes/f8/f8_start.obj \
+src/modes/f8/f8_test_mode.obj src/modes/lrw/lrw_decrypt.obj src/modes/lrw/lrw_done.obj \
+src/modes/lrw/lrw_encrypt.obj src/modes/lrw/lrw_getiv.obj src/modes/lrw/lrw_process.obj \
+src/modes/lrw/lrw_setiv.obj src/modes/lrw/lrw_start.obj src/modes/lrw/lrw_test.obj \
+src/modes/ofb/ofb_decrypt.obj src/modes/ofb/ofb_done.obj src/modes/ofb/ofb_encrypt.obj \
+src/modes/ofb/ofb_getiv.obj src/modes/ofb/ofb_setiv.obj src/modes/ofb/ofb_start.obj \
+src/modes/xts/xts_decrypt.obj src/modes/xts/xts_done.obj src/modes/xts/xts_encrypt.obj \
+src/modes/xts/xts_init.obj src/modes/xts/xts_mult_x.obj src/modes/xts/xts_test.obj \
+src/pk/asn1/der/bit/der_decode_bit_string.obj src/pk/asn1/der/bit/der_encode_bit_string.obj \
+src/pk/asn1/der/bit/der_length_bit_string.obj src/pk/asn1/der/boolean/der_decode_boolean.obj \
+src/pk/asn1/der/boolean/der_encode_boolean.obj src/pk/asn1/der/boolean/der_length_boolean.obj \
+src/pk/asn1/der/choice/der_decode_choice.obj src/pk/asn1/der/ia5/der_decode_ia5_string.obj \
+src/pk/asn1/der/ia5/der_encode_ia5_string.obj src/pk/asn1/der/ia5/der_length_ia5_string.obj \
+src/pk/asn1/der/integer/der_decode_integer.obj src/pk/asn1/der/integer/der_encode_integer.obj \
+src/pk/asn1/der/integer/der_length_integer.obj \
+src/pk/asn1/der/object_identifier/der_decode_object_identifier.obj \
+src/pk/asn1/der/object_identifier/der_encode_object_identifier.obj \
+src/pk/asn1/der/object_identifier/der_length_object_identifier.obj \
+src/pk/asn1/der/octet/der_decode_octet_string.obj src/pk/asn1/der/octet/der_encode_octet_string.obj \
+src/pk/asn1/der/octet/der_length_octet_string.obj \
+src/pk/asn1/der/printable_string/der_decode_printable_string.obj \
+src/pk/asn1/der/printable_string/der_encode_printable_string.obj \
+src/pk/asn1/der/printable_string/der_length_printable_string.obj \
+src/pk/asn1/der/sequence/der_decode_sequence_ex.obj \
+src/pk/asn1/der/sequence/der_decode_sequence_flexi.obj \
+src/pk/asn1/der/sequence/der_decode_sequence_multi.obj \
+src/pk/asn1/der/sequence/der_encode_sequence_ex.obj \
+src/pk/asn1/der/sequence/der_encode_sequence_multi.obj src/pk/asn1/der/sequence/der_length_sequence.obj \
+src/pk/asn1/der/sequence/der_sequence_free.obj src/pk/asn1/der/set/der_encode_set.obj \
+src/pk/asn1/der/set/der_encode_setof.obj src/pk/asn1/der/short_integer/der_decode_short_integer.obj \
+src/pk/asn1/der/short_integer/der_encode_short_integer.obj \
+src/pk/asn1/der/short_integer/der_length_short_integer.obj src/pk/asn1/der/utctime/der_decode_utctime.obj \
+src/pk/asn1/der/utctime/der_encode_utctime.obj src/pk/asn1/der/utctime/der_length_utctime.obj \
+src/pk/asn1/der/utf8/der_decode_utf8_string.obj src/pk/asn1/der/utf8/der_encode_utf8_string.obj \
+src/pk/asn1/der/utf8/der_length_utf8_string.obj src/pk/dsa/dsa_decrypt_key.obj \
+src/pk/dsa/dsa_encrypt_key.obj src/pk/dsa/dsa_export.obj src/pk/dsa/dsa_free.obj src/pk/dsa/dsa_import.obj \
+src/pk/dsa/dsa_make_key.obj src/pk/dsa/dsa_shared_secret.obj src/pk/dsa/dsa_sign_hash.obj \
+src/pk/dsa/dsa_verify_hash.obj src/pk/dsa/dsa_verify_key.obj src/pk/ecc/ecc_ansi_x963_export.obj \
+src/pk/ecc/ecc_ansi_x963_import.obj src/pk/ecc/ecc.obj src/pk/ecc/ecc_decrypt_key.obj \
+src/pk/ecc/ecc_encrypt_key.obj src/pk/ecc/ecc_export.obj src/pk/ecc/ecc_free.obj src/pk/ecc/ecc_get_size.obj \
+src/pk/ecc/ecc_import.obj src/pk/ecc/ecc_make_key.obj src/pk/ecc/ecc_shared_secret.obj \
+src/pk/ecc/ecc_sign_hash.obj src/pk/ecc/ecc_sizes.obj src/pk/ecc/ecc_test.obj src/pk/ecc/ecc_verify_hash.obj \
+src/pk/ecc/ltc_ecc_is_valid_idx.obj src/pk/ecc/ltc_ecc_map.obj src/pk/ecc/ltc_ecc_mul2add.obj \
+src/pk/ecc/ltc_ecc_mulmod.obj src/pk/ecc/ltc_ecc_mulmod_timing.obj src/pk/ecc/ltc_ecc_points.obj \
+src/pk/ecc/ltc_ecc_projective_add_point.obj src/pk/ecc/ltc_ecc_projective_dbl_point.obj \
+src/pk/katja/katja_decrypt_key.obj src/pk/katja/katja_encrypt_key.obj src/pk/katja/katja_export.obj \
+src/pk/katja/katja_exptmod.obj src/pk/katja/katja_free.obj src/pk/katja/katja_import.obj \
+src/pk/katja/katja_make_key.obj src/pk/pkcs1/pkcs_1_i2osp.obj src/pk/pkcs1/pkcs_1_mgf1.obj \
+src/pk/pkcs1/pkcs_1_oaep_decode.obj src/pk/pkcs1/pkcs_1_oaep_encode.obj src/pk/pkcs1/pkcs_1_os2ip.obj \
+src/pk/pkcs1/pkcs_1_pss_decode.obj src/pk/pkcs1/pkcs_1_pss_encode.obj src/pk/pkcs1/pkcs_1_v1_5_decode.obj \
+src/pk/pkcs1/pkcs_1_v1_5_encode.obj src/pk/rsa/rsa_decrypt_key.obj src/pk/rsa/rsa_encrypt_key.obj \
+src/pk/rsa/rsa_export.obj src/pk/rsa/rsa_exptmod.obj src/pk/rsa/rsa_free.obj src/pk/rsa/rsa_import.obj \
+src/pk/rsa/rsa_make_key.obj src/pk/rsa/rsa_sign_hash.obj src/pk/rsa/rsa_verify_hash.obj src/prngs/fortuna.obj \
+src/prngs/rc4.obj src/prngs/rng_get_bytes.obj src/prngs/rng_make_prng.obj src/prngs/sober128.obj \
+src/prngs/sprng.obj src/prngs/yarrow.obj 
+
+HEADERS=src/headers/tomcrypt_cfg.h src/headers/tomcrypt_mac.h src/headers/tomcrypt_macros.h \
+src/headers/tomcrypt_custom.h src/headers/tomcrypt_argchk.h src/headers/tomcrypt_cipher.h \
+src/headers/tomcrypt_pk.h src/headers/tomcrypt_hash.h src/headers/tomcrypt_math.h \
+src/headers/tomcrypt_misc.h src/headers/tomcrypt.h src/headers/tomcrypt_pkcs.h \
+src/headers/tomcrypt_prng.h testprof/tomcrypt_test.h
+
+#END_INS
+
+default: library
+
+#ciphers come in two flavours... enc+dec and enc
+src/ciphers/aes/aes_enc.obj: src/ciphers/aes/aes.c src/ciphers/aes/aes_tab.c
+	$(CC) $(CFLAGS) /DENCRYPT_ONLY /c src/ciphers/aes/aes.c /Fosrc/ciphers/aes/aes_enc.obj
+
+library: $(OBJECTS)
+	lib /out:tomcrypt.lib $(OBJECTS)
+	cd testprof 
+	nmake -f makefile.msvc
+	cd ..
+	
+tv_gen: demos/tv_gen.c library
+	cl $(CFLAGS) demos/tv_gen.c tomcrypt.lib advapi32.lib $(EXTRALIBS)
+
+hashsum: demos/hashsum.c library
+	cl $(CFLAGS) demos/hashsum.c tomcrypt.lib advapi32.lib $(EXTRALIBS)
+
+test: demos/test.c library
+	cl $(CFLAGS) demos/test.c testprof/tomcrypt_prof.lib tomcrypt.lib advapi32.lib $(EXTRALIBS)
+
+timing: demos/timing.c library
+	cl $(CFLAGS) demos/timing.c testprof/tomcrypt_prof.lib tomcrypt.lib advapi32.lib $(EXTRALIBS)
+
+# $Source: /cvs/libtom/libtomcrypt/makefile.msvc,v $   
+# $Revision: 1.54 $   
+# $Date: 2007/02/16 16:36:25 $ 

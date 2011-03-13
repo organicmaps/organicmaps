@@ -1,0 +1,10 @@
+CFLAGS = /I../src/headers/ /I./ /Ox /DWIN32 /DLTC_SOURCE /W3 /Fo$@
+
+OBJECTS=base64_test.obj cipher_hash_test.obj der_tests.obj            \
+dsa_test.obj ecc_test.obj mac_test.obj modes_test.obj pkcs_1_test.obj \
+rsa_test.obj store_test.obj test_driver.obj x86_prof.obj katja_test.obj
+
+tomcrypt_prof.lib: $(OBJECTS)
+	lib /out:tomcrypt_prof.lib $(OBJECTS)
+
+

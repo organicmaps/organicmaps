@@ -1,0 +1,91 @@
+Tech Note 0006
+PK Standards Compliance
+Tom St Denis
+
+RSA
+----
+
+PKCS #1 compliance.
+
+Key Format:  RSAPublicKey and RSAPrivateKey as per PKCS #1 v2.1
+Encryption:  OAEP as per PKCS #1
+Signature :  PSS  as per PKCS #1
+
+DSA
+----
+
+The NIST DSA algorithm
+
+Key Format:  HomeBrew [see below]
+Signature :  ANSI X9.62 format [see below].
+
+Keys are stored as 
+
+DSAPublicKey ::= SEQUENCE {
+    publicFlags    BIT STRING(1), -- must be 0
+    g              INTEGER      , -- base generator, check that g^q mod p == 1
+                                  -- and that 1 < g < p - 1
+    p              INTEGER      , -- prime modulus 
+    q              INTEGER      , -- order of sub-group (must be prime)
+    y              INTEGER      , -- public key, specifically, g^x mod p, 
+                                  -- check that y^q mod p == 1
+                                  -- and that 1 < y < p - 1
+}
+
+DSAPrivateKey ::= SEQUENCE {
+    publicFlags    BIT STRING(1), -- must be 1
+    g              INTEGER      , -- base generator, check that g^q mod p == 1
+                                  -- and that 1 < g < p - 1
+    p              INTEGER      , -- prime modulus 
+    q              INTEGER      , -- order of sub-group (must be prime)
+    y              INTEGER      , -- public key, specifically, g^x mod p, 
+                                  -- check that y^q mod p == 1
+                                  -- and that 1 < y < p - 1
+    x              INTEGER        -- private key
+}
+
+Signatures are stored as 
+
+DSASignature ::= SEQUENCE {
+    r, s           INTEGER        -- signature parameters
+}
+
+ECC
+----
+
+The ANSI X9.62 and X9.63 algorithms [partial].  Supports all NIST GF(p) curves.
+
+Key Format   :  Homebrew [see below, only GF(p) NIST curves supported]
+Signature    :  X9.62 compliant
+Encryption   :  Homebrew [based on X9.63, differs in that the public point is stored as an ECCPublicKey]
+Shared Secret:  X9.63 compliant
+
+ECCPublicKey ::= SEQUENCE {
+    flags       BIT STRING(1), -- public/private flag (always zero), 
+    keySize     INTEGER,       -- Curve size (in bits) divided by eight 
+                               -- and rounded down, e.g. 521 => 65
+    pubkey.x    INTEGER,       -- The X co-ordinate of the public key point
+    pubkey.y    INTEGER,       -- The Y co-ordinate of the public key point
+}
+
+ECCPrivateKey ::= SEQUENCE {
+    flags       BIT STRING(1), -- public/private flag (always one), 
+    keySize     INTEGER,       -- Curve size (in bits) divided by eight 
+                               -- and rounded down, e.g. 521 => 65
+    pubkey.x    INTEGER,       -- The X co-ordinate of the public key point
+    pubkey.y    INTEGER,       -- The Y co-ordinate of the public key point
+    secret.k    INTEGER,       -- The secret key scalar
+}
+
+The encryption works by finding the X9.63 shared secret and hashing it.  The hash is then simply XOR'ed against the message [which must be at most the size
+of the hash digest].  The format of the encrypted text is as follows
+
+ECCEncrypted ::= SEQUENCE {
+    hashOID     OBJECT IDENTIFIER,   -- The OID of the hash used
+    pubkey      OCTET STRING     ,   -- Encapsulation of a random ECCPublicKey
+    skey        OCTET STRING         -- The encrypted text (which the hash was XOR'ed against)
+}
+
+% $Source: /cvs/libtom/libtomcrypt/notes/tech0006.txt,v $   
+% $Revision: 1.2 $   
+% $Date: 2005/06/18 02:26:27 $ 

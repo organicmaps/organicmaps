@@ -1,0 +1,73 @@
+Tech Note 0001
+How to Gather Entropy on Embedded Systems
+Tom St Denis
+
+Introduction
+------------
+
+This tech note explains a relatively simple way to gather entropy for a PRNG (Yarrow in this case) in embedded systems
+where there are few sources of entropy or physical sources.
+
+When trying to setup a secure random number generator a fresh source of random data (entropy) is required to ensure the
+deterministic state of the PRNG is not known or predetermined with respect to an attacker.
+
+At the very least the system requires one timer and one source of un-timed interrupts.  by "un-timed" I mean interrupts
+that do not occur at regular intervals [e.g. joypad/keypad input, network packets, etc...].
+
+First we shall begin by taking an overview of how the Yarrow PRNG works within libtomcrypt.  At the heart of all
+PRNGs is the "prng_state" data type.  This is a union of structures that hold the PRNG state for the various prngs.  The 
+first thing we require is a state... 
+
+   prng_state myPrng;
+
+Next we must initialize the state once to get the ball rolling
+
+   if (yarrow_start(&myPrng) != CRYPT_OK) {
+      // error should never happen!
+   }
+
+At this point the PRNG is ready to accept fresh entropy which is added with
+
+   int yarrow_add_entropy(const unsigned char *buf, unsigned long len, prng_state *prng)
+
+This function is **NOT** thread safe which will come under consideration later.  To add entropy to our PRNG we must 
+call this function with fresh data as its sampled.  Lets say we have a timer counter called "uTimer" which is a 32-bit 
+long and say a 32-bit joyPad state called "uPad".  An example interrupt handler would look like
+
+   void joypad_interrupt(...) {
+       unsigned char buf[8];
+
+       STORE32L(uTimer, buf);
+       STORE32L(uPad, buf+4)
+       if (yarrow_add_entropy(buf, 8, &myPrng) != CRYPT_OK) {
+          // this should never occur either unless you didn't call yarrow_start
+       }
+ 
+       // handle interrupt
+   }
+
+In this snippet the timer count and state of the joypad are added together into the entropy pool.  The timer is important
+because with respect to the joypad it is a good source of entropy (on its own its not).  For example, the probability of
+the user pushing the up arrow is fairly high, but at a specific time is not.
+
+This method doesn't gather alot of entropy and has to be used to for quite a while.  One way to speed it up is to tap
+multiple sources.  If you have a network adapter and other sources of events (keyboard, mouse, etc...) trapping their
+data is ideal as well.  Its important to gather the timer along with the event data.
+
+As mentioned the "yarrow_add_entropy()" function is not thread safe.  If your system allows interrupt handlers to be 
+interrupted themselves then you could have trouble.  One simple way is to detect when an interrupt is in progress and
+simply not add entropy during the call (jump over the yarrow_add_entropy() call)
+
+Once you feel that there has been enough entropy added to the pool then within a single thread you can call
+
+    int yarrow_ready(prng_state *prng)
+
+Now the PRNG is ready to read via the 
+
+    unsigned long yarrow_read(unsigned char *buf, unsigned long len, prng_state *prng)
+
+It is a very good idea that once you call the yarrow_ready() function that you stop harvesting entropy in your interrupt
+functions.  This will free up alot of CPU time.  Also one more final note.  The yarrow_read() function is not thread
+safe either.  This means if you have multiple threads or processes that read from it you will have to add your own semaphores
+around calls to it.
+
