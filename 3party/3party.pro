@@ -2,7 +2,7 @@
 
 TEMPLATE = subdirs
 
-SUBDIRS = expat freetype fribidi zlib bzip2 jansson protobuf
+SUBDIRS = expat freetype fribidi zlib bzip2 jansson protobuf tomcrypt
 
 !iphonesimulator-g++42 {
   !iphonedevice-g++42 {

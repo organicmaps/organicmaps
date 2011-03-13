@@ -1,6 +1,6 @@
 # Main application in qt.
 ROOT_DIR = ..
-DEPENDENCIES = map storage indexer yg platform geometry coding base freetype expat fribidi version
+DEPENDENCIES = map storage indexer yg platform geometry coding base freetype expat fribidi tomcrypt version
 
 include($$ROOT_DIR/common.pri)
 

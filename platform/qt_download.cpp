@@ -4,11 +4,9 @@
 #include "../base/logging.hpp"
 #include "../base/assert.hpp"
 
-#include "../coding/bit_shift.hpp"
-
-#include "../version/version.hpp"
-
 #include "../std/target_os.hpp"
+
+#include <tomcrypt.h>
 
 #include <QNetworkInterface>
 #include <QFSFileEngine>
@@ -33,11 +31,7 @@ static QString MacAddress()
       && hwAddr.size() == 17) // mac length with semicolons
     {
       hwAddr.remove(':');
-      bool success = false;
-      qulonglong numAddr = hwAddr.toULongLong(&success, 16);
-      numAddr = bits::ror(numAddr, 11);
-      if (success)
-        return QString("%1").arg(numAddr);
+      return hwAddr;
     }
   }
   // no valid interface was found
@@ -67,13 +61,24 @@ static QString UniqueClientId()
     if (result.size() == 0)
       result = QString("------------");
   }
+  // calculate one-way hash
+  QByteArray const original = QByteArray::fromHex(result.toLocal8Bit());
+  unsigned char out[100] = { 0 };
+  hash_state md;
+  if (CRYPT_OK == sha1_init(&md)
+      && CRYPT_OK == sha1_process(&md, reinterpret_cast<unsigned char const *>(original.constData()),
+                                  original.size())
+      && CRYPT_OK == sha1_done(&md, out))
+  {
+    return QByteArray(reinterpret_cast<char const *>(out)).toHex();
+  }
+  // if encryption failed, do not encrypt data
   return result;
 }
 
 static QString UserAgent()
 {
-  static QString userAgent = QString("MWM(" OMIM_OS_NAME ")/") + QString(VERSION_STRING)
-                             + QString("/") + UniqueClientId();
+  static QString userAgent = UniqueClientId();
   return userAgent;
 }
 

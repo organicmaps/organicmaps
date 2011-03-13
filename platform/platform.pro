@@ -5,9 +5,11 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 ROOT_DIR = ..
-DEPENDENCIES = base version
+DEPENDENCIES = base tomcrypt
 
 include($$ROOT_DIR/common.pri)
+
+INCLUDEPATH += ../3party/tomcrypt/src/headers
 
 QT *= core network
 

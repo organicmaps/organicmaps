@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = platform coding base
+DEPENDENCIES = platform coding base tomcrypt
 
 include($$ROOT_DIR/common.pri)
 
