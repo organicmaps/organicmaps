@@ -60,7 +60,7 @@ namespace yg
       ResourceStyle const * style(skin()->fromID(styleID));
       if (style == 0)
       {
-        LOG(LINFO, ("styleID=", styleID, " wasn't found on the current skin"));
+        LOG(LINFO, ("drawSymbolImpl: styleID=", styleID, " wasn't found on the current skin"));
         return;
       }
 
@@ -86,7 +86,7 @@ namespace yg
       ResourceStyle const * style(skin()->fromID(styleID));
       if (style == 0)
       {
-        LOG(LINFO, ("styleID=", styleID, " wasn't found on the current skin"));
+        LOG(LINFO, ("drawSymbol: styleID=", styleID, " wasn't found on the current skin"));
         return;
       }
 

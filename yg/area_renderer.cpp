@@ -45,7 +45,7 @@ namespace yg
 
       if (style == 0)
       {
-        LOG(LINFO, ("styleID=", styleID, " wasn't found on current skin."));
+        LOG(LINFO, ("drawArea: styleID=", styleID, " wasn't found on current skin."));
         return;
       }
 
