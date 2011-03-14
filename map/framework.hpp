@@ -175,6 +175,8 @@ public:
     m_informationDisplay.enableCenter(false);
     m_informationDisplay.enableGlobalRect(!m_isBenchmarking);
     m_informationDisplay.enableRuler(true);
+    m_informationDisplay.setRulerParams(80, 20);
+    m_navigator.SetMinScreenParams(80, 20);
 
 #ifdef DEBUG
     m_informationDisplay.enableDebugInfo(true);
@@ -378,7 +380,7 @@ public:
     m2::PointD const center = m_navigator.Screen().ClipRect().Center();
 
     m_informationDisplay.setGlobalRect(m_navigator.Screen().GlobalRect());
-    m_informationDisplay.setCenter(m2::PointD(MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x)));
+    m_informationDisplay.setCenter(m2::PointD(MercatorBounds::XToLon(center.x), MercatorBounds::YToLat(center.y)));
 
     {
       threads::MutexGuard guard(*m_renderQueue.renderState().m_mutex.get());
@@ -387,7 +389,7 @@ public:
       {
         m2::PointD const center = m_renderQueue.renderState().m_actualScreen.ClipRect().Center();
         m_informationDisplay.setScreen(m_renderQueue.renderState().m_actualScreen);
-        m_informationDisplay.setCenter(m2::PointD(MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x)));
+        m_informationDisplay.setCenter(m2::PointD(MercatorBounds::XToLon(center.x), MercatorBounds::YToLat(center.y)));
 
         if (m_benchmarks.empty())
         {

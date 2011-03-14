@@ -171,21 +171,27 @@ void InformationDisplay::enableRuler(bool doEnable)
   m_isRulerEnabled = doEnable;
 }
 
+void InformationDisplay::setRulerParams(unsigned pxMinWidth, double metresMinWidth)
+{
+  m_pxMinWidth = pxMinWidth;
+  m_metresMinWidth = metresMinWidth;
+}
+
 void InformationDisplay::drawRuler(DrawerYG * pDrawer)
 {
   /// Compute Scaler
   /// scaler should be between minPixSize and maxPixSize
-  int minPixSize = 80;
+  int minPixSize = m_pxMinWidth;
 
   m2::PointD pt0 = m_centerPt;
   m2::PointD pt1 = m_screen.PtoG(m_screen.GtoP(m_centerPt) + m2::PointD(minPixSize, 0));
 
-  double latDiff = fabs(MercatorBounds::YToLat(pt1.x) - MercatorBounds::YToLat(pt0.x));
-  double metresDiff = latDiff / MercatorBounds::degreeInMetres;
+  double lonDiff = fabs(MercatorBounds::XToLon(pt1.x) - MercatorBounds::XToLon(pt0.x));
+  double metresDiff = lonDiff / MercatorBounds::degreeInMetres;
 
   /// finding the closest higher metric value
   unsigned curFirstDigit = 2;
-  unsigned curVal = 20;
+  unsigned curVal = m_metresMinWidth;
   unsigned maxVal = 1000000;
   bool lessThanMin = false;
   bool isInfinity = false;
@@ -220,7 +226,7 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
 
   /// translating meters to pixels
   double scalerWidthLatDiff = (double)curVal * MercatorBounds::degreeInMetres;
-  double scalerWidthXDiff = MercatorBounds::LatToY(pt0.x + scalerWidthLatDiff) - MercatorBounds::LatToY(pt0.x);
+  double scalerWidthXDiff = MercatorBounds::LonToX(pt0.x + scalerWidthLatDiff) - MercatorBounds::LonToX(pt0.x);
 
   double scalerWidthInPx = m_screen.GtoP(pt0).x - m_screen.GtoP(pt0 + m2::PointD(scalerWidthXDiff, 0)).x;
   scalerWidthInPx = (lessThanMin || isInfinity) ? minPixSize : abs(my::rounds(scalerWidthInPx));

@@ -37,6 +37,8 @@ private:
 
   bool m_isRulerEnabled;
   m2::PointD m_basePoint;
+  unsigned m_pxMinWidth;
+  double m_metresMinWidth;
 
   bool m_isCenterEnabled;
   m2::PointD m_centerPt;
@@ -96,6 +98,7 @@ public:
 
   void enableRuler(bool doEnable);
   void drawRuler(DrawerYG * pDrawer);
+  void setRulerParams(unsigned pxMinWidth, double metresMinWidth);
 
   void enableCenter(bool doEnable);
   void setCenter(m2::PointD const & latLongPt);

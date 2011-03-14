@@ -17,6 +17,7 @@ public:
   Navigator();
   explicit Navigator(ScreenBase const & screen);
 
+  void SetMinScreenParams(unsigned pxMinWidth, double metresMinWidth);
   void SetFromRect(m2::RectD const & r);
   void CenterViewport(m2::PointD const & p);
 
@@ -60,6 +61,13 @@ public:
 
 
 private:
+
+
+  unsigned m_pxMinWidth;
+  double m_metresMinWidth;
+  bool CheckMinScale(ScreenBase const & screen);
+  bool CheckMaxScale(ScreenBase const & screen);
+
   // Internal screen corresponding to the state when navigation began with StartDrag or StartScale.
   ScreenBase m_StartScreen;
   // Internal screen to do GtoP() and PtoG() calculations. It is always up to date with navigation.
@@ -85,7 +93,7 @@ private:
   // Device orientation
   EOrientation m_orientation;
   // Used in DoScale and ScaleByPoint
-  void ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2, m2::PointD const & oldPt1, m2::PointD const & oldPt2);
+  void ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2, m2::PointD const & oldPt1, m2::PointD const & oldPt2, bool skipMaxScaleCheck);
 };
 
 #include "../base/stop_mem_debug.hpp"
