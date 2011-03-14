@@ -1,70 +1,48 @@
 #pragma once
 
-#include "../base/std_serialization.hpp"
-
-#include "../coding/streams_sink.hpp"
-
 #include "../geometry/rect2d.hpp"
 
-#include "../std/string.hpp"
-#include "../std/tuple.hpp"
+#include "../std/array.hpp"
 
 #include "../base/start_mem_debug.hpp"
+
+
+class FileReader;
+class FileWriter;
 
 namespace feature
 {   
   /// All file sizes are in bytes
   class DataHeader
   {
-    /// @TODO move version somewhere else
-    static int32_t const MAPS_MAJOR_VERSION_BINARY_FORMAT = 1;
+    int64_t m_base;
 
-  private:
-    typedef tuple<
-              pair<int64_t, int64_t> // boundary;
-            > params_t;
-    params_t m_params;
+    pair<int64_t, int64_t> m_bounds;
 
-    enum param_t { EBoundary };
-
-    template <int N>
-    typename tuple_element<N, params_t>::type const & Get() const { return m_params.get<N>(); }
-    template <int N, class T>
-    void Set(T const & t) { m_params.get<N>() = t; }
+    array<uint8_t, 4> m_scales;
 
   public:
     DataHeader();
 
-    /// Zeroes all fields
+    /// Zero all fields
     void Reset();
 
-    m2::RectD const Bounds() const;
+    void SetBase(m2::PointD const & p);
+    int64_t GetBase() const { return m_base; }
+
+    m2::RectD const GetBounds() const;
     void SetBounds(m2::RectD const & r);
+
+    void SetScales(int * arr);
+    size_t GetScalesCount() const { return m_scales.size(); }
+    int GetScale(int i) const { return m_scales[i]; }
 
     /// @name Serialization
     //@{
-    template <class TWriter> void Save(TWriter & writer) const
-    {
-      stream::SinkWriterStream<TWriter> w(writer);
-      w << MAPS_MAJOR_VERSION_BINARY_FORMAT;
-      serial::save_tuple(w, m_params);
-    }
-    /// @return false if header can't be read (invalid or newer version format)
-    template <class TReader> bool Load(TReader & reader)
-    {
-      stream::SinkReaderStream<TReader> r(reader);
-
-      uint32_t ver;
-      r >> ver;
-      if (ver > MAPS_MAJOR_VERSION_BINARY_FORMAT)
-        return false;
-      Reset();
-      serial::load_tuple(r, m_params);
-      return true;
-    }
+    void Save(FileWriter & w) const;
+    void Load(FileReader const & r);
     //@}
   };
-
 }
 
 #include "../base/stop_mem_debug.hpp"

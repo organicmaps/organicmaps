@@ -43,11 +43,7 @@ namespace feature
     m2::RectD m_bounds;
 
   protected:
-    void Init();
-
     static uint32_t GetFileSize(FileWriter const & f);
-
-    void WriteHeader();
 
     void WriteFeatureBase(vector<char> const & bytes, FeatureBuilder1 const & fb);
 
@@ -57,7 +53,6 @@ namespace feature
 
     FeaturesCollector(string const & fName);
     FeaturesCollector(string const & bucket, InitDataType const & prefix);
-    ~FeaturesCollector();
 
     void operator() (FeatureBuilder1 const & f);
   };

@@ -578,6 +578,7 @@ FeatureType::FeatureType(read_source_t & src)
 void FeatureType::Deserialize(read_source_t & src)
 {
   m_cont = &src.m_cont;
+  m_header = &src.m_header;
 
   m_Points.clear();
   m_Triangles.clear();
@@ -587,7 +588,7 @@ void FeatureType::Deserialize(read_source_t & src)
 
   m_InnerStats.MakeZero();
 
-  base_type::Deserialize(src.m_data, src.m_offset, src.m_base);
+  base_type::Deserialize(src.m_data, src.m_offset, m_header->GetBase());
 }
 
 namespace
@@ -595,18 +596,18 @@ namespace
     uint32_t const kInvalidOffset = uint32_t(-1);
 }
 
-int FeatureType::GetScaleIndex(int scale)
+int FeatureType::GetScaleIndex(int scale) const
 {
-  int const count = ARRAY_SIZE(feature::g_arrScales);
+  int const count = m_header->GetScalesCount();
   if (scale == -1) return count-1;
 
-  for (size_t i = 0; i < count; ++i)
-    if (scale <= feature::g_arrScales[i])
+  for (int i = 0; i < count; ++i)
+    if (scale <= m_header->GetScale(i))
       return i;
   return -1;
 }
 
-int FeatureType::GetScaleIndex(int scale, offsets_t const & offsets)
+int FeatureType::GetScaleIndex(int scale, offsets_t const & offsets) const
 {
   if (scale == -1)
   {
@@ -620,8 +621,8 @@ int FeatureType::GetScaleIndex(int scale, offsets_t const & offsets)
   }
   else
   {
-    for (size_t i = 0; i < ARRAY_SIZE(feature::g_arrScales); ++i)
-      if (scale <= feature::g_arrScales[i])
+    for (size_t i = 0; i < m_header->GetScalesCount(); ++i)
+      if (scale <= m_header->GetScale(i))
       {
         if (offsets[i] != kInvalidOffset)
           return i;
@@ -847,7 +848,7 @@ uint32_t FeatureType::ParseGeometry(int scale) const
       points.reserve(count);
 
       uint32_t const scaleIndex = GetScaleIndex(scale);
-      ASSERT_LESS ( scaleIndex, ARRAY_SIZE(feature::g_arrScales), () );
+      ASSERT_LESS ( scaleIndex, m_header->GetScalesCount(), () );
 
       points.push_back(m_Points.front());
       for (size_t i = 1; i < count-1; ++i)
@@ -898,14 +899,14 @@ uint32_t FeatureType::ParseTriangles(int scale) const
   return sz;
 }
 
-void FeatureType::ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets)
+void FeatureType::ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets) const
 {
   ASSERT_GREATER ( mask, 0, () );
 
   int index = 0;
   while (mask > 0)
   {
-    ASSERT_LESS ( index, ARRAY_SIZE(feature::g_arrScales), () );
+    ASSERT_LESS ( index, m_header->GetScalesCount(), () );
     offsets[index++] = (mask & 0x01) ? ReadVarUint<uint32_t>(src) : kInvalidOffset;
     mask = mask >> 1;
   }

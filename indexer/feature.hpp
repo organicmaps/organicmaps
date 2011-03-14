@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cell_id.hpp"
+#include "data_header.hpp"
 
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
@@ -343,10 +344,10 @@ public:
     buffer_t m_data;
     uint32_t m_offset;
 
-    int64_t m_base;
+    feature::DataHeader m_header;
 
     read_source_t(FilesContainerR const & cont)
-      : m_cont(cont), m_offset(0), m_base(0)
+      : m_cont(cont), m_offset(0)
     {
     }
 
@@ -469,6 +470,8 @@ private:
 
   FilesContainerR * m_cont;
 
+  feature::DataHeader const * m_header;
+
   mutable bool m_bHeader2Parsed, m_bPointsParsed, m_bTrianglesParsed;
 
   mutable inner_geom_stat_t m_InnerStats;
@@ -477,10 +480,10 @@ private:
 
   typedef array<uint32_t, 4> offsets_t; // should be synchronized with ARRAY_SIZE(g_arrScales)
 
-  static void ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets);
+  void ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets) const;
 
-  static int GetScaleIndex(int scale);
-  static int GetScaleIndex(int scale, offsets_t const & offset);
+  int GetScaleIndex(int scale) const;
+  int GetScaleIndex(int scale, offsets_t const & offset) const;
 
   mutable offsets_t m_ptsOffsets, m_trgOffsets;
 };

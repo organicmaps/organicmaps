@@ -16,6 +16,7 @@
 #include "../../std/scoped_ptr.hpp"
 #include "../../std/unordered_map.hpp"
 
+
 namespace m2
 {
   inline size_t hash_value(m2::PointD const & pt)
@@ -41,6 +42,18 @@ class WorldMapGenerator
   TypesContainerT m_features;
 
 private:
+  bool EmitAreaFeature(FeatureBuilder1Merger & fbm)
+  {
+    if (fbm.FirstPoint() == fbm.LastPoint())
+    {
+      fbm.SetAreaSafe();
+      (*m_worldBucket)(fbm);
+      ++m_areasCounter;
+      return true;
+    }
+    else return false;
+  }
+
   /// scans all features and tries to merge them with each other
   /// @return true if one feature was merged
   bool ReMergeFeatures(FeaturesContainerT & features)
@@ -55,12 +68,8 @@ private:
         features.erase(found);
         ++m_mergedCounter;
 
-        if (base->second.FirstPoint() == base->second.LastPoint())
-        {
-          (*m_worldBucket)(base->second);
+        if (EmitAreaFeature(base->second))
           features.erase(base);
-          ++m_areasCounter;
-        }
         return true;
       }
     }
@@ -78,12 +87,7 @@ private:
       ++m_mergedCounter;
     }
 
-    if (fbm.FirstPoint() == fbm.LastPoint())
-    {
-      (*m_worldBucket)(fbm);
-      ++m_areasCounter;
-    }
-    else
+    if (!EmitAreaFeature(fbm))
     {
       pair<FeaturesContainerT::iterator, bool> result = container.insert(make_pair(fbm.FirstPoint(), fbm));
       // if we found feature with the same starting point, emit it directly

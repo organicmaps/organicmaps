@@ -21,7 +21,7 @@ namespace stats
 
     vector<string> tags;
     tags.push_back(DATA_FILE_TAG);
-    for (int i = 0; i < ARRAY_SIZE(feature::g_arrScales); ++i)
+    for (int i = 0; i < ARRAY_SIZE(feature::g_arrCountryScales); ++i)
     {
       tags.push_back(feature::GetTagForIndex(GEOMETRY_FILE_TAG, i));
       tags.push_back(feature::GetTagForIndex(TRIANGLE_FILE_TAG, i));

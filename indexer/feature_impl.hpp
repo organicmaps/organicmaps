@@ -22,7 +22,8 @@ namespace feature
   }
 
 
-  static int g_arrScales[] = { 7, 10, 14, 17 };  // 17 = scales::GetUpperScale()
+  static int g_arrWorldScales[] = { 1, 3, 4, 6 };       // 6 = upper scale for world.mwm visibility
+  static int g_arrCountryScales[] = { 7, 10, 14, 17 };  // 17 = scales::GetUpperScale()
 
   inline string GetTagForIndex(char const * prefix, int ind)
   {
@@ -31,7 +32,8 @@ namespace feature
     str = prefix;
 
     static char arrChar[] = { '0', '1', '2', '3' };
-    STATIC_ASSERT ( ARRAY_SIZE(arrChar) == ARRAY_SIZE(g_arrScales) );
+    STATIC_ASSERT ( ARRAY_SIZE(arrChar) == ARRAY_SIZE(g_arrWorldScales) );
+    STATIC_ASSERT ( ARRAY_SIZE(arrChar) == ARRAY_SIZE(g_arrCountryScales) );
     ASSERT ( ind >= 0 && ind < ARRAY_SIZE(arrChar), (ind) );
 
     str += arrChar[ind];

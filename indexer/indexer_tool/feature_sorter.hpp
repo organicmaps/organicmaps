@@ -13,7 +13,7 @@ namespace feature
 {
   /// Final generation of data from input feature-dat-file.
   /// @param[in] bSort sorts features in the given file by their mid points
-  bool GenerateFinalFeatures(string const & datFile, bool bSort);
+  bool GenerateFinalFeatures(string const & datFile, bool bSort, bool bWorld);
 
   template <class PointT>
   inline bool are_points_equal(PointT const & p1, PointT const & p2)

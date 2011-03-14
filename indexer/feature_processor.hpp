@@ -34,10 +34,7 @@ namespace feature
     FileReader reader(fName);
     ReaderSource<FileReader> src(reader);
 
-    // skip header
-    uint64_t currPos = feature::GetSkipHeaderSize(reader);
-    src.Skip(currPos);
-
+    uint64_t currPos = 0;
     uint64_t const fSize = reader.Size();
 
     // read features one by one

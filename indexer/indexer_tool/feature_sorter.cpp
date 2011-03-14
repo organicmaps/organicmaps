@@ -72,21 +72,21 @@ namespace
 
 namespace feature
 {
+  typedef array<uint8_t, 4> scales_t;
+
   class FeaturesCollector2 : public FeaturesCollector
   {
     FilesContainerW m_writer;
 
     vector<FileWriter*> m_geoFile, m_trgFile;
 
-    int64_t m_base;
-
-    static const int m_scales = ARRAY_SIZE(g_arrScales);
+    feature::DataHeader m_header;
 
   public:
-    FeaturesCollector2(string const & fName, int64_t base)
-      : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName), m_base(base)
+    FeaturesCollector2(string const & fName, feature::DataHeader const & header)
+      : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName), m_header(header)
     {
-      for (int i = 0; i < m_scales; ++i)
+      for (int i = 0; i < m_header.GetScalesCount(); ++i)
       {
         string const postfix = utils::to_string(i);
         m_geoFile.push_back(new FileWriter(fName + GEOMETRY_FILE_TAG + postfix));
@@ -96,12 +96,10 @@ namespace feature
 
     ~FeaturesCollector2()
     {
-      WriteHeader();
-
       // write own mwm header (now it's a base point only)
-      LOG(LINFO, ("OFFSET = ", m_base));
+      m_header.SetBounds(m_bounds);
       FileWriter w = m_writer.GetWriter(HEADER_FILE_TAG);
-      WriteToSink(w, m_base);
+      m_header.Save(w);
       w.Flush();
 
       // assume like we close files
@@ -109,7 +107,7 @@ namespace feature
 
       m_writer.Append(m_datFile.GetName(), DATA_FILE_TAG);
 
-      for (int i = 0; i < m_scales; ++i)
+      for (int i = 0; i < m_header.GetScalesCount(); ++i)
       {
         string const geomFile = m_geoFile[i]->GetName();
         string const trgFile = m_trgFile[i]->GetName();
@@ -315,18 +313,18 @@ namespace feature
     {
       (void)GetFileSize(m_datFile);
 
-      GeometryHolder holder(*this, fb, m_base);
+      GeometryHolder holder(*this, fb, m_header.GetBase());
 
       bool const isLine = fb.IsLine();
       bool const isArea = fb.IsArea();
 
-      for (int i = m_scales-1; i >= 0; --i)
+      for (int i = m_header.GetScalesCount()-1; i >= 0; --i)
       {
-        if (fb.IsDrawableInRange(i > 0 ? g_arrScales[i-1] + 1 : 0, g_arrScales[i]))
+        if (fb.IsDrawableInRange(i > 0 ? m_header.GetScale(i-1) + 1 : 0, m_header.GetScale(i)))
         {
           // simplify and serialize geometry
           points_t points;
-          SimplifyPoints(holder.GetSourcePoints(), points, g_arrScales[i]);
+          SimplifyPoints(holder.GetSourcePoints(), points, m_header.GetScale(i));
 
           if (isLine)
             holder.AddPoints(points, i);
@@ -345,7 +343,7 @@ namespace feature
             {
               simpleHoles.push_back(points_t());
 
-              SimplifyPoints(*iH, simpleHoles.back(), g_arrScales[i]);
+              SimplifyPoints(*iH, simpleHoles.back(), m_header.GetScale(i));
 
               if (simpleHoles.back().size() < 3)
                 simpleHoles.pop_back();
@@ -358,7 +356,7 @@ namespace feature
 
       if (fb.PreSerialize(holder.m_buffer))
       {
-        fb.Serialize(holder.m_buffer, m_base);
+        fb.Serialize(holder.m_buffer, m_header.GetBase());
 
         WriteFeatureBase(holder.m_buffer.m_buffer, fb);
       }
@@ -372,7 +370,7 @@ namespace feature
   }
 
 
-  bool GenerateFinalFeatures(string const & datFilePath, bool bSort)
+  bool GenerateFinalFeatures(string const & datFilePath, bool bSort, bool bWorld)
   {
     // rename input file
     Platform & platform = GetPlatform();
@@ -398,7 +396,11 @@ namespace feature
     {
       FileReader reader(tempDatFilePath);
 
-      FeaturesCollector2 collector(datFilePath, feature::pts::FromPoint(midPoints.GetCenter()));
+      feature::DataHeader header;
+      header.SetBase(midPoints.GetCenter());
+      header.SetScales(bWorld ? g_arrWorldScales : g_arrCountryScales);
+
+      FeaturesCollector2 collector(datFilePath, header);
 
       FeatureBuilder1::buffer_t buffer;
       for (size_t i = 0; i < midPoints.m_vec.size(); ++i)

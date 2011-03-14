@@ -138,6 +138,7 @@ int main(int argc, char ** argv)
 
     for (size_t i = 0; i < genInfo.bucketNames.size(); ++i)
       genInfo.bucketNames[i] = genInfo.datFilePrefix + genInfo.bucketNames[i] + genInfo.datFileSuffix;
+
     if (FLAGS_generate_world_scale >= 0)
       genInfo.bucketNames.push_back(genInfo.datFilePrefix + WORLD_FILE_NAME + genInfo.datFileSuffix);
   }
@@ -147,14 +148,16 @@ int main(int argc, char ** argv)
   }
 
   // Enumerate over all dat files that were created.
-  for (size_t i = 0; i < genInfo.bucketNames.size(); ++i)
+  size_t const count = genInfo.bucketNames.size();
+  for (size_t i = 0; i < count; ++i)
   {
     string const & datFile = genInfo.bucketNames[i];
 
     if (FLAGS_generate_geometry)
     {
       LOG(LINFO, ("Generating result features for ", datFile));
-      if (!feature::GenerateFinalFeatures(datFile, FLAGS_sort_features))
+      if (!feature::GenerateFinalFeatures(datFile,
+        FLAGS_sort_features, datFile == path + WORLD_FILE_NAME + DATA_FILE_EXTENSION))
       {
         // If error - move to next bucket without index generation
         continue;

@@ -27,7 +27,6 @@ SOURCES += \
   index_builder.cpp \
   feature_visibility.cpp \
   data_header.cpp \
-  data_header_reader.cpp \
   geometry_coding.cpp \
   geometry_serialization.cpp \
   tesselator.cpp \
@@ -59,7 +58,6 @@ HEADERS += \
   file_writer_stream.hpp \
   feature_visibility.hpp \
   data_header.hpp \
-  data_header_reader.hpp \
   tree_structure.hpp \
   feature_impl.hpp \
   geometry_coding.hpp \

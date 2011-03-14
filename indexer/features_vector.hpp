@@ -1,6 +1,5 @@
 #pragma once
 #include "feature.hpp"
-#include "data_header_reader.hpp"
 
 #include "../defines.hpp"
 
@@ -17,8 +16,6 @@ struct FeatureReaders
   FeatureReaders(FilesContainerR const & cont)
     : m_cont(cont), m_datR(cont.GetReader(DATA_FILE_TAG))
   {
-    uint64_t const offset = feature::GetSkipHeaderSize(m_datR);
-    m_datR = m_datR.SubReader(offset, m_datR.Size() - offset);
   }
 };
 
@@ -28,9 +25,7 @@ public:
   FeaturesVector(FeatureReaders const & dataR)
     : m_RecordReader(dataR.m_datR, 256), m_source(dataR.m_cont)
   {
-    FileReader r = dataR.m_cont.GetReader(HEADER_FILE_TAG);
-    m_source.m_base = ReadPrimitiveFromPos<int64_t>(r, 0);
-    // LOG(LINFO, ("OFFSET = ", m_source.m_base));
+    m_source.m_header.Load(dataR.m_cont.GetReader(HEADER_FILE_TAG));
   }
 
   void Get(uint64_t pos, FeatureType & feature) const

@@ -1,5 +1,4 @@
 #include "index_builder.hpp"
-#include "data_header_reader.hpp"
 #include "features_vector.hpp"
 
 #include "../defines.hpp"
@@ -19,7 +18,11 @@ namespace indexer
       FilesContainerW writeCont(datFile, FileWriter::OP_APPEND);
 
       FileWriter writer = writeCont.GetWriter(INDEX_FILE_TAG);
-      BuildIndex(featuresVector, writer, tmpFile);
+
+      feature::DataHeader header;
+      header.Load(readCont.GetReader(HEADER_FILE_TAG));
+
+      BuildIndex(header.GetScale(header.GetScalesCount()-1) + 1, featuresVector, writer, tmpFile);
       writer.Flush();
 
       writeCont.Finish();

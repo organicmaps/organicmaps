@@ -34,8 +34,7 @@ SOURCES += \
   mercator_test.cpp \
   sort_and_merge_intervals_test.cpp \
   feature_test.cpp \
-  data_header_test.cpp \
   feature_bucketer_test.cpp \
   feature_routine.cpp \
   geometry_coding_test.cpp \
-    triangles_tree_coding_test.cpp
+  triangles_tree_coding_test.cpp \

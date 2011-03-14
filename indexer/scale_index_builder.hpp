@@ -138,7 +138,8 @@ private:
 };
 
 template <class FeaturesVectorT, class WriterT>
-inline void IndexScales(FeaturesVectorT const & featuresVector,
+inline void IndexScales(uint32_t bucketsCount,
+                        FeaturesVectorT const & featuresVector,
                         WriterT & writer,
                         string const & tmpFilePrefix)
 {
@@ -147,8 +148,8 @@ inline void IndexScales(FeaturesVectorT const & featuresVector,
   //typedef pair<int64_t, uint32_t> CellFeaturePair;
   STATIC_ASSERT(sizeof(CellFeaturePair) == 12);
 
-  VarSerialVectorWriter<WriterT> recordWriter(writer, ScaleIndexBase::NUM_BUCKETS);
-  for (uint32_t bucket = 0; bucket < ScaleIndexBase::NUM_BUCKETS; ++bucket)
+  VarSerialVectorWriter<WriterT> recordWriter(writer, bucketsCount);
+  for (uint32_t bucket = 0; bucket < bucketsCount; ++bucket)
   {
     LOG(LINFO, ("Building scale index for bucket:", bucket));
     uint32_t numFeatures = 0;

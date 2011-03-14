@@ -2,7 +2,6 @@
 #include "cell_id.hpp"
 #include "covering.hpp"
 #include "data_header.hpp"
-#include "data_header_reader.hpp"
 #include "features_vector.hpp"
 #include "scale_index.hpp"
 #include "scales.hpp"
@@ -12,7 +11,6 @@
 #include "../geometry/rect2d.hpp"
 
 #include "../coding/file_container.hpp"
-//#include "../coding/varint.hpp"
 
 #include "../base/base.hpp"
 #include "../base/macros.hpp"
@@ -220,8 +218,8 @@ private:
     {
       // TODO: If path is cellid-style-square, make rect from cellid and don't open the file.
       feature::DataHeader header;
-      feature::ReadDataHeader(path, header);
-      m_Rect = header.Bounds();
+      header.Load(FilesContainerR(path).GetReader(HEADER_FILE_TAG));
+      m_Rect = header.GetBounds();
     }
 
     // TODO: GetIndex(), Open() and Close() make Index single-threaded!

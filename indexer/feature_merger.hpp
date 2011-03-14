@@ -11,6 +11,12 @@ public:
   /// but only if they have common point
   void AppendFeature(FeatureBuilder1Merger const & fb);
 
+  void SetAreaSafe()
+  {
+    if (!m_bArea)
+      m_bArea = true;
+  }
+
   uint32_t KeyType() const
   {
     ASSERT_EQUAL ( m_Types.size(), 1, () );

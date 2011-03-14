@@ -7,7 +7,6 @@
 
 #include "../indexer/drawing_rule_def.hpp"
 #include "../indexer/mercator.hpp"
-#include "../indexer/data_header_reader.hpp"
 #include "../indexer/data_header.hpp"
 #include "../indexer/scales.hpp"
 #include "../indexer/feature.hpp"
@@ -140,19 +139,15 @@ class FrameWork
   {
     // update rect for Show All button
     feature::DataHeader header;
-    if (feature::ReadDataHeader(datFile, header))
+    header.Load(FilesContainerR(datFile).GetReader(HEADER_FILE_TAG));
+
+    m_model.AddWorldRect(header.GetBounds());
     {
-      m_model.AddWorldRect(header.Bounds());
-      {
-        threads::MutexGuard lock(m_modelSyn);
-        m_model.AddMap(datFile);
-      }
-    }
-    else
-    {
-      LOG(LWARNING, ("Trying to activate invalid data file", datFile));
+      threads::MutexGuard lock(m_modelSyn);
+      m_model.AddMap(datFile);
     }
   }
+
   void RemoveMap(string const & datFile)
   {
     threads::MutexGuard lock(m_modelSyn);

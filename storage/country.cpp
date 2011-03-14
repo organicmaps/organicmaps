@@ -7,15 +7,16 @@
 #include "../coding/streams_sink.hpp"
 #include "../coding/file_reader.hpp"
 #include "../coding/file_writer.hpp"
+#include "../coding/file_container.hpp"
 
 #include "../version/version.hpp"
 
 #include "../platform/platform.hpp"
 
 #include "../indexer/data_header.hpp"
-#include "../indexer/data_header_reader.hpp"
 
 #include "../std/fstream.hpp"
+
 
 namespace storage
 {
@@ -34,9 +35,10 @@ namespace storage
     CountryBoundsCalculator(m2::RectD & bounds) : m_bounds(bounds) {}
     void operator()(TTile const & tile)
     {
-      static feature::DataHeader header;
-      if (feature::ReadDataHeader(GetPlatform().WritablePathForFile(tile.first), header))
-        m_bounds.Add(header.Bounds());
+      feature::DataHeader header;
+      FilesContainerR reader(GetPlatform().WritablePathForFile(tile.first));
+      header.Load(reader.GetReader(HEADER_FILE_TAG));
+      m_bounds.Add(header.GetBounds());
     }
   };
 

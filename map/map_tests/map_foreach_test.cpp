@@ -8,7 +8,6 @@
 
 #include "../../map/feature_vec_model.hpp"
 
-#include "../../indexer/data_header_reader.hpp"
 #include "../../indexer/data_header.hpp"
 #include "../../indexer/scales.hpp"
 #include "../../indexer/feature_visibility.hpp"
@@ -235,10 +234,10 @@ namespace
     src1.AddMap(path);
 
     feature::DataHeader mapInfo;
-    TEST_GREATER(feature::ReadDataHeader(path, mapInfo), 0, ());
+    mapInfo.Load(FilesContainerR(path).GetReader(HEADER_FILE_TAG));
 
     vector<m2::RectD> rects;
-    rects.push_back(mapInfo.Bounds());
+    rects.push_back(mapInfo.GetBounds());
 
     while (!rects.empty())
     {

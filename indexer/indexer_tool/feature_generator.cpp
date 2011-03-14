@@ -8,7 +8,6 @@
 
 #include "../../indexer/data_header.hpp"
 #include "../../indexer/osm_decl.hpp"
-#include "../../indexer/data_header_reader.hpp"
 #include "../../indexer/mercator.hpp"
 #include "../../indexer/cell_id.hpp"
 
@@ -142,23 +141,15 @@ public:
 // FeaturesCollector implementation
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-void FeaturesCollector::Init()
-{
-  // write empty stub, will be updated in Finish()
-  WriteDataHeader(m_datFile, feature::DataHeader());
-}
-
 FeaturesCollector::FeaturesCollector(string const & fName)
 : m_datFile(fName)
 {
-  Init();
 }
 
 FeaturesCollector::FeaturesCollector(string const & bucket,
                                      FeaturesCollector::InitDataType const & prefix)
 : m_datFile(prefix.first + bucket + prefix.second)
 {
-  Init();
 }
 
 uint32_t FeaturesCollector::GetFileSize(FileWriter const & f)
@@ -192,20 +183,6 @@ void FeaturesCollector::operator() (FeatureBuilder1 const & fb)
   FeatureBuilder1::buffer_t bytes;
   fb.Serialize(bytes);
   WriteFeatureBase(bytes, fb);
-}
-
-void FeaturesCollector::WriteHeader()
-{
-  // rewrite map information with actual data
-  m_datFile.Seek(0);
-  feature::DataHeader header;
-  header.SetBounds(m_bounds);
-  WriteDataHeader(m_datFile, header);
-}
-
-FeaturesCollector::~FeaturesCollector()
-{
-  WriteHeader();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
