@@ -37,7 +37,10 @@ namespace feature
     , m_ThreadPoolSemaphore(m_ThreadPool.maxThreadCount() * 8)
 #endif
     {
+#if PARALLEL_POLYGONIZER
       LOG(LINFO, ("Polygonizer thread pool threads:", m_ThreadPool.maxThreadCount()));
+#endif
+
       CHECK(kml::LoadCountriesList(info.datFilePrefix, m_countries, info.simplifyCountriesLevel),
             ("Error loading country polygons files"));
 
@@ -95,17 +98,23 @@ namespace feature
       buffer_vector<kml::CountryPolygons const *, 32> vec;
       m_countries.ForEachInRect(fb.GetLimitRect(), InsertCountriesPtr(vec));
 
-      if (vec.size() == 1)
-        EmitFeature(vec[0], fb);
-      else
+      switch (vec.size())
       {
+      case 0:
+        break;
+      case 1:
+        EmitFeature(vec[0], fb);
+        break;
+      default:
+        {
 #if PARALLEL_POLYGONIZER
-        m_ThreadPoolSemaphore.acquire();
-        m_ThreadPool.start(new PolygonizerTask(this, vec, fb));
+          m_ThreadPoolSemaphore.acquire();
+          m_ThreadPool.start(new PolygonizerTask(this, vec, fb));
 #else
-        PolygonizerTask task(this, vec, fb);
-        task.run();
+          PolygonizerTask task(this, vec, fb);
+          task.RunBase();
 #endif
+        }
       }
     }
 
@@ -149,10 +158,14 @@ namespace feature
     QThreadPool m_ThreadPool;
     QSemaphore m_ThreadPoolSemaphore;
     QMutex m_EmitFeatureMutex;
+#endif
 
     friend class PolygonizerTask;
 
-    class PolygonizerTask : public QRunnable
+    class PolygonizerTask
+#if PARALLEL_POLYGONIZER
+      : public QRunnable
+#endif
     {
     public:
       PolygonizerTask(Polygonizer * pPolygonizer,
@@ -160,7 +173,7 @@ namespace feature
                       FeatureBuilder1 const & fb)
         : m_pPolygonizer(pPolygonizer), m_Countries(countries), m_FB(fb) {}
 
-      void run()
+      void RunBase()
       {
         for (size_t i = 0; i < m_Countries.size(); ++i)
         {
@@ -170,15 +183,21 @@ namespace feature
           if (doCheck.m_belongs)
             m_pPolygonizer->EmitFeature(m_Countries[i], m_FB);
         }
+      }
+
+#if PARALLEL_POLYGONIZER
+      void run()
+      {
+        RunBase();
 
         m_pPolygonizer->m_ThreadPoolSemaphore.release();
       }
+#endif
 
     private:
       Polygonizer * m_pPolygonizer;
       buffer_vector<kml::CountryPolygons const *, 32> m_Countries;
       FeatureBuilder1 m_FB;
     };
-#endif
   };
 }
