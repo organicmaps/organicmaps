@@ -41,6 +41,7 @@ namespace model
     void AddMap(string const & fName);
     void RemoveMap(string const & fName);
     void Clean();
+    void ClearCaches();
 
     // process features by param type indices
     template <class ToDo>

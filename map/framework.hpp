@@ -454,6 +454,7 @@ public:
 
   void MemoryWarning()
   {
+    m_model.ClearCaches();
     m_informationDisplay.memoryWarning();
     m_renderQueue.memoryWarning();
 

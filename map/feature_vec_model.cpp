@@ -53,6 +53,11 @@ void FeaturesFetcher::Clean()
   m_multiIndex.Clean();
 }
 
+void FeaturesFetcher::ClearCaches()
+{
+  m_multiIndex.ClearCaches();
+}
+
 m2::RectD FeaturesFetcher::GetWorldRect() const
 {
   if (m_rect == m2::RectD())
