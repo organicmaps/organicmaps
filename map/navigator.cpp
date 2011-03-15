@@ -182,7 +182,7 @@ bool Navigator::CheckMinScale(ScreenBase const & screen)
   return metresDiff >= m_metresMinWidth - 1;
 }
 
-void Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
+bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
                           m2::PointD const & oldPt1, m2::PointD const & oldPt2,
                           bool skipMaxScaleCheck)
 {
@@ -193,10 +193,14 @@ void Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
   tmp.Rotate(tmp.GetAngle());
 
   if ((!skipMaxScaleCheck) && (!CheckMaxScale(tmp)))
-    return;
+    return false;
 
-  if (CheckMinScale(tmp))
-    m_Screen = tmp;
+  if (!CheckMinScale(tmp))
+    return false;
+
+  m_Screen = tmp;
+
+  return true;
 }
 
 void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double /*timeInSec*/)
@@ -206,9 +210,13 @@ void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double /
     return;
   if (pt1 == pt2)
     return;
+
+  ScreenBase PrevScreen = m_Screen;
+
   m_Screen = m_StartScreen;
 
-  ScaleImpl(pt1, pt2, m_StartPt1, m_StartPt2, pt1.Length(pt2) / m_StartPt1.Length(m_StartPt2) > 1);
+  if (!ScaleImpl(pt1, pt2, m_StartPt1, m_StartPt2, pt1.Length(pt2) / m_StartPt1.Length(m_StartPt2) > 1))
+    m_Screen = PrevScreen;
 
   m_LastPt1 = pt1;
   m_LastPt2 = pt2;
