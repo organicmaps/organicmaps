@@ -9,7 +9,7 @@
 #define MAX_3G_MEGABYTES 100
 
 #define GB 1000*1000*1000
-#define MB 1000*1000    
+#define MB 1000*1000
 
 using namespace storage;
 
@@ -44,7 +44,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   	theirsFixed.m_country = -1;
   else
 		theirsFixed.m_group = -1;
-  
+
   return ours == theirsFixed;
 }
 
@@ -77,7 +77,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   countriesTableView.delegate = self;
 	countriesTableView.dataSource = self;
   self.view = countriesTableView;
-  [countriesTableView release];  
+  [countriesTableView release];
 }
 
 // Override to allow orientations other than the default portrait orientation.
@@ -92,7 +92,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 //}
 //
 //- (NSString *) tableView: (UITableView *)tableView titleForHeaderInSection: (NSInteger)section
-//{	
+//{
 //	return nil;
 //}
 
@@ -128,9 +128,9 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
         else
         {
           kBorMBorGB = "kB";
-          size = (size + 999) / 1000;  
+          size = (size + 999) / 1000;
         }
-      
+
         cell.textLabel.textColor = [UIColor greenColor];
         cell.detailTextLabel.text = [NSString stringWithFormat: @"Downloaded (%qu %s), touch to delete", size, kBorMBorGB];
         cell.accessoryView = nil;
@@ -151,7 +151,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
       }
       break;
     case EDownloadFailed:
-      cell.textLabel.textColor = [UIColor redColor];  
+      cell.textLabel.textColor = [UIColor redColor];
       cell.detailTextLabel.text = @"Download has failed, touch again for one more try";
       cell.accessoryView = nil;
       break;
@@ -182,10 +182,10 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *) tableView: (UITableView *)tableView cellForRowAtIndexPath: (NSIndexPath *)indexPath
-{ 
+{
   TIndex index = CalculateIndex(m_index, indexPath);
 	bool hasChildren = m_storage->CountriesCount(index) != 0;
-  
+
 	NSString * cellId = hasChildren ? @"ParentCell" : @"DetailCell";
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier: cellId];
   if (cell == nil)
@@ -232,7 +232,7 @@ TIndex g_clickedIndex;
 	bzero(&zeroAddress, sizeof(zeroAddress));
 	zeroAddress.sin_len = sizeof(zeroAddress);
 	zeroAddress.sin_family = AF_INET;
- 
+
 	// Recover reachability flags
 	SCNetworkReachabilityRef defaultRouteReachability = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&zeroAddress);
 	SCNetworkReachabilityFlags flags;
@@ -240,7 +240,7 @@ TIndex g_clickedIndex;
 	CFRelease(defaultRouteReachability);
 	if (!didRetrieveFlags)
 		return NO;
- 
+
 	BOOL isReachable = flags & kSCNetworkFlagsReachable;
   BOOL isWifi = !(flags & kSCNetworkReachabilityFlagsIsWWAN);
 	BOOL needsConnection = flags & kSCNetworkFlagsConnectionRequired;
@@ -287,7 +287,7 @@ TIndex g_clickedIndex;
   		case EDownloadFailed:
   		{	// display confirmation popup with country size
     		BOOL isWifiConnected = [CountriesViewController IsUsingWIFI];
-      
+
     		TLocalAndRemoteSize sizePair = m_storage->CountrySizeInBytes(g_clickedIndex);
         TLocalAndRemoteSize::first_type size = sizePair.second - sizePair.first;
   			// convert size to human readable values
@@ -328,7 +328,7 @@ TIndex g_clickedIndex;
     			[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
       	else
         	[popupQuery showInView: tableView];
-    		[popupQuery release];    	
+    		[popupQuery release];
 			}
   		break;
   		case EDownloading:

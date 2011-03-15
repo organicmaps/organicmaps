@@ -17,7 +17,7 @@ namespace iphone
 	{
 		m_view = view;
 	}
-	
+
 	void WindowHandle::invalidateImpl()
 	{
 		[m_view drawViewOnMainThread];

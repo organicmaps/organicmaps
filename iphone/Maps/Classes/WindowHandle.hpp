@@ -13,14 +13,14 @@
 #import "EAGLView.hpp"
 
 namespace iphone
-{ 
+{
   class WindowHandle : public ::WindowHandle
   {
     private:
       EAGLView * m_view;
 	public:
       WindowHandle(EAGLView * view);
-	
+
 	  void invalidateImpl();
   };
 }

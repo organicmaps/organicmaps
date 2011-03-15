@@ -13,10 +13,10 @@
   int64_t m_projectedFileSize;
 	string m_url;
   NSURLConnection * m_connection;
-  
+
   TDownloadFinishedFunction m_finishObserver;
   TDownloadProgressFunction m_progressObserver;
-  
+
   NSInteger m_retryCounter;
 }
 

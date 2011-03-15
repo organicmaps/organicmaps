@@ -17,44 +17,44 @@ namespace iphone
 	{
 		OGLCHECK(glGenRenderbuffersOES(1, &m_id));
 		makeCurrent();
-		
+
 		[m_renderContext->getEAGLContext() renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:layer];
-				
+
 		OGLCHECK(glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &m_width));
 		OGLCHECK(glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &m_height));
 	}
-	
+
 	void RenderBuffer::makeCurrent()
 	{
 		OGLCHECK(glBindRenderbufferOES(GL_RENDERBUFFER_OES, m_id));
 	}
-	
+
 	RenderBuffer::~RenderBuffer()
 	{
 		OGLCHECK(glDeleteRenderbuffersOES(1, &m_id));
 	}
-	
+
 	unsigned int RenderBuffer::id()
 	{
 		return m_id;
 	}
-	
+
 	void RenderBuffer::present()
 	{
 		makeCurrent();
 		int tryCount = 0;
     while (!([m_renderContext->getEAGLContext() presentRenderbuffer:GL_RENDERBUFFER_OES])
 					&& (tryCount++ < 100));
-		
+
 		if (tryCount != 0)
 			NSLog(@"renderBuffer was presented from %d try");
 	}
-	
+
 	unsigned RenderBuffer::width() const
 	{
 		return m_width;
 	}
-	
+
 	unsigned RenderBuffer::height() const
 	{
 		return m_height;

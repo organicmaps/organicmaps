@@ -13,20 +13,20 @@
 
 IPhonePlatform::IPhonePlatform()
 {
-  NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];    
+  NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 
   NSBundle * bundle = [NSBundle mainBundle];
   NSString * path = [bundle resourcePath];
 	m_resourcesPath = [path UTF8String];
   m_resourcesPath += '/';
-	
+
   NSArray * dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString * docsDir = [dirPaths objectAtIndex:0];
   m_writablePath = [docsDir UTF8String];
   m_writablePath += '/';
 
   m_StartDate = [[NSDate alloc] init];
-  
+
 	/// Hardcoding screen resolution depending on the device we are running.
  	m_visualScale = 1.0;
 	m_skinName = "basic.skn";
@@ -36,7 +36,7 @@ IPhonePlatform::IPhonePlatform()
 
 	/// Calculating resolution
 	UIDevice * device = [UIDevice currentDevice];
-		
+
 	NSRange range = [device.name rangeOfString:@"iPad"];
 	if (range.location != NSNotFound)
 	{
@@ -59,9 +59,9 @@ IPhonePlatform::IPhonePlatform()
 			}
 		}
 	}
-	
+
 	m_scaleEtalonSize = (256 * 1.5) * m_visualScale;
-	
+
 	NSLog(@"Device Name : %@, SystemName : %@, SystemVersion : %@", device.name, device.systemName, device.systemVersion);
 
   [pool release];
@@ -106,7 +106,7 @@ int IPhonePlatform::GetFilesInDir(string const & directory, string const & mask,
 	string mask_fixed = mask;
   if (mask_fixed.size() && mask_fixed[0] == '*')
   	mask_fixed.erase(0, 1);
-  
+
   do
   {
     if ((entry = readdir(dir)) != NULL)
@@ -127,7 +127,7 @@ int IPhonePlatform::GetFilesInDir(string const & directory, string const & mask,
   } while (entry != NULL);
 
   closedir(dir);
-  
+
   return outFiles.size();
 }
 
@@ -187,10 +187,10 @@ vector<string> IPhonePlatform::GetFontNames() const
 	GetFilesInDir(fontFolder, ".ttf", res);
 	for (size_t i = 0; i < res.size(); ++i)
 	  res[i] = fontFolder + res[i];
-	
+
 	return res;
 }
-	
+
 bool IPhonePlatform::IsBenchmarking() const
 {
 	return false;

@@ -9,33 +9,33 @@
 
 #include "RenderContext.hpp"
 
-namespace iphone 
+namespace iphone
 {
-	RenderContext::RenderContext()	
+	RenderContext::RenderContext()
 	{
     m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
 	}
-	
+
 	RenderContext::RenderContext(RenderContext * renderContext)
 	{
 		m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1 sharegroup:renderContext->m_context.sharegroup];
 	}
-	
+
 	RenderContext::~RenderContext()
 	{
 		[m_context release];
 	}
-	
+
 	void RenderContext::makeCurrent()
 	{
     [EAGLContext setCurrentContext:m_context];
 	}
-	
+
   shared_ptr<yg::gl::RenderContext> RenderContext::createShared()
 	{
 		return shared_ptr<yg::gl::RenderContext>(new RenderContext(this));
 	}
-	
+
 	EAGLContext * RenderContext::getEAGLContext()
 	{
 		return m_context;

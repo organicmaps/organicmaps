@@ -92,7 +92,7 @@ NSString * GetEncryptedMac()
 		[request addValue:val forHTTPHeaderField:@"Range"];
 		[val release];
   }
-   
+
   static NSString * macStr = GetEncryptedMac();
   if (macStr)
     [request addValue:macStr forHTTPHeaderField:@"User-Agent"];
@@ -105,9 +105,9 @@ NSString * GetEncryptedMac()
 {
 	m_finishObserver = finishFunc;
   m_progressObserver = progressFunc;
-  
+
   m_retryCounter = 0;
-  
+
 	// try to create file first
   std::string tmpFile = file;
   tmpFile += DOWNLOADING_FILE_EXTENSION;
@@ -123,10 +123,10 @@ NSString * GetEncryptedMac()
 
 	m_requestedFileName = file;
 	m_url = originalUrl;
- 
+
 	// create the connection with the request and start loading the data
 	m_connection = [[NSURLConnection alloc] initWithRequest:[self CreateRequest] delegate:self];
- 
+
 	if (m_connection == 0)
   {
 		NSLog(@"Can't create connection for url %s", originalUrl);
@@ -143,7 +143,7 @@ NSString * GetEncryptedMac()
 {
 	// This method is called when the server has determined that it
 	// has enough information to create the NSURLResponse.
- 
+
 	// check if this is OK (not a 404 or the like)
   if ([response respondsToSelector:@selector(statusCode)])
   {
@@ -163,7 +163,7 @@ NSString * GetEncryptedMac()
 			return;
     }
   }
- 
+
   m_projectedFileSize = [response expectedContentLength];
   // if server doesn't support resume, make sure we're downloading file from scratch
 	if (m_projectedFileSize < 0)
@@ -186,24 +186,24 @@ NSString * GetEncryptedMac()
 {
 	// inform the user
   NSLog(@"Connection failed for url %s\n%@", m_url.c_str(), [error localizedDescription]);
-  
+
   // retry connection if it's network-specific error
   if ([error code] < 0 && ++m_retryCounter <= MAX_AUTOMATIC_RETRIES)
   {
     [m_connection release];
   	// create the connection with the request and start loading the data
 		m_connection = [[NSURLConnection alloc] initWithRequest:[self CreateRequest] delegate:self];
- 
+
 		if (m_connection)
     {
     	NSLog(@"Retrying %d time", m_retryCounter);
     	return;	// successfully restarted connection
     }
-      
+
     NSLog(@"Can't retry connection");
     // notify observer about error and exit after this if-block
   }
-  
+
   if (m_finishObserver)
 	  m_finishObserver(m_url.c_str(), EHttpDownloadFailed);
   // and selfdestruct...
@@ -221,13 +221,13 @@ NSString * GetEncryptedMac()
   if (rename((m_requestedFileName + DOWNLOADING_FILE_EXTENSION).c_str(), m_requestedFileName.c_str()))
   {
   	resultForGUI = false;
-  	NSLog(@"Can't rename to file %s", m_requestedFileName.c_str());    
+  	NSLog(@"Can't rename to file %s", m_requestedFileName.c_str());
   }
   else
   {
   	NSLog(@"Successfully downloaded %s", m_url.c_str());
   }
-  
+
   if (m_finishObserver)
 	  m_finishObserver(m_url.c_str(), resultForGUI ? EHttpDownloadOk : EHttpDownloadFileIsLocked);
   // and selfdestruct...

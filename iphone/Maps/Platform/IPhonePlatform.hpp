@@ -25,7 +25,7 @@ public:
 	virtual bool IsVisualLog() const;
   virtual string const DeviceID() const;
 	virtual unsigned ScaleEtalonSize() const;
-	
+
 private:
 	string m_deviceID;
 	string m_skinName;

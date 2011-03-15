@@ -16,7 +16,7 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 
   framework_t * m_framework = NULL;
   storage::Storage m_storage;
-  
+
 - (void) OnMyPositionClicked: (id)sender
 {
 	if (m_locationController.active)
@@ -29,7 +29,7 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
   {
 		[m_locationController Start];
 		m_isDirtyPosition = true;
-  	((UIBarItem *)sender).title = @"Disable GPS"; 
+  	((UIBarItem *)sender).title = @"Disable GPS";
   }
 }
 
@@ -56,31 +56,31 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 	if ((self = [super initWithCoder:coder]))
 	{
 		[(EAGLView*)self.view setController : self];
-		
+
 		shared_ptr<iphone::WindowHandle> windowHandle = [(EAGLView*)self.view windowHandle];
 		shared_ptr<yg::ResourceManager> resourceManager = [(EAGLView*)self.view resourceManager];
 		m_framework = new framework_t(windowHandle, 40);
 		m_framework->Init(m_storage);
 		m_StickyThreshold = 10;
-		
+
 		m_locationController = [[UserLocationController alloc] initWithDelegate:self];
-		
+
 		m_CurrentAction = NOTHING;
         m_isDirtyPosition = false;
-		
+
 		// initialize with currently active screen orientation
         [self didRotateFromInterfaceOrientation: self.interfaceOrientation];
-    
-		m_framework->initializeGL([(EAGLView*)self.view renderContext], resourceManager);		
-		
+
+		m_framework->initializeGL([(EAGLView*)self.view renderContext], resourceManager);
+
 		// to perform a proper resize
 		[(EAGLView*)self.view layoutSubviews];
-    
+
         // restore previous screen position
         if (!m_framework->LoadState())
 			m_framework->ShowAll();
 	}
-	
+
 	return self;
 }
 
@@ -89,12 +89,12 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 	m_framework->SetHeading(newHeading.trueHeading, newHeading.magneticHeading, newHeading.headingAccuracy);
 }
 
-- (void) OnLocation: (m2::PointD const &) mercatorPoint 
+- (void) OnLocation: (m2::PointD const &) mercatorPoint
 			withConfidenceRadius: (double) confidenceRadius
 			withTimestamp: (NSDate *) timestamp
 {
   m_framework->SetPosition(mercatorPoint, confidenceRadius);
-	
+
 	if (m_isDirtyPosition)
 	{
 		m_framework->CenterViewport();
@@ -108,7 +108,7 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 }
 
 - (void)onResize:(GLint) width withHeight:(GLint) height
-{	
+{
 	UIInterfaceOrientation orientation = [self interfaceOrientation];
 	if ((orientation == UIInterfaceOrientationLandscapeLeft)
 		||(orientation == UIInterfaceOrientationLandscapeRight))
@@ -126,11 +126,11 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 {
 	NSSet * allTouches = [event allTouches];
 	int touchCount = [allTouches count];
-	
+
   CGFloat scaleFactor = 1.0;
   if ([self.view respondsToSelector:@selector(contentScaleFactor)])
   	scaleFactor = self.view.contentScaleFactor;
-  
+
 	if (touchCount == 1)
 	{
 		CGPoint pt = [[[allTouches allObjects] objectAtIndex:0] locationInView:nil];
@@ -141,7 +141,7 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 		NSArray * sortedTouches = [[allTouches allObjects] sortedArrayUsingFunction:compareAddress context:NULL];
 		CGPoint pt1 = [[sortedTouches objectAtIndex:0] locationInView:nil];
 		CGPoint pt2 = [[sortedTouches objectAtIndex:1] locationInView:nil];
-		
+
 		m_Pt1 = m2::PointD(pt1.x * scaleFactor, pt1.y * scaleFactor);
 	  m_Pt2 = m2::PointD(pt2.x * scaleFactor, pt2.y * scaleFactor);
 	}
@@ -178,7 +178,7 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 		m_framework->StartScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
 		m_CurrentAction = SCALING;
 	}
-	
+
 	m_isSticking = true;
 }
 
@@ -186,9 +186,9 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 {
 	m2::PointD TempPt1 = m_Pt1;
 	m2::PointD TempPt2 = m_Pt2;
-	
+
 	[self updatePointsFromEvent:event];
-	
+
 	bool needRedraw = false;
 
 	if (m_isSticking)
@@ -203,7 +203,7 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 			return;
 		}
 	}
-	
+
 	switch (m_CurrentAction)
 	{
 	case DRAGGING:
@@ -228,7 +228,7 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 {
 	[self updatePointsFromEvent:event];
 	[self stopCurrentAction];
-	
+
 	if ((((UITouch*)[touches anyObject]).tapCount == 2) && ([[event allTouches] count] < 2))
 		m_framework->ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2));
 }
@@ -237,7 +237,7 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 {
 	[self updatePointsFromEvent:event];
 	[self stopCurrentAction];
-	
+
 	if ((((UITouch*)[touches anyObject]).tapCount == 2) && ([[event allTouches] count] < 2))
 		m_framework->ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2));
 }
@@ -273,10 +273,10 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
-	
+
 	m_framework->MemoryWarning();
 //	m_framework->Repaint();
-	
+
 	// Release any cached data, images, etc that aren't in use.
 }
 
@@ -312,7 +312,7 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
             m_framework->Invalidate();
 	}
 }
-	
+
 - (void) OnEnterBackground
 {
 	if (m_framework)

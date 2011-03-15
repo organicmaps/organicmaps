@@ -2,7 +2,7 @@
 
 #include "../../../storage/storage.hpp"
 
-@interface CountriesViewController 
+@interface CountriesViewController
 : UIViewController <UINavigationBarDelegate, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 {
 	storage::Storage * m_storage;

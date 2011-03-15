@@ -34,7 +34,7 @@ namespace iphone
 		shared_ptr<yg::gl::RenderContext> createShared();
     /// @TODO
     void endThreadDrawing() {}
-		
+
   	EAGLContext * getEAGLContext();
   };
 }

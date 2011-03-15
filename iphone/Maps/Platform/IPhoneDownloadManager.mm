@@ -7,13 +7,13 @@
 class IPhoneDownloadManager : public DownloadManager
 {
 	NSMutableArray * activeDownloads;
-  
+
 public:
 	IPhoneDownloadManager()
   {
   	activeDownloads = [[NSMutableArray alloc] init];
   }
-  
+
 	virtual ~IPhoneDownloadManager()
   {
   	for (NSUInteger i = 0; i < [activeDownloads count]; ++i)
@@ -38,7 +38,7 @@ public:
     }
 
   	IPhoneDownload * download = [[IPhoneDownload alloc] init];
-    if ([download StartDownloadWithUrl:url 
+    if ([download StartDownloadWithUrl:url
     							andFile:fileName
                   andFinishFunc:finishFunc
                   andProgressFunc:progressFunc
@@ -74,7 +74,7 @@ public:
     if ([activeDownloads count] == 0)
     	[UIApplication sharedApplication].idleTimerDisabled = NO;
   }
-  
+
   virtual void CancelAllDownloads()
   {
   	for (NSUInteger i = 0; i < [activeDownloads count]; ++i) {

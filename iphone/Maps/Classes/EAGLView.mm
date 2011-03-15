@@ -38,9 +38,9 @@
   {
       // Setup Layer Properties
       CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
-    
+
       eaglLayer.opaque = YES;
-		
+
       /// ColorFormat : RGB565
       /// Backbuffer : YES, (to prevent from loosing content when mixing with ordinary layers).
       eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -49,12 +49,12 @@
                                       kEAGLColorFormatRGB565,
                                       kEAGLDrawablePropertyColorFormat,
                                       nil];
-    
+
       int etalonW = 320;
       int scrW = etalonW;
-		
+
       UIDevice * device = [UIDevice currentDevice];
-		
+
       float ver = [device.systemVersion floatValue];
       NSLog(@"%@", device.systemVersion);
       /// rounding problems
@@ -65,7 +65,7 @@
         if (scrW == 640)
             self.contentScaleFactor = 2.0;
       }
-		
+
       renderContext = shared_ptr<iphone::RenderContext>(new iphone::RenderContext());
 
       if (!renderContext.get())
@@ -73,49 +73,49 @@
           [self release];
           return nil;
       }
-		
+
       renderContext->makeCurrent();
-      frameBuffer = shared_ptr<yg::gl::FrameBuffer>(new yg::gl::FrameBuffer());		
-		
+      frameBuffer = shared_ptr<yg::gl::FrameBuffer>(new yg::gl::FrameBuffer());
+
       int bigVBSize = pow(2, ceil(log2(15000 * sizeof(yg::gl::Vertex))));
       int bigIBSize = pow(2, ceil(log2(30000 * sizeof(unsigned short))));
-												
+
       int smallVBSize = pow(2, ceil(log2(1500 * sizeof(yg::gl::Vertex))));
-      int smallIBSize = pow(2, ceil(log2(3000 * sizeof(unsigned short))));		
-		
-      int blitVBSize = pow(2, ceil(log2(10 * sizeof(yg::gl::AuxVertex))));											
+      int smallIBSize = pow(2, ceil(log2(3000 * sizeof(unsigned short))));
+
+      int blitVBSize = pow(2, ceil(log2(10 * sizeof(yg::gl::AuxVertex))));
       int blitIBSize = pow(2, ceil(log2(10 * sizeof(unsigned short))));
-		
+
       resourceManager = shared_ptr<yg::ResourceManager>(new yg::ResourceManager(
 						bigVBSize, bigIBSize, 20,
 						smallVBSize, smallIBSize, 30,
-						blitVBSize, blitIBSize, 20,											
+						blitVBSize, blitIBSize, 20,
 						512, 256, 10,
-						GetPlatform().ReadPathForFile("unicode_blocks.txt").c_str(), 
+						GetPlatform().ReadPathForFile("unicode_blocks.txt").c_str(),
 						GetPlatform().ReadPathForFile("fonts_whitelist.txt").c_str(),
  						GetPlatform().ReadPathForFile("fonts_blacklist.txt").c_str(),
 						2000000));
-		
-		
+
+
 		resourceManager->addFonts(GetPlatform().GetFontNames());
 
 		DrawerYG::params_t p;
 		p.m_resourceManager = resourceManager;
 		p.m_isMultiSampled = false;
 		p.m_frameBuffer = frameBuffer;
-		
+
 		drawer = shared_ptr<DrawerYG>(new DrawerYG(GetPlatform().SkinName(), p));
-		
+
 //		frameBuffer->onSize(renderBuffer->width(), renderBuffer->height());
-//		frameBuffer->setRenderTarget(renderBuffer);		
+//		frameBuffer->setRenderTarget(renderBuffer);
 
 		windowHandle = shared_ptr<iphone::WindowHandle>(new iphone::WindowHandle(self));
 		windowHandle->setDrawer(drawer);
 		windowHandle->setRenderContext(renderContext);
   }
-  
+
   self.multipleTouchEnabled = YES;
-  
+
   return self;
 }
 
@@ -124,7 +124,7 @@
 	/// free old video memory
 	frameBuffer->resetRenderTarget();
 	renderBuffer.reset();
-	
+
 	/// allocate the new one
 	renderBuffer = shared_ptr<iphone::RenderBuffer>(new iphone::RenderBuffer(renderContext, (CAEAGLLayer*)self.layer));
 	frameBuffer->setRenderTarget(renderBuffer);
@@ -145,17 +145,17 @@
 
 - (void)drawViewOnMainThread
 {
-	[self performSelectorOnMainThread:@selector(drawViewThunk:) withObject:nil waitUntilDone:NO]; 
+	[self performSelectorOnMainThread:@selector(drawViewThunk:) withObject:nil waitUntilDone:NO];
 }
 
 - (void)layoutSubviews
 {
 	NSLog(@"layoutSubviews");
-  
+
   CGFloat scaleFactor = 1.0;
   if ([self respondsToSelector:@selector(contentScaleFactor)])
   	scaleFactor = self.contentScaleFactor;
-  
+
 	[[self controller] onResize:self.frame.size.width * scaleFactor withHeight:self.frame.size.height * scaleFactor];
 	[self onSize:self.frame.size.width * scaleFactor withHeight:self.frame.size.height * scaleFactor];
 	[self drawView];

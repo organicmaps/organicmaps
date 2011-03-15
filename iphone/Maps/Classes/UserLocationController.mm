@@ -64,16 +64,16 @@
 {
 	m2::PointD mercPoint(MercatorBounds::LonToX(newLocation.coordinate.longitude),
   										 MercatorBounds::LatToY(newLocation.coordinate.latitude));
-	
-	double confidenceRadius = sqrt(newLocation.horizontalAccuracy * newLocation.horizontalAccuracy 
+
+	double confidenceRadius = sqrt(newLocation.horizontalAccuracy * newLocation.horizontalAccuracy
 															 + newLocation.verticalAccuracy * newLocation.verticalAccuracy);
-	
-	m2::RectD errorRect = MercatorBounds::ErrorToRadius(newLocation.coordinate.longitude, 
+
+	m2::RectD errorRect = MercatorBounds::ErrorToRadius(newLocation.coordinate.longitude,
 																											newLocation.coordinate.latitude,
 																											confidenceRadius);
-	
+
 	confidenceRadius = sqrt((errorRect.SizeX() * errorRect.SizeX() + errorRect.SizeY() * errorRect.SizeY()) / 4);
-	
+
 	[self.delegate OnLocation: mercPoint withConfidenceRadius: confidenceRadius withTimestamp: newLocation.timestamp];
 }
 

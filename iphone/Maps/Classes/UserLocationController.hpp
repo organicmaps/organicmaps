@@ -3,10 +3,10 @@
 
 #include "../../../geometry/point2d.hpp"
 
-@protocol UserLocationControllerDelegate 
+@protocol UserLocationControllerDelegate
 
 @required
-- (void) OnLocation: (m2::PointD const &) mercatorPoint 
+- (void) OnLocation: (m2::PointD const &) mercatorPoint
 withConfidenceRadius: (double) confidenceRadius
 			withTimestamp: (NSDate *) timestamp;
 - (void) OnHeading: (CLHeading *)heading;
@@ -17,7 +17,7 @@ withConfidenceRadius: (double) confidenceRadius
 {
 @private
 	CLLocationManager * m_locationManager;
-  
+
 @public
 	id delegate;
   BOOL active;

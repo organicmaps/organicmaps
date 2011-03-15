@@ -55,7 +55,7 @@ using namespace storage;
   	CountriesViewController * rootViewController = [[CountriesViewController alloc] initWithStorage:storage
     		andIndex:TIndex() andHeader:@"Download"];
   	g_navController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
-    
+
     // tricky boost::bind for objC class methods
 		typedef void (*TChangeFunc)(id, SEL, TIndex const &);
 		SEL changeSel = @selector(OnCountryChange:);
