@@ -21,15 +21,15 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 {
 	if (m_locationController.active)
   {
-  	[m_locationController Stop];
-   	((UIBarItem *)sender).title = @"My Position";
+    [m_locationController Stop];
+    ((UIBarButtonItem *)sender).style = UIBarButtonItemStyleBordered;
     m_framework->DisableMyPositionAndHeading();
   }
   else
   {
-		[m_locationController Start];
-		m_isDirtyPosition = true;
-  	((UIBarItem *)sender).title = @"Disable GPS";
+    [m_locationController Start];
+    ((UIBarButtonItem *)sender).style = UIBarButtonItemStyleDone;
+    m_isDirtyPosition = true;
   }
 }
 
