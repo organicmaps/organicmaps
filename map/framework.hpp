@@ -5,6 +5,8 @@
 #include "render_queue.hpp"
 #include "information_display.hpp"
 
+#include "../defines.hpp"
+
 #include "../indexer/drawing_rule_def.hpp"
 #include "../indexer/mercator.hpp"
 #include "../indexer/data_header.hpp"
