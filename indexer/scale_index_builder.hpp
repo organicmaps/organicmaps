@@ -179,7 +179,7 @@ inline void IndexScales(uint32_t bucketsCount,
       SubWriter<WriterT> subWriter(writer);
       BuildIntervalIndex<5>(cellsToFeatures.begin(), cellsToFeatures.end(), subWriter);
     }
-    FileWriter::DeleteFile(tmpFilePrefix + ".c2f.sorted");
+    FileWriter::DeleteFileX(tmpFilePrefix + ".c2f.sorted");
     // LOG(LINFO, ("Indexing done."));
     recordWriter.FinishRecord();
   }

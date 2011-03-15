@@ -78,7 +78,7 @@ public:
           Push(q, i, reader);
       }
     }
-    FileWriter::DeleteFile(m_TmpFileName);
+    FileWriter::DeleteFileX(m_TmpFileName);
   }
 
   ~FileSorter()

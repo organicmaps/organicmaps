@@ -29,7 +29,7 @@ UNIT_TEST(FileReaderSmokeTest)
     FileReader fileReader("reader_test_tmp.dat");
     TestReader(fileReader);
   }
-  FileWriter::DeleteFile("reader_test_tmp.dat");
+  FileWriter::DeleteFileX("reader_test_tmp.dat");
 }
 
 UNIT_TEST(BufferReaderSmokeTest)
@@ -45,7 +45,7 @@ UNIT_TEST(BufferReaderSmokeTest)
 
   BufferReader r2(FileReader("reader_test_tmp.dat"), 7);
   TestReader(r2);
-  FileWriter::DeleteFile("reader_test_tmp.dat");
+  FileWriter::DeleteFileX("reader_test_tmp.dat");
 }
 
 UNIT_TEST(BufferReaderEmptyTest)
@@ -79,5 +79,5 @@ UNIT_TEST(FileReaderReadAsText)
     string const text = f.ReadAsText();
     TEST_EQUAL(text, fName, ());
   }
-  FileWriter::DeleteFile(fName);
+  FileWriter::DeleteFileX(fName);
 }

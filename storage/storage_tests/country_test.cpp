@@ -40,7 +40,7 @@ UNIT_TEST(CountrySerialization)
 //  TEST_GREATER(c2.Urls().size(), 0, ());
 //  TEST_EQUAL(*c.Urls().begin(), *c2.Urls().begin(), ());
 
-//  FileWriter::DeleteFile(TEST_FILE_NAME);
+//  FileWriter::DeleteFileX(TEST_FILE_NAME);
 }
 
 UNIT_TEST(TilesSerialization)
@@ -83,5 +83,5 @@ UNIT_TEST(TilesSerialization)
     TEST_EQUAL( tiles[4], TTilesContainer::value_type("str2", 456), ());
   }
 
-  FileWriter::DeleteFile(FILE);
+  FileWriter::DeleteFileX(FILE);
 }

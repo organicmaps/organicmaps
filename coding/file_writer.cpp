@@ -42,7 +42,7 @@ string FileWriter::GetName() const
   return m_pFileData->GetName();
 }
 
-void FileWriter::DeleteFile(string const & fileName)
+void FileWriter::DeleteFileX(string const & fileName)
 {
 #ifdef OMIM_OS_BADA
   Osp::Io::File::Remove(fileName.c_str());

@@ -38,7 +38,7 @@ public:
 
   string GetName() const;
 
-  static void DeleteFile(string const & fileName);
+  static void DeleteFileX(string const & fileName);
 
 private:
   scoped_ptr<FileData> m_pFileData;

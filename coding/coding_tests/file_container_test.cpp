@@ -9,7 +9,7 @@
 UNIT_TEST(FilesContainer_Smoke)
 {
   string const fName = "file_container.tmp";
-  FileWriter::DeleteFile(fName);
+  FileWriter::DeleteFileX(fName);
   size_t const count = 10;
 
   // fill container one by one
@@ -68,7 +68,7 @@ UNIT_TEST(FilesContainer_Smoke)
       CHECK_EQUAL(arrAppend[i], test, ());
     }
   }
-  FileWriter::DeleteFile(fName);
+  FileWriter::DeleteFileX(fName);
 }
 
 namespace
@@ -83,7 +83,7 @@ namespace
 UNIT_TEST(FilesContainer_Shared)
 {
   string const fName = "file_container.tmp";
-  FileWriter::DeleteFile(fName);
+  FileWriter::DeleteFileX(fName);
 
   uint32_t const count = 10;
   int64_t const test64 = 908175281437210836;
@@ -138,5 +138,5 @@ UNIT_TEST(FilesContainer_Shared)
     CheckInvariant(reader, "2", test64);
   }
 
-  FileWriter::DeleteFile(fName);
+  FileWriter::DeleteFileX(fName);
 }

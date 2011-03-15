@@ -225,7 +225,7 @@ namespace storage
     /// @TODO do not delete other countries cells
     void operator()(TTile const & tile)
     {
-      FileWriter::DeleteFile(m_workingDir + tile.first);
+      FileWriter::DeleteFileX(m_workingDir + tile.first);
     }
   };
 

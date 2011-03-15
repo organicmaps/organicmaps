@@ -52,7 +52,7 @@ UNIT_TEST(FileWriter_Smoke)
     reader.Read(0, &s[0], reader.Size());
   }
   TEST_EQUAL(string(s.begin(), s.end()), kTestWriteStr, ());
-  FileWriter::DeleteFile(fileName);
+  FileWriter::DeleteFileX(fileName);
 }
 
 UNIT_TEST(SubWriter_MemWriter_Smoke)
@@ -87,7 +87,7 @@ UNIT_TEST(SubWriter_FileWriter_Smoke)
     reader.Read(0, &s[0], reader.Size());
   }
   TEST_EQUAL(string(s.begin(), s.end()), "aa" + string(kTestWriteStr) + "bb", ());
-  FileWriter::DeleteFile(fileName);
+  FileWriter::DeleteFileX(fileName);
 }
 
 UNIT_TEST(FileWriter_DeleteFile)
@@ -101,7 +101,7 @@ UNIT_TEST(FileWriter_DeleteFile)
     FileReader reader(fileName);
     TEST_EQUAL(reader.Size(), 3, ());
   }
-  FileWriter::DeleteFile(fileName);
+  FileWriter::DeleteFileX(fileName);
   try
   {
     FileReader reader(fileName);
@@ -161,5 +161,5 @@ UNIT_TEST(FileWriter_AppendAndOpenExisting)
     reader.Read(0, &s[0], 4);
     TEST_EQUAL(s, "5634", ());
   }
-  FileWriter::DeleteFile(fileName);
+  FileWriter::DeleteFileX(fileName);
 }

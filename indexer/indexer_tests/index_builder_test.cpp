@@ -29,7 +29,7 @@ UNIT_TEST(BuildIndexTest)
 
   // Create a new mwm file.
   string const fileName = "build_index_test" DATA_FILE_EXTENSION;
-  FileWriter::DeleteFile(fileName);
+  FileWriter::DeleteFileX(fileName);
 
   // Copy original mwm file and replace index in it.
   {
@@ -63,5 +63,5 @@ UNIT_TEST(BuildIndexTest)
   }
 
   // Clean after the test.
-  FileWriter::DeleteFile(fileName);
+  FileWriter::DeleteFileX(fileName);
 }

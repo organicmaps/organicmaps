@@ -125,8 +125,8 @@ namespace feature
         m_writer.Append(geomFile, geoPostfix);
         m_writer.Append(trgFile, trgPostfix);
 
-        FileWriter::DeleteFile(geomFile);
-        FileWriter::DeleteFile(trgFile);
+        FileWriter::DeleteFileX(geomFile);
+        FileWriter::DeleteFileX(trgFile);
       }
 
       m_writer.Finish();
@@ -377,7 +377,7 @@ namespace feature
     string tempDatFilePath(datFilePath);
     tempDatFilePath += ".notsorted";
 
-    FileWriter::DeleteFile(tempDatFilePath);
+    FileWriter::DeleteFileX(tempDatFilePath);
     if (!platform.RenameFileX(datFilePath, tempDatFilePath))
     {
       LOG(LWARNING, ("File ", datFilePath, " doesn't exist or sharing violation!"));
@@ -419,9 +419,9 @@ namespace feature
     }
 
     // remove old not-sorted dat file
-    FileWriter::DeleteFile(tempDatFilePath);
+    FileWriter::DeleteFileX(tempDatFilePath);
 
-    FileWriter::DeleteFile(datFilePath + DATA_FILE_TAG);
+    FileWriter::DeleteFileX(datFilePath + DATA_FILE_TAG);
 
     return true;
   }

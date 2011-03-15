@@ -94,14 +94,14 @@ UNIT_TEST(SingleDownload)
   size_t const NUM = 1;
   DlObserver<NUM> observer;
 
-  FileWriter::DeleteFile(TEST_FILE_NAME1);
+  FileWriter::DeleteFileX(TEST_FILE_NAME1);
   gMgr.DownloadFile(TEST_FILE_URL1, TEST_FILE_NAME1,
       bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
       bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
   WAIT_FOR_ASYNC_DOWNLOAD;
   TEST_EQUAL( observer.m_result[0], EHttpDownloadOk, ("Do you have internet connection?") );
   TEST( gPlatform.IsFileExists(TEST_FILE_NAME1), () );
-  FileWriter::DeleteFile(TEST_FILE_NAME1);
+  FileWriter::DeleteFileX(TEST_FILE_NAME1);
 }
 
 UNIT_TEST(MultiDownload)
@@ -109,9 +109,9 @@ UNIT_TEST(MultiDownload)
   size_t const NUM = 3;
   DlObserver<NUM> observer;
 
-  FileWriter::DeleteFile(TEST_FILE_NAME1);
-  FileWriter::DeleteFile(TEST_FILE_NAME2);
-  FileWriter::DeleteFile(TEST_FILE_NAME3);
+  FileWriter::DeleteFileX(TEST_FILE_NAME1);
+  FileWriter::DeleteFileX(TEST_FILE_NAME2);
+  FileWriter::DeleteFileX(TEST_FILE_NAME3);
   gMgr.DownloadFile(TEST_FILE_URL1, TEST_FILE_NAME1,
       bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
       bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
@@ -125,15 +125,15 @@ UNIT_TEST(MultiDownload)
 
   TEST_EQUAL( observer.m_result[0], EHttpDownloadOk, ("Do you have internet connection?") );
   TEST( gPlatform.IsFileExists(TEST_FILE_NAME1), () );
-  FileWriter::DeleteFile(TEST_FILE_NAME1);
+  FileWriter::DeleteFileX(TEST_FILE_NAME1);
 
   TEST_EQUAL( observer.m_result[1], EHttpDownloadOk, ("Do you have internet connection?") );
   TEST( gPlatform.IsFileExists(TEST_FILE_NAME2), () );
-  FileWriter::DeleteFile(TEST_FILE_NAME2);
+  FileWriter::DeleteFileX(TEST_FILE_NAME2);
 
   TEST_EQUAL( observer.m_result[2], EHttpDownloadOk, ("Do you have internet connection?") );
   TEST( gPlatform.IsFileExists(TEST_FILE_NAME3), () );
-  FileWriter::DeleteFile(TEST_FILE_NAME3);
+  FileWriter::DeleteFileX(TEST_FILE_NAME3);
 }
 
 UNIT_TEST(InvalidUrl)
@@ -150,7 +150,7 @@ UNIT_TEST(InvalidUrl)
 
   TEST_EQUAL( observer.m_result[0], EHttpDownloadFailed, () );
 
-  FileWriter::DeleteFile(TEST_FILE_NAME1);
+  FileWriter::DeleteFileX(TEST_FILE_NAME1);
 }
 
 namespace
@@ -196,7 +196,7 @@ UNIT_TEST(DownloadFileExists)
     TEST_NOT_EQUAL(fileContent, str, ("File should be overwritten by download manager"));
   }
 
-  FileWriter::DeleteFile(TEST_FILE_NAME1);
+  FileWriter::DeleteFileX(TEST_FILE_NAME1);
 }
 
 UNIT_TEST(DownloadResume)
@@ -255,8 +255,8 @@ UNIT_TEST(DownloadResume)
     TEST_NOT_EQUAL(fileContent, str, ());
   }
 
-  FileWriter::DeleteFile(TEST_FILE_NAME1);
-  FileWriter::DeleteFile(TEST_FILE_NAME2);
+  FileWriter::DeleteFileX(TEST_FILE_NAME1);
+  FileWriter::DeleteFileX(TEST_FILE_NAME2);
 }
 
 UNIT_TEST(DownloadAbsentFile)
@@ -272,7 +272,7 @@ UNIT_TEST(DownloadAbsentFile)
   TEST_EQUAL( observer.m_result[0], EHttpDownloadFileNotFound, () );
   TEST( !GetPlatform().IsFileExists(TEST_ABSENT_FILE_NAME), () );
 
-  FileWriter::DeleteFile(TEST_ABSENT_FILE_NAME);
+  FileWriter::DeleteFileX(TEST_ABSENT_FILE_NAME);
 }
 
 // only on Windows files are actually locked by system
@@ -293,6 +293,6 @@ UNIT_TEST(DownloadLockedFile)
 
     TEST_EQUAL( observer.m_result[0], EHttpDownloadFileIsLocked, () );
   }
-  FileWriter::DeleteFile(TEST_LOCKED_FILE_NAME);
+  FileWriter::DeleteFileX(TEST_LOCKED_FILE_NAME);
 }
 #endif

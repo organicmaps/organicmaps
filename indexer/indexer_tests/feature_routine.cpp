@@ -33,7 +33,7 @@ namespace
     ~feature_source_initializer()
     {
       delete m_source;
-      FileWriter::DeleteFile(m_name);
+      FileWriter::DeleteFileX(m_name);
     }
   };
 }
