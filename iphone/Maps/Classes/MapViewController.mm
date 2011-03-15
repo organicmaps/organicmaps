@@ -1,9 +1,9 @@
-#import "MapViewController.hpp"
-#import "EAGLView.hpp"
+#import "MapViewController.h"
+#import "EAGLView.h"
+#import "WindowHandle.h"
 #import "../Settings/SettingsManager.h"
 
 #include "RenderContext.hpp"
-#include "WindowHandle.hpp"
 #include "../../geometry/rect2d.hpp"
 #include "../../yg/internal/opengl.hpp"
 #include "../../yg/screen.hpp"

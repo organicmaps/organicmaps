@@ -7,8 +7,8 @@
  *
  */
 
-#import "RenderBuffer.hpp"
-#import "../../../yg/internal/opengl.hpp"
+#include "RenderBuffer.hpp"
+#include "../../../yg/internal/opengl.hpp"
 #include "../../../yg/utils.hpp"
 
 namespace iphone

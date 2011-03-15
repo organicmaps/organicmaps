@@ -8,8 +8,8 @@
  */
 
 
-#include "WindowHandle.hpp"
-#include "EAGLView.hpp"
+#import "WindowHandle.h"
+#import "EAGLView.h"
 
 namespace iphone
 {

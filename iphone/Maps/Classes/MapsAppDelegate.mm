@@ -1,5 +1,5 @@
-#import "MapsAppDelegate.hpp"
-#import "MapViewController.hpp"
+#import "MapsAppDelegate.h"
+#import "MapViewController.h"
 
 @implementation MapsAppDelegate
 

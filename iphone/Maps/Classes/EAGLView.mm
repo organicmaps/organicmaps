@@ -1,7 +1,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import <OpenGLES/EAGLDrawable.h>
 
-#import "EAGLView.hpp"
+#import "EAGLView.h"
+#import "WindowHandle.h"
 
 #include "../../yg/screen.hpp"
 #include "../../yg/texture.hpp"
@@ -9,7 +10,6 @@
 #include "../../yg/internal/opengl.hpp"
 #include "../../yg/skin.hpp"
 #include "IPhonePlatform.hpp"
-#include "WindowHandle.hpp"
 #include "RenderBuffer.hpp"
 #include "RenderContext.hpp"
 

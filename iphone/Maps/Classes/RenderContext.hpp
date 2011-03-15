@@ -7,12 +7,15 @@
  *
  */
 
+#pragma once
+
 #include <OpenGLES/EAGL.h>
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 
 #include "../../../yg/rendercontext.hpp"
 #include "../../../std/shared_ptr.hpp"
+
 
 namespace iphone
 {

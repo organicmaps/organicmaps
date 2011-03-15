@@ -8,10 +8,13 @@
  *
  */
 
-#import "RenderContext.hpp"
-#import "../../../std/shared_ptr.hpp"
+#pragma once
+
+#include "RenderContext.hpp"
+#include "../../../std/shared_ptr.hpp"
+#include "../../../yg/render_target.hpp"
+
 #import <QuartzCore/CAEAGLLayer.h>
-#import "../../../yg/render_target.hpp"
 
 namespace	iphone
 {

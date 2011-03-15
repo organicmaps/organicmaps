@@ -10,7 +10,7 @@
 #include "../../../map/window_handle.hpp"
 #include "../../../yg/screen.hpp"
 #include "RenderContext.hpp"
-#import "EAGLView.hpp"
+#import "EAGLView.h"
 
 namespace iphone
 {

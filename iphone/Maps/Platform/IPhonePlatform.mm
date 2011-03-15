@@ -2,10 +2,11 @@
 #import <Foundation/NSBundle.h>
 #import <Foundation/NSPathUtilities.h>
 #import <Foundation/NSProcessInfo.h>
-#import "IPhonePlatform.hpp"
 #import <UIKit/UIDevice.h>
 #import <UIKit/UIScreen.h>
 #import <UIKit/UIScreenMode.h>
+
+#include "IPhonePlatform.hpp"
 
 #include <unistd.h>
 #include <dirent.h>

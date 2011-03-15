@@ -10,10 +10,10 @@
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
-#import "MapViewController.hpp"
-#import "../../std/shared_ptr.hpp"
-#import "../../map/drawer_yg.hpp"
-#import "RenderBuffer.hpp"
+#import "MapViewController.h"
+#include "../../std/shared_ptr.hpp"
+#include "../../map/drawer_yg.hpp"
+#include"RenderBuffer.hpp"
 
 namespace iphone
 {
