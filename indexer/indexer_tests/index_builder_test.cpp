@@ -41,7 +41,7 @@ UNIT_TEST(BuildIndexTest)
       if (tags[i] != INDEX_FILE_TAG)
       {
         FileReader reader = originalContainer.GetReader(tags[i]);
-        uint64_t const sz = reader.Size();
+        size_t const sz = static_cast<size_t>(reader.Size());
         if (sz > 0)
         {
           vector<char> data(sz);
