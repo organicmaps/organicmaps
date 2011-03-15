@@ -75,10 +75,10 @@ public:
   void ForEachInIntervalAndScale(F const & f, uint64_t beg, uint64_t end, uint32_t scale,
                                  Query & query) const
   {
-    int scaleBucket = BucketByScale(scale);
-    ASSERT_LESS(scaleBucket, static_cast<int>(m_IndexForScale.size()), ());
-    for (int i = 0; i <= scaleBucket; ++i)
-      m_IndexForScale[i].ForEach(f, beg, end, query);
+    size_t const scaleBucket = BucketByScale(scale);
+    if (scaleBucket < m_IndexForScale.size())
+      for (size_t i = 0; i <= scaleBucket; ++i)
+        m_IndexForScale[i].ForEach(f, beg, end, query);
   }
 
 private:
