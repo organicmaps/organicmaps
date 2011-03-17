@@ -93,7 +93,7 @@ NSString * GetEncryptedMac()
 		[val release];
   }
 
-  static NSString * macStr = GetEncryptedMac();
+  NSString * macStr = GetEncryptedMac();
   if (macStr)
     [request addValue:macStr forHTTPHeaderField:@"User-Agent"];
   return request;
