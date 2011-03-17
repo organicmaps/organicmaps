@@ -120,13 +120,19 @@ public:
       m_worldBucket.reset(new FeatureOutT(WORLD_FILE_NAME, featureOutInitData));
 
     // fill vector with types that need to be merged
-    char const * arrMerge[][2] = { {"natural", "coastline"} };
+    static size_t const MAX_TYPES_IN_PATH = 3;
+    char const * arrMerge[][MAX_TYPES_IN_PATH] = { {"natural", "coastline", ""},
+                                   {"boundary", "administrative", "2"} };
 
     for (size_t i = 0; i < ARRAY_SIZE(arrMerge); ++i)
     {
-      vector<string> path(2);
-      path[0] = arrMerge[i][0];
-      path[1] = arrMerge[i][1];
+      vector<string> path;
+      for (size_t j = 0; j < MAX_TYPES_IN_PATH; ++j)
+      {
+        string const strType(arrMerge[i][j]);
+        if (!strType.empty())
+          path.push_back(strType);
+      }
       m_MergeTypes.push_back(classif().GetTypeByPath(path));
 
       ASSERT_NOT_EQUAL ( m_MergeTypes.back(), ftype::GetEmptyValue(), () );
