@@ -93,7 +93,7 @@ namespace feature
     void operator () (FeatureBuilder1 & fb)
     {
       if (m_worldMap(fb))
-        return; // do not duplicate feature in any country if it's stored in world map
+        ;//return; // do not duplicate feature in any country if it's stored in world map
 
       buffer_vector<kml::CountryPolygons const *, 32> vec;
       m_countries.ForEachInRect(fb.GetLimitRect(), InsertCountriesPtr(vec));
