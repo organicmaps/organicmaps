@@ -16,8 +16,8 @@
 		46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
 		46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
-		49B3FB84132FA39900057053 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B3FB82132FA39900057053 /* download.png */; };
-		49B3FB85132FA39900057053 /* download@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B3FB83132FA39900057053 /* download@2x.png */; };
+		4945D21C1334187D0082387C /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 4945D21A1334187D0082387C /* settings.png */; };
+		4945D21D1334187D0082387C /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4945D21B1334187D0082387C /* settings@2x.png */; };
 		49B3FB8D132FA43E00057053 /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B3FB8B132FA43E00057053 /* location.png */; };
 		49B3FB8E132FA43E00057053 /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B3FB8C132FA43E00057053 /* location@2x.png */; };
 		49DD2B51132FA8880031D82E /* GuideViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 49DD2B4F132FA8880031D82E /* GuideViewController.mm */; };
@@ -102,8 +102,8 @@
 		46F26CD710F623BA00ECCA39 /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 11; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = EAGLView.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
-		49B3FB82132FA39900057053 /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = download.png; sourceTree = "<group>"; };
-		49B3FB83132FA39900057053 /* download@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "download@2x.png"; sourceTree = "<group>"; };
+		4945D21A1334187D0082387C /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		4945D21B1334187D0082387C /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
 		49B3FB8B132FA43E00057053 /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
 		49B3FB8C132FA43E00057053 /* location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location@2x.png"; sourceTree = "<group>"; };
 		49DD2B4E132FA8880031D82E /* GuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideViewController.h; sourceTree = "<group>"; };
@@ -273,11 +273,11 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4945D21A1334187D0082387C /* settings.png */,
+				4945D21B1334187D0082387C /* settings@2x.png */,
 				49DD2B50132FA8880031D82E /* GuideViewController.xib */,
 				49B3FB8B132FA43E00057053 /* location.png */,
 				49B3FB8C132FA43E00057053 /* location@2x.png */,
-				49B3FB82132FA39900057053 /* download.png */,
-				49B3FB83132FA39900057053 /* download@2x.png */,
 				FA065FFD1286167A00FEA989 /* Default@2x.png */,
 				FA065FFE1286167A00FEA989 /* Default.png */,
 				FA50055C1287BFCE002961F0 /* Icon-72.png */,
@@ -487,11 +487,11 @@
 				EEFE7C5B12F8CC2D006AF8C3 /* 20_lohit_pa.ttf in Resources */,
 				EEFE7C5D12F8CC2D006AF8C3 /* 22_lohit_ta.ttf in Resources */,
 				EEFE7C5E12F8CC2D006AF8C3 /* 23_lohit_te.ttf in Resources */,
-				49B3FB84132FA39900057053 /* download.png in Resources */,
-				49B3FB85132FA39900057053 /* download@2x.png in Resources */,
 				49B3FB8D132FA43E00057053 /* location.png in Resources */,
 				49B3FB8E132FA43E00057053 /* location@2x.png in Resources */,
 				49DD2B52132FA8880031D82E /* GuideViewController.xib in Resources */,
+				4945D21C1334187D0082387C /* settings.png in Resources */,
+				4945D21D1334187D0082387C /* settings@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
