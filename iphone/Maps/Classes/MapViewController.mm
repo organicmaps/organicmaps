@@ -1,4 +1,6 @@
 #import "MapViewController.h"
+#import "GuideViewController.h"
+#import "MapsAppDelegate.h"
 #import "EAGLView.h"
 #import "WindowHandle.h"
 #import "../Settings/SettingsManager.h"
@@ -14,10 +16,11 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 
 @implementation MapViewController
 
+  // Make m_framework and m_storage MapsAppDelegate properties instead of global variables.
   framework_t * m_framework = NULL;
   storage::Storage m_storage;
 
-- (void) OnMyPositionClicked: (id)sender
+- (IBAction)OnMyPositionClicked:(id)sender
 {
 	if (m_locationController.active)
   {
@@ -33,15 +36,23 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
   }
 }
 
-- (void) OnSettingsClicked: (id)sender
+- (IBAction)OnSettingsClicked:(id)sender
 {
-    m_framework->SetUpdatesEnabled(false);
-	[SettingsManager Show:self WithStorage:m_storage];
+  m_framework->SetUpdatesEnabled(false);
+  [[[MapsAppDelegate theApp] settingsManager] Show:self WithStorage:&m_storage];
 }
 
-- (void) OnShowAllClicked: (id)sender
+- (IBAction)OnGuideClicked:(id)sender
 {
-	m_framework->ShowAll();
+  m_framework->SetUpdatesEnabled(false);
+  UIView * guideView = [MapsAppDelegate theApp].guideViewController.view;
+  [guideView setFrame:self.view.frame];
+  [UIView transitionFromView:self.view
+                      toView:guideView
+                    duration:0
+                     options:UIViewAnimationOptionTransitionNone
+                  completion:nil];
+  [(UISegmentedControl *)sender setSelectedSegmentIndex:0];
 }
 
 - (void) dealloc

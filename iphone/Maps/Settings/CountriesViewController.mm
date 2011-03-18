@@ -1,5 +1,7 @@
 #import "CountriesViewController.h"
 #import "SettingsManager.h"
+#import "MapsAppDelegate.h"
+#import "MapViewController.h"
 
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -50,9 +52,9 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 
 @implementation CountriesViewController
 
-- (void) OnCloseButton: (id) sender
+- (void) OnCloseButton:(id)sender
 {
-	[SettingsManager Hide];
+  [[[MapsAppDelegate theApp] settingsManager] Hide];
 }
 
 - (id) initWithStorage: (Storage &)storage andIndex: (TIndex const &) index andHeader: (NSString *)header

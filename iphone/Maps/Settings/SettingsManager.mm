@@ -10,52 +10,54 @@ using namespace storage;
 // Settings are always present globally
 @implementation SettingsManager
 
-	storage::Storage * g_storage = 0;
-  UINavigationController * g_navController = nil;
-
 // Destructor
 - (void) dealloc
 {
-	if (g_navController)
-  	[g_navController release];
+  [m_prevController release];
+  m_prevController = nil;
+  [m_countriesController release];
+  m_countriesController = nil;
+  [m_navController release];
+  m_navController = nil;
   [super dealloc];
 }
 
-// Acts as Close dialog button
-- (void) OnMapButtonClick: (id)selector
+- (void) OnCountryChange: (TIndex const &) index
 {
-	[SettingsManager Hide];
+	if (m_countriesController)
+  	[m_countriesController OnCountryChange:index];
 }
 
-
-+ (void) OnCountryChange: (TIndex const &) index
+- (void) OnCountryDownload: (TIndex const &) index withProgress: (TDownloadProgress const &) progress
 {
-	if (g_navController)
-  	[(CountriesViewController *)g_navController.topViewController OnCountryChange: index];
+	if (m_countriesController)
+  	[m_countriesController OnDownload:index withProgress:progress];
 }
 
-+ (void) OnCountryDownload: (TIndex const &) index withProgress: (TDownloadProgress const &) progress
+- (void) OnUpdateCheck: (TUpdateResult) result withText: (string const &) text
 {
-	if (g_navController)
-  	[(CountriesViewController *)g_navController.topViewController OnDownload: index withProgress: progress];
 }
-
-+ (void) OnUpdateCheck: (TUpdateResult) result withText: (string const &) text
-{
-
-}
-
 
 // Currently displays only countries to download
-+ (void) Show: (UIViewController *)parentController WithStorage: (Storage &)storage
+- (void) Show:(UIViewController *)prevController WithStorage:(Storage *)storage
 {
-	g_storage = &storage;
-	if (!g_navController)
-  {
-  	CountriesViewController * rootViewController = [[CountriesViewController alloc] initWithStorage:storage
-    		andIndex:TIndex() andHeader:@"Download"];
-  	g_navController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
+  m_storage = storage;
+  m_prevController = [prevController retain];
 
+  if (!m_countriesController)
+  {
+    m_countriesController = [[CountriesViewController alloc]
+                             initWithStorage:*m_storage andIndex:TIndex() andHeader:@"Download"];
+  }
+
+  if (!m_navController)
+  {
+    m_navController = [[UINavigationController alloc]
+                       initWithRootViewController:m_countriesController];
+  }
+
+  // Subscribe to storage callbacks.
+  {
     // tricky boost::bind for objC class methods
 		typedef void (*TChangeFunc)(id, SEL, TIndex const &);
 		SEL changeSel = @selector(OnCountryChange:);
@@ -69,25 +71,47 @@ using namespace storage;
 		SEL updateSel = @selector(OnUpdateCheck:);
 		TUpdateFunc updateImpl = (TUpdateFunc)[self methodForSelector:updateSel];
 
-		storage.Subscribe(boost::bind(changeImpl, self, changeSel, _1),
+		m_storage->Subscribe(boost::bind(changeImpl, self, changeSel, _1),
     		boost::bind(progressImpl, self, progressSel, _1, _2),
         boost::bind(updateImpl, self, updateSel, _1, _2));
   }
-
-  [parentController presentModalViewController:g_navController animated:YES];
+  
+  // Transition views.
+  // [m_prevController presentModalViewController:m_navController animated:YES];
+  [UIView transitionFromView:m_prevController.view
+                      toView:m_navController.view
+                    duration:1
+                     options:UIViewAnimationOptionTransitionCurlUp
+                  completion:nil];
 }
 
 // Hides all opened settings windows
-+ (void) Hide
+- (void) Hide
 {
-	if (g_navController)
-  {
-    g_storage->Unsubscribe();
-		[[g_navController parentViewController] dismissModalViewControllerAnimated:YES];
-  	[[g_navController parentViewController] Invalidate];
-		[g_navController release];
-    g_navController = nil;
-  }
+  NSLog(@"SettingsManager::Hide");
+  if (!m_prevController)
+    return;
+
+  m_storage->Unsubscribe();
+
+  // Transition views.
+  // [m_prevController dismissModalViewControllerAnimated:YES];
+  [UIView transitionFromView:m_navController.view
+                      toView:m_prevController.view
+                    duration:1
+                     options:UIViewAnimationOptionTransitionCurlDown
+                  completion:nil];
+
+  [[m_navController parentViewController] Invalidate];
+
+  m_storage = nil;
+  [m_prevController release];
+  m_prevController = nil;
+  [m_countriesController release];
+  m_countriesController = nil;
+  [m_navController release];
+  m_navController = nil;
+
 }
 
 @end

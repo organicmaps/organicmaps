@@ -20,6 +20,8 @@
 		49B3FB85132FA39900057053 /* download@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B3FB83132FA39900057053 /* download@2x.png */; };
 		49B3FB8D132FA43E00057053 /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B3FB8B132FA43E00057053 /* location.png */; };
 		49B3FB8E132FA43E00057053 /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B3FB8C132FA43E00057053 /* location@2x.png */; };
+		49DD2B51132FA8880031D82E /* GuideViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 49DD2B4F132FA8880031D82E /* GuideViewController.mm */; };
+		49DD2B52132FA8880031D82E /* GuideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DD2B50132FA8880031D82E /* GuideViewController.xib */; };
 		EE026F0611D6AC0D00645242 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
 		EE026F0D11D6AC2800645242 /* basic.skn in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0811D6AC2800645242 /* basic.skn */; };
 		EE026F0E11D6AC2800645242 /* drawing_rules.bin in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0911D6AC2800645242 /* drawing_rules.bin */; };
@@ -104,6 +106,9 @@
 		49B3FB83132FA39900057053 /* download@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "download@2x.png"; sourceTree = "<group>"; };
 		49B3FB8B132FA43E00057053 /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
 		49B3FB8C132FA43E00057053 /* location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location@2x.png"; sourceTree = "<group>"; };
+		49DD2B4E132FA8880031D82E /* GuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideViewController.h; sourceTree = "<group>"; };
+		49DD2B4F132FA8880031D82E /* GuideViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GuideViewController.mm; sourceTree = "<group>"; };
+		49DD2B50132FA8880031D82E /* GuideViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GuideViewController.xib; path = Classes/GuideViewController.xib; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MapsWithMe-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		EE026F0511D6AC0D00645242 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = classificator.txt; path = ../../data/classificator.txt; sourceTree = SOURCE_ROOT; };
 		EE026F0811D6AC2800645242 /* basic.skn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic.skn; path = ../../data/basic.skn; sourceTree = SOURCE_ROOT; };
@@ -225,6 +230,8 @@
 				EED10A4411F78D120095FAD4 /* MapViewController.mm */,
 				EEB7E30711E9094F00080A68 /* UserLocationController.h */,
 				EEB7E30811E9094F00080A68 /* UserLocationController.mm */,
+				49DD2B4E132FA8880031D82E /* GuideViewController.h */,
+				49DD2B4F132FA8880031D82E /* GuideViewController.mm */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -266,6 +273,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				49DD2B50132FA8880031D82E /* GuideViewController.xib */,
 				49B3FB8B132FA43E00057053 /* location.png */,
 				49B3FB8C132FA43E00057053 /* location@2x.png */,
 				49B3FB82132FA39900057053 /* download.png */,
@@ -483,6 +491,7 @@
 				49B3FB85132FA39900057053 /* download@2x.png in Resources */,
 				49B3FB8D132FA43E00057053 /* location.png in Resources */,
 				49B3FB8E132FA43E00057053 /* location@2x.png in Resources */,
+				49DD2B52132FA8880031D82E /* GuideViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,6 +515,7 @@
 				FAF37EFF126DCE6F005EA154 /* IPhoneDownload.mm in Sources */,
 				FAF37F00126DCE6F005EA154 /* IPhoneDownloadManager.mm in Sources */,
 				FAF37F01126DCE6F005EA154 /* IPhonePlatform.mm in Sources */,
+				49DD2B51132FA8880031D82E /* GuideViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

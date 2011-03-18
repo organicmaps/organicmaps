@@ -46,4 +46,8 @@ withConfidenceRadius: (double) confidenceRadius
 
 - (void) Invalidate;
 
+- (IBAction)OnMyPositionClicked:(id)sender;
+- (IBAction)OnSettingsClicked:(id)sender;
+- (IBAction)OnGuideClicked:(id)sender;
+
 @end
