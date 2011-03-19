@@ -43,6 +43,7 @@
                      options:UIViewAnimationOptionTransitionNone
                   completion:nil];
   [(UISegmentedControl *)sender setSelectedSegmentIndex:1];
+  [[MapsAppDelegate theApp].mapViewController Invalidate];
 }
 
 #pragma mark - View lifecycle
