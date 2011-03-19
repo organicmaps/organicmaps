@@ -87,9 +87,9 @@
       int blitIBSize = pow(2, ceil(log2(10 * sizeof(unsigned short))));
 
       resourceManager = shared_ptr<yg::ResourceManager>(new yg::ResourceManager(
-						bigVBSize, bigIBSize, 20,
-						smallVBSize, smallIBSize, 30,
-						blitVBSize, blitIBSize, 20,
+            bigVBSize, bigIBSize, 3,
+            smallVBSize, smallIBSize, 10,
+            blitVBSize, blitIBSize, 10,
 						512, 256, 10,
 						GetPlatform().ReadPathForFile("unicode_blocks.txt").c_str(),
 						GetPlatform().ReadPathForFile("fonts_whitelist.txt").c_str(),

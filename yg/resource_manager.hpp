@@ -32,6 +32,9 @@ namespace yg
 
     threads::Mutex m_mutex;
 
+    size_t m_textureWidth;
+    size_t m_textureHeight;
+
     list<shared_ptr<gl::BaseTexture> > m_dynamicTextures;
 
     size_t m_vbSize;
@@ -42,9 +45,6 @@ namespace yg
 
     size_t m_blitVBSize;
     size_t m_blitIBSize;
-
-    size_t m_textureWidth;
-    size_t m_textureHeight;
 
     list<gl::Storage> m_storages;
     list<gl::Storage> m_smallStorages;

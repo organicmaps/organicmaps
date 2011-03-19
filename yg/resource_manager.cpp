@@ -9,6 +9,7 @@
 
 #include "../coding/file_reader.hpp"
 #include "../coding/parse_xml.hpp"
+#include "../base/logging.hpp"
 
 
 namespace yg
@@ -21,20 +22,26 @@ namespace yg
                                    size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
                                    size_t texWidth, size_t texHeight, size_t texCount,
                                    char const * blocksFile, char const * whiteListFile, char const * blackListFile, size_t maxGlyphCacheSize)
-                                     : m_vbSize(vbSize), m_ibSize(ibSize),
+                                     : m_textureWidth(texWidth), m_textureHeight(texHeight),
+                                     m_vbSize(vbSize), m_ibSize(ibSize),
                                      m_smallVBSize(smallVBSize), m_smallIBSize(smallIBSize),
                                      m_blitVBSize(blitVBSize), m_blitIBSize(blitIBSize),
-                                     m_textureWidth(texWidth), m_textureHeight(texHeight),
                                      m_glyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, maxGlyphCacheSize))
   {
     for (size_t i = 0; i < storagesCount; ++i)
       m_storages.push_back(gl::Storage(vbSize, ibSize));
 
+    LOG(LINFO, ("allocating ", (vbSize + ibSize) * storagesCount, " bytes for main storage"));
+
     for (size_t i = 0; i < smallStoragesCount; ++i)
       m_smallStorages.push_back(gl::Storage(smallVBSize, smallIBSize));
 
+    LOG(LINFO, ("allocating ", (smallVBSize + smallIBSize) * smallStoragesCount, " bytes for small storage"));
+
     for (size_t i = 0; i < blitStoragesCount; ++i)
       m_blitStorages.push_back(gl::Storage(blitVBSize, blitIBSize));
+
+    LOG(LINFO, ("allocating ", (blitVBSize + blitIBSize) * blitStoragesCount, " bytes for blit storage"));
 
     for (size_t i = 0; i < texCount; ++i)
     {
@@ -43,6 +50,8 @@ namespace yg
       static_cast<TDynamicTexture*>(m_dynamicTextures.back().get())->randomize();
 #endif
     }
+
+    LOG(LINFO, ("allocating ", texWidth * texHeight * sizeof(TDynamicTexture::pixel_t), " bytes for textures"));
   }
 
   shared_ptr<gl::BaseTexture> const & ResourceManager::getTexture(string const & fileName)
@@ -196,10 +205,33 @@ namespace yg
 
   void ResourceManager::enterBackground()
   {
+    threads::MutexGuard guard(m_mutex);
+
+    for (list<gl::Storage>::iterator it = m_storages.begin(); it != m_storages.end(); ++it)
+      *it = gl::Storage();
+    for (list<gl::Storage>::iterator it = m_smallStorages.begin(); it != m_smallStorages.end(); ++it)
+      *it = gl::Storage();
+    for (list<gl::Storage>::iterator it = m_blitStorages.begin(); it != m_blitStorages.end(); ++it)
+      *it = gl::Storage();
+
+    for (list<shared_ptr<gl::BaseTexture> >::iterator it = m_dynamicTextures.begin(); it != m_dynamicTextures.end(); ++it)
+      it->reset();
+
+    LOG(LINFO, ("freed ", m_storages.size(), " storages, ", m_smallStorages.size(), " small storages, ", m_blitStorages.size(), " blit storages and ", m_dynamicTextures.size(), " textures"));
   }
 
   void ResourceManager::enterForeground()
   {
-  }
+    threads::MutexGuard guard(m_mutex);
 
+    for (list<gl::Storage>::iterator it = m_storages.begin(); it != m_storages.end(); ++it)
+      *it = gl::Storage(m_vbSize, m_ibSize);
+    for (list<gl::Storage>::iterator it = m_smallStorages.begin(); it != m_smallStorages.end(); ++it)
+      *it = gl::Storage(m_smallVBSize, m_smallIBSize);
+    for (list<gl::Storage>::iterator it = m_blitStorages.begin(); it != m_blitStorages.end(); ++it)
+      *it = gl::Storage(m_blitVBSize, m_blitIBSize);
+
+    for (list<shared_ptr<gl::BaseTexture> >::iterator it = m_dynamicTextures.begin(); it != m_dynamicTextures.end(); ++it)
+      *it = shared_ptr<gl::BaseTexture>(new TDynamicTexture(m_textureWidth, m_textureHeight));
+  }
 }
