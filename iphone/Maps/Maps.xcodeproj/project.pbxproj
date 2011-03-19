@@ -647,8 +647,7 @@
 					_DEBUG,
 					TARGET_OS_IPHONE,
 				);
-				"GCC_THUMB_SUPPORT[arch=armv6]" = NO;
-				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = 4.2;
 				HEADER_SEARCH_PATHS = (
 					../../3party/protobuf,
@@ -702,8 +701,7 @@
 					_RELEASE,
 					TARGET_OS_IPHONE,
 				);
-				"GCC_THUMB_SUPPORT[arch=armv6]" = NO;
-				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_VERSION = 4.2;
 				HEADER_SEARCH_PATHS = (
