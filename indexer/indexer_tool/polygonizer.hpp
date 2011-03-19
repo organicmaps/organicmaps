@@ -90,10 +90,9 @@ namespace feature
       }
     };
 
-    void operator () (FeatureBuilder1 & fb)
+    void operator () (FeatureBuilder1 const & fb)
     {
-      if (m_worldMap(fb))
-        ;//return; // do not duplicate feature in any country if it's stored in world map
+      m_worldMap(fb);
 
       buffer_vector<kml::CountryPolygons const *, 32> vec;
       m_countries.ForEachInRect(fb.GetLimitRect(), InsertCountriesPtr(vec));

@@ -52,8 +52,7 @@ public:
 
   void operator () (feature_builder_t & fb)
   {
-    if (m_worldMap(fb))
-      return; // we do not duplicate features in world and bucket files
+    m_worldMap(fb);
 
     FeatureClipperT clipper(fb);
     // TODO: Is feature fully inside GetLimitRect()?

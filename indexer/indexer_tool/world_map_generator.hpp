@@ -121,8 +121,10 @@ public:
 
     // fill vector with types that need to be merged
     static size_t const MAX_TYPES_IN_PATH = 3;
-    char const * arrMerge[][MAX_TYPES_IN_PATH] = { {"natural", "coastline", ""},
-                                   {"boundary", "administrative", "2"} };
+    char const * arrMerge[][MAX_TYPES_IN_PATH] = {
+      {"natural", "coastline", ""},
+      {"boundary", "administrative", "2"}
+    };
 
     for (size_t i = 0; i < ARRAY_SIZE(arrMerge); ++i)
     {
@@ -166,19 +168,16 @@ public:
     }
   }
 
-  bool operator()(FeatureBuilder1 & fb)
+  void operator()(FeatureBuilder1 const & fb)
   {
     if (m_worldBucket)
     {
       FeatureBase fBase = fb.GetFeatureBase();
       int const minScale = feature::MinDrawableScaleForFeature(fBase);
       CHECK_GREATER(minScale, -1, ("Non-drawable feature found!?"));
+
       if (m_maxWorldScale >= minScale)
       {
-        //FeatureTypePrinter typePrinter;
-        //fBase.ForEachTypeRef(typePrinter);
-        //cout << endl;
-
         if (m_mergeCoastlines && fBase.GetFeatureType() == FeatureBase::FEATURE_TYPE_LINE)
         {
           for (size_t i = 0; i < m_MergeTypes.size(); ++i)
@@ -190,14 +189,12 @@ public:
               TryToMerge(fbm);
             }
           }
-
-          if (!fb.AssignType_SetDifference(m_MergeTypes))
-            return true;
         }
-        (*m_worldBucket)(fb);
-        return true;
+
+        FeatureBuilder1 fbm(fb);
+        if (fbm.AssignType_SetDifference(m_MergeTypes))
+            (*m_worldBucket)(fbm);
       }
     }
-    return false;
   }
 };
