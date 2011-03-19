@@ -77,12 +77,13 @@ using namespace storage;
   }
   
   // Transition views.
-  // [m_prevController presentModalViewController:m_navController animated:YES];
-  [UIView transitionFromView:m_prevController.view
-                      toView:m_navController.view
-                    duration:1
-                     options:UIViewAnimationOptionTransitionCurlUp
-                  completion:nil];
+  [m_prevController presentModalViewController:m_navController animated:YES];
+  // This has bugs when device orientation is changed.
+  // [UIView transitionFromView:m_prevController.view
+  //                     toView:m_navController.view
+  //                   duration:1
+  //                    options:UIViewAnimationOptionTransitionCurlUp
+  //                 completion:nil];
 }
 
 // Hides all opened settings windows
@@ -95,12 +96,13 @@ using namespace storage;
   m_storage->Unsubscribe();
 
   // Transition views.
-  // [m_prevController dismissModalViewControllerAnimated:YES];
-  [UIView transitionFromView:m_navController.view
-                      toView:m_prevController.view
-                    duration:1
-                     options:UIViewAnimationOptionTransitionCurlDown
-                  completion:nil];
+  [m_prevController dismissModalViewControllerAnimated:YES];
+  // This has bugs when device orientation is changed.
+  // [UIView transitionFromView:m_navController.view
+  //                     toView:m_prevController.view
+  //                   duration:1
+  //                    options:UIViewAnimationOptionTransitionCurlDown
+  //                 completion:nil];
 
   [[m_navController parentViewController] Invalidate];
 
