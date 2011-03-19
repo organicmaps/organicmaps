@@ -553,7 +553,7 @@
 					DEBUG,
 					_DEBUG,
 				);
-				GCC_VERSION = "";
+				GCC_VERSION = 4.2;
 				HEADER_SEARCH_PATHS = (
 					../../3party/protobuf,
 					../../3party/protobuf/src,
@@ -596,7 +596,7 @@
 					_RELEASE,
 				);
 				GCC_UNROLL_LOOPS = YES;
-				GCC_VERSION = "";
+				GCC_VERSION = 4.2;
 				HEADER_SEARCH_PATHS = (
 					../../3party/protobuf,
 					../../3party/protobuf/src,
@@ -649,7 +649,7 @@
 				);
 				"GCC_THUMB_SUPPORT[arch=armv6]" = NO;
 				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
-				GCC_VERSION = "";
+				GCC_VERSION = 4.2;
 				HEADER_SEARCH_PATHS = (
 					../../3party/protobuf,
 					../../3party/protobuf/src,
@@ -705,7 +705,7 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = NO;
 				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
 				GCC_UNROLL_LOOPS = YES;
-				GCC_VERSION = "";
+				GCC_VERSION = 4.2;
 				HEADER_SEARCH_PATHS = (
 					../../3party/protobuf,
 					../../3party/protobuf/src,
