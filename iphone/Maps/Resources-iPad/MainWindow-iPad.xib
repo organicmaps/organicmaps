@@ -80,7 +80,7 @@
 								<object class="IBUISegmentedControl" id="349590326">
 									<reference key="NSNextResponder" ref="353555995"/>
 									<int key="NSvFlags">292</int>
-									<string key="NSFrame">{{286, 8}, {207, 30}}</string>
+									<string key="NSFrame">{{7, 8}, {207, 30}}</string>
 									<reference key="NSSuperview" ref="353555995"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView"/>
@@ -125,10 +125,9 @@
 							<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							<object class="NSMutableArray" key="IBUIItems">
 								<bool key="EncodedWithXMLCoder">YES</bool>
-								<object class="IBUIBarButtonItem" id="289994617">
-									<string key="IBUITitle">My Position</string>
+								<object class="IBUIBarButtonItem" id="790637824">
 									<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-									<int key="IBUIStyle">1</int>
+									<reference key="IBUICustomView" ref="349590326"/>
 									<reference key="IBUIToolbar" ref="353555995"/>
 								</object>
 								<object class="IBUIBarButtonItem" id="423935066">
@@ -136,18 +135,20 @@
 									<reference key="IBUIToolbar" ref="353555995"/>
 									<int key="IBUISystemItemIdentifier">5</int>
 								</object>
-								<object class="IBUIBarButtonItem" id="790637824">
+								<object class="IBUIBarButtonItem" id="289994617">
+									<object class="NSCustomResource" key="IBUIImage">
+										<string key="NSClassName">NSImage</string>
+										<string key="NSResourceName">location.png</string>
+									</object>
 									<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-									<reference key="IBUICustomView" ref="349590326"/>
+									<int key="IBUIStyle">1</int>
 									<reference key="IBUIToolbar" ref="353555995"/>
-								</object>
-								<object class="IBUIBarButtonItem" id="538393019">
-									<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-									<reference key="IBUIToolbar" ref="353555995"/>
-									<int key="IBUISystemItemIdentifier">5</int>
 								</object>
 								<object class="IBUIBarButtonItem" id="317896707">
-									<string key="IBUITitle">Countries</string>
+									<object class="NSCustomResource" key="IBUIImage">
+										<string key="NSClassName">NSImage</string>
+										<string key="NSResourceName">settings.png</string>
+									</object>
 									<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 									<int key="IBUIStyle">1</int>
 									<reference key="IBUIToolbar" ref="353555995"/>
@@ -278,10 +279,9 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="317896707"/>
-							<reference ref="538393019"/>
+							<reference ref="790637824"/>
 							<reference ref="289994617"/>
 							<reference ref="423935066"/>
-							<reference ref="790637824"/>
 						</object>
 						<reference key="parent" ref="53915144"/>
 					</object>
@@ -291,18 +291,8 @@
 						<reference key="parent" ref="353555995"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">164</int>
-						<reference key="object" ref="538393019"/>
-						<reference key="parent" ref="353555995"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">163</int>
 						<reference key="object" ref="289994617"/>
-						<reference key="parent" ref="353555995"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">172</int>
-						<reference key="object" ref="423935066"/>
 						<reference key="parent" ref="353555995"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -319,6 +309,11 @@
 						<reference key="object" ref="349590326"/>
 						<reference key="parent" ref="790637824"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">176</int>
+						<reference key="object" ref="423935066"/>
+						<reference key="parent" ref="353555995"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -333,10 +328,9 @@
 					<string>161.IBPluginDependency</string>
 					<string>162.IBPluginDependency</string>
 					<string>163.IBPluginDependency</string>
-					<string>164.IBPluginDependency</string>
 					<string>165.IBPluginDependency</string>
-					<string>172.IBPluginDependency</string>
 					<string>174.IBPluginDependency</string>
+					<string>176.IBPluginDependency</string>
 					<string>2.IBAttributePlaceholdersKey</string>
 					<string>2.IBEditorWindowLastContentRect</string>
 					<string>2.IBLastUsedUIStatusBarStylesToTargetRuntimesMap</string>
@@ -351,7 +345,6 @@
 					<string>MapViewController</string>
 					<string>{{13, 70}, {783, 686}}</string>
 					<string>EAGLView</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -385,7 +378,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">175</int>
+			<int key="maxID">176</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -447,6 +440,45 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">MapViewController</string>
 					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>OnGuideClicked:</string>
+							<string>OnMyPositionClicked:</string>
+							<string>OnSettingsClicked:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>OnGuideClicked:</string>
+							<string>OnMyPositionClicked:</string>
+							<string>OnSettingsClicked:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">OnGuideClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">OnMyPositionClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">OnSettingsClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+						</object>
+					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/MapViewController.h</string>
@@ -455,6 +487,38 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">MapsAppDelegate</string>
 					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>mapViewController</string>
+							<string>window</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>MapViewController</string>
+							<string>UIWindow</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>mapViewController</string>
+							<string>window</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">mapViewController</string>
+								<string key="candidateClassName">MapViewController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">window</string>
+								<string key="candidateClassName">UIWindow</string>
+							</object>
+						</object>
+					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/MapsAppDelegate.h</string>
@@ -478,6 +542,19 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<bool key="EncodedWithXMLCoder">YES</bool>
+			<object class="NSArray" key="dict.sortedKeys">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>location.png</string>
+				<string>settings.png</string>
+			</object>
+			<object class="NSMutableArray" key="dict.values">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>{16, 16}</string>
+				<string>{22, 22}</string>
+			</object>
+		</object>
 		<string key="IBCocoaTouchPluginVersion">300</string>
 	</data>
 </archive>
