@@ -11,6 +11,11 @@
 namespace my
 {
 
+template <typename T> inline T Abs(T x)
+{
+  return (x < 0 ? -x : x);
+}
+
 // Compare floats or doubles for almost equality.
 // maxULPs - number of closest floating point values that are considered equal.
 // Infinity is treated as almost equal to the largest possible floating point values.
@@ -74,11 +79,6 @@ inline T clamp(T x, TMin xmin, TMax xmax)
   if (x < xmin)
     return xmin;
   return x;
-}
-
-template <typename T> inline T Abs(T x)
-{
-  return (x < 0 ? -x : x);
 }
 
 template <typename T> inline bool between_s(T a, T b, T x)
