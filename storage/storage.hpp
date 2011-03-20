@@ -40,10 +40,11 @@ namespace storage
 
   struct TIndex
   {
+    static int const INVALID = -1;
     int m_group;
     int m_country;
     int m_region;
-    TIndex(int group = -1, int country = -1, int region = -1)
+    TIndex(int group = INVALID, int country = INVALID, int region = INVALID)
       : m_group(group), m_country(country), m_region(region) {}
     bool operator==(TIndex const & other) const
     {

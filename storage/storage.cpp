@@ -74,13 +74,13 @@ namespace storage
   TCountriesContainer const & NodeFromIndex(TCountriesContainer const & root, TIndex const & index)
   {
     // complex logic to avoid [] out_of_bounds exceptions
-    if (index.m_group == -1 || index.m_group >= static_cast<int>(root.SiblingsCount()))
+    if (index.m_group == TIndex::INVALID || index.m_group >= static_cast<int>(root.SiblingsCount()))
       return root;
     else
     {
-      if (index.m_country == -1 || index.m_country >= static_cast<int>(root[index.m_group].SiblingsCount()))
+      if (index.m_country == TIndex::INVALID || index.m_country >= static_cast<int>(root[index.m_group].SiblingsCount()))
         return root[index.m_group];
-      if (index.m_region == -1 || index.m_region >= static_cast<int>(root[index.m_group][index.m_country].SiblingsCount()))
+      if (index.m_region == TIndex::INVALID || index.m_region >= static_cast<int>(root[index.m_group][index.m_country].SiblingsCount()))
         return root[index.m_group][index.m_country];
       return root[index.m_group][index.m_country][index.m_region];
     }

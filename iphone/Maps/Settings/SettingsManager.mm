@@ -15,8 +15,6 @@ using namespace storage;
 {
   [m_prevController release];
   m_prevController = nil;
-  [m_countriesController release];
-  m_countriesController = nil;
   [m_navController release];
   m_navController = nil;
   [super dealloc];
@@ -44,16 +42,13 @@ using namespace storage;
   m_storage = storage;
   m_prevController = [prevController retain];
 
-  if (!m_countriesController)
-  {
-    m_countriesController = [[CountriesViewController alloc]
-                             initWithStorage:*m_storage andIndex:TIndex() andHeader:@"Download"];
-  }
-
   if (!m_navController)
   {
+    CountriesViewController * countriesController = [[CountriesViewController alloc]
+                               initWithStorage:*m_storage andIndex:TIndex() andHeader:@"Download"];
     m_navController = [[UINavigationController alloc]
-                       initWithRootViewController:m_countriesController];
+                       initWithRootViewController:countriesController];
+    [countriesController release];
   }
 
   // Subscribe to storage callbacks.
@@ -108,8 +103,6 @@ using namespace storage;
   m_storage = nil;
   [m_prevController release];
   m_prevController = nil;
-  [m_countriesController release];
-  m_countriesController = nil;
   [m_navController release];
   m_navController = nil;
 

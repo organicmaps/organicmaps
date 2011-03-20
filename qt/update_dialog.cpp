@@ -100,7 +100,7 @@ namespace qt
         parent = parent->parent();
       }
       while (treeIndex.size() < 3)
-        treeIndex.append(-1);
+        treeIndex.append(TIndex::INVALID);
     }
 
     TIndex const countryIndex(treeIndex[0], treeIndex[1], treeIndex[2]);

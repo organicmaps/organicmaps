@@ -2,6 +2,9 @@
 #import "SettingsManager.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
+#import "WebViewController.h"
+
+#include "IPhonePlatform.hpp"
 
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -57,16 +60,40 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   [[[MapsAppDelegate theApp] settingsManager] Hide];
 }
 
+- (void) OnAboutButton:(id)sender
+{
+  // display WebView with About text
+
+  NSString * filePath = [NSString stringWithUTF8String:GetPlatform().ReadPathForFile("about.html").c_str()];
+  NSURL * url = [NSURL fileURLWithPath:filePath];
+
+  WebViewController * aboutViewController = 
+      [[WebViewController alloc] initWithUrl:url andTitleOrNil:@"About"];
+  [self.navigationController pushViewController:aboutViewController animated:YES];
+  [aboutViewController release];
+}
+
 - (id) initWithStorage: (Storage &)storage andIndex: (TIndex const &) index andHeader: (NSString *)header
 {
 	m_storage = &storage;
   m_index = index;
   if ((self = [super initWithNibName:nil bundle:nil]))
   {
-  	UIBarButtonItem * button = [[UIBarButtonItem alloc] initWithTitle:@"Close" style: UIBarButtonItemStyleDone
-				target:self action:@selector(OnCloseButton:)];
-  	self.navigationItem.rightBarButtonItem = button;
+  	UIBarButtonItem * closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style: UIBarButtonItemStyleDone
+				                            target:self action:@selector(OnCloseButton:)];
+  	self.navigationItem.rightBarButtonItem = closeButton;
+    [closeButton release];
+    
     self.navigationItem.title = header;
+
+    // About button is displayed only on first view in hierarchy
+    if (index.m_group == TIndex::INVALID)
+    {
+      UIBarButtonItem * aboutButton = [[UIBarButtonItem alloc] initWithTitle:@"About" style: UIBarButtonItemStylePlain
+                               target:self action:@selector(OnAboutButton:)];
+      self.navigationItem.leftBarButtonItem = aboutButton;
+      [aboutButton release];
+    }
   }
 	return self;
 }
