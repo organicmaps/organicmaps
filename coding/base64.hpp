@@ -4,6 +4,6 @@
 
 namespace base64
 {
-  string encode(string const & rawBytes);
+  string encode(string rawBytes);
   string decode(string const & base64Chars);
 }

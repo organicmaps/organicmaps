@@ -10,8 +10,18 @@ typedef transform_width<binary_from_base64<string::const_iterator>, 8, 6 > binar
 
 namespace base64
 {
-  string encode(string const & rawBytes)
+  string encode(string rawBytes)
   {
+    // http://boost.2283326.n4.nabble.com/boost-archive-iterators-base64-from-binary-td2589980.html
+    switch (rawBytes.size() % 3)
+    {
+    case 1:
+      rawBytes.push_back('0');
+    case 2:
+      rawBytes.push_back('0');
+      break;
+    }
+
     return string(base64_t(rawBytes.begin()), base64_t(rawBytes.end()));
   }
 
