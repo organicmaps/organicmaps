@@ -1,7 +1,7 @@
 # Generator binary
 
 ROOT_DIR = ../..
-DEPENDENCIES = map storage generator indexer platform geometry coding base gflags expat sgitess version
+DEPENDENCIES = map generator storage indexer platform geometry coding base gflags expat sgitess version
 
 include($$ROOT_DIR/common.pri)
 
