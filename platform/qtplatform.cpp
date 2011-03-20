@@ -397,7 +397,7 @@ public:
 
   unsigned ScaleEtalonSize() const
   {
-    return 512;
+    return 512 + 256;
   }
 };
 
