@@ -36,7 +36,7 @@
 {
 	active = YES;
   [m_locationManager startUpdatingLocation];
-	if ([m_locationManager headingAvailable])
+	if ([CLLocationManager headingAvailable])
 	{
 		m_locationManager.headingFilter = 1;
 		[m_locationManager startUpdatingHeading];
