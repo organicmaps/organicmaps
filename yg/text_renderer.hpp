@@ -91,6 +91,7 @@ namespace yg
       bool m_textTreeAutoClean;
       bool m_useTextTree;
       bool m_drawTexts;
+      bool m_doPeriodicalTextUpdate;
 
     public:
 
@@ -101,6 +102,7 @@ namespace yg
         bool m_textTreeAutoClean;
         bool m_useTextTree;
         bool m_drawTexts;
+        bool m_doPeriodicalTextUpdate;
         Params();
       };
 

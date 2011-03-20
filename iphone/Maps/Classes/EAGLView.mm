@@ -87,7 +87,7 @@
       int blitIBSize = pow(2, ceil(log2(10 * sizeof(unsigned short))));
 
       resourceManager = shared_ptr<yg::ResourceManager>(new yg::ResourceManager(
-            bigVBSize, bigIBSize, 3,
+            bigVBSize, bigIBSize, 4,
             smallVBSize, smallIBSize, 10,
             blitVBSize, blitIBSize, 10,
 						512, 256, 10,

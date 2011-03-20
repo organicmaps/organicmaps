@@ -24,7 +24,10 @@ namespace yg
   namespace gl
   {
     TextRenderer::Params::Params()
-      : m_textTreeAutoClean(true), m_useTextTree(false), m_drawTexts(true)
+      : m_textTreeAutoClean(true),
+      m_useTextTree(false),
+      m_drawTexts(true),
+      m_doPeriodicalTextUpdate(false)
     {}
 
     TextRenderer::TextRenderer(Params const & params)
@@ -32,7 +35,8 @@ namespace yg
       m_needTextRedraw(false),
       m_textTreeAutoClean(params.m_textTreeAutoClean),
       m_useTextTree(params.m_useTextTree),
-      m_drawTexts(params.m_drawTexts)
+      m_drawTexts(params.m_drawTexts),
+      m_doPeriodicalTextUpdate(params.m_doPeriodicalTextUpdate)
     {}
 
     TextRenderer::TextObj::TextObj(m2::PointD const & pt, string const & txt, uint8_t sz, yg::Color const & c, bool isMasked, yg::Color const & maskColor, double d, bool isFixedFont, bool log2vis)
@@ -178,7 +182,7 @@ namespace yg
     void TextRenderer::updateActualTarget()
     {
       if (m_useTextTree)
-        setNeedTextRedraw(true);
+        setNeedTextRedraw(m_doPeriodicalTextUpdate);
       base_t::updateActualTarget();
     }
 
