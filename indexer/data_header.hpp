@@ -36,6 +36,7 @@ namespace feature
     void SetScales(int * arr);
     size_t GetScalesCount() const { return m_scales.size(); }
     int GetScale(int i) const { return m_scales[i]; }
+    pair<int, int> GetScaleRange() const;
 
     /// @name Serialization
     //@{

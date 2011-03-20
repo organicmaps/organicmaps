@@ -219,14 +219,16 @@ private:
       // TODO: If path is cellid-style-square, make rect from cellid and don't open the file.
       feature::DataHeader header;
       header.Load(FilesContainerR(path).GetReader(HEADER_FILE_TAG));
+
       m_Rect = header.GetBounds();
+      m_scaleRange = header.GetScaleRange();
     }
 
     // TODO: GetIndex(), Open() and Close() make Index single-threaded!
-    IndexT * GetIndex(uint32_t /*scale*/, m2::RectD const & occlusionRect)
+    IndexT * GetIndex(uint32_t scale, m2::RectD const & occlusionRect)
     {
-      // TODO: Scale should also be taken into account, to skip irrelevant mwm files.
-      if (m_Rect.IsIntersect(occlusionRect))
+      if ((m_scaleRange.first <= scale && scale <= m_scaleRange.second) &&
+          m_Rect.IsIntersect(occlusionRect))
       {
         Open();
         m_QueriesSkipped = 0;
@@ -278,8 +280,10 @@ private:
       }
     }
 
-    m2::RectD m_Rect;
     string m_Path; // TODO: Store prefix and suffix of path in MultiIndexAdapter.
+    m2::RectD m_Rect;
+    pair<int, int> m_scaleRange;
+
     IndexT * m_pIndex;
     uint8_t m_QueriesSkipped;
   };

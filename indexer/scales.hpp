@@ -5,6 +5,7 @@
 namespace scales
 {
   inline int GetUpperScale() { return 17; }
+  inline int GetUpperWorldScale() { return 6; }
 
   double GetM2PFactor(int level);
   int GetScaleLevel(double ratio);

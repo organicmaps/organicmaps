@@ -1,6 +1,6 @@
 #include "data_header.hpp"
-
-#include "../indexer/point_to_int64.hpp"
+#include "point_to_int64.hpp"
+#include "scales.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/file_writer.hpp"
@@ -40,6 +40,20 @@ namespace feature
   {
     for (int i = 0; i < m_scales.size(); ++i)
       m_scales[i] = static_cast<uint8_t>(arr[i]);
+  }
+
+  pair<int, int> DataHeader::GetScaleRange() const
+  {
+    pair<int, int> ret(0, scales::GetUpperScale());
+
+    int const bound = scales::GetUpperWorldScale();
+
+    if (m_scales.front() > bound)
+      ret.first = bound+1;
+    if (m_scales.back() <= bound)
+      ret.second = bound;
+
+    return ret;
   }
 
   void DataHeader::Save(FileWriter & w) const
