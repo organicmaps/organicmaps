@@ -18,6 +18,8 @@
 
 namespace storage
 {
+  const int TIndex::INVALID = -1;
+
   static string ErrorString(DownloadResult res)
   {
     switch (res)

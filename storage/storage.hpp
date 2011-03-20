@@ -40,7 +40,7 @@ namespace storage
 
   struct TIndex
   {
-    static int const INVALID = -1;
+    static int const INVALID;
     int m_group;
     int m_country;
     int m_region;
