@@ -469,6 +469,7 @@ public:
 
   void EnterBackground()
   {
+    m_model.ClearCaches();
     m_renderQueue.enterBackground();
 
     if (m_windowHandle)
