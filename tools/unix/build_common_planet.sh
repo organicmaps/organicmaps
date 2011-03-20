@@ -57,20 +57,20 @@ fi
 # determine script path
 MY_PATH=`dirname $0`
 
-# find indexer_tool
-IT_PATHS_ARRAY=(  "$MY_PATH/../../../omim-build-release/out/release/indexer_tool" \
-                  "$MY_PATH/../../out/release/indexer_tool" )
+# find generator_tool
+IT_PATHS_ARRAY=(  "$MY_PATH/../../../omim-build-release/out/release/generator_tool" \
+                  "$MY_PATH/../../out/release/generator_tool" )
 
 for i in {0..1}; do
   if [ -x ${IT_PATHS_ARRAY[i]} ]; then
-    INDEXER_TOOL=${IT_PATHS_ARRAY[i]}
-    echo TOOL: $INDEXER_TOOL
+    GENERATOR_TOOL=${IT_PATHS_ARRAY[i]}
+    echo TOOL: $GENERATOR_TOOL
     break
   fi
 done
 
-if [[ ! -n $INDEXER_TOOL ]]; then
-  echo 'No indexer_tool found, please build omim-build-release or omim/out/release'
+if [[ ! -n $GENERATOR_TOOL ]]; then
+  echo 'No generator_tool found, please build omim-build-release or omim/out/release'
   echo ""
   Usage
 fi
@@ -102,13 +102,13 @@ fi
 # skip 1st pass if intermediate data path was given
 if [ $# -lt 3 ]; then
   # 1st pass - not paralleled
-  $PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
+  $PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL --intermediate_data_path=$TMPDIR \
     --use_light_nodes=$LIGHT_NODES \
     --preprocess_xml
 fi
 
 # 2nd pass - not paralleled
-$PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
+$PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL --intermediate_data_path=$TMPDIR \
   --use_light_nodes=$LIGHT_NODES --bucketing_level=$BUCKETING_LEVEL \
   --generate_features --generate_world_scale=5 \
   --data_path=$DATA_PATH
@@ -119,7 +119,7 @@ for file in $DATA_PATH/*.mwm; do
     filename=$(basename "$file")
     extension="${filename##*.}"
     filename="${filename%.*}"
-    $INDEXER_TOOL -output="$filename" -data_path=$DATA_PATH -generate_geometry -sort_features -generate_index -intermediate_data_path=$TMPDIR &
+    $GENERATOR_TOOL -output="$filename" -data_path=$DATA_PATH -generate_geometry -sort_features -generate_index -intermediate_data_path=$TMPDIR &
     forky $PROCESSORS
   fi
 done

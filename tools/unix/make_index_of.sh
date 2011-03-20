@@ -38,31 +38,31 @@ fi
 # determine script path
 MY_PATH=`dirname $0`
 
-# find indexer_tool
+# find generator_tool
 # check if user specified build suffix parameter
 if [ $# -ge 3 ]; then
   IT_ARR_SIZE=4
-  IT_PATHS_ARRAY=(  "$MY_PATH/../../../omim-build-$3/out/release/indexer_tool" \
-                    "$MY_PATH/../../../$3/out/release/indexer_tool" \
-                    "$MY_PATH/../../../omim-build-$3/out/debug/indexer_tool" \
-                    "$MY_PATH/../../../$3/out/debug/indexer_tool" )
+  IT_PATHS_ARRAY=(  "$MY_PATH/../../../omim-build-$3/out/release/generator_tool" \
+                    "$MY_PATH/../../../$3/out/release/generator_tool" \
+                    "$MY_PATH/../../../omim-build-$3/out/debug/generator_tool" \
+                    "$MY_PATH/../../../$3/out/debug/generator_tool" )
 else
   IT_ARR_SIZE=2
-  IT_PATHS_ARRAY=(  "$MY_PATH/../../../omim-build-release/out/release/indexer_tool" \
-                    "$MY_PATH/../../../omim-build-debug/out/debug/indexer_tool" \
+  IT_PATHS_ARRAY=(  "$MY_PATH/../../../omim-build-release/out/release/generator_tool" \
+                    "$MY_PATH/../../../omim-build-debug/out/debug/generator_tool" \
                     "stub-for-for-cycle" \
                     "stub-for-for-cycle" )
 fi
 for i in {0..3}; do
   if [ -x ${IT_PATHS_ARRAY[i]} ]; then
-    INDEXER_TOOL=${IT_PATHS_ARRAY[i]}
-    echo TOOL: $INDEXER_TOOL
+    GENERATOR_TOOL=${IT_PATHS_ARRAY[i]}
+    echo TOOL: $GENERATOR_TOOL
     break
   fi
 done
 
-if [[ ! -n $INDEXER_TOOL ]]; then
-  echo 'No indexer_tool found, please build omim-build-release or omim-build-debug'
+if [[ ! -n $GENERATOR_TOOL ]]; then
+  echo 'No generator_tool found, please build omim-build-release or omim-build-debug'
   echo 'or specify omim-build-[suffix] or [shadow directory] as 3rd script parameter'
   Usage
 fi
@@ -103,10 +103,10 @@ else
   LIGHT_NODES=true
 fi
 
-$PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
+$PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL --intermediate_data_path=$TMPDIR \
   --use_light_nodes=$LIGHT_NODES \
   --preprocess_xml
 
-$PV $OSM_BZ2 | bzip2 -d | $INDEXER_TOOL --intermediate_data_path=$TMPDIR \
+$PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL --intermediate_data_path=$TMPDIR \
   --use_light_nodes=$LIGHT_NODES \
   --generate_features --sort_features --generate_geometry --generate_index --output=$1 --bucketing_level=$DEFAULT_BUCKETING_LEVEL

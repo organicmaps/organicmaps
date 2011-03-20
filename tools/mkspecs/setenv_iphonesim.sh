@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BASE_SDK_VERSION=4.0
+BASE_SDK_VERSION=4.3
 DEV_ROOT="/Developer/Platforms/iPhoneSimulator.platform/Developer"
 SDK_ROOT="$DEV_ROOT/SDKs/iPhoneSimulator${BASE_SDK_VERSION}.sdk"
 # minimum supported iphone os version at runtime
