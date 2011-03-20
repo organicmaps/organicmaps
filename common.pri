@@ -75,6 +75,10 @@ unix|win32-g++ {
   QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-compare -Wno-strict-aliasing
   QMAKE_CXXFLAGS_RELEASE += -g
   # experimental
+  QMAKE_CFLAGS_RELEASE -= -O2
+  QMAKE_CFLAGS_RELEASE += -O3  
+  QMAKE_CXXFLAGS_RELEASE -= -O2
+  QMAKE_CXXFLAGS_RELEASE += -O3  
   QMAKE_CFLAGS_RELEASE *= -ffast-math
   QMAKE_CXXFLAGS_RELEASE *= -ffast-math
 }
