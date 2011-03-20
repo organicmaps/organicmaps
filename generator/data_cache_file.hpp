@@ -1,19 +1,19 @@
 #pragma once
 
-#include "../../indexer/file_reader_stream.hpp"
-#include "../../indexer/file_writer_stream.hpp"
-#include "../../indexer/osm_decl.hpp"
+#include "../indexer/file_reader_stream.hpp"
+#include "../indexer/file_writer_stream.hpp"
+#include "../indexer/osm_decl.hpp"
 
-#include "../../coding/file_reader.hpp"
-#include "../../coding/file_writer.hpp"
+#include "../coding/file_reader.hpp"
+#include "../coding/file_writer.hpp"
 
-#include "../../base/logging.hpp"
+#include "../base/logging.hpp"
 
-#include "../../std/utility.hpp"
-#include "../../std/vector.hpp"
-#include "../../std/algorithm.hpp"
-#include "../../std/limits.hpp"
-#include "../../std/exception.hpp"
+#include "../std/utility.hpp"
+#include "../std/vector.hpp"
+#include "../std/algorithm.hpp"
+#include "../std/limits.hpp"
+#include "../std/exception.hpp"
 
 
 /// Classes for reading and writing any data in file with map of offsets for

@@ -1,30 +1,22 @@
 #include "classif_routine.hpp"
-#include "classificator.hpp"
-#include "drawing_rules.hpp"
+#include "osm2type.hpp"
 
-#include "../indexer/osm2type.hpp"
-#include "../indexer/scales.hpp"
+#include "../indexer/classificator.hpp"
+#include "../indexer/drawing_rules.hpp"
 
-#include "../coding/reader.hpp"
+//#include "../indexer/scales.hpp"
 
-#include "../base/logging.hpp"
+//#include "../coding/reader.hpp"
 
-#include "../std/stdio.hpp"
+//#include "../base/logging.hpp"
 
-#include "../base/start_mem_debug.hpp"
+//#include "../std/stdio.hpp"
+
+//#include "../base/start_mem_debug.hpp"
 
 
 namespace classificator
 {
-  void Read(string const & rules, string const & classificator, string const & visibility)
-  {
-    drule::ReadRules(rules.c_str());
-    if (!classif().ReadClassificator(classificator.c_str()))
-      MYTHROW(Reader::OpenException, ("drawing rules or classificator file"));
-
-    (void)classif().ReadVisibility(visibility.c_str());
-  }
-
   void parse_osm_types(int start, int end, string const & path)
   {
     for (int i = start; i <= end; ++i)

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../std/iostream.hpp"
+#include "../std/iostream.hpp"
 
 namespace grid
 {

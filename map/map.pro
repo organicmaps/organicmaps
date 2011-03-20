@@ -34,13 +34,7 @@ SOURCES += \
     information_display.cpp \
     settings.cpp \
 
-!iphonesimulator-g++42 {
-  !iphonedevice-g++42 {
-    !bada-simulator {
-      !bada-device {
-        HEADERS += qgl_render_context.hpp
-        SOURCES += qgl_render_context.cpp
-      }
-    }
-  }
+!iphone*:!bada* {
+  HEADERS += qgl_render_context.hpp
+  SOURCES += qgl_render_context.cpp
 }

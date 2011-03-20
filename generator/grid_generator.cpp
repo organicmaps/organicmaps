@@ -1,9 +1,9 @@
 #include "grid_generator.hpp"
 
-#include "../../base/logging.hpp"
+#include "../base/logging.hpp"
 
-#include "../../indexer/cell_id.hpp"
-#include "../../indexer/mercator.hpp"
+#include "../indexer/cell_id.hpp"
+#include "../indexer/mercator.hpp"
 
 // tags used for grid drawing
 #define GRIDKEY "mapswithme"

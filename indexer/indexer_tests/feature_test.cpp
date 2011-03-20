@@ -5,7 +5,7 @@
 #include "../feature.hpp"
 #include "../cell_id.hpp"
 #include "../classificator.hpp"
-#include "../classif_routine.hpp"
+#include "../classificator_loader.hpp"
 
 #include "../../platform/platform.hpp"
 

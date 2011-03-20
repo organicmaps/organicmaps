@@ -1,16 +1,16 @@
-#include "../../base/SRC_FIRST.hpp"
+#include "../base/SRC_FIRST.hpp"
 
 #include "statistics.hpp"
 
-#include "../feature_processor.hpp"
-#include "../classificator.hpp"
-#include "../feature_impl.hpp"
+#include "../indexer/feature_processor.hpp"
+#include "../indexer/classificator.hpp"
+#include "../indexer/feature_impl.hpp"
 
-#include "../../base/string_utils.hpp"
+#include "../base/string_utils.hpp"
 
-#include "../../std/iostream.hpp"
+#include "../std/iostream.hpp"
 
-#include "../../base/start_mem_debug.hpp"
+#include "../base/start_mem_debug.hpp"
 
 
 namespace stats

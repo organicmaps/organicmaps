@@ -1,25 +1,25 @@
 #include "feature_sorter.hpp"
 #include "feature_generator.hpp"
 
-#include "../../defines.hpp"
+#include "../defines.hpp"
 
-#include "../../indexer/data_header.hpp"
-#include "../../indexer/feature_processor.hpp"
-#include "../../indexer/feature_visibility.hpp"
-#include "../../indexer/feature_impl.hpp"
-#include "../../indexer/geometry_serialization.hpp"
-#include "../../indexer/tesselator.hpp"
+#include "../indexer/data_header.hpp"
+#include "../indexer/feature_processor.hpp"
+#include "../indexer/feature_visibility.hpp"
+#include "../indexer/feature_impl.hpp"
+#include "../indexer/geometry_serialization.hpp"
+#include "../indexer/tesselator.hpp"
 
-#include "../../geometry/polygon.hpp"
+#include "../geometry/polygon.hpp"
 
-#include "../../platform/platform.hpp"
+#include "../platform/platform.hpp"
 
-#include "../../coding/file_container.hpp"
+#include "../coding/file_container.hpp"
 
-#include "../../base/string_utils.hpp"
-#include "../../base/logging.hpp"
+#include "../base/string_utils.hpp"
+#include "../base/logging.hpp"
 
-#include "../../base/start_mem_debug.hpp"
+#include "../base/start_mem_debug.hpp"
 
 
 namespace

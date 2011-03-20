@@ -1,16 +1,17 @@
 #pragma once
 #include "kml_parser.hpp"
 #include "world_map_generator.hpp"
-#include "../../indexer/feature.hpp"
-#include "../../indexer/feature_visibility.hpp"
-#include "../../indexer/cell_id.hpp"
-#include "../../geometry/rect2d.hpp"
-#include "../../coding/file_writer.hpp"
-#include "../../base/base.hpp"
-#include "../../base/buffer_vector.hpp"
-#include "../../base/macros.hpp"
-#include "../../std/scoped_ptr.hpp"
-#include "../../std/string.hpp"
+
+#include "../indexer/feature.hpp"
+#include "../indexer/feature_visibility.hpp"
+#include "../indexer/cell_id.hpp"
+#include "../geometry/rect2d.hpp"
+#include "../coding/file_writer.hpp"
+#include "../base/base.hpp"
+#include "../base/buffer_vector.hpp"
+#include "../base/macros.hpp"
+#include "../std/scoped_ptr.hpp"
+#include "../std/string.hpp"
 
 #ifndef PARALLEL_POLYGONIZER
 #define PARALLEL_POLYGONIZER 1

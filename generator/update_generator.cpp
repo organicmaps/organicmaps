@@ -1,21 +1,21 @@
 #include "update_generator.hpp"
 
-#include "../../coding/file_writer.hpp"
+#include "../coding/file_writer.hpp"
 
-#include "../../geometry/cellid.hpp"
+#include "../geometry/cellid.hpp"
 
-#include "../../platform/platform.hpp"
+#include "../platform/platform.hpp"
 
-#include "../../storage/country.hpp"
-#include "../../defines.hpp"
+#include "../storage/country.hpp"
+#include "../defines.hpp"
 
-#include "../../base/string_utils.hpp"
-#include "../../base/logging.hpp"
-#include "../../base/macros.hpp"
+#include "../base/string_utils.hpp"
+#include "../base/logging.hpp"
+#include "../base/macros.hpp"
 
-#include "../../std/target_os.hpp"
-#include "../../std/fstream.hpp"
-#include "../../std/iterator.hpp"
+#include "../std/target_os.hpp"
+#include "../std/fstream.hpp"
+#include "../std/iterator.hpp"
 
 using namespace storage;
 

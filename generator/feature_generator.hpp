@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../../indexer/osm_decl.hpp"
+#include "../indexer/osm_decl.hpp"
 
-#include "../../geometry/rect2d.hpp"
+#include "../geometry/rect2d.hpp"
 
-#include "../../coding/file_container.hpp"
+#include "../coding/file_container.hpp"
 
-#include "../../std/vector.hpp"
-#include "../../std/string.hpp"
+#include "../std/vector.hpp"
+#include "../std/string.hpp"
 
 class FeatureBuilder1;
 

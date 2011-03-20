@@ -6,8 +6,7 @@
 
 #include "../indexer/cell_coverer.hpp"
 #include "../indexer/scales.hpp"
-#include "../indexer/classif_routine.hpp"
-#include "../indexer/classificator.hpp"
+#include "../indexer/classificator_loader.hpp"
 
 #include "../base/logging.hpp"
 

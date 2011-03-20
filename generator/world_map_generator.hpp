@@ -1,20 +1,21 @@
 #pragma once
 
-#include "../../base/logging.hpp"
+#include "feature_merger.hpp"
 
-#include "../../defines.hpp"
+#include "../defines.hpp"
 
-#include "../../indexer/classificator.hpp"
-#include "../../indexer/feature.hpp"
-#include "../../indexer/feature_merger.hpp"
-#include "../../indexer/feature_visibility.hpp"
-#include "../../indexer/point_to_int64.hpp"
+#include "../base/logging.hpp"
 
-#include "../../std/map.hpp"
-#include "../../std/vector.hpp"
-#include "../../std/iostream.hpp"
-#include "../../std/scoped_ptr.hpp"
-#include "../../std/unordered_map.hpp"
+#include "../indexer/classificator.hpp"
+#include "../indexer/feature.hpp"
+#include "../indexer/feature_visibility.hpp"
+#include "../indexer/point_to_int64.hpp"
+
+#include "../std/map.hpp"
+#include "../std/vector.hpp"
+#include "../std/iostream.hpp"
+#include "../std/scoped_ptr.hpp"
+#include "../std/unordered_map.hpp"
 
 
 namespace m2

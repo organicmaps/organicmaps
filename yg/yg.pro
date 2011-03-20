@@ -12,14 +12,8 @@ INCLUDEPATH += $$ROOT_DIR/3party/freetype/include $$ROOT_DIR/3party/agg
 
 include($$ROOT_DIR/common.pri)
 
-!iphonesimulator-g++42 {
-  !iphonedevice-g++42 {
-    !bada-simulator {
-      !bada-device {
-        DEPENDENCIES += platform
-      }
-    }
-  }
+!iphone*:!bada* {
+  DEPENDENCIES += platform
 }
 
 SOURCES += \

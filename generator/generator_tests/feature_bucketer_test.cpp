@@ -1,12 +1,12 @@
-#include "feature_routine.hpp"
-
 #include "../../testing/testing.hpp"
 
-#include "../indexer_tool/feature_bucketer.hpp"
+#include "../feature_bucketer.hpp"
 
-#include "../feature.hpp"
-#include "../mercator.hpp"
-#include "../cell_id.hpp"
+#include "../../indexer/feature.hpp"
+#include "../../indexer/mercator.hpp"
+#include "../../indexer/cell_id.hpp"
+
+#include "../../indexer/indexer_tests/feature_routine.hpp"
 
 #include "../../base/stl_add.hpp"
 

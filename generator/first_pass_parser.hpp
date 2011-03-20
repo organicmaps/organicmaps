@@ -1,10 +1,11 @@
 #pragma once
 
-#include "../../indexer/xml_element.hpp"
-#include "../../indexer/osm_decl.hpp"
-#include "../../indexer/mercator.hpp"
+#include "xml_element.hpp"
 
-#include "../../base/string_utils.hpp"
+#include "../indexer/osm_decl.hpp"
+#include "../indexer/mercator.hpp"
+
+#include "../base/string_utils.hpp"
 
 
 template <class THolder>

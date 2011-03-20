@@ -1,21 +1,22 @@
 #pragma once
 
-#include "../../indexer/feature.hpp"
-#include "../../indexer/osm2type.hpp"
-#include "../../indexer/xml_element.hpp"
-#include "../../indexer/osm_decl.hpp"
-#include "../../indexer/feature_visibility.hpp"
+#include "osm2type.hpp"
+#include "xml_element.hpp"
 
-#include "../../base/string_utils.hpp"
-#include "../../base/logging.hpp"
-#include "../../base/stl_add.hpp"
+#include "../indexer/feature.hpp"
+#include "../indexer/osm_decl.hpp"
+#include "../indexer/feature_visibility.hpp"
 
-#include "../../std/unordered_map.hpp"
-#include "../../std/list.hpp"
-#include "../../std/set.hpp"
-#include "../../std/vector.hpp"
+#include "../base/string_utils.hpp"
+#include "../base/logging.hpp"
+#include "../base/stl_add.hpp"
 
-#include "../../base/start_mem_debug.hpp"
+#include "../std/unordered_map.hpp"
+#include "../std/list.hpp"
+#include "../std/set.hpp"
+#include "../std/vector.hpp"
+
+#include "../base/start_mem_debug.hpp"
 
 
 /// @param  TEmitter  Feature accumulating policy

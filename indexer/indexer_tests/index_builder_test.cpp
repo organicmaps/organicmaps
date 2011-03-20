@@ -2,7 +2,7 @@
 
 #include "../index.hpp"
 #include "../index_builder.hpp"
-#include "../classif_routine.hpp"
+#include "../classificator_loader.hpp"
 #include "../features_vector.hpp"
 #include "../../defines.hpp"
 #include "../../platform/platform.hpp"

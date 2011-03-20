@@ -2,15 +2,15 @@
 
 #include "world_map_generator.hpp"
 
-#include "../../base/base.hpp"
+#include "../base/base.hpp"
 
-#include "../../coding/file_writer.hpp"
+#include "../coding/file_writer.hpp"
 
-#include "../../geometry/rect2d.hpp"
+#include "../geometry/rect2d.hpp"
 
-#include "../../indexer/feature.hpp"
+#include "../indexer/feature.hpp"
 
-#include "../../std/string.hpp"
+#include "../std/string.hpp"
 
 namespace feature
 {

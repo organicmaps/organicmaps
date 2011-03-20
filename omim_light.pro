@@ -17,14 +17,13 @@ SUBDIRS = \
           qt_tstfrm \
           indexer/indexer_tests \
           map/map_tests \
-          indexer/indexer_tool \
+          generator \
+          generator/generator_tests \
+          generator/generator_tool \
           yg/yg_tests \
           qt
-}
-
-# libraries which are used on iphone and bada
-iphonesimulator-g++42|iphonedevice-g++42 |
-bada-simulator|bada-device {
+} else {
+  # libraries which are used on iphone and bada
   message = "Please use omim.pro for iphone builds"
 }
 

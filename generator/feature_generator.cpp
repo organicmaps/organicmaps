@@ -4,21 +4,21 @@
 #include "osm_element.hpp"
 #include "polygonizer.hpp"
 
-#include "../../defines.hpp"
+#include "../defines.hpp"
 
-#include "../../indexer/data_header.hpp"
-#include "../../indexer/osm_decl.hpp"
-#include "../../indexer/mercator.hpp"
-#include "../../indexer/cell_id.hpp"
+#include "../indexer/data_header.hpp"
+#include "../indexer/osm_decl.hpp"
+#include "../indexer/mercator.hpp"
+#include "../indexer/cell_id.hpp"
 
-#include "../../coding/varint.hpp"
+#include "../coding/varint.hpp"
 
-#include "../../base/assert.hpp"
-#include "../../base/logging.hpp"
-#include "../../base/stl_add.hpp"
+#include "../base/assert.hpp"
+#include "../base/logging.hpp"
+#include "../base/stl_add.hpp"
 
-#include "../../std/bind.hpp"
-#include "../../std/unordered_map.hpp"
+#include "../std/bind.hpp"
+#include "../std/unordered_map.hpp"
 
 
 namespace feature

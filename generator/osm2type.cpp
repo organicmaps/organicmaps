@@ -1,8 +1,9 @@
 #include "osm2type.hpp"
-#include "classificator.hpp"
-#include "drawing_rules.hpp"
-#include "feature_visibility.hpp"
 #include "xml_element.hpp"
+
+#include "../indexer/classificator.hpp"
+#include "../indexer/drawing_rules.hpp"
+#include "../indexer/feature_visibility.hpp"
 
 #include "../coding/parse_xml.hpp"
 #include "../coding/file_reader.hpp"
