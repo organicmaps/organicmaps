@@ -55,7 +55,15 @@ namespace storage
     string const dataPath = p.WritableDir();
     p.GetFilesInDir(dataPath, "*" DATA_FILE_EXTENSION, filesList);
     for (Platform::FilesList::iterator it = filesList.begin(); it != filesList.end(); ++it)
-      m_addMap(dataPath + *it);
+    { // simple way to avoid continuous crashes with invalid data files
+      try {
+        m_addMap(dataPath + *it);
+      } catch (std::exception const & e)
+      {
+        FileWriter::DeleteFileX(dataPath + *it);
+        LOG(LWARNING, (e.what(), "while adding file", *it, "so this file is deleted"));
+      }
+    }
   }
 
   string Storage::UpdateBaseUrl() const
