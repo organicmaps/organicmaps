@@ -239,6 +239,7 @@ void RenderQueueRoutine::Do()
   params.m_updateInterval = m_updateInterval;
   params.m_textTreeAutoClean = false;
   params.m_useTextTree = true;
+  params.m_doPeriodicalTextUpdate = false;
 /*  params.m_isDebugging = true;
   params.m_drawPathes = false;
   params.m_drawAreas = false;
