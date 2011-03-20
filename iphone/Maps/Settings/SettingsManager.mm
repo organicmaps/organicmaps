@@ -24,14 +24,14 @@ using namespace storage;
 
 - (void) OnCountryChange: (TIndex const &) index
 {
-	if (m_countriesController)
-  	[m_countriesController OnCountryChange:index];
+	if (m_navController)
+  	[(CountriesViewController *)m_navController.topViewController OnCountryChange: index];
 }
 
 - (void) OnCountryDownload: (TIndex const &) index withProgress: (TDownloadProgress const &) progress
 {
-	if (m_countriesController)
-  	[m_countriesController OnDownload:index withProgress:progress];
+	if (m_navController)
+    [(CountriesViewController *)m_navController.topViewController OnDownload: index withProgress: progress];
 }
 
 - (void) OnUpdateCheck: (TUpdateResult) result withText: (string const &) text
@@ -89,7 +89,6 @@ using namespace storage;
 // Hides all opened settings windows
 - (void) Hide
 {
-  NSLog(@"SettingsManager::Hide");
   if (!m_prevController)
     return;
 
@@ -104,7 +103,7 @@ using namespace storage;
   //                    options:UIViewAnimationOptionTransitionCurlDown
   //                 completion:nil];
 
-  [[m_navController parentViewController] Invalidate];
+  [m_prevController Invalidate];
 
   m_storage = nil;
   [m_prevController release];
