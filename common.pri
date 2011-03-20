@@ -83,6 +83,14 @@ unix|win32-g++ {
   QMAKE_CXXFLAGS_RELEASE *= -ffast-math
 }
 
+linux-g++-64 {
+  QMAKE_CC                = gcc-4.5
+  QMAKE_CXX               = g++-4.5
+  QMAKE_CFLAGS_RELEASE   += -flto
+  QMAKE_CXXFLAGS_RELEASE += -flto
+  QMAKE_LFLAGS_RELEASE   += -flto
+}
+
 win32-g++ {
   QMAKE_CFLAGS *= -Wextra
   QMAKE_CXXFLAGS *= -Wextra
