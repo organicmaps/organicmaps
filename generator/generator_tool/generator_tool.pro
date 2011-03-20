@@ -12,9 +12,7 @@ TEMPLATE = app
 # needed for Platform::WorkingDir()
 QT += core
 
-win32 {
-  LIBS += -lShell32
-}
+win32:LIBS += -lShell32
 
 SOURCES += \
     generator_tool.cpp \

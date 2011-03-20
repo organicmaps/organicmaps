@@ -106,13 +106,7 @@ HEADERS += \
     circle_info.hpp \
     area_renderer.hpp
 
-!iphonesimulator-g++42 {
-  !iphonedevice-g++42 {
-    !bada-simulator {
-      !bada-device {
-        HEADERS += internal/opengl_win32.hpp
-        SOURCES += internal/opengl_win32.cpp
-      }
-    }
-  }
+!iphone*:!bada-simulator {
+  HEADERS += internal/opengl_win32.hpp
+  SOURCES += internal/opengl_win32.cpp
 }

@@ -10,13 +10,8 @@ include($$ROOT_DIR/common.pri)
 
 QT *= core gui opengl
 
-win32 {
-  LIBS += -lopengl32 -lShell32
-}
-
-win32-g++ {
-  LIBS += -lpthread
-}
+win32:LIBS += -lopengl32 -lShell32
+win32-g++:LIBS += -lpthread
 
 HEADERS += \
     feature_routine.hpp \
