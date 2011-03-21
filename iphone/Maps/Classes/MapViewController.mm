@@ -312,7 +312,8 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 
 - (void) OnTerminate
 {
-	[self OnEnterBackground];
+  if (m_framework)
+    m_framework->SaveState();
 }
 
 - (void) Invalidate
@@ -328,7 +329,19 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 {
 	if (m_framework)
   {	// save world rect for next launch
-  	m_framework->SaveState();
+  	m_framework->SetUpdatesEnabled(false);
+    m_framework->SaveState();
+    m_framework->EnterBackground();
+  }
+}
+
+- (void) OnEnterForeground
+{
+  if (m_framework)
+  {
+    m_framework->EnterForeground();
+    if (!m_framework->SetUpdatesEnabled(true))
+      m_framework->Invalidate();
   }
 }
 

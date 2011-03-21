@@ -24,6 +24,11 @@
 	[mapViewController OnEnterBackground];
 }
 
+- (void) applicationWillEnterForeground: (UIApplication *) application
+{
+  [mapViewController OnEnterForeground];
+}
+
 - (void) applicationDidFinishLaunching: (UIApplication *) application
 {
   // Add the tab bar controller's current view as a subview of the window

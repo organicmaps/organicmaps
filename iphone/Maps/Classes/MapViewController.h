@@ -42,6 +42,7 @@ withConfidenceRadius: (double) confidenceRadius
 
 // called when app is terminated by system
 - (void) OnTerminate;
+- (void) OnEnterForeground;
 - (void) OnEnterBackground;
 
 - (void) Invalidate;
