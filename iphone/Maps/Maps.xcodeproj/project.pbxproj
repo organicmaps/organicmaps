@@ -87,7 +87,7 @@
 		FAF37F00126DCE6F005EA154 /* IPhoneDownloadManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAF37EFB126DCE6F005EA154 /* IPhoneDownloadManager.mm */; };
 		FAF37F01126DCE6F005EA154 /* IPhonePlatform.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAF37EFD126DCE6F005EA154 /* IPhonePlatform.mm */; };
 		FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAFCB63513366E78001A5C59 /* WebViewController.mm */; };
-		FAFCB63813367AD1001A5C59 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = FAFCB63713367AD1001A5C59 /* about.html */; };
+		FAFCB63813367AD1001A5C59 /* about-travelguide-iphone.html in Resources */ = {isa = PBXBuildFile; fileRef = FAFCB63713367AD1001A5C59 /* about-travelguide-iphone.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -190,7 +190,7 @@
 		FAF37F03126DCF11005EA154 /* IPhoneDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = IPhoneDownload.h; path = Platform/IPhoneDownload.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FAFCB63413366E78001A5C59 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		FAFCB63513366E78001A5C59 /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewController.mm; sourceTree = "<group>"; };
-		FAFCB63713367AD1001A5C59 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = about.html; path = ../../data/about.html; sourceTree = SOURCE_ROOT; };
+		FAFCB63713367AD1001A5C59 /* about-travelguide-iphone.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = about-travelguide-iphone.html; path = ../../data/about-travelguide-iphone.html; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,7 +319,7 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
-				FAFCB63713367AD1001A5C59 /* about.html */,
+				FAFCB63713367AD1001A5C59 /* about-travelguide-iphone.html */,
 				EEFE7C3112F8CC2D006AF8C3 /* 01_dejavusans.ttf */,
 				EEFE7C3212F8CC2D006AF8C3 /* 02_wqy-microhei.ttf */,
 				EEFE7C3312F8CC2D006AF8C3 /* 03_jomolhari-id-a3d.ttf */,
@@ -516,7 +516,7 @@
 				49DD2B52132FA8880031D82E /* GuideViewController.xib in Resources */,
 				4945D21C1334187D0082387C /* settings.png in Resources */,
 				4945D21D1334187D0082387C /* settings@2x.png in Resources */,
-				FAFCB63813367AD1001A5C59 /* about.html in Resources */,
+				FAFCB63813367AD1001A5C59 /* about-travelguide-iphone.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

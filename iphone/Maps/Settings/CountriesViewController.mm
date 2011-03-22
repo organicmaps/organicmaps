@@ -62,7 +62,9 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 {
   // display WebView with About text
 
-  NSString * filePath = [NSString stringWithUTF8String:GetPlatform().ReadPathForFile("about.html").c_str()];
+  string const sFilePath =
+    GetPlatform().ReadPathForFile("about-travelguide-iphone.html");
+  NSString * filePath = [NSString stringWithUTF8String:sFilePath.c_str()];
   NSURL * url = [NSURL fileURLWithPath:filePath];
 
   WebViewController * aboutViewController = 
