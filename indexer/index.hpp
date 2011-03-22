@@ -227,8 +227,9 @@ private:
     // TODO: GetIndex(), Open() and Close() make Index single-threaded!
     IndexT * GetIndex(uint32_t scale, m2::RectD const & occlusionRect)
     {
-      if ((m_scaleRange.first <= scale && scale <= m_scaleRange.second) &&
-          m_Rect.IsIntersect(occlusionRect))
+      if ((m_scaleRange.first <= static_cast<int>(scale)
+           && static_cast<int>(scale) <= m_scaleRange.second)
+           && m_Rect.IsIntersect(occlusionRect))
       {
         Open();
         m_QueriesSkipped = 0;
@@ -245,7 +246,7 @@ private:
       }
     }
 
-    bool IsMyData(string path) const
+    bool IsMyData(string const & path) const
     {
       return m_Path == path;
     }

@@ -1,5 +1,6 @@
 #import "SettingsManager.h"
 #import "CountriesViewController.h"
+#import "MapViewController.h"
 
 #include "../../../storage/storage.hpp"
 
@@ -98,7 +99,7 @@ using namespace storage;
   //                    options:UIViewAnimationOptionTransitionCurlDown
   //                 completion:nil];
 
-  [m_prevController Invalidate];
+  [(MapViewController *)m_prevController Invalidate];
 
   m_storage = nil;
   [m_prevController release];
