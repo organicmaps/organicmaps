@@ -257,6 +257,7 @@ void RenderQueueRoutine::Do()
   m_threadDrawer->SetVisualScale(m_visualScale);
 
   bool isPanning = false;
+  bool doRedrawAll = false;
   /// update areas in pixel coordinates.
   vector<m2::RectI> areas;
 
@@ -312,6 +313,8 @@ void RenderQueueRoutine::Do()
 
         m2::RectI curRect = textureRect;
 
+        doRedrawAll = m_renderState->m_doRepaintAll;
+
         if (m_renderState->m_doRepaintAll)
         {
           areas.clear();
@@ -364,7 +367,7 @@ void RenderQueueRoutine::Do()
       m_threadDrawer->screen()->setClipRect(textureRect);
       m_threadDrawer->clear();
 
-      if (isPanning)
+      if ((isPanning) && (!doRedrawAll))
       {
         m_threadDrawer->screen()->blit(
             m_renderState->m_actualTarget,

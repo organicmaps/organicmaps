@@ -514,8 +514,8 @@ public:
 
   void Repaint()
   {
-    AddRedrawCommandSure();
     m_renderQueue.SetRedrawAll();
+    AddRedrawCommandSure();
     Invalidate();
   }
 
