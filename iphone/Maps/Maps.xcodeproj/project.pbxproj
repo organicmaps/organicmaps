@@ -182,13 +182,14 @@
 		FA57ADF312F338FB002BFB9D /* countries_poly.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries_poly.txt; path = ../../data/countries_poly.txt; sourceTree = SOURCE_ROOT; };
 		FA87151A12B1518F00592DAF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FA8F8937132D5DB00048E3FE /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtomcrypt.a; sourceTree = SOURCE_ROOT; };
+		FAAE8D5D1338FF8B003ECAD5 /* GetActiveConnectionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetActiveConnectionType.h; sourceTree = "<group>"; };
 		FAF37EFA126DCE6F005EA154 /* IPhoneDownload.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = IPhoneDownload.mm; path = Platform/IPhoneDownload.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FAF37EFB126DCE6F005EA154 /* IPhoneDownloadManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = IPhoneDownloadManager.mm; path = Platform/IPhoneDownloadManager.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FAF37EFD126DCE6F005EA154 /* IPhonePlatform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = IPhonePlatform.mm; path = Platform/IPhonePlatform.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FAF37EFE126DCE6F005EA154 /* IPhonePlatform.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = IPhonePlatform.hpp; path = Platform/IPhonePlatform.hpp; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		FAF37F03126DCF11005EA154 /* IPhoneDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = IPhoneDownload.h; path = Platform/IPhoneDownload.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		FAFCB63413366E78001A5C59 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = Settings/WebViewController.h; sourceTree = "<group>"; };
-		FAFCB63513366E78001A5C59 /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = WebViewController.mm; path = Settings/WebViewController.mm; sourceTree = "<group>"; };
+		FAFCB63413366E78001A5C59 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		FAFCB63513366E78001A5C59 /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewController.mm; sourceTree = "<group>"; };
 		FAFCB63713367AD1001A5C59 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = about.html; path = ../../data/about.html; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -384,8 +385,11 @@
 		FA34BEC71338D6DB00FFB2A7 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				FAFCB63413366E78001A5C59 /* WebViewController.h */,
+				FAFCB63513366E78001A5C59 /* WebViewController.mm */,
 				FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */,
 				FA34BEC91338D72F00FFB2A7 /* CustomAlertView.h */,
+				FAAE8D5D1338FF8B003ECAD5 /* GetActiveConnectionType.h */,
 			);
 			name = Common;
 			path = ../Common;
@@ -398,8 +402,6 @@
 				FA4135E2120A263C0062D5B4 /* CountriesViewController.mm */,
 				FA4135E6120A263C0062D5B4 /* SettingsManager.h */,
 				FA4135E7120A263C0062D5B4 /* SettingsManager.mm */,
-				FAFCB63413366E78001A5C59 /* WebViewController.h */,
-				FAFCB63513366E78001A5C59 /* WebViewController.mm */,
 			);
 			name = Settings;
 			sourceTree = "<group>";

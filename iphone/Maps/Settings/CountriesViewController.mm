@@ -3,15 +3,13 @@
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "WebViewController.h"
+#import "CustomAlertView.h"
 
+#include "GetActiveConnectionType.h"
 #include "IPhonePlatform.hpp"
 
-#include <sys/socket.h>
-#include <netinet/in.h>
-#import <SystemConfiguration/SCNetworkReachability.h>
-
 #define NAVIGATION_BAR_HEIGHT	44
-#define MAX_3G_MEGABYTES 100
+#define MAX_3G_MEGABYTES 20
 
 #define GB 1000*1000*1000
 #define MB 1000*1000
@@ -253,30 +251,6 @@ TIndex g_clickedIndex;
     }
 }
 
-// return NO if not connected or using 3G
-+ (BOOL) IsUsingWIFI
-{
-	// Create zero addy
-	struct sockaddr_in zeroAddress;
-	bzero(&zeroAddress, sizeof(zeroAddress));
-	zeroAddress.sin_len = sizeof(zeroAddress);
-	zeroAddress.sin_family = AF_INET;
-
-	// Recover reachability flags
-	SCNetworkReachabilityRef defaultRouteReachability = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&zeroAddress);
-	SCNetworkReachabilityFlags flags;
-	BOOL didRetrieveFlags = SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags);
-	CFRelease(defaultRouteReachability);
-	if (!didRetrieveFlags)
-		return NO;
-
-	BOOL isReachable = flags & kSCNetworkFlagsReachable;
-  BOOL isWifi = !(flags & kSCNetworkReachabilityFlagsIsWWAN);
-	BOOL needsConnection = flags & kSCNetworkFlagsConnectionRequired;
-	BOOL isConnected = isReachable && !needsConnection;
-  return isWifi && isConnected;
-}
-
 - (void) tableView: (UITableView *) tableView didSelectRowAtIndexPath: (NSIndexPath *) indexPath
 {
 	// deselect the current row (don't keep the table selection persistent)
@@ -305,59 +279,69 @@ TIndex g_clickedIndex;
         		cancelButtonTitle: @"Cancel"
         		destructiveButtonTitle: @"Delete"
         		otherButtonTitles: nil];
-        if([popupQuery respondsToSelector:@selector(showFromRect)])
-    			[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
-      	else
-        	[popupQuery showInView: tableView];
+        [popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
     		[popupQuery release];
     	}
   		break;
   		case ENotDownloaded:
   		case EDownloadFailed:
-  		{	// display confirmation popup with country size
-    		BOOL isWifiConnected = [CountriesViewController IsUsingWIFI];
+  		{
+        TActiveConnectionType connType = GetActiveConnectionType();
+        if (connType == ENotConnected)
+        { // do not initiate any download
+          CustomAlertView * alert = [[CustomAlertView alloc] initWithTitle:@"No Internet connection detected"
+              message:@"We recommend to download large countries by using WiFi"
+              delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+          [alert show];
+          [alert release];
+        }
+        else
+        {
+          TLocalAndRemoteSize sizePair = m_storage->CountrySizeInBytes(g_clickedIndex);
+          TLocalAndRemoteSize::first_type size = sizePair.second - sizePair.first;
+          if (connType == EConnectedBy3G && size > MAX_3G_MEGABYTES * MB)
+          { // If user uses 3G, do not allow him to download large countries
+            CustomAlertView * alert = [[CustomAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@ is too large for 3G download", countryName]
+                                                                     message:@"Please, use WiFi to download large countries"
+                                                                    delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            [alert release];            
+          }
+          else
+          {
+            // display confirmation popup with country size
+            // convert size to human readable values
+            NSString * strTitle = nil;
+            NSString * strDownload = nil;
+            if (size > GB)
+            {
+              size /= GB;
+              strTitle = [NSString stringWithFormat:@"%@", countryName];
+              strDownload = [NSString stringWithFormat:@"Download %qu GB", size];
+            }
+            else if (size > MB)
+            {
+              size /= MB;
+              strTitle = [NSString stringWithFormat:@"%@", countryName];
+              strDownload = [NSString stringWithFormat:@"Download %qu MB", size];
+            }
+            else
+            {
+              size = (size + 999) / 1000;
+              strTitle = [NSString stringWithFormat:@"%@", countryName];
+              strDownload = [NSString stringWithFormat:@"Download %qu kB", size];
+            }
 
-    		TLocalAndRemoteSize sizePair = m_storage->CountrySizeInBytes(g_clickedIndex);
-        TLocalAndRemoteSize::first_type size = sizePair.second - sizePair.first;
-  			// convert size to human readable values
-      	NSString * strTitle = nil;
-      	NSString * strDownload = nil;
-  			if (size > GB)
-  			{
-    			size /= GB;
-					if (isWifiConnected)
-        		strTitle = [NSString stringWithFormat:@"%@", countryName];
-        	else
-        		strTitle = [NSString stringWithFormat:@"We strongly recommend using WIFI for downloading %@", countryName];
-        	strDownload = [NSString stringWithFormat:@"Download %qu GB", size];
-    		}
-  			else if (size > MB)
-  			{
-    			size /= MB;
-					if (isWifiConnected || size < MAX_3G_MEGABYTES)
-        		strTitle = [NSString stringWithFormat:@"%@", countryName];
-        	else
-        		strTitle = [NSString stringWithFormat:@"We strongly recommend using WIFI for downloading %@", countryName];
-        	strDownload = [NSString stringWithFormat:@"Download %qu MB", size];
-  			}
-  			else
-  			{
-    			size = (size + 999) / 1000;
-        	strTitle = [NSString stringWithFormat:@"%@", countryName];
-        	strDownload = [NSString stringWithFormat:@"Download %qu kB", size];
-  			}
-
-    		UIActionSheet * popupQuery = [[UIActionSheet alloc]
-      			initWithTitle: strTitle
-        		delegate: self
-        		cancelButtonTitle: @"Cancel"
-        		destructiveButtonTitle: nil
-        		otherButtonTitles: strDownload, nil];
-        if([popupQuery respondsToSelector:@selector(showFromRect)])
-    			[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
-      	else
-        	[popupQuery showInView: tableView];
-    		[popupQuery release];
+            UIActionSheet * popupQuery = [[UIActionSheet alloc]
+                                          initWithTitle: strTitle
+                                          delegate: self
+                                          cancelButtonTitle: @"Cancel"
+                                          destructiveButtonTitle: nil
+                                          otherButtonTitles: strDownload, nil];
+            [popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
+            [popupQuery release];
+          }
+        }
 			}
   		break;
   		case EDownloading:
@@ -368,10 +352,7 @@ TIndex g_clickedIndex;
         		cancelButtonTitle: @"Do Nothing"
         		destructiveButtonTitle: @"Cancel Download"
         		otherButtonTitles: nil];
-        if([popupQuery respondsToSelector:@selector(showFromRect)])
-    			[popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
-      	else
-        	[popupQuery showInView: tableView];
+        [popupQuery showFromRect: [cell frame] inView: tableView animated: YES]; 
     		[popupQuery release];
     	}
     	break;
