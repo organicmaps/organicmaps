@@ -11,6 +11,8 @@
 #include <net/if_dl.h>
 #include <net/if.h>
 
+#import <UIKit/UIDevice.h>
+
 #if !defined(IFT_ETHER)
   #define IFT_ETHER 0x6 /* Ethernet CSMACD */
 #endif
@@ -18,8 +20,15 @@
 #define TIMEOUT_IN_SECONDS 15.0
 #define MAX_AUTOMATIC_RETRIES 3
 
-NSString * GetEncryptedMac()
+string GetDeviceUid()
 {
+  NSString * uid = [[UIDevice currentDevice] uniqueIdentifier];
+  return [uid UTF8String];
+}
+
+string GetMacAddress()
+{
+  string result;
   // get wifi mac addr
   ifaddrs * addresses = NULL;
   if (getifaddrs(&addresses) == 0 && addresses != NULL)
@@ -32,19 +41,29 @@ NSString * GetEncryptedMac()
       {
         const struct sockaddr_dl * dlAddr = (const struct sockaddr_dl *) currentAddr->ifa_addr;
         const char * base = &dlAddr->sdl_data[dlAddr->sdl_nlen];
-        // generate sha2 hash for mac address
-        string const hash = sha2::digest224(base, dlAddr->sdl_alen, false);
-        // and use base64 encoding
-        return [NSString stringWithUTF8String: base64::encode(hash).c_str()];
+        result.assign(base, dlAddr->sdl_alen);
+        break;
       }
       currentAddr = currentAddr->ifa_next;
     }
     while (currentAddr->ifa_next);
     freeifaddrs(addresses);
   }
-  return nil;
+  return result;
 }
 
+string GetUniqueHashedId()
+{
+  // generate sha2 hash for mac address
+  string const hash = sha2::digest256(GetMacAddress() + GetDeviceUid(), false);
+  // xor it
+  size_t const offset = hash.size() / 4;
+  string xoredHash;
+  for (size_t i = 0; i < offset; ++i)
+    xoredHash.push_back(hash[i] ^ hash[i + offset] ^ hash[i + offset * 2] ^ hash[i + offset * 3]);
+  // and use base64 encoding
+  return base64::encode(xoredHash);
+}
 
 @implementation IPhoneDownload
 
@@ -93,9 +112,9 @@ NSString * GetEncryptedMac()
 		[val release];
   }
 
-  NSString * macStr = GetEncryptedMac();
-  if (macStr)
-    [request addValue:macStr forHTTPHeaderField:@"User-Agent"];
+  // send unique id in HTTP user agent header
+  static string const uid = GetUniqueHashedId();
+  [request addValue:[NSString stringWithUTF8String: uid.c_str()] forHTTPHeaderField:@"User-Agent"];
   return request;
 }
 

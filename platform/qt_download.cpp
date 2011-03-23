@@ -16,8 +16,21 @@
 // How many times we try to automatically reconnect in the case of network errors
 #define MAX_AUTOMATIC_RETRIES 2
 
-/// @return mac address of active interface without colons or empty string if not found
-/// @note mac is converted to decimal from hex and slightly crypted
+#ifdef OMIM_OS_WINDOWS
+  #define LOGIN_VAR "USERNAME"
+#else
+  #define LOGIN_VAR "USER"
+#endif
+/// @return login name for active user and local machine hostname
+static QString UserLoginAndHostname()
+{
+  char const * login = getenv(LOGIN_VAR);
+  QString result(login ? login : "");
+  result += QHostInfo::localHostName();
+  return result;
+}
+
+/// @return mac address of active interface or empty string if not found
 static QString MacAddress()
 {
   QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
@@ -27,11 +40,8 @@ static QString MacAddress()
     QString hwAddr = iface.hardwareAddress();
     if (!iface.addressEntries().empty()
       && (iface.flags() & (QNetworkInterface::IsUp | QNetworkInterface::IsRunning
-                           | QNetworkInterface::CanBroadcast | QNetworkInterface::CanMulticast))
-         == iface.flags()
-      && hwAddr.size() == 17) // mac length with semicolons
+      | QNetworkInterface::CanBroadcast | QNetworkInterface::CanMulticast)) == iface.flags())
     {
-      hwAddr.remove(':');
       return hwAddr;
     }
   }
@@ -62,10 +72,17 @@ static QString UniqueClientId()
     if (result.size() == 0)
       result = QString("------------");
   }
+  // add salt - login user name and local hostname
+  result += UserLoginAndHostname();
   // calculate one-way hash
   QByteArray const original = QByteArray::fromHex(result.toLocal8Bit());
-  string const hash = sha2::digest224(original.constData(), original.size(), false);
-  return base64::encode(hash).c_str();
+  string const hash = sha2::digest256(original.constData(), original.size(), false);
+  // xor hash
+  size_t const offset = hash.size() / 4;
+  string xoredHash;
+  for (size_t i = 0; i < offset; ++i)
+    xoredHash.push_back(hash[i] ^ hash[i + offset] ^ hash[i + offset * 2] ^ hash[i + offset * 3]);
+  return base64::encode(xoredHash).c_str();
 }
 
 static QString UserAgent()
