@@ -91,8 +91,10 @@ namespace storage
     //@{
     typedef boost::function<void (string const &)> TAddMapFunction;
     typedef boost::function<void (string const &)> TRemoveMapFunction;
+    typedef boost::function<void (m2::RectD const & r)> TUpdateRectFunction;
     TAddMapFunction m_addMap;
     TRemoveMapFunction m_removeMap;
+    TUpdateRectFunction m_updateRect;
     //@}
 
     void DownloadNextCountryFromQueue();
@@ -104,7 +106,7 @@ namespace storage
     Storage() {}
 
     /// Adds all locally downloaded maps to the model
-    void Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc);
+    void Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc, TUpdateRectFunction updateRectFunc);
 
     /// @name Called from DownloadManager
     //@{

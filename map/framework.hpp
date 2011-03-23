@@ -143,7 +143,9 @@ class FrameWork
     feature::DataHeader header;
     header.Load(FilesContainerR(datFile).GetReader(HEADER_FILE_TAG));
 
-    m_model.AddWorldRect(header.GetBounds());
+    m2::RectD bounds = header.GetBounds();
+
+    m_model.AddWorldRect(bounds);
     {
       threads::MutexGuard lock(m_modelSyn);
       m_model.AddMap(datFile);
@@ -226,7 +228,8 @@ public:
 
     // initializes model with locally downloaded maps
     storage.Init(bind(&FrameWork::AddMap, this, _1),
-                 bind(&FrameWork::RemoveMap, this, _1));
+                 bind(&FrameWork::RemoveMap, this, _1),
+                 bind(&FrameWork::RepaintRect, this, _1));
   }
 
   bool IsEmptyModel()
@@ -517,6 +520,16 @@ public:
     m_renderQueue.SetRedrawAll();
     AddRedrawCommandSure();
     Invalidate();
+  }
+
+  void RepaintRect(m2::RectD const & rect)
+  {
+    threads::MutexGuard lock(*m_renderQueue.renderState().m_mutex.get());
+    m2::RectD pxRect(0, 0, m_renderQueue.renderState().m_surfaceWidth, m_renderQueue.renderState().m_surfaceHeight);
+    m2::RectD glbRect;
+    m_navigator.Screen().PtoG(pxRect, glbRect);
+    if (glbRect.Intersect(rect))
+      Repaint();
   }
 
   void CenterViewport(m2::PointD const & pt)

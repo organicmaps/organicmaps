@@ -3,8 +3,11 @@
 #include "../base/logging.hpp"
 #include "../base/string_utils.hpp"
 
+#include "../indexer/data_header.hpp"
+
 #include "../coding/file_writer.hpp"
 #include "../coding/file_reader.hpp"
+#include "../coding/file_container.hpp"
 #include "../coding/strutil.hpp"
 
 #include "../version/version.hpp"
@@ -44,12 +47,13 @@ namespace storage
   }
 
   ////////////////////////////////////////////////////////////////////////////
-  void Storage::Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc)
+  void Storage::Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc, TUpdateRectFunction updateRectFunc)
   {
     m_currentVersion = static_cast<uint32_t>(Version::BUILD);
 
     m_addMap = addFunc;
     m_removeMap = removeFunc;
+    m_updateRect = updateRectFunc;
 
     // activate all downloaded maps
     Platform & p = GetPlatform();
@@ -270,10 +274,13 @@ namespace storage
       }
     }
 
+    m2::RectD bounds = country.Bounds();
+
     // @TODO: Do not delete pieces which are used by other countries
     DeactivateAndDeleteCountry(country, m_removeMap);
     if (m_observerChange)
       m_observerChange(index);
+    m_updateRect(bounds);
   }
 
   void Storage::ReInitCountries(bool forceReload)
@@ -346,6 +353,10 @@ namespace storage
       // activate downloaded map piece
       string const datFile = GetPlatform().ReadPathForFile(FileFromUrl(url));
       m_addMap(datFile);
+
+      feature::DataHeader header;
+      header.Load(FilesContainerR(datFile).GetReader(HEADER_FILE_TAG));
+      m_updateRect(header.GetBounds());
     }
     DownloadNextCountryFromQueue();
   }
