@@ -24,13 +24,21 @@ using namespace storage;
 - (void) OnCountryChange: (TIndex const &) index
 {
 	if (m_navController)
-  	[(CountriesViewController *)m_navController.topViewController OnCountryChange: index];
+  {
+    UIViewController * controller = m_navController.topViewController;
+    if ([controller respondsToSelector:@selector(OnCountryChange:)])
+      [(CountriesViewController *)controller OnCountryChange: index];
+  }
 }
 
 - (void) OnCountryDownload: (TIndex const &) index withProgress: (TDownloadProgress const &) progress
 {
 	if (m_navController)
-    [(CountriesViewController *)m_navController.topViewController OnDownload: index withProgress: progress];
+  {
+    UIViewController * controller = m_navController.topViewController;
+    if ([controller respondsToSelector:@selector(OnDownload:withProgress:)])
+      [(CountriesViewController *)controller OnDownload: index withProgress: progress];
+  }
 }
 
 - (void) OnUpdateCheck: (TUpdateResult) result withText: (string const &) text
