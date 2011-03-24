@@ -24,6 +24,8 @@ namespace serial
     inline m2::PointD U2D(m2::PointU const & p)
     {
       CoordPointT const pt = PointU2PointD(p);
+      ASSERT ( MercatorBounds::minX <= pt.first && pt.first <= MercatorBounds::maxX, (pt.first) );
+      ASSERT ( MercatorBounds::minY <= pt.second && pt.second <= MercatorBounds::maxY, (pt.second) );
       return m2::PointD(pt.first, pt.second);
     }
 

@@ -134,7 +134,7 @@ public:
         m_eActiveForEachIndexAction = ACTIVE_FOR_EACH_INDEX_DO_NOTHING;
       }
 
-      if (IndexT * pIndex = m_pActiveForEachIndex->GetIndex(scale, occlusionRect))
+      if (IndexT * pIndex = m_pActiveForEachIndex->GetIndex(static_cast<int>(scale), occlusionRect))
         pIndex->ForEachInIntervalAndScale(f, beg, end, scale, query);
     }
 
@@ -225,11 +225,10 @@ private:
     }
 
     // TODO: GetIndex(), Open() and Close() make Index single-threaded!
-    IndexT * GetIndex(uint32_t scale, m2::RectD const & occlusionRect)
+    IndexT * GetIndex(int scale, m2::RectD const & occlusionRect)
     {
-      if ((m_scaleRange.first <= static_cast<int>(scale)
-           && static_cast<int>(scale) <= m_scaleRange.second)
-           && m_Rect.IsIntersect(occlusionRect))
+      if ((m_scaleRange.first <= scale && scale <= m_scaleRange.second) &&
+          m_Rect.IsIntersect(occlusionRect))
       {
         Open();
         m_QueriesSkipped = 0;

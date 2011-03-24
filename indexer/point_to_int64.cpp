@@ -14,10 +14,8 @@
 
 m2::PointU PointD2PointU(CoordT x, CoordT y)
 {
-  if (x < MercatorBounds::minX) x = MercatorBounds::minX;
-  if (y < MercatorBounds::minY) y = MercatorBounds::minY;
-  if (x > MercatorBounds::maxX) x = MercatorBounds::maxX;
-  if (y > MercatorBounds::maxY) y = MercatorBounds::maxY;
+  x = my::clamp(x, MercatorBounds::minX, MercatorBounds::maxX);
+  y = my::clamp(y, MercatorBounds::minY, MercatorBounds::maxY);
 
   uint32_t const ix = static_cast<uint32_t>(0.5 + (x - MercatorBounds::minX)
                          / (MercatorBounds::maxX - MercatorBounds::minX) * (1 << POINT_COORD_BITS));

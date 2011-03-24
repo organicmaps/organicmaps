@@ -508,7 +508,7 @@ public:
     Invalidate();
   }
 
-  /// Show all model by it's worl rect.
+  /// Show all model by it's world rect.
   void ShowAll()
   {
     SetMaxWorldRect();
