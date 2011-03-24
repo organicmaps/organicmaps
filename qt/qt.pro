@@ -25,6 +25,8 @@ macx {
   QMAKE_POST_LINK = $${IN_PWD}/../tools/unix/process_plist.sh $${IN_PWD}/.. $$VERSION_MAJOR $$VERSION_MINOR $$PLIST_PATH
 
   # Bundle Resouces
+  OTHER_RESOURCES.files = ../data/about.html ../data/eula.html
+  OTHER_RESOURCES.path = Contents/Resources
   CLASSIFICATOR_RESOURCES.files = ../data/classificator.txt ../data/drawing_rules.bin ../data/visibility.txt
   CLASSIFICATOR_RESOURCES.path = Contents/Resources
   SKIN_RESOURCES.files = ../data/basic.skn ../data/basic_highres.skn ../data/symbols_48.png ../data/symbols_24.png
@@ -45,9 +47,8 @@ macx {
                          ../data/20_lohit_pa.ttf \
                          ../data/22_lohit_ta.ttf \
                          ../data/23_lohit_te.ttf
-
   FONT_RESOURCES.path = Contents/Resources
-  QMAKE_BUNDLE_DATA += CLASSIFICATOR_RESOURCES SKIN_RESOURCES FONT_RESOURCES
+  QMAKE_BUNDLE_DATA += OTHER_RESOURCES CLASSIFICATOR_RESOURCES SKIN_RESOURCES FONT_RESOURCES
 }
 
 win32-g++ {

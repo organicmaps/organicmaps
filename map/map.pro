@@ -37,4 +37,5 @@ SOURCES += \
 !iphone*:!bada* {
   HEADERS += qgl_render_context.hpp
   SOURCES += qgl_render_context.cpp
+  QT += opengl
 }
