@@ -65,6 +65,21 @@ namespace yg
       m_needRedraw = flag;
     }
 
+    bool TextRenderer::TextObj::IsNeedRedraw() const
+    {
+      return m_needRedraw;
+    }
+
+    bool TextRenderer::TextObj::IsFrozen() const
+    {
+      return m_frozen;
+    }
+
+    string const & TextRenderer::TextObj::Text() const
+    {
+      return m_utf8Text;
+    }
+
     void TextRenderer::TextObj::Offset(m2::PointD const & offs)
     {
       m_pt += offs;
@@ -76,6 +91,8 @@ namespace yg
       // because frozen texts shouldn't be popped out by newly arrived texts.
       if (r2.m_frozen)
         return false;
+      if (r1.m_size != r2.m_size)
+        return r1.m_size > r2.m_size;
       return (r1.m_depth > r2.m_depth);
     }
 

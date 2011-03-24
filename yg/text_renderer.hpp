@@ -19,8 +19,6 @@ namespace yg
 
       enum TextPos { under_line, middle_line, above_line };
 
-    private:
-
       class TextObj
       {
         m2::PointD m_pt;
@@ -41,10 +39,15 @@ namespace yg
         void Draw(TextRenderer * pTextRenderer) const;
         m2::RectD const GetLimitRect(TextRenderer * pTextRenderer) const;
         void SetNeedRedraw(bool needRedraw) const;
+        bool IsNeedRedraw() const;
+        bool IsFrozen() const;
         void Offset(m2::PointD const & pt);
+        string const & Text() const;
 
         static bool better_text(TextObj const & r1, TextObj const & r2);
       };
+
+    private:
 
       m4::Tree<TextObj> m_tree;
 
