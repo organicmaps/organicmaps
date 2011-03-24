@@ -38,6 +38,7 @@ namespace
   };
 }
 
+/*
 UNIT_TEST(Feature_Deserialize)
 {
   Platform & platform = GetPlatform();
@@ -125,3 +126,4 @@ UNIT_TEST(Feature_Deserialize)
   //  TEST_EQUAL(f.DebugString(level), fTest.DebugString(level), ());
   //}
 }
+*/
