@@ -51,9 +51,8 @@ UNIT_TEST(PointToInt64_908175295886057813)
 
 UNIT_TEST(PointToInt64_Grid)
 {
-  int delta = 5;
+  int const delta = 5;
   for (int ix = -180; ix <= 180; ix += delta)
-  {
     for (int iy = -180; iy <= 180; iy += delta)
     {
       CoordPointT const pt(ix, iy);
@@ -65,21 +64,25 @@ UNIT_TEST(PointToInt64_Grid)
       int64_t const id1 = PointToInt64(pt1);
       TEST_EQUAL(id, id1, (pt, pt1));
     }
-  }
 }
 
 UNIT_TEST(PointToInt64_Bounds)
 {
   double arrEps[] = { -1.0E-2, -1.0E-3, -1.0E-4, 0, 1.0E-4, 1.0E-3, 1.0E-2 };
 
-  pod_point_t arrPt[] = { {-180, -180}, {-180, 180}, {180, 180}, {180, -180} };
+  pod_point_t arrPt[] = { {0, 0},
+    {-180, -180}, {-180, 180}, {180, 180}, {180, -180},
+    {-90, -90}, {-90, 90}, {90, 90}, {90, -90}
+  };
 
   for (size_t iP = 0; iP < ARRAY_SIZE(arrPt); ++iP)
-  {
-    for (size_t iE = 0; iE < ARRAY_SIZE(arrEps); ++iE)
-    {
-      CoordPointT const pt(arrPt[iP].x, arrPt[iP].y);
-      CheckEqualPoints(pt, Int64ToPoint(PointToInt64(pt)));
-    }
-  }
+    for (size_t iX = 0; iX < ARRAY_SIZE(arrEps); ++iX)
+      for (size_t iY = 0; iY < ARRAY_SIZE(arrEps); ++iY)
+      {
+        CoordPointT const pt(arrPt[iP].x + arrEps[iX], arrPt[iP].y + arrEps[iY]);
+        CoordPointT const pt1 = Int64ToPoint(PointToInt64(pt));
+
+        TEST(fabs(pt.first - pt1.first) <= (fabs(arrEps[iX]) + eps) &&
+             fabs(pt.second - pt1.second) <= (fabs(arrEps[iY]) + eps), (pt, pt1));
+      }
 }
