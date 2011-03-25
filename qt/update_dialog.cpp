@@ -66,7 +66,12 @@ namespace qt
     m_label = new QLabel(QString(QObject::tr(LAST_UPDATE_CHECK)) + timeString.c_str(), this);
 
     m_updateButton = new QPushButton(QObject::tr(CHECK_FOR_UPDATE), this);
+    m_updateButton->setDefault(false);
     connect(m_updateButton, SIGNAL(clicked()), this, SLOT(OnUpdateClick()));
+
+    QPushButton * closeButton = new QPushButton(QObject::tr("Close"), this);
+    closeButton->setDefault(true);
+    connect(closeButton, SIGNAL(clicked()), this, SLOT(OnCloseClick()));
 
     m_tree = new QTreeWidget(this);
     m_tree->setColumnCount(KNumberOfColumns);
@@ -78,9 +83,11 @@ namespace qt
     QHBoxLayout * horizontalLayout = new QHBoxLayout();
     horizontalLayout->addWidget(m_label);
     horizontalLayout->addWidget(m_updateButton);
+    horizontalLayout->addWidget(closeButton);
+
     QVBoxLayout * verticalLayout = new QVBoxLayout();
-    verticalLayout->addLayout(horizontalLayout);
     verticalLayout->addWidget(m_tree);
+    verticalLayout->addLayout(horizontalLayout);
     setLayout(verticalLayout);
 
     setWindowTitle(tr("Geographical Regions"));
@@ -187,6 +194,11 @@ namespace qt
     m_updateButton->setText(QObject::tr("Checking for update..."));
     m_updateButton->setDisabled(true);
     m_storage.CheckForUpdate();
+  }
+
+  void UpdateDialog::OnCloseClick()
+  {
+    done(0);
   }
 
   /// Changes row's text color

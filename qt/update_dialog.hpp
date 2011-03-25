@@ -32,6 +32,7 @@ namespace qt
   private slots:
     void OnItemClick(QTreeWidgetItem * item, int column);
     void OnUpdateClick();
+    void OnCloseClick();
 
   private:
     void FillTree();
