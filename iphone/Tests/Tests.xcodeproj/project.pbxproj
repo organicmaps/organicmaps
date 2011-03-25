@@ -16,6 +16,20 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* TestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* TestsViewController.m */; };
 		EEA9808212EF7FE50040E94E /* TestView.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEA9808112EF7FE50040E94E /* TestView.mm */; };
+		FAF564D4133C3187002748F9 /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF564C6133C3187002748F9 /* libmap.a */; };
+		FAF564D5133C3187002748F9 /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF564C7133C3187002748F9 /* libstorage.a */; };
+		FAF564D6133C3187002748F9 /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF564C8133C3187002748F9 /* libindexer.a */; };
+		FAF564D7133C3187002748F9 /* libyg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF564C9133C3187002748F9 /* libyg.a */; };
+		FAF564D8133C3187002748F9 /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF564CA133C3187002748F9 /* libgeometry.a */; };
+		FAF564D9133C3187002748F9 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF564CB133C3187002748F9 /* libcoding.a */; };
+		FAF564DA133C3187002748F9 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF564CC133C3187002748F9 /* libbase.a */; };
+		FAF564DB133C3187002748F9 /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF564CD133C3187002748F9 /* libtomcrypt.a */; };
+		FAF564DC133C3187002748F9 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF564CE133C3187002748F9 /* libjansson.a */; };
+		FAF564DD133C3187002748F9 /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF564CF133C3187002748F9 /* libbzip2.a */; };
+		FAF564DE133C3187002748F9 /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF564D0133C3187002748F9 /* libzlib.a */; };
+		FAF564DF133C3187002748F9 /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF564D1133C3187002748F9 /* libfribidi.a */; };
+		FAF564E0133C3187002748F9 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF564D2133C3187002748F9 /* libfreetype.a */; };
+		FAF564E1133C3187002748F9 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF564D3133C3187002748F9 /* libexpat.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,8 +46,22 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Tests_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tests_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		EEA9808012EF7FE50040E94E /* TestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestView.h; path = Projects/omim/iphone/Tests/Classes/TestView.h; sourceTree = DEVELOPER_DIR; };
-		EEA9808112EF7FE50040E94E /* TestView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TestView.mm; path = Projects/omim/iphone/Tests/Classes/TestView.mm; sourceTree = DEVELOPER_DIR; };
+		EEA9808012EF7FE50040E94E /* TestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
+		EEA9808112EF7FE50040E94E /* TestView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TestView.mm; sourceTree = "<group>"; };
+		FAF564C6133C3187002748F9 /* libmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmap.a; path = libmap.a; sourceTree = SOURCE_ROOT; };
+		FAF564C7133C3187002748F9 /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstorage.a; path = libstorage.a; sourceTree = SOURCE_ROOT; };
+		FAF564C8133C3187002748F9 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = libindexer.a; sourceTree = SOURCE_ROOT; };
+		FAF564C9133C3187002748F9 /* libyg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libyg.a; path = libyg.a; sourceTree = SOURCE_ROOT; };
+		FAF564CA133C3187002748F9 /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = libgeometry.a; sourceTree = SOURCE_ROOT; };
+		FAF564CB133C3187002748F9 /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = libcoding.a; sourceTree = SOURCE_ROOT; };
+		FAF564CC133C3187002748F9 /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = libbase.a; sourceTree = SOURCE_ROOT; };
+		FAF564CD133C3187002748F9 /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = libtomcrypt.a; sourceTree = SOURCE_ROOT; };
+		FAF564CE133C3187002748F9 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = libjansson.a; sourceTree = SOURCE_ROOT; };
+		FAF564CF133C3187002748F9 /* libbzip2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbzip2.a; path = libbzip2.a; sourceTree = SOURCE_ROOT; };
+		FAF564D0133C3187002748F9 /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libzlib.a; path = libzlib.a; sourceTree = SOURCE_ROOT; };
+		FAF564D1133C3187002748F9 /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfribidi.a; path = libfribidi.a; sourceTree = SOURCE_ROOT; };
+		FAF564D2133C3187002748F9 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = libfreetype.a; sourceTree = SOURCE_ROOT; };
+		FAF564D3133C3187002748F9 /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = libexpat.a; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +72,20 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
+				FAF564D4133C3187002748F9 /* libmap.a in Frameworks */,
+				FAF564D5133C3187002748F9 /* libstorage.a in Frameworks */,
+				FAF564D6133C3187002748F9 /* libindexer.a in Frameworks */,
+				FAF564D7133C3187002748F9 /* libyg.a in Frameworks */,
+				FAF564D8133C3187002748F9 /* libgeometry.a in Frameworks */,
+				FAF564D9133C3187002748F9 /* libcoding.a in Frameworks */,
+				FAF564DA133C3187002748F9 /* libbase.a in Frameworks */,
+				FAF564DB133C3187002748F9 /* libtomcrypt.a in Frameworks */,
+				FAF564DC133C3187002748F9 /* libjansson.a in Frameworks */,
+				FAF564DD133C3187002748F9 /* libbzip2.a in Frameworks */,
+				FAF564DE133C3187002748F9 /* libzlib.a in Frameworks */,
+				FAF564DF133C3187002748F9 /* libfribidi.a in Frameworks */,
+				FAF564E0133C3187002748F9 /* libfreetype.a in Frameworks */,
+				FAF564E1133C3187002748F9 /* libexpat.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +119,7 @@
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				FAF564E3133C318E002748F9 /* Static Libraries */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -110,6 +153,28 @@
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FAF564E3133C318E002748F9 /* Static Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				FAF564C6133C3187002748F9 /* libmap.a */,
+				FAF564C7133C3187002748F9 /* libstorage.a */,
+				FAF564C8133C3187002748F9 /* libindexer.a */,
+				FAF564C9133C3187002748F9 /* libyg.a */,
+				FAF564CA133C3187002748F9 /* libgeometry.a */,
+				FAF564CB133C3187002748F9 /* libcoding.a */,
+				FAF564CC133C3187002748F9 /* libbase.a */,
+				FAF564CD133C3187002748F9 /* libtomcrypt.a */,
+				FAF564CE133C3187002748F9 /* libjansson.a */,
+				FAF564CF133C3187002748F9 /* libbzip2.a */,
+				FAF564D0133C3187002748F9 /* libzlib.a */,
+				FAF564D1133C3187002748F9 /* libfribidi.a */,
+				FAF564D2133C3187002748F9 /* libfreetype.a */,
+				FAF564D3133C3187002748F9 /* libexpat.a */,
+			);
+			name = "Static Libraries";
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +258,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tests_Prefix.pch;
 				INFOPLIST_FILE = "Tests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/omim/omim-iphone-build/out/debug\"",
+				);
 				PRODUCT_NAME = Tests;
 			};
 			name = Debug;
@@ -205,6 +275,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tests_Prefix.pch;
 				INFOPLIST_FILE = "Tests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/omim/omim-iphone-build/out/debug\"",
+				);
 				PRODUCT_NAME = Tests;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -216,8 +291,17 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_FAST_MATH = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DEBUG,
+					_DEBUG,
+				);
+				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../3party/boost;
+				LIBRARY_SEARCH_PATHS = "../../../omim-iphone-build/out/debug/";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
 			};
@@ -229,8 +313,18 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_FAST_MATH = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					RELEASE,
+					_RELEASE,
+				);
+				GCC_THUMB_SUPPORT = NO;
+				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../3party/boost;
+				LIBRARY_SEARCH_PATHS = "../../../omim-iphone-build/out/release/";
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
