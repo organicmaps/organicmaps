@@ -10,7 +10,7 @@
 #define COUNTRIES_FILE  "countries_poly.txt"
 #define DATA_UPDATE_FILE "maps.update"
 #define BINARY_UPDATE_FILE "binary.update"
-#define UPDATE_BASE_URL "http://melnichek.ath.cx:34568/maps/"
+#define UPDATE_BASE_URL "http://data.mapswithme.com/"
 
 #define WORLD_FILE_NAME "World"
 

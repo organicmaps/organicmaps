@@ -14,6 +14,7 @@
 
 #include "../std/set.hpp"
 #include "../std/algorithm.hpp"
+#include "../std/target_os.hpp"
 
 #include <boost/bind.hpp>
 
@@ -74,7 +75,7 @@ namespace storage
 
   string Storage::UpdateBaseUrl() const
   {
-    return UPDATE_BASE_URL + utils::to_string(m_currentVersion) + "/";
+    return UPDATE_BASE_URL OMIM_OS_NAME "/" + utils::to_string(m_currentVersion) + "/";
   }
 
   TCountriesContainer const & NodeFromIndex(TCountriesContainer const & root, TIndex const & index)
