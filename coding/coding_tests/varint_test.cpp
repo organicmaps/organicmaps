@@ -92,7 +92,7 @@ UNIT_TEST(VarIntMax)
   TestVarUint(uint32_t(-1));
   TestVarUint(uint64_t(-1));
   TestVarInt(int32_t(2147483647));
-  TestVarInt(int32_t(-2147483648));
+  TestVarInt(int32_t(-2147483648LL));
   TestVarInt(int64_t(9223372036854775807LL));
   // TestVarInt(int64_t(-9223372036854775808LL));
 }

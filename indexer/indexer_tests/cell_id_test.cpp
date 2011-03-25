@@ -37,7 +37,7 @@ namespace
   }
 }
 
-UNIT_TEST(RandomRecode)
+UNIT_TEST(CellId_RandomRecode)
 {
   PseudoRNG32 rng;
   for (size_t i = 0; i < 1000; ++i)

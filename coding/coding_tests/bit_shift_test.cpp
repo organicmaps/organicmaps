@@ -16,7 +16,7 @@ UNIT_TEST(BitShift)
   uint32_t ui32 = 1;
   TEST_EQUAL(0x80000000U, bits::ror(ui32, 1), ());
   uint64_t ui64 = 1;
-  TEST_EQUAL(0x8000000000000000U, bits::ror(ui64, 1), ());
+  TEST_EQUAL(0x8000000000000000LL, bits::ror(ui64, 1), ());
 
   uint16_t v = 0x58b1;
   TEST_EQUAL(0x2b16, bits::ror(v, 3), ());

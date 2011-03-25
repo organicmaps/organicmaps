@@ -86,7 +86,7 @@ UNIT_TEST(FilesContainer_Shared)
   FileWriter::DeleteFileX(fName);
 
   uint32_t const count = 10;
-  int64_t const test64 = 908175281437210836;
+  int64_t const test64 = 908175281437210836LL;
 
   {
     // shared container fill
