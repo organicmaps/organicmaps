@@ -85,6 +85,17 @@ namespace qt
 
     setWindowTitle(tr("Geographical Regions"));
     resize(600, 500);
+
+    // we want to receive all download progress and result events
+    m_storage.Subscribe(bind(&UpdateDialog::OnCountryChanged, this, _1),
+                        bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2),
+                        bind(&UpdateDialog::OnUpdateRequest, this, _1, _2));
+  }
+
+  UpdateDialog::~UpdateDialog()
+  {
+    // tell download manager that we're gone...
+    m_storage.Unsubscribe();
   }
 
   /// when user clicks on any map row in the table
@@ -361,10 +372,6 @@ namespace qt
 
   void UpdateDialog::ShowDialog()
   {
-    // we want to receive all download progress and result events
-    m_storage.Subscribe(bind(&UpdateDialog::OnCountryChanged, this, _1),
-                        bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2),
-                        bind(&UpdateDialog::OnUpdateRequest, this, _1, _2));
     // if called for first time
     if (!m_tree->topLevelItemCount())
       FillTree();

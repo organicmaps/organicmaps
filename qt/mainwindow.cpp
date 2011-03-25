@@ -277,8 +277,6 @@ void MainWindow::ShowUpdateDialog()
   if (!m_updateDialog)
     m_updateDialog = new UpdateDialog(this, m_storage);
   m_updateDialog->ShowDialog();
-  // tell download manager that we're gone...
-  m_storage.Unsubscribe();
 }
 
 void MainWindow::ShowClassifPanel()
