@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1D3623260D0F684500981E51 /* TestsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* TestsAppDelegate.m */; };
-		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
@@ -30,6 +29,58 @@
 		FAF564DF133C3187002748F9 /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF564D1133C3187002748F9 /* libfribidi.a */; };
 		FAF564E0133C3187002748F9 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF564D2133C3187002748F9 /* libfreetype.a */; };
 		FAF564E1133C3187002748F9 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF564D3133C3187002748F9 /* libexpat.a */; };
+		FAF564EF133C3458002748F9 /* point_to_int64_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF564EE133C3458002748F9 /* point_to_int64_test.cpp */; };
+		FAF564F1133C3584002748F9 /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF564F0133C3584002748F9 /* testingmain.cpp */; };
+		FAF564F4133C3634002748F9 /* mercator_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF564F2133C3634002748F9 /* mercator_test.cpp */; };
+		FAF564F5133C3634002748F9 /* cell_id_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF564F3133C3634002748F9 /* cell_id_test.cpp */; };
+		FAF5650A133C36A4002748F9 /* rect_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF564F6133C36A4002748F9 /* rect_test.cpp */; };
+		FAF5650B133C36A4002748F9 /* distance_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF564F7133C36A4002748F9 /* distance_test.cpp */; };
+		FAF5650C133C36A4002748F9 /* tree_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF564F8133C36A4002748F9 /* tree_test.cpp */; };
+		FAF5650E133C36A4002748F9 /* region_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF564FB133C36A4002748F9 /* region_test.cpp */; };
+		FAF5650F133C36A4002748F9 /* polygon_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF564FC133C36A4002748F9 /* polygon_test.cpp */; };
+		FAF56510133C36A4002748F9 /* cellid_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF564FD133C36A4002748F9 /* cellid_test.cpp */; };
+		FAF56511133C36A4002748F9 /* screen_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF564FE133C36A4002748F9 /* screen_test.cpp */; };
+		FAF56512133C36A4002748F9 /* packer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF564FF133C36A4002748F9 /* packer_test.cpp */; };
+		FAF56513133C36A4002748F9 /* transformations_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56500133C36A4002748F9 /* transformations_test.cpp */; };
+		FAF56514133C36A4002748F9 /* common_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56501133C36A4002748F9 /* common_test.cpp */; };
+		FAF56515133C36A4002748F9 /* pointu_to_uint64_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56502133C36A4002748F9 /* pointu_to_uint64_test.cpp */; };
+		FAF56516133C36A4002748F9 /* covering_stream_optimizer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56503133C36A4002748F9 /* covering_stream_optimizer_test.cpp */; };
+		FAF56517133C36A4002748F9 /* covering_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56504133C36A4002748F9 /* covering_test.cpp */; };
+		FAF56518133C36A4002748F9 /* point_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56505133C36A4002748F9 /* point_test.cpp */; };
+		FAF56519133C36A4002748F9 /* segments_intersect_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56506133C36A4002748F9 /* segments_intersect_test.cpp */; };
+		FAF5651A133C36A4002748F9 /* intersect_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56507133C36A4002748F9 /* intersect_test.cpp */; };
+		FAF5651B133C36A4002748F9 /* angle_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56509133C36A4002748F9 /* angle_test.cpp */; };
+		FAF56536133C3750002748F9 /* writer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF5651C133C374F002748F9 /* writer_test.cpp */; };
+		FAF56537133C3750002748F9 /* reader_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF5651D133C374F002748F9 /* reader_test.cpp */; };
+		FAF56538133C3750002748F9 /* file_container_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF5651E133C374F002748F9 /* file_container_test.cpp */; };
+		FAF56539133C3750002748F9 /* sha2_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF5651F133C374F002748F9 /* sha2_test.cpp */; };
+		FAF5653A133C3750002748F9 /* base64_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56520133C374F002748F9 /* base64_test.cpp */; };
+		FAF5653B133C3750002748F9 /* bit_shift_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56521133C374F002748F9 /* bit_shift_test.cpp */; };
+		FAF5653C133C3750002748F9 /* gzip_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56522133C374F002748F9 /* gzip_test.cpp */; };
+		FAF5653D133C3750002748F9 /* coder_util_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56523133C374F002748F9 /* coder_util_test.cpp */; };
+		FAF5653E133C3750002748F9 /* bzip2_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56525133C374F002748F9 /* bzip2_test.cpp */; };
+		FAF5653F133C3750002748F9 /* strutil_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56526133C374F002748F9 /* strutil_test.cpp */; };
+		FAF56540133C3750002748F9 /* varint_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56527133C374F002748F9 /* varint_test.cpp */; };
+		FAF56541133C3750002748F9 /* diff_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56528133C374F002748F9 /* diff_test.cpp */; };
+		FAF56542133C3750002748F9 /* var_serial_vector_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56529133C374F002748F9 /* var_serial_vector_test.cpp */; };
+		FAF56543133C3750002748F9 /* reader_cache_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF5652A133C374F002748F9 /* reader_cache_test.cpp */; };
+		FAF56544133C3750002748F9 /* hex_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF5652B133C374F002748F9 /* hex_test.cpp */; };
+		FAF56545133C3750002748F9 /* file_sort_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF5652C133C374F002748F9 /* file_sort_test.cpp */; };
+		FAF56546133C3750002748F9 /* var_record_reader_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF5652D133C374F002748F9 /* var_record_reader_test.cpp */; };
+		FAF56547133C3750002748F9 /* mm_bit_vector_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF5652F133C374F002748F9 /* mm_bit_vector_test.cpp */; };
+		FAF56548133C3750002748F9 /* mem_file_reader_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56530133C374F002748F9 /* mem_file_reader_test.cpp */; };
+		FAF56549133C3750002748F9 /* dd_vector_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56531133C3750002748F9 /* dd_vector_test.cpp */; };
+		FAF5654A133C3750002748F9 /* endianness_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56532133C3750002748F9 /* endianness_test.cpp */; };
+		FAF5654B133C3750002748F9 /* png_decoder_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56533133C3750002748F9 /* png_decoder_test.cpp */; };
+		FAF5654C133C3750002748F9 /* mm_compact_trie_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56534133C3750002748F9 /* mm_compact_trie_test.cpp */; };
+		FAF5654D133C3750002748F9 /* mem_file_writer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56535133C3750002748F9 /* mem_file_writer_test.cpp */; };
+		FAF56556133C3DA2002748F9 /* feature_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF5654E133C3DA1002748F9 /* feature_test.cpp */; };
+		FAF56557133C3DA2002748F9 /* geometry_coding_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF5654F133C3DA1002748F9 /* geometry_coding_test.cpp */; };
+		FAF56558133C3DA2002748F9 /* triangles_tree_coding_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56550133C3DA1002748F9 /* triangles_tree_coding_test.cpp */; };
+		FAF5655A133C3DA2002748F9 /* interval_index_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56552133C3DA1002748F9 /* interval_index_test.cpp */; };
+		FAF5655B133C3DA2002748F9 /* cell_coverer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56553133C3DA2002748F9 /* cell_coverer_test.cpp */; };
+		FAF5655C133C3DA2002748F9 /* sort_and_merge_intervals_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56554133C3DA2002748F9 /* sort_and_merge_intervals_test.cpp */; };
+		FAF5655D133C3DA2002748F9 /* test_type.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF56555133C3DA2002748F9 /* test_type.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,20 +99,76 @@
 		8D1107310486CEB800E47090 /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		EEA9808012EF7FE50040E94E /* TestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
 		EEA9808112EF7FE50040E94E /* TestView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TestView.mm; sourceTree = "<group>"; };
-		FAF564C6133C3187002748F9 /* libmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmap.a; path = libmap.a; sourceTree = SOURCE_ROOT; };
-		FAF564C7133C3187002748F9 /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstorage.a; path = libstorage.a; sourceTree = SOURCE_ROOT; };
-		FAF564C8133C3187002748F9 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = libindexer.a; sourceTree = SOURCE_ROOT; };
-		FAF564C9133C3187002748F9 /* libyg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libyg.a; path = libyg.a; sourceTree = SOURCE_ROOT; };
-		FAF564CA133C3187002748F9 /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = libgeometry.a; sourceTree = SOURCE_ROOT; };
-		FAF564CB133C3187002748F9 /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = libcoding.a; sourceTree = SOURCE_ROOT; };
-		FAF564CC133C3187002748F9 /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = libbase.a; sourceTree = SOURCE_ROOT; };
-		FAF564CD133C3187002748F9 /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = libtomcrypt.a; sourceTree = SOURCE_ROOT; };
-		FAF564CE133C3187002748F9 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = libjansson.a; sourceTree = SOURCE_ROOT; };
-		FAF564CF133C3187002748F9 /* libbzip2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbzip2.a; path = libbzip2.a; sourceTree = SOURCE_ROOT; };
-		FAF564D0133C3187002748F9 /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libzlib.a; path = libzlib.a; sourceTree = SOURCE_ROOT; };
-		FAF564D1133C3187002748F9 /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfribidi.a; path = libfribidi.a; sourceTree = SOURCE_ROOT; };
-		FAF564D2133C3187002748F9 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = libfreetype.a; sourceTree = SOURCE_ROOT; };
-		FAF564D3133C3187002748F9 /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = libexpat.a; sourceTree = SOURCE_ROOT; };
+		FAF564C6133C3187002748F9 /* libmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmap.a; sourceTree = SOURCE_ROOT; };
+		FAF564C7133C3187002748F9 /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libstorage.a; sourceTree = SOURCE_ROOT; };
+		FAF564C8133C3187002748F9 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libindexer.a; sourceTree = SOURCE_ROOT; };
+		FAF564C9133C3187002748F9 /* libyg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libyg.a; sourceTree = SOURCE_ROOT; };
+		FAF564CA133C3187002748F9 /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgeometry.a; sourceTree = SOURCE_ROOT; };
+		FAF564CB133C3187002748F9 /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcoding.a; sourceTree = SOURCE_ROOT; };
+		FAF564CC133C3187002748F9 /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbase.a; sourceTree = SOURCE_ROOT; };
+		FAF564CD133C3187002748F9 /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtomcrypt.a; sourceTree = SOURCE_ROOT; };
+		FAF564CE133C3187002748F9 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjansson.a; sourceTree = SOURCE_ROOT; };
+		FAF564CF133C3187002748F9 /* libbzip2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbzip2.a; sourceTree = SOURCE_ROOT; };
+		FAF564D0133C3187002748F9 /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzlib.a; sourceTree = SOURCE_ROOT; };
+		FAF564D1133C3187002748F9 /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfribidi.a; sourceTree = SOURCE_ROOT; };
+		FAF564D2133C3187002748F9 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfreetype.a; sourceTree = SOURCE_ROOT; };
+		FAF564D3133C3187002748F9 /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexpat.a; sourceTree = SOURCE_ROOT; };
+		FAF564EE133C3458002748F9 /* point_to_int64_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = point_to_int64_test.cpp; path = ../../indexer/indexer_tests/point_to_int64_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF564F0133C3584002748F9 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = SOURCE_ROOT; };
+		FAF564F2133C3634002748F9 /* mercator_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mercator_test.cpp; path = ../../indexer/indexer_tests/mercator_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF564F3133C3634002748F9 /* cell_id_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cell_id_test.cpp; path = ../../indexer/indexer_tests/cell_id_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF564F6133C36A4002748F9 /* rect_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rect_test.cpp; path = ../../geometry/geometry_tests/rect_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF564F7133C36A4002748F9 /* distance_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = distance_test.cpp; path = ../../geometry/geometry_tests/distance_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF564F8133C36A4002748F9 /* tree_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tree_test.cpp; path = ../../geometry/geometry_tests/tree_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF564FA133C36A4002748F9 /* large_polygon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = large_polygon.hpp; path = ../../geometry/geometry_tests/large_polygon.hpp; sourceTree = SOURCE_ROOT; };
+		FAF564FB133C36A4002748F9 /* region_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = region_test.cpp; path = ../../geometry/geometry_tests/region_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF564FC133C36A4002748F9 /* polygon_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = polygon_test.cpp; path = ../../geometry/geometry_tests/polygon_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF564FD133C36A4002748F9 /* cellid_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cellid_test.cpp; path = ../../geometry/geometry_tests/cellid_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF564FE133C36A4002748F9 /* screen_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = screen_test.cpp; path = ../../geometry/geometry_tests/screen_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF564FF133C36A4002748F9 /* packer_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = packer_test.cpp; path = ../../geometry/geometry_tests/packer_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56500133C36A4002748F9 /* transformations_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = transformations_test.cpp; path = ../../geometry/geometry_tests/transformations_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56501133C36A4002748F9 /* common_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = common_test.cpp; path = ../../geometry/geometry_tests/common_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56502133C36A4002748F9 /* pointu_to_uint64_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pointu_to_uint64_test.cpp; path = ../../geometry/geometry_tests/pointu_to_uint64_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56503133C36A4002748F9 /* covering_stream_optimizer_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = covering_stream_optimizer_test.cpp; path = ../../geometry/geometry_tests/covering_stream_optimizer_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56504133C36A4002748F9 /* covering_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = covering_test.cpp; path = ../../geometry/geometry_tests/covering_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56505133C36A4002748F9 /* point_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = point_test.cpp; path = ../../geometry/geometry_tests/point_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56506133C36A4002748F9 /* segments_intersect_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = segments_intersect_test.cpp; path = ../../geometry/geometry_tests/segments_intersect_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56507133C36A4002748F9 /* intersect_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = intersect_test.cpp; path = ../../geometry/geometry_tests/intersect_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56508133C36A4002748F9 /* equality.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = equality.hpp; path = ../../geometry/geometry_tests/equality.hpp; sourceTree = SOURCE_ROOT; };
+		FAF56509133C36A4002748F9 /* angle_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = angle_test.cpp; path = ../../geometry/geometry_tests/angle_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF5651C133C374F002748F9 /* writer_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = writer_test.cpp; path = ../../coding/coding_tests/writer_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF5651D133C374F002748F9 /* reader_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = reader_test.cpp; path = ../../coding/coding_tests/reader_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF5651E133C374F002748F9 /* file_container_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_container_test.cpp; path = ../../coding/coding_tests/file_container_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF5651F133C374F002748F9 /* sha2_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sha2_test.cpp; path = ../../coding/coding_tests/sha2_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56520133C374F002748F9 /* base64_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = base64_test.cpp; path = ../../coding/coding_tests/base64_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56521133C374F002748F9 /* bit_shift_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bit_shift_test.cpp; path = ../../coding/coding_tests/bit_shift_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56522133C374F002748F9 /* gzip_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gzip_test.cpp; path = ../../coding/coding_tests/gzip_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56523133C374F002748F9 /* coder_util_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = coder_util_test.cpp; path = ../../coding/coding_tests/coder_util_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56524133C374F002748F9 /* coder_test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = coder_test.hpp; path = ../../coding/coding_tests/coder_test.hpp; sourceTree = SOURCE_ROOT; };
+		FAF56525133C374F002748F9 /* bzip2_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bzip2_test.cpp; path = ../../coding/coding_tests/bzip2_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56526133C374F002748F9 /* strutil_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = strutil_test.cpp; path = ../../coding/coding_tests/strutil_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56527133C374F002748F9 /* varint_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = varint_test.cpp; path = ../../coding/coding_tests/varint_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56528133C374F002748F9 /* diff_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = diff_test.cpp; path = ../../coding/coding_tests/diff_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56529133C374F002748F9 /* var_serial_vector_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = var_serial_vector_test.cpp; path = ../../coding/coding_tests/var_serial_vector_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF5652A133C374F002748F9 /* reader_cache_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = reader_cache_test.cpp; path = ../../coding/coding_tests/reader_cache_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF5652B133C374F002748F9 /* hex_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hex_test.cpp; path = ../../coding/coding_tests/hex_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF5652C133C374F002748F9 /* file_sort_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = file_sort_test.cpp; path = ../../coding/coding_tests/file_sort_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF5652D133C374F002748F9 /* var_record_reader_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = var_record_reader_test.cpp; path = ../../coding/coding_tests/var_record_reader_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF5652E133C374F002748F9 /* reader_test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = reader_test.hpp; path = ../../coding/coding_tests/reader_test.hpp; sourceTree = SOURCE_ROOT; };
+		FAF5652F133C374F002748F9 /* mm_bit_vector_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mm_bit_vector_test.cpp; path = ../../coding/coding_tests/mm_bit_vector_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56530133C374F002748F9 /* mem_file_reader_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mem_file_reader_test.cpp; path = ../../coding/coding_tests/mem_file_reader_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56531133C3750002748F9 /* dd_vector_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dd_vector_test.cpp; path = ../../coding/coding_tests/dd_vector_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56532133C3750002748F9 /* endianness_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = endianness_test.cpp; path = ../../coding/coding_tests/endianness_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56533133C3750002748F9 /* png_decoder_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = png_decoder_test.cpp; path = ../../coding/coding_tests/png_decoder_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56534133C3750002748F9 /* mm_compact_trie_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mm_compact_trie_test.cpp; path = ../../coding/coding_tests/mm_compact_trie_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56535133C3750002748F9 /* mem_file_writer_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mem_file_writer_test.cpp; path = ../../coding/coding_tests/mem_file_writer_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF5654E133C3DA1002748F9 /* feature_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = feature_test.cpp; path = ../../indexer/indexer_tests/feature_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF5654F133C3DA1002748F9 /* geometry_coding_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = geometry_coding_test.cpp; path = ../../indexer/indexer_tests/geometry_coding_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56550133C3DA1002748F9 /* triangles_tree_coding_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = triangles_tree_coding_test.cpp; path = ../../indexer/indexer_tests/triangles_tree_coding_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56552133C3DA1002748F9 /* interval_index_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = interval_index_test.cpp; path = ../../indexer/indexer_tests/interval_index_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56553133C3DA2002748F9 /* cell_coverer_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cell_coverer_test.cpp; path = ../../indexer/indexer_tests/cell_coverer_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56554133C3DA2002748F9 /* sort_and_merge_intervals_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sort_and_merge_intervals_test.cpp; path = ../../indexer/indexer_tests/sort_and_merge_intervals_test.cpp; sourceTree = SOURCE_ROOT; };
+		FAF56555133C3DA2002748F9 /* test_type.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test_type.cpp; path = ../../indexer/indexer_tests/test_type.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +223,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				FAF564EC133C343A002748F9 /* Tests */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -175,6 +283,69 @@
 			);
 			name = "Static Libraries";
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		FAF564EC133C343A002748F9 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				FAF5654E133C3DA1002748F9 /* feature_test.cpp */,
+				FAF5654F133C3DA1002748F9 /* geometry_coding_test.cpp */,
+				FAF56550133C3DA1002748F9 /* triangles_tree_coding_test.cpp */,
+				FAF56552133C3DA1002748F9 /* interval_index_test.cpp */,
+				FAF56553133C3DA2002748F9 /* cell_coverer_test.cpp */,
+				FAF56554133C3DA2002748F9 /* sort_and_merge_intervals_test.cpp */,
+				FAF56555133C3DA2002748F9 /* test_type.cpp */,
+				FAF5651C133C374F002748F9 /* writer_test.cpp */,
+				FAF5651D133C374F002748F9 /* reader_test.cpp */,
+				FAF5651E133C374F002748F9 /* file_container_test.cpp */,
+				FAF5651F133C374F002748F9 /* sha2_test.cpp */,
+				FAF56520133C374F002748F9 /* base64_test.cpp */,
+				FAF56521133C374F002748F9 /* bit_shift_test.cpp */,
+				FAF56522133C374F002748F9 /* gzip_test.cpp */,
+				FAF56523133C374F002748F9 /* coder_util_test.cpp */,
+				FAF56524133C374F002748F9 /* coder_test.hpp */,
+				FAF56525133C374F002748F9 /* bzip2_test.cpp */,
+				FAF56526133C374F002748F9 /* strutil_test.cpp */,
+				FAF56527133C374F002748F9 /* varint_test.cpp */,
+				FAF56528133C374F002748F9 /* diff_test.cpp */,
+				FAF56529133C374F002748F9 /* var_serial_vector_test.cpp */,
+				FAF5652A133C374F002748F9 /* reader_cache_test.cpp */,
+				FAF5652B133C374F002748F9 /* hex_test.cpp */,
+				FAF5652C133C374F002748F9 /* file_sort_test.cpp */,
+				FAF5652D133C374F002748F9 /* var_record_reader_test.cpp */,
+				FAF5652E133C374F002748F9 /* reader_test.hpp */,
+				FAF5652F133C374F002748F9 /* mm_bit_vector_test.cpp */,
+				FAF56530133C374F002748F9 /* mem_file_reader_test.cpp */,
+				FAF56531133C3750002748F9 /* dd_vector_test.cpp */,
+				FAF56532133C3750002748F9 /* endianness_test.cpp */,
+				FAF56533133C3750002748F9 /* png_decoder_test.cpp */,
+				FAF56534133C3750002748F9 /* mm_compact_trie_test.cpp */,
+				FAF56535133C3750002748F9 /* mem_file_writer_test.cpp */,
+				FAF564F6133C36A4002748F9 /* rect_test.cpp */,
+				FAF564F7133C36A4002748F9 /* distance_test.cpp */,
+				FAF564F8133C36A4002748F9 /* tree_test.cpp */,
+				FAF564FA133C36A4002748F9 /* large_polygon.hpp */,
+				FAF564FB133C36A4002748F9 /* region_test.cpp */,
+				FAF564FC133C36A4002748F9 /* polygon_test.cpp */,
+				FAF564FD133C36A4002748F9 /* cellid_test.cpp */,
+				FAF564FE133C36A4002748F9 /* screen_test.cpp */,
+				FAF564FF133C36A4002748F9 /* packer_test.cpp */,
+				FAF56500133C36A4002748F9 /* transformations_test.cpp */,
+				FAF56501133C36A4002748F9 /* common_test.cpp */,
+				FAF56502133C36A4002748F9 /* pointu_to_uint64_test.cpp */,
+				FAF56503133C36A4002748F9 /* covering_stream_optimizer_test.cpp */,
+				FAF56504133C36A4002748F9 /* covering_test.cpp */,
+				FAF56505133C36A4002748F9 /* point_test.cpp */,
+				FAF56506133C36A4002748F9 /* segments_intersect_test.cpp */,
+				FAF56507133C36A4002748F9 /* intersect_test.cpp */,
+				FAF56508133C36A4002748F9 /* equality.hpp */,
+				FAF56509133C36A4002748F9 /* angle_test.cpp */,
+				FAF564F2133C3634002748F9 /* mercator_test.cpp */,
+				FAF564F3133C3634002748F9 /* cell_id_test.cpp */,
+				FAF564F0133C3584002748F9 /* testingmain.cpp */,
+				FAF564EE133C3458002748F9 /* point_to_int64_test.cpp */,
+			);
+			name = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,10 +409,61 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* TestsAppDelegate.m in Sources */,
 				28D7ACF80DDB3853001CB0EB /* TestsViewController.m in Sources */,
 				EEA9808212EF7FE50040E94E /* TestView.mm in Sources */,
+				FAF564EF133C3458002748F9 /* point_to_int64_test.cpp in Sources */,
+				FAF564F1133C3584002748F9 /* testingmain.cpp in Sources */,
+				FAF564F4133C3634002748F9 /* mercator_test.cpp in Sources */,
+				FAF564F5133C3634002748F9 /* cell_id_test.cpp in Sources */,
+				FAF5650A133C36A4002748F9 /* rect_test.cpp in Sources */,
+				FAF5650B133C36A4002748F9 /* distance_test.cpp in Sources */,
+				FAF5650C133C36A4002748F9 /* tree_test.cpp in Sources */,
+				FAF5650E133C36A4002748F9 /* region_test.cpp in Sources */,
+				FAF5650F133C36A4002748F9 /* polygon_test.cpp in Sources */,
+				FAF56510133C36A4002748F9 /* cellid_test.cpp in Sources */,
+				FAF56511133C36A4002748F9 /* screen_test.cpp in Sources */,
+				FAF56512133C36A4002748F9 /* packer_test.cpp in Sources */,
+				FAF56513133C36A4002748F9 /* transformations_test.cpp in Sources */,
+				FAF56514133C36A4002748F9 /* common_test.cpp in Sources */,
+				FAF56515133C36A4002748F9 /* pointu_to_uint64_test.cpp in Sources */,
+				FAF56516133C36A4002748F9 /* covering_stream_optimizer_test.cpp in Sources */,
+				FAF56517133C36A4002748F9 /* covering_test.cpp in Sources */,
+				FAF56518133C36A4002748F9 /* point_test.cpp in Sources */,
+				FAF56519133C36A4002748F9 /* segments_intersect_test.cpp in Sources */,
+				FAF5651A133C36A4002748F9 /* intersect_test.cpp in Sources */,
+				FAF5651B133C36A4002748F9 /* angle_test.cpp in Sources */,
+				FAF56536133C3750002748F9 /* writer_test.cpp in Sources */,
+				FAF56537133C3750002748F9 /* reader_test.cpp in Sources */,
+				FAF56538133C3750002748F9 /* file_container_test.cpp in Sources */,
+				FAF56539133C3750002748F9 /* sha2_test.cpp in Sources */,
+				FAF5653A133C3750002748F9 /* base64_test.cpp in Sources */,
+				FAF5653B133C3750002748F9 /* bit_shift_test.cpp in Sources */,
+				FAF5653C133C3750002748F9 /* gzip_test.cpp in Sources */,
+				FAF5653D133C3750002748F9 /* coder_util_test.cpp in Sources */,
+				FAF5653E133C3750002748F9 /* bzip2_test.cpp in Sources */,
+				FAF5653F133C3750002748F9 /* strutil_test.cpp in Sources */,
+				FAF56540133C3750002748F9 /* varint_test.cpp in Sources */,
+				FAF56541133C3750002748F9 /* diff_test.cpp in Sources */,
+				FAF56542133C3750002748F9 /* var_serial_vector_test.cpp in Sources */,
+				FAF56543133C3750002748F9 /* reader_cache_test.cpp in Sources */,
+				FAF56544133C3750002748F9 /* hex_test.cpp in Sources */,
+				FAF56545133C3750002748F9 /* file_sort_test.cpp in Sources */,
+				FAF56546133C3750002748F9 /* var_record_reader_test.cpp in Sources */,
+				FAF56547133C3750002748F9 /* mm_bit_vector_test.cpp in Sources */,
+				FAF56548133C3750002748F9 /* mem_file_reader_test.cpp in Sources */,
+				FAF56549133C3750002748F9 /* dd_vector_test.cpp in Sources */,
+				FAF5654A133C3750002748F9 /* endianness_test.cpp in Sources */,
+				FAF5654B133C3750002748F9 /* png_decoder_test.cpp in Sources */,
+				FAF5654C133C3750002748F9 /* mm_compact_trie_test.cpp in Sources */,
+				FAF5654D133C3750002748F9 /* mem_file_writer_test.cpp in Sources */,
+				FAF56556133C3DA2002748F9 /* feature_test.cpp in Sources */,
+				FAF56557133C3DA2002748F9 /* geometry_coding_test.cpp in Sources */,
+				FAF56558133C3DA2002748F9 /* triangles_tree_coding_test.cpp in Sources */,
+				FAF5655A133C3DA2002748F9 /* interval_index_test.cpp in Sources */,
+				FAF5655B133C3DA2002748F9 /* cell_coverer_test.cpp in Sources */,
+				FAF5655C133C3DA2002748F9 /* sort_and_merge_intervals_test.cpp in Sources */,
+				FAF5655D133C3DA2002748F9 /* test_type.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
