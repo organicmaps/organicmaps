@@ -186,14 +186,6 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
       {
         cell.textLabel.textColor = [UIColor lightGrayColor];
         cell.detailTextLabel.text = [NSString stringWithFormat: @"Marked for downloading, touch to cancel"];
-        if (!indicator)
-        {
-          indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleGray];
-          indicator.hidesWhenStopped = NO;
-          cell.accessoryView = indicator;
-          [indicator release];
-        }
-        [indicator stopAnimating];
       }
       break;
     case ENotDownloaded:
