@@ -257,6 +257,8 @@ namespace storage
   {
     Country const & country = CountryByIndex(index);
 
+    m2::RectD bounds;
+
     // check if we already downloading this country
     TQueue::iterator found = find(m_queue.begin(), m_queue.end(), index);
     if (found != m_queue.end())
@@ -274,14 +276,18 @@ namespace storage
         m_queue.erase(found);
       }
     }
+    else
+    {
+      // bounds are only updated if country was already activated before
+      bounds = country.Bounds();
+    }
 
-    m2::RectD bounds = country.Bounds();
-
-    // @TODO: Do not delete pieces which are used by other countries
     DeactivateAndDeleteCountry(country, m_removeMap);
     if (m_observerChange)
       m_observerChange(index);
-    m_updateRect(bounds);
+
+    if (bounds != m2::RectD::GetEmptyRect())
+      m_updateRect(bounds);
   }
 
   void Storage::ReInitCountries(bool forceReload)
