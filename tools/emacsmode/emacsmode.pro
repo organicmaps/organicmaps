@@ -1,4 +1,4 @@
-QTC_SOURCE = ../../../qt-creator-2.0.0-src
+QTC_SOURCE = ../../../qt-creator-2.2.0-beta-src
 QTC_BUILD = ../../../qtcreator-build
 
 TEMPLATE = lib
