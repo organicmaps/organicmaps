@@ -78,7 +78,7 @@ template <typename FloatT> void TestMaxULPs()
 {
   for (unsigned int logMaxULPs = 0; logMaxULPs <= 8; ++logMaxULPs)
   {
-    unsigned int const maxULPs = (logMaxULPs == 0 ? 0 : (1 << logMaxULPs - 1));
+    unsigned int const maxULPs = (logMaxULPs == 0 ? 0 : ((1 << logMaxULPs) - 1));
     for (int base = -1; base <= 1; ++base)
     {
       for (int dir = -1; dir <= 1; dir += 2)
