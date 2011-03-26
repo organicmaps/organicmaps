@@ -1,717 +1,717 @@
 <!DOCTYPE skin>
 <skin>
  <page width="512" height="512" file="symbols_24.png">
-  <fontInfo size="12">
+  <fontInfo size="16">
    <charStyle id="32">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="4">
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="5">
      <resourceStyle width="4" x="105" y="168" height="4"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="0" yOffset="0" xAdvance="4">
+    <glyphMaskInfo xOffset="0" yOffset="0" xAdvance="5">
      <resourceStyle width="4" x="109" y="168" height="4"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="33">
-    <glyphInfo xOffset="1" yOffset="0" xAdvance="5">
-     <resourceStyle width="6" x="113" y="168" height="13"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="6">
+     <resourceStyle width="6" x="113" y="168" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="5">
-     <resourceStyle width="10" x="119" y="168" height="17"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="6">
+     <resourceStyle width="10" x="119" y="168" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="34">
-    <glyphInfo xOffset="0" yOffset="6" xAdvance="5">
-     <resourceStyle width="8" x="129" y="168" height="7"/>
+    <glyphInfo xOffset="2" yOffset="8" xAdvance="8">
+     <resourceStyle width="9" x="129" y="168" height="8"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="4" xAdvance="5">
-     <resourceStyle width="12" x="137" y="168" height="11"/>
+    <glyphMaskInfo xOffset="0" yOffset="6" xAdvance="8">
+     <resourceStyle width="13" x="138" y="168" height="12"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="35">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="10">
-     <resourceStyle width="14" x="149" y="168" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="13">
+     <resourceStyle width="15" x="151" y="168" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="10">
-     <resourceStyle width="18" x="163" y="168" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="13">
+     <resourceStyle width="19" x="166" y="168" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="36">
-    <glyphInfo xOffset="0" yOffset="-1" xAdvance="8">
-     <resourceStyle width="11" x="181" y="168" height="15"/>
+    <glyphInfo xOffset="1" yOffset="-3" xAdvance="10">
+     <resourceStyle width="12" x="185" y="168" height="19"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-3" xAdvance="8">
-     <resourceStyle width="15" x="192" y="168" height="19"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-5" xAdvance="10">
+     <resourceStyle width="16" x="197" y="168" height="23"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="37">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="12">
-     <resourceStyle width="15" x="207" y="168" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="15">
+     <resourceStyle width="18" x="213" y="168" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="12">
-     <resourceStyle width="19" x="222" y="168" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="15">
+     <resourceStyle width="22" x="231" y="168" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="38">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="9">
-     <resourceStyle width="13" x="241" y="168" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="13">
+     <resourceStyle width="16" x="253" y="168" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="9">
-     <resourceStyle width="18" x="254" y="168" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="13">
+     <resourceStyle width="20" x="269" y="168" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="39">
-    <glyphInfo xOffset="0" yOffset="6" xAdvance="3">
-     <resourceStyle width="6" x="272" y="168" height="7"/>
+    <glyphInfo xOffset="2" yOffset="8" xAdvance="5">
+     <resourceStyle width="6" x="289" y="168" height="8"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="4" xAdvance="3">
-     <resourceStyle width="10" x="278" y="168" height="11"/>
+    <glyphMaskInfo xOffset="0" yOffset="6" xAdvance="5">
+     <resourceStyle width="10" x="295" y="168" height="12"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="40">
-    <glyphInfo xOffset="0" yOffset="-1" xAdvance="5">
-     <resourceStyle width="8" x="288" y="168" height="15"/>
+    <glyphInfo xOffset="1" yOffset="-2" xAdvance="6">
+     <resourceStyle width="8" x="305" y="168" height="18"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-3" xAdvance="5">
-     <resourceStyle width="12" x="296" y="168" height="19"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-4" xAdvance="6">
+     <resourceStyle width="12" x="313" y="168" height="22"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="41">
-    <glyphInfo xOffset="1" yOffset="-1" xAdvance="5">
-     <resourceStyle width="7" x="308" y="168" height="15"/>
+    <glyphInfo xOffset="0" yOffset="-2" xAdvance="6">
+     <resourceStyle width="9" x="325" y="168" height="18"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-1" yOffset="-3" xAdvance="5">
-     <resourceStyle width="11" x="315" y="168" height="19"/>
+    <glyphMaskInfo xOffset="-2" yOffset="-4" xAdvance="6">
+     <resourceStyle width="13" x="334" y="168" height="22"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="42">
-    <glyphInfo xOffset="0" yOffset="3" xAdvance="7">
-     <resourceStyle width="11" x="326" y="168" height="10"/>
+    <glyphInfo xOffset="-1" yOffset="5" xAdvance="8">
+     <resourceStyle width="13" x="347" y="168" height="11"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="1" xAdvance="7">
-     <resourceStyle width="15" x="337" y="168" height="14"/>
+    <glyphMaskInfo xOffset="-3" yOffset="3" xAdvance="8">
+     <resourceStyle width="17" x="360" y="168" height="15"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="43">
-    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
-     <resourceStyle width="12" x="352" y="168" height="12"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="14">
+     <resourceStyle width="14" x="377" y="168" height="14"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
-     <resourceStyle width="16" x="364" y="168" height="16"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="14">
+     <resourceStyle width="18" x="391" y="168" height="18"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="44">
-    <glyphInfo xOffset="1" yOffset="-1" xAdvance="4">
-     <resourceStyle width="6" x="380" y="168" height="7"/>
+    <glyphInfo xOffset="1" yOffset="-2" xAdvance="5">
+     <resourceStyle width="7" x="409" y="168" height="8"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-1" yOffset="-3" xAdvance="4">
-     <resourceStyle width="10" x="386" y="168" height="11"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-4" xAdvance="5">
+     <resourceStyle width="11" x="416" y="168" height="12"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="45">
-    <glyphInfo xOffset="1" yOffset="3" xAdvance="5">
-     <resourceStyle width="7" x="396" y="168" height="5"/>
+    <glyphInfo xOffset="1" yOffset="3" xAdvance="6">
+     <resourceStyle width="8" x="427" y="168" height="7"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-1" yOffset="1" xAdvance="5">
-     <resourceStyle width="11" x="403" y="168" height="9"/>
+    <glyphMaskInfo xOffset="-1" yOffset="1" xAdvance="6">
+     <resourceStyle width="12" x="435" y="168" height="11"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="46">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="3">
-     <resourceStyle width="6" x="414" y="168" height="5"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="5">
+     <resourceStyle width="6" x="447" y="168" height="6"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="3">
-     <resourceStyle width="10" x="420" y="168" height="9"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="5">
+     <resourceStyle width="10" x="453" y="168" height="10"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="47">
-    <glyphInfo xOffset="0" yOffset="-2" xAdvance="4">
-     <resourceStyle width="9" x="430" y="168" height="15"/>
+    <glyphInfo xOffset="0" yOffset="-1" xAdvance="5">
+     <resourceStyle width="10" x="463" y="168" height="17"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-4" xAdvance="4">
-     <resourceStyle width="13" x="439" y="168" height="19"/>
+    <glyphMaskInfo xOffset="-2" yOffset="-3" xAdvance="5">
+     <resourceStyle width="14" x="473" y="168" height="21"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="48">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
-     <resourceStyle width="11" x="452" y="168" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="487" y="168" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
-     <resourceStyle width="15" x="463" y="168" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="0" y="191" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="49">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
-     <resourceStyle width="10" x="478" y="168" height="13"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="10">
+     <resourceStyle width="11" x="16" y="191" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
-     <resourceStyle width="14" x="488" y="168" height="17"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="10">
+     <resourceStyle width="15" x="27" y="191" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="50">
-    <glyphInfo xOffset="1" yOffset="0" xAdvance="8">
-     <resourceStyle width="10" x="502" y="168" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="42" y="191" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="8">
-     <resourceStyle width="14" x="0" y="190" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="54" y="191" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="51">
-    <glyphInfo xOffset="1" yOffset="0" xAdvance="8">
-     <resourceStyle width="10" x="14" y="190" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="70" y="191" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="8">
-     <resourceStyle width="14" x="24" y="190" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="82" y="191" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="52">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
-     <resourceStyle width="12" x="38" y="190" height="13"/>
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="10">
+     <resourceStyle width="14" x="98" y="191" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
-     <resourceStyle width="16" x="50" y="190" height="17"/>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="10">
+     <resourceStyle width="18" x="112" y="191" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="53">
-    <glyphInfo xOffset="1" yOffset="0" xAdvance="8">
-     <resourceStyle width="10" x="66" y="190" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="130" y="191" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="8">
-     <resourceStyle width="14" x="76" y="190" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="142" y="191" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="54">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
-     <resourceStyle width="11" x="90" y="190" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="158" y="191" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
-     <resourceStyle width="15" x="101" y="190" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="170" y="191" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="55">
-    <glyphInfo xOffset="1" yOffset="0" xAdvance="8">
-     <resourceStyle width="10" x="116" y="190" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="186" y="191" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="8">
-     <resourceStyle width="14" x="126" y="190" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="198" y="191" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="56">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
-     <resourceStyle width="11" x="140" y="190" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="214" y="191" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
-     <resourceStyle width="15" x="151" y="190" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="226" y="191" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="57">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
-     <resourceStyle width="11" x="166" y="190" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="242" y="191" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
-     <resourceStyle width="15" x="177" y="190" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="254" y="191" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="58">
-    <glyphInfo xOffset="1" yOffset="0" xAdvance="4">
-     <resourceStyle width="6" x="192" y="190" height="10"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="5">
+     <resourceStyle width="6" x="270" y="191" height="12"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="4">
-     <resourceStyle width="10" x="198" y="190" height="14"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="5">
+     <resourceStyle width="10" x="276" y="191" height="16"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="59">
-    <glyphInfo xOffset="1" yOffset="-1" xAdvance="4">
-     <resourceStyle width="6" x="208" y="190" height="12"/>
+    <glyphInfo xOffset="1" yOffset="-2" xAdvance="5">
+     <resourceStyle width="7" x="286" y="191" height="14"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-1" yOffset="-3" xAdvance="4">
-     <resourceStyle width="10" x="214" y="190" height="16"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-4" xAdvance="5">
+     <resourceStyle width="11" x="293" y="191" height="18"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="60">
-    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
-     <resourceStyle width="12" x="224" y="190" height="12"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="14">
+     <resourceStyle width="14" x="304" y="191" height="14"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
-     <resourceStyle width="16" x="236" y="190" height="16"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="14">
+     <resourceStyle width="18" x="318" y="191" height="18"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="61">
-    <glyphInfo xOffset="1" yOffset="2" xAdvance="10">
-     <resourceStyle width="12" x="252" y="190" height="8"/>
+    <glyphInfo xOffset="2" yOffset="2" xAdvance="14">
+     <resourceStyle width="14" x="336" y="191" height="10"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-1" yOffset="0" xAdvance="10">
-     <resourceStyle width="16" x="264" y="190" height="12"/>
+    <glyphMaskInfo xOffset="0" yOffset="0" xAdvance="14">
+     <resourceStyle width="18" x="350" y="191" height="14"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="62">
-    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
-     <resourceStyle width="12" x="280" y="190" height="12"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="14">
+     <resourceStyle width="14" x="368" y="191" height="14"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
-     <resourceStyle width="16" x="292" y="190" height="16"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="14">
+     <resourceStyle width="18" x="382" y="191" height="18"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="63">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="6">
-     <resourceStyle width="9" x="308" y="190" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="9">
+     <resourceStyle width="11" x="400" y="191" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="6">
-     <resourceStyle width="13" x="317" y="190" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="9">
+     <resourceStyle width="15" x="411" y="191" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="64">
-    <glyphInfo xOffset="0" yOffset="-2" xAdvance="12">
-     <resourceStyle width="15" x="330" y="190" height="15"/>
+    <glyphInfo xOffset="1" yOffset="-4" xAdvance="16">
+     <resourceStyle width="18" x="426" y="191" height="20"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-4" xAdvance="12">
-     <resourceStyle width="19" x="345" y="190" height="19"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-6" xAdvance="16">
+     <resourceStyle width="22" x="444" y="191" height="24"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="65">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
-     <resourceStyle width="13" x="364" y="190" height="13"/>
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="11">
+     <resourceStyle width="15" x="466" y="191" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
-     <resourceStyle width="17" x="377" y="190" height="17"/>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="11">
+     <resourceStyle width="20" x="481" y="191" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="66">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
-     <resourceStyle width="11" x="394" y="190" height="13"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="11">
+     <resourceStyle width="12" x="0" y="215" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
-     <resourceStyle width="15" x="405" y="190" height="17"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="11">
+     <resourceStyle width="16" x="12" y="215" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="67">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
-     <resourceStyle width="12" x="420" y="190" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="11">
+     <resourceStyle width="14" x="28" y="215" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
-     <resourceStyle width="16" x="432" y="190" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="11">
+     <resourceStyle width="18" x="42" y="215" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="68">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="9">
-     <resourceStyle width="12" x="448" y="190" height="13"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="12">
+     <resourceStyle width="14" x="60" y="215" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="9">
-     <resourceStyle width="16" x="460" y="190" height="17"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="12">
+     <resourceStyle width="18" x="74" y="215" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="69">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
-     <resourceStyle width="11" x="476" y="190" height="13"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="92" y="215" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
-     <resourceStyle width="15" x="487" y="190" height="17"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="104" y="215" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="70">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
-     <resourceStyle width="10" x="502" y="190" height="13"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="10">
+     <resourceStyle width="11" x="120" y="215" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
-     <resourceStyle width="14" x="0" y="209" height="17"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="10">
+     <resourceStyle width="15" x="131" y="215" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="71">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="9">
-     <resourceStyle width="12" x="14" y="209" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="12">
+     <resourceStyle width="14" x="146" y="215" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="9">
-     <resourceStyle width="16" x="26" y="209" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="12">
+     <resourceStyle width="18" x="160" y="215" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="72">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="9">
-     <resourceStyle width="12" x="42" y="209" height="13"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="13">
+     <resourceStyle width="13" x="178" y="215" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="9">
-     <resourceStyle width="16" x="54" y="209" height="17"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="13">
+     <resourceStyle width="17" x="191" y="215" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="73">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="3">
-     <resourceStyle width="6" x="70" y="209" height="13"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="5">
+     <resourceStyle width="6" x="208" y="215" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="3">
-     <resourceStyle width="10" x="76" y="209" height="17"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="5">
+     <resourceStyle width="10" x="214" y="215" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="74">
-    <glyphInfo xOffset="-1" yOffset="-3" xAdvance="4">
-     <resourceStyle width="8" x="86" y="209" height="16"/>
+    <glyphInfo xOffset="-1" yOffset="-3" xAdvance="5">
+     <resourceStyle width="9" x="224" y="215" height="19"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-3" yOffset="-5" xAdvance="4">
-     <resourceStyle width="12" x="94" y="209" height="20"/>
+    <glyphMaskInfo xOffset="-3" yOffset="-5" xAdvance="5">
+     <resourceStyle width="13" x="233" y="215" height="23"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="75">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
-     <resourceStyle width="12" x="106" y="209" height="13"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="11">
+     <resourceStyle width="14" x="246" y="215" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
-     <resourceStyle width="16" x="118" y="209" height="17"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="11">
+     <resourceStyle width="18" x="260" y="215" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="76">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="6">
-     <resourceStyle width="11" x="134" y="209" height="13"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="9">
+     <resourceStyle width="12" x="278" y="215" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="6">
-     <resourceStyle width="15" x="145" y="209" height="17"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="9">
+     <resourceStyle width="16" x="290" y="215" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="77">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="10">
-     <resourceStyle width="13" x="160" y="209" height="13"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="14">
+     <resourceStyle width="15" x="306" y="215" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="10">
-     <resourceStyle width="17" x="173" y="209" height="17"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="14">
+     <resourceStyle width="19" x="321" y="215" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="78">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
-     <resourceStyle width="11" x="190" y="209" height="13"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="13">
+     <resourceStyle width="13" x="340" y="215" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
-     <resourceStyle width="15" x="201" y="209" height="17"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="13">
+     <resourceStyle width="17" x="353" y="215" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="79">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="10">
-     <resourceStyle width="13" x="216" y="209" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="12">
+     <resourceStyle width="15" x="370" y="215" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="10">
-     <resourceStyle width="17" x="229" y="209" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="12">
+     <resourceStyle width="19" x="385" y="215" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="80">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="6">
-     <resourceStyle width="10" x="246" y="209" height="13"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="404" y="215" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="6">
-     <resourceStyle width="14" x="256" y="209" height="17"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="416" y="215" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="81">
-    <glyphInfo xOffset="0" yOffset="-2" xAdvance="10">
-     <resourceStyle width="13" x="270" y="209" height="15"/>
+    <glyphInfo xOffset="1" yOffset="-2" xAdvance="12">
+     <resourceStyle width="15" x="432" y="215" height="18"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-4" xAdvance="10">
-     <resourceStyle width="17" x="283" y="209" height="19"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-4" xAdvance="12">
+     <resourceStyle width="19" x="447" y="215" height="22"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="82">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
-     <resourceStyle width="12" x="300" y="209" height="13"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="12">
+     <resourceStyle width="14" x="466" y="215" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
-     <resourceStyle width="16" x="312" y="209" height="17"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="12">
+     <resourceStyle width="18" x="480" y="215" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="83">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
-     <resourceStyle width="11" x="328" y="209" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="498" y="215" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
-     <resourceStyle width="15" x="339" y="209" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="0" y="238" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="84">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
-     <resourceStyle width="11" x="354" y="209" height="13"/>
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="10">
+     <resourceStyle width="14" x="16" y="238" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
-     <resourceStyle width="15" x="365" y="209" height="17"/>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="10">
+     <resourceStyle width="18" x="30" y="238" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="85">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="9">
-     <resourceStyle width="12" x="380" y="209" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="11">
+     <resourceStyle width="13" x="48" y="238" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="9">
-     <resourceStyle width="16" x="392" y="209" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="11">
+     <resourceStyle width="17" x="61" y="238" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="86">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
-     <resourceStyle width="13" x="408" y="209" height="13"/>
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="11">
+     <resourceStyle width="15" x="78" y="238" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-3" yOffset="-2" xAdvance="8">
-     <resourceStyle width="18" x="421" y="209" height="17"/>
+    <glyphMaskInfo xOffset="-3" yOffset="-2" xAdvance="11">
+     <resourceStyle width="20" x="93" y="238" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="87">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="12">
-     <resourceStyle width="16" x="439" y="209" height="13"/>
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="16">
+     <resourceStyle width="20" x="113" y="238" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="12">
-     <resourceStyle width="20" x="455" y="209" height="17"/>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="16">
+     <resourceStyle width="24" x="133" y="238" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="88">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
-     <resourceStyle width="12" x="475" y="209" height="13"/>
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="11">
+     <resourceStyle width="15" x="157" y="238" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
-     <resourceStyle width="17" x="487" y="209" height="17"/>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="11">
+     <resourceStyle width="19" x="172" y="238" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="89">
-    <glyphInfo xOffset="-1" yOffset="0" xAdvance="7">
-     <resourceStyle width="13" x="0" y="229" height="13"/>
+    <glyphInfo xOffset="-1" yOffset="0" xAdvance="10">
+     <resourceStyle width="15" x="191" y="238" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-3" yOffset="-2" xAdvance="7">
-     <resourceStyle width="17" x="13" y="229" height="17"/>
+    <glyphMaskInfo xOffset="-3" yOffset="-2" xAdvance="10">
+     <resourceStyle width="19" x="206" y="238" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="90">
-    <glyphInfo xOffset="1" yOffset="0" xAdvance="9">
-     <resourceStyle width="11" x="30" y="229" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="11">
+     <resourceStyle width="13" x="225" y="238" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="9">
-     <resourceStyle width="15" x="41" y="229" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="11">
+     <resourceStyle width="17" x="238" y="238" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="94">
-    <glyphInfo xOffset="1" yOffset="5" xAdvance="10">
-     <resourceStyle width="12" x="56" y="229" height="8"/>
+    <glyphInfo xOffset="1" yOffset="7" xAdvance="13">
+     <resourceStyle width="15" x="255" y="238" height="9"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-1" yOffset="3" xAdvance="10">
-     <resourceStyle width="17" x="68" y="229" height="12"/>
+    <glyphMaskInfo xOffset="-1" yOffset="5" xAdvance="13">
+     <resourceStyle width="19" x="270" y="238" height="13"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="95">
-    <glyphInfo xOffset="-1" yOffset="-3" xAdvance="6">
-     <resourceStyle width="12" x="85" y="229" height="5"/>
+    <glyphInfo xOffset="0" yOffset="-5" xAdvance="8">
+     <resourceStyle width="12" x="289" y="238" height="7"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-3" yOffset="-5" xAdvance="6">
-     <resourceStyle width="16" x="97" y="229" height="9"/>
+    <glyphMaskInfo xOffset="-2" yOffset="-7" xAdvance="8">
+     <resourceStyle width="16" x="301" y="238" height="11"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="96">
-    <glyphInfo xOffset="1" yOffset="8" xAdvance="6">
-     <resourceStyle width="7" x="113" y="229" height="7"/>
+    <glyphInfo xOffset="1" yOffset="10" xAdvance="8">
+     <resourceStyle width="9" x="317" y="238" height="7"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="6" xAdvance="6">
-     <resourceStyle width="13" x="120" y="229" height="11"/>
+    <glyphMaskInfo xOffset="-1" yOffset="8" xAdvance="8">
+     <resourceStyle width="13" x="326" y="238" height="11"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="97">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
-     <resourceStyle width="10" x="133" y="229" height="11"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="339" y="238" height="13"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
-     <resourceStyle width="14" x="143" y="229" height="15"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="351" y="238" height="17"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="98">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
-     <resourceStyle width="11" x="157" y="229" height="14"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="367" y="238" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
-     <resourceStyle width="15" x="168" y="229" height="18"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="379" y="238" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="99">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
-     <resourceStyle width="10" x="183" y="229" height="11"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="9">
+     <resourceStyle width="11" x="395" y="238" height="13"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
-     <resourceStyle width="14" x="193" y="229" height="15"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="9">
+     <resourceStyle width="15" x="406" y="238" height="17"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="100">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
-     <resourceStyle width="11" x="207" y="229" height="14"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="421" y="238" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
-     <resourceStyle width="15" x="218" y="229" height="18"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="433" y="238" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="101">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
-     <resourceStyle width="11" x="233" y="229" height="11"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="449" y="238" height="13"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
-     <resourceStyle width="15" x="244" y="229" height="15"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="461" y="238" height="17"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="102">
-    <glyphInfo xOffset="-1" yOffset="0" xAdvance="4">
-     <resourceStyle width="10" x="259" y="229" height="14"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="6">
+     <resourceStyle width="10" x="477" y="238" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-3" yOffset="-2" xAdvance="4">
-     <resourceStyle width="14" x="269" y="229" height="18"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="6">
+     <resourceStyle width="14" x="487" y="238" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="103">
-    <glyphInfo xOffset="0" yOffset="-3" xAdvance="8">
-     <resourceStyle width="11" x="283" y="229" height="14"/>
+    <glyphInfo xOffset="1" yOffset="-3" xAdvance="10">
+     <resourceStyle width="12" x="0" y="258" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-5" xAdvance="8">
-     <resourceStyle width="15" x="294" y="229" height="18"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-5" xAdvance="10">
+     <resourceStyle width="16" x="12" y="258" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="104">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
-     <resourceStyle width="10" x="309" y="229" height="14"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="28" y="258" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
-     <resourceStyle width="14" x="319" y="229" height="18"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="40" y="258" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="105">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="3">
-     <resourceStyle width="6" x="333" y="229" height="14"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="5">
+     <resourceStyle width="6" x="56" y="258" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="3">
-     <resourceStyle width="10" x="339" y="229" height="18"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="5">
+     <resourceStyle width="10" x="62" y="258" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="106">
-    <glyphInfo xOffset="-1" yOffset="-3" xAdvance="3">
-     <resourceStyle width="7" x="349" y="229" height="17"/>
+    <glyphInfo xOffset="0" yOffset="-3" xAdvance="5">
+     <resourceStyle width="8" x="72" y="258" height="19"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-3" yOffset="-5" xAdvance="3">
-     <resourceStyle width="11" x="356" y="229" height="21"/>
+    <glyphMaskInfo xOffset="-2" yOffset="-5" xAdvance="5">
+     <resourceStyle width="12" x="80" y="258" height="23"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="107">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
-     <resourceStyle width="11" x="367" y="229" height="14"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="9">
+     <resourceStyle width="12" x="92" y="258" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
-     <resourceStyle width="15" x="378" y="229" height="18"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="9">
+     <resourceStyle width="17" x="104" y="258" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="108">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="3">
-     <resourceStyle width="6" x="393" y="229" height="14"/>
+    <glyphInfo xOffset="2" yOffset="0" xAdvance="5">
+     <resourceStyle width="6" x="121" y="258" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="3">
-     <resourceStyle width="10" x="399" y="229" height="18"/>
+    <glyphMaskInfo xOffset="0" yOffset="-2" xAdvance="5">
+     <resourceStyle width="10" x="127" y="258" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="109">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="11">
-     <resourceStyle width="14" x="409" y="229" height="11"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="15">
+     <resourceStyle width="17" x="137" y="258" height="13"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="11">
-     <resourceStyle width="18" x="423" y="229" height="15"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="15">
+     <resourceStyle width="21" x="154" y="258" height="17"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="110">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
-     <resourceStyle width="10" x="441" y="229" height="11"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="175" y="258" height="13"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
-     <resourceStyle width="14" x="451" y="229" height="15"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="187" y="258" height="17"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="111">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="8">
-     <resourceStyle width="11" x="465" y="229" height="11"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="203" y="258" height="13"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="8">
-     <resourceStyle width="15" x="476" y="229" height="15"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="215" y="258" height="17"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="112">
-    <glyphInfo xOffset="0" yOffset="-3" xAdvance="8">
-     <resourceStyle width="11" x="491" y="229" height="14"/>
+    <glyphInfo xOffset="1" yOffset="-3" xAdvance="10">
+     <resourceStyle width="12" x="231" y="258" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-5" xAdvance="8">
-     <resourceStyle width="15" x="0" y="250" height="18"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-5" xAdvance="10">
+     <resourceStyle width="16" x="243" y="258" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="113">
-    <glyphInfo xOffset="0" yOffset="-3" xAdvance="8">
-     <resourceStyle width="11" x="15" y="250" height="14"/>
+    <glyphInfo xOffset="1" yOffset="-3" xAdvance="10">
+     <resourceStyle width="12" x="259" y="258" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-5" xAdvance="8">
-     <resourceStyle width="15" x="26" y="250" height="18"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-5" xAdvance="10">
+     <resourceStyle width="16" x="271" y="258" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="114">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="5">
-     <resourceStyle width="9" x="41" y="250" height="12"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="6">
+     <resourceStyle width="10" x="287" y="258" height="14"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="5">
-     <resourceStyle width="13" x="50" y="250" height="16"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="6">
+     <resourceStyle width="14" x="297" y="258" height="18"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="115">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
-     <resourceStyle width="10" x="63" y="250" height="11"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="8">
+     <resourceStyle width="11" x="311" y="258" height="13"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
-     <resourceStyle width="14" x="73" y="250" height="15"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="8">
+     <resourceStyle width="15" x="322" y="258" height="17"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="116">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="4">
-     <resourceStyle width="9" x="87" y="250" height="13"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="7">
+     <resourceStyle width="9" x="337" y="258" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="4">
-     <resourceStyle width="13" x="96" y="250" height="17"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="7">
+     <resourceStyle width="13" x="346" y="258" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="117">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
-     <resourceStyle width="10" x="109" y="250" height="12"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="10">
+     <resourceStyle width="12" x="359" y="258" height="14"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
-     <resourceStyle width="14" x="119" y="250" height="15"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="10">
+     <resourceStyle width="16" x="371" y="258" height="17"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="118">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
-     <resourceStyle width="11" x="133" y="250" height="11"/>
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="9">
+     <resourceStyle width="13" x="387" y="258" height="13"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
-     <resourceStyle width="15" x="144" y="250" height="15"/>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="9">
+     <resourceStyle width="17" x="400" y="258" height="17"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="119">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="10">
-     <resourceStyle width="14" x="159" y="250" height="11"/>
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="13">
+     <resourceStyle width="17" x="417" y="258" height="13"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="10">
-     <resourceStyle width="18" x="173" y="250" height="15"/>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="13">
+     <resourceStyle width="21" x="434" y="258" height="17"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="120">
-    <glyphInfo xOffset="0" yOffset="0" xAdvance="7">
-     <resourceStyle width="11" x="191" y="250" height="11"/>
+    <glyphInfo xOffset="0" yOffset="0" xAdvance="9">
+     <resourceStyle width="13" x="455" y="258" height="13"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="7">
-     <resourceStyle width="15" x="202" y="250" height="15"/>
+    <glyphMaskInfo xOffset="-2" yOffset="-2" xAdvance="9">
+     <resourceStyle width="18" x="468" y="258" height="17"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="121">
-    <glyphInfo xOffset="0" yOffset="-3" xAdvance="7">
-     <resourceStyle width="11" x="217" y="250" height="14"/>
+    <glyphInfo xOffset="0" yOffset="-3" xAdvance="9">
+     <resourceStyle width="13" x="486" y="258" height="16"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-2" yOffset="-5" xAdvance="7">
-     <resourceStyle width="15" x="228" y="250" height="18"/>
+    <glyphMaskInfo xOffset="-3" yOffset="-5" xAdvance="9">
+     <resourceStyle width="18" x="0" y="281" height="20"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="122">
-    <glyphInfo xOffset="1" yOffset="0" xAdvance="7">
-     <resourceStyle width="10" x="243" y="250" height="11"/>
+    <glyphInfo xOffset="1" yOffset="0" xAdvance="9">
+     <resourceStyle width="11" x="18" y="281" height="13"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="7">
-     <resourceStyle width="14" x="253" y="250" height="15"/>
+    <glyphMaskInfo xOffset="-1" yOffset="-2" xAdvance="9">
+     <resourceStyle width="15" x="29" y="281" height="17"/>
     </glyphMaskInfo>
    </charStyle>
    <charStyle id="126">
-    <glyphInfo xOffset="1" yOffset="2" xAdvance="10">
-     <resourceStyle width="12" x="267" y="250" height="8"/>
+    <glyphInfo xOffset="2" yOffset="3" xAdvance="14">
+     <resourceStyle width="14" x="44" y="281" height="8"/>
     </glyphInfo>
-    <glyphMaskInfo xOffset="-1" yOffset="0" xAdvance="10">
-     <resourceStyle width="16" x="279" y="250" height="12"/>
+    <glyphMaskInfo xOffset="0" yOffset="1" xAdvance="14">
+     <resourceStyle width="18" x="58" y="281" height="12"/>
     </glyphMaskInfo>
    </charStyle>
   </fontInfo>
@@ -1022,16 +1022,16 @@
    <resourceStyle width="22" x="393" y="112" height="22"/>
   </symbolStyle>
   <symbolStyle id="229" name="religion">
-   <resourceStyle width="28" x="415" y="112" height="28"/>
+   <resourceStyle width="24" x="415" y="112" height="24"/>
   </symbolStyle>
   <symbolStyle id="230" name="restaurant">
-   <resourceStyle width="24" x="443" y="112" height="24"/>
+   <resourceStyle width="24" x="439" y="112" height="24"/>
   </symbolStyle>
   <symbolStyle id="231" name="roundabout_left">
-   <resourceStyle width="22" x="467" y="112" height="22"/>
+   <resourceStyle width="22" x="463" y="112" height="22"/>
   </symbolStyle>
   <symbolStyle id="232" name="roundabout_right">
-   <resourceStyle width="22" x="489" y="112" height="22"/>
+   <resourceStyle width="22" x="485" y="112" height="22"/>
   </symbolStyle>
   <symbolStyle id="233" name="school">
    <resourceStyle width="22" x="0" y="140" height="22"/>
