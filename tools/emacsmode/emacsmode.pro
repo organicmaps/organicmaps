@@ -1,5 +1,5 @@
 QTC_SOURCE = ../../../qt-creator-2.2.0-beta-src
-QTC_BUILD = ../../../qtcreator-build
+QTC_BUILD = ../../../qt-creator-2.2.0-beta-src
 
 TEMPLATE = lib
 TARGET = EmacsMode
@@ -10,13 +10,9 @@ DESTDIR = $$QTC_BUILD/lib/qtcreator/plugins/Spliny
 LIBS += -L$$QTC_BUILD/bin/Qt\ Creator.app/Contents/PlugIns/Nokia
 
 include($$QTC_SOURCE/src/qtcreatorplugin.pri)
-include($$QTC_SOURCE/src/libs/cplusplus/cplusplus.pri)
-include($$QTC_SOURCE/src/plugins/projectexplorer/projectexplorer.pri)
 include($$QTC_SOURCE/src/plugins/coreplugin/coreplugin.pri)
 include($$QTC_SOURCE/src/plugins/texteditor/texteditor.pri)
-include($$QTC_SOURCE/src/plugins/cppeditor/cppeditor.pri)
 include($$QTC_SOURCE/src/plugins/find/find.pri)
-include($$QTC_SOURCE/src/shared/indenter/indenter.pri)
 
 # DEFINES += QT_NO_CAST_FROM_ASCII QT_NO_CAST_TO_ASCII
 QT += gui

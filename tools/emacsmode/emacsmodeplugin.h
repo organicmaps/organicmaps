@@ -36,6 +36,7 @@
 #include "ui_emacsmodeoptions.h"
 #include <utils/savedaction.h>
 #include <coreplugin/icore.h>
+#include <QtCore/QPointer>
 
 namespace EmacsMode {
 namespace Internal {
@@ -55,7 +56,7 @@ public:
 private:
     // implementation of ExtensionSystem::IPlugin
     bool initialize(const QStringList &arguments, QString *error_message);
-    void aboutToShutdown();
+    ShutdownFlag aboutToShutdown();
     void extensionsInitialized();
 
 private:
@@ -139,6 +140,7 @@ public:
 
     bool initialize();
     void aboutToShutdown();
+    void readSettings();
 
 private slots:
     void editorOpened(Core::IEditor *);
@@ -169,8 +171,15 @@ signals:
 
 private:
     EmacsModePlugin *q;
-    EmacsModeOptionPage *m_EmacsModeOptionsPage;
+    EmacsModeOptionPage *m_emacsModeOptionsPage;
     QHash<Core::IEditor *, EmacsModeHandler *> m_editorToHandler;
+    QPointer<Core::ICore> m_core;
+    QPointer<Core::EditorManager> m_editorManager;
+    QPointer<Core::ActionManager> m_actionManager;
+    Core::ICore *core() const { return m_core; }
+    Core::EditorManager *editorManager() const { return m_editorManager; }
+    Core::ActionManager *actionManager() const { return m_actionManager; }
+
 
     void triggerAction(const QString& code);
 };

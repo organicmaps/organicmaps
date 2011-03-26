@@ -55,15 +55,13 @@
 #include <texteditor/texteditorconstants.h>
 #include <texteditor/tabsettings.h>
 #include <texteditor/texteditorsettings.h>
-#include <texteditor/textblockiterator.h>
+#include <texteditor/indenter.h>
+//#include <texteditor/textblockiterator.h>
 
 #include <find/findplugin.h>
 #include <find/textfindconstants.h>
 
 #include <utils/qtcassert.h>
-
-
-#include <indenter.h>
 
 #include <QtCore/QDebug>
 #include <QtCore/QtPlugin>
@@ -186,7 +184,7 @@ bool EmacsModeOptionPage::matches(QString const & s) const
 EmacsModePluginPrivate::EmacsModePluginPrivate(EmacsModePlugin *plugin)
 {       
     q = plugin;
-    m_EmacsModeOptionsPage = 0;
+    m_emacsModeOptionsPage = 0;
 }
 
 EmacsModePluginPrivate::~EmacsModePluginPrivate()
@@ -195,53 +193,80 @@ EmacsModePluginPrivate::~EmacsModePluginPrivate()
 
 void EmacsModePluginPrivate::aboutToShutdown()
 {
-    q->removeObject(m_EmacsModeOptionsPage);
-    delete m_EmacsModeOptionsPage;
-    m_EmacsModeOptionsPage = 0;
+    q->removeObject(m_emacsModeOptionsPage);
+    delete m_emacsModeOptionsPage;
+    m_emacsModeOptionsPage = 0;
     theEmacsModeSettings()->writeSettings(Core::ICore::instance()->settings());
     delete theEmacsModeSettings();
 }
 
 bool EmacsModePluginPrivate::initialize()
 {
-    Core::ActionManager *actionManager = Core::ICore::instance()->actionManager();
-    QTC_ASSERT(actionManager, return false);
+    m_core = Core::ICore::instance();
+    m_editorManager = core()->editorManager();
+    m_actionManager = core()->actionManager();
+    QTC_ASSERT(actionManager(), return false);
 
-    QList<int> globalcontext;
-    globalcontext << Core::Constants::C_GLOBAL_ID;
+//    m_wordCompletion = new WordCompletion;
+//    q->addAutoReleasedObject(m_wordCompletion);
 
-    m_EmacsModeOptionsPage = new EmacsModeOptionPage;
-    q->addObject(m_EmacsModeOptionsPage);
-    theEmacsModeSettings()->readSettings(Core::ICore::instance()->settings());
-    
+    Context globalcontext(Core::Constants::C_GLOBAL);
+
+    m_emacsModeOptionsPage = new EmacsModeOptionPage;
+    q->addObject(m_emacsModeOptionsPage);
+
+//    theEmacsModeSettings()->readSettings(Core::ICore::instance()->settings());
+    readSettings();
+
     Core::Command *cmd = 0;
-    cmd = actionManager->registerAction(theEmacsModeSetting(ConfigUseEmacsMode),
+    cmd = actionManager()->registerAction(theEmacsModeSetting(ConfigUseEmacsMode),
         Constants::INSTALL_HANDLER, globalcontext);
     cmd->setDefaultKeySequence(QKeySequence(Constants::INSTALL_KEY));
 
     ActionContainer *advancedMenu =
-        actionManager->actionContainer(Core::Constants::M_EDIT_ADVANCED);
+        actionManager()->actionContainer(Core::Constants::M_EDIT_ADVANCED);
     advancedMenu->addAction(cmd, Core::Constants::G_EDIT_EDITOR);
 
+    connect(m_core, SIGNAL(coreAboutToClose()), this, SLOT(onCoreAboutToClose()));
+
+
     // EditorManager
-    QObject *editorManager = Core::ICore::instance()->editorManager();
-    connect(editorManager, SIGNAL(editorAboutToClose(Core::IEditor*)),
+    connect(editorManager(), SIGNAL(editorAboutToClose(Core::IEditor*)),
         this, SLOT(editorAboutToClose(Core::IEditor*)));
-    connect(editorManager, SIGNAL(editorOpened(Core::IEditor*)),
+    connect(editorManager(), SIGNAL(editorOpened(Core::IEditor*)),
         this, SLOT(editorOpened(Core::IEditor*)));
 
-    connect(theEmacsModeSetting(SettingsDialog), SIGNAL(triggered()),
-        this, SLOT(showSettingsDialog()));
+//    connect(theEmacsModeSetting(SettingsDialog), SIGNAL(triggered()),
+//        this, SLOT(showSettingsDialog()));
     connect(theEmacsModeSetting(ConfigUseEmacsMode), SIGNAL(valueChanged(QVariant)),
         this, SLOT(setUseEmacsMode(QVariant)));
 
-    // Delayed operatiosn
+    // Delayed operations.
     connect(this, SIGNAL(delayedQuitRequested(bool,Core::IEditor*)),
         this, SLOT(handleDelayedQuit(bool,Core::IEditor*)), Qt::QueuedConnection);
     connect(this, SIGNAL(delayedQuitAllRequested(bool)),
         this, SLOT(handleDelayedQuitAll(bool)), Qt::QueuedConnection);
+//    maybeReadVimRc();
+    //    << "MODE: " << theFakeVimSetting(ConfigUseFakeVim)->value();
 
-    return true;
+}
+
+void EmacsModePluginPrivate::readSettings()
+{
+  QSettings *settings = ICore::instance()->settings();
+
+  theEmacsModeSettings()->readSettings(settings);
+
+  /*exCommandMap() = defaultExCommandMap();
+        int size = settings->beginReadArray(_(exCommandMapGroup));
+        for (int i = 0; i < size; ++i) {
+            settings->setArrayIndex(i);
+            const QString id = settings->value(_(idKey)).toString();
+            const QString re = settings->value(_(reKey)).toString();
+            exCommandMap()[id] = QRegExp(re);
+        }
+        settings->endArray();
+    }*/
 }
 
 void EmacsModePluginPrivate::showSettingsDialog()
@@ -386,13 +411,14 @@ void EmacsModePluginPrivate::setUseEmacsMode(const QVariant &value)
 
 void EmacsModePluginPrivate::triggerCompletions()
 {
-    EmacsModeHandler *handler = qobject_cast<EmacsModeHandler *>(sender());
+/*    EmacsModeHandler *handler = qobject_cast<EmacsModeHandler *>(sender());
     if (!handler)
         return;
-    if (BaseTextEditor *bt = qobject_cast<BaseTextEditor *>(handler->widget()))
-        TextEditor::Internal::CompletionSupport::instance()->
-            autoComplete(bt->editableInterface(), false);
-   //     bt->triggerCompletions();
+    if (BaseTextEditorWidget *editor = qobject_cast<BaseTextEditorWidget *>(handler->widget()))
+        CompletionSupport::instance()->
+            autoComplete(editor->editor(), false);
+   //     editor->triggerCompletions();
+*/
 }
 
 void EmacsModePluginPrivate::writeFile(bool *handled,
@@ -515,40 +541,38 @@ void EmacsModePluginPrivate::indentRegion(int *amount, int beginLine, int endLin
     if (!handler)
         return;
 
-    BaseTextEditor *bt = qobject_cast<BaseTextEditor *>(handler->widget());
+    BaseTextEditorWidget *bt = qobject_cast<BaseTextEditorWidget *>(handler->widget());
     if (!bt)
         return;
 
-    TextEditor::TabSettings tabSettings = 
-        TextEditor::TextEditorSettings::instance()->tabSettings();
-    typedef SharedTools::Indenter<TextEditor::TextBlockIterator> Indenter;
-    Indenter &indenter = Indenter::instance();
-    indenter.setIndentSize(tabSettings.m_indentSize);
-    indenter.setTabSize(tabSettings.m_tabSize);
+    const TabSettings oldTabSettings = bt->tabSettings();
+    TabSettings tabSettings;
+    tabSettings.m_indentSize = theEmacsModeSetting(ConfigShiftWidth)->value().toInt();
+    tabSettings.m_tabSize = theEmacsModeSetting(ConfigTabStop)->value().toInt();
+    tabSettings.m_spacesForTabs = theEmacsModeSetting(ConfigExpandTab)->value().toBool();
+    bt->setTabSettings(tabSettings);
 
-    const QTextDocument *doc = bt->document();
-    QTextBlock begin = doc->findBlockByNumber(beginLine);
-    QTextBlock end = doc->findBlockByNumber(endLine);
-    const TextEditor::TextBlockIterator docStart(doc->begin());
-    QTextBlock cur = begin;
-    do {
-        if (typedChar == 0 && cur.text().simplified().isEmpty()) {
-            *amount = 0;
-            if (cur != end) {
-                QTextCursor cursor(cur);
-                while (!cursor.atBlockEnd())
-                    cursor.deleteChar();
-            }
+    QTextDocument *doc = bt->document();
+    QTextBlock startBlock = doc->findBlockByNumber(beginLine);
+
+    // Record line lenghts for mark adjustments
+    QVector<int> lineLengths(endLine - beginLine + 1);
+    QTextBlock block = startBlock;
+
+    for (int i = beginLine; i <= endLine; ++i) {
+        lineLengths[i - beginLine] = block.text().length();
+        if (typedChar == 0 && block.text().simplified().isEmpty()) {
+            // clear empty lines
+            QTextCursor cursor(block);
+            while (!cursor.atBlockEnd())
+                cursor.deleteChar();
         } else {
-            const TextEditor::TextBlockIterator current(cur);
-            const TextEditor::TextBlockIterator next(cur.next());
-            *amount = indenter.indentForBottomLine(current, docStart, next, typedChar);
-            if (cur != end)
-                tabSettings.indentLine(cur, *amount);
+            bt->indenter()->indentBlock(doc, block, typedChar, bt);
         }
-        if (cur != end)
-           cur = cur.next();
-    } while (cur != end);
+        block = block.next();
+    }
+
+    bt->setTabSettings(oldTabSettings);
 }
 
 void EmacsModePluginPrivate::quitEmacsMode()
@@ -575,8 +599,8 @@ void EmacsModePluginPrivate::changeSelection
     (const QList<QTextEdit::ExtraSelection> &selection)
 {
     if (EmacsModeHandler *handler = qobject_cast<EmacsModeHandler *>(sender()))
-        if (BaseTextEditor *bt = qobject_cast<BaseTextEditor *>(handler->widget()))
-            bt->setExtraSelections(BaseTextEditor::FakeVimSelection, selection);
+        if (BaseTextEditorWidget *bt = qobject_cast<BaseTextEditorWidget *>(handler->widget()))
+            bt->setExtraSelections(BaseTextEditorWidget::FakeVimSelection, selection);
 }
 
 
@@ -602,9 +626,10 @@ bool EmacsModePlugin::initialize(const QStringList &arguments, QString *errorMes
     return d->initialize();
 }
 
-void EmacsModePlugin::aboutToShutdown()
+ExtensionSystem::IPlugin::ShutdownFlag EmacsModePlugin::aboutToShutdown()
 {
     d->aboutToShutdown();
+    return SynchronousShutdown;
 }
 
 void EmacsModePlugin::extensionsInitialized()
