@@ -49,6 +49,19 @@ UNIT_TEST(PointToInt64_908175295886057813)
   TEST_EQUAL(id1, id2, (pt1));
 }
 
+/*
+UNIT_TEST(PointToInt64_Values)
+{
+  CoordPointT const p = PointU2PointD(m2::PointU(3225901878, 23488265));
+
+  TEST_GREATER_OR_EQUAL(p.first, -180.0, ());
+  TEST_GREATER_OR_EQUAL(p.second, -180.0, ());
+
+  TEST_LESS_OR_EQUAL(p.first, 180.0, ());
+  TEST_LESS_OR_EQUAL(p.second, 180.0, ());
+}
+*/
+
 UNIT_TEST(PointToInt64_Grid)
 {
   int const delta = 5;

@@ -1,15 +1,20 @@
 #include "../geometry_coding.hpp"
 #include "../../testing/testing.hpp"
 
+#include "../../indexer/mercator.hpp"
+#include "../../indexer/point_to_int64.hpp"
+
 #include "../../geometry/geometry_tests/large_polygon.hpp"
 #include "../../geometry/distance.hpp"
 #include "../../geometry/simplification.hpp"
+#include "../../geometry/pointu_to_uint64.hpp"
 
 #include "../../coding/byte_stream.hpp"
 #include "../../coding/varint.hpp"
 #include "../../coding/writer.hpp"
 
 #include "../../base/logging.hpp"
+#include "../../base/array_adapters.hpp"
 
 
 typedef m2::PointU PU;
@@ -161,5 +166,36 @@ UNIT_TEST(EncodePolyline)
     TestEncodePolyline("1000simp", maxPoint, SimplifyPoints(points, 1000));
     TestEncodePolyline("2000simp", maxPoint, SimplifyPoints(points, 2000));
     TestEncodePolyline("4000simp", maxPoint, SimplifyPoints(points, 4000));
+  }
+}
+
+UNIT_TEST(DecodePolyline_Values)
+{
+  uint64_t arr[] = {
+    2734738402133224327,
+    587102334176945,
+    154352840547926,
+    43024411088417,
+    2208572839502425,
+    1537729724693572015,
+    110442683719211
+  };
+
+  int64_t const baseP = 876424843953707746;
+
+  array_read<uint64_t> in(arr, ARRAY_SIZE(arr));
+
+  vector<m2::PointU> buffer(10);
+  array_write<m2::PointU> out(buffer);
+
+  geo_coding::DecodePolylinePrev2(in,
+                      m2::Uint64ToPointU(baseP), PointD2PointU(MercatorBounds::maxX, MercatorBounds::maxY),
+                      out);
+
+  for (size_t i = 0; i < out.size(); ++i)
+  {
+    CoordPointT const pt = PointU2PointD(out[i]);
+    TEST ( MercatorBounds::minX <= pt.first && pt.first <= MercatorBounds::maxX, (pt.first) );
+    TEST ( MercatorBounds::minY <= pt.second && pt.second <= MercatorBounds::maxY, (pt.second) );
   }
 }
