@@ -121,13 +121,13 @@ void InformationDisplay::drawHeading(DrawerYG *pDrawer)
                                 trueHeadingRad + m_headingOrientation - headingAccuracyRad,
                                 trueHeadingRad + m_headingOrientation + headingAccuracyRad,
                                 pxConfidenceRadius,
-                                yg::Color(255, 0, 0, 64),
+                                yg::Color(255, 255, 255, 64),
                                 yg::maxDepth);
   pDrawer->screen()->fillSector(pxPosition,
                                 trueHeadingRad + m_headingOrientation - headingAccuracyRad,
                                 trueHeadingRad + m_headingOrientation + headingAccuracyRad,
                                 pxConfidenceRadius,
-                                yg::Color(255, 0, 0, 32),
+                                yg::Color(255, 255, 255, 32),
                                 yg::maxDepth - 1);
   /*        /// magnetic heading
       double magneticHeadingRad = m_magneticHeading / 180 * math::pi;
@@ -301,9 +301,26 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
 {
   m_yOffset += 20;
   ostringstream out;
-  out << "(" << m_centerPt.x << ", " << m_centerPt.y << ") Scale : " << m_currentScale;
+  //out << "(" << m_centerPt.x << ", " << m_centerPt.y << ") Scale : " << m_currentScale;
+  out << "(" << m_centerPt.x << ", " << m_centerPt.y << ")";
+  m2::RectD const & textRect = drawer->screen()->textRect(
+        out.str().c_str(),
+        10,
+        true,
+        false);
+
+  m2::RectD bgRect = m2::Offset(m2::Inflate(textRect, 5.0, 5.0),
+                   m_displayRect.maxX() - textRect.SizeX() - 10 * m_visualScale,
+                   m_displayRect.maxY() - (m_bottomShift + 10) * m_visualScale - 5);
+
+  drawer->screen()->drawRectangle(
+        bgRect,
+        yg::Color(187, 187, 187, 255),
+        yg::maxDepth - 1);
+
   drawer->screen()->drawText(
-      m2::PointD(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset),
+      m2::PointD(m_displayRect.maxX() - textRect.SizeX() - 10 * m_visualScale,
+                 m_displayRect.maxY() - (m_bottomShift + 10) * m_visualScale - 5),
       0, 10,
       yg::Color(0, 0, 0, 0),
       out.str().c_str(),

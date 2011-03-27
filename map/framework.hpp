@@ -176,8 +176,13 @@ public:
 #ifdef DRAW_TOUCH_POINTS
     m_informationDisplay.enableDebugPoints(true);
 #endif
-    m_informationDisplay.enableCenter(false);
+
+#ifdef DEBUG
     m_informationDisplay.enableGlobalRect(!m_isBenchmarking);
+#endif
+
+    m_informationDisplay.enableCenter(true);
+
     m_informationDisplay.enableRuler(true);
     m_informationDisplay.setRulerParams(80, 20);
     m_navigator.SetMinScreenParams(80, 20);
