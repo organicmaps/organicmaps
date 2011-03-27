@@ -315,7 +315,7 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
 
   drawer->screen()->drawRectangle(
         bgRect,
-        yg::Color(187, 187, 187, 255),
+        yg::Color(187, 187, 187, 128),
         yg::maxDepth - 1);
 
   drawer->screen()->drawText(
