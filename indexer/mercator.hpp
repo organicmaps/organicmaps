@@ -34,12 +34,25 @@ struct MercatorBounds
 
   static double const degreeInMetres;
 
+  inline static double ConvertMetresToY(double lat, double metresValue)
+  {
+    return LatToY(lat + metresValue * degreeInMetres) - LatToY(lat);
+  }
+
+  inline static double ConvertMetresToX(double lon, double metresValue)
+  {
+    return LonToX(lon + metresValue * degreeInMetres) - LonToX(lon);
+  }
+
   /// @return mercator bound points in rect
-  inline static m2::RectD ErrorToRadius(double lon, double lat, double errorInMetres)
+  inline static m2::RectD MetresToXY(double lon, double lat, double metresValue)
   {
     // We use approximate number of metres per degree
-    double const offset = errorInMetres / 2.0 * degreeInMetres;
-    return m2::RectD(LonToX(lon - offset), LatToY(lat - offset), LonToX(lon + offset), LatToY(lat + offset));
+    double const degreeOffset = metresValue / 2.0 * degreeInMetres;
+    return m2::RectD(LonToX(lon - degreeOffset),
+                     LatToY(lat - degreeOffset),
+                     LonToX(lon + degreeOffset),
+                     LatToY(lat + degreeOffset));
   }
 
   static double GetCellID2PointAbsEpsilon() { return 1.0E-4; }

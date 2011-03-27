@@ -66,10 +66,10 @@ UNIT_TEST(ErrorToRadius)
       double const lat = points[j];
       m2::PointD const mercPoint(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
 
-      m2::RectD radius1 = MercatorBounds::ErrorToRadius(lon, lat, error1);
+      m2::RectD radius1 = MercatorBounds::MetresToXY(lon, lat, error1);
       TEST(radius1.IsPointInside(mercPoint), ());
 
-      m2::RectD radius10 = MercatorBounds::ErrorToRadius(lon, lat, error10);
+      m2::RectD radius10 = MercatorBounds::MetresToXY(lon, lat, error10);
       TEST(radius10.IsPointInside(mercPoint), ());
 
       m2::RectD radius10Added = radius10;
