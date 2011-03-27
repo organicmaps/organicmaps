@@ -84,7 +84,7 @@ namespace yg
           m2::PointD(r.maxX(), r.maxY())
         };
 
-      m2::PointF texPt = style->m_texRect.Center();
+      m2::PointF texPt = skin()->pages()[style->m_pageID]->texture()->mapPixel(style->m_texRect.Center());
 
       addTexturedStripStrided(
           rectPts,
