@@ -62,19 +62,18 @@
      didUpdateToLocation: (CLLocation *) newLocation
             fromLocation: (CLLocation *) oldLocation
 {
+//  NSLog(@"NewLocation: %@", [newLocation description]);
 	m2::PointD mercPoint(MercatorBounds::LonToX(newLocation.coordinate.longitude),
-  										 MercatorBounds::LatToY(newLocation.coordinate.latitude));
+                       MercatorBounds::LatToY(newLocation.coordinate.latitude));
 
-	double confidenceRadius = sqrt(newLocation.horizontalAccuracy * newLocation.horizontalAccuracy
-															 + newLocation.verticalAccuracy * newLocation.verticalAccuracy);
+  m2::RectD errorRectXY = MercatorBounds::MetresToXY(newLocation.coordinate.longitude,
+                                                     newLocation.coordinate.latitude,
+                                                     newLocation.horizontalAccuracy);
 
-	m2::RectD errorRect = MercatorBounds::ErrorToRadius(newLocation.coordinate.longitude,
-																											newLocation.coordinate.latitude,
-																											confidenceRadius);
+  double errorRadiusXY = sqrt((errorRectXY.SizeX() * errorRectXY.SizeX()
+                           + errorRectXY.SizeY() * errorRectXY.SizeY()) / 4);
 
-	confidenceRadius = sqrt((errorRect.SizeX() * errorRect.SizeX() + errorRect.SizeY() * errorRect.SizeY()) / 4);
-
-	[self.delegate OnLocation: mercPoint withConfidenceRadius: confidenceRadius withTimestamp: newLocation.timestamp];
+  [self.delegate OnLocation: mercPoint withErrorRadius: errorRadiusXY withTimestamp: newLocation.timestamp];
 }
 
 - (void) locationManager: (CLLocationManager *) manager

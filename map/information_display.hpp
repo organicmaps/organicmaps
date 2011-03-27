@@ -28,7 +28,7 @@ private:
 
   bool m_isPositionEnabled;
   m2::PointD m_position;
-  double m_confidenceRadius;
+  double m_errorRadius;
 
   /// for debugging purposes
   /// up to 10 debugging points
@@ -84,8 +84,9 @@ public:
   void setOrientation(EOrientation orientation);
 
   void enablePosition(bool doEnable);
-  void setPosition(m2::PointD const & mercatorPos, double confidenceRadius);
+  void setPosition(m2::PointD const & mercatorPos, double errorRadius);
   m2::PointD const & position() const;
+  double errorRadius() const;
   void drawPosition(DrawerYG * pDrawer);
 
   void enableHeading(bool doEnable);

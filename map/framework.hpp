@@ -111,6 +111,7 @@ class FrameWork
 
   /// is AddRedrawCommand enabled?
   bool m_isRedrawEnabled;
+  double m_metresMinWidth;
 
   void AddRedrawCommandSure()
   {
@@ -170,7 +171,8 @@ public:
                     GetPlatform().PeriodicalUpdateInterval(),
                     GetPlatform().IsBenchmarking(),
                     GetPlatform().ScaleEtalonSize()),
-      m_isRedrawEnabled(true)
+      m_isRedrawEnabled(true),
+      m_metresMinWidth(20)
   {
     m_informationDisplay.setBottomShift(bottomShift);
 #ifdef DRAW_TOUCH_POINTS
@@ -184,8 +186,8 @@ public:
     m_informationDisplay.enableCenter(true);
 
     m_informationDisplay.enableRuler(true);
-    m_informationDisplay.setRulerParams(80, 20);
-    m_navigator.SetMinScreenParams(80, 20);
+    m_informationDisplay.setRulerParams(80, m_metresMinWidth);
+    m_navigator.SetMinScreenParams(80, m_metresMinWidth);
 
 #ifdef DEBUG
     m_informationDisplay.enableDebugInfo(true);
@@ -456,9 +458,15 @@ public:
     UpdateNow();
   }
 
-  void SetPosition(m2::PointD const & mercatorPos, double confidenceRadius)
+  void SetPosition(m2::PointD const & mercatorPos, double errorRadius)
   {
-    m_informationDisplay.setPosition(mercatorPos, confidenceRadius);
+    m_informationDisplay.setPosition(mercatorPos, errorRadius);
+    UpdateNow();
+  }
+
+  void CenterViewport(m2::PointD const & pt)
+  {
+    m_navigator.CenterViewport(pt);
     UpdateNow();
   }
 
@@ -481,7 +489,35 @@ public:
 
   void CenterAndScaleViewport()
   {
-    m_navigator.CenterViewport(m_informationDisplay.position());
+    m2::PointD pt = m_informationDisplay.position();
+    m_navigator.CenterViewport(pt);
+
+    m2::RectD ClipRect = m_navigator.Screen().ClipRect();
+
+    double errorRadius = m_informationDisplay.errorRadius();
+
+    double xMinSize = 6 * max(errorRadius, MercatorBounds::ConvertMetresToX(pt.x, m_metresMinWidth));
+    double yMinSize = 6 * max(errorRadius, MercatorBounds::ConvertMetresToY(pt.y, m_metresMinWidth));
+
+    bool needToScale = false;
+
+    if (ClipRect.SizeX() < ClipRect.SizeY())
+      needToScale = ClipRect.SizeX() > xMinSize * 3;
+    else
+      needToScale = ClipRect.SizeY() > yMinSize * 3;
+
+    if ((ClipRect.SizeX() < 3 * errorRadius) || (ClipRect.SizeY() < 3 * errorRadius))
+      needToScale = true;
+
+    if (needToScale)
+    {
+      double k = max(xMinSize / ClipRect.SizeX(),
+                     yMinSize / ClipRect.SizeY());
+
+      ClipRect.Scale(k);
+      m_navigator.SetFromRect(ClipRect);
+    }
+
     UpdateNow();
   }
 
@@ -513,12 +549,6 @@ public:
     m_navigator.Screen().PtoG(pxRect, glbRect);
     if (glbRect.Intersect(rect))
       Repaint();
-  }
-
-  void CenterViewport(m2::PointD const & pt)
-  {
-    m_navigator.CenterViewport(pt);
-    UpdateNow();
   }
 
   /// @name Drag implementation.

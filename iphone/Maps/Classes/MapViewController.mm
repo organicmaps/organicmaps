@@ -101,10 +101,10 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 }
 
 - (void) OnLocation: (m2::PointD const &) mercatorPoint
-			withConfidenceRadius: (double) confidenceRadius
+			withErrorRadius: (double) errorRadius
 			withTimestamp: (NSDate *) timestamp
 {
-  m_framework->SetPosition(mercatorPoint, confidenceRadius);
+  m_framework->SetPosition(mercatorPoint, errorRadius);
 
 	if (m_isDirtyPosition)
 	{

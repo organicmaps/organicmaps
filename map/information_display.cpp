@@ -70,16 +70,21 @@ void InformationDisplay::enablePosition(bool doEnable)
   m_isPositionEnabled = doEnable;
 }
 
-void InformationDisplay::setPosition(m2::PointD const & mercatorPos, double confidenceRadius)
+void InformationDisplay::setPosition(m2::PointD const & mercatorPos, double errorRadius)
 {
   enablePosition(true);
   m_position = mercatorPos;
-  m_confidenceRadius = confidenceRadius;
+  m_errorRadius = errorRadius;
 }
 
 m2::PointD const & InformationDisplay::position() const
 {
   return m_position;
+}
+
+double InformationDisplay::errorRadius() const
+{
+  return m_errorRadius;
 }
 
 void InformationDisplay::drawPosition(DrawerYG * pDrawer)
@@ -88,10 +93,10 @@ void InformationDisplay::drawPosition(DrawerYG * pDrawer)
   m2::PointD pxPosition = m_screen.GtoP(m_position);
   pDrawer->drawSymbol(pxPosition, "current-position", yg::EPosCenter, yg::maxDepth);
 
-  double pxConfidenceRadius = pxPosition.Length(m_screen.GtoP(m_position + m2::PointD(m_confidenceRadius, 0)));
+  double pxErrorRadius = pxPosition.Length(m_screen.GtoP(m_position + m2::PointD(m_errorRadius, 0)));
 
-  pDrawer->screen()->drawArc(pxPosition, 0, math::pi * 2, pxConfidenceRadius, yg::Color(0, 0, 255, 64), yg::maxDepth - 2);
-  pDrawer->screen()->fillSector(pxPosition, 0, math::pi * 2, pxConfidenceRadius, yg::Color(0, 0, 255, 32), yg::maxDepth - 3);
+  pDrawer->screen()->drawArc(pxPosition, 0, math::pi * 2, pxErrorRadius, yg::Color(0, 0, 255, 64), yg::maxDepth - 2);
+  pDrawer->screen()->fillSector(pxPosition, 0, math::pi * 2, pxErrorRadius, yg::Color(0, 0, 255, 32), yg::maxDepth - 3);
 }
 
 void InformationDisplay::enableHeading(bool doEnable)
@@ -114,19 +119,19 @@ void InformationDisplay::drawHeading(DrawerYG *pDrawer)
 
   m2::PointD pxPosition = m_screen.GtoP(m_position);
 
-  double pxConfidenceRadius = pxPosition.Length(m_screen.GtoP(m_position + m2::PointD(m_confidenceRadius, 0)));
+  double pxErrorRadius = pxPosition.Length(m_screen.GtoP(m_position + m2::PointD(m_errorRadius, 0)));
 
   /// true heading
   pDrawer->screen()->drawSector(pxPosition,
                                 trueHeadingRad + m_headingOrientation - headingAccuracyRad,
                                 trueHeadingRad + m_headingOrientation + headingAccuracyRad,
-                                pxConfidenceRadius,
+                                pxErrorRadius,
                                 yg::Color(255, 255, 255, 64),
                                 yg::maxDepth);
   pDrawer->screen()->fillSector(pxPosition,
                                 trueHeadingRad + m_headingOrientation - headingAccuracyRad,
                                 trueHeadingRad + m_headingOrientation + headingAccuracyRad,
-                                pxConfidenceRadius,
+                                pxErrorRadius,
                                 yg::Color(255, 255, 255, 32),
                                 yg::maxDepth - 1);
   /*        /// magnetic heading
@@ -134,13 +139,13 @@ void InformationDisplay::drawHeading(DrawerYG *pDrawer)
       pDrawer->screen()->drawSector(pxPosition,
                                     magneticHeadingRad + m_headingOrientation - headingAccuracyRad,
                                     magneticHeadingRad + m_headingOrientation + headingAccuracyRad,
-                                    pxConfidenceRadius,
+                                    pxErrorRadius,
                                     yg::Color(0, 255, 0, 64),
                                     yg::maxDepth);
       pDrawer->screen()->fillSector(pxPosition,
                                     magneticHeadingRad + m_headingOrientation - headingAccuracyRad,
                                     magneticHeadingRad + m_headingOrientation + headingAccuracyRad,
-                                    pxConfidenceRadius,
+                                    pxErrorRadius,
                                     yg::Color(0, 255, 0, 32),
                                     yg::maxDepth - 1);
  */
@@ -299,9 +304,7 @@ void InformationDisplay::setCenter(m2::PointD const & pt)
 
 void InformationDisplay::drawCenter(DrawerYG * drawer)
 {
-  m_yOffset += 20;
   ostringstream out;
-  //out << "(" << m_centerPt.x << ", " << m_centerPt.y << ") Scale : " << m_currentScale;
   out << "(" << m_centerPt.x << ", " << m_centerPt.y << ")";
   m2::RectD const & textRect = drawer->screen()->textRect(
         out.str().c_str(),

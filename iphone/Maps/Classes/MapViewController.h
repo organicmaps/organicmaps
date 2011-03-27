@@ -31,7 +31,7 @@
 - (id) initWithCoder: (NSCoder *)coder;
 
 - (void)  OnLocation: (m2::PointD const &) mercatorPoint
-withConfidenceRadius: (double) confidenceRadius
+     withErrorRadius: (double) errorRadius
 			 withTimestamp: (NSDate *) timestamp;
 - (void) OnHeading: (CLHeading*) heading;
 
