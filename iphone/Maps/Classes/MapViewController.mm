@@ -108,7 +108,7 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 
 	if (m_isDirtyPosition)
 	{
-		m_framework->CenterViewport();
+    m_framework->CenterAndScaleViewport();
 		m_isDirtyPosition = false;
 	}
 }

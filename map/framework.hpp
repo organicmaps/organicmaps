@@ -467,41 +467,19 @@ public:
     // clearing caches on memory warning.
     m_model.ClearCaches();
     LOG(LINFO, ("MemoryWarning"));
-/*    m_informationDisplay.memoryWarning();
-    m_renderQueue.memoryWarning();
-
-    if (m_windowHandle)
-      m_windowHandle->drawer()->screen()->memoryWarning();
-
-    if (m_resourceManager)
-      m_resourceManager->memoryWarning();*/
   }
 
   void EnterBackground()
   {
     // clearing caches on entering background.
     m_model.ClearCaches();
-/*    m_renderQueue.enterBackground();
-
-    if (m_windowHandle)
-      m_windowHandle->drawer()->screen()->enterBackground();
-
-    if (m_resourceManager)
-      m_resourceManager->enterBackground();*/
   }
 
   void EnterForeground()
   {
-/*    if (m_resourceManager)
-      m_resourceManager->enterForeground();
-
-    if (m_windowHandle)
-      m_windowHandle->drawer()->screen()->enterForeground();
-
-    m_renderQueue.enterForeground();*/
   }
 
-  void CenterViewport()
+  void CenterAndScaleViewport()
   {
     m_navigator.CenterViewport(m_informationDisplay.position());
     UpdateNow();
