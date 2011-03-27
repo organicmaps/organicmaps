@@ -5,11 +5,13 @@
 #include "../../indexer/feature.hpp"
 #include "../../indexer/mercator.hpp"
 #include "../../indexer/cell_id.hpp"
+#include "../../indexer/classificator_loader.hpp"
+
+#include "../../platform/platform.hpp"
 
 #include "../../indexer/indexer_tests/feature_routine.hpp"
 
 #include "../../base/stl_add.hpp"
-
 
 namespace
 {
@@ -45,6 +47,12 @@ namespace
 
 UNIT_TEST(FeatureBucketerSmokeTest)
 {
+  // classificator is needed because inside bucketer we're use it in WorldMapGenerator
+  // @TODO clean up or remove cell bucketer and replace with world countries bucketer
+  classificator::Read(GetPlatform().ReadPathForFile("drawing_rules.bin"),
+                      GetPlatform().ReadPathForFile("classificator.txt"),
+                      GetPlatform().ReadPathForFile("visibility.txt"));
+
   map<string, vector<string> > out, expectedOut;
   FeatureBucketer bucketer(1, &out);
 
