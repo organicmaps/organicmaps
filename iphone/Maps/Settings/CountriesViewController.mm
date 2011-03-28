@@ -160,14 +160,20 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
           size = (size + 999) / 1000;
         }
 
-        cell.textLabel.textColor = [UIColor greenColor];
+        cell.textLabel.textColor = [UIColor colorWithRed:0.f/255.f
+                                                   green:161.f/255.f
+                                                    blue:68.f/255.f
+                                                   alpha:1.f];
         cell.detailTextLabel.text = [NSString stringWithFormat: @"Downloaded (%qu %s), touch to delete", size, kBorMBorGB];
         cell.accessoryView = nil;
       }
       break;
     case EDownloading:
       {
-        cell.textLabel.textColor = [UIColor blueColor];
+        cell.textLabel.textColor = [UIColor colorWithRed:52.f/255.f
+                                                   green:43.f/255.f
+                                                    blue:182.f/255.f
+                                                   alpha:1.f];
         cell.detailTextLabel.text = @"Downloading...";
         if (!indicator)
         {
@@ -186,7 +192,10 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
       break;
     case EInQueue:
       {
-        cell.textLabel.textColor = [UIColor lightGrayColor];
+        cell.textLabel.textColor = [UIColor colorWithRed:91.f/255.f
+                                                   green:148.f/255.f
+                                                    blue:222.f/255.f
+                                                   alpha:1.f];
         cell.detailTextLabel.text = [NSString stringWithFormat: @"Marked for downloading, touch to cancel"];
       }
       break;
