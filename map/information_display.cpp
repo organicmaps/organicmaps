@@ -8,6 +8,7 @@
 #include "../yg/skin.hpp"
 
 #include "../std/fstream.hpp"
+#include "../std/iomanip.hpp"
 #include "../version/version.hpp"
 
 #include "../base/string_utils.hpp"
@@ -305,7 +306,10 @@ void InformationDisplay::setCenter(m2::PointD const & pt)
 void InformationDisplay::drawCenter(DrawerYG * drawer)
 {
   ostringstream out;
-  out << "(" << m_centerPt.x << ", " << m_centerPt.y << ")";
+
+  out << "(" << fixed << setprecision(4) << setw(8) << m_centerPt.x << ", "
+             << fixed << setprecision(4) << setw(8) << m_centerPt.y << ")";
+
   m2::RectD const & textRect = drawer->screen()->textRect(
         out.str().c_str(),
         10,
