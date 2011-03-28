@@ -95,7 +95,7 @@ void InformationDisplay::drawPosition(DrawerYG * pDrawer)
 
   double pxErrorRadius = pxPosition.Length(m_screen.GtoP(m_position + m2::PointD(m_errorRadius, 0)));
 
-  pDrawer->screen()->drawArc(pxPosition, 0, math::pi * 2, pxErrorRadius, yg::Color(0, 0, 255, 64), yg::maxDepth - 2);
+  pDrawer->screen()->drawArc(pxPosition, 0, math::pi * 2, pxErrorRadius, yg::Color(0, 0, 255, 32), yg::maxDepth - 2);
   pDrawer->screen()->fillSector(pxPosition, 0, math::pi * 2, pxErrorRadius, yg::Color(0, 0, 255, 32), yg::maxDepth - 3);
 }
 
@@ -126,13 +126,13 @@ void InformationDisplay::drawHeading(DrawerYG *pDrawer)
                                 trueHeadingRad + m_headingOrientation - headingAccuracyRad,
                                 trueHeadingRad + m_headingOrientation + headingAccuracyRad,
                                 pxErrorRadius,
-                                yg::Color(255, 255, 255, 64),
+                                yg::Color(255, 255, 255, 192),
                                 yg::maxDepth);
   pDrawer->screen()->fillSector(pxPosition,
                                 trueHeadingRad + m_headingOrientation - headingAccuracyRad,
                                 trueHeadingRad + m_headingOrientation + headingAccuracyRad,
                                 pxErrorRadius,
-                                yg::Color(255, 255, 255, 32),
+                                yg::Color(255, 255, 255, 96),
                                 yg::maxDepth - 1);
   /*        /// magnetic heading
       double magneticHeadingRad = m_magneticHeading / 180 * math::pi;
@@ -592,10 +592,10 @@ void InformationDisplay::drawBenchmarkInfo(DrawerYG * pDrawer)
 void InformationDisplay::doDraw(DrawerYG *drawer)
 {
   m_yOffset = 0;
-  if (m_isHeadingEnabled)
-    drawHeading(drawer);
   if (m_isPositionEnabled)
     drawPosition(drawer);
+  if (m_isHeadingEnabled)
+    drawHeading(drawer);
   if (m_isDebugPointsEnabled)
     drawDebugPoints(drawer);
   if (m_isRulerEnabled)
