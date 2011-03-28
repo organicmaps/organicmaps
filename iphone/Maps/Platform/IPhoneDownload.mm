@@ -12,6 +12,7 @@
 #include <net/if.h>
 
 #import <UIKit/UIDevice.h>
+#import <UIKit/UIApplication.h>
 
 #if !defined(IFT_ETHER)
   #define IFT_ETHER 0x6 /* Ethernet CSMACD */
@@ -183,6 +184,9 @@ string GetUniqueHashedId()
     }
   }
 
+  // enable network activity indicator in top system toolbar
+  [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+  
   m_projectedFileSize = [response expectedContentLength];
   // if server doesn't support resume, make sure we're downloading file from scratch
 	if (m_projectedFileSize < 0)
