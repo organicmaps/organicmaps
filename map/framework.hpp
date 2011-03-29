@@ -4,6 +4,8 @@
 #include "drawer_yg.hpp"
 #include "render_queue.hpp"
 #include "information_display.hpp"
+#include "locator.hpp"
+#include "window_handle.hpp"
 
 #include "../defines.hpp"
 
@@ -85,20 +87,19 @@ namespace fwork
 template
 <
   class TModel,
-  class TNavigator,
-  class TWindowHandle
+  class TNavigator
 >
 class FrameWork
 {
   typedef TModel model_t;
   typedef TNavigator navigator_t;
-  typedef TWindowHandle window_handle_t;
 
-  typedef FrameWork<model_t, navigator_t, window_handle_t> this_type;
+  typedef FrameWork<model_t, navigator_t> this_type;
 
   model_t m_model;
   navigator_t m_navigator;
-  shared_ptr<window_handle_t> m_windowHandle;
+  shared_ptr<WindowHandle> m_windowHandle;
+  shared_ptr<Locator> m_locator;
 
   bool m_isBenchmarking;
   bool m_isBenchmarkInitialized;
@@ -160,7 +161,8 @@ class FrameWork
   }
 
 public:
-  FrameWork(shared_ptr<window_handle_t> windowHandle, size_t bottomShift)
+  FrameWork(shared_ptr<WindowHandle> windowHandle,
+            size_t bottomShift)
     : m_windowHandle(windowHandle),
       m_isBenchmarking(GetPlatform().IsBenchmarking()),
       m_isBenchmarkInitialized(false),
@@ -229,7 +231,7 @@ public:
 
   /// Initialization.
   template <class TStorage>
-  void Init(TStorage & storage)
+  void InitStorage(TStorage & storage)
   {
     m_model.InitClassificator();
 
@@ -237,6 +239,15 @@ public:
     storage.Init(bind(&FrameWork::AddMap, this, _1),
                  bind(&FrameWork::RemoveMap, this, _1),
                  bind(&FrameWork::RepaintRect, this, _1));
+  }
+
+  void InitLocator(shared_ptr<Locator> const & locator)
+  {
+    m_locator = locator;
+    m_locator->addOnUpdateLocationFn(bind(&this_type::UpdateLocation, this, _1, _2, _3, _4));
+    m_locator->addOnUpdateHeadingFn(bind(&this_type::UpdateHeading, this, _1, _2, _3));
+    m_locator->addOnChangeModeFn(bind(&this_type::ChangeLocatorMode, this, _1, _2));
+    m_locator->start(Locator::ERoughMode);
   }
 
   bool IsEmptyModel()
@@ -449,19 +460,27 @@ public:
     }
   }
 
-
-	void DisableMyPositionAndHeading()
+/*  void DisableMyPositionAndHeading()
   {
     m_informationDisplay.enablePosition(false);
     m_informationDisplay.enableHeading(false);
     
     UpdateNow();
-  }
+  }*/
 
-  void SetPosition(m2::PointD const & mercatorPos, double errorRadius)
+  void UpdateLocation(m2::PointD const & mercatorPos, double errorRadius, double locTimeStamp, double curTimeStamp)
   {
     m_informationDisplay.setPosition(mercatorPos, errorRadius);
+    if ((m_locator->mode() == Locator::EPreciseMode)
+    && (curTimeStamp - locTimeStamp >= 0)
+    && (curTimeStamp - locTimeStamp < 60 * 5))
+      CenterAndScaleViewport();
     UpdateNow();
+  }
+
+  void ChangeLocatorMode(Locator::EMode oldMode, Locator::EMode newMode)
+  {
+    m_informationDisplay.setLocatorMode(newMode);
   }
 
   void CenterViewport(m2::PointD const & pt)
@@ -521,7 +540,7 @@ public:
     UpdateNow();
   }
 
-  void SetHeading(double trueHeading, double magneticHeading, double accuracy)
+  void UpdateHeading(double trueHeading, double magneticHeading, double accuracy)
   {
     m_informationDisplay.setHeading(trueHeading, magneticHeading, accuracy);
     Invalidate();
@@ -568,6 +587,9 @@ public:
   }
   void DoDrag(DragEvent const & e)
   {
+    if (m_locator->mode() == Locator::EPreciseMode)
+      m_locator->setMode(Locator::ERoughMode);
+
     m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
 
     m2::PointD pos = m_navigator.OrientPoint(e.Pos()) + ptShift;

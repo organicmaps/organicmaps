@@ -15,17 +15,18 @@
 
 @interface UserLocationController : NSObject<CLLocationManagerDelegate>
 {
-@private
-	CLLocationManager * m_locationManager;
+//@private
+//	CLLocationManager * m_locationManager;
 
 @public
 	id delegate;
-  BOOL active;
+//  BOOL active;
 }
 
 @property (nonatomic, assign) id delegate;
+@property (nonatomic, assign) CLLocationManager * locationManager;
 /// YES means that location manager is active
-@property (nonatomic, assign) BOOL active;
+//@property (nonatomic, assign) BOOL active;
 
 - (id) initWithDelegate: (id) locationDelegate;
 - (void) Start;

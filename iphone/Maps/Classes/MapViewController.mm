@@ -4,6 +4,7 @@
 #import "EAGLView.h"
 #import "WindowHandle.h"
 #import "../Settings/SettingsManager.h"
+#import "IPhoneLocator.h"
 
 #include "RenderContext.hpp"
 #include "../../geometry/rect2d.hpp"
@@ -12,27 +13,54 @@
 #include "../../map/drawer_yg.hpp"
 #include "../../storage/storage.hpp"
 
-typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> framework_t;
+typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 
 @implementation MapViewController
 
   // Make m_framework and m_storage MapsAppDelegate properties instead of global variables.
   framework_t * m_framework = NULL;
+  shared_ptr<Locator> m_locator;
   storage::Storage m_storage;
 
 - (IBAction)OnMyPositionClicked:(id)sender
 {
-	if (m_locationController.active)
+	if (m_locator->mode() == Locator::EPreciseMode)
   {
-    [m_locationController Stop];
+    m_locator->setMode(Locator::ERoughMode);
     ((UIBarButtonItem *)sender).style = UIBarButtonItemStyleBordered;
-    m_framework->DisableMyPositionAndHeading();
   }
   else
   {
-    [m_locationController Start];
-    ((UIBarButtonItem *)sender).style = UIBarButtonItemStyleDone;
+    m_locator->setMode(Locator::EPreciseMode);
     m_isDirtyPosition = true;
+
+    ((UIBarButtonItem *)sender).style = UIBarButtonItemStyleDone;
+    /// TODO : change button icon to progress indicator
+
+    //UIActivityIndicatorView * indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleGray];
+
+    //((UIBarButtonItem *)sender).customView = indicator;
+    //[indicator release];
+  }
+}
+
+- (void) OnChangeLocatorMode:(Locator::EMode) oldMode
+                 withNewMode:(Locator::EMode) newMode
+{
+  if (newMode == Locator::ERoughMode)
+  {
+    /// TODO : change button icon to "rough mode"(UIBarButtonItemStyleBordered);
+  }
+}
+
+- (void) OnUpdateLocation: (m2::PointD const &) mercatorPoint
+          withErrorRadius: (double) errorRadius
+         withLocTimeStamp: (double) locTimeStamp
+         withCurTimeStamp: (double) curTimeStamp
+{
+  if (m_isDirtyPosition)
+  {
+    /// TODO : change button icon to "precise" mode(UIBarButtonItemStyleDone).
   }
 }
 
@@ -57,7 +85,7 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 
 - (void) dealloc
 {
-	[m_locationController release];
+  m_locator.reset();
 	delete m_framework;
   [super dealloc];
 }
@@ -70,11 +98,25 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 
 		shared_ptr<iphone::WindowHandle> windowHandle = [(EAGLView*)self.view windowHandle];
 		shared_ptr<yg::ResourceManager> resourceManager = [(EAGLView*)self.view resourceManager];
-		m_framework = new framework_t(windowHandle, 40);
-		m_framework->Init(m_storage);
-		m_StickyThreshold = 10;
+		
+    m_locator = shared_ptr<Locator>(new iphone::Locator());
+    
+    // tricky boost::bind for objC class methods
+		typedef void (*TUpdateLocationFunc)(id, SEL, m2::PointD const &, double, double, double);
+		SEL updateLocationSel = @selector(OnUpdateLocation:withErrorRadius:withLocTimeStamp:withCurTimeStamp:);
+		TUpdateLocationFunc updateLocationImpl = (TUpdateLocationFunc)[self methodForSelector:updateLocationSel];
+    
+    typedef void (*TChangeModeFunc)(id, SEL, Locator::EMode, Locator::EMode);
+    SEL changeModeSel = @selector(OnChangeLocatorMode:withNewMode:);
+    TChangeModeFunc changeModeImpl = (TChangeModeFunc)[self methodForSelector:changeModeSel];
 
-		m_locationController = [[UserLocationController alloc] initWithDelegate:self];
+    m_locator->addOnUpdateLocationFn(boost::bind(updateLocationImpl, self, updateLocationSel, _1, _2, _3, _4));
+    m_locator->addOnChangeModeFn(boost::bind(changeModeImpl, self, changeModeSel, _1, _2));
+    
+    m_framework = new framework_t(windowHandle, 40);
+		m_framework->InitStorage(m_storage);
+    m_framework->InitLocator(m_locator);
+		m_StickyThreshold = 10;
 
 		m_CurrentAction = NOTHING;
         m_isDirtyPosition = false;
@@ -93,29 +135,6 @@ typedef FrameWork<model::FeaturesFetcher, Navigator, iphone::WindowHandle> frame
 	}
 
 	return self;
-}
-
-- (void) OnHeading: (CLHeading*) newHeading
-{
-	m_framework->SetHeading(newHeading.trueHeading, newHeading.magneticHeading, newHeading.headingAccuracy);
-}
-
-- (void) OnLocation: (m2::PointD const &) mercatorPoint
-			withErrorRadius: (double) errorRadius
-			withTimestamp: (NSDate *) timestamp
-{
-  m_framework->SetPosition(mercatorPoint, errorRadius);
-
-	if (m_isDirtyPosition)
-	{
-    m_framework->CenterAndScaleViewport();
-		m_isDirtyPosition = false;
-	}
-}
-
-- (void) OnLocationError: (NSString *) errorDescription
-{
-	NSLog(@"Error: %@", errorDescription);
 }
 
 - (void)onResize:(GLint) width withHeight:(GLint) height

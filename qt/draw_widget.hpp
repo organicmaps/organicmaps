@@ -26,12 +26,11 @@ namespace qt
   {
     typedef widget_type base_type;
 
-    typedef qt::WindowHandle handle_t;
-    shared_ptr<handle_t> m_handle;
+    shared_ptr<qt::WindowHandle> m_handle;
 
     typedef model::FeaturesFetcher model_t;
 
-    FrameWork<model_t, Navigator, handle_t> m_framework;
+    FrameWork<model_t, Navigator> m_framework;
 
     bool m_isDrag;
 

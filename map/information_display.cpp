@@ -16,7 +16,8 @@
 #include "../base/mutex.hpp"
 
 InformationDisplay::InformationDisplay()
-  : m_headingOrientation(-math::pi / 2)
+  : m_headingOrientation(-math::pi / 2),
+    m_mode(Locator::ERoughMode)
 {
   enablePosition(false);
   enableHeading(false);
@@ -96,8 +97,13 @@ void InformationDisplay::drawPosition(DrawerYG * pDrawer)
 
   double pxErrorRadius = pxPosition.Length(m_screen.GtoP(m_position + m2::PointD(m_errorRadius, 0)));
 
-  pDrawer->screen()->drawArc(pxPosition, 0, math::pi * 2, pxErrorRadius, yg::Color(0, 0, 255, 32), yg::maxDepth - 2);
-  pDrawer->screen()->fillSector(pxPosition, 0, math::pi * 2, pxErrorRadius, yg::Color(0, 0, 255, 32), yg::maxDepth - 3);
+  pDrawer->screen()->drawArc(pxPosition, 0, math::pi * 2, pxErrorRadius, yg::Color(0, 0, 255, m_mode == Locator::EPreciseMode ? 64 : 32), yg::maxDepth - 2);
+  pDrawer->screen()->fillSector(pxPosition, 0, math::pi * 2, pxErrorRadius, yg::Color(0, 0, 255, m_mode == Locator::EPreciseMode ? 64 : 32), yg::maxDepth - 3);
+}
+
+void InformationDisplay::setLocatorMode(Locator::EMode mode)
+{
+  m_mode = mode;
 }
 
 void InformationDisplay::enableHeading(bool doEnable)
@@ -115,6 +121,9 @@ void InformationDisplay::setHeading(double trueHeading, double magneticHeading, 
 
 void InformationDisplay::drawHeading(DrawerYG *pDrawer)
 {
+  if (m_mode == Locator::ERoughMode)
+    return;
+
   double trueHeadingRad = m_trueHeading / 180 * math::pi;
   double headingAccuracyRad = m_headingAccuracy / 180 * math::pi;
 

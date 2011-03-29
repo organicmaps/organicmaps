@@ -36,6 +36,7 @@
 		EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */; };
 		EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297E1219ECA300EB67A9 /* RenderContext.mm */; };
 		EE7F29831219ECA300EB67A9 /* WindowHandle.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F29801219ECA300EB67A9 /* WindowHandle.mm */; };
+		EE9588BC134114F50056F2D5 /* IPhoneLocator.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE9588BB134114F50056F2D5 /* IPhoneLocator.mm */; };
 		EEB7E22211E9079400080A68 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB7E22111E9079400080A68 /* CoreLocation.framework */; };
 		EEB7E30911E9094F00080A68 /* UserLocationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEB7E30811E9094F00080A68 /* UserLocationController.mm */; };
 		EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EED10A4411F78D120095FAD4 /* MapViewController.mm */; };
@@ -132,6 +133,7 @@
 		EE7F297E1219ECA300EB67A9 /* RenderContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = RenderContext.mm; path = Classes/RenderContext.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EE7F297F1219ECA300EB67A9 /* WindowHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = WindowHandle.h; path = Classes/WindowHandle.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		EE7F29801219ECA300EB67A9 /* WindowHandle.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = WindowHandle.mm; path = Classes/WindowHandle.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		EE9588BB134114F50056F2D5 /* IPhoneLocator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPhoneLocator.mm; sourceTree = "<group>"; };
 		EEB7E22111E9079400080A68 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		EEB7E30711E9094F00080A68 /* UserLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = UserLocationController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		EEB7E30811E9094F00080A68 /* UserLocationController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = UserLocationController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -139,6 +141,7 @@
 		EEE4C93D1298A2F3007231A9 /* symbols_24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = symbols_24.png; path = ../../data/symbols_24.png; sourceTree = SOURCE_ROOT; };
 		EEE4C93F1298A303007231A9 /* symbols_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = symbols_48.png; path = ../../data/symbols_48.png; sourceTree = SOURCE_ROOT; };
 		EEE4C9411298A31B007231A9 /* basic_highres.skn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic_highres.skn; path = ../../data/basic_highres.skn; sourceTree = SOURCE_ROOT; };
+		EEE8F9C2134106AB001DC91A /* IPhoneLocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPhoneLocator.h; sourceTree = "<group>"; };
 		EEF5745412DE1AD50082F472 /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfribidi.a; sourceTree = SOURCE_ROOT; };
 		EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_blacklist.txt; path = ../../data/fonts_blacklist.txt; sourceTree = "<group>"; };
 		EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_whitelist.txt; path = ../../data/fonts_whitelist.txt; sourceTree = "<group>"; };
@@ -190,7 +193,7 @@
 		FAF37F03126DCF11005EA154 /* IPhoneDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = IPhoneDownload.h; path = Platform/IPhoneDownload.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FAFCB63413366E78001A5C59 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		FAFCB63513366E78001A5C59 /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewController.mm; sourceTree = "<group>"; };
-		FAFCB63713367AD1001A5C59 /* about-travelguide-iphone.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = about-travelguide-iphone.html; path = ../../data/about-travelguide-iphone.html; sourceTree = SOURCE_ROOT; };
+		FAFCB63713367AD1001A5C59 /* about-travelguide-iphone.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "about-travelguide-iphone.html"; path = "../../data/about-travelguide-iphone.html"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -414,6 +417,8 @@
 				FAF37EFA126DCE6F005EA154 /* IPhoneDownload.mm */,
 				FAF37EFE126DCE6F005EA154 /* IPhonePlatform.hpp */,
 				FAF37EFD126DCE6F005EA154 /* IPhonePlatform.mm */,
+				EEE8F9C2134106AB001DC91A /* IPhoneLocator.h */,
+				EE9588BB134114F50056F2D5 /* IPhoneLocator.mm */,
 			);
 			name = Platform;
 			sourceTree = "<group>";
@@ -543,6 +548,7 @@
 				49DD2B51132FA8880031D82E /* GuideViewController.mm in Sources */,
 				FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */,
 				FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */,
+				EE9588BC134114F50056F2D5 /* IPhoneLocator.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

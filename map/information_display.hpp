@@ -1,6 +1,7 @@
 #pragma once
 
 #include "window_handle.hpp"
+#include "locator.hpp"
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"
@@ -27,6 +28,7 @@ private:
   double m_headingAccuracy;
 
   bool m_isPositionEnabled;
+  Locator::EMode m_mode;
   m2::PointD m_position;
   double m_errorRadius;
 
@@ -85,6 +87,7 @@ public:
 
   void enablePosition(bool doEnable);
   void setPosition(m2::PointD const & mercatorPos, double errorRadius);
+  void setLocatorMode(Locator::EMode mode);
   m2::PointD const & position() const;
   double errorRadius() const;
   void drawPosition(DrawerYG * pDrawer);

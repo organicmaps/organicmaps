@@ -61,7 +61,7 @@
       if (ver >= 3.199)
       {
         UIScreen * mainScr = [UIScreen mainScreen];
-		scrW = mainScr.currentMode.size.width;
+        scrW = mainScr.currentMode.size.width;
         if (scrW == 640)
             self.contentScaleFactor = 2.0;
       }

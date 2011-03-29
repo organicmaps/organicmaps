@@ -5,16 +5,17 @@
 @implementation UserLocationController
 
 @synthesize delegate;
-@synthesize active;
+//@synthesize active;
+@synthesize locationManager;
 
 - (id) init
 {
   self = [super init];
   if (self != nil)
   {
-    m_locationManager = [[CLLocationManager alloc] init];
-    m_locationManager.delegate = self;
-    active = NO;
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+//    active = NO;
   }
   return self;
 }
@@ -28,18 +29,18 @@
 - (void) dealloc
 {
 	[self Stop];
-  [m_locationManager release];
+  [self.locationManager release];
   [super dealloc];
 }
 
 - (void) Start
 {
-	active = YES;
-  [m_locationManager startUpdatingLocation];
+//	active = YES;
+  [self.locationManager startUpdatingLocation];
 	if ([CLLocationManager headingAvailable])
 	{
-		m_locationManager.headingFilter = 1;
-		[m_locationManager startUpdatingHeading];
+		self.locationManager.headingFilter = 1;
+    [self.locationManager startUpdatingHeading];
 	}
 	else
 		NSLog(@"heading information is not available");
@@ -47,9 +48,9 @@
 
 - (void) Stop
 {
-	[m_locationManager stopUpdatingLocation];
-	[m_locationManager stopUpdatingHeading];
-  active = NO;
+	[self.locationManager stopUpdatingLocation];
+	[self.locationManager stopUpdatingHeading];
+//  active = NO;
 }
 
 - (void) locationManager: (CLLocationManager *) manager

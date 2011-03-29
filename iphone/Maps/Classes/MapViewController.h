@@ -9,11 +9,10 @@
 #include "../../map/navigator.hpp"
 #include "../../map/feature_vec_model.hpp"
 #include "../../std/shared_ptr.hpp"
+#include "../../map/locator.hpp"
 
-@interface MapViewController : UIViewController<UserLocationControllerDelegate>
+@interface MapViewController : UIViewController
 {
-	UserLocationController * m_locationController;
-
   enum Action
 	{
 		NOTHING,
@@ -30,12 +29,13 @@
 
 - (id) initWithCoder: (NSCoder *)coder;
 
-- (void)  OnLocation: (m2::PointD const &) mercatorPoint
-     withErrorRadius: (double) errorRadius
-			 withTimestamp: (NSDate *) timestamp;
-- (void) OnHeading: (CLHeading*) heading;
+- (void)  OnUpdateLocation: (m2::PointD const &) mercatorPoint
+           withErrorRadius: (double) errorRadius
+          withLocTimeStamp: (double) locTimeStamp
+          withCurTimeStamp: (double) curTimeStamp;
 
-- (void) OnLocationError: (NSString *) errorDescription;
+- (void) OnChangeLocatorMode: (Locator::EMode) oldMode
+                 withNewMode: (Locator::EMode) newMode;
 
 - (void) onResize: (GLint)width withHeight: (GLint)height;
 - (void) onPaint;

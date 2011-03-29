@@ -16,13 +16,13 @@ namespace qt
 {
   DrawWidget::DrawWidget(QWidget * pParent, Storage & storage)
     : base_type(pParent),
-      m_handle(new handle_t(this)),
+      m_handle(new qt::WindowHandle(this)),
       m_framework(m_handle, 0),
       m_isDrag(false),
       m_redrawInterval(100),
       m_pScale(0)
   {
-    m_framework.Init(storage);
+    m_framework.InitStorage(storage);
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(ScaleTimerElapsed()));
   }
