@@ -158,7 +158,7 @@
 
 	[[self controller] onResize:self.frame.size.width * scaleFactor withHeight:self.frame.size.height * scaleFactor];
 	[self onSize:self.frame.size.width * scaleFactor withHeight:self.frame.size.height * scaleFactor];
-	[self drawView];
+	// This crashes on iPad: [self drawView];
 }
 
 - (void)dealloc
