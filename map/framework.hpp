@@ -494,7 +494,8 @@ public:
     if (newMode != Locator::EPreciseMode)
       m_informationDisplay.setLocatorMode(newMode);
 
-    /// in precise mode we'll update informationDisplay.locatorMode on the first "good" position recieved.
+    /// in precise mode we'll update informationDisplay.locatorMode on the
+    /// first "fresh" position recieved.
     m_doCenterViewport = true;
     Invalidate();
   }
@@ -603,7 +604,7 @@ public:
   }
   void DoDrag(DragEvent const & e)
   {
-    if (m_locator->mode() == Locator::EPreciseMode)
+    if (m_locator && (m_locator->mode() == Locator::EPreciseMode) && (!m_doCenterViewport))
       m_locator->setMode(Locator::ERoughMode);
 
     m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
@@ -650,7 +651,7 @@ public:
 
     m2::PointD pt = m_navigator.OrientPoint(e.Pt()) + ptShift;
 
-    if (m_locator->mode() == Locator::EPreciseMode)
+    if ((m_locator) && (m_locator->mode() == Locator::EPreciseMode))
       pt = m_navigator.Screen().PixelRect().Center();
 
     m_navigator.ScaleToPoint(pt,
@@ -678,7 +679,7 @@ public:
     m2::PointD pt1 = m_navigator.OrientPoint(e.Pt1()) + ptShift;
     m2::PointD pt2 = m_navigator.OrientPoint(e.Pt2()) + ptShift;
 
-    if (m_locator->mode() == Locator::EPreciseMode)
+    if ((m_locator) && (m_locator->mode() == Locator::EPreciseMode))
     {
       m2::PointD ptC = (pt1 + pt2) / 2;
       m2::PointD ptDiff = m_navigator.Screen().PixelRect().Center() - ptC;
@@ -703,7 +704,7 @@ public:
     m2::PointD pt1 = m_navigator.OrientPoint(e.Pt1()) + ptShift;
     m2::PointD pt2 = m_navigator.OrientPoint(e.Pt2()) + ptShift;
 
-    if (m_locator->mode() == Locator::EPreciseMode)
+    if ((m_locator) && (m_locator->mode() == Locator::EPreciseMode))
     {
       m2::PointD ptC = (pt1 + pt2) / 2;
       m2::PointD ptDiff = m_navigator.Screen().PixelRect().Center() - ptC;
@@ -729,7 +730,7 @@ public:
     m2::PointD pt2 = m_navigator.OrientPoint(e.Pt2()) + ptShift;
 
 
-    if (m_locator->mode() == Locator::EPreciseMode)
+    if ((m_locator) && (m_locator->mode() == Locator::EPreciseMode))
     {
       m2::PointD ptC = (pt1 + pt2) / 2;
       m2::PointD ptDiff = m_navigator.Screen().PixelRect().Center() - ptC;
