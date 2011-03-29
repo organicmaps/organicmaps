@@ -113,6 +113,7 @@ class FrameWork
   /// is AddRedrawCommand enabled?
   bool m_isRedrawEnabled;
   double m_metresMinWidth;
+  bool m_doCenterViewport;
 
   void AddRedrawCommandSure()
   {
@@ -174,7 +175,8 @@ public:
                     GetPlatform().IsBenchmarking(),
                     GetPlatform().ScaleEtalonSize()),
       m_isRedrawEnabled(true),
-      m_metresMinWidth(20)
+      m_metresMinWidth(20),
+      m_doCenterViewport(false)
   {
     m_informationDisplay.setBottomShift(bottomShift);
 #ifdef DRAW_TOUCH_POINTS
@@ -474,13 +476,27 @@ public:
     if ((m_locator->mode() == Locator::EPreciseMode)
     && (curTimeStamp - locTimeStamp >= 0)
     && (curTimeStamp - locTimeStamp < 60 * 5))
-      CenterAndScaleViewport();
+    {
+      if (m_doCenterViewport)
+      {
+        m_informationDisplay.setLocatorMode(Locator::EPreciseMode);
+        CenterAndScaleViewport();
+        m_doCenterViewport = false;
+      }
+      else
+        CenterViewport(mercatorPos);
+    }
     UpdateNow();
   }
 
   void ChangeLocatorMode(Locator::EMode oldMode, Locator::EMode newMode)
   {
-    m_informationDisplay.setLocatorMode(newMode);
+    if (newMode != Locator::EPreciseMode)
+      m_informationDisplay.setLocatorMode(newMode);
+
+    /// in precise mode we'll update informationDisplay.locatorMode on the first "good" position recieved.
+    m_doCenterViewport = true;
+    Invalidate();
   }
 
   void CenterViewport(m2::PointD const & pt)
@@ -634,6 +650,9 @@ public:
 
     m2::PointD pt = m_navigator.OrientPoint(e.Pt()) + ptShift;
 
+    if (m_locator->mode() == Locator::EPreciseMode)
+      pt = m_navigator.Screen().PixelRect().Center();
+
     m_navigator.ScaleToPoint(pt,
       e.ScaleFactor(),
       GetPlatform().TimeInSec());
@@ -659,6 +678,14 @@ public:
     m2::PointD pt1 = m_navigator.OrientPoint(e.Pt1()) + ptShift;
     m2::PointD pt2 = m_navigator.OrientPoint(e.Pt2()) + ptShift;
 
+    if (m_locator->mode() == Locator::EPreciseMode)
+    {
+      m2::PointD ptC = (pt1 + pt2) / 2;
+      m2::PointD ptDiff = m_navigator.Screen().PixelRect().Center() - ptC;
+      pt1 += ptDiff;
+      pt2 += ptDiff;
+    }
+
     m_navigator.StartScale(pt1, pt2, GetPlatform().TimeInSec());
 
 #ifdef DRAW_TOUCH_POINTS
@@ -676,6 +703,14 @@ public:
     m2::PointD pt1 = m_navigator.OrientPoint(e.Pt1()) + ptShift;
     m2::PointD pt2 = m_navigator.OrientPoint(e.Pt2()) + ptShift;
 
+    if (m_locator->mode() == Locator::EPreciseMode)
+    {
+      m2::PointD ptC = (pt1 + pt2) / 2;
+      m2::PointD ptDiff = m_navigator.Screen().PixelRect().Center() - ptC;
+      pt1 += ptDiff;
+      pt2 += ptDiff;
+    }
+
     m_navigator.DoScale(pt1, pt2, GetPlatform().TimeInSec());
 
 #ifdef DRAW_TOUCH_POINTS
@@ -692,6 +727,15 @@ public:
 
     m2::PointD pt1 = m_navigator.OrientPoint(e.Pt1()) + ptShift;
     m2::PointD pt2 = m_navigator.OrientPoint(e.Pt2()) + ptShift;
+
+
+    if (m_locator->mode() == Locator::EPreciseMode)
+    {
+      m2::PointD ptC = (pt1 + pt2) / 2;
+      m2::PointD ptDiff = m_navigator.Screen().PixelRect().Center() - ptC;
+      pt1 += ptDiff;
+      pt2 += ptDiff;
+    }
 
     m_navigator.StopScale(pt1, pt2, GetPlatform().TimeInSec());
 
