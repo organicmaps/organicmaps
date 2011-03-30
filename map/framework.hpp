@@ -113,6 +113,7 @@ class FrameWork
   /// is AddRedrawCommand enabled?
   bool m_isRedrawEnabled;
   double m_metresMinWidth;
+  int m_minRulerWidth;
   bool m_doCenterViewport;
 
   void AddRedrawCommandSure()
@@ -176,6 +177,7 @@ public:
                     GetPlatform().ScaleEtalonSize()),
       m_isRedrawEnabled(true),
       m_metresMinWidth(20),
+      m_minRulerWidth(97),
       m_doCenterViewport(false)
   {
     m_informationDisplay.setBottomShift(bottomShift);
@@ -190,8 +192,8 @@ public:
     m_informationDisplay.enableCenter(true);
 
     m_informationDisplay.enableRuler(true);
-    m_informationDisplay.setRulerParams(80, m_metresMinWidth);
-    m_navigator.SetMinScreenParams(80, m_metresMinWidth);
+    m_informationDisplay.setRulerParams(m_minRulerWidth, m_metresMinWidth);
+    m_navigator.SetMinScreenParams(m_minRulerWidth, m_metresMinWidth);
 
 #ifdef DEBUG
     m_informationDisplay.enableDebugInfo(true);
