@@ -43,6 +43,7 @@ void ScreenBase::UpdateDependentParameters()
   m_GtoP = math::Inverse(m_PtoG);
 
   PtoG(m_PixelRect, m_ClipRect);
+  PtoG(m_PixelRect, m_GlobalRect);
 }
 
 void ScreenBase::SetFromRect(m2::RectD const & GlobalRect)

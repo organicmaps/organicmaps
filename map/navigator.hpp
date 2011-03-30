@@ -94,7 +94,7 @@ private:
   // Device orientation
   EOrientation m_orientation;
   // Used in DoScale and ScaleByPoint
-  bool ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2, m2::PointD const & oldPt1, m2::PointD const & oldPt2, bool skipMaxScaleCheck);
+  bool ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2, m2::PointD const & oldPt1, m2::PointD const & oldPt2, bool skipMaxScaleAndBordersCheck);
 };
 
 #include "../base/stop_mem_debug.hpp"
