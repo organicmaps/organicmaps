@@ -542,8 +542,8 @@ public:
     else
       needToScale = ClipRect.SizeY() > yMinSize * 3;
 
-    if ((ClipRect.SizeX() < 3 * errorRadius) || (ClipRect.SizeY() < 3 * errorRadius))
-      needToScale = true;
+/*    if ((ClipRect.SizeX() < 3 * errorRadius) || (ClipRect.SizeY() < 3 * errorRadius))
+      needToScale = true;*/
 
     if (needToScale)
     {
