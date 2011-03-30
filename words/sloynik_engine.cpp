@@ -37,7 +37,7 @@ sl::SloynikEngine::SloynikEngine(string const & dictionaryPath,
   // Uncomment to always rebuild the index: needIndexBuild = true;
   if (needIndexBuild)
   {
-    FileWriter::DeleteFile(stampPath);
+    FileWriter::DeleteFileX(stampPath);
     sl::SortedIndex::Build(*m_pDictionary, strFn, indexPath);
 
     FileWriter stampWriter(stampPath);
