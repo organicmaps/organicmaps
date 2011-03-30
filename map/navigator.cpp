@@ -91,8 +91,14 @@ void Navigator::DoDrag(m2::PointD const & pt, double /*timeInSec*/)
   if (m_LastPt1 == pt)
     return;
   //LOG(LDEBUG, (pt.x, pt.y));
-  m_Screen = m_StartScreen;
-  m_Screen.Move(pt.x - m_StartPt1.x, pt.y - m_StartPt1.y);
+  //m_Screen = m_StartScreen;
+
+  ScreenBase tmp = m_StartScreen;
+  tmp.Move(pt.x - m_StartPt1.x, pt.y - m_StartPt1.y);
+
+  if (CheckBorders(tmp))
+    m_Screen = tmp;
+
   m_LastPt1 = pt;
 }
 
@@ -159,15 +165,7 @@ void Navigator::ScaleToPoint(m2::PointD const & pt, double factor, double /*time
 
 bool Navigator::CheckMaxScale(ScreenBase const & screen)
 {
-  m2::RectD const r0 = screen.GlobalRect();
-  m2::RectD const r1 = screen.ClipRect();
-  m2::RectD r;
-
-  if ((r0.SizeX() > r1.SizeX()) || (r0.SizeY() > r1.SizeY()))
-    r = r0;
-  else
-    r = r1;
-
+  m2::RectD r = screen.ClipRect();
   // multiple by 2 to allow scale on zero level
   double const maxSize = (MercatorBounds::maxX - MercatorBounds::minX);
   return (r.SizeX() <= maxSize || r.SizeY() <= maxSize);
@@ -180,6 +178,17 @@ bool Navigator::CheckMinScale(ScreenBase const & screen)
   double lonDiff = fabs(MercatorBounds::XToLon(pt1.x) - MercatorBounds::XToLon(pt0.x));
   double metresDiff = lonDiff / MercatorBounds::degreeInMetres;
   return metresDiff >= m_metresMinWidth - 1;
+}
+
+bool Navigator::CheckBorders(ScreenBase const & screen)
+{
+  m2::RectD WorldBoundsRect(MercatorBounds::minX, MercatorBounds::minY,
+                            MercatorBounds::maxX, MercatorBounds::maxY);
+
+  m2::PointD ScreenCenter = screen.GlobalRect().Center();
+  m2::PointD WorldCenter = WorldBoundsRect.Center();
+
+  return ScreenCenter.Length(WorldCenter) < WorldBoundsRect.LeftTop().Length(WorldCenter);
 }
 
 bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
@@ -196,6 +205,9 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
     return false;
 
   if (!CheckMinScale(tmp))
+    return false;
+
+  if (!CheckBorders(tmp))
     return false;
 
   m_Screen = tmp;
@@ -239,7 +251,7 @@ void Navigator::Scale(double scale)
   tmp.Scale(scale);
 
   // limit max scale to MercatorBounds
-  if (CheckMaxScale(tmp) && CheckMinScale(tmp))
+  if (CheckMaxScale(tmp) && CheckMinScale(tmp) && CheckBorders(tmp))
     m_Screen = tmp;
 }
 

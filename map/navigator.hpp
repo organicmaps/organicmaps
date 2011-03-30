@@ -67,6 +67,7 @@ private:
   double m_metresMinWidth;
   bool CheckMinScale(ScreenBase const & screen);
   bool CheckMaxScale(ScreenBase const & screen);
+  bool CheckBorders(ScreenBase const & screen);
 
   // Internal screen corresponding to the state when navigation began with StartDrag or StartScale.
   ScreenBase m_StartScreen;
