@@ -55,6 +55,7 @@ namespace yg
         threads::MutexGuard guard(*m_renderState->m_mutex.get());
         swap(m_renderState->m_actualTarget, m_renderState->m_backBufferLayers.front());
         m_renderState->m_actualScreen = m_renderState->m_currentScreen;
+        m_renderState->m_isEmptyModelActual = m_renderState->m_isEmptyModelCurrent;
       }
 
       /// blitting will be performed through

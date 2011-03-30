@@ -39,12 +39,14 @@ namespace fwork
 
   DrawProcessor::DrawProcessor( m2::RectD const & r,
                                 ScreenBase const & convertor,
-                                shared_ptr<PaintEvent> paintEvent,
-                                int scaleLevel)
+                                shared_ptr<PaintEvent> const & paintEvent,
+                                int scaleLevel,
+                                shared_ptr<yg::gl::RenderState> const & renderState)
     : m_rect(r),
       m_convertor(convertor),
       m_paintEvent(paintEvent),
-      m_zoom(scaleLevel)
+      m_zoom(scaleLevel),
+      m_renderState(renderState)
 #ifdef PROFILER_DRAWING
       , m_drawCount(0)
 #endif
@@ -117,6 +119,8 @@ namespace fwork
       // At higher scales it can become invisible - it depends on classificator.
       return true;
     }
+
+    m_renderState->m_isEmptyModelCurrent = false;
 
     shared_ptr<di::DrawInfo> ptr(new di::DrawInfo(f.GetName()));
 

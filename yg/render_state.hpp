@@ -25,6 +25,8 @@ namespace yg
       shared_ptr<BaseTexture> m_actualTarget;
       /// Screen parameters
       ScreenBase m_actualScreen;
+      /// Empty-model flag
+      bool m_isEmptyModelActual;
       /// @}
 
       /// In-Progress rendering operation params
@@ -37,6 +39,8 @@ namespace yg
       shared_ptr<RenderBuffer> m_depthBuffer;
       /// Duration of the rendering operation
       double m_duration;
+      /// Empty-model flag of the current rendering operation
+      bool m_isEmptyModelCurrent;
       /// @}
 
       /// Surface height and width.

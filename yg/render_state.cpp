@@ -12,7 +12,9 @@ namespace yg
       : m_backBufferLayers(1),
       m_isResized(false),
       m_doRepaintAll(false),
-      m_mutex(new threads::Mutex())
+      m_mutex(new threads::Mutex()),
+      m_isEmptyModelActual(false),
+      m_isEmptyModelCurrent(false)
     {}
 
     bool RenderState::isPanning() const

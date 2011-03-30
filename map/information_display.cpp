@@ -28,6 +28,7 @@ InformationDisplay::InformationDisplay()
   enableMemoryWarning(false);
   enableBenchmarkInfo(false);
   enableGlobalRect(false);
+  enableEmptyModelMessage(false);
 
   for (int i = 0; i < sizeof(m_DebugPts) / sizeof(m2::PointD); ++i)
     m_DebugPts[i] = m2::PointD(0, 0);
@@ -526,6 +527,34 @@ void InformationDisplay::drawLog(DrawerYG * pDrawer)
   }
 }
 
+void InformationDisplay::enableEmptyModelMessage(bool doEnable)
+{
+  m_isEmptyModelMessageEnabled = doEnable;
+}
+
+void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
+{
+  m2::PointD pt = m_screen.PixelRect().Center() - m2::PointD(0, m_bottomShift * m_visualScale);
+
+  char const s0 [] = "Nothing found. Have you tried downloading maps of the countries?";
+  char const s1 [] = "Just the button at the bottom right corner to download the maps.";
+
+  m2::RectD tr0 = pDrawer->screen()->textRect(s0, 10, true, false);
+  m2::RectD tr1 = pDrawer->screen()->textRect(s1, 10, true, false);
+
+  pDrawer->screen()->drawText(m2::PointD(-tr0.SizeX() / 2, -tr0.SizeY() / 2) + pt,
+                              0, 10, yg::Color(255, 255, 255, 255), s0, true, yg::Color(255, 255, 255, 255),
+                              yg::maxDepth,
+                              true,
+                              false);
+
+  pDrawer->screen()->drawText(m2::PointD(-tr1.SizeX() / 2, -tr1.SizeY() / 2 + tr0.SizeY() + 5) + pt,
+                              0, 10, yg::Color(255, 255, 255, 255), s1, true, yg::Color(255, 255, 255, 255),
+                              yg::maxDepth,
+                              true,
+                              false);
+}
+
 void InformationDisplay::enableBenchmarkInfo(bool doEnable)
 {
   m_isBenchmarkInfoEnabled = doEnable;
@@ -625,4 +654,6 @@ void InformationDisplay::doDraw(DrawerYG *drawer)
     drawBenchmarkInfo(drawer);
   if (s_isLogEnabled)
     drawLog(drawer);
+  if (m_isEmptyModelMessageEnabled)
+    drawEmptyModelMessage(drawer);
 }

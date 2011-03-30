@@ -61,6 +61,7 @@ namespace fwork
     vector<drule::Key> m_keys;
 
     int m_zoom;
+    shared_ptr<yg::gl::RenderState> m_renderState;
 
 #ifdef PROFILER_DRAWING
     size_t m_drawCount;
@@ -73,11 +74,12 @@ namespace fwork
     static const int reserve_rules_count = 16;
 
   public:
+
     DrawProcessor(m2::RectD const & r,
                   ScreenBase const & convertor,
-                  shared_ptr<PaintEvent> paintEvent,
-                  int scaleLevel);
-
+                  shared_ptr<PaintEvent> const & paintEvent,
+                  int scaleLevel,
+                  shared_ptr<yg::gl::RenderState> const & renderState);
 
     bool operator() (FeatureType const & f);
   };
@@ -360,7 +362,8 @@ public:
                  int scaleLevel
                  )
   {
-    fwork::DrawProcessor doDraw(selectRect, screen, e, scaleLevel);
+    fwork::DrawProcessor doDraw(selectRect, screen, e, scaleLevel, m_renderQueue.renderStatePtr());
+    m_renderQueue.renderStatePtr()->m_isEmptyModelCurrent = true;
 
     try
     {
@@ -448,6 +451,9 @@ public:
         OGLCHECK(glTranslatef(-ptShift.x, -ptShift.y, 0));
 
         ScreenBase currentScreen = m_navigator.Screen();
+
+        m_informationDisplay.enableEmptyModelMessage(m_renderQueue.renderStatePtr()->m_isEmptyModelActual);
+
         if (m_isBenchmarking)
           currentScreen = m_renderQueue.renderState().m_actualScreen;
 

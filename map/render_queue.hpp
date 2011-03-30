@@ -58,6 +58,8 @@ public:
   /// copy primary render state
   yg::gl::RenderState const CopyState() const;
 
+  shared_ptr<yg::gl::RenderState> const & renderStatePtr() const;
+
   yg::gl::RenderState const & renderState() const;
 
   /// free all possible memory caches

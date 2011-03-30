@@ -83,6 +83,11 @@ yg::gl::RenderState const & RenderQueue::renderState() const
   return *m_renderState.get();
 }
 
+shared_ptr<yg::gl::RenderState> const & RenderQueue::renderStatePtr() const
+{
+  return m_renderState;
+}
+
 void RenderQueue::memoryWarning()
 {
   m_routine->memoryWarning();

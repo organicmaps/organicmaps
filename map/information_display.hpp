@@ -52,6 +52,8 @@ private:
   bool m_isDebugInfoEnabled;
   double m_frameDuration;
 
+  bool m_isEmptyModelMessageEnabled;
+
   bool m_isBenchmarkInfoEnabled;
 
   struct BenchmarkInfo
@@ -129,6 +131,9 @@ public:
   void enableLog(bool doEnable, WindowHandle * windowHandle);
   void setLogSize(size_t logSize);
   void drawLog(DrawerYG * pDrawer);
+
+  void enableEmptyModelMessage(bool doEnable);
+  void drawEmptyModelMessage(DrawerYG * pDrawer);
 
   static void logMessage(my::LogLevel, my::SrcPoint const &, string const &);
 };
