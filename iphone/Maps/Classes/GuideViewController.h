@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class SearchVC;
 
 @interface GuideViewController : UIViewController
 {
+  SearchVC * searchVC;
 }
+
+@property (nonatomic, retain) SearchVC * searchVC;
 
 - (IBAction)OnMapClicked:(id)sender;
 

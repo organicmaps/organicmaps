@@ -36,5 +36,6 @@ SUBDIRS = 3party \
             indexer \
             version \
             storage \
-            map
+            map \
+            words
 }

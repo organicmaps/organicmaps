@@ -26,6 +26,7 @@ struct SloynikData
 @synthesize resultsView;
 @synthesize menuButton;
 @synthesize articleVC;
+@synthesize initFrame;
 
 - (void)dealloc
 {
@@ -43,7 +44,7 @@ struct SloynikData
   int const buttonW = 40;
   int const toolbarH = 44;
   int const marginW = 5;
-  CGRect frame = [[UIScreen mainScreen] applicationFrame];
+  CGRect frame = initFrame;
   int const frameW = frame.size.width;
   int const frameH = frame.size.height;
 

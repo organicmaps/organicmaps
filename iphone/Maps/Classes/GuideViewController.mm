@@ -9,14 +9,23 @@
 #import "GuideViewController.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
+#import "../../Sloynik/Shared/SearchVC.h"
 
 @implementation GuideViewController
+
+@synthesize searchVC;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    if (self)
+    {
+      // Custom initialization
+      self.searchVC = [[[SearchVC alloc] init] autorelease];
+      CGRect frame = self.view.frame;
+      frame.size.height -= 44;
+      self.searchVC.initFrame = frame;
+      [self.view addSubview:searchVC.view];
     }
     return self;
 }

@@ -16,12 +16,23 @@
 		46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
 		46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
+		4938BB1D1343652600E0815A /* dictionary.slf in Resources */ = {isa = PBXBuildFile; fileRef = 4938BB1C1343652600E0815A /* dictionary.slf */; };
+		4938BB3B1343716500E0815A /* ArticleVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4938BB361343716500E0815A /* ArticleVC.mm */; };
+		4938BB3C1343716500E0815A /* PerfCount.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4938BB381343716500E0815A /* PerfCount.mm */; };
+		4938BB3D1343716500E0815A /* SearchVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4938BB3A1343716500E0815A /* SearchVC.mm */; };
+		4938BB401343717A00E0815A /* global.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4938BB3F1343717A00E0815A /* global.mm */; };
+		4938BB5B1343745400E0815A /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 4938BB591343745400E0815A /* back.png */; };
+		4938BB5C1343745400E0815A /* forw.png in Resources */ = {isa = PBXBuildFile; fileRef = 4938BB5A1343745400E0815A /* forw.png */; };
 		4945D21C1334187D0082387C /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 4945D21A1334187D0082387C /* settings.png */; };
 		4945D21D1334187D0082387C /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4945D21B1334187D0082387C /* settings@2x.png */; };
 		49B3FB8D132FA43E00057053 /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B3FB8B132FA43E00057053 /* location.png */; };
 		49B3FB8E132FA43E00057053 /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B3FB8C132FA43E00057053 /* location@2x.png */; };
 		49DD2B51132FA8880031D82E /* GuideViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 49DD2B4F132FA8880031D82E /* GuideViewController.mm */; };
 		49DD2B52132FA8880031D82E /* GuideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DD2B50132FA8880031D82E /* GuideViewController.xib */; };
+		49DE1C9613437BE700A93417 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		49DE1C9913437C2600A93417 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		49DE1CA413437D7A00A93417 /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DE1CA213437D7A00A93417 /* libbzip2.a */; };
+		49DE1CA513437D7A00A93417 /* libwords.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DE1CA313437D7A00A93417 /* libwords.a */; };
 		EE026F0611D6AC0D00645242 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
 		EE026F0D11D6AC2800645242 /* basic.skn in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0811D6AC2800645242 /* basic.skn */; };
 		EE026F0E11D6AC2800645242 /* drawing_rules.bin in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0911D6AC2800645242 /* drawing_rules.bin */; };
@@ -106,6 +117,17 @@
 		46F26CD710F623BA00ECCA39 /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 11; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = EAGLView.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		4938BB1C1343652600E0815A /* dictionary.slf */ = {isa = PBXFileReference; lastKnownFileType = file; name = dictionary.slf; path = ../../data/dictionary.slf; sourceTree = "<group>"; };
+		4938BB351343716500E0815A /* ArticleVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArticleVC.h; path = ../Sloynik/Shared/ArticleVC.h; sourceTree = "<group>"; };
+		4938BB361343716500E0815A /* ArticleVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ArticleVC.mm; path = ../Sloynik/Shared/ArticleVC.mm; sourceTree = "<group>"; };
+		4938BB371343716500E0815A /* PerfCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerfCount.h; path = ../Sloynik/Shared/PerfCount.h; sourceTree = "<group>"; };
+		4938BB381343716500E0815A /* PerfCount.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PerfCount.mm; path = ../Sloynik/Shared/PerfCount.mm; sourceTree = "<group>"; };
+		4938BB391343716500E0815A /* SearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchVC.h; path = ../Sloynik/Shared/SearchVC.h; sourceTree = "<group>"; };
+		4938BB3A1343716500E0815A /* SearchVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SearchVC.mm; path = ../Sloynik/Shared/SearchVC.mm; sourceTree = "<group>"; };
+		4938BB3E1343717A00E0815A /* global.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = global.hpp; path = ../Sloynik/Shared/global.hpp; sourceTree = "<group>"; };
+		4938BB3F1343717A00E0815A /* global.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = global.mm; path = ../Sloynik/Shared/global.mm; sourceTree = "<group>"; };
+		4938BB591343745400E0815A /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back.png; path = ../Sloynik/Images/back.png; sourceTree = "<group>"; };
+		4938BB5A1343745400E0815A /* forw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = forw.png; path = ../Sloynik/Images/forw.png; sourceTree = "<group>"; };
 		4945D21A1334187D0082387C /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		4945D21B1334187D0082387C /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
 		49B3FB8B132FA43E00057053 /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
@@ -113,6 +135,8 @@
 		49DD2B4E132FA8880031D82E /* GuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideViewController.h; sourceTree = "<group>"; };
 		49DD2B4F132FA8880031D82E /* GuideViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GuideViewController.mm; sourceTree = "<group>"; };
 		49DD2B50132FA8880031D82E /* GuideViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GuideViewController.xib; path = Classes/GuideViewController.xib; sourceTree = "<group>"; };
+		49DE1CA213437D7A00A93417 /* libbzip2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbzip2.a; sourceTree = SOURCE_ROOT; };
+		49DE1CA313437D7A00A93417 /* libwords.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libwords.a; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* MapsWithMe-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		EE026F0511D6AC0D00645242 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = classificator.txt; path = ../../data/classificator.txt; sourceTree = SOURCE_ROOT; };
 		EE026F0811D6AC2800645242 /* basic.skn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic.skn; path = ../../data/basic.skn; sourceTree = SOURCE_ROOT; };
@@ -219,6 +243,10 @@
 				FA04373212CAB83F00017494 /* libstorage.a in Frameworks */,
 				EEF5745512DE1AD50082F472 /* libfribidi.a in Frameworks */,
 				FA8F8938132D5DB00048E3FE /* libtomcrypt.a in Frameworks */,
+				49DE1C9613437BE700A93417 /* (null) in Frameworks */,
+				49DE1C9913437C2600A93417 /* (null) in Frameworks */,
+				49DE1CA413437D7A00A93417 /* libbzip2.a in Frameworks */,
+				49DE1CA513437D7A00A93417 /* libwords.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +287,7 @@
 		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
+				4938BB2613436F6300E0815A /* Sloynik Sources */,
 				FA34BEC71338D6DB00FFB2A7 /* Common */,
 				FA6E1F1B124E6B2800F59149 /* Platform */,
 				FA4135DF120A25B90062D5B4 /* Settings */,
@@ -319,9 +348,43 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4938BB2613436F6300E0815A /* Sloynik Sources */ = {
+			isa = PBXGroup;
+			children = (
+				4938BB581343731D00E0815A /* Resources */,
+				4938BB341343715200E0815A /* Sloynik */,
+			);
+			name = "Sloynik Sources";
+			sourceTree = "<group>";
+		};
+		4938BB341343715200E0815A /* Sloynik */ = {
+			isa = PBXGroup;
+			children = (
+				4938BB3E1343717A00E0815A /* global.hpp */,
+				4938BB3F1343717A00E0815A /* global.mm */,
+				4938BB351343716500E0815A /* ArticleVC.h */,
+				4938BB361343716500E0815A /* ArticleVC.mm */,
+				4938BB371343716500E0815A /* PerfCount.h */,
+				4938BB381343716500E0815A /* PerfCount.mm */,
+				4938BB391343716500E0815A /* SearchVC.h */,
+				4938BB3A1343716500E0815A /* SearchVC.mm */,
+			);
+			name = Sloynik;
+			sourceTree = "<group>";
+		};
+		4938BB581343731D00E0815A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4938BB591343745400E0815A /* back.png */,
+				4938BB5A1343745400E0815A /* forw.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4938BB1C1343652600E0815A /* dictionary.slf */,
 				FAFCB63713367AD1001A5C59 /* about-travelguide-iphone.html */,
 				EEFE7C3112F8CC2D006AF8C3 /* 01_dejavusans.ttf */,
 				EEFE7C3212F8CC2D006AF8C3 /* 02_wqy-microhei.ttf */,
@@ -369,6 +432,8 @@
 		FA1DE68411E15D4E00C6D69A /* Static Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				49DE1CA213437D7A00A93417 /* libbzip2.a */,
+				49DE1CA313437D7A00A93417 /* libwords.a */,
 				FA8F8937132D5DB00048E3FE /* libtomcrypt.a */,
 				EEF5745412DE1AD50082F472 /* libfribidi.a */,
 				FA04373112CAB83F00017494 /* libstorage.a */,
@@ -522,6 +587,9 @@
 				4945D21C1334187D0082387C /* settings.png in Resources */,
 				4945D21D1334187D0082387C /* settings@2x.png in Resources */,
 				FAFCB63813367AD1001A5C59 /* about-travelguide-iphone.html in Resources */,
+				4938BB1D1343652600E0815A /* dictionary.slf in Resources */,
+				4938BB5B1343745400E0815A /* back.png in Resources */,
+				4938BB5C1343745400E0815A /* forw.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,6 +617,10 @@
 				FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */,
 				FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */,
 				EE9588BC134114F50056F2D5 /* IPhoneLocator.mm in Sources */,
+				4938BB3B1343716500E0815A /* ArticleVC.mm in Sources */,
+				4938BB3C1343716500E0815A /* PerfCount.mm in Sources */,
+				4938BB3D1343716500E0815A /* SearchVC.mm in Sources */,
+				4938BB401343717A00E0815A /* global.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,6 +633,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_DIR)/omim/omim-iphone-build/out/release\"",
+					"\"$(SRCROOT)/../../../omim-iphonesim-build/out/debug\"",
 				);
 			};
 			name = "Simulator Debug";
@@ -655,6 +728,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_DIR)/omim/omim-iphone-build/out/release\"",
+					"\"$(SRCROOT)/../../../omim-iphonesim-build/out/debug\"",
 				);
 			};
 			name = "Simulator Release";
@@ -709,6 +783,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_DIR)/omim/omim-iphone-build/out/release\"",
+					"\"$(SRCROOT)/../../../omim-iphonesim-build/out/debug\"",
 				);
 			};
 			name = "Device Debug";
@@ -764,6 +839,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_DIR)/omim/omim-iphone-build/out/release\"",
+					"\"$(SRCROOT)/../../../omim-iphonesim-build/out/debug\"",
 				);
 			};
 			name = "Device Release";
