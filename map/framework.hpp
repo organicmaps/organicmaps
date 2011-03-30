@@ -387,6 +387,7 @@ public:
     }
     catch (redraw_operation_cancelled const &)
     {
+      m_renderQueue.renderStatePtr()->m_isEmptyModelCurrent = false;
     }
 
     if (m_navigator.Update(GetPlatform().TimeInSec()))

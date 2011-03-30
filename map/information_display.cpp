@@ -536,20 +536,36 @@ void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
 {
   m2::PointD pt = m_screen.PixelRect().Center() - m2::PointD(0, m_bottomShift * m_visualScale);
 
-  char const s0 [] = "Nothing found. Have you tried downloading maps of the countries?";
-  char const s1 [] = "Just the button at the bottom right corner to download the maps.";
+  char const s0 [] = "Nothing found. Have you tried";
+  char const s1 [] = "downloading maps of the countries?";
+  char const s2 [] = "Just the button at the bottom right";
+  char const s3 [] = "corner to download the maps.";
 
   m2::RectD tr0 = pDrawer->screen()->textRect(s0, 10, true, false);
   m2::RectD tr1 = pDrawer->screen()->textRect(s1, 10, true, false);
+  m2::RectD tr2 = pDrawer->screen()->textRect(s2, 10, true, false);
+  m2::RectD tr3 = pDrawer->screen()->textRect(s3, 10, true, false);
 
-  pDrawer->screen()->drawText(m2::PointD(-tr0.SizeX() / 2, -tr0.SizeY() / 2) + pt,
+  pDrawer->screen()->drawText(m2::PointD(-tr0.SizeX() / 2, -(tr1.SizeY() + 5)) + pt,
                               0, 10, yg::Color(255, 255, 255, 255), s0, true, yg::Color(255, 255, 255, 255),
                               yg::maxDepth,
                               true,
                               false);
 
-  pDrawer->screen()->drawText(m2::PointD(-tr1.SizeX() / 2, -tr1.SizeY() / 2 + tr0.SizeY() + 5) + pt,
+  pDrawer->screen()->drawText(m2::PointD(-tr1.SizeX() / 2, 0) + pt,
                               0, 10, yg::Color(255, 255, 255, 255), s1, true, yg::Color(255, 255, 255, 255),
+                              yg::maxDepth,
+                              true,
+                              false);
+
+  pDrawer->screen()->drawText(m2::PointD(-tr2.SizeX() / 2, tr2.SizeY() + 5) + pt,
+                              0, 10, yg::Color(255, 255, 255, 255), s2, true, yg::Color(255, 255, 255, 255),
+                              yg::maxDepth,
+                              true,
+                              false);
+
+  pDrawer->screen()->drawText(m2::PointD(-tr3.SizeX() / 2, tr2.SizeY() + 5 + tr3.SizeY() + 5) + pt,
+                              0, 10, yg::Color(255, 255, 255, 255), s3, true, yg::Color(255, 255, 255, 255),
                               yg::maxDepth,
                               true,
                               false);
