@@ -54,7 +54,6 @@ bada/Maps/Home
 bada/Maps/*.zip
 
 # data
-data/borders
 data/intermediate_data
 data/*.mwm
 data/*.mwm.downloading
