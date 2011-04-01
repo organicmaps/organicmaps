@@ -61,6 +61,14 @@ namespace stream
       detail::ReadString(*this, t);
       return *this;
     }
+
+    SinkReaderStream & operator >> (double & t)
+    {
+      STATIC_ASSERT(sizeof(double) == sizeof(int64_t));
+      operator>>(reinterpret_cast<int64_t &>(t));
+      return *this;
+    }
+
   };
 
   template <class TWriter> class SinkWriterStream
@@ -116,6 +124,14 @@ namespace stream
     {
       detail::WriteString(*this, m_writer, t);
       return *this;
+    }
+
+    SinkWriterStream & operator << (double t)
+    {
+      STATIC_ASSERT(sizeof(double) == sizeof(int64_t));
+      int64_t tInt = *reinterpret_cast<int64_t const *>(&t);
+      operator<<(tInt);
+      return (*this);
     }
 
   };

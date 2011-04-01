@@ -222,6 +222,22 @@ namespace m2
     return my::AlmostEqual(a.x, b.x) && my::AlmostEqual(a.y, b.y);
   }
 
+  template <class TArchive, class PointT>
+  TArchive & operator >> (TArchive & ar, m2::Point<PointT> & pt)
+  {
+    ar >> pt.x;
+    ar >> pt.y;
+    return ar;
+  }
+
+  template <class TArchive, class PointT>
+  TArchive & operator << (TArchive & ar, m2::Point<PointT> const & pt)
+  {
+    ar << pt.x;
+    ar << pt.y;
+    return ar;
+  }
+
   typedef Point<float> PointF;
   typedef Point<double> PointD;
   typedef Point<uint32_t> PointU;

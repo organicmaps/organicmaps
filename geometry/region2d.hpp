@@ -54,7 +54,12 @@ namespace m2
 
   template <class PointT>
   class Region
-  {    
+  {
+    template <class TArchive, class TPoint>
+    friend TArchive & operator << (TArchive & ar, Region<TPoint> const & region);
+    template <class TArchive, class TPoint>
+    friend TArchive & operator >> (TArchive & ar, Region<TPoint> & region);
+
   public:
     typedef PointT value_type;
     typedef typename PointT::value_type coord_type;
@@ -166,6 +171,22 @@ namespace m2
     internal_container m_points;
     m2::Rect<coord_type> m_rect;
   };
+
+  template <class TArchive, class PointT>
+  TArchive & operator >> (TArchive & ar, m2::Region<PointT> & region)
+  {
+    ar >> region.m_rect;
+    ar >> region.m_points;
+    return ar;
+  }
+
+  template <class TArchive, class PointT>
+  TArchive & operator << (TArchive & ar, m2::Region<PointT> const & region)
+  {
+    ar << region.m_rect;
+    ar << region.m_points;
+    return ar;
+  }
 
   typedef Region<m2::PointD> RegionD;
   typedef Region<m2::PointI> RegionI;

@@ -31,6 +31,11 @@ namespace m2
   template <typename T>
   class Rect
   {
+    template <class TArchive, class TPoint>
+    friend TArchive & operator << (TArchive & ar, Rect<TPoint> const & rect);
+    template <class TArchive, class TPoint>
+    friend TArchive & operator >> (TArchive & ar, Rect<TPoint> & rect);
+
     enum { IsSigned = numeric_limits<T>::is_signed };
 
     T m_minX, m_minY, m_maxX, m_maxY;
@@ -295,6 +300,26 @@ namespace m2
         r1.maxX() + dx,
         r1.maxY() + dy
     );
+  }
+
+  template <class TArchive, class PointT>
+  TArchive & operator >> (TArchive & ar, m2::Rect<PointT> & rect)
+  {
+    ar >> rect.m_minX;
+    ar >> rect.m_minY;
+    ar >> rect.m_maxX;
+    ar >> rect.m_maxY;
+    return ar;
+  }
+
+  template <class TArchive, class PointT>
+  TArchive & operator << (TArchive & ar, m2::Rect<PointT> const & rect)
+  {
+    ar << rect.m_minX;
+    ar << rect.m_minY;
+    ar << rect.m_maxX;
+    ar << rect.m_maxY;
+    return ar;
   }
 
   typedef Rect<float> RectF;
