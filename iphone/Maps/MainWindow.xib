@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1024</int>
-		<string key="IBDocument.SystemVersion">10J567</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1305</string>
+		<string key="IBDocument.SystemVersion">10J869</string>
+		<string key="IBDocument.InterfaceBuilderVersion">1306</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">462.00</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">300</string>
+			<string key="NS.object.0">301</string>
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -64,7 +64,7 @@
 			</object>
 			<object class="IBUIViewController" id="963277495">
 				<object class="IBUIView" key="IBUIView" id="53915144">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">274</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -76,8 +76,9 @@
 								<object class="IBUISegmentedControl" id="1010670652">
 									<reference key="NSNextResponder" ref="353555995"/>
 									<int key="NSvFlags">292</int>
-									<string key="NSFrame">{{87, 8}, {140, 30}}</string>
+									<string key="NSFrame">{{90, 8}, {140, 30}}</string>
 									<reference key="NSSuperview" ref="353555995"/>
+									<reference key="NSWindow"/>
 									<bool key="IBUIOpaque">NO</bool>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									<int key="IBSegmentControlStyle">2</int>
@@ -112,6 +113,7 @@
 							</object>
 							<string key="NSFrame">{{0, 416}, {320, 44}}</string>
 							<reference key="NSSuperview" ref="53915144"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="1010670652"/>
 							<bool key="IBUIOpaque">NO</bool>
 							<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -124,6 +126,7 @@
 										<string key="NSResourceName">location.png</string>
 									</object>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+									<float key="IBUIWidth">44</float>
 									<int key="IBUIStyle">1</int>
 									<reference key="IBUIToolbar" ref="353555995"/>
 								</object>
@@ -149,6 +152,7 @@
 										<string key="NSResourceName">settings.png</string>
 									</object>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+									<float key="IBUIWidth">44</float>
 									<int key="IBUIStyle">1</int>
 									<reference key="IBUIToolbar" ref="353555995"/>
 								</object>
@@ -156,6 +160,8 @@
 						</object>
 					</object>
 					<string key="NSFrame">{{0, 20}, {320, 460}}</string>
+					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="353555995"/>
 					<object class="NSColor" key="IBUIBackgroundColor">
 						<int key="NSColorSpace">3</int>
@@ -300,18 +306,8 @@
 						<reference key="parent" ref="353555995"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">164</int>
-						<reference key="object" ref="538393019"/>
-						<reference key="parent" ref="353555995"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">163</int>
 						<reference key="object" ref="289994617"/>
-						<reference key="parent" ref="353555995"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">172</int>
-						<reference key="object" ref="313956655"/>
 						<reference key="parent" ref="353555995"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -327,6 +323,16 @@
 						<int key="objectID">174</int>
 						<reference key="object" ref="1010670652"/>
 						<reference key="parent" ref="170623072"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">164</int>
+						<reference key="object" ref="538393019"/>
+						<reference key="parent" ref="353555995"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">172</int>
+						<reference key="object" ref="313956655"/>
+						<reference key="parent" ref="353555995"/>
 					</object>
 				</object>
 			</object>
@@ -568,6 +574,6 @@
 				<string>{22, 22}</string>
 			</object>
 		</object>
-		<string key="IBCocoaTouchPluginVersion">300</string>
+		<string key="IBCocoaTouchPluginVersion">301</string>
 	</data>
 </archive>
