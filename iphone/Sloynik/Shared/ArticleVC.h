@@ -1,13 +1,11 @@
 #import <UIKit/UIKit.h>
 
-@class SearchVC;
-
 @interface ArticleVC : UIViewController
 <UINavigationBarDelegate, UIWebViewDelegate, UIGestureRecognizerDelegate>
 {
-  SearchVC * searchVC;      // Search controller.
-  UIWebView * webView;      // Web view that displays an article.
-  UINavigationBar * navBar; // Navigation bar.
+  UIViewController * searchVC; // Search controller.
+  UIWebView * webView;         // Web view that displays an article.
+  UINavigationBar * navBar;    // Navigation bar.
   UINavigationItem * navSearch;
   UINavigationItem * navArticle;
   UISwipeGestureRecognizer * swipeLeftGestureRecognizer;
@@ -20,7 +18,7 @@
   double m_fontScaleOnPinchStart;
 }
 
-@property (nonatomic, assign) SearchVC * searchVC; // Using "assign" to avoid circular references.
+@property (nonatomic, assign) UIViewController * searchVC; // "assign" to avoid circular references.
 @property (nonatomic, retain) UIWebView * webView;
 @property (nonatomic, retain) UINavigationBar * navBar;
 @property (nonatomic, retain) UINavigationItem * navSearch;

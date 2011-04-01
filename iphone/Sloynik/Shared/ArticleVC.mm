@@ -1,5 +1,4 @@
 #import "ArticleVC.h"
-#import "SearchVC.h"
 #import <QuartzCore/QuartzCore.h>
 #include "global.hpp"
 #include "../../words/sloynik_engine.hpp"
@@ -264,7 +263,7 @@
   string const articleName = url.substr(lastSlash + 1);
   if (articleName.size() == 0 || articleName.empty())
   {
-    // Loading article from SearchVC.
+    // Loading article from searchVC.
     return YES;
   }
   sl::SloynikEngine::SearchResult searchResult;
