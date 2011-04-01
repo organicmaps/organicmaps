@@ -7,15 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "../../Sloynik/Shared/SearchVC.h"
 
-@class SearchVC;
-
-@interface GuideViewController : UIViewController
+@interface GuideViewController : SearchVC
 {
-  SearchVC * searchVC;
 }
-
-@property (nonatomic, retain) SearchVC * searchVC;
 
 - (IBAction)OnMapClicked:(id)sender;
 
