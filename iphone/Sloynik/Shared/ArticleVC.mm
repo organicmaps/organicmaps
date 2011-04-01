@@ -209,18 +209,6 @@
   return NO;
 }
 
-- (void)setArticleData:(NSString *)htmlString name:(NSString *)name
-{
-  // Make sure, that WebView is created.
-  [self view];
-
-  // Load data into WebView.
-  [self.webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@"http://s/"]];
-
-  // Adjust NavigationBar.
-  self.navArticle.title = name;
-}
-
 - (void)setArticleById:(unsigned int)articleId
 {
   if (articleId >= GetSloynikEngine()->WordCount())
@@ -238,10 +226,18 @@
   sl::SloynikEngine::ArticleData data;
   GetSloynikEngine()->GetArticleData(articleId, data);
 
-  [self setArticleData:[NSString stringWithFormat:
-                        @"<html><body style='-webkit-text-size-adjust:%d%%'>%s</body></html>",
-                        [self textSizeAdjustment], data.m_HTML.c_str()]
-                  name:[NSString stringWithUTF8String:wordInfo.m_Word.c_str()]];
+  // Make sure, that WebView is created.
+  [self view];
+
+  // Adjust NavigationBar.
+  self.navArticle.title = [NSString stringWithUTF8String:wordInfo.m_Word.c_str()];
+
+  [self.webView
+   loadHTMLString:[NSString stringWithFormat:
+                   @"<html><body style='-webkit-text-size-adjust:%d%%'>%@</body></html>",
+                   [self textSizeAdjustment],
+                   [NSString stringWithUTF8String:data.m_HTML.c_str()]]
+   baseURL:[NSURL URLWithString:@"http://s/"]];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
