@@ -21,8 +21,6 @@
 		4938BB3C1343716500E0815A /* PerfCount.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4938BB381343716500E0815A /* PerfCount.mm */; };
 		4938BB3D1343716500E0815A /* SearchVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4938BB3A1343716500E0815A /* SearchVC.mm */; };
 		4938BB401343717A00E0815A /* global.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4938BB3F1343717A00E0815A /* global.mm */; };
-		4938BB5B1343745400E0815A /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 4938BB591343745400E0815A /* back.png */; };
-		4938BB5C1343745400E0815A /* forw.png in Resources */ = {isa = PBXBuildFile; fileRef = 4938BB5A1343745400E0815A /* forw.png */; };
 		4945D21C1334187D0082387C /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 4945D21A1334187D0082387C /* settings.png */; };
 		4945D21D1334187D0082387C /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4945D21B1334187D0082387C /* settings@2x.png */; };
 		4983AE11134631F600C82DB7 /* GuideView-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4983AE10134631F600C82DB7 /* GuideView-iPad.xib */; };
@@ -127,8 +125,6 @@
 		4938BB3A1343716500E0815A /* SearchVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SearchVC.mm; path = ../Sloynik/Shared/SearchVC.mm; sourceTree = "<group>"; };
 		4938BB3E1343717A00E0815A /* global.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = global.hpp; path = ../Sloynik/Shared/global.hpp; sourceTree = "<group>"; };
 		4938BB3F1343717A00E0815A /* global.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = global.mm; path = ../Sloynik/Shared/global.mm; sourceTree = "<group>"; };
-		4938BB591343745400E0815A /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back.png; path = ../Sloynik/Images/back.png; sourceTree = "<group>"; };
-		4938BB5A1343745400E0815A /* forw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = forw.png; path = ../Sloynik/Images/forw.png; sourceTree = "<group>"; };
 		4945D21A1334187D0082387C /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		4945D21B1334187D0082387C /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
 		4983AE10134631F600C82DB7 /* GuideView-iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "GuideView-iPad.xib"; sourceTree = "<group>"; };
@@ -377,8 +373,6 @@
 		4938BB581343731D00E0815A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4938BB591343745400E0815A /* back.png */,
-				4938BB5A1343745400E0815A /* forw.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -591,8 +585,6 @@
 				4945D21D1334187D0082387C /* settings@2x.png in Resources */,
 				FAFCB63813367AD1001A5C59 /* about-travelguide-iphone.html in Resources */,
 				4938BB1D1343652600E0815A /* dictionary.slf in Resources */,
-				4938BB5B1343745400E0815A /* back.png in Resources */,
-				4938BB5C1343745400E0815A /* forw.png in Resources */,
 				4983AE11134631F600C82DB7 /* GuideView-iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

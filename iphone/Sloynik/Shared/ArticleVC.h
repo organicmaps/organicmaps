@@ -11,7 +11,6 @@
   UISwipeGestureRecognizer * swipeLeftGestureRecognizer;
   UISwipeGestureRecognizer * swipeRightGestureRecognizer;
   UIPinchGestureRecognizer * pinchGestureRecognizer;
-  UISegmentedControl * backForwardButtons;
   CGRect m_webViewFrame;
   unsigned int m_articleId;
   double m_fontScale;
@@ -26,7 +25,6 @@
 @property (nonatomic, retain) UISwipeGestureRecognizer * swipeLeftGestureRecognizer;
 @property (nonatomic, retain) UISwipeGestureRecognizer * swipeRightGestureRecognizer;
 @property (nonatomic, retain) UIPinchGestureRecognizer * pinchGestureRecognizer;
-@property (nonatomic, retain) UISegmentedControl * backForwardButtons;
 
 - (void)setArticleById:(unsigned int)articleId;
 

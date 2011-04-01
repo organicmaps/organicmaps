@@ -16,7 +16,6 @@
 @synthesize swipeLeftGestureRecognizer;
 @synthesize swipeRightGestureRecognizer;
 @synthesize pinchGestureRecognizer;
-@synthesize backForwardButtons;
 
 - (void)dealloc
 {
@@ -119,21 +118,6 @@
   self.navArticle = [[UINavigationItem alloc] initWithTitle:@""];
   [self.navBar pushNavigationItem:navSearch  animated:NO];
   [self.navBar pushNavigationItem:navArticle animated:NO];
-
-  self.backForwardButtons = [[UISegmentedControl alloc] initWithItems:
-                             [NSArray arrayWithObjects:
-                              [UIImage imageNamed:@"back.png"],
-                              [UIImage imageNamed:@"forw.png"],
-                              nil]];
-  self.backForwardButtons.segmentedControlStyle = UISegmentedControlStyleBar;
-  self.backForwardButtons.momentary = YES;
-  [self.backForwardButtons setEnabled:NO forSegmentAtIndex:0];
-  [self.backForwardButtons setEnabled:NO forSegmentAtIndex:1];
-
-  UIBarButtonItem * segmentBarItem = [[UIBarButtonItem alloc]
-                                      initWithCustomView:self.backForwardButtons];
-  self.navArticle.rightBarButtonItem = segmentBarItem;
-  [segmentBarItem release];
 
   if ([NSClassFromString(@"UISwipeGestureRecognizer")
        instancesRespondToSelector:@selector(setDirection:)])
