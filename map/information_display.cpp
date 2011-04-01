@@ -538,8 +538,8 @@ void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
 
   char const s0 [] = "Nothing found. Have you tried";
   char const s1 [] = "downloading maps of the countries?";
-  char const s2 [] = "Just the button at the bottom right";
-  char const s3 [] = "corner to download the maps.";
+  char const s2 [] = "Just click the button at the bottom";
+  char const s3 [] = "right corner to download the maps.";
 
   m2::RectD tr0 = pDrawer->screen()->textRect(s0, 10, true, false);
   m2::RectD tr1 = pDrawer->screen()->textRect(s1, 10, true, false);
