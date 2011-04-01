@@ -20,9 +20,11 @@ SOURCES += \
     update_generator.cpp \
     grid_generator.cpp \
     statistics.cpp \
-    kml_parser.cpp \
     osm2type.cpp \
     classif_routine.cpp \
+    borders_generator.cpp \
+    osm_xml_parser.cpp \
+    borders_loader.cpp \
 
 HEADERS += \
     feature_merger.hpp \
@@ -37,8 +39,10 @@ HEADERS += \
     update_generator.hpp \
     grid_generator.hpp \
     statistics.hpp \
-    kml_parser.hpp \
     polygonizer.hpp \
     world_map_generator.hpp \
     osm2type.hpp \
     classif_routine.hpp \
+    borders_generator.hpp \
+    osm_xml_parser.hpp \
+    borders_loader.hpp \

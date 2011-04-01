@@ -21,3 +21,4 @@ SOURCES += \
     ../../testing/testingmain.cpp \
     ../../indexer/indexer_tests/feature_routine.cpp \
     feature_bucketer_test.cpp \
+    osm_parser_test.cpp \

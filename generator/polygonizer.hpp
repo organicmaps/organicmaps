@@ -1,5 +1,5 @@
 #pragma once
-#include "kml_parser.hpp"
+#include "borders_loader.hpp"
 #include "world_map_generator.hpp"
 
 #include "../indexer/feature.hpp"
@@ -42,7 +42,7 @@ namespace feature
       LOG(LINFO, ("Polygonizer thread pool threads:", m_ThreadPool.maxThreadCount()));
 #endif
 
-      CHECK(kml::LoadCountriesList(info.datFilePrefix, m_countries, info.simplifyCountriesLevel),
+      CHECK(borders::LoadCountriesList(info.datFilePrefix, m_countries, info.simplifyCountriesLevel),
             ("Error loading country polygons files"));
 
       //LOG_SHORT(LINFO, ("Loaded polygons count for regions:"));
@@ -59,10 +59,10 @@ namespace feature
 
     struct PointChecker
     {
-      kml::RegionsContainerT const & m_regions;
+      borders::RegionsContainerT const & m_regions;
       bool m_belongs;
 
-      PointChecker(kml::RegionsContainerT const & regions)
+      PointChecker(borders::RegionsContainerT const & regions)
         : m_regions(regions), m_belongs(false) {}
 
       bool operator()(m2::PointD const & pt)
@@ -71,7 +71,7 @@ namespace feature
         return !m_belongs;
       }
 
-      void operator() (kml::Region const & rgn, kml::Region::value_type const & point)
+      void operator() (borders::Region const & rgn, borders::Region::value_type const & point)
       {
         if (!m_belongs)
           m_belongs = rgn.Contains(point);
@@ -80,12 +80,12 @@ namespace feature
 
     class InsertCountriesPtr
     {
-      typedef buffer_vector<kml::CountryPolygons const *, 32> vec_type;
+      typedef buffer_vector<borders::CountryPolygons const *, 32> vec_type;
       vec_type & m_vec;
 
     public:
       InsertCountriesPtr(vec_type & vec) : m_vec(vec) {}
-      void operator() (kml::CountryPolygons const & c)
+      void operator() (borders::CountryPolygons const & c)
       {
         m_vec.push_back(&c);
       }
@@ -95,7 +95,7 @@ namespace feature
     {
       m_worldMap(fb);
 
-      buffer_vector<kml::CountryPolygons const *, 32> vec;
+      buffer_vector<borders::CountryPolygons const *, 32> vec;
       m_countries.ForEachInRect(fb.GetLimitRect(), InsertCountriesPtr(vec));
 
       switch (vec.size())
@@ -125,7 +125,7 @@ namespace feature
 #endif
     }
 
-    void EmitFeature(kml::CountryPolygons const * country, FeatureBuilder1 const & fb)
+    void EmitFeature(borders::CountryPolygons const * country, FeatureBuilder1 const & fb)
     {
 #if PARALLEL_POLYGONIZER
       QMutexLocker mutexLocker(&m_EmitFeatureMutex);
@@ -151,7 +151,7 @@ namespace feature
 
     vector<FeatureOutT*> m_Buckets;
     vector<string> m_Names;
-    kml::CountriesContainerT m_countries;
+    borders::CountriesContainerT m_countries;
     WorldMapGenerator<FeatureOutT> m_worldMap;
 
 #if PARALLEL_POLYGONIZER
@@ -169,7 +169,7 @@ namespace feature
     {
     public:
       PolygonizerTask(Polygonizer * pPolygonizer,
-                      buffer_vector<kml::CountryPolygons const *, 32> const & countries,
+                      buffer_vector<borders::CountryPolygons const *, 32> const & countries,
                       FeatureBuilder1 const & fb)
         : m_pPolygonizer(pPolygonizer), m_Countries(countries), m_FB(fb) {}
 
@@ -196,7 +196,7 @@ namespace feature
 
     private:
       Polygonizer * m_pPolygonizer;
-      buffer_vector<kml::CountryPolygons const *, 32> m_Countries;
+      buffer_vector<borders::CountryPolygons const *, 32> m_Countries;
       FeatureBuilder1 m_FB;
     };
   };

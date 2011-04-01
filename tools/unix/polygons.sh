@@ -10,6 +10,7 @@ set -e -u -x
 # global params
 LIGHT_NODES=false
 PROCESSORS=4
+SIMPLIFY=-1
 
 # displays usage and exits
 function Usage {
@@ -46,13 +47,13 @@ BUCKETING_LEVEL=$2
 #fi
 
 # check if we have QT in PATH
-if [ ! `which qmake` ]; then
-  echo 'You should add your qmake binary into the PATH. This can be done in 2 ways:'
-  echo '  1. Set it temporarily by executing: export PATH=/c/qt/your_qt_dir/bin:$PATH'
-  echo '  2. Set it permanently by adding export... string above to your ~/.bashrc'
-  echo 'Hint: for second solution you can type from git bash console: notepad ~/.bashrc'
-  exit 0
-fi
+#if [ ! `which qmake` ]; then
+#  echo 'You should add your qmake binary into the PATH. This can be done in 2 ways:'
+#  echo '  1. Set it temporarily by executing: export PATH=/c/qt/your_qt_dir/bin:$PATH'
+#  echo '  2. Set it permanently by adding export... string above to your ~/.bashrc'
+#  echo 'Hint: for second solution you can type from git bash console: notepad ~/.bashrc'
+#  exit 0
+#fi
 
 # determine script path
 MY_PATH=`dirname $0`
@@ -115,7 +116,7 @@ fi
 
 # 2nd pass - not paralleled
 $PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL --intermediate_data_path=$TMPDIR \
-  --use_light_nodes=$LIGHT_NODES --split_by_polygons -simplify_countries_level=10 \
+  --use_light_nodes=$LIGHT_NODES --split_by_polygons --simplify_countries_level=$SIMPLIFY \
   --generate_features --generate_world_scale=6 --merge_coastlines=true \
   --data_path=$DATA_PATH
 
