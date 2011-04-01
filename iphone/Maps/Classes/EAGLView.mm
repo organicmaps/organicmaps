@@ -36,66 +36,78 @@
 {
   if ((self = [super initWithCoder:coder]))
   {
-      // Setup Layer Properties
-      CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
+    // Setup Layer Properties
+    CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
 
-      eaglLayer.opaque = YES;
+    eaglLayer.opaque = YES;
 
-      /// ColorFormat : RGB565
-      /// Backbuffer : YES, (to prevent from loosing content when mixing with ordinary layers).
-      eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-                                      [NSNumber numberWithBool:NO],
-                                      kEAGLDrawablePropertyRetainedBacking,
-                                      kEAGLColorFormatRGB565,
-                                      kEAGLDrawablePropertyColorFormat,
-                                      nil];
+    yg::RtFormat fmt = yg::Rt4Bpp;
 
-      int etalonW = 320;
-      int scrW = etalonW;
+    NSString * layerFmt = kEAGLColorFormatRGB565;
+    
+    if ([[NSString stringWithFormat:@"%s", glGetString(GL_RENDERER)] hasPrefix:@"PowerVR MBX"])
+    {
+      fmt = yg::Rt8Bpp;
+      layerFmt = kEAGLColorFormatRGBA8;
+    }
+    
+    /// ColorFormat : RGB565
+    /// Backbuffer : YES, (to prevent from loosing content when mixing with ordinary layers).
+    eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [NSNumber numberWithBool:NO],
+                                    kEAGLDrawablePropertyRetainedBacking,
+                                    layerFmt,
+                                    kEAGLDrawablePropertyColorFormat,
+                                    nil];
 
-      UIDevice * device = [UIDevice currentDevice];
+    int etalonW = 320;
+    int scrW = etalonW;
 
-      float ver = [device.systemVersion floatValue];
-      NSLog(@"%@", device.systemVersion);
-      /// rounding problems
-      if (ver >= 3.199)
-      {
-        UIScreen * mainScr = [UIScreen mainScreen];
-        scrW = mainScr.currentMode.size.width;
-        if (scrW == 640)
-            self.contentScaleFactor = 2.0;
-      }
+    UIDevice * device = [UIDevice currentDevice];
 
-      renderContext = shared_ptr<iphone::RenderContext>(new iphone::RenderContext());
+    float ver = [device.systemVersion floatValue];
+    NSLog(@"%@", device.systemVersion);
+    /// rounding problems
+    if (ver >= 3.199)
+    {
+      UIScreen * mainScr = [UIScreen mainScreen];
+      scrW = mainScr.currentMode.size.width;
+      if (scrW == 640)
+        self.contentScaleFactor = 2.0;
+    }
 
-      if (!renderContext.get())
-      {
-          [self release];
-          return nil;
-      }
+    renderContext = shared_ptr<iphone::RenderContext>(new iphone::RenderContext());
 
-      renderContext->makeCurrent();
-      frameBuffer = shared_ptr<yg::gl::FrameBuffer>(new yg::gl::FrameBuffer());
+    if (!renderContext.get())
+    {
+      [self release];
+      return nil;
+    }
 
-      int bigVBSize = pow(2, ceil(log2(15000 * sizeof(yg::gl::Vertex))));
-      int bigIBSize = pow(2, ceil(log2(30000 * sizeof(unsigned short))));
+    renderContext->makeCurrent();
+    frameBuffer = shared_ptr<yg::gl::FrameBuffer>(new yg::gl::FrameBuffer());
 
-      int smallVBSize = pow(2, ceil(log2(1500 * sizeof(yg::gl::Vertex))));
-      int smallIBSize = pow(2, ceil(log2(3000 * sizeof(unsigned short))));
+    int bigVBSize = pow(2, ceil(log2(15000 * sizeof(yg::gl::Vertex))));
+    int bigIBSize = pow(2, ceil(log2(30000 * sizeof(unsigned short))));
 
-      int blitVBSize = pow(2, ceil(log2(10 * sizeof(yg::gl::AuxVertex))));
-      int blitIBSize = pow(2, ceil(log2(10 * sizeof(unsigned short))));
+    int smallVBSize = pow(2, ceil(log2(1500 * sizeof(yg::gl::Vertex))));
+    int smallIBSize = pow(2, ceil(log2(3000 * sizeof(unsigned short))));
+    
+    int blitVBSize = pow(2, ceil(log2(10 * sizeof(yg::gl::AuxVertex))));
+    int blitIBSize = pow(2, ceil(log2(10 * sizeof(unsigned short))));
 
-      resourceManager = shared_ptr<yg::ResourceManager>(new yg::ResourceManager(
-            bigVBSize, bigIBSize, 4,
-            smallVBSize, smallIBSize, 10,
-            blitVBSize, blitIBSize, 10,
-						512, 256, 10,
-						GetPlatform().ReadPathForFile("unicode_blocks.txt").c_str(),
-						GetPlatform().ReadPathForFile("fonts_whitelist.txt").c_str(),
- 						GetPlatform().ReadPathForFile("fonts_blacklist.txt").c_str(),
-						2000000,
-            yg::Rt4Bpp));
+    NSLog(@"Vendor: %s, Renderer: %s", glGetString(GL_VENDOR), glGetString(GL_RENDERER));
+    
+    resourceManager = shared_ptr<yg::ResourceManager>(new yg::ResourceManager(
+          bigVBSize, bigIBSize, 4,
+          smallVBSize, smallIBSize, 10,
+          blitVBSize, blitIBSize, 10,
+          512, 256, 10,
+					GetPlatform().ReadPathForFile("unicode_blocks.txt").c_str(),
+					GetPlatform().ReadPathForFile("fonts_whitelist.txt").c_str(),
+ 					GetPlatform().ReadPathForFile("fonts_blacklist.txt").c_str(),
+					2000000,
+          yg::Rt4Bpp));
 
 
 		resourceManager->addFonts(GetPlatform().GetFontNames());
