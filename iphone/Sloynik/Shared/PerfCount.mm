@@ -18,6 +18,6 @@ void LogTimeCounter(const char * counter, const char * message)
 	else
 	{
 		NSLog(@"LogTimeCounter: %s %s %f", counter, message, t - it->second);
-		it->second = t;		
+		it->second = t;
 	}
 }

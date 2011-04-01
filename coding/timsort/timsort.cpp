@@ -169,7 +169,7 @@ static uint32_t timCountRunAndMakeAscending(timMergeState *aState,
      * and determine if it is assencing or descending.
      * And then start checking how long respective patterns go.
      */
-    if ((*aCmpCb)(sArray + (aIndexLow * sWidth), 
+    if ((*aCmpCb)(sArray + (aIndexLow * sWidth),
                   sArray + ((aIndexLow + 1) * sWidth)) == -1)
     {
         /*
@@ -183,7 +183,7 @@ static uint32_t timCountRunAndMakeAscending(timMergeState *aState,
 
         while (sIndexCur < aIndexHigh)
         {
-            if ((*aCmpCb)(sArray + ((sIndexCur - 1) * sWidth), 
+            if ((*aCmpCb)(sArray + ((sIndexCur - 1) * sWidth),
                           sArray + (sIndexCur * sWidth)) != 1)
             {
                 /* <= */
@@ -211,7 +211,7 @@ static uint32_t timCountRunAndMakeAscending(timMergeState *aState,
 
         while (sIndexCur < aIndexHigh)
         {
-            if ((*aCmpCb)(sArray + ((sIndexCur - 1) * sWidth), 
+            if ((*aCmpCb)(sArray + ((sIndexCur - 1) * sWidth),
                           sArray + (sIndexCur * sWidth)) == 1)
             {
                 /* > */
@@ -1062,9 +1062,9 @@ LABEL_COPY_A:
 /*
  * Merges the two runs at stack indices i and i + 1.
  * Run i must be the penultimate or antepenultimate run on the stack.
- * IOW, i must be equal to 
+ * IOW, i must be equal to
  *
- *       i == PendingRunCnt - 2 or 
+ *       i == PendingRunCnt - 2 or
  *       i == PendingRuncnt - 3.
  */
 static void timMergeAt(timMergeState *aState, uint32_t aWhere, cmpFunc *aCmpCb)

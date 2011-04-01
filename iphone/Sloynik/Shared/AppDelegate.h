@@ -1,14 +1,14 @@
 #import <UIKit/UIKit.h>
 
-@class SearchVC;
+@class SloynikSearchVC;
 
 @interface AppDelegate : NSObject <UIApplicationDelegate>
 {
   UIWindow * window;
-  SearchVC * searchVC;
+  SloynikSearchVC * searchVC;
 }
 
 @property (nonatomic, retain) UIWindow * window;
-@property (nonatomic, retain) SearchVC * searchVC;
+@property (nonatomic, retain) SloynikSearchVC * searchVC;
 
 @end

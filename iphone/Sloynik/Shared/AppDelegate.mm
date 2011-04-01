@@ -1,5 +1,5 @@
 #import "AppDelegate.h"
-#import "SearchVC.h"
+#import "SloynikSearchVC.h"
 #import "PerfCount.h"
 
 @implementation AppDelegate
@@ -28,7 +28,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
   self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
   self.window.backgroundColor = [UIColor whiteColor];
 
-  self.searchVC = [[[SearchVC alloc] init] autorelease];
+  self.searchVC = [[[SloynikSearchVC alloc] init] autorelease];
   [self.window addSubview:searchVC.view];
   [self.window makeKeyAndVisible];
   LogTimeCounter("StartTime", "applicationDidFinishLaunching_end");

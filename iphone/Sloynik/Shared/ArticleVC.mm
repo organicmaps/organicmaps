@@ -134,7 +134,7 @@
                                       initWithCustomView:self.backForwardButtons];
   self.navArticle.rightBarButtonItem = segmentBarItem;
   [segmentBarItem release];
-  
+
   if ([NSClassFromString(@"UISwipeGestureRecognizer")
        instancesRespondToSelector:@selector(setDirection:)])
   {
@@ -157,7 +157,7 @@
                                    autorelease];
     self.pinchGestureRecognizer.delegate = self;
   }
-  
+
   [self loadWebView];
 
   UIView * mainView = [[[UIView alloc] initWithFrame:frame] autorelease];
@@ -212,7 +212,7 @@
 - (void)setArticleData:(NSString *)htmlString name:(NSString *)name
 {
   // Make sure, that WebView is created.
-  [self view];  
+  [self view];
 
   // Load data into WebView.
   [self.webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@"http://s/"]];

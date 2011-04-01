@@ -11,7 +11,7 @@
 
 int main(int argc, char *argv[])
 {
-  LogTimeCounter("StartTime", "main");        
+  LogTimeCounter("StartTime", "main");       
   NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 
   int retVal = UIApplicationMain(argc, argv, nil, @"AppDelegate");

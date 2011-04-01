@@ -10,18 +10,13 @@ typedef struct SloynikData SloynikData;
   SloynikData * m_pSloynikData;
   UISearchBar * searchBar;
 	UITableView * resultsView;
-  UIBarButtonItem * menuButton;
   ArticleVC * articleVC;
-  CGRect initFrame;
 }
 
-@property (nonatomic, retain) UISearchBar * searchBar;
-@property (nonatomic, retain) UITableView * resultsView;
-@property (nonatomic, retain) UIBarButtonItem * menuButton;
+@property (nonatomic, retain) IBOutlet UISearchBar * searchBar;
+@property (nonatomic, retain) IBOutlet UITableView * resultsView;
 @property (nonatomic, retain) ArticleVC * articleVC;
-@property (nonatomic) CGRect initFrame;
 
-- (void)menuButtonPressed;
 - (void)willShowArticle;
 - (void)showArticle;
 

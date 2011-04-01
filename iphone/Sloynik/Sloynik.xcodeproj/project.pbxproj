@@ -35,6 +35,7 @@
 		49698404121E877E00048CF1 /* huffman.c in Sources */ = {isa = PBXBuildFile; fileRef = 496983FF121E877E00048CF1 /* huffman.c */; };
 		49698405121E877E00048CF1 /* randtable.c in Sources */ = {isa = PBXBuildFile; fileRef = 49698400121E877E00048CF1 /* randtable.c */; };
 		4972C89B120CB8D5001F025D /* menu-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 4972C89A120CB8D5001F025D /* menu-20.png */; };
+		4983ADC8134618AE00C82DB7 /* SloynikSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4983ADC7134618AE00C82DB7 /* SloynikSearchVC.m */; };
 		499A290F120CDF4000E14B47 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 499A290E120CDF4000E14B47 /* AppDelegate.mm */; };
 		499F013212344F3C00EB6964 /* ArticleVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 499F013112344F3C00EB6964 /* ArticleVC.mm */; };
 		49A67547132EE7C2005189E6 /* timsort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49A67546132EE7C2005189E6 /* timsort.cpp */; };
@@ -79,6 +80,8 @@
 		496983FF121E877E00048CF1 /* huffman.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = huffman.c; path = ../../3party/bzip2/huffman.c; sourceTree = SOURCE_ROOT; };
 		49698400121E877E00048CF1 /* randtable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = randtable.c; path = ../../3party/bzip2/randtable.c; sourceTree = SOURCE_ROOT; };
 		4972C89A120CB8D5001F025D /* menu-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "menu-20.png"; path = "Images/menu-20.png"; sourceTree = "<group>"; };
+		4983ADC6134618AE00C82DB7 /* SloynikSearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SloynikSearchVC.h; sourceTree = "<group>"; };
+		4983ADC7134618AE00C82DB7 /* SloynikSearchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SloynikSearchVC.m; sourceTree = "<group>"; };
 		499A290D120CDF4000E14B47 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Shared/AppDelegate.h; sourceTree = "<group>"; };
 		499A290E120CDF4000E14B47 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = Shared/AppDelegate.mm; sourceTree = "<group>"; };
 		499F013012344F3C00EB6964 /* ArticleVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArticleVC.h; path = Shared/ArticleVC.h; sourceTree = "<group>"; };
@@ -122,6 +125,8 @@
 				499A290E120CDF4000E14B47 /* AppDelegate.mm */,
 				496982CF121DE3F700048CF1 /* SearchVC.h */,
 				496982D0121DE3F700048CF1 /* SearchVC.mm */,
+				4983ADC6134618AE00C82DB7 /* SloynikSearchVC.h */,
+				4983ADC7134618AE00C82DB7 /* SloynikSearchVC.m */,
 				499F013012344F3C00EB6964 /* ArticleVC.h */,
 				499F013112344F3C00EB6964 /* ArticleVC.mm */,
 				491F5E5512E8F4650072775A /* global.hpp */,
@@ -339,6 +344,7 @@
 				499F013212344F3C00EB6964 /* ArticleVC.mm in Sources */,
 				491F5E5712E8F4AB0072775A /* global.mm in Sources */,
 				49A67547132EE7C2005189E6 /* timsort.cpp in Sources */,
+				4983ADC8134618AE00C82DB7 /* SloynikSearchVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

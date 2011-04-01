@@ -71,5 +71,5 @@ sl::SloynikEngine * GetSloynikEngine()
     s_pEngine = new sl::SloynikEngine(dictionaryPath, indexPath, strFn);
     LogTimeCounter("EngineStartUp", "Engine started.");
   }
-  return s_pEngine;    
+  return s_pEngine;  
 }
