@@ -44,12 +44,13 @@ struct SloynikData
 
   self.resultsView.dataSource = self;
   self.resultsView.delegate = self;
-  self.resultsView.hidden = YES;
 
   LogTimeCounter("StartTime", "SearchVC initializing.");
   m_pSloynikData = new SloynikData;
   GetSloynikEngine()->Search("", m_pSloynikData->m_SearchResult);
   LogTimeCounter("StartTime", "SearchVC initialized.");
+
+  [self onEmptySearch];
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,7 +84,7 @@ struct SloynikData
       self.resultsView.rowHeight * m_pSloynikData->m_SearchResult.m_FirstMatched;
   }
   else
-    self.resultsView.hidden = YES;
+    [self onEmptySearch];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -181,6 +182,11 @@ struct SloynikData
   animation.timingFunction =
   [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
 	[[superView layer] addAnimation:animation forKey:@"SwitchToArticleView"];
+}
+
+- (void)onEmptySearch
+{
+  self.resultsView.hidden = YES;
 }
 
 @end

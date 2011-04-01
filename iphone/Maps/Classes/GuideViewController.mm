@@ -48,7 +48,10 @@
   [[MapsAppDelegate theApp].mapViewController Invalidate];
 }
 
-#pragma mark - View lifecycle
+- (void)onEmptySearch
+{
+  // Do nothing. Don't hide the results view.
+}
 
 - (void)viewDidLoad
 {

@@ -19,5 +19,6 @@ typedef struct SloynikData SloynikData;
 
 - (void)willShowArticle;
 - (void)showArticle;
+- (void)onEmptySearch;
 
 @end
