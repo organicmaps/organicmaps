@@ -67,7 +67,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   NSString * filePath = [NSString stringWithUTF8String:sFilePath.c_str()];
   NSURL * url = [NSURL fileURLWithPath:filePath];
 
-  WebViewController * aboutViewController = 
+  WebViewController * aboutViewController =
       [[WebViewController alloc] initWithUrl:url andTitleOrNil:@"About"];
   [self.navigationController pushViewController:aboutViewController animated:YES];
   [aboutViewController release];
@@ -83,7 +83,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 				                            target:self action:@selector(OnCloseButton:)];
   	self.navigationItem.rightBarButtonItem = closeButton;
     [closeButton release];
-    
+
     self.navigationItem.title = header;
 
     // About button is displayed only on first view in hierarchy
@@ -308,7 +308,7 @@ TIndex g_clickedIndex;
                                                                      message:@"Please, use WiFi to download large countries"
                                                                     delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
-            [alert release];            
+            [alert release];
           }
           else
           {
@@ -355,7 +355,7 @@ TIndex g_clickedIndex;
         		cancelButtonTitle: @"Do Nothing"
         		destructiveButtonTitle: @"Cancel Download"
         		otherButtonTitles: nil];
-        [popupQuery showFromRect: [cell frame] inView: tableView animated: YES]; 
+        [popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
     		[popupQuery release];
     	}
     	break;

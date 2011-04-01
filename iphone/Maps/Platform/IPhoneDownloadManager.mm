@@ -62,7 +62,7 @@ public:
     // disable network activity indicator in top system toolbar
     // note that this method is called also from successful/failed download to "selfdestruct" below
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-  	
+
     for (NSUInteger i = 0; i < [activeDownloads count]; ++i)
     {
     	IPhoneDownload * download = [activeDownloads objectAtIndex:i];

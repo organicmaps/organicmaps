@@ -36,15 +36,15 @@ namespace iphone
   class Locator : public ::Locator
   {
   private:
-    
+
     LocatorThunk * m_thunk;
     UserLocationController * m_locationController;
-    
+
   public:
-    
+
     Locator();
     ~Locator();
-    
+
     void start(EMode mode);
     void stop();
     void setMode(EMode mode);

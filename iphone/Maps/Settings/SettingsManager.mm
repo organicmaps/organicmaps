@@ -79,7 +79,7 @@ using namespace storage;
     		boost::bind(progressImpl, self, progressSel, _1, _2),
         boost::bind(updateImpl, self, updateSel, _1, _2));
   }
-  
+
   // Transition views.
   [m_prevController presentModalViewController:m_navController animated:YES];
   // This has bugs when device orientation is changed.

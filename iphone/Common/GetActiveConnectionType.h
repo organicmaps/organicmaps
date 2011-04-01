@@ -16,7 +16,7 @@ TActiveConnectionType GetActiveConnectionType()
 	bzero(&zeroAddress, sizeof(zeroAddress));
 	zeroAddress.sin_len = sizeof(zeroAddress);
 	zeroAddress.sin_family = AF_INET;
-  
+
 	// Recover reachability flags
 	SCNetworkReachabilityRef defaultRoute = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&zeroAddress);
 	SCNetworkReachabilityFlags flags;
@@ -24,7 +24,7 @@ TActiveConnectionType GetActiveConnectionType()
 	CFRelease(defaultRoute);
 	if (!didRetrieveFlags)
 		return ENotConnected;
-  
+
 	BOOL isReachable = flags & kSCNetworkFlagsReachable;
   BOOL isWifi = !(flags & kSCNetworkReachabilityFlagsIsWWAN);
 	BOOL needsConnection = flags & kSCNetworkFlagsConnectionRequired;

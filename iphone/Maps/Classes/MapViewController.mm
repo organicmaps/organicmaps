@@ -98,21 +98,21 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 
 		shared_ptr<iphone::WindowHandle> windowHandle = [(EAGLView*)self.view windowHandle];
 		shared_ptr<yg::ResourceManager> resourceManager = [(EAGLView*)self.view resourceManager];
-		
+
     m_locator = shared_ptr<Locator>(new iphone::Locator());
-    
+
     // tricky boost::bind for objC class methods
 		typedef void (*TUpdateLocationFunc)(id, SEL, m2::PointD const &, double, double, double);
 		SEL updateLocationSel = @selector(OnUpdateLocation:withErrorRadius:withLocTimeStamp:withCurTimeStamp:);
 		TUpdateLocationFunc updateLocationImpl = (TUpdateLocationFunc)[self methodForSelector:updateLocationSel];
-    
+
     typedef void (*TChangeModeFunc)(id, SEL, Locator::EMode, Locator::EMode);
     SEL changeModeSel = @selector(OnChangeLocatorMode:withNewMode:);
     TChangeModeFunc changeModeImpl = (TChangeModeFunc)[self methodForSelector:changeModeSel];
 
     m_locator->addOnUpdateLocationFn(boost::bind(updateLocationImpl, self, updateLocationSel, _1, _2, _3, _4));
     m_locator->addOnChangeModeFn(boost::bind(changeModeImpl, self, changeModeSel, _1, _2));
-    
+
     m_framework = new framework_t(windowHandle, 40);
 		m_framework->InitStorage(m_storage);
     m_framework->InitLocator(m_locator);

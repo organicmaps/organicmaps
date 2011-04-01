@@ -4,7 +4,7 @@
 
 - (id) initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate
    cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ...
-{  
+{
   if ((self = [super initWithTitle:title message:message delegate:delegate
                  cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil, nil]))
   {
@@ -12,7 +12,7 @@
     va_start(args, otherButtonTitles);
     for (NSString * anOtherButtonTitle = otherButtonTitles; anOtherButtonTitle != nil; anOtherButtonTitle = va_arg(args, NSString*))
       [self addButtonWithTitle:anOtherButtonTitle];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:)
                                                  name:UIApplicationDidEnterBackgroundNotification object:nil];
   }
