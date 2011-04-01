@@ -119,19 +119,22 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 		m_StickyThreshold = 10;
 
 		m_CurrentAction = NOTHING;
-        m_isDirtyPosition = false;
+    m_isDirtyPosition = false;
 
 		// initialize with currently active screen orientation
-        [self didRotateFromInterfaceOrientation: self.interfaceOrientation];
+    [self didRotateFromInterfaceOrientation: self.interfaceOrientation];
 
-		m_framework->initializeGL([(EAGLView*)self.view renderContext], resourceManager);
+    // to perform a proper resize
+    [(EAGLView*)self.view layoutSubviews];
+    // restore previous screen position
+    bool res = m_framework->LoadState();
 
-		// to perform a proper resize
-		[(EAGLView*)self.view layoutSubviews];
+    m_framework->initializeGL([(EAGLView*)self.view renderContext], resourceManager);
 
-        // restore previous screen position
-        if (!m_framework->LoadState())
-			m_framework->ShowAll();
+    if (!res)
+      m_framework->ShowAll();
+    else
+      m_framework->UpdateNow();
 	}
 
 	return self;

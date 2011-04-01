@@ -22,6 +22,12 @@ namespace yg
 
   struct GlyphInfo;
 
+  enum RtFormat
+  {
+    Rt8Bpp,
+    Rt4Bpp
+  };
+
   class ResourceManager
   {
   private:
@@ -55,13 +61,16 @@ namespace yg
 
     GlyphCache m_glyphCache;
 
+    RtFormat m_format;
+
   public:
 
     ResourceManager(size_t vbSize, size_t ibSize, size_t storagesCount,
                     size_t smallVBSize, size_t smallIBSize, size_t smallStoragesCount,
                     size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
                     size_t texWidth, size_t texHeight, size_t texCount,
-                    char const * blocksFile, char const * whileListFile, char const * blackListFile, size_t maxGlyphCacheSize);
+                    char const * blocksFile, char const * whileListFile, char const * blackListFile, size_t maxGlyphCacheSize,
+                    RtFormat fmt);
 
     shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
 
@@ -88,6 +97,8 @@ namespace yg
     void memoryWarning();
     void enterBackground();
     void enterForeground();
+
+    shared_ptr<yg::gl::BaseTexture> createRenderTarget(unsigned w, unsigned h);
   };
 
   Skin * loadSkin(shared_ptr<ResourceManager> const & resourceManager,

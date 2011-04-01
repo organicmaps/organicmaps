@@ -59,7 +59,7 @@ void Navigator::CenterViewport(m2::PointD const & p)
 
 void Navigator::SaveState()
 {
-  Settings::Set("ScreenClipRect", m_Screen.ClipRect());
+  Settings::Set("ScreenClipRect", m_Screen.GlobalRect());
 }
 
 bool Navigator::LoadState()
@@ -67,6 +67,7 @@ bool Navigator::LoadState()
   m2::RectD rect;
   if (!Settings::Get("ScreenClipRect", rect))
     return false;
+
   SetFromRect(rect);
   return true;
 }

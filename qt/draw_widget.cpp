@@ -42,7 +42,11 @@ namespace qt
 
     m_framework.OnSize(widthAndHeight.first, widthAndHeight.second);
 
-    if (!m_framework.LoadState())
+    bool res = m_framework.LoadState();
+
+    m_framework.UpdateNow();
+
+    if (!res)
       return false;
 
     UpdateScaleControl();
@@ -136,6 +140,7 @@ namespace qt
   void DrawWidget::DoResize(int w, int h)
   {
     m_framework.OnSize(w, h);
+    m_framework.UpdateNow();
     UpdateScaleControl();
   }
 

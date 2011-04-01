@@ -78,7 +78,7 @@ void RenderQueueRoutine::processResize(ScreenBase const & frameScreen)
     shared_ptr<yg::gl::BaseTexture> oldActualTarget = m_renderState->m_actualTarget;
 
     m_renderState->m_actualTarget.reset();
-    m_renderState->m_actualTarget = make_shared_ptr(new yg::gl::Texture<RT_TRAITS, false>(texW, texH));
+    m_renderState->m_actualTarget = m_resourceManager->createRenderTarget(texW, texH);
 
     m_auxScreen->onSize(texW, texH);
     m_auxScreen->setRenderTarget(m_renderState->m_actualTarget);
@@ -98,8 +98,7 @@ void RenderQueueRoutine::processResize(ScreenBase const & frameScreen)
     {
       shared_ptr<yg::gl::BaseTexture> oldBackBuffer = m_renderState->m_backBufferLayers[i];
       m_renderState->m_backBufferLayers[i].reset();
-      m_renderState->m_backBufferLayers[i] = make_shared_ptr(new yg::gl::Texture<RT_TRAITS, false>(texW, texH));
-
+      m_renderState->m_backBufferLayers[i] = m_resourceManager->createRenderTarget(texW, texH);
       m_auxScreen->setRenderTarget(m_renderState->m_backBufferLayers[i]);
       m_auxScreen->beginFrame();
       m_auxScreen->clear();
@@ -258,6 +257,7 @@ void RenderQueueRoutine::Do()
 
   bool isPanning = false;
   bool doRedrawAll = false;
+  bool fullRectRepaint = false;
   /// update areas in pixel coordinates.
   vector<m2::RectI> areas;
 
@@ -315,19 +315,26 @@ void RenderQueueRoutine::Do()
 
         doRedrawAll = m_renderState->m_doRepaintAll;
 
+        fullRectRepaint = false;
+
         if (m_renderState->m_doRepaintAll)
         {
           areas.clear();
           areas.push_back(curRect);
+          fullRectRepaint = true;
           m_threadDrawer->screen()->clearTextTree();
           m_renderState->m_doRepaintAll = false;
         }
         else
+        {
           getUpdateAreas(prevScreen,
                          prevRect,
                          m_currentRenderCommand->m_frameScreen,
                          curRect,
                          areas);
+          if ((areas.size() == 1) && (areas[0] == curRect))
+            fullRectRepaint = true;
+        }
 
         isPanning = IsPanning(prevScreen, m_renderState->m_currentScreen);
 
@@ -402,6 +409,9 @@ void RenderQueueRoutine::Do()
               scaleLevel);
         }
       }
+
+      if (fullRectRepaint)
+        m_renderState->m_isEmptyModelActual = m_renderState->m_isEmptyModelCurrent;
 
       /// setting the "whole texture" clip rect to render texts opened by panning.
       m_threadDrawer->screen()->setClipRect(textureRect);

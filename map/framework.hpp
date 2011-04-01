@@ -130,12 +130,6 @@ class FrameWork
       AddRedrawCommandSure();
   }
 
-  void UpdateNow()
-  {
-    AddRedrawCommand();
-    Invalidate();
-  }
-
   void SetMaxWorldRect()
   {
     m_navigator.SetFromRect(m_model.GetWorldRect());
@@ -271,6 +265,12 @@ public:
   //@{
 public:
 
+  void UpdateNow()
+  {
+    AddRedrawCommand();
+    Invalidate();
+  }
+  
   void Invalidate()
   {
     m_windowHandle->invalidate();
@@ -286,7 +286,6 @@ public:
     if (!m_navigator.LoadState())
       return false;
 
-    UpdateNow();
     return true;
   }
   //@}
@@ -310,8 +309,6 @@ public:
       m_isBenchmarkInitialized = true;
       InitBenchmark();
     }
-
-    UpdateNow();
   }
 
   bool SetUpdatesEnabled(bool doEnable)
@@ -388,6 +385,7 @@ public:
     catch (redraw_operation_cancelled const &)
     {
       m_renderQueue.renderStatePtr()->m_isEmptyModelCurrent = false;
+      m_renderQueue.renderStatePtr()->m_isEmptyModelActual = false;
     }
 
     if (m_navigator.Update(GetPlatform().TimeInSec()))

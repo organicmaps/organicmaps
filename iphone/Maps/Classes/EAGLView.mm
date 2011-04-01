@@ -94,7 +94,8 @@
 						GetPlatform().ReadPathForFile("unicode_blocks.txt").c_str(),
 						GetPlatform().ReadPathForFile("fonts_whitelist.txt").c_str(),
  						GetPlatform().ReadPathForFile("fonts_blacklist.txt").c_str(),
-						2000000));
+						2000000,
+            yg::Rt4Bpp));
 
 
 		resourceManager->addFonts(GetPlatform().GetFontNames());

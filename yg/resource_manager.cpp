@@ -21,12 +21,14 @@ namespace yg
                                    size_t smallVBSize, size_t smallIBSize, size_t smallStoragesCount,
                                    size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
                                    size_t texWidth, size_t texHeight, size_t texCount,
-                                   char const * blocksFile, char const * whiteListFile, char const * blackListFile, size_t maxGlyphCacheSize)
+                                   char const * blocksFile, char const * whiteListFile, char const * blackListFile, size_t maxGlyphCacheSize,
+                                   RtFormat fmt)
                                      : m_textureWidth(texWidth), m_textureHeight(texHeight),
                                      m_vbSize(vbSize), m_ibSize(ibSize),
                                      m_smallVBSize(smallVBSize), m_smallIBSize(smallIBSize),
                                      m_blitVBSize(blitVBSize), m_blitIBSize(blitIBSize),
-                                     m_glyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, maxGlyphCacheSize))
+                                     m_glyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, maxGlyphCacheSize)),
+                                     m_format(fmt)
   {
     for (size_t i = 0; i < storagesCount; ++i)
       m_storages.push_back(gl::Storage(vbSize, ibSize));
@@ -233,5 +235,18 @@ namespace yg
 
     for (list<shared_ptr<gl::BaseTexture> >::iterator it = m_dynamicTextures.begin(); it != m_dynamicTextures.end(); ++it)
       *it = shared_ptr<gl::BaseTexture>(new TDynamicTexture(m_textureWidth, m_textureHeight));
+  }
+
+  shared_ptr<yg::gl::BaseTexture> ResourceManager::createRenderTarget(unsigned w, unsigned h)
+  {
+    switch (m_format)
+    {
+    case Rt8Bpp:
+      return make_shared_ptr(new gl::Texture<RGBA8Traits, false>(w, h));
+    case Rt4Bpp:
+      return make_shared_ptr(new gl::Texture<RGBA4Traits, false>(w, h));
+    default:
+      throw std::runtime_error("unknows render target format");
+    };
   }
 }
