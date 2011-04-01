@@ -25,10 +25,11 @@
 		4938BB5C1343745400E0815A /* forw.png in Resources */ = {isa = PBXBuildFile; fileRef = 4938BB5A1343745400E0815A /* forw.png */; };
 		4945D21C1334187D0082387C /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 4945D21A1334187D0082387C /* settings.png */; };
 		4945D21D1334187D0082387C /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4945D21B1334187D0082387C /* settings@2x.png */; };
+		4983AE11134631F600C82DB7 /* GuideView-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4983AE10134631F600C82DB7 /* GuideView-iPad.xib */; };
 		49B3FB8D132FA43E00057053 /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B3FB8B132FA43E00057053 /* location.png */; };
 		49B3FB8E132FA43E00057053 /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B3FB8C132FA43E00057053 /* location@2x.png */; };
 		49DD2B51132FA8880031D82E /* GuideViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 49DD2B4F132FA8880031D82E /* GuideViewController.mm */; };
-		49DD2B52132FA8880031D82E /* GuideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DD2B50132FA8880031D82E /* GuideViewController.xib */; };
+		49DD2B52132FA8880031D82E /* GuideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DD2B50132FA8880031D82E /* GuideView.xib */; };
 		49DE1C9613437BE700A93417 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		49DE1C9913437C2600A93417 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		49DE1CA413437D7A00A93417 /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DE1CA213437D7A00A93417 /* libbzip2.a */; };
@@ -130,11 +131,12 @@
 		4938BB5A1343745400E0815A /* forw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = forw.png; path = ../Sloynik/Images/forw.png; sourceTree = "<group>"; };
 		4945D21A1334187D0082387C /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		4945D21B1334187D0082387C /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
+		4983AE10134631F600C82DB7 /* GuideView-iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "GuideView-iPad.xib"; sourceTree = "<group>"; };
 		49B3FB8B132FA43E00057053 /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
 		49B3FB8C132FA43E00057053 /* location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location@2x.png"; sourceTree = "<group>"; };
 		49DD2B4E132FA8880031D82E /* GuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideViewController.h; sourceTree = "<group>"; };
 		49DD2B4F132FA8880031D82E /* GuideViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GuideViewController.mm; sourceTree = "<group>"; };
-		49DD2B50132FA8880031D82E /* GuideViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GuideViewController.xib; path = Classes/GuideViewController.xib; sourceTree = "<group>"; };
+		49DD2B50132FA8880031D82E /* GuideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GuideView.xib; path = Classes/GuideView.xib; sourceTree = "<group>"; };
 		49DE1CA213437D7A00A93417 /* libbzip2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbzip2.a; sourceTree = SOURCE_ROOT; };
 		49DE1CA313437D7A00A93417 /* libwords.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libwords.a; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* MapsWithMe-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -317,7 +319,7 @@
 			children = (
 				4945D21A1334187D0082387C /* settings.png */,
 				4945D21B1334187D0082387C /* settings@2x.png */,
-				49DD2B50132FA8880031D82E /* GuideViewController.xib */,
+				49DD2B50132FA8880031D82E /* GuideView.xib */,
 				49B3FB8B132FA43E00057053 /* location.png */,
 				49B3FB8C132FA43E00057053 /* location@2x.png */,
 				FA065FFD1286167A00FEA989 /* Default@2x.png */,
@@ -425,6 +427,7 @@
 				FA0660011286168700FEA989 /* Default-Portrait.png */,
 				FA0660021286168700FEA989 /* Default-Landscape.png */,
 				FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */,
+				4983AE10134631F600C82DB7 /* GuideView-iPad.xib */,
 			);
 			name = "Resources-iPad";
 			sourceTree = "<group>";
@@ -583,13 +586,14 @@
 				EEFE7C5E12F8CC2D006AF8C3 /* 23_lohit_te.ttf in Resources */,
 				49B3FB8D132FA43E00057053 /* location.png in Resources */,
 				49B3FB8E132FA43E00057053 /* location@2x.png in Resources */,
-				49DD2B52132FA8880031D82E /* GuideViewController.xib in Resources */,
+				49DD2B52132FA8880031D82E /* GuideView.xib in Resources */,
 				4945D21C1334187D0082387C /* settings.png in Resources */,
 				4945D21D1334187D0082387C /* settings@2x.png in Resources */,
 				FAFCB63813367AD1001A5C59 /* about-travelguide-iphone.html in Resources */,
 				4938BB1D1343652600E0815A /* dictionary.slf in Resources */,
 				4938BB5B1343745400E0815A /* back.png in Resources */,
 				4938BB5C1343745400E0815A /* forw.png in Resources */,
+				4983AE11134631F600C82DB7 /* GuideView-iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -40,8 +40,11 @@
 {
   if (!m_guideViewController)
   {
-    m_guideViewController = [[GuideViewController alloc]
-                             initWithNibName:@"GuideViewController" bundle:nil];
+    m_guideViewController = [GuideViewController alloc];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+      m_guideViewController = [m_guideViewController initWithNibName:@"GuideView-iPad" bundle:nil];
+    else
+      m_guideViewController = [m_guideViewController initWithNibName:@"GuideView" bundle:nil];
   }
   return m_guideViewController;
 }
