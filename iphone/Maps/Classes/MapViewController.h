@@ -25,6 +25,8 @@
 	size_t m_StickyThreshold;
 
 	m2::PointD m_Pt1, m_Pt2;
+  
+  UIBarButtonItem * m_myPositionButton;
 }
 
 - (id) initWithCoder: (NSCoder *)coder;
@@ -50,5 +52,7 @@
 - (IBAction)OnMyPositionClicked:(id)sender;
 - (IBAction)OnSettingsClicked:(id)sender;
 - (IBAction)OnGuideClicked:(id)sender;
+
+@property (nonatomic, retain) IBOutlet UIBarButtonItem * m_myPositionButton;
 
 @end

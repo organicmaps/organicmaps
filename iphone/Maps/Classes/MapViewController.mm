@@ -17,6 +17,8 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 
 @implementation MapViewController
 
+@synthesize m_myPositionButton;
+
   // Make m_framework and m_storage MapsAppDelegate properties instead of global variables.
   framework_t * m_framework = NULL;
   shared_ptr<Locator> m_locator;
@@ -50,6 +52,7 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
   if (newMode == Locator::ERoughMode)
   {
     /// TODO : change button icon to "rough mode"(UIBarButtonItemStyleBordered);
+    m_myPositionButton.style = UIBarButtonItemStyleBordered;
   }
 }
 
@@ -61,6 +64,7 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
   if (m_isDirtyPosition)
   {
     /// TODO : change button icon to "precise" mode(UIBarButtonItemStyleDone).
+    m_myPositionButton.style = UIBarButtonItemStyleDone;
   }
 }
 
