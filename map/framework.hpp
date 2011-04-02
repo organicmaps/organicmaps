@@ -132,11 +132,6 @@ class FrameWork
       AddRedrawCommandSure();
   }
 
-  void SetMaxWorldRect()
-  {
-    m_navigator.SetFromRect(m_model.GetWorldRect());
-  }
-
   threads::Mutex m_modelSyn;
 
   void AddMap(string const & datFile)
@@ -273,6 +268,11 @@ public:
   //@{
 public:
 
+  void SetMaxWorldRect()
+  {
+    m_navigator.SetFromRect(m_model.GetWorldRect());
+  }
+  
   void UpdateNow()
   {
     AddRedrawCommand();

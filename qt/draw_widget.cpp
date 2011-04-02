@@ -34,6 +34,11 @@ namespace qt
     connect(m_pScale, SIGNAL(actionTriggered(int)), this, SLOT(ScaleChanged(int)));
   }
 
+  void DrawWidget::UpdateNow()
+  {
+    m_framework.UpdateNow();
+  }
+
   bool DrawWidget::LoadState()
   {
     pair<uint32_t, uint32_t> widthAndHeight;
@@ -44,7 +49,7 @@ namespace qt
 
     bool res = m_framework.LoadState();
 
-    m_framework.UpdateNow();
+//    m_framework.UpdateNow();
 
     if (!res)
       return false;

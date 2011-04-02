@@ -17,7 +17,8 @@
 #include "../base/start_mem_debug.hpp"
 
 Navigator::Navigator()
-  : m_orientation(EOrientation0)
+  : m_orientation(EOrientation0),
+    m_worldRect(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY)
 {
 }
 
@@ -25,7 +26,8 @@ Navigator::Navigator(ScreenBase const & screen)
   : m_StartScreen(screen),
   m_Screen(screen),
   m_InAction(false),
-  m_orientation(EOrientation0)
+  m_orientation(EOrientation0),
+  m_worldRect(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY)
 {
 }
 
@@ -38,8 +40,13 @@ void Navigator::SetMinScreenParams(unsigned pxMinWidth, double metresMinWidth)
 void Navigator::SetFromRect(m2::RectD const & r)
 {
   m_Screen.SetFromRect(r);
+  m_Screen = AdjustToBounds(m_Screen, m_worldRect, true);
+
   if (!m_InAction)
+  {
     m_StartScreen.SetFromRect(r);
+    m_StartScreen = AdjustToBounds(m_StartScreen, m_worldRect, true);
+  }
 }
 
 void Navigator::CenterViewport(m2::PointD const & p)
@@ -76,13 +83,16 @@ void Navigator::OnSize(int x0, int y0, int w, int h)
 {
   m_Screen.OnSize(x0, y0, w, h);
 
-  m_Screen = AdjustToBounds(m_Screen, m2::RectD(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY));
+  m_Screen = AdjustToBounds(m_Screen, m_worldRect, false);
 
   if (!m_InAction)
+  {
     m_StartScreen.OnSize(x0, y0, w, h);
+    m_StartScreen = AdjustToBounds(m_StartScreen, m_worldRect, false);
+  }
 }
 
-ScreenBase const Navigator::AdjustToBounds(ScreenBase const & screen, m2::RectD const & boundRect)
+ScreenBase const Navigator::AdjustToBounds(ScreenBase const & screen, m2::RectD const & boundRect, bool doScaleOnly)
 {
   ScreenBase res = screen;
   m2::RectD globalRect = res.GlobalRect();
@@ -92,43 +102,75 @@ ScreenBase const Navigator::AdjustToBounds(ScreenBase const & screen, m2::RectD 
 
   if (globalRect.minX() < boundRect.minX())
   {
-    globalRect.Offset(m2::PointD(boundRect.minX() - globalRect.minX(), 0));
-
-    if (globalRect.maxX() > boundRect.maxX())
+    if (doScaleOnly)
     {
-      double k = (globalRect.Center().x - boundRect.maxX()) / (globalRect.Center().x - globalRect.maxX());
+      double k = (globalRect.Center().x - boundRect.minX()) / (globalRect.Center().x - globalRect.minX());
       globalRect.Scale(k);
+    }
+    else
+    {
+      globalRect.Offset(m2::PointD(boundRect.minX() - globalRect.minX(), 0));
+
+      if (globalRect.maxX() > boundRect.maxX())
+      {
+        double k = (globalRect.Center().x - boundRect.maxX()) / (globalRect.Center().x - globalRect.maxX());
+        globalRect.Scale(k);
+      }
     }
   }
 
   if (globalRect.maxX() > boundRect.maxX())
   {
-    globalRect.Offset(m2::PointD(boundRect.maxX() - globalRect.maxX(), 0));
-    if (globalRect.minX() < boundRect.minX())
+    if (doScaleOnly)
     {
-      double k = (globalRect.Center().x - boundRect.minX()) / (globalRect.Center().x - globalRect.minX());
+      double k = (globalRect.Center().x - boundRect.maxX()) / (globalRect.Center().x - globalRect.maxX());
       globalRect.Scale(k);
+    }
+    else
+    {
+      globalRect.Offset(m2::PointD(boundRect.maxX() - globalRect.maxX(), 0));
+      if (globalRect.minX() < boundRect.minX())
+      {
+        double k = (globalRect.Center().x - boundRect.minX()) / (globalRect.Center().x - globalRect.minX());
+        globalRect.Scale(k);
+      }
     }
   }
 
   if (globalRect.minY() < boundRect.minY())
   {
-    globalRect.Offset(m2::PointD(boundRect.minY() - globalRect.minY(), 0));
-
-    if (globalRect.maxY() > boundRect.maxY())
+    if (doScaleOnly)
     {
-      double k = (globalRect.Center().y - boundRect.maxY()) / (globalRect.Center().y - globalRect.maxY());
+      double k = (globalRect.Center().y - boundRect.minY()) / (globalRect.Center().y - globalRect.minY());
       globalRect.Scale(k);
+    }
+    else
+    {
+      globalRect.Offset(m2::PointD(boundRect.minY() - globalRect.minY(), 0));
+
+      if (globalRect.maxY() > boundRect.maxY())
+      {
+        double k = (globalRect.Center().y - boundRect.maxY()) / (globalRect.Center().y - globalRect.maxY());
+        globalRect.Scale(k);
+      }
     }
   }
 
   if (globalRect.maxY() > boundRect.maxY())
   {
-    globalRect.Offset(m2::PointD(boundRect.maxY() - globalRect.maxY(), 0));
-    if (globalRect.minY() < boundRect.minY())
+    if (doScaleOnly)
     {
-      double k = (globalRect.Center().y - boundRect.minY()) / (globalRect.Center().y - globalRect.minY());
+      double k = (globalRect.Center().y - boundRect.maxY()) / (globalRect.Center().y - globalRect.maxY());
       globalRect.Scale(k);
+    }
+    else
+    {
+      globalRect.Offset(m2::PointD(boundRect.maxY() - globalRect.maxY(), 0));
+      if (globalRect.minY() < boundRect.minY())
+      {
+        double k = (globalRect.Center().y - boundRect.minY()) / (globalRect.Center().y - globalRect.minY());
+        globalRect.Scale(k);
+      }
     }
   }
 
@@ -242,7 +284,7 @@ bool Navigator::CheckMaxScale(ScreenBase const & screen)
 {
   m2::RectD r = screen.ClipRect();
   // multiple by 2 to allow scale on zero level
-  double const maxSize = (MercatorBounds::maxX - MercatorBounds::minX);
+  double const maxSize = m_worldRect.SizeX();
   return (r.SizeX() <= maxSize || r.SizeY() <= maxSize);
 }
 
@@ -258,11 +300,7 @@ bool Navigator::CheckMinScale(ScreenBase const & screen)
 bool Navigator::CheckBorders(ScreenBase const & screen)
 {
   m2::RectD ScreenBounds = screen.GlobalRect();
-
-  m2::RectD WorldBounds(MercatorBounds::minX, MercatorBounds::minY,
-                        MercatorBounds::maxX, MercatorBounds::maxY);
-
-  return ScreenBounds.IsRectInside(WorldBounds) || WorldBounds.IsRectInside(ScreenBounds);
+  return ScreenBounds.IsRectInside(m_worldRect) || m_worldRect.IsRectInside(ScreenBounds);
 }
 
 bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
@@ -279,7 +317,7 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
     return false;
 
 //  if (!skipMaxScaleAndBordersCheck && !CheckBorders(tmp))
-//    tmp = AdjustToBounds(tmp, m2::RectD(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY));
+//    tmp = AdjustToBounds(tmp, m_worldRect);
 
   if (!CheckMinScale(tmp))
     return false;

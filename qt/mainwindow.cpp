@@ -154,6 +154,8 @@ void MainWindow::LoadState()
     showMaximized();
     m_pDrawWidget->ShowAll();
   }
+  else
+    m_pDrawWidget->UpdateNow();
 }
 
 void MainWindow::CreateClassifPanel()

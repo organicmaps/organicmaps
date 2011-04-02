@@ -163,8 +163,6 @@
 
 - (void)layoutSubviews
 {
-	NSLog(@"layoutSubviews");
-
   CGFloat scaleFactor = 1.0;
   if ([self respondsToSelector:@selector(contentScaleFactor)])
   	scaleFactor = self.contentScaleFactor;

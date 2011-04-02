@@ -136,12 +136,12 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
     // restore previous screen position
     bool res = m_framework->LoadState();
 
+    if (!res)
+      m_framework->SetMaxWorldRect();
+
     m_framework->initializeGL([(EAGLView*)self.view renderContext], resourceManager);
 
-    if (!res)
-      m_framework->ShowAll();
-    else
-      m_framework->UpdateNow();
+    m_framework->UpdateNow();
 	}
 
 	return self;
@@ -153,7 +153,6 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 	if ((orientation == UIInterfaceOrientationLandscapeLeft)
 		||(orientation == UIInterfaceOrientationLandscapeRight))
 		std::swap(width, height);
-	NSLog(@"onResize: %d, %d", width, height);
 	m_framework->OnSize(width, height);
 }
 

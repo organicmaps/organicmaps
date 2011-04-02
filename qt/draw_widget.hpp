@@ -64,6 +64,8 @@ namespace qt
     /// @return false if can't load previously saved values
     bool LoadState();
 
+    void UpdateNow();
+
   protected:
     static const uint32_t ini_file_version = 0;
 
