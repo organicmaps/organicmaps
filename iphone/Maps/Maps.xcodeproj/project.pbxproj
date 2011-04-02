@@ -89,7 +89,6 @@
 		FA5005661287BFCE002961F0 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FA5005601287BFCE002961F0 /* Icon.png */; };
 		FA5005671287BFCE002961F0 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA5005611287BFCE002961F0 /* Icon@2x.png */; };
 		FA500588128907F0002961F0 /* visibility.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA500587128907F0002961F0 /* visibility.txt */; };
-		FA57ADF412F338FB002BFB9D /* countries_poly.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA57ADF312F338FB002BFB9D /* countries_poly.txt */; };
 		FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
 		FA8F8938132D5DB00048E3FE /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8F8937132D5DB00048E3FE /* libtomcrypt.a */; };
 		FAF37EFF126DCE6F005EA154 /* IPhoneDownload.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAF37EFA126DCE6F005EA154 /* IPhoneDownload.mm */; };
@@ -202,7 +201,6 @@
 		FA5005601287BFCE002961F0 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = SOURCE_ROOT; };
 		FA5005611287BFCE002961F0 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = SOURCE_ROOT; };
 		FA500587128907F0002961F0 /* visibility.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = visibility.txt; path = ../../data/visibility.txt; sourceTree = SOURCE_ROOT; };
-		FA57ADF312F338FB002BFB9D /* countries_poly.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries_poly.txt; path = ../../data/countries_poly.txt; sourceTree = SOURCE_ROOT; };
 		FA87151A12B1518F00592DAF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FA8F8937132D5DB00048E3FE /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtomcrypt.a; sourceTree = SOURCE_ROOT; };
 		FAAE8D5D1338FF8B003ECAD5 /* GetActiveConnectionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetActiveConnectionType.h; sourceTree = "<group>"; };
@@ -397,7 +395,6 @@
 				EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */,
 				EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */,
 				EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */,
-				FA57ADF312F338FB002BFB9D /* countries_poly.txt */,
 				FA46DA2B12D4166E00968C36 /* countries.txt */,
 				FA46DA0412D414D200968C36 /* maps.update */,
 				EEE4C9411298A31B007231A9 /* basic_highres.skn */,
@@ -554,7 +551,6 @@
 				EEE4C9421298A31B007231A9 /* basic_highres.skn in Resources */,
 				FA46DA0512D414D200968C36 /* maps.update in Resources */,
 				FA46DA2C12D4166E00968C36 /* countries.txt in Resources */,
-				FA57ADF412F338FB002BFB9D /* countries_poly.txt in Resources */,
 				EE583CBB12F773F00042CBE3 /* unicode_blocks.txt in Resources */,
 				EEFE7C1412F8C9E1006AF8C3 /* fonts_blacklist.txt in Resources */,
 				EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */,

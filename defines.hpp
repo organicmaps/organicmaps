@@ -7,7 +7,7 @@
 #define INDEX_FILE_TAG "idx"
 #define HEADER_FILE_TAG "header"
 
-#define COUNTRIES_FILE  "countries_poly.txt"
+#define COUNTRIES_FILE  "countries.txt"
 #define DATA_UPDATE_FILE "maps.update"
 #define BINARY_UPDATE_FILE "binary.update"
 #define UPDATE_BASE_URL "http://data.mapswithme.com/"
