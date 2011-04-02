@@ -25,7 +25,7 @@ macx {
   QMAKE_POST_LINK = $${IN_PWD}/../tools/unix/process_plist.sh $${IN_PWD}/.. $$VERSION_MAJOR $$VERSION_MINOR $$PLIST_PATH
 
   # Bundle Resouces
-  OTHER_RESOURCES.files = ../data/about-travelguide-desktop.html ../data/eula.html
+  OTHER_RESOURCES.files = ../data/about-travelguide-desktop.html ../data/eula.html ../data/World.mwm
   OTHER_RESOURCES.path = Contents/Resources
   CLASSIFICATOR_RESOURCES.files = ../data/classificator.txt ../data/drawing_rules.bin ../data/visibility.txt
   CLASSIFICATOR_RESOURCES.path = Contents/Resources
