@@ -51,21 +51,17 @@
     
     renderContext->makeCurrent();
 
+    // to avoid grid bug on 3G device
     yg::RtFormat fmt = yg::Rt4Bpp;
-    NSString * layerFmt = kEAGLColorFormatRGB565;
-    
     if ([[NSString stringWithFormat:@"%s", glGetString(GL_RENDERER)] hasPrefix:@"PowerVR MBX"])
-    {
       fmt = yg::Rt8Bpp;
-      layerFmt = kEAGLColorFormatRGBA8;
-    }
     
     /// ColorFormat : RGB565
     /// Backbuffer : YES, (to prevent from loosing content when mixing with ordinary layers).
     eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [NSNumber numberWithBool:NO],
                                     kEAGLDrawablePropertyRetainedBacking,
-                                    layerFmt,
+                                    kEAGLColorFormatRGB565,
                                     kEAGLDrawablePropertyColorFormat,
                                     nil];
 
