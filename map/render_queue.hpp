@@ -36,7 +36,8 @@ public:
               bool doPeriodicalUpdate,
               double updateInterval,
               bool isBenchmarking,
-              unsigned scaleEtalonSize);
+              unsigned scaleEtalonSize,
+              yg::Color const & bgColor);
   /// destructor.
   ~RenderQueue();
   /// set the primary context. it starts the rendering thread.

@@ -108,6 +108,8 @@ class FrameWork
   vector<pair<string, m2::RectD> > m_benchmarks;
   unsigned m_currentBenchmark;
 
+  yg::Color m_bgColor;
+
   RenderQueue m_renderQueue;
   shared_ptr<yg::ResourceManager> m_resourceManager;
   InformationDisplay m_informationDisplay;
@@ -165,12 +167,18 @@ public:
       m_isBenchmarking(GetPlatform().IsBenchmarking()),
       m_isBenchmarkInitialized(false),
       m_currentBenchmark(0),
+      m_bgColor(0xEE, 0xEE, 0xDD, 0xFF),
+//      m_bgColor(0xF4 / 17 * 17, 0xFC / 17 * 17, 0xE8 / 17 * 17, 0xFF),
+//      m_bgColor(0xF2 / 17 * 17, 0xF2 / 17 * 17, 0xEE / 17 * 17, 0xFF),
+//      m_bgColor(0xF1 / 17 * 17, 0xF2 / 17 * 17, 0xEB / 17 * 17, 0xFF),
+//      m_bgColor(187, 187, 187, 255),
       m_renderQueue(GetPlatform().SkinName(),
                     GetPlatform().IsMultiSampled(),
                     GetPlatform().DoPeriodicalUpdate(),
                     GetPlatform().PeriodicalUpdateInterval(),
                     GetPlatform().IsBenchmarking(),
-                    GetPlatform().ScaleEtalonSize()),
+                    GetPlatform().ScaleEtalonSize(),
+                    m_bgColor),
       m_isRedrawEnabled(true),
       m_metresMinWidth(20),
       m_minRulerWidth(97),
@@ -423,7 +431,7 @@ public:
         if (m_benchmarks.empty())
         {
           e->drawer()->screen()->beginFrame();
-          e->drawer()->screen()->clear();
+          e->drawer()->screen()->clear(m_bgColor);
           m_informationDisplay.setDisplayRect(m2::RectI(0, 0, 100, 100));
           m_informationDisplay.enableRuler(false);
           m_informationDisplay.doDraw(e->drawer().get());
@@ -441,7 +449,7 @@ public:
             m_currentBenchmark++;
 
         e->drawer()->screen()->beginFrame();
-        e->drawer()->screen()->clear();
+        e->drawer()->screen()->clear(m_bgColor);
 
         m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(false);
 

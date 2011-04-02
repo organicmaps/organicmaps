@@ -34,7 +34,8 @@ RenderQueueRoutine::RenderQueueRoutine(shared_ptr<yg::gl::RenderState> const & r
                                        bool doPeriodicalUpdate,
                                        double updateInterval,
                                        bool isBenchmarking,
-                                       unsigned scaleEtalonSize)
+                                       unsigned scaleEtalonSize,
+                                       yg::Color const & bgColor)
 {
   m_skinName = skinName;
   m_visualScale = 0;
@@ -45,6 +46,7 @@ RenderQueueRoutine::RenderQueueRoutine(shared_ptr<yg::gl::RenderState> const & r
   m_updateInterval = updateInterval;
   m_isBenchmarking = isBenchmarking;
   m_scaleEtalonSize = scaleEtalonSize;
+  m_bgColor = bgColor;
 }
 
 void RenderQueueRoutine::Cancel()
@@ -83,7 +85,7 @@ void RenderQueueRoutine::processResize(ScreenBase const & frameScreen)
     m_auxScreen->onSize(texW, texH);
     m_auxScreen->setRenderTarget(m_renderState->m_actualTarget);
     m_auxScreen->beginFrame();
-    m_auxScreen->clear();
+    m_auxScreen->clear(m_bgColor);
 
     if (oldActualTarget != 0)
     {
@@ -101,7 +103,7 @@ void RenderQueueRoutine::processResize(ScreenBase const & frameScreen)
       m_renderState->m_backBufferLayers[i] = m_resourceManager->createRenderTarget(texW, texH);
       m_auxScreen->setRenderTarget(m_renderState->m_backBufferLayers[i]);
       m_auxScreen->beginFrame();
-      m_auxScreen->clear();
+      m_auxScreen->clear(m_bgColor);
 
       if (oldBackBuffer != 0)
       {
@@ -372,7 +374,7 @@ void RenderQueueRoutine::Do()
 
       m_threadDrawer->screen()->enableClipRect(true);
       m_threadDrawer->screen()->setClipRect(textureRect);
-      m_threadDrawer->clear();
+      m_threadDrawer->clear(m_bgColor);
 
       if ((isPanning) && (!doRedrawAll))
       {

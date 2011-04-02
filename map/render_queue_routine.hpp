@@ -8,6 +8,7 @@
 #include "../std/list.hpp"
 #include "../std/function.hpp"
 #include "../yg/thread_renderer.hpp"
+#include "../yg/color.hpp"
 
 class DrawerYG;
 
@@ -79,6 +80,7 @@ private:
   string m_skinName;
   bool m_isBenchmarking;
   unsigned m_scaleEtalonSize;
+  yg::Color m_bgColor;
 
   void waitForRenderCommand(list<shared_ptr<RenderModelCommand> > & cmdList,
                             threads::ConditionGuard & guard);
@@ -90,7 +92,8 @@ public:
                      bool doPeriodicalUpdate,
                      double updateInterval,
                      bool isBenchmarking,
-                     unsigned scaleEtalonSize);
+                     unsigned scaleEtalonSize,
+                     yg::Color const & bgColor);
   /// initialize GL rendering
   /// this function is called just before the thread starts.
   void initializeGL(shared_ptr<yg::gl::RenderContext> const & renderContext,

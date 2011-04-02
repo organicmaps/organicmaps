@@ -11,7 +11,9 @@ RenderQueue::RenderQueue(
     bool doPeriodicalUpdate,
     double updateInterval,
     bool isBenchmarking,
-    unsigned scaleEtalonSize)
+    unsigned scaleEtalonSize,
+    yg::Color const & bgColor
+  )
   : m_renderState(new yg::gl::RenderState())
 {
   m_renderState->m_surfaceWidth = 100;
@@ -27,7 +29,8 @@ RenderQueue::RenderQueue(
       doPeriodicalUpdate,
       updateInterval,
       isBenchmarking,
-      scaleEtalonSize);
+      scaleEtalonSize,
+      bgColor);
 }
 
 void RenderQueue::initializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
