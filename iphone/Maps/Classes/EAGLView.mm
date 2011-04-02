@@ -41,8 +41,17 @@
 
     eaglLayer.opaque = YES;
 
-    yg::RtFormat fmt = yg::Rt4Bpp;
+    renderContext = shared_ptr<iphone::RenderContext>(new iphone::RenderContext());
+    
+    if (!renderContext.get())
+    {
+      [self release];
+      return nil;
+    }
+    
+    renderContext->makeCurrent();
 
+    yg::RtFormat fmt = yg::Rt4Bpp;
     NSString * layerFmt = kEAGLColorFormatRGB565;
     
     if ([[NSString stringWithFormat:@"%s", glGetString(GL_RENDERER)] hasPrefix:@"PowerVR MBX"])
@@ -76,15 +85,6 @@
         self.contentScaleFactor = 2.0;
     }
 
-    renderContext = shared_ptr<iphone::RenderContext>(new iphone::RenderContext());
-
-    if (!renderContext.get())
-    {
-      [self release];
-      return nil;
-    }
-
-    renderContext->makeCurrent();
     frameBuffer = shared_ptr<yg::gl::FrameBuffer>(new yg::gl::FrameBuffer());
 
     int bigVBSize = pow(2, ceil(log2(15000 * sizeof(yg::gl::Vertex))));
@@ -107,7 +107,7 @@
 					GetPlatform().ReadPathForFile("fonts_whitelist.txt").c_str(),
  					GetPlatform().ReadPathForFile("fonts_blacklist.txt").c_str(),
 					2000000,
-          yg::Rt4Bpp));
+          fmt));
 
 
 		resourceManager->addFonts(GetPlatform().GetFontNames());
