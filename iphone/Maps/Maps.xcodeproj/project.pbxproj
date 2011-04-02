@@ -315,7 +315,6 @@
 			children = (
 				4945D21A1334187D0082387C /* settings.png */,
 				4945D21B1334187D0082387C /* settings@2x.png */,
-				49DD2B50132FA8880031D82E /* GuideView.xib */,
 				49B3FB8B132FA43E00057053 /* location.png */,
 				49B3FB8C132FA43E00057053 /* location@2x.png */,
 				FA065FFD1286167A00FEA989 /* Default@2x.png */,
@@ -327,6 +326,7 @@
 				FA5005601287BFCE002961F0 /* Icon.png */,
 				FA5005611287BFCE002961F0 /* Icon@2x.png */,
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
+				49DD2B50132FA8880031D82E /* GuideView.xib */,
 				8D1107310486CEB800E47090 /* MapsWithMe-Info.plist */,
 			);
 			name = Resources;
