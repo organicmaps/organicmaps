@@ -72,15 +72,22 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 
 - (IBAction)OnGuideClicked:(id)sender
 {
-  m_framework->SetUpdatesEnabled(false);
-  UIView * guideView = [MapsAppDelegate theApp].guideViewController.view;
-  [guideView setFrame:self.view.frame];
-  [UIView transitionFromView:self.view
-                      toView:guideView
-                    duration:0
-                     options:UIViewAnimationOptionTransitionNone
-                  completion:nil];
-  [(UISegmentedControl *)sender setSelectedSegmentIndex:0];
+  UISegmentedControl * pSegmentedControl = (UISegmentedControl *)sender;
+  int const selectedIndex = pSegmentedControl.selectedSegmentIndex;
+
+  if (selectedIndex != 0)
+  {
+    LOG(LINFO, (selectedIndex));
+    m_framework->SetUpdatesEnabled(false);
+    UIView * guideView = [MapsAppDelegate theApp].guideViewController.view;
+    [guideView setFrame:self.view.frame];
+    [UIView transitionFromView:self.view
+                        toView:guideView
+                      duration:0
+                       options:UIViewAnimationOptionTransitionNone
+                    completion:nil];
+    [pSegmentedControl setSelectedSegmentIndex:0];
+  }
 }
 
 - (void) dealloc

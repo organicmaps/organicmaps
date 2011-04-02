@@ -38,14 +38,20 @@
 
 - (IBAction)OnMapClicked:(id)sender
 {
-  NSLog(@"GuideViewController::OnMapClicked");
-  [UIView transitionFromView:self.view
-                      toView:[MapsAppDelegate theApp].mapViewController.view
-                    duration:0
-                     options:UIViewAnimationOptionTransitionNone
-                  completion:nil];
-  [(UISegmentedControl *)sender setSelectedSegmentIndex:1];
-  [[MapsAppDelegate theApp].mapViewController Invalidate];
+  UISegmentedControl * pSegmentedControl = (UISegmentedControl *)sender;
+  int const selectedIndex = pSegmentedControl.selectedSegmentIndex;
+
+  if (selectedIndex != 1)
+  {
+    LOG(LINFO, (selectedIndex));
+    [UIView transitionFromView:self.view
+                        toView:[MapsAppDelegate theApp].mapViewController.view
+                      duration:0
+                       options:UIViewAnimationOptionTransitionNone
+                    completion:nil];
+    [pSegmentedControl setSelectedSegmentIndex:1];
+    [[MapsAppDelegate theApp].mapViewController Invalidate];
+  }
 }
 
 - (void)onEmptySearch
