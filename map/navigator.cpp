@@ -76,57 +76,65 @@ void Navigator::OnSize(int x0, int y0, int w, int h)
 {
   m_Screen.OnSize(x0, y0, w, h);
 
-  m2::RectD globalRect = m_Screen.GlobalRect();
+  m_Screen = AdjustToBounds(m_Screen, m2::RectD(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY));
+
+  if (!m_InAction)
+    m_StartScreen.OnSize(x0, y0, w, h);
+}
+
+ScreenBase const Navigator::AdjustToBounds(ScreenBase const & screen, m2::RectD const & boundRect)
+{
+  ScreenBase res = screen;
+  m2::RectD globalRect = res.GlobalRect();
   m2::RectD tmpRect = globalRect;
 
   /// trying to shift global rect a bit
 
-  if (globalRect.minX() < MercatorBounds::minX)
+  if (globalRect.minX() < boundRect.minX())
   {
-    globalRect.Offset(m2::PointD(MercatorBounds::minX - globalRect.minX(), 0));
+    globalRect.Offset(m2::PointD(boundRect.minX() - globalRect.minX(), 0));
 
-    if (globalRect.maxX() > MercatorBounds::maxX)
+    if (globalRect.maxX() > boundRect.maxX())
     {
-      double k = (globalRect.Center().x - MercatorBounds::maxX) / (globalRect.Center().x - globalRect.maxX());
+      double k = (globalRect.Center().x - boundRect.maxX()) / (globalRect.Center().x - globalRect.maxX());
       globalRect.Scale(k);
     }
   }
 
-  if (globalRect.maxX() > MercatorBounds::maxX)
+  if (globalRect.maxX() > boundRect.maxX())
   {
-    globalRect.Offset(m2::PointD(MercatorBounds::maxX - globalRect.maxX(), 0));
-    if (globalRect.minX() < MercatorBounds::minX)
+    globalRect.Offset(m2::PointD(boundRect.maxX() - globalRect.maxX(), 0));
+    if (globalRect.minX() < boundRect.minX())
     {
-      double k = (globalRect.Center().x - MercatorBounds::minX) / (globalRect.Center().x - globalRect.minX());
+      double k = (globalRect.Center().x - boundRect.minX()) / (globalRect.Center().x - globalRect.minX());
       globalRect.Scale(k);
     }
   }
 
-  if (globalRect.minY() < MercatorBounds::minY)
+  if (globalRect.minY() < boundRect.minY())
   {
-    globalRect.Offset(m2::PointD(MercatorBounds::minY - globalRect.minY(), 0));
+    globalRect.Offset(m2::PointD(boundRect.minY() - globalRect.minY(), 0));
 
-    if (globalRect.maxY() > MercatorBounds::maxY)
+    if (globalRect.maxY() > boundRect.maxY())
     {
-      double k = (globalRect.Center().y - MercatorBounds::maxY) / (globalRect.Center().y - globalRect.maxY());
+      double k = (globalRect.Center().y - boundRect.maxY()) / (globalRect.Center().y - globalRect.maxY());
       globalRect.Scale(k);
     }
   }
 
-  if (globalRect.maxY() > MercatorBounds::maxY)
+  if (globalRect.maxY() > boundRect.maxY())
   {
-    globalRect.Offset(m2::PointD(MercatorBounds::maxY - globalRect.maxY(), 0));
-    if (globalRect.minY() < MercatorBounds::minY)
+    globalRect.Offset(m2::PointD(boundRect.maxY() - globalRect.maxY(), 0));
+    if (globalRect.minY() < boundRect.minY())
     {
-      double k = (globalRect.Center().y - MercatorBounds::minY) / (globalRect.Center().y - globalRect.minY());
+      double k = (globalRect.Center().y - boundRect.minY()) / (globalRect.Center().y - globalRect.minY());
       globalRect.Scale(k);
     }
   }
 
-  m_Screen.SetFromRect(globalRect);
+  res.SetFromRect(globalRect);
 
-  if (!m_InAction)
-    m_StartScreen.OnSize(x0, y0, w, h);
+  return res;
 }
 
 void Navigator::StartDrag(m2::PointD const & pt, double /*timeInSec*/)
@@ -269,6 +277,9 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
 
   if ((!skipMaxScaleAndBordersCheck) && (!CheckMaxScale(tmp) || !CheckBorders(tmp)))
     return false;
+
+//  if (!skipMaxScaleAndBordersCheck && !CheckBorders(tmp))
+//    tmp = AdjustToBounds(tmp, m2::RectD(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY));
 
   if (!CheckMinScale(tmp))
     return false;
