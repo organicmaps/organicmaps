@@ -37,6 +37,8 @@
 	<string>MainWindow-iPad</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
+	<key>UIPrerenderedIcon</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -44,7 +46,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UIPrerenderedIcon</key>
+	<key>UIRequiresPersistentWiFi</key>
 	<true/>
 </dict>
 </plist>
