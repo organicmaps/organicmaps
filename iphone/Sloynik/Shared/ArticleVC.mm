@@ -170,6 +170,9 @@
 
 - (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item
 {
+  // Clear webView.
+  [self.webView loadHTMLString:@"" baseURL:[NSURL URLWithString:@"http://s/"]];
+
   UIView * superView = self.view.superview;
 
   [searchVC viewWillAppear:YES];
