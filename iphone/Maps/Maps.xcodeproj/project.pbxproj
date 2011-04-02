@@ -628,7 +628,6 @@
 			buildSettings = {
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(DEVELOPER_DIR)/omim/omim-iphone-build/out/release\"",
 					"\"$(SRCROOT)/../../../omim-iphonesim-build/out/debug\"",
 				);
 			};
@@ -723,7 +722,6 @@
 			buildSettings = {
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(DEVELOPER_DIR)/omim/omim-iphone-build/out/release\"",
 					"\"$(SRCROOT)/../../../omim-iphonesim-build/out/debug\"",
 				);
 			};
@@ -778,7 +776,6 @@
 			buildSettings = {
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(DEVELOPER_DIR)/omim/omim-iphone-build/out/release\"",
 					"\"$(SRCROOT)/../../../omim-iphonesim-build/out/debug\"",
 				);
 			};
@@ -834,7 +831,6 @@
 			buildSettings = {
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(DEVELOPER_DIR)/omim/omim-iphone-build/out/release\"",
 					"\"$(SRCROOT)/../../../omim-iphonesim-build/out/debug\"",
 				);
 			};
