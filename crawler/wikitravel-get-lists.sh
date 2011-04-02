@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e -u -x
-MY_PATH=`dirname $(stat -f %N $PWD"/"$0)`
 
 LONGPAGES_URL="http://wikitravel.org/wiki/en/index.php?title=Special:Longpages"
 REDIRECTS_URL="http://wikitravel.org/wiki/en/index.php?title=Special:Listredirects"
