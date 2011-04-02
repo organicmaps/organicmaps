@@ -412,7 +412,8 @@ void RenderQueueRoutine::Do()
         }
       }
 
-      if (fullRectRepaint)
+      /// if something were actually drawn, or (exclusive or) we are repainting the whole rect
+      if ((!m_renderState->m_isEmptyModelCurrent) || (fullRectRepaint))
         m_renderState->m_isEmptyModelActual = m_renderState->m_isEmptyModelCurrent;
 
       /// setting the "whole texture" clip rect to render texts opened by panning.
