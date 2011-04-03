@@ -28,8 +28,6 @@
 		49B3FB8E132FA43E00057053 /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B3FB8C132FA43E00057053 /* location@2x.png */; };
 		49DD2B51132FA8880031D82E /* GuideViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 49DD2B4F132FA8880031D82E /* GuideViewController.mm */; };
 		49DD2B52132FA8880031D82E /* GuideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49DD2B50132FA8880031D82E /* GuideView.xib */; };
-		49DE1C9613437BE700A93417 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		49DE1C9913437C2600A93417 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		49DE1CA413437D7A00A93417 /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DE1CA213437D7A00A93417 /* libbzip2.a */; };
 		49DE1CA513437D7A00A93417 /* libwords.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DE1CA313437D7A00A93417 /* libwords.a */; };
 		EE026F0611D6AC0D00645242 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
@@ -241,8 +239,6 @@
 				FA04373212CAB83F00017494 /* libstorage.a in Frameworks */,
 				EEF5745512DE1AD50082F472 /* libfribidi.a in Frameworks */,
 				FA8F8938132D5DB00048E3FE /* libtomcrypt.a in Frameworks */,
-				49DE1C9613437BE700A93417 /* (null) in Frameworks */,
-				49DE1C9913437C2600A93417 /* (null) in Frameworks */,
 				49DE1CA413437D7A00A93417 /* libbzip2.a in Frameworks */,
 				49DE1CA513437D7A00A93417 /* libwords.a in Frameworks */,
 			);
