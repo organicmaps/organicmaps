@@ -12,9 +12,22 @@ for i, line in enumerate(sys.stdin):
   else:
     sys.stderr.write('Downloading {0} {1}\n'.format(i, fileName))
 
-    remoteFile = urllib2.urlopen(url)
-    data = remoteFile.read();
-    remoteFile.close()
+    tryCount = 0
+    while True:
+      try:
+        tryCount = tryCount + 1
+        remoteFile = urllib2.urlopen(url)
+        try:
+          data = remoteFile.read();
+        finally:
+          remoteFile.close()
+        break
+      except IOError as error:
+        sys.stderr.write('Try {0}, error: {1}\n'.format(tryCount, error))
+        if tryCount >= 5:
+          raise
+        else:
+          time.sleep(120)
 
     localFile = open(fileName, 'w')
     localFile.write(data)
