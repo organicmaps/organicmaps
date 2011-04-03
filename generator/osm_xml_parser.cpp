@@ -202,9 +202,8 @@ namespace osm
     string const & elem = m_xmlTags.back();
     if (attr == "id" && (elem == "node" || elem == "way" || elem == "relation"))
     {
-      uint64_t numVal;
-      CHECK(utils::to_uint64(value, numVal), ());
-      m_id = static_cast<int64_t>(numVal);
+      CHECK(utils::to_int64(value, m_id), ());
+      CHECK_NOT_EQUAL(m_id, 0, ("id == 0 is invalid"));
     }
     else if (attr == "lat" && elem == "node")
     {
@@ -216,10 +215,10 @@ namespace osm
     }
     else if (attr == "ref")
     {
-      uint64_t numVal;
-      CHECK(utils::to_uint64(value, numVal), ());
+      int64_t numVal;
+      CHECK(utils::to_int64(value, numVal), ());
       if (elem == "nd")
-        m_ref = static_cast<int64_t>(numVal);
+        m_ref = numVal;
       else if (elem == "member")
         m_member.m_ref = numVal;
     }

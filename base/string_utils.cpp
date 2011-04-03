@@ -53,6 +53,14 @@ bool to_uint64(char const * s, uint64_t & i)
   return !ss.fail();
 }
 
+bool to_int64(char const * s, int64_t & i)
+{
+  istringstream ss;
+  ss.str(s);
+  ss >> i;
+  return !ss.fail();
+}
+
 bool to_double(char const * s, double & d)
 {
   char * stop;

@@ -55,12 +55,14 @@ namespace utils
 
   bool to_int(char const * s, int & i);
   bool to_uint64(char const * s, uint64_t & i);
+  bool to_int64(char const * s, int64_t & i);
   bool to_double(char const * s, double & d);
 
   string to_string(size_t i);
 
   inline bool to_int(string const & s, int & i) { return to_int(s.c_str(), i); }
   inline bool to_uint64(string const & s, uint64_t & i) { return to_uint64(s.c_str(), i); }
+  inline bool to_int64(string const & s, int64_t & i) { return to_int64(s.c_str(), i); }
   inline bool to_double(string const & s, double & d) { return to_double(s.c_str(), d); }
 
   void make_lower_case(string & s);
