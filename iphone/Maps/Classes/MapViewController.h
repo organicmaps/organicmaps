@@ -23,6 +23,7 @@
 	bool m_isDirtyPosition;
 	bool m_isSticking;
 	size_t m_StickyThreshold;
+  int m_iconSequenceNumber;
 
 	m2::PointD m_Pt1, m_Pt2;
   
@@ -31,10 +32,11 @@
 
 - (id) initWithCoder: (NSCoder *)coder;
 
-- (void)  OnUpdateLocation: (m2::PointD const &) mercatorPoint
-           withErrorRadius: (double) errorRadius
-          withLocTimeStamp: (double) locTimeStamp
-          withCurTimeStamp: (double) curTimeStamp;
+- (void) UpdateIcon: (NSTimer *)theTimer;
+- (void) OnUpdateLocation: (m2::PointD const &) mercatorPoint
+          withErrorRadius: (double) errorRadius
+         withLocTimeStamp: (double) locTimeStamp
+         withCurTimeStamp: (double) curTimeStamp;
 
 - (void) OnChangeLocatorMode: (Locator::EMode) oldMode
                  withNewMode: (Locator::EMode) newMode;
@@ -54,5 +56,6 @@
 - (IBAction)OnGuideClicked:(id)sender;
 
 @property (nonatomic, retain) IBOutlet UIBarButtonItem * m_myPositionButton;
+@property (nonatomic, retain) NSTimer * m_iconTimer;
 
 @end

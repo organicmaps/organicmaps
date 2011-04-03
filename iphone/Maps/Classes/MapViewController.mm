@@ -18,14 +18,36 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 @implementation MapViewController
 
 @synthesize m_myPositionButton;
+@synthesize m_iconTimer;
 
   // Make m_framework and m_storage MapsAppDelegate properties instead of global variables.
   framework_t * m_framework = NULL;
   shared_ptr<Locator> m_locator;
   storage::Storage m_storage;
 
-- (IBAction)OnMyPositionClicked:(id)sender
+- (void)UpdateIcon:(NSTimer *)theTimer 
 {
+  MapViewController * controller = (MapViewController*)self;
+  controller->m_iconSequenceNumber = (controller->m_iconSequenceNumber + 1) % 8;
+  
+  int iconNum = controller->m_iconSequenceNumber;
+  if (iconNum > 4)  
+    iconNum = 8 - iconNum;
+
+  NSString * iconName = [[NSString alloc] initWithFormat:@"location-%d.png", iconNum];
+
+  UIImage * image = [UIImage imageNamed:iconName];
+  
+  self.m_myPositionButton.image = image;
+  
+//  [image release];
+  [iconName release];
+}
+
+- (IBAction)OnMyPositionClicked:(id)sender
+{  
+  MapViewController * controller = (MapViewController*)self;
+
 	if (m_locator->mode() == Locator::EPreciseMode)
   {
     m_locator->setMode(Locator::ERoughMode);
@@ -37,12 +59,13 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
     m_isDirtyPosition = true;
 
     ((UIBarButtonItem *)sender).style = UIBarButtonItemStyleDone;
-    /// TODO : change button icon to progress indicator
-
-    //UIActivityIndicatorView * indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleGray];
-
-    //((UIBarButtonItem *)sender).customView = indicator;
-    //[indicator release];
+    
+    controller->m_iconSequenceNumber = 0;
+    self.m_iconTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f
+                                                        target:self
+                                                      selector:@selector(UpdateIcon:)
+                                                      userInfo:nil
+                                                       repeats:YES];
   }
 }
 
@@ -51,8 +74,18 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 {
   if (newMode == Locator::ERoughMode)
   {
-    /// TODO : change button icon to "rough mode"(UIBarButtonItemStyleBordered);
+    if (self.m_iconTimer != nil)
+    {
+      [self.m_iconTimer invalidate];
+      self.m_iconTimer = nil;
+    }
+    
+    UIImage * image = [UIImage imageNamed:@"location-0.png"];
+    
+    m_myPositionButton.image = image;
     m_myPositionButton.style = UIBarButtonItemStyleBordered;
+    
+//    [image release];
   }
 }
 
@@ -63,8 +96,17 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 {
   if (m_isDirtyPosition)
   {
-    /// TODO : change button icon to "precise" mode(UIBarButtonItemStyleDone).
+    if (self.m_iconTimer != nil)
+    {
+      [self.m_iconTimer invalidate];
+      self.m_iconTimer = nil;
+    }
+    
+    UIImage * image = [UIImage imageNamed:@"location-0.png"];
+    m_myPositionButton.image = image;
     m_myPositionButton.style = UIBarButtonItemStyleDone;
+    
+//    [image release];
   }
 }
 
@@ -111,7 +153,7 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 		shared_ptr<yg::ResourceManager> resourceManager = [(EAGLView*)self.view resourceManager];
 
     m_locator = shared_ptr<Locator>(new iphone::Locator());
-
+        
     // tricky boost::bind for objC class methods
 		typedef void (*TUpdateLocationFunc)(id, SEL, m2::PointD const &, double, double, double);
 		SEL updateLocationSel = @selector(OnUpdateLocation:withErrorRadius:withLocTimeStamp:withCurTimeStamp:);
