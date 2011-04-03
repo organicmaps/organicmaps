@@ -6,11 +6,10 @@
   Burkina Faso
   Burundi
   Cameroon
-  Cape Verde
   Central African Republic
   Chad
-  Comoros
-  Democratic Republic of the Congo
+  Congo-Brazzaville
+  Congo-Kinshasa
   Djibouti
   Egypt
   Equatorial Guinea
@@ -26,24 +25,17 @@
   Lesotho
   Liberia
   Libya
-  Madagascar
   Malawi
   Mali
   Mauritania
-  Mauritius
-  Mayotte
   Morocco
   Mozambique
   Namibia
-  Nigeria
   Niger
-  Republic of Congo
-  Reunion
+  Nigeria
   Rwanda
-  Saint Helena
-  Sao Tome and Principe
+  Sahrawi
   Senegal
-  Seychelles
   Sierra Leone
   Somalia
   South Africa
@@ -53,39 +45,25 @@
   Togo
   Tunisia
   Uganda
-  Western Sahara
   Zambia
   Zimbabwe
- Antarctic
-  Antarctica
-  Bouvet Island
-  French Southern Territories
-  Heard Island and McDonald Islands
-  South Georgia and the South Sandwich Islands
  Asia
   Afghanistan
-  Armenia
-  Azerbaijan
   Bangladesh
   Bhutan
-  British Indian Ocean Territory
   Brunei
+  Burma
   Cambodia
   China
   East Timor
-  Georgia
-  Hong Kong
   India
   Indonesia
   Japan
   Kazakhstan
   Kyrgyzstan
   Laos
-  Macao
   Malaysia
-  Maldives
   Mongolia
-  Myanmar
   Nepal
   North Korea
   Pakistan
@@ -99,7 +77,139 @@
   Turkmenistan
   Uzbekistan
   Vietnam
- Australia and Oceania
+ Caribbean
+  Anguilla
+  Antigua and Barbuda
+  Aruba
+  Bahamas
+  Barbados
+  British Virgin Islands
+  Cayman Islands
+  Cuba
+  Curacao
+  Dominica
+  Dominican Republic
+  Grenada
+  Guadeloupe
+  Haiti
+  Jamaica
+  Martinique
+  Montserrat
+  Netherlands Antilles
+  Saint Barthelemy
+  Saint Kitts and Nevis
+  Saint Lucia
+  Saint Vincent and the Grenadines
+  Trinidad and Tobago
+  Turks and Caicos Islands
+  United States Virgin Islands
+ Central America
+  Belize
+  Costa Rica
+  El Salvador
+  Guatemala
+  Honduras
+  Nicaragua
+  Panama
+ Europe
+  Albania
+  Andorra
+  Armenia
+  Austria
+  Azerbaijan
+  Belarus
+  Belgium
+  Bosnia and Herzegovina
+  Bulgaria
+  Croatia
+  Czech Republic
+  Denmark
+  Estonia
+  Finland
+  France
+  Georgia
+  Germany
+  Gibraltar
+  Greece
+  Hungary
+  Iceland
+  Ireland
+  Italy
+  Kosovo
+  Latvia
+  Liechtenstein
+  Lithuania
+  Luxembourg
+  Macedonia
+  Malta
+  Moldova
+  Monaco
+  Montenegro
+  Netherlands
+  Norway
+  Poland
+  Portugal
+  Romania
+  Russia
+  Serbia
+  Slovakia
+  Slovenia
+  Spain
+  Sweden
+  Switzerland
+  UK and Crown Dependencies
+   Guernsey
+   Isle of Man
+   Jersey
+   United Kingdom
+  Ukraine
+ Middle East
+  Bahrain
+  Cyprus
+  Iran
+  Iraq
+  Israel
+  Jordan
+  Kuwait
+  Lebanon
+  Oman
+  Palestine
+  Qatar
+  Saudi Arabia
+  Syria
+  Turkey
+  United Arab Emirates
+  Yemen
+ Minor Islands
+  Arctic
+   Svalbard and Jan Mayen
+  Atlantic Ocean
+   Bermuda
+   Bouvet Island
+   Cape Verde
+   Falkland Islands
+   Faroe Islands
+   Saint Helena, Ascension and Tristan da Cunha
+   Saint Pierre and Miquelon
+   Sao Tome and Principe
+   South Georgia and the South Sandwich Islands
+  Indian Ocean
+   British Indian Ocean Territory
+   Comoros
+   French Southern Territories
+   Heard Island and McDonald Islands
+   Madagascar
+   Maldives
+   Mauritius
+   Mayotte
+   Reunion
+   Seychelles
+ North America
+  Canada
+  Greenland
+  Mexico
+  United States of America
+ Oceania
   American Samoa
   Australia
   Christmas Island
@@ -123,123 +233,7 @@
   Samoa
   Solomon Islands
   Tokelau
-  Tonga
-  Tuvalu
-  Vanuatu
   Wallis and Futuna
- Caribbean
-  Anguilla
-  Antigua and Barbuda
-  Aruba
-  Bahamas
-  Barbados
-  British Virgin Islands
-  Cayman Islands
-  Cuba
-  Dominica
-  Dominican Republic
-  Grenada
-  Guadeloupe
-  Haiti
-  Jamaica
-  Martinique
-  Montserrat
-  Netherlands Antilles
-  Puerto Rico
-  Saint Kitts and Nevis
-  Saint Lucia
-  Saint Vincent and the Grenadines
-  Trinidad and Tobago
-  Turks and Caicos Islands
- Central America
-  Belize
-  Costa Rica
-  El Salvador
-  Guatemala
-  Honduras
-  Nicaragua
-  Panama
- Europe
-  Albania
-  Andorra
-  Austria
-  Azerbaijan
-  Belarus
-  Belgium
-  Bosnia and Herzegovina
-  Bulgaria
-  Croatia
-  Czech Republic
-  Denmark
-  Estonia
-  Faroe Islands
-  Finland
-  France
-  Georgia
-  Germany
-  Gibraltar
-  Greece
-  Guernsey
-  Hungary
-  Iceland
-  Ireland
-  Isle of Man
-  Italy
-  Jersey
-  Kosovo
-  Latvia
-  Liechtenstein
-  Lithuania
-  Luxembourg
-  Macedonia
-  Malta
-  Moldova
-  Monaco
-  Montenegro
-  Netherlands
-  Norway
-  Poland
-  Portugal
-  Romania
-  Russia
-  San Marino
-  Serbia
-  Slovakia
-  Slovenia
-  Spain
-  Svalbard and Jan Mayen
-  Sweden
-  Switzerland
-  Ukraine
-  United Kingdom
-  Vatican City
- Middle East
-  Bahrain
-  Cyprus
-  Iran
-  Iraq
-  Israel
-  Jordan
-  Kuwait
-  Lebanon
-  Oman
-  Palestina
-  Qatar
-  Saudi Arabia
-  Syria
-  Turkey
-  United Arab Emirates
-  Yemen
- North America
-  Bermuda
-  Canada
-  Greenland
-  Mexico
-  Saint Pierre and Miquelon
-  USA
-   Alaska
-   United States
-   United States Minor Outlying Islands
  South America
   Argentina
   Bolivia
@@ -247,7 +241,6 @@
   Chile
   Colombia
   Ecuador
-  Falkland Islands
   French Guiana
   Guyana
   Paraguay
