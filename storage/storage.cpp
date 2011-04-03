@@ -71,6 +71,19 @@ namespace storage
         LOG(LWARNING, (e.what(), "while adding file", *it, "so this file is deleted"));
       }
     }
+    // separate code to activate world data file from resources
+    // if it's not found in writable data dir
+    Platform::FilesList::iterator found = std::find(filesList.begin(), filesList.end(),
+                                                    string(WORLD_FILE_NAME DATA_FILE_EXTENSION));
+    if (found == filesList.end())
+    {
+      try {
+        m_addMap(p.ReadPathForFile(WORLD_FILE_NAME DATA_FILE_EXTENSION));
+      } catch (std::exception const & e)
+      {
+        LOG(LWARNING, (e.what(), "while adding world data file"));
+      }
+    }
   }
 
   string Storage::UpdateBaseUrl() const
