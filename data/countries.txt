@@ -22,7 +22,6 @@
   Guinea-Bissau
   Ivory Coast
   Kenya
-  Lesotho
   Liberia
   Libya
   Malawi
@@ -231,7 +230,6 @@
   Papua New Guinea
   Pitcairn Islands
   Samoa
-  Solomon Islands
   Tokelau
   Wallis and Futuna
  South America
