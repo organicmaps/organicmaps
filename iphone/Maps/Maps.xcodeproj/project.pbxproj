@@ -96,6 +96,7 @@
 		FAF37F01126DCE6F005EA154 /* IPhonePlatform.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAF37EFD126DCE6F005EA154 /* IPhonePlatform.mm */; };
 		FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAFCB63513366E78001A5C59 /* WebViewController.mm */; };
 		FAFCB63813367AD1001A5C59 /* about-travelguide-iphone.html in Resources */ = {isa = PBXBuildFile; fileRef = FAFCB63713367AD1001A5C59 /* about-travelguide-iphone.html */; };
+		FAFF422A1347F101009BBB14 /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FAFF42291347F101009BBB14 /* World.mwm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -212,6 +213,7 @@
 		FAFCB63413366E78001A5C59 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		FAFCB63513366E78001A5C59 /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewController.mm; sourceTree = "<group>"; };
 		FAFCB63713367AD1001A5C59 /* about-travelguide-iphone.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "about-travelguide-iphone.html"; path = "../../data/about-travelguide-iphone.html"; sourceTree = SOURCE_ROOT; };
+		FAFF42291347F101009BBB14 /* World.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm; path = ../../data/World.mwm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -374,6 +376,7 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FAFF42291347F101009BBB14 /* World.mwm */,
 				4938BB1C1343652600E0815A /* dictionary.slf */,
 				FAFCB63713367AD1001A5C59 /* about-travelguide-iphone.html */,
 				EEFE7C3112F8CC2D006AF8C3 /* 01_dejavusans.ttf */,
@@ -578,6 +581,7 @@
 				FAFCB63813367AD1001A5C59 /* about-travelguide-iphone.html in Resources */,
 				4938BB1D1343652600E0815A /* dictionary.slf in Resources */,
 				4983AE11134631F600C82DB7 /* GuideView-iPad.xib in Resources */,
+				FAFF422A1347F101009BBB14 /* World.mwm in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
