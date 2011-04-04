@@ -13,8 +13,6 @@
 @synthesize navBar;
 @synthesize navSearch;
 @synthesize navArticle;
-@synthesize swipeLeftGestureRecognizer;
-@synthesize swipeRightGestureRecognizer;
 @synthesize pinchGestureRecognizer;
 
 - (void)dealloc
@@ -24,8 +22,6 @@
   self.navBar = nil;
   self.navSearch = nil;
   self.navArticle = nil;
-  self.swipeLeftGestureRecognizer = nil;
-  self.swipeRightGestureRecognizer = nil;
   self.pinchGestureRecognizer = nil;
   [super dealloc];
 }
@@ -38,48 +34,6 @@
 
   if (self.pinchGestureRecognizer)
     [self.webView addGestureRecognizer:self.pinchGestureRecognizer];
-  if (self.swipeLeftGestureRecognizer)
-    [self.webView addGestureRecognizer:self.swipeLeftGestureRecognizer];
-  if (self.swipeRightGestureRecognizer)
-    [self.webView addGestureRecognizer:self.swipeRightGestureRecognizer];
-}
-
-- (void)articleTransition:(unsigned int)newArticleId
-                     type:(NSString *)type
-                  subtype:(NSString *)subtype
-{
-  UIWebView * oldWebView = [[self.webView retain] autorelease];
-  oldWebView.delegate = nil;
-  [self loadWebView];
-
-  [self setArticleById:newArticleId];
-
-  [oldWebView removeFromSuperview];
-  [self.view addSubview:self.webView];
-
-  CATransition * animation = [CATransition animation];
-  animation.duration = 0.2;
-  animation.type = type;
-  animation.subtype = subtype;
-  animation.timingFunction =
-  [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-  [[self.view layer] addAnimation:animation forKey:@"SwitchToLeftArticleView"];
-}
-
-- (void)onSwipeLeft
-{
-  if (m_articleId + 1 < GetSloynikEngine()->WordCount())
-    [self articleTransition:(m_articleId + 1)
-                       type:kCATransitionReveal
-                    subtype:kCATransitionFromRight];
-}
-
-- (void)onSwipeRight
-{
-  if (m_articleId > 0)
-    [self articleTransition:(m_articleId-1)
-                       type:kCATransitionMoveIn
-                    subtype:kCATransitionFromLeft];
 }
 
 - (unsigned int)textSizeAdjustment
@@ -119,21 +73,6 @@
   [self.navBar pushNavigationItem:navSearch  animated:NO];
   [self.navBar pushNavigationItem:navArticle animated:NO];
 
-  if ([NSClassFromString(@"UISwipeGestureRecognizer")
-       instancesRespondToSelector:@selector(setDirection:)])
-  {
-    LOG(LINFO, ("Using", "UISwipeGestureRecognizer"));
-    self.swipeLeftGestureRecognizer = [[[UISwipeGestureRecognizer alloc]
-                                        initWithTarget:self action:@selector(onSwipeLeft)]
-                                       autorelease];
-    self.swipeRightGestureRecognizer = [[[UISwipeGestureRecognizer alloc]
-                                         initWithTarget:self action:@selector(onSwipeRight)]
-                                        autorelease];
-    self.swipeLeftGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-    self.swipeRightGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
-    self.swipeLeftGestureRecognizer.delegate = self;
-    self.swipeRightGestureRecognizer.delegate = self;
-  }
   if (NSClassFromString(@"UIPinchGestureRecognizer"))
   {
     self.pinchGestureRecognizer = [[[UIPinchGestureRecognizer alloc]

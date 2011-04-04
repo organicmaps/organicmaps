@@ -8,8 +8,6 @@
   UINavigationBar * navBar;    // Navigation bar.
   UINavigationItem * navSearch;
   UINavigationItem * navArticle;
-  UISwipeGestureRecognizer * swipeLeftGestureRecognizer;
-  UISwipeGestureRecognizer * swipeRightGestureRecognizer;
   UIPinchGestureRecognizer * pinchGestureRecognizer;
   CGRect m_webViewFrame;
   unsigned int m_articleId;
@@ -22,8 +20,6 @@
 @property (nonatomic, retain) UINavigationBar * navBar;
 @property (nonatomic, retain) UINavigationItem * navSearch;
 @property (nonatomic, retain) UINavigationItem * navArticle;
-@property (nonatomic, retain) UISwipeGestureRecognizer * swipeLeftGestureRecognizer;
-@property (nonatomic, retain) UISwipeGestureRecognizer * swipeRightGestureRecognizer;
 @property (nonatomic, retain) UIPinchGestureRecognizer * pinchGestureRecognizer;
 
 - (void)setArticleById:(unsigned int)articleId;
