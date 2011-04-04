@@ -17,17 +17,18 @@
 #include "../base/start_mem_debug.hpp"
 
 Navigator::Navigator()
-  : m_orientation(EOrientation0),
-    m_worldRect(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY)
+  : m_worldRect(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY),
+    m_orientation(EOrientation0)
+
 {
 }
 
 Navigator::Navigator(ScreenBase const & screen)
-  : m_StartScreen(screen),
+  : m_worldRect(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY),
+  m_StartScreen(screen),
   m_Screen(screen),
   m_InAction(false),
-  m_orientation(EOrientation0),
-  m_worldRect(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY)
+  m_orientation(EOrientation0)
 {
 }
 
@@ -40,12 +41,12 @@ void Navigator::SetMinScreenParams(unsigned pxMinWidth, double metresMinWidth)
 void Navigator::SetFromRect(m2::RectD const & r)
 {
   m_Screen.SetFromRect(r);
-  m_Screen = AdjustToBounds(m_Screen, m_worldRect, true);
+  m_Screen = ScaleInto(m_Screen, m_worldRect);
 
   if (!m_InAction)
   {
     m_StartScreen.SetFromRect(r);
-    m_StartScreen = AdjustToBounds(m_StartScreen, m_worldRect, true);
+    m_StartScreen = ScaleInto(m_StartScreen, m_worldRect);
   }
 }
 
@@ -82,100 +83,89 @@ bool Navigator::LoadState()
 void Navigator::OnSize(int x0, int y0, int w, int h)
 {
   m_Screen.OnSize(x0, y0, w, h);
-
-  m_Screen = AdjustToBounds(m_Screen, m_worldRect, false);
+  m_Screen = ShrinkAndScaleInto(m_Screen, m_worldRect);
 
   if (!m_InAction)
   {
     m_StartScreen.OnSize(x0, y0, w, h);
-    m_StartScreen = AdjustToBounds(m_StartScreen, m_worldRect, false);
+    m_StartScreen = ShrinkAndScaleInto(m_StartScreen, m_worldRect);
   }
 }
 
-ScreenBase const Navigator::AdjustToBounds(ScreenBase const & screen, m2::RectD const & boundRect, bool doScaleOnly)
+bool Navigator::CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
+{
+  m2::RectD globalRect = screen.GlobalRect();
+  return (boundRect.SizeX() >= globalRect.SizeX()) && (boundRect.SizeY() >= globalRect.SizeY());
+}
+
+ScreenBase const Navigator::ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   ScreenBase res = screen;
   m2::RectD globalRect = res.GlobalRect();
-  m2::RectD tmpRect = globalRect;
+  if (globalRect.minX() < boundRect.minX())
+    globalRect.Offset(boundRect.minX() - globalRect.minX(), 0);
+  if (globalRect.maxX() > boundRect.maxX())
+    globalRect.Offset(boundRect.maxX() - globalRect.maxX(), 0);
+  if (globalRect.minY() < boundRect.minY())
+    globalRect.Offset(0, boundRect.minY() - globalRect.minY());
+  if (globalRect.maxY() > boundRect.maxY())
+    globalRect.Offset(0, boundRect.maxY() - globalRect.maxY());
+  res.SetFromRect(globalRect);
+  return res;
+}
 
-  /// trying to shift global rect a bit
+ScreenBase const Navigator::ScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
+{
+  ScreenBase res = screen;
+  m2::RectD globalRect = res.GlobalRect();
+
+  if (globalRect.minX() < boundRect.minX())
+    globalRect.Scale((boundRect.minX() - globalRect.Center().x) / (globalRect.minX() - globalRect.Center().x));
+  if (globalRect.maxX() > boundRect.maxX())
+    globalRect.Scale((boundRect.maxX() - globalRect.Center().x) / (globalRect.maxX() - globalRect.Center().x));
+  if (globalRect.minY() < boundRect.minY())
+    globalRect.Scale((boundRect.minY() - globalRect.Center().y) / (globalRect.minY() - globalRect.Center().y));
+  if (globalRect.maxY() > boundRect.maxY())
+    globalRect.Scale((boundRect.maxY() - globalRect.Center().y) / (globalRect.maxY() - globalRect.Center().y));
+
+  res.SetFromRect(globalRect);
+  return res;
+}
+
+ScreenBase const Navigator::ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
+{
+  ScreenBase res = screen;
+  m2::RectD globalRect = res.GlobalRect();
 
   if (globalRect.minX() < boundRect.minX())
   {
-    if (doScaleOnly)
-    {
-      double k = (globalRect.Center().x - boundRect.minX()) / (globalRect.Center().x - globalRect.minX());
-      globalRect.Scale(k);
-    }
-    else
-    {
-      globalRect.Offset(m2::PointD(boundRect.minX() - globalRect.minX(), 0));
-
-      if (globalRect.maxX() > boundRect.maxX())
-      {
-        double k = (globalRect.Center().x - boundRect.maxX()) / (globalRect.Center().x - globalRect.maxX());
-        globalRect.Scale(k);
-      }
-    }
+    globalRect.Offset(boundRect.minX() - globalRect.minX(), 0);
+    if (globalRect.maxX() > boundRect.maxX())
+      globalRect.Scale((globalRect.Center().x - boundRect.maxX()) / (globalRect.Center().x - globalRect.maxX()));
   }
 
   if (globalRect.maxX() > boundRect.maxX())
   {
-    if (doScaleOnly)
-    {
-      double k = (globalRect.Center().x - boundRect.maxX()) / (globalRect.Center().x - globalRect.maxX());
-      globalRect.Scale(k);
-    }
-    else
-    {
-      globalRect.Offset(m2::PointD(boundRect.maxX() - globalRect.maxX(), 0));
-      if (globalRect.minX() < boundRect.minX())
-      {
-        double k = (globalRect.Center().x - boundRect.minX()) / (globalRect.Center().x - globalRect.minX());
-        globalRect.Scale(k);
-      }
-    }
+    globalRect.Offset(boundRect.maxX() - globalRect.maxX(), 0);
+    if (globalRect.minX() < boundRect.minX())
+      globalRect.Scale((globalRect.Center().x - boundRect.minX()) / (globalRect.Center().x - globalRect.minX()));
   }
 
   if (globalRect.minY() < boundRect.minY())
   {
-    if (doScaleOnly)
-    {
-      double k = (globalRect.Center().y - boundRect.minY()) / (globalRect.Center().y - globalRect.minY());
-      globalRect.Scale(k);
-    }
-    else
-    {
-      globalRect.Offset(m2::PointD(boundRect.minY() - globalRect.minY(), 0));
-
-      if (globalRect.maxY() > boundRect.maxY())
-      {
-        double k = (globalRect.Center().y - boundRect.maxY()) / (globalRect.Center().y - globalRect.maxY());
-        globalRect.Scale(k);
-      }
-    }
+    globalRect.Offset(0, boundRect.minY() - globalRect.minY());
+    if (globalRect.maxY() > boundRect.maxY())
+      globalRect.Scale((globalRect.Center().y - boundRect.maxY()) / (globalRect.Center().y - globalRect.maxY()));
   }
 
   if (globalRect.maxY() > boundRect.maxY())
   {
-    if (doScaleOnly)
-    {
-      double k = (globalRect.Center().y - boundRect.maxY()) / (globalRect.Center().y - globalRect.maxY());
-      globalRect.Scale(k);
-    }
-    else
-    {
-      globalRect.Offset(m2::PointD(boundRect.maxY() - globalRect.maxY(), 0));
-      if (globalRect.minY() < boundRect.minY())
-      {
-        double k = (globalRect.Center().y - boundRect.minY()) / (globalRect.Center().y - globalRect.minY());
-        globalRect.Scale(k);
-      }
-    }
+    globalRect.Offset(0, boundRect.maxY() - globalRect.maxY());
+    if (globalRect.minY() < boundRect.minY())
+      globalRect.Scale((globalRect.Center().y - boundRect.minY()) / (globalRect.Center().y - globalRect.minY()));
   }
 
   res.SetFromRect(globalRect);
-
   return res;
 }
 
@@ -195,6 +185,7 @@ void Navigator::DoDrag(m2::PointD const & pt, double /*timeInSec*/)
   //m_Screen = m_StartScreen;
 
   ScreenBase tmp = m_StartScreen;
+  tmp = ShrinkInto(tmp, m_worldRect);
 
   int dx = pt.x - m_StartPt1.x;
   int dy = pt.y - m_StartPt1.y;
@@ -202,12 +193,17 @@ void Navigator::DoDrag(m2::PointD const & pt, double /*timeInSec*/)
   tmp.Move(dx, 0);
   if (!CheckBorders(tmp))
     dx = 0;
+
   tmp = m_StartScreen;
+  tmp = ShrinkInto(tmp, m_worldRect);
+
   tmp.Move(0, dy);
   if (!CheckBorders(tmp))
     dy = 0;
 
   tmp = m_StartScreen;
+  tmp = ShrinkInto(tmp, m_worldRect);
+
   tmp.Move(dx, dy);
 
   if (CheckBorders(tmp))
@@ -313,14 +309,23 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
   tmp.SetGtoPMatrix(newM);
   tmp.Rotate(tmp.GetAngle());
 
-  if ((!skipMaxScaleAndBordersCheck) && (!CheckMaxScale(tmp) || !CheckBorders(tmp)))
+  if (!skipMaxScaleAndBordersCheck && !CheckMaxScale(tmp))
     return false;
 
-//  if (!skipMaxScaleAndBordersCheck && !CheckBorders(tmp))
-//    tmp = AdjustToBounds(tmp, m_worldRect);
+  if (!skipMaxScaleAndBordersCheck && !CheckBorders(tmp))
+  {
+    if (CanShrinkInto(tmp, m_worldRect))
+      tmp = ShrinkInto(tmp, m_worldRect);
+    else
+      return false;
+  }
 
   if (!CheckMinScale(tmp))
     return false;
+
+  /// re-checking the borders, as we might violate them a bit (don't know why).
+  if (!CheckBorders(tmp))
+    tmp = ScaleInto(tmp, m_worldRect);
 
   m_Screen = tmp;
 

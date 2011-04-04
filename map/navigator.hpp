@@ -69,8 +69,11 @@ private:
   bool CheckMaxScale(ScreenBase const & screen);
   bool CheckBorders(ScreenBase const & screen);
 
-  // adjusting screen to specified limits
-  ScreenBase const AdjustToBounds(ScreenBase const & screen, m2::RectD const & boundRect, bool doScaleOnly);
+  bool CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect);
+  ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect);
+  ScreenBase const ScaleInto(ScreenBase const & screen, m2::RectD const & boundRect);
+  ScreenBase const ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD const & boundRect);
+
   // Internal screen corresponding to the state when navigation began with StartDrag or StartScale.
   ScreenBase m_StartScreen;
   // Internal screen to do GtoP() and PtoG() calculations. It is always up to date with navigation.

@@ -172,10 +172,12 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 
     if (!res)
       m_framework->SetMaxWorldRect();
+    
+    m_framework->UpdateNow();
 
     m_framework->initializeGL([(EAGLView*)self.view renderContext], resourceManager);
 
-    m_framework->UpdateNow();
+//    m_framework->UpdateNow();
 	}
 
 	return self;
