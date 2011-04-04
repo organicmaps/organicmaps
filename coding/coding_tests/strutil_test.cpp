@@ -15,7 +15,9 @@ UNIT_TEST(UrlEncode)
 {
   TEST_EQUAL(UrlEncode(""), "", ());
   TEST_EQUAL(UrlEncode(" "), "%20", ());
+  TEST_EQUAL(UrlEncode("%% "), "%25%25%20", ());
   TEST_EQUAL(UrlEncode("20"), "20", ());
+  TEST_EQUAL(UrlEncode("Guinea-Bissau"), "Guinea-Bissau", ());
   TEST_EQUAL(UrlEncode(orig1), enc1, ());
   TEST_EQUAL(UrlEncode(orig2), enc2, ());
   TEST_EQUAL(UrlEncode(orig3), enc3, ());
@@ -26,7 +28,9 @@ UNIT_TEST(UrlDecode)
 {
   TEST_EQUAL(UrlDecode(""), "", ());
   TEST_EQUAL(UrlDecode("%20"), " ", ());
+  TEST_EQUAL(UrlDecode("%25%25%20"), "%% ", ());
   TEST_EQUAL(UrlDecode("20"), "20", ());
+  TEST_EQUAL(UrlDecode("Guinea-Bissau"), "Guinea-Bissau", ());
   TEST_EQUAL(UrlDecode(enc1), orig1, ());
   TEST_EQUAL(UrlDecode(enc2), orig2, ());
   TEST_EQUAL(UrlDecode(enc3), orig3, ());

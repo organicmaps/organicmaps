@@ -78,7 +78,7 @@ inline string UrlEncode(string const & rawUrl)
   for (size_t i = 0; i < result.size(); ++i)
   {
     char const c = result[i];
-    if (c < '.' || c == '/' || (c > '9' && c < 'A') || (c > 'Z' && c < '_')
+    if (c < '-' || c == '/' || (c > '9' && c < 'A') || (c > 'Z' && c < '_')
         || c == '`' || (c > 'z' && c < '~') || c > '~')
     {
       string hexStr("%");
