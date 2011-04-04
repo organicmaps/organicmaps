@@ -284,7 +284,7 @@ namespace qt
         size = m_storage.CountrySizeInBytes(index);
         break;
       case EDownloadFailed:
-        statusString = tr("Download has failed :(");
+        statusString = tr("Download has failed");
         rowColor = COLOR_DOWNLOADFAILED;
         size = m_storage.CountrySizeInBytes(index);
         break;
