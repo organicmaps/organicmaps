@@ -19,35 +19,29 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 
 @synthesize m_myPositionButton;
 @synthesize m_iconTimer;
+@synthesize m_iconSequenceNumber;
 
-  // Make m_framework and m_storage MapsAppDelegate properties instead of global variables.
+  // @TODO Make m_framework and m_storage MapsAppDelegate properties instead of global variables.
   framework_t * m_framework = NULL;
   shared_ptr<Locator> m_locator;
   storage::Storage m_storage;
 
+
 - (void)UpdateIcon:(NSTimer *)theTimer 
 {
-  MapViewController * controller = (MapViewController*)self;
-  controller->m_iconSequenceNumber = (controller->m_iconSequenceNumber + 1) % 8;
+  m_iconSequenceNumber = (m_iconSequenceNumber + 1) % 8;
   
-  int iconNum = controller->m_iconSequenceNumber;
-  if (iconNum > 4)  
+  int iconNum = m_iconSequenceNumber;
+  if (iconNum > 4)
     iconNum = 8 - iconNum;
 
   NSString * iconName = [[NSString alloc] initWithFormat:@"location-%d.png", iconNum];
-
-  UIImage * image = [UIImage imageNamed:iconName];
-  
-  self.m_myPositionButton.image = image;
-  
-//  [image release];
+  m_myPositionButton.image = [UIImage imageNamed:iconName];
   [iconName release];
 }
 
 - (IBAction)OnMyPositionClicked:(id)sender
 {  
-  MapViewController * controller = (MapViewController*)self;
-
 	if (m_locator->mode() == Locator::EPreciseMode)
   {
     m_locator->setMode(Locator::ERoughMode);
@@ -60,8 +54,8 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 
     ((UIBarButtonItem *)sender).style = UIBarButtonItemStyleDone;
     
-    controller->m_iconSequenceNumber = 0;
-    self.m_iconTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f
+    m_iconSequenceNumber = 0;
+    m_iconTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f
                                                         target:self
                                                       selector:@selector(UpdateIcon:)
                                                       userInfo:nil
@@ -74,18 +68,14 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 {
   if (newMode == Locator::ERoughMode)
   {
-    if (self.m_iconTimer != nil)
+    if (m_iconTimer != nil)
     {
-      [self.m_iconTimer invalidate];
-      self.m_iconTimer = nil;
+      [m_iconTimer invalidate];
+      m_iconTimer = nil;
     }
     
-    UIImage * image = [UIImage imageNamed:@"location-0.png"];
-    
-    m_myPositionButton.image = image;
+    m_myPositionButton.image = [UIImage imageNamed:@"location-0.png"];
     m_myPositionButton.style = UIBarButtonItemStyleBordered;
-    
-//    [image release];
   }
 }
 
@@ -96,17 +86,14 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 {
   if (m_isDirtyPosition)
   {
-    if (self.m_iconTimer != nil)
+    if (m_iconTimer != nil)
     {
-      [self.m_iconTimer invalidate];
-      self.m_iconTimer = nil;
+      [m_iconTimer invalidate];
+      m_iconTimer = nil;
     }
     
-    UIImage * image = [UIImage imageNamed:@"location-0.png"];
-    m_myPositionButton.image = image;
+    m_myPositionButton.image = [UIImage imageNamed:@"location-0.png"];
     m_myPositionButton.style = UIBarButtonItemStyleDone;
-    
-//    [image release];
   }
 }
 

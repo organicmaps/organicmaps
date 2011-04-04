@@ -28,6 +28,7 @@
 	m2::PointD m_Pt1, m_Pt2;
   
   UIBarButtonItem * m_myPositionButton;
+  NSTimer * m_iconTimer;
 }
 
 - (id) initWithCoder: (NSCoder *)coder;
@@ -57,5 +58,6 @@
 
 @property (nonatomic, retain) IBOutlet UIBarButtonItem * m_myPositionButton;
 @property (nonatomic, retain) NSTimer * m_iconTimer;
+@property (nonatomic, assign) int m_iconSequenceNumber;
 
 @end
