@@ -74,7 +74,7 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
       m_iconTimer = nil;
     }
     
-    m_myPositionButton.image = [UIImage imageNamed:@"location-0.png"];
+    m_myPositionButton.image = [UIImage imageNamed:@"location.png"];
     m_myPositionButton.style = UIBarButtonItemStyleBordered;
   }
 }
@@ -84,7 +84,7 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
          withLocTimeStamp: (double) locTimeStamp
          withCurTimeStamp: (double) curTimeStamp
 {
-  if (m_isDirtyPosition)
+  if (m_isDirtyPosition && (curTimeStamp - locTimeStamp >= 0) && (m_locator->mode() == Locator::EPreciseMode))
   {
     if (m_iconTimer != nil)
     {
@@ -92,8 +92,9 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
       m_iconTimer = nil;
     }
     
-    m_myPositionButton.image = [UIImage imageNamed:@"location-0.png"];
+    m_myPositionButton.image = [UIImage imageNamed:@"location.png"];
     m_myPositionButton.style = UIBarButtonItemStyleDone;
+    m_isDirtyPosition = false;
   }
 }
 
