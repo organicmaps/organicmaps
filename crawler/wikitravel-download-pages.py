@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/opt/local/bin/python
 import json
 import os.path
 import sys
