@@ -3,7 +3,6 @@
 @interface ArticleVC : UIViewController
 <UINavigationBarDelegate, UIWebViewDelegate, UIGestureRecognizerDelegate>
 {
-  UIViewController * searchVC; // Search controller.
   UIWebView * webView;         // Web view that displays an article.
   UINavigationBar * navBar;    // Navigation bar.
   UINavigationItem * navSearch;
@@ -15,7 +14,6 @@
   double m_fontScaleOnPinchStart;
 }
 
-@property (nonatomic, assign) UIViewController * searchVC; // "assign" to avoid circular references.
 @property (nonatomic, retain) UIWebView * webView;
 @property (nonatomic, retain) UINavigationBar * navBar;
 @property (nonatomic, retain) UINavigationItem * navSearch;

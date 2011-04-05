@@ -8,7 +8,6 @@
 
 @implementation ArticleVC
 
-@synthesize searchVC;
 @synthesize webView;
 @synthesize navBar;
 @synthesize navSearch;
@@ -17,7 +16,6 @@
 
 - (void)dealloc
 {
-  self.searchVC = nil;
   self.webView = nil;
   self.navBar = nil;
   self.navSearch = nil;
@@ -114,15 +112,6 @@
 
   UIView * superView = self.view.superview;
 
-  [searchVC viewWillAppear:YES];
-  [self viewWillDisappear:YES];
-
-  [self.view removeFromSuperview];
-  [superView addSubview:self.searchVC.view];
-
-  [self viewDidDisappear:YES];
-  [searchVC viewDidAppear:YES];
-
   CATransition * animation = [CATransition animation];
   animation.duration = 0.2;
   animation.type = kCATransitionPush;
@@ -131,7 +120,8 @@
       [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
   [[superView layer] addAnimation:animation forKey:@"SwitchToSearchView"];
 
-  self.searchVC = nil;
+  [self dismissModalViewControllerAnimated:NO];
+
   return NO;
 }
 

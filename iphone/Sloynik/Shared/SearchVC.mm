@@ -163,25 +163,15 @@ struct SloynikData
 {
   [self.resultsView deselectRowAtIndexPath:[self.resultsView indexPathForSelectedRow] animated:NO];
 
-  self.articleVC.searchVC = self;
-  UIView * superView = self.view.superview;
-
-  [self.articleVC viewWillAppear:YES];
-  [self viewWillDisappear:YES];
-
-  [self.view removeFromSuperview];
-  [superView addSubview:[self.articleVC view]];
-
-  [self viewDidDisappear:YES];
-  [self.articleVC viewDidAppear:YES];
-
   CATransition * animation = [CATransition animation];
 	animation.duration = 0.2;
   animation.type = kCATransitionPush;
 	animation.subtype = kCATransitionFromRight;
   animation.timingFunction =
-  [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-	[[superView layer] addAnimation:animation forKey:@"SwitchToArticleView"];
+      [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+	[[self.view.superview layer] addAnimation:animation forKey:@"SwitchToArticleView"];
+
+  [self presentModalViewController:self.articleVC animated:NO];
 }
 
 - (void)onEmptySearch
