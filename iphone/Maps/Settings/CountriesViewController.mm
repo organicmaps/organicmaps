@@ -38,6 +38,19 @@ static NSInteger RowFromIndex(TIndex const & index)
   	return index.m_group;
 }
 
+
+static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
+{
+  TIndex theirsFixed = theirs;
+  if (theirsFixed.m_region != -1)
+    theirsFixed.m_region = -1;
+  else if (theirsFixed.m_country != -1)
+    theirsFixed.m_country = -1;
+  else
+    theirsFixed.m_group = -1;
+  return ours == theirsFixed;
+}
+
 @implementation CountriesViewController
 
 - (void) OnCloseButton:(id)sender
@@ -351,18 +364,24 @@ TIndex g_clickedIndex;
 
 - (void) OnCountryChange: (TIndex const &) index
 {
-  UITableView * tableView = (UITableView *)self.view;
-  UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: RowFromIndex(index) inSection: 0]];
-  if (cell)
-    [self UpdateCell: cell forCountry: index];
+  if (IsOurIndex(index, m_index))
+  {
+    UITableView * tableView = (UITableView *)self.view;
+    UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: RowFromIndex(index) inSection: 0]];
+    if (cell)
+      [self UpdateCell: cell forCountry: index];
+  }
 }
 
 - (void) OnDownload: (TIndex const &) index withProgress: (TDownloadProgress const &) progress
 {
-  UITableView * tableView = (UITableView *)self.view;
-  UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: RowFromIndex(index) inSection: 0]];
-  if (cell)
-    cell.detailTextLabel.text = [NSString stringWithFormat: @"Downloading %qu%%, touch to cancel", progress.first * 100 / progress.second];
+  if (IsOurIndex(index, m_index))
+  {
+    UITableView * tableView = (UITableView *)self.view;
+    UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: RowFromIndex(index) inSection: 0]];
+    if (cell)
+      cell.detailTextLabel.text = [NSString stringWithFormat: @"Downloading %qu%%, touch to cancel", progress.first * 100 / progress.second];
+  }
 }
 
 @end
