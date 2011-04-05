@@ -250,7 +250,7 @@ namespace yg
 
   vector<shared_ptr<Font> > & GlyphCacheImpl::getFonts(uint16_t sym)
   {
-    if ((m_lastUsedBlock != m_unicodeBlocks.end()) && (m_lastUsedBlock->hasSymbol(sym)))
+    if ((m_lastUsedBlock != m_unicodeBlocks.end()) && m_lastUsedBlock->hasSymbol(sym))
      return m_lastUsedBlock->m_fonts;
 
     unicode_blocks_t::iterator it = lower_bound(m_unicodeBlocks.begin(),
@@ -259,14 +259,14 @@ namespace yg
                                                 sym_in_block());
 
     if (it == m_unicodeBlocks.end())
-     it = (--m_unicodeBlocks.rbegin()).base();
+     it = m_unicodeBlocks.end()-1;
     else
       if (it != m_unicodeBlocks.begin())
-        it = --it;
+        it = it-1;
 
     m_lastUsedBlock = it;
 
-    if ((it != m_unicodeBlocks.end()) && (it->hasSymbol(sym)))
+    if ((it != m_unicodeBlocks.end()) && it->hasSymbol(sym))
     {
       if (it->m_fonts.empty())
       {
