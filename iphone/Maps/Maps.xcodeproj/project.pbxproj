@@ -149,7 +149,6 @@
 		EE026F0911D6AC2800645242 /* drawing_rules.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drawing_rules.bin; path = ../../data/drawing_rules.bin; sourceTree = SOURCE_ROOT; };
 		EE1201FF11CD464100ABDD5D /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbase.a; sourceTree = SOURCE_ROOT; };
 		EE12020011CD464100ABDD5D /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcoding.a; sourceTree = SOURCE_ROOT; };
-		EE12020111CD464100ABDD5D /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcurl.a; sourceTree = SOURCE_ROOT; };
 		EE12020211CD464100ABDD5D /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexpat.a; sourceTree = SOURCE_ROOT; };
 		EE12020311CD464100ABDD5D /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfreetype.a; sourceTree = SOURCE_ROOT; };
 		EE12020411CD464100ABDD5D /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgeometry.a; sourceTree = SOURCE_ROOT; };
@@ -462,7 +461,6 @@
 				FA04373112CAB83F00017494 /* libstorage.a */,
 				EE1201FF11CD464100ABDD5D /* libbase.a */,
 				EE12020011CD464100ABDD5D /* libcoding.a */,
-				EE12020111CD464100ABDD5D /* libcurl.a */,
 				EE12020211CD464100ABDD5D /* libexpat.a */,
 				EE12020311CD464100ABDD5D /* libfreetype.a */,
 				EE12020411CD464100ABDD5D /* libgeometry.a */,
