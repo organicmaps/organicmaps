@@ -25,7 +25,9 @@ SUBDIRS = 3party \
           qt_tstfrm \
           indexer/indexer_tests \
           yg/yg_tests \
-          qt
+          qt \
+          words words_tests \
+          publisher publisher_tests
 } else {
   # libraries which are used on iphone and bada
   SUBDIRS = 3party \
