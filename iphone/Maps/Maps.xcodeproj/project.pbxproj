@@ -40,21 +40,13 @@
 		EE12020F11CD464100ABDD5D /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020511CD464100ABDD5D /* libindexer.a */; };
 		EE12021011CD464100ABDD5D /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020611CD464100ABDD5D /* libmap.a */; };
 		EE12021211CD464100ABDD5D /* libyg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020811CD464100ABDD5D /* libyg.a */; };
-		EE180DD21348EDED007F727D /* location-0.png in Resources */ = {isa = PBXBuildFile; fileRef = EE180DC81348EDED007F727D /* location-0.png */; };
-		EE180DD31348EDED007F727D /* location-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE180DC91348EDED007F727D /* location-0@2x.png */; };
-		EE180DD41348EDED007F727D /* location-1.png in Resources */ = {isa = PBXBuildFile; fileRef = EE180DCA1348EDED007F727D /* location-1.png */; };
-		EE180DD51348EDED007F727D /* location-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE180DCB1348EDED007F727D /* location-1@2x.png */; };
-		EE180DD61348EDED007F727D /* location-2.png in Resources */ = {isa = PBXBuildFile; fileRef = EE180DCC1348EDED007F727D /* location-2.png */; };
-		EE180DD71348EDED007F727D /* location-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE180DCD1348EDED007F727D /* location-2@2x.png */; };
-		EE180DD81348EDED007F727D /* location-3.png in Resources */ = {isa = PBXBuildFile; fileRef = EE180DCE1348EDED007F727D /* location-3.png */; };
-		EE180DD91348EDED007F727D /* location-3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE180DCF1348EDED007F727D /* location-3@2x.png */; };
-		EE180DDA1348EDED007F727D /* location-4.png in Resources */ = {isa = PBXBuildFile; fileRef = EE180DD01348EDED007F727D /* location-4.png */; };
-		EE180DDB1348EDED007F727D /* location-4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE180DD11348EDED007F727D /* location-4@2x.png */; };
 		EE583CBB12F773F00042CBE3 /* unicode_blocks.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */; };
 		EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */; };
 		EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297E1219ECA300EB67A9 /* RenderContext.mm */; };
 		EE7F29831219ECA300EB67A9 /* WindowHandle.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F29801219ECA300EB67A9 /* WindowHandle.mm */; };
 		EE9588BC134114F50056F2D5 /* IPhoneLocator.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE9588BB134114F50056F2D5 /* IPhoneLocator.mm */; };
+		EEAF65E5134BCBD500A81C82 /* location-search.png in Resources */ = {isa = PBXBuildFile; fileRef = EEAF65E3134BCBD500A81C82 /* location-search.png */; };
+		EEAF65E6134BCBD500A81C82 /* location-search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EEAF65E4134BCBD500A81C82 /* location-search@2x.png */; };
 		EEB7E22211E9079400080A68 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB7E22111E9079400080A68 /* CoreLocation.framework */; };
 		EEB7E30911E9094F00080A68 /* UserLocationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEB7E30811E9094F00080A68 /* UserLocationController.mm */; };
 		EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EED10A4411F78D120095FAD4 /* MapViewController.mm */; };
@@ -156,16 +148,6 @@
 		EE12020611CD464100ABDD5D /* libmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmap.a; sourceTree = SOURCE_ROOT; };
 		EE12020811CD464100ABDD5D /* libyg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libyg.a; sourceTree = SOURCE_ROOT; };
 		EE16192B126E374500622BD0 /* RenderContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RenderContext.hpp; path = Classes/RenderContext.hpp; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
-		EE180DC81348EDED007F727D /* location-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-0.png"; sourceTree = "<group>"; };
-		EE180DC91348EDED007F727D /* location-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-0@2x.png"; sourceTree = "<group>"; };
-		EE180DCA1348EDED007F727D /* location-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-1.png"; sourceTree = "<group>"; };
-		EE180DCB1348EDED007F727D /* location-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-1@2x.png"; sourceTree = "<group>"; };
-		EE180DCC1348EDED007F727D /* location-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-2.png"; sourceTree = "<group>"; };
-		EE180DCD1348EDED007F727D /* location-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-2@2x.png"; sourceTree = "<group>"; };
-		EE180DCE1348EDED007F727D /* location-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-3.png"; sourceTree = "<group>"; };
-		EE180DCF1348EDED007F727D /* location-3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-3@2x.png"; sourceTree = "<group>"; };
-		EE180DD01348EDED007F727D /* location-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-4.png"; sourceTree = "<group>"; };
-		EE180DD11348EDED007F727D /* location-4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-4@2x.png"; sourceTree = "<group>"; };
 		EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = unicode_blocks.txt; path = ../../data/unicode_blocks.txt; sourceTree = "<group>"; };
 		EE7F297C1219ECA300EB67A9 /* RenderBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RenderBuffer.hpp; path = Classes/RenderBuffer.hpp; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = RenderBuffer.mm; path = Classes/RenderBuffer.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -173,6 +155,8 @@
 		EE7F297F1219ECA300EB67A9 /* WindowHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = WindowHandle.h; path = Classes/WindowHandle.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		EE7F29801219ECA300EB67A9 /* WindowHandle.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = WindowHandle.mm; path = Classes/WindowHandle.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EE9588BB134114F50056F2D5 /* IPhoneLocator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPhoneLocator.mm; sourceTree = "<group>"; };
+		EEAF65E3134BCBD500A81C82 /* location-search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-search.png"; sourceTree = "<group>"; };
+		EEAF65E4134BCBD500A81C82 /* location-search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-search@2x.png"; sourceTree = "<group>"; };
 		EEB7E22111E9079400080A68 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		EEB7E30711E9094F00080A68 /* UserLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = UserLocationController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		EEB7E30811E9094F00080A68 /* UserLocationController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = UserLocationController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -328,16 +312,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				EE180DC81348EDED007F727D /* location-0.png */,
-				EE180DC91348EDED007F727D /* location-0@2x.png */,
-				EE180DCA1348EDED007F727D /* location-1.png */,
-				EE180DCB1348EDED007F727D /* location-1@2x.png */,
-				EE180DCC1348EDED007F727D /* location-2.png */,
-				EE180DCD1348EDED007F727D /* location-2@2x.png */,
-				EE180DCE1348EDED007F727D /* location-3.png */,
-				EE180DCF1348EDED007F727D /* location-3@2x.png */,
-				EE180DD01348EDED007F727D /* location-4.png */,
-				EE180DD11348EDED007F727D /* location-4@2x.png */,
+				EEAF65E3134BCBD500A81C82 /* location-search.png */,
+				EEAF65E4134BCBD500A81C82 /* location-search@2x.png */,
 				4945D21A1334187D0082387C /* settings.png */,
 				4945D21B1334187D0082387C /* settings@2x.png */,
 				49B3FB8B132FA43E00057053 /* location.png */,
@@ -610,16 +586,8 @@
 				4938BB1D1343652600E0815A /* dictionary.slf in Resources */,
 				4983AE11134631F600C82DB7 /* GuideView-iPad.xib in Resources */,
 				FAFF422A1347F101009BBB14 /* World.mwm in Resources */,
-				EE180DD21348EDED007F727D /* location-0.png in Resources */,
-				EE180DD31348EDED007F727D /* location-0@2x.png in Resources */,
-				EE180DD41348EDED007F727D /* location-1.png in Resources */,
-				EE180DD51348EDED007F727D /* location-1@2x.png in Resources */,
-				EE180DD61348EDED007F727D /* location-2.png in Resources */,
-				EE180DD71348EDED007F727D /* location-2@2x.png in Resources */,
-				EE180DD81348EDED007F727D /* location-3.png in Resources */,
-				EE180DD91348EDED007F727D /* location-3@2x.png in Resources */,
-				EE180DDA1348EDED007F727D /* location-4.png in Resources */,
-				EE180DDB1348EDED007F727D /* location-4@2x.png in Resources */,
+				EEAF65E5134BCBD500A81C82 /* location-search.png in Resources */,
+				EEAF65E6134BCBD500A81C82 /* location-search@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
