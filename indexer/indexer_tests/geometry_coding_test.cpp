@@ -1,20 +1,20 @@
 #include "../geometry_coding.hpp"
 #include "../../testing/testing.hpp"
 
-#include "../../indexer/mercator.hpp"
-#include "../../indexer/point_to_int64.hpp"
+//#include "../../indexer/mercator.hpp"
+//#include "../../indexer/point_to_int64.hpp"
 
 #include "../../geometry/geometry_tests/large_polygon.hpp"
 #include "../../geometry/distance.hpp"
 #include "../../geometry/simplification.hpp"
-#include "../../geometry/pointu_to_uint64.hpp"
+//#include "../../geometry/pointu_to_uint64.hpp"
 
 #include "../../coding/byte_stream.hpp"
 #include "../../coding/varint.hpp"
 #include "../../coding/writer.hpp"
 
 #include "../../base/logging.hpp"
-#include "../../base/array_adapters.hpp"
+//#include "../../base/array_adapters.hpp"
 
 
 typedef m2::PointU PU;
@@ -168,3 +168,5 @@ UNIT_TEST(EncodePolyline)
     TestEncodePolyline("4000simp", maxPoint, SimplifyPoints(points, 4000));
   }
 }
+
+// see 476c1d1d125f0c2deb8c commit for special decode test
