@@ -132,8 +132,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 
 - (void) UpdateCell: (UITableViewCell *) cell forCountry: (TIndex const &) countryIndex
 {
-  UIActivityIndicatorView * indicator = (UIActivityIndicatorView *)cell.accessoryView;
-
+  cell.accessoryView = nil;
 	// do not show status for parent categories
   if (cell.reuseIdentifier != @"ParentCell")
   {
@@ -165,7 +164,6 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
                                                     blue:68.f/255.f
                                                    alpha:1.f];
         cell.detailTextLabel.text = [NSString stringWithFormat: @"Downloaded (%qu %s), touch to delete", size, kBorMBorGB];
-        cell.accessoryView = nil;
       }
       break;
     case EDownloading:
@@ -175,20 +173,16 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
                                                     blue:182.f/255.f
                                                    alpha:1.f];
         cell.detailTextLabel.text = @"Downloading...";
-        if (!indicator)
-        {
-          indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleGray];
-          indicator.hidesWhenStopped = NO;
-          cell.accessoryView = indicator;
-          [indicator release];
-        }
+        UIActivityIndicatorView * indicator = [[UIActivityIndicatorView alloc] 
+                                               initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleGray];
+        cell.accessoryView = indicator;
         [indicator startAnimating];
+        [indicator release];
       }
       break;
     case EDownloadFailed:
       cell.textLabel.textColor = [UIColor redColor];
       cell.detailTextLabel.text = @"Download has failed, touch again for one more try";
-      cell.accessoryView = nil;
       break;
     case EInQueue:
       {
@@ -202,7 +196,6 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
     case ENotDownloaded:
       cell.textLabel.textColor = [UIColor blackColor];
       cell.detailTextLabel.text = [NSString stringWithFormat: @"Touch to download"];
-      cell.accessoryView = nil;
       break;
     default:
       break;
