@@ -21,12 +21,25 @@ using namespace storage;
   [super dealloc];
 }
 
-- (void) OnCountryChange: (TIndex const &) index
+/// Get right controller from the stack
+- (UIViewController *) ControllerByIndex:(TIndex const &)index
+{
+  NSArray * controllers = [m_navController viewControllers];
+  if (index.m_region != TIndex::INVALID && [controllers count] >= 3)
+    return [controllers objectAtIndex:2];
+  else if (index.m_country != TIndex::INVALID && [controllers count] >= 2)
+    return [controllers objectAtIndex:1];
+  else if (index.m_group != TIndex::INVALID && [controllers count] >= 1)
+    return [controllers objectAtIndex:0];
+  return nil;
+}
+
+- (void) OnCountryChange: (TIndex const &)index
 {
 	if (m_navController)
   {
-    UIViewController * controller = m_navController.topViewController;
-    if ([controller respondsToSelector:@selector(OnCountryChange:)])
+    UIViewController * controller = [self ControllerByIndex:index];
+    if (controller && [controller respondsToSelector:@selector(OnCountryChange:)])
       [(CountriesViewController *)controller OnCountryChange: index];
   }
 }
@@ -35,8 +48,8 @@ using namespace storage;
 {
 	if (m_navController)
   {
-    UIViewController * controller = m_navController.topViewController;
-    if ([controller respondsToSelector:@selector(OnDownload:withProgress:)])
+    UIViewController * controller = [self ControllerByIndex:index];
+    if (controller && [controller respondsToSelector:@selector(OnDownload:withProgress:)])
       [(CountriesViewController *)controller OnDownload: index withProgress: progress];
   }
 }
