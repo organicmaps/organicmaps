@@ -6,24 +6,20 @@ using namespace yg::gl;
 
 namespace
 {
-  void TestPoints(m2::PointF const & center, float r, vector<m2::PointF> const & points)
+  void TestPoints(m2::PointD const & center, float r, vector<m2::PointD> const & points)
   {
     for (size_t i = 0; i < points.size(); ++i)
     {
-      TEST_LESS(fabs(center.Length(points[i]) - r), 0.0001, ());
-      /*
-      TEST(my::AlmostEqual(center.Length(points[i]), static_cast<double>(r), 1024),
-                          (center.Length(points[i]), r));
-      */
+      TEST_LESS(fabs(center.Length(points[i]) - r), 0.0001, (points[i]));
     }
   }
 }
 
 UNIT_TEST(ApproximateArc_Smoke)
 {
-  m2::PointF const center(1, 2);
+  m2::PointD const center(1, 2);
   float r = 10;
-  vector<m2::PointF> points;
+  vector<m2::PointD> points;
   ShapeRenderer::approximateArc(center, 0, math::pi / 4, r, points);
   TestPoints(center, r, points);
 }
@@ -36,7 +32,7 @@ UNIT_TEST(ApproximateArc_Crash)
   double const startA = -1.5707963267948966;
   double const endA = -1.6057029118347832;
   double const r = 127.99998027132824;
-  vector<m2::PointF> points;
+  vector<m2::PointD> points;
   ShapeRenderer::approximateArc(center, startA, endA, r, points);
   TestPoints(center, r, points);
 }
