@@ -10,10 +10,14 @@ sl::SloynikEngine::SloynikEngine(string const & dictionaryPath,
                                  string const & indexPath,
                                  StrFn const & strFn)
 {
-  m_pDictionary.reset(new sl::SlofDictionary(new FileReader(dictionaryPath)));
+  FileReader * pDicFileReader = new FileReader(dictionaryPath);
+  // m_pDictionary takes ownership of pDicFileReader.
+  m_pDictionary.reset(new sl::SlofDictionary(pDicFileReader));
   vector<uint64_t> stamp;
   stamp.push_back(strFn.m_PrimaryCompareId);
   stamp.push_back(strFn.m_SecondaryCompareId);
+  stamp.push_back(m_pDictionary->KeyCount());
+  stamp.push_back(pDicFileReader->Size());
   string const stampPath = indexPath + ".stamp";
   bool needIndexBuild = false;
   try
