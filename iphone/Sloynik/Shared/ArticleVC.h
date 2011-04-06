@@ -8,6 +8,7 @@
   UINavigationItem * navSearch;
   UINavigationItem * navArticle;
   UIPinchGestureRecognizer * pinchGestureRecognizer;
+  NSString * articleFormat;
   CGRect m_webViewFrame;
   unsigned int m_articleId;
   double m_fontScale;
@@ -19,6 +20,7 @@
 @property (nonatomic, retain) UINavigationItem * navSearch;
 @property (nonatomic, retain) UINavigationItem * navArticle;
 @property (nonatomic, retain) UIPinchGestureRecognizer * pinchGestureRecognizer;
+@property (nonatomic, retain) NSString * articleFormat;
 
 - (void)setArticleById:(unsigned int)articleId;
 

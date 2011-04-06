@@ -13,6 +13,7 @@
 @synthesize navSearch;
 @synthesize navArticle;
 @synthesize pinchGestureRecognizer;
+@synthesize articleFormat;
 
 - (void)dealloc
 {
@@ -21,7 +22,14 @@
   [navSearch release];
   [navArticle release];
   [pinchGestureRecognizer release];
+  [articleFormat release];
   [super dealloc];
+}
+
+- (void)init
+{
+  [super init];
+  self.articleFormat = @"<html><body style='-webkit-text-size-adjust:%d%%'>%@</body></html>";
 }
 
 - (void)loadWebView
@@ -153,7 +161,7 @@
 
   [self.webView
    loadHTMLString:[NSString stringWithFormat:
-                   @"<html><body style='-webkit-text-size-adjust:%d%%'>%@</body></html>",
+                   self.articleFormat,
                    [self textSizeAdjustment],
                    [NSString stringWithUTF8String:data.m_HTML.c_str()]]
    baseURL:[NSURL URLWithString:@"http://s/"]];

@@ -9,6 +9,7 @@
 #import "GuideViewController.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
+#import "ArticleVC.h"
 
 @implementation GuideViewController
 
@@ -57,6 +58,35 @@
 - (void)onEmptySearch
 {
   // Do nothing. Don't hide the results view.
+}
+
+- (void)willShowArticle
+{
+  [super willShowArticle];
+  self.articleVC.articleFormat = @
+  "<html>"
+  "  <head>"
+  "    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>"
+  "    <script type='text/javascript'>"
+  "      function tg(id) {"
+  "        if (document.getElementById('section-'+id).style.display == 'block') {"
+  "          document.getElementById('section-'+id).style.display = 'none';"
+  "          document.getElementById('button-'+id).innerHTML = 'Show';"
+  "        } else {"
+  "          document.getElementById('section-'+id).style.display = 'block';"
+  "          document.getElementById('button-'+id).innerHTML = 'Hide';"
+  "        }"
+  "      }"
+  "    </script>"
+  "    <style type='text/css'>"
+  "      img, object { border:none; max-width:280px; height:auto; }"
+  "      div.loadHide { display:none; }"
+  "    </style>"
+  "  </head>"
+  "  <body style='-webkit-text-size-adjust:%d%%'>"
+  "    %@"
+  "  </body>"
+  "</html>";
 }
 
 - (void)viewDidLoad
