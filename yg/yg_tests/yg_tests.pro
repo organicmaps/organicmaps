@@ -24,4 +24,5 @@ SOURCES += \
     thread_render.cpp \
     opengl_test.cpp \
     screenglglobal_test.cpp \
-    glyph_cache_test.cpp
+    glyph_cache_test.cpp \
+    shape_renderer_test.cpp \
