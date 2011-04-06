@@ -27,7 +27,8 @@ SUBDIRS = 3party \
           yg/yg_tests \
           qt \
           words words/words_tests \
-          publisher publisher/publisher_tests
+          publisher publisher/publisher_tests \
+          console_sloynik
 } else {
   # libraries which are used on iphone and bada
   SUBDIRS = 3party \
