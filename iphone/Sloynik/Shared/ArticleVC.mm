@@ -16,11 +16,11 @@
 
 - (void)dealloc
 {
-  self.webView = nil;
-  self.navBar = nil;
-  self.navSearch = nil;
-  self.navArticle = nil;
-  self.pinchGestureRecognizer = nil;
+  [webView release];
+  [navBar release];
+  [navSearch release];
+  [navArticle release];
+  [pinchGestureRecognizer release];
   [super dealloc];
 }
 
@@ -66,8 +66,8 @@
   self.navBar = [[[UINavigationBar alloc] initWithFrame:navBarFrame] autorelease];
   self.navBar.delegate = self;
   self.navBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-  self.navSearch  = [[UINavigationItem alloc] initWithTitle:@"Search"];
-  self.navArticle = [[UINavigationItem alloc] initWithTitle:@""];
+  self.navSearch  = [[[UINavigationItem alloc] initWithTitle:@"Search"] autorelease];
+  self.navArticle = [[[UINavigationItem alloc] initWithTitle:@""] autorelease];
   [self.navBar pushNavigationItem:navSearch  animated:NO];
   [self.navBar pushNavigationItem:navArticle animated:NO];
 
@@ -97,6 +97,9 @@
 
   self.webView = nil;
   self.navBar = nil;
+  self.navSearch = nil;
+  self.navArticle = nil;
+  self.pinchGestureRecognizer = nil;
   [super viewDidUnload];
 }
 

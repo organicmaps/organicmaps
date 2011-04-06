@@ -29,9 +29,10 @@ struct SloynikData
 - (void)dealloc
 {
   delete m_pSloynikData;
-  self.searchBar = nil;
-  self.resultsView = nil;
-  self.articleVC = nil;
+  [searchBar release];
+  [resultsView release];
+  [articleVC release];
+
   [super dealloc];
 }
 
@@ -44,11 +45,9 @@ struct SloynikData
 
   self.resultsView.dataSource = self;
   self.resultsView.delegate = self;
-
-  LogTimeCounter("StartTime", "SearchVC initializing.");
+  
   m_pSloynikData = new SloynikData;
   GetSloynikEngine()->Search("", m_pSloynikData->m_SearchResult);
-  LogTimeCounter("StartTime", "SearchVC initialized.");
 
   [self onEmptySearch];
 }
@@ -65,6 +64,9 @@ struct SloynikData
   [super viewDidUnload];
   // Release any retained subviews of the main view.
   // e.g. self.myOutlet = nil;
+  self.searchBar = nil;
+  self.resultsView = nil;
+  self.articleVC = nil;
 }
 
 - (void)searchBar:(UISearchBar *)sender textDidChange:(NSString *)searchText
@@ -141,7 +143,6 @@ struct SloynikData
     return nil;
 }
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   sl::SloynikEngine::WordId const wordId = indexPath.row;
@@ -177,6 +178,11 @@ struct SloynikData
 - (void)onEmptySearch
 {
   self.resultsView.hidden = YES;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+  return YES;  // All orientations are supported.
 }
 
 @end
