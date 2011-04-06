@@ -10,6 +10,7 @@
 
 using std::basic_string;
 using std::string;
+using std::getline;
 
 #ifdef OMIM_OS_BADA
 typedef std::basic_string<wchar_t> wstring;

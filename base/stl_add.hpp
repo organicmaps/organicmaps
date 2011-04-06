@@ -1,6 +1,7 @@
 #pragma once
 #include "../std/functional.hpp"
 #include "../std/iterator.hpp"
+#include "../std/map.hpp"
 
 template <class ContainerT> class BackInsertFunctor
 {
@@ -115,3 +116,9 @@ template <typename IterT> IterT PrevIterInCycle(IterT it, IterT beg, IterT end)
   return --it;
 }
 
+template <typename KeyT, typename ValueT, typename CompareT, typename AllocatorT>
+ValueT ValueForKey(map<KeyT, ValueT, CompareT, AllocatorT> const & m, KeyT key, ValueT defaultV)
+{
+  typename map<KeyT, ValueT, CompareT, AllocatorT>::const_iterator const it = m.find(key);
+  return (it == m.end() ? defaultV : it->second);
+}
