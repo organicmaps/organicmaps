@@ -49,7 +49,9 @@ macx {
                          ../data/18_gjot_rohit_n_ship.ttf \
                          ../data/19_knot_nandi_n_ship.ttf \
                          ../data/20_koot_dhruv_n_ship.ttf \
+                         ../data/21_ksot_dhruv_n_ship.ttf \
                          ../data/22_miot_dhruv_n_ship.ttf \
+                         ../data/23_mlot_aswathi_n_ship.ttf \
                          ../data/24_mlot_karthika_n_ship.ttf \
                          ../data/25_mrot_yogesh_n_ship.ttf \
                          ../data/26_neot_dhruv_n_ship.ttf \

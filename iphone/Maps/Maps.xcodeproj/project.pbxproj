@@ -45,34 +45,34 @@
 		EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297E1219ECA300EB67A9 /* RenderContext.mm */; };
 		EE7F29831219ECA300EB67A9 /* WindowHandle.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F29801219ECA300EB67A9 /* WindowHandle.mm */; };
 		EE9588BC134114F50056F2D5 /* IPhoneLocator.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE9588BB134114F50056F2D5 /* IPhoneLocator.mm */; };
-		EE9B29B0134BD9210074E238 /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B2994134BD9210074E238 /* 01_dejavusans.ttf */; };
-		EE9B29B1134BD9210074E238 /* 02_wqy-microhei.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B2995134BD9210074E238 /* 02_wqy-microhei.ttf */; };
-		EE9B29B2134BD9210074E238 /* 03_jomolhari-id-a3d.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B2996134BD9210074E238 /* 03_jomolhari-id-a3d.ttf */; };
-		EE9B29B3134BD9210074E238 /* 04_padauk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B2997134BD9210074E238 /* 04_padauk.ttf */; };
-		EE9B29B4134BD9210074E238 /* 05_khmeros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B2998134BD9210074E238 /* 05_khmeros.ttf */; };
-		EE9B29B5134BD9210074E238 /* 07_abyssinica_sil_r.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B2999134BD9210074E238 /* 07_abyssinica_sil_r.ttf */; };
-		EE9B29B6134BD9210074E238 /* 09_droid_sans_thai.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B299A134BD9210074E238 /* 09_droid_sans_thai.ttf */; };
-		EE9B29B7134BD9210074E238 /* 10_asot_biisha_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B299B134BD9210074E238 /* 10_asot_biisha_n_ship.ttf */; };
-		EE9B29B8134BD9210074E238 /* 11_bnot_satyajit_sm_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B299C134BD9210074E238 /* 11_bnot_satyajit_sm_n_ship.ttf */; };
-		EE9B29B9134BD9210074E238 /* 12_boot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B299D134BD9210074E238 /* 12_boot_dhruv_n_ship.ttf */; };
-		EE9B29BA134BD9210074E238 /* 13_doot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B299E134BD9210074E238 /* 13_doot_dhruv_n_ship.ttf */; };
-		EE9B29BB134BD9210074E238 /* 14_dvot_yogesh_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B299F134BD9210074E238 /* 14_dvot_yogesh_n_ship.ttf */; };
-		EE9B29BC134BD9210074E238 /* 15_gist_sat_dvot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B29A0134BD9210074E238 /* 15_gist_sat_dvot_dhruv_n_ship.ttf */; };
-		EE9B29BD134BD9210074E238 /* 16_gist-snd-dvot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B29A1134BD9210074E238 /* 16_gist-snd-dvot_dhruv_n_ship.ttf */; };
-		EE9B29BE134BD9210074E238 /* 17_gjot_pratik_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B29A2134BD9210074E238 /* 17_gjot_pratik_n_ship.ttf */; };
-		EE9B29BF134BD9210074E238 /* 18_gjot_rohit_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B29A3134BD9210074E238 /* 18_gjot_rohit_n_ship.ttf */; };
-		EE9B29C0134BD9210074E238 /* 19_knot_nandi_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B29A4134BD9210074E238 /* 19_knot_nandi_n_ship.ttf */; };
-		EE9B29C1134BD9210074E238 /* 20_koot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B29A5134BD9210074E238 /* 20_koot_dhruv_n_ship.ttf */; };
-		EE9B29C2134BD9210074E238 /* 21_ksot_dhruv_n_ship.TTF in Resources */ = {isa = PBXBuildFile; fileRef = EE9B29A6134BD9210074E238 /* 21_ksot_dhruv_n_ship.TTF */; };
-		EE9B29C3134BD9210074E238 /* 22_miot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B29A7134BD9210074E238 /* 22_miot_dhruv_n_ship.ttf */; };
-		EE9B29C4134BD9210074E238 /* 23_mlot_aswathi_n_ship.TTF in Resources */ = {isa = PBXBuildFile; fileRef = EE9B29A8134BD9210074E238 /* 23_mlot_aswathi_n_ship.TTF */; };
-		EE9B29C5134BD9210074E238 /* 24_mlot_karthika_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B29A9134BD9210074E238 /* 24_mlot_karthika_n_ship.ttf */; };
-		EE9B29C6134BD9210074E238 /* 25_mrot_yogesh_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B29AA134BD9210074E238 /* 25_mrot_yogesh_n_ship.ttf */; };
-		EE9B29C7134BD9210074E238 /* 26_neot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B29AB134BD9210074E238 /* 26_neot_dhruv_n_ship.ttf */; };
-		EE9B29C8134BD9210074E238 /* 27_orot_mukt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B29AC134BD9210074E238 /* 27_orot_mukt.ttf */; };
-		EE9B29C9134BD9210074E238 /* 28_sdot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B29AD134BD9210074E238 /* 28_sdot_dhruv_n_ship.ttf */; };
-		EE9B29CA134BD9210074E238 /* 29_tlot_harshpriya_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B29AE134BD9210074E238 /* 29_tlot_harshpriya_n_ship.ttf */; };
-		EE9B29CB134BD9210074E238 /* 30_tmot_kapilan_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9B29AF134BD9210074E238 /* 30_tmot_kapilan_n_ship.ttf */; };
+		EEA61601134C496A003A9827 /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */; };
+		EEA61602134C496A003A9827 /* 02_wqy-microhei.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E6134C4968003A9827 /* 02_wqy-microhei.ttf */; };
+		EEA61603134C496A003A9827 /* 03_jomolhari-id-a3d.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */; };
+		EEA61604134C496A003A9827 /* 04_padauk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E8134C4968003A9827 /* 04_padauk.ttf */; };
+		EEA61605134C496A003A9827 /* 05_khmeros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E9134C4968003A9827 /* 05_khmeros.ttf */; };
+		EEA61606134C496A003A9827 /* 07_abyssinica_sil_r.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615EA134C4968003A9827 /* 07_abyssinica_sil_r.ttf */; };
+		EEA61607134C496A003A9827 /* 09_droid_sans_thai.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615EB134C4969003A9827 /* 09_droid_sans_thai.ttf */; };
+		EEA61608134C496A003A9827 /* 10_asot_biisha_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615EC134C4969003A9827 /* 10_asot_biisha_n_ship.ttf */; };
+		EEA61609134C496A003A9827 /* 11_bnot_satyajit_sm_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615ED134C4969003A9827 /* 11_bnot_satyajit_sm_n_ship.ttf */; };
+		EEA6160A134C496A003A9827 /* 12_boot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615EE134C4969003A9827 /* 12_boot_dhruv_n_ship.ttf */; };
+		EEA6160B134C496A003A9827 /* 13_doot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615EF134C4969003A9827 /* 13_doot_dhruv_n_ship.ttf */; };
+		EEA6160C134C496A003A9827 /* 14_dvot_yogesh_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615F0134C4969003A9827 /* 14_dvot_yogesh_n_ship.ttf */; };
+		EEA6160D134C496A003A9827 /* 15_gist_sat_dvot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615F1134C4969003A9827 /* 15_gist_sat_dvot_dhruv_n_ship.ttf */; };
+		EEA6160E134C496A003A9827 /* 16_gist-snd-dvot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615F2134C4969003A9827 /* 16_gist-snd-dvot_dhruv_n_ship.ttf */; };
+		EEA6160F134C496A003A9827 /* 17_gjot_pratik_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615F3134C4969003A9827 /* 17_gjot_pratik_n_ship.ttf */; };
+		EEA61610134C496A003A9827 /* 18_gjot_rohit_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615F4134C4969003A9827 /* 18_gjot_rohit_n_ship.ttf */; };
+		EEA61611134C496A003A9827 /* 19_knot_nandi_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615F5134C4969003A9827 /* 19_knot_nandi_n_ship.ttf */; };
+		EEA61612134C496A003A9827 /* 20_koot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615F6134C4969003A9827 /* 20_koot_dhruv_n_ship.ttf */; };
+		EEA61613134C496A003A9827 /* 21_ksot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615F7134C4969003A9827 /* 21_ksot_dhruv_n_ship.ttf */; };
+		EEA61614134C496A003A9827 /* 22_miot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615F8134C4969003A9827 /* 22_miot_dhruv_n_ship.ttf */; };
+		EEA61615134C496A003A9827 /* 23_mlot_aswathi_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615F9134C4969003A9827 /* 23_mlot_aswathi_n_ship.ttf */; };
+		EEA61616134C496A003A9827 /* 24_mlot_karthika_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615FA134C496A003A9827 /* 24_mlot_karthika_n_ship.ttf */; };
+		EEA61617134C496A003A9827 /* 25_mrot_yogesh_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615FB134C496A003A9827 /* 25_mrot_yogesh_n_ship.ttf */; };
+		EEA61618134C496A003A9827 /* 26_neot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615FC134C496A003A9827 /* 26_neot_dhruv_n_ship.ttf */; };
+		EEA61619134C496A003A9827 /* 27_orot_mukt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615FD134C496A003A9827 /* 27_orot_mukt.ttf */; };
+		EEA6161A134C496A003A9827 /* 28_sdot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615FE134C496A003A9827 /* 28_sdot_dhruv_n_ship.ttf */; };
+		EEA6161B134C496A003A9827 /* 29_tlot_harshpriya_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615FF134C496A003A9827 /* 29_tlot_harshpriya_n_ship.ttf */; };
+		EEA6161C134C496A003A9827 /* 30_tmot_kapilan_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA61600134C496A003A9827 /* 30_tmot_kapilan_n_ship.ttf */; };
 		EEAF65E5134BCBD500A81C82 /* location-search.png in Resources */ = {isa = PBXBuildFile; fileRef = EEAF65E3134BCBD500A81C82 /* location-search.png */; };
 		EEAF65E6134BCBD500A81C82 /* location-search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EEAF65E4134BCBD500A81C82 /* location-search@2x.png */; };
 		EEB7E22211E9079400080A68 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB7E22111E9079400080A68 /* CoreLocation.framework */; };
@@ -167,34 +167,34 @@
 		EE7F297F1219ECA300EB67A9 /* WindowHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = WindowHandle.h; path = Classes/WindowHandle.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		EE7F29801219ECA300EB67A9 /* WindowHandle.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = WindowHandle.mm; path = Classes/WindowHandle.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EE9588BB134114F50056F2D5 /* IPhoneLocator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPhoneLocator.mm; sourceTree = "<group>"; };
-		EE9B2994134BD9210074E238 /* 01_dejavusans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 01_dejavusans.ttf; path = Projects/omim/data/01_dejavusans.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B2995134BD9210074E238 /* 02_wqy-microhei.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "02_wqy-microhei.ttf"; path = "Projects/omim/data/02_wqy-microhei.ttf"; sourceTree = DEVELOPER_DIR; };
-		EE9B2996134BD9210074E238 /* 03_jomolhari-id-a3d.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "03_jomolhari-id-a3d.ttf"; path = "Projects/omim/data/03_jomolhari-id-a3d.ttf"; sourceTree = DEVELOPER_DIR; };
-		EE9B2997134BD9210074E238 /* 04_padauk.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 04_padauk.ttf; path = Projects/omim/data/04_padauk.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B2998134BD9210074E238 /* 05_khmeros.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 05_khmeros.ttf; path = Projects/omim/data/05_khmeros.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B2999134BD9210074E238 /* 07_abyssinica_sil_r.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 07_abyssinica_sil_r.ttf; path = Projects/omim/data/07_abyssinica_sil_r.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B299A134BD9210074E238 /* 09_droid_sans_thai.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 09_droid_sans_thai.ttf; path = Projects/omim/data/09_droid_sans_thai.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B299B134BD9210074E238 /* 10_asot_biisha_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 10_asot_biisha_n_ship.ttf; path = Projects/omim/data/10_asot_biisha_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B299C134BD9210074E238 /* 11_bnot_satyajit_sm_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 11_bnot_satyajit_sm_n_ship.ttf; path = Projects/omim/data/11_bnot_satyajit_sm_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B299D134BD9210074E238 /* 12_boot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 12_boot_dhruv_n_ship.ttf; path = Projects/omim/data/12_boot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B299E134BD9210074E238 /* 13_doot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 13_doot_dhruv_n_ship.ttf; path = Projects/omim/data/13_doot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B299F134BD9210074E238 /* 14_dvot_yogesh_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 14_dvot_yogesh_n_ship.ttf; path = Projects/omim/data/14_dvot_yogesh_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B29A0134BD9210074E238 /* 15_gist_sat_dvot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 15_gist_sat_dvot_dhruv_n_ship.ttf; path = Projects/omim/data/15_gist_sat_dvot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B29A1134BD9210074E238 /* 16_gist-snd-dvot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "16_gist-snd-dvot_dhruv_n_ship.ttf"; path = "Projects/omim/data/16_gist-snd-dvot_dhruv_n_ship.ttf"; sourceTree = DEVELOPER_DIR; };
-		EE9B29A2134BD9210074E238 /* 17_gjot_pratik_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 17_gjot_pratik_n_ship.ttf; path = Projects/omim/data/17_gjot_pratik_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B29A3134BD9210074E238 /* 18_gjot_rohit_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 18_gjot_rohit_n_ship.ttf; path = Projects/omim/data/18_gjot_rohit_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B29A4134BD9210074E238 /* 19_knot_nandi_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 19_knot_nandi_n_ship.ttf; path = Projects/omim/data/19_knot_nandi_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B29A5134BD9210074E238 /* 20_koot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 20_koot_dhruv_n_ship.ttf; path = Projects/omim/data/20_koot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B29A6134BD9210074E238 /* 21_ksot_dhruv_n_ship.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; name = 21_ksot_dhruv_n_ship.TTF; path = Projects/omim/data/21_ksot_dhruv_n_ship.TTF; sourceTree = DEVELOPER_DIR; };
-		EE9B29A7134BD9210074E238 /* 22_miot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 22_miot_dhruv_n_ship.ttf; path = Projects/omim/data/22_miot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B29A8134BD9210074E238 /* 23_mlot_aswathi_n_ship.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; name = 23_mlot_aswathi_n_ship.TTF; path = Projects/omim/data/23_mlot_aswathi_n_ship.TTF; sourceTree = DEVELOPER_DIR; };
-		EE9B29A9134BD9210074E238 /* 24_mlot_karthika_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 24_mlot_karthika_n_ship.ttf; path = Projects/omim/data/24_mlot_karthika_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B29AA134BD9210074E238 /* 25_mrot_yogesh_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 25_mrot_yogesh_n_ship.ttf; path = Projects/omim/data/25_mrot_yogesh_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B29AB134BD9210074E238 /* 26_neot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 26_neot_dhruv_n_ship.ttf; path = Projects/omim/data/26_neot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B29AC134BD9210074E238 /* 27_orot_mukt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 27_orot_mukt.ttf; path = Projects/omim/data/27_orot_mukt.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B29AD134BD9210074E238 /* 28_sdot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 28_sdot_dhruv_n_ship.ttf; path = Projects/omim/data/28_sdot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B29AE134BD9210074E238 /* 29_tlot_harshpriya_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 29_tlot_harshpriya_n_ship.ttf; path = Projects/omim/data/29_tlot_harshpriya_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
-		EE9B29AF134BD9210074E238 /* 30_tmot_kapilan_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 30_tmot_kapilan_n_ship.ttf; path = Projects/omim/data/30_tmot_kapilan_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 01_dejavusans.ttf; path = Projects/omim/data/01_dejavusans.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615E6134C4968003A9827 /* 02_wqy-microhei.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "02_wqy-microhei.ttf"; path = "Projects/omim/data/02_wqy-microhei.ttf"; sourceTree = DEVELOPER_DIR; };
+		EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "03_jomolhari-id-a3d.ttf"; path = "Projects/omim/data/03_jomolhari-id-a3d.ttf"; sourceTree = DEVELOPER_DIR; };
+		EEA615E8134C4968003A9827 /* 04_padauk.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 04_padauk.ttf; path = Projects/omim/data/04_padauk.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615E9134C4968003A9827 /* 05_khmeros.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 05_khmeros.ttf; path = Projects/omim/data/05_khmeros.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615EA134C4968003A9827 /* 07_abyssinica_sil_r.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 07_abyssinica_sil_r.ttf; path = Projects/omim/data/07_abyssinica_sil_r.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615EB134C4969003A9827 /* 09_droid_sans_thai.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 09_droid_sans_thai.ttf; path = Projects/omim/data/09_droid_sans_thai.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615EC134C4969003A9827 /* 10_asot_biisha_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 10_asot_biisha_n_ship.ttf; path = Projects/omim/data/10_asot_biisha_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615ED134C4969003A9827 /* 11_bnot_satyajit_sm_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 11_bnot_satyajit_sm_n_ship.ttf; path = Projects/omim/data/11_bnot_satyajit_sm_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615EE134C4969003A9827 /* 12_boot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 12_boot_dhruv_n_ship.ttf; path = Projects/omim/data/12_boot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615EF134C4969003A9827 /* 13_doot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 13_doot_dhruv_n_ship.ttf; path = Projects/omim/data/13_doot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615F0134C4969003A9827 /* 14_dvot_yogesh_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 14_dvot_yogesh_n_ship.ttf; path = Projects/omim/data/14_dvot_yogesh_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615F1134C4969003A9827 /* 15_gist_sat_dvot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 15_gist_sat_dvot_dhruv_n_ship.ttf; path = Projects/omim/data/15_gist_sat_dvot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615F2134C4969003A9827 /* 16_gist-snd-dvot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "16_gist-snd-dvot_dhruv_n_ship.ttf"; path = "Projects/omim/data/16_gist-snd-dvot_dhruv_n_ship.ttf"; sourceTree = DEVELOPER_DIR; };
+		EEA615F3134C4969003A9827 /* 17_gjot_pratik_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 17_gjot_pratik_n_ship.ttf; path = Projects/omim/data/17_gjot_pratik_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615F4134C4969003A9827 /* 18_gjot_rohit_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 18_gjot_rohit_n_ship.ttf; path = Projects/omim/data/18_gjot_rohit_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615F5134C4969003A9827 /* 19_knot_nandi_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 19_knot_nandi_n_ship.ttf; path = Projects/omim/data/19_knot_nandi_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615F6134C4969003A9827 /* 20_koot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 20_koot_dhruv_n_ship.ttf; path = Projects/omim/data/20_koot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615F7134C4969003A9827 /* 21_ksot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 21_ksot_dhruv_n_ship.ttf; path = Projects/omim/data/21_ksot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615F8134C4969003A9827 /* 22_miot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 22_miot_dhruv_n_ship.ttf; path = Projects/omim/data/22_miot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615F9134C4969003A9827 /* 23_mlot_aswathi_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 23_mlot_aswathi_n_ship.ttf; path = Projects/omim/data/23_mlot_aswathi_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615FA134C496A003A9827 /* 24_mlot_karthika_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 24_mlot_karthika_n_ship.ttf; path = Projects/omim/data/24_mlot_karthika_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615FB134C496A003A9827 /* 25_mrot_yogesh_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 25_mrot_yogesh_n_ship.ttf; path = Projects/omim/data/25_mrot_yogesh_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615FC134C496A003A9827 /* 26_neot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 26_neot_dhruv_n_ship.ttf; path = Projects/omim/data/26_neot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615FD134C496A003A9827 /* 27_orot_mukt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 27_orot_mukt.ttf; path = Projects/omim/data/27_orot_mukt.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615FE134C496A003A9827 /* 28_sdot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 28_sdot_dhruv_n_ship.ttf; path = Projects/omim/data/28_sdot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA615FF134C496A003A9827 /* 29_tlot_harshpriya_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 29_tlot_harshpriya_n_ship.ttf; path = Projects/omim/data/29_tlot_harshpriya_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EEA61600134C496A003A9827 /* 30_tmot_kapilan_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 30_tmot_kapilan_n_ship.ttf; path = Projects/omim/data/30_tmot_kapilan_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
 		EEAF65E3134BCBD500A81C82 /* location-search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-search.png"; sourceTree = "<group>"; };
 		EEAF65E4134BCBD500A81C82 /* location-search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-search@2x.png"; sourceTree = "<group>"; };
 		EEB7E22111E9079400080A68 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -405,34 +405,34 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
-				EE9B2994134BD9210074E238 /* 01_dejavusans.ttf */,
-				EE9B2995134BD9210074E238 /* 02_wqy-microhei.ttf */,
-				EE9B2996134BD9210074E238 /* 03_jomolhari-id-a3d.ttf */,
-				EE9B2997134BD9210074E238 /* 04_padauk.ttf */,
-				EE9B2998134BD9210074E238 /* 05_khmeros.ttf */,
-				EE9B2999134BD9210074E238 /* 07_abyssinica_sil_r.ttf */,
-				EE9B299A134BD9210074E238 /* 09_droid_sans_thai.ttf */,
-				EE9B299B134BD9210074E238 /* 10_asot_biisha_n_ship.ttf */,
-				EE9B299C134BD9210074E238 /* 11_bnot_satyajit_sm_n_ship.ttf */,
-				EE9B299D134BD9210074E238 /* 12_boot_dhruv_n_ship.ttf */,
-				EE9B299E134BD9210074E238 /* 13_doot_dhruv_n_ship.ttf */,
-				EE9B299F134BD9210074E238 /* 14_dvot_yogesh_n_ship.ttf */,
-				EE9B29A0134BD9210074E238 /* 15_gist_sat_dvot_dhruv_n_ship.ttf */,
-				EE9B29A1134BD9210074E238 /* 16_gist-snd-dvot_dhruv_n_ship.ttf */,
-				EE9B29A2134BD9210074E238 /* 17_gjot_pratik_n_ship.ttf */,
-				EE9B29A3134BD9210074E238 /* 18_gjot_rohit_n_ship.ttf */,
-				EE9B29A4134BD9210074E238 /* 19_knot_nandi_n_ship.ttf */,
-				EE9B29A5134BD9210074E238 /* 20_koot_dhruv_n_ship.ttf */,
-				EE9B29A6134BD9210074E238 /* 21_ksot_dhruv_n_ship.TTF */,
-				EE9B29A7134BD9210074E238 /* 22_miot_dhruv_n_ship.ttf */,
-				EE9B29A8134BD9210074E238 /* 23_mlot_aswathi_n_ship.TTF */,
-				EE9B29A9134BD9210074E238 /* 24_mlot_karthika_n_ship.ttf */,
-				EE9B29AA134BD9210074E238 /* 25_mrot_yogesh_n_ship.ttf */,
-				EE9B29AB134BD9210074E238 /* 26_neot_dhruv_n_ship.ttf */,
-				EE9B29AC134BD9210074E238 /* 27_orot_mukt.ttf */,
-				EE9B29AD134BD9210074E238 /* 28_sdot_dhruv_n_ship.ttf */,
-				EE9B29AE134BD9210074E238 /* 29_tlot_harshpriya_n_ship.ttf */,
-				EE9B29AF134BD9210074E238 /* 30_tmot_kapilan_n_ship.ttf */,
+				EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */,
+				EEA615E6134C4968003A9827 /* 02_wqy-microhei.ttf */,
+				EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */,
+				EEA615E8134C4968003A9827 /* 04_padauk.ttf */,
+				EEA615E9134C4968003A9827 /* 05_khmeros.ttf */,
+				EEA615EA134C4968003A9827 /* 07_abyssinica_sil_r.ttf */,
+				EEA615EB134C4969003A9827 /* 09_droid_sans_thai.ttf */,
+				EEA615EC134C4969003A9827 /* 10_asot_biisha_n_ship.ttf */,
+				EEA615ED134C4969003A9827 /* 11_bnot_satyajit_sm_n_ship.ttf */,
+				EEA615EE134C4969003A9827 /* 12_boot_dhruv_n_ship.ttf */,
+				EEA615EF134C4969003A9827 /* 13_doot_dhruv_n_ship.ttf */,
+				EEA615F0134C4969003A9827 /* 14_dvot_yogesh_n_ship.ttf */,
+				EEA615F1134C4969003A9827 /* 15_gist_sat_dvot_dhruv_n_ship.ttf */,
+				EEA615F2134C4969003A9827 /* 16_gist-snd-dvot_dhruv_n_ship.ttf */,
+				EEA615F3134C4969003A9827 /* 17_gjot_pratik_n_ship.ttf */,
+				EEA615F4134C4969003A9827 /* 18_gjot_rohit_n_ship.ttf */,
+				EEA615F5134C4969003A9827 /* 19_knot_nandi_n_ship.ttf */,
+				EEA615F6134C4969003A9827 /* 20_koot_dhruv_n_ship.ttf */,
+				EEA615F7134C4969003A9827 /* 21_ksot_dhruv_n_ship.ttf */,
+				EEA615F8134C4969003A9827 /* 22_miot_dhruv_n_ship.ttf */,
+				EEA615F9134C4969003A9827 /* 23_mlot_aswathi_n_ship.ttf */,
+				EEA615FA134C496A003A9827 /* 24_mlot_karthika_n_ship.ttf */,
+				EEA615FB134C496A003A9827 /* 25_mrot_yogesh_n_ship.ttf */,
+				EEA615FC134C496A003A9827 /* 26_neot_dhruv_n_ship.ttf */,
+				EEA615FD134C496A003A9827 /* 27_orot_mukt.ttf */,
+				EEA615FE134C496A003A9827 /* 28_sdot_dhruv_n_ship.ttf */,
+				EEA615FF134C496A003A9827 /* 29_tlot_harshpriya_n_ship.ttf */,
+				EEA61600134C496A003A9827 /* 30_tmot_kapilan_n_ship.ttf */,
 				FAFF42291347F101009BBB14 /* World.mwm */,
 				4938BB1C1343652600E0815A /* dictionary.slf */,
 				FAFCB63713367AD1001A5C59 /* about-travelguide-iphone.html */,
@@ -608,34 +608,34 @@
 				FAFF422A1347F101009BBB14 /* World.mwm in Resources */,
 				EEAF65E5134BCBD500A81C82 /* location-search.png in Resources */,
 				EEAF65E6134BCBD500A81C82 /* location-search@2x.png in Resources */,
-				EE9B29B0134BD9210074E238 /* 01_dejavusans.ttf in Resources */,
-				EE9B29B1134BD9210074E238 /* 02_wqy-microhei.ttf in Resources */,
-				EE9B29B2134BD9210074E238 /* 03_jomolhari-id-a3d.ttf in Resources */,
-				EE9B29B3134BD9210074E238 /* 04_padauk.ttf in Resources */,
-				EE9B29B4134BD9210074E238 /* 05_khmeros.ttf in Resources */,
-				EE9B29B5134BD9210074E238 /* 07_abyssinica_sil_r.ttf in Resources */,
-				EE9B29B6134BD9210074E238 /* 09_droid_sans_thai.ttf in Resources */,
-				EE9B29B7134BD9210074E238 /* 10_asot_biisha_n_ship.ttf in Resources */,
-				EE9B29B8134BD9210074E238 /* 11_bnot_satyajit_sm_n_ship.ttf in Resources */,
-				EE9B29B9134BD9210074E238 /* 12_boot_dhruv_n_ship.ttf in Resources */,
-				EE9B29BA134BD9210074E238 /* 13_doot_dhruv_n_ship.ttf in Resources */,
-				EE9B29BB134BD9210074E238 /* 14_dvot_yogesh_n_ship.ttf in Resources */,
-				EE9B29BC134BD9210074E238 /* 15_gist_sat_dvot_dhruv_n_ship.ttf in Resources */,
-				EE9B29BD134BD9210074E238 /* 16_gist-snd-dvot_dhruv_n_ship.ttf in Resources */,
-				EE9B29BE134BD9210074E238 /* 17_gjot_pratik_n_ship.ttf in Resources */,
-				EE9B29BF134BD9210074E238 /* 18_gjot_rohit_n_ship.ttf in Resources */,
-				EE9B29C0134BD9210074E238 /* 19_knot_nandi_n_ship.ttf in Resources */,
-				EE9B29C1134BD9210074E238 /* 20_koot_dhruv_n_ship.ttf in Resources */,
-				EE9B29C2134BD9210074E238 /* 21_ksot_dhruv_n_ship.TTF in Resources */,
-				EE9B29C3134BD9210074E238 /* 22_miot_dhruv_n_ship.ttf in Resources */,
-				EE9B29C4134BD9210074E238 /* 23_mlot_aswathi_n_ship.TTF in Resources */,
-				EE9B29C5134BD9210074E238 /* 24_mlot_karthika_n_ship.ttf in Resources */,
-				EE9B29C6134BD9210074E238 /* 25_mrot_yogesh_n_ship.ttf in Resources */,
-				EE9B29C7134BD9210074E238 /* 26_neot_dhruv_n_ship.ttf in Resources */,
-				EE9B29C8134BD9210074E238 /* 27_orot_mukt.ttf in Resources */,
-				EE9B29C9134BD9210074E238 /* 28_sdot_dhruv_n_ship.ttf in Resources */,
-				EE9B29CA134BD9210074E238 /* 29_tlot_harshpriya_n_ship.ttf in Resources */,
-				EE9B29CB134BD9210074E238 /* 30_tmot_kapilan_n_ship.ttf in Resources */,
+				EEA61601134C496A003A9827 /* 01_dejavusans.ttf in Resources */,
+				EEA61602134C496A003A9827 /* 02_wqy-microhei.ttf in Resources */,
+				EEA61603134C496A003A9827 /* 03_jomolhari-id-a3d.ttf in Resources */,
+				EEA61604134C496A003A9827 /* 04_padauk.ttf in Resources */,
+				EEA61605134C496A003A9827 /* 05_khmeros.ttf in Resources */,
+				EEA61606134C496A003A9827 /* 07_abyssinica_sil_r.ttf in Resources */,
+				EEA61607134C496A003A9827 /* 09_droid_sans_thai.ttf in Resources */,
+				EEA61608134C496A003A9827 /* 10_asot_biisha_n_ship.ttf in Resources */,
+				EEA61609134C496A003A9827 /* 11_bnot_satyajit_sm_n_ship.ttf in Resources */,
+				EEA6160A134C496A003A9827 /* 12_boot_dhruv_n_ship.ttf in Resources */,
+				EEA6160B134C496A003A9827 /* 13_doot_dhruv_n_ship.ttf in Resources */,
+				EEA6160C134C496A003A9827 /* 14_dvot_yogesh_n_ship.ttf in Resources */,
+				EEA6160D134C496A003A9827 /* 15_gist_sat_dvot_dhruv_n_ship.ttf in Resources */,
+				EEA6160E134C496A003A9827 /* 16_gist-snd-dvot_dhruv_n_ship.ttf in Resources */,
+				EEA6160F134C496A003A9827 /* 17_gjot_pratik_n_ship.ttf in Resources */,
+				EEA61610134C496A003A9827 /* 18_gjot_rohit_n_ship.ttf in Resources */,
+				EEA61611134C496A003A9827 /* 19_knot_nandi_n_ship.ttf in Resources */,
+				EEA61612134C496A003A9827 /* 20_koot_dhruv_n_ship.ttf in Resources */,
+				EEA61613134C496A003A9827 /* 21_ksot_dhruv_n_ship.ttf in Resources */,
+				EEA61614134C496A003A9827 /* 22_miot_dhruv_n_ship.ttf in Resources */,
+				EEA61615134C496A003A9827 /* 23_mlot_aswathi_n_ship.ttf in Resources */,
+				EEA61616134C496A003A9827 /* 24_mlot_karthika_n_ship.ttf in Resources */,
+				EEA61617134C496A003A9827 /* 25_mrot_yogesh_n_ship.ttf in Resources */,
+				EEA61618134C496A003A9827 /* 26_neot_dhruv_n_ship.ttf in Resources */,
+				EEA61619134C496A003A9827 /* 27_orot_mukt.ttf in Resources */,
+				EEA6161A134C496A003A9827 /* 28_sdot_dhruv_n_ship.ttf in Resources */,
+				EEA6161B134C496A003A9827 /* 29_tlot_harshpriya_n_ship.ttf in Resources */,
+				EEA6161C134C496A003A9827 /* 30_tmot_kapilan_n_ship.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
