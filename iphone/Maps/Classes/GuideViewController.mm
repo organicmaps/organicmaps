@@ -60,10 +60,10 @@
   // Do nothing. Don't hide the results view.
 }
 
-- (void)willShowArticle
+- (void)willShowArticleVC:(ArticleVC *) articleVC
 {
-  [super willShowArticle];
-  self.articleVC.articleFormat = @
+  [super willShowArticleVC:articleVC];
+  articleVC.articleFormat = @
   "<html>"
   "  <head>"
   "    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>"

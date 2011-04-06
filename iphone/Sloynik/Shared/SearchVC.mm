@@ -24,14 +24,12 @@ struct SloynikData
 
 @synthesize searchBar;
 @synthesize resultsView;
-@synthesize articleVC;
 
 - (void)dealloc
 {
   delete m_pSloynikData;
   [searchBar release];
   [resultsView release];
-  [articleVC release];
 
   [super dealloc];
 }
@@ -66,7 +64,6 @@ struct SloynikData
   // e.g. self.myOutlet = nil;
   self.searchBar = nil;
   self.resultsView = nil;
-  self.articleVC = nil;
 }
 
 - (void)searchBar:(UISearchBar *)sender textDidChange:(NSString *)searchText
@@ -148,31 +145,26 @@ struct SloynikData
   sl::SloynikEngine::WordId const wordId = indexPath.row;
   if (wordId < GetSloynikEngine()->WordCount())
   {
-    [self willShowArticle];
-    [self.articleVC setArticleById:wordId];
-    [self showArticle];
+    ArticleVC * articleVC = [[[ArticleVC alloc] init] autorelease];
+    [articleVC setArticleById:wordId];
+    [self willShowArticleVC:articleVC];
+
+    [self.resultsView deselectRowAtIndexPath:[self.resultsView indexPathForSelectedRow] animated:NO];
+
+    CATransition * animation = [CATransition animation];
+    animation.duration = 0.2;
+    animation.type = kCATransitionPush;
+    animation.subtype = kCATransitionFromRight;
+    animation.timingFunction =
+    [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    [[self.view.superview layer] addAnimation:animation forKey:@"SwitchToArticleView"];
+
+    [self presentModalViewController:articleVC animated:NO];
   }
 }
 
-- (void)willShowArticle
+- (void)willShowArticleVC:(ArticleVC *) articleVC
 {
-  if (!self.articleVC)
-    self.articleVC = [[[ArticleVC alloc] init] autorelease];
-}
-
-- (void)showArticle
-{
-  [self.resultsView deselectRowAtIndexPath:[self.resultsView indexPathForSelectedRow] animated:NO];
-
-  CATransition * animation = [CATransition animation];
-	animation.duration = 0.2;
-  animation.type = kCATransitionPush;
-	animation.subtype = kCATransitionFromRight;
-  animation.timingFunction =
-      [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-	[[self.view.superview layer] addAnimation:animation forKey:@"SwitchToArticleView"];
-
-  [self presentModalViewController:self.articleVC animated:NO];
 }
 
 - (void)onEmptySearch

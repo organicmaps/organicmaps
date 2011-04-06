@@ -10,15 +10,12 @@ typedef struct SloynikData SloynikData;
   SloynikData * m_pSloynikData;
   UISearchBar * searchBar;
 	UITableView * resultsView;
-  ArticleVC * articleVC;
 }
 
 @property (nonatomic, retain) IBOutlet UISearchBar * searchBar;
 @property (nonatomic, retain) IBOutlet UITableView * resultsView;
-@property (nonatomic, retain) ArticleVC * articleVC;
 
-- (void)willShowArticle;
-- (void)showArticle;
+- (void)willShowArticleVC:(ArticleVC *) articleVC;
 - (void)onEmptySearch;
 
 @end

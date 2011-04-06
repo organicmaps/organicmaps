@@ -26,10 +26,11 @@
   [super dealloc];
 }
 
-- (void)init
+- (id)init
 {
   [super init];
   self.articleFormat = @"<html><body style='-webkit-text-size-adjust:%d%%'>%@</body></html>";
+  return self;
 }
 
 - (void)loadWebView
