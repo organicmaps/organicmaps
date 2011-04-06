@@ -146,8 +146,8 @@ struct SloynikData
   if (wordId < GetSloynikEngine()->WordCount())
   {
     ArticleVC * articleVC = [[[ArticleVC alloc] init] autorelease];
-    [articleVC setArticleById:wordId];
     [self willShowArticleVC:articleVC];
+    [articleVC setArticleById:wordId];
 
     [self.resultsView deselectRowAtIndexPath:[self.resultsView indexPathForSelectedRow] animated:NO];
 
