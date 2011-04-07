@@ -24,12 +24,14 @@ struct SloynikData
 
 @synthesize searchBar;
 @synthesize resultsView;
+@synthesize articleVC;
 
 - (void)dealloc
 {
   delete m_pSloynikData;
   [searchBar release];
   [resultsView release];
+  [articleVC release];
 
   [super dealloc];
 }
@@ -46,6 +48,8 @@ struct SloynikData
   
   m_pSloynikData = new SloynikData;
   GetSloynikEngine()->Search("", m_pSloynikData->m_SearchResult);
+
+  self.articleVC = [[ArticleVC alloc] initWithPreviousView:self.view];
 
   [self onEmptySearch];
 }
@@ -64,6 +68,7 @@ struct SloynikData
   // e.g. self.myOutlet = nil;
   self.searchBar = nil;
   self.resultsView = nil;
+  self.articleVC = nil;
 }
 
 - (void)searchBar:(UISearchBar *)sender textDidChange:(NSString *)searchText
@@ -145,7 +150,6 @@ struct SloynikData
   sl::SloynikEngine::WordId const wordId = indexPath.row;
   if (wordId < GetSloynikEngine()->WordCount())
   {
-    ArticleVC * articleVC = [[[ArticleVC alloc] initWithNibName:nil bundle:nil] autorelease];
     [self willShowArticleVC:articleVC];
     [articleVC setArticleById:wordId];
 
@@ -166,7 +170,11 @@ struct SloynikData
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [[self.view.superview layer] addAnimation:animation forKey:@"SwitchToArticleView"];
 
-    [self presentModalViewController:articleVC animated:NO];
+    [UIView transitionFromView:self.view
+                        toView:articleVC.view
+                      duration:0
+                       options:UIViewAnimationOptionTransitionNone
+                    completion:nil];
   }
 }
 

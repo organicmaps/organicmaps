@@ -14,6 +14,7 @@
 @synthesize navArticle;
 @synthesize pinchGestureRecognizer;
 @synthesize articleFormat;
+@synthesize previousView;
 
 - (void)dealloc
 {
@@ -26,11 +27,12 @@
   [super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle
+- (id)initWithPreviousView:(UIView *)prevView
 {
   if ((self = [super initWithNibName:nil bundle:nil]))
   {
     self.articleFormat = @"<html><body style='-webkit-text-size-adjust:%d%%'>%@</body></html>";
+    self.previousView = prevView;
   }
   return self;
 }
@@ -137,7 +139,11 @@
   animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
   [[superView layer] addAnimation:animation forKey:@"SwitchToSearchView"];
 
-  [self dismissModalViewControllerAnimated:NO];
+  [UIView transitionFromView:self.view
+                      toView:self.previousView
+                    duration:0
+                     options:UIViewAnimationOptionTransitionNone
+                  completion:nil];
 
   return NO;
 }

@@ -13,6 +13,8 @@
   unsigned int m_articleId;
   double m_fontScale;
   double m_fontScaleOnPinchStart;
+  /// used for transition
+  UIView * previousView;
 }
 
 @property (nonatomic, retain) UIWebView * webView;
@@ -21,8 +23,9 @@
 @property (nonatomic, retain) UINavigationItem * navArticle;
 @property (nonatomic, retain) UIPinchGestureRecognizer * pinchGestureRecognizer;
 @property (nonatomic, retain) NSString * articleFormat;
+@property (nonatomic, assign) UIView * previousView;
 
-- (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle;
+- (id)initWithPreviousView:(UIView *)previousView;
 - (void)setArticleById:(unsigned int)articleId;
 
 @end

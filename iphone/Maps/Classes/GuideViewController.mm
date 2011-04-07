@@ -60,10 +60,10 @@
   // Do nothing. Don't hide the results view.
 }
 
-- (void)willShowArticleVC:(ArticleVC *) articleVC
+- (void)willShowArticleVC:(ArticleVC *) viewController
 {
-  [super willShowArticleVC:articleVC];
-  articleVC.articleFormat = @
+  [super willShowArticleVC:viewController];
+  viewController.articleFormat = @
   "<html>"
   "  <head>"
   "    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>"
