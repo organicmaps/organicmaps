@@ -26,21 +26,13 @@
   [super dealloc];
 }
 
-- (id)init
+- (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle
 {
-  [super init];
-  self.articleFormat = @"<html><body style='-webkit-text-size-adjust:%d%%'>%@</body></html>";
+  if ((self = [super initWithNibName:nil bundle:nil]))
+  {
+    self.articleFormat = @"<html><body style='-webkit-text-size-adjust:%d%%'>%@</body></html>";
+  }
   return self;
-}
-
-- (void)loadWebView
-{
-  self.webView = [[[UIWebView alloc] initWithFrame:m_webViewFrame] autorelease];
-  self.webView.delegate = self;
-  self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-
-  if (self.pinchGestureRecognizer)
-    [self.webView addGestureRecognizer:self.pinchGestureRecognizer];
 }
 
 - (unsigned int)textSizeAdjustment
@@ -70,7 +62,6 @@
   int const toolbarH = 44;
   CGRect frame = [[UIScreen mainScreen] applicationFrame];
   CGRect navBarFrame = CGRectMake(0, 0, frame.size.width, toolbarH);
-  m_webViewFrame = CGRectMake(0, toolbarH, frame.size.width, frame.size.height - toolbarH);
 
   self.navBar = [[[UINavigationBar alloc] initWithFrame:navBarFrame] autorelease];
   self.navBar.delegate = self;
@@ -88,9 +79,16 @@
     self.pinchGestureRecognizer.delegate = self;
   }
 
-  [self loadWebView];
+  CGRect webViewFrame = CGRectMake(0, toolbarH, frame.size.width, frame.size.height - toolbarH);
+  self.webView = [[[UIWebView alloc] initWithFrame:webViewFrame] autorelease];
+  self.webView.delegate = self;
+  self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
+  if (self.pinchGestureRecognizer)
+    [self.webView addGestureRecognizer:self.pinchGestureRecognizer];
 
   UIView * mainView = [[[UIView alloc] initWithFrame:frame] autorelease];
+  mainView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   [mainView addSubview:self.navBar];
   [mainView addSubview:self.webView];
   self.view = mainView;
@@ -127,9 +125,16 @@
   CATransition * animation = [CATransition animation];
   animation.duration = 0.2;
   animation.type = kCATransitionPush;
-  animation.subtype = kCATransitionFromLeft;
-  animation.timingFunction =
-      [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+  NSString * direction = nil;
+  switch (self.interfaceOrientation)
+  {
+    case UIInterfaceOrientationPortrait: direction = kCATransitionFromLeft; break;
+    case UIInterfaceOrientationPortraitUpsideDown: direction = kCATransitionFromRight; break;
+    case UIInterfaceOrientationLandscapeLeft: direction = kCATransitionFromTop; break;
+    case UIInterfaceOrientationLandscapeRight: direction = kCATransitionFromBottom; break;
+  }
+  animation.subtype = direction;
+  animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
   [[superView layer] addAnimation:animation forKey:@"SwitchToSearchView"];
 
   [self dismissModalViewControllerAnimated:NO];

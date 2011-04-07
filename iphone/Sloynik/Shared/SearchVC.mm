@@ -145,7 +145,7 @@ struct SloynikData
   sl::SloynikEngine::WordId const wordId = indexPath.row;
   if (wordId < GetSloynikEngine()->WordCount())
   {
-    ArticleVC * articleVC = [[[ArticleVC alloc] init] autorelease];
+    ArticleVC * articleVC = [[[ArticleVC alloc] initWithNibName:nil bundle:nil] autorelease];
     [self willShowArticleVC:articleVC];
     [articleVC setArticleById:wordId];
 
@@ -154,9 +154,16 @@ struct SloynikData
     CATransition * animation = [CATransition animation];
     animation.duration = 0.2;
     animation.type = kCATransitionPush;
-    animation.subtype = kCATransitionFromRight;
-    animation.timingFunction =
-    [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    NSString * direction = nil;
+    switch (self.interfaceOrientation)
+    {
+      case UIInterfaceOrientationPortrait: direction = kCATransitionFromRight; break;
+      case UIInterfaceOrientationPortraitUpsideDown: direction = kCATransitionFromLeft; break;
+      case UIInterfaceOrientationLandscapeLeft: direction = kCATransitionFromBottom; break;
+      case UIInterfaceOrientationLandscapeRight: direction = kCATransitionFromTop; break;
+    }
+    animation.subtype = direction;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [[self.view.superview layer] addAnimation:animation forKey:@"SwitchToArticleView"];
 
     [self presentModalViewController:articleVC animated:NO];

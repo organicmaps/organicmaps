@@ -3,8 +3,8 @@
 @interface ArticleVC : UIViewController
 <UINavigationBarDelegate, UIWebViewDelegate, UIGestureRecognizerDelegate>
 {
-  UIWebView * webView;         // Web view that displays an article.
-  UINavigationBar * navBar;    // Navigation bar.
+  UIWebView * webView;         // Web view that displays an article
+  UINavigationBar * navBar;    // Navigation bar
   UINavigationItem * navSearch;
   UINavigationItem * navArticle;
   UIPinchGestureRecognizer * pinchGestureRecognizer;
@@ -22,6 +22,7 @@
 @property (nonatomic, retain) UIPinchGestureRecognizer * pinchGestureRecognizer;
 @property (nonatomic, retain) NSString * articleFormat;
 
+- (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle;
 - (void)setArticleById:(unsigned int)articleId;
 
 @end
