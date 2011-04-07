@@ -167,6 +167,7 @@
 							<int key="NSID">2</int>
 						</object>
 					</object>
+					<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 					<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 				</object>
 				<reference key="IBUIToolbarItems" ref="0"/>

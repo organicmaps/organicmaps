@@ -396,18 +396,8 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 {
 	if (m_framework)
 	{
-    LOG(LINFO, ("Invalidate: [self.view drawView]"));
-    [(EAGLView *)self.view drawView];
-    LOG(LINFO, ("Invalidate: m_framework->SetUpdatesEnabled(true)"));
-    m_framework->SetUpdatesEnabled(true);
-    LOG(LINFO, ("Invalidate: done."));
-
-    // The code below causes very long response time when switching from GuideView to MapView,
-    // if before there was a long redraw on MapView to GuideView switch.
-    //
-    // if (!m_framework->SetUpdatesEnabled(true))
-    //   m_framework->Invalidate();
-    // LOG(LINFO, ("Invalidate done."));
+        if (!m_framework->SetUpdatesEnabled(true))
+            m_framework->Invalidate();
 	}
 }
 
