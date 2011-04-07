@@ -49,7 +49,7 @@
 					<object class="IBUITableView" id="198920947">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{20, 44}, {768, 916}}</string>
+						<string key="NSFrame">{{0, 44}, {768, 916}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="97806651"/>
@@ -78,7 +78,6 @@
 								<string key="NSFrame">{{7, 8}, {207, 30}}</string>
 								<reference key="NSSuperview" ref="97806651"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBSegmentControlStyle">2</int>
