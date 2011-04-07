@@ -2,6 +2,7 @@
 #import "MapViewController.h"
 #import "GuideViewController.h"
 #import "SettingsManager.h"
+#import "../../Sloynik/Shared/global.hpp"
 
 @implementation MapsAppDelegate
 
@@ -31,6 +32,10 @@
 
 - (void) applicationDidFinishLaunching: (UIApplication *) application
 {
+  // Initialize Sloynik engine.
+  // It takes long for the first time, so we do it while startup image is visible.
+  GetSloynikEngine();
+
   // Add the tab bar controller's current view as a subview of the window
   [window addSubview:mapViewController.view];
   [window makeKeyAndVisible];
