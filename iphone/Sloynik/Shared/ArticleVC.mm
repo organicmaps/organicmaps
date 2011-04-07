@@ -24,6 +24,7 @@
 
 - (void)dealloc
 {
+  LOG(LINFO, ("ArticleVC::dealloc."));
   [webView release];
   [navBar release];
   [navSearch release];
@@ -31,6 +32,7 @@
   [pinchGestureRecognizer release];
   [articleFormat release];
   [super dealloc];
+  LOG(LINFO, ("ArticleVC::dealloc done."));
 }
 
 - (id)initWithPreviousView:(UIView *)prevView

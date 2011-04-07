@@ -5,6 +5,7 @@
 #include "global.hpp"
 #include "../../words/sloynik_engine.hpp"
 #include "../../base/assert.hpp"
+#include "../../base/logging.hpp"
 #include "../../std/string.hpp"
 
 struct SloynikData
@@ -28,12 +29,14 @@ struct SloynikData
 
 - (void)dealloc
 {
+  LOG(LINFO, ("SearchVC::dealloc."));
   delete m_pSloynikData;
   [searchBar release];
   [resultsView release];
   [articleVC release];
 
   [super dealloc];
+  LOG(LINFO, ("SearchVC::dealloc done."));
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
