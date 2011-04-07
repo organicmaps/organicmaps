@@ -21,6 +21,7 @@ using std::unique;
 using std::equal_range;
 using std::for_each;
 using std::copy;
+using std::replace;
 using std::reverse;
 using std::set_union;
 using std::set_intersection;
