@@ -286,7 +286,7 @@ TIndex g_clickedIndex;
         if (connType == ENotConnected)
         { // do not initiate any download
           CustomAlertView * alert = [[CustomAlertView alloc] initWithTitle:@"No Internet connection detected"
-              message:@"We recommend to download large countries by using WiFi"
+              message:@"We recommend to download large countries using WiFi"
               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
           [alert show];
           [alert release];
