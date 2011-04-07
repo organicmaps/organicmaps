@@ -285,9 +285,12 @@ TIndex g_clickedIndex;
         TActiveConnectionType connType = GetActiveConnectionType();
         if (connType == ENotConnected)
         { // do not initiate any download
-          CustomAlertView * alert = [[CustomAlertView alloc] initWithTitle:@"No Internet connection detected"
-              message:@"We recommend to download large countries using WiFi"
-              delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+          CustomAlertView * alert =
+            [[CustomAlertView alloc] initWithTitle:@"No Internet connection detected"
+                                           message:@"Please, use WiFi to download large countries"
+                                          delegate:nil
+                                 cancelButtonTitle:@"OK"
+                                 otherButtonTitles:nil];
           [alert show];
           [alert release];
         }
@@ -297,9 +300,12 @@ TIndex g_clickedIndex;
           TLocalAndRemoteSize::first_type size = sizePair.second - sizePair.first;
           if (connType == EConnectedBy3G && size > MAX_3G_MEGABYTES * MB)
           { // If user uses 3G, do not allow him to download large countries
-            CustomAlertView * alert = [[CustomAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@ is too large for 3G download", countryName]
-                                                                     message:@"Please, use WiFi to download large countries"
-                                                                    delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            CustomAlertView * alert =
+              [[CustomAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@ is too large to download over 3G", countryName]
+                                             message:@"Please, use WiFi connection to download large countries"
+                                            delegate:nil
+                                   cancelButtonTitle:@"OK"
+                                   otherButtonTitles:nil];
             [alert show];
             [alert release];
           }
