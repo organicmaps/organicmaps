@@ -12,6 +12,9 @@ for i, line in enumerate(sys.stdin):
   else:
     sys.stderr.write('Downloading {0} {1}\n'.format(i, fileName))
 
+    if title.find('_') != -1:
+      sys.stderr.write('WARNING! Title contains "_". It will not be found!\n')
+
     tryCount = 0
     while True:
       try:

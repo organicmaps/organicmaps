@@ -4,6 +4,7 @@
 #include "../../words/sloynik_engine.hpp"
 #include "../../base/assert.hpp"
 #include "../../base/logging.hpp"
+#include "../../std/algorithm.hpp"
 
 
 @implementation ArticleVC
@@ -15,6 +16,11 @@
 @synthesize pinchGestureRecognizer;
 @synthesize articleFormat;
 @synthesize previousView;
+
++ (NSURL *)baseURL
+{
+  return [NSURL URLWithString:@"http://m.wikitravel.org/en/"];
+}
 
 - (void)dealloc
 {
@@ -120,7 +126,7 @@
 - (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item
 {
   // Clear webView.
-  [self.webView loadHTMLString:@"" baseURL:[NSURL URLWithString:@"http://s/"]];
+  [self.webView loadHTMLString:@"" baseURL:[ArticleVC baseURL]];
 
   UIView * superView = self.view.superview;
 
@@ -176,31 +182,45 @@
                    self.articleFormat,
                    [self textSizeAdjustment],
                    [NSString stringWithUTF8String:data.m_HTML.c_str()]]
-   baseURL:[NSURL URLWithString:@"http://s/"]];
+   baseURL:[[ArticleVC baseURL] URLByAppendingPathComponent:@"URLbySetArticleById"]];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
  navigationType:(UIWebViewNavigationType)navigationType
 {
-  char const * urlChars = [[[request URL] path] UTF8String];
+  NSURL * nsURL = [request URL];
+  char const * fullURLDescription = [[nsURL description] UTF8String];
+  LOG(LINFO, ("Processing URL:", fullURLDescription));
+
+  if ([[nsURL scheme] caseInsensitiveCompare:@"http"] != NSOrderedSame)
+    return YES;
+
+  if ([[nsURL host] rangeOfString:@"m.wikitravel.org"
+                           options:(NSCaseInsensitiveSearch | NSBackwardsSearch | NSAnchoredSearch)
+        ].location == NSNotFound)
+    return YES;
+
+  char const * urlChars = [[nsURL path] UTF8String];
   if (!urlChars)
   {
     LOG(LWARNING, ("Strange URL: path is empty."));
-    return NO;
-  }
-  string const url(urlChars);
-  size_t const lastSlash = url.find_last_of('/');
-  if (lastSlash == string::npos)
-  {
-    LOG(LWARNING, ("Strange URL", url));
     return YES;
   }
-  string const articleName = url.substr(lastSlash + 1);
-  if (articleName.size() == 0 || articleName.empty())
+  string const url = urlChars;
+  if (url.size() <= 4 || url.substr(0, 4) != "/en/")
   {
-    // Loading article from searchVC.
+    LOG(LWARNING, ("Strange URL:", url));
     return YES;
   }
+
+  string articleName = url.substr(4);
+  if (articleName == "URLbySetArticleById")
+  {
+    // URL set by setArticleById[].
+    return YES;
+  }
+
+  replace(articleName.begin(), articleName.end(), '_', ' ');
   sl::SloynikEngine::SearchResult searchResult;
   GetSloynikEngine()->Search(articleName, searchResult);
   ASSERT_LESS_OR_EQUAL(searchResult.m_FirstMatched, GetSloynikEngine()->WordCount(), ());
