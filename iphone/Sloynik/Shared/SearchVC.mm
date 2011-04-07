@@ -27,6 +27,16 @@ struct SloynikData
 @synthesize resultsView;
 @synthesize articleVC;
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+  if (self)
+  {
+    self.articleVC = [[[ArticleVC alloc] initWithParent:self] autorelease];
+  }
+  return self;
+}
+
 - (void)dealloc
 {
   LOG(LINFO, ("SearchVC::dealloc."));
@@ -52,8 +62,6 @@ struct SloynikData
   m_pSloynikData = new SloynikData;
   GetSloynikEngine()->Search("", m_pSloynikData->m_SearchResult);
 
-  self.articleVC = [[ArticleVC alloc] initWithPreviousView:self.view];
-
   [self onEmptySearch];
 }
 
@@ -71,7 +79,6 @@ struct SloynikData
   // e.g. self.myOutlet = nil;
   self.searchBar = nil;
   self.resultsView = nil;
-  self.articleVC = nil;
 }
 
 - (void)searchBar:(UISearchBar *)sender textDidChange:(NSString *)searchText

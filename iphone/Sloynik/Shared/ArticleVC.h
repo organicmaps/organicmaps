@@ -23,9 +23,9 @@
 @property (nonatomic, retain) UINavigationItem * navArticle;
 @property (nonatomic, retain) UIPinchGestureRecognizer * pinchGestureRecognizer;
 @property (nonatomic, retain) NSString * articleFormat;
-@property (nonatomic, assign) UIView * previousView;
+@property (nonatomic, assign) UIViewController * parentController;
 
-- (id)initWithPreviousView:(UIView *)previousView;
+- (id)initWithParent:(UIViewController *)parentVC;
 - (void)setArticleById:(unsigned int)articleId;
 
 @end

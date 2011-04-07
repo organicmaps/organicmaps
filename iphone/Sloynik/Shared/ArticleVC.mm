@@ -15,7 +15,7 @@
 @synthesize navArticle;
 @synthesize pinchGestureRecognizer;
 @synthesize articleFormat;
-@synthesize previousView;
+@synthesize parentController;
 
 + (NSURL *)baseURL
 {
@@ -35,12 +35,12 @@
   LOG(LINFO, ("ArticleVC::dealloc done."));
 }
 
-- (id)initWithPreviousView:(UIView *)prevView
+- (id)initWithParent:(UIViewController *)parentVC
 {
   if ((self = [super initWithNibName:nil bundle:nil]))
   {
     self.articleFormat = @"<html><body style='-webkit-text-size-adjust:%d%%'>%@</body></html>";
-    self.previousView = prevView;
+    self.parentController = parentVC;
   }
   return self;
 }
@@ -148,7 +148,7 @@
   [[superView layer] addAnimation:animation forKey:@"SwitchToSearchView"];
 
   [UIView transitionFromView:self.view
-                      toView:self.previousView
+                      toView:self.parentController.view
                     duration:0
                      options:UIViewAnimationOptionTransitionNone
                   completion:nil];
