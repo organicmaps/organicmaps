@@ -26,6 +26,11 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
   shared_ptr<Locator> m_locator;
   storage::Storage m_storage;
 
+- (void) ZoomToRect: (m2::RectD const &) rect
+{
+  if (m_framework)
+    m_framework->ShowRect(rect);
+}
 
 - (void)UpdateIcon:(NSTimer *)theTimer 
 {

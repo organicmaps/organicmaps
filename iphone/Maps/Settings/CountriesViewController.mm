@@ -125,6 +125,17 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 //	return nil;
 //}
 
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+  TIndex index = CalculateIndex(m_index, indexPath);
+  if (m_storage->CountryStatus(index) == EOnDisk)
+  {
+    m2::RectD bounds = m_storage->CountryBounds(index);
+    [[MapsAppDelegate theApp].settingsManager Hide];
+    [[MapsAppDelegate theApp].mapViewController ZoomToRect:bounds];
+  }
+}
+
 - (NSInteger) tableView: (UITableView *)tableView numberOfRowsInSection: (NSInteger)section
 {
 	return m_storage->CountriesCount(m_index);
@@ -164,6 +175,8 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
                                                     blue:68.f/255.f
                                                    alpha:1.f];
         cell.detailTextLabel.text = [NSString stringWithFormat: @"Downloaded (%qu %s), touch to delete", size, kBorMBorGB];
+        // also add "sight" icon for centering on the country
+        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
       }
       break;
     case EDownloading:

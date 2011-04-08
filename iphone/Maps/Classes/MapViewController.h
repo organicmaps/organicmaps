@@ -33,6 +33,8 @@
 
 - (id) initWithCoder: (NSCoder *)coder;
 
+- (void) ZoomToRect: (m2::RectD const &) rect;
+
 - (void) UpdateIcon: (NSTimer *)theTimer;
 - (void) OnUpdateLocation: (m2::PointD const &) mercatorPoint
           withErrorRadius: (double) errorRadius

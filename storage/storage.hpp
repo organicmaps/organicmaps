@@ -128,6 +128,7 @@ namespace storage
     string CountryName(TIndex const & index) const;
     TLocalAndRemoteSize CountrySizeInBytes(TIndex const & index) const;
     TStatus CountryStatus(TIndex const & index) const;
+    m2::RectD CountryBounds(TIndex const & index) const;
 
     void DownloadCountry(TIndex const & index);
     void DeleteCountry(TIndex const & index);

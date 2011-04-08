@@ -266,6 +266,12 @@ namespace storage
     for_each(country.Tiles().begin(), country.Tiles().end(), DeleteMap());
   }
 
+  m2::RectD Storage::CountryBounds(TIndex const & index) const
+  {
+    Country const & country = CountryByIndex(index);
+    return country.Bounds();
+  }
+
   void Storage::DeleteCountry(TIndex const & index)
   {
     Country const & country = CountryByIndex(index);

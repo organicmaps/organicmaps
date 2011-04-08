@@ -521,6 +521,12 @@ public:
     UpdateNow();
   }
 
+  void ShowRect(m2::RectD const & rect)
+  {
+    m_navigator.SetFromRect(rect);
+    UpdateNow();
+  }
+
   void MemoryWarning()
   {
     // clearing caches on memory warning.
