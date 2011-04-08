@@ -879,12 +879,10 @@
 		FA1DE85C11E2236200C6D69A /* Device Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Yury Melnichek";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../omim-iphonesim-build/out/debug\"",
 				);
-				PROVISIONING_PROFILE = "9957359C-0502-4ED2-828B-19C696089716";
 			};
 			name = "Device Release";
 		};
