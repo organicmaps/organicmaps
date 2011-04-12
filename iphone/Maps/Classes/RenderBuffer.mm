@@ -47,7 +47,7 @@ namespace iphone
 					&& (tryCount++ < 100));
 
 		if (tryCount != 0)
-			NSLog(@"renderBuffer was presented from %d try");
+			NSLog(@"renderBuffer was presented from %d try", tryCount);
 	}
 
 	unsigned RenderBuffer::width() const
