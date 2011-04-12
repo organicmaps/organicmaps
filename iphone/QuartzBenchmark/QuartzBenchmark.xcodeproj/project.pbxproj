@@ -17,6 +17,7 @@
 		EEDD1D3413549F20007A130C /* QuartzBenchmarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDD1D3313549F20007A130C /* QuartzBenchmarkViewController.m */; };
 		EEDD1D3713549F20007A130C /* QuartzBenchmarkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEDD1D3513549F20007A130C /* QuartzBenchmarkViewController.xib */; };
 		EEDD1D3F13549FE0007A130C /* Draw2D.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEDD1D3E13549FE0007A130C /* Draw2D.mm */; };
+		FA37C9681354C3EB006610DC /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA37C9661354C3EB006610DC /* MainWindow-iPad.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		EEDD1D3613549F20007A130C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/QuartzBenchmarkViewController.xib; sourceTree = "<group>"; };
 		EEDD1D3D13549FE0007A130C /* Draw2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Draw2D.h; sourceTree = "<group>"; };
 		EEDD1D3E13549FE0007A130C /* Draw2D.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Draw2D.mm; sourceTree = "<group>"; };
+		FA37C9671354C3EB006610DC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "iPad/en.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 		EEDD1D2313549F20007A130C /* QuartzBenchmark */ = {
 			isa = PBXGroup;
 			children = (
+				FA37C9651354C3E9006610DC /* iPad */,
 				EEDD1D2C13549F20007A130C /* QuartzBenchmarkAppDelegate.h */,
 				EEDD1D2D13549F20007A130C /* QuartzBenchmarkAppDelegate.m */,
 				EEDD1D2F13549F20007A130C /* MainWindow.xib */,
@@ -104,6 +107,14 @@
 				EEDD1D2A13549F20007A130C /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FA37C9651354C3E9006610DC /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				FA37C9661354C3EB006610DC /* MainWindow-iPad.xib */,
+			);
+			name = iPad;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,6 +170,7 @@
 				EEDD1D2813549F20007A130C /* InfoPlist.strings in Resources */,
 				EEDD1D3113549F20007A130C /* MainWindow.xib in Resources */,
 				EEDD1D3713549F20007A130C /* QuartzBenchmarkViewController.xib in Resources */,
+				FA37C9681354C3EB006610DC /* MainWindow-iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +213,14 @@
 				EEDD1D3613549F20007A130C /* en */,
 			);
 			name = QuartzBenchmarkViewController.xib;
+			sourceTree = "<group>";
+		};
+		FA37C9661354C3EB006610DC /* MainWindow-iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA37C9671354C3EB006610DC /* en */,
+			);
+			name = "MainWindow-iPad.xib";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -247,7 +267,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QuartzBenchmark/QuartzBenchmark-Prefix.pch";
 				INFOPLIST_FILE = "QuartzBenchmark/QuartzBenchmark-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -260,7 +282,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QuartzBenchmark/QuartzBenchmark-Prefix.pch";
 				INFOPLIST_FILE = "QuartzBenchmark/QuartzBenchmark-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -285,6 +309,7 @@
 				EEDD1D3C13549F20007A130C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
