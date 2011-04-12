@@ -9,6 +9,7 @@
 #include "about.hpp"
 #include "preferences_dialog.hpp"
 #include "info_dialog.hpp"
+#include "guide_page.hpp"
 
 #include "../defines.hpp"
 
@@ -21,6 +22,7 @@
 #include <QtGui/QAction>
 #include <QtGui/QMenuBar>
 #include <QtGui/QMenu>
+
 #include <QtCore/QFile>
 
 #include "../base/start_mem_debug.hpp"
@@ -38,6 +40,7 @@ MainWindow::MainWindow() : m_updateDialog(0)
   CreateNavigationBar();
 
   CreateClassifPanel();
+  CreateGuidePanel();
 
   setCentralWidget(m_pDrawWidget);
 
@@ -160,22 +163,39 @@ void MainWindow::LoadState()
 
 void MainWindow::CreateClassifPanel()
 {
-  m_pClassifDock = new QDockWidget(tr("Classificator Bar"), this);
+  CreatePanelImpl(0, tr("Classificator Bar"),
+                  QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_C), SLOT(ShowClassifPanel()));
 
-  ClassifTreeHolder * pCTree = new ClassifTreeHolder(m_pClassifDock, m_pDrawWidget, SLOT(Repaint()));
+  ClassifTreeHolder * pCTree = new ClassifTreeHolder(m_Docks[0], m_pDrawWidget, SLOT(Repaint()));
   pCTree->SetRoot(classif().GetMutableRoot());
 
-  m_pClassifDock->setWidget(pCTree);
+  m_Docks[0]->setWidget(pCTree);
+}
 
-  addDockWidget(Qt::LeftDockWidgetArea, m_pClassifDock);
+void MainWindow::CreateGuidePanel()
+{
+  CreatePanelImpl(1, tr("Guide Bar"),
+                  QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_G), SLOT(ShowGuidePanel()));
+
+  qt::GuidePageHolder * pGPage = new qt::GuidePageHolder(m_Docks[1]);
+
+  m_Docks[1]->setWidget(pGPage);
+}
+
+void MainWindow::CreatePanelImpl(size_t i, QString const & name,
+                                 QKeySequence const & hotkey, char const * slot)
+{
+  m_Docks[i] = new QDockWidget(name, this);
+
+  addDockWidget(Qt::LeftDockWidgetArea, m_Docks[i]);
 
   // hide by default
-  m_pClassifDock->hide();
+  m_Docks[i]->hide();
 
   // register a hotkey to show classificator panel
   QAction * pAct = new QAction(this);
-  pAct->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_C));
-  connect(pAct, SIGNAL(triggered()), this, SLOT(ShowClassifPanel()));
+  pAct->setShortcut(hotkey);
+  connect(pAct, SIGNAL(triggered()), this, slot);
   addAction(pAct);
 }
 
@@ -283,7 +303,12 @@ void MainWindow::ShowUpdateDialog()
 
 void MainWindow::ShowClassifPanel()
 {
-  m_pClassifDock->show();
+  m_Docks[0]->show();
+}
+
+void MainWindow::ShowGuidePanel()
+{
+  m_Docks[1]->show();
 }
 
 void MainWindow::OnAbout()

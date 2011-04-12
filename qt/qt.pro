@@ -1,13 +1,13 @@
 # Main application in qt.
 ROOT_DIR = ..
-DEPENDENCIES = map storage indexer yg platform geometry coding base freetype expat fribidi tomcrypt version
+DEPENDENCIES = words map storage indexer yg platform geometry coding base bzip2 freetype expat fribidi tomcrypt version
 
 include($$ROOT_DIR/common.pri)
 
 TARGET = MapsWithMe
 TEMPLATE = app
 
-QT *= core gui opengl network
+QT *= core gui opengl network webkit
 
 win32 {
   LIBS += -lopengl32 -lws2_32 -lshell32
@@ -82,7 +82,8 @@ SOURCES += \
     slider_ctrl.cpp \
     about.cpp \
     preferences_dialog.cpp \
-    info_dialog.cpp
+    info_dialog.cpp \
+    guide_page.cpp
 
 HEADERS += \
     mainwindow.hpp \
@@ -96,6 +97,7 @@ HEADERS += \
     slider_ctrl.hpp \
     about.hpp \
     preferences_dialog.hpp \
-    info_dialog.hpp
+    info_dialog.hpp \
+    guide_page.hpp
 
 RESOURCES += res/resources.qrc \

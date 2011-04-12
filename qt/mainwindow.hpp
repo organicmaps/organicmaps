@@ -17,7 +17,7 @@ namespace qt
   class MainWindow : public QMainWindow
   {
     DrawWidget * m_pDrawWidget;
-    QDockWidget * m_pClassifDock;
+    QDockWidget * m_Docks[2];
     //FindTableWnd * m_pFindTable;
     UpdateDialog * m_updateDialog;
 
@@ -35,7 +35,12 @@ namespace qt
     void LoadState();
 
   protected:
+    void CreatePanelImpl(size_t i, QString const & name, QKeySequence const & hotkey,
+                         char const * slot);
+
     void CreateClassifPanel();
+    void CreateGuidePanel();
+
     void CreateNavigationBar();
     //void CreateFindTable(QLayout * pLayout);
   #if defined(Q_WS_WIN)
@@ -48,6 +53,7 @@ namespace qt
     //void OnFeatureClicked(int row, int col);
     void ShowUpdateDialog();
     void ShowClassifPanel();
+    void ShowGuidePanel();
     void OnAbout();
     void OnPreferences();
   };
