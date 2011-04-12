@@ -1,0 +1,608 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EE12001013538ED6004E6AAB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12000F13538ED6004E6AAB /* UIKit.framework */; };
+		EE12001213538ED6004E6AAB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12001113538ED6004E6AAB /* Foundation.framework */; };
+		EE12001413538ED6004E6AAB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12001313538ED6004E6AAB /* CoreGraphics.framework */; };
+		EE12001613538ED6004E6AAB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12001513538ED6004E6AAB /* QuartzCore.framework */; };
+		EE12001813538ED6004E6AAB /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12001713538ED6004E6AAB /* OpenGLES.framework */; };
+		EE12001E13538ED6004E6AAB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE12001C13538ED6004E6AAB /* InfoPlist.strings */; };
+		EE12002113538ED6004E6AAB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EE12002013538ED6004E6AAB /* main.m */; };
+		EE12002413538ED6004E6AAB /* BenchmarksAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE12002313538ED6004E6AAB /* BenchmarksAppDelegate.mm */; };
+		EE12002713538ED6004E6AAB /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE12002513538ED6004E6AAB /* MainWindow.xib */; };
+		EE12002913538ED6004E6AAB /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = EE12002813538ED6004E6AAB /* Shader.fsh */; };
+		EE12002B13538ED6004E6AAB /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = EE12002A13538ED6004E6AAB /* Shader.vsh */; };
+		EE12002E13538ED6004E6AAB /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE12002D13538ED6004E6AAB /* EAGLView.mm */; };
+		EE12003113538ED6004E6AAB /* BenchmarksViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE12003013538ED6004E6AAB /* BenchmarksViewController.mm */; };
+		EE12003413538ED6004E6AAB /* BenchmarksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE12003213538ED6004E6AAB /* BenchmarksViewController.xib */; };
+		EE12004413539683004E6AAB /* RenderBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE12004113539683004E6AAB /* RenderBuffer.mm */; };
+		EE12004513539683004E6AAB /* RenderContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE12004313539683004E6AAB /* RenderContext.mm */; };
+		EE1200601353A5FC004E6AAB /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12004A1353A5FC004E6AAB /* libbase.a */; };
+		EE1200611353A5FC004E6AAB /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12004B1353A5FC004E6AAB /* libbzip2.a */; };
+		EE1200621353A5FC004E6AAB /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12004C1353A5FC004E6AAB /* libcoding.a */; };
+		EE1200631353A5FC004E6AAB /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12004D1353A5FC004E6AAB /* libexpat.a */; };
+		EE1200641353A5FC004E6AAB /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12004E1353A5FC004E6AAB /* libfreetype.a */; };
+		EE1200651353A5FC004E6AAB /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12004F1353A5FC004E6AAB /* libfribidi.a */; };
+		EE1200661353A5FC004E6AAB /* libgenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1200501353A5FC004E6AAB /* libgenerator.a */; };
+		EE1200671353A5FC004E6AAB /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1200511353A5FC004E6AAB /* libgeometry.a */; };
+		EE1200681353A5FC004E6AAB /* libgflags.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1200521353A5FC004E6AAB /* libgflags.a */; };
+		EE1200691353A5FC004E6AAB /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1200531353A5FC004E6AAB /* libindexer.a */; };
+		EE12006A1353A5FC004E6AAB /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1200541353A5FC004E6AAB /* libjansson.a */; };
+		EE12006B1353A5FC004E6AAB /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1200551353A5FC004E6AAB /* libmap.a */; };
+		EE12006C1353A5FC004E6AAB /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1200561353A5FC004E6AAB /* libplatform.a */; };
+		EE12006D1353A5FC004E6AAB /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1200571353A5FC004E6AAB /* libprotobuf.a */; };
+		EE12006E1353A5FC004E6AAB /* libqt_tstfrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1200581353A5FC004E6AAB /* libqt_tstfrm.a */; };
+		EE12006F1353A5FC004E6AAB /* libsgitess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1200591353A5FC004E6AAB /* libsgitess.a */; };
+		EE1200701353A5FC004E6AAB /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12005A1353A5FC004E6AAB /* libstorage.a */; };
+		EE1200711353A5FC004E6AAB /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12005B1353A5FC004E6AAB /* libtomcrypt.a */; };
+		EE1200721353A5FD004E6AAB /* libversion.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12005C1353A5FC004E6AAB /* libversion.a */; };
+		EE1200731353A5FD004E6AAB /* libwords.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12005D1353A5FC004E6AAB /* libwords.a */; };
+		EE1200741353A5FD004E6AAB /* libyg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12005E1353A5FC004E6AAB /* libyg.a */; };
+		EE1200751353A5FD004E6AAB /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12005F1353A5FC004E6AAB /* libzlib.a */; };
+		EE1200781353A664004E6AAB /* IPhonePlatform.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE1200771353A664004E6AAB /* IPhonePlatform.mm */; };
+		EE1200991353A731004E6AAB /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE12007A1353A731004E6AAB /* 01_dejavusans.ttf */; };
+		EE12009A1353A731004E6AAB /* 02_wqy-microhei.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE12007B1353A731004E6AAB /* 02_wqy-microhei.ttf */; };
+		EE12009B1353A731004E6AAB /* 03_jomolhari-id-a3d.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE12007C1353A731004E6AAB /* 03_jomolhari-id-a3d.ttf */; };
+		EE12009C1353A731004E6AAB /* 04_padauk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE12007D1353A731004E6AAB /* 04_padauk.ttf */; };
+		EE12009D1353A731004E6AAB /* 05_khmeros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE12007E1353A731004E6AAB /* 05_khmeros.ttf */; };
+		EE12009E1353A731004E6AAB /* 07_abyssinica_sil_r.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE12007F1353A731004E6AAB /* 07_abyssinica_sil_r.ttf */; };
+		EE12009F1353A731004E6AAB /* 09_droid_sans_thai.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE1200801353A731004E6AAB /* 09_droid_sans_thai.ttf */; };
+		EE1200A01353A731004E6AAB /* 10_asot_biisha_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE1200811353A731004E6AAB /* 10_asot_biisha_n_ship.ttf */; };
+		EE1200A11353A731004E6AAB /* 11_bnot_satyajit_sm_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE1200821353A731004E6AAB /* 11_bnot_satyajit_sm_n_ship.ttf */; };
+		EE1200A21353A731004E6AAB /* 12_boot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE1200831353A731004E6AAB /* 12_boot_dhruv_n_ship.ttf */; };
+		EE1200A31353A731004E6AAB /* 13_doot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE1200841353A731004E6AAB /* 13_doot_dhruv_n_ship.ttf */; };
+		EE1200A41353A731004E6AAB /* 14_dvot_yogesh_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE1200851353A731004E6AAB /* 14_dvot_yogesh_n_ship.ttf */; };
+		EE1200A51353A731004E6AAB /* 15_gist_sat_dvot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE1200861353A731004E6AAB /* 15_gist_sat_dvot_dhruv_n_ship.ttf */; };
+		EE1200A61353A731004E6AAB /* 16_gist-snd-dvot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE1200871353A731004E6AAB /* 16_gist-snd-dvot_dhruv_n_ship.ttf */; };
+		EE1200A71353A731004E6AAB /* 17_gjot_pratik_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE1200881353A731004E6AAB /* 17_gjot_pratik_n_ship.ttf */; };
+		EE1200A81353A731004E6AAB /* 18_gjot_rohit_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE1200891353A731004E6AAB /* 18_gjot_rohit_n_ship.ttf */; };
+		EE1200A91353A731004E6AAB /* 19_knot_nandi_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE12008A1353A731004E6AAB /* 19_knot_nandi_n_ship.ttf */; };
+		EE1200AA1353A731004E6AAB /* 20_koot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE12008B1353A731004E6AAB /* 20_koot_dhruv_n_ship.ttf */; };
+		EE1200AB1353A731004E6AAB /* 21_ksot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE12008C1353A731004E6AAB /* 21_ksot_dhruv_n_ship.ttf */; };
+		EE1200AC1353A731004E6AAB /* 22_miot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE12008D1353A731004E6AAB /* 22_miot_dhruv_n_ship.ttf */; };
+		EE1200AD1353A731004E6AAB /* 23_mlot_aswathi_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE12008E1353A731004E6AAB /* 23_mlot_aswathi_n_ship.ttf */; };
+		EE1200AE1353A731004E6AAB /* 24_mlot_karthika_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE12008F1353A731004E6AAB /* 24_mlot_karthika_n_ship.ttf */; };
+		EE1200AF1353A731004E6AAB /* 25_mrot_yogesh_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE1200901353A731004E6AAB /* 25_mrot_yogesh_n_ship.ttf */; };
+		EE1200B01353A731004E6AAB /* 26_neot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE1200911353A731004E6AAB /* 26_neot_dhruv_n_ship.ttf */; };
+		EE1200B11353A731004E6AAB /* 27_orot_mukt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE1200921353A731004E6AAB /* 27_orot_mukt.ttf */; };
+		EE1200B21353A731004E6AAB /* 28_sdot_dhruv_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE1200931353A731004E6AAB /* 28_sdot_dhruv_n_ship.ttf */; };
+		EE1200B31353A731004E6AAB /* 29_tlot_harshpriya_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE1200941353A731004E6AAB /* 29_tlot_harshpriya_n_ship.ttf */; };
+		EE1200B41353A731004E6AAB /* 30_tmot_kapilan_n_ship.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE1200951353A731004E6AAB /* 30_tmot_kapilan_n_ship.ttf */; };
+		EE1200B51353A731004E6AAB /* fonts_blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE1200961353A731004E6AAB /* fonts_blacklist.txt */; };
+		EE1200B61353A731004E6AAB /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE1200971353A731004E6AAB /* fonts_whitelist.txt */; };
+		EE1200B71353A731004E6AAB /* unicode_blocks.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE1200981353A731004E6AAB /* unicode_blocks.txt */; };
+		EE1200BC1353B72A004E6AAB /* basic_highres.skn in Resources */ = {isa = PBXBuildFile; fileRef = EE1200B81353B729004E6AAB /* basic_highres.skn */; };
+		EE1200BD1353B72A004E6AAB /* basic.skn in Resources */ = {isa = PBXBuildFile; fileRef = EE1200B91353B72A004E6AAB /* basic.skn */; };
+		EE1200BE1353B72A004E6AAB /* symbols_24.png in Resources */ = {isa = PBXBuildFile; fileRef = EE1200BA1353B72A004E6AAB /* symbols_24.png */; };
+		EE1200BF1353B72A004E6AAB /* symbols_48.png in Resources */ = {isa = PBXBuildFile; fileRef = EE1200BB1353B72A004E6AAB /* symbols_48.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		EE12000B13538ED6004E6AAB /* Benchmarks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Benchmarks.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE12000F13538ED6004E6AAB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		EE12001113538ED6004E6AAB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		EE12001313538ED6004E6AAB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EE12001513538ED6004E6AAB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		EE12001713538ED6004E6AAB /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		EE12001B13538ED6004E6AAB /* Benchmarks-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Benchmarks-Info.plist"; sourceTree = "<group>"; };
+		EE12001D13538ED6004E6AAB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EE12001F13538ED6004E6AAB /* Benchmarks-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Benchmarks-Prefix.pch"; sourceTree = "<group>"; };
+		EE12002013538ED6004E6AAB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EE12002213538ED6004E6AAB /* BenchmarksAppDelegate.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BenchmarksAppDelegate.hpp; sourceTree = "<group>"; };
+		EE12002313538ED6004E6AAB /* BenchmarksAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BenchmarksAppDelegate.mm; sourceTree = "<group>"; };
+		EE12002613538ED6004E6AAB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		EE12002813538ED6004E6AAB /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
+		EE12002A13538ED6004E6AAB /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
+		EE12002C13538ED6004E6AAB /* EAGLView.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EAGLView.hpp; sourceTree = "<group>"; };
+		EE12002D13538ED6004E6AAB /* EAGLView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = EAGLView.mm; sourceTree = "<group>"; };
+		EE12002F13538ED6004E6AAB /* BenchmarksViewController.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BenchmarksViewController.hpp; sourceTree = "<group>"; };
+		EE12003013538ED6004E6AAB /* BenchmarksViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BenchmarksViewController.mm; sourceTree = "<group>"; };
+		EE12003313538ED6004E6AAB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/BenchmarksViewController.xib; sourceTree = "<group>"; };
+		EE12004013539683004E6AAB /* RenderBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RenderBuffer.hpp; path = Projects/omim/iphone/Maps/Classes/RenderBuffer.hpp; sourceTree = DEVELOPER_DIR; };
+		EE12004113539683004E6AAB /* RenderBuffer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = RenderBuffer.mm; path = Projects/omim/iphone/Maps/Classes/RenderBuffer.mm; sourceTree = DEVELOPER_DIR; };
+		EE12004213539683004E6AAB /* RenderContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RenderContext.hpp; path = Projects/omim/iphone/Maps/Classes/RenderContext.hpp; sourceTree = DEVELOPER_DIR; };
+		EE12004313539683004E6AAB /* RenderContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = RenderContext.mm; path = Projects/omim/iphone/Maps/Classes/RenderContext.mm; sourceTree = DEVELOPER_DIR; };
+		EE12004A1353A5FC004E6AAB /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "Projects/omim-build-release/out/release/libbase.a"; sourceTree = DEVELOPER_DIR; };
+		EE12004B1353A5FC004E6AAB /* libbzip2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbzip2.a; path = "Projects/omim-build-release/out/release/libbzip2.a"; sourceTree = DEVELOPER_DIR; };
+		EE12004C1353A5FC004E6AAB /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "Projects/omim-build-release/out/release/libcoding.a"; sourceTree = DEVELOPER_DIR; };
+		EE12004D1353A5FC004E6AAB /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = "Projects/omim-build-release/out/release/libexpat.a"; sourceTree = DEVELOPER_DIR; };
+		EE12004E1353A5FC004E6AAB /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = "Projects/omim-build-release/out/release/libfreetype.a"; sourceTree = DEVELOPER_DIR; };
+		EE12004F1353A5FC004E6AAB /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfribidi.a; path = "Projects/omim-build-release/out/release/libfribidi.a"; sourceTree = DEVELOPER_DIR; };
+		EE1200501353A5FC004E6AAB /* libgenerator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgenerator.a; path = "Projects/omim-build-release/out/release/libgenerator.a"; sourceTree = DEVELOPER_DIR; };
+		EE1200511353A5FC004E6AAB /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = "Projects/omim-build-release/out/release/libgeometry.a"; sourceTree = DEVELOPER_DIR; };
+		EE1200521353A5FC004E6AAB /* libgflags.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgflags.a; path = "Projects/omim-build-release/out/release/libgflags.a"; sourceTree = DEVELOPER_DIR; };
+		EE1200531353A5FC004E6AAB /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "Projects/omim-build-release/out/release/libindexer.a"; sourceTree = DEVELOPER_DIR; };
+		EE1200541353A5FC004E6AAB /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "Projects/omim-build-release/out/release/libjansson.a"; sourceTree = DEVELOPER_DIR; };
+		EE1200551353A5FC004E6AAB /* libmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmap.a; path = "Projects/omim-build-release/out/release/libmap.a"; sourceTree = DEVELOPER_DIR; };
+		EE1200561353A5FC004E6AAB /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "Projects/omim-build-release/out/release/libplatform.a"; sourceTree = DEVELOPER_DIR; };
+		EE1200571353A5FC004E6AAB /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprotobuf.a; path = "Projects/omim-build-release/out/release/libprotobuf.a"; sourceTree = DEVELOPER_DIR; };
+		EE1200581353A5FC004E6AAB /* libqt_tstfrm.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libqt_tstfrm.a; path = "Projects/omim-build-release/out/release/libqt_tstfrm.a"; sourceTree = DEVELOPER_DIR; };
+		EE1200591353A5FC004E6AAB /* libsgitess.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsgitess.a; path = "Projects/omim-build-release/out/release/libsgitess.a"; sourceTree = DEVELOPER_DIR; };
+		EE12005A1353A5FC004E6AAB /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstorage.a; path = "Projects/omim-build-release/out/release/libstorage.a"; sourceTree = DEVELOPER_DIR; };
+		EE12005B1353A5FC004E6AAB /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "Projects/omim-build-release/out/release/libtomcrypt.a"; sourceTree = DEVELOPER_DIR; };
+		EE12005C1353A5FC004E6AAB /* libversion.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libversion.a; path = "Projects/omim-build-release/out/release/libversion.a"; sourceTree = DEVELOPER_DIR; };
+		EE12005D1353A5FC004E6AAB /* libwords.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwords.a; path = "Projects/omim-build-release/out/release/libwords.a"; sourceTree = DEVELOPER_DIR; };
+		EE12005E1353A5FC004E6AAB /* libyg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libyg.a; path = "Projects/omim-build-release/out/release/libyg.a"; sourceTree = DEVELOPER_DIR; };
+		EE12005F1353A5FC004E6AAB /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libzlib.a; path = "Projects/omim-build-release/out/release/libzlib.a"; sourceTree = DEVELOPER_DIR; };
+		EE1200761353A664004E6AAB /* IPhonePlatform.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = IPhonePlatform.hpp; path = Projects/omim/iphone/Maps/Platform/IPhonePlatform.hpp; sourceTree = DEVELOPER_DIR; };
+		EE1200771353A664004E6AAB /* IPhonePlatform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = IPhonePlatform.mm; path = Projects/omim/iphone/Maps/Platform/IPhonePlatform.mm; sourceTree = DEVELOPER_DIR; };
+		EE12007A1353A731004E6AAB /* 01_dejavusans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 01_dejavusans.ttf; path = Projects/omim/data/01_dejavusans.ttf; sourceTree = DEVELOPER_DIR; };
+		EE12007B1353A731004E6AAB /* 02_wqy-microhei.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "02_wqy-microhei.ttf"; path = "Projects/omim/data/02_wqy-microhei.ttf"; sourceTree = DEVELOPER_DIR; };
+		EE12007C1353A731004E6AAB /* 03_jomolhari-id-a3d.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "03_jomolhari-id-a3d.ttf"; path = "Projects/omim/data/03_jomolhari-id-a3d.ttf"; sourceTree = DEVELOPER_DIR; };
+		EE12007D1353A731004E6AAB /* 04_padauk.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 04_padauk.ttf; path = Projects/omim/data/04_padauk.ttf; sourceTree = DEVELOPER_DIR; };
+		EE12007E1353A731004E6AAB /* 05_khmeros.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 05_khmeros.ttf; path = Projects/omim/data/05_khmeros.ttf; sourceTree = DEVELOPER_DIR; };
+		EE12007F1353A731004E6AAB /* 07_abyssinica_sil_r.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 07_abyssinica_sil_r.ttf; path = Projects/omim/data/07_abyssinica_sil_r.ttf; sourceTree = DEVELOPER_DIR; };
+		EE1200801353A731004E6AAB /* 09_droid_sans_thai.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 09_droid_sans_thai.ttf; path = Projects/omim/data/09_droid_sans_thai.ttf; sourceTree = DEVELOPER_DIR; };
+		EE1200811353A731004E6AAB /* 10_asot_biisha_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 10_asot_biisha_n_ship.ttf; path = Projects/omim/data/10_asot_biisha_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE1200821353A731004E6AAB /* 11_bnot_satyajit_sm_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 11_bnot_satyajit_sm_n_ship.ttf; path = Projects/omim/data/11_bnot_satyajit_sm_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE1200831353A731004E6AAB /* 12_boot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 12_boot_dhruv_n_ship.ttf; path = Projects/omim/data/12_boot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE1200841353A731004E6AAB /* 13_doot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 13_doot_dhruv_n_ship.ttf; path = Projects/omim/data/13_doot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE1200851353A731004E6AAB /* 14_dvot_yogesh_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 14_dvot_yogesh_n_ship.ttf; path = Projects/omim/data/14_dvot_yogesh_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE1200861353A731004E6AAB /* 15_gist_sat_dvot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 15_gist_sat_dvot_dhruv_n_ship.ttf; path = Projects/omim/data/15_gist_sat_dvot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE1200871353A731004E6AAB /* 16_gist-snd-dvot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "16_gist-snd-dvot_dhruv_n_ship.ttf"; path = "Projects/omim/data/16_gist-snd-dvot_dhruv_n_ship.ttf"; sourceTree = DEVELOPER_DIR; };
+		EE1200881353A731004E6AAB /* 17_gjot_pratik_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 17_gjot_pratik_n_ship.ttf; path = Projects/omim/data/17_gjot_pratik_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE1200891353A731004E6AAB /* 18_gjot_rohit_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 18_gjot_rohit_n_ship.ttf; path = Projects/omim/data/18_gjot_rohit_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE12008A1353A731004E6AAB /* 19_knot_nandi_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 19_knot_nandi_n_ship.ttf; path = Projects/omim/data/19_knot_nandi_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE12008B1353A731004E6AAB /* 20_koot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 20_koot_dhruv_n_ship.ttf; path = Projects/omim/data/20_koot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE12008C1353A731004E6AAB /* 21_ksot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 21_ksot_dhruv_n_ship.ttf; path = Projects/omim/data/21_ksot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE12008D1353A731004E6AAB /* 22_miot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 22_miot_dhruv_n_ship.ttf; path = Projects/omim/data/22_miot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE12008E1353A731004E6AAB /* 23_mlot_aswathi_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 23_mlot_aswathi_n_ship.ttf; path = Projects/omim/data/23_mlot_aswathi_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE12008F1353A731004E6AAB /* 24_mlot_karthika_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 24_mlot_karthika_n_ship.ttf; path = Projects/omim/data/24_mlot_karthika_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE1200901353A731004E6AAB /* 25_mrot_yogesh_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 25_mrot_yogesh_n_ship.ttf; path = Projects/omim/data/25_mrot_yogesh_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE1200911353A731004E6AAB /* 26_neot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 26_neot_dhruv_n_ship.ttf; path = Projects/omim/data/26_neot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE1200921353A731004E6AAB /* 27_orot_mukt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 27_orot_mukt.ttf; path = Projects/omim/data/27_orot_mukt.ttf; sourceTree = DEVELOPER_DIR; };
+		EE1200931353A731004E6AAB /* 28_sdot_dhruv_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 28_sdot_dhruv_n_ship.ttf; path = Projects/omim/data/28_sdot_dhruv_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE1200941353A731004E6AAB /* 29_tlot_harshpriya_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 29_tlot_harshpriya_n_ship.ttf; path = Projects/omim/data/29_tlot_harshpriya_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE1200951353A731004E6AAB /* 30_tmot_kapilan_n_ship.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 30_tmot_kapilan_n_ship.ttf; path = Projects/omim/data/30_tmot_kapilan_n_ship.ttf; sourceTree = DEVELOPER_DIR; };
+		EE1200961353A731004E6AAB /* fonts_blacklist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_blacklist.txt; path = Projects/omim/data/fonts_blacklist.txt; sourceTree = DEVELOPER_DIR; };
+		EE1200971353A731004E6AAB /* fonts_whitelist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_whitelist.txt; path = Projects/omim/data/fonts_whitelist.txt; sourceTree = DEVELOPER_DIR; };
+		EE1200981353A731004E6AAB /* unicode_blocks.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = unicode_blocks.txt; path = Projects/omim/data/unicode_blocks.txt; sourceTree = DEVELOPER_DIR; };
+		EE1200B81353B729004E6AAB /* basic_highres.skn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic_highres.skn; path = Projects/omim/data/basic_highres.skn; sourceTree = DEVELOPER_DIR; };
+		EE1200B91353B72A004E6AAB /* basic.skn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic.skn; path = Projects/omim/data/basic.skn; sourceTree = DEVELOPER_DIR; };
+		EE1200BA1353B72A004E6AAB /* symbols_24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = symbols_24.png; path = Projects/omim/data/symbols_24.png; sourceTree = DEVELOPER_DIR; };
+		EE1200BB1353B72A004E6AAB /* symbols_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = symbols_48.png; path = Projects/omim/data/symbols_48.png; sourceTree = DEVELOPER_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EE12000813538ED6004E6AAB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE12001013538ED6004E6AAB /* UIKit.framework in Frameworks */,
+				EE12001213538ED6004E6AAB /* Foundation.framework in Frameworks */,
+				EE12001413538ED6004E6AAB /* CoreGraphics.framework in Frameworks */,
+				EE12001613538ED6004E6AAB /* QuartzCore.framework in Frameworks */,
+				EE12001813538ED6004E6AAB /* OpenGLES.framework in Frameworks */,
+				EE1200601353A5FC004E6AAB /* libbase.a in Frameworks */,
+				EE1200611353A5FC004E6AAB /* libbzip2.a in Frameworks */,
+				EE1200621353A5FC004E6AAB /* libcoding.a in Frameworks */,
+				EE1200631353A5FC004E6AAB /* libexpat.a in Frameworks */,
+				EE1200641353A5FC004E6AAB /* libfreetype.a in Frameworks */,
+				EE1200651353A5FC004E6AAB /* libfribidi.a in Frameworks */,
+				EE1200661353A5FC004E6AAB /* libgenerator.a in Frameworks */,
+				EE1200671353A5FC004E6AAB /* libgeometry.a in Frameworks */,
+				EE1200681353A5FC004E6AAB /* libgflags.a in Frameworks */,
+				EE1200691353A5FC004E6AAB /* libindexer.a in Frameworks */,
+				EE12006A1353A5FC004E6AAB /* libjansson.a in Frameworks */,
+				EE12006B1353A5FC004E6AAB /* libmap.a in Frameworks */,
+				EE12006C1353A5FC004E6AAB /* libplatform.a in Frameworks */,
+				EE12006D1353A5FC004E6AAB /* libprotobuf.a in Frameworks */,
+				EE12006E1353A5FC004E6AAB /* libqt_tstfrm.a in Frameworks */,
+				EE12006F1353A5FC004E6AAB /* libsgitess.a in Frameworks */,
+				EE1200701353A5FC004E6AAB /* libstorage.a in Frameworks */,
+				EE1200711353A5FC004E6AAB /* libtomcrypt.a in Frameworks */,
+				EE1200721353A5FD004E6AAB /* libversion.a in Frameworks */,
+				EE1200731353A5FD004E6AAB /* libwords.a in Frameworks */,
+				EE1200741353A5FD004E6AAB /* libyg.a in Frameworks */,
+				EE1200751353A5FD004E6AAB /* libzlib.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EE12000013538ED6004E6AAB = {
+			isa = PBXGroup;
+			children = (
+				EE1200791353A6CE004E6AAB /* Resources */,
+				EE1200491353A584004E6AAB /* Static Libraries */,
+				EE12001913538ED6004E6AAB /* Benchmarks */,
+				EE12000E13538ED6004E6AAB /* Frameworks */,
+				EE12000C13538ED6004E6AAB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EE12000C13538ED6004E6AAB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EE12000B13538ED6004E6AAB /* Benchmarks.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EE12000E13538ED6004E6AAB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EE12000F13538ED6004E6AAB /* UIKit.framework */,
+				EE12001113538ED6004E6AAB /* Foundation.framework */,
+				EE12001313538ED6004E6AAB /* CoreGraphics.framework */,
+				EE12001513538ED6004E6AAB /* QuartzCore.framework */,
+				EE12001713538ED6004E6AAB /* OpenGLES.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EE12001913538ED6004E6AAB /* Benchmarks */ = {
+			isa = PBXGroup;
+			children = (
+				EE1200761353A664004E6AAB /* IPhonePlatform.hpp */,
+				EE1200771353A664004E6AAB /* IPhonePlatform.mm */,
+				EE12004013539683004E6AAB /* RenderBuffer.hpp */,
+				EE12004113539683004E6AAB /* RenderBuffer.mm */,
+				EE12004213539683004E6AAB /* RenderContext.hpp */,
+				EE12004313539683004E6AAB /* RenderContext.mm */,
+				EE12002213538ED6004E6AAB /* BenchmarksAppDelegate.hpp */,
+				EE12002313538ED6004E6AAB /* BenchmarksAppDelegate.mm */,
+				EE12002513538ED6004E6AAB /* MainWindow.xib */,
+				EE12002813538ED6004E6AAB /* Shader.fsh */,
+				EE12002A13538ED6004E6AAB /* Shader.vsh */,
+				EE12002C13538ED6004E6AAB /* EAGLView.hpp */,
+				EE12002D13538ED6004E6AAB /* EAGLView.mm */,
+				EE12002F13538ED6004E6AAB /* BenchmarksViewController.hpp */,
+				EE12003013538ED6004E6AAB /* BenchmarksViewController.mm */,
+				EE12003213538ED6004E6AAB /* BenchmarksViewController.xib */,
+				EE12001A13538ED6004E6AAB /* Supporting Files */,
+			);
+			path = Benchmarks;
+			sourceTree = "<group>";
+		};
+		EE12001A13538ED6004E6AAB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EE12001B13538ED6004E6AAB /* Benchmarks-Info.plist */,
+				EE12001C13538ED6004E6AAB /* InfoPlist.strings */,
+				EE12001F13538ED6004E6AAB /* Benchmarks-Prefix.pch */,
+				EE12002013538ED6004E6AAB /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EE1200491353A584004E6AAB /* Static Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				EE12004A1353A5FC004E6AAB /* libbase.a */,
+				EE12004B1353A5FC004E6AAB /* libbzip2.a */,
+				EE12004C1353A5FC004E6AAB /* libcoding.a */,
+				EE12004D1353A5FC004E6AAB /* libexpat.a */,
+				EE12004E1353A5FC004E6AAB /* libfreetype.a */,
+				EE12004F1353A5FC004E6AAB /* libfribidi.a */,
+				EE1200501353A5FC004E6AAB /* libgenerator.a */,
+				EE1200511353A5FC004E6AAB /* libgeometry.a */,
+				EE1200521353A5FC004E6AAB /* libgflags.a */,
+				EE1200531353A5FC004E6AAB /* libindexer.a */,
+				EE1200541353A5FC004E6AAB /* libjansson.a */,
+				EE1200551353A5FC004E6AAB /* libmap.a */,
+				EE1200561353A5FC004E6AAB /* libplatform.a */,
+				EE1200571353A5FC004E6AAB /* libprotobuf.a */,
+				EE1200581353A5FC004E6AAB /* libqt_tstfrm.a */,
+				EE1200591353A5FC004E6AAB /* libsgitess.a */,
+				EE12005A1353A5FC004E6AAB /* libstorage.a */,
+				EE12005B1353A5FC004E6AAB /* libtomcrypt.a */,
+				EE12005C1353A5FC004E6AAB /* libversion.a */,
+				EE12005D1353A5FC004E6AAB /* libwords.a */,
+				EE12005E1353A5FC004E6AAB /* libyg.a */,
+				EE12005F1353A5FC004E6AAB /* libzlib.a */,
+			);
+			name = "Static Libraries";
+			sourceTree = "<group>";
+		};
+		EE1200791353A6CE004E6AAB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EE1200B81353B729004E6AAB /* basic_highres.skn */,
+				EE1200B91353B72A004E6AAB /* basic.skn */,
+				EE1200BA1353B72A004E6AAB /* symbols_24.png */,
+				EE1200BB1353B72A004E6AAB /* symbols_48.png */,
+				EE12007A1353A731004E6AAB /* 01_dejavusans.ttf */,
+				EE12007B1353A731004E6AAB /* 02_wqy-microhei.ttf */,
+				EE12007C1353A731004E6AAB /* 03_jomolhari-id-a3d.ttf */,
+				EE12007D1353A731004E6AAB /* 04_padauk.ttf */,
+				EE12007E1353A731004E6AAB /* 05_khmeros.ttf */,
+				EE12007F1353A731004E6AAB /* 07_abyssinica_sil_r.ttf */,
+				EE1200801353A731004E6AAB /* 09_droid_sans_thai.ttf */,
+				EE1200811353A731004E6AAB /* 10_asot_biisha_n_ship.ttf */,
+				EE1200821353A731004E6AAB /* 11_bnot_satyajit_sm_n_ship.ttf */,
+				EE1200831353A731004E6AAB /* 12_boot_dhruv_n_ship.ttf */,
+				EE1200841353A731004E6AAB /* 13_doot_dhruv_n_ship.ttf */,
+				EE1200851353A731004E6AAB /* 14_dvot_yogesh_n_ship.ttf */,
+				EE1200861353A731004E6AAB /* 15_gist_sat_dvot_dhruv_n_ship.ttf */,
+				EE1200871353A731004E6AAB /* 16_gist-snd-dvot_dhruv_n_ship.ttf */,
+				EE1200881353A731004E6AAB /* 17_gjot_pratik_n_ship.ttf */,
+				EE1200891353A731004E6AAB /* 18_gjot_rohit_n_ship.ttf */,
+				EE12008A1353A731004E6AAB /* 19_knot_nandi_n_ship.ttf */,
+				EE12008B1353A731004E6AAB /* 20_koot_dhruv_n_ship.ttf */,
+				EE12008C1353A731004E6AAB /* 21_ksot_dhruv_n_ship.ttf */,
+				EE12008D1353A731004E6AAB /* 22_miot_dhruv_n_ship.ttf */,
+				EE12008E1353A731004E6AAB /* 23_mlot_aswathi_n_ship.ttf */,
+				EE12008F1353A731004E6AAB /* 24_mlot_karthika_n_ship.ttf */,
+				EE1200901353A731004E6AAB /* 25_mrot_yogesh_n_ship.ttf */,
+				EE1200911353A731004E6AAB /* 26_neot_dhruv_n_ship.ttf */,
+				EE1200921353A731004E6AAB /* 27_orot_mukt.ttf */,
+				EE1200931353A731004E6AAB /* 28_sdot_dhruv_n_ship.ttf */,
+				EE1200941353A731004E6AAB /* 29_tlot_harshpriya_n_ship.ttf */,
+				EE1200951353A731004E6AAB /* 30_tmot_kapilan_n_ship.ttf */,
+				EE1200961353A731004E6AAB /* fonts_blacklist.txt */,
+				EE1200971353A731004E6AAB /* fonts_whitelist.txt */,
+				EE1200981353A731004E6AAB /* unicode_blocks.txt */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EE12000A13538ED6004E6AAB /* Benchmarks */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE12003713538ED7004E6AAB /* Build configuration list for PBXNativeTarget "Benchmarks" */;
+			buildPhases = (
+				EE12000713538ED6004E6AAB /* Sources */,
+				EE12000813538ED6004E6AAB /* Frameworks */,
+				EE12000913538ED6004E6AAB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Benchmarks;
+			productName = Benchmarks;
+			productReference = EE12000B13538ED6004E6AAB /* Benchmarks.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EE12000213538ED6004E6AAB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Credo-Dialogue";
+			};
+			buildConfigurationList = EE12000513538ED6004E6AAB /* Build configuration list for PBXProject "Benchmarks" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = EE12000013538ED6004E6AAB;
+			productRefGroup = EE12000C13538ED6004E6AAB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EE12000A13538ED6004E6AAB /* Benchmarks */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EE12000913538ED6004E6AAB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE12001E13538ED6004E6AAB /* InfoPlist.strings in Resources */,
+				EE12002713538ED6004E6AAB /* MainWindow.xib in Resources */,
+				EE12002913538ED6004E6AAB /* Shader.fsh in Resources */,
+				EE12002B13538ED6004E6AAB /* Shader.vsh in Resources */,
+				EE12003413538ED6004E6AAB /* BenchmarksViewController.xib in Resources */,
+				EE1200991353A731004E6AAB /* 01_dejavusans.ttf in Resources */,
+				EE12009A1353A731004E6AAB /* 02_wqy-microhei.ttf in Resources */,
+				EE12009B1353A731004E6AAB /* 03_jomolhari-id-a3d.ttf in Resources */,
+				EE12009C1353A731004E6AAB /* 04_padauk.ttf in Resources */,
+				EE12009D1353A731004E6AAB /* 05_khmeros.ttf in Resources */,
+				EE12009E1353A731004E6AAB /* 07_abyssinica_sil_r.ttf in Resources */,
+				EE12009F1353A731004E6AAB /* 09_droid_sans_thai.ttf in Resources */,
+				EE1200A01353A731004E6AAB /* 10_asot_biisha_n_ship.ttf in Resources */,
+				EE1200A11353A731004E6AAB /* 11_bnot_satyajit_sm_n_ship.ttf in Resources */,
+				EE1200A21353A731004E6AAB /* 12_boot_dhruv_n_ship.ttf in Resources */,
+				EE1200A31353A731004E6AAB /* 13_doot_dhruv_n_ship.ttf in Resources */,
+				EE1200A41353A731004E6AAB /* 14_dvot_yogesh_n_ship.ttf in Resources */,
+				EE1200A51353A731004E6AAB /* 15_gist_sat_dvot_dhruv_n_ship.ttf in Resources */,
+				EE1200A61353A731004E6AAB /* 16_gist-snd-dvot_dhruv_n_ship.ttf in Resources */,
+				EE1200A71353A731004E6AAB /* 17_gjot_pratik_n_ship.ttf in Resources */,
+				EE1200A81353A731004E6AAB /* 18_gjot_rohit_n_ship.ttf in Resources */,
+				EE1200A91353A731004E6AAB /* 19_knot_nandi_n_ship.ttf in Resources */,
+				EE1200AA1353A731004E6AAB /* 20_koot_dhruv_n_ship.ttf in Resources */,
+				EE1200AB1353A731004E6AAB /* 21_ksot_dhruv_n_ship.ttf in Resources */,
+				EE1200AC1353A731004E6AAB /* 22_miot_dhruv_n_ship.ttf in Resources */,
+				EE1200AD1353A731004E6AAB /* 23_mlot_aswathi_n_ship.ttf in Resources */,
+				EE1200AE1353A731004E6AAB /* 24_mlot_karthika_n_ship.ttf in Resources */,
+				EE1200AF1353A731004E6AAB /* 25_mrot_yogesh_n_ship.ttf in Resources */,
+				EE1200B01353A731004E6AAB /* 26_neot_dhruv_n_ship.ttf in Resources */,
+				EE1200B11353A731004E6AAB /* 27_orot_mukt.ttf in Resources */,
+				EE1200B21353A731004E6AAB /* 28_sdot_dhruv_n_ship.ttf in Resources */,
+				EE1200B31353A731004E6AAB /* 29_tlot_harshpriya_n_ship.ttf in Resources */,
+				EE1200B41353A731004E6AAB /* 30_tmot_kapilan_n_ship.ttf in Resources */,
+				EE1200B51353A731004E6AAB /* fonts_blacklist.txt in Resources */,
+				EE1200B61353A731004E6AAB /* fonts_whitelist.txt in Resources */,
+				EE1200B71353A731004E6AAB /* unicode_blocks.txt in Resources */,
+				EE1200BC1353B72A004E6AAB /* basic_highres.skn in Resources */,
+				EE1200BD1353B72A004E6AAB /* basic.skn in Resources */,
+				EE1200BE1353B72A004E6AAB /* symbols_24.png in Resources */,
+				EE1200BF1353B72A004E6AAB /* symbols_48.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EE12000713538ED6004E6AAB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE12002113538ED6004E6AAB /* main.m in Sources */,
+				EE12002413538ED6004E6AAB /* BenchmarksAppDelegate.mm in Sources */,
+				EE12002E13538ED6004E6AAB /* EAGLView.mm in Sources */,
+				EE12003113538ED6004E6AAB /* BenchmarksViewController.mm in Sources */,
+				EE12004413539683004E6AAB /* RenderBuffer.mm in Sources */,
+				EE12004513539683004E6AAB /* RenderContext.mm in Sources */,
+				EE1200781353A664004E6AAB /* IPhonePlatform.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		EE12001C13538ED6004E6AAB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE12001D13538ED6004E6AAB /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		EE12002513538ED6004E6AAB /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE12002613538ED6004E6AAB /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		EE12003213538ED6004E6AAB /* BenchmarksViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE12003313538ED6004E6AAB /* en */,
+			);
+			name = BenchmarksViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EE12003513538ED7004E6AAB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COMPRESS_PNG_FILES = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DEBUG,
+					_DEBUG,
+					TARGET_OS_IPHONE,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../3party/boost;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=*]" = "$(SRCROOT)/../../../omim-iphone-build/out/debug";
+				OTHER_CFLAGS = "-Wall";
+				PRELINK_LIBS = libyg.a;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EE12003613538ED7004E6AAB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COMPRESS_PNG_FILES = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					RELEASE,
+					_RELEASE,
+					TARGET_OS_IPHONE,
+				);
+				GCC_THUMB_SUPPORT = NO;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../3party/boost;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=*]" = "$(SRCROOT)/../../../omim-iphone-build/out/release";
+				OTHER_CFLAGS = "-Wall";
+				PRELINK_LIBS = libyg.a;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EE12003813538ED7004E6AAB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Benchmarks/Benchmarks-Prefix.pch";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "Benchmarks/Benchmarks-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/Projects/omim-build-release/out/release\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		EE12003913538ED7004E6AAB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Benchmarks/Benchmarks-Prefix.pch";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "Benchmarks/Benchmarks-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/Projects/omim-build-release/out/release\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EE12000513538ED6004E6AAB /* Build configuration list for PBXProject "Benchmarks" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE12003513538ED7004E6AAB /* Debug */,
+				EE12003613538ED7004E6AAB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE12003713538ED7004E6AAB /* Build configuration list for PBXNativeTarget "Benchmarks" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE12003813538ED7004E6AAB /* Debug */,
+				EE12003913538ED7004E6AAB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EE12000213538ED6004E6AAB /* Project object */;
+}
