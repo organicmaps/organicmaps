@@ -25,8 +25,8 @@ SUBDIRS = 3party \
           qt_tstfrm \
           indexer/indexer_tests \
           yg/yg_tests \
-          qt \
           words words/words_tests \
+          qt \
           publisher publisher/publisher_tests \
           console_sloynik
 } else {

@@ -7,6 +7,7 @@
 #include "../../std/set.hpp"
 #include "../../std/string.hpp"
 #include "../../std/vector.hpp"
+#include "../../std/stdio.hpp"
 
 namespace
 {

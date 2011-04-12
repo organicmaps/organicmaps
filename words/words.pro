@@ -3,7 +3,7 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 ROOT_DIR = ..
-DEPENDENCIES = bzip2 zlib base coding
+DEPENDENCIES = coding base zlib bzip2
 
 include($$ROOT_DIR/common.pri)
 

@@ -4,7 +4,7 @@ CONFIG += console
 CONFIG -= app_bundle
 
 ROOT_DIR = ../..
-DEPENDENCIES = bzip2 zlib base coding words
+DEPENDENCIES = words coding base zlib bzip2
 
 include($$ROOT_DIR/common.pri)
 

@@ -4,7 +4,7 @@ CONFIG += console
 CONFIG -= app_bundle
 
 ROOT_DIR = ..
-DEPENDENCIES = gflags bzip2 zlib base coding words
+DEPENDENCIES = words coding base gflags bzip2 zlib
 
 include($$ROOT_DIR/common.pri)
 
