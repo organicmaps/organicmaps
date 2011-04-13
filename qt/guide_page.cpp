@@ -2,8 +2,6 @@
 
 #include "../platform/platform.hpp"
 
-#include "../coding/strutil.hpp"
-
 #include <QtWebKit/QWebView>
 
 #include <QtGui/QLineEdit>
@@ -40,30 +38,30 @@ void GuidePageHolder::showEvent(QShowEvent * e)
 
 namespace
 {
-  sl::StrFn::Str const * StrCreate(char const * pUtf8Data, uint32_t sz)
+  sl::StrFn::Str const * StrCreate(char const * utf8Data, uint32_t size)
   {
-    wstring * s = new wstring();
-    *s = FromUtf8(string(pUtf8Data));
-    return reinterpret_cast<sl::StrFn::Str const *>(s);
+    return reinterpret_cast<sl::StrFn::Str *>(new string(utf8Data, size));
   }
 
-  void StrDestroy(sl::StrFn::Str const * p)
+  void StrDestroy(sl::StrFn::Str const * s)
   {
-    delete reinterpret_cast<wstring const *>(p);
+    delete reinterpret_cast<string const *>(s);
   }
 
-  int StrPrimaryCompare(void *, sl::StrFn::Str const * a, sl::StrFn::Str const * b)
+  int StrPrimaryCompare(void *, sl::StrFn::Str const * pa, sl::StrFn::Str const * pb)
   {
-    wstring const * pA = reinterpret_cast<wstring const *>(a);
-    wstring const * pB = reinterpret_cast<wstring const *>(b);
-    return *pA == *pB;
+    string const & a = *reinterpret_cast<string const *>(pa);
+    string const & b = *reinterpret_cast<string const *>(pb);
+    return a == b ? 0 : (a < b ? -1 : 1);
   }
 
-  int StrSecondaryCompare(void *, sl::StrFn::Str const * a, sl::StrFn::Str const * b)
+  int StrSecondaryCompare(void *, sl::StrFn::Str const * pa, sl::StrFn::Str const * pb)
   {
-    wstring const * pA = reinterpret_cast<wstring const *>(a);
-    wstring const * pB = reinterpret_cast<wstring const *>(b);
-    return *pA == *pB;
+    string s1(*reinterpret_cast<string const *>(pa));
+    string s2(*reinterpret_cast<string const *>(pb));
+    std::use_facet<std::ctype<char> >(std::locale()).tolower(&s1[0], &s1[0] + s1.size());
+    std::use_facet<std::ctype<char> >(std::locale()).tolower(&s2[0], &s2[0] + s2.size());
+    return s1 == s2 ? 0 : (s1 < s2 ? -1 : 1);
   }
 }
 
@@ -88,7 +86,8 @@ void GuidePageHolder::CreateEngine()
 void GuidePageHolder::OnShowPage()
 {
   sl::SloynikEngine::SearchResult res;
-  m_pEngine->Search(m_pEditor->text().toStdString(), res);
+  string const prefix(m_pEditor->text().toUtf8().constData());
+  m_pEngine->Search(prefix, res);
 
   sl::SloynikEngine::ArticleData data;
   m_pEngine->GetArticleData(res.m_FirstMatched, data);
