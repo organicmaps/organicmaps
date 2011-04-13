@@ -85,17 +85,22 @@ MainWindow::MainWindow() : m_updateDialog(0)
   if (bShow)
   {
     QFile welcomeTextFile(GetPlatform().ReadPathForFile("welcome.html").c_str());
+
+    bool bShowUpdateDialog = true;
+
     if (welcomeTextFile.open(QIODevice::ReadOnly))
     {
       QByteArray text = welcomeTextFile.readAll();
       welcomeTextFile.close();
 
       InfoDialog welcomeDlg(tr("Welcome to MapsWithMe!"), text, this, QStringList(tr("Download Maps")));
-      welcomeDlg.exec();
+      if (welcomeDlg.exec() == QDialog::Rejected)
+        bShowUpdateDialog = false;
     }
     Settings::Set("ShowWelcome", false);
 
-    ShowUpdateDialog();
+    if (bShowUpdateDialog)
+      ShowUpdateDialog();
   }
 }
 
