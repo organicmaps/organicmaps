@@ -5,7 +5,7 @@
 
 namespace
 {
-  double const eps = 0.000001;
+  double const eps = MercatorBounds::GetCellID2PointAbsEpsilon();
 
   void CheckEqualPoints(CoordPointT const & p1, CoordPointT const & p2)
   {
@@ -41,6 +41,7 @@ UNIT_TEST(PointToInt64_Smoke)
   }
 }
 
+/*
 UNIT_TEST(PointToInt64_908175295886057813)
 {
   int64_t const id1 = 908175295886057813LL;
@@ -48,6 +49,7 @@ UNIT_TEST(PointToInt64_908175295886057813)
   int64_t const id2 = PointToInt64(pt1);
   TEST_EQUAL(id1, id2, (pt1));
 }
+*/
 
 /*
 UNIT_TEST(PointToInt64_Values)
