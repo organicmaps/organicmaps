@@ -20,6 +20,16 @@ CONFIG(release, debug|release) {
   CONFIG_NAME = debug
 }
 
+CONFIG(production) {
+  DEFINES += OMIM_PRODUCTION
+} else {
+  # enable debugging information for non-production release builds
+  unix|win32-g++ {
+    QMAKE_CFLAGS_RELEASE += -g
+    QMAKE_CXXFLAGS_RELEASE += -g
+  }
+}
+
 BINARIES_PATH = $$ROOT_DIR/out/$$CONFIG_NAME
 TEMP_PATH = $$ROOT_DIR/out/$$CONFIG_NAME/tmp/$$TARGET
 
@@ -73,10 +83,9 @@ win32-msvc2008 {
 
 unix|win32-g++ {
   QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-compare -Wno-strict-aliasing
-#  QMAKE_CXXFLAGS_RELEASE += -g
   # experimental
   QMAKE_CFLAGS_RELEASE -= -O2
-  QMAKE_CFLAGS_RELEASE += -O3  
+  QMAKE_CFLAGS_RELEASE += -O3
   QMAKE_CXXFLAGS_RELEASE -= -O2
   QMAKE_CXXFLAGS_RELEASE += -O3  
   QMAKE_CFLAGS_RELEASE *= -ffast-math

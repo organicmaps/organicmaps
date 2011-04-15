@@ -10,11 +10,15 @@
 #define COUNTRIES_FILE  "countries.txt"
 #define DATA_UPDATE_FILE "maps.update"
 #define BINARY_UPDATE_FILE "binary.update"
-#define UPDATE_BASE_URL "http://data.mapswithme.com/"
+
+#ifdef OMIM_PRODUCTION
+  #define UPDATE_BASE_URL "http://data.mapswithme.com/"
+#else
+  #define UPDATE_BASE_URL "http://melnichek.ath.cx:34568/maps/"
+#endif
 
 #define WORLD_FILE_NAME "World"
 
 #define SETTINGS_FILE_NAME "settings.ini"
-
 
 #define DEFAULT_AUTO_UPDATES_ENABLED true

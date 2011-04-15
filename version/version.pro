@@ -21,8 +21,8 @@ win32 {
 versiontarget.depends = FORCE
 
 PRE_TARGETDEPS += $$VERSION_HEADER
-# regenerate version only in release builds
-CONFIG(release, debug|release) {
+# regenerate version only in production builds
+CONFIG(production) {
   QMAKE_EXTRA_TARGETS += versiontarget
 }
 

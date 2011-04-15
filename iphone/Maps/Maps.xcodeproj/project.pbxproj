@@ -725,6 +725,62 @@
 			};
 			name = "Simulator Debug";
 		};
+		FA0686DE13578E1D004CFF81 /* Production Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Yury Melnichek";
+				COMPRESS_PNG_FILES = NO;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1.1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OMIM_PRODUCTION,
+					RELEASE,
+					_RELEASE,
+					TARGET_OS_IPHONE,
+				);
+				GCC_THUMB_SUPPORT = NO;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_VERSION = 4.2;
+				HEADER_SEARCH_PATHS = (
+					../../3party/protobuf,
+					../../3party/protobuf/src,
+					../../3party/boost,
+				);
+				INFOPLIST_FILE = "MapsWithMe-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-build/out/release\"";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-Wall";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PRODUCT_NAME = MapsWithMe;
+				PROVISIONING_PROFILE = "9957359C-0502-4ED2-828B-19C696089716";
+				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv6 armv7";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "Production Release";
+		};
+		FA0686DF13578E1D004CFF81 /* Production Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../omim-iphonesim-build/out/debug\"",
+				);
+			};
+			name = "Production Release";
+		};
 		FA1DE83111E2205400C6D69A /* Simulator Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -732,14 +788,14 @@
 				ARCHS = i386;
 				CODE_SIGN_IDENTITY = "Don't Code Sign";
 				COMPRESS_PNG_FILES = NO;
-				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1.0;
+				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_FAST_MATH = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					TARGET_OS_IPHONE,
@@ -845,7 +901,7 @@
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_FAST_MATH = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					RELEASE,
@@ -896,6 +952,7 @@
 				FA1DE85A11E2235D00C6D69A /* Device Debug */,
 				FA1DE83211E2205400C6D69A /* Simulator Release */,
 				FA1DE85C11E2236200C6D69A /* Device Release */,
+				FA0686DF13578E1D004CFF81 /* Production Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Device Release";
@@ -907,6 +964,7 @@
 				FA1DE85911E2235D00C6D69A /* Device Debug */,
 				FA1DE83111E2205400C6D69A /* Simulator Release */,
 				FA1DE85B11E2236200C6D69A /* Device Release */,
+				FA0686DE13578E1D004CFF81 /* Production Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Device Release";
