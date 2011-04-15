@@ -8,7 +8,6 @@
 #include "GetActiveConnectionType.h"
 #include "IPhonePlatform.hpp"
 
-#define NAVIGATION_BAR_HEIGHT	44
 #define MAX_3G_MEGABYTES 20
 
 #define MB 1000*1000
@@ -78,21 +77,22 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   m_index = index;
   if ((self = [super initWithNibName:nil bundle:nil]))
   {
-  	UIBarButtonItem * closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style: UIBarButtonItemStyleDone
-				                            target:self action:@selector(OnCloseButton:)];
-  	self.navigationItem.rightBarButtonItem = closeButton;
-    [closeButton release];
+    // Close button is displayed only on first view in hierarchy
+    if (index.m_group == TIndex::INVALID)
+    {
+     	UIBarButtonItem * closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style: UIBarButtonItemStyleDone
+                                                                      target:self action:@selector(OnCloseButton:)];
+      self.navigationItem.leftBarButtonItem = closeButton;
+      [closeButton release];
+    }
 
     self.navigationItem.title = header;
 
-    // About button is displayed only on first view in hierarchy
-    if (index.m_group == TIndex::INVALID)
-    {
-      UIBarButtonItem * aboutButton = [[UIBarButtonItem alloc] initWithTitle:@"About" style: UIBarButtonItemStylePlain
-                               target:self action:@selector(OnAboutButton:)];
-      self.navigationItem.leftBarButtonItem = aboutButton;
-      [aboutButton release];
-    }
+    UIBarButtonItem * aboutButton = [[UIBarButtonItem alloc] initWithTitle:@"About" style: UIBarButtonItemStylePlain
+                                                                    target:self action:@selector(OnAboutButton:)];
+    self.navigationItem.rightBarButtonItem = aboutButton;
+    [aboutButton release];
+
   }
 	return self;
 }
