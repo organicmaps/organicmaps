@@ -171,10 +171,12 @@ string GetUniqueHashedId()
     if (statusCode < 200 || statusCode > 299)
     {
     	NSLog(@"Received HTTP error code %d, canceling download", statusCode);
-      // deleting file
+      long long fileSize = ftello(m_file);
       fclose(m_file);
       m_file = 0;
-      remove((m_requestedFileName + DOWNLOADING_FILE_EXTENSION).c_str());
+      // delete file only if it's size is zero to resume download later
+      if (fileSize == 0)
+        remove((m_requestedFileName + DOWNLOADING_FILE_EXTENSION).c_str());
       // notify user
 		  if (m_finishObserver)
       	m_finishObserver(m_url.c_str(), statusCode == 404 ? EHttpDownloadFileNotFound : EHttpDownloadFailed);
@@ -229,6 +231,14 @@ string GetUniqueHashedId()
 
   if (m_finishObserver)
 	  m_finishObserver(m_url.c_str(), EHttpDownloadFailed);
+
+  long long fileSize = ftello(m_file);
+  fclose(m_file);
+  m_file = 0;
+  // delete file only if it's size is zero to resume download later
+  if (fileSize == 0)
+    remove((m_requestedFileName + DOWNLOADING_FILE_EXTENSION).c_str());
+
   // and selfdestruct...
   GetDownloadManager().CancelDownload(m_url.c_str());
 }
@@ -238,7 +248,7 @@ string GetUniqueHashedId()
 	// close file
   fclose(m_file);
   m_file = 0;
-  // remote temporary extension from downloaded file
+  // remove temporary extension from downloaded file
   remove(m_requestedFileName.c_str());
   bool resultForGUI = true;
   if (rename((m_requestedFileName + DOWNLOADING_FILE_EXTENSION).c_str(), m_requestedFileName.c_str()))
