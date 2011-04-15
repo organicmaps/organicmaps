@@ -9,7 +9,7 @@
 typedef double CoordT;
 typedef pair<CoordT, CoordT> CoordPointT;
 
-typedef m2::CellId<17> RectId;
+typedef m2::CellId<19> RectId;
 
 m2::PointU PointD2PointU(CoordT x, CoordT y);
 CoordPointT PointU2PointD(m2::PointU const & p);

@@ -9,7 +9,7 @@
 #include "../base/start_mem_debug.hpp"
 
 
-#define POINT_COORD_BITS 27
+#define POINT_COORD_BITS 30
 
 
 m2::PointU PointD2PointU(CoordT x, CoordT y)
