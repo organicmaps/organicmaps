@@ -10,9 +10,12 @@
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "ArticleVC.h"
+#include "global.hpp"
 
 @implementation GuideViewController
 
+@synthesize activityIndicator;
+@synthesize loadingLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -89,6 +92,32 @@
 {
   [super viewDidLoad];
   // Do any additional setup after loading the view from its nib.
+  if (!GetSloynikEngine())
+  {
+    CGRect frame = self.view.frame;
+    self.activityIndicator = [[[UIActivityIndicatorView alloc]
+                               initWithFrame:CGRectMake(frame.origin.x + frame.size.width / 2 - 15,
+                                                        80, 30, 30)] autorelease];
+    
+    [self.activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    [self.view addSubview:self.activityIndicator];
+    
+    self.loadingLabel = [[[UILabel alloc]
+                          initWithFrame:CGRectMake(frame.origin.x + frame.size.width / 2 - 30,
+                                                   110, 60, 30)] autorelease];
+    self.loadingLabel.text = @"Indexing...";
+    self.loadingLabel.textAlignment = UITextAlignmentCenter;
+    self.loadingLabel.userInteractionEnabled = NO;
+    self.loadingLabel.numberOfLines = 1;
+    self.loadingLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
+    self.loadingLabel.adjustsFontSizeToFitWidth = YES;
+    [self.view addSubview:self.loadingLabel];
+
+    self.searchBar.hidden = YES;
+    self.resultsView.hidden = YES;
+
+    [self.activityIndicator startAnimating];
+  }
 }
 
 - (void)viewDidUnload
@@ -102,6 +131,19 @@
 {
     // Return YES for supported orientations
     return YES;
+}
+
+- (void)OnSloynikEngineInitialized
+{
+  if (self.activityIndicator)
+  {
+    [self.activityIndicator removeFromSuperview];
+    [self.loadingLabel removeFromSuperview];
+    self.activityIndicator = nil;
+    self.searchBar.hidden = NO;
+    self.resultsView.hidden = NO;
+    [self.resultsView reloadData];
+  }  
 }
 
 @end

@@ -7,9 +7,10 @@
 //
 
 #include "global.hpp"
-#import "PerfCount.h"
 #include "../../words/sloynik_engine.hpp"
 #include "../../base/assert.hpp"
+#include "../../base/logging.hpp"
+#import <UIKit/UIKit.h>
 
 sl::StrFn::Str const * StrCreateApple(char const * utf8Str, uint32_t size)
 {
@@ -47,29 +48,38 @@ int StrSecondaryCompareApple(void *, sl::StrFn::Str const * a, sl::StrFn::Str co
                                              kCFCompareLocalized, NULL);
 }
 
+sl::SloynikEngine * g_pEngine = NULL;
+
 sl::SloynikEngine * GetSloynikEngine()
 {
-  static sl::SloynikEngine * s_pEngine = NULL;
-  if (!s_pEngine)
-  {
-    LogTimeCounter("EngineStartUp", "Starting engine.");
-    NSBundle * bundle = [NSBundle mainBundle];
-    string const dictionaryPath = [[bundle pathForResource:@"dictionary" ofType:@"slf"] UTF8String];
-    string const indexPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory,
-                                                                   NSUserDomainMask,
-                                                                   YES)
-                               objectAtIndex:0]
-                              UTF8String] + string("/index");
-    sl::StrFn strFn;
-    strFn.Create = StrCreateApple;
-    strFn.Destroy = StrDestroyApple;
-    strFn.PrimaryCompare = StrPrimaryCompareApple;
-    strFn.SecondaryCompare = StrSecondaryCompareApple;
-    strFn.m_pData = NULL;
-    strFn.m_PrimaryCompareId = 1;
-    strFn.m_SecondaryCompareId = 2;
-    s_pEngine = new sl::SloynikEngine(dictionaryPath, indexPath, strFn);
-    LogTimeCounter("EngineStartUp", "Engine started.");
-  }
-  return s_pEngine;
+  return g_pEngine;
+}
+
+void SetSloynikEngine(sl::SloynikEngine * pEngine)
+{
+  g_pEngine = pEngine;
+}
+
+sl::SloynikEngine * CreateSloynikEngine()
+{
+  ASSERT(!g_pEngine, ());
+  LOG(LINFO, ("Starting sloynik engine."));
+  NSBundle * bundle = [NSBundle mainBundle];
+  string const dictionaryPath = [[bundle pathForResource:@"dictionary" ofType:@"slf"] UTF8String];
+  string const indexPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory,
+                                                                 NSUserDomainMask,
+                                                                 YES)
+                             objectAtIndex:0]
+                            UTF8String] + string("/index");
+  sl::StrFn strFn;
+  strFn.Create = StrCreateApple;
+  strFn.Destroy = StrDestroyApple;
+  strFn.PrimaryCompare = StrPrimaryCompareApple;
+  strFn.SecondaryCompare = StrSecondaryCompareApple;
+  strFn.m_pData = NULL;
+  strFn.m_PrimaryCompareId = 1;
+  strFn.m_SecondaryCompareId = 2;
+  sl::SloynikEngine * pEngine = new sl::SloynikEngine(dictionaryPath, indexPath, strFn);
+  LOG(LINFO, ("Starting sloynik engine."));
+  return pEngine;
 }

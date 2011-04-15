@@ -11,8 +11,14 @@
 
 @interface GuideViewController : SearchVC
 {
+  UIActivityIndicatorView * activityIndicator;
+  UILabel * loadingLabel;
 }
 
+@property (nonatomic, retain) UIActivityIndicatorView * activityIndicator;
+@property (nonatomic, retain) UILabel * loadingLabel;
+
 - (IBAction)OnMapClicked:(id)sender;
+- (void)OnSloynikEngineInitialized;
 
 @end

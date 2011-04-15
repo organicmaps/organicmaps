@@ -14,4 +14,6 @@ namespace sl
   class SloynikEngine;
 }
 
+sl::SloynikEngine * CreateSloynikEngine();
 sl::SloynikEngine * GetSloynikEngine();
+void SetSloynikEngine(sl::SloynikEngine *);

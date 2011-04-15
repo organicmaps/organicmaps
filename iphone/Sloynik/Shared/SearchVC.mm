@@ -60,7 +60,6 @@ struct SloynikData
   self.resultsView.delegate = self;
   
   m_pSloynikData = new SloynikData;
-  GetSloynikEngine()->Search("", m_pSloynikData->m_SearchResult);
 
   [self onEmptySearch];
 }
@@ -86,11 +85,15 @@ struct SloynikData
   ASSERT_EQUAL(self.searchBar, sender, ());
   if ([searchText length] != 0)
   {
+    sl::SloynikEngine * const pEngine = GetSloynikEngine();
+    ASSERT(pEngine, ());
+    if (!pEngine)
+      return;
     self.resultsView.hidden = NO;
-    GetSloynikEngine()->Search([searchText UTF8String], m_pSloynikData->m_SearchResult);
+    pEngine->Search([searchText UTF8String], m_pSloynikData->m_SearchResult);
     sl::SloynikEngine::WordId row = m_pSloynikData->m_SearchResult.m_FirstMatched;
-    ASSERT_LESS_OR_EQUAL(row, GetSloynikEngine()->WordCount(), ());
-    row = min(row, GetSloynikEngine()->WordCount() - 1);
+    ASSERT_LESS_OR_EQUAL(row, pEngine->WordCount(), ());
+    row = min(row, pEngine->WordCount() - 1);
     [self.resultsView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]
                             atScrollPosition:UITableViewScrollPositionTop
                                     animated:NO];
@@ -117,8 +120,11 @@ struct SloynikData
   ASSERT_EQUAL(self.resultsView, tableView, ());
   if (section != 0)
     return 0;
+  sl::SloynikEngine * const pEngine = GetSloynikEngine();
+  if (!pEngine)
+    return 0;
   int const rowsInView = self.resultsView.bounds.size.height / max(1.f, self.resultsView.rowHeight);
-  return GetSloynikEngine()->WordCount() + max(1, rowsInView - 1);
+  return pEngine->WordCount() + max(1, rowsInView - 1);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -132,10 +138,12 @@ struct SloynikData
             autorelease];
   }
   sl::SloynikEngine::WordId const wordId = indexPath.row;
-  if (wordId < GetSloynikEngine()->WordCount())
+  sl::SloynikEngine * const pEngine = GetSloynikEngine();
+  ASSERT(pEngine, ());
+  if (pEngine && wordId < pEngine->WordCount())
   {
     sl::SloynikEngine::WordInfo wordInfo;
-    GetSloynikEngine()->GetWordInfo(wordId, wordInfo);
+    pEngine->GetWordInfo(wordId, wordInfo);
     cell.textLabel.text = [NSString stringWithUTF8String:wordInfo.m_Word.c_str()];
   }
   else
@@ -149,7 +157,8 @@ struct SloynikData
 - (NSIndexPath *)tableView:(UITableView *)tableView
   willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (indexPath.row < GetSloynikEngine()->WordCount())
+  sl::SloynikEngine * const pEngine = GetSloynikEngine();
+  if (pEngine && indexPath.row < pEngine->WordCount())
     return indexPath;
   else
     return nil;
@@ -158,7 +167,8 @@ struct SloynikData
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   sl::SloynikEngine::WordId const wordId = indexPath.row;
-  if (wordId < GetSloynikEngine()->WordCount())
+  sl::SloynikEngine * const pEngine = GetSloynikEngine();
+  if (pEngine && wordId < pEngine->WordCount())
   {
     [self willShowArticleVC:articleVC];
     [articleVC setArticleById:wordId];

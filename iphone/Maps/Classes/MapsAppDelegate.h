@@ -20,5 +20,6 @@
 
 - (GuideViewController *)guideViewController;
 - (SettingsManager *)settingsManager;
+- (void)onSloynikEngineInitialized:(void *)pEngine;
 
 @end

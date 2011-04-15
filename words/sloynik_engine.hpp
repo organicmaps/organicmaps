@@ -34,6 +34,7 @@ public:
 
   struct SearchResult
   {
+    SearchResult() : m_FirstMatched(0) {}
     WordId m_FirstMatched;
   };
 
