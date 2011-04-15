@@ -11,7 +11,6 @@
 #define NAVIGATION_BAR_HEIGHT	44
 #define MAX_3G_MEGABYTES 20
 
-#define GB 1000*1000*1000
 #define MB 1000*1000
 
 using namespace storage;
@@ -153,20 +152,15 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
       {
         TLocalAndRemoteSize::first_type size = m_storage->CountrySizeInBytes(countryIndex).first;
         // convert size to human readable values
-        char const * kBorMBorGB = "kB";
-        if (size > GB)
+        char const * kBorMB = "kB";
+        if (size > MB)
         {
-          kBorMBorGB = "GB";
-          size /= GB;
-        }
-        else if (size > MB)
-        {
-          kBorMBorGB = "MB";
+          kBorMB = "MB";
           size /= MB;
         }
         else
         {
-          kBorMBorGB = "kB";
+          kBorMB = "kB";
           size = (size + 999) / 1000;
         }
 
@@ -174,7 +168,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
                                                    green:161.f/255.f
                                                     blue:68.f/255.f
                                                    alpha:1.f];
-        cell.detailTextLabel.text = [NSString stringWithFormat: @"Downloaded (%qu %s), touch to delete", size, kBorMBorGB];
+        cell.detailTextLabel.text = [NSString stringWithFormat: @"Downloaded (%qu %s), touch to delete", size, kBorMB];
         // also add "sight" icon for centering on the country
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
       }
@@ -328,13 +322,7 @@ TIndex g_clickedIndex;
             // convert size to human readable values
             NSString * strTitle = nil;
             NSString * strDownload = nil;
-            if (size > GB)
-            {
-              size /= GB;
-              strTitle = [NSString stringWithFormat:@"%@", countryName];
-              strDownload = [NSString stringWithFormat:@"Download %qu GB", size];
-            }
-            else if (size > MB)
+            if (size > MB)
             {
               size /= MB;
               strTitle = [NSString stringWithFormat:@"%@", countryName];
