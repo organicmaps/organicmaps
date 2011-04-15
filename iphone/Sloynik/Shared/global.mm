@@ -77,8 +77,13 @@ sl::SloynikEngine * CreateSloynikEngine()
   strFn.PrimaryCompare = StrPrimaryCompareApple;
   strFn.SecondaryCompare = StrSecondaryCompareApple;
   strFn.m_pData = NULL;
-  strFn.m_PrimaryCompareId = 1;
-  strFn.m_SecondaryCompareId = 2;
+  NSString * nsVersion = [NSString stringWithFormat:@"%@ %@ %@",
+                          [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"],
+                          [[UIDevice currentDevice] systemVersion],
+                          [[NSLocale systemLocale] localeIdentifier]];
+  LOG(LINFO, ("Version:", [nsVersion UTF8String]));
+  strFn.m_PrimaryCompareId   = [[NSString stringWithFormat:@"%@ 1", nsVersion] hash];
+  strFn.m_SecondaryCompareId = [[NSString stringWithFormat:@"%@ 2", nsVersion] hash];
   sl::SloynikEngine * pEngine = new sl::SloynikEngine(dictionaryPath, indexPath, strFn);
   LOG(LINFO, ("Starting sloynik engine."));
   return pEngine;
