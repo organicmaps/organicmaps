@@ -98,7 +98,7 @@ void InformationDisplay::drawPosition(DrawerYG * pDrawer)
 
   double pxErrorRadius = pxPosition.Length(m_screen.GtoP(m_position + m2::PointD(m_errorRadius, 0)));
 
-  pDrawer->screen()->drawArc(pxPosition, 0, math::pi * 2, pxErrorRadius, yg::Color(0, 0, 255, m_mode == Locator::EPreciseMode ? 64 : 32), yg::maxDepth - 2);
+  // pDrawer->screen()->drawArc(pxPosition, 0, math::pi * 2, pxErrorRadius, yg::Color(0, 0, 255, m_mode == Locator::EPreciseMode ? 64 : 32), yg::maxDepth - 2);
   pDrawer->screen()->fillSector(pxPosition, 0, math::pi * 2, pxErrorRadius, yg::Color(0, 0, 255, m_mode == Locator::EPreciseMode ? 64 : 32), yg::maxDepth - 3);
 }
 
