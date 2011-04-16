@@ -2,6 +2,7 @@
 
 #include "../platform.hpp"
 #include "../download_manager.hpp"
+
 #include "../../coding/file_writer.hpp"
 #include "../../coding/file_reader.hpp"
 
@@ -11,24 +12,24 @@
 #include "../../base/start_mem_debug.hpp"
 
 // file on the server contains "Test1"
-#define TEST_FILE_URL1 "http://mapswithme.com/unit_tests/1.txt"
+#define TEST_FILE_URL1 "http://melnichek.ath.cx:34568/unit_tests/1.txt"
 #define TEST_FILE_NAME1 "unit_test1.tmp"
 // file on the server contains "Test2"
-#define TEST_FILE_URL2 "http://mapswithme.com/unit_tests/2.txt"
+#define TEST_FILE_URL2 "http://melnichek.ath.cx:34568/unit_tests/2.txt"
 #define TEST_FILE_NAME2 "unit_test2.tmp"
 // file on the server contains "Test3"
-#define TEST_FILE_URL3 "http://mapswithme.com/unit_tests/3.txt"
+#define TEST_FILE_URL3 "http://melnichek.ath.cx:34568/unit_tests/3.txt"
 #define TEST_FILE_NAME3 "unit_test3.tmp"
 
 #define TEST_INVALID_URL "http://very_invalid_url.kotorogo.net/okak.test"
 
-#define TEST_ABSENT_FILE_URL "http://mapswithme.com/unit_tests/not_existing_file"
+#define TEST_ABSENT_FILE_URL "http://melnichek.ath.cx:34568/unit_tests/not_existing_file"
 #define TEST_ABSENT_FILE_NAME "not_existing_file"
 
-#define TEST_LOCKED_FILE_URL  "http://mapswithme.com/unit_tests/1.txt"
+#define TEST_LOCKED_FILE_URL  "http://melnichek.ath.cx:34568/unit_tests/1.txt"
 #define TEST_LOCKED_FILE_NAME "locked_file.tmp"
 
-#define TEST_BIG_FILE_URL "http://mapswithme.com/unit_tests/47kb.file"
+#define TEST_BIG_FILE_URL "http://melnichek.ath.cx:34568/unit_tests/47kb.file"
 
 int gArgc = 1;
 char * gArgv[] = { 0 };
