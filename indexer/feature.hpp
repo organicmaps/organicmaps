@@ -36,7 +36,7 @@ public:
   void SetLinear() { m_bLinear = true; }
 
   /// Set that featue is area and get ownership of holes.
-  void SetAreaAddHoles(list<vector<m2::PointD> > & holes);
+  void SetAreaAddHoles(list<vector<m2::PointD> > const & holes);
   //@}
 
   void AddName(string const & name);

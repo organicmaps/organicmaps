@@ -6,6 +6,8 @@
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
+#include "../std/algorithm.hpp"
+#include "../std/bind.hpp"
 
 
 /// Used to store all world nodes inside temporary index file.
@@ -77,8 +79,15 @@ struct WayElement
 
   template <class ToDo> void ForEachPoint(ToDo & toDo) const
   {
-    for (size_t i = 0; i < nodes.size(); ++i)
-      toDo(nodes[i]);
+    for_each(nodes.begin(), nodes.end(), bind<void>(ref(toDo), _1));
+  }
+
+  template <class ToDo> void ForEachPointOrdered(uint64_t start, ToDo & toDo)
+  {
+    if (start == nodes.front())
+      for_each(nodes.begin(), nodes.end(), bind<void>(ref(toDo), _1));
+    else
+      for_each(nodes.rbegin(), nodes.rend(), bind<void>(ref(toDo), _1));
   }
 };
 

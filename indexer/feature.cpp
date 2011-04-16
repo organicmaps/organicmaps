@@ -9,6 +9,7 @@
 #include "../defines.hpp" // just for file extensions
 
 #include "../geometry/rect2d.hpp"
+#include "../geometry/region2d.hpp"
 
 #include "../coding/byte_stream.hpp"
 
@@ -47,20 +48,22 @@ void FeatureBuilder1::AddPoint(m2::PointD const & p)
   m_LimitRect.Add(p);
 }
 
-void FeatureBuilder1::SetAreaAddHoles(list<vector<m2::PointD> > & holes)
+void FeatureBuilder1::SetAreaAddHoles(list<points_t> const & holes)
 {
   m_bArea = true;
+  m_Holes.clear();
 
-  m_Holes.swap(holes);
+  if (holes.empty()) return;
 
-  // This is filtering during osm parsing.
-  //for (list<points_t>::iterator i = m_Holes.begin(); i != m_Holes.end();)
-  //{
-  //  if (i->size() < 3)
-  //    i = m_Holes.erase(i);
-  //  else
-  //    ++i;
-  //}
+  m2::Region<m2::PointD> rgn(m_Geometry.begin(), m_Geometry.end());
+
+  for (list<points_t>::const_iterator i = holes.begin(); i != holes.end(); ++i)
+  {
+    ASSERT ( !i->empty(), () );
+
+    if (rgn.Contains(i->front()))
+      m_Holes.push_back(*i);
+  }
 }
 
 void FeatureBuilder1::AddName(string const & name)

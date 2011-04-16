@@ -105,7 +105,7 @@ protected:
     {
       // process way points
       shared_ptr<WayElement> e = i->second;
-      e->ForEachPoint(process);
+      e->ForEachPointOrdered(id, process);
 
       m.erase(i);
 
