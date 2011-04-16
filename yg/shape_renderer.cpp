@@ -22,7 +22,7 @@ namespace yg
 
     void ShapeRenderer::approximateArc(m2::PointD const & center, double startA, double endA, double r, vector<m2::PointD> & pts)
     {
-      double sectorA = math::pi / 180.0;
+      double sectorA = math::pi / 30.0;
       size_t const sectorsCount = floor(fabs(endA - startA) / sectorA);
       sectorA = (endA - startA) / sectorsCount;
 
