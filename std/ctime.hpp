@@ -7,7 +7,6 @@
 
 #include <ctime>
 
-using std::clock;
 using std::time;
 
 #ifdef DEBUG_NEW
