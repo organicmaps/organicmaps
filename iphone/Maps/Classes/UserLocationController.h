@@ -29,7 +29,5 @@
 //@property (nonatomic, assign) BOOL active;
 
 - (id) initWithDelegate: (id) locationDelegate;
-- (void) Start;
-- (void) Stop;
 
 @end
