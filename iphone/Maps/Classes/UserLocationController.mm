@@ -28,15 +28,16 @@
 
 - (void) dealloc
 {
-	[self Stop];
+//	[self Stop];
   [self.locationManager release];
   [super dealloc];
 }
 
-- (void) Start
+/*- (void) Start
 {
 //	active = YES;
   [self.locationManager startUpdatingLocation];
+  self.locationManager.distanceFilter = kCLDistanceFilterNone;  
 	if ([CLLocationManager headingAvailable])
 	{
 		self.locationManager.headingFilter = 1;
@@ -51,7 +52,7 @@
 	[self.locationManager stopUpdatingLocation];
 	[self.locationManager stopUpdatingHeading];
 //  active = NO;
-}
+}*/
 
 - (void) locationManager: (CLLocationManager *) manager
 				didUpdateHeading:	(CLHeading *) newHeading

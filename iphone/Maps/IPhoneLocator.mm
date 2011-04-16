@@ -62,25 +62,27 @@ namespace iphone
   {
     ::Locator::setMode(mode);
 
+    [m_locationController.locationManager startUpdatingLocation];
+    
     if (mode == ERoughMode)
-      [m_locationController.locationManager startMonitoringSignificantLocationChanges];
+      m_locationController.locationManager.distanceFilter = 100;
     else
-      [m_locationController.locationManager startUpdatingLocation];
+      m_locationController.locationManager.distanceFilter = kCLDistanceFilterNone;
 
     if ([CLLocationManager headingAvailable])
     {
       m_locationController.locationManager.headingFilter = 1;
       [m_locationController.locationManager startUpdatingHeading];
     }
+    
+    ::Locator::start(mode);
   }
 
   void Locator::stop()
   {
-    if (mode() == ERoughMode)
-      [m_locationController.locationManager stopMonitoringSignificantLocationChanges];
-    else
-      [m_locationController.locationManager stopUpdatingLocation];
-
+    ::Locator::stop();
+    [m_locationController.locationManager stopUpdatingLocation];
+    
     if ([CLLocationManager headingAvailable])
       [m_locationController.locationManager stopUpdatingHeading];
   }
@@ -92,15 +94,9 @@ namespace iphone
     callOnChangeModeFns(oldMode, mode);
 
     if (mode == ERoughMode)
-    {
-      [m_locationController.locationManager stopUpdatingLocation];
-      [m_locationController.locationManager startMonitoringSignificantLocationChanges];
-    }
+      m_locationController.locationManager.distanceFilter = 100;
     else
-    {
-      [m_locationController.locationManager stopMonitoringSignificantLocationChanges];
-      [m_locationController.locationManager startUpdatingLocation];
-    }
+      m_locationController.locationManager.distanceFilter = kCLDistanceFilterNone;
   }
 
   void Locator::locationUpdate(m2::PointD const & pt, double errorRadius, double locTimeStamp, double curTimeStamp)

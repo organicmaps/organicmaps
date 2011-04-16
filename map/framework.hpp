@@ -250,8 +250,22 @@ public:
     m_locator->addOnUpdateLocationFn(bind(&this_type::UpdateLocation, this, _1, _2, _3, _4));
     m_locator->addOnUpdateHeadingFn(bind(&this_type::UpdateHeading, this, _1, _2, _3));
     m_locator->addOnChangeModeFn(bind(&this_type::ChangeLocatorMode, this, _1, _2));
-    m_locator->start(Locator::ERoughMode);
+//    m_locator->start(Locator::ERoughMode);
   }
+  
+  void StartLocator(Locator::EMode mode)
+  {
+    if (mode == Locator::EPreciseMode)
+      m_doCenterViewport = true;
+  }
+  
+  void StopLocator()
+  {
+    m_informationDisplay.enablePosition(false);
+    m_doCenterViewport = false;
+    Invalidate();
+  }
+
 
   bool IsEmptyModel()
   {

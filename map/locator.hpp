@@ -27,8 +27,14 @@ private:
 
   EMode  m_mode;
 
+  bool m_isRunning;
+
 public:
 
+  Locator();
+  virtual ~Locator();
+
+  bool isRunning() const;
   virtual void start(EMode mode) = 0;
   virtual void stop() = 0;
   virtual void setMode(EMode mode) = 0;

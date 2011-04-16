@@ -21,10 +21,10 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 @synthesize m_iconTimer;
 @synthesize m_iconSequenceNumber;
 
-  // @TODO Make m_framework and m_storage MapsAppDelegate properties instead of global variables.
-  framework_t * m_framework = NULL;
-  shared_ptr<Locator> m_locator;
-  storage::Storage m_storage;
+// @TODO Make m_framework and m_storage MapsAppDelegate properties instead of global variables.
+framework_t * m_framework = NULL;
+shared_ptr<Locator> m_locator;
+storage::Storage m_storage;
 
 - (void) ZoomToRect: (m2::RectD const &) rect
 {
@@ -55,28 +55,21 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 
 - (IBAction)OnMyPositionClicked:(id)sender
 {  
-	if (m_locator->mode() == Locator::EPreciseMode)
-  {
-    m_locator->setMode(Locator::ERoughMode);
-    ((UIBarButtonItem *)sender).style = UIBarButtonItemStyleBordered;
-  }
-  else
-  {
-    m_locator->setMode(Locator::EPreciseMode);
-    m_isDirtyPosition = true;
+    if (m_locator->isRunning())
+    {
+      m_locator->stop();
+      m_framework->StopLocator();
+      ((UIBarButtonItem*) sender).style = UIBarButtonItemStyleBordered;
+    }
+    else
+    {
+      m_framework->StartLocator(Locator::EPreciseMode);
+      m_locator->start(Locator::EPreciseMode);
+      m_isDirtyPosition = true;
 
-    ((UIBarButtonItem *)sender).style = UIBarButtonItemStyleDone;
-    
-/*    m_iconSequenceNumber = 0;
-    m_iconTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f
-                                                        target:self
-                                                      selector:@selector(UpdateIcon:)
-                                                      userInfo:nil
-                                                       repeats:NO];
-
-    NSLog(@"IconTimerStart");*/
-    ((UIBarButtonItem *)sender).image = [UIImage imageNamed:@"location-search.png"];
-  }
+      ((UIBarButtonItem*)sender).style = UIBarButtonItemStyleDone;
+      ((UIBarButtonItem*)sender).image = [UIImage imageNamed:@"location-search.png"];
+    }
 }
 
 - (void) OnChangeLocatorMode:(Locator::EMode) oldMode
@@ -84,14 +77,8 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 {
   if (newMode == Locator::ERoughMode)
   {
-/*    if (m_iconTimer != nil)
-    {
-      [m_iconTimer invalidate];
-      m_iconTimer = nil;
-    }
- */   
     m_myPositionButton.image = [UIImage imageNamed:@"location.png"];
-    m_myPositionButton.style = UIBarButtonItemStyleBordered;
+//    m_myPositionButton.style = UIBarButtonItemStyleBordered;
   }
 }
 
