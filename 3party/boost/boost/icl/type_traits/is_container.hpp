@@ -42,8 +42,8 @@ namespace boost{ namespace icl
         BOOST_STATIC_CONSTANT(bool, 
             value = (mpl::and_< is_container<Type> 
                               , detail::has_key_type<Type>
-                              , is_same< typename key_type_of<Type>::type
-                                       , typename value_type_of<Type>::type >
+                              , boost::is_same< typename key_type_of<Type>::type
+                                              , typename value_type_of<Type>::type >
                               , mpl::not_<detail::has_segment_type<Type> >
                               >::value )
         ); 

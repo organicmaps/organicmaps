@@ -507,12 +507,12 @@ namespace boost
           nolock_force_unique_connection_list();
           return connection_body_type(new connection_body<group_key_type, slot_type, Mutex>(slot));
         }
-        void do_disconnect(const group_type &group, mpl::bool_<true> is_group)
+        void do_disconnect(const group_type &group, mpl::bool_<true> /* is_group */)
         {
           disconnect(group);
         }
         template<typename T>
-        void do_disconnect(const T &slot, mpl::bool_<false> is_group)
+        void do_disconnect(const T &slot, mpl::bool_<false> /* is_group */)
         {
           shared_ptr<invocation_state> local_state =
             get_readable_state();

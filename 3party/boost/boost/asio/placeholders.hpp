@@ -39,7 +39,7 @@ unspecified bytes_transferred;
 
 /// An argument placeholder, for use with boost::bind(), that corresponds to
 /// the iterator argument of a handler for asynchronous functions such as
-/// boost::asio::basic_resolver::resolve.
+/// boost::asio::basic_resolver::async_resolve.
 unspecified iterator;
 
 #elif defined(__BORLANDC__) || defined(__GNUC__)

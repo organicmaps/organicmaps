@@ -1,7 +1,6 @@
 //  (C) Copyright John Maddock 2001 - 2003. 
 //  (C) Copyright Darin Adler 2001. 
 //  (C) Copyright Douglas Gregor 2002. 
-// (C) Copyright Bryce Lelbach 2010
 //  Use, modification and distribution are subject to the 
 //  Boost Software License, Version 1.0. (See accompanying file 
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -10,30 +9,18 @@
 
 //  generic BSD config options:
 
-#if !defined(__FreeBSD__)   && \
-    !defined(__NetBSD__)    && \
-    !defined(__OpenBSD__)   && \
-    !defined(__DragonFly__)
-  #error "This platform is not BSD"
+#if !defined(__FreeBSD__) && !defined(__NetBSD__) && !defined(__OpenBSD__) && !defined(__DragonFly__)
+#error "This platform is not BSD"
 #endif
 
-#define BOOST_NIX            1 
-#define BOOST_GENETIC_NIX    1
-//#define BOOST_TRADEMARK_NIX  1
-//#define BOOST_FUNCTIONAL_NIX 1
-
 #ifdef __FreeBSD__
-  #define BOOST_PLATFORM "FreeBSD " BOOST_STRINGIZE(__FreeBSD__)
-  #define BOOST_FREEBSD __FreeBSD__
+#define BOOST_PLATFORM "FreeBSD " BOOST_STRINGIZE(__FreeBSD__)
 #elif defined(__NetBSD__)
-  #define BOOST_PLATFORM "NetBSD " BOOST_STRINGIZE(__NetBSD__)
-  #define BOOST_NETBSD __NetBSD__
+#define BOOST_PLATFORM "NetBSD " BOOST_STRINGIZE(__NetBSD__)
 #elif defined(__OpenBSD__)
-  #define BOOST_PLATFORM "OpenBSD " BOOST_STRINGIZE(__OpenBSD__)
-  #define BOOST_OPENBSD __OpenBSD__
+#define BOOST_PLATFORM "OpenBSD " BOOST_STRINGIZE(__OpenBSD__)
 #elif defined(__DragonFly__)
-  #define BOOST_PLATFORM "DragonFly " BOOST_STRINGIZE(__DragonFly__)
-  #define BOOST_DFBSD __DragonFly__
+#define BOOST_PLATFORM "DragonFly " BOOST_STRINGIZE(__DragonFly__)
 #endif
 
 //

@@ -12,8 +12,6 @@
 
 //  Metrowerks C++ compiler setup:
 
-#define BOOST_MWERKS __MWERKS__
-
 // locale support is disabled when linking with the dynamic runtime
 #   ifdef _MSL_NO_LOCALE
 #     define BOOST_NO_STD_LOCALE

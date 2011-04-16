@@ -46,7 +46,7 @@ class dev_poll_reactor
   : public boost::asio::detail::service_base<dev_poll_reactor>
 {
 public:
-  enum { read_op = 0, write_op = 1,
+  enum op_types { read_op = 0, write_op = 1,
     connect_op = 1, except_op = 2, max_ops = 3 };
 
   // Per-descriptor data.

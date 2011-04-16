@@ -79,7 +79,7 @@ namespace boost
                 T y = x - 1;
                 
                 // approximation by taylor series in y at 0 up to order 2
-                T result = sqrt(2 * y) * (1 + y /12 + 3 * y * y / 160);
+                T result = sqrt(2 * y) * (1 - y /12 + 3 * y * y / 160);
                 return result;
             }
         }

@@ -25,7 +25,7 @@ struct is_overloadable
 {
     typedef is_overloadable<Type> type;
     BOOST_STATIC_CONSTANT(bool, value = 
-        (is_same<Type, typename Type::overloadable_type>::value)
+        (boost::is_same<Type, typename Type::overloadable_type>::value)
         );
 };
 
@@ -36,8 +36,8 @@ struct is_codomain_equal
 {
     typedef is_codomain_equal<LeftT, RightT> type;
     BOOST_STATIC_CONSTANT(bool, value =
-        (is_same<typename LeftT::codomain_type, 
-                 typename RightT::codomain_type>::value)
+        (boost::is_same<typename LeftT::codomain_type, 
+                        typename RightT::codomain_type>::value)
         );
 };
 
@@ -47,8 +47,8 @@ struct is_key_compare_equal
 {
     typedef is_key_compare_equal<LeftT, RightT> type;
     BOOST_STATIC_CONSTANT(bool, value =
-        (is_same<typename LeftT::key_compare, 
-                 typename RightT::key_compare>::value)
+        (boost::is_same<typename LeftT::key_compare, 
+                        typename RightT::key_compare>::value)
         );
 };
 

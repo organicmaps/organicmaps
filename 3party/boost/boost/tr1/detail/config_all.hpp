@@ -63,6 +63,11 @@
 #     else
 #        define BOOST_TR1_STD_HEADER(name) <../stlport/name>
 #     endif
+#  elif defined(__PATHSCALE__) && (defined(__STD_RWCOMPILER_H__) || defined(_RWSTD_VER))
+#     define BOOST_TR1_STD_HEADER(name) <../include/name>
+
+#  elif defined(__SUNPRO_CC) && (defined(__STD_RWCOMPILER_H__) || defined(_RWSTD_VER))
+#     define BOOST_TR1_STD_HEADER(name) <../stdcxx4/name>
 
 #  elif defined(__HP_aCC)
       // HP aCC include path:

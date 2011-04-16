@@ -27,7 +27,6 @@
 
 #if (__IBMCPP__ <= 600) || !defined(BOOST_STRICT_CONFIG)
 #  define BOOST_NO_POINTER_TO_MEMBER_TEMPLATE_PARAMETERS
-#  define BOOST_NO_INITIALIZER_LISTS
 #endif
 
 #if (__IBMCPP__ <= 1110)
@@ -54,44 +53,66 @@
 #error "Compiler not supported or configured - please reconfigure"
 #endif
 //
-// last known and checked version is 600:
-#if (__IBMCPP__ > 1010)
+// last known and checked version is 1110:
+#if (__IBMCPP__ > 1110)
 #  if defined(BOOST_ASSERT_CONFIG)
 #     error "Unknown compiler version - please run the configure tests and report the results"
 #  endif
 #endif
 
 // Some versions of the compiler have issues with default arguments on partial specializations
+#if __IBMCPP__ <= 1010
 #define BOOST_NO_PARTIAL_SPECIALIZATION_IMPLICIT_DEFAULT_ARGS
+#endif
 
 //
 // C++0x features
 //
 //   See boost\config\suffix.hpp for BOOST_NO_LONG_LONG
 //
-#define BOOST_NO_AUTO_DECLARATIONS
-#define BOOST_NO_AUTO_MULTIDECLARATIONS
-#define BOOST_NO_CHAR16_T
-#define BOOST_NO_CHAR32_T
+#if ! __IBMCPP_AUTO_TYPEDEDUCTION
+#  define BOOST_NO_AUTO_DECLARATIONS
+#  define BOOST_NO_AUTO_MULTIDECLARATIONS
+#endif
+#if ! __IBMCPP_UTF_LITERAL__
+#  define BOOST_NO_CHAR16_T
+#  define BOOST_NO_CHAR32_T
+#endif
 #define BOOST_NO_CONCEPTS
 #define BOOST_NO_CONSTEXPR
-#define BOOST_NO_DECLTYPE
+#if ! __IBMCPP_DECLTYPE
+#  define BOOST_NO_DECLTYPE
+#else
+#  define BOOST_HAS_DECLTYPE
+#endif
 #define BOOST_NO_DEFAULTED_FUNCTIONS
 #define BOOST_NO_DELETED_FUNCTIONS
 #define BOOST_NO_EXPLICIT_CONVERSION_OPERATORS
-#define BOOST_NO_EXTERN_TEMPLATE
-#define BOOST_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
+#if ! __IBMCPP_EXTERN_TEMPLATE
+#  define BOOST_NO_EXTERN_TEMPLATE
+#endif
+#if ! __IBMCPP_VARIADIC_TEMPLATES
+// not enabled separately at this time
+#  define BOOST_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
+#endif
+#define BOOST_NO_INITIALIZER_LISTS
 #define BOOST_NO_LAMBDAS
 #define BOOST_NO_NULLPTR
 #define BOOST_NO_RAW_LITERALS
 #define BOOST_NO_RVALUE_REFERENCES
 #define BOOST_NO_SCOPED_ENUMS
 #define BOOST_NO_SFINAE_EXPR
-#define BOOST_NO_STATIC_ASSERT
+#if ! __IBMCPP_STATIC_ASSERT
+#  define BOOST_NO_STATIC_ASSERT
+#endif
 #define BOOST_NO_TEMPLATE_ALIASES
 #define BOOST_NO_UNICODE_LITERALS
-#define BOOST_NO_VARIADIC_TEMPLATES
-#define BOOST_NO_VARIADIC_MACROS
+#if ! __IBMCPP_VARIADIC_TEMPLATES
+#  define BOOST_NO_VARIADIC_TEMPLATES
+#endif
+#if ! __C99_MACRO_WITH_VA_ARGS
+#  define BOOST_NO_VARIADIC_MACROS
+#endif
 
 
 

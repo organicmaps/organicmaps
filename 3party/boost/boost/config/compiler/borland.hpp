@@ -12,9 +12,6 @@
 //
 // versions check:
 // we don't support Borland prior to version 5.4:
-
-#define BOOST_BORLAND __BORLANDC__
-
 #if __BORLANDC__ < 0x540
 #  error "Compiler not supported or configured - please reconfigure"
 #endif

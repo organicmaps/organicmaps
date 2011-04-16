@@ -99,7 +99,7 @@ transitive_reduction(const Graph& g, GraphTR& tr,
         {
             //and run through all vertices in topological order
             typename std::vector<Vertex>::reverse_iterator
-                rit = topo_order.rbegin();
+                rit = topo_order.rbegin(),
                 rend = topo_order.rend();
             for(; rit != rend; ++rit ) {
                 //looking if they are successors of *it

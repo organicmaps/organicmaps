@@ -40,6 +40,10 @@
 // Rogue Wave library:
 #  define BOOST_STDLIB_CONFIG "boost/config/stdlib/roguewave.hpp"
 
+#elif defined(_LIBCPP_VERSION)
+// libc++
+#  define BOOST_STDLIB_CONFIG "boost/config/stdlib/libcpp.hpp"
+
 #elif defined(__GLIBCPP__) || defined(__GLIBCXX__)
 // GNU libstdc++ 3
 #  define BOOST_STDLIB_CONFIG "boost/config/stdlib/libstdcpp3.hpp"

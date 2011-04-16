@@ -27,7 +27,8 @@
 //  on Windows, except for standard libaries known to have wchar_t overloads for
 //  file stream I/O, use path::string() to get a narrow character c_str()
 #if defined(BOOST_WINDOWS_API) \
-  && !(defined(_CPPLIB_VER) && _CPPLIB_VER >= 405)  // not (Dinkumware with overloads)
+  && (!defined(_CPPLIB_VER) || _CPPLIB_VER < 405 || defined(_STLPORT_VERSION))
+  // !Dinkumware || early Dinkumware || STLPort masquerading as Dinkumware
 # define BOOST_FILESYSTEM_C_STR string().c_str()  // use narrow, since wide not available
 #else  // use the native c_str, which will be narrow on POSIX, wide on Windows
 # define BOOST_FILESYSTEM_C_STR c_str()

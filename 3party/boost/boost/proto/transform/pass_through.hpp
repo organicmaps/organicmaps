@@ -178,7 +178,7 @@
                 expr_type;
 
                 typedef typename unref_expr::proto_generator proto_generator;
-                typedef typename BOOST_PROTO_RESULT_OF<proto_generator(expr_type)>::type result_type;
+                typedef typename BOOST_PROTO_RESULT_OF<proto_generator(expr_type)>::type const result_type;
 
                 result_type const operator ()(
                     typename pass_through_impl::expr_param e

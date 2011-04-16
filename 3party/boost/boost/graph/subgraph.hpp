@@ -78,12 +78,12 @@ class subgraph {
     typedef graph_traits<Graph> Traits;
     typedef std::list<subgraph<Graph>*> ChildrenList;
 public:
-// Graph requirements
-typedef typename Traits::vertex_descriptor         vertex_descriptor;
-typedef typename Traits::edge_descriptor           edge_descriptor;
-typedef typename Traits::directed_category         directed_category;
-typedef typename Traits::edge_parallel_category    edge_parallel_category;
-typedef typename Traits::traversal_category        traversal_category;
+    // Graph requirements
+    typedef typename Traits::vertex_descriptor         vertex_descriptor;
+    typedef typename Traits::edge_descriptor           edge_descriptor;
+    typedef typename Traits::directed_category         directed_category;
+    typedef typename Traits::edge_parallel_category    edge_parallel_category;
+    typedef typename Traits::traversal_category        traversal_category;
 
     // IncidenceGraph requirements
     typedef typename Traits::out_edge_iterator         out_edge_iterator;
@@ -196,10 +196,20 @@ typedef typename Traits::traversal_category        traversal_category;
     std::pair<vertex_descriptor, bool>
     find_vertex(vertex_descriptor u_global) const {
         if (is_root()) return std::make_pair(u_global, true);
-        typename std::map<vertex_descriptor, vertex_descriptor>::const_iterator
-            i = m_local_vertex.find(u_global);
+        typename LocalVertexMap::const_iterator i = m_local_vertex.find(u_global);
         bool valid = i != m_local_vertex.end();
         return std::make_pair((valid ? (*i).second : null_vertex()), valid);
+    }
+
+    // Is edge e (of the root graph) contained in this subgraph?
+    // If so, return the matching local edge.
+    std::pair<edge_descriptor, bool>
+    find_edge(edge_descriptor e_global) const {
+        if (is_root()) return std::make_pair(e_global, true);
+        typename LocalEdgeMap::const_iterator i =
+          m_local_edge.find(get(get(edge_index, root().m_graph), e_global));
+        bool valid = i != m_local_edge.end();
+        return std::make_pair((valid ? (*i).second : edge_descriptor()), valid);
     }
 
     // Return the parent graph.
@@ -617,38 +627,18 @@ namespace detail {
 
     //-------------------------------------------------------------------------
     // implementation of remove_edge(e,g)
-    template <typename Edge, typename Graph>
-    void remove_edge_recur_down(Edge e_global, subgraph<Graph>& g);
 
-    template <typename Edge, typename Children>
+    template <typename G, typename Edge, typename Children>
     void children_remove_edge(Edge e_global, Children& c)
     {
         for(typename Children::iterator i = c.begin(); i != c.end(); ++i) {
-            if((*i)->find_vertex(source(e_global, **i)).second &&
-               (*i)->find_vertex(target(e_global, **i)).second)
-            {
-                remove_edge_recur_down(source(e_global, **i),
-                                       target(e_global, **i),
-                                       **i);
+            std::pair<typename subgraph<G>::edge_descriptor, bool> found =
+              (*i)->find_edge(e_global);
+            if (!found.second) {
+              continue;
             }
-        }
-    }
-
-    template <typename Edge, typename Graph>
-    void remove_edge_recur_down(Edge e_global, subgraph<Graph>& g)
-    {
-        remove_edge(g.global_to_local(e_global), g.m_graph);
-        children_remove_edge(e_global, g.m_children);
-    }
-
-    template <typename Edge, typename Graph>
-    void remove_edge_recur_up(Edge e_global, subgraph<Graph>& g)
-    {
-        if (g.is_root()) {
-            remove_edge(e_global, g.m_graph);
-            children_remove_edge(e_global, g.m_children);
-        } else {
-            remove_edge_recur_up(e_global, *g.m_parent);
+            children_remove_edge<G>(e_global, (*i)->m_children);
+            remove_edge(found.first, (*i)->m_graph);
         }
     }
 
@@ -672,11 +662,14 @@ template <typename G>
 void
 remove_edge(typename subgraph<G>::edge_descriptor e, subgraph<G>& g)
 {
-    if(g.is_root()) {
-        detail::remove_edge_recur_up(e, g);
-    } else {
-        detail::remove_edge_recur_up(g.local_to_global(e), g);
-    }
+    typename subgraph<G>::edge_descriptor e_global = g.local_to_global(e);
+#ifndef NDEBUG
+    std::pair<typename subgraph<G>::edge_descriptor, bool> fe = g.find_edge(e_global);
+    assert(fe.second && fe.first == e);
+#endif //NDEBUG
+    subgraph<G> &root = g.root(); // chase to root
+    detail::children_remove_edge<G>(e_global, root.m_children);
+    remove_edge(e_global, root.m_graph); // kick edge from root
 }
 
 // This is slow, but there may not be a good way to do it safely otherwise
@@ -691,7 +684,7 @@ remove_edge_if(Predicate p, subgraph<G>& g) {
       if (p(*ep.first)) {
         any_removed = true;
         remove_edge(*ep.first, g);
-        continue; /* Since iterators may be invalidated */
+        break; /* Since iterators may be invalidated */
       }
     }
     if (!any_removed) break;

@@ -217,6 +217,11 @@ namespace boost {
     //?? not the right place ?? Lee
     typedef boost::forward_traversal_tag multi_pass_input_iterator_tag;
 
+    // Forward declare graph_bundle_t property name (from
+    // boost/graph/properties.hpp, which includes this file) for
+    // bundled_result.
+    enum graph_bundle_t {graph_bundle};
+
     template <typename G>
     struct graph_property_type {
       typedef typename G::graph_property_type type;
@@ -257,6 +262,14 @@ namespace boost {
             typedef typename mpl::if_c<(is_same<Descriptor, Vertex>::value),
                                         vertex_bundle_type<Graph>,
                                         edge_bundle_type<Graph> >::type bundler;
+        public:
+            typedef typename bundler::type type;
+        };
+
+        template<typename Graph>
+        class bundled_result<Graph, graph_bundle_t> {
+            typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
+            typedef graph_bundle_type<Graph> bundler;
         public:
             typedef typename bundler::type type;
         };

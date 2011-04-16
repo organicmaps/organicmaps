@@ -126,7 +126,8 @@ namespace boost {
   BOOST_DEF_PROPERTY(graph, visitor);
 
   // These tags are used for property bundles
-  BOOST_DEF_PROPERTY(graph, bundle);
+  // BOOST_DEF_PROPERTY(graph, bundle); -- needed in graph_traits.hpp, so enum is defined there
+  BOOST_INSTALL_PROPERTY(graph, bundle);
   BOOST_DEF_PROPERTY(vertex, bundle);
   BOOST_DEF_PROPERTY(edge, bundle);
 

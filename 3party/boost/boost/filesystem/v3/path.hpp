@@ -452,7 +452,6 @@ namespace filesystem3
 
     void m_erase_redundant_separator(string_type::size_type sep_pos);
     string_type::size_type m_parent_path_end() const;
-    void m_portable();
 
     path& m_normalize();
 

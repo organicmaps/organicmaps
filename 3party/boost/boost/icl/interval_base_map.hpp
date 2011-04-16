@@ -253,20 +253,22 @@ public:
     //==========================================================================
 
     /** Find the interval value pair, that contains \c key */
-    const_iterator find(const domain_type& key)const
+    const_iterator find(const domain_type& key_value)const
     { 
-        return _map.find(interval_type(key)); 
+        return icl::find(*this, key_value);
     }
 
-    const_iterator find(const interval_type& key)const
+    /** Find the first interval value pair, that collides with interval 
+        \c key_interval */
+    const_iterator find(const interval_type& key_interval)const
     { 
-        return _map.find(key); 
+        return _map.find(key_interval); 
     }
 
     /** Total select function. */
-    codomain_type operator()(const domain_type& key)const
+    codomain_type operator()(const domain_type& key_value)const
     {
-        const_iterator it_ = _map.find(interval_type(key)); 
+        const_iterator it_ = icl::find(*this, key_value);
         return it_==end() ? identity_element<codomain_type>::value()
                           : it_->second;
     }

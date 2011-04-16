@@ -160,6 +160,11 @@ namespace boost
         ~unordered_map() {}
 
 #if !defined(BOOST_NO_RVALUE_REFERENCES)
+        unordered_map(unordered_map const& other)
+          : table_(other.table_)
+        {
+        }
+
         unordered_map(unordered_map&& other)
           : table_(other.table_, boost::unordered_detail::move_tag())
         {
@@ -168,6 +173,12 @@ namespace boost
         unordered_map(unordered_map&& other, allocator_type const& a)
           : table_(other.table_, a, boost::unordered_detail::move_tag())
         {
+        }
+
+        unordered_map& operator=(unordered_map const& x)
+        {
+            table_ = x.table_;
+            return *this;
         }
 
         unordered_map& operator=(unordered_map&& x)
@@ -705,6 +716,11 @@ namespace boost
         ~unordered_multimap() {}
 
 #if !defined(BOOST_NO_RVALUE_REFERENCES)
+        unordered_multimap(unordered_multimap const& other)
+          : table_(other.table_)
+        {
+        }
+
         unordered_multimap(unordered_multimap&& other)
           : table_(other.table_, boost::unordered_detail::move_tag())
         {
@@ -713,6 +729,12 @@ namespace boost
         unordered_multimap(unordered_multimap&& other, allocator_type const& a)
           : table_(other.table_, a, boost::unordered_detail::move_tag())
         {
+        }
+
+        unordered_multimap& operator=(unordered_multimap const& x)
+        {
+            table_ = x.table_;
+            return *this;
         }
 
         unordered_multimap& operator=(unordered_multimap&& x)

@@ -201,15 +201,17 @@ public:
     //= Selection
     //==========================================================================
 
-    /** Find the interval value pair, that contains element \c key */
-    const_iterator find(const element_type& key)const
+    /** Find the interval, that contains element \c key_value */
+    const_iterator find(const element_type& key_value)const
     { 
-        return this->_set.find(icl::singleton<segment_type>(key)); 
+        return icl::find(*this, key_value);
+        //CL return this->_set.find(icl::singleton<segment_type>(key)); 
     }
 
-    const_iterator find(const segment_type& segment)const
+    /** Find the first interval, that collides with interval \c key_interval */
+    const_iterator find(const interval_type& key_interval)const
     { 
-        return this->_set.find(segment); 
+        return this->_set.find(key_interval); 
     }
 
     //==========================================================================

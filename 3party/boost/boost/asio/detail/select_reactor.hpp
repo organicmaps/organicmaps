@@ -51,10 +51,10 @@ class select_reactor
 {
 public:
 #if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
-  enum { read_op = 0, write_op = 1, except_op = 2,
+  enum op_types { read_op = 0, write_op = 1, except_op = 2,
     max_select_ops = 3, connect_op = 3, max_ops = 4 };
 #else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
-  enum { read_op = 0, write_op = 1, except_op = 2,
+  enum op_types { read_op = 0, write_op = 1, except_op = 2,
     max_select_ops = 3, connect_op = 1, max_ops = 3 };
 #endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
 

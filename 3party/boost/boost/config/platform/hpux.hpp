@@ -3,7 +3,6 @@
 //  (C) Copyright David Abrahams 2002. 
 //  (C) Copyright Toon Knapen 2003. 
 //  (C) Copyright Boris Gubenko 2006 - 2007.
-// (C) Copyright Bryce Lelbach 2010
 //  Use, modification and distribution are subject to the 
 //  Boost Software License, Version 1.0. (See accompanying file 
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -13,13 +12,6 @@
 //  hpux specific config options:
 
 #define BOOST_PLATFORM "HP-UX"
-
-#define BOOST_HPUX 1 // platform ID macro
-
-#define BOOST_NIX            1 
-//#define BOOST_GENETIC_NIX    1
-#define BOOST_TRADEMARK_NIX  1
-//#define BOOST_FUNCTIONAL_NIX 1
 
 // In principle, HP-UX has a nice <stdint.h> under the name <inttypes.h>
 // However, it has the following problem:

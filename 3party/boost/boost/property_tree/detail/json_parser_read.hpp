@@ -179,6 +179,9 @@ namespace boost { namespace property_tree { namespace json_parser
             {
 
                 using namespace boost::spirit::classic;
+                // There's a boost::assertion too, so another explicit using
+                // here:
+                using boost::spirit::classic::assertion;
 
                 // Assertions
                 assertion<std::string> expect_object("expected object");

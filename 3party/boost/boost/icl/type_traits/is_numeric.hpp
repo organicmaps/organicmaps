@@ -14,10 +14,17 @@ Copyright (c) 2010-2010: Joachim Faulhaber
 namespace boost{ namespace icl
 {
 
+template <class Type> struct is_fixed_numeric
+{
+    typedef is_fixed_numeric type;
+    BOOST_STATIC_CONSTANT(bool, value = (0 < std::numeric_limits<Type>::digits));
+};
+
 template <class Type> struct is_numeric
 {
     typedef is_numeric type;
-    BOOST_STATIC_CONSTANT(bool, value = (0 < std::numeric_limits<Type>::digits));
+    BOOST_STATIC_CONSTANT(bool, value = 
+        (mpl::or_<is_fixed_numeric<Type>, is_integral<Type> >::value) );
 };
 
 template <class Type> 

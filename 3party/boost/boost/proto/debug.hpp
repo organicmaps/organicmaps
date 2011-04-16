@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <boost/preprocessor/stringize.hpp>
+#include <boost/ref.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/proto/proto_fwd.hpp>
 #include <boost/proto/traits.hpp>
@@ -108,32 +109,16 @@ namespace boost { namespace proto
         }
     }
 
-    namespace functional
+    namespace detail
     {
-        /// \brief Pretty-print a Proto expression tree.
-        ///
-        /// A PolymorphicFunctionObject which accepts a Proto expression
-        /// tree and pretty-prints it to an \c ostream for debugging
-        /// purposes.
-        struct display_expr
+        struct display_expr_impl
         {
-            BOOST_PROTO_CALLABLE()
-
-            typedef void result_type;
-
-            /// \param sout  The \c ostream to which the expression tree
-            ///              will be written.
-            /// \param depth The starting indentation depth for this node.
-            ///              Children nodes will be displayed at a starting
-            ///              depth of <tt>depth+4</tt>.
-            explicit display_expr(std::ostream &sout = std::cout, int depth = 0)
+            explicit display_expr_impl(std::ostream &sout, int depth = 0)
               : depth_(depth)
               , first_(true)
               , sout_(sout)
             {}
 
-            /// \brief Pretty-print the current node in a Proto expression
-            /// tree.
             template<typename Expr>
             void operator()(Expr const &expr) const
             {
@@ -141,8 +126,8 @@ namespace boost { namespace proto
             }
 
         private:
-            display_expr(display_expr const &);
-            display_expr &operator =(display_expr const &);
+            display_expr_impl(display_expr_impl const &);
+            display_expr_impl &operator =(display_expr_impl const &);
 
             template<typename Expr>
             void impl(Expr const &expr, mpl::long_<0>) const
@@ -163,7 +148,7 @@ namespace boost { namespace proto
                 this->sout_.width(this->depth_);
                 this->sout_ << (this->first_? "" : ", ");
                 this->sout_ << tag() << "(\n";
-                display_expr display(this->sout_, this->depth_ + 4);
+                display_expr_impl display(this->sout_, this->depth_ + 4);
                 fusion::for_each(expr, display);
                 this->sout_.width(this->depth_);
                 this->sout_ << "" << ")\n";
@@ -173,6 +158,43 @@ namespace boost { namespace proto
             int depth_;
             mutable bool first_;
             std::ostream &sout_;
+        };
+    }
+
+    namespace functional
+    {
+        /// \brief Pretty-print a Proto expression tree.
+        ///
+        /// A PolymorphicFunctionObject which accepts a Proto expression
+        /// tree and pretty-prints it to an \c ostream for debugging
+        /// purposes.
+        struct display_expr
+        {
+            BOOST_PROTO_CALLABLE()
+
+            typedef void result_type;
+
+            /// \param sout  The \c ostream to which the expression tree
+            ///              will be written.
+            /// \param depth The starting indentation depth for this node.
+            ///              Children nodes will be displayed at a starting
+            ///              depth of <tt>depth+4</tt>.
+            explicit display_expr(std::ostream &sout = std::cout, int depth = 0)
+              : depth_(depth)
+              , sout_(sout)
+            {}
+
+            /// \brief Pretty-print the current node in a Proto expression
+            /// tree.
+            template<typename Expr>
+            void operator()(Expr const &expr) const
+            {
+                detail::display_expr_impl(this->sout_, this->depth_)(expr);
+            }
+
+        private:
+            int depth_;
+            reference_wrapper<std::ostream> sout_;
         };
     }
 

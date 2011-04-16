@@ -59,7 +59,7 @@ namespace boost{namespace icl
     struct has_inverse<boost::rational<Integral> >
     {
         typedef has_inverse type;
-        BOOST_STATIC_CONSTANT(bool, value = (is_signed<Integral>::value));
+        BOOST_STATIC_CONSTANT(bool, value = (boost::is_signed<Integral>::value));
     };
 
 }} // namespace icl boost

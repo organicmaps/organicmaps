@@ -13,8 +13,7 @@
 #  define BOOST_NO_EXCEPTIONS
 #endif
 
-#if __has_feature(cxx_rtti)
-#else
+#if !__has_feature(cxx_rtti)
 #  define BOOST_NO_RTTI
 #endif
 
@@ -24,35 +23,57 @@
 
 #define BOOST_HAS_NRVO
 
-// NOTE: Clang's C++0x support is not worth detecting. However, it
-// supports both extern templates and "long long" even in C++98/03
-// mode.
+// Clang supports "long long" in all compilation modes.
+
 #define BOOST_NO_AUTO_DECLARATIONS
 #define BOOST_NO_AUTO_MULTIDECLARATIONS
 #define BOOST_NO_CHAR16_T
 #define BOOST_NO_CHAR32_T
 #define BOOST_NO_CONCEPTS
 #define BOOST_NO_CONSTEXPR
-#define BOOST_NO_DECLTYPE
+
+#if !__has_feature(cxx_decltype)
+#  define BOOST_NO_DECLTYPE
+#endif
+
 #define BOOST_NO_DEFAULTED_FUNCTIONS
-#define BOOST_NO_DELETED_FUNCTIONS
+
+#if !__has_feature(cxx_deleted_functions)
+#  define BOOST_NO_DELETED_FUNCTIONS
+#endif
+
 #define BOOST_NO_EXPLICIT_CONVERSION_OPERATORS
-#define BOOST_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
+
+#if !__has_feature(cxx_default_function_template_args)
+  #define BOOST_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
+#endif
+
 #define BOOST_NO_INITIALIZER_LISTS
 #define BOOST_NO_LAMBDAS
 #define BOOST_NO_NULLPTR
 #define BOOST_NO_RAW_LITERALS
-#define BOOST_NO_RVALUE_REFERENCES
-#define BOOST_NO_SCOPED_ENUMS
-#define BOOST_NO_STATIC_ASSERT
+
+#if !__has_feature(cxx_rvalue_references)
+#  define BOOST_NO_RVALUE_REFERENCES
+#endif
+
+#if !__has_feature(cxx_strong_enums)
+#  define BOOST_NO_SCOPED_ENUMS
+#endif
+
+#if !__has_feature(cxx_static_assert)
+#  define BOOST_NO_STATIC_ASSERT
+#endif
+
 #define BOOST_NO_TEMPLATE_ALIASES
 #define BOOST_NO_UNICODE_LITERALS
-#define BOOST_NO_VARIADIC_TEMPLATES
-#define BOOST_NO_VARIADIC_MACROS
 
-// HACK: Clang does support extern templates, but Boost's test for
-// them is wrong.
-#define BOOST_NO_EXTERN_TEMPLATE
+#if !__has_feature(cxx_variadic_templates)
+#  define BOOST_NO_VARIADIC_TEMPLATES
+#endif
+
+// Clang always supports variadic macros
+// Clang always supports extern templates
 
 #ifndef BOOST_COMPILER
 #  define BOOST_COMPILER "Clang version " __clang_version__

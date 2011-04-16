@@ -284,18 +284,30 @@ namespace boost {
     typedef size_type result_type;
 
     degree_vertex_invariant(const InDegreeMap& in_degree_map, const Graph& g)
-      : m_in_degree_map(in_degree_map), m_g(g) { }
+      : m_in_degree_map(in_degree_map),
+        m_max_vertex_in_degree(0),
+        m_max_vertex_out_degree(0),
+        m_g(g) {
+      BGL_FORALL_VERTICES_T(v, g, Graph) {
+        m_max_vertex_in_degree =
+          (std::max)(m_max_vertex_in_degree, get(m_in_degree_map, v));
+        m_max_vertex_out_degree =
+          (std::max)(m_max_vertex_out_degree, out_degree(v, g));
+      }
+    }
 
     size_type operator()(vertex_t v) const {
-      return (num_vertices(m_g) + 1) * out_degree(v, m_g)
+      return (m_max_vertex_in_degree + 1) * out_degree(v, m_g)
         + get(m_in_degree_map, v);
     }
     // The largest possible vertex invariant number
     size_type max BOOST_PREVENT_MACRO_SUBSTITUTION () const { 
-      return num_vertices(m_g) * num_vertices(m_g) + num_vertices(m_g);
+      return (m_max_vertex_in_degree + 2) * m_max_vertex_out_degree + 1;
     }
   private:
     InDegreeMap m_in_degree_map;
+    size_type m_max_vertex_in_degree;
+    size_type m_max_vertex_out_degree;
     const Graph& m_g;
   };
 

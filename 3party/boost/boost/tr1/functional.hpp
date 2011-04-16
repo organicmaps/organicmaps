@@ -128,7 +128,12 @@ template <class T> struct hash;
 }
 
 namespace std{ namespace tr1{
-   using ::boost::hash;
+   //using ::boost::hash;
+
+   template <class T>
+   struct hash : public boost::hash<T>
+   {
+   };
 
 }}
 

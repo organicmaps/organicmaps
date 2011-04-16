@@ -119,6 +119,85 @@ singleton(const typename interval_traits<Type>::domain_type& value)
     return dynamic_interval_traits<Type>::construct(value, value, interval_bounds::closed());
 }
 
+namespace detail
+{
+
+//==============================================================================
+//= Construct<Interval> unit_trail == generalized singleton
+// The smallest interval on an incrementable (and decrementable) type that can 
+// be constructed using ++ and -- and such that it contains a given value.
+// If 'Type' is discrete, 'unit_trail' and 'singleton' are identical. So we 
+// can view 'unit_trail' as a generalized singleton for static intervals of 
+// continuous types.
+//==============================================================================
+template<class Type>
+typename enable_if
+<
+    mpl::and_< is_static_right_open<Type>
+             , boost::detail::is_incrementable<typename interval_traits<Type>::domain_type> >
+  , Type
+>::type
+unit_trail(const typename interval_traits<Type>::domain_type& value)
+{
+    return interval_traits<Type>::construct(value, icl::succ(value));
+}
+
+template<class Type>
+typename enable_if
+<
+    mpl::and_< is_static_left_open<Type>
+             , boost::detail::is_incrementable<typename interval_traits<Type>::domain_type> >
+  , Type
+>::type
+unit_trail(const typename interval_traits<Type>::domain_type& value)
+{
+    typedef typename interval_traits<Type>::domain_type domain_type;
+    BOOST_ASSERT((numeric_minimum<domain_type, is_numeric<domain_type>::value >::is_less_than(value) )); 
+
+    return interval_traits<Type>::construct(icl::pred(value), value);
+}
+
+template<class Type>
+typename enable_if
+<
+    mpl::and_< is_static_open<Type>
+             , is_discrete<typename interval_traits<Type>::domain_type> >
+  , Type
+>::type
+unit_trail(const typename interval_traits<Type>::domain_type& value)
+{
+    typedef typename interval_traits<Type>::domain_type domain_type;
+    BOOST_ASSERT((numeric_minimum<domain_type, is_numeric<domain_type>::value >::is_less_than(value))); 
+
+    return interval_traits<Type>::construct(icl::pred(value), icl::succ(value));
+}
+
+template<class Type>
+typename enable_if
+<
+    mpl::and_< is_static_closed<Type>
+             , is_discrete<typename interval_traits<Type>::domain_type> >
+  , Type
+>::type
+unit_trail(const typename interval_traits<Type>::domain_type& value)
+{
+    return interval_traits<Type>::construct(value, value);
+}
+
+//NOTE: statically bounded closed or open intervals of continuous domain types
+// are NOT supported by ICL. They can not be used with interval containers
+// consistently.
+
+
+template<class Type>
+typename enable_if<has_dynamic_bounds<Type>, Type>::type
+unit_trail(const typename interval_traits<Type>::domain_type& value)
+{
+    return dynamic_interval_traits<Type>::construct(value, value, interval_bounds::closed());
+}
+
+} //namespace detail
+
 //==============================================================================
 //= Construct<Interval> multon
 //==============================================================================
@@ -1340,7 +1419,6 @@ operator << (std::basic_ostream<CharType, CharTraits> &stream, Type const& objec
                       << interval_traits<Type>::upper(object) 
                       << right_bracket<Type>(object) ;
 }
-
 
 }} // namespace icl boost
 

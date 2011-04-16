@@ -90,12 +90,6 @@ class reverse_graph {
     typename graph::detail::bundled_result<BidirectionalGraph, Descriptor>::type const&
     operator[](Descriptor x) const
     { return m_g[x]; }
-
-    typename boost::graph_property_type<base_type>::type& operator[](graph_bundle_t)
-    { return get_property(*this); }
-
-    typename boost::graph_property_type<base_type>::type const& operator[](graph_bundle_t) const
-    { return get_property(*this); }
 #endif // BOOST_GRAPH_NO_BUNDLED_PROPERTIES
 
     static vertex_descriptor null_vertex()

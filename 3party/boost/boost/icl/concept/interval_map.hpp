@@ -22,11 +22,6 @@ Copyright (c) 2010-2010: Joachim Faulhaber
 namespace boost{ namespace icl
 {
 
-template<class Type> 
-typename enable_if<is_interval_container<Type>, Type>::type&
-join(Type&);
-
-
 template<class Type>
 inline typename enable_if<is_interval_map<Type>, typename Type::segment_type>::type
 make_segment(const typename Type::element_type& element)
@@ -35,6 +30,7 @@ make_segment(const typename Type::element_type& element)
     typedef typename Type::segment_type  segment_type;
     return segment_type(icl::singleton<interval_type>(element.key), element.data);
 }
+
 
 //==============================================================================
 //= Containedness<IntervalMap>
@@ -47,7 +43,7 @@ typename enable_if<is_interval_map<Type>, bool>::type
 contains(const Type& super, const typename Type::element_type& key_value_pair)
 {
     typedef typename Type::const_iterator const_iterator;
-    const_iterator it_ = super.find(key_value_pair.key);
+    const_iterator it_ = icl::find(super, key_value_pair.key);
     return it_ != super.end() && it_->second == key_value_pair.data;
 }
 
@@ -433,7 +429,8 @@ add_intersection(Type& section, const Type& object, const KeySetT& key_set)
 template<class Type, class OperandT>
 typename enable_if<mpl::and_< is_interval_map<Type>
                             , is_total<Type>
-                            , is_same<OperandT, segment_type_of<Type> > >, 
+                            , boost::is_same< OperandT
+                                            , typename segment_type_of<Type>::type> >, 
                    bool>::type
 intersects(const Type&, const OperandT&)
 {
@@ -443,18 +440,18 @@ intersects(const Type&, const OperandT&)
 template<class Type, class OperandT>
 typename enable_if<mpl::and_< is_interval_map<Type>
                             , mpl::not_<is_total<Type> >
-                            , is_same<OperandT, segment_type_of<Type> > >, 
+                            , boost::is_same<OperandT, typename segment_type_of<Type>::type> >, 
                    bool>::type
 intersects(const Type& object, const OperandT& operand)
 {
     Type intersection;
-    icl::add_intersection(intersection, left, operand);
+    icl::add_intersection(intersection, object, operand);
     return !icl::is_empty(intersection); 
 }
 
 template<class Type, class OperandT>
 typename enable_if<mpl::and_< is_interval_map<Type>
-                            , is_same<OperandT, element_type_of<Type> > >, 
+                            , boost::is_same<OperandT, typename element_type_of<Type>::type> >, 
                    bool>::type
 intersects(const Type& object, const OperandT& operand)
 {

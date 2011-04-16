@@ -11,10 +11,6 @@
 
 //  Sun C++ compiler setup:
 
-// Macro identifying the Sun compiler
-
-#define BOOST_SUNCC __SUNPRO_CC
-
 #    if __SUNPRO_CC <= 0x500
 #      define BOOST_NO_MEMBER_TEMPLATES
 #      define BOOST_NO_FUNCTION_TEMPLATE_ORDERING

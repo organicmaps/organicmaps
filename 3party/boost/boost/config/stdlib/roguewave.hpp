@@ -10,6 +10,8 @@
 
 //  Rogue Wave std lib:
 
+#define BOOST_RW_STDLIB 1 
+
 #if !defined(__STD_RWCOMPILER_H__) && !defined(_RWSTD_VER)
 #  include <boost/config/no_tr1/utility.hpp>
 #  if !defined(__STD_RWCOMPILER_H__) && !defined(_RWSTD_VER)
@@ -154,7 +156,10 @@
 
 //  C++0x headers not yet implemented
 //
+#if _RWSTD_VER < 0x05000000
 #  define BOOST_NO_0X_HDR_ARRAY
+#  define BOOST_NO_0X_HDR_TYPE_TRAITS
+#endif
 #  define BOOST_NO_0X_HDR_CHRONO
 #  define BOOST_NO_0X_HDR_CODECVT
 #  define BOOST_NO_0X_HDR_CONCEPTS
@@ -172,7 +177,6 @@
 #  define BOOST_NO_0X_HDR_SYSTEM_ERROR
 #  define BOOST_NO_0X_HDR_THREAD
 #  define BOOST_NO_0X_HDR_TUPLE
-#  define BOOST_NO_0X_HDR_TYPE_TRAITS
 #  define BOOST_NO_0X_HDR_TYPEINDEX
 #  define BOOST_NO_STD_UNORDERED        // deprecated; see following
 #  define BOOST_NO_0X_HDR_UNORDERED_MAP

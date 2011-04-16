@@ -64,7 +64,7 @@ boost::system::error_code reactive_socket_service_base::close(
   if (is_open(impl))
     reactor_.close_descriptor(impl.socket_, impl.reactor_data_);
 
-  if (socket_ops::close(impl.socket_, impl.state_, true, ec) == 0)
+  if (socket_ops::close(impl.socket_, impl.state_, false, ec) == 0)
     construct(impl);
 
   return ec;

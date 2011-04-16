@@ -9,6 +9,7 @@ Copyright (c) 2010-2010: Joachim Faulhaber
 #define BOOST_ICL_CONCEPT_INTERVAL_SET_HPP_JOFA_100920
 
 #include <boost/icl/type_traits/is_combinable.hpp>
+#include <boost/icl/type_traits/interval_type_of.hpp>
 #include <boost/icl/detail/set_algo.hpp>
 #include <boost/icl/detail/interval_set_algo.hpp>
 #include <boost/icl/concept/interval.hpp>
@@ -26,7 +27,7 @@ template<class Type>
 typename enable_if<is_interval_set<Type>, bool>::type
 contains(const Type& super, const typename Type::element_type& element)
 {
-    return !(super.find(element) == super.end());
+    return !(icl::find(super, element) == super.end());
 }
 
 template<class Type>
@@ -173,7 +174,7 @@ add_intersection(Type& section, const Type& object,
                  const typename Type::element_type& operand)
 {
     typedef typename Type::const_iterator const_iterator;
-    const_iterator found = object.find(operand);
+    const_iterator found = icl::find(object, operand);
     if(found != object.end())
         icl::add(section, operand);
 }

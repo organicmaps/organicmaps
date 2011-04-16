@@ -22,6 +22,10 @@
 #include <climits>           // for CHAR_MIN
 #include <boost/detail/workaround.hpp>
 
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable:4127 4244)  // Conditional expression is constant
+#endif
 
 namespace boost
 {
@@ -519,5 +523,8 @@ lcm
 }  // namespace math
 }  // namespace boost
 
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #endif  // BOOST_MATH_COMMON_FACTOR_RT_HPP

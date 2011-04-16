@@ -237,6 +237,8 @@ public:
    */
   void consume(std::size_t n)
   {
+    if (egptr() < pptr())
+      setg(&buffer_[0], gptr(), pptr());
     if (gptr() + n > pptr())
       n = pptr() - gptr();
     gbump(static_cast<int>(n));

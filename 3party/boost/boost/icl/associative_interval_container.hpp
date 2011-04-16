@@ -11,6 +11,7 @@ Copyright (c) 2010-2010: Joachim Faulhaber
 #include <boost/icl/concept/comparable.hpp>
 #include <boost/icl/concept/joinable.hpp>
 #include <boost/icl/concept/container.hpp>
+#include <boost/icl/concept/interval_associator_base.hpp>
 #include <boost/icl/concept/interval_set.hpp>
 #include <boost/icl/concept/interval_map.hpp>
 #include <boost/icl/concept/interval_associator.hpp>

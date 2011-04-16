@@ -14,7 +14,13 @@ namespace boost { namespace polygon{
   inline void polygon_set_data<coordinate_type>::clean() const {
     if(dirty_) {
       polygon_45_set_data<coordinate_type> tmp;
-      if(downcast(tmp) ) {
+      //very important:
+      //the 45 degree algorithm does not satisfy
+      //the precondition of arbitrary polygon formation
+      //that vertices be "linearly consistent"
+      //therefore it doesn't work to fall back on 45-degree
+      //booleans for arbitrary angle polygons
+      if(0) { //downcast(tmp) ) {
         tmp.clean();
         data_.clear();
         is_45_ = true;
