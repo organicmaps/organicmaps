@@ -39,6 +39,7 @@
 
 - (void) applicationDidFinishLaunching: (UIApplication *) application
 {
+  LOG(LINFO, ("Application started finishing launching"));
   // Initialize Sloynik engine.
   // It takes long for the first time, so we do it while startup image is visible.
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
@@ -52,6 +53,8 @@
   // Add the tab bar controller's current view as a subview of the window
   [window addSubview:mapViewController.view];
   [window makeKeyAndVisible];
+
+  LOG(LINFO, ("Application did finished finishing launching"));
 }
 
 - (GuideViewController *)guideViewController

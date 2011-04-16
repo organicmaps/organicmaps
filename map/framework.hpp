@@ -238,10 +238,12 @@ public:
   {
     m_model.InitClassificator();
 
+    LOG(LINFO, ("Initializing storage"));
     // initializes model with locally downloaded maps
     storage.Init(bind(&FrameWork::AddMap, this, _1),
                  bind(&FrameWork::RemoveMap, this, _1),
                  bind(&FrameWork::RepaintRect, this, _1));
+    LOG(LINFO, ("Storage initialized"));
   }
 
   void InitLocator(shared_ptr<Locator> const & locator)
