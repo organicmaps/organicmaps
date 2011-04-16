@@ -82,6 +82,12 @@
 	      didFailWithError: (NSError *) error
 {
 	[self.delegate OnLocationError: [error localizedDescription]];
+  if ([error code] ==  kCLErrorDenied)
+  {
+    // @TODO display some warning to the user about disabled location services,
+    // probably allow him to enable them by going to the settings
+
+  }
 }
 
 @end
