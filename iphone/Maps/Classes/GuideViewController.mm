@@ -54,7 +54,6 @@
                        options:UIViewAnimationOptionTransitionNone
                     completion:nil];
     [pSegmentedControl setSelectedSegmentIndex:1];
-    [[MapsAppDelegate theApp].mapViewController Invalidate];
   }
 }
 

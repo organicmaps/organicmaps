@@ -139,7 +139,9 @@ storage::Storage m_storage;
 {
 	if ((self = [super initWithCoder:coder]))
 	{
-		[(EAGLView*)self.view setController : self];
+    m_mapIsVisible = false;
+
+    [(EAGLView*)self.view setController : self];
 
 		shared_ptr<iphone::WindowHandle> windowHandle = [(EAGLView*)self.view windowHandle];
 		shared_ptr<yg::ResourceManager> resourceManager = [(EAGLView*)self.view resourceManager];
@@ -387,18 +389,18 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 - (void) Invalidate
 {
 	if (m_framework)
-	{
-        if (!m_framework->SetUpdatesEnabled(true))
-            m_framework->Invalidate();
-	}
+  {
+    if (!m_framework->SetUpdatesEnabled(true))
+      m_framework->Invalidate();
+  }
 }
 
 - (void) OnEnterBackground
 {
 	if (m_framework)
   {	// save world rect for next launch
-  	m_framework->SetUpdatesEnabled(false);
     m_framework->SaveState();
+    m_framework->SetUpdatesEnabled(false);
     m_framework->EnterBackground();
   }
 }
@@ -408,10 +410,22 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
   if (m_framework)
   {
     m_framework->EnterForeground();
-    if (!m_framework->SetUpdatesEnabled(true))
-      m_framework->Invalidate();
+    if (m_mapIsVisible)
+      [self Invalidate];
   }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+  m_mapIsVisible = true;
+  if (m_framework)
+    [self Invalidate];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+  m_mapIsVisible = false;
+  m_framework->SetUpdatesEnabled(false);
+}
 
 @end

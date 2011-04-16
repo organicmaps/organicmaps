@@ -120,8 +120,6 @@ using namespace storage;
   //                    options:UIViewAnimationOptionTransitionCurlDown
   //                 completion:nil];
 
-  [(MapViewController *)m_prevController Invalidate];
-
   m_storage = nil;
   [m_prevController release];
   m_prevController = nil;

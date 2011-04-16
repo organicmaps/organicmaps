@@ -29,6 +29,8 @@
   
   UIBarButtonItem * m_myPositionButton;
   NSTimer * m_iconTimer;
+
+  bool m_mapIsVisible;
 }
 
 - (id) initWithCoder: (NSCoder *)coder;
@@ -51,8 +53,6 @@
 - (void) OnTerminate;
 - (void) OnEnterForeground;
 - (void) OnEnterBackground;
-
-- (void) Invalidate;
 
 - (IBAction)OnMyPositionClicked:(id)sender;
 - (IBAction)OnSettingsClicked:(id)sender;
