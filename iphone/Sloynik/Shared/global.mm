@@ -63,7 +63,7 @@ void SetSloynikEngine(sl::SloynikEngine * pEngine)
 sl::SloynikEngine * CreateSloynikEngine()
 {
   ASSERT(!g_pEngine, ());
-  LOG(LINFO, ("Starting sloynik engine."));
+  LOG(LINFO, ("Creating sloynik engine."));
   NSBundle * bundle = [NSBundle mainBundle];
   string const dictionaryPath = [[bundle pathForResource:@"dictionary" ofType:@"slf"] UTF8String];
   string const indexPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory,
@@ -85,6 +85,6 @@ sl::SloynikEngine * CreateSloynikEngine()
   strFn.m_PrimaryCompareId   = [[NSString stringWithFormat:@"%@ 1", nsVersion] hash];
   strFn.m_SecondaryCompareId = [[NSString stringWithFormat:@"%@ 2", nsVersion] hash];
   sl::SloynikEngine * pEngine = new sl::SloynikEngine(dictionaryPath, indexPath, strFn);
-  LOG(LINFO, ("Starting sloynik engine."));
+  LOG(LINFO, ("Sloynik engine created."));
   return pEngine;
 }
