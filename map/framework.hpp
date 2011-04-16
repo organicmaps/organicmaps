@@ -254,16 +254,17 @@ public:
     m_locator->addOnChangeModeFn(bind(&this_type::ChangeLocatorMode, this, _1, _2));
 //    m_locator->start(Locator::ERoughMode);
   }
-  
+
   void StartLocator(Locator::EMode mode)
   {
     if (mode == Locator::EPreciseMode)
       m_doCenterViewport = true;
   }
-  
+
   void StopLocator()
   {
     m_informationDisplay.enablePosition(false);
+    m_informationDisplay.enableHeading(false);
     m_doCenterViewport = false;
     Invalidate();
   }
@@ -288,13 +289,13 @@ public:
   {
     m_navigator.SetFromRect(m_model.GetWorldRect());
   }
-  
+
   void UpdateNow()
   {
     AddRedrawCommand();
     Invalidate();
   }
-  
+
   void Invalidate()
   {
     m_windowHandle->invalidate();
@@ -497,7 +498,7 @@ public:
   {
     m_informationDisplay.enablePosition(false);
     m_informationDisplay.enableHeading(false);
-    
+
     UpdateNow();
   }*/
 
