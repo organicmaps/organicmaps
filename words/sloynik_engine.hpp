@@ -56,7 +56,7 @@ public:
 
 private:
   scoped_ptr<sl::Dictionary> m_pDictionary;
-  scoped_ptr<FileReader> m_pIndexReader;
+  //scoped_ptr<FileReader> m_pIndexReader;
   scoped_ptr<sl::SortedIndex> m_pSortedIndex;
 };
 

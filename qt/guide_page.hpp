@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../words/sloynik_engine.hpp"
-
 #include "../std/scoped_ptr.hpp"
 
 #include <QtGui/QWidget>
@@ -22,6 +20,7 @@ namespace qt
 
   public:
     GuidePageHolder(QWidget * pParent);
+    virtual ~GuidePageHolder();
 
   protected:
     void CreateEngine();

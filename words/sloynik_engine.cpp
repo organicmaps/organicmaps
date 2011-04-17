@@ -47,8 +47,10 @@ sl::SloynikEngine::SloynikEngine(string const & dictionaryPath,
     FileWriter stampWriter(stampPath);
     stampWriter.Write(&stamp[0], stamp.size() * sizeof(stamp[0]));
   }
-  m_pIndexReader.reset(new FileReader(indexPath + ".idx"));
-  m_pSortedIndex.reset(new sl::SortedIndex(*m_pDictionary, m_pIndexReader.get(), strFn));
+
+  // By VNG: SortedIndex takes ownership of index reader, so no need to store it here.
+  //m_pIndexReader.reset(new FileReader(indexPath + ".idx"));
+  m_pSortedIndex.reset(new sl::SortedIndex(*m_pDictionary, new FileReader(indexPath + ".idx"), strFn));
 }
 
 sl::SloynikEngine::~SloynikEngine()

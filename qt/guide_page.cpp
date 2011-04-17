@@ -1,5 +1,7 @@
 #include "guide_page.hpp"
 
+#include "../words/sloynik_engine.hpp"
+
 #include "../platform/platform.hpp"
 
 #include <QtWebKit/QWebView>
@@ -27,6 +29,10 @@ GuidePageHolder::GuidePageHolder(QWidget * pParent)
   setLayout(pLayout);
 
   CreateEngine();
+}
+
+GuidePageHolder::~GuidePageHolder()
+{
 }
 
 void GuidePageHolder::showEvent(QShowEvent * e)
