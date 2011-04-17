@@ -4,7 +4,7 @@
 
 # our own version variables
 VERSION_MAJOR = 1
-VERSION_MINOR = 1
+VERSION_MINOR = 0
 
 # qt's variable
 VERSION = $${VERSION_MAJOR}.$${VERSION_MINOR}
