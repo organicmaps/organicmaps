@@ -83,6 +83,19 @@ namespace yg
         return make_pair(font, charIDX);
     }
 
+#ifdef DEBUG
+
+    for (int i = 0; i < m_impl->m_unicodeBlocks.size(); ++i)
+    {
+      if (m_impl->m_unicodeBlocks[i].hasSymbol(key.m_id))
+      {
+        LOG(LINFO, ("symbol not found, id=", key.m_id, ", unicodeBlock=", m_impl->m_unicodeBlocks[i].m_name));
+        break;
+      }
+    }
+
+#endif
+
     font = fonts.front().get();
 
     /// taking substitution character from the first font in the list

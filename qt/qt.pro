@@ -36,31 +36,7 @@ macx {
                          ../data/03_jomolhari-id-a3d.ttf \
                          ../data/04_padauk.ttf \
                          ../data/05_khmeros.ttf \
-                         ../data/07_abyssinica_sil_r.ttf \
-                         ../data/09_droid_sans_thai.ttf \
-                         ../data/10_asot_biisha_n_ship.ttf \
-                         ../data/11_bnot_satyajit_sm_n_ship.ttf \
-                         ../data/12_boot_dhruv_n_ship.ttf \
-                         ../data/13_doot_dhruv_n_ship.ttf \
-                         ../data/14_dvot_yogesh_n_ship.ttf \
-                         ../data/15_gist_sat_dvot_dhruv_n_ship.ttf \
-                         ../data/16_gist-snd-dvot_dhruv_n_ship.ttf \
-                         ../data/17_gjot_pratik_n_ship.ttf \
-                         ../data/18_gjot_rohit_n_ship.ttf \
-                         ../data/19_knot_nandi_n_ship.ttf \
-                         ../data/20_koot_dhruv_n_ship.ttf \
-                         ../data/21_ksot_dhruv_n_ship.ttf \
-                         ../data/22_miot_dhruv_n_ship.ttf \
-                         ../data/23_mlot_aswathi_n_ship.ttf \
-                         ../data/24_mlot_karthika_n_ship.ttf \
-                         ../data/25_mrot_yogesh_n_ship.ttf \
-                         ../data/26_neot_dhruv_n_ship.ttf \
-                         ../data/27_orot_mukt.ttf \
-                         ../data/28_sdot_dhruv_n_ship.ttf \
-                         ../data/29_tlot_harshpriya_n_ship.ttf \
-                         ../data/30_tmot_kapilan_n_ship.ttf
-
-
+                         ../data/06_code2000.ttf
 
   FONT_RESOURCES.path = Contents/Resources
   QMAKE_BUNDLE_DATA += OTHER_RESOURCES CLASSIFICATOR_RESOURCES SKIN_RESOURCES FONT_RESOURCES
