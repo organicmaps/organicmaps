@@ -2,13 +2,13 @@
 
 #include "../base/assert.hpp"
 #include "../base/macros.hpp"
+#include "../base/timer.hpp"
 
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 #include <QtCore/QTemporaryFile>
 
 #include "../std/target_os.hpp"
-#include "../std/timer.hpp"
 
 #if defined(OMIM_OS_WINDOWS)
   #include "../std/windows.hpp"
@@ -174,7 +174,7 @@ static bool IsDirectoryWritable(string const & dir)
 ////////////////////////////////////////////////////////////////////////////////////////
 class QtPlatform : public Platform
 {
-  boost::timer m_startTime;
+  my::Timer m_startTime;
   string m_writableDir;
   string m_resourcesDir;
 
@@ -258,7 +258,7 @@ public:
 
   virtual double TimeInSec() const
   {
-    return m_startTime.elapsed();
+    return m_startTime.ElapsedSeconds();
   }
 
   /// @return path to /data/ with ending slash

@@ -5,6 +5,7 @@
   #include <sys/errno.h>
   #include <sys/stat.h>
   #include <sys/fcntl.h>
+  #include <unistd.h>
 #endif
 
 

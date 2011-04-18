@@ -1,6 +1,8 @@
 #include "mainwindow.hpp"
 #include "info_dialog.hpp"
 
+#include "../std/stdio.hpp"
+
 #include "../map/settings.hpp"
 
 #include "../platform/platform.hpp"
@@ -14,22 +16,22 @@
 
 #include <QtGui/QApplication>
 
-#ifdef OMIM_OS_WINDOWS
-  #include <../src/gui/image/qimageiohandler.h>
-  #include <../src/network/bearer/qbearerplugin_p.h>
-  #include <../src/corelib/plugin/qfactoryloader_p.h>
-#endif
+//#ifdef OMIM_OS_WINDOWS
+//  #include <../src/gui/image/qimageiohandler.h>
+//  #include <../src/network/bearer/qbearerplugin_p.h>
+//  #include <../src/corelib/plugin/qfactoryloader_p.h>
+//#endif
 
 //#include <google/protobuf/stubs/common.h>
 
 #include "../base/start_mem_debug.hpp"
 
-#ifdef OMIM_OS_WINDOWS
-Q_GLOBAL_STATIC_WITH_ARGS(QFactoryLoader, imageLoader,
-                          (QImageIOHandlerFactoryInterface_iid, QLatin1String("/imageformats")))
-Q_GLOBAL_STATIC_WITH_ARGS(QFactoryLoader, bearerLoader,
-                          (QBearerEngineFactoryInterface_iid, QLatin1String("/bearer")))
-#endif
+//#ifdef OMIM_OS_WINDOWS
+//Q_GLOBAL_STATIC_WITH_ARGS(QFactoryLoader, imageLoader,
+//                          (QImageIOHandlerFactoryInterface_iid, QLatin1String("/imageformats")))
+//Q_GLOBAL_STATIC_WITH_ARGS(QFactoryLoader, bearerLoader,
+//                          (QBearerEngineFactoryInterface_iid, QLatin1String("/bearer")))
+//#endif
 
 
 #define SETTING_EULA_ACCEPTED "EulaAccepted"
@@ -107,16 +109,16 @@ int main(int argc, char *argv[])
     returnCode = a.exec();
   }
   // QTBUG: Fix memory leaks. Nobody delete created plugins.
-#ifdef OMIM_OS_WINDOWS
-  QFactoryLoader * arr[] = { imageLoader(), bearerLoader() };
-  for (int i = 0; i < 2; ++i)
-  {
-    QStringList const & keys = arr[i]->keys();
+//#ifdef OMIM_OS_WINDOWS
+//  QFactoryLoader * arr[] = { imageLoader(), bearerLoader() };
+//  for (int i = 0; i < 2; ++i)
+//  {
+//    QStringList const & keys = arr[i]->keys();
 
-    for (int j = 0; j < keys.count(); ++j)
-      delete arr[i]->instance(keys.at(j));
-  }
-#endif
+//    for (int j = 0; j < keys.count(); ++j)
+//      delete arr[i]->instance(keys.at(j));
+//  }
+//#endif
 
   LOG(LINFO, ("MapsWithMe finished with code : ", returnCode));
 

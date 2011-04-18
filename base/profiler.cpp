@@ -1,10 +1,10 @@
 #include "profiler.hpp"
 
-#include "../std/timer.hpp"
+#include "timer.hpp"
 
 namespace prof
 {
-  boost::timer timer;
+  my::Timer timer;
 
   double * metrics()
   {
@@ -14,6 +14,6 @@ namespace prof
 
   double timer_elapsed()
   {
-    return timer.elapsed();
+    return timer.ElapsedSeconds();
   }
 }

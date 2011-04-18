@@ -13,7 +13,7 @@ include($$ROOT_DIR/common.pri)
 QT *= core network
 
 win32 {
-  LIBS += -lShell32
+  LIBS += -lShell32 -lpthread
 }
 
 SOURCES += \
