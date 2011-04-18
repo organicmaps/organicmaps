@@ -457,7 +457,8 @@ threads::Mutex s_logMutex;
 WindowHandle * InformationDisplay::s_windowHandle = 0;
 size_t s_msgNum = 0;
 
-void InformationDisplay::logMessage(my::LogLevel level, my::SrcPoint const & srcPoint, string const & msg)
+void InformationDisplay::logMessage(my::LogLevel level, my::SrcPoint const & /*srcPoint*/,
+                                    string const & msg)
 {
   {
     threads::MutexGuard guard(s_logMutex);
