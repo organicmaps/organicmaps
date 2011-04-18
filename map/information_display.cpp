@@ -541,6 +541,7 @@ void InformationDisplay::enableEmptyModelMessage(bool doEnable)
   m_isEmptyModelMessageEnabled = doEnable;
 }
 
+#ifdef OMIM_OS_IPHONE
 void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
 {
   m2::PointD pt = m_screen.PixelRect().Center() - m2::PointD(0, m_bottomShift * m_visualScale);
@@ -583,6 +584,7 @@ void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
                               true,
                               false);
 }
+#endif
 
 void InformationDisplay::enableBenchmarkInfo(bool doEnable)
 {
@@ -685,6 +687,8 @@ void InformationDisplay::doDraw(DrawerYG *drawer)
     drawBenchmarkInfo(drawer);
   if (s_isLogEnabled)
     drawLog(drawer);
+#ifdef OMIM_OS_IPHONE
   if (m_isEmptyModelMessageEnabled)
     drawEmptyModelMessage(drawer);
+#endif
 }
