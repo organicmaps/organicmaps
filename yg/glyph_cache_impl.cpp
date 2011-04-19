@@ -114,10 +114,39 @@ namespace yg
     for (int i = 0; i < fontNames.size(); ++i)
       addFont(fontNames[i].c_str());
 
-/*    for (unicode_blocks_t::const_iterator it = m_unicodeBlocks.begin(); it != m_unicodeBlocks.end(); ++it)
+/*    LOG(LINFO, ("----------------------------"));
+    LOG(LINFO, ("-- Coverage Info -----------"));
+    LOG(LINFO, ("----------------------------"));
+
+    for (unicode_blocks_t::const_iterator it = m_unicodeBlocks.begin(); it != m_unicodeBlocks.end(); ++it)
+    {
+      if (!it->m_fonts.empty())
+      {
+        std::stringstream out;
+
+        out << it->m_name << " : " << it->m_end + 1 - it->m_start << " symbols -> [";
+
+        for (unsigned i = 0; i < it->m_fonts.size(); ++i)
+        {
+          out << extract_name(it->m_fonts[i]->m_name) << " : " << it->m_coverage[i];
+          if (i != it->m_fonts.size() - 1)
+            out << ", ";
+        }
+
+        out << "]";
+
+        LOG(LINFO, (out.str()));
+      }
+    }
+
+    LOG(LINFO, ("----------------------------"));
+    LOG(LINFO, ("-- Empty blocks ------------"));
+    LOG(LINFO, ("----------------------------"));
+
+    for (unicode_blocks_t::const_iterator it = m_unicodeBlocks.begin(); it != m_unicodeBlocks.end(); ++it)
       if (it->m_fonts.empty())
         LOG(LINFO, (it->m_name, " unicode block of ", it->m_end + 1 - it->m_start, " symbols is empty"));
- */
+*/
   }
 
   void GlyphCacheImpl::addFont(char const * fileName)
