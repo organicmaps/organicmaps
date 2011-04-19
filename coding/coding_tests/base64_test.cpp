@@ -28,7 +28,7 @@ UNIT_TEST(Base64_Decode)
 UNIT_TEST(Base64_QualityTest)
 {
   size_t const NUMBER_OF_TESTS = 10000;
-  LCG32::LCG32 generator(NUMBER_OF_TESTS);
+  LCG32 generator(NUMBER_OF_TESTS);
   for (size_t i = 0; i < NUMBER_OF_TESTS; ++i)
   {
     string randomBytes;
