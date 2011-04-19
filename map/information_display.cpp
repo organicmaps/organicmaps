@@ -273,8 +273,9 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
       pDrawer->screen()->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 255), 2, 0, 0, 0)),
       yg::maxDepth);
 
-  m2::RectD textRect = pDrawer->screen()->textRect(scalerText.c_str(), 10, true, false);
+  m2::RectD textRect = pDrawer->screen()->textRect(scalerText.c_str(), 10, true, true, false);
   pDrawer->screen()->drawText(scalerPts[1] + m2::PointD(7, -7),
+                              yg::EPosAboveRight,
                               0,
                               10,
                               yg::Color(0, 0, 0, 0),
@@ -324,6 +325,7 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
         out.str().c_str(),
         10,
         true,
+        true,
         false);
 
   m2::RectD bgRect = m2::Offset(m2::Inflate(textRect, 5.0, 5.0),
@@ -338,6 +340,7 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
   drawer->screen()->drawText(
       m2::PointD(m_displayRect.maxX() - textRect.SizeX() - 10 * m_visualScale,
                  m_displayRect.maxY() - (m_bottomShift + 10) * m_visualScale - 5),
+      yg::EPosAboveRight,
       0, 10,
       yg::Color(0, 0, 0, 0),
       out.str().c_str(),
@@ -365,6 +368,7 @@ void InformationDisplay::drawGlobalRect(DrawerYG *pDrawer)
   out << "(" << m_globalRect.minX() << ", " << m_globalRect.minY() << ", " << m_globalRect.maxX() << ", " << m_globalRect.maxY() << ") Scale : " << m_currentScale;
   pDrawer->screen()->drawText(
       m2::PointD(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset),
+      yg::EPosAboveRight,
       0, 10,
       yg::Color(0, 0, 0, 0),
       out.str().c_str(),
@@ -400,6 +404,7 @@ void InformationDisplay::drawDebugInfo(DrawerYG * drawer)
   m2::PointD pos = m2::PointD(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset);
 
   drawer->screen()->drawText(pos,
+                             yg::EPosAboveRight,
                              0, 10,
                              yg::Color(0, 0, 0, 0),
                              out.str().c_str(),
@@ -430,6 +435,7 @@ void InformationDisplay::drawMemoryWarning(DrawerYG * drawer)
   out << "MemoryWarning : " << m_lastMemoryWarning.ElapsedSeconds() << " sec. ago.";
 
   drawer->screen()->drawText(pos,
+                             yg::EPosAboveRight,
                              0, 10,
                              yg::Color(0, 0, 0, 0),
                              out.str().c_str(),
@@ -504,6 +510,7 @@ void InformationDisplay::drawLog(DrawerYG * pDrawer)
         it->c_str(),
         10,
         true,
+        true,
         false
         );
 
@@ -515,6 +522,7 @@ void InformationDisplay::drawLog(DrawerYG * pDrawer)
 
     pDrawer->screen()->drawText(
         startPt,
+        yg::EPosAboveRight,
         0, 10,
         yg::Color(0, 0, 0, 255),
         it->c_str(),
@@ -541,30 +549,34 @@ void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
   char const s2 [] = "Just click the button at the bottom";
   char const s3 [] = "right corner to download the maps.";
 
-  m2::RectD tr0 = pDrawer->screen()->textRect(s0, 10, true, false);
-  m2::RectD tr1 = pDrawer->screen()->textRect(s1, 10, true, false);
-  m2::RectD tr2 = pDrawer->screen()->textRect(s2, 10, true, false);
-  m2::RectD tr3 = pDrawer->screen()->textRect(s3, 10, true, false);
+  m2::RectD tr0 = pDrawer->screen()->textRect(s0, 10, true, true, false);
+  m2::RectD tr1 = pDrawer->screen()->textRect(s1, 10, true, true, false);
+  m2::RectD tr2 = pDrawer->screen()->textRect(s2, 10, true, true, false);
+  m2::RectD tr3 = pDrawer->screen()->textRect(s3, 10, true, true, false);
 
-  pDrawer->screen()->drawText(m2::PointD(-tr0.SizeX() / 2, -(tr1.SizeY() + 5)) + pt,
+  pDrawer->screen()->drawText(m2::PointD(0, -(tr1.SizeY() + 5)) + pt,
+                              yg::EPosCenter,
                               0, 10, yg::Color(255, 255, 255, 255), s0, true, yg::Color(255, 255, 255, 255),
                               yg::maxDepth,
                               true,
                               false);
 
-  pDrawer->screen()->drawText(m2::PointD(-tr1.SizeX() / 2, 0) + pt,
+  pDrawer->screen()->drawText(m2::PointD(0, 0) + pt,
+                              yg::EPosCenter,
                               0, 10, yg::Color(255, 255, 255, 255), s1, true, yg::Color(255, 255, 255, 255),
                               yg::maxDepth,
                               true,
                               false);
 
-  pDrawer->screen()->drawText(m2::PointD(-tr2.SizeX() / 2, tr2.SizeY() + 5) + pt,
+  pDrawer->screen()->drawText(m2::PointD(0, tr2.SizeY() + 5) + pt,
+                              yg::EPosCenter,
                               0, 10, yg::Color(255, 255, 255, 255), s2, true, yg::Color(255, 255, 255, 255),
                               yg::maxDepth,
                               true,
                               false);
 
-  pDrawer->screen()->drawText(m2::PointD(-tr3.SizeX() / 2, tr2.SizeY() + 5 + tr3.SizeY() + 5) + pt,
+  pDrawer->screen()->drawText(m2::PointD(0, tr2.SizeY() + 5 + tr3.SizeY() + 5) + pt,
+                              yg::EPosCenter,
                               0, 10, yg::Color(255, 255, 255, 255), s3, true, yg::Color(255, 255, 255, 255),
                               yg::maxDepth,
                               true,
@@ -612,6 +624,7 @@ void InformationDisplay::drawBenchmarkInfo(DrawerYG * pDrawer)
   m_yOffset += 20;
   m2::PointD pos(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset);
   pDrawer->screen()->drawText(pos,
+                              yg::EPosAboveRight,
                               0, 10,
                               yg::Color(0, 0, 0, 0),
                               "benchmark info :",
@@ -634,6 +647,7 @@ void InformationDisplay::drawBenchmarkInfo(DrawerYG * pDrawer)
     m_yOffset += 20;
     pos.y += 20;
     pDrawer->screen()->drawText(pos,
+                                yg::EPosAboveRight,
                                 0, 10,
                                 yg::Color(0, 0, 0, 0),
                                 out.str().c_str(),

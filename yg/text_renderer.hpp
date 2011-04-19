@@ -22,6 +22,7 @@ namespace yg
       class TextObj
       {
         m2::PointD m_pt;
+        yg::EPosition m_pos;
         uint8_t m_size;
         string m_utf8Text;
         bool m_isMasked;
@@ -35,7 +36,7 @@ namespace yg
 
       public:
 
-        TextObj(m2::PointD const & pt, string const & txt, uint8_t sz, yg::Color const & c, bool isMasked, yg::Color const & maskColor, double d, bool isFixedFont, bool log2vis);
+        TextObj(m2::PointD const & pt, yg::EPosition pos, string const & txt, uint8_t sz, yg::Color const & c, bool isMasked, yg::Color const & maskColor, double d, bool isFixedFont, bool log2vis);
         void Draw(TextRenderer * pTextRenderer) const;
         m2::RectD const GetLimitRect(TextRenderer * pTextRenderer) const;
         void SetNeedRedraw(bool needRedraw) const;
@@ -81,6 +82,7 @@ namespace yg
 
       /// Drawing text from point rotated by the angle.
       void drawTextImpl(m2::PointD const & pt,
+                        yg::EPosition pos,
                         float angle,
                         uint8_t fontSize,
                         yg::Color const & color,
@@ -113,6 +115,7 @@ namespace yg
 
       /// Drawing text from point rotated by the angle.
       void drawText(m2::PointD const & pt,
+                    yg::EPosition pos,
                     float angle,
                     uint8_t fontSize,
                     yg::Color const & color,
@@ -125,6 +128,7 @@ namespace yg
 
       m2::RectD const textRect(string const & utf8Text,
                                uint8_t fontSize,
+                               bool isMasked,
                                bool fixedFont,
                                bool log2vis);
 

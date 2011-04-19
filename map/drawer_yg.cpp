@@ -225,7 +225,7 @@ bool DrawerYG::filter_text_size(rule_ptr_t pRule) const
   return pRule->GetTextHeight() * m_scale <= min_text_height_filtered;
 }
 
-void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t pRule, int depth)
+void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t pRule, yg::EPosition pos, int depth)
 {
   int const color = pRule->GetFillColor();
   yg::Color textColor(color == -1 ? yg::Color(0, 0, 0, 0) : yg::Color::fromXRGB(color, pRule->GetAlpha()));
@@ -237,6 +237,7 @@ void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t p
   if (!filter_text_size(pRule))
     m_pScreen->drawText(
       pt,
+      pos,
       0.0,
       get_text_font_size(pRule),
       textColor,
@@ -345,7 +346,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
           if (isFill)
             drawArea(i->m_path, pRule, depth);
           else if (isSym)
-            drawSymbol(i->GetCenter(), pRule, yg::EPosLeft, depth);
+            drawSymbol(i->GetCenter() + m2::PointD(0, 2 * m_visualScale), pRule, yg::EPosUnder, depth);
         }
       }
 
@@ -353,9 +354,9 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
       if (!isPath && !isArea && ((pRule->GetType() & drule::node) != 0))
       {
         if (isSymbol)
-          drawSymbol(pInfo->m_point, pRule, yg::EPosLeft, depth);
+          drawSymbol(pInfo->m_point + m2::PointD(0, 2 * m_visualScale), pRule, yg::EPosUnder, depth);
         if (isCircle)
-          drawCircle(pInfo->m_point, pRule, yg::EPosLeft, depth);
+          drawCircle(pInfo->m_point + m2::PointD(0, 2 * m_visualScale), pRule, yg::EPosUnder, depth);
       }
     }
     else
@@ -368,7 +369,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
         if (isArea && isN)
         {
           for (list<di::AreaInfo>::const_iterator i = pInfo->m_areas.begin(); i != pInfo->m_areas.end(); ++i)
-            drawText(i->GetCenter(), pInfo->m_name, pRule, depth);
+            drawText(i->GetCenter(), pInfo->m_name, pRule, yg::EPosAbove, depth);
         }
 
         // draw way name
@@ -403,7 +404,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
         // draw point text
         isN = ((pRule->GetType() & drule::node) != 0);
         if (!isPath && !isArea && isN)
-          drawText(pInfo->m_point, pInfo->m_name, pRule, depth);
+          drawText(pInfo->m_point, pInfo->m_name, pRule, yg::EPosAbove, depth);
       }
     }
   }

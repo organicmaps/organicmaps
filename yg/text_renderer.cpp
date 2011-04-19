@@ -39,8 +39,8 @@ namespace yg
       m_doPeriodicalTextUpdate(params.m_doPeriodicalTextUpdate)
     {}
 
-    TextRenderer::TextObj::TextObj(m2::PointD const & pt, string const & txt, uint8_t sz, yg::Color const & c, bool isMasked, yg::Color const & maskColor, double d, bool isFixedFont, bool log2vis)
-       : m_pt(pt), m_size(sz), m_utf8Text(txt), m_isMasked(isMasked), m_depth(d), m_needRedraw(true), m_frozen(false), m_isFixedFont(isFixedFont), m_log2vis(log2vis), m_color(c), m_maskColor(maskColor)
+    TextRenderer::TextObj::TextObj(m2::PointD const & pt, yg::EPosition pos, string const & txt, uint8_t sz, yg::Color const & c, bool isMasked, yg::Color const & maskColor, double d, bool isFixedFont, bool log2vis)
+       : m_pt(pt), m_pos(pos), m_size(sz), m_utf8Text(txt), m_isMasked(isMasked), m_depth(d), m_needRedraw(true), m_frozen(false), m_isFixedFont(isFixedFont), m_log2vis(log2vis), m_color(c), m_maskColor(maskColor)
     {
     }
 
@@ -50,14 +50,34 @@ namespace yg
       /// lies inside the testing rect and therefore should be skipped.
       if (m_needRedraw)
       {
-        pTextRenderer->drawTextImpl(m_pt, 0.0, m_size, m_color, m_utf8Text, true, m_maskColor, yg::maxDepth, m_isFixedFont, m_log2vis);
+        pTextRenderer->drawTextImpl(m_pt, m_pos, 0.0, m_size, m_color, m_utf8Text, true, m_maskColor, yg::maxDepth, m_isFixedFont, m_log2vis);
         m_frozen = true;
       }
     }
 
     m2::RectD const TextRenderer::TextObj::GetLimitRect(TextRenderer* pTextRenderer) const
     {
-      return m2::Offset(pTextRenderer->textRect(m_utf8Text, m_size, false, m_log2vis), m_pt);
+      m2::RectD limitRect = pTextRenderer->textRect(m_utf8Text, m_size, m_isMasked, false, m_log2vis);
+
+      double dx = -limitRect.SizeX() / 2;
+      double dy = limitRect.SizeY() / 2;
+
+      if (m_pos & EPosLeft)
+        dx = -limitRect.SizeX();
+
+      if (m_pos & EPosRight)
+        dx = 0;
+
+      if (m_pos & EPosUnder)
+        dy = limitRect.SizeY();
+
+      if (m_pos & EPosAbove)
+        dy = 0;
+
+      dx = ::floor(dx);
+      dy = ::floor(dy);
+
+      return m2::Offset(limitRect, m_pt + m2::PointD(dx, dy));
     }
 
     void TextRenderer::TextObj::SetNeedRedraw(bool flag) const
@@ -97,25 +117,26 @@ namespace yg
     }
 
     void TextRenderer::drawText(m2::PointD const & pt,
-                  float angle,
-                  uint8_t fontSize,
-                  yg::Color const & color,
-                  string const & utf8Text,
-                  bool isMasked,
-                  yg::Color const & maskColor,
-                  double depth,
-                  bool isFixedFont,
-                  bool log2vis)
+                                yg::EPosition pos,
+                                float angle,
+                                uint8_t fontSize,
+                                yg::Color const & color,
+                                string const & utf8Text,
+                                bool isMasked,
+                                yg::Color const & maskColor,
+                                double depth,
+                                bool isFixedFont,
+                                bool log2vis)
     {
       if (!m_drawTexts)
         return;
 
       if (!m_useTextTree || isFixedFont)
-         drawTextImpl(pt, angle, fontSize, color, utf8Text, true, maskColor, depth, isFixedFont, log2vis);
+         drawTextImpl(pt, pos, angle, fontSize, color, utf8Text, true, maskColor, depth, isFixedFont, log2vis);
       else
       {
         checkTextRedraw();
-        TextObj obj(pt, utf8Text, fontSize, color, isMasked, maskColor, depth, isFixedFont, log2vis);
+        TextObj obj(pt, pos, utf8Text, fontSize, color, isMasked, maskColor, depth, isFixedFont, log2vis);
         m2::RectD r = obj.GetLimitRect(this);
         m_tree.ReplaceIf(obj, r, &TextObj::better_text);
       }
@@ -126,10 +147,10 @@ namespace yg
       ASSERT(m_useTextTree, ());
       if (m_needTextRedraw)
       {
+        m_needTextRedraw = false;
         m_tree.ForEach(bind(&TextObj::Draw, _1, this));
         /// flushing only texts
         base_t::flush(skin()->currentTextPage());
-        m_needTextRedraw = false;
       }
     }
 
@@ -229,19 +250,38 @@ namespace yg
       return res;
     }
 
-    void TextRenderer::drawTextImpl(m2::PointD const & pt, float angle, uint8_t fontSize, yg::Color const & color, string const & utf8Text, bool isMasked, yg::Color const & maskColor, double depth, bool isFixedFont, bool log2vis)
+    void TextRenderer::drawTextImpl(m2::PointD const & pt, yg::EPosition pos, float angle, uint8_t fontSize, yg::Color const & color, string const & utf8Text, bool isMasked, yg::Color const & maskColor, double depth, bool isFixedFont, bool log2vis)
     {
       wstring text = FromUtf8(utf8Text);
 
       if (log2vis)
         text = Log2Vis(text);
 
+      m2::RectD r = textRect(utf8Text, fontSize, isMasked, isFixedFont, log2vis);
+
+      m2::PointD orgPt(pt.x - r.SizeX() / 2, pt.y + r.SizeY() / 2);
+
+      if (pos & EPosLeft)
+        orgPt.x = pt.x - r.SizeX();
+
+      if (pos & EPosRight)
+        orgPt.x = pt.x;
+
+      if (pos & EPosUnder)
+        orgPt.y = pt.y + r.SizeY();
+
+      if (pos & EPosAbove)
+        orgPt.y = pt.y;
+
+      orgPt.x = ::floor(orgPt.x);
+      orgPt.y = ::floor(orgPt.y);
+
       if (isMasked)
-        ForEachGlyph(fontSize, maskColor, text, true, isFixedFont, bind(&TextRenderer::drawGlyph, this, cref(pt), _1, angle, 0, _2, depth));
-      ForEachGlyph(fontSize, color, text, false, isFixedFont, bind(&TextRenderer::drawGlyph, this, cref(pt), _1, angle, 0, _2, depth));
+        ForEachGlyph(fontSize, maskColor, text, true, isFixedFont, bind(&TextRenderer::drawGlyph, this, cref(orgPt), _1, angle, 0, _2, depth));
+      ForEachGlyph(fontSize, color, text, false, isFixedFont, bind(&TextRenderer::drawGlyph, this, cref(orgPt), _1, angle, 0, _2, depth));
     }
 
-    m2::RectD const TextRenderer::textRect(string const & utf8Text, uint8_t fontSize, bool fixedFont, bool log2vis)
+    m2::RectD const TextRenderer::textRect(string const & utf8Text, uint8_t fontSize, bool isMasked, bool fixedFont, bool log2vis)
     {
       if (m_useTextTree)
         checkTextRedraw();
@@ -257,7 +297,7 @@ namespace yg
       {
         if (fixedFont)
         {
-          uint32_t glyphID = skin()->mapGlyph(GlyphKey(text[i], fontSize, false, yg::Color(0, 0, 0, 0)), fixedFont);
+          uint32_t glyphID = skin()->mapGlyph(GlyphKey(text[i], fontSize, isMasked, yg::Color(0, 0, 0, 0)), fixedFont);
           CharStyle const * p = static_cast<CharStyle const *>(skin()->fromID(glyphID));
           if (p != 0)
           {
@@ -268,7 +308,7 @@ namespace yg
         }
         else
         {
-          GlyphMetrics const m = resourceManager()->getGlyphMetrics(GlyphKey(text[i], fontSize, false, yg::Color(0, 0, 0, 0)));
+          GlyphMetrics const m = resourceManager()->getGlyphMetrics(GlyphKey(text[i], fontSize, isMasked, yg::Color(0, 0, 0, 0)));
 
           rect.Add(pt);
           rect.Add(pt + m2::PointD(m.m_xOffset + m.m_width, - m.m_yOffset - m.m_height));
