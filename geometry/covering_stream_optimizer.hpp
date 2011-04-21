@@ -21,7 +21,7 @@ public:
     : m_Sink(sink), m_WindowSize(windowSize), m_MaxDuplicates(maxDuplicates),
     m_LastPopped(0), m_LastPushed(0)
   {
-    ASSERT_GREATER_OR_EQUAL(windowSize, maxDuplicates, ());
+    CHECK_GREATER_OR_EQUAL(windowSize, maxDuplicates, ());
   }
 
   ~CoveringStreamOptimizer()
@@ -31,7 +31,7 @@ public:
 
   void Add(int64_t id, ValueT value)
   {
-    ASSERT_LESS_OR_EQUAL(m_LastPushed, id, (value));
+    CHECK_LESS_OR_EQUAL(m_LastPushed, id, (value));
     m_LastPushed = id;
     m_Buffer.push_back(make_pair(id, value));
     if (++m_ValueCounts[value] >= m_MaxDuplicates && m_Buffer.size() >= m_WindowSize)
@@ -49,12 +49,12 @@ public:
 private:
   void PopFront()
   {
-    ASSERT_LESS_OR_EQUAL(m_LastPopped, m_Buffer.front().first, ());
+    CHECK_LESS_OR_EQUAL(m_LastPopped, m_Buffer.front().first, ());
     m_LastPopped = m_Buffer.front().first;
     m_Sink(m_Buffer.front().first, m_Buffer.front().second);
     typename map<ValueT, uint32_t>::iterator it = m_ValueCounts.find(m_Buffer.front().second);
-    ASSERT(it != m_ValueCounts.end(), (m_Buffer.front().second))
-    ASSERT_GREATER(it->second, 0, (m_Buffer.front().second));
+    CHECK(it != m_ValueCounts.end(), (m_Buffer.front().second))
+    CHECK_GREATER(it->second, 0, (m_Buffer.front().second));
     if (--(it->second) == 0)
       m_ValueCounts.erase(it);
     m_Buffer.pop_front();
@@ -62,7 +62,7 @@ private:
 
   void ProcessWindow(ValueT value)
   {
-    ASSERT(IsSortedAndUnique(m_Buffer.begin(), m_Buffer.end()), ());
+    CHECK(IsSortedAndUnique(m_Buffer.begin(), m_Buffer.end()), ());
     vector<pair<int64_t, ValueT> > others;
     vector<int64_t> ids;
     for (typename BufferType::const_iterator it = m_Buffer.begin(); it != m_Buffer.end(); ++it)
@@ -72,14 +72,14 @@ private:
       else
         others.push_back(*it);
     }
-    ASSERT_GREATER_OR_EQUAL(ids.size(), m_MaxDuplicates, ());
+    CHECK_GREATER_OR_EQUAL(ids.size(), m_MaxDuplicates, ());
     Optimize(ids, m_LastPopped);
-    ASSERT(IsSortedAndUnique(ids.begin(), ids.end()), (ids));
+    CHECK(IsSortedAndUnique(ids.begin(), ids.end()), (ids));
     vector<pair<int64_t, ValueT> > optimized(ids.size(), make_pair(0LL, value));
     for (size_t i = 0; i < ids.size(); ++i)
       optimized[i].first = ids[i];
-    ASSERT(IsSortedAndUnique(others.begin(), others.end()), (others));
-    ASSERT(IsSortedAndUnique(optimized.begin(), optimized.end()), (optimized));
+    CHECK(IsSortedAndUnique(others.begin(), others.end()), (others));
+    CHECK(IsSortedAndUnique(optimized.begin(), optimized.end()), (optimized));
     m_Buffer.clear();
     set_union(others.begin(), others.end(),
               optimized.begin(), optimized.end(),
@@ -89,8 +89,8 @@ private:
 
   static void Optimize(vector<int64_t> & ids, int64_t minId)
   {
-    ASSERT_GREATER(ids.size(), 2, ());
-    ASSERT_GREATER_OR_EQUAL(ids[0], minId, ());
+    CHECK_GREATER(ids.size(), 2, ());
+    CHECK_GREATER_OR_EQUAL(ids[0], minId, ());
     vector<CellId> cells(ids.size(), CellId(""));
     for (size_t i = 0; i < ids.size(); ++i)
       cells[i] = CellId::FromInt64(ids[i]);
@@ -99,7 +99,7 @@ private:
     ids.clear();
     covering.OutputToVector(ids);
     sort(ids.begin(), ids.end());
-    ASSERT_GREATER_OR_EQUAL(ids[0], minId, ());
+    CHECK_GREATER_OR_EQUAL(ids[0], minId, ());
   }
 
   SinkT & m_Sink;
