@@ -1,0 +1,167 @@
+#include "location.hpp"
+
+#include "../std/target_os.hpp"
+
+#import <CoreLocation/CoreLocation.h>
+
+class AppleLocationService;
+
+@interface LocationManagerWrapper : NSObject <CLLocationManagerDelegate> {
+@private
+  AppleLocationService * m_service;
+}
+- (id)initWithService:(AppleLocationService *) service;
+@end
+
+using namespace location;
+
+#define ROUGH_ACCURACY kCLLocationAccuracyNearestTenMeters
+
+class AppleLocationService : public LocationService
+{
+  LocationManagerWrapper * m_objCppWrapper;
+  CLLocationManager * m_locationManager;
+
+  TLocationStatus m_status;
+
+public:
+  AppleLocationService() : m_status(ENotSupported)
+  {
+    m_objCppWrapper = [[LocationManagerWrapper alloc] initWithService:this];
+    m_locationManager = [[CLLocationManager alloc] init];
+    m_locationManager.delegate = m_objCppWrapper;
+  }
+
+  ~AppleLocationService()
+  {
+    [m_locationManager release];
+    [m_objCppWrapper release];
+  }
+
+  void OnLocationUpdate(GpsInfo & newLocation)
+  {
+    newLocation.m_status = m_status;
+    NotifySubscribers(newLocation);
+  }
+
+//  virtual bool IsServiceSupported()
+//  {
+//    // Mac OS 10.6+ and iOS 4.0+ support this definitely
+//    return true;
+//  }
+
+//  virtual bool IsServiceEnabled()
+//  {
+//    return [CLLocationManager locationServicesEnabled];
+//  }
+
+//  virtual bool IsCompassAvailable()
+//  {
+//#ifdef OMIM_OS_MAC
+//      return false;
+//#else // iOS 4.0+ have it
+//      return [CLLocationManager headingAvailable];
+//#endif
+//  }
+
+  virtual void StartUpdate(bool useAccurateMode)
+  {
+    if (![CLLocationManager locationServicesEnabled])
+    {
+      m_status = EDisabledByUser;
+      GpsInfo info;
+      info.m_status = m_status;
+      NotifySubscribers(info);
+    }
+    else
+    {
+      if (useAccurateMode)
+      {
+        m_status = EAccurateMode;
+        m_locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        // also enable compass
+#ifdef OMIM_OS_IPHONE
+        if ([CLLocationManager headingAvailable])
+          [m_locationManager startHeadingUpdate];
+#endif
+      }
+      else
+      {
+        m_status = ERoughMode;
+        m_locationManager.desiredAccuracy = ROUGH_ACCURACY;
+        // also disable compass
+#ifdef OMIM_OS_IPHONE
+        if ([CLLocationManager headingAvailable])
+          [m_locationManager stopHeadingUpdate];
+#endif
+      }
+      [m_locationManager startUpdatingLocation];
+    }
+  }
+
+  virtual void StopUpdate()
+  {
+#ifdef OMIM_OS_IPHONE
+    if ([CLLocationManager headingAvailable])
+      [m_locationManager stopHeadingUpdate];
+#endif
+    [m_locationManager stopUpdatingLocation];
+  }
+};
+
+@implementation LocationManagerWrapper
+
+- (id)initWithService:(AppleLocationService *) service
+{
+  self = [super init];
+  if (self) {
+    m_service = service;
+  }
+  return self;
+}
+
+- (void)dealloc
+{
+  [super dealloc];
+}
+
++ (void)location:(CLLocation *)location toGpsInfo:(GpsInfo &) info
+{
+  info.m_altitude = location.altitude;
+  info.m_course = location.course;
+  info.m_speed = location.speed;
+  info.m_horizontalAccuracy = location.horizontalAccuracy;
+  info.m_verticalAccuracy = location.verticalAccuracy;
+  info.m_latitude = location.coordinate.latitude;
+  info.m_longitude = location.coordinate.longitude;
+  info.m_timestamp = [location.timestamp timeIntervalSince1970];
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation
+{
+  GpsInfo newInfo;
+  [LocationManagerWrapper location:newLocation toGpsInfo:newInfo];
+  m_service->OnLocationUpdate(newInfo);
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error
+{
+  NSLog(@"locationManager failed with error: %d, %@", error.code, error.description);
+  if (error.code == kCLErrorDenied)
+  {
+    GpsInfo info;
+    info.m_status = EDisabledByUser;
+    m_service->OnLocationUpdate(info);
+  }
+}
+
+@end
+
+extern "C" location::LocationService & GetLocationService()
+{
+  static AppleLocationService ls;
+  return ls;
+}
