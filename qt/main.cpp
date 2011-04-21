@@ -57,7 +57,7 @@ namespace
     InitializeFinalize()
     {
       // App runs without error console under win32.
-      m_errFile = ::freopen("D:/mapswithme.log", "w", stderr);
+      m_errFile = ::freopen(".\\mapswithme.log", "w", stderr);
       my::g_LogLevel = my::LDEBUG;
 
       //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_DELAY_FREE_MEM_DF);
