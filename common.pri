@@ -107,7 +107,15 @@ win32-g++ {
 
 macx-g++ {
   # minimum supported Mac OS X version
-  QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5
-  QMAKE_CFLAGS *= -mmacosx-version-min=10.5
-  QMAKE_CXXFLAGS *= -mmacosx-version-min=10.5
+  QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.6
+  QMAKE_CFLAGS *= -mmacosx-version-min=10.6
+  QMAKE_CXXFLAGS *= -mmacosx-version-min=10.6
+  # replace 10.5 with 10.6
+  QMAKE_CFLAGS_X86_64 -= -mmacosx-version-min=10.5
+  QMAKE_CXXFLAGS_X86_64 -= -mmacosx-version-min=10.5
+  QMAKE_CFLAGS_X86_64 += -mmacosx-version-min=10.6    # CXX is made based on CFLAGS
+  QMAKE_OBJECTIVE_CFLAGS_X86_64 -= -mmacosx-version-min=10.5
+  QMAKE_OBJECTIVE_CFLAGS_X86_64 += -mmacosx-version-min=10.6
+  QMAKE_LFLAGS_X86_64 -= -mmacosx-version-min=10.5
+  QMAKE_LFLAGS_X86_64 += -mmacosx-version-min=10.6
 }
