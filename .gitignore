@@ -64,7 +64,8 @@ data/*.bz2
 data/settings.ini
 !data/minsk-pass.mwm
 !data/dictionary.slf
-
+data/index.idx
+data/index.stamp
 
 syntax: regexp
 (.*/)?\#[^/]*\#$
