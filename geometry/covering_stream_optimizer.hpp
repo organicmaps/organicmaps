@@ -46,6 +46,28 @@ public:
       PopFront();
   }
 
+  static void Optimize(vector<int64_t> & ids, int64_t minId)
+  {
+    CHECK_GREATER(ids.size(), 2, (minId, ids));
+    CHECK(IsSortedAndUnique(ids.begin(), ids.end()), (minId, ids));
+    CHECK_GREATER_OR_EQUAL(ids[0], minId, (minId, ids));
+
+    vector<CellId> cells(ids.size(), CellId(""));
+    for (size_t i = 0; i < ids.size(); ++i)
+      cells[i] = CellId::FromInt64(ids[i]);
+    covering::Covering<CellId> covering(cells, minId);
+    covering.Simplify(minId);
+
+    vector<int64_t> res;
+    covering.OutputToVector(res);
+    sort(res.begin(), res.end());
+
+    CHECK(IsSortedAndUnique(res.begin(), res.end()), (minId, ids, res));
+    CHECK_GREATER_OR_EQUAL(res[0], minId, (minId, ids, res));
+
+    ids.swap(res);
+  }
+
 private:
   void PopFront()
   {
@@ -85,21 +107,6 @@ private:
               optimized.begin(), optimized.end(),
               back_inserter(m_Buffer));
     m_ValueCounts[value] = optimized.size();
-  }
-
-  static void Optimize(vector<int64_t> & ids, int64_t minId)
-  {
-    CHECK_GREATER(ids.size(), 2, ());
-    CHECK_GREATER_OR_EQUAL(ids[0], minId, ());
-    vector<CellId> cells(ids.size(), CellId(""));
-    for (size_t i = 0; i < ids.size(); ++i)
-      cells[i] = CellId::FromInt64(ids[i]);
-    covering::Covering<CellId> covering(cells);
-    covering.Simplify(minId);
-    ids.clear();
-    covering.OutputToVector(ids);
-    sort(ids.begin(), ids.end());
-    CHECK_GREATER_OR_EQUAL(ids[0], minId, ());
   }
 
   SinkT & m_Sink;

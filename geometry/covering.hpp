@@ -88,14 +88,14 @@ public:
     m_Covering[cell.Level()].push_back(cell);
   }
 
-  explicit Covering(vector<CellId> const & v)
+  explicit Covering(vector<CellId> const & v, int64_t minId = 0)
   {
     for (size_t i = 0; i < v.size(); ++i)
       m_Covering[v[i].Level()].push_back(v[i]);
     Sort();
     Unique();
     RemoveDuplicateChildren();
-    RemoveFullSquares();
+    RemoveFullSquares(minId);
     m_Size = CalculateSize();
   }
 
@@ -160,7 +160,7 @@ public:
       }
     }
     RemoveDuplicateChildren();
-    RemoveFullSquares();
+    RemoveFullSquares(minId);
     m_Size = CalculateSize();
   }
 
@@ -253,7 +253,8 @@ private:
     {
       if (m_Covering[parentLevel].empty())
         continue;
-      for (int childLevel = parentLevel + 1; childLevel < static_cast<int>(m_Covering.size()); ++childLevel)
+      for (int childLevel = parentLevel + 1; childLevel < static_cast<int>(m_Covering.size());
+           ++childLevel)
       {
         vector<CellId> substracted;
         CompareCellsAtLevel<LessQueueOrder> comparator(parentLevel);
@@ -269,7 +270,7 @@ private:
     }
   }
 
-  void RemoveFullSquares()
+  void RemoveFullSquares(int64_t minId = 0)
   {
     vector<CellId> cellsToAppend;
     for (int level = m_Covering.size() - 1; level >= 0; --level)
@@ -284,7 +285,10 @@ private:
         if (i + 3 < a.size())
         {
           CellId const parent = a[i].Parent();
-          if (parent == a[i+1].Parent() && parent == a[i+2].Parent() && parent == a[i+3].Parent())
+          if (parent == a[i+1].Parent() &&
+              parent == a[i+2].Parent() &&
+              parent == a[i+3].Parent() &&
+              parent.ToInt64() >= minId)
           {
             parents.push_back(parent);
             i += 3;

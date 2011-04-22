@@ -2,6 +2,7 @@
 #include "../cellid.hpp"
 #include "../covering.hpp"
 #include "../covering_stream_optimizer.hpp"
+#include "../../base/macros.hpp"
 
 typedef m2::CellId<5> CellId;
 
@@ -42,3 +43,21 @@ UNIT_TEST(CoveringStreamOptimizer_Smoke)
   e.push_back(make_pair(CellId("02"), 1));
   TEST_EQUAL(e, res, ());
 }
+
+UNIT_TEST(CoveringStreamOptimizer_MinId1)
+{
+  int64_t const minId = 72200890973LL;
+  int64_t ids[] = { 72200890973, 72200890995, 72200891005, 72200891011, 72200891013,
+                    72200891014, 72200891015, 72200891036, 72200896894, 72200896902 };
+  vector<int64_t> idsV(&ids[0], &ids[0] + ARRAY_SIZE(ids));
+  covering::CoveringStreamOptimizer<m2::CellId<19>, int, TestSink>::Optimize(idsV, minId);
+}
+
+UNIT_TEST(CoveringStreamOptimizer_MinId2)
+{
+  int64_t const minId = 72200890973LL;
+  int64_t ids[] = { 72200890973, 72200890994, 72200891015, 72200891036};
+  vector<int64_t> idsV(&ids[0], &ids[0] + ARRAY_SIZE(ids));
+  covering::CoveringStreamOptimizer<m2::CellId<19>, int, TestSink>::Optimize(idsV, minId);
+}
+
