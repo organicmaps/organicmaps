@@ -55,7 +55,7 @@ public:
     m_Types.clear();
     m_Types.push_back(type);
   }
-  
+
   bool IsTypeExist(uint32_t t) const;
   bool AssignType_SetDifference(vector<uint32_t> const & diffTypes);
 
@@ -66,7 +66,7 @@ public:
   /// @name Serialization.
   //@{
   void Serialize(buffer_t & data) const;
-  void SerializeBase(buffer_t & data, int64_t base) const;
+  void SerializeBase(buffer_t & data, m2::PointU const & basePoint) const;
 
   void Deserialize(buffer_t & data);
   //@}

@@ -4,10 +4,12 @@
 #include "feature_impl.hpp"
 #include "feature_visibility.hpp"
 #include "scales.hpp"
+#include "geometry_coding.hpp"
 #include "geometry_serialization.hpp"
 
 #include "../defines.hpp" // just for file extensions
 
+#include "../geometry/pointu_to_uint64.hpp"
 #include "../geometry/rect2d.hpp"
 #include "../geometry/region2d.hpp"
 
@@ -222,7 +224,7 @@ uint8_t FeatureBuilder1::GetHeader() const
   return header;
 }
 
-void FeatureBuilder1::SerializeBase(buffer_t & data, int64_t base) const
+void FeatureBuilder1::SerializeBase(buffer_t & data, m2::PointU const & basePoint) const
 {
   PushBackByteSink<buffer_t> sink(data);
 
@@ -241,7 +243,7 @@ void FeatureBuilder1::SerializeBase(buffer_t & data, int64_t base) const
   }
 
   if (m_bPoint)
-    WriteVarInt(sink, feature::pts::FromPoint(m_Center) - base);
+    WriteVarUint(sink, EncodeDelta(PointD2PointU(m_Center.x, m_Center.y), basePoint));
 }
 
 void FeatureBuilder1::Serialize(buffer_t & data) const
@@ -250,7 +252,7 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
 
   data.clear();
 
-  SerializeBase(data, 0);
+  SerializeBase(data, m2::PointU(0, 0));
 
   PushBackByteSink<buffer_t> sink(data);
 
@@ -342,7 +344,7 @@ bool FeatureBuilder2::PreSerialize(buffers_holder_t const & data)
   return base_type::PreSerialize();
 }
 
-namespace 
+namespace
 {
   template <class TSink> class BitSink
   {
@@ -382,7 +384,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, int64_t base)
   data.m_buffer.clear();
 
   // header data serialization
-  SerializeBase(data.m_buffer, base);
+  SerializeBase(data.m_buffer, m2::Uint64ToPointU(static_cast<uint64_t>(base)));
 
   PushBackByteSink<buffer_t> sink(data.m_buffer);
 
@@ -514,7 +516,9 @@ void FeatureBase::ParseCommon() const
 
   if (h & HEADER_HAS_POINT)
   {
-    m_Center = feature::pts::ToPoint(ReadVarInt<int64_t>(source) + m_base);
+    CoordPointT center = PointU2PointD(DecodeDelta(ReadVarUint<uint64_t>(source),
+                                                   m2::Uint64ToPointU(m_base)));
+    m_Center = m2::PointD(center.first, center.second);
     m_LimitRect.Add(m_Center);
   }
 
