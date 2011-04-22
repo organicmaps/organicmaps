@@ -14,7 +14,7 @@
 namespace
 {
 
-inline double CoordSize() { return (1 << POINT_COORD_BITS); }
+inline double CoordSize(uint32_t coordBits) { return (1 << coordBits); }
 
 }
 
