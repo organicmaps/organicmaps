@@ -187,10 +187,10 @@ namespace feature
       void FillInnerPointsMask(points_t const & points, uint32_t scaleIndex)
       {
         points_t const & src = m_buffer.m_innerPts;
-        ASSERT ( !src.empty(), () );
+        CHECK ( !src.empty(), () );
 
-        ASSERT ( are_points_equal(src.front(), points.front()), () );
-        ASSERT ( are_points_equal(src.back(), points.back()), () );
+        CHECK ( are_points_equal(src.front(), points.front()), () );
+        CHECK ( are_points_equal(src.back(), points.back()), () );
 
         size_t j = 1;
         for (size_t i = 1; i < points.size()-1; ++i)
@@ -207,7 +207,7 @@ namespace feature
             }
           }
 
-          ASSERT_LESS ( j, src.size()-1, ("Simplified point not found in source point array") );
+          CHECK_LESS ( j, src.size()-1, ("Simplified point not found in source point array") );
         }
       }
 
@@ -264,7 +264,7 @@ namespace feature
 
       bool TryToMakeStrip(points_t & points)
       {
-        ASSERT ( are_points_equal(points.front(), points.back()), () );
+        CHECK ( are_points_equal(points.front(), points.back()), () );
         // At this point we don't need last point equal to first.
         // If you try to remove it in first step, 'simplify' will work bad for such polygons.
         points.pop_back();
@@ -276,12 +276,12 @@ namespace feature
           return false;
         }
 
-        ASSERT ( m_buffer.m_innerTrg.empty(), () );
+        CHECK ( m_buffer.m_innerTrg.empty(), () );
 
         if (!IsPolygonCCW(points.begin(), points.end()))
         {
           reverse(points.begin(), points.end());
-          ASSERT ( IsPolygonCCW(points.begin(), points.end()), (points) );
+          CHECK ( IsPolygonCCW(points.begin(), points.end()), (points) );
         }
 
         size_t const index = FindSingleStrip(count,
@@ -295,13 +295,13 @@ namespace feature
 
         MakeSingleStripFromIndex(index, count, strip_emitter(points, m_buffer.m_innerTrg));
 
-        ASSERT_EQUAL ( count, m_buffer.m_innerTrg.size(), () );
+        CHECK_EQUAL ( count, m_buffer.m_innerTrg.size(), () );
         return true;
       }
 
       void AddTriangles(points_t const & bound, holes_t const & holes, int scaleIndex)
       {
-        ASSERT ( m_buffer.m_innerTrg.empty(), () );
+        CHECK ( m_buffer.m_innerTrg.empty(), () );
         m_trgInner = false;
 
         WriteOuterTriangles(bound, holes, scaleIndex);

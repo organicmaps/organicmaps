@@ -38,15 +38,15 @@ namespace feature
       SimplifyNearOptimal<DistanceF>(20, in.begin(), in.end(), eps,
                                      AccumulateSkipSmallTrg<DistanceF, m2::PointD>(out, eps));
 
-      ASSERT_GREATER ( out.size(), 1, () );
-      ASSERT ( are_points_equal(in.front(), out.front()), () );
-      ASSERT ( are_points_equal(in.back(), out.back()), () );
+      CHECK_GREATER ( out.size(), 1, () );
+      CHECK ( are_points_equal(in.front(), out.front()), () );
+      CHECK ( are_points_equal(in.back(), out.back()), () );
 
 #ifdef DEBUG
       //for (size_t i = 2; i < out.size(); ++i)
       //{
       //  double const dist = DistanceF(out[i-2], out[i])(out[i-1]);
-      //  ASSERT ( dist >= eps, (dist, eps, in) );
+      //  CHECK ( dist >= eps, (dist, eps, in) );
       //}
 #endif
     }
