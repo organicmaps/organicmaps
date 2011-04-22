@@ -11,6 +11,12 @@
 
 #define POINT_COORD_BITS 30
 
+namespace
+{
+
+inline double CoordSize() { return (1 << POINT_COORD_BITS); }
+
+}
 
 m2::PointU PointD2PointU(CoordT x, CoordT y)
 {
@@ -18,12 +24,12 @@ m2::PointU PointD2PointU(CoordT x, CoordT y)
   y = my::clamp(y, MercatorBounds::minY, MercatorBounds::maxY);
 
   uint32_t const ix = static_cast<uint32_t>(0.5 + (x - MercatorBounds::minX)
-                         / (MercatorBounds::maxX - MercatorBounds::minX) * (1 << POINT_COORD_BITS));
+                         / (MercatorBounds::maxX - MercatorBounds::minX) * CoordSize());
   uint32_t const iy = static_cast<uint32_t>(0.5 + (y - MercatorBounds::minY)
-                         / (MercatorBounds::maxY - MercatorBounds::minY) * (1 << POINT_COORD_BITS));
+                         / (MercatorBounds::maxY - MercatorBounds::minY) * CoordSize());
 
-  ASSERT_LESS_OR_EQUAL(ix, 1 << POINT_COORD_BITS, ());
-  ASSERT_LESS_OR_EQUAL(iy, 1 << POINT_COORD_BITS, ());
+  ASSERT_LESS_OR_EQUAL(ix, CoordSize(), ());
+  ASSERT_LESS_OR_EQUAL(iy, CoordSize(), ());
 
   return m2::PointU(ix, iy);
 }
@@ -42,9 +48,9 @@ CoordPointT PointU2PointD(m2::PointU const & pt)
 {
   return CoordPointT(
         static_cast<CoordT>(pt.x) * (MercatorBounds::maxX - MercatorBounds::minX)
-            / (1 << POINT_COORD_BITS) + MercatorBounds::minX,
+            / CoordSize() + MercatorBounds::minX,
         static_cast<CoordT>(pt.y) * (MercatorBounds::maxY - MercatorBounds::minY)
-            / (1 << POINT_COORD_BITS) + MercatorBounds::minY);
+            / CoordSize() + MercatorBounds::minY);
 }
 
 CoordPointT Int64ToPoint(int64_t v)
