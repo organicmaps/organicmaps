@@ -242,12 +242,12 @@ void MainWindow::CreateNavigationBar()
 
     // add view actions 1
     button_t arr[] = {
-      { tr("Left"), ":/navig64/left.png", SLOT(MoveLeft()) },
-      { tr("Right"), ":/navig64/right.png", SLOT(MoveRight()) },
-      { tr("Up"), ":/navig64/up.png", SLOT(MoveUp()) },
-      { tr("Down"), ":/navig64/down.png", SLOT(MoveDown()) },
-      { tr("Show all"), ":/navig64/world.png", SLOT(ShowAll()) },
-      { QString(), 0, 0 },
+//      { tr("Left"), ":/navig64/left.png", SLOT(MoveLeft()) },
+//      { tr("Right"), ":/navig64/right.png", SLOT(MoveRight()) },
+//      { tr("Up"), ":/navig64/up.png", SLOT(MoveUp()) },
+//      { tr("Down"), ":/navig64/down.png", SLOT(MoveDown()) },
+//      { tr("Show all"), ":/navig64/world.png", SLOT(ShowAll()) },
+//      { QString(), 0, 0 },
       { tr("Scale +"), ":/navig64/plus.png", SLOT(ScalePlus()) }
     };
     add_buttons(pBar, arr, ARRAY_SIZE(arr), m_pDrawWidget);
