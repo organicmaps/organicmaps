@@ -233,7 +233,7 @@ void MainWindow::CreateNavigationBar()
 
   {
     // add my position button with "checked" behavior
-    m_pMyPosition = pBar->addAction(QIcon(":/navig64/plus.png"),
+    m_pMyPosition = pBar->addAction(QIcon(":/navig64/location.png"),
                                            tr("My Position"),
                                            this,
                                            SLOT(OnMyPosition()));
@@ -342,19 +342,19 @@ void MainWindow::OnPreferences()
 
 void MainWindow::OnLocationFound()
 {
-  // @TODO change button icon to "found location"
+  m_pMyPosition->setIcon(QIcon(":/navig64/location.png"));
 }
 
 void MainWindow::OnMyPosition()
 {
   if (m_pMyPosition->isChecked())
   {
-    // @TODO change button icon to "searching location"
+    m_pMyPosition->setIcon(QIcon(":/navig64/location-search.png"));
     m_pDrawWidget->OnEnableMyPosition(boost::bind(&MainWindow::OnLocationFound, this));
   }
   else
   {
-    // @TODO change
+    m_pMyPosition->setIcon(QIcon(":/navig64/location.png"));
     m_pDrawWidget->OnDisableMyPosition();
   }
 }
