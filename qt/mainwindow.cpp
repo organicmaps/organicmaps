@@ -238,6 +238,7 @@ void MainWindow::CreateNavigationBar()
                                            this,
                                            SLOT(OnMyPosition()));
     m_pMyPosition->setCheckable(true);
+    m_pMyPosition->setToolTip(tr("My Position"));
 
     // add view actions 1
     button_t arr[] = {
@@ -343,6 +344,7 @@ void MainWindow::OnPreferences()
 void MainWindow::OnLocationFound()
 {
   m_pMyPosition->setIcon(QIcon(":/navig64/location.png"));
+  m_pMyPosition->setToolTip(tr("My Position"));
 }
 
 void MainWindow::OnMyPosition()
@@ -350,11 +352,13 @@ void MainWindow::OnMyPosition()
   if (m_pMyPosition->isChecked())
   {
     m_pMyPosition->setIcon(QIcon(":/navig64/location-search.png"));
+    m_pMyPosition->setToolTip(tr("Looking for position..."));
     m_pDrawWidget->OnEnableMyPosition(boost::bind(&MainWindow::OnLocationFound, this));
   }
   else
   {
     m_pMyPosition->setIcon(QIcon(":/navig64/location.png"));
+    m_pMyPosition->setToolTip(tr("My Position"));
     m_pDrawWidget->OnDisableMyPosition();
   }
 }
