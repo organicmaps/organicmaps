@@ -18,6 +18,29 @@
 
 namespace serial
 {
+
+  class CodingParams
+  {
+  public:
+    // TODO: Factor out?
+    CodingParams();
+    CodingParams(int64_t basePointInt64, uint8_t coordBits = 30);
+
+    m2::PointU GetBasePointPrediction(uint64_t offset) const;
+
+    // TODO: Factor out.
+    m2::PointU GetBasePoint() const { return m_BasePoint; }
+    // TODO: Factor out.
+    int64_t GetBasePointInt64() const { return m_BasePointInt64; }
+
+    uint8_t const GetCoordBits() const { return m_CoordBits; }
+  private:
+    int64_t m_BasePointInt64;
+    // TODO: Factor out.
+    m2::PointU m_BasePoint;
+    uint8_t m_CoordBits;
+  };
+
   template <class TCont, class TSink>
   inline void WriteVarUintArray(TCont const & v, TSink & sink)
   {
@@ -40,19 +63,23 @@ namespace serial
   typedef buffer_vector<uint64_t, 32> DeltasT;
   typedef buffer_vector<m2::PointD, 32> OutPointsT;
 
-  void Encode(EncodeFunT fn, vector<m2::PointD> const & points, int64_t base, DeltasT & deltas);
+  void Encode(EncodeFunT fn, vector<m2::PointD> const & points, CodingParams const & params,
+              DeltasT & deltas);
 
   /// @name Overloads for different out container types.
   //@{
-  void Decode(DecodeFunT fn, DeltasT const & deltas, int64_t base, OutPointsT & points, size_t reserveF = 1);
-  void Decode(DecodeFunT fn, DeltasT const & deltas, int64_t base, vector<m2::PointD> & points, size_t reserveF = 1);
+  void Decode(DecodeFunT fn, DeltasT const & deltas, CodingParams const & params,
+              OutPointsT & points, size_t reserveF = 1);
+  void Decode(DecodeFunT fn, DeltasT const & deltas, CodingParams const & params,
+              vector<m2::PointD> & points, size_t reserveF = 1);
   //@}
 
   template <class TSink>
-  void SaveInner(EncodeFunT fn, vector<m2::PointD> const & points, int64_t base, TSink & sink)
+  void SaveInner(EncodeFunT fn, vector<m2::PointD> const & points,
+                 CodingParams const & params, TSink & sink)
   {
     DeltasT deltas;
-    Encode(fn, points, base, deltas);
+    Encode(fn, points, params, deltas);
     WriteVarUintArray(deltas, sink);
   }
 
@@ -65,10 +92,11 @@ namespace serial
   }
 
   template <class TSink>
-  void SaveOuter(EncodeFunT fn, vector<m2::PointD> const & points, int64_t base, TSink & sink)
+  void SaveOuter(EncodeFunT fn, vector<m2::PointD> const & points,
+                 CodingParams const & params, TSink & sink)
   {
     DeltasT deltas;
-    Encode(fn, points, base, deltas);
+    Encode(fn, points, params, deltas);
 
     vector<char> buffer;
     MemWriter<vector<char> > writer(buffer);
@@ -77,10 +105,12 @@ namespace serial
     WriteBufferToSink(buffer, sink);
   }
 
-  void const * LoadInner(DecodeFunT fn, void const * pBeg, size_t count, int64_t base, OutPointsT & points);
+  void const * LoadInner(DecodeFunT fn, void const * pBeg, size_t count,
+                         CodingParams const & params, OutPointsT & points);
 
   template <class TSource, class TPoints>
-  void LoadOuter(DecodeFunT fn, TSource & src, int64_t base, TPoints & points, size_t reserveF = 1)
+  void LoadOuter(DecodeFunT fn, TSource & src, CodingParams const & params,
+                 TPoints & points, size_t reserveF = 1)
   {
     uint32_t const count = ReadVarUint<uint32_t>(src);
     vector<char> buffer(count);
@@ -91,46 +121,49 @@ namespace serial
     deltas.reserve(count / 2);
     ReadVarUint64Array(p, p + count, MakeBackInsertFunctor(deltas));
 
-    Decode(fn, deltas, base, points, reserveF);
+    Decode(fn, deltas, params, points, reserveF);
   }
 
 
   /// @name Paths.
   //@{
   template <class TSink>
-  void SaveInnerPath(vector<m2::PointD> const & points, int64_t base, TSink & sink)
+  void SaveInnerPath(vector<m2::PointD> const & points, CodingParams const & params, TSink & sink)
   {
-    SaveInner(&geo_coding::EncodePolyline, points, base, sink);
+    SaveInner(&geo_coding::EncodePolyline, points, params, sink);
   }
   template <class TSink>
-  void SaveOuterPath(vector<m2::PointD> const & points, int64_t base, TSink & sink)
+  void SaveOuterPath(vector<m2::PointD> const & points, CodingParams const & params, TSink & sink)
   {
-    SaveOuter(&geo_coding::EncodePolyline, points, base, sink);
+    SaveOuter(&geo_coding::EncodePolyline, points, params, sink);
   }
 
-  inline void const * LoadInnerPath(void const * pBeg, size_t count, int64_t base, OutPointsT & points)
+  inline void const * LoadInnerPath(void const * pBeg, size_t count, CodingParams const & params,
+                                    OutPointsT & points)
   {
-    return LoadInner(&geo_coding::DecodePolyline, pBeg, count, base, points);
+    return LoadInner(&geo_coding::DecodePolyline, pBeg, count, params, points);
   }
 
   template <class TSource, class TPoints>
-  void LoadOuterPath(TSource & src, int64_t base, TPoints & points)
+  void LoadOuterPath(TSource & src, CodingParams const & params, TPoints & points)
   {
-    LoadOuter(&geo_coding::DecodePolyline, src, base, points);
+    LoadOuter(&geo_coding::DecodePolyline, src, params, points);
   }
   //@}
 
   /// @name Triangles.
   //@{
   template <class TSink>
-  void SaveInnerTriangles(vector<m2::PointD> const & points, int64_t base, TSink & sink)
+  void SaveInnerTriangles(vector<m2::PointD> const & points,
+                          CodingParams const & params, TSink & sink)
   {
-    SaveInner(&geo_coding::EncodeTriangleStrip, points, base, sink);
+    SaveInner(&geo_coding::EncodeTriangleStrip, points, params, sink);
   }
 
-  inline void const * LoadInnerTriangles(void const * pBeg, size_t count, int64_t base, OutPointsT & points)
+  inline void const * LoadInnerTriangles(void const * pBeg, size_t count,
+                                         CodingParams const & params, OutPointsT & points)
   {
-    return LoadInner(&geo_coding::DecodeTriangleStrip, pBeg, count, base, points);
+    return LoadInner(&geo_coding::DecodeTriangleStrip, pBeg, count, params, points);
   }
 
   class TrianglesChainSaver
@@ -144,7 +177,7 @@ namespace serial
     list<BufferT> m_buffers;
 
   public:
-    TrianglesChainSaver(int64_t base);
+    TrianglesChainSaver(CodingParams const & params);
 
     PointT GetBasePoint() const { return m_base; }
     PointT GetMaxPoint() const { return m_max; }
@@ -177,12 +210,12 @@ namespace serial
                       geo_coding::OutPointsT & triangles);
 
   template <class TSource>
-  void LoadOuterTriangles(TSource & src, int64_t base, OutPointsT & triangles)
+  void LoadOuterTriangles(TSource & src, CodingParams const & params, OutPointsT & triangles)
   {
     int const count = ReadVarUint<uint32_t>(src);
 
     for (int i = 0; i < count; ++i)
-      LoadOuter(&DecodeTriangles, src, base, triangles, 3);
+      LoadOuter(&DecodeTriangles, src, params, triangles, 3);
   }
   //@}
 }

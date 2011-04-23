@@ -14,6 +14,18 @@
 
 namespace serial
 {
+
+CodingParams::CodingParams() : m_BasePoint(0, 0), m_CoordBits(30)
+{
+  m_BasePointInt64 = m2::PointUToUint64(m_BasePoint);
+}
+
+CodingParams::CodingParams(int64_t basePointInt64, uint8_t coordBits) :
+  m_BasePointInt64(basePointInt64), m_CoordBits(coordBits)
+{
+  m_BasePoint = m2::Uint64ToPointU(basePointInt64);
+}
+
   namespace pts
   {
     inline m2::PointU D2U(m2::PointD const & p)
@@ -24,8 +36,8 @@ namespace serial
     inline m2::PointD U2D(m2::PointU const & p)
     {
       CoordPointT const pt = PointU2PointD(p);
-      ASSERT ( MercatorBounds::minX <= pt.first && pt.first <= MercatorBounds::maxX, (pt.first) );
-      ASSERT ( MercatorBounds::minY <= pt.second && pt.second <= MercatorBounds::maxY, (pt.second) );
+      ASSERT( MercatorBounds::minX <= pt.first && pt.first <= MercatorBounds::maxX, (pt.first) );
+      ASSERT( MercatorBounds::minY <= pt.second && pt.second <= MercatorBounds::maxY, (pt.second) );
       return m2::PointD(pt.first, pt.second);
     }
 
@@ -34,15 +46,16 @@ namespace serial
       return D2U(m2::PointD(MercatorBounds::maxX, MercatorBounds::maxY));
     }
 
-    inline m2::PointU GetBasePoint(int64_t base)
+    inline m2::PointU GetBasePoint(CodingParams const & params)
     {
-      return m2::Uint64ToPointU(base);
+      return params.GetBasePoint();
     }
 
     typedef buffer_vector<m2::PointU, 32> upoints_t;
   }
 
-  void Encode(EncodeFunT fn, vector<m2::PointD> const & points, int64_t base, DeltasT & deltas)
+  void Encode(EncodeFunT fn, vector<m2::PointD> const & points,
+              CodingParams const & params, DeltasT & deltas)
   {
     size_t const count = points.size();
 
@@ -55,11 +68,12 @@ namespace serial
     deltas.resize(count);
 
     geo_coding::OutDeltasT adapt(deltas);
-    (*fn)(make_read_adapter(upoints), pts::GetBasePoint(base), pts::GetMaxPoint(), adapt);
+    (*fn)(make_read_adapter(upoints), pts::GetBasePoint(params), pts::GetMaxPoint(), adapt);
   }
 
   template <class TDecodeFun, class TOutPoints>
-  void DecodeImpl(TDecodeFun fn, DeltasT const & deltas, int64_t base, TOutPoints & points, size_t reserveF)
+  void DecodeImpl(TDecodeFun fn, DeltasT const & deltas, CodingParams const & params,
+                  TOutPoints & points, size_t reserveF)
   {
     size_t const count = deltas.size() * reserveF;
 
@@ -67,7 +81,7 @@ namespace serial
     upoints.resize(count);
 
     geo_coding::OutPointsT adapt(upoints);
-    (*fn)(make_read_adapter(deltas), pts::GetBasePoint(base), pts::GetMaxPoint(), adapt);
+    (*fn)(make_read_adapter(deltas), pts::GetBasePoint(params), pts::GetMaxPoint(), adapt);
 
     // It is may be not empty, when storing triangles.
     if (points.empty())
@@ -75,31 +89,34 @@ namespace serial
     transform(upoints.begin(), upoints.begin() + adapt.size(), back_inserter(points), &pts::U2D);
   }
 
-  void Decode(DecodeFunT fn, DeltasT const & deltas, int64_t base, OutPointsT & points, size_t reserveF)
+  void Decode(DecodeFunT fn, DeltasT const & deltas, CodingParams const & params,
+              OutPointsT & points, size_t reserveF)
   {
-    DecodeImpl(fn, deltas, base, points, reserveF);
+    DecodeImpl(fn, deltas, params, points, reserveF);
   }
 
-  void Decode(DecodeFunT fn, DeltasT const & deltas, int64_t base, vector<m2::PointD> & points, size_t reserveF)
+  void Decode(DecodeFunT fn, DeltasT const & deltas, CodingParams const & params,
+              vector<m2::PointD> & points, size_t reserveF)
   {
-    DecodeImpl(fn, deltas, base, points, reserveF);
+    DecodeImpl(fn, deltas, params, points, reserveF);
   }
 
-  void const * LoadInner(DecodeFunT fn, void const * pBeg, size_t count, int64_t base, OutPointsT & points)
+  void const * LoadInner(DecodeFunT fn, void const * pBeg, size_t count,
+                         CodingParams const & params, OutPointsT & points)
   {
     DeltasT deltas;
     deltas.reserve(count);
     void const * ret = ReadVarUint64Array(static_cast<char const *>(pBeg), count,
                                           MakeBackInsertFunctor(deltas));
 
-    Decode(fn, deltas, base, points);
+    Decode(fn, deltas, params, points);
     return ret;
   }
 
 
-  TrianglesChainSaver::TrianglesChainSaver(int64_t base)
+  TrianglesChainSaver::TrianglesChainSaver(CodingParams const & params)
   {
-    m_base = pts::GetBasePoint(base);
+    m_base = pts::GetBasePoint(params);
     m_max = pts::GetMaxPoint();
   }
 
@@ -243,7 +260,10 @@ namespace serial
       points.push_back(points[trg[0]]);
       points.push_back(points[trg[1]]);
       points.push_back( DecodeDelta(deltas[i] >> 2,
-                        PredictPointInTriangle(maxPoint, points[trg[0]], points[trg[1]], points[trg[2]])));
+                                    PredictPointInTriangle(maxPoint,
+                                                           points[trg[0]],
+                                                           points[trg[1]],
+                                                           points[trg[2]])));
 
       // next step
       treeBits = deltas[i] & 3;

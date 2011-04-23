@@ -257,14 +257,14 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
   PushBackByteSink<buffer_t> sink(data);
 
   if (m_bLinear || m_bArea)
-    serial::SaveOuterPath(m_Geometry, 0, sink);
+    serial::SaveOuterPath(m_Geometry, serial::CodingParams(), sink);
 
   if (m_bArea)
   {
     WriteVarUint(sink, uint32_t(m_Holes.size()));
 
     for (list<points_t>::const_iterator i = m_Holes.begin(); i != m_Holes.end(); ++i)
-      serial::SaveOuterPath(*i, 0, sink);
+      serial::SaveOuterPath(*i, serial::CodingParams(), sink);
   }
 
   // check for correct serialization
@@ -296,7 +296,7 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
 
   if (m_bLinear || m_bArea)
   {
-    serial::LoadOuterPath(src, 0, m_Geometry);
+    serial::LoadOuterPath(src, serial::CodingParams(), m_Geometry);
     CalcRect(m_Geometry, m_LimitRect);
   }
 
@@ -306,7 +306,7 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
     for (uint32_t i = 0; i < count; ++i)
     {
       m_Holes.push_back(points_t());
-      serial::LoadOuterPath(src, 0, m_Holes.back());
+      serial::LoadOuterPath(src, serial::CodingParams(), m_Holes.back());
     }
   }
 
@@ -429,7 +429,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, int64_t base)
         }
       }
 
-      serial::SaveInnerPath(data.m_innerPts, base, sink);
+      serial::SaveInnerPath(data.m_innerPts, serial::CodingParams(base), sink);
     }
     else
     {
@@ -442,7 +442,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, int64_t base)
   if (m_bArea)
   {
     if (trgCount > 0)
-      serial::SaveInnerTriangles(data.m_innerTrg, base, sink);
+      serial::SaveInnerTriangles(data.m_innerTrg, serial::CodingParams(base), sink);
     else
     {
       // offsets was pushed from high scale index to low
