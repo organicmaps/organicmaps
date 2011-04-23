@@ -61,7 +61,7 @@ UNIT_TEST(IsDiagonalVisible)
   TestDiagonalVisible(b, e, b + 5, b + 1, true);
 }
 
-namespace 
+namespace
 {
   void TestFindStrip(P const * beg, size_t n)
   {
@@ -113,14 +113,23 @@ UNIT_TEST(FindSingleStrip)
   }
 }
 
-namespace 
+namespace
 {
-  template <typename IterT> void TestPolygonCCW(IterT beg, IterT end)
-  {
-    TEST(IsPolygonCCW(beg, end), ());
-    reverse(beg, end);
-    TEST(!IsPolygonCCW(beg, end), ())
-  }
+template <typename IterT> void TestPolygonCCW(IterT beg, IterT end)
+{
+  TEST(IsPolygonCCW(beg, end), ());
+  reverse(beg, end);
+  TEST(!IsPolygonCCW(beg, end), ())
+}
+
+template <typename IterT> void TestPolygonOrReverseCCW(IterT beg, IterT end)
+{
+  bool const bForwardCCW = IsPolygonCCW(beg, end);
+  typedef std::reverse_iterator<IterT> ReverseIterT;
+  bool const bReverseCCW = IsPolygonCCW(ReverseIterT(end), ReverseIterT(beg));
+  TEST_NOT_EQUAL(bForwardCCW, bReverseCCW, ());
+}
+
 }
 
 UNIT_TEST(IsPolygonCCW_Smoke)
@@ -137,13 +146,25 @@ UNIT_TEST(IsPolygonCCW_Smoke)
 
 UNIT_TEST(IsPolygonCCW_DataSet)
 {
-  P arr[] = { P(27.3018836975098, 61.7740631103516), P(27.2981071472168, 61.7816162109375), P(27.2962188720703, 61.7831611633301),
-              P(27.293815612793, 61.7814445495605), P(27.2926139831543, 61.783332824707), P(27.2919273376465, 61.787109375),
-              P(27.2948455810547, 61.7865943908691), P(27.2958755493164, 61.7883110046387), P(27.3001670837402, 61.779899597168),
-              P(27.3036003112793, 61.7771530151367), P(27.3015403747559, 61.7747497558594) };
+  P arr[] = { P(27.3018836975098, 61.7740631103516), P(27.2981071472168, 61.7816162109375),
+              P(27.2962188720703, 61.7831611633301), P(27.293815612793, 61.7814445495605),
+              P(27.2926139831543, 61.783332824707), P(27.2919273376465, 61.787109375),
+              P(27.2948455810547, 61.7865943908691), P(27.2958755493164, 61.7883110046387),
+              P(27.3001670837402, 61.779899597168), P(27.3036003112793, 61.7771530151367),
+              P(27.3015403747559, 61.7747497558594) };
 
-  size_t const n = ARRAY_SIZE(arr);
-  if (!IsPolygonCCW(arr, arr + n))
-    reverse(arr, arr + n);
-  TestPolygonCCW(arr, arr + n);
+  TestPolygonOrReverseCCW(arr, arr + ARRAY_SIZE(arr));
+}
+
+UNIT_TEST(IsPolygonCCW_DataSet2)
+{
+ P arr[] = { P(0.747119766424532, 61.4800033732131), P(0.747098308752385, 61.4800496413187),
+              P(0.747129489432211, 61.4800647287444), P(0.74715195293274, 61.4800191311911),
+              P(0.745465178736907, 61.4795420332621), P(0.746959839711849, 61.4802327020841),
+              P(0.746994373152972, 61.4802085622029), P(0.747182463060312, 61.479815953858),
+              P(0.747314226578283, 61.479873956628), P(0.747109037588444, 61.480298416205),
+              P(0.747035947392732, 61.4803450195867), P(0.746934023450081, 61.4803403257209),
+              P(0.745422933944894, 61.4796322225403), P(0.745465178736907, 61.4795420332621) };
+
+ TestPolygonOrReverseCCW(arr, arr + ARRAY_SIZE(arr));
 }
