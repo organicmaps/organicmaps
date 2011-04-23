@@ -15,6 +15,8 @@ win32 {
 }
 
 macx {
+  LIBS += -framework CoreLocation -framework Foundation
+
   ICON = res/mac.icns
   PLIST_FILE = Info.plist
   # path to original plist, which will be processed by qmake and later by us

@@ -71,6 +71,16 @@ namespace qt
   //  m_framework.ShowFeature(p);
   //}
 
+  void DrawWidget::OnEnableMyPosition(LocationRetrievedCallbackT observer)
+  {
+    m_framework.StartLocationService(observer);
+  }
+
+  void DrawWidget::OnDisableMyPosition()
+  {
+    m_framework.StopLocationService();
+  }
+
   void DrawWidget::MoveLeft()
   {
     m_framework.Move(math::pi, 0.5);

@@ -35,6 +35,7 @@ SUBDIRS = 3party \
             base \
             coding \
             geometry \
+            platform \
             yg \
             indexer \
             version \

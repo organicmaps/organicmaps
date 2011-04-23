@@ -4,7 +4,6 @@
 #import "EAGLView.h"
 #import "WindowHandle.h"
 #import "../Settings/SettingsManager.h"
-#import "IPhoneLocator.h"
 
 #include "RenderContext.hpp"
 #include "../../geometry/rect2d.hpp"
@@ -23,7 +22,6 @@ typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
 
 // @TODO Make m_framework and m_storage MapsAppDelegate properties instead of global variables.
 framework_t * m_framework = NULL;
-shared_ptr<Locator> m_locator;
 storage::Storage m_storage;
 
 - (void) ZoomToRect: (m2::RectD const &) rect
@@ -53,52 +51,28 @@ storage::Storage m_storage;
  */
 }
 
+- (void)OnLocationUpdated
+{
+  m_myPositionButton.image = [UIImage imageNamed:@"location.png"];
+}
+
 - (IBAction)OnMyPositionClicked:(id)sender
 {  
-    if (m_locator->isRunning())
-    {
-      m_locator->stop();
-      m_framework->StopLocator();
-      ((UIBarButtonItem*) sender).style = UIBarButtonItemStyleBordered;
-    }
-    else
-    {
-      m_framework->StartLocator(Locator::EPreciseMode);
-      m_locator->start(Locator::EPreciseMode);
-      m_isDirtyPosition = true;
-
-      ((UIBarButtonItem*)sender).style = UIBarButtonItemStyleDone;
-      ((UIBarButtonItem*)sender).image = [UIImage imageNamed:@"location-search.png"];
-    }
-}
-
-- (void) OnChangeLocatorMode:(Locator::EMode) oldMode
-                 withNewMode:(Locator::EMode) newMode
-{
-  if (newMode == Locator::ERoughMode)
+  if (((UIBarButtonItem *)sender).style == UIBarButtonItemStyleBordered)
   {
-    m_myPositionButton.image = [UIImage imageNamed:@"location.png"];
-//    m_myPositionButton.style = UIBarButtonItemStyleBordered;
+    typedef void (*OnLocationUpdatedFunc)(id, SEL);
+    SEL onLocUpdatedSel = @selector(OnLocationUpdated);
+    OnLocationUpdatedFunc locUpdatedImpl = (OnLocationUpdatedFunc)[self methodForSelector:onLocUpdatedSel];
+
+    m_framework->StartLocationService(bind(locUpdatedImpl, self, onLocUpdatedSel));
+    ((UIBarButtonItem *)sender).style = UIBarButtonItemStyleDone;
+    ((UIBarButtonItem *)sender).image = [UIImage imageNamed:@"location-search.png"];
   }
-}
-
-- (void) OnUpdateLocation: (m2::PointD const &) mercatorPoint
-          withErrorRadius: (double) errorRadius
-         withLocTimeStamp: (double) locTimeStamp
-         withCurTimeStamp: (double) curTimeStamp
-{
-  if (m_isDirtyPosition && (curTimeStamp - locTimeStamp <= 10) && (m_locator->mode() == Locator::EPreciseMode))
+  else
   {
-/*  
-    if (m_iconTimer != nil)
-    {
-      [m_iconTimer invalidate];
-      m_iconTimer = nil;
-    }
-  */
+    m_framework->StopLocationService();
+    ((UIBarButtonItem *)sender).style = UIBarButtonItemStyleBordered;
     m_myPositionButton.image = [UIImage imageNamed:@"location.png"];
-    m_myPositionButton.style = UIBarButtonItemStyleDone;
-    m_isDirtyPosition = false;
   }
 }
 
@@ -130,7 +104,6 @@ storage::Storage m_storage;
 
 - (void) dealloc
 {
-  m_locator.reset();
 	delete m_framework;
   [super dealloc];
 }
@@ -145,28 +118,12 @@ storage::Storage m_storage;
 
 		shared_ptr<iphone::WindowHandle> windowHandle = [(EAGLView*)self.view windowHandle];
 		shared_ptr<yg::ResourceManager> resourceManager = [(EAGLView*)self.view resourceManager];
-
-    m_locator = shared_ptr<Locator>(new iphone::Locator());
         
-    // tricky boost::bind for objC class methods
-		typedef void (*TUpdateLocationFunc)(id, SEL, m2::PointD const &, double, double, double);
-		SEL updateLocationSel = @selector(OnUpdateLocation:withErrorRadius:withLocTimeStamp:withCurTimeStamp:);
-		TUpdateLocationFunc updateLocationImpl = (TUpdateLocationFunc)[self methodForSelector:updateLocationSel];
-
-    typedef void (*TChangeModeFunc)(id, SEL, Locator::EMode, Locator::EMode);
-    SEL changeModeSel = @selector(OnChangeLocatorMode:withNewMode:);
-    TChangeModeFunc changeModeImpl = (TChangeModeFunc)[self methodForSelector:changeModeSel];
-
-    m_locator->addOnUpdateLocationFn(boost::bind(updateLocationImpl, self, updateLocationSel, _1, _2, _3, _4));
-    m_locator->addOnChangeModeFn(boost::bind(changeModeImpl, self, changeModeSel, _1, _2));
-
     m_framework = new framework_t(windowHandle, 40);
 		m_framework->InitStorage(m_storage);
-    m_framework->InitLocator(m_locator);
 		m_StickyThreshold = 10;
 
 		m_CurrentAction = NOTHING;
-    m_isDirtyPosition = false;
 
 		// initialize with currently active screen orientation
     [self didRotateFromInterfaceOrientation: self.interfaceOrientation];

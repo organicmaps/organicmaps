@@ -16,6 +16,7 @@ namespace qt
 
   class MainWindow : public QMainWindow
   {
+    QAction * m_pMyPosition;
     DrawWidget * m_pDrawWidget;
     QDockWidget * m_Docks[2];
     //FindTableWnd * m_pFindTable;
@@ -33,6 +34,9 @@ namespace qt
     string GetIniFile();
     void SaveState();
     void LoadState();
+
+  private:
+    void OnLocationFound();
 
   protected:
     void CreatePanelImpl(size_t i, QString const & name, QKeySequence const & hotkey,
@@ -56,6 +60,7 @@ namespace qt
     void ShowGuidePanel();
     void OnAbout();
     void OnPreferences();
+    void OnMyPosition();
   };
 }
 

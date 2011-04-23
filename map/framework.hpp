@@ -4,8 +4,8 @@
 #include "drawer_yg.hpp"
 #include "render_queue.hpp"
 #include "information_display.hpp"
-#include "locator.hpp"
 #include "window_handle.hpp"
+#include "location_state.hpp"
 
 #include "../defines.hpp"
 
@@ -16,6 +16,7 @@
 #include "../indexer/feature.hpp"
 
 #include "../platform/platform.hpp"
+#include "../platform/location.hpp"
 
 #include "../yg/defines.hpp"
 #include "../yg/screen.hpp"
@@ -39,8 +40,6 @@
 #include "../std/shared_ptr.hpp"
 #include "../std/target_os.hpp"
 #include "../std/fstream.hpp"
-
-#include "../base/start_mem_debug.hpp"
 
 //#define DRAW_TOUCH_POINTS
 
@@ -86,6 +85,8 @@ namespace fwork
 }
 
 
+typedef boost::function<void (void)> LocationRetrievedCallbackT;
+
 template
 <
   class TModel,
@@ -101,7 +102,6 @@ class FrameWork
   model_t m_model;
   navigator_t m_navigator;
   shared_ptr<WindowHandle> m_windowHandle;
-  shared_ptr<Locator> m_locator;
 
   bool m_isBenchmarking;
   bool m_isBenchmarkInitialized;
@@ -118,7 +118,17 @@ class FrameWork
   bool m_isRedrawEnabled;
   double m_metresMinWidth;
   int m_minRulerWidth;
-  bool m_doCenterViewport;
+
+
+  enum TGpsCenteringMode
+  {
+    EDoNothing,
+    ECenterAndScale,
+    ECenterOnly
+  };
+  TGpsCenteringMode m_centeringMode;
+  LocationRetrievedCallbackT m_locationObserver;
+  location::State m_locationState;
 
   void AddRedrawCommandSure()
   {
@@ -155,6 +165,35 @@ class FrameWork
     m_model.RemoveMap(datFile);
   }
 
+  void OnGpsUpdate(location::GpsInfo const & info)
+  {
+    if (info.m_timestamp < location::POSITION_TIMEOUT_SECONDS)
+    {
+      // notify GUI that we received gps position
+      if (!(m_locationState & location::State::EGps) && m_locationObserver)
+        m_locationObserver();
+
+      m_locationState.UpdateGps(info);
+      if (m_centeringMode == ECenterAndScale)
+      {
+        CenterAndScaleViewport();
+        m_centeringMode = ECenterOnly;
+      }
+      else if (m_centeringMode == ECenterOnly)
+        CenterViewport(m_locationState.Position());
+      UpdateNow();
+    }
+  }
+
+  void OnCompassUpdate(location::CompassInfo const & info)
+  {
+    if (info.m_timestamp < location::POSITION_TIMEOUT_SECONDS)
+    {
+      m_locationState.UpdateCompass(info);
+      UpdateNow();
+    }
+  }
+
 public:
   FrameWork(shared_ptr<WindowHandle> windowHandle,
             size_t bottomShift)
@@ -163,10 +202,6 @@ public:
       m_isBenchmarkInitialized(false),
       m_currentBenchmark(0),
       m_bgColor(0xEE, 0xEE, 0xDD, 0xFF),
-//      m_bgColor(0xF4 / 17 * 17, 0xFC / 17 * 17, 0xE8 / 17 * 17, 0xFF),
-//      m_bgColor(0xF2 / 17 * 17, 0xF2 / 17 * 17, 0xEE / 17 * 17, 0xFF),
-//      m_bgColor(0xF1 / 17 * 17, 0xF2 / 17 * 17, 0xEB / 17 * 17, 0xFF),
-//      m_bgColor(187, 187, 187, 255),
       m_renderQueue(GetPlatform().SkinName(),
                     GetPlatform().IsMultiSampled(),
                     GetPlatform().DoPeriodicalUpdate(),
@@ -177,7 +212,7 @@ public:
       m_isRedrawEnabled(true),
       m_metresMinWidth(20),
       m_minRulerWidth(97),
-      m_doCenterViewport(false)
+      m_centeringMode(EDoNothing)
   {
     m_informationDisplay.setBottomShift(bottomShift);
 #ifdef DRAW_TOUCH_POINTS
@@ -204,6 +239,12 @@ public:
 
     m_informationDisplay.setVisualScale(GetPlatform().VisualScale());
     m_renderQueue.AddWindowHandle(m_windowHandle);
+
+    // initialize gps and compass subsystem
+    GetLocationService().SetGpsObserver(
+          boost::bind(&this_type::OnGpsUpdate, this, _1));
+    GetLocationService().SetCompassObserver(
+          boost::bind(&this_type::OnCompassUpdate, this, _1));
   }
 
   void InitBenchmark()
@@ -246,29 +287,23 @@ public:
     LOG(LINFO, ("Storage initialized"));
   }
 
-  void InitLocator(shared_ptr<Locator> const & locator)
+  void StartLocationService(LocationRetrievedCallbackT observer)
   {
-    m_locator = locator;
-    m_locator->addOnUpdateLocationFn(bind(&this_type::UpdateLocation, this, _1, _2, _3, _4));
-    m_locator->addOnUpdateHeadingFn(bind(&this_type::UpdateHeading, this, _1, _2, _3));
-    m_locator->addOnChangeModeFn(bind(&this_type::ChangeLocatorMode, this, _1, _2));
-//    m_locator->start(Locator::ERoughMode);
+    m_locationObserver = observer;
+    m_centeringMode = ECenterAndScale;
+    // by default, we always start in accurate mode
+    GetLocationService().StartUpdate(true);
   }
 
-  void StartLocator(Locator::EMode mode)
+  void StopLocationService()
   {
-    if (mode == Locator::EPreciseMode)
-      m_doCenterViewport = true;
-  }
-
-  void StopLocator()
-  {
-    m_informationDisplay.enablePosition(false);
-    m_informationDisplay.enableHeading(false);
-    m_doCenterViewport = false;
+    // reset callback
+    m_locationObserver.clear();
+    m_centeringMode = EDoNothing;
+    GetLocationService().StopUpdate();
+    m_locationState.TurnOff();
     Invalidate();
   }
-
 
   bool IsEmptyModel()
   {
@@ -352,15 +387,9 @@ public:
   void SetOrientation(EOrientation orientation)
   {
     m_navigator.SetOrientation(orientation);
-    m_informationDisplay.setOrientation(orientation);
+    m_locationState.SetOrientation(orientation);
     UpdateNow();
   }
-
-  /// By VNG: I think, you don't need such selectors!
-  //ScreenBase const & Screen() const
-  //{
-  //  return m_navigator.Screen();
-  //}
 
   int GetCurrentScale() const
   {
@@ -487,49 +516,13 @@ public:
 
         m_informationDisplay.doDraw(pDrawer);
 
+        InformationDisplay::DrawMyPosition(*pDrawer, m_navigator.Screen(), m_locationState);
+
         e->drawer()->screen()->endFrame();
 
         OGLCHECK(glPopMatrix());
       }
     }
-  }
-
-/*  void DisableMyPositionAndHeading()
-  {
-    m_informationDisplay.enablePosition(false);
-    m_informationDisplay.enableHeading(false);
-
-    UpdateNow();
-  }*/
-
-  void UpdateLocation(m2::PointD const & mercatorPos, double errorRadius, double locTimeStamp, double curTimeStamp)
-  {
-    m_informationDisplay.setPosition(mercatorPos, errorRadius);
-    if ((m_locator->mode() == Locator::EPreciseMode)
-    && (curTimeStamp - locTimeStamp >= 0)
-    && (curTimeStamp - locTimeStamp < 60 * 5))
-    {
-      if (m_doCenterViewport)
-      {
-        m_informationDisplay.setLocatorMode(Locator::EPreciseMode);
-        CenterAndScaleViewport();
-        m_doCenterViewport = false;
-      }
-      else
-        CenterViewport(mercatorPos);
-    }
-    UpdateNow();
-  }
-
-  void ChangeLocatorMode(Locator::EMode oldMode, Locator::EMode newMode)
-  {
-    if (newMode != Locator::EPreciseMode)
-      m_informationDisplay.setLocatorMode(newMode);
-
-    /// in precise mode we'll update informationDisplay.locatorMode on the
-    /// first "fresh" position recieved.
-    m_doCenterViewport = true;
-    Invalidate();
   }
 
   void CenterViewport(m2::PointD const & pt)
@@ -561,44 +554,39 @@ public:
   {
   }
 
+  /// @TODO refactor to accept point and min visible length
   void CenterAndScaleViewport()
   {
-    m2::PointD pt = m_informationDisplay.position();
+    m2::PointD const pt = m_locationState.Position();
     m_navigator.CenterViewport(pt);
 
-    m2::RectD ClipRect = m_navigator.Screen().ClipRect();
+    m2::RectD clipRect = m_navigator.Screen().ClipRect();
 
-    double errorRadius = m_informationDisplay.errorRadius();
-
-    double xMinSize = 6 * max(errorRadius, MercatorBounds::ConvertMetresToX(pt.x, m_metresMinWidth));
-    double yMinSize = 6 * max(errorRadius, MercatorBounds::ConvertMetresToY(pt.y, m_metresMinWidth));
+    double const xMinSize = 6 * max(m_locationState.ErrorRadius(),
+                              MercatorBounds::ConvertMetresToX(pt.x, m_metresMinWidth));
+    double const yMinSize = 6 * max(m_locationState.ErrorRadius(),
+                              MercatorBounds::ConvertMetresToY(pt.y, m_metresMinWidth));
 
     bool needToScale = false;
 
-    if (ClipRect.SizeX() < ClipRect.SizeY())
-      needToScale = ClipRect.SizeX() > xMinSize * 3;
+    if (clipRect.SizeX() < clipRect.SizeY())
+      needToScale = clipRect.SizeX() > xMinSize * 3;
     else
-      needToScale = ClipRect.SizeY() > yMinSize * 3;
+      needToScale = clipRect.SizeY() > yMinSize * 3;
 
 /*    if ((ClipRect.SizeX() < 3 * errorRadius) || (ClipRect.SizeY() < 3 * errorRadius))
       needToScale = true;*/
 
     if (needToScale)
     {
-      double k = max(xMinSize / ClipRect.SizeX(),
-                     yMinSize / ClipRect.SizeY());
+      double const k = max(xMinSize / clipRect.SizeX(),
+                     yMinSize / clipRect.SizeY());
 
-      ClipRect.Scale(k);
-      m_navigator.SetFromRect(ClipRect);
+      clipRect.Scale(k);
+      m_navigator.SetFromRect(clipRect);
     }
 
     UpdateNow();
-  }
-
-  void UpdateHeading(double trueHeading, double magneticHeading, double accuracy)
-  {
-    m_informationDisplay.setHeading(trueHeading, magneticHeading, accuracy);
-    Invalidate();
   }
 
   /// Show all model by it's world rect.
@@ -642,14 +630,12 @@ public:
   }
   void DoDrag(DragEvent const & e)
   {
-    if (m_locator && (m_locator->mode() == Locator::EPreciseMode) && (!m_doCenterViewport))
-      m_locator->setMode(Locator::ERoughMode);
+    m_centeringMode = EDoNothing;
 
     m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
 
     m2::PointD pos = m_navigator.OrientPoint(e.Pos()) + ptShift;
-    m_navigator.DoDrag(pos,
-                       GetPlatform().TimeInSec());
+    m_navigator.DoDrag(pos, GetPlatform().TimeInSec());
 
 #ifdef DRAW_TOUCH_POINTS
     m_informationDisplay.setDebugPoint(0, pos);
@@ -657,6 +643,7 @@ public:
 
     Invalidate();
   }
+
   void StopDrag(DragEvent const & e)
   {
     m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
@@ -685,16 +672,11 @@ public:
   //@{
   void ScaleToPoint(ScaleToPointEvent const & e)
   {
-    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
+    m2::PointD const pt = (m_centeringMode == EDoNothing)
+        ? m_navigator.OrientPoint(e.Pt()) + m_renderQueue.renderState().coordSystemShift(true)
+        : m_navigator.Screen().PixelRect().Center();
 
-    m2::PointD pt = m_navigator.OrientPoint(e.Pt()) + ptShift;
-
-    if ((m_locator) && (m_locator->mode() == Locator::EPreciseMode))
-      pt = m_navigator.Screen().PixelRect().Center();
-
-    m_navigator.ScaleToPoint(pt,
-      e.ScaleFactor(),
-      GetPlatform().TimeInSec());
+    m_navigator.ScaleToPoint(pt, e.ScaleFactor(), GetPlatform().TimeInSec());
 
     UpdateNow();
   }
@@ -717,7 +699,7 @@ public:
     m2::PointD pt1 = m_navigator.OrientPoint(e.Pt1()) + ptShift;
     m2::PointD pt2 = m_navigator.OrientPoint(e.Pt2()) + ptShift;
 
-    if ((m_locator) && (m_locator->mode() == Locator::EPreciseMode) && (!m_doCenterViewport))
+    if ((m_locationState & location::State::EGps) && (m_centeringMode == ECenterOnly))
     {
       m2::PointD ptC = (pt1 + pt2) / 2;
       m2::PointD ptDiff = m_navigator.Screen().PixelRect().Center() - ptC;
@@ -742,7 +724,7 @@ public:
     m2::PointD pt1 = m_navigator.OrientPoint(e.Pt1()) + ptShift;
     m2::PointD pt2 = m_navigator.OrientPoint(e.Pt2()) + ptShift;
 
-    if ((m_locator) && (m_locator->mode() == Locator::EPreciseMode) && (!m_doCenterViewport))
+    if ((m_locationState & location::State::EGps) && (m_centeringMode == ECenterOnly))
     {
       m2::PointD ptC = (pt1 + pt2) / 2;
       m2::PointD ptDiff = m_navigator.Screen().PixelRect().Center() - ptC;
@@ -767,8 +749,7 @@ public:
     m2::PointD pt1 = m_navigator.OrientPoint(e.Pt1()) + ptShift;
     m2::PointD pt2 = m_navigator.OrientPoint(e.Pt2()) + ptShift;
 
-
-    if ((m_locator) && (m_locator->mode() == Locator::EPreciseMode) && (!m_doCenterViewport))
+    if ((m_locationState & location::State::EGps) && (m_centeringMode == ECenterOnly))
     {
       m2::PointD ptC = (pt1 + pt2) / 2;
       m2::PointD ptDiff = m_navigator.Screen().PixelRect().Center() - ptC;
@@ -787,5 +768,3 @@ public:
   }
   //@}
 };
-
-#include "../base/stop_mem_debug.hpp"

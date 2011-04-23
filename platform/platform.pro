@@ -11,17 +11,20 @@ include($$ROOT_DIR/common.pri)
 
 QT *= core network
 
-SOURCES += \
-    qtplatform.cpp \
-    qt_download_manager.cpp \
-    qt_download.cpp \
-    location.cpp \
+!iphone* {
+  SOURCES += \
+      qtplatform.cpp \
+      qt_download_manager.cpp \
+      qt_download.cpp \
+
+  HEADERS += \
+      qt_download_manager.hpp \
+      qt_download.hpp \
+}
 
 HEADERS += \
     platform.hpp \
     download_manager.hpp \
-    qt_download_manager.hpp \
-    qt_download.hpp \
     location.hpp \
 
 mac|iphone* {

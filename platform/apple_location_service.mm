@@ -41,7 +41,12 @@ public:
   void OnLocationUpdate(GpsInfo & newLocation)
   {
     newLocation.m_status = m_status;
-    NotifySubscribers(newLocation);
+    NotifyGpsObserver(newLocation);
+  }
+
+  void OnHeadingUpdate(CompassInfo & newHeading)
+  {
+    NotifyCompassObserver(newHeading);
   }
 
 //  virtual bool IsServiceSupported()
@@ -71,7 +76,7 @@ public:
       m_status = EDisabledByUser;
       GpsInfo info;
       info.m_status = m_status;
-      NotifySubscribers(info);
+      NotifyGpsObserver(info);
     }
     else
     {
@@ -79,23 +84,21 @@ public:
       {
         m_status = EAccurateMode;
         m_locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        // also enable compass
-#ifdef OMIM_OS_IPHONE
-        if ([CLLocationManager headingAvailable])
-          [m_locationManager startHeadingUpdate];
-#endif
       }
       else
       {
         m_status = ERoughMode;
         m_locationManager.desiredAccuracy = ROUGH_ACCURACY;
-        // also disable compass
-#ifdef OMIM_OS_IPHONE
-        if ([CLLocationManager headingAvailable])
-          [m_locationManager stopHeadingUpdate];
-#endif
       }
       [m_locationManager startUpdatingLocation];
+      // enable compass
+#ifdef OMIM_OS_IPHONE
+      if ([CLLocationManager headingAvailable])
+      {
+        m_locationManager.headingFilter = 1.0;
+        [m_locationManager startUpdatingHeading];
+      }
+#endif
     }
   }
 
@@ -103,7 +106,7 @@ public:
   {
 #ifdef OMIM_OS_IPHONE
     if ([CLLocationManager headingAvailable])
-      [m_locationManager stopHeadingUpdate];
+      [m_locationManager stopUpdatingHeading];
 #endif
     [m_locationManager stopUpdatingLocation];
   }
@@ -134,7 +137,7 @@ public:
   info.m_verticalAccuracy = location.verticalAccuracy;
   info.m_latitude = location.coordinate.latitude;
   info.m_longitude = location.coordinate.longitude;
-  info.m_timestamp = [location.timestamp timeIntervalSince1970];
+  info.m_timestamp = -[location.timestamp timeIntervalSinceNow];
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -145,6 +148,22 @@ public:
   [LocationManagerWrapper location:newLocation toGpsInfo:newInfo];
   m_service->OnLocationUpdate(newInfo);
 }
+
+#ifdef OMIM_OS_IPHONE
+- (void)locationManager:(CLLocationManager *)manager
+       didUpdateHeading:(CLHeading *)newHeading
+{
+  CompassInfo newInfo;
+  newInfo.m_magneticHeading = newHeading.magneticHeading;
+  newInfo.m_trueHeading = newHeading.trueHeading;
+  newInfo.m_accuracy = newHeading.headingAccuracy;
+  newInfo.m_x = newHeading.x;
+  newInfo.m_y = newHeading.y;
+  newInfo.m_z = newHeading.z;
+  newInfo.m_timestamp = -[newHeading.timestamp timeIntervalSinceNow];
+  m_service->OnHeadingUpdate(newInfo);
+}
+#endif
 
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error

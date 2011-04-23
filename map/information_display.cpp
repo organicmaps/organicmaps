@@ -2,6 +2,7 @@
 
 #include "information_display.hpp"
 #include "drawer_yg.hpp"
+#include "location_state.hpp"
 
 #include "../indexer/mercator.hpp"
 #include "../yg/defines.hpp"
@@ -15,12 +16,12 @@
 #include "../base/logging.hpp"
 #include "../base/mutex.hpp"
 
+#include <boost/bind.hpp>
+
+using namespace location;
+
 InformationDisplay::InformationDisplay()
-  : m_headingOrientation(-math::pi / 2),
-    m_mode(Locator::ERoughMode)
 {
-  enablePosition(false);
-  enableHeading(false);
   enableDebugPoints(false);
   enableRuler(false);
   enableCenter(false);
@@ -44,122 +45,49 @@ void InformationDisplay::setBottomShift(double bottomShift)
   m_bottomShift = bottomShift;
 }
 
-void InformationDisplay::setOrientation(EOrientation orientation)
-{
-  switch (orientation)
-  {
-  case EOrientation0:
-    m_headingOrientation = -math::pi / 2;
-    break;
-  case EOrientation90:
-    m_headingOrientation = math::pi;
-    break;
-  case EOrientation180:
-    m_headingOrientation = math::pi / 2;
-    break;
-  case EOrientation270:
-    m_headingOrientation = 0;
-    break;
-  }
-}
-
 void InformationDisplay::setDisplayRect(m2::RectI const & rect)
 {
   m_displayRect = rect;
 }
 
-void InformationDisplay::enablePosition(bool doEnable)
+void InformationDisplay::DrawMyPosition(DrawerYG & drawer,
+                                        ScreenBase const & screen,
+                                        location::State const & state)
 {
-  m_isPositionEnabled = doEnable;
-}
+  double pxErrorRadius;
+  m2::PointD pxPosition;
+  if ((state & State::EGps) || (state & State::ECompass))
+  {
+    pxPosition = screen.GtoP(state.Position());
+    pxErrorRadius = pxPosition.Length(screen.GtoP(state.Position()
+                                      + m2::PointD(state.ErrorRadius(), 0)));
+  }
 
-void InformationDisplay::setPosition(m2::PointD const & mercatorPos, double errorRadius)
-{
-  enablePosition(true);
-  m_position = mercatorPos;
-  m_errorRadius = errorRadius;
-}
-
-m2::PointD const & InformationDisplay::position() const
-{
-  return m_position;
-}
-
-double InformationDisplay::errorRadius() const
-{
-  return m_errorRadius;
-}
-
-void InformationDisplay::drawPosition(DrawerYG * pDrawer)
-{
-  /// Drawing position and heading
-  m2::PointD pxPosition = m_screen.GtoP(m_position);
-  pDrawer->drawSymbol(pxPosition, "current-position", yg::EPosCenter, yg::maxDepth);
-
-  double pxErrorRadius = pxPosition.Length(m_screen.GtoP(m_position + m2::PointD(m_errorRadius, 0)));
-
-  // pDrawer->screen()->drawArc(pxPosition, 0, math::pi * 2, pxErrorRadius, yg::Color(0, 0, 255, m_mode == Locator::EPreciseMode ? 64 : 32), yg::maxDepth - 2);
-  pDrawer->screen()->fillSector(pxPosition, 0, math::pi * 2, pxErrorRadius, yg::Color(0, 0, 255, m_mode == Locator::EPreciseMode ? 64 : 32), yg::maxDepth - 3);
-}
-
-void InformationDisplay::setLocatorMode(Locator::EMode mode)
-{
-  m_mode = mode;
-}
-
-void InformationDisplay::enableHeading(bool doEnable)
-{
-  m_isHeadingEnabled = doEnable;
-}
-
-void InformationDisplay::setHeading(double trueHeading, double magneticHeading, double accuracy)
-{
-  enableHeading(true);
-  m_trueHeading = trueHeading;
-  m_magneticHeading = magneticHeading;
-  m_headingAccuracy = accuracy;
-}
-
-void InformationDisplay::drawHeading(DrawerYG *pDrawer)
-{
-  if (m_mode == Locator::ERoughMode)
-    return;
-
-  double trueHeadingRad = m_trueHeading / 180 * math::pi;
-  double headingAccuracyRad = m_headingAccuracy / 180 * math::pi;
-
-  m2::PointD pxPosition = m_screen.GtoP(m_position);
-
-  double pxErrorRadius = pxPosition.Length(m_screen.GtoP(m_position + m2::PointD(m_errorRadius, 0)));
-
-  /// true heading
-  pDrawer->screen()->drawSector(pxPosition,
-                                trueHeadingRad + m_headingOrientation - headingAccuracyRad,
-                                trueHeadingRad + m_headingOrientation + headingAccuracyRad,
-                                pxErrorRadius,
-                                yg::Color(255, 255, 255, 192),
-                                yg::maxDepth);
-  pDrawer->screen()->fillSector(pxPosition,
-                                trueHeadingRad + m_headingOrientation - headingAccuracyRad,
-                                trueHeadingRad + m_headingOrientation + headingAccuracyRad,
-                                pxErrorRadius,
-                                yg::Color(255, 255, 255, 96),
-                                yg::maxDepth - 1);
-  /*        /// magnetic heading
-      double magneticHeadingRad = m_magneticHeading / 180 * math::pi;
-      pDrawer->screen()->drawSector(pxPosition,
-                                    magneticHeadingRad + m_headingOrientation - headingAccuracyRad,
-                                    magneticHeadingRad + m_headingOrientation + headingAccuracyRad,
-                                    pxErrorRadius,
-                                    yg::Color(0, 255, 0, 64),
-                                    yg::maxDepth);
-      pDrawer->screen()->fillSector(pxPosition,
-                                    magneticHeadingRad + m_headingOrientation - headingAccuracyRad,
-                                    magneticHeadingRad + m_headingOrientation + headingAccuracyRad,
-                                    pxErrorRadius,
-                                    yg::Color(0, 255, 0, 32),
-                                    yg::maxDepth - 1);
- */
+  if (state & State::EGps)
+  {
+    // my position symbol
+    drawer.drawSymbol(pxPosition, "current-position", yg::EPosCenter, yg::maxDepth);
+    // my position circle
+    drawer.screen()->fillSector(pxPosition, 0, math::pi * 2, pxErrorRadius,
+                                  yg::Color(0, 0, 255, (state & State::EPreciseMode) ? 32 : 16),
+                                  yg::maxDepth - 3);
+    // display compass only if position is available
+    if (state & State::ECompass)
+    {
+      drawer.screen()->drawSector(pxPosition,
+            state.Heading() - state.HeadingAccuracy(),
+            state.Heading() + state.HeadingAccuracy(),
+            pxErrorRadius,
+            yg::Color(255, 255, 255, 192),
+            yg::maxDepth);
+      drawer.screen()->fillSector(pxPosition,
+            state.Heading() - state.HeadingAccuracy(),
+            state.Heading() + state.HeadingAccuracy(),
+            pxErrorRadius,
+            yg::Color(255, 255, 255, 96),
+            yg::maxDepth - 1);
+    }
+  }
 }
 
 void InformationDisplay::enableDebugPoints(bool doEnable)
@@ -644,10 +572,6 @@ void InformationDisplay::drawBenchmarkInfo(DrawerYG * pDrawer)
 void InformationDisplay::doDraw(DrawerYG *drawer)
 {
   m_yOffset = 0;
-  if (m_isPositionEnabled)
-    drawPosition(drawer);
-  if (m_isHeadingEnabled)
-    drawHeading(drawer);
   if (m_isDebugPointsEnabled)
     drawDebugPoints(drawer);
   if (m_isRulerEnabled)

@@ -45,7 +45,6 @@
 		EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */; };
 		EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297E1219ECA300EB67A9 /* RenderContext.mm */; };
 		EE7F29831219ECA300EB67A9 /* WindowHandle.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F29801219ECA300EB67A9 /* WindowHandle.mm */; };
-		EE9588BC134114F50056F2D5 /* IPhoneLocator.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE9588BB134114F50056F2D5 /* IPhoneLocator.mm */; };
 		EEA61601134C496A003A9827 /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */; };
 		EEA61602134C496A003A9827 /* 02_wqy-microhei.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E6134C4968003A9827 /* 02_wqy-microhei.ttf */; };
 		EEA61603134C496A003A9827 /* 03_jomolhari-id-a3d.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */; };
@@ -54,7 +53,6 @@
 		EEAF65E5134BCBD500A81C82 /* location-search.png in Resources */ = {isa = PBXBuildFile; fileRef = EEAF65E3134BCBD500A81C82 /* location-search.png */; };
 		EEAF65E6134BCBD500A81C82 /* location-search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EEAF65E4134BCBD500A81C82 /* location-search@2x.png */; };
 		EEB7E22211E9079400080A68 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB7E22111E9079400080A68 /* CoreLocation.framework */; };
-		EEB7E30911E9094F00080A68 /* UserLocationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEB7E30811E9094F00080A68 /* UserLocationController.mm */; };
 		EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EED10A4411F78D120095FAD4 /* MapViewController.mm */; };
 		EEE4C93E1298A2F3007231A9 /* symbols_24.png in Resources */ = {isa = PBXBuildFile; fileRef = EEE4C93D1298A2F3007231A9 /* symbols_24.png */; };
 		EEE4C9401298A303007231A9 /* symbols_48.png in Resources */ = {isa = PBXBuildFile; fileRef = EEE4C93F1298A303007231A9 /* symbols_48.png */; };
@@ -69,6 +67,7 @@
 		FA0660001286167A00FEA989 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FA065FFE1286167A00FEA989 /* Default.png */; };
 		FA0660031286168700FEA989 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0660011286168700FEA989 /* Default-Portrait.png */; };
 		FA0660041286168700FEA989 /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0660021286168700FEA989 /* Default-Landscape.png */; };
+		FA2EF9C713630C3B00E3E484 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2EF9C613630C3B00E3E484 /* libplatform.a */; };
 		FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */; };
 		FA4135EA120A263C0062D5B4 /* CountriesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4135E2120A263C0062D5B4 /* CountriesViewController.mm */; };
 		FA4135ED120A263C0062D5B4 /* SettingsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4135E7120A263C0062D5B4 /* SettingsManager.mm */; };
@@ -145,7 +144,6 @@
 		EE7F297E1219ECA300EB67A9 /* RenderContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = RenderContext.mm; path = Classes/RenderContext.mm; sourceTree = SOURCE_ROOT; };
 		EE7F297F1219ECA300EB67A9 /* WindowHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = WindowHandle.h; path = Classes/WindowHandle.h; sourceTree = SOURCE_ROOT; };
 		EE7F29801219ECA300EB67A9 /* WindowHandle.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = WindowHandle.mm; path = Classes/WindowHandle.mm; sourceTree = SOURCE_ROOT; };
-		EE9588BB134114F50056F2D5 /* IPhoneLocator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IPhoneLocator.mm; sourceTree = "<group>"; };
 		EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 01_dejavusans.ttf; path = ../../data/01_dejavusans.ttf; sourceTree = SOURCE_ROOT; };
 		EEA615E6134C4968003A9827 /* 02_wqy-microhei.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "02_wqy-microhei.ttf"; path = "../../data/02_wqy-microhei.ttf"; sourceTree = SOURCE_ROOT; };
 		EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "03_jomolhari-id-a3d.ttf"; path = "../../data/03_jomolhari-id-a3d.ttf"; sourceTree = SOURCE_ROOT; };
@@ -154,13 +152,10 @@
 		EEAF65E3134BCBD500A81C82 /* location-search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-search.png"; sourceTree = "<group>"; };
 		EEAF65E4134BCBD500A81C82 /* location-search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-search@2x.png"; sourceTree = "<group>"; };
 		EEB7E22111E9079400080A68 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		EEB7E30711E9094F00080A68 /* UserLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = UserLocationController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
-		EEB7E30811E9094F00080A68 /* UserLocationController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = UserLocationController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EED10A4411F78D120095FAD4 /* MapViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MapViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EEE4C93D1298A2F3007231A9 /* symbols_24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = symbols_24.png; path = ../../data/symbols_24.png; sourceTree = SOURCE_ROOT; };
 		EEE4C93F1298A303007231A9 /* symbols_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = symbols_48.png; path = ../../data/symbols_48.png; sourceTree = SOURCE_ROOT; };
 		EEE4C9411298A31B007231A9 /* basic_highres.skn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic_highres.skn; path = ../../data/basic_highres.skn; sourceTree = SOURCE_ROOT; };
-		EEE8F9C2134106AB001DC91A /* IPhoneLocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPhoneLocator.h; sourceTree = "<group>"; };
 		EEF5745412DE1AD50082F472 /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfribidi.a; sourceTree = SOURCE_ROOT; };
 		EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_blacklist.txt; path = ../../data/fonts_blacklist.txt; sourceTree = "<group>"; };
 		EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_whitelist.txt; path = ../../data/fonts_whitelist.txt; sourceTree = "<group>"; };
@@ -170,6 +165,7 @@
 		FA065FFE1286167A00FEA989 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
 		FA0660011286168700FEA989 /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = SOURCE_ROOT; };
 		FA0660021286168700FEA989 /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape.png"; sourceTree = SOURCE_ROOT; };
+		FA2EF9C613630C3B00E3E484 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = libplatform.a; sourceTree = SOURCE_ROOT; };
 		FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomAlertView.mm; sourceTree = "<group>"; };
 		FA34BEC91338D72F00FFB2A7 /* CustomAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlertView.h; sourceTree = "<group>"; };
 		FA4135E1120A263C0062D5B4 /* CountriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = CountriesViewController.h; path = Settings/CountriesViewController.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -224,6 +220,7 @@
 				FA8F8938132D5DB00048E3FE /* libtomcrypt.a in Frameworks */,
 				49DE1CA413437D7A00A93417 /* libbzip2.a in Frameworks */,
 				49DE1CA513437D7A00A93417 /* libwords.a in Frameworks */,
+				FA2EF9C713630C3B00E3E484 /* libplatform.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,8 +242,6 @@
 				1D3623250D0F684500981E51 /* MapsAppDelegate.mm */,
 				46F8A2EB10EB63040045521A /* MapViewController.h */,
 				EED10A4411F78D120095FAD4 /* MapViewController.mm */,
-				EEB7E30711E9094F00080A68 /* UserLocationController.h */,
-				EEB7E30811E9094F00080A68 /* UserLocationController.mm */,
 				49DD2B4E132FA8880031D82E /* GuideViewController.h */,
 				49DD2B4F132FA8880031D82E /* GuideViewController.mm */,
 			);
@@ -400,6 +395,7 @@
 		FA1DE68411E15D4E00C6D69A /* Static Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				FA2EF9C613630C3B00E3E484 /* libplatform.a */,
 				49DE1CA213437D7A00A93417 /* libbzip2.a */,
 				49DE1CA313437D7A00A93417 /* libwords.a */,
 				FA8F8937132D5DB00048E3FE /* libtomcrypt.a */,
@@ -449,8 +445,6 @@
 				FAF37EFA126DCE6F005EA154 /* IPhoneDownload.mm */,
 				FAF37EFE126DCE6F005EA154 /* IPhonePlatform.hpp */,
 				FAF37EFD126DCE6F005EA154 /* IPhonePlatform.mm */,
-				EEE8F9C2134106AB001DC91A /* IPhoneLocator.h */,
-				EE9588BB134114F50056F2D5 /* IPhoneLocator.mm */,
 			);
 			name = Platform;
 			sourceTree = "<group>";
@@ -561,7 +555,6 @@
 				1D60589B0D05DD56006BFB54 /* main.mm in Sources */,
 				1D3623260D0F684500981E51 /* MapsAppDelegate.mm in Sources */,
 				46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */,
-				EEB7E30911E9094F00080A68 /* UserLocationController.mm in Sources */,
 				EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */,
 				FA4135EA120A263C0062D5B4 /* CountriesViewController.mm in Sources */,
 				FA4135ED120A263C0062D5B4 /* SettingsManager.mm in Sources */,
@@ -574,7 +567,6 @@
 				49DD2B51132FA8880031D82E /* GuideViewController.mm in Sources */,
 				FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */,
 				FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */,
-				EE9588BC134114F50056F2D5 /* IPhoneLocator.mm in Sources */,
 				4938BB3B1343716500E0815A /* ArticleVC.mm in Sources */,
 				4938BB3C1343716500E0815A /* PerfCount.mm in Sources */,
 				4938BB3D1343716500E0815A /* SearchVC.mm in Sources */,

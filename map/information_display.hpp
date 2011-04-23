@@ -1,12 +1,16 @@
 #pragma once
 
 #include "window_handle.hpp"
-#include "locator.hpp"
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"
 #include "../base/timer.hpp"
 #include "../base/logging.hpp"
+
+namespace location
+{
+  class State;
+}
 
 class DrawerYG;
 
@@ -19,18 +23,6 @@ private:
   ScreenBase m_screen;
   m2::RectI m_displayRect;
   int m_yOffset;
-
-  double m_headingOrientation;
-
-  bool m_isHeadingEnabled;
-  double m_trueHeading;
-  double m_magneticHeading;
-  double m_headingAccuracy;
-
-  bool m_isPositionEnabled;
-  Locator::EMode m_mode;
-  m2::PointD m_position;
-  double m_errorRadius;
 
   /// for debugging purposes
   /// up to 10 debugging points
@@ -81,22 +73,14 @@ public:
 
   InformationDisplay();
 
+  static void DrawMyPosition(DrawerYG & drawer,
+                             ScreenBase const & screen,
+                             location::State const & state);
+
   void setScreen(ScreenBase const & screen);
   void setDisplayRect(m2::RectI const & rect);
   void setBottomShift(double bottomShift);
   void setVisualScale(double visualScale);
-  void setOrientation(EOrientation orientation);
-
-  void enablePosition(bool doEnable);
-  void setPosition(m2::PointD const & mercatorPos, double errorRadius);
-  void setLocatorMode(Locator::EMode mode);
-  m2::PointD const & position() const;
-  double errorRadius() const;
-  void drawPosition(DrawerYG * pDrawer);
-
-  void enableHeading(bool doEnable);
-  void setHeading(double trueHeading, double magneticHeading, double accuracy);
-  void drawHeading(DrawerYG * pDrawer);
 
   void enableDebugPoints(bool doEnable);
   void setDebugPoint(int pos, m2::PointD const & pt);

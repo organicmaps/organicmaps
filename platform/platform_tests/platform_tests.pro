@@ -14,6 +14,11 @@ win32 {
   LIBS += -lShell32
 }
 
+mac {
+  LIBS += -framework CoreLocation -framework Foundation
+}
+
+
 SOURCES += \
     ../../testing/testingmain.cpp \
     platform_test.cpp \

@@ -1,5 +1,4 @@
 #import  <UIKit/UIKit.h>
-#import  "UserLocationController.h"
 
 #include "../../geometry/point2d.hpp"
 #include "../../yg/texture.hpp"
@@ -9,7 +8,6 @@
 #include "../../map/navigator.hpp"
 #include "../../map/feature_vec_model.hpp"
 #include "../../std/shared_ptr.hpp"
-#include "../../map/locator.hpp"
 
 @interface MapViewController : UIViewController
 {
@@ -20,7 +18,6 @@
 		SCALING
 	} m_CurrentAction;
 
-	bool m_isDirtyPosition;
 	bool m_isSticking;
 	size_t m_StickyThreshold;
   int m_iconSequenceNumber;
@@ -37,14 +34,7 @@
 
 - (void) ZoomToRect: (m2::RectD const &) rect;
 
-- (void) UpdateIcon: (NSTimer *)theTimer;
-- (void) OnUpdateLocation: (m2::PointD const &) mercatorPoint
-          withErrorRadius: (double) errorRadius
-         withLocTimeStamp: (double) locTimeStamp
-         withCurTimeStamp: (double) curTimeStamp;
-
-- (void) OnChangeLocatorMode: (Locator::EMode) oldMode
-                 withNewMode: (Locator::EMode) newMode;
+//- (void) UpdateIcon: (NSTimer *)theTimer;
 
 - (void) onResize: (GLint)width withHeight: (GLint)height;
 - (void) onPaint;

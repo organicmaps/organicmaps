@@ -56,6 +56,9 @@ namespace qt
 
     void SetScaleControl(QSlider * pScale);
 
+    void OnEnableMyPosition(LocationRetrievedCallbackT observer);
+    void OnDisableMyPosition();
+
     //model_t * GetModel() { return &(m_framework.get_model()); }
 
     //void ShowFeature(Feature const & p);

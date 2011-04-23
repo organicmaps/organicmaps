@@ -22,7 +22,7 @@ HEADERS += \
     render_queue_routine.hpp \
     information_display.hpp \
     settings.hpp \
-    locator.hpp
+    location_state.hpp \
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -34,7 +34,7 @@ SOURCES += \
     render_queue_routine.cpp \
     information_display.cpp \
     settings.cpp \
-    locator.cpp
+    location_state.cpp \
 
 !iphone*:!bada* {
   HEADERS += qgl_render_context.hpp
