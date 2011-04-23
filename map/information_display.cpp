@@ -2,7 +2,6 @@
 
 #include "information_display.hpp"
 #include "drawer_yg.hpp"
-#include "location_state.hpp"
 
 #include "../indexer/mercator.hpp"
 #include "../yg/defines.hpp"
@@ -15,10 +14,6 @@
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
 #include "../base/mutex.hpp"
-
-#include <boost/bind.hpp>
-
-using namespace location;
 
 InformationDisplay::InformationDisplay()
 {
@@ -48,46 +43,6 @@ void InformationDisplay::setBottomShift(double bottomShift)
 void InformationDisplay::setDisplayRect(m2::RectI const & rect)
 {
   m_displayRect = rect;
-}
-
-void InformationDisplay::DrawMyPosition(DrawerYG & drawer,
-                                        ScreenBase const & screen,
-                                        location::State const & state)
-{
-  double pxErrorRadius;
-  m2::PointD pxPosition;
-  if ((state & State::EGps) || (state & State::ECompass))
-  {
-    pxPosition = screen.GtoP(state.Position());
-    pxErrorRadius = pxPosition.Length(screen.GtoP(state.Position()
-                                      + m2::PointD(state.ErrorRadius(), 0)));
-  }
-
-  if (state & State::EGps)
-  {
-    // my position symbol
-    drawer.drawSymbol(pxPosition, "current-position", yg::EPosCenter, yg::maxDepth);
-    // my position circle
-    drawer.screen()->fillSector(pxPosition, 0, math::pi * 2, pxErrorRadius,
-                                  yg::Color(0, 0, 255, (state & State::EPreciseMode) ? 32 : 16),
-                                  yg::maxDepth - 3);
-    // display compass only if position is available
-    if (state & State::ECompass)
-    {
-      drawer.screen()->drawSector(pxPosition,
-            state.Heading() - state.HeadingAccuracy(),
-            state.Heading() + state.HeadingAccuracy(),
-            pxErrorRadius,
-            yg::Color(255, 255, 255, 192),
-            yg::maxDepth);
-      drawer.screen()->fillSector(pxPosition,
-            state.Heading() - state.HeadingAccuracy(),
-            state.Heading() + state.HeadingAccuracy(),
-            pxErrorRadius,
-            yg::Color(255, 255, 255, 96),
-            yg::maxDepth - 1);
-    }
-  }
 }
 
 void InformationDisplay::enableDebugPoints(bool doEnable)

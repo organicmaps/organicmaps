@@ -516,7 +516,7 @@ public:
 
         m_informationDisplay.doDraw(pDrawer);
 
-        InformationDisplay::DrawMyPosition(*pDrawer, m_navigator.Screen(), m_locationState);
+        m_locationState.DrawMyPosition(*pDrawer, m_navigator.Screen());
 
         e->drawer()->screen()->endFrame();
 

@@ -73,10 +73,6 @@ public:
 
   InformationDisplay();
 
-  static void DrawMyPosition(DrawerYG & drawer,
-                             ScreenBase const & screen,
-                             location::State const & state);
-
   void setScreen(ScreenBase const & screen);
   void setDisplayRect(m2::RectI const & rect);
   void setBottomShift(double bottomShift);

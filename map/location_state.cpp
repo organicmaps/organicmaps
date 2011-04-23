@@ -1,4 +1,5 @@
 #include "location_state.hpp"
+#include "drawer_yg.hpp"
 
 #include "../platform/location.hpp"
 
@@ -7,7 +8,7 @@
 namespace location
 {
 
-  State::State() : m_deviceOrientation(-math::pi / 2), m_type(ENone)
+  State::State() : m_deviceOrientation(-math::pi / 2), m_flags(ENone)
   {
   }
 
@@ -16,11 +17,11 @@ namespace location
     if (info.m_status == EAccurateMode
         || info.m_status == ERoughMode)
     {
-      m_type |= EGps;
+      m_flags |= EGps;
       if (info.m_status == EAccurateMode)
-        m_type |= EPreciseMode;
+        m_flags |= EPreciseMode;
       else
-        m_type &= !EPreciseMode;
+        m_flags &= !EPreciseMode;
 
       m_positionMercator = m2::PointD(MercatorBounds::LonToX(info.m_longitude),
                                         MercatorBounds::LatToY(info.m_latitude));
@@ -32,13 +33,13 @@ namespace location
     }
     else
     {
-      m_type &= !EGps;
+      m_flags &= !EGps;
     }
   }
 
   void State::UpdateCompass(CompassInfo const & info)
   {
-    m_type |= ECompass;
+    m_flags |= ECompass;
 
     m_headingRad = ((info.m_trueHeading >= 0.0) ? info.m_trueHeading : info.m_magneticHeading)
         / 180 * math::pi;
@@ -61,6 +62,44 @@ namespace location
     case EOrientation270:
       m_deviceOrientation = 0;
       break;
+    }
+  }
+
+  void State::DrawMyPosition(DrawerYG & drawer, ScreenBase const & screen)
+  {
+    double pxErrorRadius;
+    m2::PointD pxPosition;
+    if ((m_flags & State::EGps) || (m_flags & State::ECompass))
+    {
+      pxPosition = screen.GtoP(Position());
+      pxErrorRadius = pxPosition.Length(screen.GtoP(Position()
+                                        + m2::PointD(ErrorRadius(), 0)));
+    }
+
+    if (m_flags & State::EGps)
+    {
+      // my position symbol
+      drawer.drawSymbol(pxPosition, "current-position", yg::EPosCenter, yg::maxDepth);
+      // my position circle
+      drawer.screen()->fillSector(pxPosition, 0, math::pi * 2, pxErrorRadius,
+                                    yg::Color(0, 0, 255, (m_flags & State::EPreciseMode) ? 32 : 16),
+                                    yg::maxDepth - 3);
+      // display compass only if position is available
+      if (m_flags & State::ECompass)
+      {
+        drawer.screen()->drawSector(pxPosition,
+              m_deviceOrientation + m_headingRad - m_headingAccuracyRad,
+              m_deviceOrientation + m_headingRad + m_headingAccuracyRad,
+              pxErrorRadius,
+              yg::Color(255, 255, 255, 192),
+              yg::maxDepth);
+        drawer.screen()->fillSector(pxPosition,
+              m_deviceOrientation + m_headingRad - m_headingAccuracyRad,
+              m_deviceOrientation + m_headingRad + m_headingAccuracyRad,
+              pxErrorRadius,
+              yg::Color(255, 255, 255, 96),
+              yg::maxDepth - 1);
+      }
     }
   }
 }

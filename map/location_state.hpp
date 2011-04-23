@@ -3,6 +3,8 @@
 #include "../geometry/point2d.hpp"
 #include "../geometry/screenbase.hpp"
 
+class DrawerYG;
+
 namespace location
 {
   class GpsInfo;
@@ -32,24 +34,20 @@ namespace location
     double ErrorRadius() const { return m_errorRadiusMercator; }
     /// @return GPS center point in mercator
     m2::PointD Position() const { return m_positionMercator; }
-    /// takes into account device's orientation
-    /// @return angle in radians
-    double Heading() const { return m_deviceOrientation + m_headingRad; }
-    /// @return angle in radians
-    double HeadingAccuracy() const { return m_headingAccuracyRad; }
 
-    void TurnOff() { m_type = ENone; }
+    void TurnOff() { m_flags = ENone; }
     void UpdateGps(GpsInfo const & info);
     void UpdateCompass(CompassInfo const & info);
     void SetOrientation(EOrientation orientation);
 
+    void DrawMyPosition(DrawerYG & drawer, ScreenBase const & screen);
     operator int() const
     {
-      return m_type;
+      return m_flags;
     }
 
   private:
     /// stores flags from SymbolType
-    int m_type;
+    int m_flags;
   };
 }
