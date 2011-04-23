@@ -1,10 +1,13 @@
 #pragma once
 
 #include "path_renderer.hpp"
+#include "defines.hpp"
+#include "font_desc.hpp"
 
 #include "../geometry/tree4d.hpp"
 
 #include "../std/shared_ptr.hpp"
+
 
 namespace yg
 {
@@ -19,24 +22,26 @@ namespace yg
 
       enum TextPos { under_line, middle_line, above_line };
 
+
       class TextObj
       {
+        FontDesc m_fontDesc;
         m2::PointD m_pt;
         yg::EPosition m_pos;
-        uint8_t m_size;
         string m_utf8Text;
-        bool m_isMasked;
         double m_depth;
         mutable bool m_needRedraw;
         mutable bool m_frozen;
-        bool m_isFixedFont;
         bool m_log2vis;
-        yg::Color m_color;
-        yg::Color m_maskColor;
 
       public:
 
-        TextObj(m2::PointD const & pt, yg::EPosition pos, string const & txt, uint8_t sz, yg::Color const & c, bool isMasked, yg::Color const & maskColor, double d, bool isFixedFont, bool log2vis);
+        TextObj(FontDesc const & fontDesc,
+                m2::PointD const & pt,
+                yg::EPosition pos,
+                string const & txt,
+                double depth,
+                bool log2vis);
         void Draw(TextRenderer * pTextRenderer) const;
         m2::RectD const GetLimitRect(TextRenderer * pTextRenderer) const;
         void SetNeedRedraw(bool needRedraw) const;
@@ -58,7 +63,7 @@ namespace yg
       static wstring Log2Vis(wstring const & str);
 
       template <class ToDo>
-          void ForEachGlyph(uint8_t fontSize, yg::Color const & color, wstring const & text, bool isMask, bool isFixedFont, ToDo toDo);
+          void ForEachGlyph(FontDesc const & fontDesc, wstring const & text, ToDo toDo);
 
       void drawGlyph(m2::PointD const & ptOrg,
                      m2::PointD const & ptGlyph,
@@ -68,29 +73,22 @@ namespace yg
                      double depth);
 
 
-      bool drawPathTextImpl(m2::PointD const * path,
-                        size_t s,
-                        uint8_t fontSize,
-                        yg::Color const & color,
-                        string const & utf8Text,
-                        double fullLength,
-                        double pathOffset,
-                        TextPos pos,
-                        bool isMasked,
-                        double depth,
-                        bool isFixedFont);
+      bool drawPathTextImpl(FontDesc const & fontDesc,
+                            m2::PointD const * path,
+                            size_t s,
+                            string const & utf8Text,
+                            double fullLength,
+                            double pathOffset,
+                            TextPos pos,
+                            double depth);
 
       /// Drawing text from point rotated by the angle.
-      void drawTextImpl(m2::PointD const & pt,
+      void drawTextImpl(FontDesc const & fontDesc,
+                        m2::PointD const & pt,
                         yg::EPosition pos,
                         float angle,
-                        uint8_t fontSize,
-                        yg::Color const & color,
                         string const & utf8Text,
-                        bool isMasked,
-                        yg::Color const & maskColor,
                         double depth,
-                        bool fixedFont,
                         bool log2vis);
 
       bool m_textTreeAutoClean;
@@ -114,37 +112,27 @@ namespace yg
       TextRenderer(Params const & params);
 
       /// Drawing text from point rotated by the angle.
-      void drawText(m2::PointD const & pt,
+      void drawText(FontDesc const & fontDesc,
+                    m2::PointD const & pt,
                     yg::EPosition pos,
                     float angle,
-                    uint8_t fontSize,
-                    yg::Color const & color,
                     string const & utf8Text,
-                    bool isMasked,
-                    yg::Color const & maskColor,
                     double depth,
-                    bool fixedFont,
                     bool log2vis);
 
-      m2::RectD const textRect(string const & utf8Text,
-                               uint8_t fontSize,
-                               bool isMasked,
-                               bool fixedFont,
+      m2::RectD const textRect(FontDesc const & fontDesc,
+                               string const & utf8Text,
                                bool log2vis);
 
       /// Drawing text in the middle of the path.
-      bool drawPathText(m2::PointD const * path,
+      bool drawPathText(FontDesc const & fontDesc,
+                        m2::PointD const * path,
                         size_t s,
-                        uint8_t fontSize,
-                        yg::Color const & color,
                         string const & utf8Text,
                         double fullLength,
                         double pathOffset,
                         TextPos pos,
-                        bool isMasked,
-                        yg::Color const & maskColor,
-                        double depth,
-                        bool isFixedFont = false);
+                        double depth);
 
 
       void setClipRect(m2::RectI const & rect);

@@ -23,6 +23,7 @@ namespace yg
 {
   namespace gl
   {
+
     TextRenderer::Params::Params()
       : m_textTreeAutoClean(true),
       m_useTextTree(false),
@@ -39,8 +40,8 @@ namespace yg
       m_doPeriodicalTextUpdate(params.m_doPeriodicalTextUpdate)
     {}
 
-    TextRenderer::TextObj::TextObj(m2::PointD const & pt, yg::EPosition pos, string const & txt, uint8_t sz, yg::Color const & c, bool isMasked, yg::Color const & maskColor, double d, bool isFixedFont, bool log2vis)
-       : m_pt(pt), m_pos(pos), m_size(sz), m_utf8Text(txt), m_isMasked(isMasked), m_depth(d), m_needRedraw(true), m_frozen(false), m_isFixedFont(isFixedFont), m_log2vis(log2vis), m_color(c), m_maskColor(maskColor)
+    TextRenderer::TextObj::TextObj(FontDesc const & fontDesc, m2::PointD const & pt, yg::EPosition pos, string const & txt, double d, bool log2vis)
+       : m_fontDesc(fontDesc), m_pt(pt), m_pos(pos), m_utf8Text(txt), m_depth(d), m_needRedraw(true), m_frozen(false), m_log2vis(log2vis)
     {
     }
 
@@ -50,14 +51,14 @@ namespace yg
       /// lies inside the testing rect and therefore should be skipped.
       if (m_needRedraw)
       {
-        pTextRenderer->drawTextImpl(m_pt, m_pos, 0.0, m_size, m_color, m_utf8Text, true, m_maskColor, yg::maxDepth, m_isFixedFont, m_log2vis);
+        pTextRenderer->drawTextImpl(m_fontDesc, m_pt, m_pos, 0.0, m_utf8Text, yg::maxDepth, m_log2vis);
         m_frozen = true;
       }
     }
 
     m2::RectD const TextRenderer::TextObj::GetLimitRect(TextRenderer* pTextRenderer) const
     {
-      m2::RectD limitRect = pTextRenderer->textRect(m_utf8Text, m_size, m_isMasked, false, m_log2vis);
+      m2::RectD limitRect = pTextRenderer->textRect(m_fontDesc, m_utf8Text, m_log2vis);
 
       double dx = -limitRect.SizeX() / 2;
       double dy = limitRect.SizeY() / 2;
@@ -111,32 +112,28 @@ namespace yg
       // because frozen texts shouldn't be popped out by newly arrived texts.
       if (r2.m_frozen)
         return false;
-      if (r1.m_size != r2.m_size)
-        return r1.m_size > r2.m_size;
+      if (r1.m_fontDesc != r2.m_fontDesc)
+        return r1.m_fontDesc > r2.m_fontDesc;
       return (r1.m_depth > r2.m_depth);
     }
 
-    void TextRenderer::drawText(m2::PointD const & pt,
+    void TextRenderer::drawText(FontDesc const & fontDesc,
+                                m2::PointD const & pt,
                                 yg::EPosition pos,
                                 float angle,
-                                uint8_t fontSize,
-                                yg::Color const & color,
                                 string const & utf8Text,
-                                bool isMasked,
-                                yg::Color const & maskColor,
                                 double depth,
-                                bool isFixedFont,
                                 bool log2vis)
     {
       if (!m_drawTexts)
         return;
 
-      if (!m_useTextTree || isFixedFont)
-         drawTextImpl(pt, pos, angle, fontSize, color, utf8Text, true, maskColor, depth, isFixedFont, log2vis);
+      if (!m_useTextTree || fontDesc.m_isStatic)
+         drawTextImpl(fontDesc, pt, pos, angle, utf8Text, depth, log2vis);
       else
       {
         checkTextRedraw();
-        TextObj obj(pt, pos, utf8Text, fontSize, color, isMasked, maskColor, depth, isFixedFont, log2vis);
+        TextObj obj(fontDesc, pt, pos, utf8Text, depth, log2vis);
         m2::RectD r = obj.GetLimitRect(this);
         m_tree.ReplaceIf(obj, r, &TextObj::better_text);
       }
@@ -225,12 +222,12 @@ namespace yg
     }
 
     template <class ToDo>
-        void TextRenderer::ForEachGlyph(uint8_t fontSize, yg::Color const & color, wstring const & text, bool isMasked, bool isFixedFont, ToDo toDo)
+    void TextRenderer::ForEachGlyph(FontDesc const & fontDesc, wstring const & text, ToDo toDo)
     {
       m2::PointD currPt(0, 0);
       for (size_t i = 0; i < text.size(); ++i)
       {
-        uint32_t glyphID = skin()->mapGlyph(GlyphKey(text[i], fontSize, isMasked, color), isFixedFont);
+        uint32_t glyphID = skin()->mapGlyph(GlyphKey(text[i], fontDesc.m_size, fontDesc.m_isMasked, fontDesc.m_isMasked ? fontDesc.m_maskColor : fontDesc.m_color), fontDesc.m_isStatic);
         CharStyle const * p = static_cast<CharStyle const *>(skin()->fromID(glyphID));
         if (p)
         {
@@ -250,14 +247,14 @@ namespace yg
       return res;
     }
 
-    void TextRenderer::drawTextImpl(m2::PointD const & pt, yg::EPosition pos, float angle, uint8_t fontSize, yg::Color const & color, string const & utf8Text, bool isMasked, yg::Color const & maskColor, double depth, bool isFixedFont, bool log2vis)
+    void TextRenderer::drawTextImpl(FontDesc const & fontDesc, m2::PointD const & pt, yg::EPosition pos, float angle, string const & utf8Text, double depth, bool log2vis)
     {
       wstring text = FromUtf8(utf8Text);
 
       if (log2vis)
         text = Log2Vis(text);
 
-      m2::RectD r = textRect(utf8Text, fontSize, isMasked, isFixedFont, log2vis);
+      m2::RectD r = textRect(fontDesc, utf8Text, log2vis);
 
       m2::PointD orgPt(pt.x - r.SizeX() / 2, pt.y + r.SizeY() / 2);
 
@@ -276,12 +273,18 @@ namespace yg
       orgPt.x = ::floor(orgPt.x);
       orgPt.y = ::floor(orgPt.y);
 
-      if (isMasked)
-        ForEachGlyph(fontSize, maskColor, text, true, isFixedFont, bind(&TextRenderer::drawGlyph, this, cref(orgPt), _1, angle, 0, _2, depth));
-      ForEachGlyph(fontSize, color, text, false, isFixedFont, bind(&TextRenderer::drawGlyph, this, cref(orgPt), _1, angle, 0, _2, depth));
+      yg::FontDesc desc = fontDesc;
+
+      if (desc.m_isMasked)
+      {
+        ForEachGlyph(desc, text, bind(&TextRenderer::drawGlyph, this, cref(orgPt), _1, angle, 0, _2, depth));
+        desc.m_isMasked = false;
+      }
+
+      ForEachGlyph(desc, text, bind(&TextRenderer::drawGlyph, this, cref(orgPt), _1, angle, 0, _2, depth));
     }
 
-    m2::RectD const TextRenderer::textRect(string const & utf8Text, uint8_t fontSize, bool isMasked, bool fixedFont, bool log2vis)
+    m2::RectD const TextRenderer::textRect(FontDesc const & fontDesc, string const & utf8Text, bool log2vis)
     {
       if (m_useTextTree)
         checkTextRedraw();
@@ -295,9 +298,9 @@ namespace yg
 
       for (size_t i = 0; i < text.size(); ++i)
       {
-        if (fixedFont)
+        if (fontDesc.m_isStatic)
         {
-          uint32_t glyphID = skin()->mapGlyph(GlyphKey(text[i], fontSize, isMasked, yg::Color(0, 0, 0, 0)), fixedFont);
+          uint32_t glyphID = skin()->mapGlyph(GlyphKey(text[i], fontDesc.m_size, fontDesc.m_isMasked, yg::Color(0, 0, 0, 0)), fontDesc.m_isStatic);
           CharStyle const * p = static_cast<CharStyle const *>(skin()->fromID(glyphID));
           if (p != 0)
           {
@@ -308,7 +311,7 @@ namespace yg
         }
         else
         {
-          GlyphMetrics const m = resourceManager()->getGlyphMetrics(GlyphKey(text[i], fontSize, isMasked, yg::Color(0, 0, 0, 0)));
+          GlyphMetrics const m = resourceManager()->getGlyphMetrics(GlyphKey(text[i], fontDesc.m_size, fontDesc.m_isMasked, yg::Color(0, 0, 0, 0)));
 
           rect.Add(pt);
           rect.Add(pt + m2::PointD(m.m_xOffset + m.m_width, - m.m_yOffset - m.m_height));
@@ -393,23 +396,29 @@ namespace yg
     }
 
     bool TextRenderer::drawPathText(
-        m2::PointD const * path, size_t s, uint8_t fontSize, yg::Color const & color, string const & utf8Text,
-        double fullLength, double pathOffset, TextPos pos, bool isMasked, yg::Color const & maskColor, double depth, bool isFixedFont)
+        FontDesc const & fontDesc, m2::PointD const * path, size_t s, string const & utf8Text,
+        double fullLength, double pathOffset, TextPos pos, double depth)
     {
       if (!m_drawTexts)
         return false;
       if (m_useTextTree)
         checkTextRedraw();
 
-      if (isMasked)
-        if (!drawPathTextImpl(path, s, fontSize, maskColor, utf8Text, fullLength, pathOffset, pos, true, depth, isFixedFont))
+      yg::FontDesc desc = fontDesc;
+
+      if (desc.m_isMasked)
+      {
+        if (!drawPathTextImpl(desc, path, s, utf8Text, fullLength, pathOffset, pos, depth))
           return false;
-      return drawPathTextImpl(path, s, fontSize, color, utf8Text, fullLength, pathOffset, pos, false, depth, isFixedFont);
+        else
+          desc.m_isMasked = false;
+      }
+      return drawPathTextImpl(desc, path, s, utf8Text, fullLength, pathOffset, pos, depth);
     }
 
     bool TextRenderer::drawPathTextImpl(
-        m2::PointD const * path, size_t s, uint8_t fontSize, yg::Color const & color, string const & utf8Text,
-        double fullLength, double pathOffset, TextPos pos, bool isMasked, double depth, bool isFixedFont)
+        FontDesc const & fontDesc, m2::PointD const * path, size_t s, string const & utf8Text,
+        double fullLength, double pathOffset, TextPos pos, double depth)
     {
       pts_array arrPath(path, s, fullLength, pathOffset);
 
@@ -419,8 +428,8 @@ namespace yg
       float blOffset = 2;
       switch (pos)
       {
-      case under_line: blOffset -= fontSize; break;
-      case middle_line: blOffset -= fontSize / 2; break;
+      case under_line: blOffset -= fontDesc.m_size; break;
+      case middle_line: blOffset -= fontDesc.m_size / 2; break;
       case above_line: blOffset -= 0; break;
       }
 
@@ -432,7 +441,7 @@ namespace yg
       double strLength = 0.0;
       for (size_t i = 0; i < count; ++i)
       {
-        glyphs[i] = resourceManager()->getGlyphMetrics(GlyphKey(text[i], fontSize, isMasked, yg::Color(0, 0, 0, 0)));
+        glyphs[i] = resourceManager()->getGlyphMetrics(GlyphKey(text[i], fontDesc.m_size, fontDesc.m_isMasked, yg::Color(0, 0, 0, 0)));
         strLength += glyphs[i].m_xAdvance;
       }
 
@@ -457,7 +466,7 @@ namespace yg
         if (!CalcPointAndAngle(arrPath, offset, ind, ptOrg, angle))
           break;
 
-        uint32_t const glyphID = skin()->mapGlyph(GlyphKey(text[i], fontSize, isMasked, color), isFixedFont);
+        uint32_t const glyphID = skin()->mapGlyph(GlyphKey(text[i], fontDesc.m_size, fontDesc.m_isMasked, fontDesc.m_isMasked ? fontDesc.m_maskColor : fontDesc.m_color), fontDesc.m_isStatic);
         CharStyle const * charStyle = static_cast<CharStyle const *>(skin()->fromID(glyphID));
 
         drawGlyph(ptOrg, m2::PointD(0.0, 0.0), angle, blOffset, charStyle, depth);

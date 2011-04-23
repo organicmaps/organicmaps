@@ -55,7 +55,9 @@ SOURCES += \
     shape_renderer.cpp \
     symbol_renderer.cpp \
     circle_info.cpp \
-    area_renderer.cpp
+    area_renderer.cpp \
+    layout_element.cpp \
+    font_desc.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -104,7 +106,9 @@ HEADERS += \
     shape_renderer.hpp \
     symbol_renderer.hpp \
     circle_info.hpp \
-    area_renderer.hpp
+    area_renderer.hpp \
+    layout_element.hpp \
+    font_desc.hpp
 
 !iphone*:!bada-simulator {
   HEADERS += internal/opengl_win32.hpp

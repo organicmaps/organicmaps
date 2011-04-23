@@ -68,6 +68,15 @@ namespace yg
     return false;
   }
 
+  bool operator > (Color const & l, Color const & r)
+  {
+    if (l.r != r.r) return l.r > r.r;
+    if (l.g != r.g) return l.g > r.g;
+    if (l.b != r.b) return l.b > r.b;
+    if (l.a != r.a) return l.a > r.a;
+    return false;
+  }
+
   bool operator != (Color const & l, Color const & r)
   {
     return (l.r != r.r) || (l.g != r.g) || (l.b != r.b) || (l.a != r.a);

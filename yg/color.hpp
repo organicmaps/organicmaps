@@ -23,6 +23,7 @@ namespace yg
   };
 
   bool operator < (Color const & l, Color const & r);
+  bool operator > (Color const & l, Color const & r);
   bool operator !=(Color const & l, Color const & r);
   bool operator ==(Color const & l, Color const & r);
 
