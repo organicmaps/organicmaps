@@ -74,31 +74,31 @@ namespace location
       pxPosition = screen.GtoP(Position());
       pxErrorRadius = pxPosition.Length(screen.GtoP(Position()
                                         + m2::PointD(ErrorRadius(), 0)));
-    }
 
-    if (m_flags & State::EGps)
-    {
-      // my position symbol
-      drawer.drawSymbol(pxPosition, "current-position", yg::EPosCenter, yg::maxDepth);
-      // my position circle
-      drawer.screen()->fillSector(pxPosition, 0, math::pi * 2, pxErrorRadius,
-                                    yg::Color(0, 0, 255, (m_flags & State::EPreciseMode) ? 32 : 16),
-                                    yg::maxDepth - 3);
-      // display compass only if position is available
-      if (m_flags & State::ECompass)
+      if (m_flags & State::EGps)
       {
-        drawer.screen()->drawSector(pxPosition,
-              m_deviceOrientation + m_headingRad - m_headingAccuracyRad,
-              m_deviceOrientation + m_headingRad + m_headingAccuracyRad,
-              pxErrorRadius,
-              yg::Color(255, 255, 255, 192),
-              yg::maxDepth);
-        drawer.screen()->fillSector(pxPosition,
-              m_deviceOrientation + m_headingRad - m_headingAccuracyRad,
-              m_deviceOrientation + m_headingRad + m_headingAccuracyRad,
-              pxErrorRadius,
-              yg::Color(255, 255, 255, 96),
-              yg::maxDepth - 1);
+        // my position symbol
+        drawer.drawSymbol(pxPosition, "current-position", yg::EPosCenter, yg::maxDepth);
+        // my position circle
+        drawer.screen()->fillSector(pxPosition, 0, math::pi * 2, pxErrorRadius,
+                                      yg::Color(0, 0, 255, (m_flags & State::EPreciseMode) ? 32 : 16),
+                                      yg::maxDepth - 3);
+        // display compass only if position is available
+        if (m_flags & State::ECompass)
+        {
+          drawer.screen()->drawSector(pxPosition,
+                m_deviceOrientation + m_headingRad - m_headingAccuracyRad,
+                m_deviceOrientation + m_headingRad + m_headingAccuracyRad,
+                pxErrorRadius,
+                yg::Color(255, 255, 255, 192),
+                yg::maxDepth);
+          drawer.screen()->fillSector(pxPosition,
+                m_deviceOrientation + m_headingRad - m_headingAccuracyRad,
+                m_deviceOrientation + m_headingRad + m_headingAccuracyRad,
+                pxErrorRadius,
+                yg::Color(255, 255, 255, 96),
+                yg::maxDepth - 1);
+        }
       }
     }
   }
