@@ -30,9 +30,13 @@ namespace
   {
     m2::PointD m_midLoc, m_midAll;
     size_t m_locCount, m_allCount;
+    uint32_t m_coordBits;
 
   public:
-    CalculateMidPoints() : m_midAll(0, 0), m_allCount(0) {}
+    CalculateMidPoints() :
+      m_midAll(0, 0), m_allCount(0), m_coordBits(serial::CodingParams().GetCoordBits())
+    {
+    }
 
     std::vector<TCellAndOffset> m_vec;
 
@@ -45,7 +49,7 @@ namespace
       ft.ForEachPointRef(*this);
       m_midLoc = m_midLoc / m_locCount;
 
-      uint64_t const pointAsInt64 = PointToInt64(m_midLoc.x, m_midLoc.y);
+      uint64_t const pointAsInt64 = PointToInt64(m_midLoc.x, m_midLoc.y, m_coordBits);
       uint64_t const minScale = feature::MinDrawableScaleForFeature(ft.GetFeatureBase());
       CHECK(minScale <= scales::GetUpperScale(), ("Dat file contain invisible feature"));
 
@@ -147,13 +151,13 @@ namespace feature
 
       points_t m_current;
 
-      int64_t m_base;
+      serial::CodingParams m_codingParams;
 
       void WriteOuterPoints(points_t const & points, int i)
       {
         m_buffer.m_ptsMask |= (1 << i);
         m_buffer.m_ptsOffset.push_back(m_rMain.GetFileSize(*m_rMain.m_geoFile[i]));
-        serial::SaveOuterPath(points, m_base, *m_rMain.m_geoFile[i]);
+        serial::SaveOuterPath(points, m_codingParams, *m_rMain.m_geoFile[i]);
       }
 
       void WriteOuterTriangles(points_t const & bound, holes_t const & holes, int i)
@@ -165,17 +169,19 @@ namespace feature
         tesselator::TrianglesInfo info;
         tesselator::TesselateInterior(bound, holes, info);
 
-        serial::TrianglesChainSaver saver(m_base);
+        serial::TrianglesChainSaver saver(m_codingParams);
 
         // points conversion
         tesselator::PointsInfo points;
-        info.GetPointsInfo(saver.GetBasePoint(), saver.GetMaxPoint(), &serial::pts::D2U, points);
+        m2::PointU (* D2U)(m2::PointD const &, uint32_t) = &PointD2PointU;
+        info.GetPointsInfo(saver.GetBasePoint(), saver.GetMaxPoint(),
+                           bind(D2U, _1, m_codingParams.GetCoordBits()), points);
 
         // triangles processing (should be optimal)
         info.ProcessPortions(points, saver, true);
 
         // check triangles processing (to compare with optimal)
-        //serial::TrianglesChainSaver checkSaver(m_base);
+        //serial::TrianglesChainSaver checkSaver(m_codingParams);
         //info.ProcessPortions(points, checkSaver, false);
 
         //CHECK_LESS_OR_EQUAL(saver.GetBufferSize(), checkSaver.GetBufferSize(), ());
@@ -230,8 +236,11 @@ namespace feature
       };
 
     public:
-      GeometryHolder(FeaturesCollector2 & rMain, FeatureBuilder2 & fb, int64_t base)
-        : m_rMain(rMain), m_rFB(fb), m_base(base), m_ptsInner(true), m_trgInner(true)
+      GeometryHolder(FeaturesCollector2 & rMain,
+                     FeatureBuilder2 & fb,
+                     serial::CodingParams const & codingParams)
+        : m_rMain(rMain), m_rFB(fb), m_codingParams(codingParams),
+          m_ptsInner(true), m_trgInner(true)
       {
       }
 
@@ -323,7 +332,7 @@ namespace feature
     {
       (void)GetFileSize(m_datFile);
 
-      GeometryHolder holder(*this, fb, m_header.GetBase());
+      GeometryHolder holder(*this, fb, m_header.GetCodingParams());
 
       bool const isLine = fb.IsLine();
       bool const isArea = fb.IsArea();
@@ -366,7 +375,7 @@ namespace feature
 
       if (fb.PreSerialize(holder.m_buffer))
       {
-        fb.Serialize(holder.m_buffer, m_header.GetBase());
+        fb.Serialize(holder.m_buffer, m_header.GetCodingParams());
 
         WriteFeatureBase(holder.m_buffer.m_buffer, fb);
       }
@@ -407,7 +416,7 @@ namespace feature
       FileReader reader(tempDatFilePath);
 
       feature::DataHeader header;
-      header.SetBase(midPoints.GetCenter());
+      header.SetCodingParams(serial::CodingParams(30, midPoints.GetCenter()));
       header.SetScales(bWorld ? g_arrWorldScales : g_arrCountryScales);
 
       FeaturesCollector2 collector(datFilePath, header);

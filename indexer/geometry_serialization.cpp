@@ -5,7 +5,11 @@
 
 #include "../geometry/pointu_to_uint64.hpp"
 
+#include "../coding/file_reader.hpp"
+#include "../coding/file_writer.hpp"
+
 #include "../std/algorithm.hpp"
+#include "../std/bind.hpp"
 #include "../std/iterator.hpp"
 #include "../std/stack.hpp"
 
@@ -15,35 +19,43 @@
 namespace serial
 {
 
-CodingParams::CodingParams() : m_BasePoint(0, 0), m_CoordBits(30)
+CodingParams::CodingParams() : m_BasePointUint64(0), m_CoordBits(30)
 {
-  m_BasePointInt64 = m2::PointUToUint64(m_BasePoint);
+   m_BasePoint = m2::Uint64ToPointU(m_BasePointUint64);
 }
 
-CodingParams::CodingParams(int64_t basePointInt64, uint8_t coordBits) :
-  m_BasePointInt64(basePointInt64), m_CoordBits(coordBits)
+CodingParams::CodingParams(uint8_t coordBits, m2::PointD const & pt) : m_CoordBits(coordBits)
 {
-  m_BasePoint = m2::Uint64ToPointU(basePointInt64);
+  m_BasePoint = PointD2PointU(pt.x, pt.y, coordBits);
+  m_BasePointUint64 = m2::PointUToUint64(m_BasePoint);
+}
+
+CodingParams::CodingParams(uint8_t coordBits, uint64_t basePointUint64)
+  : m_BasePointUint64(basePointUint64), m_CoordBits(coordBits)
+{
+  m_BasePoint = m2::Uint64ToPointU(m_BasePointUint64);
 }
 
   namespace pts
   {
-    inline m2::PointU D2U(m2::PointD const & p)
+    inline m2::PointU D2U(m2::PointD const & p, uint32_t coordBits)
     {
-      return PointD2PointU(p.x, p.y);
+      return PointD2PointU(p, coordBits);
     }
 
-    inline m2::PointD U2D(m2::PointU const & p)
+    inline m2::PointD U2D(m2::PointU const & p, uint32_t coordBits)
     {
-      CoordPointT const pt = PointU2PointD(p);
-      ASSERT( MercatorBounds::minX <= pt.first && pt.first <= MercatorBounds::maxX, (pt.first) );
-      ASSERT( MercatorBounds::minY <= pt.second && pt.second <= MercatorBounds::maxY, (pt.second) );
+      CoordPointT const pt = PointU2PointD(p, coordBits);
+      ASSERT(MercatorBounds::minX <= pt.first && pt.first <= MercatorBounds::maxX, \
+             (p, pt, coordBits));
+      ASSERT(MercatorBounds::minY <= pt.second && pt.second <= MercatorBounds::maxY, \
+             (p, pt, coordBits));
       return m2::PointD(pt.first, pt.second);
     }
 
-    inline m2::PointU GetMaxPoint()
+    inline m2::PointU GetMaxPoint(CodingParams const & params)
     {
-      return D2U(m2::PointD(MercatorBounds::maxX, MercatorBounds::maxY));
+      return D2U(m2::PointD(MercatorBounds::maxX, MercatorBounds::maxY), params.GetCoordBits());
     }
 
     inline m2::PointU GetBasePoint(CodingParams const & params)
@@ -62,13 +74,14 @@ CodingParams::CodingParams(int64_t basePointInt64, uint8_t coordBits) :
     pts::upoints_t upoints;
     upoints.reserve(count);
 
-    transform(points.begin(), points.end(), back_inserter(upoints), &pts::D2U);
+    transform(points.begin(), points.end(), back_inserter(upoints),
+              bind(&pts::D2U, _1, params.GetCoordBits()));
 
     ASSERT ( deltas.empty(), () );
     deltas.resize(count);
 
     geo_coding::OutDeltasT adapt(deltas);
-    (*fn)(make_read_adapter(upoints), pts::GetBasePoint(params), pts::GetMaxPoint(), adapt);
+    (*fn)(make_read_adapter(upoints), pts::GetBasePoint(params), pts::GetMaxPoint(params), adapt);
   }
 
   template <class TDecodeFun, class TOutPoints>
@@ -81,12 +94,13 @@ CodingParams::CodingParams(int64_t basePointInt64, uint8_t coordBits) :
     upoints.resize(count);
 
     geo_coding::OutPointsT adapt(upoints);
-    (*fn)(make_read_adapter(deltas), pts::GetBasePoint(params), pts::GetMaxPoint(), adapt);
+    (*fn)(make_read_adapter(deltas), pts::GetBasePoint(params), pts::GetMaxPoint(params), adapt);
 
     // It is may be not empty, when storing triangles.
     if (points.empty())
       points.reserve(count);
-    transform(upoints.begin(), upoints.begin() + adapt.size(), back_inserter(points), &pts::U2D);
+    transform(upoints.begin(), upoints.begin() + adapt.size(), back_inserter(points),
+              bind(&pts::U2D, _1, params.GetCoordBits()));
   }
 
   void Decode(DecodeFunT fn, DeltasT const & deltas, CodingParams const & params,
@@ -117,7 +131,7 @@ CodingParams::CodingParams(int64_t basePointInt64, uint8_t coordBits) :
   TrianglesChainSaver::TrianglesChainSaver(CodingParams const & params)
   {
     m_base = pts::GetBasePoint(params);
-    m_max = pts::GetMaxPoint();
+    m_max = pts::GetMaxPoint(params);
   }
 
   namespace

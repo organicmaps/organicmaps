@@ -1,6 +1,7 @@
 #include "../tesselator.hpp"
 #include "../geometry_serialization.hpp"
 #include "../mercator.hpp"
+#include "../point_to_int64.hpp"
 
 #include "../../coding/reader.hpp"
 #include "../../coding/writer.hpp"
@@ -55,10 +56,12 @@ namespace
     for (size_t i = 0; i < countT; ++i)
       info.Add(arrT[i]);
 
-    serial::TrianglesChainSaver saver(0);
-
+    serial::CodingParams codingParams;
+    serial::TrianglesChainSaver saver(codingParams);
     tesselator::PointsInfo points;
-    info.GetPointsInfo(saver.GetBasePoint(), saver.GetMaxPoint(), &serial::pts::D2U, points);
+    m2::PointU (* D2U)(m2::PointD const &, uint32_t) = &PointD2PointU;
+    info.GetPointsInfo(saver.GetBasePoint(), saver.GetMaxPoint(),
+                       bind(D2U, _1, codingParams.GetCoordBits()), points);
 
     info.ProcessPortions(points, saver);
 
@@ -72,7 +75,7 @@ namespace
     ReaderSource<MemReader> src(reader);
 
     serial::OutPointsT triangles;
-    serial::LoadOuterTriangles(src, 0, triangles);
+    serial::LoadOuterTriangles(src, serial::CodingParams(), triangles);
 
     CompareTriangles(triangles, arrP, arrT, countT);
   }

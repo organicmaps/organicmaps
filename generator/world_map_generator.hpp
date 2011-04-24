@@ -17,15 +17,6 @@
 #include "../std/scoped_ptr.hpp"
 #include "../std/unordered_map.hpp"
 
-
-namespace m2
-{
-  inline size_t hash_value(m2::PointD const & pt)
-  {
-    return static_cast<size_t>(PointToInt64(pt.x, pt.y));
-  }
-}
-
 template <class FeatureOutT>
 class WorldMapGenerator
 {
@@ -38,7 +29,9 @@ class WorldMapGenerator
   size_t m_mergedCounter;
   size_t m_areasCounter;
 
-  typedef unordered_map<m2::PointD, FeatureBuilder1Merger> FeaturesContainerT;
+  uint32_t m_coordBits;
+
+  typedef unordered_map<uint64_t, FeatureBuilder1Merger> FeaturesContainerT;
   typedef map<uint32_t, FeaturesContainerT> TypesContainerT;
   TypesContainerT m_features;
 
@@ -61,7 +54,8 @@ private:
   {
     for (FeaturesContainerT::iterator base = features.begin(); base != features.end(); ++base)
     {
-      FeaturesContainerT::iterator found = features.find(base->second.LastPoint());
+      FeaturesContainerT::iterator found =
+          features.find(PointToInt64(base->second.LastPoint(), m_coordBits));
       if (found != features.end())
       {
         CHECK(found != base, ());
@@ -80,7 +74,7 @@ private:
   void TryToMerge(FeatureBuilder1Merger & fbm)
   {
     FeaturesContainerT & container = m_features[fbm.KeyType()];
-    FeaturesContainerT::iterator found = container.find(fbm.LastPoint());
+    FeaturesContainerT::iterator found = container.find(PointToInt64(fbm.LastPoint(), m_coordBits));
     if (found != container.end())
     {
       fbm.AppendFeature(found->second);
@@ -90,7 +84,8 @@ private:
 
     if (!EmitAreaFeature(fbm))
     {
-      pair<FeaturesContainerT::iterator, bool> result = container.insert(make_pair(fbm.FirstPoint(), fbm));
+      pair<FeaturesContainerT::iterator, bool> result =
+          container.insert(make_pair(PointToInt64(fbm.FirstPoint(), m_coordBits), fbm));
       // if we found feature with the same starting point, emit it directly
       if (!result.second)
       {
@@ -115,7 +110,7 @@ public:
   WorldMapGenerator(int maxWorldScale, bool mergeCoastlines,
                     typename FeatureOutT::InitDataType featureOutInitData)
   : m_maxWorldScale(maxWorldScale), m_mergeCoastlines(mergeCoastlines),
-    m_mergedCounter(0), m_areasCounter(0)
+    m_mergedCounter(0), m_areasCounter(0), m_coordBits(30)
   {
     if (maxWorldScale >= 0)
       m_worldBucket.reset(new FeatureOutT(WORLD_FILE_NAME, featureOutInitData));

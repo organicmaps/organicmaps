@@ -3,6 +3,7 @@
 
 #include "../geometry/point2d.hpp"
 
+#include "../std/function.hpp"
 #include "../std/list.hpp"
 #include "../std/vector.hpp"
 #include "../std/unordered_map.hpp"
@@ -132,8 +133,8 @@ namespace tesselator
     //@{
 
     // Convert points from double to uint.
-    void GetPointsInfo( m2::PointU const & baseP, m2::PointU const & maxP,
-                        m2::PointU (*convert) (m2::PointD const &), PointsInfo & info) const;
+    void GetPointsInfo(m2::PointU const & baseP, m2::PointU const & maxP,
+                       function<m2::PointU (m2::PointD)> const & convert, PointsInfo & info) const;
 
     /// Triangles chains processing function.
     template <class EmitterT>

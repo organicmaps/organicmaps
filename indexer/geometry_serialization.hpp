@@ -15,6 +15,8 @@
 #include "../base/buffer_vector.hpp"
 #include "../base/stl_add.hpp"
 
+class FileReader;
+class FileWriter;
 
 namespace serial
 {
@@ -24,18 +26,34 @@ namespace serial
   public:
     // TODO: Factor out?
     CodingParams();
-    CodingParams(int64_t basePointInt64, uint8_t coordBits = 30);
+    CodingParams(uint8_t coordBits, m2::PointD const & pt);
+    CodingParams(uint8_t coordBits, uint64_t basePointUint64);
 
     m2::PointU GetBasePointPrediction(uint64_t offset) const;
 
     // TODO: Factor out.
     m2::PointU GetBasePoint() const { return m_BasePoint; }
     // TODO: Factor out.
-    int64_t GetBasePointInt64() const { return m_BasePointInt64; }
+    int64_t GetBasePointInt64() const { return static_cast<int64_t>(m_BasePointUint64); }
 
-    uint8_t const GetCoordBits() const { return m_CoordBits; }
+    uint32_t const GetCoordBits() const { return m_CoordBits; }
+
+    template <typename WriterT> void Save(WriterT & writer) const
+    {
+      WriteVarUint(writer, GetCoordBits());
+      WriteVarUint(writer, static_cast<uint64_t>(GetBasePointInt64()));
+    }
+
+    template <typename SourceT> void Load(SourceT & src)
+    {
+      uint32_t const coordBits = ReadVarUint<uint32_t>(src);
+      ASSERT_LESS(coordBits, 32, ());
+      uint64_t const basePointUint64 = ReadVarUint<uint64_t>(src);
+      *this = CodingParams(coordBits, basePointUint64);
+    }
+
   private:
-    int64_t m_BasePointInt64;
+    uint64_t m_BasePointUint64;
     // TODO: Factor out.
     m2::PointU m_BasePoint;
     uint8_t m_CoordBits;
@@ -47,8 +65,6 @@ namespace serial
     for (size_t i = 0; i != v.size(); ++i)
       WriteVarUint(sink, v[i]);
   }
-
-  namespace pts { m2::PointU D2U(m2::PointD const & p); }
 
   /// @name Encode and Decode function types.
   //@{
@@ -177,7 +193,7 @@ namespace serial
     list<BufferT> m_buffers;
 
   public:
-    TrianglesChainSaver(CodingParams const & params);
+    explicit TrianglesChainSaver(CodingParams const & params);
 
     PointT GetBasePoint() const { return m_base; }
     PointT GetMaxPoint() const { return m_max; }

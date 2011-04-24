@@ -275,8 +275,10 @@ namespace tesselator
     m_triangles.back().Add(arr);
   }
 
-  void TrianglesInfo::GetPointsInfo(m2::PointU const & baseP, m2::PointU const & maxP,
-                                    m2::PointU (*convert) (m2::PointD const &), PointsInfo & info) const
+  void TrianglesInfo::GetPointsInfo(m2::PointU const & baseP,
+                                    m2::PointU const & maxP,
+                                    function<m2::PointU (m2::PointD)> const & convert,
+                                    PointsInfo & info) const
   {
     info.m_base = baseP;
     info.m_max = maxP;
@@ -284,6 +286,6 @@ namespace tesselator
     size_t const count = m_points.size();
     info.m_points.reserve(count);
     for (size_t i = 0; i < count; ++i)
-      info.m_points.push_back((*convert)(m_points[i]));
+      info.m_points.push_back(convert(m_points[i]));
   }
 }

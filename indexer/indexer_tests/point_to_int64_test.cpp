@@ -6,6 +6,7 @@
 namespace
 {
   double const eps = MercatorBounds::GetCellID2PointAbsEpsilon();
+  uint32_t const coordBits = 30;
 
   void CheckEqualPoints(CoordPointT const & p1, CoordPointT const & p2)
   {
@@ -37,7 +38,7 @@ UNIT_TEST(PointToInt64_Smoke)
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
   {
     CoordPointT p(arr[i].x, arr[i].y);
-    CheckEqualPoints(p, Int64ToPoint(PointToInt64(p)));
+    CheckEqualPoints(p, Int64ToPoint(PointToInt64(p, coordBits), coordBits));
   }
 }
 
@@ -71,12 +72,12 @@ UNIT_TEST(PointToInt64_Grid)
     for (int iy = -180; iy <= 180; iy += delta)
     {
       CoordPointT const pt(ix, iy);
-      int64_t const id = PointToInt64(pt);
-      CoordPointT const pt1 = Int64ToPoint(id);
+      int64_t const id = PointToInt64(pt, coordBits);
+      CoordPointT const pt1 = Int64ToPoint(id, coordBits);
 
       CheckEqualPoints(pt, pt1);
 
-      int64_t const id1 = PointToInt64(pt1);
+      int64_t const id1 = PointToInt64(pt1, coordBits);
       TEST_EQUAL(id, id1, (pt, pt1));
     }
 }
@@ -95,7 +96,7 @@ UNIT_TEST(PointToInt64_Bounds)
       for (size_t iY = 0; iY < ARRAY_SIZE(arrEps); ++iY)
       {
         CoordPointT const pt(arrPt[iP].x + arrEps[iX], arrPt[iP].y + arrEps[iY]);
-        CoordPointT const pt1 = Int64ToPoint(PointToInt64(pt));
+        CoordPointT const pt1 = Int64ToPoint(PointToInt64(pt, coordBits), coordBits);
 
         TEST(fabs(pt.first - pt1.first) <= (fabs(arrEps[iX]) + eps) &&
              fabs(pt.second - pt1.second) <= (fabs(arrEps[iY]) + eps), (pt, pt1));

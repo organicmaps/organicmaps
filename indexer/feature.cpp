@@ -224,7 +224,7 @@ uint8_t FeatureBuilder1::GetHeader() const
   return header;
 }
 
-void FeatureBuilder1::SerializeBase(buffer_t & data, m2::PointU const & basePoint) const
+void FeatureBuilder1::SerializeBase(buffer_t & data, serial::CodingParams const & params) const
 {
   PushBackByteSink<buffer_t> sink(data);
 
@@ -243,7 +243,8 @@ void FeatureBuilder1::SerializeBase(buffer_t & data, m2::PointU const & basePoin
   }
 
   if (m_bPoint)
-    WriteVarUint(sink, EncodeDelta(PointD2PointU(m_Center.x, m_Center.y), basePoint));
+    WriteVarUint(sink, EncodeDelta(PointD2PointU(m_Center.x, m_Center.y, params.GetCoordBits()),
+                                   params.GetBasePoint()));
 }
 
 void FeatureBuilder1::Serialize(buffer_t & data) const
@@ -252,7 +253,7 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
 
   data.clear();
 
-  SerializeBase(data, m2::PointU(0, 0));
+  SerializeBase(data, serial::CodingParams());
 
   PushBackByteSink<buffer_t> sink(data);
 
@@ -289,7 +290,7 @@ namespace
 void FeatureBuilder1::Deserialize(buffer_t & data)
 {
   FeatureBase f;
-  f.Deserialize(data, 0, 0);
+  f.Deserialize(data, 0, serial::CodingParams());
   f.InitFeatureBuilder(*this);
 
   ArrayByteSource src(f.DataPtr() + f.m_Header2Offset);
@@ -379,12 +380,12 @@ namespace
   };
 }
 
-void FeatureBuilder2::Serialize(buffers_holder_t & data, int64_t base)
+void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams const & params)
 {
   data.m_buffer.clear();
 
   // header data serialization
-  SerializeBase(data.m_buffer, m2::Uint64ToPointU(static_cast<uint64_t>(base)));
+  SerializeBase(data.m_buffer, params);
 
   PushBackByteSink<buffer_t> sink(data.m_buffer);
 
@@ -429,7 +430,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, int64_t base)
         }
       }
 
-      serial::SaveInnerPath(data.m_innerPts, serial::CodingParams(base), sink);
+      serial::SaveInnerPath(data.m_innerPts, params, sink);
     }
     else
     {
@@ -442,7 +443,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, int64_t base)
   if (m_bArea)
   {
     if (trgCount > 0)
-      serial::SaveInnerTriangles(data.m_innerTrg, serial::CodingParams(base), sink);
+      serial::SaveInnerTriangles(data.m_innerTrg, params, sink);
     else
     {
       // offsets was pushed from high scale index to low
@@ -456,12 +457,12 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, int64_t base)
 // FeatureBase implementation
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-void FeatureBase::Deserialize(buffer_t & data, uint32_t offset, int64_t base)
+void FeatureBase::Deserialize(buffer_t & data, uint32_t offset, serial::CodingParams const & params)
 {
   m_Offset = offset;
   m_Data.swap(data);
 
-  m_base = base;
+  m_CodingParams = params;
 
   m_CommonOffset = m_Header2Offset = 0;
   m_bTypesParsed = m_bCommonParsed = false;
@@ -517,7 +518,8 @@ void FeatureBase::ParseCommon() const
   if (h & HEADER_HAS_POINT)
   {
     CoordPointT center = PointU2PointD(DecodeDelta(ReadVarUint<uint64_t>(source),
-                                                   m2::Uint64ToPointU(m_base)));
+                                                   m_CodingParams.GetBasePoint()),
+                                       m_CodingParams.GetCoordBits());
     m_Center = m2::PointD(center.first, center.second);
     m_LimitRect.Add(m_Center);
   }
@@ -595,7 +597,7 @@ void FeatureType::Deserialize(read_source_t & src)
 
   m_InnerStats.MakeZero();
 
-  base_type::Deserialize(src.m_data, src.m_offset, m_header->GetBase());
+  base_type::Deserialize(src.m_data, src.m_offset, m_header->GetCodingParams());
 }
 
 namespace
@@ -787,7 +789,7 @@ void FeatureType::ParseHeader2() const
 
       char const * start = static_cast<char const *>(src.Ptr());
 
-      src = ArrayByteSource(serial::LoadInnerPath(src.Ptr(), ptsCount, m_base, m_Points));
+      src = ArrayByteSource(serial::LoadInnerPath(src.Ptr(), ptsCount, m_CodingParams, m_Points));
 
       m_InnerStats.m_Points = static_cast<char const *>(src.Ptr()) - start;
     }
@@ -804,7 +806,7 @@ void FeatureType::ParseHeader2() const
       char const * start = static_cast<char const *>(src.Ptr());
 
       points_t points;
-      src = ArrayByteSource(serial::LoadInnerTriangles(src.Ptr(), trgCount, m_base, points));
+      src = ArrayByteSource(serial::LoadInnerTriangles(src.Ptr(), trgCount, m_CodingParams, points));
 
       m_InnerStats.m_Strips = static_cast<char const *>(src.Ptr()) - start;
 
@@ -841,7 +843,7 @@ uint32_t FeatureType::ParseGeometry(int scale) const
         ReaderSource<FileReader> src(
               m_cont->GetReader(feature::GetTagForIndex(GEOMETRY_FILE_TAG, ind)));
         src.Skip(m_ptsOffsets[ind]);
-        serial::LoadOuterPath(src, m_base, m_Points);
+        serial::LoadOuterPath(src, m_CodingParams, m_Points);
 
         sz = static_cast<uint32_t>(src.Pos() - m_ptsOffsets[ind]);
       }
@@ -893,7 +895,7 @@ uint32_t FeatureType::ParseTriangles(int scale) const
         ReaderSource<FileReader> src(
               m_cont->GetReader(feature::GetTagForIndex(TRIANGLE_FILE_TAG, ind)));
         src.Skip(m_trgOffsets[ind]);
-        serial::LoadOuterTriangles(src, m_base, m_Triangles);
+        serial::LoadOuterTriangles(src, m_CodingParams, m_Triangles);
 
         sz = static_cast<uint32_t>(src.Pos() - m_trgOffsets[ind]);
       }

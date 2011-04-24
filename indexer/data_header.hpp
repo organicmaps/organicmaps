@@ -1,5 +1,7 @@
 #pragma once
 
+#include "geometry_serialization.hpp"
+
 #include "../geometry/rect2d.hpp"
 
 #include "../std/array.hpp"
@@ -11,11 +13,11 @@ class FileReader;
 class FileWriter;
 
 namespace feature
-{   
+{
   /// All file sizes are in bytes
   class DataHeader
   {
-    int64_t m_base;
+    serial::CodingParams m_codingParams;
 
     pair<int64_t, int64_t> m_bounds;
 
@@ -27,8 +29,8 @@ namespace feature
     /// Zero all fields
     void Reset();
 
-    void SetBase(m2::PointD const & p);
-    int64_t GetBase() const { return m_base; }
+    void SetCodingParams(serial::CodingParams const & params) { m_codingParams = params; }
+    serial::CodingParams const & GetCodingParams() const { return m_codingParams; }
 
     m2::RectD const GetBounds() const;
     void SetBounds(m2::RectD const & r);

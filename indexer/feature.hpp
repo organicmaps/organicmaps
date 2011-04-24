@@ -66,7 +66,7 @@ public:
   /// @name Serialization.
   //@{
   void Serialize(buffer_t & data) const;
-  void SerializeBase(buffer_t & data, m2::PointU const & basePoint) const;
+  void SerializeBase(buffer_t & data, serial::CodingParams const & params) const;
 
   void Deserialize(buffer_t & data);
   //@}
@@ -192,7 +192,7 @@ public:
   /// @name Overwrite from base_type.
   //@{
   bool PreSerialize(buffers_holder_t const & data);
-  void Serialize(buffers_holder_t & data, int64_t base);
+  void Serialize(buffers_holder_t & data, serial::CodingParams const & params);
   //@}
 };
 
@@ -296,7 +296,7 @@ public:
   //@}
 
 protected:
-  void Deserialize(buffer_t & data, uint32_t offset, int64_t base);
+  void Deserialize(buffer_t & data, uint32_t offset, serial::CodingParams const & params);
   string DebugString() const;
 
 protected:
@@ -318,7 +318,7 @@ protected:
 
   mutable m2::RectD m_LimitRect;
 
-  int64_t m_base;
+  serial::CodingParams m_CodingParams;
 
   static uint32_t const m_TypesOffset = 1;
   mutable uint32_t m_CommonOffset, m_Header2Offset;

@@ -21,19 +21,14 @@ namespace feature
   {
   }
 
-  void DataHeader::SetBase(m2::PointD const & p)
-  {
-    m_base = PointToInt64(p.x, p.y);
-  }
-
   m2::RectD const DataHeader::GetBounds() const
   {
-    return Int64ToRect(m_bounds);
+    return Int64ToRect(m_bounds, m_codingParams.GetCoordBits());
   }
 
   void DataHeader::SetBounds(m2::RectD const & r)
   {
-    m_bounds = RectToInt64(r);
+    m_bounds = RectToInt64(r, m_codingParams.GetCoordBits());
   }
 
   void DataHeader::SetScales(int * arr)
@@ -58,18 +53,18 @@ namespace feature
 
   void DataHeader::Save(FileWriter & w) const
   {
-    WriteToSink(w, m_base);
-    WriteVarInt(w, m_bounds.first - m_base);
-    WriteVarInt(w, m_bounds.second - m_base);
+    m_codingParams.Save(w);
+    WriteVarInt(w, m_bounds.first - m_codingParams.GetBasePointInt64());
+    WriteVarInt(w, m_bounds.second - m_codingParams.GetBasePointInt64());
     w.Write(m_scales.data(), m_scales.size());
   }
 
   void DataHeader::Load(FileReader const & r)
   {
     ReaderSource<FileReader> src(r);
-    m_base = ReadPrimitiveFromSource<int64_t>(src);
-    m_bounds.first = ReadVarInt<int64_t>(src) + m_base;
-    m_bounds.second = ReadVarInt<int64_t>(src) + m_base;
+    m_codingParams.Load(src);
+    m_bounds.first = ReadVarInt<int64_t>(src) + m_codingParams.GetBasePointInt64();
+    m_bounds.second = ReadVarInt<int64_t>(src) + m_codingParams.GetBasePointInt64();
     src.Read(m_scales.data(), m_scales.size());
   }
 }

@@ -9,14 +9,14 @@ namespace feature
 {
   namespace pts
   {
-    inline int64_t FromPoint(m2::PointD const & p)
+    inline int64_t FromPoint(m2::PointD const & p, uint32_t coordBits)
     {
-      return PointToInt64(p.x, p.y);
+      return PointToInt64(p.x, p.y, coordBits);
     }
 
-    inline m2::PointD ToPoint(int64_t i)
+    inline m2::PointD ToPoint(int64_t i, uint32_t coordBits)
     {
-      CoordPointT const pt = Int64ToPoint(i);
+      CoordPointT const pt = Int64ToPoint(i, coordBits);
       return m2::PointD(pt.first, pt.second);
     }
   }
