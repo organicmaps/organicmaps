@@ -4,8 +4,6 @@
 
 #include <QtGui/QMainWindow>
 
-#include "../base/start_mem_debug.hpp"
-
 class QDockWidget;
 
 namespace qt
@@ -20,8 +18,9 @@ namespace qt
     DrawWidget * m_pDrawWidget;
     QDockWidget * m_Docks[2];
     //FindTableWnd * m_pFindTable;
+#ifdef DEBUG // code removed for desktop releases
     UpdateDialog * m_updateDialog;
-
+#endif // DEBUG
     storage::Storage m_storage;
 
     Q_OBJECT
@@ -39,12 +38,13 @@ namespace qt
     void OnLocationFound();
 
   protected:
+#ifdef DEBUG // code removed for desktop releases
     void CreatePanelImpl(size_t i, QString const & name, QKeySequence const & hotkey,
                          char const * slot);
 
     void CreateClassifPanel();
     void CreateGuidePanel();
-
+#endif
     void CreateNavigationBar();
     //void CreateFindTable(QLayout * pLayout);
   #if defined(Q_WS_WIN)
@@ -55,13 +55,13 @@ namespace qt
   protected Q_SLOTS:
     //void OnFeatureEntered(int row, int col);
     //void OnFeatureClicked(int row, int col);
+#ifdef DEBUG // code removed for desktop releases
     void ShowUpdateDialog();
     void ShowClassifPanel();
     void ShowGuidePanel();
-    void OnAbout();
     void OnPreferences();
+#endif // DEBUG
+    void OnAbout();
     void OnMyPosition();
   };
 }
-
-#include "../base/stop_mem_debug.hpp"

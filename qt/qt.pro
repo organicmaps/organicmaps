@@ -7,7 +7,7 @@ include($$ROOT_DIR/common.pri)
 TARGET = MapsWithMe
 TEMPLATE = app
 
-QT *= core gui opengl network webkit
+QT *= core gui opengl network
 
 win32 {
   LIBS += -lopengl32 -lws2_32 -lshell32
@@ -51,31 +51,40 @@ win32-g++ {
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    searchwindow.cpp \
     widgets.cpp \
-    update_dialog.cpp \
     draw_widget.cpp \
-    classificator_tree.cpp \
     proxystyle.cpp \
     slider_ctrl.cpp \
     about.cpp \
-    preferences_dialog.cpp \
     info_dialog.cpp \
-    guide_page.cpp
 
 HEADERS += \
     mainwindow.hpp \
-    searchwindow.hpp \
     widgets.hpp \
-    update_dialog.hpp \
     draw_widget.hpp \
     qt_window_handle.hpp \
-    classificator_tree.hpp \
     proxystyle.hpp \
     slider_ctrl.hpp \
     about.hpp \
-    preferences_dialog.hpp \
     info_dialog.hpp \
-    guide_page.hpp
 
-RESOURCES += res/resources.qrc \
+RESOURCES += res/resources.qrc
+
+# removed for desktop releases
+CONFIG (debug) {
+  QT *= webkit
+
+  SOURCES += \
+    searchwindow.cpp \
+    update_dialog.cpp \
+    classificator_tree.cpp \
+    preferences_dialog.cpp \
+    guide_page.cpp
+
+  HEADERS += \
+    searchwindow.hpp \
+    update_dialog.hpp \
+    classificator_tree.hpp \
+    preferences_dialog.hpp \
+    guide_page.hpp
+}

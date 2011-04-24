@@ -9,13 +9,18 @@ DEPENDENCIES = coding base
 
 include($$ROOT_DIR/common.pri)
 
-QT *= core network
+QT *= core
 
 !iphone* {
   SOURCES += \
-      qtplatform.cpp \
+    qtplatform.cpp
+
+  CONFIG (debug) {
+    QT *= network
+    SOURCES += \
       qt_download_manager.cpp \
-      qt_download.cpp \
+      qt_download.cpp
+  }
 
   HEADERS += \
       qt_download_manager.hpp \
