@@ -194,6 +194,12 @@ namespace
         pBar->addSeparator();
     }
   }
+
+  struct hotkey_t
+  {
+    int key;
+    char const * slot;
+  };
 }
 
 void MainWindow::CreateNavigationBar()
@@ -201,6 +207,29 @@ void MainWindow::CreateNavigationBar()
   QToolBar * pBar = new QToolBar(tr("Navigation Bar"), this);
   pBar->setOrientation(Qt::Vertical);
   pBar->setIconSize(QSize(32, 32));
+
+  {
+    // add navigation hot keys
+    hotkey_t arr[] = {
+      { Qt::Key_Left, SLOT(MoveLeft()) },
+      { Qt::Key_Right, SLOT(MoveRight()) },
+      { Qt::Key_Up, SLOT(MoveUp()) },
+      { Qt::Key_Down, SLOT(MoveDown()) },
+      { Qt::Key_Equal, SLOT(ScalePlus()) },
+      { Qt::Key_Minus, SLOT(ScaleMinus()) },
+      { Qt::ALT + Qt::Key_Equal, SLOT(ScalePlusLight()) },
+      { Qt::ALT + Qt::Key_Minus, SLOT(ScaleMinusLight()) },
+      { Qt::Key_A, SLOT(ShowAll()) }
+    };
+
+    for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+    {
+      QAction * pAct = new QAction(this);
+      pAct->setShortcut(QKeySequence(arr[i].key));
+      connect(pAct, SIGNAL(triggered()), m_pDrawWidget, arr[i].slot);
+      addAction(pAct);
+    }
+  }
 
   {
     // add my position button with "checked" behavior

@@ -113,6 +113,18 @@ namespace qt
     UpdateScaleControl();
   }
 
+  void DrawWidget::ScalePlusLight()
+  {
+    m_framework.Scale(1.5);
+    UpdateScaleControl();
+  }
+
+  void DrawWidget::ScaleMinusLight()
+  {
+    m_framework.Scale(2.0/3.0);
+    UpdateScaleControl();
+  }
+
   void DrawWidget::ShowAll()
   {
     m_framework.ShowAll();

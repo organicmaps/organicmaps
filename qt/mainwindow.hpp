@@ -16,11 +16,13 @@ namespace qt
   {
     QAction * m_pMyPosition;
     DrawWidget * m_pDrawWidget;
+
+#ifdef DEBUG // code removed for desktop releases
     QDockWidget * m_Docks[2];
     //FindTableWnd * m_pFindTable;
-#ifdef DEBUG // code removed for desktop releases
     UpdateDialog * m_updateDialog;
 #endif // DEBUG
+
     storage::Storage m_storage;
 
     Q_OBJECT
@@ -44,13 +46,14 @@ namespace qt
 
     void CreateClassifPanel();
     void CreateGuidePanel();
-#endif
+#endif // DEBUG
     void CreateNavigationBar();
     //void CreateFindTable(QLayout * pLayout);
-  #if defined(Q_WS_WIN)
+
+#if defined(Q_WS_WIN)
     /// to handle menu messages
     virtual bool winEvent(MSG * msg, long * result);
-  #endif
+#endif
 
   protected Q_SLOTS:
     //void OnFeatureEntered(int row, int col);

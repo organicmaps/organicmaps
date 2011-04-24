@@ -44,8 +44,12 @@ namespace qt
     void MoveRight();
     void MoveUp();
     void MoveDown();
+
     void ScalePlus();
     void ScaleMinus();
+    void ScalePlusLight();
+    void ScaleMinusLight();
+
     void ShowAll();
     void Repaint();
     void ScaleChanged(int action);
