@@ -10,6 +10,7 @@
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QLabel>
+#include <QtGui/QTextBrowser>
 
 AboutDialog::AboutDialog(QWidget * parent)
   : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint)
@@ -39,12 +40,15 @@ AboutDialog::AboutDialog(QWidget * parent)
     QByteArray aboutData = file.readAll();
     file.close();
 
-    QLabel * labelAbout = new QLabel(aboutData);
-    labelAbout->setOpenExternalLinks(true);
+    QTextBrowser * aboutTextBrowser = new QTextBrowser();
+    aboutTextBrowser->setReadOnly(true);
+    aboutTextBrowser->setOpenLinks(true);
+    aboutTextBrowser->setOpenExternalLinks(true);
+    aboutTextBrowser->setText(aboutData.constData());
 
     QVBoxLayout * vBox = new QVBoxLayout();
     vBox->addLayout(hBox);
-    vBox->addWidget(labelAbout);
+    vBox->addWidget(aboutTextBrowser);
     setLayout(vBox);
   }
   else
