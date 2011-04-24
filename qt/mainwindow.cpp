@@ -3,6 +3,16 @@
 #include "slider_ctrl.hpp"
 #include "about.hpp"
 
+#ifdef DEBUG
+#include "info_dialog.hpp"
+#include "update_dialog.hpp"
+#include "preferences_dialog.hpp"
+#include "classificator_tree.hpp"
+#include "guide_page.hpp"
+
+#include "../indexer/classificator.hpp"
+#endif
+
 #include "../defines.hpp"
 
 #include "../map/settings.hpp"
@@ -12,6 +22,10 @@
 #include <QtGui/QAction>
 #include <QtGui/QMenuBar>
 #include <QtGui/QMenu>
+
+#ifdef DEBUG
+#include <QtCore/QFile>
+#endif
 
 #define IDM_ABOUT_DIALOG        1001
 
@@ -203,8 +217,8 @@ void MainWindow::CreateNavigationBar()
 //      { tr("Right"), ":/navig64/right.png", SLOT(MoveRight()) },
 //      { tr("Up"), ":/navig64/up.png", SLOT(MoveUp()) },
 //      { tr("Down"), ":/navig64/down.png", SLOT(MoveDown()) },
-//      { tr("Show all"), ":/navig64/world.png", SLOT(ShowAll()) },
-//      { QString(), 0, 0 },
+      { QString(), 0, 0 },
+      { tr("Show all"), ":/navig64/world.png", SLOT(ShowAll()) },
       { tr("Scale +"), ":/navig64/plus.png", SLOT(ScalePlus()) }
     };
     add_buttons(pBar, arr, ARRAY_SIZE(arr), m_pDrawWidget);
