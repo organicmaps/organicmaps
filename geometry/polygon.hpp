@@ -1,5 +1,7 @@
 #pragma once
 
+#include "robust_orientation.hpp"
+
 #include "../base/assert.hpp"
 #include "../base/base.hpp"
 #include "../base/math.hpp"
@@ -69,8 +71,8 @@ template <typename IterT> bool IsPolygonCCW(IterT beg, IterT end)
     }
   }
 
-  double cp = CrossProduct(*iRes - *PrevIterInCycle(iRes, beg, end),
-                           *NextIterInCycle(iRes, beg, end) - *iRes);
+  double cp = m2::robust::OrientedS(*PrevIterInCycle(iRes, beg, end), *iRes,
+                                    *NextIterInCycle(iRes, beg, end));
   if (cp != 0.0)
     return (cp > 0.0);
 
@@ -87,38 +89,10 @@ template <typename IterT> bool IsPolygonCCW(IterT beg, IterT end)
 
   IterT iPrev = PrevIterInCycle(iRes, beg, end);
   IterT iNext = NextIterInCycle(iRes, beg, end);
-  cp =  CrossProduct(*iRes - *iPrev, *iNext - *iRes);
+  cp =  m2::robust::OrientedS(*iPrev, *iRes, *iNext);
 
   ASSERT_NOT_EQUAL ( cp, 0.0, (*iPrev, *iRes, *iNext) );
   return (cp > 0.0);
-}
-
-/// Is segment (v, v1) in cone (vPrev, v, vNext)?
-/// @precondition Orientation CCW!!!
-template <typename PointT> bool IsSegmentInCone(PointT v, PointT v1, PointT vPrev, PointT vNext)
-{
-  PointT const diff = v1 - v;
-  PointT const edgeL = vPrev - v;
-  PointT const edgeR = vNext - v;
-  double const cpLR = CrossProduct(edgeR, edgeL);
-
-  if (my::AlmostEqual(cpLR,  0.0))
-  {
-    // Points vPrev, v, vNext placed on one line;
-    // use property that polygon has CCW orientation.
-    return CrossProduct(vNext - vPrev, v1 - vPrev) > 0.0;
-  }
-
-  if (cpLR > 0)
-  {
-    // vertex is convex
-    return CrossProduct(diff, edgeR) < 0 && CrossProduct(diff, edgeL) > 0.0;
-  }
-  else
-  {
-    // vertex is reflex
-    return CrossProduct(diff, edgeR) < 0 || CrossProduct(diff, edgeL) > 0.0;
-  }
 }
 
 /// Is diagonal (i0, i1) visible in polygon [beg, end).

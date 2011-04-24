@@ -117,19 +117,22 @@ namespace
 {
 template <typename IterT> void TestPolygonCCW(IterT beg, IterT end)
 {
+  TEST_EQUAL(m2::robust::CheckPolygonSelfIntersections(beg, end), false, ());
+
   TEST(IsPolygonCCW(beg, end), ());
-  reverse(beg, end);
-  TEST(!IsPolygonCCW(beg, end), ())
+  typedef std::reverse_iterator<IterT> ReverseIterT;
+  TEST(!IsPolygonCCW(ReverseIterT(end), ReverseIterT(beg)), ());
 }
 
 template <typename IterT> void TestPolygonOrReverseCCW(IterT beg, IterT end)
 {
+  TEST_EQUAL(m2::robust::CheckPolygonSelfIntersections(beg, end), false, ());
+
   bool const bForwardCCW = IsPolygonCCW(beg, end);
   typedef std::reverse_iterator<IterT> ReverseIterT;
   bool const bReverseCCW = IsPolygonCCW(ReverseIterT(end), ReverseIterT(beg));
   TEST_NOT_EQUAL(bForwardCCW, bReverseCCW, ());
 }
-
 }
 
 UNIT_TEST(IsPolygonCCW_Smoke)

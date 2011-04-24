@@ -167,7 +167,7 @@ namespace m2
   }
 
   template <typename T>
-      Point<T> const Rotate(Point<T> const & pt, T a)
+  Point<T> const Rotate(Point<T> const & pt, T a)
   {
     Point<T> res(pt);
     res.Rotate(a);
@@ -175,13 +175,13 @@ namespace m2
   }
 
   template <typename T, typename U>
-      Point<T> const Shift(Point<T> const & pt, U const & dx, U const & dy)
+  Point<T> const Shift(Point<T> const & pt, U const & dx, U const & dy)
   {
     return Point<T>(pt.x + dx, pt.y + dy);
   }
 
   template <typename T, typename U>
-      Point<T> const Shift(Point<T> const & pt, Point<U> const & offset)
+  Point<T> const Shift(Point<T> const & pt, Point<U> const & offset)
   {
     return Shift(pt, offset.x, offset.y);
   }
@@ -207,6 +207,34 @@ namespace m2
         min(a.y, b.y) <= max(c.y, d.y) &&
         CrossProduct(c - a, b - a) * CrossProduct(d - a, b - a) <= 0 &&
         CrossProduct(a - c, d - c) * CrossProduct(b - c, d - c) <= 0;
+  }
+
+  /// Is segment (v, v1) in cone (vPrev, v, vNext)?
+  /// @precondition Orientation CCW!!!
+  template <typename PointT> bool IsSegmentInCone(PointT v, PointT v1, PointT vPrev, PointT vNext)
+  {
+    PointT const diff = v1 - v;
+    PointT const edgeL = vPrev - v;
+    PointT const edgeR = vNext - v;
+    double const cpLR = CrossProduct(edgeR, edgeL);
+
+    if (my::AlmostEqual(cpLR,  0.0))
+    {
+      // Points vPrev, v, vNext placed on one line;
+      // use property that polygon has CCW orientation.
+      return CrossProduct(vNext - vPrev, v1 - vPrev) > 0.0;
+    }
+
+    if (cpLR > 0)
+    {
+      // vertex is convex
+      return CrossProduct(diff, edgeR) < 0 && CrossProduct(diff, edgeL) > 0.0;
+    }
+    else
+    {
+      // vertex is reflex
+      return CrossProduct(diff, edgeR) < 0 || CrossProduct(diff, edgeL) > 0.0;
+    }
   }
 
   template <typename T> string debug_print(m2::Point<T> const & p)

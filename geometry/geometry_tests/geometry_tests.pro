@@ -33,4 +33,5 @@ SOURCES += \
   tree_test.cpp \
   polygon_test.cpp \
   region_test.cpp \
-    rect_test.cpp
+  rect_test.cpp \
+  robust_test.cpp \
