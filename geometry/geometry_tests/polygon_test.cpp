@@ -159,6 +159,8 @@ UNIT_TEST(IsPolygonCCW_DataSet)
   TestPolygonOrReverseCCW(arr, arr + ARRAY_SIZE(arr));
 }
 
+// This polygon has self-intersections.
+/*
 UNIT_TEST(IsPolygonCCW_DataSet2)
 {
  P arr[] = { P(0.747119766424532, 61.4800033732131), P(0.747098308752385, 61.4800496413187),
@@ -171,3 +173,4 @@ UNIT_TEST(IsPolygonCCW_DataSet2)
 
  TestPolygonOrReverseCCW(arr, arr + ARRAY_SIZE(arr));
 }
+*/

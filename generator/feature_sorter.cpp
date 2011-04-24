@@ -272,12 +272,21 @@ namespace feature
         size_t const count = points.size();
         if (!m_trgInner || count > 15 + 2)
         {
+          // too many points for strip
+          m_trgInner = false;
+          return false;
+        }
+
+        if (m2::robust::CheckPolygonSelfIntersections(points.begin(), points.end()))
+        {
+          // polygon has self-intersectios
           m_trgInner = false;
           return false;
         }
 
         CHECK ( m_buffer.m_innerTrg.empty(), () );
 
+        // make CCW orientation for polygon
         if (!IsPolygonCCW(points.begin(), points.end()))
         {
           reverse(points.begin(), points.end());
@@ -289,6 +298,7 @@ namespace feature
 
         if (index == count)
         {
+          // can't find strip
           m_trgInner = false;
           return false;
         }
