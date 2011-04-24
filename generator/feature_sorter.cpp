@@ -8,6 +8,7 @@
 #include "../indexer/feature_visibility.hpp"
 #include "../indexer/feature_impl.hpp"
 #include "../indexer/geometry_serialization.hpp"
+#include "../indexer/scales.hpp"
 #include "../indexer/tesselator.hpp"
 
 #include "../geometry/polygon.hpp"
@@ -416,7 +417,10 @@ namespace feature
       FileReader reader(tempDatFilePath);
 
       feature::DataHeader header;
-      header.SetCodingParams(serial::CodingParams(30, midPoints.GetCenter()));
+      uint32_t coordBits = 27;
+      if (bWorld)
+        coordBits -= (scales::GetUpperScale() - scales::GetUpperWorldScale());
+      header.SetCodingParams(serial::CodingParams(coordBits, midPoints.GetCenter()));
       header.SetScales(bWorld ? g_arrWorldScales : g_arrCountryScales);
 
       FeaturesCollector2 collector(datFilePath, header);
