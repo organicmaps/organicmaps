@@ -15,6 +15,11 @@ public:
   enum { DEPTH_LEVELS = kDepthLevels };
   enum { MAX_COORD = 1 << DEPTH_LEVELS };
 
+  CellId() : m_Bits(0), m_Level(0)
+  {
+    ASSERT(IsValid(), ());
+  }
+
   explicit CellId(string const & s)
   {
     *this = FromString(s);
