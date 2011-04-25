@@ -10,9 +10,6 @@
   #include <pthread.h>
 #endif
 
-#include "../std/shared_ptr.hpp"
-
-
 namespace threads
 {
   /// Mutex primitive, used only for synchronizing this process threads
@@ -54,6 +51,8 @@ namespace threads
     {
 #if defined(OMIM_OS_WINDOWS_NATIVE)
       ::DeleteCriticalSection(&m_Mutex);
+#elif !defined(OMIM_OS_BADA)
+      ::pthread_mutex_destroy(&m_Mutex);
 #endif
     }
     
@@ -63,9 +62,9 @@ namespace threads
       m_Mutex.Acquire();
 #elif defined(OMIM_OS_WINDOWS_NATIVE)
       ::EnterCriticalSection(&m_Mutex);
-  #else
+#else
       ::pthread_mutex_lock(&m_Mutex);
-  #endif
+#endif
     }
 
     void Unlock()
@@ -74,9 +73,9 @@ namespace threads
       m_Mutex.Release();
 #elif defined(OMIM_OS_WINDOWS_NATIVE)
       ::LeaveCriticalSection(&m_Mutex);
-  #else
+#else
       ::pthread_mutex_unlock(&m_Mutex);
-  #endif
+#endif
     }
 
   };

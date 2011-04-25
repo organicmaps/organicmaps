@@ -13,19 +13,6 @@
 
 namespace threads
 {
-#if !defined(OMIM_OS_WINDOWS_NATIVE) && !defined(OMIM_OS_BADA)
-  // only for pthreads
-  struct CondDeleter
-  {
-    void operator()(pthread_cond_t * var)
-    {
-      ::pthread_cond_destroy(var);
-      delete var;
-    }
-  };
-
-#endif
-
   /// Implements mutexed condition semantics
   class Condition
   {
@@ -36,7 +23,7 @@ namespace threads
   #if defined(OMIM_OS_WINDOWS_NATIVE)
     CONDITION_VARIABLE m_Condition;
   #else
-    shared_ptr<pthread_cond_t> m_Condition;
+    pthread_cond_t m_Condition;
   #endif
 #endif
 
@@ -48,8 +35,15 @@ namespace threads
 #elif defined(OMIM_OS_WINDOWS_NATIVE)
       ::InitializeConditionVariable(&m_Condition);
 #else
-      m_Condition = shared_ptr<pthread_cond_t>(new pthread_cond_t(), CondDeleter());
-      ::pthread_cond_init(m_Condition.get(), 0);
+      ::pthread_cond_init(&m_Condition, 0);
+#endif
+    }
+
+    ~Condition()
+    {
+#if !defined(OMIM_OS_WINDOWS_NATIVE) && !defined(OMIM_OS_BADA)
+      // only for pthreads
+      ::pthread_cond_destroy(&m_Condition);
 #endif
     }
 
@@ -60,7 +54,7 @@ namespace threads
 #elif defined(OMIM_OS_WINDOWS_NATIVE)
       ::WakeConditionVariable(&m_Condition);
 #else
-      ::pthread_cond_signal(m_Condition.get());
+      ::pthread_cond_signal(&m_Condition);
 #endif
     }
 
@@ -71,7 +65,7 @@ namespace threads
 #elif defined(OMIM_OS_WINDOWS_NATIVE)
       ::SleepConditionVariableCS(&m_Condition, &m_Mutex.m_Mutex, INFINITE);
 #else
-      ::pthread_cond_wait(m_Condition.get(), &m_Mutex.m_Mutex);
+      ::pthread_cond_wait(&m_Condition, &m_Mutex.m_Mutex);
 #endif
     }
 
