@@ -2,7 +2,10 @@
 
 #include "robust_orientation.hpp"
 
-#include "../3party/robust/predicates.c"
+extern "C"
+{
+  #include "../3party/robust/predicates.c"
+}
 
 #include "../base/start_mem_debug.hpp"
 
