@@ -143,8 +143,8 @@ namespace m2
           {
             bool const PrevGreaterCurr = delta > 0.0;
 
-            if (rCheck && (cp > 0 == PrevGreaterCurr)) ++rCross;
-            if (lCheck && (cp > 0 != PrevGreaterCurr)) ++lCross;
+            if (rCheck && ((cp > 0) == PrevGreaterCurr)) ++rCross;
+            if (lCheck && ((cp > 0) != PrevGreaterCurr)) ++lCross;
           }
         }
 

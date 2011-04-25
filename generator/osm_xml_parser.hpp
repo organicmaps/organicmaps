@@ -99,9 +99,9 @@ namespace osm
     void AddWay(OsmId id, OsmTags const & tags, OsmIds const & nodeIds);
     void AddRelation(OsmId id, OsmTags const & tags, RelationMembers const & members);
 
-    OsmNode NodeById(OsmId id) const throw (OsmInvalidIdException);
-    OsmWay WayById(OsmId id) const throw (OsmInvalidIdException);
-    OsmRelation RelationById(OsmId id) const throw (OsmInvalidIdException);
+    OsmNode NodeById(OsmId id) const;         //!< @throws OsmInvalidIdException
+    OsmWay WayById(OsmId id) const;           //!< @throws OsmInvalidIdException
+    OsmRelation RelationById(OsmId id) const; //!< @throws OsmInvalidIdException
 
     OsmIds RelationsByKey(string const & key) const;
     OsmIds RelationsByTag(OsmTag const & tag) const;

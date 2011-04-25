@@ -32,7 +32,9 @@ void IndexAard(sl::SlofIndexer & indexer)
   for (uint32_t id = 0; id < inputDictionary.KeyCount(); ++id)
   {
     if ((id % 5000) == 0)
+    {
       LOG(LINFO, (id, "done."));
+    }
     // TODO: Handle redirects.
     // TODO: Handle several keys for article?
     string key, article;
@@ -100,7 +102,9 @@ void IndexJson(sl::SlofIndexer & indexer)
     CHECK(keysToArticles.insert(make_pair(title, articleId)).second, (i));
 
     if ((i & 127) == 0)
+    {
       LOG(LINFO, ("Done:", i));
+    }
   }
   articles.clear();
 

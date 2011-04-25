@@ -101,7 +101,7 @@ namespace osm
     m_relations.insert(relations_type::value_type(id, OsmRelation(id, tags, members)));
   }
 
-  OsmNode OsmRawData::NodeById(OsmId id) const throw (OsmInvalidIdException)
+  OsmNode OsmRawData::NodeById(OsmId id) const
   {
     nodes_type::const_iterator found = m_nodes.find(id);
     if (found == m_nodes.end())
@@ -109,7 +109,7 @@ namespace osm
     return found->second;
   }
 
-  OsmWay OsmRawData::WayById(OsmId id) const throw (OsmInvalidIdException)
+  OsmWay OsmRawData::WayById(OsmId id) const
   {
     ways_type::const_iterator found = m_ways.find(id);
     if (found == m_ways.end())
@@ -117,7 +117,7 @@ namespace osm
     return found->second;
   }
 
-  OsmRelation OsmRawData::RelationById(OsmId id) const throw (OsmInvalidIdException)
+  OsmRelation OsmRawData::RelationById(OsmId id) const
   {
     relations_type::const_iterator found = m_relations.find(id);
     if (found == m_relations.end())

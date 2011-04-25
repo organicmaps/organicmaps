@@ -36,7 +36,7 @@ namespace serial
     // TODO: Factor out.
     int64_t GetBasePointInt64() const { return static_cast<int64_t>(m_BasePointUint64); }
 
-    uint32_t const GetCoordBits() const { return m_CoordBits; }
+    uint32_t GetCoordBits() const { return m_CoordBits; }
 
     template <typename WriterT> void Save(WriterT & writer) const
     {
