@@ -26,7 +26,6 @@ SOURCES += \
   packer_test.cpp \
   segments_intersect_test.cpp \
   covering_test.cpp \
-  covering_stream_optimizer_test.cpp \
   pointu_to_uint64_test.cpp \
   simplification_test.cpp \
   transformations_test.cpp \

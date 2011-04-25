@@ -23,7 +23,6 @@ HEADERS += \
   cellid.hpp \
   rect_intersect.hpp \
   covering.hpp \
-  covering_stream_optimizer.hpp \
   packer.hpp \
   pointu_to_uint64.hpp \
   simplification.hpp \

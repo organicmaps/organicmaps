@@ -8,90 +8,79 @@
 #include "../std/algorithm.hpp"
 #include "../std/bind.hpp"
 
-// TODO: Redo polyline covering right.
-
 namespace
 {
-  template <class BoundsT, class CoveringT>
-  class TriangleCoverer
-  {
-  public:
-    typedef typename CoveringT::CellId CellId;
-    typedef CellIdConverter<BoundsT, CellId> CellIdConverterType;
 
-    explicit TriangleCoverer(CoveringT const & covering) : m_Covering(1, covering) {}
-
-    void operator () (m2::PointD const & a, m2::PointD const & b, m2::PointD const & c)
-    {
-      AddTriangle(a, b, c);
-    }
-
-    void AddTriangle(m2::PointD const & a, m2::PointD const & b, m2::PointD const & c)
-    {
-      m_Covering.push_back(CoveringT(
-          m2::PointD(CellIdConverterType::XToCellIdX(a.x), CellIdConverterType::YToCellIdY(a.y)),
-          m2::PointD(CellIdConverterType::XToCellIdX(b.x), CellIdConverterType::YToCellIdY(b.y)),
-          m2::PointD(CellIdConverterType::XToCellIdX(c.x), CellIdConverterType::YToCellIdY(c.y))));
-      while (m_Covering.size() > 1 &&
-             m_Covering[m_Covering.size() - 2].Size() < m_Covering.back().Size())
-      {
-        m_Covering[m_Covering.size() - 2].Append(m_Covering.back());
-        m_Covering.pop_back();
-      }
-    }
-
-    CoveringT const & GetCovering()
-    {
-      ASSERT(!m_Covering.empty(), ());
-#ifdef DEBUG
-      // Make appends in another order and assert that result is the same.
-      CoveringT dbgCovering(m_Covering[0]);
-      for (size_t i = 1; i < m_Covering.size(); ++i)
-        dbgCovering.Append(m_Covering[i]);
-#endif
-      while (m_Covering.size() > 1)
-      {
-        m_Covering[m_Covering.size() - 2].Append(m_Covering.back());
-        m_Covering.pop_back();
-      }
-#ifdef DEBUG
-      vector<CellId> dbgIds, ids;
-      dbgCovering.OutputToVector(dbgIds);
-      m_Covering[0].OutputToVector(ids);
-      ASSERT_EQUAL(dbgIds, ids, ());
-#endif
-      return m_Covering[0];
-    }
-
-  private:
-    vector<CoveringT> m_Covering;
-  };
-}
-
-vector<int64_t> covering::CoverFeature(FeatureType const & f, int level)
+class FeatureIntersector
 {
-  vector<CoordPointT> geometry;
-  f.ForEachPoint(MakeBackInsertFunctor(geometry), level);
-
-  vector<RectId> ids;
-  if (!geometry.empty())
+public:
+  struct Trg
   {
-    if (geometry.size() > 1)
-    {
-      // TODO: Tweak CoverPolyLine() depth level.
-      CoverPolyLine<MercatorBounds, RectId>(geometry, RectId::DEPTH_LEVELS - 1, ids);
-    }
-    else
-      ids.push_back(CoverPoint<MercatorBounds, RectId>(geometry[0]));
+    m2::PointD m_A, m_B, m_C;
+    Trg(m2::PointU a, m2::PointU b, m2::PointU c) : m_A(a), m_B(b), m_C(c) {}
+  };
+  vector<m2::PointD> m_Polyline;
+  vector<Trg> m_Trg;
+
+  covering::CellObjectIntersection operator() (RectId const & cell) const
+  {
+    for (size_t i = 1; i < m_Polyline.size(); ++i)
+      if (covering::IntersectCellWithLine(cell, m_Polyline[i], m_Polyline[i-1]))
+        return covering::CELL_OBJECT_INTERSECT;
+    for (size_t i = 0; i < m_Trg.size(); ++i)
+      if (covering::CellObjectIntersection res =
+          covering::IntersectCellWithTriangle(cell, m_Trg[i].m_A, m_Trg[i].m_B, m_Trg[i].m_C))
+        return res == covering::OBJECT_INSIDE_CELL ? covering::CELL_OBJECT_INTERSECT : res;
+    return covering::CELL_OBJECT_NO_INTERSECTION;
   }
 
-  typedef covering::Covering<RectId> CoveringType;
-  typedef TriangleCoverer<MercatorBounds, CoveringType> CovererType;
-  CovererType coverer = CovererType(CoveringType(ids));
-  f.ForEachTriangleRef(coverer, level);
+  typedef CellIdConverter<MercatorBounds, RectId> CellIdConverterType;
 
-  vector<int64_t> res;
-  coverer.GetCovering().OutputToVector(res);
+  static m2::PointD ConvertPoint(double x, double y)
+  {
+    return m2::PointD(CellIdConverterType::XToCellIdX(x),
+                      CellIdConverterType::YToCellIdY(y));
+  }
+
+  void operator() (pair<double, double> const & pt)
+  {
+    m_Polyline.push_back(ConvertPoint(pt.first, pt.second));
+  }
+
+  void operator() (m2::PointD const & a, m2::PointD const & b, m2::PointD const & c)
+  {
+    m_Trg.push_back(Trg(ConvertPoint(a.x, a.y),
+                        ConvertPoint(b.x, b.y),
+                        ConvertPoint(c.x, c.y)));
+  }
+};
+
+}
+
+vector<int64_t> covering::CoverFeature(FeatureType const & f,
+                                       uint64_t cellPenaltyAreaPerNode)
+{
+  FeatureIntersector featureIntersector;
+  f.ForEachPointRef(featureIntersector, -1);
+  f.ForEachTriangleRef(featureIntersector, -1);
+
+  CHECK(!featureIntersector.m_Trg.empty() || !featureIntersector.m_Polyline.empty(), \
+        (f.DebugString(-1)));
+
+  if (featureIntersector.m_Trg.empty() && featureIntersector.m_Polyline.size() == 1)
+  {
+    m2::PointD pt = featureIntersector.m_Polyline[0];
+    return vector<int64_t>(
+          1, RectId::FromXY(static_cast<uint32_t>(pt.x), static_cast<uint32_t>(pt.y)).ToInt64());
+  }
+
+  vector<RectId> cells;
+  covering::CoverObject(featureIntersector, cellPenaltyAreaPerNode, cells);
+
+  vector<int64_t> res(cells.size());
+  for (size_t i = 0; i < cells.size(); ++i)
+    res[i] = cells[i].ToInt64();
+
   return res;
 }
 

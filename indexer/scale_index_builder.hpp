@@ -5,8 +5,6 @@
 #include "interval_index_builder.hpp"
 #include "cell_id.hpp"
 
-#include "../geometry/covering_stream_optimizer.hpp"
-
 #include "../coding/dd_vector.hpp"
 #include "../coding/file_sort.hpp"
 #include "../coding/var_serial_vector.hpp"
@@ -71,7 +69,7 @@ public:
   {
     if (FeatureShouldBeIndexed(f))
     {
-      vector<int64_t> const cells = covering::CoverFeature(f, GetGeometryScale());
+      vector<int64_t> const cells = covering::CoverFeature(f, 1025);
       for (vector<int64_t>::const_iterator it = cells.begin(); it != cells.end(); ++it)
         m_Sorter.Add(CellFeaturePair(*it, offset));
       ++m_NumFeatures;
@@ -112,31 +110,6 @@ private:
   SinkT & m_Sink;
 };
 
-template <class SinkT>
-class FeatureCoveringOptimizeProxySink
-{
-public:
-  FeatureCoveringOptimizeProxySink(SinkT & sink)
-    : m_Sink(sink), m_Optimizer(m_Sink, 100, 10)
-  {
-  }
-
-  ~FeatureCoveringOptimizeProxySink()
-  {
-    m_Optimizer.Flush();
-  }
-
-  void operator () (CellFeaturePair const & cellFeaturePair)
-  {
-    m_Optimizer.Add(cellFeaturePair.GetCell(), cellFeaturePair.GetFeature());
-  }
-
-private:
-  CellFeaturePairSinkAdapter<SinkT> m_Sink;
-  covering::CoveringStreamOptimizer<RectId, uint32_t, CellFeaturePairSinkAdapter<SinkT> >
-    m_Optimizer;
-};
-
 template <class FeaturesVectorT, class WriterT>
 inline void IndexScales(uint32_t bucketsCount,
                         FeaturesVectorT const & featuresVector,
@@ -156,16 +129,11 @@ inline void IndexScales(uint32_t bucketsCount,
     {
       FileWriter cellsToFeaturesWriter(tmpFilePrefix + ".c2f.sorted");
 
-      typedef FeatureCoveringOptimizeProxySink<FileWriter> OptimizeSink;
-      OptimizeSink optimizeSink(cellsToFeaturesWriter);
-      typedef FileSorter<CellFeaturePair, OptimizeSink> SorterType;
-      SorterType sorter(1024*1024, tmpFilePrefix + ".c2f.tmp", optimizeSink);
-      /*
       typedef FileSorter<CellFeaturePair, WriterFunctor<FileWriter> > SorterType;
       WriterFunctor<FileWriter> out(cellsToFeaturesWriter);
       SorterType sorter(1024*1024, tmpFilePrefix + ".c2f.tmp", out);
-      */
-      featuresVector.ForEachOffset(FeatureCoverer<SorterType>(bucket, sorter, numFeatures));
+      featuresVector.ForEachOffset(
+            FeatureCoverer<SorterType>(bucket, sorter, numFeatures));
       // LOG(LINFO, ("Sorting..."));
       sorter.SortAndFinish();
     }
