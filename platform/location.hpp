@@ -19,8 +19,9 @@ namespace location
   };
 
   /// @note always check m_status before using this structure
-  struct GpsInfo
+  class GpsInfo
   {
+  public:
     TLocationStatus m_status;
     double m_timestamp;           //!< how many seconds ago the position was retrieved
     double m_latitude;            //!< degrees
@@ -33,8 +34,9 @@ namespace location
   };
 
   /// @note always check m_status before using this structure
-  struct CompassInfo
+  class CompassInfo
   {
+  public:
     double m_timestamp;           //!< how many seconds ago the heading was retrieved
     double m_magneticHeading;     //!< positive degrees from the magnetic North
     double m_trueHeading;         //!< positive degrees from the true North
