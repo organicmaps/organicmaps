@@ -1,5 +1,7 @@
 #pragma once
 #include "base.hpp"
+
+#define BOOST_DATE_TIME_NO_LIB
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 namespace my

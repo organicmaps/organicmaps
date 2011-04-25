@@ -2,10 +2,10 @@
 
 using namespace location;
 
-class WindowsLocationService : public LocationService
+class QtLocationService : public LocationService
 {
 public:
-  virtual void StartUpdate(bool useAccurateMode)
+  virtual void StartUpdate(bool /*useAccurateMode*/)
   {
     // @TODO
   }
@@ -18,6 +18,6 @@ public:
 
 extern "C" location::LocationService & GetLocationService()
 {
-  static WindowsLocationService ls;
+  static QtLocationService ls;
   return ls;
 }

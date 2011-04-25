@@ -29,6 +29,22 @@
 
 #define IDM_ABOUT_DIALOG        1001
 
+#ifdef DEBUG // code removed for desktop releases
+#include "update_dialog.hpp"
+#include "searchwindow.hpp"
+#include "classificator_tree.hpp"
+#include "preferences_dialog.hpp"
+#include "info_dialog.hpp"
+#include "guide_page.hpp"
+
+#include "../indexer/classificator.hpp"
+
+#include <QtCore/QFile>
+
+#define IDM_PREFERENCES_DIALOG  1002
+
+#endif // DEBUG
+
 namespace qt
 {
 
@@ -71,7 +87,7 @@ MainWindow::MainWindow()
     item.dwTypeData = const_cast<char *>(prefsStr.data());
     item.cch = prefsStr.size();
     ::InsertMenuItemA(menu, ::GetMenuItemCount(menu) - 1, TRUE, &item);
- #endif DEBUG
+ #endif // DEBUG
     item.wID = IDM_ABOUT_DIALOG;
     QByteArray const aboutStr = tr("About MapsWithMe...").toLocal8Bit();
     item.dwTypeData = const_cast<char *>(aboutStr.data());

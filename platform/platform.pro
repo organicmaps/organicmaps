@@ -35,8 +35,6 @@ HEADERS += \
 mac|iphone* {
     OBJECTIVE_SOURCES += apple_location_service.mm
     LIBS += -framework CoreLocation -framework Foundation
-}
-
-win {
-    SOURCES += windows_location_service.cpp
+} else {
+    SOURCES += qt_location_service.cpp
 }
