@@ -2,11 +2,10 @@
 #include "../geometry/point2d.hpp"
 #include "../base/assert.hpp"
 #include "../base/base.hpp"
+#include "../base/buffer_vector.hpp"
 #include "../base/logging.hpp"
 #include "../base/math.hpp"
 #include "../std/algorithm.hpp"
-#include "../std/utility.hpp"
-#include "../std/vector.hpp"
 
 namespace covering
 {
@@ -60,9 +59,9 @@ CellObjectIntersection IntersectCellWithTriangle(
   return i1;
 }
 
-template <class CellIdT, typename IntersectF>
-void CoverObject(IntersectF const & intersect, uint64_t cellPenaltyArea, vector<CellIdT> & out,
-                 CellIdT cell = CellIdT::Root())
+template <class CellIdT, class CellIdContainerT, typename IntersectF>
+void CoverObject(IntersectF const & intersect, uint64_t cellPenaltyArea, CellIdContainerT & out,
+                 CellIdT cell)
 {
   uint64_t const cellArea = my::sq(uint64_t(1 << (CellIdT::DEPTH_LEVELS - 1 - cell.Level())));
   CellObjectIntersection const intersection = intersect(cell);
@@ -77,10 +76,9 @@ void CoverObject(IntersectF const & intersect, uint64_t cellPenaltyArea, vector<
     return;
   }
 
-  vector<CellIdT> subdiv;
+  buffer_vector<CellIdT, 32> subdiv;
   for (uint8_t i = 0; i < 4; ++i)
     CoverObject(intersect, cellPenaltyArea, subdiv, cell.Child(i));
-
 
   uint64_t subdivArea = 0;
   for (size_t i = 0; i < subdiv.size(); ++i)
@@ -88,11 +86,11 @@ void CoverObject(IntersectF const & intersect, uint64_t cellPenaltyArea, vector<
 
   ASSERT(!subdiv.empty(), (cellPenaltyArea, out, cell));
 
-  if (subdiv.empty() ||
-      cellPenaltyArea * (int(subdiv.size()) - 1) >= cellArea - subdivArea)
+  if (subdiv.empty() || cellPenaltyArea * (int(subdiv.size()) - 1) >= cellArea - subdivArea)
     out.push_back(cell);
   else
-    out.insert(out.end(), subdiv.begin(), subdiv.end());
+    for (size_t i = 0; i < subdiv.size(); ++i)
+      out.push_back(subdiv[i]);
 }
 
 

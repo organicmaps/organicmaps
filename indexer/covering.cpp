@@ -7,6 +7,7 @@
 #include "../base/stl_add.hpp"
 #include "../std/algorithm.hpp"
 #include "../std/bind.hpp"
+#include "../std/vector.hpp"
 
 namespace
 {
@@ -75,7 +76,7 @@ vector<int64_t> covering::CoverFeature(FeatureType const & f,
   }
 
   vector<RectId> cells;
-  covering::CoverObject(featureIntersector, cellPenaltyAreaPerNode, cells);
+  covering::CoverObject(featureIntersector, cellPenaltyAreaPerNode, cells, RectId::Root());
 
   vector<int64_t> res(cells.size());
   for (size_t i = 0; i < cells.size(); ++i)
