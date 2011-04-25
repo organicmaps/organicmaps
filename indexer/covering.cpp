@@ -59,7 +59,7 @@ public:
 }
 
 vector<int64_t> covering::CoverFeature(FeatureType const & f,
-                                       uint64_t cellPenaltyAreaPerNode)
+                                       uint64_t cellPenaltyArea)
 {
   FeatureIntersector featureIntersector;
   f.ForEachPointRef(featureIntersector, -1);
@@ -76,7 +76,7 @@ vector<int64_t> covering::CoverFeature(FeatureType const & f,
   }
 
   vector<RectId> cells;
-  covering::CoverObject(featureIntersector, cellPenaltyAreaPerNode, cells, RectId::Root());
+  covering::CoverObject(featureIntersector, cellPenaltyArea, cells, RectId::Root());
 
   vector<int64_t> res(cells.size());
   for (size_t i = 0; i < cells.size(); ++i)
