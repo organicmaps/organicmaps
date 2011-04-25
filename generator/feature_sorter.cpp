@@ -300,7 +300,7 @@ namespace feature
         if (!IsPolygonCCW(points.begin(), points.end()))
         {
           reverse(points.begin(), points.end());
-          CHECK ( IsPolygonCCW(points.begin(), points.end()), (points) );
+          ASSERT ( IsPolygonCCW(points.begin(), points.end()), (points) );
         }
 
         size_t const index = FindSingleStrip(count,
