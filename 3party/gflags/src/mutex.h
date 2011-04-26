@@ -117,7 +117,7 @@
 #if defined(NO_THREADS)
   typedef int MutexType;      // to keep a lock-count
 #elif defined(_WIN32) || defined(__CYGWIN32__) || defined(__CYGWIN64__)
-# define WIN32_LEAN_AND_MEAN  // We only need minimal includes
+//# define WIN32_LEAN_AND_MEAN  // We only need minimal includes
 # ifdef GMUTEX_TRYLOCK
   // We need Windows NT or later for TryEnterCriticalSection().  If you
   // don't need that functionality, you can remove these _WIN32_WINNT

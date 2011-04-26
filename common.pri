@@ -65,6 +65,14 @@ for(project, DEPENDENCIES) {
 
 INCLUDEPATH += $$ROOT_DIR/3party/protobuf/src/
 
+win32 {
+  DEFINES += _WIN32_WINNT=0x0501
+  DEFINES += WINVER=0x0501
+  DEFINES += _WIN32_IE=0x0501
+  DEFINES += WIN32_LEAN_AND_MEAN=1
+  DEFINES += NTDDI_VERSION=0x05010000
+}
+
 # Windows-specific options for all projects
 win32-msvc2008 {
   QMAKE_CLEAN += *.user

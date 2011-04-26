@@ -35,14 +35,14 @@
 #include <stdio.h>
 #include <malloc.h>
 
-#define WIN32_LEAN_AND_MEAN
+//#define WIN32_LEAN_AND_MEAN
 #define NOGDI
 #define NOIME
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
 
-#define _WIN32_WINNT 0x0400
+//#define _WIN32_WINNT 0x0400
 #ifndef STRICT
   #define STRICT 1
 #endif
