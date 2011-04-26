@@ -12,6 +12,13 @@
 
 namespace threads
 {
+  class Condition;
+  namespace impl
+  {
+    class ConditionImpl;
+    class ImplWinVista;
+  }
+
   /// Mutex primitive, used only for synchronizing this process threads
   /// based on Critical Section under Win32 and pthreads under Linux
   /// @author Siarhei Rachytski
@@ -32,7 +39,9 @@ namespace threads
     Mutex const & operator=(Mutex const &);
     Mutex(Mutex const &);
 
-    friend class Condition;
+    friend class threads::impl::ConditionImpl;
+    friend class threads::impl::ImplWinVista;
+    friend class threads::Condition;
 
   public:
 

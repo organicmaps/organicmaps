@@ -9,14 +9,17 @@
 
 namespace threads
 {
-  class Condition::Impl
+  namespace impl
   {
-  public:
-    Mutex m_Mutex;
-    pthread_cond_t m_Condition;
-  };
-  
-  Condition::Condition() : m_pImpl(new Condition::Impl)
+    class ConditionImpl
+    {
+    public:
+      Mutex m_Mutex;
+      pthread_cond_t m_Condition;
+    };
+  }
+
+  Condition::Condition() : m_pImpl(new impl::ConditionImpl)
   {
     ::pthread_cond_init(&m_pImpl->m_Condition, 0);
   }

@@ -8,13 +8,16 @@
 
 namespace threads
 {
-  class Condition::Impl
+  namespace impl
   {
-  public:
-    Osp::Base::Runtime::Monitor m_Monitor;
-  };
+    class ConditionImpl
+    {
+    public:
+      Osp::Base::Runtime::Monitor m_Monitor;
+    };
+  }
 
-  Condition::Condition() : m_pImpl(new Condition::Impl())
+  Condition::Condition() : m_pImpl(new impl::ConditionImpl())
   {   
     m_pImpl->m_Monitor.Construct();
   }
