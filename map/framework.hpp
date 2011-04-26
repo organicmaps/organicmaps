@@ -253,14 +253,6 @@ public:
 
   void EnterBackground();
 
-  void CenterViewport(m2::PointD const & pt);
-
-  void ShowRect(m2::RectD const & rect);
-
-  void MemoryWarning();
-
-  void EnterBackground();
-
   void EnterForeground();
 
   /// @TODO refactor to accept point and min visible length
