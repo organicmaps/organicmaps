@@ -19,6 +19,7 @@ SOURCES += \
     shared_buffer_manager.cpp \
     memory_mapped_file.cpp \
     path_utils.cpp \
+    condition.cpp \
 
 HEADERS += \
     SRC_FIRST.hpp \
