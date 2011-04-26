@@ -22,7 +22,7 @@ int main(int argc, char * argv [])
   if (!FLAGS_lookup.empty())
   {
     CHECK(m_pDic.get(), ("Dictionary should not be empty."));
-    for (int i = 0; i < m_pDic->KeyCount(); ++i)
+    for (sl::Dictionary::Id i = 0; i < m_pDic->KeyCount(); ++i)
     {
       string key;
       m_pDic->KeyById(i, key);

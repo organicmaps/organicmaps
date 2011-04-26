@@ -91,7 +91,7 @@ namespace feature
     FeaturesCollector2(string const & fName, feature::DataHeader const & header)
       : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName), m_header(header)
     {
-      for (int i = 0; i < m_header.GetScalesCount(); ++i)
+      for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
       {
         string const postfix = utils::to_string(i);
         m_geoFile.push_back(new FileWriter(fName + GEOMETRY_FILE_TAG + postfix));
@@ -112,7 +112,7 @@ namespace feature
 
       m_writer.Append(m_datFile.GetName(), DATA_FILE_TAG);
 
-      for (int i = 0; i < m_header.GetScalesCount(); ++i)
+      for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
       {
         string const geomFile = m_geoFile[i]->GetName();
         string const trgFile = m_trgFile[i]->GetName();

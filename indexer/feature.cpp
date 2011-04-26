@@ -912,7 +912,7 @@ void FeatureType::ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & o
 {
   ASSERT_GREATER ( mask, 0, () );
 
-  int index = 0;
+  size_t index = 0;
   while (mask > 0)
   {
     ASSERT_LESS ( index, m_header->GetScalesCount(), () );
