@@ -1,10 +1,14 @@
 #pragma once
 #include "../coding/endianness.hpp"
+#include "../coding/byte_stream.hpp"
+#include "../coding/varint.hpp"
 #include "../base/assert.hpp"
 #include "../base/base.hpp"
+#include "../base/bits.hpp"
+#include "../base/buffer_vector.hpp"
 #include "../base/macros.hpp"
-
 #include "../std/memcpy.hpp"
+#include "../std/static_assert.hpp"
 
 class IntervalIndexBase
 {
@@ -12,31 +16,24 @@ public:
 #pragma pack(push, 1)
   struct Header
   {
-    uint8_t m_CellIdLeafBytes;
+    uint8_t m_Levels;
+    uint8_t m_BitsPerLevel;
   };
 #pragma pack(pop)
+  STATIC_ASSERT(sizeof(Header) == 2);
 
-  class Index
+  struct Index
   {
-  public:
-    uint32_t GetBaseOffset() const { return UINT32_FROM_UINT16(m_BaseOffsetHi, m_BaseOffsetLo); }
-    void SetBaseOffset(uint32_t baseOffset)
-    {
-      m_BaseOffsetLo = UINT32_LO(baseOffset);
-      m_BaseOffsetHi = UINT32_HI(baseOffset);
-    }
+    inline uint32_t GetOffset() const { return m_Offset; }
+    inline uint32_t Bit(uint32_t i) const { return (m_BitMask >> i) & 1; }
 
-  private:
-    uint16_t m_BaseOffsetLo;
-    uint16_t m_BaseOffsetHi;
-  public:
-    uint16_t m_Count[256];
+    uint32_t m_Offset;
+    uint32_t m_BitMask;
   };
-  STATIC_ASSERT(sizeof(Index) == 2 * 258);
+  STATIC_ASSERT(sizeof(Index) == 8);
 };
 
-// TODO: IntervalIndex shouldn't do SwapIfBigEndian for ValueT.
-template <typename ValueT, class ReaderT>
+template <class ReaderT>
 class IntervalIndex : public IntervalIndexBase
 {
 public:
@@ -50,21 +47,26 @@ public:
     vector<char> m_IntervalIndexCache;
   };
 
-  IntervalIndex(ReaderT const & reader, int cellIdBytes = 5)
-    : m_Reader(reader), m_CellIdBytes(cellIdBytes)
+  explicit IntervalIndex(ReaderT const & reader)
+    : m_Reader(reader)
   {
     m_Reader.Read(0, &m_Header, sizeof(m_Header));
+    ASSERT_EQUAL(m_Header.m_BitsPerLevel, 5, ());
     ReadIndex(sizeof(m_Header), m_Level0Index);
   }
 
   template <typename F>
   void ForEach(F const & f, uint64_t beg, uint64_t end, Query & query) const
   {
-    ASSERT_LESS(beg, 1ULL << 8 * m_CellIdBytes, (beg, end));
-    ASSERT_LESS_OR_EQUAL(end, 1ULL << 8 * m_CellIdBytes, (beg, end));
-    // end is inclusive in ForEachImpl().
-    --end;
-    ForEachImpl(f, beg, end, m_Level0Index, m_CellIdBytes - 1, query);
+    ASSERT_LESS(beg, 1ULL << m_Header.m_Levels * m_Header.m_BitsPerLevel, (beg, end));
+    ASSERT_LESS_OR_EQUAL(end, 1ULL << m_Header.m_Levels * m_Header.m_BitsPerLevel, (beg, end));
+    if (beg != end)
+    {
+      // end is inclusive in ForEachImpl().
+      --end;
+      ForEachImpl(f, beg, end, m_Level0Index, sizeof(m_Header) + sizeof(m_Level0Index),
+                  (m_Header.m_Levels - 1) * m_Header.m_BitsPerLevel, query);
+    }
   }
 
   template <typename F>
@@ -76,52 +78,64 @@ public:
 
 private:
   template <typename F>
-  void ForEachImpl(F const & f, uint64_t beg, uint64_t end, Index const & index, int level,
-                   Query & query) const
+  void ForEachImpl(F const & f, uint64_t beg, uint64_t end, Index const & index,
+                   uint32_t baseOffset, int skipBits, Query & query) const
   {
-    uint32_t const beg0 = static_cast<uint32_t>(beg >> (8 * level));
-    uint32_t const end0 = static_cast<uint32_t>(end >> (8 * level));
-    uint32_t cumCount = 0;
-    for (uint32_t i = 0; i < beg0; ++i)
-      cumCount += index.m_Count[i];
-    for (uint32_t i = beg0; i <= end0; ++i)
+    uint32_t const beg0 = static_cast<uint32_t>(beg >> skipBits);
+    uint32_t const end0 = static_cast<uint32_t>(end >> skipBits);
+    ASSERT_GREATER_OR_EQUAL(skipBits, 0, (beg, end, baseOffset));
+    ASSERT_LESS_OR_EQUAL(beg, end, (baseOffset, skipBits));
+    ASSERT_LESS_OR_EQUAL(beg0, end0, (beg, end, baseOffset, skipBits));
+    ASSERT_LESS(end0, (1 << m_Header.m_BitsPerLevel), (beg0, beg, end, baseOffset, skipBits));
+
+    if (skipBits > 0)
     {
-      ASSERT_LESS(i, 256, ());
-      if (index.m_Count[i] != 0)
+      uint32_t cumCount = 0;
+      for (uint32_t i = 0; i < beg0; ++i)
+        cumCount += index.Bit(i);
+      for (uint32_t i = beg0; i <= end0; ++i)
       {
-        uint64_t const levelBytesFF = (1ULL << 8 * level) - 1;
-        uint64_t const b1 = (i == beg0) ? (beg & levelBytesFF) : 0;
-        uint64_t const e1 = (i == end0) ? (end & levelBytesFF) : levelBytesFF;
-        if (level > m_Header.m_CellIdLeafBytes)
+        if (index.Bit(i))
         {
+          uint64_t const levelBytesFF = (1ULL << skipBits) - 1;
+          uint64_t const b1 = (i == beg0) ? (beg & levelBytesFF) : 0;
+          uint64_t const e1 = (i == end0) ? (end & levelBytesFF) : levelBytesFF;
+
           Index index1;
-          ReadIndex(index.GetBaseOffset() + (cumCount * sizeof(Index)), index1);
-          ForEachImpl(f, b1, e1, index1, level - 1, query);
+          uint32_t const offset = baseOffset + index.GetOffset() + (cumCount * sizeof(Index));
+          ReadIndex(offset, index1);
+          ForEachImpl(f, b1, e1, index1, offset + sizeof(Index),
+                      skipBits - m_Header.m_BitsPerLevel, query);
+          ++cumCount;
         }
-        else
-        {
-          // TODO: Use binary search here if count is very large.
-          uint32_t const step = sizeof(ValueT) + m_Header.m_CellIdLeafBytes;
-          uint32_t const count = index.m_Count[i];
-          uint32_t pos = index.GetBaseOffset() + (cumCount * step);
-          size_t const readSize = step * count;
-          query.m_IntervalIndexCache.assign(readSize, 0);
-          char * pData = &query.m_IntervalIndexCache[0];
-          m_Reader.Read(pos, pData, readSize);
-          for (uint32_t j = 0; j < count; ++j, pData += step)
-          // for (uint32_t j = 0; j < count; ++j, pos += step)
-          {
-            ValueT value;
-            uint32_t cellIdOnDisk = 0;
-            memcpy(&value, pData, sizeof(ValueT));
-            memcpy(&cellIdOnDisk, pData + sizeof(ValueT), m_Header.m_CellIdLeafBytes);
-            // m_Reader.Read(pos, &value, step);
-            uint32_t const cellId = SwapIfBigEndian(cellIdOnDisk);
-            if (b1 <= cellId && cellId <= e1)
-              f(SwapIfBigEndian(value));
-          }
-        }
-        cumCount += index.m_Count[i];
+      }
+    }
+    else
+    {
+      Index nextIndex;
+      ReadIndex(baseOffset, nextIndex);
+      uint32_t const begOffset = baseOffset + index.GetOffset();
+      uint32_t const endOffset = baseOffset + sizeof(Index) + nextIndex.GetOffset();
+      ASSERT_LESS(begOffset, endOffset, (beg, end, baseOffset, skipBits));
+      buffer_vector<uint8_t, 256> data(endOffset - begOffset);
+      m_Reader.Read(begOffset, &data[0], data.size());
+      ArrayByteSource src(&data[0]);
+      void const * const pEnd = &data[0] + data.size();
+      uint32_t key = -1;
+      uint32_t value = 0;
+      while (src.Ptr() < pEnd)
+      {
+        uint32_t const x = ReadVarUint<uint32_t>(src);
+        int32_t const delta = bits::ZigZagDecode(x >> 1);
+        ASSERT_GREATER_OR_EQUAL(static_cast<int32_t>(value) + delta, 0, ());
+        value += delta;
+        if (x & 1)
+          for (++key; key < (1 << m_Header.m_BitsPerLevel) && !index.Bit(key); ++key) ;
+        ASSERT_LESS(key, 1 << m_Header.m_BitsPerLevel, (key));
+        if (key > end0)
+          break;
+        if (key >= beg0)
+          f(value);
       }
     }
   }
@@ -129,11 +143,8 @@ private:
   void ReadIndex(uint64_t pos, Index & index) const
   {
     m_Reader.Read(pos, &index, sizeof(Index));
-    if (IsBigEndian())
-    {
-      for (uint32_t i = 0; i < 256; ++i)
-        index.m_Count[i] = SwapIfBigEndian(index.m_Count[i]);
-    }
+    index.m_Offset = SwapIfBigEndian(index.m_Offset);
+    index.m_BitMask = SwapIfBigEndian(index.m_BitMask);
   }
 
   ReaderT m_Reader;

@@ -1,19 +1,57 @@
 #pragma once
 #include "interval_index.hpp"
+#include "../coding/byte_stream.hpp"
 #include "../coding/endianness.hpp"
+#include "../coding/varint.hpp"
 #include "../coding/write_to_sink.hpp"
 #include "../base/assert.hpp"
 #include "../base/base.hpp"
+#include "../base/bits.hpp"
 #include "../base/logging.hpp"
 #include "../std/vector.hpp"
 #include "../std/memcpy.hpp"
 
-// TODO: BuildIntervalIndex() shouldn't rely on indexing cellid-feature pairs.
-template <int kCellIdBytes, typename CellIdValueIterT, class SinkT>
-void BuildIntervalIndex(CellIdValueIterT const & beg, CellIdValueIterT const & end,
-                        SinkT & writer, int const leafBytes = 1)
+namespace impl
 {
-#ifdef DEBUG
+
+template <class WriterT>
+void WriteIntervalIndexNode(WriterT & writer, uint64_t offset, uint64_t bitMask)
+{
+  // At the moment, uint32_t is used as a bitMask, but this can change in the future.
+  CHECK_EQUAL(static_cast<uint32_t>(bitMask), bitMask, (offset));
+  CHECK_GREATER_OR_EQUAL(offset, writer.Pos() + 8, ());
+  WriteToSink(writer, static_cast<uint32_t>(offset - writer.Pos() - 8));
+  WriteToSink(writer, static_cast<uint32_t>(bitMask));
+}
+
+template <class SinkT> void WriteIntervalIndexLeaf(SinkT & sink, int bitsPerLevel,
+                                                   uint64_t prevKey, uint64_t prevValue,
+                                                   uint64_t key, uint64_t value)
+{
+  uint64_t const lastBitsZeroMask = (1ULL << bitsPerLevel) - 1;
+  if ((key & ~lastBitsZeroMask) != (prevKey & ~lastBitsZeroMask))
+    prevValue = 0;
+
+  int64_t const delta = static_cast<int64_t>(value) - static_cast<int64_t>(prevValue);
+  uint64_t const encodedDelta = bits::ZigZagEncode(delta);
+  uint64_t const code = (encodedDelta << 1) + (key == prevKey ? 0 : 1);
+  WriteVarUint(sink, code);
+}
+
+inline uint32_t IntervalIndexLeafSize(int bitsPerLevel,
+                                      uint64_t prevKey, uint64_t prevValue,
+                                      uint64_t key, uint64_t value)
+{
+  CountingSink sink;
+  WriteIntervalIndexLeaf(sink, bitsPerLevel, prevKey, prevValue, key, value);
+  return sink.GetCount();
+}
+
+template <typename CellIdValueIterT>
+bool CheckIntervalIndexInputSequence(CellIdValueIterT const & beg,
+                                     CellIdValueIterT const & end,
+                                     uint32_t keyBits)
+{
   // Check that [beg, end) is sorted and log most populous cell.
   if (beg != end)
   {
@@ -24,8 +62,8 @@ void BuildIntervalIndex(CellIdValueIterT const & beg, CellIdValueIterT const & e
     uint64_t prev = it->GetCell();
     for (++it; it != end; ++it)
     {
-      ASSERT_GREATER(it->GetCell(), 0, ());
-      ASSERT_LESS_OR_EQUAL(prev, it->GetCell(), ());
+      CHECK_GREATER(it->GetCell(), 0, ());
+      CHECK_LESS_OR_EQUAL(prev, it->GetCell(), ());
       count = (prev == it->GetCell() ? count + 1 : 0);
       if (count > maxCount)
       {
@@ -41,98 +79,108 @@ void BuildIntervalIndex(CellIdValueIterT const & beg, CellIdValueIterT const & e
     }
   }
   for (CellIdValueIterT it = beg; it != end; ++it)
-    ASSERT_LESS(it->GetCell(), 1ULL << 8 * kCellIdBytes, ());
-#endif
+    CHECK_LESS(it->GetCell(), 1ULL << keyBits, ());
+  return true;
+}
+
+}
+
+// TODO: BuildIntervalIndex() shouldn't rely on indexing cellid-feature pairs.
+template <typename CellIdValueIterT, class SinkT>
+void BuildIntervalIndex(CellIdValueIterT const & beg, CellIdValueIterT const & end,
+                        SinkT & writer, uint8_t const keyBits)
+{
+  CHECK_LESS(keyBits, 63, ());
+  CHECK(impl::CheckIntervalIndexInputSequence(beg, end, keyBits), ());
+
+  uint32_t const bitsPerLevel = 5;
+  uint32_t const lastBitsMask = (1 << bitsPerLevel) - 1;
+  int const levelCount = (keyBits + bitsPerLevel - 1) / bitsPerLevel;
+
   // Write header.
   {
     IntervalIndexBase::Header header;
-    header.m_CellIdLeafBytes = leafBytes;
+    header.m_BitsPerLevel = bitsPerLevel;
+    header.m_Levels = levelCount;
     writer.Write(&header, sizeof(header));
   }
 
-#ifdef DEBUG
-  vector<uint32_t> childOffsets;
-  childOffsets.push_back(static_cast<uint32_t>(writer.Pos()));
-#endif
-  uint32_t childOffset = static_cast<uint32_t>(writer.Pos()) + sizeof(IntervalIndexBase::Index);
-  uint32_t thisLevelCount = 1;
-  for (int level = kCellIdBytes - 1; level >= leafBytes; --level)
+  if (beg == end)
   {
-    LOG(LINFO, ("Building interval index, level", level));
-#ifdef DEBUG
-    ASSERT_EQUAL(childOffsets.back(), writer.Pos(), ());
-    childOffsets.push_back(childOffset);
-#endif
-    uint64_t const initialWriterPos = writer.Pos();
-    uint32_t childCount = 0, totalChildCount = 0;
-    IntervalIndexBase::Index index;
-    memset(&index, 0, sizeof(index));
-    uint64_t prevParentBytes = 0;
-    uint8_t prevByte = 0;
+    // Write empty index.
+    CHECK_GREATER(levelCount, 1, ());
+    impl::WriteIntervalIndexNode(writer, writer.Pos() + sizeof(IntervalIndexBase::Index), 0);
+    LOG(LWARNING, ("Written empty index."));
+    return;
+  }
+
+  // Write internal nodes.
+  uint64_t childOffset = writer.Pos() + sizeof(IntervalIndexBase::Index);
+  uint64_t nextChildOffset = childOffset;
+  for (int level = levelCount - 1; level >= 0; --level)
+  {
+    // LOG(LINFO, ("Building interval index, level", level));
+    uint64_t const initialLevelWriterPos = writer.Pos();
+
+    uint64_t bitMask = 0;
+    uint64_t prevKey = 0;
+    uint64_t prevValue = 0;
     for (CellIdValueIterT it = beg; it != end; ++it)
     {
-      uint64_t id = it->GetCell();
-      uint64_t const thisParentBytes = id >> 8 * (level + 1);
-      uint8_t const thisByte = static_cast<uint8_t>(0xFF & (id >> 8 * level));
-      if (it != beg && prevParentBytes != thisParentBytes)
+      uint64_t const key = it->GetCell() >> (level * bitsPerLevel);
+      uint32_t const value = it->GetFeature();
+
+      if (it != beg && (prevKey & ~lastBitsMask) != (key & ~lastBitsMask))
       {
-        // Writing index for previous parent.
-        index.SetBaseOffset(childOffset);
-        for (uint32_t i = 0; i < 256; ++i)
-          index.m_Count[i] = SwapIfBigEndian(index.m_Count[i]);
-        writer.Write(&index, sizeof(index));
-        memset(&index, 0, sizeof(index));
-        if (level != leafBytes)
-          childOffset += childCount * sizeof(index);
-        else
-          childOffset += (sizeof(beg->GetFeature()) + leafBytes) * childCount;
-        childCount = 0;
-        --thisLevelCount;
+        // Write node for the previous parent.
+        impl::WriteIntervalIndexNode(writer, childOffset, bitMask);
+        childOffset = nextChildOffset;
+        bitMask = 0;
       }
 
-      if (level == leafBytes || it == beg ||
-          prevByte != thisByte || prevParentBytes != thisParentBytes)
-      {
-        ++childCount;
-        ++totalChildCount;
-        ++index.m_Count[thisByte];
-        CHECK_LESS(index.m_Count[thisByte], 65535, (level, leafBytes, prevByte, thisByte, \
-                                                    prevParentBytes, thisParentBytes, \
-                                                    it->GetCell()));
-      }
+      bitMask |= (1ULL << (key & lastBitsMask));
 
-      prevParentBytes = thisParentBytes;
-      prevByte = thisByte;
+      if (level == 0)
+        nextChildOffset += impl::IntervalIndexLeafSize(bitsPerLevel,
+                                                       prevKey, prevValue, key, value);
+      else if (it == beg || prevKey != key)
+        nextChildOffset += sizeof(IntervalIndexBase::Index);
+
+      prevKey = key;
+      prevValue = value;
     }
-    index.SetBaseOffset(childOffset);
-    for (uint32_t i = 0; i < 256; ++i)
-      index.m_Count[i] = SwapIfBigEndian(index.m_Count[i]);
-    writer.Write(&index, sizeof(index));
-    memset(&index, 0, sizeof(index));
-    // if level == leafBytes, this is wrong, but childOffset is not needed any more.
-    childOffset += childCount * sizeof(IntervalIndexBase::Index);
-    --thisLevelCount;
-    CHECK_EQUAL(thisLevelCount, 0, (kCellIdBytes, leafBytes));
-    thisLevelCount = totalChildCount;
 
-    LOG(LINFO, ("Level size:", writer.Pos() - initialWriterPos));
+    // Write the last node.
+    impl::WriteIntervalIndexNode(writer, childOffset, bitMask);
 
-    if (beg == end)
-      break;
+    if (level == 1)
+      nextChildOffset += sizeof(IntervalIndexBase::Index);
+
+    childOffset = nextChildOffset;
+
+    LOG(LINFO, ("Level:", level, "size:", writer.Pos() - initialLevelWriterPos));
   }
 
-  // Writing values.
-  ASSERT_EQUAL(childOffsets.back(), writer.Pos(), ());
-  LOG(LINFO, ("Building interval, leaves."));
-  uint64_t const initialWriterPos = writer.Pos();
-  uint32_t const mask = (1ULL << 8 * leafBytes) - 1;
-  for (CellIdValueIterT it = beg; it != end; ++it)
+  // Write the dummy one-after-last node.
+  impl::WriteIntervalIndexNode(writer, nextChildOffset, 0);
+
+  // Write leaves.
   {
-    WriteToSink(writer, it->GetFeature());
-    uint32_t cellId = static_cast<uint32_t>(it->GetCell() & mask);
-    cellId = SwapIfBigEndian(cellId);
-    writer.Write(&cellId, leafBytes);
+    uint64_t const initialLevelWriterPos = writer.Pos();
+
+    uint64_t prevKey = -1;
+    uint32_t prevValue = 0;
+    for (CellIdValueIterT it = beg; it != end; ++it)
+    {
+      uint64_t const key = it->GetCell();
+      uint32_t const value = it->GetFeature();
+      impl::WriteIntervalIndexLeaf(writer, bitsPerLevel, prevKey, prevValue, key, value);
+      prevKey = key;
+      prevValue = value;
+    }
+
+    LOG(LINFO, ("Leaves size:", writer.Pos() - initialLevelWriterPos));
   }
-  LOG(LINFO, ("Level size:", writer.Pos() - initialWriterPos));
+
   LOG(LINFO, ("Interval index building done."));
 }

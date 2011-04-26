@@ -55,7 +55,7 @@ class ScaleIndex : public ScaleIndexBase
 {
 public:
   typedef ReaderT ReaderType;
-  typedef IntervalIndex<uint32_t, ReaderT> IntervalIndexType;
+  typedef IntervalIndex<ReaderT> IntervalIndexType;
   typedef typename IntervalIndexType::Query Query;
 
   ScaleIndex() {}

@@ -145,7 +145,8 @@ inline void IndexScales(uint32_t bucketsCount,
       LOG(LINFO, ("Being indexed", "features:", numFeatures, "cells:", numCells,
                   "cells per feature:", (numCells + 1.0) / (numFeatures + 1.0)));
       SubWriter<WriterT> subWriter(writer);
-      BuildIntervalIndex<5>(cellsToFeatures.begin(), cellsToFeatures.end(), subWriter);
+      BuildIntervalIndex(cellsToFeatures.begin(), cellsToFeatures.end(), subWriter,
+                         RectId::DEPTH_LEVELS * 2 + 1);
     }
     FileWriter::DeleteFileX(tmpFilePrefix + ".c2f.sorted");
     // LOG(LINFO, ("Indexing done."));

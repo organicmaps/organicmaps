@@ -20,6 +20,35 @@ struct CellIdFeaturePairForTest
 };
 }
 
+UNIT_TEST(IntervalIndex_Serialized)
+{
+  vector<CellIdFeaturePairForTest> data;
+  data.push_back(CellIdFeaturePairForTest(0x21U, 0));
+  data.push_back(CellIdFeaturePairForTest(0x22U, 1));
+  data.push_back(CellIdFeaturePairForTest(0x41U, 2));
+  vector<char> serializedIndex;
+  MemWriter<vector<char> > writer(serializedIndex);
+  BuildIntervalIndex(data.begin(), data.end(), writer, 10);
+
+  char const expSerial [] =
+      "\x02\x05"                             // Header
+      "\x00\x00\x00\x00" "\x06\x00\x00\x00"  // Root
+      "\x10\x00\x00\x00" "\x06\x00\x00\x00"  // 0x21 and 0x22
+      "\x0A\x00\x00\x00" "\x02\x00\x00\x00"  // 0x41
+      "\x03\x00\x00\x00" "\x00\x00\x00\x00"  // Dummy last internal node
+      "\x01" "\x05" "\x09"       // (0x21, 0), (0x22, 1), (0x31, 2)
+      "";
+
+  TEST_EQUAL(serializedIndex, vector<char>(expSerial, expSerial + ARRAY_SIZE(expSerial) - 1), ());
+
+  MemReader reader(&serializedIndex[0], serializedIndex.size());
+  IntervalIndex<MemReader> index(reader);
+  uint32_t expected [] = {0, 1, 2};
+  vector<uint32_t> values;
+  index.ForEach(MakeBackInsertFunctor(values), 0, 0xFF);
+  TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
+}
+
 UNIT_TEST(IntervalIndex_Simple)
 {
   vector<CellIdFeaturePairForTest> data;
@@ -28,9 +57,9 @@ UNIT_TEST(IntervalIndex_Simple)
   data.push_back(CellIdFeaturePairForTest(0xA0B2C2D100ULL, 2));
   vector<char> serializedIndex;
   MemWriter<vector<char> > writer(serializedIndex);
-  BuildIntervalIndex<5>(data.begin(), data.end(), writer, 2);
+  BuildIntervalIndex(data.begin(), data.end(), writer, 40);
   MemReader reader(&serializedIndex[0], serializedIndex.size());
-  IntervalIndex<uint32_t, MemReader> index(reader, 5);
+  IntervalIndex<MemReader> index(reader);
   {
     uint32_t expected [] = {0, 1, 2};
     vector<uint32_t> values;
@@ -78,9 +107,9 @@ UNIT_TEST(IntervalIndex_Empty)
   vector<CellIdFeaturePairForTest> data;
   vector<char> serializedIndex;
   MemWriter<vector<char> > writer(serializedIndex);
-  BuildIntervalIndex<5>(data.begin(), data.end(), writer, 2);
+  BuildIntervalIndex(data.begin(), data.end(), writer, 40);
   MemReader reader(&serializedIndex[0], serializedIndex.size());
-  IntervalIndex<uint32_t, MemReader> index(reader, 5);
+  IntervalIndex<MemReader> index(reader);
   {
     vector<uint32_t> values;
     index.ForEach(MakeBackInsertFunctor(values), 0ULL, 0xFFFFFFFFFFULL);
@@ -97,9 +126,9 @@ UNIT_TEST(IntervalIndex_Simple2)
   data.push_back(CellIdFeaturePairForTest(0xA0B2C2D200ULL, 2));
   vector<char> serializedIndex;
   MemWriter<vector<char> > writer(serializedIndex);
-  BuildIntervalIndex<5>(data.begin(), data.end(), writer, 2);
+  BuildIntervalIndex(data.begin(), data.end(), writer, 40);
   MemReader reader(&serializedIndex[0], serializedIndex.size());
-  IntervalIndex<uint32_t, MemReader> index(reader, 5);
+  IntervalIndex<MemReader> index(reader);
   {
     uint32_t expected [] = {0, 1, 2, 3};
     vector<uint32_t> values;
@@ -116,9 +145,9 @@ UNIT_TEST(IntervalIndex_Simple3)
   data.push_back(CellIdFeaturePairForTest(0x0200ULL, 1));
   vector<char> serializedIndex;
   MemWriter<vector<char> > writer(serializedIndex);
-  BuildIntervalIndex<2>(data.begin(), data.end(), writer, 1);
+  BuildIntervalIndex(data.begin(), data.end(), writer, 40);
   MemReader reader(&serializedIndex[0], serializedIndex.size());
-  IntervalIndex<uint32_t, MemReader> index(reader, 2);
+  IntervalIndex<MemReader> index(reader);
   {
     uint32_t expected [] = {0, 1};
     vector<uint32_t> values;
@@ -135,9 +164,9 @@ UNIT_TEST(IntervalIndex_Simple4)
   data.push_back(CellIdFeaturePairForTest(0x02030400ULL, 1));
   vector<char> serializedIndex;
   MemWriter<vector<char> > writer(serializedIndex);
-  BuildIntervalIndex<4>(data.begin(), data.end(), writer, 1);
+  BuildIntervalIndex(data.begin(), data.end(), writer, 40);
   MemReader reader(&serializedIndex[0], serializedIndex.size());
-  IntervalIndex<uint32_t, MemReader> index(reader, 4);
+  IntervalIndex<MemReader> index(reader);
   {
     uint32_t expected [] = {0, 1};
     vector<uint32_t> values;
@@ -156,9 +185,9 @@ UNIT_TEST(IntervalIndex_Simple5)
   data.push_back(CellIdFeaturePairForTest(0xA0B2C2D200ULL, 2));
   vector<char> serializedIndex;
   MemWriter<vector<char> > writer(serializedIndex);
-  BuildIntervalIndex<5>(data.begin(), data.end(), writer, 1);
+  BuildIntervalIndex(data.begin(), data.end(), writer, 40);
   MemReader reader(&serializedIndex[0], serializedIndex.size());
-  IntervalIndex<uint32_t, MemReader> index(reader, 5);
+  IntervalIndex<MemReader> index(reader);
   {
     uint32_t expected [] = {0, 1, 2, 3};
     vector<uint32_t> values;
