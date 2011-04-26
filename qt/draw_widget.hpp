@@ -9,9 +9,9 @@
 
 #include <QtCore/QTimer>
 
-class FileReader;
-template <class> class ReaderSource;
-class FileWriter;
+//class FileReader;
+//template <class> class ReaderSource;
+//class FileWriter;
 
 namespace storage { class Storage; }
 

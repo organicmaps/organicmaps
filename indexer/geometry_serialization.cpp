@@ -5,8 +5,8 @@
 
 #include "../geometry/pointu_to_uint64.hpp"
 
-#include "../coding/file_reader.hpp"
-#include "../coding/file_writer.hpp"
+//#include "../coding/file_reader.hpp"
+//#include "../coding/file_writer.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/bind.hpp"
@@ -19,12 +19,14 @@
 namespace serial
 {
 
-CodingParams::CodingParams() : m_BasePointUint64(0), m_CoordBits(30)
+CodingParams::CodingParams()
+  : m_BasePointUint64(0), m_CoordBits(30)
 {
    m_BasePoint = m2::Uint64ToPointU(m_BasePointUint64);
 }
 
-CodingParams::CodingParams(uint8_t coordBits, m2::PointD const & pt) : m_CoordBits(coordBits)
+CodingParams::CodingParams(uint8_t coordBits, m2::PointD const & pt)
+  : m_CoordBits(coordBits)
 {
   m_BasePoint = PointD2PointU(pt.x, pt.y, coordBits);
   m_BasePointUint64 = m2::PointUToUint64(m_BasePoint);

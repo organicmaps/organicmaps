@@ -15,12 +15,11 @@
 #include "../base/buffer_vector.hpp"
 #include "../base/stl_add.hpp"
 
-class FileReader;
-class FileWriter;
+//class FileReader;
+//class FileWriter;
 
 namespace serial
 {
-
   class CodingParams
   {
   public:
