@@ -437,6 +437,9 @@ void RenderQueueRoutine::Do()
       }
 
       invalidate();
+
+      callRenderCommandFinishedFns();
+
     }
 
   }
@@ -516,5 +519,17 @@ void RenderQueueRoutine::enterBackground()
 void RenderQueueRoutine::enterForeground()
 {
   m_threadDrawer->screen()->enterForeground();
+}
+
+void RenderQueueRoutine::addRenderCommandFinishedFn(renderCommandFinishedFn fn)
+{
+  m_renderCommandFinishedFns.push_back(fn);
+}
+
+void RenderQueueRoutine::callRenderCommandFinishedFns()
+{
+  if (!m_renderCommandFinishedFns.empty())
+    for (list<renderCommandFinishedFn>::const_iterator it = m_renderCommandFinishedFns.begin(); it != m_renderCommandFinishedFns.end(); ++it)
+      (*it)();
 }
 

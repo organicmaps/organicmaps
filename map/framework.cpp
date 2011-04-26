@@ -3,6 +3,8 @@
 #include "framework.hpp"
 #include "draw_processor.hpp"
 #include "drawer_yg.hpp"
+#include "feature_vec_model.hpp"
+#include "benchmark_provider.hpp"
 
 #include "../indexer/feature_visibility.hpp"
 #include "../indexer/feature.hpp"
@@ -12,6 +14,7 @@
 #include "../base/math.hpp"
 
 #include "../std/algorithm.hpp"
+#include "../version/version.hpp"
 
 #include "../base/start_mem_debug.hpp"
 
@@ -181,4 +184,787 @@ namespace fwork
 
     return true;
   }
+
 }
+
+template <typename TModel>
+void FrameWork<TModel>::AddRedrawCommandSure()
+{
+  m_renderQueue.AddCommand(bind(&this_type::PaintImpl, this, _1, _2, _3, _4), m_navigator.Screen());
+}
+
+  template <typename TModel>
+  void FrameWork<TModel>::AddRedrawCommand()
+  {
+    yg::gl::RenderState const state = m_renderQueue.CopyState();
+    if ((state.m_currentScreen != m_navigator.Screen()) && (m_isRedrawEnabled))
+      AddRedrawCommandSure();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::AddMap(string const & datFile)
+  {
+    // update rect for Show All button
+    feature::DataHeader header;
+    header.Load(FilesContainerR(datFile).GetReader(HEADER_FILE_TAG));
+
+    m2::RectD bounds = header.GetBounds();
+
+    m_model.AddWorldRect(bounds);
+    {
+      threads::MutexGuard lock(m_modelSyn);
+      m_model.AddMap(datFile);
+    }
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::RemoveMap(string const & datFile)
+  {
+    threads::MutexGuard lock(m_modelSyn);
+    m_model.RemoveMap(datFile);
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::OnGpsUpdate(location::GpsInfo const & info)
+  {
+    if (info.m_timestamp < location::POSITION_TIMEOUT_SECONDS)
+    {
+      // notify GUI that we received gps position
+      if (!(m_locationState & location::State::EGps) && m_locationObserver)
+        m_locationObserver();
+
+      m_locationState.UpdateGps(info);
+      if (m_centeringMode == ECenterAndScale)
+      {
+        CenterAndScaleViewport();
+        m_centeringMode = ECenterOnly;
+      }
+      else if (m_centeringMode == ECenterOnly)
+        CenterViewport(m_locationState.Position());
+      UpdateNow();
+    }
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::OnCompassUpdate(location::CompassInfo const & info)
+  {
+    if (info.m_timestamp < location::POSITION_TIMEOUT_SECONDS)
+    {
+      m_locationState.UpdateCompass(info);
+      UpdateNow();
+    }
+  }
+
+  template <typename TModel>
+  FrameWork<TModel>::FrameWork(shared_ptr<WindowHandle> windowHandle,
+            size_t bottomShift)
+    : m_windowHandle(windowHandle),
+      m_isBenchmarking(GetPlatform().IsBenchmarking()),
+      m_isBenchmarkInitialized(false),
+      m_bgColor(0xEE, 0xEE, 0xDD, 0xFF),
+      m_renderQueue(GetPlatform().SkinName(),
+                    GetPlatform().IsMultiSampled(),
+                    GetPlatform().DoPeriodicalUpdate(),
+                    GetPlatform().PeriodicalUpdateInterval(),
+                    GetPlatform().IsBenchmarking(),
+                    GetPlatform().ScaleEtalonSize(),
+                    m_bgColor),
+      m_isRedrawEnabled(true),
+      m_metresMinWidth(20),
+      m_minRulerWidth(97),
+      m_centeringMode(EDoNothing),
+      m_maxDuration(0)
+  {
+    m_informationDisplay.setBottomShift(bottomShift);
+#ifdef DRAW_TOUCH_POINTS
+    m_informationDisplay.enableDebugPoints(true);
+#endif
+
+#ifdef DEBUG
+    m_informationDisplay.enableGlobalRect(!m_isBenchmarking);
+#endif
+
+    m_informationDisplay.enableCenter(true);
+
+    m_informationDisplay.enableRuler(true);
+    m_informationDisplay.setRulerParams(m_minRulerWidth, m_metresMinWidth);
+    m_navigator.SetMinScreenParams(m_minRulerWidth, m_metresMinWidth);
+
+#ifdef DEBUG
+    m_informationDisplay.enableDebugInfo(true);
+#endif
+
+    m_informationDisplay.enableLog(GetPlatform().IsVisualLog(), m_windowHandle.get());
+
+    m_informationDisplay.enableBenchmarkInfo(m_isBenchmarking);
+
+    m_informationDisplay.setVisualScale(GetPlatform().VisualScale());
+    m_renderQueue.AddWindowHandle(m_windowHandle);
+
+    // initialize gps and compass subsystem
+    GetLocationService().SetGpsObserver(
+          boost::bind(&this_type::OnGpsUpdate, this, _1));
+    GetLocationService().SetCompassObserver(
+          boost::bind(&this_type::OnCompassUpdate, this, _1));
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::BenchmarkCommandFinished()
+  {
+    double duration = m_renderQueue.renderState().m_duration;
+    if (duration > m_maxDuration)
+    {
+      m_maxDuration = duration;
+      m_maxDurationRect = m_curBenchmarkRect;
+      m_informationDisplay.addBenchmarkInfo("maxDurationRect: ", m_maxDurationRect, m_maxDuration);
+    }
+
+    BenchmarkResult res;
+    res.m_name = m_benchmarks[m_curBenchmark].m_name;
+    res.m_rect = m_curBenchmarkRect;
+    res.m_time = duration;
+    m_benchmarkResults.push_back(res);
+
+    if (m_benchmarkResults.size() > 100)
+      SaveBenchmarkResults();
+
+    NextBenchmarkCommand();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::SaveBenchmarkResults()
+  {
+    string deviceID = GetPlatform().DeviceID();
+    transform(deviceID.begin(), deviceID.end(), deviceID.begin(), ::tolower);
+
+    ofstream fout(GetPlatform().WritablePathForFile(deviceID + "_benchmark_results.txt").c_str(), ios::app);
+
+    for (int i = 0; i < m_benchmarkResults.size(); ++i)
+    {
+      fout << GetPlatform().DeviceID() << " "
+           << VERSION_STRING << " "
+           << m_benchmarkResults[i].m_name << " "
+           << m_benchmarkResults[i].m_rect.minX() << " "
+           << m_benchmarkResults[i].m_rect.minY() << " "
+           << m_benchmarkResults[i].m_rect.maxX() << " "
+           << m_benchmarkResults[i].m_rect.maxY() << " "
+           << m_benchmarkResults[i].m_time << endl;
+    }
+
+    m_benchmarkResults.clear();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::NextBenchmarkCommand()
+  {
+    if ((m_benchmarks[m_curBenchmark].m_provider->hasRect()) || (++m_curBenchmark < m_benchmarks.size()))
+    {
+      m_curBenchmarkRect = m_benchmarks[m_curBenchmark].m_provider->nextRect();
+      m_navigator.SetFromRect(m_curBenchmarkRect);
+      m_renderQueue.AddBenchmarkCommand(bind(&this_type::PaintImpl, this, _1, _2, _3, _4), m_navigator.Screen());
+    }
+    else
+    {
+      SaveBenchmarkResults();
+      LOG(LINFO, ("Bechmarks took ", m_benchmarksTimer.ElapsedSeconds(), " seconds to complete"));
+    }
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::EnumLocalMaps(Platform::FilesList & filesList)
+  {
+    // activate all downloaded maps
+    Platform & p = GetPlatform();
+    string const dataPath = p.WritableDir();
+    filesList.clear();
+    p.GetFilesInDir(dataPath, "*" DATA_FILE_EXTENSION, filesList);
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::EnumBenchmarkMaps(Platform::FilesList & filesList)
+  {
+    filesList.clear();
+    filesList.push_back("Belarus.mwm");
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::InitBenchmark()
+  {
+//    m2::RectD wr(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY);
+//    m2::RectD r(wr.Center().x, wr.Center().y + wr.SizeY() / 8, wr.Center().x + wr.SizeX() / 8, wr.Center().y + wr.SizeY() / 4);
+
+    ifstream fin(GetPlatform().WritablePathForFile("benchmark.txt").c_str());
+    while (true)
+    {
+      string name;
+      m2::RectD r;
+
+      fin >> name;
+
+      if (!fin)
+        break;
+
+      if (GetPlatform().IsFileExists(GetPlatform().WritablePathForFile(name)))
+      {
+        try
+        {
+          feature::DataHeader header;
+          header.Load(FilesContainerR(GetPlatform().WritablePathForFile(name)).GetReader(HEADER_FILE_TAG));
+
+          r = header.GetBounds();
+        }
+        catch (std::exception const & e)
+        {
+          double x0, y0, x1, y1;
+          fin >> x0 >> y0 >> x1 >> y1;
+          r = m2::RectD(x0, y0, x1, y1);
+        }
+      }
+      else
+      {
+        double x0, y0, x1, y1;
+        fin >> x0 >> y0 >> x1 >> y1;
+        r = m2::RectD(x0, y0, x1, y1);
+      }
+
+      if (!fin)
+        break;
+
+      int lastScale;
+      fin >> lastScale;
+
+      Benchmark b;
+      b.m_name = name;
+      b.m_provider.reset(new BenchmarkRectProvider(scales::GetScaleLevel(r), r, lastScale));
+      m_benchmarks.push_back(b);
+    }
+
+    m_curBenchmark = 0;
+
+    m_renderQueue.addRenderCommandFinishedFn(bind(&this_type::BenchmarkCommandFinished, this));
+    m_benchmarksTimer.Reset();
+    NextBenchmarkCommand();
+
+    Invalidate();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::initializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
+                    shared_ptr<yg::ResourceManager> const & resourceManager)
+  {
+    m_resourceManager = resourceManager;
+    m_renderQueue.initializeGL(primaryContext, m_resourceManager, GetPlatform().VisualScale());
+  }
+
+  template <typename TModel>
+  TModel & FrameWork<TModel>::get_model()
+  {
+    return m_model;
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::StartLocationService(LocationRetrievedCallbackT observer)
+  {
+    m_locationObserver = observer;
+    m_centeringMode = ECenterAndScale;
+    // by default, we always start in accurate mode
+    GetLocationService().StartUpdate(true);
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::StopLocationService()
+  {
+    // reset callback
+    m_locationObserver.clear();
+    m_centeringMode = EDoNothing;
+    GetLocationService().StopUpdate();
+    m_locationState.TurnOff();
+    Invalidate();
+  }
+
+  template <typename TModel>
+  bool FrameWork<TModel>::IsEmptyModel()
+  {
+    return m_model.GetWorldRect() == m2::RectD::GetEmptyRect();
+  }
+
+  // Cleanup.
+  template <typename TModel>
+  void FrameWork<TModel>::Clean()
+  {
+    m_model.Clean();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::SetMaxWorldRect()
+  {
+    m_navigator.SetFromRect(m_model.GetWorldRect());
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::UpdateNow()
+  {
+    AddRedrawCommand();
+    Invalidate();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::Invalidate()
+  {
+    m_windowHandle->invalidate();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::SaveState()
+  {
+    m_navigator.SaveState();
+  }
+
+  template <typename TModel>
+  bool FrameWork<TModel>::LoadState()
+  {
+    if (!m_navigator.LoadState())
+      return false;
+
+    return true;
+  }
+  //@}
+
+  /// Resize event from window.
+  template <typename TModel>
+  void FrameWork<TModel>::OnSize(int w, int h)
+  {
+    if (w < 2) w = 2;
+    if (h < 2) h = 2;
+
+    m_renderQueue.OnSize(w, h);
+
+    m2::PointU ptShift = m_renderQueue.renderState().coordSystemShift(true);
+
+    m_informationDisplay.setDisplayRect(m2::RectI(ptShift, ptShift + m2::PointU(w, h)));
+
+    m_navigator.OnSize(ptShift.x, ptShift.y, w, h);
+
+    if ((m_isBenchmarking) && (!m_isBenchmarkInitialized))
+    {
+      m_isBenchmarkInitialized = true;
+      InitBenchmark();
+    }
+  }
+
+  template <typename TModel>
+  bool FrameWork<TModel>::SetUpdatesEnabled(bool doEnable)
+  {
+    return m_windowHandle->setUpdatesEnabled(doEnable);
+  }
+
+  /// enabling/disabling AddRedrawCommand
+  template <typename TModel>
+  void FrameWork<TModel>::SetRedrawEnabled(bool isRedrawEnabled)
+  {
+    m_isRedrawEnabled = isRedrawEnabled;
+    AddRedrawCommand();
+  }
+
+  /// respond to device orientation changes
+  template <typename TModel>
+  void FrameWork<TModel>::SetOrientation(EOrientation orientation)
+  {
+    m_navigator.SetOrientation(orientation);
+    m_locationState.SetOrientation(orientation);
+    UpdateNow();
+  }
+
+  template <typename TModel>
+  int FrameWork<TModel>::GetCurrentScale() const
+  {
+    m2::PointD textureCenter(m_renderQueue.renderState().m_textureWidth / 2,
+                             m_renderQueue.renderState().m_textureHeight / 2);
+    m2::RectD glbRect;
+
+    unsigned scaleEtalonSize = GetPlatform().ScaleEtalonSize();
+    m_navigator.Screen().PtoG(m2::RectD(textureCenter - m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2),
+                                        textureCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
+                              glbRect);
+    return scales::GetScaleLevel(glbRect);
+  }
+
+  /// Actual rendering function.
+  /// Called, as the renderQueue processes RenderCommand
+  /// Usually it happens in the separate thread.
+  template <typename TModel>
+  void FrameWork<TModel>::PaintImpl(shared_ptr<PaintEvent> e,
+                 ScreenBase const & screen,
+                 m2::RectD const & selectRect,
+                 int scaleLevel
+                 )
+  {
+    fwork::DrawProcessor doDraw(selectRect, screen, e, scaleLevel, m_renderQueue.renderStatePtr());
+    m_renderQueue.renderStatePtr()->m_isEmptyModelCurrent = true;
+
+    try
+    {
+      threads::MutexGuard lock(m_modelSyn);
+
+#ifdef PROFILER_DRAWING
+      using namespace prof;
+
+      start<for_each_feature>();
+      reset<feature_count>();
+#endif
+
+      m_model.ForEachFeatureWithScale(selectRect, bind<bool>(ref(doDraw), _1), scaleLevel);
+
+#ifdef PROFILER_DRAWING
+      end<for_each_feature>();
+      LOG(LPROF, ("ForEachFeature=", metric<for_each_feature>(),
+                  "FeatureCount=", metric<feature_count>(),
+                  "TextureUpload= ", metric<yg_upload_data>()));
+#endif
+    }
+    catch (redraw_operation_cancelled const &)
+    {
+      m_renderQueue.renderStatePtr()->m_isEmptyModelCurrent = false;
+      m_renderQueue.renderStatePtr()->m_isEmptyModelActual = false;
+    }
+
+    if (m_navigator.Update(GetPlatform().TimeInSec()))
+      Invalidate();
+  }
+
+  /// Function for calling from platform dependent-paint function.
+  template <typename TModel>
+  void FrameWork<TModel>::Paint(shared_ptr<PaintEvent> e)
+  {
+    /// Making a copy of actualFrameInfo to compare without synchronizing.
+//    typename yg::gl::RenderState state = m_renderQueue.CopyState();
+
+    DrawerYG * pDrawer = e->drawer().get();
+
+    m_informationDisplay.setScreen(m_navigator.Screen());
+
+    m_informationDisplay.setDebugInfo(m_renderQueue.renderState().m_duration, GetCurrentScale());
+
+    m_informationDisplay.enableRuler(!IsEmptyModel());
+
+    m2::PointD const center = m_navigator.Screen().ClipRect().Center();
+
+    m_informationDisplay.setGlobalRect(m_navigator.Screen().GlobalRect());
+    m_informationDisplay.setCenter(m2::PointD(MercatorBounds::XToLon(center.x), MercatorBounds::YToLat(center.y)));
+
+    {
+      threads::MutexGuard guard(*m_renderQueue.renderState().m_mutex.get());
+
+      if (m_isBenchmarking)
+      {
+        m2::PointD const center = m_renderQueue.renderState().m_actualScreen.ClipRect().Center();
+        m_informationDisplay.setScreen(m_renderQueue.renderState().m_actualScreen);
+        m_informationDisplay.setCenter(m2::PointD(MercatorBounds::XToLon(center.x), MercatorBounds::YToLat(center.y)));
+
+        if (!m_isBenchmarkInitialized)
+        {
+          e->drawer()->screen()->beginFrame();
+          e->drawer()->screen()->clear(m_bgColor);
+          m_informationDisplay.setDisplayRect(m2::RectI(0, 0, 100, 100));
+          m_informationDisplay.enableRuler(false);
+          m_informationDisplay.doDraw(e->drawer().get());
+          e->drawer()->screen()->endFrame();
+        }
+      }
+
+      if (m_renderQueue.renderState().m_actualTarget.get() != 0)
+      {
+        e->drawer()->screen()->beginFrame();
+        e->drawer()->screen()->clear(m_bgColor);
+
+        m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(false);
+
+        OGLCHECK(glMatrixMode(GL_MODELVIEW));
+        OGLCHECK(glPushMatrix());
+        OGLCHECK(glTranslatef(-ptShift.x, -ptShift.y, 0));
+
+        ScreenBase currentScreen = m_navigator.Screen();
+
+        m_informationDisplay.enableEmptyModelMessage(m_renderQueue.renderStatePtr()->m_isEmptyModelActual);
+
+        if (m_isBenchmarking)
+          currentScreen = m_renderQueue.renderState().m_actualScreen;
+
+        pDrawer->screen()->blit(m_renderQueue.renderState().m_actualTarget,
+                                m_renderQueue.renderState().m_actualScreen,
+                                currentScreen);
+
+        m_informationDisplay.doDraw(pDrawer);
+
+        InformationDisplay::DrawMyPosition(*pDrawer, m_navigator.Screen(), m_locationState);
+
+        e->drawer()->screen()->endFrame();
+
+        OGLCHECK(glPopMatrix());
+      }
+    }
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::CenterViewport(m2::PointD const & pt)
+  {
+    m_navigator.CenterViewport(pt);
+    UpdateNow();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::ShowRect(m2::RectD const & rect)
+  {
+    m_navigator.SetFromRect(rect);
+    UpdateNow();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::MemoryWarning()
+  {
+    // clearing caches on memory warning.
+    m_model.ClearCaches();
+    LOG(LINFO, ("MemoryWarning"));
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::EnterBackground()
+  {
+    // clearing caches on entering background.
+    m_model.ClearCaches();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::EnterForeground()
+  {
+  }
+
+  /// @TODO refactor to accept point and min visible length
+  template <typename TModel>
+  void FrameWork<TModel>::CenterAndScaleViewport()
+  {
+    m2::PointD const pt = m_locationState.Position();
+    m_navigator.CenterViewport(pt);
+
+    m2::RectD clipRect = m_navigator.Screen().ClipRect();
+
+    double const xMinSize = 6 * max(m_locationState.ErrorRadius(),
+                              MercatorBounds::ConvertMetresToX(pt.x, m_metresMinWidth));
+    double const yMinSize = 6 * max(m_locationState.ErrorRadius(),
+                              MercatorBounds::ConvertMetresToY(pt.y, m_metresMinWidth));
+
+    bool needToScale = false;
+
+    if (clipRect.SizeX() < clipRect.SizeY())
+      needToScale = clipRect.SizeX() > xMinSize * 3;
+    else
+      needToScale = clipRect.SizeY() > yMinSize * 3;
+
+/*    if ((ClipRect.SizeX() < 3 * errorRadius) || (ClipRect.SizeY() < 3 * errorRadius))
+      needToScale = true;*/
+
+    if (needToScale)
+    {
+      double const k = max(xMinSize / clipRect.SizeX(),
+                     yMinSize / clipRect.SizeY());
+
+      clipRect.Scale(k);
+      m_navigator.SetFromRect(clipRect);
+    }
+
+    UpdateNow();
+  }
+
+  /// Show all model by it's world rect.
+  template <typename TModel>
+  void FrameWork<TModel>::ShowAll()
+  {
+    SetMaxWorldRect();
+    UpdateNow();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::Repaint()
+  {
+    m_renderQueue.SetRedrawAll();
+    AddRedrawCommandSure();
+    Invalidate();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::RepaintRect(m2::RectD const & rect)
+  {
+    threads::MutexGuard lock(*m_renderQueue.renderState().m_mutex.get());
+    m2::RectD pxRect(0, 0, m_renderQueue.renderState().m_surfaceWidth, m_renderQueue.renderState().m_surfaceHeight);
+    m2::RectD glbRect;
+    m_navigator.Screen().PtoG(pxRect, glbRect);
+    if (glbRect.Intersect(rect))
+      Repaint();
+  }
+
+  /// @name Drag implementation.
+  //@{
+  template <typename TModel>
+  void FrameWork<TModel>::StartDrag(DragEvent const & e)
+  {
+    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
+    m2::PointD pos = m_navigator.OrientPoint(e.Pos()) + ptShift;
+    m_navigator.StartDrag(pos,
+                          GetPlatform().TimeInSec());
+
+#ifdef DRAW_TOUCH_POINTS
+    m_informationDisplay.setDebugPoint(0, pos);
+#endif
+
+    Invalidate();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::DoDrag(DragEvent const & e)
+  {
+    m_centeringMode = EDoNothing;
+
+    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
+
+    m2::PointD pos = m_navigator.OrientPoint(e.Pos()) + ptShift;
+    m_navigator.DoDrag(pos, GetPlatform().TimeInSec());
+
+#ifdef DRAW_TOUCH_POINTS
+    m_informationDisplay.setDebugPoint(0, pos);
+#endif
+
+    Invalidate();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::StopDrag(DragEvent const & e)
+  {
+    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
+
+    m2::PointD pos = m_navigator.OrientPoint(e.Pos()) + ptShift;
+
+    m_navigator.StopDrag(pos,
+                         GetPlatform().TimeInSec(),
+                         true);
+
+#ifdef DRAW_TOUCH_POINTS
+    m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));
+#endif
+
+    UpdateNow();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::Move(double azDir, double factor)
+  {
+    m_navigator.Move(azDir, factor);
+    UpdateNow();
+  }
+  //@}
+
+  /// @name Scaling.
+  //@{
+  template <typename TModel>
+  void FrameWork<TModel>::ScaleToPoint(ScaleToPointEvent const & e)
+  {
+    m2::PointD const pt = (m_centeringMode == EDoNothing)
+        ? m_navigator.OrientPoint(e.Pt()) + m_renderQueue.renderState().coordSystemShift(true)
+        : m_navigator.Screen().PixelRect().Center();
+
+    m_navigator.ScaleToPoint(pt, e.ScaleFactor(), GetPlatform().TimeInSec());
+
+    UpdateNow();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::ScaleDefault(bool enlarge)
+  {
+    Scale(enlarge ? 1.5 : 2.0/3.0);
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::Scale(double scale)
+  {
+    m_navigator.Scale(scale);
+    UpdateNow();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::StartScale(ScaleEvent const & e)
+  {
+    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
+
+    m2::PointD pt1 = m_navigator.OrientPoint(e.Pt1()) + ptShift;
+    m2::PointD pt2 = m_navigator.OrientPoint(e.Pt2()) + ptShift;
+
+    if ((m_locationState & location::State::EGps) && (m_centeringMode == ECenterOnly))
+    {
+      m2::PointD ptC = (pt1 + pt2) / 2;
+      m2::PointD ptDiff = m_navigator.Screen().PixelRect().Center() - ptC;
+      pt1 += ptDiff;
+      pt2 += ptDiff;
+    }
+
+    m_navigator.StartScale(pt1, pt2, GetPlatform().TimeInSec());
+
+#ifdef DRAW_TOUCH_POINTS
+    m_informationDisplay.setDebugPoint(0, pt1);
+    m_informationDisplay.setDebugPoint(1, pt2);
+#endif
+
+    Invalidate();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::DoScale(ScaleEvent const & e)
+  {
+    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
+
+    m2::PointD pt1 = m_navigator.OrientPoint(e.Pt1()) + ptShift;
+    m2::PointD pt2 = m_navigator.OrientPoint(e.Pt2()) + ptShift;
+
+    if ((m_locationState & location::State::EGps) && (m_centeringMode == ECenterOnly))
+    {
+      m2::PointD ptC = (pt1 + pt2) / 2;
+      m2::PointD ptDiff = m_navigator.Screen().PixelRect().Center() - ptC;
+      pt1 += ptDiff;
+      pt2 += ptDiff;
+    }
+
+    m_navigator.DoScale(pt1, pt2, GetPlatform().TimeInSec());
+
+#ifdef DRAW_TOUCH_POINTS
+    m_informationDisplay.setDebugPoint(0, pt1);
+    m_informationDisplay.setDebugPoint(1, pt2);
+#endif
+
+    Invalidate();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::StopScale(ScaleEvent const & e)
+  {
+    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
+
+    m2::PointD pt1 = m_navigator.OrientPoint(e.Pt1()) + ptShift;
+    m2::PointD pt2 = m_navigator.OrientPoint(e.Pt2()) + ptShift;
+
+    if ((m_locationState & location::State::EGps) && (m_centeringMode == ECenterOnly))
+    {
+      m2::PointD ptC = (pt1 + pt2) / 2;
+      m2::PointD ptDiff = m_navigator.Screen().PixelRect().Center() - ptC;
+      pt1 += ptDiff;
+      pt2 += ptDiff;
+    }
+
+    m_navigator.StopScale(pt1, pt2, GetPlatform().TimeInSec());
+
+#ifdef DRAW_TOUCH_POINTS
+    m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));
+    m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));
+#endif
+
+    UpdateNow();
+  }
+
+template class FrameWork<model::FeaturesFetcher>;

@@ -30,7 +30,7 @@ namespace qt
 
     typedef model::FeaturesFetcher model_t;
 
-    FrameWork<model_t, Navigator> m_framework;
+    FrameWork<model_t> m_framework;
 
     bool m_isDrag;
 

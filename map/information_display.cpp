@@ -459,33 +459,26 @@ void InformationDisplay::enableBenchmarkInfo(bool doEnable)
 
 bool InformationDisplay::addBenchmarkInfo(string const & name, m2::RectD const & globalRect, double frameDuration)
 {
-  if (frameDuration == 0)
-    return false;
-  if ((m_benchmarkInfo.empty())
-    ||(m_benchmarkInfo.back().m_duration != frameDuration))
-    {
-      BenchmarkInfo info;
-      info.m_name = name;
-      info.m_duration = frameDuration;
-      info.m_rect = globalRect;
-      m_benchmarkInfo.push_back(info);
+  BenchmarkInfo info;
+  info.m_name = name;
+  info.m_duration = frameDuration;
+  info.m_rect = globalRect;
+  m_benchmarkInfo.push_back(info);
 
-      string deviceID = GetPlatform().DeviceID();
-      transform(deviceID.begin(), deviceID.end(), deviceID.begin(), ::tolower);
+/*  string deviceID = GetPlatform().DeviceID();
+  transform(deviceID.begin(), deviceID.end(), deviceID.begin(), ::tolower);
 
-      ofstream fout(GetPlatform().WritablePathForFile(deviceID + "_benchmark_results.txt").c_str(), ios::app);
-      fout << GetPlatform().DeviceID() << " "
-           << VERSION_STRING << " "
-           << info.m_name << " "
-           << info.m_rect.minX() << " "
-           << info.m_rect.minY() << " "
-           << info.m_rect.maxX() << " "
-           << info.m_rect.maxY() << " "
-           << info.m_duration << endl;
-
-      return true;
-    }
-  return false;
+  ofstream fout(GetPlatform().WritablePathForFile(deviceID + "_benchmark_results.txt").c_str(), ios::app);
+  fout << GetPlatform().DeviceID() << " "
+       << VERSION_STRING << " "
+       << info.m_name << " "
+       << info.m_rect.minX() << " "
+       << info.m_rect.minY() << " "
+       << info.m_rect.maxX() << " "
+       << info.m_rect.maxY() << " "
+       << info.m_duration << endl;
+*/
+  return true;
 }
 
 void InformationDisplay::drawBenchmarkInfo(DrawerYG * pDrawer)
@@ -500,7 +493,7 @@ void InformationDisplay::drawBenchmarkInfo(DrawerYG * pDrawer)
                               yg::maxDepth,
                               false);
 
-  for (unsigned i = 0; i < m_benchmarkInfo.size(); ++i)
+  for (unsigned i = max(0, (int)m_benchmarkInfo.size() - 5); i < m_benchmarkInfo.size(); ++i)
   {
     ostringstream out;
     m2::RectD const & r = m_benchmarkInfo[i].m_rect;

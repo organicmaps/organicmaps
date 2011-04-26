@@ -30,6 +30,9 @@ private:
   RenderQueueRoutine * m_routine;
 
 public:
+
+  typedef RenderQueueRoutine::renderCommandFinishedFn renderCommandFinishedFn;
+
   /// constructor.
   RenderQueue(string const & skinName,
               bool isMultiSampled,
@@ -54,6 +57,9 @@ public:
 
   /// add window handle to notify when rendering operation finishes
   void AddWindowHandle(shared_ptr<WindowHandle> const & windowHandle);
+
+  void addRenderCommandFinishedFn(renderCommandFinishedFn fn);
+
   /// process resize request
   void OnSize(size_t w, size_t h);
   /// copy primary render state

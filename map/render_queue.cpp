@@ -69,6 +69,11 @@ void RenderQueue::AddWindowHandle(shared_ptr<WindowHandle> const & windowHandle)
   m_routine->addWindowHandle(windowHandle);
 }
 
+void RenderQueue::addRenderCommandFinishedFn(renderCommandFinishedFn fn)
+{
+  m_routine->addRenderCommandFinishedFn(fn);
+}
+
 void RenderQueue::OnSize(size_t w, size_t h)
 {
   m_renderState->onSize(w, h);

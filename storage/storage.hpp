@@ -89,9 +89,13 @@ namespace storage
 
     /// @name Communicate with Framework
     //@{
+  public:
     typedef boost::function<void (string const &)> TAddMapFunction;
     typedef boost::function<void (string const &)> TRemoveMapFunction;
     typedef boost::function<void (m2::RectD const & r)> TUpdateRectFunction;
+    typedef boost::function<void (Platform::FilesList &)> TEnumMapsFunction;
+  private:
+
     TAddMapFunction m_addMap;
     TRemoveMapFunction m_removeMap;
     TUpdateRectFunction m_updateRect;
@@ -106,7 +110,7 @@ namespace storage
     Storage() {}
 
     /// Adds all locally downloaded maps to the model
-    void Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc, TUpdateRectFunction updateRectFunc);
+    void Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc, TUpdateRectFunction updateRectFunc, TEnumMapsFunction enumMapFunction);
 
     /// @name Called from DownloadManager
     //@{

@@ -12,7 +12,7 @@
 #include "../../map/drawer_yg.hpp"
 #include "../../storage/storage.hpp"
 
-typedef FrameWork<model::FeaturesFetcher, Navigator> framework_t;
+typedef FrameWork<model::FeaturesFetcher> framework_t;
 
 @implementation MapViewController
 

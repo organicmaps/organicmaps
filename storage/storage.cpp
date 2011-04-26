@@ -48,7 +48,7 @@ namespace storage
   }
 
   ////////////////////////////////////////////////////////////////////////////
-  void Storage::Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc, TUpdateRectFunction updateRectFunc)
+  void Storage::Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc, TUpdateRectFunction updateRectFunc, TEnumMapsFunction enumMapsFunc)
   {
     m_currentVersion = static_cast<uint32_t>(Version::BUILD);
 
@@ -56,18 +56,16 @@ namespace storage
     m_removeMap = removeFunc;
     m_updateRect = updateRectFunc;
 
-    // activate all downloaded maps
-    Platform & p = GetPlatform();
     Platform::FilesList filesList;
-    string const dataPath = p.WritableDir();
-    p.GetFilesInDir(dataPath, "*" DATA_FILE_EXTENSION, filesList);
+    enumMapsFunc(filesList);
+
     for (Platform::FilesList::iterator it = filesList.begin(); it != filesList.end(); ++it)
     { // simple way to avoid continuous crashes with invalid data files
       try {
-        m_addMap(dataPath + *it);
+        m_addMap(GetPlatform().WritableDir() + *it);
       } catch (std::exception const & e)
       {
-        FileWriter::DeleteFileX(dataPath + *it);
+        FileWriter::DeleteFileX(GetPlatform().WritableDir() + *it);
         LOG(LWARNING, (e.what(), "while adding file", *it, "so this file is deleted"));
       }
     }
@@ -78,7 +76,7 @@ namespace storage
     if (found == filesList.end())
     {
       try {
-        m_addMap(p.ReadPathForFile(WORLD_FILE_NAME DATA_FILE_EXTENSION));
+        m_addMap(GetPlatform().ReadPathForFile(WORLD_FILE_NAME DATA_FILE_EXTENSION));
       } catch (std::exception const & e)
       {
         LOG(LWARNING, (e.what(), "while adding world data file"));

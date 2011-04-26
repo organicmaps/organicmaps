@@ -41,6 +41,7 @@ class RenderQueueRoutine : public threads::IRoutine
 public:
 
   typedef function<void(shared_ptr<PaintEvent>, ScreenBase const &, m2::RectD const &, int)> render_fn_t;
+  typedef function<void()> renderCommandFinishedFn;
 
 private:
 
@@ -85,6 +86,10 @@ private:
   void waitForRenderCommand(list<shared_ptr<RenderModelCommand> > & cmdList,
                             threads::ConditionGuard & guard);
 
+  list<renderCommandFinishedFn> m_renderCommandFinishedFns;
+
+  void callRenderCommandFinishedFns();
+
 public:
   RenderQueueRoutine(shared_ptr<yg::gl::RenderState> const & renderState,
                      string const & skinName,
@@ -124,4 +129,6 @@ public:
   void enterBackground();
   /// recreate all necessary opengl resources and prepare to run in foreground.
   void enterForeground();
+  /// add render-command-finished callback
+  void addRenderCommandFinishedFn(renderCommandFinishedFn fn);
 };
