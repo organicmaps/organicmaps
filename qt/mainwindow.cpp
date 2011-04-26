@@ -133,14 +133,15 @@ bool MainWindow::winEvent(MSG * msg, long * result)
 {
   if (msg->message == WM_SYSCOMMAND)
   {
-    if (msg->wParam == IDM_PREFERENCES_DIALOG)
+    switch (msg->wParam)
     {
+#ifdef DEBUG // code removed for desktop releases
+    case IDM_PREFERENCES_DIALOG:
       OnPreferences();
       *result = 0;
       return true;
-    }
-    else if (msg->wParam == IDM_ABOUT_DIALOG)
-    {
+#endif
+    case IDM_ABOUT_DIALOG:
       OnAbout();
       *result = 0;
       return true;
