@@ -110,6 +110,8 @@ namespace osm
   class OsmXmlParser
   {
     vector<string> m_xmlTags;
+    /// true if action=delete or visible=false for corresponding xml tag
+    vector<bool> m_invalidTags;
 
     OsmRawData & m_osmRawData;
 

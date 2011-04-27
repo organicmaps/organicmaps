@@ -159,41 +159,51 @@ namespace osm
   bool OsmXmlParser::Push(string const & element)
   {
     m_xmlTags.push_back(element);
+    m_invalidTags.push_back(false);
 
     return true;
   }
 
   void OsmXmlParser::Pop(string const & element)
   {
+    bool invalid = m_invalidTags.back();
     if (element == "node")
     {
-      m_osmRawData.AddNode(m_id, m_tags, m_lat, m_lon);
+      if (!invalid)
+        m_osmRawData.AddNode(m_id, m_tags, m_lat, m_lon);
       m_tags.clear();
     }
     else if (element == "nd")
     {
-      m_nds.push_back(m_ref);
+      if (!invalid)
+        m_nds.push_back(m_ref);
     }
     else if (element == "way")
     {
-      m_osmRawData.AddWay(m_id, m_tags, m_nds);
+      if (!invalid)
+        m_osmRawData.AddWay(m_id, m_tags, m_nds);
       m_nds.clear();
       m_tags.clear();
     }
     else if (element == "tag")
     {
-      m_tags.push_back(OsmTag(m_k, m_v));
+      if (!invalid)
+        m_tags.push_back(OsmTag(m_k, m_v));
     }
     else if (element == "member")
     {
-      m_members.push_back(m_member);
+      if (!invalid)
+        m_members.push_back(m_member);
     }
     else if (element == "relation")
     {
-      m_osmRawData.AddRelation(m_id, m_tags, m_members);
+      if (!invalid)
+        m_osmRawData.AddRelation(m_id, m_tags, m_members);
       m_members.clear();
       m_tags.clear();
     }
+
+    m_invalidTags.pop_back();
     m_xmlTags.pop_back();
   }
 
@@ -237,6 +247,11 @@ namespace osm
     else if (attr == "role" && elem == "member")
     {
       m_member.m_role = value;
+    }
+    else if ((attr == "action" && value == "delete")
+             || (attr == "visible" && value == "false"))
+    {
+      m_invalidTags.back() = true;
     }
   }
 
