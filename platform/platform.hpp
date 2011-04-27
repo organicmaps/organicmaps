@@ -18,6 +18,8 @@ public:
   /// Time in seconds passed from application start
   virtual double TimeInSec() const = 0;
 
+  virtual string TimeString() const = 0;
+
   /// @return always the same writable dir for current user with slash at the end
   virtual string WritableDir() const = 0;
   /// @return full path to file in user's writable directory

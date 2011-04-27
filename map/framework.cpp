@@ -275,6 +275,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
       m_centeringMode(EDoNothing),
       m_maxDuration(0)
   {
+    m_startTime = GetPlatform().TimeString();
     m_informationDisplay.setBottomShift(bottomShift);
 #ifdef DRAW_TOUCH_POINTS
     m_informationDisplay.enableDebugPoints(true);
@@ -334,15 +335,13 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   template <typename TModel>
   void FrameWork<TModel>::SaveBenchmarkResults()
   {
-    string deviceID = GetPlatform().DeviceID();
-    transform(deviceID.begin(), deviceID.end(), deviceID.begin(), ::tolower);
-
-    ofstream fout(GetPlatform().WritablePathForFile(deviceID + "_benchmark_results.txt").c_str(), ios::app);
+    ofstream fout(GetPlatform().WritablePathForFile("benchmark_results.txt").c_str(), ios::app);
 
     for (int i = 0; i < m_benchmarkResults.size(); ++i)
     {
       fout << GetPlatform().DeviceID() << " "
            << VERSION_STRING << " "
+           << m_startTime << " "
            << m_benchmarkResults[i].m_name << " "
            << m_benchmarkResults[i].m_rect.minX() << " "
            << m_benchmarkResults[i].m_rect.minY() << " "
@@ -352,6 +351,16 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     }
 
     m_benchmarkResults.clear();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::SendBenchmarkResults()
+  {
+//    ofstream fout(GetPlatform().WritablePathForFile("benchmark_results.txt").c_str(), ios::app);
+//    fout << "[COMPLETED]";
+//    fout.close();
+    /// send to server for adding to statistics graphics
+    /// and delete results file
   }
 
   template <typename TModel>
@@ -366,6 +375,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     else
     {
       SaveBenchmarkResults();
+      SendBenchmarkResults();
       LOG(LINFO, ("Bechmarks took ", m_benchmarksTimer.ElapsedSeconds(), " seconds to complete"));
     }
   }

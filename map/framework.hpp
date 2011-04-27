@@ -148,6 +148,7 @@ class FrameWork
 
   vector<BenchmarkResult> m_benchmarkResults;
   my::Timer m_benchmarksTimer;
+  string m_startTime;
 
   struct Benchmark
   {
@@ -161,6 +162,7 @@ class FrameWork
   void BenchmarkCommandFinished();
   void NextBenchmarkCommand();
   void SaveBenchmarkResults();
+  void SendBenchmarkResults();
 
   void AddMap(string const & datFile);
   void RemoveMap(string const & datFile);
