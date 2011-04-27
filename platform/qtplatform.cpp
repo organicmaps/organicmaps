@@ -3,6 +3,8 @@
 #include "../base/assert.hpp"
 #include "../base/macros.hpp"
 #include "../base/timer.hpp"
+#include "../base/logging.hpp"
+#include "../defines.hpp"
 
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
@@ -382,7 +384,20 @@ public:
 
   bool IsBenchmarking() const
   {
-    return false;
+    bool res = true;
+#ifndef OMIM_PRODUCTION
+    if (res)
+    {
+      static bool first = true;
+      if (first)
+      {
+        LOG(LCRITICAL, ("benchmarking only defined in production configuration"));
+        first = false;
+      }
+      res = false;
+    }
+#endif
+    return res;
   }
 
   string const DeviceID() const
