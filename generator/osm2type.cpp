@@ -486,12 +486,14 @@ namespace ftype {
     {
       size_t & m_count;
       string & m_name;
+      string & m_addr;
       int32_t & m_layer;
+
     public:
       typedef bool result_type;
 
-      do_find_name(size_t & count, string & name, int32_t & layer)
-        : m_count(count), m_name(name), m_layer(layer)
+      do_find_name(size_t & count, string & name, string & addr, int32_t & layer)
+        : m_count(count), m_name(name), m_addr(addr), m_layer(layer)
       {
         m_count = 0;
         m_layer = 0;
@@ -504,9 +506,9 @@ namespace ftype {
         if (m_name.empty() && k == "name")
           m_name = v;
 
-        // add house number as name
-        if (m_name.empty() && k == "addr:housenumber")
-          m_name = v;
+        // add house number
+        if (m_addr.empty() && k == "addr:housenumber")
+          m_addr = v;
 
         if (k == "layer" && m_layer == 0)
           m_layer = atoi(v.c_str());
@@ -566,7 +568,10 @@ namespace ftype {
   size_t find_name_and_count(XMLElement * p, string & name, int32_t & layer)
   {
     size_t count;
-    for_each_tag(p, do_find_name(count, name, layer));
+    string addr;
+    for_each_tag(p, do_find_name(count, name, addr, layer));
+
+    if (name.empty()) name = addr;
     return count;
   }
 
