@@ -52,8 +52,9 @@ DEFINE_int32(generate_world_scale, -1, "If specified, features for zoomlevels [0
 DEFINE_bool(split_by_polygons, false, "Use kml shape files to split planet by regions and countries");
 DEFINE_int32(simplify_countries_level, -1, "If positive, simplifies country polygons. Recommended values [10..15]");
 DEFINE_bool(merge_coastlines, false, "If defined, tries to merge coastlines when renerating World file");
-DEFINE_bool(generate_borders, false,
-            "Create binary country .borders file for osm xml file given in 'output' parameter");
+DEFINE_string(generate_borders, "",
+            "Create binary country .borders file for osm xml file given in 'output' parameter,"
+            "specify tag name and optional value: ISO3166-1 or admin_level=4");
 
 string AddSlashIfNeeded(string const & str)
 {
@@ -196,11 +197,13 @@ int main(int argc, char ** argv)
     update::GenerateFilesList(path);
   }
 
-  if (FLAGS_generate_borders)
+  if (!FLAGS_generate_borders.empty())
   {
     if (!FLAGS_output.empty())
     {
-      osm::GenerateBordersFromOsm(path + FLAGS_output + ".osm", path + FLAGS_output + ".borders");
+      osm::GenerateBordersFromOsm(FLAGS_generate_borders,
+                                  path + FLAGS_output + ".osm",
+                                  path + FLAGS_output + ".borders");
     }
     else
     {

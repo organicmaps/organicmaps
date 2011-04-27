@@ -55,7 +55,9 @@ namespace osm
     }
   };
 
-  void GenerateBordersFromOsm(string const & osmFile, string const & outFile)
+  void GenerateBordersFromOsm(string const & tagAndOptValue,
+                              string const & osmFile,
+                              string const & outFile)
   {
     OsmRawData osmData;
     {
@@ -66,10 +68,22 @@ namespace osm
       CHECK(ParseXML(source, parser), ("Invalid XML"));
     }
 
+    // extract search tag key and value
+    size_t const delimeterPos = tagAndOptValue.find('=');
+    string const searchKey = tagAndOptValue.substr(0, delimeterPos);
+    string searchValue;
+    if (delimeterPos != string::npos)
+      searchValue = tagAndOptValue.substr(delimeterPos + 1, string::npos);
+
     // find country borders relation
-    OsmIds relationIds = osmData.RelationsByKey("ISO3166-1");
-    CHECK(!relationIds.empty(), ("No relation with key 'ISO3166-1' found"));
-    CHECK_EQUAL(relationIds.size(), 1, ("More than one relation with key 'ISO3166-1' found"));
+    OsmIds relationIds;
+    if (searchValue.empty())
+      relationIds = osmData.RelationsByKey(searchKey);
+    else
+      relationIds = osmData.RelationsByTag(OsmTag(searchKey, searchValue));
+    CHECK(!relationIds.empty(), ("No relation found with tag", searchKey, searchValue));
+    CHECK_EQUAL(relationIds.size(), 1, ("Found more than one relation with tag",
+                                        searchKey, searchValue));
 
     OsmRelation countryRelation = osmData.RelationById(relationIds[0]);
 

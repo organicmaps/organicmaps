@@ -191,10 +191,16 @@ UNIT_TEST(BordersGenerator)
     f.Write(gOsmXml, ARRAY_SIZE(gOsmXml) - 1);  // -1 to skip last zero
   }
 
-  GenerateBordersFromOsm(inputFile, outputFile);
+  GenerateBordersFromOsm("ISO3166-1", inputFile, outputFile);
   vector<m2::RegionD> borders;
   LoadBorders(outputFile, borders);
   TEST_EQUAL(borders.size(), 2, ());
+
+  GenerateBordersFromOsm("admin_level=4", inputFile, outputFile);
+  borders.clear();
+  LoadBorders(outputFile, borders);
+  TEST_EQUAL(borders.size(), 1, ());
+
 
   FileWriter::DeleteFileX(inputFile);
   FileWriter::DeleteFileX(outputFile);
