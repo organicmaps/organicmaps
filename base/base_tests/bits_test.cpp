@@ -53,7 +53,6 @@ UNIT_TEST(ROL)
   TEST_EQUAL(bits::ROL<uint8_t>(128 | 32 | 4), uint8_t(64 | 8 | 1), ());
 }
 
-
 UNIT_TEST(PerfectShuffle)
 {
   // 0010 0001 0100 0000
@@ -61,3 +60,28 @@ UNIT_TEST(PerfectShuffle)
   TEST_EQUAL(bits::PerfectShuffle(557851022), 201547860, ());
   TEST_EQUAL(bits::PerfectUnshuffle(201547860), 557851022, ());
 }
+
+UNIT_TEST(ZigZagEncode)
+{
+  TEST_EQUAL(bits::ZigZagEncode(0),  0, ());
+  TEST_EQUAL(bits::ZigZagEncode(-1), 1, ());
+  TEST_EQUAL(bits::ZigZagEncode(1),  2, ());
+  TEST_EQUAL(bits::ZigZagEncode(-2), 3, ());
+  TEST_EQUAL(bits::ZigZagEncode(2),  4, ());
+  TEST_EQUAL(bits::ZigZagEncode(127),  254, ());
+  TEST_EQUAL(bits::ZigZagEncode(-128), 255, ());
+  TEST_EQUAL(bits::ZigZagEncode(128),  256, ());
+}
+
+UNIT_TEST(ZigZagDecode)
+{
+  TEST_EQUAL(bits::ZigZagDecode(0U), 0, ());
+  TEST_EQUAL(bits::ZigZagDecode(1U), -1, ());
+  TEST_EQUAL(bits::ZigZagDecode(2U),  1, ());
+  TEST_EQUAL(bits::ZigZagDecode(3U), -2, ());
+  TEST_EQUAL(bits::ZigZagDecode(4U),  2, ());
+  TEST_EQUAL(bits::ZigZagDecode(254U),  127, ());
+  TEST_EQUAL(bits::ZigZagDecode(255U), -128, ());
+  TEST_EQUAL(bits::ZigZagDecode(256U),  128, ());
+}
+
