@@ -150,6 +150,20 @@
    Rhone-Alpes
   Georgia
   Germany
+   Baden-Wurttemberg
+   Bavaria
+   Berlin & Brandenburg
+   Bremen & Lower Saxony
+   Hamburg
+   Hesse
+   Mecklenburg-Vorpommern
+   North Rhine-Westphalia
+   Rhineland-Palatinate
+   Saarland
+   Saxony-Anhalt
+   Saxony
+   Schleswig-Holstein
+   Thuringia
   Gibraltar
   Greece
   Hungary
