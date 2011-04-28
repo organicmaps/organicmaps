@@ -27,7 +27,7 @@ namespace yg
 
       typedef Clipper base_t;
 
-      void setupAuxVertexLayout(bool hasColor, bool hasTexture);
+      void setupAuxVertexLayout(bool hasColor, bool hasTexture, void * glPtr);
 
     public:
 

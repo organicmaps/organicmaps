@@ -12,10 +12,13 @@ namespace yg
       unsigned int m_size;
       void * m_gpuData;
 
+      /// using VA instead of buffer objects on some old GPU's
+      bool m_useVA;
+
     public:
 
-      VertexBuffer();
-      VertexBuffer(size_t size);
+      VertexBuffer(bool useVA);
+      VertexBuffer(size_t size, bool useVA);
       ~VertexBuffer();
 
       void resize(size_t size);
@@ -24,6 +27,7 @@ namespace yg
       void makeCurrent();
       void * lock();
       void unlock();
+      void * glPtr() const;
 
       static unsigned current();
       static void pushCurrent();

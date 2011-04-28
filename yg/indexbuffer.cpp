@@ -32,14 +32,18 @@ namespace yg
       indexBufferStack.pop_back();
     }
 
-    IndexBuffer::IndexBuffer() : m_size(0), m_gpuData(0)
+    IndexBuffer::IndexBuffer(bool useVA)
+      : m_size(0), m_gpuData(0), m_useVA(useVA)
     {
-      OGLCHECK(glGenBuffers(1, &m_id));
+      if (!m_useVA)
+        OGLCHECK(glGenBuffers(1, &m_id));
     }
 
-    IndexBuffer::IndexBuffer(size_t size) : m_size(0), m_gpuData(0)
+    IndexBuffer::IndexBuffer(size_t size, bool useVA)
+      : m_size(0), m_gpuData(0), m_useVA(useVA)
     {
-      OGLCHECK(glGenBuffers(1, &m_id));
+      if (!m_useVA)
+        OGLCHECK(glGenBuffers(1, &m_id));
       resize(size);
     }
 
@@ -49,7 +53,13 @@ namespace yg
       {
         m_size = size;
         makeCurrent();
-        OGLCHECK(glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_size, 0, GL_DYNAMIC_DRAW));
+        if (m_useVA)
+        {
+          delete [] (unsigned char*) m_gpuData;
+          m_gpuData = new unsigned char[size];
+        }
+        else
+          OGLCHECK(glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_size, 0, GL_DYNAMIC_DRAW));
       }
     }
 
@@ -60,11 +70,15 @@ namespace yg
 
     IndexBuffer::~IndexBuffer()
     {
-      OGLCHECK(glDeleteBuffers(1, &m_id));
+      if (!m_useVA)
+        OGLCHECK(glDeleteBuffers(1, &m_id));
     }
 
     void * IndexBuffer::lock()
     {
+      if (m_useVA)
+        return m_gpuData;
+
       makeCurrent();
 
       /// orphaning the old copy of the buffer data.
@@ -82,6 +96,9 @@ namespace yg
 
     void IndexBuffer::unlock()
     {
+      if (m_useVA)
+        return;
+
       ASSERT(m_gpuData != 0, ("IndexBuffer is not locked"));
       makeCurrent();
 #ifdef OMIM_GL_ES
@@ -94,8 +111,19 @@ namespace yg
 
     void IndexBuffer::makeCurrent()
     {
+      if (m_useVA)
+        return;
+
       if (m_id != current())
         OGLCHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id));
+    }
+
+    void * IndexBuffer::glPtr()
+    {
+      if (m_useVA)
+        return m_gpuData;
+      else
+        return 0;
     }
   }
 }

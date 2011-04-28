@@ -11,11 +11,12 @@ namespace yg
       unsigned int m_id;
       unsigned int m_size;
       void * m_gpuData;
+      bool m_useVA;
 
     public:
 
-      IndexBuffer();
-      IndexBuffer(size_t size);
+      IndexBuffer(bool useVA);
+      IndexBuffer(size_t size, bool useVA);
       ~IndexBuffer();
 
       void resize(size_t size);
@@ -25,9 +26,12 @@ namespace yg
       void * lock();
       void unlock();
 
+      void * glPtr();
+
       static void pushCurrent();
       static void popCurrent();
       static int current();
+
     };
   }
 }

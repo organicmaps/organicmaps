@@ -29,14 +29,14 @@ namespace yg
       return *this;
     }
 
-    void Vertex::setupLayout()
+    void Vertex::setupLayout(void * glPtr)
     {
       OGLCHECK(glDisableClientState(GL_COLOR_ARRAY));
       OGLCHECK(glEnableClientState(GL_VERTEX_ARRAY));
-      OGLCHECK(glVertexPointer(3, GL_FLOAT, sizeof(Vertex), (void*)Vertex::vertexOffset));
+      OGLCHECK(glVertexPointer(3, GL_FLOAT, sizeof(Vertex), (void*)((char*)glPtr + Vertex::vertexOffset)));
       OGLCHECK(glEnable(GL_TEXTURE_2D));
       OGLCHECK(glEnableClientState(GL_TEXTURE_COORD_ARRAY));
-      OGLCHECK(glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), (void*)Vertex::texCoordOffset));
+      OGLCHECK(glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), (void*)((char*)glPtr + Vertex::texCoordOffset)));
     }
   }
 }

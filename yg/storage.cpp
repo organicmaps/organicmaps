@@ -10,9 +10,9 @@ namespace yg
     Storage::Storage()
     {}
 
-    Storage::Storage(size_t vbSize, size_t ibSize) :
-      m_vertices(new VertexBuffer(vbSize)),
-      m_indices(new IndexBuffer(ibSize))
+    Storage::Storage(size_t vbSize, size_t ibSize, bool useVA) :
+      m_vertices(new VertexBuffer(vbSize, useVA)),
+      m_indices(new IndexBuffer(ibSize, useVA))
     {}
   }
 }

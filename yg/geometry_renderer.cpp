@@ -19,7 +19,8 @@ namespace yg
                                         size_t indicesCount)
     {
       vertices->makeCurrent();
-      Vertex::setupLayout();
+      /// it's important to setupLayout after vertices->makeCurrent
+      Vertex::setupLayout(vertices->glPtr());
       indices->makeCurrent();
 
       texture->makeCurrent();
@@ -28,7 +29,7 @@ namespace yg
         GL_TRIANGLES,
         indicesCount,
         GL_UNSIGNED_SHORT,
-        0));
+        indices->glPtr()));
     }
   }
 }

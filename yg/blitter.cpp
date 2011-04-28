@@ -135,15 +135,15 @@ namespace yg
       immDrawTexturedPrimitives(rectPoints, texRectPoints, 4, texture, true, yg::Color(), false);
     }
 
-    void Blitter::setupAuxVertexLayout(bool hasColor, bool hasTexture)
+    void Blitter::setupAuxVertexLayout(bool hasColor, bool hasTexture, void * glPtr)
     {
       OGLCHECK(glEnableClientState(GL_VERTEX_ARRAY));
-      OGLCHECK(glVertexPointer(2, GL_FLOAT, sizeof(AuxVertex), (void*)AuxVertex::vertexOffs));
+      OGLCHECK(glVertexPointer(2, GL_FLOAT, sizeof(AuxVertex), (void*)((char*)glPtr + AuxVertex::vertexOffs)));
 
       if (hasColor)
       {
         OGLCHECK(glEnableClientState(GL_COLOR_ARRAY));
-        OGLCHECK(glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(AuxVertex), (void*)AuxVertex::colorOffs));
+        OGLCHECK(glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(AuxVertex), (void*)((char*)glPtr + AuxVertex::colorOffs)));
       }
       else
         OGLCHECK(glDisableClientState(GL_COLOR_ARRAY));
@@ -151,7 +151,7 @@ namespace yg
       if (hasTexture)
       {
         OGLCHECK(glEnableClientState(GL_TEXTURE_COORD_ARRAY));
-        OGLCHECK(glTexCoordPointer(2, GL_FLOAT, sizeof(AuxVertex), (void*)AuxVertex::texCoordsOffs));
+        OGLCHECK(glTexCoordPointer(2, GL_FLOAT, sizeof(AuxVertex), (void*)((char*)glPtr + AuxVertex::texCoordsOffs)));
       }
       else
       {
@@ -184,7 +184,7 @@ namespace yg
       m_blitStorage.m_vertices->unlock();
       m_blitStorage.m_vertices->makeCurrent();
 
-      setupAuxVertexLayout(hasColor, hasTexture);
+      setupAuxVertexLayout(hasColor, hasTexture, m_blitStorage.m_vertices->glPtr());
 
       if (texture)
         texture->makeCurrent();
@@ -194,17 +194,17 @@ namespace yg
       m_blitStorage.m_indices->unlock();
       m_blitStorage.m_indices->makeCurrent();
 
-      resourceManager()->freeBlitStorage(m_blitStorage);
-      m_blitStorage = yg::gl::Storage();
-
       OGLCHECK(glDisable(GL_BLEND));
       OGLCHECK(glDisable(GL_DEPTH_TEST));
-      OGLCHECK(glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, 0));
+      OGLCHECK(glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, m_blitStorage.m_indices->glPtr()));
       OGLCHECK(glEnable(GL_DEPTH_TEST));
       OGLCHECK(glEnable(GL_TEXTURE_2D));
       OGLCHECK(glEnable(GL_BLEND));
       /// This call is necessary to avoid parasite blitting in updateActualTarget() on IPhone.
       OGLCHECK(glFinish());
+
+      resourceManager()->freeBlitStorage(m_blitStorage);
+      m_blitStorage = yg::gl::Storage();
     }
   }
 }

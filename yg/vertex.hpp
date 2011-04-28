@@ -22,7 +22,7 @@ namespace yg
       Vertex(Vertex const & v);
       Vertex const & operator=(Vertex const & v);
 
-      static void setupLayout();
+      static void setupLayout(void * glPtr);
     };
 
     struct AuxVertex

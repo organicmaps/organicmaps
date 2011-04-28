@@ -16,7 +16,7 @@ namespace yg
       shared_ptr<IndexBuffer> m_indices;
 
       Storage();
-      Storage(size_t vbSize, size_t ibSize);
+      Storage(size_t vbSize, size_t ibSize, bool useVA);
     };
   }
 }

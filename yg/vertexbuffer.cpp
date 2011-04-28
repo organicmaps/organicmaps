@@ -32,14 +32,18 @@ namespace yg
       vertexBufferStack.pop_back();
     }
 
-    VertexBuffer::VertexBuffer() : m_size(0), m_gpuData(0)
+    VertexBuffer::VertexBuffer(bool useVA)
+      : m_size(0), m_gpuData(0), m_useVA(useVA)
     {
-      OGLCHECK(glGenBuffers(1, &m_id));
+      if (!m_useVA)
+        OGLCHECK(glGenBuffers(1, &m_id));
     }
 
-    VertexBuffer::VertexBuffer(size_t size) : m_size(0), m_gpuData(0)
+    VertexBuffer::VertexBuffer(size_t size, bool useVA)
+      : m_size(0), m_gpuData(0), m_useVA(useVA)
     {
-      OGLCHECK(glGenBuffers(1, &m_id));
+      if (!m_useVA)
+        OGLCHECK(glGenBuffers(1, &m_id));
       resize(size);
     }
 
@@ -49,7 +53,13 @@ namespace yg
       {
         m_size = size;
         makeCurrent();
-        OGLCHECK(glBufferData(GL_ARRAY_BUFFER, m_size, 0, GL_DYNAMIC_DRAW));
+        if (m_useVA)
+        {
+          delete [] (unsigned char*)m_gpuData;
+          m_gpuData = new unsigned char [size];
+        }
+        else
+          OGLCHECK(glBufferData(GL_ARRAY_BUFFER, m_size, 0, GL_DYNAMIC_DRAW));
       }
     }
 
@@ -60,11 +70,17 @@ namespace yg
 
     VertexBuffer::~VertexBuffer()
     {
-      OGLCHECK(glDeleteBuffers(1, &m_id));
+      if (m_useVA)
+        delete [] (unsigned char*)m_gpuData;
+      else
+        OGLCHECK(glDeleteBuffers(1, &m_id));
     }
 
     void * VertexBuffer::lock()
     {
+      if (m_useVA)
+        return m_gpuData;
+
       makeCurrent();
 
       /// orphaning the old copy of the buffer data.
@@ -82,6 +98,9 @@ namespace yg
 
     void VertexBuffer::unlock()
     {
+      if (m_useVA)
+        return;
+
       ASSERT(m_gpuData != 0, ("VertexBuffer is not locked"));
       makeCurrent();
 #ifdef OMIM_GL_ES
@@ -92,8 +111,18 @@ namespace yg
       m_gpuData = 0;
     }
 
+    void * VertexBuffer::glPtr() const
+    {
+      if (m_useVA)
+        return m_gpuData;
+      return 0;
+    }
+
     void VertexBuffer::makeCurrent()
     {
+      if (m_useVA)
+        return;
+
       if (m_id != current())
         OGLCHECK(glBindBuffer(GL_ARRAY_BUFFER, m_id));
     }

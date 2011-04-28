@@ -22,26 +22,31 @@ namespace yg
                                    size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
                                    size_t texWidth, size_t texHeight, size_t texCount,
                                    char const * blocksFile, char const * whiteListFile, char const * blackListFile, size_t maxGlyphCacheSize,
-                                   RtFormat fmt)
+                                   RtFormat fmt,
+                                   bool useVA)
                                      : m_textureWidth(texWidth), m_textureHeight(texHeight),
                                      m_vbSize(vbSize), m_ibSize(ibSize),
                                      m_smallVBSize(smallVBSize), m_smallIBSize(smallIBSize),
                                      m_blitVBSize(blitVBSize), m_blitIBSize(blitIBSize),
                                      m_glyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, maxGlyphCacheSize)),
-                                     m_format(fmt)
+                                     m_format(fmt),
+                                     m_useVA(useVA)
   {
+    if (useVA)
+      LOG(LINFO, ("buffer objects are unsupported. using client vertex array instead."));
+
     for (size_t i = 0; i < storagesCount; ++i)
-      m_storages.push_back(gl::Storage(vbSize, ibSize));
+      m_storages.push_back(gl::Storage(vbSize, ibSize, m_useVA));
 
     LOG(LINFO, ("allocating ", (vbSize + ibSize) * storagesCount, " bytes for main storage"));
 
     for (size_t i = 0; i < smallStoragesCount; ++i)
-      m_smallStorages.push_back(gl::Storage(smallVBSize, smallIBSize));
+      m_smallStorages.push_back(gl::Storage(smallVBSize, smallIBSize, m_useVA));
 
     LOG(LINFO, ("allocating ", (smallVBSize + smallIBSize) * smallStoragesCount, " bytes for small storage"));
 
     for (size_t i = 0; i < blitStoragesCount; ++i)
-      m_blitStorages.push_back(gl::Storage(blitVBSize, blitIBSize));
+      m_blitStorages.push_back(gl::Storage(blitVBSize, blitIBSize, m_useVA));
 
     LOG(LINFO, ("allocating ", (blitVBSize + blitIBSize) * blitStoragesCount, " bytes for blit storage"));
 
@@ -227,11 +232,11 @@ namespace yg
     threads::MutexGuard guard(m_mutex);
 
     for (list<gl::Storage>::iterator it = m_storages.begin(); it != m_storages.end(); ++it)
-      *it = gl::Storage(m_vbSize, m_ibSize);
+      *it = gl::Storage(m_vbSize, m_ibSize, m_useVA);
     for (list<gl::Storage>::iterator it = m_smallStorages.begin(); it != m_smallStorages.end(); ++it)
-      *it = gl::Storage(m_smallVBSize, m_smallIBSize);
+      *it = gl::Storage(m_smallVBSize, m_smallIBSize, m_useVA);
     for (list<gl::Storage>::iterator it = m_blitStorages.begin(); it != m_blitStorages.end(); ++it)
-      *it = gl::Storage(m_blitVBSize, m_blitIBSize);
+      *it = gl::Storage(m_blitVBSize, m_blitIBSize, m_useVA);
 
     for (list<shared_ptr<gl::BaseTexture> >::iterator it = m_dynamicTextures.begin(); it != m_dynamicTextures.end(); ++it)
       *it = shared_ptr<gl::BaseTexture>(new TDynamicTexture(m_textureWidth, m_textureHeight));

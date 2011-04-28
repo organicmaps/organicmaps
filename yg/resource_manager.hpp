@@ -63,6 +63,8 @@ namespace yg
 
     RtFormat m_format;
 
+    bool m_useVA;
+
   public:
 
     ResourceManager(size_t vbSize, size_t ibSize, size_t storagesCount,
@@ -70,7 +72,8 @@ namespace yg
                     size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
                     size_t texWidth, size_t texHeight, size_t texCount,
                     char const * blocksFile, char const * whileListFile, char const * blackListFile, size_t maxGlyphCacheSize,
-                    RtFormat fmt);
+                    RtFormat fmt,
+                    bool useVA);
 
     shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
 
