@@ -7,7 +7,7 @@ set PKG_TYPE=%1
 set PKG_DIR=MapsWithMe
 set BASE_PATH=C:\Qt\omim-build-%PKG_TYPE%-release
 set MINGW_BIN_PATH=C:\Qt\SDK\mingw\bin
-set QT_BIN_PATH=C:\Qt\SDK\Desktop\Qt\4.7.2\%PKG_TYPE%\bin
+set QT_BIN_PATH=C:\Qt\SDK\Desktop\Qt\4.7.3\%PKG_TYPE%\bin
 set RAR_CMD="C:\Program Files\WinRar\WinRar.exe"
 set ZIP_NAME=MapsWithMe-%PKG_TYPE%.zip
 set PKG_RES_DIR=%PKG_DIR%\resources
@@ -31,7 +31,7 @@ copy %BASE_PATH%\data\welcome.html %PKG_RES_DIR%
 copy %BASE_PATH%\data\maps.update %PKG_RES_DIR%
 copy %BASE_PATH%\data\World.mwm %PKG_RES_DIR%
 
-copy %BASE_PATH%\data\dictionary.slf %PKG_RES_DIR%
+REM copy %BASE_PATH%\data\dictionary.slf %PKG_RES_DIR%
 
 
 IF %PKG_TYPE%==mingw (
@@ -39,8 +39,8 @@ IF %PKG_TYPE%==mingw (
   copy %QT_BIN_PATH%\libgcc_s_dw2-1.dll %PKG_DIR%\
   copy %QT_BIN_PATH%\mingwm10.dll %PKG_DIR%\
 ) ELSE (
-  copy C:\Windows\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4926_none_508ed732bcbc0e5a\msvcp90.dll %PKG_DIR%\
-  copy C:\Windows\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4926_none_508ed732bcbc0e5a\msvcr90.dll %PKG_DIR%\
+  copy C:\Windows\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.5570_none_509463cabcb6ef2a\msvcp90.dll %PKG_DIR%\
+  copy C:\Windows\winsxs\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.5570_none_509463cabcb6ef2a\msvcr90.dll %PKG_DIR%\
 )
 
 copy %QT_BIN_PATH%\QtCore4.dll %PKG_DIR%\
