@@ -31,17 +31,25 @@
 
 namespace yg
 {
-  namespace ogl
+  namespace gl
   {
+    extern bool g_isBufferObjectsSupported;
+    extern bool g_isFramebufferSupported;
+    extern bool g_isRenderbufferSupported;
+    extern bool g_isMultisamplingSupported;
+
+    /// return false to terminate program
+    bool CheckExtensionSupport();
+
     void CheckError(my::SrcPoint const & srcPt);
     void CheckEGLError(my::SrcPoint const & srcPt);
   }
 }
 
 #ifdef DEBUG
-#define OGLCHECK(f) do {f; yg::ogl::CheckError(SRC());} while(false)
-#define OGLCHECKAFTER yg::ogl::CheckError(SRC())
-#define EGLCHECK do {yg::ogl::CheckEGLError(SRC());} while(false)
+#define OGLCHECK(f) do {f; yg::gl::CheckError(SRC());} while(false)
+#define OGLCHECKAFTER yg::gl::CheckError(SRC())
+#define EGLCHECK do {yg::gl::CheckEGLError(SRC());} while(false)
 #else
 #define OGLCHECK(f) f
 #define OGLCHECKAFTER

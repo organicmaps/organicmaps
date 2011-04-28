@@ -31,6 +31,12 @@ namespace qt
 #ifdef OMIM_OS_WINDOWS
       win32::InitOpenGL();
 #endif
+
+      if (!yg::gl::CheckExtensionSupport())
+      {
+        /// TODO: Show "Please Update Drivers" dialog and close the program.
+      }
+
       m_renderContext = shared_ptr<yg::gl::RenderContext>(new qt::gl::RenderContext(this));
       m_resourceManager = make_shared_ptr(new yg::ResourceManager(
           50000 * sizeof(yg::gl::Vertex),
@@ -48,7 +54,8 @@ namespace qt
           GetPlatform().ReadPathForFile("fonts_whitelist.txt").c_str(),
           GetPlatform().ReadPathForFile("fonts_blacklist.txt").c_str(),
           2000000,
-          yg::Rt8Bpp));
+          yg::Rt8Bpp,
+          !yg::gl::g_isBufferObjectsSupported));
 
       m_resourceManager->addFonts(GetPlatform().GetFontNames());
 

@@ -9,9 +9,10 @@
 #include "../yg/renderbuffer.hpp"
 #include "../yg/resource_manager.hpp"
 
-#ifdef OMIM_OS_WINDOWS
+#include "../yg/internal/opengl.hpp"
+/*#ifdef OMIM_OS_WINDOWS
 #include "../yg/internal/opengl_win32.hpp"
-#endif
+#endif*/
 
 #include "../platform/platform.hpp"
 
@@ -36,6 +37,11 @@ void GLDrawWidget::initializeGL()
   win32::InitOpenGL();
 #endif
 
+  if (!yg::gl::CheckExtensionSupport())
+  {
+    /// TODO: Show "Please Update Drivers" dialog and close the program.
+  }
+
   m_primaryContext = make_shared_ptr(new qt::gl::RenderContext(this));
 
   m_resourceManager = make_shared_ptr(new yg::ResourceManager(
@@ -53,7 +59,8 @@ void GLDrawWidget::initializeGL()
       GetPlatform().ReadPathForFile("fonts_whitelist.txt").c_str(),
       GetPlatform().ReadPathForFile("fonts_blacklist.txt").c_str(),
       2000000,
-      yg::Rt8Bpp));
+      yg::Rt8Bpp,
+      !yg::gl::g_isBufferObjectsSupported));
 
   m_resourceManager->addFonts(GetPlatform().GetFontNames());
 

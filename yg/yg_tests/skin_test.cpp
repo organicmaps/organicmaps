@@ -9,7 +9,7 @@ UNIT_TEST(SkinTest_Main)
 {
   GL_TEST_START;
 
-  shared_ptr<yg::ResourceManager> rm(new yg::ResourceManager(100, 100, 1, 100, 100, 1, 100, 100, 1, 128, 128, 15, "", "", "", 2000000, yg::Rt8Bpp));
+  shared_ptr<yg::ResourceManager> rm(new yg::ResourceManager(100, 100, 1, 100, 100, 1, 100, 100, 1, 128, 128, 15, "", "", "", 2000000, yg::Rt8Bpp, false));
   yg::Skin * skin = loadSkin(rm, "test.skn", 2, 2);
 
   double p0 [] = {1, 1};

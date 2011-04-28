@@ -10,8 +10,19 @@
 
 namespace yg
 {
-  namespace ogl
+  namespace gl
   {
+    bool g_isBufferObjectsSupported = true;
+    bool g_isFramebufferSupported = true;
+    bool g_isRenderbufferSupported = true;
+    bool g_isMultisamplingSupported = true;
+
+    bool CheckExtensionSupport()
+    {
+      /// this functionality must be supported
+      return (g_isFramebufferSupported && g_isRenderbufferSupported);
+    }
+
     void LogError(char const * err, my::SrcPoint const & srcPt)
     {
       if (err)

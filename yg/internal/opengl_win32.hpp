@@ -30,6 +30,17 @@ extern PFNGLMAPBUFFERPROC glMapBuffer;
 extern PFNGLUNMAPBUFFERPROC glUnmapBuffer;
 extern PFNGLCHECKFRAMEBUFFERSTATUSEXTPROC glCheckFramebufferStatusEXT;
 
+namespace yg
+{
+  namespace gl
+  {
+    extern bool g_isBufferObjectsSupported;
+    extern bool g_isFramebufferSupported;
+    extern bool g_isRenderbufferSupported;
+    extern bool g_isMultisamplingSupported;
+  }
+}
+
 namespace win32
 {
   void InitOpenGL();

@@ -954,11 +954,11 @@ namespace
     }
   };
 
-//   UNIT_TEST_GL(TestDrawPolyOverflow);
+   UNIT_TEST_GL(TestDrawPolyOverflow);
    UNIT_TEST_GL(TestDrawText);
-//   UNIT_TEST_GL(TestDrawSingleSymbol);
-//   UNIT_TEST_GL(TestDrawEmptySymbol);
-//   UNIT_TEST_GL(TestDrawSingleSymbolAndSolidPath);
+   UNIT_TEST_GL(TestDrawSingleSymbol);
+   UNIT_TEST_GL(TestDrawEmptySymbol);
+   UNIT_TEST_GL(TestDrawSingleSymbolAndSolidPath);
    UNIT_TEST_GL(TestDrawString);
    UNIT_TEST_GL(TestDrawStringWithFixedFont);
    UNIT_TEST_GL(TestDrawStringWithColor);
@@ -970,21 +970,21 @@ namespace
    UNIT_TEST_GL(TestDrawTextOverflow);
    UNIT_TEST_GL(TestDrawTextFiltering);
    UNIT_TEST_GL(TestDrawRandomTextFiltering);
-//   UNIT_TEST_GL(TestDrawSGIConvex);
-//   UNIT_TEST_GL(TestDrawPoly);
-//   UNIT_TEST_GL(TestDrawSolidRect);
-//   UNIT_TEST_GL(TestDrawPathWithSkinPageMiss);
+   UNIT_TEST_GL(TestDrawSGIConvex);
+   UNIT_TEST_GL(TestDrawPoly);
+   UNIT_TEST_GL(TestDrawSolidRect);
+   UNIT_TEST_GL(TestDrawPathWithSkinPageMiss);
 //   UNIT_TEST_GL(TestDrawPathWithOffset);
-//   UNIT_TEST_GL(TestDrawPathJoin);
-//   UNIT_TEST_GL(TestDrawPathSolid1PX);
-//   UNIT_TEST_GL(TestDrawPathSolid2PX);
-//   UNIT_TEST_GL(TestDrawPathSolid);
-//   UNIT_TEST_GL(TestDrawSector);
-//   UNIT_TEST_GL(TestDrawPathSolidDiffWidth);
-//   UNIT_TEST_GL(TestDrawPathSolidWithZ);
-//   UNIT_TEST_GL(TestDrawPathSolidWithClipRect);
-//   UNIT_TEST_GL(TestDrawUtilsRect);
-//   UNIT_TEST_GL(TestDrawUtilsRectFilledTexture);
-//   UNIT_TEST_GL(TestDrawSymbolFiltering);
-//   UNIT_TEST_GL(TestDrawCircle);
+   UNIT_TEST_GL(TestDrawPathJoin);
+   UNIT_TEST_GL(TestDrawPathSolid1PX);
+   UNIT_TEST_GL(TestDrawPathSolid2PX);
+   UNIT_TEST_GL(TestDrawPathSolid);
+   UNIT_TEST_GL(TestDrawSector);
+   UNIT_TEST_GL(TestDrawPathSolidDiffWidth);
+   UNIT_TEST_GL(TestDrawPathSolidWithZ);
+   UNIT_TEST_GL(TestDrawPathSolidWithClipRect);
+   UNIT_TEST_GL(TestDrawUtilsRect);
+   UNIT_TEST_GL(TestDrawUtilsRectFilledTexture);
+   UNIT_TEST_GL(TestDrawSymbolFiltering);
+   UNIT_TEST_GL(TestDrawCircle);
 }

@@ -16,6 +16,8 @@
 #include "../std/algorithm.hpp"
 #include "../version/version.hpp"
 
+#include "../yg/internal/opengl.hpp"
+
 #include "../base/start_mem_debug.hpp"
 
 
@@ -263,7 +265,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
       m_isBenchmarkInitialized(false),
       m_bgColor(0xEE, 0xEE, 0xDD, 0xFF),
       m_renderQueue(GetPlatform().SkinName(),
-                    GetPlatform().IsMultiSampled(),
+                    GetPlatform().IsMultiSampled() && yg::gl::g_isMultisamplingSupported,
                     GetPlatform().DoPeriodicalUpdate(),
                     GetPlatform().PeriodicalUpdateInterval(),
                     GetPlatform().IsBenchmarking(),

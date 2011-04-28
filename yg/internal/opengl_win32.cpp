@@ -13,8 +13,8 @@ PFNGLGENBUFFERSPROC glGenBuffers;
 PFNGLBUFFERDATAPROC glBufferData;
 PFNGLBUFFERSUBDATAPROC glBufferSubData;
 PFNGLDELETEBUFFERSPROC glDeleteBuffers;
-PFNGLACTIVETEXTUREPROC glActiveTexture;
-PFNGLCLIENTACTIVETEXTUREPROC glClientActiveTexture;
+//PFNGLACTIVETEXTUREPROC glActiveTexture;
+//PFNGLCLIENTACTIVETEXTUREPROC glClientActiveTexture;
 PFNGLBINDFRAMEBUFFERPROC glBindFramebuffer;
 PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC glRenderbufferStorageMultisample;
 PFNGLFRAMEBUFFERTEXTURE2DPROC glFramebufferTexture2D;
@@ -39,7 +39,7 @@ namespace win32
     if (p == 0)
     {
       DWORD const err = ::GetLastError();
-      LOG(LCRITICAL, ("OpenGL extension function ", name, " not found. Last error = ", err));
+      LOG(LINFO, ("OpenGL extension function ", name, " not found. Last error = ", err));
     }
     return reinterpret_cast<TRet>(p);
   }
@@ -48,27 +48,62 @@ namespace win32
   {
     HMODULE hInst = 0;
 
+    /// buffer objects extensions
+
     glBindBuffer = GetGLProc<PFNGLBINDBUFFERPROC>(hInst, "glBindBuffer");
     glGenBuffers = GetGLProc<PFNGLGENBUFFERSPROC>(hInst, "glGenBuffers");
     glBufferData = GetGLProc<PFNGLBUFFERDATAPROC>(hInst, "glBufferData");
     glBufferSubData = GetGLProc<PFNGLBUFFERSUBDATAPROC>(hInst, "glBufferSubData");
     glDeleteBuffers = GetGLProc<PFNGLDELETEBUFFERSPROC>(hInst, "glDeleteBuffers");
-    glActiveTexture = GetGLProc<PFNGLACTIVETEXTUREPROC>(hInst, "glActiveTexture");
-    glClientActiveTexture = GetGLProc<PFNGLCLIENTACTIVETEXTUREPROC>(hInst, "glClientActiveTexture");
+    glMapBuffer = GetGLProc<PFNGLMAPBUFFERPROC>(hInst, "glMapBuffer");
+    glUnmapBuffer = GetGLProc<PFNGLUNMAPBUFFERPROC>(hInst, "glUnmapBuffer");
+
+    yg::gl::g_isBufferObjectsSupported = &glBindBuffer
+                              && &glGenBuffers
+                              && &glBufferData
+                              && &glBufferSubData
+                              && &glDeleteBuffers
+                              && &glMapBuffer
+                              && &glUnmapBuffer;
+
+//    glActiveTexture = GetGLProc<PFNGLACTIVETEXTUREPROC>(hInst, "glActiveTexture");
+//    glClientActiveTexture = GetGLProc<PFNGLCLIENTACTIVETEXTUREPROC>(hInst, "glClientActiveTexture");
+
+    /// framebuffers extensions
+
     glBindFramebuffer = GetGLProc<PFNGLBINDFRAMEBUFFERPROC>(hInst, "glBindFramebuffer");
     glFramebufferTexture2D = GetGLProc<PFNGLFRAMEBUFFERTEXTURE2DPROC>(hInst, "glFramebufferTexture2D");
     glFramebufferRenderbuffer = GetGLProc<PFNGLFRAMEBUFFERRENDERBUFFERPROC>(hInst, "glFramebufferRenderbuffer");
     glGenFramebuffers = GetGLProc<PFNGLGENFRAMEBUFFERSPROC>(hInst, "glGenFramebuffers");
     glDeleteFramebuffers = GetGLProc<PFNGLDELETEFRAMEBUFFERSPROC>(hInst, "glDeleteFramebuffers");
-    glBindRenderbufferEXT = GetGLProc<PFNGLBINDRENDERBUFFEREXTPROC>(hInst, "glBindRenderbufferEXT");
-    glGenRenderbuffers = GetGLProc<PFNGLGENRENDERBUFFERSPROC>(hInst, "glGenRenderbuffers");
-    glRenderbufferStorageEXT = GetGLProc<PFNGLRENDERBUFFERSTORAGEEXTPROC>(hInst, "glRenderbufferStorageEXT");
-    glDeleteRenderbuffersEXT = GetGLProc<PFNGLDELETERENDERBUFFERSEXTPROC>(hInst, "glDeleteRenderbuffersEXT");
-    glMapBuffer = GetGLProc<PFNGLMAPBUFFERPROC>(hInst, "glMapBuffer");
-    glUnmapBuffer = GetGLProc<PFNGLUNMAPBUFFERPROC>(hInst, "glUnmapBuffer");
-    glBlitFramebuffer = GetGLProc<PFNGLBLITFRAMEBUFFERPROC>(hInst, "glBlitFramebuffer");
-    glRenderbufferStorageMultisample = GetGLProc<PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC>(hInst, "glRenderbufferStorageMultisample");
     glCheckFramebufferStatusEXT = GetGLProc<PFNGLCHECKFRAMEBUFFERSTATUSEXTPROC>(hInst, "glCheckFramebufferStatusEXT");
+    glBlitFramebuffer = GetGLProc<PFNGLBLITFRAMEBUFFERPROC>(hInst, "glBlitFramebuffer");
+
+    yg::gl::g_isFramebufferSupported = &glBindFrameBuffer
+                            && &glFramebufferTexture2D
+                            && &glFramebufferRenderbuffer
+                            && &glGenFramebuffers
+                            && &glDeleteFramebuffers
+                            && &glCheckFramebufferStatusEXT
+                            && &glBlitFramebuffer;
+
+    /// renderbuffer extensions
+
+    glGenRenderbuffers = GetGLProc<PFNGLGENRENDERBUFFERSPROC>(hInst, "glGenRenderbuffers");
+    glDeleteRenderbuffersEXT = GetGLProc<PFNGLDELETERENDERBUFFERSEXTPROC>(hInst, "glDeleteRenderbuffersEXT");
+    glBindRenderbufferEXT = GetGLProc<PFNGLBINDRENDERBUFFEREXTPROC>(hInst, "glBindRenderbufferEXT");
+    glRenderbufferStorageEXT = GetGLProc<PFNGLRENDERBUFFERSTORAGEEXTPROC>(hInst, "glRenderbufferStorageEXT");
+
+    yg::gl::g_isRenderbufferSupported = &glGenRenderbuffers
+                             && &glDeleteRenderbuffersEXT
+                             && &BindRenderbufferEXT
+                             && &RenderbufferStorageEXT;
+
+    /// multisampling extensions
+
+    glRenderbufferStorageMultisample = GetGLProc<PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC>(hInst, "glRenderbufferStorageMultisample");
+
+    yg::gl::g_isMultisamplingSupported = &glRenderbufferStorageMultisample;
   }
 }
 

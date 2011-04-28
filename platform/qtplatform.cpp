@@ -384,7 +384,7 @@ public:
 
   bool IsBenchmarking() const
   {
-    bool res = true;
+    bool res = false;
 #ifndef OMIM_PRODUCTION
     if (res)
     {
