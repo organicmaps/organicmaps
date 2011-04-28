@@ -57,3 +57,13 @@ private:
   TStorage & m_Storage;
   //size_t m_InitialStorageSize;
 };
+
+class CountingSink
+{
+public:
+  CountingSink() : m_Count(0) {}
+  inline void Write(void const *, size_t size) { m_Count += size; }
+  inline size_t GetCount() const { return m_Count; }
+private:
+  size_t m_Count;
+};
