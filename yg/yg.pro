@@ -110,7 +110,7 @@ HEADERS += \
     layout_element.hpp \
     font_desc.hpp
 
-!iphone*:!bada-simulator {
+win32 {
   HEADERS += internal/opengl_win32.hpp
   SOURCES += internal/opengl_win32.cpp
 }

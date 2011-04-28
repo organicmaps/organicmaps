@@ -15,7 +15,7 @@ QT *= core
   SOURCES += \
     qtplatform.cpp
 
-  CONFIG (debug) {
+  CONFIG(debug, debug|release) {
     QT *= network
     SOURCES += \
       qt_download_manager.cpp \
