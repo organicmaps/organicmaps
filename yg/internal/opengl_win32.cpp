@@ -58,13 +58,13 @@ namespace win32
     glMapBuffer = GetGLProc<PFNGLMAPBUFFERPROC>(hInst, "glMapBuffer");
     glUnmapBuffer = GetGLProc<PFNGLUNMAPBUFFERPROC>(hInst, "glUnmapBuffer");
 
-    yg::gl::g_isBufferObjectsSupported = &glBindBuffer
-                              && &glGenBuffers
-                              && &glBufferData
-                              && &glBufferSubData
-                              && &glDeleteBuffers
-                              && &glMapBuffer
-                              && &glUnmapBuffer;
+    yg::gl::g_isBufferObjectsSupported = glBindBuffer
+                              && glGenBuffers
+                              && glBufferData
+                              && glBufferSubData
+                              && glDeleteBuffers
+                              && glMapBuffer
+                              && glUnmapBuffer;
 
 //    glActiveTexture = GetGLProc<PFNGLACTIVETEXTUREPROC>(hInst, "glActiveTexture");
 //    glClientActiveTexture = GetGLProc<PFNGLCLIENTACTIVETEXTUREPROC>(hInst, "glClientActiveTexture");
@@ -79,13 +79,13 @@ namespace win32
     glCheckFramebufferStatusEXT = GetGLProc<PFNGLCHECKFRAMEBUFFERSTATUSEXTPROC>(hInst, "glCheckFramebufferStatusEXT");
     glBlitFramebuffer = GetGLProc<PFNGLBLITFRAMEBUFFERPROC>(hInst, "glBlitFramebuffer");
 
-    yg::gl::g_isFramebufferSupported = &glBindFrameBuffer
-                            && &glFramebufferTexture2D
-                            && &glFramebufferRenderbuffer
-                            && &glGenFramebuffers
-                            && &glDeleteFramebuffers
-                            && &glCheckFramebufferStatusEXT
-                            && &glBlitFramebuffer;
+    yg::gl::g_isFramebufferSupported = glBindFramebuffer
+                            && glFramebufferTexture2D
+                            && glFramebufferRenderbuffer
+                            && glGenFramebuffers
+                            && glDeleteFramebuffers
+                            && glCheckFramebufferStatusEXT
+                            && glBlitFramebuffer;
 
     /// renderbuffer extensions
 
@@ -94,16 +94,16 @@ namespace win32
     glBindRenderbufferEXT = GetGLProc<PFNGLBINDRENDERBUFFEREXTPROC>(hInst, "glBindRenderbufferEXT");
     glRenderbufferStorageEXT = GetGLProc<PFNGLRENDERBUFFERSTORAGEEXTPROC>(hInst, "glRenderbufferStorageEXT");
 
-    yg::gl::g_isRenderbufferSupported = &glGenRenderbuffers
-                             && &glDeleteRenderbuffersEXT
-                             && &BindRenderbufferEXT
-                             && &RenderbufferStorageEXT;
+    yg::gl::g_isRenderbufferSupported = glGenRenderbuffers
+                             && glDeleteRenderbuffersEXT
+                             && glBindRenderbufferEXT
+                             && glRenderbufferStorageEXT;
 
     /// multisampling extensions
 
     glRenderbufferStorageMultisample = GetGLProc<PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC>(hInst, "glRenderbufferStorageMultisample");
 
-    yg::gl::g_isMultisamplingSupported = &glRenderbufferStorageMultisample;
+    yg::gl::g_isMultisamplingSupported = (glRenderbufferStorageMultisample != NULL);
   }
 }
 
