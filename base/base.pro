@@ -63,3 +63,4 @@ HEADERS += \
     path_utils.hpp \
     array_adapters.hpp \
     utf8_string.hpp \
+    bitset.hpp \

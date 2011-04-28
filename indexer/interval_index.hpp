@@ -5,6 +5,7 @@
 #include "../base/assert.hpp"
 #include "../base/base.hpp"
 #include "../base/bits.hpp"
+#include "../base/bitset.hpp"
 #include "../base/buffer_vector.hpp"
 #include "../base/macros.hpp"
 #include "../std/memcpy.hpp"
@@ -24,13 +25,19 @@ public:
 
   struct Index
   {
+    enum { MAX_BITS_PER_LEVEL = 256 };
     inline uint32_t GetOffset() const { return m_Offset; }
-    inline uint32_t Bit(uint32_t i) const { return (m_BitMask >> i) & 1; }
+    inline uint32_t Bit(uint32_t i) const { return m_Bitset.Bit(i); }
 
     uint32_t m_Offset;
-    uint32_t m_BitMask;
+    Bitset<MAX_BITS_PER_LEVEL> m_Bitset;
   };
-  STATIC_ASSERT(sizeof(Index) == 8);
+
+  static inline uint32_t BitsetSize(uint32_t bitsPerLevel)
+  {
+    ASSERT_GREATER(bitsPerLevel, 3, ());
+    return 1 << (bitsPerLevel - 3);
+  }
 };
 
 template <class ReaderT>
@@ -51,7 +58,7 @@ public:
     : m_Reader(reader)
   {
     m_Reader.Read(0, &m_Header, sizeof(m_Header));
-    ASSERT_EQUAL(m_Header.m_BitsPerLevel, 5, ());
+    m_NodeSize = 4 + BitsetSize(m_Header.m_BitsPerLevel);
     ReadIndex(sizeof(m_Header), m_Level0Index);
   }
 
@@ -64,7 +71,7 @@ public:
     {
       // end is inclusive in ForEachImpl().
       --end;
-      ForEachImpl(f, beg, end, m_Level0Index, sizeof(m_Header) + sizeof(m_Level0Index),
+      ForEachImpl(f, beg, end, m_Level0Index, sizeof(m_Header) + m_NodeSize,
                   (m_Header.m_Levels - 1) * m_Header.m_BitsPerLevel, query);
     }
   }
@@ -102,9 +109,9 @@ private:
           uint64_t const e1 = (i == end0) ? (end & levelBytesFF) : levelBytesFF;
 
           Index index1;
-          uint32_t const offset = baseOffset + index.GetOffset() + (cumCount * sizeof(Index));
+          uint32_t const offset = baseOffset + index.GetOffset() + (cumCount * m_NodeSize);
           ReadIndex(offset, index1);
-          ForEachImpl(f, b1, e1, index1, offset + sizeof(Index),
+          ForEachImpl(f, b1, e1, index1, offset + m_NodeSize,
                       skipBits - m_Header.m_BitsPerLevel, query);
           ++cumCount;
         }
@@ -115,7 +122,7 @@ private:
       Index nextIndex;
       ReadIndex(baseOffset, nextIndex);
       uint32_t const begOffset = baseOffset + index.GetOffset();
-      uint32_t const endOffset = baseOffset + sizeof(Index) + nextIndex.GetOffset();
+      uint32_t const endOffset = baseOffset + m_NodeSize + nextIndex.GetOffset();
       ASSERT_LESS(begOffset, endOffset, (beg, end, baseOffset, skipBits));
       buffer_vector<uint8_t, 256> data(endOffset - begOffset);
       m_Reader.Read(begOffset, &data[0], data.size());
@@ -142,13 +149,13 @@ private:
 
   void ReadIndex(uint64_t pos, Index & index) const
   {
-    m_Reader.Read(pos, &index, sizeof(Index));
+    m_Reader.Read(pos, &index, m_NodeSize);
     index.m_Offset = SwapIfBigEndian(index.m_Offset);
-    index.m_BitMask = SwapIfBigEndian(index.m_BitMask);
   }
 
   ReaderT m_Reader;
   Header m_Header;
+  uint32_t m_NodeSize;
   Index m_Level0Index;
   int m_CellIdBytes;
 };
