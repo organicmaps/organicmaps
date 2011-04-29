@@ -25,6 +25,7 @@ SOURCES += \
     borders_generator.cpp \
     osm_xml_parser.cpp \
     borders_loader.cpp \
+    mwm_rect_updater.cpp
 
 HEADERS += \
     feature_merger.hpp \
@@ -46,3 +47,4 @@ HEADERS += \
     borders_generator.hpp \
     osm_xml_parser.hpp \
     borders_loader.hpp \
+    mwm_rect_updater.hpp
