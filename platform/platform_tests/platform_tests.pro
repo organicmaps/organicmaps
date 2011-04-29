@@ -8,13 +8,13 @@ DEPENDENCIES = platform coding base tomcrypt
 
 include($$ROOT_DIR/common.pri)
 
-QT *= core network
+QT *= core
 
 win32 {
   LIBS += -lShell32
 }
 
-mac {
+macx {
   LIBS += -framework CoreLocation -framework Foundation
 }
 
@@ -22,4 +22,8 @@ mac {
 SOURCES += \
     ../../testing/testingmain.cpp \
     platform_test.cpp \
-    download_test.cpp \
+
+CONFIG(debug, debug|release) {
+  QT *= network
+  SOURCES += download_test.cpp
+}
