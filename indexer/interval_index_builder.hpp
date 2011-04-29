@@ -124,6 +124,9 @@ void BuildIntervalIndex(CellIdValueIterT const & beg, CellIdValueIterT const & e
   {
     // LOG(LINFO, ("Building interval index, level", level));
     uint64_t const initialLevelWriterPos = writer.Pos();
+    uint64_t totalPopcount = 0;
+    uint32_t maxPopCount = 0;
+    uint64_t nodesWritten = 0;
 
     BitsetType bitMask = BitsetType();
     uint64_t prevKey = 0;
@@ -137,6 +140,10 @@ void BuildIntervalIndex(CellIdValueIterT const & beg, CellIdValueIterT const & e
       {
         // Write node for the previous parent.
         impl::WriteIntervalIndexNode(writer, childOffset, bitsPerLevel, bitMask);
+        uint32_t const popCount = bitMask.PopCount();
+        totalPopcount += popCount;
+        maxPopCount = max(maxPopCount, popCount);
+        ++nodesWritten;
         childOffset = nextChildOffset;
         bitMask = BitsetType();
       }
@@ -155,13 +162,18 @@ void BuildIntervalIndex(CellIdValueIterT const & beg, CellIdValueIterT const & e
 
     // Write the last node.
     impl::WriteIntervalIndexNode(writer, childOffset, bitsPerLevel, bitMask);
+    uint32_t const popCount = bitMask.PopCount();
+    totalPopcount += popCount;
+    maxPopCount = max(maxPopCount, popCount);
+    ++nodesWritten;
 
     if (level == 1)
       nextChildOffset += nodeSize;
 
     childOffset = nextChildOffset;
 
-    LOG(LINFO, ("Level:", level, "size:", writer.Pos() - initialLevelWriterPos));
+    LOG(LINFO, ("Level:", level, "size:", writer.Pos() - initialLevelWriterPos, \
+                "density:", double(totalPopcount) / nodesWritten, "max density:", maxPopCount));
   }
 
   // Write the dummy one-after-last node.

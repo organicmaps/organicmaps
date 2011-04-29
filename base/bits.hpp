@@ -15,6 +15,11 @@ namespace bits
     return x & 0x3F;
   }
 
+  inline uint32_t popcount(uint8_t x)
+  {
+    return popcount(static_cast<uint32_t>(x));
+  }
+
   // Count the number of 1 bits in array p, length n bits.
   // There is a better implementation at hackersdelight.org
   inline uint32_t popcount(uint32_t const * p, uint32_t n)
