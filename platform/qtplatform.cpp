@@ -415,7 +415,7 @@ public:
     return 512 + 256;
   }
 
-  string TimeString() const
+  string const TimeString() const
   {
     time_t rawtime;
     time(&rawtime);

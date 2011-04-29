@@ -26,7 +26,9 @@ IPhonePlatform::IPhonePlatform()
   m_writablePath = [docsDir UTF8String];
   m_writablePath += '/';
 
-  m_StartDate = [[NSDate alloc] init];
+  m_startDate = [NSDate date];
+  m_dateFormatter = [[NSDateFormatter alloc] init];
+  [m_dateFormatter setDateFormat:@"EEE_MMM_dd_HH:mm:ss_yyyy"];
 
 	/// Hardcoding screen resolution depending on the device we are running.
  	m_visualScale = 1.0;
@@ -68,10 +70,15 @@ IPhonePlatform::IPhonePlatform()
   [pool release];
 }
 
+IPhonePlatform::~IPhonePlatform()
+{
+  [m_dateFormatter release];
+}
+
 double IPhonePlatform::TimeInSec() const
 {
   NSDate * now = [[NSDate alloc] init];
-  double interval = [now timeIntervalSinceDate:m_StartDate];
+  double interval = [now timeIntervalSinceDate:m_startDate];
   [now release];
   return interval;
 }
@@ -210,6 +217,15 @@ unsigned IPhonePlatform::ScaleEtalonSize() const
 string const IPhonePlatform::DeviceID() const
 {
 	return m_deviceID;
+}
+
+string const IPhonePlatform::TimeString() const
+{
+  NSDate * now = [NSDate date];
+  NSString * timeString = [m_dateFormatter stringFromDate:now];
+  string res = string([timeString UTF8String]);
+  [timeString release];
+  return res;
 }
 
 Platform & GetPlatform()

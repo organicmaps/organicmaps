@@ -103,9 +103,10 @@
 					GetPlatform().ReadPathForFile("fonts_whitelist.txt").c_str(),
  					GetPlatform().ReadPathForFile("fonts_blacklist.txt").c_str(),
 					2000000,
-          fmt));
+          fmt,
+          false));
 
-
+    
 		resourceManager->addFonts(GetPlatform().GetFontNames());
 
 		DrawerYG::params_t p;

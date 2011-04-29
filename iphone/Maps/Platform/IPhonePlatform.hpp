@@ -7,7 +7,7 @@ class IPhonePlatform : public Platform
 {
 public:
   IPhonePlatform();
-  virtual ~IPhonePlatform() {}
+  virtual ~IPhonePlatform();
   virtual double TimeInSec() const;
   virtual string WritableDir() const;
   virtual string ReadPathForFile(char const * file) const;
@@ -24,13 +24,15 @@ public:
 	virtual bool IsBenchmarking() const;
 	virtual bool IsVisualLog() const;
   virtual string const DeviceID() const;
+  virtual string const TimeString() const;
 	virtual unsigned ScaleEtalonSize() const;
 
 private:
 	string m_deviceID;
 	string m_skinName;
 	double m_visualScale;
-  NSDate * m_StartDate;
+  NSDate * m_startDate;
+  NSDateFormatter * m_dateFormatter;
 	bool m_isMultiSampled;
 	bool m_doPeriodicalUpdate;
 	double m_periodicalUpdateInterval;
