@@ -9,18 +9,13 @@ DEPENDENCIES = coding base
 
 include($$ROOT_DIR/common.pri)
 
-QT *= core
+QT *= core network
 
 !iphone* {
   SOURCES += \
-    qtplatform.cpp
-
-  CONFIG(debug, debug|release) {
-    QT *= network
-    SOURCES += \
-      qt_download_manager.cpp \
-      qt_download.cpp
-  }
+    qtplatform.cpp \
+    qt_download_manager.cpp \
+    qt_download.cpp
 
   HEADERS += \
       qt_download_manager.hpp \
@@ -32,7 +27,7 @@ HEADERS += \
     download_manager.hpp \
     location.hpp \
 
-mac|iphone* {
+macx|iphone* {
     OBJECTIVE_SOURCES += apple_location_service.mm
     LIBS += -framework CoreLocation -framework Foundation
 } else {
