@@ -35,6 +35,8 @@ namespace m4
       }
 
       double operator[](size_t i) const { return m_pts[i]; }
+
+      m2::RectD GetRect() const { return m2::RectD(m_pts[0], m_pts[1], m_pts[2], m_pts[3]); }
     };
 
     typedef KDTree::KDTree<4, value_t> tree_t;
@@ -145,6 +147,13 @@ namespace m4
     {
       for (typename tree_t::const_iterator i = m_tree.begin(); i != m_tree.end(); ++i)
         toDo((*i).m_val);
+    }
+
+    template <class ToDo>
+    void ForEachWithRect(ToDo toDo) const
+    {
+      for (typename tree_t::const_iterator i = m_tree.begin(); i != m_tree.end(); ++i)
+        toDo((*i).GetRect(), (*i).m_val);
     }
 
     template <class ToDo>

@@ -7,6 +7,7 @@
 #include "../statistics.hpp"
 #include "../classif_routine.hpp"
 #include "../borders_generator.hpp"
+#include "../mwm_rect_updater.hpp"
 
 #include "../../indexer/features_vector.hpp"
 #include "../../indexer/index_builder.hpp"
@@ -189,6 +190,9 @@ int main(int argc, char ** argv)
       stats::PrintStatistic(info);
     }
   }
+
+  //if (FLAGS_split_by_polygons)
+  //  UpdateMWMRectsFromBoundaries(path, FLAGS_simplify_countries_level);
 
   // Create http update list for countries and corresponding files
   if (FLAGS_generate_update)
