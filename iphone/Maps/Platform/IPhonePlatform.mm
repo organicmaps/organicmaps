@@ -26,7 +26,7 @@ IPhonePlatform::IPhonePlatform()
   m_writablePath = [docsDir UTF8String];
   m_writablePath += '/';
 
-  m_startDate = [NSDate date];
+  m_startDate = [[NSDate alloc] init];
   m_dateFormatter = [[NSDateFormatter alloc] init];
   [m_dateFormatter setDateFormat:@"EEE_MMM_dd_HH:mm:ss_yyyy"];
 
@@ -73,6 +73,7 @@ IPhonePlatform::IPhonePlatform()
 IPhonePlatform::~IPhonePlatform()
 {
   [m_dateFormatter release];
+  [m_startDate release];
 }
 
 double IPhonePlatform::TimeInSec() const
