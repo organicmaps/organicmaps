@@ -54,8 +54,13 @@ namespace feature
   void DataHeader::Save(FileWriter & w) const
   {
     m_codingParams.Save(w);
-    WriteVarInt(w, m_bounds.first - m_codingParams.GetBasePointInt64());
-    WriteVarInt(w, m_bounds.second - m_codingParams.GetBasePointInt64());
+
+    //int64_t const base = m_codingParams.GetBasePointInt64();
+    //WriteVarInt(w, m_bounds.first - base);
+    //WriteVarInt(w, m_bounds.second - base);
+    WriteToSink(w, m_bounds.first);
+    WriteToSink(w, m_bounds.second);
+
     w.Write(m_scales.data(), m_scales.size());
   }
 
@@ -63,8 +68,13 @@ namespace feature
   {
     ReaderSource<FileReader> src(r);
     m_codingParams.Load(src);
-    m_bounds.first = ReadVarInt<int64_t>(src) + m_codingParams.GetBasePointInt64();
-    m_bounds.second = ReadVarInt<int64_t>(src) + m_codingParams.GetBasePointInt64();
+
+    //int64_t const base = m_codingParams.GetBasePointInt64();
+    //m_bounds.first = ReadVarInt<int64_t>(src) + base;
+    //m_bounds.second = ReadVarInt<int64_t>(src) + base;
+    m_bounds.first = ReadPrimitiveFromSource<int64_t>(src);
+    m_bounds.second = ReadPrimitiveFromSource<int64_t>(src);
+
     src.Read(m_scales.data(), m_scales.size());
   }
 }

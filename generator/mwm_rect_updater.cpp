@@ -35,7 +35,7 @@ namespace
 
         {
           FilesContainerW contW(name, FileWriter::OP_WRITE_EXISTING);
-          FileWriter w = contW.GetWriter(HEADER_FILE_TAG);
+          FileWriter w = contW.GetExistingWriter(HEADER_FILE_TAG);
           h.Save(w);
         }
       }
