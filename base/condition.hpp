@@ -12,6 +12,9 @@ namespace threads
   {
     impl::ConditionImpl * m_pImpl;
 
+    Condition(Condition const &);
+    Condition & operator=(Condition const &);
+
   public:        
     Condition();
     ~Condition();

@@ -36,7 +36,7 @@ namespace threads
     pthread_mutex_t m_Mutex;
 #endif
 
-    Mutex const & operator=(Mutex const &);
+    Mutex & operator=(Mutex const &);
     Mutex(Mutex const &);
 
     friend class threads::impl::ConditionImpl;
