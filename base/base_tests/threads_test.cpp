@@ -1,7 +1,6 @@
 #include "../../testing/testing.hpp"
 
 #include "../thread.hpp"
-#include "../threads_pool.hpp"
 
 #include "../../std/vector.hpp"
 
@@ -59,33 +58,4 @@ UNIT_TEST(Simple_Threads)
 
   TEST_EQUAL(vec.size(), MAX_COUNT, ("vector size"));
   TEST_EQUAL(summ, checkSumm, ("check summ"));
-}
-
-
-struct PoolThread : public threads::IRoutine
-{
-  PoolThread(int * counter) : m_counter(counter) {}
-
-  virtual void Do()
-  {
-    ++(*m_counter);
-  }
-  int * m_counter;
-};
-
-
-static int gPoolCounter = 0;
-
-UNIT_TEST(Threads_Pool)
-{
-  threads::Pool pool;
-  pool.StartThread(new PoolThread(&gPoolCounter));
-  pool.StartThread(new PoolThread(&gPoolCounter));
-  pool.StartThread(new PoolThread(&gPoolCounter));
-  pool.StartThread(new PoolThread(&gPoolCounter));
-  pool.StartThread(new PoolThread(&gPoolCounter));
-
-  pool.Join();
-
-  TEST_EQUAL(gPoolCounter, 5, ("All pool threads should finish"));
 }

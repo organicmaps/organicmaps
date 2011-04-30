@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../std/shared_ptr.hpp"
-
 namespace threads
 {
   class IRoutine
@@ -24,11 +22,15 @@ namespace threads
   /// wrapper for Create and Terminate threads API
   class Thread
   {
-    shared_ptr<ThreadImpl> m_impl;
-    shared_ptr<IRoutine> m_routine;
+    ThreadImpl * m_impl;
+    IRoutine * m_routine;
+
+    Thread(Thread const &);
+    Thread & operator=(Thread const &);
 
   public:
     Thread();
+    ~Thread();
 
     /// Run thread immediately
     /// @param pRoutine is owned by Thread class

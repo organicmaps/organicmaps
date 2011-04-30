@@ -124,21 +124,25 @@ namespace threads
 
   /////////////////////////////////////////////////////////////////////
   // Thread wrapper implementation
-  Thread::Thread()
-  : m_impl(new ThreadImpl())
+  Thread::Thread() : m_impl(new ThreadImpl()), m_routine(0)
   {
+  }
+
+  Thread::~Thread()
+  {
+    delete m_impl;
   }
 
   bool Thread::Create(IRoutine * pRoutine)
   {
-    ASSERT_EQUAL(m_routine.get(), 0, ("Current implementation doesn't allow to reuse thread"));
+    ASSERT_EQUAL(m_routine, 0, ("Current implementation doesn't allow to reuse thread"));
     int error = m_impl->Create(pRoutine);
     if (0 != error)
     {
       ASSERT ( !"Thread creation failed with error", (error) );
       return false;
     }
-    m_routine.reset(pRoutine);
+    m_routine = pRoutine;
     return true;
   }
 

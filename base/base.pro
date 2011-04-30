@@ -50,7 +50,6 @@ HEADERS += \
     timer.hpp \
     cache.hpp \
     profiler.hpp \
-    threads_pool.hpp \
     matrix.hpp \
     set_operations.hpp \
     condition.hpp \
