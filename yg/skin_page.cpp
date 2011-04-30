@@ -397,10 +397,6 @@ namespace yg
 
         agg_pixfmt_t pixfmt(buf);
         agg::renderer_base<agg_pixfmt_t> rbase(pixfmt);
-/*        rbase.clear(agg::rgba8(penInfo.m_color.r,
-                               penInfo.m_color.g,
-                               penInfo.m_color.b,
-                               0));*/
 
         gil::fill_pixels(v, penColorTranslucent);
 
@@ -432,15 +428,10 @@ namespace yg
             for (size_t y = 2; y < v.height() - 2; ++y)
             {
               unsigned char alpha = gil::get_color(v(x, y), gil::alpha_t());
-//              float fAlpha = alpha / (float)TDynamicTexture::maxChannelVal;
               if (alpha != 0)
               {
-//                gil::get_color(v(x, y), gil::red_t()) *= fAlpha;
-//                gil::get_color(v(x, y), gil::green_t()) *= fAlpha;
-//                gil::get_color(v(x, y), gil::blue_t()) *= fAlpha;
-
-//                gil::get_color(v(x, y), gil::alpha_t()) = TDynamicTexture::maxChannelVal;
                 v(x, y) = penColor;
+                gil::get_color(v(x, y), gil::alpha_t()) = alpha;
               }
             }
         }

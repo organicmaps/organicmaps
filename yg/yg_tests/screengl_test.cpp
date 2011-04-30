@@ -358,8 +358,51 @@ namespace
         pt = pt + m2::PointD(starSize.x + i + 3, 0);
         testPoints.clear();
       }
+
+      pt = m2::PointD(10, 10 + starSize.y + 10);
+
+      vector<double> pat;
+      pat.push_back(20);
+      pat.push_back(5);
+
+      for (int i = 0; i < starCount; ++i)
+      {
+        base_t::makeStar(testPoints, m2::RectD(pt, pt + starSize));
+        AddTest(testPoints, pat, yg::Color(255, 0, 0, 255), i + 1);
+        pt = pt + m2::PointD(starSize.x + i + 3, 0);
+        testPoints.clear();
+      }
     }
   };
+
+  struct TestDrawPathZigZag : TestDrawPathBase
+  {
+    typedef TestDrawPathBase base_t;
+
+    void Init()
+    {
+      base_t::Init();
+
+      vector<m2::PointD> testPoints;
+
+      testPoints.push_back(m2::PointD(20, 100));
+      testPoints.push_back(m2::PointD(50, 20));
+      testPoints.push_back(m2::PointD(80, 100));
+      testPoints.push_back(m2::PointD(110, 20));
+
+      AddTest(testPoints, vector<double>(), yg::Color(255, 0, 0, 255), 6);
+
+      for (unsigned i = 0; i < testPoints.size(); ++i)
+        testPoints[i].y += 100;
+
+      vector<double> pat;
+      pat.push_back(10);
+      pat.push_back(10);
+
+      AddTest(testPoints, pat, yg::Color(255, 0, 0, 255), 6);
+    }
+  };
+
 
   struct TestDrawPathSolid1PX : TestDrawPathBase
   {
@@ -954,37 +997,38 @@ namespace
     }
   };
 
-   UNIT_TEST_GL(TestDrawPolyOverflow);
-   UNIT_TEST_GL(TestDrawText);
-   UNIT_TEST_GL(TestDrawSingleSymbol);
-   UNIT_TEST_GL(TestDrawEmptySymbol);
-   UNIT_TEST_GL(TestDrawSingleSymbolAndSolidPath);
-   UNIT_TEST_GL(TestDrawString);
-   UNIT_TEST_GL(TestDrawStringWithFixedFont);
-   UNIT_TEST_GL(TestDrawStringWithColor);
-   UNIT_TEST_GL(TestDrawUnicodeSymbols);
-   UNIT_TEST_GL(TestDrawTextRectWithFixedFont);
-   UNIT_TEST_GL(TestDrawStringOnString);
-   UNIT_TEST_GL(TestDrawTextOnPath);
-   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
-   UNIT_TEST_GL(TestDrawTextOverflow);
-   UNIT_TEST_GL(TestDrawTextFiltering);
-   UNIT_TEST_GL(TestDrawRandomTextFiltering);
-   UNIT_TEST_GL(TestDrawSGIConvex);
-   UNIT_TEST_GL(TestDrawPoly);
-   UNIT_TEST_GL(TestDrawSolidRect);
-   UNIT_TEST_GL(TestDrawPathWithSkinPageMiss);
+//   UNIT_TEST_GL(TestDrawPolyOverflow);
+//   UNIT_TEST_GL(TestDrawText);
+//   UNIT_TEST_GL(TestDrawSingleSymbol);
+//   UNIT_TEST_GL(TestDrawEmptySymbol);
+//   UNIT_TEST_GL(TestDrawSingleSymbolAndSolidPath);
+//   UNIT_TEST_GL(TestDrawString);
+//   UNIT_TEST_GL(TestDrawStringWithFixedFont);
+//   UNIT_TEST_GL(TestDrawStringWithColor);
+//   UNIT_TEST_GL(TestDrawUnicodeSymbols);
+//   UNIT_TEST_GL(TestDrawTextRectWithFixedFont);
+//   UNIT_TEST_GL(TestDrawStringOnString);
+//   UNIT_TEST_GL(TestDrawTextOnPath);
+//   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
+//   UNIT_TEST_GL(TestDrawTextOverflow);
+//   UNIT_TEST_GL(TestDrawTextFiltering);
+//   UNIT_TEST_GL(TestDrawRandomTextFiltering);
+//   UNIT_TEST_GL(TestDrawSGIConvex);
+//   UNIT_TEST_GL(TestDrawPoly);
+//   UNIT_TEST_GL(TestDrawSolidRect);
+//   UNIT_TEST_GL(TestDrawPathWithSkinPageMiss);
 //   UNIT_TEST_GL(TestDrawPathWithOffset);
-   UNIT_TEST_GL(TestDrawPathJoin);
-   UNIT_TEST_GL(TestDrawPathSolid1PX);
-   UNIT_TEST_GL(TestDrawPathSolid2PX);
-   UNIT_TEST_GL(TestDrawPathSolid);
-   UNIT_TEST_GL(TestDrawSector);
+//   UNIT_TEST_GL(TestDrawPathJoin);
+//   UNIT_TEST_GL(TestDrawPathSolid1PX);
+//   UNIT_TEST_GL(TestDrawPathSolid2PX);
+//   UNIT_TEST_GL(TestDrawPathSolid);
+//   UNIT_TEST_GL(TestDrawSector);
    UNIT_TEST_GL(TestDrawPathSolidDiffWidth);
-   UNIT_TEST_GL(TestDrawPathSolidWithZ);
-   UNIT_TEST_GL(TestDrawPathSolidWithClipRect);
-   UNIT_TEST_GL(TestDrawUtilsRect);
-   UNIT_TEST_GL(TestDrawUtilsRectFilledTexture);
-   UNIT_TEST_GL(TestDrawSymbolFiltering);
-   UNIT_TEST_GL(TestDrawCircle);
+//   UNIT_TEST_GL(TestDrawPathZigZag);
+//   UNIT_TEST_GL(TestDrawPathSolidWithZ);
+//   UNIT_TEST_GL(TestDrawPathSolidWithClipRect);
+//   UNIT_TEST_GL(TestDrawUtilsRect);
+//   UNIT_TEST_GL(TestDrawUtilsRectFilledTexture);
+//   UNIT_TEST_GL(TestDrawSymbolFiltering);
+//   UNIT_TEST_GL(TestDrawCircle);
 }
