@@ -220,15 +220,6 @@ string const IPhonePlatform::DeviceID() const
 	return m_deviceID;
 }
 
-string const IPhonePlatform::TimeString() const
-{
-  NSDate * now = [NSDate date];
-  NSString * timeString = [m_dateFormatter stringFromDate:now];
-  string res = string([timeString UTF8String]);
-  [timeString release];
-  return res;
-}
-
 Platform & GetPlatform()
 {
   static IPhonePlatform platform;

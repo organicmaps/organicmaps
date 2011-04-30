@@ -24,7 +24,6 @@ public:
 	virtual bool IsBenchmarking() const;
 	virtual bool IsVisualLog() const;
   virtual string const DeviceID() const;
-  virtual string const TimeString() const;
 	virtual unsigned ScaleEtalonSize() const;
 
 private:

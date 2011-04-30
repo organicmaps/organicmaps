@@ -414,33 +414,6 @@ public:
   {
     return 512 + 256;
   }
-
-  string const TimeString() const
-  {
-    time_t rawtime;
-    time(&rawtime);
-    tm * ltime;
-    ltime = localtime(&rawtime);
-
-    static char const * wday_name[7] = {
-         "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
-    };
-
-    static char const * mon_name[12] = {
-        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-    };
-
-    static char result[26];
-
-    sprintf(result, "%s_%s_%d_%d:%d:%d_%d",
-        wday_name[ltime->tm_wday],
-        mon_name[ltime->tm_mon],
-        ltime->tm_mday, ltime->tm_hour,
-        ltime->tm_min, ltime->tm_sec,
-        1900 + ltime->tm_year);
-    return string(result);
-  }
 };
 
 extern "C" Platform & GetPlatform()
