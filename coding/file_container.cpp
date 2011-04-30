@@ -60,15 +60,26 @@ FileReader FilesContainerR::GetReader(Tag const & tag) const
 FilesContainerW::FilesContainerW(string const & fName, FileWriter::Op op)
 : m_name(fName), m_bFinished(false)
 {
-  if (op == FileWriter::OP_APPEND)
+  switch (op)
   {
-    FileReader reader(fName);
-    ReadInfo(reader);
-    m_bNeedRewrite = true;
+  case FileWriter::OP_WRITE_TRUNCATE: // default usage
+    break;
+
+  case FileWriter::OP_APPEND:
+    m_bNeedRewrite = true;    // need to override service info after appending
+                              // 'break' doesn't present!
+
+  case FileWriter::OP_WRITE_EXISTING:
+    {
+      // read an existing service info
+      FileReader reader(fName);
+      ReadInfo(reader);
+    }
   }
 
   if (m_info.empty())
   {
+    // leave space for offset to service info
     FileWriter writer(fName);
     uint64_t skip = 0;
     writer.Write(&skip, sizeof(skip));
@@ -112,6 +123,21 @@ FileWriter FilesContainerW::GetWriter(Tag const & tag)
     m_info.push_back(Info(tag, curr));
     return FileWriter(m_name, FileWriter::OP_APPEND);
   }
+}
+
+FileWriter FilesContainerW::GetExistingWriter(Tag const & tag)
+{
+  InfoContainer::const_iterator i =
+    lower_bound(m_info.begin(), m_info.end(), tag, LessInfo());
+
+  if (i != m_info.end() && i->m_tag == tag)
+  {
+    FileWriter writer(m_name, FileWriter::OP_WRITE_EXISTING);
+    writer.Seek(i->m_offset);
+    return writer;
+  }
+  else
+    MYTHROW(Writer::OpenException, (tag));
 }
 
 void FilesContainerW::Append(string const & fName, Tag const & tag)

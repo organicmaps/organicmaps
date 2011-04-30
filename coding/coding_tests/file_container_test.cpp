@@ -39,7 +39,7 @@ UNIT_TEST(FilesContainer_Smoke)
       for (uint32_t j = 0; j < i; ++j)
       {
         uint32_t const test = ReadVarUint<uint32_t>(src);
-        CHECK_EQUAL(j, test, ());
+        TEST_EQUAL(j, test, ());
       }
     }
   }
@@ -65,7 +65,7 @@ UNIT_TEST(FilesContainer_Smoke)
       ReaderSource<FileReader> src(r);
 
       uint32_t const test = ReadVarUint<uint32_t>(src);
-      CHECK_EQUAL(arrAppend[i], test, ());
+      TEST_EQUAL(arrAppend[i], test, ());
     }
   }
   FileWriter::DeleteFileX(fName);
@@ -136,6 +136,58 @@ UNIT_TEST(FilesContainer_Shared)
     // check invariant
     FilesContainerR reader(fName);
     CheckInvariant(reader, "2", test64);
+  }
+
+  FileWriter::DeleteFileX(fName);
+}
+
+UNIT_TEST(FilesContainer_RewriteExisting)
+{
+  string const fName = "file_container.tmp";
+  FileWriter::DeleteFileX(fName);
+
+  char const * key[] = { "1", "2", "3" };
+  char const * value[] = { "prolog", "data", "epilog" };
+  char const * buffer = "xxxx";
+
+  // fill container
+  {
+    FilesContainerW writer(fName);
+
+    for (size_t i = 0; i < ARRAY_SIZE(key); ++i)
+    {
+      FileWriter w = writer.GetWriter(key[i]);
+      w.Write(value[i], strlen(value[i]));
+    }
+  }
+
+  // re-write middle file in container
+  {
+    FilesContainerW writer(fName, FileWriter::OP_WRITE_EXISTING);
+    FileWriter w = writer.GetExistingWriter(key[1]);
+
+    w.Write(buffer, strlen(buffer));
+  }
+
+  // check container files
+  {
+    FilesContainerR reader(fName);
+
+    for (size_t i = 0; i < ARRAY_SIZE(key); ++i)
+    {
+      FileReader r = reader.GetReader(key[i]);
+      char s[10] = { 0 };
+      r.Read(0, s, strlen(value[i]));
+
+      if (i == 1)
+      {
+        TEST(strcmp(buffer, s) == 0, (s));
+      }
+      else
+      {
+        TEST(strcmp(value[i], s) == 0, (s));
+      }
+    }
   }
 
   FileWriter::DeleteFileX(fName);
