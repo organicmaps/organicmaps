@@ -1,16 +1,9 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "defines.hpp"
 #include "utils.hpp"
-#include "memento.hpp"
-#include "vertexbuffer.hpp"
-#include "indexbuffer.hpp"
 
-#include "../std/shared_ptr.hpp"
+#include "internal/opengl.hpp"
+
 #include "../std/target_os.hpp"
-
-#include "../base/start_mem_debug.hpp"
-
 
 namespace yg
 {

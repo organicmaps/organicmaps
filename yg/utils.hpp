@@ -1,9 +1,6 @@
 #pragma once
 
-#include "../geometry/rect2d.hpp"
-#include "../geometry/point2d.hpp"
-#include "color.hpp"
-#include "texture.hpp"
+#include "../std/stdint.hpp"
 
 namespace yg
 {
