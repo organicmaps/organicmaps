@@ -42,5 +42,12 @@ UNIT_TEST(to_double)
   s = "-2";
   TEST(utils::to_double(s, d), ());
   TEST_ALMOST_EQUAL(-2.0, d, ());
+}
 
+UNIT_TEST(to_string)
+{
+  TEST_EQUAL(utils::to_string(-1), "-1", ());
+  TEST_EQUAL(utils::to_string(1234567890), "1234567890", ());
+  TEST_EQUAL(utils::to_string(0.56), "0.56", ());
+  TEST_EQUAL(utils::to_string(-100.2), "-100.2", ());
 }

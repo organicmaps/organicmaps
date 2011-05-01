@@ -58,7 +58,13 @@ namespace utils
   bool to_int64(char const * s, int64_t & i);
   bool to_double(char const * s, double & d);
 
-  string to_string(size_t i);
+  template <class T>
+  string to_string(T i)
+  {
+    ostringstream ss;
+    ss << i;
+    return ss.str();
+  }
 
   inline bool to_int(string const & s, int & i) { return to_int(s.c_str(), i); }
   inline bool to_uint64(string const & s, uint64_t & i) { return to_uint64(s.c_str(), i); }

@@ -73,13 +73,6 @@ bool to_double(char const * s, double & d)
   return false;
 }
 
-string to_string(size_t i)
-{
-  ostringstream ss;
-  ss << i;
-  return ss.str();
-}
-
 void make_lower_case(string & s)
 {
   if (!s.empty())
