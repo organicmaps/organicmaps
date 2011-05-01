@@ -11,16 +11,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "jansson.h"
+#include <jansson.h>
 #include "hashtable.h"
 #include "jansson_private.h"
 #include "utf.h"
 
-#if defined(_MSC_VER) && !defined(__cplusplus)
-  #define inline __inline
-#endif
 
-static inline void json_init(json_t *json, json_type type)
+static JSON_INLINE void json_init(json_t *json, json_type type)
 {
     json->type = type;
     json->refcount = 1;
@@ -29,15 +26,10 @@ static inline void json_init(json_t *json, json_type type)
 
 /*** object ***/
 
-/* This macro just returns a pointer that's a few bytes backwards from
-   string. This makes it possible to pass a pointer to object_key_t
-   when only the string inside it is used, without actually creating
-   an object_key_t instance. */
-#define string_to_key(string)  container_of(string, object_key_t, key)
-
-size_t jsonp_hash_key(const void *ptr)
+/* From http://www.cse.yorku.ca/~oz/hash.html */
+size_t jsonp_hash_str(const void *ptr)
 {
-    const char *str = ((const object_key_t *)ptr)->key;
+    const char *str = (const char *)ptr;
 
     size_t hash = 5381;
     size_t c;
@@ -51,10 +43,26 @@ size_t jsonp_hash_key(const void *ptr)
     return hash;
 }
 
-int jsonp_key_equal(const void *ptr1, const void *ptr2)
+int jsonp_str_equal(const void *ptr1, const void *ptr2)
 {
-    return strcmp(((const object_key_t *)ptr1)->key,
-                  ((const object_key_t *)ptr2)->key) == 0;
+    return strcmp((const char *)ptr1, (const char *)ptr2) == 0;
+}
+
+/* This macro just returns a pointer that's a few bytes backwards from
+   string. This makes it possible to pass a pointer to object_key_t
+   when only the string inside it is used, without actually creating
+   an object_key_t instance. */
+#define string_to_key(string)  container_of(string, object_key_t, key)
+
+static size_t hash_key(const void *ptr)
+{
+    return jsonp_hash_str(((const object_key_t *)ptr)->key);
+}
+
+static int key_equal(const void *ptr1, const void *ptr2)
+{
+    return jsonp_str_equal(((const object_key_t *)ptr1)->key,
+                           ((const object_key_t *)ptr2)->key);
 }
 
 static void value_decref(void *value)
@@ -70,7 +78,7 @@ json_t *json_object(void)
     json_init(&object->json, JSON_OBJECT);
 
     if(hashtable_init(&object->hashtable,
-                      jsonp_hash_key, jsonp_key_equal,
+                      hash_key, key_equal,
                       jsonp_free, value_decref))
     {
         jsonp_free(object);
@@ -94,7 +102,7 @@ size_t json_object_size(const json_t *json)
     json_object_t *object;
 
     if(!json_is_object(json))
-        return -1;
+        return 0;
 
     object = json_to_object(json);
     return object->hashtable.size;
@@ -237,7 +245,7 @@ void *json_object_iter_next(json_t *json, void *iter)
     return hashtable_iter_next(&object->hashtable, iter);
 }
 
-object_key_t *jsonp_object_iter_fullkey(void *iter)
+const object_key_t *jsonp_object_iter_fullkey(void *iter)
 {
     if(!iter)
         return NULL;

@@ -12,11 +12,7 @@
 #include <stdlib.h>  /* for size_t */
 #include <stdarg.h>
 
-//#include <jansson_config.h>
-
-#if defined(_MSC_VER) && !defined(__cplusplus)
-  #define inline __inline
-#endif
+#include <jansson_config.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -26,16 +22,16 @@ extern "C" {
 
 #define JANSSON_MAJOR_VERSION  2
 #define JANSSON_MINOR_VERSION  0
-#define JANSSON_MICRO_VERSION  0
+#define JANSSON_MICRO_VERSION  1
 
 /* Micro version is omitted if it's 0 */
-#define JANSSON_VERSION  "2.0"
+#define JANSSON_VERSION  "2.0.1"
 
 /* Version as a 3-byte hex number, e.g. 0x010201 == 1.2.1. Use this
    for numeric comparisons, e.g. #if JANSSON_VERSION_HEX >= ... */
 #define JANSSON_VERSION_HEX  ((JANSSON_MAJOR_VERSION << 16) |   \
                               (JANSSON_MINOR_VERSION << 8)  |   \
-                              (JANSSON_MICRO_VERSION << 0)))
+                              (JANSSON_MICRO_VERSION << 0))
 
 
 /* types */
@@ -88,7 +84,7 @@ json_t *json_true(void);
 json_t *json_false(void);
 json_t *json_null(void);
 
-static inline
+static JSON_INLINE
 json_t *json_incref(json_t *json)
 {
     if(json && json->refcount != (size_t)-1)
@@ -99,7 +95,7 @@ json_t *json_incref(json_t *json)
 /* do not call json_delete directly */
 void json_delete(json_t *json);
 
-static inline
+static JSON_INLINE
 void json_decref(json_t *json)
 {
     if(json && json->refcount != (size_t)-1 && --json->refcount == 0)
@@ -137,19 +133,19 @@ const char *json_object_iter_key(void *iter);
 json_t *json_object_iter_value(void *iter);
 int json_object_iter_set_new(json_t *object, void *iter, json_t *value);
 
-static inline
+static JSON_INLINE
 int json_object_set(json_t *object, const char *key, json_t *value)
 {
     return json_object_set_new(object, key, json_incref(value));
 }
 
-static inline
+static JSON_INLINE
 int json_object_set_nocheck(json_t *object, const char *key, json_t *value)
 {
     return json_object_set_new_nocheck(object, key, json_incref(value));
 }
 
-static inline
+static JSON_INLINE
 int json_object_iter_set(json_t *object, void *iter, json_t *value)
 {
     return json_object_iter_set_new(object, iter, json_incref(value));
@@ -164,19 +160,19 @@ int json_array_remove(json_t *array, size_t index);
 int json_array_clear(json_t *array);
 int json_array_extend(json_t *array, json_t *other);
 
-static inline
+static JSON_INLINE
 int json_array_set(json_t *array, size_t index, json_t *value)
 {
     return json_array_set_new(array, index, json_incref(value));
 }
 
-static inline
+static JSON_INLINE
 int json_array_append(json_t *array, json_t *value)
 {
     return json_array_append_new(array, json_incref(value));
 }
 
-static inline
+static JSON_INLINE
 int json_array_insert(json_t *array, size_t index, json_t *value)
 {
     return json_array_insert_new(array, index, json_incref(value));
@@ -244,10 +240,6 @@ void json_set_alloc_funcs(json_malloc_t malloc_fn, json_free_t free_fn);
 
 #ifdef __cplusplus
 }
-#endif
-
-#if defined(_MSC_VER) && !defined(__cplusplus)
-  #undef inline
 #endif
 
 #endif

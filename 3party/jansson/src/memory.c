@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "jansson.h"
+#include <jansson.h>
 #include "jansson_private.h"
 
 /* memory function pointers */

@@ -12,10 +12,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdarg.h>
 #include <assert.h>
 
-#include "jansson.h"
+#include <jansson.h>
 #include "jansson_private.h"
 #include "strbuffer.h"
 #include "utf.h"
@@ -32,11 +31,6 @@
 #define TOKEN_TRUE           259
 #define TOKEN_FALSE          260
 #define TOKEN_NULL           261
-
-// Visual Studio fix
-#ifdef _MSC_VER
-  #define snprintf _snprintf
-#endif
 
 /* Read one byte from stream, convert to unsigned char, then int, and
    return. return EOF on end of file. This corresponds to the
@@ -845,9 +839,12 @@ json_t *json_loads(const char *string, size_t flags, json_error_t *error)
 {
     lex_t lex;
     json_t *result;
-    string_data_t stream_data = {string, 0};
+    string_data_t stream_data;
 
     (void)flags; /* unused */
+
+    stream_data.data = string;
+    stream_data.pos = 0;
 
     if(lex_init(&lex, string_get, (void *)&stream_data))
         return NULL;

@@ -1,4 +1,5 @@
-#include "src/jansson.h"
+#include <jansson.h>
+
 #include "../../base/exception.hpp"
 #include "../../std/algorithm.hpp"
 

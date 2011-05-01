@@ -19,7 +19,7 @@ int strbuffer_init(strbuffer_t *strbuff)
     strbuff->size = STRBUFFER_MIN_SIZE;
     strbuff->length = 0;
 
-    strbuff->value = malloc(strbuff->size);
+    strbuff->value = jsonp_malloc(strbuff->size);
     if(!strbuff->value)
         return -1;
 
@@ -30,7 +30,7 @@ int strbuffer_init(strbuffer_t *strbuff)
 
 void strbuffer_close(strbuffer_t *strbuff)
 {
-    free(strbuff->value);
+    jsonp_free(strbuff->value);
     strbuff->size = 0;
     strbuff->length = 0;
     strbuff->value = NULL;

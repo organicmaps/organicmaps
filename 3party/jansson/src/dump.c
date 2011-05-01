@@ -11,15 +11,10 @@
 #include <string.h>
 #include <assert.h>
 
-#include "jansson.h"
+#include <jansson.h>
 #include "jansson_private.h"
 #include "strbuffer.h"
 #include "utf.h"
-
-// Visual Studio fix
-#ifdef _MSC_VER
-  #define snprintf _snprintf
-#endif
 
 #define MAX_INTEGER_STR_LENGTH  100
 #define MAX_REAL_STR_LENGTH     100
@@ -313,7 +308,7 @@ static int do_dump(const json_t *json, size_t flags, int depth,
 
             if(flags & JSON_SORT_KEYS || flags & JSON_PRESERVE_ORDER)
             {
-                object_key_t **keys;
+                const object_key_t **keys;
                 size_t size, i;
                 int (*cmp_func)(const void *, const void *);
 

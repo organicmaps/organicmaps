@@ -2,6 +2,8 @@ TARGET = jansson
 ROOT_DIR = ../..
 include($$ROOT_DIR/common.pri)
 
+INCLUDEPATH += src
+
 TEMPLATE = lib
 CONFIG += staticlib
 SOURCES += \
