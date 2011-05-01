@@ -137,7 +137,7 @@ void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition
   m_pScreen->drawSymbol(pt, id, pos, depth);
 }
 
-void DrawerYG::drawPath(vector<m2::PointD> const & pts, di::DrawRule const * rules, size_t count)
+void DrawerYG::drawPath(vector<vector<m2::PointD> const *> const & pathes, di::DrawRule const * rules, size_t count)
 {
   // if any rule needs caching - cache as a whole vector
   bool flag = false;
@@ -185,9 +185,16 @@ void DrawerYG::drawPath(vector<m2::PointD> const & pts, di::DrawRule const * rul
     }
   }
 
-  // draw path with array of rules
-  for (size_t i = 0; i < count; ++i)
-    m_pScreen->drawPath(&pts[0], pts.size(), 0, rules[i].m_rule->GetID(), rules[i].m_depth);
+  // draw every path in order with array of rules.
+  for (size_t i = 0; i < pathes.size(); ++i)
+  {
+    for (size_t j = 0; j < count; ++j)
+      m_pScreen->drawPath(&pathes[i]->at(0), pathes[i]->size(), 0, rules[j].m_rule->GetID(), rules[j].m_depth);
+  }
+
+/*  for (size_t j = 0; j < count; ++j)
+    for (size_t i = 0; i < pathes.size(); ++i)
+      m_pScreen->drawPath(&pathes[i]->at(0), pathes[i]->size(), 0, rules[j].m_rule->GetID(), rules[j].m_depth);*/
 }
 
 void DrawerYG::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth)
@@ -302,8 +309,11 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
 
   if (!pathRules.empty())
   {
+    vector<vector<m2::PointD> const *> pathes;
     for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
-      drawPath(i->m_path, pathRules.data(), pathRules.size());
+      pathes.push_back(&i->m_path);
+
+    drawPath(pathes, pathRules.data(), pathRules.size());
   }
 
   for (unsigned i = 0; i < count; ++i)
