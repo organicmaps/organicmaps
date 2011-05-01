@@ -25,11 +25,15 @@ namespace yg
 
       texture->makeCurrent();
 
+//      OGLCHECK(glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ));
+
       OGLCHECK(glDrawElements(
         GL_TRIANGLES,
         indicesCount,
         GL_UNSIGNED_SHORT,
         indices->glPtr()));
+
+//      OGLCHECK(glPolygonMode( GL_FRONT_AND_BACK, GL_FILL ));
     }
   }
 }
