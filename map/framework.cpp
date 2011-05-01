@@ -277,6 +277,12 @@ void FrameWork<TModel>::AddRedrawCommandSure()
       m_centeringMode(EDoNothing),
       m_maxDuration(0)
   {
+    time_t curTime = time(NULL);
+    m_startTime = string(ctime(&curTime));
+    for (unsigned i = 0; i < m_startTime.size(); ++i)
+      if (m_startTime[i] == ' ')
+        m_startTime[i] = '_';
+
     m_informationDisplay.setBottomShift(bottomShift);
 #ifdef DRAW_TOUCH_POINTS
     m_informationDisplay.enableDebugPoints(true);
@@ -338,14 +344,11 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   {
     ofstream fout(GetPlatform().WritablePathForFile("benchmark_results.txt").c_str(), ios::app);
 
-    time_t curTime = time(NULL);
-    string const startTime(ctime(&curTime));
-
     for (int i = 0; i < m_benchmarkResults.size(); ++i)
     {
       fout << GetPlatform().DeviceID() << " "
            << VERSION_STRING << " "
-           << startTime << " "
+           << m_startTime << " "
            << m_benchmarkResults[i].m_name << " "
            << m_benchmarkResults[i].m_rect.minX() << " "
            << m_benchmarkResults[i].m_rect.minY() << " "

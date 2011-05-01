@@ -148,6 +148,7 @@ class FrameWork
 
   vector<BenchmarkResult> m_benchmarkResults;
   my::Timer m_benchmarksTimer;
+  string m_startTime;
 
   struct Benchmark
   {
