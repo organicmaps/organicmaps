@@ -28,7 +28,13 @@ namespace yg
 
       double length = 0;
 
-      length = accumulate(tmpV.begin(), tmpV.end(), 0);
+      /// ensuring that a minimal element has a length of 2px
+      for (size_t i = 0; i < tmpV.size(); ++i)
+      {
+        if ((tmpV[i] < 2) && (tmpV[i] > 0))
+          tmpV[i] = 2;
+        length += tmpV[i];
+      }
 
       int i = 0;
 
@@ -37,22 +43,22 @@ namespace yg
       if ((offset >= length) || (offset < 0))
         offset -= floor(offset / length) * length;
 
-      length = 0;
+      double curLen = 0;
 
       /// shifting pattern
       while (true)
       {
-        if (length + tmpV[i] > offset)
+        if (curLen + tmpV[i] > offset)
         {
           //we're inside, let's split the pattern
 
           if (i % 2 == 1)
             vec.push_back(0);
 
-          vec.push_back(length + tmpV[i] - offset);
+          vec.push_back(curLen + tmpV[i] - offset);
           std::copy(tmpV.data() + i + 1, tmpV.end(), back_inserter(vec));
           std::copy(tmpV.begin(), tmpV.data() + i, back_inserter(vec));
-          vec.push_back(offset - length);
+          vec.push_back(offset - curLen);
 
           if (i % 2 == 0)
             vec.push_back(0);
@@ -60,17 +66,7 @@ namespace yg
           break;
         }
         else
-          length += tmpV[i++];
-      }
-
-      /// ensuring that a minimal element has a length of 2px
-
-      length = 0;
-      for (size_t i = 0; i < vec.size(); ++i)
-      {
-        if ((vec[i] < 2) && (vec[i] > 0))
-          vec[i] = 2;
-        length += vec[i];
+          curLen += tmpV[i++];
       }
 
       int periods = max(int(256 / length), 1);
