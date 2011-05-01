@@ -282,6 +282,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     for (unsigned i = 0; i < m_startTime.size(); ++i)
       if (m_startTime[i] == ' ')
         m_startTime[i] = '_';
+    m_startTime = m_startTime.substr(0, m_startTime.size() - 1);
 
     m_informationDisplay.setBottomShift(bottomShift);
 #ifdef DRAW_TOUCH_POINTS
