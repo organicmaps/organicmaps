@@ -719,7 +719,33 @@ namespace
     {
       p->drawPath(&m_path[0], m_path.size(), p->skin()->mapPenInfo(m_penInfo), 0);
       yg::FontDesc fontDesc(false, 10);
-      p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, calc_length(m_path), 0.0, yg::gl::Screen::middle_line, 0);
+      p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, calc_length(m_path), 0.0, yg::EPosCenter, 0);
+    }
+  };
+
+  struct TestDrawTextOnPathZigZag
+  {
+    std::vector<m2::PointD> m_path;
+    std::string m_text;
+    yg::PenInfo m_penInfo;
+
+    TestDrawTextOnPathZigZag()
+    {
+      m_path.push_back(m2::PointD(40, 200));
+      m_path.push_back(m2::PointD(100, 100));
+      m_path.push_back(m2::PointD(160, 200));
+      m_path.push_back(m2::PointD(200, 100));
+      m_text = "Simplicity is the ultimate sophistication. Leonardo Da Vinci.";
+
+      double pat[] = { 2, 2 };
+      m_penInfo = yg::PenInfo(yg::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
+    }
+
+    void DoDraw(shared_ptr<yg::gl::Screen> p)
+    {
+      p->drawPath(&m_path[0], m_path.size(), p->skin()->mapPenInfo(m_penInfo), 0);
+      yg::FontDesc fontDesc(false, 10);
+      p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, calc_length(m_path), 0.0, yg::EPosCenter, 0);
     }
   };
 
@@ -732,8 +758,8 @@ namespace
       double const len = calc_length(m_path);
       yg::FontDesc fontDesc(false, 10);
 
-      p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, len, 0.0, yg::gl::Screen::above_line, 0);
-      p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, len, 0.0, yg::gl::Screen::under_line, 0);
+      p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, len, 0.0, yg::EPosAbove, 0);
+      p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, len, 0.0, yg::EPosUnder, 0);
     }
   };
 
@@ -1008,7 +1034,8 @@ namespace
 //   UNIT_TEST_GL(TestDrawUnicodeSymbols);
 //   UNIT_TEST_GL(TestDrawTextRectWithFixedFont);
 //   UNIT_TEST_GL(TestDrawStringOnString);
-//   UNIT_TEST_GL(TestDrawTextOnPath);
+//     UNIT_TEST_GL(TestDrawTextOnPath);
+     UNIT_TEST_GL(TestDrawTextOnPathZigZag);
 //   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
 //   UNIT_TEST_GL(TestDrawTextOverflow);
 //   UNIT_TEST_GL(TestDrawTextFiltering);
@@ -1023,7 +1050,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawPathSolid2PX);
 //   UNIT_TEST_GL(TestDrawPathSolid);
 //   UNIT_TEST_GL(TestDrawSector);
-   UNIT_TEST_GL(TestDrawPathSolidDiffWidth);
+//   UNIT_TEST_GL(TestDrawPathSolidDiffWidth);
 //   UNIT_TEST_GL(TestDrawPathZigZag);
 //   UNIT_TEST_GL(TestDrawPathSolidWithZ);
 //   UNIT_TEST_GL(TestDrawPathSolidWithClipRect);

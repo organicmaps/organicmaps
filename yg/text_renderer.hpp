@@ -20,9 +20,6 @@ namespace yg
     {
     public:
 
-      enum TextPos { under_line, middle_line, above_line };
-
-
       class TextObj
       {
         FontDesc m_fontDesc;
@@ -79,7 +76,7 @@ namespace yg
                             string const & utf8Text,
                             double fullLength,
                             double pathOffset,
-                            TextPos pos,
+                            yg::EPosition pos,
                             double depth);
 
       /// Drawing text from point rotated by the angle.
@@ -131,7 +128,7 @@ namespace yg
                         string const & utf8Text,
                         double fullLength,
                         double pathOffset,
-                        TextPos pos,
+                        yg::EPosition pos,
                         double depth);
 
 

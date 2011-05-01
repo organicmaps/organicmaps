@@ -397,7 +397,7 @@ namespace yg
 
     bool TextRenderer::drawPathText(
         FontDesc const & fontDesc, m2::PointD const * path, size_t s, string const & utf8Text,
-        double fullLength, double pathOffset, TextPos pos, double depth)
+        double fullLength, double pathOffset, yg::EPosition pos, double depth)
     {
       if (!m_drawTexts)
         return false;
@@ -418,7 +418,7 @@ namespace yg
 
     bool TextRenderer::drawPathTextImpl(
         FontDesc const & fontDesc, m2::PointD const * path, size_t s, string const & utf8Text,
-        double fullLength, double pathOffset, TextPos pos, double depth)
+        double fullLength, double pathOffset, yg::EPosition pos, double depth)
     {
       pts_array arrPath(path, s, fullLength, pathOffset);
 
@@ -428,9 +428,10 @@ namespace yg
       float blOffset = 2;
       switch (pos)
       {
-      case under_line: blOffset -= fontDesc.m_size; break;
-      case middle_line: blOffset -= fontDesc.m_size / 2; break;
-      case above_line: blOffset -= 0; break;
+      case yg::EPosUnder: blOffset -= fontDesc.m_size; break;
+      case yg::EPosCenter: blOffset -= fontDesc.m_size / 2; break;
+      case yg::EPosAbove: blOffset -= 0; break;
+      default: blOffset -= fontDesc.m_size / 2; break;
       }
 
       size_t const count = text.size();

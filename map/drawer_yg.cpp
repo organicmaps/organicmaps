@@ -261,7 +261,7 @@ bool DrawerYG::drawPathText(di::PathInfo const & info, string const & name, uint
                                   name,
                                   info.GetLength(),
                                   info.GetOffset(),
-                                  yg::gl::Screen::middle_line,
+                                  yg::EPosCenter,
                                   yg::maxDepth);
 }
 
