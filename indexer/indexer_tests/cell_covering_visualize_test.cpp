@@ -58,7 +58,7 @@ namespace
         std::vector<m2::PointD> pts;
         for (size_t j = 0; j < m_lines[i].size(); ++j)
           pts.push_back(m_screenBase.GtoP(m2::PointD(m_lines[i][j].first, m_lines[i][j].second)));
-        pScreen->drawPath(&pts[0], pts.size(), m_skin->mapPenInfo(yg::PenInfo(yg::Color(0, 255, 0, 255), 2, 0, 0, 0)), 0);
+        pScreen->drawPath(&pts[0], pts.size(), 0, m_skin->mapPenInfo(yg::PenInfo(yg::Color(0, 255, 0, 255), 2, 0, 0, 0)), 0);
       }
     }
 

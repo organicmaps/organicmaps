@@ -29,7 +29,7 @@ namespace yg
 
       PathRenderer(Params const & params);
 
-      void drawPath(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth);
+      void drawPath(m2::PointD const * points, size_t pointsCount, double offset, uint32_t styleID, double depth);
 
       void beginFrame();
       void endFrame();

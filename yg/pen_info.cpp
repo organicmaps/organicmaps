@@ -2,6 +2,7 @@
 #include "../std/algorithm.hpp"
 #include "../std/iterator.hpp"
 #include "../std/numeric.hpp"
+#include "../base/logging.hpp"
 
 namespace yg
 {
@@ -19,9 +20,52 @@ namespace yg
       m_isSolid = true;
     else
     {
-      buffer_vector<double, 4> vec;
-      copy(pattern, pattern + patternSize, back_inserter(vec));
+      buffer_vector<double, 4> tmpV;
+      copy(pattern, pattern + patternSize, back_inserter(tmpV));
+
+      if (tmpV.size() % 2)
+        tmpV.push_back(0);
+
       double length = 0;
+
+      length = accumulate(tmpV.begin(), tmpV.end(), 0);
+
+      int i = 0;
+
+      buffer_vector<double, 4> vec;
+
+      if ((offset >= length) || (offset < 0))
+        offset -= floor(offset / length) * length;
+
+      length = 0;
+
+      /// shifting pattern
+      while (true)
+      {
+        if (length + tmpV[i] > offset)
+        {
+          //we're inside, let's split the pattern
+
+          if (i % 2 == 1)
+            vec.push_back(0);
+
+          vec.push_back(length + tmpV[i] - offset);
+          std::copy(tmpV.data() + i + 1, tmpV.end(), back_inserter(vec));
+          std::copy(tmpV.begin(), tmpV.data() + i, back_inserter(vec));
+          vec.push_back(offset - length);
+
+          if (i % 2 == 0)
+            vec.push_back(0);
+
+          break;
+        }
+        else
+          length += tmpV[i++];
+      }
+
+      /// ensuring that a minimal element has a length of 2px
+
+      length = 0;
       for (size_t i = 0; i < vec.size(); ++i)
       {
         if ((vec[i] < 2) && (vec[i] > 0))
@@ -33,16 +77,6 @@ namespace yg
       m_pat.reserve(periods * vec.size());
       for (int i = 0; i < periods; ++i)
         copy(vec.begin(), vec.end(), back_inserter(m_pat));
-
-/*      copy(pattern, pattern + patternSize, back_inserter(m_pat));
-      double length = 0;
-      for (size_t i = 0; i < m_pat.size(); ++i)
-      {
-        if ((m_pat[i] < 2) && (m_pat[i] > 0))
-          m_pat[i] = 2;
-        length += m_pat[i];
-      }
-*/
     }
   }
 

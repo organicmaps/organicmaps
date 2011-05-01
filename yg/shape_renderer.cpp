@@ -17,7 +17,7 @@ namespace yg
       vector<m2::PointD> pts;
       approximateArc(center, startA, endA, r, pts);
 
-      drawPath(&pts[0], pts.size(), skin()->mapPenInfo(yg::PenInfo(c, 3, 0, 0, 0)), depth);
+      drawPath(&pts[0], pts.size(), 0, skin()->mapPenInfo(yg::PenInfo(c, 3, 0, 0, 0)), depth);
     }
 
     void ShapeRenderer::approximateArc(m2::PointD const & center, double startA, double endA, double r, vector<m2::PointD> & pts)
@@ -38,7 +38,7 @@ namespace yg
       approximateArc(center, startA, endA, r, pts);
       pts.push_back(center);
 
-      drawPath(&pts[0], pts.size(), skin()->mapPenInfo(yg::PenInfo(c, 2, 0, 0, 0)), depth);
+      drawPath(&pts[0], pts.size(), 0, skin()->mapPenInfo(yg::PenInfo(c, 2, 0, 0, 0)), depth);
     }
 
     void ShapeRenderer::fillSector(m2::PointD const & center, double startA, double endA, double r, yg::Color const & c, double depth)

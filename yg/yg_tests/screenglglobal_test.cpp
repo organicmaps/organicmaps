@@ -44,7 +44,7 @@ namespace
 
       toPixel(pts);
 
-      p->drawPath(&pts[0], pts.size(), p->skin()->mapPenInfo(yg::PenInfo(yg::Color(255, 0, 0, 255), 2, 0, 0, 0)), 0);
+      p->drawPath(&pts[0], pts.size(), 0, p->skin()->mapPenInfo(yg::PenInfo(yg::Color(255, 0, 0, 255), 2, 0, 0, 0)), 0);
     }
   };
 

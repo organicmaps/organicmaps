@@ -146,7 +146,7 @@ namespace yg
       /// flush texts upon any function call.
       void setNeedTextRedraw(bool flag);
 
-      void drawPath(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth);
+      void drawPath(m2::PointD const * points, size_t pointsCount, double offset, uint32_t styleID, double depth);
 
       void updateActualTarget();
     };

@@ -152,7 +152,7 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
   scalerPts[3] = scalerPts[2] + m2::PointD(0, -14 * m_visualScale);
 
   pDrawer->screen()->drawPath(
-      scalerPts, 4,
+      scalerPts, 4, 0,
       pDrawer->screen()->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 255), 2, 0, 0, 0)),
       yg::maxDepth);
 
@@ -174,7 +174,7 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
   minPixPath[3] = minPixPath[2] + m2::PointD(0, -14);
 
   pDrawer->screen()->drawPath(
-      minPixPath, 4,
+      minPixPath, 4, 0,
       pDrawer->screen()->skin()->mapPenInfo(yg::PenInfo(yg::Color(255, 0, 0, 255), 4, 0, 0, 0)),
       yg::maxDepth);
  */

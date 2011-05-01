@@ -48,13 +48,14 @@ namespace
 
 //      double pat [] = {7, 7, 10, 10};
       double pat1 [] = {1, 1};
-      p->drawPath(pts, 3, p->skin()->mapPenInfo(yg::PenInfo(yg::Color(0xFF, 0xFF, 0xFF, 0xFF), 2, pat1, 2, 0)), 0);
+      p->drawPath(pts, 3, 0, p->skin()->mapPenInfo(yg::PenInfo(yg::Color(0xFF, 0xFF, 0xFF, 0xFF), 2, pat1, 2, 0)), 0);
     }
   };
 
   struct TestDrawPathBase
   {
     std::vector<std::vector<m2::PointD> > m_pathes;
+    std::vector<double> m_pathOffsets;
     //std::vector<std::vector<double> > m_patterns;
     std::vector<yg::PenInfo> m_penInfos;
     std::vector<double> m_depthes;
@@ -77,11 +78,13 @@ namespace
         yg::Color const & color = yg::Color(255, 255, 255, 255),
         double width = 2,
         double depth = 0,
-        double offset = 0)
+        double pathOffset = 0,
+        double penOffset = 0)
     {
       m_pathes.push_back(points);
+      m_pathOffsets.push_back(pathOffset);
       //m_patterns.push_back(pattern);
-      m_penInfos.push_back(yg::PenInfo(color, width, pattern.empty() ? 0 : &pattern[0], pattern.size(), offset));
+      m_penInfos.push_back(yg::PenInfo(color, width, pattern.empty() ? 0 : &pattern[0], pattern.size(), penOffset));
       m_depthes.push_back(depth);
     }
 
@@ -94,9 +97,9 @@ namespace
     {
       for (size_t i = 0; i < m_pathes.size(); ++i)
       {
-        p->drawPath(&m_pathes[i][0], m_pathes[i].size(), p->skin()->mapPenInfo(m_penInfos[i]), m_depthes[i]);
+        p->drawPath(&m_pathes[i][0], m_pathes[i].size(), m_pathOffsets[i], p->skin()->mapPenInfo(m_penInfos[i]), m_depthes[i]);
         if (m_drawAxis)
-          p->drawPath(&m_pathes[i][0], m_pathes[i].size(), p->skin()->mapPenInfo(m_axisPenInfo), m_depthes[i]);
+          p->drawPath(&m_pathes[i][0], m_pathes[i].size(), 0, p->skin()->mapPenInfo(m_axisPenInfo), m_depthes[i]);
       }
     }
 
@@ -140,7 +143,7 @@ namespace
     }
   };
 
-  struct PathWithOffset : TestDrawPathBase
+  struct TestDrawPathWithOffset : TestDrawPathBase
   {
     typedef TestDrawPathBase base_t;
 
@@ -153,21 +156,50 @@ namespace
       vector<m2::PointD> pts;
       vector<double> pattern;
 
-      pts.push_back(m2::PointD(100, 100));
       pts.push_back(m2::PointD(200, 100));
+      pts.push_back(m2::PointD(400, 100));
 
       pattern.push_back(20);
       pattern.push_back(30);
 
-      /// The path should start from -10px offset.
-//      AddTest(pts, pattern, yg::Color(0, 0, 255, 255), 4, 0, -10);
+      /// The path should start from -10px path offset.
+      AddTest(pts, pattern, yg::Color(0, 0, 0, 255), 4, 0, -10);
 
       pts.clear();
-      pts.push_back(m2::PointD(100, 200));
-      pts.push_back(m2::PointD(200, 200));
+      pts.push_back(m2::PointD(200, 110));
+      pts.push_back(m2::PointD(400, 110));
 
-      /// The path should start from 60px offset.
-      AddTest(pts, pattern, yg::Color(0, 0, 255, 255), 4, 0, 60);
+      /// The path should start from 0px path offset.
+      AddTest(pts, pattern, yg::Color(0, 0, 0, 255), 4, 0, 0);
+
+      pts.clear();
+      pts.push_back(m2::PointD(200, 120));
+      pts.push_back(m2::PointD(400, 120));
+
+      /// The path should start from 60px path offset.
+      AddTest(pts, pattern, yg::Color(0, 0, 0, 255), 4, 0, 60);
+
+      pts.clear();
+      pts.push_back(m2::PointD(200, 130));
+      pts.push_back(m2::PointD(400, 130));
+
+      /// The path should start from 0px path offset.
+      AddTest(pts, pattern, yg::Color(0, 0, 0, 255), 4, 0, 0, -10);
+
+      pts.clear();
+      pts.push_back(m2::PointD(200, 140));
+      pts.push_back(m2::PointD(400, 140));
+
+      /// The path should start from 60px path offset.
+      AddTest(pts, pattern, yg::Color(0, 0, 0, 255), 4, 0, 0, 0);
+
+      pts.clear();
+      pts.push_back(m2::PointD(200, 150));
+      pts.push_back(m2::PointD(400, 150));
+
+      /// The path should start from 60px path offset.
+      AddTest(pts, pattern, yg::Color(0, 0, 0, 255), 4, 0, 0, 60);
+
     }
   };
 
@@ -561,7 +593,7 @@ namespace
     {
       m2::PointD path[2] = {m2::PointD(100, 200), m2::PointD(1000, 200)};
       double pat[2] = {2, 2};
-      p->drawPath(path, sizeof(path) / sizeof(m2::PointD), p->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 0xFF), 2, pat, 2, 0)), 0);
+      p->drawPath(path, sizeof(path) / sizeof(m2::PointD), 0, p->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 0xFF), 2, pat, 2, 0)), 0);
 
       yg::FontDesc fontDesc(false, 20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
 
@@ -622,7 +654,7 @@ namespace
       yg::FontDesc fontDesc(false, 20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
 
       p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, 0, "S", 0, true);
-      p->drawPath(&path[0], path.size(), p->skin()->mapPenInfo(solidPenInfo), 0);
+      p->drawPath(&path[0], path.size(), 0, p->skin()->mapPenInfo(solidPenInfo), 0);
 
     }
   };
@@ -717,7 +749,7 @@ namespace
 
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      p->drawPath(&m_path[0], m_path.size(), p->skin()->mapPenInfo(m_penInfo), 0);
+      p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
       yg::FontDesc fontDesc(false, 10);
       p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, calc_length(m_path), 0.0, yg::EPosCenter, 0);
     }
@@ -743,7 +775,7 @@ namespace
 
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      p->drawPath(&m_path[0], m_path.size(), p->skin()->mapPenInfo(m_penInfo), 0);
+      p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
       yg::FontDesc fontDesc(false, 10);
       p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, calc_length(m_path), 0.0, yg::EPosCenter, 0);
     }
@@ -753,7 +785,7 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      p->drawPath(&m_path[0], m_path.size(), p->skin()->mapPenInfo(m_penInfo), 0);
+      p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
 
       double const len = calc_length(m_path);
       yg::FontDesc fontDesc(false, 10);
@@ -922,7 +954,7 @@ namespace
       uint32_t triangleListID = p->skin()->mapPenInfo(triangleListRule);
       uint32_t lineLoopID = p->skin()->mapPenInfo(lineLoopRule);
 
-      p->drawPath((m2::PointD const *)&m_vertices[0], m_vertices.size(), inputDataID, 0);
+      p->drawPath((m2::PointD const *)&m_vertices[0], m_vertices.size(), 0, inputDataID, 0);
 
       for (size_t i = 0; i < m_d.indices().size(); ++i)
       {
@@ -945,7 +977,7 @@ namespace
             }
 
             for (size_t j = 0; j < poly.size(); ++j)
-              p->drawPath(&poly[j][0], poly[j].size(), triangleFanID, 0);
+              p->drawPath(&poly[j][0], poly[j].size(), 0, triangleFanID, 0);
             break;
           }
         case tess::TrianglesList:
@@ -965,7 +997,7 @@ namespace
             }
 
             for (size_t j = 0; j < poly.size(); ++j)
-              p->drawPath(&poly[j][0], poly[j].size(), triangleListID, 0);
+              p->drawPath(&poly[j][0], poly[j].size(), 0, triangleListID, 0);
             break;
           }
         case tess::TrianglesStrip:
@@ -983,7 +1015,7 @@ namespace
             }
 
             for (size_t j = 0; j < poly.size(); ++j)
-              p->drawPath(&poly[j][0], poly[j].size(), triangleFanID, 0);
+              p->drawPath(&poly[j][0], poly[j].size(), 0, triangleFanID, 0);
             break;
           }
         case tess::LineLoop:
@@ -997,7 +1029,7 @@ namespace
 
             poly.back().push_back(poly.back()[0]);
 
-            p->drawPath(&poly[0][0], poly[0].size(), lineLoopID, 0);
+            p->drawPath(&poly[0][0], poly[0].size(), 0, lineLoopID, 0);
             break;
           }
         }
@@ -1034,8 +1066,8 @@ namespace
 //   UNIT_TEST_GL(TestDrawUnicodeSymbols);
 //   UNIT_TEST_GL(TestDrawTextRectWithFixedFont);
 //   UNIT_TEST_GL(TestDrawStringOnString);
-//     UNIT_TEST_GL(TestDrawTextOnPath);
-     UNIT_TEST_GL(TestDrawTextOnPathZigZag);
+//   UNIT_TEST_GL(TestDrawTextOnPath);
+//   UNIT_TEST_GL(TestDrawTextOnPathZigZag);
 //   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
 //   UNIT_TEST_GL(TestDrawTextOverflow);
 //   UNIT_TEST_GL(TestDrawTextFiltering);
@@ -1044,7 +1076,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawPoly);
 //   UNIT_TEST_GL(TestDrawSolidRect);
 //   UNIT_TEST_GL(TestDrawPathWithSkinPageMiss);
-//   UNIT_TEST_GL(TestDrawPathWithOffset);
+   UNIT_TEST_GL(TestDrawPathWithOffset);
 //   UNIT_TEST_GL(TestDrawPathJoin);
 //   UNIT_TEST_GL(TestDrawPathSolid1PX);
 //   UNIT_TEST_GL(TestDrawPathSolid2PX);

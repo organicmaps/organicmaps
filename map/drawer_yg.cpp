@@ -187,7 +187,7 @@ void DrawerYG::drawPath(vector<m2::PointD> const & pts, di::DrawRule const * rul
 
   // draw path with array of rules
   for (size_t i = 0; i < count; ++i)
-    m_pScreen->drawPath(&pts[0], pts.size(), rules[i].m_rule->GetID(), rules[i].m_depth);
+    m_pScreen->drawPath(&pts[0], pts.size(), 0, rules[i].m_rule->GetID(), rules[i].m_depth);
 }
 
 void DrawerYG::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth)

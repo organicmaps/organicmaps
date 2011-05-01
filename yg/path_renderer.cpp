@@ -17,21 +17,13 @@ namespace yg
       : base_t(params), m_drawPathes(params.m_drawPathes)
     {}
 
-    void PathRenderer::drawPath(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth)
+    void PathRenderer::drawPath(m2::PointD const * points, size_t pointsCount, double offset, uint32_t styleID, double depth)
     {
       ++m_pathCount;
       m_pointsCount += pointsCount;
 
       if (!m_drawPathes)
         return;
-
- #ifdef PROFILER_YG
-      prof::block<prof::yg_draw_path> draw_path_block;
- #endif
-
- //#ifdef DEBUG_DRAW_PATH
- //     LineStyle const * lineStyle = reinterpret_cast<LineStyle const*>(styleID);
- //#else
 
       ASSERT_GREATER_OR_EQUAL(pointsCount, 2, ());
       ResourceStyle const * style(skin()->fromID(styleID));
@@ -44,7 +36,6 @@ namespace yg
 
       ASSERT(style->m_cat == ResourceStyle::ELineStyle, ());
       LineStyle const * lineStyle = static_cast<LineStyle const *>(style);
- //#endif
 
       if (lineStyle->m_isSolid)
       {
@@ -53,6 +44,8 @@ namespace yg
       }
 
       float rawTileStartLen = 0;
+
+      bool skipToOffset = true;
 
       for (size_t i = 0; i < pointsCount - 1; ++i)
       {
@@ -65,12 +58,24 @@ namespace yg
         /// The remaining length of the segment
         float segLenRemain = segLen;
 
+        if (skipToOffset)
+        {
+          offset -= segLen;
+          if (offset >= 0)
+            continue;
+          else
+          {
+            skipToOffset = false;
+            segLenRemain = -offset;
+          }
+        }
+
         /// Geometry width. It's 1px wider than the pattern width.
-        int geomWidth = lineStyle->m_isSolid ? lineStyle->m_penInfo.m_w : lineStyle->m_penInfo.m_w + 4 - 2 * aaShift();
+        int geomWidth = lineStyle->m_penInfo.m_w + 4 - 2 * aaShift();
         float geomHalfWidth =  geomWidth / 2.0;
 
         /// Starting point of the tiles on this segment
-        m2::PointF rawTileStartPt = points[i];
+        m2::PointF rawTileStartPt = points[i] + dir * (segLen - segLenRemain);
 
         /// Tiling procedes as following :
         /// The leftmost tile goes antialiased at left and non-antialiased at right.
@@ -81,15 +86,15 @@ namespace yg
         float rawTileLen = 0;
         while (segLenRemain > 0)
         {
-          rawTileLen = (lineStyle->m_isWrapped || lineStyle->m_isSolid)
+          rawTileLen = lineStyle->m_isWrapped
                        ? segLen
                        : std::min(((float)lineStyle->rawTileLen() - rawTileStartLen), segLenRemain);
 
-          float texMaxY = lineStyle->m_isSolid ? lineStyle->m_texRect.minY() + 1 : lineStyle->m_texRect.maxY() - aaShift();
-          float texMinY = lineStyle->m_isSolid ? lineStyle->m_texRect.minY() + 1 : lineStyle->m_texRect.minY() + aaShift();
+          float texMaxY = lineStyle->m_texRect.maxY() - aaShift();
+          float texMinY = lineStyle->m_texRect.minY() + aaShift();
 
-          float texMinX = lineStyle->m_isSolid ? lineStyle->m_texRect.minX() + 1 : lineStyle->m_isWrapped ? 0 : lineStyle->m_texRect.minX() + 2 + rawTileStartLen;
-          float texMaxX = lineStyle->m_isSolid ? lineStyle->m_texRect.minX() + 1 : texMinX + rawTileLen;
+          float texMinX = lineStyle->m_isWrapped ? 0 : lineStyle->m_texRect.minX() + 2 + rawTileStartLen;
+          float texMaxX = texMinX + rawTileLen;
 
           rawTileStartLen += rawTileLen;
           if (rawTileStartLen >= lineStyle->rawTileLen())

@@ -496,11 +496,11 @@ namespace yg
                           p->m_pageID);
     }
 
-    void TextRenderer::drawPath(m2::PointD const * points, size_t pointsCount, uint32_t styleID, double depth)
+    void TextRenderer::drawPath(m2::PointD const * points, size_t pointsCount, double offset, uint32_t styleID, double depth)
     {
       if (m_useTextTree)
         checkTextRedraw();
-      base_t::drawPath(points, pointsCount, styleID, depth);
+      base_t::drawPath(points, pointsCount, offset, styleID, depth);
     }
   }
 }
