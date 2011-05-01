@@ -69,7 +69,6 @@ struct DlObserver
 
   void OnDownloadFinished(char const * url, DownloadResult result)
   {
-    ASSERT_EQUAL( m_progressUrl, url, () );
     m_url[m_downloadsProcessed] = url;
     m_result[m_downloadsProcessed] = result;
     ++m_downloadsProcessed;
