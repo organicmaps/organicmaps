@@ -125,9 +125,12 @@ string GetUniqueHashedId()
     NSData * postData = [NSData dataWithBytes:m_params.m_postData.data() length:m_params.m_postData.size()];
     [request setHTTPBody:postData];
   }
-  // send unique id in HTTP user agent header
-  static string const uid = GetUniqueHashedId();
-  [request addValue:[NSString stringWithUTF8String: uid.c_str()] forHTTPHeaderField:@"User-Agent"];
+  // set user-agent with unique client id only for mapswithme requests
+  if (m_params.m_url.find("mapswithme.com") != string::npos)
+  {
+    static string const uid = GetUniqueHashedId();
+    [request addValue:[NSString stringWithUTF8String: uid.c_str()] forHTTPHeaderField:@"User-Agent"];
+  }
   return request;
 }
 

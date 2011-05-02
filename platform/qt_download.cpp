@@ -147,8 +147,9 @@ QtDownload::~QtDownload()
 void QtDownload::StartRequest()
 {
   QNetworkRequest httpRequest(m_currentUrl);
-  // set user-agent with unique client id
-  httpRequest.setRawHeader("User-Agent", UserAgent().toAscii());
+  // set user-agent with unique client id only for mapswithme requests
+  if (m_params.m_url.find("mapswithme.com") != string::npos)
+    httpRequest.setRawHeader("User-Agent", UserAgent().toAscii());
   if (m_file.isOpen())
   {
     qint64 const fileSize = m_file.size();
