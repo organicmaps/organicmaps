@@ -63,14 +63,6 @@ namespace fwork
 
   namespace
   {
-    struct less_depth
-    {
-      bool operator() (di::DrawRule const & r1, di::DrawRule const & r2)
-      {
-        return r1.m_depth < r2.m_depth;
-      }
-    };
-
     struct less_key
     {
       bool operator() (drule::Key const & r1, drule::Key const & r2) const
@@ -185,8 +177,6 @@ namespace fwork
 
       rules[i] = di::DrawRule(drule::rules().Find(m_keys[i]), depth);
     }
-
-    sort(rules.begin(), rules.end(), less_depth());
 
 #ifdef PROFILER_DRAWING
       m_drawCount += m_keys.size();

@@ -92,15 +92,7 @@ public:
   T const * begin() const { return data(); }
   T const * end() const { return (data() + m_size); }
 
-  T * begin () {return data();}
-  T * end() {return (data() + m_size); }
-
   T const * data() const
-  {
-    return (m_size > N ? &m_dynamic[0] : m_static.data());
-  }
-
-  T * data()
   {
     return (m_size > N ? &m_dynamic[0] : m_static.data());
   }
