@@ -117,6 +117,8 @@ namespace yg
     bool m_isDynamic;
     uint32_t m_pageID;
 
+    bool m_fillAlpha;
+
     /// number of pending rendering commands,
     /// that are using this skin_page
     uint32_t m_activeCommands;
@@ -142,11 +144,13 @@ namespace yg
     /// creation of a static page
     SkinPage(shared_ptr<ResourceManager> const & resourceManager,
              char const * name,
-             uint8_t pageID);
+             uint8_t pageID,
+             bool fillAlpha);
 
     /// creation of a dynamic page
     SkinPage(shared_ptr<ResourceManager> const & resourceManager,
-             uint8_t pageID);
+             uint8_t pageID,
+             bool fillAlpha);
 
     void reserveTexture() const;
     void freeTexture();

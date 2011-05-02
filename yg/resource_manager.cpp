@@ -23,14 +23,16 @@ namespace yg
                                    size_t texWidth, size_t texHeight, size_t texCount,
                                    char const * blocksFile, char const * whiteListFile, char const * blackListFile, size_t maxGlyphCacheSize,
                                    RtFormat fmt,
-                                   bool useVA)
+                                   bool useVA,
+                                   bool fillSkinAlpha)
                                      : m_textureWidth(texWidth), m_textureHeight(texHeight),
                                      m_vbSize(vbSize), m_ibSize(ibSize),
                                      m_smallVBSize(smallVBSize), m_smallIBSize(smallIBSize),
                                      m_blitVBSize(blitVBSize), m_blitIBSize(blitIBSize),
                                      m_glyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, maxGlyphCacheSize)),
                                      m_format(fmt),
-                                     m_useVA(useVA)
+                                     m_useVA(useVA),
+                                     m_fillSkinAlpha(fillSkinAlpha)
   {
     if (useVA)
       LOG(LINFO, ("buffer objects are unsupported. using client vertex array instead."));
@@ -253,5 +255,10 @@ namespace yg
     default:
       throw std::runtime_error("unknows render target format");
     };
+  }
+
+  bool ResourceManager::fillSkinAlpha() const
+  {
+    return m_fillSkinAlpha;
   }
 }

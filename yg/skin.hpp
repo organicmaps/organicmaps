@@ -61,6 +61,8 @@ namespace yg
 
     shared_ptr<ResourceManager> m_resourceManager;
 
+    bool m_fillAlpha;
+
     void clearHandles();
 
     Skin(shared_ptr<ResourceManager> const & resourceManager,

@@ -76,7 +76,7 @@ namespace yg
 
   void SkinLoader::popPage()
   {
-    m_pages.push_back(make_shared_ptr(new SkinPage(m_resourceManager, m_fileName.c_str(), m_pages.size())));
+    m_pages.push_back(make_shared_ptr(new SkinPage(m_resourceManager, m_fileName.c_str(), m_pages.size(), m_resourceManager->fillSkinAlpha())));
 
     TStylesList::iterator prevIt = m_stylesList.end();
 

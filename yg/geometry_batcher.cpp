@@ -43,11 +43,17 @@ namespace yg
    {
      OGLCHECK(glEnable(GL_TEXTURE_2D));
 
+     if (!m_isAntiAliased)
+     {
+       OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
+       OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
+     }
+
      OGLCHECK(glEnable(GL_DEPTH_TEST));
      OGLCHECK(glDepthFunc(GL_LEQUAL));
 
      OGLCHECK(glEnable(GL_ALPHA_TEST));
-     OGLCHECK(glAlphaFunc(GL_GREATER, 0));
+     OGLCHECK(glAlphaFunc(GL_GREATER, 0.0));
 
      OGLCHECK(glEnable(GL_BLEND));
      OGLCHECK(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));

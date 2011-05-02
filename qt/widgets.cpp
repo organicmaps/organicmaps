@@ -55,7 +55,8 @@ namespace qt
           GetPlatform().ReadPathForFile("fonts_blacklist.txt").c_str(),
           2000000,
           yg::Rt8Bpp,
-          !yg::gl::g_isBufferObjectsSupported));
+          !yg::gl::g_isBufferObjectsSupported,
+          !GetPlatform().IsMultiSampled()));
 
       m_resourceManager->addFonts(GetPlatform().GetFontNames());
 

@@ -99,20 +99,24 @@ namespace yg
 
   SkinPage::SkinPage(shared_ptr<ResourceManager> const & resourceManager,
                      char const * name,
-                     uint8_t pageID)
+                     uint8_t pageID,
+                     bool fillAlpha)
                    : m_texture(resourceManager->getTexture(name)),
                      m_isDynamic(false),
-                     m_pageID(pageID)
+                     m_pageID(pageID),
+                     m_fillAlpha(fillAlpha)
   {
     m_packer = m2::Packer(m_texture->width(), m_texture->height(), 0x00FFFFFF - 1);
   }
 
 
   SkinPage::SkinPage(shared_ptr<ResourceManager> const & resourceManager,
-                     uint8_t pageID)
+                     uint8_t pageID,
+                     bool fillAlpha)
     : m_resourceManager(resourceManager),
       m_isDynamic(true),
-      m_pageID(pageID)
+      m_pageID(pageID),
+      m_fillAlpha(fillAlpha)
   {
     m_packer = m2::Packer(m_resourceManager->textureWidth(),
                           m_resourceManager->textureHeight(),
@@ -431,7 +435,8 @@ namespace yg
               if (alpha != 0)
               {
                 v(x, y) = penColor;
-                gil::get_color(v(x, y), gil::alpha_t()) = alpha;
+                if (m_fillAlpha)
+                  gil::get_color(v(x, y), gil::alpha_t()) = alpha;
               }
             }
         }

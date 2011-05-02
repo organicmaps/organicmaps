@@ -64,6 +64,7 @@ namespace yg
     RtFormat m_format;
 
     bool m_useVA;
+    bool m_fillSkinAlpha;
 
   public:
 
@@ -73,7 +74,8 @@ namespace yg
                     size_t texWidth, size_t texHeight, size_t texCount,
                     char const * blocksFile, char const * whileListFile, char const * blackListFile, size_t maxGlyphCacheSize,
                     RtFormat fmt,
-                    bool useVA);
+                    bool useVA,
+                    bool fillSkinAlpha);
 
     shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
 
@@ -102,6 +104,8 @@ namespace yg
     void enterForeground();
 
     shared_ptr<yg::gl::BaseTexture> createRenderTarget(unsigned w, unsigned h);
+
+    bool fillSkinAlpha() const;
   };
 
   Skin * loadSkin(shared_ptr<ResourceManager> const & resourceManager,
