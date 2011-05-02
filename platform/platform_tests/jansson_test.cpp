@@ -23,4 +23,15 @@ UNIT_TEST(Jansson_Smoke)
   json_t * acc = json_object_get(location, "accuracy");
   TEST(json_is_real(acc), ());
   TEST_ALMOST_EQUAL(json_real_value(acc), 18000.0, ());
+
+  bool wasException = false;
+  try
+  {
+    my::Json invalid("{asd]");
+  }
+  catch (my::Json::Exception const & e)
+  {
+    wasException = true;
+  }
+  TEST(wasException, ());
 }
