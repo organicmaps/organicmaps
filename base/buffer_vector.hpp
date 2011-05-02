@@ -53,6 +53,11 @@ template <class T, size_t N> class buffer_vector
     }
   }
 
+  T * data_private()
+  {
+    return (m_size > N ? &m_dynamic[0] : m_static.data());
+  }
+
 public:
   typedef T value_type;
   typedef T const & const_reference;
@@ -91,6 +96,8 @@ public:
 
   T const * begin() const { return data(); }
   T const * end() const { return (data() + m_size); }
+  T * begin() { return data_private(); }
+  T * end() { return (data_private() + m_size); }
 
   T const * data() const
   {
@@ -148,5 +155,5 @@ void swap(buffer_vector<T, N> & r1, buffer_vector<T, N> & r2) { r1.swap(r2); }
 template <typename T, size_t N>
 inline string debug_print(buffer_vector<T, N> const & v)
 {
-  return ::my::impl::DebugPrintSequence(v.data(), v.data() + v.size());
+  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }

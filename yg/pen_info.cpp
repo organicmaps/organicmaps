@@ -1,8 +1,10 @@
 #include "pen_info.hpp"
+
+#include "../base/logging.hpp"
+
 #include "../std/algorithm.hpp"
 #include "../std/iterator.hpp"
 #include "../std/numeric.hpp"
-#include "../base/logging.hpp"
 
 namespace yg
 {
@@ -56,8 +58,8 @@ namespace yg
             vec.push_back(0);
 
           vec.push_back(curLen + tmpV[i] - offset);
-          std::copy(tmpV.data() + i + 1, tmpV.end(), back_inserter(vec));
-          std::copy(tmpV.begin(), tmpV.data() + i, back_inserter(vec));
+          copy(tmpV.begin() + i + 1, tmpV.end(), back_inserter(vec));
+          copy(tmpV.begin(), tmpV.begin() + i, back_inserter(vec));
           vec.push_back(offset - curLen);
 
           if (i % 2 == 0)
