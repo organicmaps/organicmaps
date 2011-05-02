@@ -9,10 +9,8 @@ class QtDownloadManager : public QObject, public DownloadManager
   QNetworkAccessManager m_netAccessManager;
 
 public:
-  virtual void DownloadFile(char const * url, char const * fileName,
-          TDownloadFinishedFunction finish, TDownloadProgressFunction progress,
-          bool useResume);
-  virtual void CancelDownload(char const * url);
+  virtual void HttpRequest(HttpStartParams const & params);
+  virtual void CancelDownload(string const & url);
   virtual void CancelAllDownloads();
 
   QNetworkAccessManager & NetAccessManager() { return m_netAccessManager; }

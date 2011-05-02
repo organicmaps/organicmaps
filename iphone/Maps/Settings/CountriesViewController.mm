@@ -380,14 +380,15 @@ TIndex g_clickedIndex;
   }
 }
 
-- (void) OnDownload: (TIndex const &) index withProgress: (TDownloadProgress const &) progress
+- (void) OnDownload: (TIndex const &) index withProgress: (HttpProgressT const &) progress
 {
   if (IsOurIndex(index, m_index))
   {
     UITableView * tableView = (UITableView *)self.view;
     UITableViewCell * cell = [tableView cellForRowAtIndexPath: [NSIndexPath indexPathForRow: RowFromIndex(index) inSection: 0]];
     if (cell)
-      cell.detailTextLabel.text = [NSString stringWithFormat: @"Downloading %qu%%, touch to cancel", progress.first * 100 / progress.second];
+      cell.detailTextLabel.text = [NSString stringWithFormat: @"Downloading %qu%%, touch to cancel",
+                                   progress.m_current * 100 / progress.m_total];
   }
 }
 

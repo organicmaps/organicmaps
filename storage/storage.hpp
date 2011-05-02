@@ -71,7 +71,7 @@ namespace storage
     typedef list<TIndex> TQueue;
     TQueue m_queue;
     /// used to correctly calculate total country download progress
-    TDownloadProgress m_countryProgress;
+    HttpProgressT m_countryProgress;
 
     typedef set<TIndex> TFailedCountries;
     /// stores countries which download has failed recently
@@ -80,7 +80,7 @@ namespace storage
     /// @name Communicate with GUI
     //@{
     typedef boost::function<void (TIndex const &)> TObserverChangeCountryFunction;
-    typedef boost::function<void (TIndex const &, TDownloadProgress const &)> TObserverProgressFunction;
+    typedef boost::function<void (TIndex const &, HttpProgressT const &)> TObserverProgressFunction;
     typedef boost::function<void (TUpdateResult, string const &)> TUpdateRequestFunction;
     TObserverChangeCountryFunction m_observerChange;
     TObserverProgressFunction m_observerProgress;
@@ -114,10 +114,10 @@ namespace storage
 
     /// @name Called from DownloadManager
     //@{
-    void OnMapDownloadFinished(char const * url, DownloadResult result);
-    void OnMapDownloadProgress(char const * url, TDownloadProgress progress);
-    void OnDataUpdateCheckFinished(char const * url, DownloadResult result);
-    void OnBinaryUpdateCheckFinished(char const * url, DownloadResult result);
+    void OnMapDownloadFinished(HttpFinishedParams const & params);
+    void OnMapDownloadProgress(HttpProgressT const & progress);
+    void OnDataUpdateCheckFinished(HttpFinishedParams const & params);
+    void OnBinaryUpdateCheckFinished(HttpFinishedParams const & params);
     //@}
 
     /// @name Current impl supports only one observer

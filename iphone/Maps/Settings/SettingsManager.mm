@@ -44,7 +44,7 @@ using namespace storage;
   }
 }
 
-- (void) OnCountryDownload: (TIndex const &) index withProgress: (TDownloadProgress const &) progress
+- (void) OnCountryDownload: (TIndex const &) index withProgress: (HttpProgressT const &) progress
 {
 	if (m_navController)
   {
@@ -80,7 +80,7 @@ using namespace storage;
 		SEL changeSel = @selector(OnCountryChange:);
 		TChangeFunc changeImpl = (TChangeFunc)[self methodForSelector:changeSel];
 
-		typedef void (*TProgressFunc)(id, SEL, TIndex const &, TDownloadProgress const &);
+		typedef void (*TProgressFunc)(id, SEL, TIndex const &, HttpProgressT const &);
 		SEL progressSel = @selector(OnCountryDownload:withProgress:);
 		TProgressFunc progressImpl = (TProgressFunc)[self methodForSelector:progressSel];
 

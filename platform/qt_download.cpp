@@ -91,36 +91,35 @@ static QString UserAgent()
   return userAgent;
 }
 
-QtDownload::QtDownload(QtDownloadManager & manager, char const * url,
-  char const * fileName, TDownloadFinishedFunction & finish,
-  TDownloadProgressFunction & progress, bool useResume)
-  : QObject(&manager), m_currentUrl(url), m_reply(0), m_file(0),
-  m_httpRequestAborted(false), m_finish(finish), m_progress(progress),
-  m_retryCounter(0)
+QtDownload::QtDownload(QtDownloadManager & manager, HttpStartParams const & params)
+  : QObject(&manager), m_currentUrl(params.m_url.c_str()), m_reply(0),
+    m_retryCounter(0), m_params(params)
 {
-  // use temporary file for download
-  QString tmpFileName(fileName);
-  tmpFileName += DOWNLOADING_FILE_EXTENSION;
-
-  m_file = new QFile(tmpFileName);
-  if (!m_file->open(useResume ? QIODevice::Append : QIODevice::WriteOnly))
+  // if we need to save server response to the file...
+  if (!m_params.m_fileToSave.empty())
   {
-    QString const err = m_file->errorString();
-    LOG(LERROR, ("Can't open file while downloading", qPrintable(tmpFileName), qPrintable(err)));
-    delete m_file;
-    m_file = 0;
-
-    if (m_finish)
-      m_finish(url, EHttpDownloadCantCreateFile);
-    // mark itself to delete
-    deleteLater();
-    return;
+    // use temporary file for download
+    m_file.setFileName((m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str());
+    if (!m_file.open(m_params.m_useResume ? QIODevice::Append : QIODevice::WriteOnly))
+    {
+      QString const err = m_file.errorString();
+      LOG(LERROR, ("Can't open file while downloading", qPrintable(m_file.fileName()), qPrintable(err)));
+      if (m_params.m_finish)
+      {
+        HttpFinishedParams result;
+        result.m_error = EHttpDownloadCantCreateFile;
+        result.m_file = m_params.m_fileToSave;
+        result.m_url = m_params.m_url;
+        m_params.m_finish(result);
+      }
+      // mark itself to delete
+      deleteLater();
+      return;
+    }
   }
-
   // url acts as a key to find this download by QtDownloadManager::findChild(url)
-  setObjectName(url);
-  // this can be redirected later
-  m_currentUrl = url;
+  setObjectName(m_params.m_url.c_str());
+
   StartRequest();
 }
 
@@ -128,20 +127,21 @@ QtDownload::~QtDownload()
 {
   if (m_reply)
   {
-    m_httpRequestAborted = true;
-    // calls OnHttpFinished
+    // don't notify client when aborted
+    disconnect(m_reply, SIGNAL(finished()), this, SLOT(OnHttpFinished()));
+    disconnect(m_reply, SIGNAL(readyRead()), this, SLOT(OnHttpReadyRead()));
+    disconnect(m_reply, SIGNAL(downloadProgress(qint64, qint64)),
+            this, SLOT(OnUpdateDataReadProgress(qint64, qint64)));
     m_reply->abort();
-  }
-  LOG(LDEBUG, (qPrintable(objectName())));
-}
+    delete m_reply;
 
-void QtDownload::StartDownload(QtDownloadManager & manager, char const * url,
-     char const * fileName, TDownloadFinishedFunction & finish,
-     TDownloadProgressFunction & progress, bool useResume)
-{
-  ASSERT(url && fileName, ());
-  // manager is responsible for auto deleting
-  new QtDownload(manager, url, fileName, finish, progress, useResume);
+    if (m_file.isOpen())
+    {
+      m_file.close();
+      m_file.remove();
+    }
+  }
+  LOG(LDEBUG, (m_params.m_url));
 }
 
 void QtDownload::StartRequest()
@@ -149,39 +149,42 @@ void QtDownload::StartRequest()
   QNetworkRequest httpRequest(m_currentUrl);
   // set user-agent with unique client id
   httpRequest.setRawHeader("User-Agent", UserAgent().toAscii());
-  qint64 fileSize = m_file->size();
-  if (fileSize > 0) // need resume
-    httpRequest.setRawHeader("Range", QString("bytes=%1-").arg(fileSize).toAscii());
-  m_reply = static_cast<QtDownloadManager *>(parent())->NetAccessManager().get(httpRequest);
+  if (m_file.isOpen())
+  {
+    qint64 const fileSize = m_file.size();
+    if (fileSize > 0) // need resume
+      httpRequest.setRawHeader("Range", QString("bytes=%1-").arg(fileSize).toAscii());
+  }
+  if (!m_params.m_contentType.empty())
+    httpRequest.setHeader(QNetworkRequest::ContentTypeHeader, m_params.m_contentType.c_str());
+  if (m_params.m_postData.empty())
+    m_reply = static_cast<QtDownloadManager *>(parent())->NetAccessManager().get(httpRequest);
+  else
+  {
+    m_reply = static_cast<QtDownloadManager *>(parent())->NetAccessManager().post(
+          httpRequest, m_params.m_postData.c_str());
+  }
   connect(m_reply, SIGNAL(finished()), this, SLOT(OnHttpFinished()));
   connect(m_reply, SIGNAL(readyRead()), this, SLOT(OnHttpReadyRead()));
   connect(m_reply, SIGNAL(downloadProgress(qint64, qint64)),
           this, SLOT(OnUpdateDataReadProgress(qint64, qint64)));
 }
 
+static DownloadResultT TranslateError(QNetworkReply::NetworkError err)
+{
+  switch (err)
+  {
+  case QNetworkReply::NoError: return EHttpDownloadOk;
+  case QNetworkReply::ContentNotFoundError: return EHttpDownloadFileNotFound;
+  case QNetworkReply::HostNotFoundError: return EHttpDownloadFailed;
+  default: return EHttpDownloadFailed;
+  }
+}
+
 void QtDownload::OnHttpFinished()
 {
-  if (m_httpRequestAborted)
-  { // we're called from destructor
-    m_file->close();
-    m_file->remove();
-    delete m_file;
-    m_file = 0;
-
-    m_reply->deleteLater();
-    m_reply = 0;
-
-    // don't notify client when aborted
-    //OnDownloadFinished(ToUtf8(m_originalUrl).c_str(), false, "Download was aborted");
-
-    return;
-  }
-
-  m_file->flush();
-  m_file->close();
-
-  QVariant redirectionTarget = m_reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
-  QNetworkReply::NetworkError netError = m_reply->error();
+  QVariant const redirectionTarget = m_reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
+  QNetworkReply::NetworkError const netError = m_reply->error();
   if (netError)
   {
     if (netError <= QNetworkReply::UnknownNetworkError && ++m_retryCounter <= MAX_AUTOMATIC_RETRIES)
@@ -191,10 +194,12 @@ void QtDownload::OnHttpFinished()
       return;
     }
     // do not delete file if we can resume it's downloading later
-    if (m_file->pos() == 0)
-      m_file->remove();
-    delete m_file;
-    m_file = 0;
+    if (m_file.isOpen())
+    {
+      m_file.close();
+      if (m_file.size() == 0)
+        m_file.remove();
+    }
 
     QString const err = m_reply->errorString();
     LOG(LWARNING, ("Download failed", qPrintable(err)));
@@ -202,9 +207,14 @@ void QtDownload::OnHttpFinished()
     m_reply->deleteLater();
     m_reply = 0;
 
-    if (m_finish)
-      m_finish(objectName().toUtf8().data(), netError == QNetworkReply::ContentNotFoundError
-               ? EHttpDownloadFileNotFound : EHttpDownloadFailed);
+    if (m_params.m_finish)
+    {
+      HttpFinishedParams result;
+      result.m_file = m_params.m_fileToSave;
+      result.m_url = m_params.m_url;
+      result.m_error = TranslateError(netError);
+      m_params.m_finish(result);
+    }
     // selfdestruct
     deleteLater();
   }
@@ -212,35 +222,48 @@ void QtDownload::OnHttpFinished()
   {
     m_currentUrl = m_currentUrl.resolved(redirectionTarget.toUrl());
     LOG(LINFO, ("HTTP redirect", m_currentUrl.toEncoded().data()));
-    m_file->open(QIODevice::WriteOnly);
-    m_file->resize(0);
+    if (m_file.isOpen())
+    {
+      m_file.close();
+      m_file.open(QIODevice::WriteOnly);
+      m_file.resize(0);
+    }
 
     m_reply->deleteLater();
+    m_reply = 0;
     StartRequest();
     return;
   }
   else
   { // download succeeded
-    // original file name which was requested to download
-    QString const originalFileName = m_file->fileName().left(m_file->fileName().lastIndexOf(DOWNLOADING_FILE_EXTENSION));
-    bool resultForGui = true;
-    // delete original file if it exists
-    QFile::remove(originalFileName);
-    if (!m_file->rename(originalFileName))
-    { // sh*t... file is locked and can't be removed
-      m_file->remove();
-      // report error to GUI
-      LOG(LWARNING, ("File exists and can't be replaced by downloaded one:", qPrintable(originalFileName)));
-      resultForGui = false;
+    bool fileIsLocked = false;
+    if (m_file.isOpen())
+    {
+      m_file.close();
+      // delete original file if it exists
+      QFile::remove(m_params.m_fileToSave.c_str());
+      if (!m_file.rename(m_params.m_fileToSave.c_str()))
+      { // sh*t... file is locked and can't be removed
+        m_file.remove();
+        // report error to GUI
+        LOG(LWARNING, ("File exists and can't be replaced by downloaded one:", m_params.m_fileToSave));
+        fileIsLocked = true;
+      }
     }
 
-    delete m_file;
-    m_file = 0;
+    if (m_params.m_finish)
+    {
+      HttpFinishedParams result;
+      result.m_url = m_params.m_url;
+      result.m_file = m_params.m_fileToSave;
+      QByteArray data = m_reply->readAll();
+      result.m_data.assign(data.constData(), data.size());
+      result.m_error = fileIsLocked ? EHttpDownloadFileIsLocked : EHttpDownloadOk;
+      m_params.m_finish(result);
+    }
+
     m_reply->deleteLater();
     m_reply = 0;
-
-    if (m_finish)
-      m_finish(qPrintable(objectName()), resultForGui ? EHttpDownloadOk : EHttpDownloadFileIsLocked);
     // selfdestruct
     deleteLater();
   }
@@ -252,12 +275,21 @@ void QtDownload::OnHttpReadyRead()
   // We read all of its new data and write it into the file.
   // That way we use less RAM than when reading it at the finished()
   // signal of the QNetworkReply
-  if (m_file && m_reply)
-    m_file->write(m_reply->readAll());
+  if (m_file.isOpen() && m_reply)
+    m_file.write(m_reply->readAll());
+
+  // @note that for requests where m_file is not used, data accumulates
+  // and m_reply->readAll() should be called in finish() slot handler
 }
 
 void QtDownload::OnUpdateDataReadProgress(qint64 bytesRead, qint64 totalBytes)
 {
-  if (!m_httpRequestAborted && m_progress)
-    m_progress(qPrintable(objectName()), TDownloadProgress(bytesRead, totalBytes));
+  if (m_params.m_progress)
+  {
+    HttpProgressT p;
+    p.m_current = bytesRead;
+    p.m_total = totalBytes;
+    p.m_url = m_params.m_url;
+    m_params.m_progress(p);
+  }
 }

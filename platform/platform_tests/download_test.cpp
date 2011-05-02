@@ -56,36 +56,34 @@ template<int TMaxDownloadsNum>
 struct DlObserver
 {
   size_t m_downloadsProcessed;
-  DownloadResult m_result[TMaxDownloadsNum];
-  string m_url[TMaxDownloadsNum];
+  HttpFinishedParams m_result[TMaxDownloadsNum];
 
   string m_progressUrl;
 
   DlObserver() : m_downloadsProcessed(0)
   {
     for (size_t i = 0; i < TMaxDownloadsNum; ++i)
-      m_result[i] = EHttpDownloadFailed;
+      m_result[i].m_error = EHttpDownloadFailed;
   }
 
-  void OnDownloadFinished(char const * url, DownloadResult result)
+  void OnDownloadFinished(HttpFinishedParams const & result)
   {
-    m_url[m_downloadsProcessed] = url;
-    m_result[m_downloadsProcessed] = result;
-    ++m_downloadsProcessed;
+    m_result[m_downloadsProcessed++] = result;
     if (m_downloadsProcessed >= TMaxDownloadsNum)
       STOP_WAITING_FOR_ASYNC_DOWNLOAD;  // return control to test function body
   }
 
-  void OnDownloadProgress(char const * url, TDownloadProgress progress)
+  void OnDownloadProgress(HttpProgressT const & progress)
   {
-    m_progressUrl = url;
-    if (progress.second < 0)
+    m_progressUrl = progress.m_url;
+    if (progress.m_total < 0)
     {
-      cerr << "Your hosting doesn't support total file size or invalid resume range was given for " << url << endl;
+      cerr << "Your hosting doesn't support total file size or invalid resume range was given for "
+           << m_progressUrl << endl;
     }
     // for big file - cancel downloading after 40Kb were transferred
-    if (progress.first > 40 * 1024)
-      gMgr.CancelDownload(url);
+    if (progress.m_current > 40 * 1024)
+      gMgr.CancelDownload(progress.m_url);
   }
 };
 
@@ -95,11 +93,14 @@ UNIT_TEST(SingleDownload)
   DlObserver<NUM> observer;
 
   FileWriter::DeleteFileX(TEST_FILE_NAME1);
-  gMgr.DownloadFile(TEST_FILE_URL1, TEST_FILE_NAME1,
-      bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
-      bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
+  HttpStartParams params;
+  params.m_url = TEST_FILE_URL1;
+  params.m_fileToSave = TEST_FILE_NAME1;
+  params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1);
+  params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1);
+  gMgr.HttpRequest(params);
   WAIT_FOR_ASYNC_DOWNLOAD;
-  TEST_EQUAL( observer.m_result[0], EHttpDownloadOk, ("Do you have internet connection?") );
+  TEST_EQUAL( observer.m_result[0].m_error, EHttpDownloadOk, ("Do you have internet connection?") );
   TEST( gPlatform.IsFileExists(TEST_FILE_NAME1), () );
   FileWriter::DeleteFileX(TEST_FILE_NAME1);
 }
@@ -112,26 +113,29 @@ UNIT_TEST(MultiDownload)
   FileWriter::DeleteFileX(TEST_FILE_NAME1);
   FileWriter::DeleteFileX(TEST_FILE_NAME2);
   FileWriter::DeleteFileX(TEST_FILE_NAME3);
-  gMgr.DownloadFile(TEST_FILE_URL1, TEST_FILE_NAME1,
-      bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
-      bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
-  gMgr.DownloadFile(TEST_FILE_URL2, TEST_FILE_NAME2,
-      bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
-      bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
-  gMgr.DownloadFile(TEST_FILE_URL3, TEST_FILE_NAME3,
-      bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
-      bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
+  HttpStartParams params;
+  params.m_url = TEST_FILE_URL1;
+  params.m_fileToSave = TEST_FILE_NAME1;
+  params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1);
+  params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1);
+  gMgr.HttpRequest(params);
+  params.m_url = TEST_FILE_URL2;
+  params.m_fileToSave = TEST_FILE_NAME2;
+  gMgr.HttpRequest(params);
+  params.m_url = TEST_FILE_URL3;
+  params.m_fileToSave = TEST_FILE_NAME3;
+  gMgr.HttpRequest(params);
   WAIT_FOR_ASYNC_DOWNLOAD;
 
-  TEST_EQUAL( observer.m_result[0], EHttpDownloadOk, ("Do you have internet connection?") );
+  TEST_EQUAL( observer.m_result[0].m_error, EHttpDownloadOk, ("Do you have internet connection?") );
   TEST( gPlatform.IsFileExists(TEST_FILE_NAME1), () );
   FileWriter::DeleteFileX(TEST_FILE_NAME1);
 
-  TEST_EQUAL( observer.m_result[1], EHttpDownloadOk, ("Do you have internet connection?") );
+  TEST_EQUAL( observer.m_result[1].m_error, EHttpDownloadOk, ("Do you have internet connection?") );
   TEST( gPlatform.IsFileExists(TEST_FILE_NAME2), () );
   FileWriter::DeleteFileX(TEST_FILE_NAME2);
 
-  TEST_EQUAL( observer.m_result[2], EHttpDownloadOk, ("Do you have internet connection?") );
+  TEST_EQUAL( observer.m_result[2].m_error, EHttpDownloadOk, ("Do you have internet connection?") );
   TEST( gPlatform.IsFileExists(TEST_FILE_NAME3), () );
   FileWriter::DeleteFileX(TEST_FILE_NAME3);
 }
@@ -140,15 +144,18 @@ UNIT_TEST(InvalidUrl)
 {
   size_t const NUM = 1;
   DlObserver<NUM> observer;
-  // this should be set to error
-  observer.m_result[0] = EHttpDownloadOk;
+  // this should be set to error after executing
+  observer.m_result[0].m_error = EHttpDownloadOk;
 
-  gMgr.DownloadFile(TEST_INVALID_URL, TEST_FILE_NAME1,
-      bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
-      bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
+  HttpStartParams params;
+  params.m_url = TEST_INVALID_URL;
+  params.m_fileToSave = TEST_FILE_NAME1;
+  params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1);
+  params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1);
+  gMgr.HttpRequest(params);
   WAIT_FOR_ASYNC_DOWNLOAD;
 
-  TEST_EQUAL( observer.m_result[0], EHttpDownloadFailed, () );
+  TEST_EQUAL( observer.m_result[0].m_error, EHttpDownloadFailed, () );
 
   FileWriter::DeleteFileX(TEST_FILE_NAME1);
 }
@@ -183,12 +190,15 @@ UNIT_TEST(DownloadFileExists)
     TEST_EQUAL(fileContent, str, ("Writer or Reader don't work?.."));
   }
 
-  gMgr.DownloadFile(TEST_FILE_URL1, TEST_FILE_NAME1,
-      bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
-      bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
+  HttpStartParams params;
+  params.m_url = TEST_FILE_URL1;
+  params.m_fileToSave = TEST_FILE_NAME1;
+  params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1);
+  params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1);
+  gMgr.HttpRequest(params);
   WAIT_FOR_ASYNC_DOWNLOAD;
 
-  TEST_EQUAL( observer.m_result[0], EHttpDownloadOk, () );
+  TEST_EQUAL( observer.m_result[0].m_error, EHttpDownloadOk, () );
 
   {
     string str;
@@ -210,21 +220,26 @@ UNIT_TEST(DownloadResume)
     f.Write(fileContent.c_str(), fileContent.size());
   }
 
- DlObserver<NUM> observer1;
-  gMgr.DownloadFile(TEST_FILE_URL1, TEST_FILE_NAME1,
-      bind(&DlObserver<NUM>::OnDownloadFinished, &observer1, _1, _2),
-      bind(&DlObserver<NUM>::OnDownloadProgress, &observer1, _1, _2),
-      false);
+  DlObserver<NUM> observer1;
+  HttpStartParams params;
+  params.m_url = TEST_FILE_URL1;
+  params.m_fileToSave = TEST_FILE_NAME1;
+  params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer1, _1);
+  params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer1, _1);
+  params.m_useResume = false;
+  gMgr.HttpRequest(params);
   WAIT_FOR_ASYNC_DOWNLOAD;
-  TEST_EQUAL( observer1.m_result[0], EHttpDownloadOk, () );
+  TEST_EQUAL( observer1.m_result[0].m_error, EHttpDownloadOk, () );
 
   DlObserver<NUM> observer2;
-  gMgr.DownloadFile(TEST_FILE_URL1, TEST_FILE_NAME2,
-      bind(&DlObserver<NUM>::OnDownloadFinished, &observer2, _1, _2),
-      bind(&DlObserver<NUM>::OnDownloadProgress, &observer2, _1, _2),
-      false);
+  params.m_url = TEST_FILE_URL1;
+  params.m_fileToSave = TEST_FILE_NAME2;
+  params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer2, _1);
+  params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer2, _1);
+  params.m_useResume = false;
+  gMgr.HttpRequest(params);
   WAIT_FOR_ASYNC_DOWNLOAD;
-  TEST_EQUAL( observer2.m_result[0], EHttpDownloadOk, () );
+  TEST_EQUAL( observer2.m_result[0].m_error, EHttpDownloadOk, () );
 
   uint64_t size1 = 4, size2 = 5;
   TEST( GetPlatform().GetFileSize(TEST_FILE_NAME1, size1), ());
@@ -238,12 +253,14 @@ UNIT_TEST(DownloadResume)
     f.Write(fileContent.c_str(), fileContent.size());
   }
   DlObserver<NUM> observer3;
-  gMgr.DownloadFile(TEST_FILE_URL1, TEST_FILE_NAME1,
-      bind(&DlObserver<NUM>::OnDownloadFinished, &observer3, _1, _2),
-      bind(&DlObserver<NUM>::OnDownloadProgress, &observer3, _1, _2),
-      true);
+  params.m_url = TEST_FILE_URL1;
+  params.m_fileToSave = TEST_FILE_NAME1;
+  params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer3, _1);
+  params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer3, _1);
+  params.m_useResume = true;
+  gMgr.HttpRequest(params);
   WAIT_FOR_ASYNC_DOWNLOAD;
-  TEST_EQUAL( observer3.m_result[0], EHttpDownloadOk, () );
+  TEST_EQUAL( observer3.m_result[0].m_error, EHttpDownloadOk, () );
 
   TEST( GetPlatform().GetFileSize(TEST_FILE_NAME1, size1), ());
   TEST_EQUAL( size1, size2, () );
@@ -264,12 +281,15 @@ UNIT_TEST(DownloadAbsentFile)
   size_t const NUM = 1;
   DlObserver<NUM> observer;
 
-  gMgr.DownloadFile(TEST_ABSENT_FILE_URL, TEST_ABSENT_FILE_NAME,
-      bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
-      bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
+  HttpStartParams params;
+  params.m_url = TEST_ABSENT_FILE_URL;
+  params.m_fileToSave = TEST_ABSENT_FILE_NAME;
+  params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1);
+  params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1);
+  gMgr.HttpRequest(params);
   WAIT_FOR_ASYNC_DOWNLOAD;
 
-  TEST_EQUAL( observer.m_result[0], EHttpDownloadFileNotFound, () );
+  TEST_EQUAL( observer.m_result[0].m_error, EHttpDownloadFileNotFound, () );
   TEST( !GetPlatform().IsFileExists(TEST_ABSENT_FILE_NAME), () );
 
   FileWriter::DeleteFileX(TEST_ABSENT_FILE_NAME);
@@ -286,13 +306,46 @@ UNIT_TEST(DownloadLockedFile)
     FileWriter lockedFile(TEST_LOCKED_FILE_NAME);
     TEST( GetPlatform().IsFileExists(TEST_LOCKED_FILE_NAME), () );
 
-    gMgr.DownloadFile(TEST_LOCKED_FILE_URL, TEST_LOCKED_FILE_NAME,
-        bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1, _2),
-        bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1, _2));
+    HttpStartParams params;
+    params.m_url = TEST_LOCKED_FILE_URL;
+    params.m_fileToSave = TEST_LOCKED_FILE_NAME;
+    params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1);
+    params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1);
+    gMgr.HttpRequest(params);
     WAIT_FOR_ASYNC_DOWNLOAD;
 
-    TEST_EQUAL( observer.m_result[0], EHttpDownloadFileIsLocked, () );
+    TEST_EQUAL( observer.m_result[0].m_error, EHttpDownloadFileIsLocked, () );
   }
   FileWriter::DeleteFileX(TEST_LOCKED_FILE_NAME);
 }
 #endif
+
+struct HttpPostCallbackHolder
+{
+  HttpFinishedParams * m_pResult;
+  HttpPostCallbackHolder() : m_pResult(NULL) {}
+  ~HttpPostCallbackHolder() { delete m_pResult; }
+  void OnHttpPost(HttpFinishedParams const & result)
+  {
+    m_pResult = new HttpFinishedParams(result);
+    STOP_WAITING_FOR_ASYNC_DOWNLOAD;
+  }
+};
+
+UNIT_TEST(HttpPost)
+{
+  HttpPostCallbackHolder cbHolder;
+  HttpStartParams params;
+  params.m_finish = bind(&HttpPostCallbackHolder::OnHttpPost, &cbHolder, _1);
+  params.m_contentType = "application/json";
+  params.m_postData = "{\"version\":\"1.1.0\",\"request_address\":true}";
+  params.m_url = "http://melnichek.ath.cx:34568/unit_tests/post.php";
+  gMgr.HttpRequest(params);
+  WAIT_FOR_ASYNC_DOWNLOAD;
+
+  TEST( cbHolder.m_pResult, () );
+  TEST_EQUAL(cbHolder.m_pResult->m_error, EHttpDownloadOk,
+             ("HTTP POST failed with error", cbHolder.m_pResult->m_error));
+  TEST_EQUAL(cbHolder.m_pResult->m_data, "HTTP POST is OK",
+             ("Server sent invalid POST reply"));
+}

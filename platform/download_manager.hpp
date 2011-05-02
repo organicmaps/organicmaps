@@ -2,24 +2,50 @@
 
 #include "../std/stdint.hpp"
 #include "../std/utility.hpp"
-
-#include <boost/function.hpp>
+#include "../std/string.hpp"
+#include "../std/function.hpp"
 
 /// Appended to all downloading files and removed after successful download
 #define DOWNLOADING_FILE_EXTENSION ".downloading"
 
-typedef std::pair<int64_t, int64_t> TDownloadProgress;
-typedef boost::function<void (char const *, TDownloadProgress)> TDownloadProgressFunction;
-enum DownloadResult
+/// Notifies client about donwload progress
+struct HttpProgressT
+{
+  string m_url;
+  int64_t m_current;
+  int64_t m_total;
+};
+typedef boost::function<void (HttpProgressT const &)> HttpProgressCallbackT;
+
+enum DownloadResultT
 {
   EHttpDownloadOk,
-  EHttpDownloadFileNotFound,  // HTTP 404
+  EHttpDownloadFileNotFound,          //!< HTTP 404
   EHttpDownloadFailed,
-  EHttpDownloadFileIsLocked,  // downloaded file can't replace existing locked file
-  EHttpDownloadCantCreateFile, // file for downloading can't be created
+  EHttpDownloadFileIsLocked,          //!< downloaded file can't replace existing locked file
+  EHttpDownloadCantCreateFile,        //!< file for downloading can't be created
   EHttpDownloadNoConnectionAvailable
 };
-typedef boost::function<void (char const *, DownloadResult)> TDownloadFinishedFunction;
+
+struct HttpFinishedParams
+{
+  string m_url;
+  string m_file;    //!< if not empty, contains file with retrieved data
+  string m_data;    //!< if not empty, contains received data
+  DownloadResultT m_error;
+};
+typedef boost::function<void (HttpFinishedParams const &)> HttpFinishedCallbackT;
+
+struct HttpStartParams
+{
+  string m_url;
+  string m_fileToSave;
+  HttpFinishedCallbackT m_finish;
+  HttpProgressCallbackT m_progress;
+  bool m_useResume;
+  string m_contentType;
+  string m_postData;        //!< if not empty, send POST instead of GET
+};
 
 /// Platform-dependent implementations should derive it
 /// and implement pure virtual methods
@@ -27,11 +53,10 @@ class DownloadManager
 {
 public:
   virtual ~DownloadManager() {}
-  virtual void DownloadFile(char const * url, char const * fileName,
-          TDownloadFinishedFunction finish, TDownloadProgressFunction progress,
-          bool useResume = false) = 0;
+
+  virtual void HttpRequest(HttpStartParams const & params) = 0;
   /// @note Doesn't notifies clients on canceling!
-  virtual void CancelDownload(char const * url) = 0;
+  virtual void CancelDownload(string const & url) = 0;
   virtual void CancelAllDownloads() = 0;
 };
 

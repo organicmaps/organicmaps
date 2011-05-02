@@ -3,22 +3,24 @@
 
 #include "../base/assert.hpp"
 
-void QtDownloadManager::DownloadFile(char const * url, char const * fileName,
-     TDownloadFinishedFunction finish, TDownloadProgressFunction progress,
-     bool useResume)
+void QtDownloadManager::HttpRequest(HttpStartParams const & params)
 {
-  QList<QtDownload *> downloads = findChildren<QtDownload *>(url);
+  ASSERT(!params.m_url.empty(), ());
+  QList<QtDownload *> downloads = findChildren<QtDownload *>(params.m_url.c_str());
   if (downloads.empty())
-    QtDownload::StartDownload(*this, url, fileName, finish, progress, useResume);
+  {
+    // manager is responsible for auto deleting
+    new QtDownload(*this, params);
+  }
   else
   {
     ASSERT(false, ("Download with the same url is already in progress!"));
   }
 }
 
-void QtDownloadManager::CancelDownload(char const * url)
+void QtDownloadManager::CancelDownload(string const & url)
 {
-  QList<QtDownload *> downloads = findChildren<QtDownload *>(url);
+  QList<QtDownload *> downloads = findChildren<QtDownload *>(url.c_str());
   while (!downloads.isEmpty())
     delete downloads.takeFirst();
 }

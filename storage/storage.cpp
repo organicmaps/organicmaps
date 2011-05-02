@@ -15,16 +15,13 @@
 #include "../std/set.hpp"
 #include "../std/algorithm.hpp"
 #include "../std/target_os.hpp"
-
-#include <boost/bind.hpp>
-
-#include "../base/start_mem_debug.hpp"
+#include "../std/bind.hpp"
 
 namespace storage
 {
   const int TIndex::INVALID = -1;
 
-  static string ErrorString(DownloadResult res)
+  static string ErrorString(DownloadResultT res)
   {
     switch (res)
     {
@@ -168,8 +165,9 @@ namespace storage
     if (m_queue.size() == 1)
     {
       // reset total country's download progress
-      TLocalAndRemoteSize size = CountryByIndex(index).Size();
-      m_countryProgress = TDownloadProgress(0, size.second);
+      TLocalAndRemoteSize const size = CountryByIndex(index).Size();
+      m_countryProgress.m_current = 0;
+      m_countryProgress.m_total = size.second;
 
       DownloadNextCountryFromQueue();
     }
@@ -207,12 +205,13 @@ namespace storage
       {
         if (!IsTileDownloaded(*it))
         {
-          GetDownloadManager().DownloadFile(
-              (UpdateBaseUrl() + UrlEncode(it->first)).c_str(),
-              (GetPlatform().WritablePathForFile(it->first).c_str()),
-              bind(&Storage::OnMapDownloadFinished, this, _1, _2),
-              bind(&Storage::OnMapDownloadProgress, this, _1, _2),
-              true);  // enabled resume support by default
+          HttpStartParams params;
+          params.m_url = UpdateBaseUrl() + UrlEncode(it->first);
+          params.m_fileToSave = GetPlatform().WritablePathForFile(it->first);
+          params.m_finish = bind(&Storage::OnMapDownloadFinished, this, _1);
+          params.m_progress = bind(&Storage::OnMapDownloadProgress, this, _1);
+          params.m_useResume = true;   // enabled resume support by default
+          GetDownloadManager().HttpRequest(params);
           // notify GUI - new status for country, "Downloading"
           if (m_observerChange)
             m_observerChange(index);
@@ -223,7 +222,10 @@ namespace storage
       m_queue.pop_front();
       // reset total country's download progress
       if (!m_queue.empty())
-        m_countryProgress = TDownloadProgress(0, CountryByIndex(m_queue.front()).Size().second);
+      {
+        m_countryProgress.m_current = 0;
+        m_countryProgress.m_total = CountryByIndex(m_queue.front()).Size().second;
+      }
       // and notify GUI - new status for country, "OnDisk"
       if (m_observerChange)
         m_observerChange(index);
@@ -346,20 +348,15 @@ namespace storage
     m_observerUpdateRequest.clear();
   }
 
-  string FileFromUrl(string const & url)
-  {
-    return UrlDecode(url.substr(url.find_last_of('/') + 1, string::npos));
-  }
-
-  void Storage::OnMapDownloadFinished(char const * url, DownloadResult result)
+  void Storage::OnMapDownloadFinished(HttpFinishedParams const & result)
   {
     if (m_queue.empty())
     {
-      ASSERT(false, ("Invalid url?", url));
+      ASSERT(false, ("Invalid url?", result.m_url));
       return;
     }
 
-    if (result != EHttpDownloadOk)
+    if (result.m_error != EHttpDownloadOk)
     {
       // remove failed country from the queue
       TIndex failedIndex = m_queue.front();
@@ -373,19 +370,18 @@ namespace storage
     {
       TLocalAndRemoteSize size = CountryByIndex(m_queue.front()).Size();
       if (size.second != 0)
-        m_countryProgress.first = size.first;
+        m_countryProgress.m_current = size.first;
       // activate downloaded map piece
-      string const datFile = GetPlatform().ReadPathForFile(FileFromUrl(url));
-      m_addMap(datFile);
+      m_addMap(result.m_file);
 
       feature::DataHeader header;
-      header.Load(FilesContainerR(datFile).GetReader(HEADER_FILE_TAG));
+      header.Load(FilesContainerR(result.m_file).GetReader(HEADER_FILE_TAG));
       m_updateRect(header.GetBounds());
     }
     DownloadNextCountryFromQueue();
   }
 
-  void Storage::OnMapDownloadProgress(char const * /*url*/, TDownloadProgress progress)
+  void Storage::OnMapDownloadProgress(HttpProgressT const & progress)
   {
     if (m_queue.empty())
     {
@@ -394,29 +390,34 @@ namespace storage
     }
 
     if (m_observerProgress)
-      m_observerProgress(m_queue.front(),
-          TDownloadProgress(m_countryProgress.first + progress.first, m_countryProgress.second));
+    {
+      HttpProgressT p(progress);
+      p.m_current = m_countryProgress.m_current + progress.m_current;
+      p.m_total = m_countryProgress.m_total;
+      m_observerProgress(m_queue.front(), p);
+    }
   }
 
   void Storage::CheckForUpdate()
   {
     // at this moment we support only binary update checks
     string const update = UpdateBaseUrl() + BINARY_UPDATE_FILE/*DATA_UPDATE_FILE*/;
-    GetDownloadManager().CancelDownload(update.c_str());
-    GetDownloadManager().DownloadFile(
-        update.c_str(),
-        (GetPlatform().WritablePathForFile(DATA_UPDATE_FILE)).c_str(),
-        bind(&Storage::OnBinaryUpdateCheckFinished, this, _1, _2),
-        TDownloadProgressFunction(), false);
+    GetDownloadManager().CancelDownload(update);
+    HttpStartParams params;
+    params.m_url = update;
+    params.m_fileToSave = GetPlatform().WritablePathForFile(DATA_UPDATE_FILE);
+    params.m_finish = bind(&Storage::OnBinaryUpdateCheckFinished, this, _1);
+    params.m_useResume = false;
+    GetDownloadManager().HttpRequest(params);
   }
 
-  void Storage::OnDataUpdateCheckFinished(char const * url, DownloadResult result)
+  void Storage::OnDataUpdateCheckFinished(HttpFinishedParams const & params)
   {
-    if (result != EHttpDownloadOk)
+    if (params.m_error != EHttpDownloadOk)
     {
-      LOG(LWARNING, ("Update check failed for url:", url));
+      LOG(LWARNING, ("Update check failed for url:", params.m_url));
       if (m_observerUpdateRequest)
-        m_observerUpdateRequest(EDataCheckFailed, ErrorString(result));
+        m_observerUpdateRequest(EDataCheckFailed, ErrorString(params.m_error));
     }
     else
     { // @TODO parse update file and notify GUI
@@ -442,20 +443,20 @@ namespace storage
 //    LOG(LINFO, ("Update check complete"));
   }
 
-  void Storage::OnBinaryUpdateCheckFinished(char const * url, DownloadResult result)
+  void Storage::OnBinaryUpdateCheckFinished(HttpFinishedParams const & params)
   {
-    if (result == EHttpDownloadFileNotFound)
+    if (params.m_error == EHttpDownloadFileNotFound)
     { // no binary update is available
       if (m_observerUpdateRequest)
         m_observerUpdateRequest(ENoAnyUpdateAvailable, "No update is available");
     }
-    else if (result == EHttpDownloadOk)
+    else if (params.m_error == EHttpDownloadOk)
     { // update is available!
       try
       {
         if (m_observerUpdateRequest)
         {
-          string const updateTextFilePath = GetPlatform().ReadPathForFile(FileFromUrl(url));
+          string const updateTextFilePath = GetPlatform().ReadPathForFile(params.m_file);
           FileReader file(updateTextFilePath);
           m_observerUpdateRequest(ENewBinaryAvailable, file.ReadAsText());
         }
@@ -470,7 +471,7 @@ namespace storage
     else
     { // connection error
       if (m_observerUpdateRequest)
-        m_observerUpdateRequest(EBinaryCheckFailed, ErrorString(result));
+        m_observerUpdateRequest(EBinaryCheckFailed, ErrorString(params.m_error));
     }
   }
 }

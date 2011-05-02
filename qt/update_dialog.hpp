@@ -23,7 +23,7 @@ namespace qt
     //@{
     void OnCountryChanged(storage::TIndex const & index);
     void OnCountryDownloadProgress(storage::TIndex const & index,
-                                   TDownloadProgress const & progress);
+                                   HttpProgressT const & progress);
     void OnUpdateRequest(storage::TUpdateResult result, string const & description);
     //@}
 

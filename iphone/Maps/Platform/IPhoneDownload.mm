@@ -70,15 +70,13 @@ string GetUniqueHashedId()
 
 - (string const &) Url
 {
-  return m_url;
+  return m_params.m_url;
 }
 
 - (void) Cancel
 {
 	if (m_connection)
   	[m_connection cancel];
-  m_progressObserver.clear();
-  m_finishObserver.clear();
 }
 
 - (void) dealloc
@@ -93,8 +91,8 @@ string GetUniqueHashedId()
 	if (m_file)
   {
   	fclose(m_file);
-    if (!m_requestedFileName.empty())
-   		remove((m_requestedFileName + DOWNLOADING_FILE_EXTENSION).c_str());
+    if (!m_params.m_fileToSave.empty())
+   		remove((m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str());
   }
 	[super dealloc];
 }
@@ -102,57 +100,79 @@ string GetUniqueHashedId()
 - (NSMutableURLRequest *) CreateRequest
 {
   // Create the request.
-	NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: [NSString stringWithUTF8String:m_url.c_str()]]
+	NSMutableURLRequest * request =
+  [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithUTF8String:m_params.m_url.c_str()]]
   		cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:TIMEOUT_IN_SECONDS];
-  long long fileSize = ftello(m_file);
-  if (fileSize > 0)
+  if (m_file)
   {
-  	NSLog(@"Resuming download for file %s from position %qi", m_requestedFileName.c_str(), fileSize);
-		NSString * val = [[NSString alloc] initWithFormat: @"bytes=%qi-", fileSize];
-		[request addValue:val forHTTPHeaderField:@"Range"];
-		[val release];
+    long long fileSize = ftello(m_file);
+    if (fileSize > 0)
+    {
+      NSLog(@"Resuming download for file %s from position %qi",
+            (m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str(),
+            fileSize);
+      NSString * val = [[NSString alloc] initWithFormat: @"bytes=%qi-", fileSize];
+      [request addValue:val forHTTPHeaderField:@"Range"];
+      [val release];
+    }
   }
-
+  if (!m_params.m_contentType.empty())
+  {
+    [request addValue:[NSString stringWithUTF8String: m_params.m_contentType.c_str()] forHTTPHeaderField:@"Content-Type"];
+  }
+  if (!m_params.m_postData.empty())
+  {
+    NSData * postData = [NSData dataWithBytes:m_params.m_postData.data() length:m_params.m_postData.size()];
+    [request setHTTPBody:postData];
+  }
   // send unique id in HTTP user agent header
   static string const uid = GetUniqueHashedId();
   [request addValue:[NSString stringWithUTF8String: uid.c_str()] forHTTPHeaderField:@"User-Agent"];
   return request;
 }
 
-- (BOOL) StartDownloadWithUrl: (char const *)originalUrl andFile: (char const *)file
-		andFinishFunc: (TDownloadFinishedFunction &)finishFunc andProgressFunc: (TDownloadProgressFunction &)progressFunc
-    andUseResume: (BOOL)resume
+- (BOOL) StartDownload: (HttpStartParams const &)params
 {
-	m_finishObserver = finishFunc;
-  m_progressObserver = progressFunc;
+  m_params = params;
 
   m_retryCounter = 0;
 
-	// try to create file first
-  std::string tmpFile = file;
-  tmpFile += DOWNLOADING_FILE_EXTENSION;
-  m_file = fopen(tmpFile.c_str(), resume ? "ab" : "wb");
-  if (m_file == 0)
+  if (!params.m_fileToSave.empty())
   {
-  	NSLog(@"Error opening %s file for download: %s", tmpFile.c_str(), strerror(errno));
-  	// notify observer about error and exit
-    if (m_finishObserver)
-    	m_finishObserver(originalUrl, EHttpDownloadCantCreateFile);
-    return NO;
+    // try to create file first
+    string const tmpFile = m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION;
+    m_file = fopen(tmpFile.c_str(), params.m_useResume ? "ab" : "wb");
+    if (m_file == 0)
+    {
+      NSLog(@"Error opening %s file for download: %s", tmpFile.c_str(), strerror(errno));
+      // notify observer about error and exit
+      if (m_params.m_finish)
+      {
+        HttpFinishedParams result;
+        result.m_url = m_params.m_url;
+        result.m_file = m_params.m_fileToSave;
+        result.m_error = EHttpDownloadCantCreateFile;
+        m_params.m_finish(result);
+      }
+      return NO;
+    }
   }
-
-	m_requestedFileName = file;
-	m_url = originalUrl;
 
 	// create the connection with the request and start loading the data
 	m_connection = [[NSURLConnection alloc] initWithRequest:[self CreateRequest] delegate:self];
 
 	if (m_connection == 0)
   {
-		NSLog(@"Can't create connection for url %s", originalUrl);
+		NSLog(@"Can't create connection for url %s", params.m_url.c_str());
 		// notify observer about error and exit
-    if (m_finishObserver)
-    	m_finishObserver(originalUrl, EHttpDownloadNoConnectionAvailable);
+    if (m_params.m_finish)
+    {
+      HttpFinishedParams result;
+      result.m_url = m_params.m_url;
+      result.m_file = m_params.m_fileToSave;
+      result.m_error = EHttpDownloadNoConnectionAvailable;
+      m_params.m_finish(result);
+    }
     return NO;
 	}
 
@@ -171,17 +191,26 @@ string GetUniqueHashedId()
     if (statusCode < 200 || statusCode > 299)
     {
     	NSLog(@"Received HTTP error code %d, canceling download", statusCode);
-      long long fileSize = ftello(m_file);
-      fclose(m_file);
-      m_file = 0;
-      // delete file only if it's size is zero to resume download later
-      if (fileSize == 0)
-        remove((m_requestedFileName + DOWNLOADING_FILE_EXTENSION).c_str());
+      if (m_file)
+      {
+        long long fileSize = ftello(m_file);
+        fclose(m_file);
+        m_file = 0;
+        // delete file only if it's size is zero to resume download later
+        if (fileSize == 0)
+          remove((m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str());
+      }
       // notify user
-		  if (m_finishObserver)
-      	m_finishObserver(m_url.c_str(), statusCode == 404 ? EHttpDownloadFileNotFound : EHttpDownloadFailed);
+		  if (m_params.m_finish)
+      {
+        HttpFinishedParams result;
+        result.m_url = m_params.m_url;
+        result.m_file = m_params.m_fileToSave;
+        result.m_error = statusCode == 404 ? EHttpDownloadFileNotFound : EHttpDownloadFailed;
+        m_params.m_finish(result);
+      }
   		// and selfdestruct...
-  		GetDownloadManager().CancelDownload(m_url.c_str());
+  		GetDownloadManager().CancelDownload(m_params.m_url);
 			return;
     }
   }
@@ -194,7 +223,7 @@ string GetUniqueHashedId()
 	if (m_projectedFileSize < 0)
   {
   	fclose(m_file);
-    m_file = fopen((m_requestedFileName + DOWNLOADING_FILE_EXTENSION).c_str(), "wb");
+    m_file = fopen((m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str(), "wb");
   }
   NSLog(@"Projected file size: %qi", m_projectedFileSize);
 }
@@ -202,15 +231,31 @@ string GetUniqueHashedId()
 - (void) connection: (NSURLConnection *)connection didReceiveData: (NSData *)data
 {
 	// Append the new data
-	fwrite([data bytes], 1, [data length], m_file);
-  if (m_progressObserver)
-	  m_progressObserver(m_url.c_str(), TDownloadProgress(ftello(m_file), m_projectedFileSize));
+  int64_t size = -1;
+  if (m_file)
+  {
+    fwrite([data bytes], 1, [data length], m_file);
+    size = ftello(m_file);
+  }
+  else
+  {
+    m_receivedBuffer.append(static_cast<char const *>([data bytes]), [data length]);
+    size = m_receivedBuffer.size();
+  }
+  if (m_params.m_progress)
+  {
+    HttpProgressT progress;
+    progress.m_url = m_params.m_url;
+    progress.m_current = size;
+    progress.m_total = m_projectedFileSize;
+	  m_params.m_progress(progress);
+  }
 }
 
 - (void) connection: (NSURLConnection *)connection didFailWithError: (NSError *)error
 {
 	// inform the user
-  NSLog(@"Connection failed for url %s\n%@", m_url.c_str(), [error localizedDescription]);
+  NSLog(@"Connection failed for url %s\n%@", m_params.m_url.c_str(), [error localizedDescription]);
 
   // retry connection if it's network-specific error
   if ([error code] < 0 && ++m_retryCounter <= MAX_AUTOMATIC_RETRIES)
@@ -229,42 +274,62 @@ string GetUniqueHashedId()
     // notify observer about error and exit after this if-block
   }
 
-  if (m_finishObserver)
-	  m_finishObserver(m_url.c_str(), EHttpDownloadFailed);
+  if (m_file)
+  {
+    long long fileSize = ftello(m_file);
+    fclose(m_file);
+    m_file = 0;
+    // delete file only if it's size is zero to resume download later
+    if (fileSize == 0)
+      remove((m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str());
+  }
 
-  long long fileSize = ftello(m_file);
-  fclose(m_file);
-  m_file = 0;
-  // delete file only if it's size is zero to resume download later
-  if (fileSize == 0)
-    remove((m_requestedFileName + DOWNLOADING_FILE_EXTENSION).c_str());
+  if (m_params.m_finish)
+  {
+    HttpFinishedParams result;
+    result.m_url = m_params.m_url;
+    result.m_file = m_params.m_fileToSave;
+    result.m_error = EHttpDownloadFailed;
+	  m_params.m_finish(result);
+  }
 
   // and selfdestruct...
-  GetDownloadManager().CancelDownload(m_url.c_str());
+  GetDownloadManager().CancelDownload(m_params.m_url);
 }
 
 - (void) connectionDidFinishLoading: (NSURLConnection *)connection
 {
-	// close file
-  fclose(m_file);
-  m_file = 0;
-  // remove temporary extension from downloaded file
-  remove(m_requestedFileName.c_str());
-  bool resultForGUI = true;
-  if (rename((m_requestedFileName + DOWNLOADING_FILE_EXTENSION).c_str(), m_requestedFileName.c_str()))
+  bool isLocked = false;
+  if (m_file)
   {
-  	resultForGUI = false;
-  	NSLog(@"Can't rename to file %s", m_requestedFileName.c_str());
+    // close file
+    fclose(m_file);
+    m_file = 0;
+    // remove temporary extension from downloaded file
+    remove(m_params.m_fileToSave.c_str());
+    if (rename((m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str(), m_params.m_fileToSave.c_str()))
+    {
+      isLocked = true;
+      NSLog(@"Can't rename to file %s", m_params.m_fileToSave.c_str());
+      // delete downloaded file
+      remove((m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str());
+    }
+    else
+    {
+      NSLog(@"Successfully downloaded %s", m_params.m_url.c_str());
+    }
   }
-  else
+  if (m_params.m_finish)
   {
-  	NSLog(@"Successfully downloaded %s", m_url.c_str());
+    HttpFinishedParams result;
+    result.m_url = m_params.m_url;
+    result.m_file = m_params.m_fileToSave;
+    result.m_data.swap(m_receivedBuffer);
+    result.m_error = isLocked ? EHttpDownloadFileIsLocked : EHttpDownloadOk;
+	  m_params.m_finish(result);
   }
-
-  if (m_finishObserver)
-	  m_finishObserver(m_url.c_str(), resultForGUI ? EHttpDownloadOk : EHttpDownloadFileIsLocked);
   // and selfdestruct...
-  GetDownloadManager().CancelDownload(m_url.c_str());
+  GetDownloadManager().CancelDownload(m_params.m_url);
 }
 
 @end

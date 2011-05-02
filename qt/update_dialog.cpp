@@ -375,11 +375,11 @@ namespace qt
   }
 
   void UpdateDialog::OnCountryDownloadProgress(TIndex const & index,
-                                               TDownloadProgress const & progress)
+                                               HttpProgressT const & progress)
   {
     QTreeWidgetItem * item = GetTreeItemByIndex(*m_tree, index);
     if (item)
-      item->setText(KColumnIndexSize, QString("%1%").arg(progress.first * 100 / progress.second));
+      item->setText(KColumnIndexSize, QString("%1%").arg(progress.m_current * 100 / progress.m_total));
   }
 
   void UpdateDialog::ShowDialog()

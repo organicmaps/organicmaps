@@ -11,17 +11,14 @@ class QtDownload : public QObject
 private:
   Q_OBJECT
 
+  // can be changed during server redirections
   QUrl m_currentUrl;
   QNetworkReply * m_reply;
-  QFile * m_file;
-  bool m_httpRequestAborted;
-  TDownloadFinishedFunction m_finish;
-  TDownloadProgressFunction m_progress;
+  QFile m_file;
   int m_retryCounter;
 
-  QtDownload(QtDownloadManager & manager, char const * url, char const * fileName,
-             TDownloadFinishedFunction & finish, TDownloadProgressFunction & progress,
-             bool useResume);
+  HttpStartParams m_params;
+
   void StartRequest();
 
 private slots:
@@ -32,7 +29,6 @@ private slots:
 public:
   /// Created instance is automanaged as a manager's child
   /// and can be manipulated later by manager->findChild(url);
-  static void StartDownload(QtDownloadManager & manager, char const * url, char const * fileName,
-         TDownloadFinishedFunction & finish, TDownloadProgressFunction & progress, bool useResume);
+  QtDownload(QtDownloadManager & manager, HttpStartParams const & params);
   virtual ~QtDownload();
 };
