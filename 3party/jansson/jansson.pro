@@ -24,3 +24,4 @@ HEADERS += \
     src/strbuffer.h \
     src/utf.h \
     src/util.h \
+    src/jansson_config.h \

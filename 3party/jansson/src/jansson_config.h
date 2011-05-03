@@ -22,13 +22,21 @@
    defined to `inline', otherwise empty. In C++, the inline is always
    supported. */
 #ifdef __cplusplus
-#define JSON_INLINE inline
+  #define JSON_INLINE inline
 #else
-#define JSON_INLINE inline
+  #ifdef _MSC_VER
+    #define JSON_INLINE   // MSVC doesn't support C inline functions
+  #else
+    #define JSON_INLINE inline
+  #endif
 #endif
 
 /* If your compiler supports the `long long` type,
    JSON_INTEGER_IS_LONG_LONG is defined to 1, otherwise to 0. */
-#define JSON_INTEGER_IS_LONG_LONG 1
+#define JSON_INTEGER_IS_LONG_LONG 0
+
+#ifdef _MSC_VER
+  #define snprintf _snprintf
+#endif
 
 #endif

@@ -8,7 +8,7 @@
 class PositionFilter
 {
 public:
-  GpsInfo const & MostNewAndAccuratePosition()
+  location::GpsInfo const & MostNewAndAccuratePosition()
   {
   }
 };

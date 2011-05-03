@@ -1,6 +1,6 @@
 #include "../../testing/testing.hpp"
 
-#include <myjansson.hpp>
+#include "../../3party/jansson/myjansson.hpp"
 
 UNIT_TEST(Jansson_Smoke)
 {
@@ -29,7 +29,7 @@ UNIT_TEST(Jansson_Smoke)
   {
     my::Json invalid("{asd]");
   }
-  catch (my::Json::Exception const & e)
+  catch (my::Json::Exception const &)
   {
     wasException = true;
   }

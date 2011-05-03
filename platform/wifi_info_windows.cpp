@@ -1,12 +1,8 @@
-#include "wifi_info.hpp"
+#include "../std/target_os.hpp"
 
 #if defined(OMIM_OS_WINDOWS)
-  #include "internal/wifi_impl_windows.hpp"
-#elif defined(OMIM_OS_MAC)
-  #include "internal/wifi_impl_mac.hpp"
-#else
-  #error "Please add your OS implementation"
-#endif
+
+#include "wifi_info.hpp"
 
 class WiFiInfo::Impl
 {
@@ -32,3 +28,5 @@ void WiFiInfo::RequestWiFiBSSIDs(WifiRequestCallbackT callback)
 {
   m_pImpl->RequestWiFiBSSIDs(callback);
 }
+
+#endif
