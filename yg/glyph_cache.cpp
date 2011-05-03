@@ -68,7 +68,7 @@ namespace yg
 
     int charIDX;
 
-    for (int i = 0; i < fonts.size(); ++i)
+    for (size_t i = 0; i < fonts.size(); ++i)
     {
       font = fonts[i].get();
       FTC_FaceID faceID = reinterpret_cast<FTC_FaceID>(font);
@@ -85,7 +85,7 @@ namespace yg
 
 #ifdef DEBUG
 
-    for (int i = 0; i < m_impl->m_unicodeBlocks.size(); ++i)
+    for (size_t i = 0; i < m_impl->m_unicodeBlocks.size(); ++i)
     {
       if (m_impl->m_unicodeBlocks[i].hasSymbol(key.m_id))
       {

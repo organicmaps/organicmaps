@@ -111,7 +111,7 @@ namespace yg
 
   void GlyphCacheImpl::addFonts(vector<string> const & fontNames)
   {
-    for (int i = 0; i < fontNames.size(); ++i)
+    for (size_t i = 0; i < fontNames.size(); ++i)
       addFont(fontNames[i].c_str());
 
 /*    LOG(LINFO, ("----------------------------"));
@@ -152,7 +152,7 @@ namespace yg
   void GlyphCacheImpl::addFont(char const * fileName)
   {
     string fontName = extract_name(fileName);
-    for (int i = 0; i < fontName.size(); ++i)
+    for (size_t i = 0; i < fontName.size(); ++i)
       if (fontName[i] == ' ')
         fontName[i] = '_';
 
@@ -211,12 +211,12 @@ namespace yg
 
         /// checking blacklist and whitelist
 
-        for (int i = 0; i < ubIt->m_blacklist.size(); ++i)
+        for (size_t i = 0; i < ubIt->m_blacklist.size(); ++i)
           if (ubIt->m_blacklist[i] == fontName)
             /// if font is blacklisted for this unicode block
             ubIt->m_coverage.back() = -1;
 
-        for (int i = 0; i < ubIt->m_whitelist.size(); ++i)
+        for (size_t i = 0; i < ubIt->m_whitelist.size(); ++i)
           if (ubIt->m_whitelist[i] == fontName)
           {
             if (ubIt->m_coverage.back() == -1)

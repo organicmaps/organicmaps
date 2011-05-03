@@ -157,7 +157,7 @@ class FrameWork
   };
 
   vector<Benchmark> m_benchmarks;
-  int m_curBenchmark;
+  size_t m_curBenchmark;
 
   void BenchmarkCommandFinished();
   void NextBenchmarkCommand();

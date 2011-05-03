@@ -43,7 +43,7 @@ namespace yg
 
     addClearPageFn(bind(&Skin::clearPageHandles, this, _1), 0);
 
-    for (size_t i = 0; i < count; ++i)
+    for (int i = 0; i < count; ++i)
     {
       uint8_t pageID = (uint8_t)m_pages.size();
       m_pages.push_back(make_shared_ptr(new SkinPage(m_resourceManager, pageID, m_resourceManager->fillSkinAlpha())));
@@ -57,7 +57,7 @@ namespace yg
 
     addClearPageFn(bind(&Skin::clearPageHandles, this, _1), 0);
 
-    for (size_t i = 0; i < count; ++i)
+    for (int i = 0; i < count; ++i)
     {
       uint8_t pageID = (uint8_t)m_pages.size();
       m_pages.push_back(make_shared_ptr(new SkinPage(m_resourceManager, pageID, m_resourceManager->fillSkinAlpha())));

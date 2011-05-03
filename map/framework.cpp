@@ -355,7 +355,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   {
     ofstream fout(GetPlatform().WritablePathForFile("benchmark_results.txt").c_str(), ios::app);
 
-    for (int i = 0; i < m_benchmarkResults.size(); ++i)
+    for (size_t i = 0; i < m_benchmarkResults.size(); ++i)
     {
       fout << GetPlatform().DeviceID() << " "
            << VERSION_STRING << " "
@@ -441,7 +441,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
 
           r = header.GetBounds();
         }
-        catch (std::exception const & e)
+        catch (std::exception const &)
         {
           double x0, y0, x1, y1;
           fin >> x0 >> y0 >> x1 >> y1;
