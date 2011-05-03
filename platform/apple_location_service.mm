@@ -179,8 +179,7 @@ public:
 
 @end
 
-extern "C" location::LocationService & GetLocationService()
+location::LocationService * CreateAppleLocationService()
 {
-  static AppleLocationService ls;
-  return ls;
+  return new AppleLocationService();
 }

@@ -67,6 +67,8 @@ namespace location
     }
 
   public:
+    virtual ~LocationService() {}
+
     void SetGpsObserver(TGpsCallback observer)
     {
       m_gpsObserver = observer;
@@ -85,4 +87,6 @@ namespace location
 
 }
 
-extern "C" location::LocationService & GetLocationService();
+extern "C" location::LocationService & GetLocationManager();
+extern "C" location::LocationService * CreateAppleLocationService();
+extern "C" location::LocationService * CreateWiFiLocationService();

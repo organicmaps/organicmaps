@@ -321,9 +321,9 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     m_renderQueue.AddWindowHandle(m_windowHandle);
 
     // initialize gps and compass subsystem
-    GetLocationService().SetGpsObserver(
+    GetLocationManager().SetGpsObserver(
           boost::bind(&this_type::OnGpsUpdate, this, _1));
-    GetLocationService().SetCompassObserver(
+    GetLocationManager().SetCompassObserver(
           boost::bind(&this_type::OnCompassUpdate, this, _1));
   }
 
@@ -496,7 +496,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     m_locationObserver = observer;
     m_centeringMode = ECenterAndScale;
     // by default, we always start in accurate mode
-    GetLocationService().StartUpdate(true);
+    GetLocationManager().StartUpdate(true);
   }
 
   template <typename TModel>
@@ -505,7 +505,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     // reset callback
     m_locationObserver.clear();
     m_centeringMode = EDoNothing;
-    GetLocationService().StopUpdate();
+    GetLocationManager().StopUpdate();
     m_locationState.TurnOff();
     Invalidate();
   }

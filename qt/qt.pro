@@ -1,6 +1,7 @@
 # Main application in qt.
 ROOT_DIR = ..
-DEPENDENCIES = words map storage indexer yg platform geometry coding base bzip2 freetype expat fribidi tomcrypt version
+DEPENDENCIES = words map storage indexer yg platform geometry coding base \
+               bzip2 freetype expat fribidi tomcrypt jansson version
 
 include($$ROOT_DIR/common.pri)
 
@@ -15,7 +16,7 @@ win32 {
 }
 
 macx {
-  LIBS += -framework CoreLocation -framework Foundation
+  LIBS += -framework CoreLocation -framework Foundation -framework CoreWLAN
 
   ICON = res/mac.icns
   PLIST_FILE = Info.plist
