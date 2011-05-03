@@ -311,7 +311,7 @@ public:
   virtual int CpuCores() const
   {
 #if defined(OMIM_OS_WINDOWS)
-    SYSTEM_INFO sysinfo = {0};
+    SYSTEM_INFO sysinfo;
     GetSystemInfo(&sysinfo);
     DWORD numCPU = sysinfo.dwNumberOfProcessors;
     if (numCPU >= 1)
