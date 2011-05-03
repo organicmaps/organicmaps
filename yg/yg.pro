@@ -57,7 +57,8 @@ SOURCES += \
     circle_info.cpp \
     area_renderer.cpp \
     layout_element.cpp \
-    font_desc.cpp
+    font_desc.cpp \
+    glyph_layout.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -108,7 +109,8 @@ HEADERS += \
     circle_info.hpp \
     area_renderer.hpp \
     layout_element.hpp \
-    font_desc.hpp
+    font_desc.hpp \
+    glyph_layout.hpp
 
 win32 {
   HEADERS += internal/opengl_win32.hpp

@@ -767,6 +767,11 @@ namespace
       m_path.push_back(m2::PointD(100, 100));
       m_path.push_back(m2::PointD(160, 200));
       m_path.push_back(m2::PointD(200, 100));
+      m_path.push_back(m2::PointD(240, 200));
+      m_path.push_back(m2::PointD(280, 100));
+      m_path.push_back(m2::PointD(320, 200));
+      m_path.push_back(m2::PointD(360, 100));
+      m_path.push_back(m2::PointD(400, 200));
       m_text = "Simplicity is the ultimate sophistication. Leonardo Da Vinci.";
 
       double pat[] = { 2, 2 };
@@ -776,7 +781,8 @@ namespace
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
       p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
-      yg::FontDesc fontDesc(false, 10);
+//      yg::FontDesc fontDesc(false, 10);
+      yg::FontDesc fontDesc(false, 20);
       p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, calc_length(m_path), 0.0, yg::EPosCenter, 0);
     }
   };
@@ -1067,7 +1073,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawTextRectWithFixedFont);
 //   UNIT_TEST_GL(TestDrawStringOnString);
 //   UNIT_TEST_GL(TestDrawTextOnPath);
-//   UNIT_TEST_GL(TestDrawTextOnPathZigZag);
+   UNIT_TEST_GL(TestDrawTextOnPathZigZag);
 //   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
 //   UNIT_TEST_GL(TestDrawTextOverflow);
 //   UNIT_TEST_GL(TestDrawTextFiltering);
@@ -1076,7 +1082,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawPoly);
 //   UNIT_TEST_GL(TestDrawSolidRect);
 //   UNIT_TEST_GL(TestDrawPathWithSkinPageMiss);
-   UNIT_TEST_GL(TestDrawPathWithOffset);
+//   UNIT_TEST_GL(TestDrawPathWithOffset);
 //   UNIT_TEST_GL(TestDrawPathJoin);
 //   UNIT_TEST_GL(TestDrawPathSolid1PX);
 //   UNIT_TEST_GL(TestDrawPathSolid2PX);

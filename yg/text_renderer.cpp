@@ -6,6 +6,7 @@
 #include "texture.hpp"
 #include "skin.hpp"
 #include "render_state.hpp"
+#include "glyph_layout.hpp"
 
 #include "../coding/strutil.hpp"
 
@@ -324,77 +325,6 @@ namespace yg
       return rect;
     }
 
-    /// Encapsulate array of points in readable getting direction.
-    class pts_array
-    {
-      m2::PointD const * m_arr;
-      size_t m_size;
-      bool m_reverse;
-
-    public:
-      pts_array(m2::PointD const * arr, size_t sz, double fullLength, double & pathOffset)
-        : m_arr(arr), m_size(sz), m_reverse(false)
-      {
-        ASSERT ( m_size > 1, () );
-
-        /* assume, that readable text in path should be ('o' - start draw point):
-         *    /   o
-         *   /     \
-         *  /   or  \
-         * o         \
-        */
-
-        double const a = ang::AngleTo(m_arr[0], m_arr[m_size-1]);
-        if (fabs(a) > math::pi / 2.0)
-        {
-          // if we swap direction, we need to recalculate path offset from the end
-          double len = 0.0;
-          for (size_t i = 1; i < m_size; ++i)
-            len += m_arr[i-1].Length(m_arr[i]);
-
-          pathOffset = fullLength - pathOffset - len;
-          ASSERT ( pathOffset >= -1.0E-6, () );
-          if (pathOffset < 0.0) pathOffset = 0.0;
-
-          m_reverse = true;
-        }
-      }
-
-      size_t size() const { return m_size; }
-
-      m2::PointD get(size_t i) const
-      {
-        ASSERT ( i < m_size, ("Index out of range") );
-        return m_arr[m_reverse ? m_size - i - 1 : i];
-      }
-      m2::PointD operator[](size_t i) const { return get(i); }
-    };
-
-    double const angle_not_inited = -100.0;
-
-    bool CalcPointAndAngle(pts_array const & arr, double offset, size_t & ind, m2::PointD & pt, double & angle)
-    {
-      size_t const oldInd = ind;
-
-      while (true)
-      {
-        if (ind + 1 == arr.size())
-          return false;
-
-        double const l = arr[ind + 1].Length(pt);
-        if (offset < l)
-          break;
-
-        offset -= l;
-        pt = arr[++ind];
-      }
-
-      if (oldInd != ind || angle == angle_not_inited)
-        angle = ang::AngleTo(pt, arr[ind + 1]);
-      pt = pt.Move(offset, angle);
-      return true;
-    }
-
     bool TextRenderer::drawPathText(
         FontDesc const & fontDesc, m2::PointD const * path, size_t s, string const & utf8Text,
         double fullLength, double pathOffset, yg::EPosition pos, double depth)
@@ -416,13 +346,14 @@ namespace yg
       return drawPathTextImpl(desc, path, s, utf8Text, fullLength, pathOffset, pos, depth);
     }
 
+
     bool TextRenderer::drawPathTextImpl(
         FontDesc const & fontDesc, m2::PointD const * path, size_t s, string const & utf8Text,
         double fullLength, double pathOffset, yg::EPosition pos, double depth)
     {
-      pts_array arrPath(path, s, fullLength, pathOffset);
-
       wstring const text = Log2Vis(FromUtf8(utf8Text));
+
+      GlyphLayout layout(resourceManager(), fontDesc, path, s, text, fullLength, pathOffset, pos);
 
       // calculate base line offset
       float blOffset = 2;
@@ -434,49 +365,20 @@ namespace yg
       default: blOffset -= fontDesc.m_size / 2; break;
       }
 
-      size_t const count = text.size();
+      vector<GlyphLayoutElem> const & glyphs = layout.entries();
 
-      vector<GlyphMetrics> glyphs(count);
-
-      // get vector of glyphs and calculate string length
-      double strLength = 0.0;
-      for (size_t i = 0; i < count; ++i)
+      for (size_t i = layout.firstVisible(); i < layout.lastVisible(); ++i)
       {
-        glyphs[i] = resourceManager()->getGlyphMetrics(GlyphKey(text[i], fontDesc.m_size, fontDesc.m_isMasked, yg::Color(0, 0, 0, 0)));
-        strLength += glyphs[i].m_xAdvance;
-      }
-
-      // offset of the text from path's start
-      double offset = (fullLength - strLength) / 2.0;
-      if (offset < 0.0) return false;
-      offset -= pathOffset;
-      if (-offset >= strLength) return false;
-
-      // find first visible glyph
-      size_t i = 0;
-      while (offset < 0 && i < count)
-        offset += glyphs[i++].m_xAdvance;
-
-      size_t ind = 0;
-      m2::PointD ptOrg = arrPath[0];
-      double angle = angle_not_inited;
-
-      // draw visible glyphs
-      for (; i < count; ++i)
-      {
-        if (!CalcPointAndAngle(arrPath, offset, ind, ptOrg, angle))
-          break;
-
         uint32_t const glyphID = skin()->mapGlyph(GlyphKey(text[i], fontDesc.m_size, fontDesc.m_isMasked, fontDesc.m_isMasked ? fontDesc.m_maskColor : fontDesc.m_color), fontDesc.m_isStatic);
         CharStyle const * charStyle = static_cast<CharStyle const *>(skin()->fromID(glyphID));
 
-        drawGlyph(ptOrg, m2::PointD(0.0, 0.0), angle, blOffset, charStyle, depth);
-
-        offset = glyphs[i].m_xAdvance;
+        drawGlyph(glyphs[i].m_pt, m2::PointD(0.0, 0.0), glyphs[i].m_angle, blOffset, charStyle, depth);
       }
 
       return true;
     }
+
+
 
     void TextRenderer::drawGlyph(m2::PointD const & ptOrg, m2::PointD const & ptGlyph, float angle, float blOffset, CharStyle const * p, double depth)
     {
