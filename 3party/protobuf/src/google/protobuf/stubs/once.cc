@@ -35,7 +35,7 @@
 // This header is intended to be included only by internal .cc files and
 // generated .pb.cc files.  Users should not use this directly.
 
-#if defined(_WIN32) && !defined(_BADA_SIMULATOR) && !defined(_BADA_DEVICE)
+#ifdef _WIN32
 #include <windows.h>
 #endif
 
@@ -44,7 +44,7 @@
 namespace google {
 namespace protobuf {
 
-#if defined(_WIN32) && !defined(_BADA_SIMULATOR) && !defined(_BADA_DEVICE)
+#ifdef _WIN32
 
 struct ProtobufOnceInternal {
   ProtobufOnceInternal() {

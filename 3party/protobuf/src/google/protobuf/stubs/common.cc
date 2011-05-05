@@ -36,17 +36,16 @@
 #include <errno.h>
 #include <vector>
 
-//#include "config.h"
+#include "config.h"
 
-#if defined(_WIN32) && !defined(_BADA_SIMULATOR) && !defined(_BADA_DEVICE)
-//#define WIN32_LEAN_AND_MEAN  // We only need minimal includes
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN  // We only need minimal includes
 #include <windows.h>
 #define snprintf _snprintf    // see comment in strutil.cc
 #elif defined(HAVE_PTHREAD)
 #include <pthread.h>
 #else
-#warning "No suitable threading library available."
-//#error "No suitable threading library available."
+#error "No suitable threading library available."
 #endif
 
 namespace google {
@@ -192,7 +191,11 @@ void LogMessage::Finish() {
   }
 
   if (level_ == LOGLEVEL_FATAL) {
+#ifdef PROTOBUF_USE_EXCEPTIONS
+    throw FatalException(filename_, line_, message_);
+#else
     abort();
+#endif
   }
 }
 
@@ -239,7 +242,7 @@ void DoNothing() {}
 // ===================================================================
 // emulates google3/base/mutex.cc
 
-#if defined(_WIN32) && !defined(_BADA_SIMULATOR) && !defined(_BADA_DEVICE)
+#ifdef _WIN32
 
 struct Mutex::Internal {
   CRITICAL_SECTION mutex;
@@ -361,6 +364,14 @@ void ShutdownProtobufLibrary() {
   delete internal::shutdown_functions_mutex;
   internal::shutdown_functions_mutex = NULL;
 }
+
+#ifdef PROTOBUF_USE_EXCEPTIONS
+FatalException::~FatalException() throw() {}
+
+const char* FatalException::what() const throw() {
+  return message_.c_str();
+}
+#endif
 
 }  // namespace protobuf
 }  // namespace google

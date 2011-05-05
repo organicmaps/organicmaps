@@ -38,7 +38,7 @@
 #include <google/protobuf/extension_set.h>
 #include <google/protobuf/message_lite.h>
 #include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+#include <google/protobuf/io/zero_copy_stream_impl.h>
 #include <google/protobuf/wire_format_lite_inl.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/stubs/map-util.h>
@@ -184,6 +184,18 @@ int ExtensionSet::ExtensionSize(int number) const {
   map<int, Extension>::const_iterator iter = extensions_.find(number);
   if (iter == extensions_.end()) return false;
   return iter->second.GetSize();
+}
+
+FieldType ExtensionSet::ExtensionType(int number) const {
+  map<int, Extension>::const_iterator iter = extensions_.find(number);
+  if (iter == extensions_.end()) {
+    GOOGLE_LOG(DFATAL) << "Don't lookup extension types if they aren't present (1). ";
+    return 0;
+  }
+  if (iter->second.is_cleared) {
+    GOOGLE_LOG(DFATAL) << "Don't lookup extension types if they aren't present (2). ";
+  }
+  return iter->second.type;
 }
 
 void ExtensionSet::ClearExtension(int number) {

@@ -25,7 +25,6 @@ SOURCES += \
   src/google/protobuf/stubs/common.cc \
   src/google/protobuf/extension_set.cc \
   src/google/protobuf/generated_message_util.cc \
-  src/google/protobuf/stubs/hash.cc \
   src/google/protobuf/message_lite.cc \
   src/google/protobuf/stubs/once.cc \
   src/google/protobuf/repeated_field.cc \
