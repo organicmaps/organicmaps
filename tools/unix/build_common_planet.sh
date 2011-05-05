@@ -110,7 +110,7 @@ fi
 # 2nd pass - not paralleled
 $PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL --intermediate_data_path=$TMPDIR \
   --use_light_nodes=$LIGHT_NODES --bucketing_level=$BUCKETING_LEVEL \
-  --generate_features --generate_world_scale=5 \
+  --generate_features --generate_world_scale=9 \
   --data_path=$DATA_PATH
 
 # 3rd pass - do in parallel

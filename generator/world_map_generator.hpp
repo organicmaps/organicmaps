@@ -119,7 +119,20 @@ public:
     static size_t const MAX_TYPES_IN_PATH = 3;
     char const * arrMerge[][MAX_TYPES_IN_PATH] = {
       {"natural", "coastline", ""},
-      {"boundary", "administrative", "2"}
+      {"boundary", "administrative", "2"},
+
+      {"highway", "motorway", ""},
+      {"highway", "motorway_link", ""},
+      {"highway", "motorway", "oneway"},
+      {"highway", "motorway_link", "oneway"},
+
+      {"highway", "primary", ""},
+      {"highway", "primary_link", ""},
+
+      {"highway", "trunk", ""},
+      {"highway", "trunk_link", ""},
+
+      {"natural", "water", ""}
     };
 
     for (size_t i = 0; i < ARRAY_SIZE(arrMerge); ++i)

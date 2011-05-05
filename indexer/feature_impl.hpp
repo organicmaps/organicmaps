@@ -22,8 +22,8 @@ namespace feature
   }
 
 
-  static int g_arrWorldScales[] = { 2, 4, 5, 6 };       // 6 = scales::GetUpperWorldScale()
-  static int g_arrCountryScales[] = { 7, 10, 14, 17 };  // 17 = scales::GetUpperScale()
+  static int g_arrWorldScales[] = { 2, 5, 7, 9 };       // 9 = scales::GetUpperWorldScale()
+  static int g_arrCountryScales[] = { 10, 12, 14, 17 };  // 17 = scales::GetUpperScale()
 
   inline string GetTagForIndex(char const * prefix, int ind)
   {
