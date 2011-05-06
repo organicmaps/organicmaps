@@ -34,7 +34,8 @@ SOURCES += ../../testing/testingmain.cpp \
     bit_shift_test.cpp \
     base64_test.cpp \
     sha2_test.cpp \
-	value_opt_string_test.cpp \
+    value_opt_string_test.cpp \
+    multilang_utf8_string_test.cpp \
 
 HEADERS += \
     reader_test.hpp \

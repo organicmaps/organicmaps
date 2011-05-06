@@ -21,6 +21,7 @@ SOURCES += \
     timsort/timsort.cpp \
     base64.cpp \
     sha2.cpp \
+    multilang_utf8_string.cpp \
 
 HEADERS += \
     internal/xmlparser.h \
@@ -76,4 +77,5 @@ HEADERS += \
     bit_shift.hpp \
     base64.hpp \
     sha2.hpp \
-	value_opt_string.hpp \
+    value_opt_string.hpp \
+    multilang_utf8_string.hpp \

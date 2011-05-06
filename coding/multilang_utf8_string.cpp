@@ -1,0 +1,69 @@
+#include "multilang_utf8_string.hpp"
+
+
+
+char StringUtf8Multilang::GetLangIndex(string const & lang) const
+{
+  if (lang.empty() || lang == "en")
+    return 0;
+  else if (lang == "ru")
+    return 1;
+  else if (lang == "be")
+    return 2;
+
+  return -1;
+}
+
+size_t StringUtf8Multilang::GetNextIndex(size_t i) const
+{
+  ++i;
+  size_t const sz = m_s.size();
+
+  while (i < sz && (m_s[i] & 0xC0) != 0x80)
+  {
+    if ((m_s[i] & 0x80) == 0)
+      i += 1;
+    else if ((m_s[i] & 0xC0) == 0xC0)
+      i += 2;
+    else if ((m_s[i] & 0xE0) == 0xE0)
+      i += 3;
+    else if ((m_s[i] & 0xF0) == 0xF0)
+      i += 4;
+    else if ((m_s[i] & 0xF8) == 0xF8)
+      i += 5;
+    else if ((m_s[i] & 0xFC) == 0xFC)
+      i += 6;
+    else if ((m_s[i] & 0xFE) == 0xFE)
+      i += 7;
+  }
+
+  return i;
+}
+
+void StringUtf8Multilang::AddString(char lang, string const & utf8s)
+{
+  m_s.push_back(lang | 0x80);
+  m_s.insert(m_s.end(), utf8s.begin(), utf8s.end());
+}
+
+bool StringUtf8Multilang::GetString(char lang, string & utf8s) const
+{
+  size_t i = 0;
+  size_t const sz = m_s.size();
+
+  while (i < sz)
+  {
+    size_t const next = GetNextIndex(i);
+
+    if ((m_s[i] & 0x3F) == lang)
+    {
+      ++i;
+      utf8s.assign(m_s.c_str() + i, next - i);
+      return true;
+    }
+
+    i = next;
+  }
+
+  return false;
+}
