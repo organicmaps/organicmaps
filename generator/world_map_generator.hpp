@@ -40,9 +40,11 @@ private:
   {
     if (fbm.FirstPoint() == fbm.LastPoint())
     {
-      fbm.SetAreaSafe();
-      (*m_worldBucket)(fbm);
-      ++m_areasCounter;
+      if (fbm.SetAreaSafe())
+      {
+        (*m_worldBucket)(fbm);
+        ++m_areasCounter;
+      }
       return true;
     }
     else return false;

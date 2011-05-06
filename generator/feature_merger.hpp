@@ -11,10 +11,13 @@ public:
   /// but only if they have common point
   void AppendFeature(FeatureBuilder1Merger const & fb);
 
-  void SetAreaSafe()
+  bool SetAreaSafe()
   {
-    if (!m_bArea)
-      m_bArea = true;
+    if (m_Geometry.size() < 3)
+      return false;
+
+    m_bArea = true;
+    return true;
   }
 
   uint32_t KeyType() const
