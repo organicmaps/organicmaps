@@ -104,8 +104,8 @@
  					GetPlatform().ReadPathForFile("fonts_blacklist.txt").c_str(),
 					2000000,
           fmt,
-          false));
-
+          !yg::gl::g_isBufferObjectsSupported,
+          !GetPlatform().IsMultiSampled()));
     
 		resourceManager->addFonts(GetPlatform().GetFontNames());
 
