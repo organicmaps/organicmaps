@@ -12,15 +12,15 @@
 
 #include "../base/start_mem_debug.hpp"
 
-typedef basic_string<uint8_t> byte_string;
-
-inline byte_string StringToByteString(string const & str)
-{
-  byte_string result;
-  result.resize(str.size());
-  memcpy(&result[0], &str[0], str.size());
-  return result;
-}
+//typedef basic_string<uint8_t> byte_string;
+//
+//inline byte_string StringToByteString(string const & str)
+//{
+//  byte_string result;
+//  result.resize(str.size());
+//  memcpy(&result[0], &str[0], str.size());
+//  return result;
+//}
 
 inline string ToUtf8(wstring const & wstr)
 {

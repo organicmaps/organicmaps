@@ -76,3 +76,4 @@ HEADERS += \
     bit_shift.hpp \
     base64.hpp \
     sha2.hpp \
+	value_opt_string.hpp \
