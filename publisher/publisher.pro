@@ -8,7 +8,7 @@ DEPENDENCIES = words coding base gflags bzip2 zlib jansson
 
 include($$ROOT_DIR/common.pri)
 
-INCLUDEPATH += $$ROOT_DIR/3party/jansson $$ROOT_DIR/3party/jansson/src
+INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 
 HEADERS += \
   aard_dictionary.hpp \
