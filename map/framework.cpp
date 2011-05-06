@@ -239,22 +239,19 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   template <typename TModel>
   void FrameWork<TModel>::OnGpsUpdate(location::GpsInfo const & info)
   {
-    if (info.m_timestamp < location::POSITION_TIMEOUT_SECONDS)
-    {
-      // notify GUI that we received gps position
-      if (!(m_locationState & location::State::EGps) && m_locationObserver)
-        m_locationObserver();
+    // notify GUI that we received gps position
+    if (!(m_locationState & location::State::EGps) && m_locationObserver)
+      m_locationObserver();
 
-      m_locationState.UpdateGps(info);
-      if (m_centeringMode == ECenterAndScale)
-      {
-        CenterAndScaleViewport();
-        m_centeringMode = ECenterOnly;
-      }
-      else if (m_centeringMode == ECenterOnly)
-        CenterViewport(m_locationState.Position());
-      UpdateNow();
+    m_locationState.UpdateGps(info);
+    if (m_centeringMode == ECenterAndScale)
+    {
+      CenterAndScaleViewport();
+      m_centeringMode = ECenterOnly;
     }
+    else if (m_centeringMode == ECenterOnly)
+      CenterViewport(m_locationState.Position());
+    UpdateNow();
   }
 
   template <typename TModel>

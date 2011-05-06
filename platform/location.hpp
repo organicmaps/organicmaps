@@ -17,13 +17,20 @@ namespace location
     EAccurateMode,
     ERoughMode        //!< in this mode compass is turned off
   };
+  enum TLocationSource
+  {
+    EAppleNative,
+    EWindowsNative,
+    EGoogle
+  };
 
   /// @note always check m_status before using this structure
   class GpsInfo
   {
   public:
+    TLocationSource m_source;
     TLocationStatus m_status;
-    double m_timestamp;           //!< how many seconds ago the position was retrieved
+    double m_timestamp;           //!< seconds from 1st Jan 1970
     double m_latitude;            //!< degrees
     double m_longitude;           //!< degrees
     double m_horizontalAccuracy;  //!< metres

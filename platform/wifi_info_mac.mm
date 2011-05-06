@@ -69,11 +69,12 @@ static string AppendZeroIfNeeded(string const & macAddrPart)
     {
       utils::TokenizeIterator tokIt(rawBssid, ":");
       apn.m_bssid = AppendZeroIfNeeded(*tokIt);
-      while (!(++tokIt).is_last())
+      do
       {
+        ++tokIt;
         apn.m_bssid += "-";
         apn.m_bssid += AppendZeroIfNeeded(*tokIt);
-      }
+      } while (!tokIt.is_last());
     }
     m_accessPoints.push_back(apn);
   }

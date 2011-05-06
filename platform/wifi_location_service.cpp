@@ -37,7 +37,9 @@ namespace location
               info.m_longitude = json_real_value(lon);
               info.m_horizontalAccuracy = json_real_value(acc);
               // @TODO introduce flags to mark valid values
-              info.m_status = ERoughMode;
+              info.m_status = EAccurateMode;
+              info.m_timestamp = time(NULL);
+              info.m_source = location::EGoogle;
               NotifyGpsObserver(info);
             }
           }

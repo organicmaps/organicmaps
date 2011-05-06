@@ -137,7 +137,8 @@ public:
   info.m_verticalAccuracy = location.verticalAccuracy;
   info.m_latitude = location.coordinate.latitude;
   info.m_longitude = location.coordinate.longitude;
-  info.m_timestamp = -[location.timestamp timeIntervalSinceNow];
+  info.m_timestamp = [location.timestamp timeIntervalSince1970];
+  info.m_source = location::EAppleNative;
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -160,7 +161,7 @@ public:
   newInfo.m_x = newHeading.x;
   newInfo.m_y = newHeading.y;
   newInfo.m_z = newHeading.z;
-  newInfo.m_timestamp = -[newHeading.timestamp timeIntervalSinceNow];
+  newInfo.m_timestamp = [location.timestamp timeIntervalSince1970];
   m_service->OnHeadingUpdate(newInfo);
 }
 #endif
@@ -173,6 +174,8 @@ public:
   {
     GpsInfo info;
     info.m_status = EDisabledByUser;
+    info.m_source = location::EAppleNative;
+    info.m_timestamp = [[NSDate date] timeIntervalSince1970];
     m_service->OnLocationUpdate(info);
   }
 }

@@ -4,12 +4,43 @@
 #include "../std/vector.hpp"
 #include "../std/bind.hpp"
 
+double ApproxDistanceSquareInMetres(double lat1, double lon1, double lat2, double lon2)
+{
+  double const m1 = (lat1 - lat2) / 111111.;
+  double const m2 = (lon1 - lon2) / 111111.;
+  return m1 * m1 + m2 * m2;
+}
+
 /// Chooses most accurate data from different position services
 class PositionFilter
 {
+  location::GpsInfo * m_prevLocation;
 public:
-  location::GpsInfo const & MostNewAndAccuratePosition()
+  PositionFilter() : m_prevLocation(NULL) {}
+  ~PositionFilter() { delete m_prevLocation; }
+  /// @return true if location should be sent to observers
+  bool Passes(location::GpsInfo const & newLocation)
   {
+    if (time(NULL) - newLocation.m_timestamp > location::POSITION_TIMEOUT_SECONDS)
+      return false;
+
+    bool passes = true;
+    if (m_prevLocation)
+    {
+      if (newLocation.m_timestamp < m_prevLocation->m_timestamp)
+        passes = false;
+      else if (newLocation.m_source != m_prevLocation->m_source
+               && newLocation.m_horizontalAccuracy > m_prevLocation->m_horizontalAccuracy
+               && ApproxDistanceSquareInMetres(newLocation.m_latitude,
+                                               newLocation.m_longitude,
+                                               m_prevLocation->m_latitude,
+                                               m_prevLocation->m_longitude)
+               > newLocation.m_horizontalAccuracy * newLocation.m_horizontalAccuracy)
+        passes = false;
+    }
+    else
+      m_prevLocation = new location::GpsInfo(newLocation);
+    return true;
   }
 };
 
@@ -18,10 +49,12 @@ namespace location
   class LocationManager : public LocationService
   {
     vector<LocationService *> m_services;
+    PositionFilter m_filter;
 
     void OnGpsUpdate(GpsInfo const & info)
     {
-      NotifyGpsObserver(info);
+      if (m_filter.Passes(info))
+        NotifyGpsObserver(info);
     }
 
     void OnCompassUpdate(CompassInfo const & info)
