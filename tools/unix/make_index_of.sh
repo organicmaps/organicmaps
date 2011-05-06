@@ -27,13 +27,13 @@ fi
 #fi
 
 # check if we have QT in PATH
-if [ ! `which qmake` ]; then
-  echo 'You should add your qmake binary into the PATH. This can be done in 2 ways:'
-  echo '  1. Set it temporarily by executing: export PATH=/c/qt/your_qt_dir/bin:$PATH'
-  echo '  2. Set it permanently by adding export... string above to your ~/.bashrc'
-  echo 'Hint: for second solution you can type from git bash console: notepad ~/.bashrc'
-  exit 0
-fi
+#if [ ! `which qmake` ]; then
+#  echo 'You should add your qmake binary into the PATH. This can be done in 2 ways:'
+#  echo '  1. Set it temporarily by executing: export PATH=/c/qt/your_qt_dir/bin:$PATH'
+#  echo '  2. Set it permanently by adding export... string above to your ~/.bashrc'
+#  echo 'Hint: for second solution you can type from git bash console: notepad ~/.bashrc'
+#  exit 0
+#fi
 
 # determine script path
 MY_PATH=`dirname $0`
