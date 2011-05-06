@@ -8,6 +8,25 @@
 
 namespace yg
 {
+  struct PathPoint
+  {
+    int m_i;
+    m2::PointD m_pt;
+    PathPoint(int i = -1,
+              m2::PointD const & pt = m2::PointD())
+            : m_i(i),
+              m_pt(pt)
+    {}
+  };
+
+  struct PivotPoint
+  {
+    double m_angle;
+    PathPoint m_pp;
+    PivotPoint(double angle = 0, PathPoint const & pp = PathPoint())
+    {}
+  };
+
   class pts_array
   {
     m2::PointD const * m_arr;
@@ -50,7 +69,77 @@ namespace yg
       ASSERT ( i < m_size, ("Index out of range") );
       return m_arr[m_reverse ? m_size - i - 1 : i];
     }
+
     m2::PointD operator[](size_t i) const { return get(i); }
+
+    PathPoint const offsetPoint(PathPoint const & pp, double offset)
+    {
+      PathPoint res = pp;
+
+      if (res.m_i == -1)
+        return res;
+
+      for (size_t i = res.m_i; i < size() - 1; ++i)
+      {
+        double l = res.m_pt.Length(get(i + 1));
+        if (offset < l)
+        {
+          res.m_pt = res.m_pt.Move(offset, ang::AngleTo(get(i), get(i + 1)));
+          res.m_i = i;
+          break;
+        }
+        else
+        {
+          offset -= l;
+          res.m_pt = get(i + 1);
+        }
+      }
+
+      return res;
+    }
+
+    PivotPoint findPivotPoint(PathPoint const & pp, GlyphMetrics const & sym)
+    {
+      PivotPoint res;
+      res.m_pp.m_i = -1;
+      m2::PointD pt1 = pp.m_pt;
+
+      double angle = 0;
+      double advance = sym.m_xOffset + sym.m_width / 2.0;
+
+      int j = pp.m_i;
+
+      while (advance > 0)
+      {
+        if (j + 1 == size())
+          return res;
+
+        double l = get(j + 1).Length(pt1);
+
+        angle += ang::AngleTo(get(j), get(j + 1));
+
+        if (l < advance)
+        {
+          advance -= l;
+          pt1 = get(j + 1);
+          ++j;
+        }
+        else
+        {
+          res.m_pp.m_i = j;
+          res.m_pp.m_pt = pt1.Move(advance, ang::AngleTo(get(j), get(j + 1)));
+          advance = 0;
+
+          angle /= (res.m_pp.m_i - pp.m_i + 1);
+          res.m_pp.m_pt = pt1;
+          res.m_angle = angle;
+
+          break;
+        }
+      }
+
+      return res;
+    }
   };
 
   GlyphLayout::GlyphLayout(shared_ptr<ResourceManager> const & resourceManager,
@@ -92,50 +181,33 @@ namespace yg
     while (offset < 0 &&  symPos < count)
       offset += m_entries[symPos++].m_metrics.m_xAdvance;
 
-    m_firstVisible = symPos;
-    m_lastVisible = count;
+    PathPoint startPt = arrPath.offsetPoint(PathPoint(0, arrPath.get(0)), offset);
 
-    size_t ptPos = 0;
-    bool doInitAngle = true;
+    m_firstVisible = symPos;
 
     for (; symPos < count; ++symPos)
     {
-      if (symPos > 0)
-      {
-        m_entries[symPos].m_pt = m_entries[symPos - 1].m_pt;
-        m_entries[symPos].m_angle = m_entries[symPos - 1].m_angle;
-      }
-      else
-      {
-        m_entries[symPos].m_pt = arrPath[0];
-        m_entries[symPos].m_angle = 0; //< will be initialized later
-      }
+      GlyphMetrics const & metrics = m_entries[symPos].m_metrics;
 
-      size_t const oldPtPos = ptPos;
+      if (startPt.m_i == -1)
+        return;
 
-      while (true)
+      if (metrics.m_width != 0)
       {
-        if (ptPos + 1 == arrPath.size())
-        {
-          m_firstVisible = m_lastVisible = 0;
+        PivotPoint pivotPt = arrPath.findPivotPoint(startPt, metrics);
+
+        if (pivotPt.m_pp.m_i == -1)
           return;
-        }
-        double const l = arrPath[ptPos + 1].Length(m_entries[symPos].m_pt);
-        if (offset < l)
-          break;
 
-        offset -= l;
-        m_entries[symPos].m_pt = arrPath[++ptPos];
+        m_entries[symPos].m_angle = pivotPt.m_angle;
+        double centerOffset = metrics.m_xOffset + metrics.m_width / 2.0;
+        //m_entries[symPos].m_pt = pivotPt.m_pp.m_pt.Move(-centerOffset, pivotPt.m_angle);
+        m_entries[symPos].m_pt = startPt.m_pt;
       }
 
-      if ((oldPtPos != ptPos) || (doInitAngle))
-      {
-        m_entries[symPos].m_angle = ang::AngleTo(m_entries[symPos].m_pt, arrPath[ptPos + 1]);
-        doInitAngle = false;
-      }
+      startPt = arrPath.offsetPoint(startPt, metrics.m_xAdvance);
 
-      m_entries[symPos].m_pt = m_entries[symPos].m_pt.Move(offset, m_entries[symPos].m_angle);
-      offset = m_entries[symPos].m_metrics.m_xAdvance;
+      m_lastVisible = symPos + 1;
     }
   }
 

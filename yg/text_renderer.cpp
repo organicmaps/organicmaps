@@ -367,6 +367,9 @@ namespace yg
 
       vector<GlyphLayoutElem> const & glyphs = layout.entries();
 
+      if (layout.lastVisible() != text.size())
+        return false;
+
       for (size_t i = layout.firstVisible(); i < layout.lastVisible(); ++i)
       {
         uint32_t const glyphID = skin()->mapGlyph(GlyphKey(text[i], fontDesc.m_size, fontDesc.m_isMasked, fontDesc.m_isMasked ? fontDesc.m_maskColor : fontDesc.m_color), fontDesc.m_isStatic);

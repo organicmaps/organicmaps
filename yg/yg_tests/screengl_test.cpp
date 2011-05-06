@@ -729,6 +729,33 @@ namespace
     return ret;
   }
 
+  struct TestDrawTextOnPathBigSymbols
+  {
+    vector<m2::PointD> m_path;
+    string m_text;
+    yg::PenInfo m_penInfo;
+
+    void Init()
+    {
+      m_path.push_back(m2::PointD(40, 200));
+      m_path.push_back(m2::PointD(90, 200));
+      m_path.push_back(m2::PointD(190, 230));
+
+      m_text = "Sim";
+
+      double pat[2] = {2, 2};
+      m_penInfo = yg::PenInfo(yg::Color(0xFF, 0xFF, 0xFF, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
+    }
+
+    void DoDraw(shared_ptr<yg::gl::Screen> p)
+    {
+      p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 1);
+      yg::FontDesc fontDesc(false, 40);
+
+      p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, calc_length(m_path), 0.0, yg::EPosCenter, 0);
+    }
+  };
+
   struct TestDrawTextOnPath
   {
     std::vector<m2::PointD> m_path;
@@ -739,7 +766,7 @@ namespace
     {
       m_path.push_back(m2::PointD(40, 200));
       m_path.push_back(m2::PointD(100, 100));
-      m_path.push_back(m2::PointD(300, 100));
+      m_path.push_back(m2::PointD(600, 100));
       m_path.push_back(m2::PointD(400, 300));
       m_text = "Simplicity is the ultimate sophistication. Leonardo Da Vinci.";
 
@@ -750,7 +777,7 @@ namespace
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
       p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
-      yg::FontDesc fontDesc(false, 10);
+      yg::FontDesc fontDesc(false, 20);
       p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, calc_length(m_path), 0.0, yg::EPosCenter, 0);
     }
   };
@@ -789,15 +816,32 @@ namespace
 
   struct TestDrawTextOnPathWithOffset : TestDrawTextOnPath
   {
+    vector<m2::PointD> m_pathUnder;
+    vector<m2::PointD> m_pathAbove;
+
+    TestDrawTextOnPathWithOffset()
+    {
+      copy(m_path.begin(), m_path.end(), back_inserter(m_pathUnder));
+      for (size_t i = 0; i < m_pathUnder.size(); ++i)
+        m_pathUnder[i].y -= 50;
+
+      std::copy(m_path.begin(), m_path.end(), back_inserter(m_pathAbove));
+      for (size_t i = 0; i < m_pathUnder.size(); ++i)
+        m_pathAbove[i].y += 50;
+    }
+
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
+      TestDrawTextOnPath::DoDraw(p);
+
+      p->drawPath(&m_pathAbove[0], m_pathAbove.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
+      p->drawPath(&m_pathUnder[0], m_pathUnder.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
 
       double const len = calc_length(m_path);
-      yg::FontDesc fontDesc(false, 10);
+      yg::FontDesc fontDesc(false, 20);
 
-      p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, len, 0.0, yg::EPosAbove, 0);
-      p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, len, 0.0, yg::EPosUnder, 0);
+      p->drawPathText(fontDesc, &m_pathAbove[0], m_pathAbove.size(), m_text, len, 0.0, yg::EPosAbove, 0);
+      p->drawPathText(fontDesc, &m_pathUnder[0], m_pathUnder.size(), m_text, len, 0.0, yg::EPosUnder, 0);
     }
   };
 
@@ -1072,9 +1116,10 @@ namespace
 //   UNIT_TEST_GL(TestDrawUnicodeSymbols);
 //   UNIT_TEST_GL(TestDrawTextRectWithFixedFont);
 //   UNIT_TEST_GL(TestDrawStringOnString);
-//   UNIT_TEST_GL(TestDrawTextOnPath);
-   UNIT_TEST_GL(TestDrawTextOnPathZigZag);
-//   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
+//     UNIT_TEST_GL(TestDrawTextOnPathBigSymbols);
+     UNIT_TEST_GL(TestDrawTextOnPath);
+     UNIT_TEST_GL(TestDrawTextOnPathZigZag);
+     UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
 //   UNIT_TEST_GL(TestDrawTextOverflow);
 //   UNIT_TEST_GL(TestDrawTextFiltering);
 //   UNIT_TEST_GL(TestDrawRandomTextFiltering);
