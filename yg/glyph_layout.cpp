@@ -200,7 +200,7 @@ namespace yg
           return;
 
         m_entries[symPos].m_angle = pivotPt.m_angle;
-        double centerOffset = metrics.m_xOffset + metrics.m_width / 2.0;
+        //double centerOffset = metrics.m_xOffset + metrics.m_width / 2.0;
         //m_entries[symPos].m_pt = pivotPt.m_pp.m_pt.Move(-centerOffset, pivotPt.m_angle);
         m_entries[symPos].m_pt = startPt.m_pt;
       }

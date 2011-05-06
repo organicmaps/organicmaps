@@ -3,6 +3,8 @@
 #include "../std/target_os.hpp"
 #include "../std/vector.hpp"
 #include "../std/bind.hpp"
+#include "../std/ctime.hpp"
+
 
 double ApproxDistanceSquareInMetres(double lat1, double lon1, double lat2, double lon2)
 {

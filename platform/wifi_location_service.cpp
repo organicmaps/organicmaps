@@ -5,10 +5,12 @@
 #include "../base/logging.hpp"
 
 #include "../std/bind.hpp"
+#include "../std/ctime.hpp"
 
 #include "../3party/jansson/myjansson.hpp"
 
 #define MWM_GEOLOCATION_SERVER "http://geolocation.server/"
+
 
 namespace location
 {
