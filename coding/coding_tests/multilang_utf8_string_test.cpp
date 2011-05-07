@@ -1,15 +1,13 @@
 #include "../../testing/testing.hpp"
 
 #include "../multilang_utf8_string.hpp"
-#include "../strutil.hpp"
-
 
 namespace
 {
   struct lang_string
   {
     char const * m_lang;
-    wchar_t const * m_str;
+    char const * m_str;
   };
 
   void TestMultilangString(lang_string const * arr, size_t count)
@@ -18,21 +16,18 @@ namespace
 
     for (size_t i = 0; i < count; ++i)
     {
-      string const utf8 = ToUtf8(arr[i].m_str);
-      s.AddString(arr[i].m_lang, utf8);
+      s.AddString(arr[i].m_lang, arr[i].m_str);
 
       string comp;
       TEST(s.GetString(arr[i].m_lang, comp), ());
-      TEST_EQUAL(utf8, comp, ());
+      TEST_EQUAL(arr[i].m_str, comp, ());
     }
 
     for (size_t i = 0; i < count; ++i)
     {
-      string const utf8 = ToUtf8(arr[i].m_str);
-
       string comp;
       TEST(s.GetString(arr[i].m_lang, comp), ());
-      TEST_EQUAL(utf8, comp, ());
+      TEST_EQUAL(arr[i].m_str, comp, ());
     }
 
     string test;
@@ -44,7 +39,8 @@ UNIT_TEST(MultilangString_Smoke)
 {
   StringUtf8Multilang s;
 
-  lang_string arr[] = { {"en", L"abcd"}, {"ru", L"éóõ¸"}, {"be", L"öìîê"} };
+  lang_string arr[] = { {"en", "abcd"}, {"ru", "\xD0\xA0\xD0\xB0\xD1\x88\xD0\xBA\xD0\xB0"},
+                        {"omim", "\xE2\x82\xAC\xF0\xA4\xAD\xA2"} };
 
   TestMultilangString(arr, ARRAY_SIZE(arr));
 }
