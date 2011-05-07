@@ -23,7 +23,10 @@ void FeatureBuilder1Merger::AppendFeature(FeatureBuilder1Merger const & fb)
   CHECK_EQUAL(fb.m_Types, m_Types, ("Not equal types"));
 
   // check last-first points equality
-  CHECK_EQUAL(m_Geometry.back(), fb.m_Geometry.front(), ("End and Start point are no equal"));
+  //CHECK_EQUAL(m_Geometry.back(), fb.m_Geometry.front(), ("End and Start point are no equal"));
+  CHECK(m_Geometry.back().EqualDxDy(fb.m_Geometry.front(), MercatorBounds::GetCellID2PointAbsEpsilon()),
+        (m_Geometry.back(), fb.m_Geometry.front()));
+
   // merge fb at the end
   size_t const size = fb.m_Geometry.size();
   for (size_t i = 1; i < size; ++i)
