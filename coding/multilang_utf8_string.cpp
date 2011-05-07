@@ -4,12 +4,19 @@
 
 char StringUtf8Multilang::GetLangIndex(string const & lang) const
 {
-  if (lang.empty() || lang == "en")
-    return 0;
-  else if (lang == "ru")
-    return 1;
-  else if (lang == "be")
-    return 2;
+  char const * arr[] = { "def",
+                         "en", "ja", "fr", "ko_rm", "ar", "de", "ru", "sv", "zh", "fi",
+                         "ko", "ka", "he", "be", "nl", "ga", "ja_rm", "el", "it", "es",
+                         "th", "statcan_rbuid", "zh_pinyin", "ca", "cy", "hu", "hsb", "sr", "fa", "eu",
+                         "pl", "br", "uk", "sl", "ro", "sq", "am", "fy", "gd", "cs",
+                         "sk", "af", "hr", "hy", "tr", "kn", "pt", "lt", "lb", "bg",
+                         "eo", "kk", "la", "et", "vi", "mn", "mk", "lv", "fur", "gsw" };
+
+  STATIC_ASSERT(ARRAY_SIZE(arr) <= 64);
+
+  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+    if (lang == arr[i])
+      return static_cast<char>(i);
 
   return -1;
 }
@@ -23,18 +30,18 @@ size_t StringUtf8Multilang::GetNextIndex(size_t i) const
   {
     if ((m_s[i] & 0x80) == 0)
       i += 1;
-    else if ((m_s[i] & 0xC0) == 0xC0)
-      i += 2;
-    else if ((m_s[i] & 0xE0) == 0xE0)
-      i += 3;
-    else if ((m_s[i] & 0xF0) == 0xF0)
-      i += 4;
-    else if ((m_s[i] & 0xF8) == 0xF8)
-      i += 5;
-    else if ((m_s[i] & 0xFC) == 0xFC)
-      i += 6;
     else if ((m_s[i] & 0xFE) == 0xFE)
       i += 7;
+    else if ((m_s[i] & 0xFC) == 0xFC)
+      i += 6;
+    else if ((m_s[i] & 0xF8) == 0xF8)
+      i += 5;
+    else if ((m_s[i] & 0xF0) == 0xF0)
+      i += 4;
+    else if ((m_s[i] & 0xE0) == 0xE0)
+      i += 3;
+    else if ((m_s[i] & 0xC0) == 0xC0)
+      i += 2;
   }
 
   return i;
