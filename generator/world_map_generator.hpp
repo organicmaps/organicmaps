@@ -58,16 +58,21 @@ private:
     {
       FeaturesContainerT::iterator found =
           features.find(PointToInt64(base->second.LastPoint(), m_coordBits));
+
       if (found != features.end())
       {
-        CHECK(found != base, ());
-        base->second.AppendFeature(found->second);
-        features.erase(found);
-        ++m_mergedCounter;
+        bool const differs = (found != base);
+        if (differs)
+        {
+          base->second.AppendFeature(found->second);
+          features.erase(found);
+          ++m_mergedCounter;
+        }
 
         if (EmitAreaFeature(base->second))
           features.erase(base);
-        return true;
+
+        return !differs;
       }
     }
     return false;
