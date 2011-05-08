@@ -58,6 +58,7 @@ SOURCES += \
     slider_ctrl.cpp \
     about.cpp \
     info_dialog.cpp \
+    preferences_dialog.cpp \
 
 HEADERS += \
     mainwindow.hpp \
@@ -68,6 +69,7 @@ HEADERS += \
     slider_ctrl.hpp \
     about.hpp \
     info_dialog.hpp \
+    preferences_dialog.hpp \
 
 RESOURCES += res/resources.qrc
 
@@ -79,13 +81,11 @@ CONFIG(debug, debug|release) {
     searchwindow.cpp \
     update_dialog.cpp \
     classificator_tree.cpp \
-    preferences_dialog.cpp \
     guide_page.cpp
 
   HEADERS += \
     searchwindow.hpp \
     update_dialog.hpp \
     classificator_tree.hpp \
-    preferences_dialog.hpp \
     guide_page.hpp
 }

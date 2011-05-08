@@ -62,8 +62,8 @@ namespace qt
     void ShowUpdateDialog();
     void ShowClassifPanel();
     void ShowGuidePanel();
-    void OnPreferences();
 #endif // DEBUG
+    void OnPreferences();
     void OnAbout();
     void OnMyPosition();
   };

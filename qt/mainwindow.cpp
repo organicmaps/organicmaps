@@ -2,16 +2,7 @@
 #include "draw_widget.hpp"
 #include "slider_ctrl.hpp"
 #include "about.hpp"
-
-#ifdef DEBUG
-#include "info_dialog.hpp"
-#include "update_dialog.hpp"
 #include "preferences_dialog.hpp"
-#include "classificator_tree.hpp"
-#include "guide_page.hpp"
-
-#include "../indexer/classificator.hpp"
-#endif
 
 #include "../defines.hpp"
 
@@ -23,25 +14,19 @@
 #include <QtGui/QMenuBar>
 #include <QtGui/QMenu>
 
-#ifdef DEBUG
-#include <QtCore/QFile>
-#endif
-
 #define IDM_ABOUT_DIALOG        1001
+#define IDM_PREFERENCES_DIALOG  1002
 
 #ifdef DEBUG // code removed for desktop releases
 #include "update_dialog.hpp"
 #include "searchwindow.hpp"
 #include "classificator_tree.hpp"
-#include "preferences_dialog.hpp"
 #include "info_dialog.hpp"
 #include "guide_page.hpp"
 
 #include "../indexer/classificator.hpp"
 
 #include <QtCore/QFile>
-
-#define IDM_PREFERENCES_DIALOG  1002
 
 #endif // DEBUG
 
@@ -70,9 +55,7 @@ MainWindow::MainWindow()
   QMenu * helpMenu = new QMenu(tr("Help"), this);
   menuBar()->addMenu(helpMenu);
   helpMenu->addAction(tr("About"), this, SLOT(OnAbout()));
-#ifdef DEBUG // code removed for desktop releases
   helpMenu->addAction(tr("Preferences"), this, SLOT(OnPreferences()));
-#endif // DEBUG
 #else
   {
     // create items in the system menu
@@ -81,13 +64,11 @@ MainWindow::MainWindow()
     item.cbSize = sizeof(MENUITEMINFOA);
     item.fMask = MIIM_FTYPE | MIIM_ID | MIIM_STRING;
     item.fType = MFT_STRING;
- #ifdef DEBUG // code removed for desktop releases
     item.wID = IDM_PREFERENCES_DIALOG;
     QByteArray const prefsStr = tr("Preferences...").toLocal8Bit();
     item.dwTypeData = const_cast<char *>(prefsStr.data());
     item.cch = prefsStr.size();
     ::InsertMenuItemA(menu, ::GetMenuItemCount(menu) - 1, TRUE, &item);
- #endif // DEBUG
     item.wID = IDM_ABOUT_DIALOG;
     QByteArray const aboutStr = tr("About MapsWithMe...").toLocal8Bit();
     item.dwTypeData = const_cast<char *>(aboutStr.data());
@@ -135,12 +116,10 @@ bool MainWindow::winEvent(MSG * msg, long * result)
   {
     switch (msg->wParam)
     {
-#ifdef DEBUG // code removed for desktop releases
     case IDM_PREFERENCES_DIALOG:
       OnPreferences();
       *result = 0;
       return true;
-#endif
     case IDM_ABOUT_DIALOG:
       OnAbout();
       *result = 0;
@@ -351,6 +330,17 @@ void MainWindow::OnMyPosition()
   }
 }
 
+void MainWindow::OnPreferences()
+{
+  bool autoUpdatesEnabled = DEFAULT_AUTO_UPDATES_ENABLED;
+  Settings::Get("AutomaticUpdateCheck", autoUpdatesEnabled);
+
+  PreferencesDialog dlg(this, autoUpdatesEnabled);
+  dlg.exec();
+
+  Settings::Set("AutomaticUpdateCheck", autoUpdatesEnabled);
+}
+
 #ifdef DEBUG // code removed for desktop releases
 void MainWindow::ShowUpdateDialog()
 {
@@ -367,17 +357,6 @@ void MainWindow::ShowClassifPanel()
 void MainWindow::ShowGuidePanel()
 {
   m_Docks[1]->show();
-}
-
-void MainWindow::OnPreferences()
-{
-  bool autoUpdatesEnabled = DEFAULT_AUTO_UPDATES_ENABLED;
-  Settings::Get("AutomaticUpdateCheck", autoUpdatesEnabled);
-
-  PreferencesDialog dlg(this, autoUpdatesEnabled);
-  dlg.exec();
-
-  Settings::Set("AutomaticUpdateCheck", autoUpdatesEnabled);
 }
 
 void MainWindow::CreateClassifPanel()
