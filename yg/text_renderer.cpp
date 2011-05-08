@@ -355,41 +355,49 @@ namespace yg
 
       GlyphLayout layout(resourceManager(), fontDesc, path, s, text, fullLength, pathOffset, pos);
 
-      // calculate base line offset
-      float blOffset = 2;
-      switch (pos)
-      {
-      case yg::EPosUnder: blOffset -= fontDesc.m_size; break;
-      case yg::EPosCenter: blOffset -= fontDesc.m_size / 2; break;
-      case yg::EPosAbove: blOffset -= 0; break;
-      default: blOffset -= fontDesc.m_size / 2; break;
-      }
-
       vector<GlyphLayoutElem> const & glyphs = layout.entries();
 
       if (layout.lastVisible() != text.size())
         return false;
 
+/*    for (size_t i = layout.firstVisible(); i < layout.lastVisible(); ++i)
+      {
+        uint32_t const colorID = skin()->mapColor(yg::Color(fontDesc.m_isMasked ? 255 : 0, 0, fontDesc.m_isMasked ? 0 : 255, 255));
+        ResourceStyle const * colorStyle = skin()->fromID(colorID);
+
+        float x0 = glyphs[i].m_metrics.m_xOffset;
+        float y1 = -glyphs[i].m_metrics.m_yOffset;
+        float y0 = y1 - glyphs[i].m_metrics.m_height;
+        float x1 = x0 + glyphs[i].m_metrics.m_width;
+
+        drawTexturedPolygon(glyphs[i].m_pt, glyphs[i].m_angle,
+                            colorStyle->m_texRect.minX() + 1,
+                            colorStyle->m_texRect.minY() + 1,
+                            colorStyle->m_texRect.maxX() - 1,
+                            colorStyle->m_texRect.maxY() - 1,
+                            x0, y0, x1, y1,
+                            depth - 1,
+                            colorStyle->m_pageID);
+
+      }
+*/
       for (size_t i = layout.firstVisible(); i < layout.lastVisible(); ++i)
       {
         uint32_t const glyphID = skin()->mapGlyph(GlyphKey(text[i], fontDesc.m_size, fontDesc.m_isMasked, fontDesc.m_isMasked ? fontDesc.m_maskColor : fontDesc.m_color), fontDesc.m_isStatic);
         CharStyle const * charStyle = static_cast<CharStyle const *>(skin()->fromID(glyphID));
 
-        drawGlyph(glyphs[i].m_pt, m2::PointD(0.0, 0.0), glyphs[i].m_angle, blOffset, charStyle, depth);
+        drawGlyph(glyphs[i].m_pt, m2::PointD(0.0, 0.0), glyphs[i].m_angle, 0, charStyle, depth);
       }
 
       return true;
     }
 
-
-
-    void TextRenderer::drawGlyph(m2::PointD const & ptOrg, m2::PointD const & ptGlyph, float angle, float blOffset, CharStyle const * p, double depth)
+    void TextRenderer::drawGlyph(m2::PointD const & ptOrg, m2::PointD const & ptGlyph, float angle, float /*blOffset*/, CharStyle const * p, double depth)
     {
       float x0 = ptGlyph.x + (p->m_xOffset - 1);
-      float y1 = ptGlyph.y - (p->m_yOffset - 1) - blOffset;
+      float y1 = ptGlyph.y - (p->m_yOffset - 1);
       float y0 = y1 - (p->m_texRect.SizeY() - 2);
       float x1 = x0 + (p->m_texRect.SizeX() - 2);
-
 
       drawTexturedPolygon(ptOrg, angle,
                           p->m_texRect.minX() + 1,

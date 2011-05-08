@@ -4,7 +4,11 @@
 #include "resource_manager.hpp"
 #include "font_desc.hpp"
 
+#include "../base/logging.hpp"
+#include "../base/math.hpp"
+
 #include "../geometry/angles.hpp"
+#include "../geometry/aa_rect2d.hpp"
 
 namespace yg
 {
@@ -82,32 +86,31 @@ namespace yg
       for (size_t i = res.m_i; i < size() - 1; ++i)
       {
         double l = res.m_pt.Length(get(i + 1));
+        res.m_pt = res.m_pt.Move(min(l, offset), ang::AngleTo(get(i), get(i + 1)));
+        res.m_i = i;
+
         if (offset < l)
-        {
-          res.m_pt = res.m_pt.Move(offset, ang::AngleTo(get(i), get(i + 1)));
-          res.m_i = i;
           break;
-        }
         else
-        {
           offset -= l;
-          res.m_pt = get(i + 1);
-        }
       }
 
       return res;
+
     }
 
-    PivotPoint findPivotPoint(PathPoint const & pp, GlyphMetrics const & sym)
+    PivotPoint findPivotPoint(PathPoint const & pp, GlyphMetrics const & sym, double kern)
     {
+      PathPoint startPt = offsetPoint(pp, kern);
+
       PivotPoint res;
       res.m_pp.m_i = -1;
-      m2::PointD pt1 = pp.m_pt;
+      m2::PointD pt1 = startPt.m_pt;
 
       double angle = 0;
       double advance = sym.m_xOffset + sym.m_width / 2.0;
 
-      int j = pp.m_i;
+      int j = startPt.m_i;
 
       while (advance > 0)
       {
@@ -130,8 +133,7 @@ namespace yg
           res.m_pp.m_pt = pt1.Move(advance, ang::AngleTo(get(j), get(j + 1)));
           advance = 0;
 
-          angle /= (res.m_pp.m_i - pp.m_i + 1);
-          res.m_pp.m_pt = pt1;
+          angle /= (res.m_pp.m_i - startPt.m_i + 1);
           res.m_angle = angle;
 
           break;
@@ -141,6 +143,47 @@ namespace yg
       return res;
     }
   };
+
+  double GlyphLayout::getKerning(GlyphLayoutElem const & prevElem, GlyphLayoutElem const & curElem)
+  {
+    double res = 0;
+    /// check, whether we should offset this symbol slightly
+    /// not to overlap the previous symbol
+
+    m2::AARectD prevSymRectAA(
+          prevElem.m_pt.Move(prevElem.m_metrics.m_height, prevElem.m_angle - math::pi / 2),
+          prevElem.m_angle,
+          m2::RectD(prevElem.m_metrics.m_xOffset,
+                    prevElem.m_metrics.m_yOffset,
+                    prevElem.m_metrics.m_xOffset + prevElem.m_metrics.m_width,
+                    prevElem.m_metrics.m_yOffset + prevElem.m_metrics.m_height));
+
+    m2::AARectD curSymRectAA(
+          curElem.m_pt.Move(curElem.m_metrics.m_height, curElem.m_angle - math::pi / 2),
+          curElem.m_angle,
+          m2::RectD(curElem.m_metrics.m_xOffset,
+                    curElem.m_metrics.m_yOffset,
+                    curElem.m_metrics.m_xOffset + curElem.m_metrics.m_width,
+                    curElem.m_metrics.m_yOffset + curElem.m_metrics.m_height)
+          );
+
+    m2::RectD prevLocalRect = prevSymRectAA.GetLocalRect();
+    m2::PointD pts[4];
+    prevSymRectAA.GetGlobalPoints(pts);
+    curSymRectAA.ConvertTo(pts, 4);
+
+    m2::RectD prevRectInCurSym(pts[0].x, pts[0].y, pts[0].x, pts[0].y);
+    prevRectInCurSym.Add(pts[1]);
+    prevRectInCurSym.Add(pts[2]);
+    prevRectInCurSym.Add(pts[3]);
+
+    m2::RectD curSymRect = curSymRectAA.GetLocalRect();
+
+    if (curSymRect.minX() < prevRectInCurSym.maxX())
+      res = prevRectInCurSym.maxX() - curSymRect.minX();
+
+    return res;
+  }
 
   GlyphLayout::GlyphLayout(shared_ptr<ResourceManager> const & resourceManager,
                            FontDesc const & fontDesc,
@@ -168,10 +211,27 @@ namespace yg
       strLength += m_entries[i].m_metrics.m_xAdvance;
     }
 
+    if (fullLength < strLength)
+      return;
+
     // offset of the text from path's start
     double offset = (fullLength - strLength) / 2.0;
-    if (offset < 0.0)
-      return;
+
+    if (pos & yg::EPosLeft)
+      offset = 0;
+    if (pos & yg::EPosRight)
+      offset = (fullLength - strLength);
+
+    // calculate base line offset
+    double blOffset = 2 - fontDesc.m_size / 2;
+    // on-path kerning should be done for baseline-centered glyphs
+    double kernOffset = blOffset;
+
+    if (pos & yg::EPosUnder)
+      blOffset = 2 - fontDesc.m_size;
+    if (pos & yg::EPosAbove)
+      blOffset = 2;
+
     offset -= pathOffset;
     if (-offset >= strLength)
       return;
@@ -181,31 +241,70 @@ namespace yg
     while (offset < 0 &&  symPos < count)
       offset += m_entries[symPos++].m_metrics.m_xAdvance;
 
-    PathPoint startPt = arrPath.offsetPoint(PathPoint(0, arrPath.get(0)), offset);
+    PathPoint glyphStartPt = arrPath.offsetPoint(PathPoint(0, arrPath.get(0)), offset);
 
     m_firstVisible = symPos;
 
+    GlyphLayoutElem prevElem;
+    bool hasPrevElem = false;
+
     for (; symPos < count; ++symPos)
     {
+      /// full advance, including possible kerning.
+      double fullGlyphAdvance = m_entries[symPos].m_metrics.m_xAdvance;
+
       GlyphMetrics const & metrics = m_entries[symPos].m_metrics;
 
-      if (startPt.m_i == -1)
+      if (glyphStartPt.m_i == -1)
         return;
 
       if (metrics.m_width != 0)
       {
-        PivotPoint pivotPt = arrPath.findPivotPoint(startPt, metrics);
+        double fullKern = 0;
+        double kern = 0;
 
-        if (pivotPt.m_pp.m_i == -1)
-          return;
+        int i = 0;
+        for (; i < 100; ++i)
+        {
+          PivotPoint pivotPt = arrPath.findPivotPoint(glyphStartPt, metrics, fullKern);
 
-        m_entries[symPos].m_angle = pivotPt.m_angle;
-        //double centerOffset = metrics.m_xOffset + metrics.m_width / 2.0;
-        //m_entries[symPos].m_pt = pivotPt.m_pp.m_pt.Move(-centerOffset, pivotPt.m_angle);
-        m_entries[symPos].m_pt = startPt.m_pt;
+          if (pivotPt.m_pp.m_i == -1)
+            return;
+
+          m_entries[symPos].m_angle = pivotPt.m_angle;
+          double centerOffset = metrics.m_xOffset + metrics.m_width / 2.0;
+          m_entries[symPos].m_pt = pivotPt.m_pp.m_pt.Move(-centerOffset, m_entries[symPos].m_angle);
+          m_entries[symPos].m_pt = m_entries[symPos].m_pt.Move(blOffset, m_entries[symPos].m_angle - math::pi / 2);
+//          m_entries[symPos].m_pt = m_entries[symPos].m_pt.Move(kernOffset, m_entries[symPos].m_angle - math::pi / 2);
+
+          // < check whether we should "kern"
+          if (hasPrevElem)
+          {
+            kern = getKerning(prevElem, m_entries[symPos]);
+            if (kern < 0.5)
+              kern = 0;
+
+            fullGlyphAdvance += kern;
+            fullKern += kern;
+          }
+
+          if (kern == 0)
+            break;
+        }
+        if (i == 100)
+          LOG(LINFO, ("100 iteration on computing kerning exceeded. possibly infinite loop occured"));
+
+
+        /// kerning should be computed for baseline centered glyph
+        prevElem = m_entries[symPos];
+        hasPrevElem = true;
+
+        // < align to baseline
+//        m_entries[symPos].m_pt = m_entries[symPos].m_pt.Move(blOffset - kernOffset, m_entries[symPos].m_angle - math::pi / 2);
       }
 
-      startPt = arrPath.offsetPoint(startPt, metrics.m_xAdvance);
+      glyphStartPt = arrPath.offsetPoint(glyphStartPt, fullGlyphAdvance);
+      offset += fullGlyphAdvance;
 
       m_lastVisible = symPos + 1;
     }

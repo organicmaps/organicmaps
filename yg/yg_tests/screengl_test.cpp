@@ -738,10 +738,10 @@ namespace
     void Init()
     {
       m_path.push_back(m2::PointD(40, 200));
-      m_path.push_back(m2::PointD(90, 200));
-      m_path.push_back(m2::PointD(190, 230));
+      m_path.push_back(m2::PointD(80, 200));
+      m_path.push_back(m2::PointD(180, 250));
 
-      m_text = "Sim";
+      m_text = "Syp";
 
       double pat[2] = {2, 2};
       m_penInfo = yg::PenInfo(yg::Color(0xFF, 0xFF, 0xFF, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
@@ -750,9 +750,57 @@ namespace
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
       p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 1);
-      yg::FontDesc fontDesc(false, 40);
+      yg::FontDesc fontDesc(false, 30);
 
-      p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, calc_length(m_path), 0.0, yg::EPosCenter, 0);
+      p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, calc_length(m_path), 0.0, yg::EPosLeft, 0);
+    }
+  };
+
+  struct TestDrawTextOnPathInteractive
+  {
+    double m_pathOffset;
+    vector<m2::PointD> m_testPoints;
+    string m_text;
+
+    bool OnKeyPress(QKeyEvent * kev)
+    {
+      if (kev->key() == Qt::Key_Left)
+      {
+        m_pathOffset += 1;
+        return true;
+      }
+      if (kev->key() == Qt::Key_Right)
+      {
+        m_pathOffset -= 1;
+        return true;
+      }
+
+      return false;
+    }
+
+    void Init()
+    {
+      m_pathOffset = -102;
+      //m_pathOffset = 0;
+      m_testPoints.push_back(m2::PointD(40, 200));
+      m_testPoints.push_back(m2::PointD(100, 100));
+      m_testPoints.push_back(m2::PointD(160, 200));
+      m_testPoints.push_back(m2::PointD(200, 100));
+      m_testPoints.push_back(m2::PointD(240, 200));
+      m_testPoints.push_back(m2::PointD(280, 100));
+      m_testPoints.push_back(m2::PointD(320, 200));
+      m_testPoints.push_back(m2::PointD(360, 100));
+      m_testPoints.push_back(m2::PointD(400, 200));
+
+    }
+
+    void DoDraw(shared_ptr<yg::gl::Screen> p)
+    {
+      p->drawPath(&m_testPoints[0], m_testPoints.size(), 0, p->skin()->mapPenInfo(yg::PenInfo(yg::Color(255, 255, 255, 255), 2, 0, 0, 0)), 0);
+      yg::FontDesc fontDesc(false, 20, yg::Color(0, 0, 0, 255), false);
+      //m_text = "Simplicity is the ultimate sophistication. Leonardo Da Vinci.";
+      m_text = "Vinci";
+      p->drawPathText(fontDesc, &m_testPoints[0], m_testPoints.size(), m_text.c_str(), calc_length(m_testPoints), m_pathOffset, yg::EPosLeft, 1);
     }
   };
 
@@ -764,6 +812,7 @@ namespace
 
     TestDrawTextOnPath()
     {
+
       m_path.push_back(m2::PointD(40, 200));
       m_path.push_back(m2::PointD(100, 100));
       m_path.push_back(m2::PointD(600, 100));
@@ -1116,10 +1165,11 @@ namespace
 //   UNIT_TEST_GL(TestDrawUnicodeSymbols);
 //   UNIT_TEST_GL(TestDrawTextRectWithFixedFont);
 //   UNIT_TEST_GL(TestDrawStringOnString);
-//     UNIT_TEST_GL(TestDrawTextOnPathBigSymbols);
-     UNIT_TEST_GL(TestDrawTextOnPath);
-     UNIT_TEST_GL(TestDrawTextOnPathZigZag);
-     UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
+     UNIT_TEST_GL(TestDrawTextOnPathInteractive);
+   UNIT_TEST_GL(TestDrawTextOnPathBigSymbols);
+   UNIT_TEST_GL(TestDrawTextOnPath);
+   UNIT_TEST_GL(TestDrawTextOnPathZigZag);
+   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
 //   UNIT_TEST_GL(TestDrawTextOverflow);
 //   UNIT_TEST_GL(TestDrawTextFiltering);
 //   UNIT_TEST_GL(TestDrawRandomTextFiltering);

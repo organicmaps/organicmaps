@@ -34,6 +34,8 @@ namespace yg
 
     vector<GlyphLayoutElem> m_entries;
 
+    double getKerning(GlyphLayoutElem const & prevElem, GlyphLayoutElem const & curElem);
+
   public:
 
     GlyphLayout(GlyphLayout const & layout, double shift);
