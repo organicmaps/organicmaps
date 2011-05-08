@@ -450,7 +450,8 @@ namespace ftype {
           string const & k = p->childs[i].attrs["k"];
           string const & v = p->childs[i].attrs["v"];
 
-          if (is_skip_tag(k, v)) continue;
+          if (k.empty() || is_skip_tag(k, v))
+            continue;
 
           // this means "no"
           //if (get_mark_value(k, v) == -1)
@@ -485,33 +486,70 @@ namespace ftype {
     class do_find_name
     {
       size_t & m_count;
-      string & m_name;
-      string & m_addr;
-      int32_t & m_layer;
+      FeatureParams & m_params;
+
+      class get_lang
+      {
+        bool m_ok;
+        string & m_lang;
+
+      public:
+        get_lang(string & lang) : m_ok(false), m_lang(lang) {}
+
+        void operator() (string const & s)
+        {
+          if (m_ok)
+            m_lang = s;
+          else if (s == "name")
+          {
+            m_ok = true;
+            m_lang = "def";
+          }
+        }
+      };
 
     public:
       typedef bool result_type;
 
-      do_find_name(size_t & count, string & name, string & addr, int32_t & layer)
-        : m_count(count), m_name(name), m_addr(addr), m_layer(layer)
+      do_find_name(size_t & count, FeatureParams & params)
+        : m_count(count), m_params(params)
       {
         m_count = 0;
-        m_layer = 0;
       }
       bool operator() (string const & k, string const & v)
       {
         ++m_count;
 
-        // do not call is_name_tag(k), but exactly "name" tag
-        if (m_name.empty() && k == "name")
-          m_name = v;
+        if (v.empty()) return false;
 
-        // add house number
-        if (m_addr.empty() && k == "addr:housenumber")
-          m_addr = v;
+        // get names
+        string lang;
+        utils::TokenizeString(k, "\t :", get_lang(lang));
+        if (!lang.empty())
+          m_params.name.AddString(lang, v);
 
-        if (k == "layer" && m_layer == 0)
-          m_layer = atoi(v.c_str());
+        // get layer
+        if (k == "layer" && m_params.layer == 0)
+          m_params.layer = atoi(v.c_str());
+
+        // get reference (we process road numbers only)
+        if (k == "ref")
+          m_params.ref = v;
+
+        // get house number
+        if ((m_params.house.IsEmpty() && k == "addr:housenumber") ||
+            (k == "addr:housename"))
+        {
+          m_params.house.Set(v);
+        }
+
+        // get population rank
+        if (k == "population")
+        {
+          int n;
+          if (utils::to_int(v, n))
+            m_params.rank = static_cast<uint8_t>(log(double(n)) / log(1.1));
+        }
 
         return false;
       }
@@ -565,13 +603,10 @@ namespace ftype {
     return for_each_tag(p, do_find_obj(parent, isKey));
   }
 
-  size_t find_name_and_count(XMLElement * p, string & name, int32_t & layer)
+  size_t process_common_params(XMLElement * p, FeatureParams & params)
   {
     size_t count;
-    string addr;
-    for_each_tag(p, do_find_name(count, name, addr, layer));
-
-    if (name.empty()) name = addr;
+    for_each_tag(p, do_find_name(count, params));
     return count;
   }
 
@@ -589,7 +624,7 @@ namespace ftype {
 //  };
 //#endif
 
-  bool GetNameAndType(XMLElement * p, vector<uint32_t> & types, string & name, int32_t & layer)
+  bool GetNameAndType(XMLElement * p, FeatureParams & params)
   {
 //#ifdef DEBUG
 //    // code to set a breakpoint
@@ -600,7 +635,7 @@ namespace ftype {
 //#endif
 
     // maybe an empty feature
-    if (find_name_and_count(p, name, layer) == 0)
+    if (process_common_params(p, params) == 0)
       return false;
 
     set<string> skipRootKeys;
@@ -639,7 +674,7 @@ namespace ftype {
 
         // use features only with drawing rules
         if (feature::IsDrawableAny(t))
-          types.push_back(t);
+          params.AddType(t);
       }
 
       if (pRoot)
@@ -652,6 +687,6 @@ namespace ftype {
 
     } while (true);
 
-    return !types.empty();
+    return params.IsValid();
   }
 }

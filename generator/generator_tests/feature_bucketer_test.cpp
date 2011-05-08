@@ -60,6 +60,7 @@ UNIT_TEST(FeatureBucketerSmokeTest)
   fb.AddPoint(m2::PointD(10, 10));
   fb.AddPoint(m2::PointD(20, 20));
   fb.SetType(0);
+  fb.SetLinear();
   bucketer(fb);
 
   FeatureType f;

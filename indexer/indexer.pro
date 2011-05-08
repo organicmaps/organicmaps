@@ -28,6 +28,7 @@ SOURCES += \
     geometry_coding.cpp \
     geometry_serialization.cpp \
     tesselator.cpp \
+    feature_data.cpp \
 
 HEADERS += \
     feature.hpp \
@@ -60,3 +61,4 @@ HEADERS += \
     point_to_int64.hpp \
     tesselator.hpp \
     tesselator_decl.hpp \
+    feature_data.hpp \

@@ -2,6 +2,7 @@
 
 #include "cell_id.hpp"
 #include "data_header.hpp"
+#include "feature_data.hpp"
 
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
@@ -18,12 +19,11 @@
 class ArrayByteSource;
 class FeatureBase;
 
+
 /// Used for serialization\deserialization of features during --generate_features.
 class FeatureBuilder1
 {
 public:
-  FeatureBuilder1();
-
   /// @name Geometry manipulating functions.
   //@{
   /// Set center (origin) point of feature and set that feature is point.
@@ -33,33 +33,25 @@ public:
   void AddPoint(m2::PointD const & p);
 
   /// Set that feature is linear type.
-  void SetLinear() { m_bLinear = true; }
+  void SetLinear() { m_Params.SetGeomType(feature::GEOM_LINE); }
 
-  /// Set that featue is area and get ownership of holes.
+  /// Set that feature is area and get ownership of holes.
   void SetAreaAddHoles(list<vector<m2::PointD> > const & holes);
   //@}
 
-  void AddName(string const & name);
-
-  static const int m_maxTypesCount = 7;
-
-  template <class TIter>
-  inline void AddTypes(TIter beg, TIter end)
-  {
-    // !WTF! with GCC
-    int const count = min(static_cast<int>(m_maxTypesCount), static_cast<int>(distance(beg, end)));
-    m_Types.assign(beg, beg + count);
-  }
   inline void SetType(uint32_t type)
   {
-    m_Types.clear();
-    m_Types.push_back(type);
+    m_Params.SetType(type);
   }
 
-  bool IsTypeExist(uint32_t t) const;
-  bool AssignType_SetDifference(vector<uint32_t> const & diffTypes);
-
-  void AddLayer(int32_t layer);
+  inline bool IsTypeExist(uint32_t t) const
+  {
+    return m_Params.IsTypeExist(t);
+  }
+  inline bool AssignType_SetDifference(vector<uint32_t> const & diffTypes)
+  {
+    return m_Params.AssignType_SetDifference(diffTypes);
+  }
 
   typedef vector<char> buffer_t;
 
@@ -92,7 +84,7 @@ public:
   template <class ToDo>
   void ForEachTruePointRef(ToDo & toDo) const
   {
-    if (m_bPoint)
+    if (m_Params.GetGeomType() == feature::GEOM_POINT)
       toDo(m_Center);
     else
     {
@@ -102,10 +94,12 @@ public:
     }
   }
 
-  m2::PointD CenterPoint() const { return m_Center; }
+  inline m2::PointD CenterPoint() const { return m_Center; }
   //@}
 
-  bool PreSerialize() { return m_bPoint || m_bLinear || m_bArea; }
+  bool PreSerialize();
+
+  inline void SetParams(FeatureParams const & params) { m_Params = params; }
 
 protected:
 
@@ -116,18 +110,7 @@ protected:
   bool CheckValid() const;
   //@}
 
-  typedef vector<m2::PointD> points_t;
-
-  uint8_t GetHeader() const;
-
-  /// Name. Can be empty. Check HEADER_HAS_NAME.
-  string m_Name;
-
-  /// Feature classificator-types. Can not be empty.
-  vector<uint32_t> m_Types;
-
-  /// Drawable layer of feature. Can be empty, Check HEADER_HAS_LAYER.
-  int32_t m_Layer;
+  FeatureParams m_Params;
 
   m2::RectD m_LimitRect;
 
@@ -137,6 +120,8 @@ protected:
   /// - origin point of text or symbol in area-feature
   m2::PointD m_Center;    // Check  HEADER_HAS_POINT
 
+  typedef vector<m2::PointD> points_t;
+
   /// Can be one of the following:
   /// - geometry in line-feature
   /// - boundary in area-feature
@@ -144,13 +129,6 @@ protected:
 
   /// List of holes in area-feature.
   list<points_t> m_Holes; // Check HEADER_IS_AREA
-
-  /// @name This flags can be combined.
-  //@{
-  bool m_bPoint;    ///< this is point feature (also m_Center exists)
-  bool m_bLinear;   ///< this is linear-feature
-  bool m_bArea;     ///< this is area-feature
-  //@}
 };
 
 /// Used for serialization of features during final pass.
@@ -182,8 +160,8 @@ public:
     buffers_holder_t() : m_ptsMask(0), m_trgMask(0), m_ptsSimpMask(0) {}
   };
 
-  bool IsLine() const { return m_bLinear; }
-  bool IsArea() const { return m_bArea; }
+  bool IsLine() const { return (m_Params.GetGeomType() == feature::GEOM_LINE); }
+  bool IsArea() const { return (m_Params.GetGeomType() == feature::GEOM_AREA); }
   bool IsDrawableInRange(int lowS, int highS) const;
 
   points_t const & GetGeometry() const { return m_Geometry; }
@@ -201,52 +179,46 @@ class FeatureBase
 {
   static const int m_maxTypesCount = 7;
 public:
-  enum FeatureType
-  {
-    FEATURE_TYPE_POINT = 0,
-    FEATURE_TYPE_LINE = 1,
-    FEATURE_TYPE_AREA = 2
-  };
-
   FeatureBase() : m_Offset(0) {}
 
   typedef vector<char> buffer_t;
 
-  inline FeatureType GetFeatureType() const
+  inline feature::EGeomType GetFeatureType() const
   {
-    uint8_t const h = Header();
-    if (h & HEADER_IS_AREA)
-      return FEATURE_TYPE_AREA;
-    else if (h & HEADER_IS_LINE)
-      return FEATURE_TYPE_LINE;
+    uint8_t const h = Header() & feature::HEADER_GEOTYPE_MASK;
+
+    if (h == feature::HEADER_GEOM_POINT)
+      return feature::GEOM_POINT;
+    else if (h == feature::HEADER_GEOM_LINE)
+      return feature::GEOM_LINE;
     else
     {
-      ASSERT ( h & HEADER_HAS_POINT, () );
-      return FEATURE_TYPE_POINT;
+      ASSERT ( h == feature::HEADER_GEOM_AREA, (h) );
+      return feature::GEOM_AREA;
     }
   }
 
-  inline uint32_t GetTypesCount() const
+  inline uint8_t GetTypesCount() const
   {
-    return Header() & m_maxTypesCount;
+    return ((Header() & feature::HEADER_TYPE_MASK) + 1);
   }
 
-  inline int32_t GetLayer() const
+  inline int8_t GetLayer() const
   {
-    if (!(Header() & HEADER_HAS_LAYER))
+    if (!(Header() & feature::HEADER_HAS_LAYER))
       return 0;
     if (!m_bCommonParsed)
       ParseCommon();
-    return m_Layer;
+    return m_Params.layer;
   }
 
-  inline string GetName() const
+  inline bool GetName(char lang, string & utf8s) const
   {
-    if (!(Header() & HEADER_HAS_NAME))
-      return string();
+    if (!(Header() & feature::HEADER_HAS_NAME))
+      return false;
     if (!m_bCommonParsed)
       ParseCommon();
-    return m_Name;
+    return m_Params.name.GetString(lang, utf8s);
   }
 
   inline m2::RectD GetLimitRect() const
@@ -279,15 +251,6 @@ public:
       f(m_Types[i]);
   }
 
-  enum
-  {
-    HEADER_HAS_LAYER = 1U << 7,
-    HEADER_HAS_NAME = 1U << 6,
-    HEADER_IS_AREA = 1U << 5,
-    HEADER_IS_LINE = 1U << 4,
-    HEADER_HAS_POINT = 1U << 3
-  };
-
   void InitFeatureBuilder(FeatureBuilder1 & fb) const;
 
   /// @name Statistic functions.
@@ -312,8 +275,9 @@ protected:
   uint32_t CalcOffset(ArrayByteSource const & source) const;
 
   mutable uint32_t m_Types[m_maxTypesCount];
-  mutable int32_t m_Layer;
-  mutable string m_Name;
+
+  mutable FeatureParamsBase m_Params;
+
   mutable m2::PointD m_Center;
 
   mutable m2::RectD m_LimitRect;
@@ -377,7 +341,7 @@ public:
     if (m_Points.empty())
     {
       // it's a point feature
-      if (Header() & HEADER_HAS_POINT)
+      if (GetFeatureType() == feature::GEOM_POINT)
         f(CoordPointT(m_Center.x, m_Center.y));
     }
     else

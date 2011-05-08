@@ -1,9 +1,6 @@
 #pragma once
 
-#include "../base/base.hpp"
-
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
+#include "../indexer/feature_data.hpp"
 
 #include "../base/start_mem_debug.hpp"
 
@@ -13,8 +10,8 @@ namespace ftype
 {
   void ParseOSMTypes(char const * fPath, int scale);
 
-  /// Get the types, name and layer fot feature with the tree of tags.
-  bool GetNameAndType(XMLElement * p, vector<uint32_t> & types, string & name, int32_t & layer);
+  /// Get the types, name and layer for feature with the tree of tags.
+  bool GetNameAndType(XMLElement * p, FeatureParams & params);
 }
 
 #include "../base/stop_mem_debug.hpp"

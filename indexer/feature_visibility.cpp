@@ -132,7 +132,7 @@ namespace
 
 int GetDrawRule(FeatureBase const & f, int level, vector<drule::Key> & keys, string & names)
 {
-  FeatureBase::FeatureType const geoType = f.GetFeatureType();
+  feature::EGeomType const geoType = f.GetFeatureType();
 
   FeatureBase::GetTypesFn types;
   f.ForEachTypeRef(types);
@@ -211,7 +211,7 @@ bool IsDrawableLike(vector<uint32_t> const & types, feature_geo_t ft)
 
 bool IsDrawableForIndex(FeatureBase const & f, int level)
 {
-  if (f.GetFeatureType() == FeatureBase::FEATURE_TYPE_AREA)
+  if (f.GetFeatureType() == feature::GEOM_AREA)
     if (!scales::IsGoodForLevel(level, f.GetLimitRect()))
       return false;
 

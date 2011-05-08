@@ -27,9 +27,8 @@ FindTableWnd::FindTableWnd(QWidget * pParent, FindEditorWnd * pEditor, model_t *
 
 bool FindTableWnd::AddFeature(FeatureType const & f)
 {
-  string name = f.GetName();
-
-  if (!name.empty())
+  string utf8name;
+  if (f.GetName(0, utf8name) && !utf8name.empty())
   {
     // 200 rows is enough
     int const r = rowCount();
@@ -38,7 +37,7 @@ bool FindTableWnd::AddFeature(FeatureType const & f)
 
     insertRow(r);
 
-    QTableWidgetItem * item = new QTableWidgetItem(QString::fromUtf8(name.c_str()));
+    QTableWidgetItem * item = new QTableWidgetItem(QString::fromUtf8(utf8name.c_str()));
     item->setFlags(item->flags() ^ Qt::ItemIsEditable);
     setItem(r, 0, item);
 

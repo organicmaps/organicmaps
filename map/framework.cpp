@@ -21,6 +21,8 @@
 #include "../base/start_mem_debug.hpp"
 
 
+using namespace feature;
+
 namespace fwork
 {
   namespace
@@ -135,18 +137,20 @@ namespace fwork
 
     m_renderState->m_isEmptyModelCurrent = false;
 
-    shared_ptr<di::DrawInfo> ptr(new di::DrawInfo(f.GetName()));
+    string utf8name;
+    f.GetName(0, utf8name);
+    shared_ptr<di::DrawInfo> ptr(new di::DrawInfo(utf8name));
 
     using namespace get_pts;
 
     bool isExist = false;
     switch (type)
     {
-    case FeatureBase::FEATURE_TYPE_POINT:
+    case GEOM_POINT:
       GET_POINTS(get_pts::one_point, ForEachPointRef, assign_point)
       break;
 
-    case FeatureBase::FEATURE_TYPE_AREA:
+    case GEOM_AREA:
       GET_POINTS(filter_screenpts_adapter<area_tess_points>, ForEachTriangleExRef, assign_area)
       {
         // if area feature has any line-drawing-rules, than draw it like line
@@ -157,7 +161,7 @@ namespace fwork
       }
 
     draw_line:
-    case FeatureBase::FEATURE_TYPE_LINE:
+    case GEOM_LINE:
       GET_POINTS(filter_screenpts_adapter<path_points>, ForEachPointRef, assign_path)
       break;
     }

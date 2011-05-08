@@ -13,6 +13,8 @@
 #include "../base/start_mem_debug.hpp"
 
 
+using namespace feature;
+
 namespace stats
 {
   void FileContainerStatistic(string const & fName)
@@ -88,12 +90,12 @@ namespace stats
     cout << prefix << ": size = " << info.m_size << "; count = " << info.m_count << endl;
   }
 
-  string GetKey(FeatureBase::FeatureType type)
+  string GetKey(EGeomType type)
   {
     switch (type)
     {
-    case FeatureBase::FEATURE_TYPE_LINE: return "Line";
-    case FeatureBase::FEATURE_TYPE_AREA: return "Area";
+    case GEOM_LINE: return "Line";
+    case GEOM_AREA: return "Area";
     default: return "Point";
     }
   }

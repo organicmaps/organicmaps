@@ -194,7 +194,7 @@ public:
 
       if (m_maxWorldScale >= minScale)
       {
-        if (m_mergeCoastlines && fBase.GetFeatureType() == FeatureBase::FEATURE_TYPE_LINE)
+        if (m_mergeCoastlines && fBase.GetFeatureType() == feature::GEOM_LINE)
         {
           for (size_t i = 0; i < m_MergeTypes.size(); ++i)
           {

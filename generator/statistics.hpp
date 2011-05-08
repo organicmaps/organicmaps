@@ -51,7 +51,7 @@ namespace stats
 
   struct MapInfo
   {
-    set<GeneralInfoKey<FeatureBase::FeatureType> > m_byGeomType;
+    set<GeneralInfoKey<feature::EGeomType> > m_byGeomType;
     set<GeneralInfoKey<TypeTag> > m_byClassifType;
     set<GeneralInfoKey<uint32_t> > m_byPointsCount, m_byTrgCount;
 

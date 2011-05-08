@@ -16,14 +16,13 @@ public:
     if (m_Geometry.size() < 3)
       return false;
 
-    m_bArea = true;
+    m_Params.SetGeomType(feature::GEOM_AREA);
     return true;
   }
 
   uint32_t KeyType() const
   {
-    ASSERT_EQUAL ( m_Types.size(), 1, () );
-    return m_Types.front();
+    return m_Params.KeyType();
   }
 
   bool ReachedMaxPointsCount() const;

@@ -17,10 +17,11 @@ bool FeatureBuilder1Merger::ReachedMaxPointsCount() const
 void FeatureBuilder1Merger::AppendFeature(FeatureBuilder1Merger const & fb)
 {
   // check that both features are of linear type
-  CHECK(fb.m_bLinear && m_bLinear, ("Not linear feature"));
+  CHECK(fb.m_Params.GetGeomType() == feature::GEOM_LINE &&
+        m_Params.GetGeomType() == feature::GEOM_LINE, ("Not linear feature"));
 
   // check that classificator types are the same
-  CHECK_EQUAL(fb.m_Types, m_Types, ("Not equal types"));
+  //CHECK_EQUAL(fb.m_Types, m_Types, ("Not equal types"));
 
   // check last-first points equality
   //CHECK_EQUAL(m_Geometry.back(), fb.m_Geometry.front(), ("End and Start point are no equal"));

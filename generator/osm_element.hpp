@@ -28,9 +28,6 @@ protected:
   TEmitter & m_emitter;
   THolder & m_holder;
 
-  /// max possible number of types per feature
-  static const size_t max_number_of_types = 16;
-
   SecondPassParserBase(TEmitter & emitter, THolder & holder)
     : m_emitter(emitter), m_holder(holder)
   {
@@ -189,25 +186,6 @@ protected:
     list<vector<m2::PointD> > & GetHoles() { return m_holes.m_holes; }
   };
 
-  /// Feature description struct.
-  struct value_t
-  {
-    typedef vector<uint32_t> types_t;
-    types_t types;    ///< 1-n types, not empty
-    string name;      ///< 1-1 name, @todo 1-n names
-    int32_t layer;    ///< layer
-
-    value_t()
-    {
-      types.reserve(max_number_of_types);
-    }
-    bool IsValid() const { return !types.empty(); }
-    void Add(value_t const & v)
-    {
-      types.insert(types.end(), v.types.begin(), v.types.end());
-    }
-  };
-
   /// Feature types processor.
   class type_processor
   {
@@ -229,14 +207,14 @@ protected:
     uint64_t m_featureID;
 
     /// @param[out] Feature value as result.
-    value_t * m_val;
+    FeatureParams * m_val;
 
     /// Cache: relation id -> feature value (for fast feature parsing)
-    unordered_map<uint64_t, value_t> m_typeCache;
+    unordered_map<uint64_t, FeatureParams> m_typeCache;
 
   public:
     /// Start process new feature.
-    void Reset(uint64_t fID, value_t * val)
+    void Reset(uint64_t fID, FeatureParams * val)
     {
       m_featureID = fID;
       m_val = val;
@@ -245,10 +223,10 @@ protected:
     /// 1. "initial relation" process
     int operator() (uint64_t id)
     {
-      typename unordered_map<uint64_t, value_t>::const_iterator i = m_typeCache.find(id);
+      typename unordered_map<uint64_t, FeatureParams>::const_iterator i = m_typeCache.find(id);
       if (i != m_typeCache.end())
       {
-        m_val->Add(i->second);
+        m_val->AddTypes(i->second);
         return -1;  // continue process relations
       }
       return 0;     // read relation from file (see next operator)
@@ -268,14 +246,14 @@ protected:
       else
       {
         // process types of relation and add them to m_val
-        value_t val;
-        if (ftype::GetNameAndType(&e, val.types, val.name, val.layer))
+        FeatureParams val;
+        if (ftype::GetNameAndType(&e, val))
         {
           m_typeCache[id] = val;
-          m_val->Add(val);
+          m_val->AddTypes(val);
         }
         else
-          m_typeCache[id] = value_t();
+          m_typeCache[id] = FeatureParams();
       }
 
       // continue process relations
@@ -294,13 +272,13 @@ protected:
     ft.SetAreaAddHoles(processor.GetHoles());
   }
 
-  bool ParseType(XMLElement * p, uint64_t & id, value_t & fValue)
+  bool ParseType(XMLElement * p, uint64_t & id, FeatureParams & fValue)
   {
     VERIFY ( utils::to_uint64(p->attrs["id"], id),
       ("Unknown element with invalid id : ", p->attrs["id"]) );
 
     // try to get type from element tags
-    ftype::GetNameAndType(p, fValue.types, fValue.name, fValue.layer);
+    ftype::GetNameAndType(p, fValue);
 
     // try to get type from relations tags
     m_typeProcessor.Reset(id, &fValue);
@@ -316,9 +294,7 @@ protected:
       m_holder.ForEachRelationByWayCached(id, m_typeProcessor);
     }
 
-    // remove duplicating types
-    sort(fValue.types.begin(), fValue.types.end());
-    fValue.types.erase(unique(fValue.types.begin(), fValue.types.end()), fValue.types.end());
+    fValue.FinishAddingTypes();
 
     // unrecognized feature by classificator
     return fValue.IsValid();
@@ -421,12 +397,12 @@ protected:
   virtual void EmitElement(XMLElement * p)
   {
     uint64_t id;
-    typename base_type::value_t fValue;
+    FeatureParams fValue;
     if (!ParseType(p, id, fValue))
       return;
 
     // check, if we can make united feature
-    for (typename base_type::value_t::types_t::iterator i = fValue.types.begin(); i != fValue.types.end(); ++i)
+    for (typename FeatureParams::types_t::iterator i = fValue.types.begin(); i != fValue.types.end(); ++i)
       if (feature::NeedUnite(*i))
       {
         typename base_type::feature_builder_t ft;
@@ -452,21 +428,18 @@ class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
 {
   typedef SecondPassParserBase<TEmitter, THolder> base_type;
 
-  typedef typename base_type::value_t type_t;
   typedef typename base_type::feature_builder_t feature_t;
 
-  void InitFeature(type_t const & fValue, feature_t & ft)
+  void InitFeature(FeatureParams const & fValue, feature_t & ft)
   {
-    ft.AddName(fValue.name);
-    ft.AddTypes(fValue.types.begin(), fValue.types.end());
-    ft.AddLayer(fValue.layer);
+    ft.SetParams(fValue);
   }
 
 protected:
   virtual void EmitElement(XMLElement * p)
   {
     uint64_t id;
-    type_t fValue;
+    FeatureParams fValue;
     if (!ParseType(p, id, fValue))
       return;
 
@@ -475,7 +448,7 @@ protected:
 
     if (p->name == "node")
     {
-      if (!feature::IsDrawableLike(fValue.types, feature::fpoint))
+      if (!feature::IsDrawableLike(fValue.m_Types, feature::fpoint))
         return;
 
       m2::PointD pt;
@@ -491,8 +464,8 @@ protected:
 //        __debugbreak();
 //#endif
 
-      bool const isLine = feature::IsDrawableLike(fValue.types, feature::fline);
-      bool const isArea = feature::IsDrawableLike(fValue.types, feature::farea);
+      bool const isLine = feature::IsDrawableLike(fValue.m_Types, feature::fline);
+      bool const isArea = feature::IsDrawableLike(fValue.m_Types, feature::farea);
 
       if (!isLine && !isArea)
         return;
@@ -533,7 +506,7 @@ protected:
 //        __debugbreak();
 //#endif
 
-      if (!feature::IsDrawableLike(fValue.types, feature::farea))
+      if (!feature::IsDrawableLike(fValue.m_Types, feature::farea))
         return;
 
       // check, if this is our processable relation

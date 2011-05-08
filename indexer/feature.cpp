@@ -23,14 +23,11 @@
 #include "../base/start_mem_debug.hpp"
 
 
+using namespace feature;
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // FeatureBuilder1 implementation
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-FeatureBuilder1::FeatureBuilder1()
-: m_Layer(0), m_bPoint(false), m_bLinear(false), m_bArea(false)
-{
-}
 
 bool FeatureBuilder1::IsGeometryClosed() const
 {
@@ -40,7 +37,7 @@ bool FeatureBuilder1::IsGeometryClosed() const
 void FeatureBuilder1::SetCenter(m2::PointD const & p)
 {
   m_Center = p;
-  m_bPoint = true;
+  m_Params.SetGeomType(GEOM_POINT);
   m_LimitRect.Add(p);
 }
 
@@ -52,7 +49,7 @@ void FeatureBuilder1::AddPoint(m2::PointD const & p)
 
 void FeatureBuilder1::SetAreaAddHoles(list<points_t> const & holes)
 {
-  m_bArea = true;
+  m_Params.SetGeomType(GEOM_AREA);
   m_Holes.clear();
 
   if (holes.empty()) return;
@@ -68,47 +65,16 @@ void FeatureBuilder1::SetAreaAddHoles(list<points_t> const & holes)
   }
 }
 
-void FeatureBuilder1::AddName(string const & name)
-{
-  m_Name = name;
-}
-
-bool FeatureBuilder1::IsTypeExist(uint32_t t) const
-{
-  return (find(m_Types.begin(), m_Types.end(), t) != m_Types.end());
-}
-
-bool FeatureBuilder1::AssignType_SetDifference(vector<uint32_t> const & diffTypes)
-{
-  vector<uint32_t> src;
-  src.swap(m_Types);
-
-  sort(src.begin(), src.end());
-  set_difference(src.begin(), src.end(), diffTypes.begin(), diffTypes.end(), back_inserter(m_Types));
-
-  return !m_Types.empty();
-}
-
-void FeatureBuilder1::AddLayer(int32_t layer)
-{
-  int const bound = 10;
-  if (layer < -bound) layer = -bound;
-  else if (layer > bound) layer = bound;
-  m_Layer = layer;
-}
-
 FeatureBase FeatureBuilder1::GetFeatureBase() const
 {
   CHECK ( CheckValid(), () );
 
   FeatureBase f;
-  f.SetHeader(GetHeader());
+  f.SetHeader(m_Params.GetHeader());
 
-  f.m_Layer = m_Layer;
-  for (size_t i = 0; i < m_Types.size(); ++i)
-    f.m_Types[i] = m_Types[i];
+  f.m_Params = m_Params;
+  memcpy(f.m_Types, &m_Params.m_Types[0], sizeof(uint32_t) * m_Params.m_Types.size());
   f.m_LimitRect = m_LimitRect;
-  f.m_Name = m_Name;
 
   f.m_bTypesParsed = f.m_bCommonParsed = true;
 
@@ -149,20 +115,40 @@ namespace
   }
 }
 
-bool FeatureBuilder1::operator == (FeatureBuilder1 const & fb) const
+bool FeatureBuilder1::PreSerialize()
 {
-  if (m_Types != fb.m_Types ||
-      m_Layer != fb.m_Layer ||
-      m_Name != fb.m_Name ||
-      m_bPoint != fb.m_bPoint ||
-      m_bLinear != fb.m_bLinear ||
-      m_bArea != fb.m_bArea)
+  if (!m_Params.IsValid()) return false;
+
+  switch (m_Params.GetGeomType())
   {
+  case GEOM_POINT:
+    m_Params.ref = string();
+    m_Params.house.Clear();
+    break;
+  case GEOM_LINE:
+    m_Params.rank = 0;
+    m_Params.house.Clear();
+    break;
+  case GEOM_AREA:
+    m_Params.rank = 0;
+    m_Params.ref = string();
+    break;
+  default:
     return false;
   }
 
-  if (m_bPoint && !is_equal(m_Center, fb.m_Center))
+  return true;
+}
+
+bool FeatureBuilder1::operator == (FeatureBuilder1 const & fb) const
+{
+  if (!(m_Params == fb.m_Params)) return false;
+
+  if (m_Params.GetGeomType() == GEOM_POINT &&
+      !is_equal(m_Center, fb.m_Center))
+  {
     return false;
+  }
 
   if (!is_equal(m_LimitRect, fb.m_LimitRect))
     return false;
@@ -184,17 +170,15 @@ bool FeatureBuilder1::operator == (FeatureBuilder1 const & fb) const
 
 bool FeatureBuilder1::CheckValid() const
 {
-  CHECK(!m_Types.empty() && m_Types.size() <= m_maxTypesCount, ());
+  CHECK(m_Params.CheckValid(), ());
 
-  CHECK(m_Layer >= -10 && m_Layer <= 10, ());
+  EGeomType const type = m_Params.GetGeomType();
 
-  CHECK(m_bPoint || m_bLinear || m_bArea, ());
+  CHECK(type != GEOM_LINE || m_Geometry.size() >= 2, ());
 
-  CHECK(!m_bLinear || m_Geometry.size() >= 2, ());
+  CHECK(type != GEOM_AREA || m_Geometry.size() >= 3, ());
 
-  CHECK(!m_bArea || m_Geometry.size() >= 3, ());
-
-  CHECK(m_Holes.empty() || m_bArea, ());
+  CHECK(m_Holes.empty() || type == GEOM_AREA, ());
 
   for (list<points_t>::const_iterator i = m_Holes.begin(); i != m_Holes.end(); ++i)
     CHECK(i->size() >= 3, ());
@@ -202,47 +186,13 @@ bool FeatureBuilder1::CheckValid() const
   return true;
 }
 
-uint8_t FeatureBuilder1::GetHeader() const
-{
-  uint8_t header = static_cast<uint8_t>(m_Types.size());
-
-  if (!m_Name.empty())
-    header |= FeatureBase::HEADER_HAS_NAME;
-
-  if (m_Layer != 0)
-    header |= FeatureBase::HEADER_HAS_LAYER;
-
-  if (m_bPoint)
-    header |= FeatureBase::HEADER_HAS_POINT;
-
-  if (m_bLinear)
-    header |= FeatureBase::HEADER_IS_LINE;
-
-  if (m_bArea)
-    header |= FeatureBase::HEADER_IS_AREA;
-
-  return header;
-}
-
 void FeatureBuilder1::SerializeBase(buffer_t & data, serial::CodingParams const & params) const
 {
   PushBackByteSink<buffer_t> sink(data);
 
-  WriteToSink(sink, GetHeader());
+  m_Params.Write(sink);
 
-  for (size_t i = 0; i < m_Types.size(); ++i)
-    WriteVarUint(sink, m_Types[i]);
-
-  if (m_Layer != 0)
-    WriteVarInt(sink, m_Layer);
-
-  if (!m_Name.empty())
-  {
-    WriteVarUint(sink, m_Name.size() - 1);
-    sink.Write(&m_Name[0], m_Name.size());
-  }
-
-  if (m_bPoint)
+  if (m_Params.GetGeomType() == GEOM_POINT)
     WriteVarUint(sink, EncodeDelta(PointD2PointU(m_Center.x, m_Center.y, params.GetCoordBits()),
                                    params.GetBasePoint()));
 }
@@ -257,10 +207,12 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
 
   PushBackByteSink<buffer_t> sink(data);
 
-  if (m_bLinear || m_bArea)
+  EGeomType const type = m_Params.GetGeomType();
+
+  if (type != GEOM_POINT)
     serial::SaveOuterPath(m_Geometry, serial::CodingParams(), sink);
 
-  if (m_bArea)
+  if (type == GEOM_AREA)
   {
     WriteVarUint(sink, uint32_t(m_Holes.size()));
 
@@ -295,13 +247,15 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
 
   ArrayByteSource src(f.DataPtr() + f.m_Header2Offset);
 
-  if (m_bLinear || m_bArea)
+  EGeomType const type = m_Params.GetGeomType();
+
+  if (type != GEOM_POINT)
   {
     serial::LoadOuterPath(src, serial::CodingParams(), m_Geometry);
     CalcRect(m_Geometry, m_LimitRect);
   }
 
-  if (m_bArea)
+  if (type == GEOM_AREA)
   {
     uint32_t const count = ReadVarUint<uint32_t>(src);
     for (uint32_t i = 0; i < count; ++i)
@@ -336,10 +290,10 @@ bool FeatureBuilder2::PreSerialize(buffers_holder_t const & data)
 {
   // make flags actual before header serialization
   if (data.m_ptsMask == 0 && data.m_innerPts.empty())
-    m_bLinear = false;
+    m_Params.RemoveGeomType(GEOM_LINE);
 
   if (data.m_trgMask == 0 && data.m_innerTrg.empty())
-    m_bArea = false;
+    m_Params.RemoveGeomType(GEOM_AREA);
 
   // we don't need empty features without geometry
   return base_type::PreSerialize();
@@ -399,14 +353,16 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
 
   BitSink< PushBackByteSink<buffer_t> > bitSink(sink);
 
-  if (m_bLinear)
+  EGeomType const type = m_Params.GetGeomType();
+
+  if (type == GEOM_LINE)
   {
     bitSink.Write(ptsCount, 4);
     if (ptsCount == 0)
       bitSink.Write(data.m_ptsMask, 4);
   }
 
-  if (m_bArea)
+  if (type == GEOM_AREA)
   {
     bitSink.Write(trgCount, 4);
     if (trgCount == 0)
@@ -415,7 +371,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
 
   bitSink.Finish();
 
-  if (m_bLinear)
+  if (type == GEOM_LINE)
   {
     if (ptsCount > 0)
     {
@@ -440,7 +396,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
     }
   }
 
-  if (m_bArea)
+  if (type == GEOM_AREA)
   {
     if (trgCount > 0)
       serial::SaveInnerTriangles(data.m_innerTrg, params, sink);
@@ -467,8 +423,7 @@ void FeatureBase::Deserialize(buffer_t & data, uint32_t offset, serial::CodingPa
   m_CommonOffset = m_Header2Offset = 0;
   m_bTypesParsed = m_bCommonParsed = false;
 
-  m_Layer = 0;
-  m_Name.clear();
+  m_Params = FeatureParamsBase();
   m_LimitRect = m2::RectD::GetEmptyRect();
 }
 
@@ -506,16 +461,11 @@ void FeatureBase::ParseCommon() const
 
   uint8_t const h = Header();
 
-  if (h & HEADER_HAS_LAYER)
-    m_Layer = ReadVarInt<int32_t>(source);
+  EGeomType const type = GetFeatureType();
 
-  if (h & HEADER_HAS_NAME)
-  {
-    m_Name.resize(ReadVarUint<uint32_t>(source) + 1);
-    source.Read(&m_Name[0], m_Name.size());
-  }
+  m_Params.Read(source, h, type);
 
-  if (h & HEADER_HAS_POINT)
+  if (type == GEOM_POINT)
   {
     CoordPointT center = PointU2PointD(DecodeDelta(ReadVarUint<uint64_t>(source),
                                                    m_CodingParams.GetBasePoint()),
@@ -539,14 +489,13 @@ string FeatureBase::DebugString() const
   ASSERT(m_bCommonParsed, ());
 
   string res("FEATURE: ");
-  res +=  "'" + m_Name + "' ";
 
   for (size_t i = 0; i < GetTypesCount(); ++i)
     res += "Type:" + debug_print(m_Types[i]) + " ";
 
-  res += "Layer:" + debug_print(m_Layer) + " ";
+  res += m_Params.DebugString();
 
-  if (Header() & HEADER_HAS_POINT)
+  if (GetFeatureType() == GEOM_POINT)
     res += "Center:" + debug_print(m_Center) + " ";
 
   return res;
@@ -556,23 +505,14 @@ void FeatureBase::InitFeatureBuilder(FeatureBuilder1 & fb) const
 {
   ParseAll();
 
-  fb.AddTypes(m_Types, m_Types + GetTypesCount());
-  fb.AddLayer(m_Layer);
-  fb.AddName(m_Name);
+  FeatureParams params(m_Params);
+  params.AssignTypes(m_Types, m_Types + GetTypesCount());
+  params.SetGeomType(GetFeatureType());
 
-  uint8_t const h = Header();
+  fb.SetParams(params);
 
-  if (h & HEADER_HAS_POINT)
+  if (GetFeatureType() == GEOM_POINT)
     fb.SetCenter(m_Center);
-
-  if (h & HEADER_IS_LINE)
-    fb.SetLinear();
-
-  if (h & HEADER_IS_AREA)
-  {
-    list<vector<m2::PointD> > l;
-    fb.SetAreaAddHoles(l);
-  }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -674,11 +614,9 @@ bool FeatureType::IsEmptyGeometry(int scale) const
 
   switch (GetFeatureType())
   {
-  case FEATURE_TYPE_AREA: return m_Triangles.empty();
-  case FEATURE_TYPE_LINE: return m_Points.empty();
-  default:
-    ASSERT ( Header() & HEADER_HAS_POINT, () );
-    return false;
+  case GEOM_AREA: return m_Triangles.empty();
+  case GEOM_LINE: return m_Points.empty();
+  default: return false;
   }
 }
 
@@ -686,7 +624,7 @@ m2::RectD FeatureType::GetLimitRect(int scale) const
 {
   ParseAll(scale);
 
-  if (m_Triangles.empty() && m_Points.empty() && (Header() & HEADER_HAS_POINT) == 0)
+  if (m_Triangles.empty() && m_Points.empty() && (GetFeatureType() != GEOM_POINT))
   {
     // This function is called during indexing, when we need
     // to check visibility according to feature sizes.
@@ -751,10 +689,11 @@ void FeatureType::ParseHeader2() const
 
   uint8_t ptsCount, ptsMask, trgCount, trgMask;
 
-  uint8_t const commonH = Header();
   BitSource bitSource(DataPtr() + m_Header2Offset);
 
-  if (commonH & HEADER_IS_LINE)
+  EGeomType const type = GetFeatureType();
+
+  if (type == GEOM_LINE)
   {
     ptsCount = bitSource.Read(4);
     if (ptsCount == 0)
@@ -765,7 +704,7 @@ void FeatureType::ParseHeader2() const
     }
   }
 
-  if (commonH & HEADER_IS_AREA)
+  if (type == GEOM_AREA)
   {
     trgCount = bitSource.Read(4);
     if (trgCount == 0)
@@ -774,7 +713,7 @@ void FeatureType::ParseHeader2() const
 
   ArrayByteSource src(bitSource.RoundPtr());
 
-  if (commonH & HEADER_IS_LINE)
+  if (type == GEOM_LINE)
   {
     if (ptsCount > 0)
     {
@@ -797,7 +736,7 @@ void FeatureType::ParseHeader2() const
       ReadOffsets(src, ptsMask, m_ptsOffsets);
   }
 
-  if (commonH & HEADER_IS_AREA)
+  if (type == GEOM_AREA)
   {
     if (trgCount > 0)
     {
@@ -832,7 +771,7 @@ uint32_t FeatureType::ParseGeometry(int scale) const
     ParseHeader2();
 
   uint32_t sz = 0;
-  if (Header() & HEADER_IS_LINE)
+  if (GetFeatureType() == GEOM_LINE)
   {
     if (m_Points.empty())
     {
@@ -885,7 +824,7 @@ uint32_t FeatureType::ParseTriangles(int scale) const
     ParseHeader2();
 
   uint32_t sz = 0;
-  if (Header() & HEADER_IS_AREA)
+  if (GetFeatureType() == GEOM_AREA)
   {
     if (m_Triangles.empty())
     {
