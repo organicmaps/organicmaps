@@ -101,6 +101,12 @@ inline size_t SizeAligned(size_t size, size_t align)
   return size + (static_cast<size_t>(-static_cast<ptrdiff_t>(size)) & (align - 1));
 }
 
+template <typename T>
+bool IsIntersect(T const & x0, T const & x1, T const & x2, T const & x3)
+{
+  return !((x1 < x2) || (x3 < x0));
+}
+
 // Computes x^n.
 template <typename T> inline T PowUint(T x, uint64_t n)
 {

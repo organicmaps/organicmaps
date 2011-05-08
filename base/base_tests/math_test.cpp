@@ -123,4 +123,15 @@ UNIT_TEST(TEST_FLOAT_DOUBLE_EQUAL_macros)
   TEST_NOT_ALMOST_EQUAL(dx, 2.0, ());
 }
 
+UNIT_TEST(IsIntersect_Intervals)
+{
+  TEST(my::IsIntersect(0, 100, 100, 200), ());
+  TEST(!my::IsIntersect(0, 100, 150, 200), ());
+  TEST(my::IsIntersect(0, 100, 50, 150), ());
+  TEST(my::IsIntersect(0, 100, 50, 80), ());
+  TEST(my::IsIntersect(0, 100, -50, 50), ());
+  TEST(my::IsIntersect(0, 100, -50, 0), ());
+  TEST(!my::IsIntersect(0, 100, -50, -20), ());
+}
+
 #include "../../base/stop_mem_debug.hpp"

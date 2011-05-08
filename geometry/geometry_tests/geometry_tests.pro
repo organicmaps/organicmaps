@@ -34,3 +34,4 @@ SOURCES += \
   region_test.cpp \
   rect_test.cpp \
   robust_test.cpp \
+  aarect_test.cpp

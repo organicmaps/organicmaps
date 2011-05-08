@@ -31,3 +31,4 @@ HEADERS += \
   polygon.hpp \
   region2d.hpp \
   robust_orientation.hpp \
+    aa_rect2d.hpp
