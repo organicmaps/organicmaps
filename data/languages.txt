@@ -1,0 +1,294 @@
+default|Native for each country
+en|English
+ja|日本語
+fr|Français
+ko_rm|한국어 (Rm)
+ar|العربية
+de|Deutsch
+ru|Русский
+sv|Svenska
+zh|中文
+fi|Suomi
+ko|한국어
+ka|ქართული
+he|עברית
+be|Беларуская
+nl|Nederlands
+ga|Gaeilge
+ja_rm|日本語 (Rm)
+el|Ελληνικά
+it|Italiano
+es|Español
+th|ไทย
+zh_pinyin|中文 (Pinyin)
+ca|Català
+cy|Cymraeg
+hu|Magyar
+hsb|Upper Sorbian
+sr|Српски
+fa|فارسی
+eu|Euskara
+pl|Polski
+br|Breton
+uk|Українська
+sl|Slovenščina
+ro|Română
+sq|Shqipe
+am|አማርኛ
+fy|Western Frisian
+gd|Scottish Gaelic
+cs|Čeština
+sk|Slovenský
+af|Afrikaans
+hr|Hrvatski
+hy|Հայերէն
+tr|Türkçe
+kn|ಕನ್ನಡ
+pt|Português
+lt|Lietuvių
+lb|Luxembourgish
+bg|Български
+eo|Esperanto
+kk|Қазақ
+la|Latin
+et|Eesti
+vi|Tiếng Việt
+mn|Mongolian
+mk|Македонски
+lv|Latviešu
+fur|Friulian
+gsw|Swiss German
+ja_kana|日本語 (カタカナ)
+is|Íslenska
+hi|हिन्दी
+ku|Kurdish
+no|Norsk
+gl|Galego
+da|Dansk
+gv|Gaelg
+ur|اردو
+az|Azərbaycanca
+dsb|Lower Sorbian
+zh_py|中文 (巴拉圭)
+oc|Occitan
+tg|Tajik
+ast|Asturian
+ta|தமிழ்
+tt|Tatar
+id|Bahasa Indonesia
+tl|Tagalog
+ba|Bashkir
+mr|मराठी
+my|Burmese
+uz|Ўзбек
+haw|ʻŌlelo Hawaiʻi
+ky|Kirghiz
+se|Northern Sami
+bn|বাংলা
+li|Limburgish
+nn|Nynorsk
+mt|Malti
+ht|Haitian
+rm|Rhaeto-Romance
+wa|Walloon
+te|తెలుగు
+bo|Tibetan
+ml|മലയാളം
+nds|Low German
+sw|Kiswahili
+lo|Lao
+lo_rm|Lao (Rm)
+kw|Kernewek
+ug|Uighur
+yi|Yiddish
+jv|Javanese
+zh_pyt|中文 (Pyt)
+bm|Bambara
+pa|ਪੰਜਾਬੀ
+ak|Akan
+bs|Bosnian
+os|Ossetic
+grc|Ancient Greek
+scn|Sicilian
+qu|Quechua
+km|ភាសាខ្មែរ
+an|Aragonese
+csb|Kashubian
+arc|Aramaic
+ne|नेपाली
+sh|Srpsko-Hrvatski
+ms|Bahasa Melayu
+nv|Navajo
+cv|Chuvash
+kv|Komi
+ab|Abkhazian
+lad|Ladino
+ee|Ewe
+ln|Lingala
+sa|Sanskrit
+io|Ido
+ps|پښتو
+wo|Wolof
+nah|Nahuatl
+sah|Yakut
+ce|Chechen
+vo|Volapük
+ang|Old English
+crh|Crimean Turkish
+el_latin|Ελληνικά (Latin)
+ie|Interlingue
+bua|Buriat
+ia|Interlingua
+pam|Pampanga
+ceb|Cebuano
+fo|Føroyskt
+new|Newari
+war|Waray
+so|Soomaali
+dv|Divehi
+gu|ગુજરાતી
+nb|Norsk Bokmål
+syc|Classical Syriac
+mg|Malagasy
+ch|Chamorro
+iu|Inuktitut
+tk|Turkmen
+udm|Udmurt
+ilo|Iloko
+mi|Maori
+sco|Scots
+frr|Northern Frisian
+yo|Yoruba
+gn|Guarani
+lu|Luba-Katanga
+sc|Sardinian
+ale|Aleut
+jbo|Lojban
+as|অসমীয়া
+na|Nauru
+ti|ትግርኛ
+tpi|Tok Pisin
+ltz|Luxembourgish
+si|සිංහල
+sr_lat|Српски (Lat)
+kg|Kongo
+ks|Kashmiri
+nap|Neapolitan
+tet|Tetum
+cu|Church Slavic
+dz|Dzongkha
+ik|Inupiaq
+kab|Kabyle
+sm|Samoan
+su|Sundanese
+ja_furigana|日本語 (Furigana)
+xal|Kalmyk
+ace|Achinese
+kl|Kalaallisut
+lat|Latin
+pap|Papiamento
+chm|Mari
+co|Corsican
+mdf|Moksha
+tn|Tswana
+ber|Berber
+srn|Sranan Tongo
+xh|Xhosa
+zu|Zulu
+chr|Cherokee
+kr|Kanuri
+roa|Romance Language
+av|Avaric
+en_rm|English (Rm)
+ha|Haoussa
+krl|Karelian
+sma|Southern Sami
+ts|Tsonga
+za|Zhuang
+fry|Western Frisian
+mus|Creek
+cr|Cree
+lg|Ganda
+sd|Sindhi
+smi|Sami Language
+ss|Swati
+gez|Geez
+to|Tonga
+el_en|Ελληνικά (En)
+eng|English
+inh|Ingush
+mwl|Mirandese
+myv|Erzya
+or|ଓଡ଼ିଆ
+orm|Oromoo
+rw|Kinyarwanda
+sn|Shona
+st|Southern Sotho
+ty|Tahitian
+ady|Adyghe
+aus|Australian Language
+che|Chechen
+en_old|English (Old)
+kaa|Kara-Kalpak
+kbd|Kabardian
+ko_rr|한국어 (Rr)
+krc|Karachay-Balkar
+kum|Kumyk
+lez|Lezghian
+lit|Lietuvių
+pag|Pangasinan
+pt_br|Português (Brasil)
+rn|Rundi
+rup|Aromanian
+sms|Skolt Sami
+ve|Venda
+zh_|中文
+aa|Afar
+ava|Avaric
+bat|Baltic Language
+bi|Bislama
+bis|Bislama
+bug|Buginese
+cat|Català
+cop|Coptic
+cs_ascii|Čeština (Ascii)
+de_old|Deutsch (Old)
+en_pinyin|English (Pinyin)
+en_rome|English (Rome)
+en_xx|English (Xx)
+fil|Filipino
+fin|Suomi
+fj|Fijian
+gle|Gaeilge
+ja_ra|日本語 (Ra)
+ja_reading|日本語 (Reading)
+khi|Khoisan Language
+kor|한국어
+lua|Luba-Lulua
+mis|Miscellaneous Language
+mo|Moldavian
+niu|Niuean
+non|Old Norse
+om_old|Oromoo (Old)
+oss|Ossetic
+ota|Ottoman Turkish
+pol|Polski
+rap|Rapanui
+rar|Rarotongan
+run|Rundi
+rus|Русский
+smn|Inari Sami
+snk|Soninke
+srp|Српски
+ssa|Nilo-Saharan Language
+swe|Svenska
+tmh|Tamashek
+tyv|Tuvinian
+uig|Uighur
+wen|Sorbian Language
+yid|Yiddish
+zh_hk|中文 (中華人民共和國香港特別行政區)
+zh_pi|中文 (Pi)
+zh_piny|中文 (Piny)
+zh_tw|中文 (臺灣)
+zha|Zhuang
