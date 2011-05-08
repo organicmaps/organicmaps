@@ -15,6 +15,11 @@ class StringNumericOptimal
   static const uint8_t numeric_bit = 1;
 
 public:
+  inline bool operator== (StringNumericOptimal const & rhs) const
+  {
+    return m_s == rhs.m_s;
+  }
+
   inline void Set(string const & s)
   {
     CHECK ( !s.empty(), () );
@@ -31,9 +36,11 @@ public:
     CHECK ( !m_s.empty(), () );
   }
 
+  inline void Clear() { m_s.clear(); }
+  inline bool IsEmpty() const { return m_s.empty(); }
   inline string Get() const { return m_s; }
 
-  template <class TSink> void Write(TSink & sink)
+  template <class TSink> void Write(TSink & sink) const
   {
     int n;
     if (utils::to_int(m_s, n) && n >= 0)

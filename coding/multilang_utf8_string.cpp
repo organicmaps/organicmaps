@@ -7,10 +7,11 @@ char StringUtf8Multilang::GetLangIndex(string const & lang) const
   char const * arr[] = { "def",
                          "en", "ja", "fr", "ko_rm", "ar", "de", "ru", "sv", "zh", "fi",
                          "ko", "ka", "he", "be", "nl", "ga", "ja_rm", "el", "it", "es",
-                         "th", "statcan_rbuid", "zh_pinyin", "ca", "cy", "hu", "hsb", "sr", "fa", "eu",
-                         "pl", "br", "uk", "sl", "ro", "sq", "am", "fy", "gd", "cs",
-                         "sk", "af", "hr", "hy", "tr", "kn", "pt", "lt", "lb", "bg",
-                         "eo", "kk", "la", "et", "vi", "mn", "mk", "lv", "fur", "gsw" };
+                         "th", "zh_pinyin", "ca", "cy", "hu", "hsb", "sr", "fa", "eu", "pl",
+                         "br", "uk", "sl", "ro", "sq", "am", "fy", "gd", "cs", "sk",
+                         "af", "hr", "hy", "tr", "kn", "pt", "lt", "lb", "bg", "eo",
+                         "kk", "la", "et", "vi", "mn", "mk", "lv", "fur", "gsw", "ja_kana",
+                         "is", "hi", "ku" };
 
   STATIC_ASSERT(ARRAY_SIZE(arr) <= 64);
 
