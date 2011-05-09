@@ -161,7 +161,7 @@ public:
   newInfo.m_x = newHeading.x;
   newInfo.m_y = newHeading.y;
   newInfo.m_z = newHeading.z;
-  newInfo.m_timestamp = [location.timestamp timeIntervalSince1970];
+  newInfo.m_timestamp = [newHeading.timestamp timeIntervalSince1970];
   m_service->OnHeadingUpdate(newInfo);
 }
 #endif
