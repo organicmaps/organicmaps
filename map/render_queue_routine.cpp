@@ -174,10 +174,10 @@ void RenderQueueRoutine::getUpdateAreas(
   }
   else
   {
-    areas.push_back(newRect);
+//    areas.push_back(newRect);
 
-/*    int rectW = (w + 9) / 5;
-    int rectH = (h + 9) / 5;
+    int rectW = (newRect.SizeX() + 9) / 5;
+    int rectH = (newRect.SizeY() + 9) / 5;
     m2::RectI r( 2 * rectW, 2 * rectH, 3 * rectW, 3 * rectH);
     areas.push_back(r);
     areas.push_back(m2::Offset(r, -rectW, 0));
@@ -204,7 +204,7 @@ void RenderQueueRoutine::getUpdateAreas(
     areas.push_back(m2::Offset(r, 0, 2*rectH));
     areas.push_back(m2::Offset(r, -rectW, 2*rectH));
     areas.push_back(m2::Offset(r, -2*rectW, 2*rectH));
-*/
+
   }
 }
 
