@@ -18,6 +18,7 @@ namespace feature
   bool IsDrawableForIndex(FeatureBase const & f, int level);
   int MinDrawableScaleForFeature(FeatureBase const & f);
 
-
   int GetDrawRule(FeatureBase const & f, int level, vector<drule::Key> & keys, string & names);
+
+  bool IsHighway(vector<uint32_t> const & types);
 }

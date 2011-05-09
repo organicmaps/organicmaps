@@ -137,9 +137,7 @@ namespace fwork
 
     m_renderState->m_isEmptyModelCurrent = false;
 
-    string utf8name;
-    f.GetName(0, utf8name);
-    shared_ptr<di::DrawInfo> ptr(new di::DrawInfo(utf8name));
+    shared_ptr<di::DrawInfo> ptr(new di::DrawInfo(f.GetDrawableName(0)));
 
     using namespace get_pts;
 

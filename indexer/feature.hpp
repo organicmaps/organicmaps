@@ -382,6 +382,8 @@ public:
   /// For test cases only.
   string DebugString(int scale) const;
 
+  string GetDrawableName(char lang) const;
+
   /// @name Statistic functions.
   //@{
   void ParseBeforeStatistic() const

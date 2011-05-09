@@ -122,17 +122,28 @@ bool FeatureBuilder1::PreSerialize()
   switch (m_Params.GetGeomType())
   {
   case GEOM_POINT:
+    // If we don't have name and have house number, than replace them.
+    if (m_Params.name.IsEmpty() && !m_Params.house.IsEmpty())
+      m_Params.name.AddString(0, m_Params.house.Get());
+
     m_Params.ref = string();
     m_Params.house.Clear();
     break;
+
   case GEOM_LINE:
+    // We need refs only for road numbers.
+    if (!feature::IsHighway(m_Params.m_Types))
+      m_Params.ref = string();
+
     m_Params.rank = 0;
     m_Params.house.Clear();
     break;
+
   case GEOM_AREA:
     m_Params.rank = 0;
     m_Params.ref = string();
     break;
+
   default:
     return false;
   }
@@ -885,4 +896,23 @@ FeatureType::geom_stat_t FeatureType::GetTrianglesSize(int scale) const
     sz = m_InnerStats.m_Strips;
 
   return geom_stat_t(sz, m_Triangles.size());
+}
+
+string FeatureType::GetDrawableName(char lang) const
+{
+  uint8_t const h = Header();
+  string res;
+
+  if ((h & feature::HEADER_HAS_NAME) || (h & feature::HEADER_HAS_ADDINFO))
+  {
+    if (!m_bCommonParsed)
+      ParseCommon();
+
+    GetName(lang, res);
+
+    if (res.empty() && GetFeatureType() == GEOM_AREA)
+      res = m_Params.house.Get();
+  }
+
+  return res;
 }

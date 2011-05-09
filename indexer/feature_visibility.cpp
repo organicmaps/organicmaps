@@ -239,4 +239,21 @@ int MinDrawableScaleForFeature(FeatureBase const & f)
   return -1;
 }
 
+bool IsHighway(vector<uint32_t> const & types)
+{
+  ClassifObject const * pRoot = classif().GetRoot();
+
+  for (size_t i = 0; i < types.size(); ++i)
+  {
+    uint8_t v;
+    CHECK(ftype::GetValue(types[i], 0, v), (types[i]));
+    {
+      if (pRoot->GetObject(v)->GetName() == "highway")
+        return true;
+    }
+  }
+
+  return false;
+}
+
 }
