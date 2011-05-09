@@ -23,7 +23,8 @@ HEADERS += \
     information_display.hpp \
     settings.hpp \
     location_state.hpp \
-    benchmark_provider.hpp
+    benchmark_provider.hpp \
+    languages.hpp \
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -36,7 +37,8 @@ SOURCES += \
     information_display.cpp \
     settings.cpp \
     location_state.cpp \
-    benchmark_provider.cpp
+    benchmark_provider.cpp \
+    languages.cpp \
 
 !iphone*:!bada* {
   HEADERS += qgl_render_context.hpp
