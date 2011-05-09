@@ -18,8 +18,10 @@ public:
   struct Trg
   {
     m2::PointD m_A, m_B, m_C;
-    Trg(m2::PointU a, m2::PointU b, m2::PointU c) : m_A(a), m_B(b), m_C(c) {}
+    Trg(m2::PointD const & a, m2::PointD const & b, m2::PointD const & c)
+      : m_A(a), m_B(b), m_C(c) {}
   };
+
   vector<m2::PointD> m_Polyline;
   vector<Trg> m_Trg;
 
