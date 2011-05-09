@@ -92,8 +92,8 @@ void path_points::best_filtration(m2::PointD const & pt)
       if ((m_startLength >= m_length) && (m_startLength < m_length + segLen))
         m_startLength = m_length;
 
-      if ((m_endLength >= m_length) && (m_endLength < m_length + segLen))
-        m_endLength = m_length + curr.Length(prev);
+      if ((m_endLength > m_length) && (m_endLength <= m_length + segLen))
+        m_endLength = m_length + segLen;
     }
 
     if ((m_length >= m_startLength) && (m_endLength >= m_length + segLen))
