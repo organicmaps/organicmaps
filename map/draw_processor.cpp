@@ -14,13 +14,13 @@ using namespace di;
 
 m2::PointD base::g2p(m2::PointD const & pt) const
 {
-  return m_convertor.GtoP(pt);
+  return m_convertor->GtoP(pt);
 }
 
-base_screen::base_screen(ScreenBase const & convertor, m2::RectD const & rect)
-: base(convertor)
+base_screen::base_screen(params const & p)
+: base(p)
 {
-  m_convertor.GtoP(rect, m_rect);
+  m_convertor->GtoP(*p.m_rect, m_rect);
 }
 
 void one_point::operator() (CoordPointT const & p)
@@ -29,7 +29,7 @@ void one_point::operator() (CoordPointT const & p)
 
   m2::PointD pt(make_point(p));
 
-  if (m_rect.IsPointInside(pt))
+  if (m_rect->IsPointInside(pt))
   {
     m_exist = true;
     m_point = convert_point(pt);
@@ -55,7 +55,7 @@ void path_points::EndPL()
 
 void path_points::simple_filtration(m2::PointD const & pt)
 {
-  if (m_prevPt)
+  if (m_hasPrevPt)
   {
     if (!m2::RectD(m_prev, pt).IsIntersect(m_rect))
       m_newPL = true;
@@ -71,7 +71,7 @@ void path_points::simple_filtration(m2::PointD const & pt)
   }
   else
   {
-    m_prevPt = true;
+    m_hasPrevPt = true;
     m_length = 0.0;
   }
 
@@ -80,32 +80,54 @@ void path_points::simple_filtration(m2::PointD const & pt)
 
 void path_points::best_filtration(m2::PointD const & pt)
 {
-  if (m_prevPt)
+  if (m_hasPrevPt)
   {
     m2::PointD prev = m_prev;
     m2::PointD curr = pt;
 
-    if (!m2::Intersect(m_rect, prev, curr))
-      m_newPL = true;
-    else
-    {
-      if (!equal_glb_pts(prev, m_prev))
-        m_newPL = true;
+    double segLen = curr.Length(prev);
 
+    if ((m_startLength != 0) && (m_endLength != 0))
+    {
+      if ((m_startLength >= m_length) && (m_startLength < m_length + segLen))
+        m_startLength = m_length;
+
+      if ((m_endLength >= m_length) && (m_endLength < m_length + segLen))
+        m_endLength = m_length + curr.Length(prev);
+    }
+
+    if ((m_length >= m_startLength) && (m_endLength >= m_length + segLen))
+    {
+      /// we're in the dead zone. add without clipping
       if (m_newPL)
         StartPL(prev);
 
       push_point(curr);
-
-      if (!equal_glb_pts(curr, pt))
+    }
+    else
+    {
+      if (!m2::Intersect(m_rect, prev, curr))
         m_newPL = true;
+      else
+      {
+        if (!equal_glb_pts(prev, m_prev))
+          m_newPL = true;
+
+        if (m_newPL)
+          StartPL(prev);
+
+        push_point(curr);
+
+        if (!equal_glb_pts(curr, pt))
+          m_newPL = true;
+      }
     }
 
     m_length += m_prev.Length(pt);
   }
   else
   {
-    m_prevPt = true;
+    m_hasPrevPt = true;
     m_length = 0.0;
   }
 

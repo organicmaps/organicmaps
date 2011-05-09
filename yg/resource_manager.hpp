@@ -96,6 +96,7 @@ namespace yg
 
     shared_ptr<GlyphInfo> const getGlyph(GlyphKey const & key);
     GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
+    GlyphCache * getGlyphCache();
 
     void addFonts(vector<string> const & fontNames);
 

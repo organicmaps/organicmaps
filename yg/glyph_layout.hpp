@@ -1,6 +1,7 @@
 #pragma once
 
 #include "defines.hpp"
+#include "../geometry/rect2d.hpp"
 
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
@@ -53,5 +54,7 @@ namespace yg
     size_t lastVisible() const;
 
     vector<GlyphLayoutElem> const & entries() const;
+
+    m2::RectD const limitRect() const;
   };
 }

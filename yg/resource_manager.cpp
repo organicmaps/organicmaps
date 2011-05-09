@@ -203,6 +203,11 @@ namespace yg
     return m_glyphCache.getGlyphMetrics(key);
   }
 
+  GlyphCache * ResourceManager::getGlyphCache()
+  {
+    return &m_glyphCache;
+  }
+
   void ResourceManager::addFonts(vector<string> const & fontNames)
   {
     m_glyphCache.addFonts(fontNames);

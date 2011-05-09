@@ -9,6 +9,8 @@
 #include "../std/list.hpp"
 #include "../std/limits.hpp"
 
+#include "../yg/glyph_cache.hpp"
+
 class ScreenBase;
 
 namespace get_pts
@@ -23,7 +25,7 @@ namespace get_pts
   class base
   {
   protected:
-    ScreenBase const & m_convertor;
+    ScreenBase const * m_convertor;
 
     static m2::PointD make_point(CoordPointT const & p)
     {
@@ -31,7 +33,14 @@ namespace get_pts
     }
     m2::PointD g2p(m2::PointD const & pt) const;
 
-    base(ScreenBase const & convertor) : m_convertor(convertor)
+    struct params
+    {
+      ScreenBase const * m_convertor;
+      params() : m_convertor()
+      {}
+    };
+
+    base(params const & p) : m_convertor(p.m_convertor)
     {
     }
   };
@@ -40,15 +49,21 @@ namespace get_pts
   class base_global : public base
   {
   protected:
-    m2::RectD const & m_rect;
+    m2::RectD const * m_rect;
 
     m2::PointD convert_point(m2::PointD const & pt) const
     {
       return g2p(pt);
     }
 
-    base_global(ScreenBase const & convertor, m2::RectD const & rect)
-      : base(convertor), m_rect(rect)
+    struct params : base::params
+    {
+      m2::RectD const * m_rect;
+      params() : m_rect(0){}
+    };
+
+    base_global(params const & p)
+      : base(p), m_rect(p.m_rect)
     {
     }
   };
@@ -57,6 +72,7 @@ namespace get_pts
   class base_screen : public base
   {
   protected:
+
     m2::RectD m_rect;
 
     m2::PointD convert_point(m2::PointD const & pt) const
@@ -64,9 +80,44 @@ namespace get_pts
       return pt;
     }
 
-    base_screen(ScreenBase const & convertor, m2::RectD const & rect);
+    struct params : base::params
+    {
+      m2::RectD const * m_rect;
+      params() : m_rect(0)
+      {}
+    };
+
+    base_screen(params const & p);
   };
+
   //@}
+
+  template <typename TBase>
+  class calc_length : public TBase
+  {
+    bool m_exist;
+    m2::PointD m_prevPt;
+  public:
+    double m_length;
+
+    typedef typename TBase::params params;
+
+    calc_length(params const & p) :
+      TBase(p), m_exist(false), m_length(0)
+    {}
+
+    void operator() (CoordPointT const & p)
+    {
+      m2::PointD pt(this->convert_point(this->make_point(p)));
+      if (m_exist)
+        m_length += pt.Length(m_prevPt);
+
+      m_exist = true;
+      m_prevPt = pt;
+    }
+
+    bool IsExist() const {return m_exist;}
+  };
 
   class one_point : public base_global
   {
@@ -75,8 +126,10 @@ namespace get_pts
   public:
     m2::PointD m_point;
 
-    one_point(ScreenBase const & convertor, m2::RectD const & rect)
-      : base_global(convertor, rect), m_exist(false)
+    typedef base_global::params params;
+
+    one_point(params const & p)
+      : base_global(p), m_exist(false)
     {
     }
 
@@ -90,8 +143,10 @@ namespace get_pts
   public:
     list<TInfo> m_points;
 
-    geometry_base(ScreenBase const & convertor, m2::RectD const & rect)
-      : TBase(convertor, rect)
+    typedef typename TBase::params params;
+
+    geometry_base(params const & p)
+      : TBase(p)
     {
     }
 
@@ -110,10 +165,14 @@ namespace get_pts
   {
     typedef geometry_base<di::PathInfo, base_screen> base_type;
 
-    bool m_newPL, m_prevPt;
+    bool m_newPL, m_hasPrevPt;
     m2::PointD m_prev;
 
     double m_length;
+    double m_startLength;
+    double m_endLength;
+
+    double m_fontSize;
 
     void StartPL(m2::PointD const & pt);
     void EndPL();
@@ -127,8 +186,22 @@ namespace get_pts
     void best_filtration(m2::PointD const & p);
 
   public:
-    path_points(ScreenBase const & convertor, m2::RectD const & rect)
-      : base_type(convertor, rect), m_newPL(true), m_prevPt(false), m_length(0.0)
+
+    struct params : base_type::params
+    {
+      double m_startLength;
+      double m_endLength;
+      params() : m_startLength(0), m_endLength(0)
+      {}
+    };
+
+    path_points(params const & p)
+      : base_type(p),
+        m_newPL(true),
+        m_hasPrevPt(false),
+        m_length(0.0),
+        m_startLength(p.m_startLength),
+        m_endLength(p.m_endLength)
     {
     }
 
@@ -144,8 +217,11 @@ namespace get_pts
     typedef geometry_base<di::AreaInfo, base_screen> base_type;
 
   public:
-    area_base(ScreenBase const & convertor, m2::RectD const & rect)
-      : base_type(convertor, rect)
+
+    typedef base_type::params params;
+
+    area_base(params const & p)
+      : base_type(p)
     {
     }
   };
@@ -154,8 +230,10 @@ namespace get_pts
   class area_tess_points : public area_base
   {
   public:
-    area_tess_points(ScreenBase const & convertor, m2::RectD const & rect)
-      : area_base(convertor, rect)
+    typedef area_base::params params;
+
+    area_tess_points(params const & p)
+      : area_base(p)
     {
     }
 
@@ -184,8 +262,11 @@ namespace get_pts
     }
 
   public:
-    filter_screenpts_adapter(ScreenBase const & convertor, m2::RectD const & rect)
-      : TBase(convertor, rect), m_count(0),
+
+    typedef typename TBase::params params;
+
+    filter_screenpts_adapter(params const & p)
+      : TBase(p), m_count(0),
       m_prev(numeric_limits<CoordT>::min(), numeric_limits<CoordT>::min()), m_center(0, 0)
     {
     }

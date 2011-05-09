@@ -49,12 +49,14 @@ namespace fwork
                                 ScreenBase const & convertor,
                                 shared_ptr<PaintEvent> const & paintEvent,
                                 int scaleLevel,
-                                shared_ptr<yg::gl::RenderState> const & renderState)
+                                shared_ptr<yg::gl::RenderState> const & renderState,
+                                yg::GlyphCache * glyphCache)
     : m_rect(r),
       m_convertor(convertor),
       m_paintEvent(paintEvent),
       m_zoom(scaleLevel),
-      m_renderState(renderState)
+      m_renderState(renderState),
+      m_glyphCache(glyphCache)
 #ifdef PROFILER_DRAWING
       , m_drawCount(0)
 #endif
@@ -107,9 +109,8 @@ namespace fwork
     m_keys.erase(unique(m_keys.begin(), m_keys.end(), equal_key()), m_keys.end());
   }
 
-#define GET_POINTS(f, for_each_fun, functor_t, assign_fun) \
+#define GET_POINTS(f, for_each_fun, fun, assign_fun)       \
   {                                                        \
-    functor_t fun(m_convertor, m_rect);                    \
     f.for_each_fun(fun, m_zoom);                           \
     if (fun.IsExist())                                     \
     {                                                      \
@@ -136,49 +137,13 @@ namespace fwork
       return true;
     }
 
-    m_renderState->m_isEmptyModelCurrent = false;
-
-    shared_ptr<di::DrawInfo> ptr(new di::DrawInfo(f.GetPreferredDrawableName()));
-
-    using namespace get_pts;
-
-    bool isExist = false;
-    switch (type)
-    {
-    case GEOM_POINT:
-      GET_POINTS(f, ForEachPointRef, get_pts::one_point, assign_point)
-      break;
-
-    case GEOM_AREA:
-      GET_POINTS(f, ForEachTriangleExRef, filter_screenpts_adapter<area_tess_points>, assign_area)
-      {
-        // if area feature has any line-drawing-rules, than draw it like line
-        for (size_t i = 0; i < m_keys.size(); ++i)
-          if (m_keys[i].m_type == drule::line)
-            goto draw_line;
-        break;
-      }
-
-    draw_line:
-    case GEOM_LINE:
-      GET_POINTS(f, ForEachPointRef, filter_screenpts_adapter<path_points>, assign_path)
-      break;
-    }
-
-    // nothing to draw
-    if (!isExist) return true;
-
-    int const layer = f.GetLayer();
-    DrawerYG * pDrawer = GetDrawer();
-
-    // remove duplicating identical drawing keys
-    PreProcessKeys();
-
     // get drawing rules for the m_keys array
     size_t const count = m_keys.size();
 
     buffer_vector<di::DrawRule, reserve_rules_count> rules;
     rules.resize(count);
+
+    int const layer = f.GetLayer();
 
     for (size_t i = 0; i < count; ++i)
     {
@@ -190,6 +155,97 @@ namespace fwork
     }
 
     sort(rules.begin(), rules.end(), less_depth());
+
+    m_renderState->m_isEmptyModelCurrent = false;
+
+    shared_ptr<di::DrawInfo> ptr(new di::DrawInfo(f.GetPreferredDrawableName()));
+
+    DrawerYG * pDrawer = GetDrawer();
+
+    using namespace get_pts;
+
+    bool isExist = false;
+    switch (type)
+    {
+    case GEOM_POINT:
+    {
+      typedef get_pts::one_point functor_t;
+
+      functor_t::params p;
+      p.m_convertor = &m_convertor;
+      p.m_rect = &m_rect;
+
+      functor_t fun(p);
+      GET_POINTS(f, ForEachPointRef, fun, assign_point)
+      break;
+    }
+
+    case GEOM_AREA:
+    {
+      typedef filter_screenpts_adapter<area_tess_points> functor_t;
+
+      functor_t::params p;
+      p.m_convertor = &m_convertor;
+      p.m_rect = &m_rect;
+
+      functor_t fun(p);
+      GET_POINTS(f, ForEachTriangleExRef, fun, assign_area)
+      {
+        // if area feature has any line-drawing-rules, than draw it like line
+        for (size_t i = 0; i < m_keys.size(); ++i)
+          if (m_keys[i].m_type == drule::line)
+            goto draw_line;
+        break;
+      }
+    }
+    draw_line:
+    case GEOM_LINE:
+      {
+        typedef filter_screenpts_adapter<path_points> functor_t;
+        functor_t::params p;
+        p.m_convertor = &m_convertor;
+        p.m_rect = &m_rect;
+
+        if (!ptr->m_name.empty())
+        {
+          double fontSize = 0;
+          for (size_t i = 0; i < count; ++i)
+          {
+            if (pDrawer->filter_text_size(rules[i].m_rule))
+              fontSize = pDrawer->get_pathtext_font_size(rules[i].m_rule);
+          }
+
+          if (fontSize != 0)
+          {
+            double textLength = m_glyphCache->getTextLength(fontSize, ptr->m_name);
+            typedef calc_length<base_screen> functor_t;
+            functor_t::params p1;
+            p1.m_convertor = &m_convertor;
+            p1.m_rect = &m_rect;
+            functor_t fun(p1);
+
+            f.ForEachPointRef(fun, m_zoom);
+            if ((fun.IsExist()) && (fun.m_length > textLength))
+            {
+              textLength += 200;
+              p.m_startLength = (fun.m_length - textLength) / 2;
+              p.m_endLength = p.m_startLength + textLength;
+            }
+          }
+        }
+
+        functor_t fun(p);
+
+        GET_POINTS(f, ForEachPointRef, fun, assign_path)
+        break;
+      }
+    }
+
+    // nothing to draw
+    if (!isExist) return true;
+
+    // remove duplicating identical drawing keys
+    PreProcessKeys();
 
 #ifdef PROFILER_DRAWING
       m_drawCount += m_keys.size();
@@ -632,7 +688,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
                  int scaleLevel
                  )
   {
-    fwork::DrawProcessor doDraw(selectRect, screen, e, scaleLevel, m_renderQueue.renderStatePtr());
+    fwork::DrawProcessor doDraw(selectRect, screen, e, scaleLevel, m_renderQueue.renderStatePtr(), m_resourceManager->getGlyphCache());
     m_renderQueue.renderStatePtr()->m_isEmptyModelCurrent = true;
 
     try

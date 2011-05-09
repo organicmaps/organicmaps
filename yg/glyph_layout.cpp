@@ -324,4 +324,35 @@ namespace yg
   {
     return m_entries;
   }
+
+  m2::RectD const GlyphLayout::limitRect() const
+  {
+    bool isFirst = true;
+    m2::RectD res;
+
+    for (unsigned i = m_firstVisible; i < m_lastVisible; ++i)
+    {
+      m2::AARectD symRectAA(
+            m_entries[i].m_pt.Move(m_entries[i].m_metrics.m_height, m_entries[i].m_angle - math::pi / 2),
+            m_entries[i].m_angle,
+            m2::RectD(m_entries[i].m_metrics.m_xOffset,
+                      m_entries[i].m_metrics.m_yOffset,
+                      m_entries[i].m_metrics.m_xOffset + m_entries[i].m_metrics.m_width,
+                      m_entries[i].m_metrics.m_yOffset + m_entries[i].m_metrics.m_height));
+
+      m2::PointD pts[4];
+      symRectAA.GetGlobalPoints(pts);
+
+      if (isFirst)
+        res = m2::RectD(pts[0].x, pts[0].y, pts[0].x, pts[0].y);
+      else
+        res.Add(pts[0]);
+
+      res.Add(pts[1]);
+      res.Add(pts[2]);
+      res.Add(pts[3]);
+    }
+
+    return res;
+  }
 }

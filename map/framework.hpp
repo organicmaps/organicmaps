@@ -64,6 +64,7 @@ namespace fwork
 
     int m_zoom;
     shared_ptr<yg::gl::RenderState> m_renderState;
+    yg::GlyphCache * m_glyphCache;
 
 #ifdef PROFILER_DRAWING
     size_t m_drawCount;
@@ -81,7 +82,8 @@ namespace fwork
                   ScreenBase const & convertor,
                   shared_ptr<PaintEvent> const & paintEvent,
                   int scaleLevel,
-                  shared_ptr<yg::gl::RenderState> const & renderState);
+                  shared_ptr<yg::gl::RenderState> const & renderState,
+                  yg::GlyphCache * glyphCache);
 
     bool operator() (FeatureType const & f);
   };

@@ -72,5 +72,7 @@ namespace yg
     shared_ptr<GlyphInfo> const getGlyph(GlyphKey const & key);
     /// return control box(could be slightly larger than the precise bound box).
     GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
+
+    double getTextLength(double fontSize, string const & text);
   };
 }

@@ -7,6 +7,7 @@
 #include "ft2_debug.hpp"
 
 #include "../coding/lodepng_io.hpp"
+#include "../coding/strutil.hpp"
 
 #include "../base/logging.hpp"
 
@@ -235,6 +236,19 @@ namespace yg
     }
 
     return info;
+  }
+
+  double GlyphCache::getTextLength(double fontSize, string const & text)
+  {
+    wstring s = FromUtf8(text);
+    double len = 0;
+    for (unsigned i = 0; i < s.size(); ++i)
+    {
+      GlyphKey k(s[i], fontSize, false, yg::Color(0, 0, 0, 255));
+      len += getGlyphMetrics(k).m_xAdvance;
+    }
+
+    return len;
   }
 
   void GlyphInfo::dump(const char * /*fileName */)
