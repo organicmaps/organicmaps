@@ -440,7 +440,7 @@ protected:
   {
     uint64_t id;
     FeatureParams fValue;
-    if (!ParseType(p, id, fValue))
+    if (!base_type::ParseType(p, id, fValue))
       return;
 
     feature_t ft;

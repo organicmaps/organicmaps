@@ -2,6 +2,7 @@
 
 #include "../coding/multilang_utf8_string.hpp"
 #include "../coding/value_opt_string.hpp"
+#include "../coding/reader.hpp"
 
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
@@ -54,23 +55,23 @@ struct FeatureParamsBase
   template <class TSink>
   void Write(TSink & sink, uint8_t header, feature::EGeomType type) const
   {
-    if (header & HEADER_HAS_NAME)
+    if (header & feature::HEADER_HAS_NAME)
       name.Write(sink);
 
-    if (header & HEADER_HAS_LAYER)
+    if (header & feature::HEADER_HAS_LAYER)
       WriteToSink(sink, layer);
 
-    if (header & HEADER_HAS_ADDINFO)
+    if (header & feature::HEADER_HAS_ADDINFO)
     {
       switch (type)
       {
-      case GEOM_POINT:
+      case feature::GEOM_POINT:
         WriteToSink(sink, rank);
         break;
-      case GEOM_LINE:
+      case feature::GEOM_LINE:
         utils::WriteString(sink, ref);
         break;
-      case GEOM_AREA:
+      case feature::GEOM_AREA:
         house.Write(sink);
         break;
       }
@@ -80,23 +81,23 @@ struct FeatureParamsBase
   template <class TSrc>
   void Read(TSrc & src, uint8_t header, feature::EGeomType type)
   {
-    if (header & HEADER_HAS_NAME)
+    if (header & feature::HEADER_HAS_NAME)
       name.Read(src);
 
-    if (header & HEADER_HAS_LAYER)
+    if (header & feature::HEADER_HAS_LAYER)
       layer = ReadPrimitiveFromSource<int8_t>(src);
 
-    if (header & HEADER_HAS_ADDINFO)
+    if (header & feature::HEADER_HAS_ADDINFO)
     {
       switch (type)
       {
-      case GEOM_POINT:
+      case feature::GEOM_POINT:
         rank = ReadPrimitiveFromSource<uint8_t>(src);
         break;
-      case GEOM_LINE:
+      case feature::GEOM_LINE:
         utils::ReadString(src, ref);
         break;
-      case GEOM_AREA:
+      case feature::GEOM_AREA:
         house.Read(src);
         break;
       }

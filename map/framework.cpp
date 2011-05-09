@@ -106,15 +106,15 @@ namespace fwork
     m_keys.erase(unique(m_keys.begin(), m_keys.end(), equal_key()), m_keys.end());
   }
 
-#define GET_POINTS(functor_t, for_each_fun, assign_fun) \
-  {                                                     \
-    functor_t fun(m_convertor, m_rect);                 \
-    f.for_each_fun(fun, m_zoom);                        \
-    if (fun.IsExist())                                  \
-    {                                                   \
-      isExist = true;                                   \
-      assign_fun(ptr.get(), fun);                       \
-    }                                                   \
+#define GET_POINTS(f, for_each_fun, functor_t, assign_fun) \
+  {                                                        \
+    functor_t fun(m_convertor, m_rect);                    \
+    f.for_each_fun(fun, m_zoom);                           \
+    if (fun.IsExist())                                     \
+    {                                                      \
+      isExist = true;                                      \
+      assign_fun(ptr.get(), fun);                          \
+    }                                                      \
   }
 
   bool DrawProcessor::operator()(FeatureType const & f)
@@ -145,11 +145,11 @@ namespace fwork
     switch (type)
     {
     case GEOM_POINT:
-      GET_POINTS(get_pts::one_point, ForEachPointRef, assign_point)
+      GET_POINTS(f, ForEachPointRef, get_pts::one_point, assign_point)
       break;
 
     case GEOM_AREA:
-      GET_POINTS(filter_screenpts_adapter<area_tess_points>, ForEachTriangleExRef, assign_area)
+      GET_POINTS(f, ForEachTriangleExRef, filter_screenpts_adapter<area_tess_points>, assign_area)
       {
         // if area feature has any line-drawing-rules, than draw it like line
         for (size_t i = 0; i < m_keys.size(); ++i)
@@ -160,7 +160,7 @@ namespace fwork
 
     draw_line:
     case GEOM_LINE:
-      GET_POINTS(filter_screenpts_adapter<path_points>, ForEachPointRef, assign_path)
+      GET_POINTS(f, ForEachPointRef, filter_screenpts_adapter<path_points>, assign_path)
       break;
     }
 
