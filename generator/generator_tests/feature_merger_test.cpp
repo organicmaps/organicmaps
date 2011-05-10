@@ -30,7 +30,7 @@ namespace
   };
 }
 
-UNIT_TEST(FeatureMerger_Smoke)
+UNIT_TEST(FeatureMerger_MultipleTypes)
 {
   P arrPt[] = { P(0, 0), P(1, 1), P(2, 2), P(3, 3) };
   size_t const count = ARRAY_SIZE(arrPt)-1;
@@ -71,4 +71,63 @@ UNIT_TEST(FeatureMerger_Smoke)
   emitter.Check(2, 1);
   emitter.Check(3, 1);
   emitter.Check(4, 1);
+}
+
+UNIT_TEST(FeatureMerger_Branches)
+{
+  // Try to unite next configuration
+  //     o
+  //     /\
+  // o--o--o--o
+  //     \/
+  //      o
+
+  vector<FeatureBuilder1> vF;
+
+  vF.push_back(FeatureBuilder1());
+  vF.back().AddPoint(P(-2, 0));
+  vF.back().AddPoint(P(-1, 0));
+
+  vF.push_back(FeatureBuilder1());
+  vF.back().AddPoint(P(-1, 0));
+  vF.back().AddPoint(P(0, 1));
+
+  vF.push_back(FeatureBuilder1());
+  vF.back().AddPoint(P(-1, 0));
+  vF.back().AddPoint(P(0, 0));
+
+  vF.push_back(FeatureBuilder1());
+  vF.back().AddPoint(P(-1, 0));
+  vF.back().AddPoint(P(0, -1));
+
+  vF.push_back(FeatureBuilder1());
+  vF.back().AddPoint(P(0, 1));
+  vF.back().AddPoint(P(1, 0));
+
+  vF.push_back(FeatureBuilder1());
+  vF.back().AddPoint(P(0, 0));
+  vF.back().AddPoint(P(1, 0));
+
+  vF.push_back(FeatureBuilder1());
+  vF.back().AddPoint(P(0, -1));
+  vF.back().AddPoint(P(1, 0));
+
+  vF.push_back(FeatureBuilder1());
+  vF.back().AddPoint(P(1, 0));
+  vF.back().AddPoint(P(2, 0));
+
+  FeatureMergeProcessor processor(30);
+
+  for (size_t i = 0; i < vF.size(); ++i)
+  {
+    vF[i].SetLinear();
+    vF[i].AddType(0);
+
+    processor(vF[i]);
+  }
+
+  VectorEmitter emitter;
+  processor.DoMerge(emitter);
+
+  TEST_EQUAL(emitter.GetSize(), 2, ());
 }
