@@ -25,3 +25,4 @@ SOURCES += \
     ../../indexer/indexer_tests/feature_routine.cpp \
     feature_bucketer_test.cpp \
     osm_parser_test.cpp \
+    feature_merger_test.cpp \

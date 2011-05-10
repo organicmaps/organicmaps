@@ -119,8 +119,7 @@ public:
   }
   FeatureParams() : m_Geom(feature::GEOM_UNDEFINED) {}
 
-  bool IsValid() const;
-  uint32_t KeyType() const;
+  bool IsValid() const { return !m_Types.empty(); }
 
   inline void SetGeomType(feature::EGeomType t) { m_Geom = t; }
   inline void RemoveGeomType(feature::EGeomType t)
@@ -129,20 +128,20 @@ public:
   }
   inline feature::EGeomType GetGeomType() const { return m_Geom; }
 
-  void AddType(uint32_t t);
-  void AddTypes(FeatureParams const & v);
-  void SetType(uint32_t t);
-
-  void FinishAddingTypes();
-
-  template <class TIter> 
-  void AssignTypes(TIter b, TIter e)
+  inline void AddType(uint32_t t) { m_Types.push_back(t); }
+  void AddTypes(FeatureParams const & rhs);
+  template <class TIter> void AssignTypes(TIter b, TIter e)
   {
     m_Types.assign(b, e);
   }
 
+  void SortTypes();
+  void FinishAddingTypes();
+
+  void SetType(uint32_t t);
+  bool PopAnyType(uint32_t & t);
+  bool PopExactType(uint32_t t);
   bool IsTypeExist(uint32_t t) const;
-  bool AssignType_SetDifference(vector<uint32_t> const & diffTypes);
 
   bool operator == (FeatureParams const & rhs) const;
 

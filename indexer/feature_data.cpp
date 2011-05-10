@@ -28,30 +28,19 @@ string FeatureParamsBase::DebugString() const
           (!ref.empty() ? " Ref:" + ref : "") + " ");
 }
 
-bool FeatureParams::IsValid() const
+void FeatureParams::AddTypes(FeatureParams const & rhs)
 {
-  return !m_Types.empty();
-}
-
-uint32_t FeatureParams::KeyType() const
-{
-  ASSERT_EQUAL ( m_Types.size(), 1, () );
-  return m_Types.front();
-}
-
-void FeatureParams::AddType(uint32_t t)
-{
-  m_Types.push_back(t);
-}
-
-void FeatureParams::AddTypes(FeatureParams const & v)
-{
-  m_Types.insert(m_Types.end(), v.m_Types.begin(), v.m_Types.end());
+  m_Types.insert(m_Types.end(), rhs.m_Types.begin(), rhs.m_Types.end());
 }
 
 namespace
 {
   size_t GetMaximunTypesCount() { return HEADER_TYPE_MASK + 1; }
+}
+
+void FeatureParams::SortTypes()
+{
+  sort(m_Types.begin(), m_Types.end());
 }
 
 void FeatureParams::FinishAddingTypes()
@@ -68,20 +57,22 @@ void FeatureParams::SetType(uint32_t t)
   m_Types.push_back(t);
 }
 
+bool FeatureParams::PopAnyType(uint32_t & t)
+{
+  t = m_Types.back();
+  m_Types.pop_back();
+  return m_Types.empty();
+}
+
+bool FeatureParams::PopExactType(uint32_t t)
+{
+  m_Types.erase(remove(m_Types.begin(), m_Types.end(), t), m_Types.end());
+  return m_Types.empty();
+}
+
 bool FeatureParams::IsTypeExist(uint32_t t) const
 {
   return (find(m_Types.begin(), m_Types.end(), t) != m_Types.end());
-}
-
-bool FeatureParams::AssignType_SetDifference(vector<uint32_t> const & diffTypes)
-{
-  vector<uint32_t> src;
-  src.swap(m_Types);
-
-  sort(src.begin(), src.end());
-  set_difference(src.begin(), src.end(), diffTypes.begin(), diffTypes.end(), back_inserter(m_Types));
-
-  return !m_Types.empty();
 }
 
 bool FeatureParams::operator == (FeatureParams const & rhs) const

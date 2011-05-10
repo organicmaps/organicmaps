@@ -1,0 +1,74 @@
+#include "../../testing/testing.hpp"
+
+#include "../feature_merger.hpp"
+
+
+namespace
+{
+  typedef m2::PointD P;
+
+  class VectorEmitter : public FeatureEmitterIFace
+  {
+    vector<FeatureBuilder1> m_vec;
+  public:
+    virtual void operator() (FeatureBuilder1 const & fb)
+    {
+      m_vec.push_back(fb);
+    }
+
+    size_t GetSize() const { return m_vec.size(); }
+
+    void Check(uint32_t type, size_t count) const
+    {
+      size_t test = 0;
+      for (size_t i = 0; i < m_vec.size(); ++i)
+        if (m_vec[i].HasType(type))
+          ++test;
+
+      TEST_EQUAL(test, count, ());
+    }
+  };
+}
+
+UNIT_TEST(FeatureMerger_Smoke)
+{
+  P arrPt[] = { P(0, 0), P(1, 1), P(2, 2), P(3, 3) };
+  size_t const count = ARRAY_SIZE(arrPt)-1;
+
+  FeatureBuilder1 arrF[count];
+
+  for (size_t i = 0; i < count; ++i)
+  {
+    arrF[i].SetLinear();
+    arrF[i].AddPoint(arrPt[i]);
+    arrF[i].AddPoint(arrPt[i+1]);
+
+    arrF[i].AddType(0);
+  }
+
+  arrF[0].AddType(1);
+  arrF[1].AddType(1);
+  arrF[0].AddType(2);
+  arrF[1].AddType(2);
+
+  arrF[1].AddType(3);
+  arrF[2].AddType(3);
+  arrF[1].AddType(4);
+  arrF[2].AddType(4);
+
+  FeatureMergeProcessor processor(30);
+
+  for (size_t i = 0; i < count; ++i)
+    processor(arrF[i]);
+
+  VectorEmitter emitter;
+  processor.DoMerge(emitter);
+
+  TEST_EQUAL(emitter.GetSize(), 3, ());
+
+  emitter.Check(0, 1);
+  emitter.Check(1, 1);
+  emitter.Check(2, 1);
+  emitter.Check(3, 1);
+  emitter.Check(4, 1);
+}

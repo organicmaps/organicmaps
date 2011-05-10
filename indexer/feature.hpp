@@ -39,19 +39,8 @@ public:
   void SetAreaAddHoles(list<vector<m2::PointD> > const & holes);
   //@}
 
-  inline void SetType(uint32_t type)
-  {
-    m_Params.SetType(type);
-  }
-
-  inline bool IsTypeExist(uint32_t t) const
-  {
-    return m_Params.IsTypeExist(t);
-  }
-  inline bool AssignType_SetDifference(vector<uint32_t> const & diffTypes)
-  {
-    return m_Params.AssignType_SetDifference(diffTypes);
-  }
+  inline void AddType(uint32_t type) { m_Params.AddType(type); }
+  inline bool HasType(uint32_t t) const { return m_Params.IsTypeExist(t); }
 
   typedef vector<char> buffer_t;
 

@@ -47,4 +47,5 @@ HEADERS += \
     borders_generator.hpp \
     osm_xml_parser.hpp \
     borders_loader.hpp \
-    mwm_rect_updater.hpp
+    mwm_rect_updater.hpp \
+    feature_emitter_iface.hpp \
