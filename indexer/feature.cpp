@@ -898,7 +898,7 @@ FeatureType::geom_stat_t FeatureType::GetTrianglesSize(int scale) const
   return geom_stat_t(sz, m_Triangles.size());
 }
 
-string FeatureType::GetDrawableName(char lang) const
+string FeatureType::GetPreferredDrawableName() const
 {
   uint8_t const h = Header();
   string res;
@@ -908,7 +908,7 @@ string FeatureType::GetDrawableName(char lang) const
     if (!m_bCommonParsed)
       ParseCommon();
 
-    GetName(lang, res);
+    GetName(res);
 
     if (res.empty() && GetFeatureType() == GEOM_AREA)
       res = m_Params.house.Get();

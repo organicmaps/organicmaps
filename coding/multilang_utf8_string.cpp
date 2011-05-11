@@ -1,10 +1,16 @@
 #include "multilang_utf8_string.hpp"
 
-
-
-char StringUtf8Multilang::GetLangIndex(string const & lang) const
+char StringUtf8Multilang::m_priorities[] =
 {
-  char const * arr[] = { "def",
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+  21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+  41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
+  61, 62, 63
+};
+
+char StringUtf8Multilang::GetLangIndex(string const & lang)
+{
+  static char const * arr[] = { "default",
                          "en", "ja", "fr", "ko_rm", "ar", "de", "ru", "sv", "zh", "fi",
                          "ko", "ka", "he", "be", "nl", "ga", "ja_rm", "el", "it", "es",
                          "th", "zh_pinyin", "ca", "cy", "hu", "hsb", "sr", "fa", "eu", "pl",
@@ -74,4 +80,46 @@ bool StringUtf8Multilang::GetString(char lang, string & utf8s) const
   }
 
   return false;
+}
+
+void StringUtf8Multilang::SetPreferableLanguages(vector<string> const & langCodes)
+{
+  CHECK_EQUAL(langCodes.size(), 64, ());
+  for (size_t i = 0; i < langCodes.size(); ++i)
+  {
+    char index = GetLangIndex(langCodes[i]);
+    if (index >= 0)
+      m_priorities[static_cast<size_t>(index)] = i;
+    else
+    {
+      ASSERT(false, ("Invalid language code"));
+    }
+    CHECK_GREATER_OR_EQUAL(m_priorities[i], 0, ("Unsupported language", langCodes[i]));
+  }
+}
+
+void StringUtf8Multilang::GetPreferableString(string & utf8s) const
+{
+  size_t i = 0;
+  size_t const sz = m_s.size();
+
+  int currPriority = 256;
+  while (i < sz)
+  {
+    size_t const next = GetNextIndex(i);
+
+    int p = m_priorities[m_s[i] & 0x3F];
+    if (p < currPriority)
+    {
+      ++i;
+
+      currPriority = p;
+      utf8s.assign(m_s.c_str() + i, next - i);
+
+      if (p == 0)
+        return;
+    }
+
+    i = next;
+  }
 }

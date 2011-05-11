@@ -201,13 +201,13 @@ public:
     return m_Params.layer;
   }
 
-  inline bool GetName(char lang, string & utf8s) const
+  inline void GetName(string & utf8s) const
   {
     if (!(Header() & feature::HEADER_HAS_NAME))
-      return false;
+      return;// false;
     if (!m_bCommonParsed)
       ParseCommon();
-    return m_Params.name.GetString(lang, utf8s);
+    m_Params.name.GetPreferableString(utf8s);
   }
 
   inline m2::RectD GetLimitRect() const
@@ -371,7 +371,7 @@ public:
   /// For test cases only.
   string DebugString(int scale) const;
 
-  string GetDrawableName(char lang) const;
+  string GetPreferredDrawableName() const;
 
   /// @name Statistic functions.
   //@{

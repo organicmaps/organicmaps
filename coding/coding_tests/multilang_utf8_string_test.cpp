@@ -45,7 +45,7 @@ UNIT_TEST(MultilangString_Smoke)
 {
   StringUtf8Multilang s;
 
-  lang_string arr[] = { {"def", "default"},
+  lang_string arr[] = { {"default", "default"},
                         {"en", "abcd"},
                         {"ru", "\xD0\xA0\xD0\xB0\xD1\x88\xD0\xBA\xD0\xB0"},
                         {"be", "\xE2\x82\xAC\xF0\xA4\xAD\xA2"} };

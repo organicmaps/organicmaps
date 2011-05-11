@@ -6,6 +6,7 @@
 
 #include "../coding/file_reader.hpp"
 #include "../coding/strutil.hpp"
+#include "../coding/multilang_utf8_string.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -54,6 +55,15 @@ namespace languages
     }
   };
 
+  void GetCurrentSettings(CodesT & outLangCodes)
+  {
+    CodesAndNamesT res;
+    GetCurrentSettings(res);
+    outLangCodes.clear();
+    for (CodesAndNamesT::iterator it = res.begin(); it != res.end(); ++it)
+      outLangCodes.push_back(it->first);
+  }
+
   void GetCurrentSettings(CodesAndNamesT & outLanguages)
   {
     string settingsString;
@@ -73,6 +83,9 @@ namespace languages
     CHECK_EQUAL(langs.size(), MAX_SUPPORTED_LANGUAGES, ());
     string const saveString = JoinStrings(langs.begin(), langs.end(), LANG_DELIMETER);
     Settings::Set(SETTING_LANG_KEY, saveString);
+
+    // apply new settings
+    StringUtf8Multilang::SetPreferableLanguages(langs);
   }
 
   bool GetSupportedLanguages(CodesAndNamesT & outLanguages)

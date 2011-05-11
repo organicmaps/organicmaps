@@ -28,7 +28,8 @@ FindTableWnd::FindTableWnd(QWidget * pParent, FindEditorWnd * pEditor, model_t *
 bool FindTableWnd::AddFeature(FeatureType const & f)
 {
   string utf8name;
-  if (f.GetName(0, utf8name) && !utf8name.empty())
+  f.GetName(utf8name);
+  if (!utf8name.empty())
   {
     // 200 rows is enough
     int const r = rowCount();

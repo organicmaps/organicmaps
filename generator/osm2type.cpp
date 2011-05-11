@@ -504,7 +504,7 @@ namespace ftype {
           else if (s == "name")
           {
             m_ok = true;
-            m_lang = "def";
+            m_lang = "default";
           }
         }
       };

@@ -33,7 +33,9 @@ class StringUtf8Multilang
   string m_s;
 
   size_t GetNextIndex(size_t i) const;
-  char GetLangIndex(string const & lang) const;
+  static char GetLangIndex(string const & lang);
+
+  static char m_priorities[64];
 
 public:
   inline bool operator== (StringUtf8Multilang const & rhs) const
@@ -52,6 +54,9 @@ public:
       AddString(l, utf8s);
   }
 
+  static void SetPreferableLanguages(vector<string> const & langCodes);
+  /// Takes language priorities into an account
+  void GetPreferableString(string & utf8s) const;
   bool GetString(char lang, string & utf8s) const;
   bool GetString(string const & lang, string & utf8s) const
   {

@@ -5,6 +5,7 @@
 #include "drawer_yg.hpp"
 #include "feature_vec_model.hpp"
 #include "benchmark_provider.hpp"
+#include "languages.hpp"
 
 #include "../indexer/feature_visibility.hpp"
 #include "../indexer/feature.hpp"
@@ -137,7 +138,7 @@ namespace fwork
 
     m_renderState->m_isEmptyModelCurrent = false;
 
-    shared_ptr<di::DrawInfo> ptr(new di::DrawInfo(f.GetDrawableName(0)));
+    shared_ptr<di::DrawInfo> ptr(new di::DrawInfo(f.GetPreferredDrawableName()));
 
     using namespace get_pts;
 
@@ -324,6 +325,11 @@ void FrameWork<TModel>::AddRedrawCommandSure()
           boost::bind(&this_type::OnGpsUpdate, this, _1));
     GetLocationManager().SetCompassObserver(
           boost::bind(&this_type::OnCompassUpdate, this, _1));
+
+    // set language priorities
+    languages::CodesT langCodes;
+    languages::GetCurrentSettings(langCodes);
+    StringUtf8Multilang::SetPreferableLanguages(langCodes);
   }
 
   template <typename TModel>
