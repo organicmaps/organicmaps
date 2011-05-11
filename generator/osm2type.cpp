@@ -10,6 +10,7 @@
 
 #include "../base/assert.hpp"
 #include "../base/string_utils.hpp"
+#include "../base/math.hpp"
 
 #include "../std/fstream.hpp"
 #include "../std/bind.hpp"
@@ -530,7 +531,11 @@ namespace ftype {
 
         // get layer
         if (k == "layer" && m_params.layer == 0)
+        {
           m_params.layer = atoi(v.c_str());
+          int8_t const bound = 10;
+          m_params.layer = my::clamp(m_params.layer, -bound, bound);
+        }
 
         // get reference (we process road numbers only)
         if (k == "ref")
