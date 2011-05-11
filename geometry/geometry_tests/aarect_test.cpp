@@ -1,6 +1,10 @@
 #include "../../base/SRC_FIRST.hpp"
+
 #include "../../testing/testing.hpp"
+
 #include "../aa_rect2d.hpp"
+
+#include "../../std/cmath.hpp"
 
 UNIT_TEST(AARect_TestConvertTo)
 {
@@ -8,12 +12,13 @@ UNIT_TEST(AARect_TestConvertTo)
 
   m2::PointD pt1(100, 0);
 
-  TEST(r.ConvertTo(pt1).EqualDxDy(m2::PointD(100 / sqrt(2), -100 / sqrt(2)), 10e-5), ());
-  TEST(r.ConvertTo(m2::PointD(100, 100)).EqualDxDy(m2::PointD(100 * sqrt(2), 0), 10e-5), ());
+  double const sqrt2 = sqrt(2.0);
+  TEST(r.ConvertTo(pt1).EqualDxDy(m2::PointD(100 / sqrt2, -100 / sqrt2), 10e-5), ());
+  TEST(r.ConvertTo(m2::PointD(100, 100)).EqualDxDy(m2::PointD(100 * sqrt2, 0), 10e-5), ());
 
   m2::AARectD r1(m2::PointD(100, 100), math::pi / 4, m2::RectD(0, 0, 10, 10));
 
-  m2::PointD pt(100, 100 + 50 * sqrt(2));
+  m2::PointD pt(100, 100 + 50 * sqrt2);
 
   TEST(r1.ConvertTo(pt).EqualDxDy(m2::PointD(50, 50), 10e-5), ());
 }
@@ -22,8 +27,9 @@ UNIT_TEST(AARect_TestConvertFrom)
 {
   m2::AARectD r(m2::PointD(100, 100), math::pi / 6, m2::RectD(0, 0, 10, 10));
 
-  TEST(r.ConvertFrom(m2::PointD(50, 0)).EqualDxDy(m2::PointD(100 + 50 * sqrt(3) / 2 , 100 + 50 * 1 / 2.0), 10e-5), ());
-  TEST(r.ConvertTo(m2::PointD(100 + 50 * sqrt(3) / 2, 100 + 50 * 1.0 / 2)).EqualDxDy(m2::PointD(50, 0), 10e-5), ());
+  double const sqrt3 = sqrt(3.0);
+  TEST(r.ConvertFrom(m2::PointD(50, 0)).EqualDxDy(m2::PointD(100 + 50 * sqrt3 / 2 , 100 + 50 * 1 / 2.0), 10e-5), ());
+  TEST(r.ConvertTo(m2::PointD(100 + 50 * sqrt3 / 2, 100 + 50 * 1.0 / 2)).EqualDxDy(m2::PointD(50, 0), 10e-5), ());
 }
 
 UNIT_TEST(AARect_TestIntersection)
