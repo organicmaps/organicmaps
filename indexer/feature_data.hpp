@@ -33,6 +33,8 @@ namespace feature
     HEADER_GEOM_LINE = 1U << 5,
     HEADER_GEOM_AREA = 1U << 6
   };
+
+  static const int max_types_count = HEADER_TYPE_MASK + 1;
 }
 
 /// Feature description struct.

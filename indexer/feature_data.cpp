@@ -33,11 +33,6 @@ void FeatureParams::AddTypes(FeatureParams const & rhs)
   m_Types.insert(m_Types.end(), rhs.m_Types.begin(), rhs.m_Types.end());
 }
 
-namespace
-{
-  size_t GetMaximunTypesCount() { return HEADER_TYPE_MASK + 1; }
-}
-
 void FeatureParams::SortTypes()
 {
   sort(m_Types.begin(), m_Types.end());
@@ -47,8 +42,8 @@ void FeatureParams::FinishAddingTypes()
 {
   sort(m_Types.begin(), m_Types.end());
   m_Types.erase(unique(m_Types.begin(), m_Types.end()), m_Types.end());
-  if (m_Types.size() > GetMaximunTypesCount())
-    m_Types.resize(GetMaximunTypesCount());
+  if (m_Types.size() > max_types_count)
+    m_Types.resize(max_types_count);
 }
 
 void FeatureParams::SetType(uint32_t t)
@@ -84,7 +79,7 @@ bool FeatureParams::operator == (FeatureParams const & rhs) const
 
 bool FeatureParams::CheckValid() const
 {
-  CHECK(!m_Types.empty() && m_Types.size() <= GetMaximunTypesCount(), ());
+  CHECK(!m_Types.empty() && m_Types.size() <= max_types_count, ());
   CHECK(m_Geom != GEOM_UNDEFINED, ());
 
   return FeatureParamsBase::CheckValid();

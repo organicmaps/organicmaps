@@ -166,7 +166,8 @@ public:
 /// Base feature class for storing common data (without geometry).
 class FeatureBase
 {
-  static const int m_maxTypesCount = 7;
+  static const int m_maxTypesCount = feature::max_types_count;
+
 public:
   FeatureBase() : m_Offset(0) {}
 
