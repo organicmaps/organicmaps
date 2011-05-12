@@ -76,6 +76,8 @@ struct FeatureParamsBase
       case feature::GEOM_AREA:
         house.Write(sink);
         break;
+      default:
+        ASSERT(false, ("Undefined geometry type"));
       }
     }
   }
@@ -102,6 +104,8 @@ struct FeatureParamsBase
       case feature::GEOM_AREA:
         house.Read(src);
         break;
+      default:
+        ASSERT(false, ("Undefined geometry type"));
       }
     }
   }

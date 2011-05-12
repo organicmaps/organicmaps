@@ -109,6 +109,8 @@ uint8_t FeatureParams::GetHeader() const
     header |= HEADER_GEOM_AREA;
     if (!house.IsEmpty()) header |= HEADER_HAS_ADDINFO;
     break;
+  default:
+    ASSERT(false, ("Undefined geometry type"));
   }
 
   return header;
