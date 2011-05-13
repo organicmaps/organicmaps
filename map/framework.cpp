@@ -1056,4 +1056,30 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     UpdateNow();
   }
 
+  class SearchProcessor
+  {
+    string const & m_text;
+    SearchCallbackT & m_callback;
+
+  public:
+    SearchProcessor(string const & textToSearch, SearchCallbackT & callback)
+      : m_text(textToSearch), m_callback(callback) {}
+    bool operator() (FeatureType const & f) const
+    {
+      // @TODO search for all languages
+      string name;
+      f.GetName(name);
+      if (!name.empty() && name.find(m_text) != string::npos)
+        m_callback(name, f.GetLimitRect(16)); //@TODO hardcoded scale
+      return true;
+    }
+  };
+
+  template<typename TModel>
+  void FrameWork<TModel>::Search(string const & text, SearchCallbackT callback) const
+  {
+    SearchProcessor doClass(text, callback);
+    m_model.ForEachFeature(m_navigator.Screen().GlobalRect(), doClass);
+  }
+
 template class FrameWork<model::FeaturesFetcher>;

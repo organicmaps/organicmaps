@@ -51,6 +51,8 @@ class redraw_operation_cancelled {};
 
 struct BenchmarkRectProvider;
 
+typedef boost::function<void (string const &, m2::RectD const &)> SearchCallbackT;
+
 namespace fwork
 {
   class DrawProcessor
@@ -217,6 +219,9 @@ public:
   void Clean();
 
 public:
+
+  /// @note Stop search if text is empty
+  void Search(string const & text, SearchCallbackT callback) const;
 
   void SetMaxWorldRect();
   void UpdateNow();

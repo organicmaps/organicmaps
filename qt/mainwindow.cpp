@@ -14,6 +14,7 @@
 #include <QtGui/QMenuBar>
 #include <QtGui/QMenu>
 #include <QtGui/QLineEdit>
+#include <QtGui/QHeaderView>
 
 #define IDM_ABOUT_DIALOG        1001
 #define IDM_PREFERENCES_DIALOG  1002
@@ -43,7 +44,7 @@ MainWindow::MainWindow()
 
   CreateNavigationBar();
 
-  CreateSearchBar();
+  CreateSearchBarAndPanel();
 
 #ifdef DEBUG // code removed for desktop releases
   CreateClassifPanel();
@@ -344,7 +345,44 @@ void MainWindow::OnSearchShortcutPressed()
 
 void MainWindow::OnSearchTextChanged(QString const & str)
 {
+  // clear old results
+  QTableWidget * table = static_cast<QTableWidget *>(m_Docks[3]->widget());
+  table->clear();
+  table->setRowCount(0);
+  m_pDrawWidget->Search(str.toUtf8().constData(),
+                        boost::bind(&MainWindow::OnSearchResult, this, _1, _2));
+}
 
+void MainWindow::OnSearchResult(string const & name, m2::RectD const & rect)
+{
+  QTableWidget * table = static_cast<QTableWidget *>(m_Docks[3]->widget());
+  table->insertRow(0);
+  QTableWidgetItem * item = new QTableWidgetItem(QString::fromUtf8(name.c_str()));
+  item->setData(Qt::UserRole, QRectF(QPointF(rect.minX(), rect.maxY()),
+                                     QPointF(rect.maxX(), rect.minY())));
+  item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+  table->setItem(0, 0, item);
+
+  if (!m_Docks[3]->isVisible())
+    m_Docks[3]->show();
+}
+
+void MainWindow::OnSearchPanelShortcutPressed()
+{
+  if (m_Docks[3]->isVisible())
+    m_Docks[3]->hide();
+  else
+    m_Docks[3]->show();
+}
+
+void MainWindow::OnSearchPanelItemClicked(int row, int)
+{
+  // center viewport on clicked item
+  QTableWidget * table = static_cast<QTableWidget *>(m_Docks[3]->widget());
+  QRectF rect = table->item(row, 0)->data(Qt::UserRole).toRectF();
+  m2::RectD r2(rect.left(), rect.bottom(), rect.right(), rect.top());
+  r2.Inflate(0.0001, 0.0001);
+  m_pDrawWidget->ShowFeature(r2);
 }
 
 void MainWindow::OnPreferences()
@@ -398,7 +436,7 @@ void MainWindow::CreateGuidePanel()
 }
 #endif // DEBUG
 
-void MainWindow::CreateSearchBar()
+void MainWindow::CreateSearchBarAndPanel()
 {
   CreatePanelImpl(2, Qt::TopDockWidgetArea, tr("Search Bar"),
                   QKeySequence(Qt::CTRL + Qt::Key_F), SLOT(OnSearchShortcutPressed()));
@@ -409,6 +447,22 @@ void MainWindow::CreateSearchBar()
   m_Docks[2]->setFeatures(QDockWidget::NoDockWidgetFeatures);
   // @TODO remove search bar title
   m_Docks[2]->setWidget(editor);
+
+  // also create search results panel
+  CreatePanelImpl(3, Qt::LeftDockWidgetArea, tr("Search Results"),
+                  QKeySequence(Qt::CTRL + Qt::ShiftModifier + Qt::Key_F),
+                  SLOT(OnSearchPanelShortcutPressed()));
+
+  QTableWidget * panel = new QTableWidget(0, 2, m_Docks[3]);
+  panel->setAlternatingRowColors(true);
+  panel->setShowGrid(false);
+  panel->setSelectionBehavior(QAbstractItemView::SelectRows);
+  panel->verticalHeader()->setVisible(false);
+  panel->horizontalHeader()->setVisible(false);
+  panel->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+
+  connect(panel, SIGNAL(cellClicked(int,int)), this, SLOT(OnSearchPanelItemClicked(int,int)));
+  m_Docks[3]->setWidget(panel);
 }
 
 void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name,

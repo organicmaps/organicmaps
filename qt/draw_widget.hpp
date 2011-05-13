@@ -63,9 +63,8 @@ namespace qt
     void OnEnableMyPosition(LocationRetrievedCallbackT observer);
     void OnDisableMyPosition();
 
-    //model_t * GetModel() { return &(m_framework.get_model()); }
-
-    //void ShowFeature(Feature const & p);
+    void Search(string const & text, SearchCallbackT callback);
+    void ShowFeature(m2::RectD const & rect);
 
     void SaveState();
     /// @return false if can't load previously saved values

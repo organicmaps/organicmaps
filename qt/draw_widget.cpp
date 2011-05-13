@@ -271,4 +271,14 @@ namespace qt
       m_pScale->blockSignals(b);
     }
   }
+
+  void DrawWidget::Search(const string & text, SearchCallbackT callback)
+  {
+    m_framework.Search(text, callback);
+  }
+
+  void DrawWidget::ShowFeature(m2::RectD const & rect)
+  {
+    m_framework.ShowRect(rect);
+  }
 }

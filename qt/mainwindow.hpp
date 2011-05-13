@@ -17,7 +17,7 @@ namespace qt
     QAction * m_pSearchAction;
     DrawWidget * m_pDrawWidget;
 
-    QDockWidget * m_Docks[3];
+    QDockWidget * m_Docks[4];
 
 #ifdef DEBUG // code removed for desktop releases
     UpdateDialog * m_updateDialog;
@@ -38,6 +38,7 @@ namespace qt
 
   private:
     void OnLocationFound();
+    void OnSearchResult(string const & name, m2::RectD const & rect);
 
   protected:
 #ifdef DEBUG // code removed for desktop releases
@@ -48,7 +49,7 @@ namespace qt
     void CreateGuidePanel();
 #endif // DEBUG
     void CreateNavigationBar();
-    void CreateSearchBar();
+    void CreateSearchBarAndPanel();
 
 #if defined(Q_WS_WIN)
     /// to handle menu messages
@@ -67,5 +68,7 @@ namespace qt
     void OnMyPosition();
     void OnSearchButtonClicked();
     void OnSearchShortcutPressed();
+    void OnSearchPanelShortcutPressed();
+    void OnSearchPanelItemClicked(int row, int column);
   };
 }
