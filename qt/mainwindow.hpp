@@ -8,18 +8,18 @@ class QDockWidget;
 
 namespace qt
 {
-  class FindTableWnd;
   class DrawWidget;
   class UpdateDialog;
 
   class MainWindow : public QMainWindow
   {
-    QAction * m_pMyPosition;
+    QAction * m_pMyPositionAction;
+    QAction * m_pSearchAction;
     DrawWidget * m_pDrawWidget;
 
+    QDockWidget * m_Docks[3];
+
 #ifdef DEBUG // code removed for desktop releases
-    QDockWidget * m_Docks[2];
-    //FindTableWnd * m_pFindTable;
     UpdateDialog * m_updateDialog;
 #endif // DEBUG
 
@@ -41,14 +41,14 @@ namespace qt
 
   protected:
 #ifdef DEBUG // code removed for desktop releases
-    void CreatePanelImpl(size_t i, QString const & name, QKeySequence const & hotkey,
-                         char const * slot);
+    void CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name,
+                         QKeySequence const & hotkey, char const * slot);
 
     void CreateClassifPanel();
     void CreateGuidePanel();
 #endif // DEBUG
     void CreateNavigationBar();
-    //void CreateFindTable(QLayout * pLayout);
+    void CreateSearchBar();
 
 #if defined(Q_WS_WIN)
     /// to handle menu messages
@@ -56,8 +56,7 @@ namespace qt
 #endif
 
   protected Q_SLOTS:
-    //void OnFeatureEntered(int row, int col);
-    //void OnFeatureClicked(int row, int col);
+    void OnSearchTextChanged(QString const &);
 #ifdef DEBUG // code removed for desktop releases
     void ShowUpdateDialog();
     void ShowClassifPanel();
@@ -66,5 +65,7 @@ namespace qt
     void OnPreferences();
     void OnAbout();
     void OnMyPosition();
+    void OnSearchButtonClicked();
+    void OnSearchShortcutPressed();
   };
 }

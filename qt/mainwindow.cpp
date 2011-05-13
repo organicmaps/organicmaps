@@ -13,6 +13,7 @@
 #include <QtGui/QAction>
 #include <QtGui/QMenuBar>
 #include <QtGui/QMenu>
+#include <QtGui/QLineEdit>
 
 #define IDM_ABOUT_DIALOG        1001
 #define IDM_PREFERENCES_DIALOG  1002
@@ -41,6 +42,8 @@ MainWindow::MainWindow()
   m_pDrawWidget = new DrawWidget(this, m_storage);
 
   CreateNavigationBar();
+
+  CreateSearchBar();
 
 #ifdef DEBUG // code removed for desktop releases
   CreateClassifPanel();
@@ -200,9 +203,9 @@ namespace
 
 void MainWindow::CreateNavigationBar()
 {
-  QToolBar * pBar = new QToolBar(tr("Navigation Bar"), this);
-  pBar->setOrientation(Qt::Vertical);
-  pBar->setIconSize(QSize(32, 32));
+  QToolBar * pToolBar = new QToolBar(tr("Navigation Bar"), this);
+  pToolBar->setOrientation(Qt::Vertical);
+  pToolBar->setIconSize(QSize(32, 32));
 
   {
     // add navigation hot keys
@@ -228,25 +231,31 @@ void MainWindow::CreateNavigationBar()
   }
 
   {
+    // add search button with "checked" behavior
+    m_pSearchAction = pToolBar->addAction(QIcon(":/navig64/search.png"),
+                                           tr("Search"),
+                                           this,
+                                           SLOT(OnSearchButtonClicked()));
+    m_pSearchAction->setCheckable(true);
+    m_pSearchAction->setToolTip(tr("Offline Search"));
+
+    pToolBar->addSeparator();
+
     // add my position button with "checked" behavior
-    m_pMyPosition = pBar->addAction(QIcon(":/navig64/location.png"),
+    m_pMyPositionAction = pToolBar->addAction(QIcon(":/navig64/location.png"),
                                            tr("My Position"),
                                            this,
                                            SLOT(OnMyPosition()));
-    m_pMyPosition->setCheckable(true);
-    m_pMyPosition->setToolTip(tr("My Position"));
+    m_pMyPositionAction->setCheckable(true);
+    m_pMyPositionAction->setToolTip(tr("My Position"));
 
     // add view actions 1
     button_t arr[] = {
-//      { tr("Left"), ":/navig64/left.png", SLOT(MoveLeft()) },
-//      { tr("Right"), ":/navig64/right.png", SLOT(MoveRight()) },
-//      { tr("Up"), ":/navig64/up.png", SLOT(MoveUp()) },
-//      { tr("Down"), ":/navig64/down.png", SLOT(MoveDown()) },
       { QString(), 0, 0 },
       { tr("Show all"), ":/navig64/world.png", SLOT(ShowAll()) },
       { tr("Scale +"), ":/navig64/plus.png", SLOT(ScalePlus()) }
     };
-    add_buttons(pBar, arr, ARRAY_SIZE(arr), m_pDrawWidget);
+    add_buttons(pToolBar, arr, ARRAY_SIZE(arr), m_pDrawWidget);
   }
 
   // add scale slider
@@ -254,7 +263,7 @@ void MainWindow::CreateNavigationBar()
   pScale->setRange(3, scales::GetUpperScale());
   pScale->setTickPosition(QSlider::TicksRight);
 
-  pBar->addWidget(pScale);
+  pToolBar->addWidget(pScale);
   m_pDrawWidget->SetScaleControl(pScale);
 
   {
@@ -262,7 +271,7 @@ void MainWindow::CreateNavigationBar()
     button_t arr[] = {
       { tr("Scale -"), ":/navig64/minus.png", SLOT(ScaleMinus()) }
     };
-    add_buttons(pBar, arr, ARRAY_SIZE(arr), m_pDrawWidget);
+    add_buttons(pToolBar, arr, ARRAY_SIZE(arr), m_pDrawWidget);
   }
 #ifdef DEBUG // code removed for desktop releases
   {
@@ -271,37 +280,12 @@ void MainWindow::CreateNavigationBar()
       { QString(), 0, 0 },
       { tr("Download Maps"), ":/navig64/download.png", SLOT(ShowUpdateDialog()) }
     };
-    add_buttons(pBar, arr, ARRAY_SIZE(arr), this);
+    add_buttons(pToolBar, arr, ARRAY_SIZE(arr), this);
   }
 #endif // DEBUG
-  addToolBar(Qt::RightToolBarArea, pBar);
+  addToolBar(Qt::RightToolBarArea, pToolBar);
 }
 
-//void MainWindow::CreateFindTable(QLayout * pLayout)
-//{
-//  // find widget
-//  FindEditorWnd * pEditor = new FindEditorWnd(0);
-//  pLayout->addWidget(pEditor);
-//
-//  // find table result
-//  m_pFindTable = new FindTableWnd(0, pEditor, m_pDrawWidget->GetModel());
-//  pLayout->addWidget(m_pFindTable);
-//  connect(m_pFindTable, SIGNAL(cellClicked(int, int)), this, SLOT(OnFeatureClicked(int, int)));
-//  connect(m_pFindTable, SIGNAL(cellEntered(int, int)), this, SLOT(OnFeatureEntered(int, int)));
-//}
-//
-//void MainWindow::OnFeatureEntered(int /*row*/, int /*col*/)
-//{
-//  //Feature const & p = m_pFindTable->GetFeature(row);
-//
-//  /// @todo highlight the feature
-//}
-//
-//void MainWindow::OnFeatureClicked(int row, int /*col*/)
-//{
-//  Feature const & p = m_pFindTable->GetFeature(row);
-//  m_pDrawWidget->ShowFeature(p);
-//}
 void MainWindow::OnAbout()
 {
   AboutDialog dlg(this);
@@ -310,24 +294,57 @@ void MainWindow::OnAbout()
 
 void MainWindow::OnLocationFound()
 {
-  m_pMyPosition->setIcon(QIcon(":/navig64/location.png"));
-  m_pMyPosition->setToolTip(tr("My Position"));
+  m_pMyPositionAction->setIcon(QIcon(":/navig64/location.png"));
+  m_pMyPositionAction->setToolTip(tr("My Position"));
 }
 
 void MainWindow::OnMyPosition()
 {
-  if (m_pMyPosition->isChecked())
+  if (m_pMyPositionAction->isChecked())
   {
-    m_pMyPosition->setIcon(QIcon(":/navig64/location-search.png"));
-    m_pMyPosition->setToolTip(tr("Looking for position..."));
+    m_pMyPositionAction->setIcon(QIcon(":/navig64/location-search.png"));
+    m_pMyPositionAction->setToolTip(tr("Looking for position..."));
     m_pDrawWidget->OnEnableMyPosition(boost::bind(&MainWindow::OnLocationFound, this));
   }
   else
   {
-    m_pMyPosition->setIcon(QIcon(":/navig64/location.png"));
-    m_pMyPosition->setToolTip(tr("My Position"));
+    m_pMyPositionAction->setIcon(QIcon(":/navig64/location.png"));
+    m_pMyPositionAction->setToolTip(tr("My Position"));
     m_pDrawWidget->OnDisableMyPosition();
   }
+}
+
+void MainWindow::OnSearchButtonClicked()
+{
+  if (m_pSearchAction->isChecked())
+  {
+    m_Docks[2]->show();
+    m_Docks[2]->widget()->setFocus();
+  }
+  else
+  {
+    m_Docks[2]->hide();
+  }
+}
+
+void MainWindow::OnSearchShortcutPressed()
+{
+  if (m_Docks[2]->isVisible())
+  {
+    m_pSearchAction->setChecked(false);
+    m_Docks[2]->hide();
+  }
+  else
+  {
+    m_pSearchAction->setChecked(true);
+    m_Docks[2]->show();
+    m_Docks[2]->widget()->setFocus();
+  }
+}
+
+void MainWindow::OnSearchTextChanged(QString const & str)
+{
+
 }
 
 void MainWindow::OnPreferences()
@@ -361,7 +378,7 @@ void MainWindow::ShowGuidePanel()
 
 void MainWindow::CreateClassifPanel()
 {
-  CreatePanelImpl(0, tr("Classificator Bar"),
+  CreatePanelImpl(0, Qt::LeftDockWidgetArea, tr("Classificator Bar"),
                   QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_C), SLOT(ShowClassifPanel()));
 
   ClassifTreeHolder * pCTree = new ClassifTreeHolder(m_Docks[0], m_pDrawWidget, SLOT(Repaint()));
@@ -372,20 +389,34 @@ void MainWindow::CreateClassifPanel()
 
 void MainWindow::CreateGuidePanel()
 {
-  CreatePanelImpl(1, tr("Guide Bar"),
+  CreatePanelImpl(1, Qt::LeftDockWidgetArea, tr("Guide Bar"),
                   QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_G), SLOT(ShowGuidePanel()));
 
   qt::GuidePageHolder * pGPage = new qt::GuidePageHolder(m_Docks[1]);
 
   m_Docks[1]->setWidget(pGPage);
 }
+#endif // DEBUG
 
-void MainWindow::CreatePanelImpl(size_t i, QString const & name,
+void MainWindow::CreateSearchBar()
+{
+  CreatePanelImpl(2, Qt::TopDockWidgetArea, tr("Search Bar"),
+                  QKeySequence(Qt::CTRL + Qt::Key_F), SLOT(OnSearchShortcutPressed()));
+
+  QLineEdit * editor = new QLineEdit(m_Docks[2]);
+  connect(editor, SIGNAL(textChanged(QString const &)), this, SLOT(OnSearchTextChanged(QString const &)));
+
+  m_Docks[2]->setFeatures(QDockWidget::NoDockWidgetFeatures);
+  // @TODO remove search bar title
+  m_Docks[2]->setWidget(editor);
+}
+
+void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name,
                                  QKeySequence const & hotkey, char const * slot)
 {
   m_Docks[i] = new QDockWidget(name, this);
 
-  addDockWidget(Qt::LeftDockWidgetArea, m_Docks[i]);
+  addDockWidget(area, m_Docks[i]);
 
   // hide by default
   m_Docks[i]->hide();
@@ -396,5 +427,5 @@ void MainWindow::CreatePanelImpl(size_t i, QString const & name,
   connect(pAct, SIGNAL(triggered()), this, slot);
   addAction(pAct);
 }
-#endif // DEBUG
+
 }
