@@ -42,12 +42,11 @@ namespace qt
 
   protected:
 #ifdef DEBUG // code removed for desktop releases
-    void CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name,
-                         QKeySequence const & hotkey, char const * slot);
-
     void CreateClassifPanel();
     void CreateGuidePanel();
 #endif // DEBUG
+    void CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name,
+                         QKeySequence const & hotkey, char const * slot);
     void CreateNavigationBar();
     void CreateSearchBarAndPanel();
 
