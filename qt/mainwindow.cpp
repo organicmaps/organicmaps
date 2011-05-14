@@ -15,6 +15,7 @@
 #include <QtGui/QMenu>
 #include <QtGui/QLineEdit>
 #include <QtGui/QHeaderView>
+#include <QtGui/QTableWidget>
 
 #define IDM_ABOUT_DIALOG        1001
 #define IDM_PREFERENCES_DIALOG  1002
