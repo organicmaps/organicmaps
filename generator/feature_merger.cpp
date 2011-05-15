@@ -9,22 +9,30 @@ MergedFeatureBuilder1::MergedFeatureBuilder1(FeatureBuilder1 const & fb)
   m_Params.SortTypes();
 }
 
-void MergedFeatureBuilder1::AppendFeature(MergedFeatureBuilder1 const & fb)
+void MergedFeatureBuilder1::AppendFeature(MergedFeatureBuilder1 const & fb, bool toBack)
 {
-  bool reverse = false;
-  if (LastPoint().SquareLength(fb.FirstPoint()) > LastPoint().SquareLength(fb.LastPoint()))
-    reverse = true;
+  m2::PointD const pt = toBack ? LastPoint() : FirstPoint();
 
-  int const size = fb.m_Geometry.size();
-  if (reverse)
+  bool fromEnd = false;
+  if ((pt.SquareLength(fb.FirstPoint()) > pt.SquareLength(fb.LastPoint())) == toBack)
+    fromEnd = true;
+
+  for (size_t i = 0; i < fb.m_Geometry.size(); ++i)
+    m_LimitRect.Add(fb.m_Geometry[i]);
+
+  if (fromEnd)
   {
-    for (int i = size-2; i >=0; --i)
-      AddPoint(fb.m_Geometry[i]);
+    if (toBack)
+      m_Geometry.insert(m_Geometry.end(), fb.m_Geometry.rbegin() + 1, fb.m_Geometry.rend());
+    else
+      m_Geometry.insert(m_Geometry.begin(), fb.m_Geometry.rbegin(), fb.m_Geometry.rend() - 1);
   }
   else
   {
-    for (int i = 1; i < size; ++i)
-      AddPoint(fb.m_Geometry[i]);
+    if (toBack)
+      m_Geometry.insert(m_Geometry.end(), fb.m_Geometry.begin() + 1, fb.m_Geometry.end());
+    else
+      m_Geometry.insert(m_Geometry.begin(), fb.m_Geometry.begin(), fb.m_Geometry.end() - 1);
   }
 }
 
@@ -101,8 +109,16 @@ void FeatureMergeProcessor::DoMerge(FeatureEmitterIFace & emitter)
     // Cycle while merging.
     while (true)
     {
-      map_t::iterator it = m_map.find(get_key(curr.LastPoint()));
       bool isMerged = false;
+
+      bool toBack = true;
+      map_t::iterator it = m_map.find(get_key(curr.LastPoint()));
+      if (it == m_map.end())
+      {
+        it = m_map.find(get_key(curr.FirstPoint()));
+        toBack = false;
+      }
+
       if (it != m_map.end())
       {
         // Find best feature to continue.
@@ -113,7 +129,7 @@ void FeatureMergeProcessor::DoMerge(FeatureEmitterIFace & emitter)
           if (pp->HasType(type))
           {
             isMerged = true;
-            curr.AppendFeature(*(pp));
+            curr.AppendFeature(*pp, toBack);
 
             if (pp->PopExactType(type))
             {

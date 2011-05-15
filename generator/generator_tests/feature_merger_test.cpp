@@ -129,5 +129,5 @@ UNIT_TEST(FeatureMerger_Branches)
   VectorEmitter emitter;
   processor.DoMerge(emitter);
 
-  TEST_EQUAL(emitter.GetSize(), 2, ());
+  TEST_EQUAL(emitter.GetSize(), 1, ());
 }

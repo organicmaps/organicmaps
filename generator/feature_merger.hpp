@@ -13,7 +13,7 @@ public:
   MergedFeatureBuilder1() {}
   MergedFeatureBuilder1(FeatureBuilder1 const & fb);
 
-  void AppendFeature(MergedFeatureBuilder1 const & fb);
+  void AppendFeature(MergedFeatureBuilder1 const & fb, bool toBack);
 
   bool EqualGeometry(MergedFeatureBuilder1 const & fb) const;
 
