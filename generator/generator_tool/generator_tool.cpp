@@ -8,6 +8,7 @@
 #include "../classif_routine.hpp"
 #include "../borders_generator.hpp"
 #include "../mwm_rect_updater.hpp"
+#include "../dumper.hpp"
 
 #include "../../indexer/features_vector.hpp"
 #include "../../indexer/index_builder.hpp"
@@ -56,6 +57,7 @@ DEFINE_bool(merge_coastlines, false, "If defined, tries to merge coastlines when
 DEFINE_string(generate_borders, "",
             "Create binary country .borders file for osm xml file given in 'output' parameter,"
             "specify tag name and optional value: ISO3166-1 or admin_level=4");
+DEFINE_bool(dump_types, false, "If defined, prints all types combinations and their total count");
 
 string AddSlashIfNeeded(string const & str)
 {
@@ -112,7 +114,7 @@ int main(int argc, char ** argv)
 
   // load classificator only if necessary
   if (FLAGS_generate_features || FLAGS_generate_geometry ||
-      FLAGS_generate_index || FLAGS_calc_statistics)
+      FLAGS_generate_index || FLAGS_calc_statistics || FLAGS_dump_types)
   {
     classificator::Read(path + "drawing_rules.bin",
                         path + "classificator.txt",
@@ -213,6 +215,11 @@ int main(int argc, char ** argv)
     {
       LOG(LINFO, ("Please specify osm country borders file in 'output' command line parameter."));
     }
+  }
+
+  if (FLAGS_dump_types)
+  {
+    feature::DumpTypes(path + FLAGS_output + ".mwm");
   }
 
   return 0;
