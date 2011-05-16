@@ -225,7 +225,7 @@ bool DrawerYG::filter_text_size(rule_ptr_t pRule) const
   return pRule->GetTextHeight() * m_scale <= min_text_height_filtered;
 }
 
-void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t pRule, yg::EPosition pos, int depth)
+void DrawerYG::drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_ptr_t pRule, yg::EPosition pos, int depth)
 {
   int const color = pRule->GetFillColor();
   yg::Color textColor(color == -1 ? yg::Color(0, 0, 0, 0) : yg::Color::fromXRGB(color, pRule->GetAlpha()));
@@ -237,6 +237,7 @@ void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t p
 //  bool isMasked = pRule->GetColor() != -1;
   bool isMasked = true;
   yg::FontDesc fontDesc(false, get_text_font_size(pRule), textColor, isMasked, yg::Color(255, 255, 255, 255));
+  fontDesc.SetRank(pInfo->m_rank);
 
   if (!filter_text_size(pRule))
     m_pScreen->drawText(
@@ -244,7 +245,7 @@ void DrawerYG::drawText(m2::PointD const & pt, string const & name, rule_ptr_t p
           pt,
           pos,
           0.0,
-          name,
+          pInfo->m_name,
           depth,
           true);
 }
@@ -367,7 +368,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
         if (isArea && isN)
         {
           for (list<di::AreaInfo>::const_iterator i = pInfo->m_areas.begin(); i != pInfo->m_areas.end(); ++i)
-            drawText(i->GetCenter(), pInfo->m_name, pRule, yg::EPosAbove, depth);
+            drawText(i->GetCenter(), pInfo, pRule, yg::EPosAbove, depth);
         }
 
         // draw way name
@@ -402,7 +403,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
         // draw point text
         isN = ((pRule->GetType() & drule::node) != 0);
         if (!isPath && !isArea && isN)
-          drawText(pInfo->m_point, pInfo->m_name, pRule, yg::EPosAbove, depth);
+          drawText(pInfo->m_point, pInfo, pRule, yg::EPosAbove, depth);
       }
     }
   }

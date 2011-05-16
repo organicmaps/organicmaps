@@ -32,13 +32,14 @@ namespace di
   class DrawInfo
   {
   public:
-    DrawInfo(string const & name) : m_name(name) {}
+    DrawInfo(string const & name, uint8_t rank) : m_name(name), m_rank(rank) {}
 
     list<di::PathInfo> m_pathes;
     list<di::AreaInfo> m_areas;
     m2::PointD m_point;
 
     string m_name;
+    uint8_t m_rank;
   };
 
   struct DrawRule
@@ -74,7 +75,7 @@ protected:
   void drawPath(vector<m2::PointD> const & pts, di::DrawRule const * rules, size_t count);
   void drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth);
 
-  void drawText(m2::PointD const & pt, string const & name, rule_ptr_t pRule, yg::EPosition pos, int depth);
+  void drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_ptr_t pRule, yg::EPosition pos, int depth);
   bool drawPathText(di::PathInfo const & info, string const & name, uint8_t fontSize, int depth);
 
   typedef shared_ptr<yg::gl::BaseTexture> texture_t;

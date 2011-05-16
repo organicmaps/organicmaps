@@ -374,6 +374,8 @@ public:
 
   string GetPreferredDrawableName() const;
 
+  uint8_t GetRank() const { return m_Params.rank; }
+
   /// @name Statistic functions.
   //@{
   void ParseBeforeStatistic() const

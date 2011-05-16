@@ -1,5 +1,10 @@
 #include "../base/SRC_FIRST.hpp"
+
 #include "font_desc.hpp"
+
+#include "../std/cmath.hpp"
+#include "../std/algorithm.hpp"
+
 
 namespace yg
 {
@@ -10,6 +15,13 @@ namespace yg
                      : m_isStatic(isStatic), m_size(size), m_color(color),
                        m_isMasked(isMasked), m_maskColor(maskColor)
   {}
+
+  void FontDesc::SetRank(uint8_t rank)
+  {
+    m_size += static_cast<int>(min(4.0E6, std::pow(1.1, double(rank))) / 2.0E6 * m_size);
+    //m_size += static_cast<int>((double(rank) / 200.0) * m_size);
+    //m_size += (rank / 20);
+  }
 
   bool FontDesc::operator ==(FontDesc const & src) const
   {

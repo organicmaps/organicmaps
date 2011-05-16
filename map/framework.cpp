@@ -158,7 +158,7 @@ namespace fwork
 
     m_renderState->m_isEmptyModelCurrent = false;
 
-    shared_ptr<di::DrawInfo> ptr(new di::DrawInfo(f.GetPreferredDrawableName()));
+    shared_ptr<di::DrawInfo> ptr(new di::DrawInfo(f.GetPreferredDrawableName(), f.GetRank()));
 
     DrawerYG * pDrawer = GetDrawer();
 
