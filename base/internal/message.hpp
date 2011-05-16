@@ -56,6 +56,16 @@ inline string debug_print(char t)
   return debug_print(string(1, t));
 }
 
+inline string debug_print(signed char t)
+{
+  return debug_print(static_cast<int>(t));
+}
+
+inline string debug_print(unsigned char t)
+{
+  return debug_print(static_cast<unsigned int>(t));
+}
+
 template <typename U, typename V> inline string debug_print(pair<U,V> const & p)
 {
     ostringstream out;
