@@ -123,4 +123,23 @@ namespace bits
     x = ((hi & 0xFFFF) << 16) | (lo & 0xFFFF);
     y =     (hi & 0xFFFF0000) | (lo >> 16);
   }
+
+  // Returns 1 if bit is set and 0 otherwise.
+  inline uint8_t GetBit(void const * p, uint32_t offset)
+  {
+    uint8_t const * pData = static_cast<uint8_t const *>(p);
+    return (pData[offset >> 3] >> (offset & 7)) & 1;
+  }
+
+  inline void SetBitTo0(void * p, uint32_t offset)
+  {
+    uint8_t * pData = static_cast<uint8_t *>(p);
+    pData[offset >> 3] &= ~(1 << (offset & 7));
+  }
+
+  inline void SetBitTo1(void * p, uint32_t offset)
+  {
+    uint8_t * pData = static_cast<uint8_t *>(p);
+    pData[offset >> 3] |= (1 << (offset & 7));
+  }
 }
