@@ -106,7 +106,12 @@ int main(int argc, char *argv[])
 
     w.show();
 
+    try {
     returnCode = a.exec();
+    } catch (std::exception const & e)
+    {
+      LOG(LERROR, (e.what()));
+    }
   }
   // QTBUG: Fix memory leaks. Nobody delete created plugins.
 //#ifdef OMIM_OS_WINDOWS
