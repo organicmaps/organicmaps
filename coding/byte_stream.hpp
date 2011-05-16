@@ -49,13 +49,12 @@ public:
     m_Storage.insert(m_Storage.end(), pp, pp + size);
   }
 
-  //size_t BytesWritten() const
-  //{
-  //  return m_Storage.size() - m_InitialStorageSize;
-  //}
+  size_t Pos() const
+  {
+    return m_Storage.size();
+  }
 private:
   TStorage & m_Storage;
-  //size_t m_InitialStorageSize;
 };
 
 class CountingSink
