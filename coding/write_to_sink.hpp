@@ -55,6 +55,14 @@ template <class TSink> void WriteToSink(TSink & sink, uint64_t v)
   sink.Write(&t, 8);
 }
 
+template <class TSink> void WriteZeroesToSink(TSink & sink, uint64_t size)
+{
+  uint8_t const zeroes[256] = { 0 };
+  for (uint64_t i = 0; i < (size >> 8); ++i)
+    sink.Write(zeroes, 256);
+  sink.Write(zeroes, size & 255);
+}
+
 template <typename SinkT>
 struct WriterFunctor
 {
