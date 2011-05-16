@@ -42,6 +42,7 @@ HEADERS += \
     logging.hpp \
     start_mem_debug.hpp \
     stop_mem_debug.hpp \
+    swap.hpp \
     thread.hpp \
     mutex.hpp \
     casts.hpp \
