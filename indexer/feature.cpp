@@ -869,6 +869,9 @@ void FeatureType::ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & o
     offsets[index++] = (mask & 0x01) ? ReadVarUint<uint32_t>(src) : kInvalidOffset;
     mask = mask >> 1;
   }
+
+  while (index < offsets.size())
+    offsets[index++] = kInvalidOffset;
 }
 
 void FeatureType::ParseAll(int scale) const

@@ -1081,6 +1081,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   void FrameWork<TModel>::Search(string const & text, SearchCallbackT callback) const
   {
     threads::MutexGuard lock(m_modelSyn);
+
     SearchProcessor doClass(text, callback);
     m_model.ForEachFeatureWithScale(m2::RectD(MercatorBounds::minX,
                                               MercatorBounds::minY,

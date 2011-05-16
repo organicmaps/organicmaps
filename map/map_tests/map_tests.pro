@@ -23,3 +23,4 @@ SOURCES += \
   ../../testing/testingmain.cpp \
   navigator_test.cpp \
   map_foreach_test.cpp \
+  debug_features_test.cpp \
