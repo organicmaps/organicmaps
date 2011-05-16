@@ -134,7 +134,7 @@ class FrameWork
   LocationRetrievedCallbackT m_locationObserver;
   location::State m_locationState;
 
-  threads::Mutex m_modelSyn;
+  mutable threads::Mutex m_modelSyn;
 
   void AddRedrawCommandSure();
   void AddRedrawCommand();

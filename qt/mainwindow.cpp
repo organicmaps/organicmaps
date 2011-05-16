@@ -357,12 +357,17 @@ void MainWindow::OnSearchTextChanged(QString const & str)
 void MainWindow::OnSearchResult(string const & name, m2::RectD const & rect)
 {
   QTableWidget * table = static_cast<QTableWidget *>(m_Docks[3]->widget());
-  table->insertRow(0);
+
+  int const rowCount = table->rowCount();
+  if (rowCount > 100)
+    return;
+
+  table->setRowCount(rowCount + 1);
   QTableWidgetItem * item = new QTableWidgetItem(QString::fromUtf8(name.c_str()));
   item->setData(Qt::UserRole, QRectF(QPointF(rect.minX(), rect.maxY()),
                                      QPointF(rect.maxX(), rect.minY())));
   item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-  table->setItem(0, 0, item);
+  table->setItem(rowCount, 0, item);
 
   if (!m_Docks[3]->isVisible())
     m_Docks[3]->show();

@@ -1070,7 +1070,9 @@ void FrameWork<TModel>::AddRedrawCommandSure()
       string name;
       f.GetName(name);
       if (!name.empty() && name.find(m_text) != string::npos)
-        m_callback(name, f.GetLimitRect(16)); //@TODO hardcoded scale
+      {
+        m_callback(name, f.GetLimitRect(-1));
+      }
       return true;
     }
   };
@@ -1078,8 +1080,12 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   template<typename TModel>
   void FrameWork<TModel>::Search(string const & text, SearchCallbackT callback) const
   {
+    threads::MutexGuard lock(m_modelSyn);
     SearchProcessor doClass(text, callback);
-    m_model.ForEachFeature(m_navigator.Screen().GlobalRect(), doClass);
+    m_model.ForEachFeatureWithScale(m2::RectD(MercatorBounds::minX,
+                                              MercatorBounds::minY,
+                                              MercatorBounds::maxX,
+                                              MercatorBounds::maxY), doClass, 9);
   }
 
 template class FrameWork<model::FeaturesFetcher>;
