@@ -14,13 +14,41 @@
 #include "../std/sstream.hpp"
 
 #define DEFAULT_LANGUAGES "default"
-#define MAX_SUPPORTED_LANGUAGES 64
 #define LANGUAGES_FILE "languages.txt"
 #define LANG_DELIMETER "|"
 #define SETTING_LANG_KEY "languages_priority"
 
 namespace languages
 {
+  static char gDefaultPriorities[] =
+  {
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+    21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+    41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
+    61, 62, 63
+  };
+
+  char const * GetCurrentPriorities()
+  {
+    return gDefaultPriorities;
+  }
+
+  static void SetPreferableLanguages(vector<string> const & langCodes)
+  {
+    CHECK_EQUAL(langCodes.size(), 64, ());
+    for (size_t i = 0; i < langCodes.size(); ++i)
+    {
+      char const index = StringUtf8Multilang::GetLangIndex(langCodes[i]);
+      if (index >= 0)
+        gDefaultPriorities[static_cast<size_t>(index)] = i;
+      else
+      {
+        ASSERT(false, ("Invalid language code"));
+      }
+      CHECK_GREATER_OR_EQUAL(gDefaultPriorities[i], 0, ("Unsupported language", langCodes[i]));
+    }
+  }
+
   /// sorts outLanguages according to langCodes order
   static void Sort(vector<string> const & langCodes, CodesAndNamesT & outLanguages)
   {
@@ -85,7 +113,7 @@ namespace languages
     Settings::Set(SETTING_LANG_KEY, saveString);
 
     // apply new settings
-    StringUtf8Multilang::SetPreferableLanguages(langs);
+    SetPreferableLanguages(langs);
   }
 
   bool GetSupportedLanguages(CodesAndNamesT & outLanguages)

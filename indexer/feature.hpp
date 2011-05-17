@@ -202,13 +202,15 @@ public:
     return m_Params.layer;
   }
 
-  inline void GetName(string & utf8s) const
+  template <class T>
+  inline bool ForEachNameRef(T & functor) const
   {
     if (!(Header() & feature::HEADER_HAS_NAME))
-      return;// false;
+      return false;
     if (!m_bCommonParsed)
       ParseCommon();
-    m_Params.name.GetPreferableString(utf8s);
+    m_Params.name.ForEachRef(functor);
+    return true;
   }
 
   inline m2::RectD GetLimitRect() const
@@ -314,6 +316,10 @@ public:
   FeatureType() {}
   FeatureType(read_source_t & src);
 
+  /// @param priorities optional array of languages priorities
+  /// if NULL, default (0) lang will be used
+  string GetPreferredDrawableName(char const * priorities = NULL) const;
+
   void Deserialize(read_source_t & src);
 
   /// @name Geometry.
@@ -371,8 +377,6 @@ public:
 
   /// For test cases only.
   string DebugString(int scale) const;
-
-  string GetPreferredDrawableName() const;
 
   uint8_t GetRank() const { return m_Params.rank; }
 

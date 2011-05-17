@@ -901,7 +901,34 @@ FeatureType::geom_stat_t FeatureType::GetTrianglesSize(int scale) const
   return geom_stat_t(sz, m_Triangles.size());
 }
 
-string FeatureType::GetPreferredDrawableName() const
+class BestMatchedLangName
+{
+  char const * m_priorities;
+  string & m_result;
+  int m_minPriority;
+
+public:
+
+  BestMatchedLangName(char const * priorities, string & result)
+    : m_priorities(priorities), m_result(result), m_minPriority(256) {}
+  bool operator() (char lang, string const & utf8s)
+  {
+    int const priority = m_priorities[lang];
+    if (priority == 0)
+    {
+      m_result = utf8s;
+      return false; // stop foreach
+    }
+    if (priority < m_minPriority)
+    {
+      m_minPriority = priority;
+      m_result = utf8s;
+    }
+    return true;
+  }
+};
+
+string FeatureType::GetPreferredDrawableName(char const * priorities) const
 {
   uint8_t const h = Header();
   string res;
@@ -911,7 +938,13 @@ string FeatureType::GetPreferredDrawableName() const
     if (!m_bCommonParsed)
       ParseCommon();
 
-    GetName(res);
+    if (priorities)
+    {
+      BestMatchedLangName matcher(priorities, res);
+      ForEachNameRef(matcher);
+    }
+    else
+      m_Params.name.GetString(0, res);
 
     if (res.empty() && GetFeatureType() == GEOM_AREA)
       res = m_Params.house.Get();

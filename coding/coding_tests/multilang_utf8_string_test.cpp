@@ -41,14 +41,39 @@ namespace
   }
 }
 
+lang_string gArr[] = { {"default", "default"},
+                      {"en", "abcd"},
+                      {"ru", "\xD0\xA0\xD0\xB0\xD1\x88\xD0\xBA\xD0\xB0"},
+                      {"be", "\xE2\x82\xAC\xF0\xA4\xAD\xA2"} };
+
 UNIT_TEST(MultilangString_Smoke)
 {
   StringUtf8Multilang s;
 
-  lang_string arr[] = { {"default", "default"},
-                        {"en", "abcd"},
-                        {"ru", "\xD0\xA0\xD0\xB0\xD1\x88\xD0\xBA\xD0\xB0"},
-                        {"be", "\xE2\x82\xAC\xF0\xA4\xAD\xA2"} };
+  TestMultilangString(gArr, ARRAY_SIZE(gArr));
+}
 
-  TestMultilangString(arr, ARRAY_SIZE(arr));
+class LangChecker
+{
+  size_t m_index;
+
+public:
+  LangChecker() : m_index(0) {}
+  bool operator() (char lang, string const & utf8s)
+  {
+    TEST_EQUAL(lang, StringUtf8Multilang::GetLangIndex(gArr[m_index].m_lang), ());
+    TEST_EQUAL(utf8s, gArr[m_index].m_str, ());
+    ++m_index;
+    return true;
+  }
+};
+
+UNIT_TEST(MultilangString_ForEach)
+{
+  StringUtf8Multilang s;
+  for (size_t i = 0; i < ARRAY_SIZE(gArr); ++i)
+    s.AddString(gArr[i].m_lang, gArr[i].m_str);
+
+  LangChecker doClass;
+  s.ForEachRef(doClass);
 }
