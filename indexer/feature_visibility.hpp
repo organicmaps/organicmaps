@@ -21,4 +21,5 @@ namespace feature
   int GetDrawRule(FeatureBase const & f, int level, vector<drule::Key> & keys, string & names);
 
   bool IsHighway(vector<uint32_t> const & types);
+  bool IsCountry(uint32_t type);
 }

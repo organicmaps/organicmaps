@@ -39,6 +39,8 @@ public:
   void SetAreaAddHoles(list<vector<m2::PointD> > const & holes);
   //@}
 
+  inline feature::EGeomType GetGeomType() const { return m_Params.GetGeomType(); }
+
   inline void AddType(uint32_t type) { m_Params.AddType(type); }
   inline bool HasType(uint32_t t) const { return m_Params.IsTypeExist(t); }
 
@@ -149,8 +151,8 @@ public:
     buffers_holder_t() : m_ptsMask(0), m_trgMask(0), m_ptsSimpMask(0) {}
   };
 
-  bool IsLine() const { return (m_Params.GetGeomType() == feature::GEOM_LINE); }
-  bool IsArea() const { return (m_Params.GetGeomType() == feature::GEOM_AREA); }
+  bool IsLine() const { return (m_Params.GetTypeMask() & feature::HEADER_GEOM_LINE) != 0; }
+  bool IsArea() const { return (m_Params.GetTypeMask() & feature::HEADER_GEOM_AREA) != 0; }
   bool IsDrawableInRange(int lowS, int highS) const;
 
   points_t const & GetGeometry() const { return m_Geometry; }
@@ -173,20 +175,7 @@ public:
 
   typedef vector<char> buffer_t;
 
-  inline feature::EGeomType GetFeatureType() const
-  {
-    uint8_t const h = Header() & feature::HEADER_GEOTYPE_MASK;
-
-    if (h == feature::HEADER_GEOM_POINT)
-      return feature::GEOM_POINT;
-    else if (h == feature::HEADER_GEOM_LINE)
-      return feature::GEOM_LINE;
-    else
-    {
-      ASSERT ( h == feature::HEADER_GEOM_AREA, (h) );
-      return feature::GEOM_AREA;
-    }
-  }
+  feature::EGeomType GetFeatureType() const;
 
   inline uint8_t GetTypesCount() const
   {
@@ -197,8 +186,10 @@ public:
   {
     if (!(Header() & feature::HEADER_HAS_LAYER))
       return 0;
+
     if (!m_bCommonParsed)
       ParseCommon();
+
     return m_Params.layer;
   }
 
@@ -210,10 +201,12 @@ public:
   template <class T>
   inline bool ForEachNameRef(T & functor) const
   {
-    if (!(Header() & feature::HEADER_HAS_NAME))
+    if (!HasName())
       return false;
+
     if (!m_bCommonParsed)
       ParseCommon();
+
     m_Params.name.ForEachRef(functor);
     return true;
   }
@@ -383,7 +376,7 @@ public:
   /// For test cases only.
   string DebugString(int scale) const;
 
-  uint8_t GetRank() const { return m_Params.rank; }
+  uint8_t GetRank() const;
 
   /// @name Statistic functions.
   //@{

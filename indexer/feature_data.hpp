@@ -113,26 +113,29 @@ struct FeatureParamsBase
 
 class FeatureParams : public FeatureParamsBase
 {
-  feature::EGeomType m_Geom;
+  bool m_geomTypes[3];
 
 public:
   typedef vector<uint32_t> types_t;
   types_t m_Types;
 
   FeatureParams(FeatureParamsBase const & rhs)
-    : FeatureParamsBase(rhs), m_Geom(feature::GEOM_UNDEFINED)
+    : FeatureParamsBase(rhs)
   {
+    m_geomTypes[0] = m_geomTypes[1] = m_geomTypes[2] = false;
   }
-  FeatureParams() : m_Geom(feature::GEOM_UNDEFINED) {}
+  FeatureParams()
+  {
+    m_geomTypes[0] = m_geomTypes[1] = m_geomTypes[2] = false;
+  }
 
   bool IsValid() const { return !m_Types.empty(); }
 
-  inline void SetGeomType(feature::EGeomType t) { m_Geom = t; }
-  inline void RemoveGeomType(feature::EGeomType t)
-  {
-    if (m_Geom == t) m_Geom = feature::GEOM_UNDEFINED;
-  }
-  inline feature::EGeomType GetGeomType() const { return m_Geom; }
+  inline void SetGeomType(feature::EGeomType t) { m_geomTypes[t] = true; }
+  inline void RemoveGeomType(feature::EGeomType t) { m_geomTypes[t] = false; }
+
+  feature::EGeomType GetGeomType() const;
+  uint8_t GetTypeMask() const;
 
   inline void AddType(uint32_t t) { m_Types.push_back(t); }
   void AddTypes(FeatureParams const & rhs);
@@ -164,6 +167,6 @@ public:
     for (size_t i = 0; i < m_Types.size(); ++i)
       WriteVarUint(sink, m_Types[i]);
 
-    FeatureParamsBase::Write(sink, header, m_Geom);
+    FeatureParamsBase::Write(sink, header, GetGeomType());
   }
 };

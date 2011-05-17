@@ -28,6 +28,26 @@ string FeatureParamsBase::DebugString() const
           (!ref.empty() ? " Ref:" + ref : "") + " ");
 }
 
+feature::EGeomType FeatureParams::GetGeomType() const
+{
+  // Geometry types can be combined.
+  // We define exact type for priority : starting from GEOM_AREA.
+
+  if (m_geomTypes[GEOM_AREA]) return GEOM_AREA;
+  if (m_geomTypes[GEOM_LINE]) return GEOM_LINE;
+  if (m_geomTypes[GEOM_POINT]) return GEOM_POINT;
+  return GEOM_UNDEFINED;
+}
+
+uint8_t FeatureParams::GetTypeMask() const
+{
+  uint8_t h = 0;
+  if (m_geomTypes[GEOM_POINT]) h |= HEADER_GEOM_POINT;
+  if (m_geomTypes[GEOM_LINE]) h |= HEADER_GEOM_LINE;
+  if (m_geomTypes[GEOM_AREA]) h |= HEADER_GEOM_AREA;
+  return h;
+}
+
 void FeatureParams::AddTypes(FeatureParams const & rhs)
 {
   m_Types.insert(m_Types.end(), rhs.m_Types.begin(), rhs.m_Types.end());
@@ -74,13 +94,13 @@ bool FeatureParams::operator == (FeatureParams const & rhs) const
 {
   return (FeatureParamsBase::operator ==(rhs) &&
           m_Types == rhs.m_Types &&
-          m_Geom == rhs.m_Geom);
+          GetGeomType() == rhs.GetGeomType());
 }
 
 bool FeatureParams::CheckValid() const
 {
   CHECK(!m_Types.empty() && m_Types.size() <= max_types_count, ());
-  CHECK(m_Geom != GEOM_UNDEFINED, ());
+  CHECK(GetGeomType() != GEOM_UNDEFINED, ());
 
   return FeatureParamsBase::CheckValid();
 }
@@ -95,20 +115,14 @@ uint8_t FeatureParams::GetHeader() const
   if (layer != 0)
     header |= HEADER_HAS_LAYER;
 
-  switch (m_Geom)
+  header |= GetTypeMask();
+
+  // Geometry type for additional info is only one.
+  switch (GetGeomType())
   {
-  case GEOM_POINT:
-    header |= HEADER_GEOM_POINT;
-    if (rank != 0) header |= HEADER_HAS_ADDINFO;
-    break;
-  case GEOM_LINE:
-    header |= HEADER_GEOM_LINE;
-    if (!ref.empty()) header |= HEADER_HAS_ADDINFO;
-    break;
-  case GEOM_AREA:
-    header |= HEADER_GEOM_AREA;
-    if (!house.IsEmpty()) header |= HEADER_HAS_ADDINFO;
-    break;
+  case GEOM_POINT: if (rank != 0) header |= HEADER_HAS_ADDINFO; break;
+  case GEOM_LINE: if (!ref.empty()) header |= HEADER_HAS_ADDINFO; break;
+  case GEOM_AREA: if (!house.IsEmpty()) header |= HEADER_HAS_ADDINFO; break;
   default:
     ASSERT(false, ("Undefined geometry type"));
   }

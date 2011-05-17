@@ -364,16 +364,16 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
 
   BitSink< PushBackByteSink<buffer_t> > bitSink(sink);
 
-  EGeomType const type = m_Params.GetGeomType();
+  uint8_t const h = m_Params.GetTypeMask();
 
-  if (type == GEOM_LINE)
+  if (h & HEADER_GEOM_LINE)
   {
     bitSink.Write(ptsCount, 4);
     if (ptsCount == 0)
       bitSink.Write(data.m_ptsMask, 4);
   }
 
-  if (type == GEOM_AREA)
+  if (h & HEADER_GEOM_AREA)
   {
     bitSink.Write(trgCount, 4);
     if (trgCount == 0)
@@ -382,7 +382,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
 
   bitSink.Finish();
 
-  if (type == GEOM_LINE)
+  if (h & HEADER_GEOM_LINE)
   {
     if (ptsCount > 0)
     {
@@ -407,7 +407,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
     }
   }
 
-  if (type == GEOM_AREA)
+  if (h & HEADER_GEOM_AREA)
   {
     if (trgCount > 0)
       serial::SaveInnerTriangles(data.m_innerTrg, params, sink);
@@ -448,6 +448,21 @@ void FeatureBase::SetHeader(uint8_t h)
   ASSERT ( m_Offset == 0, (m_Offset) );
   m_Data.resize(1);
   m_Data[0] = h;
+}
+
+feature::EGeomType FeatureBase::GetFeatureType() const
+{
+  uint8_t const h = (Header() & HEADER_GEOTYPE_MASK);
+
+  if (h & HEADER_GEOM_AREA)
+    return GEOM_AREA;
+  else if (h & HEADER_GEOM_LINE)
+    return GEOM_LINE;
+  else
+  {
+    ASSERT ( h == HEADER_GEOM_POINT, (h) );
+    return GEOM_POINT;
+  }
 }
 
 void FeatureBase::ParseTypes() const
@@ -518,12 +533,18 @@ void FeatureBase::InitFeatureBuilder(FeatureBuilder1 & fb) const
 
   FeatureParams params(m_Params);
   params.AssignTypes(m_Types, m_Types + GetTypesCount());
-  params.SetGeomType(GetFeatureType());
 
-  fb.SetParams(params);
+  uint8_t const h = (Header() & HEADER_GEOTYPE_MASK);
+  if (h & HEADER_GEOM_LINE) params.SetGeomType(GEOM_LINE);
+  if (h & HEADER_GEOM_AREA) params.SetGeomType(GEOM_AREA);
 
   if (GetFeatureType() == GEOM_POINT)
+  {
     fb.SetCenter(m_Center);
+    params.SetGeomType(GEOM_POINT);
+  }
+
+  fb.SetParams(params);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -702,9 +723,9 @@ void FeatureType::ParseHeader2() const
 
   BitSource bitSource(DataPtr() + m_Header2Offset);
 
-  EGeomType const type = GetFeatureType();
+  uint8_t const h = (Header() & HEADER_GEOTYPE_MASK);
 
-  if (type == GEOM_LINE)
+  if (h & HEADER_GEOM_LINE)
   {
     ptsCount = bitSource.Read(4);
     if (ptsCount == 0)
@@ -715,7 +736,7 @@ void FeatureType::ParseHeader2() const
     }
   }
 
-  if (type == GEOM_AREA)
+  if (h & HEADER_GEOM_AREA)
   {
     trgCount = bitSource.Read(4);
     if (trgCount == 0)
@@ -724,7 +745,7 @@ void FeatureType::ParseHeader2() const
 
   ArrayByteSource src(bitSource.RoundPtr());
 
-  if (type == GEOM_LINE)
+  if (h & HEADER_GEOM_LINE)
   {
     if (ptsCount > 0)
     {
@@ -747,7 +768,7 @@ void FeatureType::ParseHeader2() const
       ReadOffsets(src, ptsMask, m_ptsOffsets);
   }
 
-  if (type == GEOM_AREA)
+  if (h & HEADER_GEOM_AREA)
   {
     if (trgCount > 0)
     {
@@ -782,7 +803,7 @@ uint32_t FeatureType::ParseGeometry(int scale) const
     ParseHeader2();
 
   uint32_t sz = 0;
-  if (GetFeatureType() == GEOM_LINE)
+  if (Header() & HEADER_GEOM_LINE)
   {
     if (m_Points.empty())
     {
@@ -835,7 +856,7 @@ uint32_t FeatureType::ParseTriangles(int scale) const
     ParseHeader2();
 
   uint32_t sz = 0;
-  if (GetFeatureType() == GEOM_AREA)
+  if (Header() & HEADER_GEOM_AREA)
   {
     if (m_Triangles.empty())
     {
@@ -930,25 +951,32 @@ public:
 
 string FeatureType::GetPreferredDrawableName(char const * priorities) const
 {
-  uint8_t const h = Header();
+  if (!m_bCommonParsed)
+    ParseCommon();
+
   string res;
-
-  if ((h & feature::HEADER_HAS_NAME) || (h & feature::HEADER_HAS_ADDINFO))
+  if (priorities)
   {
-    if (!m_bCommonParsed)
-      ParseCommon();
-
-    if (priorities)
-    {
-      BestMatchedLangName matcher(priorities, res);
-      ForEachNameRef(matcher);
-    }
-    else
-      m_Params.name.GetString(0, res);
-
-    if (res.empty() && GetFeatureType() == GEOM_AREA)
-      res = m_Params.house.Get();
+    BestMatchedLangName matcher(priorities, res);
+    ForEachNameRef(matcher);
   }
+  else
+    m_Params.name.GetString(0, res);
 
+  if (res.empty() && GetFeatureType() == GEOM_AREA)
+    res = m_Params.house.Get();
+ 
   return res;
+}
+
+uint8_t FeatureType::GetRank() const
+{
+  if (!m_bCommonParsed)
+    ParseCommon();
+
+  /// @todo Move this check to generator (don't store rank for countries).
+  if (m_Params.rank > 0 && feature::IsCountry(m_Types[0]))
+    return 0;
+
+  return m_Params.rank;
 }

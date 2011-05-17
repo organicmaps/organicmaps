@@ -3,8 +3,18 @@
 #include "feature_merger.hpp"
 
 #include "../indexer/feature_visibility.hpp"
+#include "../indexer/scales.hpp"
 
 #include "../defines.hpp"
+
+
+inline int GetMinFeatureDrawScale(FeatureBuilder1 const & fb)
+{
+  FeatureBase fBase = fb.GetFeatureBase();
+  int const minScale = feature::MinDrawableScaleForFeature(fBase);
+  CHECK_GREATER(minScale, -1, ("Non-drawable feature found!?"));
+  return minScale;
+}
 
 
 template <class FeatureOutT>
@@ -13,22 +23,33 @@ class WorldMapGenerator
   class WorldEmitter : public FeatureEmitterIFace
   {
     FeatureOutT m_output;
+    int m_maxWorldScale;
+
   public:
-    template <class TInit> WorldEmitter(TInit const & initData)
-      : m_output(WORLD_FILE_NAME, initData)
+    template <class TInit>
+    WorldEmitter(int maxScale, TInit const & initData)
+      : m_maxWorldScale(maxScale), m_output(WORLD_FILE_NAME, initData)
     {
     }
+
     virtual void operator() (FeatureBuilder1 const & fb)
     {
-      m_output(fb);
+      if (NeedPushToWorld(fb) && scales::IsGoodForLevel(scales::GetUpperWorldScale(), fb.GetLimitRect()))
+        PushSure(fb);
     }
+
+    bool NeedPushToWorld(FeatureBuilder1 const & fb) const
+    {
+      return (m_maxWorldScale >= GetMinFeatureDrawScale(fb));
+    }
+
+    void PushSure(FeatureBuilder1 const & fb) { m_output(fb); }
   };
 
   /// if NULL, separate world data file is not generated
   scoped_ptr<WorldEmitter> m_worldBucket;
 
   /// features visible before or at this scale level will go to World map
-  int m_maxWorldScale;
   bool m_mergeCoastlines;
 
   FeatureMergeProcessor m_processor;
@@ -36,10 +57,10 @@ class WorldMapGenerator
 public:
   WorldMapGenerator(int maxWorldScale, bool mergeCoastlines,
                     typename FeatureOutT::InitDataType const & initData)
-  : m_maxWorldScale(maxWorldScale), m_mergeCoastlines(mergeCoastlines), m_processor(30)
+  : m_mergeCoastlines(mergeCoastlines), m_processor(30)
   {
     if (maxWorldScale >= 0)
-      m_worldBucket.reset(new WorldEmitter(initData));
+      m_worldBucket.reset(new WorldEmitter(maxWorldScale, initData));
 
     // fill vector with types that need to be merged
     //static size_t const MAX_TYPES_IN_PATH = 3;
@@ -68,19 +89,12 @@ public:
 
   void operator()(FeatureBuilder1 const & fb)
   {
-    if (m_worldBucket)
+    if (m_worldBucket && m_worldBucket->NeedPushToWorld(fb))
     {
-      FeatureBase fBase = fb.GetFeatureBase();
-      int const minScale = feature::MinDrawableScaleForFeature(fBase);
-      CHECK_GREATER(minScale, -1, ("Non-drawable feature found!?"));
-
-      if (m_maxWorldScale >= minScale)
-      {
-        if (m_mergeCoastlines && fBase.GetFeatureType() == feature::GEOM_LINE)
-          m_processor(fb);
-        else
-          (*m_worldBucket)(fb);
-      }
+      if (m_mergeCoastlines && (fb.GetGeomType() == feature::GEOM_LINE))
+        m_processor(fb);
+      else
+        m_worldBucket->PushSure(fb);
     }
   }
 

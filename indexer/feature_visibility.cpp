@@ -256,4 +256,24 @@ bool IsHighway(vector<uint32_t> const & types)
   return false;
 }
 
+bool IsCountry(uint32_t type)
+{
+  class checker_t
+  {
+  public:
+    uint32_t m_type;
+
+    checker_t()
+    {
+      vector<string> vec;
+      vec.push_back("place");
+      vec.push_back("country");
+      m_type = classif().GetTypeByPath(vec);
+    }
+  };
+
+  static checker_t checker;
+  return (type == checker.m_type);
+}
+
 }
