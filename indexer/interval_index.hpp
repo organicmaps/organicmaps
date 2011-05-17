@@ -6,7 +6,6 @@
 #include "../base/assert.hpp"
 #include "../base/base.hpp"
 #include "../base/bits.hpp"
-#include "../base/bitset.hpp"
 #include "../base/buffer_vector.hpp"
 #include "../base/macros.hpp"
 #include "../std/algorithm.hpp"
