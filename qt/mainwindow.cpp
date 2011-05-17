@@ -6,7 +6,7 @@
 
 #include "../defines.hpp"
 
-#include "../map/search_processor.hpp"
+#include "../search/search_processor.hpp"
 #include "../map/settings.hpp"
 
 #include <QtGui/QDockWidget>

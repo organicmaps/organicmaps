@@ -7,9 +7,10 @@
 #include "window_handle.hpp"
 #include "location_state.hpp"
 #include "navigator.hpp"
-#include "search_processor.hpp"
 
 #include "../defines.hpp"
+
+#include "../search/search_processor.hpp"
 
 #include "../indexer/drawing_rule_def.hpp"
 #include "../indexer/mercator.hpp"

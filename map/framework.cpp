@@ -6,7 +6,6 @@
 #include "feature_vec_model.hpp"
 #include "benchmark_provider.hpp"
 #include "languages.hpp"
-#include "search_processor.hpp"
 
 #include "../indexer/feature_visibility.hpp"
 #include "../indexer/feature.hpp"

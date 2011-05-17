@@ -13,6 +13,7 @@ SUBDIRS = \
           yg \
           storage storage/storage_tests \
           indexer \
+          search search/search_tests \
           map \
           qt_tstfrm \
           indexer/indexer_tests \

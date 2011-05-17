@@ -12,15 +12,14 @@ SUBDIRS = 3party \
           coding coding/coding_tests \
           geometry \
           indexer \
+          search search/search_tests \
           geometry/geometry_tests \
           version \
           platform platform/platform_tests \
           yg \
           storage storage/storage_tests \
-          map \
-          map/map_tests \
-          generator \
-          generator/generator_tests \
+          map map/map_tests \
+          generator generator/generator_tests \
           generator/generator_tool \
           qt_tstfrm \
           indexer/indexer_tests \
