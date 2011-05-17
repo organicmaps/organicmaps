@@ -2,6 +2,7 @@
 
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
+#include "../std/stdint.hpp"
 
 namespace utf8_string
 {
