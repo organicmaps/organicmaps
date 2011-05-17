@@ -6,6 +6,7 @@
 
 #include "../defines.hpp"
 
+#include "../map/search_processor.hpp"
 #include "../map/settings.hpp"
 
 #include <QtGui/QDockWidget>
@@ -349,27 +350,31 @@ void MainWindow::OnSearchTextChanged(QString const & str)
   QTableWidget * table = static_cast<QTableWidget *>(m_Docks[3]->widget());
   table->clear();
   table->setRowCount(0);
-  m_pDrawWidget->Search(str.toUtf8().constData(),
-                        boost::bind(&MainWindow::OnSearchResult, this, _1, _2));
+  if (!str.isEmpty())
+    m_pDrawWidget->Search(str.toUtf8().constData(),
+                        boost::bind(&MainWindow::OnSearchResult, this, _1));
 }
 
-void MainWindow::OnSearchResult(string const & name, m2::RectD const & rect)
+void MainWindow::OnSearchResult(search::Result const & result)
 {
-  QTableWidget * table = static_cast<QTableWidget *>(m_Docks[3]->widget());
+  if (result.m_name.empty())  // last element
+  {
+    if (!m_Docks[3]->isVisible())
+      m_Docks[3]->show();
+  }
+  else
+  {
+    QTableWidget * table = static_cast<QTableWidget *>(m_Docks[3]->widget());
 
-  int const rowCount = table->rowCount();
-  if (rowCount > 100)
-    return;
+    int const rowCount = table->rowCount();
 
-  table->setRowCount(rowCount + 1);
-  QTableWidgetItem * item = new QTableWidgetItem(QString::fromUtf8(name.c_str()));
-  item->setData(Qt::UserRole, QRectF(QPointF(rect.minX(), rect.maxY()),
-                                     QPointF(rect.maxX(), rect.minY())));
-  item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-  table->setItem(rowCount, 0, item);
-
-  if (!m_Docks[3]->isVisible())
-    m_Docks[3]->show();
+    table->setRowCount(rowCount + 1);
+    QTableWidgetItem * item = new QTableWidgetItem(QString::fromUtf8(result.m_name.c_str()));
+    item->setData(Qt::UserRole, QRectF(QPointF(result.m_rect.minX(), result.m_rect.maxY()),
+                                       QPointF(result.m_rect.maxX(), result.m_rect.minY())));
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    table->setItem(rowCount, 0, item);
+  }
 }
 
 void MainWindow::OnSearchPanelShortcutPressed()

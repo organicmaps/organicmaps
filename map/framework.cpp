@@ -6,6 +6,7 @@
 #include "feature_vec_model.hpp"
 #include "benchmark_provider.hpp"
 #include "languages.hpp"
+#include "search_processor.hpp"
 
 #include "../indexer/feature_visibility.hpp"
 #include "../indexer/feature.hpp"
@@ -257,7 +258,6 @@ namespace fwork
 
     return true;
   }
-
 }
 
 template <typename TModel>
@@ -387,7 +387,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     // set language priorities
     languages::CodesT langCodes;
     languages::GetCurrentSettings(langCodes);
-    StringUtf8Multilang::SetPreferableLanguages(langCodes);
+    languages::SaveSettings(langCodes);
   }
 
   template <typename TModel>
@@ -1058,37 +1058,21 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     UpdateNow();
   }
 
-  class SearchProcessor
-  {
-    string const & m_text;
-    SearchCallbackT & m_callback;
-
-  public:
-    SearchProcessor(string const & textToSearch, SearchCallbackT & callback)
-      : m_text(textToSearch), m_callback(callback) {}
-    bool operator() (FeatureType const & f) const
-    {
-      // @TODO search for all languages
-      string name;
-      f.GetName(name);
-      if (!name.empty() && name.find(m_text) != string::npos)
-      {
-        m_callback(name, f.GetLimitRect(-1));
-      }
-      return true;
-    }
-  };
-
   template<typename TModel>
   void FrameWork<TModel>::Search(string const & text, SearchCallbackT callback) const
   {
     threads::MutexGuard lock(m_modelSyn);
 
-    SearchProcessor doClass(text, callback);
-    m_model.ForEachFeatureWithScale(m2::RectD(MercatorBounds::minX,
+    search::Query query(text);
+    search::Processor doClass(query);
+    m_model.ForEachFeature(m_navigator.Screen().GlobalRect()
+                                    /*m2::RectD(MercatorBounds::minX,
                                               MercatorBounds::minY,
                                               MercatorBounds::maxX,
-                                              MercatorBounds::maxY), doClass, 9);
+                                              MercatorBounds::maxY)*/, doClass);
+    query.ForEachResultRef(callback);
+    // empty name indicates last element
+    callback(search::Result(string(), m2::RectD()));
   }
 
 template class FrameWork<model::FeaturesFetcher>;

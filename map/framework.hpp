@@ -7,6 +7,7 @@
 #include "window_handle.hpp"
 #include "location_state.hpp"
 #include "navigator.hpp"
+#include "search_processor.hpp"
 
 #include "../defines.hpp"
 
@@ -51,7 +52,7 @@ class redraw_operation_cancelled {};
 
 struct BenchmarkRectProvider;
 
-typedef boost::function<void (string const &, m2::RectD const &)> SearchCallbackT;
+typedef boost::function<void (search::Result const &)> SearchCallbackT;
 
 namespace fwork
 {

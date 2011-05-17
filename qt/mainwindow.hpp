@@ -6,6 +6,11 @@
 
 class QDockWidget;
 
+namespace search
+{
+  class Result;
+}
+
 namespace qt
 {
   class DrawWidget;
@@ -38,7 +43,7 @@ namespace qt
 
   private:
     void OnLocationFound();
-    void OnSearchResult(string const & name, m2::RectD const & rect);
+    void OnSearchResult(search::Result const & result);
 
   protected:
 #ifdef DEBUG // code removed for desktop releases

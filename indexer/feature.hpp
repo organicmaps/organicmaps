@@ -202,6 +202,11 @@ public:
     return m_Params.layer;
   }
 
+  inline bool HasName() const
+  {
+    return Header() & feature::HEADER_HAS_NAME;
+  }
+
   template <class T>
   inline bool ForEachNameRef(T & functor) const
   {
