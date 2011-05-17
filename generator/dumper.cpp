@@ -16,9 +16,17 @@ namespace feature
   public:
     typedef unordered_map<vector<uint32_t>, size_t> value_type;
     value_type m_stats;
+    size_t m_namesCount;
+    size_t m_totalCount;
+
+    TypesCollector() : m_namesCount(0), m_totalCount(0) {}
 
     void operator()(FeatureType & f, uint32_t)
     {
+      ++m_totalCount;
+      if (!f.GetPreferredDrawableName().empty())
+        ++m_namesCount;
+
       m_currFeatureTypes.clear();
       f.ForEachTypeRef(*this);
       CHECK(!m_currFeatureTypes.empty(), ("Feature without any type???"));
@@ -56,5 +64,7 @@ namespace feature
         cout << classif().GetFullObjectName(it->first[i]) << " ";
       cout << endl;
     }
+    cout << "Total features: " << doClass.m_totalCount << endl;
+    cout << "Features with names: " << doClass.m_namesCount << endl;
   }
 }
