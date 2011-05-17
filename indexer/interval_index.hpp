@@ -1,6 +1,7 @@
 #pragma once
 #include "../coding/endianness.hpp"
 #include "../coding/byte_stream.hpp"
+#include "../coding/reader.hpp"
 #include "../coding/varint.hpp"
 #include "../base/assert.hpp"
 #include "../base/base.hpp"
@@ -8,6 +9,7 @@
 #include "../base/bitset.hpp"
 #include "../base/buffer_vector.hpp"
 #include "../base/macros.hpp"
+#include "../std/algorithm.hpp"
 #include "../std/memcpy.hpp"
 #include "../std/static_assert.hpp"
 
@@ -17,27 +19,21 @@ public:
 #pragma pack(push, 1)
   struct Header
   {
+    uint8_t m_Version;
     uint8_t m_Levels;
     uint8_t m_BitsPerLevel;
+    uint8_t m_LeafBytes;
   };
 #pragma pack(pop)
-  STATIC_ASSERT(sizeof(Header) == 2);
+  STATIC_ASSERT(sizeof(Header) == 4);
 
-  struct Index
-  {
-    enum { MAX_BITS_PER_LEVEL = 256 };
-    inline uint32_t GetOffset() const { return m_Offset; }
-    inline uint32_t Bit(uint32_t i) const { return m_Bitset.Bit(i); }
-
-    uint32_t m_Offset;
-    Bitset<MAX_BITS_PER_LEVEL> m_Bitset;
-  };
-
-  static inline uint32_t BitsetSize(uint32_t bitsPerLevel)
+  static inline uint32_t BitmapSize(uint32_t bitsPerLevel)
   {
     ASSERT_GREATER(bitsPerLevel, 3, ());
     return 1 << (bitsPerLevel - 3);
   }
+
+  enum { kVersion = 1 };
 };
 
 template <class ReaderT>
@@ -50,29 +46,34 @@ public:
   public:
     void Clear() {}
   private:
-    friend class IntervalIndex;
-    vector<char> m_IntervalIndexCache;
+    // TODO: Add IntervalIndex cache here.
   };
 
-  explicit IntervalIndex(ReaderT const & reader)
-    : m_Reader(reader)
+  explicit IntervalIndex(ReaderT const & reader) : m_Reader(reader)
   {
-    m_Reader.Read(0, &m_Header, sizeof(m_Header));
-    m_NodeSize = 4 + BitsetSize(m_Header.m_BitsPerLevel);
-    ReadIndex(sizeof(m_Header), m_Level0Index);
+    ReaderSource<ReaderT> src(reader);
+    src.Read(&m_Header, sizeof(Header));
+    CHECK_EQUAL(m_Header.m_Version, static_cast<uint8_t>(kVersion), ());
+    if (m_Header.m_Levels != 0)
+      for (int i = 0; i <= m_Header.m_Levels + 1; ++i)
+        m_LevelOffsets.push_back(ReadPrimitiveFromSource<uint32_t>(src));
+  }
+
+  uint64_t KeyEnd() const
+  {
+    return 1ULL << (m_Header.m_Levels * m_Header.m_BitsPerLevel + m_Header.m_LeafBytes * 8);
   }
 
   template <typename F>
-  void ForEach(F const & f, uint64_t beg, uint64_t end, Query & query) const
+  void ForEach(F const & f, uint64_t beg, uint64_t end, Query &) const
   {
-    ASSERT_LESS(beg, 1ULL << m_Header.m_Levels * m_Header.m_BitsPerLevel, (beg, end));
-    ASSERT_LESS_OR_EQUAL(end, 1ULL << m_Header.m_Levels * m_Header.m_BitsPerLevel, (beg, end));
-    if (beg != end)
+    if (m_Header.m_Levels != 0 && beg != end)
     {
-      // end is inclusive in ForEachImpl().
-      --end;
-      ForEachImpl(f, beg, end, m_Level0Index, sizeof(m_Header) + m_NodeSize,
-                  (m_Header.m_Levels - 1) * m_Header.m_BitsPerLevel, query);
+      ASSERT_LESS_OR_EQUAL(beg, KeyEnd(), (end));
+      ASSERT_LESS_OR_EQUAL(end, KeyEnd(), (beg));
+      --end;  // end is inclusive in ForEachImpl().
+      ForEachNode(f, beg, end, m_Header.m_Levels, 0,
+                  m_LevelOffsets[m_Header.m_Levels + 1] - m_LevelOffsets[m_Header.m_Levels]);
     }
   }
 
@@ -84,78 +85,97 @@ public:
   }
 
 private:
+
   template <typename F>
-  void ForEachImpl(F const & f, uint64_t beg, uint64_t end, Index const & index,
-                   uint32_t baseOffset, int skipBits, Query & query) const
+  void ForEachLeaf(F const & f, uint64_t const beg, uint64_t const end,
+                   uint32_t const offset, uint32_t const size) const
   {
-    uint32_t const beg0 = static_cast<uint32_t>(beg >> skipBits);
-    uint32_t const end0 = static_cast<uint32_t>(end >> skipBits);
-    ASSERT_GREATER_OR_EQUAL(skipBits, 0, (beg, end, baseOffset));
-    ASSERT_LESS_OR_EQUAL(beg, end, (baseOffset, skipBits));
-    ASSERT_LESS_OR_EQUAL(beg0, end0, (beg, end, baseOffset, skipBits));
-    ASSERT_LESS(end0, (1 << m_Header.m_BitsPerLevel), (beg0, beg, end, baseOffset, skipBits));
-
-    if (skipBits > 0)
+    buffer_vector<uint8_t, 1024> data(size);
+    m_Reader.Read(offset, &data[0], size);
+    ArrayByteSource src(&data[0]);
+    void const * pEnd = &data[0] + size;
+    uint32_t value = 0;
+    while (src.Ptr() < pEnd)
     {
-      uint32_t cumCount = 0;
-      for (uint32_t i = 0; i < beg0; ++i)
-        cumCount += index.Bit(i);
-      for (uint32_t i = beg0; i <= end0; ++i)
-      {
-        if (index.Bit(i))
-        {
-          uint64_t const levelBytesFF = (1ULL << skipBits) - 1;
-          uint64_t const b1 = (i == beg0) ? (beg & levelBytesFF) : 0;
-          uint64_t const e1 = (i == end0) ? (end & levelBytesFF) : levelBytesFF;
-
-          Index index1;
-          uint32_t const offset = baseOffset + index.GetOffset() + (cumCount * m_NodeSize);
-          ReadIndex(offset, index1);
-          ForEachImpl(f, b1, e1, index1, offset + m_NodeSize,
-                      skipBits - m_Header.m_BitsPerLevel, query);
-          ++cumCount;
-        }
-      }
-    }
-    else
-    {
-      Index nextIndex;
-      ReadIndex(baseOffset, nextIndex);
-      uint32_t const begOffset = baseOffset + index.GetOffset();
-      uint32_t const endOffset = baseOffset + m_NodeSize + nextIndex.GetOffset();
-      ASSERT_LESS(begOffset, endOffset, (beg, end, baseOffset, skipBits));
-      buffer_vector<uint8_t, 256> data(endOffset - begOffset);
-      m_Reader.Read(begOffset, &data[0], data.size());
-      ArrayByteSource src(&data[0]);
-      void const * const pEnd = &data[0] + data.size();
-      uint32_t key = -1;
-      uint32_t value = 0;
-      while (src.Ptr() < pEnd)
-      {
-        uint32_t const x = ReadVarUint<uint32_t>(src);
-        int32_t const delta = bits::ZigZagDecode(x >> 1);
-        ASSERT_GREATER_OR_EQUAL(static_cast<int32_t>(value) + delta, 0, ());
-        value += delta;
-        if (x & 1)
-          for (++key; key < (1 << m_Header.m_BitsPerLevel) && !index.Bit(key); ++key) ;
-        ASSERT_LESS(key, 1 << m_Header.m_BitsPerLevel, (key));
-        if (key > end0)
-          break;
-        if (key >= beg0)
-          f(value);
-      }
+      uint32_t key = 0;
+      src.Read(&key, m_Header.m_LeafBytes);
+      key = SwapIfBigEndian(key);
+      if (key > end)
+        break;
+      value += ReadVarInt<int32_t>(src);
+      if (key >= beg)
+        f(value);
     }
   }
 
-  void ReadIndex(uint64_t pos, Index & index) const
+  template <typename F>
+  void ForEachNode(F const & f, uint64_t beg, uint64_t end, int level,
+                   uint32_t offset, uint32_t size) const
   {
-    m_Reader.Read(pos, &index, m_NodeSize);
-    index.m_Offset = SwapIfBigEndian(index.m_Offset);
+    offset += m_LevelOffsets[level];
+
+    if (level == 0)
+    {
+      ForEachLeaf(f, beg, end, offset, size);
+      return;
+    }
+
+    uint8_t const skipBits = (m_Header.m_LeafBytes << 3) + (level - 1) * m_Header.m_BitsPerLevel;
+    ASSERT_LESS_OR_EQUAL(beg, end, (skipBits));
+
+    uint64_t const levelBytesFF = (1ULL << skipBits) - 1;
+    uint32_t const beg0 = static_cast<uint32_t>(beg >> skipBits);
+    uint32_t const end0 = static_cast<uint32_t>(end >> skipBits);
+    ASSERT_LESS(end0, (1 << m_Header.m_BitsPerLevel), (beg, end, skipBits));
+
+    buffer_vector<uint8_t, 576> data(size);
+    m_Reader.Read(offset, &data[0], size);
+    ArrayByteSource src(&data[0]);
+    uint32_t const offsetAndFlag = ReadVarUint<uint32_t>(src);
+    uint32_t childOffset = offsetAndFlag >> 1;
+    if (offsetAndFlag & 1)
+    {
+      // Reading bitmap.
+      uint8_t const * pBitmap = static_cast<uint8_t const *>(src.Ptr());
+      src.Advance(BitmapSize(m_Header.m_BitsPerLevel));
+      for (uint32_t i = 0; i <= end0; ++i)
+      {
+        if (bits::GetBit(pBitmap, i))
+        {
+          uint32_t childSize = ReadVarUint<uint32_t>(src);
+          if (i >= beg0)
+          {
+            uint64_t const beg1 = (i == beg0) ? (beg & levelBytesFF) : 0;
+            uint64_t const end1 = (i == end0) ? (end & levelBytesFF) : levelBytesFF;
+            ForEachNode(f, beg1, end1, level - 1, childOffset, childSize);
+          }
+          childOffset += childSize;
+        }
+      }
+      ASSERT_EQUAL(static_cast<uint8_t const *>(src.Ptr()) - &data[0], size, \
+                   (beg, end, offset, size));
+    }
+    else
+    {
+      void const * pEnd = &data[0] + size;
+      while (src.Ptr() < pEnd)
+      {
+        uint8_t const i = src.ReadByte();
+        if (i > end0)
+          break;
+        uint32_t childSize = ReadVarUint<uint32_t>(src);
+        if (i >= beg0)
+        {
+          uint64_t const beg1 = (i == beg0) ? (beg & levelBytesFF) : 0;
+          uint64_t const end1 = (i == end0) ? (end & levelBytesFF) : levelBytesFF;
+          ForEachNode(f, beg1, end1, level - 1, childOffset, childSize);
+        }
+        childOffset += childSize;
+      }
+    }
   }
 
   ReaderT m_Reader;
   Header m_Header;
-  uint32_t m_NodeSize;
-  Index m_Level0Index;
-  int m_CellIdBytes;
+  buffer_vector<uint32_t, 7> m_LevelOffsets;
 };
