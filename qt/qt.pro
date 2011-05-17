@@ -78,13 +78,11 @@ CONFIG(debug, debug|release) {
   QT *= webkit
 
   SOURCES += \
-    searchwindow.cpp \
     update_dialog.cpp \
     classificator_tree.cpp \
     guide_page.cpp
 
   HEADERS += \
-    searchwindow.hpp \
     update_dialog.hpp \
     classificator_tree.hpp \
     guide_page.hpp

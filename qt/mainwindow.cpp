@@ -22,7 +22,6 @@
 
 #ifdef DEBUG // code removed for desktop releases
 #include "update_dialog.hpp"
-#include "searchwindow.hpp"
 #include "classificator_tree.hpp"
 #include "info_dialog.hpp"
 #include "guide_page.hpp"
