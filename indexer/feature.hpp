@@ -195,7 +195,7 @@ public:
 
   inline bool HasName() const
   {
-    return Header() & feature::HEADER_HAS_NAME;
+    return (Header() & feature::HEADER_HAS_NAME) != 0;
   }
 
   template <class T>

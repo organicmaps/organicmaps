@@ -13,20 +13,20 @@ namespace search
   int Score(string const & key, string const & word)
   {
     size_t const offset = word.find(key);
-    switch (offset)
+
+    if (offset == 0) // best match - from the beginning
     {
-    case 0: // best match - from the beginning
       if (word.size() == key.size())
         return 1000; // full match
       else
         return 100;  // partial match
-      break;
-    case string::npos: // no match
-      return -1;
-      break;
-    default:  // match in the middle of the string
-      return key.size() * 2; // how many symbols matched
     }
+    else if (offset == string::npos) // no match
+    {
+      return -1;
+    }
+    else    // match in the middle of the string
+      return key.size() * 2; // how many symbols matched
   }
 
   Query::Query(string const & line)
