@@ -37,6 +37,7 @@ SUBDIRS = 3party \
             platform \
             yg \
             indexer \
+            search \
             version \
             storage \
             map \
