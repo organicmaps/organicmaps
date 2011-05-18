@@ -177,7 +177,7 @@ public:
 private:
   void SwitchToDynamic()
   {
-    ASSERT_NOT_EQUAL(m_size, USE_DYNAMIC, ());
+    ASSERT_NOT_EQUAL(m_size, static_cast<size_t>(USE_DYNAMIC), ());
     ASSERT_EQUAL(m_dynamic.size(), 0, ());
     m_dynamic.insert(m_dynamic.end(), m_size, T());
     for (size_t i = 0; i < m_size; ++i)
