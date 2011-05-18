@@ -10,8 +10,9 @@ class FeatureType;
 
 namespace search
 {
-  struct Result
+  class Result
   {
+  public:
     Result(string const & name, m2::RectD const & rect)
       : m_name(name), m_rect(rect) {}
     string m_name;
