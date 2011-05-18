@@ -6,10 +6,7 @@
 
 class QDockWidget;
 
-namespace search
-{
-  class Result;
-}
+namespace search { struct Result; }
 
 namespace qt
 {

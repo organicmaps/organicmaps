@@ -67,14 +67,16 @@ UNIT_TEST(BufferVectorSwap)
   {
     v1[0].push_back(666);
 
-    // inner static buffer doesn't swap
     int const * dd1 = v1[0].data();
 
+    // resize from 5 to 1 => v[0] will stay at the same place
     v1.resize(1);
     TEST_EQUAL ( v1[0].size(), 1, () );
     TEST_EQUAL ( v1[0][0], 666, () );
     TEST_EQUAL ( dd1, v1[0].data(), () );
 
+    // resize from 1 to 7 => will push_back v[0] to new place
+    // (??? but can stay at the same place ???)
     v1.resize(7);
     TEST_EQUAL ( v1[0].size(), 1, () );
     TEST_EQUAL ( v1[0][0], 666, () );
@@ -85,7 +87,8 @@ UNIT_TEST(BufferVectorSwap)
     for (size_t i = 0; i < 5; ++i)
       v2[0].push_back(i);
 
-    // inner dynamic buffer should be swapped
+    // inner dynamic buffer should be swapped during resizing
+    // (??? but it's not specified by standart of std::vector ???)
     int const * dd2 = v2[0].data();
 
     v2.resize(1);
@@ -95,6 +98,22 @@ UNIT_TEST(BufferVectorSwap)
     v1.resize(7);
     TEST_EQUAL ( v2[0].size(), 5, () );
     TEST_EQUAL ( dd2, v2[0].data(), () );
+  }
+
+  // check resize from static to dynamic buffer
+  buffer_vector<value_t, 2> v3;
+  v3.push_back(value_t());
+
+  {
+    for (size_t i = 0; i < 5; ++i)
+      v3[0].push_back(i);
+
+    int const * dd3 = v3[0].data();
+
+    // resize from static to dynamic buffer => v3[0] will stay at the same place
+    v1.resize(7);
+    TEST_EQUAL ( v3[0].size(), 5, () );
+    TEST_EQUAL ( dd3, v3[0].data(), () );
   }
 }
 

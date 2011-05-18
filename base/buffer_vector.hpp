@@ -146,7 +146,8 @@ public:
   {
     ptrdiff_t const pos = where - data();
     ASSERT_GREATER_OR_EQUAL(pos, 0, ());
-    ASSERT_LESS_OR_EQUAL(pos, size(), ());
+    ASSERT_LESS_OR_EQUAL(pos, static_cast<ptrdiff_t>(size()), ());
+
     if (m_size == USE_DYNAMIC)
       m_dynamic.insert(m_dynamic.begin() + pos, beg, end);
     else
