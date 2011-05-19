@@ -2,6 +2,13 @@
 #include "qt_download.hpp"
 
 #include "../base/assert.hpp"
+#include "../base/logging.hpp"
+
+void QtDownloadManager::CreateOnMainThreadSlot(HttpStartParams const & params)
+{
+  // manager is responsible for auto deleting
+  new QtDownload(*this, params);
+}
 
 void QtDownloadManager::HttpRequest(HttpStartParams const & params)
 {
@@ -9,12 +16,13 @@ void QtDownloadManager::HttpRequest(HttpStartParams const & params)
   QList<QtDownload *> downloads = findChildren<QtDownload *>(params.m_url.c_str());
   if (downloads.empty())
   {
-    // manager is responsible for auto deleting
-    new QtDownload(*this, params);
+    // small trick so all connections will be created on the main thread
+    qRegisterMetaType<HttpStartParams>("HttpStartParams");
+    QMetaObject::invokeMethod(this, "CreateOnMainThreadSlot", Q_ARG(HttpStartParams const & , params));
   }
   else
   {
-    ASSERT(false, ("Download with the same url is already in progress!"));
+    LOG(LWARNING, ("Download with the same url is already in progress, ignored", params.m_url));
   }
 }
 

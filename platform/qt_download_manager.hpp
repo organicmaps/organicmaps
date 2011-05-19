@@ -8,6 +8,10 @@ class QtDownloadManager : public QObject, public DownloadManager
 
   QNetworkAccessManager m_netAccessManager;
 
+  /// Should be called using inter-thread signal
+private slots:
+  void CreateOnMainThreadSlot(HttpStartParams const & params);
+
 public:
   virtual void HttpRequest(HttpStartParams const & params);
   virtual void CancelDownload(string const & url);
