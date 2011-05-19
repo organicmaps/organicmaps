@@ -20,6 +20,13 @@ namespace location
 
     void OnHttpPostFinished(HttpFinishedParams const & result)
     {
+      if (result.m_error != EHttpDownloadOk)
+      {
+        LOG(LWARNING, ("Location server is not available"));
+        return;
+      }
+      // stop requesting wifi updates if reply from server is received
+      m_wifiInfo.Stop();
       // here we should receive json reply with coordinates and accuracy
       try
       {
@@ -40,9 +47,10 @@ namespace location
               info.m_horizontalAccuracy = json_real_value(acc);
               // @TODO introduce flags to mark valid values
               info.m_status = EAccurateMode;
-              info.m_timestamp = time(NULL);
+              info.m_timestamp = static_cast<double>(time(NULL));
               info.m_source = location::EGoogle;
               NotifyGpsObserver(info);
+              return;
             }
           }
         }
@@ -90,11 +98,14 @@ namespace location
 
     virtual void StopUpdate()
     {
+      m_wifiInfo.Stop();
     }
   };
 }
 
 location::LocationService * CreateWiFiLocationService()
 {
+  // small hack - create and initialize downloader in main thread
+  GetDownloadManager();
   return new location::WiFiLocationService();
 }

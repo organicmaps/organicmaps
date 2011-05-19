@@ -23,13 +23,13 @@ QT *= core network
   HEADERS += \
       qt_download_manager.hpp \
       qt_download.hpp \
+      wifi_info.hpp
 }
 
 HEADERS += \
     platform.hpp \
     download_manager.hpp \
     location.hpp \
-    wifi_info.hpp
 
 macx|iphone* {
     OBJECTIVE_SOURCES += apple_location_service.mm

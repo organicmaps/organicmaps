@@ -37,7 +37,7 @@ static string AppendZeroIfNeeded(string const & macAddrPart)
 - (void)dealloc
 {
   [super dealloc];
-  NSLog(@"Mac OS WiFiInfo selfdestructed successfully");
+//  NSLog(@"Mac OS WiFiInfo selfdestructed successfully");
 }
 
 /// Executed on main thread
@@ -97,6 +97,10 @@ void WiFiInfo::RequestWiFiBSSIDs(WifiRequestCallbackT callback)
 {
   // it will be self-destroyed when finished
   [[WiFiInfoMac alloc] InitWithCallback:callback];
+}
+
+void WiFiInfo::Stop()
+{
 }
 
 #endif

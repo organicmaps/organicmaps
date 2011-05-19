@@ -7,10 +7,9 @@
 
 class WiFiInfo
 {
-  class Impl;
-  Impl * m_pImpl;
-
 public:
+  class Impl;
+
   struct AccessPoint
   {
     string m_bssid;           //!< for example, "33-12-03-5b-44-9a"
@@ -23,4 +22,9 @@ public:
 
   typedef boost::function<void (vector<WiFiInfo::AccessPoint> const &)> WifiRequestCallbackT;
   void RequestWiFiBSSIDs(WifiRequestCallbackT callback);
+  /// Stops any active updates
+  void Stop();
+
+private:
+    Impl * m_pImpl;
 };
