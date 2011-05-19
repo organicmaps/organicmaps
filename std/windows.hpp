@@ -1,5 +1,8 @@
 #pragma once
 
+#include "target_os.hpp"
+
+#ifdef OMIM_OS_WINDOWS
 // These defines are moved to common.pri because
 // they should be equal for all libraries, even for 3party ones
 
@@ -31,3 +34,5 @@
 
 #undef min
 #undef max
+
+#endif // OMIM_OS_WINDOWS

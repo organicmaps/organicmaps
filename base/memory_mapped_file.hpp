@@ -3,10 +3,8 @@
 
 #include "../std/target_os.hpp"
 
-#ifdef OMIM_OS_WINDOWS
-  #include "../std/windows.hpp"
-  #include "../std/stdio.hpp"
-#endif
+#include "../std/windows.hpp"
+#include "../std/stdio.hpp"
 
 class MemoryMappedFile
 {
