@@ -165,6 +165,7 @@ void QtDownload::StartRequest()
     m_reply = static_cast<QtDownloadManager *>(parent())->NetAccessManager().post(
           httpRequest, m_params.m_postData.c_str());
   }
+  m_reply->ignoreSslErrors();
   connect(m_reply, SIGNAL(finished()), this, SLOT(OnHttpFinished()));
   connect(m_reply, SIGNAL(readyRead()), this, SLOT(OnHttpReadyRead()));
   connect(m_reply, SIGNAL(downloadProgress(qint64, qint64)),
