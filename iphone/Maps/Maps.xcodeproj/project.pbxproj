@@ -67,6 +67,7 @@
 		FA0660001286167A00FEA989 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FA065FFE1286167A00FEA989 /* Default.png */; };
 		FA0660031286168700FEA989 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0660011286168700FEA989 /* Default-Portrait.png */; };
 		FA0660041286168700FEA989 /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0660021286168700FEA989 /* Default-Landscape.png */; };
+		FA0E845E138554CF008CEABB /* languages.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA0E845D138554CF008CEABB /* languages.txt */; };
 		FA2EF9C713630C3B00E3E484 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2EF9C613630C3B00E3E484 /* libplatform.a */; };
 		FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */; };
 		FA4135EA120A263C0062D5B4 /* CountriesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4135E2120A263C0062D5B4 /* CountriesViewController.mm */; };
@@ -165,6 +166,7 @@
 		FA065FFE1286167A00FEA989 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
 		FA0660011286168700FEA989 /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = SOURCE_ROOT; };
 		FA0660021286168700FEA989 /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape.png"; sourceTree = SOURCE_ROOT; };
+		FA0E845D138554CF008CEABB /* languages.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = languages.txt; path = ../../data/languages.txt; sourceTree = SOURCE_ROOT; };
 		FA2EF9C613630C3B00E3E484 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libplatform.a; sourceTree = SOURCE_ROOT; };
 		FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomAlertView.mm; sourceTree = "<group>"; };
 		FA34BEC91338D72F00FFB2A7 /* CustomAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlertView.h; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FA0E845D138554CF008CEABB /* languages.txt */,
 				EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */,
 				EEA615E6134C4968003A9827 /* 02_wqy-microhei.ttf */,
 				EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */,
@@ -542,6 +545,7 @@
 				EEA61604134C496A003A9827 /* 04_padauk.ttf in Resources */,
 				EEA61605134C496A003A9827 /* 05_khmeros.ttf in Resources */,
 				EE164811135CEE4A003B8A3E /* 06_code2000.ttf in Resources */,
+				FA0E845E138554CF008CEABB /* languages.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
