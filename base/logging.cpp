@@ -2,8 +2,12 @@
 #include "logging.hpp"
 #include "macros.hpp"
 #include "timer.hpp"
+
 #include "../std/iostream.hpp"
 #include "../std/iomanip.hpp"
+#include "../std/sstream.hpp"
+#include "../std/target_os.hpp"
+#include "../std/windows.hpp"
 
 namespace my
 {
@@ -30,21 +34,25 @@ namespace my
   {
     // TODO: Make LogMessageDefault() thread-safe?
     static Timer s_Timer;
-    char const * names[] = { "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL" };
-    std::cerr << "LOG ";
-    if (level >= 0 && level <= static_cast<int>(ARRAY_SIZE(names)))
-      std::cerr << names[level];
-    else
-      std::cerr << level;
+    static char const * names[] = { "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL" };
+    static size_t const len[] =   {    5,      4,        7,        5,         8     };
+    ostringstream out;
+    out << "LOG ";
+    out << names[level];
 
     //int64_t const milliseconds = static_cast<int64_t>(s_Timer.ElapsedSeconds() * 1000 + 0.5);
     //std::cerr << " " << std::setw(6) << milliseconds / 1000 << "." << std::setw(4) << std::setiosflags(std::ios::left) << (milliseconds % 1000) << std::resetiosflags(std::ios::left);
 
     double const sec = s_Timer.ElapsedSeconds();
-    std::cerr << " " << std::setfill(' ') << std::setw(10) << sec;
+    out << " " << std::setfill(' ') << std::setw(16 - len[level]) << sec;
 
-    std::cerr << " " << srcPoint.FileName() << ":" << srcPoint.Line() << " " << srcPoint.Function() << "() " << msg << endl;
+    out << " " << srcPoint.FileName() << ":" << srcPoint.Line() << " " << srcPoint.Function() << "() " << msg << endl;
 
+    string const outString = out.str();
+    std::cerr << outString;
+#ifdef OMIM_OS_WINDOWS
+    OutputDebugStringA(outString.c_str());
+#endif
     LogCheckIfErrorLevel(level);
   }
 #endif
