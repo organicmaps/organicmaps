@@ -45,6 +45,9 @@ namespace utf8_string
     {
     case ':':
     case ';':
+    case '<':
+    case '=':
+    case '>':
     case '[':
     case ']':
     case '\\':
