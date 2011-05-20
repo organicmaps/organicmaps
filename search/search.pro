@@ -10,7 +10,9 @@ DEPENDENCIES = indexer geometry coding base
 include($$ROOT_DIR/common.pri)
 
 HEADERS += \
-    search_processor.hpp \
+  query.hpp \
+  search_processor.hpp \
 
 SOURCES += \
-    search_processor.cpp \
+  query.cpp \
+  search_processor.cpp \
