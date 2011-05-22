@@ -48,7 +48,7 @@ QT -= core gui
 CONFIG += warn_on
 
 # Libraries' dependencies hack.
-win32-msvc2008|symbian {
+win32-msvc*|symbian {
   LIB_EXT = .lib
   LIB_PREFIX =
 }
@@ -74,7 +74,7 @@ win32 {
 }
 
 # Windows-specific options for all projects
-win32-msvc2008 {
+win32-msvc* {
   QMAKE_CLEAN += *.user
   DEFINES += _SCL_SECURE_NO_WARNINGS _CRT_SECURE_NO_WARNINGS _CRT_NONSTDC_NO_WARNINGS NOMINMAX NO_MIN_MAX
   QMAKE_CXXFLAGS += -wd4100 -Zi
@@ -89,13 +89,17 @@ win32-msvc2008 {
   QMAKE_LFLAGS_RELEASE += /MACHINE:X86
  }
 
+win32-msvc2010 {
+  DEFINES += _HAS_CPP0X=0 # disable tr1 and c++0x features to avoid build errors
+}
+
 unix|win32-g++ {
   QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-compare -Wno-strict-aliasing
   # experimental
   QMAKE_CFLAGS_RELEASE -= -O2
   QMAKE_CFLAGS_RELEASE += -O3
   QMAKE_CXXFLAGS_RELEASE -= -O2
-  QMAKE_CXXFLAGS_RELEASE += -O3  
+  QMAKE_CXXFLAGS_RELEASE += -O3
   QMAKE_CFLAGS_RELEASE *= -ffast-math
   QMAKE_CXXFLAGS_RELEASE *= -ffast-math
 }

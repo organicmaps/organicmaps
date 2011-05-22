@@ -18,7 +18,7 @@ SOURCES += \
   src/gflags_completions.cc \
   src/gflags_reporting.cc
 
-win32-msvc2008 {
+win32-msvc* {
   SOURCES += src/windows/port.cc
 }
 

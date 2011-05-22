@@ -17,7 +17,7 @@
 #include "../3party/fribidi/lib/fribidi-deprecated.h"
 
 #include "../base/logging.hpp"
-#include "../base/start_mem_debug.hpp"
+#include "../base/stl_add.hpp"
 
 
 namespace yg
@@ -188,7 +188,7 @@ namespace yg
     {
       ASSERT(m_useTextTree, ());
       vector<TextObj> texts;
-      m_tree.ForEach(bind(&vector<TextObj>::push_back, ref(texts), _1));
+      m_tree.ForEach(MakeBackInsertFunctor(texts));
       m_tree.Clear();
       for (vector<TextObj>::iterator it = texts.begin(); it != texts.end(); ++it)
       {

@@ -63,7 +63,7 @@ namespace yg
     TChars m_chars;
 
     mutable pair<ResourceStyle *, ResourceStyle *> m_invalidChar;
-    FontInfo() : m_invalidChar(0, 0){}
+    FontInfo() : m_invalidChar(static_cast<ResourceStyle *>(0), static_cast<ResourceStyle *>(0)) {}
 
     ResourceStyle * fromID(uint32_t id, bool isMask = false) const;
   };
