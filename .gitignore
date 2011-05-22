@@ -6,7 +6,10 @@ Makefile.Debug
 Makefile.Release
 object_script.*.Debug
 object_script.*.Release
-*.vc?proj*
+*.vcxproj*
+ipch/*
+omim.sdf
+*.vcproj
 *.icproj
 *.sln
 *.idb
