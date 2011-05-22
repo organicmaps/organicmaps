@@ -5,7 +5,7 @@
 
 #include "../map/settings.hpp"
 
-#include <boost/bind.hpp>
+#include "../std/bind.hpp"
 
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QHBoxLayout>
@@ -40,7 +40,7 @@ enum
 #define COLOR_INQUEUE         Qt::gray
 
 namespace qt
-{  
+{
 ///////////////////////////////////////////////////////////////////////////////
 // Helpers
 ///////////////////////////////////////////////////////////////////////////////

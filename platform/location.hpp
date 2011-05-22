@@ -2,8 +2,7 @@
 
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
-
-#include <boost/function.hpp>
+#include "../std/function.hpp"
 
 namespace location
 {
@@ -53,8 +52,8 @@ namespace location
     int m_z;
   };
 
-  typedef boost::function<void (GpsInfo const &)> TGpsCallback;
-  typedef boost::function<void (CompassInfo const &)> TCompassCallback;
+  typedef function<void (GpsInfo const &)> TGpsCallback;
+  typedef function<void (CompassInfo const &)> TCompassCallback;
 
   class LocationService
   {

@@ -7,7 +7,10 @@
 #include "../defines.hpp"
 
 #include "../search/search_processor.hpp"
+
 #include "../map/settings.hpp"
+
+#include "../std/bind.hpp"
 
 #include <QtGui/QDockWidget>
 #include <QtGui/QToolBar>
@@ -176,7 +179,7 @@ void MainWindow::LoadState()
     m_pDrawWidget->UpdateNow();
 }
 
-namespace 
+namespace
 {
   struct button_t
   {
@@ -306,7 +309,7 @@ void MainWindow::OnMyPosition()
   {
     m_pMyPositionAction->setIcon(QIcon(":/navig64/location-search.png"));
     m_pMyPositionAction->setToolTip(tr("Looking for position..."));
-    m_pDrawWidget->OnEnableMyPosition(boost::bind(&MainWindow::OnLocationFound, this));
+    m_pDrawWidget->OnEnableMyPosition(bind(&MainWindow::OnLocationFound, this));
   }
   else
   {
@@ -352,7 +355,7 @@ void MainWindow::OnSearchTextChanged(QString const & str)
   table->setRowCount(0);
   if (!str.isEmpty())
     m_pDrawWidget->Search(str.toUtf8().constData(),
-                        boost::bind(&MainWindow::OnSearchResult, this, _1));
+                        bind(&MainWindow::OnSearchResult, this, _1));
 }
 
 void MainWindow::OnSearchResult(search::Result const & result)

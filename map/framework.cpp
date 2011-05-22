@@ -379,9 +379,9 @@ void FrameWork<TModel>::AddRedrawCommandSure()
 
     // initialize gps and compass subsystem
     GetLocationManager().SetGpsObserver(
-          boost::bind(&this_type::OnGpsUpdate, this, _1));
+          bind(&this_type::OnGpsUpdate, this, _1));
     GetLocationManager().SetCompassObserver(
-          boost::bind(&this_type::OnCompassUpdate, this, _1));
+          bind(&this_type::OnCompassUpdate, this, _1));
 
     // set language priorities
     languages::CodesT langCodes;

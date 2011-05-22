@@ -11,8 +11,7 @@
 #include "../std/list.hpp"
 #include "../std/string.hpp"
 #include "../std/set.hpp"
-
-#include <boost/function.hpp>
+#include "../std/function.hpp"
 
 namespace storage
 {
@@ -79,9 +78,9 @@ namespace storage
 
     /// @name Communicate with GUI
     //@{
-    typedef boost::function<void (TIndex const &)> TObserverChangeCountryFunction;
-    typedef boost::function<void (TIndex const &, HttpProgressT const &)> TObserverProgressFunction;
-    typedef boost::function<void (TUpdateResult, string const &)> TUpdateRequestFunction;
+    typedef function<void (TIndex const &)> TObserverChangeCountryFunction;
+    typedef function<void (TIndex const &, HttpProgressT const &)> TObserverProgressFunction;
+    typedef function<void (TUpdateResult, string const &)> TUpdateRequestFunction;
     TObserverChangeCountryFunction m_observerChange;
     TObserverProgressFunction m_observerProgress;
     TUpdateRequestFunction m_observerUpdateRequest;
@@ -90,10 +89,10 @@ namespace storage
     /// @name Communicate with Framework
     //@{
   public:
-    typedef boost::function<void (string const &)> TAddMapFunction;
-    typedef boost::function<void (string const &)> TRemoveMapFunction;
-    typedef boost::function<void (m2::RectD const & r)> TUpdateRectFunction;
-    typedef boost::function<void (Platform::FilesList &)> TEnumMapsFunction;
+    typedef function<void (string const &)> TAddMapFunction;
+    typedef function<void (string const &)> TRemoveMapFunction;
+    typedef function<void (m2::RectD const & r)> TUpdateRectFunction;
+    typedef function<void (Platform::FilesList &)> TEnumMapsFunction;
   private:
 
     TAddMapFunction m_addMap;

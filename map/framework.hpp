@@ -39,6 +39,7 @@
 #include "../base/mutex.hpp"
 
 #include "../std/bind.hpp"
+#include "../std/function.hpp"
 #include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
 #include "../std/target_os.hpp"
@@ -53,7 +54,7 @@ class redraw_operation_cancelled {};
 
 struct BenchmarkRectProvider;
 
-typedef boost::function<void (search::Result const &)> SearchCallbackT;
+typedef function<void (search::Result const &)> SearchCallbackT;
 
 namespace fwork
 {
@@ -94,7 +95,7 @@ namespace fwork
 }
 
 
-typedef boost::function<void (void)> LocationRetrievedCallbackT;
+typedef function<void (void)> LocationRetrievedCallbackT;
 
 template
 <

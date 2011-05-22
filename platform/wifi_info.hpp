@@ -20,7 +20,7 @@ public:
   WiFiInfo();
   ~WiFiInfo();
 
-  typedef boost::function<void (vector<WiFiInfo::AccessPoint> const &)> WifiRequestCallbackT;
+  typedef function<void (vector<WiFiInfo::AccessPoint> const &)> WifiRequestCallbackT;
   void RequestWiFiBSSIDs(WifiRequestCallbackT callback);
   /// Stops any active updates
   void Stop();

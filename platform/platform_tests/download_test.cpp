@@ -6,10 +6,9 @@
 #include "../../coding/file_writer.hpp"
 #include "../../coding/file_reader.hpp"
 
-#include <QCoreApplication>
-#include <boost/bind.hpp>
+#include "../../std/bind.hpp"
 
-#include "../../base/start_mem_debug.hpp"
+#include <QCoreApplication>
 
 // file on the server contains "Test1"
 #define TEST_FILE_URL1 "http://melnichek.ath.cx:34568/unit_tests/1.txt"

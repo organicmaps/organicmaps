@@ -15,7 +15,7 @@ struct HttpProgressT
   int64_t m_current;
   int64_t m_total;
 };
-typedef boost::function<void (HttpProgressT const &)> HttpProgressCallbackT;
+typedef function<void (HttpProgressT const &)> HttpProgressCallbackT;
 
 enum DownloadResultT
 {
@@ -34,7 +34,7 @@ struct HttpFinishedParams
   string m_data;    //!< if not empty, contains received data
   DownloadResultT m_error;
 };
-typedef boost::function<void (HttpFinishedParams const &)> HttpFinishedCallbackT;
+typedef function<void (HttpFinishedParams const &)> HttpFinishedCallbackT;
 
 struct HttpStartParams
 {
