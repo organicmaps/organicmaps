@@ -10,6 +10,7 @@ object_script.*.Release
 *.icproj
 *.sln
 *.idb
+*.user
 *.pro.user*
 *.ncb
 *.suo
