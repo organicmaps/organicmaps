@@ -151,8 +151,9 @@ private:
           childOffset += childSize;
         }
       }
-      ASSERT_EQUAL(static_cast<uint8_t const *>(src.Ptr()) - &data[0], size, \
-                   (beg, end, offset, size));
+      ASSERT(end0 != (1 << m_Header.m_BitsPerLevel) - 1 ||
+             static_cast<uint8_t const *>(src.Ptr()) - &data[0] == size,
+             (beg, end, beg0, end0, offset, size, src.Ptr(), &data[0]));
     }
     else
     {
