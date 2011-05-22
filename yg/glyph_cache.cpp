@@ -227,8 +227,8 @@ namespace yg
       gil::get_color(c, gil::blue_t()) = key.m_color.b / DATA_TRAITS::channelScaleFactor;
       gil::get_color(c, gil::alpha_t()) = key.m_color.a / DATA_TRAITS::channelScaleFactor;
 
-      for (size_t y = 0; y < srcView.height(); ++y)
-        for (size_t x = 0; x < srcView.width(); ++x)
+      for (size_t y = 0; y < static_cast<size_t>(srcView.height()); ++y)
+        for (size_t x = 0; x < static_cast<size_t>(srcView.width()); ++x)
         {
           gil::get_color(c, gil::alpha_t()) = srcView(x, y) / DATA_TRAITS::channelScaleFactor;
           dstView(x, y) = c;

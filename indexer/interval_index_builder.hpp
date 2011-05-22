@@ -74,7 +74,7 @@ public:
       levelOffset.push_back(static_cast<uint32_t>(writer.Pos()));
       BuildLeaves(writer, beg, end, offsets);
       levelOffset.push_back(static_cast<uint32_t>(writer.Pos()));
-      for (int i = 1; i <= m_Levels; ++i)
+      for (int i = 1; i <= static_cast<int>(m_Levels); ++i)
       {
         vector<uint32_t> nextOffsets;
         BuildLevel(writer, beg, end, i, &offsets[0], &offsets[0] + offsets.size(), nextOffsets);
@@ -233,11 +233,11 @@ public:
     ASSERT_GREATER_OR_EQUAL(m_BitsPerLevel, 3, ());
     WriteVarUint(sink, (offset << 1) + 1);
     buffer_vector<uint8_t, 32> bitMask(1 << (m_BitsPerLevel - 3));
-    for (uint32_t i = 0; i < 1 << m_BitsPerLevel; ++i)
+    for (uint32_t i = 0; i < static_cast<uint32_t>(1 << m_BitsPerLevel); ++i)
       if (childSizes[i])
         bits::SetBitTo1(&bitMask[0], i);
     sink.Write(&bitMask[0], bitMask.size());
-    for (uint32_t i = 0; i < 1 << m_BitsPerLevel; ++i)
+    for (uint32_t i = 0; i < static_cast<uint32_t>(1 << m_BitsPerLevel); ++i)
       if (childSizes[i])
         WriteVarUint(sink, childSizes[i]);
   }
@@ -247,7 +247,7 @@ public:
   {
     ASSERT_LESS_OR_EQUAL(m_BitsPerLevel, 8, ());
     WriteVarUint(sink, (offset << 1));
-    for (uint32_t i = 0; i < 1 << m_BitsPerLevel; ++i)
+    for (uint32_t i = 0; i < static_cast<uint32_t>(1 << m_BitsPerLevel); ++i)
     {
       if (childSizes[i])
       {
