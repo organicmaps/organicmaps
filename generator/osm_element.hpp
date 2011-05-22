@@ -274,7 +274,7 @@ protected:
 
   bool ParseType(XMLElement * p, uint64_t & id, FeatureParams & fValue)
   {
-    VERIFY ( string_utils::to_uint64(p->attrs["id"], id),
+    VERIFY ( strings::to_uint64(p->attrs["id"], id),
       ("Unknown element with invalid id : ", p->attrs["id"]) );
 
     // try to get type from element tags
@@ -476,7 +476,7 @@ protected:
         if (p->childs[i].name == "nd")
         {
           uint64_t nodeID;
-          VERIFY ( string_utils::to_uint64(p->childs[i].attrs["ref"], nodeID),
+          VERIFY ( strings::to_uint64(p->childs[i].attrs["ref"], nodeID),
                    ("Bad node ref in way : ", p->childs[i].attrs["ref"]) );
 
           m2::PointD pt;
@@ -534,7 +534,7 @@ protected:
         {
           string const & role = p->childs[i].attrs["role"];
           uint64_t wayID;
-          VERIFY ( string_utils::to_uint64(p->childs[i].attrs["ref"], wayID),
+          VERIFY ( strings::to_uint64(p->childs[i].attrs["ref"], wayID),
             ("Bad way ref in relation : ", p->childs[i].attrs["ref"]) );
 
           if (role == "outer")

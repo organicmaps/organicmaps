@@ -69,7 +69,7 @@ namespace borders
       m2::RectD rect;
 
       PolygonLoader loader(baseDir, simplifyCountriesLevel, country, rect);
-      string_utils::TokenizeString(line, "|", loader);
+      strings::TokenizeString(line, "|", loader);
       if (!country.m_regions.IsEmpty())
         countries.Add(country, rect);
     }

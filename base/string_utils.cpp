@@ -5,7 +5,8 @@
 
 #include <locale>   // for make_lower_case
 
-namespace string_utils {
+namespace strings
+{
 
 TokenizeIterator::TokenizeIterator(string const & s, char const * delim)
 : m_start(0), m_src(s), m_delim(delim)

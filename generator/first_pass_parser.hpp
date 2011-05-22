@@ -24,15 +24,15 @@ protected:
   virtual void EmitElement(XMLElement * p)
   {
     uint64_t id;
-    VERIFY ( string_utils::to_uint64(p->attrs["id"], id), ("Unknown element with invalid id : ", p->attrs["id"]) );
+    VERIFY ( strings::to_uint64(p->attrs["id"], id), ("Unknown element with invalid id : ", p->attrs["id"]) );
 
     if (p->name == "node")
     {
       // store point
 
       double lat, lng;
-      VERIFY ( string_utils::to_double(p->attrs["lat"], lat), ("Bad node lat : ", p->attrs["lat"]) );
-      VERIFY ( string_utils::to_double(p->attrs["lon"], lng), ("Bad node lon : ", p->attrs["lon"]) );
+      VERIFY ( strings::to_double(p->attrs["lat"], lat), ("Bad node lat : ", p->attrs["lat"]) );
+      VERIFY ( strings::to_double(p->attrs["lon"], lng), ("Bad node lon : ", p->attrs["lon"]) );
 
       // convert to mercator
       lat = MercatorBounds::LatToY(lat);
@@ -53,7 +53,7 @@ protected:
         if (p->childs[i].name == "nd")
         {
           uint64_t ref;
-          VERIFY ( string_utils::to_uint64(p->childs[i].attrs["ref"], ref), ("Bad node ref in way : ", p->childs[i].attrs["ref"]) );
+          VERIFY ( strings::to_uint64(p->childs[i].attrs["ref"], ref), ("Bad node ref in way : ", p->childs[i].attrs["ref"]) );
           e.nodes.push_back(ref);
         }
         else if (!bUnite && (p->childs[i].name == "tag"))
@@ -84,7 +84,7 @@ protected:
         if (p->childs[i].name == "member")
         {
           uint64_t ref;
-          VERIFY ( string_utils::to_uint64(p->childs[i].attrs["ref"], ref), ("Bad ref in relation : ", p->childs[i].attrs["ref"]) );
+          VERIFY ( strings::to_uint64(p->childs[i].attrs["ref"], ref), ("Bad ref in relation : ", p->childs[i].attrs["ref"]) );
 
           string const & type = p->childs[i].attrs["type"];
           string const & role = p->childs[i].attrs["role"];

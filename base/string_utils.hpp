@@ -5,7 +5,7 @@
 
 #include "../3party/utfcpp/source/utf8/unchecked.h"
 
-namespace string_utils
+namespace strings
 {
   // get substrings from s divided by delim and pass them to toDo
   template <class ToDo> void TokenizeString(string const & s, char const * delim, ToDo toDo)

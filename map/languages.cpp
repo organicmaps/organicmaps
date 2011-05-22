@@ -99,7 +99,7 @@ namespace languages
 
     CodesT currentCodes;
     Collector c(currentCodes);
-    string_utils::TokenizeString(settingsString, LANG_DELIMETER, c);
+    strings::TokenizeString(settingsString, LANG_DELIMETER, c);
 
     GetSupportedLanguages(outLanguages);
     Sort(currentCodes, outLanguages);
@@ -108,7 +108,7 @@ namespace languages
   void SaveSettings(CodesT const & langs)
   {
     CHECK_EQUAL(langs.size(), MAX_SUPPORTED_LANGUAGES, ());
-    string const saveString = string_utils::JoinStrings(langs.begin(), langs.end(), LANG_DELIMETER);
+    string const saveString = strings::JoinStrings(langs.begin(), langs.end(), LANG_DELIMETER);
     Settings::Set(SETTING_LANG_KEY, saveString);
 
     // apply new settings

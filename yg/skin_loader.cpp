@@ -161,7 +161,7 @@ namespace yg
   int StrToInt(string const & s)
   {
     int i;
-    VERIFY ( string_utils::to_int(s, i), ("Bad int int StrToInt function") );
+    VERIFY ( strings::to_int(s, i), ("Bad int int StrToInt function") );
     return i;
   }
 

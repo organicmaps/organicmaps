@@ -102,7 +102,7 @@ namespace stats
 
   string GetKey(uint32_t i)
   {
-    return string_utils::to_string(i);
+    return strings::to_string(i);
   }
 
   string GetKey(TypeTag t)

@@ -93,7 +93,7 @@ namespace feature
     {
       for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
       {
-        string const postfix = string_utils::to_string(i);
+        string const postfix = strings::to_string(i);
         m_geoFile.push_back(new FileWriter(fName + GEOMETRY_FILE_TAG + postfix));
         m_trgFile.push_back(new FileWriter(fName + TRIANGLE_FILE_TAG + postfix));
       }
@@ -120,7 +120,7 @@ namespace feature
         delete m_geoFile[i];
         delete m_trgFile[i];
 
-        string const postfix = string_utils::to_string(i);
+        string const postfix = strings::to_string(i);
 
         string geoPostfix = GEOMETRY_FILE_TAG;
         geoPostfix += postfix;

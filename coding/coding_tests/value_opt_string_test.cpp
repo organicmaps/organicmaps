@@ -29,7 +29,7 @@ namespace
       ReaderSource<MemReader> src(r);
       s.Read(src);
 
-      TEST_EQUAL(string_utils::to_string(arr[i]), s.Get(), ());
+      TEST_EQUAL(strings::to_string(arr[i]), s.Get(), ());
     }
   }
 }

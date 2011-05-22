@@ -18,7 +18,7 @@ UNIT_TEST(FilesContainer_Smoke)
 
     for (size_t i = 0; i < count; ++i)
     {
-      FileWriter w = writer.GetWriter(string_utils::to_string(i));
+      FileWriter w = writer.GetWriter(strings::to_string(i));
 
       for (uint32_t j = 0; j < i; ++j)
         WriteVarUint(w, j);
@@ -33,7 +33,7 @@ UNIT_TEST(FilesContainer_Smoke)
 
     for (size_t i = 0; i < count; ++i)
     {
-      FileReader r = reader.GetReader(string_utils::to_string(i));
+      FileReader r = reader.GetReader(strings::to_string(i));
       ReaderSource<FileReader> src(r);
 
       for (uint32_t j = 0; j < i; ++j)
@@ -51,7 +51,7 @@ UNIT_TEST(FilesContainer_Smoke)
     {
       FilesContainerW writer(fName, FileWriter::OP_APPEND);
 
-      FileWriter w = writer.GetWriter(string_utils::to_string(arrAppend[i]));
+      FileWriter w = writer.GetWriter(strings::to_string(arrAppend[i]));
       WriteVarUint(w, arrAppend[i]);
 
       writer.Finish();
@@ -61,7 +61,7 @@ UNIT_TEST(FilesContainer_Smoke)
     {
       FilesContainerR reader(fName);
 
-      FileReader r = reader.GetReader(string_utils::to_string(arrAppend[i]));
+      FileReader r = reader.GetReader(strings::to_string(arrAppend[i]));
       ReaderSource<FileReader> src(r);
 
       uint32_t const test = ReadVarUint<uint32_t>(src);

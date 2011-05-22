@@ -83,7 +83,7 @@ namespace storage
 
   string Storage::UpdateBaseUrl() const
   {
-    return UPDATE_BASE_URL OMIM_OS_NAME "/" + string_utils::to_string(m_currentVersion) + "/";
+    return UPDATE_BASE_URL OMIM_OS_NAME "/" + strings::to_string(m_currentVersion) + "/";
   }
 
   TCountriesContainer const & NodeFromIndex(TCountriesContainer const & root, TIndex const & index)

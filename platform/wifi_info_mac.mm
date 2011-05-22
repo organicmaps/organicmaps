@@ -62,12 +62,12 @@ static string AppendZeroIfNeeded(string const & macAddrPart)
     CWNetwork * net = (CWNetwork *)[nets objectAtIndex:i];
     WiFiInfo::AccessPoint apn;
     apn.m_ssid = [net.ssid UTF8String];
-    apn.m_signalStrength = string_utils::to_string([net.rssi intValue]);
+    apn.m_signalStrength = strings::to_string([net.rssi intValue]);
     // fix formatting for wifi address
     string const rawBssid = [net.bssid UTF8String];
     if (!rawBssid.empty())
     {
-      string_utils::TokenizeIterator tokIt(rawBssid, ":");
+      strings::TokenizeIterator tokIt(rawBssid, ":");
       apn.m_bssid = AppendZeroIfNeeded(*tokIt);
       do
       {
