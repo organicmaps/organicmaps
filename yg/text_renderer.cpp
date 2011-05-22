@@ -8,14 +8,13 @@
 #include "render_state.hpp"
 #include "glyph_layout.hpp"
 
-#include "../coding/strutil.hpp"
-
 #include "../geometry/angles.hpp"
 
 #include "../std/bind.hpp"
 
 #include "../3party/fribidi/lib/fribidi-deprecated.h"
 
+#include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
 #include "../base/stl_add.hpp"
 
@@ -250,7 +249,7 @@ namespace yg
 
     void TextRenderer::drawTextImpl(FontDesc const & fontDesc, m2::PointD const & pt, yg::EPosition pos, float angle, string const & utf8Text, double depth, bool log2vis)
     {
-      wstring text = FromUtf8(utf8Text);
+      wstring text = string_utils::FromUtf8(utf8Text);
 
       if (log2vis)
         text = Log2Vis(text);
@@ -293,7 +292,7 @@ namespace yg
       m2::RectD rect;
       m2::PointD pt(0, 0);
 
-      wstring text = FromUtf8(utf8Text);
+      wstring text = string_utils::FromUtf8(utf8Text);
       if (log2vis)
         text = Log2Vis(text);
 
@@ -351,7 +350,7 @@ namespace yg
         FontDesc const & fontDesc, m2::PointD const * path, size_t s, string const & utf8Text,
         double fullLength, double pathOffset, yg::EPosition pos, double depth)
     {
-      wstring const text = Log2Vis(FromUtf8(utf8Text));
+      wstring const text = Log2Vis(string_utils::FromUtf8(utf8Text));
 
       GlyphLayout layout(resourceManager(), fontDesc, path, s, text, fullLength, pathOffset, pos);
 

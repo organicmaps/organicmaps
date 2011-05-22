@@ -212,21 +212,21 @@ namespace osm
     string const & elem = m_xmlTags.back();
     if (attr == "id" && (elem == "node" || elem == "way" || elem == "relation"))
     {
-      CHECK(utils::to_int64(value, m_id), ());
+      CHECK(string_utils::to_int64(value, m_id), ());
       CHECK_NOT_EQUAL(m_id, 0, ("id == 0 is invalid"));
     }
     else if (attr == "lat" && elem == "node")
     {
-      CHECK(utils::to_double(value, m_lat), ());
+      CHECK(string_utils::to_double(value, m_lat), ());
     }
     else if (attr == "lon" && elem == "node")
     {
-      CHECK(utils::to_double(value, m_lon), ());
+      CHECK(string_utils::to_double(value, m_lon), ());
     }
     else if (attr == "ref")
     {
       int64_t numVal;
-      CHECK(utils::to_int64(value, numVal), ());
+      CHECK(string_utils::to_int64(value, numVal), ());
       if (elem == "nd")
         m_ref = numVal;
       else if (elem == "member")

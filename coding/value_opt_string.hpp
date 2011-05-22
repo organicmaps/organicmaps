@@ -32,7 +32,7 @@ public:
   }
   template <class T> void Set(T const & s)
   {
-    m_s = utils::to_string(s);
+    m_s = string_utils::to_string(s);
     CHECK ( !m_s.empty(), () );
   }
 
@@ -43,7 +43,7 @@ public:
   template <class TSink> void Write(TSink & sink) const
   {
     int n;
-    if (utils::to_int(m_s, n) && n >= 0)
+    if (string_utils::to_int(m_s, n) && n >= 0)
       WriteVarUint(sink, static_cast<uint32_t>((n << 1) | numeric_bit));
     else
     {
@@ -60,7 +60,7 @@ public:
     uint32_t sz = ReadVarUint<uint32_t>(src);
 
     if ((sz & numeric_bit) != 0)
-      m_s = utils::to_string(sz >> 1);
+      m_s = string_utils::to_string(sz >> 1);
     else
     {
       sz = (sz >> 1) + 1;

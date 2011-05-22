@@ -8,7 +8,7 @@
 #include "../coding/file_writer.hpp"
 #include "../coding/file_reader.hpp"
 #include "../coding/file_container.hpp"
-#include "../coding/strutil.hpp"
+#include "../coding/url_encode.hpp"
 
 #include "../version/version.hpp"
 
@@ -83,7 +83,7 @@ namespace storage
 
   string Storage::UpdateBaseUrl() const
   {
-    return UPDATE_BASE_URL OMIM_OS_NAME "/" + utils::to_string(m_currentVersion) + "/";
+    return UPDATE_BASE_URL OMIM_OS_NAME "/" + string_utils::to_string(m_currentVersion) + "/";
   }
 
   TCountriesContainer const & NodeFromIndex(TCountriesContainer const & root, TIndex const & index)
@@ -248,7 +248,7 @@ namespace storage
   public:
     DeleteMap()
     {
-		  m_workingDir = GetPlatform().WritableDir();
+      m_workingDir = GetPlatform().WritableDir();
     }
     /// @TODO do not delete other countries cells
     void operator()(TTile const & tile)

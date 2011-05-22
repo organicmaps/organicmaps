@@ -139,9 +139,9 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
       scalerText = "<";
 
     if (curVal >= 1000)
-      scalerText += utils::to_string(curVal / 1000) + " km";
+      scalerText += string_utils::to_string(curVal / 1000) + " km";
     else
-      scalerText += utils::to_string(curVal) + " m";
+      scalerText += string_utils::to_string(curVal) + " m";
 
   m2::PointD scalerOrg = m2::PointD(m_displayRect.minX(), m_displayRect.maxY() - m_bottomShift * m_visualScale) + m2::PointD(10 * m_visualScale, -10 * m_visualScale);
 

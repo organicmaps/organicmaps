@@ -42,13 +42,13 @@ namespace drule {
   template <> double get_value<double>(string const & s)
   {
     double d;
-    VERIFY ( utils::to_double(s, d), ("Bad double in drawing rule : ", s) );
+    VERIFY ( string_utils::to_double(s, d), ("Bad double in drawing rule : ", s) );
     return d;
   }
   template <> string get_value<string>(string const & s)
   {
     string ss(s);
-    utils::make_lower_case(ss);
+    string_utils::make_lower_case(ss);
     return ss;
   }
   //@}
@@ -213,7 +213,7 @@ namespace drule {
   template <> dash_array_t get_value<dash_array_t>(string const & s)
   {
     dash_array_t ret;
-    utils::TokenizeString(s, " \tpx,", bind(&dash_array_t::add, ref(ret), _1));
+    string_utils::TokenizeString(s, " \tpx,", bind(&dash_array_t::add, ref(ret), _1));
 
     /// @see http://www.w3.org/TR/SVG/painting.html stroke-dasharray
     size_t const count = ret.m_v.size();
@@ -866,10 +866,10 @@ Key RulesHolder::CreateRuleImpl1(string const & name,
 #endif
 
   attrs_map_t a;
-  utils::TokenizeString(clValue, " \t", bind(&RulesHolder::PushAttributes, this, _1, ref(a)));
+  string_utils::TokenizeString(clValue, " \t", bind(&RulesHolder::PushAttributes, this, _1, ref(a)));
 
   for (attrs_map_t::const_iterator i = attrs.begin(); i != attrs.end(); ++i)
-    if (!utils::IsInArray(arrClassTags, i->first))
+    if (!string_utils::IsInArray(arrClassTags, i->first))
       a[i->first] = i->second;
 
   // background color (imitation of masks in tunnel patterns)

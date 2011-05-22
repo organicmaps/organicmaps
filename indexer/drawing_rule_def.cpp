@@ -23,7 +23,7 @@ namespace drule
   {
     int * arrParams[] = { &m_scale, &m_type, &m_index, &m_priority };
 
-    utils::TokenizeIterator it(s, "|");
+    string_utils::TokenizeIterator it(s, "|");
     size_t i = 0;
     while (!it.end())
     {

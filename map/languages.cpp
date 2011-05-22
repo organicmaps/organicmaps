@@ -5,7 +5,6 @@
 #include "../base/string_utils.hpp"
 
 #include "../coding/file_reader.hpp"
-#include "../coding/strutil.hpp"
 #include "../coding/multilang_utf8_string.hpp"
 
 #include "../platform/platform.hpp"
@@ -100,7 +99,7 @@ namespace languages
 
     CodesT currentCodes;
     Collector c(currentCodes);
-    utils::TokenizeString(settingsString, LANG_DELIMETER, c);
+    string_utils::TokenizeString(settingsString, LANG_DELIMETER, c);
 
     GetSupportedLanguages(outLanguages);
     Sort(currentCodes, outLanguages);
@@ -109,7 +108,7 @@ namespace languages
   void SaveSettings(CodesT const & langs)
   {
     CHECK_EQUAL(langs.size(), MAX_SUPPORTED_LANGUAGES, ());
-    string const saveString = JoinStrings(langs.begin(), langs.end(), LANG_DELIMETER);
+    string const saveString = string_utils::JoinStrings(langs.begin(), langs.end(), LANG_DELIMETER);
     Settings::Set(SETTING_LANG_KEY, saveString);
 
     // apply new settings

@@ -1,12 +1,11 @@
 #include "string_utils.hpp"
+#include "assert.hpp"
 
 #include "../std/sstream.hpp"
 
 #include <locale>   // for make_lower_case
 
-#include "../base/start_mem_debug.hpp"
-
-namespace utils {
+namespace string_utils {
 
 TokenizeIterator::TokenizeIterator(string const & s, char const * delim)
 : m_start(0), m_src(s), m_delim(delim)

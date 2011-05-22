@@ -9,8 +9,6 @@
 
 #include "internal/opengl.hpp"
 
-#include "../coding/strutil.hpp"
-
 #include "../geometry/rect2d.hpp"
 
 #include "../base/assert.hpp"

@@ -27,7 +27,7 @@ SOURCES += ../../testing/testingmain.cpp \
     file_sort_test.cpp \
     reader_cache_test.cpp \
     file_container_test.cpp \
-    strutil_test.cpp \
+    url_encode_test.cpp \
     bzip2_test.cpp \
     gzip_test.cpp \
     coder_util_test.cpp \

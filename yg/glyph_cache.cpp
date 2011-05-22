@@ -7,9 +7,9 @@
 #include "ft2_debug.hpp"
 
 #include "../coding/lodepng_io.hpp"
-#include "../coding/strutil.hpp"
 
 #include "../base/logging.hpp"
+#include "../base/string_utils.hpp"
 
 #include "../std/vector.hpp"
 #include "../std/map.hpp"
@@ -240,7 +240,7 @@ namespace yg
 
   double GlyphCache::getTextLength(double fontSize, string const & text)
   {
-    wstring s = FromUtf8(text);
+    wstring s = string_utils::FromUtf8(text);
     double len = 0;
     for (unsigned i = 0; i < s.size(); ++i)
     {

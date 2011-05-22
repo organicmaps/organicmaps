@@ -45,7 +45,6 @@ HEADERS += \
     dd_vector.hpp \
     dd_bit_vector.hpp \
     dd_base.hpp \
-    strutil.hpp \
     writer.hpp \
     write_to_sink.hpp \
     reader.hpp \
@@ -79,3 +78,4 @@ HEADERS += \
     sha2.hpp \
     value_opt_string.hpp \
     multilang_utf8_string.hpp \
+    url_encode.hpp \

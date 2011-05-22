@@ -11,10 +11,6 @@
 #include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
 #include "../std/utility.hpp"
-#include "../std/shared_ptr.hpp"
-#include "../coding/strutil.hpp"
-
-#include "../base/start_mem_debug.hpp"
 
 /// @example
 /// <?xml version="1.0" ?>
