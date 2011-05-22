@@ -9,11 +9,11 @@
 
 UNIT_TEST(DebugFeaturesTest_World_6941024)
 {
-  FilesContainerR rCont(GetPlatform().ReadPathForFile("World.mwm"));
-  FeaturesVector vec(rCont);
+//  FilesContainerR rCont(GetPlatform().ReadPathForFile("World.mwm"));
+//  FeaturesVector vec(rCont);
 
-  FeatureType f;
-  vec.Get(6941024, f);
+//  FeatureType f;
+//  vec.Get(6941024, f);
 
-  f.GetLimitRect(-1);
+//  f.GetLimitRect(-1);
 }
