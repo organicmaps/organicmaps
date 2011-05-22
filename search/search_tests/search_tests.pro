@@ -19,3 +19,4 @@ win32 {
 
 SOURCES += \
   ../../testing/testingmain.cpp \
+  string_match_test.cpp \
