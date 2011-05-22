@@ -17,6 +17,7 @@ public:
   typedef T value_type;
   typedef T const & const_reference;
   typedef T & reference;
+  typedef size_t size_type;
 
   buffer_vector() : m_size(0) {}
   explicit buffer_vector(size_t n, T c = T()) : m_size(0)
