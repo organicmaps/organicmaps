@@ -44,26 +44,4 @@ namespace yg
     /// draw layout element
     virtual void draw(Screen * screen) = 0;
   };
-
-  class TextLayoutElement : public LayoutElement
-  {
-  public:
-
-    TextLayoutElement(char const * text, double depth, FontDesc const & fontDesc);
-
-    m2::RectD const boundRect() const;
-
-    void draw(Screen * screen);
-  };
-
-  class SymbolLayoutElement : public LayoutElement
-  {
-  public:
-
-    SymbolLayoutElement();
-
-    m2::RectD const boundRect() const;
-
-    void draw(Screen * screen);
-  };
 }

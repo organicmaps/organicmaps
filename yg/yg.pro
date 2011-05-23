@@ -57,7 +57,8 @@ SOURCES += \
     area_renderer.cpp \
     layout_element.cpp \
     font_desc.cpp \
-    glyph_layout.cpp
+    glyph_layout.cpp \
+    text_layout_element.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -107,7 +108,10 @@ HEADERS += \
     area_renderer.hpp \
     layout_element.hpp \
     font_desc.hpp \
-    glyph_layout.hpp
+    glyph_layout.hpp \
+    text_on_path_layout_element.hpp \
+    text_layout_element.hpp \
+    symbol_layout_element.hpp
 
 win32 {
   HEADERS += internal/opengl_win32.hpp

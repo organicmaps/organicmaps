@@ -62,14 +62,6 @@ namespace yg
       template <class ToDo>
           void ForEachGlyph(FontDesc const & fontDesc, wstring const & text, ToDo toDo);
 
-      void drawGlyph(m2::PointD const & ptOrg,
-                     m2::PointD const & ptGlyph,
-                     float angle,
-                     float blOffset,
-                     CharStyle const * p,
-                     double depth);
-
-
       bool drawPathTextImpl(FontDesc const & fontDesc,
                             m2::PointD const * path,
                             size_t s,
@@ -107,6 +99,13 @@ namespace yg
       };
 
       TextRenderer(Params const & params);
+
+      void drawGlyph(m2::PointD const & ptOrg,
+                     m2::PointD const & ptGlyph,
+                     float angle,
+                     float blOffset,
+                     CharStyle const * p,
+                     double depth);
 
       /// Drawing text from point rotated by the angle.
       void drawText(FontDesc const & fontDesc,
