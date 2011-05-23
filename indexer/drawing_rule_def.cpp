@@ -23,9 +23,9 @@ namespace drule
   {
     int * arrParams[] = { &m_scale, &m_type, &m_index, &m_priority };
 
-    strings::TokenizeIterator it(s, "|");
+    strings::SimpleTokenizer it(s, "|");
     size_t i = 0;
-    while (!it.end())
+    while (it)
     {
       ASSERT ( i < ARRAY_SIZE(arrParams), (i) );
 

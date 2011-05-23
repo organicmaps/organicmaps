@@ -213,7 +213,7 @@ namespace drule {
   template <> dash_array_t get_value<dash_array_t>(string const & s)
   {
     dash_array_t ret;
-    strings::TokenizeString(s, " \tpx,", bind(&dash_array_t::add, ref(ret), _1));
+    strings::Tokenize(s, " \tpx,", bind(&dash_array_t::add, ref(ret), _1));
 
     /// @see http://www.w3.org/TR/SVG/painting.html stroke-dasharray
     size_t const count = ret.m_v.size();
@@ -866,7 +866,7 @@ Key RulesHolder::CreateRuleImpl1(string const & name,
 #endif
 
   attrs_map_t a;
-  strings::TokenizeString(clValue, " \t", bind(&RulesHolder::PushAttributes, this, _1, ref(a)));
+  strings::Tokenize(clValue, " \t", bind(&RulesHolder::PushAttributes, this, _1, ref(a)));
 
   for (attrs_map_t::const_iterator i = attrs.begin(); i != attrs.end(); ++i)
     if (!strings::IsInArray(arrClassTags, i->first))

@@ -2,35 +2,27 @@
 #include "assert.hpp"
 
 #include "../std/sstream.hpp"
+#include "../std/iterator.hpp"
 
 #include <locale>   // for make_lower_case
 
 namespace strings
 {
 
-TokenizeIterator::TokenizeIterator(string const & s, char const * delim)
-: m_start(0), m_src(s), m_delim(delim)
+SimpleDelimiter::SimpleDelimiter(char const * delimChars)
 {
-  move();
+  string const s(delimChars);
+  string::const_iterator it = s.begin();
+  while (it != s.end())
+    m_delims.push_back(utf8::unchecked::next(it));
 }
 
-void TokenizeIterator::move()
+bool SimpleDelimiter::operator()(UniChar c) const
 {
-  m_end = m_src.find_first_of(m_delim, m_start);
-  if (m_end == string::npos) m_end = m_src.size();
-}
-
-string TokenizeIterator::operator*() const
-{
-  ASSERT ( !end(), ("dereference of empty iterator") );
-  return m_src.substr(m_start, m_end - m_start);
-}
-
-TokenizeIterator & TokenizeIterator::operator++()
-{
-  m_start = m_end + 1;
-  move();
-  return (*this);
+  for (UniString::const_iterator it = m_delims.begin(); it != m_delims.end(); ++it)
+    if (*it == c)
+      return true;
+  return false;
 }
 
 bool to_int(char const * s, int & i)

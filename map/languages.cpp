@@ -99,7 +99,7 @@ namespace languages
 
     CodesT currentCodes;
     Collector c(currentCodes);
-    strings::TokenizeString(settingsString, LANG_DELIMETER, c);
+    strings::Tokenize(settingsString, LANG_DELIMETER, c);
 
     GetSupportedLanguages(outLanguages);
     Sort(currentCodes, outLanguages);

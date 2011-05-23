@@ -30,11 +30,11 @@ namespace ftype {
       static char const * aTrue[] = { "yes", "true", "1", "*" };
       static char const * aFalse[] = { "no", "false", "-1" };
 
-      string_utils::TokenizeIterator it(v, "|");
-      while (!it.end())
+      strings::SimpleTokenizer it(v, "|");
+      while (it)
       {
-        if (string_utils::IsInArray(aTrue, *it)) return 1;
-        if (string_utils::IsInArray(aFalse, *it)) return -1;
+        if (strings::IsInArray(aTrue, *it)) return 1;
+        if (strings::IsInArray(aFalse, *it)) return -1;
         ++it;
       }
 
@@ -71,7 +71,7 @@ namespace ftype {
       {
         static char const * rules[] = { "line", "tunnel", "area", "symbol", "caption", "text",
                                         "circle", "pathText", "wayMarker" };
-        return string_utils::IsInArray(rules, e);
+        return strings::IsInArray(rules, e);
       }
 
       uint8_t get_rule_type()
@@ -87,9 +87,9 @@ namespace ftype {
         }
         ASSERT ( !e.empty(), () );
 
-        string_utils::TokenizeIterator it(e, "|");
+        strings::SimpleTokenizer it(e, "|");
         uint8_t ret = 0;
-        while (!it.end())
+        while (it)
         {
           string const & s = *it;
           if (s == "node")
@@ -110,7 +110,7 @@ namespace ftype {
           // addclass appear in small scales (6-11)
           // don't skip it during parsing, but we don't process it like a rule
                                         "addclass" };
-        return (string_utils::IsInArray(elems, e) || is_draw_rule(e));
+        return (strings::IsInArray(elems, e) || is_draw_rule(e));
       }
 
       /// check if it's processing key
@@ -118,7 +118,7 @@ namespace ftype {
       {
         static char const * bad[] = { "osmarender:render", "osmarender:rendername",
                                       "osmarender:renderref", "addr:housenumber" };
-        return (!k.empty() && !string_utils::IsInArray(bad, k));
+        return (!k.empty() && !strings::IsInArray(bad, k));
       }
 
       static bool is_valid_value(string const & v)
@@ -132,13 +132,13 @@ namespace ftype {
         static char const * mark[] = {  "bridge", "tunnel", "area", "lock", "oneway", "junction",
                                         "embankment", "cutting", "motorroad", "cycleway",
                                         "bicycle", "horse", "capital", "fee" };
-        return string_utils::IsInArray(mark, k);
+        return strings::IsInArray(mark, k);
       }
 
       static bool process_feature_like_mark_from_root(string const & /*k*/, string const & v)
       {
         static char const * mark[] = { "turning_circle", "dyke", "dike", "levee", "embankment" };
-        return string_utils::IsInArray(mark, v);
+        return strings::IsInArray(mark, v);
       }
 
       static bool process_feature_like_mark(string const & k, string const & v)
@@ -150,7 +150,7 @@ namespace ftype {
       static bool is_skip_element_by_key(string const & k)
       {
         static char const * skip[] = { "addr:housenumber", "fixme" };
-        return string_utils::IsInArray(skip, k);
+        return strings::IsInArray(skip, k);
       }
 
       /// skip element and all it's sub-elements
@@ -176,8 +176,8 @@ namespace ftype {
       void AddAttr(string name, string value)
       {
         // make lower case for equivalent string comparison
-        string_utils::make_lower_case(name);
-        string_utils::make_lower_case(value);
+        strings::make_lower_case(name);
+        strings::make_lower_case(value);
 
         if ((name == "k") && is_skip_element_by_key(value))
           m_forceSkip = true;
@@ -261,8 +261,8 @@ namespace ftype {
             string v = e.attr["v"];
             if (!is_valid_value(v)) continue;
 
-            string_utils::TokenizeIterator iK(k, "|");
-            if (iK.is_last())
+            strings::SimpleTokenizer iK(k, "|");
+            if (iK.IsLast())
             {
               // process one key
               ASSERT ( *iK == k, () );
@@ -324,8 +324,8 @@ namespace ftype {
                   }
 
                   // process values
-                  string_utils::TokenizeIterator iV(v, "|");
-                  while (!iV.end())
+                  strings::SimpleTokenizer iV(v, "|");
+                  while (iV)
                   {
                     bool const b1 = process_feature_like_mark_from_root(k, *iV);
                     if (b1 || process_feature_like_mark(k, *iV))
@@ -355,18 +355,18 @@ namespace ftype {
             {
               char const * aTry[] = { "natural", "landuse" };
 
-              while (!iK.end())
+              while (iK)
               {
                 // let's try to add root keys
-                bool addMode = (pParent == get_root() && string_utils::IsInArray(aTry, *iK));
+                bool addMode = (pParent == get_root() && strings::IsInArray(aTry, *iK));
 
                 ClassifObject * p = (addMode ? pParent->Add(*iK) : pParent->Find(*iK));
                 if (p && (get_mark_value(*iK, v) == 0))
                 {
                   if (p->IsCriterion()) p = pParent;
 
-                  string_utils::TokenizeIterator iV(v, "|");
-                  while (!iV.end())
+                  strings::SimpleTokenizer iV(v, "|");
+                  while (iV)
                   {
                     ClassifObject * pp = (addMode ? p->Add(*iV) : p->Find(*iV));
                     if (pp)
@@ -525,7 +525,7 @@ namespace ftype {
 
         // get names
         string lang;
-        string_utils::TokenizeString(k, "\t :", get_lang(lang));
+        strings::Tokenize(k, "\t :", get_lang(lang));
         if (!lang.empty())
           m_params.name.AddString(lang, v);
 
@@ -552,7 +552,7 @@ namespace ftype {
         if (k == "population")
         {
           int n;
-          if (string_utils::to_int(v, n))
+          if (strings::to_int(v, n))
             m_params.rank = static_cast<uint8_t>(log(double(n)) / log(1.1));
         }
 
