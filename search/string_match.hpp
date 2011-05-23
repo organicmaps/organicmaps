@@ -29,7 +29,7 @@ struct MatchCostData
 template <typename PriorityQueyeT>
 void PushMatchCost(PriorityQueyeT & q, uint32_t maxCost, uint32_t a, uint32_t b, uint32_t cost)
 {
-  if (cost < maxCost)
+  if (cost <= maxCost)
     q.push(MatchCostData(a, b, cost));
 }
 
@@ -50,7 +50,8 @@ public:
 template <typename CharT, typename CostF>
 uint32_t StringMatchCost(CharT const * sA, uint32_t sizeA,
                          CharT const * sB, uint32_t sizeB,
-                         CostF const & costF, uint32_t maxCost)
+                         CostF const & costF, uint32_t maxCost,
+                         bool bPrefixMatch = false)
 {
   priority_queue<impl::MatchCostData, buffer_vector<impl::MatchCostData, 256> > q;
   q.push(impl::MatchCostData(0, 0, 0));
@@ -63,7 +64,7 @@ uint32_t StringMatchCost(CharT const * sA, uint32_t sizeA,
     while (a < sizeA && b < sizeB && sA[a] == sB[b])
       ++a, ++b;
 
-    if (a == sizeA && b == sizeB)
+    if (a == sizeA && (bPrefixMatch || b == sizeB))
       return c;
 
     if (a < sizeA)

@@ -10,8 +10,6 @@
 
 #include "../defines.hpp"
 
-#include "../search/search_processor.hpp"
-
 #include "../indexer/drawing_rule_def.hpp"
 #include "../indexer/mercator.hpp"
 #include "../indexer/data_header.hpp"
@@ -54,6 +52,7 @@ class redraw_operation_cancelled {};
 
 struct BenchmarkRectProvider;
 
+namespace search { class Result; }
 typedef function<void (search::Result const &)> SearchCallbackT;
 
 namespace fwork

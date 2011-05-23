@@ -7,6 +7,9 @@
 #include "benchmark_provider.hpp"
 #include "languages.hpp"
 
+#include "../search/engine.hpp"
+#include "../search/result.hpp"
+
 #include "../indexer/feature_visibility.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/scales.hpp"
@@ -1062,16 +1065,11 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   {
     threads::MutexGuard lock(m_modelSyn);
 
-    search::Query query(text);
-    search::Processor doClass(query);
-    m_model.ForEachFeature(m_navigator.Screen().GlobalRect()
-                                    /*m2::RectD(MercatorBounds::minX,
-                                              MercatorBounds::minY,
-                                              MercatorBounds::maxX,
-                                              MercatorBounds::maxY)*/, doClass);
-    query.ForEachResultRef(callback);
-    // empty name indicates last element
-    callback(search::Result(string(), m2::RectD()));
+    search::Engine engine(&m_model.GetIndex());
+    engine.Search(text, m_navigator.Screen().GlobalRect(), callback);
+
+    // Empty name indicates last element.
+    callback(search::Result(string(), m2::RectD(), 0));
   }
 
 template class FrameWork<model::FeaturesFetcher>;

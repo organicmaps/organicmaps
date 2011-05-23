@@ -47,7 +47,7 @@ namespace search
     }
     if (score > 0)
     {
-      m_queue.push(make_pair(score, Result(utf8s, m_currFeature->GetLimitRect(-1))));
+      m_queue.push(make_pair(score, Result(utf8s, m_currFeature->GetLimitRect(-1), 0)));
       return false;
     }
     return true;

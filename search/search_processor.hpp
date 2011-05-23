@@ -1,7 +1,6 @@
 #pragma once
-
+#include "result.hpp"
 #include "../geometry/rect2d.hpp"
-
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 #include "../std/queue.hpp"
@@ -10,15 +9,6 @@ class FeatureType;
 
 namespace search
 {
-  class Result
-  {
-  public:
-    Result(string const & name, m2::RectD const & rect)
-      : m_name(name), m_rect(rect) {}
-    string m_name;
-    m2::RectD m_rect;
-  };
-
   typedef pair<int, search::Result> elem_type;
   struct QueueComparer
   {

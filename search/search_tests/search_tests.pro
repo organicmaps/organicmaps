@@ -19,4 +19,9 @@ win32 {
 
 SOURCES += \
   ../../testing/testingmain.cpp \
+  keyword_matcher_test.cpp \
+  query_test.cpp \
   string_match_test.cpp \
+
+HEADERS += \
+  match_cost_mock.hpp \

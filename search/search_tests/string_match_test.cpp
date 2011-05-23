@@ -1,55 +1,69 @@
 #include "../../testing/testing.hpp"
 #include "../string_match.hpp"
-
+#include "match_cost_mock.hpp"
 #include "../../std/memcpy.hpp"
 
 namespace
 {
 
-class TestMatchCost
+uint32_t FullMatchCost(char const * a, char const * b, uint32_t maxCost = 1000)
 {
-public:
-  uint32_t Cost10(char) const { return 1; }
-  uint32_t Cost01(char) const { return 1; }
-  uint32_t Cost11(char, char) const { return 1; }
-  uint32_t Cost12(char a, char const * pB) const
-  {
-    if (a == 'X' && pB[0] == '>' && pB[1] == '<')
-      return 0;
-    return 2;
-  }
-  uint32_t Cost21(char const * pA, char b) const { return Cost12(b, pA); }
-  uint32_t Cost22(char const *, char const *) const { return 2; }
-  uint32_t SwapCost(char, char) const { return 1; }
-};
+  return ::search::StringMatchCost(a, strlen(a), b, strlen(b),
+                                   search::MatchCostMock<char>(), maxCost);
+}
 
-uint32_t MatchCost(char const * a, char const * b, uint32_t maxCost = 1000)
+uint32_t PrefixMatchCost(char const * a, char const * b)
 {
-  return ::search::StringMatchCost(a, strlen(a), b, strlen(b), TestMatchCost(), maxCost);
+  return ::search::StringMatchCost(a, strlen(a), b, strlen(b),
+                                   search::MatchCostMock<char>(), 1000, true);
 }
 
 }
 
-UNIT_TEST(StringMatchCost)
+UNIT_TEST(StringMatchCost_FullMatch)
 {
-  TEST_EQUAL(MatchCost("", ""), 0, ());
-  TEST_EQUAL(MatchCost("a", "b"), 1, ());
-  TEST_EQUAL(MatchCost("a", ""), 1, ());
-  TEST_EQUAL(MatchCost("", "b"), 1, ());
-  TEST_EQUAL(MatchCost("ab", "cd"), 2, ());
-  TEST_EQUAL(MatchCost("ab", "ba"), 1, ());
-  TEST_EQUAL(MatchCost("abcd", "efgh"), 4, ());
-  TEST_EQUAL(MatchCost("Hello!", "Hello!"), 0, ());
-  TEST_EQUAL(MatchCost("Hello!", "Helo!"), 1, ());
-  TEST_EQUAL(MatchCost("X", "X"), 0, ());
-  TEST_EQUAL(MatchCost("X", "><"), 0, ());
-  TEST_EQUAL(MatchCost("XXX", "><><><"), 0, ());
-  TEST_EQUAL(MatchCost("XXX", "><X><"), 0, ());
-  TEST_EQUAL(MatchCost("TeXt", "Te><t"), 0, ());
-  TEST_EQUAL(MatchCost("TeXt", "Te><"), 1, ());
-  TEST_EQUAL(MatchCost("TeXt", "TetX"), 1, ());
-  TEST_EQUAL(MatchCost("TeXt", "Tet><"), 2, ());
-  TEST_EQUAL(MatchCost("", "ALongString"), 11, ());
-  TEST_EQUAL(MatchCost("x", "ALongString"), 11, ());
-  TEST_EQUAL(MatchCost("g", "ALongString"), 10, ());
+  TEST_EQUAL(FullMatchCost("", ""), 0, ());
+  TEST_EQUAL(FullMatchCost("a", "b"), 1, ());
+  TEST_EQUAL(FullMatchCost("a", ""), 1, ());
+  TEST_EQUAL(FullMatchCost("", "b"), 1, ());
+  TEST_EQUAL(FullMatchCost("ab", "cd"), 2, ());
+  TEST_EQUAL(FullMatchCost("ab", "ba"), 1, ());
+  TEST_EQUAL(FullMatchCost("abcd", "efgh"), 4, ());
+  TEST_EQUAL(FullMatchCost("Hello!", "Hello!"), 0, ());
+  TEST_EQUAL(FullMatchCost("Hello!", "Helo!"), 1, ());
+  TEST_EQUAL(FullMatchCost("X", "X"), 0, ());
+  TEST_EQUAL(FullMatchCost("X", "><"), 0, ());
+  TEST_EQUAL(FullMatchCost("XXX", "><><><"), 0, ());
+  TEST_EQUAL(FullMatchCost("XXX", "><X><"), 0, ());
+  TEST_EQUAL(FullMatchCost("TeXt", "Te><t"), 0, ());
+  TEST_EQUAL(FullMatchCost("TeXt", "Te><"), 1, ());
+  TEST_EQUAL(FullMatchCost("TeXt", "TetX"), 1, ());
+  TEST_EQUAL(FullMatchCost("TeXt", "Tet><"), 2, ());
+  TEST_EQUAL(FullMatchCost("", "ALongString"), 11, ());
+  TEST_EQUAL(FullMatchCost("x", "ALongString"), 11, ());
+  TEST_EQUAL(FullMatchCost("g", "ALongString"), 10, ());
+}
+
+UNIT_TEST(StringMatchCost_MaxCost)
+{
+  TEST_EQUAL(FullMatchCost("g", "ALongString", 1), 2, ());
+  TEST_EQUAL(FullMatchCost("g", "ALongString", 5), 6, ());
+  TEST_EQUAL(FullMatchCost("g", "ALongString", 9), 10, ());
+  TEST_EQUAL(FullMatchCost("g", "ALongString", 9), 10, ());
+  TEST_EQUAL(FullMatchCost("g", "ALongString", 10), 10, ());
+  TEST_EQUAL(FullMatchCost("g", "ALongString", 11), 10, ());
+}
+
+UNIT_TEST(StringMatchCost_PrefixMatch)
+{
+  TEST_EQUAL(PrefixMatchCost("", "Hello!"), 0, ());
+  TEST_EQUAL(PrefixMatchCost("H", "Hello!"), 0, ());
+  TEST_EQUAL(PrefixMatchCost("He", "Hello!"), 0, ());
+  TEST_EQUAL(PrefixMatchCost("Hel", "Hello!"), 0, ());
+  TEST_EQUAL(PrefixMatchCost("Hell", "Hello!"), 0, ());
+  TEST_EQUAL(PrefixMatchCost("Hello", "Hello!"), 0, ());
+  TEST_EQUAL(PrefixMatchCost("Hello!", "Hello!"), 0, ());
+  TEST_EQUAL(PrefixMatchCost("Hx", "Hello!"), 1, ());
+  TEST_EQUAL(PrefixMatchCost("Helpo", "Hello!"), 1, ());
+  TEST_EQUAL(PrefixMatchCost("Happo", "Hello!"), 3, ());
 }

@@ -6,7 +6,7 @@
 
 #include "../defines.hpp"
 
-#include "../search/search_processor.hpp"
+#include "../search/result.hpp"
 
 #include "../map/settings.hpp"
 
@@ -360,7 +360,7 @@ void MainWindow::OnSearchTextChanged(QString const & str)
 
 void MainWindow::OnSearchResult(search::Result const & result)
 {
-  if (result.m_name.empty())  // last element
+  if (result.GetString().empty())  // last element
   {
     if (!m_Docks[3]->isVisible())
       m_Docks[3]->show();
@@ -372,9 +372,9 @@ void MainWindow::OnSearchResult(search::Result const & result)
     int const rowCount = table->rowCount();
 
     table->setRowCount(rowCount + 1);
-    QTableWidgetItem * item = new QTableWidgetItem(QString::fromUtf8(result.m_name.c_str()));
-    item->setData(Qt::UserRole, QRectF(QPointF(result.m_rect.minX(), result.m_rect.maxY()),
-                                       QPointF(result.m_rect.maxX(), result.m_rect.minY())));
+    QTableWidgetItem * item = new QTableWidgetItem(QString::fromUtf8(result.GetString().c_str()));
+    item->setData(Qt::UserRole, QRectF(QPointF(result.GetRect().minX(), result.GetRect().maxY()),
+                                       QPointF(result.GetRect().maxX(), result.GetRect().minY())));
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     table->setItem(rowCount, 0, item);
   }
