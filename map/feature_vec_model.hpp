@@ -59,6 +59,8 @@ namespace model
       m_multiIndex.ForEachInRect(toDo, rect, scale);
     }
 
+    index_t const & GetIndex() const { return m_multiIndex; }
+
     void AddWorldRect(m2::RectD const & r) { m_rect.Add(r); }
     m2::RectD GetWorldRect() const;
   };
