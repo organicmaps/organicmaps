@@ -87,6 +87,10 @@ win32-msvc* {
   QMAKE_CXXFLAGS_RELEASE += -Ox -Ob2 -Oi -Ot
   # don't set /LTCG - bug in msvc
   QMAKE_LFLAGS_RELEASE += /MACHINE:X86
+
+  CONFIG(release, debug|release) {
+    DEFINES += _SECURE_SCL=0
+  }
  }
 
 win32-msvc2010 {
