@@ -6,6 +6,19 @@ Makefile.Debug
 Makefile.Release
 object_script.*.Debug
 object_script.*.Release
+
+# Symbian
+.obj/*
+*.mmp
+*.cache
+*.inf
+*.loc
+*.rss
+*.pkg
+*.mk
+*.d
+
+# Windows generated files
 *.vcxproj*
 ipch/*
 omim.sdf
@@ -22,16 +35,7 @@ omim.sdf
 !qt/res/windows.rc
 *.pdb
 out/*
-.obj/*
-*.mmp
-*.cache
-*.inf
-*.loc
-*.rss
-*.pkg
-*.mk
-*.d
-*.BAT
+qt/mapswithme.log
 
 # XCode
 iphone/*/*.xcodeproj/*.mode1v3
