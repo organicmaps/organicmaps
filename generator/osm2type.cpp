@@ -479,7 +479,7 @@ namespace ftype {
           //if (get_mark_value(k, v) == -1)
           //  continue;
 
-          utils::TokenizeString(v, ";", tags_wrapper<ToDo>(k, toDo, res));
+          strings::Tokenize(v, ";", tags_wrapper<ToDo>(k, toDo, res));
           if (res) return res;
         }
       }
