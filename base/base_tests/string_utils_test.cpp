@@ -121,3 +121,19 @@ UNIT_TEST(LastUniChar)
   TEST_EQUAL(strings::LastUniChar(" \xD0\x90"), 0x0410, ());
 
 }
+
+UNIT_TEST(GetUniString)
+{
+  strings::SimpleTokenizer iter("Hello, \xD0\x9C\xD0\xB8\xD0\xBD\xD1\x81\xD0\xBA!", ", !");
+  {
+    strings::UniChar const s[] = { 'H', 'e', 'l', 'l', 'o' };
+    strings::UniString us(&s[0], &s[0] + ARRAY_SIZE(s));
+    TEST_EQUAL(iter.GetUniString(), us, ());
+  }
+  ++iter;
+  {
+    strings::UniChar const s[] = { 0x041C, 0x0438, 0x043D, 0x0441, 0x043A };
+    strings::UniString us(&s[0], &s[0] + ARRAY_SIZE(s));
+    TEST_EQUAL(iter.GetUniString(), us, ());
+  }
+}

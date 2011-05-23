@@ -18,7 +18,8 @@ typedef buffer_vector<UniChar, 32> UniString;
 template <typename DelimFuncT>
 class TokenizeIterator
 {
-  utf8::unchecked::iterator<string::const_iterator> m_beg, m_end, m_finish;
+  typedef utf8::unchecked::iterator<string::const_iterator> Utf8IterT;
+  Utf8IterT m_beg, m_end, m_finish;
   DelimFuncT m_delimFunc;
 
   void move()
@@ -53,6 +54,7 @@ public:
     ASSERT( m_beg != m_finish, ("dereferencing of empty iterator") );
     return string(m_beg.base(), m_end.base());
   }
+
   operator bool() const { return m_beg != m_finish; }
 
   TokenizeIterator & operator++()
@@ -68,6 +70,18 @@ public:
     TokenizeIterator<DelimFuncT> copy(*this);
     ++copy;
     return !copy;
+  }
+
+  UniString GetUniString() const
+  {
+    UniString result;
+    Utf8IterT iter(m_beg);
+    while (iter != m_end)
+    {
+      result.push_back(*iter);
+      ++iter;
+    }
+    return result;
   }
 };
 
