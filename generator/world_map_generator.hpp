@@ -28,7 +28,7 @@ class WorldMapGenerator
   public:
     template <class TInit>
     WorldEmitter(int maxScale, TInit const & initData)
-      : m_maxWorldScale(maxScale), m_output(WORLD_FILE_NAME, initData)
+      : m_output(WORLD_FILE_NAME, initData), m_maxWorldScale(maxScale)
     {
     }
 

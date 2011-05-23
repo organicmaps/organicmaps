@@ -934,7 +934,7 @@ public:
     : m_priorities(priorities), m_result(result), m_minPriority(256) {}
   bool operator() (char lang, string const & utf8s)
   {
-    int const priority = m_priorities[lang];
+    int const priority = m_priorities[static_cast<uint8_t>(lang)];
     if (priority == 0)
     {
       m_result = utf8s;

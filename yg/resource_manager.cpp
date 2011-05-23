@@ -35,7 +35,9 @@ namespace yg
                                      m_fillSkinAlpha(fillSkinAlpha)
   {
     if (useVA)
+    {
       LOG(LINFO, ("buffer objects are unsupported. using client vertex array instead."));
+    }
 
     for (size_t i = 0; i < storagesCount; ++i)
       m_storages.push_back(gl::Storage(vbSize, ibSize, m_useVA));

@@ -75,12 +75,13 @@ UNIT_TEST(FeatureMerger_MultipleTypes)
 
 UNIT_TEST(FeatureMerger_Branches)
 {
-  // Try to unite next configuration
-  //     o
-  //     /\
-  // o--o--o--o
-  //     \/
-  //      o
+  /* Try to unite next configuration
+          o
+         /\
+     o--o--o--o
+         \/
+         o
+  */
 
   vector<FeatureBuilder1> vF;
 

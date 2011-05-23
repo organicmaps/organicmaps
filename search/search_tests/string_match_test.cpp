@@ -1,6 +1,8 @@
 #include "../../testing/testing.hpp"
 #include "../string_match.hpp"
 
+#include "../../std/memcpy.hpp"
+
 namespace
 {
 
