@@ -6,8 +6,6 @@
 
 namespace languages
 {
-  static int const MAX_SUPPORTED_LANGUAGES = 64;
-
   typedef vector<pair<string, string> > CodesAndNamesT;
   typedef vector<string> CodesT;
 

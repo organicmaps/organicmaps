@@ -22,3 +22,6 @@
 #define SETTINGS_FILE_NAME "settings.ini"
 
 #define DEFAULT_AUTO_UPDATES_ENABLED true
+
+/// How many langs we're supporting on indexing stage
+#define MAX_SUPPORTED_LANGUAGES 64

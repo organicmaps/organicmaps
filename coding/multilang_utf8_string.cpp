@@ -1,5 +1,7 @@
 #include "multilang_utf8_string.hpp"
 
+#include "../defines.hpp"
+
 char StringUtf8Multilang::GetLangIndex(string const & lang)
 {
   static char const * arr[] = { "default",
@@ -11,7 +13,7 @@ char StringUtf8Multilang::GetLangIndex(string const & lang)
                          "kk", "la", "et", "vi", "mn", "mk", "lv", "fur", "gsw", "ja_kana",
                          "is", "hi", "ku" };
 
-  STATIC_ASSERT(ARRAY_SIZE(arr) <= 64);
+  STATIC_ASSERT(ARRAY_SIZE(arr) == MAX_SUPPORTED_LANGUAGES);
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
     if (lang == arr[i])

@@ -1,6 +1,8 @@
 #include "languages.hpp"
 #include "settings.hpp"
 
+#include "../defines.hpp"
+
 #include "../base/logging.hpp"
 #include "../base/string_utils.hpp"
 
@@ -34,7 +36,7 @@ namespace languages
 
   static void SetPreferableLanguages(vector<string> const & langCodes)
   {
-    CHECK_EQUAL(langCodes.size(), 64, ());
+    CHECK_EQUAL(langCodes.size(), MAX_SUPPORTED_LANGUAGES, ());
     for (size_t i = 0; i < langCodes.size(); ++i)
     {
       char const index = StringUtf8Multilang::GetLangIndex(langCodes[i]);

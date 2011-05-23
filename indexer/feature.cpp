@@ -934,6 +934,7 @@ public:
     : m_priorities(priorities), m_result(result), m_minPriority(256) {}
   bool operator() (char lang, string const & utf8s)
   {
+    ASSERT(lang >= 0 && lang < MAX_SUPPORTED_LANGUAGES, ());
     int const priority = m_priorities[static_cast<uint8_t>(lang)];
     if (priority == 0)
     {
@@ -965,7 +966,7 @@ string FeatureType::GetPreferredDrawableName(char const * priorities) const
 
   if (res.empty() && GetFeatureType() == GEOM_AREA)
     res = m_Params.house.Get();
- 
+
   return res;
 }
 
