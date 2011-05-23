@@ -434,16 +434,37 @@ namespace ftype {
 
   namespace
   {
-    bool is_skip_tag(string const & k, string const & /*v*/)
+    bool is_skip_tag(string const & k)
     {
       // skip "cycleway's" tags because they interfer to set a valid types like "highway's"
       return (k == "created_by" || k == "description" || k == "cycleway" || k == "embankment");
     }
 
-    template <class ToDo> typename ToDo::result_type for_each_tag(XMLElement * p, ToDo toDo)
+    template <class ToDo> class tags_wrapper
     {
       typedef typename ToDo::result_type res_t;
 
+      string const & m_key;
+      ToDo & m_toDo;
+      res_t & m_res;
+
+    public:
+      tags_wrapper(string const & key, ToDo & toDo, res_t & res)
+        : m_key(key), m_toDo(toDo), m_res(res) {}
+
+      void operator() (string const & v)
+      {
+        if (!m_res)
+          m_res = m_toDo(m_key, v);
+      }
+    };
+
+    template <class ToDo>
+    typename ToDo::result_type for_each_tag(XMLElement * p, ToDo toDo)
+    {
+      typedef typename ToDo::result_type res_t;
+
+      res_t res = res_t();
       for (size_t i = 0; i < p->childs.size(); ++i)
       {
         if (p->childs[i].name == "tag")
@@ -451,18 +472,18 @@ namespace ftype {
           string const & k = p->childs[i].attrs["k"];
           string const & v = p->childs[i].attrs["v"];
 
-          if (k.empty() || is_skip_tag(k, v))
+          if (k.empty() || is_skip_tag(k))
             continue;
 
           // this means "no"
           //if (get_mark_value(k, v) == -1)
           //  continue;
 
-          res_t res = toDo(k, v);
+          utils::TokenizeString(v, ";", tags_wrapper<ToDo>(k, toDo, res));
           if (res) return res;
         }
       }
-      return res_t();
+      return res;
     }
 
     bool is_name_tag(string const & k)
