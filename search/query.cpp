@@ -1,19 +1,22 @@
 #include "query.hpp"
-#include "../base/utf8_string.hpp"
+#include "delimiters.hpp"
+
+#include "../base/string_utils.hpp"
 
 namespace search1
 {
 
 Query::Query(string const & query)
 {
-  utf8_string::Split(query, m_Keywords, &utf8_string::IsSearchDelimiter);
-  if (!query.empty() && !utf8_string::IsSearchDelimiter(query[query.size() - 1]))
+  search::Delimiters delims;
+  strings::TokenizeIterator<search::Delimiters> iter(query, delims);
+  while (iter)
   {
-    m_Prefix.swap(m_Keywords.back());
-    m_Keywords.pop_back();
+    if (iter.IsLast() && !delims(strings::LastUniChar(query)))
+      m_prefix = *iter;
+    else
+      m_keywords.push_back(*iter);
   }
 }
-
-
 
 }

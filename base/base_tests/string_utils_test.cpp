@@ -113,3 +113,11 @@ UNIT_TEST(SimpleTokenizer)
   }
 
 }
+
+UNIT_TEST(LastUniChar)
+{
+  TEST_EQUAL(strings::LastUniChar(""), 0, ());
+  TEST_EQUAL(strings::LastUniChar("Hello"), 0x6f, ());
+  TEST_EQUAL(strings::LastUniChar(" \xD0\x90"), 0x0410, ());
+
+}

@@ -20,7 +20,6 @@ SOURCES += \
     memory_mapped_file.cpp \
     path_utils.cpp \
     condition.cpp \
-    utf8_string.cpp \
 
 HEADERS += \
     SRC_FIRST.hpp \
@@ -63,4 +62,3 @@ HEADERS += \
     buffer_vector.hpp \
     path_utils.hpp \
     array_adapters.hpp \
-    utf8_string.hpp \

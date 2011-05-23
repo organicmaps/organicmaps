@@ -29,6 +29,5 @@ SOURCES += \
   matrix_test.cpp \
   commands_queue_test.cpp \
   buffer_vector_test.cpp \
-  utf8_string_test.cpp \
 
 HEADERS +=

@@ -3,7 +3,6 @@
 #include "../indexer/feature.hpp"
 #include "../indexer/classificator.hpp"
 
-#include "../base/utf8_string.hpp"
 #include "../base/logging.hpp"
 
 #include "../std/bind.hpp"
@@ -31,13 +30,13 @@ namespace search
 
   Query::Query(string const & line)
   {
-    utf8_string::Split(line, m_tokens);
+    //utf8_string::Split(line, m_tokens);
   }
 
   bool Query::operator()(char lang, string const & utf8s)
   {
     vector<string> words;
-    utf8_string::Split(utf8s, words);
+    //utf8_string::Split(utf8s, words);
     int score = -1;
     for (size_t i = 0; i < m_tokens.size(); ++i)
     {

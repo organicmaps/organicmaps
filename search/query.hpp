@@ -12,8 +12,8 @@ class Query
 public:
   explicit Query(string const & query);
 private:
-  vector<string> m_Keywords;
-  string m_Prefix;
+  vector<string> m_keywords;
+  string m_prefix;
 };
 
 }  // namespace search1

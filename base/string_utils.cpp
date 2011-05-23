@@ -25,6 +25,15 @@ bool SimpleDelimiter::operator()(UniChar c) const
   return false;
 }
 
+UniChar LastUniChar(string const & s)
+{
+  if (s.empty())
+    return 0;
+  utf8::unchecked::iterator<string::const_iterator> iter(s.end());
+  --iter;
+  return *iter;
+}
+
 bool to_int(char const * s, int & i)
 {
   char * stop;

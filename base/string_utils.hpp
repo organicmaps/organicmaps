@@ -93,6 +93,9 @@ void Tokenize(string const & str, char const * delims, FunctorT f)
   }
 }
 
+/// @return code of last symbol in string or 0 if s is empty
+UniChar LastUniChar(string const & s);
+
 template <class T, size_t N, class TT> bool IsInArray(T (&arr) [N], TT const & t)
 {
   for (size_t i = 0; i < N; ++i)
