@@ -187,3 +187,33 @@ UNIT_TEST(BufferVectorPopBack)
     TEST(v.empty(), ());
   }
 }
+
+UNIT_TEST(BufferVectorAssign)
+{
+  int const arr5[] = {1, 2, 3, 4, 5};
+  buffer_vector<int, 5> v(&arr5[0], &arr5[0] + ARRAY_SIZE(arr5));
+  for (size_t i = 0; i < ARRAY_SIZE(arr5); ++i)
+  {
+    TEST_EQUAL(arr5[i], v[i], ());
+  }
+
+  int const arr10[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+  v.assign(&arr10[0], &arr10[0] + ARRAY_SIZE(arr10));
+  for (size_t i = 0; i < ARRAY_SIZE(arr10); ++i)
+  {
+    TEST_EQUAL(arr10[i], v[i], ());
+  }
+}
+
+UNIT_TEST(BufferVectorEquality)
+{
+  int const arr5[] = {1, 2, 3, 4, 5};
+  buffer_vector<int, 5> v1(&arr5[0], &arr5[0] + ARRAY_SIZE(arr5));
+  buffer_vector<int, 10> v2(&arr5[0], &arr5[0] + ARRAY_SIZE(arr5));
+  buffer_vector<int, 3> v3(&arr5[0], &arr5[0] + ARRAY_SIZE(arr5));
+  TEST_EQUAL(v1, v2, ());
+  TEST_EQUAL(v1, v3, ());
+  TEST_EQUAL(v2, v3, ());
+  v1.push_back(999);
+  TEST_NOT_EQUAL(v1, v2, ());
+}

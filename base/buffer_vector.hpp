@@ -27,6 +27,35 @@ public:
     resize(n, c);
   }
 
+  template <typename IterT>
+  explicit buffer_vector(IterT beg, IterT end) : m_size(0)
+  {
+    assign(beg, end);
+  }
+
+  template <typename IterT>
+  void assign(IterT beg, IterT end)
+  {
+    if (m_size == USE_DYNAMIC)
+      m_dynamic.assign(beg, end);
+    else
+    {
+      m_size = 0;
+      while (beg != end)
+      {
+        if (m_size == N)
+        {
+          m_dynamic.reserve(N * 2);
+          SwitchToDynamic();
+          while (beg != end)
+            m_dynamic.push_back(*beg++);
+          break;
+        }
+        m_static[m_size++] = *beg++;
+      }
+    }
+  }
+
   void reserve(size_t n)
   {
     if (m_size == USE_DYNAMIC || n > N)
@@ -197,4 +226,16 @@ template <typename T, size_t N>
 inline string debug_print(buffer_vector<T, N> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.data(), v.data() + v.size());
+}
+
+template <typename T, size_t N1, size_t N2>
+inline bool operator==(buffer_vector<T, N1> const & v1, buffer_vector<T, N2> const & v2)
+{
+  return (v1.size() == v2.size() && std::equal(v1.begin(), v1.end(), v2.begin()));
+}
+
+template <typename T, size_t N1, size_t N2>
+inline bool operator!=(buffer_vector<T, N1> const & v1, buffer_vector<T, N2> const & v2)
+{
+  return !(v1 == v2);
 }
