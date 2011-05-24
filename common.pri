@@ -77,16 +77,15 @@ win32 {
 win32-msvc* {
   QMAKE_CLEAN += *.user
   DEFINES += _SCL_SECURE_NO_WARNINGS _CRT_SECURE_NO_WARNINGS _CRT_NONSTDC_NO_WARNINGS NOMINMAX NO_MIN_MAX
-  QMAKE_CXXFLAGS += -wd4100 -Zi
-  QMAKE_CXXFLAGS += /Fd$${DESTDIR}/$${TARGET}.pdb
-  QMAKE_CFLAGS += /Fd$${DESTDIR}/$${TARGET}.pdb
-  QMAKE_LFLAGS += /PDB:$${DESTDIR}/$${TARGET}.pdb /DEBUG
+  QMAKE_CXXFLAGS += /Fd$${DESTDIR}/$${TARGET}.pdb /Zi /fp:fast
+  QMAKE_CFLAGS += /Fd$${DESTDIR}/$${TARGET}.pdb /Zi /fp:fast
+  QMAKE_LFLAGS += /PDB:$${DESTDIR}/$${TARGET}.pdb
 
-  QMAKE_CXXFLAGS_RELEASE -= -O2
-  # don't set -GL - bug in msvc
-  QMAKE_CXXFLAGS_RELEASE += -Ox -Ob2 -Oi -Ot
-  # don't set /LTCG - bug in msvc
-  QMAKE_LFLAGS_RELEASE += /MACHINE:X86
+  QMAKE_CXXFLAGS_RELEASE -= /O2
+  # don't set -GL - bug in msvc2008
+  QMAKE_CXXFLAGS_RELEASE += /Ox
+  # don't set /LTCG - bug in msvc2008
+  QMAKE_LFLAGS_RELEASE += /MACHINE:X86 /OPT:REF
 
   CONFIG(release, debug|release) {
     DEFINES += _SECURE_SCL=0
@@ -95,6 +94,10 @@ win32-msvc* {
 
 win32-msvc2010 {
   DEFINES += _HAS_CPP0X=0 # disable tr1 and c++0x features to avoid build errors
+  QMAKE_CFLAGS_RELEASE += /GL
+  QMAKE_CXXFLAGS_RELEASE += /GL
+  QMAKE_LFLAGS_RELEASE += /LTCG
+  QMAKE_LIB += /LTCG
 }
 
 unix|win32-g++ {
