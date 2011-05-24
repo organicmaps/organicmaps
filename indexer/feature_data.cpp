@@ -53,11 +53,6 @@ void FeatureParams::AddTypes(FeatureParams const & rhs)
   m_Types.insert(m_Types.end(), rhs.m_Types.begin(), rhs.m_Types.end());
 }
 
-void FeatureParams::SortTypes()
-{
-  sort(m_Types.begin(), m_Types.end());
-}
-
 void FeatureParams::FinishAddingTypes()
 {
   sort(m_Types.begin(), m_Types.end());

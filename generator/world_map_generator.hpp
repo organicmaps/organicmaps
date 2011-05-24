@@ -52,36 +52,36 @@ class WorldMapGenerator
   /// features visible before or at this scale level will go to World map
   bool m_mergeCoastlines;
 
-  FeatureMergeProcessor m_processor;
+  FeatureTypesProcessor m_typesCorrector;
+  FeatureMergeProcessor m_merger;
 
 public:
   WorldMapGenerator(int maxWorldScale, bool mergeCoastlines,
                     typename FeatureOutT::InitDataType const & initData)
-  : m_mergeCoastlines(mergeCoastlines), m_processor(30)
+  : m_mergeCoastlines(mergeCoastlines), m_merger(30)
   {
     if (maxWorldScale >= 0)
       m_worldBucket.reset(new WorldEmitter(maxWorldScale, initData));
 
-    // fill vector with types that need to be merged
-    //static size_t const MAX_TYPES_IN_PATH = 3;
-    //char const * arrMerge[][MAX_TYPES_IN_PATH] = {
-    //  {"natural", "coastline", ""},
-    //  {"boundary", "administrative", "2"},
+    // fill vector with types that need to be replaced
+    char const * arrReplace[][3] = {
+      {"highway", "motorway_link", "motorway"},
+      {"highway", "motorway_junction", "motorway"},
+      {"highway", "primary_link", "primary"},
+      {"highway", "trunk_link", "trunk"},
+      {"highway", "secondary_link", "secondary"},
+      {"highway", "tertiary_link", "tertiary"}
+    };
 
-    //  {"highway", "motorway", ""},
-    //  {"highway", "motorway_link", ""},
-    //  {"highway", "motorway", "oneway"},
-    //  {"highway", "motorway_link", "oneway"},
+    for (size_t i = 0; i < ARRAY_SIZE(arrReplace); ++i)
+    {
+      char const * arr1[] = { arrReplace[i][0], arrReplace[i][1] };
+      char const * arr2[] = { arrReplace[i][0], arrReplace[i][2] };
 
-    //  {"highway", "primary", ""},
-    //  {"highway", "primary_link", ""},
-
-    //  {"highway", "trunk", ""},
-    //  {"highway", "trunk_link", ""},
-
-    //  {"natural", "water", ""}
-    //};
+      m_typesCorrector.SetMappingTypes(arr1, arr2);
+    }
   }
+
   ~WorldMapGenerator()
   {
     DoMerge();
@@ -92,7 +92,7 @@ public:
     if (m_worldBucket && m_worldBucket->NeedPushToWorld(fb))
     {
       if (m_mergeCoastlines && (fb.GetGeomType() == feature::GEOM_LINE))
-        m_processor(fb);
+        m_merger(m_typesCorrector(fb));
       else
         m_worldBucket->PushSure(fb);
     }
@@ -101,6 +101,6 @@ public:
   void DoMerge()
   {
     if (m_worldBucket)
-      m_processor.DoMerge(*m_worldBucket);
+      m_merger.DoMerge(*m_worldBucket);
   }
 };

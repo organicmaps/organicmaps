@@ -144,7 +144,6 @@ public:
     m_Types.assign(b, e);
   }
 
-  void SortTypes();
   void FinishAddingTypes();
 
   void SetType(uint32_t t);

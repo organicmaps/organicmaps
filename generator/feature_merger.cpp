@@ -1,16 +1,20 @@
 #include "feature_merger.hpp"
 
 #include "../indexer/point_to_int64.hpp"
+#include "../indexer/classificator.hpp"
 
 
-MergedFeatureBuilder1::MergedFeatureBuilder1(FeatureBuilder1 const & fb)
-  : FeatureBuilder1(fb)
+MergedFeatureBuilder1::MergedFeatureBuilder1(FeatureBuilder1 const & fb, bool isOK)
+  : FeatureBuilder1(fb), m_isOK(isOK)
 {
-  m_Params.SortTypes();
+  m_Params.FinishAddingTypes();
 }
 
 void MergedFeatureBuilder1::AppendFeature(MergedFeatureBuilder1 const & fb, bool toBack)
 {
+  if (fb.m_isOK)
+    m_isOK = true;
+
   m2::PointD const pt = toBack ? LastPoint() : FirstPoint();
 
   bool fromEnd = false;
@@ -54,8 +58,11 @@ FeatureMergeProcessor::FeatureMergeProcessor(uint32_t coordBits)
 
 void FeatureMergeProcessor::operator() (FeatureBuilder1 const & fb)
 {
-  MergedFeatureBuilder1 * p = new MergedFeatureBuilder1(fb);
+  this->operator() (new MergedFeatureBuilder1(fb, true));
+}
 
+void FeatureMergeProcessor::operator() (MergedFeatureBuilder1 * p)
+{
   key_t const k1 = get_key(p->FirstPoint());
   key_t const k2 = get_key(p->LastPoint());
 
@@ -162,4 +169,44 @@ void FeatureMergeProcessor::DoMerge(FeatureEmitterIFace & emitter)
 
   if (m_last.NotEmpty())
     emitter(m_last);
+}
+
+
+uint32_t FeatureTypesProcessor::GetType(char const * arr[2])
+{
+  uint32_t const type = classif().GetTypeByPath(vector<string>(arr, arr + 2));
+  CHECK_NOT_EQUAL(type, ftype::GetEmptyValue(), ());
+  return type;
+}
+
+void FeatureTypesProcessor::CorrectType(uint32_t & t) const
+{
+  // 1. get normalized type:
+  // highway-motorway-bridge => highway-motorway
+  uint32_t normal = ftype::GetEmptyValue();
+  uint8_t v;
+  if (!ftype::GetValue(t, 0, v)) return;
+  ftype::PushValue(normal, v);
+  if (!ftype::GetValue(t, 1, v)) return;
+  ftype::PushValue(normal, v);
+
+  t = normal;
+
+  // 2. get mapping type:
+  map<uint32_t, uint32_t>::const_iterator i = m_mapping.find(t);
+  if (i != m_mapping.end()) t = i->second;
+}
+
+void FeatureTypesProcessor::SetMappingTypes(char const * arr1[2], char const * arr2[2])
+{
+  m_mapping[GetType(arr1)] = GetType(arr2);
+}
+
+MergedFeatureBuilder1 * FeatureTypesProcessor::operator() (FeatureBuilder1 const & fb)
+{
+  MergedFeatureBuilder1 * p = new MergedFeatureBuilder1(fb, true);
+
+  p->ForEachChangeTypes(do_change_types(*this));
+
+  return p;
 }
