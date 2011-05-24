@@ -1,6 +1,6 @@
 #pragma once
 
-#include <internal/opengl.hpp>
+#include "internal/opengl.hpp"
 
 namespace yg
 {

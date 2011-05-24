@@ -1,8 +1,8 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "path_renderer.hpp"
 #include "resource_style.hpp"
 #include "skin.hpp"
+#include "skin_page.hpp"
+#include "base_texture.hpp"
 
 #include "../base/logging.hpp"
 

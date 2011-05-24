@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../std/shared_ptr.hpp"
-#include "texture.hpp"
 #include "color.hpp"
+
+#include "../std/shared_ptr.hpp"
 
 namespace yg
 {
@@ -12,6 +12,8 @@ namespace yg
   {
     class FrameBuffer;
     class RenderBuffer;
+    class BaseTexture;
+    class RenderTarget;
 
     class Renderer
     {

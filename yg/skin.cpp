@@ -1,5 +1,4 @@
 #include "skin.hpp"
-#include "texture.hpp"
 #include "skin_page.hpp"
 #include "resource_style.hpp"
 #include "resource_manager.hpp"

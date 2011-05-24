@@ -1,5 +1,4 @@
-#ifndef MEMENTO_H
-#define MEMENTO_H
+#pragma once
 
 namespace yg
 {
@@ -41,5 +40,3 @@ namespace yg
 
   }
 }
-
-#endif // MEMENTO_H

@@ -7,7 +7,7 @@ namespace yg
     class RenderTarget
     {
     public:
-      virtual ~RenderTarget(){};
+      virtual ~RenderTarget() {}
       /// attach render target to framebuffer and setup coordinate system
       virtual void attachToFrameBuffer() = 0;
       virtual unsigned  width() const = 0;

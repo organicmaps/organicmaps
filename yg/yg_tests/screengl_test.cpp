@@ -6,6 +6,7 @@
 #include "../../yg/internal/opengl.hpp"
 #include "../../yg/skin.hpp"
 #include "../../yg/pen_info.hpp"
+#include "../../yg/circle_info.hpp"
 
 #include "../../qt_tstfrm/macros.hpp"
 

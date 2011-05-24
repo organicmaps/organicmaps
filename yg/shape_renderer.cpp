@@ -1,6 +1,11 @@
-#include "../base/SRC_FIRST.hpp"
 #include "shape_renderer.hpp"
 #include "skin.hpp"
+#include "pen_info.hpp"
+#include "resource_style.hpp"
+#include "skin_page.hpp"
+#include "base_texture.hpp"
+
+#include "../geometry/point2d.hpp"
 
 #include "../base/logging.hpp"
 

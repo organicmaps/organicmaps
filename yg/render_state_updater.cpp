@@ -1,8 +1,8 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "render_state_updater.hpp"
 #include "render_state.hpp"
 #include "framebuffer.hpp"
+#include "internal/opengl.hpp"
+#include "base_texture.hpp"
 
 #include "../base/logging.hpp"
 

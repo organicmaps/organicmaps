@@ -2,13 +2,16 @@
 
 #include "renderer.hpp"
 
+#include "../geometry/point2d.hpp"
+
 #include "../std/vector.hpp"
-#include "base_texture.hpp"
 
 namespace yg
 {
   namespace gl
   {
+    class BaseTexture;
+
     /// all the layers are combined by a simple blitting
     /// at the endFrame/updateActualTarget.
     class LayerManager : public Renderer

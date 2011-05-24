@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../base/base.hpp"
+#include "../std/stdint.hpp"
 
 namespace yg
 {
@@ -27,8 +27,8 @@ namespace yg
   bool operator !=(Color const & l, Color const & r);
   bool operator ==(Color const & l, Color const & r);
 
-  inline int redFromARGB(uint32_t c)   {return (c >> 16) & 0xFF;};
-  inline int greenFromARGB(uint32_t c) {return (c >> 8) & 0xFF;};
-  inline int blueFromARGB(uint32_t c)  {return (c & 0xFF);};
-  inline int alphaFromARGB(uint32_t c)  {return (c >> 24) & 0xFF;};
+  inline int redFromARGB(uint32_t c)   {return (c >> 16) & 0xFF;}
+  inline int greenFromARGB(uint32_t c) {return (c >> 8) & 0xFF; }
+  inline int blueFromARGB(uint32_t c)  {return (c & 0xFF);      }
+  inline int alphaFromARGB(uint32_t c) {return (c >> 24) & 0xFF;}
 }

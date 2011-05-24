@@ -1,19 +1,20 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "information_display.hpp"
 #include "drawer_yg.hpp"
 
 #include "../indexer/mercator.hpp"
 #include "../yg/defines.hpp"
 #include "../yg/skin.hpp"
+#include "../yg/pen_info.hpp"
 
-#include "../std/fstream.hpp"
-#include "../std/iomanip.hpp"
 #include "../version/version.hpp"
 
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
 #include "../base/mutex.hpp"
+#include "../base/macros.hpp"
+
+#include "../std/fstream.hpp"
+#include "../std/iomanip.hpp"
 
 InformationDisplay::InformationDisplay()
 {

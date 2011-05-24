@@ -2,8 +2,6 @@
 
 #include "widgets.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
 namespace qt
 {
   template <class T>

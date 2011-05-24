@@ -18,7 +18,6 @@ include($$ROOT_DIR/common.pri)
 
 SOURCES += \
     internal/opengl.cpp \
-    yg.cpp \
     vertex.cpp \
     resource_manager.cpp \
     skin.cpp \
@@ -62,7 +61,6 @@ SOURCES += \
 
 HEADERS += \
     internal/opengl.hpp \
-    yg.hpp \
     vertex.hpp \
     resource_manager.hpp \
     texture.hpp \
@@ -79,7 +77,6 @@ HEADERS += \
     renderbuffer.hpp \
     base_texture.hpp \
     managed_texture.hpp \
-    pbuffer_texture.hpp \
     fence.hpp \
     thread_renderer.hpp \
     rendercontext.hpp \

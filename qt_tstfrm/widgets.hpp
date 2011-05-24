@@ -1,13 +1,10 @@
 #pragma once
 
-#include <QtGui/QWidget>
-
 #include <QtOpenGL/qgl.h>
 
-#include "../base/start_mem_debug.hpp"
-#include "../std/shared_ptr.hpp"
-#include "../yg/screen.hpp"
 #include "../map/drawer_yg.hpp"
+
+#include "../std/shared_ptr.hpp"
 
 namespace qt
 {
@@ -54,5 +51,3 @@ namespace qt
     //@}
   };
 }
-
-#include "../base/stop_mem_debug.hpp"

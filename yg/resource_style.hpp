@@ -1,10 +1,7 @@
-#ifndef RESOURCE_STYLE_HPP
-#define RESOURCE_STYLE_HPP
+#pragma once
 
 #include "../geometry/rect2d.hpp"
 #include "pen_info.hpp"
-
-#include "../base/start_mem_debug.hpp"
 
 namespace yg
 {
@@ -68,7 +65,3 @@ namespace yg
     GenericStyle(m2::RectU const & texRect, int pageID);
   };
 }
-
-#include "../base/start_mem_debug.hpp"
-
-#endif // RESOURCE_STYLE_HPP

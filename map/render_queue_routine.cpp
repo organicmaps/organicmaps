@@ -1,4 +1,3 @@
-#include "../base/SRC_FIRST.hpp"
 #include "../base/mutex.hpp"
 #include "../base/timer.hpp"
 #include "../base/logging.hpp"
@@ -10,11 +9,11 @@
 #include "../yg/rendercontext.hpp"
 #include "../yg/framebuffer.hpp"
 #include "../yg/renderbuffer.hpp"
-#include "../yg/texture.hpp"
 #include "../yg/resource_manager.hpp"
 #include "../yg/screen.hpp"
 #include "../yg/pen_info.hpp"
 #include "../yg/skin.hpp"
+#include "../yg/base_texture.hpp"
 
 #include "../indexer/scales.hpp"
 
@@ -22,6 +21,7 @@
 #include "drawer_yg.hpp"
 #include "window_handle.hpp"
 #include "render_queue_routine.hpp"
+
 RenderQueueRoutine::RenderModelCommand::RenderModelCommand(ScreenBase const & frameScreen,
                                                              render_fn_t renderFn)
                                                                : m_frameScreen(frameScreen),

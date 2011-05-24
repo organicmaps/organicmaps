@@ -1,6 +1,9 @@
 #include "area_renderer.hpp"
 #include "resource_style.hpp"
 #include "skin.hpp"
+#include "skin_page.hpp"
+#include "base_texture.hpp"
+
 #include "../base/logging.hpp"
 
 namespace yg

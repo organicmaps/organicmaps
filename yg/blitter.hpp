@@ -1,6 +1,5 @@
 #pragma once
 
-#include "color.hpp"
 #include "clipper.hpp"
 #include "storage.hpp"
 #include "../std/shared_ptr.hpp"
@@ -11,6 +10,8 @@ class ScreenBase;
 
 namespace yg
 {
+  struct Color;
+
   namespace gl
   {
     class BaseTexture;

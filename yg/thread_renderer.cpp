@@ -3,7 +3,6 @@
 #include "framebuffer.hpp"
 #include "blitter.hpp"
 #include "rendercontext.hpp"
-#include "texture.hpp"
 #include "renderbuffer.hpp"
 #include "render_state.hpp"
 #include "vertexbuffer.hpp"

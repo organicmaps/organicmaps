@@ -7,16 +7,14 @@
 #include "../yg/screen.hpp"
 #include "../yg/skin.hpp"
 #include "../yg/resource_manager.hpp"
+#include "../yg/circle_info.hpp"
+#include "../yg/pen_info.hpp"
 
 #include "../geometry/screenbase.hpp"
 
 #include "../base/profiler.hpp"
 #include "../base/logging.hpp"
 #include "../base/buffer_vector.hpp"
-
-#include "../std/sstream.hpp"
-
-#include "../base/start_mem_debug.hpp"
 
 DrawerYG::Params::Params()
   : m_dynamicPagesCount(2),

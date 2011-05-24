@@ -1,18 +1,11 @@
 #pragma once
 
-#include "resource_style.hpp"
-#include "pen_info.hpp"
-#include "circle_info.hpp"
-#include "skin_page.hpp"
 #include "../geometry/rect2d.hpp"
-#include "../std/unordered_map.hpp"
+
 #include "../std/shared_ptr.hpp"
 #include "../std/function.hpp"
-#include "../std/map.hpp"
 #include "../std/vector.hpp"
-#include "../std/string.hpp"
-#include "../std/utility.hpp"
-#include "../geometry/packer.hpp"
+#include "../std/queue.hpp"
 
 namespace yg
 {
@@ -34,6 +27,12 @@ namespace yg
 
   class SkinPage;
   class ResourceManager;
+  struct ResourceStyle;
+  struct PenInfo;
+  struct CircleInfo;
+  struct Color;
+  struct GlyphKey;
+  struct FontInfo;
 
   class Skin
   {

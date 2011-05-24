@@ -1,6 +1,7 @@
 #pragma once
 
 #include "color.hpp"
+
 #include "../geometry/point2d.hpp"
 
 namespace yg

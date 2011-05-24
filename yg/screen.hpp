@@ -1,7 +1,6 @@
 #pragma once
 
 #include "shape_renderer.hpp"
-#include "../std/shared_ptr.hpp"
 
 namespace yg
 {

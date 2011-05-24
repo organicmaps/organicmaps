@@ -1,19 +1,13 @@
-#include "../base/SRC_FIRST.hpp"
-
-#include <agg_basics.h>
-#include <agg_pixfmt_gray.h>
 #include <agg_pixfmt_rgba.h>
 #include <agg_pixfmt_rgb_packed.h>
 #include <agg_renderer_scanline.h>
 #include <agg_rasterizer_scanline_aa.h>
-#include <agg_path_storage.h>
 #include <agg_scanline_u.h>
 #include <agg_ellipse.h>
-#include <boost/gil/gil_all.hpp>
 
+#include "texture.hpp"
 #include "data_formats.hpp"
 #include "skin_page.hpp"
-#include "texture.hpp"
 #include "resource_style.hpp"
 #include "resource_manager.hpp"
 #include "internal/opengl.hpp"

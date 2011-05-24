@@ -1,17 +1,12 @@
 #pragma once
 
-#include "internal/opengl.hpp"
-#include "color.hpp"
 #include "managed_texture.hpp"
 #include "data_formats.hpp"
-#include "../geometry/point2d.hpp"
-#include "../geometry/rect2d.hpp"
-#include "../std/vector.hpp"
-#include "../3party/boost/boost/gil/gil_all.hpp"
-#include "../3party/boost/boost/mpl/vector_c.hpp"
+
 #include "../platform/platform.hpp"
+
 #include "../coding/lodepng_io.hpp"
-#include "../std/iostream.hpp"
+
 namespace gil = boost::gil;
 namespace mpl = boost::mpl;
 

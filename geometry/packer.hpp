@@ -1,5 +1,3 @@
-#ifndef PACKER_H
-#define PACKER_H
 #pragma once
 
 #include "rect2d.hpp"
@@ -92,4 +90,3 @@ namespace m2
     uint32_t invalidHandle() const;
   };
 }
-#endif // PACKER_H

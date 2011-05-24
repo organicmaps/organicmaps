@@ -1,10 +1,11 @@
-#include "../base/SRC_FIRST.hpp"
 #include "symbol_renderer.hpp"
 #include "skin.hpp"
 #include "defines.hpp"
+#include "resource_style.hpp"
+
+#include "../base/logging.hpp"
 
 #include "../std/bind.hpp"
-#include "../base/logging.hpp"
 
 namespace yg
 {

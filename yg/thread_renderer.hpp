@@ -1,15 +1,10 @@
 #pragma once
 
-#include "rendercontext.hpp"
 #include "render_state.hpp"
-#include "render_command.hpp"
+
+#include "../geometry/rect2d.hpp"
 
 #include "../std/shared_ptr.hpp"
-#include "../std/unordered_map.hpp"
-#include "../std/list.hpp"
-#include "../base/thread.hpp"
-#include "../base/mutex.hpp"
-#include "../base/condition.hpp"
 
 class ScreenBase;
 
@@ -22,6 +17,9 @@ namespace yg
     class FrameBuffer;
     class RenderBuffer;
     class RenderState;
+    class Blitter;
+    class IndexBuffer;
+    class VertexBuffer;
 
     class ThreadRenderer
     {

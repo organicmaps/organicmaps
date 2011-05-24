@@ -1,6 +1,7 @@
 #include "../../base/SRC_FIRST.hpp"
 #include "../../yg/screen.hpp"
 #include "../../yg/skin.hpp"
+#include "../../yg/pen_info.hpp"
 #include "../../geometry/screenbase.hpp"
 #include "../../geometry/point2d.hpp"
 #include "../../std/vector.hpp"

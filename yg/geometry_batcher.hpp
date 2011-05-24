@@ -1,7 +1,6 @@
 #pragma once
 
 #include "vertex.hpp"
-#include "texture.hpp"
 #include "vertexbuffer.hpp"
 #include "indexbuffer.hpp"
 #include "renderbuffer.hpp"
@@ -15,7 +14,6 @@
 #include "../std/function.hpp"
 
 #include "../base/matrix.hpp"
-#include "../base/start_mem_debug.hpp"
 
 namespace threads
 {
@@ -173,5 +171,3 @@ namespace yg
     };
   }
 }
-
-#include "../base/stop_mem_debug.hpp"

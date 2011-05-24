@@ -1,9 +1,6 @@
 #pragma once
 
 #include "../std/shared_ptr.hpp"
-#include "../std/unordered_map.hpp"
-#include "../std/map.hpp"
-#include "../std/vector.hpp"
 
 #include "../geometry/packer.hpp"
 #include "../geometry/rect2d.hpp"
@@ -23,6 +20,7 @@ namespace yg
   struct CharStyle;
   struct ResourceStyle;
   class ResourceManager;
+  struct GlyphInfo;
 
   struct GlyphUploadCmd
   {

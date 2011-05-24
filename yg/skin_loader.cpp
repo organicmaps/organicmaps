@@ -1,10 +1,10 @@
 #include "skin.hpp"
 #include "skin_loader.hpp"
 #include "resource_manager.hpp"
+#include "resource_style.hpp"
+#include "skin_page.hpp"
 
 #include "../base/string_utils.hpp"
-#include "../base/start_mem_debug.hpp"
-
 
 namespace yg
 {

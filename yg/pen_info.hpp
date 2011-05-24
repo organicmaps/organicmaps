@@ -3,7 +3,7 @@
 #include "color.hpp"
 
 #include "../geometry/point2d.hpp"
-#include "../std/vector.hpp"
+
 #include "../base/buffer_vector.hpp"
 
 namespace yg

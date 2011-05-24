@@ -2,6 +2,7 @@
 #include "../../qt_tstfrm/macros.hpp"
 #include "../skin.hpp"
 #include "../resource_manager.hpp"
+#include "../pen_info.hpp"
 #include "../../std/vector.hpp"
 #include "../../platform/platform.hpp"
 

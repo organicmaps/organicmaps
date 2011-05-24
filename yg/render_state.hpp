@@ -1,16 +1,18 @@
 #pragma once
 
+#include "../geometry/screenbase.hpp"
+
 #include "../base/mutex.hpp"
+
 #include "../std/function.hpp"
 #include "../std/list.hpp"
 #include "../std/shared_ptr.hpp"
-#include "../geometry/screenbase.hpp"
-#include "texture.hpp"
 
 namespace yg
 {
   namespace gl
   {
+    class BaseTexture;
     class RenderBuffer;
 
     class RenderState

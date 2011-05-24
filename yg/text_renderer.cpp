@@ -1,12 +1,10 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "defines.hpp"
 #include "text_renderer.hpp"
 #include "resource_manager.hpp"
-#include "texture.hpp"
 #include "skin.hpp"
 #include "render_state.hpp"
 #include "glyph_layout.hpp"
+#include "resource_style.hpp"
 
 #include "../geometry/angles.hpp"
 

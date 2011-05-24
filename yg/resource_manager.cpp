@@ -1,21 +1,23 @@
-#include "../base/SRC_FIRST.hpp"
 #include "internal/opengl.hpp"
 #include "base_texture.hpp"
 #include "data_formats.hpp"
 #include "resource_manager.hpp"
 #include "skin_loader.hpp"
-#include "texture.hpp"
 #include "storage.hpp"
+#include "texture.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/parse_xml.hpp"
-#include "../base/logging.hpp"
 
+#include "../base/logging.hpp"
+#include "../base/exception.hpp"
 
 namespace yg
 {
   typedef gl::Texture<DATA_TRAITS, true> TDynamicTexture;
   typedef gl::Texture<DATA_TRAITS, false> TStaticTexture;
+
+  DECLARE_EXCEPTION(ResourceManagerException, RootException);
 
   ResourceManager::ResourceManager(size_t vbSize, size_t ibSize, size_t storagesCount,
                                    size_t smallVBSize, size_t smallIBSize, size_t smallStoragesCount,
@@ -260,7 +262,7 @@ namespace yg
     case Rt4Bpp:
       return make_shared_ptr(new gl::Texture<RGBA4Traits, false>(w, h));
     default:
-      throw std::runtime_error("unknows render target format");
+      MYTHROW(ResourceManagerException, ("unknown render target format"));
     };
   }
 

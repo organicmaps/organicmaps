@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../std/shared_ptr.hpp"
-#include "../geometry/screenbase.hpp"
 #include "../base/timer.hpp"
 
 #include "geometry_renderer.hpp"

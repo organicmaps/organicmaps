@@ -1,16 +1,16 @@
 /// @author Siarhei Rachytski
 #pragma once
 
-#include "resource_style.hpp"
-#include "skin.hpp"
-#include "../geometry/rect2d.hpp"
-#include "../base/base.hpp"
-#include "../std/string.hpp"
-#include "../std/list.hpp"
-#include "../std/map.hpp"
-#include "../std/vector.hpp"
+//#include "resource_style.hpp"
+//#include "skin.hpp"
+//#include "../geometry/rect2d.hpp"
+//#include "../base/base.hpp"
+//#include "../std/string.hpp"
+//#include "../std/list.hpp"
+//#include "../std/map.hpp"
+//#include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
-#include "../std/utility.hpp"
+//#include "../std/utility.hpp"
 
 /// @example
 /// <?xml version="1.0" ?>
@@ -37,6 +37,9 @@ namespace yg
   }
 
   class ResourceManager;
+  class SkinPage;
+  struct ResourceStyle;
+  struct CharStyle;
 
   class SkinLoader
   {

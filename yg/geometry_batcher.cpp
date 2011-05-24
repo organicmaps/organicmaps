@@ -1,11 +1,11 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "geometry_batcher.hpp"
 #include "skin.hpp"
 #include "memento.hpp"
 #include "color.hpp"
 #include "utils.hpp"
 #include "resource_manager.hpp"
+#include "skin_page.hpp"
+#include "base_texture.hpp"
 
 #include "internal/opengl.hpp"
 
@@ -19,8 +19,6 @@
 
 #include "../std/algorithm.hpp"
 #include "../std/bind.hpp"
-
-#include "../base/start_mem_debug.hpp"
 
 namespace yg
 {

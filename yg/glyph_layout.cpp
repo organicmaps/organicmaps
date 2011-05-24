@@ -292,8 +292,9 @@ namespace yg
             break;
         }
         if (i == 100)
+        {
           LOG(LINFO, ("100 iteration on computing kerning exceeded. possibly infinite loop occured"));
-
+        }
 
         /// kerning should be computed for baseline centered glyph
         prevElem = m_entries[symPos];

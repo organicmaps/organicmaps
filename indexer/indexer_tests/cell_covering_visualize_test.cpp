@@ -4,8 +4,11 @@
 
 #include "../../qt_tstfrm/main_tester.hpp"
 #include "../../qt_tstfrm/tstwidgets.hpp"
+
 #include "../../yg/screen.hpp"
 #include "../../yg/skin.hpp"
+#include "../../yg/pen_info.hpp"
+
 #include "../../geometry/screenbase.hpp"
 
 #include "../../testing/testing.hpp"

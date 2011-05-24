@@ -3,13 +3,13 @@
 #include "blitter.hpp"
 #include "framebuffer.hpp"
 #include "base_texture.hpp"
-#include "texture.hpp"
 #include "resource_manager.hpp"
 #include "vertexbuffer.hpp"
 #include "indexbuffer.hpp"
 #include "utils.hpp"
 #include "storage.hpp"
 #include "vertex.hpp"
+#include "texture.hpp"
 
 #include "../geometry/screenbase.hpp"
 

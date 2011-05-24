@@ -2,8 +2,6 @@
 
 #include "../qt_tstfrm/widgets.hpp"
 #include "../map/qgl_render_context.hpp"
-#include "../yg/texture.hpp"
-#include "../base/start_mem_debug.hpp"
 #include "../yg/resource_manager.hpp"
 
 class DrawerYG;
@@ -43,5 +41,3 @@ namespace qt
     virtual void initializeGL();
   };
 }
-
-#include "../base/stop_mem_debug.hpp"

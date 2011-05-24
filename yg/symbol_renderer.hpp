@@ -1,7 +1,9 @@
 #pragma once
 
 #include "text_renderer.hpp"
+
 #include "../geometry/tree4d.hpp"
+
 #include "../std/map.hpp"
 
 namespace yg
