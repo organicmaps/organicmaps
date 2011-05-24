@@ -67,14 +67,14 @@ static string AppendZeroIfNeeded(string const & macAddrPart)
     string const rawBssid = [net.bssid UTF8String];
     if (!rawBssid.empty())
     {
-      strings::TokenizeIterator tokIt(rawBssid, ":");
+      strings::SimpleTokenizer tokIt(rawBssid, ":");
       apn.m_bssid = AppendZeroIfNeeded(*tokIt);
       do
       {
         ++tokIt;
         apn.m_bssid += "-";
         apn.m_bssid += AppendZeroIfNeeded(*tokIt);
-      } while (!tokIt.is_last());
+      } while (!tokIt.IsLast());
     }
     m_accessPoints.push_back(apn);
   }
