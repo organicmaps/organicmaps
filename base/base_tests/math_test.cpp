@@ -66,12 +66,17 @@ namespace
 {
 
 // Returns the next representable floating point value without using conversion to integer.
-template <typename FloatT> FloatT NextFloat(FloatT x, int dir = 1)
+template <typename FloatT> FloatT NextFloat(FloatT const x, int dir = 1)
 {
-  FloatT d = numeric_limits<FloatT>::denorm_min();
-  while (x + dir * d == x)
+  FloatT d = dir * numeric_limits<FloatT>::denorm_min();
+  while (true)
+  {
+    FloatT y = x;
+    y += d;
+    if (x != y)
+      return y;
     d *= 2;
-  return x + dir * d;
+  }
 }
 
 template <typename FloatT> void TestMaxULPs()
