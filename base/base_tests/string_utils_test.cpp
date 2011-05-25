@@ -124,7 +124,8 @@ UNIT_TEST(LastUniChar)
 
 UNIT_TEST(GetUniString)
 {
-  strings::SimpleTokenizer iter("Hello, \xD0\x9C\xD0\xB8\xD0\xBD\xD1\x81\xD0\xBA!", ", !");
+  string const s = "Hello, \xD0\x9C\xD0\xB8\xD0\xBD\xD1\x81\xD0\xBA!";
+  strings::SimpleTokenizer iter(s, ", !");
   {
     strings::UniChar const s[] = { 'H', 'e', 'l', 'l', 'o' };
     strings::UniString us(&s[0], &s[0] + ARRAY_SIZE(s));

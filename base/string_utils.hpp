@@ -22,6 +22,9 @@ class TokenizeIterator
   Utf8IterT m_beg, m_end, m_finish;
   DelimFuncT m_delimFunc;
 
+  /// Explicitly disabled, because we're storing iterators for string
+  TokenizeIterator(char const *, DelimFuncT);
+
   void move()
   {
     m_beg = m_end;
