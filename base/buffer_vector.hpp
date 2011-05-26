@@ -174,7 +174,7 @@ public:
     }
   }
 
-  template <typename IterT> void insert(T const * where, IterT beg, IterT end)
+  template <typename IterT> void insert(const_iterator where, IterT beg, IterT end)
   {
     ptrdiff_t const pos = where - data();
     ASSERT_GREATER_OR_EQUAL(pos, 0, ());
