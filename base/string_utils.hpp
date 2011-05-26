@@ -21,6 +21,13 @@ void MakeLowerCase(string & s);
 string MakeLowerCase(string const & s);
 bool EqualNoCase(string const & s1, string const & s2);
 
+inline UniString MakeUniString(string const & s)
+{
+  UniString result;
+  utf8::unchecked::utf8to32(s.begin(), s.end(), back_inserter(result));
+  return result;
+}
+
 template <typename DelimFuncT>
 class TokenizeIterator
 {

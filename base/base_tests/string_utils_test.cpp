@@ -65,17 +65,17 @@ UNIT_TEST(LowerUniChar)
       case 0: continue;
       case 1:
       {
-        m[uc] = us; 
-        ++cCount; 
+        m[uc] = us;
+        ++cCount;
         TEST_EQUAL(strings::LowerUniChar(uc), us[0], ());
-        TEST_EQUAL(type, " C", ()); 
+        TEST_EQUAL(type, " C", ());
         break;
       }
       default: m[uc] = us; ++fCount; TEST_EQUAL(type, " F", ()); break;
     }
   }
   LOG(LINFO, ("Loaded", cCount, "common foldings and", fCount, "full foldings"));
-  
+
   // full range unicode table test
   for (strings::UniChar c = 0; c < 0x11000; ++c)
   {
@@ -111,7 +111,7 @@ UNIT_TEST(MakeLowerCase)
   string const utf8("Hola! 99-\xD0\xA3\xD0\x9F\xD0\xAF\xD0\xA7\xD0\x9A\xD0\x90");
   TEST_EQUAL(strings::MakeLowerCase(utf8),
     "hola! 99-\xD1\x83\xD0\xBF\xD1\x8F\xD1\x87\xD0\xBA\xD0\xB0", ());
-  
+
   s = "\xc3\x9f"; // es-cet
   strings::MakeLowerCase(s);
   TEST_EQUAL(s, "ss", ());
@@ -245,4 +245,10 @@ UNIT_TEST(GetUniString)
     strings::UniString us(&s[0], &s[0] + ARRAY_SIZE(s));
     TEST_EQUAL(iter.GetUniString(), us, ());
   }
+}
+
+UNIT_TEST(MakeUniString_Smoke)
+{
+  char const s [] = "Hello!";
+  TEST_EQUAL(strings::UniString(&s[0], &s[0] + ARRAY_SIZE(s) - 1), strings::MakeUniString(s), ());
 }
