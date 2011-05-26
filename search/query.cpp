@@ -30,7 +30,7 @@ Query::Query(string const & query, m2::RectD const & rect, IndexType const * pIn
   for (strings::TokenizeIterator<search::Delimiters> iter(query, delims); iter; ++iter)
   {
     if (iter.IsLast() && !delims(strings::LastUniChar(query)))
-      m_prefix = iter.GetUniString();
+      m_prefix = strings::MakeLowerCase(iter.GetUniString());
     else
       m_keywords.push_back(strings::MakeLowerCase(iter.GetUniString()));
   }
