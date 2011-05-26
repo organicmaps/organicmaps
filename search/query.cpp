@@ -32,7 +32,7 @@ Query::Query(string const & query, m2::RectD const & rect, IndexType const * pIn
     if (iter.IsLast() && !delims(strings::LastUniChar(query)))
       m_prefix = iter.GetUniString();
     else
-      m_keywords.push_back(iter.GetUniString());
+      m_keywords.push_back(strings::MakeLowerCase(iter.GetUniString()));
   }
 }
 

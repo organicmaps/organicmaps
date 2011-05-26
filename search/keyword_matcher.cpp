@@ -28,7 +28,7 @@ void KeywordMatcher::ProcessName(string const & name)
   search::Delimiters delims;
   for (strings::TokenizeIterator<search::Delimiters> iter(name, delims); iter; ++iter)
   {
-    strings::UniString const s = iter.GetUniString();
+    strings::UniString const s = strings::MakeLowerCase(iter.GetUniString());
 
     for (size_t i = 0; i < m_minKeywordMatchCost.size(); ++i)
     {
