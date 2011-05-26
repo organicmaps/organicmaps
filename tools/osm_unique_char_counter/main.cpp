@@ -1,17 +1,29 @@
-#include "../../indexer/xmlparser.h"
-#include <iostream>
-#include <cmath>
-#include <fstream>
+#include "../../base/string_utils.hpp"
 
-#include <QtCore/QString>
+#include "../../coding/parse_xml.hpp"
+
+#include "../../std/iostream.hpp"
+#include "../../std/fstream.hpp"
+#include "../../std/unordered_map.hpp"
+#include "../../std/vector.hpp"
+
+#include <locale>
 
 using namespace std;
 
 template <class TDoClass>
 class XMLDispatcher
 {
+  bool m_fire;
+  bool m_k_ok;
+  string m_v;
+  TDoClass & m_doClass;
+
 public:
   XMLDispatcher(TDoClass & doClass) : m_fire(false), m_k_ok(false), m_doClass(doClass) {}
+
+  void CharData(string const &) {}
+
   bool Push(string const & element)
   {
     if (element == "tag")
@@ -28,8 +40,7 @@ public:
         m_v = value;
     }
   }
-  void Process() {}
-  void Pop()
+  void Pop(string const &)
   {
     if (m_fire)
     {
@@ -42,110 +53,69 @@ public:
       m_fire = false;
     }
   }
-  bool m_fire;
-  bool m_k_ok;
-  string m_v;
-  TDoClass & m_doClass;
 };
 
-static int const KMaxXMLFileBufferSize = 65536;
+typedef unordered_map<strings::UniChar, uint64_t> CountContT;
+typedef pair<strings::UniChar, uint64_t> ElemT;
 
-static size_t gLobalCounter = 0;
-
-template <typename XMLDispatcherT>
-bool ParseXML(XMLDispatcherT & dispatcher)
+bool SortFunc(ElemT const & e1, ElemT const & e2)
 {
-  // Create the parser
-  XmlParser<XMLDispatcherT> parser(dispatcher);
-  if (!parser.Create()) return false;
-
-  double progress = 0.;
-  int const multiplier = 100;
-  double const step = multiplier * 1024 * 1024;
-  double next_progress = progress + step; 
-  size_t mb = 0;
-  while (!cin.eof())
-  {
-    char * buffer = static_cast<char *>(parser.GetBuffer(KMaxXMLFileBufferSize));
-    if (buffer == 0)
-      return false;
-
-    cin.read(buffer, KMaxXMLFileBufferSize);
-    progress += KMaxXMLFileBufferSize;
-
-    if (progress > next_progress)
-    {
-      mb += multiplier;
-      cout << mb << " Mb (" << gLobalCounter << ")" << endl;
-      next_progress += step;
-    }
-
-    if (!parser.ParseBuffer(cin.gcount(), cin.eof()))
-      return false;
-  }
-
-  return true;
+  return e1.second > e2.second;
 }
 
 struct Counter
 {
-  Counter()
+  CountContT m_counter;
+
+  void operator()(string const & utf8s)
   {
-    m_size = pow(double(2.), int(sizeof(ushort)*8));
-    m_array = new long double[m_size];
-    fill(m_array, m_array + m_size, (long double)(0.));
-  }
-  ~Counter()
-  {
-    delete[] m_array;
-  }
-  void operator()(string const & utf8)
-  {
-    QString s(QString::fromUtf8(utf8.c_str(), utf8.size()));
-    for (int i = 0; i < s.size(); ++i)
+    strings::UniString us;
+    utf8::unchecked::utf8to32(utf8s.begin(), utf8s.end(), back_inserter(us));
+    for (strings::UniString::iterator it = us.begin(); it != us.end(); ++it)
     {
-      ushort code = s[i].unicode();
-      if (m_array[code] == 0)
-      {
-        ++gLobalCounter;
-        cout << code << " (" << gLobalCounter << ")" << endl;
-      }
-      m_array[code] += 1.;
+      pair<CountContT::iterator, bool> found = m_counter.insert(
+            make_pair(*it, 1));
+      if (!found.second)
+        ++found.first->second;
     }
   }
 
   void PrintResult()
   {
-    ofstream file("results.txt");
+    // sort
+    typedef vector<ElemT> SortVecT;
+    SortVecT v(m_counter.begin(), m_counter.end());
+    sort(v.begin(), v.end(), SortFunc);
 
-    cout << endl << "RESULTS:" << endl;
-    cout << "Code" << "\t" << "Count" << endl;
-    file << "Code\tCount\t#\tSymbol" << endl;
-    cout << "=========================================================" << endl;
-    file << "=========================================================" << endl;
-    for (size_t i = 0; i < m_size; ++i)
+    locale loc("en_US.UTF-8");
+    cout.imbue(loc);
+
+    string c;
+    c.resize(10);
+    for (size_t i = 0; i < v.size(); ++i)
     {
-      if (m_array[i] != 0.)
-      {
-        cout << i << "\t" << m_array[i] << endl;
-        file << i << "\t" << m_array[i] << endl;
-      }
+      c.clear();
+      utf8::unchecked::append(v[i].first, back_inserter(c));
+      cout << v[i].second << " " << hex << v[i].first << " " << c << endl;
     }
-
-    cout << endl << "Total symbols: " << gLobalCounter << endl;
-    file << endl << "Total symbols: " << gLobalCounter << endl;
   }
+};
 
-  long double * m_array;
-  size_t m_size;
+struct StdinReader
+{
+  size_t Read(char * buffer, size_t bufferSize)
+  {
+    return fread(buffer, sizeof(char), bufferSize, stdin);
+  }
 };
 
 int main(int argc, char *argv[])
 {
   Counter c;
   XMLDispatcher<Counter> dispatcher(c);
-  ParseXML(dispatcher);
+  StdinReader reader;
+  ParseXML(reader, dispatcher);
   c.PrintResult();
-  
+
   return 0;
 }
