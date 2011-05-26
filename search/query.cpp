@@ -44,8 +44,8 @@ struct FeatureProcessor
 
   void operator () (FeatureType const & feature) const
   {
-    KeywordMatcher matcher(&m_query.m_keywords[0], m_query.m_keywords.size(),
-                           m_query.m_prefix, 1000, 1000,
+    KeywordMatcher matcher(&m_query.m_keywords[0], m_query.m_keywords.size(), m_query.m_prefix,
+                           512, 256 * max(0, int(m_query.m_prefix.size()) - 1),
                            &KeywordMatch, &PrefixMatch);
     feature.ForEachNameRef(matcher);
     m_query.AddResult(Result(feature.GetPreferredDrawableName(), feature.GetLimitRect(-1),
