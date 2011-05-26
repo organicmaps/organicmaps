@@ -56,7 +56,9 @@ struct FeatureProcessor
 void Query::Search(function<void (Result const &)> const & f)
 {
   FeatureProcessor featureProcessor(*this);
-  m_pIndex->ForEachInViewport(featureProcessor, m_rect);
+  m_pIndex->ForEachInRect(featureProcessor, m_rect,
+                          min(scales::GetUpperScale(), scales::GetScaleLevel(m_rect) + 1));
+
   vector<Result> results;
   results.reserve(m_resuts.size());
   while (!m_resuts.empty())
