@@ -48,7 +48,7 @@ struct FeatureProcessor
                            512, 256 * max(0, int(m_query.m_prefix.size()) - 1),
                            &KeywordMatch, &PrefixMatch);
     feature.ForEachNameRef(matcher);
-    m_query.AddResult(Result(feature.GetPreferredDrawableName(), feature.GetLimitRect(-1),
+    m_query.AddResult(Result(matcher.GetBestPrefixMatch(), feature.GetLimitRect(-1),
                              matcher.GetMatchScore()));
   }
 };

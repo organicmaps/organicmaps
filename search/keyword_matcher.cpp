@@ -40,13 +40,22 @@ void KeywordMatcher::ProcessName(string const & name)
 
     if (!m_prefix.empty())
     {
-      m_minPrefixMatchCost = min(m_minPrefixMatchCost,
-                                 m_prefixMatchFn(&m_prefix[0], m_prefix.size(),
-                                                 &s[0], s.size(),
-                                                 m_minPrefixMatchCost));
+      uint32_t const matchCost = m_prefixMatchFn(&m_prefix[0], m_prefix.size(),
+                                                 &s[0], s.size(), m_minPrefixMatchCost);
+      if (matchCost < m_minPrefixMatchCost)
+      {
+        m_bestPrefixMatch = name;
+        m_minPrefixMatchCost = matchCost;
+      }
     }
     else
-      m_minPrefixMatchCost = 0;
+    {
+      if (m_bestPrefixMatch.empty())
+      {
+        m_bestPrefixMatch = name;
+        m_minPrefixMatchCost = 0;
+      }
+    }
   }
 }
 
