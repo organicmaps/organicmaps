@@ -4,8 +4,6 @@
 #include "../std/sstream.hpp"
 #include "../std/iterator.hpp"
 
-#include <locale>   // for make_lower_case
-
 namespace strings
 {
 
@@ -74,20 +72,32 @@ bool to_double(char const * s, double & d)
   return false;
 }
 
-void make_lower_case(string & s)
+UniString MakeLowerCase(UniString const & s)
 {
-  if (!s.empty())
-  {
-    std::locale l;
-    std::use_facet<std::ctype<char> >(l).tolower(&s[0], &s[0] + s.size());
-  }
+  UniString result(s);
+  MakeLowerCase(result);
+  return result;
 }
 
-bool equal_no_case(string s1, string s2)
+void MakeLowerCase(string & s)
 {
-  make_lower_case(s1);
-  make_lower_case(s2);
-  return (s1 == s2);
+  UniString uniStr;
+  utf8::unchecked::utf8to32(s.begin(), s.end(), back_inserter(uniStr));
+  MakeLowerCase(uniStr);
+  s.clear();
+  utf8::unchecked::utf32to8(uniStr.begin(), uniStr.end(), back_inserter(s));
+}
+
+string MakeLowerCase(string const & s)
+{
+  string result(s);
+  MakeLowerCase(result);
+  return result;
+}
+
+bool EqualNoCase(string const & s1, string const & s2)
+{
+  return MakeLowerCase(s1) == MakeLowerCase(s2);
 }
 
 }

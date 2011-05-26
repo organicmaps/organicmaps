@@ -15,6 +15,12 @@ namespace strings
 typedef uint32_t UniChar;
 typedef buffer_vector<UniChar, 32> UniString;
 
+UniString MakeLowerCase(UniString const & s);
+void MakeLowerCase(UniString & s);
+void MakeLowerCase(string & s);
+string MakeLowerCase(string const & s);
+bool EqualNoCase(string const & s1, string const & s2);
+
 template <typename DelimFuncT>
 class TokenizeIterator
 {
@@ -137,9 +143,6 @@ inline bool to_int(string const & s, int & i) { return to_int(s.c_str(), i); }
 inline bool to_uint64(string const & s, uint64_t & i) { return to_uint64(s.c_str(), i); }
 inline bool to_int64(string const & s, int64_t & i) { return to_int64(s.c_str(), i); }
 inline bool to_double(string const & s, double & d) { return to_double(s.c_str(), d); }
-
-void make_lower_case(string & s);
-bool equal_no_case(string s1, string s2);
 
 inline string ToUtf8(wstring const & wstr)
 {

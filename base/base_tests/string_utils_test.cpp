@@ -1,23 +1,131 @@
 #include "../../testing/testing.hpp"
 #include "../string_utils.hpp"
 
-#include "../../std/bind.hpp"
+#include "../logging.hpp"
 
-UNIT_TEST(make_lower_case)
+#include "../../std/iomanip.hpp"
+#include "../../std/fstream.hpp"
+#include "../../std/bind.hpp"
+#include "../../std/unordered_map.hpp"
+
+#define UNICODE_TEST_FILE "../../data/CaseFolding.test"
+
+/// internal function in base
+namespace strings { UniChar LowerUniChar(UniChar c); }
+
+UNIT_TEST(LowerUniChar)
+{
+  // load unicode case folding table
+  ifstream file(UNICODE_TEST_FILE);
+  if (!file.good())
+  {
+    LOG(LWARNING, ("Can't open unicode test file", UNICODE_TEST_FILE));
+    return;
+  }
+
+  size_t fCount = 0, cCount = 0;
+  typedef unordered_map<strings::UniChar, strings::UniString> mymap;
+  mymap m;
+  string line;
+  while (file.good())
+  {
+    getline(file, line);
+    // strip comments
+    size_t const sharp = line.find('#');
+    if (sharp != string::npos)
+      line.erase(sharp);
+    strings::SimpleTokenizer semicolon(line, ";");
+    if (!semicolon)
+      continue;
+    string const capital = *semicolon;
+    istringstream stream(capital);
+    strings::UniChar uc;
+    stream >> hex >> uc;
+    ++semicolon;
+    string const type = *semicolon;
+    if (type == " S" || type == " T")
+      continue;
+    if (type != " C" && type != " F")
+      continue;
+    ++semicolon;
+    string const outChars = *semicolon;
+    strings::UniString us;
+    strings::SimpleTokenizer spacer(outChars, " ");
+    while (spacer)
+    {
+      stream.clear();
+      stream.str(*spacer);
+      strings::UniChar smallCode;
+      stream >> hex >> smallCode;
+      us.push_back(smallCode);
+      ++spacer;
+    }
+    switch (us.size())
+    {
+      case 0: continue;
+      case 1:
+      {
+        m[uc] = us; 
+        ++cCount; 
+        TEST_EQUAL(strings::LowerUniChar(uc), us[0], ());
+        TEST_EQUAL(type, " C", ()); 
+        break;
+      }
+      default: m[uc] = us; ++fCount; TEST_EQUAL(type, " F", ()); break;
+    }
+  }
+  LOG(LINFO, ("Loaded", cCount, "common foldings and", fCount, "full foldings"));
+  
+  // full range unicode table test
+  for (strings::UniChar c = 0; c < 0x11000; ++c)
+  {
+    mymap::iterator found = m.find(c);
+    if (found == m.end())
+    {
+      TEST_EQUAL(c, strings::LowerUniChar(c), ());
+    }
+    else
+    {
+      strings::UniString const capitalChar(1, c);
+      TEST_EQUAL(strings::MakeLowerCase(capitalChar), found->second, ());
+    }
+  }
+}
+
+UNIT_TEST(MakeLowerCase)
 {
   string s;
 
   s = "THIS_IS_UPPER";
-  strings::make_lower_case(s);
+  strings::MakeLowerCase(s);
   TEST_EQUAL(s, "this_is_upper", ());
 
   s = "THIS_iS_MiXed";
-  strings::make_lower_case(s);
+  strings::MakeLowerCase(s);
   TEST_EQUAL(s, "this_is_mixed", ());
 
   s = "this_is_lower";
-  strings::make_lower_case(s);
+  strings::MakeLowerCase(s);
   TEST_EQUAL(s, "this_is_lower", ());
+
+  string const utf8("Hola! 99-\xD0\xA3\xD0\x9F\xD0\xAF\xD0\xA7\xD0\x9A\xD0\x90");
+  TEST_EQUAL(strings::MakeLowerCase(utf8),
+    "hola! 99-\xD1\x83\xD0\xBF\xD1\x8F\xD1\x87\xD0\xBA\xD0\xB0", ());
+  
+  s = "\xc3\x9f"; // es-cet
+  strings::MakeLowerCase(s);
+  TEST_EQUAL(s, "ss", ());
+
+  strings::UniChar const arr[] = {0x397, 0x10B4, 'Z'};
+  strings::UniChar const carr[] = {0x3b7, 0x2d14, 'z'};
+  strings::UniString const us(&arr[0], &arr[0] + ARRAY_SIZE(arr));
+  strings::UniString const cus(&carr[0], &carr[0] + ARRAY_SIZE(carr));
+  TEST_EQUAL(cus, strings::MakeLowerCase(us), ());
+}
+
+UNIT_TEST(EqualNoCase)
+{
+  TEST(strings::EqualNoCase("HaHaHa", "hahaha"), ());
 }
 
 UNIT_TEST(to_double)

@@ -48,7 +48,7 @@ namespace drule {
   template <> string get_value<string>(string const & s)
   {
     string ss(s);
-    strings::make_lower_case(ss);
+    strings::MakeLowerCase(ss);
     return ss;
   }
   //@}

@@ -176,8 +176,8 @@ namespace ftype {
       void AddAttr(string name, string value)
       {
         // make lower case for equivalent string comparison
-        strings::make_lower_case(name);
-        strings::make_lower_case(value);
+        strings::MakeLowerCase(name);
+        strings::MakeLowerCase(value);
 
         if ((name == "k") && is_skip_element_by_key(value))
           m_forceSkip = true;

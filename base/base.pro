@@ -20,6 +20,7 @@ SOURCES += \
     memory_mapped_file.cpp \
     path_utils.cpp \
     condition.cpp \
+    lower_case.cpp \
 
 HEADERS += \
     SRC_FIRST.hpp \

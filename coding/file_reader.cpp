@@ -106,7 +106,7 @@ FileReader * FileReader::CreateSubReader(uint64_t pos, uint64_t size) const
 bool FileReader::IsEqual(string const & fName) const
 {
 #if defined(OMIM_OS_WINDOWS)
-  return strings::equal_no_case(fName, m_pFileData->GetName());
+  return strings::EqualNoCase(fName, m_pFileData->GetName());
 #else
   return (fName == m_pFileData->GetName());
 #endif
