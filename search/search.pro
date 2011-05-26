@@ -15,7 +15,6 @@ HEADERS += \
   keyword_matcher.hpp \
   query.hpp \
   result.hpp \
-  search_processor.hpp \
   string_match.hpp \
 
 SOURCES += \
@@ -24,5 +23,4 @@ SOURCES += \
   keyword_matcher.cpp \
   query.cpp \
   result.cpp \
-  search_processor.cpp \
   string_match.cpp \
