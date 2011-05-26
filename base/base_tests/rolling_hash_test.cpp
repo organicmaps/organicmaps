@@ -98,6 +98,7 @@ UNIT_TEST(RollingHasher64)
   TestRollingHasher<RollingHasher64>();
 }
 
+#ifndef DEBUG
 BENCHMARK_TEST(RollingHasher32)
 {
   RollingHasher32 hash;
@@ -119,6 +120,6 @@ BENCHMARK_TEST(RollingHasher64)
                                 static_cast<uint64_t>('r') + benchmark.Iteration()));
   }
 }
-
+#endif
 
 #include "../../base/stop_mem_debug.hpp"
