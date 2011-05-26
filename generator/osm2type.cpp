@@ -18,7 +18,7 @@
 #include "../std/set.hpp"
 #include "../std/algorithm.hpp"
 
-#include "../base/start_mem_debug.hpp"
+#include <QtCore/QString>
 
 namespace ftype {
 
@@ -548,7 +548,14 @@ namespace ftype {
         string lang;
         strings::Tokenize(k, "\t :", get_lang(lang));
         if (!lang.empty())
-          m_params.name.AddString(lang, v);
+        {
+          // Unicode Compatibility Decomposition,
+          // followed by Canonical Composition (NFKC).
+          // Needed for better search matching
+          QByteArray const normBytes = QString::fromUtf8(
+                v.c_str()).normalized(QString::NormalizationForm_KC).toUtf8();
+          m_params.name.AddString(lang, normBytes.constData());
+        }
 
         // get layer
         if (k == "layer" && m_params.layer == 0)
