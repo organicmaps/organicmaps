@@ -267,8 +267,14 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 	[self updatePointsFromEvent:event];
 	[self stopCurrentAction];
 
-	if ((((UITouch*)[touches anyObject]).tapCount == 2) && ([[event allTouches] count] < 2))
-		m_framework->ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2));
+  int tapCount = ((UITouch*)[touches anyObject]).tapCount;
+  int touchesCount = [[event allTouches] count];
+  
+  if (tapCount == 2 && (touchesCount == 1) && m_isSticking)
+    m_framework->ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
+  
+  if ((touchesCount == 2) && (tapCount = 1) && m_isSticking)
+    m_framework->Scale(0.5);
 }
 
 - (void)touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event
@@ -276,8 +282,14 @@ NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
 	[self updatePointsFromEvent:event];
 	[self stopCurrentAction];
 
-	if ((((UITouch*)[touches anyObject]).tapCount == 2) && ([[event allTouches] count] < 2))
-		m_framework->ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2));
+  int tapCount = ((UITouch*)[touches anyObject]).tapCount;
+  int touchesCount = [[event allTouches] count];
+  
+  if (tapCount == 2 && (touchesCount == 1) && m_isSticking)
+    m_framework->ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
+  
+  if ((touchesCount == 2) && (tapCount = 1) && m_isSticking)
+    m_framework->Scale(0.5);
 }
 
 - (void)onPaint
