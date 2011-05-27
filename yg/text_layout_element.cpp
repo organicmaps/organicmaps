@@ -1,10 +1,11 @@
 #include "../base/SRC_FIRST.hpp"
-#include "../coding/strutil.hpp"
+#include "../base/string_utils.hpp"
 
 #include "text_layout_element.hpp"
 #include "glyph_cache.hpp"
 #include "screen.hpp"
 #include "resource_manager.hpp"
+#include "resource_style.hpp"
 #include "skin.hpp"
 
 namespace yg
@@ -18,7 +19,7 @@ namespace yg
     shared_ptr<ResourceManager> const & rm,
     m2::PointD const & pivot,
     yg::EPosition pos)
-    : m_text(FromUtf8(text)),
+    : m_text(strings::FromUtf8(text)),
       m_depth(depth),
       m_fontDesc(fontDesc),
       m_skin(skin),
