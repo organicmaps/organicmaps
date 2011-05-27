@@ -808,7 +808,36 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   template <typename TModel>
   void FrameWork<TModel>::ShowRect(m2::RectD const & rect)
   {
-    m_navigator.SetFromRect(rect);
+    m2::RectD r(rect);
+
+    m2::PointD center = rect.Center();
+
+    double minWidthX = MercatorBounds::ConvertMetresToX(center.x, m_metresMinWidth);
+    double minWidthY = MercatorBounds::ConvertMetresToY(center.y, m_metresMinWidth);
+
+    double k = m_navigator.Screen().PixelRect().SizeX() * 1.0 / m_minRulerWidth;
+
+    if ((r.SizeX() == 0) || (r.SizeY() == 0))
+    {
+      r = m2::RectD(center.x - MercatorBounds::ConvertMetresToX(center.x, m_metresMinWidth / 2),
+                    center.y - MercatorBounds::ConvertMetresToY(center.y, m_metresMinWidth / 2),
+                    center.x + MercatorBounds::ConvertMetresToX(center.x, m_metresMinWidth / 2),
+                    center.y + MercatorBounds::ConvertMetresToY(center.y, m_metresMinWidth / 2));
+
+      r.Scale(k);
+    }
+    else
+    {
+      if (k * r.SizeX() < minWidthX)
+        k *= minWidthX / (k * r.SizeX());
+
+      if (k * r.SizeY() < minWidthY)
+        k *= minWidthY / (k * r.SizeY());
+
+      r.Scale(k);
+    }
+
+    m_navigator.SetFromRect(r);
     UpdateNow();
   }
 

@@ -286,8 +286,8 @@ bool Navigator::CheckMaxScale(ScreenBase const & screen)
 
 bool Navigator::CheckMinScale(ScreenBase const & screen)
 {
-  m2::PointD const pt0 = screen.GlobalRect().Center();
-  m2::PointD const pt1 = screen.PtoG(screen.GtoP(pt0) + m2::PointD(m_pxMinWidth, 0));
+  m2::PointD const pt0 = screen.PtoG(m_Screen.PixelRect().Center() - m2::PointD(m_pxMinWidth / 2, 0));
+  m2::PointD const pt1 = screen.PtoG(m_Screen.PixelRect().Center() + m2::PointD(m_pxMinWidth / 2, 0));
   double lonDiff = fabs(MercatorBounds::XToLon(pt1.x) - MercatorBounds::XToLon(pt0.x));
   double metresDiff = lonDiff / MercatorBounds::degreeInMetres;
   return metresDiff >= m_metresMinWidth - 1;

@@ -280,5 +280,6 @@ namespace qt
   void DrawWidget::ShowFeature(m2::RectD const & rect)
   {
     m_framework.ShowRect(rect);
+    UpdateScaleControl();
   }
 }

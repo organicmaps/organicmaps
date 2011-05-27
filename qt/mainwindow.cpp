@@ -394,7 +394,7 @@ void MainWindow::OnSearchPanelItemClicked(int row, int)
   QTableWidget * table = static_cast<QTableWidget *>(m_Docks[3]->widget());
   QRectF rect = table->item(row, 0)->data(Qt::UserRole).toRectF();
   m2::RectD r2(rect.left(), rect.bottom(), rect.right(), rect.top());
-  r2.Inflate(0.0001, 0.0001);
+//  r2.Inflate(0.0001, 0.0001);
   m_pDrawWidget->ShowFeature(r2);
 }
 
