@@ -200,8 +200,8 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
 {
   ostringstream out;
 
-  out << "(" << fixed << setprecision(4) << m_centerPt.x << ", "
-             << fixed << setprecision(4) << setw(8) << m_centerPt.y << ")";
+  out << "(" << fixed << setprecision(4) << m_centerPt.y << ", "
+             << fixed << setprecision(4) << setw(8) << m_centerPt.x << ")";
 
   m2::RectD const & textRect = drawer->screen()->textRect(
         yg::FontDesc::defaultFont,
