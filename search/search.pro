@@ -12,6 +12,7 @@ include($$ROOT_DIR/common.pri)
 HEADERS += \
   delimiters.hpp \
   engine.hpp \
+  intermediate_result.hpp \
   keyword_matcher.hpp \
   query.hpp \
   result.hpp \
@@ -20,6 +21,7 @@ HEADERS += \
 SOURCES += \
   delimiters.cpp \
   engine.cpp \
+  intermediate_result.cpp \
   keyword_matcher.cpp \
   query.cpp \
   result.cpp \

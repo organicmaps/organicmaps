@@ -9,16 +9,14 @@ namespace search
 class Result
 {
 public:
-  Result(string const & str, m2::RectD const & rect, int penalty);
+  Result(string const & str, m2::RectD const & rect);
 
   string GetString() const { return m_str; }
   m2::RectD GetRect() const { return m_rect; }
-  int GetPenalty() const { return m_penalty; }
 
 private:
   string m_str;
   m2::RectD m_rect;
-  int m_penalty;
 };
 
 }

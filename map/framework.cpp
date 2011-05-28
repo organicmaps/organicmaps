@@ -1098,7 +1098,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     engine.Search(text, m_navigator.Screen().GlobalRect(), callback);
 
     // Empty name indicates last element.
-    callback(search::Result(string(), m2::RectD(), 0));
+    callback(search::Result(string(), m2::RectD()));
   }
 
 template class FrameWork<model::FeaturesFetcher>;

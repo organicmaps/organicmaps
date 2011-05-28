@@ -48,8 +48,8 @@ struct FeatureProcessor
                            512, 256 * max(0, int(m_query.m_prefix.size()) - 1),
                            &KeywordMatch, &PrefixMatch);
     feature.ForEachNameRef(matcher);
-    m_query.AddResult(Result(matcher.GetBestPrefixMatch(), feature.GetLimitRect(-1),
-                             matcher.GetMatchScore()));
+    m_query.AddResult(IntermediateResult(
+                        feature, matcher.GetBestPrefixMatch(), matcher.GetMatchScore()));
   }
 };
 
@@ -63,23 +63,18 @@ void Query::Search(function<void (Result const &)> const & f)
   results.reserve(m_resuts.size());
   while (!m_resuts.empty())
   {
-    results.push_back(m_resuts.top());
+    results.push_back(m_resuts.top().GenerateFinalResult());
     m_resuts.pop();
   }
   for (vector<Result>::const_reverse_iterator it = results.rbegin(); it != results.rend(); ++it)
     f(*it);
 }
 
-void Query::AddResult(Result const & result)
+void Query::AddResult(IntermediateResult const & result)
 {
   m_resuts.push(result);
   while (m_resuts.size() > 10)
     m_resuts.pop();
-}
-
-bool Query::ResultBetter::operator ()(Result const & r1, Result const & r2) const
-{
-  return r1.GetPenalty() < r2.GetPenalty();
 }
 
 }  // namespace search::impl

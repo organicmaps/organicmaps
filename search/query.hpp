@@ -1,6 +1,7 @@
 #pragma once
 
 #include "engine.hpp"
+#include "intermediate_result.hpp"
 #include "result.hpp"
 #include "../geometry/rect2d.hpp"
 #include "../base/string_utils.hpp"
@@ -25,12 +26,7 @@ public:
   void Search(function<void (Result const &)> const & f);
 
   // Add result for scoring.
-  void AddResult(Result const & result);
-
-  struct ResultBetter
-  {
-    bool operator() (Result const & r1, Result const & r2) const;
-  };
+  void AddResult(IntermediateResult const & result);
 
   string m_queryText;
   vector<strings::UniString> m_keywords;
@@ -41,7 +37,7 @@ public:
   IndexType const * m_pIndex;
   IndexType::Query m_indexQuery;
 
-  priority_queue<Result, vector<Result>, ResultBetter> m_resuts;
+  priority_queue<IntermediateResult> m_resuts;
 };
 
 }  // namespace search::impl
