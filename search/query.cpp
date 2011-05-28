@@ -72,9 +72,13 @@ void Query::Search(function<void (Result const &)> const & f)
 
 void Query::AddResult(IntermediateResult const & result)
 {
-  m_resuts.push(result);
-  while (m_resuts.size() > 10)
+  if (m_resuts.size() < 10)
+    m_resuts.push(result);
+  else if (result < m_resuts.top())
+  {
     m_resuts.pop();
+    m_resuts.push(result);
+  }
 }
 
 }  // namespace search::impl
