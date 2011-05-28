@@ -37,7 +37,7 @@ public:
   IndexType const * m_pIndex;
   IndexType::Query m_indexQuery;
 
-  priority_queue<IntermediateResult> m_resuts;
+  priority_queue<IntermediateResult> m_results;
 };
 
 }  // namespace search::impl

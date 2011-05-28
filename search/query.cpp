@@ -60,11 +60,11 @@ void Query::Search(function<void (Result const &)> const & f)
                           min(scales::GetUpperScale(), scales::GetScaleLevel(m_rect) + 1));
 
   vector<Result> results;
-  results.reserve(m_resuts.size());
-  while (!m_resuts.empty())
+  results.reserve(m_results.size());
+  while (!m_results.empty())
   {
-    results.push_back(m_resuts.top().GenerateFinalResult());
-    m_resuts.pop();
+    results.push_back(m_results.top().GenerateFinalResult());
+    m_results.pop();
   }
   for (vector<Result>::const_reverse_iterator it = results.rbegin(); it != results.rend(); ++it)
     f(*it);
@@ -72,12 +72,12 @@ void Query::Search(function<void (Result const &)> const & f)
 
 void Query::AddResult(IntermediateResult const & result)
 {
-  if (m_resuts.size() < 10)
-    m_resuts.push(result);
-  else if (result < m_resuts.top())
+  if (m_results.size() < 10)
+    m_results.push(result);
+  else if (result < m_results.top())
   {
-    m_resuts.pop();
-    m_resuts.push(result);
+    m_results.pop();
+    m_results.push(result);
   }
 }
 
