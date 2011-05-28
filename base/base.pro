@@ -21,6 +21,7 @@ SOURCES += \
     path_utils.cpp \
     condition.cpp \
     lower_case.cpp \
+    normalize_unicode.cpp \
 
 HEADERS += \
     SRC_FIRST.hpp \

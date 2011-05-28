@@ -252,3 +252,14 @@ UNIT_TEST(MakeUniString_Smoke)
   char const s [] = "Hello!";
   TEST_EQUAL(strings::UniString(&s[0], &s[0] + ARRAY_SIZE(s) - 1), strings::MakeUniString(s), ());
 }
+
+UNIT_TEST(Normalize)
+{
+  strings::UniChar const s[] = { 0x1f101, 'H', 0xfef0, 0xfdfc, 0x2150 };
+  strings::UniString us(&s[0], &s[0] + ARRAY_SIZE(s));
+  strings::UniChar const r[] = { 0x30, 0x2c, 'H', 0x649, 0x631, 0x6cc, 0x627, 0x644,
+                                      0x31, 0x2044, 0x37 };
+  strings::UniString result(&r[0], &r[0] + ARRAY_SIZE(r));
+  strings::Normalize(us);
+  TEST_EQUAL(us, result, ());
+}

@@ -17,6 +17,9 @@ typedef buffer_vector<UniChar, 32> UniString;
 
 UniString MakeLowerCase(UniString const & s);
 void MakeLowerCase(UniString & s);
+UniString Normalize(UniString const & s);
+void Normalize(UniString & s);
+
 void MakeLowerCase(string & s);
 string MakeLowerCase(string const & s);
 bool EqualNoCase(string const & s1, string const & s2);

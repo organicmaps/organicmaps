@@ -22,22 +22,22 @@ static uint16_t const smallff[] = {0xff00,0xff01,0xff02,0xff03,0xff04,0xff05,0xf
 /// @return 0 if char should be replaced with 2 or more chars
 UniChar LowerUniChar(UniChar c)
 {
-  switch (c & 0x00ffff00)
+  switch (c & 0xffffff00)
   {
-    case 0x0000: return small00[static_cast<uint16_t>(c & 0x00ff)];
-    case 0x0100: return small01[static_cast<uint16_t>(c & 0x00ff)];
-    case 0x0200: return small02[static_cast<uint16_t>(c & 0x00ff)];
-    case 0x0300: return small03[static_cast<uint16_t>(c & 0x00ff)];
-    case 0x0400: return small04[static_cast<uint16_t>(c & 0x00ff)];
-    case 0x0500: return small05[static_cast<uint16_t>(c & 0x00ff)];
-    case 0x1000: return small10[static_cast<uint16_t>(c & 0x00ff)];
-    case 0x1e00: return small1e[static_cast<uint16_t>(c & 0x00ff)];
-    case 0x1f00: return small1f[static_cast<uint16_t>(c & 0x00ff)];
-    case 0x2100: return small21[static_cast<uint16_t>(c & 0x00ff)];
-    case 0x2400: return small24[static_cast<uint16_t>(c & 0x00ff)];
-    case 0x2c00: return small2c[static_cast<uint16_t>(c & 0x00ff)];
-    case 0xa600: return smalla6[static_cast<uint16_t>(c & 0x00ff)];
-    case 0xa700: return smalla7[static_cast<uint16_t>(c & 0x00ff)];
+    case 0x0000: return small00[static_cast<uint8_t>(c & 0x00ff)];
+    case 0x0100: return small01[static_cast<uint8_t>(c & 0x00ff)];
+    case 0x0200: return small02[static_cast<uint8_t>(c & 0x00ff)];
+    case 0x0300: return small03[static_cast<uint8_t>(c & 0x00ff)];
+    case 0x0400: return small04[static_cast<uint8_t>(c & 0x00ff)];
+    case 0x0500: return small05[static_cast<uint8_t>(c & 0x00ff)];
+    case 0x1000: return small10[static_cast<uint8_t>(c & 0x00ff)];
+    case 0x1e00: return small1e[static_cast<uint8_t>(c & 0x00ff)];
+    case 0x1f00: return small1f[static_cast<uint8_t>(c & 0x00ff)];
+    case 0x2100: return small21[static_cast<uint8_t>(c & 0x00ff)];
+    case 0x2400: return small24[static_cast<uint8_t>(c & 0x00ff)];
+    case 0x2c00: return small2c[static_cast<uint8_t>(c & 0x00ff)];
+    case 0xa600: return smalla6[static_cast<uint8_t>(c & 0x00ff)];
+    case 0xa700: return smalla7[static_cast<uint8_t>(c & 0x00ff)];
     case 0xfb00:
     {
       if (c >= 0xfb00 && c <= 0xfb06)
@@ -46,7 +46,7 @@ UniChar LowerUniChar(UniChar c)
         return 0;
       return c;
     }
-    case 0xff00: return smallff[static_cast<uint16_t>(c & 0x00ff)];
+    case 0xff00: return smallff[static_cast<uint8_t>(c & 0x00ff)];
     case 0x10400:
     {
       if (c >= 0x10400 && c <= 0x10427)

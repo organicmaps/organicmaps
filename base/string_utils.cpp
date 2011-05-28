@@ -95,6 +95,13 @@ string MakeLowerCase(string const & s)
   return result;
 }
 
+UniString Normalize(UniString const & s)
+{
+  UniString result(s);
+  Normalize(result);
+  return result;
+}
+
 bool EqualNoCase(string const & s1, string const & s2)
 {
   return MakeLowerCase(s1) == MakeLowerCase(s2);
