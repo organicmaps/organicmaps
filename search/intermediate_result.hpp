@@ -20,6 +20,7 @@ private:
   string m_str;
   m2::RectD m_rect;
   int m_matchPenalty;
+  int m_minDrawZoomLevel;
 };
 
 }  // namespace search::impl
