@@ -16,7 +16,9 @@ namespace feature
   bool IsDrawableAny(uint32_t type);
   bool IsDrawableLike(vector<uint32_t> const & type, feature_geo_t ft);
   bool IsDrawableForIndex(FeatureBase const & f, int level);
+
   int MinDrawableScaleForFeature(FeatureBase const & f);
+  int MinDrawableScaleForText(FeatureBase const & f);
 
   int GetDrawRule(FeatureBase const & f, int level, vector<drule::Key> & keys, string & names);
 

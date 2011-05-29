@@ -101,14 +101,14 @@ namespace
   class get_draw_rule
   {
     int m_scale;
-    feature_geo_t m_ft;
+    ClassifObject::feature_t m_ft;
     vector<drule::Key> & m_keys;
     string & m_name;
 
   public:
-    get_draw_rule(int scale, feature_geo_t ft,
+    get_draw_rule(int scale, feature::EGeomType ft,
                   vector<drule::Key> & keys, string & name)
-      : m_scale(scale), m_ft(ft), m_keys(keys), m_name(name)
+      : m_scale(scale), m_ft(ClassifObject::feature_t(ft)), m_keys(keys), m_name(name)
     {
     }
 
@@ -124,7 +124,7 @@ namespace
     bool operator() (ClassifObject const * p, bool & res)
     {
       res = true;
-      p->GetSuitable(m_scale, ClassifObject::feature_t(m_ft), m_keys);
+      p->GetSuitable(m_scale, m_ft, m_keys);
       return false;
     }
   };
@@ -140,7 +140,7 @@ int GetDrawRule(FeatureBase const & f, int level, vector<drule::Key> & keys, str
   ASSERT ( keys.empty(), () );
   Classificator const & c = classif();
 
-  get_draw_rule doRules(level, static_cast<feature_geo_t>(geoType), keys, names);
+  get_draw_rule doRules(level, geoType, keys, names);
   for (int i = 0; i < types.m_size; ++i)
     (void)c.ProcessObjects(types.m_types[i], doRules);
 
@@ -152,6 +152,7 @@ namespace
   class check_is_drawable
   {
     int m_scale;
+
   public:
     check_is_drawable(int scale) : m_scale(scale) {}
 
@@ -172,6 +173,7 @@ namespace
   class check_is_drawable_like
   {
     ClassifObject::feature_t m_type;
+
   public:
     check_is_drawable_like(feature_geo_t type)
       : m_type(ClassifObject::feature_t(type))
@@ -188,6 +190,36 @@ namespace
         res = true;
         return true;
       }
+      return false;
+    }
+  };
+
+  class check_text_rules
+  {
+    int m_scale;
+    ClassifObject::feature_t m_ft;
+
+  public:
+    check_text_rules(int scale, feature::EGeomType ft)
+      : m_scale(scale), m_ft(ClassifObject::feature_t(ft))
+    {
+    }
+
+    typedef bool result_type;
+
+    void operator() (ClassifObject const *) {}
+    bool operator() (ClassifObject const * p, bool & res)
+    {
+      vector<drule::Key> keys;
+      p->GetSuitable(m_scale, m_ft, keys);
+
+      for (size_t i = 0; i < keys.size(); ++i)
+        if (keys[i].m_type == drule::caption || keys[i].m_type == drule::pathtext)
+        {
+          res = true;
+          return true;
+        }
+
       return false;
     }
   };
@@ -235,6 +267,26 @@ int MinDrawableScaleForFeature(FeatureBase const & f)
   for (int level = 0; level <= upBound; ++level)
     if (feature::IsDrawableForIndex(f, level))
       return level;
+
+  return -1;
+}
+
+int MinDrawableScaleForText(FeatureBase const & f)
+{
+  FeatureBase::GetTypesFn types;
+  f.ForEachTypeRef(types);
+
+  Classificator const & c = classif();
+  feature::EGeomType const geomType = f.GetFeatureType();
+
+  int const upBound = scales::GetUpperScale();
+  for (int level = 0; level <= upBound; ++level)
+  {
+    check_text_rules doCheck(level, geomType);
+    for (int i = 0; i < types.m_size; ++i)
+      if (c.ProcessObjects(types.m_types[i], doCheck))
+        return level;
+  }
 
   return -1;
 }
