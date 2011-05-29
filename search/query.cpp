@@ -12,6 +12,14 @@ uint32_t KeywordMatch(strings::UniChar const * sA, uint32_t sizeA,
                       strings::UniChar const * sB, uint32_t sizeB,
                       uint32_t maxCost)
 {
+  /*
+  if (sizeA != sizeB)
+    return maxCost + 1;
+  for (uint32_t i = 0; i< sizeA; ++i)
+    if (sA[i] != sB[i])
+      return maxCost + 1;
+  return 0;
+  */
   return StringMatchCost(sA, sizeA, sB, sizeB, DefaultMatchCost(), maxCost, false);
 }
 
@@ -19,6 +27,14 @@ uint32_t PrefixMatch(strings::UniChar const * sA, uint32_t sizeA,
                      strings::UniChar const * sB, uint32_t sizeB,
                      uint32_t maxCost)
 {
+  /*
+  if (sizeA > sizeB)
+    return maxCost + 1;
+  for (uint32_t i = 0; i< sizeA; ++i)
+    if (sA[i] != sB[i])
+      return maxCost + 1;
+  return 0;
+  */
   return StringMatchCost(sA, sizeA, sB, sizeB, DefaultMatchCost(), maxCost, true);
 }
 
@@ -44,12 +60,21 @@ struct FeatureProcessor
 
   void operator () (FeatureType const & feature) const
   {
+    uint32_t const maxKeywordMatchScore = 512;
+    uint32_t const maxPrefixMatchScore = min(static_cast<int>(maxKeywordMatchScore),
+                                             256 * max(0, int(m_query.m_prefix.size()) - 1));
     KeywordMatcher matcher(&m_query.m_keywords[0], m_query.m_keywords.size(), m_query.m_prefix,
-                           512, 256 * max(0, int(m_query.m_prefix.size()) - 1),
+                           maxKeywordMatchScore, maxPrefixMatchScore,
                            &KeywordMatch, &PrefixMatch);
     feature.ForEachNameRef(matcher);
-    m_query.AddResult(IntermediateResult(
-                        feature, matcher.GetBestPrefixMatch(), matcher.GetMatchScore()));
+    if (matcher.GetPrefixMatchScore() <= maxPrefixMatchScore)
+    {
+      uint32_t const matchScore = matcher.GetMatchScore();
+      if (matchScore <= maxKeywordMatchScore)
+      {
+        m_query.AddResult(IntermediateResult(feature, matcher.GetBestPrefixMatch(), matchScore));
+      }
+    }
   }
 };
 
