@@ -2,12 +2,13 @@
 
 #include "../base/base.hpp"
 #include "../base/buffer_vector.hpp"
+#include "../base/string_utils.hpp"
 #include "../std/queue.hpp"
 
 namespace search
 {
 
-typedef uint32_t UniChar;
+using strings::UniChar;
 
 namespace impl
 {
