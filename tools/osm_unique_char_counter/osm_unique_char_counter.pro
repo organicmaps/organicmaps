@@ -1,17 +1,17 @@
 # -----------------------------------------------------
 # Project created by Alex Zolotarev 2010-01-21T13:23:29
 # -----------------------------------------------------
+ROOT_DIR = ../..
+
+include($$ROOT_DIR/common.pri)
+
 QT       -= gui core
 TARGET    = osm_unique_char_counter
 CONFIG   += console
 CONFIG   -= app_bundle
 TEMPLATE  = app
 
-ROOT_DIR = ../..
-DEPENDENCIES = coding base expat
-
-include($$ROOT_DIR/common.pri)
-
+LIBS += -L/media/ssd/alexz/omim-build-release/out/release -lcoding -lbase -lexpat
 
 # Additional include directories
 INCLUDEPATH *= ../../3party/expat/lib \

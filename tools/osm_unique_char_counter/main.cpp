@@ -8,6 +8,7 @@
 #include "../../std/vector.hpp"
 
 #include <locale>
+#include <iomanip>
 
 using namespace std;
 
@@ -57,6 +58,7 @@ public:
 
 typedef unordered_map<strings::UniChar, uint64_t> CountContT;
 typedef pair<strings::UniChar, uint64_t> ElemT;
+typedef unordered_map<strings::UniChar, string> UniMapT;
 
 bool SortFunc(ElemT const & e1, ElemT const & e2)
 {
@@ -66,6 +68,9 @@ bool SortFunc(ElemT const & e1, ElemT const & e2)
 struct Counter
 {
   CountContT m_counter;
+  UniMapT & m_uni;
+
+  Counter(UniMapT & uni) : m_uni(uni) {}
 
   void operator()(string const & utf8s)
   {
@@ -87,6 +92,7 @@ struct Counter
     SortVecT v(m_counter.begin(), m_counter.end());
     sort(v.begin(), v.end(), SortFunc);
 
+
     locale loc("en_US.UTF-8");
     cout.imbue(loc);
 
@@ -96,7 +102,11 @@ struct Counter
     {
       c.clear();
       utf8::unchecked::append(v[i].first, back_inserter(c));
-      cout << v[i].second << " " << hex << v[i].first << " " << c << endl;
+      UniMapT::iterator found = m_uni.find(v[i].first);
+      if (found == m_uni.end())
+        cout << dec << v[i].second << " " << hex << v[i].first << " " << c << endl;
+      else
+        cout << dec << v[i].second << " "  << c << " " << found->second << endl;
     }
   }
 };
@@ -111,7 +121,36 @@ struct StdinReader
 
 int main(int argc, char *argv[])
 {
-  Counter c;
+  if (argc < 2)
+  {
+    cerr << "Usage: " << argv[0] << " PathToUnicodeFile" << endl;
+    return -1;
+  }
+
+  // load unicodedata.txt file
+  ifstream f(argv[1]);
+  if (!f.good())
+  {
+    cerr << "Can't open unicodedata.txt file " << argv[1] << endl;
+    return -1;
+  }
+
+  UniMapT m;
+
+  string line;
+  while (f.good())
+  {
+    getline(f, line);
+    size_t const semic = line.find(';');
+    if (semic == string::npos)
+      continue;
+    istringstream stream(line.substr(0, semic));
+    strings::UniChar c;
+    stream >> hex >> c;
+    m[c] = line;
+  }
+
+  Counter c(m);
   XMLDispatcher<Counter> dispatcher(c);
   StdinReader reader;
   ParseXML(reader, dispatcher);
