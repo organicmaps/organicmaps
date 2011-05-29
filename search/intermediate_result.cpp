@@ -1,4 +1,5 @@
 #include "intermediate_result.hpp"
+#include "../indexer/feature_rect.hpp"
 #include "../indexer/feature_visibility.hpp"
 #include "../base/string_utils.hpp"
 
@@ -10,7 +11,7 @@ namespace impl
 IntermediateResult::IntermediateResult(FeatureType const & feature,
                                        string const & displayName,
                                        int matchPenalty)
-  : m_str(displayName), m_rect(feature.GetLimitRect(-1)), m_matchPenalty(matchPenalty),
+  : m_str(displayName), m_rect(feature::GetFeatureViewport(feature)), m_matchPenalty(matchPenalty),
     m_minDrawZoomLevel(feature::MinDrawableScaleForFeature(feature))
 {
 }
