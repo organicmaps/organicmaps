@@ -15,8 +15,10 @@ namespace impl
 template <class DelimsT, typename F>
 void SplitAndNormalizeAndSimplifyString(string const & s, F f, DelimsT const & delims)
 {
-  for (strings::TokenizeIterator<DelimsT> iter(s, delims); iter; ++iter)
-    f(strings::MakeLowerCase(iter.GetUniString()));
+  strings::UniString uniS = strings::MakeLowerCase(strings::MakeUniString(s));
+  strings::Normalize(uniS);
+  for (strings::TokenizeIterator<DelimsT> iter(uniS, delims); iter; ++iter)
+    f(iter.GetUniString());
 }
 
 struct MatchCostData

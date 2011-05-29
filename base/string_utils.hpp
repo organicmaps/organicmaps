@@ -31,11 +31,10 @@ inline UniString MakeUniString(string const & s)
   return result;
 }
 
-template <typename DelimFuncT>
+template <typename DelimFuncT, typename UniCharIterT = UniString::const_iterator>
 class TokenizeIterator
 {
-  typedef utf8::unchecked::iterator<string::const_iterator> Utf8IterT;
-  Utf8IterT m_beg, m_end, m_finish;
+  UniCharIterT m_beg, m_end, m_finish;
   DelimFuncT m_delimFunc;
 
   /// Explicitly disabled, because we're storing iterators for string
@@ -68,6 +67,12 @@ public:
     move();
   }
 
+  TokenizeIterator(UniString const & s, DelimFuncT delimFunc)
+  : m_beg(s.begin()), m_end(s.begin()), m_finish(s.end()), m_delimFunc(delimFunc)
+  {
+    move();
+  }
+
   string operator*() const
   {
     ASSERT( m_beg != m_finish, ("dereferencing of empty iterator") );
@@ -86,7 +91,7 @@ public:
   {
     if (!*this)
       return false;
-    TokenizeIterator<DelimFuncT> copy(*this);
+    TokenizeIterator<DelimFuncT, UniCharIterT> copy(*this);
     ++copy;
     return !copy;
   }
@@ -94,7 +99,7 @@ public:
   UniString GetUniString() const
   {
     UniString result;
-    Utf8IterT iter(m_beg);
+    UniCharIterT iter(m_beg);
     while (iter != m_end)
     {
       result.push_back(*iter);
@@ -113,7 +118,8 @@ public:
   bool operator()(UniChar c) const;
 };
 
-typedef TokenizeIterator<SimpleDelimiter> SimpleTokenizer;
+typedef TokenizeIterator<SimpleDelimiter,
+                         ::utf8::unchecked::iterator<string::const_iterator> > SimpleTokenizer;
 
 template <typename FunctorT>
 void Tokenize(string const & str, char const * delims, FunctorT f)
