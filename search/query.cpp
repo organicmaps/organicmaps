@@ -2,6 +2,7 @@
 #include "delimiters.hpp"
 #include "keyword_matcher.hpp"
 #include "string_match.hpp"
+#include "../base/stl_add.hpp"
 
 namespace search
 {
@@ -43,12 +44,11 @@ Query::Query(string const & query, m2::RectD const & rect, IndexType const * pIn
   : m_queryText(query), m_rect(rect), m_pIndex(pIndex)
 {
   search::Delimiters delims;
-  for (strings::TokenizeIterator<search::Delimiters> iter(query, delims); iter; ++iter)
+  SplitAndNormalizeAndSimplifyString(query, MakeBackInsertFunctor(m_keywords), delims);
+  if (!m_keywords.empty() && !delims(strings::LastUniChar(query)))
   {
-    if (iter.IsLast() && !delims(strings::LastUniChar(query)))
-      m_prefix = strings::MakeLowerCase(iter.GetUniString());
-    else
-      m_keywords.push_back(strings::MakeLowerCase(iter.GetUniString()));
+    m_prefix.swap(m_keywords.back());
+    m_keywords.pop_back();
   }
 }
 

@@ -1,6 +1,8 @@
 #include "keyword_matcher.hpp"
 #include "delimiters.hpp"
+#include "string_match.hpp"
 #include "../base/string_utils.hpp"
+#include "../std/bind.hpp"
 #include "../std/numeric.hpp"
 
 namespace search
@@ -25,36 +27,36 @@ KeywordMatcher::KeywordMatcher(strings::UniString * pKeywords,
 
 void KeywordMatcher::ProcessName(string const & name)
 {
-  search::Delimiters delims;
-  for (strings::TokenizeIterator<search::Delimiters> iter(name, delims); iter; ++iter)
+  SplitAndNormalizeAndSimplifyString(
+        name, bind(&KeywordMatcher::ProcessNameToken, this, cref(name), _1), Delimiters());
+}
+
+void KeywordMatcher::ProcessNameToken(string const & name, strings::UniString const & s)
+{
+  for (size_t i = 0; i < m_minKeywordMatchCost.size(); ++i)
   {
-    strings::UniString const s = strings::MakeLowerCase(iter.GetUniString());
+    m_minKeywordMatchCost[i] = min(m_minKeywordMatchCost[i],
+                                   m_keywordMatchFn(&m_pKewords[i][0], m_pKewords[i].size(),
+                                                    &s[0], s.size(),
+                                                    m_minKeywordMatchCost[i]));
+  }
 
-    for (size_t i = 0; i < m_minKeywordMatchCost.size(); ++i)
+  if (!m_prefix.empty())
+  {
+    uint32_t const matchCost = m_prefixMatchFn(&m_prefix[0], m_prefix.size(),
+                                               &s[0], s.size(), m_minPrefixMatchCost);
+    if (matchCost < m_minPrefixMatchCost)
     {
-      m_minKeywordMatchCost[i] = min(m_minKeywordMatchCost[i],
-                                     m_keywordMatchFn(&m_pKewords[i][0], m_pKewords[i].size(),
-                                                      &s[0], s.size(),
-                                                      m_minKeywordMatchCost[i]));
+      m_bestPrefixMatch = name;
+      m_minPrefixMatchCost = matchCost;
     }
-
-    if (!m_prefix.empty())
+  }
+  else
+  {
+    if (m_bestPrefixMatch.empty())
     {
-      uint32_t const matchCost = m_prefixMatchFn(&m_prefix[0], m_prefix.size(),
-                                                 &s[0], s.size(), m_minPrefixMatchCost);
-      if (matchCost < m_minPrefixMatchCost)
-      {
-        m_bestPrefixMatch = name;
-        m_minPrefixMatchCost = matchCost;
-      }
-    }
-    else
-    {
-      if (m_bestPrefixMatch.empty())
-      {
-        m_bestPrefixMatch = name;
-        m_minPrefixMatchCost = 0;
-      }
+      m_bestPrefixMatch = name;
+      m_minPrefixMatchCost = 0;
     }
   }
 }

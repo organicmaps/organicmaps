@@ -1,5 +1,4 @@
 #pragma once
-
 #include "../base/base.hpp"
 #include "../base/buffer_vector.hpp"
 #include "../base/string_utils.hpp"
@@ -12,6 +11,13 @@ using strings::UniChar;
 
 namespace impl
 {
+
+template <class DelimsT, typename F>
+void SplitAndNormalizeAndSimplifyString(string const & s, F f, DelimsT const & delims)
+{
+  for (strings::TokenizeIterator<DelimsT> iter(s, delims); iter; ++iter)
+    f(strings::MakeLowerCase(iter.GetUniString()));
+}
 
 struct MatchCostData
 {

@@ -33,6 +33,7 @@ public:
                  StringMatchFn keywordMatchFn, StringMatchFn prefixMatchFn);
 
   void ProcessName(string const & name);
+  void ProcessNameToken(string const & name, strings::UniString const & token);
 
   // Useful for FeatureType.ForEachName(), calls ProcessName() and always returns true.
   bool operator () (int /*lang*/, string const & name)
