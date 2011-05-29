@@ -98,21 +98,15 @@ int main(int argc, char *argv[])
     eulaAccepted = (eulaDialog.exec() == 1);
     Settings::Set(SETTING_EULA_ACCEPTED, eulaAccepted);
   }
+
   int returnCode = -1;
-  if (eulaAccepted)
+  if (eulaAccepted)   // User has accepted EULA
   {
-    // User has accepted EULA
     qt::MainWindow w;
-
     w.show();
-
-    try {
     returnCode = a.exec();
-    } catch (std::exception const & e)
-    {
-      LOG(LERROR, (e.what()));
-    }
   }
+
   // QTBUG: Fix memory leaks. Nobody delete created plugins.
 //#ifdef OMIM_OS_WINDOWS
 //  QFactoryLoader * arr[] = { imageLoader(), bearerLoader() };
@@ -126,6 +120,5 @@ int main(int argc, char *argv[])
 //#endif
 
   LOG(LINFO, ("MapsWithMe finished with code : ", returnCode));
-
   return returnCode;
 }
