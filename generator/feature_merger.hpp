@@ -56,7 +56,7 @@ public:
 class FeatureMergeProcessor
 {
   typedef int64_t key_t;
-  inline key_t get_key(m2::PointD const & p);
+  key_t get_key(m2::PointD const & p);
 
   MergedFeatureBuilder1 m_last;
 
