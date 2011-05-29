@@ -12,8 +12,9 @@ inline int GetMinFeatureDrawScale(FeatureBuilder1 const & fb)
 {
   FeatureBase fBase = fb.GetFeatureBase();
   int const minScale = feature::MinDrawableScaleForFeature(fBase);
-  CHECK_GREATER(minScale, -1, ("Non-drawable feature found!?"));
-  return minScale;
+
+  // some features become invisible after merge processing, so -1 is possible
+  return (minScale == -1 ? 1000 : minScale);
 }
 
 

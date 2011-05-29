@@ -4,45 +4,88 @@
 #include "../indexer/classificator.hpp"
 
 
-MergedFeatureBuilder1::MergedFeatureBuilder1(FeatureBuilder1 const & fb, bool isOK)
-  : FeatureBuilder1(fb), m_isOK(isOK)
+MergedFeatureBuilder1::MergedFeatureBuilder1(FeatureBuilder1 const & fb)
+  : FeatureBuilder1(fb), m_isRound(false)
 {
   m_Params.FinishAddingTypes();
 }
 
-void MergedFeatureBuilder1::AppendFeature(MergedFeatureBuilder1 const & fb, bool toBack)
+void MergedFeatureBuilder1::SetRound()
 {
-  if (fb.m_isOK)
-    m_isOK = true;
+  m_isRound = true;
+  m_roundBounds[0] = m_roundBounds[1] = m_Geometry;
+}
 
-  m2::PointD const pt = toBack ? LastPoint() : FirstPoint();
+void MergedFeatureBuilder1::AppendFeature(MergedFeatureBuilder1 const & fb, bool fromBegin, bool toBack)
+{
+  if (fb.m_isRound)
+  {
+    if (toBack)
+      m_roundBounds[1] = fb.m_Geometry;
+    else
+      m_roundBounds[0] = fb.m_Geometry;
+    return;
+  }
 
-  bool fromEnd = false;
-  if ((pt.SquareLength(fb.FirstPoint()) > pt.SquareLength(fb.LastPoint())) == toBack)
-    fromEnd = true;
+  if (toBack)
+    m_roundBounds[1].clear();
+  else
+    m_roundBounds[0].clear();
+
+  m_isRound = false;
 
   for (size_t i = 0; i < fb.m_Geometry.size(); ++i)
     m_LimitRect.Add(fb.m_Geometry[i]);
 
-  if (fromEnd)
-  {
-    if (toBack)
-      m_Geometry.insert(m_Geometry.end(), fb.m_Geometry.rbegin() + 1, fb.m_Geometry.rend());
-    else
-      m_Geometry.insert(m_Geometry.begin(), fb.m_Geometry.rbegin(), fb.m_Geometry.rend() - 1);
-  }
-  else
+  if (fromBegin)
   {
     if (toBack)
       m_Geometry.insert(m_Geometry.end(), fb.m_Geometry.begin() + 1, fb.m_Geometry.end());
     else
       m_Geometry.insert(m_Geometry.begin(), fb.m_Geometry.begin(), fb.m_Geometry.end() - 1);
   }
+  else
+  {
+    if (toBack)
+      m_Geometry.insert(m_Geometry.end(), fb.m_Geometry.rbegin() + 1, fb.m_Geometry.rend());
+    else
+      m_Geometry.insert(m_Geometry.begin(), fb.m_Geometry.rbegin(), fb.m_Geometry.rend() - 1);
+  }
 }
 
 bool MergedFeatureBuilder1::EqualGeometry(MergedFeatureBuilder1 const & fb) const
 {
   return (m_Geometry == fb.m_Geometry);
+}
+
+pair<m2::PointD, bool> MergedFeatureBuilder1::GetKeyPoint(size_t i) const
+{
+  size_t sz = m_roundBounds[0].size();
+  if (i < sz) return make_pair(m_roundBounds[0][i], false);
+  i -= sz;
+
+  if (i == 0) return make_pair(FirstPoint(), false);
+
+  sz = m_roundBounds[1].size();
+  if (i < sz) return make_pair(m_roundBounds[1][i], true);
+
+  i -= sz;
+
+  ASSERT_EQUAL ( i, 1, () );
+  return make_pair(LastPoint(), true);
+}
+
+size_t MergedFeatureBuilder1::GetKeyPointsCount() const
+{
+  return m_roundBounds[0].size() + m_roundBounds[1].size() + 2;
+}
+
+double MergedFeatureBuilder1::GetPriority() const
+{
+  double pr = 0.0;
+  for (size_t i = 1; i < m_Geometry.size(); ++i)
+    pr += m_Geometry[i-1].SquareLength(m_Geometry[i]);
+  return pr;
 }
 
 
@@ -58,7 +101,7 @@ FeatureMergeProcessor::FeatureMergeProcessor(uint32_t coordBits)
 
 void FeatureMergeProcessor::operator() (FeatureBuilder1 const & fb)
 {
-  this->operator() (new MergedFeatureBuilder1(fb, true));
+  this->operator() (new MergedFeatureBuilder1(fb));
 }
 
 void FeatureMergeProcessor::operator() (MergedFeatureBuilder1 * p)
@@ -69,16 +112,29 @@ void FeatureMergeProcessor::operator() (MergedFeatureBuilder1 * p)
   m_map[k1].push_back(p);
   if (k1 != k2)
     m_map[k2].push_back(p);
+  else
+  {
+    ///@ todo Do it only for small round features!
+    p->SetRound();
+
+    p->ForEachMiddlePoints(bind(&FeatureMergeProcessor::Insert, this, _1, p));
+  }
+}
+
+void FeatureMergeProcessor::Insert(m2::PointD const & pt, MergedFeatureBuilder1 * p)
+{
+  m_map[get_key(pt)].push_back(p);
 }
 
 void FeatureMergeProcessor::Remove(key_t key, MergedFeatureBuilder1 const * p)
 {
   map_t::iterator i = m_map.find(key);
-  CHECK(i != m_map.end(), ());
-
-  vector_t & v = i->second;
-  v.erase(remove(v.begin(), v.end(), p), v.end());
-  if (v.empty()) m_map.erase(i);
+  if (i != m_map.end())
+  {
+    vector_t & v = i->second;
+    v.erase(remove(v.begin(), v.end(), p), v.end());
+    if (v.empty()) m_map.erase(i);
+  }
 }
 
 void FeatureMergeProcessor::Remove(MergedFeatureBuilder1 const * p)
@@ -89,6 +145,12 @@ void FeatureMergeProcessor::Remove(MergedFeatureBuilder1 const * p)
   Remove(k1, p);
   if (k1 != k2)
     Remove(k2, p);
+  else
+  {
+    ASSERT ( p->IsRound(), () );
+
+    p->ForEachMiddlePoints(bind(&FeatureMergeProcessor::Remove1, this, _1, p));
+  }
 }
 
 void FeatureMergeProcessor::DoMerge(FeatureEmitterIFace & emitter)
@@ -113,53 +175,65 @@ void FeatureMergeProcessor::DoMerge(FeatureEmitterIFace & emitter)
     MergedFeatureBuilder1 curr(*p);
     curr.SetType(type);
 
-    // Cycle while merging.
-    while (true)
+    // Iterate through key points while merging.
+    size_t ind = 0;
+    while (ind < curr.GetKeyPointsCount())  // GetKeyPointsCount() can be different on each iteration
     {
-      bool isMerged = false;
+      pair<m2::PointD, bool> const pt = curr.GetKeyPoint(ind++);
+      map_t::const_iterator it = m_map.find(get_key(pt.first));
 
-      bool toBack = true;
-      map_t::iterator it = m_map.find(get_key(curr.LastPoint()));
-      if (it == m_map.end())
-      {
-        it = m_map.find(get_key(curr.FirstPoint()));
-        toBack = false;
-      }
-
+      MergedFeatureBuilder1 * pp = 0;
       if (it != m_map.end())
       {
         // Find best feature to continue.
+        double bestPr = -1.0;
         for (size_t i = 0; i < it->second.size(); ++i)
         {
-          MergedFeatureBuilder1 * pp = it->second[i];
-
-          if (pp->HasType(type))
+          MergedFeatureBuilder1 * pTest = it->second[i];
+          if (pTest->HasType(type))
           {
-            isMerged = true;
-            curr.AppendFeature(*pp, toBack);
-
-            if (pp->PopExactType(type))
+            double const pr = pTest->GetPriority();
+            ASSERT_GREATER ( pr, 0.0, () );
+            if (pr > bestPr)
             {
-              Remove(pp);
-              delete pp;
+              pp = pTest;
+              bestPr = pr;
             }
-            break;
           }
         }
-      }
 
-      if (!isMerged)
-        break;
+        // Merge current feature with best feature.
+        if (pp)
+        {
+          bool const toBack = pt.second;
+          bool fromBegin = true;
+          if ((pt.first.SquareLength(pp->FirstPoint()) > pt.first.SquareLength(pp->LastPoint())) == toBack)
+            fromBegin = false;
+
+          curr.AppendFeature(*pp, fromBegin, toBack);
+
+          if (pp->PopExactType(type))
+          {
+            Remove(pp);
+            delete pp;
+          }
+
+          // start from the beginning if we have a successful merge
+          ind = 0;
+        }
+      }
     }
 
-    // Push feature p to output.
     if (m_last.NotEmpty() && m_last.EqualGeometry(curr))
+    {
+      // curr is equal with m_last by geometry - just add new type to m_last
       m_last.AddType(type);
+    }
     else
     {
+      // emit m_last and set curr as last processed feature (m_last)
       if (m_last.NotEmpty())
         emitter(m_last);
-
       m_last = curr;
     }
 
@@ -204,7 +278,7 @@ void FeatureTypesProcessor::SetMappingTypes(char const * arr1[2], char const * a
 
 MergedFeatureBuilder1 * FeatureTypesProcessor::operator() (FeatureBuilder1 const & fb)
 {
-  MergedFeatureBuilder1 * p = new MergedFeatureBuilder1(fb, true);
+  MergedFeatureBuilder1 * p = new MergedFeatureBuilder1(fb);
 
   p->ForEachChangeTypes(do_change_types(*this));
 

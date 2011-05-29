@@ -10,13 +10,18 @@
 /// Feature builder class that used while feature type processing and merging.
 class MergedFeatureBuilder1 : public FeatureBuilder1
 {
-  bool m_isOK;
+  bool m_isRound;
+
+  points_t m_roundBounds[2];
 
 public:
-  MergedFeatureBuilder1() : m_isOK(false) {}
-  MergedFeatureBuilder1(FeatureBuilder1 const & fb, bool isOK);
+  MergedFeatureBuilder1() : m_isRound(false) {}
+  MergedFeatureBuilder1(FeatureBuilder1 const & fb);
 
-  void AppendFeature(MergedFeatureBuilder1 const & fb, bool toBack);
+  void SetRound();
+  bool IsRound() const { return m_isRound; }
+
+  void AppendFeature(MergedFeatureBuilder1 const & fb, bool fromBegin, bool toBack);
 
   bool EqualGeometry(MergedFeatureBuilder1 const & fb) const;
 
@@ -34,6 +39,17 @@ public:
     for_each(m_Params.m_Types.begin(), m_Params.m_Types.end(), toDo);
     m_Params.FinishAddingTypes();
   }
+
+  template <class ToDo> void ForEachMiddlePoints(ToDo toDo) const
+  {
+    for (size_t i = 1; i < m_Geometry.size()-1; ++i)
+      toDo(m_Geometry[i]);
+  }
+
+  pair<m2::PointD, bool> GetKeyPoint(size_t i) const;
+  size_t GetKeyPointsCount() const;
+
+  double GetPriority() const;
 };
 
 /// Feature merger.
@@ -48,7 +64,13 @@ class FeatureMergeProcessor
   typedef map<key_t, vector_t> map_t;
   map_t m_map;
 
+  void Insert(m2::PointD const & pt, MergedFeatureBuilder1 * p);
+
   void Remove(key_t key, MergedFeatureBuilder1 const * p);
+  inline void Remove1(m2::PointD const & pt, MergedFeatureBuilder1 const * p)
+  {
+    Remove(get_key(pt), p);
+  }
   void Remove(MergedFeatureBuilder1 const * p);
 
   uint32_t m_coordBits;
