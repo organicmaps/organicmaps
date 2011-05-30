@@ -83,11 +83,18 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
   /// scaler should be between minPixSize and maxPixSize
   int minPixSize = m_pxMinWidth;
 
-  m2::PointD pt0 = m_centerPt;
-  m2::PointD pt1 = m_screen.PtoG(m_screen.GtoP(m_centerPt) + m2::PointD(minPixSize, 0));
+  m2::PointD const scalerOrg =
+      m2::PointD(m_displayRect.minX(), m_displayRect.maxY() - m_bottomShift * m_visualScale)
+      + m2::PointD(10 * m_visualScale, -10 * m_visualScale);
+
+  m2::PointD pt0 = m_screen.PtoG(scalerOrg);
+  m2::PointD pt1 = m_screen.PtoG(m_screen.GtoP(pt0) + m2::PointD(minPixSize, 0));
+
+  double const lonDiffCorrection = cos(MercatorBounds::YToLat(pt0.y) / 180.0 * math::pi);
 
   double lonDiff = fabs(MercatorBounds::XToLon(pt1.x) - MercatorBounds::XToLon(pt0.x));
-  double metresDiff = lonDiff / MercatorBounds::degreeInMetres;
+  double metresDiff = lonDiff / MercatorBounds::degreeInMetres * lonDiffCorrection;
+
 
   /// finding the closest higher metric value
   unsigned curFirstDigit = 2;
@@ -125,7 +132,7 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
     }
 
   /// translating meters to pixels
-  double scalerWidthLatDiff = (double)curVal * MercatorBounds::degreeInMetres;
+  double scalerWidthLatDiff = (double)curVal * MercatorBounds::degreeInMetres / lonDiffCorrection;
   double scalerWidthXDiff = MercatorBounds::LonToX(pt0.x + scalerWidthLatDiff) - MercatorBounds::LonToX(pt0.x);
 
   double scalerWidthInPx = m_screen.GtoP(pt0).x - m_screen.GtoP(pt0 + m2::PointD(scalerWidthXDiff, 0)).x;
@@ -143,8 +150,6 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
       scalerText += strings::to_string(curVal / 1000) + " km";
     else
       scalerText += strings::to_string(curVal) + " m";
-
-  m2::PointD scalerOrg = m2::PointD(m_displayRect.minX(), m_displayRect.maxY() - m_bottomShift * m_visualScale) + m2::PointD(10 * m_visualScale, -10 * m_visualScale);
 
   m2::PointD scalerPts[4];
   scalerPts[0] = scalerOrg + m2::PointD(0, -14 * m_visualScale);
@@ -193,15 +198,15 @@ void InformationDisplay::enableCenter(bool doEnable)
 
 void InformationDisplay::setCenter(m2::PointD const & pt)
 {
-  m_centerPt = pt;
+  m_centerPtLonLat = pt;
 }
 
 void InformationDisplay::drawCenter(DrawerYG * drawer)
 {
   ostringstream out;
 
-  out << "(" << fixed << setprecision(4) << m_centerPt.y << ", "
-             << fixed << setprecision(4) << setw(8) << m_centerPt.x << ")";
+  out << "(" << fixed << setprecision(4) << m_centerPtLonLat.y << ", "
+             << fixed << setprecision(4) << setw(8) << m_centerPtLonLat.x << ")";
 
   m2::RectD const & textRect = drawer->screen()->textRect(
         yg::FontDesc::defaultFont,

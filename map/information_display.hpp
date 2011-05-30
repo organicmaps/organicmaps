@@ -35,7 +35,7 @@ private:
   double m_metresMinWidth;
 
   bool m_isCenterEnabled;
-  m2::PointD m_centerPt;
+  m2::PointD m_centerPtLonLat;
   int m_currentScale;
 
   bool m_isGlobalRectEnabled;
