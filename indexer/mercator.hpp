@@ -55,5 +55,18 @@ struct MercatorBounds
                      LatToY(lat + degreeOffset));
   }
 
+  inline static m2::RectD RectByCenterXYAndSizeInMeters(double centerX, double centerY,
+                                                        double sizeX, double sizeY)
+  {
+    ASSERT_GREATER_OR_EQUAL(sizeX, 0, ());
+    ASSERT_GREATER_OR_EQUAL(sizeY, 0, ());
+    double const degreesLon = fabs(sizeX) / 2.0 * degreeInMetres;
+    double const degreesLat = fabs(sizeY) / 2.0 * degreeInMetres;
+    double const lon = XToLon(centerX);
+    double const lat = YToLat(centerY);
+    return m2::RectD(LonToX(lon - degreesLon), LatToY(lat - degreesLat),
+                     LonToX(lon + degreesLon), LatToY(lat + degreesLat));
+  }
+
   static double GetCellID2PointAbsEpsilon() { return 1.0E-4; }
 };
