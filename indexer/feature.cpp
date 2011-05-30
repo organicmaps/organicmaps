@@ -981,3 +981,11 @@ uint8_t FeatureType::GetRank() const
 
   return m_Params.rank;
 }
+
+uint32_t FeatureType::GetPopulation() const
+{
+  uint8_t const rank = GetRank();
+  if (rank == 0)
+    return 1;
+  return static_cast<uint32_t>(min(double(uint32_t(-1)), pow(1.1, rank)));
+}

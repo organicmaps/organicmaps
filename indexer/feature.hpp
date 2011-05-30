@@ -377,6 +377,7 @@ public:
   string DebugString(int scale) const;
 
   uint8_t GetRank() const;
+  uint32_t GetPopulation() const;
 
   /// @name Statistic functions.
   //@{
