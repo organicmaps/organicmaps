@@ -486,7 +486,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
 //    m2::RectD wr(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY);
 //    m2::RectD r(wr.Center().x, wr.Center().y + wr.SizeY() / 8, wr.Center().x + wr.SizeX() / 8, wr.Center().y + wr.SizeY() / 4);
 
-    ifstream fin(GetPlatform().WritablePathForFile("benchmark.txt").c_str());
+    ifstream fin(GetPlatform().WritablePathForFile("benchmark.results").c_str());
     while (true)
     {
       string name;
