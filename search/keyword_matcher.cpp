@@ -10,7 +10,7 @@ namespace search
 namespace impl
 {
 
-KeywordMatcher::KeywordMatcher(strings::UniString * pKeywords,
+KeywordMatcher::KeywordMatcher(strings::UniString const * pKeywords,
                                size_t keywordsCount,
                                strings::UniString const & prefix,
                                uint32_t maxKeywordMatchCost, uint32_t maxPrefixMatchCost,

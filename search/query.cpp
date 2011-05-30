@@ -63,7 +63,8 @@ struct FeatureProcessor
     uint32_t const maxKeywordMatchScore = 512;
     uint32_t const maxPrefixMatchScore = min(static_cast<int>(maxKeywordMatchScore),
                                              256 * max(0, int(m_query.m_prefix.size()) - 1));
-    KeywordMatcher matcher(&m_query.m_keywords[0], m_query.m_keywords.size(), m_query.m_prefix,
+    size_t const kwSize = m_query.m_keywords.size();
+    KeywordMatcher matcher(kwSize ? &m_query.m_keywords[0] : NULL, kwSize, m_query.m_prefix,
                            maxKeywordMatchScore, maxPrefixMatchScore,
                            &KeywordMatch, &PrefixMatch);
     feature.ForEachNameRef(matcher);
