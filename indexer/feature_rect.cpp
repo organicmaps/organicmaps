@@ -56,7 +56,7 @@ public:
       return m2::PointD(5000*km, 5000*km);
     if (type == m_TypeCity || type == m_TypeCityCapital)
     {
-      double const radius = sqrt(feature.GetPopulation() / 3000);
+      double const radius = sqrt(static_cast<double>(feature.GetPopulation() / 3000));
       return m2::PointD(radius*km, radius*km);
     }
     return m2::PointD(0, 0);
