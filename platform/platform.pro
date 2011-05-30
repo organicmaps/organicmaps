@@ -19,33 +19,37 @@ QT *= core network
     wifi_location_service.cpp \
     qt_download_manager.cpp \
     qt_download.cpp \
+    qt_concurrent_runner.cpp \
 
   HEADERS += \
       qt_download_manager.hpp \
       qt_download.hpp \
       wifi_info.hpp
+} else:iphone* {
+  SOURCES += ios_concurrent_runner.mm
 }
 
-HEADERS += \
-    platform.hpp \
-    download_manager.hpp \
-    location.hpp \
-
 macx|iphone* {
-    OBJECTIVE_SOURCES += apple_location_service.mm
-    LIBS += -framework CoreLocation -framework Foundation
-} else {
-    SOURCES +=
+  OBJECTIVE_SOURCES += apple_location_service.mm
+  LIBS += -framework CoreLocation -framework Foundation
 }
 
 macx:!iphone* {
   OBJECTIVE_SOURCES += wifi_info_mac.mm
   LIBS += -framework CoreWLAN
 }
+
 win32 {
   SOURCES += wifi_info_windows.cpp
 }
 
 # common sources for all platforms
+
+HEADERS += \
+    platform.hpp \
+    download_manager.hpp \
+    location.hpp \
+    concurrent_runner.hpp \
+
 SOURCES += \
     location_manager.cpp \

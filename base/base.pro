@@ -58,9 +58,9 @@ HEADERS += \
     condition.hpp \
     commands_queue.hpp \
     stats.hpp \
-    monitor.hpp \
     shared_buffer_manager.hpp \
     memory_mapped_file.hpp \
     buffer_vector.hpp \
     path_utils.hpp \
     array_adapters.hpp \
+    runner.hpp \
