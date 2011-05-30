@@ -580,39 +580,53 @@ namespace
 int FeatureType::GetScaleIndex(int scale) const
 {
   int const count = m_header->GetScalesCount();
-  if (scale == -1) return count-1;
 
-  for (int i = 0; i < count; ++i)
-    if (scale <= m_header->GetScale(i))
-      return i;
-  return -1;
+  switch (scale)
+  {
+  case -2: return 0;
+  case -1: return count-1;
+  default:
+    for (int i = 0; i < count; ++i)
+      if (scale <= m_header->GetScale(i))
+        return i;
+    return -1;
+  }
 }
 
 int FeatureType::GetScaleIndex(int scale, offsets_t const & offsets) const
 {
-  if (scale == -1)
+  int ind = -1;
+  int const count = static_cast<int>(offsets.size());
+
+  switch (scale)
   {
+  case -2:
+    // Choose the worst existing geometry.
+    ind = count-1;
+    while (ind >= 0 && offsets[ind] == kInvalidOffset) --ind;
+    break;
+
+  case -1:
     // Choose the best geometry for the last visible scale.
-    int i = offsets.size()-1;
-    while (i >= 0 && offsets[i] == kInvalidOffset) --i;
-    if (i >= 0)
-      return i;
-    else
-      CHECK ( false, ("Feature should have any geometry ...") );
-  }
-  else
-  {
+    ind = 0;
+    while (ind < count && offsets[ind] == kInvalidOffset) ++ind;
+    break;
+
+  default:
     for (size_t i = 0; i < m_header->GetScalesCount(); ++i)
+    {
       if (scale <= m_header->GetScale(i))
-      {
-        if (offsets[i] != kInvalidOffset)
-          return i;
-        else
-          break;
-      }
+        return (offsets[i] != kInvalidOffset ? i : -1);
+    }
   }
 
-  return -1;
+  if (ind >= 0 && ind < count)
+    return ind;
+  else
+  {
+    CHECK ( false, ("Feature should have any geometry ...") );
+    return -1;
+  }
 }
 
 namespace

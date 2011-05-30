@@ -443,8 +443,15 @@ private:
 
   void ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets) const;
 
+  /// Get the index for geometry serialization.
+  /// @param[in]  scale:
+  /// -1 : index for the best geometry
+  /// -2 : index for the worst geometry
+  /// default : needed geometry
+  //@{
   int GetScaleIndex(int scale) const;
   int GetScaleIndex(int scale, offsets_t const & offset) const;
+  //@}
 
   mutable offsets_t m_ptsOffsets, m_trgOffsets;
 };
