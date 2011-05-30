@@ -45,19 +45,6 @@
 // default Resources read-only dir
 #define RESOURCES_DIR "Resources"
 
-/// Contains all resources needed to launch application
-static char const * sRequiredResourcesList[] =
-{
-  "classificator.txt",
-  "drawing_rules.bin",
-  "basic.skn",
-  "basic_highres.skn",
-  "visibility.txt",
-  "symbols_24.png",
-  "symbols_48.png"//,
-  //"countries.txt"
-};
-
 #ifdef OMIM_OS_MAC
 string ExpandTildePath(char const * path)
 {
@@ -198,17 +185,6 @@ class QtPlatform : public Platform
     return string();
   }
 
-  /// @TODO: add better validity check
-  bool AreResourcesValidInDir(string const & dir)
-  {
-    for (size_t i = 0; i < ARRAY_SIZE(sRequiredResourcesList); ++i)
-    {
-      if (!IsFileExists(dir + sRequiredResourcesList[i]))
-        return false;
-    }
-    return true;
-  }
-
   bool GetOSSpecificResourcesDir(string const & exePath, string & dir)
   {
     dir = DirFinder(exePath, RESOURCES_DIR);
@@ -224,13 +200,11 @@ class QtPlatform : public Platform
     dir = DirFinder(exePath, MAPDATA_DIR);
     if (!dir.empty())
     {
-      // check if all necessary resources are present in found dir
-      if (AreResourcesValidInDir(dir))
-        return;
+      // @TODO: check if all necessary resources are present in found dir
+      return;
     }
     // retrieve OS-specific resources dir
     CHECK( GetOSSpecificResourcesDir(exePath, dir), ("Can't retrieve resources directory") );
-    CHECK( AreResourcesValidInDir(dir), ("Required resources are missing, terminating...") );
   }
 
   void InitWritableDir(string & dir)
