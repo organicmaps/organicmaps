@@ -31,7 +31,7 @@ public:
     if (feature.GetFeatureType() != feature::GEOM_POINT)
       return limitRect;
 
-    m2::PointD maxSizeMeters(0, 0);
+    m2::PointD maxSizeMeters(100, 100);
     typedef buffer_vector<uint32_t, 8> TypeVectorT;
     TypeVectorT types;
     BackInsertFunctor<TypeVectorT> backInserter(types);
@@ -59,6 +59,10 @@ public:
       double const radius = sqrt(static_cast<double>(feature.GetPopulation() / 3000));
       return m2::PointD(radius*km, radius*km);
     }
+    if (type == m_TypeTown)
+      return m2::PointD(8*km, 8*km);
+    if (type == m_TypeVillage)
+      return m2::PointD(3*km, 3*km);
     return m2::PointD(0, 0);
   }
 
