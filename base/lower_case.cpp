@@ -57,124 +57,134 @@ UniChar LowerUniChar(UniChar c)
   }
 }
 
+static int w(UniChar c, UniChar * buf)
+{
+  switch (c)
+  {
+    case 0xdf: *buf++ = 0x73; *buf++ = 0x73; return 2;
+    case 0x130: *buf++ = 0x69; *buf++ = 0x307; return 2;
+    case 0x149: *buf++ = 0x2bc; *buf++ = 0x6e; return 2;
+    case 0x1f0: *buf++ = 0x6a; *buf++ = 0x30c; return 2;
+    case 0x390: *buf++ = 0x3b9; *buf++ = 0x308; *buf++ = 0x301; return 3;
+    case 0x3B0: *buf++ = 0x3c5; *buf++ = 0x308; *buf++ = 0x301; return 3;
+    case 0x587: *buf++ = 0x565; *buf++ = 0x582; return 2;
+    case 0x1e96: *buf++ = 0x68; *buf++ = 0x331; return 2;
+    case 0x1e97: *buf++ = 0x74; *buf++ = 0x308; return 2;
+    case 0x1e98: *buf++ = 0x77; *buf++ = 0x30a; return 2;
+    case 0x1e99: *buf++ = 0x79; *buf++ = 0x30a; return 2;
+    case 0x1e9a: *buf++ = 0x61; *buf++ = 0x2be; return 2;
+    case 0x1e9e: *buf++ = 0x73; *buf++ = 0x73; return 2;
+    case 0x1f50: *buf++ = 0x3c5; *buf++ = 0x313; return 2;
+    case 0x1f52: *buf++ = 0x3c5; *buf++ = 0x313; *buf++ = 0x300; return 3;
+    case 0x1f54: *buf++ = 0x3c5; *buf++ = 0x313; *buf++ = 0x301; return 3;
+    case 0x1f56: *buf++ = 0x3c5; *buf++ = 0x313; *buf++ = 0x342; return 3;
+    case 0x1f80: *buf++ = 0x1f00; *buf++ = 0x3b9; return 2;
+    case 0x1f81: *buf++ = 0x1f01; *buf++ = 0x3b9; return 2;
+    case 0x1f82: *buf++ = 0x1f02; *buf++ = 0x3b9; return 2;
+    case 0x1f83: *buf++ = 0x1f03; *buf++ = 0x3b9; return 2;
+    case 0x1f84: *buf++ = 0x1f04; *buf++ = 0x3b9; return 2;
+    case 0x1f85: *buf++ = 0x1f05; *buf++ = 0x3b9; return 2;
+    case 0x1f86: *buf++ = 0x1f06; *buf++ = 0x3b9; return 2;
+    case 0x1f87: *buf++ = 0x1f07; *buf++ = 0x3b9; return 2;
+    case 0x1f88: *buf++ = 0x1f00; *buf++ = 0x3b9; return 2;
+    case 0x1f89: *buf++ = 0x1f01; *buf++ = 0x3b9; return 2;
+    case 0x1f8a: *buf++ = 0x1f02; *buf++ = 0x3b9; return 2;
+    case 0x1f8b: *buf++ = 0x1f03; *buf++ = 0x3b9; return 2;
+    case 0x1f8c: *buf++ = 0x1f04; *buf++ = 0x3b9; return 2;
+    case 0x1f8d: *buf++ = 0x1f05; *buf++ = 0x3b9; return 2;
+    case 0x1f8e: *buf++ = 0x1f06; *buf++ = 0x3b9; return 2;
+    case 0x1f8f: *buf++ = 0x1f07; *buf++ = 0x3b9; return 2;
+    case 0x1f90: *buf++ = 0x1f20; *buf++ = 0x3b9; return 2;
+    case 0x1f91: *buf++ = 0x1f21; *buf++ = 0x3b9; return 2;
+    case 0x1f92: *buf++ = 0x1f22; *buf++ = 0x3b9; return 2;
+    case 0x1f93: *buf++ = 0x1f23; *buf++ = 0x3b9; return 2;
+    case 0x1f94: *buf++ = 0x1f24; *buf++ = 0x3b9; return 2;
+    case 0x1f95: *buf++ = 0x1f25; *buf++ = 0x3b9; return 2;
+    case 0x1f96: *buf++ = 0x1f26; *buf++ = 0x3b9; return 2;
+    case 0x1f97: *buf++ = 0x1f27; *buf++ = 0x3b9; return 2;
+    case 0x1f98: *buf++ = 0x1f20; *buf++ = 0x3b9; return 2;
+    case 0x1f99: *buf++ = 0x1f21; *buf++ = 0x3b9; return 2;
+    case 0x1f9a: *buf++ = 0x1f22; *buf++ = 0x3b9; return 2;
+    case 0x1f9b: *buf++ = 0x1f23; *buf++ = 0x3b9; return 2;
+    case 0x1f9c: *buf++ = 0x1f24; *buf++ = 0x3b9; return 2;
+    case 0x1f9d: *buf++ = 0x1f25; *buf++ = 0x3b9; return 2;
+    case 0x1f9e: *buf++ = 0x1f26; *buf++ = 0x3b9; return 2;
+    case 0x1f9f: *buf++ = 0x1f27; *buf++ = 0x3b9; return 2;
+    case 0x1fa0: *buf++ = 0x1f60; *buf++ = 0x3b9; return 2;
+    case 0x1fa1: *buf++ = 0x1f61; *buf++ = 0x3b9; return 2;
+    case 0x1fa2: *buf++ = 0x1f62; *buf++ = 0x3b9; return 2;
+    case 0x1fa3: *buf++ = 0x1f63; *buf++ = 0x3b9; return 2;
+    case 0x1fa4: *buf++ = 0x1f64; *buf++ = 0x3b9; return 2;
+    case 0x1fa5: *buf++ = 0x1f65; *buf++ = 0x3b9; return 2;
+    case 0x1fa6: *buf++ = 0x1f66; *buf++ = 0x3b9; return 2;
+    case 0x1fa7: *buf++ = 0x1f67; *buf++ = 0x3b9; return 2;
+    case 0x1fa8: *buf++ = 0x1f60; *buf++ = 0x3b9; return 2;
+    case 0x1fa9: *buf++ = 0x1f61; *buf++ = 0x3b9; return 2;
+    case 0x1faa: *buf++ = 0x1f62; *buf++ = 0x3b9; return 2;
+    case 0x1fab: *buf++ = 0x1f63; *buf++ = 0x3b9; return 2;
+    case 0x1fac: *buf++ = 0x1f64; *buf++ = 0x3b9; return 2;
+    case 0x1fad: *buf++ = 0x1f65; *buf++ = 0x3b9; return 2;
+    case 0x1fae: *buf++ = 0x1f66; *buf++ = 0x3b9; return 2;
+    case 0x1faf: *buf++ = 0x1f67; *buf++ = 0x3b9; return 2;
+    case 0x1fb2: *buf++ = 0x1f70; *buf++ = 0x3b9; return 2;
+    case 0x1fb3: *buf++ = 0x3b1; *buf++ = 0x3b9; return 2;
+    case 0x1fb4: *buf++ = 0x3ac; *buf++ = 0x3b9; return 2;
+    case 0x1fb6: *buf++ = 0x3b1; *buf++ = 0x342; return 2;
+    case 0x1fb7: *buf++ = 0x3b1; *buf++ = 0x342; *buf++ = 0x3b9; return 3;
+    case 0x1fbc: *buf++ = 0x3b1; *buf++ = 0x3b9; return 2;
+    case 0x1fc2: *buf++ = 0x1f74; *buf++ = 0x3b9; return 2;
+    case 0x1fc3: *buf++ = 0x3b7; *buf++ = 0x3b9; return 2;
+    case 0x1fc4: *buf++ = 0x3ae; *buf++ = 0x3b9; return 2;
+    case 0x1fc6: *buf++ = 0x3b7; *buf++ = 0x342; return 2;
+    case 0x1fc7: *buf++ = 0x3b7; *buf++ = 0x342; *buf++ = 0x3b9; return 3;
+    case 0x1fcc: *buf++ = 0x3b7; *buf++ = 0x3b9; return 2;
+    case 0x1fd2: *buf++ = 0x3b9; *buf++ = 0x308; *buf++ = 0x300; return 3;
+    case 0x1fd3: *buf++ = 0x3b9; *buf++ = 0x308; *buf++ = 0x301; return 3;
+    case 0x1fd6: *buf++ = 0x3b9; *buf++ = 0x342; return 2;
+    case 0x1fd7: *buf++ = 0x3b9; *buf++ = 0x308; *buf++ = 0x342; return 3;
+    case 0x1fe2: *buf++ = 0x3c5; *buf++ = 0x308; *buf++ = 0x300; return 3;
+    case 0x1fe3: *buf++ = 0x3c5; *buf++ = 0x308; *buf++ = 0x301; return 3;
+    case 0x1fe4: *buf++ = 0x3c1; *buf++ = 0x313; return 2;
+    case 0x1fe6: *buf++ = 0x3c5; *buf++ = 0x342; return 2;
+    case 0x1fe7: *buf++ = 0x3c5; *buf++ = 0x308; *buf++ = 0x342; return 3;
+    case 0x1ff2: *buf++ = 0x1f7c; *buf++ = 0x3b9; return 2;
+    case 0x1ff3: *buf++ = 0x3c9; *buf++ = 0x3b9; return 2;
+    case 0x1ff4: *buf++ = 0x3ce; *buf++ = 0x3b9; return 2;
+    case 0x1ff6: *buf++ = 0x3c9; *buf++ = 0x342; return 2;
+    case 0x1ff7: *buf++ = 0x3c9; *buf++ = 0x342; *buf++ = 0x3b9; return 3;
+    case 0x1ffc: *buf++ = 0x3c9; *buf++ = 0x3b9; return 2;
+    case 0xfb00: *buf++ = 0x66; *buf++ = 0x66; return 2;
+    case 0xfb01: *buf++ = 0x66; *buf++ = 0x69; return 2;
+    case 0xfb02: *buf++ = 0x66; *buf++ = 0x6c; return 2;
+    case 0xfb03: *buf++ = 0x66; *buf++ = 0x66; *buf++ = 0x69; return 3;
+    case 0xfb04: *buf++ = 0x66; *buf++ = 0x66; *buf++ = 0x6c; return 3;
+    case 0xfb05: *buf++ = 0x73; *buf++ = 0x74; return 2;
+    case 0xfb06: *buf++ = 0x73; *buf++ = 0x74; return 2;
+    case 0xfb13: *buf++ = 0x574; *buf++ = 0x576; return 2;
+    case 0xfb14: *buf++ = 0x574; *buf++ = 0x565; return 2;
+    case 0xfb15: *buf++ = 0x574; *buf++ = 0x56b; return 2;
+    case 0xfb16: *buf++ = 0x57e; *buf++ = 0x576; return 2;
+    case 0xfb17: *buf++ = 0x574; *buf++ = 0x56d; return 2;
+    default: ASSERT(false, ("Invalid UniChar", c));
+  }
+  return 0;
+}
+
 void MakeLowerCase(UniString & s)
 {
   UniString r;
-  for (UniString::iterator it = s.begin(); it != s.end(); ++it)
+  size_t const size = s.size();
+  for (size_t i = 0; i < size; ++i)
   {
-    UniChar const c = LowerUniChar(*it);
+    UniChar const c = LowerUniChar(s[i]);
     if (c != 0)
       r.push_back(c);
     else
     { // special case, replace this char with two or more chars for full case folding
-      switch (*it)
-      {
-        case 0xdf: r.push_back(0x73); r.push_back(0x73); break;
-        case 0x130: r.push_back(0x69); r.push_back(0x307); break;
-        case 0x149: r.push_back(0x2bc); r.push_back(0x6e); break;
-        case 0x1f0: r.push_back(0x6a); r.push_back(0x30c); break;
-        case 0x390: r.push_back(0x3b9); r.push_back(0x308); r.push_back(0x301); break;
-        case 0x3B0: r.push_back(0x3c5); r.push_back(0x308); r.push_back(0x301); break;
-        case 0x587: r.push_back(0x565); r.push_back(0x582); break;
-        case 0x1e96: r.push_back(0x68); r.push_back(0x331); break;
-        case 0x1e97: r.push_back(0x74); r.push_back(0x308); break;
-        case 0x1e98: r.push_back(0x77); r.push_back(0x30a); break;
-        case 0x1e99: r.push_back(0x79); r.push_back(0x30a); break;
-        case 0x1e9a: r.push_back(0x61); r.push_back(0x2be); break;
-        case 0x1e9e: r.push_back(0x73); r.push_back(0x73); break;
-        case 0x1f50: r.push_back(0x3c5); r.push_back(0x313); break;
-        case 0x1f52: r.push_back(0x3c5); r.push_back(0x313); r.push_back(0x300); break;
-        case 0x1f54: r.push_back(0x3c5); r.push_back(0x313); r.push_back(0x301); break;
-        case 0x1f56: r.push_back(0x3c5); r.push_back(0x313); r.push_back(0x342); break;
-        case 0x1f80: r.push_back(0x1f00); r.push_back(0x3b9); break;
-        case 0x1f81: r.push_back(0x1f01); r.push_back(0x3b9); break;
-        case 0x1f82: r.push_back(0x1f02); r.push_back(0x3b9); break;
-        case 0x1f83: r.push_back(0x1f03); r.push_back(0x3b9); break;
-        case 0x1f84: r.push_back(0x1f04); r.push_back(0x3b9); break;
-        case 0x1f85: r.push_back(0x1f05); r.push_back(0x3b9); break;
-        case 0x1f86: r.push_back(0x1f06); r.push_back(0x3b9); break;
-        case 0x1f87: r.push_back(0x1f07); r.push_back(0x3b9); break;
-        case 0x1f88: r.push_back(0x1f00); r.push_back(0x3b9); break;
-        case 0x1f89: r.push_back(0x1f01); r.push_back(0x3b9); break;
-        case 0x1f8a: r.push_back(0x1f02); r.push_back(0x3b9); break;
-        case 0x1f8b: r.push_back(0x1f03); r.push_back(0x3b9); break;
-        case 0x1f8c: r.push_back(0x1f04); r.push_back(0x3b9); break;
-        case 0x1f8d: r.push_back(0x1f05); r.push_back(0x3b9); break;
-        case 0x1f8e: r.push_back(0x1f06); r.push_back(0x3b9); break;
-        case 0x1f8f: r.push_back(0x1f07); r.push_back(0x3b9); break;
-        case 0x1f90: r.push_back(0x1f20); r.push_back(0x3b9); break;
-        case 0x1f91: r.push_back(0x1f21); r.push_back(0x3b9); break;
-        case 0x1f92: r.push_back(0x1f22); r.push_back(0x3b9); break;
-        case 0x1f93: r.push_back(0x1f23); r.push_back(0x3b9); break;
-        case 0x1f94: r.push_back(0x1f24); r.push_back(0x3b9); break;
-        case 0x1f95: r.push_back(0x1f25); r.push_back(0x3b9); break;
-        case 0x1f96: r.push_back(0x1f26); r.push_back(0x3b9); break;
-        case 0x1f97: r.push_back(0x1f27); r.push_back(0x3b9); break;
-        case 0x1f98: r.push_back(0x1f20); r.push_back(0x3b9); break;
-        case 0x1f99: r.push_back(0x1f21); r.push_back(0x3b9); break;
-        case 0x1f9a: r.push_back(0x1f22); r.push_back(0x3b9); break;
-        case 0x1f9b: r.push_back(0x1f23); r.push_back(0x3b9); break;
-        case 0x1f9c: r.push_back(0x1f24); r.push_back(0x3b9); break;
-        case 0x1f9d: r.push_back(0x1f25); r.push_back(0x3b9); break;
-        case 0x1f9e: r.push_back(0x1f26); r.push_back(0x3b9); break;
-        case 0x1f9f: r.push_back(0x1f27); r.push_back(0x3b9); break;
-        case 0x1fa0: r.push_back(0x1f60); r.push_back(0x3b9); break;
-        case 0x1fa1: r.push_back(0x1f61); r.push_back(0x3b9); break;
-        case 0x1fa2: r.push_back(0x1f62); r.push_back(0x3b9); break;
-        case 0x1fa3: r.push_back(0x1f63); r.push_back(0x3b9); break;
-        case 0x1fa4: r.push_back(0x1f64); r.push_back(0x3b9); break;
-        case 0x1fa5: r.push_back(0x1f65); r.push_back(0x3b9); break;
-        case 0x1fa6: r.push_back(0x1f66); r.push_back(0x3b9); break;
-        case 0x1fa7: r.push_back(0x1f67); r.push_back(0x3b9); break;
-        case 0x1fa8: r.push_back(0x1f60); r.push_back(0x3b9); break;
-        case 0x1fa9: r.push_back(0x1f61); r.push_back(0x3b9); break;
-        case 0x1faa: r.push_back(0x1f62); r.push_back(0x3b9); break;
-        case 0x1fab: r.push_back(0x1f63); r.push_back(0x3b9); break;
-        case 0x1fac: r.push_back(0x1f64); r.push_back(0x3b9); break;
-        case 0x1fad: r.push_back(0x1f65); r.push_back(0x3b9); break;
-        case 0x1fae: r.push_back(0x1f66); r.push_back(0x3b9); break;
-        case 0x1faf: r.push_back(0x1f67); r.push_back(0x3b9); break;
-        case 0x1fb2: r.push_back(0x1f70); r.push_back(0x3b9); break;
-        case 0x1fb3: r.push_back(0x3b1); r.push_back(0x3b9); break;
-        case 0x1fb4: r.push_back(0x3ac); r.push_back(0x3b9); break;
-        case 0x1fb6: r.push_back(0x3b1); r.push_back(0x342); break;
-        case 0x1fb7: r.push_back(0x3b1); r.push_back(0x342); r.push_back(0x3b9); break;
-        case 0x1fbc: r.push_back(0x3b1); r.push_back(0x3b9); break;
-        case 0x1fc2: r.push_back(0x1f74); r.push_back(0x3b9); break;
-        case 0x1fc3: r.push_back(0x3b7); r.push_back(0x3b9); break;
-        case 0x1fc4: r.push_back(0x3ae); r.push_back(0x3b9); break;
-        case 0x1fc6: r.push_back(0x3b7); r.push_back(0x342); break;
-        case 0x1fc7: r.push_back(0x3b7); r.push_back(0x342); r.push_back(0x3b9); break;
-        case 0x1fcc: r.push_back(0x3b7); r.push_back(0x3b9); break;
-        case 0x1fd2: r.push_back(0x3b9); r.push_back(0x308); r.push_back(0x300); break;
-        case 0x1fd3: r.push_back(0x3b9); r.push_back(0x308); r.push_back(0x301); break;
-        case 0x1fd6: r.push_back(0x3b9); r.push_back(0x342); break;
-        case 0x1fd7: r.push_back(0x3b9); r.push_back(0x308); r.push_back(0x342); break;
-        case 0x1fe2: r.push_back(0x3c5); r.push_back(0x308); r.push_back(0x300); break;
-        case 0x1fe3: r.push_back(0x3c5); r.push_back(0x308); r.push_back(0x301); break;
-        case 0x1fe4: r.push_back(0x3c1); r.push_back(0x313); break;
-        case 0x1fe6: r.push_back(0x3c5); r.push_back(0x342); break;
-        case 0x1fe7: r.push_back(0x3c5); r.push_back(0x308); r.push_back(0x342); break;
-        case 0x1ff2: r.push_back(0x1f7c); r.push_back(0x3b9); break;
-        case 0x1ff3: r.push_back(0x3c9); r.push_back(0x3b9); break;
-        case 0x1ff4: r.push_back(0x3ce); r.push_back(0x3b9); break;
-        case 0x1ff6: r.push_back(0x3c9); r.push_back(0x342); break;
-        case 0x1ff7: r.push_back(0x3c9); r.push_back(0x342); r.push_back(0x3b9); break;
-        case 0x1ffc: r.push_back(0x3c9); r.push_back(0x3b9); break;
-        case 0xfb00: r.push_back(0x66); r.push_back(0x66); break;
-        case 0xfb01: r.push_back(0x66); r.push_back(0x69); break;
-        case 0xfb02: r.push_back(0x66); r.push_back(0x6c); break;
-        case 0xfb03: r.push_back(0x66); r.push_back(0x66); r.push_back(0x69); break;
-        case 0xfb04: r.push_back(0x66); r.push_back(0x66); r.push_back(0x6c); break;
-        case 0xfb05: r.push_back(0x73); r.push_back(0x74); break;
-        case 0xfb06: r.push_back(0x73); r.push_back(0x74); break;
-        case 0xfb13: r.push_back(0x574); r.push_back(0x576); break;
-        case 0xfb14: r.push_back(0x574); r.push_back(0x565); break;
-        case 0xfb15: r.push_back(0x574); r.push_back(0x56b); break;
-        case 0xfb16: r.push_back(0x57e); r.push_back(0x576); break;
-        case 0xfb17: r.push_back(0x574); r.push_back(0x56d); break;
-        default: ASSERT(false, ("Invalid UniChar", c));
-      }
+      UniChar cc[3];
+      int const count = w(s[i], &cc[0]);
+      for (size_t j = 0; j < count; ++j)
+        r.push_back(cc[j]);
     }
   }
   s.swap(r);
