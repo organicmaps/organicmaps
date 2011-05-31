@@ -1,8 +1,10 @@
 #include "query.hpp"
 #include "delimiters.hpp"
 #include "keyword_matcher.hpp"
+#include "latlon_match.hpp"
 #include "string_match.hpp"
 #include "../indexer/feature_visibility.hpp"
+#include "../indexer/mercator.hpp"
 #include "../base/stl_add.hpp"
 
 namespace search
@@ -87,6 +89,18 @@ struct FeatureProcessor
 
 void Query::Search(function<void (Result const &)> const & f)
 {
+  // Lat lon match
+  {
+    double lat, lon;
+    if (search::MatchLatLon(m_queryText, lat, lon))
+    {
+      double const x = MercatorBounds::LonToX(lon);
+      double const y = MercatorBounds::LatToY(lat);
+      f(Result("(" + strings::to_string(lat) + ", " + strings::to_string(lon) + ")",
+               m2::RectD(x - 0.1, y - 0.1, x + 0.1, y + 0.1)));
+    }
+  }
+
   FeatureProcessor featureProcessor(*this);
   int const scale = scales::GetScaleLevel(m_rect) + 1;
   if (scale > scales::GetUpperWorldScale())
