@@ -73,6 +73,7 @@ for(project, DEPENDENCIES) {
 
 INCLUDEPATH += $$ROOT_DIR/3party/protobuf/src/
 
+# Windows-specific options for all projects
 win32 {
   DEFINES += _WIN32_WINNT=0x0501
   DEFINES += WINVER=0x0501
@@ -81,7 +82,6 @@ win32 {
   DEFINES += NTDDI_VERSION=0x05010000
 }
 
-# Windows-specific options for all projects
 win32-msvc* {
   QMAKE_CLEAN += *.user
   DEFINES += _SCL_SECURE_NO_WARNINGS _CRT_SECURE_NO_WARNINGS _CRT_NONSTDC_NO_WARNINGS NOMINMAX NO_MIN_MAX
@@ -91,7 +91,7 @@ win32-msvc* {
 
   QMAKE_CXXFLAGS_RELEASE -= /O2
   # don't set -GL - bug in msvc2008
-  QMAKE_CXXFLAGS_RELEASE += /Ox
+  QMAKE_CXXFLAGS_RELEASE += /Ox /GF
   # don't set /LTCG - bug in msvc2008
   QMAKE_LFLAGS_RELEASE += /MACHINE:X86 /OPT:REF
 
