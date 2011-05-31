@@ -82,189 +82,207 @@ public:
   ~MultiIndexAdapter()
   {
     Clean();
+    ASSERT_EQUAL(m_indexes.size(), 0, ());
   }
 
   template <typename F>
   void ForEachInIntervalAndScale(F const & f, int64_t beg, int64_t end, uint32_t scale,
                                  m2::RectD const & occlusionRect, Query & query) const
   {
-    size_t iIndex = 0;
-    m_pActiveForEachIndex = NULL;
-    m_eActiveForEachIndexAction = ACTIVE_FOR_EACH_INDEX_DO_NOTHING;
-
-    while (true)
+    for (size_t iIndex = 0; true;)
     {
+      IndexT * pIndex = NULL;
+      IndexProxy * pProxy = NULL;
       {
-        threads::MutexGuard mutexGuard(m_Mutex);
+        threads::MutexGuard mutexGuard(m_mutex);
         UNUSED_VALUE(mutexGuard);
 
-        // Do the operation that was delayed because ForEach was active.
-        if (m_pActiveForEachIndex)
+        if (iIndex >= m_indexes.size())
+          break;
+
+        if (m_indexes[iIndex]->m_action == IndexProxy::INDEX_REMOVE)
         {
-          switch (m_eActiveForEachIndexAction)
-          {
-          case ACTIVE_FOR_EACH_INDEX_DO_NOTHING:
-            break;
-          case ACTIVE_FOR_EACH_INDEX_CLOSE:
-            m_pActiveForEachIndex->Close();
-            break;
-          case ACTIVE_FOR_EACH_INDEX_REMOVE:
-            for (size_t i = 0; i < m_Indexes.size(); ++i)
-            {
-              if (m_Indexes[i] == m_pActiveForEachIndex)
-              {
-                delete m_Indexes[i];
-                m_Indexes.erase(m_Indexes.begin() + i);
-                break;
-              }
-            }
-            break;
-          }
+          UpdateIndex(iIndex);
         }
-
-        // Move iIndex to the next not visited index.
-        if (iIndex >= m_Indexes.size())
-          break;
-        if (m_pActiveForEachIndex == m_Indexes[iIndex])
+        else
+        {
+          pProxy = m_indexes[iIndex];
+          pIndex = pProxy->Lock(scale, occlusionRect);
           ++iIndex;
-        if (iIndex >= m_Indexes.size())
-          break;
-
-        m_pActiveForEachIndex = m_Indexes[iIndex];
-        m_eActiveForEachIndexAction = ACTIVE_FOR_EACH_INDEX_DO_NOTHING;
+        }
       }
 
-      if (IndexT * pIndex = m_pActiveForEachIndex->GetIndex(static_cast<int>(scale), occlusionRect))
+      if (pIndex) // pIndex may be NULL because it doesn't match scale or occlusionRect.
+      {
         pIndex->ForEachInIntervalAndScale(f, beg, end, scale, query);
-    }
+        {
+          threads::MutexGuard mutexGuard(m_mutex);
+          UNUSED_VALUE(mutexGuard);
 
-    m_pActiveForEachIndex = NULL;
-    m_eActiveForEachIndexAction = ACTIVE_FOR_EACH_INDEX_DO_NOTHING;
+          pProxy->Unlock();
+
+          if (pProxy->m_action == IndexProxy::INDEX_CLOSE)
+            pProxy->CloseIfUnlocked();
+        }
+      }
+    }
   }
 
   void Add(string const & path)
   {
-    threads::MutexGuard mutexGuard(m_Mutex);
+    threads::MutexGuard mutexGuard(m_mutex);
     UNUSED_VALUE(mutexGuard);
 
-    for (size_t i = 0; i < m_Indexes.size(); ++i)
-      if (m_Indexes[i]->IsMyData(path))
+    for (size_t i = 0; i < m_indexes.size(); ++i)
+      if (m_indexes[i]->IsMyData(path))
         return;
 
-    m_Indexes.push_back(new IndexProxy(path));
+    m_indexes.push_back(new IndexProxy(path));
+
+    UpdateIndexes();
   }
 
   void Remove(string const & path)
   {
-    threads::MutexGuard mutexGuard(m_Mutex);
+    threads::MutexGuard mutexGuard(m_mutex);
     UNUSED_VALUE(mutexGuard);
 
-    for (size_t i = 0; i < m_Indexes.size(); ++i)
+    for (size_t i = 0; i < m_indexes.size(); ++i)
     {
-      if (m_Indexes[i]->IsMyData(path))
-      {
-        if (m_Indexes[i] != m_pActiveForEachIndex)
-        {
-          delete m_Indexes[i];
-          m_Indexes.erase(m_Indexes.begin() + i);
-        }
-        else
-          m_eActiveForEachIndexAction = ACTIVE_FOR_EACH_INDEX_REMOVE;
-        break;
-      }
+      if (m_indexes[i]->IsMyData(path))
+        m_indexes[i]->m_action = IndexProxy::INDEX_REMOVE;
     }
+
+    UpdateIndexes();
   }
 
+  // Remove all indexes.
   void Clean()
   {
-    threads::MutexGuard mutexGuard(m_Mutex);
+    threads::MutexGuard mutexGuard(m_mutex);
     UNUSED_VALUE(mutexGuard);
 
-    for (size_t i = 0; i < m_Indexes.size(); ++i)
-    {
-      if (m_Indexes[i] != m_pActiveForEachIndex)
-        delete m_Indexes[i];
-    }
+    for (size_t i = 0; i < m_indexes.size(); ++i)
+      m_indexes[i]->m_action = IndexProxy::INDEX_REMOVE;
 
-    m_Indexes.clear();
-    if (m_pActiveForEachIndex != NULL)
-    {
-      IndexProxy * pIndex = m_pActiveForEachIndex;
-      m_Indexes.push_back(pIndex);
-    }
+    UpdateIndexes();
   }
 
+  // Close all indexes.
   void ClearCaches()
   {
-    threads::MutexGuard mutexGuard(m_Mutex);
+    threads::MutexGuard mutexGuard(m_mutex);
     UNUSED_VALUE(mutexGuard);
 
-    for (size_t i = 0; i < m_Indexes.size(); ++i)
-    {
-      if (m_Indexes[i] != m_pActiveForEachIndex)
-        m_Indexes[i]->Close();
-      else
-        if (m_eActiveForEachIndexAction != ACTIVE_FOR_EACH_INDEX_REMOVE)
-          m_eActiveForEachIndexAction = ACTIVE_FOR_EACH_INDEX_CLOSE;
-    }
+    for (size_t i = 0; i < m_indexes.size(); ++i)
+      m_indexes[i]->m_action = IndexProxy::INDEX_CLOSE;
+
+    UpdateIndexes();
   }
 
 private:
 
+  // Updates m_index[i]. Returns true, if index wasn't removed.
+  bool UpdateIndex(size_t i) const
+  {
+    if (!m_indexes[i]->IsUnlocked())
+      return true;
+
+    if (m_indexes[i]->m_action == IndexProxy::INDEX_REMOVE)
+    {
+      delete m_indexes[i];
+      m_indexes.erase(m_indexes.begin() + i);
+      return false;
+    }
+
+    if (m_indexes[i]->m_action == IndexProxy::INDEX_CLOSE)
+      m_indexes[i]->CloseIfUnlocked();
+
+    return true;
+  }
+
+  // Updates all indexes.
+  void UpdateIndexes() const
+  {
+    for (size_t i = 0; i < m_indexes.size(); )
+      if (UpdateIndex(i))
+        ++i;
+  }
+
   class IndexProxy
   {
   public:
-    IndexProxy(string const & path) : m_Path(path), m_pIndex(NULL)
+    explicit IndexProxy(string const & path)
+      : m_action(INDEX_DO_NOTHING), m_path(path), m_pIndex(NULL), m_lockCount(0),
+        m_queriesSkipped(0)
     {
       // TODO: If path is cellid-style-square, make rect from cellid and don't open the file.
       feature::DataHeader header;
       header.Load(FilesContainerR(path).GetReader(HEADER_FILE_TAG));
 
-      m_Rect = header.GetBounds();
+      m_rect = header.GetBounds();
       m_scaleRange = header.GetScaleRange();
     }
 
-    // TODO: GetIndex(), Open() and Close() make Index single-threaded!
-    IndexT * GetIndex(int scale, m2::RectD const & occlusionRect)
+    IndexT * Lock(uint32_t scale, m2::RectD const & occlusionRect)
     {
       if ((m_scaleRange.first <= scale && scale <= m_scaleRange.second) &&
-          m_Rect.IsIntersect(occlusionRect))
+          m_rect.IsIntersect(occlusionRect))
       {
         Open();
-        m_QueriesSkipped = 0;
+        m_queriesSkipped = 0;
+        ++m_lockCount;
         return m_pIndex;
       }
       else
       {
         if (m_pIndex)
         {
-          if (++m_QueriesSkipped > 8)
+          if (++m_queriesSkipped > 8)
             Close();
         }
         return NULL;
       }
     }
 
+    void Unlock()
+    {
+      ASSERT_GREATER(m_lockCount, 0, ());
+      ASSERT(m_pIndex, ());
+      if (m_lockCount > 0)
+        --m_lockCount;
+    }
+
+    bool IsUnlocked() const
+    {
+      return m_lockCount == 0;
+    }
+
     bool IsMyData(string const & path) const
     {
-      return m_Path == path;
+      return m_path == path;
+    }
+
+    void CloseIfUnlocked()
+    {
+      if (IsUnlocked())
+        Close();
     }
 
     ~IndexProxy()
     {
+      ASSERT_EQUAL(m_lockCount, 0, ());
       Close();
     }
 
-    void Close()
+    enum IndexAction
     {
-      if (m_pIndex)
-      {
-        // LOG(LINFO, (m_Path));
-        delete m_pIndex;
-        m_pIndex = NULL;
-        m_QueriesSkipped = 0;
-      }
-    }
+      INDEX_DO_NOTHING = 0,
+      INDEX_CLOSE = 1,
+      INDEX_REMOVE = 2
+    };
+
+    volatile IndexAction m_action;
 
   private:
 
@@ -275,30 +293,33 @@ private:
         // LOG(LINFO, (m_Path));
         uint32_t const logPageSize = 10;
         uint32_t const logPageCount = 12;
-        FilesContainerR container(m_Path, logPageSize, logPageCount);
+        FilesContainerR container(m_path, logPageSize, logPageCount);
         m_pIndex = new IndexT(container);
       }
     }
 
-    string m_Path; // TODO: Store prefix and suffix of path in MultiIndexAdapter.
-    m2::RectD m_Rect;
+    void Close()
+    {
+      if (m_pIndex)
+      {
+        // LOG(LINFO, (m_Path));
+        delete m_pIndex;
+        m_pIndex = NULL;
+        m_queriesSkipped = 0;
+      }
+    }
+
+    string m_path; // TODO: Store prefix and suffix of path in MultiIndexAdapter.
+    m2::RectD m_rect;
     pair<int, int> m_scaleRange;
 
-    IndexT * m_pIndex;
-    uint8_t m_QueriesSkipped;
+    IndexT * volatile m_pIndex;
+    uint16_t volatile m_lockCount;
+    uint8_t volatile m_queriesSkipped;
   };
 
-  enum ActiveForEachIndexAction
-  {
-    ACTIVE_FOR_EACH_INDEX_DO_NOTHING = 0,
-    ACTIVE_FOR_EACH_INDEX_CLOSE = 1,
-    ACTIVE_FOR_EACH_INDEX_REMOVE = 2
-  };
-
-  mutable vector<IndexProxy *> m_Indexes;
-  mutable IndexProxy * volatile m_pActiveForEachIndex;
-  mutable ActiveForEachIndexAction volatile m_eActiveForEachIndexAction;
-  mutable threads::Mutex m_Mutex;
+  mutable vector<IndexProxy *> m_indexes;
+  mutable threads::Mutex m_mutex;
 };
 
 template <class FeatureVectorT, class BaseT> class OffsetToFeatureAdapter : public BaseT
