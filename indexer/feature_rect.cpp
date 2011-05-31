@@ -2,10 +2,6 @@
 #include "classificator.hpp"
 #include "../geometry/point2d.hpp"
 #include "../base/base.hpp"
-#include "../base/buffer_vector.hpp"
-#include "../base/macros.hpp"
-#include "../base/stl_add.hpp"
-#include "../std/utility.hpp"
 #include "../std/vector.hpp"
 
 namespace
@@ -32,13 +28,11 @@ public:
       return limitRect;
 
     m2::PointD maxSizeMeters(100, 100);
-    typedef buffer_vector<uint32_t, 8> TypeVectorT;
-    TypeVectorT types;
-    BackInsertFunctor<TypeVectorT> backInserter(types);
-    feature.ForEachTypeRef(backInserter);
-    for (size_t i = 0; i < types.size(); ++i)
+    FeatureBase::GetTypesFn types;
+    feature.ForEachTypeRef(types);
+    for (size_t i = 0; i < types.m_size; ++i)
     {
-      m2::PointD const sizeMeters = GetSizeForType(types[i], feature);
+      m2::PointD const sizeMeters = GetSizeForType(types.m_types[i], feature);
       maxSizeMeters.x = max(maxSizeMeters.x, sizeMeters.x);
       maxSizeMeters.y = max(maxSizeMeters.y, sizeMeters.y);
     }
