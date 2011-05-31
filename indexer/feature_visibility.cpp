@@ -197,11 +197,9 @@ namespace
   class TextRulesChecker
   {
     int m_scale;
-    ClassifObject::FeatureGeoType m_ft;
 
   public:
-    TextRulesChecker(int scale, feature::EGeomType ft)
-      : m_scale(scale), m_ft(ClassifObject::FeatureGeoType(ft))
+    explicit TextRulesChecker(int scale) : m_scale(scale)
     {
     }
 
@@ -211,7 +209,9 @@ namespace
     bool operator() (ClassifObject const * p, bool & res)
     {
       vector<drule::Key> keys;
-      p->GetSuitable(m_scale, m_ft, keys);
+      p->GetSuitable(m_scale, ClassifObject::FEATURE_TYPE_POINT, keys);
+      p->GetSuitable(m_scale, ClassifObject::FEATURE_TYPE_LINE, keys);
+      p->GetSuitable(m_scale, ClassifObject::FEATURE_TYPE_AREA, keys);
 
       for (size_t i = 0; i < keys.size(); ++i)
         if (keys[i].m_type == drule::caption || keys[i].m_type == drule::pathtext)
@@ -277,12 +277,11 @@ int MinDrawableScaleForText(FeatureBase const & f)
   f.ForEachTypeRef(types);
 
   Classificator const & c = classif();
-  feature::EGeomType const geomType = f.GetFeatureType();
 
   int const upBound = scales::GetUpperScale();
   for (int level = 0; level <= upBound; ++level)
   {
-    TextRulesChecker doCheck(level, geomType);
+    TextRulesChecker doCheck(level);
     for (int i = 0; i < types.m_size; ++i)
       if (c.ProcessObjects(types.m_types[i], doCheck))
         return level;
