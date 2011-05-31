@@ -2,6 +2,7 @@
 #include "delimiters.hpp"
 #include "keyword_matcher.hpp"
 #include "string_match.hpp"
+#include "../indexer/feature_visibility.hpp"
 #include "../base/stl_add.hpp"
 
 namespace search
@@ -73,7 +74,12 @@ struct FeatureProcessor
       uint32_t const matchScore = matcher.GetMatchScore();
       if (matchScore <= maxKeywordMatchScore)
       {
-        m_query.AddResult(IntermediateResult(feature, matcher.GetBestPrefixMatch(), matchScore));
+        int const minVisibleScale = feature::MinDrawableScaleForText(feature);
+        // if (minVisibleScale < 0)
+        //  return;
+
+        m_query.AddResult(IntermediateResult(feature, matcher.GetBestPrefixMatch(),
+                                             matchScore, minVisibleScale));
       }
     }
   }

@@ -10,7 +10,10 @@ namespace impl
 class IntermediateResult
 {
 public:
-  IntermediateResult(FeatureType const & feature, string const & displayName, int matchPenalty);
+  IntermediateResult(FeatureType const & feature,
+                     string const & displayName,
+                     int matchPenalty,
+                     int minVisibleScale);
 
   bool operator < (IntermediateResult const & o) const;
 
@@ -20,7 +23,7 @@ private:
   string m_str;
   m2::RectD m_rect;
   int m_matchPenalty;
-  int m_minDrawZoomLevel;
+  int m_minVisibleScale;
 };
 
 }  // namespace search::impl
