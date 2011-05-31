@@ -101,14 +101,14 @@ namespace
   class DrawRuleGetter
   {
     int m_scale;
-    ClassifObject::feature_t m_ft;
+    ClassifObject::FeatureGeoType m_ft;
     vector<drule::Key> & m_keys;
     string & m_name;
 
   public:
     DrawRuleGetter(int scale, feature::EGeomType ft,
                   vector<drule::Key> & keys, string & name)
-      : m_scale(scale), m_ft(ClassifObject::feature_t(ft)), m_keys(keys), m_name(name)
+      : m_scale(scale), m_ft(ClassifObject::FeatureGeoType(ft)), m_keys(keys), m_name(name)
     {
     }
 
@@ -172,11 +172,11 @@ namespace
 
   class IsDrawableLikeChecker
   {
-    ClassifObject::feature_t m_type;
+    ClassifObject::FeatureGeoType m_type;
 
   public:
     IsDrawableLikeChecker(FeatureGeoType type)
-      : m_type(ClassifObject::feature_t(type))
+      : m_type(ClassifObject::FeatureGeoType(type))
     {
     }
 
@@ -197,11 +197,11 @@ namespace
   class TextRulesChecker
   {
     int m_scale;
-    ClassifObject::feature_t m_ft;
+    ClassifObject::FeatureGeoType m_ft;
 
   public:
     TextRulesChecker(int scale, feature::EGeomType ft)
-      : m_scale(scale), m_ft(ClassifObject::feature_t(ft))
+      : m_scale(scale), m_ft(ClassifObject::FeatureGeoType(ft))
     {
     }
 

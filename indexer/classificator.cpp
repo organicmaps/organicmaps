@@ -261,7 +261,7 @@ namespace ftype
   }
 }
 
-namespace 
+namespace
 {
   class suitable_getter
   {
@@ -373,9 +373,9 @@ namespace
   };
 }
 
-void ClassifObject::GetSuitable(int scale, feature_t ft, vector<drule::Key> & keys) const
+void ClassifObject::GetSuitable(int scale, FeatureGeoType ft, vector<drule::Key> & keys) const
 {
-  ASSERT ( ft <= farea, () );
+  ASSERT ( ft <= FEATURE_TYPE_AREA, () );
 
   // 2. Check visibility criterion for scale first.
   if (!m_visibility[scale])
@@ -397,13 +397,13 @@ bool ClassifObject::IsDrawableAny() const
   return (m_visibility != visible_mask_t() && !m_drawRule.empty());
 }
 
-bool ClassifObject::IsDrawableLike(feature_t ft) const
+bool ClassifObject::IsDrawableLike(FeatureGeoType ft) const
 {
   // check the very common criterion first
   if (!IsDrawableAny())
     return false;
 
-  ASSERT ( ft <= farea, () );
+  ASSERT ( ft <= FEATURE_TYPE_AREA, () );
 
   static const int visible[3][drule::count_of_rules] = {
     {0, 0, 1, 1, 1, 0, 0},   // fpoint

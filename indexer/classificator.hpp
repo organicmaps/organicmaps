@@ -80,12 +80,12 @@ public:
 
   void ConcatChildNames(string & s) const;
 
-  enum feature_t { fpoint = 0, fline, farea };
-  void GetSuitable(int scale, feature_t ft, vector<drule::Key> & keys) const;
+  enum FeatureGeoType { FEATURE_TYPE_POINT = 0, FEATURE_TYPE_LINE, FEATURE_TYPE_AREA };
+  void GetSuitable(int scale, FeatureGeoType ft, vector<drule::Key> & keys) const;
 
   bool IsDrawable(int scale) const;
   bool IsDrawableAny() const;
-  bool IsDrawableLike(feature_t ft) const;
+  bool IsDrawableLike(FeatureGeoType ft) const;
 
   template <class ToDo>
   void ForEachObject(ToDo toDo)
