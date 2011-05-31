@@ -353,8 +353,9 @@ void MainWindow::OnSearchTextChanged(QString const & str)
   QTableWidget * table = static_cast<QTableWidget *>(m_Docks[3]->widget());
   table->clear();
   table->setRowCount(0);
-  if (!str.isEmpty())
-    m_pDrawWidget->Search(str.toUtf8().constData(),
+  QString const normalized = str.normalized(QString::NormalizationForm_KC);
+  if (!normalized.isEmpty())
+    m_pDrawWidget->Search(normalized.toUtf8().constData(),
                         bind(&MainWindow::OnSearchResult, this, _1));
 }
 
