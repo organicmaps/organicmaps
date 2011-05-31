@@ -82,13 +82,14 @@ namespace yg
     return m_limitRect;
   }
 
-  void TextLayoutElement::draw(Screen *screen)
+  void TextLayoutElement::draw(Screen * /*screen*/)
   {
-/*    yg::FontDesc desc = m_fontDesc;
+    /*
+    yg::FontDesc desc = m_fontDesc;
     if (desc.m_isMasked)
     {
       desc.m_isMasked = false;
     }
- */
+    */
   }
 }

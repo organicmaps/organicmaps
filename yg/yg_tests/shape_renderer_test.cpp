@@ -37,10 +37,10 @@ UNIT_TEST(ApproximateArc_Crash)
   TestPoints(center, r, points);
 }
 
-UNIT_TEST(ApproximateArc_TooManyPoints)
-{
-  m2::PointD const center(10, 10);
-  double const startA = 10;
-  double const endA = 0.1;
-  double const r = 10;
-}
+//UNIT_TEST(ApproximateArc_TooManyPoints)
+//{
+//  m2::PointD const center(10, 10);
+//  double const startA = 10;
+//  double const endA = 0.1;
+//  double const r = 10;
+//}

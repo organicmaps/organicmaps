@@ -27,8 +27,10 @@ namespace yg
   {
     double m_angle;
     PathPoint m_pp;
-    PivotPoint(double angle = 0, PathPoint const & pp = PathPoint())
-    {}
+
+    /// @todo Need to initialize or not ???
+    //PivotPoint(double angle = 0, PathPoint const & pp = PathPoint())
+    //{}
   };
 
   class pts_array
@@ -225,7 +227,7 @@ namespace yg
     // calculate base line offset
     double blOffset = 2 - fontDesc.m_size / 2;
     // on-path kerning should be done for baseline-centered glyphs
-    double kernOffset = blOffset;
+    //double kernOffset = blOffset;
 
     if (pos & yg::EPosUnder)
       blOffset = 2 - fontDesc.m_size;

@@ -102,7 +102,7 @@ namespace yg
         m_symbolsMap[styleID].Add(obj, r);
     }
 
-    void SymbolRenderer::drawCircle(m2::PointD const & pt, uint32_t styleID, EPosition pos, int depth)
+    void SymbolRenderer::drawCircle(m2::PointD const & pt, uint32_t styleID, EPosition pos, int /*depth*/)
     {
       drawSymbolImpl(pt, styleID, pos, yg::maxDepth);
     }
