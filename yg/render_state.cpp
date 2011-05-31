@@ -51,22 +51,20 @@ namespace yg
 
         double const log2 = log(2.0);
 
-        unsigned oldTextureWidth = m_textureWidth;
-        unsigned oldTextureHeight = m_textureHeight;
+        //unsigned oldTextureWidth = m_textureWidth;
+        //unsigned oldTextureHeight = m_textureHeight;
 
         m_textureWidth = pow(2, ceil(log(double(w)) / log2));
-        m_textureHeight =  pow(2, ceil(log(double(h)) / log2));
+        m_textureHeight = pow(2, ceil(log(double(h)) / log2));
 
-/*
-        bool hasChangedTextureSize;
-        if ((oldTextureWidth != m_textureWidth) || (oldTextureHeight != m_textureHeight))
-          hasChangedTextureSize = true;
-        else
-          hasChangedTextureSize = false;
+        //bool hasChangedTextureSize;
+        //if ((oldTextureWidth != m_textureWidth) || (oldTextureHeight != m_textureHeight))
+        //  hasChangedTextureSize = true;
+        //else
+        //  hasChangedTextureSize = false;
 
-        if (hasChangedTextureSize)
-          LOG(LINFO, ("TextureSize: ", m_textureWidth, m_textureHeight));
-*/
+        //if (hasChangedTextureSize)
+        //  LOG(LINFO, ("TextureSize: ", m_textureWidth, m_textureHeight));
       }
     }
 
