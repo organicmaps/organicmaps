@@ -1,11 +1,11 @@
-#include "SRC_FIRST.hpp"
+#include "base.hpp"
 #include "assert.hpp"
+#include "exception.hpp"
 
 #include "../std/target_os.hpp"
 #include "../std/iostream.hpp"
 
 #include <cassert>
-#include <exception>
 
 #ifdef OMIM_OS_BADA
   #include <FBaseSys.h>
@@ -26,7 +26,7 @@ namespace my
 #ifdef DEBUG
     assert(false);
 #else
-    throw std::exception(msg.c_str());
+    MYTHROW(RootException, (msg));
 #endif
 
 #endif
