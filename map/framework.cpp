@@ -809,34 +809,13 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   void FrameWork<TModel>::ShowRect(m2::RectD const & rect)
   {
     m2::RectD r(rect);
-
-    m2::PointD center = rect.Center();
-
-    double minWidthX = MercatorBounds::ConvertMetresToX(center.x, m_metresMinWidth);
-    double minWidthY = MercatorBounds::ConvertMetresToY(center.y, m_metresMinWidth);
-
-    double k = m_navigator.Screen().PixelRect().SizeX() * 1.0 / m_minRulerWidth;
-
-    if ((r.SizeX() == 0) || (r.SizeY() == 0))
+    if (my::AlmostEqual(rect.minX(), rect.maxX())
+      || my::AlmostEqual(rect.minY(), rect.maxY()))
     {
-      r = m2::RectD(center.x - MercatorBounds::ConvertMetresToX(center.x, m_metresMinWidth / 2),
-                    center.y - MercatorBounds::ConvertMetresToY(center.y, m_metresMinWidth / 2),
-                    center.x + MercatorBounds::ConvertMetresToX(center.x, m_metresMinWidth / 2),
-                    center.y + MercatorBounds::ConvertMetresToY(center.y, m_metresMinWidth / 2));
-
-      r.Scale(k);
+      double const minWidthX = MercatorBounds::ConvertMetresToX(rect.minX(), 6 * m_metresMinWidth);
+      double const minWidthY = MercatorBounds::ConvertMetresToY(rect.minY(), 6 * m_metresMinWidth);
+      r.Inflate(minWidthX, minWidthY);
     }
-    else
-    {
-      if (k * r.SizeX() < minWidthX)
-        k *= minWidthX / (k * r.SizeX());
-
-      if (k * r.SizeY() < minWidthY)
-        k *= minWidthY / (k * r.SizeY());
-
-      r.Scale(k);
-    }
-
     m_navigator.SetFromRect(r);
     UpdateNow();
   }

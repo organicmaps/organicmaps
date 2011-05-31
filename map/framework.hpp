@@ -121,8 +121,8 @@ class FrameWork
 
   /// is AddRedrawCommand enabled?
   bool m_isRedrawEnabled;
-  double m_metresMinWidth;
-  int m_minRulerWidth;
+  double const m_metresMinWidth;
+  int const m_minRulerWidth;
 
 
   enum TGpsCenteringMode
