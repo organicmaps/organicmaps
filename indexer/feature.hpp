@@ -376,8 +376,8 @@ public:
   /// For test cases only.
   string DebugString(int scale) const;
 
-  uint8_t GetRank() const;
   uint32_t GetPopulation() const;
+  double GetPopulationDrawRank() const;
 
   /// @name Statistic functions.
   //@{

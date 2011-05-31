@@ -16,12 +16,10 @@ namespace yg
                        m_isMasked(isMasked), m_maskColor(maskColor)
   {}
 
-  void FontDesc::SetRank(uint8_t rank)
+  void FontDesc::SetRank(double rank)
   {
     if (rank > 0)
-      m_size += static_cast<int>(min(4.0E6, std::pow(1.1, double(rank))) / 2.0E6 * m_size);
-    //m_size += static_cast<int>((double(rank) / 200.0) * m_size);
-    //m_size += (rank / 20);
+      m_size += static_cast<int>(rank * m_size);
   }
 
   bool FontDesc::operator ==(FontDesc const & src) const

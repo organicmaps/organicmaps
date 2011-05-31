@@ -148,6 +148,10 @@ bool FeatureBuilder1::PreSerialize()
     return false;
   }
 
+  // Clear name for features with invisible texts.
+  if (!m_Params.name.IsEmpty() && feature::MinDrawableScaleForText(GetFeatureBase()) == -1)
+    m_Params.name.Clear();
+
   return true;
 }
 
@@ -984,22 +988,25 @@ string FeatureType::GetPreferredDrawableName(char const * priorities) const
   return res;
 }
 
-uint8_t FeatureType::GetRank() const
+uint32_t FeatureType::GetPopulation() const
 {
   if (!m_bCommonParsed)
     ParseCommon();
 
-  /// @todo Move this check to generator (don't store rank for countries).
-  if (m_Params.rank > 0 && feature::IsCountry(m_Types[0]))
-    return 0;
+  if (m_Params.rank == 0)
+    return 1;
 
-  return m_Params.rank;
+  return static_cast<uint32_t>(min(double(uint32_t(-1)), pow(1.1, m_Params.rank)));
 }
 
-uint32_t FeatureType::GetPopulation() const
+double FeatureType::GetPopulationDrawRank() const
 {
-  uint8_t const rank = GetRank();
-  if (rank == 0)
-    return 1;
-  return static_cast<uint32_t>(min(double(uint32_t(-1)), pow(1.1, rank)));
+  uint32_t const n = GetPopulation();
+  if (n == 1) return 0.0;
+
+  // Do not return rank for countries.
+  if (feature::IsCountry(m_Types, m_Types + GetTypesCount()))
+    return 0.5;
+  else
+    return min(3.0E6, static_cast<double>(n)) / 3.0E6;
 }

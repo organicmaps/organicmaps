@@ -32,14 +32,14 @@ namespace di
   class DrawInfo
   {
   public:
-    DrawInfo(string const & name, uint8_t rank) : m_name(name), m_rank(rank) {}
+    DrawInfo(string const & name, double rank) : m_name(name), m_rank(rank) {}
 
     list<di::PathInfo> m_pathes;
     list<di::AreaInfo> m_areas;
     m2::PointD m_point;
 
     string m_name;
-    uint8_t m_rank;
+    double m_rank;
   };
 
   struct DrawRule

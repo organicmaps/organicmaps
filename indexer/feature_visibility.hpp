@@ -23,5 +23,16 @@ namespace feature
   int GetDrawRule(FeatureBase const & f, int level, vector<drule::Key> & keys, string & names);
 
   bool IsHighway(vector<uint32_t> const & types);
+
   bool IsCountry(uint32_t type);
+  template <class IterT>
+  inline bool IsCountry(IterT beg, IterT end)
+  {
+    while (beg != end)
+    {
+      if (IsCountry(*beg++))
+        return true;
+    }
+    return false;
+  }
 }
