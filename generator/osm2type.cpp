@@ -570,11 +570,8 @@ namespace ftype {
           m_params.ref = v;
 
         // get house number
-        if ((m_params.house.IsEmpty() && k == "addr:housenumber") ||
-            (k == "addr:housename"))
-        {
-          m_params.house.Set(v);
-        }
+        if (k == "addr:housenumber") m_params.AddHouseNumber(v);
+        if (k == "addr:housename") m_params.AddHouseName(v);
 
         // get population rank
         if (k == "population")

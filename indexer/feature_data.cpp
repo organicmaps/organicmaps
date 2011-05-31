@@ -28,6 +28,16 @@ string FeatureParamsBase::DebugString() const
           (!ref.empty() ? " Ref:" + ref : "") + " ");
 }
 
+void FeatureParamsBase::AddHouseName(string const & s)
+{
+  house.Set(house.IsEmpty() ? s : house.Get() + " \"" + s + "\"");
+}
+
+void FeatureParamsBase::AddHouseNumber(string const & s)
+{
+  house.Set(house.IsEmpty() ? s : s + " \"" + house.Get() + "\"");
+}
+
 feature::EGeomType FeatureParams::GetGeomType() const
 {
   // Geometry types can be combined.

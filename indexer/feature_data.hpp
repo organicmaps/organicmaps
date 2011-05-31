@@ -54,6 +54,9 @@ struct FeatureParamsBase
 
   string DebugString() const;
 
+  void AddHouseName(string const & s);
+  void AddHouseNumber(string const & s);
+
   template <class TSink>
   void Write(TSink & sink, uint8_t header, feature::EGeomType type) const
   {
