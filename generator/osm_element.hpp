@@ -448,7 +448,7 @@ protected:
 
     if (p->name == "node")
     {
-      if (!feature::IsDrawableLike(fValue.m_Types, feature::fpoint))
+      if (!feature::IsDrawableLike(fValue.m_Types, feature::FEATURE_TYPE_POINT))
         return;
 
       m2::PointD pt;
@@ -464,8 +464,8 @@ protected:
 //        __debugbreak();
 //#endif
 
-      bool const isLine = feature::IsDrawableLike(fValue.m_Types, feature::fline);
-      bool const isArea = feature::IsDrawableLike(fValue.m_Types, feature::farea);
+      bool const isLine = feature::IsDrawableLike(fValue.m_Types, feature::FEATURE_TYPE_LINE);
+      bool const isArea = feature::IsDrawableLike(fValue.m_Types, feature::FEATURE_TYPE_AREA);
 
       if (!isLine && !isArea)
         return;
@@ -506,7 +506,7 @@ protected:
 //        __debugbreak();
 //#endif
 
-      if (!feature::IsDrawableLike(fValue.m_Types, feature::farea))
+      if (!feature::IsDrawableLike(fValue.m_Types, feature::FEATURE_TYPE_AREA))
         return;
 
       // check, if this is our processable relation

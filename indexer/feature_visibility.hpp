@@ -11,10 +11,10 @@ class FeatureBase;
 
 namespace feature
 {
-  enum feature_geo_t { fpoint = 0, fline, farea };
+  enum FeatureGeoType { FEATURE_TYPE_POINT = 0, FEATURE_TYPE_LINE, FEATURE_TYPE_AREA };
 
   bool IsDrawableAny(uint32_t type);
-  bool IsDrawableLike(vector<uint32_t> const & type, feature_geo_t ft);
+  bool IsDrawableLike(vector<uint32_t> const & type, FeatureGeoType ft);
   bool IsDrawableForIndex(FeatureBase const & f, int level);
 
   int MinDrawableScaleForFeature(FeatureBase const & f);

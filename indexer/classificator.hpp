@@ -233,7 +233,7 @@ public:
 public:
   /// @name Used only in feature_visibility.cpp, not for public use.
   //@{
-  template <class ToDo> typename ToDo::result_type
+  template <class ToDo> typename ToDo::ResultType
   ProcessObjects(uint32_t type, ToDo & toDo) const;
 
   ClassifObject const * GetObject(uint32_t type) const;

@@ -13,7 +13,7 @@
 
 namespace
 {
-  bool need_process_parent(ClassifObject const * p)
+  bool NeedProcessParent(ClassifObject const * p)
   {
     string const & n = p->GetName();
     // same as is_mark_key (@see osm2type.cpp)
@@ -21,11 +21,11 @@ namespace
   }
 }
 
-template <class ToDo> typename ToDo::result_type
+template <class ToDo> typename ToDo::ResultType
 Classificator::ProcessObjects(uint32_t type, ToDo & toDo) const
 {
-  typedef typename ToDo::result_type res_t;
-  res_t res = res_t(); // default initialization
+  typedef typename ToDo::ResultType ResultType;
+  ResultType res = ResultType(); // default initialization
 
   ClassifObject const * p = &m_root;
   uint8_t i = 0;
@@ -53,7 +53,7 @@ Classificator::ProcessObjects(uint32_t type, ToDo & toDo) const
       if (toDo(path[i-1], res)) break;
 
       // no need to process parents
-      if (!need_process_parent(path[i-1])) break;
+      if (!NeedProcessParent(path[i-1])) break;
     }
     return res;
   }
@@ -98,7 +98,7 @@ namespace feature
 
 namespace
 {
-  class get_draw_rule
+  class DrawRuleGetter
   {
     int m_scale;
     ClassifObject::feature_t m_ft;
@@ -106,13 +106,13 @@ namespace
     string & m_name;
 
   public:
-    get_draw_rule(int scale, feature::EGeomType ft,
+    DrawRuleGetter(int scale, feature::EGeomType ft,
                   vector<drule::Key> & keys, string & name)
       : m_scale(scale), m_ft(ClassifObject::feature_t(ft)), m_keys(keys), m_name(name)
     {
     }
 
-    typedef bool result_type;
+    typedef bool ResultType;
 
     void operator() (ClassifObject const * p)
     {
@@ -140,7 +140,7 @@ int GetDrawRule(FeatureBase const & f, int level, vector<drule::Key> & keys, str
   ASSERT ( keys.empty(), () );
   Classificator const & c = classif();
 
-  get_draw_rule doRules(level, geoType, keys, names);
+  DrawRuleGetter doRules(level, geoType, keys, names);
   for (int i = 0; i < types.m_size; ++i)
     (void)c.ProcessObjects(types.m_types[i], doRules);
 
@@ -149,14 +149,14 @@ int GetDrawRule(FeatureBase const & f, int level, vector<drule::Key> & keys, str
 
 namespace
 {
-  class check_is_drawable
+  class IsDrawableChecker
   {
     int m_scale;
 
   public:
-    check_is_drawable(int scale) : m_scale(scale) {}
+    IsDrawableChecker(int scale) : m_scale(scale) {}
 
-    typedef bool result_type;
+    typedef bool ResultType;
 
     void operator() (ClassifObject const *) {}
     bool operator() (ClassifObject const * p, bool & res)
@@ -170,17 +170,17 @@ namespace
     }
   };
 
-  class check_is_drawable_like
+  class IsDrawableLikeChecker
   {
     ClassifObject::feature_t m_type;
 
   public:
-    check_is_drawable_like(feature_geo_t type)
+    IsDrawableLikeChecker(FeatureGeoType type)
       : m_type(ClassifObject::feature_t(type))
     {
     }
 
-    typedef bool result_type;
+    typedef bool ResultType;
 
     void operator() (ClassifObject const *) {}
     bool operator() (ClassifObject const * p, bool & res)
@@ -194,18 +194,18 @@ namespace
     }
   };
 
-  class check_text_rules
+  class TextRulesChecker
   {
     int m_scale;
     ClassifObject::feature_t m_ft;
 
   public:
-    check_text_rules(int scale, feature::EGeomType ft)
+    TextRulesChecker(int scale, feature::EGeomType ft)
       : m_scale(scale), m_ft(ClassifObject::feature_t(ft))
     {
     }
 
-    typedef bool result_type;
+    typedef bool ResultType;
 
     void operator() (ClassifObject const *) {}
     bool operator() (ClassifObject const * p, bool & res)
@@ -230,11 +230,11 @@ bool IsDrawableAny(uint32_t type)
   return classif().GetObject(type)->IsDrawableAny();
 }
 
-bool IsDrawableLike(vector<uint32_t> const & types, feature_geo_t ft)
+bool IsDrawableLike(vector<uint32_t> const & types, FeatureGeoType ft)
 {
   Classificator const & c = classif();
 
-  check_is_drawable_like doCheck(ft);
+  IsDrawableLikeChecker doCheck(ft);
   for (size_t i = 0; i < types.size(); ++i)
     if (c.ProcessObjects(types[i], doCheck))
       return true;
@@ -252,7 +252,7 @@ bool IsDrawableForIndex(FeatureBase const & f, int level)
 
   Classificator const & c = classif();
 
-  check_is_drawable doCheck(level);
+  IsDrawableChecker doCheck(level);
   for (int i = 0; i < types.m_size; ++i)
     if (c.ProcessObjects(types.m_types[i], doCheck))
       return true;
@@ -282,7 +282,7 @@ int MinDrawableScaleForText(FeatureBase const & f)
   int const upBound = scales::GetUpperScale();
   for (int level = 0; level <= upBound; ++level)
   {
-    check_text_rules doCheck(level, geomType);
+    TextRulesChecker doCheck(level, geomType);
     for (int i = 0; i < types.m_size; ++i)
       if (c.ProcessObjects(types.m_types[i], doCheck))
         return level;
