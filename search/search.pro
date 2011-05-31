@@ -17,6 +17,7 @@ HEADERS += \
   query.hpp \
   result.hpp \
   string_match.hpp \
+    latlon_match.hpp
 
 SOURCES += \
   delimiters.cpp \
@@ -26,3 +27,4 @@ SOURCES += \
   query.cpp \
   result.cpp \
   string_match.cpp \
+    latlon_match.cpp
