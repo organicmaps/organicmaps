@@ -88,9 +88,10 @@ public:
 /// Feature types corrector.
 class FeatureTypesProcessor
 {
+  set<uint32_t> m_dontNormilize;
   map<uint32_t, uint32_t> m_mapping;
 
-  static uint32_t GetType(char const * arr[2]);
+  static uint32_t GetType(char const * arr[], size_t n);
 
   void CorrectType(uint32_t & t) const;
 
@@ -103,8 +104,11 @@ class FeatureTypesProcessor
   };
 
 public:
-  /// For example: highway-motorway_link => highway-motorway
+  /// For example: highway-motorway_link => highway-motorway.
   void SetMappingTypes(char const * arr1[2], char const * arr2[2]);
+
+  /// Leave original types, for example: boundary-administrative-2.
+  void SetDontNormilizeType(char const * arr[3]);
 
   MergedFeatureBuilder1 * operator() (FeatureBuilder1 const & fb);
 };

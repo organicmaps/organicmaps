@@ -81,6 +81,13 @@ public:
 
       m_typesCorrector.SetMappingTypes(arr1, arr2);
     }
+
+    char const * arrDontNormilize[][3] = {
+      { "boundary", "administrative", "2" }
+    };
+
+    for (size_t i = 0; i < ARRAY_SIZE(arrDontNormilize); ++i)
+      m_typesCorrector.SetDontNormilizeType(arrDontNormilize[i]);
   }
 
   ~WorldMapGenerator()

@@ -245,16 +245,17 @@ void FeatureMergeProcessor::DoMerge(FeatureEmitterIFace & emitter)
     emitter(m_last);
 }
 
-
-uint32_t FeatureTypesProcessor::GetType(char const * arr[2])
+uint32_t FeatureTypesProcessor::GetType(char const * arr[], size_t n)
 {
-  uint32_t const type = classif().GetTypeByPath(vector<string>(arr, arr + 2));
+  uint32_t const type = classif().GetTypeByPath(vector<string>(arr, arr + n));
   CHECK_NOT_EQUAL(type, ftype::GetEmptyValue(), ());
   return type;
 }
 
 void FeatureTypesProcessor::CorrectType(uint32_t & t) const
 {
+  if (m_dontNormilize.count(t) > 0) return;
+
   // 1. get normalized type:
   // highway-motorway-bridge => highway-motorway
   uint32_t normal = ftype::GetEmptyValue();
@@ -273,7 +274,12 @@ void FeatureTypesProcessor::CorrectType(uint32_t & t) const
 
 void FeatureTypesProcessor::SetMappingTypes(char const * arr1[2], char const * arr2[2])
 {
-  m_mapping[GetType(arr1)] = GetType(arr2);
+  m_mapping[GetType(arr1, 2)] = GetType(arr2, 2);
+}
+
+void FeatureTypesProcessor::SetDontNormilizeType(char const * arr[3])
+{
+  m_dontNormilize.insert(GetType(arr, 3));
 }
 
 MergedFeatureBuilder1 * FeatureTypesProcessor::operator() (FeatureBuilder1 const & fb)
