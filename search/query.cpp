@@ -88,8 +88,10 @@ struct FeatureProcessor
 void Query::Search(function<void (Result const &)> const & f)
 {
   FeatureProcessor featureProcessor(*this);
-  m_pIndex->ForEachInRect(featureProcessor, m_rect,
-                          min(scales::GetUpperScale(), scales::GetScaleLevel(m_rect) + 1));
+  int const scale = scales::GetScaleLevel(m_rect) + 1;
+  if (scale > scales::GetUpperWorldScale())
+    m_pIndex->ForEachInRect(featureProcessor, m_rect, scales::GetUpperWorldScale());
+  m_pIndex->ForEachInRect(featureProcessor, m_rect, min(scales::GetUpperScale(), scale));
 
   vector<Result> results;
   results.reserve(m_results.size());
