@@ -19,13 +19,13 @@ namespace yg
     shared_ptr<ResourceManager> const & rm,
     m2::PointD const & pivot,
     yg::EPosition pos)
-    : m_text(strings::FromUtf8(text)),
+    : LayoutElement(0, pivot, pos),
+      m_text(strings::FromUtf8(text)),
       m_depth(depth),
       m_fontDesc(fontDesc),
       m_skin(skin),
       m_rm(rm),
-      m_log2vis(log2vis),
-      LayoutElement(0, pivot, pos)
+      m_log2vis(log2vis)
   {
     for (size_t i = 0; i < m_text.size(); ++i)
     {
