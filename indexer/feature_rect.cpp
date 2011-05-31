@@ -27,7 +27,7 @@ public:
 
   m2::RectD GetViewport(FeatureType const & feature) const
   {
-    m2::RectD limitRect = feature.GetLimitRect(0);
+    m2::RectD limitRect = feature.GetLimitRect(-2);
     if (feature.GetFeatureType() != feature::GEOM_POINT)
       return limitRect;
 
