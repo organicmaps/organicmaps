@@ -91,13 +91,15 @@ void Query::Search(function<void (Result const &)> const & f)
 {
   // Lat lon match
   {
-    double lat, lon;
-    if (search::MatchLatLon(m_queryText, lat, lon))
+    double lat, lon, latPrec, lonPrec;
+    if (search::MatchLatLon(m_queryText, lat, lon, latPrec, lonPrec))
     {
-      double const x = MercatorBounds::LonToX(lon);
-      double const y = MercatorBounds::LatToY(lat);
+      double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
       f(Result("(" + strings::to_string(lat) + ", " + strings::to_string(lon) + ")",
-               m2::RectD(x - 0.1, y - 0.1, x + 0.1, y + 0.1)));
+               m2::RectD(MercatorBounds::LonToX(lon - precision),
+                         MercatorBounds::LatToY(lat - precision),
+                         MercatorBounds::LonToX(lon + precision),
+                         MercatorBounds::LatToY(lat + precision))));
     }
   }
 
