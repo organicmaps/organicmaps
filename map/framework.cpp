@@ -463,21 +463,54 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     }
   }
 
+  struct PathAppender
+  {
+    string const & m_path;
+    PathAppender(string const & path) : m_path(path) {}
+    void operator()(string & elem)
+    {
+      elem.insert(elem.begin(), m_path.begin(), m_path.end());
+    }
+  };
+
   template <typename TModel>
   void FrameWork<TModel>::EnumLocalMaps(Platform::FilesList & filesList)
   {
-    // activate all downloaded maps
+
     Platform & p = GetPlatform();
+    // scan for pre-installed maps in resources
+    string const resPath = p.ResourcesDir();
+    Platform::FilesList resFiles;
+    p.GetFilesInDir(resPath, "*" DATA_FILE_EXTENSION, resFiles);
+    // scan for probably updated maps in data dir
     string const dataPath = p.WritableDir();
+    Platform::FilesList dataFiles;
+    p.GetFilesInDir(dataPath, "*" DATA_FILE_EXTENSION, dataFiles);
+    // wipe out same maps from resources, which have updated
+    // downloaded versions in data path
+    for (Platform::FilesList::iterator it = resFiles.begin(); it != resFiles.end();)
+    {
+      Platform::FilesList::iterator found = find(dataFiles.begin(), dataFiles.end(), *it);
+      if (found != dataFiles.end())
+        it = resFiles.erase(it);
+      else
+        ++it;
+    }
+    // make full resources paths
+    for_each(resFiles.begin(), resFiles.end(), PathAppender(resPath));
+    // make full data paths
+    for_each(dataFiles.begin(), dataFiles.end(), PathAppender(dataPath));
+
     filesList.clear();
-    p.GetFilesInDir(dataPath, "*" DATA_FILE_EXTENSION, filesList);
+    filesList.assign(resFiles.begin(), resFiles.end());
+    filesList.insert(filesList.end(), dataFiles.begin(), dataFiles.end());
   }
 
   template <typename TModel>
   void FrameWork<TModel>::EnumBenchmarkMaps(Platform::FilesList & filesList)
   {
     filesList.clear();
-    filesList.push_back("Belarus.mwm");
+    filesList.push_back(GetPlatform().ReadPathForFile("Belarus.mwm"));
   }
 
   template <typename TModel>

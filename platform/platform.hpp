@@ -26,6 +26,8 @@ public:
     return WritableDir() + file;
   }
 
+  virtual string ResourcesDir() const = 0;
+
   /// Throws FileAbsentException
   /// @param[in] file just file name which we want to read
   /// @return fullPath fully resolved path including file name

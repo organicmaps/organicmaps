@@ -10,6 +10,7 @@ public:
   virtual ~IPhonePlatform();
   virtual double TimeInSec() const;
   virtual string WritableDir() const;
+  virtual string ResourcesDir() const;
   virtual string ReadPathForFile(char const * file) const;
   virtual int GetFilesInDir(string const & directory, string const & mask, FilesList & outFiles) const;
   virtual bool GetFileSize(string const & file, uint64_t & size) const;

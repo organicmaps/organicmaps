@@ -98,6 +98,11 @@ string IPhonePlatform::ReadPathForFile(char const * file) const
   return path;
 }
 
+virtual string IPhonePlatform::ResourcesDir() const
+{
+  return m_resourcesPath;
+}
+
 string IPhonePlatform::WritableDir() const
 {
 	return m_writablePath;

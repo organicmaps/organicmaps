@@ -210,7 +210,7 @@ public:
                  bind(&FrameWork::RepaintRect, this, _1),
                  enumMapsFn);
     LOG(LINFO, ("Storage initialized"));
-  };
+  }
 
   void StartLocationService(LocationRetrievedCallbackT observer);
   void StopLocationService();

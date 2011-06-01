@@ -243,6 +243,12 @@ public:
     return m_writableDir;
   }
 
+  /// @return path to /data/ with ending slash
+  virtual string ResourcesDir() const
+  {
+    return m_resourcesDir;
+  }
+
   virtual string ReadPathForFile(char const * file) const
   {
     string fullPath = m_writableDir + file;
