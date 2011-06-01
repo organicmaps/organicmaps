@@ -236,7 +236,7 @@ namespace fwork
           if (fontSize != 0)
           {
             double textLength = m_glyphCache->getTextLength(fontSize, ptr->m_name);
-            typedef calc_length<base_screen> functor_t;
+            typedef calc_length<base_global> functor_t;
             functor_t::params p1;
             p1.m_convertor = &m_convertor;
             p1.m_rect = &m_rect;

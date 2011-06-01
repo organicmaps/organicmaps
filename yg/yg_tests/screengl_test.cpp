@@ -7,6 +7,7 @@
 #include "../../yg/skin.hpp"
 #include "../../yg/pen_info.hpp"
 #include "../../yg/circle_info.hpp"
+#include "../../yg/text_element.hpp"
 
 #include "../../qt_tstfrm/macros.hpp"
 
@@ -832,6 +833,81 @@ namespace
     }
   };
 
+  struct TestDrawStraightTextElement
+  {
+    yg::PenInfo m_penInfo;
+    vector<m2::PointD> m_path;
+    TestDrawStraightTextElement()
+    {
+      m_path.push_back(m2::PointD(100, 200));
+      m_path.push_back(m2::PointD(500, 200));
+      double pat[] = { 2, 2 };
+      m_penInfo = yg::PenInfo(yg::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
+    }
+
+    void DoDraw(shared_ptr<yg::gl::Screen> p)
+    {
+      yg::StraightTextElement::Params params;
+      params.m_fontDesc = yg::FontDesc(false, 20);
+      params.m_utf8Text = "Simplicity is the ultimate sophistication. Leonardo Da Vinci.";
+      params.m_depth = 10;
+      params.m_log2vis = false;
+      params.m_rm = p->resourceManager();
+      params.m_skin = p->skin();
+      params.m_pivot = m_path[0];
+      params.m_position = yg::EPosRight;
+
+      yg::StraightTextElement ste(params);
+
+      p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
+      ste.draw(p.get());
+    }
+  };
+
+  struct TestDrawPathTextElement
+  {
+    vector<m2::PointD> m_path;
+    yg::PenInfo m_penInfo;
+
+    TestDrawPathTextElement()
+    {
+      m_path.push_back(m2::PointD(40, 200));
+      m_path.push_back(m2::PointD(100, 100));
+      m_path.push_back(m2::PointD(160, 200));
+      m_path.push_back(m2::PointD(200, 100));
+      m_path.push_back(m2::PointD(240, 200));
+      m_path.push_back(m2::PointD(280, 100));
+      m_path.push_back(m2::PointD(320, 200));
+      m_path.push_back(m2::PointD(360, 100));
+      m_path.push_back(m2::PointD(400, 200));
+
+      double pat[] = { 2, 2 };
+      m_penInfo = yg::PenInfo(yg::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
+    }
+
+    void DoDraw(shared_ptr<yg::gl::Screen> p)
+    {
+      yg::PathTextElement::Params params;
+      params.m_pts = &m_path[0];
+      params.m_ptsCount = m_path.size();
+      params.m_fullLength = calc_length(m_path);
+      params.m_pathOffset = 0;
+      params.m_fontDesc = yg::FontDesc(false, 20);
+      params.m_utf8Text = "Simplicity is the ultimate sophistication. Leonardo Da Vinci.";
+      params.m_depth = 10;
+      params.m_log2vis = false;
+      params.m_rm = p->resourceManager();
+      params.m_skin = p->skin();
+      params.m_pivot = m_path[0];
+      params.m_position = yg::EPosCenter;
+
+      yg::PathTextElement pte(params);
+
+      p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
+      pte.draw(p.get());
+    }
+  };
+
   struct TestDrawTextOnPathZigZag
   {
     std::vector<m2::PointD> m_path;
@@ -1166,11 +1242,13 @@ namespace
 //   UNIT_TEST_GL(TestDrawUnicodeSymbols);
 //   UNIT_TEST_GL(TestDrawTextRectWithFixedFont);
 //   UNIT_TEST_GL(TestDrawStringOnString);
-     UNIT_TEST_GL(TestDrawTextOnPathInteractive);
-   UNIT_TEST_GL(TestDrawTextOnPathBigSymbols);
-   UNIT_TEST_GL(TestDrawTextOnPath);
-   UNIT_TEST_GL(TestDrawTextOnPathZigZag);
-   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
+//   UNIT_TEST_GL(TestDrawTextOnPathInteractive);
+//   UNIT_TEST_GL(TestDrawTextOnPathBigSymbols);
+//   UNIT_TEST_GL(TestDrawTextOnPath);
+//   UNIT_TEST_GL(TestDrawTextOnPathZigZag);
+//   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
+   UNIT_TEST_GL(TestDrawStraightTextElement);
+   UNIT_TEST_GL(TestDrawPathTextElement);
 //   UNIT_TEST_GL(TestDrawTextOverflow);
 //   UNIT_TEST_GL(TestDrawTextFiltering);
 //   UNIT_TEST_GL(TestDrawRandomTextFiltering);

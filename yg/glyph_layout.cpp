@@ -2,10 +2,14 @@
 
 #include "glyph_layout.hpp"
 #include "resource_manager.hpp"
+#include "skin.hpp"
 #include "font_desc.hpp"
+#include "resource_style.hpp"
+#include "text_path.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/math.hpp"
+#include "../std/sstream.hpp"
 
 #include "../geometry/angles.hpp"
 #include "../geometry/aa_rect2d.hpp"
@@ -27,10 +31,8 @@ namespace yg
   {
     double m_angle;
     PathPoint m_pp;
-
-    /// @todo Need to initialize or not ???
-    //PivotPoint(double angle = 0, PathPoint const & pp = PathPoint())
-    //{}
+    PivotPoint(double angle = 0, PathPoint const & pp = PathPoint())
+    {}
   };
 
   class pts_array
@@ -188,6 +190,98 @@ namespace yg
   }
 
   GlyphLayout::GlyphLayout(shared_ptr<ResourceManager> const & resourceManager,
+                           shared_ptr<Skin> const & skin,
+                           FontDesc const & fontDesc,
+                           m2::PointD const & pt,
+                           wstring const & text,
+                           yg::EPosition pos)
+    : m_resourceManager(resourceManager),
+      m_firstVisible(0),
+      m_lastVisible(text.size())
+  {
+    m2::PointD pv = pt;
+
+    for (size_t i = 0; i < text.size(); ++i)
+    {
+      GlyphKey glyphKey(text[i], fontDesc.m_size, fontDesc.m_isMasked, fontDesc.m_color);
+
+      if (fontDesc.m_isStatic)
+      {
+        uint32_t glyphID = skin->mapGlyph(glyphKey, fontDesc.m_isStatic);
+        CharStyle const * p = static_cast<CharStyle const *>(skin->fromID(glyphID));
+        if (p != 0)
+        {
+          if (i == 0)
+            m_limitRect = m2::RectD(p->m_xOffset + pv.x,
+                                    p->m_yOffset + pv.y,
+                                    p->m_xOffset + pv.x,
+                                    p->m_yOffset + pv.y);
+          else
+            m_limitRect.Add(m2::PointD(p->m_xOffset, p->m_yOffset) + pv);
+
+          m_limitRect.Add(m2::PointD(p->m_xOffset + p->m_texRect.SizeX() - 4,
+                                     p->m_yOffset + p->m_texRect.SizeY() - 4) + pv);
+
+        }
+
+        GlyphLayoutElem elem;
+
+        elem.m_sym = text[i];
+        elem.m_angle = 0;
+        elem.m_pt = pv;
+        elem.m_metrics.m_height = p->m_texRect.SizeY() - 4;
+        elem.m_metrics.m_width = p->m_texRect.SizeX() - 4;
+        elem.m_metrics.m_xAdvance = p->m_xAdvance;
+        elem.m_metrics.m_xOffset = p->m_xOffset;
+        elem.m_metrics.m_yOffset = p->m_yOffset;
+        elem.m_metrics.m_yAdvance = 0;
+
+        m_entries.push_back(elem);
+
+        pv += m2::PointD(p->m_xAdvance, 0);
+      }
+      else
+      {
+        GlyphMetrics const m = resourceManager->getGlyphMetrics(glyphKey);
+        if (i == 0)
+          m_limitRect = m2::RectD(m.m_xOffset + pv.x, m.m_yOffset + pv.y, m.m_xOffset + pv.x, m.m_yOffset + pv.y);
+        else
+          m_limitRect.Add(m2::PointD(m.m_xOffset, m.m_yOffset) + pv);
+
+        m_limitRect.Add(m2::PointD(m.m_xOffset + m.m_xAdvance,
+                                   m.m_yOffset + m.m_yAdvance) + pv);
+
+        GlyphLayoutElem elem;
+        elem.m_sym = text[i];
+        elem.m_angle = 0;
+        elem.m_pt = pv;
+        elem.m_metrics = m;
+        m_entries.push_back(elem);
+
+        pv += m2::PointD(m.m_xAdvance, m.m_yAdvance);
+      }
+    }
+
+    m2::PointD ptOffs(-m_limitRect.SizeX() / 2,
+                      -m_limitRect.SizeY() / 2);
+
+    /// adjusting according to position
+    if (pos & EPosLeft)
+      ptOffs += m2::PointD(-m_limitRect.SizeX() / 2, 0);
+    if (pos & EPosRight)
+      ptOffs += m2::PointD(m_limitRect.SizeX() / 2, 0);
+
+    if (pos & EPosAbove)
+      ptOffs += m2::PointD(0, m_limitRect.SizeY() / 2);
+
+    if (pos & EPosUnder)
+      ptOffs += m2::PointD(0, -m_limitRect.SizeY() / 2);
+
+    offset(ptOffs);
+  }
+
+
+  GlyphLayout::GlyphLayout(shared_ptr<ResourceManager> const & resourceManager,
                            FontDesc const & fontDesc,
                            m2::PointD const * pts,
                            size_t ptsCount,
@@ -199,7 +293,7 @@ namespace yg
       m_firstVisible(0),
       m_lastVisible(0)
   {
-    pts_array arrPath(pts, ptsCount, fullLength, pathOffset);
+    TextPath arrPath(pts, ptsCount, fullLength, pathOffset);
 
     // get vector of glyphs and calculate string length
     double strLength = 0.0;
@@ -311,6 +405,31 @@ namespace yg
 
       m_lastVisible = symPos + 1;
     }
+
+    bool isFirst = true;
+
+    for (unsigned i = m_firstVisible; i < m_lastVisible; ++i)
+    {
+      m2::AARectD symRectAA(
+            m_entries[i].m_pt.Move(m_entries[i].m_metrics.m_height, m_entries[i].m_angle - math::pi / 2),
+            m_entries[i].m_angle,
+            m2::RectD(m_entries[i].m_metrics.m_xOffset,
+                      m_entries[i].m_metrics.m_yOffset,
+                      m_entries[i].m_metrics.m_xOffset + m_entries[i].m_metrics.m_width,
+                      m_entries[i].m_metrics.m_yOffset + m_entries[i].m_metrics.m_height));
+
+      m2::PointD pts[4];
+      symRectAA.GetGlobalPoints(pts);
+
+      if (isFirst)
+        m_limitRect = m2::RectD(pts[0].x, pts[0].y, pts[0].x, pts[0].y);
+      else
+        m_limitRect.Add(pts[0]);
+
+      m_limitRect.Add(pts[1]);
+      m_limitRect.Add(pts[2]);
+      m_limitRect.Add(pts[3]);
+    }
   }
 
   size_t GlyphLayout::firstVisible() const
@@ -330,32 +449,13 @@ namespace yg
 
   m2::RectD const GlyphLayout::limitRect() const
   {
-    bool isFirst = true;
-    m2::RectD res;
+    return m_limitRect;
+  }
 
-    for (unsigned i = m_firstVisible; i < m_lastVisible; ++i)
-    {
-      m2::AARectD symRectAA(
-            m_entries[i].m_pt.Move(m_entries[i].m_metrics.m_height, m_entries[i].m_angle - math::pi / 2),
-            m_entries[i].m_angle,
-            m2::RectD(m_entries[i].m_metrics.m_xOffset,
-                      m_entries[i].m_metrics.m_yOffset,
-                      m_entries[i].m_metrics.m_xOffset + m_entries[i].m_metrics.m_width,
-                      m_entries[i].m_metrics.m_yOffset + m_entries[i].m_metrics.m_height));
-
-      m2::PointD pts[4];
-      symRectAA.GetGlobalPoints(pts);
-
-      if (isFirst)
-        res = m2::RectD(pts[0].x, pts[0].y, pts[0].x, pts[0].y);
-      else
-        res.Add(pts[0]);
-
-      res.Add(pts[1]);
-      res.Add(pts[2]);
-      res.Add(pts[3]);
-    }
-
-    return res;
+  void GlyphLayout::offset(m2::PointD const & offs)
+  {
+    for (unsigned i = 0; i < m_entries.size(); ++i)
+      m_entries[i].m_pt += offs;
+    m_limitRect.Offset(offs);
   }
 }

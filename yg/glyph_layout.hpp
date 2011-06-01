@@ -2,6 +2,7 @@
 
 #include "defines.hpp"
 #include "../geometry/rect2d.hpp"
+#include "../geometry/point2d.hpp"
 
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
@@ -14,6 +15,7 @@
 namespace yg
 {
   class ResourceManager;
+  class Skin;
   struct FontDesc;
 
   struct GlyphLayoutElem
@@ -35,11 +37,20 @@ namespace yg
 
     vector<GlyphLayoutElem> m_entries;
 
+    m2::RectD m_limitRect;
+
     double getKerning(GlyphLayoutElem const & prevElem, GlyphLayoutElem const & curElem);
 
   public:
 
     GlyphLayout(GlyphLayout const & layout, double shift);
+
+    GlyphLayout(shared_ptr<ResourceManager> const & resourceManager,
+                shared_ptr<Skin> const & skin,
+                FontDesc const & font,
+                m2::PointD const & pt,
+                wstring const & text,
+                yg::EPosition pos);
 
     GlyphLayout(shared_ptr<ResourceManager> const & resourceManager,
                 FontDesc const & font,
@@ -56,5 +67,7 @@ namespace yg
     vector<GlyphLayoutElem> const & entries() const;
 
     m2::RectD const limitRect() const;
+
+    void offset(m2::PointD const & offs);
   };
 }

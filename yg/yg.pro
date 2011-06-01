@@ -55,10 +55,10 @@ SOURCES += \
     symbol_renderer.cpp \
     circle_info.cpp \
     area_renderer.cpp \
-    layout_element.cpp \
     font_desc.cpp \
     glyph_layout.cpp \
-    text_layout_element.cpp
+    text_element.cpp \
+    text_path.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -106,12 +106,10 @@ HEADERS += \
     symbol_renderer.hpp \
     circle_info.hpp \
     area_renderer.hpp \
-    layout_element.hpp \
     font_desc.hpp \
     glyph_layout.hpp \
-    text_on_path_layout_element.hpp \
-    text_layout_element.hpp \
-    symbol_layout_element.hpp
+    text_element.hpp \
+    text_path.hpp
 
 win32 {
   HEADERS += internal/opengl_win32.hpp
