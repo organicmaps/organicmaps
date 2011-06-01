@@ -1006,7 +1006,7 @@ double FeatureType::GetPopulationDrawRank() const
 
   // Do not return rank for countries.
   if (feature::IsCountry(m_Types, m_Types + GetTypesCount()))
-    return 0.5;
+    return 0.0;
   else
     return min(3.0E6, static_cast<double>(n)) / 3.0E6;
 }

@@ -163,7 +163,7 @@ namespace fwork
 
     shared_ptr<di::DrawInfo> ptr(
           new di::DrawInfo(f.GetPreferredDrawableName(languages::GetCurrentPriorities()),
-                            f.GetPopulationDrawRank()));
+                           m_zoom > 5 ? f.GetPopulationDrawRank() : 0.0));
 
     DrawerYG * pDrawer = GetDrawer();
 
