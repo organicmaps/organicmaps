@@ -21,9 +21,9 @@ namespace qt
 
     QDockWidget * m_Docks[4];
 
-#ifdef DEBUG // code removed for desktop releases
+#ifndef NO_DOWNLOADER
     UpdateDialog * m_updateDialog;
-#endif // DEBUG
+#endif // NO_DOWNLOADER
 
     storage::Storage m_storage;
 
@@ -43,10 +43,10 @@ namespace qt
     void OnSearchResult(search::Result const & result);
 
   protected:
-#ifdef DEBUG // code removed for desktop releases
+#ifndef NO_DOWNLOADER
     void CreateClassifPanel();
     void CreateGuidePanel();
-#endif // DEBUG
+#endif // NO_DOWNLOADER
     void CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name,
                          QKeySequence const & hotkey, char const * slot);
     void CreateNavigationBar();
@@ -59,11 +59,11 @@ namespace qt
 
   protected Q_SLOTS:
     void OnSearchTextChanged(QString const &);
-#ifdef DEBUG // code removed for desktop releases
+#ifndef NO_DOWNLOADER
     void ShowUpdateDialog();
     void ShowClassifPanel();
     void ShowGuidePanel();
-#endif // DEBUG
+#endif // NO_DOWNLOADER
     void OnPreferences();
     void OnAbout();
     void OnMyPosition();

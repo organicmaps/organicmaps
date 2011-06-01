@@ -24,7 +24,7 @@
 #define IDM_ABOUT_DIALOG        1001
 #define IDM_PREFERENCES_DIALOG  1002
 
-#ifdef DEBUG // code removed for desktop releases
+#ifndef NO_DOWNLOADER
 #include "update_dialog.hpp"
 #include "classificator_tree.hpp"
 #include "info_dialog.hpp"
@@ -34,15 +34,15 @@
 
 #include <QtCore/QFile>
 
-#endif // DEBUG
+#endif // NO_DOWNLOADER
 
 namespace qt
 {
 
 MainWindow::MainWindow()
-#ifdef DEBUG // code removed for desktop releases
+#ifndef NO_DOWNLOADER
   : m_updateDialog(0)
-#endif // DEBUG
+#endif // NO_DOWNLOADER
 {
   m_pDrawWidget = new DrawWidget(this, m_storage);
 
@@ -50,10 +50,10 @@ MainWindow::MainWindow()
 
   CreateSearchBarAndPanel();
 
-#ifdef DEBUG // code removed for desktop releases
+#ifndef NO_DOWNLOADER
   CreateClassifPanel();
   CreateGuidePanel();
-#endif // DEBUG
+#endif // NO_DOWNLOADER
   setCentralWidget(m_pDrawWidget);
 
   setWindowTitle(tr("MapsWithMe"));
@@ -89,7 +89,7 @@ MainWindow::MainWindow()
 
   LoadState();
 
-#ifdef DEBUG // code removed for desktop releases
+#ifndef NO_DOWNLOADER
   // Show intro dialog if necessary
   bool bShow = true;
   (void)Settings::Get("ShowWelcome", bShow);
@@ -114,7 +114,7 @@ MainWindow::MainWindow()
     if (bShowUpdateDialog)
       ShowUpdateDialog();
   }
-#endif // DEBUG
+#endif // NO_DOWNLOADER
 }
 
 #if defined(Q_WS_WIN)
@@ -141,9 +141,7 @@ bool MainWindow::winEvent(MSG * msg, long * result)
 MainWindow::~MainWindow()
 {
   SaveState();
-#ifdef DEBUG // code removed for desktop releases
   GetDownloadManager().CancelAllDownloads();
-#endif
 }
 
 void MainWindow::SaveState()
@@ -278,7 +276,7 @@ void MainWindow::CreateNavigationBar()
     };
     add_buttons(pToolBar, arr, ARRAY_SIZE(arr), m_pDrawWidget);
   }
-#ifdef DEBUG // code removed for desktop releases
+#ifndef NO_DOWNLOADER
   {
     // add mainframe actions
     button_t arr[] = {
@@ -287,7 +285,7 @@ void MainWindow::CreateNavigationBar()
     };
     add_buttons(pToolBar, arr, ARRAY_SIZE(arr), this);
   }
-#endif // DEBUG
+#endif // NO_DOWNLOADER
   addToolBar(Qt::RightToolBarArea, pToolBar);
 }
 
@@ -410,7 +408,7 @@ void MainWindow::OnPreferences()
   Settings::Set("AutomaticUpdateCheck", autoUpdatesEnabled);
 }
 
-#ifdef DEBUG // code removed for desktop releases
+#ifndef NO_DOWNLOADER
 void MainWindow::ShowUpdateDialog()
 {
   if (!m_updateDialog)
@@ -448,7 +446,7 @@ void MainWindow::CreateGuidePanel()
 
   m_Docks[1]->setWidget(pGPage);
 }
-#endif // DEBUG
+#endif // NO_DOWNLOADER
 
 void MainWindow::CreateSearchBarAndPanel()
 {
