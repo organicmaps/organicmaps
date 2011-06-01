@@ -64,7 +64,7 @@ bool search::MatchLatLon(string const & str, double & latRes, double & lonRes,
 
   latRes = lat;
   lonRes = lon;
-  precisionLat = 0.5 * pow(10, -max(0, min(8, latDigits)));
-  precisionLon = 0.5 * pow(10, -max(0, min(8, lonDigits)));
+  precisionLat = 0.5 * pow(10.0, -max(0, min(8, latDigits)));
+  precisionLon = 0.5 * pow(10.0, -max(0, min(8, lonDigits)));
   return true;
 }
