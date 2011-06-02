@@ -251,7 +251,7 @@ void MainWindow::CreateNavigationBar()
     // add view actions 1
     button_t arr[] = {
       { QString(), 0, 0 },
-      { tr("Show all"), ":/navig64/world.png", SLOT(ShowAll()) },
+//      { tr("Show all"), ":/navig64/world.png", SLOT(ShowAll()) },
       { tr("Scale +"), ":/navig64/plus.png", SLOT(ScalePlus()) }
     };
     add_buttons(pToolBar, arr, ARRAY_SIZE(arr), m_pDrawWidget);
