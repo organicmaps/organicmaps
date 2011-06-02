@@ -55,30 +55,34 @@ static string AppendZeroIfNeeded(string const & macAddrPart)
 
   m_accessPoints.clear();
 
-  CWInterface * iFace = [CWInterface interface];
-  NSArray * nets = [iFace scanForNetworksWithParameters:nil error:nil];
-  for (NSUInteger i = 0; i < [nets count]; ++i)
+  // avoid crash on systems without wlan interfaces
+  NSArray * ifaces = [CWInterface supportedInterfaces];
+  if ([ifaces count])
   {
-    CWNetwork * net = (CWNetwork *)[nets objectAtIndex:i];
-    WiFiInfo::AccessPoint apn;
-    apn.m_ssid = [net.ssid UTF8String];
-    apn.m_signalStrength = strings::to_string([net.rssi intValue]);
-    // fix formatting for wifi address
-    string const rawBssid = [net.bssid UTF8String];
-    if (!rawBssid.empty())
+    CWInterface * iFace = [CWInterface interface];
+    NSArray * nets = [iFace scanForNetworksWithParameters:nil error:nil];
+    for (NSUInteger i = 0; i < [nets count]; ++i)
     {
-      strings::SimpleTokenizer tokIt(rawBssid, ":");
-      apn.m_bssid = AppendZeroIfNeeded(*tokIt);
-      do
+      CWNetwork * net = (CWNetwork *)[nets objectAtIndex:i];
+      WiFiInfo::AccessPoint apn;
+      apn.m_ssid = [net.ssid UTF8String];
+      apn.m_signalStrength = strings::to_string([net.rssi intValue]);
+      // fix formatting for wifi address
+      string const rawBssid = [net.bssid UTF8String];
+      if (!rawBssid.empty())
       {
-        ++tokIt;
-        apn.m_bssid += "-";
-        apn.m_bssid += AppendZeroIfNeeded(*tokIt);
-      } while (!tokIt.IsLast());
+        strings::SimpleTokenizer tokIt(rawBssid, ":");
+        apn.m_bssid = AppendZeroIfNeeded(*tokIt);
+        do
+        {
+          ++tokIt;
+          apn.m_bssid += "-";
+          apn.m_bssid += AppendZeroIfNeeded(*tokIt);
+        } while (!tokIt.IsLast());
+      }
+      m_accessPoints.push_back(apn);
     }
-    m_accessPoints.push_back(apn);
   }
-
   [pool drain];
 
   [self performSelectorOnMainThread:@selector(NotifyGUI) withObject:nil waitUntilDone:NO];
