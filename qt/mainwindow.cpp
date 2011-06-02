@@ -3,10 +3,9 @@
 #include "slider_ctrl.hpp"
 #include "about.hpp"
 #include "preferences_dialog.hpp"
+#include "search_panel.hpp"
 
 #include "../defines.hpp"
-
-#include "../search/result.hpp"
 
 #include "../map/settings.hpp"
 
@@ -17,9 +16,6 @@
 #include <QtGui/QAction>
 #include <QtGui/QMenuBar>
 #include <QtGui/QMenu>
-#include <QtGui/QLineEdit>
-#include <QtGui/QHeaderView>
-#include <QtGui/QTableWidget>
 
 #define IDM_ABOUT_DIALOG        1001
 #define IDM_PREFERENCES_DIALOG  1002
@@ -341,60 +337,7 @@ void MainWindow::OnSearchShortcutPressed()
   {
     m_pSearchAction->setChecked(true);
     m_Docks[2]->show();
-    m_Docks[2]->widget()->setFocus();
   }
-}
-
-void MainWindow::OnSearchTextChanged(QString const & str)
-{
-  // clear old results
-  QTableWidget * table = static_cast<QTableWidget *>(m_Docks[3]->widget());
-  table->clear();
-  table->setRowCount(0);
-  QString const normalized = str.normalized(QString::NormalizationForm_KC);
-  if (!normalized.isEmpty())
-    m_pDrawWidget->Search(normalized.toUtf8().constData(),
-                        bind(&MainWindow::OnSearchResult, this, _1));
-}
-
-void MainWindow::OnSearchResult(search::Result const & result)
-{
-  if (result.GetString().empty())  // last element
-  {
-    if (!m_Docks[3]->isVisible())
-      m_Docks[3]->show();
-  }
-  else
-  {
-    QTableWidget * table = static_cast<QTableWidget *>(m_Docks[3]->widget());
-
-    int const rowCount = table->rowCount();
-
-    table->setRowCount(rowCount + 1);
-    QTableWidgetItem * item = new QTableWidgetItem(QString::fromUtf8(result.GetString().c_str()));
-    item->setData(Qt::UserRole, QRectF(QPointF(result.GetRect().minX(), result.GetRect().maxY()),
-                                       QPointF(result.GetRect().maxX(), result.GetRect().minY())));
-    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-    table->setItem(rowCount, 0, item);
-  }
-}
-
-void MainWindow::OnSearchPanelShortcutPressed()
-{
-  if (m_Docks[3]->isVisible())
-    m_Docks[3]->hide();
-  else
-    m_Docks[3]->show();
-}
-
-void MainWindow::OnSearchPanelItemClicked(int row, int)
-{
-  // center viewport on clicked item
-  QTableWidget * table = static_cast<QTableWidget *>(m_Docks[3]->widget());
-  QRectF rect = table->item(row, 0)->data(Qt::UserRole).toRectF();
-  m2::RectD r2(rect.left(), rect.bottom(), rect.right(), rect.top());
-//  r2.Inflate(0.0001, 0.0001);
-  m_pDrawWidget->ShowFeature(r2);
 }
 
 void MainWindow::OnPreferences()
@@ -450,31 +393,10 @@ void MainWindow::CreateGuidePanel()
 
 void MainWindow::CreateSearchBarAndPanel()
 {
-  CreatePanelImpl(2, Qt::TopDockWidgetArea, tr("Search Bar"),
-                  QKeySequence(Qt::CTRL + Qt::Key_F), SLOT(OnSearchShortcutPressed()));
-
-  QLineEdit * editor = new QLineEdit(m_Docks[2]);
-  connect(editor, SIGNAL(textChanged(QString const &)), this, SLOT(OnSearchTextChanged(QString const &)));
-
-  m_Docks[2]->setFeatures(QDockWidget::NoDockWidgetFeatures);
-  // @TODO remove search bar title
-  m_Docks[2]->setWidget(editor);
-
-  // also create search results panel
-  CreatePanelImpl(3, Qt::LeftDockWidgetArea, tr("Search Results"),
-                  QKeySequence(Qt::CTRL + Qt::ShiftModifier + Qt::Key_F),
-                  SLOT(OnSearchPanelShortcutPressed()));
-
-  QTableWidget * panel = new QTableWidget(0, 2, m_Docks[3]);
-  panel->setAlternatingRowColors(true);
-  panel->setShowGrid(false);
-  panel->setSelectionBehavior(QAbstractItemView::SelectRows);
-  panel->verticalHeader()->setVisible(false);
-  panel->horizontalHeader()->setVisible(false);
-  panel->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-
-  connect(panel, SIGNAL(cellClicked(int,int)), this, SLOT(OnSearchPanelItemClicked(int,int)));
-  m_Docks[3]->setWidget(panel);
+  CreatePanelImpl(2, Qt::RightDockWidgetArea, tr("Search"),
+                  QKeySequence(QKeySequence::Find), SLOT(OnSearchShortcutPressed()));
+  SearchPanel * panel = new SearchPanel(m_pDrawWidget, m_Docks[2]);
+  m_Docks[2]->setWidget(panel);
 }
 
 void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name,

@@ -69,6 +69,7 @@ SOURCES += \
     about.cpp \
     info_dialog.cpp \
     preferences_dialog.cpp \
+    search_panel.cpp \
 
 HEADERS += \
     mainwindow.hpp \
@@ -80,6 +81,7 @@ HEADERS += \
     about.hpp \
     info_dialog.hpp \
     preferences_dialog.hpp \
+    search_panel.hpp \
 
 RESOURCES += res/resources.qrc
 

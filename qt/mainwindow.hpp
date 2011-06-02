@@ -19,7 +19,7 @@ namespace qt
     QAction * m_pSearchAction;
     DrawWidget * m_pDrawWidget;
 
-    QDockWidget * m_Docks[4];
+    QDockWidget * m_Docks[3];
 
 #ifndef NO_DOWNLOADER
     UpdateDialog * m_updateDialog;
@@ -40,7 +40,6 @@ namespace qt
 
   private:
     void OnLocationFound();
-    void OnSearchResult(search::Result const & result);
 
   protected:
 #ifndef NO_DOWNLOADER
@@ -58,7 +57,6 @@ namespace qt
 #endif
 
   protected Q_SLOTS:
-    void OnSearchTextChanged(QString const &);
 #ifndef NO_DOWNLOADER
     void ShowUpdateDialog();
     void ShowClassifPanel();
@@ -69,7 +67,5 @@ namespace qt
     void OnMyPosition();
     void OnSearchButtonClicked();
     void OnSearchShortcutPressed();
-    void OnSearchPanelShortcutPressed();
-    void OnSearchPanelItemClicked(int row, int column);
   };
 }
