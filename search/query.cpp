@@ -44,15 +44,17 @@ uint32_t PrefixMatch(strings::UniChar const * sA, uint32_t sizeA,
 }
 
 inline uint32_t GetMaxKeywordMatchScore() { return 512; }
+inline uint32_t GetMaxPrefixMatchScore(int size)
+{
+  return min(512, 256 * max(0, size - 1));
+}
 
 inline KeywordMatcher MakeMatcher(vector<strings::UniString> const & tokens,
                                   strings::UniString const & prefix)
 {
-  uint32_t const maxPrefixMatchCost = min(static_cast<int>(GetMaxKeywordMatchScore()),
-                                          256 * max(0, int(prefix.size()) - 1));
   return KeywordMatcher(tokens.empty() ? NULL : &tokens[0], tokens.size(),
                         prefix,
-                        GetMaxKeywordMatchScore(), maxPrefixMatchCost,
+                        GetMaxKeywordMatchScore(), GetMaxPrefixMatchScore(prefix.size()),
                         &KeywordMatch, &PrefixMatch);
 }
 
@@ -66,7 +68,7 @@ struct FeatureProcessor
   {
     KeywordMatcher matcher(MakeMatcher(m_query.m_keywords, m_query.m_prefix));
     feature.ForEachNameRef(matcher);
-    if (matcher.GetPrefixMatchScore() <= GetMaxKeywordMatchScore())
+    if (matcher.GetPrefixMatchScore() <= GetMaxPrefixMatchScore(m_query.m_prefix.size()))
     {
       uint32_t const matchScore = matcher.GetMatchScore();
       if (matchScore <= GetMaxKeywordMatchScore())
@@ -118,7 +120,8 @@ void Query::Search(function<void (Result const &)> const & f)
     KeywordMatcher matcher = MakeMatcher(m_keywords, m_prefix);
     matcher.ProcessNameToken("", strings::MakeUniString("restaurant"));
     uint32_t const matchScore = matcher.GetMatchScore();
-    if (matchScore <= GetMaxKeywordMatchScore())
+    if (matcher.GetPrefixMatchScore() <= GetMaxPrefixMatchScore(m_prefix.size()) &&
+        matchScore <= GetMaxKeywordMatchScore())
     {
       f(Result("restaurant", "restaurant "));
     }
