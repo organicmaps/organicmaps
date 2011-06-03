@@ -21,22 +21,29 @@ class SearchPanel : public QWidget
   QLineEdit * m_pEditor;
 
   /// Stores current search results
-  vector<search::Result> m_results;
+  vector<search::Result *> m_results;
 
   Q_OBJECT
 
+signals:
+  void SearchResultSignal(search::Result * result);
+
 private:
-  void OnSearchResult(search::Result const & result);
+  void SearchResultThreadFunc(search::Result const & result);
+
 protected:
   virtual void showEvent(QShowEvent *);
   virtual void hideEvent(QHideEvent *);
 
 public:
   explicit SearchPanel(DrawWidget * drawWidget, QWidget * parent);
+  ~SearchPanel();
 
 protected slots:
   void OnSearchPanelItemClicked(int row, int column);
   void OnSearchTextChanged(QString const &);
+  /// Called via signal to support multithreading
+  void OnSearchResult(search::Result * result);
 };
 
 }
