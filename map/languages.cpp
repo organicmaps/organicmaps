@@ -10,6 +10,7 @@
 #include "../coding/multilang_utf8_string.hpp"
 
 #include "../platform/platform.hpp"
+#include "../platform/preferred_languages.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/sstream.hpp"
@@ -96,8 +97,9 @@ namespace languages
   void GetCurrentSettings(CodesAndNamesT & outLanguages)
   {
     string settingsString;
+    // get preffered languages from the system
     if (!Settings::Get(SETTING_LANG_KEY, settingsString))
-      settingsString = DEFAULT_LANGUAGES; // @TODO get preffered languages from the system
+      settingsString = languages::PreferredLanguages();
 
     CodesT currentCodes;
     Collector c(currentCodes);
@@ -133,4 +135,5 @@ namespace languages
     }
     return !outLanguages.empty();
   }
+
 }

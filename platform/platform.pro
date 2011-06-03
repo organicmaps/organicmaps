@@ -50,6 +50,8 @@ HEADERS += \
     download_manager.hpp \
     location.hpp \
     concurrent_runner.hpp \
+    preferred_languages.hpp \
 
 SOURCES += \
     location_manager.cpp \
+    preferred_languages.cpp \

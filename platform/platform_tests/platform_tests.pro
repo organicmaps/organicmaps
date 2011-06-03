@@ -27,3 +27,4 @@ SOURCES += \
     download_test.cpp \
     jansson_test.cpp \
     concurrent_runner_test.cpp \
+    language_test.cpp \
