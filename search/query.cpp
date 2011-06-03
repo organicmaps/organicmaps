@@ -66,9 +66,9 @@ struct FeatureProcessor
 
   void operator () (FeatureType const & feature) const
   {
-    KeywordMatcher matcher(MakeMatcher(m_query.m_keywords, m_query.m_prefix));
+    KeywordMatcher matcher(MakeMatcher(m_query.GetKeywords(), m_query.GetPrefix()));
     feature.ForEachNameRef(matcher);
-    if (matcher.GetPrefixMatchScore() <= GetMaxPrefixMatchScore(m_query.m_prefix.size()))
+    if (matcher.GetPrefixMatchScore() <= GetMaxPrefixMatchScore(m_query.GetPrefix().size()))
     {
       uint32_t const matchScore = matcher.GetMatchScore();
       if (matchScore <= GetMaxKeywordMatchScore())

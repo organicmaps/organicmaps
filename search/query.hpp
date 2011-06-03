@@ -29,11 +29,15 @@ public:
   // Add result for scoring.
   void AddResult(IntermediateResult const & result);
 
+  vector<strings::UniString> const & GetKeywords() const { return m_keywords; }
+  strings::UniString const & GetPrefix() const { return m_prefix; }
+
+private:
   string m_queryText;
+  m2::RectD m_rect;
+
   vector<strings::UniString> m_keywords;
   strings::UniString m_prefix;
-
-  m2::RectD m_rect;
 
   IndexType const * m_pIndex;
   IndexType::Query m_indexQuery;
