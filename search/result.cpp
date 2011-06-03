@@ -4,7 +4,7 @@ namespace search
 {
 
 Result::Result(string const & str, uint32_t featureType, m2::RectD const & featureRect)
-  : m_str(str), m_featureType(featureType), m_featureRect(featureRect)
+  : m_str(str), m_featureRect(featureRect), m_featureType(featureType)
 {
 }
 
