@@ -116,8 +116,10 @@ void Query::Search(function<void (Result const &)> const & f)
   }
 
   // Category matching.
+  if (!m_prefix.empty())
   {
-    KeywordMatcher matcher = MakeMatcher(m_keywords, m_prefix);
+    KeywordMatcher matcher = MakeMatcher(vector<strings::UniString>(), m_prefix);
+    LOG(LINFO, (m_prefix));
     matcher.ProcessNameToken("", strings::MakeUniString("restaurant"));
     uint32_t const matchScore = matcher.GetMatchScore();
     if (matcher.GetPrefixMatchScore() <= GetMaxPrefixMatchScore(m_prefix.size()) &&
