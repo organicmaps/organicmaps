@@ -1,6 +1,5 @@
 #include "query.hpp"
 #include "delimiters.hpp"
-#include "keyword_matcher.hpp"
 #include "latlon_match.hpp"
 #include "string_match.hpp"
 #include "../indexer/feature_visibility.hpp"
@@ -10,6 +9,8 @@
 namespace search
 {
 namespace impl
+{
+namespace
 {
 
 uint32_t KeywordMatch(strings::UniChar const * sA, uint32_t sizeA,
@@ -42,17 +43,17 @@ uint32_t PrefixMatch(strings::UniChar const * sA, uint32_t sizeA,
   return StringMatchCost(sA, sizeA, sB, sizeB, DefaultMatchCost(), maxCost, true);
 }
 
+inline uint32_t GetMaxKeywordMatchScore() { return 512; }
 
-Query::Query(string const & query, m2::RectD const & rect, IndexType const * pIndex)
-  : m_queryText(query), m_rect(rect), m_pIndex(pIndex)
+inline KeywordMatcher MakeMatcher(vector<strings::UniString> const & tokens,
+                                  strings::UniString const & prefix)
 {
-  search::Delimiters delims;
-  SplitAndNormalizeAndSimplifyString(query, MakeBackInsertFunctor(m_keywords), delims);
-  if (!m_keywords.empty() && !delims(strings::LastUniChar(query)))
-  {
-    m_prefix.swap(m_keywords.back());
-    m_keywords.pop_back();
-  }
+  uint32_t const maxPrefixMatchCost = min(static_cast<int>(GetMaxKeywordMatchScore()),
+                                          256 * max(0, int(prefix.size()) - 1));
+  return KeywordMatcher(tokens.empty() ? NULL : &tokens[0], tokens.size(),
+                        prefix,
+                        GetMaxKeywordMatchScore(), maxPrefixMatchCost,
+                        &KeywordMatch, &PrefixMatch);
 }
 
 struct FeatureProcessor
@@ -67,18 +68,12 @@ struct FeatureProcessor
     if (minVisibleScale < 0)
       return;
 
-    uint32_t const maxKeywordMatchScore = 512;
-    uint32_t const maxPrefixMatchScore = min(static_cast<int>(maxKeywordMatchScore),
-                                             256 * max(0, int(m_query.m_prefix.size()) - 1));
-    size_t const kwSize = m_query.m_keywords.size();
-    KeywordMatcher matcher(kwSize ? &m_query.m_keywords[0] : NULL, kwSize, m_query.m_prefix,
-                           maxKeywordMatchScore, maxPrefixMatchScore,
-                           &KeywordMatch, &PrefixMatch);
+    KeywordMatcher matcher(MakeMatcher(m_query.m_keywords, m_query.m_prefix));
     feature.ForEachNameRef(matcher);
-    if (matcher.GetPrefixMatchScore() <= maxPrefixMatchScore)
+    if (matcher.GetPrefixMatchScore() <= GetMaxKeywordMatchScore())
     {
       uint32_t const matchScore = matcher.GetMatchScore();
-      if (matchScore <= maxKeywordMatchScore)
+      if (matchScore <= GetMaxKeywordMatchScore())
       {
         m_query.AddResult(IntermediateResult(feature, matcher.GetBestPrefixMatch(),
                                              matchScore, minVisibleScale));
@@ -87,9 +82,23 @@ struct FeatureProcessor
   }
 };
 
+}  // unnamed namespace
+
+Query::Query(string const & query, m2::RectD const & rect, IndexType const * pIndex)
+  : m_queryText(query), m_rect(rect), m_pIndex(pIndex)
+{
+  search::Delimiters delims;
+  SplitAndNormalizeAndSimplifyString(query, MakeBackInsertFunctor(m_keywords), delims);
+  if (!m_keywords.empty() && !delims(strings::LastUniChar(query)))
+  {
+    m_prefix.swap(m_keywords.back());
+    m_keywords.pop_back();
+  }
+}
+
 void Query::Search(function<void (Result const &)> const & f)
 {
-  // Lat lon match
+  // Lat lon matching.
   {
     double lat, lon, latPrec, lonPrec;
     if (search::MatchLatLon(m_queryText, lat, lon, latPrec, lonPrec))
@@ -104,6 +113,18 @@ void Query::Search(function<void (Result const &)> const & f)
     }
   }
 
+  // Category matching.
+  {
+    KeywordMatcher matcher = MakeMatcher(m_keywords, m_prefix);
+    matcher.ProcessNameToken("", strings::MakeUniString("restaurant"));
+    uint32_t const matchScore = matcher.GetMatchScore();
+    if (matchScore <= GetMaxKeywordMatchScore())
+    {
+      f(Result("restaurant", "restaurant "));
+    }
+  }
+
+  // Feature matching.
   FeatureProcessor featureProcessor(*this);
   int const scale = scales::GetScaleLevel(m_rect) + 1;
   if (scale > scales::GetUpperWorldScale())

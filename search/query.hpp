@@ -2,6 +2,7 @@
 
 #include "engine.hpp"
 #include "intermediate_result.hpp"
+#include "keyword_matcher.hpp"
 #include "result.hpp"
 #include "../geometry/rect2d.hpp"
 #include "../base/string_utils.hpp"
