@@ -1,8 +1,6 @@
 #include "search_panel.hpp"
 #include "draw_widget.hpp"
 
-#include "../search/result.hpp"
-
 #include "../std/bind.hpp"
 
 #include <QtGui/QHeaderView>
@@ -39,15 +37,11 @@ void SearchPanel::OnSearchResult(search::Result const & result)
   if (!result.GetString().empty())  // last element
   {
     int const rowCount = m_pTable->rowCount();
-
     m_pTable->setRowCount(rowCount + 1);
     QTableWidgetItem * item = new QTableWidgetItem(QString::fromUtf8(result.GetString().c_str()));
-    item->setData(Qt::UserRole, QRectF(QPointF(result.GetFeatureRect().minX(),
-                                               result.GetFeatureRect().maxY()),
-                                       QPointF(result.GetFeatureRect().maxX(),
-                                               result.GetFeatureRect().minY())));
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     m_pTable->setItem(rowCount, 0, item);
+    m_results.push_back(result);
   }
 }
 
@@ -56,6 +50,7 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   // clear old results
   m_pTable->clear();
   m_pTable->setRowCount(0);
+  m_results.clear();
 
   QString const normalized = str.normalized(QString::NormalizationForm_KC);
   if (!normalized.isEmpty())
@@ -65,10 +60,16 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
 
 void SearchPanel::OnSearchPanelItemClicked(int row, int)
 {
-  // center viewport on clicked item
-  QRectF const rect = m_pTable->item(row, 0)->data(Qt::UserRole).toRectF();
-  m2::RectD const r2(rect.left(), rect.bottom(), rect.right(), rect.top());
-  m_pDrawWidget->ShowFeature(r2);
+  ASSERT_EQUAL(m_results.size(), static_cast<size_t>(m_pTable->rowCount()), ());
+  if (m_results[row].GetResultType() == search::Result::RESULT_FEATURE)
+  { // center viewport on clicked item
+    m_pDrawWidget->ShowFeature(m_results[row].GetFeatureRect());
+  }
+  else
+  { // insert suggestion into the search bar
+    string const suggestion = m_results[row].GetSuggestionString();
+    m_pEditor->setText(QString::fromUtf8(suggestion.c_str()));
+  }
 }
 
 void SearchPanel::showEvent(QShowEvent *)

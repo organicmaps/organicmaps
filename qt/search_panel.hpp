@@ -1,8 +1,11 @@
 #pragma once
 
+#include "../search/result.hpp"
+
+#include "../std/vector.hpp"
+
 #include <QWidget>
 
-namespace search { class Result; }
 class QTableWidget;
 class QLineEdit;
 
@@ -16,6 +19,9 @@ class SearchPanel : public QWidget
   DrawWidget * m_pDrawWidget;
   QTableWidget * m_pTable;
   QLineEdit * m_pEditor;
+
+  /// Stores current search results
+  vector<search::Result> m_results;
 
   Q_OBJECT
 
