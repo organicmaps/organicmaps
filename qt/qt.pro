@@ -86,7 +86,7 @@ HEADERS += \
 RESOURCES += res/resources.qrc
 
 # removed for desktop releases
-CONFIG(debug, debug|release) {
+!CONFIG(no_downloader) {
   QT *= webkit
 
   SOURCES += \

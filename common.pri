@@ -35,9 +35,6 @@ CONFIG(production) {
   CONFIG(release, debug|release)|CONFIG(production) {
     CONFIG += no_downloader
     DEFINES += NO_DOWNLOADER
-  } else {
-    CONFIG += use_downloader
-    DEFINES += USE_DOWNLOADER
   }
 }
 
