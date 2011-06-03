@@ -64,10 +64,6 @@ struct FeatureProcessor
 
   void operator () (FeatureType const & feature) const
   {
-    int const minVisibleScale = feature::MinDrawableScaleForText(feature);
-    if (minVisibleScale < 0)
-      return;
-
     KeywordMatcher matcher(MakeMatcher(m_query.m_keywords, m_query.m_prefix));
     feature.ForEachNameRef(matcher);
     if (matcher.GetPrefixMatchScore() <= GetMaxKeywordMatchScore())
@@ -75,6 +71,10 @@ struct FeatureProcessor
       uint32_t const matchScore = matcher.GetMatchScore();
       if (matchScore <= GetMaxKeywordMatchScore())
       {
+        int const minVisibleScale = feature::MinDrawableScaleForText(feature);
+        if (minVisibleScale < 0)
+          return;
+
         m_query.AddResult(IntermediateResult(feature, matcher.GetBestPrefixMatch(),
                                              matchScore, minVisibleScale));
       }
