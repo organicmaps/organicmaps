@@ -22,6 +22,7 @@ public:
 private:
   string m_str;
   m2::RectD m_rect;
+  uint32_t m_type;
   int m_matchPenalty;
   int m_minVisibleScale;
 };

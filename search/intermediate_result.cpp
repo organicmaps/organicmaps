@@ -14,6 +14,10 @@ IntermediateResult::IntermediateResult(FeatureType const & feature,
   : m_str(displayName), m_rect(feature::GetFeatureViewport(feature)), m_matchPenalty(matchPenalty),
     m_minVisibleScale(minVisibleScale)
 {
+  FeatureType::GetTypesFn types;
+  feature.ForEachTypeRef(types);
+  ASSERT_GREATER(types.m_size, 0, ());
+  m_type = types.m_types[0];
 }
 
 bool IntermediateResult::operator < (IntermediateResult const & o) const
@@ -31,10 +35,10 @@ Result IntermediateResult::GenerateFinalResult() const
   return Result(m_str
                 + ' ' + strings::to_string(m_matchPenalty)
                 + ' ' + strings::to_string(m_minVisibleScale),
-                m_rect);
 #else
-  return Result(m_str, m_rect);
+  return Result(m_str,
 #endif
+                m_type, m_rect);
 }
 
 }  // namespace search::impl

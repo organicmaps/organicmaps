@@ -42,8 +42,10 @@ void SearchPanel::OnSearchResult(search::Result const & result)
 
     m_pTable->setRowCount(rowCount + 1);
     QTableWidgetItem * item = new QTableWidgetItem(QString::fromUtf8(result.GetString().c_str()));
-    item->setData(Qt::UserRole, QRectF(QPointF(result.GetRect().minX(), result.GetRect().maxY()),
-                                       QPointF(result.GetRect().maxX(), result.GetRect().minY())));
+    item->setData(Qt::UserRole, QRectF(QPointF(result.GetFeatureRect().minX(),
+                                               result.GetFeatureRect().maxY()),
+                                       QPointF(result.GetFeatureRect().maxX(),
+                                               result.GetFeatureRect().minY())));
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     m_pTable->setItem(rowCount, 0, item);
   }

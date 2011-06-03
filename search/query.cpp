@@ -96,6 +96,7 @@ void Query::Search(function<void (Result const &)> const & f)
     {
       double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
       f(Result("(" + strings::to_string(lat) + ", " + strings::to_string(lon) + ")",
+               0,
                m2::RectD(MercatorBounds::LonToX(lon - precision),
                          MercatorBounds::LatToY(lat - precision),
                          MercatorBounds::LonToX(lon + precision),

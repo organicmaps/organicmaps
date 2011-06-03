@@ -9,14 +9,35 @@ namespace search
 class Result
 {
 public:
-  Result(string const & str, m2::RectD const & rect);
+  enum ResultType
+  {
+    RESULT_FEATURE,
+    RESULT_SUGGESTION
+  };
 
+  Result(string const & str, uint32_t featureType, m2::RectD const & featureRect);
+  Result(string const & str, string const & suggestionStr);
+
+  // String that is displayed in the GUI.
   string GetString() const { return m_str; }
-  m2::RectD GetRect() const { return m_rect; }
+
+  // Type of the result.
+  ResultType GetResultType() const;
+
+  // Rect of a feature, if GetResultType() == RESULT_FEATURE.
+  m2::RectD GetFeatureRect() const;
+
+  // Type of a feature, if GetResultType() == RESULT_FEATURE.
+  uint32_t GetFetureType() const;
+
+  // String writo in the search box.
+  string GetSuggestionString() const;
 
 private:
   string m_str;
-  m2::RectD m_rect;
+  m2::RectD m_featureRect;
+  uint32_t m_featureType;
+  string m_suggestionStr;
 };
 
 }
