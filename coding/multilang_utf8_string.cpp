@@ -2,7 +2,7 @@
 
 #include "../defines.hpp"
 
-char StringUtf8Multilang::GetLangIndex(string const & lang)
+signed char StringUtf8Multilang::GetLangIndex(string const & lang)
 {
   static char const * arr[] = { "default",
                          "en", "ja", "fr", "ko_rm", "ar", "de", "ru", "sv", "zh", "fi",

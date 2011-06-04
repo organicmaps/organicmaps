@@ -21,6 +21,8 @@
 
 #define SETTINGS_FILE_NAME "settings.ini"
 
+#define SEARCH_CATEGORIES_FILE_NAME "categories.txt"
+
 #define DEFAULT_AUTO_UPDATES_ENABLED true
 
 /// How many langs we're supporting on indexing stage

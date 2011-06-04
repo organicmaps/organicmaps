@@ -6,9 +6,12 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES =  search indexer geometry coding base
+DEPENDENCIES =  platform search indexer geometry coding base
 
 include($$ROOT_DIR/common.pri)
+
+# needed for GetPlatform::ReadPathForFile()
+QT += core
 
 win32 {
   LIBS += -lShell32
@@ -18,11 +21,12 @@ win32 {
 }
 
 SOURCES += \
-  ../../testing/testingmain.cpp \
-  keyword_matcher_test.cpp \
-  query_test.cpp \
-  string_match_test.cpp \
-  latlon_match_test.cpp \
+    ../../testing/testingmain.cpp \
+    keyword_matcher_test.cpp \
+    query_test.cpp \
+    string_match_test.cpp \
+    latlon_match_test.cpp \
+    categories_test.cpp \
 
 HEADERS += \
-  match_cost_mock.hpp \
+    match_cost_mock.hpp \

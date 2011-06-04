@@ -35,7 +35,7 @@ class StringUtf8Multilang
   size_t GetNextIndex(size_t i) const;
 
 public:
-  static char GetLangIndex(string const & lang);
+  static signed char GetLangIndex(string const & lang);
 
   inline bool operator== (StringUtf8Multilang const & rhs) const
   {
