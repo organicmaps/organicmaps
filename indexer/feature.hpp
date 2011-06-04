@@ -379,6 +379,8 @@ public:
   uint32_t GetPopulation() const;
   double GetPopulationDrawRank() const;
 
+  string GetRoadNumber() const { return m_Params.ref; }
+
   /// @name Statistic functions.
   //@{
   void ParseBeforeStatistic() const

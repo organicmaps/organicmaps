@@ -202,8 +202,8 @@ void DrawerYG::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int de
 namespace
 {
   double const min_text_height_filtered = 2;
-  double const min_text_height = 12;      // 8
-//  double const min_text_height_mask = 9.99; // 10
+  double const min_text_height = 12;          // 8
+  //double const min_text_height_mask = 9.99; // 10
 }
 
 uint8_t DrawerYG::get_text_font_size(rule_ptr_t pRule) const
@@ -258,7 +258,7 @@ bool DrawerYG::drawPathText(di::PathInfo const & info, string const & name, uint
                                   &info.m_path[0],
                                   info.m_path.size(),
                                   name,
-                                  info.GetLength(),
+                                  info.GetFullLength(),
                                   info.GetOffset(),
                                   yg::EPosCenter,
                                   yg::maxDepth);
@@ -276,6 +276,7 @@ void DrawerYG::SetVisualScale(double visualScale)
 
 void DrawerYG::SetScale(int level)
 {
+  m_level = level;
   m_scale = scales::GetM2PFactor(level);
 }
 
@@ -283,8 +284,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
 {
   buffer_vector<di::DrawRule, 8> pathRules;
 
-  /// separating path rules from other
-
+  // separating path rules from other
   for (unsigned i = 0; i < count; ++i)
   {
     rule_ptr_t pRule = rules[i].m_rule;
@@ -301,8 +301,35 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
 
   if (!pathRules.empty())
   {
+    bool const isNumber = !pInfo->m_road.empty() && m_level >= 12;
+
     for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
+    {
       drawPath(i->m_path, pathRules.data(), pathRules.size());
+
+      int const textHeight = 12;
+      m2::PointD pt;
+      double const length = i->GetFullLength();
+      if (isNumber && (length >= (pInfo->m_road.size() + 2)*textHeight))
+      {
+        size_t const count = size_t(length / 1000.0) + 2;
+
+        for (size_t j = 1; j < count; ++j)
+        {
+          if (i->GetSmPoint(double(j) / double(count), pt))
+          {
+            yg::FontDesc fontDesc(
+              false,
+              textHeight,
+              yg::Color(150, 75, 0, 255),   // brown
+              true,
+              yg::Color(255, 255, 255, 255));
+
+            m_pScreen->drawText(fontDesc, pt, yg::EPosCenter, 0.0, pInfo->m_road, yg::maxDepth, true);
+          }
+        }
+      }
+    }
   }
 
   for (unsigned i = 0; i < count; ++i)

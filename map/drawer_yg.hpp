@@ -32,13 +32,14 @@ namespace di
   class DrawInfo
   {
   public:
-    DrawInfo(string const & name, double rank) : m_name(name), m_rank(rank) {}
+    DrawInfo(string const & name, string const & road, double rank)
+      : m_name(name), m_road(road), m_rank(rank) {}
 
     list<di::PathInfo> m_pathes;
     list<di::AreaInfo> m_areas;
     m2::PointD m_point;
 
-    string m_name;
+    string m_name, m_road;
     double m_rank;
   };
 
@@ -60,6 +61,7 @@ class DrawerYG
 
   double m_scale;
   double m_visualScale;
+  int m_level;
 
   shared_ptr<yg::gl::Screen> m_pScreen;
   shared_ptr<yg::Skin> m_pSkin;

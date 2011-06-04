@@ -11,19 +11,19 @@ namespace di
 {
   class PathInfo
   {
-    mutable double m_length;
+    double m_fullL;
     double m_offset;
 
   public:
     vector<m2::PointD> m_path;
 
     // -1.0 means "not" initialized
-    PathInfo(double offset = -1.0) : m_length(-1.0), m_offset(offset) {}
+    PathInfo(double offset = -1.0) : m_fullL(-1.0), m_offset(offset) {}
 
     void swap(PathInfo & r)
     {
       m_path.swap(r.m_path);
-      std::swap(m_length, r.m_length);
+      std::swap(m_fullL, r.m_fullL);
       std::swap(m_offset, r.m_offset);
     }
 
@@ -34,26 +34,40 @@ namespace di
 
     size_t size() const { return m_path.size(); }
 
-    void SetLength(double len) { m_length = len; }
-
-    double GetLength() const
+    void SetFullLength(double len) { m_fullL = len; }
+    double GetFullLength() const
     {
-      // m_length not initialized - calculate it
-      //if (m_length < 0.0)
-      //{
-      //  m_length = 0.0;
-      //  for (size_t i = 1; i < m_path.size(); ++i)
-      //    m_length += m_path[i-1].Length(m_path[i]);
-      //}
-
-      ASSERT ( m_length > 0.0, (m_length) );
-      return m_length;
+      ASSERT ( m_fullL > 0.0, (m_fullL) );
+      return m_fullL;
     }
 
     double GetOffset() const
     {
       ASSERT ( m_offset >= 0.0, (m_offset) );
       return m_offset;
+    }
+
+    bool GetSmPoint(double part, m2::PointD & pt) const
+    {
+      double sum = -GetFullLength() * part + m_offset;
+      if (sum > 0.0) return false;
+
+      for (size_t i = 1; i < m_path.size(); ++i)
+      {
+        double const l = m_path[i-1].Length(m_path[i]);
+        sum += l;
+        if (sum >= 0.0)
+        {
+          double const factor = (l - sum) / l;
+          ASSERT_GREATER_OR_EQUAL ( factor, 0.0, () );
+
+          pt.x = factor * (m_path[i].x - m_path[i-1].x) + m_path[i-1].x;
+          pt.y = factor * (m_path[i].y - m_path[i-1].y) + m_path[i-1].y;
+          return true;
+        }
+      }
+
+      return false;
     }
 
     m2::RectD GetLimitRect() const

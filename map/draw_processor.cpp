@@ -85,7 +85,7 @@ void path_points::best_filtration(m2::PointD const & pt)
     m2::PointD prev = m_prev;
     m2::PointD curr = pt;
 
-    double segLen = curr.Length(prev);
+    double const segLen = curr.Length(prev);
 
     if ((m_startLength != 0) && (m_endLength != 0))
     {
@@ -123,7 +123,7 @@ void path_points::best_filtration(m2::PointD const & pt)
       }
     }
 
-    m_length += m_prev.Length(pt);
+    m_length += segLen;
   }
   else
   {
@@ -145,7 +145,8 @@ void path_points::operator() (m2::PointD const & p)
 bool path_points::IsExist()
 {
   // finally, assign whole length to every cutted path
-  for_each(m_points.begin(), m_points.end(), bind(&di::PathInfo::SetLength, _1, m_length));
+  for_each(m_points.begin(), m_points.end(),
+    bind(&di::PathInfo::SetFullLength, _1, m_length));
 
   EndPL();
   return base_type::IsExist();
