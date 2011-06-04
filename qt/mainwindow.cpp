@@ -237,6 +237,7 @@ void MainWindow::CreateNavigationBar()
                                            SLOT(OnSearchButtonClicked()));
     m_pSearchAction->setCheckable(true);
     m_pSearchAction->setToolTip(tr("Offline Search"));
+    m_pSearchAction->setShortcut(QKeySequence::Find);
 
     pToolBar->addSeparator();
 
@@ -326,20 +327,6 @@ void MainWindow::OnSearchButtonClicked()
   }
 }
 
-void MainWindow::OnSearchShortcutPressed()
-{
-  if (m_Docks[2]->isVisible())
-  {
-    m_pSearchAction->setChecked(false);
-    m_Docks[2]->hide();
-  }
-  else
-  {
-    m_pSearchAction->setChecked(true);
-    m_Docks[2]->show();
-  }
-}
-
 void MainWindow::OnPreferences()
 {
   bool autoUpdatesEnabled = DEFAULT_AUTO_UPDATES_ENABLED;
@@ -394,7 +381,7 @@ void MainWindow::CreateGuidePanel()
 void MainWindow::CreateSearchBarAndPanel()
 {
   CreatePanelImpl(2, Qt::RightDockWidgetArea, tr("Search"),
-                  QKeySequence(QKeySequence::Find), SLOT(OnSearchShortcutPressed()));
+                  QKeySequence(), 0);
   SearchPanel * panel = new SearchPanel(m_pDrawWidget, m_Docks[2]);
   m_Docks[2]->setWidget(panel);
 }
@@ -410,10 +397,13 @@ void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString cons
   m_Docks[i]->hide();
 
   // register a hotkey to show classificator panel
-  QAction * pAct = new QAction(this);
-  pAct->setShortcut(hotkey);
-  connect(pAct, SIGNAL(triggered()), this, slot);
-  addAction(pAct);
+  if (!hotkey.isEmpty())
+  {
+    QAction * pAct = new QAction(this);
+    pAct->setShortcut(hotkey);
+    connect(pAct, SIGNAL(triggered()), this, slot);
+    addAction(pAct);
+  }
 }
 
 }

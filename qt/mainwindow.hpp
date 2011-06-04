@@ -66,6 +66,5 @@ namespace qt
     void OnAbout();
     void OnMyPosition();
     void OnSearchButtonClicked();
-    void OnSearchShortcutPressed();
   };
 }
