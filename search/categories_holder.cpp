@@ -7,6 +7,7 @@
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
 
+
 namespace search
 {
 
@@ -66,7 +67,7 @@ size_t CategoriesHolder::LoadFromStream(istream & stream)
           state = EParseTypes;
           continue;
         }
-        signed char langCode = StringUtf8Multilang::GetLangIndex(*iter);
+        char langCode = StringUtf8Multilang::GetLangIndex(*iter);
         if (langCode == -1)
         {
           LOG(LWARNING, ("Invalid language code:", *iter));

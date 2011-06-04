@@ -1,9 +1,11 @@
 #pragma once
+#include "../base/base.hpp"
 
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
 #include "../std/utility.hpp"
-#include "../std/istream.hpp"
+#include "../std/fstream.hpp"
+#include "../std/algorithm.hpp"
 
 namespace search
 {
@@ -13,7 +15,7 @@ struct Category
   /// Classificator types
   vector<uint32_t> m_types;
   /// <language, synonym>
-  vector<pair<signed char, string> > m_synonyms;
+  vector<pair<char, string> > m_synonyms;
 };
 
 class CategoriesHolder
@@ -25,11 +27,10 @@ public:
   /// @return number of loaded categories or 0 if something goes wrong
   size_t LoadFromStream(istream & stream);
 
-  template <class T>
-  void ForEachCategory(T & f) const
+  template <class ToDo>
+  void ForEachCategory(ToDo toDo) const
   {
-    for (ContainerT::const_iterator it = m_categories.begin(); it != m_categories.end(); ++it)
-      f(*it);
+    for_each(m_categories.begin(), m_categories.end(), toDo);
   }
 };
 

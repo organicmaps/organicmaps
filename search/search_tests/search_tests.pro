@@ -26,7 +26,6 @@ SOURCES += \
     query_test.cpp \
     string_match_test.cpp \
     latlon_match_test.cpp \
-    categories_test.cpp \
 
 HEADERS += \
     match_cost_mock.hpp \
