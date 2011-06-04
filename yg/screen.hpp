@@ -1,20 +1,20 @@
 #pragma once
 
-#include "shape_renderer.hpp"
+#include "symbol_renderer.hpp"
 
 namespace yg
 {
   class ResourceManager;
   namespace gl
   {
-    class Screen : public ShapeRenderer
+    class Screen : public SymbolRenderer
     {
     private:
     public:
 
-      typedef ShapeRenderer::Params Params;
+      typedef SymbolRenderer::Params Params;
 
-      Screen(Params const & params) : ShapeRenderer(params)
+      Screen(Params const & params) : SymbolRenderer(params)
       {}
     };
   }

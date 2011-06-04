@@ -698,22 +698,67 @@ namespace
     }
   };
 
+  struct TestDrawTextRect : TestDrawString
+  {
+    typedef TestDrawString base_t;
+    void DoDraw(shared_ptr<yg::gl::Screen> p)
+    {
+      m2::PointD startPt(40, 50);
+
+      yg::StraightTextElement::Params params;
+      params.m_depth = 0;
+      params.m_fontDesc = yg::FontDesc(false, 20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
+      params.m_log2vis = false;
+      params.m_pivot = startPt;
+      params.m_position = yg::EPosAboveRight;
+      params.m_rm = p->resourceManager();
+      params.m_skin = p->skin();
+      params.m_utf8Text = "Simplicity is the ultimate sophistication";
+      yg::StraightTextElement ste(params);
+
+      m2::RectD r = ste.boundRect();
+
+      m2::PointD pts[6] = {
+        m2::PointD(r.minX(), r.minY()),
+        m2::PointD(r.maxX(), r.minY()),
+        m2::PointD(r.maxX(), r.maxY()),
+        m2::PointD(r.minX(), r.minY()),
+        m2::PointD(r.maxX(), r.maxY()),
+        m2::PointD(r.minX(), r.maxY())
+      };
+
+      p->drawTrianglesList(pts, 6, p->skin()->mapColor(yg::Color(0, 0, 255, 255)), 0);
+
+      base_t::DoDraw(p);
+    }
+  };
+
   struct TestDrawTextRectWithFixedFont : TestDrawStringWithFixedFont
   {
     typedef TestDrawStringWithFixedFont base_t;
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      m2::RectD r = p->textRect(yg::FontDesc::defaultFont, "Simplicity is the ultimate sophistication", false);
-
       m2::PointD startPt(40, 50);
+      yg::StraightTextElement::Params params;
+      params.m_depth = 0;
+      params.m_fontDesc = yg::FontDesc::defaultFont;
+      params.m_log2vis = false;
+      params.m_pivot = startPt;
+      params.m_position = yg::EPosAboveRight;
+      params.m_rm = p->resourceManager();
+      params.m_skin = p->skin();
+      params.m_utf8Text = "Simplicity is the ultimate sophistication";
+      yg::StraightTextElement ste(params);
+
+      m2::RectD r = ste.boundRect();
 
       m2::PointD pts[6] = {
-        startPt + m2::PointD(r.minX(), r.minY()),
-        startPt + m2::PointD(r.maxX(), r.minY()),
-        startPt + m2::PointD(r.maxX(), r.maxY()),
-        startPt + m2::PointD(r.minX(), r.minY()),
-        startPt + m2::PointD(r.maxX(), r.maxY()),
-        startPt + m2::PointD(r.minX(), r.maxY())
+        m2::PointD(r.minX(), r.minY()),
+        m2::PointD(r.maxX(), r.minY()),
+        m2::PointD(r.maxX(), r.maxY()),
+        m2::PointD(r.minX(), r.minY()),
+        m2::PointD(r.maxX(), r.maxY()),
+        m2::PointD(r.minX(), r.maxY())
       };
 
       p->drawTrianglesList(pts, 6, p->skin()->mapColor(yg::Color(0, 0, 255, 255)), 0);
@@ -1241,13 +1286,14 @@ namespace
 //   UNIT_TEST_GL(TestDrawStringWithColor);
 //   UNIT_TEST_GL(TestDrawUnicodeSymbols);
 //   UNIT_TEST_GL(TestDrawTextRectWithFixedFont);
+//     UNIT_TEST_GL(TestDrawTextRect);
 //   UNIT_TEST_GL(TestDrawStringOnString);
 //   UNIT_TEST_GL(TestDrawTextOnPathInteractive);
 //   UNIT_TEST_GL(TestDrawTextOnPathBigSymbols);
-//   UNIT_TEST_GL(TestDrawTextOnPath);
-//   UNIT_TEST_GL(TestDrawTextOnPathZigZag);
-//   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
-   UNIT_TEST_GL(TestDrawStraightTextElement);
+     UNIT_TEST_GL(TestDrawTextOnPath);
+     UNIT_TEST_GL(TestDrawTextOnPathZigZag);
+     UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
+//   UNIT_TEST_GL(TestDrawStraightTextElement);
    UNIT_TEST_GL(TestDrawPathTextElement);
 //   UNIT_TEST_GL(TestDrawTextOverflow);
 //   UNIT_TEST_GL(TestDrawTextFiltering);

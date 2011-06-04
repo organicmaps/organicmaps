@@ -5,6 +5,7 @@
 #include "../yg/defines.hpp"
 #include "../yg/skin.hpp"
 #include "../yg/pen_info.hpp"
+#include "../yg/text_element.hpp"
 
 #include "../version/version.hpp"
 
@@ -164,7 +165,7 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
 
   yg::FontDesc fontDesc = yg::FontDesc::defaultFont;
 
-  m2::RectD textRect = pDrawer->screen()->textRect(fontDesc, scalerText.c_str(), false);
+//  m2::RectD textRect = pDrawer->screen()->textRect(fontDesc, scalerText.c_str(), false);
   pDrawer->screen()->drawText(fontDesc,
                               scalerPts[1] + m2::PointD(7, -7),
                               yg::EPosAboveRight,
@@ -208,29 +209,27 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
   out << "(" << fixed << setprecision(4) << m_centerPtLonLat.y << ", "
              << fixed << setprecision(4) << setw(8) << m_centerPtLonLat.x << ")";
 
-  m2::RectD const & textRect = drawer->screen()->textRect(
-        yg::FontDesc::defaultFont,
-        out.str().c_str(),
-        false);
+  yg::StraightTextElement::Params params;
+  params.m_depth = yg::maxDepth;
+  params.m_fontDesc = yg::FontDesc::defaultFont;
+  params.m_log2vis = false;
+  params.m_pivot = m2::PointD(m_displayRect.maxX() - 10 * m_visualScale,
+                              m_displayRect.maxY() - (m_bottomShift + 10) * m_visualScale - 5);
+  params.m_position = yg::EPosAboveLeft;
+  params.m_rm = drawer->screen()->resourceManager();
+  params.m_skin = drawer->screen()->skin();
+  params.m_utf8Text = out.str();
 
-  m2::RectD bgRect = m2::Offset(m2::Inflate(textRect, 5.0, 5.0),
-                   m_displayRect.maxX() - textRect.SizeX() - 10 * m_visualScale,
-                   m_displayRect.maxY() - (m_bottomShift + 10) * m_visualScale - 5);
+  yg::StraightTextElement ste(params);
+
+  m2::RectD bgRect = m2::Inflate(ste.boundRect(), 5.0, 5.0);
 
   drawer->screen()->drawRectangle(
         bgRect,
         yg::Color(187, 187, 187, 128),
         yg::maxDepth - 1);
 
-  drawer->screen()->drawText(
-        yg::FontDesc::defaultFont,
-        m2::PointD(m_displayRect.maxX() - textRect.SizeX() - 10 * m_visualScale,
-                   m_displayRect.maxY() - (m_bottomShift + 10) * m_visualScale - 5),
-        yg::EPosAboveRight,
-        0,
-        out.str().c_str(),
-        yg::maxDepth,
-        false);
+  ste.draw(drawer->screen().get());
 }
 
 void InformationDisplay::enableGlobalRect(bool doEnable)
@@ -370,7 +369,7 @@ void InformationDisplay::enableLog(bool doEnable, WindowHandle * windowHandle)
   }
 }
 
-void InformationDisplay::drawLog(DrawerYG * pDrawer)
+void InformationDisplay::drawLog(DrawerYG * drawer)
 {
   threads::MutexGuard guard(s_logMutex);
 
@@ -380,27 +379,25 @@ void InformationDisplay::drawLog(DrawerYG * pDrawer)
 
     m2::PointD startPt(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset);
 
-    m2::RectD textRect = pDrawer->screen()->textRect(
-          yg::FontDesc::defaultFont,
-          it->c_str(),
-          false
-          );
+    yg::StraightTextElement::Params params;
+    params.m_depth = yg::maxDepth;
+    params.m_fontDesc = yg::FontDesc::defaultFont;
+    params.m_log2vis = false;
+    params.m_pivot = startPt;
+    params.m_position = yg::EPosAboveRight;
+    params.m_rm = drawer->screen()->resourceManager();
+    params.m_skin = drawer->screen()->skin();
+    params.m_utf8Text = *it;
 
-    pDrawer->screen()->drawRectangle(
-        m2::Inflate(m2::Offset(textRect, startPt), m2::PointD(2, 2)),
+    yg::StraightTextElement ste(params);
+
+    drawer->screen()->drawRectangle(
+        m2::Inflate(ste.boundRect(), m2::PointD(2, 2)),
         yg::Color(0, 0, 0, 128),
         yg::maxDepth - 1
         );
 
-    pDrawer->screen()->drawText(
-          yg::FontDesc::defaultFont,
-          startPt,
-          yg::EPosAboveRight,
-          0,
-          it->c_str(),
-          yg::maxDepth,
-          false
-          );
+    ste.draw(drawer->screen().get());
   }
 }
 

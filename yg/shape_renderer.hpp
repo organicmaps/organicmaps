@@ -1,15 +1,15 @@
 #pragma once
 
-#include "symbol_renderer.hpp"
+#include "path_renderer.hpp"
 
 namespace yg
 {
   namespace gl
   {
-    class ShapeRenderer : public SymbolRenderer
+    class ShapeRenderer : public PathRenderer
     {
     private:
-      typedef SymbolRenderer base_t;
+      typedef PathRenderer base_t;
     public:
 
       ShapeRenderer(base_t::Params const & params);

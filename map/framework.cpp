@@ -245,7 +245,7 @@ namespace fwork
             f.ForEachPointRef(fun, m_zoom);
             if ((fun.IsExist()) && (fun.m_length > textLength))
             {
-              textLength += 200;
+              textLength += 50;
               p.m_startLength = (fun.m_length - textLength) / 2;
               p.m_endLength = p.m_startLength + textLength;
             }

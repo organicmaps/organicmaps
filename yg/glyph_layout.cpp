@@ -213,14 +213,14 @@ namespace yg
         {
           if (i == 0)
             m_limitRect = m2::RectD(p->m_xOffset + pv.x,
-                                    p->m_yOffset + pv.y,
+                                   -p->m_yOffset + pv.y,
                                     p->m_xOffset + pv.x,
-                                    p->m_yOffset + pv.y);
+                                   -p->m_yOffset + pv.y);
           else
-            m_limitRect.Add(m2::PointD(p->m_xOffset, p->m_yOffset) + pv);
+            m_limitRect.Add(m2::PointD(p->m_xOffset, -p->m_yOffset) + pv);
 
           m_limitRect.Add(m2::PointD(p->m_xOffset + p->m_texRect.SizeX() - 4,
-                                     p->m_yOffset + p->m_texRect.SizeY() - 4) + pv);
+                                   -(p->m_yOffset + (int)p->m_texRect.SizeY() - 4)) + pv);
 
         }
 
@@ -244,12 +244,15 @@ namespace yg
       {
         GlyphMetrics const m = resourceManager->getGlyphMetrics(glyphKey);
         if (i == 0)
-          m_limitRect = m2::RectD(m.m_xOffset + pv.x, m.m_yOffset + pv.y, m.m_xOffset + pv.x, m.m_yOffset + pv.y);
+          m_limitRect = m2::RectD(m.m_xOffset + pv.x,
+                                 -m.m_yOffset + pv.y,
+                                  m.m_xOffset + pv.x,
+                                 -m.m_yOffset + pv.y);
         else
-          m_limitRect.Add(m2::PointD(m.m_xOffset, m.m_yOffset) + pv);
+          m_limitRect.Add(m2::PointD(m.m_xOffset, -m.m_yOffset) + pv);
 
-        m_limitRect.Add(m2::PointD(m.m_xOffset + m.m_xAdvance,
-                                   m.m_yOffset + m.m_yAdvance) + pv);
+        m_limitRect.Add(m2::PointD(m.m_xOffset + m.m_width,
+                                 -(m.m_yOffset + m.m_height)) + pv);
 
         GlyphLayoutElem elem;
         elem.m_sym = text[i];
@@ -261,6 +264,8 @@ namespace yg
         pv += m2::PointD(m.m_xAdvance, m.m_yAdvance);
       }
     }
+
+    m_limitRect.Inflate(2, 2);
 
     m2::PointD ptOffs(-m_limitRect.SizeX() / 2,
                       -m_limitRect.SizeY() / 2);
@@ -399,6 +404,18 @@ namespace yg
         // < align to baseline
 //        m_entries[symPos].m_pt = m_entries[symPos].m_pt.Move(blOffset - kernOffset, m_entries[symPos].m_angle - math::pi / 2);
       }
+      else
+      {
+        if (symPos == m_firstVisible)
+        {
+          m_firstVisible = symPos + 1;
+        }
+        else
+        {
+          m_entries[symPos].m_angle = 0;
+          m_entries[symPos].m_pt = glyphStartPt.m_pt;
+        }
+      }
 
       glyphStartPt = arrPath.offsetPoint(glyphStartPt, fullGlyphAdvance);
       offset += fullGlyphAdvance;
@@ -422,7 +439,10 @@ namespace yg
       symRectAA.GetGlobalPoints(pts);
 
       if (isFirst)
+      {
         m_limitRect = m2::RectD(pts[0].x, pts[0].y, pts[0].x, pts[0].y);
+        isFirst = false;
+      }
       else
         m_limitRect.Add(pts[0]);
 

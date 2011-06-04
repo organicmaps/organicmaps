@@ -10,18 +10,15 @@
 
 #include "../std/bind.hpp"
 
-#include "../3party/fribidi/lib/fribidi-deprecated.h"
 
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
 #include "../base/stl_add.hpp"
 
-
 namespace yg
 {
   namespace gl
   {
-
     TextRenderer::Params::Params()
       : m_textTreeAutoClean(true),
       m_useTextTree(false),
@@ -38,8 +35,8 @@ namespace yg
       m_doPeriodicalTextUpdate(params.m_doPeriodicalTextUpdate)
     {}
 
-    TextRenderer::TextObj::TextObj(FontDesc const & fontDesc, m2::PointD const & pt, yg::EPosition pos, string const & txt, double d, bool log2vis)
-       : m_fontDesc(fontDesc), m_pt(pt), m_pos(pos), m_utf8Text(txt), m_depth(d), m_needRedraw(true), m_frozen(false), m_log2vis(log2vis)
+    TextRenderer::TextObj::TextObj(StraightTextElement const & elem)
+       : m_elem(elem), m_needRedraw(true), m_frozen(false)
     {
     }
 
@@ -49,34 +46,14 @@ namespace yg
       /// lies inside the testing rect and therefore should be skipped.
       if (m_needRedraw)
       {
-        pTextRenderer->drawTextImpl(m_fontDesc, m_pt, m_pos, 0.0, m_utf8Text, yg::maxDepth, m_log2vis);
+        m_elem.draw(pTextRenderer);
         m_frozen = true;
       }
     }
 
     m2::RectD const TextRenderer::TextObj::GetLimitRect(TextRenderer* pTextRenderer) const
     {
-      m2::RectD limitRect = pTextRenderer->textRect(m_fontDesc, m_utf8Text, m_log2vis);
-
-      double dx = -limitRect.SizeX() / 2;
-      double dy = limitRect.SizeY() / 2;
-
-      if (m_pos & EPosLeft)
-        dx = -limitRect.SizeX();
-
-      if (m_pos & EPosRight)
-        dx = 0;
-
-      if (m_pos & EPosUnder)
-        dy = limitRect.SizeY();
-
-      if (m_pos & EPosAbove)
-        dy = 0;
-
-      dx = ::floor(dx);
-      dy = ::floor(dy);
-
-      return m2::Offset(limitRect, m_pt + m2::PointD(dx, dy));
+      return m_elem.boundRect();
     }
 
     void TextRenderer::TextObj::SetNeedRedraw(bool flag) const
@@ -96,12 +73,12 @@ namespace yg
 
     string const & TextRenderer::TextObj::Text() const
     {
-      return m_utf8Text;
+      return m_elem.utf8Text();
     }
 
     void TextRenderer::TextObj::Offset(m2::PointD const & offs)
     {
-      m_pt += offs;
+      m_elem.offset(offs);
     }
 
     bool TextRenderer::TextObj::better_text(TextObj const & r1, TextObj const & r2)
@@ -110,9 +87,9 @@ namespace yg
       // because frozen texts shouldn't be popped out by newly arrived texts.
       if (r2.m_frozen)
         return false;
-      if (r1.m_fontDesc != r2.m_fontDesc)
-        return r1.m_fontDesc > r2.m_fontDesc;
-      return (r1.m_depth > r2.m_depth);
+      if (r1.m_elem.fontDesc() != r2.m_elem.fontDesc())
+        return r1.m_elem.fontDesc() > r2.m_elem.fontDesc();
+      return (r1.m_elem.depth() > r2.m_elem.depth());
     }
 
     void TextRenderer::drawText(FontDesc const & fontDesc,
@@ -126,12 +103,24 @@ namespace yg
       if (!m_drawTexts)
         return;
 
+      StraightTextElement::Params params;
+      params.m_depth = depth;
+      params.m_fontDesc = fontDesc;
+      params.m_log2vis = log2vis;
+      params.m_pivot = pt;
+      params.m_position = pos;
+      params.m_rm = resourceManager();
+      params.m_skin = skin();
+      params.m_utf8Text = utf8Text;
+
+      StraightTextElement ste(params);
+
       if (!m_useTextTree || fontDesc.m_isStatic)
-         drawTextImpl(fontDesc, pt, pos, angle, utf8Text, depth, log2vis);
+        ste.draw(this);
       else
       {
         checkTextRedraw();
-        TextObj obj(fontDesc, pt, pos, utf8Text, depth, log2vis);
+        TextObj obj(ste);
         m2::RectD r = obj.GetLimitRect(this);
         m_tree.ReplaceIf(obj, r, &TextObj::better_text);
       }
@@ -144,6 +133,7 @@ namespace yg
       {
         m_needTextRedraw = false;
         m_tree.ForEach(bind(&TextObj::Draw, _1, this));
+
         /// flushing only texts
         base_t::flush(skin()->currentTextPage());
       }
@@ -167,8 +157,45 @@ namespace yg
       if (m_useTextTree)
       {
         m_tree.ForEach(bind(&TextObj::Draw, _1, this));
+
+        unsigned pathTextDrawn = 0;
+        unsigned pathTextGroups = 0;
+        unsigned maxGroup = 0;
+
+        list<string> toErase;
+
+        for (path_text_elements::const_iterator it = m_pathTexts.begin(); it != m_pathTexts.end(); ++it)
+        {
+          list<PathTextElement> const & l = it->second;
+
+          unsigned curGroup = 0;
+
+          for (list<PathTextElement>::const_iterator j = l.begin(); j != l.end(); ++j)
+          {
+            j->draw(this);
+            ++pathTextDrawn;
+          }
+
+          if (l.empty())
+            toErase.push_back(it->first);
+
+          ++pathTextGroups;
+
+          if (maxGroup < l.size())
+            maxGroup = l.size();
+
+        }
+
+        for (list<string>::const_iterator it = toErase.begin(); it != toErase.end(); ++it)
+          m_pathTexts.erase(*it);
+
+        LOG(LINFO, ("text on pathes: ", pathTextDrawn, ", groups: ", pathTextGroups, ", max group:", maxGroup));
+
         if (m_textTreeAutoClean)
+        {
           m_tree.Clear();
+          m_pathTexts.clear();
+        }
 
         m_needTextRedraw = false;
       }
@@ -179,9 +206,10 @@ namespace yg
     {
       ASSERT(m_useTextTree, ());
       m_tree.Clear();
+      m_pathTexts.clear();
     }
 
-    void TextRenderer::offsetTextTree(m2::PointD const & offs, m2::RectD const & rect)
+    void TextRenderer::offsetTexts(m2::PointD const & offs, m2::RectD const & rect)
     {
       ASSERT(m_useTextTree, ());
       vector<TextObj> texts;
@@ -206,6 +234,38 @@ namespace yg
       }
     }
 
+    void TextRenderer::offsetPathTexts(m2::PointD const & offs, m2::RectD const & rect)
+    {
+      ASSERT(m_useTextTree, ());
+
+      for (path_text_elements::iterator i = m_pathTexts.begin(); i != m_pathTexts.end(); ++i)
+      {
+        list<PathTextElement> & l = i->second;
+        list<PathTextElement>::iterator it = l.begin();
+        while (it != l.end())
+        {
+          it->offset(offs);
+          m2::RectD const & r = it->boundRect();
+          if (!rect.IsIntersect(r) && !rect.IsRectInside(r))
+          {
+            list<PathTextElement>::iterator tempIt = it;
+            ++tempIt;
+            l.erase(it);
+            it = tempIt;
+          }
+          else
+            ++it;
+        }
+
+      }
+    }
+
+    void TextRenderer::offsetTextTree(m2::PointD const & offs, m2::RectD const & rect)
+    {
+      offsetTexts(offs, rect);
+      offsetPathTexts(offs, rect);
+    }
+
     void TextRenderer::setNeedTextRedraw(bool flag)
     {
       ASSERT(m_useTextTree, ());
@@ -219,171 +279,49 @@ namespace yg
       base_t::updateActualTarget();
     }
 
-    template <class ToDo>
-    void TextRenderer::ForEachGlyph(FontDesc const & fontDesc, wstring const & text, ToDo toDo)
-    {
-      m2::PointD currPt(0, 0);
-      for (size_t i = 0; i < text.size(); ++i)
-      {
-        uint32_t glyphID = skin()->mapGlyph(GlyphKey(text[i], fontDesc.m_size, fontDesc.m_isMasked, fontDesc.m_isMasked ? fontDesc.m_maskColor : fontDesc.m_color), fontDesc.m_isStatic);
-        CharStyle const * p = static_cast<CharStyle const *>(skin()->fromID(glyphID));
-        if (p)
-        {
-          toDo(currPt, p);
-          currPt += m2::PointD(p->m_xAdvance, 0);
-        }
-      }
-    }
-
-    wstring TextRenderer::Log2Vis(wstring const & str)
-    {
-      size_t const count = str.size();
-      wstring res;
-      res.resize(count);
-      FriBidiParType dir = FRIBIDI_PAR_LTR;  // requested base direction
-      fribidi_log2vis(str.c_str(), count, &dir, &res[0], 0, 0, 0);
-      return res;
-    }
-
-    void TextRenderer::drawTextImpl(FontDesc const & fontDesc, m2::PointD const & pt, yg::EPosition pos, float angle, string const & utf8Text, double depth, bool log2vis)
-    {
-      wstring text = strings::FromUtf8(utf8Text);
-
-      if (log2vis)
-        text = Log2Vis(text);
-
-      m2::RectD r = textRect(fontDesc, utf8Text, log2vis);
-
-      m2::PointD orgPt(pt.x - r.SizeX() / 2, pt.y + r.SizeY() / 2);
-
-      if (pos & EPosLeft)
-        orgPt.x = pt.x - r.SizeX();
-
-      if (pos & EPosRight)
-        orgPt.x = pt.x;
-
-      if (pos & EPosUnder)
-        orgPt.y = pt.y + r.SizeY();
-
-      if (pos & EPosAbove)
-        orgPt.y = pt.y;
-
-      orgPt.x = ::floor(orgPt.x);
-      orgPt.y = ::floor(orgPt.y);
-
-      yg::FontDesc desc = fontDesc;
-
-      if (desc.m_isMasked)
-      {
-        ForEachGlyph(desc, text, bind(&TextRenderer::drawGlyph, this, cref(orgPt), _1, angle, 0, _2, depth));
-        desc.m_isMasked = false;
-      }
-
-      ForEachGlyph(desc, text, bind(&TextRenderer::drawGlyph, this, cref(orgPt), _1, angle, 0, _2, depth));
-    }
-
-    m2::RectD const TextRenderer::textRect(FontDesc const & fontDesc, string const & utf8Text, bool log2vis)
-    {
-      if (m_useTextTree)
-        checkTextRedraw();
-
-      m2::RectD rect;
-      m2::PointD pt(0, 0);
-
-      wstring text = strings::FromUtf8(utf8Text);
-      if (log2vis)
-        text = Log2Vis(text);
-
-      for (size_t i = 0; i < text.size(); ++i)
-      {
-        if (fontDesc.m_isStatic)
-        {
-          uint32_t glyphID = skin()->mapGlyph(GlyphKey(text[i], fontDesc.m_size, fontDesc.m_isMasked, yg::Color(0, 0, 0, 0)), fontDesc.m_isStatic);
-          CharStyle const * p = static_cast<CharStyle const *>(skin()->fromID(glyphID));
-          if (p != 0)
-          {
-            rect.Add(pt);
-            rect.Add(pt + m2::PointD(p->m_xOffset + p->m_texRect.SizeX() - 4, -p->m_yOffset - (int)p->m_texRect.SizeY() + 4));
-            pt += m2::PointD(p->m_xAdvance, 0);
-          }
-        }
-        else
-        {
-          GlyphMetrics const m = resourceManager()->getGlyphMetrics(GlyphKey(text[i], fontDesc.m_size, fontDesc.m_isMasked, yg::Color(0, 0, 0, 0)));
-
-          rect.Add(pt);
-          rect.Add(pt + m2::PointD(m.m_xOffset + m.m_width, - m.m_yOffset - m.m_height));
-          pt += m2::PointD(m.m_xAdvance, 0);
-        }
-      }
-
-      rect.Inflate(2, 2);
-
-      return rect;
-    }
-
     bool TextRenderer::drawPathText(
         FontDesc const & fontDesc, m2::PointD const * path, size_t s, string const & utf8Text,
         double fullLength, double pathOffset, yg::EPosition pos, double depth)
     {
       if (!m_drawTexts)
         return false;
-      if (m_useTextTree)
+
+      PathTextElement::Params params;
+
+      params.m_pts = path;
+      params.m_ptsCount = s;
+      params.m_fullLength = fullLength;
+      params.m_pathOffset = pathOffset;
+      params.m_fontDesc = fontDesc;
+      params.m_utf8Text = utf8Text;
+      params.m_depth = depth;
+      params.m_log2vis = true;
+      params.m_rm = resourceManager();
+      params.m_skin = skin();
+      params.m_pivot = path[0];
+      params.m_position = pos;
+
+      PathTextElement pte(params);
+
+      if (!m_useTextTree || fontDesc.m_isStatic)
+         pte.draw(this);
+      else
+      {
         checkTextRedraw();
 
-      yg::FontDesc desc = fontDesc;
+        list<PathTextElement> & l = m_pathTexts[utf8Text];
 
-      if (desc.m_isMasked)
-      {
-        if (!drawPathTextImpl(desc, path, s, utf8Text, fullLength, pathOffset, pos, depth))
-          return false;
-        else
-          desc.m_isMasked = false;
-      }
-      return drawPathTextImpl(desc, path, s, utf8Text, fullLength, pathOffset, pos, depth);
-    }
+        bool doAppend = true;
 
+        for (list<PathTextElement>::const_iterator it = l.begin(); it != l.end(); ++it)
+          if (it->boundRect().IsIntersect(pte.boundRect()))
+          {
+            doAppend = false;
+            break;
+          }
 
-    bool TextRenderer::drawPathTextImpl(
-        FontDesc const & fontDesc, m2::PointD const * path, size_t s, string const & utf8Text,
-        double fullLength, double pathOffset, yg::EPosition pos, double depth)
-    {
-      wstring const text = Log2Vis(strings::FromUtf8(utf8Text));
-
-      GlyphLayout layout(resourceManager(), fontDesc, path, s, text, fullLength, pathOffset, pos);
-
-      vector<GlyphLayoutElem> const & glyphs = layout.entries();
-
-      if (layout.lastVisible() != text.size())
-        return false;
-
-/*    for (size_t i = layout.firstVisible(); i < layout.lastVisible(); ++i)
-      {
-        uint32_t const colorID = skin()->mapColor(yg::Color(fontDesc.m_isMasked ? 255 : 0, 0, fontDesc.m_isMasked ? 0 : 255, 255));
-        ResourceStyle const * colorStyle = skin()->fromID(colorID);
-
-        float x0 = glyphs[i].m_metrics.m_xOffset;
-        float y1 = -glyphs[i].m_metrics.m_yOffset;
-        float y0 = y1 - glyphs[i].m_metrics.m_height;
-        float x1 = x0 + glyphs[i].m_metrics.m_width;
-
-        drawTexturedPolygon(glyphs[i].m_pt, glyphs[i].m_angle,
-                            colorStyle->m_texRect.minX() + 1,
-                            colorStyle->m_texRect.minY() + 1,
-                            colorStyle->m_texRect.maxX() - 1,
-                            colorStyle->m_texRect.maxY() - 1,
-                            x0, y0, x1, y1,
-                            depth - 1,
-                            colorStyle->m_pageID);
-
-      }
-*/
-      for (size_t i = layout.firstVisible(); i < layout.lastVisible(); ++i)
-      {
-        uint32_t const glyphID = skin()->mapGlyph(GlyphKey(text[i], fontDesc.m_size, fontDesc.m_isMasked, fontDesc.m_isMasked ? fontDesc.m_maskColor : fontDesc.m_color), fontDesc.m_isStatic);
-        CharStyle const * charStyle = static_cast<CharStyle const *>(skin()->fromID(glyphID));
-
-        drawGlyph(glyphs[i].m_pt, m2::PointD(0.0, 0.0), glyphs[i].m_angle, 0, charStyle, depth);
+        if (doAppend)
+          l.push_back(pte);
       }
 
       return true;

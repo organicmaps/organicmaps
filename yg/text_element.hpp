@@ -17,6 +17,7 @@ namespace yg
   namespace gl
   {
     class Screen;
+    class TextRenderer;
   }
 
   class OverlayElement
@@ -38,7 +39,7 @@ namespace yg
 
     virtual void offset(m2::PointD const & offs) = 0;
     virtual m2::RectD const boundRect() const = 0;
-    virtual void draw(gl::Screen * screen) = 0;
+    virtual void draw(gl::Screen * screen) const = 0;
 
     m2::PointD const & pivot() const;
     void setPivot(m2::PointD const & pv);
@@ -73,7 +74,11 @@ namespace yg
 
     TextElement(Params const & p);
 
-    void drawTextImpl(GlyphLayout const & layout, gl::Screen * screen, FontDesc const & desc);
+    void drawTextImpl(GlyphLayout const & layout, gl::TextRenderer * screen, FontDesc const & desc, double depth) const;
+    wstring const log2vis(wstring const & str);
+    string const & utf8Text() const;
+    FontDesc const & fontDesc() const;
+    double depth() const;
   };
 
   class StraightTextElement : public TextElement
@@ -90,7 +95,8 @@ namespace yg
     StraightTextElement(Params const & p);
 
     m2::RectD const boundRect() const;
-    void draw(gl::Screen * screen);
+    void draw(gl::Screen * screen) const;
+    void draw(gl::TextRenderer * screen) const;
     void offset(m2::PointD const & offs);
   };
 
@@ -99,8 +105,10 @@ namespace yg
   private:
 
     GlyphLayout m_glyphLayout;
+    vector<m2::PointD> m_pts;
 
   public:
+
     struct Params : TextElement::Params
     {
       m2::PointD const * m_pts;
@@ -112,7 +120,8 @@ namespace yg
     PathTextElement(Params const & p);
 
     m2::RectD const boundRect() const;
-    void draw(gl::Screen * screen);
+    void draw(gl::Screen * screen) const;
+    void draw(gl::TextRenderer * screen) const;
     void offset(m2::PointD const & offs);
   };
 }

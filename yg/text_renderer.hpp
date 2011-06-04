@@ -1,8 +1,9 @@
 #pragma once
 
-#include "path_renderer.hpp"
+#include "shape_renderer.hpp"
 #include "defines.hpp"
 #include "font_desc.hpp"
+#include "text_element.hpp"
 
 #include "../geometry/tree4d.hpp"
 
@@ -16,29 +17,19 @@ namespace yg
   {
     class BaseTexture;
 
-    class TextRenderer : public PathRenderer
+    class TextRenderer : public ShapeRenderer
     {
     public:
 
       class TextObj
       {
-        FontDesc m_fontDesc;
-        m2::PointD m_pt;
-        yg::EPosition m_pos;
-        string m_utf8Text;
-        double m_depth;
+        StraightTextElement m_elem;
         mutable bool m_needRedraw;
         mutable bool m_frozen;
-        bool m_log2vis;
 
       public:
 
-        TextObj(FontDesc const & fontDesc,
-                m2::PointD const & pt,
-                yg::EPosition pos,
-                string const & txt,
-                double depth,
-                bool log2vis);
+        TextObj(StraightTextElement const & elem);
         void Draw(TextRenderer * pTextRenderer) const;
         m2::RectD const GetLimitRect(TextRenderer * pTextRenderer) const;
         void SetNeedRedraw(bool needRedraw) const;
@@ -53,14 +44,11 @@ namespace yg
     private:
 
       m4::Tree<TextObj> m_tree;
+      typedef map<string, list<PathTextElement> > path_text_elements;
+      path_text_elements m_pathTexts;
 
       void checkTextRedraw();
       bool m_needTextRedraw;
-
-      static wstring Log2Vis(wstring const & str);
-
-      template <class ToDo>
-          void ForEachGlyph(FontDesc const & fontDesc, wstring const & text, ToDo toDo);
 
       bool drawPathTextImpl(FontDesc const & fontDesc,
                             m2::PointD const * path,
@@ -87,7 +75,7 @@ namespace yg
 
     public:
 
-      typedef PathRenderer base_t;
+      typedef ShapeRenderer base_t;
 
       struct Params : base_t::Params
       {
@@ -116,10 +104,6 @@ namespace yg
                     double depth,
                     bool log2vis);
 
-      m2::RectD const textRect(FontDesc const & fontDesc,
-                               string const & utf8Text,
-                               bool log2vis);
-
       /// Drawing text in the middle of the path.
       bool drawPathText(FontDesc const & fontDesc,
                         m2::PointD const * path,
@@ -141,6 +125,9 @@ namespace yg
       /// boosting their priority to the top for them not to be filtered away,
       /// when the new texts arrive
       void offsetTextTree(m2::PointD const & offs, m2::RectD const & r);
+
+      void offsetTexts(m2::PointD const & offs, m2::RectD const & r);
+      void offsetPathTexts(m2::PointD const & offs, m2::RectD const & r);
 
       /// flush texts upon any function call.
       void setNeedTextRedraw(bool flag);
