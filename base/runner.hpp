@@ -7,26 +7,32 @@ namespace threads
 
 typedef function<void()> RunnerFuncT;
 
-/// Automatically uses system thread pools if it's available
+// Base Runner interface: performes given tasks.
 class IRunner
 {
 public:
+
+  virtual void Run(RunnerFuncT const & f) const = 0;
+
+protected:
   virtual ~IRunner() {}
 
-  virtual void Run(RunnerFuncT f) = 0;
-  /// Waits until all running threads will stop
+  // Waits until all running threads stop.
+  // Not for public use! Used in unit tests only, since
+  // some runners use global thread pool and interfere with each other.
   virtual void Join() = 0;
 };
 
-/// Synchronous implementation
+// Synchronous implementation: just immediately executes given tasks.
 class SimpleRunner : public IRunner
 {
 public:
-  virtual void Run(RunnerFuncT f)
+  virtual void Run(RunnerFuncT const & f) const
   {
     f();
   }
 
+protected:
   virtual void Join()
   {
   }

@@ -14,7 +14,9 @@ class ConcurrentRunner : public IRunner
 public:
   ConcurrentRunner();
   virtual ~ConcurrentRunner();
-  virtual void Run(RunnerFuncT f);
+  virtual void Run(RunnerFuncT const & f) const;
+
+protected:
   virtual void Join();
 };
 

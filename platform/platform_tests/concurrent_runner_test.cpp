@@ -8,6 +8,17 @@
 
 #include "../../std/bind.hpp"
 
+namespace
+{
+
+class ConcurrentRunnerForTest : public threads::ConcurrentRunner
+{
+public:
+  using threads::ConcurrentRunner::Join;
+};
+
+}
+
 int globalCounter = 0;
 
 threads::Mutex m;
@@ -22,7 +33,7 @@ static const int MAX_THREADS = 20;
 
 UNIT_TEST(ConcurrentRunnerSmoke)
 {
-  threads::ConcurrentRunner r;
+  ConcurrentRunnerForTest r;
   for (int i = 0; i < MAX_THREADS; ++i)
     r.Run(&f);
   r.Join();

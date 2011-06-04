@@ -13,7 +13,7 @@ namespace threads
   {
   }
 
-  void ConcurrentRunner::Run(RunnerFuncT f)
+  void ConcurrentRunner::Run(RunnerFuncT const & f) const
   {
     QtConcurrent::run(f);
   }

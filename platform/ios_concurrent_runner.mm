@@ -47,7 +47,7 @@ namespace threads
     }
   };
 
-  void ConcurrentRunner::Run(RunnerFuncT f)
+  void ConcurrentRunner::Run(RunnerFuncT const & f) const
   {
     dispatch_queue_t globalQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     BoostExceptionFixer * tmp = new BoostExceptionFixer(f);
