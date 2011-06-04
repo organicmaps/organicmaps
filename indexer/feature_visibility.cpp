@@ -271,24 +271,53 @@ int MinDrawableScaleForFeature(FeatureBase const & f)
   return -1;
 }
 
-int MinDrawableScaleForText(FeatureBase const & f)
+namespace 
+{
+  bool IsDrawable(FeatureBase::GetTypesFn const & types, int level, EGeomType geomType)
+  {
+    Classificator const & c = classif();
+
+    TextRulesChecker doCheck(level, geomType);
+    for (size_t i = 0; i < types.m_size; ++i)
+      if (c.ProcessObjects(types.m_types[i], doCheck))
+        return true;
+
+    return false;
+  }
+}
+
+pair<int, int> DrawableScaleRangeForText(FeatureBase const & f)
 {
   FeatureBase::GetTypesFn types;
   f.ForEachTypeRef(types);
 
-  Classificator const & c = classif();
   feature::EGeomType const geomType = f.GetFeatureType();
 
   int const upBound = scales::GetUpperScale();
+  int lowL = -1;
   for (int level = 0; level <= upBound; ++level)
   {
-    TextRulesChecker doCheck(level, geomType);
-    for (size_t i = 0; i < types.m_size; ++i)
-      if (c.ProcessObjects(types.m_types[i], doCheck))
-        return level;
+    if (IsDrawable(types, level, geomType))
+    {
+      lowL = level;
+      break;
+    }
   }
 
-  return -1;
+  if (lowL == -1)
+    return make_pair(-1, -1);
+
+  int highL = lowL;
+  for (int level = upBound; level > lowL; --level)
+  {
+    if (IsDrawable(types, level, geomType))
+    {
+      highL = level;
+      break;
+    }
+  }
+
+  return make_pair(lowL, highL);
 }
 
 bool IsHighway(vector<uint32_t> const & types)

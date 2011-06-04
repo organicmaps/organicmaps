@@ -149,7 +149,7 @@ bool FeatureBuilder1::PreSerialize()
   }
 
   // Clear name for features with invisible texts.
-  if (!m_Params.name.IsEmpty() && feature::MinDrawableScaleForText(GetFeatureBase()) == -1)
+  if (!m_Params.name.IsEmpty() && feature::DrawableScaleRangeForText(GetFeatureBase()).first == -1)
     m_Params.name.Clear();
 
   return true;

@@ -73,15 +73,15 @@ struct FeatureProcessor
       uint32_t const matchScore = matcher.GetMatchScore();
       if (matchScore <= GetMaxKeywordMatchScore())
       {
-        int const minVisibleScale = feature::MinDrawableScaleForText(feature);
-        if (minVisibleScale < 0)
+        pair<int, int> const scaleRange = feature::DrawableScaleRangeForText(feature);
+        if (scaleRange.first < 0)
           return;
 
         m_query.AddResult(IntermediateResult(m_query.GetViewport(),
                                              feature,
                                              matcher.GetBestPrefixMatch(),
                                              matchScore,
-                                             minVisibleScale));
+                                             scaleRange.first));
       }
     }
   }

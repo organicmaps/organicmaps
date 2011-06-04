@@ -6,6 +6,8 @@
 
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
+#include "../std/utility.hpp"
+
 
 class FeatureBase;
 
@@ -18,7 +20,7 @@ namespace feature
   bool IsDrawableForIndex(FeatureBase const & f, int level);
 
   int MinDrawableScaleForFeature(FeatureBase const & f);
-  int MinDrawableScaleForText(FeatureBase const & f);
+  pair<int, int> DrawableScaleRangeForText(FeatureBase const & f);
 
   int GetDrawRule(FeatureBase const & f, int level, vector<drule::Key> & keys, string & names);
 
