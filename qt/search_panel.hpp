@@ -31,6 +31,8 @@ signals:
 
 private:
   void SearchResultThreadFunc(search::Result const & result, int queryId);
+  virtual void showEvent(QShowEvent *);
+  virtual void hideEvent(QHideEvent *);
 
 public:
   explicit SearchPanel(DrawWidget * drawWidget, QWidget * parent);
@@ -41,6 +43,7 @@ protected slots:
   void OnSearchTextChanged(QString const &);
   /// Called via signal to support multithreading
   void OnSearchResult(search::Result * result, int queryId);
+  void OnViewportChanged();
 };
 
 }

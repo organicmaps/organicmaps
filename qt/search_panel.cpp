@@ -91,6 +91,7 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
 
 void SearchPanel::OnSearchPanelItemClicked(int row, int)
 {
+  disconnect(m_pDrawWidget, SIGNAL(ViewportChanged()), this, SLOT(OnViewportChanged()));
   ASSERT_EQUAL(m_results.size(), static_cast<size_t>(m_pTable->rowCount()), ());
   if (m_results[row]->GetResultType() == search::Result::RESULT_FEATURE)
   { // center viewport on clicked item
@@ -101,6 +102,24 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
     string const suggestion = m_results[row]->GetSuggestionString();
     m_pEditor->setText(QString::fromUtf8(suggestion.c_str()));
   }
+  connect(m_pDrawWidget, SIGNAL(ViewportChanged()), this, SLOT(OnViewportChanged()));
+}
+
+void SearchPanel::showEvent(QShowEvent *)
+{
+  connect(m_pDrawWidget, SIGNAL(ViewportChanged()), this, SLOT(OnViewportChanged()));
+}
+
+void SearchPanel::hideEvent(QHideEvent *)
+{
+  disconnect(m_pDrawWidget, SIGNAL(ViewportChanged()), this, SLOT(OnViewportChanged()));
+}
+
+void SearchPanel::OnViewportChanged()
+{
+  QString const txt = m_pEditor->text();
+  if (!txt.isEmpty())
+    OnSearchTextChanged(txt);
 }
 
 }
