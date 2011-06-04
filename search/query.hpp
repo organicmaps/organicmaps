@@ -8,6 +8,7 @@
 #include "../base/string_utils.hpp"
 #include "../std/function.hpp"
 #include "../std/queue.hpp"
+#include "../std/scoped_ptr.hpp"
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 
@@ -46,7 +47,7 @@ private:
   vector<strings::UniString> m_keywords;
   strings::UniString m_prefix;
 
-  IndexType const * m_pIndex;
+  scoped_ptr<IndexType const> m_pIndex;
   IndexType::Query m_indexQuery;
 
   priority_queue<IntermediateResult> m_results;

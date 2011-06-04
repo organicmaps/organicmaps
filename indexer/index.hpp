@@ -79,6 +79,19 @@ template <class IndexT> class MultiIndexAdapter
 public:
   typedef typename IndexT::Query Query;
 
+  MultiIndexAdapter()
+  {
+  }
+
+  MultiIndexAdapter(MultiIndexAdapter const & index) : m_indexes(index.m_indexes.size())
+  {
+    for (size_t i = 0; i < index.m_indexes.size(); ++i)
+    {
+      CHECK(index.m_indexes[i], ());
+      m_indexes[i] = index.m_indexes[i]->Clone();
+    }
+  }
+
   ~MultiIndexAdapter()
   {
     Clean();
@@ -281,6 +294,16 @@ private:
       INDEX_CLOSE = 1,
       INDEX_REMOVE = 2
     };
+
+    IndexProxy * Clone() const
+    {
+      IndexProxy * pRes = new IndexProxy(*this);
+      pRes->m_action = INDEX_DO_NOTHING;
+      pRes->m_pIndex = NULL;
+      pRes->m_lockCount = 0;
+      pRes->m_queriesSkipped = 0;
+      return pRes;
+    }
 
     volatile IndexAction m_action;
 
