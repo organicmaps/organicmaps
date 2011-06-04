@@ -11,11 +11,11 @@ typedef function<void()> RunnerFuncT;
 class IRunner
 {
 public:
+  virtual ~IRunner() {}
 
   virtual void Run(RunnerFuncT const & f) const = 0;
 
 protected:
-  virtual ~IRunner() {}
 
   // Waits until all running threads stop.
   // Not for public use! Used in unit tests only, since
