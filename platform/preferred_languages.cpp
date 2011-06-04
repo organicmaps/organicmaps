@@ -13,6 +13,9 @@
 #elif defined(OMIM_OS_WINDOWS)
   // @TODO
 
+#elif defined(OMIM_OS_LINUX)
+  #include "../std/stdlib.hpp"
+
 #else
   #error "Define language preferences for your platform"
 
@@ -74,6 +77,27 @@ void SystemPreferredLanguages(vector<string> & languages)
 
 #elif defined(OMIM_OS_WINDOWS)
   // @TODO Windows implementation
+
+#elif defined(OMIM_OS_LINUX)
+  // check environment variables
+  char const * p = getenv("LANGUAGE");
+  if (p) // LANGUAGE can contain several values divided by ':'
+  {
+    string const str(p);
+    strings::SimpleTokenizer iter(str, ":");
+    while (iter)
+    {
+      languages.push_back(*iter);
+      ++iter;
+    }
+  }
+  else if ((p = getenv("LC_ALL")))
+    languages.push_back(p);
+  else if ((p = getenv("LC_MESSAGES")))
+    languages.push_back(p);
+  else if ((p = getenv("LANG")))
+    languages.push_back(p);
+
 #else
   #error "Define language preferences for your platform"
 #endif
