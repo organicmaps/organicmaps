@@ -21,8 +21,10 @@ public:
 
   Result GenerateFinalResult() const;
 
-  static double ResultDistance(m2::RectD const & viewportRect,
-                               m2::RectD const & featureRect);
+  static double ResultDistance(m2::PointD const & viewportCenter,
+                               m2::PointD const & featureCenter);
+  static double ResultDirection(m2::PointD const & viewportCenter,
+                                m2::PointD const & featureCenter);
 
 private:
   string m_str;
@@ -31,6 +33,7 @@ private:
   int m_matchPenalty;
   int m_minVisibleScale;
   double m_distance;
+  double m_direction;
 };
 
 }  // namespace search::impl

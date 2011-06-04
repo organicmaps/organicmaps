@@ -114,7 +114,9 @@ void Query::Search(function<void (Result const &)> const & f)
                            MercatorBounds::LonToX(lon + precision),
                            MercatorBounds::LatToY(lat + precision));
       f(Result("(" + strings::to_string(lat) + ", " + strings::to_string(lon) + ")",
-               0, rect, IntermediateResult::ResultDistance(m_viewport, rect)));
+               0, rect,
+               IntermediateResult::ResultDistance(m_viewport.Center(), rect.Center()),
+               IntermediateResult::ResultDirection(m_viewport.Center(), rect.Center())));
     }
   }
 
