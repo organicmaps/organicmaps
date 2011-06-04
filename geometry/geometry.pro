@@ -10,6 +10,7 @@ DEPENDENCIES = base
 include($$ROOT_DIR/common.pri)
 
 SOURCES += \
+  distance_on_sphere.cpp \
   screenbase.cpp \
   packer.cpp \
   robust_orientation.cpp \
@@ -18,6 +19,7 @@ HEADERS += \
   rect2d.hpp \
   point2d.hpp \
   distance.hpp \
+  distance_on_sphere.hpp \
   angles.hpp \
   screenbase.hpp \
   cellid.hpp \

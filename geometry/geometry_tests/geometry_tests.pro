@@ -17,6 +17,7 @@ HEADERS += \
 SOURCES += \
   ../../testing/testingmain.cpp \
   distance_test.cpp \
+  distance_on_sphere_test.cpp \
   angle_test.cpp \
   common_test.cpp \
   screen_test.cpp \
