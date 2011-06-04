@@ -77,7 +77,6 @@ void DrawerYG::beginFrame()
 void DrawerYG::endFrame()
 {
   m_pScreen->endFrame();
-  m_pathsOrg.clear();
 }
 
 void DrawerYG::clear(yg::Color const & c, bool clearRT, float depth, bool clearDepth)
@@ -413,33 +412,12 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
         // draw way name
         if (isPath && !isArea && isN && !filter_text_size(pRule))
         {
-          uint8_t const fontSize = get_pathtext_font_size(pRule);
-          list<m2::RectD> & lst = m_pathsOrg[pInfo->m_name];
-
           for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
           {
-            m2::RectD r = i->GetLimitRect();
-            r.Inflate(-r.SizeX() / 4.0, -r.SizeY() / 4.0);
-            r.Inflate(fontSize, fontSize);
+            if (filter_text_size(pRule))
+              continue;
 
-            bool needDraw = true;
-            for (list<m2::RectD>::const_iterator j = lst.begin(); j != lst.end(); ++j)
-              if (r.IsIntersect(*j))
-              {
-                needDraw = false;
-                break;
-              }
-
-            if (needDraw)
-            {
-              if (drawPathText(*i, pInfo->m_name, fontSize, depth))
-              {
-                isNumber = false;   // text hides number
-                lst.push_back(r);
-              }
-            }
-            else
-              isNumber = false;   // neighbor text hides this text and this number
+            drawPathText(*i, pInfo->m_name, get_pathtext_font_size(pRule), depth);
           }
         }
 
