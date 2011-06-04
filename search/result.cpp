@@ -3,8 +3,9 @@
 namespace search
 {
 
-Result::Result(string const & str, uint32_t featureType, m2::RectD const & featureRect)
-  : m_str(str), m_featureRect(featureRect), m_featureType(featureType)
+Result::Result(string const & str, uint32_t featureType, m2::RectD const & featureRect,
+               double distance)
+  : m_str(str), m_featureRect(featureRect), m_featureType(featureType), m_disance(distance)
 {
 }
 
@@ -30,6 +31,12 @@ uint32_t Result::GetFetureType() const
 {
   ASSERT_EQUAL(GetResultType(), RESULT_FEATURE, ());
   return m_featureType;
+}
+
+double Result::GetDistanceToCenter() const
+{
+  ASSERT_EQUAL(GetResultType(), RESULT_FEATURE, ());
+  return m_disance;
 }
 
 string Result::GetSuggestionString() const

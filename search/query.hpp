@@ -21,7 +21,7 @@ class Query
 public:
   typedef Engine::IndexType IndexType;
 
-  Query(string const & query, m2::RectD const & rect, IndexType const * pIndex);
+  Query(string const & query, m2::RectD const & viewport, IndexType const * pIndex);
 
   // Search with parameters, passed in constructor.
   void Search(function<void (Result const &)> const & f);
@@ -29,12 +29,13 @@ public:
   // Add result for scoring.
   void AddResult(IntermediateResult const & result);
 
+  m2::RectD const & GetViewport() const { return m_viewport; }
   vector<strings::UniString> const & GetKeywords() const { return m_keywords; }
   strings::UniString const & GetPrefix() const { return m_prefix; }
 
 private:
   string m_queryText;
-  m2::RectD m_rect;
+  m2::RectD m_viewport;
 
   vector<strings::UniString> m_keywords;
   strings::UniString m_prefix;

@@ -77,8 +77,11 @@ struct FeatureProcessor
         if (minVisibleScale < 0)
           return;
 
-        m_query.AddResult(IntermediateResult(feature, matcher.GetBestPrefixMatch(),
-                                             matchScore, minVisibleScale));
+        m_query.AddResult(IntermediateResult(m_query.GetViewport(),
+                                             feature,
+                                             matcher.GetBestPrefixMatch(),
+                                             matchScore,
+                                             minVisibleScale));
       }
     }
   }
@@ -86,8 +89,8 @@ struct FeatureProcessor
 
 }  // unnamed namespace
 
-Query::Query(string const & query, m2::RectD const & rect, IndexType const * pIndex)
-  : m_queryText(query), m_rect(rect), m_pIndex(pIndex)
+Query::Query(string const & query, m2::RectD const & viewport, IndexType const * pIndex)
+  : m_queryText(query), m_viewport(viewport), m_pIndex(pIndex)
 {
   search::Delimiters delims;
   SplitAndNormalizeAndSimplifyString(query, MakeBackInsertFunctor(m_keywords), delims);
@@ -106,12 +109,12 @@ void Query::Search(function<void (Result const &)> const & f)
     if (search::MatchLatLon(m_queryText, lat, lon, latPrec, lonPrec))
     {
       double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
+      m2::RectD const rect(MercatorBounds::LonToX(lon - precision),
+                           MercatorBounds::LatToY(lat - precision),
+                           MercatorBounds::LonToX(lon + precision),
+                           MercatorBounds::LatToY(lat + precision));
       f(Result("(" + strings::to_string(lat) + ", " + strings::to_string(lon) + ")",
-               0,
-               m2::RectD(MercatorBounds::LonToX(lon - precision),
-                         MercatorBounds::LatToY(lat - precision),
-                         MercatorBounds::LonToX(lon + precision),
-                         MercatorBounds::LatToY(lat + precision))));
+               0, rect, IntermediateResult::ResultDistance(m_viewport, rect)));
     }
   }
 
@@ -131,10 +134,10 @@ void Query::Search(function<void (Result const &)> const & f)
 
   // Feature matching.
   FeatureProcessor featureProcessor(*this);
-  int const scale = scales::GetScaleLevel(m_rect) + 1;
+  int const scale = scales::GetScaleLevel(m_viewport) + 1;
   if (scale > scales::GetUpperWorldScale())
-    m_pIndex->ForEachInRect(featureProcessor, m_rect, scales::GetUpperWorldScale());
-  m_pIndex->ForEachInRect(featureProcessor, m_rect, min(scales::GetUpperScale(), scale));
+    m_pIndex->ForEachInRect(featureProcessor, m_viewport, scales::GetUpperWorldScale());
+  m_pIndex->ForEachInRect(featureProcessor, m_viewport, min(scales::GetUpperScale(), scale));
 
   vector<Result> results;
   results.reserve(m_results.size());

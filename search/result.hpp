@@ -15,7 +15,7 @@ public:
     RESULT_SUGGESTION
   };
 
-  Result(string const & str, uint32_t featureType, m2::RectD const & featureRect);
+  Result(string const & str, uint32_t featureType, m2::RectD const & featureRect, double distance);
   Result(string const & str, string const & suggestionStr);
 
   // String that is displayed in the GUI.
@@ -30,6 +30,9 @@ public:
   // Type of a feature, if GetResultType() == RESULT_FEATURE.
   uint32_t GetFetureType() const;
 
+  // Distance to the center of the screen, if GetResultType() == RESULT_FEATURE.
+  double GetDistanceToCenter() const;
+
   // String writo in the search box.
   string GetSuggestionString() const;
 
@@ -37,6 +40,7 @@ private:
   string m_str;
   m2::RectD m_featureRect;
   uint32_t m_featureType;
+  double m_disance;
   string m_suggestionStr;
 };
 
