@@ -252,10 +252,13 @@ namespace
 
       int const level = scales::GetScaleLevel(r);
 
-      size_t errInd;
+      size_t const emptyInd = size_t(-1);
+      size_t errInd = emptyInd;
       if (!compare_sequence(v2, v1, compare_strings(), errInd))
       {
-        src2.ForEachFeature(r, FindOffset(level, v2[errInd]));
+        if (errInd != emptyInd)
+          src2.ForEachFeature(r, FindOffset(level, v2[errInd]));
+
         TEST(false, ("Failed for rect: ", r, "; Scale level = ", level, ". Etalon size = ", v2.size(), ". Index size = ", v1.size()));
       }
 
