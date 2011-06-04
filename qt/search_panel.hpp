@@ -31,10 +31,6 @@ signals:
 private:
   void SearchResultThreadFunc(search::Result const & result);
 
-protected:
-  virtual void showEvent(QShowEvent *);
-  virtual void hideEvent(QHideEvent *);
-
 public:
   explicit SearchPanel(DrawWidget * drawWidget, QWidget * parent);
   ~SearchPanel();

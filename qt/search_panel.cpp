@@ -34,6 +34,9 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   // for multithreading support
   connect(this, SIGNAL(SearchResultSignal(search::Result *)),
           this, SLOT(OnSearchResult(search::Result *)), Qt::QueuedConnection);
+
+  setFocusPolicy(Qt::StrongFocus);
+  setFocusProxy(m_pEditor);
 }
 
 template<class T> static void ClearVector(vector<T *> & v)
@@ -93,16 +96,6 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
     string const suggestion = m_results[row]->GetSuggestionString();
     m_pEditor->setText(QString::fromUtf8(suggestion.c_str()));
   }
-}
-
-void SearchPanel::showEvent(QShowEvent *)
-{
-  m_pEditor->setFocus();
-}
-
-void SearchPanel::hideEvent(QHideEvent *)
-{
-  m_pEditor->clearFocus();
 }
 
 }
