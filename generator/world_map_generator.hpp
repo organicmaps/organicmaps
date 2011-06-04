@@ -65,22 +65,22 @@ public:
       m_worldBucket.reset(new WorldEmitter(maxWorldScale, initData));
 
     // fill vector with types that need to be replaced
-    char const * arrReplace[][3] = {
-      {"highway", "motorway_link", "motorway"},
-      {"highway", "motorway_junction", "motorway"},
-      {"highway", "primary_link", "primary"},
-      {"highway", "trunk_link", "trunk"},
-      {"highway", "secondary_link", "secondary"},
-      {"highway", "tertiary_link", "tertiary"}
-    };
+    //char const * arrReplace[][3] = {
+    //  {"highway", "motorway_link", "motorway"},
+    //  {"highway", "motorway_junction", "motorway"},
+    //  {"highway", "primary_link", "primary"},
+    //  {"highway", "trunk_link", "trunk"},
+    //  {"highway", "secondary_link", "secondary"},
+    //  {"highway", "tertiary_link", "tertiary"}
+    //};
 
-    for (size_t i = 0; i < ARRAY_SIZE(arrReplace); ++i)
-    {
-      char const * arr1[] = { arrReplace[i][0], arrReplace[i][1] };
-      char const * arr2[] = { arrReplace[i][0], arrReplace[i][2] };
+    //for (size_t i = 0; i < ARRAY_SIZE(arrReplace); ++i)
+    //{
+    //  char const * arr1[] = { arrReplace[i][0], arrReplace[i][1] };
+    //  char const * arr2[] = { arrReplace[i][0], arrReplace[i][2] };
 
-      m_typesCorrector.SetMappingTypes(arr1, arr2);
-    }
+    //  m_typesCorrector.SetMappingTypes(arr1, arr2);
+    //}
 
     char const * arrDontNormilize[][3] = {
       { "boundary", "administrative", "2" }
