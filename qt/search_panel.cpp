@@ -12,7 +12,7 @@ namespace qt
 {
 
 SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
-  : QWidget(parent), m_pDrawWidget(drawWidget)
+  : QWidget(parent), m_pDrawWidget(drawWidget), m_queryId(0)
 {
   m_pEditor = new QLineEdit(this);
   connect(m_pEditor, SIGNAL(textChanged(QString const &)), this, SLOT(OnSearchTextChanged(QString const &)));
@@ -32,8 +32,8 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   setLayout(verticalLayout);
 
   // for multithreading support
-  connect(this, SIGNAL(SearchResultSignal(search::Result *)),
-          this, SLOT(OnSearchResult(search::Result *)), Qt::QueuedConnection);
+  CHECK(connect(this, SIGNAL(SearchResultSignal(search::Result *, int)),
+                this, SLOT(OnSearchResult(search::Result *, int)), Qt::QueuedConnection), ());
 
   setFocusPolicy(Qt::StrongFocus);
   setFocusProxy(m_pEditor);
@@ -51,13 +51,17 @@ SearchPanel::~SearchPanel()
   ClearVector(m_results);
 }
 
-void SearchPanel::SearchResultThreadFunc(search::Result const & result)
+void SearchPanel::SearchResultThreadFunc(search::Result const & result, int queryId)
 {
-  emit SearchResultSignal(new search::Result(result));
+  if (queryId == m_queryId)
+    emit SearchResultSignal(new search::Result(result), queryId);
 }
 
-void SearchPanel::OnSearchResult(search::Result * result)
+void SearchPanel::OnSearchResult(search::Result * result, int queryId)
 {
+  if (queryId != m_queryId)
+    return;
+
   if (!result->GetString().empty())  // last element
   {
     int const rowCount = m_pTable->rowCount();
@@ -77,11 +81,12 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   m_pTable->clear();
   m_pTable->setRowCount(0);
   ClearVector(m_results);
+  ++m_queryId;
 
   QString const normalized = str.normalized(QString::NormalizationForm_KC);
   if (!normalized.isEmpty())
     m_pDrawWidget->Search(normalized.toUtf8().constData(),
-                        bind(&SearchPanel::SearchResultThreadFunc, this, _1));
+                        bind(&SearchPanel::SearchResultThreadFunc, this, _1, m_queryId));
 }
 
 void SearchPanel::OnSearchPanelItemClicked(int row, int)

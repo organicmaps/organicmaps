@@ -90,7 +90,7 @@ struct FeatureProcessor
 }  // unnamed namespace
 
 Query::Query(string const & query, m2::RectD const & viewport, IndexType const * pIndex)
-  : m_queryText(query), m_viewport(viewport), m_pIndex(pIndex)
+  : m_queryText(query), m_viewport(viewport), m_pIndex(pIndex), m_bTerminate(false)
 {
   search::Delimiters delims;
   SplitAndNormalizeAndSimplifyString(query, MakeBackInsertFunctor(m_keywords), delims);
@@ -150,6 +150,12 @@ void Query::Search(function<void (Result const &)> const & f)
   }
   for (vector<Result>::const_reverse_iterator it = results.rbegin(); it != results.rend(); ++it)
     f(*it);
+}
+
+void Query::SearchAndDestroy(function<void (const Result &)> const & f)
+{
+  Search(f);
+  delete this;
 }
 
 void Query::AddResult(IntermediateResult const & result)

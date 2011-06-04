@@ -22,14 +22,15 @@ class SearchPanel : public QWidget
 
   /// Stores current search results
   vector<search::Result *> m_results;
+  int volatile m_queryId;
 
   Q_OBJECT
 
 signals:
-  void SearchResultSignal(search::Result * result);
+  void SearchResultSignal(search::Result * result, int queryId);
 
 private:
-  void SearchResultThreadFunc(search::Result const & result);
+  void SearchResultThreadFunc(search::Result const & result, int queryId);
 
 public:
   explicit SearchPanel(DrawWidget * drawWidget, QWidget * parent);
@@ -39,7 +40,7 @@ protected slots:
   void OnSearchPanelItemClicked(int row, int column);
   void OnSearchTextChanged(QString const &);
   /// Called via signal to support multithreading
-  void OnSearchResult(search::Result * result);
+  void OnSearchResult(search::Result * result, int queryId);
 };
 
 }

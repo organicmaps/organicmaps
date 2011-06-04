@@ -26,8 +26,14 @@ public:
   // Search with parameters, passed in constructor.
   void Search(function<void (Result const &)> const & f);
 
+  // Search and delete this.
+  void SearchAndDestroy(function<void (Result const &)> const & f);
+
   // Add result for scoring.
   void AddResult(IntermediateResult const & result);
+
+  // Set a flag that query is not active any more and should terminate.
+  void SetTerminateFlag() volatile { m_bTerminate = true; }
 
   m2::RectD const & GetViewport() const { return m_viewport; }
   vector<strings::UniString> const & GetKeywords() const { return m_keywords; }
@@ -44,6 +50,8 @@ private:
   IndexType::Query m_indexQuery;
 
   priority_queue<IntermediateResult> m_results;
+
+  bool volatile m_bTerminate;
 };
 
 }  // namespace search::impl
