@@ -120,6 +120,9 @@ void Query::Search(function<void (Result const &)> const & f)
     }
   }
 
+  if (m_bTerminate)
+    return;
+
   // Category matching.
   if (!m_prefix.empty())
   {
@@ -134,12 +137,21 @@ void Query::Search(function<void (Result const &)> const & f)
     }
   }
 
+  if (m_bTerminate)
+    return;
+
   // Feature matching.
   FeatureProcessor featureProcessor(*this);
   int const scale = scales::GetScaleLevel(m_viewport) + 1;
   if (scale > scales::GetUpperWorldScale())
+  {
     m_pIndex->ForEachInRect(featureProcessor, m_viewport, scales::GetUpperWorldScale());
+    if (m_bTerminate)
+      return;
+  }
   m_pIndex->ForEachInRect(featureProcessor, m_viewport, min(scales::GetUpperScale(), scale));
+  if (m_bTerminate)
+    return;
 
   vector<Result> results;
   results.reserve(m_results.size());
