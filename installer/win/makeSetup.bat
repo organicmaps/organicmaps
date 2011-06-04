@@ -1,6 +1,15 @@
 @echo on
 
-set PATH="C:\Program Files\Windows Installer XML v3.5\bin";%PATH%
+del MapsWithMe.wxs > nul
+del MapsWithMe.wixobj > nul
+del MapsWithMe.wixpdb > nul
+del MapsWithMe.msi > nul
+
+perl generator.pl > MapsWithMe.wxs
+
+if NOT ERRORLEVEL 0 echo "Generator returned error %ERRORLEVEL%"
+
+set PATH="C:\Program Files (x86)\Windows Installer XML v3.5\bin";%PATH%
 
 candle MapsWithMe.wxs
 

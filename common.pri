@@ -98,7 +98,7 @@ win32-msvc* {
   CONFIG(release, debug|release) {
     DEFINES += _SECURE_SCL=0
   }
- }
+}
 
 win32-msvc2010 {
   DEFINES += _HAS_CPP0X=0 # disable tr1 and c++0x features to avoid build errors
