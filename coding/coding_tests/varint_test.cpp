@@ -129,7 +129,7 @@ UNIT_TEST(ReadVarInt64Array)
   }
 
   // Test all subsets.
-  for (size_t i = 1; i < 1 << values.size(); ++i)
+  for (size_t i = 1; i < 1U << values.size(); ++i)
   {
     vector<int64_t> testValues;
     for (size_t j = 0; j < values.size(); ++j)

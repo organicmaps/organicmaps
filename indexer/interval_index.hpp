@@ -125,7 +125,7 @@ private:
     uint64_t const levelBytesFF = (1ULL << skipBits) - 1;
     uint32_t const beg0 = static_cast<uint32_t>(beg >> skipBits);
     uint32_t const end0 = static_cast<uint32_t>(end >> skipBits);
-    ASSERT_LESS(end0, (1 << m_Header.m_BitsPerLevel), (beg, end, skipBits));
+    ASSERT_LESS(end0, (1U << m_Header.m_BitsPerLevel), (beg, end, skipBits));
 
     buffer_vector<uint8_t, 576> data(size);
     m_Reader.Read(offset, &data[0], size);

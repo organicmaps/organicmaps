@@ -176,7 +176,7 @@ namespace yg
 
     /// modifying the m_unicodeBlocks
 
-    int lastUBEnd = 0;
+    uint32_t lastUBEnd = 0;
 
     unicode_blocks_t::iterator ubIt = m_unicodeBlocks.begin();
     vector<FT_ULong>::iterator ccIt = charcodes.begin();

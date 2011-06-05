@@ -141,7 +141,7 @@ int GetDrawRule(FeatureBase const & f, int level, vector<drule::Key> & keys, str
   Classificator const & c = classif();
 
   DrawRuleGetter doRules(level, geoType, keys, names);
-  for (int i = 0; i < types.m_size; ++i)
+  for (size_t i = 0; i < types.m_size; ++i)
     (void)c.ProcessObjects(types.m_types[i], doRules);
 
   return geoType;
@@ -253,7 +253,7 @@ bool IsDrawableForIndex(FeatureBase const & f, int level)
   Classificator const & c = classif();
 
   IsDrawableChecker doCheck(level);
-  for (int i = 0; i < types.m_size; ++i)
+  for (size_t i = 0; i < types.m_size; ++i)
     if (c.ProcessObjects(types.m_types[i], doCheck))
       return true;
 
@@ -283,7 +283,7 @@ int MinDrawableScaleForText(FeatureBase const & f)
   for (int level = 0; level <= upBound; ++level)
   {
     TextRulesChecker doCheck(level, geomType);
-    for (int i = 0; i < types.m_size; ++i)
+    for (size_t i = 0; i < types.m_size; ++i)
       if (c.ProcessObjects(types.m_types[i], doCheck))
         return level;
   }

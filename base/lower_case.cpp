@@ -57,7 +57,7 @@ UniChar LowerUniChar(UniChar c)
   }
 }
 
-static int w(UniChar c, UniChar * buf)
+static size_t w(UniChar c, UniChar * buf)
 {
   switch (c)
   {
@@ -182,7 +182,7 @@ void MakeLowerCase(UniString & s)
     else
     { // special case, replace this char with two or more chars for full case folding
       UniChar cc[3];
-      int const count = w(s[i], &cc[0]);
+      size_t const count = w(s[i], &cc[0]);
       for (size_t j = 0; j < count; ++j)
         r.push_back(cc[j]);
     }

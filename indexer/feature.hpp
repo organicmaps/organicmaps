@@ -221,7 +221,7 @@ public:
   {
   public:
     uint32_t m_types[m_maxTypesCount];
-    int m_size;
+    size_t m_size;
 
     GetTypesFn() : m_size(0) {}
     void operator() (uint32_t t)

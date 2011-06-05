@@ -14,7 +14,7 @@ static void w(strings::UniString & r, uint16_t startIndex, int count)
 void Normalize(strings::UniString & s)
 {
   strings::UniString r;
-  for (int i = 0; i < s.size(); ++i)
+  for (size_t i = 0; i < s.size(); ++i)
   {
     strings::UniChar const c = s[i];
     // ASCII optimization
