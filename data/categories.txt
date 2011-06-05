@@ -1,14 +1,14 @@
 amenity-atm
 en:atm|cash
-ru:банкомат
+ru:банкомат|наличка
 
 amenity-bank
 en:bank
 ru:банк
 
 amenity-bar|amenity-pub
-en:bar|pub
-ru:бар|паб|забегаловка
+en:bar|pub|beer
+ru:бар|паб|забегаловка|пиво|выпить
 
 amenity-bench
 en:bench
@@ -16,9 +16,10 @@ ru:лавка|лавочка|скамейка|присесть
 
 amenity-bicycle_rental
 en:bicycle
+ru:велосипед
 
 amenity-bureau_de_change
-en:change
+en:change|exchange|currency
 ru:обменник|обмен валюты
 
 amenity-bus_station
@@ -26,8 +27,8 @@ en:bus
 ru:автобус|автостанция
 
 amenity-cafe
-en:coffee
-ru:кафе
+en:cafe|coffee
+ru:кафе|кофе
 
 amenity-car_sharing
 en:car rent|rent car|lend car|car lend
@@ -46,56 +47,89 @@ ru:врач
 
 amenity-drinking_water
 en:water|drink water|drinking water
-ru:питьевая вода
+ru:вода|питьевая вода
 
 amenity-fast_food
+en:fast food|mcdonalds
+ru:фастфуд|макдональдс
 
 amenity-fire_station
+en:fire station
+ru:пожарные
 
 amenity-fountain
+en:fountain
+ru:фонтан
 
 amenity-fuel
+en:fuel|gas station
+ru:заправка
 
 amenity-grave_yard
+en:grave yard
+ru:кладбище
 
 amenity-hospital
+en:hospital
+ru:больница|госпиталь
 
 amenity-hunting_stand
 
 amenity-kindergarten
+en:kindergarten
+ru:садик|детсад|детский сад
 
 amenity-library
+en:library
+ru:библиотека
 
 amenity-parking
+en:parking
+ru:парковка
 
 amenity-pharmacy
 en:chemist|drugstore
+ru:аптека
 
 amenity-place_of_worship
+en:church|synagogue|temple|sanctuary
+ru:церковь|костел|храм|синагога
 
 amenity-post_box
 en:postbox
+ru:почтовый ящик
 
 amenity-post_office
-en:post|postofficel
+en:post
+ru:почта
 
 amenity-recycling
 en:trash|bin|garbage
+ru:мусорка
 
 amenity-restaurant
+en:restaurant
+ru:ресторан
 
 amenity-school
+en:school
+ru:школа
 
 amenity-shelter
+en:shelter
+ru:укрытие
 
 amenity-shop
-
-amenity-speed_trap
+en:shop|market|supermarket
+ru:магазин|супермаркет
 
 amenity-telephone
 en:phone|call
+ru:телефон|позвонить
 
 amenity-theatre
+en:theatre
+ru:театр
 
 amenity-toilets
 en:toilet|wc
@@ -103,18 +137,18 @@ ru:туалет
 
 amenity-university
 en:university
-ru:университет
+ru:университет|вуз|институт
 
 place-continent
 en:continent
-ru:континент
+ru:континент|материк
 
 place-country
 en:country
 ru:страна
 
 place-city|place-town
-en:city
+en:city|town
 ru:город
 
 place-city-capital
