@@ -3,6 +3,8 @@
 #include "../../std/string.hpp"
 #include "../../std/vector.hpp"
 
+#include "../preferred_languages.hpp"
+
 namespace languages
 {
   void FilterLanguages(vector<string> & langs);
@@ -33,4 +35,14 @@ UNIT_TEST(LangFilter)
   {
     TEST_EQUAL(c[i], v[i], (v, c));
   }
+}
+
+UNIT_TEST(PrefLanguagesSmoke)
+{
+  string const prefLangs = languages::PreferredLanguages();
+  TEST_GREATER(prefLangs.size(), 0, ());
+  cout << "Preferred langs: " << prefLangs << endl;
+  string const currLang = languages::CurrentLanguage();
+  TEST_GREATER(currLang.size(), 0, ());
+  cout << "Current lang: " << currLang << endl;
 }
