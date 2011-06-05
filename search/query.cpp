@@ -89,7 +89,7 @@ struct FeatureProcessor
 
         m_query.AddResult(IntermediateResult(m_query.GetViewport(),
                                              feature,
-                                             matcher.GetBestPrefixMatch(),
+                                             matcher.GetBestMatchName(),
                                              matchScore,
                                              scaleRange.first));
       }

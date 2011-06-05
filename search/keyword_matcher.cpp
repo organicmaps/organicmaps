@@ -23,7 +23,7 @@ KeywordMatcher::KeywordMatcher(strings::UniString const * pKeywords,
     m_prefixMatchFn(prefixMatchFn),
     m_minKeywordMatchCost(keywordsCount, m_maxKeywordMatchCost + 1),
     m_minPrefixMatchCost(m_maxPrefixMatchCost + 1),
-    m_bestMatchTokenCount(0)
+    m_bestMatchNamePenalty(-1)
 {
 }
 
@@ -35,14 +35,14 @@ void KeywordMatcher::ProcessName(string const & name)
 
 void KeywordMatcher::ProcessNameToken(string const & name, strings::UniString const & s)
 {
-  uint32_t tokensMatched = 0;
+  uint32_t matchPenalty = 0;
   for (size_t i = 0; i < m_minKeywordMatchCost.size(); ++i)
   {
     uint32_t const matchCost = m_keywordMatchFn(&m_pKewords[i][0], m_pKewords[i].size(),
                                                 &s[0], s.size(), m_minKeywordMatchCost[i]);
+    matchPenalty += matchCost;
     if (matchCost <= m_maxKeywordMatchCost)
     {
-      ++tokensMatched;
       if (matchCost < m_minKeywordMatchCost[i])
       {
         // LOG(LDEBUG, (matchCost, name));
@@ -51,27 +51,29 @@ void KeywordMatcher::ProcessNameToken(string const & name, strings::UniString co
     }
   }
 
+  bool bPrefixMatch = false;
   if (!m_prefix.empty())
   {
     uint32_t const matchCost = m_prefixMatchFn(&m_prefix[0], m_prefix.size(),
                                                &s[0], s.size(), m_minPrefixMatchCost);
+    matchPenalty += matchCost;
     if (matchCost <= m_maxPrefixMatchCost)
     {
-      ++tokensMatched;
+      bPrefixMatch = true;
       if (matchCost < m_minPrefixMatchCost)
         m_minPrefixMatchCost = matchCost;
     }
   }
   else
   {
-    ++tokensMatched;
+    bPrefixMatch = true;
     m_minPrefixMatchCost = 0;
   }
 
-  if (tokensMatched > m_bestMatchTokenCount)
+  if (bPrefixMatch && matchPenalty < m_bestMatchNamePenalty)
   {
     m_bestMatchName = name;
-    m_bestMatchTokenCount = tokensMatched;
+    m_bestMatchNamePenalty = matchPenalty;
   }
 }
 
