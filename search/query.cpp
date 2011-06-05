@@ -90,7 +90,8 @@ struct FeatureProcessor
 }  // unnamed namespace
 
 Query::Query(string const & query, m2::RectD const & viewport, IndexType const * pIndex)
-  : m_queryText(query), m_viewport(viewport), m_pIndex(new IndexType(*pIndex)), m_bTerminate(false)
+  : m_queryText(query), m_viewport(viewport), m_pIndex(pIndex ? new IndexType(*pIndex) : NULL),
+    m_bTerminate(false)
 {
   search::Delimiters delims;
   SplitAndNormalizeAndSimplifyString(query, MakeBackInsertFunctor(m_keywords), delims);
