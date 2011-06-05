@@ -400,6 +400,11 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   }
 
   template <typename TModel>
+  FrameWork<TModel>::~FrameWork()
+  {
+  }
+
+  template <typename TModel>
   void FrameWork<TModel>::BenchmarkCommandFinished()
   {
     double duration = m_renderQueue.renderState().m_duration;
@@ -626,6 +631,12 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   void FrameWork<TModel>::Clean()
   {
     m_model.Clean();
+  }
+
+  template <typename TModel>
+  void FrameWork<TModel>::PrepareToShutdown()
+  {
+    m_pSearchEngine->StopEverything();
   }
 
   template <typename TModel>
@@ -1109,15 +1120,14 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   }
 
   template<typename TModel>
-  void FrameWork<TModel>::Search(string const & text, SearchCallbackT callback) const
+  void FrameWork<TModel>::Search(string const & text, SearchCallbackT callback)
   {
     threads::MutexGuard lock(m_modelSyn);
 
-    search::Engine engine(&m_model.GetIndex());
-    engine.Search(text, m_navigator.Screen().GlobalRect(), callback);
+    if (!m_pSearchEngine.get())
+      m_pSearchEngine.reset(new search::Engine(&m_model.GetIndex()));
 
-    // Empty name indicates last element.
-    callback(search::Result(string(), string()));
+    m_pSearchEngine->Search(text, m_navigator.Screen().GlobalRect(), callback);
   }
 
 template class FrameWork<model::FeaturesFetcher>;

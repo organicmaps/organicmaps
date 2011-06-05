@@ -47,6 +47,7 @@
 
 namespace di { class DrawInfo; }
 namespace drule { class BaseRule; }
+namespace search { class Engine; }
 
 class redraw_operation_cancelled {};
 
@@ -106,6 +107,7 @@ class FrameWork
 
   typedef FrameWork<model_t> this_type;
 
+  scoped_ptr<search::Engine> m_pSearchEngine;
   model_t m_model;
   Navigator m_navigator;
   shared_ptr<WindowHandle> m_windowHandle;
@@ -180,6 +182,7 @@ class FrameWork
 public:
   FrameWork(shared_ptr<WindowHandle> windowHandle,
             size_t bottomShift);
+  ~FrameWork();
 
   void InitBenchmark();
 
@@ -220,10 +223,11 @@ public:
   // Cleanup.
   void Clean();
 
+  void PrepareToShutdown();
+
 public:
 
-  /// @note Stop search if text is empty
-  void Search(string const & text, SearchCallbackT callback) const;
+  void Search(string const & text, SearchCallbackT callback);
 
   void SetMaxWorldRect();
   void UpdateNow();

@@ -4,7 +4,9 @@
 #include "string_match.hpp"
 #include "../indexer/feature_visibility.hpp"
 #include "../indexer/mercator.hpp"
+#include "../base/exception.hpp"
 #include "../base/stl_add.hpp"
+#include "../std/scoped_ptr.hpp"
 
 namespace search
 {
@@ -60,12 +62,20 @@ inline KeywordMatcher MakeMatcher(vector<strings::UniString> const & tokens,
 
 struct FeatureProcessor
 {
+  DECLARE_EXCEPTION(StopException, RootException);
+
   Query & m_query;
 
   explicit FeatureProcessor(Query & query) : m_query(query) {}
 
   void operator () (FeatureType const & feature) const
   {
+    if (m_query.GetTerminateFlag())
+    {
+      LOG(LDEBUG, ("Found terminate search flag", m_query.GetQueryText(), m_query.GetViewport()));
+      MYTHROW(StopException, ());
+    }
+
     KeywordMatcher matcher(MakeMatcher(m_query.GetKeywords(), m_query.GetPrefix()));
     feature.ForEachNameRef(matcher);
     if (matcher.GetPrefixMatchScore() <= GetMaxPrefixMatchScore(m_query.GetPrefix().size()))
@@ -89,9 +99,10 @@ struct FeatureProcessor
 
 }  // unnamed namespace
 
-Query::Query(string const & query, m2::RectD const & viewport, IndexType const * pIndex)
+Query::Query(string const & query, m2::RectD const & viewport, IndexType const * pIndex,
+             Engine * pEngine)
   : m_queryText(query), m_viewport(viewport), m_pIndex(pIndex ? new IndexType(*pIndex) : NULL),
-    m_bTerminate(false)
+    m_pEngine(pEngine), m_bTerminate(false)
 {
   search::Delimiters delims;
   SplitAndNormalizeAndSimplifyString(query, MakeBackInsertFunctor(m_keywords), delims);
@@ -100,6 +111,12 @@ Query::Query(string const & query, m2::RectD const & viewport, IndexType const *
     m_prefix.swap(m_keywords.back());
     m_keywords.pop_back();
   }
+}
+
+Query::~Query()
+{
+  if (m_pEngine)
+    m_pEngine->OnQueryDelete(this);
 }
 
 void Query::Search(function<void (Result const &)> const & f)
@@ -128,7 +145,7 @@ void Query::Search(function<void (Result const &)> const & f)
   if (!m_prefix.empty())
   {
     KeywordMatcher matcher = MakeMatcher(vector<strings::UniString>(), m_prefix);
-    LOG(LINFO, (m_prefix));
+    // LOG(LINFO, (m_prefix));
     matcher.ProcessNameToken("", strings::MakeUniString("restaurant"));
     uint32_t const matchScore = matcher.GetMatchScore();
     if (matcher.GetPrefixMatchScore() <= GetMaxPrefixMatchScore(m_prefix.size()) &&
@@ -144,13 +161,33 @@ void Query::Search(function<void (Result const &)> const & f)
   // Feature matching.
   FeatureProcessor featureProcessor(*this);
   int const scale = scales::GetScaleLevel(m_viewport) + 1;
+
+  try
+  {
+    m_pIndex->ForEachInRect(featureProcessor,
+                            m2::RectD(MercatorBounds::minX, MercatorBounds::minY,
+                                      MercatorBounds::maxX, MercatorBounds::maxY),
+                            // m_viewport,
+                            scales::GetUpperWorldScale());
+  }
+  catch (FeatureProcessor::StopException &)
+  {
+    LOG(LDEBUG, ("FeatureProcessor::StopException"));
+  }
+  if (m_bTerminate)
+    return;
+
   if (scale > scales::GetUpperWorldScale())
   {
-    m_pIndex->ForEachInRect(featureProcessor, m_viewport, scales::GetUpperWorldScale());
-    if (m_bTerminate)
-      return;
+    try
+    {
+      m_pIndex->ForEachInRect(featureProcessor, m_viewport, min(scales::GetUpperScale(), scale));
+    }
+    catch (FeatureProcessor::StopException &)
+    {
+      LOG(LDEBUG, ("FeatureProcessor::StopException"));
+    }
   }
-  m_pIndex->ForEachInRect(featureProcessor, m_viewport, min(scales::GetUpperScale(), scale));
   if (m_bTerminate)
     return;
 
@@ -163,12 +200,14 @@ void Query::Search(function<void (Result const &)> const & f)
   }
   for (vector<Result>::const_reverse_iterator it = results.rbegin(); it != results.rend(); ++it)
     f(*it);
+  f(Result(string(), string()));  // Send last search result marker.
 }
 
 void Query::SearchAndDestroy(function<void (const Result &)> const & f)
 {
+  scoped_ptr<Query> scopedThis(this);
+  UNUSED_VALUE(scopedThis);
   Search(f);
-  delete this;
 }
 
 void Query::AddResult(IntermediateResult const & result)

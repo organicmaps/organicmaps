@@ -56,6 +56,8 @@ namespace qt
     virtual bool winEvent(MSG * msg, long * result);
 #endif
 
+    virtual void closeEvent(QCloseEvent * e);
+
   protected Q_SLOTS:
 #ifndef NO_DOWNLOADER
     void ShowUpdateDialog();

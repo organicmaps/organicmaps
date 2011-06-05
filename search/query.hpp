@@ -22,7 +22,9 @@ class Query
 public:
   typedef Engine::IndexType IndexType;
 
-  Query(string const & query, m2::RectD const & viewport, IndexType const * pIndex);
+  Query(string const & query, m2::RectD const & viewport, IndexType const * pIndex,
+        Engine * pEngine);
+  ~Query();
 
   // Search with parameters, passed in constructor.
   void Search(function<void (Result const &)> const & f);
@@ -35,7 +37,9 @@ public:
 
   // Set a flag that query is not active any more and should terminate.
   void SetTerminateFlag() volatile { m_bTerminate = true; }
+  bool GetTerminateFlag() const { return m_bTerminate; }
 
+  string const & GetQueryText() const { return m_queryText; }
   m2::RectD const & GetViewport() const { return m_viewport; }
   vector<strings::UniString> const & GetKeywords() const { return m_keywords; }
   strings::UniString const & GetPrefix() const { return m_prefix; }
@@ -52,6 +56,7 @@ private:
 
   priority_queue<IntermediateResult> m_results;
 
+  Engine * m_pEngine;
   bool volatile m_bTerminate;
 };
 

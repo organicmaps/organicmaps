@@ -11,11 +11,12 @@
 
 #include "../std/bind.hpp"
 
-#include <QtGui/QDockWidget>
-#include <QtGui/QToolBar>
 #include <QtGui/QAction>
-#include <QtGui/QMenuBar>
+#include <QtGui/QCloseEvent>
+#include <QtGui/QDockWidget>
 #include <QtGui/QMenu>
+#include <QtGui/QMenuBar>
+#include <QtGui/QToolBar>
 
 #define IDM_ABOUT_DIALOG        1001
 #define IDM_PREFERENCES_DIALOG  1002
@@ -404,6 +405,12 @@ void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString cons
     connect(pAct, SIGNAL(triggered()), this, slot);
     addAction(pAct);
   }
+}
+
+void MainWindow::closeEvent(QCloseEvent * e)
+{
+  m_pDrawWidget->PrepareShutdown();
+  e->accept();
 }
 
 }

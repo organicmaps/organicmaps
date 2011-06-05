@@ -75,6 +75,8 @@ namespace qt
 
     void UpdateNow();
 
+    void PrepareShutdown();
+
   protected:
     static const uint32_t ini_file_version = 0;
 

@@ -23,18 +23,22 @@ public:
   typedef Index<FileReader>::Type IndexType;
 
   explicit Engine(IndexType const * pIndex);
+  ~Engine();
 
   void Search(string const & query,
               m2::RectD const & rect,
               function<void (Result const &)> const & f);
 
-  void OnQueryDelete();
+  void StopEverything();
+
+  void OnQueryDelete(impl::Query *);
 
 private:
   IndexType const * m_pIndex;
   scoped_ptr<threads::IRunner> m_pRunner;
   threads::Mutex m_mutex;
   impl::Query * volatile m_pLastQuery;
+  int volatile m_queriesActive;
 };
 
 }  // namespace search

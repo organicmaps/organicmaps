@@ -27,6 +27,11 @@ namespace qt
     connect(m_timer, SIGNAL(timeout()), this, SLOT(ScaleTimerElapsed()));
   }
 
+  void DrawWidget::PrepareShutdown()
+  {
+    m_framework.PrepareToShutdown();
+  }
+
   void DrawWidget::SetScaleControl(QSlider * pScale)
   {
     m_pScale = pScale;
