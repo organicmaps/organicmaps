@@ -33,7 +33,7 @@ public:
     return msg.c_str();
   }
 
-  string const & Msg() const
+  string const & Msg() const throw()
   {
     return m_Msg;
   }
