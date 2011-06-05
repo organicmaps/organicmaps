@@ -23,7 +23,8 @@ class KeywordMatcher
   StringMatchFn m_keywordMatchFn, m_prefixMatchFn;
   buffer_vector<uint32_t, 8> m_minKeywordMatchCost;
   uint32_t m_minPrefixMatchCost;
-  string m_bestPrefixMatch;
+  string m_bestMatchName;
+  uint32_t m_bestMatchTokenCount;
 
 public:
   KeywordMatcher(strings::UniString const * pKeywords,
@@ -51,7 +52,7 @@ public:
   // Get match score for each keyword.
   uint32_t const * GetKeywordMatchScores() const { return &m_minKeywordMatchCost[0]; }
 
-  string GetBestPrefixMatch() const { return m_bestPrefixMatch; }
+  string GetBestPrefixMatch() const { return m_bestMatchName; }
 };
 
 }  // namespace search::impl
