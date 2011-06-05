@@ -83,3 +83,15 @@ UNIT_TEST(KeywordMatcher_NoPrefix)
              Vec<uint32_t>(2, 1), ());
   TEST_EQUAL(matcher.GetMatchScore(), 0 + 2 + 1, ());
 }
+
+UNIT_TEST(KeywordMatcher_Suomi)
+{
+  vector<strings::UniString> keywords;
+  keywords.push_back(strings::MakeUniString("minsk"));
+  search::impl::KeywordMatcher matcher(&keywords[0], keywords.size(),
+                                       strings::MakeUniString(""),
+                                       4, 4,
+                                       &KeywordMatchForTest, &PrefixMatchForTest);
+  matcher.ProcessName("Suomi");
+  TEST_EQUAL(matcher.GetMatchScore(), 5, ());
+}
