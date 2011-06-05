@@ -127,16 +127,9 @@ public:
 
       if (pIndex) // pIndex may be NULL because it doesn't match scale or occlusionRect.
       {
+        ProxyUnlockGuard proxyUnlockGuard(m_mutex, pProxy);
+        UNUSED_VALUE(proxyUnlockGuard);
         pIndex->ForEachInIntervalAndScale(f, beg, end, scale, query);
-        {
-          threads::MutexGuard mutexGuard(m_mutex);
-          UNUSED_VALUE(mutexGuard);
-
-          pProxy->Unlock();
-
-          if (pProxy->m_action == IndexProxy::INDEX_CLOSE)
-            pProxy->CloseIfUnlocked();
-        }
       }
     }
   }
@@ -339,6 +332,30 @@ private:
     IndexT * volatile m_pIndex;
     uint16_t volatile m_lockCount;
     uint8_t volatile m_queriesSkipped;
+  };
+
+  // Helper class that unlocks given IndexProxy in destructor.
+  class ProxyUnlockGuard
+  {
+    threads::Mutex & m_mutex;
+    IndexProxy * m_pProxy;
+
+  public:
+    ProxyUnlockGuard(threads::Mutex & mutex, IndexProxy * pProxy)
+      : m_mutex(mutex), m_pProxy(pProxy)
+    {
+    }
+
+    ~ProxyUnlockGuard()
+    {
+      threads::MutexGuard mutexGuard(m_mutex);
+      UNUSED_VALUE(mutexGuard);
+
+      m_pProxy->Unlock();
+
+      if (m_pProxy->m_action == IndexProxy::INDEX_CLOSE)
+        m_pProxy->CloseIfUnlocked();
+    }
   };
 
   mutable vector<IndexProxy *> m_indexes;
