@@ -636,7 +636,8 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   template <typename TModel>
   void FrameWork<TModel>::PrepareToShutdown()
   {
-    m_pSearchEngine->StopEverything();
+    if (m_pSearchEngine)
+      m_pSearchEngine->StopEverything();
   }
 
   template <typename TModel>
