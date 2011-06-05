@@ -22,6 +22,16 @@ DrawerYG::Params::Params()
 {
 }
 
+uint32_t di::DrawRule::GetID() const
+{
+  return (m_transparent ? m_rule->GetID2() : m_rule->GetID());
+}
+
+void di::DrawRule::SetID(uint32_t id) const
+{
+  m_transparent ? m_rule->SetID2(id) : m_rule->SetID(id);
+}
+
 DrawerYG::DrawerYG(string const & skinName, params_t const & params)
 {
   m_pScreen = shared_ptr<yg::gl::Screen>(new yg::gl::Screen(params));
@@ -48,6 +58,8 @@ namespace
     {
       if ((p->GetID() & 0xFF000000) == m_pageIDMask)
         p->MakeEmptyID();
+      if ((p->GetID2() & 0xFF000000) == m_pageIDMask)
+        p->MakeEmptyID2();
     }
   };
 }
@@ -141,7 +153,7 @@ void DrawerYG::drawPath(vector<m2::PointD> const & pts, di::DrawRule const * rul
   bool flag = false;
   for (size_t i = 0; i < count; ++i)
   {
-    if (rules[i].m_rule->GetID() == drule::BaseRule::empty_id)
+    if (rules[i].GetID() == drule::BaseRule::empty_id)
     {
       flag = true;
       break;
@@ -164,9 +176,10 @@ void DrawerYG::drawPath(vector<m2::PointD> const & pts, di::DrawRule const * rul
       for (size_t j = 0; j < pattern.size(); ++j)
         pattern[j] *= m_scale * m_visualScale;
 
-      penInfos[i] = yg::PenInfo (yg::Color::fromXRGB(pRule->GetColor(), pRule->GetAlpha()),
-                                 max(pRule->GetWidth() * m_scale, 1.0) * m_visualScale,
-                                 pattern.empty() ? 0 : &pattern[0], pattern.size(), offset * m_scale);
+      penInfos[i] = yg::PenInfo(
+            yg::Color::fromXRGB(pRule->GetColor(), rules[i].m_transparent ? 100 : pRule->GetAlpha()),
+            max(pRule->GetWidth() * m_scale, 1.0) * m_visualScale,
+            pattern.empty() ? 0 : &pattern[0], pattern.size(), offset * m_scale);
       styleIDs[i] = m_pSkin->invalidHandle();
     }
 
@@ -174,7 +187,7 @@ void DrawerYG::drawPath(vector<m2::PointD> const & pts, di::DrawRule const * rul
     if (m_pSkin->mapPenInfo(&penInfos[0], &styleIDs[0], count))
     {
       for (size_t i = 0; i < count; ++i)
-        rules[i].m_rule->SetID(styleIDs[i]);
+        rules[i].SetID(styleIDs[i]);
     }
     else
     {
@@ -185,7 +198,7 @@ void DrawerYG::drawPath(vector<m2::PointD> const & pts, di::DrawRule const * rul
 
   // draw path with array of rules
   for (size_t i = 0; i < count; ++i)
-    m_pScreen->drawPath(&pts[0], pts.size(), 0, rules[i].m_rule->GetID(), rules[i].m_depth);
+    m_pScreen->drawPath(&pts[0], pts.size(), 0, rules[i].GetID(), rules[i].m_depth);
 }
 
 void DrawerYG::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth)

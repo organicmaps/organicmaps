@@ -35,6 +35,16 @@ namespace feature
   };
 
   static const int max_types_count = HEADER_TYPE_MASK + 1;
+
+  enum ELayerFlags
+  {
+    LAYER_LOW = -11,
+
+    LAYER_EMPTY = 0,
+    LAYER_TRANSPARENT_TUNNEL = 11,    // draw transparent road (tunnels)
+
+    LAYER_HIGH = 12
+  };
 }
 
 /// Feature description struct.

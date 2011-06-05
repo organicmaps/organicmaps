@@ -19,20 +19,26 @@ namespace drule
   class BaseRule
   {
     string m_class;
+    mutable uint32_t m_id1, m_id2;
     char m_type;
-
-    mutable uint32_t m_id;
 
   public:
     static uint32_t const empty_id = 0xFFFFFFFF;
 
-    BaseRule() : m_id(empty_id) {}
+    BaseRule() : m_id1(empty_id), m_id2(empty_id) {}
 
     virtual ~BaseRule() {}
 
-    uint32_t GetID() const { return m_id; }
-    void SetID(uint32_t id) const { m_id = id; }
-    void MakeEmptyID() { m_id = empty_id; }
+    /// @todo Rewrite this. Make an array of IDs.
+    //@{
+    uint32_t GetID() const { return m_id1; }
+    void SetID(uint32_t id) const { m_id1 = id; }
+    void MakeEmptyID() { m_id1 = empty_id; }
+
+    uint32_t GetID2() const { return m_id2; }
+    void SetID2(uint32_t id) const { m_id2 = id; }
+    void MakeEmptyID2() { m_id2 = empty_id; }
+    //@}
 
     void SetClassName(string const & cl) { m_class = cl; }
     void SetType(char type) { m_type = type; }

@@ -26,8 +26,9 @@ namespace yg
         return;
 
       ASSERT_GREATER_OR_EQUAL(pointsCount, 2, ());
-      ResourceStyle const * style(skin()->fromID(styleID));
+      ASSERT_NOT_EQUAL(styleID, uint32_t(-1), ());
 
+      ResourceStyle const * style(skin()->fromID(styleID));
       if (style == 0)
       {
         LOG(LINFO, ("drawPath: styleID=", styleID, " wasn't found on current skin"));
@@ -35,8 +36,8 @@ namespace yg
       }
 
       ASSERT(style->m_cat == ResourceStyle::ELineStyle, ());
-      LineStyle const * lineStyle = static_cast<LineStyle const *>(style);
 
+      LineStyle const * lineStyle = static_cast<LineStyle const *>(style);
       if (lineStyle->m_isSolid)
       {
         drawSolidPath(points, pointsCount, styleID, depth);

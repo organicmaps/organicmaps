@@ -10,7 +10,6 @@
 #include "../base/start_mem_debug.hpp"
 
 
-
 namespace
 {
   bool NeedProcessParent(ClassifObject const * p)

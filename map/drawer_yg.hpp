@@ -49,9 +49,13 @@ namespace di
 
     rule_ptr_t m_rule;
     int m_depth;
+    bool m_transparent;
 
     DrawRule() : m_rule(0) {}
-    DrawRule(rule_ptr_t p, int d) : m_rule(p), m_depth(d) {}
+    DrawRule(rule_ptr_t p, int d, bool tr) : m_rule(p), m_depth(d), m_transparent(tr) {}
+
+    uint32_t GetID() const;
+    void SetID(uint32_t id) const;
   };
 }
 

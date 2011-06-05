@@ -146,7 +146,13 @@ namespace fwork
     buffer_vector<di::DrawRule, reserve_rules_count> rules;
     rules.resize(count);
 
-    int const layer = f.GetLayer();
+    int layer = f.GetLayer();
+    bool isTransparent = false;
+    if (layer == feature::LAYER_TRANSPARENT_TUNNEL)
+    {
+      layer = 0;
+      isTransparent = true;
+    }
 
     for (size_t i = 0; i < count; ++i)
     {
@@ -154,7 +160,7 @@ namespace fwork
       if (layer != 0)
         depth = (layer * drule::layer_base_priority) + (depth % drule::layer_base_priority);
 
-      rules[i] = di::DrawRule(drule::rules().Find(m_keys[i]), depth);
+      rules[i] = di::DrawRule(drule::rules().Find(m_keys[i]), depth, isTransparent);
     }
 
     sort(rules.begin(), rules.end(), less_depth());

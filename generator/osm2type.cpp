@@ -509,6 +509,7 @@ namespace ftype {
     {
       size_t & m_count;
       FeatureParams & m_params;
+      bool m_tunnel;
 
       class get_lang
       {
@@ -534,10 +535,16 @@ namespace ftype {
       typedef bool result_type;
 
       do_find_name(size_t & count, FeatureParams & params)
-        : m_count(count), m_params(params)
+        : m_count(count), m_params(params), m_tunnel(false)
       {
         m_count = 0;
       }
+      ~do_find_name()
+      {
+        if (m_tunnel && m_params.layer < 0)
+          m_params.layer = feature::LAYER_TRANSPARENT_TUNNEL;
+      }
+
       bool operator() (string const & k, string const & v)
       {
         ++m_count;
@@ -580,6 +587,10 @@ namespace ftype {
           if (strings::to_int(v, n))
             m_params.rank = static_cast<uint8_t>(log(double(n)) / log(1.1));
         }
+
+        // set 'tunnel' flag
+        if (k == "tunnel")
+          m_tunnel = true;
 
         return false;
       }
