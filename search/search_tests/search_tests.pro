@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES =  platform search indexer geometry coding base
+DEPENDENCIES =  search platform indexer geometry coding base
 
 include($$ROOT_DIR/common.pri)
 
