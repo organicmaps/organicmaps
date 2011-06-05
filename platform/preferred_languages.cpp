@@ -92,11 +92,13 @@ void SystemPreferredLanguages(vector<string> & languages)
 
 #elif defined(OMIM_OS_WINDOWS)
   // if we're on Vista or above, take list of preferred languages
-  typedef BOOL (WINAPI *PGETUSERPREFERREDUILANGUAGES)(DWORD, PULONG, PZZWSTR, PULONG);
-  PGETUSERPREFERREDUILANGUAGES p = (PGETUSERPREFERREDUILANGUAGES)GetProcAddress(GetModuleHandleA("Kernel32.dll"),
-                                                    "GetUserPreferredUILanguages");
+  typedef BOOL (WINAPI *PGETUSERPREFERREDUILANGUAGES)(DWORD, PULONG, PWCHAR, PULONG);
+  PGETUSERPREFERREDUILANGUAGES p =
+      reinterpret_cast<PGETUSERPREFERREDUILANGUAGES>(
+          GetProcAddress(GetModuleHandleA("Kernel32.dll"), "GetUserPreferredUILanguages"));
   if (p)
-  { // Vista or above, get buffer size first
+  {
+    // Vista or above, get buffer size first
     ULONG numLangs;
     WCHAR * buf = NULL;
     ULONG bufSize = 0;
@@ -116,8 +118,10 @@ void SystemPreferredLanguages(vector<string> & languages)
     }
     delete[] buf;
   }
+
   if (languages.empty())
-  { // used mostly on WinXP
+  {
+    // used mostly on WinXP
     LANGID langId = GetUserDefaultLangID();
     for (size_t i = 0; i < ARRAY_SIZE(gLocales); ++i)
       if (gLocales[i].m_code == langId)
