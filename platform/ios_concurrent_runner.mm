@@ -1,7 +1,10 @@
 #include "concurrent_runner.hpp"
 
 #include "../base/assert.hpp"
+#include "../base/macros.hpp"
 #include "../base/logging.hpp"
+
+#include "../std/scoped_ptr.hpp"
 
 #include <dispatch/dispatch.h>
 
@@ -41,9 +44,10 @@ namespace threads
 
     void operator()() const
     {
-      m_f();
-      // selfdestruct
-      delete this;
+      scoped_ptr<BoostExceptionFixer> scopedThis;
+      UNUSED_VALUE(scopedThis);
+
+      IRunner<RunnerFuncT>::CallAndCatchAll(f);
     }
   };
 

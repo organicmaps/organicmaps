@@ -15,6 +15,9 @@ public:
 
   virtual void Run(RunnerFuncT const & f) const = 0;
 
+  // Helper function that calls f() and catches all exception.
+  static void CallAndCatchAll(RunnerFuncT const & f);
+
 protected:
 
   // Waits until all running threads stop.
@@ -29,7 +32,7 @@ class SimpleRunner : public IRunner
 public:
   virtual void Run(RunnerFuncT const & f) const
   {
-    f();
+    IRunner::CallAndCatchAll(f);
   }
 
 protected:
