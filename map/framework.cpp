@@ -140,8 +140,14 @@ namespace fwork
       return true;
     }
 
+    // remove duplicating identical drawing keys
+    PreProcessKeys();
+
     // get drawing rules for the m_keys array
     size_t const count = m_keys.size();
+#ifdef PROFILER_DRAWING
+    m_drawCount += count;
+#endif
 
     buffer_vector<di::DrawRule, reserve_rules_count> rules;
     rules.resize(count);
@@ -253,17 +259,8 @@ namespace fwork
       }
     }
 
-    // nothing to draw
-    if (!isExist) return true;
-
-    // remove duplicating identical drawing keys
-    PreProcessKeys();
-
-#ifdef PROFILER_DRAWING
-      m_drawCount += m_keys.size();
-#endif
-
-    pDrawer->Draw(ptr.get(), rules.data(), count);
+    if (isExist)
+      pDrawer->Draw(ptr.get(), rules.data(), count);
 
     return true;
   }
