@@ -21,6 +21,7 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   connect(m_pEditor, SIGNAL(textChanged(QString const &)), this, SLOT(OnSearchTextChanged(QString const &)));
 
   m_pTable = new QTableWidget(0, 2, this);
+  m_pTable->setFocusPolicy(Qt::NoFocus);
   m_pTable->setAlternatingRowColors(true);
   m_pTable->setShowGrid(false);
   m_pTable->setSelectionBehavior(QAbstractItemView::SelectRows);
