@@ -15,7 +15,7 @@ namespace qt
                          QStringList const & buttons)
   : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint)
   {
-    QIcon icon(":logo.png");
+    QIcon icon(":/ui/logo.png");
     setWindowIcon(icon);
     setWindowTitle(title);
     setFocusPolicy(Qt::StrongFocus);

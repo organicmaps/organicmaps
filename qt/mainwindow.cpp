@@ -54,7 +54,7 @@ MainWindow::MainWindow()
   setCentralWidget(m_pDrawWidget);
 
   setWindowTitle(tr("MapsWithMe"));
-  setWindowIcon(QIcon(":logo.png"));
+  setWindowIcon(QIcon(":/ui/logo.png"));
 
 #ifndef OMIM_OS_WINDOWS
   QMenu * helpMenu = new QMenu(tr("Help"), this);

@@ -8,6 +8,8 @@
 
 class QTableWidget;
 class QLineEdit;
+class QPushButton;
+class QTimer;
 
 namespace qt
 {
@@ -19,6 +21,8 @@ class SearchPanel : public QWidget
   DrawWidget * m_pDrawWidget;
   QTableWidget * m_pTable;
   QLineEdit * m_pEditor;
+  QPushButton * m_pClearButton;
+  QTimer * m_pAnimationTimer;
 
   /// Stores current search results
   vector<search::Result *> m_results;
@@ -38,12 +42,14 @@ public:
   explicit SearchPanel(DrawWidget * drawWidget, QWidget * parent);
   ~SearchPanel();
 
-protected slots:
+private slots:
   void OnSearchPanelItemClicked(int row, int column);
   void OnSearchTextChanged(QString const &);
   /// Called via signal to support multithreading
   void OnSearchResult(search::Result * result, int queryId);
   void OnViewportChanged();
+  void OnAnimationTimer();
+  void OnClearButton();
 };
 
 }

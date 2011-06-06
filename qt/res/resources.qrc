@@ -18,7 +18,9 @@
         <file>location-search.png</file>
         <file>location.png</file>
     </qresource>
-    <qresource prefix="/">
+    <qresource prefix="/ui">
         <file>logo.png</file>
+        <file>busy.png</file>
+        <file>x.png</file>
     </qresource>
 </RCC>

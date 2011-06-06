@@ -15,7 +15,7 @@
 AboutDialog::AboutDialog(QWidget * parent)
   : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint)
 {
-  QIcon icon(":logo.png");
+  QIcon icon(":/ui/logo.png");
   setWindowIcon(icon);
   setWindowTitle(QMenuBar::tr("About"));
 
