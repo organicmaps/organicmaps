@@ -119,10 +119,6 @@ amenity-shelter
 en:shelter
 ru:укрытие
 
-amenity-shop
-en:shop|market|supermarket
-ru:магазин|супермаркет
-
 amenity-telephone
 en:phone|call
 ru:телефон|позвонить
