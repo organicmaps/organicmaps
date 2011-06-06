@@ -41,6 +41,27 @@ namespace scales
     return GetScaleLevel((dx + dy) / 2.0);
   }
 
+  double GetRationForLevel(int level)
+  {
+    if (level < initial_level) level = initial_level;
+    return pow(2.0, level - initial_level);
+  }
+
+  m2::RectD GetRectForLevel(int level, m2::PointD const & center, double X2YRatio)
+  {
+    double const dy = 2.0*GetRationForLevel(level) / (1.0 + X2YRatio);
+    double const dx = X2YRatio * dy;
+    ASSERT_GREATER ( dy, 0.0, () );
+    ASSERT_GREATER ( dx, 0.0, () );
+
+    double const xL = (MercatorBounds::maxX - MercatorBounds::minX) / (2.0*dx);
+    double const yL = (MercatorBounds::maxY - MercatorBounds::minY) / (2.0*dy);
+    ASSERT_GREATER ( xL, 0.0, () );
+    ASSERT_GREATER ( yL, 0.0, () );
+
+    return m2::RectD(center.x - xL, center.y - yL, center.x + xL, center.y + yL);
+  }
+
   namespace
   {
     double GetEpsilonImpl(int level, int logEps)

@@ -32,3 +32,4 @@ SOURCES += \
     geometry_coding_test.cpp \
     triangles_tree_coding_test.cpp \
     feature_routine.cpp \
+	scales_test.cpp \
