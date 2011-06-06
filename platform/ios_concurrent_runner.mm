@@ -47,7 +47,7 @@ namespace threads
       scoped_ptr<BoostExceptionFixer> scopedThis;
       UNUSED_VALUE(scopedThis);
 
-      IRunner<RunnerFuncT>::CallAndCatchAll(f);
+      IRunner::CallAndCatchAll(m_f);
     }
   };
 
