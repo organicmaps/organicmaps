@@ -19,30 +19,26 @@ uint32_t KeywordMatch(strings::UniChar const * sA, uint32_t sizeA,
                       strings::UniChar const * sB, uint32_t sizeB,
                       uint32_t maxCost)
 {
-  /*
   if (sizeA != sizeB)
     return maxCost + 1;
   for (uint32_t i = 0; i< sizeA; ++i)
     if (sA[i] != sB[i])
       return maxCost + 1;
   return 0;
-  */
-  return StringMatchCost(sA, sizeA, sB, sizeB, DefaultMatchCost(), maxCost, false);
+  // return StringMatchCost(sA, sizeA, sB, sizeB, DefaultMatchCost(), maxCost, false);
 }
 
 uint32_t PrefixMatch(strings::UniChar const * sA, uint32_t sizeA,
                      strings::UniChar const * sB, uint32_t sizeB,
                      uint32_t maxCost)
 {
-  /*
   if (sizeA > sizeB)
     return maxCost + 1;
   for (uint32_t i = 0; i< sizeA; ++i)
     if (sA[i] != sB[i])
       return maxCost + 1;
   return 0;
-  */
-  return StringMatchCost(sA, sizeA, sB, sizeB, DefaultMatchCost(), maxCost, true);
+  // return StringMatchCost(sA, sizeA, sB, sizeB, DefaultMatchCost(), maxCost, true);
 }
 
 inline uint32_t GetMaxKeywordMatchScore() { return 512; }
