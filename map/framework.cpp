@@ -9,6 +9,7 @@
 
 #include "../search/engine.hpp"
 #include "../search/result.hpp"
+#include "../search/categories_holder.hpp"
 
 #include "../indexer/feature_visibility.hpp"
 #include "../indexer/feature.hpp"
@@ -18,12 +19,11 @@
 #include "../base/math.hpp"
 
 #include "../std/algorithm.hpp"
+#include "../std/fstream.hpp"
+
 #include "../version/version.hpp"
 
 #include "../yg/internal/opengl.hpp"
-
-#include "../base/start_mem_debug.hpp"
-
 
 using namespace feature;
 
@@ -1126,7 +1126,13 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     threads::MutexGuard lock(m_modelSyn);
 
     if (!m_pSearchEngine.get())
+    {
+      search::CategoriesHolder holder;
+      ifstream file(GetPlatform().ReadPathForFile(SEARCH_CATEGORIES_FILE_NAME).c_str());
+      holder.LoadFromStream(file);
+      // @TODO: use categories in search
       m_pSearchEngine.reset(new search::Engine(&m_model.GetIndex()));
+    }
 
     m_pSearchEngine->Search(text, m_navigator.Screen().GlobalRect(), callback);
   }
