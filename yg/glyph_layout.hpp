@@ -3,6 +3,7 @@
 #include "defines.hpp"
 #include "../geometry/rect2d.hpp"
 #include "../geometry/point2d.hpp"
+#include "../geometry/aa_rect2d.hpp"
 
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
@@ -37,9 +38,10 @@ namespace yg
 
     vector<GlyphLayoutElem> m_entries;
 
-    m2::RectD m_limitRect;
+    m2::AARectD m_limitRect;
 
     double getKerning(GlyphLayoutElem const & prevElem, GlyphLayoutElem const & curElem);
+    void computeMinLimitRect();
 
   public:
 
@@ -66,7 +68,7 @@ namespace yg
 
     vector<GlyphLayoutElem> const & entries() const;
 
-    m2::RectD const limitRect() const;
+    m2::AARectD const limitRect() const;
 
     void offset(m2::PointD const & offs);
   };

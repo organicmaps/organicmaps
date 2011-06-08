@@ -57,6 +57,7 @@ namespace yg
     : OverlayElement(p),
       m_fontDesc(p.m_fontDesc),
       m_utf8Text(p.m_utf8Text),
+      m_text(strings::FromUtf8(p.m_utf8Text)),
       m_depth(p.m_depth),
       m_log2vis(p.m_log2vis),
       m_rm(p.m_rm),
@@ -67,6 +68,11 @@ namespace yg
   string const & TextElement::utf8Text() const
   {
     return m_utf8Text;
+  }
+
+  wstring const & TextElement::text() const
+  {
+    return m_text;
   }
 
   FontDesc const & TextElement::fontDesc() const
@@ -81,6 +87,8 @@ namespace yg
 
   void TextElement::drawTextImpl(GlyphLayout const & layout, gl::TextRenderer * screen, FontDesc const & fontDesc, double depth) const
   {
+    if (layout.lastVisible() != text().size())
+      return;
     for (unsigned i = layout.firstVisible(); i < layout.lastVisible(); ++i)
     {
       shared_ptr<Skin> skin = screen->skin();
@@ -103,9 +111,9 @@ namespace yg
   {
   }
 
-  m2::RectD const StraightTextElement::boundRect() const
+  m2::AARectD const StraightTextElement::boundRect() const
   {
-    return m_glyphLayout.limitRect();
+    return m2::AARectD(m_glyphLayout.limitRect());
   }
 
   void StraightTextElement::draw(gl::TextRenderer * screen) const
@@ -146,29 +154,22 @@ namespace yg
     copy(p.m_pts, p.m_pts + p.m_ptsCount, m_pts.begin());
   }
 
-  m2::RectD const PathTextElement::boundRect() const
+  m2::AARectD const PathTextElement::boundRect() const
   {
-    return m_glyphLayout.limitRect();
+    return m2::Inflate(m_glyphLayout.limitRect(), m2::PointD(40, 2));
   }
 
   void PathTextElement::draw(gl::TextRenderer * screen) const
   {
-/*    yg::PenInfo penInfo(yg::Color(0, 0, 0, 255), 2, 0, 0, 0);
-    screen->drawPath(&m_pts[0], m_pts.size(), 0, screen->skin()->mapPenInfo(penInfo), yg::maxDepth - 2);
-    if (boundRect().SizeX() > 500)
-    {
-      LOG(LINFO, (strings::FromUtf8(utf8Text()).c_str()));
-    }
-    screen->drawRectangle(boundRect(), yg::Color(rand() % 255, rand() % 255, rand() % 255, 64), yg::maxDepth - 3);
-*/
+//    screen->drawRectangle(boundRect(), yg::Color(0, 0, 255, 32), yg::maxDepth - 3);
     yg::FontDesc desc = m_fontDesc;
     if (m_fontDesc.m_isMasked)
     {
-      drawTextImpl(m_glyphLayout, screen, m_fontDesc, yg::maxDepth);
+      drawTextImpl(m_glyphLayout, screen, m_fontDesc, m_depth);
       desc.m_isMasked = false;
     }
 
-    drawTextImpl(m_glyphLayout, screen, desc, yg::maxDepth);
+    drawTextImpl(m_glyphLayout, screen, desc, m_depth);
   }
 
   void PathTextElement::draw(gl::Screen * screen) const

@@ -201,6 +201,10 @@ namespace yg
   {
     m2::PointD pv = pt;
 
+    m2::RectD limitRect;
+
+    bool isFirst = true;
+
     for (size_t i = 0; i < text.size(); ++i)
     {
       GlyphKey glyphKey(text[i], fontDesc.m_size, fontDesc.m_isMasked, fontDesc.m_color);
@@ -211,16 +215,19 @@ namespace yg
         CharStyle const * p = static_cast<CharStyle const *>(skin->fromID(glyphID));
         if (p != 0)
         {
-          if (i == 0)
-            m_limitRect = m2::RectD(p->m_xOffset + pv.x,
-                                   -p->m_yOffset + pv.y,
-                                    p->m_xOffset + pv.x,
-                                   -p->m_yOffset + pv.y);
+          if (isFirst)
+          {
+            limitRect = m2::RectD(p->m_xOffset + pv.x,
+                                 -p->m_yOffset + pv.y,
+                                  p->m_xOffset + pv.x,
+                                 -p->m_yOffset + pv.y);
+            isFirst = false;
+          }
           else
-            m_limitRect.Add(m2::PointD(p->m_xOffset, -p->m_yOffset) + pv);
+            limitRect.Add(m2::PointD(p->m_xOffset, -p->m_yOffset) + pv);
 
-          m_limitRect.Add(m2::PointD(p->m_xOffset + p->m_texRect.SizeX() - 4,
-                                   -(p->m_yOffset + (int)p->m_texRect.SizeY() - 4)) + pv);
+          limitRect.Add(m2::PointD(p->m_xOffset + p->m_texRect.SizeX() - 4,
+                                 -(p->m_yOffset + (int)p->m_texRect.SizeY() - 4)) + pv);
 
         }
 
@@ -229,29 +236,29 @@ namespace yg
         elem.m_sym = text[i];
         elem.m_angle = 0;
         elem.m_pt = pv;
-        elem.m_metrics.m_height = p->m_texRect.SizeY() - 4;
-        elem.m_metrics.m_width = p->m_texRect.SizeX() - 4;
-        elem.m_metrics.m_xAdvance = p->m_xAdvance;
-        elem.m_metrics.m_xOffset = p->m_xOffset;
-        elem.m_metrics.m_yOffset = p->m_yOffset;
+        elem.m_metrics.m_height = p ? p->m_texRect.SizeY() - 4 : 0;
+        elem.m_metrics.m_width = p ? p->m_texRect.SizeX() - 4 : 0;
+        elem.m_metrics.m_xAdvance = p ? p->m_xAdvance : 0;
+        elem.m_metrics.m_xOffset = p ? p->m_xOffset : 0;
+        elem.m_metrics.m_yOffset = p ? p->m_yOffset : 0;
         elem.m_metrics.m_yAdvance = 0;
 
         m_entries.push_back(elem);
 
-        pv += m2::PointD(p->m_xAdvance, 0);
+        pv += m2::PointD(p ? p->m_xAdvance : 0, 0);
       }
       else
       {
         GlyphMetrics const m = resourceManager->getGlyphMetrics(glyphKey);
         if (i == 0)
-          m_limitRect = m2::RectD(m.m_xOffset + pv.x,
+          limitRect = m2::RectD(m.m_xOffset + pv.x,
                                  -m.m_yOffset + pv.y,
                                   m.m_xOffset + pv.x,
                                  -m.m_yOffset + pv.y);
         else
-          m_limitRect.Add(m2::PointD(m.m_xOffset, -m.m_yOffset) + pv);
+          limitRect.Add(m2::PointD(m.m_xOffset, -m.m_yOffset) + pv);
 
-        m_limitRect.Add(m2::PointD(m.m_xOffset + m.m_width,
+        limitRect.Add(m2::PointD(m.m_xOffset + m.m_width,
                                  -(m.m_yOffset + m.m_height)) + pv);
 
         GlyphLayoutElem elem;
@@ -265,24 +272,28 @@ namespace yg
       }
     }
 
-    m_limitRect.Inflate(2, 2);
+    limitRect.Inflate(2, 2);
 
-    m2::PointD ptOffs(-m_limitRect.SizeX() / 2,
-                      -m_limitRect.SizeY() / 2);
+    m2::PointD ptOffs(-limitRect.SizeX() / 2,
+                      -limitRect.SizeY() / 2);
 
     /// adjusting according to position
     if (pos & EPosLeft)
-      ptOffs += m2::PointD(-m_limitRect.SizeX() / 2, 0);
+      ptOffs += m2::PointD(-limitRect.SizeX() / 2, 0);
     if (pos & EPosRight)
-      ptOffs += m2::PointD(m_limitRect.SizeX() / 2, 0);
+      ptOffs += m2::PointD(limitRect.SizeX() / 2, 0);
 
     if (pos & EPosAbove)
-      ptOffs += m2::PointD(0, m_limitRect.SizeY() / 2);
+      ptOffs += m2::PointD(0, limitRect.SizeY() / 2);
 
     if (pos & EPosUnder)
-      ptOffs += m2::PointD(0, -m_limitRect.SizeY() / 2);
+      ptOffs += m2::PointD(0, -limitRect.SizeY() / 2);
+
+    m_limitRect = m2::AARectD(limitRect);
 
     offset(ptOffs);
+
+
   }
 
 
@@ -423,33 +434,71 @@ namespace yg
       m_lastVisible = symPos + 1;
     }
 
-    bool isFirst = true;
+    computeMinLimitRect();
+  }
+
+  void GlyphLayout::computeMinLimitRect()
+  {
+    map<double, m2::AARectD> rects;
 
     for (unsigned i = m_firstVisible; i < m_lastVisible; ++i)
     {
-      m2::AARectD symRectAA(
-            m_entries[i].m_pt.Move(m_entries[i].m_metrics.m_height, m_entries[i].m_angle - math::pi / 2),
-            m_entries[i].m_angle,
-            m2::RectD(m_entries[i].m_metrics.m_xOffset,
-                      m_entries[i].m_metrics.m_yOffset,
-                      m_entries[i].m_metrics.m_xOffset + m_entries[i].m_metrics.m_width,
-                      m_entries[i].m_metrics.m_yOffset + m_entries[i].m_metrics.m_height));
-
-      m2::PointD pts[4];
-      symRectAA.GetGlobalPoints(pts);
-
-      if (isFirst)
+      if (m_entries[i].m_metrics.m_width != 0)
       {
-        m_limitRect = m2::RectD(pts[0].x, pts[0].y, pts[0].x, pts[0].y);
-        isFirst = false;
-      }
-      else
-        m_limitRect.Add(pts[0]);
+        map<double, m2::AARectD>::iterator it = rects.find(m_entries[i].m_angle);
 
-      m_limitRect.Add(pts[1]);
-      m_limitRect.Add(pts[2]);
-      m_limitRect.Add(pts[3]);
+        if (it == rects.end())
+        {
+          m2::AARectD symRectAA(
+                m_entries[i].m_pt.Move(m_entries[i].m_metrics.m_height, m_entries[i].m_angle - math::pi / 2),
+                m_entries[i].m_angle,
+                m2::RectD(m_entries[i].m_metrics.m_xOffset,
+                          m_entries[i].m_metrics.m_yOffset,
+                          m_entries[i].m_metrics.m_xOffset + m_entries[i].m_metrics.m_width,
+                          m_entries[i].m_metrics.m_yOffset + m_entries[i].m_metrics.m_height
+                          ));
+
+          rects[m_entries[i].m_angle] = symRectAA;
+        }
+      }
     }
+
+    for (unsigned i = m_firstVisible; i < m_lastVisible; ++i)
+    {
+      if (m_entries[i].m_metrics.m_width != 0)
+      {
+        m2::AARectD symRectAA(
+              m_entries[i].m_pt.Move(m_entries[i].m_metrics.m_height, m_entries[i].m_angle - math::pi / 2),
+              m_entries[i].m_angle,
+              m2::RectD(m_entries[i].m_metrics.m_xOffset,
+                        m_entries[i].m_metrics.m_yOffset,
+                        m_entries[i].m_metrics.m_xOffset + m_entries[i].m_metrics.m_width,
+                        m_entries[i].m_metrics.m_yOffset + m_entries[i].m_metrics.m_height));
+
+        for (map<double, m2::AARectD>::iterator it = rects.begin(); it != rects.end(); ++it)
+          it->second.Add(symRectAA);
+      }
+    }
+
+    double square = numeric_limits<double>::max();
+
+    for (map<double, m2::AARectD>::iterator it = rects.begin(); it != rects.end(); ++it)
+    {
+      m2::RectD r = it->second.GetLocalRect();
+      if (square > r.SizeX() * r.SizeY())
+      {
+        m_limitRect = it->second;
+        square = r.SizeX() * r.SizeY();
+      }
+    }
+
+    m2::PointD zero = m_limitRect.zero();
+    zero = m_limitRect.ConvertFrom(zero);
+
+    double dx = zero.x - floor(zero.x);
+    double dy = zero.y - floor(zero.y);
+
+    m_limitRect.Offset(m2::PointD(-dx, -dy));
   }
 
   size_t GlyphLayout::firstVisible() const
@@ -467,7 +516,7 @@ namespace yg
     return m_entries;
   }
 
-  m2::RectD const GlyphLayout::limitRect() const
+  m2::AARectD const GlyphLayout::limitRect() const
   {
     return m_limitRect;
   }

@@ -53,7 +53,7 @@ namespace yg
 
     m2::RectD const TextRenderer::TextObj::GetLimitRect(TextRenderer* pTextRenderer) const
     {
-      return m_elem.boundRect();
+      return m_elem.boundRect().GetGlobalRect();
     }
 
     void TextRenderer::TextObj::SetNeedRedraw(bool flag) const
@@ -238,6 +238,8 @@ namespace yg
     {
       ASSERT(m_useTextTree, ());
 
+      m2::AARectD aaRect(rect);
+
       for (path_text_elements::iterator i = m_pathTexts.begin(); i != m_pathTexts.end(); ++i)
       {
         list<PathTextElement> & l = i->second;
@@ -245,8 +247,8 @@ namespace yg
         while (it != l.end())
         {
           it->offset(offs);
-          m2::RectD const & r = it->boundRect();
-          if (!rect.IsIntersect(r) && !rect.IsRectInside(r))
+          m2::AARectD const & r = it->boundRect();
+          if (!aaRect.IsIntersect(r) && !aaRect.IsRectInside(r))
           {
             list<PathTextElement>::iterator tempIt = it;
             ++tempIt;
@@ -256,7 +258,6 @@ namespace yg
           else
             ++it;
         }
-
       }
     }
 

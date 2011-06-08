@@ -149,6 +149,14 @@ namespace fwork
     m_drawCount += count;
 #endif
 
+    // remove duplicating identical drawing keys
+    PreProcessKeys();
+
+#ifdef PROFILER_DRAWING
+      m_drawCount += m_keys.size();
+#endif
+
+
     buffer_vector<di::DrawRule, reserve_rules_count> rules;
     rules.resize(count);
 
@@ -230,7 +238,7 @@ namespace fwork
           for (size_t i = 0; i < count; ++i)
           {
             if (pDrawer->filter_text_size(rules[i].m_rule))
-              fontSize = pDrawer->get_pathtext_font_size(rules[i].m_rule);
+              fontSize = max((uint8_t)fontSize, pDrawer->get_pathtext_font_size(rules[i].m_rule));
           }
 
           if (fontSize != 0)
@@ -255,6 +263,7 @@ namespace fwork
         functor_t fun(p);
 
         GET_POINTS(f, ForEachPointRef, fun, assign_path)
+
         break;
       }
     }

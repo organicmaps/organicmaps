@@ -222,7 +222,7 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
 
   yg::StraightTextElement ste(params);
 
-  m2::RectD bgRect = m2::Inflate(ste.boundRect(), 5.0, 5.0);
+  m2::AARectD bgRect = m2::Inflate(ste.boundRect(), 5.0, 5.0);
 
   drawer->screen()->drawRectangle(
         bgRect,

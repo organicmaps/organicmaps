@@ -2,6 +2,8 @@
 
 #include "point2d.hpp"
 #include "rect2d.hpp"
+#include "rect_intersect.hpp"
+#include "../base/math.hpp"
 #include <cmath>
 
 namespace m2
@@ -21,11 +23,8 @@ namespace m2
                            Point<T> const & fromI,
                            Point<T> const & fromJ,
                            Point<T> const & toI,
-                           Point<T> const & toJ)
+                           Point<T> const & toJ) const
     {
-      Point<T> i(1, 0);
-      Point<T> j(0, 1);
-
       Point<T> res;
 
       res.x = p.x * DotProduct(fromI, toI) + p.y * DotProduct(fromJ, toI);
@@ -34,76 +33,118 @@ namespace m2
       return res;
     }
 
-    Point<T> const CoordConvertTo(Point<T> const & p)
-    {
-      Point<T> i(1, 0);
-      Point<T> j(0, 1);
-
-      Point<T> res;
-
-      res.x = p.x * DotProduct(i, m_i) + p.y * DotProduct(j, m_i);
-      res.y = p.x * DotProduct(i, m_j) + p.y * DotProduct(j, m_j);
-
-      return res;
-    }
-
-    Point<T> const CoordConvertFrom(Point<T> const & p)
-    {
-      Point<T> res;
-
-      Point<T> i(1, 0);
-      Point<T> j(0, 1);
-
-      res.x = p.x * DotProduct(m_i, i) + p.y * DotProduct(m_j, i);
-      res.y = p.x * DotProduct(m_i, j) + p.y * DotProduct(m_j, j);
-
-      return res;
-    }
-
   public:
+
+    AARect(){}
+
+    /// creating from regular rect
+    AARect(Rect<T> const & r)
+      : m_i(1, 0), m_j(0, 1),
+        m_zero(r == Rect<T>() ? Point<T>(0, 0) : Point<T>(r.minX(), r.minY())),
+        m_rect(r == Rect<T>() ? Rect<T>() : Rect<T>(0, 0, r.SizeX(), r.SizeY()))
+    {
+    }
 
     AARect(Point<T> const & zero, T const & angle, Rect<T> const & r)
       : m_i(cos(angle), sin(angle)), m_j(-sin(angle), cos(angle)),
-        m_zero(CoordConvertTo(zero)),
+        m_zero(Convert(zero, Point<T>(1, 0), Point<T>(0, 1), m_i, m_j)),
         m_rect(r)
     {
     }
-    bool IsPointInside(Point<T> const & pt);
 
-    bool IsIntersect(AARect<T> const & r);
+    Point<T> const & zero() const
+    {
+      return m_zero;
+    }
 
-    Point<T> const ConvertTo(Point<T> const & p)
+    Point<T> const & i() const
+    {
+      return m_i;
+    }
+
+    Point<T> const & j() const
+    {
+      return m_j;
+    }
+
+    bool IsPointInside(Point<T> const & pt) const
+    {
+      return m_rect.IsPointInside(ConvertTo(pt));
+    }
+
+    bool IsRectInside(AARect<T> const & r) const
+    {
+      m2::Point<T> pts[4];
+      r.GetGlobalPoints(pts);
+      ConvertTo(pts, 4);
+      return m_rect.IsPointInside(pts[0])
+          && m_rect.IsPointInside(pts[1])
+          && m_rect.IsPointInside(pts[2])
+          && m_rect.IsPointInside(pts[3]);
+    }
+
+    bool IsIntersect(AARect<T> const & r) const
+    {
+      m2::Point<T> pts[4];
+      if (r.GetLocalRect() == Rect<T>())
+        return false;
+      r.GetGlobalPoints(pts);
+      ConvertTo(pts, 4);
+
+      m2::Rect<T> r1(pts[0], pts[0]);
+      r1.Add(pts[1]);
+      r1.Add(pts[2]);
+      r1.Add(pts[3]);
+
+      if (!GetLocalRect().IsIntersect(r1))
+        return false;
+
+      if (r.IsRectInside(*this))
+        return true;
+
+      if (IsRectInside(r))
+        return true;
+
+      return Intersect(GetLocalRect(), pts[0], pts[1])
+          || Intersect(GetLocalRect(), pts[1], pts[2])
+          || Intersect(GetLocalRect(), pts[2], pts[3])
+          || Intersect(GetLocalRect(), pts[3], pts[0]);
+    }
+
+    /// Convert into coordinate system of this AARect
+    Point<T> const ConvertTo(Point<T> const & p) const
     {
       m2::PointD i(1, 0);
       m2::PointD j(0, 1);
-      return Convert(p - Convert(m_zero, m_i, m_j, i, j), i, j, m_i, m_j);
+      m2::PointD res = Convert(p - Convert(m_zero, m_i, m_j, i, j), i, j, m_i, m_j);
     }
 
-    void ConvertTo(Point<T> * pts, size_t count)
+    void ConvertTo(Point<T> * pts, size_t count) const
     {
       for (size_t i = 0; i < count; ++i)
         pts[i] = ConvertTo(pts[i]);
     }
 
-    Point<T> const ConvertFrom(Point<T> const & p)
+    /// Convert into global coordinates from the local coordinates of this AARect
+    Point<T> const ConvertFrom(Point<T> const & p) const
     {
       m2::PointD i(1, 0);
       m2::PointD j(0, 1);
       return Convert(p + m_zero, m_i, m_j, i, j);
     }
 
-    void ConvertFrom(Point<T> * pts, size_t count)
+    void ConvertFrom(Point<T> * pts, size_t count) const
     {
       for (size_t i = 0; i < count; ++i)
         pts[i] = ConvertFrom(pts[i]);
     }
 
-    Rect<T> const GetLocalRect()
+    Rect<T> const GetLocalRect() const
     {
       return m_rect;
     }
 
-    Rect<T> const GetGlobalRect()
+    Rect<T> const GetGlobalRect() const
     {
       Point<T> pts[4];
       GetGlobalPoints(pts);
@@ -117,14 +158,59 @@ namespace m2
       return res;
     }
 
-    void GetGlobalPoints(Point<T> * pts)
+    template <typename U>
+    void GetGlobalPoints(Point<U> * pts) const
     {
-      pts[0] = ConvertFrom(Point<T>(m_rect.minX(), m_rect.minY()));
-      pts[1] = ConvertFrom(Point<T>(m_rect.minX(), m_rect.maxY()));
-      pts[2] = ConvertFrom(Point<T>(m_rect.maxX(), m_rect.maxY()));
-      pts[3] = ConvertFrom(Point<T>(m_rect.maxX(), m_rect.minY()));
+      pts[0] = Point<U>(ConvertFrom(Point<T>(m_rect.minX(), m_rect.minY())));
+      pts[1] = Point<U>(ConvertFrom(Point<T>(m_rect.minX(), m_rect.maxY())));
+      pts[2] = Point<U>(ConvertFrom(Point<T>(m_rect.maxX(), m_rect.maxY())));
+      pts[3] = Point<U>(ConvertFrom(Point<T>(m_rect.maxX(), m_rect.minY())));
+    }
+
+    template <typename U>
+    void Inflate(U const & dx, U const & dy)
+    {
+      m_rect.Inflate(dx, dy);
+    }
+
+    void Add(AARect<T> const & r)
+    {
+      Point<T> pts[4];
+      r.GetGlobalPoints(pts);
+      ConvertTo(pts, 4);
+      m_rect.Add(pts[0]);
+      m_rect.Add(pts[1]);
+      m_rect.Add(pts[2]);
+      m_rect.Add(pts[3]);
+    }
+
+    void Offset(Point<T> const & p)
+    {
+      m_zero = ConvertTo(ConvertFrom(m_zero) + p);
     }
   };
+
+  template <typename T>
+  AARect<T> const Offset(AARect<T> const & r, Point<T> const & pt)
+  {
+    AARect<T> res(r);
+    res.Offset(pt);
+    return res;
+  }
+
+  template <typename T, typename U>
+  AARect<T> const Inflate(AARect<T> const & r, U const & dx, U const & dy)
+  {
+    AARect<T> res = r;
+    res.Inflate(dx, dy);
+    return res;
+  }
+
+  template <typename T, typename U>
+  AARect<T> const Inflate(AARect<T> const & r, Point<U> const & pt)
+  {
+    return Inflate(r, pt.x, pt.y);
+  }
 
   typedef AARect<double> AARectD;
   typedef AARect<float> AARectF;

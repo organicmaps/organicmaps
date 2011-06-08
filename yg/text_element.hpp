@@ -2,6 +2,7 @@
 
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
+#include "../geometry/aa_rect2d.hpp"
 
 #include "../std/shared_ptr.hpp"
 
@@ -38,7 +39,7 @@ namespace yg
     OverlayElement(Params const & p);
 
     virtual void offset(m2::PointD const & offs) = 0;
-    virtual m2::RectD const boundRect() const = 0;
+    virtual m2::AARectD const boundRect() const = 0;
     virtual void draw(gl::Screen * screen) const = 0;
 
     m2::PointD const & pivot() const;
@@ -55,6 +56,7 @@ namespace yg
     /// text-element specific
     FontDesc m_fontDesc;
     string m_utf8Text;
+    wstring m_text;
     double m_depth;
     bool m_log2vis;
     shared_ptr<ResourceManager> m_rm;
@@ -77,6 +79,7 @@ namespace yg
     void drawTextImpl(GlyphLayout const & layout, gl::TextRenderer * screen, FontDesc const & desc, double depth) const;
     wstring const log2vis(wstring const & str);
     string const & utf8Text() const;
+    wstring const & text() const;
     FontDesc const & fontDesc() const;
     double depth() const;
   };
@@ -94,7 +97,7 @@ namespace yg
 
     StraightTextElement(Params const & p);
 
-    m2::RectD const boundRect() const;
+    m2::AARectD const boundRect() const;
     void draw(gl::Screen * screen) const;
     void draw(gl::TextRenderer * screen) const;
     void offset(m2::PointD const & offs);
@@ -119,7 +122,7 @@ namespace yg
 
     PathTextElement(Params const & p);
 
-    m2::RectD const boundRect() const;
+    m2::AARectD const boundRect() const;
     void draw(gl::Screen * screen) const;
     void draw(gl::TextRenderer * screen) const;
     void offset(m2::PointD const & offs);

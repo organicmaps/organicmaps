@@ -69,6 +69,33 @@ namespace yg
       drawTrianglesList(&sectorPts[0], sectorPts.size(), skin()->mapColor(c), depth);
     }
 
+    void ShapeRenderer::drawRectangle(m2::AARectD const & r, yg::Color const & c, double depth)
+    {
+      ResourceStyle const * style = skin()->fromID(skin()->mapColor(c));
+
+      if (style == 0)
+      {
+        LOG(LINFO, ("cannot map color"));
+        return;
+      }
+
+      m2::PointF rectPts[4];
+
+      r.GetGlobalPoints(rectPts);
+      swap(rectPts[2], rectPts[3]);
+
+      m2::PointF texPt = skin()->pages()[style->m_pageID]->texture()->mapPixel(style->m_texRect.Center());
+
+      addTexturedStripStrided(
+            rectPts,
+            sizeof(m2::PointF),
+            &texPt,
+            0,
+            4,
+            depth,
+            style->m_pageID);
+    }
+
     void ShapeRenderer::drawRectangle(m2::RectD const & r, yg::Color const & c, double depth)
     {
       ResourceStyle const * style = skin()->fromID(skin()->mapColor(c));

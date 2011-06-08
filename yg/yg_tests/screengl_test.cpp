@@ -716,18 +716,8 @@ namespace
       params.m_utf8Text = "Simplicity is the ultimate sophistication";
       yg::StraightTextElement ste(params);
 
-      m2::RectD r = ste.boundRect();
-
-      m2::PointD pts[6] = {
-        m2::PointD(r.minX(), r.minY()),
-        m2::PointD(r.maxX(), r.minY()),
-        m2::PointD(r.maxX(), r.maxY()),
-        m2::PointD(r.minX(), r.minY()),
-        m2::PointD(r.maxX(), r.maxY()),
-        m2::PointD(r.minX(), r.maxY())
-      };
-
-      p->drawTrianglesList(pts, 6, p->skin()->mapColor(yg::Color(0, 0, 255, 255)), 0);
+      m2::AARectD r = ste.boundRect();
+      p->drawRectangle(r, yg::Color(0, 0, 255, 255), 0);
 
       base_t::DoDraw(p);
     }
@@ -750,18 +740,8 @@ namespace
       params.m_utf8Text = "Simplicity is the ultimate sophistication";
       yg::StraightTextElement ste(params);
 
-      m2::RectD r = ste.boundRect();
-
-      m2::PointD pts[6] = {
-        m2::PointD(r.minX(), r.minY()),
-        m2::PointD(r.maxX(), r.minY()),
-        m2::PointD(r.maxX(), r.maxY()),
-        m2::PointD(r.minX(), r.minY()),
-        m2::PointD(r.maxX(), r.maxY()),
-        m2::PointD(r.minX(), r.maxY())
-      };
-
-      p->drawTrianglesList(pts, 6, p->skin()->mapColor(yg::Color(0, 0, 255, 255)), 0);
+      m2::AARectD r = ste.boundRect();
+      p->drawRectangle(r, yg::Color(0, 0, 255, 255), 0);
 
       base_t::DoDraw(p);
     }
@@ -1114,6 +1094,26 @@ namespace
     }
   };
 
+  struct TestDrawAARect
+  {
+  public:
+    void DoDraw(shared_ptr<yg::gl::Screen> p)
+    {
+      m2::AARectD r[3] =
+      {
+        m2::AARectD(m2::PointD(100, 100), math::pi / 6, m2::RectD(0, 0, 50, 20)),
+        m2::AARectD(m2::PointD(100, 100), math::pi / 6, m2::RectD(0, -10, 50, 10)),
+        m2::AARectD(m2::PointD(100, 100), math::pi / 6, m2::RectD(0, -22, 50, -2))
+      };
+
+      p->drawRectangle(r[0], yg::Color(255, 0, 0, 128), yg::maxDepth - 2);
+      if (!r[0].IsIntersect(r[1]))
+        p->drawRectangle(r[1], yg::Color(0, 255, 0, 128), yg::maxDepth - 1);
+      if (!r[0].IsIntersect(r[2]))
+        p->drawRectangle(r[1], yg::Color(0, 0, 255, 128), yg::maxDepth);
+    }
+  };
+
   struct TestDrawSector
   {
   public:
@@ -1286,15 +1286,15 @@ namespace
 //   UNIT_TEST_GL(TestDrawStringWithColor);
 //   UNIT_TEST_GL(TestDrawUnicodeSymbols);
 //   UNIT_TEST_GL(TestDrawTextRectWithFixedFont);
-//     UNIT_TEST_GL(TestDrawTextRect);
+//   UNIT_TEST_GL(TestDrawTextRect);
 //   UNIT_TEST_GL(TestDrawStringOnString);
 //   UNIT_TEST_GL(TestDrawTextOnPathInteractive);
 //   UNIT_TEST_GL(TestDrawTextOnPathBigSymbols);
-     UNIT_TEST_GL(TestDrawTextOnPath);
-     UNIT_TEST_GL(TestDrawTextOnPathZigZag);
-     UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
+//   UNIT_TEST_GL(TestDrawTextOnPath);
+//   UNIT_TEST_GL(TestDrawTextOnPathZigZag);
+//   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
 //   UNIT_TEST_GL(TestDrawStraightTextElement);
-   UNIT_TEST_GL(TestDrawPathTextElement);
+//   UNIT_TEST_GL(TestDrawPathTextElement);
 //   UNIT_TEST_GL(TestDrawTextOverflow);
 //   UNIT_TEST_GL(TestDrawTextFiltering);
 //   UNIT_TEST_GL(TestDrawRandomTextFiltering);
@@ -1307,6 +1307,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawPathSolid1PX);
 //   UNIT_TEST_GL(TestDrawPathSolid2PX);
 //   UNIT_TEST_GL(TestDrawPathSolid);
+   UNIT_TEST_GL(TestDrawAARect);
 //   UNIT_TEST_GL(TestDrawSector);
 //   UNIT_TEST_GL(TestDrawPathSolidDiffWidth);
 //   UNIT_TEST_GL(TestDrawPathZigZag);

@@ -48,3 +48,18 @@ UNIT_TEST(AARect_TestIntersection)
   TEST(r1.GetLocalRect().IsIntersect(r2) == false, ());
 }
 
+UNIT_TEST(AARect_TestIsIntersect)
+{
+  m2::AARectD r0(m2::PointD(100, 100), math::pi / 6, m2::RectD(0, 0, 50, 20));
+  m2::AARectD r1(m2::PointD(100, 100), math::pi / 6, m2::RectD(0, -10, 50, 10));
+  m2::AARectD r2(m2::PointD(100, 100), math::pi / 6, m2::RectD(0, -21, 50, -1));
+
+  TEST(r0.IsIntersect(r1), ());
+  TEST(r1.IsIntersect(r2), ());
+  TEST(!r0.IsIntersect(r2), ());
+  TEST(r1.IsIntersect(r2), ());
+
+  m2::AARectD r3(m2::PointD(50, 50), math::pi / 8, m2::RectD(0, 0, 80, 30));
+  TEST(r0.IsIntersect(r3), ());
+}
+
