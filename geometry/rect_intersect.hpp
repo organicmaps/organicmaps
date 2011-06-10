@@ -25,13 +25,12 @@ namespace m2
   template <class T>
   bool Intersect(m2::Rect<T> const & r, m2::Point<T> & p1, m2::Point<T> & p2)
   {
-    int code1 = detail::vcode(r, p1);
-    int code2 = detail::vcode(r, p2);
+    int code[2] = { detail::vcode(r, p1), detail::vcode(r, p2) };
 
     // пока одна из точек отрезка вне прямоугольника
-    while (code1 || code2)
+    while (code[0] || code[1])
     {
-      if (code1 & code2)
+      if (code[0] & code[1])
       {
         // если обе точки с одной стороны прямоугольника, то отрезок не пересекает прямоугольник
         return false;
@@ -39,26 +38,26 @@ namespace m2
 
       // выбираем точку c с ненулевым кодом
       m2::Point<T> * pp;
-      int code;
-      if (code1)
+      int i;
+      if (code[0])
       {
-        code = code1;
+        i = 0;
         pp = &p1;
       }
       else
       {
-        code = code2;
+        i = 1;
         pp = &p2;
       }
 
       // если pp левее r, то передвигаем pp на прямую x = r->x_min
       // если pp правее r, то передвигаем pp на прямую x = r->x_max
-      if (code & detail::LEFT)
+      if (code[i] & detail::LEFT)
       {
         pp->y += (p1.y - p2.y) * (r.minX() - pp->x) / (p1.x - p2.x);
         pp->x = r.minX();
       }
-      else if (code & detail::RIGHT)
+      else if (code[i] & detail::RIGHT)
       {
         pp->y += (p1.y - p2.y) * (r.maxX() - pp->x) / (p1.x - p2.x);
         pp->x = r.maxX();
@@ -66,22 +65,19 @@ namespace m2
 
       // если pp ниже r, то передвигаем pp на прямую y = r->y_min
       // если pp выше r, то передвигаем pp на прямую y = r->y_max
-      if (code & detail::BOT)
+      if (code[i] & detail::BOT)
       {
         pp->x += (p1.x - p2.x) * (r.minY() - pp->y) / (p1.y - p2.y);
         pp->y = r.minY();
       }
-      else if (code & detail::TOP)
+      else if (code[i] & detail::TOP)
       {
         pp->x += (p1.x - p2.x) * (r.maxY() - pp->y) / (p1.y - p2.y);
         pp->y = r.maxY();
       }
 
       // обновляем код
-      if (code == code1)
-        code1 = detail::vcode(r, p1);
-      else
-        code2 = detail::vcode(r, p2);
+      code[i] = detail::vcode(r, *pp);
     }
 
     // оба кода равны 0, следовательно обе точки в прямоугольнике

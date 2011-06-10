@@ -9,7 +9,13 @@
 
 #include "../../base/start_mem_debug.hpp"
 
+
 using namespace test;
+
+namespace
+{
+  typedef m2::PointD P;
+}
 
 m2::PointD get_point(m2::RectD const & r, int ind)
 {
@@ -25,7 +31,7 @@ m2::PointD get_point(m2::RectD const & r, int ind)
   }
 }
 
-void make_section_longer(m2::PointD & p1, m2::PointD & p2, double sm = 10.0)
+void make_section_longer(m2::PointD & p1, m2::PointD & p2, double sm)
 {
   if (p1.x == p2.x)
   {
@@ -54,20 +60,17 @@ void check_full_equal(m2::RectD const & r, m2::PointD const & p1, m2::PointD con
 {
   m2::PointD pp1 = p1;
   m2::PointD pp2 = p2;
-  make_section_longer(pp1, pp2);
+  make_section_longer(pp1, pp2, 1000.0);
 
   TEST(m2::Intersect(r, pp1, pp2), ());
   TEST(comp(pp1, p1) && comp(pp2, p2), ());
 }
 
-void check_inside(m2::RectD const & r, m2::PointD p1, m2::PointD p2)
+void check_inside(m2::RectD const & r, m2::PointD const & p1, m2::PointD const & p2)
 {
-  double const sm = p1.Length(p2) / 4.0;
-  make_section_longer(p1, p2, -sm);
-
   m2::PointD pp1 = p1;
   m2::PointD pp2 = p2;
-  TEST(m2::Intersect(r, p1, p2), ());
+  TEST(m2::Intersect(r, pp1, pp2), ());
   TEST((pp1 == p1) && (pp2 == p2), ());
 }
 
@@ -120,11 +123,51 @@ void check_eps_boundaries(m2::RectD const & r, double eps = 1.0E-6)
     check_inside(r, get_point(rr, i), get_point(rr, i+1));
 }
 
-UNIT_TEST(IntersectRectSection)
+UNIT_TEST(IntersectRect_Section)
 {
   m2::RectD r(-1, -1, 2, 2);
   check_intersect_boundaries(r);
   check_intersect_diagonal(r);
   check_sides(r);
   check_eps_boundaries(r);
+}
+
+namespace 
+{
+  void check_point_in_rect(m2::RectD const & r, m2::PointD const & p)
+  {
+    m2::PointD p1 = p;
+    m2::PointD p2 = p;
+
+    TEST(m2::Intersect(r, p1, p2), ());
+    TEST(p == p1 && p == p2, ());
+  }
+}
+
+UNIT_TEST(IntersectRect_Point)
+{
+  {
+    m2::RectD r(-100, -100, 200, 200);
+    for (int i = 0; i < 4; ++i)
+    {
+      check_point_in_rect(r, get_point(r, i));
+      check_point_in_rect(r, (get_point(r, i) + get_point(r, i+1)) / 2.0);
+    }
+  }
+
+  {
+    m2::RectD r(-1000, -1000, 1000, 1000);
+    double const eps = 1.0E-6;
+    P sm[] = { P(-eps, -eps), P(-eps, eps), P(eps, eps), P(eps, -eps) };
+    for (int i = 0; i < 4; ++i)
+    {
+      P p1 = get_point(r, i);
+      P p2 = p1 - sm[i];
+      check_inside(r, p1, p2);
+
+      p1 = p1 + sm[i];
+      p2 = p1 + sm[i];
+      TEST(!m2::Intersect(r, p1, p2), ());
+    }
+  }
 }
