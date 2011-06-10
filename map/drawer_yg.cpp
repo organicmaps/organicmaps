@@ -277,6 +277,32 @@ bool DrawerYG::drawPathText(di::PathInfo const & info, string const & name, uint
                                   yg::maxDepth);
 }
 
+void DrawerYG::drawPathNumber(di::PathInfo const & path, di::DrawInfo const * pInfo)
+{
+  int const textHeight = 12;
+  m2::PointD pt;
+  double const length = path.GetFullLength();
+  if (length >= (pInfo->m_road.size() + 2)*textHeight)
+  {
+    size_t const count = size_t(length / 1000.0) + 2;
+
+    for (size_t j = 1; j < count; ++j)
+    {
+      if (path.GetSmPoint(double(j) / double(count), pt))
+      {
+        yg::FontDesc fontDesc(
+          false,
+          textHeight,
+          yg::Color(150, 75, 0, 255),   // brown
+          true,
+          yg::Color(255, 255, 255, 255));
+
+        m_pScreen->drawText(fontDesc, pt, yg::EPosCenter, 0.0, pInfo->m_road, yg::maxDepth, true);
+      }
+    }
+  }
+}
+
 shared_ptr<yg::gl::Screen> DrawerYG::screen() const
 {
   return m_pScreen;
@@ -314,36 +340,16 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
 
   if (!pathRules.empty())
   {
-    bool const isNumber = !pInfo->m_road.empty() && m_level >= 12;
-
     for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
     {
       drawPath(i->m_path, pathRules.data(), pathRules.size());
-
-      int const textHeight = 12;
-      m2::PointD pt;
-      double const length = i->GetFullLength();
-      if (isNumber && (length >= (pInfo->m_road.size() + 2)*textHeight))
-      {
-        size_t const count = size_t(length / 1000.0) + 2;
-
-        for (size_t j = 1; j < count; ++j)
-        {
-          if (i->GetSmPoint(double(j) / double(count), pt))
-          {
-            yg::FontDesc fontDesc(
-              false,
-              textHeight,
-              yg::Color(150, 75, 0, 255),   // brown
-              true,
-              yg::Color(255, 255, 255, 255));
-
-            m_pScreen->drawText(fontDesc, pt, yg::EPosCenter, 0.0, pInfo->m_road, yg::maxDepth, true);
-          }
-        }
-      }
     }
   }
+
+  bool const isPath = !pInfo->m_pathes.empty();
+  bool const isArea = !pInfo->m_areas.empty();
+
+  bool isNumber = true;
 
   for (unsigned i = 0; i < count; ++i)
   {
@@ -355,10 +361,6 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
     string symbol;
     pRule->GetSymbol(symbol);
     bool const hasSymbol = !symbol.empty();
-
-    bool const isPath = !pInfo->m_pathes.empty();
-    bool const isArea = !pInfo->m_areas.empty();
-    bool const hasName = !pInfo->m_name.empty();
 
     bool const isCircle = (pRule->GetRadius() != -1);
 
@@ -398,7 +400,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
     }
     else
     {
-      if (hasName)
+      if (!pInfo->m_name.empty())
       {
         bool isN = ((pRule->GetType() & drule::way) != 0);
 
@@ -410,17 +412,13 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
         }
 
         // draw way name
-        if (isPath && !isArea && isN)
+        if (isPath && !isArea && isN && !filter_text_size(pRule))
         {
+          uint8_t const fontSize = get_pathtext_font_size(pRule);
+          list<m2::RectD> & lst = m_pathsOrg[pInfo->m_name];
+
           for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
           {
-            if (filter_text_size(pRule))
-              continue;
-
-            uint8_t const fontSize = get_pathtext_font_size(pRule);
-
-            list<m2::RectD> & lst = m_pathsOrg[pInfo->m_name];
-
             m2::RectD r = i->GetLimitRect();
             r.Inflate(-r.SizeX() / 4.0, -r.SizeY() / 4.0);
             r.Inflate(fontSize, fontSize);
@@ -433,8 +431,16 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
                 break;
               }
 
-            if (needDraw && drawPathText(*i, pInfo->m_name, fontSize, depth))
-              lst.push_back(r);
+            if (needDraw)
+            {
+              if (drawPathText(*i, pInfo->m_name, fontSize, depth))
+              {
+                isNumber = false;   // text hides number
+                lst.push_back(r);
+              }
+            }
+            else
+              isNumber = false;   // neighbor text hides this text and this number
           }
         }
 
@@ -444,5 +450,12 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
           drawText(pInfo->m_point, pInfo, pRule, yg::EPosAbove, depth);
       }
     }
+  }
+
+  // draw road numbers
+  if (isNumber && isPath && !pInfo->m_road.empty() && m_level >= 12)
+  {
+    for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
+      drawPathNumber(*i, pInfo);
   }
 }
