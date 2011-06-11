@@ -33,7 +33,7 @@
 
 #include "common.h"
 
-#if HAVE_STDLIB_H
+#if HAVE_STDLIB_H+0
 # include <stdlib.h>
 #endif
 

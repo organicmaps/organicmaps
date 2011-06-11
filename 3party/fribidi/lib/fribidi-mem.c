@@ -59,7 +59,7 @@ fribidi_mem_chunk_new (
 {
   register FriBidiMemChunk *m;
 
-  fribidi_assert (area_size >= (unsigned long)atom_size * 8);
+  fribidi_assert (area_size >= atom_size * 8);
 
   m = (FriBidiMemChunk *) fribidi_malloc (sizeof (FriBidiMemChunk));
   if LIKELY

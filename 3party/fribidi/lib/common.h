@@ -45,9 +45,9 @@
 # define FRIBIDI_PRIVATESPACE(SYMBOL) FRIBIDI_PRIVATESPACE0(_,FRIBIDI_NAMESPACE(_##SYMBOL##__internal__))
 #endif /* !FRIBIDI_PRIVATESPACE */
 
-//#if (defined(WIN32)) || (defined(_WIN32_WCE))
-//# define FRIBIDI_ENTRY __declspec(dllexport)
-//#endif /* WIN32 */
+#if (defined(WIN32)) || (defined(_WIN32_WCE))
+# define FRIBIDI_ENTRY __declspec(dllexport)
+#endif /* WIN32 */
 
 #if FRIBIDI_USE_GLIB+0
 # ifndef SIZEOF_LONG
@@ -121,13 +121,13 @@
 # endif	/* !fribidi_free */
 #endif /* fribidi_malloc */
 
-#if HAVE_STRING_H
+#if HAVE_STRING_H+0
 # if !STDC_HEADERS && HAVE_MEMORY_H
 #  include <memory.h>
 # endif
 # include <string.h>
 #endif
-#if HAVE_STRINGS_H
+#if HAVE_STRINGS_H+0
 # include <strings.h>
 #endif
 
@@ -167,11 +167,11 @@
 # define FRIBIDI_EMPTY_STMT FRIBIDI_BEGIN_STMT (void) 0; FRIBIDI_END_STMT
 #endif /* !FRIBIDI_EMPTY_STMT */
 
-//#if HAVE_STRINGIZE
+#if HAVE_STRINGIZE+0
 # define STRINGIZE(symbol) #symbol
-//#else /* !HAVE_STRINGIZE */
-//# define STRINGIZE(symbol) (no stringize operator available)
-//#endif /* !HAVE_STRINGIZE */
+#else /* !HAVE_STRINGIZE */
+# define STRINGIZE(symbol) (no stringize operator available)
+#endif /* !HAVE_STRINGIZE */
 
 /* As per recommendation of GNU Coding Standards. */
 #ifndef _GNU_SOURCE

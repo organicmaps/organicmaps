@@ -188,7 +188,7 @@ FRIBIDI_ENTRY FriBidiLevel
 fribidi_log2vis (
   /* input */
   const FriBidiChar *str,
-  const FriBidiStrIndex len,
+  FriBidiStrIndex len,
   /* input and output */
   FriBidiParType *pbase_dir,
   /* output */

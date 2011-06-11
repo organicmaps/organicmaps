@@ -82,22 +82,21 @@
 #  endif /* SIZEOF_INT < 4 */
 # endif	/* no int types */
 # define FRIBIDI_BOOLEAN_LOCAL		int
-//# if SIZEOF_WCHAR_T >= 4
-//#  ifndef __FRIBIDI_DOC
-//#   if STDC_HEADERS
-//#    include <stdlib.h>
-//#    include <stddef.h>
-//#   else /* !STDC_HEADERS */
-//#    if HAVE_STDLIB_H
-//#     include <stdlib.h>
-//#    endif /* !HAVE_STDLIB_H */
-//#   endif /* !STDC_HEADERS */
-//#  endif /* !__FRIBIDI_DOC */
-//#  define FRIBIDI_UNICHAR_LOCAL		wchar_t
-//# else /* SIZEOF_WCHAR_T < 4 */
-//#  define FRIBIDI_UNICHAR_LOCAL		fribidi_uint32
-//# endif	/* SIZEOF_WCHAR_T < 4 */
-#define FRIBIDI_UNICHAR_LOCAL		wchar_t
+# if SIZEOF_WCHAR_T >= 4
+#  ifndef __FRIBIDI_DOC
+#   if STDC_HEADERS
+#    include <stdlib.h>
+#    include <stddef.h>
+#   else /* !STDC_HEADERS */
+#    if HAVE_STDLIB_H
+#     include <stdlib.h>
+#    endif /* !HAVE_STDLIB_H */
+#   endif /* !STDC_HEADERS */
+#  endif /* !__FRIBIDI_DOC */
+#  define FRIBIDI_UNICHAR_LOCAL		wchar_t
+# else /* SIZEOF_WCHAR_T < 4 */
+#  define FRIBIDI_UNICHAR_LOCAL		fribidi_uint32
+# endif	/* SIZEOF_WCHAR_T < 4 */
 #endif /* !FRIBIDI_USE_GLIB */
 
 #if FRIBIDI_INT_TYPES+0
