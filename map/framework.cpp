@@ -149,16 +149,6 @@ namespace fwork
     m_drawCount += count;
 #endif
 
-    // remove duplicating identical drawing keys
-    PreProcessKeys();
-
-#ifdef PROFILER_DRAWING
-      m_drawCount += m_keys.size();
-#endif
-
-    // get drawing rules for the m_keys array
-    size_t const count = m_keys.size();
-
     buffer_vector<di::DrawRule, reserve_rules_count> rules;
     rules.resize(count);
 
