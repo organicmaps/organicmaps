@@ -15,7 +15,7 @@
 namespace yg
 {
   OverlayElement::OverlayElement(Params const & p)
-    : m_pivot(p.m_pivot), m_position(p.m_position)
+    : m_pivot(p.m_pivot), m_position(p.m_position), m_depth(p.m_depth)
   {}
 
   void OverlayElement::offset(m2::PointD const & offs)
@@ -43,6 +43,16 @@ namespace yg
     m_position = pos;
   }
 
+  double OverlayElement::depth() const
+  {
+    return m_depth;
+  }
+
+  void OverlayElement::setDepth(double depth)
+  {
+    m_depth = depth;
+  }
+
   wstring const TextElement::log2vis(wstring const & str)
   {
     size_t const count = str.size();
@@ -56,23 +66,22 @@ namespace yg
   TextElement::TextElement(Params const & p)
     : OverlayElement(p),
       m_fontDesc(p.m_fontDesc),
-      m_utf8Text(p.m_utf8Text),
-      m_text(strings::FromUtf8(p.m_utf8Text)),
-      m_depth(p.m_depth),
+      m_logText(p.m_logText),
       m_log2vis(p.m_log2vis),
       m_rm(p.m_rm),
       m_skin(p.m_skin)
   {
+    m_visText = m_log2vis ? log2vis(m_logText) : m_logText;
   }
 
-  string const & TextElement::utf8Text() const
+  wstring const & TextElement::logText() const
   {
-    return m_utf8Text;
+    return m_logText;
   }
 
-  wstring const & TextElement::text() const
+  wstring const & TextElement::visText() const
   {
-    return m_text;
+    return m_visText;
   }
 
   FontDesc const & TextElement::fontDesc() const
@@ -80,20 +89,17 @@ namespace yg
     return m_fontDesc;
   }
 
-  double TextElement::depth() const
-  {
-    return m_depth;
-  }
-
   void TextElement::drawTextImpl(GlyphLayout const & layout, gl::TextRenderer * screen, FontDesc const & fontDesc, double depth) const
   {
-    if (layout.lastVisible() != text().size())
+    if (layout.lastVisible() != visText().size())
       return;
+
     for (unsigned i = layout.firstVisible(); i < layout.lastVisible(); ++i)
     {
-      shared_ptr<Skin> skin = screen->skin();
-      GlyphLayoutElem elem = layout.entries()[i];
-      uint32_t const glyphID = skin->mapGlyph(GlyphKey(elem.m_sym, fontDesc.m_size, fontDesc.m_isMasked, fontDesc.m_isMasked ? fontDesc.m_maskColor : fontDesc.m_color), fontDesc.m_isStatic);
+      shared_ptr<Skin> const & skin = screen->skin();
+      GlyphLayoutElem const & elem = layout.entries()[i];
+      GlyphKey glyphKey(elem.m_sym, fontDesc.m_size, fontDesc.m_isMasked, fontDesc.m_isMasked ? fontDesc.m_maskColor : fontDesc.m_color);
+      uint32_t const glyphID = skin->mapGlyph(glyphKey, fontDesc.m_isStatic);
       CharStyle const * charStyle = static_cast<CharStyle const *>(skin->fromID(glyphID));
 
       screen->drawGlyph(elem.m_pt, m2::PointD(0.0, 0.0), elem.m_angle, 0, charStyle, depth);
@@ -106,7 +112,7 @@ namespace yg
         p.m_skin,
         p.m_fontDesc,
         p.m_pivot,
-        p.m_log2vis ? log2vis(strings::FromUtf8(p.m_utf8Text)) : strings::FromUtf8(p.m_utf8Text),
+        visText(),
         p.m_position)
   {
   }
@@ -145,13 +151,11 @@ namespace yg
         p.m_fontDesc,
         p.m_pts,
         p.m_ptsCount,
-        p.m_log2vis ? log2vis(strings::FromUtf8(p.m_utf8Text)) : strings::FromUtf8(p.m_utf8Text),
+        visText(),
         p.m_fullLength,
         p.m_pathOffset,
         p.m_position)
   {
-    m_pts.resize(p.m_ptsCount);
-    copy(p.m_pts, p.m_pts + p.m_ptsCount, m_pts.begin());
   }
 
   m2::AARectD const PathTextElement::boundRect() const
@@ -161,15 +165,14 @@ namespace yg
 
   void PathTextElement::draw(gl::TextRenderer * screen) const
   {
-//    screen->drawRectangle(boundRect(), yg::Color(0, 0, 255, 32), yg::maxDepth - 3);
     yg::FontDesc desc = m_fontDesc;
     if (m_fontDesc.m_isMasked)
     {
-      drawTextImpl(m_glyphLayout, screen, m_fontDesc, m_depth);
+      drawTextImpl(m_glyphLayout, screen, m_fontDesc, depth());
       desc.m_isMasked = false;
     }
 
-    drawTextImpl(m_glyphLayout, screen, desc, m_depth);
+    drawTextImpl(m_glyphLayout, screen, desc, depth());
   }
 
   void PathTextElement::draw(gl::Screen * screen) const
@@ -179,8 +182,6 @@ namespace yg
 
   void PathTextElement::offset(m2::PointD const & offs)
   {
-    for (unsigned i = 0; i < m_pts.size(); ++i)
-      m_pts[i] += offs;
     TextElement::offset(offs);
     m_glyphLayout.offset(offs);
   }

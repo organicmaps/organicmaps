@@ -155,7 +155,7 @@ namespace yg
     /// not to overlap the previous symbol
 
     m2::AARectD prevSymRectAA(
-          prevElem.m_pt.Move(prevElem.m_metrics.m_height, prevElem.m_angle - math::pi / 2),
+          prevElem.m_pt.Move(prevElem.m_metrics.m_height, -prevElem.m_angle.cos(), prevElem.m_angle.sin()), //< moving by angle = prevElem.m_angle - math::pi / 2
           prevElem.m_angle,
           m2::RectD(prevElem.m_metrics.m_xOffset,
                     prevElem.m_metrics.m_yOffset,
@@ -163,13 +163,16 @@ namespace yg
                     prevElem.m_metrics.m_yOffset + prevElem.m_metrics.m_height));
 
     m2::AARectD curSymRectAA(
-          curElem.m_pt.Move(curElem.m_metrics.m_height, curElem.m_angle - math::pi / 2),
+          curElem.m_pt.Move(curElem.m_metrics.m_height, -curElem.m_angle.cos(), curElem.m_angle.sin()), //< moving by angle = curElem.m_angle - math::pi / 2
           curElem.m_angle,
           m2::RectD(curElem.m_metrics.m_xOffset,
                     curElem.m_metrics.m_yOffset,
                     curElem.m_metrics.m_xOffset + curElem.m_metrics.m_width,
                     curElem.m_metrics.m_yOffset + curElem.m_metrics.m_height)
           );
+
+    if (prevElem.m_angle.val() == curElem.m_angle.val())
+      return res;
 
     m2::RectD prevLocalRect = prevSymRectAA.GetLocalRect();
     m2::PointD pts[4];
@@ -189,15 +192,14 @@ namespace yg
     return res;
   }
 
-  GlyphLayout::GlyphLayout(shared_ptr<ResourceManager> const & resourceManager,
-                           shared_ptr<Skin> const & skin,
+  GlyphLayout::GlyphLayout(ResourceManager * resourceManager,
+                           Skin * skin,
                            FontDesc const & fontDesc,
                            m2::PointD const & pt,
-                           wstring const & text,
+                           wstring const & visText,
                            yg::EPosition pos)
-    : m_resourceManager(resourceManager),
-      m_firstVisible(0),
-      m_lastVisible(text.size())
+    : m_firstVisible(0),
+      m_lastVisible(visText.size())
   {
     m2::PointD pv = pt;
 
@@ -205,9 +207,9 @@ namespace yg
 
     bool isFirst = true;
 
-    for (size_t i = 0; i < text.size(); ++i)
+    for (size_t i = 0; i < visText.size(); ++i)
     {
-      GlyphKey glyphKey(text[i], fontDesc.m_size, fontDesc.m_isMasked, fontDesc.m_color);
+      GlyphKey glyphKey(visText[i], fontDesc.m_size, fontDesc.m_isMasked, fontDesc.m_color);
 
       if (fontDesc.m_isStatic)
       {
@@ -233,7 +235,7 @@ namespace yg
 
         GlyphLayoutElem elem;
 
-        elem.m_sym = text[i];
+        elem.m_sym = visText[i];
         elem.m_angle = 0;
         elem.m_pt = pv;
         elem.m_metrics.m_height = p ? p->m_texRect.SizeY() - 4 : 0;
@@ -262,7 +264,7 @@ namespace yg
                                  -(m.m_yOffset + m.m_height)) + pv);
 
         GlyphLayoutElem elem;
-        elem.m_sym = text[i];
+        elem.m_sym = visText[i];
         elem.m_angle = 0;
         elem.m_pt = pv;
         elem.m_metrics = m;
@@ -297,29 +299,30 @@ namespace yg
   }
 
 
-  GlyphLayout::GlyphLayout(shared_ptr<ResourceManager> const & resourceManager,
+  GlyphLayout::GlyphLayout(ResourceManager * resourceManager,
                            FontDesc const & fontDesc,
                            m2::PointD const * pts,
                            size_t ptsCount,
-                           wstring const & text,
+                           wstring const & visText,
                            double fullLength,
                            double pathOffset,
                            yg::EPosition pos)
-    : m_resourceManager(resourceManager),
-      m_firstVisible(0),
+    : m_firstVisible(0),
       m_lastVisible(0)
   {
     TextPath arrPath(pts, ptsCount, fullLength, pathOffset);
 
     // get vector of glyphs and calculate string length
     double strLength = 0.0;
-    size_t count = text.size();
-    m_entries.resize(count);
+    size_t count = visText.size();
+
+    if (count != 0)
+      m_entries.resize(count);
 
     for (size_t i = 0; i < m_entries.size(); ++i)
     {
-      m_entries[i].m_sym = text[i];
-      m_entries[i].m_metrics = m_resourceManager->getGlyphMetrics(GlyphKey(m_entries[i].m_sym, fontDesc.m_size, fontDesc.m_isMasked, yg::Color(0, 0, 0, 0)));
+      m_entries[i].m_sym = visText[i];
+      m_entries[i].m_metrics = resourceManager->getGlyphMetrics(GlyphKey(m_entries[i].m_sym, fontDesc.m_size, fontDesc.m_isMasked, yg::Color(0, 0, 0, 0)));
       strLength += m_entries[i].m_metrics.m_xAdvance;
     }
 
@@ -353,11 +356,11 @@ namespace yg
     while (offset < 0 &&  symPos < count)
       offset += m_entries[symPos++].m_metrics.m_xAdvance;
 
-    PathPoint glyphStartPt = arrPath.offsetPoint(PathPoint(0, arrPath.get(0)), offset);
+    PathPoint glyphStartPt = arrPath.offsetPoint(PathPoint(0, ang::AngleD(ang::AngleTo(arrPath.get(0), arrPath.get(1))), arrPath.get(0)), offset);
 
     m_firstVisible = symPos;
 
-    GlyphLayoutElem prevElem;
+    GlyphLayoutElem prevElem; //< previous glyph, to compute kerning from
     bool hasPrevElem = false;
 
     for (; symPos < count; ++symPos)
@@ -385,8 +388,13 @@ namespace yg
 
           m_entries[symPos].m_angle = pivotPt.m_angle;
           double centerOffset = metrics.m_xOffset + metrics.m_width / 2.0;
-          m_entries[symPos].m_pt = pivotPt.m_pp.m_pt.Move(-centerOffset, m_entries[symPos].m_angle);
-          m_entries[symPos].m_pt = m_entries[symPos].m_pt.Move(blOffset, m_entries[symPos].m_angle - math::pi / 2);
+          m_entries[symPos].m_pt = pivotPt.m_pp.m_pt.Move(-centerOffset, m_entries[symPos].m_angle.sin(), m_entries[symPos].m_angle.cos());
+
+//          m_entries[symPos].m_pt = m_entries[symPos].m_pt.Move(blOffset, m_entries[symPos].m_angle - math::pi / 2);
+//        sin(a - pi / 2) == -cos(a)
+//        cos(a - pi / 2) == sin(a)
+          m_entries[symPos].m_pt = m_entries[symPos].m_pt.Move(blOffset, -m_entries[symPos].m_angle.cos(), m_entries[symPos].m_angle.sin());
+
 //          m_entries[symPos].m_pt = m_entries[symPos].m_pt.Move(kernOffset, m_entries[symPos].m_angle - math::pi / 2);
 
           // < check whether we should "kern"
@@ -423,7 +431,7 @@ namespace yg
         }
         else
         {
-          m_entries[symPos].m_angle = 0;
+          m_entries[symPos].m_angle = ang::AngleD();
           m_entries[symPos].m_pt = glyphStartPt.m_pt;
         }
       }
@@ -445,12 +453,12 @@ namespace yg
     {
       if (m_entries[i].m_metrics.m_width != 0)
       {
-        map<double, m2::AARectD>::iterator it = rects.find(m_entries[i].m_angle);
+        map<double, m2::AARectD>::iterator it = rects.find(m_entries[i].m_angle.val());
 
         if (it == rects.end())
         {
           m2::AARectD symRectAA(
-                m_entries[i].m_pt.Move(m_entries[i].m_metrics.m_height, m_entries[i].m_angle - math::pi / 2),
+                m_entries[i].m_pt.Move(m_entries[i].m_metrics.m_height, -m_entries[i].m_angle.cos(), m_entries[i].m_angle.sin()), //< moving by angle = m_entries[i].m_angle - math::pi / 2
                 m_entries[i].m_angle,
                 m2::RectD(m_entries[i].m_metrics.m_xOffset,
                           m_entries[i].m_metrics.m_yOffset,
@@ -458,7 +466,7 @@ namespace yg
                           m_entries[i].m_metrics.m_yOffset + m_entries[i].m_metrics.m_height
                           ));
 
-          rects[m_entries[i].m_angle] = symRectAA;
+          rects[m_entries[i].m_angle.val()] = symRectAA;
         }
       }
     }
@@ -468,7 +476,7 @@ namespace yg
       if (m_entries[i].m_metrics.m_width != 0)
       {
         m2::AARectD symRectAA(
-              m_entries[i].m_pt.Move(m_entries[i].m_metrics.m_height, m_entries[i].m_angle - math::pi / 2),
+              m_entries[i].m_pt.Move(m_entries[i].m_metrics.m_height, -m_entries[i].m_angle.cos(), m_entries[i].m_angle.sin()), //< moving by angle = m_entries[i].m_angle - math::pi / 2
               m_entries[i].m_angle,
               m2::RectD(m_entries[i].m_metrics.m_xOffset,
                         m_entries[i].m_metrics.m_yOffset,

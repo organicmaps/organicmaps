@@ -71,10 +71,10 @@ namespace yg
       return m_frozen;
     }
 
-    string const & TextRenderer::TextObj::Text() const
+/*    string const & TextRenderer::TextObj::Text() const
     {
       return m_elem.utf8Text();
-    }
+    }*/
 
     void TextRenderer::TextObj::Offset(m2::PointD const & offs)
     {
@@ -109,9 +109,9 @@ namespace yg
       params.m_log2vis = log2vis;
       params.m_pivot = pt;
       params.m_position = pos;
-      params.m_rm = resourceManager();
-      params.m_skin = skin();
-      params.m_utf8Text = utf8Text;
+      params.m_rm = resourceManager().get();
+      params.m_skin = skin().get();
+      params.m_logText = strings::FromUtf8(utf8Text);
 
       StraightTextElement ste(params);
 
@@ -189,8 +189,6 @@ namespace yg
         for (list<string>::const_iterator it = toErase.begin(); it != toErase.end(); ++it)
           m_pathTexts.erase(*it);
 
-        LOG(LINFO, ("text on pathes: ", pathTextDrawn, ", groups: ", pathTextGroups, ", max group:", maxGroup));
-
         if (m_textTreeAutoClean)
         {
           m_tree.Clear();
@@ -240,10 +238,13 @@ namespace yg
 
       m2::AARectD aaRect(rect);
 
+      path_text_elements newPathTexts;
+
       for (path_text_elements::iterator i = m_pathTexts.begin(); i != m_pathTexts.end(); ++i)
       {
         list<PathTextElement> & l = i->second;
         list<PathTextElement>::iterator it = l.begin();
+        bool isEmpty = true;
         while (it != l.end())
         {
           it->offset(offs);
@@ -256,9 +257,18 @@ namespace yg
             it = tempIt;
           }
           else
+          {
+            isEmpty = false;
             ++it;
+          }
         }
+
+        if (!isEmpty)
+          newPathTexts[i->first] = l;
       }
+
+      /// to clear an empty elements from the map.
+      m_pathTexts = newPathTexts;
     }
 
     void TextRenderer::offsetTextTree(m2::PointD const & offs, m2::RectD const & rect)
@@ -294,11 +304,11 @@ namespace yg
       params.m_fullLength = fullLength;
       params.m_pathOffset = pathOffset;
       params.m_fontDesc = fontDesc;
-      params.m_utf8Text = utf8Text;
+      params.m_logText = strings::FromUtf8(utf8Text);
       params.m_depth = depth;
       params.m_log2vis = true;
-      params.m_rm = resourceManager();
-      params.m_skin = skin();
+      params.m_rm = resourceManager().get();
+      params.m_skin = skin().get();
       params.m_pivot = path[0];
       params.m_position = pos;
 
@@ -328,7 +338,7 @@ namespace yg
       return true;
     }
 
-    void TextRenderer::drawGlyph(m2::PointD const & ptOrg, m2::PointD const & ptGlyph, float angle, float /*blOffset*/, CharStyle const * p, double depth)
+    void TextRenderer::drawGlyph(m2::PointD const & ptOrg, m2::PointD const & ptGlyph, ang::AngleD const & angle, float /*blOffset*/, CharStyle const * p, double depth)
     {
       float x0 = ptGlyph.x + (p->m_xOffset - 1);
       float y1 = ptGlyph.y - (p->m_yOffset - 1);

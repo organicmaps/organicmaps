@@ -331,6 +331,7 @@ namespace m2
   inline string debug_print(m2::Rect<T> const & r)
   {
     ostringstream out;
+    out.precision(20);
     out << "m2::Rect("
         << r.minX() << ", " << r.minY() << ", " << r.maxX() << ", " << r.maxY() << ")";
     return out.str();

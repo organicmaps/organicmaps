@@ -45,6 +45,11 @@ namespace m2
       return m2::Point<T>(x + len * cos(ang), y + len * sin(ang));
     }
 
+    m2::Point<T> Move(T len, T angSin, T angCos) const
+    {
+      return m2::Point<T>(x + len * angCos, y + len * angSin);
+    }
+
     Point<T> const & operator-=(Point<T> const & a)
     {
       x -= a.x;
@@ -240,7 +245,7 @@ namespace m2
   template <typename T> string debug_print(m2::Point<T> const & p)
   {
     ostringstream out;
-    out.precision(15);
+    out.precision(20);
     out << "m2::Point<" << typeid(T).name() << ">(" << p.x << ", " << p.y << ")";
     return out.str();
   }

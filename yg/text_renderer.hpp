@@ -90,7 +90,7 @@ namespace yg
 
       void drawGlyph(m2::PointD const & ptOrg,
                      m2::PointD const & ptGlyph,
-                     float angle,
+                     ang::AngleD const & angle,
                      float blOffset,
                      CharStyle const * p,
                      double depth);

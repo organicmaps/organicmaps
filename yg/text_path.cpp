@@ -6,14 +6,16 @@
 
 namespace yg
 {
-  PathPoint::PathPoint(int i, m2::PointD const & pt)
+  PathPoint::PathPoint(int i, ang::AngleD const & segAngle, m2::PointD const & pt)
     : m_i(i),
+      m_segAngle(segAngle),
       m_pt(pt)
   {}
 
-  PivotPoint::PivotPoint(double angle, PathPoint const & pp)
+  PivotPoint::PivotPoint(ang::AngleD const & angle, PathPoint const & pp)
     : m_angle(angle), m_pp(pp)
   {}
+
   TextPath::TextPath(m2::PointD const * arr, size_t sz, double fullLength, double & pathOffset)
     : m_arr(arr), m_size(sz), m_reverse(false)
   {
@@ -59,20 +61,36 @@ namespace yg
     if (res.m_i == -1)
       return res;
 
+    if (offset == 0)
+      return pp;
+
+    bool found = false;
+
     for (size_t i = res.m_i; i < size() - 1; ++i)
     {
       double l = res.m_pt.Length(get(i + 1));
-      res.m_pt = res.m_pt.Move(min(l, offset), ang::AngleTo(get(i), get(i + 1)));
-      res.m_i = i;
 
       if (offset <= l)
+      {
+        if (i != res.m_i)
+          res.m_segAngle = ang::AngleD(ang::AngleTo(get(i), get(i + 1)));
+
+        res.m_pt = res.m_pt.Move(offset, res.m_segAngle.sin(), res.m_segAngle.cos());
+        res.m_i = i;
+        found = true;
         break;
+      }
       else
+      {
         offset -= l;
+        res.m_pt = get(i + 1);
+      }
     }
 
-    return res;
+    if (!found)
+      res.m_i = -1;
 
+    return res;
   }
 
   PivotPoint TextPath::findPivotPoint(PathPoint const & pp, GlyphMetrics const & sym, double kern)
@@ -80,7 +98,9 @@ namespace yg
     PathPoint startPt = offsetPoint(pp, kern);
 
     PivotPoint res;
-    res.m_pp.m_i = -1;
+    if (startPt.m_i == -1)
+      return res;
+
     m2::PointD pt1 = startPt.m_pt;
 
     double angle = 0;
@@ -95,7 +115,9 @@ namespace yg
 
       double l = get(j + 1).Length(pt1);
 
-      angle += ang::AngleTo(get(j), get(j + 1));
+      double segAngle = j == startPt.m_i ? startPt.m_segAngle.val() : ang::AngleTo(get(j), get(j + 1));
+
+      angle += segAngle;
 
       if (l < advance)
       {
@@ -105,12 +127,15 @@ namespace yg
       }
       else
       {
+        ang::AngleD a(segAngle);
+
         res.m_pp.m_i = j;
-        res.m_pp.m_pt = pt1.Move(advance, ang::AngleTo(get(j), get(j + 1)));
+        res.m_pp.m_pt = pt1.Move(advance, a.sin(), a.cos());
         advance = 0;
 
         angle /= (res.m_pp.m_i - startPt.m_i + 1);
-        res.m_angle = angle;
+        res.m_angle = ang::AngleD(angle);
+        res.m_pp.m_segAngle = a;
 
         break;
       }

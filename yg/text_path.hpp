@@ -1,23 +1,26 @@
 #pragma once
 
 #include "../geometry/point2d.hpp"
+#include "../geometry/angles.hpp"
 #include "glyph_cache.hpp"
 
 namespace yg
 {
   struct PathPoint
   {
-    int m_i;
-    m2::PointD m_pt;
+    int m_i; //< segment number
+    ang::AngleD m_segAngle;
+    m2::PointD m_pt; //< point on segment
     PathPoint(int i = -1,
+              ang::AngleD const & segAngle = ang::AngleD(),
               m2::PointD const & pt = m2::PointD());
   };
 
   struct PivotPoint
   {
-    double m_angle;
+    ang::AngleD m_angle;
     PathPoint m_pp;
-    PivotPoint(double angle = 0, PathPoint const & pp = PathPoint());
+    PivotPoint(ang::AngleD const & angle = ang::AngleD(), PathPoint const & pp = PathPoint());
   };
 
   class TextPath

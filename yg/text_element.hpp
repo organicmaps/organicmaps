@@ -27,6 +27,7 @@ namespace yg
 
     m2::PointD m_pivot;
     yg::EPosition m_position;
+    double m_depth;
 
   public:
 
@@ -34,6 +35,7 @@ namespace yg
     {
       m2::PointD m_pivot;
       yg::EPosition m_position;
+      double m_depth;
     };
 
     OverlayElement(Params const & p);
@@ -47,6 +49,9 @@ namespace yg
 
     yg::EPosition position() const;
     void setPosition(yg::EPosition pos);
+
+    double depth() const;
+    void setDepth(double depth);
   };
 
   class TextElement : public OverlayElement
@@ -55,33 +60,31 @@ namespace yg
 
     /// text-element specific
     FontDesc m_fontDesc;
-    string m_utf8Text;
-    wstring m_text;
-    double m_depth;
+    wstring m_logText; //< logical string
+    wstring m_visText; //< visual string, BIDI processed
     bool m_log2vis;
-    shared_ptr<ResourceManager> m_rm;
-    shared_ptr<Skin> m_skin;
+    ResourceManager * m_rm;
+    Skin * m_skin;
+
+    wstring const log2vis(wstring const & str);
 
   public:
 
     struct Params : OverlayElement::Params
     {
       FontDesc m_fontDesc;
-      string m_utf8Text;
-      double m_depth;
+      wstring m_logText;
       bool m_log2vis;
-      shared_ptr<ResourceManager> m_rm;
-      shared_ptr<Skin> m_skin;
+      ResourceManager * m_rm;
+      Skin * m_skin;
     };
 
     TextElement(Params const & p);
 
     void drawTextImpl(GlyphLayout const & layout, gl::TextRenderer * screen, FontDesc const & desc, double depth) const;
-    wstring const log2vis(wstring const & str);
-    string const & utf8Text() const;
-    wstring const & text() const;
+    wstring const & logText() const;
+    wstring const & visText() const;
     FontDesc const & fontDesc() const;
-    double depth() const;
   };
 
   class StraightTextElement : public TextElement
@@ -108,7 +111,6 @@ namespace yg
   private:
 
     GlyphLayout m_glyphLayout;
-    vector<m2::PointD> m_pts;
 
   public:
 

@@ -13,6 +13,8 @@
 #include "../std/list.hpp"
 #include "../std/function.hpp"
 
+#include "../geometry/angles.hpp"
+
 #include "../base/matrix.hpp"
 
 namespace threads
@@ -91,7 +93,7 @@ namespace yg
       ~GeometryBatcher();
 
       void setSkin(shared_ptr<Skin> skin);
-      shared_ptr<Skin> skin() const;
+      shared_ptr<Skin> const & skin() const;
 
       void beginFrame();
       void endFrame();
@@ -159,7 +161,7 @@ namespace yg
       /// and the 1px interior area is also (0, 0, 0, 0).
       void drawTexturedPolygon(
           m2::PointD const & ptWhere,
-          float angle,
+          ang::AngleD const & angle,
           float tx0, float ty0, float tx1, float ty1,
           float x0, float y0, float x1, float y1,
           double depth,

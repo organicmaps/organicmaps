@@ -79,15 +79,19 @@ namespace yg
         return;
       }
 
-      m2::PointF rectPts[4];
+      m2::PointD rectPts[4];
 
       r.GetGlobalPoints(rectPts);
       swap(rectPts[2], rectPts[3]);
 
+      m2::PointF rectPtsF[4];
+      for (int i = 0; i < 4; ++i)
+        rectPtsF[i] = m2::PointF(rectPts[i].x, rectPts[i].y);
+
       m2::PointF texPt = skin()->pages()[style->m_pageID]->texture()->mapPixel(style->m_texRect.Center());
 
       addTexturedStripStrided(
-            rectPts,
+            rectPtsF,
             sizeof(m2::PointF),
             &texPt,
             0,

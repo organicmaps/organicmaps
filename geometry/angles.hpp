@@ -1,11 +1,46 @@
 #pragma once
 
+#include <cmath>
 #include "point2d.hpp"
 
 #include "../base/start_mem_debug.hpp"
 
 namespace ang
 {
+  template <typename T>
+  struct Angle
+  {
+  private:
+    T m_val;
+    T m_sin;
+    T m_cos;
+  public:
+    Angle() : m_val(0), m_sin(0), m_cos(1)
+    {}
+    Angle(T const & val) : m_val(val), m_sin(::sin(val)), m_cos(::cos(val))
+    {}
+    Angle(T const & sin, T const & cos) : m_val(::atan2(sin, cos)), m_sin(sin), m_cos(cos)
+    {}
+
+    T const & val() const
+    {
+      return m_val;
+    }
+
+    T const & sin() const
+    {
+      return m_sin;
+    }
+
+    T const & cos() const
+    {
+      return m_cos;
+    }
+  };
+
+  typedef Angle<double> AngleD;
+  typedef Angle<float> AngleF;
+
   /// Returns an angle of vector [p1, p2] from x-axis directed to y-axis.
   /// Angle is in range [-pi, pi].
   template <typename T>

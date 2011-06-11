@@ -115,7 +115,7 @@ namespace yg
      }
    }
 
-   shared_ptr<Skin> GeometryBatcher::skin() const
+   shared_ptr<Skin> const & GeometryBatcher::skin() const
    {
      return m_skin;
    }
@@ -247,7 +247,7 @@ namespace yg
 
    void GeometryBatcher::drawTexturedPolygon(
        m2::PointD const & ptShift,
-       float angle,
+       ang::AngleD const & angle,
        float tx0, float ty0, float tx1, float ty1,
        float x0, float y0, float x1, float y1,
        double depth,
@@ -268,22 +268,18 @@ namespace yg
      texture->mapPixel(texMinX, texMinY);
      texture->mapPixel(texMaxX, texMaxY);
 
-     // vng: enough to calc it once
-     double const sinA = sin(angle);
-     double const cosA = cos(angle);
-
      /// rotated and translated four points (x0, y0), (x0, y1), (x1, y1), (x1, y0)
 
      m2::PointF coords[4] =
      {
-       m2::PointF(x0 * cosA - y0 * sinA + ptShift.x, x0 * sinA + y0 * cosA + ptShift.y),
-       m2::PointF(x0 * cosA - y1 * sinA + ptShift.x, x0 * sinA + y1 * cosA + ptShift.y),
-       m2::PointF(x1 * cosA - y1 * sinA + ptShift.x, x1 * sinA + y1 * cosA + ptShift.y),
-       m2::PointF(x1 * cosA - y0 * sinA + ptShift.x, x1 * sinA + y0 * cosA + ptShift.y)
+       m2::PointF(x0 * angle.cos() - y0 * angle.sin() + ptShift.x, x0 * angle.sin() + y0 * angle.cos() + ptShift.y),
+       m2::PointF(x0 * angle.cos() - y1 * angle.sin() + ptShift.x, x0 * angle.sin() + y1 * angle.cos() + ptShift.y),
+       m2::PointF(x1 * angle.cos() - y1 * angle.sin() + ptShift.x, x1 * angle.sin() + y1 * angle.cos() + ptShift.y),
+       m2::PointF(x1 * angle.cos() - y0 * angle.sin() + ptShift.x, x1 * angle.sin() + y0 * angle.cos() + ptShift.y)
      };
 
      /// Special case. Making straight fonts sharp.
-     if (angle == 0)
+     if (angle.val() == 0)
      {
        float deltaX = coords[0].x - ceil(coords[0].x);
        float deltaY = coords[0].y - ceil(coords[0].y);

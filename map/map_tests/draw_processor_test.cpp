@@ -40,7 +40,7 @@ UNIT_TEST(PathPoints_DeadZoneClipping)
 
   fun.IsExist();
 
-  int pathCount = fun.m_points.size();
+//  int pathCount = fun.m_points.size();
 
   di::PathInfo pi = fun.m_points.front();
   vector<m2::PointD> pts1 = fun.m_points.front().m_path;

@@ -15,6 +15,7 @@
 #include <QtGui/QKeyEvent>
 
 #include "../../base/math.hpp"
+#include "../../base/string_utils.hpp"
 #include "../../std/shared_ptr.hpp"
 
 namespace
@@ -711,9 +712,9 @@ namespace
       params.m_log2vis = false;
       params.m_pivot = startPt;
       params.m_position = yg::EPosAboveRight;
-      params.m_rm = p->resourceManager();
-      params.m_skin = p->skin();
-      params.m_utf8Text = "Simplicity is the ultimate sophistication";
+      params.m_rm = p->resourceManager().get();
+      params.m_skin = p->skin().get();
+      params.m_logText = strings::FromUtf8("Simplicity is the ultimate sophistication");
       yg::StraightTextElement ste(params);
 
       m2::AARectD r = ste.boundRect();
@@ -735,9 +736,9 @@ namespace
       params.m_log2vis = false;
       params.m_pivot = startPt;
       params.m_position = yg::EPosAboveRight;
-      params.m_rm = p->resourceManager();
-      params.m_skin = p->skin();
-      params.m_utf8Text = "Simplicity is the ultimate sophistication";
+      params.m_rm = p->resourceManager().get();
+      params.m_skin = p->skin().get();
+      params.m_logText = strings::FromUtf8("Simplicity is the ultimate sophistication");
       yg::StraightTextElement ste(params);
 
       m2::AARectD r = ste.boundRect();
@@ -874,11 +875,11 @@ namespace
     {
       yg::StraightTextElement::Params params;
       params.m_fontDesc = yg::FontDesc(false, 20);
-      params.m_utf8Text = "Simplicity is the ultimate sophistication. Leonardo Da Vinci.";
+      params.m_logText = strings::FromUtf8("Simplicity is the ultimate sophistication. Leonardo Da Vinci.");
       params.m_depth = 10;
       params.m_log2vis = false;
-      params.m_rm = p->resourceManager();
-      params.m_skin = p->skin();
+      params.m_rm = p->resourceManager().get();
+      params.m_skin = p->skin().get();
       params.m_pivot = m_path[0];
       params.m_position = yg::EPosRight;
 
@@ -918,11 +919,11 @@ namespace
       params.m_fullLength = calc_length(m_path);
       params.m_pathOffset = 0;
       params.m_fontDesc = yg::FontDesc(false, 20);
-      params.m_utf8Text = "Simplicity is the ultimate sophistication. Leonardo Da Vinci.";
+      params.m_logText = strings::FromUtf8("Simplicity is the ultimate sophistication. Leonardo Da Vinci.");
       params.m_depth = 10;
       params.m_log2vis = false;
-      params.m_rm = p->resourceManager();
-      params.m_skin = p->skin();
+      params.m_rm = p->resourceManager().get();
+      params.m_skin = p->skin().get();
       params.m_pivot = m_path[0];
       params.m_position = yg::EPosCenter;
 
@@ -1291,7 +1292,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawTextOnPathInteractive);
 //   UNIT_TEST_GL(TestDrawTextOnPathBigSymbols);
 //   UNIT_TEST_GL(TestDrawTextOnPath);
-//   UNIT_TEST_GL(TestDrawTextOnPathZigZag);
+   UNIT_TEST_GL(TestDrawTextOnPathZigZag);
 //   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
 //   UNIT_TEST_GL(TestDrawStraightTextElement);
 //   UNIT_TEST_GL(TestDrawPathTextElement);

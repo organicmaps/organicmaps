@@ -3,6 +3,7 @@
 #include "point2d.hpp"
 #include "rect2d.hpp"
 #include "rect_intersect.hpp"
+#include "angles.hpp"
 #include "../base/math.hpp"
 #include <cmath>
 
@@ -35,7 +36,7 @@ namespace m2
 
   public:
 
-    AARect(){}
+    AARect() : m_i(1, 0), m_j(0, 1), m_zero(0, 0), m_rect(){}
 
     /// creating from regular rect
     AARect(Rect<T> const & r)
@@ -45,8 +46,8 @@ namespace m2
     {
     }
 
-    AARect(Point<T> const & zero, T const & angle, Rect<T> const & r)
-      : m_i(cos(angle), sin(angle)), m_j(-sin(angle), cos(angle)),
+    AARect(Point<T> const & zero, ang::Angle<T> const & angle, Rect<T> const & r)
+      : m_i(angle.cos(), angle.sin()), m_j(-angle.sin(), angle.cos()),
         m_zero(Convert(zero, Point<T>(1, 0), Point<T>(0, 1), m_i, m_j)),
         m_rect(r)
     {
@@ -114,9 +115,9 @@ namespace m2
     /// Convert into coordinate system of this AARect
     Point<T> const ConvertTo(Point<T> const & p) const
     {
-      m2::PointD i(1, 0);
-      m2::PointD j(0, 1);
-      m2::PointD res = Convert(p - Convert(m_zero, m_i, m_j, i, j), i, j, m_i, m_j);
+      m2::Point<T> i(1, 0);
+      m2::Point<T> j(0, 1);
+      return Convert(p - Convert(m_zero, m_i, m_j, i, j), i, j, m_i, m_j);
     }
 
     void ConvertTo(Point<T> * pts, size_t count) const
@@ -158,13 +159,12 @@ namespace m2
       return res;
     }
 
-    template <typename U>
-    void GetGlobalPoints(Point<U> * pts) const
+    void GetGlobalPoints(Point<T> * pts) const
     {
-      pts[0] = Point<U>(ConvertFrom(Point<T>(m_rect.minX(), m_rect.minY())));
-      pts[1] = Point<U>(ConvertFrom(Point<T>(m_rect.minX(), m_rect.maxY())));
-      pts[2] = Point<U>(ConvertFrom(Point<T>(m_rect.maxX(), m_rect.maxY())));
-      pts[3] = Point<U>(ConvertFrom(Point<T>(m_rect.maxX(), m_rect.minY())));
+      pts[0] = Point<T>(ConvertFrom(Point<T>(m_rect.minX(), m_rect.minY())));
+      pts[1] = Point<T>(ConvertFrom(Point<T>(m_rect.minX(), m_rect.maxY())));
+      pts[2] = Point<T>(ConvertFrom(Point<T>(m_rect.maxX(), m_rect.maxY())));
+      pts[3] = Point<T>(ConvertFrom(Point<T>(m_rect.maxX(), m_rect.minY())));
     }
 
     template <typename U>

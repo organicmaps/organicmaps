@@ -1,17 +1,17 @@
 #pragma once
 
 #include "defines.hpp"
+
 #include "../geometry/rect2d.hpp"
 #include "../geometry/point2d.hpp"
 #include "../geometry/aa_rect2d.hpp"
+#include "../geometry/angles.hpp"
 
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
 #include "../std/shared_ptr.hpp"
 
-#include "../geometry/point2d.hpp"
 #include "glyph_cache.hpp"
-
 
 namespace yg
 {
@@ -23,15 +23,13 @@ namespace yg
   {
     wchar_t m_sym;
     GlyphMetrics m_metrics;
-    double m_angle;
+    ang::AngleD m_angle;
     m2::PointD m_pt;
   };
 
   class GlyphLayout
   {
   private:
-
-    shared_ptr<ResourceManager> m_resourceManager;
 
     size_t m_firstVisible;
     size_t m_lastVisible;
@@ -47,18 +45,18 @@ namespace yg
 
     GlyphLayout(GlyphLayout const & layout, double shift);
 
-    GlyphLayout(shared_ptr<ResourceManager> const & resourceManager,
-                shared_ptr<Skin> const & skin,
+    GlyphLayout(ResourceManager * resourceManager,
+                Skin * skin,
                 FontDesc const & font,
                 m2::PointD const & pt,
-                wstring const & text,
+                wstring const & visText,
                 yg::EPosition pos);
 
-    GlyphLayout(shared_ptr<ResourceManager> const & resourceManager,
+    GlyphLayout(ResourceManager * resourceManager,
                 FontDesc const & font,
                 m2::PointD const * pts,
                 size_t ptsCount,
-                wstring const & text,
+                wstring const & visText,
                 double fullLength,
                 double pathOffset,
                 yg::EPosition pos);

@@ -216,9 +216,9 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
   params.m_pivot = m2::PointD(m_displayRect.maxX() - 10 * m_visualScale,
                               m_displayRect.maxY() - (m_bottomShift + 10) * m_visualScale - 5);
   params.m_position = yg::EPosAboveLeft;
-  params.m_rm = drawer->screen()->resourceManager();
-  params.m_skin = drawer->screen()->skin();
-  params.m_utf8Text = out.str();
+  params.m_rm = drawer->screen()->resourceManager().get();
+  params.m_skin = drawer->screen()->skin().get();
+  params.m_logText = strings::FromUtf8(out.str());
 
   yg::StraightTextElement ste(params);
 
@@ -385,9 +385,9 @@ void InformationDisplay::drawLog(DrawerYG * drawer)
     params.m_log2vis = false;
     params.m_pivot = startPt;
     params.m_position = yg::EPosAboveRight;
-    params.m_rm = drawer->screen()->resourceManager();
-    params.m_skin = drawer->screen()->skin();
-    params.m_utf8Text = *it;
+    params.m_rm = drawer->screen()->resourceManager().get();
+    params.m_skin = drawer->screen()->skin().get();
+    params.m_logText = strings::FromUtf8(*it);
 
     yg::StraightTextElement ste(params);
 
