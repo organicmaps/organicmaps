@@ -8,21 +8,19 @@ lns1 = [l.split(" ") for l in lns1]
 bench_cfg = {}
 
 for l in lns1:
-    c_name = l[0]
-    is_country = False
-    if c_name.find(".") <> -1:
-        is_country = True
-    bench_cfg[l[0]] = []
-    bench_cfg[l[0]].append(is_country) 
+    c_name = l[1]
+    is_country = (len(l) == 3)
+    bench_cfg[l[1]] = []
+    bench_cfg[l[1]].append(is_country) 
     if len(l) > 0:
         if not is_country:
-            bench_cfg[c_name].append(float(l[1]))
             bench_cfg[c_name].append(float(l[2]))
             bench_cfg[c_name].append(float(l[3]))
             bench_cfg[c_name].append(float(l[4]))
-            bench_cfg[c_name].append(int(l[5]))
+            bench_cfg[c_name].append(float(l[5]))
+            bench_cfg[c_name].append(int(l[6]))
         else:
-            bench_cfg[c_name].append(int(l[1]))
+            bench_cfg[c_name].append(int(l[2]))
 
 f = open(sys.argv[1], "r")
 lns = f.readlines()

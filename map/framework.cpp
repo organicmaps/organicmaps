@@ -17,6 +17,7 @@
 #include "../indexer/drawing_rules.hpp"
 
 #include "../base/math.hpp"
+#include "../base/string_utils.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/fstream.hpp"
@@ -520,8 +521,30 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   template <typename TModel>
   void FrameWork<TModel>::EnumBenchmarkMaps(Platform::FilesList & filesList)
   {
+    set<string> files;
+    ifstream fin(GetPlatform().WritablePathForFile("benchmark.info").c_str());
+
     filesList.clear();
-    filesList.push_back(GetPlatform().ReadPathForFile("Belarus.mwm"));
+    char buf[256];
+
+    while (true)
+    {
+      fin.getline(buf, 256);
+
+      if (!fin)
+        break;
+
+      vector<string> parts;
+      string s(buf);
+      strings::SimpleTokenizer it(s, " ");
+      while (it)
+      {
+        parts.push_back(*it);
+        ++it;
+      }
+
+      filesList.push_back(GetPlatform().ReadPathForFile(parts[0]));
+    }
   }
 
   template <typename TModel>
@@ -530,49 +553,69 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     //m2::RectD wr(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY);
     //m2::RectD r(wr.Center().x, wr.Center().y + wr.SizeY() / 8, wr.Center().x + wr.SizeX() / 8, wr.Center().y + wr.SizeY() / 4);
 
-    ifstream fin(GetPlatform().WritablePathForFile("benchmark.results").c_str());
+    set<string> files;
+    ifstream fin(GetPlatform().WritablePathForFile("benchmark.info").c_str());
     while (true)
     {
       string name;
       m2::RectD r;
 
-      fin >> name;
+      char buf[256];
+
+      fin.getline(buf, 256);
 
       if (!fin)
         break;
 
-      if (GetPlatform().IsFileExists(GetPlatform().WritablePathForFile(name)))
+      vector<string> parts;
+      string s(buf);
+      strings::SimpleTokenizer it(s, " ");
+      while (it)
       {
-        try
-        {
-          feature::DataHeader header;
-          header.Load(FilesContainerR(GetPlatform().WritablePathForFile(name)).GetReader(HEADER_FILE_TAG));
-
-          r = header.GetBounds();
-        }
-        catch (std::exception const &)
-        {
-          double x0, y0, x1, y1;
-          fin >> x0 >> y0 >> x1 >> y1;
-          r = m2::RectD(x0, y0, x1, y1);
-        }
+        parts.push_back(*it);
+        ++it;
       }
-      else
-      {
-        double x0, y0, x1, y1;
-        fin >> x0 >> y0 >> x1 >> y1;
-        r = m2::RectD(x0, y0, x1, y1);
-      }
-
-      if (!fin)
-        break;
-
-      int lastScale;
-      fin >> lastScale;
 
       Benchmark b;
-      b.m_name = name;
+      b.m_name = parts[1];
+
+      if (files.find(parts[0]) == files.end())
+      {
+        files.insert(parts[0]);
+        if (GetPlatform().IsFileExists(GetPlatform().WritablePathForFile(parts[0])))
+        {
+          try
+          {
+            feature::DataHeader header;
+            header.Load(FilesContainerR(GetPlatform().WritablePathForFile(parts[0])).GetReader(HEADER_FILE_TAG));
+
+            r = header.GetBounds();
+          }
+          catch (std::exception const &)
+          {
+            LOG(LINFO, ("cannot add ", parts[0], " file to benchmark"));
+          }
+        }
+      }
+
+      int lastScale;
+
+      LOG(LINFO, (parts));
+      if (parts.size() > 3)
+      {
+        double x0, y0, x1, y1;
+        strings::to_double(parts[2], x0);
+        strings::to_double(parts[3], y0);
+        strings::to_double(parts[4], x1);
+        strings::to_double(parts[5], y1);
+        r = m2::RectD(x0, y0, x1, y1);
+        strings::to_int(parts[6], lastScale);
+      }
+      else
+        strings::to_int(parts[2], lastScale);
+
       b.m_provider.reset(new BenchmarkRectProvider(scales::GetScaleLevel(r), r, lastScale));
+
       m_benchmarks.push_back(b);
     }
 
