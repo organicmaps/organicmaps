@@ -262,7 +262,7 @@ public:
 
   void CenterViewport(m2::PointD const & pt);
 
-  void ShowRect(m2::RectD const & rect);
+  void ShowRect(m2::RectD rect);
 
   void MemoryWarning();
 

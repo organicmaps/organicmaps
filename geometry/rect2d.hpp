@@ -133,8 +133,8 @@ namespace m2
 
     bool IsRectInside(Rect<T> const & rect) const
     {
-      return (IsPointInside(Point<T>(rect.minX(), rect.minY()))
-           && IsPointInside(Point<T>(rect.maxX(), rect.maxY())));
+      return (IsPointInside(Point<T>(rect.minX(), rect.minY())) &&
+              IsPointInside(Point<T>(rect.maxX(), rect.maxY())));
     }
 
     Point<T> Center() const { return Point<T>((m_minX + m_maxX) / 2.0, (m_minY + m_maxY) / 2.0); }
@@ -155,6 +155,21 @@ namespace m2
         r1 = Rect<T>(m_minX, m_minY, m_maxX, pivot);
         r2 = Rect<T>(m_minX, pivot, m_maxX, m_maxY);
       }
+    }
+
+    void SetSizes(T dx, T dy)
+    {
+      ASSERT_GREATER ( dx, 0, () );
+      ASSERT_GREATER ( dy, 0, () );
+
+      dx /= 2;
+      dy /= 2;
+
+      Point<T> const c = Center();
+      m_minX = c.x - dx;
+      m_minY = c.y - dy;
+      m_maxX = c.x + dx;
+      m_maxY = c.y + dy;
     }
 
     T minX() const { return m_minX; }

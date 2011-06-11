@@ -856,17 +856,14 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   }
 
   template <typename TModel>
-  void FrameWork<TModel>::ShowRect(m2::RectD const & rect)
+  void FrameWork<TModel>::ShowRect(m2::RectD rect)
   {
-    m2::RectD r(rect);
-    if (my::AlmostEqual(rect.minX(), rect.maxX())
-      || my::AlmostEqual(rect.minY(), rect.maxY()))
-    {
-      double const minWidthX = MercatorBounds::ConvertMetresToX(rect.minX(), 6 * m_metresMinWidth);
-      double const minWidthY = MercatorBounds::ConvertMetresToY(rect.minY(), 6 * m_metresMinWidth);
-      r.Inflate(minWidthX, minWidthY);
-    }
-    m_navigator.SetFromRect(r);
+    double const minSizeX = MercatorBounds::ConvertMetresToX(rect.minX(), 6 * m_metresMinWidth);
+    double const minSizeY = MercatorBounds::ConvertMetresToY(rect.minY(), 6 * m_metresMinWidth);
+    if (rect.SizeX() < minSizeX && rect.SizeY() < minSizeY)
+      rect.SetSizes(minSizeX, minSizeY);
+
+    m_navigator.SetFromRect(rect);
     UpdateNow();
   }
 
