@@ -1,12 +1,16 @@
 #pragma once
 #include "../indexer/index.hpp"
+
 #include "../geometry/rect2d.hpp"
+
 #include "../base/base.hpp"
 #include "../base/mutex.hpp"
 #include "../base/runner.hpp"
+
 #include "../std/function.hpp"
 #include "../std/scoped_ptr.hpp"
 #include "../std/string.hpp"
+
 
 class FileReader;
 class FeatureType;

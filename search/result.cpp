@@ -1,5 +1,8 @@
 #include "result.hpp"
 
+#include "../indexer/classificator.hpp"
+
+
 namespace search
 {
 
@@ -34,10 +37,33 @@ uint32_t Result::GetFetureType() const
   return m_featureType;
 }
 
+string Result::GetFetureTypeAsString() const
+{
+  ASSERT_EQUAL(GetResultType(), RESULT_FEATURE, ());
+
+  ClassifObject const * p = classif().GetRoot();
+
+  uint8_t i = 0;
+  uint8_t v;
+  while (ftype::GetValue(m_featureType, i, v) && i < 2)
+  {
+    p = p->GetObject(v);
+    ++i;
+  }
+
+  return p->GetName();
+}
+
 double Result::GetDistanceFromCenter() const
 {
   ASSERT_EQUAL(GetResultType(), RESULT_FEATURE, ());
   return m_distanceFromCenter;
+}
+
+double Result::GetDirectionFromCenter() const
+{
+  ASSERT_EQUAL(GetResultType(), RESULT_FEATURE, ());
+  return m_directionFromCenter;
 }
 
 string Result::GetSuggestionString() const

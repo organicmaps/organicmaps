@@ -1,11 +1,13 @@
 #include "engine.hpp"
 #include "query.hpp"
 #include "result.hpp"
+
 #include "../platform/concurrent_runner.hpp"
-#include "../indexer/feature.hpp"
+
 #include "../std/function.hpp"
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
+
 
 namespace search
 {

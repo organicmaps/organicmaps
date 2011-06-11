@@ -37,15 +37,15 @@ bool IntermediateResult::operator < (IntermediateResult const & o) const
 
 Result IntermediateResult::GenerateFinalResult() const
 {
-#ifdef DEBUG
-  return Result(m_str
-                + ' ' + strings::to_string(m_distance * 0.001)
-                + ' ' + strings::to_string(m_direction / math::pi * 180.0)
-                + ' ' + strings::to_string(m_matchPenalty)
-                + ' ' + strings::to_string(m_minVisibleScale),
-#else
+//#ifdef DEBUG
+//  return Result(m_str
+//                + ' ' + strings::to_string(m_distance * 0.001)
+//                + ' ' + strings::to_string(m_direction / math::pi * 180.0)
+//                + ' ' + strings::to_string(m_matchPenalty)
+//                + ' ' + strings::to_string(m_minVisibleScale),
+//#else
   return Result(m_str,
-#endif
+//#endif
                 m_type, m_rect, m_distance, m_direction);
 }
 

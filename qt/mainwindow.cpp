@@ -44,13 +44,13 @@ MainWindow::MainWindow()
   m_pDrawWidget = new DrawWidget(this, m_storage);
 
   CreateNavigationBar();
-
   CreateSearchBarAndPanel();
 
 #ifndef NO_DOWNLOADER
   CreateClassifPanel();
   CreateGuidePanel();
 #endif // NO_DOWNLOADER
+
   setCentralWidget(m_pDrawWidget);
 
   setWindowTitle(tr("MapsWithMe"));
@@ -253,7 +253,7 @@ void MainWindow::CreateNavigationBar()
     // add view actions 1
     button_t arr[] = {
       { QString(), 0, 0 },
-//      { tr("Show all"), ":/navig64/world.png", SLOT(ShowAll()) },
+      //{ tr("Show all"), ":/navig64/world.png", SLOT(ShowAll()) },
       { tr("Scale +"), ":/navig64/plus.png", SLOT(ScalePlus()) }
     };
     add_buttons(pToolBar, arr, ARRAY_SIZE(arr), m_pDrawWidget);
@@ -274,6 +274,7 @@ void MainWindow::CreateNavigationBar()
     };
     add_buttons(pToolBar, arr, ARRAY_SIZE(arr), m_pDrawWidget);
   }
+
 #ifndef NO_DOWNLOADER
   {
     // add mainframe actions
@@ -284,6 +285,7 @@ void MainWindow::CreateNavigationBar()
     add_buttons(pToolBar, arr, ARRAY_SIZE(arr), this);
   }
 #endif // NO_DOWNLOADER
+
   addToolBar(Qt::RightToolBarArea, pToolBar);
 }
 

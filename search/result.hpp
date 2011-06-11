@@ -19,8 +19,10 @@ public:
          double distanceFromCenter, double directionFromCenter);
   Result(string const & str, string const & suggestionStr);
 
+  bool IsEndMarker() const { return m_str.empty(); }
+
   // String that is displayed in the GUI.
-  string GetString() const { return m_str; }
+  char const * GetString() const { return m_str.c_str(); }
 
   // Type of the result.
   ResultType GetResultType() const;
@@ -30,6 +32,7 @@ public:
 
   // Type of a feature, if GetResultType() == RESULT_FEATURE.
   uint32_t GetFetureType() const;
+  string GetFetureTypeAsString() const;
 
   // Distance from the center of the screen, if GetResultType() == RESULT_FEATURE.
   double GetDistanceFromCenter() const;

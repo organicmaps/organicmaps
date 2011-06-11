@@ -4,23 +4,26 @@
 #include "../std/bind.hpp"
 
 #include <QtCore/QTimer>
+
 #include <QtGui/QHeaderView>
 #include <QtGui/QTableWidget>
 #include <QtGui/QLineEdit>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QPushButton>
+#include <QtGui/QBitmap>
+
 
 namespace qt
 {
 
 SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
-  : QWidget(parent), m_pDrawWidget(drawWidget), m_queryId(0)
+  : QWidget(parent), m_pDrawWidget(drawWidget), m_queryId(0), m_busyIcon(":/ui/busy.png")
 {
   m_pEditor = new QLineEdit(this);
   connect(m_pEditor, SIGNAL(textChanged(QString const &)), this, SLOT(OnSearchTextChanged(QString const &)));
 
-  m_pTable = new QTableWidget(0, 2, this);
+  m_pTable = new QTableWidget(0, 4, this);
   m_pTable->setFocusPolicy(Qt::NoFocus);
   m_pTable->setAlternatingRowColors(true);
   m_pTable->setShowGrid(false);
@@ -28,7 +31,7 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   m_pTable->verticalHeader()->setVisible(false);
   m_pTable->horizontalHeader()->setVisible(false);
   m_pTable->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-  connect(m_pTable, SIGNAL(cellClicked(int,int)), this, SLOT(OnSearchPanelItemClicked(int,int)));
+  connect(m_pTable, SIGNAL(cellClicked(int, int)), this, SLOT(OnSearchPanelItemClicked(int,int)));
 
   m_pClearButton = new QPushButton(this);
   connect(m_pClearButton, SIGNAL(pressed()), this, SLOT(OnClearButton()));
@@ -46,8 +49,8 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   setLayout(verticalLayout);
 
   // for multithreading support
-  CHECK(connect(this, SIGNAL(SearchResultSignal(search::Result *, int)),
-                this, SLOT(OnSearchResult(search::Result *, int)), Qt::QueuedConnection), ());
+  CHECK(connect(this, SIGNAL(SearchResultSignal(ResultT *, int)),
+                this, SLOT(OnSearchResult(ResultT *, int)), Qt::QueuedConnection), ());
 
   setFocusPolicy(Qt::StrongFocus);
   setFocusProxy(m_pEditor);
@@ -65,29 +68,100 @@ SearchPanel::~SearchPanel()
   ClearVector(m_results);
 }
 
-void SearchPanel::SearchResultThreadFunc(search::Result const & result, int queryId)
+void SearchPanel::SearchResultThreadFunc(ResultT const & result, int queryId)
 {
   if (queryId == m_queryId)
-    emit SearchResultSignal(new search::Result(result), queryId);
+    emit SearchResultSignal(new ResultT(result), queryId);
 }
 
-void SearchPanel::OnSearchResult(search::Result * result, int queryId)
+namespace 
+{
+  QTableWidgetItem * create_item(QString const & s)
+  {
+    QTableWidgetItem * item = new QTableWidgetItem(s);
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    return item;
+  }
+
+  QString format_distance(double m, bool & drawDir)
+  {
+    drawDir = true;
+    if (m < 1.0)
+    {
+      drawDir = false;
+      return QString::fromAscii("0 m.");
+    }
+
+    if (m >= 1.0E3) return QString("%1 km.").arg(m * 1.0E-3, 0, 'f', 1);
+    else            return QString("%1 m.").arg(m, 0, 'f', 0);
+  }
+
+  QIcon draw_direction(double a)
+  {
+    int const dim = 64;
+
+    QPixmap pm(dim, dim);
+
+    QBitmap mask(dim, dim);
+    mask.clear();
+    pm.setMask(mask);
+
+    QPainter painter(&pm);
+    painter.setBackgroundMode(Qt::TransparentMode);
+
+    QMatrix m;
+    m.translate(dim/2, dim/2);
+    m.rotate(-a / math::pi * 180.0);
+    m.translate(-dim/2, -dim/2);
+
+    typedef QPointF P;
+    QPolygonF poly(5);
+    poly[0] = P(dim/3, dim/2);
+    poly[1] = P(0, dim/2 - dim/3);
+    poly[2] = P(dim, dim/2);
+    poly[3] = P(0, dim/2 + dim/3);
+    poly[4] = P(dim/3, dim/2);
+
+    painter.setBrush(Qt::black);
+    painter.drawPolygon(m.map(poly));
+
+    return pm;
+  }
+}
+
+void SearchPanel::OnSearchResult(ResultT * res, int queryId)
 {
   if (queryId != m_queryId)
     return;
 
-  if (!result->GetString().empty())
+  if (!res->IsEndMarker())
   {
     int const rowCount = m_pTable->rowCount();
-    m_pTable->setRowCount(rowCount + 1);
-    QTableWidgetItem * item = new QTableWidgetItem(QString::fromUtf8(result->GetString().c_str()));
-    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-    m_pTable->setItem(rowCount, 0, item);
-    m_results.push_back(result);
+    m_pTable->insertRow(rowCount);
+
+    m_pTable->setItem(rowCount, 1, create_item(QString::fromUtf8(res->GetString())));
+
+    if (res->GetResultType() == ResultT::RESULT_FEATURE)
+    {
+      m_pTable->setItem(rowCount, 0, create_item(QString::fromUtf8(res->GetFetureTypeAsString().c_str())));
+
+      bool drawDir;
+      m_pTable->setItem(rowCount, 2, create_item(format_distance(res->GetDistanceFromCenter(), drawDir)));
+
+      if (drawDir)
+      {
+        QTableWidgetItem * item = new QTableWidgetItem(draw_direction(res->GetDirectionFromCenter()), QString());
+        item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        m_pTable->setItem(rowCount, 3, item);
+      }
+    }
+
+    m_results.push_back(res);
   }
   else
-  { // last element
-    delete result;
+  {
+    // last element
+    delete res;
     // stop search busy indicator
     m_pAnimationTimer->stop();
     m_pClearButton->setIcon(QIcon(":/ui/x.png"));
@@ -115,7 +189,8 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
     m_pClearButton->setVisible(true);
   }
   else
-  { // hide X button
+  {
+    // hide X button
     m_pClearButton->setVisible(false);
   }
 }
@@ -124,12 +199,14 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
 {
   disconnect(m_pDrawWidget, SIGNAL(ViewportChanged()), this, SLOT(OnViewportChanged()));
   ASSERT_EQUAL(m_results.size(), static_cast<size_t>(m_pTable->rowCount()), ());
-  if (m_results[row]->GetResultType() == search::Result::RESULT_FEATURE)
-  { // center viewport on clicked item
+  if (m_results[row]->GetResultType() == ResultT::RESULT_FEATURE)
+  {
+    // center viewport on clicked item
     m_pDrawWidget->ShowFeature(m_results[row]->GetFeatureRect());
   }
   else
-  { // insert suggestion into the search bar
+  {
+    // insert suggestion into the search bar
     string const suggestion = m_results[row]->GetSuggestionString();
     m_pEditor->setText(QString::fromUtf8(suggestion.c_str()));
   }
@@ -156,15 +233,14 @@ void SearchPanel::OnViewportChanged()
 void SearchPanel::OnAnimationTimer()
 {
   static int angle = 0;
-  QPixmap pixmap(":/ui/busy.png");
-  QSize const oldSize = pixmap.size();
+
   QMatrix rm;
   angle += 15;
   if (angle >= 360)
     angle = 0;
   rm.rotate(angle);
-  pixmap = pixmap.transformed(rm);
-  m_pClearButton->setIcon(QIcon(pixmap));
+
+  m_pClearButton->setIcon(QIcon(m_busyIcon.transformed(rm)));
 }
 
 void SearchPanel::OnClearButton()

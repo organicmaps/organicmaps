@@ -4,7 +4,8 @@
 
 #include "../std/vector.hpp"
 
-#include <QWidget>
+#include <QtGui/QWidget>
+#include <QtGui/QPixmap>
 
 class QTableWidget;
 class QLineEdit;
@@ -24,17 +25,20 @@ class SearchPanel : public QWidget
   QPushButton * m_pClearButton;
   QTimer * m_pAnimationTimer;
 
+  QPixmap m_busyIcon;
+
   /// Stores current search results
-  vector<search::Result *> m_results;
+  typedef search::Result ResultT;
+  vector<ResultT *> m_results;
   int volatile m_queryId;
 
   Q_OBJECT
 
 signals:
-  void SearchResultSignal(search::Result * result, int queryId);
+  void SearchResultSignal(ResultT * result, int queryId);
 
 private:
-  void SearchResultThreadFunc(search::Result const & result, int queryId);
+  void SearchResultThreadFunc(ResultT const & result, int queryId);
   virtual void showEvent(QShowEvent *);
   virtual void hideEvent(QHideEvent *);
 
@@ -46,7 +50,7 @@ private slots:
   void OnSearchPanelItemClicked(int row, int column);
   void OnSearchTextChanged(QString const &);
   /// Called via signal to support multithreading
-  void OnSearchResult(search::Result * result, int queryId);
+  void OnSearchResult(ResultT * result, int queryId);
   void OnViewportChanged();
   void OnAnimationTimer();
   void OnClearButton();
