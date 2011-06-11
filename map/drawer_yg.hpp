@@ -78,7 +78,7 @@ class DrawerYG
 protected:
   void drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth);
   void drawCircle(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth);
-  void drawPath(vector<m2::PointD> const & pts, di::DrawRule const * rules, size_t count);
+  void drawPath(di::PathInfo const & info, di::DrawRule const * rules, size_t count);
   void drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth);
 
   void drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_ptr_t pRule, yg::EPosition pos, int depth);

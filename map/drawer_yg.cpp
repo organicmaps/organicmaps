@@ -147,7 +147,7 @@ void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition
   m_pScreen->drawSymbol(pt, id, pos, depth);
 }
 
-void DrawerYG::drawPath(vector<m2::PointD> const & pts, di::DrawRule const * rules, size_t count)
+void DrawerYG::drawPath(di::PathInfo const & info, di::DrawRule const * rules, size_t count)
 {
   // if any rule needs caching - cache as a whole vector
   bool flag = false;
@@ -198,7 +198,7 @@ void DrawerYG::drawPath(vector<m2::PointD> const & pts, di::DrawRule const * rul
 
   // draw path with array of rules
   for (size_t i = 0; i < count; ++i)
-    m_pScreen->drawPath(&pts[0], pts.size(), 0, rules[i].GetID(), rules[i].m_depth);
+    m_pScreen->drawPath(&info.m_path[0], info.m_path.size(), -info.GetOffset(), rules[i].GetID(), rules[i].m_depth);
 }
 
 void DrawerYG::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth)
@@ -323,6 +323,9 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
 {
   buffer_vector<di::DrawRule, 8> pathRules;
 
+  bool const isPath = !pInfo->m_pathes.empty();
+  bool const isArea = !pInfo->m_areas.empty();
+
   // separating path rules from other
   for (unsigned i = 0; i < count; ++i)
   {
@@ -332,7 +335,6 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
 
     bool const hasSymbol = !symbol.empty();
     bool const isCaption = pRule->GetTextHeight() >= 0.0;
-    bool const isPath = !pInfo->m_pathes.empty();
 
     if (!isCaption && isPath && !hasSymbol && (pRule->GetColor() != -1))
       pathRules.push_back(rules[i]);
@@ -342,12 +344,9 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
   {
     for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
     {
-      drawPath(i->m_path, pathRules.data(), pathRules.size());
+      drawPath(*i, pathRules.data(), pathRules.size());
     }
   }
-
-  bool const isPath = !pInfo->m_pathes.empty();
-  bool const isArea = !pInfo->m_areas.empty();
 
   bool isNumber = true;
 
@@ -371,7 +370,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
       //if (isPath && !isSymbol && (pRule->GetColor() != -1))
       //{
       //  for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
-      //    drawPath(i->m_path, pRule, depth);
+      //    drawPath(*i, pRule, depth);
       //}
 
       // draw area
