@@ -25,20 +25,30 @@ namespace scales
   }
   //@}
 
-  int GetScaleLevel(double ratio)
+  double GetScaleLevelD(double ratio)
   {
     double const level = min(static_cast<double>(GetUpperScale()), log(ratio) / log(2.0) + initial_level);
-    return (level < 0 ? 0 : static_cast<int>(level + 0.5));
+    return (level < 0.0 ? 0.0 : level);
   }
 
-  int GetScaleLevel(m2::RectD const & r)
+  double GetScaleLevelD(m2::RectD const & r)
   {
-    // TODO: fix scale coefficients for mercator
+    // TODO: fix scale factors for mercator projection
     double const dx = (MercatorBounds::maxX - MercatorBounds::minX) / r.SizeX();
     double const dy = (MercatorBounds::maxY - MercatorBounds::minY) / r.SizeY();
 
     // get the average ratio
-    return GetScaleLevel((dx + dy) / 2.0);
+    return GetScaleLevelD((dx + dy) / 2.0);
+  }
+
+  int GetScaleLevel(double ratio)
+  {
+    return my::rounds(GetScaleLevelD(ratio));
+  }
+
+  int GetScaleLevel(m2::RectD const & r)
+  {
+    return my::rounds(GetScaleLevelD(r));
   }
 
   double GetRationForLevel(int level)

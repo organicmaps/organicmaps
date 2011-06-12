@@ -9,6 +9,9 @@ namespace scales
   inline int GetUpperWorldScale() { return 9; }
 
   double GetM2PFactor(int level);
+
+  double GetScaleLevelD(double ratio);
+  double GetScaleLevelD(m2::RectD const & r);
   int GetScaleLevel(double ratio);
   int GetScaleLevel(m2::RectD const & r);
 
