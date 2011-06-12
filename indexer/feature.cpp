@@ -942,18 +942,18 @@ FeatureType::geom_stat_t FeatureType::GetTrianglesSize(int scale) const
 
 class BestMatchedLangName
 {
-  char const * m_priorities;
+  int8_t const * m_priorities;
   string & m_result;
   int m_minPriority;
 
 public:
 
-  BestMatchedLangName(char const * priorities, string & result)
+  BestMatchedLangName(int8_t const * priorities, string & result)
     : m_priorities(priorities), m_result(result), m_minPriority(256) {}
-  bool operator() (char lang, string const & utf8s)
+  bool operator() (int8_t lang, string const & utf8s)
   {
     ASSERT(lang >= 0 && lang < MAX_SUPPORTED_LANGUAGES, ());
-    int const priority = m_priorities[static_cast<uint8_t>(lang)];
+    int8_t const priority = m_priorities[lang];
     if (priority == 0)
     {
       m_result = utf8s;
@@ -968,7 +968,7 @@ public:
   }
 };
 
-string FeatureType::GetPreferredDrawableName(char const * priorities) const
+string FeatureType::GetPreferredDrawableName(int8_t const * priorities) const
 {
   if (!m_bCommonParsed)
     ParseCommon();

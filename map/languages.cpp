@@ -22,7 +22,7 @@
 
 namespace languages
 {
-  static char gDefaultPriorities[] =
+  static int8_t gDefaultPriorities[] =
   {
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
     21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
@@ -30,7 +30,7 @@ namespace languages
     61, 62, 63
   };
 
-  char const * GetCurrentPriorities()
+  int8_t const * GetCurrentPriorities()
   {
     return gDefaultPriorities;
   }
@@ -40,9 +40,9 @@ namespace languages
     CHECK_EQUAL(langCodes.size(), MAX_SUPPORTED_LANGUAGES, ());
     for (size_t i = 0; i < langCodes.size(); ++i)
     {
-      char const index = StringUtf8Multilang::GetLangIndex(langCodes[i]);
+      int8_t const index = StringUtf8Multilang::GetLangIndex(langCodes[i]);
       if (index >= 0)
-        gDefaultPriorities[static_cast<size_t>(index)] = i;
+        gDefaultPriorities[index] = i;
       else
       {
         ASSERT(false, ("Invalid language code"));

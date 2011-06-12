@@ -316,7 +316,7 @@ public:
 
   /// @param priorities optional array of languages priorities
   /// if NULL, default (0) lang will be used
-  string GetPreferredDrawableName(char const * priorities = NULL) const;
+  string GetPreferredDrawableName(int8_t const * priorities = NULL) const;
 
   void Deserialize(read_source_t & src);
 

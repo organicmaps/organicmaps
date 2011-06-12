@@ -15,7 +15,7 @@ struct Category
   /// Classificator types
   vector<uint32_t> m_types;
   /// <language, synonym>
-  vector<pair<char, string> > m_synonyms;
+  vector<pair<int8_t, string> > m_synonyms;
 };
 
 class CategoriesHolder

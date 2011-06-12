@@ -10,7 +10,7 @@ namespace languages
   typedef vector<string> CodesT;
 
   /// @return pointer to an array[MAX_SUPPORTED_LANGUAGES]
-  char const * GetCurrentPriorities();
+  int8_t const * GetCurrentPriorities();
   void GetCurrentSettings(CodesT & outLangCodes);
   void GetCurrentSettings(CodesAndNamesT & outLanguages);
   void SaveSettings(CodesT const & langs);

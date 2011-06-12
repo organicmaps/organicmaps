@@ -35,7 +35,7 @@ class StringUtf8Multilang
   size_t GetNextIndex(size_t i) const;
 
 public:
-  static signed char GetLangIndex(string const & lang);
+  static int8_t GetLangIndex(string const & lang);
 
   inline bool operator== (StringUtf8Multilang const & rhs) const
   {
@@ -45,10 +45,10 @@ public:
   inline void Clear() { m_s.clear(); }
   inline bool IsEmpty() const { return m_s.empty(); }
 
-  void AddString(char lang, string const & utf8s);
+  void AddString(int8_t lang, string const & utf8s);
   void AddString(string const & lang, string const & utf8s)
   {
-    char const l = GetLangIndex(lang);
+    int8_t const l = GetLangIndex(lang);
     if (l >= 0)
       AddString(l, utf8s);
   }
@@ -67,10 +67,10 @@ public:
     }
   }
 
-  bool GetString(char lang, string & utf8s) const;
+  bool GetString(int8_t lang, string & utf8s) const;
   bool GetString(string const & lang, string & utf8s) const
   {
-    char const l = GetLangIndex(lang);
+    int8_t const l = GetLangIndex(lang);
     if (l >= 0)
       return GetString(l, utf8s);
     else

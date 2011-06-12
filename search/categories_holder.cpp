@@ -67,7 +67,7 @@ size_t CategoriesHolder::LoadFromStream(istream & stream)
           state = EParseTypes;
           continue;
         }
-        char langCode = StringUtf8Multilang::GetLangIndex(*iter);
+        int8_t langCode = StringUtf8Multilang::GetLangIndex(*iter);
         if (langCode == -1)
         {
           LOG(LWARNING, ("Invalid language code:", *iter));

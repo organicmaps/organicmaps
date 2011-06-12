@@ -2,7 +2,7 @@
 
 #include "../defines.hpp"
 
-signed char StringUtf8Multilang::GetLangIndex(string const & lang)
+int8_t StringUtf8Multilang::GetLangIndex(string const & lang)
 {
   static char const * arr[] = { "default",
                          "en", "ja", "fr", "ko_rm", "ar", "de", "ru", "sv", "zh", "fi",
@@ -17,7 +17,7 @@ signed char StringUtf8Multilang::GetLangIndex(string const & lang)
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
     if (lang == arr[i])
-      return static_cast<char>(i);
+      return static_cast<int8_t>(i);
 
   return -1;
 }
@@ -48,13 +48,13 @@ size_t StringUtf8Multilang::GetNextIndex(size_t i) const
   return i;
 }
 
-void StringUtf8Multilang::AddString(char lang, string const & utf8s)
+void StringUtf8Multilang::AddString(int8_t lang, string const & utf8s)
 {
   m_s.push_back(lang | 0x80);
   m_s.insert(m_s.end(), utf8s.begin(), utf8s.end());
 }
 
-bool StringUtf8Multilang::GetString(char lang, string & utf8s) const
+bool StringUtf8Multilang::GetString(int8_t lang, string & utf8s) const
 {
   size_t i = 0;
   size_t const sz = m_s.size();
