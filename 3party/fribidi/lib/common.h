@@ -32,9 +32,10 @@
 #ifndef _COMMON_H
 #define _COMMON_H
 
-#if HAVE_CONFIG_H+0
-# include <config.h>
-#endif
+//#if HAVE_CONFIG_H+0
+//# include <config.h>
+//#endif
+#include "../config_omim.h"
 
 #include <fribidi-common.h>
 
