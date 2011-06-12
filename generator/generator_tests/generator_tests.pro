@@ -26,3 +26,4 @@ SOURCES += \
     feature_bucketer_test.cpp \
     osm_parser_test.cpp \
     feature_merger_test.cpp \
+    osm_type_test.cpp \

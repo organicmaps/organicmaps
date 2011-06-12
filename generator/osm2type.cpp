@@ -605,6 +605,7 @@ namespace ftype {
       typedef ClassifObjectPtr result_type;
 
       do_find_obj(ClassifObject const * p, bool isKey) : m_parent(p), m_isKey(isKey) {}
+
       ClassifObjectPtr operator() (string const & k, string const & v) const
       {
         if (!is_name_tag(k))
@@ -616,27 +617,40 @@ namespace ftype {
       }
     };
 
-    class do_find_root_obj : public do_find_obj
-    {
-      typedef do_find_obj base_type;
+    typedef vector<ClassifObjectPtr> path_type;
 
+    class do_find_root_obj
+    {
       set<string> const & m_skipTags;
+      path_type & m_path;
 
     public:
-      do_find_root_obj(set<string> const & skipTags)
-        : base_type(classif().GetRoot(), true), m_skipTags(skipTags)
+      typedef ClassifObjectPtr result_type;
+
+      do_find_root_obj(set<string> const & skipTags, path_type & path)
+        : m_skipTags(skipTags), m_path(path)
       {
       }
+
       ClassifObjectPtr operator() (string const & k, string const & v) const
       {
         if (m_skipTags.find(k) == m_skipTags.end())
-          return base_type::operator() (k, v);
+        {
+          // first try to match key
+          ClassifObjectPtr p = do_find_obj(classif().GetRoot(), true)(k, v);
+          if (p)
+          {
+            m_path.push_back(p);
 
-        return ClassifObjectPtr(0, 0);
+            // now try to match correspondent value
+            p = do_find_obj(p.get(), false)(k, v);
+            if (p) m_path.push_back(p);
+          }
+        }
+
+        return (!m_path.empty() ? m_path.back() : ClassifObjectPtr(0, 0));
       }
     };
-
-    typedef vector<ClassifObjectPtr> path_type;
   }
 
   ClassifObjectPtr find_object(ClassifObject const * parent, XMLElement * p, bool isKey)
@@ -686,45 +700,42 @@ namespace ftype {
       path_type path;
 
       // find first root object by key
-      do_find_root_obj doFindRoot(skipRootKeys);
-      ClassifObjectPtr pRoot = for_each_tag(p, doFindRoot);
+      do_find_root_obj doFindRoot(skipRootKeys, path);
+      (void)for_each_tag(p, doFindRoot);
 
-      // find path from root
-      ClassifObjectPtr pObj = pRoot;
-      while (pObj)
+      if (path.empty())
+        break;
+
+      // continue find path from last element
+      do
       {
-        path.push_back(pObj);
-
         // next objects trying to find by value first
-        pObj = find_object(path.back().get(), p, false);
+        ClassifObjectPtr pObj = find_object(path.back().get(), p, false);
         if (!pObj)
         {
           // if no - try find object by key (in case of k = "area", v = "yes")
           pObj = find_object(path.back().get(), p, true);
         }
-      }
 
-      size_t const count = path.size();
-      if (count >= 1)
-      {
-        // assign type
-        uint32_t t = ftype::GetEmptyValue();
+        // add to path or stop search
+        if (pObj)
+          path.push_back(pObj);
+        else
+          break;
 
-        for (size_t i = 0; i < count; ++i)
-          ftype::PushValue(t, path[i].GetIndex());
+      } while (true);
 
-        // use features only with drawing rules
-        if (feature::IsDrawableAny(t))
-          params.AddType(t);
-      }
+      // assign type
+      uint32_t t = ftype::GetEmptyValue();
+      for (size_t i = 0; i < path.size(); ++i)
+        ftype::PushValue(t, path[i].GetIndex());
 
-      if (pRoot)
-      {
-        // save this root to skip, and try again
-        skipRootKeys.insert(pRoot->GetName());
-      }
-      else
-        break;
+      // use features only with drawing rules
+      if (feature::IsDrawableAny(t))
+        params.AddType(t);
+
+      // save this root to skip, and try again
+      skipRootKeys.insert(path[0]->GetName());
 
     } while (true);
 
