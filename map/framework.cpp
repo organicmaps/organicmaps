@@ -884,9 +884,9 @@ void FrameWork<TModel>::AddRedrawCommandSure()
 
         m_informationDisplay.doDraw(pDrawer);
 
-        m_renderQueue.renderState().m_actualInfoLayer->draw(
+/*        m_renderQueue.renderState().m_actualInfoLayer->draw(
               pDrawer->screen().get(),
-              m_renderQueue.renderState().m_actualScreen.PtoGMatrix() * currentScreen.GtoPMatrix());
+              m_renderQueue.renderState().m_actualScreen.PtoGMatrix() * currentScreen.GtoPMatrix());*/
 
         m_locationState.DrawMyPosition(*pDrawer, m_navigator.Screen());
 

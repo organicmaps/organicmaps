@@ -35,7 +35,6 @@ namespace yg
                                      m_useVA(useVA),
                                      m_fillSkinAlpha(fillSkinAlpha)
   {
-
     /// primary cache is for rendering, so it's big
     m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, maxGlyphCacheSize)));
     /// secondary caches is for glyph metrics only, so they are small

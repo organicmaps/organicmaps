@@ -25,7 +25,7 @@ namespace yg
   {
     m_tree.ForEach(bind(&StraightTextElement::draw, _1, r, m));
 
-    list<string> toErase;
+    list<strings::UniString> toErase;
 
     for (path_text_elements::const_iterator it = m_pathTexts.begin(); it != m_pathTexts.end(); ++it)
     {
@@ -38,7 +38,7 @@ namespace yg
         toErase.push_back(it->first);
     }
 
-    for (list<string>::const_iterator it = toErase.begin(); it != toErase.end(); ++it)
+    for (list<strings::UniString>::const_iterator it = toErase.begin(); it != toErase.end(); ++it)
       m_pathTexts.erase(*it);
   }
 
@@ -111,7 +111,7 @@ namespace yg
 
   void InfoLayer::addPathText(PathTextElement const & pte)
   {
-    list<PathTextElement> & l = m_pathTexts[pte.utf8Text()];
+    list<PathTextElement> & l = m_pathTexts[pte.logText()];
 
     bool doAppend = true;
 

@@ -65,6 +65,7 @@ namespace qt
       p.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
       p.m_dynamicPagesCount = 2;
       p.m_textPagesCount = 2;
+      p.m_glyphCacheID = 1;
 
       m_p = shared_ptr<DrawerYG>(new DrawerYG(GetPlatform().SkinName(), p));
     }

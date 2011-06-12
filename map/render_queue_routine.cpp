@@ -239,7 +239,7 @@ void RenderQueueRoutine::Do()
   params.m_renderState = m_renderState;
   params.m_doPeriodicalUpdate = m_doPeriodicalUpdate;
   params.m_updateInterval = m_updateInterval;
-  params.m_glyphCacheID = 1;
+  params.m_glyphCacheID = 0;
 /*  params.m_isDebugging = true;
   params.m_drawPathes = false;
   params.m_drawAreas = false;
@@ -324,7 +324,7 @@ void RenderQueueRoutine::Do()
           areas.push_back(curRect);
           fullRectRepaint = true;
           m_renderState->m_currentInfoLayer->clear();
-          m_renderState->m_actualInfoLayer->clear();
+//          m_renderState->m_actualInfoLayer->clear();
           m_renderState->m_doRepaintAll = false;
         }
         else
@@ -358,7 +358,7 @@ void RenderQueueRoutine::Do()
         else
         {
           m_renderState->m_currentInfoLayer->clear();
-          m_renderState->m_actualInfoLayer->clear();
+//          m_renderState->m_actualInfoLayer->clear();
         }
       }
     }
@@ -423,6 +423,10 @@ void RenderQueueRoutine::Do()
 
       /// setting the "whole texture" clip rect to render texts opened by panning.
       m_threadDrawer->screen()->setClipRect(textureRect);
+
+      /// rendering all collected texts
+      m_renderState->m_currentInfoLayer->draw(m_threadDrawer->screen().get(), math::Identity<double, 3>());
+
       m_threadDrawer->endFrame();
     }
 

@@ -55,12 +55,12 @@ namespace yg
       {
         threads::MutexGuard guard(*m_renderState->m_mutex.get());
         swap(m_renderState->m_actualTarget, m_renderState->m_backBufferLayers.front());
-        swap(m_renderState->m_actualInfoLayer, m_renderState->m_currentInfoLayer);
+//        swap(m_renderState->m_actualInfoLayer, m_renderState->m_currentInfoLayer);
         m_renderState->m_actualScreen = m_renderState->m_currentScreen;
       }
 
       /// copying info layer
-      *m_renderState->m_currentInfoLayer.get() = *m_renderState->m_actualInfoLayer.get();
+//      *m_renderState->m_currentInfoLayer.get() = *m_renderState->m_actualInfoLayer.get();
 
       /// blitting will be performed through
       /// non-multisampled framebuffer for the sake of speed

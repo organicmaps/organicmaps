@@ -263,3 +263,23 @@ UNIT_TEST(Normalize)
   strings::Normalize(us);
   TEST_EQUAL(us, result, ());
 }
+
+UNIT_TEST(UniString_Less)
+{
+  strings::UniString s0 = strings::MakeUniString("Test");
+  TEST(!(s0 < s0), ());
+  strings::UniString s1 = strings::MakeUniString("Test1");
+  TEST(s0 < s1, ());
+  strings::UniString s2 = strings::MakeUniString("Tast");
+  TEST(s2 < s1, ());
+  strings::UniString s3 = strings::MakeUniString("Tas");
+  TEST(s3 < s0, ());
+  strings::UniString s4 = strings::MakeUniString("Taste");
+  TEST(!(s0 < s4), ());
+  strings::UniString s5 = strings::MakeUniString("Tist");
+  TEST(s0 < s5, ());
+  strings::UniString s6 = strings::MakeUniString("Tis");
+  TEST(s0 < s6, ());
+  strings::UniString s7 = strings::MakeUniString("Tiste");
+  TEST(s0 < s7, ());
+}

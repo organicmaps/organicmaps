@@ -69,7 +69,7 @@ namespace yg
       params.m_fullLength = fullLength;
       params.m_pathOffset = pathOffset;
       params.m_fontDesc = fontDesc;
-      params.m_logText = strings::FromUtf8(utf8Text);
+      params.m_logText = strings::MakeUniString(utf8Text);
       params.m_depth = depth;
       params.m_log2vis = true;
       params.m_glyphCache = resourceManager()->glyphCache(m_glyphCacheID);

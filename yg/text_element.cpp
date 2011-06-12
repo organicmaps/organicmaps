@@ -63,8 +63,7 @@ namespace yg
       m_fontDesc(p.m_fontDesc),
       m_logText(p.m_logText),
       m_log2vis(p.m_log2vis),
-      m_glyphCache(p.m_glyphCache),
-      m_utf8Text(p.m_utf8Text)
+      m_glyphCache(p.m_glyphCache)
   {
     if (m_log2vis)
       m_visText = log2vis(m_logText);
@@ -82,11 +81,6 @@ namespace yg
     return m_visText;
   }
 
-  string const & TextElement::utf8Text() const
-  {
-    return m_utf8Text;
-  }
-
   FontDesc const & TextElement::fontDesc() const
   {
     return m_fontDesc;
@@ -94,7 +88,7 @@ namespace yg
 
   void TextElement::drawTextImpl(GlyphLayout const & layout, gl::TextRenderer * screen, math::Matrix<double, 3, 3> const & m, FontDesc const & fontDesc, double depth) const
   {
-    if ((layout.lastVisible() != visText().size()) && (layout.firstVisible() != 0))
+    if ((layout.firstVisible() != 0) || (layout.lastVisible() != visText().size()))
       return;
 
     m2::PointD pivot = layout.entries()[0].m_pt;

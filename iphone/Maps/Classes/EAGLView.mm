@@ -112,7 +112,8 @@
 		DrawerYG::params_t p;
 		p.m_resourceManager = resourceManager;
 		p.m_isMultiSampled = false;
-		p.m_frameBuffer = frameBuffer;
+    p.m_frameBuffer = frameBuffer;
+    p.m_glyphCacheID = 1;
 
 		drawer = shared_ptr<DrawerYG>(new DrawerYG(GetPlatform().SkinName(), p));
 

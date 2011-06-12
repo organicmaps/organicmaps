@@ -235,6 +235,23 @@ inline bool operator==(buffer_vector<T, N1> const & v1, buffer_vector<T, N2> con
 }
 
 template <typename T, size_t N1, size_t N2>
+inline bool operator<(buffer_vector<T, N1> const & v1, buffer_vector<T, N2> const & v2)
+{
+  const int N = v1.size() > v2.size() ? v2.size() : v1.size();
+  for (size_t i = 0; i < N; ++i)
+  {
+    if (v1[i] == v2[i])
+      continue;
+    return v1[i] < v2[i];
+  }
+  if (v1.size() == v2.size())
+    return false;
+  if (v1.size() == N)
+    return true;
+  return false;
+}
+
+template <typename T, size_t N1, size_t N2>
 inline bool operator!=(buffer_vector<T, N1> const & v1, buffer_vector<T, N2> const & v2)
 {
   return !(v1 == v2);

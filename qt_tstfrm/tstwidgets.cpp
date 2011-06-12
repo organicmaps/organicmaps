@@ -71,6 +71,7 @@ void GLDrawWidget::initializeGL()
   params.m_resourceManager = m_resourceManager;
   params.m_isMultiSampled = false;
   params.m_frameBuffer = m_frameBuffer;
+  params.m_glyphCacheID = 1;
 
   m_p = make_shared_ptr(new yg::gl::Screen(params));
 

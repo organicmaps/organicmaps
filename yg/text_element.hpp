@@ -76,7 +76,7 @@ namespace yg
     struct Params : OverlayElement::Params
     {
       FontDesc m_fontDesc;
-      wstring m_logText;
+      strings::UniString m_logText;
       bool m_log2vis;
       GlyphCache * m_glyphCache;
     };
@@ -88,9 +88,8 @@ namespace yg
                       math::Matrix<double, 3, 3> const & m,
                       FontDesc const & desc,
                       double depth) const;
-    wstring const & logText() const;
-    wstring const & visText() const;
-    string const & utf8Text() const;
+    strings::UniString const & logText() const;
+    strings::UniString const & visText() const;
     FontDesc const & fontDesc() const;
   };
 

@@ -28,7 +28,7 @@ namespace yg
     static bool better_text(StraightTextElement const & r1, StraightTextElement const & r2);
 
     m4::Tree<StraightTextElement, StraightTextElementTraits> m_tree;
-    typedef map<string, list<PathTextElement> > path_text_elements;
+    typedef map<strings::UniString, list<PathTextElement> > path_text_elements;
     path_text_elements m_pathTexts;
 
     void offsetPathTexts(m2::PointD const & offs, m2::RectD const & rect);
