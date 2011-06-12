@@ -1,4 +1,5 @@
 #include "query.hpp"
+#include "categories_holder.hpp"
 #include "delimiters.hpp"
 #include "latlon_match.hpp"
 #include "string_match.hpp"
@@ -95,8 +96,9 @@ struct FeatureProcessor
 }  // unnamed namespace
 
 Query::Query(string const & query, m2::RectD const & viewport, IndexType const * pIndex,
-             Engine * pEngine)
-  : m_queryText(query), m_viewport(viewport), m_pIndex(pIndex ? new IndexType(*pIndex) : NULL),
+             Engine * pEngine, CategoriesHolder * pCategories)
+  : m_queryText(query), m_viewport(viewport), m_pCategories(pCategories),
+    m_pIndex(pIndex ? new IndexType(*pIndex) : NULL),
     m_pEngine(pEngine), m_bTerminate(false)
 {
   search::Delimiters delims;
@@ -130,16 +132,35 @@ void Query::Search(function<void (Result const &)> const & f)
     return;
 
   // Category matching.
-  if (!m_prefix.empty())
+  if (m_pCategories)
   {
-    KeywordMatcher matcher = MakeMatcher(vector<strings::UniString>(), m_prefix);
-    // LOG(LINFO, (m_prefix));
-    matcher.ProcessNameToken("", strings::MakeUniString("restaurant"));
-    uint32_t const matchScore = matcher.GetMatchScore();
-    if (matcher.GetPrefixMatchScore() <= GetMaxPrefixMatchScore(m_prefix.size()) &&
-        matchScore <= GetMaxKeywordMatchScore())
+    for (int i = 0; i < m_keywords.size(); ++i)
     {
-      f(Result("restaurant", "restaurant "));
+
+    }
+
+    // TODO: Check if some keyword matched category?
+    if (!m_prefix.empty())
+    {
+      for (CategoriesHolder::const_iterator iCategory = m_pCategories->begin();
+           iCategory != m_pCategories->end(); ++iCategory)
+      {
+        KeywordMatcher matcher = MakeMatcher(vector<strings::UniString>(), m_prefix);
+
+        for (vector<Category::Name>::const_iterator iName = iCategory->m_synonyms.begin();
+             iName != iCategory->m_synonyms.end(); ++iName)
+        {
+          if (m_prefix.size() >= iName->m_prefixLengthToSuggest)
+            matcher.ProcessNameToken(iName->m_Name, strings::MakeUniString(iName->m_Name));
+        }
+
+        if (matcher.GetPrefixMatchScore() <= GetMaxPrefixMatchScore(m_prefix.size()) &&
+            matcher.GetMatchScore() <= GetMaxKeywordMatchScore())
+        {
+          AddResult(IntermediateResult(matcher.GetBestMatchName(),
+                                       matcher.GetBestMatchName() + ' '));
+        }
+      }
     }
   }
 

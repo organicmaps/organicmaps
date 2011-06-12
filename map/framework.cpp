@@ -1182,8 +1182,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
       search::CategoriesHolder holder;
       ifstream file(GetPlatform().ReadPathForFile(SEARCH_CATEGORIES_FILE_NAME).c_str());
       holder.LoadFromStream(file);
-      // @TODO: use categories in search
-      m_pSearchEngine.reset(new search::Engine(&m_model.GetIndex()));
+      m_pSearchEngine.reset(new search::Engine(&m_model.GetIndex(), holder));
     }
 
     m_pSearchEngine->Search(text, m_navigator.Screen().GlobalRect(), callback);

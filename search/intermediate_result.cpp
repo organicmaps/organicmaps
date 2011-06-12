@@ -37,6 +37,10 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect,
   m_direction = ResultDirection(viewportRect.Center(), m_rect.Center());
 }
 
+IntermediateResult::IntermediateResult(string name, string completionString)
+  : m_str(name), m_completionString(completionString),
+    m_matchPenalty(0), m_minVisibleScale(0), m_distance(0), m_direction(0),
+    m_resultType(RESULT_CATEGORY)
 {
 }
 
@@ -66,8 +70,11 @@ Result IntermediateResult::GenerateFinalResult() const
     return Result(m_str, m_type, m_rect, m_distance, m_direction);
   case RESULT_LATLON:
     return Result(m_str, 0, m_rect, m_distance, m_direction);
+  case RESULT_CATEGORY:
+    return Result(m_str, m_completionString);
   default:
     ASSERT(false, ());
+    return Result(m_str, m_completionString);
   }
 }
 

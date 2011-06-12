@@ -14,6 +14,9 @@
 
 namespace search
 {
+
+class CategoriesHolder;
+
 namespace impl
 {
 
@@ -23,7 +26,7 @@ public:
   typedef Engine::IndexType IndexType;
 
   Query(string const & query, m2::RectD const & viewport, IndexType const * pIndex,
-        Engine * pEngine);
+        Engine * pEngine, CategoriesHolder * pCategories);
   ~Query();
 
   // Search with parameters, passed in constructor.
@@ -47,8 +50,10 @@ public:
 private:
   string m_queryText;
   m2::RectD m_viewport;
+  CategoriesHolder * m_pCategories;
 
   vector<strings::UniString> m_keywords;
+  vector<vector<uint32_t> > m_keywordCategories;
   strings::UniString m_prefix;
 
   scoped_ptr<IndexType const> m_pIndex;

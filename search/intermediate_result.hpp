@@ -13,6 +13,7 @@ public:
   enum ResultType
   {
     RESULT_LATLON,
+    RESULT_CATEGORY,
     RESULT_FEATURE
   };
 
@@ -26,6 +27,9 @@ public:
   // For RESULT_LATLON.
   IntermediateResult(m2::RectD const & viewportRect, double lat, double lon, double precision);
 
+  // For RESULT_CATEGORY.
+  IntermediateResult(string name, string completionString);
+
   bool operator < (IntermediateResult const & o) const;
 
   Result GenerateFinalResult() const;
@@ -37,6 +41,7 @@ private:
                                 m2::PointD const & featureCenter);
 
   string m_str;
+  string m_completionString;
   m2::RectD m_rect;
   uint32_t m_type;
   int m_matchPenalty;

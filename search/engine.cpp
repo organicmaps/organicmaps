@@ -1,3 +1,4 @@
+#include "categories_holder.hpp"
 #include "engine.hpp"
 #include "query.hpp"
 #include "result.hpp"
@@ -12,10 +13,12 @@
 namespace search
 {
 
-Engine::Engine(IndexType const * pIndex)
-  : m_pIndex(pIndex), m_pRunner(new threads::ConcurrentRunner), m_pLastQuery(NULL),
+Engine::Engine(IndexType const * pIndex, CategoriesHolder & categories)
+  : m_pIndex(pIndex), m_pCategories(new CategoriesHolder()),
+    m_pRunner(new threads::ConcurrentRunner), m_pLastQuery(NULL),
     m_queriesActive(0)
 {
+  m_pCategories->swap(categories);
 }
 
 Engine::~Engine()
@@ -30,7 +33,7 @@ void Engine::Search(string const & queryText,
 {
   LOG(LDEBUG, (queryText, rect));
 
-  impl::Query * pQuery = new impl::Query(queryText, rect, m_pIndex, this);
+  impl::Query * pQuery = new impl::Query(queryText, rect, m_pIndex, this, m_pCategories.get());
 
   {
     threads::MutexGuard mutexGuard(m_mutex);

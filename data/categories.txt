@@ -1,14 +1,14 @@
 amenity-atm
-en:atm|cash
-ru:банкомат|наличка
+en:1atm|cash
+ru:2банкомат|наличка
 
 amenity-bank
 en:bank
 ru:банк
 
 amenity-bar|amenity-pub
-en:bar|pub|beer
-ru:бар|паб|забегаловка|пиво|выпить
+en:1bar|pub|beer
+ru:1бар|паб|забегаловка|пиво|выпить
 
 amenity-bench
 en:bench
@@ -108,8 +108,8 @@ en:trash|bin|garbage
 ru:мусорка
 
 amenity-restaurant
-en:restaurant
-ru:ресторан
+en:0restaurant
+ru:0ресторан
 
 amenity-school
 en:school

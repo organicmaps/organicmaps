@@ -104,4 +104,9 @@ size_t CategoriesHolder::LoadFromStream(istream & stream)
   return m_categories.size();
 }
 
+void CategoriesHolder::swap(CategoriesHolder & o)
+{
+  m_categories.swap(o.m_categories);
+}
+
 }

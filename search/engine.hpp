@@ -19,6 +19,7 @@ namespace search
 {
 
 namespace impl { class Query; }
+class CategoriesHolder;
 class Result;
 
 class Engine
@@ -26,7 +27,8 @@ class Engine
 public:
   typedef Index<FileReader>::Type IndexType;
 
-  explicit Engine(IndexType const * pIndex);
+  /// Doesn't take ownership of @pIndex. Modifies @categories.
+  Engine(IndexType const * pIndex, CategoriesHolder & categories);
   ~Engine();
 
   void Search(string const & query,
@@ -39,6 +41,7 @@ public:
 
 private:
   IndexType const * m_pIndex;
+  scoped_ptr<CategoriesHolder> m_pCategories;
   scoped_ptr<threads::IRunner> m_pRunner;
   threads::Mutex m_mutex;
   impl::Query * volatile m_pLastQuery;
