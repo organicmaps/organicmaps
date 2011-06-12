@@ -416,42 +416,44 @@ void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
   char const s2 [] = "Just click the button at the bottom";
   char const s3 [] = "right corner to download the maps.";
 
-  m2::RectD tr0 = pDrawer->screen()->textRect(yg::FontDesc::defaultFont, s0, false);
-  m2::RectD tr1 = pDrawer->screen()->textRect(yg::FontDesc::defaultFont, s1, false);
-  m2::RectD tr2 = pDrawer->screen()->textRect(yg::FontDesc::defaultFont, s2, false);
-  m2::RectD tr3 = pDrawer->screen()->textRect(yg::FontDesc::defaultFont, s3, false);
+//  yg::FontDesc bigFont(false, 30 * m_visualScale);
 
-  pDrawer->screen()->drawText(yg::FontDesc::defaultFont,
-                              m2::PointD(0, -(tr1.SizeY() + 5)) + pt,
-                              yg::EPosCenter,
-                              0,
-                              s0,
-                              yg::maxDepth,
-                              false);
+  yg::StraightTextElement::Params params;
+  params.m_depth = yg::maxDepth;
+  params.m_fontDesc = yg::FontDesc::defaultFont;
+  params.m_log2vis = false;
+  params.m_pivot = pt;
+  params.m_position = yg::EPosCenter;
+  params.m_rm = pDrawer->screen()->resourceManager().get();
+  params.m_skin = pDrawer->screen()->skin().get();
+  params.m_logText = strings::FromUtf8(s0);
+  params.m_utf8Text = s0;
 
-  pDrawer->screen()->drawText(yg::FontDesc::defaultFont,
-                              m2::PointD(0, 0) + pt,
-                              yg::EPosCenter,
-                              0,
-                              s1,
-                              yg::maxDepth,
-                              false);
+  yg::StraightTextElement ste0(params);
+  ste0.offset(m2::PointD(0, -ste0.boundRect().GetGlobalRect().SizeY() - 5));
 
-  pDrawer->screen()->drawText(yg::FontDesc::defaultFont,
-                              m2::PointD(0, tr2.SizeY() + 5) + pt,
-                              yg::EPosCenter,
-                              0,
-                              s2,
-                              yg::maxDepth,
-                              false);
+  ste0.draw(pDrawer->screen().get());
 
-  pDrawer->screen()->drawText(yg::FontDesc::defaultFont,
-                              m2::PointD(0, tr2.SizeY() + 5 + tr3.SizeY() + 5) + pt,
-                              yg::EPosCenter,
-                              0,
-                              s3,
-                              yg::maxDepth,
-                              false);
+  params.m_pivot = pt;
+  params.m_logText = strings::FromUtf8(s1);
+  params.m_utf8Text = s1;
+  yg::StraightTextElement ste1(params);
+
+  ste1.draw(pDrawer->screen().get());
+
+  params.m_pivot.y += ste1.boundRect().GetGlobalRect().SizeY() + 5;
+  params.m_logText = strings::FromUtf8(s2);
+  params.m_utf8Text = s2;
+  yg::StraightTextElement ste2(params);
+
+  ste2.draw(pDrawer->screen().get());
+
+  params.m_pivot.y += ste2.boundRect().GetGlobalRect().SizeY() + 5;
+  params.m_logText = strings::FromUtf8(s3);
+  params.m_utf8Text = s3;
+  yg::StraightTextElement ste3(params);
+
+  ste3.draw(pDrawer->screen().get());
 }
 #endif
 
