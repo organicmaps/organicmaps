@@ -236,6 +236,8 @@ namespace qt
         dlg.exec();
       }
       break;
+      default: /// @TODO handle all other cases
+      break;
     }
 //    if (updateSize < 0)
 //      ;//m_label->setText(QObject::tr("No update is available"));
