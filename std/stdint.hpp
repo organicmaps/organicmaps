@@ -16,7 +16,7 @@
   typedef unsigned __int32  uint32_t;
   typedef unsigned __int64  uint64_t;
 
-#elif defined(OMIM_OS_BADA)
+#elif defined(OMIM_OS_BADA) || defined(OMIM_OS_ANDROID)
   #include <stdint.h>
 
 #else

@@ -40,7 +40,7 @@ SOURCES += \
     benchmark_provider.cpp \
     languages.cpp \
 
-!iphone*:!bada* {
+!iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp
   SOURCES += qgl_render_context.cpp
   QT += opengl

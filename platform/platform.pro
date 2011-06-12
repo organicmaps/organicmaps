@@ -11,7 +11,7 @@ include($$ROOT_DIR/common.pri)
 
 QT *= core network
 
-!iphone* {
+!iphone*:!android* {
   INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 
   SOURCES += \

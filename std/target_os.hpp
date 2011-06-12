@@ -1,6 +1,10 @@
 #pragma once
 
-#if defined(_BADA_SIMULATOR) || defined(_BADA_DEVICE)
+#if defined(ANDROID)
+  #define OMIM_OS_ANDROID
+  #define OMIM_OS_NAME "android"
+
+#elif defined(_BADA_SIMULATOR) || defined(_BADA_DEVICE)
   #define OMIM_OS_BADA
   #define OMIM_OS_NAME "bada"
 

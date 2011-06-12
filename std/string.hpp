@@ -12,7 +12,7 @@ using std::basic_string;
 using std::string;
 using std::getline;
 
-#ifdef OMIM_OS_BADA
+#if defined(OMIM_OS_BADA) || defined(OMIM_OS_ANDROID)
 typedef std::basic_string<wchar_t> wstring;
 #else
 using std::wstring;

@@ -4,7 +4,11 @@
   #include <sys/mman.h>
   #include <sys/errno.h>
   #include <sys/stat.h>
-  #include <sys/fcntl.h>
+  #ifdef OMIM_OS_ANDROID
+    #include <fcntl.h>
+  #else
+    #include <sys/fcntl.h>
+  #endif
   #include <unistd.h>
 #endif
 

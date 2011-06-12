@@ -9,7 +9,7 @@
   using namespace Osp::Graphics::Opengl;
   #define OMIM_GL_ES
 
-#elif (defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE))
+#elif defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
   #include <TargetConditionals.h>
 
   #ifdef OMIM_OS_IPHONE
@@ -21,6 +21,12 @@
     #include <OpenGL/gl.h>
     #include <OpenGL/glext.h>
   #endif
+
+#elif defined(OMIM_OS_ANDROID)
+  #include <GLES/gl.h>
+  #include <GLES/glext.h>
+  #define OMIM_GL_ES
+
 #else
   #define GL_GLEXT_PROTOTYPES
   #include <GL/gl.h>

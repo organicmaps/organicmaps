@@ -19,6 +19,9 @@
 #elif defined(OMIM_OS_LINUX)
   #include "../std/stdlib.hpp"
 
+#elif defined(OMIM_OS_ANDROID)
+  /// @TODO
+
 #else
   #error "Define language preferences for your platform"
 
@@ -150,6 +153,9 @@ void SystemPreferredLanguages(vector<string> & languages)
     languages.push_back(p);
   else if ((p = getenv("LANG")))
     languages.push_back(p);
+
+#elif defined(OMIM_OS_ANDROID)
+  /// @TODO
 
 #else
   #error "Define language preferences for your platform"
