@@ -1,12 +1,12 @@
 #include "draw_widget.hpp"
 #include "proxystyle.hpp"
+#include "slider_ctrl.hpp"
 
 #include "../storage/storage.hpp"
 
 #include "../map/settings.hpp"
 
 #include <QtGui/QMouseEvent>
-#include <QtGui/QSlider>
 
 #include "../base/start_mem_debug.hpp"
 
@@ -32,7 +32,7 @@ namespace qt
     m_framework.PrepareToShutdown();
   }
 
-  void DrawWidget::SetScaleControl(QSlider * pScale)
+  void DrawWidget::SetScaleControl(QScaleSlider * pScale)
   {
     m_pScale = pScale;
 
@@ -52,12 +52,9 @@ namespace qt
 
     m_framework.OnSize(widthAndHeight.first, widthAndHeight.second);
 
-    bool res = m_framework.LoadState();
-
-//    m_framework.UpdateNow();
-
-    if (!res)
+    if (!m_framework.LoadState())
       return false;
+    //m_framework.UpdateNow();
 
     UpdateScaleControl();
     return true;
@@ -154,12 +151,10 @@ namespace qt
   {
     if (action != QAbstractSlider::SliderNoAction)
     {
-      int const oldV = m_pScale->value();
-      int const newV = m_pScale->sliderPosition();
-      if (oldV != newV)
+      double const factor = m_pScale->GetScaleFactor();
+      if (factor != 1.0)
       {
-        double const factor = 1 << abs(oldV - newV);
-        m_framework.Scale(newV > oldV ? factor : 1.0 / factor);
+        m_framework.Scale(factor);
         emit ViewportChanged();
       }
     }
@@ -281,13 +276,7 @@ namespace qt
     if (m_pScale)
     {
       // don't send ScaleChanged
-
-      bool const b = m_pScale->signalsBlocked();
-      m_pScale->blockSignals(true);
-
-      m_pScale->setSliderPosition(m_framework.GetCurrentScale());
-
-      m_pScale->blockSignals(b);
+      m_pScale->SetPosWithBlockedSignals(m_framework.GetCurrentScale());
     }
   }
 

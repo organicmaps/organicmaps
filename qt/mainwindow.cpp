@@ -260,8 +260,8 @@ void MainWindow::CreateNavigationBar()
   }
 
   // add scale slider
-  QClickSlider * pScale = new QClickSlider(Qt::Vertical, this);
-  pScale->setRange(3, scales::GetUpperScale());
+  QScaleSlider * pScale = new QScaleSlider(Qt::Vertical, this, 20);
+  pScale->SetRange(2, scales::GetUpperScale());
   pScale->setTickPosition(QSlider::TicksRight);
 
   pToolBar->addWidget(pScale);

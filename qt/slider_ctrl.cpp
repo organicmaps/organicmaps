@@ -3,13 +3,19 @@
 #include "slider_ctrl.hpp"
 #include "proxystyle.hpp"
 
+#include "../base/math.hpp"
+
 #include "../base/start_mem_debug.hpp"
 
 
 namespace qt
 {
-  QClickSlider::QClickSlider(Qt::Orientation orient, QWidget * pParent)
-   : QSlider(orient, pParent)
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+  // QClickSmoothSlider implementation
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+
+  QClickSmoothSlider::QClickSmoothSlider(Qt::Orientation orient, QWidget * pParent, int factor)
+   : base_t(orient, pParent), m_factor(factor)
   {
     // this style cause slider to set value exactly to the cursor position (not "page scroll")
     class MyProxyStyle : public ProxyStyle
@@ -29,9 +35,46 @@ namespace qt
     setStyle(new MyProxyStyle(style()));
   }
 
-  QClickSlider::~QClickSlider()
+  QClickSmoothSlider::~QClickSmoothSlider()
   {
     QStyle * p = style();
     delete p;
+  }
+
+  void QClickSmoothSlider::SetRange(int low, int up)
+  {
+    setRange(low * m_factor, up * m_factor);
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+  // QScaleSlider implementation
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+
+  QScaleSlider::QScaleSlider(Qt::Orientation orient, QWidget * pParent, int factor)
+    : base_t(orient, pParent, factor)
+  {
+  }
+
+  double QScaleSlider::GetScaleFactor() const
+  {
+    double const oldV = value();
+    double const newV = sliderPosition();
+
+    if (oldV != newV)
+    {
+      double const f = pow(2, fabs(oldV - newV) / m_factor);
+      return (newV > oldV ? f : 1.0 / f);
+    }
+    else return 1.0;
+  }
+
+  void QScaleSlider::SetPosWithBlockedSignals(double pos)
+  {
+    bool const b = signalsBlocked();
+    blockSignals(true);
+
+    setSliderPosition(my::rounds(pos * m_factor));
+
+    blockSignals(b);
   }
 }

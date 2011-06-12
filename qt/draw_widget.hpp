@@ -15,10 +15,10 @@
 
 namespace storage { class Storage; }
 
-class QSlider;
-
 namespace qt
 {
+  class QScaleSlider;
+
   /// Replace this to set a draw widget kernel.
   typedef GLDrawWidget widget_type;
 
@@ -61,7 +61,7 @@ namespace qt
   public:
     DrawWidget(QWidget * pParent, storage::Storage & storage);
 
-    void SetScaleControl(QSlider * pScale);
+    void SetScaleControl(QScaleSlider * pScale);
 
     void OnEnableMyPosition(LocationRetrievedCallbackT observer);
     void OnDisableMyPosition();
@@ -101,6 +101,6 @@ namespace qt
     void UpdateScaleControl();
     void StopDragging(QMouseEvent * e);
 
-    QSlider * m_pScale;
+    QScaleSlider * m_pScale;
   };
 }

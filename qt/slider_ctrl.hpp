@@ -4,10 +4,28 @@
 
 namespace qt
 {
-  class QClickSlider : public QSlider
+  class QClickSmoothSlider : public QSlider
   {
+    typedef QSlider base_t;
+
+  protected:
+    int m_factor;
+
   public:
-    QClickSlider(Qt::Orientation orient, QWidget * pParent);
-    virtual ~QClickSlider();
+    QClickSmoothSlider(Qt::Orientation orient, QWidget * pParent, int factor);
+    virtual ~QClickSmoothSlider();
+
+    void SetRange(int low, int up);
+  };
+
+  class QScaleSlider : public QClickSmoothSlider
+  {
+    typedef QClickSmoothSlider base_t;
+
+  public:
+    QScaleSlider(Qt::Orientation orient, QWidget * pParent, int factor);
+
+    double GetScaleFactor() const;
+    void SetPosWithBlockedSignals(double pos);
   };
 }

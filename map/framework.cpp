@@ -719,7 +719,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   }
 
   template <typename TModel>
-  int FrameWork<TModel>::GetCurrentScale() const
+  double FrameWork<TModel>::GetCurrentScale() const
   {
     m2::PointD textureCenter(m_renderQueue.renderState().m_textureWidth / 2,
                              m_renderQueue.renderState().m_textureHeight / 2);
@@ -729,7 +729,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     m_navigator.Screen().PtoG(m2::RectD(textureCenter - m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2),
                                         textureCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
                               glbRect);
-    return scales::GetScaleLevel(glbRect);
+    return scales::GetScaleLevelD(glbRect);
   }
 
   /// Actual rendering function.
@@ -779,14 +779,14 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   template <typename TModel>
   void FrameWork<TModel>::Paint(shared_ptr<PaintEvent> e)
   {
-    /// Making a copy of actualFrameInfo to compare without synchronizing.
-//    typename yg::gl::RenderState state = m_renderQueue.CopyState();
+    // Making a copy of actualFrameInfo to compare without synchronizing.
+    //typename yg::gl::RenderState state = m_renderQueue.CopyState();
 
     DrawerYG * pDrawer = e->drawer().get();
 
     m_informationDisplay.setScreen(m_navigator.Screen());
 
-    m_informationDisplay.setDebugInfo(m_renderQueue.renderState().m_duration, GetCurrentScale());
+    m_informationDisplay.setDebugInfo(m_renderQueue.renderState().m_duration, my::rounds(GetCurrentScale()));
 
     m_informationDisplay.enableRuler(!IsEmptyModel());
 
@@ -855,11 +855,13 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     UpdateNow();
   }
 
+  int const theMetersFactor = 6;
+
   template <typename TModel>
   void FrameWork<TModel>::ShowRect(m2::RectD rect)
   {
-    double const minSizeX = MercatorBounds::ConvertMetresToX(rect.minX(), 6 * m_metresMinWidth);
-    double const minSizeY = MercatorBounds::ConvertMetresToY(rect.minY(), 6 * m_metresMinWidth);
+    double const minSizeX = MercatorBounds::ConvertMetresToX(rect.minX(), theMetersFactor * m_metresMinWidth);
+    double const minSizeY = MercatorBounds::ConvertMetresToY(rect.minY(), theMetersFactor * m_metresMinWidth);
     if (rect.SizeX() < minSizeX && rect.SizeY() < minSizeY)
       rect.SetSizes(minSizeX, minSizeY);
 
@@ -896,9 +898,9 @@ void FrameWork<TModel>::AddRedrawCommandSure()
 
     m2::RectD clipRect = m_navigator.Screen().ClipRect();
 
-    double const xMinSize = 6 * max(m_locationState.ErrorRadius(),
+    double const xMinSize = theMetersFactor * max(m_locationState.ErrorRadius(),
                               MercatorBounds::ConvertMetresToX(pt.x, m_metresMinWidth));
-    double const yMinSize = 6 * max(m_locationState.ErrorRadius(),
+    double const yMinSize = theMetersFactor * max(m_locationState.ErrorRadius(),
                               MercatorBounds::ConvertMetresToY(pt.y, m_metresMinWidth));
 
     bool needToScale = false;
@@ -908,8 +910,8 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     else
       needToScale = clipRect.SizeY() > yMinSize * 3;
 
-/*    if ((ClipRect.SizeX() < 3 * errorRadius) || (ClipRect.SizeY() < 3 * errorRadius))
-      needToScale = true;*/
+    //if ((ClipRect.SizeX() < 3 * errorRadius) || (ClipRect.SizeY() < 3 * errorRadius))
+    //  needToScale = true;
 
     if (needToScale)
     {

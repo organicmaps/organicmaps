@@ -246,7 +246,7 @@ public:
   /// respond to device orientation changes
   void SetOrientation(EOrientation orientation);
 
-  int GetCurrentScale() const;
+  double GetCurrentScale() const;
 
   /// Actual rendering function.
   /// Called, as the renderQueue processes RenderCommand
