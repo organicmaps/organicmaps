@@ -77,8 +77,8 @@ DEFINE_bool(helppackage, false,
             "show help on all modules in the main package");
 DEFINE_bool(helpxml, false,
             "produce an xml version of help");
-//DEFINE_bool(version, false,
-//            "show version and build info and exit");
+DEFINE_bool(gfversion, false,
+            "show version and build info and exit");
 
 _START_GOOGLE_NAMESPACE_
 
@@ -433,11 +433,11 @@ void HandleCommandLineHelpFlags() {
     ShowXMLOfFlags(progname);
     commandlineflags_exitfunc(1);
 
-  }// else if (FLAGS_version) {
-//    ShowVersion();
+  } else if (FLAGS_gfversion) {
+    ShowVersion();
     // Unlike help, we may be asking for version in a script, so return 0
-//    commandlineflags_exitfunc(0);
-//  }
+    commandlineflags_exitfunc(0);
+  }
 }
 
 _END_GOOGLE_NAMESPACE_
