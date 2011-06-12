@@ -77,7 +77,7 @@ namespace yg
     {
       return m_utf8Text;
     }
-
+*/
     void TextRenderer::TextObj::Offset(m2::PointD const & offs)
     {
       m_elem.offset(offs);
@@ -113,7 +113,7 @@ namespace yg
       params.m_position = pos;
       params.m_rm = resourceManager().get();
       params.m_skin = skin().get();
-      params.m_logText = strings::FromUtf8(utf8Text);
+      params.m_logText = strings::MakeUniString(utf8Text);
 
       StraightTextElement ste(params);
 
@@ -305,7 +305,7 @@ namespace yg
       params.m_fullLength = fullLength;
       params.m_pathOffset = pathOffset;
       params.m_fontDesc = fontDesc;
-      params.m_logText = strings::FromUtf8(utf8Text);
+      params.m_logText = strings::MakeUniString(utf8Text);
       params.m_depth = depth;
       params.m_log2vis = true;
       params.m_rm = resourceManager().get();

@@ -2,6 +2,8 @@
 
 #include "defines.hpp"
 
+#include "../base/string_utils.hpp"
+
 #include "../geometry/rect2d.hpp"
 #include "../geometry/point2d.hpp"
 #include "../geometry/aa_rect2d.hpp"
@@ -49,14 +51,14 @@ namespace yg
                 Skin * skin,
                 FontDesc const & font,
                 m2::PointD const & pt,
-                wstring const & visText,
+                strings::UniString const & visText,
                 yg::EPosition pos);
 
     GlyphLayout(ResourceManager * resourceManager,
                 FontDesc const & font,
                 m2::PointD const * pts,
                 size_t ptsCount,
-                wstring const & visText,
+                strings::UniString const & visText,
                 double fullLength,
                 double pathOffset,
                 yg::EPosition pos);

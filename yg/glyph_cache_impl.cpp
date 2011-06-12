@@ -1,4 +1,3 @@
-#include "../base/SRC_FIRST.hpp"
 #include "glyph_cache_impl.hpp"
 
 #include "../base/path_utils.hpp"
@@ -16,11 +15,11 @@
 
 namespace yg
 {
-  UnicodeBlock::UnicodeBlock(string const & name, uint32_t start, uint32_t end)
+  UnicodeBlock::UnicodeBlock(string const & name, strings::UniChar start, strings::UniChar end)
     : m_name(name), m_start(start), m_end(end)
   {}
 
-  bool UnicodeBlock::hasSymbol(uint16_t sym) const
+  bool UnicodeBlock::hasSymbol(strings::UniChar sym) const
   {
     return (m_start <= sym) && (m_end >= sym);
   }
@@ -40,8 +39,8 @@ namespace yg
     while (true)
     {
       string name;
-      uint16_t start;
-      uint16_t end;
+      strings::UniChar start;
+      strings::UniChar end;
       fin >> name >> std::hex >> start >> std::hex >> end;
       if (!fin)
         break;
@@ -263,11 +262,11 @@ namespace yg
 
   struct sym_in_block
   {
-    bool operator() (UnicodeBlock const & b, uint16_t sym) const
+    bool operator() (UnicodeBlock const & b, strings::UniChar sym) const
     {
       return (b.m_start < sym);
     }
-    bool operator() (uint16_t sym, UnicodeBlock const & b) const
+    bool operator() (strings::UniChar sym, UnicodeBlock const & b) const
     {
       return (sym < b.m_start);
     }
@@ -277,7 +276,7 @@ namespace yg
     }
   };
 
-  vector<shared_ptr<Font> > & GlyphCacheImpl::getFonts(uint16_t sym)
+  vector<shared_ptr<Font> > & GlyphCacheImpl::getFonts(strings::UniChar sym)
   {
     if ((m_lastUsedBlock != m_unicodeBlocks.end()) && m_lastUsedBlock->hasSymbol(sym))
      return m_lastUsedBlock->m_fonts;

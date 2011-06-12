@@ -223,7 +223,7 @@ namespace yg
 
       if (fontIt != m_fonts.end())
       {
-        FontInfo::TChars::const_iterator charIt = fontIt->m_chars.find(g.m_id);
+        FontInfo::TChars::const_iterator charIt = fontIt->m_chars.find(g.m_symbolCode);
         if (charIt != fontIt->m_chars.end())
         {
           if (g.m_isMask)

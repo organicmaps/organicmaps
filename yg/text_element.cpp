@@ -1,5 +1,3 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "text_element.hpp"
 #include "screen.hpp"
 #include "skin.hpp"
@@ -9,8 +7,6 @@
 #include "../3party/fribidi/lib/fribidi-deprecated.h"
 
 #include "../base/logging.hpp"
-#include "../base/string_utils.hpp"
-
 
 namespace yg
 {
@@ -53,13 +49,12 @@ namespace yg
     m_depth = depth;
   }
 
-  wstring const TextElement::log2vis(wstring const & str)
+  strings::UniString TextElement::log2vis(strings::UniString const & str)
   {
     size_t const count = str.size();
-    wstring res;
-    res.resize(count);
+    strings::UniString res(count);
     FriBidiParType dir = FRIBIDI_PAR_LTR;  // requested base direction
-    fribidi_log2vis(str.c_str(), count, &dir, &res[0], 0, 0, 0);
+    fribidi_log2vis(&str[0], count, &dir, &res[0], 0, 0, 0);
     return res;
   }
 
@@ -71,15 +66,18 @@ namespace yg
       m_rm(p.m_rm),
       m_skin(p.m_skin)
   {
-    m_visText = m_log2vis ? log2vis(m_logText) : m_logText;
+    if (m_log2vis)
+      m_visText = log2vis(m_logText);
+    else
+      m_visText = m_logText;
   }
 
-  wstring const & TextElement::logText() const
+  strings::UniString const & TextElement::logText() const
   {
     return m_logText;
   }
 
-  wstring const & TextElement::visText() const
+  strings::UniString const & TextElement::visText() const
   {
     return m_visText;
   }

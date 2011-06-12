@@ -1,10 +1,13 @@
 #pragma once
 
+#include "color.hpp"
+
+#include "../base/string_utils.hpp"
+
 #include "../std/shared_ptr.hpp"
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
 #include "../std/utility.hpp"
-#include "color.hpp"
 
 namespace yg
 {
@@ -29,13 +32,14 @@ namespace yg
 
   struct GlyphKey
   {
-    int m_id;
+    strings::UniChar m_symbolCode;
     int m_fontSize;
     bool m_isMask;
     yg::Color m_color;
     /// as it's used for fixed fonts only, the color doesn't matter
+    /// @TODO REMOVE IT!!! All chars are already 32bit
     uint32_t toUInt32() const;
-    GlyphKey(int id, int fontSize, bool isMask, yg::Color const & color);
+    GlyphKey(strings::UniChar symbolCode, int fontSize, bool isMask, yg::Color const & color);
   };
 
   struct Font;

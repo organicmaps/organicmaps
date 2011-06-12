@@ -1,5 +1,3 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "glyph_layout.hpp"
 #include "resource_manager.hpp"
 #include "skin.hpp"
@@ -64,7 +62,7 @@ namespace yg
                            Skin * skin,
                            FontDesc const & fontDesc,
                            m2::PointD const & pt,
-                           wstring const & visText,
+                           strings::UniString const & visText,
                            yg::EPosition pos)
     : m_firstVisible(0),
       m_lastVisible(visText.size())
@@ -171,7 +169,7 @@ namespace yg
                            FontDesc const & fontDesc,
                            m2::PointD const * pts,
                            size_t ptsCount,
-                           wstring const & visText,
+                           strings::UniString const & visText,
                            double fullLength,
                            double pathOffset,
                            yg::EPosition pos)

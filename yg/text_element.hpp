@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../base/string_utils.hpp"
+
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 #include "../geometry/aa_rect2d.hpp"
@@ -60,20 +62,20 @@ namespace yg
 
     /// text-element specific
     FontDesc m_fontDesc;
-    wstring m_logText; //< logical string
-    wstring m_visText; //< visual string, BIDI processed
+    strings::UniString m_logText; //< logical string
+    strings::UniString m_visText; //< visual string, BIDI processed
     bool m_log2vis;
     ResourceManager * m_rm;
     Skin * m_skin;
 
-    wstring const log2vis(wstring const & str);
+    strings::UniString log2vis(strings::UniString const & str);
 
   public:
 
     struct Params : OverlayElement::Params
     {
       FontDesc m_fontDesc;
-      wstring m_logText;
+      strings::UniString m_logText;
       bool m_log2vis;
       ResourceManager * m_rm;
       Skin * m_skin;
@@ -82,8 +84,8 @@ namespace yg
     TextElement(Params const & p);
 
     void drawTextImpl(GlyphLayout const & layout, gl::TextRenderer * screen, FontDesc const & desc, double depth) const;
-    wstring const & logText() const;
-    wstring const & visText() const;
+    strings::UniString const & logText() const;
+    strings::UniString const & visText() const;
     FontDesc const & fontDesc() const;
   };
 

@@ -4,6 +4,7 @@
 #include "ft2_debug.hpp"
 
 #include "../base/memory_mapped_file.hpp"
+#include "../base/string_utils.hpp"
 
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
@@ -39,15 +40,15 @@ namespace yg
     vector<string> m_blacklist;
     /// @}
 
-    uint32_t m_start;
-    uint32_t m_end;
+    strings::UniChar m_start;
+    strings::UniChar m_end;
     /// sorted indices in m_fonts, from the best to the worst
     vector<shared_ptr<Font> > m_fonts;
     /// coverage of each font, in symbols
     vector<int> m_coverage;
 
-    UnicodeBlock(string const & name, uint32_t start, uint32_t end);
-    bool hasSymbol(uint16_t sym) const;
+    UnicodeBlock(string const & name, strings::UniChar start, strings::UniChar end);
+    bool hasSymbol(strings::UniChar sym) const;
   };
 
   struct GlyphCacheImpl
@@ -75,7 +76,7 @@ namespace yg
     void initBlocks(string const & fileName);
     void initFonts(string const & whiteListFile, string const & blackListFile);
 
-    vector<shared_ptr<Font> > & getFonts(uint16_t sym);
+    vector<shared_ptr<Font> > & getFonts(strings::UniChar sym);
     void addFont(char const * fileName);
     void addFonts(vector<string> const & fontNames);
 

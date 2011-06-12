@@ -1,5 +1,3 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "glyph_cache.hpp"
 #include "glyph_cache_impl.hpp"
 #include "data_formats.hpp"
@@ -21,21 +19,21 @@ namespace gil = boost::gil;
 
 namespace yg
 {
-  GlyphKey::GlyphKey(int id, int fontSize, bool isMask, yg::Color const & color)
-    : m_id(id), m_fontSize(fontSize), m_isMask(isMask), m_color(color)
+  GlyphKey::GlyphKey(strings::UniChar symbolCode, int fontSize, bool isMask, yg::Color const & color)
+    : m_symbolCode(symbolCode), m_fontSize(fontSize), m_isMask(isMask), m_color(color)
   {}
 
   uint32_t GlyphKey::toUInt32() const
   {
-    return static_cast<uint32_t>(m_id) << 16
+    return static_cast<uint32_t>(m_symbolCode) << 16
          | static_cast<uint32_t>(m_fontSize) << 8
          | static_cast<uint32_t>(m_isMask);
   }
 
   bool operator<(GlyphKey const & l, GlyphKey const & r)
   {
-    if (l.m_id != r.m_id)
-      return l.m_id < r.m_id;
+    if (l.m_symbolCode != r.m_symbolCode)
+      return l.m_symbolCode < r.m_symbolCode;
     if (l.m_fontSize != r.m_fontSize)
       return l.m_fontSize < r.m_fontSize;
     if (l.m_isMask != r.m_isMask)
@@ -63,7 +61,7 @@ namespace yg
 
   pair<Font*, int> GlyphCache::getCharIDX(GlyphKey const & key)
   {
-    vector<shared_ptr<Font> > & fonts = m_impl->getFonts(key.m_id);
+    vector<shared_ptr<Font> > & fonts = m_impl->getFonts(key.m_symbolCode);
 
     Font * font = 0;
 
@@ -78,7 +76,7 @@ namespace yg
           m_impl->m_charMapCache,
           faceID,
           -1,
-          key.m_id
+          key.m_symbolCode
           );
       if (charIDX != 0)
         return make_pair(font, charIDX);
@@ -88,9 +86,9 @@ namespace yg
 
     for (size_t i = 0; i < m_impl->m_unicodeBlocks.size(); ++i)
     {
-      if (m_impl->m_unicodeBlocks[i].hasSymbol(key.m_id))
+      if (m_impl->m_unicodeBlocks[i].hasSymbol(key.m_symbolCode))
       {
-        LOG(LINFO, ("symbol not found, id=", key.m_id, ", unicodeBlock=", m_impl->m_unicodeBlocks[i].m_name));
+        LOG(LINFO, ("Symbol", key.m_symbolCode, "not found, unicodeBlock=", m_impl->m_unicodeBlocks[i].m_name));
         break;
       }
     }
@@ -240,7 +238,7 @@ namespace yg
 
   double GlyphCache::getTextLength(double fontSize, string const & text)
   {
-    wstring s = strings::FromUtf8(text);
+    strings::UniString const s = strings::MakeUniString(text);
     double len = 0;
     for (unsigned i = 0; i < s.size(); ++i)
     {

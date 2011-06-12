@@ -218,7 +218,7 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
   params.m_position = yg::EPosAboveLeft;
   params.m_rm = drawer->screen()->resourceManager().get();
   params.m_skin = drawer->screen()->skin().get();
-  params.m_logText = strings::FromUtf8(out.str());
+  params.m_logText = strings::MakeUniString(out.str());
 
   yg::StraightTextElement ste(params);
 
@@ -387,7 +387,7 @@ void InformationDisplay::drawLog(DrawerYG * drawer)
     params.m_position = yg::EPosAboveRight;
     params.m_rm = drawer->screen()->resourceManager().get();
     params.m_skin = drawer->screen()->skin().get();
-    params.m_logText = strings::FromUtf8(*it);
+    params.m_logText = strings::MakeUniString(*it);
 
     yg::StraightTextElement ste(params);
 
