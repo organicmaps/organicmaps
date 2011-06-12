@@ -187,8 +187,8 @@ void Navigator::DoDrag(m2::PointD const & pt, double /*timeInSec*/)
   ScreenBase tmp = m_StartScreen;
   tmp = ShrinkInto(tmp, m_worldRect);
 
-  int dx = pt.x - m_StartPt1.x;
-  int dy = pt.y - m_StartPt1.y;
+  double dx = pt.x - m_StartPt1.x;
+  double dy = pt.y - m_StartPt1.y;
 
   tmp.Move(dx, 0);
   if (!CheckBorders(tmp))
