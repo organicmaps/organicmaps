@@ -23,6 +23,7 @@ SOURCES += \
     lower_case.cpp \
     normalize_unicode.cpp \
     runner.cpp \
+    timer.cpp \
 
 HEADERS += \
     SRC_FIRST.hpp \
