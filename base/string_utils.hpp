@@ -24,10 +24,10 @@ void MakeLowerCase(string & s);
 string MakeLowerCase(string const & s);
 bool EqualNoCase(string const & s1, string const & s2);
 
-inline UniString MakeUniString(string const & s)
+inline UniString MakeUniString(string const & utf8s)
 {
   UniString result;
-  utf8::unchecked::utf8to32(s.begin(), s.end(), back_inserter(result));
+  utf8::unchecked::utf8to32(utf8s.begin(), utf8s.end(), back_inserter(result));
   return result;
 }
 
@@ -160,17 +160,23 @@ inline bool to_uint64(string const & s, uint64_t & i) { return to_uint64(s.c_str
 inline bool to_int64(string const & s, int64_t & i) { return to_int64(s.c_str(), i); }
 inline bool to_double(string const & s, double & d) { return to_double(s.c_str(), d); }
 
-inline string ToUtf8(wstring const & wstr)
-{
-  string result;
-  utf8::unchecked::utf16to8(wstr.begin(), wstr.end(), back_inserter(result));
-  return result;
-}
-
+/// @TODO Remove, it's temporary workaround until YG is not refactored
+/// @deprecated
 inline wstring FromUtf8(string const & str)
 {
   wstring result;
   utf8::unchecked::utf8to16(str.begin(), str.end(), back_inserter(result));
+  return result;
+}
+
+/// @TODO Remove, it's temporary workaround until YG is not refactored
+/// @deprecated
+inline wstring UniStringToUtf16(UniString const & str)
+{
+  string utf8tmp;
+  utf8::unchecked::utf32to8(str.begin(), str.end(), back_inserter(utf8tmp));
+  wstring result;
+  utf8::unchecked::utf8to16(utf8tmp.begin(), utf8tmp.end(), back_inserter(result));
   return result;
 }
 

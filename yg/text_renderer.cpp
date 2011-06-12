@@ -15,10 +15,12 @@
 #include "../base/logging.hpp"
 #include "../base/stl_add.hpp"
 
+
 namespace yg
 {
   namespace gl
   {
+
     TextRenderer::Params::Params()
       : m_textTreeAutoClean(true),
       m_useTextTree(false),
@@ -73,8 +75,8 @@ namespace yg
 
 /*    string const & TextRenderer::TextObj::Text() const
     {
-      return m_elem.utf8Text();
-    }*/
+      return m_utf8Text;
+    }
 
     void TextRenderer::TextObj::Offset(m2::PointD const & offs)
     {
@@ -133,7 +135,6 @@ namespace yg
       {
         m_needTextRedraw = false;
         m_tree.ForEach(bind(&TextObj::Draw, _1, this));
-
         /// flushing only texts
         base_t::flush(skin()->currentTextPage());
       }
