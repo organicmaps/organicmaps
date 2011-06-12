@@ -30,6 +30,9 @@ InformationDisplay::InformationDisplay()
 
   for (int i = 0; i < sizeof(m_DebugPts) / sizeof(m2::PointD); ++i)
     m_DebugPts[i] = m2::PointD(0, 0);
+
+  m_fontDesc = yg::FontDesc(false, 12);
+  m_emptyMessageFont = yg::FontDesc(false, 14);
 }
 
 void InformationDisplay::setScreen(ScreenBase const & screen)
@@ -163,10 +166,8 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
       pDrawer->screen()->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 255), 2, 0, 0, 0)),
       yg::maxDepth);
 
-  yg::FontDesc fontDesc = yg::FontDesc::defaultFont;
-
 //  m2::RectD textRect = pDrawer->screen()->textRect(fontDesc, scalerText.c_str(), false);
-  pDrawer->screen()->drawText(fontDesc,
+  pDrawer->screen()->drawText(m_fontDesc,
                               scalerPts[1] + m2::PointD(7, -7),
                               yg::EPosAboveRight,
                               0,
@@ -190,6 +191,9 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
 void InformationDisplay::setVisualScale(double visualScale)
 {
   m_visualScale = visualScale;
+
+  m_fontDesc.m_size = 12 * visualScale;
+  m_emptyMessageFont.m_size = 14 * visualScale;
 }
 
 void InformationDisplay::enableCenter(bool doEnable)
@@ -211,7 +215,7 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
 
   yg::StraightTextElement::Params params;
   params.m_depth = yg::maxDepth;
-  params.m_fontDesc = yg::FontDesc::defaultFont;
+  params.m_fontDesc = m_fontDesc;
   params.m_log2vis = false;
   params.m_pivot = m2::PointD(m_displayRect.maxX() - 10 * m_visualScale,
                               m_displayRect.maxY() - (m_bottomShift + 10) * m_visualScale - 5);
@@ -229,7 +233,7 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
         yg::Color(187, 187, 187, 128),
         yg::maxDepth - 1);
 
-  ste.draw(drawer->screen().get());
+  ste.draw(drawer->screen().get(), math::Identity<double, 3>());
 }
 
 void InformationDisplay::enableGlobalRect(bool doEnable)
@@ -248,7 +252,7 @@ void InformationDisplay::drawGlobalRect(DrawerYG *pDrawer)
   ostringstream out;
   out << "(" << m_globalRect.minX() << ", " << m_globalRect.minY() << ", " << m_globalRect.maxX() << ", " << m_globalRect.maxY() << ") Scale : " << m_currentScale;
   pDrawer->screen()->drawText(
-        yg::FontDesc::defaultFont,
+        m_fontDesc,
         m2::PointD(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset),
         yg::EPosAboveRight,
         0,
@@ -281,7 +285,7 @@ void InformationDisplay::drawDebugInfo(DrawerYG * drawer)
 
   m2::PointD pos = m2::PointD(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset);
 
-  drawer->screen()->drawText(yg::FontDesc::defaultFont,
+  drawer->screen()->drawText(m_fontDesc,
                              pos,
                              yg::EPosAboveRight,
                              0,
@@ -309,7 +313,7 @@ void InformationDisplay::drawMemoryWarning(DrawerYG * drawer)
   ostringstream out;
   out << "MemoryWarning : " << m_lastMemoryWarning.ElapsedSeconds() << " sec. ago.";
 
-  drawer->screen()->drawText(yg::FontDesc::defaultFont,
+  drawer->screen()->drawText(m_fontDesc,
                              pos,
                              yg::EPosAboveRight,
                              0,
@@ -381,7 +385,7 @@ void InformationDisplay::drawLog(DrawerYG * drawer)
 
     yg::StraightTextElement::Params params;
     params.m_depth = yg::maxDepth;
-    params.m_fontDesc = yg::FontDesc::defaultFont;
+    params.m_fontDesc = m_fontDesc;
     params.m_log2vis = false;
     params.m_pivot = startPt;
     params.m_position = yg::EPosAboveRight;
@@ -397,7 +401,7 @@ void InformationDisplay::drawLog(DrawerYG * drawer)
         yg::maxDepth - 1
         );
 
-    ste.draw(drawer->screen().get());
+    ste.draw(drawer->screen().get(), math::Identity<double, 3>());
   }
 }
 
@@ -420,7 +424,7 @@ void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
 
   yg::StraightTextElement::Params params;
   params.m_depth = yg::maxDepth;
-  params.m_fontDesc = yg::FontDesc::defaultFont;
+  params.m_fontDesc = m_emptyMessageFont;
   params.m_log2vis = false;
   params.m_pivot = pt;
   params.m_position = yg::EPosCenter;
@@ -432,28 +436,28 @@ void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
   yg::StraightTextElement ste0(params);
   ste0.offset(m2::PointD(0, -ste0.boundRect().GetGlobalRect().SizeY() - 5));
 
-  ste0.draw(pDrawer->screen().get());
+  ste0.draw(pDrawer->screen().get(), math::Identity<double, 3>());
 
   params.m_pivot = pt;
   params.m_logText = strings::FromUtf8(s1);
   params.m_utf8Text = s1;
   yg::StraightTextElement ste1(params);
 
-  ste1.draw(pDrawer->screen().get());
+  ste1.draw(pDrawer->screen().get(), math::Identity<double, 3>());
 
   params.m_pivot.y += ste1.boundRect().GetGlobalRect().SizeY() + 5;
   params.m_logText = strings::FromUtf8(s2);
   params.m_utf8Text = s2;
   yg::StraightTextElement ste2(params);
 
-  ste2.draw(pDrawer->screen().get());
+  ste2.draw(pDrawer->screen().get(), math::Identity<double, 3>());
 
   params.m_pivot.y += ste2.boundRect().GetGlobalRect().SizeY() + 5;
   params.m_logText = strings::FromUtf8(s3);
   params.m_utf8Text = s3;
   yg::StraightTextElement ste3(params);
 
-  ste3.draw(pDrawer->screen().get());
+  ste3.draw(pDrawer->screen().get(), math::Identity<double, 3>());
 }
 #endif
 
@@ -490,7 +494,7 @@ void InformationDisplay::drawBenchmarkInfo(DrawerYG * pDrawer)
 {
   m_yOffset += 20;
   m2::PointD pos(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset);
-  pDrawer->screen()->drawText(yg::FontDesc::defaultFont,
+  pDrawer->screen()->drawText(m_fontDesc,
                               pos,
                               yg::EPosAboveRight,
                               0,
@@ -510,7 +514,7 @@ void InformationDisplay::drawBenchmarkInfo(DrawerYG * pDrawer)
                 << "), duration : " << m_benchmarkInfo[i].m_duration;
     m_yOffset += 20;
     pos.y += 20;
-    pDrawer->screen()->drawText(yg::FontDesc::defaultFont,
+    pDrawer->screen()->drawText(m_fontDesc,
                                 pos,
                                 yg::EPosAboveRight,
                                 0,

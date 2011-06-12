@@ -32,7 +32,7 @@ namespace yg
   {
     string m_name;
 
-    /// @{ Font Tuning
+    /// @{ font matching tuning
     /// whitelist has priority over the blacklist in case of duplicates.
     /// this fonts are promoted to the top of the font list for this block.
     vector<string> m_whitelist;
@@ -54,15 +54,15 @@ namespace yg
   struct GlyphCacheImpl
   {
     FT_Library m_lib;
-    FT_Stroker m_stroker;
+    FT_Stroker m_stroker; //< stroker, used to produce stroked glyph outlines
 
-    FTC_Manager m_manager;
+    FTC_Manager m_manager; //< freetype cache manager for all caches
 
-    FTC_ImageCache m_glyphMetricsCache;
-    FTC_ImageCache m_strokedGlyphCache;
-    FTC_ImageCache m_normalGlyphCache;
+    FTC_ImageCache m_glyphMetricsCache; //< glyph metrics cache
+    FTC_ImageCache m_strokedGlyphCache; //< cache of stroked glyph images
+    FTC_ImageCache m_normalGlyphCache; //< cache of normal glyph images
 
-    FTC_CMapCache m_charMapCache;
+    FTC_CMapCache m_charMapCache; //< cache of glyphID -> glyphIdx mapping
 
     typedef vector<UnicodeBlock> unicode_blocks_t;
     unicode_blocks_t m_unicodeBlocks;

@@ -11,6 +11,7 @@
 
 namespace yg
 {
+  /// glyph metrics
   struct GlyphMetrics
   {
     int m_xAdvance;
@@ -21,6 +22,7 @@ namespace yg
     int m_height;
   };
 
+  /// full info about single glyph
   struct GlyphInfo
   {
     GlyphMetrics m_metrics;

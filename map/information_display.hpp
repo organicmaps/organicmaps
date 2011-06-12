@@ -20,6 +20,9 @@ class InformationDisplay
 {
 private:
 
+  yg::FontDesc m_fontDesc;
+  yg::FontDesc m_emptyMessageFont;
+
   ScreenBase m_screen;
   m2::RectI m_displayRect;
   int m_yOffset;

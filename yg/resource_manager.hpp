@@ -94,7 +94,7 @@ namespace yg
     size_t textureWidth() const;
     size_t textureHeight() const;
 
-    shared_ptr<GlyphInfo> const getGlyph(GlyphKey const & key);
+    shared_ptr<GlyphInfo> const getGlyphInfo(GlyphKey const & key);
     GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
     GlyphCache * getGlyphCache();
 

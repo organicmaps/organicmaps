@@ -10,7 +10,16 @@
 
 namespace m4
 {
-  template <class T>
+  template <typename T>
+  struct Traits
+  {
+    m2::RectD const LimitRect(T const & t)
+    {
+      return t.GetLimitRect();
+    }
+  };
+
+  template <class T, typename Traits = Traits<T> >
   class Tree
   {
     struct value_t
@@ -139,7 +148,7 @@ namespace m4
     template <class TCompare>
     void ReplaceIf(T const & obj, TCompare comp)
     {
-      ReplaceIf(obj, obj.GetLimitRect(), comp);
+      ReplaceIf(obj, Traits::LimitRect(obj), comp);
     }
 
     template <class ToDo>

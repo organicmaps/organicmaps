@@ -886,7 +886,7 @@ namespace
       yg::StraightTextElement ste(params);
 
       p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
-      ste.draw(p.get());
+      ste.draw(p.get(), math::Identity<double, 3>());
     }
   };
 
@@ -930,7 +930,7 @@ namespace
       yg::PathTextElement pte(params);
 
       p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
-      pte.draw(p.get());
+      pte.draw(p.get(), math::Identity<double, 3>());
     }
   };
 

@@ -10,6 +10,8 @@
 
 namespace yg
 {
+  class InfoLayer;
+
   namespace gl
   {
     class BaseTexture;
@@ -25,6 +27,8 @@ namespace yg
       /// @{
       /// Bitmap
       shared_ptr<BaseTexture> m_actualTarget;
+      /// Information layer
+      shared_ptr<yg::InfoLayer> m_actualInfoLayer;
       /// Screen parameters
       ScreenBase m_actualScreen;
       /// Empty-model flag
@@ -35,6 +39,8 @@ namespace yg
       /// @{
       /// Screen of the rendering operation in progress.
       ScreenBase m_currentScreen;
+      /// information layer
+      shared_ptr<yg::InfoLayer> m_currentInfoLayer;
       /// at least one backBuffer layer
       vector<shared_ptr<BaseTexture> > m_backBufferLayers;
       /// depth buffer used for rendering

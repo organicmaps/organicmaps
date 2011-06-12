@@ -58,7 +58,8 @@ SOURCES += \
     font_desc.cpp \
     glyph_layout.cpp \
     text_element.cpp \
-    text_path.cpp
+    text_path.cpp \
+    info_layer.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -109,7 +110,8 @@ HEADERS += \
     font_desc.hpp \
     glyph_layout.hpp \
     text_element.hpp \
-    text_path.hpp
+    text_path.hpp \
+    info_layer.hpp
 
 win32 {
   HEADERS += internal/opengl_win32.hpp

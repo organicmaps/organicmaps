@@ -64,7 +64,8 @@ namespace yg
       m_logText(p.m_logText),
       m_log2vis(p.m_log2vis),
       m_rm(p.m_rm),
-      m_skin(p.m_skin)
+      m_skin(p.m_skin),
+      m_utf8Text(p.m_utf8Text)
   {
     if (m_log2vis)
       m_visText = log2vis(m_logText);
@@ -82,15 +83,23 @@ namespace yg
     return m_visText;
   }
 
+  string const & TextElement::utf8Text() const
+  {
+    return m_utf8Text;
+  }
+
   FontDesc const & TextElement::fontDesc() const
   {
     return m_fontDesc;
   }
 
-  void TextElement::drawTextImpl(GlyphLayout const & layout, gl::TextRenderer * screen, FontDesc const & fontDesc, double depth) const
+  void TextElement::drawTextImpl(GlyphLayout const & layout, gl::TextRenderer * screen, math::Matrix<double, 3, 3> const & m, FontDesc const & fontDesc, double depth) const
   {
-    if (layout.lastVisible() != visText().size())
+    if ((layout.lastVisible() != visText().size()) && (layout.firstVisible() != 0))
       return;
+
+    m2::PointD pivot = layout.entries()[0].m_pt;
+    m2::PointD offset = pivot * m - pivot;
 
     for (unsigned i = layout.firstVisible(); i < layout.lastVisible(); ++i)
     {
@@ -100,7 +109,7 @@ namespace yg
       uint32_t const glyphID = skin->mapGlyph(glyphKey, fontDesc.m_isStatic);
       CharStyle const * charStyle = static_cast<CharStyle const *>(skin->fromID(glyphID));
 
-      screen->drawGlyph(elem.m_pt, m2::PointD(0.0, 0.0), elem.m_angle, 0, charStyle, depth);
+      screen->drawGlyph(elem.m_pt + offset, m2::PointD(0.0, 0.0), elem.m_angle, 0, charStyle, depth);
     }
   }
 
@@ -120,22 +129,22 @@ namespace yg
     return m2::AARectD(m_glyphLayout.limitRect());
   }
 
-  void StraightTextElement::draw(gl::TextRenderer * screen) const
+  void StraightTextElement::draw(gl::TextRenderer * screen, math::Matrix<double, 3, 3> const & m) const
   {
     yg::FontDesc desc = m_fontDesc;
     if (m_fontDesc.m_isMasked)
     {
-      drawTextImpl(m_glyphLayout, screen, m_fontDesc, yg::maxDepth);
+      drawTextImpl(m_glyphLayout, screen, m, m_fontDesc, yg::maxDepth);
       desc.m_isMasked = false;
     }
 
-    drawTextImpl(m_glyphLayout, screen, desc, yg::maxDepth);
+    drawTextImpl(m_glyphLayout, screen, m, desc, yg::maxDepth);
   }
 
-  void StraightTextElement::draw(gl::Screen * screen) const
+/*  void StraightTextElement::draw(gl::Screen * screen) const
   {
     draw((gl::TextRenderer*)screen);
-  }
+  }*/
 
   void StraightTextElement::offset(m2::PointD const & offs)
   {
@@ -161,22 +170,22 @@ namespace yg
     return m2::Inflate(m_glyphLayout.limitRect(), m2::PointD(40, 2));
   }
 
-  void PathTextElement::draw(gl::TextRenderer * screen) const
+  void PathTextElement::draw(gl::TextRenderer * screen, math::Matrix<double, 3, 3> const & m) const
   {
     yg::FontDesc desc = m_fontDesc;
     if (m_fontDesc.m_isMasked)
     {
-      drawTextImpl(m_glyphLayout, screen, m_fontDesc, depth());
+      drawTextImpl(m_glyphLayout, screen, m, m_fontDesc, depth());
       desc.m_isMasked = false;
     }
 
-    drawTextImpl(m_glyphLayout, screen, desc, depth());
+    drawTextImpl(m_glyphLayout, screen, m, desc, depth());
   }
 
-  void PathTextElement::draw(gl::Screen * screen) const
+/*  void PathTextElement::draw(gl::Screen * screen) const
   {
     draw((gl::TextRenderer*)screen);
-  }
+  }*/
 
   void PathTextElement::offset(m2::PointD const & offs)
   {

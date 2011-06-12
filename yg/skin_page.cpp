@@ -250,7 +250,7 @@ namespace yg
     if (foundHandle != m_packer.invalidHandle())
       return foundHandle;
 
-    shared_ptr<GlyphInfo> gi = m_resourceManager->getGlyph(g);
+    shared_ptr<GlyphInfo> gi = m_resourceManager->getGlyphInfo(g);
 
     m2::Packer::handle_t handle = m_packer.pack(gi->m_metrics.m_width + 4,
                                                 gi->m_metrics.m_height + 4);
@@ -271,7 +271,7 @@ namespace yg
 
   bool SkinPage::hasRoom(GlyphKey const & gk) const
   {
-    shared_ptr<GlyphInfo> gi = m_resourceManager->getGlyph(gk);
+    shared_ptr<GlyphInfo> gi = m_resourceManager->getGlyphInfo(gk);
     return m_packer.hasRoom(gi->m_metrics.m_width + 4, gi->m_metrics.m_height + 4);
   }
 

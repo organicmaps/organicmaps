@@ -192,6 +192,15 @@ namespace m2
   }
 
   template <typename T>
+  Point<T> const Floor(Point<T> const & pt)
+  {
+    Point<T> res;
+    res.x = floor(pt.x);
+    res.y = floor(pt.y);
+    return res;
+  }
+
+  template <typename T>
   bool IsPointStrictlyInsideTriangle(Point<T> const & p,
                                      Point<T> const & a, Point<T> const & b, Point<T> const & c)
   {

@@ -14,6 +14,7 @@
 #include "../yg/pen_info.hpp"
 #include "../yg/skin.hpp"
 #include "../yg/base_texture.hpp"
+#include "../yg/info_layer.hpp"
 
 #include "../indexer/scales.hpp"
 
@@ -238,9 +239,6 @@ void RenderQueueRoutine::Do()
   params.m_renderState = m_renderState;
   params.m_doPeriodicalUpdate = m_doPeriodicalUpdate;
   params.m_updateInterval = m_updateInterval;
-  params.m_textTreeAutoClean = false;
-  params.m_useTextTree = true;
-  params.m_doPeriodicalTextUpdate = false;
 /*  params.m_isDebugging = true;
   params.m_drawPathes = false;
   params.m_drawAreas = false;
@@ -324,7 +322,8 @@ void RenderQueueRoutine::Do()
           areas.clear();
           areas.push_back(curRect);
           fullRectRepaint = true;
-          m_threadDrawer->screen()->clearTextTree();
+          m_renderState->m_currentInfoLayer->clear();
+          m_renderState->m_actualInfoLayer->clear();
           m_renderState->m_doRepaintAll = false;
         }
         else
@@ -349,12 +348,17 @@ void RenderQueueRoutine::Do()
           if (!redrawTextRect.Intersect(oldRect))
             redrawTextRect = m2::RectD(0, 0, 0, 0);
 
-          m_threadDrawer->screen()->offsetTextTree(
-              m_renderState->m_currentScreen.GtoP(prevScreen.PtoG(m2::PointD(0, 0))),
+          m2::PointD offs(m_renderState->m_currentScreen.GtoP(prevScreen.PtoG(m2::PointD(0, 0))));
+
+          m_renderState->m_currentInfoLayer->offset(
+              offs,
               redrawTextRect);
         }
         else
-          m_threadDrawer->screen()->clearTextTree();
+        {
+          m_renderState->m_currentInfoLayer->clear();
+          m_renderState->m_actualInfoLayer->clear();
+        }
       }
     }
 
@@ -384,7 +388,7 @@ void RenderQueueRoutine::Do()
             m_renderState->m_currentScreen);
       }
 
-      m_threadDrawer->screen()->setNeedTextRedraw(isPanning);
+//      m_threadDrawer->screen()->setNeedTextRedraw(isPanning);
 
       ScreenBase const & frameScreen = m_currentRenderCommand->m_frameScreen;
       m2::RectD glbRect;

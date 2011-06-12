@@ -9,45 +9,14 @@
 
 #include "../std/shared_ptr.hpp"
 
+
 namespace yg
 {
-  class ResourceManager;
   namespace gl
   {
-    class BaseTexture;
-
     class TextRenderer : public ShapeRenderer
     {
-    public:
-
-      class TextObj
-      {
-        StraightTextElement m_elem;
-        mutable bool m_needRedraw;
-        mutable bool m_frozen;
-
-      public:
-
-        TextObj(StraightTextElement const & elem);
-        void Draw(TextRenderer * pTextRenderer) const;
-        m2::RectD const GetLimitRect(TextRenderer * pTextRenderer) const;
-        void SetNeedRedraw(bool needRedraw) const;
-        bool IsNeedRedraw() const;
-        bool IsFrozen() const;
-        void Offset(m2::PointD const & pt);
-        string const & Text() const;
-
-        static bool better_text(TextObj const & r1, TextObj const & r2);
-      };
-
     private:
-
-      m4::Tree<TextObj> m_tree;
-      typedef map<string, list<PathTextElement> > path_text_elements;
-      path_text_elements m_pathTexts;
-
-      void checkTextRedraw();
-      bool m_needTextRedraw;
 
       bool drawPathTextImpl(FontDesc const & fontDesc,
                             m2::PointD const * path,
@@ -67,10 +36,7 @@ namespace yg
                         double depth,
                         bool log2vis);
 
-      bool m_textTreeAutoClean;
-      bool m_useTextTree;
       bool m_drawTexts;
-      bool m_doPeriodicalTextUpdate;
 
     public:
 
@@ -78,10 +44,7 @@ namespace yg
 
       struct Params : base_t::Params
       {
-        bool m_textTreeAutoClean;
-        bool m_useTextTree;
         bool m_drawTexts;
-        bool m_doPeriodicalTextUpdate;
         Params();
       };
 
@@ -112,28 +75,6 @@ namespace yg
                         double pathOffset,
                         yg::EPosition pos,
                         double depth);
-
-
-      void setClipRect(m2::RectI const & rect);
-
-      void endFrame();
-
-      void clearTextTree();
-      /// shift all elements in the tree by the specified offset
-      /// leaving only those elements, which intersect the specified rect
-      /// boosting their priority to the top for them not to be filtered away,
-      /// when the new texts arrive
-      void offsetTextTree(m2::PointD const & offs, m2::RectD const & r);
-
-      void offsetTexts(m2::PointD const & offs, m2::RectD const & r);
-      void offsetPathTexts(m2::PointD const & offs, m2::RectD const & r);
-
-      /// flush texts upon any function call.
-      void setNeedTextRedraw(bool flag);
-
-      void drawPath(m2::PointD const * points, size_t pointsCount, double offset, uint32_t styleID, double depth);
-
-      void updateActualTarget();
     };
   }
 }

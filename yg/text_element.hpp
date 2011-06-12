@@ -2,6 +2,8 @@
 
 #include "../base/string_utils.hpp"
 
+#include "../base/matrix.hpp"
+
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 #include "../geometry/aa_rect2d.hpp"
@@ -44,7 +46,7 @@ namespace yg
 
     virtual void offset(m2::PointD const & offs) = 0;
     virtual m2::AARectD const boundRect() const = 0;
-    virtual void draw(gl::Screen * screen) const = 0;
+//    virtual void draw(gl::Screen * screen) const = 0;
 
     m2::PointD const & pivot() const;
     void setPivot(m2::PointD const & pv);
@@ -75,7 +77,7 @@ namespace yg
     struct Params : OverlayElement::Params
     {
       FontDesc m_fontDesc;
-      strings::UniString m_logText;
+      wstring m_logText;
       bool m_log2vis;
       ResourceManager * m_rm;
       Skin * m_skin;
@@ -103,8 +105,8 @@ namespace yg
     StraightTextElement(Params const & p);
 
     m2::AARectD const boundRect() const;
-    void draw(gl::Screen * screen) const;
-    void draw(gl::TextRenderer * screen) const;
+//    void draw(gl::Screen * screen) const;
+    void draw(gl::TextRenderer * screen, math::Matrix<double, 3, 3> const & m) const;
     void offset(m2::PointD const & offs);
   };
 
@@ -127,8 +129,8 @@ namespace yg
     PathTextElement(Params const & p);
 
     m2::AARectD const boundRect() const;
-    void draw(gl::Screen * screen) const;
-    void draw(gl::TextRenderer * screen) const;
+//    void draw(gl::Screen * screen) const;
+    void draw(gl::TextRenderer * screen, math::Matrix<double, 3, 3> const & m) const;
     void offset(m2::PointD const & offs);
   };
 }

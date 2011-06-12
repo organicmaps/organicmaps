@@ -197,7 +197,7 @@ namespace yg
     }
   }
 
-  shared_ptr<GlyphInfo> const ResourceManager::getGlyph(GlyphKey const & key)
+  shared_ptr<GlyphInfo> const ResourceManager::getGlyphInfo(GlyphKey const & key)
   {
     return m_glyphCache.getGlyph(key);
   }

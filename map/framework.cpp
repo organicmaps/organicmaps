@@ -26,6 +26,7 @@
 #include "../version/version.hpp"
 
 #include "../yg/internal/opengl.hpp"
+#include "../yg/info_layer.hpp"
 
 using namespace feature;
 
@@ -882,6 +883,10 @@ void FrameWork<TModel>::AddRedrawCommandSure()
                                 currentScreen);
 
         m_informationDisplay.doDraw(pDrawer);
+
+        m_renderQueue.renderState().m_actualInfoLayer->draw(
+              pDrawer->screen().get(),
+              m_renderQueue.renderState().m_actualScreen.PtoGMatrix() * currentScreen.GtoPMatrix());
 
         m_locationState.DrawMyPosition(*pDrawer, m_navigator.Screen());
 

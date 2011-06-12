@@ -1,19 +1,14 @@
-#include "defines.hpp"
 #include "text_renderer.hpp"
-#include "resource_manager.hpp"
-#include "skin.hpp"
 #include "render_state.hpp"
-#include "glyph_layout.hpp"
+#include "info_layer.hpp"
 #include "resource_style.hpp"
+#include "resource_manager.hpp"
 
 #include "../geometry/angles.hpp"
 
 #include "../std/bind.hpp"
 
-
 #include "../base/string_utils.hpp"
-#include "../base/logging.hpp"
-#include "../base/stl_add.hpp"
 
 
 namespace yg
@@ -22,77 +17,13 @@ namespace yg
   {
 
     TextRenderer::Params::Params()
-      : m_textTreeAutoClean(true),
-      m_useTextTree(false),
-      m_drawTexts(true),
-      m_doPeriodicalTextUpdate(false)
+      : m_drawTexts(true)
     {}
 
     TextRenderer::TextRenderer(Params const & params)
       : base_t(params),
-      m_needTextRedraw(false),
-      m_textTreeAutoClean(params.m_textTreeAutoClean),
-      m_useTextTree(params.m_useTextTree),
-      m_drawTexts(params.m_drawTexts),
-      m_doPeriodicalTextUpdate(params.m_doPeriodicalTextUpdate)
+        m_drawTexts(params.m_drawTexts)
     {}
-
-    TextRenderer::TextObj::TextObj(StraightTextElement const & elem)
-       : m_elem(elem), m_needRedraw(true), m_frozen(false)
-    {
-    }
-
-    void TextRenderer::TextObj::Draw(TextRenderer * pTextRenderer) const
-    {
-      /// this value is assigned inside offsetTextRect function to the texts which completely
-      /// lies inside the testing rect and therefore should be skipped.
-      if (m_needRedraw)
-      {
-        m_elem.draw(pTextRenderer);
-        m_frozen = true;
-      }
-    }
-
-    m2::RectD const TextRenderer::TextObj::GetLimitRect(TextRenderer* pTextRenderer) const
-    {
-      return m_elem.boundRect().GetGlobalRect();
-    }
-
-    void TextRenderer::TextObj::SetNeedRedraw(bool flag) const
-    {
-      m_needRedraw = flag;
-    }
-
-    bool TextRenderer::TextObj::IsNeedRedraw() const
-    {
-      return m_needRedraw;
-    }
-
-    bool TextRenderer::TextObj::IsFrozen() const
-    {
-      return m_frozen;
-    }
-
-/*    string const & TextRenderer::TextObj::Text() const
-    {
-      return m_utf8Text;
-    }
-*/
-    void TextRenderer::TextObj::Offset(m2::PointD const & offs)
-    {
-      m_elem.offset(offs);
-    }
-
-    bool TextRenderer::TextObj::better_text(TextObj const & r1, TextObj const & r2)
-    {
-      // any text is worse than a frozen one,
-      // because frozen texts shouldn't be popped out by newly arrived texts.
-      if (r2.m_frozen)
-        return false;
-      if (r1.m_elem.fontDesc() != r2.m_elem.fontDesc())
-        return r1.m_elem.fontDesc() > r2.m_elem.fontDesc();
-      return (r1.m_elem.depth() > r2.m_elem.depth());
-    }
 
     void TextRenderer::drawText(FontDesc const & fontDesc,
                                 m2::PointD const & pt,
@@ -117,178 +48,10 @@ namespace yg
 
       StraightTextElement ste(params);
 
-      if (!m_useTextTree || fontDesc.m_isStatic)
-        ste.draw(this);
+      if (!renderState().get() || fontDesc.m_isStatic)
+        ste.draw(this, math::Identity<double, 3>());
       else
-      {
-        checkTextRedraw();
-        TextObj obj(ste);
-        m2::RectD r = obj.GetLimitRect(this);
-        m_tree.ReplaceIf(obj, r, &TextObj::better_text);
-      }
-    }
-
-    void TextRenderer::checkTextRedraw()
-    {
-      ASSERT(m_useTextTree, ());
-      if (m_needTextRedraw)
-      {
-        m_needTextRedraw = false;
-        m_tree.ForEach(bind(&TextObj::Draw, _1, this));
-        /// flushing only texts
-        base_t::flush(skin()->currentTextPage());
-      }
-    }
-
-    void TextRenderer::setClipRect(m2::RectI const & rect)
-    {
-      if (m_useTextTree)
-      {
-        bool needTextRedraw = m_needTextRedraw;
-        checkTextRedraw();
-        base_t::setClipRect(rect);
-        setNeedTextRedraw(needTextRedraw);
-      }
-      else
-        base_t::setClipRect(rect);
-    }
-
-    void TextRenderer::endFrame()
-    {
-      if (m_useTextTree)
-      {
-        m_tree.ForEach(bind(&TextObj::Draw, _1, this));
-
-        unsigned pathTextDrawn = 0;
-        unsigned pathTextGroups = 0;
-        unsigned maxGroup = 0;
-
-        list<string> toErase;
-
-        for (path_text_elements::const_iterator it = m_pathTexts.begin(); it != m_pathTexts.end(); ++it)
-        {
-          list<PathTextElement> const & l = it->second;
-
-          unsigned curGroup = 0;
-
-          for (list<PathTextElement>::const_iterator j = l.begin(); j != l.end(); ++j)
-          {
-            j->draw(this);
-            ++pathTextDrawn;
-          }
-
-          if (l.empty())
-            toErase.push_back(it->first);
-
-          ++pathTextGroups;
-
-          if (maxGroup < l.size())
-            maxGroup = l.size();
-
-        }
-
-        for (list<string>::const_iterator it = toErase.begin(); it != toErase.end(); ++it)
-          m_pathTexts.erase(*it);
-
-        if (m_textTreeAutoClean)
-        {
-          m_tree.Clear();
-          m_pathTexts.clear();
-        }
-
-        m_needTextRedraw = false;
-      }
-      base_t::endFrame();
-    }
-
-    void TextRenderer::clearTextTree()
-    {
-      ASSERT(m_useTextTree, ());
-      m_tree.Clear();
-      m_pathTexts.clear();
-    }
-
-    void TextRenderer::offsetTexts(m2::PointD const & offs, m2::RectD const & rect)
-    {
-      ASSERT(m_useTextTree, ());
-      vector<TextObj> texts;
-      m_tree.ForEach(MakeBackInsertFunctor(texts));
-      m_tree.Clear();
-      for (vector<TextObj>::iterator it = texts.begin(); it != texts.end(); ++it)
-      {
-        it->Offset(offs);
-
-        m2::RectD limitRect = it->GetLimitRect(this);
-
-        /// fully inside shouldn't be rendered
-        if (rect.IsRectInside(limitRect))
-          it->SetNeedRedraw(false);
-        else
-          /// intersecting the borders, should be re-rendered
-          if (rect.IsIntersect(limitRect))
-            it->SetNeedRedraw(true);
-
-        if (limitRect.IsIntersect(rect))
-          m_tree.Add(*it, limitRect);
-      }
-    }
-
-    void TextRenderer::offsetPathTexts(m2::PointD const & offs, m2::RectD const & rect)
-    {
-      ASSERT(m_useTextTree, ());
-
-      m2::AARectD aaRect(rect);
-
-      path_text_elements newPathTexts;
-
-      for (path_text_elements::iterator i = m_pathTexts.begin(); i != m_pathTexts.end(); ++i)
-      {
-        list<PathTextElement> & l = i->second;
-        list<PathTextElement>::iterator it = l.begin();
-        bool isEmpty = true;
-        while (it != l.end())
-        {
-          it->offset(offs);
-          m2::AARectD const & r = it->boundRect();
-          if (!aaRect.IsIntersect(r) && !aaRect.IsRectInside(r))
-          {
-            list<PathTextElement>::iterator tempIt = it;
-            ++tempIt;
-            l.erase(it);
-            it = tempIt;
-          }
-          else
-          {
-            isEmpty = false;
-            ++it;
-          }
-        }
-
-        if (!isEmpty)
-          newPathTexts[i->first] = l;
-      }
-
-      /// to clear an empty elements from the map.
-      m_pathTexts = newPathTexts;
-    }
-
-    void TextRenderer::offsetTextTree(m2::PointD const & offs, m2::RectD const & rect)
-    {
-      offsetTexts(offs, rect);
-      offsetPathTexts(offs, rect);
-    }
-
-    void TextRenderer::setNeedTextRedraw(bool flag)
-    {
-      ASSERT(m_useTextTree, ());
-      m_needTextRedraw = flag;
-    }
-
-    void TextRenderer::updateActualTarget()
-    {
-      if (m_useTextTree)
-        setNeedTextRedraw(m_doPeriodicalTextUpdate);
-      base_t::updateActualTarget();
+        renderState()->m_currentInfoLayer->addStraightText(ste);
     }
 
     bool TextRenderer::drawPathText(
@@ -305,7 +68,7 @@ namespace yg
       params.m_fullLength = fullLength;
       params.m_pathOffset = pathOffset;
       params.m_fontDesc = fontDesc;
-      params.m_logText = strings::MakeUniString(utf8Text);
+      params.m_logText = strings::FromUtf8(utf8Text);
       params.m_depth = depth;
       params.m_log2vis = true;
       params.m_rm = resourceManager().get();
@@ -315,26 +78,10 @@ namespace yg
 
       PathTextElement pte(params);
 
-      if (!m_useTextTree || fontDesc.m_isStatic)
-         pte.draw(this);
+      if (!renderState().get() || fontDesc.m_isStatic)
+        pte.draw(this, math::Identity<double, 3>());
       else
-      {
-        checkTextRedraw();
-
-        list<PathTextElement> & l = m_pathTexts[utf8Text];
-
-        bool doAppend = true;
-
-        for (list<PathTextElement>::const_iterator it = l.begin(); it != l.end(); ++it)
-          if (it->boundRect().IsIntersect(pte.boundRect()))
-          {
-            doAppend = false;
-            break;
-          }
-
-        if (doAppend)
-          l.push_back(pte);
-      }
+        renderState()->m_currentInfoLayer->addPathText(pte);
 
       return true;
     }
@@ -354,13 +101,6 @@ namespace yg
                           x0, y0, x1, y1,
                           depth,
                           p->m_pageID);
-    }
-
-    void TextRenderer::drawPath(m2::PointD const * points, size_t pointsCount, double offset, uint32_t styleID, double depth)
-    {
-      if (m_useTextTree)
-        checkTextRedraw();
-      base_t::drawPath(points, pointsCount, offset, styleID, depth);
     }
   }
 }
