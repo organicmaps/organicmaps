@@ -4,7 +4,7 @@ BASE_SDK_VERSION=4.3
 DEV_ROOT="/Developer/Platforms/iPhoneOS.platform/Developer"
 SDK_ROOT="$DEV_ROOT/SDKs/iPhoneOS${BASE_SDK_VERSION}.sdk"
 # minimum supported iphone os version at runtime
-IOS_VERSION=3.1
+IOS_VERSION=4.0
 
 export LANG=en_US.US-ASCII
 export PATH=$DEV_ROOT/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin
