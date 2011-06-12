@@ -20,7 +20,7 @@ namespace qt
 {
 
 SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
-  : QWidget(parent), m_pDrawWidget(drawWidget), m_queryId(0), m_busyIcon(":/ui/busy.png")
+  : QWidget(parent), m_pDrawWidget(drawWidget), m_busyIcon(":/ui/busy.png"), m_queryId(0)
 {
   m_pEditor = new QLineEdit(this);
   connect(m_pEditor, SIGNAL(textChanged(QString const &)), this, SLOT(OnSearchTextChanged(QString const &)));
