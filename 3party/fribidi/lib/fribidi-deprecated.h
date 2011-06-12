@@ -197,7 +197,7 @@ fribidi_remove_bidi_marks (
  */
      FRIBIDI_ENTRY FriBidiLevel fribidi_log2vis (
   const FriBidiChar *str,	/* input logical string */
-  const FriBidiStrIndex len,	/* input string length */
+  FriBidiStrIndex len,	/* input string length */
   FriBidiParType *pbase_dir,	/* requested and resolved paragraph
 				 * base direction */
   FriBidiChar *visual_str,	/* output visual string */

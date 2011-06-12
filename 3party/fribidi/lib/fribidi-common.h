@@ -52,13 +52,14 @@
 #endif /* !FRIBIDI_NAMESPACE */
 
 /* FRIBIDI_ENTRY is a macro used to declare library entry points. */
-#ifndef FRIBIDI_ENTRY
-# if (defined(WIN32)) || (defined(_WIN32_WCE))
-#  define FRIBIDI_ENTRY __declspec(dllimport)
-# else /* !WIN32 */
-#  define FRIBIDI_ENTRY		/* empty */
-# endif	/* !WIN32 */
-#endif /* !FRIBIDI_ENTRY */
+#define FRIBIDI_ENTRY		/* empty */
+//#ifndef FRIBIDI_ENTRY
+//# if (defined(WIN32)) || (defined(_WIN32_WCE))
+//#  define FRIBIDI_ENTRY __declspec(dllimport)
+//# else /* !WIN32 */
+//#  define FRIBIDI_ENTRY		/* empty */
+//# endif	/* !WIN32 */
+//#endif /* !FRIBIDI_ENTRY */
 
 #if FRIBIDI_USE_GLIB+0
 # ifndef __FRIBIDI_DOC
