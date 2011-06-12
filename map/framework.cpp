@@ -20,6 +20,7 @@
 
 #include "../std/algorithm.hpp"
 #include "../std/fstream.hpp"
+#include "../std/ctime.hpp"
 
 #include "../version/version.hpp"
 
@@ -526,8 +527,8 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   template <typename TModel>
   void FrameWork<TModel>::InitBenchmark()
   {
-//    m2::RectD wr(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY);
-//    m2::RectD r(wr.Center().x, wr.Center().y + wr.SizeY() / 8, wr.Center().x + wr.SizeX() / 8, wr.Center().y + wr.SizeY() / 4);
+    //m2::RectD wr(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY);
+    //m2::RectD r(wr.Center().x, wr.Center().y + wr.SizeY() / 8, wr.Center().x + wr.SizeX() / 8, wr.Center().y + wr.SizeY() / 4);
 
     ifstream fin(GetPlatform().WritablePathForFile("benchmark.results").c_str());
     while (true)

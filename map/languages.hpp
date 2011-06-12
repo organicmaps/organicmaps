@@ -3,6 +3,7 @@
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
 #include "../std/utility.hpp"
+#include "../std/stdint.hpp"
 
 namespace languages
 {

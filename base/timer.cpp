@@ -2,6 +2,7 @@
 
 #include "../std/target_os.hpp"
 #include "../std/time.hpp"
+#include "../std/stdint.hpp"
 
 namespace my
 {
