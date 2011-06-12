@@ -51,6 +51,8 @@ namespace yg
         GLenum target = GL_RENDERBUFFER_OES;
         GLenum internalFormat = m_isDepthBuffer ? GL_DEPTH_COMPONENT16_OES : GL_RGBA8_OES;
 
+        /// @TODO: fix for android
+#ifndef OMIM_OS_ANDROID
         if (m_isMultiSampled)
           OGLCHECK(glRenderbufferStorageMultisampleAPPLE(target,
                                                          2,
@@ -58,6 +60,7 @@ namespace yg
                                                          width,
                                                          height));
         else
+#endif
           OGLCHECK(glRenderbufferStorageOES(GL_RENDERBUFFER_OES,
                                             m_isDepthBuffer ? GL_DEPTH_COMPONENT16_OES : GL_RGBA8_OES,
                                             width,

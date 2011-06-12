@@ -91,11 +91,13 @@ namespace yg
       {
 #ifdef OMIM_GL_ES
 
+        /// @TODO: fix for android
+#ifndef OMIM_OS_ANDROID
         OGLCHECK(glBindFramebufferOES(GL_READ_FRAMEBUFFER_APPLE, m_multiSampledFrameBuffer->id()));
         OGLCHECK(glBindFramebufferOES(GL_DRAW_FRAMEBUFFER_APPLE, m_frameBuffer->id()));
         OGLCHECK(glResolveMultisampleFramebufferAPPLE());
         OGLCHECK(glBindFramebufferOES(GL_DRAW_FRAMEBUFFER_APPLE, m_multiSampledFrameBuffer->id()));
-
+#endif
 
 #else
         OGLCHECK(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_multiSampledFrameBuffer->id()));
