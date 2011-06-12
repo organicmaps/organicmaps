@@ -15,18 +15,17 @@ namespace yg
 
 class WindowHandle
 {
-private:
-
+  // iOS realization needs this parameter.
+  // Desktop realization holds DrawerYG in draw_widget.hpp.
   shared_ptr<DrawerYG> m_drawer;
+
   shared_ptr<yg::gl::RenderContext> m_renderContext;
 
   bool m_hasPendingUpdates;
   bool m_isUpdatesEnabled;
 
 public:
-
-  WindowHandle() : m_hasPendingUpdates(false), m_isUpdatesEnabled(true)
-  {}
+  WindowHandle() : m_hasPendingUpdates(false), m_isUpdatesEnabled(true) {}
 
   shared_ptr<DrawerYG> const & drawer()
   {

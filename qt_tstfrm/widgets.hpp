@@ -31,14 +31,11 @@ namespace qt
   template <class T> class GLDrawWidgetT : public BaseDrawWidget<T, QGLWidget>
   {
     typedef BaseDrawWidget<T, QGLWidget> base_type;
-  protected:
 
+  protected:
     shared_ptr<T> m_p;
 
   public:
-
-    shared_ptr<T> GetDrawer() {return m_p;}
-
     GLDrawWidgetT(QWidget * pParent) : base_type(pParent){}
     virtual ~GLDrawWidgetT();
 

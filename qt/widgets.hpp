@@ -19,17 +19,13 @@ namespace qt
   /// Widget uses yg for drawing.
   class GLDrawWidget : public GLDrawWidgetT<DrawerYG>
   {
-  private:
-
     typedef GLDrawWidgetT<DrawerYG> base_type;
     shared_ptr<yg::gl::RenderContext> m_renderContext;
 
   protected:
-
     shared_ptr<yg::ResourceManager> m_resourceManager;
 
   public:
-
     typedef DrawerYG drawer_t;
 
     GLDrawWidget(QWidget * pParent);
