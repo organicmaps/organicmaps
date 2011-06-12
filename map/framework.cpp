@@ -787,7 +787,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
                  int scaleLevel
                  )
   {
-    fwork::DrawProcessor doDraw(selectRect, screen, e, scaleLevel, m_renderQueue.renderStatePtr(), m_resourceManager->getGlyphCache());
+    fwork::DrawProcessor doDraw(selectRect, screen, e, scaleLevel, m_renderQueue.renderStatePtr(), e->drawer()->screen()->glyphCache());
     m_renderQueue.renderStatePtr()->m_isEmptyModelCurrent = true;
 
     try

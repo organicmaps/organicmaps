@@ -203,40 +203,8 @@ namespace yg
       return it->second;
   }
 
-  uint32_t SkinPage::findGlyph(GlyphKey const & g, bool isFixedFont) const
+  uint32_t SkinPage::findGlyph(GlyphKey const & g) const
   {
-    if (isFixedFont)
-    {
-      TStyles::const_iterator styleIt = m_styles.find(g.toUInt32());
-      if (styleIt != m_styles.end())
-        return g.toUInt32();
-      TFonts::const_iterator fontIt = m_fonts.begin();
-      int lastFontSize = 0;
-      if (!m_fonts.empty())
-        lastFontSize = m_fonts[0].m_fontSize;
-
-      for (TFonts::const_iterator it = m_fonts.begin(); it != m_fonts.end(); ++it)
-        if ((lastFontSize < g.m_fontSize) && (g.m_fontSize >= it->m_fontSize))
-          fontIt = it;
-        else
-          lastFontSize = it->m_fontSize;
-
-      if (fontIt != m_fonts.end())
-      {
-        FontInfo::TChars::const_iterator charIt = fontIt->m_chars.find(g.m_symbolCode);
-        if (charIt != fontIt->m_chars.end())
-        {
-          if (g.m_isMask)
-            const_cast<TStyles&>(m_styles)[g.toUInt32()] = charIt->second.second;
-          else
-            const_cast<TStyles&>(m_styles)[g.toUInt32()]= charIt->second.first;
-          return g.toUInt32();
-        }
-      }
-
-      return m_packer.invalidHandle();
-    }
-
     TGlyphMap::const_iterator it = m_glyphMap.find(g);
     if (it == m_glyphMap.end())
       return m_packer.invalidHandle();
@@ -244,13 +212,13 @@ namespace yg
       return it->second;
   }
 
-  uint32_t SkinPage::mapGlyph(yg::GlyphKey const & g)
+  uint32_t SkinPage::mapGlyph(yg::GlyphKey const & g, yg::GlyphCache * glyphCache)
   {
-    uint32_t foundHandle = findGlyph(g, false);
+    uint32_t foundHandle = findGlyph(g);
     if (foundHandle != m_packer.invalidHandle())
       return foundHandle;
 
-    shared_ptr<GlyphInfo> gi = m_resourceManager->getGlyphInfo(g);
+    shared_ptr<GlyphInfo> gi = glyphCache->getGlyphInfo(g);
 
     m2::Packer::handle_t handle = m_packer.pack(gi->m_metrics.m_width + 4,
                                                 gi->m_metrics.m_height + 4);
@@ -269,9 +237,9 @@ namespace yg
     return m_glyphMap[g];
   }
 
-  bool SkinPage::hasRoom(GlyphKey const & gk) const
+  bool SkinPage::hasRoom(GlyphKey const & gk, GlyphCache * glyphCache) const
   {
-    shared_ptr<GlyphInfo> gi = m_resourceManager->getGlyphInfo(gk);
+    shared_ptr<GlyphInfo> gi = glyphCache->getGlyphInfo(gk);
     return m_packer.hasRoom(gi->m_metrics.m_width + 4, gi->m_metrics.m_height + 4);
   }
 

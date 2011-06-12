@@ -246,7 +246,7 @@ void DrawerYG::drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_
 
 //  bool isMasked = pRule->GetColor() != -1;
   bool isMasked = true;
-  yg::FontDesc fontDesc(false, get_text_font_size(pRule), textColor, isMasked, yg::Color(255, 255, 255, 255));
+  yg::FontDesc fontDesc(get_text_font_size(pRule), textColor, isMasked, yg::Color(255, 255, 255, 255));
   fontDesc.SetRank(pInfo->m_rank);
 
   if (!filter_text_size(pRule))
@@ -264,7 +264,7 @@ bool DrawerYG::drawPathText(di::PathInfo const & info, string const & name, uint
 {
 //  bool const isMasked = (double(fontSize) / m_visualScale >= min_text_height);
 
-  yg::FontDesc fontDesc(false, fontSize);
+  yg::FontDesc fontDesc(fontSize);
 
   return m_pScreen->drawPathText( fontDesc,
                                   &info.m_path[0],
@@ -290,7 +290,6 @@ void DrawerYG::drawPathNumber(di::PathInfo const & path, di::DrawInfo const * pI
       if (path.GetSmPoint(double(j) / double(count), pt))
       {
         yg::FontDesc fontDesc(
-          false,
           textHeight,
           yg::Color(150, 75, 0, 255),   // brown
           true,

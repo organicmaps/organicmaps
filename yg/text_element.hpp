@@ -67,8 +67,7 @@ namespace yg
     strings::UniString m_logText; //< logical string
     strings::UniString m_visText; //< visual string, BIDI processed
     bool m_log2vis;
-    ResourceManager * m_rm;
-    Skin * m_skin;
+    GlyphCache * m_glyphCache;
 
     strings::UniString log2vis(strings::UniString const & str);
 
@@ -79,15 +78,19 @@ namespace yg
       FontDesc m_fontDesc;
       wstring m_logText;
       bool m_log2vis;
-      ResourceManager * m_rm;
-      Skin * m_skin;
+      GlyphCache * m_glyphCache;
     };
 
     TextElement(Params const & p);
 
-    void drawTextImpl(GlyphLayout const & layout, gl::TextRenderer * screen, FontDesc const & desc, double depth) const;
-    strings::UniString const & logText() const;
-    strings::UniString const & visText() const;
+    void drawTextImpl(GlyphLayout const & layout,
+                      gl::TextRenderer * screen,
+                      math::Matrix<double, 3, 3> const & m,
+                      FontDesc const & desc,
+                      double depth) const;
+    wstring const & logText() const;
+    wstring const & visText() const;
+    string const & utf8Text() const;
     FontDesc const & fontDesc() const;
   };
 

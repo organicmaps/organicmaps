@@ -165,9 +165,9 @@ namespace yg
     uint32_t mapCircleInfo(CircleInfo const & circleInfo);
     bool hasRoom(CircleInfo const & circleInfo) const;
 
-    uint32_t findGlyph(GlyphKey const & g, bool isFixedFont) const;
-    uint32_t mapGlyph(GlyphKey const & g);
-    bool hasRoom(GlyphKey const & g) const;
+    uint32_t findGlyph(GlyphKey const & g) const;
+    uint32_t mapGlyph(GlyphKey const & g, GlyphCache * glyphCache);
+    bool hasRoom(GlyphKey const & g, GlyphCache * glyphCache) const;
 
     uint32_t findSymbol(char const * symbolName) const;
 

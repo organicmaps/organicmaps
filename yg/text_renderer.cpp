@@ -17,12 +17,14 @@ namespace yg
   {
 
     TextRenderer::Params::Params()
-      : m_drawTexts(true)
+      : m_drawTexts(true),
+        m_glyphCacheID(0)
     {}
 
     TextRenderer::TextRenderer(Params const & params)
       : base_t(params),
-        m_drawTexts(params.m_drawTexts)
+        m_drawTexts(params.m_drawTexts),
+        m_glyphCacheID(params.m_glyphCacheID)
     {}
 
     void TextRenderer::drawText(FontDesc const & fontDesc,
@@ -42,13 +44,12 @@ namespace yg
       params.m_log2vis = log2vis;
       params.m_pivot = pt;
       params.m_position = pos;
-      params.m_rm = resourceManager().get();
-      params.m_skin = skin().get();
+      params.m_glyphCache = resourceManager()->glyphCache(m_glyphCacheID);
       params.m_logText = strings::MakeUniString(utf8Text);
-
+     
       StraightTextElement ste(params);
 
-      if (!renderState().get() || fontDesc.m_isStatic)
+      if (!renderState().get())
         ste.draw(this, math::Identity<double, 3>());
       else
         renderState()->m_currentInfoLayer->addStraightText(ste);
@@ -71,14 +72,13 @@ namespace yg
       params.m_logText = strings::FromUtf8(utf8Text);
       params.m_depth = depth;
       params.m_log2vis = true;
-      params.m_rm = resourceManager().get();
-      params.m_skin = skin().get();
+      params.m_glyphCache = resourceManager()->glyphCache(m_glyphCacheID);
       params.m_pivot = path[0];
       params.m_position = pos;
 
       PathTextElement pte(params);
 
-      if (!renderState().get() || fontDesc.m_isStatic)
+      if (!renderState().get())
         pte.draw(this, math::Identity<double, 3>());
       else
         renderState()->m_currentInfoLayer->addPathText(pte);
@@ -101,6 +101,11 @@ namespace yg
                           x0, y0, x1, y1,
                           depth,
                           p->m_pageID);
+    }
+
+    GlyphCache * TextRenderer::glyphCache() const
+    {
+      return resourceManager()->glyphCache(m_glyphCacheID);
     }
   }
 }

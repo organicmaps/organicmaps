@@ -45,6 +45,9 @@ namespace yg
     : m_blocksFile(blocksFile), m_whiteListFile(whiteListFile), m_blackListFile(blackListFile), m_maxSize(maxSize)
   {}
 
+  GlyphCache::GlyphCache()
+  {}
+
   GlyphCache::GlyphCache(Params const & params) : m_impl(new GlyphCacheImpl(params))
   {
   }
@@ -153,7 +156,7 @@ namespace yg
     return m;
   }
 
-  shared_ptr<GlyphInfo> const GlyphCache::getGlyph(GlyphKey const & key)
+  shared_ptr<GlyphInfo> const GlyphCache::getGlyphInfo(GlyphKey const & key)
   {
     pair<Font *, int> charIDX = getCharIDX(key);
 

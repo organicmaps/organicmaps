@@ -59,7 +59,7 @@ namespace yg
     gl::Storage const reserveStorageImpl(bool doWait, list<gl::Storage> & l);
     void freeStorageImpl(gl::Storage const & storage, bool doSignal, list<gl::Storage> & l);
 
-    GlyphCache m_glyphCache;
+    vector<GlyphCache> m_glyphCaches;
 
     RtFormat m_format;
 
@@ -96,7 +96,7 @@ namespace yg
 
     shared_ptr<GlyphInfo> const getGlyphInfo(GlyphKey const & key);
     GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
-    GlyphCache * getGlyphCache();
+    GlyphCache * glyphCache(int glyphCacheID = 0);
 
     void addFonts(vector<string> const & fontNames);
 

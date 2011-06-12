@@ -180,24 +180,21 @@ namespace yg
     return true;
   }
 
-  uint32_t Skin::mapGlyph(GlyphKey const & gk, bool isFixedFont)
+  uint32_t Skin::mapGlyph(GlyphKey const & gk, GlyphCache * glyphCache)
   {
     uint32_t res = invalidPageHandle();
 
     for (uint8_t i = 0; i < m_pages.size(); ++i)
     {
-      res = m_pages[i]->findGlyph(gk, isFixedFont);
+      res = m_pages[i]->findGlyph(gk);
       if (res != invalidPageHandle())
         return packID(i, res);
     }
 
-    if (isFixedFont)
-      return res;
-
-    if (!m_pages[m_currentTextPage]->hasRoom(gk))
+    if (!m_pages[m_currentTextPage]->hasRoom(gk, glyphCache))
       changeCurrentTextPage();
 
-    return packID(m_currentTextPage, m_pages[m_currentTextPage]->mapGlyph(gk));
+    return packID(m_currentTextPage, m_pages[m_currentTextPage]->mapGlyph(gk, glyphCache));
   }
 
   Skin::TSkinPages const & Skin::pages() const

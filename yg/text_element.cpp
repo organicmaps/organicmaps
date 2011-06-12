@@ -63,8 +63,7 @@ namespace yg
       m_fontDesc(p.m_fontDesc),
       m_logText(p.m_logText),
       m_log2vis(p.m_log2vis),
-      m_rm(p.m_rm),
-      m_skin(p.m_skin),
+      m_glyphCache(p.m_glyphCache),
       m_utf8Text(p.m_utf8Text)
   {
     if (m_log2vis)
@@ -103,10 +102,10 @@ namespace yg
 
     for (unsigned i = layout.firstVisible(); i < layout.lastVisible(); ++i)
     {
-      shared_ptr<Skin> const & skin = screen->skin();
+      Skin * skin = screen->skin().get();
       GlyphLayoutElem const & elem = layout.entries()[i];
       GlyphKey glyphKey(elem.m_sym, fontDesc.m_size, fontDesc.m_isMasked, fontDesc.m_isMasked ? fontDesc.m_maskColor : fontDesc.m_color);
-      uint32_t const glyphID = skin->mapGlyph(glyphKey, fontDesc.m_isStatic);
+      uint32_t const glyphID = skin->mapGlyph(glyphKey, screen->glyphCache());
       CharStyle const * charStyle = static_cast<CharStyle const *>(skin->fromID(glyphID));
 
       screen->drawGlyph(elem.m_pt + offset, m2::PointD(0.0, 0.0), elem.m_angle, 0, charStyle, depth);
@@ -115,8 +114,7 @@ namespace yg
 
   StraightTextElement::StraightTextElement(Params const & p)
     : TextElement(p),
-      m_glyphLayout(p.m_rm,
-        p.m_skin,
+      m_glyphLayout(p.m_glyphCache,
         p.m_fontDesc,
         p.m_pivot,
         visText(),
@@ -154,7 +152,7 @@ namespace yg
 
   PathTextElement::PathTextElement(Params const & p)
     : TextElement(p),
-      m_glyphLayout(p.m_rm,
+      m_glyphLayout(p.m_glyphCache,
         p.m_fontDesc,
         p.m_pts,
         p.m_ptsCount,

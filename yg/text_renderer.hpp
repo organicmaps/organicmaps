@@ -37,6 +37,7 @@ namespace yg
                         bool log2vis);
 
       bool m_drawTexts;
+      int m_glyphCacheID;
 
     public:
 
@@ -45,6 +46,7 @@ namespace yg
       struct Params : base_t::Params
       {
         bool m_drawTexts;
+        int m_glyphCacheID;
         Params();
       };
 
@@ -75,6 +77,8 @@ namespace yg
                         double pathOffset,
                         yg::EPosition pos,
                         double depth);
+
+      GlyphCache * glyphCache() const;
     };
   }
 }

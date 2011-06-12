@@ -31,8 +31,8 @@ InformationDisplay::InformationDisplay()
   for (int i = 0; i < sizeof(m_DebugPts) / sizeof(m2::PointD); ++i)
     m_DebugPts[i] = m2::PointD(0, 0);
 
-  m_fontDesc = yg::FontDesc(false, 12);
-  m_emptyMessageFont = yg::FontDesc(false, 14);
+  m_fontDesc = yg::FontDesc(12);
+  m_emptyMessageFont = yg::FontDesc(14);
 }
 
 void InformationDisplay::setScreen(ScreenBase const & screen)
@@ -220,8 +220,7 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
   params.m_pivot = m2::PointD(m_displayRect.maxX() - 10 * m_visualScale,
                               m_displayRect.maxY() - (m_bottomShift + 10) * m_visualScale - 5);
   params.m_position = yg::EPosAboveLeft;
-  params.m_rm = drawer->screen()->resourceManager().get();
-  params.m_skin = drawer->screen()->skin().get();
+  params.m_glyphCache = drawer->screen()->glyphCache();
   params.m_logText = strings::MakeUniString(out.str());
 
   yg::StraightTextElement ste(params);
@@ -389,8 +388,7 @@ void InformationDisplay::drawLog(DrawerYG * drawer)
     params.m_log2vis = false;
     params.m_pivot = startPt;
     params.m_position = yg::EPosAboveRight;
-    params.m_rm = drawer->screen()->resourceManager().get();
-    params.m_skin = drawer->screen()->skin().get();
+    params.m_glyphCache = drawer->screen()->glyphCache();
     params.m_logText = strings::MakeUniString(*it);
 
     yg::StraightTextElement ste(params);
@@ -428,8 +426,7 @@ void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
   params.m_log2vis = false;
   params.m_pivot = pt;
   params.m_position = yg::EPosCenter;
-  params.m_rm = pDrawer->screen()->resourceManager().get();
-  params.m_skin = pDrawer->screen()->skin().get();
+  params.m_glyphCache = pDrawer->screen()->glyphCache();
   params.m_logText = strings::FromUtf8(s0);
   params.m_utf8Text = s0;
 

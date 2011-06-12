@@ -239,6 +239,7 @@ void RenderQueueRoutine::Do()
   params.m_renderState = m_renderState;
   params.m_doPeriodicalUpdate = m_doPeriodicalUpdate;
   params.m_updateInterval = m_updateInterval;
+  params.m_glyphCacheID = 1;
 /*  params.m_isDebugging = true;
   params.m_drawPathes = false;
   params.m_drawAreas = false;

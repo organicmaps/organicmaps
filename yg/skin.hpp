@@ -32,6 +32,7 @@ namespace yg
   struct CircleInfo;
   struct Color;
   struct GlyphKey;
+  class GlyphCache;
   struct FontInfo;
 
   class Skin
@@ -126,7 +127,7 @@ namespace yg
     /// find glyph identified by GlyphKey on texture
     /// if found - return id
     /// if not - pack and return id
-    uint32_t mapGlyph(GlyphKey const & gk, bool isFixedFont);
+    uint32_t mapGlyph(GlyphKey const & gk, GlyphCache * glyphCache);
     /// find circleStyle on texture
     /// if found - return id
     /// if not - pack and return id

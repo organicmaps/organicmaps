@@ -31,11 +31,16 @@ namespace yg
                                      m_vbSize(vbSize), m_ibSize(ibSize),
                                      m_smallVBSize(smallVBSize), m_smallIBSize(smallIBSize),
                                      m_blitVBSize(blitVBSize), m_blitIBSize(blitIBSize),
-                                     m_glyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, maxGlyphCacheSize)),
                                      m_format(fmt),
                                      m_useVA(useVA),
                                      m_fillSkinAlpha(fillSkinAlpha)
   {
+
+    /// primary cache is for rendering, so it's big
+    m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, maxGlyphCacheSize)));
+    /// secondary caches is for glyph metrics only, so they are small
+    m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, 500 * 1024)));
+
     if (useVA)
     {
       LOG(LINFO, ("buffer objects are unsupported. using client vertex array instead."));
@@ -197,24 +202,15 @@ namespace yg
     }
   }
 
-  shared_ptr<GlyphInfo> const ResourceManager::getGlyphInfo(GlyphKey const & key)
+  GlyphCache * ResourceManager::glyphCache(int glyphCacheID)
   {
-    return m_glyphCache.getGlyph(key);
-  }
-
-  GlyphMetrics const ResourceManager::getGlyphMetrics(GlyphKey const & key)
-  {
-    return m_glyphCache.getGlyphMetrics(key);
-  }
-
-  GlyphCache * ResourceManager::getGlyphCache()
-  {
-    return &m_glyphCache;
+    return &m_glyphCaches[glyphCacheID];
   }
 
   void ResourceManager::addFonts(vector<string> const & fontNames)
   {
-    m_glyphCache.addFonts(fontNames);
+    for (unsigned i = 0; i < m_glyphCaches.size(); ++i)
+      m_glyphCaches[i].addFonts(fontNames);
   }
 
   void ResourceManager::memoryWarning()

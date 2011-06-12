@@ -598,7 +598,7 @@ namespace
       double pat[2] = {2, 2};
       p->drawPath(path, sizeof(path) / sizeof(m2::PointD), 0, p->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 0xFF), 2, pat, 2, 0)), 0);
 
-      yg::FontDesc fontDesc(false, 20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
+      yg::FontDesc fontDesc(20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
 
       p->drawText(fontDesc, m2::PointD(200, 200), yg::EPosAboveRight, 0                , "0", 0, true);
       p->drawText(fontDesc, m2::PointD(240, 200), yg::EPosAboveRight, math::pi / 2     , "0", 0, true);
@@ -613,7 +613,7 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      yg::FontDesc fontDesc(false, 20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
+      yg::FontDesc fontDesc(20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
       p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, 0, "X", 1, true);
     }
   };
@@ -622,7 +622,7 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      yg::FontDesc fontDesc(false, 20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
+      yg::FontDesc fontDesc(20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
       p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, 0, " ", 1, true);
     }
   };
@@ -634,7 +634,7 @@ namespace
       size_t const maxTimes = 10;
       size_t const yStep = 30;
 
-      yg::FontDesc fontDesc(false, 20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
+      yg::FontDesc fontDesc(20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
 
       for (size_t i = 0; i < maxTimes; ++i)
         for (size_t j = 1; j <= i+1; ++j)
@@ -654,7 +654,7 @@ namespace
       yg::PenInfo penInfo = yg::PenInfo(yg::Color(0, 0, 0, 0xFF), 2, &pat[0], ARRAY_SIZE(pat), 0);
       yg::PenInfo solidPenInfo = yg::PenInfo(yg::Color(0xFF, 0, 0, 0xFF), 4, 0, 0, 0);
 
-      yg::FontDesc fontDesc(false, 20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
+      yg::FontDesc fontDesc(20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
 
       p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, 0, "S", 0, true);
       p->drawPath(&path[0], path.size(), 0, p->skin()->mapPenInfo(solidPenInfo), 0);
@@ -666,16 +666,8 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      yg::FontDesc fontDesc(false, 20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
+      yg::FontDesc fontDesc(20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
       p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, 0/*, math::pi / 18*/, "Simplicity is the ultimate sophistication", 0, true);
-    }
-  };
-
-  struct TestDrawStringWithFixedFont
-  {
-    void DoDraw(shared_ptr<yg::gl::Screen> p)
-    {
-      p->drawText(yg::FontDesc::defaultFont, m2::PointD(40, 50), yg::EPosAboveRight, 0/*, math::pi / 18*/, "Simplicity is the ultimate sophistication", 0, true);
     }
   };
 
@@ -683,7 +675,7 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      yg::FontDesc fontDesc(false, 25, yg::Color(0, 0, 255, 255), true, yg::Color(255, 255, 255, 255));
+      yg::FontDesc fontDesc(25, yg::Color(0, 0, 255, 255), true, yg::Color(255, 255, 255, 255));
       p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, 0/*, math::pi / 18*/, "Simplicity is the ultimate sophistication", 0, true);
     }
   };
@@ -693,7 +685,7 @@ namespace
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      yg::FontDesc fontDesc(false, 12);
+      yg::FontDesc fontDesc(12);
       p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, 0, "Latin Symbol : A", 0, true);
       p->drawText(fontDesc, m2::PointD(40, 80), yg::EPosAboveRight, 0, "Cyrillic Symbol : Ы", 0, true);
     }
@@ -708,36 +700,11 @@ namespace
 
       yg::StraightTextElement::Params params;
       params.m_depth = 0;
-      params.m_fontDesc = yg::FontDesc(false, 20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
+      params.m_fontDesc = yg::FontDesc(20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
       params.m_log2vis = false;
       params.m_pivot = startPt;
       params.m_position = yg::EPosAboveRight;
-      params.m_rm = p->resourceManager().get();
-      params.m_skin = p->skin().get();
-      params.m_logText = strings::MakeUniString("Simplicity is the ultimate sophistication");
-      yg::StraightTextElement ste(params);
-
-      m2::AARectD r = ste.boundRect();
-      p->drawRectangle(r, yg::Color(0, 0, 255, 255), 0);
-
-      base_t::DoDraw(p);
-    }
-  };
-
-  struct TestDrawTextRectWithFixedFont : TestDrawStringWithFixedFont
-  {
-    typedef TestDrawStringWithFixedFont base_t;
-    void DoDraw(shared_ptr<yg::gl::Screen> p)
-    {
-      m2::PointD startPt(40, 50);
-      yg::StraightTextElement::Params params;
-      params.m_depth = 0;
-      params.m_fontDesc = yg::FontDesc::defaultFont;
-      params.m_log2vis = false;
-      params.m_pivot = startPt;
-      params.m_position = yg::EPosAboveRight;
-      params.m_rm = p->resourceManager().get();
-      params.m_skin = p->skin().get();
+      params.m_glyphCache = p->glyphCache();
       params.m_logText = strings::MakeUniString("Simplicity is the ultimate sophistication");
       yg::StraightTextElement ste(params);
 
@@ -778,7 +745,7 @@ namespace
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
       p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 1);
-      yg::FontDesc fontDesc(false, 30);
+      yg::FontDesc fontDesc(30);
 
       p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, calc_length(m_path), 0.0, yg::EPosLeft, 0);
     }
@@ -825,7 +792,7 @@ namespace
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
       p->drawPath(&m_testPoints[0], m_testPoints.size(), 0, p->skin()->mapPenInfo(yg::PenInfo(yg::Color(255, 255, 255, 255), 2, 0, 0, 0)), 0);
-      yg::FontDesc fontDesc(false, 20, yg::Color(0, 0, 0, 255), false);
+      yg::FontDesc fontDesc(20, yg::Color(0, 0, 0, 255), false);
       //m_text = "Simplicity is the ultimate sophistication. Leonardo Da Vinci.";
       m_text = "Vinci";
       p->drawPathText(fontDesc, &m_testPoints[0], m_testPoints.size(), m_text.c_str(), calc_length(m_testPoints), m_pathOffset, yg::EPosLeft, 1);
@@ -854,7 +821,7 @@ namespace
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
       p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
-      yg::FontDesc fontDesc(false, 20);
+      yg::FontDesc fontDesc(20);
       p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, calc_length(m_path), 0.0, yg::EPosCenter, 0);
     }
   };
@@ -874,12 +841,11 @@ namespace
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
       yg::StraightTextElement::Params params;
-      params.m_fontDesc = yg::FontDesc(false, 20);
+      params.m_fontDesc = yg::FontDesc(20);
       params.m_logText = strings::MakeUniString("Simplicity is the ultimate sophistication. Leonardo Da Vinci.");
       params.m_depth = 10;
       params.m_log2vis = false;
-      params.m_rm = p->resourceManager().get();
-      params.m_skin = p->skin().get();
+      params.m_glyphCache = p->glyphCache();
       params.m_pivot = m_path[0];
       params.m_position = yg::EPosRight;
 
@@ -918,12 +884,11 @@ namespace
       params.m_ptsCount = m_path.size();
       params.m_fullLength = calc_length(m_path);
       params.m_pathOffset = 0;
-      params.m_fontDesc = yg::FontDesc(false, 20);
+      params.m_fontDesc = yg::FontDesc(20);
       params.m_logText = strings::MakeUniString("Simplicity is the ultimate sophistication. Leonardo Da Vinci.");
       params.m_depth = 10;
       params.m_log2vis = false;
-      params.m_rm = p->resourceManager().get();
-      params.m_skin = p->skin().get();
+      params.m_glyphCache = p->glyphCache();
       params.m_pivot = m_path[0];
       params.m_position = yg::EPosCenter;
 
@@ -961,7 +926,7 @@ namespace
     {
       p->drawPath(&m_path[0], m_path.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
 //      yg::FontDesc fontDesc(false, 10);
-      yg::FontDesc fontDesc(false, 20);
+      yg::FontDesc fontDesc(20);
       p->drawPathText(fontDesc, &m_path[0], m_path.size(), m_text, calc_length(m_path), 0.0, yg::EPosCenter, 0);
     }
   };
@@ -990,7 +955,7 @@ namespace
       p->drawPath(&m_pathUnder[0], m_pathUnder.size(), 0, p->skin()->mapPenInfo(m_penInfo), 0);
 
       double const len = calc_length(m_path);
-      yg::FontDesc fontDesc(false, 20);
+      yg::FontDesc fontDesc(20);
 
       p->drawPathText(fontDesc, &m_pathAbove[0], m_pathAbove.size(), m_text, len, 0.0, yg::EPosAbove, 0);
       p->drawPathText(fontDesc, &m_pathUnder[0], m_pathUnder.size(), m_text, len, 0.0, yg::EPosUnder, 0);
@@ -1007,7 +972,7 @@ namespace
       int startY = 30;
       for (size_t i = 0; i < sizesCount; ++i)
       {
-        yg::FontDesc fontDesc(false, startSize + i);
+        yg::FontDesc fontDesc(startSize + i);
         p->drawText(fontDesc, m2::PointD(10, startY), yg::EPosAboveRight, 0, "Simplicity is the ultimate sophistication. Leonardo Da Vinci", 0,  true);
         startY += fontDesc.m_size;
       }
@@ -1024,7 +989,7 @@ namespace
       int startY = 30;
       for (size_t i = 0; i < sizesCount; ++i)
       {
-        yg::FontDesc fontDesc(false, startSize);
+        yg::FontDesc fontDesc(startSize);
         p->drawText(fontDesc, m2::PointD(10, startY), yg::EPosAboveRight, 0, "Simplicity is the ultimate sophistication. Leonardo Da Vinci", 100, true);
         p->drawText(fontDesc, m2::PointD(5, startY + (startSize + i) / 2), yg::EPosAboveRight, 0, "This text should be filtered", 100, true);
         startY += startSize + i;
@@ -1045,8 +1010,7 @@ namespace
 
       for (int i = 0; i < textsCount; ++i)
       {
-        yg::FontDesc fontDesc(false,
-                              rand() % (endSize - startSize) + startSize,
+        yg::FontDesc fontDesc(rand() % (endSize - startSize) + startSize,
                               yg::Color(rand() % 255, rand() % 255, rand() % 255, 255)
                               );
         p->drawText(

@@ -10,9 +10,9 @@ namespace yg
 {
   FontDesc const & FontDesc::defaultFont = FontDesc();
 
-  FontDesc::FontDesc(bool isStatic, int size, yg::Color const & color,
+  FontDesc::FontDesc(int size, yg::Color const & color,
                      bool isMasked, yg::Color const & maskColor)
-                     : m_isStatic(isStatic), m_size(size), m_color(color),
+                     : m_size(size), m_color(color),
                        m_isMasked(isMasked), m_maskColor(maskColor)
   {}
 
@@ -24,8 +24,7 @@ namespace yg
 
   bool FontDesc::operator ==(FontDesc const & src) const
   {
-    return (m_isStatic == src.m_isStatic)
-        && (m_size == src.m_size)
+    return (m_size == src.m_size)
         && (m_color == src.m_color)
         && (m_isMasked == src.m_isMasked)
         && (m_maskColor == src.m_maskColor);
@@ -38,8 +37,6 @@ namespace yg
 
   bool FontDesc::operator < (FontDesc const & src) const
   {
-    if (m_isStatic != src.m_isStatic)
-      return m_isStatic < src.m_isStatic;
     if (m_size != src.m_size)
       return m_size < src.m_size;
     if (m_color != src.m_color)
@@ -53,8 +50,6 @@ namespace yg
 
   bool FontDesc::operator > (FontDesc const & src) const
   {
-    if (m_isStatic != src.m_isStatic)
-      return m_isStatic > src.m_isStatic;
     if (m_size != src.m_size)
       return m_size > src.m_size;
     if (m_color != src.m_color)

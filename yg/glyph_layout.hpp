@@ -17,8 +17,7 @@
 
 namespace yg
 {
-  class ResourceManager;
-  class Skin;
+  class GlyphCache;
   struct FontDesc;
 
   struct GlyphLayoutElem
@@ -47,14 +46,13 @@ namespace yg
 
     GlyphLayout(GlyphLayout const & layout, double shift);
 
-    GlyphLayout(ResourceManager * resourceManager,
-                Skin * skin,
+    GlyphLayout(GlyphCache * glyphCache,
                 FontDesc const & font,
                 m2::PointD const & pt,
                 strings::UniString const & visText,
                 yg::EPosition pos);
 
-    GlyphLayout(ResourceManager * resourceManager,
+    GlyphLayout(GlyphCache * glyphCache,
                 FontDesc const & font,
                 m2::PointD const * pts,
                 size_t ptsCount,

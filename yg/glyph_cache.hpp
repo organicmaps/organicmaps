@@ -67,6 +67,7 @@ namespace yg
       Params(char const * blocksFile, char const * whiteListFile, char const * blackListFile, size_t maxSize);
     };
 
+    GlyphCache();
     GlyphCache(Params const & params);
 
     void reset();
@@ -75,7 +76,7 @@ namespace yg
 
     pair<Font*, int> getCharIDX(GlyphKey const & key);
 
-    shared_ptr<GlyphInfo> const getGlyph(GlyphKey const & key);
+    shared_ptr<GlyphInfo> const getGlyphInfo(GlyphKey const & key);
     /// return control box(could be slightly larger than the precise bound box).
     GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
 

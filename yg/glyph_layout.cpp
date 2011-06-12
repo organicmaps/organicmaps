@@ -1,6 +1,4 @@
 #include "glyph_layout.hpp"
-#include "resource_manager.hpp"
-#include "skin.hpp"
 #include "font_desc.hpp"
 #include "resource_style.hpp"
 #include "text_path.hpp"
@@ -58,8 +56,7 @@ namespace yg
     return res;
   }
 
-  GlyphLayout::GlyphLayout(ResourceManager * resourceManager,
-                           Skin * skin,
+  GlyphLayout::GlyphLayout(GlyphCache * glyphCache,
                            FontDesc const & fontDesc,
                            m2::PointD const & pt,
                            strings::UniString const & visText,
@@ -77,67 +74,29 @@ namespace yg
     {
       GlyphKey glyphKey(visText[i], fontDesc.m_size, fontDesc.m_isMasked, fontDesc.m_color);
 
-      if (fontDesc.m_isStatic)
+      GlyphMetrics const m = glyphCache->getGlyphMetrics(glyphKey);
+      if (isFirst)
       {
-        uint32_t glyphID = skin->mapGlyph(glyphKey, fontDesc.m_isStatic);
-        CharStyle const * p = static_cast<CharStyle const *>(skin->fromID(glyphID));
-        if (p != 0)
-        {
-          if (isFirst)
-          {
-            limitRect = m2::RectD(p->m_xOffset + pv.x,
-                                 -p->m_yOffset + pv.y,
-                                  p->m_xOffset + pv.x,
-                                 -p->m_yOffset + pv.y);
-            isFirst = false;
-          }
-          else
-            limitRect.Add(m2::PointD(p->m_xOffset, -p->m_yOffset) + pv);
-
-          limitRect.Add(m2::PointD(p->m_xOffset + p->m_texRect.SizeX() - 4,
-                                 -(p->m_yOffset + (int)p->m_texRect.SizeY() - 4)) + pv);
-
-        }
-
-        GlyphLayoutElem elem;
-
-        elem.m_sym = visText[i];
-        elem.m_angle = 0;
-        elem.m_pt = pv;
-        elem.m_metrics.m_height = p ? p->m_texRect.SizeY() - 4 : 0;
-        elem.m_metrics.m_width = p ? p->m_texRect.SizeX() - 4 : 0;
-        elem.m_metrics.m_xAdvance = p ? p->m_xAdvance : 0;
-        elem.m_metrics.m_xOffset = p ? p->m_xOffset : 0;
-        elem.m_metrics.m_yOffset = p ? p->m_yOffset : 0;
-        elem.m_metrics.m_yAdvance = 0;
-
-        m_entries.push_back(elem);
-
-        pv += m2::PointD(p ? p->m_xAdvance : 0, 0);
+        limitRect = m2::RectD(m.m_xOffset + pv.x,
+                             -m.m_yOffset + pv.y,
+                              m.m_xOffset + pv.x,
+                             -m.m_yOffset + pv.y);
+        isFirst = false;
       }
       else
-      {
-        GlyphMetrics const m = resourceManager->getGlyphMetrics(glyphKey);
-        if (i == 0)
-          limitRect = m2::RectD(m.m_xOffset + pv.x,
-                                 -m.m_yOffset + pv.y,
-                                  m.m_xOffset + pv.x,
-                                 -m.m_yOffset + pv.y);
-        else
-          limitRect.Add(m2::PointD(m.m_xOffset, -m.m_yOffset) + pv);
+        limitRect.Add(m2::PointD(m.m_xOffset + pv.x, -m.m_yOffset + pv.y));
 
-        limitRect.Add(m2::PointD(m.m_xOffset + m.m_width,
-                                 -(m.m_yOffset + m.m_height)) + pv);
+      limitRect.Add(m2::PointD(m.m_xOffset + m.m_width,
+                             -(m.m_yOffset + m.m_height)) + pv);
 
-        GlyphLayoutElem elem;
-        elem.m_sym = visText[i];
-        elem.m_angle = 0;
-        elem.m_pt = pv;
-        elem.m_metrics = m;
-        m_entries.push_back(elem);
+      GlyphLayoutElem elem;
+      elem.m_sym = visText[i];
+      elem.m_angle = 0;
+      elem.m_pt = pv;
+      elem.m_metrics = m;
+      m_entries.push_back(elem);
 
-        pv += m2::PointD(m.m_xAdvance, m.m_yAdvance);
-      }
+      pv += m2::PointD(m.m_xAdvance, m.m_yAdvance);
     }
 
     limitRect.Inflate(2, 2);
@@ -165,7 +124,7 @@ namespace yg
   }
 
 
-  GlyphLayout::GlyphLayout(ResourceManager * resourceManager,
+  GlyphLayout::GlyphLayout(GlyphCache * glyphCache,
                            FontDesc const & fontDesc,
                            m2::PointD const * pts,
                            size_t ptsCount,
@@ -188,7 +147,7 @@ namespace yg
     for (size_t i = 0; i < m_entries.size(); ++i)
     {
       m_entries[i].m_sym = visText[i];
-      m_entries[i].m_metrics = resourceManager->getGlyphMetrics(GlyphKey(m_entries[i].m_sym, fontDesc.m_size, fontDesc.m_isMasked, yg::Color(0, 0, 0, 0)));
+      m_entries[i].m_metrics = glyphCache->getGlyphMetrics(GlyphKey(m_entries[i].m_sym, fontDesc.m_size, fontDesc.m_isMasked, yg::Color(0, 0, 0, 0)));
       strLength += m_entries[i].m_metrics.m_xAdvance;
     }
 
