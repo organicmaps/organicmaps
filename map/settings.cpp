@@ -138,4 +138,24 @@ namespace Settings
     }
     return false;
   }
+
+  template <> string ToString<Units>(Units const & v)
+  {
+    switch (v)
+    {
+    case Yard: return "Y";
+    case Foot: return "F";
+    default: return "M";
+    }
+  }
+
+  template <> bool FromString<Units>(string const & s, Units & v)
+  {
+    if (s == "M") v = Metric;
+    else if (s == "Y") v = Yard;
+    else if (s == "F") v = Foot;
+    else return false;
+
+    return true;
+  }
 }

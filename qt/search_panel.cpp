@@ -1,6 +1,8 @@
 #include "search_panel.hpp"
 #include "draw_widget.hpp"
 
+#include "../map/settings.hpp"
+
 #include "../std/bind.hpp"
 
 #include <QtCore/QTimer>
@@ -83,17 +85,33 @@ namespace
     return item;
   }
 
-  QString format_distance(double m, bool & drawDir)
+  QString format_distance_impl(double m, bool & drawDir,
+                            char const * high, char const * low, double highF, double lowF)
   {
+    double const lowV = m / lowF;
     drawDir = true;
-    if (m < 1.0)
+    if (lowV < 1.0)
     {
       drawDir = false;
-      return QString::fromAscii("0 m.");
+      return (QString::fromAscii("0") + QString::fromAscii(low));
     }
 
-    if (m >= 1.0E3) return QString("%1 km.").arg(m * 1.0E-3, 0, 'f', 1);
-    else            return QString("%1 m.").arg(m, 0, 'f', 0);
+    if (m >= highF) return QString("%1").arg(m / highF, 0, 'f', 1) + QString::fromAscii(high);
+    else            return QString("%1").arg(lowV, 0, 'f', 0) + QString::fromAscii(low);
+  }
+
+  QString format_distance(double m, bool & drawDir)
+  {
+    using namespace Settings;
+    Units u;
+    if (!Settings::Get("Units", u)) u = Metric;
+
+    switch (u)
+    {
+    case Yard: return format_distance_impl(m, drawDir, " mi", " yd", 1609.344, 0.9144);
+    case Foot: return format_distance_impl(m, drawDir, " mi", " ft", 1609.344, 0.3048);
+    default: return format_distance_impl(m, drawDir, " km", " m", 1000.0, 1.0);
+    }
   }
 
   QIcon draw_direction(double a)

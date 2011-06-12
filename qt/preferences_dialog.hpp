@@ -3,11 +3,14 @@
 #include <QtGui/QDialog>
 
 class QTableWidget;
+class QButtonGroup;
 
 namespace qt
 {
   class PreferencesDialog : public QDialog
   {
+    typedef QDialog base_t;
+
     Q_OBJECT
 
     virtual QSize	sizeHint () const { return QSize(400, 400); }
@@ -20,9 +23,11 @@ namespace qt
     void OnCloseClick();
     void OnUpClick();
     void OnDownClick();
+    void OnUnitsChanged(int i);
 
   private:
     bool & m_autoUpdatesEnabled;
     QTableWidget * m_pTable;
+    QButtonGroup * m_pUnits;
   };
 } // namespace qt

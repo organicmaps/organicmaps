@@ -1,6 +1,7 @@
 #include "preferences_dialog.hpp"
 
 #include "../map/languages.hpp"
+#include "../map/settings.hpp"
 
 #include <QtGui/QIcon>
 #include <QtGui/QCheckBox>
@@ -9,6 +10,10 @@
 #include <QtGui/QTableWidget>
 #include <QtGui/QHeaderView>
 #include <QtGui/QPushButton>
+#include <QtGui/QGroupBox>
+#include <QtGui/QButtonGroup>
+#include <QtGui/QRadioButton>
+
 
 namespace qt
 {
@@ -41,40 +46,73 @@ namespace qt
       m_pTable->setItem(i, 1, c2);
     }
 
-    QPushButton * upButton = new QPushButton();
-    upButton->setIcon(QIcon(":/navig64/up.png"));
-    upButton->setToolTip(tr("Move up"));
-    upButton->setDefault(false);
-    connect(upButton, SIGNAL(clicked()), this, SLOT(OnUpClick()));
+    m_pUnits = new QButtonGroup(this);
+    QGroupBox * radioBox = new QGroupBox("System of measurement");
+    {
+      QHBoxLayout * pLayout = new QHBoxLayout();
 
-    QPushButton * downButton = new QPushButton();
-    downButton->setIcon(QIcon(":/navig64/down.png"));
-    downButton->setToolTip(tr("Move down"));
-    downButton->setDefault(false);
-    connect(downButton, SIGNAL(clicked()), this, SLOT(OnDownClick()));
+      using namespace Settings;
 
-    QPushButton * closeButton = new QPushButton(tr("Close"));
-    closeButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    closeButton->setDefault(true);
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(OnCloseClick()));
+      QRadioButton * p = new QRadioButton("Metric");
+      pLayout->addWidget(p);
+      m_pUnits->addButton(p, Metric);
 
-    QVBoxLayout * vBox = new QVBoxLayout();
-    vBox->addWidget(upButton);
-    vBox->addWidget(downButton);
+      p = new QRadioButton("Imperial (yard)");
+      pLayout->addWidget(p);
+      m_pUnits->addButton(p, Yard);
 
-    QHBoxLayout * hBox = new QHBoxLayout();
-    hBox->addLayout(vBox);
-    hBox->addWidget(m_pTable);
+      p = new QRadioButton("Imperial (foot)");
+      pLayout->addWidget(p);
+      m_pUnits->addButton(p, Foot);
+
+      radioBox->setLayout(pLayout);
+
+      Units u;
+      if (!Settings::Get("Units", u)) u = Metric;
+      m_pUnits->button(static_cast<int>(u))->setChecked(true);
+
+      connect(m_pUnits, SIGNAL(buttonClicked(int)), this, SLOT(OnUnitsChanged(int)));
+    }
+
+    QHBoxLayout * tableLayout = new QHBoxLayout();
+    {
+      QPushButton * upButton = new QPushButton();
+      upButton->setIcon(QIcon(":/navig64/up.png"));
+      upButton->setToolTip(tr("Move up"));
+      upButton->setDefault(false);
+      connect(upButton, SIGNAL(clicked()), this, SLOT(OnUpClick()));
+
+      QPushButton * downButton = new QPushButton();
+      downButton->setIcon(QIcon(":/navig64/down.png"));
+      downButton->setToolTip(tr("Move down"));
+      downButton->setDefault(false);
+      connect(downButton, SIGNAL(clicked()), this, SLOT(OnDownClick()));
+
+      QVBoxLayout * vBox = new QVBoxLayout();
+      vBox->addWidget(upButton);
+      vBox->addWidget(downButton);
+
+      tableLayout->addLayout(vBox);
+      tableLayout->addWidget(m_pTable);
+    }
 
     QHBoxLayout * bottomLayout = new QHBoxLayout();
-    bottomLayout->addStretch(1);
-    bottomLayout->setSpacing(0);
-    bottomLayout->addWidget(closeButton);
+    {
+      QPushButton * closeButton = new QPushButton(tr("Close"));
+      closeButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+      closeButton->setDefault(true);
+      connect(closeButton, SIGNAL(clicked()), this, SLOT(OnCloseClick()));
 
-    QVBoxLayout * finalBox = new QVBoxLayout();
-    finalBox->addLayout(hBox);
-    finalBox->addLayout(bottomLayout);
-    setLayout(finalBox);
+      bottomLayout->addStretch(1);
+      bottomLayout->setSpacing(0);
+      bottomLayout->addWidget(closeButton);
+    }
+
+    QVBoxLayout * finalLayout = new QVBoxLayout();
+    finalLayout->addWidget(radioBox);
+    finalLayout->addLayout(tableLayout);
+    finalLayout->addLayout(bottomLayout);
+    setLayout(finalLayout);
 
     if (m_pTable->rowCount() > 0)
       m_pTable->selectRow(0);
@@ -152,6 +190,21 @@ namespace qt
       langCodes.push_back(m_pTable->item(i, 0)->text().toUtf8().constData());
     languages::SaveSettings(langCodes);
 
-    QDialog::done(code);
+    base_t::done(code);
+  }
+
+  void PreferencesDialog::OnUnitsChanged(int i)
+  {
+    using namespace Settings;
+
+    Units u;
+    switch (i)
+    {
+    case 0: u = Metric; break;
+    case 1: u = Yard; break;
+    case 2: u = Foot; break;
+    }
+
+    Settings::Set("Units", u);
   }
 }

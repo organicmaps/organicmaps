@@ -38,4 +38,6 @@ namespace Settings
   {
     StringStorage::Instance().SetValue(key, ToString(value));
   }
+
+  enum Units { Metric, Yard, Foot };
 };
