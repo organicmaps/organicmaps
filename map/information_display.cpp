@@ -427,8 +427,7 @@ void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
   params.m_pivot = pt;
   params.m_position = yg::EPosCenter;
   params.m_glyphCache = pDrawer->screen()->glyphCache();
-  params.m_logText = strings::FromUtf8(s0);
-  params.m_utf8Text = s0;
+  params.m_logText = strings::MakeUniString(s0);
 
   yg::StraightTextElement ste0(params);
   ste0.offset(m2::PointD(0, -ste0.boundRect().GetGlobalRect().SizeY() - 5));
@@ -436,22 +435,19 @@ void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
   ste0.draw(pDrawer->screen().get(), math::Identity<double, 3>());
 
   params.m_pivot = pt;
-  params.m_logText = strings::FromUtf8(s1);
-  params.m_utf8Text = s1;
+  params.m_logText = strings::MakeUniString(s1);
   yg::StraightTextElement ste1(params);
 
   ste1.draw(pDrawer->screen().get(), math::Identity<double, 3>());
 
   params.m_pivot.y += ste1.boundRect().GetGlobalRect().SizeY() + 5;
-  params.m_logText = strings::FromUtf8(s2);
-  params.m_utf8Text = s2;
+  params.m_logText = strings::MakeUniString(s2);
   yg::StraightTextElement ste2(params);
 
   ste2.draw(pDrawer->screen().get(), math::Identity<double, 3>());
 
   params.m_pivot.y += ste2.boundRect().GetGlobalRect().SizeY() + 5;
-  params.m_logText = strings::FromUtf8(s3);
-  params.m_utf8Text = s3;
+  params.m_logText = strings::MakeUniString(s3);
   yg::StraightTextElement ste3(params);
 
   ste3.draw(pDrawer->screen().get(), math::Identity<double, 3>());
