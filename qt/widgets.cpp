@@ -47,11 +47,14 @@ namespace qt
           10 * sizeof(unsigned short),
           50,
           512, 256,
-          15,
+          10,
+          512, 256,
+          5,
           GetPlatform().ReadPathForFile("unicode_blocks.txt").c_str(),
           GetPlatform().ReadPathForFile("fonts_whitelist.txt").c_str(),
           GetPlatform().ReadPathForFile("fonts_blacklist.txt").c_str(),
-          2000000,
+          2 * 1024 * 1024,
+          500 * 1024,
           yg::Rt8Bpp,
           !yg::gl::g_isBufferObjectsSupported,
           !GetPlatform().IsMultiSampled()));
@@ -65,7 +68,7 @@ namespace qt
       p.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
       p.m_dynamicPagesCount = 2;
       p.m_textPagesCount = 2;
-      p.m_glyphCacheID = 1;
+      p.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
 
       m_p = shared_ptr<DrawerYG>(new DrawerYG(GetPlatform().SkinName(), p));
     }

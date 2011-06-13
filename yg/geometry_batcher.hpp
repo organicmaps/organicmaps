@@ -7,6 +7,7 @@
 #include "framebuffer.hpp"
 #include "render_state_updater.hpp"
 #include "storage.hpp"
+#include "skin_page.hpp"
 
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
@@ -64,7 +65,7 @@ namespace yg
         size_t verticesLeft();
         size_t indicesLeft();
 
-        void checkStorage(shared_ptr<ResourceManager> const & resourceManager, bool isDynamic) const;
+        void checkStorage(shared_ptr<ResourceManager> const & resourceManager, SkinPage::EUsage usage) const;
       };
 
       vector<GeometryPipeline> m_pipelines;

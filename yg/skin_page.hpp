@@ -70,6 +70,13 @@ namespace yg
   {
   public:
 
+    enum EUsage
+    {
+      EStaticUsage,
+      EDynamicUsage,
+      EFontsUsage
+    };
+
     typedef m2::Packer::overflowFn overflowFn;
 
   private:
@@ -112,7 +119,7 @@ namespace yg
     typedef vector<FontInfo> TFonts;
     TFonts m_fonts;
 
-    bool m_isDynamic;
+    EUsage m_usage;
     uint32_t m_pageID;
 
     bool m_fillAlpha;
@@ -147,11 +154,13 @@ namespace yg
 
     /// creation of a dynamic page
     SkinPage(shared_ptr<ResourceManager> const & resourceManager,
+             EUsage usage,
              uint8_t pageID,
              bool fillAlpha);
 
     void reserveTexture() const;
     void freeTexture();
+    void createPacker();
 
     uint32_t findColor(Color const & c) const;
     uint32_t mapColor(Color const & c);
@@ -173,7 +182,7 @@ namespace yg
 
     ResourceStyle * fromID(uint32_t idx) const;
 
-    bool isDynamic() const;
+    EUsage usage() const;
 
     void addOverflowFn(overflowFn fn, int priority);
 

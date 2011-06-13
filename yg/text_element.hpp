@@ -33,6 +33,9 @@ namespace yg
     yg::EPosition m_position;
     double m_depth;
 
+    bool m_isNeedRedraw;
+    bool m_isFrozen;
+
   public:
 
     struct Params
@@ -56,6 +59,12 @@ namespace yg
 
     double depth() const;
     void setDepth(double depth);
+
+    bool isFrozen() const;
+    void setIsFrozen(bool flag);
+
+    bool isNeedRedraw() const;
+    void setIsNeedRedraw(bool flag);
   };
 
   class TextElement : public OverlayElement

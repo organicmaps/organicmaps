@@ -22,12 +22,16 @@ namespace yg
   ResourceManager::ResourceManager(size_t vbSize, size_t ibSize, size_t storagesCount,
                                    size_t smallVBSize, size_t smallIBSize, size_t smallStoragesCount,
                                    size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
-                                   size_t texWidth, size_t texHeight, size_t texCount,
-                                   char const * blocksFile, char const * whiteListFile, char const * blackListFile, size_t maxGlyphCacheSize,
+                                   size_t dynamicTexWidth, size_t dynamicTexHeight, size_t dynamicTexCount,
+                                   size_t fontTexWidth, size_t fontTexHeight, size_t fontTexCount,
+                                   char const * blocksFile, char const * whiteListFile, char const * blackListFile,
+                                   size_t primaryGlyphCacheSize,
+                                   size_t secondaryGlyphCacheSize,
                                    RtFormat fmt,
                                    bool useVA,
                                    bool fillSkinAlpha)
-                                     : m_textureWidth(texWidth), m_textureHeight(texHeight),
+                                     : m_dynamicTextureWidth(dynamicTexWidth), m_dynamicTextureHeight(dynamicTexHeight),
+                                       m_fontTextureWidth(fontTexWidth), m_fontTextureHeight(fontTexHeight),
                                      m_vbSize(vbSize), m_ibSize(ibSize),
                                      m_smallVBSize(smallVBSize), m_smallIBSize(smallIBSize),
                                      m_blitVBSize(blitVBSize), m_blitIBSize(blitIBSize),
@@ -36,9 +40,9 @@ namespace yg
                                      m_fillSkinAlpha(fillSkinAlpha)
   {
     /// primary cache is for rendering, so it's big
-    m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, maxGlyphCacheSize)));
+    m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, primaryGlyphCacheSize)));
     /// secondary caches is for glyph metrics only, so they are small
-    m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, 500 * 1024)));
+    m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, secondaryGlyphCacheSize)));
 
     if (useVA)
     {
@@ -60,15 +64,25 @@ namespace yg
 
     LOG(LINFO, ("allocating ", (blitVBSize + blitIBSize) * blitStoragesCount, " bytes for blit storage"));
 
-    for (size_t i = 0; i < texCount; ++i)
+    for (size_t i = 0; i < dynamicTexCount; ++i)
     {
-      m_dynamicTextures.push_back(shared_ptr<gl::BaseTexture>(new TDynamicTexture(texWidth, texHeight)));
+      m_dynamicTextures.push_back(shared_ptr<gl::BaseTexture>(new TDynamicTexture(dynamicTexWidth, dynamicTexHeight)));
 #ifdef DEBUG
       static_cast<TDynamicTexture*>(m_dynamicTextures.back().get())->randomize();
 #endif
     }
 
-    LOG(LINFO, ("allocating ", texWidth * texHeight * sizeof(TDynamicTexture::pixel_t), " bytes for textures"));
+    LOG(LINFO, ("allocating ", dynamicTexWidth * dynamicTexHeight * sizeof(TDynamicTexture::pixel_t), " bytes for textures"));
+
+    for (size_t i = 0; i < fontTexCount; ++i)
+    {
+      m_fontTextures.push_back(shared_ptr<gl::BaseTexture>(new TDynamicTexture(fontTexWidth, fontTexHeight)));
+#ifdef DEBUG
+      static_cast<TDynamicTexture*>(m_fontTextures.back().get())->randomize();
+#endif
+    }
+
+    LOG(LINFO, ("allocating ", fontTexWidth * fontTexHeight * sizeof(TDynamicTexture::pixel_t), " bytes for font textures"));
   }
 
   shared_ptr<gl::BaseTexture> const & ResourceManager::getTexture(string const & fileName)
@@ -160,11 +174,11 @@ namespace yg
     return freeStorageImpl(storage, doSignal, m_storages);
   }
 
-  shared_ptr<gl::BaseTexture> const ResourceManager::reserveTexture(bool doWait)
+  shared_ptr<gl::BaseTexture> const ResourceManager::reserveTextureImpl(bool doWait, list<shared_ptr<gl::BaseTexture> > & l)
   {
     threads::MutexGuard guard(m_mutex);
 
-    if (m_dynamicTextures.empty())
+    if (l.empty())
     {
       if (doWait)
       {
@@ -172,28 +186,18 @@ namespace yg
       }
     }
 
-    shared_ptr<gl::BaseTexture> res = m_dynamicTextures.front();
-    m_dynamicTextures.pop_front();
+    shared_ptr<gl::BaseTexture> res = l.front();
+    l.pop_front();
     return res;
   }
 
-  size_t ResourceManager::textureWidth() const
-  {
-    return m_textureWidth;
-  }
-
-  size_t ResourceManager::textureHeight() const
-  {
-    return m_textureHeight;
-  }
-
-  void ResourceManager::freeTexture(shared_ptr<gl::BaseTexture> const & texture, bool doSignal)
+  void ResourceManager::freeTextureImpl(shared_ptr<gl::BaseTexture> const & texture, bool doSignal, list<shared_ptr<gl::BaseTexture> > & l)
   {
     threads::MutexGuard guard(m_mutex);
 
-    bool needToSignal = m_dynamicTextures.empty();
+    bool needToSignal = l.empty();
 
-    m_dynamicTextures.push_back(texture);
+    l.push_back(texture);
 
     if ((needToSignal) && (doSignal))
     {
@@ -201,9 +205,52 @@ namespace yg
     }
   }
 
+
+  shared_ptr<gl::BaseTexture> const ResourceManager::reserveDynamicTexture(bool doWait)
+  {
+    return reserveTextureImpl(doWait, m_dynamicTextures);
+  }
+
+  void ResourceManager::freeDynamicTexture(shared_ptr<gl::BaseTexture> const & texture, bool doSignal)
+  {
+    freeTextureImpl(texture, doSignal, m_dynamicTextures);
+  }
+
+
+  size_t ResourceManager::dynamicTextureWidth() const
+  {
+    return m_dynamicTextureWidth;
+  }
+
+  size_t ResourceManager::dynamicTextureHeight() const
+  {
+    return m_dynamicTextureHeight;
+  }
+
+  shared_ptr<gl::BaseTexture> const ResourceManager::reserveFontTexture(bool doWait)
+  {
+    return reserveTextureImpl(doWait, m_fontTextures);
+  }
+
+  void ResourceManager::freeFontTexture(shared_ptr<gl::BaseTexture> const & texture, bool doSignal)
+  {
+    freeTextureImpl(texture, doSignal, m_fontTextures);
+  }
+
+  size_t ResourceManager::fontTextureWidth() const
+  {
+    return m_fontTextureWidth;
+  }
+
+  size_t ResourceManager::fontTextureHeight() const
+  {
+    return m_fontTextureHeight;
+  }
+
+
   GlyphCache * ResourceManager::glyphCache(int glyphCacheID)
   {
-    return &m_glyphCaches[glyphCacheID];
+    return glyphCacheID == -1 ? 0 : &m_glyphCaches[glyphCacheID];
   }
 
   void ResourceManager::addFonts(vector<string> const & fontNames)
@@ -230,7 +277,10 @@ namespace yg
     for (list<shared_ptr<gl::BaseTexture> >::iterator it = m_dynamicTextures.begin(); it != m_dynamicTextures.end(); ++it)
       it->reset();
 
-    LOG(LINFO, ("freed ", m_storages.size(), " storages, ", m_smallStorages.size(), " small storages, ", m_blitStorages.size(), " blit storages and ", m_dynamicTextures.size(), " textures"));
+    for (list<shared_ptr<gl::BaseTexture> >::iterator it = m_fontTextures.begin(); it != m_fontTextures.end(); ++it)
+      it->reset();
+
+    LOG(LINFO, ("freed ", m_storages.size(), " storages, ", m_smallStorages.size(), " small storages, ", m_blitStorages.size(), " blit storages, ", m_dynamicTextures.size(), " dynamic textures and ", m_fontTextures.size(), " font textures"));
   }
 
   void ResourceManager::enterForeground()
@@ -245,7 +295,9 @@ namespace yg
       *it = gl::Storage(m_blitVBSize, m_blitIBSize, m_useVA);
 
     for (list<shared_ptr<gl::BaseTexture> >::iterator it = m_dynamicTextures.begin(); it != m_dynamicTextures.end(); ++it)
-      *it = shared_ptr<gl::BaseTexture>(new TDynamicTexture(m_textureWidth, m_textureHeight));
+      *it = shared_ptr<gl::BaseTexture>(new TDynamicTexture(m_dynamicTextureWidth, m_dynamicTextureHeight));
+    for (list<shared_ptr<gl::BaseTexture> >::iterator it = m_fontTextures.begin(); it != m_fontTextures.end(); ++it)
+      *it = shared_ptr<gl::BaseTexture>(new TDynamicTexture(m_fontTextureWidth, m_fontTextureHeight));
   }
 
   shared_ptr<yg::gl::BaseTexture> ResourceManager::createRenderTarget(unsigned w, unsigned h)
@@ -264,5 +316,15 @@ namespace yg
   bool ResourceManager::fillSkinAlpha() const
   {
     return m_fillSkinAlpha;
+  }
+
+  int ResourceManager::renderThreadGlyphCacheID() const
+  {
+    return 0;
+  }
+
+  int ResourceManager::guiThreadGlyphCacheID() const
+  {
+    return 1;
   }
 }

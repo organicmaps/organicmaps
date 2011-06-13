@@ -14,6 +14,9 @@ namespace yg
 
   bool InfoLayer::better_text(StraightTextElement const & r1, StraightTextElement const & r2)
   {
+    /// any text is worse than a frozen one
+    if (r2.isFrozen())
+      return false;
     if (r1.fontDesc() != r2.fontDesc())
       return r1.fontDesc() > r2.fontDesc();
     if (r1.depth() != r2.depth())
@@ -23,8 +26,6 @@ namespace yg
 
   void InfoLayer::draw(gl::TextRenderer *r, math::Matrix<double, 3, 3> const & m)
   {
-    m_tree.ForEach(bind(&StraightTextElement::draw, _1, r, m));
-
     list<strings::UniString> toErase;
 
     for (path_text_elements::const_iterator it = m_pathTexts.begin(); it != m_pathTexts.end(); ++it)
@@ -40,6 +41,8 @@ namespace yg
 
     for (list<strings::UniString>::const_iterator it = toErase.begin(); it != toErase.end(); ++it)
       m_pathTexts.erase(*it);
+
+    m_tree.ForEach(bind(&StraightTextElement::draw, _1, r, m));
   }
 
   void InfoLayer::offsetTextTree(m2::PointD const & offs, m2::RectD const & rect)
@@ -50,8 +53,27 @@ namespace yg
     for (vector<StraightTextElement>::iterator it = texts.begin(); it != texts.end(); ++it)
     {
       it->offset(offs);
-      if (it->boundRect().GetGlobalRect().IsIntersect(rect))
-        m_tree.Add(*it, it->boundRect().GetGlobalRect());
+
+      m2::RectD limitRect = it->boundRect().GetGlobalRect();
+
+      bool doAppend = false;
+      it->setIsNeedRedraw(true);
+      it->setIsFrozen(false);
+
+      if (rect.IsRectInside(limitRect))
+      {
+        it->setIsFrozen(true);
+        doAppend = true;
+      }
+      else
+        if (rect.IsIntersect(limitRect))
+        {
+          it->setIsFrozen(true);
+          doAppend = true;
+        }
+
+      if (doAppend)
+        m_tree.Add(*it, limitRect);
     }
   }
 

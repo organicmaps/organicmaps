@@ -239,11 +239,11 @@ void RenderQueueRoutine::Do()
   params.m_renderState = m_renderState;
   params.m_doPeriodicalUpdate = m_doPeriodicalUpdate;
   params.m_updateInterval = m_updateInterval;
-  params.m_glyphCacheID = 0;
+  params.m_glyphCacheID = m_resourceManager->renderThreadGlyphCacheID();
 /*  params.m_isDebugging = true;
   params.m_drawPathes = false;
   params.m_drawAreas = false;
-  params.m_drawTexts = false;*/
+  params.m_drawTexts = false; */
 
   m_threadDrawer = make_shared_ptr(new DrawerYG(m_skinName, params));
 
@@ -388,8 +388,6 @@ void RenderQueueRoutine::Do()
             m_renderState->m_actualScreen,
             m_renderState->m_currentScreen);
       }
-
-//      m_threadDrawer->screen()->setNeedTextRedraw(isPanning);
 
       ScreenBase const & frameScreen = m_currentRenderCommand->m_frameScreen;
       m2::RectD glbRect;

@@ -38,10 +38,15 @@ namespace yg
 
     threads::Mutex m_mutex;
 
-    size_t m_textureWidth;
-    size_t m_textureHeight;
+    size_t m_dynamicTextureWidth;
+    size_t m_dynamicTextureHeight;
 
     list<shared_ptr<gl::BaseTexture> > m_dynamicTextures;
+
+    size_t m_fontTextureWidth;
+    size_t m_fontTextureHeight;
+
+    list<shared_ptr<gl::BaseTexture> > m_fontTextures;
 
     size_t m_vbSize;
     size_t m_ibSize;
@@ -59,6 +64,9 @@ namespace yg
     gl::Storage const reserveStorageImpl(bool doWait, list<gl::Storage> & l);
     void freeStorageImpl(gl::Storage const & storage, bool doSignal, list<gl::Storage> & l);
 
+    shared_ptr<gl::BaseTexture> const reserveTextureImpl(bool doWait, list<shared_ptr<gl::BaseTexture> > & l);
+    void freeTextureImpl(shared_ptr<gl::BaseTexture> const & texture, bool doSignal, list<shared_ptr<gl::BaseTexture> > & l);
+
     vector<GlyphCache> m_glyphCaches;
 
     RtFormat m_format;
@@ -72,7 +80,10 @@ namespace yg
                     size_t smallVBSize, size_t smallIBSize, size_t smallStoragesCount,
                     size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
                     size_t texWidth, size_t texHeight, size_t texCount,
-                    char const * blocksFile, char const * whileListFile, char const * blackListFile, size_t maxGlyphCacheSize,
+                    size_t fontTexWidth, size_t fontTexHeight, size_t fontTexCount,
+                    char const * blocksFile, char const * whileListFile, char const * blackListFile,
+                    size_t primaryGlyphCacheSize,
+                    size_t secondaryGlyphCacheSize,
                     RtFormat fmt,
                     bool useVA,
                     bool fillSkinAlpha);
@@ -88,15 +99,24 @@ namespace yg
     gl::Storage const reserveBlitStorage(bool doWait = false);
     void freeBlitStorage(gl::Storage const & storage, bool doSignal = false);
 
-    shared_ptr<gl::BaseTexture> const reserveTexture(bool doWait = false);
-    void freeTexture(shared_ptr<gl::BaseTexture> const & texture, bool doSignal = false);
+    shared_ptr<gl::BaseTexture> const reserveDynamicTexture(bool doWait = false);
+    void freeDynamicTexture(shared_ptr<gl::BaseTexture> const & texture, bool doSignal = false);
 
-    size_t textureWidth() const;
-    size_t textureHeight() const;
+    size_t dynamicTextureWidth() const;
+    size_t dynamicTextureHeight() const;
+
+    shared_ptr<gl::BaseTexture> const reserveFontTexture(bool doWait = false);
+    void freeFontTexture(shared_ptr<gl::BaseTexture> const & texture, bool doSignal = false);
+
+    size_t fontTextureWidth() const;
+    size_t fontTextureHeight() const;
 
     shared_ptr<GlyphInfo> const getGlyphInfo(GlyphKey const & key);
     GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
     GlyphCache * glyphCache(int glyphCacheID = 0);
+
+    int renderThreadGlyphCacheID() const;
+    int guiThreadGlyphCacheID() const;
 
     void addFonts(vector<string> const & fontNames);
 

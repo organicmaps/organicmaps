@@ -260,7 +260,7 @@ void DrawerYG::drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_
           true);
 }
 
-bool DrawerYG::drawPathText(di::PathInfo const & info, string const & name, uint8_t fontSize, int /*depth*/)
+bool DrawerYG::drawPathText(di::PathInfo const & info, string const & name, uint8_t fontSize, int depth)
 {
 //  bool const isMasked = (double(fontSize) / m_visualScale >= min_text_height);
 
@@ -273,12 +273,12 @@ bool DrawerYG::drawPathText(di::PathInfo const & info, string const & name, uint
                                   info.GetFullLength(),
                                   info.GetOffset(),
                                   yg::EPosCenter,
-                                  yg::maxDepth);
+                                  depth);
 }
 
 void DrawerYG::drawPathNumber(di::PathInfo const & path, di::DrawInfo const * pInfo)
 {
-  int const textHeight = 12;
+  int const textHeight = 12 * m_visualScale;
   m2::PointD pt;
   double const length = path.GetFullLength();
   if (length >= (pInfo->m_road.size() + 2)*textHeight)

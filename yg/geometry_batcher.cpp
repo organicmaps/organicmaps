@@ -72,11 +72,11 @@ namespace yg
      }
    }
 
-   void GeometryBatcher::GeometryPipeline::checkStorage(shared_ptr<ResourceManager> const & resourceManager, bool isDynamic) const
+   void GeometryBatcher::GeometryPipeline::checkStorage(shared_ptr<ResourceManager> const & resourceManager, SkinPage::EUsage usage) const
    {
      if (!m_hasStorage)
      {
-       m_storage = isDynamic ? resourceManager->reserveStorage() : resourceManager->reserveSmallStorage();
+       m_storage = usage != SkinPage::EStaticUsage ? resourceManager->reserveStorage() : resourceManager->reserveSmallStorage();
 
        m_maxVertices = m_storage.m_vertices->size() / sizeof(Vertex);
        m_maxIndices = m_storage.m_indices->size() / sizeof(unsigned short);
@@ -165,7 +165,7 @@ namespace yg
 
    bool GeometryBatcher::hasRoom(size_t verticesCount, size_t indicesCount, int pageID) const
    {
-     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->isDynamic());
+     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->usage());
 
      return ((m_pipelines[pageID].m_currentVertex + verticesCount <= m_pipelines[pageID].m_maxVertices)
          &&  (m_pipelines[pageID].m_currentIndex + indicesCount <= m_pipelines[pageID].m_maxIndices));
@@ -173,14 +173,14 @@ namespace yg
 
    size_t GeometryBatcher::verticesLeft(int pageID)
    {
-     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->isDynamic());
+     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->usage());
 
      return m_pipelines[pageID].m_maxVertices - m_pipelines[pageID].m_currentVertex;
    }
 
    size_t GeometryBatcher::indicesLeft(int pageID)
    {
-     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->isDynamic());
+     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->usage());
      return m_pipelines[pageID].m_maxIndices - m_pipelines[pageID].m_currentIndex;
    }
 
@@ -219,7 +219,7 @@ namespace yg
 
              renderedData = true;
 
-             if (skinPage->isDynamic())
+             if (skinPage->usage() != SkinPage::EStaticUsage)
                resourceManager()->freeStorage(pipeline.m_storage);
              else
                resourceManager()->freeSmallStorage(pipeline.m_storage);
@@ -256,7 +256,7 @@ namespace yg
      if (!hasRoom(4, 6, pageID))
        flush(pageID);
 
-     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->isDynamic());
+     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->usage());
 
      float texMinX = tx0;
      float texMaxX = tx1;
@@ -307,7 +307,7 @@ namespace yg
      if (!hasRoom(size, (size - 2) * 3, pageID))
        flush(pageID);
 
-     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->isDynamic());
+     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->usage());
 
      ASSERT(size > 2, ());
 
@@ -357,7 +357,7 @@ namespace yg
      if (!hasRoom(size, (size - 2) * 3, pageID))
        flush(pageID);
 
-     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->isDynamic());
+     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->usage());
 
      ASSERT(size > 2, ());
 
@@ -403,7 +403,7 @@ namespace yg
      if (!hasRoom(size, size, pageID))
        flush(pageID);
 
-     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->isDynamic());
+     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->usage());
 
      ASSERT(size > 2, ());
 
@@ -440,7 +440,7 @@ namespace yg
      if (!hasRoom(size, size, pageID))
        flush(pageID);
 
-     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->isDynamic());
+     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->usage());
 
      ASSERT(size > 2, ());
 

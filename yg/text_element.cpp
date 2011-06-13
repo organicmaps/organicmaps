@@ -11,7 +11,11 @@
 namespace yg
 {
   OverlayElement::OverlayElement(Params const & p)
-    : m_pivot(p.m_pivot), m_position(p.m_position), m_depth(p.m_depth)
+    : m_pivot(p.m_pivot),
+      m_position(p.m_position),
+      m_depth(p.m_depth),
+      m_isNeedRedraw(true),
+      m_isFrozen(false)
   {}
 
   void OverlayElement::offset(m2::PointD const & offs)
@@ -47,6 +51,26 @@ namespace yg
   void OverlayElement::setDepth(double depth)
   {
     m_depth = depth;
+  }
+
+  bool OverlayElement::isFrozen() const
+  {
+    return m_isFrozen;
+  }
+
+  void OverlayElement::setIsFrozen(bool flag)
+  {
+    m_isFrozen = flag;
+  }
+
+  bool OverlayElement::isNeedRedraw() const
+  {
+    return m_isNeedRedraw;
+  }
+
+  void OverlayElement::setIsNeedRedraw(bool flag)
+  {
+    m_isNeedRedraw = flag;
   }
 
   strings::UniString TextElement::log2vis(strings::UniString const & str)
@@ -123,6 +147,9 @@ namespace yg
 
   void StraightTextElement::draw(gl::TextRenderer * screen, math::Matrix<double, 3, 3> const & m) const
   {
+    if (!isNeedRedraw())
+      return;
+
     yg::FontDesc desc = m_fontDesc;
     if (m_fontDesc.m_isMasked)
     {
@@ -167,11 +194,11 @@ namespace yg
     yg::FontDesc desc = m_fontDesc;
     if (m_fontDesc.m_isMasked)
     {
-      drawTextImpl(m_glyphLayout, screen, m, m_fontDesc, depth());
+      drawTextImpl(m_glyphLayout, screen, m, m_fontDesc, yg::maxDepth);
       desc.m_isMasked = false;
     }
 
-    drawTextImpl(m_glyphLayout, screen, m, desc, depth());
+    drawTextImpl(m_glyphLayout, screen, m, desc, yg::maxDepth);
   }
 
 /*  void PathTextElement::draw(gl::Screen * screen) const

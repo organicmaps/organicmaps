@@ -54,11 +54,13 @@ void GLDrawWidget::initializeGL()
       10 * sizeof(yg::gl::AuxVertex),
       10 * sizeof(unsigned short),
       30,
-      512, 256, 15,
+      512, 256, 10,
+      512, 256, 5,
       GetPlatform().ReadPathForFile("unicode_blocks.txt").c_str(),
       GetPlatform().ReadPathForFile("fonts_whitelist.txt").c_str(),
       GetPlatform().ReadPathForFile("fonts_blacklist.txt").c_str(),
-      2000000,
+      2 * 1024 * 1024,
+      500 * 1024,
       yg::Rt8Bpp,
       !yg::gl::g_isBufferObjectsSupported,
       !GetPlatform().IsMultiSampled()));
@@ -71,7 +73,7 @@ void GLDrawWidget::initializeGL()
   params.m_resourceManager = m_resourceManager;
   params.m_isMultiSampled = false;
   params.m_frameBuffer = m_frameBuffer;
-  params.m_glyphCacheID = 1;
+  params.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
 
   m_p = make_shared_ptr(new yg::gl::Screen(params));
 

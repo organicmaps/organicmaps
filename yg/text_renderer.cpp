@@ -18,7 +18,7 @@ namespace yg
 
     TextRenderer::Params::Params()
       : m_drawTexts(true),
-        m_glyphCacheID(0)
+        m_glyphCacheID(-1)
     {}
 
     TextRenderer::TextRenderer(Params const & params)

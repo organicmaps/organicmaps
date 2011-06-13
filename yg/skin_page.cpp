@@ -96,7 +96,7 @@ namespace yg
                      uint8_t pageID,
                      bool fillAlpha)
                    : m_texture(resourceManager->getTexture(name)),
-                     m_isDynamic(false),
+                     m_usage(EStaticUsage),
                      m_pageID(pageID),
                      m_fillAlpha(fillAlpha)
   {
@@ -105,16 +105,15 @@ namespace yg
 
 
   SkinPage::SkinPage(shared_ptr<ResourceManager> const & resourceManager,
+                     EUsage usage,
                      uint8_t pageID,
                      bool fillAlpha)
     : m_resourceManager(resourceManager),
-      m_isDynamic(true),
+      m_usage(usage),
       m_pageID(pageID),
       m_fillAlpha(fillAlpha)
   {
-    m_packer = m2::Packer(m_resourceManager->textureWidth(),
-                          m_resourceManager->textureHeight(),
-                          0x00FFFFFF - 1);
+    createPacker();
     /// clear handles will be called only upon handles overflow,
     /// as the texture overflow is processed separately
     m_packer.addOverflowFn(bind(&SkinPage::clearHandles, this), 0);
@@ -319,9 +318,9 @@ namespace yg
     return m_packer.hasRoom(p.x, p.y);
   }
 
-  bool SkinPage::isDynamic() const
+  SkinPage::EUsage SkinPage::usage() const
   {
-    return m_isDynamic;
+    return m_usage;
   }
 
   void SkinPage::uploadPenInfo()
@@ -705,13 +704,13 @@ namespace yg
 
   void SkinPage::checkTexture() const
   {
-    if ((m_isDynamic) && (m_texture == 0))
+    if ((m_usage != EStaticUsage) && (m_texture == 0))
       reserveTexture();
   }
 
   void SkinPage::uploadData()
   {
-    if ((m_isDynamic) && (hasData()))
+    if ((m_usage != EStaticUsage) && (hasData()))
     {
       checkTexture();
       static_cast<gl::ManagedTexture*>(m_texture.get())->lock();
@@ -747,12 +746,52 @@ namespace yg
   void SkinPage::freeTexture()
   {
     if (m_texture)
-      m_resourceManager->freeTexture(m_texture);
-    m_texture.reset();
+    {
+      switch (m_usage)
+      {
+      case EDynamicUsage:
+        m_resourceManager->freeDynamicTexture(m_texture);
+        break;
+      case EFontsUsage:
+        m_resourceManager->freeFontTexture(m_texture);
+        break;
+      default:
+        LOG(LINFO, ("freeTexture call for with invalid usage param"));
+      }
+
+      m_texture.reset();
+    }
   }
 
   void SkinPage::reserveTexture() const
   {
-    m_texture = m_resourceManager->reserveTexture();
+    switch (m_usage)
+    {
+    case EDynamicUsage:
+      m_texture = m_resourceManager->reserveDynamicTexture();
+      break;
+    case EFontsUsage:
+      m_texture = m_resourceManager->reserveFontTexture();
+      break;
+    default:
+      LOG(LINFO, ("freeTexture call for with invalid usage param"));
+    }
+  }
+
+  void SkinPage::createPacker()
+  {
+    switch (m_usage)
+    {
+    case EDynamicUsage:
+      m_packer = m2::Packer(m_resourceManager->dynamicTextureWidth(),
+                            m_resourceManager->dynamicTextureHeight(),
+                            0x00FFFFFF - 1);
+      break;
+    case EFontsUsage:
+      m_packer = m2::Packer(m_resourceManager->fontTextureWidth(),
+                            m_resourceManager->fontTextureHeight(),
+                            0x00FFFFFF - 1);
+      break;
+    }
   }
 }
