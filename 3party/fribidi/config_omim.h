@@ -12,6 +12,9 @@
 #elif defined(OMIM_OS_WINDOWS)
   #include "config_win32.h"
 
+#elif defined(OMIM_OS_LINUX)
+  #include "config_linux.h"
+
 #else
 #error "Add your platform"
 #endif
