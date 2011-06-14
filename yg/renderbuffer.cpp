@@ -49,7 +49,7 @@ namespace yg
         makeCurrent();
 
         GLenum target = GL_RENDERBUFFER_OES;
-        GLenum internalFormat = m_isDepthBuffer ? GL_DEPTH_COMPONENT16_OES : GL_RGBA8_OES;
+        GLenum internalFormat = m_isDepthBuffer ? GL_DEPTH_COMPONENT24_OES : GL_RGBA8_OES;
 
         /// @TODO: fix for android
 #ifndef OMIM_OS_ANDROID
@@ -62,7 +62,7 @@ namespace yg
         else
 #endif
           OGLCHECK(glRenderbufferStorageOES(GL_RENDERBUFFER_OES,
-                                            m_isDepthBuffer ? GL_DEPTH_COMPONENT16_OES : GL_RGBA8_OES,
+                                            internalFormat,
                                             width,
                                             height));
 #else
@@ -70,7 +70,7 @@ namespace yg
         makeCurrent();
 
         GLenum target = GL_RENDERBUFFER_EXT;
-        GLenum internalFormat = m_isDepthBuffer ? GL_DEPTH_COMPONENT16 : GL_RGBA;
+        GLenum internalFormat = m_isDepthBuffer ? GL_DEPTH_COMPONENT24 : GL_RGBA8;
 
         if (m_isMultiSampled)
           OGLCHECK(glRenderbufferStorageMultisample(target,
@@ -80,7 +80,7 @@ namespace yg
                                                     height));
         else
           OGLCHECK(glRenderbufferStorageEXT(target,
-                                            m_isDepthBuffer ? GL_DEPTH_COMPONENT16 : GL_RGBA,
+                                            internalFormat,
                                             width,
                                             height));
 

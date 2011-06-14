@@ -894,6 +894,13 @@ void FrameWork<TModel>::AddRedrawCommandSure()
 
         OGLCHECK(glPopMatrix());
       }
+      else
+      {
+        e->drawer()->screen()->beginFrame();
+        e->drawer()->screen()->clear(m_bgColor);
+        e->drawer()->screen()->endFrame();
+        LOG(LINFO, ("no actual target. just clearing"));
+      }
     }
   }
 

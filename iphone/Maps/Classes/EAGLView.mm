@@ -103,7 +103,7 @@
 					GetPlatform().ReadPathForFile("unicode_blocks.txt").c_str(),
 					GetPlatform().ReadPathForFile("fonts_whitelist.txt").c_str(),
  					GetPlatform().ReadPathForFile("fonts_blacklist.txt").c_str(),
-          2 * 1024 * 1024,
+          1 * 1024 * 1024,
           500 * 1024,
           fmt,
           !yg::gl::g_isBufferObjectsSupported,
@@ -143,6 +143,12 @@
 	frameBuffer->setRenderTarget(renderBuffer);
 	frameBuffer->onSize(width, height);
 	drawer->onSize(width, height);
+
+  
+  drawer->screen()->beginFrame();
+  drawer->screen()->clear();
+  drawer->screen()->endFrame();
+  
 }
 
 - (void)drawView
