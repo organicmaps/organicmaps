@@ -34,7 +34,7 @@ macx {
   OTHER_RES.path = Contents/Resources
   OTHER_RES.files = ../data/about-travelguide-desktop.html ../data/eula.html ../data/welcome.html \
                     ../data/countries.txt ../data/maps.update \
-                    ../data/dictionary.slf ../data/languages.txt
+                    ../data/dictionary.slf ../data/languages.txt ../data/categories.txt
   CLASSIFICATOR_RES.path = Contents/Resources
   CLASSIFICATOR_RES.files = ../data/classificator.txt ../data/drawing_rules.bin ../data/visibility.txt
   SKIN_RES.path = Contents/Resources
