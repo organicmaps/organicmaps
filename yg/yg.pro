@@ -52,14 +52,16 @@ SOURCES += \
     layer_manager.cpp \
     path_renderer.cpp \
     shape_renderer.cpp \
-    symbol_renderer.cpp \
     circle_info.cpp \
     area_renderer.cpp \
     font_desc.cpp \
     glyph_layout.cpp \
     text_element.cpp \
     text_path.cpp \
-    info_layer.cpp
+    info_layer.cpp \
+    overlay_element.cpp \
+    symbol_element.cpp \
+    overlay_renderer.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -104,14 +106,16 @@ HEADERS += \
     defines.hpp \
     path_renderer.hpp \
     shape_renderer.hpp \
-    symbol_renderer.hpp \
     circle_info.hpp \
     area_renderer.hpp \
     font_desc.hpp \
     glyph_layout.hpp \
     text_element.hpp \
     text_path.hpp \
-    info_layer.hpp
+    info_layer.hpp \
+    overlay_element.hpp \
+    symbol_element.hpp \
+    overlay_renderer.hpp
 
 win32 {
   HEADERS += internal/opengl_win32.hpp

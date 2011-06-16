@@ -124,6 +124,8 @@ namespace m4
 
   public:
 
+    typedef T elem_t;
+
     void Add(T const & obj, m2::RectD const & rect)
     {
       m_tree.insert(value_t(obj, rect));

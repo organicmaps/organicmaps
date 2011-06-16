@@ -1,7 +1,7 @@
 #include "text_element.hpp"
 #include "screen.hpp"
 #include "skin.hpp"
-#include "text_renderer.hpp"
+#include "overlay_renderer.hpp"
 #include "resource_style.hpp"
 
 #include "../3party/fribidi/lib/fribidi-deprecated.h"
@@ -10,69 +10,6 @@
 
 namespace yg
 {
-  OverlayElement::OverlayElement(Params const & p)
-    : m_pivot(p.m_pivot),
-      m_position(p.m_position),
-      m_depth(p.m_depth),
-      m_isNeedRedraw(true),
-      m_isFrozen(false)
-  {}
-
-  void OverlayElement::offset(m2::PointD const & offs)
-  {
-    m_pivot += offs;
-  }
-
-  m2::PointD const & OverlayElement::pivot() const
-  {
-    return m_pivot;
-  }
-
-  void OverlayElement::setPivot(m2::PointD const & pivot)
-  {
-    m_pivot = pivot;
-  }
-
-  yg::EPosition OverlayElement::position() const
-  {
-    return m_position;
-  }
-
-  void OverlayElement::setPosition(yg::EPosition pos)
-  {
-    m_position = pos;
-  }
-
-  double OverlayElement::depth() const
-  {
-    return m_depth;
-  }
-
-  void OverlayElement::setDepth(double depth)
-  {
-    m_depth = depth;
-  }
-
-  bool OverlayElement::isFrozen() const
-  {
-    return m_isFrozen;
-  }
-
-  void OverlayElement::setIsFrozen(bool flag)
-  {
-    m_isFrozen = flag;
-  }
-
-  bool OverlayElement::isNeedRedraw() const
-  {
-    return m_isNeedRedraw;
-  }
-
-  void OverlayElement::setIsNeedRedraw(bool flag)
-  {
-    m_isNeedRedraw = flag;
-  }
-
   strings::UniString TextElement::log2vis(strings::UniString const & str)
   {
     size_t const count = str.size();
@@ -110,7 +47,7 @@ namespace yg
     return m_fontDesc;
   }
 
-  void TextElement::drawTextImpl(GlyphLayout const & layout, gl::TextRenderer * screen, math::Matrix<double, 3, 3> const & m, FontDesc const & fontDesc, double depth) const
+  void TextElement::drawTextImpl(GlyphLayout const & layout, gl::OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m, FontDesc const & fontDesc, double depth) const
   {
     if ((layout.firstVisible() != 0) || (layout.lastVisible() != visText().size()))
       return;
@@ -145,7 +82,7 @@ namespace yg
     return m2::AARectD(m_glyphLayout.limitRect());
   }
 
-  void StraightTextElement::draw(gl::TextRenderer * screen, math::Matrix<double, 3, 3> const & m) const
+  void StraightTextElement::draw(gl::OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m) const
   {
     if (!isNeedRedraw())
       return;
@@ -159,11 +96,6 @@ namespace yg
 
     drawTextImpl(m_glyphLayout, screen, m, desc, yg::maxDepth);
   }
-
-/*  void StraightTextElement::draw(gl::Screen * screen) const
-  {
-    draw((gl::TextRenderer*)screen);
-  }*/
 
   void StraightTextElement::offset(m2::PointD const & offs)
   {
@@ -189,7 +121,7 @@ namespace yg
     return m2::Inflate(m_glyphLayout.limitRect(), m2::PointD(40, 2));
   }
 
-  void PathTextElement::draw(gl::TextRenderer * screen, math::Matrix<double, 3, 3> const & m) const
+  void PathTextElement::draw(gl::OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m) const
   {
     yg::FontDesc desc = m_fontDesc;
     if (m_fontDesc.m_isMasked)
@@ -200,11 +132,6 @@ namespace yg
 
     drawTextImpl(m_glyphLayout, screen, m, desc, yg::maxDepth);
   }
-
-/*  void PathTextElement::draw(gl::Screen * screen) const
-  {
-    draw((gl::TextRenderer*)screen);
-  }*/
 
   void PathTextElement::offset(m2::PointD const & offs)
   {

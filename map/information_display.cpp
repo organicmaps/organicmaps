@@ -170,7 +170,6 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
   pDrawer->screen()->drawText(m_fontDesc,
                               scalerPts[1] + m2::PointD(7, -7),
                               yg::EPosAboveRight,
-                              0,
                               scalerText.c_str(),
                               yg::maxDepth,
                               false);
@@ -254,7 +253,6 @@ void InformationDisplay::drawGlobalRect(DrawerYG *pDrawer)
         m_fontDesc,
         m2::PointD(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset),
         yg::EPosAboveRight,
-        0,
         out.str().c_str(),
         yg::maxDepth,
         false);
@@ -287,7 +285,6 @@ void InformationDisplay::drawDebugInfo(DrawerYG * drawer)
   drawer->screen()->drawText(m_fontDesc,
                              pos,
                              yg::EPosAboveRight,
-                             0,
                              out.str().c_str(),
                              yg::maxDepth,
                              false);
@@ -315,7 +312,6 @@ void InformationDisplay::drawMemoryWarning(DrawerYG * drawer)
   drawer->screen()->drawText(m_fontDesc,
                              pos,
                              yg::EPosAboveRight,
-                             0,
                              out.str().c_str(),
                              yg::maxDepth,
                              false);
@@ -490,7 +486,6 @@ void InformationDisplay::drawBenchmarkInfo(DrawerYG * pDrawer)
   pDrawer->screen()->drawText(m_fontDesc,
                               pos,
                               yg::EPosAboveRight,
-                              0,
                               "benchmark info :",
                               yg::maxDepth,
                               false);
@@ -510,7 +505,6 @@ void InformationDisplay::drawBenchmarkInfo(DrawerYG * pDrawer)
     pDrawer->screen()->drawText(m_fontDesc,
                                 pos,
                                 yg::EPosAboveRight,
-                                0,
                                 out.str().c_str(),
                                 yg::maxDepth,
                                 false

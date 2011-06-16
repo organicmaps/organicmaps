@@ -4,15 +4,13 @@
 
 #include "../base/matrix.hpp"
 
-#include "../geometry/point2d.hpp"
-#include "../geometry/rect2d.hpp"
 #include "../geometry/aa_rect2d.hpp"
 
 #include "../std/shared_ptr.hpp"
 
-#include "defines.hpp"
 #include "font_desc.hpp"
 #include "glyph_layout.hpp"
+#include "overlay_element.hpp"
 
 namespace yg
 {
@@ -21,51 +19,8 @@ namespace yg
 
   namespace gl
   {
-    class Screen;
-    class TextRenderer;
+    class OverlayRenderer;
   }
-
-  class OverlayElement
-  {
-  private:
-
-    m2::PointD m_pivot;
-    yg::EPosition m_position;
-    double m_depth;
-
-    bool m_isNeedRedraw;
-    bool m_isFrozen;
-
-  public:
-
-    struct Params
-    {
-      m2::PointD m_pivot;
-      yg::EPosition m_position;
-      double m_depth;
-    };
-
-    OverlayElement(Params const & p);
-
-    virtual void offset(m2::PointD const & offs) = 0;
-    virtual m2::AARectD const boundRect() const = 0;
-//    virtual void draw(gl::Screen * screen) const = 0;
-
-    m2::PointD const & pivot() const;
-    void setPivot(m2::PointD const & pv);
-
-    yg::EPosition position() const;
-    void setPosition(yg::EPosition pos);
-
-    double depth() const;
-    void setDepth(double depth);
-
-    bool isFrozen() const;
-    void setIsFrozen(bool flag);
-
-    bool isNeedRedraw() const;
-    void setIsNeedRedraw(bool flag);
-  };
 
   class TextElement : public OverlayElement
   {
@@ -93,7 +48,7 @@ namespace yg
     TextElement(Params const & p);
 
     void drawTextImpl(GlyphLayout const & layout,
-                      gl::TextRenderer * screen,
+                      gl::OverlayRenderer * r,
                       math::Matrix<double, 3, 3> const & m,
                       FontDesc const & desc,
                       double depth) const;
@@ -116,8 +71,7 @@ namespace yg
     StraightTextElement(Params const & p);
 
     m2::AARectD const boundRect() const;
-//    void draw(gl::Screen * screen) const;
-    void draw(gl::TextRenderer * screen, math::Matrix<double, 3, 3> const & m) const;
+    void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
     void offset(m2::PointD const & offs);
   };
 
@@ -140,8 +94,7 @@ namespace yg
     PathTextElement(Params const & p);
 
     m2::AARectD const boundRect() const;
-//    void draw(gl::Screen * screen) const;
-    void draw(gl::TextRenderer * screen, math::Matrix<double, 3, 3> const & m) const;
+    void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
     void offset(m2::PointD const & offs);
   };
 }

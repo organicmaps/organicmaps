@@ -600,12 +600,12 @@ namespace
 
       yg::FontDesc fontDesc(20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
 
-      p->drawText(fontDesc, m2::PointD(200, 200), yg::EPosAboveRight, 0                , "0", 0, true);
-      p->drawText(fontDesc, m2::PointD(240, 200), yg::EPosAboveRight, math::pi / 2     , "0", 0, true);
-      p->drawText(fontDesc, m2::PointD(280, 200), yg::EPosAboveRight, math::pi         , "0", 0, true);
-      p->drawText(fontDesc, m2::PointD(320, 200), yg::EPosAboveRight, math::pi * 3 / 2 , "0", 0, true);
-      p->drawText(fontDesc, m2::PointD(360, 200), yg::EPosAboveRight, math::pi / 18, "0", 0, true);
-      p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, math::pi / 18, "Simplicity is the ultimate sophistication", 0, true);
+      p->drawText(fontDesc, m2::PointD(200, 200), yg::EPosAboveRight, "0", 0, true);
+      p->drawText(fontDesc, m2::PointD(240, 200), yg::EPosAboveRight, "0", 0, true);
+      p->drawText(fontDesc, m2::PointD(280, 200), yg::EPosAboveRight, "0", 0, true);
+      p->drawText(fontDesc, m2::PointD(320, 200), yg::EPosAboveRight, "0", 0, true);
+      p->drawText(fontDesc, m2::PointD(360, 200), yg::EPosAboveRight, "0", 0, true);
+      p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, "Simplicity is the ultimate sophistication", 0, true);
     }
   };
 
@@ -614,7 +614,7 @@ namespace
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
       yg::FontDesc fontDesc(20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
-      p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, 0, "X", 1, true);
+      p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, "X", 1, true);
     }
   };
 
@@ -623,7 +623,7 @@ namespace
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
       yg::FontDesc fontDesc(20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
-      p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, 0, " ", 1, true);
+      p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, " ", 1, true);
     }
   };
 
@@ -638,7 +638,7 @@ namespace
 
       for (size_t i = 0; i < maxTimes; ++i)
         for (size_t j = 1; j <= i+1; ++j)
-          p->drawText(fontDesc, m2::PointD(40, 10 + yStep * i), yg::EPosAboveRight, math::pi / 6, "Simplicity is the ultimate sophistication", 0, true);
+          p->drawText(fontDesc, m2::PointD(40, 10 + yStep * i), yg::EPosAboveRight, "Simplicity is the ultimate sophistication", 0, true);
     }
   };
 
@@ -656,7 +656,7 @@ namespace
 
       yg::FontDesc fontDesc(20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
 
-      p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, 0, "S", 0, true);
+      p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, "S", 0, true);
       p->drawPath(&path[0], path.size(), 0, p->skin()->mapPenInfo(solidPenInfo), 0);
 
     }
@@ -667,7 +667,7 @@ namespace
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
       yg::FontDesc fontDesc(20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
-      p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, 0/*, math::pi / 18*/, "Simplicity is the ultimate sophistication", 0, true);
+      p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, "Simplicity is the ultimate sophistication", 0, true);
     }
   };
 
@@ -676,7 +676,7 @@ namespace
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
       yg::FontDesc fontDesc(25, yg::Color(0, 0, 255, 255), true, yg::Color(255, 255, 255, 255));
-      p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, 0/*, math::pi / 18*/, "Simplicity is the ultimate sophistication", 0, true);
+      p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, "Simplicity is the ultimate sophistication", 0, true);
     }
   };
 
@@ -686,8 +686,8 @@ namespace
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
       yg::FontDesc fontDesc(12);
-      p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, 0, "Latin Symbol : A", 0, true);
-      p->drawText(fontDesc, m2::PointD(40, 80), yg::EPosAboveRight, 0, "Cyrillic Symbol : Ы", 0, true);
+      p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, "Latin Symbol : A", 0, true);
+      p->drawText(fontDesc, m2::PointD(40, 80), yg::EPosAboveRight, "Cyrillic Symbol : Ы", 0, true);
     }
   };
 
@@ -973,7 +973,7 @@ namespace
       for (size_t i = 0; i < sizesCount; ++i)
       {
         yg::FontDesc fontDesc(startSize + i);
-        p->drawText(fontDesc, m2::PointD(10, startY), yg::EPosAboveRight, 0, "Simplicity is the ultimate sophistication. Leonardo Da Vinci", 0,  true);
+        p->drawText(fontDesc, m2::PointD(10, startY), yg::EPosAboveRight, "Simplicity is the ultimate sophistication. Leonardo Da Vinci", 0,  true);
         startY += fontDesc.m_size;
       }
     }
@@ -990,8 +990,8 @@ namespace
       for (size_t i = 0; i < sizesCount; ++i)
       {
         yg::FontDesc fontDesc(startSize);
-        p->drawText(fontDesc, m2::PointD(10, startY), yg::EPosAboveRight, 0, "Simplicity is the ultimate sophistication. Leonardo Da Vinci", 100, true);
-        p->drawText(fontDesc, m2::PointD(5, startY + (startSize + i) / 2), yg::EPosAboveRight, 0, "This text should be filtered", 100, true);
+        p->drawText(fontDesc, m2::PointD(10, startY), yg::EPosAboveRight, "Simplicity is the ultimate sophistication. Leonardo Da Vinci", 100, true);
+        p->drawText(fontDesc, m2::PointD(5, startY + (startSize + i) / 2), yg::EPosAboveRight, "This text should be filtered", 100, true);
         startY += startSize + i;
       }
     }
@@ -1017,7 +1017,6 @@ namespace
               fontDesc,
               m2::PointD(rand() % 500, rand() % 500),
               yg::EPosAboveRight,
-              0,
               texts[rand() % (sizeof(texts) / sizeof(char*))],
               rand() % 10,
               true);

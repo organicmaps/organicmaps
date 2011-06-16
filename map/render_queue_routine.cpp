@@ -240,6 +240,7 @@ void RenderQueueRoutine::Do()
   params.m_doPeriodicalUpdate = m_doPeriodicalUpdate;
   params.m_updateInterval = m_updateInterval;
   params.m_glyphCacheID = m_resourceManager->renderThreadGlyphCacheID();
+  params.m_useOverlay = true;
 /*  params.m_isDebugging = true;
   params.m_drawPathes = false;
   params.m_drawAreas = false;

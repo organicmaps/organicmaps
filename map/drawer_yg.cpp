@@ -254,7 +254,6 @@ void DrawerYG::drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_
           fontDesc,
           pt,
           pos,
-          0.0,
           pInfo->m_name,
           depth,
           true);
@@ -295,7 +294,7 @@ void DrawerYG::drawPathNumber(di::PathInfo const & path, di::DrawInfo const * pI
           true,
           yg::Color(255, 255, 255, 255));
 
-        m_pScreen->drawText(fontDesc, pt, yg::EPosCenter, 0.0, pInfo->m_road, yg::maxDepth, true);
+        m_pScreen->drawText(fontDesc, pt, yg::EPosCenter, pInfo->m_road, yg::maxDepth, true);
       }
     }
   }

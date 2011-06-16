@@ -18,24 +18,6 @@ namespace yg
     {
     private:
 
-      bool drawPathTextImpl(FontDesc const & fontDesc,
-                            m2::PointD const * path,
-                            size_t s,
-                            string const & utf8Text,
-                            double fullLength,
-                            double pathOffset,
-                            yg::EPosition pos,
-                            double depth);
-
-      /// Drawing text from point rotated by the angle.
-      void drawTextImpl(FontDesc const & fontDesc,
-                        m2::PointD const & pt,
-                        yg::EPosition pos,
-                        float angle,
-                        string const & utf8Text,
-                        double depth,
-                        bool log2vis);
-
       bool m_drawTexts;
       int m_glyphCacheID;
 
@@ -59,24 +41,6 @@ namespace yg
                      CharStyle const * p,
                      double depth);
 
-      /// Drawing text from point rotated by the angle.
-      void drawText(FontDesc const & fontDesc,
-                    m2::PointD const & pt,
-                    yg::EPosition pos,
-                    float angle,
-                    string const & utf8Text,
-                    double depth,
-                    bool log2vis);
-
-      /// Drawing text in the middle of the path.
-      bool drawPathText(FontDesc const & fontDesc,
-                        m2::PointD const * path,
-                        size_t s,
-                        string const & utf8Text,
-                        double fullLength,
-                        double pathOffset,
-                        yg::EPosition pos,
-                        double depth);
 
       GlyphCache * glyphCache() const;
     };

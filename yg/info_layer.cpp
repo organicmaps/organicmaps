@@ -4,6 +4,7 @@
 #include "text_element.hpp"
 
 #include "../std/bind.hpp"
+#include "../std/vector.hpp"
 
 namespace yg
 {
@@ -24,8 +25,11 @@ namespace yg
     return false;
   }
 
-  void InfoLayer::draw(gl::TextRenderer *r, math::Matrix<double, 3, 3> const & m)
+  void InfoLayer::draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m)
   {
+    for (symbols_map_t::const_iterator it = m_symbolsMap.begin(); it != m_symbolsMap.end(); ++it)
+      it->second.ForEach(bind(&SymbolElement::draw, _1, r, m));
+
     list<strings::UniString> toErase;
 
     for (path_text_elements::const_iterator it = m_pathTexts.begin(); it != m_pathTexts.end(); ++it)
@@ -45,18 +49,20 @@ namespace yg
     m_tree.ForEach(bind(&StraightTextElement::draw, _1, r, m));
   }
 
-  void InfoLayer::offsetTextTree(m2::PointD const & offs, m2::RectD const & rect)
+  template <typename Tree>
+  void offsetTree(Tree & tree, m2::PointD const & offs, m2::RectD const & rect)
   {
-    vector<StraightTextElement> texts;
-    m_tree.ForEach(MakeBackInsertFunctor(texts));
-    m_tree.Clear();
-    for (vector<StraightTextElement>::iterator it = texts.begin(); it != texts.end(); ++it)
+    typedef typename Tree::elem_t elem_t;
+    vector<elem_t> elems;
+    tree.ForEach(MakeBackInsertFunctor(elems));
+    tree.Clear();
+
+    for (typename vector<elem_t>::iterator it = elems.begin(); it != elems.end(); ++it)
     {
       it->offset(offs);
-
       m2::RectD limitRect = it->boundRect().GetGlobalRect();
-
       bool doAppend = false;
+
       it->setIsNeedRedraw(true);
       it->setIsFrozen(false);
 
@@ -73,8 +79,13 @@ namespace yg
         }
 
       if (doAppend)
-        m_tree.Add(*it, limitRect);
+        tree.Add(*it, limitRect);
     }
+  }
+
+  void InfoLayer::offsetTextTree(m2::PointD const & offs, m2::RectD const & rect)
+  {
+    offsetTree(m_tree, offs, rect);
   }
 
   void InfoLayer::offsetPathTexts(m2::PointD const & offs, m2::RectD const & rect)
@@ -114,21 +125,43 @@ namespace yg
     m_pathTexts = newPathTexts;
   }
 
+  void InfoLayer::offsetSymbols(m2::PointD const & offs, m2::RectD const & r)
+  {
+    for (symbols_map_t::iterator it = m_symbolsMap.begin(); it != m_symbolsMap.end(); ++it)
+      offsetTree(it->second, offs, r);
+  }
+
   void InfoLayer::offset(m2::PointD const & offs, m2::RectD const & rect)
   {
     offsetTextTree(offs, rect);
     offsetPathTexts(offs, rect);
+    offsetSymbols(offs, rect);
   }
 
   void InfoLayer::clear()
   {
     m_tree.Clear();
     m_pathTexts.clear();
+    m_symbolsMap.clear();
   }
 
   void InfoLayer::addStraightText(StraightTextElement const & ste)
   {
     m_tree.ReplaceIf(ste, ste.boundRect().GetGlobalRect(), &better_text);
+  }
+
+  void mark_intersect(bool & flag)
+  {
+    flag = true;
+  }
+
+  void InfoLayer::addSymbol(SymbolElement const & se)
+  {
+    bool isIntersect = false;
+    m2::RectD limitRect = se.boundRect().GetGlobalRect();
+    m_symbolsMap[se.styleID()].ForEachInRect(limitRect, bind(&mark_intersect, ref(isIntersect)));
+    if (!isIntersect)
+      m_symbolsMap[se.styleID()].Add(se, limitRect);
   }
 
   void InfoLayer::addPathText(PathTextElement const & pte)

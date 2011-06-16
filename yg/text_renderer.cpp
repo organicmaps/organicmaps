@@ -27,64 +27,6 @@ namespace yg
         m_glyphCacheID(params.m_glyphCacheID)
     {}
 
-    void TextRenderer::drawText(FontDesc const & fontDesc,
-                                m2::PointD const & pt,
-                                yg::EPosition pos,
-                                float angle,
-                                string const & utf8Text,
-                                double depth,
-                                bool log2vis)
-    {
-      if (!m_drawTexts)
-        return;
-
-      StraightTextElement::Params params;
-      params.m_depth = depth;
-      params.m_fontDesc = fontDesc;
-      params.m_log2vis = log2vis;
-      params.m_pivot = pt;
-      params.m_position = pos;
-      params.m_glyphCache = resourceManager()->glyphCache(m_glyphCacheID);
-      params.m_logText = strings::MakeUniString(utf8Text);
-     
-      StraightTextElement ste(params);
-
-      if (!renderState().get())
-        ste.draw(this, math::Identity<double, 3>());
-      else
-        renderState()->m_currentInfoLayer->addStraightText(ste);
-    }
-
-    bool TextRenderer::drawPathText(
-        FontDesc const & fontDesc, m2::PointD const * path, size_t s, string const & utf8Text,
-        double fullLength, double pathOffset, yg::EPosition pos, double depth)
-    {
-      if (!m_drawTexts)
-        return false;
-
-      PathTextElement::Params params;
-
-      params.m_pts = path;
-      params.m_ptsCount = s;
-      params.m_fullLength = fullLength;
-      params.m_pathOffset = pathOffset;
-      params.m_fontDesc = fontDesc;
-      params.m_logText = strings::MakeUniString(utf8Text);
-      params.m_depth = depth;
-      params.m_log2vis = true;
-      params.m_glyphCache = resourceManager()->glyphCache(m_glyphCacheID);
-      params.m_pivot = path[0];
-      params.m_position = pos;
-
-      PathTextElement pte(params);
-
-      if (!renderState().get())
-        pte.draw(this, math::Identity<double, 3>());
-      else
-        renderState()->m_currentInfoLayer->addPathText(pte);
-
-      return true;
-    }
 
     void TextRenderer::drawGlyph(m2::PointD const & ptOrg, m2::PointD const & ptGlyph, ang::AngleD const & angle, float /*blOffset*/, CharStyle const * p, double depth)
     {

@@ -1,20 +1,19 @@
 #pragma once
 
-#include "symbol_renderer.hpp"
+#include "overlay_renderer.hpp"
 
 namespace yg
 {
-  class ResourceManager;
   namespace gl
   {
-    class Screen : public SymbolRenderer
+    class Screen : public OverlayRenderer
     {
     private:
     public:
 
-      typedef SymbolRenderer::Params Params;
+      typedef OverlayRenderer::Params Params;
 
-      Screen(Params const & params) : SymbolRenderer(params)
+      Screen(Params const & params) : OverlayRenderer(params)
       {}
     };
   }

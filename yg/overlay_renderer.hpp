@@ -1,0 +1,54 @@
+#pragma once
+
+#include "text_renderer.hpp"
+
+namespace yg
+{
+  namespace gl
+  {
+    class OverlayRenderer : public TextRenderer
+    {
+    private:
+
+      bool m_useOverlay;
+      bool m_drawTexts;
+      bool m_drawSymbols;
+
+    public:
+
+      struct Params : public TextRenderer::Params
+      {
+        bool m_useOverlay;
+        bool m_drawTexts;
+        bool m_drawSymbols;
+        Params();
+      };
+
+      OverlayRenderer(Params const & p);
+
+      /// Drawing POI symbol
+      void drawSymbol(m2::PointD const & pt, uint32_t styleID, EPosition pos, int depth);
+
+      /// Drawing circle
+      void drawCircle(m2::PointD const & pt, uint32_t styleID, EPosition pos, int depth);
+
+      /// drawing straight text
+      void drawText(FontDesc const & fontDesc,
+                    m2::PointD const & pt,
+                    yg::EPosition pos,
+                    string const & utf8Text,
+                    double depth,
+                    bool log2vis);
+
+      /// drawing text on the path
+      bool drawPathText(FontDesc const & fontDesc,
+                        m2::PointD const * path,
+                        size_t s,
+                        string const & utf8Text,
+                        double fullLength,
+                        double pathOffset,
+                        yg::EPosition pos,
+                        double depth);
+    };
+  }
+}
