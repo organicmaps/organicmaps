@@ -61,6 +61,12 @@ bada/Maps/Res
 bada/Maps/Home
 bada/Maps/*.zip
 
+# android
+android/bin
+android/gen
+android/libs
+android/obj
+
 # data
 data/intermediate_data
 data/*.mwm
