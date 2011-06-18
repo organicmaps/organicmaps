@@ -593,8 +593,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../omim-iphonesim-build/out/debug\"",
+					"$(inherited)"
 				);
 			};
 			name = "Simulator Debug";
@@ -691,8 +690,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../omim-iphonesim-build/out/debug\"",
+					"$(inherited)"
 				);
 			};
 			name = "Production Release";
@@ -743,8 +741,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../omim-iphonesim-build/out/debug\"",
+					"$(inherited)"
 				);
 			};
 			name = "Simulator Release";
@@ -797,8 +794,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../omim-iphonesim-build/out/debug\"",
+					"$(inherited)"
 				);
 			};
 			name = "Device Debug";
@@ -852,8 +848,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../omim-iphonesim-build/out/debug\"",
+					"$(inherited)"
 				);
 			};
 			name = "Device Release";
