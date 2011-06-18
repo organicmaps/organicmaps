@@ -4,7 +4,7 @@ ru:2банкомат|наличка
 
 amenity-bank
 en:bank
-ru:банк
+ru:1банк
 
 amenity-bar|amenity-pub
 en:1bar|pub|beer

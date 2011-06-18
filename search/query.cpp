@@ -157,8 +157,15 @@ void Query::Search(function<void (Result const &)> const & f)
         if (matcher.GetPrefixMatchScore() <= GetMaxPrefixMatchScore(m_prefix.size()) &&
             matcher.GetMatchScore() <= GetMaxKeywordMatchScore())
         {
+          int minPrefixMatchLength = 0;
+          for (vector<Category::Name>::const_iterator iName = iCategory->m_synonyms.begin();
+               iName != iCategory->m_synonyms.end(); ++iName)
+            if (iName->m_Name == matcher.GetBestMatchName())
+              minPrefixMatchLength = iName->m_prefixLengthToSuggest;
+
           AddResult(IntermediateResult(matcher.GetBestMatchName(),
-                                       matcher.GetBestMatchName() + ' '));
+                                       matcher.GetBestMatchName() + ' ',
+                                       minPrefixMatchLength));
         }
       }
     }

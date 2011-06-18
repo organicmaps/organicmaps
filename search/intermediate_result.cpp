@@ -37,9 +37,9 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect,
   m_direction = ResultDirection(viewportRect.Center(), m_rect.Center());
 }
 
-IntermediateResult::IntermediateResult(string name, string completionString)
+IntermediateResult::IntermediateResult(string name, string completionString, int penalty)
   : m_str(name), m_completionString(completionString),
-    m_matchPenalty(0), m_minVisibleScale(0), m_distance(0), m_direction(0),
+    m_matchPenalty(0), m_minVisibleScale(penalty), m_distance(0), m_direction(0),
     m_resultType(RESULT_CATEGORY)
 {
 }
