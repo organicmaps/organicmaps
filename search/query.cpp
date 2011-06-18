@@ -176,6 +176,11 @@ void Query::Search(function<void (Result const &)> const & f)
     return;
 
   FlushResults(f);
+  if (m_resultsRemaining == 0 || m_queryText.empty())
+  {
+    f(Result(string(), string()));  // Send last search result marker.
+    return;
+  }
 
   // Feature matching.
   FeatureProcessor featureProcessor(*this);
