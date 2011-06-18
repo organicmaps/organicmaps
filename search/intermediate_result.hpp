@@ -10,23 +10,32 @@ namespace impl
 class IntermediateResult
 {
 public:
+  enum ResultType
+  {
+    RESULT_LATLON,
+    RESULT_FEATURE
+  };
+
+  // For RESULT_FEATURE.
   IntermediateResult(m2::RectD const & viewportRect,
                      FeatureType const & feature,
                      string const & displayName,
                      int matchPenalty,
                      int minVisibleScale);
 
+  // For RESULT_LATLON.
+  IntermediateResult(m2::RectD const & viewportRect, double lat, double lon, double precision);
 
   bool operator < (IntermediateResult const & o) const;
 
   Result GenerateFinalResult() const;
 
+private:
   static double ResultDistance(m2::PointD const & viewportCenter,
                                m2::PointD const & featureCenter);
   static double ResultDirection(m2::PointD const & viewportCenter,
                                 m2::PointD const & featureCenter);
 
-private:
   string m_str;
   m2::RectD m_rect;
   uint32_t m_type;
@@ -34,6 +43,7 @@ private:
   int m_minVisibleScale;
   double m_distance;
   double m_direction;
+  ResultType m_resultType;
 };
 
 }  // namespace search::impl

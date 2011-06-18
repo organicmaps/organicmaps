@@ -3,7 +3,6 @@
 #include "latlon_match.hpp"
 #include "string_match.hpp"
 #include "../indexer/feature_visibility.hpp"
-#include "../indexer/mercator.hpp"
 #include "../base/exception.hpp"
 #include "../base/stl_add.hpp"
 #include "../std/scoped_ptr.hpp"
@@ -123,14 +122,7 @@ void Query::Search(function<void (Result const &)> const & f)
     if (search::MatchLatLon(m_queryText, lat, lon, latPrec, lonPrec))
     {
       double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
-      m2::RectD const rect(MercatorBounds::LonToX(lon - precision),
-                           MercatorBounds::LatToY(lat - precision),
-                           MercatorBounds::LonToX(lon + precision),
-                           MercatorBounds::LatToY(lat + precision));
-      f(Result("(" + strings::to_string(lat) + ", " + strings::to_string(lon) + ")",
-               0, rect,
-               IntermediateResult::ResultDistance(m_viewport.Center(), rect.Center()),
-               IntermediateResult::ResultDirection(m_viewport.Center(), rect.Center())));
+      AddResult(IntermediateResult(m_viewport, lat, lon, precision));
     }
   }
 
