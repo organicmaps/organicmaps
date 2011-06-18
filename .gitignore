@@ -15,7 +15,6 @@ object_script.*.Release
 *.loc
 *.rss
 *.pkg
-*.mk
 *.d
 
 # Windows generated files
@@ -83,3 +82,7 @@ data/index.stamp
 
 syntax: regexp
 (.*/)?\#[^/]*\#$
+
+/android/.classpath
+/android/.cproject
+/android/.project
