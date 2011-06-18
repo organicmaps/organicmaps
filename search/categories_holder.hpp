@@ -3,7 +3,6 @@
 
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
-#include "../std/utility.hpp"
 #include "../std/fstream.hpp"
 #include "../std/algorithm.hpp"
 
@@ -14,8 +13,16 @@ struct Category
 {
   /// Classificator types
   vector<uint32_t> m_types;
+
+  struct Name
+  {
+    string m_Name;
+    int8_t m_Lang;
+    uint8_t m_prefixLengthToSuggest;
+  };
+
   /// <language, synonym>
-  vector<pair<int8_t, string> > m_synonyms;
+  vector<Name> m_synonyms;
 };
 
 class CategoriesHolder

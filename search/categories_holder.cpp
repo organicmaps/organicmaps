@@ -75,7 +75,23 @@ size_t CategoriesHolder::LoadFromStream(istream & stream)
         }
         while (++iter)
         {
-          cat.m_synonyms.push_back(make_pair(langCode, *iter));
+          Category::Name name;
+          name.m_Lang = langCode;
+          name.m_Name = *iter;
+
+          // ASSERT(name.m_Name.empty(), ());
+          if (name.m_Name.empty())
+            continue;
+
+          if (name.m_Name[0] >= '0' && name.m_Name[0] <= '9')
+          {
+            name.m_prefixLengthToSuggest = name.m_Name[0] - '0';
+            name.m_Name = name.m_Name.substr(1);
+          }
+          else
+            name.m_prefixLengthToSuggest = 10;
+
+          cat.m_synonyms.push_back(name);
         }
       }
       break;

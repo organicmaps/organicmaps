@@ -12,12 +12,12 @@
 #include "../../std/sstream.hpp"
 
 char const * TEST_STRING =  "amenity-bench\n"
-                            "en:bench|sit down|to sit\n"
-                            "de:bank|auf die strafbank schicken\n"
+                            "en:1bench|sit down|to sit\n"
+                            "de:0bank|auf die strafbank schicken\n"
                             "\n"
                             "place-village|place-hamlet\n"
                             "en:village\n"
-                            "de:dorf|weiler";
+                            "de:2dorf|4weiler";
 
 struct Checker
 {
@@ -31,16 +31,19 @@ struct Checker
       {
         TEST_EQUAL(cat.m_types.size(), 1, ());
         TEST_EQUAL(cat.m_synonyms.size(), 5, ());
-        TEST_EQUAL(cat.m_synonyms[0].first, StringUtf8Multilang::GetLangIndex("en"), ());
-        TEST_EQUAL(cat.m_synonyms[0].second, "bench", ());
-        TEST_EQUAL(cat.m_synonyms[1].first, StringUtf8Multilang::GetLangIndex("en"), ());
-        TEST_EQUAL(cat.m_synonyms[1].second, "sit down", ());
-        TEST_EQUAL(cat.m_synonyms[2].first, StringUtf8Multilang::GetLangIndex("en"), ());
-        TEST_EQUAL(cat.m_synonyms[2].second, "to sit", ());
-        TEST_EQUAL(cat.m_synonyms[3].first, StringUtf8Multilang::GetLangIndex("de"), ());
-        TEST_EQUAL(cat.m_synonyms[3].second, "bank", ());
-        TEST_EQUAL(cat.m_synonyms[4].first, StringUtf8Multilang::GetLangIndex("de"), ());
-        TEST_EQUAL(cat.m_synonyms[4].second, "auf die strafbank schicken", ());
+        TEST_EQUAL(cat.m_synonyms[0].m_Lang, StringUtf8Multilang::GetLangIndex("en"), ());
+        TEST_EQUAL(cat.m_synonyms[0].m_Name, "bench", ());
+        TEST_EQUAL(cat.m_synonyms[0].m_prefixLengthToSuggest, 1, ());
+        TEST_EQUAL(cat.m_synonyms[1].m_Lang, StringUtf8Multilang::GetLangIndex("en"), ());
+        TEST_EQUAL(cat.m_synonyms[1].m_Name, "sit down", ());
+        TEST_EQUAL(cat.m_synonyms[1].m_prefixLengthToSuggest, 10, ());
+        TEST_EQUAL(cat.m_synonyms[2].m_Lang, StringUtf8Multilang::GetLangIndex("en"), ());
+        TEST_EQUAL(cat.m_synonyms[2].m_Name, "to sit", ());
+        TEST_EQUAL(cat.m_synonyms[3].m_Lang, StringUtf8Multilang::GetLangIndex("de"), ());
+        TEST_EQUAL(cat.m_synonyms[3].m_Name, "bank", ());
+        TEST_EQUAL(cat.m_synonyms[3].m_prefixLengthToSuggest, 0, ());
+        TEST_EQUAL(cat.m_synonyms[4].m_Lang, StringUtf8Multilang::GetLangIndex("de"), ());
+        TEST_EQUAL(cat.m_synonyms[4].m_Name, "auf die strafbank schicken", ());
         ++m_count;
       }
       break;
@@ -48,12 +51,14 @@ struct Checker
       {
         TEST_EQUAL(cat.m_types.size(), 2, ());
         TEST_EQUAL(cat.m_synonyms.size(), 3, ());
-        TEST_EQUAL(cat.m_synonyms[0].first, StringUtf8Multilang::GetLangIndex("en"), ());
-        TEST_EQUAL(cat.m_synonyms[0].second, "village", ());
-        TEST_EQUAL(cat.m_synonyms[1].first, StringUtf8Multilang::GetLangIndex("de"), ());
-        TEST_EQUAL(cat.m_synonyms[1].second, "dorf", ());
-        TEST_EQUAL(cat.m_synonyms[2].first, StringUtf8Multilang::GetLangIndex("de"), ());
-        TEST_EQUAL(cat.m_synonyms[2].second, "weiler", ());
+        TEST_EQUAL(cat.m_synonyms[0].m_Lang, StringUtf8Multilang::GetLangIndex("en"), ());
+        TEST_EQUAL(cat.m_synonyms[0].m_Name, "village", ());
+        TEST_EQUAL(cat.m_synonyms[1].m_Lang, StringUtf8Multilang::GetLangIndex("de"), ());
+        TEST_EQUAL(cat.m_synonyms[1].m_Name, "dorf", ());
+        TEST_EQUAL(cat.m_synonyms[1].m_prefixLengthToSuggest, 2, ());
+        TEST_EQUAL(cat.m_synonyms[2].m_Lang, StringUtf8Multilang::GetLangIndex("de"), ());
+        TEST_EQUAL(cat.m_synonyms[2].m_Name, "weiler", ());
+        TEST_EQUAL(cat.m_synonyms[2].m_prefixLengthToSuggest, 4, ());
         ++m_count;
       }
       break;
