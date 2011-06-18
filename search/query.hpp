@@ -38,6 +38,9 @@ public:
   // Add result for scoring.
   void AddResult(IntermediateResult const & result);
 
+  // Send all accumulated results to f().
+  void FlushResults(function<void (Result const &)> const & f);
+
   // Set a flag that query is not active any more and should terminate.
   void SetTerminateFlag() volatile { m_bTerminate = true; }
   bool GetTerminateFlag() const { return m_bTerminate; }
@@ -60,6 +63,7 @@ private:
   IndexType::Query m_indexQuery;
 
   priority_queue<IntermediateResult> m_results;
+  int m_resultsRemaining;
 
   Engine * m_pEngine;
   bool volatile m_bTerminate;

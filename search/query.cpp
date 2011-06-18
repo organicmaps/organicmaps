@@ -99,6 +99,7 @@ Query::Query(string const & query, m2::RectD const & viewport, IndexType const *
              Engine * pEngine, CategoriesHolder * pCategories)
   : m_queryText(query), m_viewport(viewport), m_pCategories(pCategories),
     m_pIndex(pIndex ? new IndexType(*pIndex) : NULL),
+    m_resultsRemaining(10),
     m_pEngine(pEngine), m_bTerminate(false)
 {
   search::Delimiters delims;
@@ -174,6 +175,8 @@ void Query::Search(function<void (Result const &)> const & f)
   if (m_bTerminate)
     return;
 
+  FlushResults(f);
+
   // Feature matching.
   FeatureProcessor featureProcessor(*this);
   int const scale = scales::GetScaleLevel(m_viewport) + 1;
@@ -207,6 +210,12 @@ void Query::Search(function<void (Result const &)> const & f)
   if (m_bTerminate)
     return;
 
+  FlushResults(f);
+  f(Result(string(), string()));  // Send last search result marker.
+}
+
+void Query::FlushResults(const function<void (const Result &)> &f)
+{
   vector<Result> results;
   results.reserve(m_results.size());
   while (!m_results.empty())
@@ -216,7 +225,7 @@ void Query::Search(function<void (Result const &)> const & f)
   }
   for (vector<Result>::const_reverse_iterator it = results.rbegin(); it != results.rend(); ++it)
     f(*it);
-  f(Result(string(), string()));  // Send last search result marker.
+  m_resultsRemaining = max(0, m_resultsRemaining - static_cast<int>(results.size()));
 }
 
 void Query::SearchAndDestroy(function<void (const Result &)> const & f)
@@ -228,7 +237,7 @@ void Query::SearchAndDestroy(function<void (const Result &)> const & f)
 
 void Query::AddResult(IntermediateResult const & result)
 {
-  if (m_results.size() < 10)
+  if (m_results.size() < m_resultsRemaining)
     m_results.push(result);
   else if (result < m_results.top())
   {
