@@ -23,7 +23,8 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   : QWidget(parent), m_pDrawWidget(drawWidget), m_busyIcon(":/ui/busy.png"), m_queryId(0)
 {
   m_pEditor = new QLineEdit(this);
-  connect(m_pEditor, SIGNAL(textChanged(QString const &)), this, SLOT(OnSearchTextChanged(QString const &)));
+  connect(m_pEditor, SIGNAL(textChanged(QString const &)),
+          this, SLOT(OnSearchTextChanged(QString const &)));
 
   m_pTable = new QTableWidget(0, 4, this);
   m_pTable->setFocusPolicy(Qt::NoFocus);
@@ -76,7 +77,7 @@ void SearchPanel::SearchResultThreadFunc(ResultT const & result, int queryId)
     emit SearchResultSignal(new ResultT(result), queryId);
 }
 
-namespace 
+namespace
 {
   QTableWidgetItem * create_item(QString const & s)
   {
@@ -161,14 +162,17 @@ void SearchPanel::OnSearchResult(ResultT * res, int queryId)
 
     if (res->GetResultType() == ResultT::RESULT_FEATURE)
     {
-      m_pTable->setItem(rowCount, 0, create_item(QString::fromUtf8(res->GetFetureTypeAsString().c_str())));
+      m_pTable->setItem(rowCount, 0,
+                        create_item(QString::fromUtf8(res->GetFetureTypeAsString().c_str())));
 
       bool drawDir;
-      m_pTable->setItem(rowCount, 2, create_item(format_distance(res->GetDistanceFromCenter(), drawDir)));
+      m_pTable->setItem(rowCount, 2,
+                        create_item(format_distance(res->GetDistanceFromCenter(), drawDir)));
 
       if (drawDir)
       {
-        QTableWidgetItem * item = new QTableWidgetItem(draw_direction(res->GetDirectionFromCenter()), QString());
+        QTableWidgetItem * item =
+            new QTableWidgetItem(draw_direction(res->GetDirectionFromCenter()), QString());
         item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
         m_pTable->setItem(rowCount, 3, item);
       }
