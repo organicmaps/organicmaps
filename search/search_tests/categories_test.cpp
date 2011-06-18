@@ -31,19 +31,19 @@ struct Checker
       {
         TEST_EQUAL(cat.m_types.size(), 1, ());
         TEST_EQUAL(cat.m_synonyms.size(), 5, ());
-        TEST_EQUAL(cat.m_synonyms[0].m_Lang, StringUtf8Multilang::GetLangIndex("en"), ());
-        TEST_EQUAL(cat.m_synonyms[0].m_Name, "bench", ());
+        TEST_EQUAL(cat.m_synonyms[0].m_lang, StringUtf8Multilang::GetLangIndex("en"), ());
+        TEST_EQUAL(cat.m_synonyms[0].m_name, "bench", ());
         TEST_EQUAL(cat.m_synonyms[0].m_prefixLengthToSuggest, 1, ());
-        TEST_EQUAL(cat.m_synonyms[1].m_Lang, StringUtf8Multilang::GetLangIndex("en"), ());
-        TEST_EQUAL(cat.m_synonyms[1].m_Name, "sit down", ());
+        TEST_EQUAL(cat.m_synonyms[1].m_lang, StringUtf8Multilang::GetLangIndex("en"), ());
+        TEST_EQUAL(cat.m_synonyms[1].m_name, "sit down", ());
         TEST_EQUAL(cat.m_synonyms[1].m_prefixLengthToSuggest, 10, ());
-        TEST_EQUAL(cat.m_synonyms[2].m_Lang, StringUtf8Multilang::GetLangIndex("en"), ());
-        TEST_EQUAL(cat.m_synonyms[2].m_Name, "to sit", ());
-        TEST_EQUAL(cat.m_synonyms[3].m_Lang, StringUtf8Multilang::GetLangIndex("de"), ());
-        TEST_EQUAL(cat.m_synonyms[3].m_Name, "bank", ());
+        TEST_EQUAL(cat.m_synonyms[2].m_lang, StringUtf8Multilang::GetLangIndex("en"), ());
+        TEST_EQUAL(cat.m_synonyms[2].m_name, "to sit", ());
+        TEST_EQUAL(cat.m_synonyms[3].m_lang, StringUtf8Multilang::GetLangIndex("de"), ());
+        TEST_EQUAL(cat.m_synonyms[3].m_name, "bank", ());
         TEST_EQUAL(cat.m_synonyms[3].m_prefixLengthToSuggest, 0, ());
-        TEST_EQUAL(cat.m_synonyms[4].m_Lang, StringUtf8Multilang::GetLangIndex("de"), ());
-        TEST_EQUAL(cat.m_synonyms[4].m_Name, "auf die strafbank schicken", ());
+        TEST_EQUAL(cat.m_synonyms[4].m_lang, StringUtf8Multilang::GetLangIndex("de"), ());
+        TEST_EQUAL(cat.m_synonyms[4].m_name, "auf die strafbank schicken", ());
         ++m_count;
       }
       break;
@@ -51,13 +51,13 @@ struct Checker
       {
         TEST_EQUAL(cat.m_types.size(), 2, ());
         TEST_EQUAL(cat.m_synonyms.size(), 3, ());
-        TEST_EQUAL(cat.m_synonyms[0].m_Lang, StringUtf8Multilang::GetLangIndex("en"), ());
-        TEST_EQUAL(cat.m_synonyms[0].m_Name, "village", ());
-        TEST_EQUAL(cat.m_synonyms[1].m_Lang, StringUtf8Multilang::GetLangIndex("de"), ());
-        TEST_EQUAL(cat.m_synonyms[1].m_Name, "dorf", ());
+        TEST_EQUAL(cat.m_synonyms[0].m_lang, StringUtf8Multilang::GetLangIndex("en"), ());
+        TEST_EQUAL(cat.m_synonyms[0].m_name, "village", ());
+        TEST_EQUAL(cat.m_synonyms[1].m_lang, StringUtf8Multilang::GetLangIndex("de"), ());
+        TEST_EQUAL(cat.m_synonyms[1].m_name, "dorf", ());
         TEST_EQUAL(cat.m_synonyms[1].m_prefixLengthToSuggest, 2, ());
-        TEST_EQUAL(cat.m_synonyms[2].m_Lang, StringUtf8Multilang::GetLangIndex("de"), ());
-        TEST_EQUAL(cat.m_synonyms[2].m_Name, "weiler", ());
+        TEST_EQUAL(cat.m_synonyms[2].m_lang, StringUtf8Multilang::GetLangIndex("de"), ());
+        TEST_EQUAL(cat.m_synonyms[2].m_name, "weiler", ());
         TEST_EQUAL(cat.m_synonyms[2].m_prefixLengthToSuggest, 4, ());
         ++m_count;
       }

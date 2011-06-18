@@ -16,8 +16,8 @@ struct Category
 
   struct Name
   {
-    string m_Name;
-    int8_t m_Lang;
+    string m_name;
+    int8_t m_lang;
     uint8_t m_prefixLengthToSuggest;
   };
 

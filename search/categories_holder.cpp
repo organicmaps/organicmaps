@@ -76,17 +76,17 @@ size_t CategoriesHolder::LoadFromStream(istream & stream)
         while (++iter)
         {
           Category::Name name;
-          name.m_Lang = langCode;
-          name.m_Name = *iter;
+          name.m_lang = langCode;
+          name.m_name = *iter;
 
           // ASSERT(name.m_Name.empty(), ());
-          if (name.m_Name.empty())
+          if (name.m_name.empty())
             continue;
 
-          if (name.m_Name[0] >= '0' && name.m_Name[0] <= '9')
+          if (name.m_name[0] >= '0' && name.m_name[0] <= '9')
           {
-            name.m_prefixLengthToSuggest = name.m_Name[0] - '0';
-            name.m_Name = name.m_Name.substr(1);
+            name.m_prefixLengthToSuggest = name.m_name[0] - '0';
+            name.m_name = name.m_name.substr(1);
           }
           else
             name.m_prefixLengthToSuggest = 10;

@@ -152,7 +152,7 @@ void Query::Search(function<void (Result const &)> const & f)
              iName != iCategory->m_synonyms.end(); ++iName)
         {
           if (m_prefix.size() >= iName->m_prefixLengthToSuggest)
-            matcher.ProcessNameToken(iName->m_Name, strings::MakeUniString(iName->m_Name));
+            matcher.ProcessNameToken(iName->m_name, strings::MakeUniString(iName->m_name));
         }
 
         if (matcher.GetPrefixMatchScore() <= GetMaxPrefixMatchScore(m_prefix.size()) &&
@@ -161,7 +161,7 @@ void Query::Search(function<void (Result const &)> const & f)
           int minPrefixMatchLength = 0;
           for (vector<Category::Name>::const_iterator iName = iCategory->m_synonyms.begin();
                iName != iCategory->m_synonyms.end(); ++iName)
-            if (iName->m_Name == matcher.GetBestMatchName())
+            if (iName->m_name == matcher.GetBestMatchName())
               minPrefixMatchLength = iName->m_prefixLengthToSuggest;
 
           AddResult(IntermediateResult(matcher.GetBestMatchName(),
