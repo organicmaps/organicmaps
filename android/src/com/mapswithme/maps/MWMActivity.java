@@ -9,11 +9,18 @@ public class MWMActivity extends Activity
 {
   private MainGLView m_view;
 
+  private String getResourcePath()
+  {
+    return new String("todo: get data path");    
+  }
+  
   @Override
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
 
+    nativeInit(getResourcePath());
+    
     m_view = new MainGLView(getApplication());
 
     setContentView(m_view);
@@ -37,4 +44,6 @@ public class MWMActivity extends Activity
   {
     System.loadLibrary("mapswithme");
   }
+  
+  private native void nativeInit(String path);
 }

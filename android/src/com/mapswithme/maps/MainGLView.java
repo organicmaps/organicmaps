@@ -7,7 +7,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
-import android.util.Log;
+//import android.util.Log;
 import android.view.MotionEvent;
 
 public class MainGLView extends GLSurfaceView
@@ -29,32 +29,11 @@ public class MainGLView extends GLSurfaceView
     // Do native initialization with OpenGL.
     nativeInit();
 
-    setRenderer(new Renderer());
+    setRenderer(new MainRenderer());
 
     // When renderMode is RENDERMODE_WHEN_DIRTY, the renderer only rendered
     // when the surface is created, or when requestRender() is called.
     setRenderMode(RENDERMODE_WHEN_DIRTY);
-  }
-
-  private static class Renderer implements GLSurfaceView.Renderer
-  {
-    @Override
-    public void onDrawFrame(GL10 gl)
-    {
-      Log.i(TAG, "Renderer::onDrawFrame");
-    }
-
-    @Override
-    public void onSurfaceChanged(GL10 gl, int width, int height)
-    {
-      Log.i(TAG, "Renderer::onSurfaceChanged");
-    }
-
-    @Override
-    public void onSurfaceCreated(GL10 gl, EGLConfig config)
-    {
-      Log.i(TAG, "Renderer::onSurfaceCreated");
-    }
   }
 
   @Override
@@ -65,4 +44,30 @@ public class MainGLView extends GLSurfaceView
   }
 
   private native void nativeInit();
+}
+
+
+class MainRenderer implements GLSurfaceView.Renderer
+{
+  @Override
+  public void onDrawFrame(GL10 gl)
+  {
+    nativeDraw();
+  }
+
+  @Override
+  public void onSurfaceChanged(GL10 gl, int w, int h)
+  {
+    nativeResize(w, h);
+  }
+
+  @Override
+  public void onSurfaceCreated(GL10 gl, EGLConfig config)
+  {
+    nativeInit();
+  }
+  
+  private native void nativeInit();
+  private native void nativeResize(int w, int h);
+  private native void nativeDraw();
 }

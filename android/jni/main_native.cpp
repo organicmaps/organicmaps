@@ -10,8 +10,8 @@ namespace jni_help
   // Some examples of sig:
   // "()V" - void function returning void;
   // "(Ljava/lang/String;)V" - String function returning void;
-  jmethodID GetJavaMethodID(JNIEnv * env, jobject obj, char const * fn,
-      char const * sig)
+  jmethodID GetJavaMethodID(JNIEnv * env, jobject obj,
+                            char const * fn, char const * sig)
   {
     jclass cls = env->GetObjectClass(obj);
     jmethodID mid = env->GetMethodID(cls, fn, sig);
@@ -72,6 +72,19 @@ extern "C"
   }
   */
 
+  ///////////////////////////////////////////////////////////////////////////////////
+  // MWMActivity
+  ///////////////////////////////////////////////////////////////////////////////////
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMActivity_nativeInit(JNIEnv * env, jobject thiz, jstring path)
+  {
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////////
+  // MainGLView
+  ///////////////////////////////////////////////////////////////////////////////////
+
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MainGLView_nativeInit(JNIEnv * env, jobject thiz)
   {
@@ -86,6 +99,25 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_GesturesProcessor_nativeZoom(JNIEnv * env,
       jobject thiz, jint mode, jdouble x1, jdouble y1, jdouble x2, jdouble y2)
+  {
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////////
+  // MainRenderer
+  ///////////////////////////////////////////////////////////////////////////////////
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MainRenderer_nativeInit(JNIEnv * env, jobject thiz)
+  {
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MainRenderer_nativeResize(JNIEnv * env, jobject thiz, jint w, jint h)
+  {
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MainRenderer_nativeDraw(JNIEnv * env, jobject thiz)
   {
   }
 }

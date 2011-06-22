@@ -69,7 +69,8 @@ public class GesturesProcessor
       {
         getPointsMove(e);
         nativeMove(PROCESS, m_pt1.x, m_pt1.y);
-      } else if (m_mode == ZOOM)
+      }
+      else if (m_mode == ZOOM)
       {
         getPointsZoom(e);
         nativeZoom(PROCESS, m_pt1.x, m_pt1.y, m_pt2.x, m_pt2.y);
@@ -79,7 +80,5 @@ public class GesturesProcessor
   }
 
   private native void nativeMove(int mode, double x, double y);
-
-  private native void nativeZoom(int mode, double x1, double y1, double x2,
-      double y2);
+  private native void nativeZoom(int mode, double x1, double y1, double x2, double y2);
 }
