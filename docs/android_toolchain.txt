@@ -1,0 +1,21 @@
+Windows:
+
+- Unzip NDK
+- Install Cygwin with gnu make and launch it
+$ export NDK_ROOT=C:/path/to/android-ndk-r5c
+$ export NDK_HOST=windows
+$ mkdir omim-android-debug
+$ cd omim-android-debug
+$ qmake -r ../omim/omim.pro -spec ../omim/tools/mkspecs/android-g++ CONFIG+=debug
+$ make
+
+Mac OS X:
+
+- Unzip NDK
+- Create android-debug configuration in the QtCreator and set it's properties:
+--- Shadow dir omim-android-debug
+--- Override qmake parameters: -spec /path/to/omim/tools/mkspecs/android-g++
+--- Set Environment variables
+    NDK_ROOT=C:/path/to/android-ndk-r5c
+    NDK_HOST=darwin-x86
+- Enjoy using QtCreator!

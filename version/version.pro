@@ -9,7 +9,7 @@ ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
 
 # Generate version header
-VERSION_HEADER = $${IN_PWD}/../version/version.hpp
+VERSION_HEADER = ../../omim/version/version.hpp
 
 versiontarget.target = $$VERSION_HEADER
 win32 {
