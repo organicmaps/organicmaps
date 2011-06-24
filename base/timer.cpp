@@ -2,6 +2,7 @@
 
 #include "../std/target_os.hpp"
 #include "../std/time.hpp"
+#include "../std/ctime.hpp"
 #include "../std/stdint.hpp"
 
 namespace my
@@ -12,7 +13,7 @@ Timer::Timer()
   Reset();
 }
 
-double Timer::LocalTime() const
+double Timer::LocalTime()
 {
 #ifdef OMIM_OS_WINDOWS
   FILETIME ft;
@@ -37,6 +38,18 @@ double Timer::ElapsedSeconds() const
 void Timer::Reset()
 {
   m_startTime = LocalTime();
+}
+
+string FormatCurrentTime()
+{
+    time_t t = time(NULL);
+    string s = string(ctime(&t));
+
+    for (size_t i = 0; i < s.size(); ++i)
+      if (s[i] == ' ') s[i] = '_';
+
+    s.erase(s.size() - 1, 1);
+    return s;
 }
 
 }

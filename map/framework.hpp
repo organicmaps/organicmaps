@@ -35,6 +35,7 @@
 #include "../base/logging.hpp"
 #include "../base/profiler.hpp"
 #include "../base/mutex.hpp"
+#include "../base/timer.hpp"
 
 #include "../std/bind.hpp"
 #include "../std/function.hpp"
@@ -157,6 +158,7 @@ class FrameWork
   vector<BenchmarkResult> m_benchmarkResults;
   my::Timer m_benchmarksTimer;
   string m_startTime;
+  my::Timer m_timer;
 
   struct Benchmark
   {

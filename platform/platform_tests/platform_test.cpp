@@ -8,27 +8,6 @@
 
 #include "../../base/start_mem_debug.hpp"
 
-UNIT_TEST(TimeInSec)
-{
-  Platform & pl = GetPlatform();
-
-  double t1 = pl.TimeInSec();
-  double s = 0.0;
-  for (int i = 0; i < 10000000; ++i)
-    s += i*0.01;
-  double t2 = pl.TimeInSec();
-
-  TEST_NOT_EQUAL(s, 0.0, ("Fictive, to prevent loop optimization"));
-  TEST_NOT_EQUAL(t1, t2, ("Timer values should not be equal"));
-
-#ifndef DEBUG
-  t1 = pl.TimeInSec();
-  for (int i = 0; i < 10000000; ++i) {}
-  t2 = pl.TimeInSec();
-
-  TEST_EQUAL(t1, t2, ("Timer values should be equal: compiler loop optimization!"));
-#endif
-}
 
 char const * TEST_FILE_NAME = "some_temporary_unit_test_file.tmp";
 

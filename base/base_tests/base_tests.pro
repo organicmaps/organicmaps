@@ -30,5 +30,6 @@ SOURCES += \
   commands_queue_test.cpp \
   buffer_vector_test.cpp \
   assert_test.cpp \
+  timer_test.cpp \
 
 HEADERS +=

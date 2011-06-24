@@ -2,8 +2,8 @@
 
 #include "../base/assert.hpp"
 #include "../base/macros.hpp"
-#include "../base/timer.hpp"
 #include "../base/logging.hpp"
+
 #include "../defines.hpp"
 
 #include <QtCore/QDir>
@@ -163,7 +163,6 @@ static bool IsDirectoryWritable(string const & dir)
 ////////////////////////////////////////////////////////////////////////////////////////
 class QtPlatform : public Platform
 {
-  my::Timer m_startTime;
   string m_writableDir;
   string m_resourcesDir;
 
@@ -230,11 +229,6 @@ public:
   {
     InitWritableDir(m_writableDir);
     InitResourcesDir(m_resourcesDir);
-  }
-
-  virtual double TimeInSec() const
-  {
-    return m_startTime.ElapsedSeconds();
   }
 
   /// @return path to /data/ with ending slash

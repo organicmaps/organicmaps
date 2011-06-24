@@ -26,10 +26,6 @@ IPhonePlatform::IPhonePlatform()
   m_writablePath = [docsDir UTF8String];
   m_writablePath += '/';
 
-  m_startDate = [[NSDate alloc] init];
-  m_dateFormatter = [[NSDateFormatter alloc] init];
-  [m_dateFormatter setDateFormat:@"EEE_MMM_dd_HH:mm:ss_yyyy"];
-
 	/// Hardcoding screen resolution depending on the device we are running.
  	m_visualScale = 1.0;
 	m_skinName = "basic.skn";
@@ -72,16 +68,6 @@ IPhonePlatform::IPhonePlatform()
 
 IPhonePlatform::~IPhonePlatform()
 {
-  [m_dateFormatter release];
-  [m_startDate release];
-}
-
-double IPhonePlatform::TimeInSec() const
-{
-  NSDate * now = [[NSDate alloc] init];
-  double interval = [now timeIntervalSinceDate:m_startDate];
-  [now release];
-  return interval;
 }
 
 string IPhonePlatform::ReadPathForFile(char const * file) const

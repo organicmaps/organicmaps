@@ -21,7 +21,6 @@
 
 #include "../std/algorithm.hpp"
 #include "../std/fstream.hpp"
-#include "../std/ctime.hpp"
 
 #include "../version/version.hpp"
 
@@ -355,12 +354,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
       m_centeringMode(EDoNothing),
       m_maxDuration(0)
   {
-    time_t curTime = time(NULL);
-    m_startTime = string(ctime(&curTime));
-    for (unsigned i = 0; i < m_startTime.size(); ++i)
-      if (m_startTime[i] == ' ')
-        m_startTime[i] = '_';
-    m_startTime = m_startTime.substr(0, m_startTime.size() - 1);
+    m_startTime = my::FormatCurrentTime();
 
     m_informationDisplay.setBottomShift(bottomShift);
 #ifdef DRAW_TOUCH_POINTS
@@ -816,7 +810,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
       m_renderQueue.renderStatePtr()->m_isEmptyModelActual = false;
     }
 
-    if (m_navigator.Update(GetPlatform().TimeInSec()))
+    if (m_navigator.Update(m_timer.ElapsedSeconds()))
       Invalidate();
   }
 
@@ -1014,8 +1008,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   {
     m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
     m2::PointD pos = m_navigator.OrientPoint(e.Pos()) + ptShift;
-    m_navigator.StartDrag(pos,
-                          GetPlatform().TimeInSec());
+    m_navigator.StartDrag(pos, m_timer.ElapsedSeconds());
 
 #ifdef DRAW_TOUCH_POINTS
     m_informationDisplay.setDebugPoint(0, pos);
@@ -1032,7 +1025,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
 
     m2::PointD pos = m_navigator.OrientPoint(e.Pos()) + ptShift;
-    m_navigator.DoDrag(pos, GetPlatform().TimeInSec());
+    m_navigator.DoDrag(pos, m_timer.ElapsedSeconds());
 
 #ifdef DRAW_TOUCH_POINTS
     m_informationDisplay.setDebugPoint(0, pos);
@@ -1048,9 +1041,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
 
     m2::PointD pos = m_navigator.OrientPoint(e.Pos()) + ptShift;
 
-    m_navigator.StopDrag(pos,
-                         GetPlatform().TimeInSec(),
-                         true);
+    m_navigator.StopDrag(pos, m_timer.ElapsedSeconds(), true);
 
 #ifdef DRAW_TOUCH_POINTS
     m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));
@@ -1076,7 +1067,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
         ? m_navigator.OrientPoint(e.Pt()) + m_renderQueue.renderState().coordSystemShift(true)
         : m_navigator.Screen().PixelRect().Center();
 
-    m_navigator.ScaleToPoint(pt, e.ScaleFactor(), GetPlatform().TimeInSec());
+    m_navigator.ScaleToPoint(pt, e.ScaleFactor(), m_timer.ElapsedSeconds());
 
     UpdateNow();
   }
@@ -1110,7 +1101,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
       pt2 += ptDiff;
     }
 
-    m_navigator.StartScale(pt1, pt2, GetPlatform().TimeInSec());
+    m_navigator.StartScale(pt1, pt2, m_timer.ElapsedSeconds());
 
 #ifdef DRAW_TOUCH_POINTS
     m_informationDisplay.setDebugPoint(0, pt1);
@@ -1136,7 +1127,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
       pt2 += ptDiff;
     }
 
-    m_navigator.DoScale(pt1, pt2, GetPlatform().TimeInSec());
+    m_navigator.DoScale(pt1, pt2, m_timer.ElapsedSeconds());
 
 #ifdef DRAW_TOUCH_POINTS
     m_informationDisplay.setDebugPoint(0, pt1);
@@ -1162,7 +1153,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
       pt2 += ptDiff;
     }
 
-    m_navigator.StopScale(pt1, pt2, GetPlatform().TimeInSec());
+    m_navigator.StopScale(pt1, pt2, m_timer.ElapsedSeconds());
 
 #ifdef DRAW_TOUCH_POINTS
     m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));

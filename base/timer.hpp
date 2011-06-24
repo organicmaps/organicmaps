@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../std/string.hpp"
+
 namespace my
 {
 
@@ -8,12 +10,15 @@ class Timer
 {
   double m_startTime;
 
-  double LocalTime() const;
+  static double LocalTime();
 
 public:
   Timer();
+
   double ElapsedSeconds() const;
   void Reset();
 };
+
+string FormatCurrentTime();
 
 }
