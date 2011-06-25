@@ -109,7 +109,9 @@
           !yg::gl::g_isBufferObjectsSupported,
           !GetPlatform().IsMultiSampled()));
     
-		resourceManager->addFonts(GetPlatform().GetFontNames());
+    Platform::FilesList fonts;
+    GetPlatform().GetFontNames(fonts);
+		resourceManager->addFonts(fonts);
 
 		DrawerYG::params_t p;
 		p.m_resourceManager = resourceManager;
