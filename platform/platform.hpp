@@ -8,6 +8,7 @@
 
 
 DECLARE_EXCEPTION(FileAbsentException, RootException);
+DECLARE_EXCEPTION(NotImplementedException, RootException);
 
 
 class Platform
@@ -84,8 +85,9 @@ public:
   virtual string ResourcesDir() const { return m_resourcesDir; }
   virtual string ReadPathForFile(string const & file) const;
 
+  virtual void GetFilesInDir(string const & directory, string const & mask, FilesList & res) const;
   virtual bool GetFileSize(string const & file, uint64_t & size) const;
-
+  virtual bool RenameFileX(string const & fOld, string const & fNew) const;
   virtual void GetFontNames(FilesList & res) const;
 
   virtual double VisualScale() const;

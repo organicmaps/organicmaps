@@ -36,6 +36,7 @@ SOURCES += ../../testing/testingmain.cpp \
     sha2_test.cpp \
     value_opt_string_test.cpp \
     multilang_utf8_string_test.cpp \
+    file_data_test.cpp \
 
 HEADERS += \
     reader_test.hpp \

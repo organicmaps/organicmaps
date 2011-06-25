@@ -8,10 +8,9 @@ public:
   IPhonePlatform();
   virtual ~IPhonePlatform();
 
-  virtual void GetFilesInDir(string const & directory, string const & mask, FilesList & outFiles) const;
-  virtual bool RenameFileX(string const & original, string const & newName) const;
   virtual int CpuCores() const;
   virtual double VisualScale() const;
+  virtual bool IsMultiSampled() const;
   virtual string SkinName() const;
   virtual string DeviceID() const;
   virtual int ScaleEtalonSize() const;

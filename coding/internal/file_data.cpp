@@ -155,23 +155,22 @@ void FileData::Flush()
 
 bool GetFileSize(string const & fName, uint64_t & sz)
 {
-    try
-    {
-        typedef my::FileData fdata_t;
-        fdata_t f(fName, fdata_t::OP_READ);
-        sz = f.Size();
-        return true;
-    }
-    catch (Writer::SeekException const &)
-    {
-        return false;
-    }
-    catch (Reader::OpenException const &)
-    {
-        return false;
-    }
+  try
+  {
+    typedef my::FileData fdata_t;
+    fdata_t f(fName, fdata_t::OP_READ);
+    sz = f.Size();
+    return true;
+  }
+  catch (Writer::SeekException const &)
+  {
+    return false;
+  }
+  catch (Reader::OpenException const &)
+  {
+    return false;
+  }
 }
-
 
 void DeleteFileX(string const & fName)
 {
@@ -190,6 +189,15 @@ void DeleteFileX(string const & fName)
       LOG(LERROR, ("File exists but can't be deleted. Sharing violation?", fName));
     }
   }
+#endif
+}
+
+bool RenameFileX(string const & fOld, string const & fNew)
+{
+#ifdef OMIM_OS_BADA
+  return Osp::Io::File::Rename(fOld.c_str(), fNew.c_str());
+#else
+  return (0 == rename(fOld.c_str(), fNew.c_str()));
 #endif
 }
 
