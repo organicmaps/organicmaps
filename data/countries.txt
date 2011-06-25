@@ -127,44 +127,46 @@
   Estonia
   Finland
   France
-   Alsace
-   Aquitaine
-   Auvergne
-   Basse-Normandie
-   Bourgogne
-   Bretagne
-   Centre
-   Champagne-Ardenne
-   Corsica
-   Franche-Comte
-   Haute-Normandie
-   Languedoc-Roussillon
-   Limousin
-   Lorraine
-   Midi-Pyrenees
-   Nord-Pas-de-Calais
-   Paris & Ile-de-France
-   Pays de la Loire
-   Picardie
-   Poitou-Charentes
-   Provence-Alpes-Cote d'Azur
-   Rhone-Alpes
+   All regions
+   Alsace|France_Alsace
+   Aquitaine|France_Aquitaine
+   Auvergne|France_Auvergne
+   Basse-Normandie|France_Basse-Normandie
+   Bourgogne|France_Bourgogne
+   Bretagne|France_Bretagne
+   Centre|France_Centre
+   Champagne-Ardenne|France_Champagne-Ardenne
+   Corsica|France_Corsica
+   Franche-Comte|France_Franche-Comte
+   Haute-Normandie|France_Haute-Normandie
+   Languedoc-Roussillon|France_Languedoc-Roussillon
+   Limousin|France_Limousin
+   Lorraine|France_Lorraine
+   Midi-Pyrenees|France_Midi-Pyrenees
+   Nord-Pas-de-Calais|France_Nord-Pas-de-Calais
+   Paris & Ile-de-France|France_Paris & Ile-de-France
+   Pays de la Loire|France_Pays de la Loire
+   Picardie|France_Picardie
+   Poitou-Charentes|France_Poitou-Charentes
+   Provence-Alpes-Cote d'Azur|France_Provence-Alpes-Cote d'Azur
+   Rhone-Alpes|France_Rhone-Alpes
   Georgia
   Germany
-   Baden-Wurttemberg
-   Bavaria
-   Berlin & Brandenburg
-   Bremen & Lower Saxony
-   Hamburg
-   Hesse
-   Mecklenburg-Vorpommern
-   North Rhine-Westphalia
-   Rhineland-Palatinate
-   Saarland
-   Saxony-Anhalt
-   Saxony
-   Schleswig-Holstein
-   Thuringia
+   All states
+   Baden-Wurttemberg|Germany_Baden-Wurttemberg
+   Bavaria|Germany_Bavaria
+   Berlin & Brandenburg|Germany_Berlin & Brandenburg
+   Bremen & Lower Saxony|Germany_Bremen & Lower Saxony
+   Hamburg|Germany_Hamburg
+   Hesse|Germany_Hesse
+   Mecklenburg-Vorpommern|Germany_Mecklenburg-Vorpommern
+   North Rhine-Westphalia|Germany_North Rhine-Westphalia
+   Rhineland-Palatinate|Germany_Rhineland-Palatinate
+   Saarland|Germany_Saarland
+   Saxony-Anhalt|Germany_Saxony-Anhalt
+   Saxony|Germany_Saxony
+   Schleswig-Holstein|Germany_Schleswig-Holstein
+   Thuringia|Germany_Thuringia
   Gibraltar
   Greece
   Hungary
@@ -242,74 +244,75 @@
    Seychelles
  North America
   Canada
-   Alberta
-   British Columbia
-   Manitoba
-   New Brunswick
-   Newfoundland and Labrador
-   Northwest Territories
-   Nova Scotia
-   Nunavut
-   Ontario
-   Prince Edward Island
-   Quebec
-   Saskatchewan
-   Yukon
+   All provinces and territories
+   Alberta|Canada_Alberta
+   British Columbia|Canada_British Columbia
+   Manitoba|Canada_Manitoba
+   New Brunswick|Canada_New Brunswick
+   Newfoundland and Labrador|Canada_Newfoundland and Labrador
+   Northwest Territories|Canada_Northwest Territories
+   Nova Scotia|Canada_Nova Scotia
+   Nunavut|Canada_Nunavut
+   Ontario|Canada_Ontario
+   Prince Edward Island|Canada_Prince Edward Island
+   Quebec|Canada_Quebec
+   Saskatchewan|Canada_Saskatchewan
+   Yukon|Canada_Yukon
   Greenland
   Mexico
   United States of America
-   All USA States
-   Alabama
-   Alaska
-   Arizona
-   Arkansas
-   California
-   Colorado
-   Connecticut
-   Delaware
-   District of Columbia
-   Florida
-   Georgia|Georgia_USA
-   Hawaii
-   Idaho
-   Illinois
-   Indiana
-   Iowa
-   Kansas
-   Kentucky
-   Louisiana
-   Maine
-   Maryland
-   Massachusetts
-   Michigan
-   Minnesota
-   Mississippi
-   Missouri
-   Montana
-   Nebraska
-   Nevada
-   New Hampshire
-   New Jersey
-   New Mexico
-   New York
-   North Carolina
-   North Dakota
-   Ohio
-   Oklahoma
-   Oregon
-   Pennsylvania
-   Rhode Island
-   South Carolina
-   South Dakota
-   Tennessee
-   Texas
-   Utah
-   Vermont
-   Virginia
-   Washington
-   West Virginia
-   Wisconsin
-   Wyoming
+   All states
+   Alabama|USA_Alabama
+   Alaska|USA_Alaska
+   Arizona|USA_Arizona
+   Arkansas|USA_Arkansas
+   California|USA_California
+   Colorado|USA_Colorado
+   Connecticut|USA_Connecticut
+   Delaware|USA_Delaware
+   District of Columbia|USA_District of Columbia
+   Florida|USA_Florida
+   Georgia|USA_Georgia
+   Hawaii|USA_Hawaii
+   Idaho|USA_Idaho
+   Illinois|USA_Illinois
+   Indiana|USA_Indiana
+   Iowa|USA_Iowa
+   Kansas|USA_Kansas
+   Kentucky|USA_Kentucky
+   Louisiana|USA_Louisiana
+   Maine|USA_Maine
+   Maryland|USA_Maryland
+   Massachusetts|USA_Massachusetts
+   Michigan|USA_Michigan
+   Minnesota|USA_Minnesota
+   Mississippi|USA_Mississippi
+   Missouri|USA_Missouri
+   Montana|USA_Montana
+   Nebraska|USA_Nebraska
+   Nevada|USA_Nevada
+   New Hampshire|USA_New Hampshire
+   New Jersey|USA_New Jersey
+   New Mexico|USA_New Mexico
+   New York|USA_New York
+   North Carolina|USA_North Carolina
+   North Dakota|USA_North Dakota
+   Ohio|USA_Ohio
+   Oklahoma|USA_Oklahoma
+   Oregon|USA_Oregon
+   Pennsylvania|USA_Pennsylvania
+   Rhode Island|USA_Rhode Island
+   South Carolina|USA_South Carolina
+   South Dakota|USA_South Dakota
+   Tennessee|USA_Tennessee
+   Texas|USA_Texas
+   Utah|USA_Utah
+   Vermont|USA_Vermont
+   Virginia|USA_Virginia
+   Washington|USA_Washington
+   West Virginia|USA_West Virginia
+   Wisconsin|USA_Wisconsin
+   Wyoming|USA_Wyoming
  Oceania
   American Samoa
   Australia
