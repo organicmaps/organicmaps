@@ -80,6 +80,10 @@ data/settings.ini
 data/index.idx
 data/index.stamp
 
+# benchmark results
+data/benchmarks/*.trace
+data/benchmarks/results.txt
+
 syntax: regexp
 (.*/)?\#[^/]*\#$
 

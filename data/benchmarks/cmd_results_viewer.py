@@ -1,6 +1,7 @@
 import math
 import sys
 
+
 f1 = open(sys.argv[2], "r")
 lns1 = f1.readlines()
 lns1 = [l.split(" ") for l in lns1]

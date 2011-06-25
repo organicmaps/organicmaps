@@ -174,6 +174,9 @@ class FrameWork
   void SaveBenchmarkResults();
   void SendBenchmarkResults();
 
+  void MarkBenchmarkResultsStart();
+  void MarkBenchmarkResultsEnd();
+
   void AddMap(string const & datFile);
   void RemoveMap(string const & datFile);
 
