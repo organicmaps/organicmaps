@@ -7,7 +7,7 @@
 #include "../base/logging.hpp"
 
 #include "../std/windows.hpp"
-#include "../std/stdio.hpp"
+#include "../std/cstdio.hpp"
 
 #include <winsock2.h>
 #include <iphlpapi.h>

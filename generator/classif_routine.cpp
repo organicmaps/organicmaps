@@ -4,15 +4,7 @@
 #include "../indexer/classificator.hpp"
 #include "../indexer/drawing_rules.hpp"
 
-//#include "../indexer/scales.hpp"
-
-//#include "../coding/reader.hpp"
-
-//#include "../base/logging.hpp"
-
-//#include "../std/stdio.hpp"
-
-//#include "../base/start_mem_debug.hpp"
+#include "../base/start_mem_debug.hpp"
 
 
 namespace classificator

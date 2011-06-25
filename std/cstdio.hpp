@@ -5,7 +5,7 @@
 #undef new
 #endif
 
-#include <stdio.h>
+#include <cstdio>
 
 #ifdef DEBUG_NEW
 #define new DEBUG_NEW

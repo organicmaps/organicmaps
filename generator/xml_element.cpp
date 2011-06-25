@@ -2,7 +2,7 @@
 
 #include "../coding/parse_xml.hpp"
 #include "../coding/reader.hpp"
-#include "../std/stdio.hpp"
+#include "../std/cstdio.hpp"
 
 #include "../std/algorithm.hpp"
 

@@ -4,8 +4,10 @@
 
 #include "../../defines.hpp"
 
-#include "../../std/stdio.hpp"
+#include "../../coding/writer.hpp"
+#include "../../coding/internal/file_data.hpp"
 
+#include "../../base/logging.hpp"
 #include "../../base/start_mem_debug.hpp"
 
 
@@ -14,17 +16,25 @@ char const * TEST_FILE_NAME = "some_temporary_unit_test_file.tmp";
 UNIT_TEST(WritableDir)
 {
   string const path = GetPlatform().WritableDir() + TEST_FILE_NAME;
-  FILE * f = fopen(path.c_str(), "w");
-  TEST_NOT_EQUAL(f, 0, ("Can't create file", path));
-  if (f)
-    fclose(f);
-  remove(path.c_str());
+
+  try
+  {
+    my::FileData f(path, my::FileData::OP_WRITE_TRUNCATE);
+  }
+  catch (Writer::OpenException const &)
+  {
+    LOG(LCRITICAL, ("Can't create file"));
+    return;
+  }
+
+  my::DeleteFileX(path);
 }
 
 UNIT_TEST(WritablePathForFile)
 {
-  string const p1 = GetPlatform().WritableDir() + TEST_FILE_NAME;
-  string const p2 = GetPlatform().WritablePathForFile(TEST_FILE_NAME);
+  Platform & pl = GetPlatform();
+  string const p1 = pl.WritableDir() + TEST_FILE_NAME;
+  string const p2 = pl.WritablePathForFile(TEST_FILE_NAME);
   TEST_EQUAL(p1, p2, ());
 }
 
@@ -35,7 +45,7 @@ UNIT_TEST(ReadPathForFile)
   Platform & p = GetPlatform();
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
   {
-    TEST_GREATER( p.ReadPathForFile(arr[i]).size(), 0, ("File should exist!") );
+    TEST_GREATER(p.ReadPathForFile(arr[i]).size(), 0, ("File should exist!"));
   }
 
   bool wasException = false;
@@ -47,7 +57,7 @@ UNIT_TEST(ReadPathForFile)
   {
     wasException = true;
   }
-  TEST( wasException, ());
+  TEST_EQUAL(wasException, true, ());
 }
 
 UNIT_TEST(GetFilesInDir)

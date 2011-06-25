@@ -6,7 +6,7 @@
 #include "../base/assert.hpp"
 #include "../base/string_utils.hpp"
 
-#include "../std/stdio.hpp"
+#include "../std/cstdio.hpp"
 
 #include "../base/start_mem_debug.hpp"
 

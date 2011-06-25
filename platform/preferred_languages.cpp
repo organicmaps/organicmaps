@@ -17,7 +17,7 @@
   #define MUI_LANGUAGE_NAME 0x8
 
 #elif defined(OMIM_OS_LINUX)
-  #include "../std/stdlib.hpp"
+  #include "../std/cstdlib.hpp"
 
 #elif defined(OMIM_OS_ANDROID)
   /// @TODO

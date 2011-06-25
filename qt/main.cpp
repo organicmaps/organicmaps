@@ -11,7 +11,7 @@
 
 #include "../version/version.hpp"
 
-#include "../std/stdio.hpp"
+#include "../std/cstdio.hpp"
 
 #include <QtGui/QApplication>
 

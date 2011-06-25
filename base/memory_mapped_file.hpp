@@ -4,7 +4,7 @@
 #include "../std/target_os.hpp"
 
 #include "../std/windows.hpp"
-#include "../std/stdio.hpp"
+#include "../std/cstdio.hpp"
 
 class MemoryMappedFile
 {
