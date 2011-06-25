@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, MWMActivity!</string>
+    <string name="download_maps">Download Maps</string>
+    <string name="my_position">My Position</string>
+    <string name="travel_guide">Travel Guide</string>
     <string name="app_name">MapsWithMe</string>
 </resources>
