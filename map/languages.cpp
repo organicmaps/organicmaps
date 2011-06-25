@@ -1,24 +1,26 @@
 #include "languages.hpp"
-#include "settings.hpp"
 
 #include "../defines.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/string_utils.hpp"
+#include "../platform/platform.hpp"
+#include "../platform/preferred_languages.hpp"
+#include "../platform/settings.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/multilang_utf8_string.hpp"
 
-#include "../platform/platform.hpp"
-#include "../platform/preferred_languages.hpp"
+#include "../base/logging.hpp"
+#include "../base/string_utils.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/sstream.hpp"
+
 
 #define DEFAULT_LANGUAGES "default"
 #define LANGUAGES_FILE "languages.txt"
 #define LANG_DELIMETER "|"
 #define SETTING_LANG_KEY "languages_priority"
+
 
 namespace languages
 {

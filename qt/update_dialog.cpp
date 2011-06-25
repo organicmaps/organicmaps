@@ -1,9 +1,9 @@
 #include "update_dialog.hpp"
 #include "info_dialog.hpp"
 
-#include "../base/assert.hpp"
+#include "../platform/settings.hpp"
 
-#include "../map/settings.hpp"
+#include "../base/assert.hpp"
 
 #include "../std/bind.hpp"
 
@@ -16,6 +16,7 @@
 #include <QtGui/QMessageBox>
 #include <QtGui/QProgressBar>
 #include <QtCore/QDateTime>
+
 
 #define CHECK_FOR_UPDATE "Check for update"
 #define LAST_UPDATE_CHECK "Last update check: "

@@ -51,7 +51,9 @@ HEADERS += \
     location.hpp \
     concurrent_runner.hpp \
     preferred_languages.hpp \
+    settings.hpp \
 
 SOURCES += \
     location_manager.cpp \
     preferred_languages.cpp \
+    settings.cpp \

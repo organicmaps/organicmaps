@@ -1,10 +1,7 @@
 #include "mainwindow.hpp"
 #include "info_dialog.hpp"
 
-#include "../std/stdio.hpp"
-
-#include "../map/settings.hpp"
-
+#include "../platform/settings.hpp"
 #include "../platform/platform.hpp"
 
 #include "../base/logging.hpp"
@@ -13,6 +10,8 @@
 #include "../coding/file_reader.hpp"
 
 #include "../version/version.hpp"
+
+#include "../std/stdio.hpp"
 
 #include <QtGui/QApplication>
 

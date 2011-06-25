@@ -1,7 +1,8 @@
 #include "navigator.hpp"
-#include "settings.hpp"
 
 #include "../indexer/cell_id.hpp"
+
+#include "../platform/settings.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/file_writer.hpp"
@@ -15,6 +16,7 @@
 #include "../base/logging.hpp"
 
 #include "../base/start_mem_debug.hpp"
+
 
 Navigator::Navigator()
   : m_worldRect(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY),

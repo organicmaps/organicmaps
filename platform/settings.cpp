@@ -116,7 +116,7 @@ namespace Settings
     return true;
   }
 
-  typedef std::pair<uint32_t, uint32_t> UPairT;
+  typedef std::pair<int, int> UPairT;
   template <> string ToString<UPairT>(UPairT const & value)
   {
     ostringstream stream;

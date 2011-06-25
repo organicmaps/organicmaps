@@ -1,7 +1,8 @@
 #include "preferences_dialog.hpp"
 
 #include "../map/languages.hpp"
-#include "../map/settings.hpp"
+
+#include "../platform/settings.hpp"
 
 #include <QtGui/QIcon>
 #include <QtGui/QCheckBox>

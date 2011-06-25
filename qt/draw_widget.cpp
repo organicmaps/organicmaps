@@ -4,11 +4,12 @@
 
 #include "../storage/storage.hpp"
 
-#include "../map/settings.hpp"
+#include "../platform/settings.hpp"
 
 #include <QtGui/QMouseEvent>
 
 #include "../base/start_mem_debug.hpp"
+
 
 using namespace storage;
 
@@ -46,7 +47,7 @@ namespace qt
 
   bool DrawWidget::LoadState()
   {
-    pair<uint32_t, uint32_t> widthAndHeight;
+    pair<int, int> widthAndHeight;
     if (!Settings::Get("DrawWidgetSize", widthAndHeight))
       return false;
 
@@ -62,7 +63,7 @@ namespace qt
 
   void DrawWidget::SaveState()
   {
-    pair<uint32_t, uint32_t> widthAndHeight(width(), height());
+    pair<int, int> widthAndHeight(width(), height());
     Settings::Set("DrawWidgetSize", widthAndHeight);
 
     m_framework.SaveState();

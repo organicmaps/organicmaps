@@ -1,7 +1,7 @@
 #include "search_panel.hpp"
 #include "draw_widget.hpp"
 
-#include "../map/settings.hpp"
+#include "../platform/settings.hpp"
 
 #include "../std/bind.hpp"
 

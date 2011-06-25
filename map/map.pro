@@ -21,7 +21,6 @@ HEADERS += \
     render_queue.hpp \
     render_queue_routine.hpp \
     information_display.hpp \
-    settings.hpp \
     location_state.hpp \
     benchmark_provider.hpp \
     languages.hpp \
@@ -35,7 +34,6 @@ SOURCES += \
     render_queue.cpp \
     render_queue_routine.cpp \
     information_display.cpp \
-    settings.cpp \
     location_state.cpp \
     benchmark_provider.cpp \
     languages.cpp \

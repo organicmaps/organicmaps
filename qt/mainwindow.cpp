@@ -7,7 +7,7 @@
 
 #include "../defines.hpp"
 
-#include "../map/settings.hpp"
+#include "../platform/settings.hpp"
 
 #include "../std/bind.hpp"
 
@@ -32,6 +32,7 @@
 #include <QtCore/QFile>
 
 #endif // NO_DOWNLOADER
+
 
 namespace qt
 {
@@ -143,8 +144,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::SaveState()
 {
-  pair<uint32_t, uint32_t> xAndY(x(), y());
-  pair<uint32_t, uint32_t> widthAndHeight(width(), height());
+  pair<int, int> xAndY(x(), y());
+  pair<int, int> widthAndHeight(width(), height());
   Settings::Set("MainWindowXY", xAndY);
   Settings::Set("MainWindowSize", widthAndHeight);
 
@@ -153,8 +154,8 @@ void MainWindow::SaveState()
 
 void MainWindow::LoadState()
 {
-  pair<uint32_t, uint32_t> xAndY;
-  pair<uint32_t, uint32_t> widthAndHeight;
+  pair<int, int> xAndY;
+  pair<int, int> widthAndHeight;
   bool loaded = Settings::Get("MainWindowXY", xAndY) &&
                 Settings::Get("MainWindowSize", widthAndHeight);
   if (loaded)
