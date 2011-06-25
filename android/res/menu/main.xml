@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/my_position"
+          android:icon="@drawable/my_position"
+          android:title="@string/my_position" />
+
+    <item android:id="@+id/download_maps"
+          android:icon="@drawable/download_maps"
+          android:title="@string/download_maps" />
+</menu>

@@ -1,9 +1,13 @@
 package com.mapswithme.maps;
 
 import com.mapswithme.maps.MainGLView;
+import com.mapswithme.maps.R;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 public class MWMActivity extends Activity
 {
@@ -38,6 +42,26 @@ public class MWMActivity extends Activity
   {
     super.onResume();
     m_view.onResume();
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+      MenuInflater inflater = getMenuInflater();
+      inflater.inflate(R.menu.main, menu);
+      return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+      // Handle item selection
+      switch (item.getItemId()) {
+      case R.id.my_position:
+          return true;
+      case R.id.download_maps:
+          return true;
+      default:
+          return super.onOptionsItemSelected(item);
+      }
   }
 
   static
