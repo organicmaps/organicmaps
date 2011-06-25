@@ -334,7 +334,7 @@ namespace qt
     for (int group = 0; group < static_cast<int>(m_storage.CountriesCount(TIndex())); ++group)
     {
       TIndex const grIndex(group);
-      QStringList groupText(m_storage.CountryName(grIndex).c_str());
+      QStringList groupText(QString::fromUtf8(m_storage.CountryName(grIndex).c_str()));
       QTreeWidgetItem * groupItem = new QTreeWidgetItem(groupText);
       groupItem->setData(KColumnIndexCountry, Qt::UserRole, QVariant(group));
       m_tree->addTopLevelItem(groupItem);
@@ -344,7 +344,7 @@ namespace qt
       for (int country = 0; country < static_cast<int>(m_storage.CountriesCount(grIndex)); ++country)
       {
         TIndex cIndex(group, country);
-        QStringList countryText(m_storage.CountryName(cIndex).c_str());
+        QStringList countryText(QString::fromUtf8(m_storage.CountryName(cIndex).c_str()));
         QTreeWidgetItem * countryItem = new QTreeWidgetItem(groupItem, countryText);
         countryItem->setData(KColumnIndexCountry, Qt::UserRole, QVariant(country));
         // set color by status and update country size
@@ -353,7 +353,7 @@ namespace qt
         for (int region = 0; region < static_cast<int>(m_storage.CountriesCount(cIndex)); ++region)
         {
           TIndex const rIndex(group, country, region);
-          QStringList regionText(m_storage.CountryName(rIndex).c_str());
+          QStringList regionText(QString::fromUtf8(m_storage.CountryName(rIndex).c_str()));
           QTreeWidgetItem * regionItem = new QTreeWidgetItem(countryItem, regionText);
           regionItem->setData(KColumnIndexCountry, Qt::UserRole, QVariant(region));
           // set color by status and update country size

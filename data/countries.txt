@@ -20,7 +20,7 @@
   Ghana
   Guinea
   Guinea-Bissau
-  Ivory Coast
+  Côte d'Ivoire|Ivory Coast
   Kenya
   Liberia
   Libya
@@ -137,23 +137,23 @@
    Centre|France_Centre
    Champagne-Ardenne|France_Champagne-Ardenne
    Corsica|France_Corsica
-   Franche-Comte|France_Franche-Comte
+   Franche-Comté|France_Franche-Comte
    Haute-Normandie|France_Haute-Normandie
    Languedoc-Roussillon|France_Languedoc-Roussillon
    Limousin|France_Limousin
    Lorraine|France_Lorraine
-   Midi-Pyrenees|France_Midi-Pyrenees
+   Midi-Pyrénées|France_Midi-Pyrenees
    Nord-Pas-de-Calais|France_Nord-Pas-de-Calais
-   Paris & Ile-de-France|France_Paris & Ile-de-France
+   Paris & Île-de-France|France_Paris & Ile-de-France
    Pays de la Loire|France_Pays de la Loire
    Picardie|France_Picardie
    Poitou-Charentes|France_Poitou-Charentes
-   Provence-Alpes-Cote d'Azur|France_Provence-Alpes-Cote d'Azur
-   Rhone-Alpes|France_Rhone-Alpes
+   Provence-Alpes-Côte d'Azur|France_Provence-Alpes-Cote d'Azur
+   Rhône-Alpes|France_Rhone-Alpes
   Georgia
   Germany
    All states|Germany_Baden-Wurttemberg|Germany_Bavaria|Germany_Berlin & Brandenburg|Germany_Bremen & Lower Saxony|Germany_Hamburg|Germany_Hesse|Germany_Mecklenburg-Vorpommern|Germany_North Rhine-Westphalia|Germany_Rhineland-Palatinate|Germany_Saarland|Germany_Saxony-Anhalt|Germany_Saxony|Germany_Schleswig-Holstein|Germany_Thuringia
-   Baden-Wurttemberg|Germany_Baden-Wurttemberg
+   Baden-Württemberg|Germany_Baden-Wurttemberg
    Bavaria|Germany_Bavaria
    Berlin & Brandenburg|Germany_Berlin & Brandenburg
    Bremen & Lower Saxony|Germany_Bremen & Lower Saxony
@@ -229,7 +229,7 @@
    Faroe Islands
    Saint Helena, Ascension and Tristan da Cunha
    Saint Pierre and Miquelon
-   Sao Tome and Principe
+   São Tomé and Príncipe|Sao Tome and Principe
    South Georgia and the South Sandwich Islands
   Indian Ocean
    British Indian Ocean Territory
