@@ -6,6 +6,7 @@
 #include "../std/list.hpp"
 
 #include "../base/mutex.hpp"
+#include "../base/object_pool.hpp"
 
 #include "storage.hpp"
 #include "glyph_cache.hpp"
@@ -41,12 +42,12 @@ namespace yg
     size_t m_dynamicTextureWidth;
     size_t m_dynamicTextureHeight;
 
-    list<shared_ptr<gl::BaseTexture> > m_dynamicTextures;
+    ObjectPool<shared_ptr<gl::BaseTexture> > m_dynamicTextures;
 
     size_t m_fontTextureWidth;
     size_t m_fontTextureHeight;
 
-    list<shared_ptr<gl::BaseTexture> > m_fontTextures;
+    ObjectPool<shared_ptr<gl::BaseTexture> > m_fontTextures;
 
     size_t m_vbSize;
     size_t m_ibSize;
@@ -57,15 +58,9 @@ namespace yg
     size_t m_blitVBSize;
     size_t m_blitIBSize;
 
-    list<gl::Storage> m_storages;
-    list<gl::Storage> m_smallStorages;
-    list<gl::Storage> m_blitStorages;
-
-    gl::Storage const reserveStorageImpl(bool doWait, list<gl::Storage> & l);
-    void freeStorageImpl(gl::Storage const & storage, bool doSignal, list<gl::Storage> & l);
-
-    shared_ptr<gl::BaseTexture> const reserveTextureImpl(bool doWait, list<shared_ptr<gl::BaseTexture> > & l);
-    void freeTextureImpl(shared_ptr<gl::BaseTexture> const & texture, bool doSignal, list<shared_ptr<gl::BaseTexture> > & l);
+    ObjectPool<gl::Storage> m_storages;
+    ObjectPool<gl::Storage> m_smallStorages;
+    ObjectPool<gl::Storage> m_blitStorages;
 
     vector<GlyphCache> m_glyphCaches;
 
@@ -73,6 +68,12 @@ namespace yg
 
     bool m_useVA;
     bool m_fillSkinAlpha;
+
+    size_t m_storagesCount;
+    size_t m_smallStoragesCount;
+    size_t m_blitStoragesCount;
+    size_t m_dynamicTexturesCount;
+    size_t m_fontTexturesCount;
 
   public:
 
@@ -90,23 +91,14 @@ namespace yg
 
     shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
 
-    gl::Storage const reserveStorage(bool doWait = false);
-    void freeStorage(gl::Storage const & storage, bool doSignal = false);
-
-    gl::Storage const reserveSmallStorage(bool doWait = false);
-    void freeSmallStorage(gl::Storage const & storage, bool doSignal = false);
-
-    gl::Storage const reserveBlitStorage(bool doWait = false);
-    void freeBlitStorage(gl::Storage const & storage, bool doSignal = false);
-
-    shared_ptr<gl::BaseTexture> const reserveDynamicTexture(bool doWait = false);
-    void freeDynamicTexture(shared_ptr<gl::BaseTexture> const & texture, bool doSignal = false);
+    ObjectPool<gl::Storage> & storages();
+    ObjectPool<gl::Storage> & smallStorages();
+    ObjectPool<gl::Storage> & blitStorages();
+    ObjectPool<shared_ptr<gl::BaseTexture> > & dynamicTextures();
+    ObjectPool<shared_ptr<gl::BaseTexture> > & fontTextures();
 
     size_t dynamicTextureWidth() const;
     size_t dynamicTextureHeight() const;
-
-    shared_ptr<gl::BaseTexture> const reserveFontTexture(bool doWait = false);
-    void freeFontTexture(shared_ptr<gl::BaseTexture> const & texture, bool doSignal = false);
 
     size_t fontTextureWidth() const;
     size_t fontTextureHeight() const;

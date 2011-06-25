@@ -50,25 +50,26 @@ namespace yg
     }
 
     for (size_t i = 0; i < storagesCount; ++i)
-      m_storages.push_back(gl::Storage(vbSize, ibSize, m_useVA));
+      m_storages.Add(gl::Storage(vbSize, ibSize, m_useVA));
 
     LOG(LINFO, ("allocating ", (vbSize + ibSize) * storagesCount, " bytes for main storage"));
 
     for (size_t i = 0; i < smallStoragesCount; ++i)
-      m_smallStorages.push_back(gl::Storage(smallVBSize, smallIBSize, m_useVA));
+      m_smallStorages.Add(gl::Storage(smallVBSize, smallIBSize, m_useVA));
 
     LOG(LINFO, ("allocating ", (smallVBSize + smallIBSize) * smallStoragesCount, " bytes for small storage"));
 
     for (size_t i = 0; i < blitStoragesCount; ++i)
-      m_blitStorages.push_back(gl::Storage(blitVBSize, blitIBSize, m_useVA));
+      m_blitStorages.Add(gl::Storage(blitVBSize, blitIBSize, m_useVA));
 
     LOG(LINFO, ("allocating ", (blitVBSize + blitIBSize) * blitStoragesCount, " bytes for blit storage"));
 
     for (size_t i = 0; i < dynamicTexCount; ++i)
     {
-      m_dynamicTextures.push_back(shared_ptr<gl::BaseTexture>(new TDynamicTexture(dynamicTexWidth, dynamicTexHeight)));
+      shared_ptr<gl::BaseTexture> t(new TDynamicTexture(dynamicTexWidth, dynamicTexHeight));
+      m_dynamicTextures.Add(t);
 #ifdef DEBUG
-      static_cast<TDynamicTexture*>(m_dynamicTextures.back().get())->randomize();
+      static_cast<TDynamicTexture*>(t.get())->randomize();
 #endif
     }
 
@@ -76,9 +77,10 @@ namespace yg
 
     for (size_t i = 0; i < fontTexCount; ++i)
     {
-      m_fontTextures.push_back(shared_ptr<gl::BaseTexture>(new TDynamicTexture(fontTexWidth, fontTexHeight)));
+      shared_ptr<gl::BaseTexture> t(new TDynamicTexture(fontTexWidth, fontTexHeight));
+      m_fontTextures.Add(t);
 #ifdef DEBUG
-      static_cast<TDynamicTexture*>(m_fontTextures.back().get())->randomize();
+      static_cast<TDynamicTexture*>(t.get())->randomize();
 #endif
     }
 
@@ -113,110 +115,6 @@ namespace yg
     return loader.skin();
   }
 
-  gl::Storage const ResourceManager::reserveStorageImpl(bool doWait, list<gl::Storage> & l)
-  {
-    threads::MutexGuard guard(m_mutex);
-
-    if (l.empty())
-    {
-      if (doWait)
-      {
-        /// somehow wait
-      }
-    }
-
-    gl::Storage res = l.front();
-    l.pop_front();
-    return res;
-  }
-
-  void ResourceManager::freeStorageImpl(gl::Storage const & storage, bool doSignal, list<gl::Storage> & l)
-  {
-    threads::MutexGuard guard(m_mutex);
-
-    bool needToSignal = l.empty();
-
-    l.push_back(storage);
-
-    if ((needToSignal) && (doSignal))
-    {
-      /// somehow signal
-    }
-  }
-
-  gl::Storage const ResourceManager::reserveSmallStorage(bool doWait)
-  {
-    return reserveStorageImpl(doWait, m_smallStorages);
-  }
-
-  void ResourceManager::freeSmallStorage(gl::Storage const & storage, bool doSignal)
-  {
-    return freeStorageImpl(storage, doSignal, m_smallStorages);
-  }
-
-  gl::Storage const ResourceManager::reserveBlitStorage(bool doWait)
-  {
-    return reserveStorageImpl(doWait, m_blitStorages);
-  }
-
-  void ResourceManager::freeBlitStorage(gl::Storage const & storage, bool doSignal)
-  {
-    return freeStorageImpl(storage, doSignal, m_blitStorages);
-  }
-
-  gl::Storage const ResourceManager::reserveStorage(bool doWait)
-  {
-    return reserveStorageImpl(doWait, m_storages);
-  }
-
-  void ResourceManager::freeStorage(gl::Storage const & storage, bool doSignal)
-  {
-    return freeStorageImpl(storage, doSignal, m_storages);
-  }
-
-  shared_ptr<gl::BaseTexture> const ResourceManager::reserveTextureImpl(bool doWait, list<shared_ptr<gl::BaseTexture> > & l)
-  {
-    threads::MutexGuard guard(m_mutex);
-
-    if (l.empty())
-    {
-      if (doWait)
-      {
-        /// somehow wait
-      }
-    }
-
-    shared_ptr<gl::BaseTexture> res = l.front();
-    l.pop_front();
-    return res;
-  }
-
-  void ResourceManager::freeTextureImpl(shared_ptr<gl::BaseTexture> const & texture, bool doSignal, list<shared_ptr<gl::BaseTexture> > & l)
-  {
-    threads::MutexGuard guard(m_mutex);
-
-    bool needToSignal = l.empty();
-
-    l.push_back(texture);
-
-    if ((needToSignal) && (doSignal))
-    {
-      /// somehow signal
-    }
-  }
-
-
-  shared_ptr<gl::BaseTexture> const ResourceManager::reserveDynamicTexture(bool doWait)
-  {
-    return reserveTextureImpl(doWait, m_dynamicTextures);
-  }
-
-  void ResourceManager::freeDynamicTexture(shared_ptr<gl::BaseTexture> const & texture, bool doSignal)
-  {
-    freeTextureImpl(texture, doSignal, m_dynamicTextures);
-  }
-
-
   size_t ResourceManager::dynamicTextureWidth() const
   {
     return m_dynamicTextureWidth;
@@ -225,16 +123,6 @@ namespace yg
   size_t ResourceManager::dynamicTextureHeight() const
   {
     return m_dynamicTextureHeight;
-  }
-
-  shared_ptr<gl::BaseTexture> const ResourceManager::reserveFontTexture(bool doWait)
-  {
-    return reserveTextureImpl(doWait, m_fontTextures);
-  }
-
-  void ResourceManager::freeFontTexture(shared_ptr<gl::BaseTexture> const & texture, bool doSignal)
-  {
-    freeTextureImpl(texture, doSignal, m_fontTextures);
   }
 
   size_t ResourceManager::fontTextureWidth() const
@@ -267,37 +155,36 @@ namespace yg
   {
     threads::MutexGuard guard(m_mutex);
 
-    for (list<gl::Storage>::iterator it = m_storages.begin(); it != m_storages.end(); ++it)
-      *it = gl::Storage();
-    for (list<gl::Storage>::iterator it = m_smallStorages.begin(); it != m_smallStorages.end(); ++it)
-      *it = gl::Storage();
-    for (list<gl::Storage>::iterator it = m_blitStorages.begin(); it != m_blitStorages.end(); ++it)
-      *it = gl::Storage();
+    m_storagesCount = m_storages.Size();
+    m_smallStoragesCount = m_smallStorages.Size();
+    m_blitStoragesCount = m_blitStorages.Size();
+    m_dynamicTexturesCount = m_dynamicTextures.Size();
+    m_fontTexturesCount = m_fontTextures.Size();
 
-    for (list<shared_ptr<gl::BaseTexture> >::iterator it = m_dynamicTextures.begin(); it != m_dynamicTextures.end(); ++it)
-      it->reset();
+    m_storages.Clear();
+    m_smallStorages.Clear();
+    m_blitStorages.Clear();
+    m_dynamicTextures.Clear();
+    m_fontTextures.Clear();
 
-    for (list<shared_ptr<gl::BaseTexture> >::iterator it = m_fontTextures.begin(); it != m_fontTextures.end(); ++it)
-      it->reset();
-
-    LOG(LINFO, ("freed ", m_storages.size(), " storages, ", m_smallStorages.size(), " small storages, ", m_blitStorages.size(), " blit storages, ", m_dynamicTextures.size(), " dynamic textures and ", m_fontTextures.size(), " font textures"));
+    LOG(LINFO, ("freed ", m_storagesCount, " storages, ", m_smallStoragesCount, " small storages, ", m_blitStoragesCount, " blit storages, ", m_dynamicTexturesCount, " dynamic textures and ", m_fontTexturesCount, " font textures"));
   }
 
   void ResourceManager::enterForeground()
   {
     threads::MutexGuard guard(m_mutex);
 
-    for (list<gl::Storage>::iterator it = m_storages.begin(); it != m_storages.end(); ++it)
-      *it = gl::Storage(m_vbSize, m_ibSize, m_useVA);
-    for (list<gl::Storage>::iterator it = m_smallStorages.begin(); it != m_smallStorages.end(); ++it)
-      *it = gl::Storage(m_smallVBSize, m_smallIBSize, m_useVA);
-    for (list<gl::Storage>::iterator it = m_blitStorages.begin(); it != m_blitStorages.end(); ++it)
-      *it = gl::Storage(m_blitVBSize, m_blitIBSize, m_useVA);
+    for (size_t i = 0; i < m_storagesCount; ++i)
+      m_storages.Add(gl::Storage(m_vbSize, m_ibSize, m_useVA));
+    for (size_t i = 0; i < m_smallStoragesCount; ++i)
+      m_smallStorages.Add(gl::Storage(m_smallVBSize, m_smallIBSize, m_useVA));
+    for (size_t i = 0; i < m_blitStoragesCount; ++i)
+      m_blitStorages.Add(gl::Storage(m_blitVBSize, m_blitIBSize, m_useVA));
 
-    for (list<shared_ptr<gl::BaseTexture> >::iterator it = m_dynamicTextures.begin(); it != m_dynamicTextures.end(); ++it)
-      *it = shared_ptr<gl::BaseTexture>(new TDynamicTexture(m_dynamicTextureWidth, m_dynamicTextureHeight));
-    for (list<shared_ptr<gl::BaseTexture> >::iterator it = m_fontTextures.begin(); it != m_fontTextures.end(); ++it)
-      *it = shared_ptr<gl::BaseTexture>(new TDynamicTexture(m_fontTextureWidth, m_fontTextureHeight));
+    for (size_t i = 0; i < m_dynamicTexturesCount; ++i)
+      m_dynamicTextures.Add(shared_ptr<gl::BaseTexture>(new TDynamicTexture(m_dynamicTextureWidth, m_dynamicTextureHeight)));
+    for (size_t i = 0; i < m_fontTexturesCount; ++i)
+      m_fontTextures.Add(shared_ptr<gl::BaseTexture>(new TDynamicTexture(m_fontTextureWidth, m_fontTextureHeight)));
   }
 
   shared_ptr<yg::gl::BaseTexture> ResourceManager::createRenderTarget(unsigned w, unsigned h)
@@ -327,4 +214,30 @@ namespace yg
   {
     return 1;
   }
+
+  ObjectPool<gl::Storage> & ResourceManager::storages()
+  {
+    return m_storages;
+  }
+
+  ObjectPool<gl::Storage> & ResourceManager::smallStorages()
+  {
+    return m_smallStorages;
+  }
+
+  ObjectPool<gl::Storage> & ResourceManager::blitStorages()
+  {
+    return m_blitStorages;
+  }
+
+  ObjectPool<shared_ptr<gl::BaseTexture> > & ResourceManager::dynamicTextures()
+  {
+    return m_dynamicTextures;
+  }
+
+  ObjectPool<shared_ptr<gl::BaseTexture> > & ResourceManager::fontTextures()
+  {
+    return m_fontTextures;
+  }
+
 }

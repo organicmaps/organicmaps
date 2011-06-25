@@ -168,7 +168,7 @@ namespace yg
                                            yg::Color const & color,
                                            bool hasColor)
     {
-      m_blitStorage = resourceManager()->reserveBlitStorage();
+      m_blitStorage = resourceManager()->blitStorages().Reserve();
 
       AuxVertex * pointsData = (AuxVertex*)m_blitStorage.m_vertices->lock();
 
@@ -203,7 +203,7 @@ namespace yg
       /// This call is necessary to avoid parasite blitting in updateActualTarget() on IPhone.
       OGLCHECK(glFinish());
 
-      resourceManager()->freeBlitStorage(m_blitStorage);
+      resourceManager()->blitStorages().Free(m_blitStorage);
       m_blitStorage = yg::gl::Storage();
     }
   }

@@ -750,10 +750,10 @@ namespace yg
       switch (m_usage)
       {
       case EDynamicUsage:
-        m_resourceManager->freeDynamicTexture(m_texture);
+        m_resourceManager->dynamicTextures().Free(m_texture);
         break;
       case EFontsUsage:
-        m_resourceManager->freeFontTexture(m_texture);
+        m_resourceManager->fontTextures().Free(m_texture);
         break;
       default:
         LOG(LINFO, ("freeTexture call for with invalid usage param"));
@@ -768,10 +768,10 @@ namespace yg
     switch (m_usage)
     {
     case EDynamicUsage:
-      m_texture = m_resourceManager->reserveDynamicTexture();
+      m_texture = m_resourceManager->dynamicTextures().Reserve();
       break;
     case EFontsUsage:
-      m_texture = m_resourceManager->reserveFontTexture();
+      m_texture = m_resourceManager->fontTextures().Reserve();
       break;
     default:
       LOG(LINFO, ("freeTexture call for with invalid usage param"));
@@ -792,6 +792,8 @@ namespace yg
                             m_resourceManager->fontTextureHeight(),
                             0x00FFFFFF - 1);
       break;
+    default:
+      LOG(LINFO, ("createPacker call for invalid usage param"));
     }
   }
 }

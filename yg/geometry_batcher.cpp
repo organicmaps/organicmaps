@@ -76,7 +76,7 @@ namespace yg
    {
      if (!m_hasStorage)
      {
-       m_storage = usage != SkinPage::EStaticUsage ? resourceManager->reserveStorage() : resourceManager->reserveSmallStorage();
+       m_storage = usage != SkinPage::EStaticUsage ? resourceManager->storages().Reserve() : resourceManager->smallStorages().Reserve();
 
        m_maxVertices = m_storage.m_vertices->size() / sizeof(Vertex);
        m_maxIndices = m_storage.m_indices->size() / sizeof(unsigned short);
@@ -220,9 +220,9 @@ namespace yg
              renderedData = true;
 
              if (skinPage->usage() != SkinPage::EStaticUsage)
-               resourceManager()->freeStorage(pipeline.m_storage);
+               resourceManager()->storages().Free(pipeline.m_storage);
              else
-               resourceManager()->freeSmallStorage(pipeline.m_storage);
+               resourceManager()->smallStorages().Free(pipeline.m_storage);
 
              pipeline.m_hasStorage = false;
              pipeline.m_storage = Storage();

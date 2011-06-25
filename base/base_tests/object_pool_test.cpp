@@ -44,7 +44,8 @@ UNIT_TEST(ObjectPool)
   list<int> l;
   list<int> res;
 
-  ObjectPool<int> p(l);
+  ObjectPool<int> p;
+  p.Add(l);
 
   threads::Thread t0;
   t0.Create(new ProcessorThread(&p, &res, 0));

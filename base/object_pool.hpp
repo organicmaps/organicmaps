@@ -18,8 +18,31 @@ private:
 
 public:
 
-  ObjectPool(list<T> const & l) : m_List(l), m_IsCancelled(false)
+  ObjectPool() : m_IsCancelled(false)
   {}
+
+  void Add(list<T> const & l)
+  {
+    for (typename list<T>::const_iterator it = l.begin(); it != l.end(); ++it)
+      Free(*it);
+  }
+
+  size_t Size()
+  {
+    threads::ConditionGuard Guard(m_Cond);
+    return m_List.size();
+  }
+
+  void Add(T const & t)
+  {
+    Free(t);
+  }
+
+  void Clear()
+  {
+    threads::ConditionGuard Guard(m_Cond);
+    m_List.clear();
+  }
 
   T const Reserve()
   {
