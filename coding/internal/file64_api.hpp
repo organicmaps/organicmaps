@@ -15,7 +15,7 @@
   typedef uint64_t _fpos64_t;
 
 #elif defined(OMIM_OS_WINDOWS_MINGW)
-  STATIC_ASSERT(sizeof(off64_t) == 8);
+  //STATIC_ASSERT(sizeof(off64_t) == 8);
   #define fseek64 fseeko64
   #define ftell64 ftello64
 
