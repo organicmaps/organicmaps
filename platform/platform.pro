@@ -57,3 +57,4 @@ SOURCES += \
     location_manager.cpp \
     preferred_languages.cpp \
     settings.cpp \
+    platform.cpp \

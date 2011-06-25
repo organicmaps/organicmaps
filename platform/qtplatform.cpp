@@ -161,52 +161,54 @@ static bool IsDirectoryWritable(string const & dir)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
-class QtPlatform : public Platform
+class QtPlatform : public BasePlatformImpl
 {
-  string m_writableDir;
-  string m_resourcesDir;
+  static bool IsDirExists(string const & file)
+  {
+    QFileInfo fileInfo(file.c_str());
+    return fileInfo.exists();
+  }
 
   /// Scans all upper directories for the presence of given directory
   /// @param[in] startPath full path to lowest file in hierarchy (usually binary)
   /// @param[in] dirName directory name we want to be present
   /// @return if not empty, contains full path to existing directory
-  string DirFinder(string const & startPath, string const & dirName)
+  static string DirFinder(string const & startPath, string dirName)
   {
+    dirName = DIR_SLASH + dirName + DIR_SLASH;
+
     size_t slashPos = startPath.size();
-    while ((slashPos = startPath.rfind(DIR_SLASH, slashPos - 1)) != string::npos)
+    while (slashPos > 0 && (slashPos = startPath.rfind(DIR_SLASH, slashPos - 1)) != string::npos)
     {
-      string const dir = startPath.substr(0, slashPos) + DIR_SLASH + dirName + DIR_SLASH;
-      if (IsFileExists(dir))
+      string const dir = startPath.substr(0, slashPos) + dirName;
+      if (IsDirExists(dir))
         return dir;
-      if (slashPos == 0)
-        break;
     }
     return string();
   }
 
-  bool GetOSSpecificResourcesDir(string const & exePath, string & dir)
+  static bool GetOSSpecificResourcesDir(string const & exePath, string & dir)
   {
     dir = DirFinder(exePath, RESOURCES_DIR);
     return !dir.empty();
   }
 
-  void InitResourcesDir(string & dir)
+  static void InitResourcesDir(string & dir)
   {
     // Resources dir can be any "data" folder found in the nearest upper directory,
     // where all necessary resources files are present and accessible
     string exePath;
     CHECK( GetPathToBinary(exePath), ("Can't get full path to executable") );
     dir = DirFinder(exePath, MAPDATA_DIR);
-    if (!dir.empty())
+    if (dir.empty())
     {
-      // @TODO: check if all necessary resources are present in found dir
-      return;
+      CHECK( GetOSSpecificResourcesDir(exePath, dir), ("Can't retrieve resources directory") );
     }
-    // retrieve OS-specific resources dir
-    CHECK( GetOSSpecificResourcesDir(exePath, dir), ("Can't retrieve resources directory") );
+
+    /// @todo Check all necessary files
   }
 
-  void InitWritableDir(string & dir)
+  static void InitWritableDir(string & dir)
   {
     // Writable dir can be any "data" folder found in the nearest upper directory
     // ./data     - For Windows portable builds
@@ -218,7 +220,7 @@ class QtPlatform : public Platform
     string path;
     CHECK( GetPathToBinary(path), ("Can't get full path to executable") );
     dir = DirFinder(path, MAPDATA_DIR);
-    if (!(!dir.empty() && IsDirectoryWritable(dir)))
+    if (dir.empty() || !IsDirectoryWritable(dir))
     {
       CHECK( GetUserWritableDir(dir), ("Can't get User's Application Data writable directory") );
     }
@@ -231,31 +233,7 @@ public:
     InitResourcesDir(m_resourcesDir);
   }
 
-  /// @return path to /data/ with ending slash
-  virtual string WritableDir() const
-  {
-    return m_writableDir;
-  }
-
-  /// @return path to /data/ with ending slash
-  virtual string ResourcesDir() const
-  {
-    return m_resourcesDir;
-  }
-
-  virtual string ReadPathForFile(char const * file) const
-  {
-    string fullPath = m_writableDir + file;
-    if (!IsFileExists(fullPath))
-    {
-      fullPath = m_resourcesDir + file;
-      if (!IsFileExists(fullPath))
-        MYTHROW(FileAbsentException, ("File doesn't exist", fullPath));
-    }
-    return fullPath;
-  }
-
-  virtual int GetFilesInDir(string const & directory, string const & mask, FilesList & outFiles) const
+  virtual void GetFilesInDir(string const & directory, string const & mask, FilesList & outFiles) const
   {
     outFiles.clear();
     QDir dir(directory.c_str(), mask.c_str(), QDir::Unsorted,
@@ -263,18 +241,6 @@ public:
     int const count = dir.count();
     for (int i = 0; i < count; ++i)
       outFiles.push_back(dir[i].toUtf8().data());
-    return count;
-  }
-
-  virtual bool GetFileSize(string const & file, uint64_t & size) const
-  {
-    QFileInfo fileInfo(file.c_str());
-    if (fileInfo.exists())
-    {
-      size = fileInfo.size();
-      return true;
-    }
-    return false;
   }
 
   virtual bool RenameFileX(string const & original, string const & newName) const
@@ -314,79 +280,9 @@ public:
     return 1;
   }
 
-  double VisualScale() const
-  {
-    return 1.0;
-  }
-
-  string const SkinName() const
-  {
-    return "basic.skn";
-  }
-
-  bool IsMultiSampled() const
-  {
-    return true;
-  }
-
-  bool DoPeriodicalUpdate() const
-  {
-    return true;
-  }
-
-  double PeriodicalUpdateInterval() const
-  {
-    return 0.3;
-  }
-
-  vector<string> GetFontNames() const
-  {
-     vector<string> res;
-
-     string fontFolder = m_resourcesDir;
-     //string fontFolder = "/Library/Fonts/";
-
-     GetFilesInDir(fontFolder, "*.ttf", res);
-
-     sort(res.begin(), res.end());
-
-     for (size_t i = 0; i < res.size(); ++i)
-       res[i] = fontFolder + res[i];
-
-     return res;
-  }
-
-  bool IsBenchmarking() const
-  {
-    bool res = false;
-#ifndef OMIM_PRODUCTION
-    if (res)
-    {
-      static bool first = true;
-      if (first)
-      {
-        LOG(LCRITICAL, ("benchmarking only defined in production configuration"));
-        first = false;
-      }
-      res = false;
-    }
-#endif
-    return res;
-  }
-
-  string const DeviceID() const
+  string QtPlatform::DeviceID() const
   {
     return "DesktopVersion";
-  }
-
-  bool IsVisualLog() const
-  {
-    return false;
-  }
-
-  unsigned ScaleEtalonSize() const
-  {
-    return 512 + 256;
   }
 };
 

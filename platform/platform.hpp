@@ -6,9 +6,9 @@
 #include "../std/vector.hpp"
 #include "../std/utility.hpp"
 
-#include "../base/start_mem_debug.hpp"
 
 DECLARE_EXCEPTION(FileAbsentException, RootException);
+
 
 class Platform
 {
@@ -23,18 +23,13 @@ public:
     return WritableDir() + file;
   }
 
+  /// @return resource dir (on some platforms it's differ from Writable dir)
   virtual string ResourcesDir() const = 0;
 
   /// Throws FileAbsentException
   /// @param[in] file just file name which we want to read
-  /// @return fullPath fully resolved path including file name
-  virtual string ReadPathForFile(char const * file) const = 0;
-  /// Throws FileAbsentException
-  /// @return fullPath fully resolved path including file name
-  string ReadPathForFile(string const & file) const
-  {
-    return ReadPathForFile(file.c_str());
-  }
+  /// @return fully resolved path including file name
+  virtual string ReadPathForFile(string const & file) const = 0;
 
   /// @name File operations
   //@{
@@ -43,12 +38,12 @@ public:
   /// @param directory directory path with slash at the end
   /// @param mask files extension to find, like ".map" etc
   /// @return number of files found in outFiles
-  virtual int GetFilesInDir(string const & directory, string const & mask, FilesList & outFiles) const = 0;
+  virtual void GetFilesInDir(string const & directory, string const & mask, FilesList & outFiles) const = 0;
   /// @return false if file is not exist
   virtual bool GetFileSize(string const & file, uint64_t & size) const = 0;
   /// Renamed to avoid conflict with Windows macroses
   virtual bool RenameFileX(string const & original, string const & newName) const = 0;
-  /// Simple check
+  /// Simple file existing check
   bool IsFileExists(string const & file) const
   {
     uint64_t dummy;
@@ -60,7 +55,7 @@ public:
 
   virtual double VisualScale() const = 0;
 
-  virtual string const SkinName() const = 0;
+  virtual string SkinName() const = 0;
 
   virtual bool IsMultiSampled() const = 0;
 
@@ -68,17 +63,39 @@ public:
 
   virtual double PeriodicalUpdateInterval() const = 0;
 
-  virtual vector<string> GetFontNames() const = 0;
+  virtual void GetFontNames(FilesList & res) const = 0;
 
   virtual bool IsBenchmarking() const = 0;
 
   virtual bool IsVisualLog() const = 0;
 
-  virtual string const DeviceID() const = 0;
+  virtual string DeviceID() const = 0;
 
-  virtual unsigned ScaleEtalonSize() const = 0;
+  virtual int ScaleEtalonSize() const = 0;
+};
+
+class BasePlatformImpl : public Platform
+{
+protected:
+  string m_writableDir, m_resourcesDir;
+
+public:
+  virtual string WritableDir() const { return m_writableDir; }
+  virtual string ResourcesDir() const { return m_resourcesDir; }
+  virtual string ReadPathForFile(string const & file) const;
+
+  virtual bool GetFileSize(string const & file, uint64_t & size) const;
+
+  virtual void GetFontNames(FilesList & res) const;
+
+  virtual double VisualScale() const;
+  virtual string SkinName() const;
+  virtual bool IsMultiSampled() const;
+  virtual bool DoPeriodicalUpdate() const;
+  virtual double PeriodicalUpdateInterval() const;
+  virtual bool IsBenchmarking() const;
+  virtual bool IsVisualLog() const;
+  virtual int ScaleEtalonSize() const;
 };
 
 extern "C" Platform & GetPlatform();
-
-#include "../base/stop_mem_debug.hpp"

@@ -59,7 +59,9 @@ namespace qt
           !yg::gl::g_isBufferObjectsSupported,
           !GetPlatform().IsMultiSampled()));
 
-      m_resourceManager->addFonts(GetPlatform().GetFontNames());
+      Platform::FilesList fonts;
+      GetPlatform().GetFontNames(fonts);
+      m_resourceManager->addFonts(fonts);
 
       DrawerYG::params_t p;
 

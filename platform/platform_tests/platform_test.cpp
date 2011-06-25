@@ -54,9 +54,11 @@ UNIT_TEST(GetFilesInDir)
 {
   Platform & pl = GetPlatform();
   Platform::FilesList files;
-  TEST_GREATER(pl.GetFilesInDir(pl.WritableDir(), "*" DATA_FILE_EXTENSION, files), 0, ("/data/ folder should contain some data files"));
 
-  TEST_EQUAL(pl.GetFilesInDir(pl.WritableDir(), "asdnonexistentfile.dsa", files), 0, ());
+  pl.GetFilesInDir(pl.WritableDir(), "*" DATA_FILE_EXTENSION, files);
+  TEST_GREATER(files.size(), 0, ("/data/ folder should contain some data files"));
+
+  pl.GetFilesInDir(pl.WritableDir(), "asdnonexistentfile.dsa", files);
   TEST_EQUAL(files.size(), 0, ());
 }
 

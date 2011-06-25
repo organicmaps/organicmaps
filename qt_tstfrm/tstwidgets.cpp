@@ -65,7 +65,9 @@ void GLDrawWidget::initializeGL()
       !yg::gl::g_isBufferObjectsSupported,
       !GetPlatform().IsMultiSampled()));
 
-  m_resourceManager->addFonts(GetPlatform().GetFontNames());
+  Platform::FilesList fonts;
+  GetPlatform().GetFontNames(fonts);
+  m_resourceManager->addFonts(fonts);
 
   m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer());
 
