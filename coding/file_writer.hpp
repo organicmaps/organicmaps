@@ -3,7 +3,7 @@
 #include "../base/base.hpp"
 #include "../std/scoped_ptr.hpp"
 
-class FileData;
+namespace my { class FileData; }
 
 // FileWriter, not thread safe.
 class FileWriter : public Writer
@@ -36,10 +36,11 @@ public:
   uint64_t Size() const;
   void Flush();
 
+  static void DeleteFileX(string const & fName);
+
   string GetName() const;
 
-  static void DeleteFileX(string const & fileName);
-
 private:
-  scoped_ptr<FileData> m_pFileData;
+  typedef my::FileData fdata_t;
+  scoped_ptr<fdata_t> m_pFileData;
 };

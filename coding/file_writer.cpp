@@ -1,9 +1,6 @@
 #include "file_writer.hpp"
 #include "internal/file_data.hpp"
 
-#include "../std/cstdlib.hpp"
-#include "../std/string.hpp"
-
 #include "../../base/start_mem_debug.hpp"
 
 
@@ -13,7 +10,7 @@ FileWriter::FileWriter(FileWriter const & rhs) : Writer(*this)
 }
 
 FileWriter::FileWriter(string const & fileName, FileWriter::Op op)
-  : m_pFileData(new FileData(fileName, static_cast<FileData::Op>(op)))
+  : m_pFileData(new fdata_t(fileName, static_cast<fdata_t::Op>(op)))
 {
 }
 
@@ -42,26 +39,6 @@ string FileWriter::GetName() const
   return m_pFileData->GetName();
 }
 
-void FileWriter::DeleteFileX(string const & fileName)
-{
-#ifdef OMIM_OS_BADA
-  Osp::Io::File::Remove(fileName.c_str());
-#else
-
-  // Erase file.
-  if (0 != remove(fileName.c_str()))
-  {
-    // additional check if file really was removed correctly
-    FILE * f = fopen(fileName.c_str(), "r");
-    if (f)
-    {
-      fclose(f);
-      LOG(LERROR, ("File exists but can't be deleted. Sharing violation?", fileName));
-    }
-  }
-#endif
-}
-
 uint64_t FileWriter::Size() const
 {
   return m_pFileData->Size();
@@ -71,3 +48,9 @@ void FileWriter::Flush()
 {
   m_pFileData->Flush();
 }
+
+void FileWriter::DeleteFileX(string const & fName)
+{
+    my::DeleteFileX(fName);
+}
+

@@ -11,6 +11,7 @@ include($$ROOT_DIR/common.pri)
 INCLUDEPATH += ../3party/tomcrypt/src/headers
 
 SOURCES += \
+    internal/file_data.cpp \
     hex.cpp \
     file_reader.cpp \
     file_writer.cpp \

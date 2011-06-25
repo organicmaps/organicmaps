@@ -13,11 +13,13 @@
 
 namespace
 {
-  class FileDataWithCachedSize : public FileData
+  class FileDataWithCachedSize : public my::FileData
   {
+      typedef my::FileData base_t;
+
   public:
     explicit FileDataWithCachedSize(string const & fileName)
-      : FileData(fileName, FileData::OP_READ), m_Size(FileData::Size()) {}
+      : base_t(fileName, FileData::OP_READ), m_Size(FileData::Size()) {}
 
     uint64_t Size() const { return m_Size; }
 
