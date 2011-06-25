@@ -27,9 +27,12 @@ namespace threads
     delete m_pImpl;
   }
 
-  void Condition::Signal()
+  void Condition::Signal(bool broadcast)
   {
-    m_pImpl->m_Monitor.Notify();
+    if (broadcast)
+      m_pImpl->m_Monitor.NotifyAll();
+    else
+      m_pImpl->m_Monitor.Notify();
   }
 
   void Condition::Wait()

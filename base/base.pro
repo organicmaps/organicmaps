@@ -66,3 +66,4 @@ HEADERS += \
     path_utils.hpp \
     array_adapters.hpp \
     runner.hpp \
+    object_pool.hpp

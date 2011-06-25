@@ -19,7 +19,7 @@ namespace threads
     Condition();
     ~Condition();
 
-    void Signal();
+    void Signal(bool broadcast = false);
     void Wait();
     void Lock();
     void Unlock();
@@ -33,7 +33,7 @@ namespace threads
       : m_Condition(condition) { m_Condition.Lock(); }
     ~ConditionGuard() { m_Condition.Unlock(); }
     void Wait() { m_Condition.Wait(); }
-    void Signal() { m_Condition.Signal(); }
+    void Signal(bool broadcast = false) { m_Condition.Signal(broadcast); }
   private:
     Condition & m_Condition;
   };

@@ -9,6 +9,7 @@
 
 typedef void (WINAPI *InitFn)(PCONDITION_VARIABLE);
 typedef void (WINAPI *WakeFn)(PCONDITION_VARIABLE);
+typedef void (WINAPI *WakeAllFn)(PCONDITION_VARIABLE);
 typedef BOOL (WINAPI *SleepFn)(PCONDITION_VARIABLE, PCRITICAL_SECTION, DWORD);
 
 namespace threads
@@ -19,7 +20,7 @@ namespace threads
     {
     public:
       virtual ~ConditionImpl() {}
-      virtual void Signal() = 0;
+      virtual void Signal(bool broadcast) = 0;
       virtual void Wait() = 0;
       virtual void Lock() = 0;
       virtual void Unlock() = 0;
@@ -29,21 +30,25 @@ namespace threads
     {
       InitFn m_pInit;
       WakeFn m_pWake;
+      WakeAllFn m_pWakeAll;
       SleepFn m_pSleep;
 
       CONDITION_VARIABLE m_Condition;
       Mutex m_mutex;
 
     public:
-      ImplWinVista(InitFn pInit, WakeFn pWake, SleepFn pSleep)
-        : m_pInit(pInit), m_pWake(pWake), m_pSleep(pSleep)
+      ImplWinVista(InitFn pInit, WakeFn pWake, WakeAllFn pWakeAll, SleepFn pSleep)
+        : m_pInit(pInit), m_pWake(pWake), m_pWakeAll(pWakeAll), m_pSleep(pSleep)
       {
         m_pInit(&m_Condition);
       }
 
-      void Signal()
+      void Signal(bool broadcast)
       {
-        m_pWake(&m_Condition);
+        if (broadcast)
+          m_pWakeAll(&m_Condition);
+        else
+          m_pWake(&m_Condition);
       }
 
       void Wait()
@@ -105,15 +110,51 @@ namespace threads
         ::DeleteCriticalSection(&waiters_count_lock_);
       }
 
-      void Signal()
+      void Signal(bool broadcast)
       {
-        EnterCriticalSection(&waiters_count_lock_);
-        bool const have_waiters = waiters_count_ > 0;
-        LeaveCriticalSection(&waiters_count_lock_);
+        if (broadcast)
+        {
+          // This is needed to ensure that <waiters_count_> and <was_broadcast_> are
+          // consistent relative to each other
+          EnterCriticalSection(&waiters_count_lock_);
+          int have_waiters = 0;
 
-        // If there aren't any waiters, then this is a no-op.
-        if (have_waiters)
-          ::ReleaseSemaphore(sema_, 1, 0);
+          if (waiters_count_ > 0)
+          {
+            // We are broadcasting, even if there is just one waiter...
+            // Record that we are broadcasting, which helps optimize
+            // <pthread_cond_wait> for the non-broadcast case.
+            was_broadcast_ = 1;
+            have_waiters = 1;
+          }
+
+          if (have_waiters)
+          {
+            // Wake up all the waiters atomically.
+            ReleaseSemaphore(sema_, waiters_count_, 0);
+
+            LeaveCriticalSection(&waiters_count_lock_);
+
+            // Wait for all the awakened threads to acquire the counting
+            // semaphore.
+            WaitForSingleObject(waiters_done_, INFINITE);
+            // This assignment is okay, wven without the <waiters_count_lock_> held
+            // because no other waiter threads can wake up to access it.
+            was_broadcast_ = 0;
+          }
+          else
+            LeaveCriticalSection(&waiters_count_lock_);
+        }
+        else
+        {
+          EnterCriticalSection(&waiters_count_lock_);
+          bool const have_waiters = waiters_count_ > 0;
+          LeaveCriticalSection(&waiters_count_lock_);
+
+          // If there aren't any waiters, then this is a no-op.
+          if (have_waiters)
+            ::ReleaseSemaphore(sema_, 1, 0);
+        }
       }
 
       void Wait()
@@ -168,10 +209,11 @@ namespace threads
     HMODULE handle = GetModuleHandle(TEXT("kernel32.dll"));
     InitFn pInit = (InitFn)GetProcAddress(handle, "InitializeConditionVariable");
     WakeFn pWake = (WakeFn)GetProcAddress(handle, "WakeConditionVariable");
+    WakeAllFn pWakeAll = (WakeFn)GetProcAddress(handle, "WakeAllConditionVariable");
     SleepFn pSleep = (SleepFn)GetProcAddress(handle, "SleepConditionVariableCS");
 
-    if (pInit && pWake && pSleep)
-      m_pImpl = new impl::ImplWinVista(pInit, pWake, pSleep);
+    if (pInit && pWake && pWakeAll && pSleep)
+      m_pImpl = new impl::ImplWinVista(pInit, pWake, pWakeAll, pSleep);
     else
       m_pImpl = new impl::ImplWinXP();
   }
@@ -181,9 +223,9 @@ namespace threads
     delete m_pImpl;
   }
 
-  void Condition::Signal()
+  void Condition::Signal(bool broadcast)
   {
-    m_pImpl->Signal();
+    m_pImpl->Signal(broadcast);
   }
 
   void Condition::Wait()

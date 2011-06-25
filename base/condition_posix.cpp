@@ -30,9 +30,12 @@ namespace threads
     delete m_pImpl;
   }
 
-  void Condition::Signal()
+  void Condition::Signal(bool broadcast)
   {
-    ::pthread_cond_signal(&m_pImpl->m_Condition);
+    if (broadcast)
+      ::pthread_cond_broadcast(&m_pImpl->m_Condition);
+    else
+      ::pthread_cond_signal(&m_pImpl->m_Condition);
   }
 
   void Condition::Wait()
