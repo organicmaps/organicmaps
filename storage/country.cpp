@@ -1,19 +1,19 @@
 #include "country.hpp"
 
-#include "../base/logging.hpp"
+#include "../version/version.hpp"
 
-#include "../base/std_serialization.hpp"
+#include "../platform/platform.hpp"
+
+#include "../indexer/data_header.hpp"
 
 #include "../coding/streams_sink.hpp"
 #include "../coding/file_reader.hpp"
 #include "../coding/file_writer.hpp"
 #include "../coding/file_container.hpp"
 
-#include "../version/version.hpp"
-
-#include "../platform/platform.hpp"
-
-#include "../indexer/data_header.hpp"
+#include "../base/logging.hpp"
+#include "../base/std_serialization.hpp"
+#include "../base/string_utils.hpp"
 
 #include "../std/fstream.hpp"
 #include "../std/ctime.hpp"
@@ -101,9 +101,6 @@ namespace storage
   bool LoadCountries(string const & countriesFile, TTilesContainer const & sortedTiles,
                      TCountriesContainer & countries)
   {
-    // small prediction - are we using cells or simple countries?
-    bool const cellsAreUsed = sortedTiles.size() > 1000;
-
     countries.Clear();
     ifstream stream(countriesFile.c_str());
     std::string line;
@@ -138,17 +135,20 @@ namespace storage
       case 2: // country name
       case 3: // region
         {
-          string const name = line.substr(spaces);
-          currentCountry = &countries.AddAtDepth(spaces - 1, Country(name));
-          if (!cellsAreUsed)
-          { // we trying to load countries by name instead of square cell tiles
+          line = line.substr(spaces);
+          strings::SimpleTokenizer tokIt(line, "|");
+          // first string is country name, not always equal to country file name
+          currentCountry = &countries.AddAtDepth(spaces - 1, Country(*tokIt));
+          while (tokIt)
+          {
             TTilesContainer::const_iterator const first = sortedTiles.begin();
             TTilesContainer::const_iterator const last = sortedTiles.end();
-            string const nameWithExt = name + DATA_FILE_EXTENSION;
+            string const nameWithExt = *tokIt + DATA_FILE_EXTENSION;
             TTilesContainer::const_iterator found = lower_bound(
                 first, last, TTile(nameWithExt, 0));
             if (found != last && !(nameWithExt < found->first))
               currentCountry->AddTile(*found);
+            ++tokIt;
           }
         }
         break;
