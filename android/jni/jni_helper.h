@@ -1,3 +1,5 @@
+#pragma once
+
 #include <jni.h>
 
 namespace jni
@@ -15,10 +17,10 @@ namespace jni
     LOG("Enter callbackFromJNI");
 
     env->CallVoidMethod(thiz,
-        jni_help::GetJavaMethodID(env, thiz, "callbackVoid", "()V"));
+        jni::GetJavaMethodID(env, thiz, "callbackVoid", "()V"));
     env->CallVoidMethod(
         thiz,
-        jni_help::GetJavaMethodID(env, thiz, "callbackString",
+        jni::GetJavaMethodID(env, thiz, "callbackString",
             "(Ljava/lang/String;)V"), env->NewStringUTF("Pass string from JNI."));
 
     LOG("Leave callbackFromJNI");

@@ -1,9 +1,12 @@
 #include "logging.h"
 #include "platform.h"
+#include "framework.h"
 
 #include <string.h>
 #include <jni.h>
 
+
+AndroidFramework * g_work;
 
 extern "C"
 {
@@ -12,9 +15,13 @@ extern "C"
   ///////////////////////////////////////////////////////////////////////////////////
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeInit(JNIEnv * env, jobject activity, jstring path)
+  Java_com_mapswithme_maps_MWMActivity_nativeInit(JNIEnv * env, jobject thiz, jstring path)
   {
-    GetAndroidPlatform().Initialize(env, activity, path);
+    jni::InitSystemLog();
+
+    GetAndroidPlatform().Initialize(env, thiz, path);
+
+    g_work = new AndroidFramework();
   }
 
   ///////////////////////////////////////////////////////////////////////////////////
@@ -24,6 +31,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MainGLView_nativeInit(JNIEnv * env, jobject thiz)
   {
+    g_work->SetParentView(env, thiz);
   }
 
   JNIEXPORT void JNICALL

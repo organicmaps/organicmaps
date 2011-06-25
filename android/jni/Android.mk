@@ -4,18 +4,26 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE    := mapswithme
 
+#LOCAL_CFLAGS := -DANDROID_NDK \
+#                -DDISABLE_IMPORTGL
+
 LOCAL_HEADER_FILES := \
 	jni_helper.h \
 	jni_string.h \
 	logging.h \
+	platform.h \
+	framework.h \
 
 LOCAL_SRC_FILES := \
 	main_native.cpp \
 	jni_helper.cpp \
 	jni_string.cpp \
 	platform.cpp \
+	framework.cpp \
+	logging.cpp \
+	temp_stubs.cpp \
 
-LOCAL_LDLIBS := -llog \
+LOCAL_LDLIBS := -llog -lGLESv1_CM \
   	-lwords -lmap -lstorage -lversion -lsearch -lindexer -lyg -lplatform \
   	-lgeometry -lcoding -lbase -lexpat -lfreetype -lfribidi -lzlib -lbzip2 \
   	-ljansson -ltomcrypt ./obj/local/armeabi/libstdc++.a

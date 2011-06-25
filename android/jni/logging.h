@@ -1,3 +1,8 @@
-#include <android/log.h>
+#pragma once
 
-#define LOG(...)  __android_log_print(ANDROID_LOG_INFO, "mapswithme", __VA_ARGS__)
+#include "../../base/logging.hpp"
+
+namespace jni
+{
+  void InitSystemLog();
+}
