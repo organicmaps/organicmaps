@@ -280,7 +280,7 @@ public:
     return 1;
   }
 
-  string QtPlatform::DeviceID() const
+  string DeviceID() const
   {
     return "DesktopVersion";
   }
