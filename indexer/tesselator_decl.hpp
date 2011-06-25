@@ -14,7 +14,7 @@ namespace tesselator
     // - -1 - uninitialized or root edge
     // -  0 - this edge intersects 1-2 rib;
     // -  1 - this edge intersects 2-0 rib;
-    char m_side;
+    int8_t m_side;
 
     Edge(int from, int to, uint64_t delta, char side)
       : m_delta(delta), m_side(side)

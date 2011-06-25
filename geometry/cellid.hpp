@@ -128,7 +128,7 @@ public:
     return CellId(m_Bits >> ((m_Level - level) << 1), level);
   }
 
-  CellId Child(char c) const
+  CellId Child(int8_t c) const
   {
     ASSERT(c >= 0 && c < 4, (c, m_Bits, m_Level));
     ASSERT(IsValid(), (m_Bits, m_Level));
