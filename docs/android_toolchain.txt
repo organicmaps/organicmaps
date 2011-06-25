@@ -6,8 +6,8 @@ $ export NDK_ROOT=C:/path/to/android-ndk-r5c
 $ export NDK_HOST=windows
 $ mkdir omim-android-debug
 $ cd omim-android-debug
-$ qmake -r ../omim/omim.pro -spec ../omim/tools/mkspecs/android-g++ CONFIG+=debug
-$ make
+$ /cygdrive/path_to_QtSDK/path_to_Qt/mingw/bin/qmake.exe -r ../omim/omim.pro -spec ../omim/tools/mkspecs/android-g++ CONFIG+=debug
+$ /cygdrive/path_to_QtSDK/mingw/bin/mingw32-make.exe
 
 Mac OS X:
 
