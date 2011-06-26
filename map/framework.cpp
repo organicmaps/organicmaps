@@ -1072,7 +1072,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
 
     m2::PointD pos = m_navigator.OrientPoint(e.Pos()) + ptShift;
-    m_navigator.DoDrag(pos, GetPlatform().TimeInSec());
+    m_navigator.DoDrag(pos, m_timer.ElapsedSeconds());
 
 #ifdef DRAW_TOUCH_POINTS
     m_informationDisplay.setDebugPoint(0, pos);
