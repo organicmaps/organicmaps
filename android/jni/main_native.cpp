@@ -21,7 +21,7 @@ extern "C"
 
     GetAndroidPlatform().Initialize(env, thiz, path);
 
-    g_work = new AndroidFramework();
+    //g_work = new AndroidFramework();
   }
 
   ///////////////////////////////////////////////////////////////////////////////////
@@ -31,7 +31,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MainGLView_nativeInit(JNIEnv * env, jobject thiz)
   {
-    g_work->SetParentView(env, thiz);
+    //g_work->SetParentView(env, thiz);
   }
 
   JNIEXPORT void JNICALL

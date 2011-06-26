@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.util.Log;
 
 public class MWMActivity extends Activity
 {
+  private static String TAG = "MWMActivity";
+  
   private MainGLView m_view;
 
   private String getResourcePath()
@@ -45,23 +48,28 @@ public class MWMActivity extends Activity
   }
 
   @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-      MenuInflater inflater = getMenuInflater();
-      inflater.inflate(R.menu.main, menu);
-      return true;
+  public boolean onCreateOptionsMenu(Menu menu)
+  {
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.main, menu);
+    return true;
   }
 
   @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-      // Handle item selection
-      switch (item.getItemId()) {
-      case R.id.my_position:
-          return true;
-      case R.id.download_maps:
-          return true;
-      default:
-          return super.onOptionsItemSelected(item);
-      }
+  public boolean onOptionsItemSelected(MenuItem item)
+  {
+    // Handle item selection
+    switch (item.getItemId())
+    {
+    case R.id.my_position:
+      Log.i(TAG, "onMyPosition");
+      return true;
+    case R.id.download_maps:
+      Log.i(TAG, "onDownloadMaps");
+      return true;
+    default:
+      return super.onOptionsItemSelected(item);
+    }
   }
 
   static
