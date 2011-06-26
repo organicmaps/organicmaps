@@ -56,6 +56,12 @@ namespace my
       return data.m_Value;
     }
 
+    bool HasKey(KeyT const & key)
+    {
+      Data & data = m_Cache[Hash(key) & m_HashMask];
+      return data.m_Key == key;
+    }
+
     template <typename F>
     void ForEachValue(F f)
     {

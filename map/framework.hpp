@@ -25,6 +25,7 @@
 #include "../yg/render_state.hpp"
 #include "../yg/skin.hpp"
 #include "../yg/resource_manager.hpp"
+#include "../yg/tiler.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/file_writer.hpp"
@@ -127,7 +128,6 @@ class FrameWork
   double const m_metresMinWidth;
   int const m_minRulerWidth;
 
-
   enum TGpsCenteringMode
   {
     EDoNothing,
@@ -147,6 +147,8 @@ class FrameWork
   double m_maxDuration;
   m2::RectD m_maxDurationRect;
   m2::RectD m_curBenchmarkRect;
+
+  int m_tileSize;
 
   struct BenchmarkResult
   {
@@ -168,6 +170,8 @@ class FrameWork
 
   vector<Benchmark> m_benchmarks;
   size_t m_curBenchmark;
+
+  yg::Tiler m_tiler;
 
   void BenchmarkCommandFinished();
   void NextBenchmarkCommand();

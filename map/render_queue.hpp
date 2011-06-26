@@ -4,6 +4,8 @@
 #include "../geometry/screenbase.hpp"
 #include "../std/shared_ptr.hpp"
 #include "render_queue_routine.hpp"
+#include "../yg/tile_cache.hpp"
+#include "../yg/tiler.hpp"
 
 namespace yg
 {
@@ -28,6 +30,8 @@ private:
   shared_ptr<yg::gl::RenderState> m_renderState;
   shared_ptr<yg::ResourceManager> m_resourceManager;
   RenderQueueRoutine * m_routine;
+
+  yg::TileCache m_tileCache;
 
 public:
 
@@ -69,11 +73,16 @@ public:
 
   yg::gl::RenderState const & renderState() const;
 
-  /// free all possible memory caches
+  /// free all possible memory caches.
   void memoryWarning();
   /// free all possible memory caches, opengl resources,
   /// and make sure no opengl call will be made in background
   void enterBackground();
   /// load all necessary memory caches and opengl resources.
   void enterForeground();
+
+  /// get tile cache.
+  yg::TileCache & tileCache();
+  /// add tiler rendering command.
+  void addTileRenderCmd(yg::Tiler::RectInfo const & ri);
 };

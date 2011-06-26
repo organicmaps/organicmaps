@@ -14,7 +14,8 @@ RenderQueue::RenderQueue(
     unsigned scaleEtalonSize,
     yg::Color const & bgColor
   )
-  : m_renderState(new yg::gl::RenderState())
+  : m_renderState(new yg::gl::RenderState()),
+    m_tileCache(256 * 256 * 2, 10 * 1024 * 1024)
 {
   m_renderState->m_surfaceWidth = 100;
   m_renderState->m_surfaceHeight = 100;
@@ -109,6 +110,11 @@ void RenderQueue::enterBackground()
 void RenderQueue::enterForeground()
 {
   m_routine->enterForeground();
+}
+
+yg::TileCache & RenderQueue::tileCache()
+{
+  return m_tileCache;
 }
 
 

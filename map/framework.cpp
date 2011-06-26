@@ -352,7 +352,8 @@ void FrameWork<TModel>::AddRedrawCommandSure()
       m_metresMinWidth(20),
       m_minRulerWidth(97),
       m_centeringMode(EDoNothing),
-      m_maxDuration(0)
+      m_maxDuration(0),
+      m_tileSize(512)
   {
     m_startTime = my::FormatCurrentTime();
 
@@ -893,6 +894,35 @@ void FrameWork<TModel>::AddRedrawCommandSure()
                                 m_renderQueue.renderState().m_actualScreen,
                                 currentScreen);
 
+/*        m_tiler.seed(currentScreen, m_tileSize);
+
+        while (m_tiler.hasTile())
+        {
+          yg::Tiler::RectInfo ri = m_tiler.nextTile();
+
+          m_renderQueue.tileCache().lock();
+          if (m_renderQueue.tileCache().hasTile(ri))
+          {
+            yg::Tile tile = m_renderQueue.tileCache().getTile(ri);
+            m2::RectD pxRect;
+            currentScreen.GtoP(ri.m_rect, pxRect);
+
+            pDrawer->screen()->drawRectangle(pxRect, yg::Color(255, 0, 0, 64), yg::maxDepth - 1);
+
+            m_renderQueue.tileCache().unlock();
+//            pDrawer->screen()->blit(tile.m_renderTarget, tile.m_tileScreen, currentScreen);
+          }
+          else
+          {
+            m_renderQueue.tileCache().unlock();
+//            m_renderQueue.addTileRenderCmd();
+            m2::RectD pxRect;
+            currentScreen.GtoP(ri.m_rect, pxRect);
+            pDrawer->screen()->drawRectangle(pxRect, yg::Color(0, 0, 255, 192 - (ri.m_distance * 3 > 255 ? 255 : ri.m_distance * 3) / (255.0 / 192)), yg::maxDepth - 2);
+          }
+        }
+*/
+
         m_informationDisplay.doDraw(pDrawer);
 
 /*        m_renderQueue.renderState().m_actualInfoLayer->draw(
@@ -1042,7 +1072,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(true);
 
     m2::PointD pos = m_navigator.OrientPoint(e.Pos()) + ptShift;
-    m_navigator.DoDrag(pos, m_timer.ElapsedSeconds());
+    m_navigator.DoDrag(pos, GetPlatform().TimeInSec());
 
 #ifdef DRAW_TOUCH_POINTS
     m_informationDisplay.setDebugPoint(0, pos);
@@ -1071,6 +1101,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   void FrameWork<TModel>::Move(double azDir, double factor)
   {
     m_navigator.Move(azDir, factor);
+//    m_tiler.seed(m_navigator.Screen(), m_tileSize);
     UpdateNow();
   }
   //@}
@@ -1099,6 +1130,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   void FrameWork<TModel>::Scale(double scale)
   {
     m_navigator.Scale(scale);
+//    m_tiler.seed(m_navigator.Screen(), m_tileSize);
     UpdateNow();
   }
 

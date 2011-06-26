@@ -6,7 +6,7 @@ CONFIG += staticlib
 DEFINES += YG_LIBRARY
 
 ROOT_DIR = ..
-DEPENDENCIES = geometry coding base freetype fribidi expat
+DEPENDENCIES = indexer geometry coding base freetype fribidi expat
 
 INCLUDEPATH += $$ROOT_DIR/3party/freetype/include $$ROOT_DIR/3party/agg
 
@@ -61,7 +61,9 @@ SOURCES += \
     info_layer.cpp \
     overlay_element.cpp \
     symbol_element.cpp \
-    overlay_renderer.cpp
+    overlay_renderer.cpp \
+    tiler.cpp \
+    tile_cache.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -115,7 +117,10 @@ HEADERS += \
     info_layer.hpp \
     overlay_element.hpp \
     symbol_element.hpp \
-    overlay_renderer.hpp
+    overlay_renderer.hpp \
+    tile.hpp \
+    tile_cache.hpp \
+    tiler.hpp
 
 win32 {
   HEADERS += internal/opengl_win32.hpp
