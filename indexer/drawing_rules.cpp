@@ -449,7 +449,7 @@ namespace drule {
     {}
 
     virtual bool IsEqual(BaseRule const * p) const { return is_equal_rules(this, p); }
-    virtual void Read(FileReaderStream & ar) { read_rules(ar, this); }
+    virtual void Read(ReaderPtrStream & ar) { read_rules(ar, this); }
     virtual void Write(FileWriterStream & ar) const { write_rules(ar, this); }
 
     virtual int GetColor() const { return m_params.get<4>().m_v; }
@@ -514,7 +514,7 @@ namespace drule {
     AreaRule() : m_params(make_tuple(pattern_url_t(), 1.0, pattern_url_t(), 1.0, 1.0)) {}
 
     virtual bool IsEqual(BaseRule const * p) const { return is_equal_rules(this, p); }
-    virtual void Read(FileReaderStream & ar) { read_rules(ar, this); }
+    virtual void Read(ReaderPtrStream & ar) { read_rules(ar, this); }
     virtual void Write(FileWriterStream & ar) const { write_rules(ar, this); }
 
     virtual int GetFillColor() const { return m_params.get<0>().m_v; }
@@ -537,7 +537,7 @@ namespace drule {
     tuple<string, string, position_t> m_params;
 
     virtual bool IsEqual(BaseRule const * p) const { return is_equal_rules(this, p); }
-    virtual void Read(FileReaderStream & ar) { read_rules(ar, this); }
+    virtual void Read(ReaderPtrStream & ar) { read_rules(ar, this); }
     virtual void Write(FileWriterStream & ar) const { write_rules(ar, this); }
 
     virtual void GetSymbol(string & s) const
@@ -569,7 +569,7 @@ namespace drule {
     {}
 
     virtual bool IsEqual(BaseRule const * p) const { return is_equal_rules(this, p); }
-    virtual void Read(FileReaderStream & ar) { read_rules(ar, this); }
+    virtual void Read(ReaderPtrStream & ar) { read_rules(ar, this); }
     virtual void Write(FileWriterStream & ar) const { write_rules(ar, this); }
 
     virtual double GetTextHeight() const { return m_params.get<5>().m_v; }
@@ -606,7 +606,7 @@ namespace drule {
     CircleRule() : m_params(make_tuple(1, color_t(), 1.0, color_t::none, 0.0, 1.0)) {}
 
     virtual bool IsEqual(BaseRule const * p) const { return is_equal_rules(this, p); }
-    virtual void Read(FileReaderStream & ar) { read_rules(ar, this); }
+    virtual void Read(ReaderPtrStream & ar) { read_rules(ar, this); }
     virtual void Write(FileWriterStream & ar) const { write_rules(ar, this); }
 
     virtual double GetRadius() const { return m_params.get<0>().m_v; }
@@ -643,7 +643,7 @@ namespace drule {
     {}
 
     virtual bool IsEqual(BaseRule const * p) const { return is_equal_rules(this, p); }
-    virtual void Read(FileReaderStream & ar) { read_rules(ar, this); }
+    virtual void Read(ReaderPtrStream & ar) { read_rules(ar, this); }
     virtual void Write(FileWriterStream & ar) const { write_rules(ar, this); }
 
     virtual double GetTextHeight() const { return m_params.get<6>().m_v; }
@@ -686,7 +686,7 @@ namespace drule {
     WayMarkerRule() : m_params(make_tuple("", color_t(), 1.0, line_cap_t(), 1.0)) {}
 
     virtual bool IsEqual(BaseRule const * p) const { return is_equal_rules(this, p); }
-    virtual void Read(FileReaderStream & ar) { read_rules(ar, this); }
+    virtual void Read(ReaderPtrStream & ar) { read_rules(ar, this); }
     virtual void Write(FileWriterStream & ar) const { write_rules(ar, this); }
 
     static string arrKeys[5];
@@ -704,7 +704,7 @@ namespace drule {
 ////////////////////////////////////////////////////////////////////////////////////////////
 // BaseRule implementation
 ////////////////////////////////////////////////////////////////////////////////////////////
-void BaseRule::ReadBase(FileReaderStream & ar)
+void BaseRule::ReadBase(ReaderPtrStream & ar)
 {
   ar >> m_class >> m_type;
 }
@@ -1014,7 +1014,7 @@ FileWriterStream & operator << (FileWriterStream & ar, BaseRule * p)
   return ar;
 }
 
-void do_load(FileReaderStream & ar, size_t ind, BaseRule * & p)
+void do_load(ReaderPtrStream & ar, size_t ind, BaseRule * & p)
 {
   switch (ind)
   {
@@ -1033,7 +1033,7 @@ void do_load(FileReaderStream & ar, size_t ind, BaseRule * & p)
   p->Read(ar);
 }
 
-void RulesHolder::Read(FileReaderStream & s)
+void RulesHolder::Read(ReaderPtrStream & s)
 {
   Clean();
 
@@ -1052,10 +1052,9 @@ void WriteRules(char const * fPath)
   rules().Write(file);
 }
 
-void ReadRules(char const * fPath)
+void ReadRules(ReaderPtrStream & s)
 {
-  FileReaderStream file(fPath);
-  rules().Read(file);
+  rules().Read(s);
 }
 
 RulesHolder & rules()

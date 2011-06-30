@@ -9,11 +9,12 @@
 // FilesContainerBase
 /////////////////////////////////////////////////////////////////////////////
 
-void FilesContainerBase::ReadInfo(FileReader & reader)
+template <class ReaderT>
+void FilesContainerBase::ReadInfo(ReaderT & reader)
 {
   uint64_t offset = ReadPrimitiveFromPos<uint64_t>(reader, 0);
 
-  ReaderSource<FileReader> src(reader);
+  ReaderSource<ReaderT> src(reader);
   src.Skip(offset);
 
   uint32_t const count = ReadVarUint<uint32_t>(src);
@@ -37,12 +38,18 @@ void FilesContainerBase::ReadInfo(FileReader & reader)
 FilesContainerR::FilesContainerR(string const & fName,
                                  uint32_t logPageSize,
                                  uint32_t logPageCount)
-: m_source(fName, logPageSize, logPageCount)
+  : m_source(new FileReader(fName, logPageSize, logPageCount))
 {
   ReadInfo(m_source);
 }
 
-FileReader FilesContainerR::GetReader(Tag const & tag) const
+FilesContainerR::FilesContainerR(ReaderT const & file)
+  : m_source(file)
+{
+  ReadInfo(m_source);
+}
+
+FilesContainerR::ReaderT FilesContainerR::GetReader(Tag const & tag) const
 {
   InfoContainer::const_iterator i =
     lower_bound(m_info.begin(), m_info.end(), tag, LessInfo());

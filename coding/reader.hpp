@@ -1,12 +1,16 @@
 #pragma once
 #include "endianness.hpp"
 #include "source.hpp"
+
 #include "../base/assert.hpp"
 #include "../base/base.hpp"
 #include "../base/exception.hpp"
 #include "../base/macros.hpp"
+
+#include "../std/shared_ptr.hpp"
 #include "../std/string.hpp"
 #include "../std/memcpy.hpp"
+
 
 // Base class for random-access Reader. Not thread-safe.
 class Reader
@@ -20,6 +24,8 @@ public:
   virtual uint64_t Size() const = 0;
   virtual void Read(uint64_t pos, void * p, size_t size) const = 0;
   virtual Reader * CreateSubReader(uint64_t pos, uint64_t size) const = 0;
+
+  void ReadAsString(string & s) const;
 };
 
 // Reader from memory.
@@ -62,9 +68,74 @@ private:
   size_t m_Size;
 };
 
-// Source that readers from a reader.
-template <typename ReaderT>
-class ReaderSource
+// Reader wrapper to hold the pointer to a polymorfic reader.
+// Common use: ReaderSource<ReaderPtr<Reader> >.
+// Note! It takes the ownership of Reader.
+template <class ReaderT> class ReaderPtr
+{
+protected:
+  shared_ptr<ReaderT> m_p;
+
+public:
+  ReaderPtr(ReaderT * p) : m_p(p) {}
+
+  uint64_t Size() const
+  {
+    return m_p->Size();
+  }
+
+  void Read(uint64_t pos, void * p, size_t size) const
+  {
+    m_p->Read(pos, p, size);
+  }
+
+  void ReadAsString(string & s) const
+  {
+    m_p->ReadAsString(s);
+  }
+};
+
+// Model reader store file id as string.
+class ModelReader : public Reader
+{
+  string m_name;
+
+public:
+  ModelReader(string const & name) : m_name(name) {}
+
+  virtual ModelReader * CreateSubReader(uint64_t pos, uint64_t size) const = 0;
+
+  bool IsEqual(string const & name) const;
+
+  string GetName() const { return m_name; }
+};
+
+// Reader pointer class for data files.
+class ModelReaderPtr : public ReaderPtr<ModelReader>
+{
+  typedef ReaderPtr<ModelReader> base_type;
+
+public:
+  ModelReaderPtr(ModelReader * p) : base_type(p) {}
+
+  inline ModelReaderPtr SubReader(uint64_t pos, uint64_t size) const
+  {
+    return m_p->CreateSubReader(pos, size);
+  }
+
+  inline bool IsEqual(string const & name) const
+  {
+    return m_p->IsEqual(name);
+  }
+
+  inline bool IsEqual(ModelReaderPtr const & file) const
+  {
+    return m_p->IsEqual(file.m_p->GetName());
+  }
+};
+
+// Source that reads from a reader.
+template <typename ReaderT> class ReaderSource
 {
 public:
   typedef ReaderT ReaderType;

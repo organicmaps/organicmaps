@@ -12,7 +12,8 @@
 #include "../std/string.hpp"
 
 
-class FileReader;
+class Reader;
+class ModelReaderPtr;
 class FeatureType;
 
 namespace search
@@ -25,7 +26,7 @@ class Result;
 class Engine
 {
 public:
-  typedef Index<FileReader>::Type IndexType;
+  typedef Index<ModelReaderPtr>::Type IndexType;
 
   /// Doesn't take ownership of @pIndex. Modifies @categories.
   Engine(IndexType const * pIndex, CategoriesHolder & categories);

@@ -154,14 +154,14 @@ void for_each_in_rect(TSource & src, feature_cont_t & cont, m2::RectD const & re
 
 class file_source_t
 {
-  string m_fDat;
+  ModelReaderPtr m_file;
 public:
-  file_source_t(string const & fDat) : m_fDat(fDat) {}
+  file_source_t(ModelReaderPtr const & file) : m_file(file) {}
 
   template <class ToDo>
   void ForEachFeature(m2::RectD const & /*rect*/, ToDo toDo)
   {
-    feature::ForEachFromDat(m_fDat, toDo);
+    feature::ForEachFromDat(m_file, toDo);
   }
 };
 
@@ -227,14 +227,14 @@ namespace
     }
   };
 
-  void RunTest(string const & path)
+  void RunTest(ModelReaderPtr const & file)
   {
     model::FeaturesFetcher src1;
     src1.InitClassificator();
-    src1.AddMap(path);
+    src1.AddMap(file);
 
     feature::DataHeader mapInfo;
-    mapInfo.Load(FilesContainerR(path).GetReader(HEADER_FILE_TAG));
+    mapInfo.Load(FilesContainerR(file).GetReader(HEADER_FILE_TAG));
 
     vector<m2::RectD> rects;
     rects.push_back(mapInfo.GetBounds());
@@ -247,7 +247,7 @@ namespace
       feature_cont_t v1, v2;
       for_each_in_rect<AccumulatorBase>(src1, v1, r);
 
-      file_source_t src2(path);
+      file_source_t src2(file);
       for_each_in_rect<AccumulatorEtalon>(src2, v2, r);
 
       int const level = scales::GetScaleLevel(r);
@@ -278,7 +278,7 @@ namespace
     char c;
     cin >> c;
     if (c == 'y')
-      RunTest(GetPlatform().WritablePathForFile(fName + DATA_FILE_EXTENSION));
+      RunTest(GetPlatform().GetReader(fName + DATA_FILE_EXTENSION));
   }
 }
 

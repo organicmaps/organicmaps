@@ -80,8 +80,10 @@ int main(int argc, char ** argv)
 
   google::ParseCommandLineFlags(&argc, &argv, true);
 
+  Platform & pl = GetPlatform();
+
   string const path =
-      FLAGS_data_path.empty() ? GetPlatform().WritableDir() : AddSlashIfNeeded(FLAGS_data_path);
+      FLAGS_data_path.empty() ? pl.WritableDir() : AddSlashIfNeeded(FLAGS_data_path);
 
   if (FLAGS_version)
   {
@@ -115,9 +117,9 @@ int main(int argc, char ** argv)
   if (FLAGS_generate_features || FLAGS_generate_geometry ||
       FLAGS_generate_index || FLAGS_calc_statistics || FLAGS_dump_types)
   {
-    classificator::Read(path + "drawing_rules.bin",
-                        path + "classificator.txt",
-                        path + "visibility.txt");
+    classificator::Read(pl.GetReader("drawing_rules.bin"),
+                        pl.GetReader("classificator.txt"),
+                        pl.GetReader("visibility.txt"));
     classificator::PrepareForFeatureGeneration();
   }
 

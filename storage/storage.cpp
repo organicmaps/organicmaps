@@ -53,19 +53,12 @@ namespace storage
     m_removeMap = removeFunc;
     m_updateRect = updateRectFunc;
 
-    Platform::FilesList filesList;
+    typedef vector<ModelReaderPtr> map_list_t;
+    map_list_t filesList;
     enumMapsFunc(filesList);
 
-    for (Platform::FilesList::iterator it = filesList.begin(); it != filesList.end(); ++it)
-    { // simple way to avoid continuous crashes with invalid data files
-      try {
-        m_addMap(*it);
-      } catch (std::exception const & e)
-      {
-        FileWriter::DeleteFileX(*it);
-        LOG(LWARNING, (e.what(), "while adding file", *it, "so this file is deleted"));
-      }
-    }
+    for (map_list_t::iterator it = filesList.begin(); it != filesList.end(); ++it)
+      m_addMap(*it);
   }
 
   string Storage::UpdateBaseUrl() const
@@ -303,10 +296,11 @@ namespace storage
 
     if (m_countries.SiblingsCount() == 0)
     {
+      Platform & pl = GetPlatform();
       TTilesContainer tiles;
-      if (LoadTiles(tiles, GetPlatform().ReadPathForFile(DATA_UPDATE_FILE), m_currentVersion))
+      if (LoadTiles(pl.GetReader(DATA_UPDATE_FILE), tiles, m_currentVersion))
       {
-        if (!LoadCountries(GetPlatform().ReadPathForFile(COUNTRIES_FILE), tiles, m_countries))
+        if (!LoadCountries(pl.GetReader(COUNTRIES_FILE), tiles, m_countries))
         {
           LOG(LWARNING, ("Can't load countries file", COUNTRIES_FILE));
         }
@@ -358,8 +352,10 @@ namespace storage
       TLocalAndRemoteSize size = CountryByIndex(m_queue.front()).Size();
       if (size.second != 0)
         m_countryProgress.m_current = size.first;
+
+      /// @todo Get file reader from download framework.
       // activate downloaded map piece
-      m_addMap(result.m_file);
+      m_addMap(new FileReader(result.m_file));
 
       feature::DataHeader header;
       header.Load(FilesContainerR(result.m_file).GetReader(HEADER_FILE_TAG));
@@ -433,19 +429,21 @@ namespace storage
   void Storage::OnBinaryUpdateCheckFinished(HttpFinishedParams const & params)
   {
     if (params.m_error == EHttpDownloadFileNotFound)
-    { // no binary update is available
+    {
+      // no binary update is available
       if (m_observerUpdateRequest)
         m_observerUpdateRequest(ENoAnyUpdateAvailable, "No update is available");
     }
     else if (params.m_error == EHttpDownloadOk)
-    { // update is available!
+    {
+      // update is available!
       try
       {
         if (m_observerUpdateRequest)
         {
-          string const updateTextFilePath = GetPlatform().ReadPathForFile(params.m_file);
-          FileReader file(updateTextFilePath);
-          m_observerUpdateRequest(ENewBinaryAvailable, file.ReadAsText());
+          string buffer;
+          FileReader(GetPlatform().ReadPathForFile(params.m_file)).ReadAsString(buffer);
+          m_observerUpdateRequest(ENewBinaryAvailable, buffer);
         }
       }
       catch (std::exception const & e)
@@ -456,7 +454,8 @@ namespace storage
       }
     }
     else
-    { // connection error
+    {
+      // connection error
       if (m_observerUpdateRequest)
         m_observerUpdateRequest(EBinaryCheckFailed, ErrorString(params.m_error));
     }

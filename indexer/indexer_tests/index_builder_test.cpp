@@ -13,9 +13,9 @@
 UNIT_TEST(BuildIndexTest)
 {
   Platform & p = GetPlatform();
-  classificator::Read(p.ReadPathForFile("drawing_rules.bin"),
-                      p.ReadPathForFile("classificator.txt"),
-                      p.ReadPathForFile("visibility.txt"));
+  classificator::Read(p.GetReader("drawing_rules.bin"),
+                      p.GetReader("classificator.txt"),
+                      p.GetReader("visibility.txt"));
 
   FilesContainerR originalContainer(p.WritablePathForFile("minsk-pass" DATA_FILE_EXTENSION));
 
@@ -41,7 +41,7 @@ UNIT_TEST(BuildIndexTest)
     {
       if (tags[i] != INDEX_FILE_TAG)
       {
-        FileReader reader = originalContainer.GetReader(tags[i]);
+        FilesContainerR::ReaderT reader = originalContainer.GetReader(tags[i]);
         size_t const sz = static_cast<size_t>(reader.Size());
         if (sz > 0)
         {
@@ -56,8 +56,8 @@ UNIT_TEST(BuildIndexTest)
 
   {
     // Check that index actually works.
-    Index<FileReader>::Type index;
-    index.Add(fileName);
+    Index<ModelReaderPtr>::Type index;
+    index.Add(new FileReader(fileName));
 
     // Make sure that index is actually parsed.
     index.ForEachInScale(NoopFunctor(), 15);

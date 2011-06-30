@@ -19,15 +19,17 @@ namespace model
 
   class FeaturesFetcher
   {
-    m2::RectD m_rect;
-
+  public:
 #ifdef USE_BUFFER_READER
-    typedef BufferReader reader_t;
+    typedef BufferReader ReaderT;
 #else
-    typedef FileReader reader_t;
+    typedef ModelReaderPtr ReaderT;
 #endif
 
-    typedef Index<reader_t>::Type index_t;
+  private:
+    m2::RectD m_rect;
+
+    typedef Index<ReaderT>::Type index_t;
 
     index_t m_multiIndex;
 
@@ -38,7 +40,7 @@ namespace model
 
     void InitClassificator();
 
-    void AddMap(string const & fName);
+    void AddMap(ReaderT const & file);
     void RemoveMap(string const & fName);
     void Clean();
     void ClearCaches();

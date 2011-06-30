@@ -424,35 +424,8 @@ bool ClassifObject::IsDrawableLike(FeatureGeoType ft) const
   return false;
 }
 
-namespace
+void Classificator::ReadClassificator(string const & buffer)
 {
-  bool LoadFileToString(char const * fPath, string & buffer)
-  {
-    try
-    {
-      FileReader reader(fPath);
-      size_t const sz = static_cast<size_t>(reader.Size());
-      if (sz > 0)
-      {
-        buffer.resize(sz);
-        reader.Read(0, &buffer[0], sz);
-        return true;
-      }
-    }
-    catch (FileReader::OpenException const &)
-    {
-      // It's OK. Just return false.
-    }
-    return false;
-  }
-}
-
-bool Classificator::ReadClassificator(char const * fPath)
-{
-  string buffer;
-  if (!LoadFileToString(fPath, buffer))
-    return false;
-
   istringstream iss(buffer);
 
   m_root.Clear();
@@ -461,7 +434,6 @@ bool Classificator::ReadClassificator(char const * fPath)
   tree::LoadTreeAsText(iss, policy);
 
   m_root.Sort();
-  return true;
 }
 
 void Classificator::PrintClassificator(char const * fPath)
@@ -477,18 +449,12 @@ void Classificator::PrintClassificator(char const * fPath)
 #endif
 }
 
-bool Classificator::ReadVisibility(char const * fPath)
+void Classificator::ReadVisibility(string const & buffer)
 {
-  string buffer;
-  if (!LoadFileToString(fPath, buffer))
-    return false;
-
   istringstream iss(buffer);
 
   ClassifObject::VisLoadPolicy policy(&m_root);
   tree::LoadTreeAsText(iss, policy);
-
-  return true;
 }
 
 void Classificator::PrintVisibility(char const * fPath)

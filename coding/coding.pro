@@ -23,6 +23,7 @@ SOURCES += \
     base64.cpp \
     sha2.cpp \
     multilang_utf8_string.cpp \
+    reader.cpp
 
 HEADERS += \
     internal/xmlparser.h \

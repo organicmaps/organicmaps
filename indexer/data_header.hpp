@@ -9,7 +9,7 @@
 #include "../base/start_mem_debug.hpp"
 
 
-class FileReader;
+class ModelReaderPtr;
 class FileWriter;
 
 namespace feature
@@ -43,7 +43,7 @@ namespace feature
     /// @name Serialization
     //@{
     void Save(FileWriter & w) const;
-    void Load(FileReader const & r);
+    void Load(ModelReaderPtr const & r);
     //@}
   };
 }

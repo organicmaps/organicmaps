@@ -43,7 +43,7 @@
 #include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
 #include "../std/target_os.hpp"
-#include "../std/fstream.hpp"
+
 
 //#define DRAW_TOUCH_POINTS
 
@@ -181,7 +181,9 @@ class FrameWork
   void MarkBenchmarkResultsStart();
   void MarkBenchmarkResultsEnd();
 
-  void AddMap(string const & datFile);
+  typedef typename TModel::ReaderT ReaderT;
+
+  void AddMap(ReaderT const & file);
   void RemoveMap(string const & datFile);
 
   void OnGpsUpdate(location::GpsInfo const & info);
@@ -200,8 +202,9 @@ public:
 
   model_t & get_model();
 
-  void EnumLocalMaps(Platform::FilesList & filesList);
-  void EnumBenchmarkMaps(Platform::FilesList & filesList);
+  typedef vector<ReaderT> maps_list_t;
+  void EnumLocalMaps(maps_list_t & filesList);
+  void EnumBenchmarkMaps(maps_list_t & filesList);
 
   /// Initialization.
   template <class TStorage>

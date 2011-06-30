@@ -11,7 +11,7 @@
 struct FeatureReaders
 {
   FilesContainerR m_cont;
-  FileReader m_datR;
+  FilesContainerR::ReaderT m_datR;
 
   FeatureReaders(FilesContainerR const & cont)
     : m_cont(cont), m_datR(cont.GetReader(DATA_FILE_TAG))
@@ -46,10 +46,10 @@ public:
   //      bind<void>(toDo, bind(&FeaturesVector<ReaderT>::DeserializeFeature, this, _2, _3, &f)));
   //}
 
-  bool IsMyData(string const & fName) const
-  {
-    return m_RecordReader.IsEqual(fName);
-  }
+  //bool IsMyData(string const & fName) const
+  //{
+  //  return m_RecordReader.IsEqual(fName);
+  //}
 
 private:
   template <class ToDo> class feature_getter
@@ -71,6 +71,6 @@ private:
     }
   };
 
-  VarRecordReader<FileReader, &VarRecordSizeReaderVarint> m_RecordReader;
+  VarRecordReader<FilesContainerR::ReaderT, &VarRecordSizeReaderVarint> m_RecordReader;
   mutable FeatureType::read_source_t m_source;
 };

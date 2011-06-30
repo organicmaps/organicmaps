@@ -124,9 +124,11 @@ namespace languages
   bool GetSupportedLanguages(CodesAndNamesT & outLanguages)
   {
     outLanguages.clear();
-    FileReader file(GetPlatform().ReadPathForFile(LANGUAGES_FILE));
-    string const langs = file.ReadAsText();
-    istringstream stream(langs);
+
+    string buffer;
+    ReaderPtr<Reader>(GetPlatform().GetReader(LANGUAGES_FILE)).ReadAsString(buffer);
+    istringstream stream(buffer);
+
     for (size_t i = 0; i < MAX_SUPPORTED_LANGUAGES; ++i)
     {
       string line;
@@ -137,5 +139,4 @@ namespace languages
     }
     return !outLanguages.empty();
   }
-
 }

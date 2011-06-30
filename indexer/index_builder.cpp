@@ -44,7 +44,7 @@ namespace indexer
 
 #ifdef DEBUG
     FilesContainerR readCont(datFile);
-    FileReader r = readCont.GetReader(HEADER_FILE_TAG);
+    FilesContainerR::ReaderT r = readCont.GetReader(HEADER_FILE_TAG);
     int64_t const base = ReadPrimitiveFromPos<int64_t>(r, 0);
     LOG(LINFO, ("OFFSET = ", base));
 #endif

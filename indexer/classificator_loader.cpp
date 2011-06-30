@@ -1,22 +1,38 @@
 #include "classificator_loader.hpp"
+#include "file_reader_stream.hpp"
 #include "classificator.hpp"
 #include "drawing_rules.hpp"
 
-#include "../coding/reader.hpp"
+#include "../coding/file_reader.hpp"
+
 #include "../base/logging.hpp"
+
 
 namespace classificator
 {
-  void Read(string const & rules, string const & classificator, string const & visibility)
+  void Read(file_t const & rules, file_t const & classificator, file_t const & visibility)
   {
     LOG(LINFO, ("Reading drawing rules"));
-    drule::ReadRules(rules.c_str());
+    ReaderPtrStream rulesS(rules);
+    drule::ReadRules(rulesS);
+
+    string buffer;
+
     LOG(LINFO, ("Reading classificator"));
-    if (!classif().ReadClassificator(classificator.c_str()))
-      MYTHROW(Reader::OpenException, ("drawing rules or classificator file"));
+    classificator.ReadAsString(buffer);
+    classif().ReadClassificator(buffer);
 
     LOG(LINFO, ("Reading visibility"));
-    (void)classif().ReadVisibility(visibility.c_str());
-    LOG(LINFO, ("Reading visibility done"));
+    visibility.ReadAsString(buffer);
+    classif().ReadVisibility(buffer);
+
+    LOG(LINFO, ("Reading of classificator done"));
+  }
+
+  void ReadVisibility(string const & fPath)
+  {
+    string buffer;
+    file_t(new FileReader(fPath)).ReadAsString(buffer);
+    classif().ReadVisibility(buffer);
   }
 }

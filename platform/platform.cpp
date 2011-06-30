@@ -2,6 +2,7 @@
 #include "settings.hpp"
 
 #include "../coding/internal/file_data.hpp"
+#include "../coding/file_reader.hpp"
 
 #include "../base/logging.hpp"
 
@@ -24,6 +25,11 @@ string BasePlatformImpl::ReadPathForFile(string const & file) const
       MYTHROW(FileAbsentException, ("File doesn't exist", fullPath));
   }
   return fullPath;
+}
+
+ModelReader * BasePlatformImpl::GetReader(string const & file) const
+{
+    return new FileReader(ReadPathForFile(file), 10, 12);
 }
 
 bool BasePlatformImpl::GetFileSize(string const & file, uint64_t & size) const

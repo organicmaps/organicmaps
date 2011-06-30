@@ -10,8 +10,8 @@
 
 UNIT_TEST(IndexParseTest)
 {
-  Index<FileReader>::Type index;
-  index.Add(GetPlatform().WritablePathForFile("minsk-pass" DATA_FILE_EXTENSION));
+  Index<ModelReaderPtr>::Type index;
+  index.Add(GetPlatform().GetReader("minsk-pass" DATA_FILE_EXTENSION));
 
   // Make sure that index is actually parsed.
   index.ForEachInScale(NoopFunctor(), 15);

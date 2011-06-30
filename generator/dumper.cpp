@@ -51,7 +51,7 @@ namespace feature
   void DumpTypes(string const & datFile)
   {
     TypesCollector doClass;
-    feature::ForEachFromDat(datFile, doClass);
+    feature::ForEachFromDat(new FileReader(datFile), doClass);
 
     typedef vector<stats_elem_type> vec_to_sort;
     vec_to_sort vecToSort(doClass.m_stats.begin(), doClass.m_stats.end());

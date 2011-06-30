@@ -5,7 +5,6 @@
 
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
-#include "../std/sstream.hpp"
 #include "../std/fstream.hpp"
 #include "../std/bitset.hpp"
 
@@ -205,10 +204,10 @@ public:
 
   /// @name Serialization-like functions.
   //@{
-  bool ReadClassificator(char const * fPath);
+  void ReadClassificator(string const & buffer);
   void PrintClassificator(char const * fPath);
 
-  bool ReadVisibility(char const * fPath);
+  void ReadVisibility(string const & buffer);
   void PrintVisibility(char const * fPath);
 
   void SortClassificator();

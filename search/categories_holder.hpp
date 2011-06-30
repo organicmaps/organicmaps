@@ -3,8 +3,8 @@
 
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
-#include "../std/fstream.hpp"
 #include "../std/algorithm.hpp"
+
 
 namespace search
 {
@@ -34,7 +34,7 @@ public:
   typedef ContainerT::const_iterator const_iterator;
 
   /// @return number of loaded categories or 0 if something goes wrong
-  size_t LoadFromStream(istream & stream);
+  size_t LoadFromStream(string const & buffer);
 
   template <class ToDo>
   void ForEachCategory(ToDo toDo) const

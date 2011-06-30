@@ -98,11 +98,15 @@ namespace storage
     return true;
   }
 
-  bool LoadCountries(string const & countriesFile, TTilesContainer const & sortedTiles,
+  bool LoadCountries(file_t const & file, TTilesContainer const & sortedTiles,
                      TCountriesContainer & countries)
   {
     countries.Clear();
-    ifstream stream(countriesFile.c_str());
+
+    string buffer;
+    file.ReadAsString(buffer);
+    istringstream stream(buffer);
+
     std::string line;
     Country * currentCountry = &countries.Value();
     while (stream.good())
@@ -174,15 +178,14 @@ namespace storage
     wStream << commonFiles;
   }
 
-  bool LoadTiles(TTilesContainer & tiles, string const & tilesFile, uint32_t & dataVersion)
+  bool LoadTiles(file_t const & file, TTilesContainer & tiles, uint32_t & dataVersion)
   {
     tiles.clear();
 
     try
     {
-      FileReader fileReader(tilesFile);
-      ReaderSource<FileReader> source(fileReader);
-      stream::SinkReaderStream<ReaderSource<FileReader> > stream(source);
+      ReaderSource<file_t> source(file);
+      stream::SinkReaderStream<ReaderSource<file_t> > stream(source);
 
       TDataFiles dataFiles;
       TCommonFiles commonFiles;

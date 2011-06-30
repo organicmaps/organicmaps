@@ -20,16 +20,24 @@ namespace model
 void FeaturesFetcher::InitClassificator()
 {
   Platform & p = GetPlatform();
-  classificator::Read(p.ReadPathForFile("drawing_rules.bin"),
-                      p.ReadPathForFile("classificator.txt"),
-                      p.ReadPathForFile("visibility.txt"));
+
+  try
+  {
+    classificator::Read(p.GetReader("drawing_rules.bin"),
+                        p.GetReader("classificator.txt"),
+                        p.GetReader("visibility.txt"));
+  }
+  catch (FileAbsentException const & e)
+  {
+      LOG(LERROR, ("Classificator not found ", e.what()));
+  }
 }
 
-void FeaturesFetcher::AddMap(string const & fName)
+void FeaturesFetcher::AddMap(ReaderT const & file)
 {
   try
   {
-    m_multiIndex.Add(fName);
+    m_multiIndex.Add(file);
   }
   catch (Reader::OpenException const & e)
   {

@@ -134,16 +134,16 @@ public:
     }
   }
 
-  void Add(string const & path)
+  void Add(ModelReaderPtr const & file)
   {
     threads::MutexGuard mutexGuard(m_mutex);
     UNUSED_VALUE(mutexGuard);
 
     for (size_t i = 0; i < m_indexes.size(); ++i)
-      if (m_indexes[i]->IsMyData(path))
+      if (m_indexes[i]->IsMyData(file))
         return;
 
-    m_indexes.push_back(new IndexProxy(path));
+    m_indexes.push_back(new IndexProxy(file));
 
     UpdateIndexes();
   }
@@ -218,13 +218,15 @@ private:
   class IndexProxy
   {
   public:
-    explicit IndexProxy(string const & path)
-      : m_action(INDEX_DO_NOTHING), m_path(path), m_pIndex(NULL), m_lockCount(0),
+    typedef ModelReaderPtr ReaderT;
+
+    explicit IndexProxy(ReaderT const & file)
+      : m_action(INDEX_DO_NOTHING), m_file(file), m_pIndex(NULL), m_lockCount(0),
         m_queriesSkipped(0)
     {
       // TODO: If path is cellid-style-square, make rect from cellid and don't open the file.
       feature::DataHeader header;
-      header.Load(FilesContainerR(path).GetReader(HEADER_FILE_TAG));
+      header.Load(FilesContainerR(m_file).GetReader(HEADER_FILE_TAG));
 
       m_rect = header.GetBounds();
       m_scaleRange = header.GetScaleRange();
@@ -266,7 +268,11 @@ private:
 
     bool IsMyData(string const & path) const
     {
-      return m_path == path;
+      return m_file.IsEqual(path);
+    }
+    bool IsMyData(ReaderT const & file) const
+    {
+      return m_file.IsEqual(file);
     }
 
     void CloseIfUnlocked()
@@ -307,9 +313,7 @@ private:
       if (!m_pIndex)
       {
         // LOG(LINFO, (m_Path));
-        uint32_t const logPageSize = 10;
-        uint32_t const logPageCount = 12;
-        FilesContainerR container(m_path, logPageSize, logPageCount);
+        FilesContainerR container(m_file);
         m_pIndex = new IndexT(container);
       }
     }
@@ -325,7 +329,7 @@ private:
       }
     }
 
-    string m_path; // TODO: Store prefix and suffix of path in MultiIndexAdapter.
+    ReaderT m_file;
     m2::RectD m_rect;
     pair<int, int> m_scaleRange;
 
@@ -381,10 +385,10 @@ public:
     BaseT::ForEachInIntervalAndScale(offsetToFeatureReplacer, beg, end, scale, query);
   }
 
-  bool IsMyData(string const & fName) const
-  {
-    return m_FeatureVector.IsMyData(fName);
-  }
+  //bool IsMyData(string const & fName) const
+  //{
+  //  return m_FeatureVector.IsMyData(fName);
+  //}
 
 private:
   FeatureVectorT m_FeatureVector;

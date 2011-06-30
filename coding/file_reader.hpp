@@ -6,8 +6,10 @@
 // FileReader, cheap to copy, not thread safe.
 // It is assumed that file is not modified during FireReader lifetime,
 // because of caching and assumption that Size() is constant.
-class FileReader : public Reader
+class FileReader : public ModelReader
 {
+  typedef ModelReader base_type;
+
 public:
   explicit FileReader(string const & fileName,
                       uint32_t logPageSize = 10,
@@ -20,12 +22,8 @@ public:
   FileReader SubReader(uint64_t pos, uint64_t size) const;
   FileReader * CreateSubReader(uint64_t pos, uint64_t size) const;
 
-  bool IsEqual(string const & fName) const;
-  string GetName() const;
-  string ReadAsText() const;
-
 private:
-  FileReader(shared_ptr<FileReaderData> const & pFileData, uint64_t offset, uint64_t size);
+  FileReader(FileReader const & reader, uint64_t offset, uint64_t size);
 
   shared_ptr<FileReaderData> m_pFileData;
   uint64_t m_Offset;

@@ -33,8 +33,8 @@ UNIT_TEST(FilesContainer_Smoke)
 
     for (size_t i = 0; i < count; ++i)
     {
-      FileReader r = reader.GetReader(strings::to_string(i));
-      ReaderSource<FileReader> src(r);
+      FilesContainerR::ReaderT r = reader.GetReader(strings::to_string(i));
+      ReaderSource<FilesContainerR::ReaderT> src(r);
 
       for (uint32_t j = 0; j < i; ++j)
       {
@@ -61,8 +61,8 @@ UNIT_TEST(FilesContainer_Smoke)
     {
       FilesContainerR reader(fName);
 
-      FileReader r = reader.GetReader(strings::to_string(arrAppend[i]));
-      ReaderSource<FileReader> src(r);
+      FilesContainerR::ReaderT r = reader.GetReader(strings::to_string(arrAppend[i]));
+      ReaderSource<FilesContainerR::ReaderT> src(r);
 
       uint32_t const test = ReadVarUint<uint32_t>(src);
       TEST_EQUAL(arrAppend[i], test, ());
@@ -75,7 +75,7 @@ namespace
 {
   void CheckInvariant(FilesContainerR & reader, string const & tag, int64_t test)
   {
-    FileReader r = reader.GetReader(tag);
+    FilesContainerR::ReaderT r = reader.GetReader(tag);
     TEST_EQUAL(test, ReadPrimitiveFromPos<int64_t>(r, 0), ());
   }
 }
@@ -111,7 +111,7 @@ UNIT_TEST(FilesContainer_Shared)
     // shared container read and fill
 
     FilesContainerR reader(fName);
-    FileReader r1 = reader.GetReader("1");
+    FilesContainerR::ReaderT r1 = reader.GetReader("1");
     uint64_t const offset = sizeof(uint32_t);
     r1 = r1.SubReader(offset, r1.Size() - offset);
 
@@ -120,7 +120,7 @@ UNIT_TEST(FilesContainer_Shared)
     FilesContainerW writer(fName, FileWriter::OP_APPEND);
     FileWriter w = writer.GetWriter("3");
 
-    ReaderSource<FileReader> src(r1);
+    ReaderSource<FilesContainerR::ReaderT> src(r1);
     for (uint32_t i = 0; i < count; ++i)
     {
       uint32_t test = ReadVarUint<uint32_t>(src);
@@ -175,7 +175,7 @@ UNIT_TEST(FilesContainer_RewriteExisting)
 
     for (size_t i = 0; i < ARRAY_SIZE(key); ++i)
     {
-      FileReader r = reader.GetReader(key[i]);
+      FilesContainerR::ReaderT r = reader.GetReader(key[i]);
       char s[10] = { 0 };
       r.Read(0, s, strlen(value[i]));
 

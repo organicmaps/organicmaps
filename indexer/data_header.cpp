@@ -64,9 +64,9 @@ namespace feature
     w.Write(m_scales.data(), m_scales.size());
   }
 
-  void DataHeader::Load(FileReader const & r)
+  void DataHeader::Load(ModelReaderPtr const & r)
   {
-    ReaderSource<FileReader> src(r);
+    ReaderSource<ModelReaderPtr> src(r);
     m_codingParams.Load(src);
 
     //int64_t const base = m_codingParams.GetBasePointInt64();

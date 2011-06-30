@@ -74,10 +74,12 @@ UNIT_TEST(FileReaderReadAsText)
     FileWriter f(fName);
     f.Write(fName, ARRAY_SIZE(fName) - 1);
   }
+
   {
-    FileReader f(fName);
-    string const text = f.ReadAsText();
+    string text;
+    FileReader(fName).ReadAsString(text);
     TEST_EQUAL(text, fName, ());
   }
+
   FileWriter::DeleteFileX(fName);
 }

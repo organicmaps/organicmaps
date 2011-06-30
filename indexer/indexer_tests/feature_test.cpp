@@ -42,9 +42,9 @@ namespace
 UNIT_TEST(Feature_Deserialize)
 {
   Platform & platform = GetPlatform();
-  classificator::Read(platform.ReadPathForFile("drawing_rules.bin"),
-                      platform.ReadPathForFile("classificator.txt"),
-                      platform.ReadPathForFile("visibility.txt"));
+  classificator::Read(platform.GetReader("drawing_rules.bin"),
+                      platform.GetReader("classificator.txt"),
+                      platform.GetReader("visibility.txt"));
 
   FeatureBuilder2 fb;
 

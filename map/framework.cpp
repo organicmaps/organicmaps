@@ -284,18 +284,18 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   }
 
   template <typename TModel>
-  void FrameWork<TModel>::AddMap(string const & datFile)
+  void FrameWork<TModel>::AddMap(ReaderT const & file)
   {
     // update rect for Show All button
     feature::DataHeader header;
-    header.Load(FilesContainerR(datFile).GetReader(HEADER_FILE_TAG));
+    header.Load(FilesContainerR(file).GetReader(HEADER_FILE_TAG));
 
     m2::RectD bounds = header.GetBounds();
 
     m_model.AddWorldRect(bounds);
     {
       threads::MutexGuard lock(m_modelSyn);
-      m_model.AddMap(datFile);
+      m_model.AddMap(file);
     }
   }
 
@@ -496,19 +496,37 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     }
   };
 
-  template <typename TModel>
-  void FrameWork<TModel>::EnumLocalMaps(Platform::FilesList & filesList)
+  class ReadersAdder
   {
+    typedef vector<ModelReaderPtr> maps_list_t;
 
-    Platform & p = GetPlatform();
+    Platform & m_pl;
+    maps_list_t & m_lst;
+
+  public:
+    ReadersAdder(Platform & pl, maps_list_t & lst) : m_pl(pl), m_lst(lst) {}
+
+    void operator() (string const & f)
+    {
+      m_lst.push_back(m_pl.GetReader(f));
+    }
+  };
+
+  template <typename TModel>
+  void FrameWork<TModel>::EnumLocalMaps(maps_list_t & filesList)
+  {
+    Platform & pl = GetPlatform();
+
     // scan for pre-installed maps in resources
-    string const resPath = p.ResourcesDir();
+    string const resPath = pl.ResourcesDir();
     Platform::FilesList resFiles;
-    p.GetFilesInDir(resPath, "*" DATA_FILE_EXTENSION, resFiles);
+    pl.GetFilesInDir(resPath, "*" DATA_FILE_EXTENSION, resFiles);
+
     // scan for probably updated maps in data dir
-    string const dataPath = p.WritableDir();
+    string const dataPath = pl.WritableDir();
     Platform::FilesList dataFiles;
-    p.GetFilesInDir(dataPath, "*" DATA_FILE_EXTENSION, dataFiles);
+    pl.GetFilesInDir(dataPath, "*" DATA_FILE_EXTENSION, dataFiles);
+
     // wipe out same maps from resources, which have updated
     // downloaded versions in data path
     for (Platform::FilesList::iterator it = resFiles.begin(); it != resFiles.end();)
@@ -519,21 +537,19 @@ void FrameWork<TModel>::AddRedrawCommandSure()
       else
         ++it;
     }
-    // make full resources paths
-    for_each(resFiles.begin(), resFiles.end(), PathAppender(resPath));
-    // make full data paths
-    for_each(dataFiles.begin(), dataFiles.end(), PathAppender(dataPath));
 
     filesList.clear();
-    filesList.assign(resFiles.begin(), resFiles.end());
-    filesList.insert(filesList.end(), dataFiles.begin(), dataFiles.end());
+    for_each(resFiles.begin(), resFiles.end(), ReadersAdder(pl, filesList));
+    for_each(dataFiles.begin(), dataFiles.end(), ReadersAdder(pl, filesList));
   }
 
   template <typename TModel>
-  void FrameWork<TModel>::EnumBenchmarkMaps(Platform::FilesList & filesList)
+  void FrameWork<TModel>::EnumBenchmarkMaps(maps_list_t & filesList)
   {
+    Platform & pl = GetPlatform();
+
     set<string> files;
-    ifstream fin(GetPlatform().WritablePathForFile("benchmarks/config.info").c_str());
+    ifstream fin(pl.WritablePathForFile("benchmarks/config.info").c_str());
 
     filesList.clear();
     char buf[256];
@@ -554,7 +570,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
         ++it;
       }
 
-      filesList.push_back(GetPlatform().ReadPathForFile(parts[0]));
+      filesList.push_back(pl.GetReader(parts[0]));
     }
   }
 
@@ -1220,8 +1236,9 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     if (!m_pSearchEngine.get())
     {
       search::CategoriesHolder holder;
-      ifstream file(GetPlatform().ReadPathForFile(SEARCH_CATEGORIES_FILE_NAME).c_str());
-      holder.LoadFromStream(file);
+      string buffer;
+      ReaderT(GetPlatform().GetReader(SEARCH_CATEGORIES_FILE_NAME)).ReadAsString(buffer);
+      holder.LoadFromStream(buffer);
       m_pSearchEngine.reset(new search::Engine(&m_model.GetIndex(), holder));
     }
 

@@ -9,6 +9,8 @@
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 
+
+template <class ReaderT> class ReaderPtr;
 class Reader;
 class Writer;
 
@@ -68,10 +70,11 @@ namespace storage
 
   /// @param tiles contains files and their sizes
   /// @return false if new application version should be downloaded
-  bool LoadCountries(string const & countriesFile, TTilesContainer const & sortedTiles,
+  typedef ReaderPtr<Reader> file_t;
+  bool LoadCountries(file_t const & file, TTilesContainer const & sortedTiles,
                      TCountriesContainer & countries);
   void SaveTiles(string const & file, int32_t level, TDataFiles const & cellFiles,
                  TCommonFiles const & commonFiles);
-  bool LoadTiles(TTilesContainer & tiles, string const & tilesFile, uint32_t & dataVersion);
-//  void SaveCountries(TCountriesContainer const & countries, Writer & writer);
+  bool LoadTiles(file_t const & file, TTilesContainer & tiles, uint32_t & dataVersion);
+  //void SaveCountries(TCountriesContainer const & countries, Writer & writer);
 }

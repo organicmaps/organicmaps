@@ -40,17 +40,21 @@ protected:
   typedef vector<Info> InfoContainer;
   InfoContainer m_info;
 
-  void ReadInfo(FileReader & reader);
+  template <class ReaderT>
+  void ReadInfo(ReaderT & reader);
 };
 
 class FilesContainerR : public FilesContainerBase
 {
 public:
+  typedef ModelReaderPtr ReaderT;
+
   explicit FilesContainerR(string const & fName,
                            uint32_t logPageSize = 10,
                            uint32_t logPageCount = 10);
+  FilesContainerR(ReaderT const & file);
 
-  FileReader GetReader(Tag const & tag) const;
+  ReaderT GetReader(Tag const & tag) const;
 
   template <typename F> void ForEachTag(F f) const
   {
@@ -59,7 +63,7 @@ public:
   }
 
 private:
-  FileReader m_source;
+  ReaderT m_source;
 };
 
 class FilesContainerW : public FilesContainerBase

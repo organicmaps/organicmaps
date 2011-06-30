@@ -3,13 +3,12 @@
 
 #include "../base/base.hpp"
 
-#include "../std/fstream.hpp"
 #include "../std/map.hpp"
 #include "../std/vector.hpp"
 #include "../std/array.hpp"
 #include "../std/string.hpp"
 
-class FileReaderStream;
+class ReaderPtrStream;
 class FileWriterStream;
 
 namespace drule
@@ -46,11 +45,11 @@ namespace drule
     char GetType() const { return m_type; }
 
     bool IsEqualBase(BaseRule const * p) const { return (m_type == p->m_type); }
-    void ReadBase(FileReaderStream & ar);
+    void ReadBase(ReaderPtrStream & ar);
     void WriteBase(FileWriterStream & ar) const;
 
     virtual bool IsEqual(BaseRule const * p) const = 0;
-    virtual void Read(FileReaderStream & ar) = 0;
+    virtual void Read(ReaderPtrStream & ar) = 0;
     virtual void Write(FileWriterStream & ar) const = 0;
 
     /// @name This functions can tell us about the type of rule.
@@ -105,7 +104,7 @@ namespace drule
 
     int GetScale() const { return m_currScale; }
 
-    void Read(FileReaderStream & s);
+    void Read(ReaderPtrStream & s);
     void Write(FileWriterStream & s);
 
     template <class ToDo> void ForEachRule(ToDo toDo)
@@ -126,7 +125,7 @@ namespace drule
   };
 
   void WriteRules(char const * fPath);
-  void ReadRules(char const * fPath);
+  void ReadRules(ReaderPtrStream & s);
 
   RulesHolder & rules();
 }

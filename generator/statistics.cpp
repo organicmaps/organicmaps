@@ -82,7 +82,7 @@ namespace stats
   void CalcStatistic(string const & fName, MapInfo & info)
   {
     AccumulateStatistic doProcess(info);
-    feature::ForEachFromDat(fName, doProcess);
+    feature::ForEachFromDat(new FileReader(fName), doProcess);
   }
 
   void PrintInfo(char const * prefix, GeneralInfo const & info)

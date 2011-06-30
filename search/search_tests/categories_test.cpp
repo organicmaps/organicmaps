@@ -70,13 +70,14 @@ struct Checker
 UNIT_TEST(LoadCategories)
 {
   Platform & p = GetPlatform();
-  classificator::Read(p.ReadPathForFile("drawing_rules.bin"),
-                      p.ReadPathForFile("classificator.txt"),
-                      p.ReadPathForFile("visibility.txt"));
+  classificator::Read(p.GetReader("drawing_rules.bin"),
+                      p.GetReader("classificator.txt"),
+                      p.GetReader("visibility.txt"));
 
   search::CategoriesHolder h;
-  istringstream file(TEST_STRING);
-  TEST_GREATER(h.LoadFromStream(file), 0, ());
+  string buffer;
+  ReaderPtr<Reader>(p.GetReader(TEST_STRING)).ReadAsString(buffer);
+  TEST_GREATER(h.LoadFromStream(buffer), 0, ());
   size_t count = 0;
   Checker f(count);
   h.ForEachCategory(f);

@@ -10,9 +10,9 @@
 namespace feature
 {
   template <class ToDo>
-  void ForEachFromDat(string const & fName, ToDo & toDo)
+  void ForEachFromDat(ModelReaderPtr const & file, ToDo & toDo)
   {
-    FilesContainerR container(fName);
+    FilesContainerR container(file);
     FeaturesVector featureSource(container);
     featureSource.ForEachOffset(bind<void>(ref(toDo), _1, _2));
   }

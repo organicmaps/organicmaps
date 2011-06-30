@@ -1,6 +1,7 @@
 #include "../base/SRC_FIRST.hpp"
 #include "classificator_tree.hpp"
 
+#include "../indexer/classificator_loader.hpp"
 #include "../indexer/classificator.hpp"
 
 #include "../platform/platform.hpp"
@@ -16,8 +17,8 @@
 #include <QtGui/QToolBar>
 #include <QtGui/QFileDialog>
 
-
 #include "../base/start_mem_debug.hpp"
+
 
 namespace qt 
 {
@@ -229,7 +230,7 @@ void ClassifTreeHolder::OnLoad()
     QString::fromStdString(GetPlatform().WritableDir()),
     tr("Text Files (*.txt)"));
 
-  classif().ReadVisibility(fName.toAscii().constData());
+  classificator::ReadVisibility(fName.toAscii().constData());
 
   Rebuild();
 }

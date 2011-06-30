@@ -1,7 +1,6 @@
 #include "file_reader.hpp"
 #include "reader_cache.hpp"
 #include "internal/file_data.hpp"
-#include "../../base/string_utils.hpp"
 
 #ifndef LOG_FILE_READER_STATS
 #define LOG_FILE_READER_STATS 0
@@ -60,8 +59,6 @@ public:
     return m_ReaderCache.Read(m_FileData, pos, p, size);
   }
 
-  string GetName() const { return m_FileData.GetName(); }
-
 private:
   FileDataWithCachedSize m_FileData;
   ReaderCache<FileDataWithCachedSize, LOG_FILE_READER_STATS> m_ReaderCache;
@@ -72,13 +69,13 @@ private:
 };
 
 FileReader::FileReader(string const & fileName, uint32_t logPageSize, uint32_t logPageCount)
-  : m_pFileData(new FileReaderData(fileName, logPageSize, logPageCount)),
+  : base_type(fileName), m_pFileData(new FileReaderData(fileName, logPageSize, logPageCount)),
   m_Offset(0), m_Size(m_pFileData->Size())
 {
 }
 
-FileReader::FileReader(shared_ptr<FileReaderData> const & pFileData, uint64_t offset, uint64_t size)
-  : m_pFileData(pFileData), m_Offset(offset), m_Size(size)
+FileReader::FileReader(FileReader const & reader, uint64_t offset, uint64_t size)
+  : base_type(reader.GetName()), m_pFileData(reader.m_pFileData), m_Offset(offset), m_Size(size)
 {
 }
 
@@ -96,34 +93,11 @@ void FileReader::Read(uint64_t pos, void * p, size_t size) const
 FileReader FileReader::SubReader(uint64_t pos, uint64_t size) const
 {
   ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
-  return FileReader(m_pFileData, m_Offset + pos, size);
+  return FileReader(*this, m_Offset + pos, size);
 }
 
 FileReader * FileReader::CreateSubReader(uint64_t pos, uint64_t size) const
 {
   ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
-  return new FileReader(m_pFileData, m_Offset + pos, size);
-}
-
-bool FileReader::IsEqual(string const & fName) const
-{
-#if defined(OMIM_OS_WINDOWS)
-  return strings::EqualNoCase(fName, m_pFileData->GetName());
-#else
-  return (fName == m_pFileData->GetName());
-#endif
-}
-
-string FileReader::GetName() const
-{
-  return m_pFileData->GetName();
-}
-
-string FileReader::ReadAsText() const
-{
-  size_t size = static_cast<size_t>(Size());
-  vector<char> buffer(size);
-  buffer.resize(size);
-  Read(0, &buffer[0], size);
-  return string(reinterpret_cast<char const *>(&buffer[0]), size);
+  return new FileReader(*this, m_Offset + pos, size);
 }

@@ -3,6 +3,7 @@
 #include "../indexer/classificator.hpp"
 
 #include "../coding/multilang_utf8_string.hpp"
+#include "../coding/reader.hpp"
 
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
@@ -26,7 +27,7 @@ enum State {
   EParseLanguages
 };
 
-size_t CategoriesHolder::LoadFromStream(istream & stream)
+size_t CategoriesHolder::LoadFromStream(string const & buffer)
 {
   m_categories.clear();
 
@@ -34,10 +35,13 @@ size_t CategoriesHolder::LoadFromStream(istream & stream)
 
   string line;
   Category cat;
+
+  istringstream stream(buffer);
   while (stream.good())
   {
     getline(stream, line);
     strings::SimpleTokenizer iter(line, ":|");
+
     switch (state)
     {
     case EParseTypes:
@@ -97,6 +101,7 @@ size_t CategoriesHolder::LoadFromStream(istream & stream)
       break;
     }
   }
+
   // add last category
   if (!cat.m_synonyms.empty() && !cat.m_types.empty())
     m_categories.push_back(cat);

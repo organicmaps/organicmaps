@@ -37,7 +37,7 @@ UNIT_TEST(TilesSerialization)
     uint32_t version;
 
     TTilesContainer tiles;
-    TEST( LoadTiles(tiles, FILE, version), ());
+    TEST(LoadTiles(ReaderPtr<Reader>(new FileReader(FILE)), tiles, version), ());
 
     TEST_EQUAL( tiles.size(), 5, ());
     TEST_EQUAL( tiles[0], TTilesContainer::value_type(

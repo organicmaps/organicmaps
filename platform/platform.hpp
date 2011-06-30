@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../coding/reader.hpp"
+
 #include "../base/exception.hpp"
 
 #include "../std/string.hpp"
@@ -27,10 +29,15 @@ public:
   /// @return resource dir (on some platforms it's differ from Writable dir)
   virtual string ResourcesDir() const = 0;
 
+  /// @name Get the reader path or reader itself for file decriptor.
   /// Throws FileAbsentException
-  /// @param[in] file just file name which we want to read
+  /// @param[in] file descriptor which we want to read
+  //@{
   /// @return fully resolved path including file name
   virtual string ReadPathForFile(string const & file) const = 0;
+
+  virtual ModelReader * GetReader(string const & file) const = 0;
+  //@}
 
   /// @name File operations
   //@{
@@ -84,6 +91,7 @@ public:
   virtual string WritableDir() const { return m_writableDir; }
   virtual string ResourcesDir() const { return m_resourcesDir; }
   virtual string ReadPathForFile(string const & file) const;
+  virtual ModelReader * GetReader(string const & file) const;
 
   virtual void GetFilesInDir(string const & directory, string const & mask, FilesList & res) const;
   virtual bool GetFileSize(string const & file, uint64_t & size) const;
