@@ -8,20 +8,22 @@ win32|macx {
 SUBDIRS = \
           base base/base_tests \
           coding coding/coding_tests \
-          geometry geometry/geometry_tests \
-          platform platform/platform_tests \
+          geometry \
+          indexer \
+          platform \
+          search search/search_tests \
+          geometry/geometry_tests \
+          version \
+          platform/platform_tests \
           yg \
           storage storage/storage_tests \
-          indexer \
-          search search/search_tests \
-          map \
+          map map/map_tests \
+          generator generator/generator_tests \
+          generator/generator_tool \
           qt_tstfrm \
           indexer/indexer_tests \
-          map/map_tests \
-          generator \
-          generator/generator_tests \
-          generator/generator_tool \
           yg/yg_tests \
+          words words/words_tests \
           qt
 } else {
   # libraries which are used on iphone and bada
