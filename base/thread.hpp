@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../std/stdint.hpp"
+
 namespace threads
 {
   class IRoutine
