@@ -13,11 +13,13 @@ sl::SloynikEngine::SloynikEngine(string const & dictionaryPath,
   FileReader * pDicFileReader = new FileReader(dictionaryPath);
   // m_pDictionary takes ownership of pDicFileReader.
   m_pDictionary.reset(new sl::SlofDictionary(pDicFileReader));
+
   vector<uint64_t> stamp;
   stamp.push_back(strFn.m_PrimaryCompareId);
   stamp.push_back(strFn.m_SecondaryCompareId);
   stamp.push_back(m_pDictionary->KeyCount());
   stamp.push_back(pDicFileReader->Size());
+
   string const stampPath = indexPath + ".stamp";
   bool needIndexBuild = false;
   try
@@ -33,11 +35,13 @@ sl::SloynikEngine::SloynikEngine(string const & dictionaryPath,
         needIndexBuild = true;
     }
   }
-  catch (RootException &)
+  catch (RootException const &)
   {
     needIndexBuild = true;
   }
+
   LOG(LINFO, ("Started sloynik engine. Words in the dictionary:", m_pDictionary->KeyCount()));
+
   // Uncomment to always rebuild the index: needIndexBuild = true;
   if (needIndexBuild)
   {

@@ -1,12 +1,15 @@
 #include "sloynik_index.hpp"
 #include "dictionary.hpp"
+
 #include "../coding/file_writer.hpp"
+#include "../coding/timsort/timsort.hpp"
+
 #include "../base/assert.hpp"
 #include "../base/logging.hpp"
 #include "../base/cache.hpp"
+
 #include "../std/bind.hpp"
 
-#include "../coding/timsort/timsort.hpp"
 
 #define FILE_SORTER_LOG_BATCH_SIZE 11
 
