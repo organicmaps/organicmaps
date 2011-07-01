@@ -166,4 +166,16 @@ namespace threads
       }
     }
   }
+
+  void Sleep(size_t ms)
+  {
+#ifdef OMIM_OS_WINDOWS
+    ::Sleep(ms);
+#else
+    timespec t;
+    t.tv_nsec =(ms * 1000000) % 1000000000;
+    t.tv_sec = (ms * 1000000) / 1000000000;
+    nanosleep(&t, 0);
+#endif
+  }
 }

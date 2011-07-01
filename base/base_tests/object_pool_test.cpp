@@ -3,18 +3,9 @@
 
 #include "../object_pool.hpp"
 #include "../thread.hpp"
+
 #include "../../base/logging.hpp"
 
-namespace my
-{
-  void sleep(int ms)
-  {
-    timespec t;
-    t.tv_nsec =(ms * 1000000) % 1000000000;
-    t.tv_sec = (ms * 1000000) / 1000000000;
-    nanosleep(&t, 0);
-  }
-}
 
 struct ProcessorThread : public threads::IRoutine
 {
@@ -33,7 +24,7 @@ struct ProcessorThread : public threads::IRoutine
       int res = m_p->Reserve();
       m_res->push_back(res);
       LOG(LINFO, (m_id, " thread got ", res));
-      my::sleep(10);
+      threads::Sleep(10);
     }
     LOG(LINFO, (m_id, " thread is cancelled"));
   }
@@ -57,13 +48,13 @@ UNIT_TEST(ObjectPool)
   t2.Create(new ProcessorThread(&p, &res, 2));
 
   p.Free(0);
-  my::sleep(200);
+  threads::Sleep(200);
 
   p.Free(1);
-  my::sleep(200);
+  threads::Sleep(200);
 
   p.Free(2);
-  my::sleep(200);
+  threads::Sleep(200);
 
   TEST_EQUAL(res.front(), 0, ());
   res.pop_front();
