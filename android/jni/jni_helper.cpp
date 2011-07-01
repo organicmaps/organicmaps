@@ -1,6 +1,6 @@
 #include "jni_helper.h"
 
-#include <assert.h>
+#include "../../base/assert.hpp"
 
 
 namespace jni {
@@ -11,9 +11,10 @@ namespace jni {
   jmethodID GetJavaMethodID(JNIEnv * env, jobject obj,
                             char const * fn, char const * sig)
   {
+    ASSERT ( env != 0 && obj != 0, () );
     jclass cls = env->GetObjectClass(obj);
     jmethodID mid = env->GetMethodID(cls, fn, sig);
-    assert(mid != 0);
+    ASSERT ( mid != 0, () );
     return mid;
   }
 

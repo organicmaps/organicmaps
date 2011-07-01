@@ -19,12 +19,23 @@ void AndroidLogMessage(LogLevel l, SrcPoint const & src, string const & s)
   case LCRITICAL: pr = ANDROID_LOG_FATAL; break;
   }
 
-  __android_log_print(pr, "mapswithme", s.c_str());
+  string const out = debug_print(src) + " " + s;
+  __android_log_print(pr, "MapsWithMe_JNI", out.c_str());
+}
+
+void AndroidAssertMessage(SrcPoint const & src, string const & s)
+{
+  AndroidLogMessage(LERROR, src, s);
 }
 
 void InitSystemLog()
 {
   SetLogMessageFn(&AndroidLogMessage);
+}
+
+void InitAssertLog()
+{
+  OnAssertFailed = &AndroidAssertMessage;
 }
 
 }

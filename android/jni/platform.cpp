@@ -1,10 +1,15 @@
 #include "platform.h"
 #include "jni_string.h"
 
+#include "../../base/logging.hpp"
+
 
 void AndroidPlatform::Initialize(JNIEnv * env, jobject activity, jstring path)
 {
   m_writableDir = m_resourcesDir = jni::ToString(env, path);
+
+  LOG(LDEBUG, ("Resource path = ", m_resourcesDir));
+  LOG(LDEBUG, ("Writable path = ", m_writableDir));
 }
 
 int AndroidPlatform::CpuCores() const

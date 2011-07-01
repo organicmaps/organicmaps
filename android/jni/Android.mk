@@ -13,6 +13,7 @@ LOCAL_HEADER_FILES := \
 	logging.h \
 	platform.h \
 	framework.h \
+	rendering.h \	
 
 LOCAL_SRC_FILES := \
 	main_native.cpp \
@@ -22,6 +23,7 @@ LOCAL_SRC_FILES := \
 	framework.cpp \
 	logging.cpp \
 	temp_stubs.cpp \
+	rendering.cpp \
 
 LOCAL_LDLIBS := -llog -lGLESv1_CM \
   	-lwords -lmap -lstorage -lversion -lsearch -lindexer -lyg -lplatform \

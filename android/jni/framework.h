@@ -35,5 +35,9 @@ public:
 
   void SetParentView(JNIEnv * env, jobject view);
 
-  void Init();
+  void InitRenderer();
+
+  void Resize(int w, int h);
+
+  void DrawFrame();
 };

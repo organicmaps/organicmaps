@@ -6,7 +6,7 @@
 #include <jni.h>
 
 
-AndroidFramework * g_work;
+AndroidFramework * g_work = 0;
 
 extern "C"
 {
@@ -18,10 +18,15 @@ extern "C"
   Java_com_mapswithme_maps_MWMActivity_nativeInit(JNIEnv * env, jobject thiz, jstring path)
   {
     jni::InitSystemLog();
+    jni::InitAssertLog();
 
+    LOG(LDEBUG, ("MWMActivity::Init 1"));
     GetAndroidPlatform().Initialize(env, thiz, path);
 
+    LOG(LDEBUG, ("MWMActivity::Init 2"));
     //g_work = new AndroidFramework();
+
+    LOG(LDEBUG, ("MWMActivity::Init 3"));
   }
 
   ///////////////////////////////////////////////////////////////////////////////////
@@ -31,6 +36,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MainGLView_nativeInit(JNIEnv * env, jobject thiz)
   {
+    //ASSERT ( g_work, () );
     //g_work->SetParentView(env, thiz);
   }
 
@@ -53,15 +59,21 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MainRenderer_nativeInit(JNIEnv * env, jobject thiz)
   {
+    //ASSERT ( g_work, () );
+    //g_work->InitRenderer();
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MainRenderer_nativeResize(JNIEnv * env, jobject thiz, jint w, jint h)
   {
+    //ASSERT ( g_work, () );
+    //g_work->Resize(w, h);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MainRenderer_nativeDraw(JNIEnv * env, jobject thiz)
   {
+    //ASSERT ( g_work, () );
+    //g_work->DrawFrame();
   }
 }

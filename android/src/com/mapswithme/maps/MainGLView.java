@@ -7,7 +7,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
-//import android.util.Log;
+import android.util.Log;
 import android.view.MotionEvent;
 
 public class MainGLView extends GLSurfaceView
@@ -49,21 +49,26 @@ public class MainGLView extends GLSurfaceView
 
 class MainRenderer implements GLSurfaceView.Renderer
 {
+  private static String TAG = "MainGLView.MainRenderer";
+  
   @Override
   public void onDrawFrame(GL10 gl)
   {
+    Log.i(TAG, "onDrawFrame");
     nativeDraw();
   }
 
   @Override
   public void onSurfaceChanged(GL10 gl, int w, int h)
   {
+    Log.i(TAG, "onSurfaceChanged");
     nativeResize(w, h);
   }
 
   @Override
   public void onSurfaceCreated(GL10 gl, EGLConfig config)
   {
+    Log.i(TAG, "onSurfaceCreated");
     nativeInit();
   }
   
