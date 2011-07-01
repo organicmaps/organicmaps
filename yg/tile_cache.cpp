@@ -1,9 +1,12 @@
 #include "tile_cache.hpp"
 
+#include "../std/cmath.hpp"
+
+
 namespace yg
 {
   TileCache::TileCache(size_t tileMemSize, size_t memSize)
-    : m_cache(log(memSize / tileMemSize) / log(2))
+    : m_cache(log(memSize / static_cast<double>(tileMemSize)) / log(2.0))
   {
   }
 
