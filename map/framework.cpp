@@ -7,6 +7,8 @@
 #include "benchmark_provider.hpp"
 #include "languages.hpp"
 
+#include "../platform/settings.hpp"
+
 #include "../search/engine.hpp"
 #include "../search/result.hpp"
 #include "../search/categories_holder.hpp"
@@ -425,7 +427,10 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   template <typename TModel>
   void FrameWork<TModel>::SaveBenchmarkResults()
   {
-    ofstream fout(GetPlatform().WritablePathForFile("benchmarks/results.txt").c_str(), ios::app);
+    string resultsPath;
+    Settings::Get("BenchmarkResults", resultsPath);
+    LOG(LINFO, (resultsPath));
+    ofstream fout(GetPlatform().WritablePathForFile(resultsPath).c_str(), ios::app);
 
     for (size_t i = 0; i < m_benchmarkResults.size(); ++i)
     {
@@ -456,14 +461,20 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   template <typename TModel>
   void FrameWork<TModel>::MarkBenchmarkResultsEnd()
   {
-    ofstream fout(GetPlatform().WritablePathForFile("benchmarks/results.txt").c_str(), ios::app);
+    string resultsPath;
+    Settings::Get("BenchmarkResults", resultsPath);
+    LOG(LINFO, (resultsPath));
+    ofstream fout(GetPlatform().WritablePathForFile(resultsPath).c_str(), ios::app);
     fout << "END " << m_startTime << endl;
   }
 
   template <typename TModel>
   void FrameWork<TModel>::MarkBenchmarkResultsStart()
   {
-    ofstream fout(GetPlatform().WritablePathForFile("benchmarks/results.txt").c_str(), ios::app);
+    string resultsPath;
+    Settings::Get("BenchmarkResults", resultsPath);
+    LOG(LINFO, (resultsPath));
+    ofstream fout(GetPlatform().WritablePathForFile(resultsPath).c_str(), ios::app);
     fout << "START " << m_startTime << endl;
   }
 
@@ -506,6 +517,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
 
   public:
     ReadersAdder(Platform & pl, maps_list_t & lst) : m_pl(pl), m_lst(lst) {}
+
     void operator() (string const & f)
     {
       m_lst.push_back(m_pl.GetReader(f));
@@ -558,7 +570,9 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     string buffer;
     try
     {
-      ReaderPtr<Reader>(pl.GetReader("benchmarks/config.info")).ReadAsString(buffer);
+			string configPath;
+    	Settings::Get("BenchmarkConfig", configPath);
+      ReaderPtr<Reader>(pl.GetReader(configPath)).ReadAsString(buffer);
     }
     catch (RootException const & e)
     {
@@ -676,8 +690,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   }
 
   template <typename TModel>
-  void FrameWork<TModel>::initializeGL(
-                    shared_ptr<yg::gl::RenderContext> const & primaryContext,
+  void FrameWork<TModel>::initializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
                     shared_ptr<yg::ResourceManager> const & resourceManager)
   {
     m_resourceManager = resourceManager;
