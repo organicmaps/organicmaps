@@ -22,6 +22,10 @@ public:
   FileReader SubReader(uint64_t pos, uint64_t size) const;
   FileReader * CreateSubReader(uint64_t pos, uint64_t size) const;
 
+protected:
+  // Used in special derived readers.
+  void SetOffsetAndSize(uint64_t offset, uint64_t size);
+
 private:
   FileReader(FileReader const & reader, uint64_t offset, uint64_t size);
 

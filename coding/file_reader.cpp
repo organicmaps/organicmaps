@@ -101,3 +101,10 @@ FileReader * FileReader::CreateSubReader(uint64_t pos, uint64_t size) const
   ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
   return new FileReader(*this, m_Offset + pos, size);
 }
+
+void FileReader::SetOffsetAndSize(uint64_t offset, uint64_t size)
+{
+  ASSERT_LESS_OR_EQUAL(offset + size, Size(), (offset, size));
+  m_Offset = offset;
+  m_Size = size;
+}

@@ -10,7 +10,7 @@
 ZipFileReader::ZipFileReader(string const & container, string const & file)
   : base_type(container)
 {
-  unzFile zip = unzOpen(container.c_str());
+  unzFile zip = unzOpen64(container.c_str());
   if (!zip)
     MYTHROW(OpenZipException, ("Can't get zip file handle", container));
 
@@ -19,18 +19,23 @@ ZipFileReader::ZipFileReader(string const & container, string const & file)
   if (UNZ_OK != unzLocateFile(zip, file.c_str(), 1))
     MYTHROW(LocateZipException, ("Can't locate file inside zip", file));
 
-  unz_file_pos filePos;
-  if (UNZ_OK != unzGetFilePos(zip, &filePos))
-    MYTHROW(LocateZipException, ("Can't locate file offset inside zip", file));
+  if (UNZ_OK != unzOpenCurrentFile(zip))
+      MYTHROW(LocateZipException, ("Can't open file inside zip", file));
 
-  unz_file_info fileInfo;
-  if (UNZ_OK != unzGetCurrentFileInfo(zip, &fileInfo, NULL, 0, NULL, 0, NULL, 0))
+  uint64_t offset = unzGetCurrentFileZStreamPos64(zip);
+  unzCloseCurrentFile(zip);
+
+  if (offset > Size())
+    MYTHROW(LocateZipException, ("Invalid offset inside zip", file));
+
+  unz_file_info64 fileInfo;
+  if (UNZ_OK != unzGetCurrentFileInfo64(zip, &fileInfo, NULL, 0, NULL, 0, NULL, 0))
     MYTHROW(LocateZipException, ("Can't get uncompressed file size inside zip", file));
 
   if (fileInfo.compressed_size != fileInfo.uncompressed_size)
     MYTHROW(InvalidZipException, ("File should be uncompressed inside zip", file));
 
-  LOG(LDEBUG, (file, "offset:", filePos.pos_in_zip_directory, "size:", fileInfo.uncompressed_size));
+  LOG(LDEBUG, (file, "offset:", offset, "size:", fileInfo.uncompressed_size));
 
-  SetOffsetAndSize(filePos.pos_in_zip_directory, fileInfo.uncompressed_size);
+  SetOffsetAndSize(offset, fileInfo.uncompressed_size);
 }

@@ -23,7 +23,8 @@ SOURCES += \
     base64.cpp \
     sha2.cpp \
     multilang_utf8_string.cpp \
-    reader.cpp
+    reader.cpp \
+    zip_reader.cpp \
 
 HEADERS += \
     internal/xmlparser.h \
@@ -81,3 +82,4 @@ HEADERS += \
     value_opt_string.hpp \
     multilang_utf8_string.hpp \
     url_encode.hpp \
+    zip_reader.hpp \
