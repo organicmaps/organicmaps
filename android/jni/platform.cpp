@@ -12,6 +12,11 @@ void AndroidPlatform::Initialize(JNIEnv * env, jobject activity, jstring path)
   LOG(LDEBUG, ("Writable path = ", m_writableDir));
 }
 
+void AndroidPlatform::GetFontNames(FilesList & res) const
+{
+  /// @todo Need to make refactoring of yg fonts
+}
+
 int AndroidPlatform::CpuCores() const
 {
   return 1;

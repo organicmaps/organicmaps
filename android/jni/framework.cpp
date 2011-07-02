@@ -55,6 +55,7 @@ void AndroidFramework::Resize(int w, int h)
 
 void AndroidFramework::DrawFrame()
 {
+  /*
   LOG(LDEBUG, ("AF::DrawFrame 1"));
   shared_ptr<DrawerYG> p = m_view->drawer();
 
@@ -71,4 +72,5 @@ void AndroidFramework::DrawFrame()
   p->endFrame();
 
   LOG(LDEBUG, ("AF::DrawFrame 6"));
+  */
 }

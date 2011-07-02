@@ -24,7 +24,7 @@ extern "C"
     GetAndroidPlatform().Initialize(env, thiz, path);
 
     LOG(LDEBUG, ("MWMActivity::Init 2"));
-    //g_work = new AndroidFramework();
+    g_work = new AndroidFramework();
 
     LOG(LDEBUG, ("MWMActivity::Init 3"));
   }
@@ -36,8 +36,8 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MainGLView_nativeInit(JNIEnv * env, jobject thiz)
   {
-    //ASSERT ( g_work, () );
-    //g_work->SetParentView(env, thiz);
+    ASSERT ( g_work, () );
+    g_work->SetParentView(env, thiz);
   }
 
   JNIEXPORT void JNICALL
@@ -59,21 +59,21 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MainRenderer_nativeInit(JNIEnv * env, jobject thiz)
   {
-    //ASSERT ( g_work, () );
-    //g_work->InitRenderer();
+    ASSERT ( g_work, () );
+    g_work->InitRenderer();
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MainRenderer_nativeResize(JNIEnv * env, jobject thiz, jint w, jint h)
   {
-    //ASSERT ( g_work, () );
-    //g_work->Resize(w, h);
+    ASSERT ( g_work, () );
+    g_work->Resize(w, h);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MainRenderer_nativeDraw(JNIEnv * env, jobject thiz)
   {
-    //ASSERT ( g_work, () );
-    //g_work->DrawFrame();
+    ASSERT ( g_work, () );
+    g_work->DrawFrame();
   }
 }
