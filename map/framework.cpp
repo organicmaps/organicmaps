@@ -392,7 +392,6 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     // set language priorities
     languages::CodesT langCodes;
     languages::GetCurrentSettings(langCodes);
-    languages::SaveSettings(langCodes);
   }
 
   template <typename TModel>
@@ -498,14 +497,15 @@ void FrameWork<TModel>::AddRedrawCommandSure()
 
   class ReadersAdder
   {
+  protected:
     typedef vector<ModelReaderPtr> maps_list_t;
 
+  private:
     Platform & m_pl;
     maps_list_t & m_lst;
 
   public:
     ReadersAdder(Platform & pl, maps_list_t & lst) : m_pl(pl), m_lst(lst) {}
-
     void operator() (string const & f)
     {
       m_lst.push_back(m_pl.GetReader(f));
@@ -538,113 +538,131 @@ void FrameWork<TModel>::AddRedrawCommandSure()
         ++it;
     }
 
-    filesList.clear();
-    for_each(resFiles.begin(), resFiles.end(), ReadersAdder(pl, filesList));
-    for_each(dataFiles.begin(), dataFiles.end(), ReadersAdder(pl, filesList));
+    try
+    {
+      filesList.clear();
+      for_each(resFiles.begin(), resFiles.end(), ReadersAdder(pl, filesList));
+      for_each(dataFiles.begin(), dataFiles.end(), ReadersAdder(pl, filesList));
+    }
+    catch (RootException const & e)
+    {
+      LOG(LERROR, ("Can't add map: ", e.what()));
+    }
   }
+
+  template <class ToDo>
+  void ForEachBenchmarkRecord(ToDo & toDo)
+  {
+    Platform & pl = GetPlatform();
+
+    string buffer;
+    try
+    {
+      ReaderPtr<Reader>(pl.GetReader("benchmarks/config.info")).ReadAsString(buffer);
+    }
+    catch (RootException const & e)
+    {
+      LOG(LERROR, ("Error reading benchmarks: ", e.what()));
+      return;
+    }
+
+    istringstream stream(buffer);
+
+    string line;
+    while (stream.good())
+    {
+      getline(stream, line);
+
+      vector<string> parts;
+      strings::SimpleTokenizer it(line, " ");
+      while (it)
+      {
+        parts.push_back(*it);
+        ++it;
+      }
+
+      if (!parts.empty())
+        toDo(parts);
+    }
+  }
+
+  class FirstReaderAdder : public ReadersAdder
+  {
+    typedef ReadersAdder base_type;
+  public:
+    FirstReaderAdder(maps_list_t & lst) : base_type(GetPlatform(), lst) {}
+    void operator() (vector<string> const & v)
+    {
+      base_type::operator() (v[0]);
+    }
+  };
 
   template <typename TModel>
   void FrameWork<TModel>::EnumBenchmarkMaps(maps_list_t & filesList)
   {
-    Platform & pl = GetPlatform();
-
-    set<string> files;
-    ifstream fin(pl.WritablePathForFile("benchmarks/config.info").c_str());
-
-    filesList.clear();
-    char buf[256];
-
-    while (true)
-    {
-      fin.getline(buf, 256);
-
-      if (!fin)
-        break;
-
-      vector<string> parts;
-      string s(buf);
-      strings::SimpleTokenizer it(s, " ");
-      while (it)
-      {
-        parts.push_back(*it);
-        ++it;
-      }
-
-      filesList.push_back(pl.GetReader(parts[0]));
-    }
+    FirstReaderAdder adder(filesList);
+    ForEachBenchmarkRecord(adder);
   }
 
-  template <typename TModel>
-  void FrameWork<TModel>::InitBenchmark()
+  template <class T> class DoGetBenchmarks
   {
-    //m2::RectD wr(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY);
-    //m2::RectD r(wr.Center().x, wr.Center().y + wr.SizeY() / 8, wr.Center().x + wr.SizeX() / 8, wr.Center().y + wr.SizeY() / 4);
+    set<string> m_processed;
+    vector<T> & m_benchmarks;
+    Platform & m_pl;
 
-    set<string> files;
-    ifstream fin(GetPlatform().WritablePathForFile("benchmarks/config.info").c_str());
-    while (true)
+  public:
+    DoGetBenchmarks(vector<T> & benchmarks)
+      : m_benchmarks(benchmarks), m_pl(GetPlatform())
     {
-      string name;
+    }
+
+    void operator() (vector<string> const & v)
+    {
+      T b;
+      b.m_name = v[1];
+
       m2::RectD r;
-
-      char buf[256];
-
-      fin.getline(buf, 256);
-
-      if (!fin)
-        break;
-
-      vector<string> parts;
-      string s(buf);
-      strings::SimpleTokenizer it(s, " ");
-      while (it)
+      if (m_processed.insert(v[0]).second)
       {
-        parts.push_back(*it);
-        ++it;
-      }
-
-      Benchmark b;
-      b.m_name = parts[1];
-
-      if (files.find(parts[0]) == files.end())
-      {
-        files.insert(parts[0]);
-        if (GetPlatform().IsFileExists(GetPlatform().WritablePathForFile(parts[0])))
+        try
         {
-          try
-          {
-            feature::DataHeader header;
-            header.Load(FilesContainerR(GetPlatform().WritablePathForFile(parts[0])).GetReader(HEADER_FILE_TAG));
-
-            r = header.GetBounds();
-          }
-          catch (std::exception const &)
-          {
-            LOG(LINFO, ("cannot add ", parts[0], " file to benchmark"));
-          }
+          feature::DataHeader header;
+          header.Load(FilesContainerR(m_pl.GetReader(v[0])).GetReader(HEADER_FILE_TAG));
+          r = header.GetBounds();
+        }
+        catch (RootException const & e)
+        {
+          LOG(LINFO, ("Cannot add ", v[0], " file to benchmark: ", e.what()));
+          return;
         }
       }
 
       int lastScale;
-
-      LOG(LINFO, (parts));
-      if (parts.size() > 3)
+      if (v.size() > 3)
       {
         double x0, y0, x1, y1;
-        strings::to_double(parts[2], x0);
-        strings::to_double(parts[3], y0);
-        strings::to_double(parts[4], x1);
-        strings::to_double(parts[5], y1);
+        strings::to_double(v[2], x0);
+        strings::to_double(v[3], y0);
+        strings::to_double(v[4], x1);
+        strings::to_double(v[5], y1);
         r = m2::RectD(x0, y0, x1, y1);
-        strings::to_int(parts[6], lastScale);
+        strings::to_int(v[6], lastScale);
       }
       else
-        strings::to_int(parts[2], lastScale);
+        strings::to_int(v[2], lastScale);
 
+      ASSERT ( r != m2::RectD::GetEmptyRect(), (r) );
       b.m_provider.reset(new BenchmarkRectProvider(scales::GetScaleLevel(r), r, lastScale));
 
       m_benchmarks.push_back(b);
     }
+  };
+
+  template <typename TModel>
+  void FrameWork<TModel>::InitBenchmark()
+  {
+    DoGetBenchmarks<Benchmark> doGet(m_benchmarks);
+    ForEachBenchmarkRecord(doGet);
 
     m_curBenchmark = 0;
 
@@ -658,7 +676,8 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   }
 
   template <typename TModel>
-  void FrameWork<TModel>::initializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
+  void FrameWork<TModel>::initializeGL(
+                    shared_ptr<yg::gl::RenderContext> const & primaryContext,
                     shared_ptr<yg::ResourceManager> const & resourceManager)
   {
     m_resourceManager = resourceManager;

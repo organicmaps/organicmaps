@@ -27,19 +27,14 @@ namespace indexer
 
       writeCont.Finish();
     }
-    catch (Reader::OpenException const & e)
-    {
-      LOG(LERROR, (e.what(), " file is not found"));
-      return false;
-    }
     catch (Reader::Exception const & e)
     {
-      LOG(LERROR, ("Unknown error while reading file ", e.what()));
+      LOG(LERROR, ("Error while reading file: ", e.what()));
       return false;
     }
     catch (Writer::Exception const & e)
     {
-      LOG(LERROR, ("Error writing index file", e.what()));
+      LOG(LERROR, ("Error writing index file: ", e.what()));
     }
 
 #ifdef DEBUG

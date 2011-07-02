@@ -29,7 +29,11 @@ void FeaturesFetcher::InitClassificator()
   }
   catch (FileAbsentException const & e)
   {
-      LOG(LERROR, ("Classificator not found ", e.what()));
+      LOG(LERROR, ("Classificator not found: ", e.what()));
+  }
+  catch (Reader::Exception const & e)
+  {
+    LOG(LERROR, ("Classificator read error: ", e.what()));
   }
 }
 
@@ -39,13 +43,9 @@ void FeaturesFetcher::AddMap(ReaderT const & file)
   {
     m_multiIndex.Add(file);
   }
-  catch (Reader::OpenException const & e)
-  {
-    LOG(LERROR, ("Data file not found: ", e.what()));
-  }
   catch (Reader::Exception const & e)
   {
-    LOG(LCRITICAL, ("Unknown error while reading file: ", e.what()));
+    LOG(LERROR, ("Data file adding error: ", e.what()));
   }
 }
 

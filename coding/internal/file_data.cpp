@@ -162,12 +162,9 @@ bool GetFileSize(string const & fName, uint64_t & sz)
     sz = f.Size();
     return true;
   }
-  catch (Writer::SeekException const &)
+  catch (RootException const &)
   {
-    return false;
-  }
-  catch (Reader::OpenException const &)
-  {
+    // supress all exceptions here
     return false;
   }
 }
