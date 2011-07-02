@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.mapswithme.maps"
-      android:versionCode="1"
-      android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="7" />
+      android:versionCode="100"
+      android:versionName="1.0.0">
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="10"/>
     <uses-feature android:glEsVersion="0x00010001" />
+    <uses-feature android:required="true" android:name="android.hardware.touchscreen.multitouch" />
+    <uses-feature android:required="true" android:name="android.hardware.wifi" />
+    <uses-feature android:required="false" android:name="android.hardware.location" />
 
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
         <activity android:name=".MWMActivity"
