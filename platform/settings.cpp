@@ -38,8 +38,10 @@ namespace Settings
   void StringStorage::Save() const
   {
     ofstream stream(GetPlatform().WritablePathForFile(SETTINGS_FILE_NAME).c_str());
-    for (ContainerT::const_iterator it = m_values.begin(); it != m_values.end(); ++it)
-      stream << it->first << DELIM_CHAR << it->second << std::endl;
+    // safe file working here
+    if (stream.good())
+      for (ContainerT::const_iterator it = m_values.begin(); it != m_values.end(); ++it)
+        stream << it->first << DELIM_CHAR << it->second << std::endl;
   }
 
   StringStorage & StringStorage::Instance()

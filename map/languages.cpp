@@ -54,27 +54,23 @@ namespace languages
   }
 
   /// sorts outLanguages according to langCodes order
-  static void Sort(vector<string> const & langCodes, CodesAndNamesT & outLanguages)
+  static void Sort(vector<string> const & codes, CodesAndNamesT & langs)
   {
-    CodesAndNamesT result;
-    for (size_t i = 0; i < langCodes.size(); ++i)
+    size_t ind = 0; // first unsorted position
+
+    // make selection sort
+    for (size_t code = 0; code < codes.size(); ++code)
     {
-      for (CodesAndNamesT::iterator it = outLanguages.begin(); it != outLanguages.end(); ++it)
+      for (size_t i = ind; i < langs.size(); ++i)
       {
-        if (langCodes[i] == it->first)
+        if (langs[i].first == codes[code])
         {
-          result.push_back(*it);
-          outLanguages.erase(it);
+          if (ind != i) swap(langs[ind], langs[i]);
+          ++ind;
           break;
         }
       }
     }
-    // copy all languages left
-    for (CodesAndNamesT::iterator it = outLanguages.begin(); it != outLanguages.end(); ++it)
-      result.push_back(*it);
-
-    result.swap(outLanguages);
-    CHECK_EQUAL(outLanguages.size(), MAX_SUPPORTED_LANGUAGES, ());
   }
 
   struct Collector
@@ -91,6 +87,7 @@ namespace languages
   {
     CodesAndNamesT res;
     GetCurrentSettings(res);
+
     outLangCodes.clear();
     for (CodesAndNamesT::iterator it = res.begin(); it != res.end(); ++it)
       outLangCodes.push_back(it->first);
@@ -107,8 +104,8 @@ namespace languages
     Collector c(currentCodes);
     strings::Tokenize(settingsString, LANG_DELIMETER, c);
 
-    GetSupportedLanguages(outLanguages);
-    Sort(currentCodes, outLanguages);
+    if (GetSupportedLanguages(outLanguages))
+      Sort(currentCodes, outLanguages);
   }
 
   void SaveSettings(CodesT const & langs)
@@ -126,17 +123,26 @@ namespace languages
     outLanguages.clear();
 
     string buffer;
-    ReaderPtr<Reader>(GetPlatform().GetReader(LANGUAGES_FILE)).ReadAsString(buffer);
-    istringstream stream(buffer);
+    try
+    {
+      ReaderPtr<Reader>(GetPlatform().GetReader(LANGUAGES_FILE)).ReadAsString(buffer);
+    }
+    catch (RootException const &)
+    {
+      return false;
+    }
 
-    for (size_t i = 0; i < MAX_SUPPORTED_LANGUAGES; ++i)
+    istringstream stream(buffer);
+    for (size_t i = 0; (i < MAX_SUPPORTED_LANGUAGES) && stream.good(); ++i)
     {
       string line;
       getline(stream, line);
-      size_t delimIndex = string::npos;
-      if ((delimIndex = line.find(LANG_DELIMETER)) != string::npos)
+
+      size_t const delimIndex = line.find(LANG_DELIMETER);
+      if (delimIndex != string::npos)
         outLanguages.push_back(make_pair(line.substr(0, delimIndex), line.substr(delimIndex + 1)));
     }
+
     return !outLanguages.empty();
   }
 }
