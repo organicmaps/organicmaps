@@ -7,7 +7,7 @@
 class AndroidPlatform : public BasePlatformImpl
 {
 public:
-  void Initialize(JNIEnv * env, jobject activity, jstring path);
+  void Initialize(JNIEnv * env, jobject activity, jstring apkPath, jstring storagePath);
 
   virtual void GetFontNames(FilesList & res) const;
   virtual int CpuCores() const;

@@ -15,13 +15,13 @@ extern "C"
   ///////////////////////////////////////////////////////////////////////////////////
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeInit(JNIEnv * env, jobject thiz, jstring path)
+  Java_com_mapswithme_maps_MWMActivity_nativeInit(JNIEnv * env, jobject thiz, jstring apkPath, jstring storagePath)
   {
     jni::InitSystemLog();
     jni::InitAssertLog();
 
     LOG(LDEBUG, ("MWMActivity::Init 1"));
-    GetAndroidPlatform().Initialize(env, thiz, path);
+    GetAndroidPlatform().Initialize(env, thiz, apkPath, storagePath);
 
     LOG(LDEBUG, ("MWMActivity::Init 2"));
     g_work = new AndroidFramework();

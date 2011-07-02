@@ -4,11 +4,11 @@
 #include "../../base/logging.hpp"
 
 
-void AndroidPlatform::Initialize(JNIEnv * env, jobject activity, jstring path)
+void AndroidPlatform::Initialize(JNIEnv * env, jobject activity, jstring apkPath, jstring storagePath)
 {
-  m_writableDir = m_resourcesDir = jni::ToString(env, path);
-
-  LOG(LDEBUG, ("Resource path = ", m_resourcesDir));
+  m_resourcesDir = jni::ToString(env, apkPath);
+  m_writableDir = jni::ToString(env, storagePath);
+  LOG(LDEBUG, ("Apk path = ", m_resourcesDir));
   LOG(LDEBUG, ("Writable path = ", m_writableDir));
 }
 
