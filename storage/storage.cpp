@@ -442,7 +442,7 @@ namespace storage
         if (m_observerUpdateRequest)
         {
           string buffer;
-          FileReader(GetPlatform().ReadPathForFile(params.m_file)).ReadAsString(buffer);
+          ReaderPtr<Reader>(GetPlatform().GetReader(params.m_file)).ReadAsString(buffer);
           m_observerUpdateRequest(ENewBinaryAvailable, buffer);
         }
       }

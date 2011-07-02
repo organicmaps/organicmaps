@@ -35,6 +35,8 @@ namespace qt
         /// TODO: Show "Please Update Drivers" dialog and close the program.
       }
 
+      Platform & pl = GetPlatform();
+
       m_renderContext = shared_ptr<yg::gl::RenderContext>(new qt::gl::RenderContext(this));
       m_resourceManager = make_shared_ptr(new yg::ResourceManager(
           50000 * sizeof(yg::gl::Vertex),
@@ -50,17 +52,17 @@ namespace qt
           10,
           512, 256,
           5,
-          GetPlatform().ReadPathForFile("unicode_blocks.txt").c_str(),
-          GetPlatform().ReadPathForFile("fonts_whitelist.txt").c_str(),
-          GetPlatform().ReadPathForFile("fonts_blacklist.txt").c_str(),
+          "unicode_blocks.txt",
+          "fonts_whitelist.txt",
+          "fonts_blacklist.txt",
           2 * 1024 * 1024,
           500 * 1024,
           yg::Rt8Bpp,
           !yg::gl::g_isBufferObjectsSupported,
-          !GetPlatform().IsMultiSampled()));
+          !pl.IsMultiSampled()));
 
       Platform::FilesList fonts;
-      GetPlatform().GetFontNames(fonts);
+      pl.GetFontNames(fonts);
       m_resourceManager->addFonts(fonts);
 
       DrawerYG::params_t p;

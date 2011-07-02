@@ -1,5 +1,9 @@
 #include "glyph_cache_impl.hpp"
 
+#include "../platform/platform.hpp"
+
+#include "../coding/reader.hpp"
+
 #include "../base/path_utils.hpp"
 #include "../base/assert.hpp"
 
@@ -9,7 +13,6 @@
 #include <../cache/ftccback.h>
 #include <../cache/ftccache.h>
 
-#include "../std/fstream.hpp"
 #include "../std/bind.hpp"
 
 
@@ -35,7 +38,18 @@ namespace yg
 
   void GlyphCacheImpl::initBlocks(string const & fileName)
   {
-    ifstream fin(fileName.c_str());
+    string buffer;
+    try
+    {
+      ReaderPtr<Reader>(GetPlatform().GetReader(fileName)).ReadAsString(buffer);
+    }
+    catch (RootException const & e)
+    {
+      LOG(LERROR, ("Error reading unicode blocks: ", e.what()));
+      return;
+    }
+
+    istringstream fin(buffer);
     while (true)
     {
       string name;
@@ -59,7 +73,18 @@ namespace yg
   void GlyphCacheImpl::initFonts(string const & whiteListFile, string const & blackListFile)
   {
     {
-      ifstream fin(whiteListFile.c_str());
+      string buffer;
+      try
+      {
+        ReaderPtr<Reader>(GetPlatform().GetReader(whiteListFile)).ReadAsString(buffer);
+      }
+      catch (RootException const & e)
+      {
+        LOG(LERROR, ("Error reading white list fonts: ", e.what()));
+        return;
+      }
+
+      istringstream fin(buffer);
       while (true)
       {
         string ubName;
@@ -81,7 +106,18 @@ namespace yg
     }
 
     {
-      ifstream fin(blackListFile.c_str());
+      string buffer;
+      try
+      {
+        ReaderPtr<Reader>(GetPlatform().GetReader(blackListFile)).ReadAsString(buffer);
+      }
+      catch (RootException const & e)
+      {
+        LOG(LERROR, ("Error reading black list fonts: ", e.what()));
+        return;
+      }
+
+      istringstream fin(buffer);
       while (true)
       {
         string ubName;

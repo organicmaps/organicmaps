@@ -94,23 +94,25 @@
 
     NSLog(@"Vendor: %s, Renderer: %s", glGetString(GL_VENDOR), glGetString(GL_RENDERER));
     
+    Platform & pl = GetPlatform();
+    
     resourceManager = shared_ptr<yg::ResourceManager>(new yg::ResourceManager(
           bigVBSize, bigIBSize, 4,
           smallVBSize, smallIBSize, 10,
           blitVBSize, blitIBSize, 10,
           512, 256, 6,
           512, 256, 4,
-					GetPlatform().ReadPathForFile("unicode_blocks.txt").c_str(),
-					GetPlatform().ReadPathForFile("fonts_whitelist.txt").c_str(),
- 					GetPlatform().ReadPathForFile("fonts_blacklist.txt").c_str(),
+					"unicode_blocks.txt",
+					"fonts_whitelist.txt",
+ 					"fonts_blacklist.txt",
           1 * 1024 * 1024,
           500 * 1024,
           fmt,
           !yg::gl::g_isBufferObjectsSupported,
-          !GetPlatform().IsMultiSampled()));
+          !pl.IsMultiSampled()));
     
     Platform::FilesList fonts;
-    GetPlatform().GetFontNames(fonts);
+    pl.GetFontNames(fonts);
 		resourceManager->addFonts(fonts);
 
 		DrawerYG::params_t p;
@@ -119,7 +121,7 @@
     p.m_frameBuffer = frameBuffer;
     p.m_glyphCacheID = 1;
 
-		drawer = shared_ptr<DrawerYG>(new DrawerYG(GetPlatform().SkinName(), p));
+		drawer = shared_ptr<DrawerYG>(new DrawerYG(pl.SkinName(), p));
 
 //		frameBuffer->onSize(renderBuffer->width(), renderBuffer->height());
 //		frameBuffer->setRenderTarget(renderBuffer);

@@ -105,13 +105,22 @@ namespace yg
   {
     if (fileName.empty())
       return 0;
+
     SkinLoader loader(resourceManager, dynamicPagesCount, textPagesCount);
-    FileReader skinFile(GetPlatform().ReadPathForFile(fileName));
-    ReaderSource<FileReader> source(skinFile);
-    bool parseResult = ParseXML(source, loader);
-    ASSERT(parseResult, ("Invalid skin file structure?"));
-    if (!parseResult)
-      throw std::exception();
+
+    try
+    {
+      ReaderPtr<Reader> skinFile(GetPlatform().GetReader(fileName));
+      ReaderSource<ReaderPtr<Reader> > source(skinFile);
+      if (!ParseXML(source, loader))
+        MYTHROW(RootException, ("Error parsing skin file: ", fileName));
+    }
+    catch (RootException const & e)
+    {
+      LOG(LERROR, ("Error reading skin file: ", e.what()));
+      return 0;
+    }
+
     return loader.skin();
   }
 

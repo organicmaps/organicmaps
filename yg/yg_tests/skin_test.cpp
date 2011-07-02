@@ -28,13 +28,12 @@ UNIT_TEST(SkinTest_Main)
 
   /*uint32_t styleID1 = */skin->mapPenInfo(penInfo1);
   /*uint32_t styleID2 = */skin->mapPenInfo(penInfo2);
+  //skin->texture().dump("skin_test0.png");
 
-//  skin->texture().dump("skin_test0.png");
-
-  /// Overflowing
+  // Overflowing
 
   /*uint32_t styleID3 = */skin->mapPenInfo(penInfo3);
-//  skin->texture().dump("skin_test1.png");
+  //skin->texture().dump("skin_test1.png");
 
   delete skin;
 }
