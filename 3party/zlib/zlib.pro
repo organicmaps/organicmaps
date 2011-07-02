@@ -5,6 +5,8 @@ include($$ROOT_DIR/common.pri)
 TEMPLATE = lib
 CONFIG += staticlib
 
+DEFINES += USE_FILE32API
+
 SOURCES += \
     adler32.c \
     compress.c \
@@ -22,6 +24,8 @@ SOURCES += \
     trees.c \
     uncompr.c \
     zutil.c \
+    contrib/minizip/unzip.c \
+    contrib/minizip/ioapi.c \
 
 HEADERS += \
     crc32.h \
@@ -35,4 +39,5 @@ HEADERS += \
     zconf.h \
     zlib.h \
     zutil.h \
-
+    contrib/minizip/unzip.h \
+    contrib/minizip/ioapi.h \
