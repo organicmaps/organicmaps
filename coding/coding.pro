@@ -8,7 +8,7 @@ DEPENDENCIES = base bzip2 zlib tomcrypt
 
 include($$ROOT_DIR/common.pri)
 
-INCLUDEPATH += ../3party/tomcrypt/src/headers
+INCLUDEPATH += ../3party/tomcrypt/src/headers ../3party/zlib
 
 SOURCES += \
     internal/file_data.cpp \

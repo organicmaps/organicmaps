@@ -6,6 +6,7 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 DEFINES += USE_FILE32API
+INCLUDEPATH += .
 
 SOURCES += \
     adler32.c \
