@@ -24,7 +24,8 @@ SOURCES += \
     runner.cpp \
     timer.cpp \
     internal/message.cpp \
-    exception.cpp
+    exception.cpp \
+    threaded_container.cpp
 
 HEADERS += \
     SRC_FIRST.hpp \
@@ -66,4 +67,6 @@ HEADERS += \
     buffer_vector.hpp \
     array_adapters.hpp \
     runner.hpp \
-    object_pool.hpp
+    mru_cache.hpp \
+    threaded_container.hpp \
+    threaded_list.hpp

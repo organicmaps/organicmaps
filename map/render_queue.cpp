@@ -7,114 +7,92 @@
 
 RenderQueue::RenderQueue(
     string const & skinName,
-    bool isMultiSampled,
-    bool doPeriodicalUpdate,
-    double updateInterval,
     bool isBenchmarking,
     unsigned scaleEtalonSize,
     yg::Color const & bgColor
-  )
-  : m_renderState(new yg::gl::RenderState()),
-    m_tileCache(256 * 256 * 2, 10 * 1024 * 1024)
+  ) : m_sequence(0), m_tileCache(39)
 {
-  m_renderState->m_surfaceWidth = 100;
-  m_renderState->m_surfaceHeight = 100;
-  m_renderState->m_textureWidth = 256;
-  m_renderState->m_textureHeight = 256;
-  m_renderState->m_duration = 0;
-
-  m_routine = new RenderQueueRoutine(
-      m_renderState,
-      skinName,
-      isMultiSampled,
-      doPeriodicalUpdate,
-      updateInterval,
-      isBenchmarking,
-      scaleEtalonSize,
-      bgColor);
+  m_tasksCount = 1; //< calculate from the CPU Cores Number
+  m_tasks = new Task[m_tasksCount];
+  for (unsigned i = 0; i < m_tasksCount; ++i)
+    m_tasks[i].m_routine = new RenderQueueRoutine(
+                                    skinName,
+                                    isBenchmarking,
+                                    scaleEtalonSize,
+                                    bgColor,
+                                    i,
+                                    this);
 }
 
-void RenderQueue::initializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
+void RenderQueue::InitializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
                                shared_ptr<yg::ResourceManager> const & resourceManager,
                                double visualScale)
 {
   m_resourceManager = resourceManager;
-  m_routine->initializeGL(primaryContext->createShared(),
-                          m_resourceManager);
-  m_routine->setVisualScale(visualScale);
-  m_renderQueueThread.Create(m_routine);
+  for (unsigned i = 0; i < m_tasksCount; ++i)
+  {
+    m_tasks[i].m_routine->initializeGL(primaryContext->createShared(),
+                                        m_resourceManager);
+    m_tasks[i].m_routine->setVisualScale(visualScale);
+    m_tasks[i].m_thread.Create(m_tasks[i].m_routine);
+  }
 }
 
 RenderQueue::~RenderQueue()
 {
-  m_renderQueueThread.Cancel();
+  m_renderCommands.Cancel();
+  for (unsigned i = 0; i < m_tasksCount; ++i)
+    m_tasks[i].m_thread.Cancel();
 }
 
-void RenderQueue::AddCommand(RenderQueueRoutine::render_fn_t const & fn, ScreenBase const & frameScreen)
+void RenderQueue::AddCommand(RenderQueueRoutine::render_fn_t const & fn, yg::Tiler::RectInfo const & rectInfo, size_t seqNum)
 {
-  m_routine->addCommand(fn, frameScreen);
-}
-
-void RenderQueue::AddBenchmarkCommand(RenderQueueRoutine::render_fn_t const & fn, ScreenBase const & frameScreen)
-{
-  m_routine->addBenchmarkCommand(fn, frameScreen);
-}
-
-void RenderQueue::SetRedrawAll()
-{
-  m_renderState->m_doRepaintAll = true;
+  m_sequence = seqNum;
+  m_renderCommands.PushBack(make_shared_ptr(new RenderQueueRoutine::Command(rectInfo, fn, seqNum)));
 }
 
 void RenderQueue::AddWindowHandle(shared_ptr<WindowHandle> const & windowHandle)
 {
-  m_routine->addWindowHandle(windowHandle);
+  for (unsigned i = 0; i < m_tasksCount; ++i)
+    m_tasks[i].m_routine->addWindowHandle(windowHandle);
 }
 
-void RenderQueue::addRenderCommandFinishedFn(renderCommandFinishedFn fn)
+void RenderQueue::AddRenderCommandFinishedFn(renderCommandFinishedFn fn)
 {
-  m_routine->addRenderCommandFinishedFn(fn);
+  for (unsigned i = 0; i < m_tasksCount; ++i)
+    m_tasks[i].m_routine->addRenderCommandFinishedFn(fn);
 }
 
-void RenderQueue::OnSize(size_t w, size_t h)
+void RenderQueue::MemoryWarning()
 {
-  m_renderState->onSize(w, h);
+  for (unsigned i = 0; i < m_tasksCount; ++i)
+    m_tasks[i].m_routine->memoryWarning();
 }
 
-yg::gl::RenderState const RenderQueue::CopyState() const
+void RenderQueue::EnterBackground()
 {
-  yg::gl::RenderState state;
-  m_renderState->copyTo(state);
-  return state;
+  for (unsigned i = 0; i < m_tasksCount; ++i)
+    m_tasks[i].m_routine->enterBackground();
 }
 
-yg::gl::RenderState const & RenderQueue::renderState() const
+void RenderQueue::EnterForeground()
 {
-  return *m_renderState.get();
+  for (unsigned i = 0; i < m_tasksCount; ++i)
+    m_tasks[i].m_routine->enterForeground();
 }
 
-shared_ptr<yg::gl::RenderState> const & RenderQueue::renderStatePtr() const
-{
-  return m_renderState;
-}
-
-void RenderQueue::memoryWarning()
-{
-  m_routine->memoryWarning();
-}
-
-void RenderQueue::enterBackground()
-{
-  m_routine->enterBackground();
-}
-
-void RenderQueue::enterForeground()
-{
-  m_routine->enterForeground();
-}
-
-yg::TileCache & RenderQueue::tileCache()
+yg::TileCache & RenderQueue::TileCache()
 {
   return m_tileCache;
 }
 
+size_t RenderQueue::CurrentSequence() const
+{
+  return m_sequence;
+}
+
+ThreadedList<shared_ptr<RenderQueueRoutine::Command > > & RenderQueue::RenderCommands()
+{
+  return m_renderCommands;
+}
 

@@ -750,10 +750,10 @@ namespace yg
       switch (m_usage)
       {
       case EDynamicUsage:
-        m_resourceManager->dynamicTextures().Free(m_texture);
+        m_resourceManager->dynamicTextures().PushBack(m_texture);
         break;
       case EFontsUsage:
-        m_resourceManager->fontTextures().Free(m_texture);
+        m_resourceManager->fontTextures().PushBack(m_texture);
         break;
       default:
         LOG(LINFO, ("freeTexture call for with invalid usage param"));
@@ -768,10 +768,10 @@ namespace yg
     switch (m_usage)
     {
     case EDynamicUsage:
-      m_texture = m_resourceManager->dynamicTextures().Reserve();
+      m_texture = m_resourceManager->dynamicTextures().Front(true);
       break;
     case EFontsUsage:
-      m_texture = m_resourceManager->fontTextures().Reserve();
+      m_texture = m_resourceManager->fontTextures().Front(true);
       break;
     default:
       LOG(LINFO, ("freeTexture call for with invalid usage param"));

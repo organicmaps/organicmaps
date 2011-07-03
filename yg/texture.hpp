@@ -28,6 +28,20 @@ namespace yg
     template <typename Traits>
     class Texture<Traits, false> : public BaseTexture
     {
+    public:
+
+      typedef Traits traits_t;
+      typedef typename Traits::pixel_t pixel_t;
+      typedef typename Traits::const_pixel_t const_pixel_t;
+      typedef typename Traits::view_t view_t;
+      typedef typename Traits::const_view_t const_view_t;
+      typedef typename Traits::image_t image_t;
+
+      static const int maxChannelVal = Traits::maxChannelVal;
+      static const int channelScaleFactor = Traits::channelScaleFactor;
+      static const int gl_pixel_data_type = Traits::gl_pixel_data_type;
+      static const int gl_pixel_format_type = Traits::gl_pixel_format_type;
+
     private:
 
       void upload(void * data)

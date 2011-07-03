@@ -47,52 +47,7 @@ namespace yg
     }
 
     void RenderStateUpdater::updateActualTarget()
-    {
-      /// Carefully synchronizing the access to the m_renderState to minimize wait time.
-      OGLCHECK(glFinish());
-      updateFrameBuffer();
-
-      {
-        threads::MutexGuard guard(*m_renderState->m_mutex.get());
-        swap(m_renderState->m_actualTarget, m_renderState->m_backBufferLayers.front());
-//        swap(m_renderState->m_actualInfoLayer, m_renderState->m_currentInfoLayer);
-        m_renderState->m_actualScreen = m_renderState->m_currentScreen;
-      }
-
-      /// copying info layer
-//      *m_renderState->m_currentInfoLayer.get() = *m_renderState->m_actualInfoLayer.get();
-
-      /// blitting will be performed through
-      /// non-multisampled framebuffer for the sake of speed
-
-      frameBuffer()->setRenderTarget(m_renderState->m_backBufferLayers.front());
-      frameBuffer()->makeCurrent();
-
-      OGLCHECK(glFinish());
-
-      OGLCHECK(glDisable(GL_SCISSOR_TEST));
-
-      OGLCHECK(glClearColor(192 / 255.0, 192 / 255.0, 192 / 255.0, 1.0));
-      OGLCHECK(glClear(GL_COLOR_BUFFER_BIT));
-
-      shared_ptr<BaseTexture> actualTarget = m_renderState->m_actualTarget;
-
-      immDrawTexturedRect(
-          m2::RectF(0, 0, actualTarget->width(), actualTarget->height()),
-          m2::RectF(0, 0, 1, 1),
-          actualTarget
-          );
-
-      if (clipRectEnabled())
-        OGLCHECK(glEnable(GL_SCISSOR_TEST));
-
-      OGLCHECK(glFinish());
-
-      if (isMultiSampled())
-        multiSampledFrameBuffer()->makeCurrent();
-
-      m_renderState->invalidate();
-    }
+    {}
 
     void RenderStateUpdater::beginFrame()
     {

@@ -60,7 +60,6 @@ void GLDrawWidget::initializeGL()
       "fonts_whitelist.txt",
       "fonts_blacklist.txt",
       2 * 1024 * 1024,
-      500 * 1024,
       yg::Rt8Bpp,
       !yg::gl::g_isBufferObjectsSupported,
       !GetPlatform().IsMultiSampled()));

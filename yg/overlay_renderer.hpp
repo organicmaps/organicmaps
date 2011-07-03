@@ -1,6 +1,8 @@
 #pragma once
 
 #include "text_renderer.hpp"
+#include "../std/shared_ptr.hpp"
+#include "info_layer.hpp"
 
 namespace yg
 {
@@ -13,6 +15,7 @@ namespace yg
       bool m_useOverlay;
       bool m_drawTexts;
       bool m_drawSymbols;
+      shared_ptr<yg::InfoLayer> m_infoLayer;
 
     public:
 
@@ -21,6 +24,7 @@ namespace yg
         bool m_useOverlay;
         bool m_drawTexts;
         bool m_drawSymbols;
+        shared_ptr<yg::InfoLayer> m_infoLayer;
         Params();
       };
 

@@ -6,6 +6,7 @@
 #include "render_queue_routine.hpp"
 #include "../yg/tile_cache.hpp"
 #include "../yg/tiler.hpp"
+#include "../base/threaded_list.hpp"
 
 namespace yg
 {
@@ -23,13 +24,23 @@ class RenderQueue
 {
 private:
 
+  /// single rendering task
+  struct Task
+  {
+    threads::Thread m_thread;
+    RenderQueueRoutine * m_routine;
+  };
+
+  Task * m_tasks;
+  size_t m_tasksCount;
+
+  size_t m_sequence;
+
   friend class RenderQueueRoutine;
 
-  threads::Thread m_renderQueueThread;
-
-  shared_ptr<yg::gl::RenderState> m_renderState;
   shared_ptr<yg::ResourceManager> m_resourceManager;
-  RenderQueueRoutine * m_routine;
+
+  ThreadedList<shared_ptr<RenderQueueRoutine::Command> > m_renderCommands;
 
   yg::TileCache m_tileCache;
 
@@ -39,50 +50,34 @@ public:
 
   /// constructor.
   RenderQueue(string const & skinName,
-              bool isMultiSampled,
-              bool doPeriodicalUpdate,
-              double updateInterval,
               bool isBenchmarking,
               unsigned scaleEtalonSize,
               yg::Color const & bgColor);
   /// destructor.
   ~RenderQueue();
   /// set the primary context. it starts the rendering thread.
-  void initializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
+  void InitializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
                     shared_ptr<yg::ResourceManager> const & resourceManager,
                     double ppmScale);
   /// add command to the commands queue.
-  void AddCommand(RenderQueueRoutine::render_fn_t const & fn, ScreenBase const & frameScreen);
-  void AddBenchmarkCommand(RenderQueueRoutine::render_fn_t const & fn, ScreenBase const & frameScreen);
-
-  void SetRedrawAll();
-
+  void AddCommand(RenderQueueRoutine::render_fn_t const & fn, yg::Tiler::RectInfo const & rectInfo, size_t seqNum);
+  /// set visual scale
   void SetVisualScale(double visualScale);
-
   /// add window handle to notify when rendering operation finishes
   void AddWindowHandle(shared_ptr<WindowHandle> const & windowHandle);
-
-  void addRenderCommandFinishedFn(renderCommandFinishedFn fn);
-
-  /// process resize request
-  void OnSize(size_t w, size_t h);
-  /// copy primary render state
-  yg::gl::RenderState const CopyState() const;
-
-  shared_ptr<yg::gl::RenderState> const & renderStatePtr() const;
-
-  yg::gl::RenderState const & renderState() const;
-
+  /// add function, that will be called upon render command completion.
+  void AddRenderCommandFinishedFn(renderCommandFinishedFn fn);
   /// free all possible memory caches.
-  void memoryWarning();
+  void MemoryWarning();
   /// free all possible memory caches, opengl resources,
   /// and make sure no opengl call will be made in background
-  void enterBackground();
+  void EnterBackground();
   /// load all necessary memory caches and opengl resources.
-  void enterForeground();
-
+  void EnterForeground();
   /// get tile cache.
-  yg::TileCache & tileCache();
-  /// add tiler rendering command.
-  void addTileRenderCmd(yg::Tiler::RectInfo const & ri);
+  yg::TileCache & TileCache();
+  /// number of the current tiler sequence to skip the old commands upon rendering.
+  size_t CurrentSequence() const;
+  /// common render commands queue for all rendering threads.
+  ThreadedList<shared_ptr<RenderQueueRoutine::Command> > & RenderCommands();
 };

@@ -23,7 +23,8 @@ namespace yg
       : TextRenderer(p),
         m_useOverlay(p.m_useOverlay),
         m_drawTexts(p.m_drawTexts),
-        m_drawSymbols(p.m_drawSymbols)
+        m_drawSymbols(p.m_drawSymbols),
+        m_infoLayer(p.m_infoLayer)
     {
     }
 
@@ -45,10 +46,10 @@ namespace yg
 
       SymbolElement se(params);
 
-      if (!renderState().get() || !m_useOverlay)
+      if (!m_infoLayer.get() || !m_useOverlay)
         se.draw(this, math::Identity<double, 3>());
       else
-        renderState()->m_currentInfoLayer->addSymbol(se);
+        m_infoLayer->addSymbol(se);
     }
 
     void OverlayRenderer::drawCircle(m2::PointD const & pt,
@@ -88,10 +89,10 @@ namespace yg
 
       StraightTextElement ste(params);
 
-      if (!renderState().get() || !m_useOverlay)
+      if (!m_infoLayer.get() || !m_useOverlay)
         ste.draw(this, math::Identity<double, 3>());
       else
-        renderState()->m_currentInfoLayer->addStraightText(ste);
+        m_infoLayer->addStraightText(ste);
     }
 
     bool OverlayRenderer::drawPathText(
@@ -117,10 +118,10 @@ namespace yg
 
       PathTextElement pte(params);
 
-      if (!renderState().get() || !m_useOverlay)
+      if (!m_infoLayer.get() || !m_useOverlay)
         pte.draw(this, math::Identity<double, 3>());
       else
-        renderState()->m_currentInfoLayer->addPathText(pte);
+        m_infoLayer->addPathText(pte);
 
       return true;
     }

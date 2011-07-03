@@ -9,6 +9,8 @@
 #include "../std/function.hpp"
 #include "../yg/thread_renderer.hpp"
 #include "../yg/color.hpp"
+#include "../yg/tile_cache.hpp"
+#include "../yg/tiler.hpp"
 
 class DrawerYG;
 
@@ -19,10 +21,12 @@ namespace threads
 
 class PaintEvent;
 class WindowHandle;
+class RenderQueue;
 
 namespace yg
 {
   class ResourceManager;
+
 
   namespace gl
   {
@@ -43,74 +47,59 @@ public:
   typedef function<void(shared_ptr<PaintEvent>, ScreenBase const &, m2::RectD const &, int)> render_fn_t;
   typedef function<void()> renderCommandFinishedFn;
 
-private:
-
-  threads::CommandsQueue m_threadRendererQueue;
-  yg::gl::ThreadRenderer m_threadRenderer;
-
-  struct RenderModelCommand
+  /// Single tile rendering command
+  struct Command
   {
-    ScreenBase m_frameScreen;
+    yg::Tiler::RectInfo m_rectInfo;
     shared_ptr<PaintEvent> m_paintEvent;
     render_fn_t m_renderFn;
-    RenderModelCommand(ScreenBase const & frameScreen,
-                       render_fn_t renderFn);
+    size_t m_seqNum;
+    Command(yg::Tiler::RectInfo const & rectInfo,
+            render_fn_t renderFn,
+            size_t seqNum); //< paintEvent is set later after construction
   };
+
+private:
 
   shared_ptr<yg::gl::RenderContext> m_renderContext;
   shared_ptr<yg::gl::FrameBuffer> m_frameBuffer;
   shared_ptr<DrawerYG> m_threadDrawer;
-  shared_ptr<yg::gl::Screen> m_auxScreen;
 
-  threads::Condition m_hasRenderCommands;
-  shared_ptr<RenderModelCommand> m_currentRenderCommand;
-  list<shared_ptr<RenderModelCommand> > m_renderCommands;
-  list<shared_ptr<RenderModelCommand> > m_benchmarkRenderCommands;
-
-  shared_ptr<yg::gl::RenderState> m_renderState;
+  threads::Mutex m_mutex;
+  shared_ptr<Command> m_currentCommand;
 
   shared_ptr<yg::ResourceManager> m_resourceManager;
 
   /// A list of window handles to notify about ending rendering operations.
   list<shared_ptr<WindowHandle> > m_windowHandles;
 
-  bool m_isMultiSampled;
-  bool m_doPeriodicalUpdate;
-  double m_updateInterval;
   double m_visualScale;
   string m_skinName;
   bool m_isBenchmarking;
   unsigned m_scaleEtalonSize;
   yg::Color m_bgColor;
 
-  void waitForRenderCommand(list<shared_ptr<RenderModelCommand> > & cmdList,
-                            threads::ConditionGuard & guard);
+  size_t m_threadNum;
 
   list<renderCommandFinishedFn> m_renderCommandFinishedFns;
+
+  RenderQueue * m_renderQueue;
 
   void callRenderCommandFinishedFns();
 
 public:
-  RenderQueueRoutine(shared_ptr<yg::gl::RenderState> const & renderState,
-                     string const & skinName,
-                     bool isMultiSampled,
-                     bool doPeriodicalUpdate,
-                     double updateInterval,
+  RenderQueueRoutine(string const & skinName,
                      bool isBenchmarking,
                      unsigned scaleEtalonSize,
-                     yg::Color const & bgColor);
+                     yg::Color const & bgColor,
+                     size_t threadNum,
+                     RenderQueue * renderQueue);
   /// initialize GL rendering
   /// this function is called just before the thread starts.
   void initializeGL(shared_ptr<yg::gl::RenderContext> const & renderContext,
                     shared_ptr<yg::ResourceManager> const & resourceManager);
   /// This function should always be called from the main thread.
   void Cancel();
-  /// Check, whether the resize command is queued, and resize accordingly.
-  void processResize(ScreenBase const & frameScreen);
-  /// Get update areas for the current render state
-  void getUpdateAreas(ScreenBase const & oldScreen, m2::RectI const & oldRect,
-                      ScreenBase const & newScreen, m2::RectI const & newRect,
-                      vector<m2::RectI> & areas);
   /// Thread procedure
   void Do();
   /// invalidate all connected window handles
@@ -118,9 +107,9 @@ public:
   /// add monitoring window
   void addWindowHandle(shared_ptr<WindowHandle> window);
   /// add model rendering command to rendering queue
-  void addCommand(render_fn_t const & fn, ScreenBase const & frameScreen);
+  void addCommand(render_fn_t const & fn, yg::Tiler::RectInfo const & rectInfo, size_t seqNumber);
   /// add benchmark rendering command
-  void addBenchmarkCommand(render_fn_t const & fn, ScreenBase const & frameScreen);
+//  void addBenchmarkCommand(render_fn_t const & fn, m2::RectD const & globalRect);
   /// set the resolution scale factor to the main thread drawer;
   void setVisualScale(double visualScale);
   /// free all available memory

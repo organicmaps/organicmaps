@@ -1,20 +1,23 @@
 #include "tile_cache.hpp"
 
-#include "../std/cmath.hpp"
-
-
 namespace yg
 {
-  TileCache::TileCache(size_t tileMemSize, size_t memSize)
-    : m_cache(log(memSize / static_cast<double>(tileMemSize)) / log(2.0))
+  TileCache::Entry::Entry()
+  {}
+
+  TileCache::Entry::Entry(Tile const & tile, shared_ptr<yg::ResourceManager> const & rm)
+    : m_tile(tile), m_rm(rm)
+  {}
+
+
+  TileCache::TileCache(size_t maxCacheSize)
+    : m_cache(maxCacheSize)
   {
   }
 
-  void TileCache::addTile(Tiler::RectInfo const & key, Tile const & value)
+  void TileCache::addTile(Tiler::RectInfo const & key, Entry const & entry)
   {
-    bool found;
-    Tile & cachedVal = m_cache.Find(key.toUInt64Cell(), found);
-    cachedVal = value;
+    m_cache.Add(key.toUInt64Cell(), entry, 1);
   }
 
   void TileCache::lock()
@@ -29,12 +32,11 @@ namespace yg
 
   bool TileCache::hasTile(Tiler::RectInfo const & key)
   {
-    return m_cache.HasKey(key.toUInt64Cell());
+    return m_cache.HasElem(key.toUInt64Cell());
   }
 
   Tile const & TileCache::getTile(Tiler::RectInfo const & key)
   {
-    bool found;
-    return m_cache.Find(key.toUInt64Cell(), found);
+    return m_cache.Find(key.toUInt64Cell()).m_tile;
   }
 }

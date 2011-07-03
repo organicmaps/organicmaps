@@ -2,6 +2,7 @@
 #include "tiler.hpp"
 #include "../indexer/mercator.hpp"
 #include "../indexer/scales.hpp"
+#include "../base/logging.hpp"
 
 namespace yg
 {
@@ -22,7 +23,7 @@ namespace yg
   }
 
   Tiler::RectInfo::RectInfo()
-    : m_scale(0), m_x(0), m_y(0), m_coverage(0), m_distance(0)
+    : m_scale(0), m_x(0), m_y(0), m_distance(0), m_coverage(0)
   {}
 
   Tiler::RectInfo::RectInfo(int scale, int x, int y, m2::RectD const & globRect)
@@ -55,18 +56,30 @@ namespace yg
   bool operator<(Tiler::RectInfo const & l, Tiler::RectInfo const & r)
   {
     if (l.m_coverage != r.m_coverage)
-      return l.m_coverage < r.m_coverage;
+      return l.m_coverage > r.m_coverage;
 
     return l.m_distance < r.m_distance;
   }
 
+  bool operator>(Tiler::RectInfo const & l, Tiler::RectInfo const & r)
+  {
+    if (l.m_coverage != r.m_coverage)
+      return l.m_coverage < r.m_coverage;
+
+    return l.m_distance > r.m_distance;
+  }
+
   void Tiler::seed(ScreenBase const & screen, int scaleEtalonSize)
   {
+    if (screen != m_screen)
+      ++m_seqNum;
+
     m2::RectD glbRect;
     m2::PointD pxCenter = screen.PixelRect().Center();
     screen.PtoG(m2::RectD(pxCenter - m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2),
                           pxCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
-                     glbRect);
+                glbRect);
+
     m_scale = scales::GetScaleLevel(glbRect);
     m_screen = screen;
 
@@ -80,10 +93,25 @@ namespace yg
     int minTileY = floor(screenRect.minY() / rectSizeY);
     int maxTileY = ceil(screenRect.maxY() / rectSizeY);
 
+    unsigned rectCount = 0;
+
+    /// clearing previous coverage
+
+    while (!m_coverage.empty())
+      m_coverage.pop();
+
     for (int tileY = minTileY; tileY < maxTileY; ++tileY)
       for (int tileX = minTileX; tileX < maxTileX; ++tileX)
+      {
         m_coverage.push(RectInfo(m_scale, tileX, tileY, screenRect));
+        ++rectCount;
+      }
+
+    LOG(LINFO, ("Tiler coverage contains ", rectCount, " rectangles"));
   }
+
+  Tiler::Tiler() : m_seqNum(0)
+  {}
 
   bool Tiler::hasTile()
   {
@@ -95,5 +123,10 @@ namespace yg
     RectInfo r = m_coverage.top();
     m_coverage.pop();
     return r;
+  }
+
+  size_t Tiler::seqNum() const
+  {
+    return m_seqNum;
   }
 }

@@ -40,14 +40,20 @@ namespace yg
     void Blitter::blit(shared_ptr<BaseTexture> const & srcSurface,
                        ScreenBase const & from,
                        ScreenBase const & to,
+                       bool isSubPixel,
                        yg::Color const & color,
                        m2::RectI const & srcRect,
                        m2::RectU const & texRect)
     {
       m2::PointF pt = to.GtoP(from.PtoG(m2::PointF(srcRect.minX(), srcRect.minY())));
 
-      pt.x = pt.x - my::rounds(pt.x);
-      pt.y = pt.y - my::rounds(pt.y);
+      if (!isSubPixel)
+      {
+        pt.x = pt.x - my::rounds(pt.x);
+        pt.y = pt.y - my::rounds(pt.y);
+      }
+      else
+        pt = m2::PointF(0, 0);
 
       m2::PointF pts[4] =
       {
@@ -70,11 +76,13 @@ namespace yg
 
     void Blitter::blit(shared_ptr<BaseTexture> const & srcSurface,
                        ScreenBase const & from,
-                       ScreenBase const & to)
+                       ScreenBase const & to,
+                       bool isSubPixel)
     {
       blit(srcSurface,
            from,
            to,
+           isSubPixel,
            yg::Color(),
            m2::RectI(0, 0, srcSurface->width(), srcSurface->height()),
            m2::RectU(0, 0, srcSurface->width(), srcSurface->height()));
@@ -168,7 +176,7 @@ namespace yg
                                            yg::Color const & color,
                                            bool hasColor)
     {
-      m_blitStorage = resourceManager()->blitStorages().Reserve();
+      m_blitStorage = resourceManager()->blitStorages().Front(true);
 
       AuxVertex * pointsData = (AuxVertex*)m_blitStorage.m_vertices->lock();
 
@@ -203,7 +211,7 @@ namespace yg
       /// This call is necessary to avoid parasite blitting in updateActualTarget() on IPhone.
       OGLCHECK(glFinish());
 
-      resourceManager()->blitStorages().Free(m_blitStorage);
+      resourceManager()->blitStorages().PushBack(m_blitStorage);
       m_blitStorage = yg::gl::Storage();
     }
   }

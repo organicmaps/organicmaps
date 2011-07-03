@@ -31,6 +31,7 @@ SOURCES += \
   buffer_vector_test.cpp \
   assert_test.cpp \
   timer_test.cpp \
-  object_pool_test.cpp\
+  mru_cache_test.cpp \
+  threaded_list_test.cpp
 
 HEADERS +=

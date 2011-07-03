@@ -45,13 +45,15 @@ namespace yg
       void blit(shared_ptr<BaseTexture> const & srcSurface,
                 ScreenBase const & from,
                 ScreenBase const & to,
+                bool isSubPixel,
                 yg::Color const & color,
                 m2::RectI const & srcRect,
                 m2::RectU const & texRect);
 
       void blit(shared_ptr<BaseTexture> const & srcSurface,
                 ScreenBase const & from,
-                ScreenBase const & to);
+                ScreenBase const & to,
+                bool isSubPixel = false);
 
       void immDrawSolidRect(m2::RectF const & rect,
                             yg::Color const & color);

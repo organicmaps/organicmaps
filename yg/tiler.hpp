@@ -3,6 +3,7 @@
 #include "../geometry/screenbase.hpp"
 #include "../geometry/rect2d.hpp"
 #include "../std/queue.hpp"
+#include "../std/functional.hpp"
 
 namespace yg
 {
@@ -35,10 +36,13 @@ namespace yg
 
     ScreenBase m_screen;
     int m_scale;
+    size_t m_seqNum;
 
-    priority_queue<RectInfo> m_coverage;
+    priority_queue<RectInfo, vector<RectInfo>, greater<RectInfo> > m_coverage;
 
   public:
+
+    Tiler();
 
     /// seed tiler with new screenBase.
     /// if there are an existing tile sequence it is
@@ -49,7 +53,10 @@ namespace yg
     bool hasTile();
     /// pop tile from the sequence and return it
     RectInfo const nextTile();
+
+    size_t seqNum() const;
   };
 
   bool operator <(Tiler::RectInfo const & l, Tiler::RectInfo const & r);
+  bool operator >(Tiler::RectInfo const & l, Tiler::RectInfo const & r);
 }

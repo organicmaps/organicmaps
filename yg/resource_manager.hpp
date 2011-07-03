@@ -6,7 +6,7 @@
 #include "../std/list.hpp"
 
 #include "../base/mutex.hpp"
-#include "../base/object_pool.hpp"
+#include "../base/threaded_list.hpp"
 
 #include "storage.hpp"
 #include "glyph_cache.hpp"
@@ -42,12 +42,17 @@ namespace yg
     size_t m_dynamicTextureWidth;
     size_t m_dynamicTextureHeight;
 
-    ObjectPool<shared_ptr<gl::BaseTexture> > m_dynamicTextures;
+    ThreadedList<shared_ptr<gl::BaseTexture> > m_dynamicTextures;
 
     size_t m_fontTextureWidth;
     size_t m_fontTextureHeight;
 
-    ObjectPool<shared_ptr<gl::BaseTexture> > m_fontTextures;
+    ThreadedList<shared_ptr<gl::BaseTexture> > m_fontTextures;
+
+    size_t m_tileTextureWidth;
+    size_t m_tileTextureHeight;
+
+    ThreadedList<shared_ptr<gl::BaseTexture> > m_renderTargets;
 
     size_t m_vbSize;
     size_t m_ibSize;
@@ -58,9 +63,9 @@ namespace yg
     size_t m_blitVBSize;
     size_t m_blitIBSize;
 
-    ObjectPool<gl::Storage> m_storages;
-    ObjectPool<gl::Storage> m_smallStorages;
-    ObjectPool<gl::Storage> m_blitStorages;
+    ThreadedList<gl::Storage> m_storages;
+    ThreadedList<gl::Storage> m_smallStorages;
+    ThreadedList<gl::Storage> m_blitStorages;
 
     vector<GlyphCache> m_glyphCaches;
 
@@ -82,20 +87,21 @@ namespace yg
                     size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
                     size_t texWidth, size_t texHeight, size_t texCount,
                     size_t fontTexWidth, size_t fontTexHeight, size_t fontTexCount,
+                    size_t tileTexWidth, size_t tileTexHeight, size_t tileTexCount,
                     char const * blocksFile, char const * whileListFile, char const * blackListFile,
-                    size_t primaryGlyphCacheSize,
-                    size_t secondaryGlyphCacheSize,
+                    size_t glyphCacheSize,
                     RtFormat fmt,
                     bool useVA,
                     bool fillSkinAlpha);
 
     shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
 
-    ObjectPool<gl::Storage> & storages();
-    ObjectPool<gl::Storage> & smallStorages();
-    ObjectPool<gl::Storage> & blitStorages();
-    ObjectPool<shared_ptr<gl::BaseTexture> > & dynamicTextures();
-    ObjectPool<shared_ptr<gl::BaseTexture> > & fontTextures();
+    ThreadedList<gl::Storage> & storages();
+    ThreadedList<gl::Storage> & smallStorages();
+    ThreadedList<gl::Storage> & blitStorages();
+    ThreadedList<shared_ptr<gl::BaseTexture> > & dynamicTextures();
+    ThreadedList<shared_ptr<gl::BaseTexture> > & fontTextures();
+    ThreadedList<shared_ptr<gl::BaseTexture> > & renderTargets();
 
     size_t dynamicTextureWidth() const;
     size_t dynamicTextureHeight() const;
@@ -103,11 +109,14 @@ namespace yg
     size_t fontTextureWidth() const;
     size_t fontTextureHeight() const;
 
+    size_t tileTextureWidth() const;
+    size_t tileTextureHeight() const;
+
     shared_ptr<GlyphInfo> const getGlyphInfo(GlyphKey const & key);
     GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
     GlyphCache * glyphCache(int glyphCacheID = 0);
 
-    int renderThreadGlyphCacheID() const;
+    int renderThreadGlyphCacheID(int threadNum) const;
     int guiThreadGlyphCacheID() const;
 
     void addFonts(vector<string> const & fontNames);

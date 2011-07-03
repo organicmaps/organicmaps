@@ -1,7 +1,7 @@
 #include "../../base/SRC_FIRST.hpp"
 #include "../../testing/testing.hpp"
 
-#include "../object_pool.hpp"
+#include "../threaded_list.hpp"
 #include "../thread.hpp"
 
 #include "../../base/logging.hpp"
@@ -9,19 +9,19 @@
 
 struct ProcessorThread : public threads::IRoutine
 {
-  ObjectPool<int> * m_p;
+  ThreadedList<int> * m_p;
   int m_data;
   list<int> * m_res;
   int m_id;
 
-  ProcessorThread(ObjectPool<int> * p, list<int> * res, int id) : m_p(p), m_res(res), m_id(id)
+  ProcessorThread(ThreadedList<int> * p, list<int> * res, int id) : m_p(p), m_res(res), m_id(id)
   {}
 
   virtual void Do()
   {
     while (!m_p->IsCancelled())
     {
-      int res = m_p->Reserve();
+      int res = m_p->Front(true);
       m_res->push_back(res);
       LOG(LINFO, (m_id, " thread got ", res));
       threads::Sleep(10);
@@ -30,13 +30,12 @@ struct ProcessorThread : public threads::IRoutine
   }
 };
 
-UNIT_TEST(ObjectPool)
+UNIT_TEST(ThreadedList)
 {
   list<int> l;
   list<int> res;
 
-  ObjectPool<int> p;
-  p.Add(l);
+  ThreadedList<int> p;
 
   threads::Thread t0;
   t0.Create(new ProcessorThread(&p, &res, 0));
@@ -47,14 +46,14 @@ UNIT_TEST(ObjectPool)
   threads::Thread t2;
   t2.Create(new ProcessorThread(&p, &res, 2));
 
-  p.Free(0);
-  threads::Sleep(200);
+  p.PushBack(0);
+  my::sleep(200);
 
-  p.Free(1);
-  threads::Sleep(200);
+  p.PushBack(1);
+  my::sleep(200);
 
-  p.Free(2);
-  threads::Sleep(200);
+  p.PushBack(2);
+  my::sleep(200);
 
   TEST_EQUAL(res.front(), 0, ());
   res.pop_front();
