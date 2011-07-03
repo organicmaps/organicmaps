@@ -145,11 +145,11 @@ struct lodepng_write_support_private<bits16,rgba_t> {
     BOOST_STATIC_CONSTANT(int,color_type=LODEPNG_COLOR_TYPE_RGBA);
 };
 
-class lodepng_reader : public file_mgr {
+class lodepng_reader {
 protected:
 
     LodePNG::Decoder m_decoder;
-    std::string m_fileName;
+    ReaderPtr<Reader> & m_reader;
 
     int sig_cmp(unsigned char * sig, size_t start, size_t num_to_check)
     {
@@ -174,15 +174,16 @@ protected:
 
     void init()
     {
-        unsigned char buf[30];
-        io_error_if(fread(buf, 1, 30, get()) != 30,
-                    "lodepng_check_validity: fail to read file");
-        m_decoder.inspect(buf, 30);
+      unsigned char buf[30];
+      m_reader.Read(0, buf, 30);
+//        io_error_if(fread(buf, 1, 30, get()) != 30,
+//                    "lodepng_check_validity: fail to read file");
+      m_decoder.inspect(buf, 30);
     }
 
 public:
 
-    lodepng_reader(const char* filename) : file_mgr(filename, "rb"), m_fileName(filename) { init(); }
+    lodepng_reader(ReaderPtr<Reader> & reader) : m_reader(reader) { init(); }
 
     point2<std::ptrdiff_t> get_dimensions() {
         return point2<std::ptrdiff_t>(m_decoder.getWidth(), m_decoder.getHeight());
@@ -205,7 +206,7 @@ public:
             io_error("lodepng_read_view: input view type is incompatible with the image type(colorType mismatch)");
 
         std::vector<unsigned char> inputData;
-        LodePNG::loadFile(inputData, m_fileName);
+        LodePNG::loadFile(inputData, m_reader);
 
         std::vector<unsigned char> decodedData;
         m_decoder.decode(decodedData, inputData);
@@ -239,8 +240,8 @@ class lodepng_reader_color_convert : public lodepng_reader {
 private:
     CC _cc;
 public:
-    lodepng_reader_color_convert(const char* filename,CC cc_in) : lodepng_reader(filename),_cc(cc_in) {}
-    lodepng_reader_color_convert(const char* filename) : lodepng_reader(filename) {}
+    lodepng_reader_color_convert(ReaderPtr<Reader> & reader, CC cc_in) : lodepng_reader(reader),_cc(cc_in) {}
+    lodepng_reader_color_convert(ReaderPtr<Reader> & reader) : lodepng_reader(reader) {}
     template <typename View>
     void apply(const View& view)
     {
@@ -249,7 +250,7 @@ public:
                   "lodepng_read_view: input view size does not match PNG file size");
 
       std::vector<unsigned char> inputData;
-      LodePNG::loadFile(inputData, m_fileName);
+      LodePNG::loadFile(inputData, m_reader);
 
       std::vector<unsigned char> decodedData;
       m_decoder.decode(decodedData, inputData);
@@ -417,7 +418,7 @@ public:
           view.height()
       );
 
-      LodePNG::saveFile(buffer, m_fileName);
+//      LodePNG::saveFile(buffer, m_fileName);
    }
 };
 

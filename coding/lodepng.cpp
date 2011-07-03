@@ -30,9 +30,6 @@ You are free to name this file lodepng.cpp or lodepng.c depending on your usage.
 
 #include "lodepng.hpp"
 
-#include "file_reader.hpp"
-#include "file_writer.hpp"
-
 #define VERSION_STRING "20100314"
 
 /* ////////////////////////////////////////////////////////////////////////// */
@@ -4257,9 +4254,8 @@ namespace LodePNG
   
 //#ifdef LODEPNG_COMPILE_DISK
   
-  void loadFile(std::vector<unsigned char>& buffer, const std::string& filename) //designed for loading files from hard disk in an std::vector
+  void loadFile(std::vector<unsigned char>& buffer, ReaderPtr<Reader> & reader) //designed for loading files from hard disk in an std::vector
   {
-    FileReader reader(filename);
     uint64_t const sz = reader.Size();
     if (sz > 0)
     {
@@ -4269,15 +4265,15 @@ namespace LodePNG
   }
   
   /*write given buffer to the file, overwriting the file, it doesn't append to it.*/
-  void saveFile(const std::vector<unsigned char>& buffer, const std::string& filename)
-  {
-    size_t const sz = buffer.size();
-    if (sz > 0)
-    {
-      FileWriter writer(filename);
-      writer.Write(&buffer[0], sz);
-    }
-  }
+//  void saveFile(const std::vector<unsigned char>& buffer, const std::string& filename)
+//  {
+//    size_t const sz = buffer.size();
+//    if (sz > 0)
+//    {
+//      FileWriter writer(filename);
+//      writer.Write(&buffer[0], sz);
+//    }
+//  }
   
 //#endif /*LODEPNG_COMPILE_DISK*/
   

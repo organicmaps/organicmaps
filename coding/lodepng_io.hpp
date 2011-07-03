@@ -41,17 +41,17 @@ namespace boost { namespace gil {
 /// \ingroup LODEPNG_IO
 /// \brief Returns the width and height of the PNG file at the specified location.
 /// Throws std::ios_base::failure if the location does not correspond to a valid PNG file
-inline point2<std::ptrdiff_t> lodepng_read_dimensions(const char *filename) {
-    detail::lodepng_reader m(filename);
+inline point2<std::ptrdiff_t> lodepng_read_dimensions(ReaderPtr<Reader> & reader) {
+    detail::lodepng_reader m(reader);
     return m.get_dimensions();
 }
 
 /// \ingroup LODEPNG_IO
 /// \brief Returns the width and height of the PNG file at the specified location.
 /// Throws std::ios_base::failure if the location does not correspond to a valid PNG file
-inline point2<std::ptrdiff_t> lodepng_read_dimensions(const std::string& filename) {
-    return lodepng_read_dimensions(filename.c_str());
-}
+//inline point2<std::ptrdiff_t> lodepng_read_dimensions(ReaderPtr<Reader> & reader) {
+//    return lodepng_read_dimensions(reader);
+//}
 
 /// \ingroup LODEPNG_IO
 /// \brief Determines whether the given view type is supported for reading
@@ -143,8 +143,8 @@ inline void lodepng_read_and_convert_view(const std::string& filename,const View
 /// \brief Allocates a new image whose dimensions are determined by the given png image file, loads and color-converts the pixels into it.
 /// Throws std::ios_base::failure if the file is not a valid PNG file
 template <typename Image,typename CC>
-inline void lodepng_read_and_convert_image(const char* filename,Image& im,CC cc) {
-    detail::lodepng_reader_color_convert<CC> m(filename,cc);
+inline void lodepng_read_and_convert_image(ReaderPtr<Reader> & reader,Image& im,CC cc) {
+    detail::lodepng_reader_color_convert<CC> m(reader,cc);
     m.read_image(im);
 }
 

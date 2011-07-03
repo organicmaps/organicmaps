@@ -20,7 +20,8 @@ namespace yg
 
     inline m2::PointU const GetDimensions(string const & fileName)
     {
-      gil::point2<ptrdiff_t> size = gil::lodepng_read_dimensions(GetPlatform().ReadPathForFile(fileName));
+      ReaderPtr<Reader> reader = GetPlatform().GetReader(fileName);
+      gil::point2<ptrdiff_t> size = gil::lodepng_read_dimensions(reader);
       return m2::PointU(size.x, size.y);
     }
 
@@ -50,7 +51,8 @@ namespace yg
       Texture(string const & fileName) : BaseTexture(GetDimensions(fileName))
       {
         typename Traits::image_t image(width(), height());
-        gil::lodepng_read_and_convert_image(GetPlatform().ReadPathForFile(fileName), image, typename Traits::color_converter());
+        ReaderPtr<Reader> reader = GetPlatform().GetReader(fileName);
+        gil::lodepng_read_and_convert_image(reader, image, typename Traits::color_converter());
         upload(&gil::view(image)(0, 0));
       }
 
