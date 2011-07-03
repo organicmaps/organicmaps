@@ -47,13 +47,13 @@ UNIT_TEST(ThreadedList)
   t2.Create(new ProcessorThread(&p, &res, 2));
 
   p.PushBack(0);
-  my::sleep(200);
+  threads::Sleep(200);
 
   p.PushBack(1);
-  my::sleep(200);
+  threads::Sleep(200);
 
   p.PushBack(2);
-  my::sleep(200);
+  threads::Sleep(200);
 
   TEST_EQUAL(res.front(), 0, ());
   res.pop_front();

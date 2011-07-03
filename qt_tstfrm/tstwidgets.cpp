@@ -56,6 +56,7 @@ void GLDrawWidget::initializeGL()
       30,
       512, 256, 10,
       512, 256, 5,
+      256, 256, 80,
       "unicode_blocks.txt",
       "fonts_whitelist.txt",
       "fonts_blacklist.txt",
