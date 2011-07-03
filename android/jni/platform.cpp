@@ -3,6 +3,8 @@
 
 #include "../../base/logging.hpp"
 
+#include "../../coding/zip_reader.hpp"
+
 
 void AndroidPlatform::Initialize(JNIEnv * env, jobject activity, jstring apkPath, jstring storagePath)
 {
@@ -10,6 +12,19 @@ void AndroidPlatform::Initialize(JNIEnv * env, jobject activity, jstring apkPath
   m_writableDir = jni::ToString(env, storagePath);
   LOG(LDEBUG, ("Apk path = ", m_resourcesDir));
   LOG(LDEBUG, ("Writable path = ", m_writableDir));
+}
+
+ModelReader * AndroidPlatform::GetReader(string const & file) const
+{
+  if (IsFileExists(m_writableDir + file))
+    return BasePlatformImpl::GetReader(file);
+  else
+    return new ZipFileReader(m_resourcesDir, "assets/" + file);
+}
+
+bool AndroidPlatform::IsMultiSampled() const
+{
+  return false;
 }
 
 void AndroidPlatform::GetFontNames(FilesList & res) const
