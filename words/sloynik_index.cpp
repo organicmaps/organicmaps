@@ -1,6 +1,8 @@
 #include "sloynik_index.hpp"
 #include "dictionary.hpp"
 
+#include "../platform/platform.hpp"
+
 #include "../coding/file_writer.hpp"
 #include "../coding/timsort/timsort.hpp"
 
@@ -189,7 +191,7 @@ sl::SortedIndex::Pos sl::SortedIndex::PrefixSearch(string const & prefix)
 
 void sl::SortedIndex::Build(sl::Dictionary const & dictionary,
                             StrFn const & strFn,
-                            string const & indexPathPrefix)
+                            string const & indexPrefix)
 {
   LOG(LINFO, ("Building sorted index."));
 
@@ -214,7 +216,7 @@ void sl::SortedIndex::Build(sl::Dictionary const & dictionary,
     // stable_sort(ids.begin(), ids.end(), MakeLessRefProxy(compareLess));
   }
 
-  FileWriter idxWriter((indexPathPrefix + ".idx").c_str());
+  FileWriter idxWriter(GetPlatform().WritablePathForFile(indexPrefix + ".idx").c_str());
   idxWriter.Write(&ids[0], ids.size() * sizeof(ids[0]));
 
   LOG(LINFO, ("Building sorted index done."));

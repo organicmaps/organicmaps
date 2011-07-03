@@ -94,16 +94,21 @@ MainWindow::MainWindow()
 
   if (bShow)
   {
-    QFile welcomeTextFile(GetPlatform().ReadPathForFile("welcome.html").c_str());
-
     bool bShowUpdateDialog = true;
 
-    if (welcomeTextFile.open(QIODevice::ReadOnly))
+    string text;
+    try
     {
-      QByteArray text = welcomeTextFile.readAll();
-      welcomeTextFile.close();
+      ReaderPtr<Reader> reader = GetPlatform().GetReader("welcome.html");
+      reader.ReadAsString(text);
+    }
+    catch (...)
+    {}
 
-      InfoDialog welcomeDlg(tr("Welcome to MapsWithMe!"), text, this, QStringList(tr("Download Maps")));
+    if (!text.empty())
+    {
+      InfoDialog welcomeDlg(tr("Welcome to MapsWithMe!"), text.c_str(),
+                            this, QStringList(tr("Download Maps")));
       if (welcomeDlg.exec() == QDialog::Rejected)
         bShowUpdateDialog = false;
     }

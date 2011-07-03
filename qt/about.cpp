@@ -33,18 +33,22 @@ AboutDialog::AboutDialog(QWidget * parent)
   hBox->addWidget(labelIcon);
   hBox->addWidget(labelVersion);
 
-  char const sAboutFileName [] = "about-travelguide-desktop.html";
-  QFile file(GetPlatform().ReadPathForFile(sAboutFileName).c_str());
-  if (file.open(QIODevice::ReadOnly))
+  string aboutText;
+  try
   {
-    QByteArray aboutData = file.readAll();
-    file.close();
+    ReaderPtr<Reader> reader = GetPlatform().GetReader("about-travelguide-desktop.html");
+    reader.ReadAsString(aboutText);
+  }
+  catch (...)
+  {}
 
+  if (!aboutText.empty())
+  {
     QTextBrowser * aboutTextBrowser = new QTextBrowser();
     aboutTextBrowser->setReadOnly(true);
     aboutTextBrowser->setOpenLinks(true);
     aboutTextBrowser->setOpenExternalLinks(true);
-    aboutTextBrowser->setText(aboutData.constData());
+    aboutTextBrowser->setText(aboutText.c_str());
 
     QVBoxLayout * vBox = new QVBoxLayout();
     vBox->addLayout(hBox);

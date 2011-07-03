@@ -93,7 +93,10 @@ int main(int argc, char *argv[])
     buttons << "Accept" << "Decline";
 
     string buffer;
-    FileReader(GetPlatform().ReadPathForFile("eula.html")).ReadAsString(buffer);
+    {
+      ReaderPtr<Reader> reader = GetPlatform().GetReader("eula.html");
+      reader.ReadAsString(buffer);
+    }
     qt::InfoDialog eulaDialog("MapsWithMe End User Licensing Agreement", buffer.c_str(), NULL, buttons);
     eulaAccepted = (eulaDialog.exec() == 1);
     Settings::Set(SETTING_EULA_ACCEPTED, eulaAccepted);

@@ -3,12 +3,28 @@
 @implementation WebViewController
 
 @synthesize m_url;
+@synthesize m_htmlText;
 
 - (id) initWithUrl: (NSURL *)url andTitleOrNil:(NSString *)title
 {
   self = [super initWithNibName:nil bundle:nil];
   if (self)
   {
+    self.m_url = url;
+    if (title)
+      self.navigationItem.title = title;
+  }
+  return self;
+}
+
+- (id) initWithHtml: (NSString *)htmlText
+            baseUrl:(NSURL *)url 
+      andTitleOrNil:(NSString *)title
+{
+  self = [super initWithNibName:nil bundle:nil];
+  if (self)
+  {
+    self.m_htmlText = htmlText;
     self.m_url = url;
     if (title)
       self.navigationItem.title = title;
@@ -40,7 +56,10 @@
   webView.autoresizesSubviews = YES;
   webView.autoresizingMask= (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
 
-  [webView loadRequest:[NSURLRequest requestWithURL:m_url]];
+  if (m_htmlText)
+    [webView loadHTMLString:m_htmlText baseURL:m_url];
+  else
+    [webView loadRequest:[NSURLRequest requestWithURL:m_url]];
 
   self.view = webView;
   [webView release];

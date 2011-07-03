@@ -15,13 +15,15 @@
 #include "../base/start_mem_debug.hpp"
 
 
-string BasePlatformImpl::ReadPathForFile(string const & file) const
+string ReadPathForFile(string const & writableDir,
+                       string const & resourcesDir,
+                       string const & file)
 {
-  string fullPath = m_writableDir + file;
-  if (!IsFileExists(fullPath))
+  string fullPath = writableDir + file;
+  if (!GetPlatform().IsFileExists(fullPath))
   {
-    fullPath = m_resourcesDir + file;
-    if (!IsFileExists(fullPath))
+    fullPath = resourcesDir + file;
+    if (!GetPlatform().IsFileExists(fullPath))
       MYTHROW(FileAbsentException, ("File doesn't exist", fullPath));
   }
   return fullPath;
@@ -29,7 +31,7 @@ string BasePlatformImpl::ReadPathForFile(string const & file) const
 
 ModelReader * BasePlatformImpl::GetReader(string const & file) const
 {
-    return new FileReader(ReadPathForFile(file), 10, 12);
+    return new FileReader(ReadPathForFile(m_writableDir, m_resourcesDir, file), 10, 12);
 }
 
 bool BasePlatformImpl::GetFileSize(string const & file, uint64_t & size) const

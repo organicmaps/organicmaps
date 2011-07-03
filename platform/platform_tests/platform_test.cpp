@@ -38,20 +38,21 @@ UNIT_TEST(WritablePathForFile)
   TEST_EQUAL(p1, p2, ());
 }
 
-UNIT_TEST(ReadPathForFile)
+UNIT_TEST(GetReader)
 {
   char const * NON_EXISTING_FILE = "mgbwuerhsnmbui45efhdbn34.tmp";
   char const * arr[] = { "drawing_rules.bin", "basic.skn", "classificator.txt", "minsk-pass.mwm" };
   Platform & p = GetPlatform();
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
   {
-    TEST_GREATER(p.ReadPathForFile(arr[i]).size(), 0, ("File should exist!"));
+    ReaderPtr<Reader> r = p.GetReader(arr[i]);
+    TEST_GREATER(r.Size(), 0, ("File should exist!"));
   }
 
   bool wasException = false;
   try
   {
-    p.ReadPathForFile(NON_EXISTING_FILE);
+    ReaderPtr<Reader> r = p.GetReader(NON_EXISTING_FILE);
   }
   catch (FileAbsentException const &)
   {
@@ -72,13 +73,13 @@ UNIT_TEST(GetFilesInDir)
   TEST_EQUAL(files.size(), 0, ());
 }
 
-UNIT_TEST(GetFileSize)
-{
-  Platform & pl = GetPlatform();
-  uint64_t size = 0;
-  pl.GetFileSize(pl.ReadPathForFile("classificator.txt").c_str(), size);
-  TEST_GREATER(size, 0, ("File classificator.txt should exist for test"));
-}
+//UNIT_TEST(GetFileSize)
+//{
+//  Platform & pl = GetPlatform();
+//  uint64_t size = 0;
+//  pl.GetFileSize(pl.ReadPathForFile("classificator.txt").c_str(), size);
+//  TEST_GREATER(size, 0, ("File classificator.txt should exist for test"));
+//}
 
 UNIT_TEST(CpuCores)
 {

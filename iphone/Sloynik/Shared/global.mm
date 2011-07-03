@@ -64,13 +64,6 @@ sl::SloynikEngine * CreateSloynikEngine()
 {
   ASSERT(!g_pEngine, ());
   LOG(LINFO, ("Creating sloynik engine."));
-  NSBundle * bundle = [NSBundle mainBundle];
-  string const dictionaryPath = [[bundle pathForResource:@"dictionary" ofType:@"slf"] UTF8String];
-  string const indexPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory,
-                                                                 NSUserDomainMask,
-                                                                 YES)
-                             objectAtIndex:0]
-                            UTF8String] + string("/index");
   sl::StrFn strFn;
   strFn.Create = StrCreateApple;
   strFn.Destroy = StrDestroyApple;
@@ -84,7 +77,7 @@ sl::SloynikEngine * CreateSloynikEngine()
   LOG(LINFO, ("Version:", [nsVersion UTF8String]));
   strFn.m_PrimaryCompareId   = [[NSString stringWithFormat:@"%@ 1", nsVersion] hash];
   strFn.m_SecondaryCompareId = [[NSString stringWithFormat:@"%@ 2", nsVersion] hash];
-  sl::SloynikEngine * pEngine = new sl::SloynikEngine(dictionaryPath, indexPath, strFn);
+  sl::SloynikEngine * pEngine = new sl::SloynikEngine("dictionary.slf", "index", strFn);
   LOG(LINFO, ("Sloynik engine created."));
   return pEngine;
 }

@@ -2,8 +2,6 @@
 
 #include "../words/sloynik_engine.hpp"
 
-#include "../platform/platform.hpp"
-
 #include <QtWebKit/QWebView>
 
 #include <QtGui/QLineEdit>
@@ -73,9 +71,6 @@ namespace
 
 void GuidePageHolder::CreateEngine()
 {
-  string const dicPath = GetPlatform().ReadPathForFile("dictionary.slf");
-  string const indPath = GetPlatform().WritableDir() + "index";
-
   sl::StrFn fn;
   fn.Create = &StrCreate;
   fn.Destroy = &StrDestroy;
@@ -86,7 +81,7 @@ void GuidePageHolder::CreateEngine()
   fn.m_PrimaryCompareId = 1;
   fn.m_SecondaryCompareId = 2;
 
-  m_pEngine.reset(new sl::SloynikEngine(dicPath, indPath, fn));
+  m_pEngine.reset(new sl::SloynikEngine("dictionary.slf", "index", fn));
 }
 
 void GuidePageHolder::OnShowPage()

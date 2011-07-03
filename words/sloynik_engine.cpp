@@ -1,16 +1,21 @@
 #include "sloynik_engine.hpp"
 #include "slof_dictionary.hpp"
 #include "sloynik_index.hpp"
+
+#include "../platform/platform.hpp"
+
 #include "../coding/file_reader.hpp"
 #include "../coding/file_writer.hpp"
+
 #include "../base/logging.hpp"
 #include "../base/macros.hpp"
 
-sl::SloynikEngine::SloynikEngine(string const & dictionaryPath,
-                                 string const & indexPath,
+sl::SloynikEngine::SloynikEngine(string const & dictionary,
+                                 string const & index,
                                  StrFn const & strFn)
 {
-  FileReader * pDicFileReader = new FileReader(dictionaryPath);
+  Platform & pl = GetPlatform();
+  Reader * pDicFileReader = pl.GetReader(dictionary);
   // m_pDictionary takes ownership of pDicFileReader.
   m_pDictionary.reset(new sl::SlofDictionary(pDicFileReader));
 
@@ -20,11 +25,11 @@ sl::SloynikEngine::SloynikEngine(string const & dictionaryPath,
   stamp.push_back(m_pDictionary->KeyCount());
   stamp.push_back(pDicFileReader->Size());
 
-  string const stampPath = indexPath + ".stamp";
+  string const stampFile = index + ".stamp";
   bool needIndexBuild = false;
   try
   {
-    FileReader stampReader(stampPath);
+    ReaderPtr<Reader> stampReader(pl.GetReader(stampFile));
     if (stampReader.Size() != stamp.size() * sizeof(stamp[0]))
       needIndexBuild = true;
     else
@@ -45,8 +50,9 @@ sl::SloynikEngine::SloynikEngine(string const & dictionaryPath,
   // Uncomment to always rebuild the index: needIndexBuild = true;
   if (needIndexBuild)
   {
+    string const stampPath = pl.WritablePathForFile(stampFile);
     FileWriter::DeleteFileX(stampPath);
-    sl::SortedIndex::Build(*m_pDictionary, strFn, indexPath);
+    sl::SortedIndex::Build(*m_pDictionary, strFn, index);
 
     FileWriter stampWriter(stampPath);
     stampWriter.Write(&stamp[0], stamp.size() * sizeof(stamp[0]));
@@ -54,7 +60,9 @@ sl::SloynikEngine::SloynikEngine(string const & dictionaryPath,
 
   // By VNG: SortedIndex takes ownership of index reader, so no need to store it here.
   //m_pIndexReader.reset(new FileReader(indexPath + ".idx"));
-  m_pSortedIndex.reset(new sl::SortedIndex(*m_pDictionary, new FileReader(indexPath + ".idx"), strFn));
+  m_pSortedIndex.reset(new sl::SortedIndex(*m_pDictionary,
+                       new FileReader(pl.WritablePathForFile(index + ".idx")),
+                       strFn));
 }
 
 sl::SloynikEngine::~SloynikEngine()

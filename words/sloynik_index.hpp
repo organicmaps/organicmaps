@@ -44,7 +44,7 @@ public:
   // Build index.
   static void Build(Dictionary const & dictionary,
                     StrFn const & strFn,
-                    string const & indexPathPrefix);
+                    string const & indexPrefix);
 private:
 
 #pragma pack(push, 1)

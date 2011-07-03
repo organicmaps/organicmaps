@@ -17,8 +17,8 @@ class SortedIndex;
 class SloynikEngine
 {
 public:
-  SloynikEngine(string const & dictionaryPath,
-                string const & indexPath,
+  SloynikEngine(string const & dictionary,
+                string const & index,
                 sl::StrFn const & strFn);
 
   ~SloynikEngine();
