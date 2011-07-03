@@ -120,24 +120,24 @@ inline void lodepng_read_and_convert_view(const char* filename,const View& view,
 /// \brief Loads the image specified by the given png image file name and color-converts it into the given view.
 /// Throws std::ios_base::failure if the file is not a valid PNG file, or if its dimensions don't match the ones of the view.
 template <typename View>
-inline void lodepng_read_and_convert_view(const char* filename,const View& view) {
-    detail::lodepng_reader_color_convert<default_color_converter> m(filename,default_color_converter());
+inline void lodepng_read_and_convert_view(ReaderPtr<Reader> & reader,const View& view) {
+    detail::lodepng_reader_color_convert<default_color_converter> m(reader,default_color_converter());
     m.apply(view);
 }
 
 /// \ingroup LODEPNG_IO
 /// \brief Loads the image specified by the given png image file name and color-converts it into the given view.
 template <typename View,typename CC>
-inline void lodepng_read_and_convert_view(const std::string& filename,const View& view,CC cc) {
-    lodepng_read_and_convert_view(filename.c_str(),view,cc);
+inline void lodepng_read_and_convert_view(ReaderPtr<Reader> & reader,const View& view,CC cc) {
+    lodepng_read_and_convert_view(reader,view,cc);
 }
 
 /// \ingroup LODEPNG_IO
 /// \brief Loads the image specified by the given png image file name and color-converts it into the given view.
-template <typename View>
-inline void lodepng_read_and_convert_view(const std::string& filename,const View& view) {
-    lodepng_read_and_convert_view(filename.c_str(),view);
-}
+//template <typename View>
+//inline void lodepng_read_and_convert_view(ReaderPtr<Reader> & reader,const View& view) {
+//    lodepng_read_and_convert_view(reader,view);
+//}
 
 /// \ingroup LODEPNG_IO
 /// \brief Allocates a new image whose dimensions are determined by the given png image file, loads and color-converts the pixels into it.

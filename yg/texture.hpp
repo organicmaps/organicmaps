@@ -176,7 +176,8 @@ namespace yg
     {
       lock();
       view_t v = view(width(), height());
-      gil::lodepng_read_and_convert_view(GetPlatform().ReadPathForFile(fileName).c_str(), v, typename Traits::color_converter());
+      ReaderPtr<Reader> reader = GetPlatform().GetReader(fileName);
+      gil::lodepng_read_and_convert_view(reader, v, typename Traits::color_converter());
       upload(&v(0, 0));
       unlock();
     }
