@@ -35,7 +35,7 @@ void InitSystemLog()
 
 void InitAssertLog()
 {
-  OnAssertFailed = &AndroidAssertMessage;
+  SetAssertFunction(&AndroidAssertMessage);
 }
 
 }

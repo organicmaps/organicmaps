@@ -8,8 +8,13 @@
 namespace my
 {
   // Called when ASSERT, CHECK or VERIFY failed.
-  extern void (*OnAssertFailed)(SrcPoint const &, string const &);
+  typedef void (*AssertFailedFn)(SrcPoint const &, string const &);
+  extern AssertFailedFn OnAssertFailed;
+
+  /// @return Pointer to previous message function.
+  AssertFailedFn SetAssertFunction(AssertFailedFn fn);
 }
+
 // TODO: Evaluate X only once in CHECK().
 #define CHECK(X, msg) if (X) {} else { \
   ::my::OnAssertFailed(SRC(), ::my::impl::MergeMsg("CHECK("#X")", ::my::impl::Message msg));}

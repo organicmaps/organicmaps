@@ -32,5 +32,11 @@ namespace my
 #endif
   }
 
-  void (*OnAssertFailed)(SrcPoint const &, string const &) = &OnAssertFailedDefault;
+  AssertFailedFn OnAssertFailed = &OnAssertFailedDefault;
+
+  AssertFailedFn SetAssertFunction(AssertFailedFn fn)
+  {
+    std::swap(OnAssertFailed, fn);
+    return fn;
+  }
 }
