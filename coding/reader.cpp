@@ -11,11 +11,11 @@ void Reader::ReadAsString(string & s) const
   Read(0, &s[0], sz);
 }
 
-bool ModelReader::IsEqual(string const & fName) const
+bool Reader::IsEqual(string const & name1, string const & name2)
 {
 #if defined(OMIM_OS_WINDOWS)
-  return strings::EqualNoCase(fName, m_name);
+  return strings::EqualNoCase(name1, name2);
 #else
-  return (fName == m_name);
+  return (name1 == name2);
 #endif
 }

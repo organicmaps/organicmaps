@@ -88,11 +88,12 @@ namespace storage
 
     /// @name Communicate with Framework
     //@{
+    typedef vector<string> map_list_t;
   public:
-    typedef function<void (ModelReaderPtr const &)> TAddMapFunction;
+    typedef function<void (string const &)> TAddMapFunction;
     typedef function<void (string const &)> TRemoveMapFunction;
     typedef function<void (m2::RectD const & r)> TUpdateRectFunction;
-    typedef function<void (vector<ModelReaderPtr> &)> TEnumMapsFunction;
+    typedef function<void (map_list_t &)> TEnumMapsFunction;
 
   private:
     TAddMapFunction m_addMap;

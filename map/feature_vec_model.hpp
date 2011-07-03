@@ -37,10 +37,9 @@ namespace model
     mutable index_t::Query m_multiIndexQuery;
 
   public:
-
     void InitClassificator();
 
-    void AddMap(ReaderT const & file);
+    void AddMap(string const & file);
     void RemoveMap(string const & fName);
     void Clean();
     void ClearCaches();

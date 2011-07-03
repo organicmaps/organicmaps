@@ -147,14 +147,18 @@ FileWriter FilesContainerW::GetExistingWriter(Tag const & tag)
     MYTHROW(Writer::OpenException, (tag));
 }
 
-void FilesContainerW::Append(string const & fName, Tag const & tag)
+void FilesContainerW::Append(string const & fPath, Tag const & tag)
+{
+  Append(new FileReader(fPath), tag);
+}
+
+void FilesContainerW::Append(ModelReaderPtr reader, Tag const & tag)
 {
   ASSERT(!m_bFinished, ());
   uint64_t const bufferSize = 4*1024;
   char buffer[bufferSize];
 
-  FileReader reader(fName);
-  ReaderSource<FileReader> src(reader);
+  ReaderSource<ModelReaderPtr> src(reader);
   FileWriter writer = GetWriter(tag);
 
   uint64_t size = reader.Size();

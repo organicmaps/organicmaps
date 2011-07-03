@@ -83,7 +83,8 @@ public:
   /// @name Append to existing container.
   /// @precondition Container should be constructed with OP_APPEND.
   //@{
-  void Append(string const & fName, Tag const & tag);
+  void Append(string const & fPath, Tag const & tag);
+  void Append(ModelReaderPtr reader, Tag const & tag);
   void Append(vector<char> const & buffer, Tag const & tag);
   //@}
 

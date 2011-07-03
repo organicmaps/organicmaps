@@ -17,9 +17,9 @@ using namespace feature;
 
 namespace stats
 {
-  void FileContainerStatistic(string const & fName)
+  void FileContainerStatistic(string const & fPath)
   {
-    FilesContainerR cont(fName);
+    FilesContainerR cont(fPath);
 
     vector<string> tags;
     tags.push_back(DATA_FILE_TAG);
@@ -79,10 +79,10 @@ namespace stats
     }
   };
 
-  void CalcStatistic(string const & fName, MapInfo & info)
+  void CalcStatistic(string const & fPath, MapInfo & info)
   {
     AccumulateStatistic doProcess(info);
-    feature::ForEachFromDat(new FileReader(fName), doProcess);
+    feature::ForEachFromDat(fPath, doProcess);
   }
 
   void PrintInfo(char const * prefix, GeneralInfo const & info)

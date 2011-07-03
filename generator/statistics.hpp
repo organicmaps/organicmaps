@@ -69,8 +69,8 @@ namespace stats
     }
   };
 
-  void FileContainerStatistic(string const & fName);
+  void FileContainerStatistic(string const & fPath);
 
-  void CalcStatistic(string const & fName, MapInfo & info);
+  void CalcStatistic(string const & fPath, MapInfo & info);
   void PrintStatistic(MapInfo & info);
 }

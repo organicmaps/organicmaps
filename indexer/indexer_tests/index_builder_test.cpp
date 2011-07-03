@@ -4,9 +4,13 @@
 #include "../index_builder.hpp"
 #include "../classificator_loader.hpp"
 #include "../features_vector.hpp"
+
 #include "../../defines.hpp"
+
 #include "../../platform/platform.hpp"
+
 #include "../../coding/file_container.hpp"
+
 #include "../../base/stl_add.hpp"
 
 
@@ -17,7 +21,7 @@ UNIT_TEST(BuildIndexTest)
                       p.GetReader("classificator.txt"),
                       p.GetReader("visibility.txt"));
 
-  FilesContainerR originalContainer(p.WritablePathForFile("minsk-pass" DATA_FILE_EXTENSION));
+  FilesContainerR originalContainer(p.GetReader("minsk-pass" DATA_FILE_EXTENSION));
 
   // Build index.
   vector<char> serialIndex;
@@ -30,26 +34,18 @@ UNIT_TEST(BuildIndexTest)
 
   // Create a new mwm file.
   string const fileName = "build_index_test" DATA_FILE_EXTENSION;
-  FileWriter::DeleteFileX(fileName);
+  string const filePath = p.WritablePathForFile(fileName);
+  FileWriter::DeleteFileX(filePath);
 
   // Copy original mwm file and replace index in it.
   {
-    FilesContainerW containerWriter(fileName);
+    FilesContainerW containerWriter(filePath);
     vector<string> tags;
     originalContainer.ForEachTag(MakeBackInsertFunctor(tags));
     for (size_t i = 0; i < tags.size(); ++i)
     {
       if (tags[i] != INDEX_FILE_TAG)
-      {
-        FilesContainerR::ReaderT reader = originalContainer.GetReader(tags[i]);
-        size_t const sz = static_cast<size_t>(reader.Size());
-        if (sz > 0)
-        {
-          vector<char> data(sz);
-          reader.Read(0, &data[0], sz);
-          containerWriter.Append(data, tags[i]);
-        }
-      }
+        containerWriter.Append(originalContainer.GetReader(tags[i]), tags[i]);
     }
     containerWriter.Append(serialIndex, INDEX_FILE_TAG);
   }
@@ -57,12 +53,12 @@ UNIT_TEST(BuildIndexTest)
   {
     // Check that index actually works.
     Index<ModelReaderPtr>::Type index;
-    index.Add(new FileReader(fileName));
+    index.Add(fileName);
 
     // Make sure that index is actually parsed.
     index.ForEachInScale(NoopFunctor(), 15);
   }
 
   // Clean after the test.
-  FileWriter::DeleteFileX(fileName);
+  FileWriter::DeleteFileX(filePath);
 }

@@ -48,10 +48,10 @@ namespace feature
     return first.second > second.second;
   }
 
-  void DumpTypes(string const & datFile)
+  void DumpTypes(string const & fPath)
   {
     TypesCollector doClass;
-    feature::ForEachFromDat(new FileReader(datFile), doClass);
+    feature::ForEachFromDat(fPath, doClass);
 
     typedef vector<stats_elem_type> vec_to_sort;
     vec_to_sort vecToSort(doClass.m_stats.begin(), doClass.m_stats.end());

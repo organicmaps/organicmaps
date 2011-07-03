@@ -183,7 +183,7 @@ class FrameWork
 
   typedef typename TModel::ReaderT ReaderT;
 
-  void AddMap(ReaderT const & file);
+  void AddMap(string const & file);
   void RemoveMap(string const & datFile);
 
   void OnGpsUpdate(location::GpsInfo const & info);
@@ -202,7 +202,7 @@ public:
 
   model_t & get_model();
 
-  typedef vector<ReaderT> maps_list_t;
+  typedef vector<string> maps_list_t;
   void EnumLocalMaps(maps_list_t & filesList);
   void EnumBenchmarkMaps(maps_list_t & filesList);
 

@@ -286,19 +286,15 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   }
 
   template <typename TModel>
-  void FrameWork<TModel>::AddMap(ReaderT const & file)
+  void FrameWork<TModel>::AddMap(string const & file)
   {
     // update rect for Show All button
     feature::DataHeader header;
-    header.Load(FilesContainerR(file).GetReader(HEADER_FILE_TAG));
+    header.Load(FilesContainerR(GetPlatform().GetReader(file)).GetReader(HEADER_FILE_TAG));
+    m_model.AddWorldRect(header.GetBounds());
 
-    m2::RectD bounds = header.GetBounds();
-
-    m_model.AddWorldRect(bounds);
-    {
-      threads::MutexGuard lock(m_modelSyn);
-      m_model.AddMap(file);
-    }
+    threads::MutexGuard lock(m_modelSyn);
+    m_model.AddMap(file);
   }
 
   template <typename TModel>
@@ -508,7 +504,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   class ReadersAdder
   {
   protected:
-    typedef vector<ModelReaderPtr> maps_list_t;
+    typedef vector<string> maps_list_t;
 
   private:
     Platform & m_pl;
@@ -517,9 +513,9 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   public:
     ReadersAdder(Platform & pl, maps_list_t & lst) : m_pl(pl), m_lst(lst) {}
 
-    void operator() (string const & f)
+    void operator() (string const & name)
     {
-      m_lst.push_back(m_pl.GetReader(f));
+      m_lst.push_back(name);
     }
   };
 

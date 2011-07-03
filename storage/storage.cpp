@@ -53,7 +53,6 @@ namespace storage
     m_removeMap = removeFunc;
     m_updateRect = updateRectFunc;
 
-    typedef vector<ModelReaderPtr> map_list_t;
     map_list_t filesList;
     enumMapsFunc(filesList);
 
@@ -170,8 +169,7 @@ namespace storage
     }
     void operator()(TTile const & tile)
     {
-      string const file = m_workingDir + tile.first;
-      m_removeFn(file);
+      m_removeFn(tile.first);
     }
   };
 
@@ -353,12 +351,18 @@ namespace storage
       if (size.second != 0)
         m_countryProgress.m_current = size.first;
 
-      /// @todo Get file reader from download framework.
-      // activate downloaded map piece
-      m_addMap(new FileReader(result.m_file));
+      // get file descriptor
+      string file = result.m_file;
+      string::size_type const i = file.find_last_of('/');
+      if (i != string::npos)
+        file = file.substr(i+1);
 
+      // activate downloaded map piece
+      m_addMap(file);
+
+      // update rect from downloaded file
       feature::DataHeader header;
-      header.Load(FilesContainerR(result.m_file).GetReader(HEADER_FILE_TAG));
+      header.Load(FilesContainerR(GetPlatform().GetReader(file)).GetReader(HEADER_FILE_TAG));
       m_updateRect(header.GetBounds());
     }
     DownloadNextCountryFromQueue();

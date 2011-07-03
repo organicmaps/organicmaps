@@ -8,6 +8,8 @@
 
 #include "../../defines.hpp"
 
+#include "../platform/platform.hpp"
+
 #include "../geometry/rect2d.hpp"
 
 #include "../coding/file_container.hpp"
@@ -134,7 +136,7 @@ public:
     }
   }
 
-  void Add(ModelReaderPtr const & file)
+  void Add(string const & file)
   {
     threads::MutexGuard mutexGuard(m_mutex);
     UNUSED_VALUE(mutexGuard);
@@ -148,14 +150,14 @@ public:
     UpdateIndexes();
   }
 
-  void Remove(string const & path)
+  void Remove(string const & file)
   {
     threads::MutexGuard mutexGuard(m_mutex);
     UNUSED_VALUE(mutexGuard);
 
     for (size_t i = 0; i < m_indexes.size(); ++i)
     {
-      if (m_indexes[i]->IsMyData(path))
+      if (m_indexes[i]->IsMyData(file))
         m_indexes[i]->m_action = IndexProxy::INDEX_REMOVE;
     }
 
@@ -218,15 +220,12 @@ private:
   class IndexProxy
   {
   public:
-    typedef ModelReaderPtr ReaderT;
-
-    explicit IndexProxy(ReaderT const & file)
+    explicit IndexProxy(string const & file)
       : m_action(INDEX_DO_NOTHING), m_file(file), m_pIndex(NULL), m_lockCount(0),
         m_queriesSkipped(0)
     {
-      // TODO: If path is cellid-style-square, make rect from cellid and don't open the file.
       feature::DataHeader header;
-      header.Load(FilesContainerR(m_file).GetReader(HEADER_FILE_TAG));
+      header.Load(FilesContainerR(GetPlatform().GetReader(m_file)).GetReader(HEADER_FILE_TAG));
 
       m_rect = header.GetBounds();
       m_scaleRange = header.GetScaleRange();
@@ -266,13 +265,9 @@ private:
       return m_lockCount == 0;
     }
 
-    bool IsMyData(string const & path) const
+    bool IsMyData(string const & file) const
     {
-      return m_file.IsEqual(path);
-    }
-    bool IsMyData(ReaderT const & file) const
-    {
-      return m_file.IsEqual(file);
+      return Reader::IsEqual(m_file, file);
     }
 
     void CloseIfUnlocked()
@@ -312,8 +307,7 @@ private:
     {
       if (!m_pIndex)
       {
-        // LOG(LINFO, (m_Path));
-        FilesContainerR container(m_file);
+        FilesContainerR container(GetPlatform().GetReader(m_file));
         m_pIndex = new IndexT(container);
       }
     }
@@ -329,7 +323,7 @@ private:
       }
     }
 
-    ReaderT m_file;
+    string m_file;
     m2::RectD m_rect;
     pair<int, int> m_scaleRange;
 

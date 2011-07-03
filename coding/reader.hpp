@@ -26,6 +26,8 @@ public:
   virtual Reader * CreateSubReader(uint64_t pos, uint64_t size) const = 0;
 
   void ReadAsString(string & s) const;
+
+  static bool IsEqual(string const & name1, string const & name2);
 };
 
 // Reader from memory.
@@ -122,17 +124,8 @@ public:
   {
     return m_p->CreateSubReader(pos, size);
   }
-
-  inline bool IsEqual(string const & name) const
-  {
-    return m_p->IsEqual(name);
-  }
-
-  inline bool IsEqual(ModelReaderPtr const & file) const
-  {
-    return m_p->IsEqual(file.m_p->GetName());
-  }
 };
+
 
 // Source that reads from a reader.
 template <typename ReaderT> class ReaderSource

@@ -4,5 +4,5 @@
 
 namespace feature
 {
-  void DumpTypes(string const & datFile);
+  void DumpTypes(string const & fPath);
 }

@@ -37,7 +37,7 @@ void FeaturesFetcher::InitClassificator()
   }
 }
 
-void FeaturesFetcher::AddMap(ReaderT const & file)
+void FeaturesFetcher::AddMap(string const & file)
 {
   try
   {

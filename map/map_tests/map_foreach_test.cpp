@@ -2,8 +2,6 @@
 
 #include "../../testing/testing.hpp"
 
-#include "../../geometry/rect_intersect.hpp"
-
 #include "../../platform/platform.hpp"
 
 #include "../../map/feature_vec_model.hpp"
@@ -13,6 +11,8 @@
 #include "../../indexer/feature_visibility.hpp"
 #include "../../indexer/feature_processor.hpp"
 #include "../../indexer/classificator.hpp"
+
+#include "../../geometry/rect_intersect.hpp"
 
 #include "../../base/logging.hpp"
 
@@ -227,14 +227,15 @@ namespace
     }
   };
 
-  void RunTest(ModelReaderPtr const & file)
+  void RunTest(string const & file)
   {
     model::FeaturesFetcher src1;
     src1.InitClassificator();
     src1.AddMap(file);
 
     feature::DataHeader mapInfo;
-    mapInfo.Load(FilesContainerR(file).GetReader(HEADER_FILE_TAG));
+    ModelReaderPtr reader = GetPlatform().GetReader(file);
+    mapInfo.Load(FilesContainerR(reader).GetReader(HEADER_FILE_TAG));
 
     vector<m2::RectD> rects;
     rects.push_back(mapInfo.GetBounds());
@@ -247,7 +248,7 @@ namespace
       feature_cont_t v1, v2;
       for_each_in_rect<AccumulatorBase>(src1, v1, r);
 
-      file_source_t src2(file);
+      file_source_t src2(reader);
       for_each_in_rect<AccumulatorEtalon>(src2, v2, r);
 
       int const level = scales::GetScaleLevel(r);
@@ -278,7 +279,7 @@ namespace
     char c;
     cin >> c;
     if (c == 'y')
-      RunTest(GetPlatform().GetReader(fName + DATA_FILE_EXTENSION));
+      RunTest(fName + DATA_FILE_EXTENSION);
   }
 }
 
