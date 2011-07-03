@@ -49,7 +49,7 @@ shared_ptr<DrawerYG> CreateDrawer(shared_ptr<yg::ResourceManager> pRM)
   DrawerYG::params_t p;
   p.m_resourceManager = pRM;
   p.m_isMultiSampled = pl.IsMultiSampled();
-  p.m_frameBuffer.reset(new yg::gl::FrameBuffer());
+//  p.m_frameBuffer.reset(new yg::gl::FrameBuffer());
   p.m_glyphCacheID = 1;
 
   return make_shared_ptr(new DrawerYG(pl.SkinName(), p));
