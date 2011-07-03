@@ -17,7 +17,8 @@ sl::SortedIndex::SortedIndex(Dictionary const & dictionary,
                              Reader const * pIndexReader,
                              StrFn const & strFn)
   : m_Dictionary(dictionary), m_StrFn(strFn),
-    m_SortedVector(PolymorphReader(pIndexReader), pIndexReader->Size() / sizeof(DicId))
+    m_SortedVector( PolymorphReader(pIndexReader),
+                    static_cast<DDVectorType::size_type>(pIndexReader->Size() / sizeof(DicId)))
 {
   STATIC_ASSERT(sizeof(sl::SortedIndex::DicId) == 3);
 }
