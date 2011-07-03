@@ -84,9 +84,12 @@ data/index.stamp
 data/benchmarks/*.trace
 data/benchmarks/results.txt
 
+android/.classpath
+android/.cproject
+android/.project
+android/assets
+
+qtc_packaging
+
 syntax: regexp
 (.*/)?\#[^/]*\#$
-
-/android/.classpath
-/android/.cproject
-/android/.project
