@@ -570,8 +570,8 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     string buffer;
     try
     {
-			string configPath;
-    	Settings::Get("BenchmarkConfig", configPath);
+      string configPath;
+      Settings::Get("BenchmarkConfig", configPath);
       ReaderPtr<Reader>(pl.GetReader(configPath)).ReadAsString(buffer);
     }
     catch (RootException const & e)
