@@ -24,6 +24,8 @@ SOURCES += \
     normalize_unicode.cpp \
     runner.cpp \
     timer.cpp \
+    internal/message.cpp \
+    exception.cpp
 
 HEADERS += \
     SRC_FIRST.hpp \

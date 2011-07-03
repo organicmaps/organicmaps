@@ -10,41 +10,21 @@
 #include "../../std/vector.hpp"
 
 
+/// @name Declarations.
+//@{
 template <typename T> inline string debug_print(T const & t);
-inline string debug_print(string const & t);
+
+string debug_print(string const & t);
 inline string debug_print(char const * t);
 inline string debug_print(char t);
+
 template <typename U, typename V> inline string debug_print(pair<U,V> const & p);
 template <typename T> inline string debug_print(list<T> const & v);
 template <typename T> inline string debug_print(vector<T> const & v);
 template <typename T> inline string debug_print(set<T> const & v);
 template <typename U, typename V> inline string debug_print(map<U,V> const & v);
+//@}
 
-inline string debug_print(string const & t)
-{
-  string res;
-  res.push_back('\"');
-  for (string::const_iterator it = t.begin(); it != t.end(); ++it)
-  {
-    static char const toHex[] = "0123456789abcdef";
-    unsigned char const c = static_cast<unsigned char>(*it);
-    if (c >= ' ' && c <= '~' && c != '\\' && c != '"')
-      res.push_back(*it);
-    else
-    {
-      res.push_back('\\');
-      if (c == '\\' || c == '"')
-        res.push_back(c);
-      else
-      {
-        res.push_back(toHex[c >> 4]);
-        res.push_back(toHex[c & 0xf]);
-      }
-    }
-  }
-  res.push_back('\"');
-  return res;
-}
 
 inline string debug_print(char const * t)
 {

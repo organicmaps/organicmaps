@@ -451,11 +451,10 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   template <typename TModel>
   void FrameWork<TModel>::SendBenchmarkResults()
   {
-//    ofstream fout(GetPlatform().WritablePathForFile("benchmarks/results.txt").c_str(), ios::app);
-//    fout << "[COMPLETED]";
-//    fout.close();
-    /// send to server for adding to statistics graphics
-    /// and delete results file
+    //ofstream fout(GetPlatform().WritablePathForFile("benchmarks/results.txt").c_str(), ios::app);
+    //fout << "[COMPLETED]";
+    //fout.close();
+    /// @todo send to server for adding to statistics graphics and delete results file
   }
 
   template <typename TModel>
@@ -690,7 +689,8 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   }
 
   template <typename TModel>
-  void FrameWork<TModel>::initializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
+  void FrameWork<TModel>::initializeGL(
+                    shared_ptr<yg::gl::RenderContext> const & primaryContext,
                     shared_ptr<yg::ResourceManager> const & resourceManager)
   {
     m_resourceManager = resourceManager;
@@ -844,8 +844,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   void FrameWork<TModel>::PaintImpl(shared_ptr<PaintEvent> e,
                  ScreenBase const & screen,
                  m2::RectD const & selectRect,
-                 int scaleLevel
-                 )
+                 int scaleLevel)
   {
     fwork::DrawProcessor doDraw(selectRect, screen, e, scaleLevel, m_renderQueue.renderStatePtr(), e->drawer()->screen()->glyphCache());
     m_renderQueue.renderStatePtr()->m_isEmptyModelCurrent = true;
@@ -1149,7 +1148,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   void FrameWork<TModel>::Move(double azDir, double factor)
   {
     m_navigator.Move(azDir, factor);
-//    m_tiler.seed(m_navigator.Screen(), m_tileSize);
+    //m_tiler.seed(m_navigator.Screen(), m_tileSize);
     UpdateNow();
   }
   //@}
@@ -1178,7 +1177,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   void FrameWork<TModel>::Scale(double scale)
   {
     m_navigator.Scale(scale);
-//    m_tiler.seed(m_navigator.Screen(), m_tileSize);
+    //m_tiler.seed(m_navigator.Screen(), m_tileSize);
     UpdateNow();
   }
 
