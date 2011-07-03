@@ -59,10 +59,11 @@ namespace my
 
   LogMessageFn LogMessage = &LogMessageDefault;
 
-  void SetLogMessageFn(LogMessageFn fn)
+  LogMessageFn SetLogMessageFn(LogMessageFn fn)
   {
-    LogMessage = fn;
-  };
+    std::swap(LogMessage, fn);
+    return fn;
+  }
 
 #ifdef DEBUG
   LogLevel g_LogLevel = LDEBUG;

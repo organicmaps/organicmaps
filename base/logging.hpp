@@ -19,7 +19,8 @@ namespace my
   extern LogMessageFn LogMessage;
   extern LogLevel g_LogLevel;
 
-  void SetLogMessageFn(LogMessageFn fn);
+  /// @return Pointer to previous message function.
+  LogMessageFn SetLogMessageFn(LogMessageFn fn);
 }
 
 using ::my::LDEBUG;
