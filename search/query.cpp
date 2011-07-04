@@ -19,32 +19,40 @@ uint32_t KeywordMatch(strings::UniChar const * sA, uint32_t sizeA,
                       strings::UniChar const * sB, uint32_t sizeB,
                       uint32_t maxCost)
 {
+  /*
   if (sizeA != sizeB)
     return maxCost + 1;
   for (uint32_t i = 0; i< sizeA; ++i)
     if (sA[i] != sB[i])
       return maxCost + 1;
   return 0;
-  // return StringMatchCost(sA, sizeA, sB, sizeB, DefaultMatchCost(), maxCost, false);
+  */
+  return StringMatchCost(sA, sizeA, sB, sizeB, DefaultMatchCost(), maxCost, false);
 }
 
 uint32_t PrefixMatch(strings::UniChar const * sA, uint32_t sizeA,
                      strings::UniChar const * sB, uint32_t sizeB,
                      uint32_t maxCost)
 {
+  /*
   if (sizeA > sizeB)
     return maxCost + 1;
   for (uint32_t i = 0; i< sizeA; ++i)
     if (sA[i] != sB[i])
       return maxCost + 1;
   return 0;
-  // return StringMatchCost(sA, sizeA, sB, sizeB, DefaultMatchCost(), maxCost, true);
+  */
+  return StringMatchCost(sA, sizeA, sB, sizeB, DefaultMatchCost(), maxCost, true);
 }
 
 inline uint32_t GetMaxKeywordMatchScore() { return 512; }
 inline uint32_t GetMaxPrefixMatchScore(int size)
 {
-  return min(512, 256 * max(0, size - 1));
+  if (size < 3)
+    return 1;
+  if (size < 6)
+    return 256;
+  return 512;
 }
 
 inline KeywordMatcher MakeMatcher(vector<strings::UniString> const & tokens,
