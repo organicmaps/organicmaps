@@ -12,11 +12,17 @@ using strings::UniChar;
 namespace impl
 {
 
-template <class DelimsT, typename F>
-void SplitAndNormalizeAndSimplifyString(string const & s, F f, DelimsT const & delims)
+inline strings::UniString NormalizeAndSimplifyString(string const & s)
 {
   strings::UniString uniS = strings::MakeLowerCase(strings::MakeUniString(s));
   strings::Normalize(uniS);
+  return uniS;
+}
+
+template <class DelimsT, typename F>
+void SplitAndNormalizeAndSimplifyString(string const & s, F f, DelimsT const & delims)
+{
+  strings::UniString const uniS = NormalizeAndSimplifyString(s);
   for (strings::TokenizeIterator<DelimsT> iter(uniS, delims); iter; ++iter)
     f(iter.GetUniString());
 }
