@@ -52,7 +52,7 @@ namespace qt
           10,
           512, 256,
           5,
-          256, 256, 80,
+          GetPlatform().TileSize(), GetPlatform().TileSize(), GetPlatform().MaxTilesCount(),
           "unicode_blocks.txt",
           "fonts_whitelist.txt",
           "fonts_blacklist.txt",

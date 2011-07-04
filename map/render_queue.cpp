@@ -5,14 +5,19 @@
 #include "../yg/render_state.hpp"
 #include "../yg/rendercontext.hpp"
 
+#include "../base/logging.hpp"
+
 RenderQueue::RenderQueue(
     string const & skinName,
     bool isBenchmarking,
     unsigned scaleEtalonSize,
+    unsigned maxTilesCount,
+    unsigned tasksCount,
     yg::Color const & bgColor
-  ) : m_sequence(0), m_tileCache(39)
+  ) : m_sequence(0), m_tileCache(maxTilesCount - 1)
 {
-  m_tasksCount = 1; //< calculate from the CPU Cores Number
+  m_tasksCount = tasksCount; //< calculate from the CPU Cores Number
+  LOG(LINFO, ("initializing ", tasksCount, " rendering threads"));
   m_tasks = new Task[m_tasksCount];
   for (unsigned i = 0; i < m_tasksCount; ++i)
     m_tasks[i].m_routine = new RenderQueueRoutine(
@@ -43,6 +48,7 @@ RenderQueue::~RenderQueue()
   m_renderCommands.Cancel();
   for (unsigned i = 0; i < m_tasksCount; ++i)
     m_tasks[i].m_thread.Cancel();
+  delete [] m_tasks;
 }
 
 void RenderQueue::AddCommand(RenderQueueRoutine::render_fn_t const & fn, yg::Tiler::RectInfo const & rectInfo, size_t seqNum)

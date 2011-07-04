@@ -52,6 +52,8 @@ public:
   RenderQueue(string const & skinName,
               bool isBenchmarking,
               unsigned scaleEtalonSize,
+              unsigned maxTilesCount,
+              unsigned tasksCount,
               yg::Color const & bgColor);
   /// destructor.
   ~RenderQueue();

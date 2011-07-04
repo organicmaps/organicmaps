@@ -54,8 +54,8 @@ namespace di
     DrawRule() : m_rule(0) {}
     DrawRule(rule_ptr_t p, int d, bool tr) : m_rule(p), m_depth(d), m_transparent(tr) {}
 
-    uint32_t GetID() const;
-    void SetID(uint32_t id) const;
+    uint32_t GetID(size_t threadID) const;
+    void SetID(size_t threadID, uint32_t id) const;
   };
 }
 
@@ -66,11 +66,12 @@ class DrawerYG
   double m_scale;
   double m_visualScale;
   int m_level;
+  size_t m_threadID;
 
   shared_ptr<yg::gl::Screen> m_pScreen;
   shared_ptr<yg::Skin> m_pSkin;
 
-  static void ClearSkinPage(uint8_t pageID);
+  static void ClearSkinPage(size_t threadID, uint8_t pageID);
 
 protected:
   void drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth);
@@ -92,6 +93,7 @@ public:
   {
     size_t m_dynamicPagesCount;
     size_t m_textPagesCount;
+    size_t m_threadID;
     Params();
   };
 

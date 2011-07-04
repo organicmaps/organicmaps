@@ -32,6 +32,7 @@ SOURCES += \
   assert_test.cpp \
   timer_test.cpp \
   mru_cache_test.cpp \
-  threaded_list_test.cpp
+  threaded_list_test.cpp \
+    condition_test.cpp
 
 HEADERS +=

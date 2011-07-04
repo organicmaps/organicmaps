@@ -102,11 +102,11 @@
           blitVBSize, blitIBSize, 10,
           512, 256, 6,
           512, 256, 4,
+          256, 256, 40,                                                                    
 					"unicode_blocks.txt",
 					"fonts_whitelist.txt",
  					"fonts_blacklist.txt",
-          1 * 1024 * 1024,
-          500 * 1024,
+          1.5 * 1024 * 1024,
           fmt,
           !yg::gl::g_isBufferObjectsSupported,
           !pl.IsMultiSampled()));

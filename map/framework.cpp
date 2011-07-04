@@ -338,13 +338,15 @@ void FrameWork<TModel>::AddRedrawCommandSure()
       m_renderQueue(GetPlatform().SkinName(),
                     GetPlatform().IsBenchmarking(),
                     GetPlatform().ScaleEtalonSize(),
+                    GetPlatform().MaxTilesCount(),
+                    GetPlatform().CpuCores(),
                     m_bgColor),
       m_isRedrawEnabled(true),
       m_metresMinWidth(20),
       m_minRulerWidth(97),
       m_centeringMode(EDoNothing),
       m_maxDuration(0),
-      m_tileSize(512)
+      m_tileSize(GetPlatform().TileSize())
   {
     m_startTime = my::FormatCurrentTime();
 
@@ -916,7 +918,10 @@ void FrameWork<TModel>::AddRedrawCommandSure()
                               m_renderQueue.renderState().m_actualScreen,
                               currentScreen);*/
 
-    m_tiler.seed(currentScreen, m_tileSize);
+    m_tiler.seed(currentScreen,
+                 currentScreen.GlobalRect().Center(),
+                 m_tileSize,
+                 GetPlatform().ScaleEtalonSize());
 
     while (m_tiler.hasTile())
     {
@@ -924,10 +929,9 @@ void FrameWork<TModel>::AddRedrawCommandSure()
 
       m_renderQueue.TileCache().lock();
 
-      LOG(LINFO, ("Checking TileRect:", ri.m_rect));
-
       if (m_renderQueue.TileCache().hasTile(ri))
       {
+        m_renderQueue.TileCache().touchTile(ri);
         yg::Tile tile = m_renderQueue.TileCache().getTile(ri);
         m_renderQueue.TileCache().unlock();
         pDrawer->screen()->blit(tile.m_renderTarget, tile.m_tileScreen, currentScreen, true);

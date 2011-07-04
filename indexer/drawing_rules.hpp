@@ -7,6 +7,7 @@
 #include "../std/vector.hpp"
 #include "../std/array.hpp"
 #include "../std/string.hpp"
+#include "../base/buffer_vector.hpp"
 
 class ReaderPtrStream;
 class FileWriterStream;
@@ -18,25 +19,61 @@ namespace drule
   class BaseRule
   {
     string m_class;
-    mutable uint32_t m_id1, m_id2;
+    mutable buffer_vector<uint32_t, 8> m_id1, m_id2;
     char m_type;
 
   public:
     static uint32_t const empty_id = 0xFFFFFFFF;
 
-    BaseRule() : m_id1(empty_id), m_id2(empty_id) {}
+    BaseRule()
+    {
+    }
 
     virtual ~BaseRule() {}
 
     /// @todo Rewrite this. Make an array of IDs.
     //@{
-    uint32_t GetID() const { return m_id1; }
-    void SetID(uint32_t id) const { m_id1 = id; }
-    void MakeEmptyID() { m_id1 = empty_id; }
+    void CheckSize(buffer_vector<uint32_t, 8> & v, size_t s) const
+    {
+      if (v.size() < s)
+        v.resize(s, empty_id);
+    }
 
-    uint32_t GetID2() const { return m_id2; }
-    void SetID2(uint32_t id) const { m_id2 = id; }
-    void MakeEmptyID2() { m_id2 = empty_id; }
+    uint32_t GetID(size_t threadID) const
+    {
+      CheckSize(m_id1, threadID + 1);
+      return m_id1[threadID];
+    }
+
+    void SetID(size_t threadID, uint32_t id) const
+    {
+      CheckSize(m_id1, threadID + 1);
+      m_id1[threadID] = id;
+    }
+
+    void MakeEmptyID(size_t threadID)
+    {
+      CheckSize(m_id1, threadID + 1);
+      m_id1[threadID] = empty_id;
+    }
+
+    uint32_t GetID2(size_t threadID) const
+    {
+      CheckSize(m_id2, threadID + 1);
+      return m_id2[threadID];
+    }
+
+    void SetID2(size_t threadID, uint32_t id) const
+    {
+      CheckSize(m_id2, threadID + 1);
+      m_id2[threadID] = id;
+    }
+
+    void MakeEmptyID2(size_t threadID)
+    {
+      CheckSize(m_id2, threadID + 1);
+      m_id2[threadID] = empty_id;
+    }
     //@}
 
     void SetClassName(string const & cl) { m_class = cl; }

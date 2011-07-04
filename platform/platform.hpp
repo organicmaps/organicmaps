@@ -70,6 +70,10 @@ public:
 
   virtual bool IsBenchmarking() const = 0;
 
+  virtual int TileSize() const = 0;
+
+  virtual int MaxTilesCount() const = 0;
+
   virtual bool IsVisualLog() const = 0;
 
   virtual string DeviceID() const = 0;
@@ -100,6 +104,8 @@ public:
   virtual bool IsBenchmarking() const;
   virtual bool IsVisualLog() const;
   virtual int ScaleEtalonSize() const;
+  virtual int TileSize() const;
+  virtual int MaxTilesCount() const;
 };
 
 extern "C" Platform & GetPlatform();

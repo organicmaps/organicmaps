@@ -1,5 +1,7 @@
 #include "drawer_yg.hpp"
 
+#include "../std/bind.hpp"
+
 #include "../indexer/drawing_rules.hpp"
 #include "../indexer/scales.hpp"
 
@@ -18,21 +20,23 @@
 
 DrawerYG::Params::Params()
   : m_dynamicPagesCount(2),
-    m_textPagesCount(2)
+    m_textPagesCount(2),
+    m_threadID(0)
 {
 }
 
-uint32_t di::DrawRule::GetID() const
+uint32_t di::DrawRule::GetID(size_t threadID) const
 {
-  return (m_transparent ? m_rule->GetID2() : m_rule->GetID());
+  return (m_transparent ? m_rule->GetID2(threadID) : m_rule->GetID(threadID));
 }
 
-void di::DrawRule::SetID(uint32_t id) const
+void di::DrawRule::SetID(size_t threadID, uint32_t id) const
 {
-  m_transparent ? m_rule->SetID2(id) : m_rule->SetID(id);
+  m_transparent ? m_rule->SetID2(threadID, id) : m_rule->SetID(threadID, id);
 }
 
 DrawerYG::DrawerYG(string const & skinName, params_t const & params)
+  : m_threadID(params.m_threadID)
 {
   m_pScreen = shared_ptr<yg::gl::Screen>(new yg::gl::Screen(params));
   m_pSkin = shared_ptr<yg::Skin>(loadSkin(params.m_resourceManager,
@@ -42,31 +46,33 @@ DrawerYG::DrawerYG(string const & skinName, params_t const & params)
   m_pScreen->setSkin(m_pSkin);
 
   if (m_pSkin)
-    m_pSkin->addClearPageFn(&DrawerYG::ClearSkinPage, 0);
+    m_pSkin->addClearPageFn(bind(&DrawerYG::ClearSkinPage, m_threadID, _1), 0);
 }
 
 namespace
 {
   struct make_invalid
   {
+    size_t m_threadID;
     uint32_t m_pageIDMask;
 
-    make_invalid(uint8_t pageID) : m_pageIDMask(pageID << 24)
+    make_invalid(size_t threadID, uint8_t pageID)
+      : m_threadID(threadID), m_pageIDMask(pageID << 24)
     {}
 
     void operator() (int, int, drule::BaseRule * p)
     {
-      if ((p->GetID() & 0xFF000000) == m_pageIDMask)
-        p->MakeEmptyID();
-      if ((p->GetID2() & 0xFF000000) == m_pageIDMask)
-        p->MakeEmptyID2();
+      if ((p->GetID(m_threadID) & 0xFF000000) == m_pageIDMask)
+        p->MakeEmptyID(m_threadID);
+      if ((p->GetID2(m_threadID) & 0xFF000000) == m_pageIDMask)
+        p->MakeEmptyID2(m_threadID);
     }
   };
 }
 
-void DrawerYG::ClearSkinPage(uint8_t pageID)
+void DrawerYG::ClearSkinPage(size_t threadID, uint8_t pageID)
 {
-  drule::rules().ForEachRule(make_invalid(pageID));
+  drule::rules().ForEachRule(make_invalid(threadID, pageID));
 }
 
 void DrawerYG::beginFrame()
@@ -96,7 +102,7 @@ void DrawerYG::drawSymbol(m2::PointD const & pt, string const & symbolName, yg::
 
 void DrawerYG::drawCircle(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth)
 {
-  uint32_t id = pRule->GetID();
+  uint32_t id = pRule->GetID(m_threadID);
   if (id == drule::BaseRule::empty_id)
   {
     double const radius = min(max(pRule->GetRadius() * m_scale, 3.0), 6.0) * m_visualScale;
@@ -111,7 +117,7 @@ void DrawerYG::drawCircle(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition
                   yg::Color::fromXRGB(lineC, alpha)));
 
     if (id != drule::BaseRule::empty_id)
-      pRule->SetID(id);
+      pRule->SetID(m_threadID, id);
     else
     {
       //ASSERT ( false, ("Can't find symbol by id = ", (name)) );
@@ -127,7 +133,7 @@ void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition
   // Use BaseRule::m_id to cache for point draw rule.
   // This rules doesn't mix with other rule-types.
 
-  uint32_t id = pRule->GetID();
+  uint32_t id = pRule->GetID(m_threadID);
   if (id == drule::BaseRule::empty_id)
   {
     string name;
@@ -135,7 +141,7 @@ void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition
     id = m_pSkin->mapSymbol(name.c_str());
 
     if (id != drule::BaseRule::empty_id)
-      pRule->SetID(id);
+      pRule->SetID(m_threadID, id);
     else
     {
       //ASSERT ( false, ("Can't find symbol by id = ", (name)) );
@@ -152,7 +158,7 @@ void DrawerYG::drawPath(di::PathInfo const & info, di::DrawRule const * rules, s
   bool flag = false;
   for (size_t i = 0; i < count; ++i)
   {
-    if (rules[i].GetID() == drule::BaseRule::empty_id)
+    if (rules[i].GetID(m_threadID) == drule::BaseRule::empty_id)
     {
       flag = true;
       break;
@@ -186,7 +192,7 @@ void DrawerYG::drawPath(di::PathInfo const & info, di::DrawRule const * rules, s
     if (m_pSkin->mapPenInfo(&penInfos[0], &styleIDs[0], count))
     {
       for (size_t i = 0; i < count; ++i)
-        rules[i].SetID(styleIDs[i]);
+        rules[i].SetID(m_threadID, styleIDs[i]);
     }
     else
     {
@@ -197,7 +203,7 @@ void DrawerYG::drawPath(di::PathInfo const & info, di::DrawRule const * rules, s
 
   // draw path with array of rules
   for (size_t i = 0; i < count; ++i)
-    m_pScreen->drawPath(&info.m_path[0], info.m_path.size(), -info.GetOffset(), rules[i].GetID(), rules[i].m_depth);
+    m_pScreen->drawPath(&info.m_path[0], info.m_path.size(), -info.GetOffset(), rules[i].GetID(m_threadID), rules[i].m_depth);
 }
 
 void DrawerYG::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth)

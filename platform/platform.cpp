@@ -147,3 +147,13 @@ int BasePlatformImpl::ScaleEtalonSize() const
 {
   return 512 + 256;
 }
+
+int BasePlatformImpl::MaxTilesCount() const
+{
+  return 80;
+}
+
+int BasePlatformImpl::TileSize() const
+{
+  return 256;
+}

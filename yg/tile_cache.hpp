@@ -46,6 +46,8 @@ namespace yg
     void addTile(Tiler::RectInfo const & key, Entry const & entry);
     /// check, whether we have some tile in the cache
     bool hasTile(Tiler::RectInfo const & key);
+    /// touch tile
+    void touchTile(Tiler::RectInfo const & key);
     /// get tile from the cache
     Tile const & getTile(Tiler::RectInfo const & key);
   };

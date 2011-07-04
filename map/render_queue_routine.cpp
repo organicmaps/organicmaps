@@ -83,6 +83,7 @@ void RenderQueueRoutine::Do()
   params.m_infoLayer = infoLayer;
   params.m_glyphCacheID = m_resourceManager->renderThreadGlyphCacheID(m_threadNum);
   params.m_useOverlay = true;
+  params.m_threadID = m_threadNum;
 /*  params.m_isDebugging = true;
   params.m_drawPathes = false;
   params.m_drawAreas = false;
@@ -103,8 +104,13 @@ void RenderQueueRoutine::Do()
       threads::MutexGuard guard(m_mutex);
 
       m_currentCommand = m_renderQueue->RenderCommands().Front(true);
-      if (IsCancelled())
+
+      if (m_renderQueue->RenderCommands().IsCancelled())
+      {
+        LOG(LINFO, (m_threadNum, " cancelled on renderCommands"));
         break;
+      }
+
       m_currentCommand->m_paintEvent = make_shared_ptr(new PaintEvent(m_threadDrawer));
 
       /// commands from the previous sequence are ignored
@@ -129,8 +135,12 @@ void RenderQueueRoutine::Do()
     shared_ptr<yg::gl::BaseTexture> tileTarget;
 
     tileTarget = m_resourceManager->renderTargets().Front(true);
-    if (IsCancelled())
+
+    if (m_resourceManager->renderTargets().IsCancelled())
+    {
+      LOG(LINFO, (m_threadNum, " cancelled on renderTargets"));
       break;
+    }
 
     m_threadDrawer->screen()->setRenderTarget(tileTarget);
 
@@ -140,13 +150,11 @@ void RenderQueueRoutine::Do()
 
     frameScreen.SetFromRect(m_currentCommand->m_rectInfo.m_rect);
 
-    int scaleLevel = scales::GetScaleLevel(m_currentCommand->m_rectInfo.m_rect);
-
     m_currentCommand->m_renderFn(
         m_currentCommand->m_paintEvent,
         frameScreen,
         m_currentCommand->m_rectInfo.m_rect,
-        scaleLevel);
+        m_currentCommand->m_rectInfo.m_drawScale);
 
     /// rendering all collected texts
 //      m_infoLayer->draw(m_threadDrawer->screen().get(), math::Identity<double, 3>());

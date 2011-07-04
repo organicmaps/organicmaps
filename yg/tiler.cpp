@@ -11,30 +11,34 @@ namespace yg
     /// pack y in 0-16 bits
     /// pack x in 17-33 bits
     /// pack scale in 34-40 bits
-    return ((m_y & 0x1FF) | ((m_x & 0x1FF) << 17) | ((uint64_t)m_scale & 0x1F) << 34);
+    return ((m_y & 0x1FF)
+         | ((m_x & 0x1FF) << 17)
+         | ((uint64_t)m_tileScale & 0x1F) << 34)
+         | ((uint64_t)m_drawScale & 0x1F) << 40;
   }
 
-  void Tiler::RectInfo::fromUInt64Cell(uint64_t v, m2::RectD const & globRect)
+  void Tiler::RectInfo::fromUInt64Cell(uint64_t v, m2::RectD const & globRect, m2::PointD const & centerPt)
   {
     m_y = v & 0x1FF;
     m_x = (v >> 17) & 0x1FF;
-    m_scale = (v >> 34) & 0x1F;
-    init(globRect);
+    m_tileScale = (v >> 34) & 0x1F;
+    m_drawScale = (v >> 40) & 0x1F;
+    init(globRect, centerPt);
   }
 
   Tiler::RectInfo::RectInfo()
-    : m_scale(0), m_x(0), m_y(0), m_distance(0), m_coverage(0)
+    : m_drawScale(0), m_tileScale(0), m_x(0), m_y(0), m_distance(0), m_coverage(0)
   {}
 
-  Tiler::RectInfo::RectInfo(int scale, int x, int y, m2::RectD const & globRect)
-    : m_scale(scale), m_x(x), m_y(y)
+  Tiler::RectInfo::RectInfo(int drawScale, int tileScale, int x, int y, m2::RectD const & globRect, m2::PointD const & centerPt)
+    : m_drawScale(drawScale), m_tileScale(tileScale), m_x(x), m_y(y)
   {
-    init(globRect);
+    init(globRect, centerPt);
   }
 
-  void Tiler::RectInfo::init(m2::RectD const & globRect)
+  void Tiler::RectInfo::init(m2::RectD const & globRect, m2::PointD const & centerPt)
   {
-    int k = 1 << m_scale;
+    int k = 1 << m_tileScale;
 
     double rectSizeX = (MercatorBounds::maxX - MercatorBounds::minX) / k;
     double rectSizeY = (MercatorBounds::maxY - MercatorBounds::minY) / k;
@@ -44,7 +48,7 @@ namespace yg
     m_rect.setMinY(m_y * rectSizeY);
     m_rect.setMaxY((m_y + 1) * rectSizeY);
 
-    m_distance = m_rect.Center().Length(globRect.Center());
+    m_distance = m_rect.Center().Length(centerPt);
     m2::RectD r = globRect;
     if (r.Intersect(m_rect))
       m_coverage = r.SizeX() * r.SizeY() / (m_rect.SizeX() * m_rect.SizeY());
@@ -69,7 +73,7 @@ namespace yg
     return l.m_distance > r.m_distance;
   }
 
-  void Tiler::seed(ScreenBase const & screen, int scaleEtalonSize)
+  void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt, int tileSize, int scaleEtalonSize)
   {
     if (screen != m_screen)
       ++m_seqNum;
@@ -80,13 +84,25 @@ namespace yg
                           pxCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
                 glbRect);
 
-    m_scale = scales::GetScaleLevel(glbRect);
+    m_drawScale = scales::GetScaleLevel(glbRect);
+
     m_screen = screen;
 
     m2::RectD const screenRect = m_screen.GlobalRect();
 
-    double rectSizeX = (MercatorBounds::maxX - MercatorBounds::minX) / (1 << m_scale);
-    double rectSizeY = (MercatorBounds::maxY - MercatorBounds::minY) / (1 << m_scale);
+    /// slightly smaller than original to produce "antialiasing" effect using bilinear filtration.
+    tileSize /= 1.05;
+
+    screen.PtoG(m2::RectD(pxCenter - m2::PointD(tileSize / 2, tileSize / 2),
+                          pxCenter + m2::PointD(tileSize / 2, tileSize / 2)),
+                glbRect);
+
+    double glbRectSize = min(glbRect.SizeX(), glbRect.SizeY());
+
+    m_tileScale = ceil(log((MercatorBounds::maxX - MercatorBounds::minX) / glbRectSize) / log(2));
+
+    double rectSizeX = (MercatorBounds::maxX - MercatorBounds::minX) / (1 << m_tileScale);
+    double rectSizeY = (MercatorBounds::maxY - MercatorBounds::minY) / (1 << m_tileScale);
 
     int minTileX = floor(screenRect.minX() / rectSizeX);
     int maxTileX = ceil(screenRect.maxX() / rectSizeX);
@@ -103,11 +119,9 @@ namespace yg
     for (int tileY = minTileY; tileY < maxTileY; ++tileY)
       for (int tileX = minTileX; tileX < maxTileX; ++tileX)
       {
-        m_coverage.push(RectInfo(m_scale, tileX, tileY, screenRect));
+        m_coverage.push(RectInfo(m_drawScale, m_tileScale, tileX, tileY, screenRect, centerPt));
         ++rectCount;
       }
-
-    LOG(LINFO, ("Tiler coverage contains ", rectCount, " rectangles"));
   }
 
   Tiler::Tiler() : m_seqNum(0)
