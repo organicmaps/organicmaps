@@ -6,6 +6,7 @@
 #include "../indexer/feature_visibility.hpp"
 #include "../base/exception.hpp"
 #include "../base/stl_add.hpp"
+#include "../std/algorithm.hpp"
 #include "../std/scoped_ptr.hpp"
 
 namespace search
@@ -117,6 +118,10 @@ Query::Query(string const & query, m2::RectD const & viewport, IndexType const *
     m_prefix.swap(m_keywords.back());
     m_keywords.pop_back();
   }
+
+  ASSERT_LESS_OR_EQUAL(m_keywords.size(), 31, ());
+  if (m_keywords.size() > 31)
+    m_keywords.resize(31);
 }
 
 Query::~Query()
@@ -127,6 +132,9 @@ Query::~Query()
 
 void Query::Search(function<void (Result const &)> const & f)
 {
+  if (m_bTerminate)
+    return;
+
   // Lat lon matching.
   {
     double lat, lon, latPrec, lonPrec;
@@ -143,39 +151,60 @@ void Query::Search(function<void (Result const &)> const & f)
   // Category matching.
   if (m_pCategories)
   {
-    for (int i = 0; i < m_keywords.size(); ++i)
+    for (CategoriesHolder::const_iterator iCategory = m_pCategories->begin();
+         iCategory != m_pCategories->end(); ++iCategory)
     {
+      string bestPrefixMatch;
+      // TODO: Use 1 here for exact match?
+      static int const PREFIX_LEN_BITS = 5;
+      int bestPrefixMatchPenalty =
+          ((GetMaxPrefixMatchScore(m_prefix.size()) + 1) << PREFIX_LEN_BITS) - 1;
 
-    }
-
-    // TODO: Check if some keyword matched category?
-    if (!m_prefix.empty())
-    {
-      for (CategoriesHolder::const_iterator iCategory = m_pCategories->begin();
-           iCategory != m_pCategories->end(); ++iCategory)
+      for (vector<Category::Name>::const_iterator iName = iCategory->m_synonyms.begin();
+           iName != iCategory->m_synonyms.end(); ++iName)
       {
-        KeywordMatcher matcher = MakeMatcher(vector<strings::UniString>(), m_prefix);
-
-        for (vector<Category::Name>::const_iterator iName = iCategory->m_synonyms.begin();
-             iName != iCategory->m_synonyms.end(); ++iName)
+        if (!m_keywords.empty())
         {
+          // TODO: Insert spelling here?
+          vector<strings::UniString> tokens;
+          SplitAndNormalizeAndSimplifyString(iName->m_name, MakeBackInsertFunctor(tokens),
+                                             Delimiters());
+          int const n = tokens.size();
+          if (m_keywords.size() >= n)
+          {
+            if (equal(tokens.begin(), tokens.end(), m_keywords.begin()))
+              for (vector<uint32_t>::const_iterator iType = iCategory->m_types.begin();
+                   iType != iCategory->m_types.end(); ++iType)
+                m_keywordsToSkipForType[*iType] |= (1 << n) - 1;
+            if (equal(tokens.begin(), tokens.end(), m_keywords.end() - n))
+              for (vector<uint32_t>::const_iterator iType = iCategory->m_types.begin();
+                   iType != iCategory->m_types.end(); ++iType)
+                m_keywordsToSkipForType[*iType] |= ((1 << n) - 1) << (m_keywords.size() - n);
+          }
+        }
+        else if (!m_prefix.empty())
+        {
+          // TODO: Prefer user languages here.
           if (m_prefix.size() >= iName->m_prefixLengthToSuggest)
-            matcher.ProcessNameToken(iName->m_name, strings::MakeUniString(iName->m_name));
+          {
+            KeywordMatcher matcher = MakeMatcher(vector<strings::UniString>(), m_prefix);
+            matcher.ProcessNameToken(string(), NormalizeAndSimplifyString(iName->m_name));
+            ASSERT_LESS(iName->m_prefixLengthToSuggest, 1 << PREFIX_LEN_BITS, ());
+            int const penalty =
+                (matcher.GetPrefixMatchScore() << PREFIX_LEN_BITS) + iName->m_prefixLengthToSuggest;
+            if (penalty < bestPrefixMatchPenalty)
+            {
+              bestPrefixMatchPenalty = penalty;
+              bestPrefixMatch = iName->m_name;
+            }
+          }
         }
+      }
 
-        if (matcher.GetPrefixMatchScore() <= GetMaxPrefixMatchScore(m_prefix.size()) &&
-            matcher.GetMatchScore() <= GetMaxKeywordMatchScore())
-        {
-          int minPrefixMatchLength = 0;
-          for (vector<Category::Name>::const_iterator iName = iCategory->m_synonyms.begin();
-               iName != iCategory->m_synonyms.end(); ++iName)
-            if (iName->m_name == matcher.GetBestMatchName())
-              minPrefixMatchLength = iName->m_prefixLengthToSuggest;
-
-          AddResult(IntermediateResult(matcher.GetBestMatchName(),
-                                       matcher.GetBestMatchName() + ' ',
-                                       minPrefixMatchLength));
-        }
+      if (!bestPrefixMatch.empty())
+      {
+        AddResult(IntermediateResult(bestPrefixMatch, bestPrefixMatch + ' ',
+                                     bestPrefixMatchPenalty));
       }
     }
   }

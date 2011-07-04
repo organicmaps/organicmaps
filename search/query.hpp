@@ -10,6 +10,7 @@
 #include "../std/queue.hpp"
 #include "../std/scoped_ptr.hpp"
 #include "../std/string.hpp"
+#include "../std/unordered_map.hpp"
 #include "../std/vector.hpp"
 
 namespace search
@@ -56,6 +57,7 @@ private:
   CategoriesHolder * m_pCategories;
 
   vector<strings::UniString> m_keywords;
+  unordered_map<uint32_t, uint32_t> m_keywordsToSkipForType;
   vector<vector<uint32_t> > m_keywordCategories;
   strings::UniString m_prefix;
 
