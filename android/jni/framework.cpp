@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "jni_helper.h"
 #include "rendering.h"
+#include "../../std/shared_ptr.hpp"
 
 #include "../../base/logging.hpp"
 

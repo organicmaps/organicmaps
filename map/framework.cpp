@@ -934,7 +934,14 @@ void FrameWork<TModel>::AddRedrawCommandSure()
         m_renderQueue.TileCache().touchTile(ri);
         yg::Tile tile = m_renderQueue.TileCache().getTile(ri);
         m_renderQueue.TileCache().unlock();
-        pDrawer->screen()->blit(tile.m_renderTarget, tile.m_tileScreen, currentScreen, true);
+
+        size_t tileWidth = tile.m_renderTarget->width();
+        size_t tileHeight = tile.m_renderTarget->height();
+
+        pDrawer->screen()->blit(tile.m_renderTarget, tile.m_tileScreen, currentScreen, true,
+                                yg::Color(),
+                                m2::RectI(0, 0, tileWidth - 2, tileHeight - 2),
+                                m2::RectU(1, 1, tileWidth - 1, tileHeight - 1));
       }
       else
       {

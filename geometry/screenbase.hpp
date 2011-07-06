@@ -57,6 +57,12 @@ public:
   void Rotate(double angle);
   void ReverseTransformInPixelCoords(double s, double a, double dx, double dy);
 
+  void OnSize(m2::RectI const & r)
+  {
+    m_PixelRect = m2::RectD(r);
+    UpdateDependentParameters();
+  }
+
   void OnSize(int x0, int y0, int w, int h)
   {
     m_PixelRect = m2::RectD(x0, y0, x0 + w, y0 + h);

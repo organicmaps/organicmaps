@@ -96,7 +96,9 @@ void RenderQueueRoutine::Do()
   m_threadDrawer->SetVisualScale(m_visualScale);
 
   ScreenBase frameScreen;
-  frameScreen.OnSize(0, 0, tileWidth, tileHeight);
+  m2::RectI renderRect(1, 1, tileWidth - 1, tileWidth - 1);
+
+  frameScreen.OnSize(renderRect);
 
   while (!IsCancelled())
   {
@@ -146,9 +148,22 @@ void RenderQueueRoutine::Do()
 
     m_threadDrawer->beginFrame();
 
+    m_threadDrawer->clear(yg::Color(m_bgColor.r, m_bgColor.g, m_bgColor.b, 0));
+    m_threadDrawer->screen()->setClipRect(renderRect);
     m_threadDrawer->clear(m_bgColor);
 
+//    frameScreen.OnSize(renderRect);
     frameScreen.SetFromRect(m_currentCommand->m_rectInfo.m_rect);
+
+/*    m2::RectI r0(renderRect);
+    m2::RectD r1;
+
+    r0.Inflate(40.0, 40.0);
+
+    frameScreen.PtoG(m2::RectD(r0), r1);
+
+    frameScreen.OnSize(r0);
+    frameScreen.SetFromRect(r1);*/
 
     m_currentCommand->m_renderFn(
         m_currentCommand->m_paintEvent,
