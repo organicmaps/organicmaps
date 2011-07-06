@@ -1,17 +1,17 @@
 #pragma once
 
 #include "../geometry/rect2d.hpp"
-#include "layer_manager.hpp"
+#include "renderer.hpp"
 
 namespace yg
 {
   namespace gl
   {
-    class Clipper : public LayerManager
+    class Clipper : public Renderer
     {
     private:
 
-      typedef LayerManager base_t;
+      typedef Renderer base_t;
 
       bool m_isClippingEnabled;
       m2::RectI m_clipRect;

@@ -7,7 +7,6 @@
 #include "../geometry/screenbase.hpp"
 #include "../std/list.hpp"
 #include "../std/function.hpp"
-#include "../yg/thread_renderer.hpp"
 #include "../yg/color.hpp"
 #include "../yg/tile_cache.hpp"
 #include "../yg/tiler.hpp"

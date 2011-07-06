@@ -1,6 +1,5 @@
 #include "geometry_batcher.hpp"
 #include "skin.hpp"
-#include "memento.hpp"
 #include "color.hpp"
 #include "utils.hpp"
 #include "resource_manager.hpp"
