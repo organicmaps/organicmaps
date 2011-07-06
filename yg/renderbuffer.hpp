@@ -13,14 +13,13 @@ namespace yg
 
       unsigned int m_id;
       bool m_isDepthBuffer;
-      bool m_isMultiSampled;
 
       size_t m_width;
       size_t m_height;
 
     public:
 
-      RenderBuffer(size_t width, size_t height, bool isDepthBuffer = false, bool isMultiSampled = false);
+      RenderBuffer(size_t width, size_t height, bool isDepthBuffer = false);
       ~RenderBuffer();
 
       unsigned int id() const;
@@ -29,7 +28,6 @@ namespace yg
       void attachToFrameBuffer();
 
       bool isDepthBuffer() const;
-      bool isMultiSampled() const;
 
       static int current();
 

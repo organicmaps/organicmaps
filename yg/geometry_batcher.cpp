@@ -25,7 +25,7 @@ namespace yg
   namespace gl
   {
     GeometryBatcher::GeometryBatcher(base_t::Params const & params)
-      : base_t(params), m_isAntiAliased(!params.m_isMultiSampled)
+      : base_t(params), m_isAntiAliased(true)
     {
       reset(-1);
       applyStates();

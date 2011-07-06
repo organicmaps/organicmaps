@@ -4,6 +4,7 @@
 
 #include "../../yg/rendercontext.hpp"
 #include "../../yg/resource_manager.hpp"
+#include "../../std/shared_ptr.hpp"
 
 
 shared_ptr<yg::ResourceManager> CreateResourceManager();

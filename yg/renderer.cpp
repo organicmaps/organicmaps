@@ -11,17 +11,14 @@ namespace yg
 {
   namespace gl
   {
-    Renderer::Params::Params() : m_isMultiSampled(false), m_isDebugging(false)
+    Renderer::Params::Params() : m_isDebugging(false)
     {}
 
     Renderer::Renderer(Params const & params)
       : m_frameBuffer(params.m_frameBuffer),
-        m_isMultiSampled(params.m_isMultiSampled),
         m_isDebugging(params.m_isDebugging),
         m_isRendering(false)
     {
-      if (m_isMultiSampled)
-        m_multiSampledFrameBuffer = make_shared_ptr(new FrameBuffer());
       m_resourceManager = params.m_resourceManager;
     }
 
@@ -33,11 +30,8 @@ namespace yg
     void Renderer::beginFrame()
     {
       m_isRendering = true;
-      if (m_isMultiSampled)
-        m_multiSampledFrameBuffer->makeCurrent();
-      else
-        if (m_frameBuffer.get() != 0)
-          m_frameBuffer->makeCurrent();
+      if (m_frameBuffer.get() != 0)
+        m_frameBuffer->makeCurrent();
     }
 
     bool Renderer::isRendering() const
@@ -47,8 +41,6 @@ namespace yg
 
     void Renderer::endFrame()
     {
-//      if (m_isMultiSampled)
-        updateFrameBuffer();
         m_isRendering = false;
     }
 
@@ -57,16 +49,6 @@ namespace yg
       return m_frameBuffer;
     }
 
-    shared_ptr<FrameBuffer> const & Renderer::multiSampledFrameBuffer() const
-    {
-      return m_multiSampledFrameBuffer;
-    }
-
-/*    void Renderer::setFrameBuffer(shared_ptr<FrameBuffer> const & fb)
-    {
-      m_frameBuffer = fb;
-    }*/
-
     shared_ptr<RenderTarget> const & Renderer::renderTarget() const
     {
       return m_frameBuffer->renderTarget();
@@ -74,49 +56,8 @@ namespace yg
 
     void Renderer::setRenderTarget(shared_ptr<RenderTarget> const & rt)
     {
-      if (isRendering())
-        updateFrameBuffer();
-
       m_frameBuffer->setRenderTarget(rt);
       m_frameBuffer->makeCurrent(); //< to attach renderTarget
-
-      if (m_isMultiSampled)
-        m_multiSampledFrameBuffer->makeCurrent();
-    }
-
-
-    void Renderer::updateFrameBuffer()
-    {
-      if (m_isMultiSampled)
-      {
-#ifdef OMIM_GL_ES
-
-        /// @TODO: fix for android
-#ifndef OMIM_OS_ANDROID
-        OGLCHECK(glBindFramebufferOES(GL_READ_FRAMEBUFFER_APPLE, m_multiSampledFrameBuffer->id()));
-        OGLCHECK(glBindFramebufferOES(GL_DRAW_FRAMEBUFFER_APPLE, m_frameBuffer->id()));
-        OGLCHECK(glResolveMultisampleFramebufferAPPLE());
-        OGLCHECK(glBindFramebufferOES(GL_DRAW_FRAMEBUFFER_APPLE, m_multiSampledFrameBuffer->id()));
-#endif
-
-#else
-        OGLCHECK(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_multiSampledFrameBuffer->id()));
-        OGLCHECK(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_frameBuffer->id()));
-        OGLCHECK(glBlitFramebuffer(0, 0, width(), height(),
-                                   0, 0, width(), height(),
-                                   GL_COLOR_BUFFER_BIT,
-                                   GL_NEAREST));
-        OGLCHECK(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_multiSampledFrameBuffer->id()));
-
-#endif
-//        m_multiSampledFrameBuffer->makeCurrent();
-        OGLCHECK(glFinish());
-      }
-    }
-
-    bool Renderer::isMultiSampled() const
-    {
-      return m_isMultiSampled;
     }
 
     void Renderer::clear(yg::Color const & c, bool clearRT, float depth, bool clearDepth)
@@ -144,23 +85,6 @@ namespace yg
 
       m_width = width;
       m_height = height;
-
-      if (m_isMultiSampled)
-      {
-        m_multiSampledFrameBuffer->onSize(m_width, m_height);
-        if ( (!m_multiSampledRenderTarget.get())
-          || (m_multiSampledRenderTarget->width() != width)
-          || (m_multiSampledRenderTarget->height() != height) )
-          {
-            m_multiSampledRenderTarget.reset();
-            m_multiSampledRenderTarget = make_shared_ptr(new RenderBuffer(width, height, false, true));
-            m_multiSampledFrameBuffer->setRenderTarget(m_multiSampledRenderTarget);
-
-            m_multiSampledDepthBuffer.reset();
-            m_multiSampledDepthBuffer = make_shared_ptr(new RenderBuffer(width, height, true, true));
-            m_multiSampledFrameBuffer->setDepthBuffer(m_multiSampledDepthBuffer);
-          }
-      }
 
       if (m_frameBuffer)
         m_frameBuffer->onSize(width, height);

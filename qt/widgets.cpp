@@ -59,7 +59,7 @@ namespace qt
           2 * 1024 * 1024,
           yg::Rt8Bpp,
           !yg::gl::g_isBufferObjectsSupported,
-          !pl.IsMultiSampled()));
+          true));
 
       Platform::FilesList fonts;
       pl.GetFontNames(fonts);
@@ -68,7 +68,6 @@ namespace qt
       DrawerYG::params_t p;
 
       p.m_resourceManager = m_resourceManager;
-      p.m_isMultiSampled = false;
       p.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
       p.m_dynamicPagesCount = 2;
       p.m_textPagesCount = 2;

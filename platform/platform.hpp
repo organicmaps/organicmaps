@@ -60,12 +60,6 @@ public:
 
   virtual string SkinName() const = 0;
 
-  virtual bool IsMultiSampled() const = 0;
-
-  virtual bool DoPeriodicalUpdate() const = 0;
-
-  virtual double PeriodicalUpdateInterval() const = 0;
-
   virtual void GetFontNames(FilesList & res) const = 0;
 
   virtual bool IsBenchmarking() const = 0;
@@ -98,9 +92,6 @@ public:
 
   virtual double VisualScale() const;
   virtual string SkinName() const;
-  virtual bool IsMultiSampled() const;
-  virtual bool DoPeriodicalUpdate() const;
-  virtual double PeriodicalUpdateInterval() const;
   virtual bool IsBenchmarking() const;
   virtual bool IsVisualLog() const;
   virtual int ScaleEtalonSize() const;

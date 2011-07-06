@@ -40,8 +40,8 @@ namespace yg
         renderBufferStack.pop_back();
     }
 
-    RenderBuffer::RenderBuffer(size_t width, size_t height, bool isDepthBuffer, bool isMultiSampled)
-      : m_isDepthBuffer(isDepthBuffer), m_isMultiSampled(isMultiSampled), m_width(width), m_height(height)
+    RenderBuffer::RenderBuffer(size_t width, size_t height, bool isDepthBuffer)
+      : m_isDepthBuffer(isDepthBuffer), m_width(width), m_height(height)
     {
         pushCurrent();
 #ifdef OMIM_GL_ES
@@ -51,20 +51,10 @@ namespace yg
         GLenum target = GL_RENDERBUFFER_OES;
         GLenum internalFormat = m_isDepthBuffer ? GL_DEPTH_COMPONENT24_OES : GL_RGBA8_OES;
 
-        /// @TODO: fix for android
-#ifndef OMIM_OS_ANDROID
-        if (m_isMultiSampled)
-          OGLCHECK(glRenderbufferStorageMultisampleAPPLE(target,
-                                                         2,
-                                                         internalFormat,
-                                                         width,
-                                                         height));
-        else
-#endif
-          OGLCHECK(glRenderbufferStorageOES(GL_RENDERBUFFER_OES,
-                                            internalFormat,
-                                            width,
-                                            height));
+        OGLCHECK(glRenderbufferStorageOES(GL_RENDERBUFFER_OES,
+                                          internalFormat,
+                                          width,
+                                          height));
 #else
         OGLCHECK(glGenRenderbuffers(1, &m_id));
         makeCurrent();
@@ -72,17 +62,10 @@ namespace yg
         GLenum target = GL_RENDERBUFFER_EXT;
         GLenum internalFormat = m_isDepthBuffer ? GL_DEPTH_COMPONENT24 : GL_RGBA8;
 
-        if (m_isMultiSampled)
-          OGLCHECK(glRenderbufferStorageMultisample(target,
-                                                    4,
-                                                    internalFormat,
-                                                    width,
-                                                    height));
-        else
-          OGLCHECK(glRenderbufferStorageEXT(target,
-                                            internalFormat,
-                                            width,
-                                            height));
+        OGLCHECK(glRenderbufferStorageEXT(target,
+                                          internalFormat,
+                                          width,
+                                          height));
 
 #endif
         popCurrent();
@@ -139,11 +122,6 @@ namespace yg
     bool RenderBuffer::isDepthBuffer() const
     {
       return m_isDepthBuffer;
-    }
-
-    bool RenderBuffer::isMultiSampled() const
-    {
-      return m_isMultiSampled;
     }
 
     unsigned RenderBuffer::width() const

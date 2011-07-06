@@ -102,21 +102,6 @@ string BasePlatformImpl::SkinName() const
   return "basic.skn";
 }
 
-bool BasePlatformImpl::IsMultiSampled() const
-{
-  return true;
-}
-
-bool BasePlatformImpl::DoPeriodicalUpdate() const
-{
-  return true;
-}
-
-double BasePlatformImpl::PeriodicalUpdateInterval() const
-{
-  return 0.3;
-}
-
 bool BasePlatformImpl::IsBenchmarking() const
 {
   bool res = false;

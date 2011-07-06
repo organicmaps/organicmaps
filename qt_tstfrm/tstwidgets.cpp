@@ -63,7 +63,7 @@ void GLDrawWidget::initializeGL()
       2 * 1024 * 1024,
       yg::Rt8Bpp,
       !yg::gl::g_isBufferObjectsSupported,
-      !GetPlatform().IsMultiSampled()));
+      true));
 
   Platform::FilesList fonts;
   GetPlatform().GetFontNames(fonts);
@@ -73,7 +73,6 @@ void GLDrawWidget::initializeGL()
 
   DrawerYG::Params params;
   params.m_resourceManager = m_resourceManager;
-  params.m_isMultiSampled = false;
   params.m_frameBuffer = m_frameBuffer;
   params.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
 

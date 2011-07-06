@@ -10,14 +10,14 @@
 
 shared_ptr<yg::ResourceManager> CreateResourceManager()
 {
-  int bigVBSize = pow(2, ceil(log(15000 * sizeof(yg::gl::Vertex))));
-  int bigIBSize = pow(2, ceil(log(30000 * sizeof(unsigned short))));
+  int bigVBSize = pow(2, ceil(log(15000.0 * sizeof(yg::gl::Vertex))));
+  int bigIBSize = pow(2, ceil(log(30000.0 * sizeof(unsigned short))));
 
-  int smallVBSize = pow(2, ceil(log(1500 * sizeof(yg::gl::Vertex))));
-  int smallIBSize = pow(2, ceil(log(3000 * sizeof(unsigned short))));
+  int smallVBSize = pow(2, ceil(log(1500.0 * sizeof(yg::gl::Vertex))));
+  int smallIBSize = pow(2, ceil(log(3000.0 * sizeof(unsigned short))));
 
-  int blitVBSize = pow(2, ceil(log(10 * sizeof(yg::gl::AuxVertex))));
-  int blitIBSize = pow(2, ceil(log(10 * sizeof(unsigned short))));
+  int blitVBSize = pow(2, ceil(log(10.0 * sizeof(yg::gl::AuxVertex))));
+  int blitIBSize = pow(2, ceil(log(10.0 * sizeof(unsigned short))));
 
   Platform & pl = GetPlatform();
   yg::ResourceManager * pRM = new yg::ResourceManager(
@@ -26,11 +26,11 @@ shared_ptr<yg::ResourceManager> CreateResourceManager()
         blitVBSize, blitIBSize, 10,
         512, 256, 6,
         512, 256, 4,
+        pl.TileSize(), pl.TileSize(), pl.MaxTilesCount(),
         "unicode_blocks.txt",
         "fonts_whitelist.txt",
         "fonts_blacklist.txt",
-        1 * 1024 * 1024,
-        500 * 1024,
+        1.5 * 1024 * 1024,
         yg::Rt8Bpp,
         !yg::gl::g_isBufferObjectsSupported,
         !pl.IsMultiSampled());

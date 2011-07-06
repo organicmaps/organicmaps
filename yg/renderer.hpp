@@ -23,7 +23,6 @@ namespace yg
       {
         shared_ptr<ResourceManager> m_resourceManager;
         shared_ptr<FrameBuffer> m_frameBuffer;
-        bool m_isMultiSampled;
         bool m_isDebugging;
         Params();
       };
@@ -36,11 +35,6 @@ namespace yg
       shared_ptr<BaseTexture> m_renderTarget;
       shared_ptr<RenderBuffer> m_depthBuffer;
 
-      shared_ptr<FrameBuffer> m_multiSampledFrameBuffer;
-      shared_ptr<RenderBuffer> m_multiSampledRenderTarget;
-      shared_ptr<RenderBuffer> m_multiSampledDepthBuffer;
-
-      bool m_isMultiSampled;
       bool m_isDebugging;
 
       bool m_isRendering;
@@ -59,9 +53,6 @@ namespace yg
 
       shared_ptr<ResourceManager> const & resourceManager() const;
 
-      void setIsMultiSampled(bool isMultiSampled);
-      bool isMultiSampled() const;
-
       shared_ptr<FrameBuffer> const & frameBuffer() const;
 //      void setFrameBuffer(shared_ptr<FrameBuffer> const & fb);
 
@@ -69,8 +60,6 @@ namespace yg
 
       void setRenderTarget(shared_ptr<RenderTarget> const & rt);
       shared_ptr<RenderTarget> const & renderTarget() const;
-
-      void updateFrameBuffer();
 
       /// @param clearRT - should we clear the renderTarget data (visible pixels)?
       /// @param clearDepth - should we clear depthBuffer data?
