@@ -152,23 +152,18 @@ void RenderQueueRoutine::Do()
     m_threadDrawer->screen()->setClipRect(renderRect);
     m_threadDrawer->clear(m_bgColor);
 
-//    frameScreen.OnSize(renderRect);
     frameScreen.SetFromRect(m_currentCommand->m_rectInfo.m_rect);
 
-/*    m2::RectI r0(renderRect);
-    m2::RectD r1;
+    m2::RectD selectionRect; // = m_currentCommand->m_rectInfo.m_rect;
 
-    r0.Inflate(40.0, 40.0);
+    double inflationSize = 24 * m_visualScale;
 
-    frameScreen.PtoG(m2::RectD(r0), r1);
-
-    frameScreen.OnSize(r0);
-    frameScreen.SetFromRect(r1);*/
+    frameScreen.PtoG(m2::Inflate(m2::RectD(renderRect), inflationSize, inflationSize), selectionRect);
 
     m_currentCommand->m_renderFn(
         m_currentCommand->m_paintEvent,
         frameScreen,
-        m_currentCommand->m_rectInfo.m_rect,
+        selectionRect,
         m_currentCommand->m_rectInfo.m_drawScale);
 
     /// rendering all collected texts
