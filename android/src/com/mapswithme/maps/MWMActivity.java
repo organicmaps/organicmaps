@@ -32,12 +32,8 @@ public class MWMActivity extends Activity
 
   private String getDataStoragePath()
   {
-    String storagePath = "";
-    storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-    storagePath = storagePath.concat(String.format("/%s", PACKAGE_NAME));
-    File f = new File(storagePath);
-    f.mkdirs();
-    return storagePath;
+    String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+    return storagePath.concat(String.format("/%s/", PACKAGE_NAME));
   }
   
   @Override
@@ -45,9 +41,14 @@ public class MWMActivity extends Activity
   {
     super.onCreate(savedInstanceState);
 
+    final String storagePath = getDataStoragePath();
+    // create folder if it doesn't exist
+    File f = new File(storagePath);
+    f.mkdirs();
+
     try
     {
-      nativeInit(getAppBundlePath(), getDataStoragePath());
+      nativeInit(getAppBundlePath(), storagePath);
     }
     catch (NameNotFoundException e)
     {
