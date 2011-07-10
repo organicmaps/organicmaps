@@ -142,3 +142,8 @@ int BasePlatformImpl::TileSize() const
 {
   return 256;
 }
+
+bool BasePlatformImpl::IsMultiThreadedRendering() const
+{
+  return true;
+}

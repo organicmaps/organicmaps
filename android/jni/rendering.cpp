@@ -10,14 +10,14 @@
 
 shared_ptr<yg::ResourceManager> CreateResourceManager()
 {
-  int bigVBSize = pow(2, ceil(log(15000.0 * sizeof(yg::gl::Vertex))));
-  int bigIBSize = pow(2, ceil(log(30000.0 * sizeof(unsigned short))));
+  int bigVBSize = pow(2, ceil(log(15000.0 * sizeof(yg::gl::Vertex)) / log(2)));
+  int bigIBSize = pow(2, ceil(log(30000.0 * sizeof(unsigned short)) / log(2)));
 
-  int smallVBSize = pow(2, ceil(log(1500.0 * sizeof(yg::gl::Vertex))));
-  int smallIBSize = pow(2, ceil(log(3000.0 * sizeof(unsigned short))));
+  int smallVBSize = pow(2, ceil(log(1500.0 * sizeof(yg::gl::Vertex)) / log(2)));
+  int smallIBSize = pow(2, ceil(log(3000.0 * sizeof(unsigned short)) / log(2)));
 
-  int blitVBSize = pow(2, ceil(log(10.0 * sizeof(yg::gl::AuxVertex))));
-  int blitIBSize = pow(2, ceil(log(10.0 * sizeof(unsigned short))));
+  int blitVBSize = pow(2, ceil(log(10.0 * sizeof(yg::gl::AuxVertex)) / log(2)));
+  int blitIBSize = pow(2, ceil(log(10.0 * sizeof(unsigned short)) / log(2)));
 
   Platform & pl = GetPlatform();
   yg::ResourceManager * pRM = new yg::ResourceManager(
@@ -32,8 +32,8 @@ shared_ptr<yg::ResourceManager> CreateResourceManager()
         "fonts_blacklist.txt",
         1.5 * 1024 * 1024,
         yg::Rt8Bpp,
-        !yg::gl::g_isBufferObjectsSupported,
-        !pl.IsMultiSampled());
+        true,
+        true);
 
   Platform::FilesList fonts;
   pl.GetFontNames(fonts);
@@ -48,9 +48,8 @@ shared_ptr<DrawerYG> CreateDrawer(shared_ptr<yg::ResourceManager> pRM)
 
   DrawerYG::params_t p;
   p.m_resourceManager = pRM;
-  p.m_isMultiSampled = pl.IsMultiSampled();
-//  p.m_frameBuffer.reset(new yg::gl::FrameBuffer());
-  p.m_glyphCacheID = 1;
+  p.m_glyphCacheID = pRM->guiThreadGlyphCacheID();
+  p.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
 
   return make_shared_ptr(new DrawerYG(pl.SkinName(), p));
 }

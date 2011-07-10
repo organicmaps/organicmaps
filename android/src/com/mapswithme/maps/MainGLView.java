@@ -51,21 +51,21 @@ class MainRenderer implements GLSurfaceView.Renderer
 {
   private static String TAG = "MainGLView.MainRenderer";
   
-  @Override
+  //@Override
   public void onDrawFrame(GL10 gl)
   {
     Log.i(TAG, "onDrawFrame");
     nativeDraw();
   }
 
-  @Override
+  //@Override
   public void onSurfaceChanged(GL10 gl, int w, int h)
   {
     Log.i(TAG, "onSurfaceChanged");
     nativeResize(w, h);
   }
 
-  @Override
+  //@Override
   public void onSurfaceCreated(GL10 gl, EGLConfig config)
   {
     Log.i(TAG, "onSurfaceCreated");

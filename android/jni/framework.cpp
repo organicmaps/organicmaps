@@ -44,6 +44,8 @@ void AndroidFramework::InitRenderer()
   LOG(LDEBUG, ("AF::InitRenderer 4"));
   m_work.initializeGL(pRC, pRM);
 
+  //m_work.ShowAll();
+
   LOG(LDEBUG, ("AF::InitRenderer 5"));
 }
 
@@ -56,22 +58,21 @@ void AndroidFramework::Resize(int w, int h)
 
 void AndroidFramework::DrawFrame()
 {
-  /*
-  LOG(LDEBUG, ("AF::DrawFrame 1"));
-  shared_ptr<DrawerYG> p = m_view->drawer();
+//  m_work.Paint(make_shared_ptr(new PaintEvent(m_view->drawer())));
+  yg::gl::Screen * screen = m_view->drawer()->screen().get();
+  screen->beginFrame();
+  screen->clear();
+  yg::Color c(255, 0, 0, 255);
 
-  LOG(LDEBUG, ("AF::DrawFrame 2"));
-  p->beginFrame();
+  m2::PointD centerPt(screen->width() / 2,
+                      screen->height() / 2);
 
-  LOG(LDEBUG, ("AF::DrawFrame 3"));
-  p->clear();
+  m2::RectD r(centerPt.x - 100,
+              centerPt.y - 50,
+              centerPt.x + 100,
+              centerPt.y + 50);
 
-  LOG(LDEBUG, ("AF::DrawFrame 4"));
-  p->screen()->drawRectangle(m2::RectD(100, 100, 200, 200), yg::Color(255, 0, 0, 255), yg::maxDepth);
-
-  LOG(LDEBUG, ("AF::DrawFrame 5"));
-  p->endFrame();
-
-  LOG(LDEBUG, ("AF::DrawFrame 6"));
-  */
+  screen->drawRectangle(r, c, yg::maxDepth);
+  //screen->drawText(yg::FontDesc::defaultFont, centerPt, yg::EPosCenter, "Simplicity is the ultimate sophistication", yg::maxDepth, false);
+  screen->endFrame();
 }

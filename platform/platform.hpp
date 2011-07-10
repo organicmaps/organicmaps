@@ -64,6 +64,8 @@ public:
 
   virtual bool IsBenchmarking() const = 0;
 
+  virtual bool IsMultiThreadedRendering() const = 0;
+
   virtual int TileSize() const = 0;
 
   virtual int MaxTilesCount() const = 0;
@@ -94,6 +96,7 @@ public:
   virtual string SkinName() const;
   virtual bool IsBenchmarking() const;
   virtual bool IsVisualLog() const;
+  virtual bool IsMultiThreadedRendering() const;
   virtual int ScaleEtalonSize() const;
   virtual int TileSize() const;
   virtual int MaxTilesCount() const;
