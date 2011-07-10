@@ -97,11 +97,11 @@
     Platform & pl = GetPlatform();
     
     resourceManager = shared_ptr<yg::ResourceManager>(new yg::ResourceManager(
-          bigVBSize, bigIBSize, 4,
-          smallVBSize, smallIBSize, 10,
-          blitVBSize, blitIBSize, 10,
-          512, 256, 6,
-          512, 256, 4,
+          bigVBSize, bigIBSize, 6,
+          smallVBSize, smallIBSize, 15,
+          blitVBSize, blitIBSize, 15,
+          512, 256, 10,
+          512, 256, 10,
           GetPlatform().TileSize(),
           GetPlatform().TileSize(),
           GetPlatform().MaxTilesCount(),
@@ -111,7 +111,7 @@
           1.5 * 1024 * 1024,
           fmt,
           !yg::gl::g_isBufferObjectsSupported,
-          !pl.IsMultiSampled()));
+          true));
     
     Platform::FilesList fonts;
     pl.GetFontNames(fonts);
@@ -119,9 +119,8 @@
 
 		DrawerYG::params_t p;
 		p.m_resourceManager = resourceManager;
-		p.m_isMultiSampled = false;
     p.m_frameBuffer = frameBuffer;
-    p.m_glyphCacheID = 1;
+    p.m_glyphCacheID = resourceManager->guiThreadGlyphCacheID();
 
 		drawer = shared_ptr<DrawerYG>(new DrawerYG(pl.SkinName(), p));
 
