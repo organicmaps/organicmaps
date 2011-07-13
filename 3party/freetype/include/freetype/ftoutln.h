@@ -5,7 +5,7 @@
 /*    Support for the FT_Outline type used to store glyph shapes of        */
 /*    most scalable font formats (specification).                          */
 /*                                                                         */
-/*  Copyright 1996-2001, 2002, 2003, 2005, 2006, 2007, 2008, 2009 by       */
+/*  Copyright 1996-2003, 2005-2011 by                                      */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -85,9 +85,8 @@ FT_BEGIN_HEADER
   /*                                                                       */
   /* <Description>                                                         */
   /*    Walk over an outline's structure to decompose it into individual   */
-  /*    segments and Bézier arcs.  This function is also able to emit      */
-  /*    `move to' and `close to' operations to indicate the start and end  */
-  /*    of new contours in the outline.                                    */
+  /*    segments and Bézier arcs.  This function also emits `move to'      */
+  /*    operations to indicate the start of new contours in the outline.   */
   /*                                                                       */
   /* <Input>                                                               */
   /*    outline        :: A pointer to the source target.                  */
@@ -228,6 +227,9 @@ FT_BEGIN_HEADER
   /* <Output>                                                              */
   /*    acbox   :: The outline's control box.                              */
   /*                                                                       */
+  /* <Note>                                                                */
+  /*    See @FT_Glyph_Get_CBox for a discussion of tricky fonts.           */
+  /*                                                                       */
   FT_EXPORT( void )
   FT_Outline_Get_CBox( const FT_Outline*  outline,
                        FT_BBox           *acbox );
@@ -333,7 +335,7 @@ FT_BEGIN_HEADER
   /*    handled incorrectly.                                               */
   /*                                                                       */
   /*    If you need `better' metrics values you should call                */
-  /*    @FT_Outline_Get_CBox ot @FT_Outline_Get_BBox.                      */
+  /*    @FT_Outline_Get_CBox or @FT_Outline_Get_BBox.                      */
   /*                                                                       */
   /*    Example call:                                                      */
   /*                                                                       */

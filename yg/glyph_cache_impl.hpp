@@ -59,7 +59,6 @@ namespace yg
     FTC_Manager m_manager; //< freetype cache manager for all caches
 
     FTC_ImageCache m_glyphMetricsCache; //< glyph metrics cache
-    FTC_ImageCache m_strokedGlyphCache; //< cache of stroked glyph images
     FTC_ImageCache m_normalGlyphCache; //< cache of normal glyph images
 
     FTC_CMapCache m_charMapCache; //< cache of glyphID -> glyphIdx mapping

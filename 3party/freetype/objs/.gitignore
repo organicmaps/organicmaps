@@ -1,0 +1,14 @@
+apinames
+freetype.def
+freetype.lib
+ftexport.sym
+ftmodule.h
+ftoption.h
+libfreetype.la
+.libs
+*.lo
+*.o
+*.a
+debug*/
+release*/
+win32/

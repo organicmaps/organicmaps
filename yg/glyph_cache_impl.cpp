@@ -7,14 +7,9 @@
 #include "../base/path_utils.hpp"
 #include "../base/assert.hpp"
 
-#include <../cache/ftcglyph.h>
-#include <../cache/ftcimage.h>
-#include <../cache/ftcsbits.h>
-#include <../cache/ftccback.h>
-#include <../cache/ftccache.h>
-
 #include "../std/bind.hpp"
 
+#include <freetype/ftcache.h>
 
 namespace yg
 {
@@ -195,7 +190,7 @@ namespace yg
 
     /// obtaining all glyphs, supported by this font
     FT_Face face;
-    m_fonts.back()->CreateFaceID(m_lib, &face);
+    FTCHECK(m_fonts.back()->CreateFaceID(m_lib, &face));
 
     vector<FT_ULong> charcodes;
 
@@ -361,8 +356,6 @@ namespace yg
     /// Initializing stroker
     FTCHECK(FT_Stroker_New(m_lib, &m_stroker));
     FT_Stroker_Set(m_stroker, 2 * 64, FT_STROKER_LINECAP_ROUND, FT_STROKER_LINEJOIN_ROUND, 0);
-
-    FTCHECK(FTC_StrokedImageCache_New(m_manager, &m_strokedGlyphCache, m_stroker));
 
     FTCHECK(FTC_CMapCache_New(m_manager, &m_charMapCache));
   }

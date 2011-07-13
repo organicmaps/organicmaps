@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    FreeType convenience functions to handle glyphs (specification).     */
 /*                                                                         */
-/*  Copyright 1996-2001, 2002, 2003, 2006, 2008, 2009 by                   */
+/*  Copyright 1996-2003, 2006, 2008, 2009, 2011 by                         */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -384,6 +384,13 @@ FT_BEGIN_HEADER
   /*    units in 26.6 pixel format.  The value @FT_GLYPH_BBOX_SUBPIXELS    */
   /*    is another name for this constant.                                 */
   /*                                                                       */
+  /*    If the font is tricky and the glyph has been loaded with           */
+  /*    @FT_LOAD_NO_SCALE, the resulting CBox is meaningless.  To get      */
+  /*    reasonable values for the CBox it is necessary to load the glyph   */
+  /*    at a large ppem value (so that the hinting instructions can        */
+  /*    properly shift and scale the subglyphs), then extracting the CBox  */
+  /*    which can be eventually converted back to font units.              */
+  /*                                                                       */
   /*    Note that the maximum coordinates are exclusive, which means that  */
   /*    one can compute the width and height of the glyph image (be it in  */
   /*    integer or 26.6 pixels) as:                                        */
@@ -468,7 +475,7 @@ FT_BEGIN_HEADER
   /*        // convert to a bitmap (default render mode + destroying old)  */
   /*        if ( glyph->format != FT_GLYPH_FORMAT_BITMAP )                 */
   /*        {                                                              */
-  /*          error = FT_Glyph_To_Bitmap( &glyph, FT_RENDER_MODE_DEFAULT,  */
+  /*          error = FT_Glyph_To_Bitmap( &glyph, FT_RENDER_MODE_NORMAL,   */
   /*                                      0, 1 );                          */
   /*          if ( error ) // `glyph' unchanged                            */
   /*            ...                                                        */

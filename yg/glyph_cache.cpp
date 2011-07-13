@@ -173,15 +173,20 @@ namespace yg
     FT_Glyph glyph = 0;
 
     if (key.m_isMask)
+    {
       FTCHECK(FTC_ImageCache_LookupScaler(
-          m_impl->m_strokedGlyphCache,
+          m_impl->m_normalGlyphCache,
           &fontScaler,
           FT_LOAD_DEFAULT,
           charIDX.second,
           &glyph,
           0
           ));
+      FTCHECK(FT_Glyph_Stroke(&glyph, m_impl->m_stroker, 0));
+      FTCHECK(FT_Glyph_To_Bitmap(&glyph, FT_RENDER_MODE_NORMAL, 0, 1));
+    }
     else
+    {
       FTCHECK(FTC_ImageCache_LookupScaler(
           m_impl->m_normalGlyphCache,
           &fontScaler,
@@ -190,7 +195,7 @@ namespace yg
           &glyph,
           0
           ));
-
+    }
     FT_BitmapGlyph bitmapGlyph = (FT_BitmapGlyph)glyph;
 
     shared_ptr<GlyphInfo> info(new GlyphInfo());
@@ -235,6 +240,9 @@ namespace yg
           dstView(x, y) = c;
         }
     }
+
+    if (key.m_isMask)
+      FT_Done_Glyph(glyph);
 
     return info;
   }

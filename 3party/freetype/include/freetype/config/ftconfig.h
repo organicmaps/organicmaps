@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    ANSI-specific configuration file (specification only).               */
 /*                                                                         */
-/*  Copyright 1996-2001, 2002, 2003, 2004, 2006, 2007, 2008 by             */
+/*  Copyright 1996-2004, 2006-2008, 2010-2011 by                           */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -34,7 +34,6 @@
   /* This ANSI version should stay in `include/freetype/config'.           */
   /*                                                                       */
   /*************************************************************************/
-
 
 #ifndef __FTCONFIG_H__
 #define __FTCONFIG_H__
@@ -128,7 +127,12 @@ FT_BEGIN_HEADER
 #if ( defined( __APPLE__ ) && !defined( DARWIN_NO_CARBON ) ) || \
     ( defined( __MWERKS__ ) && defined( macintosh )        )
   /* no Carbon frameworks for 64bit 10.4.x */
+  /* AvailabilityMacros.h is available since Mac OS X 10.2,        */
+  /* so guess the system version by maximum errno before inclusion */
+#include <errno.h>
+#ifdef ECANCELED /* defined since 10.2 */
 #include "AvailabilityMacros.h"
+#endif
 #if defined( __LP64__ ) && \
     ( MAC_OS_X_VERSION_MIN_REQUIRED <= MAC_OS_X_VERSION_10_4 )
 #define DARWIN_NO_CARBON 1
@@ -144,8 +148,6 @@ FT_BEGIN_HEADER
 #endif
 
 #endif
-
-#undef FT_MACINTOSH
 
 
   /*************************************************************************/
@@ -308,9 +310,38 @@ FT_BEGIN_HEADER
   /* Provide assembler fragments for performance-critical functions. */
   /* These must be defined `static __inline__' with GCC.             */
 
+#if defined( __CC_ARM ) || defined( __ARMCC__ )  /* RVCT */
+#define FT_MULFIX_ASSEMBLER  FT_MulFix_arm
+
+  /* documentation is in freetype.h */
+
+  static __inline FT_Int32
+  FT_MulFix_arm( FT_Int32  a,
+                 FT_Int32  b )
+  {
+    register FT_Int32  t, t2;
+
+
+    __asm
+    {
+      smull t2, t,  b,  a           /* (lo=t2,hi=t) = a*b */
+      mov   a,  t,  asr #31         /* a   = (hi >> 31) */
+      add   a,  a,  #0x8000         /* a  += 0x8000 */
+      adds  t2, t2, a               /* t2 += a */
+      adc   t,  t,  #0              /* t  += carry */
+      mov   a,  t2, lsr #16         /* a   = t2 >> 16 */
+      orr   a,  a,  t,  lsl #16     /* a  |= t << 16 */
+    }
+    return a;
+  }
+
+#endif /* __CC_ARM || __ARMCC__ */
+
+
 #ifdef __GNUC__
 
-#if defined( __arm__ ) && !defined( __thumb__ )
+#if defined( __arm__ ) && !defined( __thumb__ )    && \
+    !( defined( __CC_ARM ) || defined( __ARMCC__ ) )
 #define FT_MULFIX_ASSEMBLER  FT_MulFix_arm
 
   /* documentation is in freetype.h */
@@ -322,22 +353,22 @@ FT_BEGIN_HEADER
     register FT_Int32  t, t2;
 
 
-    asm __volatile__ (
-      "smull  %1, %2, %4, %3\n\t"   /* (lo=%1,hi=%2) = a*b */
-      "mov    %0, %2, asr #31\n\t"  /* %0  = (hi >> 31) */
-      "add    %0, %0, #0x8000\n\t"  /* %0 += 0x8000 */
-      "adds   %1, %1, %0\n\t"       /* %1 += %0 */
-      "adc    %2, %2, #0\n\t"       /* %2 += carry */
-      "mov    %0, %1, lsr #16\n\t"  /* %0  = %1 >> 16 */
-      "orr    %0, %2, lsl #16\n\t"  /* %0 |= %2 << 16 */
+    __asm__ __volatile__ (
+      "smull  %1, %2, %4, %3\n\t"       /* (lo=%1,hi=%2) = a*b */
+      "mov    %0, %2, asr #31\n\t"      /* %0  = (hi >> 31) */
+      "add    %0, %0, #0x8000\n\t"      /* %0 += 0x8000 */
+      "adds   %1, %1, %0\n\t"           /* %1 += %0 */
+      "adc    %2, %2, #0\n\t"           /* %2 += carry */
+      "mov    %0, %1, lsr #16\n\t"      /* %0  = %1 >> 16 */
+      "orr    %0, %0, %2, lsl #16\n\t"  /* %0 |= %2 << 16 */
       : "=r"(a), "=&r"(t2), "=&r"(t)
       : "r"(a), "r"(b) );
     return a;
   }
 
-#endif /* __arm__ && !__thumb__ */
+#endif /* __arm__ && !__thumb__ && !( __CC_ARM || __ARMCC__ ) */
 
-#if defined( i386 )
+#if defined( __i386__ )
 #define FT_MULFIX_ASSEMBLER  FT_MulFix_i386
 
   /* documentation is in freetype.h */
@@ -368,6 +399,43 @@ FT_BEGIN_HEADER
 #endif /* i386 */
 
 #endif /* __GNUC__ */
+
+
+#ifdef _MSC_VER /* Visual C++ */
+
+#ifdef _M_IX86
+
+#define FT_MULFIX_ASSEMBLER  FT_MulFix_i386
+
+  /* documentation is in freetype.h */
+
+  static __inline FT_Int32
+  FT_MulFix_i386( FT_Int32  a,
+                  FT_Int32  b )
+  {
+    register FT_Int32  result;
+
+    __asm
+    {
+      mov eax, a
+      mov edx, b
+      imul edx
+      mov ecx, edx
+      sar ecx, 31
+      add ecx, 8000h
+      add eax, ecx
+      adc edx, 0
+      shr eax, 16
+      shl edx, 16
+      add eax, edx
+      mov result, eax
+    }
+    return result;
+  }
+
+#endif /* _M_IX86 */
+
+#endif /* _MSC_VER */
 
 #endif /* !FT_CONFIG_OPTION_NO_ASSEMBLER */
 
