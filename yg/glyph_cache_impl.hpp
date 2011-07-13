@@ -3,26 +3,28 @@
 #include "glyph_cache.hpp"
 #include "ft2_debug.hpp"
 
-#include "../base/memory_mapped_file.hpp"
 #include "../base/string_utils.hpp"
+
+#include "../coding/reader.hpp"
 
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
 
+#include <freetype/ftsystem.h>
 
 namespace yg
 {
   struct Font
   {
-    string m_name;
-
-    MemoryMappedFile m_fontData;
+    FT_Stream m_fontStream;
+    ReaderPtr<Reader> m_fontReader;
 
     /// information about symbol ranges
     /// ...
     /// constructor
-    Font(char const * name);
+    Font(ReaderPtr<Reader> const & fontReader);
+    ~Font();
 
     FT_Error CreateFaceID(FT_Library library, FT_Face * face);
   };

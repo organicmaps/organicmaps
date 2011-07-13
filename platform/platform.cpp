@@ -90,9 +90,6 @@ void BasePlatformImpl::GetFontNames(FilesList & res) const
   GetFilesInDir(m_resourcesDir, "*.ttf", res);
 
   sort(res.begin(), res.end());
-
-  for (size_t i = 0; i < res.size(); ++i)
-    res[i] = m_resourcesDir + res[i];
 }
 
 double BasePlatformImpl::VisualScale() const

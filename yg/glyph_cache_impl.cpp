@@ -4,7 +4,6 @@
 
 #include "../coding/reader.hpp"
 
-#include "../base/path_utils.hpp"
 #include "../base/assert.hpp"
 
 #include "../std/bind.hpp"
@@ -22,13 +21,55 @@ namespace yg
     return (m_start <= sym) && (m_end >= sym);
   }
 
-  Font::Font(char const * name) : m_name(name), m_fontData(name, true)
+  /// Called by FreeType to read data
+  static unsigned long FTStreamIOFunc(FT_Stream stream,
+                                      unsigned long offset,
+                                      unsigned char * buffer,
+                                      unsigned long count)
+  {
+    // FreeType can call us with 0 to "Skip" bytes
+    if (count != 0)
+      reinterpret_cast<ReaderPtr<Reader> *>(stream->descriptor.pointer)->Read(offset, buffer, count);
+    return count;
+  }
+
+  static void FTStreamCloseFunc(FT_Stream)
   {
   }
 
-  FT_Error Font::CreateFaceID(FT_Library library, FT_Face *face)
+  Font::Font(ReaderPtr<Reader> const & fontReader) : m_fontReader(fontReader)
   {
-    return FT_New_Memory_Face(library, (unsigned char*)m_fontData.data(), m_fontData.size(), 0, face);
+    m_fontStream = new FT_StreamRec;
+    m_fontStream->base = 0;
+    m_fontStream->size = m_fontReader.Size();
+    m_fontStream->pos = 0;
+    m_fontStream->descriptor.pointer = &m_fontReader;
+    m_fontStream->pathname.pointer = 0;
+    m_fontStream->read = &FTStreamIOFunc;
+    m_fontStream->close = &FTStreamCloseFunc;
+    m_fontStream->memory = 0;
+    m_fontStream->cursor = 0;
+    m_fontStream->limit = 0;
+  }
+
+  Font::~Font()
+  {
+    delete m_fontStream;
+  }
+
+  FT_Error Font::CreateFaceID(FT_Library library, FT_Face * face)
+  {
+    FT_Open_Args args;
+    args.flags = FT_OPEN_STREAM;
+    args.memory_base = 0;
+    args.memory_size = 0;
+    args.pathname = 0;
+    args.stream = m_fontStream;
+    args.driver = 0;
+    args.num_params = 0;
+    args.params = 0;
+    return FT_Open_Face(library, &args, 0, face);
+    //return FT_New_Memory_Face(library, (unsigned char*)m_fontData.data(), m_fontData.size(), 0, face);
   }
 
   void GlyphCacheImpl::initBlocks(string const & fileName)
@@ -181,12 +222,8 @@ namespace yg
 
   void GlyphCacheImpl::addFont(char const * fileName)
   {
-    string fontName = extract_name(fileName);
-    for (size_t i = 0; i < fontName.size(); ++i)
-      if (fontName[i] == ' ')
-        fontName[i] = '_';
-
-    m_fonts.push_back(make_shared_ptr(new Font(fileName)));
+    ReaderPtr<Reader> reader = GetPlatform().GetReader(fileName);
+    m_fonts.push_back(make_shared_ptr(new Font(reader)));
 
     /// obtaining all glyphs, supported by this font
     FT_Face face;
@@ -242,16 +279,16 @@ namespace yg
         /// checking blacklist and whitelist
 
         for (size_t i = 0; i < ubIt->m_blacklist.size(); ++i)
-          if (ubIt->m_blacklist[i] == fontName)
+          if (ubIt->m_blacklist[i] == fileName)
             /// if font is blacklisted for this unicode block
             ubIt->m_coverage.back() = -1;
 
         for (size_t i = 0; i < ubIt->m_whitelist.size(); ++i)
-          if (ubIt->m_whitelist[i] == fontName)
+          if (ubIt->m_whitelist[i] == fileName)
           {
             if (ubIt->m_coverage.back() == -1)
             {
-              LOG(LWARNING, ("font ", fontName, "is present both at blacklist and whitelist. whitelist prevails."));
+              LOG(LWARNING, ("font ", fileName, "is present both at blacklist and whitelist. whitelist prevails."));
             }
             /// weight used for sorting are boosted to the top.
             /// the order of elements are saved by adding 'i' value as a shift.

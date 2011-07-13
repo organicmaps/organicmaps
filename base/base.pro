@@ -18,7 +18,6 @@ SOURCES += \
     commands_queue.cpp \
     shared_buffer_manager.cpp \
     memory_mapped_file.cpp \
-    path_utils.cpp \
     condition.cpp \
     lower_case.cpp \
     normalize_unicode.cpp \
@@ -65,7 +64,6 @@ HEADERS += \
     shared_buffer_manager.hpp \
     memory_mapped_file.hpp \
     buffer_vector.hpp \
-    path_utils.hpp \
     array_adapters.hpp \
     runner.hpp \
     object_pool.hpp
