@@ -14,6 +14,8 @@
 #include "../base/mutex.hpp"
 #include "../base/macros.hpp"
 
+#include "../geometry/transformations.hpp"
+
 #include "../std/fstream.hpp"
 #include "../std/iomanip.hpp"
 
@@ -426,9 +428,9 @@ void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
   params.m_logText = strings::MakeUniString(s0);
 
   yg::StraightTextElement ste0(params);
-  ste0.offset(m2::PointD(0, -ste0.boundRect().GetGlobalRect().SizeY() - 5));
 
-  ste0.draw(pDrawer->screen().get(), math::Identity<double, 3>());
+  math::Matrix<double, 3, 3> m = math::Shift(math::Identity<double, 3>(), m2::PointD(0, -ste0.boundRect().GetGlobalRect().SizeY() - 5));
+  ste0.draw(pDrawer->screen().get(), m);
 
   params.m_pivot = pt;
   params.m_logText = strings::MakeUniString(s1);

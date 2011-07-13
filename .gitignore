@@ -88,6 +88,8 @@ android/.classpath
 android/.cproject
 android/.project
 android/assets
+# local android scripts, such as debugger helper scrips
+android/local
 
 qtc_packaging
 

@@ -52,8 +52,7 @@ namespace yg
     if ((layout.firstVisible() != 0) || (layout.lastVisible() != visText().size()))
       return;
 
-    m2::PointD pivot = layout.entries()[0].m_pt;
-    m2::PointD offset = pivot * m - pivot;
+    m2::PointD pv = pivot() * m;
 
     for (unsigned i = layout.firstVisible(); i < layout.lastVisible(); ++i)
     {
@@ -63,7 +62,7 @@ namespace yg
       uint32_t const glyphID = skin->mapGlyph(glyphKey, screen->glyphCache());
       CharStyle const * charStyle = static_cast<CharStyle const *>(skin->fromID(glyphID));
 
-      screen->drawGlyph(elem.m_pt + offset, m2::PointD(0.0, 0.0), elem.m_angle, 0, charStyle, depth);
+      screen->drawGlyph(elem.m_pt + pv, m2::PointD(0.0, 0.0), elem.m_angle, 0, charStyle, depth);
     }
   }
 
@@ -75,11 +74,20 @@ namespace yg
         visText(),
         p.m_position)
   {
+    setPivot(m_glyphLayout.pivot());
+  }
+
+  StraightTextElement::StraightTextElement(StraightTextElement const & src, math::Matrix<double, 3, 3> const & m)
+    : TextElement(src),
+      m_glyphLayout(src.m_glyphLayout)
+  {
+    m_glyphLayout.setPivot(m_glyphLayout.pivot() * m);
+    setPivot(m_glyphLayout.pivot());
   }
 
   m2::AARectD const StraightTextElement::boundRect() const
   {
-    return m2::AARectD(m_glyphLayout.limitRect());
+    return m_glyphLayout.limitRect();
   }
 
   void StraightTextElement::draw(gl::OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m) const
@@ -97,12 +105,6 @@ namespace yg
     drawTextImpl(m_glyphLayout, screen, m, desc, yg::maxDepth);
   }
 
-  void StraightTextElement::offset(m2::PointD const & offs)
-  {
-    TextElement::offset(offs);
-    m_glyphLayout.offset(offs);
-  }
-
   PathTextElement::PathTextElement(Params const & p)
     : TextElement(p),
       m_glyphLayout(p.m_glyphCache,
@@ -114,11 +116,19 @@ namespace yg
         p.m_pathOffset,
         p.m_position)
   {
+    setPivot(m_glyphLayout.pivot());
+  }
+
+  PathTextElement::PathTextElement(PathTextElement const & src, math::Matrix<double, 3, 3> const & m)
+    : TextElement(src),
+      m_glyphLayout(src.m_glyphLayout, m)
+  {
+    setPivot(m_glyphLayout.pivot());
   }
 
   m2::AARectD const PathTextElement::boundRect() const
   {
-    return m2::Inflate(m_glyphLayout.limitRect(), m2::PointD(40, 2));
+    return m2::Inflate(m_glyphLayout.limitRect(), m2::PointD(40, 2)); //< to create more sparse street names structure
   }
 
   void PathTextElement::draw(gl::OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m) const
@@ -131,11 +141,5 @@ namespace yg
     }
 
     drawTextImpl(m_glyphLayout, screen, m, desc, yg::maxDepth);
-  }
-
-  void PathTextElement::offset(m2::PointD const & offs)
-  {
-    TextElement::offset(offs);
-    m_glyphLayout.offset(offs);
   }
 }

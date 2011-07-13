@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES =  map indexer platform geometry coding base expat
+DEPENDENCIES = map yg indexer platform geometry coding base expat freetype fribidi
 
 include($$ROOT_DIR/common.pri)
 
@@ -17,6 +17,14 @@ win32 {
   win32-g++ {
     LIBS += -lpthread
   }
+}
+
+!iphone*:!bada*:!android* {
+  QT += opengl
+}
+
+macx|iphone* {
+  LIBS += -framework Foundation
 }
 
 SOURCES += \

@@ -29,7 +29,7 @@ namespace yg
     }
 
     void OverlayRenderer::drawSymbol(m2::PointD const & pt,
-                                     uint32_t styleID,
+                                     string const & symbolName,
                                      EPosition pos,
                                      int depth)
     {
@@ -41,7 +41,8 @@ namespace yg
       params.m_depth = depth;
       params.m_position = pos;
       params.m_pivot = pt;
-      params.m_styleID = styleID;
+      params.m_symbolName = symbolName;
+      params.m_styleID = 0;
       params.m_skin = skin().get();
 
       SymbolElement se(params);
@@ -49,7 +50,7 @@ namespace yg
       if (!m_infoLayer.get() || !m_useOverlay)
         se.draw(this, math::Identity<double, 3>());
       else
-        m_infoLayer->addSymbol(se);
+        m_infoLayer->addSymbol(se, math::Identity<double, 3>());
     }
 
     void OverlayRenderer::drawCircle(m2::PointD const & pt,
@@ -65,7 +66,10 @@ namespace yg
       params.m_skin = skin().get();
 
       SymbolElement se(params);
-      se.draw(this, math::Identity<double, 3>());
+
+      math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
+
+      se.draw(this, id);
     }
 
     void OverlayRenderer::drawText(FontDesc const & fontDesc,
@@ -89,10 +93,12 @@ namespace yg
 
       StraightTextElement ste(params);
 
+      math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
+
       if (!m_infoLayer.get() || !m_useOverlay)
-        ste.draw(this, math::Identity<double, 3>());
+        ste.draw(this, id);
       else
-        m_infoLayer->addStraightText(ste);
+        m_infoLayer->addStraightText(ste, id);
     }
 
     bool OverlayRenderer::drawPathText(
@@ -118,13 +124,29 @@ namespace yg
 
       PathTextElement pte(params);
 
+      math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
+
       if (!m_infoLayer.get() || !m_useOverlay)
-        pte.draw(this, math::Identity<double, 3>());
+        pte.draw(this, id);
       else
-        m_infoLayer->addPathText(pte);
+        m_infoLayer->addPathText(pte, id);
 
       return true;
     }
 
+    void OverlayRenderer::setInfoLayer(shared_ptr<InfoLayer> const & infoLayer)
+    {
+      m_infoLayer = infoLayer;
+    }
+
+    shared_ptr<InfoLayer> const & OverlayRenderer::infoLayer() const
+    {
+      return m_infoLayer;
+    }
+
+    void OverlayRenderer::resetInfoLayer()
+    {
+      m_infoLayer.reset();
+    }
   }
 }

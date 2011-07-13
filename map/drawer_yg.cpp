@@ -97,7 +97,7 @@ void DrawerYG::onSize(int w, int h)
 
 void DrawerYG::drawSymbol(m2::PointD const & pt, string const & symbolName, yg::EPosition pos, int depth)
 {
-  m_pScreen->drawSymbol(pt, m_pSkin->mapSymbol(symbolName.c_str()), pos, depth);
+  m_pScreen->drawSymbol(pt, symbolName.c_str(), pos, depth);
 }
 
 void DrawerYG::drawCircle(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth)
@@ -134,10 +134,12 @@ void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition
   // This rules doesn't mix with other rule-types.
 
   uint32_t id = pRule->GetID(m_threadID);
-  if (id == drule::BaseRule::empty_id)
+
+  string name;
+  pRule->GetSymbol(name);
+
+/*  if (id == drule::BaseRule::empty_id)
   {
-    string name;
-    pRule->GetSymbol(name);
     id = m_pSkin->mapSymbol(name.c_str());
 
     if (id != drule::BaseRule::empty_id)
@@ -147,9 +149,9 @@ void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition
       //ASSERT ( false, ("Can't find symbol by id = ", (name)) );
       return;
     }
-  }
+  }*/
 
-  m_pScreen->drawSymbol(pt, id, pos, depth);
+  m_pScreen->drawSymbol(pt, name, pos, depth);
 }
 
 void DrawerYG::drawPath(di::PathInfo const & info, di::DrawRule const * rules, size_t count)

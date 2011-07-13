@@ -49,7 +49,7 @@ namespace yg
     m_tree.ForEach(bind(&StraightTextElement::draw, _1, r, m));
   }
 
-  template <typename Tree>
+/*  template <typename Tree>
   void offsetTree(Tree & tree, m2::PointD const & offs, m2::RectD const & rect)
   {
     typedef typename Tree::elem_t elem_t;
@@ -136,7 +136,7 @@ namespace yg
     offsetTextTree(offs, rect);
     offsetPathTexts(offs, rect);
     offsetSymbols(offs, rect);
-  }
+  }*/
 
   void InfoLayer::clear()
   {
@@ -145,9 +145,17 @@ namespace yg
     m_symbolsMap.clear();
   }
 
-  void InfoLayer::addStraightText(StraightTextElement const & ste)
+  void InfoLayer::addStraightTextImpl(StraightTextElement const & ste)
   {
     m_tree.ReplaceIf(ste, ste.boundRect().GetGlobalRect(), &better_text);
+  }
+
+  void InfoLayer::addStraightText(StraightTextElement const & ste, math::Matrix<double, 3, 3> const & m)
+  {
+    if (m == math::Identity<double, 3>())
+      addStraightTextImpl(ste);
+    else
+      addStraightTextImpl(StraightTextElement(ste, m));
   }
 
   void mark_intersect(bool & flag)
@@ -155,7 +163,7 @@ namespace yg
     flag = true;
   }
 
-  void InfoLayer::addSymbol(SymbolElement const & se)
+  void InfoLayer::addSymbolImpl(SymbolElement const & se)
   {
     bool isIntersect = false;
     m2::RectD limitRect = se.boundRect().GetGlobalRect();
@@ -164,7 +172,15 @@ namespace yg
       m_symbolsMap[se.styleID()].Add(se, limitRect);
   }
 
-  void InfoLayer::addPathText(PathTextElement const & pte)
+  void InfoLayer::addSymbol(SymbolElement const & se, math::Matrix<double, 3, 3> const & m)
+  {
+    if (m == math::Identity<double, 3>())
+      addSymbolImpl(se);
+    else
+      addSymbolImpl(SymbolElement(se, m));
+  }
+
+  void InfoLayer::addPathTextImpl(PathTextElement const & pte)
   {
     list<PathTextElement> & l = m_pathTexts[pte.logText()];
 
@@ -179,6 +195,25 @@ namespace yg
 
     if (doAppend)
       l.push_back(pte);
+  }
+
+  void InfoLayer::addPathText(PathTextElement const & pte, math::Matrix<double, 3, 3> const & m)
+  {
+/*    if (m == math::Identity<double, 3>())
+      addPathTextImpl(pte);
+    else
+      addPathTextImpl(PathTextElement(pte, m));*/
+  }
+
+  void InfoLayer::merge(InfoLayer const & layer, math::Matrix<double, 3, 3> const & m)
+  {
+    for (symbols_map_t::const_iterator it = layer.m_symbolsMap.begin(); it != layer.m_symbolsMap.end(); ++it)
+      it->second.ForEach(bind(&InfoLayer::addSymbol, this, _1, m));
+
+    layer.m_tree.ForEach(bind(&InfoLayer::addStraightText, this, _1, m));
+
+    for (path_text_elements::const_iterator it = layer.m_pathTexts.begin(); it != layer.m_pathTexts.end(); ++it)
+      for_each(it->second.begin(), it->second.end(), bind(&InfoLayer::addPathText, this, _1, m));
   }
 }
 

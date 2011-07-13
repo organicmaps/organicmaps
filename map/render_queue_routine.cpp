@@ -146,6 +146,10 @@ void RenderQueueRoutine::Do()
 
     m_threadDrawer->screen()->setRenderTarget(tileTarget);
 
+    shared_ptr<yg::InfoLayer> tileInfoLayer(new yg::InfoLayer());
+
+    m_threadDrawer->screen()->setInfoLayer(tileInfoLayer);
+
     m_threadDrawer->beginFrame();
 
     m_threadDrawer->clear(yg::Color(m_bgColor.r, m_bgColor.g, m_bgColor.b, 0));
@@ -154,7 +158,7 @@ void RenderQueueRoutine::Do()
 
     frameScreen.SetFromRect(m_currentCommand->m_rectInfo.m_rect);
 
-    m2::RectD selectionRect; // = m_currentCommand->m_rectInfo.m_rect;
+    m2::RectD selectionRect;
 
     double inflationSize = 24 * m_visualScale;
 
@@ -170,6 +174,7 @@ void RenderQueueRoutine::Do()
 //      m_infoLayer->draw(m_threadDrawer->screen().get(), math::Identity<double, 3>());
 
     m_threadDrawer->endFrame();
+    m_threadDrawer->screen()->resetInfoLayer();
 
     double duration = timer.ElapsedSeconds();
 
@@ -184,7 +189,7 @@ void RenderQueueRoutine::Do()
 
         if (!m_currentCommand->m_paintEvent->isCancelled())
         {
-          yg::Tile tile(tileTarget, frameScreen, m_currentCommand->m_rectInfo, duration);
+          yg::Tile tile(tileTarget, tileInfoLayer, frameScreen, m_currentCommand->m_rectInfo, duration);
           m_renderQueue->TileCache().lock();
           m_renderQueue->TileCache().addTile(m_currentCommand->m_rectInfo, yg::TileCache::Entry(tile, m_resourceManager));
           m_renderQueue->TileCache().unlock();

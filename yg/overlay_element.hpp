@@ -38,9 +38,8 @@ namespace yg
 
     OverlayElement(Params const & p);
 
-    virtual void offset(m2::PointD const & offs) = 0;
     virtual m2::AARectD const boundRect() const = 0;
-    virtual void draw(gl::OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m) const = 0;
+    virtual void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const = 0;
 
     m2::PointD const & pivot() const;
     void setPivot(m2::PointD const & pv);

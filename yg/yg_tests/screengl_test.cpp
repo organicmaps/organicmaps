@@ -1227,7 +1227,7 @@ namespace
     void DoDraw(shared_ptr<yg::gl::Screen> const & p)
     {
       for (int i = 0; i < 40; ++i)
-        p->drawSymbol(m2::PointD(100 + i, 100), p->skin()->mapSymbol("hospital"), yg::EPosCenter, 0);
+        p->drawSymbol(m2::PointD(100 + i, 100), "hospital", yg::EPosCenter, 0);
     }
   };
 

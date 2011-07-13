@@ -31,7 +31,7 @@ namespace yg
       OverlayRenderer(Params const & p);
 
       /// Drawing POI symbol
-      void drawSymbol(m2::PointD const & pt, uint32_t styleID, EPosition pos, int depth);
+      void drawSymbol(m2::PointD const & pt, string const & symbolName, EPosition pos, int depth);
 
       /// Drawing circle
       void drawCircle(m2::PointD const & pt, uint32_t styleID, EPosition pos, int depth);
@@ -53,6 +53,12 @@ namespace yg
                         double pathOffset,
                         yg::EPosition pos,
                         double depth);
+
+      void setInfoLayer(shared_ptr<InfoLayer> const & infoLayer);
+
+      shared_ptr<InfoLayer> const & infoLayer() const;
+
+      void resetInfoLayer();
     };
   }
 }

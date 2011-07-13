@@ -26,6 +26,8 @@ namespace yg
     GlyphMetrics m_metrics;
     ang::AngleD m_angle;
     m2::PointD m_pt;
+
+    void transform(math::Matrix<double, 3, 3> const & m);
   };
 
   class GlyphLayout
@@ -39,12 +41,15 @@ namespace yg
 
     m2::AARectD m_limitRect;
 
+    m2::PointD m_pivot;
+
     double getKerning(GlyphLayoutElem const & prevElem, GlyphLayoutElem const & curElem);
     void computeMinLimitRect();
+    void recalcPivot();
 
   public:
 
-    GlyphLayout(GlyphLayout const & layout, double shift);
+    GlyphLayout(GlyphLayout const & layout, math::Matrix<double, 3, 3> const & m);
 
     GlyphLayout(GlyphCache * glyphCache,
                 FontDesc const & font,
@@ -68,6 +73,8 @@ namespace yg
 
     m2::AARectD const limitRect() const;
 
-    void offset(m2::PointD const & offs);
+    m2::PointD const & pivot() const;
+
+    void setPivot(m2::PointD const & pv);
   };
 }

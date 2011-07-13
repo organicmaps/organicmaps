@@ -1,7 +1,13 @@
 #pragma once
-#include "draw_info.hpp"
 
+#include "draw_info.hpp"
+#include "events.hpp"
+
+#include "../indexer/drawing_rule_def.hpp"
+#include "../indexer/feature.hpp"
 #include "../indexer/cell_id.hpp" // CoordPointT
+#include "../indexer/data_header.hpp"
+#include "../indexer/feature_data.hpp"
 
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
@@ -300,3 +306,45 @@ namespace get_pts
     m2::PointD GetCenter() const { return m_center / (3*m_count); }
   };
 }
+
+namespace drule { class BaseRule; }
+namespace di { class DrawInfo; }
+
+class redraw_operation_cancelled {};
+
+namespace fwork
+{
+  class DrawProcessor
+  {
+    m2::RectD m_rect;
+
+    ScreenBase const & m_convertor;
+
+    shared_ptr<PaintEvent> m_paintEvent;
+    vector<drule::Key> m_keys;
+
+    int m_zoom;
+    yg::GlyphCache * m_glyphCache;
+
+#ifdef PROFILER_DRAWING
+    size_t m_drawCount;
+#endif
+
+    inline DrawerYG * GetDrawer() const { return m_paintEvent->drawer().get(); }
+
+    void PreProcessKeys();
+
+    static const int reserve_rules_count = 16;
+
+  public:
+
+    DrawProcessor(m2::RectD const & r,
+                  ScreenBase const & convertor,
+                  shared_ptr<PaintEvent> const & paintEvent,
+                  int scaleLevel,
+                  yg::GlyphCache * glyphCache);
+
+    bool operator() (FeatureType const & f);
+  };
+}
+

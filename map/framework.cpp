@@ -31,255 +31,6 @@
 
 using namespace feature;
 
-namespace fwork
-{
-  namespace
-  {
-    template <class TSrc> void assign_point(di::DrawInfo * p, TSrc & src)
-    {
-      p->m_point = src.m_point;
-    }
-    template <class TSrc> void assign_path(di::DrawInfo * p, TSrc & src)
-    {
-      p->m_pathes.swap(src.m_points);
-    }
-    template <class TSrc> void assign_area(di::DrawInfo * p, TSrc & src)
-    {
-      p->m_areas.swap(src.m_points);
-
-      ASSERT ( !p->m_areas.empty(), () );
-      p->m_areas.back().SetCenter(src.GetCenter());
-    }
-  }
-
-  DrawProcessor::DrawProcessor( m2::RectD const & r,
-                                ScreenBase const & convertor,
-                                shared_ptr<PaintEvent> const & paintEvent,
-                                int scaleLevel,
-                                yg::GlyphCache * glyphCache)
-    : m_rect(r),
-      m_convertor(convertor),
-      m_paintEvent(paintEvent),
-      m_zoom(scaleLevel),
-      m_glyphCache(glyphCache)
-#ifdef PROFILER_DRAWING
-      , m_drawCount(0)
-#endif
-  {
-    m_keys.reserve(reserve_rules_count);
-
-    GetDrawer()->SetScale(m_zoom);
-  }
-
-  namespace
-  {
-    struct less_depth
-    {
-      bool operator() (di::DrawRule const & r1, di::DrawRule const & r2) const
-      {
-        return (r1.m_depth < r2.m_depth);
-      }
-    };
-
-    struct less_key
-    {
-      bool operator() (drule::Key const & r1, drule::Key const & r2) const
-      {
-        if (r1.m_type == r2.m_type)
-        {
-          // assume that unique algo leaves the first element (with max priority), others - go away
-          return (r1.m_priority > r2.m_priority);
-        }
-        else
-          return (r1.m_type < r2.m_type);
-      }
-    };
-
-    struct equal_key
-    {
-      bool operator() (drule::Key const & r1, drule::Key const & r2) const
-      {
-        // many line and area rules - is ok, other rules - one is enough
-        if (r1.m_type == drule::line || r1.m_type == drule::area)
-          return (r1 == r2);
-        else
-          return (r1.m_type == r2.m_type);
-      }
-    };
-  }
-
-  void DrawProcessor::PreProcessKeys()
-  {
-    sort(m_keys.begin(), m_keys.end(), less_key());
-    m_keys.erase(unique(m_keys.begin(), m_keys.end(), equal_key()), m_keys.end());
-  }
-
-#define GET_POINTS(f, for_each_fun, fun, assign_fun)       \
-  {                                                        \
-    f.for_each_fun(fun, m_zoom);                           \
-    if (fun.IsExist())                                     \
-    {                                                      \
-      isExist = true;                                      \
-      assign_fun(ptr.get(), fun);                          \
-    }                                                      \
-  }
-
-  bool DrawProcessor::operator()(FeatureType const & f)
-  {
-    if (m_paintEvent->isCancelled())
-      throw redraw_operation_cancelled();
-
-    // get drawing rules
-    m_keys.clear();
-    string names;       // for debug use only, in release it's empty
-    int type = feature::GetDrawRule(f, m_zoom, m_keys, names);
-
-    if (m_keys.empty())
-    {
-      // Index can pass here invisible features.
-      // During indexing, features are placed at first visible scale bucket.
-      // At higher scales it can become invisible - it depends on classificator.
-      return true;
-    }
-
-    // remove duplicating identical drawing keys
-    PreProcessKeys();
-
-    // get drawing rules for the m_keys array
-    size_t const count = m_keys.size();
-#ifdef PROFILER_DRAWING
-    m_drawCount += count;
-#endif
-
-    buffer_vector<di::DrawRule, reserve_rules_count> rules;
-    rules.resize(count);
-
-    int layer = f.GetLayer();
-    bool isTransparent = false;
-    if (layer == feature::LAYER_TRANSPARENT_TUNNEL)
-    {
-      layer = 0;
-      isTransparent = true;
-    }
-
-    for (size_t i = 0; i < count; ++i)
-    {
-      int depth = m_keys[i].m_priority;
-      if (layer != 0)
-        depth = (layer * drule::layer_base_priority) + (depth % drule::layer_base_priority);
-
-      rules[i] = di::DrawRule(drule::rules().Find(m_keys[i]), depth, isTransparent);
-    }
-
-    sort(rules.begin(), rules.end(), less_depth());
-
-    shared_ptr<di::DrawInfo> ptr(new di::DrawInfo(
-      f.GetPreferredDrawableName(languages::GetCurrentPriorities()),
-      f.GetRoadNumber(),
-      (m_zoom > 5) ? f.GetPopulationDrawRank() : 0.0));
-
-    DrawerYG * pDrawer = GetDrawer();
-
-    using namespace get_pts;
-
-    bool isExist = false;
-    switch (type)
-    {
-    case GEOM_POINT:
-    {
-      typedef get_pts::one_point functor_t;
-
-      functor_t::params p;
-      p.m_convertor = &m_convertor;
-      p.m_rect = &m_rect;
-
-      functor_t fun(p);
-      GET_POINTS(f, ForEachPointRef, fun, assign_point)
-      break;
-    }
-
-    case GEOM_AREA:
-    {
-      typedef filter_screenpts_adapter<area_tess_points> functor_t;
-
-      functor_t::params p;
-      p.m_convertor = &m_convertor;
-      p.m_rect = &m_rect;
-
-      functor_t fun(p);
-      GET_POINTS(f, ForEachTriangleExRef, fun, assign_area)
-      {
-        // if area feature has any line-drawing-rules, than draw it like line
-        for (size_t i = 0; i < m_keys.size(); ++i)
-          if (m_keys[i].m_type == drule::line)
-            goto draw_line;
-        break;
-      }
-    }
-    draw_line:
-    case GEOM_LINE:
-      {
-        typedef filter_screenpts_adapter<path_points> functor_t;
-        functor_t::params p;
-        p.m_convertor = &m_convertor;
-        p.m_rect = &m_rect;
-
-        if (!ptr->m_name.empty())
-        {
-          double fontSize = 0;
-          for (size_t i = 0; i < count; ++i)
-          {
-            if (pDrawer->filter_text_size(rules[i].m_rule))
-              fontSize = max((uint8_t)fontSize, pDrawer->get_pathtext_font_size(rules[i].m_rule));
-          }
-
-          if (fontSize != 0)
-          {
-            double textLength = m_glyphCache->getTextLength(fontSize, ptr->m_name);
-            typedef calc_length<base_global> functor_t;
-            functor_t::params p1;
-            p1.m_convertor = &m_convertor;
-            p1.m_rect = &m_rect;
-            functor_t fun(p1);
-
-            f.ForEachPointRef(fun, m_zoom);
-            if ((fun.IsExist()) && (fun.m_length > textLength))
-            {
-              textLength += 50;
-              p.m_startLength = (fun.m_length - textLength) / 2;
-              p.m_endLength = p.m_startLength + textLength;
-            }
-          }
-        }
-
-        functor_t fun(p);
-
-        GET_POINTS(f, ForEachPointRef, fun, assign_path)
-
-        break;
-      }
-    }
-
-    if (isExist)
-      pDrawer->Draw(ptr.get(), rules.data(), count);
-
-    return true;
-  }
-}
-
-/*template <typename TModel>
-void FrameWork<TModel>::AddRedrawCommandSure()
-{
-
-}*/
-
-/*  template <typename TModel>
-  void FrameWork<TModel>::AddRedrawCommand()
-  {
-    yg::gl::RenderState const state = m_renderQueue.CopyState();
-    if ((state.m_currentScreen != m_navigator.Screen()) && (m_isRedrawEnabled))
-      AddRedrawCommandSure();
-  }*/
 
   template <typename TModel>
   void FrameWork<TModel>::AddMap(string const & file)
@@ -687,7 +438,39 @@ void FrameWork<TModel>::AddRedrawCommandSure()
                     shared_ptr<yg::ResourceManager> const & resourceManager)
   {
     m_resourceManager = resourceManager;
-    m_renderQueue.InitializeGL(primaryContext, m_resourceManager, GetPlatform().VisualScale());
+
+    if (GetPlatform().IsMultiThreadedRendering())
+      m_renderQueue.InitializeGL(primaryContext, m_resourceManager, GetPlatform().VisualScale());
+    else
+    {
+      /// render single tile on the same thread
+      shared_ptr<yg::gl::FrameBuffer> frameBuffer(new yg::gl::FrameBuffer());
+
+      unsigned tileWidth = m_resourceManager->tileTextureWidth();
+      unsigned tileHeight = m_resourceManager->tileTextureHeight();
+
+      shared_ptr<yg::gl::RenderBuffer> depthBuffer(new yg::gl::RenderBuffer(tileWidth, tileHeight, true));
+      frameBuffer->setDepthBuffer(depthBuffer);
+
+      DrawerYG::params_t params;
+
+      shared_ptr<yg::InfoLayer> infoLayer(new yg::InfoLayer());
+
+      params.m_resourceManager = m_resourceManager;
+      params.m_frameBuffer = frameBuffer;
+      params.m_infoLayer = infoLayer;
+      params.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
+      params.m_useOverlay = true;
+      params.m_threadID = 0;
+
+      m_tileDrawer = make_shared_ptr(new DrawerYG(GetPlatform().SkinName(), params));
+      m_tileDrawer->onSize(tileWidth, tileHeight);
+
+      m_tileDrawer->SetVisualScale(GetPlatform().VisualScale());
+
+      m2::RectI renderRect(1, 1, tileWidth - 1, tileWidth - 1);
+      m_tileScreen.OnSize(renderRect);
+    }
   }
 
   template <typename TModel>
@@ -840,22 +623,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     try
     {
       threads::MutexGuard lock(m_modelSyn);
-
-#ifdef PROFILER_DRAWING
-      using namespace prof;
-
-      start<for_each_feature>();
-      reset<feature_count>();
-#endif
-
       m_model.ForEachFeatureWithScale(selectRect, bind<bool>(ref(doDraw), _1), scaleLevel);
-
-#ifdef PROFILER_DRAWING
-      end<for_each_feature>();
-      LOG(LPROF, ("ForEachFeature=", metric<for_each_feature>(),
-                  "FeatureCount=", metric<feature_count>(),
-                  "TextureUpload= ", metric<yg_upload_data>()));
-#endif
     }
     catch (redraw_operation_cancelled const &)
     {
@@ -871,9 +639,6 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   template <typename TModel>
   void FrameWork<TModel>::Paint(shared_ptr<PaintEvent> e)
   {
-    // Making a copy of actualFrameInfo to compare without synchronizing.
-    //typename yg::gl::RenderState state = m_renderQueue.CopyState();
-
     DrawerYG * pDrawer = e->drawer().get();
 
     m_informationDisplay.setScreen(m_navigator.Screen());
@@ -918,6 +683,8 @@ void FrameWork<TModel>::AddRedrawCommandSure()
                               m_renderQueue.renderState().m_actualScreen,
                               currentScreen);*/
 
+    m_infoLayer.clear();
+
     m_tiler.seed(currentScreen,
                  currentScreen.GlobalRect().Center(),
                  m_tileSize,
@@ -942,19 +709,74 @@ void FrameWork<TModel>::AddRedrawCommandSure()
                                 yg::Color(),
                                 m2::RectI(0, 0, tileWidth - 2, tileHeight - 2),
                                 m2::RectU(1, 1, tileWidth - 1, tileHeight - 1));
+
+        m_infoLayer.merge(*tile.m_infoLayer.get(), tile.m_tileScreen.PtoGMatrix() * currentScreen.GtoPMatrix());
       }
       else
       {
-        m_renderQueue.TileCache().unlock();
-        m_renderQueue.AddCommand(bind(&this_type::PaintImpl, this, _1, _2, _3, _4), ri, m_tiler.seqNum());
+        if (GetPlatform().IsMultiThreadedRendering())
+        {
+          m_renderQueue.TileCache().unlock();
+          m_renderQueue.AddCommand(bind(&this_type::PaintImpl, this, _1, _2, _3, _4), ri, m_tiler.seqNum());
+        }
+        else
+        {
+          m_renderQueue.TileCache().unlock();
+          shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_tileDrawer));
+          shared_ptr<yg::gl::BaseTexture> tileTarget = m_resourceManager->renderTargets().Front(true);
+
+          shared_ptr<yg::InfoLayer> tileInfoLayer(new yg::InfoLayer());
+
+          m_tileDrawer->screen()->setRenderTarget(tileTarget);
+          m_tileDrawer->screen()->setInfoLayer(tileInfoLayer);
+
+          m_tileDrawer->beginFrame();
+
+          m_tileDrawer->clear(yg::Color(m_bgColor.r, m_bgColor.g, m_bgColor.b, 0));
+          m2::RectI renderRect(1, 1, m_resourceManager->tileTextureWidth() - 1, m_resourceManager->tileTextureHeight() - 1);
+          m_tileDrawer->screen()->setClipRect(renderRect);
+          m_tileDrawer->clear(m_bgColor);
+
+          m_tileScreen.SetFromRect(ri.m_rect);
+
+          m2::RectD selectionRect;
+
+          double inflationSize = 24 * GetPlatform().VisualScale();
+
+          m_tileScreen.PtoG(m2::Inflate(m2::RectD(renderRect), inflationSize, inflationSize), selectionRect);
+
+          PaintImpl(paintEvent,
+                    m_tileScreen,
+                    selectionRect,
+                    ri.m_drawScale);
+
+          m_tileDrawer->endFrame();
+          m_tileDrawer->screen()->resetInfoLayer();
+
+          yg::Tile tile(tileTarget, tileInfoLayer, m_tileScreen, ri, 0);
+          m_renderQueue.TileCache().lock();
+          m_renderQueue.TileCache().addTile(ri, yg::TileCache::Entry(tile, m_resourceManager));
+          m_renderQueue.TileCache().unlock();
+
+          m_renderQueue.TileCache().touchTile(ri);
+          tile = m_renderQueue.TileCache().getTile(ri);
+          m_renderQueue.TileCache().unlock();
+
+          size_t tileWidth = tile.m_renderTarget->width();
+          size_t tileHeight = tile.m_renderTarget->height();
+
+          pDrawer->screen()->blit(tile.m_renderTarget, tile.m_tileScreen, currentScreen, true,
+                                  yg::Color(),
+                                  m2::RectI(0, 0, tileWidth - 2, tileHeight - 2),
+                                  m2::RectU(1, 1, tileWidth - 1, tileHeight - 1));
+        }
       }
     }
 
-    m_informationDisplay.doDraw(pDrawer);
+    m_infoLayer.draw(pDrawer->screen().get(),
+                     math::Identity<double, 3>());
 
-/*    m_renderQueue.renderState().m_actualInfoLayer->draw(
-          pDrawer->screen().get(),
-          m_renderQueue.renderState().m_actualScreen.PtoGMatrix() * currentScreen.GtoPMatrix());*/
+    m_informationDisplay.doDraw(pDrawer);
 
     m_locationState.DrawMyPosition(*pDrawer, m_navigator.Screen());
 

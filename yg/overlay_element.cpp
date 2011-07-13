@@ -35,10 +35,10 @@ namespace yg
     return res;
   }
 
-  void OverlayElement::offset(m2::PointD const & offs)
+/*  void OverlayElement::offset(m2::PointD const & offs)
   {
     m_pivot += offs;
-  }
+  }*/
 
   m2::PointD const & OverlayElement::pivot() const
   {

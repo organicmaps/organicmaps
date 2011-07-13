@@ -1,7 +1,14 @@
 #include "draw_processor.hpp"
 
+#include "drawer_yg.hpp"
+#include "languages.hpp"
+
 #include "../geometry/screenbase.hpp"
 #include "../geometry/rect_intersect.hpp"
+
+#include "../indexer/feature_visibility.hpp"
+#include "../indexer/drawing_rules.hpp"
+#include "../indexer/feature_data.hpp"
 
 #include "../std/bind.hpp"
 
@@ -176,4 +183,240 @@ bool area_tess_points::IsExist() const
   return !m_points.empty();
 }
 
+}
+
+namespace fwork
+{
+  namespace
+  {
+    template <class TSrc> void assign_point(di::DrawInfo * p, TSrc & src)
+    {
+      p->m_point = src.m_point;
+    }
+    template <class TSrc> void assign_path(di::DrawInfo * p, TSrc & src)
+    {
+      p->m_pathes.swap(src.m_points);
+    }
+    template <class TSrc> void assign_area(di::DrawInfo * p, TSrc & src)
+    {
+      p->m_areas.swap(src.m_points);
+
+      ASSERT ( !p->m_areas.empty(), () );
+      p->m_areas.back().SetCenter(src.GetCenter());
+    }
+  }
+
+  DrawProcessor::DrawProcessor( m2::RectD const & r,
+                                ScreenBase const & convertor,
+                                shared_ptr<PaintEvent> const & paintEvent,
+                                int scaleLevel,
+                                yg::GlyphCache * glyphCache)
+    : m_rect(r),
+      m_convertor(convertor),
+      m_paintEvent(paintEvent),
+      m_zoom(scaleLevel),
+      m_glyphCache(glyphCache)
+#ifdef PROFILER_DRAWING
+      , m_drawCount(0)
+#endif
+  {
+    m_keys.reserve(reserve_rules_count);
+
+    GetDrawer()->SetScale(m_zoom);
+  }
+
+  namespace
+  {
+    struct less_depth
+    {
+      bool operator() (di::DrawRule const & r1, di::DrawRule const & r2) const
+      {
+        return (r1.m_depth < r2.m_depth);
+      }
+    };
+
+    struct less_key
+    {
+      bool operator() (drule::Key const & r1, drule::Key const & r2) const
+      {
+        if (r1.m_type == r2.m_type)
+        {
+          // assume that unique algo leaves the first element (with max priority), others - go away
+          return (r1.m_priority > r2.m_priority);
+        }
+        else
+          return (r1.m_type < r2.m_type);
+      }
+    };
+
+    struct equal_key
+    {
+      bool operator() (drule::Key const & r1, drule::Key const & r2) const
+      {
+        // many line and area rules - is ok, other rules - one is enough
+        if (r1.m_type == drule::line || r1.m_type == drule::area)
+          return (r1 == r2);
+        else
+          return (r1.m_type == r2.m_type);
+      }
+    };
+  }
+
+  void DrawProcessor::PreProcessKeys()
+  {
+    sort(m_keys.begin(), m_keys.end(), less_key());
+    m_keys.erase(unique(m_keys.begin(), m_keys.end(), equal_key()), m_keys.end());
+  }
+
+#define GET_POINTS(f, for_each_fun, fun, assign_fun)       \
+  {                                                        \
+    f.for_each_fun(fun, m_zoom);                           \
+    if (fun.IsExist())                                     \
+    {                                                      \
+      isExist = true;                                      \
+      assign_fun(ptr.get(), fun);                          \
+    }                                                      \
+  }
+
+  bool DrawProcessor::operator()(FeatureType const & f)
+  {
+    if (m_paintEvent->isCancelled())
+      throw redraw_operation_cancelled();
+
+    // get drawing rules
+    m_keys.clear();
+    string names;       // for debug use only, in release it's empty
+    int type = feature::GetDrawRule(f, m_zoom, m_keys, names);
+
+    if (m_keys.empty())
+    {
+      // Index can pass here invisible features.
+      // During indexing, features are placed at first visible scale bucket.
+      // At higher scales it can become invisible - it depends on classificator.
+      return true;
+    }
+
+    // remove duplicating identical drawing keys
+    PreProcessKeys();
+
+    // get drawing rules for the m_keys array
+    size_t const count = m_keys.size();
+#ifdef PROFILER_DRAWING
+    m_drawCount += count;
+#endif
+
+    buffer_vector<di::DrawRule, reserve_rules_count> rules;
+    rules.resize(count);
+
+    int layer = f.GetLayer();
+    bool isTransparent = false;
+    if (layer == feature::LAYER_TRANSPARENT_TUNNEL)
+    {
+      layer = 0;
+      isTransparent = true;
+    }
+
+    for (size_t i = 0; i < count; ++i)
+    {
+      int depth = m_keys[i].m_priority;
+      if (layer != 0)
+        depth = (layer * drule::layer_base_priority) + (depth % drule::layer_base_priority);
+
+      rules[i] = di::DrawRule(drule::rules().Find(m_keys[i]), depth, isTransparent);
+    }
+
+    sort(rules.begin(), rules.end(), less_depth());
+
+    shared_ptr<di::DrawInfo> ptr(new di::DrawInfo(
+      f.GetPreferredDrawableName(languages::GetCurrentPriorities()),
+      f.GetRoadNumber(),
+      (m_zoom > 5) ? f.GetPopulationDrawRank() : 0.0));
+
+    DrawerYG * pDrawer = GetDrawer();
+
+    using namespace get_pts;
+
+    bool isExist = false;
+    switch (type)
+    {
+    case feature::GEOM_POINT:
+    {
+      typedef get_pts::one_point functor_t;
+
+      functor_t::params p;
+      p.m_convertor = &m_convertor;
+      p.m_rect = &m_rect;
+
+      functor_t fun(p);
+      GET_POINTS(f, ForEachPointRef, fun, assign_point)
+      break;
+    }
+
+    case feature::GEOM_AREA:
+    {
+      typedef filter_screenpts_adapter<area_tess_points> functor_t;
+
+      functor_t::params p;
+      p.m_convertor = &m_convertor;
+      p.m_rect = &m_rect;
+
+      functor_t fun(p);
+      GET_POINTS(f, ForEachTriangleExRef, fun, assign_area)
+      {
+        // if area feature has any line-drawing-rules, than draw it like line
+        for (size_t i = 0; i < m_keys.size(); ++i)
+          if (m_keys[i].m_type == drule::line)
+            goto draw_line;
+        break;
+      }
+    }
+    draw_line:
+    case feature::GEOM_LINE:
+      {
+        typedef filter_screenpts_adapter<path_points> functor_t;
+        functor_t::params p;
+        p.m_convertor = &m_convertor;
+        p.m_rect = &m_rect;
+
+        if (!ptr->m_name.empty())
+        {
+          double fontSize = 0;
+          for (size_t i = 0; i < count; ++i)
+          {
+            if (pDrawer->filter_text_size(rules[i].m_rule))
+              fontSize = max((uint8_t)fontSize, pDrawer->get_pathtext_font_size(rules[i].m_rule));
+          }
+
+          if (fontSize != 0)
+          {
+            double textLength = m_glyphCache->getTextLength(fontSize, ptr->m_name);
+            typedef calc_length<base_global> functor_t;
+            functor_t::params p1;
+            p1.m_convertor = &m_convertor;
+            p1.m_rect = &m_rect;
+            functor_t fun(p1);
+
+            f.ForEachPointRef(fun, m_zoom);
+            if ((fun.IsExist()) && (fun.m_length > textLength))
+            {
+              textLength += 50;
+              p.m_startLength = (fun.m_length - textLength) / 2;
+              p.m_endLength = p.m_startLength + textLength;
+            }
+          }
+        }
+
+        functor_t fun(p);
+
+        GET_POINTS(f, ForEachPointRef, fun, assign_path)
+
+        break;
+      }
+    }
+
+    if (isExist)
+      pDrawer->Draw(ptr.get(), rules.data(), count);
+
+    return true;
+  }
 }

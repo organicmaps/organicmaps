@@ -12,6 +12,11 @@
 
 namespace yg
 {
+  void GlyphLayoutElem::transform(math::Matrix<double, 3, 3> const & m)
+  {
+    m_pt = m_pt * m;
+  }
+
   double GlyphLayout::getKerning(GlyphLayoutElem const & prevElem, GlyphLayoutElem const & curElem)
   {
     double res = 0;
@@ -56,17 +61,27 @@ namespace yg
     return res;
   }
 
+  GlyphLayout::GlyphLayout(GlyphLayout const & src, math::Matrix<double, 3, 3> const & m)
+    : m_firstVisible(src.m_firstVisible),
+      m_lastVisible(src.m_lastVisible),
+      m_pivot(src.m_pivot * m)
+  {
+    m_entries = src.m_entries;
+    /// TODO: it's better and faster to transform AARect, not calculate it once again.
+    computeMinLimitRect();
+  }
+
   GlyphLayout::GlyphLayout(GlyphCache * glyphCache,
                            FontDesc const & fontDesc,
                            m2::PointD const & pt,
                            strings::UniString const & visText,
                            yg::EPosition pos)
     : m_firstVisible(0),
-      m_lastVisible(visText.size())
+      m_lastVisible(visText.size()),
+      m_pivot(pt)
   {
-    m2::PointD pv = pt;
-
     m2::RectD limitRect;
+    m2::PointD curPt;
 
     bool isFirst = true;
 
@@ -77,26 +92,26 @@ namespace yg
       GlyphMetrics const m = glyphCache->getGlyphMetrics(glyphKey);
       if (isFirst)
       {
-        limitRect = m2::RectD(m.m_xOffset + pv.x,
-                             -m.m_yOffset + pv.y,
-                              m.m_xOffset + pv.x,
-                             -m.m_yOffset + pv.y);
+        limitRect = m2::RectD(m.m_xOffset,
+                             -m.m_yOffset,
+                              m.m_xOffset,
+                             -m.m_yOffset);
         isFirst = false;
       }
       else
-        limitRect.Add(m2::PointD(m.m_xOffset + pv.x, -m.m_yOffset + pv.y));
+        limitRect.Add(m2::PointD(m.m_xOffset + curPt.x, -m.m_yOffset + curPt.y));
 
       limitRect.Add(m2::PointD(m.m_xOffset + m.m_width,
-                             -(m.m_yOffset + m.m_height)) + pv);
+                             -(m.m_yOffset + m.m_height)) + curPt);
 
       GlyphLayoutElem elem;
       elem.m_sym = visText[i];
       elem.m_angle = 0;
-      elem.m_pt = pv;
+      elem.m_pt = curPt;
       elem.m_metrics = m;
       m_entries.push_back(elem);
 
-      pv += m2::PointD(m.m_xAdvance, m.m_yAdvance);
+      curPt += m2::PointD(m.m_xAdvance, m.m_yAdvance);
     }
 
     limitRect.Inflate(2, 2);
@@ -118,11 +133,11 @@ namespace yg
 
     m_limitRect = m2::AARectD(limitRect);
 
-    offset(ptOffs);
+    for (unsigned i = 0; i < m_entries.size(); ++i)
+      m_entries[i].m_pt += ptOffs;
 
-
+    m_limitRect.Offset(ptOffs);
   }
-
 
   GlyphLayout::GlyphLayout(GlyphCache * glyphCache,
                            FontDesc const & fontDesc,
@@ -155,13 +170,24 @@ namespace yg
     if (fullLength < strLength)
       return;
 
+    PathPoint arrPathStart(0, ang::AngleD(ang::AngleTo(arrPath.get(0), arrPath.get(1))), arrPath.get(0));
+
+    m_pivot = arrPath.offsetPoint(arrPathStart, fullLength / 2.0).m_pt;
+
     // offset of the text from path's start
     double offset = (fullLength - strLength) / 2.0;
 
     if (pos & yg::EPosLeft)
+    {
       offset = 0;
+      m_pivot = arrPathStart.m_pt;
+    }
+
     if (pos & yg::EPosRight)
+    {
       offset = (fullLength - strLength);
+      m_pivot = arrPath.get(arrPath.size() - 1);
+    }
 
     // calculate base line offset
     double blOffset = 2 - fontDesc.m_size / 2;
@@ -182,7 +208,7 @@ namespace yg
     while (offset < 0 &&  symPos < count)
       offset += m_entries[symPos++].m_metrics.m_xAdvance;
 
-    PathPoint glyphStartPt = arrPath.offsetPoint(PathPoint(0, ang::AngleD(ang::AngleTo(arrPath.get(0), arrPath.get(1))), arrPath.get(0)), offset);
+    PathPoint glyphStartPt = arrPath.offsetPoint(arrPathStart, offset);
 
     m_firstVisible = symPos;
 
@@ -268,7 +294,18 @@ namespace yg
       m_lastVisible = symPos + 1;
     }
 
+    /// storing glyph coordinates relative to pivot point.
+    for (unsigned i = m_firstVisible; i < m_lastVisible; ++i)
+      m_entries[i].m_pt -= m_pivot;
+
     computeMinLimitRect();
+
+//    recalcPivot();
+  }
+
+  void GlyphLayout::recalcPivot()
+  {
+
   }
 
   void GlyphLayout::computeMinLimitRect()
@@ -352,13 +389,16 @@ namespace yg
 
   m2::AARectD const GlyphLayout::limitRect() const
   {
-    return m_limitRect;
+    return m2::Offset(m_limitRect, pivot());
   }
 
-  void GlyphLayout::offset(m2::PointD const & offs)
+  m2::PointD const & GlyphLayout::pivot() const
   {
-    for (unsigned i = 0; i < m_entries.size(); ++i)
-      m_entries[i].m_pt += offs;
-    m_limitRect.Offset(offs);
+    return m_pivot;
+  }
+
+  void GlyphLayout::setPivot(m2::PointD const & pivot)
+  {
+    m_pivot = pivot;
   }
 }

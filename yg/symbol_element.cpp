@@ -10,19 +10,33 @@ namespace yg
 {
   SymbolElement::SymbolElement(Params const & p)
     : OverlayElement(p),
-      m_styleID(p.m_styleID)
+      m_styleID(p.m_styleID),
+      m_symbolName(p.m_symbolName)
   {
+    if (m_styleID == 0)
+      m_styleID = p.m_skin->mapSymbol(m_symbolName.c_str());
+
     m_style = p.m_skin->fromID(m_styleID);
+
     if (m_style == 0)
       LOG(LINFO, ("drawSymbolImpl: styleID=", m_styleID, " wasn't found on the current skin"));
+    else
+      m_symbolRect = m_style->m_texRect;
+  }
+
+  SymbolElement::SymbolElement(SymbolElement const & se, math::Matrix<double, 3, 3> const & m)
+    : OverlayElement(se),
+      m_styleID(0),
+      m_style(0),
+      m_symbolName(se.m_symbolName),
+      m_symbolRect(se.m_symbolRect)
+  {
+    setPivot(se.pivot() * m);
   }
 
   m2::AARectD const SymbolElement::boundRect() const
   {
-    if (m_style == 0)
-      return m2::AARectD();
-
-    m2::RectU texRect(m_style->m_texRect);
+    m2::RectU texRect = m_symbolRect;
     texRect.Inflate(-1, -1);
 
     m2::PointD posPt = tieRect(m2::RectD(texRect), math::Identity<double, 3>());
@@ -30,16 +44,19 @@ namespace yg
     return m2::RectD(posPt, posPt + m2::PointD(texRect.SizeX(), texRect.SizeY()));
   }
 
-  void SymbolElement::offset(m2::PointD const & offs)
-  {
-    OverlayElement::offset(offs);
-  }
-
   void SymbolElement::draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const
   {
+    if (m_styleID == 0)
+    {
+      m_styleID = r->skin()->mapSymbol(m_symbolName.c_str());
+      m_style = r->skin()->fromID(m_styleID);
+      m_symbolRect = m_style->m_texRect;
+    }
+
     if (m_style == 0)
       return;
-    m2::RectU texRect(m_style->m_texRect);
+
+    m2::RectU texRect = m_symbolRect;
     texRect.Inflate(-1, -1);
 
     m2::PointD posPt = tieRect(m2::RectD(texRect), m);

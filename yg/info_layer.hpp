@@ -7,6 +7,8 @@
 #include "../geometry/point2d.hpp"
 #include "../geometry/tree4d.hpp"
 
+#include "../base/matrix.hpp"
+
 #include "../std/map.hpp"
 #include "../std/list.hpp"
 
@@ -35,22 +37,28 @@ namespace yg
     typedef map<uint32_t, m4::Tree<SymbolElement> > symbols_map_t;
     symbols_map_t m_symbolsMap;
 
-    void offsetPathTexts(m2::PointD const & offs, m2::RectD const & rect);
+/*    void offsetPathTexts(m2::PointD const & offs, m2::RectD const & rect);
     void offsetTextTree(m2::PointD const & offs, m2::RectD const & rect);
-    void offsetSymbols(m2::PointD const & offs, m2::RectD const & rect);
+    void offsetSymbols(m2::PointD const & offs, m2::RectD const & rect);*/
+
+    void addPathTextImpl(PathTextElement const & pte);
+    void addStraightTextImpl(StraightTextElement const & ste);
+    void addSymbolImpl(SymbolElement const & se);
 
   public:
 
     void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m);
 
-    void addPathText(PathTextElement const & pte);
+    void addPathText(PathTextElement const & pte, math::Matrix<double, 3, 3> const & m);
 
-    void addStraightText(StraightTextElement const & ste);
+    void addStraightText(StraightTextElement const & ste, math::Matrix<double, 3, 3> const & m);
 
-    void addSymbol(SymbolElement const & se);
+    void addSymbol(SymbolElement const & se, math::Matrix<double, 3, 3> const & m);
 
-    void offset(m2::PointD const & offs, m2::RectD const & rect);
+//    void offset(m2::PointD const & offs, m2::RectD const & rect);
 
     void clear();
+
+    void merge(InfoLayer const & infoLayer, math::Matrix<double, 3, 3> const & m);
   };
 }

@@ -10,11 +10,9 @@
 
 #include "../defines.hpp"
 
-#include "../indexer/drawing_rule_def.hpp"
 #include "../indexer/mercator.hpp"
 #include "../indexer/data_header.hpp"
 #include "../indexer/scales.hpp"
-#include "../indexer/feature.hpp"
 
 #include "../platform/platform.hpp"
 #include "../platform/location.hpp"
@@ -26,6 +24,7 @@
 #include "../yg/skin.hpp"
 #include "../yg/resource_manager.hpp"
 #include "../yg/tiler.hpp"
+#include "../yg/info_layer.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/file_writer.hpp"
@@ -47,55 +46,16 @@
 
 //#define DRAW_TOUCH_POINTS
 
-namespace di { class DrawInfo; }
-namespace drule { class BaseRule; }
 namespace search { class Engine; }
-
-class redraw_operation_cancelled {};
 
 struct BenchmarkRectProvider;
 
 namespace search { class Result; }
 typedef function<void (search::Result const &)> SearchCallbackT;
 
-namespace fwork
-{
-  class DrawProcessor
-  {
-    m2::RectD m_rect;
-
-    ScreenBase const & m_convertor;
-
-    shared_ptr<PaintEvent> m_paintEvent;
-    vector<drule::Key> m_keys;
-
-    int m_zoom;
-    yg::GlyphCache * m_glyphCache;
-
-#ifdef PROFILER_DRAWING
-    size_t m_drawCount;
-#endif
-
-    inline DrawerYG * GetDrawer() const { return m_paintEvent->drawer().get(); }
-
-    void PreProcessKeys();
-
-    static const int reserve_rules_count = 16;
-
-  public:
-
-    DrawProcessor(m2::RectD const & r,
-                  ScreenBase const & convertor,
-                  shared_ptr<PaintEvent> const & paintEvent,
-                  int scaleLevel,
-                  yg::GlyphCache * glyphCache);
-
-    bool operator() (FeatureType const & f);
-  };
-}
-
-
 typedef function<void (void)> LocationRetrievedCallbackT;
+
+class DrawerYG;
 
 template
 <
@@ -120,6 +80,11 @@ class FrameWork
   RenderQueue m_renderQueue;
   shared_ptr<yg::ResourceManager> m_resourceManager;
   InformationDisplay m_informationDisplay;
+
+  yg::InfoLayer m_infoLayer;
+
+  shared_ptr<DrawerYG> m_tileDrawer;
+  ScreenBase m_tileScreen;
 
   /// is AddRedrawCommand enabled?
   bool m_isRedrawEnabled;
