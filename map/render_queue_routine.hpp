@@ -10,6 +10,7 @@
 #include "../yg/color.hpp"
 #include "../yg/tile_cache.hpp"
 #include "../yg/tiler.hpp"
+#include "render_policy.hpp"
 
 class DrawerYG;
 
@@ -43,7 +44,7 @@ class RenderQueueRoutine : public threads::IRoutine
 {
 public:
 
-  typedef function<void(shared_ptr<PaintEvent>, ScreenBase const &, m2::RectD const &, int)> render_fn_t;
+  typedef RenderPolicy::render_fn_t render_fn_t;
   typedef function<void()> renderCommandFinishedFn;
 
   /// Single tile rendering command

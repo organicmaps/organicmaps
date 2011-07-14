@@ -56,6 +56,7 @@ typedef function<void (search::Result const &)> SearchCallbackT;
 typedef function<void (void)> LocationRetrievedCallbackT;
 
 class DrawerYG;
+class RenderPolicy;
 
 template
 <
@@ -70,24 +71,16 @@ class FrameWork
   scoped_ptr<search::Engine> m_pSearchEngine;
   model_t m_model;
   Navigator m_navigator;
+
   shared_ptr<WindowHandle> m_windowHandle;
+  shared_ptr<RenderPolicy> m_renderPolicy;
 
   bool m_isBenchmarking;
   bool m_isBenchmarkInitialized;
 
-  yg::Color m_bgColor;
-
-  RenderQueue m_renderQueue;
   shared_ptr<yg::ResourceManager> m_resourceManager;
   InformationDisplay m_informationDisplay;
 
-  yg::InfoLayer m_infoLayer;
-
-  shared_ptr<DrawerYG> m_tileDrawer;
-  ScreenBase m_tileScreen;
-
-  /// is AddRedrawCommand enabled?
-  bool m_isRedrawEnabled;
   double const m_metresMinWidth;
   int const m_minRulerWidth;
 
@@ -103,9 +96,6 @@ class FrameWork
   location::State m_locationState;
 
   mutable threads::Mutex m_modelSyn;
-
-  void AddRedrawCommandSure();
-  void AddRedrawCommand();
 
   double m_maxDuration;
   m2::RectD m_maxDurationRect;
@@ -185,7 +175,7 @@ public:
     // initializes model with locally downloaded maps
     storage.Init(bind(&FrameWork::AddMap, this, _1),
                  bind(&FrameWork::RemoveMap, this, _1),
-                 bind(&FrameWork::RepaintRect, this, _1),
+                 bind(&FrameWork::InvalidateRect, this, _1),
                  enumMapsFn);
     LOG(LINFO, ("Storage initialized"));
   }
@@ -205,8 +195,10 @@ public:
   void Search(string const & text, SearchCallbackT callback);
 
   void SetMaxWorldRect();
-  void UpdateNow();
+
   void Invalidate();
+  void InvalidateRect(m2::RectD const & rect);
+
   void SaveState();
   bool LoadState();
 
@@ -214,9 +206,6 @@ public:
   void OnSize(int w, int h);
 
   bool SetUpdatesEnabled(bool doEnable);
-
-  /// enabling/disabling AddRedrawCommand
-  void SetRedrawEnabled(bool isRedrawEnabled);
 
   /// respond to device orientation changes
   void SetOrientation(EOrientation orientation);
@@ -229,8 +218,7 @@ public:
   void PaintImpl(shared_ptr<PaintEvent> e,
                  ScreenBase const & screen,
                  m2::RectD const & selectRect,
-                 int scaleLevel
-                 );
+                 int scaleLevel);
 
   /// Function for calling from platform dependent-paint function.
   void Paint(shared_ptr<PaintEvent> e);
@@ -250,10 +238,6 @@ public:
 
   /// Show all model by it's world rect.
   void ShowAll();
-
-  void Repaint();
-
-  void RepaintRect(m2::RectD const & rect);
 
   /// @name Drag implementation.
   //@{

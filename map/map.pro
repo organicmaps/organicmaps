@@ -24,6 +24,10 @@ HEADERS += \
     location_state.hpp \
     benchmark_provider.hpp \
     languages.hpp \
+    render_policy.hpp \
+    tiling_render_policy_mt.hpp \
+    tiling_render_policy_st.hpp \
+    tiling_render_policy.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -37,6 +41,10 @@ SOURCES += \
     location_state.cpp \
     benchmark_provider.cpp \
     languages.cpp \
+    render_policy.cpp \
+    tiling_render_policy_mt.cpp \
+    tiling_render_policy_st.cpp \
+    tiling_render_policy.cpp
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp

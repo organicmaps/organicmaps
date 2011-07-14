@@ -29,6 +29,9 @@
 #include "../yg/internal/opengl.hpp"
 #include "../yg/info_layer.hpp"
 
+#include "tiling_render_policy_st.hpp"
+#include "tiling_render_policy_mt.hpp"
+
 using namespace feature;
 
 
@@ -66,7 +69,7 @@ using namespace feature;
     }
     else if (m_centeringMode == ECenterOnly)
       CenterViewport(m_locationState.Position());
-    UpdateNow();
+    Invalidate();
   }
 
   template <typename TModel>
@@ -76,23 +79,16 @@ using namespace feature;
 //    {
       m_locationState.UpdateCompass(info);
       UpdateNow();
-//    }
+    }
   }
 
   template <typename TModel>
   FrameWork<TModel>::FrameWork(shared_ptr<WindowHandle> windowHandle,
             size_t bottomShift)
     : m_windowHandle(windowHandle),
+      m_renderPolicy(new TilingRenderPolicyMT(windowHandle, bind(&this_type::PaintImpl, this, _1, _2, _3, _4))),
       m_isBenchmarking(GetPlatform().IsBenchmarking()),
       m_isBenchmarkInitialized(false),
-      m_bgColor(0xEE, 0xEE, 0xDD, 0xFF),
-      m_renderQueue(GetPlatform().SkinName(),
-                    GetPlatform().IsBenchmarking(),
-                    GetPlatform().ScaleEtalonSize(),
-                    GetPlatform().MaxTilesCount(),
-                    GetPlatform().CpuCores(),
-                    m_bgColor),
-      m_isRedrawEnabled(true),
       m_metresMinWidth(20),
       m_minRulerWidth(97),
       m_centeringMode(EDoNothing),
@@ -125,7 +121,6 @@ using namespace feature;
     m_informationDisplay.enableBenchmarkInfo(m_isBenchmarking);
 
     m_informationDisplay.setVisualScale(GetPlatform().VisualScale());
-    m_renderQueue.AddWindowHandle(m_windowHandle);
 
     // initialize gps and compass subsystem
     GetLocationManager().SetGpsObserver(
@@ -418,15 +413,15 @@ using namespace feature;
   template <typename TModel>
   void FrameWork<TModel>::InitBenchmark()
   {
-    DoGetBenchmarks<Benchmark> doGet(m_benchmarks);
-    ForEachBenchmarkRecord(doGet);
+//    DoGetBenchmarks<Benchmark> doGet(m_benchmarks);
+//    ForEachBenchmarkRecord(doGet);
 
-    m_curBenchmark = 0;
+//    m_curBenchmark = 0;
 
-    m_renderQueue.AddRenderCommandFinishedFn(bind(&this_type::BenchmarkCommandFinished, this));
-    m_benchmarksTimer.Reset();
+//    m_renderQueue.AddRenderCommandFinishedFn(bind(&this_type::BenchmarkCommandFinished, this));
+//    m_benchmarksTimer.Reset();
 
-    MarkBenchmarkResultsStart();
+//    MarkBenchmarkResultsStart();
 //    NextBenchmarkCommand();
 
     Invalidate();
@@ -437,40 +432,7 @@ using namespace feature;
                     shared_ptr<yg::gl::RenderContext> const & primaryContext,
                     shared_ptr<yg::ResourceManager> const & resourceManager)
   {
-    m_resourceManager = resourceManager;
-
-    if (GetPlatform().IsMultiThreadedRendering())
-      m_renderQueue.InitializeGL(primaryContext, m_resourceManager, GetPlatform().VisualScale());
-    else
-    {
-      /// render single tile on the same thread
-      shared_ptr<yg::gl::FrameBuffer> frameBuffer(new yg::gl::FrameBuffer());
-
-      unsigned tileWidth = m_resourceManager->tileTextureWidth();
-      unsigned tileHeight = m_resourceManager->tileTextureHeight();
-
-      shared_ptr<yg::gl::RenderBuffer> depthBuffer(new yg::gl::RenderBuffer(tileWidth, tileHeight, true));
-      frameBuffer->setDepthBuffer(depthBuffer);
-
-      DrawerYG::params_t params;
-
-      shared_ptr<yg::InfoLayer> infoLayer(new yg::InfoLayer());
-
-      params.m_resourceManager = m_resourceManager;
-      params.m_frameBuffer = frameBuffer;
-      params.m_infoLayer = infoLayer;
-      params.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
-      params.m_useOverlay = true;
-      params.m_threadID = 0;
-
-      m_tileDrawer = make_shared_ptr(new DrawerYG(GetPlatform().SkinName(), params));
-      m_tileDrawer->onSize(tileWidth, tileHeight);
-
-      m_tileDrawer->SetVisualScale(GetPlatform().VisualScale());
-
-      m2::RectI renderRect(1, 1, tileWidth - 1, tileWidth - 1);
-      m_tileScreen.OnSize(renderRect);
-    }
+    m_renderPolicy->initialize(primaryContext, resourceManager);
   }
 
   template <typename TModel>
@@ -526,13 +488,6 @@ using namespace feature;
   }
 
   template <typename TModel>
-  void FrameWork<TModel>::UpdateNow()
-  {
-//    AddRedrawCommand();
-    Invalidate();
-  }
-
-  template <typename TModel>
   void FrameWork<TModel>::Invalidate()
   {
     m_windowHandle->invalidate();
@@ -565,6 +520,8 @@ using namespace feature;
 
     m_navigator.OnSize(0, 0, w, h);
 
+    m_renderPolicy->onSize(w, h);
+
     if ((m_isBenchmarking) && (!m_isBenchmarkInitialized))
     {
       m_isBenchmarkInitialized = true;
@@ -578,22 +535,13 @@ using namespace feature;
     return m_windowHandle->setUpdatesEnabled(doEnable);
   }
 
-  /// enabling/disabling AddRedrawCommand
-  template <typename TModel>
-  void FrameWork<TModel>::SetRedrawEnabled(bool isRedrawEnabled)
-  {
-    m_isRedrawEnabled = isRedrawEnabled;
-    Invalidate();
-//    AddRedrawCommand();
-  }
-
   /// respond to device orientation changes
   template <typename TModel>
   void FrameWork<TModel>::SetOrientation(EOrientation orientation)
   {
     m_navigator.SetOrientation(orientation);
     m_locationState.SetOrientation(orientation);
-    UpdateNow();
+    Invalidate();
   }
 
   template <typename TModel>
@@ -610,8 +558,6 @@ using namespace feature;
   }
 
   /// Actual rendering function.
-  /// Called, as the renderQueue processes RenderCommand
-  /// Usually it happens in the separate thread.
   template <typename TModel>
   void FrameWork<TModel>::PaintImpl(shared_ptr<PaintEvent> e,
                  ScreenBase const & screen,
@@ -670,111 +616,8 @@ using namespace feature;
     }*/
 
     e->drawer()->screen()->beginFrame();
-    e->drawer()->screen()->clear(m_bgColor);
 
-    ScreenBase currentScreen = m_navigator.Screen();
-
-//    m_informationDisplay.enableEmptyModelMessage(m_renderQueue.renderStatePtr()->m_isEmptyModelActual);
-
-/*    if (m_isBenchmarking)
-      currentScreen = m_renderQueue.renderState().m_actualScreen;*/
-
-/*      pDrawer->screen()->blit(m_renderQueue.renderState().m_actualTarget,
-                              m_renderQueue.renderState().m_actualScreen,
-                              currentScreen);*/
-
-    m_infoLayer.clear();
-
-    m_tiler.seed(currentScreen,
-                 currentScreen.GlobalRect().Center(),
-                 m_tileSize,
-                 GetPlatform().ScaleEtalonSize());
-
-    while (m_tiler.hasTile())
-    {
-      yg::Tiler::RectInfo ri = m_tiler.nextTile();
-
-      m_renderQueue.TileCache().lock();
-
-      if (m_renderQueue.TileCache().hasTile(ri))
-      {
-        m_renderQueue.TileCache().touchTile(ri);
-        yg::Tile tile = m_renderQueue.TileCache().getTile(ri);
-        m_renderQueue.TileCache().unlock();
-
-        size_t tileWidth = tile.m_renderTarget->width();
-        size_t tileHeight = tile.m_renderTarget->height();
-
-        pDrawer->screen()->blit(tile.m_renderTarget, tile.m_tileScreen, currentScreen, true,
-                                yg::Color(),
-                                m2::RectI(0, 0, tileWidth - 2, tileHeight - 2),
-                                m2::RectU(1, 1, tileWidth - 1, tileHeight - 1));
-
-        m_infoLayer.merge(*tile.m_infoLayer.get(), tile.m_tileScreen.PtoGMatrix() * currentScreen.GtoPMatrix());
-      }
-      else
-      {
-        if (GetPlatform().IsMultiThreadedRendering())
-        {
-          m_renderQueue.TileCache().unlock();
-          m_renderQueue.AddCommand(bind(&this_type::PaintImpl, this, _1, _2, _3, _4), ri, m_tiler.seqNum());
-        }
-        else
-        {
-          m_renderQueue.TileCache().unlock();
-          shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_tileDrawer));
-          shared_ptr<yg::gl::BaseTexture> tileTarget = m_resourceManager->renderTargets().Front(true);
-
-          shared_ptr<yg::InfoLayer> tileInfoLayer(new yg::InfoLayer());
-
-          m_tileDrawer->screen()->setRenderTarget(tileTarget);
-          m_tileDrawer->screen()->setInfoLayer(tileInfoLayer);
-
-          m_tileDrawer->beginFrame();
-
-          m_tileDrawer->clear(yg::Color(m_bgColor.r, m_bgColor.g, m_bgColor.b, 0));
-          m2::RectI renderRect(1, 1, m_resourceManager->tileTextureWidth() - 1, m_resourceManager->tileTextureHeight() - 1);
-          m_tileDrawer->screen()->setClipRect(renderRect);
-          m_tileDrawer->clear(m_bgColor);
-
-          m_tileScreen.SetFromRect(ri.m_rect);
-
-          m2::RectD selectionRect;
-
-          double inflationSize = 24 * GetPlatform().VisualScale();
-
-          m_tileScreen.PtoG(m2::Inflate(m2::RectD(renderRect), inflationSize, inflationSize), selectionRect);
-
-          PaintImpl(paintEvent,
-                    m_tileScreen,
-                    selectionRect,
-                    ri.m_drawScale);
-
-          m_tileDrawer->endFrame();
-          m_tileDrawer->screen()->resetInfoLayer();
-
-          yg::Tile tile(tileTarget, tileInfoLayer, m_tileScreen, ri, 0);
-          m_renderQueue.TileCache().lock();
-          m_renderQueue.TileCache().addTile(ri, yg::TileCache::Entry(tile, m_resourceManager));
-          m_renderQueue.TileCache().unlock();
-
-          m_renderQueue.TileCache().touchTile(ri);
-          tile = m_renderQueue.TileCache().getTile(ri);
-          m_renderQueue.TileCache().unlock();
-
-          size_t tileWidth = tile.m_renderTarget->width();
-          size_t tileHeight = tile.m_renderTarget->height();
-
-          pDrawer->screen()->blit(tile.m_renderTarget, tile.m_tileScreen, currentScreen, true,
-                                  yg::Color(),
-                                  m2::RectI(0, 0, tileWidth - 2, tileHeight - 2),
-                                  m2::RectU(1, 1, tileWidth - 1, tileHeight - 1));
-        }
-      }
-    }
-
-    m_infoLayer.draw(pDrawer->screen().get(),
-                     math::Identity<double, 3>());
+    m_renderPolicy->drawFrame(e, m_navigator.Screen());
 
     m_informationDisplay.doDraw(pDrawer);
 
@@ -787,7 +630,7 @@ using namespace feature;
   void FrameWork<TModel>::CenterViewport(m2::PointD const & pt)
   {
     m_navigator.CenterViewport(pt);
-    UpdateNow();
+    Invalidate();
   }
 
   int const theMetersFactor = 6;
@@ -801,7 +644,7 @@ using namespace feature;
       rect.SetSizes(minSizeX, minSizeY);
 
     m_navigator.SetFromRect(rect);
-    UpdateNow();
+    Invalidate();
   }
 
   template <typename TModel>
@@ -857,7 +700,7 @@ using namespace feature;
       m_navigator.SetFromRect(clipRect);
     }
 
-    UpdateNow();
+    Invalidate();
   }
 
   /// Show all model by it's world rect.
@@ -865,21 +708,14 @@ using namespace feature;
   void FrameWork<TModel>::ShowAll()
   {
     SetMaxWorldRect();
-    UpdateNow();
-  }
-
-  template <typename TModel>
-  void FrameWork<TModel>::Repaint()
-  {
-//    AddRedrawCommandSure();
     Invalidate();
   }
 
   template <typename TModel>
-  void FrameWork<TModel>::RepaintRect(m2::RectD const & rect)
+  void FrameWork<TModel>::InvalidateRect(m2::RectD const & rect)
   {
     if (m_navigator.Screen().GlobalRect().IsIntersect(rect))
-      Repaint();
+      Invalidate();
   }
 
   /// @name Drag implementation.
@@ -923,7 +759,7 @@ using namespace feature;
     m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));
 #endif
 
-    UpdateNow();
+    Invalidate();
   }
 
   template <typename TModel>
@@ -931,7 +767,7 @@ using namespace feature;
   {
     m_navigator.Move(azDir, factor);
     //m_tiler.seed(m_navigator.Screen(), m_tileSize);
-    UpdateNow();
+    Invalidate();
   }
   //@}
 
@@ -946,7 +782,7 @@ using namespace feature;
 
     m_navigator.ScaleToPoint(pt, e.ScaleFactor(), m_timer.ElapsedSeconds());
 
-    UpdateNow();
+    Invalidate();
   }
 
   template <typename TModel>
@@ -960,7 +796,8 @@ using namespace feature;
   {
     m_navigator.Scale(scale);
     //m_tiler.seed(m_navigator.Screen(), m_tileSize);
-    UpdateNow();
+
+    Invalidate();
   }
 
   template <typename TModel>
@@ -1032,7 +869,7 @@ using namespace feature;
     m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));
 #endif
 
-    UpdateNow();
+    Invalidate();
   }
 
   template<typename TModel>
