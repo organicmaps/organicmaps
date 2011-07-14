@@ -21,7 +21,7 @@ namespace boost{namespace icl
 template 
 <
     typename                  DomainT, 
-    ICL_COMPARE               Compare  = ICL_COMPARE_INSTANCE(std::less, DomainT),
+    ICL_COMPARE               Compare  = ICL_COMPARE_INSTANCE(ICL_COMPARE_DEFAULT, DomainT),
     ICL_INTERVAL(ICL_COMPARE) Interval = ICL_INTERVAL_INSTANCE(ICL_INTERVAL_DEFAULT, DomainT, Compare),
     ICL_ALLOC                 Alloc    = std::allocator
 > 
@@ -146,7 +146,7 @@ private:
 
     iterator add_over(const interval_type& addend)
     {
-        std::pair<iterator,iterator> overlap = this->_set.equal_range(addend);
+        std::pair<iterator,iterator> overlap = this->equal_range(addend);
         iterator first_ = overlap.first,
                  end_   = overlap.second,
                  last_  = end_; --last_;

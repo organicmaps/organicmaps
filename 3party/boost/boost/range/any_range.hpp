@@ -15,6 +15,7 @@
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/range/detail/any_iterator.hpp>
+#include <boost/range/concepts.hpp>
 #include <boost/range/reference.hpp>
 #include <boost/range/value_type.hpp>
 #include <boost/range/iterator_range_core.hpp>

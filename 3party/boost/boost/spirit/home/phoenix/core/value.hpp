@@ -1,7 +1,7 @@
 /*=============================================================================
     Copyright (c) 2001-2007 Joel de Guzman
 
-    Distributed under the Boost Software License, Version 1.0. (See accompanying 
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
 #ifndef PHOENIX_CORE_VALUE_HPP
@@ -44,7 +44,7 @@ namespace boost { namespace phoenix
     }
 
     template <typename T>
-    struct value 
+    struct value
     {
         BOOST_STATIC_ASSERT(
             mpl::not_<is_reference<T> >::value != 0);
@@ -56,6 +56,9 @@ namespace boost { namespace phoenix
         {
             typedef T type;
         };
+
+        value()
+            : val() {}
 
         value(T const& arg)
             : val(arg) {}
@@ -71,14 +74,14 @@ namespace boost { namespace phoenix
     };
 
     template <typename Actor>
-    struct actor_value 
+    struct actor_value
     {
         typedef typename Actor::no_nullary no_nullary;
 
         template <typename Env>
         struct result
         {
-            typedef typename 
+            typedef typename
                 remove_reference<
                     typename eval_result<Actor, Env>::type
                 >::type
@@ -124,7 +127,7 @@ namespace boost { namespace phoenix
         }
     };
 
-    // Sometimes it is necessary to auto-convert references to 
+    // Sometimes it is necessary to auto-convert references to
     // a value<T>. This happens when we are re-currying. This
     // cannot happen through the standard public actor interfaces.
     template <typename T>

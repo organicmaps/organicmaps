@@ -113,7 +113,7 @@ no_type BOOST_TT_DECL is_pointer_tester(...);
 
 template <bool>
 struct is_pointer_select
-    : ::boost::type_traits::false_result
+    : public ::boost::type_traits::false_result
 {
 };
 
@@ -133,7 +133,7 @@ struct is_pointer_select<false>
 
 template <typename T>
 struct is_pointer_impl
-    : is_pointer_select<
+    : public is_pointer_select<
           ::boost::type_traits::ice_or<
               ::boost::is_reference<T>::value
             , ::boost::is_array<T>::value

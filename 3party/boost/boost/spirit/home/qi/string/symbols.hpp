@@ -398,6 +398,15 @@ public:
     };
 }}}
 
+namespace boost { namespace spirit { namespace traits
+{
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename Char, typename T, typename Lookup, typename Filter
+      , typename Attr, typename Context, typename Iterator>
+    struct handles_container<qi::symbols<Char, T, Lookup, Filter>, Attr, Context, Iterator>
+      : traits::is_container<Attr> {}; 
+}}}
+
 #if defined(BOOST_MSVC)
 # pragma warning(pop)
 #endif

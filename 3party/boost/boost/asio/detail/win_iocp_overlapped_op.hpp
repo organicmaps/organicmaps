@@ -39,9 +39,9 @@ class win_iocp_overlapped_op : public operation
 public:
   BOOST_ASIO_DEFINE_HANDLER_PTR(win_iocp_overlapped_op);
 
-  win_iocp_overlapped_op(Handler handler)
+  win_iocp_overlapped_op(Handler& handler)
     : operation(&win_iocp_overlapped_op::do_complete),
-      handler_(handler)
+      handler_(BOOST_ASIO_MOVE_CAST(Handler)(handler))
   {
   }
 
@@ -51,6 +51,8 @@ public:
     // Take ownership of the operation object.
     win_iocp_overlapped_op* o(static_cast<win_iocp_overlapped_op*>(base));
     ptr p = { boost::addressof(o->handler_), o, o };
+
+    BOOST_ASIO_HANDLER_COMPLETION((o));
 
     // Make a copy of the handler so that the memory can be deallocated before
     // the upcall is made. Even if we're not about to make an upcall, a
@@ -67,7 +69,9 @@ public:
     if (owner)
     {
       boost::asio::detail::fenced_block b;
+      BOOST_ASIO_HANDLER_INVOCATION_BEGIN((handler.arg1_, handler.arg2_));
       boost_asio_handler_invoke_helpers::invoke(handler, handler.handler_);
+      BOOST_ASIO_HANDLER_INVOCATION_END;
     }
   }
 

@@ -357,7 +357,7 @@ namespace boost {
     {
       typedef typename tuple_impl_specific::tuple_meta_transform<
           IteratorTuple
-        , iterator_traversal<>
+        , pure_traversal_tag<iterator_traversal<> >
       >::type tuple_of_traversal_tags;
           
       typedef typename tuple_impl_specific::tuple_meta_accumulate<

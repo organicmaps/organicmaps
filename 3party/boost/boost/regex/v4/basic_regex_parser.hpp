@@ -2711,6 +2711,8 @@ regex_constants::syntax_option_type basic_regex_parser<charT, traits>::parse_opt
       }
    }
    while(!breakout);
+   
+   breakout = false;
 
    if(*m_position == static_cast<charT>('-'))
    {

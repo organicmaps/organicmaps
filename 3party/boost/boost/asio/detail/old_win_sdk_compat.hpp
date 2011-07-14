@@ -85,14 +85,6 @@ struct ipv6_mreq_emulation
   unsigned int ipv6mr_interface;
 };
 
-#if !defined(IN6ADDR_ANY_INIT)
-# define IN6ADDR_ANY_INIT { 0 }
-#endif
-
-#if !defined(IN6ADDR_LOOPBACK_INIT)
-# define IN6ADDR_LOOPBACK_INIT { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1 }
-#endif
-
 struct addrinfo_emulation
 {
   int ai_flags;
@@ -200,122 +192,6 @@ struct addrinfo_emulation
 #if !defined(IPV6_LEAVE_GROUP)
 # define IPV6_LEAVE_GROUP 13
 #endif
-
-inline int IN6_IS_ADDR_UNSPECIFIED(const in6_addr_emulation* a)
-{
-  return ((a->s6_addr[0] == 0)
-      && (a->s6_addr[1] == 0)
-      && (a->s6_addr[2] == 0)
-      && (a->s6_addr[3] == 0)
-      && (a->s6_addr[4] == 0)
-      && (a->s6_addr[5] == 0)
-      && (a->s6_addr[6] == 0)
-      && (a->s6_addr[7] == 0)
-      && (a->s6_addr[8] == 0)
-      && (a->s6_addr[9] == 0)
-      && (a->s6_addr[10] == 0)
-      && (a->s6_addr[11] == 0)
-      && (a->s6_addr[12] == 0)
-      && (a->s6_addr[13] == 0)
-      && (a->s6_addr[14] == 0)
-      && (a->s6_addr[15] == 0));
-}
-
-inline int IN6_IS_ADDR_LOOPBACK(const in6_addr_emulation* a)
-{
-  return ((a->s6_addr[0] == 0)
-      && (a->s6_addr[1] == 0)
-      && (a->s6_addr[2] == 0)
-      && (a->s6_addr[3] == 0)
-      && (a->s6_addr[4] == 0)
-      && (a->s6_addr[5] == 0)
-      && (a->s6_addr[6] == 0)
-      && (a->s6_addr[7] == 0)
-      && (a->s6_addr[8] == 0)
-      && (a->s6_addr[9] == 0)
-      && (a->s6_addr[10] == 0)
-      && (a->s6_addr[11] == 0)
-      && (a->s6_addr[12] == 0)
-      && (a->s6_addr[13] == 0)
-      && (a->s6_addr[14] == 0)
-      && (a->s6_addr[15] == 1));
-}
-
-inline int IN6_IS_ADDR_MULTICAST(const in6_addr_emulation* a)
-{
-  return (a->s6_addr[0] == 0xff);
-}
-
-inline int IN6_IS_ADDR_LINKLOCAL(const in6_addr_emulation* a)
-{
-  return ((a->s6_addr[0] == 0xfe) && ((a->s6_addr[1] & 0xc0) == 0x80));
-}
-
-inline int IN6_IS_ADDR_SITELOCAL(const in6_addr_emulation* a)
-{
-  return ((a->s6_addr[0] == 0xfe) && ((a->s6_addr[1] & 0xc0) == 0xc0));
-}
-
-inline int IN6_IS_ADDR_V4MAPPED(const in6_addr_emulation* a)
-{
-  return ((a->s6_addr[0] == 0)
-      && (a->s6_addr[1] == 0)
-      && (a->s6_addr[2] == 0)
-      && (a->s6_addr[3] == 0)
-      && (a->s6_addr[4] == 0)
-      && (a->s6_addr[5] == 0)
-      && (a->s6_addr[6] == 0)
-      && (a->s6_addr[7] == 0)
-      && (a->s6_addr[8] == 0)
-      && (a->s6_addr[9] == 0)
-      && (a->s6_addr[10] == 0xff)
-      && (a->s6_addr[11] == 0xff));
-}
-
-inline int IN6_IS_ADDR_V4COMPAT(const in6_addr_emulation* a)
-{
-  return ((a->s6_addr[0] == 0)
-      && (a->s6_addr[1] == 0)
-      && (a->s6_addr[2] == 0)
-      && (a->s6_addr[3] == 0)
-      && (a->s6_addr[4] == 0)
-      && (a->s6_addr[5] == 0)
-      && (a->s6_addr[6] == 0)
-      && (a->s6_addr[7] == 0)
-      && (a->s6_addr[8] == 0)
-      && (a->s6_addr[9] == 0)
-      && (a->s6_addr[10] == 0xff)
-      && (a->s6_addr[11] == 0xff)
-      && !((a->s6_addr[12] == 0)
-        && (a->s6_addr[13] == 0)
-        && (a->s6_addr[14] == 0)
-        && ((a->s6_addr[15] == 0) || (a->s6_addr[15] == 1))));
-}
-
-inline int IN6_IS_ADDR_MC_NODELOCAL(const in6_addr_emulation* a)
-{
-  return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_addr[1] & 0xf) == 1);
-}
-
-inline int IN6_IS_ADDR_MC_LINKLOCAL(const in6_addr_emulation* a)
-{
-  return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_addr[1] & 0xf) == 2);
-}
-
-inline int IN6_IS_ADDR_MC_SITELOCAL(const in6_addr_emulation* a)
-{
-  return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_addr[1] & 0xf) == 5);
-}
-
-inline int IN6_IS_ADDR_MC_ORGLOCAL(const in6_addr_emulation* a)
-{
-  return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_addr[1] & 0xf) == 8);
-}
-
-inline int IN6_IS_ADDR_MC_GLOBAL(const in6_addr_emulation* a)
-{
-  return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_addr[1] & 0xf) == 0xe);
-}
 
 } // namespace detail
 } // namespace asio

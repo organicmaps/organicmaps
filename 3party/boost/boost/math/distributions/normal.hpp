@@ -106,7 +106,7 @@ inline RealType pdf(const normal_distribution<RealType, Policy>& dist, const Rea
    //  return 0;
    //}
 
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_scale(function, sd, &result, Policy()))
    {
       return result;
@@ -138,7 +138,7 @@ inline RealType cdf(const normal_distribution<RealType, Policy>& dist, const Rea
    RealType sd = dist.standard_deviation();
    RealType mean = dist.mean();
    static const char* function = "boost::math::cdf(const normal_distribution<%1%>&, %1%)";
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_scale(function, sd, &result, Policy()))
    {
       return result;
@@ -179,7 +179,7 @@ inline RealType quantile(const normal_distribution<RealType, Policy>& dist, cons
    RealType mean = dist.mean();
    static const char* function = "boost::math::quantile(const normal_distribution<%1%>&, %1%)";
 
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_scale(function, sd, &result, Policy()))
       return result;
    if(false == detail::check_location(function, mean, &result, Policy()))
@@ -218,7 +218,7 @@ inline RealType cdf(const complemented2_type<normal_distribution<RealType, Polic
    //{ // cdf complement -infinity is unity.
    //  return 1;
    //}
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_scale(function, sd, &result, Policy()))
       return result;
    if(false == detail::check_location(function, mean, &result, Policy()))
@@ -239,7 +239,7 @@ inline RealType quantile(const complemented2_type<normal_distribution<RealType, 
    RealType sd = c.dist.standard_deviation();
    RealType mean = c.dist.mean();
    static const char* function = "boost::math::quantile(const complement(normal_distribution<%1%>&), %1%)";
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_scale(function, sd, &result, Policy()))
       return result;
    if(false == detail::check_location(function, mean, &result, Policy()))

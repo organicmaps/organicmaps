@@ -13,6 +13,7 @@
 #include <boost/spirit/home/support/unused.hpp>
 
 #include <boost/version.hpp>
+#include <boost/spirit/include/phoenix_limits.hpp>      // needs to be included before proto
 #include <boost/proto/proto.hpp>
 #include <boost/utility/result_of.hpp>
 #include <boost/type_traits/add_const.hpp>

@@ -15,6 +15,7 @@
 #include <boost/spirit/home/support/container.hpp>
 #include <boost/spirit/home/support/detail/hold_any.hpp>
 #include <boost/spirit/home/support/detail/get_encoding.hpp>
+#include <boost/spirit/home/support/detail/is_spirit_tag.hpp>
 #include <boost/spirit/home/karma/domain.hpp>
 #include <boost/spirit/home/karma/meta_compiler.hpp>
 #include <boost/spirit/home/karma/delimit_out.hpp>
@@ -37,7 +38,10 @@ namespace boost { namespace spirit
     namespace tag
     {
         template <typename Char = char>
-        struct stream_tag {};
+        struct stream_tag 
+        {
+            BOOST_SPIRIT_IS_TAG()
+        };
     }
 
     namespace karma
@@ -102,8 +106,12 @@ namespace boost { namespace spirit
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit { namespace karma
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::stream;
     using spirit::wstream;
+#endif
+    using spirit::stream_type;
+    using spirit::wstream_type;
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename Char, typename CharEncoding, typename Tag>
@@ -113,7 +121,7 @@ namespace boost { namespace spirit { namespace karma
         template <typename Context, typename Unused = unused_type>
         struct attribute
         {
-            typedef spirit::hold_any type;
+            typedef spirit::basic_hold_any<Char> type;
         };
 
         // any_stream_generator has an attached attribute 
@@ -221,7 +229,7 @@ namespace boost { namespace spirit { namespace karma
             typename OutputIterator, typename Context, typename Delimiter
           , typename Attribute>
         bool generate(OutputIterator& sink, Context&, Delimiter const& d
-          , Attribute const&)
+          , Attribute const&) const
         {
             typedef karma::detail::iterator_sink<
                 OutputIterator, Char, CharEncoding, Tag
@@ -243,7 +251,7 @@ namespace boost { namespace spirit { namespace karma
         bool generate(
             karma::detail::output_iterator<
                 karma::ostream_iterator<T1, Char, Traits>, Properties
-            >& sink, Context&, Delimiter const& d, Attribute const&)
+            >& sink, Context&, Delimiter const& d, Attribute const&) const
         {
             typedef karma::detail::output_iterator<
                 karma::ostream_iterator<T1, Char, Traits>, Properties

@@ -44,7 +44,7 @@ contains(const Type& super, const typename Type::element_type& key_value_pair)
 {
     typedef typename Type::const_iterator const_iterator;
     const_iterator it_ = icl::find(super, key_value_pair.key);
-    return it_ != super.end() && it_->second == key_value_pair.data;
+    return it_ != super.end() && (*it_).second == key_value_pair.data;
 }
 
 template<class Type>
@@ -88,7 +88,7 @@ typename enable_if< mpl::and_< is_interval_map<Type>
                              , is_total<Type> 
                              , is_cross_derivative<Type, CoType> >
             , bool>::type
-contains(const Type& super, const CoType& sub)
+contains(const Type&, const CoType&)
 {
     return true;
 }
@@ -102,7 +102,7 @@ typename enable_if< mpl::and_< is_interval_map<Type>
             , bool>::type
 contains(const Type& super, const typename Type::domain_type& key)    
 {
-    return super.find(key) != super.end();
+    return icl::find(super, key) != super.end();
 }
 
 template<class Type>
@@ -372,9 +372,9 @@ add_intersection(Type& section, const Type& object,
     typedef typename Type::segment_type   segment_type;
     typedef typename Type::const_iterator const_iterator;
 
-    const_iterator it_ = object.find(key_value);
+    const_iterator it_ = icl::find(object, key_value);
     if(it_ != object.end())
-        add(section, segment_type(interval_type(key_value),it_->second));
+        add(section, segment_type(interval_type(key_value),(*it_).second));
 }
 
 template<class Type>
@@ -398,10 +398,10 @@ add_intersection(Type& section, const Type& object,
     iterator prior_ = section.end();
     for(const_iterator it_=exterior.first; it_ != exterior.second; it_++) 
     {
-        interval_type common_interval = it_->first & inter_val; 
+        interval_type common_interval = (*it_).first & inter_val; 
         if(!icl::is_empty(common_interval))
             prior_ = add(section, prior_, 
-                         value_type(common_interval, it_->second) );
+                         value_type(common_interval, (*it_).second) );
     }
 }
 
@@ -514,7 +514,7 @@ flip(Type& object, const OperandT& operand)
 
     object += operand;
     ICL_FORALL(typename Type, it_, object)
-        it_->second = identity_element<codomain_type>::value();
+        (*it_).second = identity_element<codomain_type>::value();
 
     if(mpl::not_<is_interval_splitter<Type> >::value)
         icl::join(object);
@@ -572,7 +572,7 @@ domain(SetT& result, const Type& object)
     result.clear(); 
     set_iterator prior_ = result.end();
     ICL_const_FORALL(typename Type, it_, object) 
-        prior_ = icl::insert(result, prior_, it_->first); 
+        prior_ = icl::insert(result, prior_, (*it_).first); 
     
     return result;
 }
@@ -664,7 +664,7 @@ operator << (std::basic_ostream<CharType, CharTraits>& stream, const Type& objec
 {
     stream << "{";
     ICL_const_FORALL(typename Type, it_, object)
-        stream << "(" << it_->first << "->" << it_->second << ")";
+        stream << "(" << (*it_).first << "->" << (*it_).second << ")";
 
     return stream << "}";
 }

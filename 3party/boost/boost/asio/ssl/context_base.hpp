@@ -2,7 +2,7 @@
 // ssl/context_base.hpp
 // ~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2005-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -106,24 +106,11 @@ public:
     pem
   };
 
-  /// Bitmask type for peer verification.
+#if !defined(GENERATING_DOCUMENTATION)
+  // The following types and constants are preserved for backward compatibility.
+  // New programs should use the equivalents of the same names that are defined
+  // in the boost::asio::ssl namespace.
   typedef int verify_mode;
-
-#if defined(GENERATING_DOCUMENTATION)
-  /// No verification.
-  static const int verify_none = implementation_defined;
-
-  /// Verify the peer.
-  static const int verify_peer = implementation_defined;
-
-  /// Fail verification if the peer has no certificate. Ignored unless
-  /// verify_peer is set.
-  static const int verify_fail_if_no_peer_cert = implementation_defined;
-
-  /// Do not request client certificate on renegotiation. Ignored unless
-  /// verify_peer is set.
-  static const int verify_client_once = implementation_defined;
-#else
   BOOST_STATIC_CONSTANT(int, verify_none = SSL_VERIFY_NONE);
   BOOST_STATIC_CONSTANT(int, verify_peer = SSL_VERIFY_PEER);
   BOOST_STATIC_CONSTANT(int,

@@ -191,14 +191,14 @@ namespace boost { namespace spirit { namespace traits
     ///////////////////////////////////////////////////////////////////////////
     template <typename Elements, typename Attribute, typename Context
       , typename Iterator>
-    struct handles_container<karma::alternative<Elements>, Attribute, Context
-      , Iterator>
+    struct handles_container<karma::alternative<Elements>
+          , Attribute, Context, Iterator>
       : nary_handles_container<Elements, Attribute, Context, Iterator> {};
-    
+
     template <typename Elements, typename Attribute, typename Context
       , typename Iterator>
-    struct handles_container<karma::strict_alternative<Elements>, Attribute
-      , Context, Iterator>
+    struct handles_container<karma::strict_alternative<Elements>
+          , Attribute, Context, Iterator>
       : nary_handles_container<Elements, Attribute, Context, Iterator> {};
 }}}
 

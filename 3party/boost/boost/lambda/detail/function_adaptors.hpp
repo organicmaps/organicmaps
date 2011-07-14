@@ -16,6 +16,9 @@
 #include "boost/tuple/tuple.hpp"
 #include "boost/type_traits/same_traits.hpp"
 #include "boost/type_traits/remove_reference.hpp"
+#include "boost/type_traits/remove_cv.hpp"
+#include "boost/type_traits/add_const.hpp"
+#include "boost/type_traits/add_volatile.hpp"
 #include "boost/utility/result_of.hpp"
 
 namespace boost { 
@@ -237,22 +240,26 @@ struct function_adaptor<T Object::*> {
   // the data member is accessed is const, and finally adding a reference
   template<class Args> class sig { 
     typedef typename boost::tuples::element<1, Args>::type argument_type;
+    typedef typename boost::remove_reference<
+      argument_type
+    >::type unref_type;
 
-    typedef typename detail::IF<boost::is_const<argument_type>::value,
+    typedef typename detail::IF<boost::is_const<unref_type>::value,
       typename boost::add_const<T>::type,
       T
     >::RET properly_consted_return_type;
 
-    typedef typename detail::IF<
-        boost::is_volatile<properly_consted_return_type>::value,
+    typedef typename detail::IF<boost::is_volatile<unref_type>::value,
       typename boost::add_volatile<properly_consted_return_type>::type,
       properly_consted_return_type
     >::RET properly_cvd_return_type;
 
 
   public:
-    typedef typename 
-      boost::add_reference<properly_cvd_return_type>::type type;
+    typedef typename detail::IF<boost::is_reference<argument_type>::value,
+      typename boost::add_reference<properly_cvd_return_type>::type,
+      typename boost::remove_cv<T>::type
+    >::RET type;
   };
 
   template <class RET>

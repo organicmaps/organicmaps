@@ -44,7 +44,7 @@ template
 <
     typename             SubType,
     typename             DomainT, 
-    ICL_COMPARE Compare  = ICL_COMPARE_INSTANCE(std::less, DomainT),
+    ICL_COMPARE Compare  = ICL_COMPARE_INSTANCE(ICL_COMPARE_DEFAULT, DomainT),
     ICL_INTERVAL(ICL_COMPARE) Interval = ICL_INTERVAL_INSTANCE(ICL_INTERVAL_DEFAULT, DomainT, Compare),
     ICL_ALLOC   Alloc    = std::allocator
 > 
@@ -345,10 +345,17 @@ public:
     { return _set.upper_bound(interval); }
 
     std::pair<iterator,iterator> equal_range(const key_type& interval)
-    { return _set.equal_range(interval); }
+    { 
+        return std::pair<iterator,iterator>
+            (_set.lower_bound(interval), _set.upper_bound(interval)); 
+    }
 
-    std::pair<const_iterator,const_iterator> equal_range(const key_type& interval)const
-    { return _set.equal_range(interval); }
+    std::pair<const_iterator,const_iterator> 
+        equal_range(const key_type& interval)const
+    { 
+        return std::pair<const_iterator,const_iterator>
+            (_set.lower_bound(interval), _set.upper_bound(interval)); 
+    }
 
 private:
     iterator _add(const segment_type& addend);
@@ -501,7 +508,7 @@ inline SubType& interval_base_set<SubType,DomainT,Compare,Interval,Alloc>
     if(icl::is_empty(minuend)) 
         return *that();
 
-    std::pair<iterator, iterator> exterior = this->_set.equal_range(minuend);
+    std::pair<iterator, iterator> exterior = equal_range(minuend);
     if(exterior.first == exterior.second) 
         return *that();
 

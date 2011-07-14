@@ -51,7 +51,10 @@ enum
   stream_oriented = 16,
 
   // The socket is datagram-oriented.
-  datagram_oriented = 32
+  datagram_oriented = 32,
+
+  // The socket may have been dup()-ed.
+  possible_dup = 64
 };
 
 typedef unsigned char state_type;
@@ -88,8 +91,11 @@ BOOST_ASIO_DECL int bind(socket_type s, const socket_addr_type* addr,
 BOOST_ASIO_DECL int close(socket_type s, state_type& state,
     bool destruction, boost::system::error_code& ec);
 
+BOOST_ASIO_DECL bool set_user_non_blocking(socket_type s,
+    state_type& state, bool value, boost::system::error_code& ec);
+
 BOOST_ASIO_DECL bool set_internal_non_blocking(socket_type s,
-    state_type& state, boost::system::error_code& ec);
+    state_type& state, bool value, boost::system::error_code& ec);
 
 BOOST_ASIO_DECL int shutdown(socket_type s,
     int what, boost::system::error_code& ec);
@@ -162,6 +168,27 @@ BOOST_ASIO_DECL void complete_iocp_recvfrom(
 BOOST_ASIO_DECL bool non_blocking_recvfrom(socket_type s,
     buf* bufs, size_t count, int flags,
     socket_addr_type* addr, std::size_t* addrlen,
+    boost::system::error_code& ec, size_t& bytes_transferred);
+
+#endif // defined(BOOST_ASIO_HAS_IOCP)
+
+BOOST_ASIO_DECL int recvmsg(socket_type s, buf* bufs, size_t count,
+    int in_flags, int& out_flags, boost::system::error_code& ec);
+
+BOOST_ASIO_DECL size_t sync_recvmsg(socket_type s, state_type state,
+    buf* bufs, size_t count, int in_flags, int& out_flags,
+    boost::system::error_code& ec);
+
+#if defined(BOOST_ASIO_HAS_IOCP)
+
+BOOST_ASIO_DECL void complete_iocp_recvmsg(
+    const weak_cancel_token_type& cancel_token,
+    boost::system::error_code& ec);
+
+#else // defined(BOOST_ASIO_HAS_IOCP)
+
+BOOST_ASIO_DECL bool non_blocking_recvmsg(socket_type s,
+    buf* bufs, size_t count, int in_flags, int& out_flags,
     boost::system::error_code& ec, size_t& bytes_transferred);
 
 #endif // defined(BOOST_ASIO_HAS_IOCP)

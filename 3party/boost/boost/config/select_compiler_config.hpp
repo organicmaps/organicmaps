@@ -10,33 +10,6 @@
 
 //  See http://www.boost.org/ for most recent version.
 
-
-// one identification macro for each of the
-// compilers we support:
-
-#   define BOOST_CXX_GCCXML     0
-#   define BOOST_CXX_NVCC       0
-#   define BOOST_CXX_COMO       0
-#   define BOOST_CXX_PATHSCALE  0
-#   define BOOST_CXX_CLANG      0
-#   define BOOST_CXX_DMC        0
-#   define BOOST_CXX_INTEL      0
-#   define BOOST_CXX_GNUC       0
-#   define BOOST_CXX_KCC        0
-#   define BOOST_CXX_SGI        0
-#   define BOOST_CXX_TRU64      0
-#   define BOOST_CXX_GHS        0
-#   define BOOST_CXX_BORLAND    0
-#   define BOOST_CXX_CW         0
-#   define BOOST_CXX_SUNPRO     0
-#   define BOOST_CXX_HPACC      0
-#   define BOOST_CXX_MPW        0
-#   define BOOST_CXX_IBMCPP     0
-#   define BOOST_CXX_MSVC       0
-#   define BOOST_CXX_PGI        0
-#   define BOOST_CXX_NVCC       0
-
-
 // locate which compiler we are using and define
 // BOOST_COMPILER_CONFIG as needed: 
 

@@ -548,7 +548,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         typedef typename boost::lexer::basic_state_machine<Char>::iterator
             iterator_type;
         iterator_type iter_ = sm_.begin();
-        std::size_t states_ = iter_->states;
+        std::size_t const states_ = iter_->states;
 
         for (std::size_t state_ = 0; state_ < states_; ++state_)
         {
@@ -827,7 +827,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
             return false;
 
         std::size_t const dfas_ = sm_.data()._dfa->size();
-        std::size_t const lookups_ = sm_.data()._lookup->front()->size();
+//         std::size_t const lookups_ = sm_.data()._lookup->front()->size();
 
         os_ << "// Copyright (c) 2008-2009 Ben Hanson\n";
         os_ << "// Copyright (c) 2008-2011 Hartmut Kaiser\n";

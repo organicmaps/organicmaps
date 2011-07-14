@@ -64,7 +64,7 @@ namespace boost { namespace spirit { namespace karma
         template <typename OutputIterator, typename Context, typename State
           , typename Buffer>
         void operator()(
-            OutputIterator& sink, Context const& context
+            OutputIterator&, Context const& context
           , State state, std::string const& rule_name
           , Buffer const& buffer) const
         {

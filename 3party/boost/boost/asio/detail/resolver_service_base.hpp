@@ -16,7 +16,6 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include <boost/asio/detail/config.hpp>
-#include <boost/scoped_ptr.hpp>
 #include <boost/asio/error.hpp>
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/detail/mutex.hpp>
@@ -24,6 +23,7 @@
 #include <boost/asio/detail/operation.hpp>
 #include <boost/asio/detail/socket_ops.hpp>
 #include <boost/asio/detail/socket_types.hpp>
+#include <boost/asio/detail/scoped_ptr.hpp>
 #include <boost/asio/detail/thread.hpp>
 
 #include <boost/asio/detail/push_options.hpp>
@@ -47,6 +47,10 @@ public:
 
   // Destroy all user-defined handler objects owned by the service.
   BOOST_ASIO_DECL void shutdown_service();
+
+  // Perform any fork-related housekeeping.
+  BOOST_ASIO_DECL void fork_service(
+      boost::asio::io_service::fork_event fork_ev);
 
   // Construct a new resolver implementation.
   BOOST_ASIO_DECL void construct(implementation_type& impl);
@@ -100,16 +104,16 @@ private:
   boost::asio::detail::mutex mutex_;
 
   // Private io_service used for performing asynchronous host resolution.
-  boost::scoped_ptr<boost::asio::io_service> work_io_service_;
+  boost::asio::detail::scoped_ptr<boost::asio::io_service> work_io_service_;
 
   // The work io_service implementation used to post completions.
   io_service_impl& work_io_service_impl_;
 
   // Work for the private io_service to perform.
-  boost::scoped_ptr<boost::asio::io_service::work> work_;
+  boost::asio::detail::scoped_ptr<boost::asio::io_service::work> work_;
 
   // Thread used for running the work io_service's run loop.
-  boost::scoped_ptr<boost::asio::detail::thread> work_thread_;
+  boost::asio::detail::scoped_ptr<boost::asio::detail::thread> work_thread_;
 };
 
 } // namespace detail

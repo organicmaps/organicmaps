@@ -18,7 +18,7 @@ namespace boost{ namespace icl
     template <class IntervalT, bool IsDiscrete, bound_type PretendedBounds, bound_type RepresentedBounds> 
     struct static_interval;
 
-    template <class DomainT, ICL_COMPARE Compare = ICL_COMPARE_INSTANCE(std::less, DomainT)> 
+    template <class DomainT, ICL_COMPARE Compare = ICL_COMPARE_INSTANCE(ICL_COMPARE_DEFAULT, DomainT)> 
     struct interval
     {
         typedef typename interval_type_default<DomainT,Compare>::type interval_type;

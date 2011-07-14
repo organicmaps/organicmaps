@@ -1,5 +1,6 @@
 /*=============================================================================
     Copyright (c) 2001-2011 Joel de Guzman
+    Copyright (c) 2001-2011 Hartmut Kaiser
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -15,6 +16,8 @@
 #include <boost/spirit/home/qi/parser.hpp>
 #include <boost/spirit/home/support/container.hpp>
 #include <boost/spirit/home/qi/detail/attributes.hpp>
+#include <boost/spirit/home/qi/detail/fail_function.hpp>
+#include <boost/spirit/home/qi/detail/pass_container.hpp>
 #include <boost/spirit/home/support/has_semantic_action.hpp>
 #include <boost/spirit/home/support/handles_container.hpp>
 #include <boost/spirit/home/support/info.hpp>
@@ -33,7 +36,6 @@ namespace boost { namespace spirit
 
 namespace boost { namespace spirit { namespace qi
 {
-
     //[composite_parsers_kleene
     template <typename Subject>
     struct kleene : unary_parser<kleene<Subject> >
@@ -57,28 +59,31 @@ namespace boost { namespace spirit { namespace qi
         kleene(Subject const& subject)
           : subject(subject) {}
 
+        template <typename F>
+        bool parse_container(F f) const
+        {
+            while (!f (subject))
+                ;
+            return true;
+        }
+
         template <typename Iterator, typename Context
           , typename Skipper, typename Attribute>
         bool parse(Iterator& first, Iterator const& last
           , Context& context, Skipper const& skipper
           , Attribute& attr) const
         {
-            // create a local value if Attribute is not unused_type
-            typedef typename traits::container_value<Attribute>::type 
-                value_type;
-            value_type val = value_type();
-
             // ensure the attribute is actually a container type
             traits::make_container(attr);
 
-            // Repeat while subject parses ok
-            Iterator save = first;
-            while (subject.parse(save, last, context, skipper, val) &&
-                   traits::push_back(attr, val))    // push the parsed value into our attribute
-            {
-                first = save;
-                traits::clear(val);
-            }
+            typedef detail::fail_function<Iterator, Context, Skipper>
+                fail_function;
+
+            Iterator iter = first;
+            fail_function f(iter, last, context, skipper);
+            parse_container(detail::make_pass_container(f, attr));
+
+            first = f.first;
             return true;
         }
 
@@ -120,9 +125,9 @@ namespace boost { namespace spirit { namespace traits
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename Subject, typename Attribute, typename Context
-        , typename Iterator>
+      , typename Iterator>
     struct handles_container<qi::kleene<Subject>, Attribute
-        , Context, Iterator>
+          , Context, Iterator>
       : mpl::true_ {}; 
 }}}
 

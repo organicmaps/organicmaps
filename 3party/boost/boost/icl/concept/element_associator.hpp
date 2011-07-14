@@ -422,6 +422,12 @@ operator &= (Type& object, const typename key_container_type_of<Type>::type& ope
     return object;
 }
 
+template<class Type>
+inline typename enable_if<is_associative_element_container<Type>, Type>::type
+operator & (Type object, const Type& operand)
+{
+    return object &= operand;
+}
 //------------------------------------------------------------------------------
 
 template<class Type, class CoType>

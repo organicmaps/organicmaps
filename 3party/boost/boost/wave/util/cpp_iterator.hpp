@@ -1576,24 +1576,19 @@ char const *current_name = 0;   // never try to match current file name
 #endif
 
     file_path = util::impl::unescape_lit(file_path);
-    if (!ctx.find_include_file (file_path, dir_path, is_system, current_name)) {
-        BOOST_WAVE_THROW_CTX(ctx, preprocess_exception, bad_include_file, 
-            file_path.c_str(), act_pos);
-        return false;
-    }
+    std::string native_path_str;
 
-fs::path native_path(wave::util::create_path(file_path));
-
-    if (!fs::exists(native_path)) {
+    if (!ctx.get_hooks().locate_include_file(ctx, file_path, is_system, 
+            current_name, dir_path, native_path_str)) 
+    {
         BOOST_WAVE_THROW_CTX(ctx, preprocess_exception, bad_include_file, 
             file_path.c_str(), act_pos);
         return false;
     }
 
 // test, if this file is known through a #pragma once directive
-    std::string native_path_str(wave::util::native_file_string(native_path));
 #if BOOST_WAVE_SUPPORT_PRAGMA_ONCE != 0
-    if (!ctx.has_pragma_once(native_path.string())) 
+    if (!ctx.has_pragma_once(native_path_str)) 
 #endif 
     {
     // the new include file determines the actual current directory

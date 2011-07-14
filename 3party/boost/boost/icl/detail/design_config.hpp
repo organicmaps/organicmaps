@@ -95,10 +95,16 @@ by setting defines in this file.
 
 
 //------------------------------------------------------------------------------
-#define ICL_INTERVAL_DEFAULT boost::icl::interval_type_default
+#define ICL_ALLOC    template<class>class
 
 //------------------------------------------------------------------------------
-#define ICL_ALLOC    template<class>class
+#define ICL_INTERVAL_DEFAULT boost::icl::interval_type_default
+
+#ifndef BOOST_ICL_USE_COMPARE_STD_GREATER
+#   define ICL_COMPARE_DEFAULT std::less
+#else
+#   define ICL_COMPARE_DEFAULT std::greater
+#endif
 
 //------------------------------------------------------------------------------
 

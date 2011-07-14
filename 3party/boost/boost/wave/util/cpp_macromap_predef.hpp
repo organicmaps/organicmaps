@@ -229,7 +229,7 @@ namespace util {
         {
         static static_macros data[] = {
                 { "__STDC__", T_INTLIT, "1" },
-                { "__cplusplus", T_INTLIT, "201101L" },
+                { "__cplusplus", T_INTLIT, "201103L" },
                 { "__STDC_VERSION__", T_INTLIT, "199901L" },
                 { "__STDC_HOSTED__", T_INTLIT, "0" },
                 { "__WAVE_HAS_VARIADICS__", T_INTLIT, "1" },

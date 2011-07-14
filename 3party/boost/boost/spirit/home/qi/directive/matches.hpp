@@ -32,7 +32,9 @@ namespace boost { namespace spirit
 
 namespace boost { namespace spirit { namespace qi
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::matches;
+#endif
     using spirit::matches_type;
 
     ///////////////////////////////////////////////////////////////////////////

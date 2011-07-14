@@ -56,6 +56,11 @@ namespace boost { namespace phoenix
         typedef typename Eval::template result<Env>::type type;
     };
 
+#if defined(BOOST_MSVC)
+# pragma warning(push)
+# pragma warning(disable: 4522) // multiple assignment operators specified warning
+#endif
+
     template <typename Eval>
     struct actor : Eval
     {
@@ -85,6 +90,18 @@ namespace boost { namespace phoenix
               , eval_result<eval_type, basic_environment<> >
             >::type
         nullary_result;
+
+        actor& operator=(actor const& rhs)
+        {
+            Eval::operator=(rhs);
+            return *this;
+        }
+
+        actor& operator=(actor& rhs)
+        {
+            Eval::operator=(rhs);
+            return *this;
+        }
 
         nullary_result
         operator()() const
@@ -137,11 +154,11 @@ namespace boost { namespace phoenix
 
         //  Bring in the rest of the constructors and function call operators
         #include <boost/spirit/home/phoenix/core/detail/actor.hpp>
-
-    private:
-        // silence MSVC warning C4512: assignment operator could not be generated
-        actor& operator= (actor const&);
     };
+
+#if defined(BOOST_MSVC)
+# pragma warning(pop)
+#endif
 
     //  Forward declaration: The intent to overload the comma must be
     //  stated early on to avoid the subtle problem that arises when

@@ -50,6 +50,18 @@ namespace boost { namespace spirit { namespace result_of
 namespace boost { namespace spirit { namespace traits
 {
     ///////////////////////////////////////////////////////////////////////////
+    // Find out if T can be a strong substitute for Expected attribute
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename T, typename Expected, typename Enable = void>
+    struct is_substitute;
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Find out if T can be a weak substitute for Expected attribute
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename T, typename Expected, typename Enable = void>
+    struct is_weak_substitute;
+
+    ///////////////////////////////////////////////////////////////////////////
     // Determine if T is a proxy
     ///////////////////////////////////////////////////////////////////////////
     template <typename T, typename Enable = void>
@@ -63,7 +75,7 @@ namespace boost { namespace spirit { namespace traits
     ///////////////////////////////////////////////////////////////////////////
     template <typename Attribute, typename Enable = void>
     struct attribute_type;
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // Retrieve the size of a fusion sequence (compile time)
     ///////////////////////////////////////////////////////////////////////////
@@ -132,6 +144,9 @@ namespace boost { namespace spirit { namespace traits
     template <typename Attribute, typename Exposed, typename Enable = void>
     struct extract_from_attribute;
 
+    template <typename Attribute, typename Exposed, typename Enable = void>
+    struct extract_from_container;
+
     template <typename Exposed, typename Attribute, typename Context>
     typename spirit::result_of::extract_from<Exposed, Attribute>::type
     extract_from(Attribute const& attr, Context& ctx
@@ -149,7 +164,7 @@ namespace boost { namespace spirit { namespace traits
     template <typename T, typename Attribute>
     typename spirit::result_of::attribute_as<T, Attribute>::type
     as(Attribute const& attr);
-    
+
     template <typename T, typename Attribute>
     bool valid_as(Attribute const& attr);
 
@@ -191,7 +206,7 @@ namespace boost { namespace spirit { namespace traits
 
     template <typename T, typename Enable = void>
     struct is_container;
-    
+
     template <typename T, typename Enable = void>
     struct is_iterator_range;
 
@@ -199,6 +214,10 @@ namespace boost { namespace spirit { namespace traits
     template <typename T, typename Attribute, typename Context = unused_type
             , typename Iterator = unused_type, typename Enable = void>
     struct handles_container;
+
+    template <typename Container, typename ValueType, typename Attribute
+      , typename Sequence, typename Domain, typename Enable = void>
+    struct pass_through_container;
 
     ///////////////////////////////////////////////////////////////////////////
     // Qi only
@@ -260,7 +279,7 @@ namespace boost { namespace spirit { namespace traits
 
     ///////////////////////////////////////////////////////////////////////////
     // transform attribute types exposed from compound operator components
-    /////////////////////////////////////////////////////////////////////////// 
+    ///////////////////////////////////////////////////////////////////////////
     template <typename Attribute, typename Domain>
     struct alternative_attribute_transform;
 

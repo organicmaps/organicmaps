@@ -48,7 +48,7 @@ namespace boost { namespace proto
         {
             typedef Expr expr_type;
             typedef typename Expr::proto_tag proto_tag;
-            BOOST_STATIC_CONSTANT(long, index = Pos);
+            static const long index = Pos;
             typedef fusion::random_access_traversal_tag category;
             typedef tag::proto_expr_iterator fusion_tag;
 

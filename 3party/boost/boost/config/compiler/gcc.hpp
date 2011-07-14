@@ -168,7 +168,7 @@
 
 // Variadic templates compiler: 
 //   http://www.generic-programming.org/~dgregor/cpp/variadic-templates.html
-#  ifdef __VARIADIC_TEMPLATES
+#  if defined(__VARIADIC_TEMPLATES) || (__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 4) && defined(__GXX_EXPERIMENTAL_CXX0X__))
 #    define BOOST_HAS_VARIADIC_TMPL
 #  else
 #    define BOOST_NO_VARIADIC_TEMPLATES
@@ -182,25 +182,16 @@
 #  define BOOST_NO_AUTO_MULTIDECLARATIONS
 #  define BOOST_NO_CHAR16_T
 #  define BOOST_NO_CHAR32_T
+#  define BOOST_NO_INITIALIZER_LISTS
 #  define BOOST_NO_DEFAULTED_FUNCTIONS
 #  define BOOST_NO_DELETED_FUNCTIONS
-#  define BOOST_NO_INITIALIZER_LISTS
-#  define BOOST_NO_SCOPED_ENUMS  
 #endif
 
 #if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 4)
 #  define BOOST_NO_SFINAE_EXPR
 #endif
 
-// C++0x features in 4.4.1 and later
-//
-#if (__GNUC__*10000 + __GNUC_MINOR__*100 + __GNUC_PATCHLEVEL__ < 40401) || !defined(__GXX_EXPERIMENTAL_CXX0X__)
-// scoped enums have a serious bug in 4.4.0, so define BOOST_NO_SCOPED_ENUMS before 4.4.1
-// See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38064
-#  define BOOST_NO_SCOPED_ENUMS
-#endif
-
-// C++0x features in 4.5.n and later
+// C++0x features in 4.5.0 and later
 //
 #if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 5) || !defined(__GXX_EXPERIMENTAL_CXX0X__)
 #  define BOOST_NO_EXPLICIT_CONVERSION_OPERATORS
@@ -209,11 +200,25 @@
 #  define BOOST_NO_UNICODE_LITERALS
 #endif
 
-// C++0x features in 4.5.n and later
+// C++0x features in 4.5.1 and later
+//
+#if (__GNUC__*10000 + __GNUC_MINOR__*100 + __GNUC_PATCHLEVEL__ < 40501) || !defined(__GXX_EXPERIMENTAL_CXX0X__)
+// scoped enums have a serious bug in 4.4.0, so define BOOST_NO_SCOPED_ENUMS before 4.5.1
+// See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38064
+#  define BOOST_NO_SCOPED_ENUMS
+#endif
+
+// C++0x features in 4.6.n and later
 //
 #if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6) || !defined(__GXX_EXPERIMENTAL_CXX0X__)
 #define BOOST_NO_CONSTEXPR
+#define BOOST_NO_NOEXCEPT
 #define BOOST_NO_NULLPTR
+#define BOOST_NO_UNIFIED_INITIALIZATION_SYNTAX
+#endif
+
+#ifndef BOOST_COMPILER
+#  define BOOST_COMPILER "GNU C++ version " __VERSION__
 #endif
 
 // ConceptGCC compiler:
@@ -221,15 +226,8 @@
 #ifdef __GXX_CONCEPTS__
 #  define BOOST_HAS_CONCEPTS
 #  define BOOST_COMPILER "ConceptGCC version " __VERSION__
-#else
-#  define BOOST_NO_CONCEPTS
 #endif
 
-#ifndef BOOST_COMPILER
-#  define BOOST_COMPILER "GNU C++ version " __VERSION__
-#endif
-
-//
 // versions check:
 // we don't know gcc prior to version 2.90:
 #if (__GNUC__ == 2) && (__GNUC_MINOR__ < 90)

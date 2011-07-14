@@ -44,24 +44,6 @@
         return range_adaptor <const Range>(rng); \
     }
 
-#define BOOST_DEFINE_RANGE_ADAPTOR_1( adaptor_name, range_adaptor, adaptor_class ) \
-    template<typename Range> range_adaptor <Range> \
-        operator|(Range& rng, const adaptor_name & args) \
-    { \
-        return range_adaptor <Range>(rng, args.arg1); \
-    } \
-    template<typename Range> range_adaptor <const Range> \
-        operator|(const Range& rng, const adaptor_name & args) \
-    { \
-        return range_adaptor <Range>(rng, args.arg1); \
-    } \
-    template<typename Range, typename Arg1> \
-    range_adaptor<Range> \
-    make_##adaptor_name(Range& rng, Arg1 arg1) \
-    { \
-        return range_adaptor<Range>(rng, arg1); \
-    }
-
 #define BOOST_DEFINE_RANGE_ADAPTOR_1( adaptor_name, range_adaptor, arg1_type ) \
     struct adaptor_name \
     { \

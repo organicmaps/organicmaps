@@ -28,7 +28,7 @@
 // shall name T&&; otherwise, type shall name T. [ Note: This rule reflects
 // the semantics of reference collapsing. For example, when a type T names
 // a type T1&, the type add_rvalue_reference<T>::type is not an rvalue
-// reference. —end note ]
+// reference. -end note ]
 //----------------------------------------------------------------------------//
 
 namespace boost {
@@ -65,3 +65,4 @@ BOOST_TT_AUX_TYPE_TRAIT_DEF1(add_rvalue_reference,T,typename boost::type_traits_
 #include <boost/type_traits/detail/type_trait_undef.hpp>
 
 #endif  // BOOST_TYPE_TRAITS_EXT_ADD_RVALUE_REFERENCE__HPP
+

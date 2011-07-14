@@ -75,6 +75,47 @@ void kqueue_reactor::shutdown_service()
   }
 
   timer_queues_.get_all_timers(ops);
+
+  io_service_.abandon_operations(ops);
+}
+
+void kqueue_reactor::fork_service(boost::asio::io_service::fork_event fork_ev)
+{
+  if (fork_ev == boost::asio::io_service::fork_child)
+  {
+    // The kqueue descriptor is automatically closed in the child.
+    kqueue_fd_ = -1;
+    kqueue_fd_ = do_kqueue_create();
+
+    interrupter_.recreate();
+
+    // Re-register all descriptors with kqueue.
+    mutex::scoped_lock descriptors_lock(registered_descriptors_mutex_);
+    for (descriptor_state* state = registered_descriptors_.first();
+        state != 0; state = state->next_)
+    {
+      struct kevent events[2];
+      int num_events = 0;
+
+      if (!state->op_queue_[read_op].empty())
+        BOOST_ASIO_KQUEUE_EV_SET(&events[num_events++], state->descriptor_,
+            EVFILT_READ, EV_ADD | EV_CLEAR, 0, 0, state);
+      else if (!state->op_queue_[except_op].empty())
+        BOOST_ASIO_KQUEUE_EV_SET(&events[num_events++], state->descriptor_,
+            EVFILT_READ, EV_ADD | EV_CLEAR, EV_OOBAND, 0, state);
+
+      if (!state->op_queue_[write_op].empty())
+        BOOST_ASIO_KQUEUE_EV_SET(&events[num_events++], state->descriptor_,
+            EVFILT_WRITE, EV_ADD | EV_CLEAR, 0, 0, state);
+
+      if (num_events && ::kevent(kqueue_fd_, events, num_events, 0, 0, 0) == -1)
+      {
+        boost::system::error_code error(errno,
+            boost::asio::error::get_system_category());
+        boost::asio::detail::throw_error(error);
+      }
+    }
+  }
 }
 
 void kqueue_reactor::init_task()
@@ -82,15 +123,56 @@ void kqueue_reactor::init_task()
   io_service_.init_task();
 }
 
-int kqueue_reactor::register_descriptor(socket_type,
+int kqueue_reactor::register_descriptor(socket_type descriptor,
     kqueue_reactor::per_descriptor_data& descriptor_data)
 {
   mutex::scoped_lock lock(registered_descriptors_mutex_);
 
   descriptor_data = registered_descriptors_.alloc();
+  descriptor_data->descriptor_ = descriptor;
   descriptor_data->shutdown_ = false;
 
   return 0;
+}
+
+int kqueue_reactor::register_internal_descriptor(
+    int op_type, socket_type descriptor,
+    kqueue_reactor::per_descriptor_data& descriptor_data, reactor_op* op)
+{
+  mutex::scoped_lock lock(registered_descriptors_mutex_);
+
+  descriptor_data = registered_descriptors_.alloc();
+  descriptor_data->descriptor_ = descriptor;
+  descriptor_data->shutdown_ = false;
+  descriptor_data->op_queue_[op_type].push(op);
+
+  struct kevent event;
+  switch (op_type)
+  {
+  case read_op:
+    BOOST_ASIO_KQUEUE_EV_SET(&event, descriptor, EVFILT_READ,
+        EV_ADD | EV_CLEAR, 0, 0, descriptor_data);
+    break;
+  case write_op:
+    BOOST_ASIO_KQUEUE_EV_SET(&event, descriptor, EVFILT_WRITE,
+        EV_ADD | EV_CLEAR, 0, 0, descriptor_data);
+    break;
+  case except_op:
+    BOOST_ASIO_KQUEUE_EV_SET(&event, descriptor, EVFILT_READ,
+        EV_ADD | EV_CLEAR, EV_OOBAND, 0, descriptor_data);
+    break;
+  }
+  ::kevent(kqueue_fd_, &event, 1, 0, 0, 0);
+
+  return 0;
+}
+
+void kqueue_reactor::move_descriptor(socket_type,
+    kqueue_reactor::per_descriptor_data& target_descriptor_data,
+    kqueue_reactor::per_descriptor_data& source_descriptor_data)
+{
+  target_descriptor_data = source_descriptor_data;
+  source_descriptor_data = 0;
 }
 
 void kqueue_reactor::start_op(int op_type, socket_type descriptor,
@@ -187,8 +269,8 @@ void kqueue_reactor::cancel_ops(socket_type,
   io_service_.post_deferred_completions(ops);
 }
 
-void kqueue_reactor::close_descriptor(socket_type,
-    kqueue_reactor::per_descriptor_data& descriptor_data)
+void kqueue_reactor::deregister_descriptor(socket_type descriptor,
+    kqueue_reactor::per_descriptor_data& descriptor_data, bool closing)
 {
   if (!descriptor_data)
     return;
@@ -198,8 +280,20 @@ void kqueue_reactor::close_descriptor(socket_type,
 
   if (!descriptor_data->shutdown_)
   {
-    // Remove the descriptor from the set of known descriptors. The descriptor
-    // will be automatically removed from the kqueue set when it is closed.
+    if (closing)
+    {
+      // The descriptor will be automatically removed from the kqueue when it
+      // is closed.
+    }
+    else
+    {
+      struct kevent events[2];
+      BOOST_ASIO_KQUEUE_EV_SET(&events[0], descriptor,
+          EVFILT_READ, EV_DELETE, 0, 0, 0);
+      BOOST_ASIO_KQUEUE_EV_SET(&events[1], descriptor,
+          EVFILT_WRITE, EV_DELETE, 0, 0, 0);
+      ::kevent(kqueue_fd_, events, 2, 0, 0, 0);
+    }
 
     op_queue<operation> ops;
     for (int i = 0; i < max_ops; ++i)
@@ -212,6 +306,7 @@ void kqueue_reactor::close_descriptor(socket_type,
       }
     }
 
+    descriptor_data->descriptor_ = -1;
     descriptor_data->shutdown_ = true;
 
     descriptor_lock.unlock();
@@ -222,6 +317,40 @@ void kqueue_reactor::close_descriptor(socket_type,
     descriptors_lock.unlock();
 
     io_service_.post_deferred_completions(ops);
+  }
+}
+
+void kqueue_reactor::deregister_internal_descriptor(socket_type descriptor,
+    kqueue_reactor::per_descriptor_data& descriptor_data)
+{
+  if (!descriptor_data)
+    return;
+
+  mutex::scoped_lock descriptor_lock(descriptor_data->mutex_);
+  mutex::scoped_lock descriptors_lock(registered_descriptors_mutex_);
+
+  if (!descriptor_data->shutdown_)
+  {
+    struct kevent events[2];
+    BOOST_ASIO_KQUEUE_EV_SET(&events[0], descriptor,
+        EVFILT_READ, EV_DELETE, 0, 0, 0);
+    BOOST_ASIO_KQUEUE_EV_SET(&events[1], descriptor,
+        EVFILT_WRITE, EV_DELETE, 0, 0, 0);
+    ::kevent(kqueue_fd_, events, 2, 0, 0, 0);
+
+    op_queue<operation> ops;
+    for (int i = 0; i < max_ops; ++i)
+      ops.push(descriptor_data->op_queue_[i]);
+
+    descriptor_data->descriptor_ = -1;
+    descriptor_data->shutdown_ = true;
+
+    descriptor_lock.unlock();
+
+    registered_descriptors_.free(descriptor_data);
+    descriptor_data = 0;
+
+    descriptors_lock.unlock();
   }
 }
 

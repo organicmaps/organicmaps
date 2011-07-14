@@ -74,10 +74,10 @@ public:
 
   reactive_socket_sendto_op(socket_type socket,
       const ConstBufferSequence& buffers, const Endpoint& endpoint,
-      socket_base::message_flags flags, Handler handler)
+      socket_base::message_flags flags, Handler& handler)
     : reactive_socket_sendto_op_base<ConstBufferSequence, Endpoint>(socket,
         buffers, endpoint, flags, &reactive_socket_sendto_op::do_complete),
-      handler_(handler)
+      handler_(BOOST_ASIO_MOVE_CAST(Handler)(handler))
   {
   }
 
@@ -87,6 +87,8 @@ public:
     // Take ownership of the handler object.
     reactive_socket_sendto_op* o(static_cast<reactive_socket_sendto_op*>(base));
     ptr p = { boost::addressof(o->handler_), o, o };
+
+    BOOST_ASIO_HANDLER_COMPLETION((o));
 
     // Make a copy of the handler so that the memory can be deallocated before
     // the upcall is made. Even if we're not about to make an upcall, a
@@ -103,7 +105,9 @@ public:
     if (owner)
     {
       boost::asio::detail::fenced_block b;
+      BOOST_ASIO_HANDLER_INVOCATION_BEGIN((handler.arg1_, handler.arg2_));
       boost_asio_handler_invoke_helpers::invoke(handler, handler.handler_);
+      BOOST_ASIO_HANDLER_INVOCATION_END;
     }
   }
 

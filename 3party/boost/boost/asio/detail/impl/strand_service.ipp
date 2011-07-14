@@ -70,9 +70,48 @@ void strand_service::construct(strand_service::implementation_type& impl)
 
   boost::asio::detail::mutex::scoped_lock lock(mutex_);
 
-  if (!implementations_[index])
+  if (!implementations_[index].get())
     implementations_[index].reset(new strand_impl);
   impl = implementations_[index].get();
+}
+
+bool strand_service::do_dispatch(implementation_type& impl, operation* op)
+{
+  // If we are running inside the io_service, and no other handler is queued
+  // or running, then the handler can run immediately.
+  bool can_dispatch = call_stack<io_service_impl>::contains(&io_service_);
+  impl->mutex_.lock();
+  bool first = (++impl->count_ == 1);
+  if (can_dispatch && first)
+  {
+    // Immediate invocation is allowed.
+    impl->mutex_.unlock();
+    return true;
+  }
+
+  // Immediate invocation is not allowed, so enqueue for later.
+  impl->queue_.push(op);
+  impl->mutex_.unlock();
+
+  // The first handler to be enqueued is responsible for scheduling the
+  // strand.
+  if (first)
+    io_service_.post_immediate_completion(impl);
+
+  return false;
+}
+
+void strand_service::do_post(implementation_type& impl, operation* op)
+{
+  // Add the handler to the queue.
+  impl->mutex_.lock();
+  bool first = (++impl->count_ == 1);
+  impl->queue_.push(op);
+  impl->mutex_.unlock();
+
+  // The first handler to be enqueue is responsible for scheduling the strand.
+  if (first)
+    io_service_.post_immediate_completion(impl);
 }
 
 void strand_service::do_complete(io_service_impl* owner, operation* base,

@@ -40,7 +40,7 @@ namespace detail {
 #if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) && !defined(BOOST_TT_TEST_MS_FUNC_SIGS)
 template<bool is_ref = true>
 struct is_function_chooser
-    : ::boost::type_traits::false_result
+    : public ::boost::type_traits::false_result
 {
 };
 
@@ -48,14 +48,14 @@ template <>
 struct is_function_chooser<false>
 {
     template< typename T > struct result_
-        : ::boost::type_traits::is_function_ptr_helper<T*>
+        : public ::boost::type_traits::is_function_ptr_helper<T*>
     {
     };
 };
 
 template <typename T>
 struct is_function_impl
-    : is_function_chooser< ::boost::is_reference<T>::value >
+    : public is_function_chooser< ::boost::is_reference<T>::value >
         ::BOOST_NESTED_TEMPLATE result_<T>
 {
 };

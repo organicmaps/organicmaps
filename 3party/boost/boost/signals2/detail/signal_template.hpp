@@ -326,7 +326,7 @@ namespace boost
 // typename add_reference<T1>::type arg1, typename add_reference<T2>::type arg2, ..., typename add_reference<Tn>::type argn
 #define BOOST_SIGNALS2_ADD_REF_ARGS(arity) \
   BOOST_PP_ENUM(arity, BOOST_SIGNALS2_ADD_REF_ARG, ~)
-          slot_invoker(BOOST_SIGNALS2_ADD_REF_ARGS(BOOST_SIGNALS2_NUM_ARGS)) BOOST_PP_IF(BOOST_SIGNALS2_NUM_ARGS, :, )
+          slot_invoker(BOOST_SIGNALS2_ADD_REF_ARGS(BOOST_SIGNALS2_NUM_ARGS)) BOOST_PP_EXPR_IF(BOOST_SIGNALS2_NUM_ARGS, :)
 #undef BOOST_SIGNALS2_ADD_REF_ARGS
 
 // m_argn
@@ -345,6 +345,9 @@ namespace boost
               resolver);
           }
         private:
+          // declare assignment operator private since this class might have reference or const members
+          slot_invoker & operator=(const slot_invoker &);
+
 #define BOOST_SIGNALS2_ADD_REF_M_ARG_STATEMENT(z, n, data) \
   BOOST_SIGNALS2_ADD_REF_TYPE(~, n, ~) BOOST_SIGNALS2_M_ARG_NAME(~, n, ~) ;
           BOOST_PP_REPEAT(BOOST_SIGNALS2_NUM_ARGS, BOOST_SIGNALS2_ADD_REF_M_ARG_STATEMENT, ~)

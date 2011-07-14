@@ -16,11 +16,11 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include <boost/asio/detail/config.hpp>
-#include <boost/scoped_ptr.hpp>
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/detail/mutex.hpp>
 #include <boost/asio/detail/op_queue.hpp>
 #include <boost/asio/detail/operation.hpp>
+#include <boost/asio/detail/scoped_ptr.hpp>
 
 #include <boost/asio/detail/push_options.hpp>
 
@@ -87,6 +87,13 @@ public:
   void post(implementation_type& impl, Handler handler);
 
 private:
+  // Helper function to dispatch a handler. Returns true if the handler should
+  // be dispatched immediately.
+  BOOST_ASIO_DECL bool do_dispatch(implementation_type& impl, operation* op);
+
+  // Helper fiunction to post a handler.
+  BOOST_ASIO_DECL void do_post(implementation_type& impl, operation* op);
+
   BOOST_ASIO_DECL static void do_complete(io_service_impl* owner,
       operation* base, boost::system::error_code ec,
       std::size_t bytes_transferred);
@@ -100,8 +107,8 @@ private:
   // Number of implementations shared between all strand objects.
   enum { num_implementations = 193 };
 
-  // The head of a linked list of all implementations.
-  boost::scoped_ptr<strand_impl> implementations_[num_implementations];
+  // Pool of implementations.
+  scoped_ptr<strand_impl> implementations_[num_implementations];
 
   // Extra value used when hashing to prevent recycled memory locations from
   // getting the same strand implementation.

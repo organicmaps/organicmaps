@@ -16,5 +16,6 @@
 #include <boost/spirit/home/qi/nonterminal/error_handler.hpp>
 #include <boost/spirit/home/qi/nonterminal/debug_handler.hpp>
 #include <boost/spirit/home/qi/nonterminal/simple_trace.hpp>
+#include <boost/spirit/home/qi/nonterminal/success_handler.hpp>
 
 #endif

@@ -5,6 +5,9 @@
 //  1.0. (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 //
+// Acknowledgements:
+// aschoedl contributed an improvement to the determination
+// of the Reference type parameter.
 //
 // For more information, see http://www.boost.org/libs/range/
 //
@@ -120,7 +123,32 @@ private:
 template<typename Iterator1
        , typename Iterator2
        , typename ValueType = typename iterator_value<Iterator1>::type
-       , typename Reference = typename iterator_reference<Iterator1>::type
+       // find least demanding, commonly supported reference type, in the order &, const&, and by-value:
+       , typename Reference = typename mpl::if_c<
+                !is_reference<typename iterator_reference<Iterator1>::type>::value
+             || !is_reference<typename iterator_reference<Iterator2>::type>::value,
+                        typename remove_const<
+                            typename remove_reference<
+                                typename iterator_reference<Iterator1>::type
+                            >::type
+                        >::type,
+                        typename mpl::if_c<
+                            is_const<
+                                typename remove_reference<
+                                    typename iterator_reference<Iterator1>::type
+                                >::type
+                            >::value
+                            || is_const<
+                                typename remove_reference<
+                                    typename iterator_reference<Iterator2>::type
+                                >::type
+                            >::value,
+                            typename add_const<
+                                typename iterator_reference<Iterator2>::type
+                            >::type,
+                            typename iterator_reference<Iterator1>::type
+                        >::type
+                    >::type
        , typename Traversal = typename demote_iterator_traversal_tag<
                                   typename iterator_traversal<Iterator1>::type
                                 , typename iterator_traversal<Iterator2>::type>::type

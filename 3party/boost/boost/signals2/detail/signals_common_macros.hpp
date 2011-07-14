@@ -46,18 +46,21 @@
   typename BOOST_PP_CAT(prefix, R) BOOST_PP_COMMA_IF(arity) \
   BOOST_PP_ENUM_SHIFTED_PARAMS(BOOST_PP_INC(arity), typename BOOST_PP_CAT(prefix, T))
 // typename R, typename T1, typename T2, ..., typename TN
-#define BOOST_SIGNALS2_SIGNATURE_TEMPLATE_DECL(arity) BOOST_SIGNALS2_PREFIXED_SIGNATURE_TEMPLATE_DECL(arity,)
+#define BOOST_SIGNALS2_SIGNATURE_TEMPLATE_DECL(arity) \
+  typename R BOOST_PP_COMMA_IF(arity) \
+  BOOST_PP_ENUM_SHIFTED_PARAMS(BOOST_PP_INC(arity), typename T)
 // typename prefixT1, typename prefixT2, ..., typename prefixTN
 #define BOOST_SIGNALS2_PREFIXED_ARGS_TEMPLATE_DECL(arity, prefix) \
   BOOST_PP_ENUM_SHIFTED_PARAMS(BOOST_PP_INC(arity), typename BOOST_PP_CAT(prefix, T))
 // typename T1, typename T2, ..., typename TN
-#define BOOST_SIGNALS2_ARGS_TEMPLATE_DECL(arity) BOOST_SIGNALS2_PREFIXED_ARGS_TEMPLATE_DECL(arity,)
+#define BOOST_SIGNALS2_ARGS_TEMPLATE_DECL(arity) \
+  BOOST_PP_ENUM_SHIFTED_PARAMS(BOOST_PP_INC(arity), typename T)
 // prefixR, prefixT1, prefixT2, ..., prefixTN
 #define BOOST_SIGNALS2_PREFIXED_SIGNATURE_TEMPLATE_INSTANTIATION(arity, prefix) \
   BOOST_PP_CAT(prefix, R) BOOST_PP_COMMA_IF(arity) BOOST_PP_ENUM_SHIFTED_PARAMS(BOOST_PP_INC(arity), BOOST_PP_CAT(prefix, T))
 // R, T1, T2, ..., TN
 #define BOOST_SIGNALS2_SIGNATURE_TEMPLATE_INSTANTIATION(arity) \
-  BOOST_SIGNALS2_PREFIXED_SIGNATURE_TEMPLATE_INSTANTIATION(arity,)
+  R BOOST_PP_COMMA_IF(arity) BOOST_PP_ENUM_SHIFTED_PARAMS(BOOST_PP_INC(arity), T)
 // boost::functionN<R, T1, T2, ..., TN>
 #define BOOST_SIGNALS2_FUNCTION_N_DECL(arity) BOOST_PP_CAT(boost::function, arity)<\
   BOOST_SIGNALS2_SIGNATURE_TEMPLATE_INSTANTIATION(arity) >
@@ -96,8 +99,12 @@
 // prefixT1 & arg1, prefixT2 & arg2, ..., prefixTn & argn
 #define BOOST_SIGNALS2_PREFIXED_FULL_REF_ARGS(arity, prefix) \
   BOOST_PP_ENUM(arity, BOOST_SIGNALS2_PREFIXED_FULL_REF_ARG, prefix)
+// Tn & argn
+#define BOOST_SIGNALS2_FULL_REF_ARG(z, n, data) \
+  BOOST_PP_CAT(T, BOOST_PP_INC(n)) & BOOST_SIGNALS2_SIGNATURE_ARG_NAME(~, n, ~)
 // T1 & arg1, T2 & arg2, ..., Tn & argn
-#define BOOST_SIGNALS2_FULL_REF_ARGS(arity) BOOST_SIGNALS2_PREFIXED_FULL_REF_ARGS(arity,)
+#define BOOST_SIGNALS2_FULL_REF_ARGS(arity) \
+  BOOST_PP_ENUM(arity, BOOST_SIGNALS2_FULL_REF_ARG, ~)
 // preprocessed_arg_typeN
 #define BOOST_SIGNALS2_PREPROCESSED_ARG_N_TYPE_CLASS_NAME(arity) BOOST_PP_CAT(preprocessed_arg_type, arity)
 

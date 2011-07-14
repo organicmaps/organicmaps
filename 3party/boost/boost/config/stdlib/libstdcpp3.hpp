@@ -104,10 +104,8 @@
 //
 #if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 3) || !defined(__GXX_EXPERIMENTAL_CXX0X__)
 #  define BOOST_NO_0X_HDR_ARRAY
-#  define BOOST_NO_0X_HDR_RANDOM
 #  define BOOST_NO_0X_HDR_REGEX
 #  define BOOST_NO_0X_HDR_TUPLE
-#  define BOOST_NO_0X_HDR_TYPE_TRAITS
 #  define BOOST_NO_STD_UNORDERED  // deprecated; see following
 #  define BOOST_NO_0X_HDR_UNORDERED_MAP
 #  define BOOST_NO_0X_HDR_UNORDERED_SET
@@ -123,23 +121,33 @@
 #  define BOOST_NO_0X_HDR_MUTEX
 #  define BOOST_NO_0X_HDR_RATIO
 #  define BOOST_NO_0X_HDR_SYSTEM_ERROR
-#  define BOOST_NO_0X_HDR_THREAD
+#else
+#  define BOOST_HAS_TR1_COMPLEX_INVERSE_TRIG 
+#  define BOOST_HAS_TR1_COMPLEX_OVERLOADS 
+#endif
+
+#if (!defined(_GLIBCXX_HAS_GTHREADS) || !defined(_GLIBCXX_USE_C99_STDINT_TR1)) && (!defined(BOOST_NO_0X_HDR_CONDITION_VARIABLE) || !defined(BOOST_NO_0X_HDR_MUTEX))
+#  define BOOST_NO_0X_HDR_CONDITION_VARIABLE
+#  define BOOST_NO_0X_HDR_MUTEX
 #endif
 
 //  C++0x features in GCC 4.5.0 and later
 //
 #if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 5) || !defined(__GXX_EXPERIMENTAL_CXX0X__)
 #  define BOOST_NO_NUMERIC_LIMITS_LOWEST
+#  define BOOST_NO_0X_HDR_FUTURE
+#  define BOOST_NO_0X_HDR_RANDOM
 #endif
 
-//  C++0x headers not yet implemented
+//  C++0x features in GCC 4.5.0 and later
 //
-#  define BOOST_NO_0X_HDR_CODECVT
-#  define BOOST_NO_0X_HDR_CONCEPTS
-#  define BOOST_NO_0X_HDR_CONTAINER_CONCEPTS
-#  define BOOST_NO_0X_HDR_FUTURE
-#  define BOOST_NO_0X_HDR_ITERATOR_CONCEPTS
-#  define BOOST_NO_0X_HDR_MEMORY_CONCEPTS
+#if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6) || !defined(__GXX_EXPERIMENTAL_CXX0X__)
 #  define BOOST_NO_0X_HDR_TYPEINDEX
+#endif
+//  C++0x headers not yet (fully!) implemented
+//
+#  define BOOST_NO_0X_HDR_THREAD
+#  define BOOST_NO_0X_HDR_TYPE_TRAITS
+#  define BOOST_NO_0X_HDR_CODECVT
 
 //  --- end ---

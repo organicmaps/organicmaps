@@ -74,7 +74,7 @@ namespace boost { namespace proto
     ///
     #define BOOST_PROTO_DEFINE_FUN_OP_IMPL_(Z, N, DATA, Const)                                      \
         BOOST_PP_IF(N, BOOST_PROTO_TEMPLATE_YES_, BOOST_PROTO_TEMPLATE_NO_)(Z, N)                   \
-        typename BOOST_PROTO_RESULT_OF<                                                              \
+        typename BOOST_PROTO_RESULT_OF<                                                             \
             proto_generator(                                                                        \
                 typename boost::proto::result_of::BOOST_PP_CAT(funop, N)<                           \
                     proto_derived_expr Const()                                                      \
@@ -103,7 +103,7 @@ namespace boost { namespace proto
     ///
     #define BOOST_PROTO_DEFINE_FUN_OP_VARIADIC_IMPL_(Const)                                         \
         template<typename... A>                                                                     \
-        typename BOOST_PROTO_RESULT_OF<                                                              \
+        typename BOOST_PROTO_RESULT_OF<                                                             \
             proto_generator(                                                                        \
                 typename boost::proto::result_of::funop<                                            \
                     proto_derived_expr Const()(A const &...)                                        \
@@ -168,7 +168,7 @@ namespace boost { namespace proto
         typedef typename proto_base_expr::proto_grammar proto_grammar;                              \
         typedef typename proto_base_expr::address_of_hack_type_ proto_address_of_hack_type_;        \
         typedef void proto_is_expr_; /**< INTERNAL ONLY */                                          \
-        BOOST_STATIC_CONSTANT(long, proto_arity_c = proto_base_expr::proto_arity_c);                \
+        static const long proto_arity_c = proto_base_expr::proto_arity_c;                \
         typedef boost::proto::tag::proto_expr fusion_tag;                                           \
         BOOST_PP_REPEAT(BOOST_PROTO_MAX_ARITY, BOOST_PROTO_EXTENDS_CHILD, ~)                        \
                                                                                                     \
@@ -202,7 +202,7 @@ namespace boost { namespace proto
 
     #define BOOST_PROTO_EXTENDS_COPY_ASSIGN_IMPL_(This, Const, Typename)                            \
         BOOST_PROTO_DISABLE_MSVC_C4522                                                              \
-        Typename() BOOST_PROTO_RESULT_OF<                                                            \
+        Typename() BOOST_PROTO_RESULT_OF<                                                           \
             Typename() This::proto_generator(                                                       \
                 Typename() boost::proto::base_expr<                                                 \
                     Typename() This::proto_domain                                                   \
@@ -251,7 +251,7 @@ namespace boost { namespace proto
         ///
     #define BOOST_PROTO_EXTENDS_ASSIGN_IMPL_(ThisConst, ThatConst)                                  \
         template<typename A>                                                                        \
-        typename BOOST_PROTO_RESULT_OF<                                                              \
+        typename BOOST_PROTO_RESULT_OF<                                                             \
             proto_generator(                                                                        \
                 typename boost::proto::base_expr<                                                   \
                     proto_domain                                                                    \
@@ -317,7 +317,7 @@ namespace boost { namespace proto
         ///
     #define BOOST_PROTO_EXTENDS_SUBSCRIPT_IMPL_(ThisConst, ThatConst)                               \
         template<typename A>                                                                        \
-        typename BOOST_PROTO_RESULT_OF<                                                              \
+        typename BOOST_PROTO_RESULT_OF<                                                             \
             proto_generator(                                                                        \
                 typename boost::proto::base_expr<                                                   \
                     proto_domain                                                                    \
@@ -512,23 +512,7 @@ namespace boost { namespace proto
             // Instead of using BOOST_PROTO_EXTENDS_FUNCTION, which uses
             // nested preprocessor loops, use file iteration here to generate
             // the operator() overloads, which is more efficient.
-            BOOST_PROTO_EXTENDS_FUNCTION_()
-
-        #ifndef BOOST_NO_VARIADIC_TEMPLATES
-            BOOST_PROTO_DEFINE_FUN_OP_VARIADIC_IMPL_(BOOST_PROTO_CONST)
-        #else
-            /// INTERNAL ONLY
-            ///
-        #define BOOST_PP_LOCAL_MACRO(N)                                                             \
-            BOOST_PROTO_DEFINE_FUN_OP_CONST(1, N, ~)                                                \
-            /**/
-
-            /// INTERNAL ONLY
-            ///
-        #define BOOST_PP_LOCAL_LIMITS (0, BOOST_PP_DEC(BOOST_PROTO_MAX_FUNCTION_CALL_ARITY))
-        #include BOOST_PP_LOCAL_ITERATE()
-
-        #endif
+            #include <boost/proto/detail/extends_funop_const.hpp>
         };
 
         /// \brief extends\<\> class template for adding behaviors to a Proto expression template
@@ -557,25 +541,7 @@ namespace boost { namespace proto
             // Instead of using BOOST_PROTO_EXTENDS_FUNCTION, which uses
             // nested preprocessor loops, use file iteration here to generate
             // the operator() overloads, which is more efficient.
-            BOOST_PROTO_EXTENDS_FUNCTION_()
-
-        #ifndef BOOST_NO_VARIADIC_TEMPLATES
-            BOOST_PROTO_DEFINE_FUN_OP_VARIADIC_IMPL_(BOOST_PP_EMPTY)
-            BOOST_PROTO_DEFINE_FUN_OP_VARIADIC_IMPL_(BOOST_PROTO_CONST)
-        #else
-
-            /// INTERNAL ONLY
-            ///
-        #define BOOST_PP_LOCAL_MACRO(N)                                                             \
-            BOOST_PROTO_DEFINE_FUN_OP(1, N, ~)                                                      \
-            /**/
-
-            /// INTERNAL ONLY
-            ///
-        #define BOOST_PP_LOCAL_LIMITS (0, BOOST_PP_DEC(BOOST_PROTO_MAX_FUNCTION_CALL_ARITY))
-        #include BOOST_PP_LOCAL_ITERATE()
-
-        #endif
+            #include <boost/proto/detail/extends_funop.hpp>
         };
 
         /// INTERNAL ONLY
@@ -591,7 +557,7 @@ namespace boost { namespace proto
             typedef mpl::long_<2> proto_arity;
             typedef detail::not_a_valid_type proto_address_of_hack_type_;
             typedef void proto_is_expr_; /**< INTERNAL ONLY */
-            BOOST_STATIC_CONSTANT(long, proto_arity_c = 2);
+            static const long proto_arity_c = 2;
             typedef boost::proto::tag::proto_expr fusion_tag;
             typedef This &proto_child0;
             typedef expr<tag::terminal, term<Fun> > const &proto_child1;
@@ -601,7 +567,13 @@ namespace boost { namespace proto
 
             BOOST_PROTO_EXTENDS_ASSIGN_()
             BOOST_PROTO_EXTENDS_SUBSCRIPT()
-            BOOST_PROTO_EXTENDS_FUNCTION()
+
+            // Instead of using BOOST_PROTO_EXTENDS_FUNCTION, which uses
+            // nested preprocessor loops, use file iteration here to generate
+            // the operator() overloads, which is more efficient.
+            #define BOOST_PROTO_NO_WAVE_OUTPUT
+            #include <boost/proto/detail/extends_funop.hpp>
+            #undef BOOST_PROTO_NO_WAVE_OUTPUT
 
             proto_base_expr const proto_base() const
             {
@@ -611,6 +583,7 @@ namespace boost { namespace proto
 
             proto_child0 child0() const
             {
+                using std::size_t;
                 return *(This *)((char *)this - BOOST_PROTO_OFFSETOF(This, proto_member_union_start_));
             }
 

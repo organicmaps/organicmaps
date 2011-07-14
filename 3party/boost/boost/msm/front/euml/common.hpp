@@ -14,10 +14,6 @@
 #include <boost/config.hpp>
 #include <boost/msm/proto_config.hpp>
 
-#ifndef BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
-#define BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
-#endif
-
 #include <iterator>
 #include <utility>
 
@@ -60,6 +56,9 @@
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/cat.hpp> 
+
+#include <boost/msm/msm_grammar.hpp>
+#include <boost/msm/active_state_switching_policies.hpp>
 #include <boost/msm/front/functor_row.hpp>
 
 namespace proto = boost::proto;
@@ -179,7 +178,7 @@ template<typename Expr>
 struct euml_terminal;
 
 struct sm_domain
-    : proto::domain< proto::generator<euml_terminal>, terminal_grammar >
+    : proto::domain< proto::generator<euml_terminal>, terminal_grammar, boost::msm::msm_domain >
 {};
 
 struct state_grammar : 
@@ -226,7 +225,7 @@ struct euml_event: proto::extends<typename proto::terminal<event_tag>::type, EVT
     };
 };
 template <class STATE>
-struct euml_state: proto::extends<typename proto::terminal<state_tag>::type, STATE, state_domain>
+struct euml_state: proto::extends<typename proto::terminal< boost::msm::state_tag>::type, STATE, state_domain>
 {
     typedef state_tag euml_tag_type;
     using proto::extends<typename proto::terminal<state_tag>::type, STATE, state_domain>::operator=;
@@ -303,9 +302,31 @@ struct Deferred_Events : euml_config<Deferred_Events>
     typedef int activate_deferred_events;
     Deferred_Events(){}
 };
-No_Exception const no_exception;
-No_Msg_Queue const no_msg_queue;
-Deferred_Events const deferred_events;
+No_Exception const no_exception=No_Exception();
+No_Msg_Queue const no_msg_queue=No_Msg_Queue();
+Deferred_Events const deferred_events=Deferred_Events();
+
+struct ActiveStateSwitchBeforeTransition : euml_config<ActiveStateSwitchBeforeTransition>
+{
+    typedef boost::msm::active_state_switch_before_transition active_state_switch_policy;
+    ActiveStateSwitchBeforeTransition(){}
+};
+ActiveStateSwitchBeforeTransition const switch_active_before_transition = ActiveStateSwitchBeforeTransition();
+
+struct ActiveStateSwitchAfterExit : euml_config<ActiveStateSwitchAfterExit>
+{
+    typedef boost::msm::active_state_switch_after_exit active_state_switch_policy;
+    ActiveStateSwitchAfterExit(){}
+};
+ActiveStateSwitchAfterExit const switch_active_after_exit = ActiveStateSwitchAfterExit();
+
+struct ActiveStateSwitchAfterAction : euml_config<ActiveStateSwitchAfterAction>
+{
+    typedef boost::msm::active_state_switch_after_transition_action active_state_switch_policy;
+    ActiveStateSwitchAfterAction(){}
+};
+ActiveStateSwitchAfterAction const switch_active_after_action = ActiveStateSwitchAfterAction();
+
 
 struct invalid_type{};
 struct make_invalid_type
@@ -357,7 +378,7 @@ struct NoAction : euml_action<NoAction>
         return true;
     }
 };
-NoAction const no_action;
+NoAction const no_action = NoAction();
 
 struct fsm_artefact_tag {};
 template <class Index=void>
@@ -408,7 +429,7 @@ struct GetSource_Helper: proto::extends< proto::terminal<fsm_artefact_tag>::type
         typedef GetSource_<Arg1> type;
     };
 };
-GetSource_Helper const source_;
+GetSource_Helper const source_ = GetSource_Helper();
 
 template <class Index=void>
 struct GetTarget_ : euml_action<GetTarget_<Index> >
@@ -458,7 +479,7 @@ struct GetTarget_Helper: proto::extends< proto::terminal<fsm_artefact_tag>::type
         typedef GetTarget_<Arg1> type;
     };
 };
-GetTarget_Helper const target_;
+GetTarget_Helper const target_ = GetTarget_Helper();
 
 template <class Index=void>
 struct GetState_ : euml_action<GetState_<Index> >
@@ -510,7 +531,7 @@ struct GetState_Helper: proto::extends< proto::terminal<fsm_artefact_tag>::type,
         typedef GetState_<Arg1> type;
     };
 };
-GetState_Helper const state_;
+GetState_Helper const state_ = GetState_Helper();
 
 template <class Index=void>
 struct GetEvent_ : euml_action<GetEvent_<Index> >
@@ -585,7 +606,7 @@ struct GetEvent_Helper: proto::extends< proto::terminal<fsm_artefact_tag>::type,
         typedef GetEvent_<Arg1> type;
     };
 };
-GetEvent_Helper const event_;
+GetEvent_Helper const event_ = GetEvent_Helper();
 
 template <class Index=void>
 struct GetFsm_ : euml_action<GetFsm_<Index> >
@@ -660,7 +681,7 @@ struct GetFsm_Helper: proto::extends< proto::terminal<fsm_artefact_tag>::type, G
         typedef GetFsm_<Arg1> type;
     };
 };
-GetFsm_Helper const fsm_;
+GetFsm_Helper const fsm_ = GetFsm_Helper();
 
 template <class StateName,class Param1>
 struct SubState_ : euml_action<SubState_<StateName, Param1> >
@@ -732,7 +753,7 @@ struct SubState_Helper: proto::extends< proto::terminal<fsm_artefact_tag>::type,
         typedef SubState_<Arg1,Arg2> type;
     };
 };
-SubState_Helper const substate_;
+SubState_Helper const substate_ = SubState_Helper();
 
 template <class Target,class Index>
 struct GetAttribute_  : euml_action<GetAttribute_<Target, Index> >
@@ -794,7 +815,7 @@ struct GetAttribute_Helper: proto::extends< proto::terminal<fsm_artefact_tag>::t
         typedef GetAttribute_<Arg1,Arg2> type;
     };
 };
-GetAttribute_Helper const attribute_;
+GetAttribute_Helper const attribute_ = GetAttribute_Helper();
 
 template <class Index>
 struct Source_ : euml_action<Source_<Index> >
@@ -966,7 +987,7 @@ struct True_ : euml::euml_action<True_>
     typedef ::boost::mpl::set<state_action_tag,action_tag> tag_type;
 
     template <class EVT,class FSM,class SourceState,class TargetState>
-    bool operator()(EVT const& evt,FSM&,SourceState& ,TargetState& )
+    bool operator()(EVT const&,FSM&,SourceState& ,TargetState& )
     {
         return true;
     }
@@ -976,7 +997,7 @@ struct True_ : euml::euml_action<True_>
         return true;
     }
 };
-True_ const true_;
+True_ const true_ = True_();
 
 struct False_ : euml::euml_action<False_>
 {
@@ -996,7 +1017,7 @@ struct False_ : euml::euml_action<False_>
     typedef ::boost::mpl::set<state_action_tag,action_tag> tag_type;
 
     template <class EVT,class FSM,class SourceState,class TargetState>
-    bool operator()(EVT const& evt,FSM&,SourceState& ,TargetState& )
+    bool operator()(EVT const&,FSM&,SourceState& ,TargetState& )
     {
         return false;
     }
@@ -1006,7 +1027,7 @@ struct False_ : euml::euml_action<False_>
         return false;
     }
 };
-False_ const false_;
+False_ const false_ = False_();
 
 template <int Val>
 struct Int_ : euml_action<Int_<Val> >
@@ -1328,7 +1349,7 @@ struct Process_Helper: proto::extends< proto::terminal<process_tag>::type, Proce
         typedef Process_<Arg1,Arg2,Arg3,Arg4,Arg5> type;
     };
 };
-Process_Helper const process_;
+Process_Helper const process_ = Process_Helper();
 
 template <class ToProcessEvt,class Value,class Param1, class Param2, class Param3>
 struct Process2_ : euml_action<Process2_<ToProcessEvt,Value, Param1, Param2, Param3> >
@@ -1466,7 +1487,7 @@ struct Process2_Helper : proto::extends< proto::terminal<process2_tag>::type, Pr
         typedef Process2_<Arg1,Arg2,Arg3,Arg4,Arg5> type;
     };
 };
-Process2_Helper const process2_;
+Process2_Helper const process2_ = Process2_Helper();
 
 template <class Flag,class Param1=void, class Enable=void >                                             
 struct Get_Flag_ : euml_action<Get_Flag_<Flag,Param1,Enable> > {};        
@@ -1546,7 +1567,7 @@ struct Get_Flag_Helper: proto::extends< proto::terminal<fsm_artefact_tag>::type,
         typedef Get_Flag_<Arg1,Arg2> type;
     };
 };
-Get_Flag_Helper const is_flag_;
+Get_Flag_Helper const is_flag_ = Get_Flag_Helper();
 
 // deferring an event
 struct DeferEvent_ : euml_action< DeferEvent_ >
@@ -1572,7 +1593,7 @@ struct Defer_Helper : proto::extends< proto::terminal<fsm_artefact_tag>::type, D
         typedef DeferEvent_ type;
     };
 };
-Defer_Helper const defer_;
+Defer_Helper const defer_ = Defer_Helper();
 
 struct explicit_tag {};
 struct Explicit_Helper : proto::extends< proto::terminal<explicit_tag>::type, Explicit_Helper, sm_domain>
@@ -1589,7 +1610,7 @@ struct Explicit_Helper : proto::extends< proto::terminal<explicit_tag>::type, Ex
         typedef typename Arg1::template direct<Arg2> type;
     };
 };
-Explicit_Helper const explicit_;
+Explicit_Helper const explicit_ = Explicit_Helper();
 
 struct entry_pt_tag {};
 struct Entry_Pt_Helper : proto::extends< proto::terminal<entry_pt_tag>::type, Entry_Pt_Helper, sm_domain>
@@ -1606,7 +1627,7 @@ struct Entry_Pt_Helper : proto::extends< proto::terminal<entry_pt_tag>::type, En
         typedef typename Arg1::template entry_pt<Arg2> type;
     };
 };
-Entry_Pt_Helper const entry_pt_;
+Entry_Pt_Helper const entry_pt_ = Entry_Pt_Helper();
 
 struct exit_pt_tag {};
 struct Exit_Pt_Helper : proto::extends< proto::terminal<exit_pt_tag>::type, Exit_Pt_Helper, sm_domain>
@@ -1623,7 +1644,7 @@ struct Exit_Pt_Helper : proto::extends< proto::terminal<exit_pt_tag>::type, Exit
         typedef typename Arg1::template exit_pt<Arg2> type;
     };
 };
-Exit_Pt_Helper const exit_pt_;
+Exit_Pt_Helper const exit_pt_ = Exit_Pt_Helper();
 
 #ifdef BOOST_MSVC
 #define BOOST_MSM_EUML_FUNCTION(functor,function,function_name,result_trans,result_state)               \
@@ -1794,7 +1815,7 @@ Exit_Pt_Helper const exit_pt_;
         functor ## Helper , sm_domain> { functor ## Helper(){}                                          \
         template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5,class Arg6>                    \
         struct In {typedef functor <Arg1,Arg2,Arg3,Arg4,Arg5,Arg6> type;}; };                           \
-        functor ## Helper const function_name ;
+        functor ## Helper const function_name = functor ## Helper ();
 
 #define BOOST_MSM_EUML_METHOD(functor,function,function_name,result_trans,result_state)                 \
     template <class Param1=void , class Param2=void , class Param3=void , class Param4=void,            \
@@ -1945,7 +1966,7 @@ Exit_Pt_Helper const exit_pt_;
         functor ## Helper , sm_domain> { functor ## Helper(){}                                          \
         template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5,class Arg6>                    \
         struct In {typedef functor <Arg1,Arg2,Arg3,Arg4,Arg5,Arg6> type;}; };                           \
-        functor ## Helper const function_name ;
+        functor ## Helper const function_name = functor ## Helper ();
 
 #else
 
@@ -2075,7 +2096,7 @@ Exit_Pt_Helper const exit_pt_;
         functor ## Helper , sm_domain> { functor ## Helper(){}                                          \
         template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5>                               \
         struct In {typedef functor <Arg1,Arg2,Arg3,Arg4,Arg5> type;}; };                                \
-        functor ## Helper const function_name ;
+        functor ## Helper const function_name = functor ## Helper ();
 
 #define BOOST_MSM_EUML_METHOD(functor,function,function_name,result_trans,result_state)                 \
     template <class Param1=void , class Param2=void , class Param3=void , class Param4=void,            \
@@ -2201,7 +2222,7 @@ Exit_Pt_Helper const exit_pt_;
         functor ## Helper , sm_domain> { functor ## Helper(){}                                          \
         template <class Arg1,class Arg2,class Arg3,class Arg4,class Arg5>                               \
         struct In {typedef functor <Arg1,Arg2,Arg3,Arg4,Arg5> type;}; };                                \
-        functor ## Helper const function_name ;
+        functor ## Helper const function_name = functor ## Helper ();
 
 #endif
 
@@ -2247,15 +2268,29 @@ Exit_Pt_Helper const exit_pt_;
         instance_name ## _helper(){}                                                            \
         typedef instance_name ## _impl action_name;                                             \
     };                                                                                          \
-    instance_name ## _helper instance_name;                                                     \
+    static instance_name ## _helper instance_name;                                              \
     struct instance_name ## _impl : instance_name ## _helper
+
+#define BOOST_MSM_EUML_DECLARE_ACTION(instance_name)                                                        \
+    struct instance_name ;                                                                      \
+    struct instance_name ## _helper :  msm::front::euml::euml_action<instance_name >            \
+    {                                                                                           \
+        instance_name ## _helper(){}                                                            \
+        typedef instance_name action_name;                                                      \
+    };                                                                                          \
+    struct instance_name : instance_name ## _helper
 
 
 #define BOOST_MSM_EUML_EVENT(instance_name)                                                     \
     struct instance_name ## _helper : msm::front::euml::euml_event<instance_name ## _helper>{   \
     instance_name ## _helper(){}                                                                \
-    instance_name ## _helper const& operator()(){return *this;} };                              \
-    instance_name ## _helper instance_name;
+    instance_name ## _helper const& operator()() const {return *this;} };                       \
+    static instance_name ## _helper instance_name;
+
+#define BOOST_MSM_EUML_DECLARE_EVENT(instance_name)                                             \
+    struct instance_name : msm::front::euml::euml_event<instance_name >{                        \
+    instance_name(){}                                                                           \
+    instance_name const& operator()() const {return *this;} };
 
 #define MSM_EUML_CONCAT(param1,param2) param1
 #define MSM_EUML_EVENT_INSTANCE_HELPER_EXECUTE1(z, n, unused) ARG ## n arg ## n
@@ -2280,7 +2315,7 @@ Exit_Pt_Helper const exit_pt_;
 #define MSM_EUML_EVENT_INSTANCE_HELPER_ATTRIBUTE_MAP(z, n, unused)                              \
     template <BOOST_PP_ENUM_PARAMS(n, class ARG),class T>                                       \
     void init(BOOST_PP_ENUM(n, MSM_EUML_EVENT_INSTANCE_HELPER_EXECUTE1, ~ ), \
-    T,typename ::boost::enable_if< typename boost::mpl::eval_if< typename ::boost::fusion::traits::is_sequence<T>::type,size_helper<T,n>,::boost::mpl::false_>::type,void >::type* dummyval=0)      \
+    T,typename ::boost::enable_if< typename boost::mpl::eval_if< typename ::boost::fusion::traits::is_sequence<T>::type,size_helper<T,n>,::boost::mpl::false_>::type,void >::type* =0)      \
     {                                                                                           \
         BOOST_PP_REPEAT_FROM_TO(0,n ,                                                           \
         MSM_EUML_EVENT_HELPER_GET_ATTRIBUTE, ~)                                                 \
@@ -2314,7 +2349,7 @@ Exit_Pt_Helper const exit_pt_;
         BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_ADD(FUSION_MAX_MAP_SIZE ,1),                         \
         MSM_EUML_EVENT_INSTANCE_HELPER_OPERATOR_IMPL, instance_name)                            \
     };                                                                                          \
-    instance_name ## _helper const instance_name;
+    static instance_name ## _helper instance_name;
 
 #define BOOST_MSM_EUML_EVENT_NAME(instance_name) instance_name ## _helper
 
@@ -2322,7 +2357,10 @@ Exit_Pt_Helper const exit_pt_;
 
 #define BOOST_MSM_EUML_FLAG(instance_name)                                                      \
     struct instance_name ## _helper : msm::front::euml::euml_flag<instance_name ## _helper>{};  \
-    instance_name ## _helper instance_name;
+    static instance_name ## _helper instance_name;
+
+#define BOOST_MSM_EUML_DECLARE_FLAG(instance_name)                                                      \
+    struct instance_name : msm::front::euml::euml_flag<instance_name >{};
 
 #define BOOST_MSM_EUML_STATE_NAME(instance_name) instance_name ## _helper
 
@@ -2374,33 +2412,33 @@ Exit_Pt_Helper const exit_pt_;
 // following macros declare a state type and create an instance
 #define BOOST_MSM_EUML_STATE(expr,instance_name)                                                        \
     struct instance_name ## tag{};                                                                      \
-    typedef BOOST_TYPEOF(build_state<instance_name ## tag> expr) instance_name ## _helper;  \
-    instance_name ## _helper const instance_name;
+    typedef BOOST_TYPEOF(build_state<instance_name ## tag> expr) instance_name ## _helper;              \
+    static instance_name ## _helper instance_name;
 
-#define BOOST_MSM_EUML_INTERRUPT_STATE(expr,instance_name)                                                        \
+#define BOOST_MSM_EUML_INTERRUPT_STATE(expr,instance_name)                                              \
     struct instance_name ## tag{};                                                                      \
-    typedef BOOST_TYPEOF(build_interrupt_state<instance_name ## tag> expr) instance_name ## _helper;  \
-    instance_name ## _helper const instance_name;
+    typedef BOOST_TYPEOF(build_interrupt_state<instance_name ## tag> expr) instance_name ## _helper;    \
+    static instance_name ## _helper instance_name;
 
-#define BOOST_MSM_EUML_TERMINATE_STATE(expr,instance_name)                                                        \
+#define BOOST_MSM_EUML_TERMINATE_STATE(expr,instance_name)                                              \
     struct instance_name ## tag{};                                                                      \
-    typedef BOOST_TYPEOF(build_terminate_state<instance_name ## tag> expr) instance_name ## _helper;  \
-    instance_name ## _helper const instance_name;
+    typedef BOOST_TYPEOF(build_terminate_state<instance_name ## tag> expr) instance_name ## _helper;    \
+    static instance_name ## _helper instance_name;
 
-#define BOOST_MSM_EUML_EXPLICIT_ENTRY_STATE(region,expr,instance_name)                          \
-    struct instance_name ## tag{};                                                                  \
+#define BOOST_MSM_EUML_EXPLICIT_ENTRY_STATE(region,expr,instance_name)                                  \
+    struct instance_name ## tag{};                                                                      \
     typedef BOOST_TYPEOF(build_explicit_entry_state<instance_name ## tag BOOST_MSM_EUML_ENTRY_STATE_HELPER(region) > expr) instance_name ## _helper;  \
-    instance_name ## _helper const instance_name;
+    static instance_name ## _helper instance_name;
 
 #define BOOST_MSM_EUML_ENTRY_STATE(region,expr,instance_name)                                       \
     struct instance_name ## tag{};                                                                  \
     typedef BOOST_TYPEOF(build_entry_state<instance_name ## tag BOOST_MSM_EUML_ENTRY_STATE_HELPER(region) > expr) instance_name ## _helper;  \
-    instance_name ## _helper const instance_name;
+    static instance_name ## _helper instance_name;
 
 #define BOOST_MSM_EUML_EXIT_STATE(expr,instance_name)                                                       \
     struct instance_name ## tag{};                                                                          \
-    typedef BOOST_TYPEOF(build_exit_state<instance_name ## tag> expr) instance_name ## _helper; \
-    instance_name ## _helper const instance_name;
+    typedef BOOST_TYPEOF(build_exit_state<instance_name ## tag> expr) instance_name ## _helper;             \
+    static instance_name ## _helper instance_name;
 
 
 #ifndef BOOST_MSVC
@@ -2408,12 +2446,12 @@ Exit_Pt_Helper const exit_pt_;
 #define BOOST_MSM_EUML_TRANSITION_TABLE(expr,instance_name)                                     \
     typedef BOOST_TYPEOF(BOOST_MSM_EUML_BUILD_STT_HELPER BOOST_MSM_EUML_BUILD_STT_HELPER2(expr)) instance_name ## _def;                  \
     struct instance_name ## _helper :  public instance_name ## _def{instance_name ## _helper(){}};                          \
-    instance_name ## _helper const instance_name;
+    static instance_name ## _helper instance_name;
 
 #define BOOST_MSM_EUML_INTERNAL_TRANSITION_TABLE(expr,instance_name)                            \
     typedef BOOST_TYPEOF(BOOST_MSM_EUML_BUILD_INTERNAL_STT_HELPER BOOST_MSM_EUML_BUILD_STT_HELPER2(expr)) instance_name ## _def;         \
     struct instance_name ## _helper :  public instance_name ## _def{instance_name ## _helper(){}};   \
-    instance_name ## _helper const instance_name;
+    static instance_name ## _helper instance_name;
 
 #else
 
@@ -2421,13 +2459,13 @@ Exit_Pt_Helper const exit_pt_;
     struct instance_name ## _helper :                                                           \
     public BOOST_TYPEOF(BOOST_MSM_EUML_BUILD_STT_HELPER BOOST_MSM_EUML_BUILD_STT_HELPER2(expr)) \
     {instance_name ## _helper(){}} ;                                                            \
-    instance_name ## _helper const instance_name;
+    static instance_name ## _helper instance_name;
 
 #define BOOST_MSM_EUML_INTERNAL_TRANSITION_TABLE(expr,instance_name)                                        \
     struct instance_name ## _helper :                                                                       \
     public BOOST_TYPEOF(BOOST_MSM_EUML_BUILD_INTERNAL_STT_HELPER BOOST_MSM_EUML_BUILD_STT_HELPER2(expr))    \
     {instance_name ## _helper(){}} ;                                                                        \
-    instance_name ## _helper const instance_name;
+    static instance_name ## _helper instance_name;
 
 #endif
 

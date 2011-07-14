@@ -17,7 +17,7 @@
 #include <boost/spirit/home/support/unused.hpp>
 #include <boost/spirit/home/qi/detail/attributes.hpp>
 #include <boost/spirit/home/support/container.hpp>
-#include <boost/spirit/home/phoenix/core/actor.hpp>
+#include <boost/fusion/include/copy.hpp>
 #include <boost/ref.hpp>
 #include <boost/range/iterator_range.hpp>
 
@@ -31,7 +31,7 @@ namespace boost { namespace spirit { namespace traits
     template <typename Attribute, typename Iterator, typename Enable>
     struct assign_to_attribute_from_iterators
     {
-        static void 
+        static void
         call(Iterator const& first, Iterator const& last, Attribute& attr)
         {
             if (traits::is_empty(attr))
@@ -47,7 +47,7 @@ namespace boost { namespace spirit { namespace traits
     struct assign_to_attribute_from_iterators<
         reference_wrapper<Attribute>, Iterator>
     {
-        static void 
+        static void
         call(Iterator const& first, Iterator const& last
           , reference_wrapper<Attribute> attr)
         {
@@ -60,11 +60,25 @@ namespace boost { namespace spirit { namespace traits
         }
     };
 
+    template <typename Attribute, typename Iterator>
+    struct assign_to_attribute_from_iterators<
+        boost::optional<Attribute>, Iterator>
+    {
+        static void
+        call(Iterator const& first, Iterator const& last
+          , boost::optional<Attribute>& attr)
+        {
+            Attribute val;
+            assign_to(first, last, val);
+            attr = val;
+        }
+    };
+
     template <typename Iterator>
     struct assign_to_attribute_from_iterators<
         iterator_range<Iterator>, Iterator>
     {
-        static void 
+        static void
         call(Iterator const& first, Iterator const& last
           , iterator_range<Iterator>& attr)
         {
@@ -93,7 +107,7 @@ namespace boost { namespace spirit { namespace traits
     template <typename Attribute, typename T, typename Enable>
     struct assign_to_attribute_from_value
     {
-        typedef typename traits::one_element_sequence<Attribute>::type 
+        typedef typename traits::one_element_sequence<Attribute>::type
             is_one_element_sequence;
 
         typedef typename mpl::eval_if<
@@ -103,25 +117,25 @@ namespace boost { namespace spirit { namespace traits
         >::type type;
 
         template <typename T_>
-        static void 
+        static void
         call(T_ const& val, Attribute& attr, mpl::false_)
         {
             attr = static_cast<Attribute>(val);
         }
 
         // This handles the case where the attribute is a single element fusion
-        // sequence. We silently assign to the only element and treat it as the 
+        // sequence. We silently assign to the only element and treat it as the
         // attribute to parse the results into.
         template <typename T_>
-        static void 
+        static void
         call(T_ const& val, Attribute& attr, mpl::true_)
         {
-            typedef typename fusion::result_of::value_at_c<Attribute, 0>::type 
+            typedef typename fusion::result_of::value_at_c<Attribute, 0>::type
                 element_type;
             fusion::at_c<0>(attr) = static_cast<element_type>(val);
         }
 
-        static void 
+        static void
         call(T const& val, Attribute& attr)
         {
             call(val, attr, is_one_element_sequence());
@@ -131,7 +145,7 @@ namespace boost { namespace spirit { namespace traits
     template <typename Attribute>
     struct assign_to_attribute_from_value<Attribute, Attribute>
     {
-        static void 
+        static void
         call(Attribute const& val, Attribute& attr)
         {
             attr = val;
@@ -139,21 +153,49 @@ namespace boost { namespace spirit { namespace traits
     };
 
     template <typename Attribute, typename T>
-    struct assign_to_attribute_from_value<reference_wrapper<Attribute>, T>
+    struct assign_to_attribute_from_value<Attribute, reference_wrapper<T>
+      , typename disable_if<is_same<Attribute, reference_wrapper<T> > >::type>
     {
-        static void 
-        call(T const& val, reference_wrapper<Attribute> attr)
+        static void
+        call(reference_wrapper<T> const& val, Attribute& attr)
         {
             assign_to(val.get(), attr);
         }
     };
 
-    template <typename Attribute>
-    struct assign_to_attribute_from_value<optional<Attribute>, unused_type>
+    template <typename Attribute, typename T>
+    struct assign_to_attribute_from_value<Attribute, boost::optional<T>
+      , typename disable_if<is_same<Attribute, boost::optional<T> > >::type>
     {
-        static void 
-        call(unused_type, optional<Attribute> const&)
+        static void
+        call(boost::optional<T> const& val, Attribute& attr)
         {
+            assign_to(val.get(), attr);
+        }
+    };
+
+    namespace detail
+    {
+        template <typename A, typename B>
+        struct is_same_size_sequence
+          : mpl::bool_<fusion::result_of::size<A>::value
+                == fusion::result_of::size<B>::value>
+        {};
+    }
+
+    template <typename Attribute, typename T>
+    struct assign_to_attribute_from_value<Attribute, T,
+            mpl::and_<
+                fusion::traits::is_sequence<Attribute>,
+                fusion::traits::is_sequence<T>,
+                detail::is_same_size_sequence<Attribute, T>
+            >
+        >
+    {
+        static void
+        call(T const& val, Attribute& attr)
+        {
+            fusion::copy(val, attr);
         }
     };
 
@@ -168,33 +210,74 @@ namespace boost { namespace spirit { namespace traits
             traits::push_back(attr, val);
         }
 
-        // T is a container (but not a string)
+        // T is a container (but not a string), and T is convertible to the 
+        // value_type of the Attribute container
         template <typename T_>
-        static void call(T_ const& val, Attribute& attr, mpl::true_, mpl::false_)
+        static void 
+        append_to_container_not_string(T_ const& val, Attribute& attr, mpl::true_)
         {
-            typedef typename traits::container_iterator<T_ const>::type 
-                iterator_type;
-            iterator_type end = traits::end(val);
-            for (iterator_type i = traits::begin(val); i != end; traits::next(i))
-                push_back(attr, traits::deref(i));
+            traits::push_back(attr, val);
         }
 
-        // T is a string 
+        // T is a container (but not a string), generic overload
+        template <typename T_>
+        static void 
+        append_to_container_not_string(T_ const& val, Attribute& attr, mpl::false_)
+        {
+            typedef typename traits::container_iterator<T_ const>::type
+                iterator_type;
+
+            iterator_type end = traits::end(val);
+            for (iterator_type i = traits::begin(val); i != end; traits::next(i))
+                traits::push_back(attr, traits::deref(i));
+        }
+
+        // T is a container (but not a string)
+        template <typename T_>
+        static void call(T_ const& val, Attribute& attr,  mpl::true_, mpl::false_)
+        {
+            typedef typename container_value<Attribute>::type value_type;
+            typedef typename is_convertible<T, value_type>::type is_value_type;
+
+            append_to_container_not_string(val, attr, is_value_type());
+        }
+
+        ///////////////////////////////////////////////////////////////////////
+        // T is a string
         template <typename Iterator>
         static void append_to_string(Attribute& attr, Iterator begin, Iterator end)
         {
             for (Iterator i = begin; i != end; ++i)
-                push_back(attr, *i);
+                traits::push_back(attr, *i);
+        }
+
+        // T is string, but not convertible to value_type of container
+        template <typename T_>
+        static void append_to_container(T_ const& val, Attribute& attr, mpl::false_)
+        {
+            typedef typename char_type_of<T_>::type char_type;
+
+            append_to_string(attr, traits::get_begin<char_type>(val)
+              , traits::get_end<char_type>(val));
+        }
+
+        // T is string, and convertible to value_type of container
+        template <typename T_>
+        static void append_to_container(T_ const& val, Attribute& attr, mpl::true_)
+        {
+            traits::push_back(attr, val);
         }
 
         template <typename T_, typename Pred>
         static void call(T_ const& val, Attribute& attr, Pred, mpl::true_)
         {
-            typedef typename char_type_of<T_>::type char_type;
-            append_to_string(attr, traits::get_begin<char_type>(val)
-              , traits::get_end<char_type>(val));
+            typedef typename container_value<Attribute>::type value_type;
+            typedef typename is_convertible<T, value_type>::type is_value_type;
+
+            append_to_container(val, attr, is_value_type());
         }
 
+        ///////////////////////////////////////////////////////////////////////
         static void call(T const& val, Attribute& attr)
         {
             typedef typename traits::is_container<T>::type is_container;
@@ -204,22 +287,35 @@ namespace boost { namespace spirit { namespace traits
         }
     };
 
-    template <typename Attribute, typename T>
-    struct assign_to_container_from_value<reference_wrapper<Attribute>, T>
+    template <typename Attribute>
+    struct assign_to_container_from_value<Attribute, Attribute>
     {
-        static void 
-        call(T const& val, reference_wrapper<Attribute> attr)
+        static void
+        call(Attribute const& val, Attribute& attr)
+        {
+            attr = val;
+        }
+    };
+
+    template <typename Attribute, typename T>
+    struct assign_to_container_from_value<Attribute, boost::optional<T>
+      , typename disable_if<is_same<Attribute, boost::optional<T> > >::type>
+    {
+        static void
+        call(boost::optional<T> const& val, Attribute& attr)
         {
             assign_to(val.get(), attr);
         }
     };
 
-    template <typename Attribute>
-    struct assign_to_container_from_value<optional<Attribute>, unused_type>
+    template <typename Attribute, typename T>
+    struct assign_to_container_from_value<Attribute, reference_wrapper<T>
+      , typename disable_if<is_same<Attribute, reference_wrapper<T> > >::type>
     {
-        static void 
-        call(unused_type, optional<Attribute> const&)
+        static void
+        call(reference_wrapper<T> const& val, Attribute& attr)
         {
+            assign_to(val.get(), attr);
         }
     };
 
@@ -227,18 +323,18 @@ namespace boost { namespace spirit { namespace traits
     namespace detail
     {
         // overload for non-container attributes
-        template <typename T, typename Attribute, typename P1, typename P2>
+        template <typename T, typename Attribute>
         inline void
-        assign_to(T const& val, Attribute& attr, P1, P2)
+        assign_to(T const& val, Attribute& attr, mpl::false_)
         {
             assign_to_attribute_from_value<Attribute, T>::call(val, attr);
         }
 
-        // overload for containers (but not for variants or optionals 
+        // overload for containers (but not for variants or optionals
         // holding containers)
         template <typename T, typename Attribute>
         inline void
-        assign_to(T const& val, Attribute& attr, mpl::true_, mpl::true_)
+        assign_to(T const& val, Attribute& attr, mpl::true_)
         {
             assign_to_container_from_value<Attribute, T>::call(val, attr);
         }
@@ -248,13 +344,13 @@ namespace boost { namespace spirit { namespace traits
     inline void
     assign_to(T const& val, Attribute& attr)
     {
-        typedef typename traits::is_container<Attribute>::type is_container;
         typedef typename mpl::and_<
-            traits::not_is_variant<Attribute>
-          , traits::not_is_optional<Attribute> 
+            traits::is_container<Attribute>
+          , traits::not_is_variant<Attribute>
+          , traits::not_is_optional<Attribute>
         >::type is_not_wrapped_container;
 
-        detail::assign_to(val, attr, is_container(), is_not_wrapped_container());
+        detail::assign_to(val, attr, is_not_wrapped_container());
     }
 
     template <typename T>

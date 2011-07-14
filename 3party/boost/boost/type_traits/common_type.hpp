@@ -11,20 +11,20 @@
 
 #include <boost/config.hpp>
 
-#ifdef __SUNPRO_CC
+#if defined(__SUNPRO_CC) && !defined(BOOST_COMMON_TYPE_DONT_USE_TYPEOF)
 #  define BOOST_COMMON_TYPE_DONT_USE_TYPEOF
 #endif
-#ifdef __IBMCPP__
+#if defined(__IBMCPP__) && !defined(BOOST_COMMON_TYPE_DONT_USE_TYPEOF)
 #  define BOOST_COMMON_TYPE_DONT_USE_TYPEOF
 #endif
 
 //----------------------------------------------------------------------------//
-#if defined(BOOST_NO_VARIADIC_TEMPLATES)
+#if defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(BOOST_COMMON_TYPE_ARITY)
 #define BOOST_COMMON_TYPE_ARITY 3
 #endif
 
 //----------------------------------------------------------------------------//
-#if defined(BOOST_NO_DECLTYPE) && !defined(BOOST_COMMON_TYPE_DONT_USE_TYPEOF)
+#if defined(BOOST_NO_DECLTYPE) && !defined(BOOST_COMMON_TYPE_DONT_USE_TYPEOF) && !defined(BOOST_TYPEOF_SILENT)
 #define BOOST_TYPEOF_SILENT
 #include <boost/typeof/typeof.hpp>   // boost wonders never cease!
 #endif
@@ -141,7 +141,7 @@ namespace type_traits_detail {
     template <class T, class U>
     struct common_type<T, U, void>
 #endif
-    : type_traits_detail::common_type_2<T,U>
+    : public type_traits_detail::common_type_2<T,U>
     { };
 
 

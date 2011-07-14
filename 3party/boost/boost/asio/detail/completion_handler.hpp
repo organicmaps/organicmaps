@@ -33,9 +33,9 @@ class completion_handler : public operation
 public:
   BOOST_ASIO_DEFINE_HANDLER_PTR(completion_handler);
 
-  completion_handler(Handler h)
+  completion_handler(Handler& h)
     : operation(&completion_handler::do_complete),
-      handler_(h)
+      handler_(BOOST_ASIO_MOVE_CAST(Handler)(h))
   {
   }
 
@@ -46,13 +46,15 @@ public:
     completion_handler* h(static_cast<completion_handler*>(base));
     ptr p = { boost::addressof(h->handler_), h, h };
 
+    BOOST_ASIO_HANDLER_COMPLETION((h));
+
     // Make a copy of the handler so that the memory can be deallocated before
     // the upcall is made. Even if we're not about to make an upcall, a
     // sub-object of the handler may be the true owner of the memory associated
     // with the handler. Consequently, a local copy of the handler is required
     // to ensure that any owning sub-object remains valid until after we have
     // deallocated the memory here.
-    Handler handler(h->handler_);
+    Handler handler(BOOST_ASIO_MOVE_CAST(Handler)(h->handler_));
     p.h = boost::addressof(handler);
     p.reset();
 
@@ -60,7 +62,9 @@ public:
     if (owner)
     {
       boost::asio::detail::fenced_block b;
+      BOOST_ASIO_HANDLER_INVOCATION_BEGIN(());
       boost_asio_handler_invoke_helpers::invoke(handler, handler);
+      BOOST_ASIO_HANDLER_INVOCATION_END;
     }
   }
 

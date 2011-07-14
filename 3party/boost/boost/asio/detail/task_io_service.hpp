@@ -19,9 +19,9 @@
 
 #if !defined(BOOST_ASIO_HAS_IOCP)
 
-#include <boost/detail/atomic_count.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/asio/io_service.hpp>
+#include <boost/asio/detail/atomic_count.hpp>
 #include <boost/asio/detail/mutex.hpp>
 #include <boost/asio/detail/op_queue.hpp>
 #include <boost/asio/detail/reactor_fwd.hpp>
@@ -67,6 +67,9 @@ public:
   // Interrupt the event processing loop.
   BOOST_ASIO_DECL void stop();
 
+  // Determine whether the io_service is stopped.
+  BOOST_ASIO_DECL bool stopped() const;
+
   // Reset in preparation for a subsequent run invocation.
   BOOST_ASIO_DECL void reset();
 
@@ -103,6 +106,10 @@ public:
   // that work_started() was previously called for each operation.
   BOOST_ASIO_DECL void post_deferred_completions(op_queue<operation>& ops);
 
+  // Process unfinished operations as part of a shutdown_service operation.
+  // Assumes that work_started() was previously called for the operations.
+  BOOST_ASIO_DECL void abandon_operations(op_queue<operation>& ops);
+
 private:
   // Structure containing information about an idle thread.
   struct idle_thread_info;
@@ -132,7 +139,7 @@ private:
   struct work_finished_on_block_exit;
 
   // Mutex to protect access to internal data.
-  mutex mutex_;
+  mutable mutex mutex_;
 
   // The task to be run by this service.
   reactor* task_;
@@ -147,7 +154,7 @@ private:
   bool task_interrupted_;
 
   // The count of unfinished work.
-  boost::detail::atomic_count outstanding_work_;
+  atomic_count outstanding_work_;
 
   // The queue of handlers that are ready to be delivered.
   op_queue<operation> op_queue_;

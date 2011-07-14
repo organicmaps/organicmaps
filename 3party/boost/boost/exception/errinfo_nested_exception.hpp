@@ -9,10 +9,9 @@
 namespace
 boost
     {
-    namespace exception_detail { class clone_base; };
+    namespace exception_detail { class clone_base; }
     template <class Tag,class T> class error_info;
-    template <class T> class shared_ptr;
-    typedef shared_ptr<exception_detail::clone_base const> exception_ptr;
+    class exception_ptr;
     typedef error_info<struct errinfo_nested_exception_,exception_ptr> errinfo_nested_exception;
     }
 

@@ -17,9 +17,9 @@
 
 #include <boost/asio/detail/config.hpp>
 #include <cstddef>
+#include <iterator>
 #include <boost/assert.hpp>
 #include <boost/detail/workaround.hpp>
-#include <boost/iterator.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/asio/buffer.hpp>
@@ -73,18 +73,47 @@ namespace detail
 /// A random access iterator over the bytes in a buffer sequence.
 template <typename BufferSequence, typename ByteType = char>
 class buffers_iterator
-  : public boost::iterator<
-      std::random_access_iterator_tag,
-      typename detail::buffers_iterator_types<
-        BufferSequence, ByteType>::byte_type>
 {
 private:
   typedef typename detail::buffers_iterator_types<
       BufferSequence, ByteType>::buffer_type buffer_type;
-  typedef typename detail::buffers_iterator_types<
-      BufferSequence, ByteType>::byte_type byte_type;
 
 public:
+  /// The type used for the distance between two iterators.
+  typedef std::ptrdiff_t difference_type;
+
+  /// The type of the value pointed to by the iterator.
+  typedef ByteType value_type;
+
+#if defined(GENERATING_DOCUMENTATION)
+  /// The type of the result of applying operator->() to the iterator.
+  /**
+   * If the buffer sequence stores buffer objects that are convertible to
+   * mutable_buffer, this is a pointer to a non-const ByteType. Otherwise, a
+   * pointer to a const ByteType.
+   */
+  typedef const_or_non_const_ByteType* pointer;
+#else // defined(GENERATING_DOCUMENTATION)
+  typedef typename detail::buffers_iterator_types<
+      BufferSequence, ByteType>::byte_type* pointer;
+#endif // defined(GENERATING_DOCUMENTATION)
+
+#if defined(GENERATING_DOCUMENTATION)
+  /// The type of the result of applying operator*() to the iterator.
+  /**
+   * If the buffer sequence stores buffer objects that are convertible to
+   * mutable_buffer, this is a reference to a non-const ByteType. Otherwise, a
+   * reference to a const ByteType.
+   */
+  typedef const_or_non_const_ByteType& reference;
+#else // defined(GENERATING_DOCUMENTATION)
+  typedef typename detail::buffers_iterator_types<
+      BufferSequence, ByteType>::byte_type& reference;
+#endif // defined(GENERATING_DOCUMENTATION)
+
+  /// The iterator category.
+  typedef std::random_access_iterator_tag iterator_category;
+
   /// Default constructor. Creates an iterator in an undefined state.
   buffers_iterator()
     : current_buffer_(),
@@ -136,19 +165,19 @@ public:
   }
 
   /// Dereference an iterator.
-  byte_type& operator*() const
+  reference operator*() const
   {
     return dereference();
   }
 
   /// Dereference an iterator.
-  byte_type* operator->() const
+  pointer operator->() const
   {
     return &dereference();
   }
 
   /// Access an individual element.
-  byte_type& operator[](std::ptrdiff_t difference) const
+  reference operator[](std::ptrdiff_t difference) const
   {
     buffers_iterator tmp(*this);
     tmp.advance(difference);
@@ -271,9 +300,9 @@ public:
 
 private:
   // Dereference the iterator.
-  byte_type& dereference() const
+  reference dereference() const
   {
-    return buffer_cast<byte_type*>(current_buffer_)[current_buffer_position_];
+    return buffer_cast<pointer>(current_buffer_)[current_buffer_position_];
   }
 
   // Compare two iterators for equality.

@@ -13,6 +13,7 @@
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/selection/max.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/facilities/intercept.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/repetition/enum_trailing.hpp>
@@ -37,19 +38,6 @@ namespace boost { namespace proto
 
     namespace detail
     {
-    /// INTERNAL ONLY
-    ///
-    #define BOOST_PROTO_CHILD(Z, N, DATA)                                                       \
-        typedef BOOST_PP_CAT(Arg, N) BOOST_PP_CAT(proto_child, N);                              \
-        BOOST_PP_CAT(proto_child, N) BOOST_PP_CAT(child, N);                                    \
-        /**< INTERNAL ONLY */
-
-    /// INTERNAL ONLY
-    ///
-    #define BOOST_PROTO_VOID(Z, N, DATA)                                                        \
-        typedef void BOOST_PP_CAT(proto_child, N);                                              \
-        /**< INTERNAL ONLY */
-
         struct not_a_valid_type
         {
         private:
@@ -118,24 +106,19 @@ namespace boost { namespace proto
         template<typename Sig, typename This, typename Domain>
         struct funop;
 
-        #define BOOST_PP_ITERATION_PARAMS_1 (3, (0, BOOST_PP_DEC(BOOST_PROTO_MAX_FUNCTION_CALL_ARITY), <boost/proto/detail/funop.hpp>))
-        #include BOOST_PP_ITERATE()
+        #include <boost/proto/detail/funop.hpp>
     }
 
     namespace exprns_
     {
-        // The expr<> specializations are actually defined here.
-        #define BOOST_PROTO_DEFINE_TERMINAL
-        #define BOOST_PP_ITERATION_PARAMS_1 (3, (0, 0, <boost/proto/detail/expr0.hpp>))
-        #include BOOST_PP_ITERATE()
+        // This is where the basic_expr specializations are
+        // actually defined:
+        #include <boost/proto/detail/basic_expr.hpp>
 
-        #undef BOOST_PROTO_DEFINE_TERMINAL
-        #define BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_PROTO_MAX_ARITY, <boost/proto/detail/expr0.hpp>))
-        #include BOOST_PP_ITERATE()
+        // This is where the expr specialization are
+        // actually defined:
+        #include <boost/proto/detail/expr.hpp>
     }
-
-    #undef BOOST_PROTO_CHILD
-    #undef BOOST_PROTO_VOID
 
     /// \brief Lets you inherit the interface of an expression
     /// while hiding from Proto the fact that the type is a Proto

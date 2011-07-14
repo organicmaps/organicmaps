@@ -45,7 +45,9 @@ namespace boost { namespace spirit
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit { namespace karma
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using boost::spirit::eps;
+#endif
     using boost::spirit::eps_type;
 
     struct eps_generator : primitive_generator<eps_generator>

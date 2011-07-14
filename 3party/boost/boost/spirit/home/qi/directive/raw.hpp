@@ -35,7 +35,9 @@ namespace boost { namespace spirit
 
 namespace boost { namespace spirit { namespace qi
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::raw;
+#endif
     using spirit::raw_type;
 
     template <typename Subject>

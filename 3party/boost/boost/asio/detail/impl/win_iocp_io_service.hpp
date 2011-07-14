@@ -40,7 +40,19 @@ void win_iocp_io_service::dispatch(Handler handler)
     boost_asio_handler_invoke_helpers::invoke(handler, handler);
   }
   else
-    post(handler);
+  {
+    // Allocate and construct an operation to wrap the handler.
+    typedef completion_handler<Handler> op;
+    typename op::ptr p = { boost::addressof(handler),
+      boost_asio_handler_alloc_helpers::allocate(
+        sizeof(op), handler), 0 };
+    p.p = new (p.v) op(handler);
+
+    BOOST_ASIO_HANDLER_CREATION((p.p, "io_service", this, "dispatch"));
+
+    post_immediate_completion(p.p);
+    p.v = p.p = 0;
+  }
 }
 
 template <typename Handler>
@@ -52,6 +64,8 @@ void win_iocp_io_service::post(Handler handler)
     boost_asio_handler_alloc_helpers::allocate(
       sizeof(op), handler), 0 };
   p.p = new (p.v) op(handler);
+
+  BOOST_ASIO_HANDLER_CREATION((p.p, "io_service", this, "post"));
 
   post_immediate_completion(p.p);
   p.v = p.p = 0;
@@ -93,7 +107,8 @@ void win_iocp_io_service::schedule_timer(timer_queue<Time_Traits>& queue,
 
 template <typename Time_Traits>
 std::size_t win_iocp_io_service::cancel_timer(timer_queue<Time_Traits>& queue,
-    typename timer_queue<Time_Traits>::per_timer_data& timer)
+    typename timer_queue<Time_Traits>::per_timer_data& timer,
+    std::size_t max_cancelled)
 {
   // If the service has been shut down we silently ignore the cancellation.
   if (::InterlockedExchangeAdd(&shutdown_, 0) != 0)
@@ -101,7 +116,7 @@ std::size_t win_iocp_io_service::cancel_timer(timer_queue<Time_Traits>& queue,
 
   mutex::scoped_lock lock(dispatch_mutex_);
   op_queue<win_iocp_operation> ops;
-  std::size_t n = queue.cancel_timer(timer, ops);
+  std::size_t n = queue.cancel_timer(timer, ops, max_cancelled);
   post_deferred_completions(ops);
   return n;
 }

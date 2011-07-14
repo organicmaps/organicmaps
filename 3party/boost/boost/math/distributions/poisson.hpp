@@ -316,7 +316,7 @@ namespace boost
 
       RealType mean = dist.mean();
       // Error check:
-      RealType result;
+      RealType result = 0;
       if(false == poisson_detail::check_dist_and_k(
         "boost::math::pdf(const poisson_distribution<%1%>&, %1%)",
         mean,
@@ -362,7 +362,7 @@ namespace boost
 
       RealType mean = dist.mean();
       // Error checks:
-      RealType result;
+      RealType result = 0;
       if(false == poisson_detail::check_dist_and_k(
         "boost::math::cdf(const poisson_distribution<%1%>&, %1%)",
         mean,
@@ -414,7 +414,7 @@ namespace boost
       RealType mean = dist.mean();
 
       // Error checks:
-      RealType result;
+      RealType result = 0;
       if(false == poisson_detail::check_dist_and_k(
         "boost::math::cdf(const poisson_distribution<%1%>&, %1%)",
         mean,
@@ -443,7 +443,7 @@ namespace boost
     inline RealType quantile(const poisson_distribution<RealType, Policy>& dist, const RealType& p)
     { // Quantile (or Percent Point) Poisson function.
       // Return the number of expected events k for a given probability p.
-      RealType result; // of Argument checks:
+      RealType result = 0; // of Argument checks:
       if(false == poisson_detail::check_prob(
         "boost::math::quantile(const poisson_distribution<%1%>&, %1%)",
         p,
@@ -514,7 +514,7 @@ namespace boost
       // Error checks:
       RealType q = c.param;
       const poisson_distribution<RealType, Policy>& dist = c.dist;
-      RealType result;  // of argument checks.
+      RealType result = 0;  // of argument checks.
       if(false == poisson_detail::check_prob(
         "boost::math::quantile(const poisson_distribution<%1%>&, %1%)",
         q,

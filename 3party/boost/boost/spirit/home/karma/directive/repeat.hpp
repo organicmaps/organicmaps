@@ -69,9 +69,11 @@ namespace boost { namespace spirit
 
 namespace boost { namespace spirit { namespace karma
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::repeat;
-    using spirit::repeat_type;
     using spirit::inf;
+#endif
+    using spirit::repeat_type;
     using spirit::inf_type;
 
     ///////////////////////////////////////////////////////////////////////////
@@ -141,36 +143,36 @@ namespace boost { namespace spirit { namespace karma
     {
     private:
         // iterate over the given container until its exhausted or the embedded
-        // (left) generator succeeds
-        template <
-            typename OutputIterator, typename Context, typename Delimiter
-          , typename Iterator, typename Attribute>
-        bool generate_subject(OutputIterator& sink, Context& ctx
-          , Delimiter const& d, Iterator& it, Iterator& end, Attribute const&) const
+        // generator succeeds
+        template <typename F, typename Attribute>
+        bool generate_subject(F f, Attribute const&, mpl::false_) const
         {
             // Failing subject generators are just skipped. This allows to 
             // selectively generate items in the provided attribute.
-            while (!traits::compare(it, end))
+            while (!f.is_at_end())
             {
-                if (subject.generate(sink, ctx, d, traits::deref(it)))
+                bool r = !f(subject);
+                if (r) 
                     return true;
-                if (Strict::value)
-                    return false;
-                traits::next(it);
+                if (!f.is_at_end())
+                    f.next();
             }
             return false;
         }
 
-        template <
-            typename OutputIterator, typename Context, typename Delimiter
-          , typename Iterator>
-        bool generate_subject(OutputIterator& sink, Context& ctx
-          , Delimiter const& d, Iterator&, Iterator&, unused_type) const
+        template <typename F, typename Attribute>
+        bool generate_subject(F f, Attribute const&, mpl::true_) const
         {
-            // There is no way to distinguish a failed generator from a 
-            // generator to be skipped. We assume the user takes responsibility
-            // for ending the loop if no attribute is specified.
-            return subject.generate(sink, ctx, d, unused);
+            return !f(subject);
+        }
+
+        // There is no way to distinguish a failed generator from a 
+        // generator to be skipped. We assume the user takes responsibility
+        // for ending the loop if no attribute is specified.
+        template <typename F>
+        bool generate_subject(F f, unused_type, mpl::false_) const
+        {
+            return !f(subject);
         }
 
     public:
@@ -196,18 +198,33 @@ namespace boost { namespace spirit { namespace karma
         bool generate(OutputIterator& sink, Context& ctx, Delimiter const& d
           , Attribute const& attr) const
         {
+            typedef detail::fail_function<
+                OutputIterator, Context, Delimiter
+            > fail_function;
+
             typedef typename traits::container_iterator<
                 typename add_const<Attribute>::type
             >::type iterator_type;
 
+            typedef 
+                typename traits::make_indirect_iterator<iterator_type>::type 
+            indirect_iterator_type;
+
+            typedef detail::pass_container<
+                fail_function, Attribute, indirect_iterator_type, mpl::false_>
+            pass_container;
+
             iterator_type it = traits::begin(attr);
             iterator_type end = traits::end(attr);
-            typename LoopIter::type i = iter.start();
+
+            pass_container pass(fail_function(sink, ctx, d), 
+                indirect_iterator_type(it), indirect_iterator_type(end));
 
             // generate the minimal required amount of output
-            for (/**/; !iter.got_min(i); ++i, traits::next(it))
+            typename LoopIter::type i = iter.start();
+            for (/**/; !pass.is_at_end() && !iter.got_min(i); ++i)
             {
-                if (!generate_subject(sink, ctx, d, it, end, attr))
+                if (!generate_subject(pass, attr, Strict()))
                 {
                     // if we fail before reaching the minimum iteration
                     // required, do not output anything and return false
@@ -215,11 +232,13 @@ namespace boost { namespace spirit { namespace karma
                 }
             }
 
+            if (pass.is_at_end() && !iter.got_min(i))
+                return false;   // insufficient attribute elements
+
             // generate some more up to the maximum specified
-            for (/**/; detail::sink_is_good(sink) && !iter.got_max(i); 
-                 ++i, traits::next(it))
+            for (/**/; !pass.is_at_end() && !iter.got_max(i); ++i)
             {
-                if (!generate_subject(sink, ctx, d, it, end, attr))
+                if (!generate_subject(pass, attr, Strict()))
                     break;
             }
             return detail::sink_is_good(sink);
@@ -346,7 +365,6 @@ namespace boost { namespace spirit { namespace karma
             return result_type(subject, fusion::at_c<0>(term.args));
         }
     };
-
 }}}
 
 namespace boost { namespace spirit { namespace traits

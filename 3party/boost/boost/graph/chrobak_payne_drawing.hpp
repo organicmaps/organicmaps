@@ -34,12 +34,22 @@ namespace boost
                             VertexToVertexMap left,
                             VertexToVertexMap right)
     {
-      if (v != graph_traits<Graph>::null_vertex())
-        {
+      typedef typename graph_traits<Graph>::vertex_descriptor vertex_descriptor;
+      // Suggestion of explicit stack from Aaron Windsor to avoid system stack
+      // overflows.
+      typedef std::pair<vertex_descriptor, std::size_t> stack_entry;
+      std::stack<stack_entry> st;
+      st.push(stack_entry(v, offset));
+      while (!st.empty()) {
+        vertex_descriptor v = st.top().first;
+        std::size_t offset = st.top().second;
+        st.pop();
+        if (v != graph_traits<Graph>::null_vertex()) {
           x[v] += delta_x[v] + offset;
-          accumulate_offsets(left[v], x[v], g, x, delta_x, left, right);
-          accumulate_offsets(right[v], x[v], g, x, delta_x, left, right);
+          st.push(stack_entry(left[v], x[v]));
+          st.push(stack_entry(right[v], x[v]));
         }
+      }
     }
 
   } /*namespace detail*/ } /*namespace graph*/

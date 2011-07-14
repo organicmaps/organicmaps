@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: ranlux.hpp 60755 2010-03-22 00:45:06Z steven_watanabe $
+ * $Id: ranlux.hpp 71018 2011-04-05 21:27:52Z steven_watanabe $
  *
  * Revision history
  *  2001-02-18  created
@@ -23,12 +23,7 @@
 namespace boost {
 
 namespace random {
-  typedef subtract_with_carry<int, (1<<24), 10, 24, 0> ranlux_base;
-  typedef subtract_with_carry_01<float, 24, 10, 24> ranlux_base_01;
-  typedef subtract_with_carry_01<double, 48, 10, 24> ranlux64_base_01;
-}
 
-namespace random {
 namespace detail {
 /**
  * The ranlux family of generators are described in
@@ -49,32 +44,55 @@ namespace detail {
  */
 class ranlux_documentation {};
 }
-}
+
+typedef subtract_with_carry_engine<uint32_t, 24, 10, 24> ranlux_base;
+typedef subtract_with_carry_01_engine<float, 24, 10, 24> ranlux_base_01;
+typedef subtract_with_carry_01_engine<double, 48, 10, 24> ranlux64_base_01;
+
 
 /** @copydoc boost::random::detail::ranlux_documentation */
-typedef random::discard_block<random::ranlux_base, 223, 24> ranlux3;
+typedef discard_block_engine<ranlux_base, 223, 24> ranlux3;
 /** @copydoc boost::random::detail::ranlux_documentation */
-typedef random::discard_block<random::ranlux_base, 389, 24> ranlux4;
+typedef discard_block_engine<ranlux_base, 389, 24> ranlux4;
 
 /** @copydoc boost::random::detail::ranlux_documentation */
-typedef random::discard_block<random::ranlux_base_01, 223, 24> ranlux3_01;
+typedef discard_block_engine<ranlux_base_01, 223, 24> ranlux3_01;
 /** @copydoc boost::random::detail::ranlux_documentation */
-typedef random::discard_block<random::ranlux_base_01, 389, 24> ranlux4_01;
+typedef discard_block_engine<ranlux_base_01, 389, 24> ranlux4_01;
 
 /** @copydoc boost::random::detail::ranlux_documentation */
-typedef random::discard_block<random::ranlux64_base_01, 223, 24> ranlux64_3_01;
+typedef discard_block_engine<ranlux64_base_01, 223, 24> ranlux64_3_01;
 /** @copydoc boost::random::detail::ranlux_documentation */
-typedef random::discard_block<random::ranlux64_base_01, 389, 24> ranlux64_4_01;
+typedef discard_block_engine<ranlux64_base_01, 389, 24> ranlux64_4_01;
 
 #if !defined(BOOST_NO_INT64_T) && !defined(BOOST_NO_INTEGRAL_INT64_T)
-namespace random {
-  typedef random::subtract_with_carry<int64_t, (int64_t(1)<<48), 10, 24, 0> ranlux64_base;
-}
+typedef subtract_with_carry_engine<uint64_t, 48, 10, 24> ranlux64_base;
 /** @copydoc boost::random::detail::ranlux_documentation */
-typedef random::discard_block<random::ranlux64_base, 223, 24> ranlux64_3;
+typedef discard_block_engine<ranlux64_base, 223, 24> ranlux64_3;
 /** @copydoc boost::random::detail::ranlux_documentation */
-typedef random::discard_block<random::ranlux64_base, 389, 24> ranlux64_4;
+typedef discard_block_engine<ranlux64_base, 389, 24> ranlux64_4;
 #endif /* !BOOST_NO_INT64_T && !BOOST_NO_INTEGRAL_INT64_T */
+
+
+typedef subtract_with_carry_engine<uint32_t, 24, 10, 24> ranlux24_base;
+typedef subtract_with_carry_engine<uint64_t, 48, 5, 12> ranlux48_base;
+
+typedef discard_block_engine<ranlux24_base, 223, 23> ranlux24;
+#if !defined(BOOST_NO_INT64_T) && !defined(BOOST_NO_INTEGRAL_INT64_T)
+typedef discard_block_engine<ranlux48_base, 389, 11> ranlux48;
+#endif
+}
+
+using random::ranlux3;
+using random::ranlux4;
+using random::ranlux3_01;
+using random::ranlux4_01;
+using random::ranlux64_3_01;
+using random::ranlux64_4_01;
+#if !defined(BOOST_NO_INT64_T) && !defined(BOOST_NO_INTEGRAL_INT64_T)
+using random::ranlux64_3;
+using random::ranlux64_4;
+#endif
 
 } // namespace boost
 

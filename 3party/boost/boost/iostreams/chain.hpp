@@ -314,7 +314,11 @@ private:
               pback_size_(default_pback_buffer_size),
               flags_(f_auto_close)
             { }
-        ~chain_impl() { try { close(); reset(); } catch (...) { } }
+        ~chain_impl()
+            {
+                try { close(); } catch (...) { }
+                try { reset(); } catch (...) { }
+            }
         void close()
             {
                 if ((flags_ & f_open) != 0) {

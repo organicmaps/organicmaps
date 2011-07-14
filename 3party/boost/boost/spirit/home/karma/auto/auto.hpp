@@ -47,8 +47,10 @@ namespace boost { namespace spirit
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit { namespace karma
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::auto_;
-    using spirit::auto__type;
+#endif
+    using spirit::auto_type;
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename Modifiers>
@@ -60,13 +62,13 @@ namespace boost { namespace spirit { namespace karma
         template <typename Context, typename Unused>
         struct attribute
         {
-            typedef spirit::hold_any type;
+            typedef spirit::basic_hold_any<char> type;
         };
 
         auto_generator(Modifiers const& modifiers)
           : modifiers_(modifiers) {}
 
-        // auto_generator has an attached attribute 
+        // auto_generator has an attached attribute
         template <
             typename OutputIterator, typename Context, typename Delimiter
           , typename Attribute>
@@ -84,8 +86,8 @@ namespace boost { namespace spirit { namespace karma
         static bool
         generate(OutputIterator&, Context&, Delimiter const&, unused_type)
         {
-            // It is not possible (doesn't make sense) to use auto_ generators 
-            // without providing any attribute, as the generator doesn't 'know' 
+            // It is not possible (doesn't make sense) to use auto_ generators
+            // without providing any attribute, as the generator doesn't 'know'
             // what to output. The following assertion fires if this situation
             // is detected in your code.
             BOOST_SPIRIT_ASSERT_MSG(false, auto_not_usable_without_attribute, ());
@@ -116,10 +118,10 @@ namespace boost { namespace spirit { namespace karma
 
         lit_auto_generator(typename add_reference<T>::type t, Modifiers const& modifiers)
           : t_(t)
-          , generator_(compile<karma::domain>(create_generator<T>(), modifiers)) 
+          , generator_(compile<karma::domain>(create_generator<T>(), modifiers))
         {}
 
-        // auto_generator has an attached attribute 
+        // auto_generator has an attached attribute
         template <
             typename OutputIterator, typename Context, typename Delimiter
           , typename Attribute>
@@ -135,7 +137,7 @@ namespace boost { namespace spirit { namespace karma
             return info("auto_");
         }
 
-        typedef typename spirit::result_of::create_generator<T>::type 
+        typedef typename spirit::result_of::create_generator<T>::type
             generator_type;
 
         typedef typename spirit::result_of::compile<
@@ -155,7 +157,7 @@ namespace boost { namespace spirit { namespace karma
 
     // auto_
     template <typename Modifiers>
-    struct make_primitive<tag::auto_, Modifiers> 
+    struct make_primitive<tag::auto_, Modifiers>
     {
         typedef auto_generator<Modifiers> result_type;
 

@@ -42,7 +42,7 @@ within(const typename Type::element_type& value_pair, const Type& super)
 { 
     typedef typename Type::const_iterator const_iterator;
     const_iterator found_ = super.find(value_pair.first);
-    return found_ != super.end() && found_->second == value_pair.second;
+    return found_ != super.end() && (*found_).second == value_pair.second;
 }
 
 //------------------------------------------------------------------------------
@@ -109,7 +109,7 @@ erase(Type& object, const typename Type::element_type& value_pair)
         return identity_element<size_type>::value();
 
     iterator it_ = object.find(value_pair.first);
-    if(it_ != object.end() && value_pair.second == it_->second)
+    if(it_ != object.end() && value_pair.second == (*it_).second)
     {
         object.erase(it_);
         return unit_element<size_type>::value();
@@ -284,13 +284,6 @@ operator &=(Type& object, const Type& operand)
 
 template<class Type>
 inline typename enable_if<is_element_map<Type>, Type>::type
-operator & (Type object, const Type& operand)
-{
-    return object &= operand;
-}
-
-template<class Type>
-inline typename enable_if<is_element_map<Type>, Type>::type
 operator & (Type object, const typename Type::key_object_type& operand)
 {
     return object &= operand;
@@ -401,7 +394,7 @@ operator ^= (Type& object, const Type& operand)
         icl::flip(object, *it_);
 
     ICL_FORALL(typename Type, it2_, object)
-        it2_->second = identity_element<typename Type::codomain_type>::value();
+        (*it2_).second = identity_element<typename Type::codomain_type>::value();
 
     return object;
 }

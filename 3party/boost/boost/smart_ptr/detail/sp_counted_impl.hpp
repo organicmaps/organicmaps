@@ -135,7 +135,11 @@ public:
 
     // pre: d(p) must not throw
 
-    sp_counted_impl_pd( P p, D d ): ptr(p), del(d)
+    sp_counted_impl_pd( P p, D & d ): ptr( p ), del( d )
+    {
+    }
+
+    sp_counted_impl_pd( P p ): ptr( p ), del()
     {
     }
 
@@ -195,7 +199,11 @@ public:
 
     // pre: d( p ) must not throw
 
-    sp_counted_impl_pda( P p, D d, A a ): p_( p ), d_( d ), a_( a )
+    sp_counted_impl_pda( P p, D & d, A a ): p_( p ), d_( d ), a_( a )
+    {
+    }
+
+    sp_counted_impl_pda( P p, A a ): p_( p ), d_(), a_( a )
     {
     }
 

@@ -10,13 +10,11 @@
 #pragma once
 #endif
 
-#include <boost/spirit/home/phoenix/core/actor.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
-#include <boost/spirit/home/phoenix/core/compose.hpp>
-#include <boost/spirit/home/phoenix/core/value.hpp>
-#include <boost/spirit/home/phoenix/core/as_actor.hpp>
+#include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/home/support/detail/scoped_enum_emulation.hpp>
 #include <boost/spirit/home/lex/lexer/pass_flags.hpp>
+
+#include <boost/spirit/home/lex/lexer/support_functions_expression.hpp>
 
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit { namespace lex
@@ -72,13 +70,14 @@ namespace boost { namespace spirit { namespace lex
     };
 
     //  The function lex::less() is used to create a Phoenix actor allowing to
-    //  implement functionality similar to flex' function yyless(). 
+    //  implement functionality similar to flex' function yyless().
     template <typename T>
-    inline phoenix::actor<less_type<typename phoenix::as_actor<T>::type> >
+    inline typename expression::less<
+        typename phoenix::as_actor<T>::type
+    >::type const
     less(T const& v)
     {
-        typedef typename phoenix::as_actor<T>::type actor_type;
-        return less_type<actor_type>(phoenix::as_actor<T>::convert(v));
+        return expression::less<T>::make(phoenix::as_actor<T>::convert(v));
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -115,10 +114,10 @@ namespace boost { namespace spirit { namespace lex
 
     //  The function lex::more() is used to create a Phoenix actor allowing to
     //  implement functionality similar to flex' function yymore(). 
-    inline phoenix::actor<more_type>
-    more()
+    //inline expression::more<mpl::void_>::type const
+    inline phoenix::actor<more_type> more()
     {
-        return more_type();
+        return phoenix::actor<more_type>();
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -156,27 +155,27 @@ namespace boost { namespace spirit { namespace lex
 
     //  The function lex::lookahead() is used to create a Phoenix actor 
     //  allowing to implement functionality similar to flex' lookahead operator
-    //  a/b. 
+    //  a/b.
     template <typename T>
-    inline phoenix::actor<
-        lookahead_type<
-            typename phoenix::as_actor<T>::type
-          , typename phoenix::as_actor<std::size_t>::type> >
+    inline typename expression::lookahead<
+        typename phoenix::as_actor<T>::type
+      , typename phoenix::as_actor<std::size_t>::type
+    >::type const
     lookahead(T const& id)
     {
         typedef typename phoenix::as_actor<T>::type id_actor_type;
         typedef typename phoenix::as_actor<std::size_t>::type state_actor_type;
 
-        return lookahead_type<id_actor_type, state_actor_type>(
+        return expression::lookahead<id_actor_type, state_actor_type>::make(
             phoenix::as_actor<T>::convert(id),
             phoenix::as_actor<std::size_t>::convert(std::size_t(~0)));
     }
 
     template <typename Attribute, typename Char, typename Idtype>
-    inline phoenix::actor<
-        lookahead_type<
-            typename phoenix::as_actor<Idtype>::type
-          , typename phoenix::as_actor<std::size_t>::type> >
+    inline typename expression::lookahead<
+        typename phoenix::as_actor<Idtype>::type
+      , typename phoenix::as_actor<std::size_t>::type
+    >::type const
     lookahead(token_def<Attribute, Char, Idtype> const& tok)
     {
         typedef typename phoenix::as_actor<Idtype>::type id_actor_type;
@@ -190,7 +189,7 @@ namespace boost { namespace spirit { namespace lex
         BOOST_ASSERT(std::size_t(~0) != state && 
             "token_def instance not associated with lexer yet");
 
-        return lookahead_type<id_actor_type, state_actor_type>(
+        return expression::lookahead<id_actor_type, state_actor_type>::make(
             phoenix::as_actor<Idtype>::convert(tok.id()),
             phoenix::as_actor<std::size_t>::convert(state));
     }

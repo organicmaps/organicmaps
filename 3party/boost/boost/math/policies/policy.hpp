@@ -738,6 +738,7 @@ struct basic_digits<long double> : public mpl::int_<LDBL_MANT_DIG>{ };
 template <class Real, class Policy>
 struct precision
 {
+   BOOST_STATIC_ASSERT( ::std::numeric_limits<Real>::radix == 2);
    typedef typename Policy::precision_type precision_type;
    typedef basic_digits<Real> digits_t;
    typedef typename mpl::if_<
@@ -775,6 +776,7 @@ struct precision<long double, Policy>
 template <class Real, class Policy>
 struct precision
 {
+   BOOST_STATIC_ASSERT((::std::numeric_limits<Real>::radix == 2) || ((::std::numeric_limits<Real>::is_specialized == 0) || (::std::numeric_limits<Real>::digits == 0)));
 #ifndef __BORLANDC__
    typedef typename Policy::precision_type precision_type;
    typedef typename mpl::if_c<
@@ -896,8 +898,10 @@ inline T get_epsilon_imp(mpl::true_ const&)
 {
 #ifndef BOOST_NO_LIMITS_COMPILE_TIME_CONSTANTS
    BOOST_STATIC_ASSERT( ::std::numeric_limits<T>::is_specialized);
+   BOOST_STATIC_ASSERT( ::std::numeric_limits<T>::radix == 2);
 #else
    BOOST_ASSERT(::std::numeric_limits<T>::is_specialized);
+   BOOST_ASSERT(::std::numeric_limits<T>::radix == 2);
 #endif
    typedef typename boost::math::policies::precision<T, Policy>::type p_t;
    typedef mpl::bool_<p_t::value <= std::numeric_limits<boost::uintmax_t>::digits> is_small_int;
@@ -916,7 +920,7 @@ inline T get_epsilon_imp(mpl::false_ const&)
 template <class T, class Policy>
 inline T get_epsilon(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE(T))
 {
-   typedef mpl::bool_< std::numeric_limits<T>::is_specialized > tag_type;
+   typedef mpl::bool_< (std::numeric_limits<T>::is_specialized && (std::numeric_limits<T>::radix == 2)) > tag_type;
    return detail::get_epsilon_imp<T, Policy>(tag_type());
 }
 

@@ -12,6 +12,8 @@
 #define DEFAULT_PREPROCESSING_HOOKS_HPP_INCLUDED
 
 #include <boost/wave/wave_config.hpp>
+#include <boost/wave/util/cpp_include_paths.hpp>
+
 #include <vector>
 
 // this must occur after all of the includes and before any code appears
@@ -56,7 +58,7 @@ struct default_preprocessing_hooks
     //  invocation (starting with the opening parenthesis and ending after the
     //  closing one).
     //
-    //  The return value defines, whether the corresponding macro will be 
+    //  The return value defines whether the corresponding macro will be 
     //  expanded (return false) or will be copied to the output (return true).
     //  Note: the whole argument list is copied unchanged to the output as well
     //        without any further processing.
@@ -99,7 +101,7 @@ struct default_preprocessing_hooks
     //
     //  The parameter 'macrocall' marks the position, where this macro invoked.
     //
-    //  The return value defines, whether the corresponding macro will be 
+    //  The return value defines whether the corresponding macro will be 
     //  expanded (return false) or will be copied to the output (return true).
     //
     ///////////////////////////////////////////////////////////////////////////
@@ -168,6 +170,63 @@ struct default_preprocessing_hooks
 
     ///////////////////////////////////////////////////////////////////////////
     //  
+    //  The function 'locate_include_file' is called, whenever a #include
+    //  directive was encountered. It is supposed to locate the given file and 
+    //  should return the full file name of the located file. This file name
+    //  is expected to uniquely identify the referenced file.
+    //
+    //  The parameter 'ctx' is a reference to the context object used for 
+    //  instantiating the preprocessing iterators by the user.
+    //
+    //  The parameter 'file_path' contains the (expanded) file name found after 
+    //  the #include directive. This parameter holds the string as it is 
+    //  specified in the #include directive, i.e. <file> or "file" will result
+    //  in a parameter value 'file'.
+    //
+    //  The parameter 'is_system' is set to 'true' if this call happens as a
+    //  result of a #include '<file>' directive, it is 'false' otherwise, i.e. 
+    //  for #include "file" directives.
+    //
+    //  The parameter 'current_name' is only used if a #include_next directive
+    //  was encountered (and BOOST_WAVE_SUPPORT_INCLUDE_NEXT was defined to be 
+    //  non-zero). In this case it points to unique full name of the current 
+    //  include file (if any). Otherwise this parameter is set to NULL.
+    //
+    //  The parameter 'dir_path' on return is expected to hold the directory 
+    //  part of the located file.
+    //
+    //  The parameter 'native_name' on return is expected to hold the unique 
+    //  full file name of the located file.
+    //
+    //  The return value defines whether the file was located successfully.
+    //
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename ContextT>
+    bool 
+    locate_include_file(ContextT& ctx, std::string &file_path, 
+        bool is_system, char const *current_name, std::string &dir_path, 
+        std::string &native_name) 
+    {
+        if (!ctx.find_include_file (file_path, dir_path, is_system, current_name))
+            return false;   // could not locate file
+
+        namespace fs = boost::filesystem;
+
+        fs::path native_path(wave::util::create_path(file_path));
+        if (!fs::exists(native_path)) {
+            BOOST_WAVE_THROW_CTX(ctx, preprocess_exception, bad_include_file, 
+                file_path.c_str(), ctx.get_main_pos());
+            return false;
+        }
+
+        // return the unique full file system path of the located file
+        native_name = wave::util::native_file_string(native_path);
+
+        return true;      // include file has been located successfully
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  
     //  The function 'found_include_directive' is called, whenever a #include
     //  directive was located.
     //
@@ -185,7 +244,7 @@ struct default_preprocessing_hooks
     //  a #include_next directive and the BOOST_WAVE_SUPPORT_INCLUDE_NEXT
     //  preprocessing constant was defined to something != 0.
     //
-    //  The return value defines, whether the found file will be included 
+    //  The return value defines whether the found file will be included 
     //  (return false) or will be skipped (return true).
     //
     ///////////////////////////////////////////////////////////////////////////
@@ -204,7 +263,7 @@ struct default_preprocessing_hooks
         return false;    // ok to include this file
     }
 #endif
-    
+
     ///////////////////////////////////////////////////////////////////////////
     //  
     //  The function 'opened_include_file' is called, whenever a file referred 
@@ -220,7 +279,7 @@ struct default_preprocessing_hooks
     //
     //  The include_depth parameter contains the current include file depth.
     //
-    //  The is_system_include parameter denotes, whether the given file was 
+    //  The is_system_include parameter denotes whether the given file was 
     //  found as a result of a #include <...> directive.
     //  
     ///////////////////////////////////////////////////////////////////////////
@@ -485,7 +544,7 @@ struct default_preprocessing_hooks
     //  The parameter 'directive' is a reference to the token holding the 
     //  preprocessing directive.
     //
-    //  The return value defines, whether the given expression has to be 
+    //  The return value defines whether the given expression has to be 
     //  to be executed in a normal way (return 'false'), or if it has to be  
     //  skipped altogether (return 'true'), which means it gets replaced in the 
     //  output by a single newline.
@@ -520,7 +579,7 @@ struct default_preprocessing_hooks
     //  stream, which are to be used as the replacement text for the whole 
     //  line containing the unknown directive.
     //
-    //  The return value defines, whether the given expression has been 
+    //  The return value defines whether the given expression has been 
     //  properly interpreted by the hook function or not. If this function 
     //  returns 'false', the library will raise an 'ill_formed_directive' 
     //  preprocess_exception. Otherwise the tokens pushed back into 'pending'
@@ -551,7 +610,7 @@ struct default_preprocessing_hooks
     //  The parameter expression_value contains the result of the evaluation of
     //  the expression in the current preprocessing context.
     //
-    //  The return value defines, whether the given expression has to be 
+    //  The return value defines whether the given expression has to be 
     //  evaluated again, allowing to decide which of the conditional branches
     //  should be expanded. You need to return 'true' from this hook function 
     //  to force the expression to be re-evaluated.

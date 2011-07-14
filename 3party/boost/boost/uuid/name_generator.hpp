@@ -71,10 +71,10 @@ private:
 
         for (size_t i=0; i<count; i++) {
             uint32_t c = characters[i];
-            sha.process_byte( (c >> 0) && 0xFF );
-            sha.process_byte( (c >> 8) && 0xFF );
-            sha.process_byte( (c >> 16) && 0xFF );
-            sha.process_byte( (c >> 24) && 0xFF );
+            sha.process_byte( (c >>  0) & 0xFF );
+            sha.process_byte( (c >>  8) & 0xFF );
+            sha.process_byte( (c >> 16) & 0xFF );
+            sha.process_byte( (c >> 24) & 0xFF );
         }
     }
     

@@ -84,7 +84,7 @@ namespace boost { namespace spirit { namespace iterator_policies
             }
 
             template <typename MultiPass>
-            static bool input_is_valid(MultiPass const& mp, value_type const& t) 
+            static bool input_is_valid(MultiPass const&, value_type const& t) 
             {
                 using namespace is_valid_test_;
                 return token_is_valid(t);
@@ -103,7 +103,7 @@ namespace boost { namespace spirit { namespace iterator_policies
         template <typename Functor>
         struct shared
         {
-            explicit shared(Functor const& x) : curtok(0) {}
+            explicit shared(Functor const&) : curtok(0) {}
 
             typename Functor::result_type curtok;
         };

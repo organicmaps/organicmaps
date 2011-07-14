@@ -1,6 +1,7 @@
 /*=============================================================================
     Copyright (c) 2001-2011 Joel de Guzman
-    Copyright (c)      2011 Bryce Lelbach
+    Copyright (c) 2011 Bryce Lelbach
+    Copyright (c) 2011 Jan Frederick Eick
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -19,6 +20,7 @@
 #include <boost/spirit/home/qi/parser.hpp>
 #include <boost/spirit/home/support/common_terminals.hpp>
 #include <boost/spirit/home/support/info.hpp>
+#include <boost/spirit/home/support/detail/is_spirit_tag.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 
@@ -27,19 +29,22 @@ namespace boost { namespace spirit
     namespace tag
     {
         template <typename T, unsigned Radix, unsigned MinDigits
-                , int MaxDigits> 
-        struct uint_parser {};
+                , int MaxDigits>
+        struct uint_parser
+        {
+            BOOST_SPIRIT_IS_TAG()
+        };
     }
 
     namespace qi
     {
         ///////////////////////////////////////////////////////////////////////
-        // This one is the class that the user can instantiate directly in 
+        // This one is the class that the user can instantiate directly in
         // order to create a customized int parser
         template <typename T = int, unsigned Radix = 10, unsigned MinDigits = 1
                 , int MaxDigits = -1>
         struct uint_parser
-          : spirit::terminal<tag::uint_parser<T, Radix, MinDigits, MaxDigits> > 
+          : spirit::terminal<tag::uint_parser<T, Radix, MinDigits, MaxDigits> >
         {};
     }
 
@@ -51,7 +56,7 @@ namespace boost { namespace spirit
 
     template <typename A0> // enables lit(n)
     struct use_terminal<qi::domain
-        , terminal_ex<tag::lit, fusion::vector1<A0> > 
+        , terminal_ex<tag::lit, fusion::vector1<A0> >
         , typename enable_if<is_same<A0, unsigned short> >::type>
       : mpl::true_ {};
 
@@ -69,7 +74,7 @@ namespace boost { namespace spirit
 
     template <typename A0> // enables lit(n)
     struct use_terminal<qi::domain
-        , terminal_ex<tag::lit, fusion::vector1<A0> > 
+        , terminal_ex<tag::lit, fusion::vector1<A0> >
         , typename enable_if<is_same<A0, unsigned> >::type>
       : mpl::true_ {};
 
@@ -80,14 +85,14 @@ namespace boost { namespace spirit
 
     template <> // enables *lazy* uint_(n)
     struct use_lazy_terminal<qi::domain, tag::uint_, 1> : mpl::true_ {};
- 
+
     ///////////////////////////////////////////////////////////////////////////
     template <> // enables ulong_
     struct use_terminal<qi::domain, tag::ulong_> : mpl::true_ {};
 
     template <typename A0> // enables lit(n)
     struct use_terminal<qi::domain
-        , terminal_ex<tag::lit, fusion::vector1<A0> > 
+        , terminal_ex<tag::lit, fusion::vector1<A0> >
         , typename enable_if<is_same<A0, unsigned long> >::type>
       : mpl::true_ {};
 
@@ -106,7 +111,7 @@ namespace boost { namespace spirit
 
     template <typename A0> // enables lit(n)
     struct use_terminal<qi::domain
-        , terminal_ex<tag::lit, fusion::vector1<A0> > 
+        , terminal_ex<tag::lit, fusion::vector1<A0> >
         , typename enable_if<is_same<A0, boost::ulong_long_type> >::type>
       : mpl::true_ {};
 
@@ -158,14 +163,14 @@ namespace boost { namespace spirit
     ///////////////////////////////////////////////////////////////////////////
     // enables any custom uint_parser
     template <typename T, unsigned Radix, unsigned MinDigits
-            , int MaxDigits> 
+            , int MaxDigits>
     struct use_terminal<qi::domain
         , tag::uint_parser<T, Radix, MinDigits, MaxDigits> >
       : mpl::true_ {};
 
     // enables any custom uint_parser(n)
     template <typename T, unsigned Radix, unsigned MinDigits
-            , int MaxDigits, typename A0> 
+            , int MaxDigits, typename A0>
     struct use_terminal<qi::domain
         , terminal_ex<tag::uint_parser<T, Radix, MinDigits, MaxDigits>
                   , fusion::vector1<A0> >
@@ -173,7 +178,7 @@ namespace boost { namespace spirit
 
     // enables *lazy* custom uint_parser(n)
     template <typename T, unsigned Radix, unsigned MinDigits
-            , int MaxDigits> 
+            , int MaxDigits>
     struct use_lazy_terminal<qi::domain
       , tag::uint_parser<T, Radix, MinDigits, MaxDigits>, 1
     > : mpl::true_ {};
@@ -181,22 +186,31 @@ namespace boost { namespace spirit
 
 namespace boost { namespace spirit { namespace qi
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::bin;
     using spirit::oct;
     using spirit::hex;
 
     using spirit::ushort_;
-    using spirit::ushort__type;
     using spirit::uint_;
-    using spirit::uint__type;
     using spirit::ulong_;
-    using spirit::ulong__type;
 #ifdef BOOST_HAS_LONG_LONG
     using spirit::ulong_long;
-    using spirit::ulong_long_type;
+#endif
+    using spirit::lit; // lit(1) is equivalent to 1
 #endif
 
-    using spirit::lit; // lit(1) is equivalent to 1
+    using spirit::bin_type;
+    using spirit::oct_type;
+    using spirit::hex_type;
+
+    using spirit::ushort_type;
+    using spirit::uint_type;
+    using spirit::ulong_type;
+#ifdef BOOST_HAS_LONG_LONG
+    using spirit::ulong_long_type;
+#endif
+    using spirit::lit_type;
 
     ///////////////////////////////////////////////////////////////////////////
     // This is the actual uint parser
@@ -208,7 +222,7 @@ namespace boost { namespace spirit { namespace qi
     {
         // check template parameter 'Radix' for validity
         BOOST_SPIRIT_ASSERT_MSG(
-            Radix == 2 || Radix == 8 || Radix == 10 || Radix == 16,
+            Radix >= 2 && Radix <= 36,
             not_supported_radix, ());
 
         template <typename Context, typename Iterator>
@@ -263,7 +277,8 @@ namespace boost { namespace spirit { namespace qi
         {
             typedef extract_uint<T, Radix, MinDigits, MaxDigits> extract;
             qi::skip_over(first, last, skipper);
-            
+
+            Iterator save = first;
             T attr_;
 
             if (extract::call(first, last, attr_) && (attr_ == n_))
@@ -272,6 +287,7 @@ namespace boost { namespace spirit { namespace qi
                 return true;
             }
 
+            first = save;
             return false;
         }
 
@@ -357,7 +373,7 @@ namespace boost { namespace spirit { namespace qi
         tag::uint_parser<T, Radix, MinDigits, MaxDigits>
       , Modifiers>
       : make_uint<T, Radix, MinDigits, MaxDigits> {};
-    
+
     template <typename T, unsigned Radix, unsigned MinDigits, int MaxDigits
             , typename A0, typename Modifiers>
     struct make_primitive<

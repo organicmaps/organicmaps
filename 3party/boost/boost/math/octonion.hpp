@@ -4713,11 +4713,11 @@ namespace boost
             }
             else if    (n == 0)
             {
-                return(octonion<T>(1));
+                return(octonion<T>(static_cast<T>(1)));
             }
             else    /* n < 0 */
             {
-                return(pow(octonion<T>(1)/o,-n));
+                return(pow(octonion<T>(static_cast<T>(1))/o,-n));
             }
         }
         

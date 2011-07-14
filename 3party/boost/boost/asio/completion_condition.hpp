@@ -76,6 +76,28 @@ private:
   std::size_t minimum_;
 };
 
+class transfer_exactly_t
+{
+public:
+  typedef std::size_t result_type;
+
+  explicit transfer_exactly_t(std::size_t size)
+    : size_(size)
+  {
+  }
+
+  template <typename Error>
+  std::size_t operator()(const Error& err, std::size_t bytes_transferred)
+  {
+    return (!!err || bytes_transferred >= size_) ? 0 :
+      (size_ - bytes_transferred < default_max_transfer_size
+        ? size_ - bytes_transferred : std::size_t(default_max_transfer_size));
+  }
+
+private:
+  std::size_t size_;
+};
+
 } // namespace detail
 
 /**
@@ -151,6 +173,40 @@ unspecified transfer_at_least(std::size_t minimum);
 inline detail::transfer_at_least_t transfer_at_least(std::size_t minimum)
 {
   return detail::transfer_at_least_t(minimum);
+}
+#endif
+
+/// Return a completion condition function object that indicates that a read or
+/// write operation should continue until an exact number of bytes has been
+/// transferred, or until an error occurs.
+/**
+ * This function is used to create an object, of unspecified type, that meets
+ * CompletionCondition requirements.
+ *
+ * @par Example
+ * Reading until a buffer is full or contains exactly 64 bytes:
+ * @code
+ * boost::array<char, 128> buf;
+ * boost::system::error_code ec;
+ * std::size_t n = boost::asio::read(
+ *     sock, boost::asio::buffer(buf),
+ *     boost::asio::transfer_exactly(64), ec);
+ * if (ec)
+ * {
+ *   // An error occurred.
+ * }
+ * else
+ * {
+ *   // n == 64
+ * }
+ * @endcode
+ */
+#if defined(GENERATING_DOCUMENTATION)
+unspecified transfer_exactly(std::size_t size);
+#else
+inline detail::transfer_exactly_t transfer_exactly(std::size_t size)
+{
+  return detail::transfer_exactly_t(size);
 }
 #endif
 

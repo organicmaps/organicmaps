@@ -285,7 +285,8 @@ trim_replacement_list (ContainerT &replacement_list)
     typename ContainerT::iterator it = replacement_list.begin();
 
         while (it != end && IS_CATEGORY(*it, WhiteSpaceTokenType)) { 
-            if (T_PLACEHOLDER != token_id(*it)) {
+            token_id id(*it);
+            if (T_PLACEHOLDER != id && T_PLACEMARKER != id) {
                 typename ContainerT::iterator next = it;
                 ++next;
                 replacement_list.erase(it);
@@ -309,7 +310,8 @@ trim_replacement_list (ContainerT &replacement_list)
     typename ContainerT::iterator it = rit.base();
 
         while (it != end && IS_CATEGORY(*it, WhiteSpaceTokenType)) { 
-            if (T_PLACEHOLDER != token_id(*it)) {
+            token_id id(*it);
+            if (T_PLACEHOLDER != id && T_PLACEMARKER != id) {
                 typename ContainerT::iterator next = it;
                 ++next;
                 replacement_list.erase(it);
@@ -320,6 +322,25 @@ trim_replacement_list (ContainerT &replacement_list)
             }
         }
     }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Tests, whether the given token sequence consists out of whitespace only
+//
+///////////////////////////////////////////////////////////////////////////////
+template <typename ContainerT>
+inline bool
+is_whitespace_only (ContainerT const &argument)
+{
+    typename ContainerT::const_iterator end = argument.end();
+    for (typename ContainerT::const_iterator it = argument.begin();
+          it != end; ++it)
+    {
+        if (!IS_CATEGORY(*it, WhiteSpaceTokenType))
+            return false;
+    }
+    return true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -339,7 +360,8 @@ remove_placeholders (ContainerT &replacement_list)
     typename ContainerT::iterator it = replacement_list.begin();
 
         while (it != end) {
-            if (T_PLACEHOLDER == token_id(*it)) {
+            token_id id(*it);
+            if (T_PLACEHOLDER == id || T_PLACEMARKER == id) {
                 typename ContainerT::iterator next = it;
                 ++next;
                 replacement_list.erase(it);
@@ -351,7 +373,8 @@ remove_placeholders (ContainerT &replacement_list)
         }
 
     // remove all 'new' leading and trailing whitespace 
-        trim_replacement_list(replacement_list);
+        if (is_whitespace_only(replacement_list))
+            trim_replacement_list(replacement_list);
     }
 }
 
@@ -405,25 +428,6 @@ trim_sequence (ContainerT &argument)
 {
     trim_sequence_left(argument);
     trim_sequence_right(argument);
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-//  Tests, whether the given token sequence consists out of whitespace only
-//
-///////////////////////////////////////////////////////////////////////////////
-template <typename ContainerT>
-inline bool
-is_whitespace_only (ContainerT const &argument)
-{
-    typename ContainerT::const_iterator end = argument.end();
-    for (typename ContainerT::const_iterator it = argument.begin();
-          it != end; ++it)
-    {
-        if (!IS_CATEGORY(*it, WhiteSpaceTokenType))
-            return false;
-    }
-    return true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

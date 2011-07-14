@@ -154,22 +154,20 @@
 #  endif
 #endif
 
-//  C++0x headers not yet implemented
-//
 #if _RWSTD_VER < 0x05000000
 #  define BOOST_NO_0X_HDR_ARRAY
-#  define BOOST_NO_0X_HDR_TYPE_TRAITS
 #endif
+// type_traits header is incomplete:
+#  define BOOST_NO_0X_HDR_TYPE_TRAITS
+//
+//  C++0x headers not yet implemented
+//
 #  define BOOST_NO_0X_HDR_CHRONO
 #  define BOOST_NO_0X_HDR_CODECVT
-#  define BOOST_NO_0X_HDR_CONCEPTS
 #  define BOOST_NO_0X_HDR_CONDITION_VARIABLE
-#  define BOOST_NO_0X_HDR_CONTAINER_CONCEPTS
 #  define BOOST_NO_0X_HDR_FORWARD_LIST
 #  define BOOST_NO_0X_HDR_FUTURE
 #  define BOOST_NO_0X_HDR_INITIALIZER_LIST
-#  define BOOST_NO_0X_HDR_ITERATOR_CONCEPTS
-#  define BOOST_NO_0X_HDR_MEMORY_CONCEPTS
 #  define BOOST_NO_0X_HDR_MUTEX
 #  define BOOST_NO_0X_HDR_RANDOM
 #  define BOOST_NO_0X_HDR_RATIO

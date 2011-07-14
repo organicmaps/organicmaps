@@ -18,12 +18,13 @@ namespace boost{namespace icl
 {
 
 template <class DomainT, 
-          ICL_COMPARE Compare = ICL_COMPARE_INSTANCE(std::less, DomainT)>
+          ICL_COMPARE Compare = ICL_COMPARE_INSTANCE(ICL_COMPARE_DEFAULT, DomainT)>
 class open_interval
 {
 public:
     typedef open_interval<DomainT,Compare> type;
     typedef DomainT domain_type;
+    typedef ICL_COMPARE_DOMAIN(Compare,DomainT) domain_compare;
 
 public:
     //==========================================================================
@@ -48,7 +49,8 @@ public:
         // Only for discrete types this ctor creates an interval containing 
         // a single element only.
         BOOST_STATIC_ASSERT((icl::is_discrete<DomainT>::value));
-        BOOST_ASSERT((numeric_minimum<DomainT, is_numeric<DomainT>::value >::is_less_than(val) )); 
+        BOOST_ASSERT((numeric_minimum<DomainT, domain_compare, is_numeric<DomainT>::value >
+                                     ::is_less_than(val) )); 
     }
 
     /** Interval from <tt>low</tt> to <tt>up</tt> with bounds <tt>bounds</tt> */
@@ -107,7 +109,7 @@ struct type_to_string<icl::open_interval<DomainT,Compare> >
 template<class DomainT, ICL_COMPARE Compare> 
 struct value_size<icl::open_interval<DomainT,Compare> >
 {
-    static std::size_t apply(const icl::open_interval<DomainT>& value) 
+    static std::size_t apply(const icl::open_interval<DomainT>&) 
     { return 2; }
 };
 

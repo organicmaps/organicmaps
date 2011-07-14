@@ -26,7 +26,7 @@
     BOOST_PP_IF( \
         BOOST_PP_DEC(BOOST_PP_SEQ_SIZE(seq)), \
         BOOST_PP_SEQ_CAT_I, \
-        BOOST_PP_SEQ_HEAD(seq) BOOST_PP_TUPLE_EAT_1 \
+        BOOST_PP_SEQ_HEAD \
     )(seq) \
     /**/
 # define BOOST_PP_SEQ_CAT_I(seq) BOOST_PP_SEQ_FOLD_LEFT(BOOST_PP_SEQ_CAT_O, BOOST_PP_SEQ_HEAD(seq), BOOST_PP_SEQ_TAIL(seq))
@@ -39,10 +39,11 @@
 # define BOOST_PP_SEQ_CAT_S(s, seq) \
     BOOST_PP_IF( \
         BOOST_PP_DEC(BOOST_PP_SEQ_SIZE(seq)), \
-        BOOST_PP_SEQ_CAT_S_I, \
-        BOOST_PP_SEQ_HEAD(seq) BOOST_PP_TUPLE_EAT_2 \
+        BOOST_PP_SEQ_CAT_S_I_A, \
+        BOOST_PP_SEQ_CAT_S_I_B \
     )(s, seq) \
     /**/
-# define BOOST_PP_SEQ_CAT_S_I(s, seq) BOOST_PP_SEQ_FOLD_LEFT_ ## s(BOOST_PP_SEQ_CAT_O, BOOST_PP_SEQ_HEAD(seq), BOOST_PP_SEQ_TAIL(seq))
+# define BOOST_PP_SEQ_CAT_S_I_A(s, seq) BOOST_PP_SEQ_FOLD_LEFT_ ## s(BOOST_PP_SEQ_CAT_O, BOOST_PP_SEQ_HEAD(seq), BOOST_PP_SEQ_TAIL(seq))
+# define BOOST_PP_SEQ_CAT_S_I_B(s, seq) BOOST_PP_SEQ_HEAD(seq)
 #
 # endif

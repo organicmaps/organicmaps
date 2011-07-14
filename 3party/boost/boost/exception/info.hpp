@@ -109,7 +109,6 @@ boost
                 {
                 if( header )
                     {
-                    BOOST_ASSERT(*header!=0);
                     std::ostringstream tmp;
                     tmp << header;
                     for( error_info_map::const_iterator i=info_.begin(),end=info_.end(); i!=end; ++i )

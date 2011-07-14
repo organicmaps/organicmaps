@@ -95,7 +95,7 @@ namespace boost { namespace spirit { namespace iterator_policies
       : Ownership, Checking, Storage
     {
         multi_pass_unique() {}
-        multi_pass_unique(T const& x) {}
+        multi_pass_unique(T const&) {}
 
         template <typename MultiPass>
         static void destroy(MultiPass& mp)
@@ -173,7 +173,7 @@ namespace boost { namespace spirit { namespace iterator_policies
       : Ownership, Storage
     {
         multi_pass_unique() {}
-        multi_pass_unique(T const& x) {}
+        multi_pass_unique(T const&) {}
 
         template <typename MultiPass>
         static void destroy(MultiPass& mp)
@@ -262,7 +262,7 @@ namespace boost { namespace spirit { namespace iterator_policies
       : Checking, Storage
     {
         multi_pass_unique() {}
-        multi_pass_unique(T const& x) {}
+        multi_pass_unique(T const&) {}
 
         template <typename MultiPass>
         static void destroy(MultiPass& mp)

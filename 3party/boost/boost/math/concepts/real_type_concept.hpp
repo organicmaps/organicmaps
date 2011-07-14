@@ -44,17 +44,29 @@ struct RealTypeConcept
       r = o / r;
       bool b;
       b = r == o;
+      suppress_unused_variable_warning(b);
       b = o == r;
+      suppress_unused_variable_warning(b);
       b = r != o;
+      suppress_unused_variable_warning(b);
       b = o != r;
+      suppress_unused_variable_warning(b);
       b = r <= o;
+      suppress_unused_variable_warning(b);
       b = o <= r;
+      suppress_unused_variable_warning(b);
       b = r >= o;
+      suppress_unused_variable_warning(b);
       b = o >= r;
+      suppress_unused_variable_warning(b);
       b = r < o;
+      suppress_unused_variable_warning(b);
       b = o < r;
+      suppress_unused_variable_warning(b);
       b = r > o;
+      suppress_unused_variable_warning(b);
       b = o > r;
+      suppress_unused_variable_warning(b);
    }
 
    void constraints()

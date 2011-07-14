@@ -18,6 +18,7 @@
 #include <boost/spirit/home/qi/detail/assign_to.hpp>
 #include <boost/spirit/home/qi/meta_compiler.hpp>
 #include <boost/spirit/home/support/common_terminals.hpp>
+#include <boost/spirit/home/support/handles_container.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/remove_const.hpp>
@@ -29,18 +30,21 @@ namespace boost { namespace spirit
     ///////////////////////////////////////////////////////////////////////////
     template <typename A0>       // enables attr()
     struct use_terminal<
-            qi::domain, terminal_ex<tag::attr, fusion::vector1<A0> > > 
+            qi::domain, terminal_ex<tag::attr, fusion::vector1<A0> > >
       : mpl::true_ {};
 
     template <>                  // enables *lazy* attr()
-    struct use_lazy_terminal<qi::domain, tag::attr, 1> 
+    struct use_lazy_terminal<qi::domain, tag::attr, 1>
       : mpl::true_ {};
 
 }}
 
 namespace boost { namespace spirit { namespace qi
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::attr;
+#endif
+    using spirit::attr_type;
 
     template <typename Value>
     struct attr_parser : primitive_parser<attr_parser<Value> >
@@ -91,6 +95,14 @@ namespace boost { namespace spirit { namespace qi
             return result_type(fusion::at_c<0>(term.args));
         }
     };
+}}}
+
+namespace boost { namespace spirit { namespace traits
+{
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename T, typename Attr, typename Context, typename Iterator>
+    struct handles_container<qi::attr_parser<T>, Attr, Context, Iterator>
+      : traits::is_container<Attr> {}; 
 }}}
 
 #endif

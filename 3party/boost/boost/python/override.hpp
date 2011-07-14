@@ -77,7 +77,7 @@ namespace detail
       template <class T>
       T unchecked(type<T>* = 0)
       {
-          return extract<T>(m_obj)();
+          return extract<T>(m_obj.get())();
       }
    private:
       mutable handle<> m_obj;

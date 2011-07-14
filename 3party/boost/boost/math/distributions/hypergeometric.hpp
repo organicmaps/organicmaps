@@ -120,7 +120,7 @@ namespace boost { namespace math {
    inline RealType pdf(const hypergeometric_distribution<RealType, Policy>& dist, const unsigned& x)
    {
       static const char* function = "boost::math::pdf(const hypergeometric_distribution<%1%>&, const %1%&)";
-      RealType result;
+      RealType result = 0;
       if(!dist.check_params(function, &result))
          return result;
       if(!dist.check_x(x, function, &result))
@@ -148,7 +148,7 @@ namespace boost { namespace math {
    inline RealType cdf(const hypergeometric_distribution<RealType, Policy>& dist, const unsigned& x)
    {
       static const char* function = "boost::math::cdf(const hypergeometric_distribution<%1%>&, const %1%&)";
-      RealType result;
+      RealType result = 0;
       if(!dist.check_params(function, &result))
          return result;
       if(!dist.check_x(x, function, &result))
@@ -176,7 +176,7 @@ namespace boost { namespace math {
    inline RealType cdf(const complemented2_type<hypergeometric_distribution<RealType, Policy>, unsigned>& c)
    {
       static const char* function = "boost::math::cdf(const hypergeometric_distribution<%1%>&, const %1%&)";
-      RealType result;
+      RealType result = 0;
       if(!c.dist.check_params(function, &result))
          return result;
       if(!c.dist.check_x(c.param, function, &result))
@@ -206,7 +206,7 @@ namespace boost { namespace math {
       BOOST_MATH_STD_USING // for ADL of std functions
 
          // Checking function argument
-         RealType result;
+         RealType result = 0;
       const char* function = "boost::math::quantile(const hypergeometric_distribution<%1%>&, %1%)";
       if (false == dist.check_params(function, &result)) return result;
       if(false == detail::check_probability(function, p, &result, Policy())) return result;
@@ -220,7 +220,7 @@ namespace boost { namespace math {
       BOOST_MATH_STD_USING // for ADL of std functions
 
       // Checking function argument
-      RealType result;
+      RealType result = 0;
       const char* function = "quantile(const complemented2_type<hypergeometric_distribution<%1%>, %1%>&)";
       if (false == c.dist.check_params(function, &result)) return result;
       if(false == detail::check_probability(function, c.param, &result, Policy())) return result;

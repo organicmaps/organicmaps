@@ -8,5 +8,11 @@
 =============================================================================*/
 #ifndef BOOST_SPIRIT_INCLUDE_PHOENIX_BIND
 #define BOOST_SPIRIT_INCLUDE_PHOENIX_BIND
+
+#ifndef BOOST_SPIRIT_USE_PHOENIX_V3
 #include <boost/spirit/home/phoenix/bind.hpp>
+#else
+#include <boost/phoenix/bind.hpp>
+#endif
+
 #endif

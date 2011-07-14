@@ -143,10 +143,6 @@ namespace boost
                          skip_iter(boost::end(r), boost::end(r), p))
             {
             }
-
-        private:
-            P m_pred;
-            R* m_range;
         };
 
         template< class T >

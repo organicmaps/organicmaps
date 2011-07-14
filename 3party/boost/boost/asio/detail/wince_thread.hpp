@@ -39,7 +39,7 @@ class wince_thread
 public:
   // Constructor.
   template <typename Function>
-  wince_thread(Function f)
+  wince_thread(Function f, unsigned int = 0)
   {
     std::auto_ptr<func_base> arg(new func<Function>(f));
     DWORD thread_id = 0;

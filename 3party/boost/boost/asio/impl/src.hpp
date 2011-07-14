@@ -26,6 +26,7 @@
 #include <boost/asio/detail/impl/dev_poll_reactor.ipp>
 #include <boost/asio/detail/impl/epoll_reactor.ipp>
 #include <boost/asio/detail/impl/eventfd_select_interrupter.ipp>
+#include <boost/asio/detail/impl/handler_tracking.ipp>
 #include <boost/asio/detail/impl/kqueue_reactor.ipp>
 #include <boost/asio/detail/impl/pipe_select_interrupter.ipp>
 #include <boost/asio/detail/impl/posix_event.ipp>
@@ -38,6 +39,7 @@
 #include <boost/asio/detail/impl/resolver_service_base.ipp>
 #include <boost/asio/detail/impl/select_reactor.ipp>
 #include <boost/asio/detail/impl/service_registry.ipp>
+#include <boost/asio/detail/impl/signal_set_service.ipp>
 #include <boost/asio/detail/impl/socket_ops.ipp>
 #include <boost/asio/detail/impl/socket_select_interrupter.ipp>
 #include <boost/asio/detail/impl/strand_service.ipp>
@@ -51,6 +53,7 @@
 #include <boost/asio/detail/impl/win_iocp_socket_service_base.ipp>
 #include <boost/asio/detail/impl/win_event.ipp>
 #include <boost/asio/detail/impl/win_mutex.ipp>
+#include <boost/asio/detail/impl/win_static_mutex.ipp>
 #include <boost/asio/detail/impl/win_thread.ipp>
 #include <boost/asio/detail/impl/win_tss_ptr.ipp>
 #include <boost/asio/detail/impl/winsock_init.ipp>

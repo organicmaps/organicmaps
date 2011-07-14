@@ -19,6 +19,8 @@ namespace boost { namespace msm
 template <class T>
 struct wrap{};
 
+// tag to use in grammars where states are seen (init_<<, states_<<...)
+struct state_tag{};
 
 } } // boost::msm
 #endif //BOOST_MSM_COMMON_H

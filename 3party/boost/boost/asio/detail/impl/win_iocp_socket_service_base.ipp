@@ -69,6 +69,80 @@ void win_iocp_socket_service_base::construct(
   impl_list_ = &impl;
 }
 
+void win_iocp_socket_service_base::base_move_construct(
+    win_iocp_socket_service_base::base_implementation_type& impl,
+    win_iocp_socket_service_base::base_implementation_type& other_impl)
+{
+  impl.socket_ = other_impl.socket_;
+  other_impl.socket_ = invalid_socket;
+
+  impl.state_ = other_impl.state_;
+  other_impl.state_ = 0;
+
+  impl.cancel_token_ = other_impl.cancel_token_;
+  other_impl.cancel_token_.reset();
+
+#if defined(BOOST_ASIO_ENABLE_CANCELIO)
+  impl.safe_cancellation_thread_id_ = other_impl.safe_cancellation_thread_id_;
+  other_impl.safe_cancellation_thread_id_ = 0;
+#endif // defined(BOOST_ASIO_ENABLE_CANCELIO)
+
+  // Insert implementation into linked list of all implementations.
+  boost::asio::detail::mutex::scoped_lock lock(mutex_);
+  impl.next_ = impl_list_;
+  impl.prev_ = 0;
+  if (impl_list_)
+    impl_list_->prev_ = &impl;
+  impl_list_ = &impl;
+}
+
+void win_iocp_socket_service_base::base_move_assign(
+    win_iocp_socket_service_base::base_implementation_type& impl,
+    win_iocp_socket_service_base& other_service,
+    win_iocp_socket_service_base::base_implementation_type& other_impl)
+{
+  close_for_destruction(impl);
+
+  if (this != &other_service)
+  {
+    // Remove implementation from linked list of all implementations.
+    boost::asio::detail::mutex::scoped_lock lock(mutex_);
+    if (impl_list_ == &impl)
+      impl_list_ = impl.next_;
+    if (impl.prev_)
+      impl.prev_->next_ = impl.next_;
+    if (impl.next_)
+      impl.next_->prev_= impl.prev_;
+    impl.next_ = 0;
+    impl.prev_ = 0;
+  }
+
+  impl.socket_ = other_impl.socket_;
+  other_impl.socket_ = invalid_socket;
+
+  impl.state_ = other_impl.state_;
+  other_impl.state_ = 0;
+
+  impl.cancel_token_ = other_impl.cancel_token_;
+  other_impl.cancel_token_.reset();
+
+#if defined(BOOST_ASIO_ENABLE_CANCELIO)
+  impl.safe_cancellation_thread_id_ = other_impl.safe_cancellation_thread_id_;
+  other_impl.safe_cancellation_thread_id_ = 0;
+#endif // defined(BOOST_ASIO_ENABLE_CANCELIO)
+
+  if (this != &other_service)
+  {
+    // Insert implementation into linked list of all implementations.
+    boost::asio::detail::mutex::scoped_lock lock(other_service.mutex_);
+    impl.next_ = other_service.impl_list_;
+    impl.prev_ = 0;
+    if (other_service.impl_list_)
+      other_service.impl_list_->prev_ = &impl;
+    other_service.impl_list_ = &impl;
+  }
+}
+
 void win_iocp_socket_service_base::destroy(
     win_iocp_socket_service_base::base_implementation_type& impl)
 {
@@ -92,6 +166,8 @@ boost::system::error_code win_iocp_socket_service_base::close(
 {
   if (is_open(impl))
   {
+    BOOST_ASIO_HANDLER_OPERATION(("socket", &impl, "close"));
+
     // Check if the reactor was created, in which case we need to close the
     // socket on the reactor as well to cancel any operations that might be
     // running there.
@@ -99,18 +175,17 @@ boost::system::error_code win_iocp_socket_service_base::close(
           interlocked_compare_exchange_pointer(
             reinterpret_cast<void**>(&reactor_), 0, 0));
     if (r)
-      r->close_descriptor(impl.socket_, impl.reactor_data_);
+      r->deregister_descriptor(impl.socket_, impl.reactor_data_, true);
   }
 
-  if (socket_ops::close(impl.socket_, impl.state_, false, ec) == 0)
-  {
-    impl.socket_ = invalid_socket;
-    impl.state_ = 0;
-    impl.cancel_token_.reset();
+  socket_ops::close(impl.socket_, impl.state_, false, ec);
+
+  impl.socket_ = invalid_socket;
+  impl.state_ = 0;
+  impl.cancel_token_.reset();
 #if defined(BOOST_ASIO_ENABLE_CANCELIO)
-    impl.safe_cancellation_thread_id_ = 0;
+  impl.safe_cancellation_thread_id_ = 0;
 #endif // defined(BOOST_ASIO_ENABLE_CANCELIO)
-  }
 
   return ec;
 }
@@ -124,7 +199,10 @@ boost::system::error_code win_iocp_socket_service_base::cancel(
     ec = boost::asio::error::bad_descriptor;
     return ec;
   }
-  else if (FARPROC cancel_io_ex_ptr = ::GetProcAddress(
+
+  BOOST_ASIO_HANDLER_OPERATION(("socket", &impl, "cancel"));
+
+  if (FARPROC cancel_io_ex_ptr = ::GetProcAddress(
         ::GetModuleHandleA("KERNEL32"), "CancelIoEx"))
   {
     // The version of Windows supports cancellation from any thread.
@@ -474,7 +552,7 @@ void win_iocp_socket_service_base::start_connect_op(
 
   if ((impl.state_ & socket_ops::non_blocking) != 0
       || socket_ops::set_internal_non_blocking(
-        impl.socket_, impl.state_, op->ec_))
+        impl.socket_, impl.state_, true, op->ec_))
   {
     if (socket_ops::connect(impl.socket_, addr, addrlen, op->ec_) != 0)
     {
@@ -497,6 +575,8 @@ void win_iocp_socket_service_base::close_for_destruction(
 {
   if (is_open(impl))
   {
+    BOOST_ASIO_HANDLER_OPERATION(("socket", &impl, "close"));
+
     // Check if the reactor was created, in which case we need to close the
     // socket on the reactor as well to cancel any operations that might be
     // running there.
@@ -504,7 +584,7 @@ void win_iocp_socket_service_base::close_for_destruction(
           interlocked_compare_exchange_pointer(
             reinterpret_cast<void**>(&reactor_), 0, 0));
     if (r)
-      r->close_descriptor(impl.socket_, impl.reactor_data_);
+      r->deregister_descriptor(impl.socket_, impl.reactor_data_, true);
   }
 
   boost::system::error_code ignored_ec;

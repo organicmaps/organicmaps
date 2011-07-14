@@ -24,12 +24,13 @@ namespace boost{namespace icl
 {
 
 template <class DomainT, 
-          ICL_COMPARE Compare = ICL_COMPARE_INSTANCE(std::less, DomainT)>
+          ICL_COMPARE Compare = ICL_COMPARE_INSTANCE(ICL_COMPARE_DEFAULT, DomainT)>
 class discrete_interval
 {
 public:
     typedef discrete_interval<DomainT,Compare> type;
     typedef DomainT domain_type;
+    typedef ICL_COMPARE_DOMAIN(Compare,DomainT) domain_compare;
     typedef typename bounded_value<DomainT>::type bounded_domain_type;
 
 public:
@@ -72,10 +73,10 @@ public:
     domain_type     upper()const { return _upb; }
     interval_bounds bounds()const{ return _bounds; }
 
-    static discrete_interval open     (const DomainT& lo, const DomainT& up){ return discrete_interval(lo, up, interval_bounds::open());      }
+    static discrete_interval open      (const DomainT& lo, const DomainT& up){ return discrete_interval(lo, up, interval_bounds::open());      }
     static discrete_interval right_open(const DomainT& lo, const DomainT& up){ return discrete_interval(lo, up, interval_bounds::right_open());}
     static discrete_interval left_open (const DomainT& lo, const DomainT& up){ return discrete_interval(lo, up, interval_bounds::left_open()); }
-    static discrete_interval closed   (const DomainT& lo, const DomainT& up){ return discrete_interval(lo, up, interval_bounds::closed());    }
+    static discrete_interval closed    (const DomainT& lo, const DomainT& up){ return discrete_interval(lo, up, interval_bounds::closed());    }
 
 private:
     domain_type     _lwb;
@@ -158,7 +159,7 @@ struct type_to_string<icl::discrete_interval<DomainT,Compare> >
 template<class DomainT> 
 struct value_size<icl::discrete_interval<DomainT> >
 {
-    static std::size_t apply(const icl::discrete_interval<DomainT>& value) 
+    static std::size_t apply(const icl::discrete_interval<DomainT>&) 
     { return 2; }
 };
 

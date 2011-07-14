@@ -1887,11 +1887,11 @@ namespace boost
             }
             else if    (n == 0)
             {
-                return(quaternion<T>(1));
+                return(quaternion<T>(static_cast<T>(1)));
             }
             else    /* n < 0 */
             {
-                return(pow(quaternion<T>(1)/q,-n));
+                return(pow(quaternion<T>(static_cast<T>(1))/q,-n));
             }
         }
         

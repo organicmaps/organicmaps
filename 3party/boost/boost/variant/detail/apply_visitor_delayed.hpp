@@ -58,7 +58,7 @@ public: // unary visitor interface
 
     template <typename Visitable>
         BOOST_VARIANT_AUX_GENERIC_RESULT_TYPE(result_type)
-    operator()(Visitable& visitable)
+    operator()(Visitable& visitable) const
     {
         return apply_visitor(visitor_, visitable);
     }
@@ -67,7 +67,7 @@ public: // binary visitor interface
 
     template <typename Visitable1, typename Visitable2>
         BOOST_VARIANT_AUX_GENERIC_RESULT_TYPE(result_type)
-    operator()(Visitable1& visitable1, Visitable2& visitable2)
+    operator()(Visitable1& visitable1, Visitable2& visitable2) const
     {
         return apply_visitor(visitor_, visitable1, visitable2);
     }

@@ -20,6 +20,8 @@
 #include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <boost/utility/result_of.hpp>
+
 
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1310))
 # include <boost/type_traits/is_base_and_derived.hpp>
@@ -35,33 +37,16 @@ namespace boost
 
   namespace detail 
   {
-
-    template <class UnaryFunc>
-    struct function_object_result
-    {
-      typedef typename UnaryFunc::result_type type;
-    };
-
-#ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
-    template <class Return, class Argument>
-    struct function_object_result<Return(*)(Argument)>
-    {
-      typedef Return type;
-    };
-#endif
-
     // Compute the iterator_adaptor instantiation to be used for transform_iterator
     template <class UnaryFunc, class Iterator, class Reference, class Value>
     struct transform_iterator_base
     {
      private:
         // By default, dereferencing the iterator yields the same as
-        // the function.  Do we need to adjust the way
-        // function_object_result is computed for the standard
-        // proposal (e.g. using Doug's result_of)?
+        // the function.
         typedef typename ia_dflt_help<
             Reference
-          , function_object_result<UnaryFunc>
+          , result_of<UnaryFunc(typename std::iterator_traits<Iterator>::reference)>
         >::type reference;
 
         // To get the default for Value: remove any reference on the
@@ -113,7 +98,7 @@ namespace boost
 #endif 
     }
 
-    template<
+    template <
         class OtherUnaryFunction
       , class OtherIterator
       , class OtherReference

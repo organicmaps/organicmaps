@@ -20,7 +20,7 @@ namespace boost { namespace spirit { namespace karma
         typedef Transformed type;
         static Transformed pre(Exposed& val) 
         { 
-            return Transformed(traits::extract_from<Exposed>(val, unused));
+            return Transformed(traits::extract_from<Transformed>(val, unused));
         }
         // Karma only, no post() and no fail() required
     };

@@ -45,7 +45,9 @@ namespace boost { namespace spirit
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit { namespace karma
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using boost::spirit::pad;
+#endif
     using boost::spirit::pad_type;
 
     struct binary_padding_generator 
@@ -83,7 +85,7 @@ namespace boost { namespace spirit { namespace karma
         }
 
         template <typename Context>
-        static info what(Context const& ctx)
+        static info what(Context const&)
         {
             return info("pad");
         }

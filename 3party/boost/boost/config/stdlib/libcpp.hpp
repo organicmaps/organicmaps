@@ -19,14 +19,16 @@
 
 #define BOOST_HAS_THREADS
 
-#define BOOST_NO_0X_HDR_CONCEPTS
-#define BOOST_NO_0X_HDR_CONTAINER_CONCEPTS
-#define BOOST_NO_0X_HDR_ITERATOR_CONCEPTS
-#define BOOST_NO_0X_HDR_MEMORY_CONCEPTS
-
 #ifdef _LIBCPP_HAS_NO_VARIADICS
 #    define BOOST_NO_0X_HDR_TUPLE
 #endif
+
+//
+// These appear to be unusable/incomplete so far:
+//
+#  define BOOST_NO_0X_HDR_CHRONO
+#  define BOOST_NO_0X_HDR_FUTURE
+#  define BOOST_NO_0X_HDR_TYPE_TRAITS
 
 // libc++ uses a non-standard messages_base
 #define BOOST_NO_STD_MESSAGES

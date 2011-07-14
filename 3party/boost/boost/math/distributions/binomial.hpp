@@ -203,7 +203,7 @@ namespace boost
         //
         // Error checks:
         BOOST_MATH_STD_USING  // ADL of std names
-        RealType result;
+        RealType result = 0;
         RealType trials = dist.trials();
         RealType success_fraction = dist.success_fraction();
         if(false == binomial_detail::check_dist_and_prob(
@@ -317,7 +317,7 @@ namespace boost
       {
         static const char* function = "boost::math::binomial_distribution<%1%>::find_lower_bound_on_p";
         // Error checks:
-        RealType result;
+        RealType result = 0;
         if(false == binomial_detail::check_dist_and_k(
            function, trials, RealType(0), successes, &result, Policy())
             &&
@@ -342,7 +342,7 @@ namespace boost
       {
         static const char* function = "boost::math::binomial_distribution<%1%>::find_upper_bound_on_p";
         // Error checks:
-        RealType result;
+        RealType result = 0;
         if(false == binomial_detail::check_dist_and_k(
            function, trials, RealType(0), successes, &result, Policy())
             &&
@@ -369,7 +369,7 @@ namespace boost
       {
         static const char* function = "boost::math::binomial_distribution<%1%>::find_minimum_number_of_trials";
         // Error checks:
-        RealType result;
+        RealType result = 0;
         if(false == binomial_detail::check_dist_and_k(
            function, k, p, k, &result, Policy())
             &&
@@ -388,7 +388,7 @@ namespace boost
       {
         static const char* function = "boost::math::binomial_distribution<%1%>::find_maximum_number_of_trials";
         // Error checks:
-        RealType result;
+        RealType result = 0;
         if(false == binomial_detail::check_dist_and_k(
            function, k, p, k, &result, Policy())
             &&
@@ -446,7 +446,7 @@ namespace boost
         RealType n = dist.trials();
 
         // Error check:
-        RealType result;
+        RealType result = 0; // initialization silences some compiler warnings
         if(false == binomial_detail::check_dist_and_k(
            "boost::math::pdf(binomial_distribution<%1%> const&, %1%)",
            n,
@@ -524,7 +524,7 @@ namespace boost
         RealType p = dist.success_fraction();
 
         // Error check:
-        RealType result;
+        RealType result = 0;
         if(false == binomial_detail::check_dist_and_k(
            "boost::math::cdf(binomial_distribution<%1%> const&, %1%)",
            n,
@@ -598,7 +598,7 @@ namespace boost
         RealType p = dist.success_fraction();
 
         // Error checks:
-        RealType result;
+        RealType result = 0;
         if(false == binomial_detail::check_dist_and_k(
            "boost::math::cdf(binomial_distribution<%1%> const&, %1%)",
            n,

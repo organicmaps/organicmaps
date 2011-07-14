@@ -49,11 +49,11 @@ public:
   }
 
   /// Construct with specified endpoint, host name and service name.
-  basic_resolver_entry(const endpoint_type& endpoint,
-      const std::string& host_name, const std::string& service_name)
-    : endpoint_(endpoint),
-      host_name_(host_name),
-      service_name_(service_name)
+  basic_resolver_entry(const endpoint_type& ep,
+      const std::string& host, const std::string& service)
+    : endpoint_(ep),
+      host_name_(host),
+      service_name_(service)
   {
   }
 

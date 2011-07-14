@@ -1108,10 +1108,10 @@ to_ulong() const
   // beyond the "allowed" positions
   typedef unsigned long result_type;
 
-  const size_type max_size =
+  const size_type maximum_size =
             (std::min)(m_num_bits, static_cast<size_type>(ulong_width));
 
-  const size_type last_block = block_index( max_size - 1 );
+  const size_type last_block = block_index( maximum_size - 1 );
 
   assert((last_block * bits_per_block) < static_cast<size_type>(ulong_width));
 

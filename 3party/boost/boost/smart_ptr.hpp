@@ -1,3 +1,6 @@
+#ifndef BOOST_SMART_PTR_HPP_INCLUDED
+#define BOOST_SMART_PTR_HPP_INCLUDED
+
 //
 //  smart_ptr.hpp
 //
@@ -22,4 +25,7 @@
 # include <boost/weak_ptr.hpp>
 # include <boost/intrusive_ptr.hpp>
 # include <boost/enable_shared_from_this.hpp>
+# include <boost/make_shared.hpp>
 #endif
+
+#endif // #ifndef BOOST_SMART_PTR_HPP_INCLUDED

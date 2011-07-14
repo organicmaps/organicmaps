@@ -20,6 +20,7 @@
 #include <boost/spirit/home/support/info.hpp>
 #include <boost/spirit/home/support/detail/what_function.hpp>
 #include <boost/spirit/home/karma/detail/attributes.hpp>
+#include <boost/spirit/home/karma/detail/indirect_iterator.hpp>
 #include <boost/spirit/home/support/algorithm/any_if.hpp>
 #include <boost/spirit/home/support/unused.hpp>
 #include <boost/spirit/home/support/sequence_base_id.hpp>
@@ -83,83 +84,11 @@ namespace boost { namespace spirit { namespace traits
           , mpl::bitor_<mpl::_2, mpl::_1>
         >::type type;
     };
-
 }}}
 
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit { namespace karma
 {
-    namespace detail
-    {
-
-        ///////////////////////////////////////////////////////////////////////
-        // This is a wrapper for any iterator allowing to pass a reference of it
-        // to the components of the sequence
-        template <typename Iterator>
-        class indirect_iterator
-          : public boost::iterator_facade<
-                indirect_iterator<Iterator>
-              , typename boost::detail::iterator_traits<Iterator>::value_type
-              , boost::forward_traversal_tag
-              , typename boost::detail::iterator_traits<Iterator>::value_type const&>
-        {
-            typedef typename boost::detail::iterator_traits<Iterator>::value_type
-                base_value_type;
-
-            typedef boost::iterator_facade<
-                indirect_iterator<Iterator>, base_value_type
-              , boost::forward_traversal_tag, base_value_type const&
-            > base_type;
-
-        public:
-            indirect_iterator(Iterator& iter)
-              : iter_(&iter)
-            {}
-            indirect_iterator(indirect_iterator const& iter)
-              : iter_(iter.iter_)
-            {}
-
-        private:
-            friend class boost::iterator_core_access;
-
-            void increment()
-            {
-                ++*iter_;
-            }
-
-            bool equal(indirect_iterator const& other) const
-            {
-                return *iter_ == *other.iter_;
-            }
-
-            typename base_type::reference dereference() const
-            {
-                return **iter_;
-            }
-
-        private:
-            Iterator* iter_;
-        };
-
-        template <typename Iterator>
-        struct make_indirect_iterator
-        {
-            typedef indirect_iterator<Iterator> type;
-        };
-
-        template <typename Iterator>
-        struct make_indirect_iterator<indirect_iterator<Iterator> >
-        {
-            typedef indirect_iterator<Iterator> type;
-        };
-
-        template <>
-        struct make_indirect_iterator<unused_type const*>
-        {
-            typedef unused_type const* type;
-        };
-    }
-
     template <typename Elements, typename Strict, typename Derived>
     struct base_sequence : nary_generator<Derived>
     {
@@ -248,12 +177,15 @@ namespace boost { namespace spirit { namespace karma
             typedef detail::fail_function<
                 OutputIterator, Context, Delimiter> fail_function;
 
-            typedef typename traits::container_iterator<Attribute const>::type 
-                iterator_type;
-            typedef typename detail::make_indirect_iterator<iterator_type>::type 
-                indirect_iterator_type;
+            typedef typename traits::container_iterator<
+                typename add_const<Attribute>::type
+            >::type iterator_type;
+
+            typedef 
+                typename traits::make_indirect_iterator<iterator_type>::type 
+            indirect_iterator_type;
             typedef detail::pass_container<
-                fail_function, Attribute, indirect_iterator_type, Strict>
+              fail_function, Attribute, indirect_iterator_type, mpl::true_>
             pass_container;
 
             iterator_type begin = traits::begin(attr_);
@@ -365,14 +297,14 @@ namespace boost { namespace spirit { namespace traits
     template <typename Elements, typename Attribute, typename Context
       , typename Iterator>
     struct handles_container<karma::sequence<Elements>, Attribute, Context
-      , Iterator>
-      : nary_handles_container<Elements, Attribute, Context, Iterator> {};
-    
+          , Iterator>
+      : mpl::true_ {};
+
     template <typename Elements, typename Attribute, typename Context
       , typename Iterator>
     struct handles_container<karma::strict_sequence<Elements>, Attribute
-      , Context, Iterator>
-      : nary_handles_container<Elements, Attribute, Context, Iterator> {};
+          , Context, Iterator>
+      : mpl::true_ {};
 }}}
 
 #endif

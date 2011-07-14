@@ -12,6 +12,7 @@
 #pragma once
 #endif
 
+#include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/proto/proto.hpp>
 #include <boost/spirit/home/support/detail/make_cons.hpp>
 #include <boost/spirit/home/support/modify.hpp>
@@ -53,39 +54,79 @@ namespace boost { namespace spirit
 
 namespace boost { namespace spirit { namespace detail
 {
+    template <typename Expr, typename State, typename Data, typename Domain>
+    struct make_terminal_impl
+      : proto::transform_impl<Expr, State, Data>
+    {
+        typedef typename
+            proto::result_of::value<Expr>::type 
+        value;
+
+        typedef typename result_of::make_cons<value>::type elements;
+
+        typedef
+            make_component<Domain, proto::tag::terminal>
+        make_component_;
+
+        typedef typename
+            make_component_::template
+                result<make_component_(elements, Data)>::type
+        result_type;
+
+        result_type operator()(
+            typename make_terminal_impl::expr_param expr
+          , typename make_terminal_impl::state_param /*state*/
+          , typename make_terminal_impl::data_param data
+        ) const
+        {
+            return typename make_terminal_impl::make_component_()(
+                detail::make_cons(proto::value(expr))
+              , data
+            );
+        }
+    };
+
+    template <typename Expr, typename State, typename Data, typename Domain>
+    struct make_terminal_impl<phoenix::actor<Expr>, State, Data, Domain>
+      : proto::transform_impl<phoenix::actor<Expr>, State, Data>
+    {
+        typedef phoenix::actor<Expr> value;
+        typedef typename result_of::make_cons<value>::type elements;
+        typedef make_component<Domain, proto::tag::terminal> make_component_;
+
+        typedef typename
+            make_component_::template
+                result<make_component_(elements, Data)>::type
+        result_type;
+
+        result_type operator()(
+            typename make_terminal_impl::expr_param expr
+          , typename make_terminal_impl::state_param /*state*/
+          , typename make_terminal_impl::data_param data
+        ) const
+        {
+            return typename make_terminal_impl::make_component_()(
+                detail::make_cons(expr)
+              , data
+            );
+        }
+    };
+
+    template <typename Expr, typename State, typename Data, typename Domain>
+    struct make_terminal_impl<phoenix::actor<Expr> &, State, Data, Domain>
+        : make_terminal_impl<phoenix::actor<Expr>, State, Data, Domain>
+    {};
+
+    template <typename Expr, typename State, typename Data, typename Domain>
+    struct make_terminal_impl<phoenix::actor<Expr> const &, State, Data, Domain>
+        : make_terminal_impl<phoenix::actor<Expr>, State, Data, Domain>
+    {};
+
     template <typename Domain>
     struct make_terminal : proto::transform<make_terminal<Domain> >
     {
         template<typename Expr, typename State, typename Data>
-        struct impl : proto::transform_impl<Expr, State, Data>
-        {
-            typedef typename
-                proto::result_of::value<Expr>::type 
-            value;
-
-            typedef typename result_of::make_cons<value>::type elements;
-
-            typedef
-                make_component<Domain, proto::tag::terminal>
-            make_component_;
-
-            typedef typename
-                make_component_::template
-                    result<make_component_(elements, Data)>::type
-            result_type;
-
-            result_type operator()(
-                typename impl::expr_param expr
-              , typename impl::state_param /*state*/
-              , typename impl::data_param data
-            ) const
-            {
-                return typename impl::make_component_()(
-                    detail::make_cons(proto::value(expr))
-                  , data
-                );
-            }
-        };
+        struct impl : make_terminal_impl<Expr, State, Data, Domain> {};
     };
 
     template <typename Domain, typename Tag, typename Grammar>
@@ -321,11 +362,25 @@ namespace boost { namespace spirit { namespace detail
                 )>::type
             lhs_component;
 
+#ifndef BOOST_SPIRIT_USE_PHOENIX_V3
             typedef typename
                 proto::result_of::value<
                     typename proto::result_of::child_c<Expr, 1>::type
                 >::type
             rhs_component;
+#else
+            typedef
+                typename mpl::eval_if_c<
+                    phoenix::is_actor<
+                        typename proto::result_of::child_c<Expr, 1>::type
+                    >::type::value
+                  , proto::result_of::child_c<Expr, 1>
+                  , proto::result_of::value<
+                        typename proto::result_of::child_c<Expr, 1>::type
+                    >
+                >::type
+                rhs_component;
+#endif
 
             typedef typename
                 result_of::make_cons<
@@ -341,6 +396,7 @@ namespace boost { namespace spirit { namespace detail
                     result<make_component_(elements_type, Data)>::type
             result_type;
 
+#ifndef BOOST_SPIRIT_USE_PHOENIX_V3
             result_type operator()(
                 typename impl::expr_param expr
               , typename impl::state_param state
@@ -357,6 +413,60 @@ namespace boost { namespace spirit { namespace detail
 
                 return make_component_()(elements, data);
             }
+#else
+            result_type operator()(
+                typename impl::expr_param expr
+              , typename impl::state_param state
+              , typename impl::data_param data
+            ) const
+            {
+                return
+                    (*this)(
+                        expr
+                      , state
+                      , data
+                      , typename phoenix::is_actor<
+                            typename proto::result_of::child_c<Expr, 1>::type
+                        >::type()
+                    );
+            }
+            
+            result_type operator()(
+                typename impl::expr_param expr
+              , typename impl::state_param state
+              , typename impl::data_param data
+              , mpl::false_
+            ) const
+            {
+                elements_type elements =
+                    detail::make_cons(
+                        Grammar()(
+                            proto::child_c<0>(expr), state, data)   // LHS
+                      , detail::make_cons(
+                            proto::value(proto::child_c<1>(expr)))  // RHS
+                    );
+
+                return make_component_()(elements, data);
+            }
+
+            result_type operator()(
+                typename impl::expr_param expr
+              , typename impl::state_param state
+              , typename impl::data_param data
+              , mpl::true_
+            ) const
+            {
+                elements_type elements =
+                    detail::make_cons(
+                        Grammar()(
+                            proto::child_c<0>(expr), state, data)   // LHS
+                      , detail::make_cons(
+                            proto::child_c<1>(expr))               // RHS
+                    );
+
+                return make_component_()(elements, data);
+            }
+#endif
         };
     };
 }}}

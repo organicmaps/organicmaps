@@ -77,12 +77,6 @@ public:
   {
   }
 
-  /// Destroy all user-defined handler objects owned by the service.
-  void shutdown_service()
-  {
-    service_impl_.shutdown_service();
-  }
-
   /// Construct a new resolver implementation.
   void construct(implementation_type& impl)
   {
@@ -109,11 +103,12 @@ public:
   }
 
   /// Asynchronously resolve a query to a list of entries.
-  template <typename Handler>
+  template <typename ResolveHandler>
   void async_resolve(implementation_type& impl, const query_type& query,
-      Handler handler)
+      BOOST_ASIO_MOVE_ARG(ResolveHandler) handler)
   {
-    service_impl_.async_resolve(impl, query, handler);
+    service_impl_.async_resolve(impl, query,
+        BOOST_ASIO_MOVE_CAST(ResolveHandler)(handler));
   }
 
   /// Resolve an endpoint to a list of entries.
@@ -126,12 +121,25 @@ public:
   /// Asynchronously resolve an endpoint to a list of entries.
   template <typename ResolveHandler>
   void async_resolve(implementation_type& impl, const endpoint_type& endpoint,
-      ResolveHandler handler)
+      BOOST_ASIO_MOVE_ARG(ResolveHandler) handler)
   {
-    return service_impl_.async_resolve(impl, endpoint, handler);
+    return service_impl_.async_resolve(impl, endpoint,
+        BOOST_ASIO_MOVE_CAST(ResolveHandler)(handler));
   }
 
 private:
+  // Destroy all user-defined handler objects owned by the service.
+  void shutdown_service()
+  {
+    service_impl_.shutdown_service();
+  }
+
+  // Perform any fork-related housekeeping.
+  void fork_service(boost::asio::io_service::fork_event event)
+  {
+    service_impl_.fork_service(event);
+  }
+
   // The platform-specific implementation.
   service_impl_type service_impl_;
 };

@@ -11,8 +11,6 @@
 #ifndef BOOST_MSM_FRONT_FUNCTOR_ROW_H
 #define BOOST_MSM_FRONT_FUNCTOR_ROW_H
 
-#define BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
-
 #include <boost/mpl/set.hpp>
 #include <boost/mpl/for_each.hpp>
 #include <boost/mpl/has_xxx.hpp>
@@ -256,7 +254,6 @@ namespace boost { namespace msm { namespace front
         // no action, no guard
         typedef sm__i_row_tag row_type_tag;
     };
-    struct state_tag{};
     struct event_tag{};
     struct action_tag{};
     struct state_action_tag{};

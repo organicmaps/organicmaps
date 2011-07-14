@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org/libs/random for documentation.
  *
- * $Id: random.hpp 60755 2010-03-22 00:45:06Z steven_watanabe $
+ * $Id: random.hpp 71018 2011-04-05 21:27:52Z steven_watanabe $
  *
  * Revision history
  *  2000-02-18  portability fixes (thanks to Beman Dawes)
@@ -33,52 +33,53 @@
 #define BOOST_RANDOM_HPP
 
 // generators
-#include <boost/random/linear_congruential.hpp>
 #include <boost/random/additive_combine.hpp>
-#include <boost/random/inversive_congruential.hpp>
-#include <boost/random/shuffle_output.hpp>
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/lagged_fibonacci.hpp>
-#include <boost/random/ranlux.hpp>
-#include <boost/random/linear_feedback_shift.hpp>
-#include <boost/random/xor_combine.hpp>
 #include <boost/random/discard_block.hpp>
+#include <boost/random/independent_bits.hpp>
+#include <boost/random/inversive_congruential.hpp>
+#include <boost/random/lagged_fibonacci.hpp>
+#include <boost/random/linear_congruential.hpp>
+#include <boost/random/linear_feedback_shift.hpp>
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/ranlux.hpp>
+#include <boost/random/shuffle_order.hpp>
+#include <boost/random/shuffle_output.hpp>
 #include <boost/random/subtract_with_carry.hpp>
-#include <boost/random/variate_generator.hpp>
-
-namespace boost {
-  /** 
-   * The specialization taus88 was suggested in
-   *
-   *  @blockquote
-   *  "Maximally Equidistributed Combined Tausworthe Generators",
-   *  Pierre L'Ecuyer, Mathematics of Computation, Volume 65,
-   *  Number 213, January 1996, Pages 203-213
-   *  @endblockquote
-   */
-  typedef random::xor_combine<random::xor_combine<random::linear_feedback_shift<uint32_t, 32, 31, 13, 12, 0>, 0,
-    random::linear_feedback_shift<uint32_t, 32, 29, 2, 4, 0>, 0, 0>, 0,
-                      random::linear_feedback_shift<uint32_t, 32, 28, 3, 17, 0>, 0, 0> taus88;
-} // namespace  boost
+#include <boost/random/taus88.hpp>
+#include <boost/random/xor_combine.hpp>
 
 // misc
+#include <boost/random/generate_canonical.hpp>
+#include <boost/random/seed_seq.hpp>
 #include <boost/random/random_number_generator.hpp>
+#include <boost/random/variate_generator.hpp>
 
 // distributions
-#include <boost/random/uniform_smallint.hpp>
-#include <boost/random/uniform_int.hpp>
-#include <boost/random/uniform_01.hpp>
-#include <boost/random/uniform_real.hpp>
-#include <boost/random/triangle_distribution.hpp>
 #include <boost/random/bernoulli_distribution.hpp>
-#include <boost/random/cauchy_distribution.hpp>
-#include <boost/random/exponential_distribution.hpp>
-#include <boost/random/geometric_distribution.hpp>
-#include <boost/random/normal_distribution.hpp>
-#include <boost/random/lognormal_distribution.hpp>
-#include <boost/random/poisson_distribution.hpp>
-#include <boost/random/gamma_distribution.hpp>
 #include <boost/random/binomial_distribution.hpp>
+#include <boost/random/cauchy_distribution.hpp>
+#include <boost/random/chi_squared_distribution.hpp>
+#include <boost/random/discrete_distribution.hpp>
+#include <boost/random/exponential_distribution.hpp>
+#include <boost/random/extreme_value_distribution.hpp>
+#include <boost/random/fisher_f_distribution.hpp>
+#include <boost/random/gamma_distribution.hpp>
+#include <boost/random/geometric_distribution.hpp>
+#include <boost/random/lognormal_distribution.hpp>
+#include <boost/random/negative_binomial_distribution.hpp>
+#include <boost/random/normal_distribution.hpp>
+#include <boost/random/piecewise_constant_distribution.hpp>
+#include <boost/random/piecewise_linear_distribution.hpp>
+#include <boost/random/poisson_distribution.hpp>
+#include <boost/random/student_t_distribution.hpp>
+#include <boost/random/triangle_distribution.hpp>
+#include <boost/random/uniform_01.hpp>
+#include <boost/random/uniform_int.hpp>
+#include <boost/random/uniform_int_distribution.hpp>
 #include <boost/random/uniform_on_sphere.hpp>
+#include <boost/random/uniform_real.hpp>
+#include <boost/random/uniform_real_distribution.hpp>
+#include <boost/random/uniform_smallint.hpp>
+#include <boost/random/weibull_distribution.hpp>
 
 #endif // BOOST_RANDOM_HPP

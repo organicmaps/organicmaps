@@ -98,8 +98,8 @@ namespace boost { namespace spirit { namespace traits
     template <typename Subject, typename Attribute, typename Context
       , typename Iterator>
     struct handles_container<karma::optional<Subject>, Attribute, Context
-      , Iterator>
-      : unary_handles_container<Subject, Attribute, Context, Iterator> {};
+          , Iterator>
+      : mpl::true_ {};
 }}}
 
 #endif

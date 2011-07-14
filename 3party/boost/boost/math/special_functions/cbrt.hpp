@@ -90,6 +90,8 @@ T cbrt_imp(T z, const Policy& pol)
 
    typedef typename largest_cbrt_int_type<T>::type shift_type;
 
+   BOOST_STATIC_ASSERT( ::std::numeric_limits<shift_type>::radix == 2);
+
    if(abs(i_exp3) < std::numeric_limits<shift_type>::digits)
    {
       if(i_exp3 > 0)

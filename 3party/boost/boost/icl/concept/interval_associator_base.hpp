@@ -21,7 +21,7 @@ namespace boost{ namespace icl
 //==============================================================================
 //= Selection<IntervalSet|IntervalMap>
 //==============================================================================
-template<class Type>
+template<class Type> inline
 typename enable_if<mpl::and_< is_interval_container<Type>
                             , is_discrete<typename domain_type_of<Type>::type> 
                             > 
@@ -33,7 +33,7 @@ find(const Type& object, const typename domain_type_of<Type>::type& key_val)
     return object.find(icl::detail::unit_trail<interval_type>(key_val));
 }
 
-template<class Type>
+template<class Type> inline
 typename enable_if<mpl::and_< is_interval_container<Type>
                             , is_continuous<typename domain_type_of<Type>::type> 
                             , has_dynamic_bounds<typename interval_type_of<Type>::type> 
@@ -46,7 +46,7 @@ find(const Type& object, const typename domain_type_of<Type>::type& key_val)
     return object.find(icl::singleton<interval_type>(key_val));
 }
 
-template<class Type>
+template<class Type> inline
 typename enable_if<mpl::and_< is_interval_container<Type>
                             , is_continuous<typename domain_type_of<Type>::type> 
                             , is_static_right_open<typename interval_type_of<Type>::type> 
@@ -66,7 +66,7 @@ find(const Type& object, const typename domain_type_of<Type>::type& key_val)
             : object.end();
 }
 
-template<class Type>
+template<class Type> inline
 typename enable_if<mpl::and_< is_interval_container<Type>
                             , is_continuous<typename domain_type_of<Type>::type> 
                             , is_static_left_open<typename interval_type_of<Type>::type> 
@@ -91,7 +91,7 @@ find(const Type& object, const typename domain_type_of<Type>::type& key_val)
 // NOTE: find(object, key) won't compile if key is of continuous type that does
 // not implement in(de)crementation (e.g. std::string).
 
-template<class Type>
+template<class Type> inline
 typename enable_if< is_interval_container<Type>
                   , typename Type::const_iterator>::type
 find(const Type& object, const typename interval_type_of<Type>::type& inter_val)

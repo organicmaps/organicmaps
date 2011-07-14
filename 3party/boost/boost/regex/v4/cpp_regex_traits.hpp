@@ -1,7 +1,7 @@
 /*
  *
- * Copyright (c) 2004
- * John Maddock
+ * Copyright (c) 2004 John Maddock
+ * Copyright 2011 Garmin Ltd. or its subsidiaries
  *
  * Use, modification and distribution are subject to the 
  * Boost Software License, Version 1.0. (See accompanying file 
@@ -511,7 +511,9 @@ typename cpp_regex_traits_implementation<charT>::string_type
    // however at least one std lib will always throw
    // std::bad_alloc for certain arguments...
    //
+#ifndef BOOST_NO_EXCEPTIONS
    try{
+#endif
       //
       // What we do here depends upon the format of the sort key returned by
       // sort key returned by this->transform:
@@ -546,7 +548,9 @@ typename cpp_regex_traits_implementation<charT>::string_type
             result.erase(i);
             break;
       }
+#ifndef BOOST_NO_EXCEPTIONS
    }catch(...){}
+#endif
    while(result.size() && (charT(0) == *result.rbegin()))
       result.erase(result.size() - 1);
    if(result.empty())
@@ -576,7 +580,9 @@ typename cpp_regex_traits_implementation<charT>::string_type
    // std::bad_alloc for certain arguments...
    //
    string_type result;
+#ifndef BOOST_NO_EXCEPTIONS
    try{
+#endif
       result = this->m_pcollate->transform(p1, p2);
       //
       // Borland's STLPort version returns a NULL-terminated
@@ -593,10 +599,12 @@ typename cpp_regex_traits_implementation<charT>::string_type
          result.erase(result.size() - 1);
 #endif
       BOOST_ASSERT(std::find(result.begin(), result.end(), charT(0)) == result.end());
+#ifndef BOOST_NO_EXCEPTIONS
    }
    catch(...)
    {
    }
+#endif
    return result;
 }
 

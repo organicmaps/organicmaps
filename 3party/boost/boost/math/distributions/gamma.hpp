@@ -125,7 +125,7 @@ inline RealType pdf(const gamma_distribution<RealType, Policy>& dist, const Real
    RealType shape = dist.shape();
    RealType scale = dist.scale();
 
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_gamma(function, scale, shape, &result, Policy()))
       return result;
    if(false == detail::check_gamma_x(function, x, &result, Policy()))
@@ -149,7 +149,7 @@ inline RealType cdf(const gamma_distribution<RealType, Policy>& dist, const Real
    RealType shape = dist.shape();
    RealType scale = dist.scale();
 
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_gamma(function, scale, shape, &result, Policy()))
       return result;
    if(false == detail::check_gamma_x(function, x, &result, Policy()))
@@ -169,7 +169,7 @@ inline RealType quantile(const gamma_distribution<RealType, Policy>& dist, const
    RealType shape = dist.shape();
    RealType scale = dist.scale();
 
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_gamma(function, scale, shape, &result, Policy()))
       return result;
    if(false == detail::check_probability(function, p, &result, Policy()))
@@ -193,7 +193,7 @@ inline RealType cdf(const complemented2_type<gamma_distribution<RealType, Policy
    RealType shape = c.dist.shape();
    RealType scale = c.dist.scale();
 
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_gamma(function, scale, shape, &result, Policy()))
       return result;
    if(false == detail::check_gamma_x(function, c.param, &result, Policy()))
@@ -215,7 +215,7 @@ inline RealType quantile(const complemented2_type<gamma_distribution<RealType, P
    RealType scale = c.dist.scale();
    RealType q = c.param;
 
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_gamma(function, scale, shape, &result, Policy()))
       return result;
    if(false == detail::check_probability(function, q, &result, Policy()))
@@ -239,7 +239,7 @@ inline RealType mean(const gamma_distribution<RealType, Policy>& dist)
    RealType shape = dist.shape();
    RealType scale = dist.scale();
 
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_gamma(function, scale, shape, &result, Policy()))
       return result;
 
@@ -257,7 +257,7 @@ inline RealType variance(const gamma_distribution<RealType, Policy>& dist)
    RealType shape = dist.shape();
    RealType scale = dist.scale();
 
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_gamma(function, scale, shape, &result, Policy()))
       return result;
 
@@ -275,7 +275,7 @@ inline RealType mode(const gamma_distribution<RealType, Policy>& dist)
    RealType shape = dist.shape();
    RealType scale = dist.scale();
 
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_gamma(function, scale, shape, &result, Policy()))
       return result;
 
@@ -304,7 +304,7 @@ inline RealType skewness(const gamma_distribution<RealType, Policy>& dist)
    RealType shape = dist.shape();
    RealType scale = dist.scale();
 
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_gamma(function, scale, shape, &result, Policy()))
       return result;
 
@@ -322,7 +322,7 @@ inline RealType kurtosis_excess(const gamma_distribution<RealType, Policy>& dist
    RealType shape = dist.shape();
    RealType scale = dist.scale();
 
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_gamma(function, scale, shape, &result, Policy()))
       return result;
 

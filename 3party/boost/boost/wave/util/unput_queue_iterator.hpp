@@ -240,7 +240,7 @@ namespace impl {
             typename iterator_type::container_type::iterator cit = queue.begin();
             typename iterator_type::container_type::iterator cend = queue.end();
 
-                if (skip_whitespace) {            
+                if (skip_whitespace) {
                     for (++cit; cit != cend; ++cit) {
                         if (!IS_CATEGORY(*cit, WhiteSpaceTokenType) &&
                             T_NEWLINE != token_id(*cit))

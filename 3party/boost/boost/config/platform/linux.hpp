@@ -11,7 +11,11 @@
 #define BOOST_PLATFORM "linux"
 
 // make sure we have __GLIBC_PREREQ if available at all
+#ifdef __cplusplus
 #include <cstdlib>
+#else
+#include <stdlib.h>
+#endif
 
 //
 // <stdint.h> added to glibc 2.1.1
@@ -68,6 +72,7 @@
 // boilerplate code:
 #define BOOST_HAS_UNISTD_H
 #include <boost/config/posix_features.hpp>
+#define BOOST_HAS_PTHREAD_YIELD
 
 #ifndef __GNUC__
 //

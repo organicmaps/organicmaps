@@ -40,24 +40,48 @@ namespace detail {
 
 eventfd_select_interrupter::eventfd_select_interrupter()
 {
+  open_descriptors();
+}
+
+void eventfd_select_interrupter::open_descriptors()
+{
 #if __GLIBC__ == 2 && __GLIBC_MINOR__ < 8
   write_descriptor_ = read_descriptor_ = syscall(__NR_eventfd, 0);
-#else // __GLIBC__ == 2 && __GLIBC_MINOR__ < 8
-  write_descriptor_ = read_descriptor_ = ::eventfd(0, 0);
-#endif // __GLIBC__ == 2 && __GLIBC_MINOR__ < 8
   if (read_descriptor_ != -1)
   {
     ::fcntl(read_descriptor_, F_SETFL, O_NONBLOCK);
+    ::fcntl(read_descriptor_, F_SETFD, FD_CLOEXEC);
   }
-  else
+#else // __GLIBC__ == 2 && __GLIBC_MINOR__ < 8
+# if defined(EFD_CLOEXEC) && defined(EFD_NONBLOCK)
+  write_descriptor_ = read_descriptor_ =
+    ::eventfd(0, EFD_CLOEXEC | EFD_NONBLOCK);
+# else // defined(EFD_CLOEXEC) && defined(EFD_NONBLOCK)
+  errno = EINVAL;
+  write_descriptor_ = read_descriptor_ = -1;
+# endif // defined(EFD_CLOEXEC) && defined(EFD_NONBLOCK)
+  if (read_descriptor_ == -1 && errno == EINVAL)
+  {
+    write_descriptor_ = read_descriptor_ = ::eventfd(0, 0);
+    if (read_descriptor_ != -1)
+    {
+      ::fcntl(read_descriptor_, F_SETFL, O_NONBLOCK);
+      ::fcntl(read_descriptor_, F_SETFD, FD_CLOEXEC);
+    }
+  }
+#endif // __GLIBC__ == 2 && __GLIBC_MINOR__ < 8
+
+  if (read_descriptor_ == -1)
   {
     int pipe_fds[2];
     if (pipe(pipe_fds) == 0)
     {
       read_descriptor_ = pipe_fds[0];
       ::fcntl(read_descriptor_, F_SETFL, O_NONBLOCK);
+      ::fcntl(read_descriptor_, F_SETFD, FD_CLOEXEC);
       write_descriptor_ = pipe_fds[1];
       ::fcntl(write_descriptor_, F_SETFL, O_NONBLOCK);
+      ::fcntl(write_descriptor_, F_SETFD, FD_CLOEXEC);
     }
     else
     {
@@ -70,10 +94,25 @@ eventfd_select_interrupter::eventfd_select_interrupter()
 
 eventfd_select_interrupter::~eventfd_select_interrupter()
 {
+  close_descriptors();
+}
+
+void eventfd_select_interrupter::close_descriptors()
+{
   if (write_descriptor_ != -1 && write_descriptor_ != read_descriptor_)
     ::close(write_descriptor_);
   if (read_descriptor_ != -1)
     ::close(read_descriptor_);
+}
+
+void eventfd_select_interrupter::recreate()
+{
+  close_descriptors();
+
+  write_descriptor_ = -1;
+  read_descriptor_ = -1;
+
+  open_descriptors();
 }
 
 void eventfd_select_interrupter::interrupt()

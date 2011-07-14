@@ -34,7 +34,7 @@ namespace boost { namespace proto
           : boost::lazy_enable_if_c<
                 boost::mpl::and_<
                     Trait
-                  , lazy_matches<result_of::make_expr<Tag, default_domain, Arg &>, Grammar>
+                  , lazy_matches<result_of::make_expr<Tag, basic_default_domain, Arg &>, Grammar>
                 >::value
               , result_of::make_expr<Tag, Domain, Arg &>
             >
@@ -64,7 +64,7 @@ namespace boost { namespace proto
           : boost::lazy_enable_if_c<
                 boost::mpl::and_<
                     Trait
-                  , lazy_matches<result_of::make_expr<Tag, default_domain, Left &, Right &>, Grammar>
+                  , lazy_matches<result_of::make_expr<Tag, basic_default_domain, Left &, Right &>, Grammar>
                 >::value
               , result_of::make_expr<Tag, Domain, Left &, Right &>
             >

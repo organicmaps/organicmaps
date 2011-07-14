@@ -20,17 +20,51 @@
 #include <boost/exception/info.hpp>
 #include <boost/exception/diagnostic_information.hpp>
 #include <boost/exception/detail/type_info.hpp>
+#include <boost/exception/detail/clone_current_exception.hpp>
 #include <boost/shared_ptr.hpp>
 #include <stdexcept>
 #include <new>
 #include <ios>
+#include <cstdlib>
 
 namespace
 boost
     {
-    typedef shared_ptr<exception_detail::clone_base const> exception_ptr;
-
+    class exception_ptr;
+    BOOST_ATTRIBUTE_NORETURN void rethrow_exception( exception_ptr const & );
     exception_ptr current_exception();
+
+    class
+    exception_ptr
+        {
+        typedef boost::shared_ptr<exception_detail::clone_base const> impl;
+        impl ptr_;
+        friend void rethrow_exception( exception_ptr const & );
+        typedef exception_detail::clone_base const * (impl::*unspecified_bool_type)() const;
+        public:
+        exception_ptr()
+            {
+            }
+        explicit
+        exception_ptr( impl const & ptr ):
+            ptr_(ptr)
+            {
+            }
+        bool
+        operator==( exception_ptr const & other ) const
+            {
+            return ptr_==other.ptr_;
+            }
+        bool
+        operator!=( exception_ptr const & other ) const
+            {
+            return ptr_!=other.ptr_;
+            }
+        operator unspecified_bool_type() const
+            {
+            return ptr_?&impl::get:0;
+            }
+        };
 
     template <class T>
     inline
@@ -67,35 +101,49 @@ boost
             boost::exception,
             std::bad_alloc
                 {
+                ~bad_alloc_() throw() { }
                 };
 
-        template <int Dummy>
+        struct
+        bad_exception_:
+            boost::exception,
+            std::bad_exception
+                {
+                ~bad_exception_() throw() { }
+                };
+
+        template <class Exception>
         exception_ptr
-        get_bad_alloc()
+        get_static_exception_object()
             {
-            bad_alloc_ ba;
-            exception_detail::clone_impl<bad_alloc_> c(ba);
+            Exception ba;
+            exception_detail::clone_impl<Exception> c(ba);
             c <<
                 throw_function(BOOST_CURRENT_FUNCTION) <<
                 throw_file(__FILE__) <<
                 throw_line(__LINE__);
-            static exception_ptr ep(new exception_detail::clone_impl<bad_alloc_>(c));
+            static exception_ptr ep(shared_ptr<exception_detail::clone_base const>(new exception_detail::clone_impl<Exception>(c)));
             return ep;
             }
 
-        template <int Dummy>
+        template <class Exception>
         struct
-        exception_ptr_bad_alloc
+        exception_ptr_static_exception_object
             {
             static exception_ptr const e;
             };
 
-        template <int Dummy>
+        template <class Exception>
         exception_ptr const
-        exception_ptr_bad_alloc<Dummy>::
-        e = get_bad_alloc<Dummy>();
+        exception_ptr_static_exception_object<Exception>::
+        e = get_static_exception_object<Exception>();
         }
 
+#if defined(__GNUC__)
+# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
+#  pragma GCC visibility push (default)
+# endif
+#endif
     class
     unknown_exception:
         public boost::exception,
@@ -135,6 +183,11 @@ boost
 #endif
             }
         };
+#if defined(__GNUC__)
+# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
+#  pragma GCC visibility pop
+# endif
+#endif
 
     namespace
     exception_detail
@@ -244,101 +297,131 @@ boost
         exception_ptr
         current_exception_impl()
             {
-            try
+            exception_detail::clone_base const * e=0;
+            switch(
+            exception_detail::clone_current_exception(e) )
                 {
-                throw;
-                }
-            catch(
-            exception_detail::clone_base & e )
-                {
-                return exception_ptr(e.clone());
-                }
-            catch(
-            std::domain_error & e )
-                {
-                return exception_detail::current_exception_std_exception(e);
-                }
-            catch(
-            std::invalid_argument & e )
-                {
-                return exception_detail::current_exception_std_exception(e);
-                }
-            catch(
-            std::length_error & e )
-                {
-                return exception_detail::current_exception_std_exception(e);
-                }
-            catch(
-            std::out_of_range & e )
-                {
-                return exception_detail::current_exception_std_exception(e);
-                }
-            catch(
-            std::logic_error & e )
-                {
-                return exception_detail::current_exception_std_exception(e);
-                }
-            catch(
-            std::range_error & e )
-                {
-                return exception_detail::current_exception_std_exception(e);
-                }
-            catch(
-            std::overflow_error & e )
-                {
-                return exception_detail::current_exception_std_exception(e);
-                }
-            catch(
-            std::underflow_error & e )
-                {
-                return exception_detail::current_exception_std_exception(e);
-                }
-            catch(
-            std::ios_base::failure & e )
-                {
-                return exception_detail::current_exception_std_exception(e);
-                }
-            catch(
-            std::runtime_error & e )
-                {
-                return exception_detail::current_exception_std_exception(e);
-                }
-            catch(
-            std::bad_alloc & e )
-                {
-                return exception_detail::current_exception_std_exception(e);
-                }
+                case exception_detail::clone_current_exception_result::
+                success:
+                    {
+                    BOOST_ASSERT(e!=0);
+                    return exception_ptr(shared_ptr<exception_detail::clone_base const>(e));
+                    }
+                case exception_detail::clone_current_exception_result::
+                bad_alloc:
+                    {
+                    BOOST_ASSERT(!e);
+                    return exception_detail::exception_ptr_static_exception_object<bad_alloc_>::e;
+                    }
+                case exception_detail::clone_current_exception_result::
+                bad_exception:
+                    {
+                    BOOST_ASSERT(!e);
+                    return exception_detail::exception_ptr_static_exception_object<bad_exception_>::e;
+                    }
+                default:
+                    BOOST_ASSERT(0);
+                case exception_detail::clone_current_exception_result::
+                not_supported:
+                    {
+                    BOOST_ASSERT(!e);
+                    try
+                        {
+                        throw;
+                        }
+                    catch(
+                    exception_detail::clone_base & e )
+                        {
+                        return exception_ptr(shared_ptr<exception_detail::clone_base const>(e.clone()));
+                        }
+                    catch(
+                    std::domain_error & e )
+                        {
+                        return exception_detail::current_exception_std_exception(e);
+                        }
+                    catch(
+                    std::invalid_argument & e )
+                        {
+                        return exception_detail::current_exception_std_exception(e);
+                        }
+                    catch(
+                    std::length_error & e )
+                        {
+                        return exception_detail::current_exception_std_exception(e);
+                        }
+                    catch(
+                    std::out_of_range & e )
+                        {
+                        return exception_detail::current_exception_std_exception(e);
+                        }
+                    catch(
+                    std::logic_error & e )
+                        {
+                        return exception_detail::current_exception_std_exception(e);
+                        }
+                    catch(
+                    std::range_error & e )
+                        {
+                        return exception_detail::current_exception_std_exception(e);
+                        }
+                    catch(
+                    std::overflow_error & e )
+                        {
+                        return exception_detail::current_exception_std_exception(e);
+                        }
+                    catch(
+                    std::underflow_error & e )
+                        {
+                        return exception_detail::current_exception_std_exception(e);
+                        }
+                    catch(
+                    std::ios_base::failure & e )
+                        {
+                        return exception_detail::current_exception_std_exception(e);
+                        }
+                    catch(
+                    std::runtime_error & e )
+                        {
+                        return exception_detail::current_exception_std_exception(e);
+                        }
+                    catch(
+                    std::bad_alloc & e )
+                        {
+                        return exception_detail::current_exception_std_exception(e);
+                        }
 #ifndef BOOST_NO_TYPEID
-            catch(
-            std::bad_cast & e )
-                {
-                return exception_detail::current_exception_std_exception(e);
-                }
-            catch(
-            std::bad_typeid & e )
-                {
-                return exception_detail::current_exception_std_exception(e);
-                }
+                    catch(
+                    std::bad_cast & e )
+                        {
+                        return exception_detail::current_exception_std_exception(e);
+                        }
+                    catch(
+                    std::bad_typeid & e )
+                        {
+                        return exception_detail::current_exception_std_exception(e);
+                        }
 #endif
-            catch(
-            std::bad_exception & e )
-                {
-                return exception_detail::current_exception_std_exception(e);
-                }
-            catch(
-            std::exception & e )
-                {
-                return exception_detail::current_exception_unknown_std_exception(e);
-                }
-            catch(
-            boost::exception & e )
-                {
-                return exception_detail::current_exception_unknown_boost_exception(e);
-                }
-            catch(
-            ... )
-                {
-                return exception_detail::current_exception_unknown_exception();
+                    catch(
+                    std::bad_exception & e )
+                        {
+                        return exception_detail::current_exception_std_exception(e);
+                        }
+                    catch(
+                    std::exception & e )
+                        {
+                        return exception_detail::current_exception_unknown_std_exception(e);
+                        }
+                    catch(
+                    boost::exception & e )
+                        {
+                        return exception_detail::current_exception_unknown_boost_exception(e);
+                        }
+                    catch(
+                    ... )
+                        {
+                        return exception_detail::current_exception_unknown_exception();
+                        }
+                    }
                 }
             }
         }
@@ -348,7 +431,6 @@ boost
     current_exception()
         {
         exception_ptr ret;
-        BOOST_ASSERT(!ret);
         try
             {
             ret=exception_detail::current_exception_impl();
@@ -356,36 +438,26 @@ boost
         catch(
         std::bad_alloc & )
             {
-            ret=exception_detail::exception_ptr_bad_alloc<42>::e;
+            ret=exception_detail::exception_ptr_static_exception_object<exception_detail::bad_alloc_>::e;
             }
         catch(
         ... )
             {
-            try
-                {
-                ret=exception_detail::current_exception_std_exception(std::bad_exception());
-                }
-            catch(
-            std::bad_alloc & )
-                {
-                ret=exception_detail::exception_ptr_bad_alloc<42>::e;
-                }
-            catch(
-            ... )
-                {
-                BOOST_ASSERT(0);
-                }
+            ret=exception_detail::exception_ptr_static_exception_object<exception_detail::bad_exception_>::e;
             }
         BOOST_ASSERT(ret);
         return ret;
         }
 
+    BOOST_ATTRIBUTE_NORETURN
     inline
     void
     rethrow_exception( exception_ptr const & p )
         {
         BOOST_ASSERT(p);
-        p->rethrow();
+        p.ptr_->rethrow();
+        BOOST_ASSERT(0);
+        std::abort();
         }
 
     inline

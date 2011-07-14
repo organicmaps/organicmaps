@@ -63,81 +63,83 @@ namespace boost { namespace spirit
     {};
 
     // Our basic terminals
-    BOOST_SPIRIT_DEFINE_TERMINALS(
-        ( verbatim )
-        ( no_delimit )
-        ( lexeme )
-        ( no_skip )
-        ( omit )
-        ( raw )
-        ( as_string )
-        ( as_wstring )
-        ( inf )
-        ( eol )
-        ( eoi )
-        ( buffer )
-        ( true_ )
-        ( false_ )
-        ( matches )
-        ( hold )
-        ( strict )
-        ( relaxed )
-        ( duplicate )
+    BOOST_SPIRIT_DEFINE_TERMINALS_NAME(
+        ( verbatim, verbatim_type )
+        ( no_delimit, no_delimit_type )
+        ( lexeme, lexeme_type )
+        ( no_skip, no_skip_type )
+        ( omit, omit_type )
+        ( raw, raw_type )
+        ( as_string, as_string_type )
+        ( as_wstring, as_wstring_type )
+        ( inf, inf_type )
+        ( eol, eol_type )
+        ( eoi, eoi_type )
+        ( buffer, buffer_type )
+        ( true_, true_type )
+        ( false_, false_type )
+        ( matches, matches_type )
+        ( hold, hold_type )
+        ( strict, strict_type )
+        ( relaxed, relaxed_type )
+        ( duplicate, duplicate_type )
     )
 
     // Our extended terminals
-    BOOST_SPIRIT_DEFINE_TERMINALS_EX(
-        ( lit )
-        ( bin )
-        ( oct )
-        ( hex )
-        ( bool_ )
-        ( ushort_ )
-        ( ulong_ )
-        ( uint_ )
-        ( short_ )
-        ( long_ )
-        ( int_ )
-        ( ulong_long )
-        ( long_long )
-        ( float_ )
-        ( double_ )
-        ( long_double )
-        ( repeat )
-        ( eps )
-        ( pad )
-        ( byte_ )
-        ( word )
-        ( big_word )
-        ( little_word )
-        ( dword )
-        ( big_dword )
-        ( little_dword )
-        ( qword )
-        ( big_qword )
-        ( little_qword )
-        ( skip )
-        ( delimit )
-        ( stream )
-        ( wstream )
-        ( left_align )
-        ( right_align )
-        ( center )
-        ( maxwidth )
-        ( set_state )
-        ( in_state )
-        ( token )
-        ( tokenid )
-        ( attr )
-        ( columns )
-        ( auto_ )
+    BOOST_SPIRIT_DEFINE_TERMINALS_NAME_EX(
+        ( lit, lit_type )
+        ( bin, bin_type )
+        ( oct, oct_type )
+        ( hex, hex_type )
+        ( bool_, bool_type )
+        ( ushort_, ushort_type )
+        ( ulong_, ulong_type )
+        ( uint_, uint_type )
+        ( short_, short_type )
+        ( long_, long_type )
+        ( int_, int_type )
+        ( ulong_long, ulong_long_type )
+        ( long_long, long_long_type )
+        ( float_, float_type )
+        ( double_, double_type )
+        ( long_double, long_double_type )
+        ( repeat, repeat_type )
+        ( eps, eps_type )
+        ( pad, pad_type )
+        ( byte_, byte_type )
+        ( word, word_type )
+        ( big_word, big_word_type )
+        ( little_word, little_word_type )
+        ( dword, dword_type )
+        ( big_dword, big_dword_type )
+        ( little_dword, little_dword_type )
+        ( qword, qword_type )
+        ( big_qword, big_qword_type )
+        ( little_qword, little_qword_type )
+        ( skip, skip_type )
+        ( delimit, delimit_type )
+        ( stream, stream_type )
+        ( wstream, wstream_type )
+        ( left_align, left_align_type )
+        ( right_align, right_align_type )
+        ( center, center_type )
+        ( maxwidth, maxwidth_type )
+        ( set_state, set_state_type )
+        ( in_state, in_state_type )
+        ( token, token_type )
+        ( tokenid, tokenid_type )
+        ( raw_token, raw_token_type )
+        ( tokenid_mask, tokenid_mask_type )
+        ( attr, attr_type )
+        ( columns, columns_type )
+        ( auto_, auto_type )
     )
 
     // special tags (used mainly for stateful tag types)
     namespace tag
     {
-        struct attr_cast {};
-        struct as {};
+        struct attr_cast { BOOST_SPIRIT_IS_TAG() };
+        struct as { BOOST_SPIRIT_IS_TAG() };
     }
 }}
 
@@ -152,6 +154,15 @@ namespace boost { namespace spirit
     typedef tag::char_code<tag::string, charset> string;                        \
     /***/
 
+#ifdef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
+
+#define BOOST_SPIRIT_CHAR_SPEC(charset)                                         \
+    typedef spirit::terminal<tag::charset::char_> char_type;                    \
+    typedef spirit::terminal<tag::charset::string> string_type;                 \
+    /***/
+
+#else
+
 #define BOOST_SPIRIT_CHAR_SPEC(charset)                                         \
     typedef spirit::terminal<tag::charset::char_> char_type;                    \
     char_type const char_ = char_type();                                        \
@@ -164,6 +175,17 @@ namespace boost { namespace spirit
     inline void silence_unused_warnings_##string() { (void) string; }           \
     /***/
 
+#endif
+
+#ifdef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
+
+#define BOOST_SPIRIT_CHAR_CODE(name, charset)                                   \
+    typedef proto::terminal<tag::char_code<tag::name, charset> >::type          \
+        name##_type;                                                            \
+    /***/
+
+#else
+
 #define BOOST_SPIRIT_CHAR_CODE(name, charset)                                   \
     typedef proto::terminal<tag::char_code<tag::name, charset> >::type          \
         name##_type;                                                            \
@@ -171,6 +193,9 @@ namespace boost { namespace spirit
                                                                                 \
     inline void silence_unused_warnings_##name() { (void) name; }               \
     /***/
+
+
+#endif
 
 #define BOOST_SPIRIT_DEFINE_CHAR_CODES(charset)                                 \
     namespace boost { namespace spirit { namespace tag { namespace charset      \

@@ -12,6 +12,7 @@
 #pragma once
 #endif
 
+#include <boost/spirit/include/phoenix_limits.hpp>      // needs to be included before proto
 #include <boost/proto/proto.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_base_of.hpp>

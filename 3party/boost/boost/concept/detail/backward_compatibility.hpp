@@ -8,7 +8,7 @@ namespace boost
 {
   namespace concepts {}
 
-# if !defined(BOOST_NO_CONCEPTS) && !defined(BOOST_CONCEPT_NO_BACKWARD_KEYWORD)
+# if defined(BOOST_HAS_CONCEPTS) && !defined(BOOST_CONCEPT_NO_BACKWARD_KEYWORD)
   namespace concept = concepts;
 # endif 
 } // namespace boost::concept

@@ -74,7 +74,9 @@ namespace boost { namespace spirit
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit { namespace karma
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::left_align;
+#endif
     using spirit::left_align_type;
 
     namespace detail

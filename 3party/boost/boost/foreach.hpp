@@ -15,6 +15,7 @@
 //  Alisdair Meredith - For help porting to Borland
 //  Stefan Slapeta    - For help porting to Intel
 //  David Jenkins     - For help finding a Microsoft Code Analysis bug
+//  mimomorin@...     - For a patch to use rvalue refs on supporting compilers
 
 #ifndef BOOST_FOREACH
 
@@ -30,8 +31,10 @@
 #include <boost/detail/workaround.hpp>
 
 // Some compilers let us detect even const-qualified rvalues at compile-time
-#if BOOST_WORKAROUND(BOOST_MSVC, >= 1310) && !defined(_PREFAST_)                                 \
- || (BOOST_WORKAROUND(__GNUC__, >= 4) && !defined(BOOST_INTEL) && !defined(BOOST_CLANG))         \
+#if !defined(BOOST_NO_RVALUE_REFERENCES)                                                         \
+ || BOOST_WORKAROUND(BOOST_MSVC, >= 1310) && !defined(_PREFAST_)                                 \
+ || (BOOST_WORKAROUND(__GNUC__, == 4) && (__GNUC_MINOR__ <= 5) && !defined(BOOST_INTEL) &&       \
+                                                                  !defined(BOOST_CLANG))         \
  || (BOOST_WORKAROUND(__GNUC__, == 3) && (__GNUC_MINOR__ >= 4) && !defined(BOOST_INTEL) &&       \
                                                                   !defined(BOOST_CLANG))
 # define BOOST_FOREACH_COMPILE_TIME_CONST_RVALUE_DETECTION
@@ -80,6 +83,7 @@
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_abstract.hpp>
 #include <boost/type_traits/is_base_and_derived.hpp>
+#include <boost/type_traits/is_rvalue_reference.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/utility/addressof.hpp>
 #include <boost/foreach_fwd.hpp>
@@ -214,12 +218,6 @@ template<typename Bool1>
 inline boost::mpl::not_<Bool1> *not_(Bool1 *) { return 0; }
 
 template<typename T>
-inline boost::mpl::false_ *is_rvalue_(T &, int) { return 0; }
-
-template<typename T>
-inline boost::mpl::true_ *is_rvalue_(T const &, ...) { return 0; }
-
-template<typename T>
 inline boost::is_array<T> *is_array_(T const &) { return 0; }
 
 template<typename T>
@@ -228,6 +226,17 @@ inline boost::is_const<T> *is_const_(T &) { return 0; }
 #ifndef BOOST_FOREACH_NO_RVALUE_DETECTION
 template<typename T>
 inline boost::mpl::true_ *is_const_(T const &) { return 0; }
+#endif
+
+#ifdef BOOST_NO_RVALUE_REFERENCES
+template<typename T>
+inline boost::mpl::false_ *is_rvalue_(T &, int) { return 0; }
+
+template<typename T>
+inline boost::mpl::true_ *is_rvalue_(T const &, ...) { return 0; }
+#else
+template<typename T>
+inline boost::is_rvalue_reference<T &&> *is_rvalue_(T &&, int) { return 0; }
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -445,7 +454,18 @@ inline T &derefof(T *t)
     );
 }
 
-#ifdef BOOST_FOREACH_COMPILE_TIME_CONST_RVALUE_DETECTION
+#if defined(BOOST_FOREACH_COMPILE_TIME_CONST_RVALUE_DETECTION)                                  \
+ && !defined(BOOST_NO_RVALUE_REFERENCES)
+///////////////////////////////////////////////////////////////////////////////
+// Rvalue references makes it drop-dead simple to detect at compile time
+// whether an expression is an rvalue.
+///////////////////////////////////////////////////////////////////////////////
+
+# define BOOST_FOREACH_IS_RVALUE(COL)                                                           \
+    boost::foreach_detail_::is_rvalue_((COL), 0)
+
+#elif defined(BOOST_FOREACH_COMPILE_TIME_CONST_RVALUE_DETECTION)                                \
+ && defined(BOOST_NO_RVALUE_REFERENCES)
 ///////////////////////////////////////////////////////////////////////////////
 // Detect at compile-time whether an expression yields an rvalue or
 // an lvalue. This is rather non-standard, but some popular compilers
@@ -902,7 +922,7 @@ rderef(auto_any_t cur, type2type<T, C> *)
             boost::foreach_detail_::to_ptr(COL)                                                 \
           , boost_foreach_argument_dependent_lookup_hack_value))
 
-#ifdef BOOST_FOREACH_COMPILE_TIME_CONST_RVALUE_DETECTION
+#if defined(BOOST_FOREACH_COMPILE_TIME_CONST_RVALUE_DETECTION)
 ///////////////////////////////////////////////////////////////////////////////
 // R-values and const R-values supported here with zero runtime overhead
 ///////////////////////////////////////////////////////////////////////////////

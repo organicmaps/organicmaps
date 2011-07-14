@@ -136,7 +136,7 @@ inline RealType pdf(const inverse_gaussian_distribution<RealType, Policy>& dist,
 
    RealType scale = dist.scale();
    RealType mean = dist.mean();
-   RealType result;
+   RealType result = 0;
    static const char* function = "boost::math::pdf(const inverse_gaussian_distribution<%1%>&, %1%)";
    if(false == detail::check_scale(function, scale, &result, Policy()))
    {
@@ -170,7 +170,7 @@ inline RealType cdf(const inverse_gaussian_distribution<RealType, Policy>& dist,
    RealType scale = dist.scale();
    RealType mean = dist.mean();
    static const char* function = "boost::math::cdf(const inverse_gaussian_distribution<%1%>&, %1%)";
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_scale(function, scale, &result, Policy()))
    {
       return result;
@@ -317,7 +317,7 @@ inline RealType quantile(const inverse_gaussian_distribution<RealType, Policy>& 
    RealType scale = dist.scale();
    static const char* function = "boost::math::quantile(const inverse_gaussian_distribution<%1%>&, %1%)";
 
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_scale(function, scale, &result, Policy()))
       return result;
    if(false == detail::check_location(function, mean, &result, Policy()))
@@ -375,7 +375,7 @@ inline RealType cdf(const complemented2_type<inverse_gaussian_distribution<RealT
    //{ // cdf complement -infinity is unity.
    //  return 1;
    //}
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_scale(function, scale, &result, Policy()))
       return result;
    if(false == detail::check_location(function, mean, &result, Policy()))
@@ -407,7 +407,7 @@ inline RealType quantile(const complemented2_type<inverse_gaussian_distribution<
    RealType scale = c.dist.scale();
    RealType mean = c.dist.mean();
    static const char* function = "boost::math::quantile(const complement(inverse_gaussian_distribution<%1%>&), %1%)";
-   RealType result;
+   RealType result = 0;
    if(false == detail::check_scale(function, scale, &result, Policy()))
       return result;
    if(false == detail::check_location(function, mean, &result, Policy()))

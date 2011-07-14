@@ -51,8 +51,9 @@ public:
 
   /// Construct an overlapped_ptr to contain the specified handler.
   template <typename Handler>
-  explicit overlapped_ptr(boost::asio::io_service& io_service, Handler handler)
-    : impl_(io_service, handler)
+  explicit overlapped_ptr(boost::asio::io_service& io_service,
+      BOOST_ASIO_MOVE_ARG(Handler) handler)
+    : impl_(io_service, BOOST_ASIO_MOVE_CAST(Handler)(handler))
   {
   }
 
@@ -70,9 +71,10 @@ public:
   /// Reset to contain the specified handler, freeing any current OVERLAPPED
   /// object.
   template <typename Handler>
-  void reset(boost::asio::io_service& io_service, Handler handler)
+  void reset(boost::asio::io_service& io_service,
+      BOOST_ASIO_MOVE_ARG(Handler) handler)
   {
-    impl_.reset(io_service, handler);
+    impl_.reset(io_service, BOOST_ASIO_MOVE_CAST(Handler)(handler));
   }
 
   /// Get the contained OVERLAPPED object.

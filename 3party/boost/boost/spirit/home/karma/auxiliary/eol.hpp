@@ -33,7 +33,9 @@ namespace boost { namespace spirit
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit { namespace karma
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using boost::spirit::eol;
+#endif
     using boost::spirit::eol_type;
 
     struct eol_generator : primitive_generator<eol_generator>

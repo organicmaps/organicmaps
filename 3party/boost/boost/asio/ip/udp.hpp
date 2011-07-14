@@ -46,12 +46,6 @@ public:
   /// The type of a UDP endpoint.
   typedef basic_endpoint<udp> endpoint;
 
-  /// (Deprecated: use resolver::query.) The type of a resolver query.
-  typedef basic_resolver_query<udp> resolver_query;
-
-  /// (Deprecated: use resolver::iterator.) The type of a resolver iterator.
-  typedef basic_resolver_iterator<udp> resolver_iterator;
-
   /// Construct to represent the IPv4 UDP protocol.
   static udp v4()
   {
@@ -102,8 +96,8 @@ public:
 
 private:
   // Construct with a specific family.
-  explicit udp(int family)
-    : family_(family)
+  explicit udp(int protocol_family)
+    : family_(protocol_family)
   {
   }
 

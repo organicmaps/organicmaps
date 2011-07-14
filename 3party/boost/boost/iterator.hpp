@@ -1,4 +1,4 @@
-//  interator.hpp workarounds for non-conforming standard libraries  ---------//
+//  iterator.hpp workarounds for non-conforming standard libraries  ---------//
 
 //  (C) Copyright Beman Dawes 2000. Distributed under the Boost
 //  Software License, Version 1.0. (See accompanying file

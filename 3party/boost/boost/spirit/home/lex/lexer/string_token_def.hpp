@@ -17,6 +17,7 @@
 #include <boost/spirit/home/lex/meta_compiler.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/add_reference.hpp>
+#include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
@@ -26,25 +27,37 @@ namespace boost { namespace spirit
     ///////////////////////////////////////////////////////////////////////////
     // Enablers
     ///////////////////////////////////////////////////////////////////////////
+
+    // enables strings
     template <typename T>
     struct use_terminal<lex::domain, T
-      , typename enable_if<traits::is_string<T> >::type> // enables strings
+      , typename enable_if<traits::is_string<T> >::type>
       : mpl::true_ {};
 
+    // enables string(str)
     template <typename CharEncoding, typename A0>
     struct use_terminal<lex::domain
       , terminal_ex<
-            tag::char_code<tag::string, CharEncoding>   // enables string(str)
-          , fusion::vector1<A0> >
-    > : traits::is_string<A0> {};
+            tag::char_code<tag::string, CharEncoding>
+          , fusion::vector1<A0> > > 
+      : traits::is_string<A0> {};
 
+    // enables string(str, ID)
+    template <typename CharEncoding, typename A0, typename A1>
+    struct use_terminal<lex::domain
+      , terminal_ex<
+            tag::char_code<tag::string, CharEncoding>
+          , fusion::vector2<A0, A1> > > 
+      : traits::is_string<A0> {};
 }}
 
 namespace boost { namespace spirit { namespace lex
 { 
     // use string from standard character set by default
-    using spirit::standard::string_type;
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::standard::string;
+#endif
+    using spirit::standard::string_type;
 
     ///////////////////////////////////////////////////////////////////////////
     //
@@ -52,17 +65,18 @@ namespace boost { namespace spirit { namespace lex
     //      represents a string based token definition
     //
     ///////////////////////////////////////////////////////////////////////////
-    template <typename String, typename CharEncoding = char_encoding::standard>
+    template <typename String, typename IdType = std::size_t
+      , typename CharEncoding = char_encoding::standard>
     struct string_token_def
-      : primitive_lexer<string_token_def<String, CharEncoding> >
+      : primitive_lexer<string_token_def<String, IdType, CharEncoding> >
     {
         typedef typename
             remove_const<typename traits::char_type_of<String>::type>::type
         char_type;
         typedef std::basic_string<char_type> string_type;
 
-        string_token_def(typename add_reference<String>::type str)
-          : str_(str), id_(std::size_t(~0)), unique_id_(std::size_t(~0))
+        string_token_def(typename add_reference<String>::type str, IdType const& id)
+          : str_(str), id_(id), unique_id_(std::size_t(~0))
           , token_state_(std::size_t(~0)) 
         {}
 
@@ -88,8 +102,8 @@ namespace boost { namespace spirit { namespace lex
             token_state_ = state_id;
 
             typedef typename LexerDef::id_type id_type;
-            if (std::size_t(~0) == id_)
-                id_ = lexdef.get_next_id();
+            if (IdType(~0) == id_)
+                id_ = IdType(lexdef.get_next_id());
 
             unique_id_ = lexdef.add_token (state.c_str(), str_, id_, target);
         }
@@ -102,7 +116,7 @@ namespace boost { namespace spirit { namespace lex
         std::size_t state() const { return token_state_; }
 
         string_type str_;
-        mutable std::size_t id_;
+        mutable IdType id_;
         mutable std::size_t unique_id_;
         mutable std::size_t token_state_;
     };
@@ -120,7 +134,7 @@ namespace boost { namespace spirit { namespace lex
         result_type operator()(
             typename add_reference<const_string>::type str, unused_type) const
         {
-            return result_type(str);
+            return result_type(str, std::size_t(~0));
         }
     };
 
@@ -132,15 +146,33 @@ namespace boost { namespace spirit { namespace lex
       , Modifiers>
     {
         typedef typename add_const<A0>::type const_string;
-        typedef string_token_def<const_string, CharEncoding> result_type;
+        typedef string_token_def<const_string, std::size_t, CharEncoding> 
+            result_type;
 
         template <typename Terminal>
         result_type operator()(Terminal const& term, unused_type) const
         {
-            return result_type(fusion::at_c<0>(term.args));
+            return result_type(fusion::at_c<0>(term.args), std::size_t(~0));
         }
     };
 
+    template <typename Modifiers, typename CharEncoding, typename A0, typename A1>
+    struct make_primitive<
+        terminal_ex<
+            tag::char_code<tag::string, CharEncoding>
+          , fusion::vector2<A0, A1> >
+      , Modifiers>
+    {
+        typedef typename add_const<A0>::type const_string;
+        typedef string_token_def<const_string, A1, CharEncoding> result_type;
+
+        template <typename Terminal>
+        result_type operator()(Terminal const& term, unused_type) const
+        {
+            return result_type(
+                fusion::at_c<0>(term.args), fusion::at_c<1>(term.args));
+        }
+    };
 }}}  // namespace boost::spirit::lex
 
 #endif 

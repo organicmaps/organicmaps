@@ -78,8 +78,9 @@ public:
    * boost::asio::ip::udp::endpoint ep(boost::asio::ip::udp::v6(), 9876);
    * @endcode
    */
-  basic_endpoint(const InternetProtocol& protocol, unsigned short port_num)
-    : impl_(protocol.family(), port_num)
+  basic_endpoint(const InternetProtocol& internet_protocol,
+      unsigned short port_num)
+    : impl_(internet_protocol.family(), port_num)
   {
   }
 
@@ -97,12 +98,29 @@ public:
   {
   }
 
+#if defined(BOOST_ASIO_HAS_MOVE)
+  /// Move constructor.
+  basic_endpoint(basic_endpoint&& other)
+    : impl_(other.impl_)
+  {
+  }
+#endif // defined(BOOST_ASIO_HAS_MOVE)
+
   /// Assign from another endpoint.
   basic_endpoint& operator=(const basic_endpoint& other)
   {
     impl_ = other.impl_;
     return *this;
   }
+
+#if defined(BOOST_ASIO_HAS_MOVE)
+  /// Move-assign from another endpoint.
+  basic_endpoint& operator=(basic_endpoint&& other)
+  {
+    impl_ = other.impl_;
+    return *this;
+  }
+#endif // defined(BOOST_ASIO_HAS_MOVE)
 
   /// The protocol associated with the endpoint.
   protocol_type protocol() const
@@ -131,9 +149,9 @@ public:
   }
 
   /// Set the underlying size of the endpoint in the native type.
-  void resize(std::size_t size)
+  void resize(std::size_t new_size)
   {
-    impl_.resize(size);
+    impl_.resize(new_size);
   }
 
   /// Get the capacity of the endpoint in the native type.

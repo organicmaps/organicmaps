@@ -17,7 +17,7 @@
 
 #include <boost/asio/detail/config.hpp>
 #include <string>
-#include <boost/array.hpp>
+#include <boost/asio/detail/array.hpp>
 #include <boost/asio/detail/socket_types.hpp>
 #include <boost/asio/detail/winsock_init.hpp>
 #include <boost/system/error_code.hpp>
@@ -46,7 +46,15 @@ class address_v6
 {
 public:
   /// The type used to represent an address as an array of bytes.
-  typedef boost::array<unsigned char, 16> bytes_type;
+  /**
+   * @note This type is defined in terms of the C++0x template @c std::array
+   * when it is available. Otherwise, it uses @c boost:array.
+   */
+#if defined(GENERATING_DOCUMENTATION)
+  typedef array<unsigned char, 16> bytes_type;
+#else
+  typedef boost::asio::detail::array<unsigned char, 16> bytes_type;
+#endif
 
   /// Default constructor.
   BOOST_ASIO_DECL address_v6();
@@ -58,8 +66,18 @@ public:
   /// Copy constructor.
   BOOST_ASIO_DECL address_v6(const address_v6& other);
 
+#if defined(BOOST_ASIO_HAS_MOVE)
+  /// Move constructor.
+  BOOST_ASIO_DECL address_v6(address_v6&& other);
+#endif // defined(BOOST_ASIO_HAS_MOVE)
+
   /// Assign from another address.
   BOOST_ASIO_DECL address_v6& operator=(const address_v6& other);
+
+#if defined(BOOST_ASIO_HAS_MOVE)
+  /// Move-assign from another address.
+  BOOST_ASIO_DECL address_v6& operator=(address_v6&& other);
+#endif // defined(BOOST_ASIO_HAS_MOVE)
 
   /// The scope ID of the address.
   /**

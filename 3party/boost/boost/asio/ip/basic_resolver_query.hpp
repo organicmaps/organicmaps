@@ -48,8 +48,8 @@ public:
    * This constructor is typically used to perform name resolution for local
    * service binding.
    *
-   * @param service_name A string identifying the requested service. This may
-   * be a descriptive name or a numeric string corresponding to a port number.
+   * @param service A string identifying the requested service. This may be a
+   * descriptive name or a numeric string corresponding to a port number.
    *
    * @param resolve_flags A set of flags that determine how name resolution
    * should be performed. The default flags are suitable for local service
@@ -60,11 +60,11 @@ public:
    * <tt>c:\\windows\\system32\\drivers\\etc\\services</tt>. Operating systems
    * may use additional locations when resolving service names.
    */
-  basic_resolver_query(const std::string& service_name,
+  basic_resolver_query(const std::string& service,
       resolver_query_base::flags resolve_flags = passive | address_configured)
     : hints_(),
       host_name_(),
-      service_name_(service_name)
+      service_name_(service)
   {
     typename InternetProtocol::endpoint endpoint;
     hints_.ai_flags = static_cast<int>(resolve_flags);
@@ -85,8 +85,8 @@ public:
    * @param protocol A protocol object, normally representing either the IPv4 or
    * IPv6 version of an internet protocol.
    *
-   * @param service_name A string identifying the requested service. This may
-   * be a descriptive name or a numeric string corresponding to a port number.
+   * @param service A string identifying the requested service. This may be a
+   * descriptive name or a numeric string corresponding to a port number.
    *
    * @param resolve_flags A set of flags that determine how name resolution
    * should be performed. The default flags are suitable for local service
@@ -98,11 +98,11 @@ public:
    * may use additional locations when resolving service names.
    */
   basic_resolver_query(const protocol_type& protocol,
-      const std::string& service_name,
+      const std::string& service,
       resolver_query_base::flags resolve_flags = passive | address_configured)
     : hints_(),
       host_name_(),
-      service_name_(service_name)
+      service_name_(service)
   {
     hints_.ai_flags = static_cast<int>(resolve_flags);
     hints_.ai_family = protocol.family();
@@ -119,16 +119,16 @@ public:
    * This constructor is typically used to perform name resolution for
    * communication with remote hosts.
    *
-   * @param host_name A string identifying a location. May be a descriptive name
-   * or a numeric address string. If an empty string and the passive flag has
-   * been specified, the resolved endpoints are suitable for local service
-   * binding. If an empty string and passive is not specified, the resolved
-   * endpoints will use the loopback address.
+   * @param host A string identifying a location. May be a descriptive name or
+   * a numeric address string. If an empty string and the passive flag has been
+   * specified, the resolved endpoints are suitable for local service binding.
+   * If an empty string and passive is not specified, the resolved endpoints
+   * will use the loopback address.
    *
-   * @param service_name A string identifying the requested service. This may
-   * be a descriptive name or a numeric string corresponding to a port number.
-   * May be an empty string, in which case all resolved endpoints will have a
-   * port number of 0.
+   * @param service A string identifying the requested service. This may be a
+   * descriptive name or a numeric string corresponding to a port number. May
+   * be an empty string, in which case all resolved endpoints will have a port
+   * number of 0.
    *
    * @param resolve_flags A set of flags that determine how name resolution
    * should be performed. The default flags are suitable for communication with
@@ -145,12 +145,11 @@ public:
    * <tt>c:\\windows\\system32\\drivers\\etc\\services</tt>. Operating systems
    * may use additional locations when resolving service names.
    */
-  basic_resolver_query(const std::string& host_name,
-      const std::string& service_name,
+  basic_resolver_query(const std::string& host, const std::string& service,
       resolver_query_base::flags resolve_flags = address_configured)
     : hints_(),
-      host_name_(host_name),
-      service_name_(service_name)
+      host_name_(host),
+      service_name_(service)
   {
     typename InternetProtocol::endpoint endpoint;
     hints_.ai_flags = static_cast<int>(resolve_flags);
@@ -171,16 +170,16 @@ public:
    * @param protocol A protocol object, normally representing either the IPv4 or
    * IPv6 version of an internet protocol.
    *
-   * @param host_name A string identifying a location. May be a descriptive name
-   * or a numeric address string. If an empty string and the passive flag has
-   * been specified, the resolved endpoints are suitable for local service
-   * binding. If an empty string and passive is not specified, the resolved
-   * endpoints will use the loopback address.
+   * @param host A string identifying a location. May be a descriptive name or
+   * a numeric address string. If an empty string and the passive flag has been
+   * specified, the resolved endpoints are suitable for local service binding.
+   * If an empty string and passive is not specified, the resolved endpoints
+   * will use the loopback address.
    *
-   * @param service_name A string identifying the requested service. This may
-   * be a descriptive name or a numeric string corresponding to a port number.
-   * May be an empty string, in which case all resolved endpoints will have a
-   * port number of 0.
+   * @param service A string identifying the requested service. This may be a
+   * descriptive name or a numeric string corresponding to a port number. May
+   * be an empty string, in which case all resolved endpoints will have a port
+   * number of 0.
    *
    * @param resolve_flags A set of flags that determine how name resolution
    * should be performed. The default flags are suitable for communication with
@@ -198,11 +197,11 @@ public:
    * may use additional locations when resolving service names.
    */
   basic_resolver_query(const protocol_type& protocol,
-      const std::string& host_name, const std::string& service_name,
+      const std::string& host, const std::string& service,
       resolver_query_base::flags resolve_flags = address_configured)
     : hints_(),
-      host_name_(host_name),
-      service_name_(service_name)
+      host_name_(host),
+      service_name_(service)
   {
     hints_.ai_flags = static_cast<int>(resolve_flags);
     hints_.ai_family = protocol.family();

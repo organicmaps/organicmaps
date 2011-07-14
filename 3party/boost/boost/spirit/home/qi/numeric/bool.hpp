@@ -32,7 +32,7 @@ namespace boost { namespace spirit
         struct bool_policies;
 
         ///////////////////////////////////////////////////////////////////////
-        // This is the class that the user can instantiate directly in 
+        // This is the class that the user can instantiate directly in
         // order to create a customized bool parser
         template <typename T, typename BoolPolicies = bool_policies<T> >
         struct bool_parser
@@ -64,7 +64,7 @@ namespace boost { namespace spirit
     ///////////////////////////////////////////////////////////////////////////
     template <typename A0> // enables lit(...)
     struct use_terminal<qi::domain
-        , terminal_ex<tag::lit, fusion::vector1<A0> > 
+        , terminal_ex<tag::lit, fusion::vector1<A0> >
         , typename enable_if<is_same<A0, bool> >::type>
       : mpl::true_ {};
 
@@ -75,7 +75,7 @@ namespace boost { namespace spirit
     > : mpl::true_ {};
 
     template <> // enables *lazy* bool_(...)
-    struct use_lazy_terminal<qi::domain, tag::bool_, 1> 
+    struct use_lazy_terminal<qi::domain, tag::bool_, 1>
       : mpl::true_ {};
 
     ///////////////////////////////////////////////////////////////////////////
@@ -103,14 +103,15 @@ namespace boost { namespace spirit
 
 namespace boost { namespace spirit { namespace qi
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::bool_;
-    using spirit::bool__type;
     using spirit::true_;
-    using spirit::true__type;
     using spirit::false_;
-    using spirit::false__type;
-
     using spirit::lit;    // lit(true) is equivalent to true
+#endif
+    using spirit::bool_type;
+    using spirit::true_type;
+    using spirit::false_type;
     using spirit::lit_type;
 
     namespace detail
@@ -121,7 +122,7 @@ namespace boost { namespace spirit { namespace qi
             template <typename Iterator, typename Attribute>
             static bool parse(Iterator& first, Iterator const& last
               , Attribute& attr, BoolPolicies const& p, bool allow_true = true
-              , bool disallow_false = false) 
+              , bool disallow_false = false)
             {
                 if (first == last)
                     return false;
@@ -214,7 +215,7 @@ namespace boost { namespace spirit { namespace qi
                 no_case
               , is_same<bool_policies<T>, Policies>
             >
-          , any_bool_parser<T, no_case_bool_policies<T> > 
+          , any_bool_parser<T, no_case_bool_policies<T> >
           , any_bool_parser<T, Policies> >::type
         result_type;
 
@@ -236,7 +237,7 @@ namespace boost { namespace spirit { namespace qi
                 no_case
               , is_same<bool_policies<T>, Policies>
             >
-          , literal_bool_parser<T, no_case_bool_policies<T>, false> 
+          , literal_bool_parser<T, no_case_bool_policies<T>, false>
           , literal_bool_parser<T, Policies, false> >::type
         result_type;
 
@@ -247,7 +248,7 @@ namespace boost { namespace spirit { namespace qi
         }
     };
 
-    template <typename T, typename Modifiers, bool b 
+    template <typename T, typename Modifiers, bool b
             , typename Policies = bool_policies<T> >
     struct make_predefined_direct_bool
     {
@@ -259,7 +260,7 @@ namespace boost { namespace spirit { namespace qi
                 no_case
               , is_same<bool_policies<T>, Policies>
             >
-          , literal_bool_parser<T, no_case_bool_policies<T>, false> 
+          , literal_bool_parser<T, no_case_bool_policies<T>, false>
           , literal_bool_parser<T, Policies, false> >::type
         result_type;
 
@@ -281,7 +282,7 @@ namespace boost { namespace spirit { namespace qi
                 no_case
               , is_same<bool_policies<T>, Policies>
             >
-          , literal_bool_parser<T, no_case_bool_policies<T> > 
+          , literal_bool_parser<T, no_case_bool_policies<T> >
           , literal_bool_parser<T, Policies> >::type
         result_type;
 
@@ -313,7 +314,7 @@ namespace boost { namespace spirit { namespace qi
     ///////////////////////////////////////////////////////////////////////////
     template <typename T, typename Policies, typename Modifiers>
     struct make_primitive<
-        tag::stateful_tag<Policies, tag::bool_, T>, Modifiers> 
+        tag::stateful_tag<Policies, tag::bool_, T>, Modifiers>
       : make_bool<T, Modifiers, Policies> {};
 
     template <typename T, typename Policies, typename A0, typename Modifiers>

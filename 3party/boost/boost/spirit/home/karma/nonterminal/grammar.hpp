@@ -99,7 +99,7 @@ namespace boost { namespace spirit { namespace karma
         }
 
         template <typename Context>
-        info what(Context& context) const
+        info what(Context&) const
         {
             return info(name_);
         }

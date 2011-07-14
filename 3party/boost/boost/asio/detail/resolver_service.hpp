@@ -67,8 +67,8 @@ public:
 
   // Asynchronously resolve a query to a list of entries.
   template <typename Handler>
-  void async_resolve(implementation_type& impl, const query_type& query,
-      Handler handler)
+  void async_resolve(implementation_type& impl,
+      const query_type& query, Handler handler)
   {
     // Allocate and construct an operation to wrap the handler.
     typedef resolve_op<Protocol, Handler> op;
@@ -76,6 +76,8 @@ public:
       boost_asio_handler_alloc_helpers::allocate(
         sizeof(op), handler), 0 };
     p.p = new (p.v) op(impl, query, io_service_impl_, handler);
+
+    BOOST_ASIO_HANDLER_CREATION((p.p, "resolver", &impl, "async_resolve"));
 
     start_resolve_op(p.p);
     p.v = p.p = 0;
@@ -97,8 +99,8 @@ public:
 
   // Asynchronously resolve an endpoint to a list of entries.
   template <typename Handler>
-  void async_resolve(implementation_type& impl, const endpoint_type& endpoint,
-      Handler handler)
+  void async_resolve(implementation_type& impl,
+      const endpoint_type& endpoint, Handler handler)
   {
     // Allocate and construct an operation to wrap the handler.
     typedef resolve_endpoint_op<Protocol, Handler> op;
@@ -106,6 +108,8 @@ public:
       boost_asio_handler_alloc_helpers::allocate(
         sizeof(op), handler), 0 };
     p.p = new (p.v) op(impl, endpoint, io_service_impl_, handler);
+
+    BOOST_ASIO_HANDLER_CREATION((p.p, "resolver", &impl, "async_resolve"));
 
     start_resolve_op(p.p);
     p.v = p.p = 0;

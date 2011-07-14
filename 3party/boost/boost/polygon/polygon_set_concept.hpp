@@ -8,6 +8,7 @@
 #ifndef BOOST_POLYGON_POLYGON_SET_CONCEPT_HPP
 #define BOOST_POLYGON_POLYGON_SET_CONCEPT_HPP
 #include "polygon_set_data.hpp"
+#include "detail/polygon_simplify.hpp"
 namespace boost { namespace polygon{
 
   template <typename T, typename T2>
@@ -148,16 +149,39 @@ namespace boost { namespace polygon{
     return retval;
   }
 
-  // TODO: Dafna add ngon parameter passing
+  template <typename polygon_set_type>
+  typename enable_if< typename is_mutable_polygon_set_type<polygon_set_type>::type,
+                      std::size_t>::type
+  simplify(polygon_set_type& polygon_set, typename coordinate_traits<
+           typename polygon_set_traits<polygon_set_type>::coordinate_type
+           >::coordinate_distance threshold) {
+    typedef typename polygon_set_traits<polygon_set_type>::coordinate_type Unit;
+    typedef polygon_with_holes_data<Unit> p_type;
+    std::vector<p_type> polys;
+    assign(polys, polygon_set);
+    std::size_t retval = 0;
+    for(std::size_t i = 0; i < polys.size(); ++i) {
+      retval += detail::simplify_detail::simplify(polys[i].self_.coords_, 
+                                                  polys[i].self_.coords_, threshold);
+      for(typename std::list<polygon_data<Unit> >::iterator itrh = 
+            polys[i].holes_.begin(); itrh != (polys[i].holes_.end()); ++itrh) {
+        retval += detail::simplify_detail::simplify((*itrh).coords_, 
+                                                    (*itrh).coords_, threshold);
+      }
+    }
+    assign(polygon_set, polys);
+    return retval;
+  }
+
   template <typename polygon_set_type, typename coord_type>
   typename enable_if< typename is_mutable_polygon_set_type<polygon_set_type>::type,
                        polygon_set_type>::type &
-  resize(polygon_set_type& polygon_set, coord_type resizing, bool corner_fill_arcs = false, int ngon=0) {
+  resize(polygon_set_type& polygon_set, coord_type resizing, bool corner_fill_arcs = false, int num_circle_segments = 0) {
     typedef typename polygon_set_traits<polygon_set_type>::coordinate_type Unit;
     clean(polygon_set);
     polygon_set_data<Unit> ps;
     assign(ps, polygon_set);
-    ps.resize(resizing, corner_fill_arcs,ngon);
+    ps.resize(resizing, corner_fill_arcs,num_circle_segments);
     assign(polygon_set, ps);
     return polygon_set;
   }

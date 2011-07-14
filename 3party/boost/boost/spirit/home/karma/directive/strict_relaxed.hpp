@@ -66,9 +66,11 @@ namespace boost { namespace spirit
 
     namespace karma
     {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
         using boost::spirit::strict;
-        using boost::spirit::strict_type;
         using boost::spirit::relaxed;
+#endif
+        using boost::spirit::strict_type;
         using boost::spirit::relaxed_type;
     }
 }}

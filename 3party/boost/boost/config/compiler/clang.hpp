@@ -29,7 +29,6 @@
 #define BOOST_NO_AUTO_MULTIDECLARATIONS
 #define BOOST_NO_CHAR16_T
 #define BOOST_NO_CHAR32_T
-#define BOOST_NO_CONCEPTS
 #define BOOST_NO_CONSTEXPR
 
 #if !__has_feature(cxx_decltype)
@@ -50,8 +49,10 @@
 
 #define BOOST_NO_INITIALIZER_LISTS
 #define BOOST_NO_LAMBDAS
+#define BOOST_NO_NOEXCEPT
 #define BOOST_NO_NULLPTR
 #define BOOST_NO_RAW_LITERALS
+#define BOOST_NO_UNIFIED_INITIALIZATION_SYNTAX
 
 #if !__has_feature(cxx_rvalue_references)
 #  define BOOST_NO_RVALUE_REFERENCES

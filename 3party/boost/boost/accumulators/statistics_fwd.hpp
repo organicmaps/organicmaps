@@ -109,6 +109,10 @@ namespace tag
     struct sum_of_weights;
     template<typename VariateType, typename VariateTag>
     struct sum_of_variates;
+    struct sum_kahan;
+    struct sum_of_weights_kahan;
+    template<typename VariateType, typename VariateTag>
+    struct sum_of_variates_kahan;
     template<typename LeftRight>
     struct tail;
     template<typename LeftRight>
@@ -263,6 +267,9 @@ namespace impl
     template<typename Sample, typename Tag = tag::sample>
     struct sum_impl;
 
+    template<typename Sample, typename Tag>
+    struct sum_kahan_impl;
+
     template<typename Sample, typename LeftRight>
     struct tail_impl;
 
@@ -337,6 +344,9 @@ namespace impl
 
     template<typename Sample, typename Weight, typename Tag>
     struct weighted_sum_impl;
+
+    template<typename Sample, typename Weight, typename Tag>
+    struct weighted_sum_kahan_impl;
 
     template<typename Sample, typename Weight, typename LeftRight>
     struct non_coherent_weighted_tail_mean_impl;
@@ -413,6 +423,9 @@ struct quadratic {};
 // modifiers for p_square_quantile
 struct regular {};
 struct for_median {};
+
+// modifier for sum_kahan, sum_of_weights_kahan, sum_of_variates_kahan, weighted_sum_kahan
+struct kahan {};
 
 }} // namespace boost::accumulators
 

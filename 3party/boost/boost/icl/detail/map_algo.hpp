@@ -45,7 +45,7 @@ template<class MapT>
 typename MapT::const_iterator next_proton(typename MapT::const_iterator& iter_, const MapT& object)
 {
     while(   iter_ != object.end() 
-          && iter_->second == identity_element<typename MapT::codomain_type>::value())
+          && (*iter_).second == identity_element<typename MapT::codomain_type>::value())
         ++iter_;
 
     return iter_;

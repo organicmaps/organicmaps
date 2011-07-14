@@ -342,7 +342,7 @@ struct BuildGuardsCases::case_<proto::tag::terminal>
             >,
         proto::when<
             proto::terminal<proto::_>,
-            proto::_child
+            proto::_value
             >
     >
 {};

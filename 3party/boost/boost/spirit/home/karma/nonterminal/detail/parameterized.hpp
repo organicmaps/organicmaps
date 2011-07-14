@@ -14,6 +14,7 @@
 
 #include <boost/ref.hpp>
 
+#include <boost/spirit/home/support/handles_container.hpp>
 #include <boost/spirit/home/karma/generator.hpp>
 
 namespace boost { namespace spirit { namespace karma
@@ -58,6 +59,18 @@ namespace boost { namespace spirit { namespace karma
         boost::reference_wrapper<Subject const> ref;
         Params params;
     };
+}}}
+
+namespace boost { namespace spirit { namespace traits
+{
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename Subject, typename Params, typename Attribute
+      , typename Context, typename Iterator>
+    struct handles_container<karma::parameterized_nonterminal<Subject, Params>
+          , Attribute, Context, Iterator>
+      : handles_container<typename remove_const<Subject>::type
+        , Attribute, Context, Iterator> 
+    {};
 }}}
 
 #endif

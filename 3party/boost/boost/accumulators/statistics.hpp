@@ -30,6 +30,7 @@
 #include <boost/accumulators/statistics/skewness.hpp>
 #include <boost/accumulators/statistics/stats.hpp>
 #include <boost/accumulators/statistics/sum.hpp>
+#include <boost/accumulators/statistics/sum_kahan.hpp>
 #include <boost/accumulators/statistics/tail.hpp>
 #include <boost/accumulators/statistics/tail_quantile.hpp>
 #include <boost/accumulators/statistics/tail_mean.hpp>
@@ -48,6 +49,7 @@
 #include <boost/accumulators/statistics/weighted_p_square_quantile.hpp>
 #include <boost/accumulators/statistics/weighted_skewness.hpp>
 #include <boost/accumulators/statistics/weighted_sum.hpp>
+#include <boost/accumulators/statistics/weighted_sum_kahan.hpp>
 #include <boost/accumulators/statistics/weighted_tail_quantile.hpp>
 #include <boost/accumulators/statistics/weighted_tail_mean.hpp>
 #include <boost/accumulators/statistics/weighted_tail_variate_means.hpp>

@@ -40,11 +40,7 @@ epoll_reactor::epoll_reactor(boost::asio::io_service& io_service)
     io_service_(use_service<io_service_impl>(io_service)),
     mutex_(),
     epoll_fd_(do_epoll_create()),
-#if defined(BOOST_ASIO_HAS_TIMERFD)
-    timer_fd_(timerfd_create(CLOCK_MONOTONIC, 0)),
-#else // defined(BOOST_ASIO_HAS_TIMERFD)
-    timer_fd_(-1),
-#endif // defined(BOOST_ASIO_HAS_TIMERFD)
+    timer_fd_(do_timerfd_create()),
     interrupter_(),
     shutdown_(false)
 {
@@ -66,7 +62,8 @@ epoll_reactor::epoll_reactor(boost::asio::io_service& io_service)
 
 epoll_reactor::~epoll_reactor()
 {
-  close(epoll_fd_);
+  if (epoll_fd_ != -1)
+    close(epoll_fd_);
   if (timer_fd_ != -1)
     close(timer_fd_);
 }
@@ -88,6 +85,59 @@ void epoll_reactor::shutdown_service()
   }
 
   timer_queues_.get_all_timers(ops);
+
+  io_service_.abandon_operations(ops);
+}
+
+void epoll_reactor::fork_service(boost::asio::io_service::fork_event fork_ev)
+{
+  if (fork_ev == boost::asio::io_service::fork_child)
+  {
+    if (epoll_fd_ != -1)
+      ::close(epoll_fd_);
+    epoll_fd_ = -1;
+    epoll_fd_ = do_epoll_create();
+
+    if (timer_fd_ != -1)
+      ::close(timer_fd_);
+    timer_fd_ = -1;
+    timer_fd_ = do_timerfd_create();
+
+    interrupter_.recreate();
+
+    // Add the interrupter's descriptor to epoll.
+    epoll_event ev = { 0, { 0 } };
+    ev.events = EPOLLIN | EPOLLERR | EPOLLET;
+    ev.data.ptr = &interrupter_;
+    epoll_ctl(epoll_fd_, EPOLL_CTL_ADD, interrupter_.read_descriptor(), &ev);
+    interrupter_.interrupt();
+
+    // Add the timer descriptor to epoll.
+    if (timer_fd_ != -1)
+    {
+      ev.events = EPOLLIN | EPOLLERR;
+      ev.data.ptr = &timer_fd_;
+      epoll_ctl(epoll_fd_, EPOLL_CTL_ADD, timer_fd_, &ev);
+    }
+
+    update_timeout();
+
+    // Re-register all descriptors with epoll.
+    mutex::scoped_lock descriptors_lock(registered_descriptors_mutex_);
+    for (descriptor_state* state = registered_descriptors_.first();
+        state != 0; state = state->next_)
+    {
+      ev.events = EPOLLIN | EPOLLERR | EPOLLHUP | EPOLLOUT | EPOLLPRI | EPOLLET;
+      ev.data.ptr = state;
+      int result = epoll_ctl(epoll_fd_, EPOLL_CTL_ADD, state->descriptor_, &ev);
+      if (result != 0)
+      {
+        boost::system::error_code ec(errno,
+            boost::asio::error::get_system_category());
+        boost::asio::detail::throw_error(ec, "epoll re-registration");
+      }
+    }
+  }
 }
 
 void epoll_reactor::init_task()
@@ -101,6 +151,7 @@ int epoll_reactor::register_descriptor(socket_type descriptor,
   mutex::scoped_lock lock(registered_descriptors_mutex_);
 
   descriptor_data = registered_descriptors_.alloc();
+  descriptor_data->descriptor_ = descriptor;
   descriptor_data->shutdown_ = false;
 
   lock.unlock();
@@ -113,6 +164,37 @@ int epoll_reactor::register_descriptor(socket_type descriptor,
     return errno;
 
   return 0;
+}
+
+int epoll_reactor::register_internal_descriptor(
+    int op_type, socket_type descriptor,
+    epoll_reactor::per_descriptor_data& descriptor_data, reactor_op* op)
+{
+  mutex::scoped_lock lock(registered_descriptors_mutex_);
+
+  descriptor_data = registered_descriptors_.alloc();
+  descriptor_data->descriptor_ = descriptor;
+  descriptor_data->shutdown_ = false;
+  descriptor_data->op_queue_[op_type].push(op);
+
+  lock.unlock();
+
+  epoll_event ev = { 0, { 0 } };
+  ev.events = EPOLLIN | EPOLLERR | EPOLLHUP | EPOLLOUT | EPOLLPRI | EPOLLET;
+  ev.data.ptr = descriptor_data;
+  int result = epoll_ctl(epoll_fd_, EPOLL_CTL_ADD, descriptor, &ev);
+  if (result != 0)
+    return errno;
+
+  return 0;
+}
+
+void epoll_reactor::move_descriptor(socket_type,
+    epoll_reactor::per_descriptor_data& target_descriptor_data,
+    epoll_reactor::per_descriptor_data& source_descriptor_data)
+{
+  target_descriptor_data = source_descriptor_data;
+  source_descriptor_data = 0;
 }
 
 void epoll_reactor::start_op(int op_type, socket_type descriptor,
@@ -185,8 +267,8 @@ void epoll_reactor::cancel_ops(socket_type,
   io_service_.post_deferred_completions(ops);
 }
 
-void epoll_reactor::close_descriptor(socket_type,
-    epoll_reactor::per_descriptor_data& descriptor_data)
+void epoll_reactor::deregister_descriptor(socket_type descriptor,
+    epoll_reactor::per_descriptor_data& descriptor_data, bool closing)
 {
   if (!descriptor_data)
     return;
@@ -196,8 +278,16 @@ void epoll_reactor::close_descriptor(socket_type,
 
   if (!descriptor_data->shutdown_)
   {
-    // Remove the descriptor from the set of known descriptors. The descriptor
-    // will be automatically removed from the epoll set when it is closed.
+    if (closing)
+    {
+      // The descriptor will be automatically removed from the epoll set when
+      // it is closed.
+    }
+    else
+    {
+      epoll_event ev = { 0, { 0 } };
+      epoll_ctl(epoll_fd_, EPOLL_CTL_DEL, descriptor, &ev);
+    }
 
     op_queue<operation> ops;
     for (int i = 0; i < max_ops; ++i)
@@ -210,6 +300,7 @@ void epoll_reactor::close_descriptor(socket_type,
       }
     }
 
+    descriptor_data->descriptor_ = -1;
     descriptor_data->shutdown_ = true;
 
     descriptor_lock.unlock();
@@ -220,6 +311,36 @@ void epoll_reactor::close_descriptor(socket_type,
     descriptors_lock.unlock();
 
     io_service_.post_deferred_completions(ops);
+  }
+}
+
+void epoll_reactor::deregister_internal_descriptor(socket_type descriptor,
+    epoll_reactor::per_descriptor_data& descriptor_data)
+{
+  if (!descriptor_data)
+    return;
+
+  mutex::scoped_lock descriptor_lock(descriptor_data->mutex_);
+  mutex::scoped_lock descriptors_lock(registered_descriptors_mutex_);
+
+  if (!descriptor_data->shutdown_)
+  {
+    epoll_event ev = { 0, { 0 } };
+    epoll_ctl(epoll_fd_, EPOLL_CTL_DEL, descriptor, &ev);
+
+    op_queue<operation> ops;
+    for (int i = 0; i < max_ops; ++i)
+      ops.push(descriptor_data->op_queue_[i]);
+
+    descriptor_data->descriptor_ = -1;
+    descriptor_data->shutdown_ = true;
+
+    descriptor_lock.unlock();
+
+    registered_descriptors_.free(descriptor_data);
+    descriptor_data = 0;
+
+    descriptors_lock.unlock();
   }
 }
 
@@ -323,14 +444,51 @@ void epoll_reactor::interrupt()
 
 int epoll_reactor::do_epoll_create()
 {
-  int fd = epoll_create(epoll_size);
+#if defined(EPOLL_CLOEXEC)
+  int fd = epoll_create1(EPOLL_CLOEXEC);
+#else // defined(EPOLL_CLOEXEC)
+  int fd = -1;
+  errno = EINVAL;
+#endif // defined(EPOLL_CLOEXEC)
+
+  if (fd == -1 && errno == EINVAL)
+  {
+    fd = epoll_create(epoll_size);
+    if (fd != -1)
+      ::fcntl(fd, F_SETFD, FD_CLOEXEC);
+  }
+
   if (fd == -1)
   {
     boost::system::error_code ec(errno,
         boost::asio::error::get_system_category());
     boost::asio::detail::throw_error(ec, "epoll");
   }
+
   return fd;
+}
+
+int epoll_reactor::do_timerfd_create()
+{
+#if defined(BOOST_ASIO_HAS_TIMERFD)
+# if defined(TFD_CLOEXEC)
+  int fd = timerfd_create(CLOCK_MONOTONIC, TFD_CLOEXEC);
+# else // defined(TFD_CLOEXEC)
+  int fd = -1;
+  errno = EINVAL;
+# endif // defined(TFD_CLOEXEC)
+
+  if (fd == -1 && errno == EINVAL)
+  {
+    fd = timerfd_create(CLOCK_MONOTONIC, 0);
+    if (fd != -1)
+      ::fcntl(fd, F_SETFD, FD_CLOEXEC);
+  }
+
+  return fd;
+#else // defined(BOOST_ASIO_HAS_TIMERFD)
+  return -1;
+#endif // defined(BOOST_ASIO_HAS_TIMERFD)
 }
 
 void epoll_reactor::do_add_timer_queue(timer_queue_base& queue)

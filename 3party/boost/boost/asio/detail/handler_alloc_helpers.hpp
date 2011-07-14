@@ -35,7 +35,7 @@ inline void* allocate(std::size_t s, Handler& h)
   || BOOST_WORKAROUND(__GNUC__, < 3)
   return ::operator new(s);
 #else
-  using namespace boost::asio;
+  using boost::asio::asio_handler_allocate;
   return asio_handler_allocate(s, boost::addressof(h));
 #endif
 }
@@ -47,7 +47,7 @@ inline void deallocate(void* p, std::size_t s, Handler& h)
   || BOOST_WORKAROUND(__GNUC__, < 3)
   ::operator delete(p);
 #else
-  using namespace boost::asio;
+  using boost::asio::asio_handler_deallocate;
   asio_handler_deallocate(p, s, boost::addressof(h));
 #endif
 }

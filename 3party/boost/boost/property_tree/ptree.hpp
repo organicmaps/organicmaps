@@ -181,9 +181,9 @@ namespace boost { namespace property_tree
 
         // Associative view
 
-        /** Returns an iterator to the first child, in order. */
+        /** Returns an iterator to the first child, in key order. */
         assoc_iterator ordered_begin();
-        /** Returns an iterator to the first child, in order. */
+        /** Returns an iterator to the first child, in key order. */
         const_assoc_iterator ordered_begin() const;
 
         /** Returns the not-found iterator. Equivalent to end() in a real
@@ -432,6 +432,7 @@ namespace boost { namespace property_tree
          *   return node->get_value_optional();
          * return boost::null;
          * @endcode
+         * That is, return the value if it exists and can be converted, or nil.
         */
         template<class Type>
         optional<Type> get_optional(const path_type &path) const;

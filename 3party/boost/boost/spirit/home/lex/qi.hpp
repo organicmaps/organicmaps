@@ -14,5 +14,7 @@
 #include <boost/spirit/home/lex/qi/in_state.hpp>
 #include <boost/spirit/home/lex/qi/plain_token.hpp>
 #include <boost/spirit/home/lex/qi/plain_tokenid.hpp>
+#include <boost/spirit/home/lex/qi/plain_tokenid_mask.hpp>
+#include <boost/spirit/home/lex/qi/plain_raw_token.hpp>
 
 #endif

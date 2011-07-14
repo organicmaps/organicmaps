@@ -105,7 +105,7 @@ namespace impl {
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  convert the given token value (character literal) to a unsigned int
+//  Convert the given token value (character literal) to a unsigned int
 //
 ///////////////////////////////////////////////////////////////////////////////
     struct convert_chlit {
@@ -122,7 +122,25 @@ namespace impl {
         { 
             typedef boost::wave::grammars::closures::closure_value return_type;
             value_error status = error_noerror;
-            unsigned int value = chlit_grammar_gen<TokenT>::evaluate(token, status);
+
+            //  If the literal is a wchar_t and wchar_t is represented by a 
+            //  signed integral type, then the created value will be signed as 
+            //  well, otherwise we assume unsigned values.
+#if BOOST_WAVE_WCHAR_T_SIGNEDNESS == BOOST_WAVE_WCHAR_T_AUTOSELECT
+            if ('L' == token.get_value()[0] && std::numeric_limits<wchar_t>::is_signed) 
+            {
+                int value = chlit_grammar_gen<int, TokenT>::evaluate(token, status);
+                return return_type(value, status);
+            }
+#elif BOOST_WAVE_WCHAR_T_SIGNEDNESS == BOOST_WAVE_WCHAR_T_FORCE_SIGNED
+            if ('L' == token.get_value()[0]) 
+            {
+                int value = chlit_grammar_gen<int, TokenT>::evaluate(token, status);
+                return return_type(value, status);
+            }
+#endif
+
+            unsigned int value = chlit_grammar_gen<unsigned int, TokenT>::evaluate(token, status);
             return return_type(value, status);
         }
     };

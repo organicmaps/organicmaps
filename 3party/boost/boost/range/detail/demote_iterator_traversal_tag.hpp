@@ -5,6 +5,9 @@
 //  1.0. (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 //
+// Acknowledgements:
+// aschoedl supplied a fix to supply the level of interoperability I had
+// originally intended, but failed to implement.
 //
 // For more information, see http://www.boost.org/libs/range/
 //
@@ -19,12 +22,12 @@ namespace boost
     {
 
 template<class IteratorTraversalTag1, class IteratorTraversalTag2>
-struct demote_iterator_traversal_tag
+struct inner_demote_iterator_traversal_tag
 {
 };
 
 #define BOOST_DEMOTE_TRAVERSAL_TAG( Tag1, Tag2, ResultTag ) \
-template<> struct demote_iterator_traversal_tag< Tag1 , Tag2 > \
+template<> struct inner_demote_iterator_traversal_tag< Tag1 , Tag2 > \
 { \
     typedef ResultTag type; \
 };
@@ -72,6 +75,15 @@ BOOST_DEMOTE_TRAVERSAL_TAG( random_access_traversal_tag, bidirectional_traversal
 BOOST_DEMOTE_TRAVERSAL_TAG( random_access_traversal_tag, random_access_traversal_tag, random_access_traversal_tag )
 
 #undef BOOST_DEMOTE_TRAVERSAL_TAG
+
+template<class IteratorTraversalTag1, class IteratorTraversalTag2>
+struct demote_iterator_traversal_tag
+    : inner_demote_iterator_traversal_tag<
+        typename boost::detail::pure_traversal_tag< IteratorTraversalTag1 >::type,
+        typename boost::detail::pure_traversal_tag< IteratorTraversalTag2 >::type
+      >
+{
+};
 
     } // namespace range_detail
 } // namespace boost

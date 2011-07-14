@@ -140,6 +140,7 @@ public:
     void reset_macromap();
 
     position_type &get_main_pos() { return main_pos; }
+    position_type const& get_main_pos() const { return main_pos; }
 
 //  interface for macro name introspection
     typedef typename defined_macros_type::name_iterator name_iterator;

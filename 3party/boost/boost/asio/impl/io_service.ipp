@@ -108,9 +108,19 @@ void io_service::stop()
   impl_.stop();
 }
 
+bool io_service::stopped() const
+{
+  return impl_.stopped();
+}
+
 void io_service::reset()
 {
   impl_.reset();
+}
+
+void io_service::notify_fork(boost::asio::io_service::fork_event event)
+{
+  service_registry_->notify_fork(event);
 }
 
 io_service::service::service(boost::asio::io_service& owner)
@@ -120,6 +130,10 @@ io_service::service::service(boost::asio::io_service& owner)
 }
 
 io_service::service::~service()
+{
+}
+
+void io_service::service::fork_service(boost::asio::io_service::fork_event)
 {
 }
 

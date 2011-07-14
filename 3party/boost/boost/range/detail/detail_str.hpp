@@ -134,8 +134,8 @@ namespace boost
 
 #include <boost/range/detail/begin.hpp>
 #include <boost/range/detail/end.hpp>
-#include <boost/range/detail/size_type>
-#include <boost/range/detail/value_type>
+#include <boost/range/detail/size_type.hpp>
+#include <boost/range/detail/value_type.hpp>
 #include <boost/range/detail/common.hpp>
 
 namespace boost 

@@ -623,7 +623,7 @@ namespace detail
       directory_entry,
       boost::single_pass_traversal_tag >::reference dereference() const 
     {
-      BOOST_ASSERT(m_imp.get() && "attempt to dereference end iterator");
+      BOOST_ASSERT_MSG(m_imp.get(), "attempt to dereference end iterator");
       return m_imp->dir_entry;
     }
 
@@ -706,7 +706,8 @@ namespace detail
     inline
     void recur_dir_itr_imp::pop()
     {
-      BOOST_ASSERT(m_level > 0 && "pop() on recursive_directory_iterator with level < 1");
+      BOOST_ASSERT_MSG(m_level > 0,
+        "pop() on recursive_directory_iterator with level < 1");
 
       do
       {
@@ -766,20 +767,23 @@ namespace detail
 
     recursive_directory_iterator& increment(system::error_code& ec)
     {
-      BOOST_ASSERT(m_imp.get() && "increment() on end recursive_directory_iterator");
+      BOOST_ASSERT_MSG(m_imp.get(),
+        "increment() on end recursive_directory_iterator");
       m_imp->increment(&ec);
       return *this;
     }
 
     int level() const
     { 
-      BOOST_ASSERT(m_imp.get() && "level() on end recursive_directory_iterator");
+      BOOST_ASSERT_MSG(m_imp.get(),
+        "level() on end recursive_directory_iterator");
       return m_imp->m_level;
     }
 
     bool no_push_pending() const
     {
-      BOOST_ASSERT(m_imp.get() && "is_no_push_requested() on end recursive_directory_iterator");
+      BOOST_ASSERT_MSG(m_imp.get(),
+        "is_no_push_requested() on end recursive_directory_iterator");
       return (m_imp->m_options & symlink_option::_detail_no_push)
         == symlink_option::_detail_no_push;
     }
@@ -790,14 +794,16 @@ namespace detail
 
     void pop()
     { 
-      BOOST_ASSERT(m_imp.get() && "pop() on end recursive_directory_iterator");
+      BOOST_ASSERT_MSG(m_imp.get(),
+        "pop() on end recursive_directory_iterator");
       m_imp->pop();
       if (m_imp->m_stack.empty()) m_imp.reset(); // done, so make end iterator
     }
 
     void no_push(bool value=true)
     {
-      BOOST_ASSERT(m_imp.get() && "no_push() on end recursive_directory_iterator");
+      BOOST_ASSERT_MSG(m_imp.get(),
+        "no_push() on end recursive_directory_iterator");
       if (value)
         m_imp->m_options |= symlink_option::_detail_no_push;
       else
@@ -806,15 +812,15 @@ namespace detail
 
     file_status status() const
     {
-      BOOST_ASSERT(m_imp.get()
-        && "status() on end recursive_directory_iterator");
+      BOOST_ASSERT_MSG(m_imp.get(),
+        "status() on end recursive_directory_iterator");
       return m_imp->m_stack.top()->status();
     }
 
     file_status symlink_status() const
     {
-      BOOST_ASSERT(m_imp.get()
-        && "symlink_status() on end recursive_directory_iterator");
+      BOOST_ASSERT_MSG(m_imp.get(),
+        "symlink_status() on end recursive_directory_iterator");
       return m_imp->m_stack.top()->symlink_status();
     }
 
@@ -832,13 +838,15 @@ namespace detail
       boost::single_pass_traversal_tag >::reference
     dereference() const 
     {
-      BOOST_ASSERT(m_imp.get() && "dereference of end recursive_directory_iterator");
+      BOOST_ASSERT_MSG(m_imp.get(),
+        "dereference of end recursive_directory_iterator");
       return *m_imp->m_stack.top();
     }
 
     void increment()
     { 
-      BOOST_ASSERT(m_imp.get() && "increment of end recursive_directory_iterator");
+      BOOST_ASSERT_MSG(m_imp.get(),
+        "increment of end recursive_directory_iterator");
       m_imp->increment(0);
       if (m_imp->m_stack.empty())
         m_imp.reset(); // done, so make end iterator

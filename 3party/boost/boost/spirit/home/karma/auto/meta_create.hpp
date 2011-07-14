@@ -30,8 +30,8 @@ namespace boost { namespace spirit { namespace karma
 {
     ///////////////////////////////////////////////////////////////////////////
     // compatible STL containers
-    template <typename Container> 
-    struct meta_create_container 
+    template <typename Container>
+    struct meta_create_container
     {
         typedef make_unary_proto_expr<
             typename Container::value_type
@@ -48,71 +48,71 @@ namespace boost { namespace spirit { namespace karma
 
     ///////////////////////////////////////////////////////////////////////////
     // String types
-    template <typename String> 
-    struct meta_create_string 
+    template <typename String>
+    struct meta_create_string
     {
-        typedef spirit::standard::string_type type; 
-        static type const& call() { return spirit::standard::string; }
+        typedef spirit::standard::string_type type;
+        static type const call() { return type(); }
     };
 
-    template <> 
+    template <>
     struct meta_create_string<wchar_t*>
     {
-        typedef spirit::standard_wide::string_type type; 
-        static type const& call() { return spirit::standard_wide::string; }
+        typedef spirit::standard_wide::string_type type;
+        static type const call() { return type(); }
     };
 
-    template <> 
+    template <>
     struct meta_create_string<wchar_t const*>
     {
-        typedef spirit::standard_wide::string_type type; 
-        static type const& call() { return spirit::standard_wide::string; }
+        typedef spirit::standard_wide::string_type type;
+        static type const call() { return type(); }
     };
 
-    template <int N> 
+    template <int N>
     struct meta_create_string<wchar_t[N]>
     {
-        typedef spirit::standard_wide::string_type type; 
-        static type const& call() { return spirit::standard_wide::string; }
+        typedef spirit::standard_wide::string_type type;
+        static type const call() { return type(); }
     };
 
-    template <int N> 
+    template <int N>
     struct meta_create_string<wchar_t const[N]>
     {
-        typedef spirit::standard_wide::string_type type; 
-        static type const& call() { return spirit::standard_wide::string; }
+        typedef spirit::standard_wide::string_type type;
+        static type const call() { return type(); }
     };
 
-    template <int N> 
+    template <int N>
     struct meta_create_string<wchar_t(&)[N]>
     {
-        typedef spirit::standard_wide::string_type type; 
-        static type const& call() { return spirit::standard_wide::string; }
+        typedef spirit::standard_wide::string_type type;
+        static type const call() { return type(); }
     };
 
-    template <int N> 
+    template <int N>
     struct meta_create_string<wchar_t const(&)[N]>
     {
-        typedef spirit::standard_wide::string_type type; 
-        static type const& call() { return spirit::standard_wide::string; }
+        typedef spirit::standard_wide::string_type type;
+        static type const call() { return type(); }
     };
 
-    template <typename Traits, typename Allocator> 
+    template <typename Traits, typename Allocator>
     struct meta_create_string<std::basic_string<wchar_t, Traits, Allocator> >
     {
-        typedef spirit::standard_wide::string_type type; 
-        static type const& call() { return spirit::standard_wide::string; }
+        typedef spirit::standard_wide::string_type type;
+        static type const call() { return type(); }
     };
 
     ///////////////////////////////////////////////////////////////////////////
     // Fusion sequences
-    template <typename Sequence> 
-    struct meta_create_sequence 
+    template <typename Sequence>
+    struct meta_create_sequence
     {
         // create a mpl sequence from the given fusion sequence
         typedef typename mpl::fold<
             typename fusion::result_of::as_vector<Sequence>::type
-          , mpl::vector<>, mpl::push_back<mpl::_, mpl::_> 
+          , mpl::vector<>, mpl::push_back<mpl::_, mpl::_>
         >::type sequence_type;
 
         typedef make_nary_proto_expr<
@@ -128,10 +128,10 @@ namespace boost { namespace spirit { namespace karma
     };
 
     ///////////////////////////////////////////////////////////////////////////
-    // the default is to use the standard streaming operator unless it's a 
+    // the default is to use the standard streaming operator unless it's a
     // STL container or a fusion sequence
 
-    // The default implementation will be chosen if no predefined mapping of 
+    // The default implementation will be chosen if no predefined mapping of
     // the data type T to a Karma component is defined.
     struct no_auto_mapping_exists {};
 
@@ -142,9 +142,9 @@ namespace boost { namespace spirit { namespace karma
     struct meta_create_impl<T
           , typename enable_if<
                 mpl::and_<
-                    traits::is_container<T> 
+                    traits::is_container<T>
                   , mpl::not_<traits::is_string<T> >
-                  , mpl::not_<fusion::traits::is_sequence<T> > 
+                  , mpl::not_<fusion::traits::is_sequence<T> >
                 > >::type>
       : meta_create_container<T> {};
 
@@ -155,7 +155,7 @@ namespace boost { namespace spirit { namespace karma
 
     template <typename T>
     struct meta_create_impl<T, typename enable_if<
-                spirit::detail::is_fusion_sequence_but_not_proto_expr<T> 
+                spirit::detail::is_fusion_sequence_but_not_proto_expr<T>
             >::type>
       : meta_create_sequence<T> {};
 
@@ -164,8 +164,8 @@ namespace boost { namespace spirit { namespace karma
 
     ///////////////////////////////////////////////////////////////////////////
     // optional
-    template <typename T> 
-    struct meta_create<boost::optional<T> > 
+    template <typename T>
+    struct meta_create<boost::optional<T> >
     {
         typedef make_unary_proto_expr<
             T, proto::tag::negate, karma::domain
@@ -181,8 +181,8 @@ namespace boost { namespace spirit { namespace karma
 
     ///////////////////////////////////////////////////////////////////////////
     // alternatives
-    template <BOOST_VARIANT_ENUM_PARAMS(typename T)> 
-    struct meta_create<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> > 
+    template <BOOST_VARIANT_ENUM_PARAMS(typename T)>
+    struct meta_create<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
     {
         typedef make_nary_proto_expr<
             typename boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>::types
@@ -201,113 +201,113 @@ namespace boost { namespace spirit { namespace karma
     // predefined specializations for primitive components
 
     // character generator
-    template <> 
-    struct meta_create<char> 
-    { 
+    template <>
+    struct meta_create<char>
+    {
         typedef spirit::standard::char_type type;
-        static type const& call() { return spirit::standard::char_; }
+        static type const call() { return type(); }
     };
-    template <> 
-    struct meta_create<signed char> 
-    { 
+    template <>
+    struct meta_create<signed char>
+    {
         typedef spirit::standard::char_type type;
-        static type const& call() { return spirit::standard::char_; }
+        static type const call() { return type(); }
     };
-    template <> 
-    struct meta_create<wchar_t> 
-    { 
+    template <>
+    struct meta_create<wchar_t>
+    {
         typedef spirit::standard_wide::char_type type;
-        static type const& call() { return spirit::standard_wide::char_; }
+        static type const call() { return type(); }
     };
 
-    template <> 
-    struct meta_create<unsigned char> 
-    { 
+    template <>
+    struct meta_create<unsigned char>
+    {
         typedef spirit::standard::char_type type;
-        static type const& call() { return spirit::standard::char_; }
+        static type const call() { return type(); }
     };
 
     // boolean generator
-    template <> 
-    struct meta_create<bool> 
-    { 
-        typedef spirit::bool__type type; 
-        static type const& call() { return spirit::bool_; }
+    template <>
+    struct meta_create<bool>
+    {
+        typedef spirit::bool_type type;
+        static type call() { return type(); }
     };
 
     // integral generators
-    template <> 
-    struct meta_create<int> 
-    { 
-        typedef spirit::int__type type; 
-        static type const& call() { return spirit::int_; }
-    };
-    template <> 
-    struct meta_create<short> 
-    { 
-        typedef spirit::short__type type; 
-        static type const& call() { return spirit::short_; }
-    };
-    template <> 
-    struct meta_create<long> 
+    template <>
+    struct meta_create<int>
     {
-        typedef spirit::long__type type; 
-        static type const& call() { return spirit::long_; }
+        typedef spirit::int_type type;
+        static type call() { return type(); }
     };
-    template <> 
-    struct meta_create<unsigned int> 
-    { 
-        typedef spirit::uint__type type; 
-        static type const& call() { return spirit::uint_; }
+    template <>
+    struct meta_create<short>
+    {
+        typedef spirit::short_type type;
+        static type call() { return type(); }
+    };
+    template <>
+    struct meta_create<long>
+    {
+        typedef spirit::long_type type;
+        static type call() { return type(); }
+    };
+    template <>
+    struct meta_create<unsigned int>
+    {
+        typedef spirit::uint_type type;
+        static type call() { return type(); }
     };
 #if !defined(BOOST_NO_INTRINSIC_WCHAR_T)
-    template <> 
-    struct meta_create<unsigned short> 
-    { 
-        typedef spirit::ushort__type type; 
-        static type const& call() { return spirit::ushort_; }
+    template <>
+    struct meta_create<unsigned short>
+    {
+        typedef spirit::ushort_type type;
+        static type call() { return type(); }
     };
 #endif
-    template <> 
-    struct meta_create<unsigned long> 
-    { 
-        typedef spirit::ulong__type type; 
-        static type const& call() { return spirit::ulong_; }
+    template <>
+    struct meta_create<unsigned long>
+    {
+        typedef spirit::ulong_type type;
+        static type call() { return type(); }
     };
 
 #ifdef BOOST_HAS_LONG_LONG
-    template <> 
-    struct meta_create<boost::long_long_type> 
-    { 
-        typedef spirit::long_long_type type; 
-        static type const& call() { return spirit::long_long; }
+    template <>
+    struct meta_create<boost::long_long_type>
+    {
+        typedef spirit::long_long_type type;
+        static type call() { return type(); }
     };
-    template <> 
-    struct meta_create<boost::ulong_long_type> 
-    { 
-        typedef spirit::ulong_long_type type; 
-        static type const& call() { return spirit::ulong_long; }
+    template <>
+    struct meta_create<boost::ulong_long_type>
+    {
+        typedef spirit::ulong_long_type type;
+        static type call() { return type(); }
     };
 #endif
 
     // floating point generators
-    template <> 
-    struct meta_create<float> 
-    { 
-        typedef spirit::float__type type; 
-        static type const& call() { return spirit::float_; }
+    template <>
+    struct meta_create<float>
+    {
+        typedef spirit::float_type type;
+        static type call() { return type(); }
     };
-    template <> 
-    struct meta_create<double> 
-    { 
-        typedef spirit::double__type type; 
-        static type const& call() { return spirit::double_; }
+    template <>
+    struct meta_create<double>
+    {
+        typedef spirit::double_type type;
+        static type call() { return type(); }
     };
-    template <> 
-    struct meta_create<long double> 
-    { 
-        typedef spirit::long_double_type type; 
-        static type const& call() { return spirit::long_double; }
+    template <>
+    struct meta_create<long double>
+    {
+        typedef spirit::long_double_type type;
+        static type call() { return type(); }
     };
 }}}
 
@@ -326,10 +326,10 @@ namespace boost { namespace spirit { namespace traits
       : create_generator<typename spirit::detail::remove_const_ref<T>::type> {};
 
     ///////////////////////////////////////////////////////////////////////////
-    // Check whether a valid mapping exits for the given data type to a Karma 
-    // component 
+    // Check whether a valid mapping exits for the given data type to a Karma
+    // component
     template <typename T>
-    struct meta_create_exists<karma::domain, T> 
+    struct meta_create_exists<karma::domain, T>
       : mpl::not_<is_same<
             karma::no_auto_mapping_exists
           , typename meta_create<karma::domain, T>::type

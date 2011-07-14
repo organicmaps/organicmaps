@@ -27,8 +27,8 @@ namespace segmental
     typename enable_if<is_interval_map<Type>, bool>::type
     is_joinable(typename Type::iterator it_, typename Type::iterator next_, Type* = 0)
     {
-        return touches(it_->first, next_->first)
-            && it_->second == next_->second    ;
+        return touches((*it_).first, (*next_).first)
+            && (*it_).second == (*next_).second    ;
     }
 }
 

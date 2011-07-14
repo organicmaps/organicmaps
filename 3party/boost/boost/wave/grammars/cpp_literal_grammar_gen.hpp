@@ -54,10 +54,10 @@ struct BOOST_WAVE_DECL intlit_grammar_gen {
 //      to safe compilation time.
 //
 ///////////////////////////////////////////////////////////////////////////////
-template <typename TokenT>
+template <typename IntegralResult, typename TokenT>
 struct BOOST_WAVE_DECL chlit_grammar_gen {
 
-    static unsigned int evaluate(TokenT const &tok, value_error& status);
+    static IntegralResult evaluate(TokenT const &tok, value_error& status);
 };
 
 ///////////////////////////////////////////////////////////////////////////////

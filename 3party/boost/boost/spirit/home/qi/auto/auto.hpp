@@ -35,7 +35,10 @@ namespace boost { namespace spirit
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit { namespace qi
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::auto_;
+#endif
+    using spirit::auto_type;
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename Modifiers>
@@ -73,7 +76,7 @@ namespace boost { namespace spirit { namespace qi
     // Generator generators: make_xxx function (objects)
     ///////////////////////////////////////////////////////////////////////////
     template <typename Modifiers>
-    struct make_primitive<tag::auto_, Modifiers> 
+    struct make_primitive<tag::auto_, Modifiers>
     {
         typedef auto_parser<Modifiers> result_type;
 

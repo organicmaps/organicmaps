@@ -115,7 +115,7 @@ namespace boost { namespace spirit { namespace traits
 
         // not a container nor a fusion sequence
         template <typename T_>
-        static type call(T_ const& t, mpl::false_, mpl::false_)
+        static type call(T_ const&, mpl::false_, mpl::false_)
         {
             return unused;
         }
@@ -309,7 +309,7 @@ namespace boost { namespace spirit { namespace karma
         // non-const version needed to suppress proto's -= kicking in
         template <typename Attr>
         friend remover const&
-        operator-= (symbols& sym, Attr& str)
+        operator-= (symbols& sym, Attr& attr)
         {
             return sym.remove(attr);
         }
@@ -564,7 +564,7 @@ namespace boost { namespace spirit { namespace karma
         // non-const version needed to suppress proto's -= kicking in
         template <typename Attr>
         friend remover const&
-        operator-= (symbols& sym, Attr& str)
+        operator-= (symbols& sym, Attr& attr)
         {
             return sym.remove(attr);
         }
@@ -730,6 +730,17 @@ namespace boost { namespace spirit { namespace karma
             return result_type(ref.ref.get());
         }
     };
+}}}
+
+namespace boost { namespace spirit { namespace traits
+{
+    ///////////////////////////////////////////////////////////////////////////
+    template <typename Attribute, typename T, typename Lookup
+      , typename CharEncoding, typename Tag
+      , typename Attr, typename Context, typename Iterator>
+    struct handles_container<karma::symbols<Attribute, T, Lookup, CharEncoding, Tag>
+            , Attr, Context, Iterator>
+      : traits::is_container<Attr> {}; 
 }}}
 
 #if defined(BOOST_MSVC)

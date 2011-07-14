@@ -145,9 +145,9 @@ namespace boost
             {}
         };
 
-        inline unsigned long pin_to_zero(long value)
+        inline uintmax_t pin_to_zero(intmax_t value)
         {
-            return (value<0)?0u:(unsigned long)value;
+            return (value<0)?0u:(uintmax_t)value;
         }
     }
 
@@ -156,7 +156,7 @@ namespace boost
         void BOOST_THREAD_DECL yield();
 
         bool BOOST_THREAD_DECL interruptible_wait(detail::win32::handle handle_to_wait_for,detail::timeout target_time);
-        inline void interruptible_wait(unsigned long milliseconds)
+        inline void interruptible_wait(uintmax_t milliseconds)
         {
             interruptible_wait(detail::win32::invalid_handle_value,milliseconds);
         }

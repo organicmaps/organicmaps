@@ -141,7 +141,7 @@ namespace boost
     {
         template< class Self >
         struct forward_adapter_result::apply< Self() >
-            : boost::result_of< typename c<Self>::t() >
+            : boost::result_of< BOOST_DEDUCED_TYPENAME c<Self>::t() >
         { };
 
         template< class MD, class F, class FC >
@@ -316,7 +316,7 @@ namespace boost
         template< class Self, BOOST_PP_ENUM_PARAMS(N,typename T) >
         struct forward_adapter_result::apply< Self(BOOST_PP_ENUM_PARAMS(N,T)) >
             : boost::result_of< 
-                typename c<Self>::t(BOOST_PP_ENUM_BINARY_PARAMS(N, 
+                BOOST_DEDUCED_TYPENAME c<Self>::t(BOOST_PP_ENUM_BINARY_PARAMS(N, 
                       typename q<T,>::t& BOOST_PP_INTERCEPT)) >
         { };
 

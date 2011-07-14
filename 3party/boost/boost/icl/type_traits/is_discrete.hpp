@@ -26,6 +26,8 @@ Copyright (c) 2008-2009: Joachim Faulhaber
 
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
+#include <boost/icl/type_traits/rep_type_of.hpp>
+#include <boost/icl/type_traits/is_numeric.hpp>
 
 namespace boost{ namespace icl
 {
@@ -33,9 +35,26 @@ namespace boost{ namespace icl
     {
         typedef is_discrete type;
         BOOST_STATIC_CONSTANT(bool, 
-            value = (mpl::and_< boost::detail::is_incrementable<Type>
-                              , mpl::not_<is_floating_point<Type> > 
-                              >::value)
+            value = 
+                (mpl::and_
+                 < 
+                     boost::detail::is_incrementable<Type>
+                   , mpl::or_
+                     < 
+                         mpl::and_
+                         <
+                             mpl::not_<has_rep_type<Type> >
+                           , is_non_floating_point<Type>
+                         >
+                       , mpl::and_
+                         <
+                             has_rep_type<Type>
+                           , is_discrete<typename rep_type_of<Type>::type>
+                           //CL , is_non_floating_point<typename rep_type_of<Type>::type>
+                         >
+                     >
+                 >::value
+                )
             );
     };
 

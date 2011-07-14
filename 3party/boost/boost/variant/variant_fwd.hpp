@@ -229,7 +229,7 @@ template < BOOST_VARIANT_AUX_DECLARE_PARAMS > struct make_recursive_variant;
 // Tag type indicates where recursive variant substitution should occur.
 //
 #if !defined(BOOST_VARIANT_NO_FULL_RECURSIVE_VARIANT_SUPPORT)
-    struct recursive_variant_;
+    struct recursive_variant_ {};
 #else
     typedef mpl::arg<1> recursive_variant_;
 #endif

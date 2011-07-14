@@ -14,10 +14,12 @@
 
 #include <string>
 
+#include <boost/spirit/include/phoenix_limits.hpp>      // needs to be included before proto
 #include <boost/proto/proto.hpp>
 #include <boost/config.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/spirit/home/support/unused.hpp>
+#include <boost/spirit/home/support/detail/is_spirit_tag.hpp>
 #include <boost/type_traits/is_signed.hpp>
 #include <boost/type_traits/make_unsigned.hpp>
 #include <boost/type_traits/make_signed.hpp>
@@ -66,192 +68,192 @@ namespace boost { namespace spirit { namespace detail
 
 namespace boost { namespace spirit { namespace tag
 {
-    struct char_ {};
-    struct string {};
+    struct char_ { BOOST_SPIRIT_IS_TAG() };
+    struct string { BOOST_SPIRIT_IS_TAG() };
 
     ///////////////////////////////////////////////////////////////////////////
     // classification tags
-    struct alnum {};
-    struct alpha {};
-    struct digit {};
-    struct xdigit {};
-    struct cntrl {};
-    struct graph {};
-    struct print {};
-    struct punct {};
-    struct space {};
-    struct blank {};
+    struct alnum { BOOST_SPIRIT_IS_TAG() };
+    struct alpha { BOOST_SPIRIT_IS_TAG() };
+    struct digit { BOOST_SPIRIT_IS_TAG() };
+    struct xdigit { BOOST_SPIRIT_IS_TAG() };
+    struct cntrl { BOOST_SPIRIT_IS_TAG() };
+    struct graph { BOOST_SPIRIT_IS_TAG() };
+    struct print { BOOST_SPIRIT_IS_TAG() };
+    struct punct { BOOST_SPIRIT_IS_TAG() };
+    struct space { BOOST_SPIRIT_IS_TAG() };
+    struct blank { BOOST_SPIRIT_IS_TAG() };
 
     ///////////////////////////////////////////////////////////////////////////
     // classification/conversion tags
-    struct no_case {};
-    struct lower {};
-    struct upper {};
-    struct lowernum {};
-    struct uppernum {};
-    struct ucs4 {};
-    struct encoding {};
+    struct no_case { BOOST_SPIRIT_IS_TAG() };
+    struct lower { BOOST_SPIRIT_IS_TAG() };
+    struct upper { BOOST_SPIRIT_IS_TAG() };
+    struct lowernum { BOOST_SPIRIT_IS_TAG() };
+    struct uppernum { BOOST_SPIRIT_IS_TAG() };
+    struct ucs4 { BOOST_SPIRIT_IS_TAG() };
+    struct encoding { BOOST_SPIRIT_IS_TAG() };
 
 #if defined(BOOST_SPIRIT_UNICODE)
 ///////////////////////////////////////////////////////////////////////////
 //  Unicode Major Categories
 ///////////////////////////////////////////////////////////////////////////
-    struct letter {};
-    struct mark {};
-    struct number {};
-    struct separator {};
-    struct other {};
-    struct punctuation {};
-    struct symbol {};
+    struct letter { BOOST_SPIRIT_IS_TAG() };
+    struct mark { BOOST_SPIRIT_IS_TAG() };
+    struct number { BOOST_SPIRIT_IS_TAG() };
+    struct separator { BOOST_SPIRIT_IS_TAG() };
+    struct other { BOOST_SPIRIT_IS_TAG() };
+    struct punctuation { BOOST_SPIRIT_IS_TAG() };
+    struct symbol { BOOST_SPIRIT_IS_TAG() };
 
 ///////////////////////////////////////////////////////////////////////////
 //  Unicode General Categories
 ///////////////////////////////////////////////////////////////////////////
-    struct uppercase_letter {};
-    struct lowercase_letter {};
-    struct titlecase_letter {};
-    struct modifier_letter {};
-    struct other_letter {};
+    struct uppercase_letter { BOOST_SPIRIT_IS_TAG() };
+    struct lowercase_letter { BOOST_SPIRIT_IS_TAG() };
+    struct titlecase_letter { BOOST_SPIRIT_IS_TAG() };
+    struct modifier_letter { BOOST_SPIRIT_IS_TAG() };
+    struct other_letter { BOOST_SPIRIT_IS_TAG() };
 
-    struct nonspacing_mark {};
-    struct enclosing_mark {};
-    struct spacing_mark {};
+    struct nonspacing_mark { BOOST_SPIRIT_IS_TAG() };
+    struct enclosing_mark { BOOST_SPIRIT_IS_TAG() };
+    struct spacing_mark { BOOST_SPIRIT_IS_TAG() };
 
-    struct decimal_number {};
-    struct letter_number {};
-    struct other_number {};
+    struct decimal_number { BOOST_SPIRIT_IS_TAG() };
+    struct letter_number { BOOST_SPIRIT_IS_TAG() };
+    struct other_number { BOOST_SPIRIT_IS_TAG() };
 
-    struct space_separator {};
-    struct line_separator {};
-    struct paragraph_separator {};
+    struct space_separator { BOOST_SPIRIT_IS_TAG() };
+    struct line_separator { BOOST_SPIRIT_IS_TAG() };
+    struct paragraph_separator { BOOST_SPIRIT_IS_TAG() };
 
-    struct control {};
-    struct format {};
-    struct private_use {};
-    struct surrogate {};
-    struct unassigned {};
+    struct control { BOOST_SPIRIT_IS_TAG() };
+    struct format { BOOST_SPIRIT_IS_TAG() };
+    struct private_use { BOOST_SPIRIT_IS_TAG() };
+    struct surrogate { BOOST_SPIRIT_IS_TAG() };
+    struct unassigned { BOOST_SPIRIT_IS_TAG() };
 
-    struct dash_punctuation {};
-    struct open_punctuation {};
-    struct close_punctuation {};
-    struct connector_punctuation {};
-    struct other_punctuation {};
-    struct initial_punctuation {};
-    struct final_punctuation {};
+    struct dash_punctuation { BOOST_SPIRIT_IS_TAG() };
+    struct open_punctuation { BOOST_SPIRIT_IS_TAG() };
+    struct close_punctuation { BOOST_SPIRIT_IS_TAG() };
+    struct connector_punctuation { BOOST_SPIRIT_IS_TAG() };
+    struct other_punctuation { BOOST_SPIRIT_IS_TAG() };
+    struct initial_punctuation { BOOST_SPIRIT_IS_TAG() };
+    struct final_punctuation { BOOST_SPIRIT_IS_TAG() };
 
-    struct math_symbol {};
-    struct currency_symbol {};
-    struct modifier_symbol {};
-    struct other_symbol {};
+    struct math_symbol { BOOST_SPIRIT_IS_TAG() };
+    struct currency_symbol { BOOST_SPIRIT_IS_TAG() };
+    struct modifier_symbol { BOOST_SPIRIT_IS_TAG() };
+    struct other_symbol { BOOST_SPIRIT_IS_TAG() };
 
 ///////////////////////////////////////////////////////////////////////////
 //  Unicode Derived Categories
 ///////////////////////////////////////////////////////////////////////////
-    struct alphabetic {};
-    struct uppercase {};
-    struct lowercase {};
-    struct white_space {};
-    struct hex_digit {};
-    struct noncharacter_code_point {};
-    struct default_ignorable_code_point {};
+    struct alphabetic { BOOST_SPIRIT_IS_TAG() };
+    struct uppercase { BOOST_SPIRIT_IS_TAG() };
+    struct lowercase { BOOST_SPIRIT_IS_TAG() };
+    struct white_space { BOOST_SPIRIT_IS_TAG() };
+    struct hex_digit { BOOST_SPIRIT_IS_TAG() };
+    struct noncharacter_code_point { BOOST_SPIRIT_IS_TAG() };
+    struct default_ignorable_code_point { BOOST_SPIRIT_IS_TAG() };
 
 ///////////////////////////////////////////////////////////////////////////
 //  Unicode Scripts
 ///////////////////////////////////////////////////////////////////////////
-    struct arabic {};
-    struct imperial_aramaic {};
-    struct armenian {};
-    struct avestan {};
-    struct balinese {};
-    struct bamum {};
-    struct bengali {};
-    struct bopomofo {};
-    struct braille {};
-    struct buginese {};
-    struct buhid {};
-    struct canadian_aboriginal {};
-    struct carian {};
-    struct cham {};
-    struct cherokee {};
-    struct coptic {};
-    struct cypriot {};
-    struct cyrillic {};
-    struct devanagari {};
-    struct deseret {};
-    struct egyptian_hieroglyphs {};
-    struct ethiopic {};
-    struct georgian {};
-    struct glagolitic {};
-    struct gothic {};
-    struct greek {};
-    struct gujarati {};
-    struct gurmukhi {};
-    struct hangul {};
-    struct han {};
-    struct hanunoo {};
-    struct hebrew {};
-    struct hiragana {};
-    struct katakana_or_hiragana {};
-    struct old_italic {};
-    struct javanese {};
-    struct kayah_li {};
-    struct katakana {};
-    struct kharoshthi {};
-    struct khmer {};
-    struct kannada {};
-    struct kaithi {};
-    struct tai_tham {};
-    struct lao {};
-    struct latin {};
-    struct lepcha {};
-    struct limbu {};
-    struct linear_b {};
-    struct lisu {};
-    struct lycian {};
-    struct lydian {};
-    struct malayalam {};
-    struct mongolian {};
-    struct meetei_mayek {};
-    struct myanmar {};
-    struct nko {};
-    struct ogham {};
-    struct ol_chiki {};
-    struct old_turkic {};
-    struct oriya {};
-    struct osmanya {};
-    struct phags_pa {};
-    struct inscriptional_pahlavi {};
-    struct phoenician {};
-    struct inscriptional_parthian {};
-    struct rejang {};
-    struct runic {};
-    struct samaritan {};
-    struct old_south_arabian {};
-    struct saurashtra {};
-    struct shavian {};
-    struct sinhala {};
-    struct sundanese {};
-    struct syloti_nagri {};
-    struct syriac {};
-    struct tagbanwa {};
-    struct tai_le {};
-    struct new_tai_lue {};
-    struct tamil {};
-    struct tai_viet {};
-    struct telugu {};
-    struct tifinagh {};
-    struct tagalog {};
-    struct thaana {};
-    struct thai {};
-    struct tibetan {};
-    struct ugaritic {};
-    struct vai {};
-    struct old_persian {};
-    struct cuneiform {};
-    struct yi {};
-    struct inherited {};
-    struct common {};
-    struct unknown {};
+    struct arabic { BOOST_SPIRIT_IS_TAG() };
+    struct imperial_aramaic { BOOST_SPIRIT_IS_TAG() };
+    struct armenian { BOOST_SPIRIT_IS_TAG() };
+    struct avestan { BOOST_SPIRIT_IS_TAG() };
+    struct balinese { BOOST_SPIRIT_IS_TAG() };
+    struct bamum { BOOST_SPIRIT_IS_TAG() };
+    struct bengali { BOOST_SPIRIT_IS_TAG() };
+    struct bopomofo { BOOST_SPIRIT_IS_TAG() };
+    struct braille { BOOST_SPIRIT_IS_TAG() };
+    struct buginese { BOOST_SPIRIT_IS_TAG() };
+    struct buhid { BOOST_SPIRIT_IS_TAG() };
+    struct canadian_aboriginal { BOOST_SPIRIT_IS_TAG() };
+    struct carian { BOOST_SPIRIT_IS_TAG() };
+    struct cham { BOOST_SPIRIT_IS_TAG() };
+    struct cherokee { BOOST_SPIRIT_IS_TAG() };
+    struct coptic { BOOST_SPIRIT_IS_TAG() };
+    struct cypriot { BOOST_SPIRIT_IS_TAG() };
+    struct cyrillic { BOOST_SPIRIT_IS_TAG() };
+    struct devanagari { BOOST_SPIRIT_IS_TAG() };
+    struct deseret { BOOST_SPIRIT_IS_TAG() };
+    struct egyptian_hieroglyphs { BOOST_SPIRIT_IS_TAG() };
+    struct ethiopic { BOOST_SPIRIT_IS_TAG() };
+    struct georgian { BOOST_SPIRIT_IS_TAG() };
+    struct glagolitic { BOOST_SPIRIT_IS_TAG() };
+    struct gothic { BOOST_SPIRIT_IS_TAG() };
+    struct greek { BOOST_SPIRIT_IS_TAG() };
+    struct gujarati { BOOST_SPIRIT_IS_TAG() };
+    struct gurmukhi { BOOST_SPIRIT_IS_TAG() };
+    struct hangul { BOOST_SPIRIT_IS_TAG() };
+    struct han { BOOST_SPIRIT_IS_TAG() };
+    struct hanunoo { BOOST_SPIRIT_IS_TAG() };
+    struct hebrew { BOOST_SPIRIT_IS_TAG() };
+    struct hiragana { BOOST_SPIRIT_IS_TAG() };
+    struct katakana_or_hiragana { BOOST_SPIRIT_IS_TAG() };
+    struct old_italic { BOOST_SPIRIT_IS_TAG() };
+    struct javanese { BOOST_SPIRIT_IS_TAG() };
+    struct kayah_li { BOOST_SPIRIT_IS_TAG() };
+    struct katakana { BOOST_SPIRIT_IS_TAG() };
+    struct kharoshthi { BOOST_SPIRIT_IS_TAG() };
+    struct khmer { BOOST_SPIRIT_IS_TAG() };
+    struct kannada { BOOST_SPIRIT_IS_TAG() };
+    struct kaithi { BOOST_SPIRIT_IS_TAG() };
+    struct tai_tham { BOOST_SPIRIT_IS_TAG() };
+    struct lao { BOOST_SPIRIT_IS_TAG() };
+    struct latin { BOOST_SPIRIT_IS_TAG() };
+    struct lepcha { BOOST_SPIRIT_IS_TAG() };
+    struct limbu { BOOST_SPIRIT_IS_TAG() };
+    struct linear_b { BOOST_SPIRIT_IS_TAG() };
+    struct lisu { BOOST_SPIRIT_IS_TAG() };
+    struct lycian { BOOST_SPIRIT_IS_TAG() };
+    struct lydian { BOOST_SPIRIT_IS_TAG() };
+    struct malayalam { BOOST_SPIRIT_IS_TAG() };
+    struct mongolian { BOOST_SPIRIT_IS_TAG() };
+    struct meetei_mayek { BOOST_SPIRIT_IS_TAG() };
+    struct myanmar { BOOST_SPIRIT_IS_TAG() };
+    struct nko { BOOST_SPIRIT_IS_TAG() };
+    struct ogham { BOOST_SPIRIT_IS_TAG() };
+    struct ol_chiki { BOOST_SPIRIT_IS_TAG() };
+    struct old_turkic { BOOST_SPIRIT_IS_TAG() };
+    struct oriya { BOOST_SPIRIT_IS_TAG() };
+    struct osmanya { BOOST_SPIRIT_IS_TAG() };
+    struct phags_pa { BOOST_SPIRIT_IS_TAG() };
+    struct inscriptional_pahlavi { BOOST_SPIRIT_IS_TAG() };
+    struct phoenician { BOOST_SPIRIT_IS_TAG() };
+    struct inscriptional_parthian { BOOST_SPIRIT_IS_TAG() };
+    struct rejang { BOOST_SPIRIT_IS_TAG() };
+    struct runic { BOOST_SPIRIT_IS_TAG() };
+    struct samaritan { BOOST_SPIRIT_IS_TAG() };
+    struct old_south_arabian { BOOST_SPIRIT_IS_TAG() };
+    struct saurashtra { BOOST_SPIRIT_IS_TAG() };
+    struct shavian { BOOST_SPIRIT_IS_TAG() };
+    struct sinhala { BOOST_SPIRIT_IS_TAG() };
+    struct sundanese { BOOST_SPIRIT_IS_TAG() };
+    struct syloti_nagri { BOOST_SPIRIT_IS_TAG() };
+    struct syriac { BOOST_SPIRIT_IS_TAG() };
+    struct tagbanwa { BOOST_SPIRIT_IS_TAG() };
+    struct tai_le { BOOST_SPIRIT_IS_TAG() };
+    struct new_tai_lue { BOOST_SPIRIT_IS_TAG() };
+    struct tamil { BOOST_SPIRIT_IS_TAG() };
+    struct tai_viet { BOOST_SPIRIT_IS_TAG() };
+    struct telugu { BOOST_SPIRIT_IS_TAG() };
+    struct tifinagh { BOOST_SPIRIT_IS_TAG() };
+    struct tagalog { BOOST_SPIRIT_IS_TAG() };
+    struct thaana { BOOST_SPIRIT_IS_TAG() };
+    struct thai { BOOST_SPIRIT_IS_TAG() };
+    struct tibetan { BOOST_SPIRIT_IS_TAG() };
+    struct ugaritic { BOOST_SPIRIT_IS_TAG() };
+    struct vai { BOOST_SPIRIT_IS_TAG() };
+    struct old_persian { BOOST_SPIRIT_IS_TAG() };
+    struct cuneiform { BOOST_SPIRIT_IS_TAG() };
+    struct yi { BOOST_SPIRIT_IS_TAG() };
+    struct inherited { BOOST_SPIRIT_IS_TAG() };
+    struct common { BOOST_SPIRIT_IS_TAG() };
+    struct unknown { BOOST_SPIRIT_IS_TAG() };
 #endif
 
     ///////////////////////////////////////////////////////////////////////////
@@ -269,10 +271,10 @@ namespace boost { namespace spirit { namespace tag
     struct char_code
         : char_code_base<CharClass>, char_encoding_base<CharEncoding>
     {
+        BOOST_SPIRIT_IS_TAG()
         typedef CharEncoding char_encoding; // e.g. ascii
         typedef CharClass char_class;       // e.g. tag::alnum
     };
-
 }}}
 
 namespace boost { namespace spirit { namespace char_class

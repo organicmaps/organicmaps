@@ -24,13 +24,14 @@
 #include <boost/mpl/long.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <boost/mpl/aux_/config/ttp.hpp>
 
 #ifndef BOOST_PROTO_MAX_ARITY
-# define BOOST_PROTO_MAX_ARITY 5
+# define BOOST_PROTO_MAX_ARITY 10
 #endif
 
 #ifndef BOOST_PROTO_MAX_LOGICAL_ARITY
-# define BOOST_PROTO_MAX_LOGICAL_ARITY 8
+# define BOOST_PROTO_MAX_LOGICAL_ARITY 10
 #endif
 
 #ifndef BOOST_PROTO_MAX_FUNCTION_CALL_ARITY
@@ -43,6 +44,14 @@
 
 #if BOOST_PROTO_MAX_FUNCTION_CALL_ARITY > BOOST_PROTO_MAX_ARITY
 # error BOOST_PROTO_MAX_FUNCTION_CALL_ARITY cannot be larger than BOOST_PROTO_MAX_ARITY
+#endif
+
+#ifndef BOOST_PROTO_DONT_USE_PREPROCESSED_FILES
+  #if 10 < BOOST_PROTO_MAX_ARITY ||                                                                 \
+      10 < BOOST_PROTO_MAX_LOGICAL_ARITY ||                                                         \
+      10 < BOOST_PROTO_MAX_FUNCTION_CALL_ARITY
+    #define BOOST_PROTO_DONT_USE_PREPROCESSED_FILES
+  #endif
 #endif
 
 #ifndef BOOST_PROTO_BROKEN_CONST_OVERLOADS
@@ -89,12 +98,22 @@
 # define BOOST_PROTO_RESULT_OF boost::tr1_result_of
 #endif
 
+#ifdef BOOST_MPL_CFG_EXTENDED_TEMPLATE_PARAMETERS_MATCHING
+# define BOOST_PROTO_EXTENDED_TEMPLATE_PARAMETERS_MATCHING 
+#endif
+
 namespace boost { namespace proto
 {
     namespace detail
     {
         typedef char yes_type;
         typedef char (&no_type)[2];
+
+        template<int N>
+        struct sized_type
+        {
+            typedef char (&type)[N];
+        };
 
         struct dont_care;
         struct undefined; // leave this undefined
@@ -251,6 +270,8 @@ namespace boost { namespace proto
     ////////////////////////////////////////////////////////////////////////////////////////////////
     struct default_generator;
 
+    struct basic_default_generator;
+
     template<template<typename> class Extends>
     struct generator;
 
@@ -281,6 +302,8 @@ namespace boost { namespace proto
         struct domain;
 
         struct default_domain;
+
+        struct basic_default_domain;
 
         struct deduce_domain;
 
@@ -723,6 +746,21 @@ namespace boost { namespace proto
     struct _value;
 
     struct _void;
+
+    template<typename T, T I>
+    struct integral_c;
+
+    template<char I>
+    struct char_;
+
+    template<int I>
+    struct int_;
+
+    template<long I>
+    struct long_;
+
+    template<std::size_t I>
+    struct size_t;
 
     template<int I>
     struct _child_c;

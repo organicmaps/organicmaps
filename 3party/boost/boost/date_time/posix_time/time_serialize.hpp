@@ -6,7 +6,7 @@
  * Boost Software License, Version 1.0. (See accompanying
  * file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  * Author: Jeff Garland, Bart Garst
- * $Date: 2010-11-11 15:19:38 -0500 (Thu, 11 Nov 2010) $
+ * $Date: 2011-07-07 00:57:37 -0400 (Thu, 07 Jul 2011) $
  */
 
 #include "boost/date_time/posix_time/posix_time.hpp"
@@ -46,10 +46,10 @@ void save(Archive & ar,
     ar & make_nvp("sv_time_duration", s);
   }
   else {
-    typename posix_time::time_duration::hour_type h = td.hours();
-    typename posix_time::time_duration::min_type m = td.minutes();
-    typename posix_time::time_duration::sec_type s = td.seconds();
-    typename posix_time::time_duration::fractional_seconds_type fs = td.fractional_seconds();
+    posix_time::time_duration::hour_type h = td.hours();
+    posix_time::time_duration::min_type m = td.minutes();
+    posix_time::time_duration::sec_type s = td.seconds();
+    posix_time::time_duration::fractional_seconds_type fs = td.fractional_seconds();
     ar & make_nvp("time_duration_hours", h);
     ar & make_nvp("time_duration_minutes", m);
     ar & make_nvp("time_duration_seconds", s);
@@ -76,10 +76,10 @@ void load(Archive & ar,
     td = posix_time::time_duration(sv);
   }
   else {
-    typename posix_time::time_duration::hour_type h(0);
-    typename posix_time::time_duration::min_type m(0);
-    typename posix_time::time_duration::sec_type s(0);
-    typename posix_time::time_duration::fractional_seconds_type fs(0);
+    posix_time::time_duration::hour_type h(0);
+    posix_time::time_duration::min_type m(0);
+    posix_time::time_duration::sec_type s(0);
+    posix_time::time_duration::fractional_seconds_type fs(0);
     ar & make_nvp("time_duration_hours", h);
     ar & make_nvp("time_duration_minutes", m);
     ar & make_nvp("time_duration_seconds", s);
@@ -104,10 +104,10 @@ void save(Archive & ar,
 {
   // from_iso_string does not include fractional seconds
   // therefore date and time_duration are used
-  typename posix_time::ptime::date_type d = pt.date();
+  posix_time::ptime::date_type d = pt.date();
   ar & make_nvp("ptime_date", d);
   if(!pt.is_special()) {
-    typename posix_time::ptime::time_duration_type td = pt.time_of_day();
+    posix_time::ptime::time_duration_type td = pt.time_of_day();
     ar & make_nvp("ptime_time_duration", td);
   }
 }
@@ -123,8 +123,8 @@ void load(Archive & ar,
 {
   // from_iso_string does not include fractional seconds
   // therefore date and time_duration are used
-  typename posix_time::ptime::date_type d(posix_time::not_a_date_time);
-  typename posix_time::ptime::time_duration_type td;
+  posix_time::ptime::date_type d(posix_time::not_a_date_time);
+  posix_time::ptime::time_duration_type td;
   ar & make_nvp("ptime_date", d);
   if(!d.is_special()) {
     ar & make_nvp("ptime_time_duration", td);

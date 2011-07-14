@@ -93,7 +93,7 @@ BOOST_TT_AUX_SIZE_T_TRAIT_DEF1(alignment_of,T,::boost::detail::alignment_of_impl
 #ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 template <typename T>
 struct alignment_of<T&>
-    : alignment_of<T*>
+    : public alignment_of<T*>
 {
 };
 #endif

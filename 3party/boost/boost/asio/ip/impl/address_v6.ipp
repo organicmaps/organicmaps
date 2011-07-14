@@ -32,15 +32,14 @@ namespace asio {
 namespace ip {
 
 address_v6::address_v6()
-  : scope_id_(0)
+  : addr_(),
+    scope_id_(0)
 {
-  boost::asio::detail::in6_addr_type tmp_addr = IN6ADDR_ANY_INIT;
-  addr_ = tmp_addr;
 }
 
 address_v6::address_v6(const address_v6::bytes_type& bytes,
-    unsigned long scope_id)
-  : scope_id_(scope_id)
+    unsigned long scope)
+  : scope_id_(scope)
 {
 #if UCHAR_MAX > 0xFF
   for (std::size_t i = 0; i < bytes.size(); ++i)
@@ -54,7 +53,7 @@ address_v6::address_v6(const address_v6::bytes_type& bytes,
 #endif // UCHAR_MAX > 0xFF
 
   using namespace std; // For memcpy.
-  memcpy(addr_.s6_addr, bytes.elems, 16);
+  memcpy(addr_.s6_addr, bytes.data(), 16);
 }
 
 address_v6::address_v6(const address_v6& other)
@@ -63,6 +62,14 @@ address_v6::address_v6(const address_v6& other)
 {
 }
 
+#if defined(BOOST_ASIO_HAS_MOVE)
+address_v6::address_v6(address_v6&& other)
+  : addr_(other.addr_),
+    scope_id_(other.scope_id_)
+{
+}
+#endif // defined(BOOST_ASIO_HAS_MOVE)
+
 address_v6& address_v6::operator=(const address_v6& other)
 {
   addr_ = other.addr_;
@@ -70,11 +77,24 @@ address_v6& address_v6::operator=(const address_v6& other)
   return *this;
 }
 
+#if defined(BOOST_ASIO_HAS_MOVE)
+address_v6& address_v6::operator=(address_v6&& other)
+{
+  addr_ = other.addr_;
+  scope_id_ = other.scope_id_;
+  return *this;
+}
+#endif // defined(BOOST_ASIO_HAS_MOVE)
+
 address_v6::bytes_type address_v6::to_bytes() const
 {
   using namespace std; // For memcpy.
   bytes_type bytes;
+#if defined(BOOST_ASIO_HAS_STD_ARRAY)
+  memcpy(bytes.data(), addr_.s6_addr, 16);
+#else // defined(BOOST_ASIO_HAS_STD_ARRAY)
   memcpy(bytes.elems, addr_.s6_addr, 16);
+#endif // defined(BOOST_ASIO_HAS_STD_ARRAY)
   return bytes;
 }
 
@@ -141,7 +161,6 @@ address_v4 address_v6::to_v4() const
 
 bool address_v6::is_loopback() const
 {
-#if defined(__BORLANDC__)
   return ((addr_.s6_addr[0] == 0) && (addr_.s6_addr[1] == 0)
       && (addr_.s6_addr[2] == 0) && (addr_.s6_addr[3] == 0)
       && (addr_.s6_addr[4] == 0) && (addr_.s6_addr[5] == 0)
@@ -150,15 +169,10 @@ bool address_v6::is_loopback() const
       && (addr_.s6_addr[10] == 0) && (addr_.s6_addr[11] == 0)
       && (addr_.s6_addr[12] == 0) && (addr_.s6_addr[13] == 0)
       && (addr_.s6_addr[14] == 0) && (addr_.s6_addr[15] == 1));
-#else
-  using namespace boost::asio::detail;
-  return IN6_IS_ADDR_LOOPBACK(&addr_) != 0;
-#endif
 }
 
 bool address_v6::is_unspecified() const
 {
-#if defined(__BORLANDC__)
   return ((addr_.s6_addr[0] == 0) && (addr_.s6_addr[1] == 0)
       && (addr_.s6_addr[2] == 0) && (addr_.s6_addr[3] == 0)
       && (addr_.s6_addr[4] == 0) && (addr_.s6_addr[5] == 0)
@@ -167,70 +181,70 @@ bool address_v6::is_unspecified() const
       && (addr_.s6_addr[10] == 0) && (addr_.s6_addr[11] == 0)
       && (addr_.s6_addr[12] == 0) && (addr_.s6_addr[13] == 0)
       && (addr_.s6_addr[14] == 0) && (addr_.s6_addr[15] == 0));
-#else
-  using namespace boost::asio::detail;
-  return IN6_IS_ADDR_UNSPECIFIED(&addr_) != 0;
-#endif
 }
 
 bool address_v6::is_link_local() const
 {
-  using namespace boost::asio::detail;
-  return IN6_IS_ADDR_LINKLOCAL(&addr_) != 0;
+  return ((addr_.s6_addr[0] == 0xfe) && ((addr_.s6_addr[1] & 0xc0) == 0x80));
 }
 
 bool address_v6::is_site_local() const
 {
-  using namespace boost::asio::detail;
-  return IN6_IS_ADDR_SITELOCAL(&addr_) != 0;
+  return ((addr_.s6_addr[0] == 0xfe) && ((addr_.s6_addr[1] & 0xc0) == 0xc0));
 }
 
 bool address_v6::is_v4_mapped() const
 {
-  using namespace boost::asio::detail;
-  return IN6_IS_ADDR_V4MAPPED(&addr_) != 0;
+  return ((addr_.s6_addr[0] == 0) && (addr_.s6_addr[1] == 0)
+      && (addr_.s6_addr[2] == 0) && (addr_.s6_addr[3] == 0)
+      && (addr_.s6_addr[4] == 0) && (addr_.s6_addr[5] == 0)
+      && (addr_.s6_addr[6] == 0) && (addr_.s6_addr[7] == 0)
+      && (addr_.s6_addr[8] == 0) && (addr_.s6_addr[9] == 0)
+      && (addr_.s6_addr[10] == 0xff) && (addr_.s6_addr[11] == 0xff));
 }
 
 bool address_v6::is_v4_compatible() const
 {
-  using namespace boost::asio::detail;
-  return IN6_IS_ADDR_V4COMPAT(&addr_) != 0;
+  return ((addr_.s6_addr[0] == 0) && (addr_.s6_addr[1] == 0)
+      && (addr_.s6_addr[2] == 0) && (addr_.s6_addr[3] == 0)
+      && (addr_.s6_addr[4] == 0) && (addr_.s6_addr[5] == 0)
+      && (addr_.s6_addr[6] == 0) && (addr_.s6_addr[7] == 0)
+      && (addr_.s6_addr[8] == 0) && (addr_.s6_addr[9] == 0)
+      && (addr_.s6_addr[10] == 0) && (addr_.s6_addr[11] == 0)
+      && !((addr_.s6_addr[12] == 0)
+        && (addr_.s6_addr[13] == 0)
+        && (addr_.s6_addr[14] == 0)
+        && ((addr_.s6_addr[15] == 0) || (addr_.s6_addr[15] == 1))));
 }
 
 bool address_v6::is_multicast() const
 {
-  using namespace boost::asio::detail;
-  return IN6_IS_ADDR_MULTICAST(&addr_) != 0;
+  return (addr_.s6_addr[0] == 0xff);
 }
 
 bool address_v6::is_multicast_global() const
 {
-  using namespace boost::asio::detail;
-  return IN6_IS_ADDR_MC_GLOBAL(&addr_) != 0;
+  return ((addr_.s6_addr[0] == 0xff) && ((addr_.s6_addr[1] & 0x0f) == 0x0e));
 }
 
 bool address_v6::is_multicast_link_local() const
 {
-  using namespace boost::asio::detail;
-  return IN6_IS_ADDR_MC_LINKLOCAL(&addr_) != 0;
+  return ((addr_.s6_addr[0] == 0xff) && ((addr_.s6_addr[1] & 0x0f) == 0x02));
 }
 
 bool address_v6::is_multicast_node_local() const
 {
-  using namespace boost::asio::detail;
-  return IN6_IS_ADDR_MC_NODELOCAL(&addr_) != 0;
+  return ((addr_.s6_addr[0] == 0xff) && ((addr_.s6_addr[1] & 0x0f) == 0x01));
 }
 
 bool address_v6::is_multicast_org_local() const
 {
-  using namespace boost::asio::detail;
-  return IN6_IS_ADDR_MC_ORGLOCAL(&addr_) != 0;
+  return ((addr_.s6_addr[0] == 0xff) && ((addr_.s6_addr[1] & 0x0f) == 0x08));
 }
 
 bool address_v6::is_multicast_site_local() const
 {
-  using namespace boost::asio::detail;
-  return IN6_IS_ADDR_MC_SITELOCAL(&addr_) != 0;
+  return ((addr_.s6_addr[0] == 0xff) && ((addr_.s6_addr[1] & 0x0f) == 0x05));
 }
 
 bool operator==(const address_v6& a1, const address_v6& a2)
@@ -256,8 +270,7 @@ bool operator<(const address_v6& a1, const address_v6& a2)
 address_v6 address_v6::loopback()
 {
   address_v6 tmp;
-  boost::asio::detail::in6_addr_type tmp_addr = IN6ADDR_LOOPBACK_INIT;
-  tmp.addr_ = tmp_addr;
+  tmp.addr_.s6_addr[15] = 1;
   return tmp;
 }
 

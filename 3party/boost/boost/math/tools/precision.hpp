@@ -45,8 +45,10 @@ inline int digits(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(T))
 {
 #ifndef BOOST_NO_LIMITS_COMPILE_TIME_CONSTANTS
    BOOST_STATIC_ASSERT( ::std::numeric_limits<T>::is_specialized);
+   BOOST_STATIC_ASSERT( ::std::numeric_limits<T>::radix == 2);
 #else
    BOOST_ASSERT(::std::numeric_limits<T>::is_specialized);
+   BOOST_ASSERT(::std::numeric_limits<T>::radix == 2);
 #endif
    return std::numeric_limits<T>::digits;
 }
@@ -303,14 +305,14 @@ inline T forth_root_epsilon_imp(const T*, const Tag&)
 template <class T>
 inline T root_epsilon()
 {
-   typedef mpl::int_<std::numeric_limits<T>::digits> tag_type;
+   typedef mpl::int_< (::std::numeric_limits<T>::radix == 2) ? std::numeric_limits<T>::digits : 0> tag_type;
    return detail::root_epsilon_imp(static_cast<T const*>(0), tag_type());
 }
 
 template <class T>
 inline T forth_root_epsilon()
 {
-   typedef mpl::int_<std::numeric_limits<T>::digits> tag_type;
+   typedef mpl::int_< (::std::numeric_limits<T>::radix == 2) ? std::numeric_limits<T>::digits : 0> tag_type;
    return detail::forth_root_epsilon_imp(static_cast<T const*>(0), tag_type());
 }
 

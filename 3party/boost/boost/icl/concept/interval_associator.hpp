@@ -146,7 +146,7 @@ cardinality(const Type& object)
     ICL_const_FORALL(typename Type, it, object)
     {
         interval_size = icl::cardinality(key_value<Type>(it));
-        if(interval_size == infinity<size_type>::value())
+        if(interval_size == icl::infinity<size_type>::value())
             return interval_size;
         else
             size += interval_size;
@@ -662,7 +662,7 @@ typename enable_if<mpl::and_< is_interval_container<Type>
                    bool>::type
 intersects(const Type& left, const CoType& right)
 {
-    return left.find(right) != left.end();
+    return icl::find(left, right) != left.end();
 }
 
 
@@ -670,7 +670,7 @@ template<class LeftT, class RightT>
 typename enable_if< mpl::and_< is_intra_combinable<LeftT, RightT> 
                              , mpl::or_<is_total<LeftT>, is_total<RightT> > >
                   , bool>::type
-intersects(const LeftT& left, const RightT& right)
+intersects(const LeftT&, const RightT&)
 {
     return true;
 }

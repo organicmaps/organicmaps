@@ -14,6 +14,7 @@
 
 #include <boost/config.hpp>
 #include <boost/exception/get_error_info.hpp>
+#include <boost/exception/info.hpp>
 #include <boost/utility/enable_if.hpp>
 #ifndef BOOST_NO_RTTI
 #include <boost/units/detail/utility.hpp>
@@ -85,19 +86,23 @@ boost
         char const *
         get_diagnostic_information( exception const & x, char const * header )
             {
-            if( error_info_container * c=x.data_.get() )
 #ifndef BOOST_NO_EXCEPTIONS
-                try
-                    {
+            try
+                {
 #endif
-                    return c->diagnostic_information(header);
+                error_info_container * c=x.data_.get();
+                if( !c )
+                    x.data_.adopt(c=new exception_detail::error_info_container_impl);
+                char const * di=c->diagnostic_information(header);
+                BOOST_ASSERT(di!=0);
+                return di;
 #ifndef BOOST_NO_EXCEPTIONS
-                    }
-                catch(...)
-                    {
-                    }
+                }
+            catch(...)
+                {
+                return 0;
+                }
 #endif
-            return 0;
             }
 
         inline
@@ -122,22 +127,30 @@ boost
             std::ostringstream tmp;
             if( be )
                 {
-                if( char const * const * f=get_error_info<throw_file>(*be) )
-                    {
-                    tmp << *f;
-                    if( int const * l=get_error_info<throw_line>(*be) )
-                        tmp << '(' << *l << "): ";
-                    }
-                tmp << "Throw in function ";
-                if( char const * const * fn=get_error_info<throw_function>(*be) )
-                    tmp << *fn;
+                char const * const * f=get_error_info<throw_file>(*be);
+                int const * l=get_error_info<throw_line>(*be);
+                char const * const * fn=get_error_info<throw_function>(*be);
+                if( !f && !l && !fn )
+                    tmp << "Throw location unknown (consider using BOOST_THROW_EXCEPTION)\n";
                 else
-                    tmp << "(unknown)";
-                tmp << '\n';
+                    {
+                    if( f )
+                        {
+                        tmp << *f;
+                        if( int const * l=get_error_info<throw_line>(*be) )
+                            tmp << '(' << *l << "): ";
+                        }
+                    tmp << "Throw in function ";
+                    if( char const * const * fn=get_error_info<throw_function>(*be) )
+                        tmp << *fn;
+                    else
+                        tmp << "(unknown)";
+                    tmp << '\n';
+                    }
                 }
 #ifndef BOOST_NO_RTTI
             tmp << std::string("Dynamic exception type: ") <<
-                units::detail::demangle((be?(BOOST_EXCEPTION_DYNAMIC_TYPEID(*be)):(BOOST_EXCEPTION_DYNAMIC_TYPEID(*se))).type_.name()) << '\n';
+                units::detail::demangle((be?(BOOST_EXCEPTION_DYNAMIC_TYPEID(*be)):(BOOST_EXCEPTION_DYNAMIC_TYPEID(*se))).type_->name()) << '\n';
 #endif
             if( with_what && se )
                 tmp << "std::exception::what: " << wh << '\n';
@@ -166,7 +179,10 @@ boost
             {
 #endif
             (void) exception_detail::diagnostic_information_impl(&e,0,false);
-            return exception_detail::get_diagnostic_information(e,0);
+            if( char const * di=exception_detail::get_diagnostic_information(e,0) )
+                return di;
+            else
+                return "Failed to produce boost::diagnostic_information_what()";
 #ifndef BOOST_NO_EXCEPTIONS
             }
         catch(

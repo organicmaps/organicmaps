@@ -7,7 +7,7 @@
  * Boost Software License, Version 1.0. (See accompanying
  * file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  * Author:  Martin Andrian, Jeff Garland, Bart Garst
- * $Date: 2010-06-09 12:39:31 -0400 (Wed, 09 Jun 2010) $
+ * $Date: 2011-07-07 00:57:37 -0400 (Thu, 07 Jul 2011) $
  */
 
 #include <cctype>
@@ -244,22 +244,22 @@ namespace date_time {
 #endif
 
     //! sets default formats for ptime, local_date_time, and time_duration
-    explicit time_facet(::size_t a_ref = 0)
-      : base_type(default_time_format, period_formatter_type(), special_values_formatter_type(), date_gen_formatter_type(), a_ref),
+    explicit time_facet(::size_t ref_arg = 0)
+      : base_type(default_time_format, period_formatter_type(), special_values_formatter_type(), date_gen_formatter_type(), ref_arg),
         m_time_duration_format(string_type(duration_sign_negative_only) + default_time_duration_format)
     {}
 
     //! Construct the facet with an explicitly specified format
-    explicit time_facet(const char_type* a_format,
-                        period_formatter_type period_formatter = period_formatter_type(),
+    explicit time_facet(const char_type* format_arg,
+                        period_formatter_type period_formatter_arg = period_formatter_type(),
                         const special_values_formatter_type& special_value_formatter = special_values_formatter_type(),
                         date_gen_formatter_type dg_formatter = date_gen_formatter_type(),
-                         ::size_t a_ref = 0)
-      : base_type(a_format,
-                  period_formatter,
+                         ::size_t ref_arg = 0)
+      : base_type(format_arg,
+                  period_formatter_arg,
                   special_value_formatter,
                   dg_formatter,
-                  a_ref),
+                  ref_arg),
         m_time_duration_format(string_type(duration_sign_negative_only) + default_time_duration_format)
     {}
 
@@ -278,56 +278,56 @@ namespace date_time {
       this->m_format = iso_time_format_extended_specifier;
     }
 
-    OutItrT put(OutItrT a_next,
-                std::ios_base& a_ios,
-                char_type a_fill,
-                const time_type& a_time) const
+    OutItrT put(OutItrT next_arg,
+                std::ios_base& ios_arg,
+                char_type fill_arg,
+                const time_type& time_arg) const
     {
-      if (a_time.is_special()) {
-        return this->do_put_special(a_next, a_ios, a_fill,
-                              a_time.date().as_special());
+      if (time_arg.is_special()) {
+        return this->do_put_special(next_arg, ios_arg, fill_arg,
+                              time_arg.date().as_special());
       }
-      string_type format(this->m_format);
+      string_type local_format(this->m_format);
 
       // %T and %R have to be replaced here since they are not standard
-      boost::algorithm::replace_all(format,
+      boost::algorithm::replace_all(local_format,
         boost::as_literal(formats_type::full_24_hour_time_format),
         boost::as_literal(formats_type::full_24_hour_time_expanded_format));
-      boost::algorithm::replace_all(format,
+      boost::algorithm::replace_all(local_format,
         boost::as_literal(formats_type::short_24_hour_time_format),
         boost::as_literal(formats_type::short_24_hour_time_expanded_format));
 
       string_type frac_str;
-      if (format.find(seconds_with_fractional_seconds_format) != string_type::npos) {
+      if (local_format.find(seconds_with_fractional_seconds_format) != string_type::npos) {
         // replace %s with %S.nnn
         frac_str =
-          fractional_seconds_as_string(a_time.time_of_day(), false);
-        char_type sep = std::use_facet<std::numpunct<char_type> >(a_ios.getloc()).decimal_point();
+          fractional_seconds_as_string(time_arg.time_of_day(), false);
+        char_type sep = std::use_facet<std::numpunct<char_type> >(ios_arg.getloc()).decimal_point();
 
         string_type replace_string(seconds_format);
         replace_string += sep;
         replace_string += frac_str;
-        boost::algorithm::replace_all(format,
+        boost::algorithm::replace_all(local_format,
                                       seconds_with_fractional_seconds_format,
                                       replace_string);
       }
       /* NOTE: replacing posix_zone_string_format must be done BEFORE
        * zone_name_format: "%ZP" & "%Z", if Z is checked first it will
        * incorrectly replace a zone_name where a posix_string should go */
-      if (format.find(posix_zone_string_format) != string_type::npos) {
-        if(a_time.zone_abbrev().empty()) {
+      if (local_format.find(posix_zone_string_format) != string_type::npos) {
+        if(time_arg.zone_abbrev().empty()) {
           // if zone_abbrev() returns an empty string, we want to
           // erase posix_zone_string_format from format
-          boost::algorithm::erase_all(format, posix_zone_string_format);
+          boost::algorithm::erase_all(local_format, posix_zone_string_format);
         }
         else{
-          boost::algorithm::replace_all(format,
+          boost::algorithm::replace_all(local_format,
                                         posix_zone_string_format,
-                                        a_time.zone_as_posix_string());
+                                        time_arg.zone_as_posix_string());
         }
       }
-      if (format.find(zone_name_format) != string_type::npos) {
-        if(a_time.zone_name().empty()) {
+      if (local_format.find(zone_name_format) != string_type::npos) {
+        if(time_arg.zone_name().empty()) {
           /* TODO: this'll probably create problems if a user places
            * the zone_*_format flag in the format with a ptime. This
            * code removes the flag from the default formats */
@@ -336,16 +336,16 @@ namespace date_time {
           // erase zone_name_format & one preceeding space
           std::basic_ostringstream<char_type> ss;
           ss << ' ' << zone_name_format;
-          boost::algorithm::erase_all(format, ss.str());
+          boost::algorithm::erase_all(local_format, ss.str());
         }
         else{
-          boost::algorithm::replace_all(format,
+          boost::algorithm::replace_all(local_format,
                                         zone_name_format,
-                                        a_time.zone_name());
+                                        time_arg.zone_name());
         }
       }
-      if (format.find(zone_abbrev_format) != string_type::npos) {
-        if(a_time.zone_abbrev(false).empty()) {
+      if (local_format.find(zone_abbrev_format) != string_type::npos) {
+        if(time_arg.zone_abbrev(false).empty()) {
           /* TODO: this'll probably create problems if a user places
            * the zone_*_format flag in the format with a ptime. This
            * code removes the flag from the default formats */
@@ -354,93 +354,93 @@ namespace date_time {
           // erase zone_abbrev_format & one preceeding space
           std::basic_ostringstream<char_type> ss;
           ss << ' ' << zone_abbrev_format;
-          boost::algorithm::erase_all(format, ss.str());
+          boost::algorithm::erase_all(local_format, ss.str());
         }
         else{
-          boost::algorithm::replace_all(format,
+          boost::algorithm::replace_all(local_format,
                                         zone_abbrev_format,
-                                        a_time.zone_abbrev(false));
+                                        time_arg.zone_abbrev(false));
         }
       }
-      if (format.find(zone_iso_extended_format) != string_type::npos) {
-        if(a_time.zone_name(true).empty()) {
+      if (local_format.find(zone_iso_extended_format) != string_type::npos) {
+        if(time_arg.zone_name(true).empty()) {
           /* TODO: this'll probably create problems if a user places
            * the zone_*_format flag in the format with a ptime. This
            * code removes the flag from the default formats */
 
           // if zone_name() returns an empty string, we want to
           // erase zone_iso_extended_format from format
-          boost::algorithm::erase_all(format, zone_iso_extended_format);
+          boost::algorithm::erase_all(local_format, zone_iso_extended_format);
         }
         else{
-          boost::algorithm::replace_all(format,
+          boost::algorithm::replace_all(local_format,
                                         zone_iso_extended_format,
-                                        a_time.zone_name(true));
+                                        time_arg.zone_name(true));
         }
       }
 
-      if (format.find(zone_iso_format) != string_type::npos) {
-        if(a_time.zone_abbrev(true).empty()) {
+      if (local_format.find(zone_iso_format) != string_type::npos) {
+        if(time_arg.zone_abbrev(true).empty()) {
           /* TODO: this'll probably create problems if a user places
            * the zone_*_format flag in the format with a ptime. This
            * code removes the flag from the default formats */
 
           // if zone_abbrev() returns an empty string, we want to
           // erase zone_iso_format from format
-          boost::algorithm::erase_all(format, zone_iso_format);
+          boost::algorithm::erase_all(local_format, zone_iso_format);
         }
         else{
-          boost::algorithm::replace_all(format,
+          boost::algorithm::replace_all(local_format,
                                         zone_iso_format,
-                                        a_time.zone_abbrev(true));
+                                        time_arg.zone_abbrev(true));
         }
       }
-      if (format.find(fractional_seconds_format) != string_type::npos) {
+      if (local_format.find(fractional_seconds_format) != string_type::npos) {
         // replace %f with nnnnnnn
         if (frac_str.empty()) {
-          frac_str = fractional_seconds_as_string(a_time.time_of_day(), false);
+          frac_str = fractional_seconds_as_string(time_arg.time_of_day(), false);
         }
-        boost::algorithm::replace_all(format,
+        boost::algorithm::replace_all(local_format,
                                       fractional_seconds_format,
                                       frac_str);
       }
 
-      if (format.find(fractional_seconds_or_none_format) != string_type::npos) {
+      if (local_format.find(fractional_seconds_or_none_format) != string_type::npos) {
         // replace %F with nnnnnnn or nothing if fs == 0
         frac_str =
-          fractional_seconds_as_string(a_time.time_of_day(), true);
+          fractional_seconds_as_string(time_arg.time_of_day(), true);
         if (frac_str.size()) {
-          char_type sep = std::use_facet<std::numpunct<char_type> >(a_ios.getloc()).decimal_point();
+          char_type sep = std::use_facet<std::numpunct<char_type> >(ios_arg.getloc()).decimal_point();
           string_type replace_string;
           replace_string += sep;
           replace_string += frac_str;
-          boost::algorithm::replace_all(format,
+          boost::algorithm::replace_all(local_format,
                                         fractional_seconds_or_none_format,
                                         replace_string);
         }
         else {
-          boost::algorithm::erase_all(format,
+          boost::algorithm::erase_all(local_format,
                                       fractional_seconds_or_none_format);
         }
       }
 
-      return this->do_put_tm(a_next, a_ios, a_fill,
-                       to_tm(a_time), format);
+      return this->do_put_tm(next_arg, ios_arg, fill_arg,
+                       to_tm(time_arg), local_format);
     }
 
     //! put function for time_duration
-    OutItrT put(OutItrT a_next,
-                std::ios_base& a_ios,
-                char_type a_fill,
-                const time_duration_type& a_time_dur) const
+    OutItrT put(OutItrT next_arg,
+                std::ios_base& ios_arg,
+                char_type fill_arg,
+                const time_duration_type& time_dur_arg) const
     {
-      if (a_time_dur.is_special()) {
-        return this->do_put_special(a_next, a_ios, a_fill,
-                              a_time_dur.get_rep().as_special());
+      if (time_dur_arg.is_special()) {
+        return this->do_put_special(next_arg, ios_arg, fill_arg,
+                              time_dur_arg.get_rep().as_special());
       }
 
       string_type format(m_time_duration_format);
-      if (a_time_dur.is_negative()) {
+      if (time_dur_arg.is_negative()) {
         // replace %- with minus sign.  Should we use the numpunct facet?
         boost::algorithm::replace_all(format,
                                       duration_sign_negative_only,
@@ -477,7 +477,7 @@ namespace date_time {
        */
       string_type hours_str;
       if (format.find(unrestricted_hours_format) != string_type::npos) {
-        hours_str = hours_as_string(a_time_dur);
+        hours_str = hours_as_string(time_dur_arg);
         boost::algorithm::replace_all(format, unrestricted_hours_format, hours_str);
       }
       // We still have to process restricted hours format specifier. In order to
@@ -485,7 +485,7 @@ namespace date_time {
       // restrict the stringified hours length to 2 characters.
       if (format.find(hours_format) != string_type::npos) {
         if (hours_str.empty())
-          hours_str = hours_as_string(a_time_dur);
+          hours_str = hours_as_string(time_dur_arg);
         BOOST_ASSERT(hours_str.length() <= 2);
         boost::algorithm::replace_all(format, hours_format, hours_str);
       }
@@ -494,8 +494,8 @@ namespace date_time {
       if (format.find(seconds_with_fractional_seconds_format) != string_type::npos) {
         // replace %s with %S.nnn
         frac_str =
-          fractional_seconds_as_string(a_time_dur, false);
-        char_type sep = std::use_facet<std::numpunct<char_type> >(a_ios.getloc()).decimal_point();
+          fractional_seconds_as_string(time_dur_arg, false);
+        char_type sep = std::use_facet<std::numpunct<char_type> >(ios_arg.getloc()).decimal_point();
 
         string_type replace_string(seconds_format);
         replace_string += sep;
@@ -507,7 +507,7 @@ namespace date_time {
       if (format.find(fractional_seconds_format) != string_type::npos) {
         // replace %f with nnnnnnn
         if (!frac_str.size()) {
-          frac_str = fractional_seconds_as_string(a_time_dur, false);
+          frac_str = fractional_seconds_as_string(time_dur_arg, false);
         }
         boost::algorithm::replace_all(format,
                                       fractional_seconds_format,
@@ -517,9 +517,9 @@ namespace date_time {
       if (format.find(fractional_seconds_or_none_format) != string_type::npos) {
         // replace %F with nnnnnnn or nothing if fs == 0
         frac_str =
-          fractional_seconds_as_string(a_time_dur, true);
+          fractional_seconds_as_string(time_dur_arg, true);
         if (frac_str.size()) {
-          char_type sep = std::use_facet<std::numpunct<char_type> >(a_ios.getloc()).decimal_point();
+          char_type sep = std::use_facet<std::numpunct<char_type> >(ios_arg.getloc()).decimal_point();
           string_type replace_string;
           replace_string += sep;
           replace_string += frac_str;
@@ -533,14 +533,14 @@ namespace date_time {
         }
       }
 
-      return this->do_put_tm(a_next, a_ios, a_fill,
-                       to_tm(a_time_dur), format);
+      return this->do_put_tm(next_arg, ios_arg, fill_arg,
+                       to_tm(time_dur_arg), format);
     }
 
-    OutItrT put(OutItrT next, std::ios_base& a_ios,
+    OutItrT put(OutItrT next, std::ios_base& ios_arg,
                 char_type fill, const period_type& p) const
     {
-      return this->m_period_formatter.put_period(next, a_ios, fill,p,*this);
+      return this->m_period_formatter.put_period(next, ios_arg, fill,p,*this);
     }
 
 
@@ -548,11 +548,11 @@ namespace date_time {
 
     static
     string_type
-    fractional_seconds_as_string(const time_duration_type& a_time,
+    fractional_seconds_as_string(const time_duration_type& time_arg,
                                  bool null_when_zero)
     {
       typename time_duration_type::fractional_seconds_type frac_sec =
-        a_time.fractional_seconds();
+        time_arg.fractional_seconds();
 
       if (null_when_zero && (frac_sec == 0)) {
         return string_type();
@@ -566,9 +566,9 @@ namespace date_time {
 
     static
     string_type
-    hours_as_string(const time_duration_type& a_time, int width = 2)
+    hours_as_string(const time_duration_type& time_arg, int width = 2)
     {
-      return integral_as_string(date_time::absolute_value(a_time.hours()), width);
+      return integral_as_string(date_time::absolute_value(time_arg.hours()), width);
     }
 
     template< typename IntT >
@@ -731,8 +731,8 @@ namespace date_time {
       static std::locale::id id;
 
       //! Constructor that takes a format string for a ptime
-      explicit time_input_facet(const string_type& format, ::size_t a_ref = 0)
-        : base_type(format, a_ref),
+      explicit time_input_facet(const string_type& format, ::size_t ref_arg = 0)
+        : base_type(format, ref_arg),
           m_time_duration_format(default_time_duration_format)
       { }
 
@@ -741,19 +741,19 @@ namespace date_time {
                                 const special_values_parser_type& sv_parser,
                                 const period_parser_type& per_parser,
                                 const date_gen_parser_type& date_gen_parser,
-                                ::size_t a_ref = 0)
+                                ::size_t ref_arg = 0)
         : base_type(format,
                     date_parser,
                     sv_parser,
                     per_parser,
                     date_gen_parser,
-                    a_ref),
+                    ref_arg),
           m_time_duration_format(default_time_duration_format)
       {}
 
       //! sets default formats for ptime, local_date_time, and time_duration
-      explicit time_input_facet(::size_t a_ref = 0)
-        : base_type(default_time_input_format, a_ref),
+      explicit time_input_facet(::size_t ref_arg = 0)
+        : base_type(default_time_input_format, ref_arg),
           m_time_duration_format(default_time_duration_format)
       { }
 
@@ -772,12 +772,12 @@ namespace date_time {
 
       InItrT get(InItrT& sitr,
                  InItrT& stream_end,
-                 std::ios_base& a_ios,
+                 std::ios_base& ios_arg,
                  period_type& p) const
       {
         p = this->m_period_parser.get_period(sitr,
                                              stream_end,
-                                             a_ios,
+                                             ios_arg,
                                              p,
                                              time_duration_type::unit(),
                                              *this);
@@ -789,7 +789,7 @@ namespace date_time {
 
       InItrT get(InItrT& sitr,
                  InItrT& stream_end,
-                 std::ios_base& a_ios,
+                 std::ios_base& ios_arg,
                  time_duration_type& td) const
       {
         // skip leading whitespace
@@ -813,10 +813,10 @@ namespace date_time {
         typename time_duration_type::fractional_seconds_type frac(0);
 
         typedef std::num_get<CharT, InItrT> num_get;
-        if(!std::has_facet<num_get>(a_ios.getloc())) {
+        if(!std::has_facet<num_get>(ios_arg.getloc())) {
           num_get* ng = new num_get();
-          std::locale loc = std::locale(a_ios.getloc(), ng);
-          a_ios.imbue(loc);
+          std::locale loc = std::locale(ios_arg.getloc(), ng);
+          ios_arg.imbue(loc);
         }
 
         const_itr itr(m_time_duration_format.begin());
@@ -928,27 +928,27 @@ namespace date_time {
       //! Parses a time object from the input stream
       InItrT get(InItrT& sitr,
                  InItrT& stream_end,
-                 std::ios_base& a_ios,
+                 std::ios_base& ios_arg,
                  time_type& t) const
       {
         string_type tz_str;
-        return get(sitr, stream_end, a_ios, t, tz_str, false);
+        return get(sitr, stream_end, ios_arg, t, tz_str, false);
       }
       //! Expects a time_zone in the input stream
       InItrT get_local_time(InItrT& sitr,
                             InItrT& stream_end,
-                            std::ios_base& a_ios,
+                            std::ios_base& ios_arg,
                             time_type& t,
                             string_type& tz_str) const
       {
-        return get(sitr, stream_end, a_ios, t, tz_str, true);
+        return get(sitr, stream_end, ios_arg, t, tz_str, true);
       }
 
     protected:
 
       InItrT get(InItrT& sitr,
                  InItrT& stream_end,
-                 std::ios_base& a_ios,
+                 std::ios_base& ios_arg,
                  time_type& t,
                  string_type& tz_str,
                  bool time_is_local) const
@@ -985,10 +985,10 @@ namespace date_time {
         day_type t_day(1);
 
         typedef std::num_get<CharT, InItrT> num_get;
-        if(!std::has_facet<num_get>(a_ios.getloc())) {
+        if(!std::has_facet<num_get>(ios_arg.getloc())) {
           num_get* ng = new num_get();
-          std::locale loc = std::locale(a_ios.getloc(), ng);
-          a_ios.imbue(loc);
+          std::locale loc = std::locale(ios_arg.getloc(), ng);
+          ios_arg.imbue(loc);
         }
 
         const_itr itr(this->m_format.begin());

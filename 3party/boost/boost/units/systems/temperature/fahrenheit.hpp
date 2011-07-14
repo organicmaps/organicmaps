@@ -14,7 +14,6 @@
 #include <string>
 
 #include <boost/units/absolute.hpp>
-#include <boost/units/io.hpp>
 #include <boost/units/make_system.hpp>
 #include <boost/units/static_constant.hpp>
 #include <boost/units/base_units/temperature/fahrenheit.hpp>

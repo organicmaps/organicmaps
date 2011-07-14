@@ -24,11 +24,19 @@ namespace detail {
 template <typename T>
 struct has_trivial_ctor_impl
 {
+#ifdef BOOST_HAS_TRIVIAL_CONSTRUCTOR
    BOOST_STATIC_CONSTANT(bool, value =
       (::boost::type_traits::ice_or<
          ::boost::is_pod<T>::value,
          BOOST_HAS_TRIVIAL_CONSTRUCTOR(T)
       >::value));
+#else
+   BOOST_STATIC_CONSTANT(bool, value =
+      (::boost::type_traits::ice_or<
+         ::boost::is_pod<T>::value,
+         false
+      >::value));
+#endif
 };
 
 } // namespace detail

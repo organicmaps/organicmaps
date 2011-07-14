@@ -12,12 +12,13 @@
 #ifndef BOOST_RANGE_SUB_RANGE_HPP
 #define BOOST_RANGE_SUB_RANGE_HPP
 
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500))
+#include <boost/detail/workaround.hpp>
+
+#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500)) 
     #pragma warning( push )
     #pragma warning( disable : 4996 )
 #endif
 
-#include <boost/detail/workaround.hpp>
 #include <boost/range/config.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/value_type.hpp>
@@ -30,9 +31,9 @@
 
 namespace boost
 {
-
-    template< class ForwardRange >
-    class sub_range : public iterator_range< BOOST_DEDUCED_TYPENAME range_iterator<ForwardRange>::type >
+    
+    template< class ForwardRange > 
+    class sub_range : public iterator_range< BOOST_DEDUCED_TYPENAME range_iterator<ForwardRange>::type > 
     {
         typedef BOOST_DEDUCED_TYPENAME range_iterator<ForwardRange>::type iterator_t;
         typedef iterator_range< iterator_t  > base;
@@ -53,40 +54,40 @@ namespace boost
                                  reference >::type const_reference;
 
     public:
-        sub_range() : base()
+        sub_range() : base() 
         { }
-
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500) )
-        sub_range( const sub_range& r )
-            : base( static_cast<const base&>( r ) )
-        { }
+        
+#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500) ) 
+        sub_range( const sub_range& r ) 
+            : base( static_cast<const base&>( r ) )  
+        { }  
 #endif
 
         template< class ForwardRange2 >
-        sub_range( ForwardRange2& r ) :
+        sub_range( ForwardRange2& r ) : 
+            
+#if BOOST_WORKAROUND(BOOST_INTEL_CXX_VERSION, <= 800 )
+            base( impl::adl_begin( r ), impl::adl_end( r ) )
+#else
+            base( r )
+#endif        
+        { }
+        
+        template< class ForwardRange2 >
+        sub_range( const ForwardRange2& r ) : 
 
 #if BOOST_WORKAROUND(BOOST_INTEL_CXX_VERSION, <= 800 )
             base( impl::adl_begin( r ), impl::adl_end( r ) )
 #else
             base( r )
-#endif
-        { }
-
-        template< class ForwardRange2 >
-        sub_range( const ForwardRange2& r ) :
-
-#if BOOST_WORKAROUND(BOOST_INTEL_CXX_VERSION, <= 800 )
-            base( impl::adl_begin( r ), impl::adl_end( r ) )
-#else
-            base( r )
-#endif
+#endif                
         { }
 
         template< class Iter >
         sub_range( Iter first, Iter last ) :
             base( first, last )
         { }
-
+        
         template< class ForwardRange2 >
         sub_range& operator=( ForwardRange2& r )
         {
@@ -99,23 +100,23 @@ namespace boost
         {
             base::operator=( r );
             return *this;
-        }
+        }   
 
         sub_range& operator=( const sub_range& r )
         {
             base::operator=( static_cast<const base&>(r) );
-            return *this;
+            return *this;            
         }
-
+        
     public:
-
+        
         iterator        begin()          { return base::begin(); }
         const_iterator  begin() const    { return base::begin(); }
         iterator        end()            { return base::end();   }
         const_iterator  end() const      { return base::end();   }
-        difference_type size() const     { return base::size();  }
+        difference_type size() const     { return base::size();  }   
 
-
+        
     public: // convenience
         reference front()
         {
@@ -173,7 +174,7 @@ namespace boost
 
 } // namespace 'boost'
 
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500))
+#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1500)) 
     #pragma warning( pop )
 #endif
 

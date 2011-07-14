@@ -317,14 +317,14 @@ inline u32regex_token_iterator<const wchar_t*> make_u32regex_token_iterator(cons
 template <std::size_t N>
 inline u32regex_token_iterator<const UChar*> make_u32regex_token_iterator(const UChar* p, const u32regex& e, const int (&submatch)[N], regex_constants::match_flag_type m = regex_constants::match_default)
 {
-   return u32regex_token_iterator<const UChar*>(p, p+u_strlen(p), e, m);
+   return u32regex_token_iterator<const UChar*>(p, p+u_strlen(p), e, submatch, m);
 }
 #endif
 template <class charT, class Traits, class Alloc, std::size_t N>
 inline u32regex_token_iterator<typename std::basic_string<charT, Traits, Alloc>::const_iterator> make_u32regex_token_iterator(const std::basic_string<charT, Traits, Alloc>& p, const u32regex& e, const int (&submatch)[N], regex_constants::match_flag_type m = regex_constants::match_default)
 {
    typedef typename std::basic_string<charT, Traits, Alloc>::const_iterator iter_type;
-   return u32regex_token_iterator<iter_type>(p.begin(), p.end(), e, m);
+   return u32regex_token_iterator<iter_type>(p.begin(), p.end(), e, submatch, m);
 }
 template <std::size_t N>
 inline u32regex_token_iterator<const UChar*> make_u32regex_token_iterator(const U_NAMESPACE_QUALIFIER UnicodeString& s, const u32regex& e, const int (&submatch)[N], regex_constants::match_flag_type m = regex_constants::match_default)
@@ -354,7 +354,7 @@ template <class charT, class Traits, class Alloc>
 inline u32regex_token_iterator<typename std::basic_string<charT, Traits, Alloc>::const_iterator> make_u32regex_token_iterator(const std::basic_string<charT, Traits, Alloc>& p, const u32regex& e, const std::vector<int>& submatch, regex_constants::match_flag_type m = regex_constants::match_default)
 {
    typedef typename std::basic_string<charT, Traits, Alloc>::const_iterator iter_type;
-   return u32regex_token_iterator<iter_type>(p.begin(), p.end(), e, m);
+   return u32regex_token_iterator<iter_type>(p.begin(), p.end(), e, submatch, m);
 }
 inline u32regex_token_iterator<const UChar*> make_u32regex_token_iterator(const U_NAMESPACE_QUALIFIER UnicodeString& s, const u32regex& e, const std::vector<int>& submatch, regex_constants::match_flag_type m = regex_constants::match_default)
 {

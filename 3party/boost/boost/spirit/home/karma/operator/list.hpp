@@ -15,7 +15,10 @@
 #include <boost/spirit/home/karma/generator.hpp>
 #include <boost/spirit/home/karma/meta_compiler.hpp>
 #include <boost/spirit/home/karma/detail/output_iterator.hpp>
+#include <boost/spirit/home/karma/detail/indirect_iterator.hpp>
 #include <boost/spirit/home/karma/detail/get_stricttag.hpp>
+#include <boost/spirit/home/karma/detail/pass_container.hpp>
+#include <boost/spirit/home/karma/detail/fail_function.hpp>
 #include <boost/spirit/home/support/info.hpp>
 #include <boost/spirit/home/support/unused.hpp>
 #include <boost/spirit/home/support/container.hpp>
@@ -41,39 +44,35 @@ namespace boost { namespace spirit { namespace karma
     private:
         // iterate over the given container until its exhausted or the embedded
         // (left) generator succeeds
-        template <
-            typename OutputIterator, typename Context, typename Delimiter
-          , typename Iterator, typename Attribute>
-        bool generate_left(OutputIterator& sink, Context& ctx
-          , Delimiter const& d, Iterator& it, Iterator& end, Attribute const&) const
+        template <typename F, typename Attribute>
+        bool generate_left(F f, Attribute const&, mpl::false_) const
         {
-            if (Strict::value) {
-                if (!traits::compare(it, end))
-                    return left.generate(sink, ctx, d, traits::deref(it));
-            }
-            else {
-                // Failing subject generators are just skipped. This allows to 
-                // selectively generate items in the provided attribute.
-                while (!traits::compare(it, end))
-                {
-                    if (left.generate(sink, ctx, d, traits::deref(it)))
-                        return true;
-                    traits::next(it);
-                }
+            // Failing subject generators are just skipped. This allows to 
+            // selectively generate items in the provided attribute.
+            while (!f.is_at_end())
+            {
+                bool r = !f(left);
+                if (r) 
+                    return true;
+                if (!f.is_at_end())
+                    f.next();
             }
             return false;
         }
 
-        template <
-            typename OutputIterator, typename Context, typename Delimiter
-          , typename Iterator>
-        bool generate_left(OutputIterator& sink, Context& ctx
-          , Delimiter const& d, Iterator&, Iterator&, unused_type) const
+        template <typename F, typename Attribute>
+        bool generate_left(F f, Attribute const&, mpl::true_) const
         {
-            // There is no way to distinguish a failed generator from a 
-            // generator to be skipped. We assume the user takes responsibility
-            // for ending the loop if no attribute is specified.
-            return left.generate(sink, ctx, d, unused);
+            return !f(left);
+        }
+
+        // There is no way to distinguish a failed generator from a 
+        // generator to be skipped. We assume the user takes responsibility
+        // for ending the loop if no attribute is specified.
+        template <typename F>
+        bool generate_left(F f, unused_type, mpl::false_) const
+        {
+            return !f(left);
         }
 
     public:
@@ -106,16 +105,30 @@ namespace boost { namespace spirit { namespace karma
         bool generate(OutputIterator& sink, Context& ctx
           , Delimiter const& d, Attribute const& attr) const
         {
+            typedef detail::fail_function<
+                OutputIterator, Context, Delimiter
+            > fail_function;
+
             typedef typename traits::container_iterator<
                 typename add_const<Attribute>::type
             >::type iterator_type;
 
+            typedef 
+                typename traits::make_indirect_iterator<iterator_type>::type 
+            indirect_iterator_type;
+            typedef detail::pass_container<
+                fail_function, Attribute, indirect_iterator_type, mpl::false_>
+            pass_container;
+
             iterator_type it = traits::begin(attr);
             iterator_type end = traits::end(attr);
 
-            if (generate_left(sink, ctx, d, it, end, attr))
+            pass_container pass(fail_function(sink, ctx, d), 
+                indirect_iterator_type(it), indirect_iterator_type(end));
+
+            if (generate_left(pass, attr, Strict()))
             {
-                for (traits::next(it); !traits::compare(it, end); traits::next(it))
+                while (!pass.is_at_end())
                 {
                     // wrap the given output iterator as generate_left might fail
                     detail::enable_buffering<OutputIterator> buffering(sink);
@@ -125,12 +138,12 @@ namespace boost { namespace spirit { namespace karma
                         if (!right.generate(sink, ctx, d, unused))
                             return false;     // shouldn't happen
 
-                        if (!generate_left(sink, ctx, d, it, end, attr))
+                        if (!generate_left(pass, attr, Strict()))
                             break;            // return true as one item succeeded
                     }
                     buffering.buffer_copy();
                 }
-                return true;
+                return detail::sink_is_good(sink);
             }
             return false;
         }
@@ -203,13 +216,13 @@ namespace boost { namespace spirit { namespace traits
     template <typename Left, typename Right, typename Attribute
       , typename Context, typename Iterator>
     struct handles_container<karma::list<Left, Right>, Attribute
-      , Context, Iterator> 
+          , Context, Iterator> 
       : mpl::true_ {};
 
     template <typename Left, typename Right, typename Attribute
       , typename Context, typename Iterator>
     struct handles_container<karma::strict_list<Left, Right>, Attribute
-      , Context, Iterator> 
+          , Context, Iterator> 
       : mpl::true_ {};
 }}}
 

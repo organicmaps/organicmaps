@@ -342,7 +342,7 @@ typename T::ThereReallyIsNoMemberByThisNameInT vertices(T const&);
         }
         G g;
         typename graph_traits<G>::vertex_descriptor v;
-        typename vertex_property<G>::type vp;
+        typename vertex_property_type<G>::type vp;
     };
 
     BOOST_concept(EdgeMutablePropertyGraph,(G))
@@ -356,7 +356,7 @@ typename T::ThereReallyIsNoMemberByThisNameInT vertices(T const&);
         G g;
         std::pair<edge_descriptor, bool> p;
         typename graph_traits<G>::vertex_descriptor u, v;
-        typename edge_property<G>::type ep;
+        typename edge_property_type<G>::type ep;
     };
 
     BOOST_concept(AdjacencyMatrix,(G))

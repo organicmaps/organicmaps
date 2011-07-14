@@ -87,10 +87,10 @@ public:
 
   reactive_socket_accept_op(socket_type socket,
       socket_ops::state_type state, Socket& peer, const Protocol& protocol,
-      typename Protocol::endpoint* peer_endpoint, Handler handler)
+      typename Protocol::endpoint* peer_endpoint, Handler& handler)
     : reactive_socket_accept_op_base<Socket, Protocol>(socket, state, peer,
         protocol, peer_endpoint, &reactive_socket_accept_op::do_complete),
-      handler_(handler)
+      handler_(BOOST_ASIO_MOVE_CAST(Handler)(handler))
   {
   }
 
@@ -100,6 +100,8 @@ public:
     // Take ownership of the handler object.
     reactive_socket_accept_op* o(static_cast<reactive_socket_accept_op*>(base));
     ptr p = { boost::addressof(o->handler_), o, o };
+
+    BOOST_ASIO_HANDLER_COMPLETION((o));
 
     // Make a copy of the handler so that the memory can be deallocated before
     // the upcall is made. Even if we're not about to make an upcall, a
@@ -116,7 +118,9 @@ public:
     if (owner)
     {
       boost::asio::detail::fenced_block b;
+      BOOST_ASIO_HANDLER_INVOCATION_BEGIN((handler.arg1_));
       boost_asio_handler_invoke_helpers::invoke(handler, handler.handler_);
+      BOOST_ASIO_HANDLER_INVOCATION_END;
     }
   }
 

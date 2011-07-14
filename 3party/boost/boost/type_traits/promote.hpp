@@ -19,7 +19,7 @@ namespace detail {
 
 template<class T>
 struct promote_impl
-  : integral_promotion<
+  : public integral_promotion<
         BOOST_DEDUCED_TYPENAME floating_point_promotion<T>::type
       >
 {

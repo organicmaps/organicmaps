@@ -14,7 +14,7 @@
 #endif
 
 #include <cmath>
-#include <limits>
+#include <boost/limits.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/spirit/home/support/unused.hpp>
 #include <boost/spirit/home/qi/detail/attributes.hpp>
@@ -30,7 +30,7 @@
 
 namespace boost { namespace spirit { namespace traits
 {
-    using spirit::detail::pow10;
+    using spirit::traits::pow10;
 
     template <typename T>
     inline void

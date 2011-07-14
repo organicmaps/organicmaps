@@ -153,7 +153,7 @@ namespace boost
     { // Probability Density/Mass Function.
       BOOST_FPU_EXCEPTION_GUARD
       // Error check:
-      RealType result; // of checks.
+      RealType result = 0; // of checks.
       if(false == bernoulli_detail::check_dist_and_k(
         "boost::math::pdf(bernoulli_distribution<%1%>, %1%)",
         dist.success_fraction(), // 0 to 1
@@ -178,7 +178,7 @@ namespace boost
     { // Cumulative Distribution Function Bernoulli.
       RealType p = dist.success_fraction();
       // Error check:
-      RealType result;
+      RealType result = 0;
       if(false == bernoulli_detail::check_dist_and_k(
         "boost::math::cdf(bernoulli_distribution<%1%>, %1%)",
         p,
@@ -204,7 +204,7 @@ namespace boost
       bernoulli_distribution<RealType, Policy> const& dist = c.dist;
       RealType p = dist.success_fraction();
       // Error checks:
-      RealType result;
+      RealType result = 0;
       if(false == bernoulli_detail::check_dist_and_k(
         "boost::math::cdf(bernoulli_distribution<%1%>, %1%)",
         p,
@@ -229,7 +229,7 @@ namespace boost
       // Return the number of expected successes k either 0 or 1.
       // for a given probability p.
 
-      RealType result; // of error checks:
+      RealType result = 0; // of error checks:
       if(false == bernoulli_detail::check_dist_and_prob(
         "boost::math::quantile(bernoulli_distribution<%1%>, %1%)",
         dist.success_fraction(),
@@ -257,7 +257,7 @@ namespace boost
       // Error checks:
       RealType q = c.param;
       const bernoulli_distribution<RealType, Policy>& dist = c.dist;
-      RealType result;
+      RealType result = 0;
       if(false == bernoulli_detail::check_dist_and_prob(
         "boost::math::quantile(bernoulli_distribution<%1%>, %1%)",
         dist.success_fraction(),

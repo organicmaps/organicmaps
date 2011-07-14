@@ -62,11 +62,12 @@ void select_reactor::schedule_timer(timer_queue<Time_Traits>& queue,
 
 template <typename Time_Traits>
 std::size_t select_reactor::cancel_timer(timer_queue<Time_Traits>& queue,
-    typename timer_queue<Time_Traits>::per_timer_data& timer)
+    typename timer_queue<Time_Traits>::per_timer_data& timer,
+    std::size_t max_cancelled)
 {
   boost::asio::detail::mutex::scoped_lock lock(mutex_);
   op_queue<operation> ops;
-  std::size_t n = queue.cancel_timer(timer, ops);
+  std::size_t n = queue.cancel_timer(timer, ops, max_cancelled);
   lock.unlock();
   io_service_.post_deferred_completions(ops);
   return n;

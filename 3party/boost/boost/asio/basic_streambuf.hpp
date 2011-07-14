@@ -130,9 +130,9 @@ public:
    * of the streambuf's input sequence is 0.
    */
   explicit basic_streambuf(
-      std::size_t max_size = (std::numeric_limits<std::size_t>::max)(),
+      std::size_t maximum_size = (std::numeric_limits<std::size_t>::max)(),
       const Allocator& allocator = Allocator())
-    : max_size_(max_size),
+    : max_size_(maximum_size),
       buffer_(allocator)
   {
     std::size_t pend = (std::min<std::size_t>)(max_size_, buffer_delta);

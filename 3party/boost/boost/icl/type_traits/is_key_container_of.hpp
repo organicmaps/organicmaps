@@ -8,6 +8,7 @@ Copyright (c) 2010-2010: Joachim Faulhaber
 #ifndef BOOST_ICL_TYPE_TRAITS_IS_KEY_CONTAINER_OF_HPP_JOFA_100829
 #define BOOST_ICL_TYPE_TRAITS_IS_KEY_CONTAINER_OF_HPP_JOFA_100829
 
+#include <boost/mpl/has_xxx.hpp>
 #include <boost/icl/type_traits/is_combinable.hpp>
 #include <boost/icl/type_traits/is_container.hpp>
 

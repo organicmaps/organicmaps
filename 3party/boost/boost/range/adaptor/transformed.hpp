@@ -42,8 +42,8 @@ namespace boost
             typedef R source_range_type;
 
             transformed_range( F f, R& r )
-                : base( make_transform_iterator( boost::begin(r), f ),
-                        make_transform_iterator( boost::end(r), f ) )
+                : base( boost::make_transform_iterator( boost::begin(r), f ),
+                        boost::make_transform_iterator( boost::end(r), f ) )
 
             { }
         };

@@ -1,4 +1,4 @@
-/* Copyright 2003-2008 Joaquin M Lopez Munoz.
+/* Copyright 2003-2011 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -998,7 +998,7 @@ public:
     const composite_key_result<CompositeKey>& x,
     const Value& y)const
   {
-    return operator()(x,make_tuple(cref(y)));
+    return operator()(x,boost::make_tuple(boost::cref(y)));
   }
 #endif
 
@@ -1033,7 +1033,7 @@ public:
     const Value& x,
     const composite_key_result<CompositeKey>& y)const
   {
-    return operator()(make_tuple(cref(x)),y);
+    return operator()(boost::make_tuple(boost::cref(x)),y);
   }
 #endif
 

@@ -25,7 +25,11 @@ namespace detail {
 template <typename T> struct is_union_impl
 {
    typedef typename remove_cv<T>::type cvt;
+#ifdef BOOST_IS_UNION
    BOOST_STATIC_CONSTANT(bool, value = BOOST_IS_UNION(cvt));
+#else
+   BOOST_STATIC_CONSTANT(bool, value = false);
+#endif
 };
 #else
 //
@@ -35,7 +39,11 @@ template <typename T> struct is_union_impl
 //
 template <typename T> struct is_union_impl
 {
+#ifdef BOOST_IS_UNION
    BOOST_STATIC_CONSTANT(bool, value = BOOST_IS_UNION(T));
+#else
+   BOOST_STATIC_CONSTANT(bool, value = false);
+#endif
 };
 #endif
 } // namespace detail

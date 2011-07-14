@@ -45,7 +45,7 @@ public:
   win_iocp_socket_accept_op(win_iocp_socket_service_base& socket_service,
       socket_type socket, Socket& peer, const Protocol& protocol,
       typename Protocol::endpoint* peer_endpoint,
-      bool enable_connection_aborted, Handler handler)
+      bool enable_connection_aborted, Handler& handler)
     : operation(&win_iocp_socket_accept_op::do_complete),
       socket_service_(socket_service),
       socket_(socket),
@@ -53,7 +53,7 @@ public:
       protocol_(protocol),
       peer_endpoint_(peer_endpoint),
       enable_connection_aborted_(enable_connection_aborted),
-      handler_(handler)
+      handler_(BOOST_ASIO_MOVE_CAST(Handler)(handler))
   {
   }
 
@@ -107,7 +107,7 @@ public:
       if (!ec)
       {
         o->peer_.assign(o->protocol_,
-            typename Socket::native_type(
+            typename Socket::native_handle_type(
               o->new_socket_.get(), peer_endpoint), ec);
         if (!ec)
           o->new_socket_.release();
@@ -117,6 +117,8 @@ public:
       if (o->peer_endpoint_)
         *o->peer_endpoint_ = peer_endpoint;
     }
+
+    BOOST_ASIO_HANDLER_COMPLETION((o));
 
     // Make a copy of the handler so that the memory can be deallocated before
     // the upcall is made. Even if we're not about to make an upcall, a
@@ -133,7 +135,9 @@ public:
     if (owner)
     {
       boost::asio::detail::fenced_block b;
+      BOOST_ASIO_HANDLER_INVOCATION_BEGIN((handler.arg1_));
       boost_asio_handler_invoke_helpers::invoke(handler, handler.handler_);
+      BOOST_ASIO_HANDLER_INVOCATION_END;
     }
   }
 

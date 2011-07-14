@@ -93,7 +93,7 @@ namespace boost { namespace spirit { namespace karma
 
         // char_class shouldn't be used without any associated attribute
         template <typename CharParam, typename Context>
-        bool test(unused_type, CharParam& ch, Context&) const
+        bool test(unused_type, CharParam&, Context&) const
         {
             // It is not possible (doesn't make sense) to use char_ generators 
             // without providing any attribute, as the generator doesn't 'know' 

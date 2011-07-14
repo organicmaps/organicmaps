@@ -23,7 +23,7 @@
 //  Note that THIS HEADER MUST NOT INCLUDE ANY OTHER HEADERS:
 //  not even std library ones!  Doing so may turn the warning
 //  off too late to be of any use.  For example the VC++ C4996
-//  warning can be omitted from <iosfwd> if that header is included
+//  warning can be emitted from <iosfwd> if that header is included
 //  before or by this one :-(
 //
 

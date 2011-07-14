@@ -23,8 +23,8 @@
 // in anything that may be included by function_template.hpp doesn't break
 #include <boost/function/detail/prologue.hpp>
 
-// Visual Age C++ doesn't handle the file iteration well
-#if BOOST_WORKAROUND(__IBMCPP__, >= 500)
+// Older Visual Age C++ version do not handle the file iteration well
+#if BOOST_WORKAROUND(__IBMCPP__, >= 500) && BOOST_WORKAROUND(__IBMCPP__, < 800)
 #  if BOOST_FUNCTION_MAX_ARGS >= 0
 #    include <boost/function/function0.hpp>
 #  endif

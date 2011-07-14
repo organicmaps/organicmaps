@@ -146,7 +146,7 @@ namespace boost
         RealType alpha) // alpha 0.05 equivalent to 95% for one-sided test.
       {
         static const char* function = "boost::math::geometric<%1%>::find_lower_bound_on_p";
-        RealType result;  // of error checks.
+        RealType result = 0;  // of error checks.
         RealType successes = 1;
         RealType failures = trials - successes;
         if(false == detail::check_probability(function, alpha, &result, Policy())
@@ -171,7 +171,7 @@ namespace boost
         RealType alpha) // alpha 0.05 equivalent to 95% for one-sided test.
       {
         static const char* function = "boost::math::geometric<%1%>::find_upper_bound_on_p";
-        RealType result;  // of error checks.
+        RealType result = 0;  // of error checks.
         RealType successes = 1;
         RealType failures = trials - successes;
         if(false == geometric_detail::check_dist_and_k(
@@ -205,7 +205,7 @@ namespace boost
       {
         static const char* function = "boost::math::geometric<%1%>::find_minimum_number_of_trials";
         // Error checks:
-        RealType result;
+        RealType result = 0;
         if(false == geometric_detail::check_dist_and_k(
           function, p, k, &result, Policy())
           && detail::check_probability(function, alpha, &result, Policy()))
@@ -223,7 +223,7 @@ namespace boost
       {
         static const char* function = "boost::math::geometric<%1%>::find_maximum_number_of_trials";
         // Error checks:
-        RealType result;
+        RealType result = 0;
         if(false == geometric_detail::check_dist_and_k(
           function, p, k, &result, Policy())
           &&  detail::check_probability(function, alpha, &result, Policy()))
@@ -317,7 +317,7 @@ namespace boost
       static const char* function = "boost::math::pdf(const geometric_distribution<%1%>&, %1%)";
 
       RealType p = dist.success_fraction();
-      RealType result;
+      RealType result = 0;
       if(false == geometric_detail::check_dist_and_k(
         function,
         p,
@@ -356,7 +356,7 @@ namespace boost
       // If necessary, it has already been promoted from an integral type.
       RealType p = dist.success_fraction();
       // Error check:
-      RealType result;
+      RealType result = 0;
       if(false == geometric_detail::check_dist_and_k(
         function,
         p,
@@ -389,7 +389,7 @@ namespace boost
       geometric_distribution<RealType, Policy> const& dist = c.dist;
       RealType p = dist.success_fraction();
       // Error check:
-      RealType result;
+      RealType result = 0;
       if(false == geometric_detail::check_dist_and_k(
         function,
         p,
@@ -416,7 +416,7 @@ namespace boost
 
       RealType success_fraction = dist.success_fraction();
       // Check dist and x.
-      RealType result;
+      RealType result = 0;
       if(false == geometric_detail::check_dist_and_prob
         (function, success_fraction, x, &result, Policy()))
       {
@@ -465,7 +465,7 @@ namespace boost
        RealType x = c.param;
        const geometric_distribution<RealType, Policy>& dist = c.dist;
        RealType success_fraction = dist.success_fraction();
-       RealType result;
+       RealType result = 0;
        if(false == geometric_detail::check_dist_and_prob(
           function,
           success_fraction,

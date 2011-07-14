@@ -32,6 +32,13 @@ struct type_to_string<std::set<Type> >
     { return "set<"+ type_to_string<Type>::apply() +">"; }
 };
 
+template <class Type>
+struct type_to_string<std::set<Type, std::greater<Type> > >
+{
+    static std::string apply()
+    { return "set<"+ type_to_string<Type>::apply() +" g>"; }
+};
+
 }} // namespace icl boost
 
 #endif // BOOST_ICL_DETAIL_STD_SET_HPP_JOFA_101007

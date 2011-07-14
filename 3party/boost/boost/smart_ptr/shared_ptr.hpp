@@ -41,6 +41,7 @@
 #include <algorithm>            // for std::swap
 #include <functional>           // for std::less
 #include <typeinfo>             // for std::bad_cast
+#include <cstddef>              // for std::size_t
 
 #if !defined(BOOST_NO_IOSTREAM)
 #if !defined(BOOST_NO_IOSFWD)
@@ -48,11 +49,6 @@
 #else
 #include <ostream>
 #endif
-#endif
-
-#ifdef BOOST_MSVC  // moved here to work around VC++ compiler crash
-# pragma warning(push)
-# pragma warning(disable:4284) // odd return type for operator->
 #endif
 
 namespace boost
@@ -688,13 +684,18 @@ template<class T> inline bool atomic_compare_exchange_explicit( shared_ptr<T> * 
     return atomic_compare_exchange( p, v, w ); // std::move( w )
 }
 
-#endif
+#endif // !defined(BOOST_SP_NO_ATOMIC_ACCESS)
+
+// hash_value
+
+template< class T > struct hash;
+
+template< class T > std::size_t hash_value( boost::shared_ptr<T> const & p )
+{
+    return boost::hash< T* >()( p.get() );
+}
 
 } // namespace boost
-
-#ifdef BOOST_MSVC
-# pragma warning(pop)
-#endif
 
 #endif  // #if defined(BOOST_NO_MEMBER_TEMPLATES) && !defined(BOOST_MSVC6_MEMBER_TEMPLATES)
 

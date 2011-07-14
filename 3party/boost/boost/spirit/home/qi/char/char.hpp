@@ -96,14 +96,16 @@ namespace boost { namespace spirit
     // enables lit(...)
     template <typename A0>
     struct use_terminal<qi::domain
-          , terminal_ex<tag::lit, fusion::vector1<A0> > 
+          , terminal_ex<tag::lit, fusion::vector1<A0> >
           , typename enable_if<traits::is_char<A0> >::type>
       : mpl::true_ {};
 }}
 
 namespace boost { namespace spirit { namespace qi
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::lit; // lit('x') is equivalent to 'x'
+#endif
     using spirit::lit_type;
 
     ///////////////////////////////////////////////////////////////////////////

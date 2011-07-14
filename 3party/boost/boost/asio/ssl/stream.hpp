@@ -2,8 +2,7 @@
 // ssl/stream.hpp
 // ~~~~~~~~~~~~~~
 //
-// Copyright (c) 2005 Voipster / Indrek dot Juhani at voipster dot com
-// Copyright (c) 2005-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,20 +16,35 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include <boost/asio/detail/config.hpp>
-#include <cstddef>
-#include <boost/noncopyable.hpp>
-#include <boost/type_traits/remove_reference.hpp>
-#include <boost/asio/detail/throw_error.hpp>
-#include <boost/asio/error.hpp>
-#include <boost/asio/ssl/basic_context.hpp>
-#include <boost/asio/ssl/stream_base.hpp>
-#include <boost/asio/ssl/stream_service.hpp>
+
+#if defined(BOOST_ASIO_ENABLE_OLD_SSL)
+# include <boost/asio/ssl/old/stream.hpp>
+#else // defined(BOOST_ASIO_ENABLE_OLD_SSL)
+# include <boost/asio/detail/buffer_sequence_adapter.hpp>
+# include <boost/asio/detail/handler_type_requirements.hpp>
+# include <boost/asio/detail/noncopyable.hpp>
+# include <boost/asio/ssl/context.hpp>
+# include <boost/asio/ssl/detail/handshake_op.hpp>
+# include <boost/asio/ssl/detail/io.hpp>
+# include <boost/asio/ssl/detail/read_op.hpp>
+# include <boost/asio/ssl/detail/shutdown_op.hpp>
+# include <boost/asio/ssl/detail/stream_core.hpp>
+# include <boost/asio/ssl/detail/write_op.hpp>
+# include <boost/asio/ssl/stream_base.hpp>
+# include <boost/type_traits/remove_reference.hpp>
+#endif // defined(BOOST_ASIO_ENABLE_OLD_SSL)
 
 #include <boost/asio/detail/push_options.hpp>
 
 namespace boost {
 namespace asio {
 namespace ssl {
+
+#if defined(BOOST_ASIO_ENABLE_OLD_SSL)
+
+using boost::asio::ssl::old::stream;
+
+#else // defined(BOOST_ASIO_ENABLE_OLD_SSL)
 
 /// Provides stream-oriented functionality using SSL.
 /**
@@ -39,36 +53,44 @@ namespace ssl {
  *
  * @par Thread Safety
  * @e Distinct @e objects: Safe.@n
- * @e Shared @e objects: Unsafe.
+ * @e Shared @e objects: Unsafe. The application must also ensure that all
+ * asynchronous operations are performed within the same implicit or explicit
+ * strand.
  *
  * @par Example
  * To use the SSL stream template with an ip::tcp::socket, you would write:
  * @code
  * boost::asio::io_service io_service;
- * boost::asio::ssl::context context(io_service, boost::asio::ssl::context::sslv23);
- * boost::asio::ssl::stream<boost::asio::ip::tcp::socket> sock(io_service, context);
+ * boost::asio::ssl::context ctx(boost::asio::ssl::context::sslv23);
+ * boost::asio::ssl::stream<asio:ip::tcp::socket> sock(io_service, ctx);
  * @endcode
  *
  * @par Concepts:
- * AsyncReadStream, AsyncWriteStream, Stream, SyncRead_Stream, SyncWriteStream.
+ * AsyncReadStream, AsyncWriteStream, Stream, SyncReadStream, SyncWriteStream.
  */
-template <typename Stream, typename Service = stream_service>
-class stream
-  : public stream_base,
-    private boost::noncopyable
+template <typename Stream>
+class stream :
+  public stream_base,
+  private noncopyable
 {
 public:
+  /// The native handle type of the SSL stream.
+  typedef SSL* native_handle_type;
+
+  /// Structure for use with deprecated impl_type.
+  struct impl_struct
+  {
+    SSL* ssl;
+  };
+
+  /// (Deprecated: Use native_handle_type.) The underlying implementation type.
+  typedef impl_struct* impl_type;
+
   /// The type of the next layer.
   typedef typename boost::remove_reference<Stream>::type next_layer_type;
 
   /// The type of the lowest layer.
   typedef typename next_layer_type::lowest_layer_type lowest_layer_type;
-
-  /// The type of the service that will be used to provide stream operations.
-  typedef Service service_type;
-
-  /// The native implementation type of the stream.
-  typedef typename service_type::impl_type impl_type;
 
   /// Construct a stream.
   /**
@@ -77,35 +99,19 @@ public:
    *
    * @param arg The argument to be passed to initialise the underlying stream.
    *
-   * @param context The SSL context to be used for the stream.
+   * @param ctx The SSL context to be used for the stream.
    */
-  template <typename Arg, typename Context_Service>
-  explicit stream(Arg& arg, basic_context<Context_Service>& context)
+  template <typename Arg>
+  stream(Arg& arg, context& ctx)
     : next_layer_(arg),
-      service_(boost::asio::use_service<Service>(next_layer_.get_io_service())),
-      impl_(service_.null())
+      core_(ctx.native_handle(), next_layer_.lowest_layer().get_io_service())
   {
-    service_.create(impl_, next_layer_, context);
+    backwards_compatible_impl_.ssl = core_.engine_.native_handle();
   }
 
   /// Destructor.
   ~stream()
   {
-    service_.destroy(impl_, next_layer_);
-  }
-
-  /// (Deprecated: use get_io_service().) Get the io_service associated with
-  /// the object.
-  /**
-   * This function may be used to obtain the io_service object that the stream
-   * uses to dispatch handlers for asynchronous operations.
-   *
-   * @return A reference to the io_service object that stream will use to
-   * dispatch handlers. Ownership is not transferred to the caller.
-   */
-  boost::asio::io_service& io_service()
-  {
-    return next_layer_.get_io_service();
   }
 
   /// Get the io_service associated with the object.
@@ -118,7 +124,61 @@ public:
    */
   boost::asio::io_service& get_io_service()
   {
-    return next_layer_.get_io_service();
+    return next_layer_.lowest_layer().get_io_service();
+  }
+
+  /// Get the underlying implementation in the native type.
+  /**
+   * This function may be used to obtain the underlying implementation of the
+   * context. This is intended to allow access to context functionality that is
+   * not otherwise provided.
+   *
+   * @par Example
+   * The native_handle() function returns a pointer of type @c SSL* that is
+   * suitable for passing to functions such as @c SSL_get_verify_result and
+   * @c SSL_get_peer_certificate:
+   * @code
+   * boost::asio::ssl::stream<asio:ip::tcp::socket> sock(io_service, ctx);
+   *
+   * // ... establish connection and perform handshake ...
+   *
+   * if (X509* cert = SSL_get_peer_certificate(sock.native_handle()))
+   * {
+   *   if (SSL_get_verify_result(sock.native_handle()) == X509_V_OK)
+   *   {
+   *     // ...
+   *   }
+   * }
+   * @endcode
+   */
+  native_handle_type native_handle()
+  {
+    return core_.engine_.native_handle();
+  }
+
+  /// (Deprecated: Use native_handle().) Get the underlying implementation in
+  /// the native type.
+  /**
+   * This function may be used to obtain the underlying implementation of the
+   * context. This is intended to allow access to stream functionality that is
+   * not otherwise provided.
+   */
+  impl_type impl()
+  {
+    return &backwards_compatible_impl_;
+  }
+
+  /// Get a reference to the next layer.
+  /**
+   * This function returns a reference to the next layer in a stack of stream
+   * layers.
+   *
+   * @return A reference to the next layer in the stack of stream layers.
+   * Ownership is not transferred to the caller.
+   */
+  const next_layer_type& next_layer() const
+  {
+    return next_layer_;
   }
 
   /// Get a reference to the next layer.
@@ -147,28 +207,106 @@ public:
     return next_layer_.lowest_layer();
   }
 
-  /// Get a const reference to the lowest layer.
+  /// Get a reference to the lowest layer.
   /**
-   * This function returns a const reference to the lowest layer in a stack of
+   * This function returns a reference to the lowest layer in a stack of
    * stream layers.
    *
-   * @return A const reference to the lowest layer in the stack of stream
-   * layers. Ownership is not transferred to the caller.
+   * @return A reference to the lowest layer in the stack of stream layers.
+   * Ownership is not transferred to the caller.
    */
   const lowest_layer_type& lowest_layer() const
   {
     return next_layer_.lowest_layer();
   }
 
-  /// Get the underlying implementation in the native type.
+  /// Set the peer verification mode.
   /**
-   * This function may be used to obtain the underlying implementation of the
-   * context. This is intended to allow access to stream functionality that is
-   * not otherwise provided.
+   * This function may be used to configure the peer verification mode used by
+   * the stream. The new mode will override the mode inherited from the context.
+   *
+   * @param v A bitmask of peer verification modes. See @ref verify_mode for
+   * available values.
+   *
+   * @throws boost::system::system_error Thrown on failure.
+   *
+   * @note Calls @c SSL_set_verify.
    */
-  impl_type impl()
+  void set_verify_mode(verify_mode v)
   {
-    return impl_;
+    boost::system::error_code ec;
+    set_verify_mode(v, ec);
+    boost::asio::detail::throw_error(ec, "set_verify_mode");
+  }
+
+  /// Set the peer verification mode.
+  /**
+   * This function may be used to configure the peer verification mode used by
+   * the stream. The new mode will override the mode inherited from the context.
+   *
+   * @param v A bitmask of peer verification modes. See @ref verify_mode for
+   * available values.
+   *
+   * @param ec Set to indicate what error occurred, if any.
+   *
+   * @note Calls @c SSL_set_verify.
+   */
+  boost::system::error_code set_verify_mode(
+      verify_mode v, boost::system::error_code& ec)
+  {
+    return core_.engine_.set_verify_mode(v, ec);
+  }
+
+  /// Set the callback used to verify peer certificates.
+  /**
+   * This function is used to specify a callback function that will be called
+   * by the implementation when it needs to verify a peer certificate.
+   *
+   * @param callback The function object to be used for verifying a certificate.
+   * The function signature of the handler must be:
+   * @code bool verify_callback(
+   *   bool preverified, // True if the certificate passed pre-verification.
+   *   verify_context& ctx // The peer certificate and other context.
+   * ); @endcode
+   * The return value of the callback is true if the certificate has passed
+   * verification, false otherwise.
+   *
+   * @throws boost::system::system_error Thrown on failure.
+   *
+   * @note Calls @c SSL_set_verify.
+   */
+  template <typename VerifyCallback>
+  void set_verify_callback(VerifyCallback callback)
+  {
+    boost::system::error_code ec;
+    this->set_verify_callback(callback, ec);
+    boost::asio::detail::throw_error(ec, "set_verify_callback");
+  }
+
+  /// Set the callback used to verify peer certificates.
+  /**
+   * This function is used to specify a callback function that will be called
+   * by the implementation when it needs to verify a peer certificate.
+   *
+   * @param callback The function object to be used for verifying a certificate.
+   * The function signature of the handler must be:
+   * @code bool verify_callback(
+   *   bool preverified, // True if the certificate passed pre-verification.
+   *   verify_context& ctx // The peer certificate and other context.
+   * ); @endcode
+   * The return value of the callback is true if the certificate has passed
+   * verification, false otherwise.
+   *
+   * @param ec Set to indicate what error occurred, if any.
+   *
+   * @note Calls @c SSL_set_verify.
+   */
+  template <typename VerifyCallback>
+  boost::system::error_code set_verify_callback(VerifyCallback callback,
+      boost::system::error_code& ec)
+  {
+    return core_.engine_.set_verify_callback(
+        new detail::verify_callback<VerifyCallback>(callback), ec);
   }
 
   /// Perform SSL handshaking.
@@ -184,8 +322,8 @@ public:
   void handshake(handshake_type type)
   {
     boost::system::error_code ec;
-    service_.handshake(impl_, next_layer_, type, ec);
-    boost::asio::detail::throw_error(ec);
+    handshake(type, ec);
+    boost::asio::detail::throw_error(ec, "handshake");
   }
 
   /// Perform SSL handshaking.
@@ -201,7 +339,8 @@ public:
   boost::system::error_code handshake(handshake_type type,
       boost::system::error_code& ec)
   {
-    return service_.handshake(impl_, next_layer_, type, ec);
+    detail::io(next_layer_, core_, detail::handshake_op(type), ec);
+    return ec;
   }
 
   /// Start an asynchronous SSL handshake.
@@ -220,9 +359,15 @@ public:
    * ); @endcode
    */
   template <typename HandshakeHandler>
-  void async_handshake(handshake_type type, HandshakeHandler handler)
+  void async_handshake(handshake_type type,
+      BOOST_ASIO_MOVE_ARG(HandshakeHandler) handler)
   {
-    service_.async_handshake(impl_, next_layer_, type, handler);
+    // If you get an error on the following line it means that your handler does
+    // not meet the documented type requirements for a HandshakeHandler.
+    BOOST_ASIO_HANDSHAKE_HANDLER_CHECK(HandshakeHandler, handler) type_check;
+
+    detail::async_io(next_layer_, core_, detail::handshake_op(type),
+        BOOST_ASIO_MOVE_CAST(HandshakeHandler)(handler));
   }
 
   /// Shut down SSL on the stream.
@@ -235,8 +380,8 @@ public:
   void shutdown()
   {
     boost::system::error_code ec;
-    service_.shutdown(impl_, next_layer_, ec);
-    boost::asio::detail::throw_error(ec);
+    shutdown(ec);
+    boost::asio::detail::throw_error(ec, "shutdown");
   }
 
   /// Shut down SSL on the stream.
@@ -248,7 +393,8 @@ public:
    */
   boost::system::error_code shutdown(boost::system::error_code& ec)
   {
-    return service_.shutdown(impl_, next_layer_, ec);
+    detail::io(next_layer_, core_, detail::shutdown_op(), ec);
+    return ec;
   }
 
   /// Asynchronously shut down SSL on the stream.
@@ -264,9 +410,14 @@ public:
    * ); @endcode
    */
   template <typename ShutdownHandler>
-  void async_shutdown(ShutdownHandler handler)
+  void async_shutdown(BOOST_ASIO_MOVE_ARG(ShutdownHandler) handler)
   {
-    service_.async_shutdown(impl_, next_layer_, handler);
+    // If you get an error on the following line it means that your handler does
+    // not meet the documented type requirements for a ShutdownHandler.
+    BOOST_ASIO_SHUTDOWN_HANDLER_CHECK(ShutdownHandler, handler) type_check;
+
+    detail::async_io(next_layer_, core_, detail::shutdown_op(),
+        BOOST_ASIO_MOVE_CAST(ShutdownHandler)(handler));
   }
 
   /// Write some data to the stream.
@@ -289,9 +440,9 @@ public:
   std::size_t write_some(const ConstBufferSequence& buffers)
   {
     boost::system::error_code ec;
-    std::size_t s = service_.write_some(impl_, next_layer_, buffers, ec);
-    boost::asio::detail::throw_error(ec);
-    return s;
+    std::size_t n = write_some(buffers, ec);
+    boost::asio::detail::throw_error(ec, "write_some");
+    return n;
   }
 
   /// Write some data to the stream.
@@ -314,7 +465,8 @@ public:
   std::size_t write_some(const ConstBufferSequence& buffers,
       boost::system::error_code& ec)
   {
-    return service_.write_some(impl_, next_layer_, buffers, ec);
+    return detail::io(next_layer_, core_,
+        detail::write_op<ConstBufferSequence>(buffers), ec);
   }
 
   /// Start an asynchronous write.
@@ -341,9 +493,15 @@ public:
    */
   template <typename ConstBufferSequence, typename WriteHandler>
   void async_write_some(const ConstBufferSequence& buffers,
-      WriteHandler handler)
+      BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
   {
-    service_.async_write_some(impl_, next_layer_, buffers, handler);
+    // If you get an error on the following line it means that your handler does
+    // not meet the documented type requirements for a WriteHandler.
+    BOOST_ASIO_WRITE_HANDLER_CHECK(WriteHandler, handler) type_check;
+
+    detail::async_io(next_layer_, core_,
+        detail::write_op<ConstBufferSequence>(buffers),
+        BOOST_ASIO_MOVE_CAST(WriteHandler)(handler));
   }
 
   /// Read some data from the stream.
@@ -366,9 +524,9 @@ public:
   std::size_t read_some(const MutableBufferSequence& buffers)
   {
     boost::system::error_code ec;
-    std::size_t s = service_.read_some(impl_, next_layer_, buffers, ec);
-    boost::asio::detail::throw_error(ec);
-    return s;
+    std::size_t n = read_some(buffers, ec);
+    boost::asio::detail::throw_error(ec, "read_some");
+    return n;
   }
 
   /// Read some data from the stream.
@@ -391,7 +549,8 @@ public:
   std::size_t read_some(const MutableBufferSequence& buffers,
       boost::system::error_code& ec)
   {
-    return service_.read_some(impl_, next_layer_, buffers, ec);
+    return detail::io(next_layer_, core_,
+        detail::read_op<MutableBufferSequence>(buffers), ec);
   }
 
   /// Start an asynchronous read.
@@ -419,92 +578,24 @@ public:
    */
   template <typename MutableBufferSequence, typename ReadHandler>
   void async_read_some(const MutableBufferSequence& buffers,
-      ReadHandler handler)
+      BOOST_ASIO_MOVE_ARG(ReadHandler) handler)
   {
-    service_.async_read_some(impl_, next_layer_, buffers, handler);
-  }
+    // If you get an error on the following line it means that your handler does
+    // not meet the documented type requirements for a ReadHandler.
+    BOOST_ASIO_READ_HANDLER_CHECK(ReadHandler, handler) type_check;
 
-  /// Peek at the incoming data on the stream.
-  /**
-   * This function is used to peek at the incoming data on the stream, without
-   * removing it from the input queue. The function call will block until data
-   * has been read successfully or an error occurs.
-   *
-   * @param buffers The buffers into which the data will be read.
-   *
-   * @returns The number of bytes read.
-   *
-   * @throws boost::system::system_error Thrown on failure.
-   */
-  template <typename MutableBufferSequence>
-  std::size_t peek(const MutableBufferSequence& buffers)
-  {
-    boost::system::error_code ec;
-    std::size_t s = service_.peek(impl_, next_layer_, buffers, ec);
-    boost::asio::detail::throw_error(ec);
-    return s;
-  }
-
-  /// Peek at the incoming data on the stream.
-  /**
-   * This function is used to peek at the incoming data on the stream, withoutxi
-   * removing it from the input queue. The function call will block until data
-   * has been read successfully or an error occurs.
-   *
-   * @param buffers The buffers into which the data will be read.
-   *
-   * @param ec Set to indicate what error occurred, if any.
-   *
-   * @returns The number of bytes read. Returns 0 if an error occurred.
-   */
-  template <typename MutableBufferSequence>
-  std::size_t peek(const MutableBufferSequence& buffers,
-      boost::system::error_code& ec)
-  {
-    return service_.peek(impl_, next_layer_, buffers, ec);
-  }
-
-  /// Determine the amount of data that may be read without blocking.
-  /**
-   * This function is used to determine the amount of data, in bytes, that may
-   * be read from the stream without blocking.
-   *
-   * @returns The number of bytes of data that can be read without blocking.
-   *
-   * @throws boost::system::system_error Thrown on failure.
-   */
-  std::size_t in_avail()
-  {
-    boost::system::error_code ec;
-    std::size_t s = service_.in_avail(impl_, next_layer_, ec);
-    boost::asio::detail::throw_error(ec);
-    return s;
-  }
-
-  /// Determine the amount of data that may be read without blocking.
-  /**
-   * This function is used to determine the amount of data, in bytes, that may
-   * be read from the stream without blocking.
-   *
-   * @param ec Set to indicate what error occurred, if any.
-   *
-   * @returns The number of bytes of data that can be read without blocking.
-   */
-  std::size_t in_avail(boost::system::error_code& ec)
-  {
-    return service_.in_avail(impl_, next_layer_, ec);
+    detail::async_io(next_layer_, core_,
+        detail::read_op<MutableBufferSequence>(buffers),
+        BOOST_ASIO_MOVE_CAST(ReadHandler)(handler));
   }
 
 private:
-  /// The next layer.
   Stream next_layer_;
-
-  /// The backend service implementation.
-  service_type& service_;
-
-  /// The underlying native implementation.
-  impl_type impl_;
+  detail::stream_core core_;
+  impl_struct backwards_compatible_impl_;
 };
+
+#endif // defined(BOOST_ASIO_ENABLE_OLD_SSL)
 
 } // namespace ssl
 } // namespace asio

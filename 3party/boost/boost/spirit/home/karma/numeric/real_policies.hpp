@@ -12,6 +12,7 @@
 
 #include <boost/config/no_tr1/cmath.hpp>
 #include <boost/math/special_functions/fpclassify.hpp>
+#include <boost/type_traits/remove_const.hpp>
 
 #include <boost/spirit/home/support/char_class.hpp>
 #include <boost/spirit/home/karma/generator.hpp>
@@ -141,10 +142,10 @@ namespace boost { namespace spirit { namespace karma
         ///////////////////////////////////////////////////////////////////////
         static int floatfield(T n)
         {
-            if (detail::is_zero(n))
+            if (traits::test_zero(n))
                 return fmtflags::fixed;
 
-            T abs_n = detail::absolute_value(n);
+            T abs_n = traits::get_absolute_value(n);
             return (abs_n >= 1e5 || abs_n < 1e-3) 
               ? fmtflags::scientific : fmtflags::fixed;
         }
@@ -186,7 +187,7 @@ namespace boost { namespace spirit { namespace karma
           , bool force_sign)
         {
             return sign_inserter::call(
-                      sink, detail::is_zero(n), sign, force_sign) &&
+                      sink, traits::test_zero(n), sign, force_sign) &&
                    int_inserter<10>::call(sink, n);
         }
 
@@ -257,7 +258,8 @@ namespace boost { namespace spirit { namespace karma
             //    generate(sink, right_align(precision, '0')[ulong], n);
             // but it's spelled out to avoid inter-modular dependencies.
 
-            T digits = (detail::is_zero(n) ? 0 : floor(log10(n))) + 1;
+            typename remove_const<T>::type digits = 
+                (traits::test_zero(n) ? 0 : floor(log10(n))) + 1;
             bool r = true;
             for (/**/; r && digits < precision_; digits = digits + 1)
                 r = char_inserter<>::call(sink, '0');
@@ -282,10 +284,10 @@ namespace boost { namespace spirit { namespace karma
         template <typename CharEncoding, typename Tag, typename OutputIterator>
         static bool exponent (OutputIterator& sink, long n)
         {
-            long abs_n = detail::absolute_value(n);
+            long abs_n = traits::get_absolute_value(n);
             bool r = char_inserter<CharEncoding, Tag>::call(sink, 'e') &&
-                     sign_inserter::call(sink, detail::is_zero(n)
-                        , detail::is_negative(n), false);
+                     sign_inserter::call(sink, traits::test_zero(n)
+                        , traits::test_negative(n), false);
 
             // the C99 Standard requires at least two digits in the exponent
             if (r && abs_n < 10)
@@ -314,7 +316,7 @@ namespace boost { namespace spirit { namespace karma
         static bool nan (OutputIterator& sink, T n, bool force_sign)
         {
             return sign_inserter::call(
-                        sink, false, detail::is_negative(n), force_sign) &&
+                        sink, false, traits::test_negative(n), force_sign) &&
                    string_inserter<CharEncoding, Tag>::call(sink, "nan");
         }
 
@@ -322,11 +324,10 @@ namespace boost { namespace spirit { namespace karma
         static bool inf (OutputIterator& sink, T n, bool force_sign)
         {
             return sign_inserter::call(
-                        sink, false, detail::is_negative(n), force_sign) &&
+                        sink, false, traits::test_negative(n), force_sign) &&
                    string_inserter<CharEncoding, Tag>::call(sink, "inf");
         }
     };
-
 }}}
 
 #endif // defined(BOOST_SPIRIT_KARMA_REAL_POLICIES_MAR_02_2007_0936AM)

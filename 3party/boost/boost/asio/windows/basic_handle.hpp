@@ -45,8 +45,12 @@ class basic_handle
   : public basic_io_object<HandleService>
 {
 public:
+  /// (Deprecated: Use native_handle_type.) The native representation of a
+  /// handle.
+  typedef typename HandleService::native_handle_type native_type;
+
   /// The native representation of a handle.
-  typedef typename HandleService::native_type native_type;
+  typedef typename HandleService::native_handle_type native_handle_type;
 
   /// A basic_handle is always the lowest layer.
   typedef basic_handle<HandleService> lowest_layer_type;
@@ -70,18 +74,51 @@ public:
    * @param io_service The io_service object that the handle will use to
    * dispatch handlers for any asynchronous operations performed on the handle.
    *
-   * @param native_handle A native handle.
+   * @param handle A native handle.
    *
    * @throws boost::system::system_error Thrown on failure.
    */
   basic_handle(boost::asio::io_service& io_service,
-      const native_type& native_handle)
+      const native_handle_type& handle)
     : basic_io_object<HandleService>(io_service)
   {
     boost::system::error_code ec;
-    this->service.assign(this->implementation, native_handle, ec);
-    boost::asio::detail::throw_error(ec);
+    this->get_service().assign(this->get_implementation(), handle, ec);
+    boost::asio::detail::throw_error(ec, "assign");
   }
+
+#if defined(BOOST_ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
+  /// Move-construct a basic_handle from another.
+  /**
+   * This constructor moves a handle from one object to another.
+   *
+   * @param other The other basic_handle object from which the move will occur.
+   *
+   * @note Following the move, the moved-from object is in the same state as if
+   * constructed using the @c basic_handle(io_service&) constructor.
+   */
+  basic_handle(basic_handle&& other)
+    : basic_io_object<HandleService>(
+        BOOST_ASIO_MOVE_CAST(basic_handle)(other))
+  {
+  }
+
+  /// Move-assign a basic_handle from another.
+  /**
+   * This assignment operator moves a handle from one object to another.
+   *
+   * @param other The other basic_handle object from which the move will occur.
+   *
+   * @note Following the move, the moved-from object is in the same state as if
+   * constructed using the @c basic_handle(io_service&) constructor.
+   */
+  basic_handle& operator=(basic_handle&& other)
+  {
+    basic_io_object<HandleService>::operator=(
+        BOOST_ASIO_MOVE_CAST(basic_handle)(other));
+    return *this;
+  }
+#endif // defined(BOOST_ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Get a reference to the lowest layer.
   /**
@@ -115,35 +152,35 @@ public:
   /*
    * This function opens the handle to hold an existing native handle.
    *
-   * @param native_handle A native handle.
+   * @param handle A native handle.
    *
    * @throws boost::system::system_error Thrown on failure.
    */
-  void assign(const native_type& native_handle)
+  void assign(const native_handle_type& handle)
   {
     boost::system::error_code ec;
-    this->service.assign(this->implementation, native_handle, ec);
-    boost::asio::detail::throw_error(ec);
+    this->get_service().assign(this->get_implementation(), handle, ec);
+    boost::asio::detail::throw_error(ec, "assign");
   }
 
   /// Assign an existing native handle to the handle.
   /*
    * This function opens the handle to hold an existing native handle.
    *
-   * @param native_handle A native handle.
+   * @param handle A native handle.
    *
    * @param ec Set to indicate what error occurred, if any.
    */
-  boost::system::error_code assign(const native_type& native_handle,
+  boost::system::error_code assign(const native_handle_type& handle,
       boost::system::error_code& ec)
   {
-    return this->service.assign(this->implementation, native_handle, ec);
+    return this->get_service().assign(this->get_implementation(), handle, ec);
   }
 
   /// Determine whether the handle is open.
   bool is_open() const
   {
-    return this->service.is_open(this->implementation);
+    return this->get_service().is_open(this->get_implementation());
   }
 
   /// Close the handle.
@@ -157,8 +194,8 @@ public:
   void close()
   {
     boost::system::error_code ec;
-    this->service.close(this->implementation, ec);
-    boost::asio::detail::throw_error(ec);
+    this->get_service().close(this->get_implementation(), ec);
+    boost::asio::detail::throw_error(ec, "close");
   }
 
   /// Close the handle.
@@ -171,7 +208,18 @@ public:
    */
   boost::system::error_code close(boost::system::error_code& ec)
   {
-    return this->service.close(this->implementation, ec);
+    return this->get_service().close(this->get_implementation(), ec);
+  }
+
+  /// (Deprecated: Use native_handle().) Get the native handle representation.
+  /**
+   * This function may be used to obtain the underlying representation of the
+   * handle. This is intended to allow access to native handle functionality
+   * that is not otherwise provided.
+   */
+  native_type native()
+  {
+    return this->get_service().native_handle(this->get_implementation());
   }
 
   /// Get the native handle representation.
@@ -180,9 +228,9 @@ public:
    * handle. This is intended to allow access to native handle functionality
    * that is not otherwise provided.
    */
-  native_type native()
+  native_handle_type native_handle()
   {
-    return this->service.native(this->implementation);
+    return this->get_service().native_handle(this->get_implementation());
   }
 
   /// Cancel all asynchronous operations associated with the handle.
@@ -196,8 +244,8 @@ public:
   void cancel()
   {
     boost::system::error_code ec;
-    this->service.cancel(this->implementation, ec);
-    boost::asio::detail::throw_error(ec);
+    this->get_service().cancel(this->get_implementation(), ec);
+    boost::asio::detail::throw_error(ec, "cancel");
   }
 
   /// Cancel all asynchronous operations associated with the handle.
@@ -210,7 +258,7 @@ public:
    */
   boost::system::error_code cancel(boost::system::error_code& ec)
   {
-    return this->service.cancel(this->implementation, ec);
+    return this->get_service().cancel(this->get_implementation(), ec);
   }
 
 protected:

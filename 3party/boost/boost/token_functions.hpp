@@ -209,6 +209,36 @@ namespace boost{
   // Assuming that the conditional will always get optimized out in the function
   // implementations, argument types are not a problem since both forms of character classifiers
   // expect an int.
+   
+#if !defined(BOOST_NO_CWCTYPE)
+  template<typename traits, int N>
+  struct traits_extension_details : public traits {
+    typedef typename traits::char_type char_type;
+    static bool isspace(char_type c)
+    {
+       return std::iswspace(c) != 0;
+    }
+    static bool ispunct(char_type c)
+    {
+       return std::iswpunct(c) != 0;
+    }
+  };
+
+  template<typename traits>
+  struct traits_extension_details<traits, 1> : public traits {
+    typedef typename traits::char_type char_type;
+    static bool isspace(char_type c)
+    {
+       return std::isspace(c) != 0;
+    }
+    static bool ispunct(char_type c)
+    {
+       return std::ispunct(c) != 0;
+    }
+  };
+#endif
+
+    
   // In case there is no cwctype header, we implement the checks manually.
   // We make use of the fact that the tested categories should fit in ASCII.
   template<typename traits>
@@ -217,10 +247,7 @@ namespace boost{
     static bool isspace(char_type c)
     {
 #if !defined(BOOST_NO_CWCTYPE)
-      if (sizeof(char_type) == 1)
-        return std::isspace(static_cast<int>(c)) != 0;
-      else
-        return std::iswspace(static_cast<std::wint_t>(c)) != 0;
+      return traits_extension_details<traits, sizeof(char_type)>::isspace(c);
 #else
       return static_cast< unsigned >(c) <= 255 && std::isspace(c) != 0;
 #endif
@@ -229,10 +256,7 @@ namespace boost{
     static bool ispunct(char_type c)
     {
 #if !defined(BOOST_NO_CWCTYPE)
-      if (sizeof(char_type) == 1)
-        return std::ispunct(static_cast<int>(c)) != 0;
-      else
-        return std::iswpunct(static_cast<std::wint_t>(c)) != 0;
+      return traits_extension_details<traits, sizeof(char_type)>::ispunct(c);
 #else
       return static_cast< unsigned >(c) <= 255 && std::ispunct(c) != 0;
 #endif

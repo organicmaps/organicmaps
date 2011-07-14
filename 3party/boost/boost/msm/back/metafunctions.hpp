@@ -63,6 +63,7 @@ BOOST_MPL_HAS_XXX_TRAIT_DEF(no_exception_thrown)
 BOOST_MPL_HAS_XXX_TRAIT_DEF(no_message_queue)
 BOOST_MPL_HAS_XXX_TRAIT_DEF(activate_deferred_events)
 BOOST_MPL_HAS_XXX_TRAIT_DEF(wrapped_entry)
+BOOST_MPL_HAS_XXX_TRAIT_DEF(active_state_switch_policy)
 
 namespace boost { namespace msm { namespace back
 {
@@ -153,6 +154,35 @@ struct generate_state_ids
         > //pair
         >::type all_state_ids;
     typedef typename ::boost::mpl::first<all_state_ids>::type type;
+};
+
+template <class Fsm>
+struct get_active_state_switch_policy_helper
+{
+    typedef typename Fsm::active_state_switch_policy type;
+};
+template <class Iter>
+struct get_active_state_switch_policy_helper2
+{
+    typedef typename boost::mpl::deref<Iter>::type Fsm;
+    typedef typename Fsm::active_state_switch_policy type;
+};
+// returns the active state switching policy
+template <class Fsm>
+struct get_active_state_switch_policy
+{
+    typedef typename ::boost::mpl::find_if<
+        typename Fsm::configuration,
+        has_active_state_switch_policy< ::boost::mpl::placeholders::_1 > >::type iter;
+
+    typedef typename ::boost::mpl::eval_if<
+        typename ::boost::is_same<
+            iter, 
+            typename ::boost::mpl::end<typename Fsm::configuration>::type
+        >::type,
+        get_active_state_switch_policy_helper<Fsm>,
+        get_active_state_switch_policy_helper2< iter >
+    >::type type;
 };
 
 // returns the id of a given state
@@ -642,9 +672,28 @@ struct is_no_message_queue
 };
 
 template <class StateType>
+struct is_active_state_switch_policy 
+{
+    typedef ::boost::mpl::bool_< ::boost::mpl::count_if<
+        typename StateType::configuration,
+        has_active_state_switch_policy< ::boost::mpl::placeholders::_1 > >::value != 0> found;
+
+    typedef typename ::boost::mpl::or_<
+        typename has_active_state_switch_policy<StateType>::type,
+        found
+    >::type type;
+};
+
+template <class StateType>
 struct get_initial_event 
 {
     typedef typename StateType::initial_event type;
+};
+
+template <class StateType>
+struct get_final_event 
+{
+    typedef typename StateType::final_event type;
 };
 
 template <class TransitionTable, class InitState>

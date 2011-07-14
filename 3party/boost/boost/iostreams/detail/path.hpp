@@ -35,6 +35,11 @@ namespace boost { namespace iostreams { namespace detail {
 #ifndef BOOST_IOSTREAMS_NO_WIDE_STREAMS //------------------------------------//
 
 class path {
+    template<typename T, typename V>
+    struct sfinae
+    {
+        typedef V type;
+    };
 public:
 
     // Default constructor
@@ -46,12 +51,19 @@ public:
     // Constructor taking a C-style string
     path(const char* p) : narrow_(p), wide_(), is_wide_(false) { }
 
-    // Constructor taking a boost::filesystem::path or boost::filesystem::wpath
+    // Constructor taking a boost::filesystem2::path or
+    // boost::filesystem2::wpath
     template<typename Path>
     explicit path(const Path& p, typename Path::external_string_type* = 0)
     {
-        typedef typename Path::external_string_type string_type;
-        init(p, boost::type<string_type>());
+        init(p.external_file_string());
+    }
+
+    // Constructor taking a boost::filesystem3::path (boost filesystem v3)
+    template<typename Path>
+    explicit path(const Path& p, typename Path::codecvt_type* = 0)
+    {
+        init(p.native());
     }
 
     // Copy constructor
@@ -86,12 +98,27 @@ public:
         return *this;
     }
 
-    // Assignment operator taking a Boost.Filesystem path
+#if !BOOST_WORKAROUND(BOOST_MSVC, <= 1400)
+    // Assignment operator taking a boost::filesystem2::path or
+    // boost::filesystem2::wpath
+    // (not on Visual C++ 7.1/8.0, as it seems to have problems with
+    // SFINAE functions with the same parameters, doesn't seem
+    // worth working around).
     template<typename Path>
-    path& operator=(const Path& p)
+    typename sfinae<typename Path::external_string_type, path&>::type
+    	operator=(const Path& p)
     {
-        typedef typename Path::external_string_type string_type;
-        init(p, boost::type<string_type>());
+        init(p.external_file_string());
+        return *this;
+    }
+#endif
+
+    // Assignment operator taking a boost::filesystem3::path
+    template<typename Path>
+    typename sfinae<typename Path::codecvt_type, path&>::type
+    	operator=(const Path& p)
+    {
+        init(p.native());
         return *this;
     }
 
@@ -111,19 +138,17 @@ private:
     path(const std::wstring&);
     path& operator=(const std::wstring&);
 
-    template<typename Path>
-    void init(const Path& p, boost::type<std::string>)
+    void init(std::string const& file_path)
     {
-        narrow_ = p.external_file_string();
+        narrow_ = file_path;
         wide_.clear();
         is_wide_ = false;
     }
 
-    template<typename Path>
-    void init(const Path& p, boost::type<std::wstring>)
+    void init(std::wstring const& file_path)
     {
         narrow_.clear();
-        wide_ = p.external_file_string();
+        wide_ = file_path;
         is_wide_ = true;
     }
 

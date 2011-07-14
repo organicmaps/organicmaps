@@ -69,6 +69,7 @@ namespace boost { namespace property_tree { namespace ini_parser
         typedef typename Ptree::key_type::value_type Ch;
         typedef std::basic_string<Ch> Str;
         const Ch semicolon = stream.widen(';');
+        const Ch hash = stream.widen('#');
         const Ch lbracket = stream.widen('[');
         const Ch rbracket = stream.widen(']');
 
@@ -93,7 +94,7 @@ namespace boost { namespace property_tree { namespace ini_parser
             if (!line.empty())
             {
                 // Comment, section or key?
-                if (line[0] == semicolon)
+                if (line[0] == semicolon || line[0] == hash)
                 {
                     // Ignore comments
                 }

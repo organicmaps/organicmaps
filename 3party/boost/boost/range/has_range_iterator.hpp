@@ -19,7 +19,7 @@ namespace boost
 {
     namespace range_detail
     {
-        BOOST_MPL_HAS_XXX_TRAIT_DEF(type);
+        BOOST_MPL_HAS_XXX_TRAIT_DEF(type)
 
         template<class T, class Enabler = void>
         struct has_range_iterator_impl

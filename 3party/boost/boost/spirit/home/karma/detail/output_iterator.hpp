@@ -599,7 +599,7 @@ namespace boost { namespace spirit { namespace karma { namespace detail
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename Sink>
-    bool sink_is_good(Sink const& sink)
+    bool sink_is_good(Sink const&)
     {
         return true;      // the general case is always good
     }

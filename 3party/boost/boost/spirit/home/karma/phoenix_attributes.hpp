@@ -16,6 +16,7 @@
 #if SPIRIT_VERSION >= 0x2020
 
 #include <boost/spirit/home/karma/detail/attributes.hpp>
+#include <boost/spirit/home/karma/detail/indirect_iterator.hpp>
 #include <boost/spirit/home/support/container.hpp>
 
 #include <boost/spirit/include/phoenix_core.hpp>
@@ -90,6 +91,18 @@ namespace boost { namespace spirit { namespace traits
         }
     };
 
+    template <typename Eval>
+    struct container_value<phoenix::actor<Eval> >
+    {
+        typedef phoenix::actor<Eval> const& type;
+    };
+
+    template <typename Eval>
+    struct make_indirect_iterator<phoenix::actor<Eval> const>
+    {
+        typedef phoenix::actor<Eval> const& type;
+    };
+
     ///////////////////////////////////////////////////////////////////////////
     // Handle Phoenix actors as attributes, just invoke the function object
     // and deal with the result as the attribute.
@@ -105,7 +118,6 @@ namespace boost { namespace spirit { namespace traits
             return f(unused, context);
         }
     };
-
 }}}
 
 #endif

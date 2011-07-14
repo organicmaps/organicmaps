@@ -13,8 +13,8 @@
 
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
+#include <boost/assert.hpp>
 #include <memory>
-#include <cassert>
 
 #if defined(BOOST_MSVC) && \
     (_MSC_FULL_VER >= 160000000 && _MSC_FULL_VER < 170000000)
@@ -874,7 +874,7 @@ namespace boost { namespace property_tree
     template<class K, class D, class C>
     basic_ptree<K, D, C> & basic_ptree<K, D, C>::force_path(path_type &p)
     {
-        assert(!p.empty() && "Empty path not allowed for put_child.");
+        BOOST_ASSERT(!p.empty() && "Empty path not allowed for put_child.");
         if(p.single()) {
             // I'm the parent we're looking for.
             return *this;

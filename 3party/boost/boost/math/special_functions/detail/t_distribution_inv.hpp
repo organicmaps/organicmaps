@@ -529,7 +529,10 @@ inline T fast_students_t_quantile(T df, T p, const Policy& pol)
    typedef mpl::bool_<
       (std::numeric_limits<T>::digits <= 53)
        &&
-      (std::numeric_limits<T>::is_specialized)> tag_type;
+      (std::numeric_limits<T>::is_specialized)
+       &&
+      (std::numeric_limits<T>::radix == 2)
+   > tag_type;
    return policies::checked_narrowing_cast<T, forwarding_policy>(fast_students_t_quantile_imp(static_cast<value_type>(df), static_cast<value_type>(p), pol, static_cast<tag_type*>(0)), "boost::math::students_t_quantile<%1%>(%1%,%1%,%1%)");
 }
 

@@ -125,7 +125,7 @@ namespace filesystem3
     path(){}                                          
 
     path(const path& p) : m_pathname(p.m_pathname) {}
- 
+
     template <class Source>
     path(Source const& source,
       typename boost::enable_if<path_traits::is_pathable<
@@ -133,6 +133,17 @@ namespace filesystem3
     {
       path_traits::dispatch(source, m_pathname, codecvt());
     }
+
+    //  Overloads for the operating system API's native character type. Rationale:
+    //    - Avoids use of codecvt() for native value_type strings. This limits the
+    //      impact of locale("") initialization failures on POSIX systems to programs
+    //      that actually depend on locale(""). It further ensures that exceptions thrown
+    //      as a result of such failues occur after main() has started, so can be caught.
+    //      This is a partial resolution of tickets 4688, 5100, and 5289.
+    //    - A slight optimization for a common use case, particularly on POSIX since
+    //      value_type is char and that is the most common useage.
+    path(const value_type* s) : m_pathname(s) {}
+    path(const std::basic_string<value_type>& s) : m_pathname(s) {}
 
     template <class Source>
     path(Source const& source, const codecvt_type& cvt)

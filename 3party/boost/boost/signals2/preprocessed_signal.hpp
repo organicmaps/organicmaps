@@ -17,6 +17,7 @@
 
 #include <boost/preprocessor/arithmetic.hpp>
 #include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/control/expr_if.hpp>
 #include <boost/preprocessor/iteration.hpp>
 #include <boost/preprocessor/repetition.hpp>
 #include <boost/signals2/detail/preprocessed_arg_type.hpp>

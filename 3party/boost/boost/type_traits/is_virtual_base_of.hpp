@@ -52,14 +52,14 @@ struct is_virtual_base_of_impl<Base, Derived, mpl::true_>
        ~boost_type_traits_internal_struct_Y()throw();
     };
 #else
-    struct boost_type_traits_internal_struct_X : Derived, virtual Base 
+    struct boost_type_traits_internal_struct_X : public Derived, virtual Base 
     {
        boost_type_traits_internal_struct_X();
        boost_type_traits_internal_struct_X(const boost_type_traits_internal_struct_X&);
        boost_type_traits_internal_struct_X& operator=(const boost_type_traits_internal_struct_X&);
        ~boost_type_traits_internal_struct_X()throw();
     };
-    struct boost_type_traits_internal_struct_Y : Derived 
+    struct boost_type_traits_internal_struct_Y : public Derived 
     {
        boost_type_traits_internal_struct_Y();
        boost_type_traits_internal_struct_Y(const boost_type_traits_internal_struct_Y&);

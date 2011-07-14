@@ -77,6 +77,16 @@ class base_dimension :
         typedef Derived type;
 
     private:
+        /// Check for C++0x.  In C++0x, we have to have identical
+        /// arguments but a different return type to trigger an
+        /// error.  Note that this is only needed for clang as
+        /// check_base_dimension will trigger an error earlier
+        /// for compilers with less strict name lookup.
+        /// INTERNAL ONLY
+        friend Derived* 
+        check_double_register(const units::base_dimension_ordinal<N>&) 
+        { return(0); }
+
         /// Register this ordinal
         /// INTERNAL ONLY
         friend detail::yes 

@@ -43,12 +43,12 @@ public:
   typedef boost::asio::ip::basic_resolver_iterator<Protocol> iterator_type;
 
   resolve_endpoint_op(socket_ops::weak_cancel_token_type cancel_token,
-      const endpoint_type& endpoint, io_service_impl& ios, Handler handler)
+      const endpoint_type& endpoint, io_service_impl& ios, Handler& handler)
     : operation(&resolve_endpoint_op::do_complete),
       cancel_token_(cancel_token),
       endpoint_(endpoint),
       io_service_impl_(ios),
-      handler_(handler)
+      handler_(BOOST_ASIO_MOVE_CAST(Handler)(handler))
   {
   }
 
@@ -81,6 +81,8 @@ public:
       // The operation has been returned to the main io_service. The completion
       // handler is ready to be delivered.
 
+      BOOST_ASIO_HANDLER_COMPLETION((o));
+
       // Make a copy of the handler so that the memory can be deallocated
       // before the upcall is made. Even if we're not about to make an upcall,
       // a sub-object of the handler may be the true owner of the memory
@@ -95,7 +97,9 @@ public:
       if (owner)
       {
         boost::asio::detail::fenced_block b;
+        BOOST_ASIO_HANDLER_INVOCATION_BEGIN((handler.arg1_, "..."));
         boost_asio_handler_invoke_helpers::invoke(handler, handler.handler_);
+        BOOST_ASIO_HANDLER_INVOCATION_END;
       }
     }
   }

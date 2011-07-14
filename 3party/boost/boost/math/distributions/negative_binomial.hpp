@@ -165,7 +165,7 @@ namespace boost
         RealType alpha) // alpha 0.05 equivalent to 95% for one-sided test.
       {
         static const char* function = "boost::math::negative_binomial<%1%>::find_lower_bound_on_p";
-        RealType result;  // of error checks.
+        RealType result = 0;  // of error checks.
         RealType failures = trials - successes;
         if(false == detail::check_probability(function, alpha, &result, Policy())
           && negative_binomial_detail::check_dist_and_k(
@@ -190,7 +190,7 @@ namespace boost
         RealType alpha) // alpha 0.05 equivalent to 95% for one-sided test.
       {
         static const char* function = "boost::math::negative_binomial<%1%>::find_upper_bound_on_p";
-        RealType result;  // of error checks.
+        RealType result = 0;  // of error checks.
         RealType failures = trials - successes;
         if(false == negative_binomial_detail::check_dist_and_k(
           function, successes, RealType(0), failures, &result, Policy())
@@ -222,7 +222,7 @@ namespace boost
       {
         static const char* function = "boost::math::negative_binomial<%1%>::find_minimum_number_of_trials";
         // Error checks:
-        RealType result;
+        RealType result = 0;
         if(false == negative_binomial_detail::check_dist_and_k(
           function, RealType(1), p, k, &result, Policy())
           && detail::check_probability(function, alpha, &result, Policy()))
@@ -239,7 +239,7 @@ namespace boost
       {
         static const char* function = "boost::math::negative_binomial<%1%>::find_maximum_number_of_trials";
         // Error checks:
-        RealType result;
+        RealType result = 0;
         if(false == negative_binomial_detail::check_dist_and_k(
           function, RealType(1), p, k, &result, Policy())
           &&  detail::check_probability(function, alpha, &result, Policy()))
@@ -343,7 +343,7 @@ namespace boost
 
       RealType r = dist.successes();
       RealType p = dist.success_fraction();
-      RealType result;
+      RealType result = 0;
       if(false == negative_binomial_detail::check_dist_and_k(
         function,
         r,
@@ -370,7 +370,7 @@ namespace boost
       RealType p = dist.success_fraction();
       RealType r = dist.successes();
       // Error check:
-      RealType result;
+      RealType result = 0;
       if(false == negative_binomial_detail::check_dist_and_k(
         function,
         r,
@@ -399,7 +399,7 @@ namespace boost
       RealType p = dist.success_fraction();
       RealType r = dist.successes();
       // Error check:
-      RealType result;
+      RealType result = 0;
       if(false == negative_binomial_detail::check_dist_and_k(
         function,
         r,
@@ -435,7 +435,7 @@ namespace boost
       RealType p = dist.success_fraction();
       RealType r = dist.successes();
       // Check dist and P.
-      RealType result;
+      RealType result = 0;
       if(false == negative_binomial_detail::check_dist_and_prob
         (function, r, p, P, &result, Policy()))
       {
@@ -509,7 +509,7 @@ namespace boost
        const negative_binomial_distribution<RealType, Policy>& dist = c.dist;
        RealType p = dist.success_fraction();
        RealType r = dist.successes();
-       RealType result;
+       RealType result = 0;
        if(false == negative_binomial_detail::check_dist_and_prob(
           function,
           r,

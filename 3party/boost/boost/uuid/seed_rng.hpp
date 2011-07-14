@@ -24,7 +24,6 @@
 #include <boost/config.hpp>
 #include <cstring> // for memcpy
 #include <limits>
-#include <memory.h>
 #include <ctime> // for time_t, time, clock_t, clock
 #include <cstdlib> // for rand
 #include <cstdio> // for FILE, fopen, fread, fclose

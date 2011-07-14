@@ -12,6 +12,7 @@
 
 #include <boost/config.hpp>
 #include <iterator>
+#include <utility> /* Primarily for std::pair */
 #include <boost/tuple/tuple.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/bool.hpp>

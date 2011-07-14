@@ -39,10 +39,10 @@ public:
   BOOST_ASIO_DECL endpoint();
 
   // Construct an endpoint using the specified path name.
-  BOOST_ASIO_DECL endpoint(const char* path);
+  BOOST_ASIO_DECL endpoint(const char* path_name);
 
   // Construct an endpoint using the specified path name.
-  BOOST_ASIO_DECL endpoint(const std::string& path);
+  BOOST_ASIO_DECL endpoint(const std::string& path_name);
 
   // Copy constructor.
   endpoint(const endpoint& other)

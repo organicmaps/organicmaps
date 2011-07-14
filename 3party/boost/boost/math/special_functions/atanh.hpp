@@ -64,7 +64,7 @@ namespace boost
             else if(x > 1 - tools::epsilon<T>())
             {
                // Infinity:
-               return -policies::raise_overflow_error<T>(function, 0, pol);
+               return policies::raise_overflow_error<T>(function, 0, pol);
             }
             else if(x > 1)
             {

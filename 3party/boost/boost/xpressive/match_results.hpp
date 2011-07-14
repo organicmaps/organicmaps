@@ -62,7 +62,6 @@
 #ifndef BOOST_XPRESSIVE_DOXYGEN_INVOKED
 # include <boost/proto/proto_fwd.hpp>
 # include <boost/proto/traits.hpp>
-# include <boost/proto/eval.hpp>
 #endif
 
 namespace boost { namespace xpressive { namespace detail
@@ -939,8 +938,10 @@ private:
       , mpl::size_t<4>
     ) const
     {
-        detail::replacement_context<BidiIter> ctx(*this);
-        return this->format2_(out, proto::eval(format, ctx));
+        // detail::ReplaceAlgo may be an incomplete type at this point, so
+        // we can't construct it directly.
+        typedef typename mpl::if_c<true, detail::ReplaceAlgo, OutputIterator>::type ReplaceAlgo;
+        return this->format2_(out, ReplaceAlgo()(format, 0, *this));
     }
 
     /// INTERNAL ONLY

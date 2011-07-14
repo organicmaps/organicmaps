@@ -18,6 +18,7 @@
 #include <boost/asio/detail/config.hpp>
 #include <boost/asio/basic_io_object.hpp>
 #include <boost/asio/basic_socket.hpp>
+#include <boost/asio/detail/handler_type_requirements.hpp>
 #include <boost/asio/detail/throw_error.hpp>
 #include <boost/asio/error.hpp>
 #include <boost/asio/socket_acceptor_service.hpp>
@@ -55,8 +56,12 @@ class basic_socket_acceptor
     public socket_base
 {
 public:
+  /// (Deprecated: Use native_handle_type.) The native representation of an
+  /// acceptor.
+  typedef typename SocketAcceptorService::native_handle_type native_type;
+
   /// The native representation of an acceptor.
-  typedef typename SocketAcceptorService::native_type native_type;
+  typedef typename SocketAcceptorService::native_handle_type native_handle_type;
 
   /// The protocol type.
   typedef Protocol protocol_type;
@@ -96,8 +101,8 @@ public:
     : basic_io_object<SocketAcceptorService>(io_service)
   {
     boost::system::error_code ec;
-    this->service.open(this->implementation, protocol, ec);
-    boost::asio::detail::throw_error(ec);
+    this->get_service().open(this->get_implementation(), protocol, ec);
+    boost::asio::detail::throw_error(ec, "open");
   }
 
   /// Construct an acceptor opened on the given endpoint.
@@ -132,19 +137,20 @@ public:
     : basic_io_object<SocketAcceptorService>(io_service)
   {
     boost::system::error_code ec;
-    this->service.open(this->implementation, endpoint.protocol(), ec);
-    boost::asio::detail::throw_error(ec);
+    const protocol_type protocol = endpoint.protocol();
+    this->get_service().open(this->get_implementation(), protocol, ec);
+    boost::asio::detail::throw_error(ec, "open");
     if (reuse_addr)
     {
-      this->service.set_option(this->implementation,
+      this->get_service().set_option(this->get_implementation(),
           socket_base::reuse_address(true), ec);
-      boost::asio::detail::throw_error(ec);
+      boost::asio::detail::throw_error(ec, "set_option");
     }
-    this->service.bind(this->implementation, endpoint, ec);
-    boost::asio::detail::throw_error(ec);
-    this->service.listen(this->implementation,
+    this->get_service().bind(this->get_implementation(), endpoint, ec);
+    boost::asio::detail::throw_error(ec, "bind");
+    this->get_service().listen(this->get_implementation(),
         socket_base::max_connections, ec);
-    boost::asio::detail::throw_error(ec);
+    boost::asio::detail::throw_error(ec, "listen");
   }
 
   /// Construct a basic_socket_acceptor on an existing native acceptor.
@@ -163,13 +169,49 @@ public:
    * @throws boost::system::system_error Thrown on failure.
    */
   basic_socket_acceptor(boost::asio::io_service& io_service,
-      const protocol_type& protocol, const native_type& native_acceptor)
+      const protocol_type& protocol, const native_handle_type& native_acceptor)
     : basic_io_object<SocketAcceptorService>(io_service)
   {
     boost::system::error_code ec;
-    this->service.assign(this->implementation, protocol, native_acceptor, ec);
-    boost::asio::detail::throw_error(ec);
+    this->get_service().assign(this->get_implementation(),
+        protocol, native_acceptor, ec);
+    boost::asio::detail::throw_error(ec, "assign");
   }
+
+#if defined(BOOST_ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
+  /// Move-construct a basic_socket_acceptor from another.
+  /**
+   * This constructor moves an acceptor from one object to another.
+   *
+   * @param other The other basic_socket_acceptor object from which the move
+   * will occur.
+   *
+   * @note Following the move, the moved-from object is in the same state as if
+   * constructed using the @c basic_socket_acceptor(io_service&) constructor.
+   */
+  basic_socket_acceptor(basic_socket_acceptor&& other)
+    : basic_io_object<SocketAcceptorService>(
+        BOOST_ASIO_MOVE_CAST(basic_socket_acceptor)(other))
+  {
+  }
+
+  /// Move-assign a basic_socket_acceptor from another.
+  /**
+   * This assignment operator moves an acceptor from one object to another.
+   *
+   * @param other The other basic_socket_acceptor object from which the move
+   * will occur.
+   *
+   * @note Following the move, the moved-from object is in the same state as if
+   * constructed using the @c basic_socket_acceptor(io_service&) constructor.
+   */
+  basic_socket_acceptor& operator=(basic_socket_acceptor&& other)
+  {
+    basic_io_object<SocketAcceptorService>::operator=(
+        BOOST_ASIO_MOVE_CAST(basic_socket_acceptor)(other));
+    return *this;
+  }
+#endif // defined(BOOST_ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 
   /// Open the acceptor using the specified protocol.
   /**
@@ -189,8 +231,8 @@ public:
   void open(const protocol_type& protocol = protocol_type())
   {
     boost::system::error_code ec;
-    this->service.open(this->implementation, protocol, ec);
-    boost::asio::detail::throw_error(ec);
+    this->get_service().open(this->get_implementation(), protocol, ec);
+    boost::asio::detail::throw_error(ec, "open");
   }
 
   /// Open the acceptor using the specified protocol.
@@ -216,7 +258,7 @@ public:
   boost::system::error_code open(const protocol_type& protocol,
       boost::system::error_code& ec)
   {
-    return this->service.open(this->implementation, protocol, ec);
+    return this->get_service().open(this->get_implementation(), protocol, ec);
   }
 
   /// Assigns an existing native acceptor to the acceptor.
@@ -229,11 +271,13 @@ public:
    *
    * @throws boost::system::system_error Thrown on failure.
    */
-  void assign(const protocol_type& protocol, const native_type& native_acceptor)
+  void assign(const protocol_type& protocol,
+      const native_handle_type& native_acceptor)
   {
     boost::system::error_code ec;
-    this->service.assign(this->implementation, protocol, native_acceptor, ec);
-    boost::asio::detail::throw_error(ec);
+    this->get_service().assign(this->get_implementation(),
+        protocol, native_acceptor, ec);
+    boost::asio::detail::throw_error(ec, "assign");
   }
 
   /// Assigns an existing native acceptor to the acceptor.
@@ -247,16 +291,16 @@ public:
    * @param ec Set to indicate what error occurred, if any.
    */
   boost::system::error_code assign(const protocol_type& protocol,
-      const native_type& native_acceptor, boost::system::error_code& ec)
+      const native_handle_type& native_acceptor, boost::system::error_code& ec)
   {
-    return this->service.assign(this->implementation,
+    return this->get_service().assign(this->get_implementation(),
         protocol, native_acceptor, ec);
   }
 
   /// Determine whether the acceptor is open.
   bool is_open() const
   {
-    return this->service.is_open(this->implementation);
+    return this->get_service().is_open(this->get_implementation());
   }
 
   /// Bind the acceptor to the given local endpoint.
@@ -279,8 +323,8 @@ public:
   void bind(const endpoint_type& endpoint)
   {
     boost::system::error_code ec;
-    this->service.bind(this->implementation, endpoint, ec);
-    boost::asio::detail::throw_error(ec);
+    this->get_service().bind(this->get_implementation(), endpoint, ec);
+    boost::asio::detail::throw_error(ec, "bind");
   }
 
   /// Bind the acceptor to the given local endpoint.
@@ -308,7 +352,7 @@ public:
   boost::system::error_code bind(const endpoint_type& endpoint,
       boost::system::error_code& ec)
   {
-    return this->service.bind(this->implementation, endpoint, ec);
+    return this->get_service().bind(this->get_implementation(), endpoint, ec);
   }
 
   /// Place the acceptor into the state where it will listen for new
@@ -324,8 +368,8 @@ public:
   void listen(int backlog = socket_base::max_connections)
   {
     boost::system::error_code ec;
-    this->service.listen(this->implementation, backlog, ec);
-    boost::asio::detail::throw_error(ec);
+    this->get_service().listen(this->get_implementation(), backlog, ec);
+    boost::asio::detail::throw_error(ec, "listen");
   }
 
   /// Place the acceptor into the state where it will listen for new
@@ -352,7 +396,7 @@ public:
    */
   boost::system::error_code listen(int backlog, boost::system::error_code& ec)
   {
-    return this->service.listen(this->implementation, backlog, ec);
+    return this->get_service().listen(this->get_implementation(), backlog, ec);
   }
 
   /// Close the acceptor.
@@ -368,8 +412,8 @@ public:
   void close()
   {
     boost::system::error_code ec;
-    this->service.close(this->implementation, ec);
-    boost::asio::detail::throw_error(ec);
+    this->get_service().close(this->get_implementation(), ec);
+    boost::asio::detail::throw_error(ec, "close");
   }
 
   /// Close the acceptor.
@@ -396,7 +440,18 @@ public:
    */
   boost::system::error_code close(boost::system::error_code& ec)
   {
-    return this->service.close(this->implementation, ec);
+    return this->get_service().close(this->get_implementation(), ec);
+  }
+
+  /// (Deprecated: Use native_handle().) Get the native acceptor representation.
+  /**
+   * This function may be used to obtain the underlying representation of the
+   * acceptor. This is intended to allow access to native acceptor functionality
+   * that is not otherwise provided.
+   */
+  native_type native()
+  {
+    return this->get_service().native_handle(this->get_implementation());
   }
 
   /// Get the native acceptor representation.
@@ -405,9 +460,9 @@ public:
    * acceptor. This is intended to allow access to native acceptor functionality
    * that is not otherwise provided.
    */
-  native_type native()
+  native_handle_type native_handle()
   {
-    return this->service.native(this->implementation);
+    return this->get_service().native_handle(this->get_implementation());
   }
 
   /// Cancel all asynchronous operations associated with the acceptor.
@@ -421,8 +476,8 @@ public:
   void cancel()
   {
     boost::system::error_code ec;
-    this->service.cancel(this->implementation, ec);
-    boost::asio::detail::throw_error(ec);
+    this->get_service().cancel(this->get_implementation(), ec);
+    boost::asio::detail::throw_error(ec, "cancel");
   }
 
   /// Cancel all asynchronous operations associated with the acceptor.
@@ -435,7 +490,7 @@ public:
    */
   boost::system::error_code cancel(boost::system::error_code& ec)
   {
-    return this->service.cancel(this->implementation, ec);
+    return this->get_service().cancel(this->get_implementation(), ec);
   }
 
   /// Set an option on the acceptor.
@@ -463,8 +518,8 @@ public:
   void set_option(const SettableSocketOption& option)
   {
     boost::system::error_code ec;
-    this->service.set_option(this->implementation, option, ec);
-    boost::asio::detail::throw_error(ec);
+    this->get_service().set_option(this->get_implementation(), option, ec);
+    boost::asio::detail::throw_error(ec, "set_option");
   }
 
   /// Set an option on the acceptor.
@@ -497,7 +552,8 @@ public:
   boost::system::error_code set_option(const SettableSocketOption& option,
       boost::system::error_code& ec)
   {
-    return this->service.set_option(this->implementation, option, ec);
+    return this->get_service().set_option(
+        this->get_implementation(), option, ec);
   }
 
   /// Get an option from the acceptor.
@@ -526,8 +582,8 @@ public:
   void get_option(GettableSocketOption& option)
   {
     boost::system::error_code ec;
-    this->service.get_option(this->implementation, option, ec);
-    boost::asio::detail::throw_error(ec);
+    this->get_service().get_option(this->get_implementation(), option, ec);
+    boost::asio::detail::throw_error(ec, "get_option");
   }
 
   /// Get an option from the acceptor.
@@ -561,7 +617,189 @@ public:
   boost::system::error_code get_option(GettableSocketOption& option,
       boost::system::error_code& ec)
   {
-    return this->service.get_option(this->implementation, option, ec);
+    return this->get_service().get_option(
+        this->get_implementation(), option, ec);
+  }
+
+  /// Perform an IO control command on the acceptor.
+  /**
+   * This function is used to execute an IO control command on the acceptor.
+   *
+   * @param command The IO control command to be performed on the acceptor.
+   *
+   * @throws boost::system::system_error Thrown on failure.
+   *
+   * @sa IoControlCommand @n
+   * boost::asio::socket_base::non_blocking_io
+   *
+   * @par Example
+   * Getting the number of bytes ready to read:
+   * @code
+   * boost::asio::ip::tcp::acceptor acceptor(io_service);
+   * ...
+   * boost::asio::ip::tcp::acceptor::non_blocking_io command(true);
+   * socket.io_control(command);
+   * @endcode
+   */
+  template <typename IoControlCommand>
+  void io_control(IoControlCommand& command)
+  {
+    boost::system::error_code ec;
+    this->get_service().io_control(this->get_implementation(), command, ec);
+    boost::asio::detail::throw_error(ec, "io_control");
+  }
+
+  /// Perform an IO control command on the acceptor.
+  /**
+   * This function is used to execute an IO control command on the acceptor.
+   *
+   * @param command The IO control command to be performed on the acceptor.
+   *
+   * @param ec Set to indicate what error occurred, if any.
+   *
+   * @sa IoControlCommand @n
+   * boost::asio::socket_base::non_blocking_io
+   *
+   * @par Example
+   * Getting the number of bytes ready to read:
+   * @code
+   * boost::asio::ip::tcp::acceptor acceptor(io_service);
+   * ...
+   * boost::asio::ip::tcp::acceptor::non_blocking_io command(true);
+   * boost::system::error_code ec;
+   * socket.io_control(command, ec);
+   * if (ec)
+   * {
+   *   // An error occurred.
+   * }
+   * @endcode
+   */
+  template <typename IoControlCommand>
+  boost::system::error_code io_control(IoControlCommand& command,
+      boost::system::error_code& ec)
+  {
+    return this->get_service().io_control(
+        this->get_implementation(), command, ec);
+  }
+
+  /// Gets the non-blocking mode of the acceptor.
+  /**
+   * @returns @c true if the acceptor's synchronous operations will fail with
+   * boost::asio::error::would_block if they are unable to perform the requested
+   * operation immediately. If @c false, synchronous operations will block
+   * until complete.
+   *
+   * @note The non-blocking mode has no effect on the behaviour of asynchronous
+   * operations. Asynchronous operations will never fail with the error
+   * boost::asio::error::would_block.
+   */
+  bool non_blocking() const
+  {
+    return this->get_service().non_blocking(this->get_implementation());
+  }
+
+  /// Sets the non-blocking mode of the acceptor.
+  /**
+   * @param mode If @c true, the acceptor's synchronous operations will fail
+   * with boost::asio::error::would_block if they are unable to perform the
+   * requested operation immediately. If @c false, synchronous operations will
+   * block until complete.
+   *
+   * @throws boost::system::system_error Thrown on failure.
+   *
+   * @note The non-blocking mode has no effect on the behaviour of asynchronous
+   * operations. Asynchronous operations will never fail with the error
+   * boost::asio::error::would_block.
+   */
+  void non_blocking(bool mode)
+  {
+    boost::system::error_code ec;
+    this->get_service().non_blocking(this->get_implementation(), mode, ec);
+    boost::asio::detail::throw_error(ec, "non_blocking");
+  }
+
+  /// Sets the non-blocking mode of the acceptor.
+  /**
+   * @param mode If @c true, the acceptor's synchronous operations will fail
+   * with boost::asio::error::would_block if they are unable to perform the
+   * requested operation immediately. If @c false, synchronous operations will
+   * block until complete.
+   *
+   * @param ec Set to indicate what error occurred, if any.
+   *
+   * @note The non-blocking mode has no effect on the behaviour of asynchronous
+   * operations. Asynchronous operations will never fail with the error
+   * boost::asio::error::would_block.
+   */
+  boost::system::error_code non_blocking(
+      bool mode, boost::system::error_code& ec)
+  {
+    return this->get_service().non_blocking(
+        this->get_implementation(), mode, ec);
+  }
+
+  /// Gets the non-blocking mode of the native acceptor implementation.
+  /**
+   * This function is used to retrieve the non-blocking mode of the underlying
+   * native acceptor. This mode has no effect on the behaviour of the acceptor
+   * object's synchronous operations.
+   *
+   * @returns @c true if the underlying acceptor is in non-blocking mode and
+   * direct system calls may fail with boost::asio::error::would_block (or the
+   * equivalent system error).
+   *
+   * @note The current non-blocking mode is cached by the acceptor object.
+   * Consequently, the return value may be incorrect if the non-blocking mode
+   * was set directly on the native acceptor.
+   */
+  bool native_non_blocking() const
+  {
+    return this->get_service().native_non_blocking(this->get_implementation());
+  }
+
+  /// Sets the non-blocking mode of the native acceptor implementation.
+  /**
+   * This function is used to modify the non-blocking mode of the underlying
+   * native acceptor. It has no effect on the behaviour of the acceptor object's
+   * synchronous operations.
+   *
+   * @param mode If @c true, the underlying acceptor is put into non-blocking
+   * mode and direct system calls may fail with boost::asio::error::would_block
+   * (or the equivalent system error).
+   *
+   * @throws boost::system::system_error Thrown on failure. If the @c mode is
+   * @c false, but the current value of @c non_blocking() is @c true, this
+   * function fails with boost::asio::error::invalid_argument, as the
+   * combination does not make sense.
+   */
+  void native_non_blocking(bool mode)
+  {
+    boost::system::error_code ec;
+    this->get_service().native_non_blocking(
+        this->get_implementation(), mode, ec);
+    boost::asio::detail::throw_error(ec, "native_non_blocking");
+  }
+
+  /// Sets the non-blocking mode of the native acceptor implementation.
+  /**
+   * This function is used to modify the non-blocking mode of the underlying
+   * native acceptor. It has no effect on the behaviour of the acceptor object's
+   * synchronous operations.
+   *
+   * @param mode If @c true, the underlying acceptor is put into non-blocking
+   * mode and direct system calls may fail with boost::asio::error::would_block
+   * (or the equivalent system error).
+   *
+   * @param ec Set to indicate what error occurred, if any. If the @c mode is
+   * @c false, but the current value of @c non_blocking() is @c true, this
+   * function fails with boost::asio::error::invalid_argument, as the
+   * combination does not make sense.
+   */
+  boost::system::error_code native_non_blocking(
+      bool mode, boost::system::error_code& ec)
+  {
+    return this->get_service().native_non_blocking(
+        this->get_implementation(), mode, ec);
   }
 
   /// Get the local endpoint of the acceptor.
@@ -582,8 +820,9 @@ public:
   endpoint_type local_endpoint() const
   {
     boost::system::error_code ec;
-    endpoint_type ep = this->service.local_endpoint(this->implementation, ec);
-    boost::asio::detail::throw_error(ec);
+    endpoint_type ep = this->get_service().local_endpoint(
+        this->get_implementation(), ec);
+    boost::asio::detail::throw_error(ec, "local_endpoint");
     return ep;
   }
 
@@ -611,7 +850,7 @@ public:
    */
   endpoint_type local_endpoint(boost::system::error_code& ec) const
   {
-    return this->service.local_endpoint(this->implementation, ec);
+    return this->get_service().local_endpoint(this->get_implementation(), ec);
   }
 
   /// Accept a new connection.
@@ -636,8 +875,8 @@ public:
   void accept(basic_socket<protocol_type, SocketService>& peer)
   {
     boost::system::error_code ec;
-    this->service.accept(this->implementation, peer, 0, ec);
-    boost::asio::detail::throw_error(ec);
+    this->get_service().accept(this->get_implementation(), peer, 0, ec);
+    boost::asio::detail::throw_error(ec, "accept");
   }
 
   /// Accept a new connection.
@@ -668,7 +907,7 @@ public:
       basic_socket<protocol_type, SocketService>& peer,
       boost::system::error_code& ec)
   {
-    return this->service.accept(this->implementation, peer, 0, ec);
+    return this->get_service().accept(this->get_implementation(), peer, 0, ec);
   }
 
   /// Start an asynchronous accept.
@@ -711,9 +950,14 @@ public:
    */
   template <typename SocketService, typename AcceptHandler>
   void async_accept(basic_socket<protocol_type, SocketService>& peer,
-      AcceptHandler handler)
+      BOOST_ASIO_MOVE_ARG(AcceptHandler) handler)
   {
-    this->service.async_accept(this->implementation, peer, 0, handler);
+    // If you get an error on the following line it means that your handler does
+    // not meet the documented type requirements for a AcceptHandler.
+    BOOST_ASIO_ACCEPT_HANDLER_CHECK(AcceptHandler, handler) type_check;
+
+    this->get_service().async_accept(this->get_implementation(),
+        peer, 0, BOOST_ASIO_MOVE_CAST(AcceptHandler)(handler));
   }
 
   /// Accept a new connection and obtain the endpoint of the peer
@@ -744,8 +988,9 @@ public:
       endpoint_type& peer_endpoint)
   {
     boost::system::error_code ec;
-    this->service.accept(this->implementation, peer, &peer_endpoint, ec);
-    boost::asio::detail::throw_error(ec);
+    this->get_service().accept(this->get_implementation(),
+        peer, &peer_endpoint, ec);
+    boost::asio::detail::throw_error(ec, "accept");
   }
 
   /// Accept a new connection and obtain the endpoint of the peer
@@ -781,7 +1026,8 @@ public:
       basic_socket<protocol_type, SocketService>& peer,
       endpoint_type& peer_endpoint, boost::system::error_code& ec)
   {
-    return this->service.accept(this->implementation, peer, &peer_endpoint, ec);
+    return this->get_service().accept(
+        this->get_implementation(), peer, &peer_endpoint, ec);
   }
 
   /// Start an asynchronous accept.
@@ -812,10 +1058,14 @@ public:
    */
   template <typename SocketService, typename AcceptHandler>
   void async_accept(basic_socket<protocol_type, SocketService>& peer,
-      endpoint_type& peer_endpoint, AcceptHandler handler)
+      endpoint_type& peer_endpoint, BOOST_ASIO_MOVE_ARG(AcceptHandler) handler)
   {
-    this->service.async_accept(this->implementation,
-        peer, &peer_endpoint, handler);
+    // If you get an error on the following line it means that your handler does
+    // not meet the documented type requirements for a AcceptHandler.
+    BOOST_ASIO_ACCEPT_HANDLER_CHECK(AcceptHandler, handler) type_check;
+
+    this->get_service().async_accept(this->get_implementation(), peer,
+        &peer_endpoint, BOOST_ASIO_MOVE_CAST(AcceptHandler)(handler));
   }
 };
 

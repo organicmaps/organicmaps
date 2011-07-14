@@ -85,10 +85,7 @@ inline typename enable_if<is_discrete<Type>, Type>::type
 shift_lower(interval_bounds decl, interval_bounds repr, const Type& low)
 {
     if(is_left_closed(decl) && !is_left_closed(repr))
-    {
-        BOOST_ASSERT((numeric_minimum<Type, is_numeric<Type>::value >::is_less_than(low) )); 
         return icl::pred(low);
-    }
     else if(!is_left_closed(decl) && is_left_closed(repr)) 
         return icl::succ(low);
     else 
@@ -100,10 +97,7 @@ inline typename enable_if<is_discrete<Type>, Type>::type
 shift_upper(interval_bounds decl, interval_bounds repr, const Type& up)
 {
     if(!is_right_closed(decl) && is_right_closed(repr))
-    {
-        BOOST_ASSERT((numeric_minimum<Type, is_numeric<Type>::value >::is_less_than(up) )); 
         return icl::pred(up);
-    }
     else if(is_right_closed(decl) && !is_right_closed(repr)) 
         return icl::succ(up);
     else 

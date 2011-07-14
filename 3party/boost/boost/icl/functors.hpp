@@ -37,7 +37,7 @@ namespace boost{namespace icl
         : public identity_based_inplace_combine<Type>
     {
         typedef inplace_identity<Type> type;
-        void operator()(Type& object, const Type& operand)const{}
+        void operator()(Type&, const Type&)const{}
     };
 
     template<>
@@ -70,7 +70,7 @@ namespace boost{namespace icl
         void operator()(Type& object, const Type& operand)const
         { object += operand; }
 
-        static void version(Type& object){}
+        static void version(Type&){}
     };
 
     template<>
@@ -98,7 +98,7 @@ namespace boost{namespace icl
         void operator()(Type& object, const Type& operand)const
         { object |= operand; }
 
-        static void version(Type& object){}
+        static void version(Type&){}
     };
 
     template<>

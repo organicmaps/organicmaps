@@ -19,10 +19,11 @@
 
 #if defined(BOOST_ASIO_HAS_IOCP)
 
-#include <boost/scoped_ptr.hpp>
+#include <boost/limits.hpp>
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/detail/mutex.hpp>
 #include <boost/asio/detail/op_queue.hpp>
+#include <boost/asio/detail/scoped_ptr.hpp>
 #include <boost/asio/detail/socket_types.hpp>
 #include <boost/asio/detail/timer_op.hpp>
 #include <boost/asio/detail/timer_queue_base.hpp>
@@ -76,6 +77,12 @@ public:
   // Stop the event processing loop.
   BOOST_ASIO_DECL void stop();
 
+  // Determine whether the io_service is stopped.
+  bool stopped() const
+  {
+    return ::InterlockedExchangeAdd(&stopped_, 0) != 0;
+  }
+
   // Reset in preparation for a subsequent run invocation.
   void reset()
   {
@@ -120,6 +127,10 @@ public:
   BOOST_ASIO_DECL void post_deferred_completions(
       op_queue<win_iocp_operation>& ops);
 
+  // Process unfinished operations as part of a shutdown_service operation.
+  // Assumes that work_started() was previously called for the operations.
+  BOOST_ASIO_DECL void abandon_operations(op_queue<operation>& ops);
+
   // Called after starting an overlapped I/O operation that did not complete
   // immediately. The caller must have already called work_started() prior to
   // starting the operation.
@@ -156,7 +167,8 @@ public:
   // handlers that have been posted or dispatched.
   template <typename Time_Traits>
   std::size_t cancel_timer(timer_queue<Time_Traits>& queue,
-      typename timer_queue<Time_Traits>::per_timer_data& timer);
+      typename timer_queue<Time_Traits>::per_timer_data& timer,
+      std::size_t max_cancelled = (std::numeric_limits<std::size_t>::max)());
 
 private:
 #if defined(WINVER) && (WINVER < 0x0500)
@@ -199,7 +211,7 @@ private:
   long outstanding_work_;
 
   // Flag to indicate whether the event loop has been stopped.
-  long stopped_;
+  mutable long stopped_;
 
   // Flag to indicate whether the service has been shut down.
   long shutdown_;
@@ -233,7 +245,7 @@ private:
   friend struct timer_thread_function;
 
   // Background thread used for processing timeouts.
-  boost::scoped_ptr<thread> timer_thread_;
+  scoped_ptr<thread> timer_thread_;
 
   // A waitable timer object used for waiting for timeouts.
   auto_handle waitable_timer_;

@@ -77,7 +77,7 @@ namespace boost { namespace math {
           return 0; // pdf + and - infinity is zero.
        }
 
-       RealType result;
+       RealType result = 0;
        if(false == detail::check_scale(function, scale , &result, Policy()))
        {
           return result;
@@ -106,7 +106,7 @@ namespace boost { namespace math {
     {
        RealType scale = dist.scale();
        RealType location = dist.location();
-       RealType result; // of checks.
+       RealType result = 0; // of checks.
        static const char* function = "boost::math::cdf(const logistic_distribution<%1%>&, %1%)";
        if(false == detail::check_scale(function, scale, &result, Policy()))
        {
@@ -145,7 +145,7 @@ namespace boost { namespace math {
 
        static const char* function = "boost::math::quantile(const logistic_distribution<%1%>&, %1%)";
 
-       RealType result;
+       RealType result = 0;
        if(false == detail::check_scale(function, scale, &result, Policy()))
           return result;
        if(false == detail::check_location(function, location, &result, Policy()))
@@ -186,7 +186,7 @@ namespace boost { namespace math {
           if(x < 0) return 1; // cdf complement -infinity is unity.
           return 0; // cdf complement +infinity is zero
        }
-       RealType result;
+       RealType result = 0;
        if(false == detail::check_scale(function, scale, &result, Policy()))
           return result;
        if(false == detail::check_location(function, location, &result, Policy()))
@@ -208,7 +208,7 @@ namespace boost { namespace math {
        RealType scale = c.dist.scale();
        RealType location = c.dist.location();
        static const char* function = "boost::math::quantile(const complement(logistic_distribution<%1%>&), %1%)";
-       RealType result;
+       RealType result = 0;
        if(false == detail::check_scale(function, scale, &result, Policy()))
           return result;
        if(false == detail::check_location(function, location, &result, Policy()))

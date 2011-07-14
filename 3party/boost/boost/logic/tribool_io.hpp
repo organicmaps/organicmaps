@@ -140,7 +140,8 @@ public:
   indeterminate_name() : name_(get_default_indeterminate_name<CharT>()) {}
 
   /// Construct the facet with the given name for the indeterminate value
-  explicit indeterminate_name(const string_type& name) : name_(name) {}
+  explicit indeterminate_name(const string_type& initial_name)
+  : name_(initial_name) {}
 
   /// Returns the name for the indeterminate value
   string_type name() const { return name_; }

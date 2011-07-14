@@ -31,7 +31,9 @@ namespace boost { namespace spirit
 
 namespace boost { namespace spirit { namespace qi
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::eol;
+#endif
     using spirit::eol_type;
 
     struct eol_parser : primitive_parser<eol_parser>

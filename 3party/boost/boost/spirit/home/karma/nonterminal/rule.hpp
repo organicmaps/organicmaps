@@ -1,7 +1,7 @@
 //  Copyright (c) 2001-2011 Joel de Guzman
 //  Copyright (c) 2001-2011 Hartmut Kaiser
-// 
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying 
+//
+//  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #if !defined(BOOST_SPIRIT_KARMA_RULE_MAR_05_2007_0455PM)
@@ -30,6 +30,7 @@
 #include <boost/spirit/home/support/argument.hpp>
 #include <boost/spirit/home/support/context.hpp>
 #include <boost/spirit/home/support/info.hpp>
+#include <boost/spirit/home/karma/delimit_out.hpp>
 #include <boost/spirit/home/karma/detail/attributes.hpp>
 #include <boost/spirit/home/support/nonterminal/extract_param.hpp>
 #include <boost/spirit/home/support/nonterminal/locals.hpp>
@@ -48,6 +49,21 @@ namespace boost { namespace spirit { namespace karma
 {
     BOOST_PP_REPEAT(SPIRIT_ATTRIBUTES_LIMIT, SPIRIT_USING_ATTRIBUTE, _)
 
+    using spirit::_pass_type;
+    using spirit::_val_type;
+    using spirit::_a_type;
+    using spirit::_b_type;
+    using spirit::_c_type;
+    using spirit::_d_type;
+    using spirit::_e_type;
+    using spirit::_f_type;
+    using spirit::_g_type;
+    using spirit::_h_type;
+    using spirit::_i_type;
+    using spirit::_j_type;
+
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
+
     using spirit::_pass;
     using spirit::_val;
     using spirit::_a;
@@ -60,6 +76,8 @@ namespace boost { namespace spirit { namespace karma
     using spirit::_h;
     using spirit::_i;
     using spirit::_j;
+
+#endif
 
     using spirit::info;
     using spirit::locals;
@@ -86,7 +104,7 @@ namespace boost { namespace spirit { namespace karma
         typedef mpl::vector<T1, T2, T3, T4> template_params;
 
         // the output iterator is always wrapped by karma
-        typedef detail::output_iterator<OutputIterator, properties> 
+        typedef detail::output_iterator<OutputIterator, properties>
             output_iterator;
 
         // locals_type is a sequence of types to be used as local variables
@@ -115,7 +133,7 @@ namespace boost { namespace spirit { namespace karma
             spirit::detail::attr_from_sig<sig_type>::type
         attr_type;
         typedef typename add_reference<
-            typename add_const<attr_type>::type>::type 
+            typename add_const<attr_type>::type>::type
         attr_reference_type;
 
         // parameter_types is a sequence of types passed as parameters to the rule
@@ -158,25 +176,35 @@ namespace boost { namespace spirit { namespace karma
         {
         }
 
+        template <typename Auto, typename Expr>
+        static void define(rule& lhs, Expr const& expr, mpl::false_)
+        {
+            // Report invalid expression error as early as possible.
+            // If you got an error_invalid_expression error message here,
+            // then the expression (expr) is not a valid spirit karma expression.
+            BOOST_SPIRIT_ASSERT_MATCH(karma::domain, Expr);
+        }
+
+        template <typename Auto, typename Expr>
+        static void define(rule& lhs, Expr const& expr, mpl::true_)
+        {
+            lhs.f = detail::bind_generator<Auto>(
+                compile<karma::domain>(expr, encoding_modifier_type()));
+        }
+
         template <typename Expr>
         rule (Expr const& expr, std::string const& name_ = "unnamed-rule")
           : base_type(terminal::make(reference_(*this)))
           , name_(name_)
         {
-            // Report invalid expression error as early as possible.
-            // If you got an error_invalid_expression error message here, then
-            // the expression (expr) is not a valid spirit karma expression.
-            BOOST_SPIRIT_ASSERT_MATCH(karma::domain, Expr);
-
-            f = detail::bind_generator<mpl::false_>(
-                compile<karma::domain>(expr, encoding_modifier_type()));
+            define<mpl::false_>(*this, expr, traits::matches<karma::domain, Expr>());
         }
 
         rule& operator=(rule const& rhs)
         {
             // The following assertion fires when you try to initialize a rule
             // from an uninitialized one. Did you mean to refer to the right
-            // hand side rule instead of assigning from it? In this case you 
+            // hand side rule instead of assigning from it? In this case you
             // should write lhs = rhs.alias();
             BOOST_ASSERT(rhs.f && "Did you mean rhs.alias() instead of rhs?");
 
@@ -198,13 +226,7 @@ namespace boost { namespace spirit { namespace karma
         template <typename Expr>
         rule& operator=(Expr const& expr)
         {
-            // Report invalid expression error as early as possible.
-            // If you got an error_invalid_expression error message here, then
-            // the expression (expr) is not a valid spirit karma expression.
-            BOOST_SPIRIT_ASSERT_MATCH(karma::domain, Expr);
-
-            f = detail::bind_generator<mpl::false_>(
-                compile<karma::domain>(expr, encoding_modifier_type()));
+            define<mpl::false_>(*this, expr, traits::matches<karma::domain, Expr>());
             return *this;
         }
 
@@ -214,13 +236,7 @@ namespace boost { namespace spirit { namespace karma
         template <typename Expr>
         friend rule& operator%=(rule& r, Expr const& expr)
         {
-            // Report invalid expression error as early as possible.
-            // If you got an error_invalid_expression error message here, then
-            // the expression (expr) is not a valid spirit karma expression.
-            BOOST_SPIRIT_ASSERT_MATCH(karma::domain, Expr);
-
-            r.f = detail::bind_generator<mpl::true_>(
-                compile<karma::domain>(expr, encoding_modifier_type()));
+            define<mpl::true_>(r, expr, traits::matches<karma::domain, Expr>());
             return r;
         }
 
@@ -232,7 +248,7 @@ namespace boost { namespace spirit { namespace karma
         }
 #else
         // both friend functions have to be defined out of class as VC7.1
-        // will complain otherwise 
+        // will complain otherwise
         template <typename OutputIterator_, typename T1_, typename T2_
           , typename T3_, typename T4_, typename Expr>
         friend rule<OutputIterator_, T1_, T2_, T3_, T4_>& operator%=(
@@ -257,14 +273,14 @@ namespace boost { namespace spirit { namespace karma
         {
             if (f)
             {
-                // Create an attribute if none is supplied. 
-                typedef traits::make_attribute<attr_type, Attribute> 
+                // Create an attribute if none is supplied.
+                typedef traits::make_attribute<attr_type, Attribute>
                     make_attribute;
                 typedef traits::transform_attribute<
-                    typename make_attribute::type, attr_type, domain> 
+                    typename make_attribute::type, attr_type, domain>
                 transform;
 
-                typename transform::type attr_ = 
+                typename transform::type attr_ =
                     traits::pre_transform<domain, attr_type>(
                         make_attribute::call(attr));
 
@@ -273,9 +289,9 @@ namespace boost { namespace spirit { namespace karma
                 // attributes, without passing values for them.
                 context_type context(attr_);
 
-                // If you are seeing a compilation error here stating that the 
+                // If you are seeing a compilation error here stating that the
                 // third parameter can't be converted to a karma::reference
-                // then you are probably trying to use a rule or a grammar with 
+                // then you are probably trying to use a rule or a grammar with
                 // an incompatible delimiter type.
                 if (f(sink, context, delim))
                 {
@@ -297,14 +313,14 @@ namespace boost { namespace spirit { namespace karma
         {
             if (f)
             {
-                // Create an attribute if none is supplied. 
-                typedef traits::make_attribute<attr_type, Attribute> 
+                // Create an attribute if none is supplied.
+                typedef traits::make_attribute<attr_type, Attribute>
                     make_attribute;
                 typedef traits::transform_attribute<
-                    typename make_attribute::type, attr_type, domain> 
+                    typename make_attribute::type, attr_type, domain>
                 transform;
 
-                typename transform::type attr_ = 
+                typename transform::type attr_ =
                     traits::pre_transform<domain, attr_type>(
                         make_attribute::call(attr));
 
@@ -313,9 +329,9 @@ namespace boost { namespace spirit { namespace karma
                 // attributes, passing values of incompatible types for them.
                 context_type context(attr_, params, caller_context);
 
-                // If you are seeing a compilation error here stating that the 
+                // If you are seeing a compilation error here stating that the
                 // third parameter can't be converted to a karma::reference
-                // then you are probably trying to use a rule or a grammar with 
+                // then you are probably trying to use a rule or a grammar with
                 // an incompatible delimiter type.
                 if (f(sink, context, delim))
                 {
@@ -366,7 +382,7 @@ namespace boost { namespace spirit { namespace karma
         // the expression (expr) is not a valid spirit karma expression.
         BOOST_SPIRIT_ASSERT_MATCH(karma::domain, Expr);
 
-        typedef typename 
+        typedef typename
             rule<OutputIterator_, T1_, T2_, T3_, T4_>::encoding_modifier_type
         encoding_modifier_type;
 
@@ -405,7 +421,7 @@ namespace boost { namespace spirit { namespace traits
     struct handles_container<
             karma::rule<IteratorA, T1, T2, T3, T4>, Attribute, Context
           , IteratorB>
-      : detail::nonterminal_handles_container< 
+      : detail::nonterminal_handles_container<
             typename attribute_of<
                 karma::rule<IteratorA, T1, T2, T3, T4>
               , Context, IteratorB

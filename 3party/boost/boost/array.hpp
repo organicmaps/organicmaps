@@ -322,7 +322,7 @@ namespace boost {
         static reference failed_rangecheck () {
                 std::out_of_range e("attempt to access element of an empty array");
                 boost::throw_exception(e);
-#if defined(BOOST_NO_EXCEPTIONS) || !defined(BOOST_MSVC)
+#if defined(BOOST_NO_EXCEPTIONS) || (!defined(BOOST_MSVC) && !defined(__PATHSCALE__))
                 //
                 // We need to return something here to keep
                 // some compilers happy: however we will never

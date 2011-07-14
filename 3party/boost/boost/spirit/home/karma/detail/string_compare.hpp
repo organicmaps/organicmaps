@@ -48,7 +48,7 @@ namespace boost { namespace spirit { namespace karma { namespace detail
     }
 
     template <typename Char, typename CharEncoding, typename Tag>
-    bool string_compare(Char const* attr, Char const* lit, CharEncoding ce, Tag tag)
+    bool string_compare(Char const* attr, Char const* lit, CharEncoding, Tag)
     {
         Char ch_attr = *attr;
         Char ch_lit = spirit::char_class::convert<CharEncoding>::to(Tag(), *lit);

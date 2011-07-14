@@ -46,12 +46,6 @@ public:
   /// The type of a ICMP endpoint.
   typedef basic_endpoint<icmp> endpoint;
 
-  /// (Deprecated: use resolver::query.) The type of a resolver query.
-  typedef basic_resolver_query<icmp> resolver_query;
-
-  /// (Deprecated: use resolver::iterator.) The type of a resolver iterator.
-  typedef basic_resolver_iterator<icmp> resolver_iterator;
-
   /// Construct to represent the IPv4 ICMP protocol.
   static icmp v4()
   {
@@ -102,9 +96,9 @@ public:
 
 private:
   // Construct with a specific family.
-  explicit icmp(int protocol, int family)
-    : protocol_(protocol),
-      family_(family)
+  explicit icmp(int protocol_id, int protocol_family)
+    : protocol_(protocol_id),
+      family_(protocol_family)
   {
   }
 

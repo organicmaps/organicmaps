@@ -52,6 +52,11 @@ struct version
     BOOST_STATIC_CONSTANT(int, value = version::type::value);
 };
 
+#ifndef BOOST_NO_INCLASS_MEMBER_INITIALIZATION
+template<class T>
+const int version<T>::value;
+#endif
+
 } // namespace serialization
 } // namespace boost
 

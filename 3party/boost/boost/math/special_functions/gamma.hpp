@@ -1,3 +1,4 @@
+
 //  Copyright John Maddock 2006-7.
 //  Copyright Paul A. Bristow 2007.
 
@@ -150,6 +151,7 @@ T gamma_imp(T z, const Policy& pol, const L& l)
       if(z <= -20)
       {
          result = gamma_imp(T(-z), pol, l) * sinpx(z);
+         BOOST_MATH_INSTRUMENT_VARIABLE(result);
          if((fabs(result) < 1) && (tools::max_value<T>() * fabs(result) < boost::math::constants::pi<T>()))
             return policies::raise_overflow_error<T>(function, "Result of tgamma is too large to represent.", pol);
          result = -boost::math::constants::pi<T>() / result;
@@ -157,6 +159,7 @@ T gamma_imp(T z, const Policy& pol, const L& l)
             return policies::raise_underflow_error<T>(function, "Result of tgamma is too small to represent.", pol);
          if((boost::math::fpclassify)(result) == (int)FP_SUBNORMAL)
             return policies::raise_denorm_error<T>(function, "Result of tgamma is denormalized.", result, pol);
+         BOOST_MATH_INSTRUMENT_VARIABLE(result);
          return result;
       }
 
@@ -167,29 +170,41 @@ T gamma_imp(T z, const Policy& pol, const L& l)
          z += 1;
       }
    }
+   BOOST_MATH_INSTRUMENT_VARIABLE(result);
    if((floor(z) == z) && (z < max_factorial<T>::value))
    {
       result *= unchecked_factorial<T>(itrunc(z, pol) - 1);
+      BOOST_MATH_INSTRUMENT_VARIABLE(result);
    }
    else
    {
       result *= L::lanczos_sum(z);
+      BOOST_MATH_INSTRUMENT_VARIABLE(result);
+      BOOST_MATH_INSTRUMENT_VARIABLE(tools::log_max_value<T>());
       if(z * log(z) > tools::log_max_value<T>())
       {
          // we're going to overflow unless this is done with care:
          T zgh = (z + static_cast<T>(L::g()) - boost::math::constants::half<T>());
+         BOOST_MATH_INSTRUMENT_VARIABLE(zgh);
          if(log(zgh) * z / 2 > tools::log_max_value<T>())
             return policies::raise_overflow_error<T>(function, "Result of tgamma is too large to represent.", pol);
          T hp = pow(zgh, (z / 2) - T(0.25));
+         BOOST_MATH_INSTRUMENT_VARIABLE(hp);
          result *= hp / exp(zgh);
+         BOOST_MATH_INSTRUMENT_VARIABLE(result);
          if(tools::max_value<T>() / hp < result)
             return policies::raise_overflow_error<T>(function, "Result of tgamma is too large to represent.", pol);
          result *= hp;
+         BOOST_MATH_INSTRUMENT_VARIABLE(result);
       }
       else
       {
          T zgh = (z + static_cast<T>(L::g()) - boost::math::constants::half<T>());
+         BOOST_MATH_INSTRUMENT_VARIABLE(zgh);
+         BOOST_MATH_INSTRUMENT_VARIABLE(pow(zgh, z - boost::math::constants::half<T>()));
+         BOOST_MATH_INSTRUMENT_VARIABLE(exp(zgh));
          result *= pow(zgh, z - boost::math::constants::half<T>()) / exp(zgh);
+         BOOST_MATH_INSTRUMENT_VARIABLE(result);
       }
    }
    return result;

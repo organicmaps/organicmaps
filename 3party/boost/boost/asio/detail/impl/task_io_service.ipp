@@ -74,6 +74,7 @@ task_io_service::task_io_service(boost::asio::io_service& io_service)
     shutdown_(false),
     first_idle_thread_(0)
 {
+  BOOST_ASIO_HANDLER_TRACKING_INIT;
 }
 
 void task_io_service::init(std::size_t /*concurrency_hint*/)
@@ -194,6 +195,12 @@ void task_io_service::stop()
   stop_all_threads(lock);
 }
 
+bool task_io_service::stopped() const
+{
+  mutex::scoped_lock lock(mutex_);
+  return stopped_;
+}
+
 void task_io_service::reset()
 {
   mutex::scoped_lock lock(mutex_);
@@ -222,6 +229,13 @@ void task_io_service::post_deferred_completions(
     op_queue_.push(ops);
     wake_one_thread_and_unlock(lock);
   }
+}
+
+void task_io_service::abandon_operations(
+    op_queue<task_io_service::operation>& ops)
+{
+  op_queue<task_io_service::operation> ops2;
+  ops2.push(ops);
 }
 
 std::size_t task_io_service::do_one(mutex::scoped_lock& lock,

@@ -60,13 +60,6 @@ subtract(Type& object, const typename Type::value_type& operand)
 //= Intersection
 //==============================================================================
 template<class Type>
-inline typename enable_if<is_element_set<Type>, Type>::type
-operator & (Type object, const Type& operand)
-{
-    return object &= operand;
-}
-
-template<class Type>
 inline typename enable_if<is_element_set<Type>, bool>::type
 intersects(const Type& object, const typename Type::key_type& operand)
 {
@@ -100,7 +93,7 @@ flip(Type& object, const typename Type::value_type& operand)
 
 template<class Type>
 inline typename enable_if<is_element_set<Type>, Type>::type&
-operator ^= (Type& object, const typename Type::element_tpye& operand)
+operator ^= (Type& object, const typename Type::element_type& operand)
 {
     return icl::flip(object, operand); 
 }

@@ -758,7 +758,10 @@ namespace boost { namespace polygon{
     if(pts.size() < 3) { pts.clear(); return; }
     Point firstPt = pts.front();
     Point prevPt = firstPt;
-    std::unique(pts.begin(), pts.end());
+    typename std::vector<point_data<Unit> >::iterator endLocation = std::unique(pts.begin(), pts.end());
+    if(endLocation != pts.end()){
+      pts.resize(endLocation - pts.begin());
+    }
     if(pts.back() == pts[0]) pts.pop_back();
     //iterate over point triplets
     int numPts = pts.size();
@@ -1348,10 +1351,18 @@ namespace boost { namespace polygon{
           if(oabedge == 0) return consider_touch;
           if(oabedge == 1) ++above;
         } else if(x(point) == xmax) {
-          Point tmppt;
-          assign(tmppt, point);
-          if( edge_utils<Unit>::on_above_or_below(tmppt, he) == 0 ) {
-            return consider_touch;
+          if(x(point) == xmin) {
+            Unit ymin = (std::min)(y(he.first), y(he.second));
+            Unit ymax = (std::max)(y(he.first), y(he.second));
+            Unit ypt = y(point);
+            if(ypt <= ymax && ypt >= ymin)
+              return consider_touch;
+          } else {
+            Point tmppt;
+            assign(tmppt, point);
+            if( edge_utils<Unit>::on_above_or_below(tmppt, he) == 0 ) {
+              return consider_touch;
+            }
           }
         }
       }

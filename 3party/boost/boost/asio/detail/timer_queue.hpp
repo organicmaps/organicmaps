@@ -183,20 +183,23 @@ public:
     heap_.clear();
   }
 
-  // Cancel and dequeue the timers with the given token.
-  std::size_t cancel_timer(per_timer_data& timer, op_queue<operation>& ops)
+  // Cancel and dequeue operations for the given timer.
+  std::size_t cancel_timer(per_timer_data& timer, op_queue<operation>& ops,
+      std::size_t max_cancelled = (std::numeric_limits<std::size_t>::max)())
   {
     std::size_t num_cancelled = 0;
     if (timer.prev_ != 0 || &timer == timers_)
     {
-      while (timer_op* op = timer.op_queue_.front())
+      while (timer_op* op = (num_cancelled != max_cancelled)
+          ? timer.op_queue_.front() : 0)
       {
         op->ec_ = boost::asio::error::operation_aborted;
         timer.op_queue_.pop();
         ops.push(op);
         ++num_cancelled;
       }
-      remove_timer(timer);
+      if (timer.op_queue_.empty())
+        remove_timer(timer);
     }
     return num_cancelled;
   }
@@ -354,9 +357,10 @@ public:
   // Dequeue all timers.
   BOOST_ASIO_DECL virtual void get_all_timers(op_queue<operation>& ops);
 
-  // Cancel and dequeue the timers with the given token.
+  // Cancel and dequeue operations for the given timer.
   BOOST_ASIO_DECL std::size_t cancel_timer(
-      per_timer_data& timer, op_queue<operation>& ops);
+      per_timer_data& timer, op_queue<operation>& ops,
+      std::size_t max_cancelled = (std::numeric_limits<std::size_t>::max)());
 
 private:
   timer_queue<forwarding_posix_time_traits> impl_;

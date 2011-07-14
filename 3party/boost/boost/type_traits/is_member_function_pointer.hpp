@@ -55,7 +55,7 @@ namespace detail {
 
 template <bool>
 struct is_mem_fun_pointer_select
-    : ::boost::type_traits::false_result
+    : public ::boost::type_traits::false_result
 {
 };
 
@@ -83,7 +83,7 @@ struct is_mem_fun_pointer_select<false>
 
 template <typename T>
 struct is_member_function_pointer_impl
-    : is_mem_fun_pointer_select<
+    : public is_mem_fun_pointer_select<
           ::boost::type_traits::ice_or<
               ::boost::is_reference<T>::value
             , ::boost::is_array<T>::value

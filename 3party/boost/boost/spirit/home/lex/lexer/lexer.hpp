@@ -265,6 +265,13 @@ namespace boost { namespace spirit { namespace lex
                 return *this;
             }
 
+            // explicitly tell the lexer that the given state will be defined
+            // (useful in conjunction with "*")
+            std::size_t add_state(char_type const* state = 0)
+            {
+                return def.add_state(state ? state : def.initial_state().c_str());
+            }
+
             adder add;
             pattern_adder add_pattern;
 

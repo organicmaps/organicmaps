@@ -20,7 +20,7 @@
 
 namespace boost {
 
-none_t const none = ((none_t)0) ;
+none_t const none = (static_cast<none_t>(0)) ;
 
 } // namespace boost
 

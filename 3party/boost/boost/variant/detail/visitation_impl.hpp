@@ -167,7 +167,7 @@ visitation_impl_invoke(
         , has_nothrow_copy<T>
         >::type never_uses_backup;
 
-    return visitation_impl_invoke_impl(
+    return (visitation_impl_invoke_impl)(
           internal_which, visitor, storage, t
         , never_uses_backup()
         );
@@ -246,7 +246,7 @@ visitation_impl(
     // ...applying the appropriate case:
 #   define BOOST_VARIANT_AUX_APPLY_VISITOR_STEP_CASE(z, N, _) \
     case (Which::value + (N)): \
-        return visitation_impl_invoke( \
+        return (visitation_impl_invoke)( \
               internal_which, visitor, storage \
             , static_cast<BOOST_PP_CAT(T,N)*>(0) \
             , no_backup_flag, 1L \
@@ -261,6 +261,7 @@ visitation_impl(
 
 #   undef BOOST_VARIANT_AUX_APPLY_VISITOR_STEP_CASE
 
+    default: BOOST_ASSERT(!"Boost.Variant internal error: 'which' out of range.");
     }
 
     // If not handled in this iteration, continue unrolling:

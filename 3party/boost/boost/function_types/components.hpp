@@ -23,7 +23,7 @@
 #include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/vector/vector0.hpp>
 
-#if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x656))
+#if BOOST_WORKAROUND(__BORLANDC__, <= 0x565)
 #   include <boost/type_traits/remove_cv.hpp>
 
 #   include <boost/mpl/identity.hpp>
@@ -81,14 +81,14 @@ namespace boost
     namespace detail 
     {
       template<typename T, typename L> struct components_impl;
-#if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x565))
+#if BOOST_WORKAROUND(__BORLANDC__, <= 0x565)
       template<typename T, typename OrigT, typename L> struct components_bcc;
 #endif
     }
 
     template<typename T, typename ClassTypeTransform> 
     struct components
-#if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x565))
+#if !BOOST_WORKAROUND(__BORLANDC__, <= 0x565)
       : detail::components_impl<T, ClassTypeTransform>
 #else
       : detail::components_bcc<typename remove_cv<T>::type,T,
@@ -260,7 +260,7 @@ namespace boost
           typename detail::class_transform<C,L>::type > types;
     };
 
-#if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x565))
+#if !BOOST_WORKAROUND(__BORLANDC__, <= 0x565)
 #   define BOOST_FT_variations BOOST_FT_pointer|BOOST_FT_member_pointer
 
     template<typename T, class C, typename L>

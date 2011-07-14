@@ -21,36 +21,51 @@ namespace boost { namespace spirit
     ///////////////////////////////////////////////////////////////////////////
     // Enablers
     ///////////////////////////////////////////////////////////////////////////
+
+    // enables 'x'
     template <>
-    struct use_terminal<lex::domain, char>               // enables 'x'
+    struct use_terminal<lex::domain, char>
       : mpl::true_ {};
 
+    // enables "x"
     template <>
-    struct use_terminal<lex::domain, char[2]>            // enables "x"
+    struct use_terminal<lex::domain, char[2]>
       : mpl::true_ {};
 
+    // enables wchar_t
     template <>
-    struct use_terminal<lex::domain, wchar_t>            // enables wchar_t
+    struct use_terminal<lex::domain, wchar_t>
       : mpl::true_ {};
 
+    // enables L"x"
     template <>
-    struct use_terminal<lex::domain, wchar_t[2]>         // enables L"x"
+    struct use_terminal<lex::domain, wchar_t[2]>
       : mpl::true_ {};
 
+    // enables char_('x'), char_("x")
     template <typename CharEncoding, typename A0>
     struct use_terminal<lex::domain
       , terminal_ex<
-            tag::char_code<tag::char_, CharEncoding>     // enables char_('x'), char_("x")
-          , fusion::vector1<A0>
-        >
-    > : mpl::true_ {};
+            tag::char_code<tag::char_, CharEncoding>
+          , fusion::vector1<A0> > > 
+      : mpl::true_ {};
+
+    // enables char_('x', ID), char_("x", ID)
+    template <typename CharEncoding, typename A0, typename A1>
+    struct use_terminal<lex::domain
+      , terminal_ex<
+            tag::char_code<tag::char_, CharEncoding>
+          , fusion::vector2<A0, A1> > > 
+      : mpl::true_ {};
 }}
 
 namespace boost { namespace spirit { namespace lex
 { 
     // use char_ from standard character set by default
-    using spirit::standard::char_type;
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::standard::char_;
+#endif
+    using spirit::standard::char_type;
 
     ///////////////////////////////////////////////////////////////////////////
     //
@@ -58,14 +73,16 @@ namespace boost { namespace spirit { namespace lex
     //      represents a single character token definition
     //
     ///////////////////////////////////////////////////////////////////////////
-    template <typename CharEncoding = char_encoding::standard>
+    template <typename CharEncoding = char_encoding::standard
+      , typename IdType = std::size_t>
     struct char_token_def
-      : primitive_lexer<char_token_def<CharEncoding> >
+      : primitive_lexer<char_token_def<CharEncoding, IdType> >
     {
         typedef typename CharEncoding::char_type char_type;
 
-        char_token_def(char_type ch) 
-          : ch(ch), unique_id_(std::size_t(~0)), token_state_(std::size_t(~0)) 
+        char_token_def(char_type ch, IdType const& id) 
+          : ch(ch), id_(id), unique_id_(std::size_t(~0))
+          , token_state_(std::size_t(~0)) 
         {}
 
         template <typename LexerDef, typename String>
@@ -88,18 +105,18 @@ namespace boost { namespace spirit { namespace lex
                 lexdef.add_state(target);
 
             token_state_ = state_id;
-            unique_id_ = lexdef.add_token (state.c_str(), ch
-              , static_cast<std::size_t>(ch), target);
+            unique_id_ = lexdef.add_token (state.c_str(), ch, id_, target);
         }
 
         template <typename LexerDef>
         void add_actions(LexerDef&) const {}
 
-        std::size_t id() const { return static_cast<std::size_t>(ch); }
+        IdType id() const { return id_; }
         std::size_t unique_id() const { return unique_id_; }
         std::size_t state() const { return token_state_; }
 
         char_type ch;
+        mutable IdType id_;
         mutable std::size_t unique_id_;
         mutable std::size_t token_state_;
     };
@@ -117,13 +134,13 @@ namespace boost { namespace spirit { namespace lex
             template <typename Char>
             result_type operator()(Char ch, unused_type) const
             {
-                return result_type(ch);
+                return result_type(ch, ch);
             }
 
             template <typename Char>
             result_type operator()(Char const* str, unused_type) const
             {
-                return result_type(str[0]);
+                return result_type(str[0], str[0]);
             }
         };
     }
@@ -160,7 +177,7 @@ namespace boost { namespace spirit { namespace lex
         template <typename Terminal>
         result_type operator()(Terminal const& term, unused_type) const
         {
-            return result_type(fusion::at_c<0>(term.args));
+            return result_type(fusion::at_c<0>(term.args), fusion::at_c<0>(term.args));
         }
     };
 
@@ -178,7 +195,46 @@ namespace boost { namespace spirit { namespace lex
         template <typename Terminal>
         result_type operator()(Terminal const& term, unused_type) const
         {
-            return result_type(fusion::at_c<0>(term.args)[0]);
+            Char ch = fusion::at_c<0>(term.args)[0];
+            return result_type(ch, ch);
+        }
+    };
+
+    // handle char_('x', ID)
+    template <typename CharEncoding, typename Modifiers, typename A0, typename A1>
+    struct make_primitive<
+        terminal_ex<
+            tag::char_code<tag::char_, CharEncoding>
+          , fusion::vector2<A0, A1>
+        >
+      , Modifiers>
+    {
+        typedef char_token_def<CharEncoding> result_type;
+
+        template <typename Terminal>
+        result_type operator()(Terminal const& term, unused_type) const
+        {
+            return result_type(
+                fusion::at_c<0>(term.args), fusion::at_c<1>(term.args));
+        }
+    };
+
+    // handle char_("x", ID)
+    template <typename CharEncoding, typename Modifiers, typename Char, typename A1>
+    struct make_primitive<
+        terminal_ex<
+            tag::char_code<tag::char_, CharEncoding>
+          , fusion::vector2<Char(&)[2], A1>   // single char strings
+        >
+      , Modifiers>
+    {
+        typedef char_token_def<CharEncoding> result_type;
+
+        template <typename Terminal>
+        result_type operator()(Terminal const& term, unused_type) const
+        {
+            return result_type(
+                fusion::at_c<0>(term.args)[0], fusion::at_c<1>(term.args));
         }
     };
 }}}  // namespace boost::spirit::lex

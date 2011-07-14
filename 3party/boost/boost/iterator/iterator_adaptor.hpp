@@ -24,15 +24,9 @@
 
 #ifdef BOOST_ITERATOR_REF_CONSTNESS_KILLS_WRITABILITY
 # include <boost/type_traits/remove_reference.hpp>
-
-# if BOOST_WORKAROUND(__CODEGEARC__, BOOST_TESTED_AT(0x610))
-#   include <boost/type_traits/add_reference.hpp>
-# endif
-
-#else
-# include <boost/type_traits/add_reference.hpp>
 #endif
 
+#include <boost/type_traits/add_reference.hpp>
 #include <boost/iterator/detail/config_def.hpp>
 
 #include <boost/iterator/iterator_traits.hpp>

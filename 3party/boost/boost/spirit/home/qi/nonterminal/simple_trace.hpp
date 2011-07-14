@@ -66,7 +66,7 @@ namespace boost { namespace spirit { namespace qi
         template <typename Iterator>
         void print_some(
             char const* tag
-          , int indent
+          , int /*indent*/
           , Iterator first, Iterator const& last) const
         {
             print_indent(get_indent());

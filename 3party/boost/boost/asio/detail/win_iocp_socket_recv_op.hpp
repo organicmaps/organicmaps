@@ -43,12 +43,12 @@ public:
 
   win_iocp_socket_recv_op(socket_ops::state_type state,
       socket_ops::weak_cancel_token_type cancel_token,
-      const MutableBufferSequence& buffers, Handler handler)
+      const MutableBufferSequence& buffers, Handler& handler)
     : operation(&win_iocp_socket_recv_op::do_complete),
       state_(state),
       cancel_token_(cancel_token),
       buffers_(buffers),
-      handler_(handler)
+      handler_(BOOST_ASIO_MOVE_CAST(Handler)(handler))
   {
   }
 
@@ -58,6 +58,8 @@ public:
     // Take ownership of the operation object.
     win_iocp_socket_recv_op* o(static_cast<win_iocp_socket_recv_op*>(base));
     ptr p = { boost::addressof(o->handler_), o, o };
+
+    BOOST_ASIO_HANDLER_COMPLETION((o));
 
 #if defined(BOOST_ASIO_ENABLE_BUFFER_DEBUGGING)
     // Check whether buffers are still valid.
@@ -88,7 +90,9 @@ public:
     if (owner)
     {
       boost::asio::detail::fenced_block b;
+      BOOST_ASIO_HANDLER_INVOCATION_BEGIN((handler.arg1_, handler.arg2_));
       boost_asio_handler_invoke_helpers::invoke(handler, handler.handler_);
+      BOOST_ASIO_HANDLER_INVOCATION_END;
     }
   }
 

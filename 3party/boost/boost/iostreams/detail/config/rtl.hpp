@@ -45,7 +45,7 @@
 #  define BOOST_IOSTREAMS_FD_OFFSET  long
 # endif
 #else // Non-windows
-# if defined(_LARGEFILE64_SOURCE) && \
+# if defined(_LARGEFILE64_SOURCE) && !defined(__APPLE__) && \
          (!defined(_FILE_OFFSET_BITS) || _FILE_OFFSET_BITS != 64) || \
      defined(_AIX) && !defined(_LARGE_FILES) || \
      defined(BOOST_IOSTREAMS_HAS_LARGE_FILE_EXTENSIONS)

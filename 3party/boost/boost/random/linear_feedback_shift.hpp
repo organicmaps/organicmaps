@@ -1,32 +1,36 @@
-/* boost random/tausworthe.hpp header file
+/* boost random/linear_feedback_shift.hpp header file
  *
  * Copyright Jens Maurer 2002
+ * Copyright Steven Watanabe 2011
  * Distributed under the Boost Software License, Version 1.0. (See
  * accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: linear_feedback_shift.hpp 60755 2010-03-22 00:45:06Z steven_watanabe $
+ * $Id: linear_feedback_shift.hpp 71018 2011-04-05 21:27:52Z steven_watanabe $
  *
  */
 
 #ifndef BOOST_RANDOM_LINEAR_FEEDBACK_SHIFT_HPP
 #define BOOST_RANDOM_LINEAR_FEEDBACK_SHIFT_HPP
 
-#include <iostream>
-#include <cassert>
+#include <iosfwd>
 #include <stdexcept>
 #include <boost/config.hpp>
+#include <boost/cstdint.hpp>
 #include <boost/static_assert.hpp>
-#include <boost/limits.hpp>
+#include <boost/integer/integer_mask.hpp>
 #include <boost/random/detail/config.hpp>
+#include <boost/random/detail/seed.hpp>
+#include <boost/random/detail/operators.hpp>
+#include <boost/random/detail/seed_impl.hpp>
 
 namespace boost {
 namespace random {
 
 /**
- * Instatiation of @c linear_feedback_shift model a
+ * Instatiations of @c linear_feedback_shift model a
  * \pseudo_random_number_generator.  It was originally
  * proposed in
  *
@@ -35,124 +39,177 @@ namespace random {
  *  Tausworthe, R. C.(1965), Mathematics of Computation 19, 201-209.
  *  @endblockquote
  */
-template<class UIntType, int w, int k, int q, int s, UIntType val>
-class linear_feedback_shift
+template<class UIntType, int w, int k, int q, int s>
+class linear_feedback_shift_engine
 {
 public:
-  typedef UIntType result_type;
-  // avoid the warning trouble when using (1<<w) on 32 bit machines
-  BOOST_STATIC_CONSTANT(bool, has_fixed_range = false);
-  BOOST_STATIC_CONSTANT(int, word_size = w);
-  BOOST_STATIC_CONSTANT(int, exponent1 = k);
-  BOOST_STATIC_CONSTANT(int, exponent2 = q);
-  BOOST_STATIC_CONSTANT(int, step_size = s);
+    typedef UIntType result_type;
+    BOOST_STATIC_CONSTANT(bool, has_fixed_range = false);
+    BOOST_STATIC_CONSTANT(int, word_size = w);
+    BOOST_STATIC_CONSTANT(int, exponent1 = k);
+    BOOST_STATIC_CONSTANT(int, exponent2 = q);
+    BOOST_STATIC_CONSTANT(int, step_size = s);
+    BOOST_STATIC_CONSTANT(UIntType, default_seed = 341);
 
-  result_type min BOOST_PREVENT_MACRO_SUBSTITUTION () const { return 0; }
-  result_type max BOOST_PREVENT_MACRO_SUBSTITUTION () const { return wordmask; }
+    /** Returns the smallest value that the generator can produce. */
+    static result_type min BOOST_PREVENT_MACRO_SUBSTITUTION () { return 0; }
+    /** Returns the largest value that the generator can produce. */
+    static result_type max BOOST_PREVENT_MACRO_SUBSTITUTION ()
+    { return wordmask(); }
 
-  // MSVC 6 and possibly others crash when encountering complicated integral
-  // constant expressions.  Avoid the checks for now.
-  // BOOST_STATIC_ASSERT(w > 0);
-  // BOOST_STATIC_ASSERT(q > 0);
-  // BOOST_STATIC_ASSERT(k < w);
-  // BOOST_STATIC_ASSERT(0 < 2*q && 2*q < k);
-  // BOOST_STATIC_ASSERT(0 < s && s <= k-q);
+    BOOST_STATIC_ASSERT(w > 0);
+    BOOST_STATIC_ASSERT(q > 0);
+    BOOST_STATIC_ASSERT(k < w);
+    BOOST_STATIC_ASSERT(0 < 2*q && 2*q < k);
+    BOOST_STATIC_ASSERT(0 < s && s <= k-q);
 
-  explicit linear_feedback_shift(UIntType s0 = 341) : wordmask(0)
-  {
-    // MSVC fails BOOST_STATIC_ASSERT with std::numeric_limits at class scope
-#ifndef BOOST_NO_LIMITS_COMPILE_TIME_CONSTANTS
-    BOOST_STATIC_ASSERT(std::numeric_limits<UIntType>::is_integer);
-    BOOST_STATIC_ASSERT(!std::numeric_limits<UIntType>::is_signed);
-#endif
+    /** Constructs a @c linear_feedback_shift_engine, using the default seed. */
+    linear_feedback_shift_engine() { seed(); }
+    
+    /** Constructs a @c linear_feedback_shift_engine, seeding it with s0. */
+    BOOST_RANDOM_DETAIL_ARITHMETIC_CONSTRUCTOR(linear_feedback_shift_engine,
+        UIntType, s0)
+    { seed(s0); }
+    
+    /** Constructs a @c linear_feedback_shift_engine, seeding it with seq. */
+    BOOST_RANDOM_DETAIL_SEED_SEQ_CONSTRUCTOR(linear_feedback_shift_engine,
+        SeedSeq, seq)
+    { seed(seq); }
+    
+    /**
+     * Constructs a @c linear_feedback_shift_engine, seeding it with 
+     * values from the range [first, last).
+     */
+    template<class It> linear_feedback_shift_engine(It& first, It last)
+    { seed(first, last); }
+    
+    /** Seeds a @c linear_feedback_shift_engine with the default seed. */
+    void seed() {  seed(default_seed); }
+    
+    /** Seeds a @c linear_feedback_shift_engine with @c s0. */
+    BOOST_RANDOM_DETAIL_ARITHMETIC_SEED(linear_feedback_shift_engine,
+        UIntType, s0)
+    {
+        value = s0 & wordmask();
+        if(value < (1 << (w-k))) {
+            value += 1 << (w-k);
+        }
+    }
+    
+    /**
+     * Seeds a @c linear_feedback_shift_engine with values
+     * produced by @c seq.generate().
+     */
+    BOOST_RANDOM_DETAIL_SEED_SEQ_SEED(linear_feedback_shift_engine,
+        SeedSeq, seq)
+    { seed(detail::seed_one_int<UIntType, (UIntType(2) << (w - 1))>(seq)); }
+    
+    /**
+     * Seeds a @c linear_feedback_shift_engine with values
+     * from the range [first, last).
+     */
+    template<class It> void seed(It& first, It last)
+    {
+        seed(detail::get_one_int<UIntType, (UIntType(2) << (w - 1))>(first, last));
+    }
 
-    // avoid "left shift count >= with of type" warning
-    for(int i = 0; i < w; ++i)
-      wordmask |= (1u << i);
-    seed(s0);
-  }
+    /** Returns the next value of the generator. */
+    result_type operator()()
+    {
+        const UIntType b = (((value << q) ^ value) & wordmask()) >> (k-s);
+        const UIntType mask = (wordmask() << (w-k)) & wordmask();
+        value = ((value & mask) << s) ^ b;
+        return value;
+    }
+  
+    /** Fills a range with random values */
+    template<class Iter>
+    void generate(Iter first, Iter last)
+    { detail::generate_from_int(*this, first, last); }
 
-  template<class It> linear_feedback_shift(It& first, It last) : wordmask(0)
-  {
-    // MSVC fails BOOST_STATIC_ASSERT with std::numeric_limits at class scope
-#ifndef BOOST_NO_LIMITS_COMPILE_TIME_CONSTANTS
-    BOOST_STATIC_ASSERT(std::numeric_limits<UIntType>::is_integer);
-    BOOST_STATIC_ASSERT(!std::numeric_limits<UIntType>::is_signed);
-#endif
+    /** Advances the state of the generator by @c z. */
+    void discard(boost::uintmax_t z)
+    {
+        for(boost::uintmax_t j = 0; j < z; ++j) {
+            (*this)();
+        }
+    }
+    
+    /**
+     * Writes the textual representation of the generator to a @c std::ostream.
+     */
+    BOOST_RANDOM_DETAIL_OSTREAM_OPERATOR(os, linear_feedback_shift_engine, x)
+    {
+        os << x.value;
+        return os;
+    }
+    
+    /**
+     * Reads the textual representation of the generator from a @c std::istream.
+     */
+    BOOST_RANDOM_DETAIL_ISTREAM_OPERATOR(is, linear_feedback_shift_engine, x)
+    {
+        is >> x.value;
+        return is;
+    }
 
-    // avoid "left shift count >= with of type" warning
-    for(int i = 0; i < w; ++i)
-      wordmask |= (1u << i);
-    seed(first, last);
-  }
-
-  void seed(UIntType s0 = 341) {
-      if(s0 < (1 << (w-k))) {
-          s0 += 1 << (w-k);
-      }
-      value = s0;
-  }
-  template<class It> void seed(It& first, It last)
-  {
-    if(first == last)
-      throw std::invalid_argument("linear_feedback_shift::seed");
-    value = *first++;
-    assert(value >= (1 << (w-k)));
-  }
-
-  result_type operator()()
-  {
-    const UIntType b = (((value << q) ^ value) & wordmask) >> (k-s);
-    const UIntType mask = ( (~static_cast<UIntType>(0)) << (w-k) ) & wordmask;
-    value = ((value & mask) << s) ^ b;
-    return value;
-  }
-  static bool validation(result_type x) { return val == x; }
-
-#ifndef BOOST_NO_OPERATORS_IN_NAMESPACE
-
-#ifndef BOOST_RANDOM_NO_STREAM_OPERATORS
-  template<class CharT, class Traits>
-  friend std::basic_ostream<CharT,Traits>&
-  operator<<(std::basic_ostream<CharT,Traits>& os, linear_feedback_shift x)
-  { os << x.value; return os; }
-
-  template<class CharT, class Traits>
-  friend std::basic_istream<CharT,Traits>&
-  operator>>(std::basic_istream<CharT,Traits>& is, linear_feedback_shift& x)
-  { is >> x.value; return is; }
-#endif
-
-  friend bool operator==(linear_feedback_shift x, linear_feedback_shift y)
-  { return x.value == y.value; }
-  friend bool operator!=(linear_feedback_shift x, linear_feedback_shift y)
-  { return !(x == y); }
-#else
-  // Use a member function; Streamable concept not supported.
-  bool operator==(linear_feedback_shift rhs) const
-  { return value == rhs.value; }
-  bool operator!=(linear_feedback_shift rhs) const
-  { return !(*this == rhs); }
-#endif
+    /**
+     * Returns true if the two generators will produce identical
+     * sequences of outputs.
+     */
+    BOOST_RANDOM_DETAIL_EQUALITY_OPERATOR(linear_feedback_shift_engine, x, y)
+    { return x.value == y.value; }
+    
+    /**
+     * Returns true if the two generators will produce different
+     * sequences of outputs.
+     */
+    BOOST_RANDOM_DETAIL_INEQUALITY_OPERATOR(linear_feedback_shift_engine)
 
 private:
-  UIntType wordmask; // avoid "left shift count >= width of type" warnings
-  UIntType value;
+    /// \cond show_private
+    static UIntType wordmask() { return boost::low_bits_mask_t<w>::sig_bits; }
+    /// \endcond
+    UIntType value;
 };
 
 #ifndef BOOST_NO_INCLASS_MEMBER_INITIALIZATION
 //  A definition is required even for integral static constants
-template<class UIntType, int w, int k, int q, int s, UIntType val>
-const bool linear_feedback_shift<UIntType, w, k, q, s, val>::has_fixed_range;
-template<class UIntType, int w, int k, int q, int s, UIntType val>
-const int linear_feedback_shift<UIntType, w, k, q, s, val>::word_size;
-template<class UIntType, int w, int k, int q, int s, UIntType val>
-const int linear_feedback_shift<UIntType, w, k, q, s, val>::exponent1;
-template<class UIntType, int w, int k, int q, int s, UIntType val>
-const int linear_feedback_shift<UIntType, w, k, q, s, val>::exponent2;
-template<class UIntType, int w, int k, int q, int s, UIntType val>
-const int linear_feedback_shift<UIntType, w, k, q, s, val>::step_size;
+template<class UIntType, int w, int k, int q, int s>
+const bool linear_feedback_shift_engine<UIntType, w, k, q, s>::has_fixed_range;
+template<class UIntType, int w, int k, int q, int s>
+const int linear_feedback_shift_engine<UIntType, w, k, q, s>::word_size;
+template<class UIntType, int w, int k, int q, int s>
+const int linear_feedback_shift_engine<UIntType, w, k, q, s>::exponent1;
+template<class UIntType, int w, int k, int q, int s>
+const int linear_feedback_shift_engine<UIntType, w, k, q, s>::exponent2;
+template<class UIntType, int w, int k, int q, int s>
+const int linear_feedback_shift_engine<UIntType, w, k, q, s>::step_size;
+template<class UIntType, int w, int k, int q, int s>
+const UIntType linear_feedback_shift_engine<UIntType, w, k, q, s>::default_seed;
 #endif
+
+/// \cond show_deprecated
+
+/** Provided for backwards compatibility. */
+template<class UIntType, int w, int k, int q, int s, UIntType v = 0>
+class linear_feedback_shift :
+    public linear_feedback_shift_engine<UIntType, w, k, q, s>
+{
+    typedef linear_feedback_shift_engine<UIntType, w, k, q, s> base_type;
+public:
+    linear_feedback_shift() {}
+    BOOST_RANDOM_DETAIL_SEED_SEQ_CONSTRUCTOR(linear_feedback_shift,
+        SeedSeq, seq)
+    { seed(seq); }
+    BOOST_RANDOM_DETAIL_ARITHMETIC_CONSTRUCTOR(linear_feedback_shift,
+        UIntType, val)
+    { seed(val); }
+    template<class It>
+    linear_feedback_shift(It& first, It last) : base_type(first, last) {}
+};
+
+/// \endcond
 
 } // namespace random
 } // namespace boost

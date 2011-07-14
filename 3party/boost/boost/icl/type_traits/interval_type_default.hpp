@@ -22,7 +22,7 @@ Copyright (c) 2010-2010: Joachim Faulhaber
 namespace boost{ namespace icl
 {
 
-    template <class DomainT, ICL_COMPARE Compare = ICL_COMPARE_INSTANCE(std::less, DomainT)> 
+    template <class DomainT, ICL_COMPARE Compare = ICL_COMPARE_INSTANCE(ICL_COMPARE_DEFAULT, DomainT)> 
     struct interval_type_default
     {
 #ifdef BOOST_ICL_USE_STATIC_BOUNDED_INTERVALS

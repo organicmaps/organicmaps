@@ -42,7 +42,9 @@ namespace boost { namespace spirit
 
 namespace boost { namespace spirit { namespace qi
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::eps;
+#endif
     using spirit::eps_type;
 
     struct eps_parser : primitive_parser<eps_parser>

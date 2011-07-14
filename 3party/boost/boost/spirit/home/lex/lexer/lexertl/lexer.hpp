@@ -302,8 +302,12 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
                 typedef typename 
                     basic_rules_type::string_size_t_map::value_type 
                 state_type;
-                BOOST_FOREACH(state_type const& s, rules_.statemap())
-                    actions_.add_action(unique_id, s.second, wrapper_type::call(act));
+
+                std::size_t states = rules_.statemap().size();
+                BOOST_FOREACH(state_type const& s, rules_.statemap()) {
+                    for (std::size_t j = 0; j < states; ++j)
+                        actions_.add_action(unique_id + j, s.second, wrapper_type::call(act));
+                }
             }
             else {
                 actions_.add_action(unique_id, state, wrapper_type::call(act));

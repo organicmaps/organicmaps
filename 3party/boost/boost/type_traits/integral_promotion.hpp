@@ -24,14 +24,14 @@ namespace boost {
 namespace type_traits { namespace detail {
 
 // 4.5/2
-template <class T> struct need_promotion : boost::is_enum<T> {};
+template <class T> struct need_promotion : public boost::is_enum<T> {};
 
 // 4.5/1
-template<> struct need_promotion<char              > : true_type {};
-template<> struct need_promotion<signed char       > : true_type {};
-template<> struct need_promotion<unsigned char     > : true_type {};
-template<> struct need_promotion<signed short int  > : true_type {};
-template<> struct need_promotion<unsigned short int> : true_type {};
+template<> struct need_promotion<char              > : public true_type {};
+template<> struct need_promotion<signed char       > : public true_type {};
+template<> struct need_promotion<unsigned char     > : public true_type {};
+template<> struct need_promotion<signed short int  > : public true_type {};
+template<> struct need_promotion<unsigned short int> : public true_type {};
 
 
 // Specializations for non-standard types.
@@ -39,7 +39,7 @@ template<> struct need_promotion<unsigned short int> : true_type {};
 
 #define BOOST_TT_AUX_PROMOTE_NONSTANDARD_TYPE(T) \
     template<> struct need_promotion<T>          \
-        : integral_constant<bool, (sizeof(T) < sizeof(int))> {};
+        : public integral_constant<bool, (sizeof(T) < sizeof(int))> {};
 
 // Same set of integral types as in boost/type_traits/is_integral.hpp.
 // Please, keep in sync.
@@ -72,13 +72,13 @@ BOOST_TT_AUX_PROMOTE_NONSTANDARD_TYPE(         __int64)
 
 #ifndef BOOST_NO_INTRINSIC_WCHAR_T
 // 4.5/2
-template<> struct need_promotion<wchar_t> : true_type {};
+template<> struct need_promotion<wchar_t> : public true_type {};
 #endif
 
 // 4.5/3 (integral bit-field) is not supported.
 
 // 4.5/4
-template<> struct need_promotion<bool> : true_type {};
+template<> struct need_promotion<bool> : public true_type {};
 
 
 // Get promoted type by index and cv qualifiers.
@@ -171,7 +171,7 @@ struct integral_promotion_impl
 
 template<class T>
 struct integral_promotion
-  : boost::mpl::eval_if<
+  : public boost::mpl::eval_if<
         need_promotion<BOOST_DEDUCED_TYPENAME remove_cv<T>::type>
       , integral_promotion_impl<T>
       , boost::mpl::identity<T>

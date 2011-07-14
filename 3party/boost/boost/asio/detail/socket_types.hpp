@@ -113,6 +113,7 @@ const int shutdown_both = SD_BOTH;
 const int message_peek = MSG_PEEK;
 const int message_out_of_band = MSG_OOB;
 const int message_do_not_route = MSG_DONTROUTE;
+const int message_end_of_record = 0; // Not supported on Windows.
 # if defined (_WIN32_WINNT)
 const int max_iov_len = 64;
 # else
@@ -156,6 +157,7 @@ const int shutdown_both = SHUT_RDWR;
 const int message_peek = MSG_PEEK;
 const int message_out_of_band = MSG_OOB;
 const int message_do_not_route = MSG_DONTROUTE;
+const int message_end_of_record = MSG_EOR;
 # if defined(IOV_MAX)
 const int max_iov_len = IOV_MAX;
 # else

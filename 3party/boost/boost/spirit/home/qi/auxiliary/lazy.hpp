@@ -18,7 +18,7 @@
 #include <boost/spirit/home/support/unused.hpp>
 #include <boost/spirit/home/support/info.hpp>
 #include <boost/spirit/home/support/lazy.hpp>
-#include <boost/spirit/home/phoenix/core/actor.hpp>
+#include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/utility/result_of.hpp>
 #include <boost/type_traits/remove_reference.hpp>
@@ -42,6 +42,44 @@ namespace boost { namespace spirit { namespace qi
 {
     using spirit::lazy;
     typedef modify<qi::domain> qi_modify;
+
+    namespace detail
+    {
+        template <typename Parser, typename Iterator, typename Context
+          , typename Skipper, typename Attribute>
+        bool lazy_parse_impl(Parser const& p
+          , Iterator& first, Iterator const& last
+          , Context& context, Skipper const& skipper
+          , Attribute& attr, mpl::false_)
+        {
+            return p.parse(first, last, context, skipper, attr);
+        }
+
+        template <typename Parser, typename Iterator, typename Context
+          , typename Skipper, typename Attribute>
+        bool lazy_parse_impl(Parser const& p
+          , Iterator& first, Iterator const& last
+          , Context& context, Skipper const& skipper
+          , Attribute& attr, mpl::true_)
+        {
+            // If DeducedAuto is false (semantic actions is present), the
+            // component's attribute is unused.
+            return p.parse(first, last, context, skipper, unused);
+        }
+
+        template <typename Parser, typename Iterator, typename Context
+          , typename Skipper, typename Attribute>
+        bool lazy_parse_impl_main(Parser const& p
+          , Iterator& first, Iterator const& last
+          , Context& context, Skipper const& skipper
+          , Attribute& attr)
+        {
+            // If DeducedAuto is true (no semantic action), we pass the parser's
+            // attribute on to the component.
+            typedef typename traits::has_semantic_action<Parser>::type auto_rule;
+            return lazy_parse_impl(p, first, last, context, skipper, attr, auto_rule());
+        }
+    }
 
     template <typename Function, typename Modifiers>
     struct lazy_parser : parser<lazy_parser<Function, Modifiers> >
@@ -82,9 +120,10 @@ namespace boost { namespace spirit { namespace qi
           , Context& context, Skipper const& skipper
           , Attribute& attr) const
         {
-            return compile<qi::domain>(function(unused, context)
+            return detail::lazy_parse_impl_main(
+                  compile<qi::domain>(function(unused, context)
                 , qi_modify()(tag::lazy_eval(), modifiers))
-                    .parse(first, last, context, skipper, attr);
+                , first, last, context, skipper, attr);
         }
 
         template <typename Context>
@@ -103,7 +142,7 @@ namespace boost { namespace spirit { namespace qi
 
 
     template <typename Function, typename Subject, typename Modifiers>
-    struct lazy_directive 
+    struct lazy_directive
         : unary_parser<lazy_directive<Function, Subject, Modifiers> >
     {
         typedef Subject subject_type;
@@ -155,12 +194,12 @@ namespace boost { namespace spirit { namespace qi
           , Context& context, Skipper const& skipper
           , Attribute& attr) const
         {
-            return compile<qi::domain>(
+            return detail::lazy_parse_impl_main(compile<qi::domain>(
                 proto::make_expr<proto::tag::subscript>(
                     function(unused, context)
-                  , subject
-                ), qi_modify()(tag::lazy_eval(), modifiers))
-                .parse(first, last, context, skipper, attr);
+                  , subject)
+                , qi_modify()(tag::lazy_eval(), modifiers))
+                , first, last, context, skipper, attr);
         }
 
         template <typename Context>
@@ -230,7 +269,7 @@ namespace boost { namespace spirit { namespace traits
       : handles_container<
           typename qi::lazy_parser<Actor, Modifiers>::template
               attribute<Context, Iterator>::parser_type
-        , Attribute, Context, Iterator> 
+        , Attribute, Context, Iterator>
     {};
 
     template <typename Subject, typename Actor, typename Modifiers
@@ -241,7 +280,7 @@ namespace boost { namespace spirit { namespace traits
       : handles_container<
           typename qi::lazy_directive<Actor, Subject, Modifiers>::template
               attribute<Context, Iterator>::parser_type
-        , Attribute, Context, Iterator> 
+        , Attribute, Context, Iterator>
     {};
 }}}
 

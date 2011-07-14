@@ -16,12 +16,13 @@ namespace boost{namespace icl
 {
 
 template <class DomainT, 
-          ICL_COMPARE Compare = ICL_COMPARE_INSTANCE(std::less, DomainT)>
+          ICL_COMPARE Compare = ICL_COMPARE_INSTANCE(ICL_COMPARE_DEFAULT, DomainT)>
 class closed_interval
 {
 public:
     typedef closed_interval<DomainT,Compare> type;
     typedef DomainT domain_type;
+    typedef ICL_COMPARE_DOMAIN(Compare,DomainT) domain_compare;
 
 public:
     //==========================================================================
@@ -106,7 +107,7 @@ struct type_to_string<icl::closed_interval<DomainT,Compare> >
 template<class DomainT> 
 struct value_size<icl::closed_interval<DomainT> >
 {
-    static std::size_t apply(const icl::closed_interval<DomainT>& value) 
+    static std::size_t apply(const icl::closed_interval<DomainT>&) 
     { return 2; }
 };
 

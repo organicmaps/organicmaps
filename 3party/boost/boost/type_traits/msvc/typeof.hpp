@@ -20,7 +20,7 @@ namespace boost { namespace detail {
         };
 
         template<typename T, typename ID>
-        struct msvc_register_type : msvc_extract_type<ID>
+        struct msvc_register_type : public msvc_extract_type<ID>
         {
             template<>
             struct id2type_impl<true>  //VC7.0 specific bugfeature
@@ -36,7 +36,7 @@ namespace boost { namespace detail {
         };
 
         template<typename T, typename ID>
-        struct msvc_register_type : msvc_extract_type<ID>
+        struct msvc_register_type : public msvc_extract_type<ID>
         {
             typedef msvc_extract_type<ID> base_type;
             struct base_type::id2type // This uses nice VC6.5 and VC7.1 bugfeature

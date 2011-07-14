@@ -97,7 +97,7 @@ inline RealType pdf(const laplace_distribution<RealType, Policy>& dist, const Re
    BOOST_MATH_STD_USING // for ADL of std functions
 
    // Checking function argument
-   RealType result;
+   RealType result = 0;
    const char* function = "boost::math::pdf(const laplace_distribution<%1%>&, %1%))";
    if (false == dist.check_parameters(function, &result)) return result;
    if (false == detail::check_x(function, x, &result, Policy())) return result;
@@ -126,7 +126,7 @@ inline RealType cdf(const laplace_distribution<RealType, Policy>& dist, const Re
    BOOST_MATH_STD_USING  // for ADL of std functions
 
    // Checking function argument
-   RealType result;
+   RealType result = 0;
    const char* function = "boost::math::cdf(const laplace_distribution<%1%>&, %1%)";
    if (false == dist.check_parameters(function, &result)) return result;
    if (false == detail::check_x(function, x, &result, Policy())) return result;
@@ -157,7 +157,7 @@ inline RealType quantile(const laplace_distribution<RealType, Policy>& dist, con
    BOOST_MATH_STD_USING // for ADL of std functions.
 
    // Checking function argument
-   RealType result;
+   RealType result = 0;
    const char* function = "boost::math::quantile(const laplace_distribution<%1%>&, %1%)";
    if (false == dist.check_parameters(function, &result)) return result;
    if(false == detail::check_probability(function, p, &result, Policy())) return result;
@@ -199,7 +199,7 @@ inline RealType cdf(const complemented2_type<laplace_distribution<RealType, Poli
    RealType x = c.param;
 
    // Checking function argument
-   RealType result;
+   RealType result = 0;
    const char* function = "boost::math::cdf(const complemented2_type<laplace_distribution<%1%>, %1%>&)";
    if(false == detail::check_x(function, x, &result, Policy()))return result;
 
@@ -233,7 +233,7 @@ inline RealType quantile(const complemented2_type<laplace_distribution<RealType,
    RealType q = c.param;
 
    // Checking function argument
-   RealType result;
+   RealType result = 0;
    const char* function = "quantile(const complemented2_type<laplace_distribution<%1%>, %1%>&)";
    if(false == detail::check_probability(function, q, &result, Policy())) return result;
 

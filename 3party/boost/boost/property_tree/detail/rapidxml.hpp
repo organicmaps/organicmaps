@@ -12,8 +12,8 @@
 
 //! \file rapidxml.hpp This file contains rapidxml parser and DOM implementation
 
+#include <boost/assert.hpp>
 #include <cstdlib>      // For std::size_t
-#include <cassert>      // For assert
 #include <new>          // For placement new
 
 // On MSVC, disable "conditional expression is constant" warning (level 4). 
@@ -313,8 +313,10 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         template<class Ch>
         inline size_t get_index(const Ch c)
         {
-            // If not ASCII char, its sematic is same as plain 'z'
-            if (c > 255)
+            // If not ASCII char, its semantic is same as plain 'z'.
+            // char could be signed, so first stretch and make unsigned.
+            unsigned n = c;
+            if (n > 127)
             {
                 return 'z';
             }
@@ -460,7 +462,7 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         //! \return Pointer to allocated char array. This pointer will never be NULL.
         Ch *allocate_string(const Ch *source = 0, std::size_t size = 0)
         {
-            assert(source || size);     // Either source or size (or both) must be specified
+            BOOST_ASSERT(source || size);     // Either source or size (or both) must be specified
             if (size == 0)
                 size = internal::measure(source) + 1;
             Ch *result = static_cast<Ch *>(allocate_aligned(size * sizeof(Ch)));
@@ -536,7 +538,7 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         //! \param ff Free function, or 0 to restore default function
         void set_allocator(alloc_func *af, free_func *ff)
         {
-            assert(m_begin == m_static_memory && m_ptr == align(m_begin));    // Verify that no memory is allocated yet
+            BOOST_ASSERT(m_begin == m_static_memory && m_ptr == align(m_begin));    // Verify that no memory is allocated yet
             m_alloc_func = af;
             m_free_func = ff;
         }
@@ -568,7 +570,7 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
             if (m_alloc_func)   // Allocate memory using either user-specified allocation function or global operator new[]
             {
                 memory = m_alloc_func(size);
-                assert(memory); // Allocator is not allowed to return 0, on failure it must either throw, stop the program or use longjmp
+                BOOST_ASSERT(memory); // Allocator is not allowed to return 0, on failure it must either throw, stop the program or use longjmp
             }
             else
             {
@@ -938,7 +940,7 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         //! \return Pointer to found child, or 0 if not found.
         xml_node<Ch> *last_node(const Ch *n = 0, std::size_t nsize = 0, bool case_sensitive = true) const
         {
-            assert(m_first_node);  // Cannot query for last child if node has no children
+            BOOST_ASSERT(m_first_node);  // Cannot query for last child if node has no children
             if (n)
             {
                 if (nsize == 0)
@@ -961,7 +963,7 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         //! \return Pointer to found sibling, or 0 if not found.
         xml_node<Ch> *previous_sibling(const Ch *n = 0, std::size_t nsize = 0, bool case_sensitive = true) const
         {
-            assert(this->m_parent);     // Cannot query for siblings if node has no parent
+            BOOST_ASSERT(this->m_parent);     // Cannot query for siblings if node has no parent
             if (n)
             {
                 if (nsize == 0)
@@ -984,7 +986,7 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         //! \return Pointer to found sibling, or 0 if not found.
         xml_node<Ch> *next_sibling(const Ch *n = 0, std::size_t nsize = 0, bool case_sensitive = true) const
         {
-            assert(this->m_parent);     // Cannot query for siblings if node has no parent
+            BOOST_ASSERT(this->m_parent);     // Cannot query for siblings if node has no parent
             if (n)
             {
                 if (nsize == 0)
@@ -1056,7 +1058,7 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         //! \param child Node to prepend.
         void prepend_node(xml_node<Ch> *child)
         {
-            assert(child && !child->parent() && child->type() != node_document);
+            BOOST_ASSERT(child && !child->parent() && child->type() != node_document);
             if (first_node())
             {
                 child->m_next_sibling = m_first_node;
@@ -1077,7 +1079,7 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         //! \param child Node to append.
         void append_node(xml_node<Ch> *child)
         {
-            assert(child && !child->parent() && child->type() != node_document);
+            BOOST_ASSERT(child && !child->parent() && child->type() != node_document);
             if (first_node())
             {
                 child->m_prev_sibling = m_last_node;
@@ -1099,8 +1101,8 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         //! \param child Node to insert.
         void insert_node(xml_node<Ch> *where, xml_node<Ch> *child)
         {
-            assert(!where || where->parent() == this);
-            assert(child && !child->parent() && child->type() != node_document);
+            BOOST_ASSERT(!where || where->parent() == this);
+            BOOST_ASSERT(child && !child->parent() && child->type() != node_document);
             if (where == m_first_node)
                 prepend_node(child);
             else if (where == 0)
@@ -1120,7 +1122,7 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         //! Use first_node() to test if node has children.
         void remove_first_node()
         {
-            assert(first_node());
+            BOOST_ASSERT(first_node());
             xml_node<Ch> *child = m_first_node;
             m_first_node = child->m_next_sibling;
             if (child->m_next_sibling)
@@ -1135,7 +1137,7 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         //! Use first_node() to test if node has children.
         void remove_last_node()
         {
-            assert(first_node());
+            BOOST_ASSERT(first_node());
             xml_node<Ch> *child = m_last_node;
             if (child->m_prev_sibling)
             {
@@ -1151,8 +1153,8 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         // \param where Pointer to child to be removed.
         void remove_node(xml_node<Ch> *where)
         {
-            assert(where && where->parent() == this);
-            assert(first_node());
+            BOOST_ASSERT(where && where->parent() == this);
+            BOOST_ASSERT(first_node());
             if (where == m_first_node)
                 remove_first_node();
             else if (where == m_last_node)
@@ -1177,7 +1179,7 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         //! \param attribute Attribute to prepend.
         void prepend_attribute(xml_attribute<Ch> *attribute)
         {
-            assert(attribute && !attribute->parent());
+            BOOST_ASSERT(attribute && !attribute->parent());
             if (first_attribute())
             {
                 attribute->m_next_attribute = m_first_attribute;
@@ -1197,7 +1199,7 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         //! \param attribute Attribute to append.
         void append_attribute(xml_attribute<Ch> *attribute)
         {
-            assert(attribute && !attribute->parent());
+            BOOST_ASSERT(attribute && !attribute->parent());
             if (first_attribute())
             {
                 attribute->m_prev_attribute = m_last_attribute;
@@ -1219,8 +1221,8 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         //! \param attribute Attribute to insert.
         void insert_attribute(xml_attribute<Ch> *where, xml_attribute<Ch> *attribute)
         {
-            assert(!where || where->parent() == this);
-            assert(attribute && !attribute->parent());
+            BOOST_ASSERT(!where || where->parent() == this);
+            BOOST_ASSERT(attribute && !attribute->parent());
             if (where == m_first_attribute)
                 prepend_attribute(attribute);
             else if (where == 0)
@@ -1240,7 +1242,7 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         //! Use first_attribute() to test if node has attributes.
         void remove_first_attribute()
         {
-            assert(first_attribute());
+            BOOST_ASSERT(first_attribute());
             xml_attribute<Ch> *attribute = m_first_attribute;
             if (attribute->m_next_attribute)
             {
@@ -1257,7 +1259,7 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         //! Use first_attribute() to test if node has attributes.
         void remove_last_attribute()
         {
-            assert(first_attribute());
+            BOOST_ASSERT(first_attribute());
             xml_attribute<Ch> *attribute = m_last_attribute;
             if (attribute->m_prev_attribute)
             {
@@ -1273,7 +1275,7 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         //! \param where Pointer to attribute to be removed.
         void remove_attribute(xml_attribute<Ch> *where)
         {
-            assert(first_attribute() && where->parent() == this);
+            BOOST_ASSERT(first_attribute() && where->parent() == this);
             if (where == m_first_attribute)
                 remove_first_attribute();
             else if (where == m_last_attribute)
@@ -1361,7 +1363,7 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         template<int Flags>
         void parse(Ch *text)
         {
-            assert(text);
+            BOOST_ASSERT(text);
             
             // Remove current contents
             this->remove_all_nodes();
@@ -1701,16 +1703,26 @@ namespace boost { namespace property_tree { namespace detail {namespace rapidxml
         ///////////////////////////////////////////////////////////////////////
         // Internal parsing functions
         
-        // Parse BOM, if any
+        // Parse UTF-8 BOM, if any
         template<int Flags>
-        void parse_bom(Ch *&text)
+        void parse_bom(char *&text)
         {
-            // UTF-8?
             if (static_cast<unsigned char>(text[0]) == 0xEF && 
                 static_cast<unsigned char>(text[1]) == 0xBB && 
                 static_cast<unsigned char>(text[2]) == 0xBF)
             {
-                text += 3;      // Skip utf-8 bom
+                text += 3;
+            }
+        }
+        
+        // Parse UTF-16/32 BOM, if any
+        template<int Flags>
+        void parse_bom(wchar_t *&text)
+        {
+            const wchar_t bom = 0xFEFF;
+            if (text[0] == bom)
+            {
+                ++text;
             }
         }
 

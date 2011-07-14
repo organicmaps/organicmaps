@@ -35,7 +35,9 @@ namespace boost { namespace spirit
 
 namespace boost { namespace spirit { namespace karma
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::no_delimit;
+#endif
     using spirit::no_delimit_type;
 
     ///////////////////////////////////////////////////////////////////////////

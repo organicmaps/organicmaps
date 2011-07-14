@@ -71,9 +71,9 @@ void timer_queue<time_traits<boost::posix_time::ptime> >::get_all_timers(
 }
 
 std::size_t timer_queue<time_traits<boost::posix_time::ptime> >::cancel_timer(
-    per_timer_data& timer, op_queue<operation>& ops)
+    per_timer_data& timer, op_queue<operation>& ops, std::size_t max_cancelled)
 {
-  return impl_.cancel_timer(timer, ops);
+  return impl_.cancel_timer(timer, ops, max_cancelled);
 }
 
 } // namespace detail

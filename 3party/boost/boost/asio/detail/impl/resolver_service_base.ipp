@@ -53,15 +53,34 @@ resolver_service_base::~resolver_service_base()
 void resolver_service_base::shutdown_service()
 {
   work_.reset();
-  if (work_io_service_)
+  if (work_io_service_.get())
   {
     work_io_service_->stop();
-    if (work_thread_)
+    if (work_thread_.get())
     {
       work_thread_->join();
       work_thread_.reset();
     }
     work_io_service_.reset();
+  }
+}
+
+void resolver_service_base::fork_service(
+    boost::asio::io_service::fork_event fork_ev)
+{
+  if (work_thread_.get())
+  {
+    if (fork_ev == boost::asio::io_service::fork_prepare)
+    {
+      work_io_service_->stop();
+      work_thread_->join();
+    }
+    else
+    {
+      work_io_service_->reset();
+      work_thread_.reset(new boost::asio::detail::thread(
+            work_io_service_runner(*work_io_service_)));
+    }
   }
 }
 
@@ -72,13 +91,18 @@ void resolver_service_base::construct(
 }
 
 void resolver_service_base::destroy(
-    resolver_service_base::implementation_type&)
+    resolver_service_base::implementation_type& impl)
 {
+  BOOST_ASIO_HANDLER_OPERATION(("resolver", &impl, "cancel"));
+
+  impl.reset();
 }
 
 void resolver_service_base::cancel(
     resolver_service_base::implementation_type& impl)
 {
+  BOOST_ASIO_HANDLER_OPERATION(("resolver", &impl, "cancel"));
+
   impl.reset(static_cast<void*>(0), socket_ops::noop_deleter());
 }
 
@@ -92,7 +116,7 @@ void resolver_service_base::start_resolve_op(operation* op)
 void resolver_service_base::start_work_thread()
 {
   boost::asio::detail::mutex::scoped_lock lock(mutex_);
-  if (!work_thread_)
+  if (!work_thread_.get())
   {
     work_thread_.reset(new boost::asio::detail::thread(
           work_io_service_runner(*work_io_service_)));

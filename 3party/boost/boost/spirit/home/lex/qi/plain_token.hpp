@@ -13,6 +13,7 @@
 #include <boost/spirit/home/support/info.hpp>
 #include <boost/spirit/home/qi/detail/attributes.hpp>
 #include <boost/spirit/home/support/common_terminals.hpp>
+#include <boost/spirit/home/support/handles_container.hpp>
 #include <boost/spirit/home/qi/skip_over.hpp>
 #include <boost/spirit/home/qi/domain.hpp>
 #include <boost/spirit/home/qi/parser.hpp>
@@ -52,7 +53,10 @@ namespace boost { namespace spirit
 
 namespace boost { namespace spirit { namespace qi
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::token;
+#endif
+    using spirit::token_type;
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename TokenId>
@@ -87,7 +91,7 @@ namespace boost { namespace spirit { namespace qi
                 typedef typename token_type::id_type id_type;
 
                 token_type const& t = *first;
-                if (std::size_t(~0) == t.id() || id_type(id) == t.id()) {
+                if (std::size_t(~0) == id || id_type(id) == t.id()) {
                     spirit::traits::assign_to(t, attr);
                     ++first;
                     return true;
@@ -131,6 +135,15 @@ namespace boost { namespace spirit { namespace qi
             return result_type(fusion::at_c<0>(term.args));
         }
     };
+}}}
+
+namespace boost { namespace spirit { namespace traits
+{
+    ///////////////////////////////////////////////////////////////////////////
+    template<typename Idtype, typename Attr, typename Context, typename Iterator>
+    struct handles_container<qi::plain_token<Idtype>, Attr, Context, Iterator>
+      : mpl::true_
+    {};
 }}}
 
 #endif

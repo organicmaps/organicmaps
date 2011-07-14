@@ -196,6 +196,9 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
                 // data.first_ back to the start of the previously matched token.
                 bool adjusted = data.adjust_start();
 
+                // set the end of the matched input sequence in the token data
+                data.set_end(end);
+
                 // invoke attached semantic actions, if defined, might change
                 // state, id, data.first_, and/or end
                 BOOST_SCOPED_ENUM(pass_flags) pass = 

@@ -326,6 +326,10 @@ T ibeta_power_terms(T a,
       T b2 = (y * cgh) / bgh;
       l1 = a * log(b1);
       l2 = b * log(b2);
+      BOOST_MATH_INSTRUMENT_VARIABLE(b1);
+      BOOST_MATH_INSTRUMENT_VARIABLE(b2);
+      BOOST_MATH_INSTRUMENT_VARIABLE(l1);
+      BOOST_MATH_INSTRUMENT_VARIABLE(l2);
       if((l1 >= tools::log_max_value<T>())
          || (l1 <= tools::log_min_value<T>())
          || (l2 >= tools::log_max_value<T>())
@@ -384,9 +388,8 @@ T ibeta_power_terms(T a,
       return pow(x, a) * pow(y, b);
    }
 
-   T result;
+   T result= 0; // assignment here silences warnings later
 
-   T prefix = 1;
    T c = a + b;
 
    // integration limits for the gamma functions:
@@ -519,7 +522,6 @@ T ibeta_series(T a, T b, T x, T s0, const boost::math::lanczos::undefined_lanczo
 
    if(normalised)
    {
-      T prefix = 1;
       T c = a + b;
 
       // figure out integration limits for the gamma function:

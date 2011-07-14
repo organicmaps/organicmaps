@@ -27,7 +27,6 @@ namespace boost { namespace spirit { namespace qi
             >::type
           , Skipper
         >::type {};
-
 }}}
 
 #endif

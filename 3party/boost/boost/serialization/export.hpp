@@ -131,7 +131,7 @@ struct guid_initializer
         // through pointers to their base classes.
         instantiate_ptr_serialization((T*)0, 0, adl_tag());
     }
-    const void export_guid(mpl::true_) const {
+    void export_guid(mpl::true_) const {
     }
     guid_initializer const & export_guid() const {
         BOOST_STATIC_WARNING(boost::is_polymorphic< T >::value);

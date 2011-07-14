@@ -17,7 +17,7 @@
 
 #include <boost/asio/detail/config.hpp>
 #include <string>
-#include <boost/array.hpp>
+#include <boost/asio/detail/array.hpp>
 #include <boost/asio/detail/socket_types.hpp>
 #include <boost/asio/detail/winsock_init.hpp>
 #include <boost/system/error_code.hpp>
@@ -45,7 +45,15 @@ class address_v4
 {
 public:
   /// The type used to represent an address as an array of bytes.
-  typedef boost::array<unsigned char, 4> bytes_type;
+  /**
+   * @note This type is defined in terms of the C++0x template @c std::array
+   * when it is available. Otherwise, it uses @c boost:array.
+   */
+#if defined(GENERATING_DOCUMENTATION)
+  typedef array<unsigned char, 4> bytes_type;
+#else
+  typedef boost::asio::detail::array<unsigned char, 4> bytes_type;
+#endif
 
   /// Default constructor.
   address_v4()
@@ -65,12 +73,29 @@ public:
   {
   }
 
+#if defined(BOOST_ASIO_HAS_MOVE)
+  /// Move constructor.
+  address_v4(address_v4&& other)
+    : addr_(other.addr_)
+  {
+  }
+#endif // defined(BOOST_ASIO_HAS_MOVE)
+
   /// Assign from another address.
   address_v4& operator=(const address_v4& other)
   {
     addr_ = other.addr_;
     return *this;
   }
+
+#if defined(BOOST_ASIO_HAS_MOVE)
+  /// Move-assign from another address.
+  address_v4& operator=(address_v4&& other)
+  {
+    addr_ = other.addr_;
+    return *this;
+  }
+#endif // defined(BOOST_ASIO_HAS_MOVE)
 
   /// Get the address in bytes, in network byte order.
   BOOST_ASIO_DECL bytes_type to_bytes() const;
@@ -97,6 +122,12 @@ public:
   /// Create an address from an IP address string in dotted decimal form.
   BOOST_ASIO_DECL static address_v4 from_string(
       const std::string& str, boost::system::error_code& ec);
+
+  /// Determine whether the address is a loopback address.
+  BOOST_ASIO_DECL bool is_loopback() const;
+
+  /// Determine whether the address is unspecified.
+  BOOST_ASIO_DECL bool is_unspecified() const;
 
   /// Determine whether the address is a class A address.
   BOOST_ASIO_DECL bool is_class_a() const;
@@ -149,19 +180,19 @@ public:
   /// Obtain an address object that represents any address.
   static address_v4 any()
   {
-    return address_v4(static_cast<unsigned long>(INADDR_ANY));
+    return address_v4();
   }
 
   /// Obtain an address object that represents the loopback address.
   static address_v4 loopback()
   {
-    return address_v4(static_cast<unsigned long>(INADDR_LOOPBACK));
+    return address_v4(0x7F000001);
   }
 
   /// Obtain an address object that represents the broadcast address.
   static address_v4 broadcast()
   {
-    return address_v4(static_cast<unsigned long>(INADDR_BROADCAST));
+    return address_v4(0xFFFFFFFF);
   }
 
   /// Obtain an address object that represents the broadcast address that

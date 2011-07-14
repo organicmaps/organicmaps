@@ -14,8 +14,6 @@
 #include <exception>
 #include <boost/assert.hpp>
 
-#define BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
-
 #include <boost/mpl/vector.hpp>
 
 #include <boost/msm/row_tags.hpp>

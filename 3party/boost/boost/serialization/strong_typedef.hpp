@@ -34,7 +34,7 @@
     {                                                               \
         T t;                                                        \
         explicit D(const T t_) : t(t_) {};                          \
-        D(){};                                                      \
+        D(): t() {};                                                \
         D(const D & t_) : t(t_.t){}                                 \
         D & operator=(const D & rhs) { t = rhs.t; return *this;}    \
         D & operator=(const T & rhs) { t = rhs; return *this;}      \
@@ -52,7 +52,7 @@
     {                                                               \
         T t;                                                        \
         explicit D(const T t_) : t(t_) {};                          \
-        D(){};                                                      \
+        D() : t(){};                                                \
         D(const D & t_) : t(t_.t){}                                 \
         D & operator=(const D & rhs) { t = rhs.t; return *this;}    \
         D & operator=(const T & rhs) { t = rhs; return *this;}      \

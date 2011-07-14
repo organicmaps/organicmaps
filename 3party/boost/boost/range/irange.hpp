@@ -124,13 +124,11 @@ namespace boost
             typedef typename base_t::difference_type difference_type;
             typedef typename base_t::reference reference;
 
-            integer_iterator_with_step(value_type first, value_type step, difference_type step_size)
+            integer_iterator_with_step(value_type first, difference_type step, value_type step_size)
                 : m_first(first)
                 , m_step(step)
                 , m_step_size(step_size)
             {
-                BOOST_ASSERT( step >= 0 );
-                BOOST_ASSERT( step_size != 0 );
             }
 
         private:
@@ -213,16 +211,18 @@ namespace boost
     {
         BOOST_ASSERT( step_size != 0 );
         BOOST_ASSERT( (step_size > 0) ? (last >= first) : (last <= first) );
-
+        
         typedef typename range_detail::integer_iterator_with_step<Integer> iterator_t;
 
-        const std::ptrdiff_t last_step
-            = (static_cast<std::ptrdiff_t>(last) - static_cast<std::ptrdiff_t>(first))
-            / (static_cast<std::ptrdiff_t>(step_size));
-
+        const std::ptrdiff_t sz = static_cast<std::ptrdiff_t>(step_size >= 0 ? step_size : -step_size);
+        const Integer l = step_size >= 0 ? last : first;
+        const Integer f = step_size >= 0 ? first : last;
+        const std::ptrdiff_t num_steps = (l + ((l-f) % sz) - f) / sz;
+        BOOST_ASSERT(num_steps >= 0);
+       
         return strided_integer_range<Integer>(
             iterator_t(first, 0, step_size),
-            iterator_t(first, last_step, step_size));
+            iterator_t(first, num_steps, step_size));
     }
 
 } // namespace boost

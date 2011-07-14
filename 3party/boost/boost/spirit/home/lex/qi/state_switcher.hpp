@@ -57,8 +57,12 @@ namespace boost { namespace spirit
 
 namespace boost { namespace spirit { namespace qi
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::set_state;
     using spirit::in_state;
+#endif
+    using spirit::set_state_type;
+    using spirit::in_state_type;
 
     ///////////////////////////////////////////////////////////////////////////
     namespace detail
@@ -138,13 +142,13 @@ namespace boost { namespace spirit { namespace qi
             template <typename State>
             reset_state_on_exit(Iterator& it_, State state_)
               : it(it_)
-              , state(detail::set_lexer_state(it_, traits::get_c_string(state_))) 
+              , state(set_lexer_state(it_, traits::get_c_string(state_))) 
             {}
 
             ~reset_state_on_exit()
             {
                 // reset the state of the underlying lexer instance
-                detail::set_lexer_state(it, state);
+                set_lexer_state(it, state);
             }
 
             Iterator& it;

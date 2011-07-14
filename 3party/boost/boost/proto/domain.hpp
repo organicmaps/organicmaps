@@ -200,6 +200,13 @@ namespace boost { namespace proto
           : domain<>
         {};
 
+        /// \brief A domain to use when you prefer the use of
+        /// \c proto::basic_expr\<\> over \c proto::expr\<\>.
+        ///
+        struct basic_default_domain
+          : domain<basic_default_generator>
+        {};
+
         /// \brief A pseudo-domain for use in functions and
         /// metafunctions that require a domain parameter. It
         /// indicates that the domain of the parent node should

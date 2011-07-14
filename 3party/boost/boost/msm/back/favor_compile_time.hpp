@@ -17,47 +17,33 @@
 #include <boost/mpl/filter_view.hpp>
 #include <boost/mpl/for_each.hpp>
 #include <boost/mpl/bool.hpp>
-#include <boost/any.hpp>
 
 #include <boost/msm/common.hpp>
 #include <boost/msm/back/metafunctions.hpp>
 #include <boost/msm/back/common_types.hpp>
 #include <boost/msm/back/dispatch_table.hpp>
+#include <boost/msm/back/any_event.hpp>
 
 namespace boost { namespace msm { namespace back 
 {
-template <class Fsm>
-struct process_any_event_helper
-{
-    process_any_event_helper(msm::back::HandledEnum& res_,Fsm* self_,::boost::any any_event_):
-    res(res_),self(self_),any_event(any_event_),finished(false){}
-    template <class Event>
-    void operator()(boost::msm::wrap<Event> const&)
-    {
-        if ( ! finished && ::boost::any_cast<Event>(&any_event)!=0)
-        {
-            finished = true;
-            res = self->process_event(::boost::any_cast<Event>(any_event));
-        }
-    }
-private:
-    msm::back::HandledEnum&     res;
-    Fsm*                        self;
-    ::boost::any                any_event;
-    bool                        finished;
-};
 
 #define BOOST_MSM_BACK_GENERATE_PROCESS_EVENT(fsmname)                                              \
     namespace boost { namespace msm { namespace back{                                               \
-    template<>                                                                                      \
-    ::boost::msm::back::HandledEnum fsmname::process_any_event( ::boost::any const& any_event)      \
+    template<class EventType>                                                                       \
+    class holder<EventType,fsmname> : public placeholder                                            \
     {                                                                                               \
-        typedef ::boost::msm::back::recursive_get_transition_table<fsmname>::type stt;              \
-        typedef ::boost::msm::back::generate_event_set<stt>::type all_events;                       \
-        ::boost::msm::back::HandledEnum res= ::boost::msm::back::HANDLED_FALSE;                     \
-        ::boost::mpl::for_each<all_events, ::boost::msm::wrap< ::boost::mpl::placeholders::_1> >    \
-        (::boost::msm::back::process_any_event_helper<fsmname>(res,this,any_event));                \
-        return res;                                                                                 \
+    public:                                                                                         \
+        holder(EventType const& evt, fsmname& fsm): event_(evt),fsm_(fsm){}                         \
+        virtual ::boost::msm::back::HandledEnum process_event() const                               \
+        {return fsm_.process_event(event_);}                                                        \
+    private:                                                                                        \
+        EventType const& event_;                                                                    \
+        fsmname& fsm_;                                                                              \
+    };                                                                                              \
+    template<>                                                                                      \
+    ::boost::msm::back::HandledEnum fsmname::process_any_event( any_event const& evt)const          \
+    {                                                                                               \
+        return evt.process_event();                                                                 \
     }                                                                                               \
     }}}
 
@@ -106,7 +92,8 @@ struct dispatch_table < Fsm, Stt, Event, ::boost::msm::back::favor_compile_time>
     template <class TransitionState>
     static HandledEnum call_submachine(Fsm& fsm, int region, int state, Event const& evt)
     {
-        return (fsm.template get_state<TransitionState&>()).process_any_event( ::boost::any(evt));
+        return (fsm.template get_state<TransitionState&>()).process_any_event
+            ( any_event(evt,fsm.template get_state<TransitionState&>()) );
     }
     // A function object for use with mpl::for_each that stuffs
     // transitions into cells.

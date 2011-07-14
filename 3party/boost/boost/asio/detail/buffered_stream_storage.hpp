@@ -16,7 +16,8 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include <boost/asio/detail/config.hpp>
-#include <cassert>
+#include <boost/asio/buffer.hpp>
+#include <boost/assert.hpp>
 #include <cstddef>
 #include <cstring>
 #include <vector>
@@ -37,10 +38,10 @@ public:
   typedef std::size_t size_type;
 
   // Constructor.
-  explicit buffered_stream_storage(std::size_t capacity)
+  explicit buffered_stream_storage(std::size_t buffer_capacity)
     : begin_offset_(0),
       end_offset_(0),
-      buffer_(capacity)
+      buffer_(buffer_capacity)
   {
   }
 
@@ -52,15 +53,15 @@ public:
   }
 
   // Return a pointer to the beginning of the unread data.
-  byte_type* data()
+  mutable_buffer data()
   {
-    return &buffer_[0] + begin_offset_;
+    return boost::asio::buffer(buffer_) + begin_offset_;
   }
 
   // Return a pointer to the beginning of the unread data.
-  const byte_type* data() const
+  const_buffer data() const
   {
-    return &buffer_[0] + begin_offset_;
+    return boost::asio::buffer(buffer_) + begin_offset_;
   }
 
   // Is there no unread data in the buffer.
@@ -78,7 +79,7 @@ public:
   // Resize the buffer to the specified length.
   void resize(size_type length)
   {
-    assert(length <= capacity());
+    BOOST_ASSERT(length <= capacity());
     if (begin_offset_ + length <= capacity())
     {
       end_offset_ = begin_offset_ + length;
@@ -101,7 +102,7 @@ public:
   // Consume multiple bytes from the beginning of the buffer.
   void consume(size_type count)
   {
-    assert(begin_offset_ + count <= end_offset_);
+    BOOST_ASSERT(begin_offset_ + count <= end_offset_);
     begin_offset_ += count;
     if (empty())
       clear();

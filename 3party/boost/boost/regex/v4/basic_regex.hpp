@@ -1,7 +1,7 @@
 /*
  *
- * Copyright (c) 1998-2004
- * John Maddock
+ * Copyright (c) 1998-2004 John Maddock
+ * Copyright 2011 Garmin Ltd. or its subsidiaries
  *
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
@@ -234,7 +234,7 @@ public:
    std::pair<const_iterator, const_iterator> BOOST_REGEX_CALL subexpression(std::size_t n)const
    {
       if(n == 0)
-         throw std::out_of_range("0 is not a valid subexpression index.");
+         boost::throw_exception(std::out_of_range("0 is not a valid subexpression index."));
       const std::pair<std::size_t, std::size_t>& pi = this->m_subs.at(n - 1);
       std::pair<const_iterator, const_iterator> p(expression() + pi.first, expression() + pi.second);
       return p;
@@ -487,7 +487,7 @@ public:
    std::pair<const_iterator, const_iterator> BOOST_REGEX_CALL subexpression(std::size_t n)const
    {
       if(!m_pimpl.get())
-         throw std::logic_error("Can't access subexpressions in an invalid regex.");
+         boost::throw_exception(std::logic_error("Can't access subexpressions in an invalid regex."));
       return m_pimpl->subexpression(n);
    }
    const_iterator BOOST_REGEX_CALL begin()const

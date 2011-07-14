@@ -16,8 +16,6 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include <boost/asio/detail/config.hpp>
-#include <boost/cerrno.hpp>
-#include <boost/system/error_code.hpp>
 #include <boost/asio/error.hpp>
 
 #include <boost/asio/detail/push_options.hpp>
@@ -119,30 +117,6 @@ public:
 const boost::system::error_category& get_misc_category()
 {
   static detail::misc_category instance;
-  return instance;
-}
-
-namespace detail {
-
-class ssl_category : public boost::system::error_category
-{
-public:
-  const char* name() const
-  {
-    return "asio.ssl";
-  }
-
-  std::string message(int) const
-  {
-    return "asio.ssl error";
-  }
-};
-
-} // namespace detail
-
-const boost::system::error_category& get_ssl_category()
-{
-  static detail::ssl_category instance;
   return instance;
 }
 

@@ -616,7 +616,7 @@ inline R checked_narrowing_cast(T val, const char* function)
    //
    // Most of what follows will evaluate to a no-op:
    //
-   R result;
+   R result = 0;
    if(detail::check_overflow<R>(val, &result, function, overflow_type()))
       return result;
    if(detail::check_underflow<R>(val, &result, function, underflow_type()))

@@ -298,15 +298,15 @@ struct chlit_grammar :
 #define BOOST_WAVE_CHLITGRAMMAR_GEN_INLINE inline
 #endif 
 
-template <typename TokenT>
+template <typename IntegralResult, typename TokenT>
 BOOST_WAVE_CHLITGRAMMAR_GEN_INLINE 
-unsigned int
-chlit_grammar_gen<TokenT>::evaluate(TokenT const &token, value_error &status)
+IntegralResult
+chlit_grammar_gen<IntegralResult, TokenT>::evaluate(TokenT const &token, value_error &status)
 {
     using namespace boost::spirit::classic;
     
 chlit_grammar g;
-boost::uint32_t result = 0;
+IntegralResult result = 0;
 typename TokenT::string_type const &token_val = token.get_value();
 parse_info<typename TokenT::string_type::const_iterator> hit =
     parse(token_val.begin(), token_val.end(), g[spirit_assign_actor(result)]);
@@ -320,7 +320,7 @@ parse_info<typename TokenT::string_type::const_iterator> hit =
         if ('L' == token_val[0]) {
         // recognized wide character
             if (g.overflow || 
-                result > (unsigned long)(std::numeric_limits<wchar_t>::max)()) 
+                result > (IntegralResult)(std::numeric_limits<wchar_t>::max)()) 
             {
             // out of range
                 status = error_character_overflow;
@@ -329,7 +329,7 @@ parse_info<typename TokenT::string_type::const_iterator> hit =
         else {
         // recognized narrow ('normal') character
             if (g.overflow || 
-                result > (unsigned long)(std::numeric_limits<unsigned char>::max)()) 
+                result > (IntegralResult)(std::numeric_limits<unsigned char>::max)()) 
             {
             // out of range
                 status = error_character_overflow;

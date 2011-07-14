@@ -24,12 +24,13 @@ namespace boost{namespace icl
 {
 
 template <class DomainT, 
-          ICL_COMPARE Compare = ICL_COMPARE_INSTANCE(std::less, DomainT)>
+          ICL_COMPARE Compare = ICL_COMPARE_INSTANCE(ICL_COMPARE_DEFAULT, DomainT)>
 class continuous_interval
 {
 public:
     typedef continuous_interval<DomainT,Compare> type;
     typedef DomainT domain_type;
+    typedef ICL_COMPARE_DOMAIN(Compare,DomainT) domain_compare;
     typedef typename bounded_value<DomainT>::type bounded_domain_type;
 
 public:
@@ -161,7 +162,7 @@ struct type_to_string<icl::continuous_interval<DomainT,Compare> >
 template<class DomainT> 
 struct value_size<icl::continuous_interval<DomainT> >
 {
-    static std::size_t apply(const icl::continuous_interval<DomainT>& value) 
+    static std::size_t apply(const icl::continuous_interval<DomainT>&) 
     { return 2; }
 };
 

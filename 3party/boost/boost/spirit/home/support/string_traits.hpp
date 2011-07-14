@@ -172,6 +172,8 @@ namespace boost { namespace spirit { namespace traits
     template <typename T>
     struct extract_c_string<T const>
     {
+        typedef typename extract_c_string<T>::char_type char_type;
+
         static typename extract_c_string<T>::char_type const* call (T const str)
         {
             return extract_c_string<T>::call(str);
@@ -182,6 +184,8 @@ namespace boost { namespace spirit { namespace traits
     template <typename T>
     struct extract_c_string<T&>
     {
+        typedef typename extract_c_string<T>::char_type char_type;
+
         static typename extract_c_string<T>::char_type const* call (T& str)
         {
             return extract_c_string<T>::call(str);
@@ -192,6 +196,8 @@ namespace boost { namespace spirit { namespace traits
     template <typename T>
     struct extract_c_string<T const&>
     {
+        typedef typename extract_c_string<T>::char_type char_type;
+
         static typename extract_c_string<T>::char_type const* call (T const& str)
         {
             return extract_c_string<T>::call(str);
@@ -204,11 +210,6 @@ namespace boost { namespace spirit { namespace traits
         typedef T char_type;
 
         typedef std::basic_string<T, Traits, Allocator> string;
-
-        static T const* call (string& str)
-        {
-            return str.c_str();
-        }
 
         static T const* call (string const& str)
         {

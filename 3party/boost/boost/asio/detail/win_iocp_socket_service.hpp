@@ -61,16 +61,16 @@ public:
   typedef typename Protocol::endpoint endpoint_type;
 
   // The native type of a socket.
-  class native_type
+  class native_handle_type
   {
   public:
-    native_type(socket_type s)
+    native_handle_type(socket_type s)
       : socket_(s),
         have_remote_endpoint_(false)
     {
     }
 
-    native_type(socket_type s, const endpoint_type& ep)
+    native_handle_type(socket_type s, const endpoint_type& ep)
       : socket_(s),
         have_remote_endpoint_(true),
         remote_endpoint_(ep)
@@ -133,6 +133,39 @@ public:
   {
   }
 
+  // Move-construct a new socket implementation.
+  void move_construct(implementation_type& impl,
+      implementation_type& other_impl)
+  {
+    this->base_move_construct(impl, other_impl);
+
+    impl.protocol_ = other_impl.protocol_;
+    other_impl.protocol_ = endpoint_type().protocol();
+
+    impl.have_remote_endpoint_ = other_impl.have_remote_endpoint_;
+    other_impl.have_remote_endpoint_ = false;
+
+    impl.remote_endpoint_ = other_impl.remote_endpoint_;
+    other_impl.remote_endpoint_ = endpoint_type();
+  }
+
+  // Move-assign from another socket implementation.
+  void move_assign(implementation_type& impl,
+      win_iocp_socket_service_base& other_service,
+      implementation_type& other_impl)
+  {
+    this->base_move_assign(impl, other_service, other_impl);
+
+    impl.protocol_ = other_impl.protocol_;
+    other_impl.protocol_ = endpoint_type().protocol();
+
+    impl.have_remote_endpoint_ = other_impl.have_remote_endpoint_;
+    other_impl.have_remote_endpoint_ = false;
+
+    impl.remote_endpoint_ = other_impl.remote_endpoint_;
+    other_impl.remote_endpoint_ = endpoint_type();
+  }
+
   // Open a new socket implementation.
   boost::system::error_code open(implementation_type& impl,
       const protocol_type& protocol, boost::system::error_code& ec)
@@ -149,7 +182,7 @@ public:
 
   // Assign a native socket to a socket implementation.
   boost::system::error_code assign(implementation_type& impl,
-      const protocol_type& protocol, const native_type& native_socket,
+      const protocol_type& protocol, const native_handle_type& native_socket,
       boost::system::error_code& ec)
   {
     if (!do_assign(impl, protocol.type(), native_socket, ec))
@@ -162,11 +195,11 @@ public:
   }
 
   // Get the native socket representation.
-  native_type native(implementation_type& impl)
+  native_handle_type native_handle(implementation_type& impl)
   {
     if (impl.have_remote_endpoint_)
-      return native_type(impl.socket_, impl.remote_endpoint_);
-    return native_type(impl.socket_);
+      return native_handle_type(impl.socket_, impl.remote_endpoint_);
+    return native_handle_type(impl.socket_);
   }
 
   // Bind the socket to the specified local endpoint.
@@ -267,6 +300,8 @@ public:
         sizeof(op), handler), 0 };
     p.p = new (p.v) op(impl.cancel_token_, buffers, handler);
 
+    BOOST_ASIO_HANDLER_CREATION((p.p, "socket", &impl, "async_send_to"));
+
     buffer_sequence_adapter<boost::asio::const_buffer,
         ConstBufferSequence> bufs(buffers);
 
@@ -287,6 +322,9 @@ public:
       boost_asio_handler_alloc_helpers::allocate(
         sizeof(op), handler), 0 };
     p.p = new (p.v) op(impl.cancel_token_, handler);
+
+    BOOST_ASIO_HANDLER_CREATION((p.p, "socket",
+          &impl, "async_send_to(null_buffers)"));
 
     start_reactor_op(impl, reactor::write_op, p.p);
     p.v = p.p = 0;
@@ -344,6 +382,8 @@ public:
         sizeof(op), handler), 0 };
     p.p = new (p.v) op(sender_endp, impl.cancel_token_, buffers, handler);
 
+    BOOST_ASIO_HANDLER_CREATION((p.p, "socket", &impl, "async_receive_from"));
+
     buffer_sequence_adapter<boost::asio::mutable_buffer,
         MutableBufferSequence> bufs(buffers);
 
@@ -364,6 +404,9 @@ public:
       boost_asio_handler_alloc_helpers::allocate(
         sizeof(op), handler), 0 };
     p.p = new (p.v) op(impl.cancel_token_, handler);
+
+    BOOST_ASIO_HANDLER_CREATION((p.p, "socket", &impl,
+          "async_receive_from(null_buffers)"));
 
     // Reset endpoint since it can be given no sensible value at this time.
     sender_endpoint = endpoint_type();
@@ -417,6 +460,8 @@ public:
     p.p = new (p.v) op(*this, impl.socket_, peer, impl.protocol_,
         peer_endpoint, enable_connection_aborted, handler);
 
+    BOOST_ASIO_HANDLER_CREATION((p.p, "socket", &impl, "async_accept"));
+
     start_accept_op(impl, peer.is_open(), p.p->new_socket(),
         impl.protocol_.family(), impl.protocol_.type(),
         impl.protocol_.protocol(), p.p->output_buffer(),
@@ -444,6 +489,8 @@ public:
       boost_asio_handler_alloc_helpers::allocate(
         sizeof(op), handler), 0 };
     p.p = new (p.v) op(impl.socket_, handler);
+
+    BOOST_ASIO_HANDLER_CREATION((p.p, "socket", &impl, "async_connect"));
 
     start_connect_op(impl, p.p, peer_endpoint.data(),
         static_cast<int>(peer_endpoint.size()));

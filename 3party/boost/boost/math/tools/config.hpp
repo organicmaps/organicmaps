@@ -253,9 +253,15 @@ inline T max BOOST_PREVENT_MACRO_SUBSTITUTION(T a, T b, T c, T d)
    return (std::max)((std::max)(a, b), (std::max)(c, d));
 }
 } // namespace tools
+
+template <class T>
+void suppress_unused_variable_warning(const T&)
+{
+}
+
 }} // namespace boost namespace math
 
-#if (defined(__linux__) && !defined(__UCLIBC__)) || defined(__QNX__) || defined(__IBMCPP__)
+#if ((defined(__linux__) && !defined(__UCLIBC__)) || defined(__QNX__) || defined(__IBMCPP__)) && !defined(BOOST_NO_FENV_H)
 
    #include <boost/detail/fenv.hpp>
 

@@ -341,6 +341,9 @@
 #if defined(BOOST_NO_0X_HDR_INITIALIZER_LIST) && !defined(BOOST_NO_INITIALIZER_LISTS)
 #  define BOOST_NO_INITIALIZER_LISTS
 #endif
+#if defined(BOOST_NO_INITIALIZER_LISTS) && !defined(BOOST_NO_0X_HDR_INITIALIZER_LIST)
+#  define BOOST_NO_0X_HDR_INITIALIZER_LIST
+#endif
 
 //
 // Set BOOST_HAS_RVALUE_REFS when BOOST_NO_RVALUE_REFERENCES is not defined
@@ -376,7 +379,7 @@
 //  works as expected with standard conforming compilers.  The resulting
 //  double inclusion of <cstddef> is harmless.
 
-# ifdef BOOST_NO_STDC_NAMESPACE
+# if defined(BOOST_NO_STDC_NAMESPACE) && defined(__cplusplus)
 #   include <cstddef>
     namespace std { using ::ptrdiff_t; using ::size_t; }
 # endif
@@ -395,7 +398,7 @@
 
 //  BOOST_NO_STD_MIN_MAX workaround  -----------------------------------------//
 
-#  ifdef BOOST_NO_STD_MIN_MAX
+#  if defined(BOOST_NO_STD_MIN_MAX) && defined(__cplusplus)
 
 namespace std {
   template <class _Tp>
@@ -506,7 +509,7 @@ namespace std {
 // but it's use may generate either warnings (with -ansi), or errors
 // (with -pedantic -ansi) unless it's use is prefixed by __extension__
 //
-#if defined(BOOST_HAS_LONG_LONG)
+#if defined(BOOST_HAS_LONG_LONG) && defined(__cplusplus)
 namespace boost{
 #  ifdef __GNUC__
    __extension__ typedef long long long_long_type;
@@ -560,7 +563,7 @@ namespace boost{
 //
 
 
-#if defined BOOST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS
+#if defined(BOOST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS) && defined(__cplusplus)
 
 #  include "boost/type.hpp"
 #  include "boost/non_type.hpp"
@@ -598,7 +601,7 @@ namespace boost{
 
 // When BOOST_NO_STD_TYPEINFO is defined, we can just import
 // the global definition into std namespace:
-#ifdef BOOST_NO_STD_TYPEINFO
+#if defined(BOOST_NO_STD_TYPEINFO) && defined(__cplusplus)
 #include <typeinfo>
 namespace std{ using ::type_info; }
 #endif

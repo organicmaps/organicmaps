@@ -94,7 +94,9 @@ namespace boost { namespace spirit
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit { namespace karma
 {
+#ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using spirit::lit;    // lit('x') is equivalent to 'x'
+#endif
     using spirit::lit_type;
 
     ///////////////////////////////////////////////////////////////////////////

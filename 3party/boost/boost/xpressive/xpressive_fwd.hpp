@@ -145,6 +145,40 @@ namespace boost { namespace xpressive
     template<typename T, int I = 0, typename Dummy = proto::is_proto_expr>
     struct placeholder;
 
+    namespace op
+    {
+        struct at;
+        struct push;
+        struct push_back;
+        struct push_front;
+        struct pop;
+        struct pop_back;
+        struct pop_front;
+        struct front;
+        struct back;
+        struct top;
+        struct first;
+        struct second;
+        struct matched;
+        struct length;
+        struct str;
+        struct insert;
+        struct make_pair;
+        template<typename T>
+        struct as;
+        template<typename T>
+        struct static_cast_;
+        template<typename T>
+        struct dynamic_cast_;
+        template<typename T>
+        struct const_cast_;
+        template<typename T>
+        struct construct;
+        template<typename Except>
+        struct throw_;
+        struct unwrap_reference;
+    }
+
     ///////////////////////////////////////////////////////////////////////////////
     // Common typedefs
     //

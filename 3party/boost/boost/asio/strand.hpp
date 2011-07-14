@@ -16,6 +16,7 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include <boost/asio/detail/config.hpp>
+#include <boost/asio/detail/handler_type_requirements.hpp>
 #include <boost/asio/detail/strand_service.hpp>
 #include <boost/asio/detail/wrapped_handler.hpp>
 #include <boost/asio/io_service.hpp>
@@ -107,20 +108,6 @@ public:
     service_.destroy(impl_);
   }
 
-  /// (Deprecated: use get_io_service().) Get the io_service associated with
-  /// the strand.
-  /**
-   * This function may be used to obtain the io_service object that the strand
-   * uses to dispatch handlers for asynchronous operations.
-   *
-   * @return A reference to the io_service object that the strand will use to
-   * dispatch handlers. Ownership is not transferred to the caller.
-   */
-  boost::asio::io_service& io_service()
-  {
-    return service_.get_io_service();
-  }
-
   /// Get the io_service associated with the strand.
   /**
    * This function may be used to obtain the io_service object that the strand
@@ -153,10 +140,14 @@ public:
    * handler object as required. The function signature of the handler must be:
    * @code void handler(); @endcode
    */
-  template <typename Handler>
-  void dispatch(Handler handler)
+  template <typename CompletionHandler>
+  void dispatch(BOOST_ASIO_MOVE_ARG(CompletionHandler) handler)
   {
-    service_.dispatch(impl_, handler);
+    // If you get an error on the following line it means that your handler does
+    // not meet the documented type requirements for a CompletionHandler.
+    BOOST_ASIO_COMPLETION_HANDLER_CHECK(CompletionHandler, handler) type_check;
+
+    service_.dispatch(impl_, BOOST_ASIO_MOVE_CAST(CompletionHandler)(handler));
   }
 
   /// Request the strand to invoke the given handler and return
@@ -175,10 +166,14 @@ public:
    * handler object as required. The function signature of the handler must be:
    * @code void handler(); @endcode
    */
-  template <typename Handler>
-  void post(Handler handler)
+  template <typename CompletionHandler>
+  void post(BOOST_ASIO_MOVE_ARG(CompletionHandler) handler)
   {
-    service_.post(impl_, handler);
+    // If you get an error on the following line it means that your handler does
+    // not meet the documented type requirements for a CompletionHandler.
+    BOOST_ASIO_COMPLETION_HANDLER_CHECK(CompletionHandler, handler) type_check;
+
+    service_.post(impl_, BOOST_ASIO_MOVE_CAST(CompletionHandler)(handler));
   }
 
   /// Create a new handler that automatically dispatches the wrapped handler

@@ -86,7 +86,7 @@ struct lower_alignment_helper_impl<false>
 {
     template <std::size_t target, class TestType>
     struct apply
-      : mpl::if_c<(alignment_of<TestType>::value == target), TestType, char>
+      : public mpl::if_c<(alignment_of<TestType>::value == target), TestType, char>
     {
         enum { value = (alignment_of<TestType>::value == target) };
     };
@@ -94,7 +94,7 @@ struct lower_alignment_helper_impl<false>
 
 template <bool found, std::size_t target, class TestType>
 struct lower_alignment_helper
-  : lower_alignment_helper_impl<found>::template apply<target,TestType>
+  : public lower_alignment_helper_impl<found>::template apply<target,TestType>
 {
 };
 #else

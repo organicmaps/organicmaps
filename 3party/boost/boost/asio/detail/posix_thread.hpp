@@ -39,7 +39,7 @@ class posix_thread
 public:
   // Constructor.
   template <typename Function>
-  posix_thread(Function f)
+  posix_thread(Function f, unsigned int = 0)
     : joined_(false)
   {
     start_thread(new func<Function>(f));

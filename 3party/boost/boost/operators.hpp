@@ -8,6 +8,8 @@
 //  See http://www.boost.org/libs/utility/operators.htm for documentation.
 
 //  Revision History
+//  16 Dec 10 Limit warning suppression for 4284 to older versions of VC++
+//            (Matthew Bradbury, fixes #4432)
 //  07 Aug 08 Added "euclidean" spelling. (Daniel Frey)
 //  03 Apr 08 Make sure "convertible to bool" is sufficient
 //            for T::operator<, etc. (Daniel Frey)
@@ -88,7 +90,7 @@
 #   pragma set woff 1234
 #endif
 
-#if defined(BOOST_MSVC)
+#if BOOST_WORKAROUND(BOOST_MSVC, < 1600)
 #   pragma warning( disable : 4284 ) // complaint about return type of 
 #endif                               // operator-> not begin a UDT
 

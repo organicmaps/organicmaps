@@ -37,12 +37,6 @@ namespace boost
     {
         namespace detail
         {
-            template<int N>
-            struct sized_type
-            {
-                typedef char (&type)[N];
-            };
-
             template<typename Domain>
             struct domain_
               : domain_<typename Domain::proto_super_domain>
@@ -76,10 +70,20 @@ namespace boost
               : domain_<not_a_domain>
             {};
 
+            template<>
+            struct domain_<basic_default_domain>
+              : domain_<not_a_domain>
+            {};
+
             sized_type<1>::type default_test(void*, void*);
             sized_type<2>::type default_test(domain_<default_domain>*, void*);
+            sized_type<2>::type default_test(domain_<basic_default_domain>*, void*);
             sized_type<3>::type default_test(void*, domain_<default_domain>*);
+            sized_type<3>::type default_test(void*, domain_<basic_default_domain>*);
             sized_type<4>::type default_test(domain_<default_domain>*, domain_<default_domain>*);
+            sized_type<4>::type default_test(domain_<basic_default_domain>*, domain_<default_domain>*);
+            sized_type<4>::type default_test(domain_<default_domain>*, domain_<basic_default_domain>*);
+            sized_type<4>::type default_test(domain_<basic_default_domain>*, domain_<basic_default_domain>*);
 
         #ifdef BOOST_NO_DECLTYPE
             template<int N, typename Domain>
@@ -137,8 +141,20 @@ namespace boost
                 typedef D0 type;
             };
 
+            template<typename D0>
+            struct common_domain2<D0, basic_default_domain, 4>
+            {
+                typedef D0 type;
+            };
+
             template<typename D1>
             struct common_domain2<default_domain, D1, 4>
+            {
+                typedef D1 type;
+            };
+
+            template<typename D1>
+            struct common_domain2<basic_default_domain, D1, 4>
             {
                 typedef D1 type;
             };
@@ -149,6 +165,24 @@ namespace boost
                 typedef default_domain type;
             };
 
+            template<>
+            struct common_domain2<basic_default_domain, default_domain, 4>
+            {
+                typedef default_domain type;
+            };
+
+            template<>
+            struct common_domain2<default_domain, basic_default_domain, 4>
+            {
+                typedef default_domain type;
+            };
+
+            template<>
+            struct common_domain2<basic_default_domain, basic_default_domain, 4>
+            {
+                typedef basic_default_domain type;
+            };
+
             template<typename E0, typename E1>
             struct deduce_domain2
               : common_domain2<
@@ -157,37 +191,7 @@ namespace boost
                 >
             {};
 
-            #define M0(Z, N, DATA)                                                                  \
-                typedef                                                                             \
-                    typename common_domain2<common ## N, A ## N>::type                              \
-                BOOST_PP_CAT(common, BOOST_PP_INC(N));                                              \
-                /**/
-
-            #define BOOST_PP_LOCAL_MACRO(N)                                                         \
-                template<BOOST_PP_ENUM_PARAMS(N, typename A)>                                       \
-                struct BOOST_PP_CAT(common_domain, N)                                               \
-                {                                                                                   \
-                    typedef A0 common1;                                                             \
-                    BOOST_PP_REPEAT_FROM_TO(1, N, M0, ~)                                            \
-                    typedef common ## N type;                                                       \
-                    BOOST_PROTO_ASSERT_VALID_DOMAIN(type);                                          \
-                };                                                                                  \
-                                                                                                    \
-                template<BOOST_PP_ENUM_PARAMS(N, typename E)>                                       \
-                struct BOOST_PP_CAT(deduce_domain, N)                                               \
-                  : BOOST_PP_CAT(common_domain, N)<                                                 \
-                        BOOST_PP_ENUM_BINARY_PARAMS(                                                \
-                            N                                                                       \
-                          , typename domain_of<E, >::type BOOST_PP_INTERCEPT                        \
-                        )                                                                           \
-                    >                                                                               \
-                {};                                                                                 \
-                /**/
-
-            #define BOOST_PP_LOCAL_LIMITS (3, BOOST_PROTO_MAX_ARITY)
-            #include BOOST_PP_LOCAL_ITERATE()
-
-            #undef M0
+            #include <boost/proto/detail/deduce_domain_n.hpp>
         }
     }
 }

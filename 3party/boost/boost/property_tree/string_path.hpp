@@ -17,13 +17,13 @@
 #include <boost/property_tree/detail/ptree_utils.hpp>
 
 #include <boost/static_assert.hpp>
+#include <boost/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 #include <algorithm>
 #include <string>
 #include <iterator>
-#include <cassert>
 
 namespace boost { namespace property_tree
 {
@@ -132,8 +132,10 @@ namespace boost { namespace property_tree
             // If it's single, there's no separator. This allows to do
             // p /= "piece";
             // even for non-default separators.
-            assert((m_separator == o.m_separator || o.empty() || o.single())
-                   && "Incompatible paths.");
+            BOOST_ASSERT((m_separator == o.m_separator
+                          || o.empty()
+                          || o.single())
+                         && "Incompatible paths.");
             if(!o.empty()) {
                 String sub;
                 if(!this->empty()) {
@@ -200,7 +202,7 @@ namespace boost { namespace property_tree
     template <typename String, typename Translator>
     typename Translator::external_type string_path<String, Translator>::reduce()
     {
-        assert(!empty() && "Reducing empty path");
+        BOOST_ASSERT(!empty() && "Reducing empty path");
 
         s_iter next_sep = std::find(m_start, m_value.end(), m_separator);
         String part(m_start, next_sep);

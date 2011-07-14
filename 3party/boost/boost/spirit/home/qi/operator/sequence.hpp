@@ -1,5 +1,6 @@
 /*=============================================================================
     Copyright (c) 2001-2011 Joel de Guzman
+    Copyright (c) 2001-2011 Hartmut Kaiser
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -88,8 +89,8 @@ namespace boost { namespace spirit { namespace traits
     template <typename Elements, typename Attribute, typename Context
       , typename Iterator>
     struct handles_container<qi::sequence<Elements>, Attribute, Context
-      , Iterator>
-      : nary_handles_container<Elements, Attribute, Context, Iterator> {};
+          , Iterator>
+      : mpl::true_ {};
 }}}
 
 #endif

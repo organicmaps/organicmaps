@@ -403,6 +403,22 @@ namespace boost { namespace wave
 }}
 
 ///////////////////////////////////////////////////////////////////////////////
+//  On some platforms Wave will not be able to properly detect whether wchar_t
+//  is representing a signed or unsigned integral data type. Use the 
+//  configuration constants below to force wchar_t being signed or unsigned, as
+//  appropriate.
+//
+//  The default is to use std::numeric_limits<wchar_t>::is_signed.
+
+#define BOOST_WAVE_WCHAR_T_AUTOSELECT       1
+#define BOOST_WAVE_WCHAR_T_FORCE_SIGNED     2
+#define BOOST_WAVE_WCHAR_T_FORCE_UNSIGNED   3
+
+#if !defined(BOOST_WAVE_WCHAR_T_SIGNEDNESS)
+#define BOOST_WAVE_WCHAR_T_SIGNEDNESS BOOST_WAVE_WCHAR_T_AUTOSELECT
+#endif
+
+///////////////////////////////////////////////////////////////////////////////
 //  Wave needs at least 4 parameters for phoenix actors
 #if !defined(PHOENIX_LIMIT)
 #define PHOENIX_LIMIT 6

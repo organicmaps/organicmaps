@@ -16,23 +16,22 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include <boost/asio/detail/config.hpp>
-#include <boost/version.hpp>
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1600)
+#if defined(BOOST_ASIO_HAS_STD_SHARED_PTR)
 # include <memory>
-#else
+#else // defined(BOOST_ASIO_HAS_STD_SHARED_PTR)
 # include <boost/weak_ptr.hpp>
-#endif
+#endif // defined(BOOST_ASIO_HAS_STD_SHARED_PTR)
 
 namespace boost {
 namespace asio {
 namespace detail {
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1600)
+#if defined(BOOST_ASIO_HAS_STD_SHARED_PTR)
 using std::weak_ptr;
-#else
+#else // defined(BOOST_ASIO_HAS_STD_SHARED_PTR)
 using boost::weak_ptr;
-#endif
+#endif // defined(BOOST_ASIO_HAS_STD_SHARED_PTR)
 
 } // namespace detail
 } // namespace asio

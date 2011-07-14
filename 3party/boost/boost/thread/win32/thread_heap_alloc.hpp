@@ -56,7 +56,7 @@ namespace boost
 {
     namespace detail
     {
-        inline /*BOOST_THREAD_DECL*/ void* allocate_raw_heap_memory(unsigned size)
+        inline BOOST_THREAD_DECL void* allocate_raw_heap_memory(unsigned size)
         {
             void* const heap_memory=detail::win32::HeapAlloc(detail::win32::GetProcessHeap(),0,size);
             if(!heap_memory)
@@ -66,7 +66,7 @@ namespace boost
             return heap_memory;
         }
 
-        inline /*BOOST_THREAD_DECL*/ void free_raw_heap_memory(void* heap_memory)
+        inline BOOST_THREAD_DECL void free_raw_heap_memory(void* heap_memory)
         {
             BOOST_VERIFY(detail::win32::HeapFree(detail::win32::GetProcessHeap(),0,heap_memory)!=0);
         }

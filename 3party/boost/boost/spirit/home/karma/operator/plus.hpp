@@ -14,8 +14,11 @@
 #include <boost/spirit/home/karma/domain.hpp>
 #include <boost/spirit/home/karma/generator.hpp>
 #include <boost/spirit/home/karma/meta_compiler.hpp>
+#include <boost/spirit/home/karma/detail/indirect_iterator.hpp>
 #include <boost/spirit/home/karma/detail/output_iterator.hpp>
 #include <boost/spirit/home/karma/detail/get_stricttag.hpp>
+#include <boost/spirit/home/karma/detail/pass_container.hpp>
+#include <boost/spirit/home/karma/detail/fail_function.hpp>
 #include <boost/spirit/home/support/info.hpp>
 #include <boost/spirit/home/support/unused.hpp>
 #include <boost/spirit/home/support/container.hpp>
@@ -42,35 +45,49 @@ namespace boost { namespace spirit { namespace karma
     struct base_plus : unary_generator<Derived>
     {
     private:
-        template <
-            typename OutputIterator, typename Context, typename Delimiter
-          , typename Attribute>
-        bool generate_subject(OutputIterator& sink, Context& ctx
-          , Delimiter const& d, Attribute const& attr, bool& result) const
+        // Ignore return value in relaxed mode (failing subject generators 
+        // are just skipped). This allows to selectively generate items in 
+        // the provided attribute.
+        template <typename F, typename Attribute>
+        bool generate_subject(F f, Attribute const&, bool& result, mpl::false_) const
         {
-            // Ignore return value, failing subject generators are just 
-            // skipped. This allows to selectively generate items in the 
-            // provided attribute.
-            if (subject.generate(sink, ctx, d, attr)) {
+            bool r = !f(subject);
+            if (r) 
                 result = true;
-                return true;
-            }
-            return !Strict::value;
+            else if (!f.is_at_end())
+                f.next();
+            return true;
         }
 
-        template <typename OutputIterator, typename Context, typename Delimiter>
-        bool generate_subject(OutputIterator& sink, Context& ctx
-          , Delimiter const& d, unused_type, bool& result) const
+        template <typename F, typename Attribute>
+        bool generate_subject(F f, Attribute const&, bool& result, mpl::true_) const
         {
-            // There is no way to distinguish a failed generator from a 
-            // generator to be skipped. We assume the user takes responsibility
-            // for ending the loop if no attribute is specified.
-            if (subject.generate(sink, ctx, d, unused)) {
+            bool r = !f(subject);
+            if (r)
                 result = true;
-                return true;
-            }
-            return false;
+            return r;
         }
+
+        // There is no way to distinguish a failed generator from a 
+        // generator to be skipped. We assume the user takes responsibility
+        // for ending the loop if no attribute is specified.
+        template <typename F>
+        bool generate_subject(F f, unused_type, bool& result, mpl::false_) const
+        {
+            bool r = f(subject);
+            if (!r)
+                result = true;
+            return !r;
+        }
+
+//         template <typename F>
+//         bool generate_subject(F f, unused_type, bool& result, mpl::true_) const
+//         {
+//             bool r = f(subject);
+//             if (!r)
+//                 result = true;
+//             return !r;
+//         }
 
     public:
         typedef Subject subject_type;
@@ -95,9 +112,19 @@ namespace boost { namespace spirit { namespace karma
         bool generate(OutputIterator& sink, Context& ctx
           , Delimiter const& d, Attribute const& attr) const
         {
+            typedef detail::fail_function<
+                OutputIterator, Context, Delimiter> fail_function;
+
             typedef typename traits::container_iterator<
                 typename add_const<Attribute>::type
             >::type iterator_type;
+
+            typedef 
+                typename traits::make_indirect_iterator<iterator_type>::type 
+            indirect_iterator_type;
+            typedef detail::pass_container<
+                fail_function, Attribute, indirect_iterator_type, mpl::false_>
+            pass_container;
 
             iterator_type it = traits::begin(attr);
             iterator_type end = traits::end(attr);
@@ -106,13 +133,15 @@ namespace boost { namespace spirit { namespace karma
             if (traits::compare(it, end))
                 return false;
 
+            pass_container pass(fail_function(sink, ctx, d), 
+                indirect_iterator_type(it), indirect_iterator_type(end));
+
             // from now on plus fails if the underlying output fails or overall
             // no subject generators succeeded
             bool result = false;
-            for (/**/; detail::sink_is_good(sink) && !traits::compare(it, end); 
-                 traits::next(it))
+            while (!pass.is_at_end())
             {
-                if (!generate_subject(sink, ctx, d, traits::deref(it), result))
+                if (!generate_subject(pass, attr, result, Strict()))
                     break;
             }
             return result && detail::sink_is_good(sink);
@@ -184,14 +213,14 @@ namespace boost { namespace spirit { namespace traits
     template <typename Subject, typename Attribute, typename Context
       , typename Iterator>
     struct handles_container<karma::plus<Subject>, Attribute
-      , Context, Iterator>
-      : unary_handles_container<Subject, Attribute, Context, Iterator> {};
+          , Context, Iterator>
+      : mpl::true_ {};
 
     template <typename Subject, typename Attribute, typename Context
       , typename Iterator>
     struct handles_container<karma::strict_plus<Subject>, Attribute
-      , Context, Iterator>
-      : unary_handles_container<Subject, Attribute, Context, Iterator> {};
+          , Context, Iterator>
+      : mpl::true_ {};
 }}}
 
 #endif

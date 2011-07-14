@@ -176,6 +176,7 @@ namespace boost
             strided_iterator()
                 : m_first()
                 , m_last()
+                , m_index(0)
                 , m_stride()
             {
             }
@@ -184,6 +185,7 @@ namespace boost
                 : super_t(it)
                 , m_first(first)
                 , m_last(last)
+                , m_index(stride ? (it - first) / stride : 0)
                 , m_stride(stride)
             {
             }
@@ -194,6 +196,7 @@ namespace boost
                 : super_t(other.base())
                 , m_first(other.base_begin())
                 , m_last(other.base_end())
+                , m_index(other.get_index())
                 , m_stride(other.get_stride())
             {
             }
@@ -201,44 +204,37 @@ namespace boost
             base_iterator base_begin() const { return m_first; }
             base_iterator base_end() const { return m_last; }
             difference_type get_stride() const { return m_stride; }
+            difference_type get_index() const { return m_index; }
 
         private:
             void increment()
             {
-                base_iterator& it = this->base_reference();
-                if ((m_last - it) > m_stride)
-                    it += m_stride;
+                m_index += m_stride;
+                if (m_index < (m_last - m_first))
+                    this->base_reference() = m_first + m_index;
                 else
-                    it = m_last;
+                    this->base_reference() = m_last;
             }
 
             void decrement()
             {
-                base_iterator& it = this->base_reference();
-                if ((it - m_first) > m_stride)
-                    it -= m_stride;
+                m_index -= m_stride;
+                if (m_index >= 0)
+                    this->base_reference() = m_first + m_index;
                 else
-                    it = m_first;
+                    this->base_reference() = m_first;
             }
 
             void advance(difference_type offset)
             {
-                base_iterator& it = this->base_reference();
                 offset *= m_stride;
-                if (offset >= 0)
-                {
-                    if ((m_last - it) > offset)
-                        it += offset;
-                    else
-                        it = m_last;
-                }
+                m_index += offset;
+                if (m_index < 0)
+                    this->base_reference() = m_first;
+                else if (m_index > (m_last - m_first))
+                    this->base_reference() = m_last;
                 else
-                {
-                    if ((m_first - it) > offset)
-                        it += offset;
-                    else
-                        it = m_first;
-                }
+                    this->base_reference() = m_first + m_index;
             }
 
             template<class OtherIterator>
@@ -252,12 +248,13 @@ namespace boost
 
             bool equal(const strided_iterator& other) const
             {
-                return other.base() == this->base();
+                return this->base() == other.base();
             }
 
         private:
             base_iterator m_first;
             base_iterator m_last;
+            difference_type m_index;
             difference_type m_stride;
         };
 
