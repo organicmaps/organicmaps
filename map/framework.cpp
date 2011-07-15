@@ -325,11 +325,11 @@ void FrameWork<TModel>::AddRedrawCommandSure()
   template <typename TModel>
   void FrameWork<TModel>::OnCompassUpdate(location::CompassInfo const & info)
   {
-    if (info.m_timestamp < location::POSITION_TIMEOUT_SECONDS)
-    {
+//    if (info.m_timestamp < location::POSITION_TIMEOUT_SECONDS)
+//    {
       m_locationState.UpdateCompass(info);
       UpdateNow();
-    }
+//    }
   }
 
   template <typename TModel>
