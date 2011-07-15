@@ -390,6 +390,7 @@ void FrameWork<TModel>::AddRedrawCommandSure()
     // set language priorities
     languages::CodesT langCodes;
     languages::GetCurrentSettings(langCodes);
+    languages::SaveSettings(langCodes);
   }
 
   template <typename TModel>
