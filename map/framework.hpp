@@ -43,6 +43,7 @@
 #include "../std/shared_ptr.hpp"
 #include "../std/target_os.hpp"
 
+#include "../search/engine.hpp"
 
 //#define DRAW_TOUCH_POINTS
 
@@ -58,15 +59,45 @@ typedef function<void (void)> LocationRetrievedCallbackT;
 class DrawerYG;
 class RenderPolicy;
 
+struct PathAppender
+{
+  string const & m_path;
+  PathAppender(string const & path) : m_path(path) {}
+  void operator()(string & elem)
+  {
+    elem.insert(elem.begin(), m_path.begin(), m_path.end());
+  }
+};
+
+class ReadersAdder
+{
+protected:
+
+  typedef vector<string> maps_list_t;
+
+private:
+  Platform & m_pl;
+  maps_list_t & m_lst;
+
+public:
+  ReadersAdder(Platform & pl, maps_list_t & lst) : m_pl(pl), m_lst(lst) {}
+
+  void operator() (string const & name)
+  {
+    m_lst.push_back(name);
+  }
+};
+
 template
 <
   class TModel
 >
-class FrameWork
+class Framework
 {
+protected:
   typedef TModel model_t;
 
-  typedef FrameWork<model_t> this_type;
+  typedef Framework<model_t> this_type;
 
   scoped_ptr<search::Engine> m_pSearchEngine;
   model_t m_model;
@@ -75,10 +106,6 @@ class FrameWork
   shared_ptr<WindowHandle> m_windowHandle;
   shared_ptr<RenderPolicy> m_renderPolicy;
 
-  bool m_isBenchmarking;
-  bool m_isBenchmarkInitialized;
-
-  shared_ptr<yg::ResourceManager> m_resourceManager;
   InformationDisplay m_informationDisplay;
 
   double const m_metresMinWidth;
@@ -97,42 +124,9 @@ class FrameWork
 
   mutable threads::Mutex m_modelSyn;
 
-  double m_maxDuration;
-  m2::RectD m_maxDurationRect;
-  m2::RectD m_curBenchmarkRect;
-
   int m_tileSize;
 
-  struct BenchmarkResult
-  {
-    string m_name;
-    m2::RectD m_rect;
-    double m_time;
-  };
-
-  vector<BenchmarkResult> m_benchmarkResults;
-  my::Timer m_benchmarksTimer;
-  string m_startTime;
   my::Timer m_timer;
-
-  struct Benchmark
-  {
-    shared_ptr<BenchmarkRectProvider> m_provider;
-    string m_name;
-  };
-
-  vector<Benchmark> m_benchmarks;
-  size_t m_curBenchmark;
-
-  yg::Tiler m_tiler;
-
-  void BenchmarkCommandFinished();
-//  void NextBenchmarkCommand();
-  void SaveBenchmarkResults();
-  void SendBenchmarkResults();
-
-  void MarkBenchmarkResultsStart();
-  void MarkBenchmarkResultsEnd();
 
   typedef typename TModel::ReaderT ReaderT;
 
@@ -143,12 +137,11 @@ class FrameWork
 
   void OnCompassUpdate(location::CompassInfo const & info);
 
-public:
-  FrameWork(shared_ptr<WindowHandle> windowHandle,
-            size_t bottomShift);
-  ~FrameWork();
+  void SetRenderPolicy(shared_ptr<RenderPolicy> const & rp);
 
-  void InitBenchmark();
+public:
+  Framework(shared_ptr<WindowHandle> windowHandle,
+            size_t bottomShift);
 
   void initializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
                     shared_ptr<yg::ResourceManager> const & resourceManager);
@@ -156,8 +149,7 @@ public:
   model_t & get_model();
 
   typedef vector<string> maps_list_t;
-  void EnumLocalMaps(maps_list_t & filesList);
-  void EnumBenchmarkMaps(maps_list_t & filesList);
+  virtual void EnumLocalMaps(maps_list_t & filesList);
 
   /// Initialization.
   template <class TStorage>
@@ -166,16 +158,14 @@ public:
     m_model.InitClassificator();
 
     typename TStorage::TEnumMapsFunction enumMapsFn;
-    if (m_isBenchmarking)
-      enumMapsFn = bind(&FrameWork::EnumBenchmarkMaps, this, _1);
-    else
-      enumMapsFn = bind(&FrameWork::EnumLocalMaps, this, _1);
+
+    enumMapsFn = bind(&Framework::EnumLocalMaps, this, _1);
 
     LOG(LINFO, ("Initializing storage"));
     // initializes model with locally downloaded maps
-    storage.Init(bind(&FrameWork::AddMap, this, _1),
-                 bind(&FrameWork::RemoveMap, this, _1),
-                 bind(&FrameWork::InvalidateRect, this, _1),
+    storage.Init(bind(&Framework::AddMap, this, _1),
+                 bind(&Framework::RemoveMap, this, _1),
+                 bind(&Framework::InvalidateRect, this, _1),
                  enumMapsFn);
     LOG(LINFO, ("Storage initialized"));
   }
@@ -192,6 +182,11 @@ public:
 
 public:
 
+  void DrawModel(shared_ptr<PaintEvent> e,
+                 ScreenBase const & screen,
+                 m2::RectD const & selectRect,
+                 int scaleLevel);
+
   void Search(string const & text, SearchCallbackT callback);
 
   void SetMaxWorldRect();
@@ -203,7 +198,7 @@ public:
   bool LoadState();
 
   /// Resize event from window.
-  void OnSize(int w, int h);
+  virtual void OnSize(int w, int h);
 
   bool SetUpdatesEnabled(bool doEnable);
 
@@ -212,16 +207,8 @@ public:
 
   double GetCurrentScale() const;
 
-  /// Actual rendering function.
-  /// Called, as the renderQueue processes RenderCommand
-  /// Usually it happens in the separate thread.
-  void PaintImpl(shared_ptr<PaintEvent> e,
-                 ScreenBase const & screen,
-                 m2::RectD const & selectRect,
-                 int scaleLevel);
-
   /// Function for calling from platform dependent-paint function.
-  void Paint(shared_ptr<PaintEvent> e);
+  virtual void Paint(shared_ptr<PaintEvent> e);
 
   void CenterViewport(m2::PointD const & pt);
 
@@ -257,3 +244,4 @@ public:
   void StopScale(ScaleEvent const & e);
   //@}
 };
+

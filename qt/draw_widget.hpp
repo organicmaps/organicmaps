@@ -7,6 +7,8 @@
 #include "../map/framework.hpp"
 #include "../map/navigator.hpp"
 
+#include "../std/auto_ptr.hpp"
+
 #include <QtCore/QTimer>
 
 //class FileReader;
@@ -30,7 +32,7 @@ namespace qt
 
     typedef model::FeaturesFetcher model_t;
 
-    FrameWork<model_t> m_framework;
+    auto_ptr<Framework<model_t> > m_framework;
 
     bool m_isDrag;
 

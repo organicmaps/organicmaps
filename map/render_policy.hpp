@@ -53,5 +53,4 @@ public:
   /// initialize render policy
   virtual void initialize(shared_ptr<yg::gl::RenderContext> const & primaryContext,
                           shared_ptr<yg::ResourceManager> const & resourceManager) = 0;
-
 };

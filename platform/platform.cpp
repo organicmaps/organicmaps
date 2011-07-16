@@ -107,7 +107,7 @@ bool BasePlatformImpl::IsBenchmarking() const
   bool res = false;
   (void)Settings::Get("IsBenchmarking", res);
 
-#ifndef OMIM_PRODUCTION
+/*#ifndef OMIM_PRODUCTION
   if (res)
   {
     static bool first = true;
@@ -118,7 +118,7 @@ bool BasePlatformImpl::IsBenchmarking() const
     }
     res = false;
   }
-#endif
+#endif*/
 
   return res;
 }
