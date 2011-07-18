@@ -4,7 +4,10 @@
 #include "../../std/shared_ptr.hpp"
 
 #include "../../base/logging.hpp"
-
+#include "../../map/render_policy_st.hpp"
+#include "../../std/shared_ptr.hpp"
+#include "../../std/bind.hpp"
+#include "../../map/framework.hpp"
 
 void AndroidFramework::ViewHandle::invalidateImpl()
 {
@@ -21,6 +24,8 @@ AndroidFramework::AndroidFramework()
 : m_view(new ViewHandle(this)), m_work(m_view, 0)
 {
   m_work.InitStorage(m_storage);
+  shared_ptr<RenderPolicy> renderPolicy(new RenderPolicyST(m_view, bind(&Framework<model::FeaturesFetcher>::DrawModel, &m_work, _1, _2, _3, _4)));
+  m_work.SetRenderPolicy(renderPolicy);
 }
 
 void AndroidFramework::SetParentView(JNIEnv * env, jobject view)
@@ -44,25 +49,22 @@ void AndroidFramework::InitRenderer()
   LOG(LDEBUG, ("AF::InitRenderer 4"));
   m_work.initializeGL(pRC, pRM);
 
-  //m_work.ShowAll();
+  m_work.ShowAll();
 
   LOG(LDEBUG, ("AF::InitRenderer 5"));
 }
 
 void AndroidFramework::Resize(int w, int h)
 {
-  LOG(LDEBUG, ("AF::Resize 1"));
   m_view->drawer()->onSize(w, h);
-  LOG(LDEBUG, ("AF::Resize 2"));
+  m_work.OnSize(w, h);
 }
 
 void AndroidFramework::DrawFrame()
 {
-//  m_work.Paint(make_shared_ptr(new PaintEvent(m_view->drawer())));
-  yg::gl::Screen * screen = m_view->drawer()->screen().get();
+/*  yg::gl::Screen * screen = m_view->drawer()->screen().get();
   screen->beginFrame();
   screen->clear();
-  yg::Color c(255, 0, 0, 255);
 
   m2::PointD centerPt(screen->width() / 2,
                       screen->height() / 2);
@@ -72,7 +74,10 @@ void AndroidFramework::DrawFrame()
               centerPt.x + 100,
               centerPt.y + 50);
 
-  screen->drawRectangle(r, c, yg::maxDepth);
-  //screen->drawText(yg::FontDesc::defaultFont, centerPt, yg::EPosCenter, "Simplicity is the ultimate sophistication", yg::maxDepth, false);
+  screen->drawText(yg::FontDesc::defaultFont, centerPt, yg::EPosCenter, "Simplicity is the ultimate sophistication", yg::maxDepth, false);
+  screen->drawRectangle(r, yg::Color(255, 0, 0, 255), yg::maxDepth);
+  screen->drawRectangle(m2::Offset(r, m2::PointD(50, 50)), yg::Color(0, 255, 0, 255), yg::maxDepth);
   screen->endFrame();
+*/
+  m_work.Paint(make_shared_ptr(new PaintEvent(m_view->drawer())));
 }

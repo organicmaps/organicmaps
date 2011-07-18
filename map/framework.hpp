@@ -137,11 +137,12 @@ protected:
 
   void OnCompassUpdate(location::CompassInfo const & info);
 
-  void SetRenderPolicy(shared_ptr<RenderPolicy> const & rp);
-
 public:
+
   Framework(shared_ptr<WindowHandle> windowHandle,
             size_t bottomShift);
+
+  void SetRenderPolicy(shared_ptr<RenderPolicy> const & rp);
 
   void initializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
                     shared_ptr<yg::ResourceManager> const & resourceManager);

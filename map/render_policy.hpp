@@ -47,10 +47,10 @@ public:
   /// constructor
   RenderPolicy(shared_ptr<WindowHandle> const & windowHandle, render_fn_t const & renderFn);
   /// drawing single frame
-  virtual void drawFrame(shared_ptr<PaintEvent> const & paintEvent, ScreenBase const & currentScreen) = 0;
+  virtual void DrawFrame(shared_ptr<PaintEvent> const & paintEvent, ScreenBase const & currentScreen) = 0;
   /// processing resize request
-  virtual void onSize(int w, int h) = 0;
+  virtual void OnSize(int w, int h) = 0;
   /// initialize render policy
-  virtual void initialize(shared_ptr<yg::gl::RenderContext> const & primaryContext,
+  virtual void Initialize(shared_ptr<yg::gl::RenderContext> const & primaryContext,
                           shared_ptr<yg::ResourceManager> const & resourceManager) = 0;
 };

@@ -29,6 +29,7 @@ bool AndroidPlatform::IsMultiSampled() const
 
 void AndroidPlatform::GetFontNames(FilesList & res) const
 {
+  res.push_back("01_dejavusans.ttf");
   /// @todo Need to make refactoring of yg fonts
 }
 

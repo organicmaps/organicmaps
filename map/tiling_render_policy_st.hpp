@@ -30,10 +30,10 @@ public:
   TilingRenderPolicyST(shared_ptr<WindowHandle> const & windowHandle,
                        RenderPolicy::render_fn_t const & renderFn);
 
-  void initialize(shared_ptr<yg::gl::RenderContext> const & renderContext,
+  void Initialize(shared_ptr<yg::gl::RenderContext> const & renderContext,
                   shared_ptr<yg::ResourceManager> const & resourceManager);
 
-  void drawFrame(shared_ptr<PaintEvent> const & paintEvent, ScreenBase const & screenBase);
+  void DrawFrame(shared_ptr<PaintEvent> const & paintEvent, ScreenBase const & screenBase);
 
-  void onSize(int w, int h);
+  void OnSize(int w, int h);
 };

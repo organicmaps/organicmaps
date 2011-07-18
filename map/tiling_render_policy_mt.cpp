@@ -22,18 +22,18 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(shared_ptr<WindowHandle> const & wind
   m_renderQueue.AddWindowHandle(windowHandle);
 }
 
-void TilingRenderPolicyMT::initialize(shared_ptr<yg::gl::RenderContext> const & primaryContext,
+void TilingRenderPolicyMT::Initialize(shared_ptr<yg::gl::RenderContext> const & primaryContext,
                                       shared_ptr<yg::ResourceManager> const & resourceManager)
 {
-  RenderPolicy::initialize(primaryContext, resourceManager);
+  RenderPolicy::Initialize(primaryContext, resourceManager);
   m_renderQueue.InitializeGL(primaryContext, resourceManager, GetPlatform().VisualScale());
 }
 
-void TilingRenderPolicyMT::onSize(int w, int h)
+void TilingRenderPolicyMT::OnSize(int w, int h)
 {
 }
 
-void TilingRenderPolicyMT::drawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & currentScreen)
+void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & currentScreen)
 {
   DrawerYG * pDrawer = e->drawer().get();
   pDrawer->screen()->clear(bgColor());

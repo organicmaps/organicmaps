@@ -24,6 +24,8 @@
 #include "../std/algorithm.hpp"
 #include "../std/fstream.hpp"
 
+#include "render_policy_st.hpp"
+
 #include "tiling_render_policy_st.hpp"
 #include "tiling_render_policy_mt.hpp"
 
@@ -86,6 +88,7 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
     m_centeringMode(EDoNothing),
     m_tileSize(GetPlatform().TileSize())
 {
+//  SetRenderPolicy(make_shared_ptr(new RenderPolicyST(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4))));
   SetRenderPolicy(make_shared_ptr(new TilingRenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4))));
   m_informationDisplay.setBottomShift(bottomShift);
 #ifdef DRAW_TOUCH_POINTS
@@ -165,7 +168,7 @@ void Framework<TModel>::initializeGL(
                   shared_ptr<yg::gl::RenderContext> const & primaryContext,
                   shared_ptr<yg::ResourceManager> const & resourceManager)
 {
-  m_renderPolicy->initialize(primaryContext, resourceManager);
+  m_renderPolicy->Initialize(primaryContext, resourceManager);
 }
 
 template <typename TModel>
@@ -253,7 +256,7 @@ void Framework<TModel>::OnSize(int w, int h)
 
   m_navigator.OnSize(0, 0, w, h);
 
-  m_renderPolicy->onSize(w, h);
+  m_renderPolicy->OnSize(w, h);
 }
 
 template <typename TModel>
@@ -313,6 +316,7 @@ template <typename TModel>
 void Framework<TModel>::Paint(shared_ptr<PaintEvent> e)
 {
   DrawerYG * pDrawer = e->drawer().get();
+  pDrawer->SetVisualScale(GetPlatform().VisualScale());
 
   m_informationDisplay.setScreen(m_navigator.Screen());
 
@@ -327,7 +331,7 @@ void Framework<TModel>::Paint(shared_ptr<PaintEvent> e)
 
   e->drawer()->screen()->beginFrame();
 
-  m_renderPolicy->drawFrame(e, m_navigator.Screen());
+  m_renderPolicy->DrawFrame(e, m_navigator.Screen());
 
   m_informationDisplay.doDraw(pDrawer);
 

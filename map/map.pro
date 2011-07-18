@@ -29,7 +29,8 @@ HEADERS += \
     tiling_render_policy_st.hpp \
     tiling_render_policy.hpp \
     benchmark_framework.hpp \
-    framework_factory.hpp
+    framework_factory.hpp \
+    render_policy_st.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -48,7 +49,8 @@ SOURCES += \
     tiling_render_policy_st.cpp \
     tiling_render_policy.cpp \
     benchmark_framework.cpp \
-    framework_factory.cpp
+    framework_factory.cpp \
+    render_policy_st.cpp
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp

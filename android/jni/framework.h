@@ -22,7 +22,7 @@ public:
 
 private:
   shared_ptr<ViewHandle> m_view;
-  FrameWork<model::FeaturesFetcher> m_work;
+  Framework<model::FeaturesFetcher> m_work;
   storage::Storage m_storage;
 
   JNIEnv * m_env;

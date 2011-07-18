@@ -28,7 +28,7 @@ RenderPolicy::render_fn_t RenderPolicy::renderFn() const
   return m_renderFn;
 }
 
-void RenderPolicy::initialize(shared_ptr<yg::gl::RenderContext> const &,
+void RenderPolicy::Initialize(shared_ptr<yg::gl::RenderContext> const &,
                               shared_ptr<yg::ResourceManager> const & resourceManager)
 {
   m_resourceManager = resourceManager;

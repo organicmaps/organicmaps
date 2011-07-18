@@ -19,10 +19,10 @@ TilingRenderPolicyST::TilingRenderPolicyST(shared_ptr<WindowHandle> const & wind
     m_tileCache(GetPlatform().MaxTilesCount() - 1)
 {}
 
-void TilingRenderPolicyST::initialize(shared_ptr<yg::gl::RenderContext> const & primaryContext,
+void TilingRenderPolicyST::Initialize(shared_ptr<yg::gl::RenderContext> const & primaryContext,
                                       shared_ptr<yg::ResourceManager> const & rm)
 {
-  RenderPolicy::initialize(primaryContext, rm);
+  RenderPolicy::Initialize(primaryContext, rm);
 
   /// render single tile on the same thread
   shared_ptr<yg::gl::FrameBuffer> frameBuffer(new yg::gl::FrameBuffer());
@@ -50,10 +50,10 @@ void TilingRenderPolicyST::initialize(shared_ptr<yg::gl::RenderContext> const & 
   m_tileScreen.OnSize(renderRect);
 }
 
-void TilingRenderPolicyST::onSize(int w, int h)
+void TilingRenderPolicyST::OnSize(int w, int h)
 {}
 
-void TilingRenderPolicyST::drawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & currentScreen)
+void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & currentScreen)
 {
   DrawerYG * pDrawer = e->drawer().get();
 
