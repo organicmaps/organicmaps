@@ -54,15 +54,13 @@ public class GesturesProcessor
       break;
 
     case MotionEvent.ACTION_UP:
-      getPointsMove(e);
       nativeMove(END, m_pt1.x, m_pt1.y);
       m_mode = NONE;
       break;
 
     case MotionEvent.ACTION_POINTER_UP:
-      getPointsZoom(e);
       nativeZoom(END, m_pt1.x, m_pt1.y, m_pt2.x, m_pt2.y);
-      m_mode = NONE;  // MOVE
+      m_mode = NONE;
       break;
 
     case MotionEvent.ACTION_MOVE:
