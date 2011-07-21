@@ -25,21 +25,6 @@ namespace yg
       return id;
     }
 
-    void FrameBuffer::pushCurrent()
-    {
-      //frameBufferStack.push_back(current());
-    }
-
-    void FrameBuffer::popCurrent()
-    {
-//#ifdef OMIM_GL_ES
-//        OGLCHECK(glBindFramebufferOES(GL_FRAMEBUFFER_OES, frameBufferStack.back()));
-//#else
-//        OGLCHECK(glBindFramebuffer(GL_FRAMEBUFFER_EXT, frameBufferStack.back()));
-//#endif
-//        frameBufferStack.pop_back();
-    }
-
     FrameBuffer::FrameBuffer(bool defaultFB /*= false*/) : m_width(0), m_height(0)
     {
       if (defaultFB)
@@ -68,7 +53,9 @@ namespace yg
 
     void FrameBuffer::makeCurrent()
     {
-      //if (m_id != current())
+#ifndef OMIM_OS_ANDROID
+      if (m_id != current())
+#endif
       {
 #ifdef OMIM_GL_ES
         OGLCHECK(glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_id));

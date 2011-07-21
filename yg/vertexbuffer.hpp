@@ -30,8 +30,6 @@ namespace yg
       void * glPtr() const;
 
       static unsigned current();
-      static void pushCurrent();
-      static void popCurrent();
     };
   }
 }

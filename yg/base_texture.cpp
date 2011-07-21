@@ -71,7 +71,9 @@ namespace yg
 
     void BaseTexture::makeCurrent()
     {
-      //if (current() != m_id)
+#ifndef OMIM_OS_ANDROID
+      if (current() != m_id)
+#endif
         OGLCHECK(glBindTexture(GL_TEXTURE_2D, m_id));
     }
 

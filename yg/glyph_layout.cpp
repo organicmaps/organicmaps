@@ -9,6 +9,7 @@
 
 #include "../geometry/angles.hpp"
 #include "../geometry/aa_rect2d.hpp"
+#include "../base/thread.hpp"
 
 namespace yg
 {
@@ -81,7 +82,7 @@ namespace yg
       m_pivot(pt)
   {
     m2::RectD limitRect;
-    m2::PointD curPt;
+    m2::PointD curPt(0, 0);
 
     bool isFirst = true;
 
@@ -90,6 +91,7 @@ namespace yg
       GlyphKey glyphKey(visText[i], fontDesc.m_size, fontDesc.m_isMasked, fontDesc.m_color);
 
       GlyphMetrics const m = glyphCache->getGlyphMetrics(glyphKey);
+
       if (isFirst)
       {
         limitRect = m2::RectD(m.m_xOffset,

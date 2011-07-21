@@ -20,18 +20,6 @@ namespace yg
       return id;
     }
 
-    void IndexBuffer::pushCurrent()
-    {
-//      indexBufferStack.push_back(current());
-    }
-
-    void IndexBuffer::popCurrent()
-    {
-//      if (indexBufferStack.back() != (unsigned int)-1)
-//        OGLCHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferStack.back()));
-//      indexBufferStack.pop_back();
-    }
-
     IndexBuffer::IndexBuffer(bool useVA)
       : m_size(0), m_gpuData(0), m_useVA(useVA)
     {
@@ -114,7 +102,9 @@ namespace yg
       if (m_useVA)
         return;
 
-      //if (m_id != current())
+#ifndef OMIM_OS_ANDROID
+      if (m_id != current())
+#endif
         OGLCHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id));
     }
 

@@ -20,18 +20,6 @@ namespace yg
       return id;
     }
 
-    void VertexBuffer::pushCurrent()
-    {
-//      vertexBufferStack.push_back(current());
-    }
-
-    void VertexBuffer::popCurrent()
-    {
-//      if (vertexBufferStack.back() != (unsigned int)-1)
-//        OGLCHECK(glBindBuffer(GL_ARRAY_BUFFER, vertexBufferStack.back()));
-//      vertexBufferStack.pop_back();
-    }
-
     VertexBuffer::VertexBuffer(bool useVA)
       : m_size(0), m_gpuData(0), m_useVA(useVA)
     {
@@ -123,7 +111,9 @@ namespace yg
       if (m_useVA)
         return;
 
-      //if (m_id != current())
+#ifndef OMIM_OS_ANDROID
+      if (m_id != current())
+#endif
         OGLCHECK(glBindBuffer(GL_ARRAY_BUFFER, m_id));
     }
 

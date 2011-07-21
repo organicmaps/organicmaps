@@ -25,25 +25,9 @@ namespace yg
       return id;
     }
 
-    void RenderBuffer::pushCurrent()
-    {
-//      renderBufferStack.push_back(current());
-    }
-
-    void RenderBuffer::popCurrent()
-    {
-//#ifdef OMIM_GL_ES
-//        OGLCHECK(glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderBufferStack.back()));
-//#else
-//        OGLCHECK(glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, renderBufferStack.back()));
-//#endif
-//        renderBufferStack.pop_back();
-    }
-
     RenderBuffer::RenderBuffer(size_t width, size_t height, bool isDepthBuffer)
       : m_isDepthBuffer(isDepthBuffer), m_width(width), m_height(height)
     {
-        pushCurrent();
 #ifdef OMIM_GL_ES
         OGLCHECK(glGenRenderbuffersOES(1, &m_id));
         makeCurrent();
@@ -68,7 +52,6 @@ namespace yg
                                           height));
 
 #endif
-        popCurrent();
     }
 
     RenderBuffer::~RenderBuffer()
@@ -109,7 +92,9 @@ namespace yg
 
     void RenderBuffer::makeCurrent()
     {
-      //if (m_id != current())
+#ifndef OMIM_OS_ANDROID
+      if (m_id != current())
+#endif
       {
 #ifdef OMIM_GL_ES
         OGLCHECK(glBindRenderbufferOES(GL_RENDERBUFFER_OES, m_id));

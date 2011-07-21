@@ -33,9 +33,6 @@ namespace yg
 
       unsigned width() const;
       unsigned height() const;
-
-      static void pushCurrent();
-      static void popCurrent();
     };
   }
 }

@@ -28,10 +28,7 @@ namespace yg
 
       void * glPtr();
 
-      static void pushCurrent();
-      static void popCurrent();
       static int current();
-
     };
   }
 }
