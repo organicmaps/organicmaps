@@ -42,12 +42,13 @@ public class GesturesProcessor
     switch (e.getAction() & MotionEvent.ACTION_MASK)
     {
     case MotionEvent.ACTION_DOWN:
-      getPointsMove(e);
       m_mode = MOVE;
+      getPointsMove(e);
       nativeMove(START, m_pt1.x, m_pt1.y);
       break;
 
     case MotionEvent.ACTION_POINTER_DOWN:
+      m_mode = ZOOM;
       getPointsZoom(e);
       nativeZoom(START, m_pt1.x, m_pt1.y, m_pt2.x, m_pt2.y);
       break;
@@ -61,7 +62,7 @@ public class GesturesProcessor
     case MotionEvent.ACTION_POINTER_UP:
       getPointsZoom(e);
       nativeZoom(END, m_pt1.x, m_pt1.y, m_pt2.x, m_pt2.y);
-      m_mode = NONE;
+      m_mode = NONE;  // MOVE
       break;
 
     case MotionEvent.ACTION_MOVE:

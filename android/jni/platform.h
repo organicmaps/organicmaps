@@ -11,11 +11,12 @@ public:
 
   virtual ModelReader * GetReader(string const & file) const;
 
-  virtual bool IsMultiSampled() const;
-
   virtual void GetFontNames(FilesList & res) const;
   virtual int CpuCores() const;
   virtual string DeviceID() const;
+
+  double VisualScale() const;
+  string SkinName() const;
 };
 
 AndroidPlatform & GetAndroidPlatform();

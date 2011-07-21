@@ -54,7 +54,7 @@ class MainRenderer implements GLSurfaceView.Renderer
   //@Override
   public void onDrawFrame(GL10 gl)
   {
-    Log.i(TAG, "onDrawFrame");
+    //Log.i(TAG, "onDrawFrame");
     nativeDraw();
   }
 

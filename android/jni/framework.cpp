@@ -26,6 +26,8 @@ AndroidFramework::AndroidFramework()
   m_work.InitStorage(m_storage);
   shared_ptr<RenderPolicy> renderPolicy(new RenderPolicyST(m_view, bind(&Framework<model::FeaturesFetcher>::DrawModel, &m_work, _1, _2, _3, _4)));
   m_work.SetRenderPolicy(renderPolicy);
+  // @TODO refactor storage
+  m_storage.ReInitCountries(false);
 }
 
 void AndroidFramework::SetParentView(JNIEnv * env, jobject view)
@@ -62,22 +64,27 @@ void AndroidFramework::Resize(int w, int h)
 
 void AndroidFramework::DrawFrame()
 {
-/*  yg::gl::Screen * screen = m_view->drawer()->screen().get();
-  screen->beginFrame();
-  screen->clear();
-
-  m2::PointD centerPt(screen->width() / 2,
-                      screen->height() / 2);
-
-  m2::RectD r(centerPt.x - 100,
-              centerPt.y - 50,
-              centerPt.x + 100,
-              centerPt.y + 50);
-
-  screen->drawText(yg::FontDesc::defaultFont, centerPt, yg::EPosCenter, "Simplicity is the ultimate sophistication", yg::maxDepth, false);
-  screen->drawRectangle(r, yg::Color(255, 0, 0, 255), yg::maxDepth);
-  screen->drawRectangle(m2::Offset(r, m2::PointD(50, 50)), yg::Color(0, 255, 0, 255), yg::maxDepth);
-  screen->endFrame();
-*/
   m_work.Paint(make_shared_ptr(new PaintEvent(m_view->drawer())));
+}
+
+void AndroidFramework::Move(int mode, double x, double y)
+{
+  DragEvent e(x, y);
+  switch (mode)
+  {
+  case 0: m_work.StartDrag(e); break;
+  case 1: m_work.DoDrag(e); break;
+  case 2: m_work.StopDrag(e); break;
+  }
+}
+
+void AndroidFramework::Zoom(int mode, double x1, double y1, double x2, double y2)
+{
+  ScaleEvent e(x1, y1, x2, y2);
+  switch (mode)
+  {
+  case 0: m_work.StartScale(e); break;
+  case 1: m_work.DoScale(e); break;
+  case 2: m_work.StopScale(e); break;
+  }
 }

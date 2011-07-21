@@ -104,10 +104,11 @@ namespace storage
     void DownloadNextCountryFromQueue();
     Country const & CountryByIndex(TIndex const & index) const;
     string UpdateBaseUrl() const;
-    void ReInitCountries(bool forceReload);
 
   public:
     Storage() {}
+    /// @TODO temporarily made public for Android, refactor
+    void ReInitCountries(bool forceReload);
 
     /// Adds all locally downloaded maps to the model
     void Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc, TUpdateRectFunction updateRectFunc, TEnumMapsFunction enumMapFunction);

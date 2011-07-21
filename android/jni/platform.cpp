@@ -22,14 +22,15 @@ ModelReader * AndroidPlatform::GetReader(string const & file) const
     return new ZipFileReader(m_resourcesDir, "assets/" + file);
 }
 
-bool AndroidPlatform::IsMultiSampled() const
-{
-  return false;
-}
-
 void AndroidPlatform::GetFontNames(FilesList & res) const
 {
   res.push_back("01_dejavusans.ttf");
+  res.push_back("02_wqy-microhei.ttf");
+  res.push_back("03_jomolhari-id-a3d.ttf");
+  res.push_back("04_padauk.ttf");
+  res.push_back("05_khmeros.ttf");
+  res.push_back("06_code2000.ttf");
+
   /// @todo Need to make refactoring of yg fonts
 }
 
@@ -41,6 +42,16 @@ int AndroidPlatform::CpuCores() const
 string AndroidPlatform::DeviceID() const
 {
   return "Android";
+}
+
+double AndroidPlatform::VisualScale() const
+{
+  return 1.3;
+}
+
+string AndroidPlatform::SkinName() const
+{
+  return "basic.skn";
 }
 
 AndroidPlatform & GetAndroidPlatform()
