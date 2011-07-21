@@ -71,7 +71,7 @@ namespace yg
 
     void BaseTexture::makeCurrent()
     {
-      if (current() != m_id)
+      //if (current() != m_id)
         OGLCHECK(glBindTexture(GL_TEXTURE_2D, m_id));
     }
 

@@ -22,14 +22,14 @@ namespace yg
 
     void VertexBuffer::pushCurrent()
     {
-      vertexBufferStack.push_back(current());
+//      vertexBufferStack.push_back(current());
     }
 
     void VertexBuffer::popCurrent()
     {
-      if (vertexBufferStack.back() != (unsigned int)-1)
-        OGLCHECK(glBindBuffer(GL_ARRAY_BUFFER, vertexBufferStack.back()));
-      vertexBufferStack.pop_back();
+//      if (vertexBufferStack.back() != (unsigned int)-1)
+//        OGLCHECK(glBindBuffer(GL_ARRAY_BUFFER, vertexBufferStack.back()));
+//      vertexBufferStack.pop_back();
     }
 
     VertexBuffer::VertexBuffer(bool useVA)
@@ -123,7 +123,7 @@ namespace yg
       if (m_useVA)
         return;
 
-      if (m_id != current())
+      //if (m_id != current())
         OGLCHECK(glBindBuffer(GL_ARRAY_BUFFER, m_id));
     }
 

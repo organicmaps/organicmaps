@@ -27,17 +27,17 @@ namespace yg
 
     void FrameBuffer::pushCurrent()
     {
-      frameBufferStack.push_back(current());
+      //frameBufferStack.push_back(current());
     }
 
     void FrameBuffer::popCurrent()
     {
-#ifdef OMIM_GL_ES
-        OGLCHECK(glBindFramebufferOES(GL_FRAMEBUFFER_OES, frameBufferStack.back()));
-#else
-        OGLCHECK(glBindFramebuffer(GL_FRAMEBUFFER_EXT, frameBufferStack.back()));
-#endif
-        frameBufferStack.pop_back();
+//#ifdef OMIM_GL_ES
+//        OGLCHECK(glBindFramebufferOES(GL_FRAMEBUFFER_OES, frameBufferStack.back()));
+//#else
+//        OGLCHECK(glBindFramebuffer(GL_FRAMEBUFFER_EXT, frameBufferStack.back()));
+//#endif
+//        frameBufferStack.pop_back();
     }
 
     FrameBuffer::FrameBuffer(bool defaultFB /*= false*/) : m_width(0), m_height(0)
@@ -68,7 +68,7 @@ namespace yg
 
     void FrameBuffer::makeCurrent()
     {
-      if (m_id != current())
+      //if (m_id != current())
       {
 #ifdef OMIM_GL_ES
         OGLCHECK(glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_id));

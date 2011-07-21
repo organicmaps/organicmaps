@@ -27,17 +27,17 @@ namespace yg
 
     void RenderBuffer::pushCurrent()
     {
-      renderBufferStack.push_back(current());
+//      renderBufferStack.push_back(current());
     }
 
     void RenderBuffer::popCurrent()
     {
-#ifdef OMIM_GL_ES
-        OGLCHECK(glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderBufferStack.back()));
-#else
-        OGLCHECK(glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, renderBufferStack.back()));
-#endif
-        renderBufferStack.pop_back();
+//#ifdef OMIM_GL_ES
+//        OGLCHECK(glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderBufferStack.back()));
+//#else
+//        OGLCHECK(glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, renderBufferStack.back()));
+//#endif
+//        renderBufferStack.pop_back();
     }
 
     RenderBuffer::RenderBuffer(size_t width, size_t height, bool isDepthBuffer)
@@ -109,7 +109,7 @@ namespace yg
 
     void RenderBuffer::makeCurrent()
     {
-      if (m_id != current())
+      //if (m_id != current())
       {
 #ifdef OMIM_GL_ES
         OGLCHECK(glBindRenderbufferOES(GL_RENDERBUFFER_OES, m_id));
