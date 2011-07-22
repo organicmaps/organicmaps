@@ -17,7 +17,7 @@ typedef uint32_t (* StringMatchFn)(strings::UniChar const * sA, uint32_t sizeA,
 // Matches keywords agains given names.
 class KeywordMatcher
 {
-  strings::UniString const * m_pKewords;
+  strings::UniString const * m_pKeywords;
   strings::UniString const & m_prefix;
   uint32_t m_maxKeywordMatchCost, m_maxPrefixMatchCost;
   StringMatchFn m_keywordMatchFn, m_prefixMatchFn;
