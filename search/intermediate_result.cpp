@@ -67,7 +67,8 @@ Result IntermediateResult::GenerateFinalResult() const
   switch (m_resultType)
   {
   case RESULT_FEATURE:
-    return Result(m_str, m_type, m_rect, m_distance, m_direction);
+    return Result(m_str + ' ' + strings::to_string(m_matchPenalty), m_type, m_rect,
+                  m_distance, m_direction);
   case RESULT_LATLON:
     return Result(m_str, 0, m_rect, m_distance, m_direction);
   case RESULT_CATEGORY:
