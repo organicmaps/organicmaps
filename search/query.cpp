@@ -81,7 +81,22 @@ struct FeatureProcessor
       MYTHROW(StopException, ());
     }
 
-    KeywordMatcher matcher(MakeMatcher(m_query.GetKeywords(), m_query.GetPrefix()));
+    uint32_t keywordsSkipMask = 0;
+    FeatureType::GetTypesFn types;
+    feature.ForEachTypeRef(types);
+    for (int i = 0; i < types.m_size; ++i)
+      keywordsSkipMask |= m_query.GetKeywordsToSkipForType(types.m_types[i]);
+
+    // TODO: Make faster.
+    vector<strings::UniString> const & queryKeywords = m_query.GetKeywords();
+    ASSERT_LESS(queryKeywords.size(), 32, ());
+    vector<strings::UniString> keywords;
+    keywords.reserve(queryKeywords.size());
+    for (size_t i = 0; i < queryKeywords.size() && i < 32; ++i)
+      if (!(keywordsSkipMask & (1 << i)))
+        keywords.push_back(queryKeywords[i]);
+
+    KeywordMatcher matcher(MakeMatcher(keywords, m_query.GetPrefix()));
     feature.ForEachNameRef(matcher);
     if (matcher.GetPrefixMatchScore() <= GetMaxPrefixMatchScore(m_query.GetPrefix().size()))
     {
@@ -286,6 +301,14 @@ void Query::AddResult(IntermediateResult const & result)
     m_results.pop();
     m_results.push(result);
   }
+}
+
+uint32_t Query::GetKeywordsToSkipForType(uint32_t const type) const
+{
+  unordered_map<uint32_t, uint32_t>::const_iterator it = m_keywordsToSkipForType.find(type);
+  if (it == m_keywordsToSkipForType.end())
+    return 0;
+  return it->second;
 }
 
 }  // namespace search::impl

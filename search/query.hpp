@@ -50,6 +50,7 @@ public:
   m2::RectD const & GetViewport() const { return m_viewport; }
   vector<strings::UniString> const & GetKeywords() const { return m_keywords; }
   strings::UniString const & GetPrefix() const { return m_prefix; }
+  uint32_t GetKeywordsToSkipForType(uint32_t const type) const;
 
 private:
   string m_queryText;
@@ -58,7 +59,6 @@ private:
 
   vector<strings::UniString> m_keywords;
   unordered_map<uint32_t, uint32_t> m_keywordsToSkipForType;
-  vector<vector<uint32_t> > m_keywordCategories;
   strings::UniString m_prefix;
 
   scoped_ptr<IndexType const> m_pIndex;
