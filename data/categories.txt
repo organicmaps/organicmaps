@@ -27,8 +27,8 @@ en:bus
 ru:автобус|автостанция
 
 amenity-cafe
-en:cafe|coffee
-ru:кафе|кофе
+en:1cafe|coffee
+ru:1кафе|кофе
 
 amenity-car_sharing
 en:car rent|rent car|lend car|car lend
