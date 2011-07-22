@@ -14,4 +14,6 @@ public:
   DECLARE_EXCEPTION(InvalidZipException, OpenException);
 
   ZipFileReader(string const & container, string const & file);
+
+  static vector<string> FilesList(string const & zipContainer);
 };
