@@ -1,6 +1,6 @@
 #include "logging.h"
-#include "platform.h"
-#include "framework.h"
+#include "android_platform.hpp"
+#include "android_framework.hpp"
 
 #include "../../storage/storage.hpp"
 

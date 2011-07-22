@@ -11,16 +11,16 @@ LOCAL_HEADER_FILES := \
 	jni_helper.h \
 	jni_string.h \
 	logging.h \
-	platform.h \
-	framework.h \
+	android_platform.hpp \
+	android_framework.hpp \
 	rendering.h \	
 
 LOCAL_SRC_FILES := \
 	main_native.cpp \
 	jni_helper.cpp \
 	jni_string.cpp \
-	platform.cpp \
-	framework.cpp \
+	android_platform.cpp \
+	android_framework.cpp \
 	logging.cpp \
 	temp_stubs.cpp \
 	rendering.cpp \
