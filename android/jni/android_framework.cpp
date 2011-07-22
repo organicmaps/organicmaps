@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "android_framework.hpp"
 #include "jni_helper.h"
 #include "rendering.h"
 #include "../../std/shared_ptr.hpp"
