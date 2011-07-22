@@ -94,11 +94,13 @@ UNIT_TEST(ZipFilesList)
     FileWriter f(ZIPFILE);
     f.Write(zipBytes2, ARRAY_SIZE(zipBytes2) - 1);
   }
+  TEST(ZipFileReader::IsZip(ZIPFILE), ());
   string const ZIPFILE_INVALID = "invalid_test.zip";
   {
     FileWriter f(ZIPFILE_INVALID);
     f.Write(invalidZip, ARRAY_SIZE(invalidZip) - 1);
   }
+  TEST(!ZipFileReader::IsZip(ZIPFILE_INVALID), ());
 
   try
   {

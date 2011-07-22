@@ -64,3 +64,12 @@ vector<string> ZipFileReader::FilesList(string const & zipContainer)
 
   return filesList;
 }
+
+bool ZipFileReader::IsZip(string const & zipContainer)
+{
+  unzFile zip = unzOpen64(zipContainer.c_str());
+  if (!zip)
+    return false;
+  unzClose(zip);
+  return true;
+}

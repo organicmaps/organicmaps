@@ -16,4 +16,6 @@ public:
   ZipFileReader(string const & container, string const & file);
 
   static vector<string> FilesList(string const & zipContainer);
+  /// Quick version without exceptions
+  static bool IsZip(string const & zipContainer);
 };
