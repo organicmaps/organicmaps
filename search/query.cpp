@@ -56,7 +56,8 @@ inline uint32_t GetMaxPrefixMatchScore(int size)
   return 512;
 }
 
-inline KeywordMatcher MakeMatcher(vector<strings::UniString> const & tokens,
+template <typename UniStringPtrVectorT>
+inline KeywordMatcher MakeMatcher(UniStringPtrVectorT const & tokens,
                                   strings::UniString const & prefix)
 {
   return KeywordMatcher(tokens.empty() ? NULL : &tokens[0], tokens.size(),
@@ -87,14 +88,13 @@ struct FeatureProcessor
     for (int i = 0; i < types.m_size; ++i)
       keywordsSkipMask |= m_query.GetKeywordsToSkipForType(types.m_types[i]);
 
-    // TODO: Make faster.
     vector<strings::UniString> const & queryKeywords = m_query.GetKeywords();
     ASSERT_LESS(queryKeywords.size(), 32, ());
-    vector<strings::UniString> keywords;
+    buffer_vector<strings::UniString const *, 32> keywords;
     keywords.reserve(queryKeywords.size());
     for (size_t i = 0; i < queryKeywords.size() && i < 32; ++i)
       if (!(keywordsSkipMask & (1 << i)))
-        keywords.push_back(queryKeywords[i]);
+        keywords.push_back(&queryKeywords[i]);
 
     KeywordMatcher matcher(MakeMatcher(keywords, m_query.GetPrefix()));
     feature.ForEachNameRef(matcher);
@@ -202,7 +202,7 @@ void Query::Search(function<void (Result const &)> const & f)
           // TODO: Prefer user languages here.
           if (m_prefix.size() >= iName->m_prefixLengthToSuggest)
           {
-            KeywordMatcher matcher = MakeMatcher(vector<strings::UniString>(), m_prefix);
+            KeywordMatcher matcher = MakeMatcher(vector<strings::UniString const *>(), m_prefix);
             matcher.ProcessNameToken(string(), NormalizeAndSimplifyString(iName->m_name));
             ASSERT_LESS(iName->m_prefixLengthToSuggest, 1 << PREFIX_LEN_BITS, ());
             int const penalty =
