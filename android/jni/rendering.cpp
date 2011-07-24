@@ -50,6 +50,7 @@ shared_ptr<DrawerYG> CreateDrawer(shared_ptr<yg::ResourceManager> pRM)
   p.m_resourceManager = pRM;
   p.m_glyphCacheID = pRM->guiThreadGlyphCacheID();
   p.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
+  p.m_useOverlay = true;
 
   return make_shared_ptr(new DrawerYG(pl.SkinName(), p));
 }

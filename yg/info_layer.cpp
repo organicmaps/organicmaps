@@ -199,10 +199,10 @@ namespace yg
 
   void InfoLayer::addPathText(PathTextElement const & pte, math::Matrix<double, 3, 3> const & m)
   {
-/*    if (m == math::Identity<double, 3>())
+    if (m == math::Identity<double, 3>())
       addPathTextImpl(pte);
     else
-      addPathTextImpl(PathTextElement(pte, m));*/
+      addPathTextImpl(PathTextElement(pte, m));
   }
 
   void InfoLayer::merge(InfoLayer const & layer, math::Matrix<double, 3, 3> const & m)

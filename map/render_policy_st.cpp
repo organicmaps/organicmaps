@@ -3,6 +3,7 @@
 #include "render_policy_st.hpp"
 #include "events.hpp"
 #include "drawer_yg.hpp"
+#include "../yg/info_layer.hpp"
 
 #include "../indexer/scales.hpp"
 #include "../geometry/screenbase.hpp"
@@ -31,10 +32,17 @@ void RenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e,
                    pxCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
          glbRect);
 
+  shared_ptr<yg::InfoLayer> infoLayer(new yg::InfoLayer());
+
+  e->drawer()->screen()->setInfoLayer(infoLayer);
+
   e->drawer()->SetVisualScale(GetPlatform().VisualScale());
 
   e->drawer()->screen()->clear(bgColor());
   renderFn()(e, s, s.GlobalRect(), scales::GetScaleLevel(glbRect));
+
+  infoLayer->draw(e->drawer()->screen().get(), math::Identity<double, 3>());
+  e->drawer()->screen()->resetInfoLayer();
 }
 
 void RenderPolicyST::OnSize(int w, int h)
