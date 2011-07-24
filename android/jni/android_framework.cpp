@@ -5,6 +5,7 @@
 
 #include "../../base/logging.hpp"
 #include "../../map/render_policy_st.hpp"
+#include "../../map/tiling_render_policy_st.hpp"
 #include "../../std/shared_ptr.hpp"
 #include "../../std/bind.hpp"
 #include "../../map/framework.hpp"

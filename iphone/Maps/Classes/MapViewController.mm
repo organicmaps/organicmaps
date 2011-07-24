@@ -12,7 +12,7 @@
 #include "../../map/drawer_yg.hpp"
 #include "../../storage/storage.hpp"
 
-typedef FrameWork<model::FeaturesFetcher> framework_t;
+typedef Framework<model::FeaturesFetcher> framework_t;
 
 @implementation MapViewController
 
@@ -136,7 +136,7 @@ storage::Storage m_storage;
     if (!res)
       m_framework->SetMaxWorldRect();
     
-    m_framework->UpdateNow();
+    m_framework->Invalidate();
 
     m_framework->initializeGL([(EAGLView*)self.view renderContext], resourceManager);
 
