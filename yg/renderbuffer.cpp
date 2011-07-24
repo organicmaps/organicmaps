@@ -35,7 +35,7 @@ namespace yg
         GLenum target = GL_RENDERBUFFER_OES;
         GLenum internalFormat = m_isDepthBuffer ? GL_DEPTH_COMPONENT24_OES : GL_RGBA8_OES;
 
-        OGLCHECK(glRenderbufferStorageOES(GL_RENDERBUFFER_OES,
+        OGLCHECK(glRenderbufferStorageOES(target,
                                           internalFormat,
                                           width,
                                           height));

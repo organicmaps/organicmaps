@@ -138,7 +138,9 @@ namespace yg
       else if (res == GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_OES)
         LOG(LINFO, ("incomplete missing attachement"));
       else if (res == GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_OES)
+      {
         LOG(LINFO, ("incomplete dimensions"));
+      }
 #else
       GLenum res = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
       if (res == GL_FRAMEBUFFER_UNSUPPORTED)
