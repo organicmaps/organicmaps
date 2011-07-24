@@ -5,8 +5,7 @@
 
 #include "../../coding/zip_reader.hpp"
 
-
-void AndroidPlatform::Initialize(JNIEnv * env, jobject activity, jstring apkPath, jstring storagePath)
+void AndroidPlatform::Initialize(JNIEnv * env, jstring apkPath, jstring storagePath)
 {
   m_resourcesDir = jni::ToString(env, apkPath);
   m_writableDir = jni::ToString(env, storagePath);

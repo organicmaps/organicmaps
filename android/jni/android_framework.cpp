@@ -17,12 +17,15 @@ void AndroidFramework::ViewHandle::invalidateImpl()
 
 void AndroidFramework::CallRepaint()
 {
-  m_env->CallVoidMethod(m_parentView,
-          jni::GetJavaMethodID(m_env, m_parentView, "requestRender", "()V"));
+  // Always get current env pointer, it's different for each thread
+  JNIEnv * env;
+  m_jvm->AttachCurrentThread(&env, NULL);
+  LOG(LDEBUG, ("AF::CallRepaint", env));
+  env->CallVoidMethod(m_parentView, jni::GetJavaMethodID(env, m_parentView, "requestRender", "()V"));
 }
 
-AndroidFramework::AndroidFramework()
-: m_view(new ViewHandle(this)), m_work(m_view, 0)
+AndroidFramework::AndroidFramework(JavaVM * jvm)
+: m_jvm(jvm), m_view(new ViewHandle(this)), m_work(m_view, 0)
 {
   m_work.InitStorage(m_storage);
   shared_ptr<RenderPolicy> renderPolicy(new RenderPolicyST(m_view, bind(&Framework<model::FeaturesFetcher>::DrawModel, &m_work, _1, _2, _3, _4)));
@@ -31,9 +34,8 @@ AndroidFramework::AndroidFramework()
   m_storage.ReInitCountries(false);
 }
 
-void AndroidFramework::SetParentView(JNIEnv * env, jobject view)
+void AndroidFramework::SetParentView(jobject view)
 {
-  m_env = env;
   m_parentView = view;
 }
 
@@ -52,9 +54,11 @@ void AndroidFramework::InitRenderer()
   LOG(LDEBUG, ("AF::InitRenderer 4"));
   m_work.initializeGL(pRC, pRM);
 
+  LOG(LDEBUG, ("AF::InitRenderer 5"));
+
   m_work.ShowAll();
 
-  LOG(LDEBUG, ("AF::InitRenderer 5"));
+  LOG(LDEBUG, ("AF::InitRenderer 6"));
 }
 
 void AndroidFramework::Resize(int w, int h)

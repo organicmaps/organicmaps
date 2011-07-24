@@ -25,17 +25,17 @@ private:
   Framework<model::FeaturesFetcher> m_work;
   storage::Storage m_storage;
 
-  JNIEnv * m_env;
+  JavaVM * m_jvm;
   jobject m_parentView;
 
   void CallRepaint();
 
 public:
-  AndroidFramework();
+  AndroidFramework(JavaVM * jvm);
 
   storage::Storage & Storage() { return m_storage; }
 
-  void SetParentView(JNIEnv * env, jobject view);
+  void SetParentView(jobject view);
 
   void InitRenderer();
 

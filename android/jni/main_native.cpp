@@ -7,7 +7,8 @@
 #include <string.h>
 #include <jni.h>
 
-AndroidFramework * g_work = 0;
+static AndroidFramework * g_work = 0;
+static JavaVM * g_jvm = 0;
 
 extern "C"
 {
@@ -15,19 +16,33 @@ extern "C"
 // MWMActivity
 ///////////////////////////////////////////////////////////////////////////////////
 
+JNIEXPORT jint JNICALL
+JNI_OnLoad(JavaVM * jvm, void * reserved)
+{
+  g_jvm = jvm;
+  jni::InitSystemLog();
+  jni::InitAssertLog();
+  LOG(LDEBUG, ("JNI_OnLoad"));
+  return JNI_VERSION_1_4;
+}
+
+JNIEXPORT void JNICALL
+JNI_OnUnload(JavaVM * vm, void * reserved)
+{
+  delete g_work;
+}
+
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_MWMActivity_nativeInit(JNIEnv * env, jobject thiz, jstring apkPath, jstring storagePath)
 {
-  jni::InitSystemLog();
-  jni::InitAssertLog();
+  LOG(LDEBUG, ("Java_com_mapswithme_maps_MWMActivity_nativeInit 1"));
+  if (!g_work)
+  {
+    GetAndroidPlatform().Initialize(env, apkPath, storagePath);
+    g_work = new AndroidFramework(g_jvm);
+  }
 
-  LOG(LDEBUG, ("MWMActivity::Init 1"));
-  GetAndroidPlatform().Initialize(env, thiz, apkPath, storagePath);
-
-  LOG(LDEBUG, ("MWMActivity::Init 2"));
-  g_work = new AndroidFramework();
-
-  LOG(LDEBUG, ("MWMActivity::Init 3"));
+  LOG(LDEBUG, ("Java_com_mapswithme_maps_MWMActivity_nativeInit 2"));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -38,7 +53,7 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_MainGLView_nativeInit(JNIEnv * env, jobject thiz)
 {
   ASSERT ( g_work, () );
-  g_work->SetParentView(env, thiz);
+  g_work->SetParentView(thiz);
 }
 
 JNIEXPORT void JNICALL
