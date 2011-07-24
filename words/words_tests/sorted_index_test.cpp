@@ -1,6 +1,8 @@
 #include "../../testing/testing.hpp"
 #include "../sloynik_index.hpp"
 #include "dictionary_mock.hpp"
+#include "../../platform/platform.hpp"
+#include "../../coding/file_writer.hpp"
 #include "../../std/algorithm.hpp"
 #include "../../std/bind.hpp"
 #include "../../std/map.hpp"
@@ -98,7 +100,7 @@ UNIT_TEST(SortedIndex_Smoke)
   SetupDictionary(dictionary);
   sl::StrFn strFn = StrFnForTest();
   sl::SortedIndex::Build(dictionary, strFn, filePrefix);
-  sl::SortedIndex idx(dictionary, new FileReader(filePrefix + ".idx"), strFn);
+  sl::SortedIndex idx(dictionary, GetPlatform().GetReader(filePrefix + ".idx"), strFn);
   TEST_EQUAL(dictionary.KeyCount(), 5, ());
   TEST_EQUAL(KeyByIndexId(idx, 0), "abc", ());
   TEST_EQUAL(KeyByIndexId(idx, 1), "He", ());
@@ -120,7 +122,6 @@ UNIT_TEST(SortedIndex_Smoke)
   TEST_EQUAL(idx.PrefixSearch("Hello"), 2, ());
   TEST_EQUAL(idx.PrefixSearch("W"), 4, ());
   TEST_EQUAL(idx.PrefixSearch("zzz"), 5, ());
-  remove((filePrefix + ".idx").c_str());
-  remove((filePrefix + ".idx").c_str());
+  FileWriter::DeleteFileX(GetPlatform().WritablePathForFile(filePrefix + ".idx"));
   TEST(g_AllocatedStrSet.empty(), ());
 }

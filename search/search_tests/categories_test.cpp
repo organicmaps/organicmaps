@@ -75,8 +75,7 @@ UNIT_TEST(LoadCategories)
                       p.GetReader("visibility.txt"));
 
   search::CategoriesHolder h;
-  string buffer;
-  ReaderPtr<Reader>(p.GetReader(TEST_STRING)).ReadAsString(buffer);
+  string buffer = TEST_STRING;
   TEST_GREATER(h.LoadFromStream(buffer), 0, ());
   size_t count = 0;
   Checker f(count);
