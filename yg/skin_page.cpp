@@ -93,12 +93,10 @@ namespace yg
 
   SkinPage::SkinPage(shared_ptr<ResourceManager> const & resourceManager,
                      char const * name,
-                     uint8_t pageID,
-                     bool fillAlpha)
+                     uint8_t pageID)
                    : m_texture(resourceManager->getTexture(name)),
                      m_usage(EStaticUsage),
-                     m_pageID(pageID),
-                     m_fillAlpha(fillAlpha)
+                     m_pageID(pageID)
   {
     m_packer = m2::Packer(m_texture->width(), m_texture->height(), 0x00FFFFFF - 1);
   }
@@ -106,12 +104,10 @@ namespace yg
 
   SkinPage::SkinPage(shared_ptr<ResourceManager> const & resourceManager,
                      EUsage usage,
-                     uint8_t pageID,
-                     bool fillAlpha)
+                     uint8_t pageID)
     : m_resourceManager(resourceManager),
       m_usage(usage),
-      m_pageID(pageID),
-      m_fillAlpha(fillAlpha)
+      m_pageID(pageID)
   {
     createPacker();
     /// clear handles will be called only upon handles overflow,
@@ -396,8 +392,8 @@ namespace yg
               if (alpha != 0)
               {
                 v(x, y) = penColor;
-                if (m_fillAlpha)
-                  gil::get_color(v(x, y), gil::alpha_t()) = alpha;
+//                if (m_fillAlpha)
+//                  gil::get_color(v(x, y), gil::alpha_t()) = alpha;
               }
             }
         }

@@ -109,9 +109,9 @@
 					"fonts_whitelist.txt",
  					"fonts_blacklist.txt",
           1.5 * 1024 * 1024,
+          GetPlatform().CpuCores() + 1,
           fmt,
-          !yg::gl::g_isBufferObjectsSupported,
-          true));
+          !yg::gl::g_isBufferObjectsSupported));
     
     Platform::FilesList fonts;
     pl.GetFontNames(fonts);

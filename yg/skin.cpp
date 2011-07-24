@@ -45,7 +45,7 @@ namespace yg
     for (int i = 0; i < count; ++i)
     {
       uint8_t pageID = (uint8_t)m_pages.size();
-      m_pages.push_back(make_shared_ptr(new SkinPage(m_resourceManager, SkinPage::EFontsUsage, pageID, m_resourceManager->fillSkinAlpha())));
+      m_pages.push_back(make_shared_ptr(new SkinPage(m_resourceManager, SkinPage::EFontsUsage, pageID)));
       m_pages.back()->addOverflowFn(bind(&Skin::onTextOverflow, this, pageID), 0);
     }
   }
@@ -59,7 +59,7 @@ namespace yg
     for (int i = 0; i < count; ++i)
     {
       uint8_t pageID = (uint8_t)m_pages.size();
-      m_pages.push_back(make_shared_ptr(new SkinPage(m_resourceManager, SkinPage::EDynamicUsage, pageID, m_resourceManager->fillSkinAlpha())));
+      m_pages.push_back(make_shared_ptr(new SkinPage(m_resourceManager, SkinPage::EDynamicUsage, pageID)));
       m_pages.back()->addOverflowFn(bind(&Skin::onDynamicOverflow, this, pageID), 0);
     }
   }

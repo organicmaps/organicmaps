@@ -61,9 +61,9 @@ void GLDrawWidget::initializeGL()
       "fonts_whitelist.txt",
       "fonts_blacklist.txt",
       2 * 1024 * 1024,
+      GetPlatform().CpuCores() + 1,
       yg::Rt8Bpp,
-      !yg::gl::g_isBufferObjectsSupported,
-      true));
+      !yg::gl::g_isBufferObjectsSupported));
 
   Platform::FilesList fonts;
   GetPlatform().GetFontNames(fonts);

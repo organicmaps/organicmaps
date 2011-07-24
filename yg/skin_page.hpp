@@ -149,14 +149,12 @@ namespace yg
     /// creation of a static page
     SkinPage(shared_ptr<ResourceManager> const & resourceManager,
              char const * name,
-             uint8_t pageID,
-             bool fillAlpha);
+             uint8_t pageID);
 
     /// creation of a dynamic page
     SkinPage(shared_ptr<ResourceManager> const & resourceManager,
              EUsage usage,
-             uint8_t pageID,
-             bool fillAlpha);
+             uint8_t pageID);
 
     void reserveTexture() const;
     void freeTexture();

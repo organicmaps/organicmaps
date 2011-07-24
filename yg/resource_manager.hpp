@@ -72,7 +72,6 @@ namespace yg
     RtFormat m_format;
 
     bool m_useVA;
-    bool m_fillSkinAlpha;
 
     size_t m_storagesCount;
     size_t m_smallStoragesCount;
@@ -90,9 +89,9 @@ namespace yg
                     size_t tileTexWidth, size_t tileTexHeight, size_t tileTexCount,
                     char const * blocksFile, char const * whileListFile, char const * blackListFile,
                     size_t glyphCacheSize,
+                    size_t glyphCacheCount,
                     RtFormat fmt,
-                    bool useVA,
-                    bool fillSkinAlpha);
+                    bool useVA);
 
     shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
 
@@ -127,7 +126,6 @@ namespace yg
 
     shared_ptr<yg::gl::BaseTexture> createRenderTarget(unsigned w, unsigned h);
 
-    bool fillSkinAlpha() const;
   };
 
   Skin * loadSkin(shared_ptr<ResourceManager> const & resourceManager,

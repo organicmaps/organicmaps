@@ -27,9 +27,9 @@ namespace yg
                                    size_t tileTexWidth, size_t tileTexHeight, size_t tileTexCount,
                                    char const * blocksFile, char const * whiteListFile, char const * blackListFile,
                                    size_t glyphCacheSize,
+                                   size_t glyphCacheCount,
                                    RtFormat fmt,
-                                   bool useVA,
-                                   bool fillSkinAlpha)
+                                   bool useVA)
                                      : m_dynamicTextureWidth(dynamicTexWidth), m_dynamicTextureHeight(dynamicTexHeight),
                                        m_fontTextureWidth(fontTexWidth), m_fontTextureHeight(fontTexHeight),
                                        m_tileTextureWidth(tileTexWidth), m_tileTextureHeight(tileTexHeight),
@@ -37,18 +37,13 @@ namespace yg
                                      m_smallVBSize(smallVBSize), m_smallIBSize(smallIBSize),
                                      m_blitVBSize(blitVBSize), m_blitIBSize(blitIBSize),
                                      m_format(fmt),
-                                     m_useVA(useVA),
-                                     m_fillSkinAlpha(fillSkinAlpha)
+                                     m_useVA(useVA)
   {
-    /// primary cache is for rendering, so it's big
-    m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, glyphCacheSize / 3)));
-    m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, glyphCacheSize / 3)));
-    m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, glyphCacheSize / 3)));
+    for (size_t i = 0; i < glyphCacheCount; ++i)
+      m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, glyphCacheSize / glyphCacheCount)));
 
     if (useVA)
-    {
       LOG(LINFO, ("buffer objects are unsupported. using client vertex array instead."));
-    }
 
     for (size_t i = 0; i < storagesCount; ++i)
       m_storages.PushBack(gl::Storage(vbSize, ibSize, m_useVA));
@@ -225,11 +220,6 @@ namespace yg
     default:
       MYTHROW(ResourceManagerException, ("unknown render target format"));
     };
-  }
-
-  bool ResourceManager::fillSkinAlpha() const
-  {
-    return m_fillSkinAlpha;
   }
 
   int ResourceManager::renderThreadGlyphCacheID(int threadNum) const
