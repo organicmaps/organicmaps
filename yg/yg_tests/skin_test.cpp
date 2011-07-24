@@ -10,12 +10,12 @@ UNIT_TEST(SkinTest_Main)
 {
   GL_TEST_START;
 
-  shared_ptr<yg::ResourceManager> rm(new yg::ResourceManager(100, 100, 1, 100, 100, 1, 100, 100, 1, 128, 128, 15, 256, 256, 5, 256, 256, 40, "", "", "", 2 * 1024 * 1024, yg::Rt8Bpp, false, false));
-  yg::Skin * skin = loadSkin(rm, "test.skn", 2, 2);
+  shared_ptr<yg::ResourceManager> rm(new yg::ResourceManager(100, 100, 1, 100, 100, 1, 100, 100, 1, 128, 128, 15, 256, 256, 5, 256, 256, 40, "unicode_blocks.txt", "fonts_whitelist.txt", "fonts_blacklist.txt", 2 * 1024 * 1024, yg::Rt8Bpp, false, false));
+  yg::Skin * skin = loadSkin(rm, "basic.skn", 2, 2);
 
   double p0 [] = {1, 1};
   yg::PenInfo penInfo0(yg::Color(0xFF, 0, 0, 0xFF), 1, p0, 2, 0);
-  /*uint32_t ruleID0 = */skin->mapPenInfo(penInfo0);
+//  skin->mapPenInfo(penInfo0);
 
   double p1 [] = {10, 10, 20, 20};
   yg::PenInfo penInfo1(yg::Color(0xFF, 0, 0, 0xFF), 40, p1, 4, 0);
@@ -26,14 +26,12 @@ UNIT_TEST(SkinTest_Main)
   double p3[] = {5, 5, 45, 30};
   yg::PenInfo penInfo3(yg::Color(0xFF, 0, 0xFF, 0xFF), 35, p3, 4, 0);
 
-  /*uint32_t styleID1 = */skin->mapPenInfo(penInfo1);
-  /*uint32_t styleID2 = */skin->mapPenInfo(penInfo2);
-  //skin->texture().dump("skin_test0.png");
+//  skin->mapPenInfo(penInfo1);
+//  skin->mapPenInfo(penInfo2);
 
   // Overflowing
 
-  /*uint32_t styleID3 = */skin->mapPenInfo(penInfo3);
-  //skin->texture().dump("skin_test1.png");
+//  skin->mapPenInfo(penInfo3);
 
   delete skin;
 }

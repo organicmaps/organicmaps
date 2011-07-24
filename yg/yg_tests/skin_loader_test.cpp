@@ -8,6 +8,6 @@
 UNIT_TEST(SkinLoaderTest_Main)
 {
   GL_TEST_START;
-  shared_ptr<yg::ResourceManager> rm(new yg::ResourceManager(1000, 1000, 2, 1000, 1000, 2, 1000, 1000, 2, 128, 128, 15, 256, 256, 5, 256, 256, 40, "", "", "", 2 * 1024 * 1024, yg::Rt8Bpp, false, false));
-  /*yg::Skin * skin = */loadSkin(rm, "basic.skn", 2, 2);
+  shared_ptr<yg::ResourceManager> rm(new yg::ResourceManager(1000, 1000, 2, 1000, 1000, 2, 1000, 1000, 2, 128, 128, 15, 256, 256, 5, 256, 256, 40, "unicode_blocks.txt", "fonts_whitelist.txt", "fonts_blacklist.txt", 2 * 1024 * 1024, yg::Rt8Bpp, false, false));
+  loadSkin(rm, "basic.skn", 2, 2);
 };
