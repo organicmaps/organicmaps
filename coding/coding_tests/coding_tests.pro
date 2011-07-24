@@ -38,6 +38,7 @@ SOURCES += ../../testing/testingmain.cpp \
     multilang_utf8_string_test.cpp \
     file_data_test.cpp \
     zip_reader_test.cpp \
+    trie_test.cpp \
 
 HEADERS += \
     reader_test.hpp \

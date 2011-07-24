@@ -83,3 +83,5 @@ HEADERS += \
     multilang_utf8_string.hpp \
     url_encode.hpp \
     zip_reader.hpp \
+    trie.hpp \
+    trie_builder.hpp \
