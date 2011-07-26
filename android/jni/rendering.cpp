@@ -31,9 +31,9 @@ shared_ptr<yg::ResourceManager> CreateResourceManager()
         "fonts_whitelist.txt",
         "fonts_blacklist.txt",
         1.5 * 1024 * 1024,
+        GetPlatform().CpuCores() + 1,
         yg::Rt8Bpp,
-        true,
-        true);
+        false);
 
   Platform::FilesList fonts;
   pl.GetFontNames(fonts);
