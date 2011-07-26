@@ -189,7 +189,7 @@
 		FA8F8937132D5DB00048E3FE /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtomcrypt.a; sourceTree = SOURCE_ROOT; };
 		FAAE8D5D1338FF8B003ECAD5 /* GetActiveConnectionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetActiveConnectionType.h; sourceTree = "<group>"; };
 		FAAFD696139D9BE2000AE70C /* categories.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories.txt; path = ../../data/categories.txt; sourceTree = SOURCE_ROOT; };
-		FAAFD698139D9C6B000AE70C /* libsearch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsearch.a; path = libsearch.a; sourceTree = SOURCE_ROOT; };
+		FAAFD698139D9C6B000AE70C /* libsearch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsearch.a; sourceTree = SOURCE_ROOT; };
 		FAF37EFA126DCE6F005EA154 /* IPhoneDownload.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = IPhoneDownload.mm; path = Platform/IPhoneDownload.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FAF37EFB126DCE6F005EA154 /* IPhoneDownloadManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = IPhoneDownloadManager.mm; path = Platform/IPhoneDownloadManager.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FAF37EFD126DCE6F005EA154 /* IPhonePlatform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = IPhonePlatform.mm; path = Platform/IPhonePlatform.mm; sourceTree = SOURCE_ROOT; };
@@ -485,6 +485,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0410;
 				ORGANIZATIONNAME = MapsWithMe;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Maps" */;
@@ -592,9 +593,7 @@
 		1D6058940D05DD3E006BFB54 /* Simulator Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)"
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 			};
 			name = "Simulator Debug";
 		};
@@ -689,9 +688,7 @@
 		FA0686DF13578E1D004CFF81 /* Production Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)"
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 			};
 			name = "Production Release";
 		};
@@ -740,9 +737,7 @@
 		FA1DE83211E2205400C6D69A /* Simulator Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)"
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 			};
 			name = "Simulator Release";
 		};
@@ -793,9 +788,7 @@
 		FA1DE85A11E2235D00C6D69A /* Device Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)"
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 			};
 			name = "Device Debug";
 		};
@@ -847,9 +840,7 @@
 		FA1DE85C11E2236200C6D69A /* Device Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)"
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 			};
 			name = "Device Release";
 		};
