@@ -65,6 +65,7 @@ android/bin
 android/gen
 android/libs
 android/obj
+android/.settings
 
 # data
 data/intermediate_data
