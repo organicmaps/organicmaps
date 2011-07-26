@@ -87,6 +87,8 @@ public class MWMActivity extends Activity
   {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.main, menu);
+    // temprorarily disable downloader in the menu
+    menu.removeItem(R.id.download_maps);
     return true;
   }
 
