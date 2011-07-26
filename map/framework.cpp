@@ -88,8 +88,11 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
     m_centeringMode(EDoNothing),
     m_tileSize(GetPlatform().TileSize())
 {
+  // on Android policy is created in AndroidFramework
+#ifndef OMIM_OS_ANDROID
 //  SetRenderPolicy(make_shared_ptr(new RenderPolicyST(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4))));
   SetRenderPolicy(make_shared_ptr(new TilingRenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4))));
+#endif
   m_informationDisplay.setBottomShift(bottomShift);
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.enableDebugPoints(true);

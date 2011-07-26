@@ -1,14 +1,18 @@
 #include "android_framework.hpp"
 #include "jni_helper.h"
 #include "rendering.h"
-#include "../../std/shared_ptr.hpp"
 
 #include "../../base/logging.hpp"
+
+#include "../../indexer/drawing_rules.hpp"
+
 #include "../../map/render_policy_st.hpp"
 #include "../../map/tiling_render_policy_st.hpp"
+#include "../../map/framework.hpp"
+
 #include "../../std/shared_ptr.hpp"
 #include "../../std/bind.hpp"
-#include "../../map/framework.hpp"
+
 
 void AndroidFramework::ViewHandle::invalidateImpl()
 {
@@ -20,7 +24,6 @@ void AndroidFramework::CallRepaint()
   // Always get current env pointer, it's different for each thread
   JNIEnv * env;
   m_jvm->AttachCurrentThread(&env, NULL);
-  LOG(LDEBUG, ("AF::CallRepaint", env));
   env->CallVoidMethod(m_parentView, jni::GetJavaMethodID(env, m_parentView, "requestRender", "()V"));
 }
 
@@ -28,8 +31,6 @@ AndroidFramework::AndroidFramework(JavaVM * jvm)
 : m_jvm(jvm), m_view(new ViewHandle(this)), m_work(m_view, 0)
 {
   m_work.InitStorage(m_storage);
-  shared_ptr<RenderPolicy> renderPolicy(new RenderPolicyST(m_view, bind(&Framework<model::FeaturesFetcher>::DrawModel, &m_work, _1, _2, _3, _4)));
-  m_work.SetRenderPolicy(renderPolicy);
   // @TODO refactor storage
   m_storage.ReInitCountries(false);
 }
@@ -39,9 +40,38 @@ void AndroidFramework::SetParentView(jobject view)
   m_parentView = view;
 }
 
+namespace
+{
+  struct make_all_invalid
+  {
+    size_t m_threadCount;
+
+    make_all_invalid(size_t threadCount)
+      : m_threadCount(threadCount)
+    {}
+
+    void operator() (int, int, drule::BaseRule * p)
+    {
+      for (size_t threadID = 0; threadID < m_threadCount; ++threadID)
+      {
+        p->MakeEmptyID(threadID);
+        p->MakeEmptyID2(threadID);
+      }
+    }
+  };
+}
 void AndroidFramework::InitRenderer()
 {
   LOG(LDEBUG, ("AF::InitRenderer 1"));
+
+  drule::rules().ForEachRule(make_all_invalid(GetPlatform().CpuCores() + 1));
+
+  // temporary workaround
+  m_work.SetRenderPolicy(shared_ptr<RenderPolicy>(new RenderPolicyST(m_view, bind(&Framework<model::FeaturesFetcher>::DrawModel, &m_work, _1, _2, _3, _4))));
+
+  m_view->setRenderContext(shared_ptr<yg::gl::RenderContext>());
+  m_view->setDrawer(shared_ptr<DrawerYG>());
+
   shared_ptr<yg::gl::RenderContext> pRC = CreateRenderContext();
 
   LOG(LDEBUG, ("AF::InitRenderer 2"));
