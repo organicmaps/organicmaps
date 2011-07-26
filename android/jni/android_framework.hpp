@@ -45,4 +45,8 @@ public:
 
   void Move(int mode, double x, double y);
   void Zoom(int mode, double x1, double y1, double x2, double y2);
+
+  void EnableLocation(bool enable);
+  void UpdateLocation(uint64_t timestamp, double lat, double lon, float accuracy);
+  void UpdateCompass(uint64_t timestamp, double magneticNorth, double trueNorth, float accuracy);
 };

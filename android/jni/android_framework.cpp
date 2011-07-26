@@ -123,3 +123,40 @@ void AndroidFramework::Zoom(int mode, double x1, double y1, double x2, double y2
   case 2: m_work.StopScale(e); break;
   }
 }
+
+void f()
+{
+  // empty location stub
+}
+
+void AndroidFramework::EnableLocation(bool enable)
+{
+  if (enable)
+    m_work.StartLocationService(bind(&f));
+  else
+    m_work.StopLocationService();
+}
+
+void AndroidFramework::UpdateLocation(uint64_t timestamp, double lat, double lon, float accuracy)
+{
+  location::GpsInfo info;
+  info.m_timestamp = static_cast<double>(timestamp);
+  info.m_latitude = lat;
+  info.m_longitude = lon;
+  info.m_horizontalAccuracy = accuracy;
+  info.m_status = location::EAccurateMode;
+  info.m_altitude = 0;
+  info.m_course = 0;
+  info.m_verticalAccuracy = 0;
+  m_work.OnGpsUpdate(info);
+}
+
+void AndroidFramework::UpdateCompass(uint64_t timestamp, double magneticNorth, double trueNorth, float accuracy)
+{
+  location::CompassInfo info;
+  info.m_timestamp = static_cast<double>(timestamp);
+  info.m_magneticHeading = magneticNorth;
+  info.m_trueHeading = trueNorth;
+  info.m_accuracy = accuracy;
+  m_work.OnCompassUpdate(info);
+}

@@ -72,11 +72,8 @@ void Framework<TModel>::OnGpsUpdate(location::GpsInfo const & info)
 template <typename TModel>
 void Framework<TModel>::OnCompassUpdate(location::CompassInfo const & info)
 {
-  if (info.m_timestamp < location::POSITION_TIMEOUT_SECONDS)
-  {
-    m_locationState.UpdateCompass(info);
-    Invalidate();
-  }
+  m_locationState.UpdateCompass(info);
+  Invalidate();
 }
 
 template <typename TModel>

@@ -134,4 +134,29 @@ Java_com_mapswithme_maps_DownloadUI_countryStatus(JNIEnv * env, jobject thiz,
   return static_cast<jint>(g_work->Storage().CountryStatus(storage::TIndex(group, country, region)));
 }
 
+///////////////////////////////////////////////////////////////////////////////////
+// LocationService
+///////////////////////////////////////////////////////////////////////////////////
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_location_LocationService_nativeEnableLocationService(JNIEnv * env, jobject thiz,
+    jboolean enable)
+{
+  g_work->EnableLocation(enable);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_location_LocationService_nativeLocationChanged(JNIEnv * env, jobject thiz,
+    jlong time, jdouble lat, jdouble lon, jfloat accuracy)
+{
+  g_work->UpdateLocation(time, lat, lon, accuracy);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_location_LocationService_nativeCompassChanged(JNIEnv * env, jobject thiz,
+    jlong time, jdouble magneticNorth, jdouble trueNorth, jfloat accuracy)
+{
+  g_work->UpdateCompass(time, magneticNorth, trueNorth, accuracy);
+}
+
 } // extern "C"

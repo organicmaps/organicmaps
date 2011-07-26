@@ -4,8 +4,10 @@ import java.io.File;
 
 import com.mapswithme.maps.MainGLView;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.location.LocationService;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -22,6 +24,8 @@ public class MWMActivity extends Activity
   private final static String PACKAGE_NAME = "com.mapswithme.maps";
   
   private MainGLView m_view;
+
+  private boolean m_locationEnabled = false;
 
   private String getAppBundlePath() throws NameNotFoundException
   {
@@ -65,6 +69,8 @@ public class MWMActivity extends Activity
   {
     super.onPause();
     m_view.onPause();
+    if (m_locationEnabled)
+      LocationService.stop();
   }
 
   @Override
@@ -72,6 +78,8 @@ public class MWMActivity extends Activity
   {
     super.onResume();
     m_view.onResume();
+    if (m_locationEnabled)
+      LocationService.start(this);
   }
 
   @Override
@@ -89,10 +97,15 @@ public class MWMActivity extends Activity
     switch (item.getItemId())
     {
     case R.id.my_position:
-      Log.i(TAG, "onMyPosition");
+      if (m_locationEnabled)
+        LocationService.stop();
+      else
+        LocationService.start(this);
+      m_locationEnabled = !m_locationEnabled;
       return true;
     case R.id.download_maps:
-      Log.i(TAG, "onDownloadMaps");
+      Intent intent = new Intent(this, DownloadUI.class);
+      startActivity(intent);
       return true;
     default:
       return super.onOptionsItemSelected(item);

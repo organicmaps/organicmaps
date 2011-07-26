@@ -133,11 +133,10 @@ protected:
   void AddMap(string const & file);
   void RemoveMap(string const & datFile);
 
+public:
   void OnGpsUpdate(location::GpsInfo const & info);
 
   void OnCompassUpdate(location::CompassInfo const & info);
-
-public:
 
   Framework(shared_ptr<WindowHandle> windowHandle,
             size_t bottomShift);
