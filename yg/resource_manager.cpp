@@ -64,9 +64,6 @@ namespace yg
     {
       shared_ptr<gl::BaseTexture> t(new TDynamicTexture(dynamicTexWidth, dynamicTexHeight));
       m_dynamicTextures.PushBack(t);
-#ifdef DEBUG
-      static_cast<TDynamicTexture*>(t.get())->randomize();
-#endif
     }
 
     LOG(LINFO, ("allocating ", dynamicTexWidth * dynamicTexHeight * sizeof(TDynamicTexture::pixel_t), " bytes for textures"));
@@ -75,9 +72,6 @@ namespace yg
     {
       shared_ptr<gl::BaseTexture> t(new TDynamicTexture(fontTexWidth, fontTexHeight));
       m_fontTextures.PushBack(t);
-#ifdef DEBUG
-      static_cast<TDynamicTexture*>(t.get())->randomize();
-#endif
     }
 
     LOG(LINFO, ("allocating ", fontTexWidth * fontTexHeight * sizeof(TDynamicTexture::pixel_t), " bytes for font textures"));

@@ -32,7 +32,7 @@ namespace yg
         unsigned width() const;
         unsigned height() const;
 
-        int id() const;
+        unsigned id() const;
         void makeCurrent();
         void attachToFrameBuffer();
 

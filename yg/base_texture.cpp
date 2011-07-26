@@ -77,7 +77,7 @@ namespace yg
         OGLCHECK(glBindTexture(GL_TEXTURE_2D, m_id));
     }
 
-    int BaseTexture::id() const
+    unsigned BaseTexture::id() const
     {
       return m_id;
     }
