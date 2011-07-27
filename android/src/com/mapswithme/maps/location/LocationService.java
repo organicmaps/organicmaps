@@ -63,7 +63,7 @@ public class LocationService implements LocationListener, SensorEventListener
     nativeEnableLocationService(false);
   }
   
-  @Override
+  //@Override
   public void onLocationChanged(Location l)
   {
     // used for compass updates
@@ -73,31 +73,31 @@ public class LocationService implements LocationListener, SensorEventListener
     Log.d(TAG, l.toString());
   }
 
-  @Override
+  //@Override
   public void onProviderDisabled(String provider)
   {
     Log.d(TAG, "onProviderDisabled " + provider);
   }
 
-  @Override
+  //@Override
   public void onProviderEnabled(String provider)
   {
     Log.d(TAG, "onProviderEnabled " + provider);
   }
 
-  @Override
+  //@Override
   public void onStatusChanged(String provider, int status, Bundle extras)
   {
     Log.d(TAG, "onStatusChanged " + provider + " " + status + " " + extras);
   }
 
-  @Override
+  //@Override
   public void onAccuracyChanged(Sensor sensor, int accuracy)
   {
     Log.d(TAG, "onAccuracyChanged " + sensor + " " + accuracy);
   }
 
-  @Override
+  //@Override
   public void onSensorChanged(SensorEvent event)
   {
     //Log.d(TAG, "onSensorChanged azimuth:" + event.values[0] + " acc:" + event.accuracy + " time:" + event.timestamp);
