@@ -99,7 +99,7 @@ namespace yg
 
     double glbRectSize = min(glbRect.SizeX(), glbRect.SizeY());
 
-    m_tileScale = ceil(log((MercatorBounds::maxX - MercatorBounds::minX) / glbRectSize) / log(2));
+    m_tileScale = ceil(log((MercatorBounds::maxX - MercatorBounds::minX) / glbRectSize) / log(2.0));
 
     double rectSizeX = (MercatorBounds::maxX - MercatorBounds::minX) / (1 << m_tileScale);
     double rectSizeY = (MercatorBounds::maxY - MercatorBounds::minY) / (1 << m_tileScale);
