@@ -10,7 +10,7 @@
 
 
 TilingRenderPolicyMT::TilingRenderPolicyMT(shared_ptr<WindowHandle> const & windowHandle,
-                                           RenderPolicy::render_fn_t const & renderFn)
+                                           RenderPolicy::TRenderFn const & renderFn)
   : RenderPolicy(windowHandle, renderFn),
     m_renderQueue(GetPlatform().SkinName(),
                   GetPlatform().IsBenchmarking(),
@@ -26,10 +26,10 @@ void TilingRenderPolicyMT::Initialize(shared_ptr<yg::gl::RenderContext> const & 
                                       shared_ptr<yg::ResourceManager> const & resourceManager)
 {
   RenderPolicy::Initialize(primaryContext, resourceManager);
-  m_renderQueue.InitializeGL(primaryContext, resourceManager, GetPlatform().VisualScale());
+  m_renderQueue.Initialize(primaryContext, resourceManager, GetPlatform().VisualScale());
 }
 
-void TilingRenderPolicyMT::OnSize(int w, int h)
+void TilingRenderPolicyMT::OnSize(int /*w*/, int /*h*/)
 {
 }
 

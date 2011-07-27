@@ -166,7 +166,7 @@ namespace qt
     widget_type::initializeGL();
     m_handle->setRenderContext(renderContext());
     //m_handle->setDrawer(GetDrawer());
-    m_framework->initializeGL(renderContext(), resourceManager());
+    m_framework->InitializeGL(renderContext(), resourceManager());
   }
 
   void DrawWidget::DoDraw(shared_ptr<drawer_t> p)

@@ -2,7 +2,7 @@
 
 #include "render_policy.hpp"
 
-RenderPolicy::RenderPolicy(shared_ptr<WindowHandle> const & windowHandle, render_fn_t const & renderFn)
+RenderPolicy::RenderPolicy(shared_ptr<WindowHandle> const & windowHandle, TRenderFn const & renderFn)
   : m_bgColor(0xEE, 0xEE, 0xDD, 0xFF),
     m_windowHandle(windowHandle),
     m_renderFn(renderFn)
@@ -23,7 +23,7 @@ shared_ptr<WindowHandle> const & RenderPolicy::windowHandle() const
   return m_windowHandle;
 }
 
-RenderPolicy::render_fn_t RenderPolicy::renderFn() const
+RenderPolicy::TRenderFn RenderPolicy::renderFn() const
 {
   return m_renderFn;
 }

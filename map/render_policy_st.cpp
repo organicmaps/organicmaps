@@ -11,7 +11,7 @@
 #include "../platform/platform.hpp"
 
 RenderPolicyST::RenderPolicyST(shared_ptr<WindowHandle> const & wh,
-                               RenderPolicy::render_fn_t const & renderFn)
+                               RenderPolicy::TRenderFn const & renderFn)
   : RenderPolicy(wh, renderFn)
 {}
 

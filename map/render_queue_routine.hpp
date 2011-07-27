@@ -44,19 +44,18 @@ class RenderQueueRoutine : public threads::IRoutine
 {
 public:
 
-  typedef RenderPolicy::render_fn_t render_fn_t;
-  typedef function<void()> renderCommandFinishedFn;
+  typedef RenderPolicy::TRenderFn TRenderFn;
 
   /// Single tile rendering command
   struct Command
   {
     yg::Tiler::RectInfo m_rectInfo;
-    shared_ptr<PaintEvent> m_paintEvent;
-    render_fn_t m_renderFn;
-    size_t m_seqNum;
+    shared_ptr<PaintEvent> m_paintEvent; //< paintEvent is set later after construction
+    TRenderFn m_renderFn;
+    size_t m_sequenceID;
     Command(yg::Tiler::RectInfo const & rectInfo,
-            render_fn_t renderFn,
-            size_t seqNum); //< paintEvent is set later after construction
+            TRenderFn renderFn,
+            size_t sequenceID);
   };
 
 private:
@@ -81,13 +80,13 @@ private:
 
   size_t m_threadNum;
 
-  list<renderCommandFinishedFn> m_renderCommandFinishedFns;
-
   RenderQueue * m_renderQueue;
 
-  void callRenderCommandFinishedFns();
+  bool HasTile(yg::Tiler::RectInfo const & rectInfo);
+  void AddTile(yg::Tiler::RectInfo const & rectInfo, yg::Tile const & tile);
 
 public:
+
   RenderQueueRoutine(string const & skinName,
                      bool isBenchmarking,
                      unsigned scaleEtalonSize,
@@ -96,28 +95,23 @@ public:
                      RenderQueue * renderQueue);
   /// initialize GL rendering
   /// this function is called just before the thread starts.
-  void initializeGL(shared_ptr<yg::gl::RenderContext> const & renderContext,
-                    shared_ptr<yg::ResourceManager> const & resourceManager);
+  void InitializeGL(shared_ptr<yg::gl::RenderContext> const & renderContext,
+                    shared_ptr<yg::ResourceManager> const & resourceManager,
+                    double visualScale);
   /// This function should always be called from the main thread.
   void Cancel();
   /// Thread procedure
   void Do();
   /// invalidate all connected window handles
-  void invalidate();
+  void Invalidate();
   /// add monitoring window
-  void addWindowHandle(shared_ptr<WindowHandle> window);
+  void AddWindowHandle(shared_ptr<WindowHandle> window);
   /// add model rendering command to rendering queue
-  void addCommand(render_fn_t const & fn, yg::Tiler::RectInfo const & rectInfo, size_t seqNumber);
-  /// add benchmark rendering command
-//  void addBenchmarkCommand(render_fn_t const & fn, m2::RectD const & globalRect);
-  /// set the resolution scale factor to the main thread drawer;
-  void setVisualScale(double visualScale);
+  void AddCommand(TRenderFn const & fn, yg::Tiler::RectInfo const & rectInfo, size_t seqNumber);
   /// free all available memory
-  void memoryWarning();
+  void MemoryWarning();
   /// free all easily recreatable opengl resources and make sure that no opengl call will be made.
-  void enterBackground();
+  void EnterBackground();
   /// recreate all necessary opengl resources and prepare to run in foreground.
-  void enterForeground();
-  /// add render-command-finished callback
-  void addRenderCommandFinishedFn(renderCommandFinishedFn fn);
+  void EnterForeground();
 };

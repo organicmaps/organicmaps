@@ -24,7 +24,7 @@ class RenderQueue
 {
 private:
 
-  /// single rendering task
+  /// Single rendering task. Engine allocates tasks by number of cores
   struct Task
   {
     threads::Thread m_thread;
@@ -34,7 +34,7 @@ private:
   Task * m_tasks;
   size_t m_tasksCount;
 
-  size_t m_sequence;
+  size_t m_sequenceID;
 
   friend class RenderQueueRoutine;
 
@@ -46,8 +46,6 @@ private:
 
 public:
 
-  typedef RenderQueueRoutine::renderCommandFinishedFn renderCommandFinishedFn;
-
   /// constructor.
   RenderQueue(string const & skinName,
               bool isBenchmarking,
@@ -58,17 +56,13 @@ public:
   /// destructor.
   ~RenderQueue();
   /// set the primary context. it starts the rendering thread.
-  void InitializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
-                    shared_ptr<yg::ResourceManager> const & resourceManager,
-                    double ppmScale);
+  void Initialize(shared_ptr<yg::gl::RenderContext> const & primaryContext,
+                  shared_ptr<yg::ResourceManager> const & resourceManager,
+                  double visualScale);
   /// add command to the commands queue.
-  void AddCommand(RenderQueueRoutine::render_fn_t const & fn, yg::Tiler::RectInfo const & rectInfo, size_t seqNum);
-  /// set visual scale
-  void SetVisualScale(double visualScale);
+  void AddCommand(RenderQueueRoutine::TRenderFn const & fn, yg::Tiler::RectInfo const & rectInfo, size_t seqNum);
   /// add window handle to notify when rendering operation finishes
   void AddWindowHandle(shared_ptr<WindowHandle> const & windowHandle);
-  /// add function, that will be called upon render command completion.
-  void AddRenderCommandFinishedFn(renderCommandFinishedFn fn);
   /// free all possible memory caches.
   void MemoryWarning();
   /// free all possible memory caches, opengl resources,

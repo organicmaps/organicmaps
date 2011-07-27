@@ -28,7 +28,7 @@ private:
 public:
 
   TilingRenderPolicyST(shared_ptr<WindowHandle> const & windowHandle,
-                       RenderPolicy::render_fn_t const & renderFn);
+                       RenderPolicy::TRenderFn const & renderFn);
 
   void Initialize(shared_ptr<yg::gl::RenderContext> const & renderContext,
                   shared_ptr<yg::ResourceManager> const & resourceManager);

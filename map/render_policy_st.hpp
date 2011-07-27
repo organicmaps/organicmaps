@@ -9,7 +9,7 @@ class RenderPolicyST : public RenderPolicy
 private:
 public:
   RenderPolicyST(shared_ptr<WindowHandle> const & wh,
-                 RenderPolicy::render_fn_t const & renderFn);
+                 RenderPolicy::TRenderFn const & renderFn);
 
   void Initialize(shared_ptr<yg::gl::RenderContext> const & rc,
                   shared_ptr<yg::ResourceManager> const & rm);

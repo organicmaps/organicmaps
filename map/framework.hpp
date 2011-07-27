@@ -143,7 +143,7 @@ public:
 
   void SetRenderPolicy(shared_ptr<RenderPolicy> const & rp);
 
-  void initializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
+  void InitializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
                     shared_ptr<yg::ResourceManager> const & resourceManager);
 
   model_t & get_model();

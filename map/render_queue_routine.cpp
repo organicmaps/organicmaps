@@ -26,11 +26,11 @@
 #include "render_queue.hpp"
 
 RenderQueueRoutine::Command::Command(yg::Tiler::RectInfo const & rectInfo,
-                                     render_fn_t renderFn,
-                                     size_t seqNum)
+                                     TRenderFn renderFn,
+                                     size_t sequenceID)
   : m_rectInfo(rectInfo),
     m_renderFn(renderFn),
-    m_seqNum(seqNum)
+    m_sequenceID(sequenceID)
 {}
 
 RenderQueueRoutine::RenderQueueRoutine(string const & skinName,
@@ -49,17 +49,30 @@ RenderQueueRoutine::RenderQueueRoutine(string const & skinName,
   m_bgColor = bgColor;
 }
 
+bool RenderQueueRoutine::HasTile(yg::Tiler::RectInfo const & rectInfo)
+{
+  m_renderQueue->TileCache().lock();
+  bool res = m_renderQueue->TileCache().hasTile(rectInfo);
+  m_renderQueue->TileCache().unlock();
+  return res;
+}
+
+void RenderQueueRoutine::AddTile(yg::Tiler::RectInfo const & rectInfo, yg::Tile const & tile)
+{
+  m_renderQueue->TileCache().lock();
+  m_renderQueue->TileCache().addTile(rectInfo, yg::TileCache::Entry(tile, m_resourceManager));
+  m_renderQueue->TileCache().unlock();
+}
+
 void RenderQueueRoutine::Cancel()
 {
   IRoutine::Cancel();
+
+  threads::MutexGuard guard(m_mutex);
+
   /// ...Or cancelling the current rendering command in progress.
   if (m_currentCommand != 0)
     m_currentCommand->m_paintEvent->setIsCancelled(true);
-}
-
-void RenderQueueRoutine::setVisualScale(double visualScale)
-{
-  m_visualScale = visualScale;
 }
 
 void RenderQueueRoutine::Do()
@@ -76,11 +89,8 @@ void RenderQueueRoutine::Do()
 
   DrawerYG::params_t params;
 
-  shared_ptr<yg::InfoLayer> infoLayer(new yg::InfoLayer());
-
   params.m_resourceManager = m_resourceManager;
   params.m_frameBuffer = m_frameBuffer;
-  params.m_infoLayer = infoLayer;
   params.m_glyphCacheID = m_resourceManager->renderThreadGlyphCacheID(m_threadNum);
   params.m_useOverlay = true;
   params.m_threadID = m_threadNum;
@@ -91,11 +101,10 @@ void RenderQueueRoutine::Do()
 
   m_threadDrawer = make_shared_ptr(new DrawerYG(m_skinName, params));
   m_threadDrawer->onSize(tileWidth, tileHeight);
-
-  CHECK(m_visualScale != 0, ("VisualScale is not set"));
   m_threadDrawer->SetVisualScale(m_visualScale);
 
   ScreenBase frameScreen;
+  /// leaving 1px border of fully transparent pixels for sews-free tile blitting.
   m2::RectI renderRect(1, 1, tileWidth - 1, tileWidth - 1);
 
   frameScreen.OnSize(renderRect);
@@ -108,25 +117,16 @@ void RenderQueueRoutine::Do()
       m_currentCommand = m_renderQueue->RenderCommands().Front(true);
 
       if (m_renderQueue->RenderCommands().IsCancelled())
-      {
-        LOG(LINFO, (m_threadNum, " cancelled on renderCommands"));
         break;
-      }
-
-      m_currentCommand->m_paintEvent = make_shared_ptr(new PaintEvent(m_threadDrawer));
 
       /// commands from the previous sequence are ignored
-      if (m_currentCommand->m_seqNum < m_renderQueue->CurrentSequence())
+      if (m_currentCommand->m_sequenceID < m_renderQueue->CurrentSequence())
         continue;
 
-      bool hasTile = false;
-
-      m_renderQueue->TileCache().lock();
-      hasTile = m_renderQueue->TileCache().hasTile(m_currentCommand->m_rectInfo);
-      m_renderQueue->TileCache().unlock();
-
-      if (hasTile)
+      if (HasTile(m_currentCommand->m_rectInfo))
         continue;
+
+      m_currentCommand->m_paintEvent = make_shared_ptr(new PaintEvent(m_threadDrawer));
     }
 
     if (IsCancelled())
@@ -139,10 +139,7 @@ void RenderQueueRoutine::Do()
     tileTarget = m_resourceManager->renderTargets().Front(true);
 
     if (m_resourceManager->renderTargets().IsCancelled())
-    {
-      LOG(LINFO, (m_threadNum, " cancelled on renderTargets"));
       break;
-    }
 
     m_threadDrawer->screen()->setRenderTarget(tileTarget);
 
@@ -170,9 +167,6 @@ void RenderQueueRoutine::Do()
         selectionRect,
         m_currentCommand->m_rectInfo.m_drawScale);
 
-    /// rendering all collected texts
-//      m_infoLayer->draw(m_threadDrawer->screen().get(), math::Identity<double, 3>());
-
     m_threadDrawer->endFrame();
     m_threadDrawer->screen()->resetInfoLayer();
 
@@ -180,27 +174,16 @@ void RenderQueueRoutine::Do()
 
     if (!IsCancelled())
     {
-      /// We shouldn't update the actual target as it's already happened (through callback function)
-      /// in the endFrame function
-      /// updateActualTarget();
-
       {
         threads::MutexGuard guard(m_mutex);
 
         if (!m_currentCommand->m_paintEvent->isCancelled())
-        {
-          yg::Tile tile(tileTarget, tileInfoLayer, frameScreen, m_currentCommand->m_rectInfo, duration);
-          m_renderQueue->TileCache().lock();
-          m_renderQueue->TileCache().addTile(m_currentCommand->m_rectInfo, yg::TileCache::Entry(tile, m_resourceManager));
-          m_renderQueue->TileCache().unlock();
-        }
+          AddTile(m_currentCommand->m_rectInfo, yg::Tile(tileTarget, tileInfoLayer, frameScreen, m_currentCommand->m_rectInfo, duration));
 
         m_currentCommand.reset();
       }
 
-      invalidate();
-
-      callRenderCommandFinishedFns();
+      Invalidate();
     }
 
   }
@@ -210,48 +193,38 @@ void RenderQueueRoutine::Do()
   m_renderContext->endThreadDrawing();
 }
 
-void RenderQueueRoutine::addWindowHandle(shared_ptr<WindowHandle> window)
+void RenderQueueRoutine::AddWindowHandle(shared_ptr<WindowHandle> window)
 {
   m_windowHandles.push_back(window);
 }
 
-void RenderQueueRoutine::invalidate()
+void RenderQueueRoutine::Invalidate()
 {
   for_each(m_windowHandles.begin(),
            m_windowHandles.end(),
            bind(&WindowHandle::invalidate, _1));
 }
 
-void RenderQueueRoutine::initializeGL(shared_ptr<yg::gl::RenderContext> const & renderContext,
-                                      shared_ptr<yg::ResourceManager> const & resourceManager)
+void RenderQueueRoutine::InitializeGL(shared_ptr<yg::gl::RenderContext> const & renderContext,
+                                      shared_ptr<yg::ResourceManager> const & resourceManager,
+                                      double visualScale)
 {
   m_renderContext = renderContext;
   m_resourceManager = resourceManager;
+  m_visualScale = visualScale;
 }
 
-void RenderQueueRoutine::memoryWarning()
+void RenderQueueRoutine::MemoryWarning()
 {
   m_threadDrawer->screen()->memoryWarning();
 }
 
-void RenderQueueRoutine::enterBackground()
+void RenderQueueRoutine::EnterBackground()
 {
   m_threadDrawer->screen()->enterBackground();
 }
 
-void RenderQueueRoutine::enterForeground()
+void RenderQueueRoutine::EnterForeground()
 {
   m_threadDrawer->screen()->enterForeground();
-}
-
-void RenderQueueRoutine::addRenderCommandFinishedFn(renderCommandFinishedFn fn)
-{
-  m_renderCommandFinishedFns.push_back(fn);
-}
-
-void RenderQueueRoutine::callRenderCommandFinishedFns()
-{
-  if (!m_renderCommandFinishedFns.empty())
-    for (list<renderCommandFinishedFn>::const_iterator it = m_renderCommandFinishedFns.begin(); it != m_renderCommandFinishedFns.end(); ++it)
-      (*it)();
 }

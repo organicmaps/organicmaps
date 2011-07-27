@@ -14,7 +14,7 @@ RenderQueue::RenderQueue(
     unsigned maxTilesCount,
     unsigned tasksCount,
     yg::Color const & bgColor
-  ) : m_sequence(0), m_tileCache(maxTilesCount - 1)
+  ) : m_sequenceID(0), m_tileCache(maxTilesCount - 1)
 {
   m_tasksCount = tasksCount; //< calculate from the CPU Cores Number
   LOG(LINFO, ("initializing ", tasksCount, " rendering threads"));
@@ -29,16 +29,16 @@ RenderQueue::RenderQueue(
                                     this);
 }
 
-void RenderQueue::InitializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
-                               shared_ptr<yg::ResourceManager> const & resourceManager,
-                               double visualScale)
+void RenderQueue::Initialize(shared_ptr<yg::gl::RenderContext> const & primaryContext,
+                             shared_ptr<yg::ResourceManager> const & resourceManager,
+                             double visualScale)
 {
   m_resourceManager = resourceManager;
   for (unsigned i = 0; i < m_tasksCount; ++i)
   {
-    m_tasks[i].m_routine->initializeGL(primaryContext->createShared(),
-                                        m_resourceManager);
-    m_tasks[i].m_routine->setVisualScale(visualScale);
+    m_tasks[i].m_routine->InitializeGL(primaryContext->createShared(),
+                                       m_resourceManager,
+                                       visualScale);
     m_tasks[i].m_thread.Create(m_tasks[i].m_routine);
   }
 }
@@ -51,40 +51,34 @@ RenderQueue::~RenderQueue()
   delete [] m_tasks;
 }
 
-void RenderQueue::AddCommand(RenderQueueRoutine::render_fn_t const & fn, yg::Tiler::RectInfo const & rectInfo, size_t seqNum)
+void RenderQueue::AddCommand(RenderQueueRoutine::TRenderFn const & fn, yg::Tiler::RectInfo const & rectInfo, size_t sequenceID)
 {
-  m_sequence = seqNum;
-  m_renderCommands.PushBack(make_shared_ptr(new RenderQueueRoutine::Command(rectInfo, fn, seqNum)));
+  m_sequenceID = sequenceID;
+  m_renderCommands.PushBack(make_shared_ptr(new RenderQueueRoutine::Command(rectInfo, fn, sequenceID)));
 }
 
 void RenderQueue::AddWindowHandle(shared_ptr<WindowHandle> const & windowHandle)
 {
   for (unsigned i = 0; i < m_tasksCount; ++i)
-    m_tasks[i].m_routine->addWindowHandle(windowHandle);
-}
-
-void RenderQueue::AddRenderCommandFinishedFn(renderCommandFinishedFn fn)
-{
-  for (unsigned i = 0; i < m_tasksCount; ++i)
-    m_tasks[i].m_routine->addRenderCommandFinishedFn(fn);
+    m_tasks[i].m_routine->AddWindowHandle(windowHandle);
 }
 
 void RenderQueue::MemoryWarning()
 {
   for (unsigned i = 0; i < m_tasksCount; ++i)
-    m_tasks[i].m_routine->memoryWarning();
+    m_tasks[i].m_routine->MemoryWarning();
 }
 
 void RenderQueue::EnterBackground()
 {
   for (unsigned i = 0; i < m_tasksCount; ++i)
-    m_tasks[i].m_routine->enterBackground();
+    m_tasks[i].m_routine->EnterBackground();
 }
 
 void RenderQueue::EnterForeground()
 {
   for (unsigned i = 0; i < m_tasksCount; ++i)
-    m_tasks[i].m_routine->enterForeground();
+    m_tasks[i].m_routine->EnterForeground();
 }
 
 yg::TileCache & RenderQueue::TileCache()
@@ -94,7 +88,7 @@ yg::TileCache & RenderQueue::TileCache()
 
 size_t RenderQueue::CurrentSequence() const
 {
-  return m_sequence;
+  return m_sequenceID;
 }
 
 ThreadedList<shared_ptr<RenderQueueRoutine::Command > > & RenderQueue::RenderCommands()

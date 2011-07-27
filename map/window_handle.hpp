@@ -15,7 +15,7 @@ namespace yg
 
 class WindowHandle
 {
-  // iOS realization needs this parameter.
+  // iOS implementation needs this parameter.
   // Desktop realization holds DrawerYG in draw_widget.hpp.
   shared_ptr<DrawerYG> m_drawer;
 

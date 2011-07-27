@@ -164,7 +164,7 @@ void Framework<TModel>::EnumLocalMaps(maps_list_t & filesList)
 }
 
 template <typename TModel>
-void Framework<TModel>::initializeGL(
+void Framework<TModel>::InitializeGL(
                   shared_ptr<yg::gl::RenderContext> const & primaryContext,
                   shared_ptr<yg::ResourceManager> const & resourceManager)
 {
