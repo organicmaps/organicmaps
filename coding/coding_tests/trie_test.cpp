@@ -9,14 +9,6 @@
 namespace
 {
 
-struct ValueWriter
-{
-  template <typename SinkT, typename ValueT> void Write(SinkT & sink, ValueT x)
-  {
-    WriteToSink(sink, x);
-  }
-};
-
 struct ChildNodeInfo
 {
   bool m_isLeaf;
@@ -35,7 +27,6 @@ UNIT_TEST(TrieBuilder_WriteNode_Smoke)
 {
   vector<uint8_t> serial;
   PushBackByteSink<vector<uint8_t> > sink(serial);
-  string const values = "123";
   ChildNodeInfo children[] =
   {
     {true, 1, "1A"},
@@ -43,7 +34,7 @@ UNIT_TEST(TrieBuilder_WriteNode_Smoke)
     {false, 3, "zz"},
     {true, 4, "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"}
   };
-  trie::builder::WriteNode(sink, ValueWriter(), 0, values.begin(), values.end(),
+  trie::builder::WriteNode(sink, 0, 3, "123", 3,
                            &children[0], &children[0] + ARRAY_SIZE(children));
   unsigned char const expected [] =
   {

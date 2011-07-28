@@ -8,19 +8,17 @@ namespace trie
 namespace builder
 {
 
-template <typename SinkT, typename ValueWriter, typename ValueIterT>
-void WriteLeaf(SinkT & sink, ValueWriter valueWriter, ValueIterT begValue, ValueIterT endValue)
+template <typename SinkT, typename ChildIterT>
+void WriteNode(SinkT & sink, strings::UniChar baseChar,
+               uint32_t const valueCount, void const * valuesData, uint32_t const valuesSize,
+               ChildIterT const begChild, ChildIterT const endChild)
 {
-  for (ValueIterT it = begValue; it != endValue; ++it)
-    valueWriter.Write(sink, *it);
-}
-
-template <typename SinkT, typename ValueWriter, typename ValueIterT, typename ChildIterT>
-void WriteNode(SinkT & sink, ValueWriter valueWriter, strings::UniChar baseChar,
-               ValueIterT begValue, ValueIterT endValue,
-               ChildIterT begChild, ChildIterT endChild)
-{
-  uint32_t const valueCount = endValue - begValue;
+  if (begChild == endChild)
+  {
+    // Leaf node.
+    sink.Write(valuesData, valuesSize);
+    return;
+  }
   uint32_t const childCount = endChild - begChild;
   uint8_t const header = static_cast<uint32_t>((min(valueCount, 3U) << 6) + min(childCount, 63U));
   sink.Write(&header, 1);
@@ -28,8 +26,7 @@ void WriteNode(SinkT & sink, ValueWriter valueWriter, strings::UniChar baseChar,
     WriteVarUint(sink, valueCount);
   if (childCount >= 63)
     WriteVarUint(sink, childCount);
-  for (ValueIterT it = begValue; it != endValue; ++it)
-    valueWriter.Write(sink, *it);
+  sink.Write(valuesData, valuesSize);
   for (ChildIterT it = begChild; it != endChild; ++it)
   {
     WriteVarUint(sink, it->Size());
@@ -66,6 +63,69 @@ void WriteNode(SinkT & sink, ValueWriter valueWriter, strings::UniChar baseChar,
   }
 }
 
+struct ChildInfo
+{
+  bool m_isLeaf;
+  uint32_t m_size;
+  char const * m_edge;
+  uint32_t Size() const { return m_size; }
+  bool IsLeaf() const { return m_isLeaf; }
+  strings::UniString GetEdge() const { return strings::MakeUniString(m_edge); }
+};
+
+struct NodeInfo
+{
+  NodeInfo(uint64_t pos, strings::UniChar uniChar) : m_begPos(pos), m_char(uniChar) {}
+  uint64_t m_begPos;
+  strings::UniChar m_char;
+  buffer_vector<ChildInfo, 4> m_children;
+  buffer_vector<uint8_t, 32> m_values;
+};
+
+void PopNodes(vector<builder::NodeInfo> & nodes, int nodesToPop)
+{
+  if (nodesToPop == 0)
+    return;
+  ASSERT_GREATER_OR_EQUAL(nodes.size(), nodesToPop, ());
+  strings::UniString reverseEdge;
+  while (nodesToPop > 0)
+  {
+    reverseEdge.push_back(nodes.back().m_char);reverseEdge.push_back(nodes.back().m_char);
+    if (nodes.back().m_values.empty() && nodes.back().m_children.size() <= 1)
+    {
+      ASSERT_EQUAL(nodes.back().m_children.size(), 1, ());
+      continue;
+    }
+
+  }
+}
 
 }  // namespace builder
+
+/*
+template <typename SinkT, typename IterT>
+void Build(SinkT & sink, IterT const beg, IterT const end)
+{
+  vector<builder::NodeInfo> nodes;
+  strings::UniString prevKey;
+  for (IterT it = beg; it != end; ++it)
+  {
+    strings::UniString const key = it->Key();
+    CHECK(!key.empty(), ());
+    CHECK_LESS_OR_EQUAL(prevKey, key, ());
+    int nCommon = 0;
+    while (nCommon < min(key.size(),prevKey.size()) && prevKey[nCommon] == key[nCommon])
+      ++nCommon;
+    builder::PopNodes(nodes, nodes.size() - nCommon);
+    uint64_t const pos = sink.Pos();
+    for (int i = nCommon; i < key.size(); ++i)
+      nodes.push_back(NodeInfo(pos, key[i]));
+    uint8_t const * pValue = static_cast<uint8_t const *>(it->ValueData());
+    nodes.back().m_values.insert(nodes.back().m_values.end(), pValue, pValue + it->ValueSize());
+    prevKey.swap(key);
+  }
+  builder::PopNodes(nodes.size());
+}
+*/
+
 }  // namespace trie
