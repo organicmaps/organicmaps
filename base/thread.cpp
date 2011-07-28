@@ -1,8 +1,6 @@
 #include "thread.hpp"
 #include "assert.hpp"
 
-#include "../std/target_os.hpp"
-
 #if defined(OMIM_OS_BADA)
   #include <FBaseRtThreadThread.h>
 #elif defined(OMIM_OS_WINDOWS_NATIVE)
@@ -179,12 +177,12 @@ namespace threads
 #endif
   }
 
-  int GetCurrentThreadID()
+  ThreadID GetCurrentThreadID()
   {
 #ifdef OMIM_OS_WINDOWS
     return ::GetCurrentThreadId();
 #else
-    return pthread_self();
+    return static_cast<void *>(pthread_self());
 #endif
   }
 }

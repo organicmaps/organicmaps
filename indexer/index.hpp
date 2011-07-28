@@ -335,7 +335,7 @@ private:
     m2::RectD m_rect;
     pair<int, int> m_scaleRange;
 
-    map<int, IndexT *> m_indexes;
+    map<threads::ThreadID, IndexT *> m_indexes;
     uint16_t volatile m_lockCount;
     uint8_t volatile m_queriesSkipped;
   };

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../std/target_os.hpp"
+
 #include "../std/stdint.hpp"
 
 namespace threads
@@ -47,6 +49,12 @@ namespace threads
   /// @param[in] ms time-out interval in milliseconds
   void Sleep(size_t ms);
 
-  int GetCurrentThreadID();
+#ifdef OMIM_OS_WINDOWS
+  typedef DWORD ThreadID;
+#else
+  typedef void * ThreadID;
+#endif
+
+  ThreadID GetCurrentThreadID();
 
 } // namespace threads
