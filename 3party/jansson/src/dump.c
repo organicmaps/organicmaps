@@ -421,8 +421,10 @@ char *json_dumps(const json_t *json, size_t flags)
     strbuffer_t strbuff;
     char *result;
 
-    if(!json_is_array(json) && !json_is_object(json))
-        return NULL;
+    if(!(flags & JSON_ENCODE_ANY)) {
+        if(!json_is_array(json) && !json_is_object(json))
+           return NULL;
+    }
 
     if(strbuffer_init(&strbuff))
         return NULL;
@@ -440,8 +442,10 @@ char *json_dumps(const json_t *json, size_t flags)
 
 int json_dumpf(const json_t *json, FILE *output, size_t flags)
 {
-    if(!json_is_array(json) && !json_is_object(json))
-        return -1;
+    if(!(flags & JSON_ENCODE_ANY)) {
+        if(!json_is_array(json) && !json_is_object(json))
+           return -1;
+    }
 
     return do_dump(json, flags, 0, dump_to_file, (void *)output);
 }

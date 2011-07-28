@@ -21,11 +21,11 @@ extern "C" {
 /* version */
 
 #define JANSSON_MAJOR_VERSION  2
-#define JANSSON_MINOR_VERSION  0
-#define JANSSON_MICRO_VERSION  1
+#define JANSSON_MINOR_VERSION  1
+#define JANSSON_MICRO_VERSION  0
 
 /* Micro version is omitted if it's 0 */
-#define JANSSON_VERSION  "2.0.1"
+#define JANSSON_VERSION  "2.1"
 
 /* Version as a 3-byte hex number, e.g. 0x010201 == 1.2.1. Use this
    for numeric comparisons, e.g. #if JANSSON_VERSION_HEX >= ... */
@@ -214,17 +214,25 @@ json_t *json_copy(json_t *value);
 json_t *json_deep_copy(json_t *value);
 
 
-/* loading, printing */
+/* decoding */
+
+#define JSON_REJECT_DUPLICATES 0x1
+#define JSON_DISABLE_EOF_CHECK 0x2
 
 json_t *json_loads(const char *input, size_t flags, json_error_t *error);
+json_t *json_loadb(const char *buffer, size_t buflen, size_t flags, json_error_t *error);
 json_t *json_loadf(FILE *input, size_t flags, json_error_t *error);
 json_t *json_load_file(const char *path, size_t flags, json_error_t *error);
+
+
+/* encoding */
 
 #define JSON_INDENT(n)      (n & 0x1F)
 #define JSON_COMPACT        0x20
 #define JSON_ENSURE_ASCII   0x40
 #define JSON_SORT_KEYS      0x80
 #define JSON_PRESERVE_ORDER 0x100
+#define JSON_ENCODE_ANY     0x200
 
 char *json_dumps(const json_t *json, size_t flags);
 int json_dumpf(const json_t *json, FILE *output, size_t flags);

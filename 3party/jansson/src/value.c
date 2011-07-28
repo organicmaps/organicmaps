@@ -139,7 +139,10 @@ int json_object_set_new_nocheck(json_t *json, const char *key, json_t *value)
        allocated. */
     k = jsonp_malloc(offsetof(object_key_t, key) + strlen(key) + 1);
     if(!k)
+    {
+        json_decref(value);
         return -1;
+    }
 
     k->serial = object->serial++;
     strcpy(k->key, key);

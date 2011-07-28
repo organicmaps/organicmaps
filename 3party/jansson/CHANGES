@@ -1,3 +1,36 @@
+Version 2.1 (in development)
+============================
+
+* New features:
+
+  - `json_loadb()`: Decode a string with a given size, useful if the
+    string is not null terminated.
+
+  - Add ``JSON_ENCODE_ANY`` encoding flag to allow encoding any JSON
+    value. By default, only arrays and objects can be encoded. (#19)
+
+  - Add ``JSON_REJECT_DUPLICATES`` decoding flag to issue a decoding
+    error if any JSON object in the input contins duplicate keys. (#3)
+
+  - Add ``JSON_DISABLE_EOF_CHECK`` decoding flag to stop decoding after a
+    valid JSON input. This allows other data after the JSON data.
+
+* Bug fixes:
+
+  - Fix an additional memory leak when memory allocation fails in
+    `json_object_set()` and friends.
+
+  - Clear errno before calling `strtod()` for better portability. (#27)
+
+* Building:
+
+  - Avoid set-but-not-used warning/error in a test. (#20)
+
+* Other:
+
+  - Minor clarifications to documentation.
+
+
 Version 2.0.1
 =============
 
@@ -10,7 +43,7 @@ Released 2011-03-31
 
   - Fix object key hashing in json_unpack() strict checking mode.
 
-  - Fix the parentheses in JANSSON_VERSION_HEX macro.
+  - Fix the parentheses in ``JANSSON_VERSION_HEX`` macro.
 
   - Fix `json_object_size()` return value.
 
