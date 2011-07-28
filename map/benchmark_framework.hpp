@@ -12,7 +12,7 @@
 
 #include "../search/engine.hpp"
 
-class BenchmarkRectProvider;
+struct BenchmarkRectProvider;
 class WindowHandle;
 class PaintEvent;
 
