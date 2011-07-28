@@ -178,4 +178,13 @@ namespace threads
     nanosleep(&t, 0);
 #endif
   }
+
+  int GetCurrentThreadID()
+  {
+#ifdef OMIM_OS_WINDOWS
+    return ::GetCurrentThreadId();
+#else
+    return pthread_self();
+#endif
+  }
 }

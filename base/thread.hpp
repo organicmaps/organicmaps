@@ -47,4 +47,6 @@ namespace threads
   /// @param[in] ms time-out interval in milliseconds
   void Sleep(size_t ms);
 
+  int GetCurrentThreadID();
+
 } // namespace threads
