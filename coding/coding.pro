@@ -25,6 +25,7 @@ SOURCES += \
     multilang_utf8_string.cpp \
     reader.cpp \
     zip_reader.cpp \
+    mmap_reader.cpp \
 
 HEADERS += \
     internal/xmlparser.h \
@@ -85,3 +86,4 @@ HEADERS += \
     zip_reader.hpp \
     trie.hpp \
     trie_builder.hpp \
+		mmap_reader.hpp \
