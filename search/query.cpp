@@ -241,9 +241,9 @@ void Query::Search(function<void (Result const &)> const & f)
   try
   {
     m_pIndex->ForEachInRect(featureProcessor,
-                            m2::RectD(MercatorBounds::minX, MercatorBounds::minY,
-                                      MercatorBounds::maxX, MercatorBounds::maxY),
-                            // m_viewport,
+                            //m2::RectD(MercatorBounds::minX, MercatorBounds::minY,
+                            //          MercatorBounds::maxX, MercatorBounds::maxY),
+                            m_viewport,
                             scales::GetUpperWorldScale());
   }
   catch (FeatureProcessor::StopException &)
