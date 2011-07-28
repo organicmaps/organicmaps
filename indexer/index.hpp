@@ -18,6 +18,7 @@
 #include "../base/macros.hpp"
 #include "../base/mutex.hpp"
 #include "../base/stl_add.hpp"
+#include "../base/thread.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/bind.hpp"
@@ -25,6 +26,7 @@
 #include "../std/unordered_set.hpp"
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
+
 
 template <class BaseT> class IndexForEachAdapter : public BaseT
 {
@@ -117,12 +119,12 @@ public:
 
         if (m_indexes[iIndex]->m_action == IndexProxy::INDEX_REMOVE)
         {
-          UpdateIndex(iIndex);
+          (void)UpdateIndex(iIndex);
         }
         else
         {
           pProxy = m_indexes[iIndex];
-          pIndex = pProxy->Lock(scale, occlusionRect);
+          pIndex = pProxy->Lock(static_cast<int>(scale), occlusionRect);
           ++iIndex;
         }
       }
@@ -221,7 +223,7 @@ private:
   {
   public:
     explicit IndexProxy(string const & file)
-      : m_action(INDEX_DO_NOTHING), m_file(file), m_pIndex(NULL), m_lockCount(0),
+      : m_action(INDEX_DO_NOTHING), m_file(file), m_lockCount(0),
         m_queriesSkipped(0)
     {
       feature::DataHeader header;
@@ -231,22 +233,24 @@ private:
       m_scaleRange = header.GetScaleRange();
     }
 
-    IndexT * Lock(uint32_t scale, m2::RectD const & occlusionRect)
+    IndexT * Lock(int scale, m2::RectD const & occlusionRect)
     {
+      IndexT * & p = GetThreadIndex();
+
       if ((m_scaleRange.first <= scale && scale <= m_scaleRange.second) &&
           m_rect.IsIntersect(occlusionRect))
       {
-        Open();
+        Open(p);
         m_queriesSkipped = 0;
         ++m_lockCount;
-        return m_pIndex;
+        return p;
       }
       else
       {
-        if (m_pIndex)
+        if (p)
         {
           if (++m_queriesSkipped > 8)
-            Close();
+            Close(p);
         }
         return NULL;
       }
@@ -255,7 +259,7 @@ private:
     void Unlock()
     {
       ASSERT_GREATER(m_lockCount, 0, ());
-      ASSERT(m_pIndex, ());
+      ASSERT(GetThreadIndex(), ());
       if (m_lockCount > 0)
         --m_lockCount;
     }
@@ -291,43 +295,47 @@ private:
 
     IndexProxy * Clone() const
     {
-      IndexProxy * pRes = new IndexProxy(*this);
-      pRes->m_action = INDEX_DO_NOTHING;
-      pRes->m_pIndex = NULL;
-      pRes->m_lockCount = 0;
-      pRes->m_queriesSkipped = 0;
+      IndexProxy * pRes = new IndexProxy(m_file);
       return pRes;
     }
 
     volatile IndexAction m_action;
 
   private:
-
-    void Open()
+    void Open(IndexT * & p)
     {
-      if (!m_pIndex)
+      if (p == 0)
       {
         FilesContainerR container(GetPlatform().GetReader(m_file));
-        m_pIndex = new IndexT(container);
+        p = new IndexT(container);
       }
     }
 
-    void Close()
+    void Close(IndexT * & p)
     {
-      if (m_pIndex)
+      if (p)
       {
         // LOG(LINFO, (m_Path));
-        delete m_pIndex;
-        m_pIndex = NULL;
+        delete p;
+        p = NULL;
         m_queriesSkipped = 0;
       }
+    }
+    void Close()
+    {
+      Close(GetThreadIndex());
+    }
+
+    IndexT * & GetThreadIndex()
+    {
+      return m_indexes[threads::GetCurrentThreadID()];
     }
 
     string m_file;
     m2::RectD m_rect;
     pair<int, int> m_scaleRange;
 
-    IndexT * volatile m_pIndex;
+    map<int, IndexT *> m_indexes;
     uint16_t volatile m_lockCount;
     uint8_t volatile m_queriesSkipped;
   };

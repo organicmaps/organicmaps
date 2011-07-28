@@ -298,13 +298,13 @@ void Framework<TModel>::DrawModel(shared_ptr<PaintEvent> e,
 
   try
   {
-    threads::MutexGuard lock(m_modelSyn);
+    //threads::MutexGuard lock(m_modelSyn);
     m_model.ForEachFeatureWithScale(selectRect, bind<bool>(ref(doDraw), _1), scaleLevel);
   }
   catch (redraw_operation_cancelled const &)
   {
-//    m_renderQueue.renderStatePtr()->m_isEmptyModelCurrent = false;
-//    m_renderQueue.renderStatePtr()->m_isEmptyModelActual = false;
+    //m_renderQueue.renderStatePtr()->m_isEmptyModelCurrent = false;
+    //m_renderQueue.renderStatePtr()->m_isEmptyModelActual = false;
   }
 
   if (m_navigator.Update(m_timer.ElapsedSeconds()))
