@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../std/unordered_map.hpp"
+#include "../std/list.hpp"
 #include "assert.hpp"
 
 namespace my
@@ -26,6 +27,7 @@ namespace my
     {
       ValueT m_value;
       size_t m_weight;
+      bool m_locked;
       typename list_t::iterator m_it;
     };
 
@@ -44,6 +46,19 @@ namespace my
     bool HasElem(KeyT const & key)
     {
       return m_map.find(key) != m_map.end();
+    }
+
+    void LockElem(KeyT const & key)
+    {
+      ASSERT(HasElem(key), ());
+      m_map[key].m_locked = true;
+    }
+
+    void UnlockElem(KeyT const & key)
+    {
+      ASSERT(HasElem(key), ());
+      ASSERT(m_map[key].m_locked, ());
+      m_map[key].m_locked = false;
     }
 
     ValueT const & Find(KeyT const & key, bool DoTouch = true)
@@ -79,7 +94,7 @@ namespace my
     {
       typename map_t::iterator it = m_map.find(key);
 
-      if (it != m_map.end())
+      if (it != m_map.end() && !it->second.m_locked)
       {
         m_curWeight -= it->second.m_weight;
         m_list.erase(it->second.m_it);
@@ -93,20 +108,45 @@ namespace my
       if (HasElem(key))
         Remove(key);
 
+      typename list<KeyT>::iterator it = (++m_list.rbegin()).base();
+
       while (m_curWeight + weight > m_maxWeight)
       {
         if (m_list.empty())
           return;
-        KeyT k = m_list.back();
-        m_list.pop_back();
-        m_curWeight -= m_map[k].m_weight;
-        ValueTraitsT::Evict(m_map[k].m_value);
-        m_map.erase(k);
+
+        KeyT k = *it;
+
+        /// erasing only unlocked elements
+        if (!m_map[k].m_locked)
+        {
+          m_curWeight -= m_map[k].m_weight;
+          ValueTraitsT::Evict(m_map[k].m_value);
+          m_map.erase(k);
+
+          typename list<KeyT>::iterator nextIt = it;
+          if (nextIt != m_list.begin())
+          {
+            --nextIt;
+            m_list.erase(it);
+            it = nextIt;
+          }
+          else
+          {
+            m_list.erase(it);
+            break;
+          }
+        }
+        else
+          --it;
       }
+
+      ASSERT(m_curWeight + weight <= m_maxWeight, ());
 
       m_list.push_front(key);
       m_map[key].m_weight = weight;
       m_map[key].m_value = val;
+      m_map[key].m_locked = false;
       m_map[key].m_it = m_list.begin();
       m_curWeight += weight;
     }

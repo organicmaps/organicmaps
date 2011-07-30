@@ -28,4 +28,21 @@ UNIT_TEST(MRUCache_Test)
 
   CHECK(m.HasElem(2) == false, ());
   CHECK(m.HasElem(1) == true, ());
+
+  m.LockElem(1);
+  m.Add(4, 16, 2);
+
+  CHECK(m.HasElem(4) == true, ());
+  CHECK(m.Find(4, false) == 16, ());
+
+  CHECK(m.HasElem(3) == false, ());
+  CHECK(m.HasElem(1) == true, ());
+
+  m.UnlockElem(1);
+  // 2 is still older than 4, so check this
+
+  m.Add(5, 25, 2);
+  CHECK(m.HasElem(5) == true, ());
+  CHECK(m.HasElem(4) == true, ());
+  CHECK(m.HasElem(1) == false, ());
 }
