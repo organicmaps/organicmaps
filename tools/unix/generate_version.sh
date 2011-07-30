@@ -14,17 +14,22 @@ MAJOR=$2
 MINOR=$3
 
 # Windows workaround
-WIN_GIT_BIN_PATH="/C/Program Files/Git/bin"
-if [ -e "$WIN_GIT_BIN_PATH" ]; then
-  PATH="$WIN_GIT_BIN_PATH:$PATH"
+WIN_GIT_BIN_PATH1="/C/Program Files/Git/bin"
+if [ -e "$WIN_GIT_BIN_PATH1" ]; then
+  PATH="$WIN_GIT_BIN_PATH1:$PATH"
 else
-  MAC_GIT_BIN_PATH1=/usr/local/git/bin
-  if [ -e "$MAC_GIT_BIN_PATH1" ]; then
-    PATH="$MAC_GIT_BIN_PATH1:$PATH"
-  fi
-  MAC_GIT_BIN_PATH2=/opt/local/bin
-  if [ -e "$MAC_GIT_BIN_PATH2" ]; then
-    PATH="$MAC_GIT_BIN_PATH2:$PATH"
+  WIN_GIT_BIN_PATH2="/C/Program Files (x86)/Git/bin"
+  if [ -e "$WIN_GIT_BIN_PATH2" ]; then
+    PATH="$WIN_GIT_BIN_PATH2:$PATH"
+  else
+    MAC_GIT_BIN_PATH1=/usr/local/git/bin
+    if [ -e "$MAC_GIT_BIN_PATH1" ]; then
+      PATH="$MAC_GIT_BIN_PATH1:$PATH"
+    fi
+    MAC_GIT_BIN_PATH2=/opt/local/bin
+    if [ -e "$MAC_GIT_BIN_PATH2" ]; then
+      PATH="$MAC_GIT_BIN_PATH2:$PATH"
+    fi
   fi
 fi
 
