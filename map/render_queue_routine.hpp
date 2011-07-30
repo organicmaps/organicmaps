@@ -45,17 +45,20 @@ class RenderQueueRoutine : public threads::IRoutine
 public:
 
   typedef RenderPolicy::TRenderFn TRenderFn;
+  typedef function<void(yg::Tiler::RectInfo const &, yg::Tile const &)> TCommandFinishedFn;
 
   /// Single tile rendering command
   struct Command
   {
+    TRenderFn m_renderFn;
     yg::Tiler::RectInfo m_rectInfo;
     shared_ptr<PaintEvent> m_paintEvent; //< paintEvent is set later after construction
-    TRenderFn m_renderFn;
     size_t m_sequenceID;
-    Command(yg::Tiler::RectInfo const & rectInfo,
-            TRenderFn renderFn,
-            size_t sequenceID);
+    TCommandFinishedFn m_commandFinishedFn;
+    Command(TRenderFn renderFn,
+            yg::Tiler::RectInfo const & rectInfo,
+            size_t sequenceID,
+            TCommandFinishedFn commandFinishedFn);
   };
 
 private:

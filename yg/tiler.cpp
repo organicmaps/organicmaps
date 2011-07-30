@@ -73,15 +73,15 @@ namespace yg
     return l.m_distance > r.m_distance;
   }
 
-  void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt, int tileSize, int scaleEtalonSize)
+  void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt)
   {
     if (screen != m_screen)
       ++m_seqNum;
 
     m2::RectD glbRect;
     m2::PointD pxCenter = screen.PixelRect().Center();
-    screen.PtoG(m2::RectD(pxCenter - m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2),
-                          pxCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
+    screen.PtoG(m2::RectD(pxCenter - m2::PointD(m_scaleEtalonSize / 2, m_scaleEtalonSize / 2),
+                          pxCenter + m2::PointD(m_scaleEtalonSize / 2, m_scaleEtalonSize / 2)),
                 glbRect);
 
     m_drawScale = scales::GetScaleLevel(glbRect);
@@ -91,7 +91,7 @@ namespace yg
     m2::RectD const screenRect = m_screen.GlobalRect();
 
     /// slightly smaller than original to produce "antialiasing" effect using bilinear filtration.
-    tileSize /= 1.05;
+    size_t tileSize = m_tileSize / 1.05;
 
     screen.PtoG(m2::RectD(pxCenter - m2::PointD(tileSize / 2, tileSize / 2),
                           pxCenter + m2::PointD(tileSize / 2, tileSize / 2)),
@@ -124,7 +124,8 @@ namespace yg
       }
   }
 
-  Tiler::Tiler() : m_seqNum(0)
+  Tiler::Tiler(size_t tileSize, size_t scaleEtalonSize)
+    : m_seqNum(0), m_tileSize(tileSize), m_scaleEtalonSize(scaleEtalonSize)
   {}
 
   bool Tiler::hasTile()

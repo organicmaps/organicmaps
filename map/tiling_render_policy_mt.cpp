@@ -3,11 +3,12 @@
 #include "drawer_yg.hpp"
 #include "events.hpp"
 #include "tiling_render_policy_mt.hpp"
+#include "window_handle.hpp"
 
 #include "../geometry/screenbase.hpp"
 
 #include "../platform/platform.hpp"
-
+#include "../std/bind.hpp"
 
 TilingRenderPolicyMT::TilingRenderPolicyMT(shared_ptr<WindowHandle> const & windowHandle,
                                            RenderPolicy::TRenderFn const & renderFn)
@@ -17,7 +18,9 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(shared_ptr<WindowHandle> const & wind
                   GetPlatform().ScaleEtalonSize(),
                   GetPlatform().MaxTilesCount(),
                   GetPlatform().CpuCores(),
-                  bgColor())
+                  bgColor()),
+    m_tiler(GetPlatform().TileSize(),
+            GetPlatform().ScaleEtalonSize())
 {
   m_renderQueue.AddWindowHandle(windowHandle);
 }
@@ -41,9 +44,7 @@ void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
   m_infoLayer.clear();
 
   m_tiler.seed(currentScreen,
-               currentScreen.GlobalRect().Center(),
-               GetPlatform().TileSize(),
-               GetPlatform().ScaleEtalonSize());
+               currentScreen.GlobalRect().Center());
 
   while (m_tiler.hasTile())
   {
@@ -70,7 +71,7 @@ void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
     else
     {
       m_renderQueue.TileCache().unlock();
-      m_renderQueue.AddCommand(renderFn(), ri, m_tiler.seqNum());
+      m_renderQueue.AddCommand(renderFn(), ri, m_tiler.seqNum(), bind(&WindowHandle::invalidate, windowHandle()));
     }
   }
 

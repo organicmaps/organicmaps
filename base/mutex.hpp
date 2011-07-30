@@ -22,7 +22,7 @@ namespace threads
   /// Mutex primitive, used only for synchronizing this process threads
   /// based on Critical Section under Win32 and pthreads under Linux
   /// @author Siarhei Rachytski
-  /// As the MacOS implementation doesn't support recursive mutexes we should emulate them by ourselves.
+  /// @deprecated As the MacOS implementation doesn't support recursive mutexes we should emulate them by ourselves.
   /// The code is taken from @a http://www.omnigroup.com/mailman/archive/macosx-dev/2002-March/036465.html
   class Mutex
   {

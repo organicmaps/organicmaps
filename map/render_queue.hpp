@@ -60,7 +60,10 @@ public:
                   shared_ptr<yg::ResourceManager> const & resourceManager,
                   double visualScale);
   /// add command to the commands queue.
-  void AddCommand(RenderQueueRoutine::TRenderFn const & fn, yg::Tiler::RectInfo const & rectInfo, size_t seqNum);
+  void AddCommand(RenderQueueRoutine::TRenderFn const & renderFn,
+                  yg::Tiler::RectInfo const & rectInfo,
+                  size_t sequenceID,
+                  RenderQueueRoutine::TCommandFinishedFn const & commandFinishedFn);
   /// add window handle to notify when rendering operation finishes
   void AddWindowHandle(shared_ptr<WindowHandle> const & windowHandle);
   /// free all possible memory caches.

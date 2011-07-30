@@ -25,12 +25,14 @@
 #include "render_queue_routine.hpp"
 #include "render_queue.hpp"
 
-RenderQueueRoutine::Command::Command(yg::Tiler::RectInfo const & rectInfo,
-                                     TRenderFn renderFn,
-                                     size_t sequenceID)
-  : m_rectInfo(rectInfo),
-    m_renderFn(renderFn),
-    m_sequenceID(sequenceID)
+RenderQueueRoutine::Command::Command(TRenderFn renderFn,
+                                     yg::Tiler::RectInfo const & rectInfo,
+                                     size_t sequenceID,
+                                     TCommandFinishedFn commandFinishedFn)
+  : m_renderFn(renderFn),
+    m_rectInfo(rectInfo),
+    m_sequenceID(sequenceID),
+    m_commandFinishedFn(commandFinishedFn)
 {}
 
 RenderQueueRoutine::RenderQueueRoutine(string const & skinName,
@@ -172,18 +174,28 @@ void RenderQueueRoutine::Do()
 
     double duration = timer.ElapsedSeconds();
 
+    TCommandFinishedFn fn;
+    yg::Tiler::RectInfo rectInfo;
+    yg::Tile tile;
+
     if (!IsCancelled())
     {
       {
         threads::MutexGuard guard(m_mutex);
 
-        if (!m_currentCommand->m_paintEvent->isCancelled())
-          AddTile(m_currentCommand->m_rectInfo, yg::Tile(tileTarget, tileInfoLayer, frameScreen, m_currentCommand->m_rectInfo, duration));
+        if (m_currentCommand->m_paintEvent->isCancelled())
+          break;
+
+        rectInfo = m_currentCommand->m_rectInfo;
+        tile = yg::Tile(tileTarget, tileInfoLayer, frameScreen, m_currentCommand->m_rectInfo, duration);
+        AddTile(rectInfo, tile);
+
+        fn = m_currentCommand->m_commandFinishedFn;
 
         m_currentCommand.reset();
       }
 
-      Invalidate();
+      fn(rectInfo, tile);
     }
 
   }

@@ -51,10 +51,14 @@ RenderQueue::~RenderQueue()
   delete [] m_tasks;
 }
 
-void RenderQueue::AddCommand(RenderQueueRoutine::TRenderFn const & fn, yg::Tiler::RectInfo const & rectInfo, size_t sequenceID)
+void RenderQueue::AddCommand(
+  RenderQueueRoutine::TRenderFn const & renderFn,
+  yg::Tiler::RectInfo const & rectInfo,
+  size_t sequenceID,
+  RenderQueueRoutine::TCommandFinishedFn const & commandFinishedFn)
 {
   m_sequenceID = sequenceID;
-  m_renderCommands.PushBack(make_shared_ptr(new RenderQueueRoutine::Command(rectInfo, fn, sequenceID)));
+  m_renderCommands.PushBack(make_shared_ptr(new RenderQueueRoutine::Command(renderFn, rectInfo, sequenceID, commandFinishedFn)));
 }
 
 void RenderQueue::AddWindowHandle(shared_ptr<WindowHandle> const & windowHandle)

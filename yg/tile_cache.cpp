@@ -35,6 +35,16 @@ namespace yg
     return m_cache.HasElem(key.toUInt64Cell());
   }
 
+  void TileCache::lockTile(Tiler::RectInfo const & key)
+  {
+    return m_cache.LockElem(key.toUInt64Cell());
+  }
+
+  void TileCache::unlockTile(Tiler::RectInfo const & key)
+  {
+    return m_cache.UnlockElem(key.toUInt64Cell());
+  }
+
   void TileCache::touchTile(Tiler::RectInfo const & key)
   {
     m_cache.Touch(key.toUInt64Cell());

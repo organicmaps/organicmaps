@@ -43,14 +43,17 @@ namespace yg
 
     priority_queue<RectInfo, vector<RectInfo>, greater<RectInfo> > m_coverage;
 
+    size_t m_tileSize;
+    size_t m_scaleEtalonSize;
+
   public:
 
-    Tiler();
+    Tiler(size_t tileSize, size_t scaleEtalonSize);
 
     /// seed tiler with new screenBase.
     /// if there are an existing tile sequence it is
     /// reorganized to reflect screen changes.
-    void seed(ScreenBase const & screenBase, m2::PointD const & centerPt, int tileSize, int scaleEtalonSize);
+    void seed(ScreenBase const & screenBase, m2::PointD const & centerPt);
 
     /// check whether the sequence has next tile
     bool hasTile();

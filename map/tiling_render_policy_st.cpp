@@ -16,7 +16,8 @@
 TilingRenderPolicyST::TilingRenderPolicyST(shared_ptr<WindowHandle> const & windowHandle,
                                            RenderPolicy::TRenderFn const & renderFn)
   : RenderPolicy(windowHandle, renderFn),
-    m_tileCache(GetPlatform().MaxTilesCount() - 1)
+    m_tileCache(GetPlatform().MaxTilesCount() - 1),
+    m_tiler(GetPlatform().TileSize(), GetPlatform().ScaleEtalonSize())
 {}
 
 void TilingRenderPolicyST::Initialize(shared_ptr<yg::gl::RenderContext> const & primaryContext,
@@ -62,9 +63,7 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
   m_infoLayer.clear();
 
   m_tiler.seed(currentScreen,
-               currentScreen.GlobalRect().Center(),
-               GetPlatform().TileSize(),
-               GetPlatform().ScaleEtalonSize());
+               currentScreen.GlobalRect().Center());
 
   while (m_tiler.hasTile())
   {
