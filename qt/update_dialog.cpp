@@ -64,7 +64,7 @@ namespace qt
     string timeString;
     if (!Settings::Get(LAST_CHECK_TIME_KEY, timeString))
       timeString = "Never checked";
-    m_label = new QLabel(QString(QObject::tr(LAST_UPDATE_CHECK)) + timeString.c_str(), this);
+    m_label = new QLabel(QString(QObject::tr(LAST_UPDATE_CHECK)) + QString::fromUtf8(timeString.c_str()), this);
 
     m_updateButton = new QPushButton(QObject::tr(CHECK_FOR_UPDATE), this);
     m_updateButton->setDefault(false);
@@ -260,7 +260,7 @@ namespace qt
 //    }
     QString labelText(LAST_UPDATE_CHECK);
     QString const textDate = QDateTime::currentDateTime().toString();
-    Settings::Set(LAST_CHECK_TIME_KEY, string(textDate.toLocal8Bit().data()));
+    Settings::Set(LAST_CHECK_TIME_KEY, string(textDate.toUtf8().data()));
     m_label->setText(labelText.append(textDate));
     m_updateButton->setText(CHECK_FOR_UPDATE);
     m_updateButton->setDisabled(false);
