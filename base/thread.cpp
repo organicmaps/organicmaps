@@ -182,7 +182,7 @@ namespace threads
 #ifdef OMIM_OS_WINDOWS
     return ::GetCurrentThreadId();
 #else
-    return static_cast<void *>(pthread_self());
+    return reinterpret_cast<void *>(pthread_self());
 #endif
   }
 }
