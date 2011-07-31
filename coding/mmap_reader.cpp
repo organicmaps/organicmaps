@@ -23,7 +23,7 @@ public:
   {
     // @TODO add windows support
 #ifndef OMIM_OS_WINDOWS
-    m_fd = open(fileName.c_str(), O_RDONLY | O_NONBLOCK | O_SYMLINK);
+    m_fd = open(fileName.c_str(), O_RDONLY | O_NONBLOCK);
     if (m_fd == -1)
       MYTHROW(OpenException, ("open failed for file", fileName));
 
