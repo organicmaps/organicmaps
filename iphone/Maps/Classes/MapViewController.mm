@@ -138,7 +138,7 @@ storage::Storage m_storage;
     
     m_framework->Invalidate();
 
-    m_framework->initializeGL([(EAGLView*)self.view renderContext], resourceManager);
+    m_framework->InitializeGL([(EAGLView*)self.view renderContext], resourceManager);
 
 //    m_framework->UpdateNow();
 	}
