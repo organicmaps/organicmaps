@@ -458,7 +458,7 @@ namespace agg
     class scanline32_u8_am : public scanline32_u8
     {
     public:
-        typedef scanline_u8           base_type;
+        typedef scanline32_u8         base_type;
         typedef AlphaMask             alpha_mask_type;
         typedef base_type::cover_type cover_type;
         typedef base_type::coord_type coord_type;

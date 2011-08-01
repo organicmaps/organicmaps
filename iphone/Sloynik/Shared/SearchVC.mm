@@ -97,8 +97,9 @@ struct SloynikData
     [self.resultsView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]
                             atScrollPosition:UITableViewScrollPositionTop
                                     animated:NO];
-    self.resultsView.contentOffset.y =
-      self.resultsView.rowHeight * m_pSloynikData->m_SearchResult.m_FirstMatched;
+    CGPoint pt = self.resultsView.contentOffset;
+    pt.y = self.resultsView.rowHeight * m_pSloynikData->m_SearchResult.m_FirstMatched;
+    self.resultsView.contentOffset = pt;
   }
   else
     [self onEmptySearch];

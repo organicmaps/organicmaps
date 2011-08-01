@@ -1,6 +1,6 @@
 /*
     Copyright 2005-2007 Adobe Systems Incorporated
-   
+
     Use, modification and distribution are subject to the Boost Software License,
     Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
     http://www.boost.org/LICENSE_1_0.txt).
@@ -72,12 +72,12 @@ struct lodepng_read_support {
 /// \ingroup LODEPNG_IO
 /// \brief Loads the image specified by the given png image file name into the given view.
 /// Triggers a compile assert if the view color space and channel depth are not supported by the PNG library or by the I/O extension.
-/// Throws std::ios_base::failure if the file is not a valid PNG file, or if its color space or channel depth are not 
+/// Throws std::ios_base::failure if the file is not a valid PNG file, or if its color space or channel depth are not
 /// compatible with the ones specified by View, or if its dimensions don't match the ones of the view.
 template <typename View>
-inline void lodepng_read_view(const char* filename,const View& view) {
+inline void lodepng_read_view(ReaderPtr<Reader> & reader, const View& view) {
     BOOST_STATIC_ASSERT(lodepng_read_support<View>::is_supported);
-    detail::lodepng_reader m(filename);
+    detail::lodepng_reader m(reader);
     m.apply(view);
 }
 
@@ -91,12 +91,12 @@ inline void lodepng_read_view(const std::string& filename,const View& view) {
 /// \ingroup LODEPNG_IO
 /// \brief Allocates a new image whose dimensions are determined by the given png image file, and loads the pixels into it.
 /// Triggers a compile assert if the image color space or channel depth are not supported by the PNG library or by the I/O extension.
-/// Throws std::ios_base::failure if the file is not a valid PNG file, or if its color space or channel depth are not 
+/// Throws std::ios_base::failure if the file is not a valid PNG file, or if its color space or channel depth are not
 /// compatible with the ones specified by Image
 template <typename Image>
-inline void lodepng_read_image(const char* filename,Image& im) {
+inline void lodepng_read_image(ReaderPtr<Reader> & reader, Image& im) {
     BOOST_STATIC_ASSERT(lodepng_read_support<typename Image::view_t>::is_supported);
-    detail::lodepng_reader m(filename);
+    detail::lodepng_reader m(reader);
     m.read_image(im);
 }
 
@@ -152,8 +152,8 @@ inline void lodepng_read_and_convert_image(ReaderPtr<Reader> & reader,Image& im,
 /// \brief Allocates a new image whose dimensions are determined by the given png image file, loads and color-converts the pixels into it.
 /// Throws std::ios_base::failure if the file is not a valid PNG file
 template <typename Image>
-inline void lodepng_read_and_convert_image(const char* filename,Image& im) {
-    detail::lodepng_reader_color_convert<default_color_converter> m(filename,default_color_converter());
+inline void lodepng_read_and_convert_image(ReaderPtr<Reader> & reader, Image& im) {
+    detail::lodepng_reader_color_convert<default_color_converter> m(reader, default_color_converter());
     m.read_image(im);
 }
 

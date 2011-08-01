@@ -12,7 +12,7 @@ namespace qt
   void GLDrawWidgetT<T>::paintGL()
   {
     if (m_p)
-      DoDraw(m_p);
+      this->DoDraw(m_p);
   }
 
   template <class T>

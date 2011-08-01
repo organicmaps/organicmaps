@@ -539,7 +539,7 @@ protected:
 
           if (role == "outer")
           {
-            GetWay(wayID, wayMap);
+            base_type::GetWay(wayID, wayMap);
           }
           else if (role == "inner")
           {
@@ -554,7 +554,7 @@ protected:
         feature_t f;
         InitFeature(fValue, f);
 
-        ProcessWayPoints(wayMap, bind(&base_type::feature_builder_t::AddPoint, ref(f), _1));
+        base_type::ProcessWayPoints(wayMap, bind(&base_type::feature_builder_t::AddPoint, ref(f), _1));
 
         if (f.IsGeometryClosed())
         {

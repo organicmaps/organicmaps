@@ -26,6 +26,7 @@ class WindowHandle
 
 public:
   WindowHandle() : m_hasPendingUpdates(false), m_isUpdatesEnabled(true) {}
+  virtual ~WindowHandle() {}
 
   shared_ptr<DrawerYG> const & drawer()
   {

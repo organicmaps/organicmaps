@@ -46,6 +46,7 @@ public:
 
   /// constructor
   RenderPolicy(shared_ptr<WindowHandle> const & windowHandle, TRenderFn const & renderFn);
+  virtual ~RenderPolicy() {}
   /// drawing single frame
   virtual void DrawFrame(shared_ptr<PaintEvent> const & paintEvent, ScreenBase const & currentScreen) = 0;
   /// processing resize request

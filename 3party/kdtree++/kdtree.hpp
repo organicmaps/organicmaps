@@ -1001,7 +1001,7 @@ namespace KDTree
       {
          typename _Base::NoLeakAlloc noleak(this);
          _Link_type new_node = noleak.get();
-         _M_construct_node(new_node, __V, __PARENT, __LEFT, __RIGHT);
+         _Base::_M_construct_node(new_node, __V, __PARENT, __LEFT, __RIGHT);
          noleak.disconnect();
          return new_node;
       }
@@ -1010,8 +1010,8 @@ namespace KDTree
       void
       _M_delete_node(_Link_type __p)
       {
-        _M_destroy_node(__p);
-        _M_deallocate_node(__p);
+        _Base::_M_destroy_node(__p);
+        _Base::_M_deallocate_node(__p);
       }
 
       _Link_type _M_root;

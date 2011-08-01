@@ -155,7 +155,7 @@ storage::Storage m_storage;
 	m_framework->OnSize(width, height);
 }
 
-NSInteger compareAddress(UITouch * l, UITouch * r, void * context)
+NSInteger compareAddress(id l, id r, void * context)
 {
 	return l < r;
 }
