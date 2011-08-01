@@ -189,6 +189,15 @@
   Portugal
   Romania
   Russia
+    All federal districts|Russia_Central|Russia_Far Eastern|Russia_North Caucasian|Russia_Northwestern|Russia_Siberian|Russia_Southern|Russia_Urals|Russia_Volga
+    Moscow & Central|Russia_Central
+    Far Eastern|Russia_Far Eastern
+    North Caucasian|Russia_North Caucasian
+    Saint Petersburg & Northwestern|Russia_Northwestern
+    Siberian|Russia_Siberian
+    Southern|Russia_Southern
+    Urals|Russia_Urals
+    Volga|Russia_Volga
   Serbia
   Slovakia
   Slovenia
