@@ -96,32 +96,37 @@ namespace
 UNIT_TEST(SortedIndex_Smoke)
 {
   string const & filePrefix = "sorted_index_smoke_test";
-  DictionaryMock dictionary;
-  SetupDictionary(dictionary);
-  sl::StrFn strFn = StrFnForTest();
-  sl::SortedIndex::Build(dictionary, strFn, filePrefix);
-  sl::SortedIndex idx(dictionary, GetPlatform().GetReader(filePrefix + ".idx"), strFn);
-  TEST_EQUAL(dictionary.KeyCount(), 5, ());
-  TEST_EQUAL(KeyByIndexId(idx, 0), "abc", ());
-  TEST_EQUAL(KeyByIndexId(idx, 1), "He", ());
-  TEST_EQUAL(KeyByIndexId(idx, 2), "Hello", ());
-  TEST_EQUAL(KeyByIndexId(idx, 3), "hello", ());
-  TEST_EQUAL(KeyByIndexId(idx, 4), "World", ());
-  TEST_EQUAL(ArticleByIndexId(idx, 0), "abc1", ());
-  TEST_EQUAL(ArticleByIndexId(idx, 1), "He0", ());
-  TEST_EQUAL(ArticleByIndexId(idx, 2), "Hello0", ());
-  TEST_EQUAL(ArticleByIndexId(idx, 3), "hello0", ());
-  TEST_EQUAL(ArticleByIndexId(idx, 4), "World0", ());
-  TEST_EQUAL(idx.PrefixSearch(""), 0, ());
-  TEST_EQUAL(idx.PrefixSearch("h"), 1, ());
-  TEST_EQUAL(idx.PrefixSearch("H"), 1, ());
-  TEST_EQUAL(idx.PrefixSearch("He"), 1, ());
-  TEST_EQUAL(idx.PrefixSearch("he"), 1, ());
-  TEST_EQUAL(idx.PrefixSearch("hea"), 2, ());
-  TEST_EQUAL(idx.PrefixSearch("hel"), 2, ());
-  TEST_EQUAL(idx.PrefixSearch("Hello"), 2, ());
-  TEST_EQUAL(idx.PrefixSearch("W"), 4, ());
-  TEST_EQUAL(idx.PrefixSearch("zzz"), 5, ());
+
+  {
+    // Local scope to be sure all file handles are closed before deletion
+    DictionaryMock dictionary;
+    SetupDictionary(dictionary);
+    sl::StrFn strFn = StrFnForTest();
+    sl::SortedIndex::Build(dictionary, strFn, filePrefix);
+    sl::SortedIndex idx(dictionary, GetPlatform().GetReader(filePrefix + ".idx"), strFn);
+    TEST_EQUAL(dictionary.KeyCount(), 5, ());
+    TEST_EQUAL(KeyByIndexId(idx, 0), "abc", ());
+    TEST_EQUAL(KeyByIndexId(idx, 1), "He", ());
+    TEST_EQUAL(KeyByIndexId(idx, 2), "Hello", ());
+    TEST_EQUAL(KeyByIndexId(idx, 3), "hello", ());
+    TEST_EQUAL(KeyByIndexId(idx, 4), "World", ());
+    TEST_EQUAL(ArticleByIndexId(idx, 0), "abc1", ());
+    TEST_EQUAL(ArticleByIndexId(idx, 1), "He0", ());
+    TEST_EQUAL(ArticleByIndexId(idx, 2), "Hello0", ());
+    TEST_EQUAL(ArticleByIndexId(idx, 3), "hello0", ());
+    TEST_EQUAL(ArticleByIndexId(idx, 4), "World0", ());
+    TEST_EQUAL(idx.PrefixSearch(""), 0, ());
+    TEST_EQUAL(idx.PrefixSearch("h"), 1, ());
+    TEST_EQUAL(idx.PrefixSearch("H"), 1, ());
+    TEST_EQUAL(idx.PrefixSearch("He"), 1, ());
+    TEST_EQUAL(idx.PrefixSearch("he"), 1, ());
+    TEST_EQUAL(idx.PrefixSearch("hea"), 2, ());
+    TEST_EQUAL(idx.PrefixSearch("hel"), 2, ());
+    TEST_EQUAL(idx.PrefixSearch("Hello"), 2, ());
+    TEST_EQUAL(idx.PrefixSearch("W"), 4, ());
+    TEST_EQUAL(idx.PrefixSearch("zzz"), 5, ());
+  }
+
   FileWriter::DeleteFileX(GetPlatform().WritablePathForFile(filePrefix + ".idx"));
   TEST(g_AllocatedStrSet.empty(), ());
 }
