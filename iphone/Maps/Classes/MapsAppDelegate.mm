@@ -86,5 +86,18 @@
   [super dealloc];
 }
 
+- (void) disableStandby
+{
+  ++m_standbyCounter;
+  [UIApplication sharedApplication].idleTimerDisabled = YES;
+}
+
+- (void) enableStandby
+{
+  --m_standbyCounter;
+  if (m_standbyCounter == 0)
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
+}
+
 @end
 

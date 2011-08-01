@@ -67,12 +67,14 @@ storage::Storage m_storage;
     m_framework->StartLocationService(bind(locUpdatedImpl, self, onLocUpdatedSel));
     ((UIBarButtonItem *)sender).style = UIBarButtonItemStyleDone;
     ((UIBarButtonItem *)sender).image = [UIImage imageNamed:@"location-search.png"];
+    [[MapsAppDelegate theApp] disableStandby];
   }
   else
   {
     m_framework->StopLocationService();
     ((UIBarButtonItem *)sender).style = UIBarButtonItemStyleBordered;
     m_myPositionButton.image = [UIImage imageNamed:@"location.png"];
+    [[MapsAppDelegate theApp] enableStandby];
   }
 }
 

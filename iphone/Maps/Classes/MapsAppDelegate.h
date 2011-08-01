@@ -9,6 +9,7 @@
 {
   GuideViewController * m_guideViewController;
   SettingsManager * m_settingsManager;
+  NSInteger m_standbyCounter;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow * window;
@@ -21,5 +22,7 @@
 - (GuideViewController *)guideViewController;
 - (SettingsManager *)settingsManager;
 - (void)onSloynikEngineInitialized:(void *)pEngine;
+- (void)disableStandby;
+- (void)enableStandby;
 
 @end

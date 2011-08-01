@@ -1,6 +1,7 @@
 #include "../../platform/download_manager.hpp"
 
 #import "IPhoneDownload.h"
+#import "MapsAppDelegate.h"
 
 #import <UIKit/UIApplication.h>
 
@@ -42,7 +43,7 @@ public:
     	// save download in array to cancel it later if necessary
     	[activeDownloads addObject:download];
       // prevent device from going to standby
-      [UIApplication sharedApplication].idleTimerDisabled = YES;
+      [[MapsAppDelegate theApp] disableStandby];
     }
     else
     {
@@ -71,7 +72,7 @@ public:
     }
     // enable standby if no more downloads are left
     if ([activeDownloads count] == 0)
-    	[UIApplication sharedApplication].idleTimerDisabled = NO;
+      [[MapsAppDelegate theApp] enableStandby];
   }
 
   virtual void CancelAllDownloads()
