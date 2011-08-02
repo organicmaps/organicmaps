@@ -126,14 +126,8 @@ namespace storage
       }
       switch (spaces)
       {
-      case 0: // this is value for current tree node
-        {
-          TTilesContainer::const_iterator const first = sortedTiles.begin();
-          TTilesContainer::const_iterator const last = sortedTiles.end();
-          TTilesContainer::const_iterator found = lower_bound(first, last, TTile(line, 0));
-          if (found != last && !(line < found->first))
-            currentCountry->AddTile(TTile(found->first + DATA_FILE_EXTENSION, found->second));
-        }
+      case 0:
+        CHECK(false, ("We should never be here"));
         break;
       case 1: // country group
       case 2: // country name
@@ -143,6 +137,9 @@ namespace storage
           strings::SimpleTokenizer tokIt(line, "|");
           // first string is country name, not always equal to country file name
           currentCountry = &countries.AddAtDepth(spaces - 1, Country(*tokIt));
+          // skip if > 1 names in the list - first name never corresponds to tile file
+          if (!tokIt.IsLast())
+            ++tokIt;
           while (tokIt)
           {
             TTilesContainer::const_iterator const first = sortedTiles.begin();
