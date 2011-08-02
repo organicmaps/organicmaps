@@ -220,6 +220,7 @@ int main(int argc, char ** argv)
 
   if (FLAGS_dump_types)
   {
+    feature::DumpNames(path + FLAGS_output + ".mwm");
     feature::DumpTypes(path + FLAGS_output + ".mwm");
   }
 

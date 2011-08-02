@@ -41,9 +41,8 @@ namespace feature
     }
   };
 
-  typedef pair<vector<uint32_t>, size_t> stats_elem_type;
-  static bool SortFunc(stats_elem_type const & first,
-                       stats_elem_type const & second)
+  template <class T>
+  static bool SortFunc(T const & first, T const & second)
   {
     return first.second > second.second;
   }
@@ -53,9 +52,10 @@ namespace feature
     TypesCollector doClass;
     feature::ForEachFromDat(fPath, doClass);
 
+    typedef pair<vector<uint32_t>, size_t> stats_elem_type;
     typedef vector<stats_elem_type> vec_to_sort;
     vec_to_sort vecToSort(doClass.m_stats.begin(), doClass.m_stats.end());
-    sort(vecToSort.begin(), vecToSort.end(), SortFunc);
+    sort(vecToSort.begin(), vecToSort.end(), &SortFunc<stats_elem_type>);
 
     for (vec_to_sort::iterator it = vecToSort.begin(); it != vecToSort.end(); ++it)
     {
@@ -67,4 +67,54 @@ namespace feature
     cout << "Total features: " << doClass.m_totalCount << endl;
     cout << "Features with names: " << doClass.m_namesCount << endl;
   }
+
+  class NamesCollector
+  {
+    typedef unordered_map<string, size_t> NamesContainerT;
+
+    class LangsFunctor
+    {
+    public:
+      vector<string> m_names;
+      bool operator()(signed char, string const & name)
+      {
+        m_names.push_back(name);
+        return true;
+      }
+    };
+
+  public:
+    NamesContainerT m_stats;
+    void operator()(FeatureType & f, uint32_t)
+    {
+      LangsFunctor doLangs;
+      f.ForEachNameRef(doLangs);
+      for (size_t i = 0; i < doLangs.m_names.size(); ++i)
+      {
+        strings::SimpleTokenizer tok(doLangs.m_names[i], " ");
+        while (tok)
+        {
+          pair<NamesContainerT::iterator, bool> found = m_stats.insert(make_pair(*tok, 1));
+          if (!found.second)
+            found.first->second++;
+          ++tok;
+        }
+      }
+    }
+  };
+
+  typedef pair<string, size_t> NameElemT;
+  void DumpNames(string const & fPath)
+  {
+    NamesCollector doClass;
+    feature::ForEachFromDat(fPath, doClass);
+
+    typedef vector<NameElemT> VecToSortT;
+    VecToSortT vecToSort(doClass.m_stats.begin(), doClass.m_stats.end());
+    sort(vecToSort.begin(), vecToSort.end(), &SortFunc<NameElemT>);
+
+    for (VecToSortT::iterator it = vecToSort.begin(); it != vecToSort.end(); ++it)
+      cout << it->second << " " << it->first << endl;
+  }
+
 }
