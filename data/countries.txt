@@ -205,10 +205,14 @@
   Sweden
   Switzerland
   UK & Crown Dependencies
+   All UK territories|Guernsey|Isle of Man|Jersey|UK_England|UK_Northern Ireland|UK_Scotland|UK_Wales
    Guernsey
    Isle of Man
    Jersey
-   United Kingdom
+   London & England|UK_England
+   Northern Ireland|UK_Northern Ireland
+   Scotland|UK_Scotland
+   Wales|UK_Wales
   Ukraine
  Middle East
   Bahrain
