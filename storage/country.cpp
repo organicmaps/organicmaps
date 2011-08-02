@@ -145,7 +145,7 @@ namespace storage
             TTilesContainer::const_iterator const first = sortedTiles.begin();
             TTilesContainer::const_iterator const last = sortedTiles.end();
             string const nameWithExt = *tokIt + DATA_FILE_EXTENSION;
-            TTilesContainer::const_iterator found = lower_bound(
+            TTilesContainer::const_iterator const found = lower_bound(
                 first, last, TTile(nameWithExt, 0));
             if (found != last && !(nameWithExt < found->first))
               currentCountry->AddTile(*found);
