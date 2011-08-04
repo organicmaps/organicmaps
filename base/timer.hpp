@@ -20,5 +20,6 @@ public:
 };
 
 string FormatCurrentTime();
+uint32_t TodayAsYYMMDD();
 
 }

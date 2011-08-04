@@ -6,6 +6,7 @@
 #define TRIANGLE_FILE_TAG "trg"
 #define INDEX_FILE_TAG "idx"
 #define HEADER_FILE_TAG "header"
+#define VERSION_FILE_TAG "version"
 
 #define COUNTRIES_FILE  "countries.txt"
 #define DATA_UPDATE_FILE "maps.update"

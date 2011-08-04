@@ -14,9 +14,9 @@
 #include "../base/logging.hpp"
 #include "../base/std_serialization.hpp"
 #include "../base/string_utils.hpp"
+#include "../base/timer.hpp"
 
 #include "../std/fstream.hpp"
-#include "../std/ctime.hpp"
 
 namespace storage
 {
@@ -166,10 +166,7 @@ namespace storage
     stream::SinkWriterStream<Writer> wStream(writer);
 
     // save version - it's equal to current date in GMT
-    time_t rawTime = time(NULL);
-    tm * pTm = gmtime(&rawTime);
-    uint32_t const version = (pTm->tm_year - 100) * 10000 + (pTm->tm_mon + 1) * 100 + pTm->tm_mday;
-    wStream << static_cast<uint32_t>(version);
+    wStream << my::TodayAsYYMMDD();
     wStream << level;
     wStream << cellFiles;
     wStream << commonFiles;

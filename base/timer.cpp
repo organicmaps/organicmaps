@@ -52,4 +52,11 @@ string FormatCurrentTime()
     return s;
 }
 
+uint32_t TodayAsYYMMDD()
+{
+  time_t rawTime = time(NULL);
+  tm * pTm = gmtime(&rawTime);
+  return (pTm->tm_year - 100) * 10000 + (pTm->tm_mon + 1) * 100 + pTm->tm_mday;
+}
+
 }

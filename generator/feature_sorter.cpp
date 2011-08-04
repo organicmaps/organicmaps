@@ -15,13 +15,13 @@
 
 #include "../platform/platform.hpp"
 
+#include "../version/version.hpp"
+
 #include "../coding/file_container.hpp"
 
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
-
-#include "../base/start_mem_debug.hpp"
-
+#include "../base/timer.hpp"
 
 namespace
 {
@@ -103,9 +103,23 @@ namespace feature
     {
       // write own mwm header (now it's a base point only)
       m_header.SetBounds(m_bounds);
-      FileWriter w = m_writer.GetWriter(HEADER_FILE_TAG);
-      m_header.Save(w);
-      w.Flush();
+      {
+        FileWriter w = m_writer.GetWriter(HEADER_FILE_TAG);
+        m_header.Save(w);
+        w.Flush();
+      }
+
+      // write version information
+      {
+        static uint32_t generatorStartTime = my::TodayAsYYMMDD();
+
+        FileWriter w = m_writer.GetWriter(VERSION_FILE_TAG);
+
+        WriteVarUint(w, Version::BUILD);
+        WriteVarUint(w, Version::GIT_HASH);
+        // actual date of data generation
+        WriteVarUint(w, generatorStartTime);
+      }
 
       // assume like we close files
       m_datFile.Flush();

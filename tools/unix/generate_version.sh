@@ -33,7 +33,7 @@ else
   fi
 fi
 
-BUILD_TIMESTAMP=`date -u +%y%m%d`
+BUILD_TIMESTAMP=`date -u +%y%m%d%H%M`
 BUILD_TIMESTAMP_FULL=`date -u`
 
 GIT_CMD="git --git-dir=$GIT_WORKING_DIR_PATH/.git --work-tree=$GIT_WORKING_DIR_PATH"
@@ -66,6 +66,7 @@ if [ $# -eq 4 ]; then
   echo "  static unsigned int const MAJOR = $MAJOR;" >> $OUT_FILE
   echo "  static unsigned int const MINOR = $MINOR;" >> $OUT_FILE
   echo "  static unsigned int const BUILD = $BUILD_TIMESTAMP;" >> $OUT_FILE
+  echo "  static unsigned int const GIT_HASH = 0x$GIT_COMMIT_HASH;" >> $OUT_FILE 
   echo "  #define VERSION_STRING \"$STRING_VER\"" >> $OUT_FILE
   echo "  #define VERSION_DATE_STRING \"$BUILD_TIMESTAMP_FULL\"" >> $OUT_FILE
   echo "}" >> $OUT_FILE
