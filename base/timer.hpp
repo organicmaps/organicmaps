@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../std/stdint.hpp"
 #include "../std/string.hpp"
 
 namespace my
