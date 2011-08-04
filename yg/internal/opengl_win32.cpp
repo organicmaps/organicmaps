@@ -8,27 +8,10 @@
 
 #ifdef OMIM_OS_WINDOWS
 
-PFNGLBINDBUFFERPROC glBindBuffer;
-PFNGLGENBUFFERSPROC glGenBuffers;
-PFNGLBUFFERDATAPROC glBufferData;
-PFNGLBUFFERSUBDATAPROC glBufferSubData;
-PFNGLDELETEBUFFERSPROC glDeleteBuffers;
-//PFNGLACTIVETEXTUREPROC glActiveTexture;
-//PFNGLCLIENTACTIVETEXTUREPROC glClientActiveTexture;
-PFNGLBINDFRAMEBUFFERPROC glBindFramebuffer;
-PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC glRenderbufferStorageMultisample;
-PFNGLFRAMEBUFFERTEXTURE2DPROC glFramebufferTexture2D;
-PFNGLFRAMEBUFFERRENDERBUFFERPROC glFramebufferRenderbuffer;
-PFNGLBLITFRAMEBUFFERPROC glBlitFramebuffer;
-PFNGLGENFRAMEBUFFERSPROC glGenFramebuffers;
-PFNGLDELETEFRAMEBUFFERSPROC glDeleteFramebuffers;
-PFNGLBINDRENDERBUFFEREXTPROC glBindRenderbufferEXT;
-PFNGLGENRENDERBUFFERSPROC glGenRenderbuffers;
-PFNGLRENDERBUFFERSTORAGEEXTPROC glRenderbufferStorageEXT;
-PFNGLDELETERENDERBUFFERSEXTPROC glDeleteRenderbuffersEXT;
-PFNGLMAPBUFFERPROC glMapBuffer;
-PFNGLUNMAPBUFFERPROC glUnmapBuffer;
-PFNGLCHECKFRAMEBUFFERSTATUSEXTPROC glCheckFramebufferStatusEXT;
+#define DEFINE_GL_PROC(type, name) \
+  type name;
+#include "gl_procedures.inl"
+#undef DEFINE_GL_PROC
 
 namespace win32
 {
@@ -48,15 +31,13 @@ namespace win32
   {
     HMODULE hInst = 0;
 
-    /// buffer objects extensions
-
-    glBindBuffer = GetGLProc<PFNGLBINDBUFFERPROC>(hInst, "glBindBuffer");
-    glGenBuffers = GetGLProc<PFNGLGENBUFFERSPROC>(hInst, "glGenBuffers");
-    glBufferData = GetGLProc<PFNGLBUFFERDATAPROC>(hInst, "glBufferData");
-    glBufferSubData = GetGLProc<PFNGLBUFFERSUBDATAPROC>(hInst, "glBufferSubData");
-    glDeleteBuffers = GetGLProc<PFNGLDELETEBUFFERSPROC>(hInst, "glDeleteBuffers");
-    glMapBuffer = GetGLProc<PFNGLMAPBUFFERPROC>(hInst, "glMapBuffer");
-    glUnmapBuffer = GetGLProc<PFNGLUNMAPBUFFERPROC>(hInst, "glUnmapBuffer");
+    // Loading procedures, trying "EXT" suffix if alias doesn't exist
+#define DEFINE_GL_PROC(type, name) \
+    name = GetGLProc<type>(hInst, #name);             \
+    if (name == NULL)                                 \
+      name = GetGLProc<type>(hInst, #name ## "EXT");
+#include "gl_procedures.inl"
+#undef DEFINE_GL_PROC
 
     yg::gl::g_isBufferObjectsSupported = glBindBuffer
                               && glGenBuffers
@@ -66,19 +47,6 @@ namespace win32
                               && glMapBuffer
                               && glUnmapBuffer;
 
-//    glActiveTexture = GetGLProc<PFNGLACTIVETEXTUREPROC>(hInst, "glActiveTexture");
-//    glClientActiveTexture = GetGLProc<PFNGLCLIENTACTIVETEXTUREPROC>(hInst, "glClientActiveTexture");
-
-    /// framebuffers extensions
-
-    glBindFramebuffer = GetGLProc<PFNGLBINDFRAMEBUFFERPROC>(hInst, "glBindFramebuffer");
-    glFramebufferTexture2D = GetGLProc<PFNGLFRAMEBUFFERTEXTURE2DPROC>(hInst, "glFramebufferTexture2D");
-    glFramebufferRenderbuffer = GetGLProc<PFNGLFRAMEBUFFERRENDERBUFFERPROC>(hInst, "glFramebufferRenderbuffer");
-    glGenFramebuffers = GetGLProc<PFNGLGENFRAMEBUFFERSPROC>(hInst, "glGenFramebuffers");
-    glDeleteFramebuffers = GetGLProc<PFNGLDELETEFRAMEBUFFERSPROC>(hInst, "glDeleteFramebuffers");
-    glCheckFramebufferStatusEXT = GetGLProc<PFNGLCHECKFRAMEBUFFERSTATUSEXTPROC>(hInst, "glCheckFramebufferStatusEXT");
-    glBlitFramebuffer = GetGLProc<PFNGLBLITFRAMEBUFFERPROC>(hInst, "glBlitFramebuffer");
-
     yg::gl::g_isFramebufferSupported = glBindFramebuffer
                             && glFramebufferTexture2D
                             && glFramebufferRenderbuffer
@@ -87,24 +55,13 @@ namespace win32
                             && glCheckFramebufferStatusEXT
                             && glBlitFramebuffer;
 
-    /// renderbuffer extensions
-
-    glGenRenderbuffers = GetGLProc<PFNGLGENRENDERBUFFERSPROC>(hInst, "glGenRenderbuffers");
-    glDeleteRenderbuffersEXT = GetGLProc<PFNGLDELETERENDERBUFFERSEXTPROC>(hInst, "glDeleteRenderbuffersEXT");
-    glBindRenderbufferEXT = GetGLProc<PFNGLBINDRENDERBUFFEREXTPROC>(hInst, "glBindRenderbufferEXT");
-    glRenderbufferStorageEXT = GetGLProc<PFNGLRENDERBUFFERSTORAGEEXTPROC>(hInst, "glRenderbufferStorageEXT");
-
     yg::gl::g_isRenderbufferSupported = glGenRenderbuffers
                              && glDeleteRenderbuffersEXT
                              && glBindRenderbufferEXT
                              && glRenderbufferStorageEXT;
 
-    /// multisampling extensions
-
-    glRenderbufferStorageMultisample = GetGLProc<PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC>(hInst, "glRenderbufferStorageMultisample");
-
     yg::gl::g_isMultisamplingSupported = (glRenderbufferStorageMultisample != NULL);
   }
-}
+} // namespace win32
 
 #endif

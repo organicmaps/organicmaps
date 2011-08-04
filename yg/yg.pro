@@ -61,6 +61,7 @@ SOURCES += \
 
 HEADERS += \
     internal/opengl.hpp \
+    internal/gl_procedures.inl \
     vertex.hpp \
     resource_manager.hpp \
     texture.hpp \

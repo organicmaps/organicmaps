@@ -8,27 +8,10 @@
 #include <gl/GL.h>
 #include "../../3party/GL/glext.h"
 
-extern PFNGLBINDBUFFERPROC glBindBuffer;
-extern PFNGLGENBUFFERSPROC glGenBuffers;
-extern PFNGLBUFFERDATAPROC glBufferData;
-extern PFNGLBUFFERSUBDATAPROC glBufferSubData;
-extern PFNGLDELETEBUFFERSPROC glDeleteBuffers;
-extern PFNGLACTIVETEXTUREPROC glActiveTexture;
-extern PFNGLCLIENTACTIVETEXTUREPROC glClientActiveTexture;
-extern PFNGLBINDFRAMEBUFFERPROC glBindFramebuffer;
-extern PFNGLBLITFRAMEBUFFERPROC glBlitFramebuffer;
-extern PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC glRenderbufferStorageMultisample;
-extern PFNGLFRAMEBUFFERTEXTURE2DPROC glFramebufferTexture2D;
-extern PFNGLFRAMEBUFFERRENDERBUFFERPROC glFramebufferRenderbuffer;
-extern PFNGLGENFRAMEBUFFERSPROC glGenFramebuffers;
-extern PFNGLDELETEFRAMEBUFFERSPROC glDeleteFramebuffers;
-extern PFNGLBINDRENDERBUFFEREXTPROC glBindRenderbufferEXT;
-extern PFNGLGENRENDERBUFFERSPROC glGenRenderbuffers;
-extern PFNGLRENDERBUFFERSTORAGEEXTPROC glRenderbufferStorageEXT;
-extern PFNGLDELETERENDERBUFFERSEXTPROC glDeleteRenderbuffersEXT;
-extern PFNGLMAPBUFFERPROC glMapBuffer;
-extern PFNGLUNMAPBUFFERPROC glUnmapBuffer;
-extern PFNGLCHECKFRAMEBUFFERSTATUSEXTPROC glCheckFramebufferStatusEXT;
+#define DEFINE_GL_PROC(type, name) \
+  extern type name;
+#include "gl_procedures.inl"
+#undef DEFINE_GL_PROC
 
 namespace yg
 {
