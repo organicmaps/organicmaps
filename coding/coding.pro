@@ -86,4 +86,5 @@ HEADERS += \
     zip_reader.hpp \
     trie.hpp \
     trie_builder.hpp \
+    trie_reader.hpp \
 		mmap_reader.hpp \

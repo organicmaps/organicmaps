@@ -1,7 +1,39 @@
 #pragma once
+#include "../coding/byte_stream.hpp"
 #include "../coding/varint.hpp"
-#include "../base/string_utils.hpp"
+#include "../base/buffer_vector.hpp"
 #include "../std/algorithm.hpp"
+
+// Trie format:
+// [1: header]
+// [node] ... [node]
+
+// Nodes are written in post-order (first child, last child, parent). Contents of nodes is writern
+// reversed. The resulting file should be reverese before use! Then its contents will appear in
+// pre-order alphabetically reversed (parent, last child, first child).
+
+// Leaf node format:
+// [value] ... [value]
+
+// Internal node format:
+// [1: header]: [2: min(valueCount, 3)] [6: min(childCount, 63)]
+// [vu valueCount]: if valueCount in header == 3
+// [vu childCount]: if childCount in header == 63
+// [value] ... [value]
+// [childInfo] ... [childInfo]
+
+// Child info format:
+// Every char of the edge is encoded as varint difference from the previous char. First char is
+// encoded as varint difference from the base char, which is the last char of the current prefix.
+//
+// [1: header]: [1: isLeaf] [1: isShortEdge] [6: (edgeChar0 - baseChar) or min(edgeLen-1, 63)]
+// [vu edgeLen-1]: if edgeLen-1 in header == 63
+// [vi edgeChar0 - baseChar]
+// [vi edgeChar1 - edgeChar0]
+// ...
+// [vi edgeCharN - edgeCharN-1]
+// [edge value]
+// [child size]: if the child is not the first one (last one when reading)
 
 namespace trie
 {
@@ -9,14 +41,15 @@ namespace builder
 {
 
 template <typename SinkT, typename ChildIterT>
-void WriteNode(SinkT & sink, strings::UniChar baseChar,
-               uint32_t const valueCount, void const * valuesData, uint32_t const valuesSize,
-               ChildIterT const begChild, ChildIterT const endChild)
+void WriteNode(SinkT & sink, TrieChar baseChar, uint32_t const valueCount,
+               void const * const valuesDataSize, uint32_t const valuesSize,
+               ChildIterT const begChild, ChildIterT const endChild,
+               bool isRoot = false)
 {
-  if (begChild == endChild)
+  if (begChild == endChild && !isRoot)
   {
     // Leaf node.
-    sink.Write(valuesData, valuesSize);
+    sink.Write(valuesDataSize, valuesSize);
     return;
   }
   uint32_t const childCount = endChild - begChild;
@@ -26,15 +59,16 @@ void WriteNode(SinkT & sink, strings::UniChar baseChar,
     WriteVarUint(sink, valueCount);
   if (childCount >= 63)
     WriteVarUint(sink, childCount);
-  sink.Write(valuesData, valuesSize);
-  for (ChildIterT it = begChild; it != endChild; ++it)
+  sink.Write(valuesDataSize, valuesSize);
+  for (ChildIterT it = begChild; it != endChild; /*++it*/)
   {
-    WriteVarUint(sink, it->Size());
     uint8_t header = (it->IsLeaf() ? 128 : 0);
-    strings::UniString const edge = it->GetEdge();
-    CHECK(!edge.empty(), ());
+    TrieChar const * const edge = it->GetEdge();
+    uint32_t const edgeSize = it->GetEdgeSize();
+    CHECK_NOT_EQUAL(edgeSize, 0, ());
+    CHECK_LESS(edgeSize, 100000, ());
     uint32_t const diff0 = bits::ZigZagEncode(int32_t(edge[0] - baseChar));
-    if (edge.size() == 1 && (diff0 & ~63U) == 0)
+    if (edgeSize == 1 && (diff0 & ~63U) == 0)
     {
         header |= 64;
         header |= diff0;
@@ -42,90 +76,143 @@ void WriteNode(SinkT & sink, strings::UniChar baseChar,
     }
     else
     {
-      if (edge.size() < 63)
+      if (edgeSize - 1 < 63)
       {
-        header |= edge.size();
+        header |= edgeSize - 1;
         WriteToSink(sink, header);
       }
       else
       {
         header |= 63;
         WriteToSink(sink, header);
-        WriteVarUint(sink, static_cast<uint32_t>(edge.size()));
+        WriteVarUint(sink, edgeSize - 1);
       }
-      for (size_t i = 0; i < edge.size(); ++i)
+      for (size_t i = 0; i < edgeSize; ++i)
       {
         WriteVarInt(sink, int32_t(edge[i] - baseChar));
         baseChar = edge[i];
       }
     }
     baseChar = edge[0];
+    sink.Write(it->GetEdgeValue(), it->GetEdgeValueSize());
+
+    uint32_t const childSize = it->Size();
+    if (++it != endChild)
+      WriteVarUint(sink, childSize);
   }
+}
+
+template <typename SinkT, typename ChildIterT>
+void WriteNodeReverse(SinkT & sink, TrieChar baseChar, uint32_t const valueCount,
+                      void const * const valuesDataSize, uint32_t const valuesSize,
+                      ChildIterT const begChild, ChildIterT const endChild,
+                      bool isRoot = false)
+{
+  typedef buffer_vector<uint8_t, 64> OutStorageType;
+  OutStorageType out;
+  PushBackByteSink<OutStorageType> outSink(out);
+  WriteNode(outSink, baseChar, valueCount, valuesDataSize, valuesSize, begChild, endChild, isRoot);
+  reverse(out.begin(), out.end());
+  sink.Write(out.data(), out.size());
 }
 
 struct ChildInfo
 {
   bool m_isLeaf;
   uint32_t m_size;
-  char const * m_edge;
+  buffer_vector<TrieChar, 8> m_edge;
+  buffer_vector<uint8_t, 8> m_edgeValue;
+
+  ChildInfo() {}
+  ChildInfo(bool isLeaf, uint32_t size, TrieChar c) : m_isLeaf(isLeaf), m_size(size), m_edge(1, c)
+  {
+  }
+
   uint32_t Size() const { return m_size; }
   bool IsLeaf() const { return m_isLeaf; }
-  strings::UniString GetEdge() const { return strings::MakeUniString(m_edge); }
+  TrieChar const * GetEdge() const { return m_edge.data(); }
+  uint32_t GetEdgeSize() const { return m_edge.size(); }
+  void const * GetEdgeValue() const { return m_edgeValue.data(); }
+  uint32_t GetEdgeValueSize() const { return m_edgeValue.size(); }
 };
 
 struct NodeInfo
 {
-  NodeInfo(uint64_t pos, strings::UniChar uniChar) : m_begPos(pos), m_char(uniChar) {}
   uint64_t m_begPos;
-  strings::UniChar m_char;
-  buffer_vector<ChildInfo, 4> m_children;
+  TrieChar m_char;
+  vector<ChildInfo> m_children;
   buffer_vector<uint8_t, 32> m_values;
+  uint32_t m_valueCount;
+
+  NodeInfo() : m_valueCount(0) {}
+  NodeInfo(uint64_t pos, TrieChar trieChar) : m_begPos(pos), m_char(trieChar), m_valueCount(0) {}
 };
 
-void PopNodes(vector<builder::NodeInfo> & nodes, int nodesToPop)
+template <typename SinkT, class NodesT>
+void PopNodes(SinkT & sink, NodesT & nodes, int nodesToPop)
 {
-  if (nodesToPop == 0)
-    return;
-  ASSERT_GREATER_OR_EQUAL(nodes.size(), nodesToPop, ());
-  strings::UniString reverseEdge;
-  while (nodesToPop > 0)
+  ASSERT_GREATER(nodes.size(), nodesToPop, ());
+  for (; nodesToPop > 0; --nodesToPop)
   {
-    reverseEdge.push_back(nodes.back().m_char);reverseEdge.push_back(nodes.back().m_char);
-    if (nodes.back().m_values.empty() && nodes.back().m_children.size() <= 1)
+    NodeInfo & node = nodes.back();
+    NodeInfo & prevNode = nodes[nodes.size() - 2];
+
+    if (node.m_valueCount == 0 && node.m_children.size() <= 1)
     {
-      ASSERT_EQUAL(nodes.back().m_children.size(), 1, ());
-      continue;
+      ASSERT(node.m_values.empty(), ());
+      ASSERT_EQUAL(node.m_children.size(), 1, ());
+      ChildInfo & child = node.m_children[0];
+      prevNode.m_children.push_back(ChildInfo(child.m_isLeaf, child.m_size, node.m_char));
+      prevNode.m_children.back().m_edge.append(child.m_edge.begin(), child.m_edge.end());
+    }
+    else
+    {
+      WriteNodeReverse(sink, node.m_char, node.m_valueCount,
+                       node.m_values.data(), node.m_values.size(),
+                       node.m_children.rbegin(), node.m_children.rend());
+      prevNode.m_children.push_back(ChildInfo(node.m_children.empty(),
+                                              static_cast<uint32_t>(sink.Pos() - node.m_begPos),
+                                              node.m_char));
     }
 
+    nodes.pop_back();
   }
 }
 
 }  // namespace builder
 
-/*
 template <typename SinkT, typename IterT>
 void Build(SinkT & sink, IterT const beg, IterT const end)
 {
-  vector<builder::NodeInfo> nodes;
-  strings::UniString prevKey;
+  typedef buffer_vector<TrieChar, 32> TrieString;
+  buffer_vector<builder::NodeInfo, 32> nodes(1, builder::NodeInfo(sink.Pos(), DEFAULT_CHAR));
+  TrieString prevKey;
   for (IterT it = beg; it != end; ++it)
   {
-    strings::UniString const key = it->Key();
-    CHECK(!key.empty(), ());
-    CHECK_LESS_OR_EQUAL(prevKey, key, ());
+    TrieChar const * const pKeyData = it->GetKeyData();
+    TrieString key(pKeyData, pKeyData + it->GetKeySize());
+    CHECK(!(key < prevKey), (key, prevKey));
     int nCommon = 0;
-    while (nCommon < min(key.size(),prevKey.size()) && prevKey[nCommon] == key[nCommon])
+    while (nCommon < min(key.size(), prevKey.size()) && prevKey[nCommon] == key[nCommon])
       ++nCommon;
-    builder::PopNodes(nodes, nodes.size() - nCommon);
+    builder::PopNodes(sink, nodes, nodes.size() - nCommon - 1); // Root is also a common node.
     uint64_t const pos = sink.Pos();
     for (int i = nCommon; i < key.size(); ++i)
-      nodes.push_back(NodeInfo(pos, key[i]));
-    uint8_t const * pValue = static_cast<uint8_t const *>(it->ValueData());
-    nodes.back().m_values.insert(nodes.back().m_values.end(), pValue, pValue + it->ValueSize());
+      nodes.push_back(builder::NodeInfo(pos, key[i]));
+    uint8_t const * const pValue = static_cast<uint8_t const *>(it->GetValueData());
+    nodes.back().m_values.insert(nodes.back().m_values.end(), pValue, pValue + it->GetValueSize());
+    nodes.back().m_valueCount += 1;
     prevKey.swap(key);
   }
-  builder::PopNodes(nodes.size());
+
+  // Pop all the nodes from the stack.
+  builder::PopNodes(sink, nodes, nodes.size() - 1);
+
+  // Write the root.
+  WriteNodeReverse(sink, DEFAULT_CHAR, nodes.back().m_valueCount,
+                   nodes.back().m_values.data(), nodes.back().m_values.size(),
+                   nodes.back().m_children.rbegin(), nodes.back().m_children.rend(),
+                   true);
 }
-*/
 
 }  // namespace trie
