@@ -4,6 +4,7 @@
 #import "MapViewController.h"
 #import "WebViewController.h"
 #import "CustomAlertView.h"
+#import "DiskFreeSpace.h"
 
 #include "GetActiveConnectionType.h"
 #include "IPhonePlatform.hpp"
@@ -289,9 +290,25 @@ TIndex g_clickedIndex;
     		[popupQuery release];
     	}
   		break;
-  		case ENotDownloaded:
-  		case EDownloadFailed:
-  		{
+      case ENotDownloaded:
+      case EDownloadFailed:
+      {
+        TLocalAndRemoteSize sizePair = m_storage->CountrySizeInBytes(g_clickedIndex);
+        TLocalAndRemoteSize::first_type size = sizePair.second - sizePair.first;
+
+        // check for disk free space first
+        if (FreeDiskSpaceInBytes() < (size + 1024*1024))
+        { // display warning dialog about not enough free disk space
+          CustomAlertView * alert = [[CustomAlertView alloc] initWithTitle:@"There is not enough free disk space"
+                                                                   message:[NSString stringWithFormat:@"Please, free some space on your device first to download %@", countryName] 
+                                                                  delegate:nil
+                                                         cancelButtonTitle:@"OK"
+                                                         otherButtonTitles:nil];
+          [alert show];
+          [alert release];
+          break;
+        }
+
         TActiveConnectionType connType = GetActiveConnectionType();
         if (connType == ENotConnected)
         { // do not initiate any download
@@ -306,8 +323,6 @@ TIndex g_clickedIndex;
         }
         else
         {
-          TLocalAndRemoteSize sizePair = m_storage->CountrySizeInBytes(g_clickedIndex);
-          TLocalAndRemoteSize::first_type size = sizePair.second - sizePair.first;
           if (connType == EConnectedBy3G && size > MAX_3G_MEGABYTES * MB)
           { // If user uses 3G, do not allow him to download large countries
             CustomAlertView * alert =
