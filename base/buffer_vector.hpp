@@ -34,13 +34,12 @@ public:
   }
 
   template <typename IterT>
-  void assign(IterT beg, IterT end)
+  void append(IterT beg, IterT end)
   {
     if (m_size == USE_DYNAMIC)
-      m_dynamic.assign(beg, end);
+      m_dynamic.insert(m_dynamic.end(), beg, end);
     else
     {
-      m_size = 0;
       while (beg != end)
       {
         if (m_size == N)
@@ -53,6 +52,18 @@ public:
         }
         m_static[m_size++] = *beg++;
       }
+    }
+  }
+
+  template <typename IterT>
+  void assign(IterT beg, IterT end)
+  {
+    if (m_size == USE_DYNAMIC)
+      m_dynamic.assign(beg, end);
+    else
+    {
+      m_size = 0;
+      append(beg, end);
     }
   }
 

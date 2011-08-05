@@ -168,6 +168,33 @@ UNIT_TEST(BufferVectorInsert)
   }
 }
 
+UNIT_TEST(BufferVectorAppend)
+{
+  for (size_t initialLength = 0; initialLength < 20; ++initialLength)
+  {
+    for (size_t insertLength = 0; insertLength < 20; ++insertLength)
+    {
+      buffer_vector<char, 5> b;
+      vector<char> v;
+      for (size_t i = 0; i < initialLength; ++i)
+      {
+        b.push_back('A' + i);
+        v.push_back('A' + i);
+      }
+
+      vector<int> dataToInsert(insertLength);
+      for (size_t i = 0; i < insertLength; ++i)
+        dataToInsert[i] = 'a' + i;
+
+      b.append(dataToInsert.begin(), dataToInsert.end());
+      v.insert(v.end(), dataToInsert.begin(), dataToInsert.end());
+
+      vector<char> result(b.begin(), b.end());
+      TEST_EQUAL(v, result, (initialLength, insertLength));
+    }
+  }
+}
+
 UNIT_TEST(BufferVectorPopBack)
 {
   for (size_t len = 1; len < 6; ++len)
