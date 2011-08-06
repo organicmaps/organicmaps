@@ -3,7 +3,6 @@
 #include "../std/target_os.hpp"
 #include "../std/systime.hpp"
 #include "../std/ctime.hpp"
-#include "../std/stdint.hpp"
 
 namespace my
 {
