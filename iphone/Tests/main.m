@@ -1,11 +1,3 @@
-//
-//  main.m
-//  Tests
-//
-//  Created by Siarhei Rachytski on 1/25/11.
-//  Copyright 2011 Credo-Dialogue. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 
 int main(int argc, char *argv[]) {

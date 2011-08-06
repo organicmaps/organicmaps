@@ -350,7 +350,7 @@
 		EE12000213538ED6004E6AAB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				ORGANIZATIONNAME = "Credo-Dialogue";
+				ORGANIZATIONNAME = "MapsWithMe";
 			};
 			buildConfigurationList = EE12000513538ED6004E6AAB /* Build configuration list for PBXProject "Benchmarks" */;
 			compatibilityVersion = "Xcode 3.2";

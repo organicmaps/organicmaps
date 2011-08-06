@@ -1,11 +1,3 @@
-//
-//  TestView.mm
-//  Tests
-//
-//  Created by Siarhei Rachytski on 1/26/11.
-//  Copyright 2011 Credo-Dialogue. All rights reserved.
-//
-
 #import "TestView.h"
 
 

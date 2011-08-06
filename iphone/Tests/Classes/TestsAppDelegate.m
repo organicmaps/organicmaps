@@ -1,11 +1,3 @@
-//
-//  TestsAppDelegate.m
-//  Tests
-//
-//  Created by Siarhei Rachytski on 1/25/11.
-//  Copyright 2011 Credo-Dialogue. All rights reserved.
-//
-
 #import "TestsAppDelegate.h"
 #import "TestsViewController.h"
 
