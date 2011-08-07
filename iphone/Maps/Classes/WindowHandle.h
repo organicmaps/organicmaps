@@ -1,26 +1,17 @@
-/*
- *  WindowHandle.hpp
- *  Maps
- *
- *  Created by Siarhei Rachytski on 8/15/10.
- *  Copyright 2010 OMIM. All rights reserved.
- *
- */
+#import "RenderContext.hpp"
 
 #include "../../../map/window_handle.hpp"
-#include "../../../yg/screen.hpp"
-#include "RenderContext.hpp"
-#import "EAGLView.h"
+
+@class EAGLView;
 
 namespace iphone
 {
   class WindowHandle : public ::WindowHandle
   {
-    private:
-      EAGLView * m_view;
-	public:
-      WindowHandle(EAGLView * view);
+    EAGLView * m_view;
 
-	  void invalidateImpl();
+	public:
+    WindowHandle(EAGLView * view);
+	  virtual void invalidateImpl();
   };
 }
