@@ -3,6 +3,7 @@
 #include "../std/unordered_map.hpp"
 #include "../std/list.hpp"
 #include "assert.hpp"
+#include "logging.hpp"
 
 namespace my
 {
@@ -27,7 +28,7 @@ namespace my
     {
       ValueT m_value;
       size_t m_weight;
-      bool m_locked;
+      size_t m_lockCount;
       typename list_t::iterator m_it;
     };
 
@@ -51,20 +52,20 @@ namespace my
     void LockElem(KeyT const & key)
     {
       ASSERT(HasElem(key), ());
-      m_map[key].m_locked = true;
+      ++m_map[key].m_lockCount;
     }
 
     void UnlockElem(KeyT const & key)
     {
       ASSERT(HasElem(key), ());
-      ASSERT(m_map[key].m_locked, ());
-      m_map[key].m_locked = false;
+      ASSERT(m_map[key].m_lockCount > 0, ());
+      --m_map[key].m_lockCount;
     }
 
     ValueT const & Find(KeyT const & key, bool DoTouch = true)
     {
       typename map_t::iterator it = m_map.find(key);
-      CHECK(it != m_map.end(), ());
+      ASSERT(it != m_map.end(), ());
       if (DoTouch)
       {
         typename list_t::iterator listIt = it->second.m_it;
@@ -81,7 +82,7 @@ namespace my
       if (!HasElem(key))
         return;
       typename map_t::iterator it = m_map.find(key);
-      CHECK(it != m_map.end(), ());
+      ASSERT(it != m_map.end(), ());
 
       typename list_t::iterator listIt = it->second.m_it;
       KeyT k = *listIt;
@@ -94,7 +95,9 @@ namespace my
     {
       typename map_t::iterator it = m_map.find(key);
 
-      if (it != m_map.end() && !it->second.m_locked)
+      ASSERT(it->second.m_lockCount == 0, ("removing locked element"));
+
+      if (it != m_map.end() && it->second.m_lockCount == 0)
       {
         m_curWeight -= it->second.m_weight;
         m_list.erase(it->second.m_it);
@@ -118,7 +121,7 @@ namespace my
         KeyT k = *it;
 
         /// erasing only unlocked elements
-        if (!m_map[k].m_locked)
+        if (m_map[k].m_lockCount == 0)
         {
           m_curWeight -= m_map[k].m_weight;
           ValueTraitsT::Evict(m_map[k].m_value);
@@ -139,6 +142,7 @@ namespace my
         }
         else
           --it;
+
       }
 
       ASSERT(m_curWeight + weight <= m_maxWeight, ());
@@ -146,7 +150,7 @@ namespace my
       m_list.push_front(key);
       m_map[key].m_weight = weight;
       m_map[key].m_value = val;
-      m_map[key].m_locked = false;
+      m_map[key].m_lockCount = 0;
       m_map[key].m_it = m_list.begin();
       m_curWeight += weight;
     }

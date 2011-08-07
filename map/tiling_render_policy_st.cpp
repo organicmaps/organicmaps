@@ -9,6 +9,7 @@
 #include "../yg/framebuffer.hpp"
 #include "../yg/renderbuffer.hpp"
 #include "../yg/resource_manager.hpp"
+#include "../yg/base_texture.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -67,14 +68,14 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
 
   while (m_tiler.hasTile())
   {
-    yg::Tiler::RectInfo ri = m_tiler.nextTile();
+    Tiler::RectInfo ri = m_tiler.nextTile();
 
     m_tileCache.lock();
 
     if (m_tileCache.hasTile(ri))
     {
       m_tileCache.touchTile(ri);
-      yg::Tile tile = m_tileCache.getTile(ri);
+      Tile tile = m_tileCache.getTile(ri);
       m_tileCache.unlock();
 
       size_t tileWidth = tile.m_renderTarget->width();
@@ -123,9 +124,9 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
       m_tileDrawer->endFrame();
       m_tileDrawer->screen()->resetInfoLayer();
 
-      yg::Tile tile(tileTarget, tileInfoLayer, m_tileScreen, ri, 0);
+      Tile tile(tileTarget, tileInfoLayer, m_tileScreen, ri, 0);
       m_tileCache.lock();
-      m_tileCache.addTile(ri, yg::TileCache::Entry(tile, resourceManager()));
+      m_tileCache.addTile(ri, TileCache::Entry(tile, resourceManager()));
       m_tileCache.unlock();
 
       m_tileCache.lock();

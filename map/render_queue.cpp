@@ -1,9 +1,12 @@
 #include "../base/SRC_FIRST.hpp"
 
 #include "render_queue.hpp"
+#include "window_handle.hpp"
 
 #include "../yg/render_state.hpp"
 #include "../yg/rendercontext.hpp"
+
+#include "../std/bind.hpp"
 
 #include "../base/logging.hpp"
 
@@ -53,7 +56,7 @@ RenderQueue::~RenderQueue()
 
 void RenderQueue::AddCommand(
   RenderQueueRoutine::TRenderFn const & renderFn,
-  yg::Tiler::RectInfo const & rectInfo,
+  Tiler::RectInfo const & rectInfo,
   size_t sequenceID,
   RenderQueueRoutine::TCommandFinishedFn const & commandFinishedFn)
 {
@@ -61,10 +64,16 @@ void RenderQueue::AddCommand(
   m_renderCommands.PushBack(make_shared_ptr(new RenderQueueRoutine::Command(renderFn, rectInfo, sequenceID, commandFinishedFn)));
 }
 
-void RenderQueue::AddWindowHandle(shared_ptr<WindowHandle> const & windowHandle)
+void RenderQueue::AddWindowHandle(shared_ptr<WindowHandle> const & window)
 {
-  for (unsigned i = 0; i < m_tasksCount; ++i)
-    m_tasks[i].m_routine->AddWindowHandle(windowHandle);
+  m_windowHandles.push_back(window);
+}
+
+void RenderQueue::Invalidate()
+{
+  for_each(m_windowHandles.begin(),
+           m_windowHandles.end(),
+           bind(&WindowHandle::invalidate, _1));
 }
 
 void RenderQueue::MemoryWarning()
@@ -85,7 +94,7 @@ void RenderQueue::EnterForeground()
     m_tasks[i].m_routine->EnterForeground();
 }
 
-yg::TileCache & RenderQueue::TileCache()
+TileCache & RenderQueue::GetTileCache()
 {
   return m_tileCache;
 }

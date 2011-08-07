@@ -137,11 +137,12 @@ storage::Storage m_storage;
 
     if (!res)
       m_framework->SetMaxWorldRect();
-    
-    m_framework->Invalidate();
 
     m_framework->InitializeGL([(EAGLView*)self.view renderContext], resourceManager);
 
+    m_framework->Invalidate();
+    
+    
 //    m_framework->UpdateNow();
 	}
 

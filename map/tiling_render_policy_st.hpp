@@ -1,10 +1,10 @@
 #pragma once
 
 #include "render_policy.hpp"
+#include "tiler.hpp"
+#include "tile_cache.hpp"
 
 #include "../yg/info_layer.hpp"
-#include "../yg/tiler.hpp"
-#include "../yg/tile_cache.hpp"
 
 #include "../std/shared_ptr.hpp"
 
@@ -21,9 +21,9 @@ private:
   ScreenBase m_tileScreen;
 
   yg::InfoLayer m_infoLayer;
-  yg::TileCache m_tileCache;
 
-  yg::Tiler m_tiler;
+  TileCache m_tileCache;
+  Tiler m_tiler;
 
 public:
 

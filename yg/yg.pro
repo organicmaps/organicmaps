@@ -55,9 +55,7 @@ SOURCES += \
     info_layer.cpp \
     overlay_element.cpp \
     symbol_element.cpp \
-    overlay_renderer.cpp \
-    tiler.cpp \
-    tile_cache.cpp
+    overlay_renderer.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -105,10 +103,7 @@ HEADERS += \
     info_layer.hpp \
     overlay_element.hpp \
     symbol_element.hpp \
-    overlay_renderer.hpp \
-    tile.hpp \
-    tile_cache.hpp \
-    tiler.hpp
+    overlay_renderer.hpp
 
 win32 {
   HEADERS += internal/opengl_win32.hpp

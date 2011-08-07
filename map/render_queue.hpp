@@ -1,12 +1,15 @@
 #pragma once
 
-#include "../base/thread.hpp"
-#include "../geometry/screenbase.hpp"
-#include "../std/shared_ptr.hpp"
 #include "render_queue_routine.hpp"
-#include "../yg/tile_cache.hpp"
-#include "../yg/tiler.hpp"
+#include "tiler.hpp"
+#include "tile_cache.hpp"
+
+#include "../geometry/screenbase.hpp"
+
+#include "../base/thread.hpp"
 #include "../base/threaded_list.hpp"
+
+#include "../std/shared_ptr.hpp"
 
 namespace yg
 {
@@ -42,7 +45,10 @@ private:
 
   ThreadedList<shared_ptr<RenderQueueRoutine::Command> > m_renderCommands;
 
-  yg::TileCache m_tileCache;
+  TileCache m_tileCache;
+
+  /// A list of window handles to notify about ending rendering operations.
+  list<shared_ptr<WindowHandle> > m_windowHandles;
 
 public:
 
@@ -61,7 +67,7 @@ public:
                   double visualScale);
   /// add command to the commands queue.
   void AddCommand(RenderQueueRoutine::TRenderFn const & renderFn,
-                  yg::Tiler::RectInfo const & rectInfo,
+                  Tiler::RectInfo const & rectInfo,
                   size_t sequenceID,
                   RenderQueueRoutine::TCommandFinishedFn const & commandFinishedFn);
   /// add window handle to notify when rendering operation finishes
@@ -74,9 +80,11 @@ public:
   /// load all necessary memory caches and opengl resources.
   void EnterForeground();
   /// get tile cache.
-  yg::TileCache & TileCache();
+  TileCache & GetTileCache();
   /// number of the current tiler sequence to skip the old commands upon rendering.
   size_t CurrentSequence() const;
   /// common render commands queue for all rendering threads.
   ThreadedList<shared_ptr<RenderQueueRoutine::Command> > & RenderCommands();
+  /// invalidate all connected windows
+  void Invalidate();
 };

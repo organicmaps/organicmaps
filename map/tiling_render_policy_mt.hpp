@@ -2,9 +2,10 @@
 
 #include "render_policy.hpp"
 #include "render_queue.hpp"
+#include "coverage_generator.hpp"
+#include "tiler.hpp"
 
 #include "../yg/info_layer.hpp"
-#include "../yg/tiler.hpp"
 
 namespace yg
 {
@@ -22,10 +23,11 @@ class TilingRenderPolicyMT : public RenderPolicy
 private:
 
   RenderQueue m_renderQueue;
+  CoverageGenerator m_coverageGenerator;
 
   yg::InfoLayer m_infoLayer;
 
-  yg::Tiler m_tiler;
+//  yg::Tiler m_tiler;
 
 public:
 

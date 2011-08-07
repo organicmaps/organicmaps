@@ -15,18 +15,17 @@
 #include "../yg/skin.hpp"
 #include "../yg/base_texture.hpp"
 #include "../yg/info_layer.hpp"
-#include "../yg/tile.hpp"
 
 #include "../indexer/scales.hpp"
 
 #include "events.hpp"
 #include "drawer_yg.hpp"
-#include "window_handle.hpp"
 #include "render_queue_routine.hpp"
 #include "render_queue.hpp"
+#include "tile.hpp"
 
 RenderQueueRoutine::Command::Command(TRenderFn renderFn,
-                                     yg::Tiler::RectInfo const & rectInfo,
+                                     Tiler::RectInfo const & rectInfo,
                                      size_t sequenceID,
                                      TCommandFinishedFn commandFinishedFn)
   : m_renderFn(renderFn),
@@ -51,19 +50,24 @@ RenderQueueRoutine::RenderQueueRoutine(string const & skinName,
   m_bgColor = bgColor;
 }
 
-bool RenderQueueRoutine::HasTile(yg::Tiler::RectInfo const & rectInfo)
+bool RenderQueueRoutine::HasTile(Tiler::RectInfo const & rectInfo)
 {
-  m_renderQueue->TileCache().lock();
-  bool res = m_renderQueue->TileCache().hasTile(rectInfo);
-  m_renderQueue->TileCache().unlock();
+  TileCache & tileCache = m_renderQueue->GetTileCache();
+  tileCache.lock();
+  bool res = tileCache.hasTile(rectInfo);
+  tileCache.unlock();
   return res;
 }
 
-void RenderQueueRoutine::AddTile(yg::Tiler::RectInfo const & rectInfo, yg::Tile const & tile)
+void RenderQueueRoutine::AddTile(Tiler::RectInfo const & rectInfo, Tile const & tile)
 {
-  m_renderQueue->TileCache().lock();
-  m_renderQueue->TileCache().addTile(rectInfo, yg::TileCache::Entry(tile, m_resourceManager));
-  m_renderQueue->TileCache().unlock();
+  TileCache & tileCache = m_renderQueue->GetTileCache();
+  tileCache.lock();
+  if (tileCache.hasTile(rectInfo))
+    tileCache.touchTile(rectInfo);
+  else
+    tileCache.addTile(rectInfo, TileCache::Entry(tile, m_resourceManager));
+  tileCache.unlock();
 }
 
 void RenderQueueRoutine::Cancel()
@@ -175,8 +179,8 @@ void RenderQueueRoutine::Do()
     double duration = timer.ElapsedSeconds();
 
     TCommandFinishedFn fn;
-    yg::Tiler::RectInfo rectInfo;
-    yg::Tile tile;
+    Tiler::RectInfo rectInfo;
+    Tile tile;
 
     if (!IsCancelled())
     {
@@ -187,7 +191,7 @@ void RenderQueueRoutine::Do()
           break;
 
         rectInfo = m_currentCommand->m_rectInfo;
-        tile = yg::Tile(tileTarget, tileInfoLayer, frameScreen, m_currentCommand->m_rectInfo, duration);
+        tile = Tile(tileTarget, tileInfoLayer, frameScreen, m_currentCommand->m_rectInfo, duration);
         AddTile(rectInfo, tile);
 
         fn = m_currentCommand->m_commandFinishedFn;
@@ -203,18 +207,6 @@ void RenderQueueRoutine::Do()
   // By VNG: We can't destroy render context in drawing thread.
   // Notify render context instead.
   m_renderContext->endThreadDrawing();
-}
-
-void RenderQueueRoutine::AddWindowHandle(shared_ptr<WindowHandle> window)
-{
-  m_windowHandles.push_back(window);
-}
-
-void RenderQueueRoutine::Invalidate()
-{
-  for_each(m_windowHandles.begin(),
-           m_windowHandles.end(),
-           bind(&WindowHandle::invalidate, _1));
 }
 
 void RenderQueueRoutine::InitializeGL(shared_ptr<yg::gl::RenderContext> const & renderContext,

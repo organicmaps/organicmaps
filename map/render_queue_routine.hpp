@@ -8,8 +8,8 @@
 #include "../std/list.hpp"
 #include "../std/function.hpp"
 #include "../yg/color.hpp"
-#include "../yg/tile_cache.hpp"
-#include "../yg/tiler.hpp"
+#include "tile_cache.hpp"
+#include "tiler.hpp"
 #include "render_policy.hpp"
 
 class DrawerYG;
@@ -45,18 +45,18 @@ class RenderQueueRoutine : public threads::IRoutine
 public:
 
   typedef RenderPolicy::TRenderFn TRenderFn;
-  typedef function<void(yg::Tiler::RectInfo const &, yg::Tile const &)> TCommandFinishedFn;
+  typedef function<void(Tiler::RectInfo const &, Tile const &)> TCommandFinishedFn;
 
   /// Single tile rendering command
   struct Command
   {
     TRenderFn m_renderFn;
-    yg::Tiler::RectInfo m_rectInfo;
+    Tiler::RectInfo m_rectInfo;
     shared_ptr<PaintEvent> m_paintEvent; //< paintEvent is set later after construction
     size_t m_sequenceID;
     TCommandFinishedFn m_commandFinishedFn;
     Command(TRenderFn renderFn,
-            yg::Tiler::RectInfo const & rectInfo,
+            Tiler::RectInfo const & rectInfo,
             size_t sequenceID,
             TCommandFinishedFn commandFinishedFn);
   };
@@ -72,8 +72,6 @@ private:
 
   shared_ptr<yg::ResourceManager> m_resourceManager;
 
-  /// A list of window handles to notify about ending rendering operations.
-  list<shared_ptr<WindowHandle> > m_windowHandles;
 
   double m_visualScale;
   string m_skinName;
@@ -85,8 +83,8 @@ private:
 
   RenderQueue * m_renderQueue;
 
-  bool HasTile(yg::Tiler::RectInfo const & rectInfo);
-  void AddTile(yg::Tiler::RectInfo const & rectInfo, yg::Tile const & tile);
+  bool HasTile(Tiler::RectInfo const & rectInfo);
+  void AddTile(Tiler::RectInfo const & rectInfo, Tile const & tile);
 
 public:
 
@@ -105,12 +103,8 @@ public:
   void Cancel();
   /// Thread procedure
   void Do();
-  /// invalidate all connected window handles
-  void Invalidate();
-  /// add monitoring window
-  void AddWindowHandle(shared_ptr<WindowHandle> window);
   /// add model rendering command to rendering queue
-  void AddCommand(TRenderFn const & fn, yg::Tiler::RectInfo const & rectInfo, size_t seqNumber);
+  void AddCommand(TRenderFn const & fn, Tiler::RectInfo const & rectInfo, size_t seqNumber);
   /// free all available memory
   void MemoryWarning();
   /// free all easily recreatable opengl resources and make sure that no opengl call will be made.

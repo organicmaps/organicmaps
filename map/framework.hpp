@@ -23,7 +23,6 @@
 #include "../yg/render_state.hpp"
 #include "../yg/skin.hpp"
 #include "../yg/resource_manager.hpp"
-#include "../yg/tiler.hpp"
 #include "../yg/info_layer.hpp"
 
 #include "../coding/file_reader.hpp"
