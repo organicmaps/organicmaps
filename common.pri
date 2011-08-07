@@ -13,7 +13,7 @@ VERSION = $${VERSION_MAJOR}.$${VERSION_MINOR}
 INCLUDEPATH += $$ROOT_DIR/3party/boost
 
 CONFIG(release, debug|release) {
-  DEFINES += RELEASE _RELEASE
+  DEFINES += RELEASE _RELEASE NDEBUG
   CONFIG_NAME = release
 } else {
   DEFINES += DEBUG _DEBUG
@@ -27,6 +27,8 @@ CONFIG(production) {
   unix|win32-g++ {
     QMAKE_CFLAGS_RELEASE += -g
     QMAKE_CXXFLAGS_RELEASE += -g
+  } win32-msvc* {
+    QMAKE_LFLAGS += /PDB:$${DESTDIR}/$${TARGET}.pdb /DEBUG
   }
 }
 
@@ -71,7 +73,7 @@ for(project, DEPENDENCIES) {
   LIBS += -l$$project
 }
 
-INCLUDEPATH += $$ROOT_DIR/3party/protobuf/src/
+#INCLUDEPATH += $$ROOT_DIR/3party/protobuf/src/
 
 # Windows-specific options for all projects
 win32 {
@@ -87,7 +89,6 @@ win32-msvc* {
   DEFINES += _SCL_SECURE_NO_WARNINGS _CRT_SECURE_NO_WARNINGS _CRT_NONSTDC_NO_WARNINGS NOMINMAX NO_MIN_MAX
   QMAKE_CXXFLAGS += /Fd$${DESTDIR}/$${TARGET}.pdb /Zi /fp:fast
   QMAKE_CFLAGS += /Fd$${DESTDIR}/$${TARGET}.pdb /Zi /fp:fast
-  QMAKE_LFLAGS += /PDB:$${DESTDIR}/$${TARGET}.pdb /DEBUG
 
   QMAKE_CXXFLAGS_RELEASE -= /O2
   # don't set -GL - bug in msvc2008
