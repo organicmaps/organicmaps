@@ -30,11 +30,7 @@
   bool m_mapIsVisible;
 }
 
-- (id) initWithCoder: (NSCoder *)coder;
-
 - (void) ZoomToRect: (m2::RectD const &) rect;
-
-//- (void) UpdateIcon: (NSTimer *)theTimer;
 
 - (void) onResize: (GLint)width withHeight: (GLint)height;
 - (void) onPaint;
@@ -49,7 +45,5 @@
 - (IBAction)OnGuideClicked:(id)sender;
 
 @property (nonatomic, retain) IBOutlet UIBarButtonItem * m_myPositionButton;
-@property (nonatomic, retain) NSTimer * m_iconTimer;
-@property (nonatomic, assign) int m_iconSequenceNumber;
 
 @end

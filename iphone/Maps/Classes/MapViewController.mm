@@ -17,8 +17,6 @@ typedef Framework<model::FeaturesFetcher> framework_t;
 @implementation MapViewController
 
 @synthesize m_myPositionButton;
-@synthesize m_iconTimer;
-@synthesize m_iconSequenceNumber;
 
 // @TODO Make m_framework and m_storage MapsAppDelegate properties instead of global variables.
 framework_t * m_framework = NULL;
@@ -28,27 +26,6 @@ storage::Storage m_storage;
 {
   if (m_framework)
     m_framework->ShowRect(rect);
-}
-
-- (void)UpdateIcon:(NSTimer *)theTimer 
-{
-/*  m_iconSequenceNumber = (m_iconSequenceNumber + 1) % 8;
-  
-  int iconNum = m_iconSequenceNumber;
-  if (iconNum > 4)
-    iconNum = 8 - iconNum;
-
-  NSString * iconName = [[NSString alloc] initWithFormat:@"location-%d.png", iconNum];
-  m_myPositionButton.image = [UIImage imageNamed:iconName];
-  [iconName release];
-  
-  [m_iconTimer invalidate];  
-  m_iconTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f
-                                                 target:self
-                                               selector:@selector(UpdateIcon:)
-                                               userInfo:nil
-                                                repeats:NO];
- */
 }
 
 - (void)OnLocationUpdated
