@@ -7,6 +7,7 @@
 #include "../base/exception.hpp"
 #include "../base/macros.hpp"
 
+#include "../std/shared_array.hpp"
 #include "../std/shared_ptr.hpp"
 #include "../std/string.hpp"
 #include "../std/memcpy.hpp"
@@ -38,13 +39,13 @@ public:
 
   // Construct from block of memory.
   MemReader(void const * pData, size_t size)
-    : m_pData(static_cast<char const *>(pData)), m_Size(size)
+    : m_pData(static_cast<char const *>(pData)), m_size(size)
   {
   }
 
   inline uint64_t Size() const
   {
-    return m_Size;
+    return m_size;
   }
 
   inline void Read(uint64_t pos, void * p, size_t size) const
@@ -56,18 +57,58 @@ public:
   inline MemReader SubReader(uint64_t pos, uint64_t size) const
   {
     ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
+    ASSERT_LESS_OR_EQUAL(size, static_cast<size_t>(-1), ());
     return MemReader(m_pData + pos, static_cast<size_t>(size));
   }
 
   inline MemReader * CreateSubReader(uint64_t pos, uint64_t size) const
   {
     ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
+    ASSERT_LESS_OR_EQUAL(size, static_cast<size_t>(-1), ());
     return new MemReader(m_pData + pos, static_cast<size_t>(size));
   }
 
 private:
   char const * m_pData;
-  size_t m_Size;
+  size_t m_size;
+};
+
+class SharedMemReader
+{
+public:
+  explicit SharedMemReader(size_t size) : m_data(new char[size]), m_offset(0), m_size(size) {}
+
+  inline char * Data() { return m_data.get() + m_offset; }
+  inline char const * Data() const { return m_data.get() + m_offset; }
+  inline uint64_t Size() const { return m_size; }
+
+  inline void Read(uint64_t pos, void * p, size_t size) const
+  {
+    ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
+    memcpy(p, Data() + pos, size);
+  }
+
+  inline SharedMemReader SubReader(uint64_t pos, uint64_t size) const
+  {
+    ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
+    ASSERT_LESS_OR_EQUAL(size, static_cast<size_t>(-1), ());
+    return SharedMemReader(m_data, static_cast<size_t>(pos), static_cast<size_t>(size));
+  }
+
+  inline SharedMemReader * CreateSubReader(uint64_t pos, uint64_t size) const
+  {
+    ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
+    ASSERT_LESS_OR_EQUAL(size, static_cast<size_t>(-1), ());
+    return new SharedMemReader(m_data, static_cast<size_t>(pos), static_cast<size_t>(size));
+  }
+
+private:
+  SharedMemReader(shared_array<char> const & data, size_t offset, size_t size)
+    : m_data(data), m_offset(offset), m_size(size) {}
+
+  shared_array<char> m_data;
+  size_t m_offset;
+  size_t m_size;
 };
 
 // Reader wrapper to hold the pointer to a polymorfic reader.
