@@ -180,6 +180,12 @@ public:
   }
 }
 
+// Display compass calibration dialog automatically
+- (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
+{
+  return YES;
+}
+
 @end
 
 location::LocationService * CreateAppleLocationService()
