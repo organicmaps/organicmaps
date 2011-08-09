@@ -26,7 +26,7 @@ class VarRecordReader
 {
 public:
   VarRecordReader(ReaderT const & reader, uint32_t expectedRecordSize)
-  : m_Reader(reader), m_ReaderSize(m_Reader.Size()), m_ExpectedRecordSize(expectedRecordSize)
+  : m_Reader(reader), m_ReaderSize(reader.Size()), m_ExpectedRecordSize(expectedRecordSize)
   {
     ASSERT_GREATER_OR_EQUAL(expectedRecordSize, 4, ());
   }
