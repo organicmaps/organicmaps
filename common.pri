@@ -119,7 +119,7 @@ unix|win32-g++ {
   QMAKE_CXXFLAGS_RELEASE *= -ffast-math
 }
 
-linux-g++-64 {
+linux-g++* {
   QMAKE_CC                = gcc-4.5
   QMAKE_CXX               = g++-4.5
   QMAKE_CFLAGS_RELEASE   += -flto
