@@ -26,4 +26,9 @@ CONFIG(release, debug|release)|CONFIG(production) {
   QMAKE_EXTRA_TARGETS += versiontarget
 }
 
-SOURCES += empty_stub.cpp
+HEADERS += \
+  version.hpp \
+  ver_serialization.hpp \
+  
+SOURCES += \
+  empty_stub.cpp \

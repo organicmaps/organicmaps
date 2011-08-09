@@ -16,6 +16,8 @@ FileWriter::FileWriter(string const & fileName, FileWriter::Op op)
 
 FileWriter::~FileWriter()
 {
+  if (m_pFileData)
+    Flush();
 }
 
 int64_t FileWriter::Pos() const

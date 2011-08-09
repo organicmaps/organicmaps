@@ -15,13 +15,13 @@
 
 #include "../platform/platform.hpp"
 
-#include "../version/version.hpp"
+#include "../version/ver_serialization.hpp"
 
 #include "../coding/file_container.hpp"
 
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
-#include "../base/timer.hpp"
+
 
 namespace
 {
@@ -106,19 +106,12 @@ namespace feature
       {
         FileWriter w = m_writer.GetWriter(HEADER_FILE_TAG);
         m_header.Save(w);
-        w.Flush();
       }
 
       // write version information
       {
-        static uint32_t generatorStartTime = my::TodayAsYYMMDD();
-
         FileWriter w = m_writer.GetWriter(VERSION_FILE_TAG);
-
-        WriteVarUint(w, Version::BUILD);
-        WriteVarUint(w, Version::GIT_HASH);
-        // actual date of data generation
-        WriteVarUint(w, generatorStartTime);
+        ver::WriteVersion(w);
       }
 
       // assume like we close files
