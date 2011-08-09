@@ -36,6 +36,32 @@ protected:
       return (t1 < t2.m_tag);
     }
   };
+  struct LessOffset
+  {
+    bool operator() (Info const & t1, Info const & t2) const
+    {
+      return (t1.m_offset < t2.m_offset);
+    }
+    bool operator() (Info const & t1, uint64_t const & t2) const
+    {
+      return (t1.m_offset < t2);
+    }
+    bool operator() (uint64_t const & t1, Info const & t2) const
+    {
+      return (t1 < t2.m_offset);
+    }
+  };
+  class EqualTag
+  {
+    Tag const & m_tag;
+  public:
+    EqualTag(Tag const & tag) : m_tag(tag) {}
+    bool operator() (Info const & t) const
+    {
+      return (t.m_tag == m_tag);
+    }
+  };
+
 
   typedef vector<Info> InfoContainer;
   InfoContainer m_info;

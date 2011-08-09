@@ -81,6 +81,9 @@ FilesContainerW::FilesContainerW(string const & fName, FileWriter::Op op)
       // read an existing service info
       FileReader reader(fName);
       ReadInfo(reader);
+
+      // Important: in append mode we should sort info-vector by offsets
+      sort(m_info.begin(), m_info.end(), LessOffset());
     }
   }
 
@@ -134,10 +137,9 @@ FileWriter FilesContainerW::GetWriter(Tag const & tag)
 
 FileWriter FilesContainerW::GetExistingWriter(Tag const & tag)
 {
-  InfoContainer::const_iterator i =
-    lower_bound(m_info.begin(), m_info.end(), tag, LessInfo());
+  InfoContainer::const_iterator i = find_if(m_info.begin(), m_info.end(), EqualTag(tag));
 
-  if (i != m_info.end() && i->m_tag == tag)
+  if (i != m_info.end())
   {
     FileWriter writer(m_name, FileWriter::OP_WRITE_EXISTING);
     writer.Seek(i->m_offset);
