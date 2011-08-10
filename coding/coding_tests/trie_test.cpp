@@ -82,6 +82,20 @@ struct KeyValuePairBackInserter
   }
 };
 
+struct MaxValueCalc
+{
+  typedef uint8_t ValueType;
+
+  ValueType operator() (void const * p, uint32_t size) const
+  {
+    ASSERT_EQUAL(size, 4, ());
+    uint32_t value;
+    memcpy(&value, p, 4);
+    ASSERT_LESS(value, 256, ());
+    return static_cast<uint8_t>(value);
+  }
+};
+
 }  // unnamed namespace
 
 #define ZENC bits::ZigZagEncode
@@ -168,22 +182,27 @@ UNIT_TEST(TrieBuilder_Build)
 
     vector<uint8_t> serial;
     PushBackByteSink<vector<uint8_t> > sink(serial);
-    trie::Build(sink, v.begin(), v.end());
+    trie::Build(sink, v.begin(), v.end(), trie::builder::MaxValueEdgeBuilder<MaxValueCalc>());
     reverse(serial.begin(), serial.end());
     // LOG(LINFO, (serial.size(), vs));
 
     MemReader memReader = MemReader(serial.data(), serial.size());
     typedef trie::Iterator<
         trie::reader::FixedSizeValueReader<4>::ValueType,
-        trie::reader::EmptyValueReader::ValueType
+        trie::reader::FixedSizeValueReader<1>::ValueType
         > IteratorType;
     scoped_ptr<IteratorType> root(trie::reader::ReadTrie(memReader,
                                                          trie::reader::FixedSizeValueReader<4>(),
-                                                         trie::reader::EmptyValueReader()));
+                                                         trie::reader::FixedSizeValueReader<1>()));
     vector<KeyValuePair> res;
     KeyValuePairBackInserter f;
     trie::ForEachRef(*root, f, vector<trie::TrieChar>());
     sort(f.m_v.begin(), f.m_v.end());
     TEST_EQUAL(v, f.m_v, ());
+
+    int maxEdgeValue = 0;
+    for (uint32_t i = 0; i < root->m_edge.size(); ++i)
+      maxEdgeValue = max(maxEdgeValue, static_cast<int>(root->m_edge[i].m_value.m_data[0]));
+    TEST_EQUAL(maxEdgeValue, max(max(0, i0), max(i1, i2)), ());
   }
 }
