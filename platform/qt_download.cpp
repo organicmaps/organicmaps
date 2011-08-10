@@ -259,7 +259,8 @@ void QtDownload::OnHttpFinished()
       result.m_url = m_params.m_url;
       result.m_file = m_params.m_fileToSave;
       QByteArray data = m_reply->readAll();
-      result.m_data.assign(data.constData(), data.size());
+      if (!data.isEmpty())
+        result.m_data.assign(data.constData(), data.size());
       result.m_error = fileIsLocked ? EHttpDownloadFileIsLocked : EHttpDownloadOk;
       m_params.m_finish(result);
     }
