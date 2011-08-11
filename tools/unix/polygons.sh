@@ -9,7 +9,7 @@ set -e -u -x
 
 # global params
 LIGHT_NODES=false
-PROCESSORS=4
+PROCESSORS=8
 SIMPLIFY=-1
 
 # displays usage and exits
