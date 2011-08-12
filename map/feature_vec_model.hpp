@@ -33,9 +33,6 @@ namespace model
 
     index_t m_multiIndex;
 
-    // Cached query, which stores several caches for the index.
-    mutable index_t::Query m_multiIndexQuery;
-
   public:
     void InitClassificator();
 
@@ -48,8 +45,8 @@ namespace model
     template <class ToDo>
     void ForEachFeature(m2::RectD const & rect, ToDo toDo) const
     {
-      m_multiIndexQuery.Clear();
-      m_multiIndex.ForEachInViewport(toDo, rect, m_multiIndexQuery);
+      index_t::Query query;
+      m_multiIndex.ForEachInViewport(toDo, rect, query);
       // Uncomment to traverse all features (SLOW!!):
       // m_multiIndex.ForEachInScale(toDo, GetScaleLevel(rect));
     }
