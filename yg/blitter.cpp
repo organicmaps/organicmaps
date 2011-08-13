@@ -208,8 +208,8 @@ namespace yg
       OGLCHECK(glEnable(GL_DEPTH_TEST));
       OGLCHECK(glEnable(GL_TEXTURE_2D));
       OGLCHECK(glEnable(GL_BLEND));
-      /// This call is necessary to avoid parasite blitting in updateActualTarget() on IPhone.
-      OGLCHECK(glFinish());
+//      /// This call is necessary to avoid parasite blitting in updateActualTarget() on IPhone.
+//      OGLCHECK(glFinish());
 
       resourceManager()->blitStorages().PushBack(m_blitStorage);
       m_blitStorage = yg::gl::Storage();
