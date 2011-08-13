@@ -12,7 +12,8 @@
 
 #include "../version/version.hpp"
 
-#include "tiling_render_policy_st.hpp"
+//#include "tiling_render_policy_st.hpp"
+#include "render_policy_st.hpp"
 
 template <class T> class DoGetBenchmarks
 {
@@ -28,6 +29,9 @@ public:
 
   void operator() (vector<string> const & v)
   {
+    if (v[0][0] == '#')
+      return;
+
     T b;
     b.m_name = v[1];
 
@@ -113,6 +117,9 @@ public:
   FirstReaderAdder(maps_list_t & lst) : base_type(GetPlatform(), lst) {}
   void operator() (vector<string> const & v)
   {
+    if (!v[0].empty())
+      if (v[0][0] == '#')
+        return;
     base_type::operator() (v[0]);
   }
 };
@@ -130,9 +137,10 @@ BenchmarkFramework<TModel>::BenchmarkFramework(shared_ptr<WindowHandle> const & 
   : base_type(wh, bottomShift),
     m_paintDuration(0),
     m_maxDuration(0),
-    m_isBenchmarkInitialized(false)
+    m_isBenchmarkInitialized(false),
+    m_isBenchmarkFinished(false)
 {
-  base_type::SetRenderPolicy(make_shared_ptr(new TilingRenderPolicyST(wh, bind(&base_type::DrawModel, this, _1, _2, _3, _4))));
+  base_type::SetRenderPolicy(make_shared_ptr(new RenderPolicyST(wh, bind(&base_type::DrawModel, this, _1, _2, _3, _4))));
 
   m_startTime = my::FormatCurrentTime();
 
@@ -166,7 +174,8 @@ void BenchmarkFramework<TModel>::BenchmarkCommandFinished()
 
 
   m_paintDuration = 0;
-  NextBenchmarkCommand();
+  if (!m_isBenchmarkFinished)
+    NextBenchmarkCommand();
 }
 
 template <typename TModel>
@@ -237,6 +246,7 @@ void BenchmarkFramework<TModel>::NextBenchmarkCommand()
     static bool isFirstTime = true;
     if (isFirstTime)
     {
+      m_isBenchmarkFinished = true;
       isFirstTime = false;
       SaveBenchmarkResults();
       MarkBenchmarkResultsEnd();
@@ -295,7 +305,8 @@ void BenchmarkFramework<TModel>::Paint(shared_ptr<PaintEvent> e)
   double s = m_benchmarksTimer.ElapsedSeconds();
   Framework<TModel>::Paint(e);
   m_paintDuration += m_benchmarksTimer.ElapsedSeconds() - s;
-  BenchmarkCommandFinished();
+  if (!m_isBenchmarkFinished)
+    BenchmarkCommandFinished();
 }
 
 template class BenchmarkFramework<model::FeaturesFetcher>;

@@ -49,6 +49,7 @@ private:
   vector<Benchmark> m_benchmarks;
   size_t m_curBenchmark;
 
+  bool m_isBenchmarkFinished;
   bool m_isBenchmarkInitialized;
 
   void BenchmarkCommandFinished();
