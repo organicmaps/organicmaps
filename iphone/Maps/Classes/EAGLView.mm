@@ -97,11 +97,11 @@
     Platform & pl = GetPlatform();
     
     resourceManager = shared_ptr<yg::ResourceManager>(new yg::ResourceManager(
-          bigVBSize, bigIBSize, 6,
-          smallVBSize, smallIBSize, 15,
-          blitVBSize, blitIBSize, 15,
-          512, 256, 10,
-          512, 256, 10,
+          bigVBSize, bigIBSize, 6 * GetPlatform().CpuCores(),
+          smallVBSize, smallIBSize, 15 * GetPlatform().CpuCores(),
+          blitVBSize, blitIBSize, 15 * GetPlatform().CpuCores(),
+          512, 256, 10 * GetPlatform().CpuCores(),
+          512, 256, 10 * GetPlatform().CpuCores(),
           GetPlatform().TileSize(),
           GetPlatform().TileSize(),
           GetPlatform().MaxTilesCount(),
