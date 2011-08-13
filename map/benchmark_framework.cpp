@@ -137,8 +137,8 @@ BenchmarkFramework<TModel>::BenchmarkFramework(shared_ptr<WindowHandle> const & 
   : base_type(wh, bottomShift),
     m_paintDuration(0),
     m_maxDuration(0),
-    m_isBenchmarkInitialized(false),
-    m_isBenchmarkFinished(false)
+    m_isBenchmarkFinished(false),
+    m_isBenchmarkInitialized(false)
 {
   base_type::SetRenderPolicy(make_shared_ptr(new RenderPolicyST(wh, bind(&base_type::DrawModel, this, _1, _2, _3, _4))));
 

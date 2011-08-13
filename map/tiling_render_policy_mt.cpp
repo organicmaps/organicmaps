@@ -113,6 +113,6 @@ void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
     }
   }
 
-//  m_infoLayer.draw(pDrawer->screen().get(),
-//                   math::Identity<double, 3>());
+  m_infoLayer.draw(pDrawer->screen().get(),
+                   math::Identity<double, 3>());
 }
