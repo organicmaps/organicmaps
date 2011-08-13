@@ -597,7 +597,7 @@ void Framework<TModel>::Search(string const & text, SearchCallbackT callback)
     string buffer;
     ReaderT(GetPlatform().GetReader(SEARCH_CATEGORIES_FILE_NAME)).ReadAsString(buffer);
     holder.LoadFromStream(buffer);
-    m_pSearchEngine.reset(new search::Engine(&m_model.GetIndex(), holder));
+    m_pSearchEngine.reset(new search::Engine(&m_model.GetIndex(), holder, NULL));
   }
 
   m_pSearchEngine->Search(text, m_navigator.Screen().GlobalRect(), callback);

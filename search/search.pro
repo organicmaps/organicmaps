@@ -19,6 +19,7 @@ HEADERS += \
     string_match.hpp \
     latlon_match.hpp \
     categories_holder.hpp \
+    search_trie.hpp
 
 SOURCES += \
     delimiters.cpp \

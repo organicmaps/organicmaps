@@ -1,4 +1,6 @@
 #pragma once
+#include "search_trie.hpp"
+
 #include "../indexer/index.hpp"
 
 #include "../geometry/rect2d.hpp"
@@ -28,8 +30,10 @@ class Engine
 public:
   typedef Index<ModelReaderPtr>::Type IndexType;
 
-  /// Doesn't take ownership of @pIndex. Modifies @categories.
-  Engine(IndexType const * pIndex, CategoriesHolder & categories);
+  /// Doesn't take ownership of @pIndex and @pTrieIterator. Modifies @categories.
+  Engine(IndexType const * pIndex,
+         CategoriesHolder & categories,
+         TrieIterator const * pTrieIterator);
   ~Engine();
 
   void Search(string const & query,
@@ -42,6 +46,7 @@ public:
 
 private:
   IndexType const * m_pIndex;
+  TrieIterator const * m_pTrieIterator;
   scoped_ptr<CategoriesHolder> m_pCategories;
   scoped_ptr<threads::IRunner> m_pRunner;
   threads::Mutex m_mutex;

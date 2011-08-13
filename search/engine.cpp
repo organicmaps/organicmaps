@@ -13,8 +13,10 @@
 namespace search
 {
 
-Engine::Engine(IndexType const * pIndex, CategoriesHolder & categories)
-  : m_pIndex(pIndex), m_pCategories(new CategoriesHolder()),
+Engine::Engine(IndexType const * pIndex,
+               CategoriesHolder & categories,
+               TrieIterator const * pTrieIterator)
+  : m_pIndex(pIndex), m_pTrieIterator(pTrieIterator), m_pCategories(new CategoriesHolder()),
     m_pRunner(new threads::ConcurrentRunner), m_pLastQuery(NULL),
     m_queriesActive(0)
 {
