@@ -6,8 +6,6 @@ namespace storage { class Storage; }
 /// Responsible for all settings dialogs
 @interface SettingsManager : NSObject
 {
-  UINavigationController * m_navController;
-  UIViewController * m_prevController;
   storage::Storage * m_storage;
 }
 

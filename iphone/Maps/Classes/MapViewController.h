@@ -24,7 +24,7 @@
 
 	m2::PointD m_Pt1, m_Pt2;
   
-  UIBarButtonItem * m_myPositionButton;
+  UIButton * m_myPositionButton;
   NSTimer * m_iconTimer;
 
   bool m_mapIsVisible;
@@ -42,8 +42,8 @@
 
 - (IBAction)OnMyPositionClicked:(id)sender;
 - (IBAction)OnSettingsClicked:(id)sender;
-- (IBAction)OnGuideClicked:(id)sender;
+- (IBAction)OnSearchClicked:(id)sender;
 
-@property (nonatomic, retain) IBOutlet UIBarButtonItem * m_myPositionButton;
+@property (nonatomic, retain) IBOutlet UIButton * m_myPositionButton;
 
 @end

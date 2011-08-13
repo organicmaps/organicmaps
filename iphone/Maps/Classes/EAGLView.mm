@@ -13,11 +13,6 @@
 #include "RenderBuffer.hpp"
 #include "RenderContext.hpp"
 
-// A class extension to declare private methods
-@interface EAGLView ()
-
-@end
-
 @implementation EAGLView
 
 @synthesize controller;
@@ -132,8 +127,6 @@
 		windowHandle->setRenderContext(renderContext);
   }
 
-  self.multipleTouchEnabled = YES;
-
   return self;
 }
 
@@ -153,7 +146,6 @@
   drawer->screen()->beginFrame();
   drawer->screen()->clear();
   drawer->screen()->endFrame();
-  
 }
 
 - (void)drawView
@@ -174,13 +166,10 @@
 
 - (void)layoutSubviews
 {
-  CGFloat scaleFactor = 1.0;
-  if ([self respondsToSelector:@selector(contentScaleFactor)])
-  	scaleFactor = self.contentScaleFactor;
-
-	[[self controller] onResize:self.frame.size.width * scaleFactor withHeight:self.frame.size.height * scaleFactor];
-	[self onSize:self.frame.size.width * scaleFactor withHeight:self.frame.size.height * scaleFactor];
-	// This crashes on iPad: [self drawView];
+  CGFloat const scale = self.contentScaleFactor;
+  CGSize const s = self.frame.size;
+	[self.controller onResize:s.width * scale withHeight:s.height * scale];
+	[self onSize:s.width * scale withHeight:s.height * scale];
 }
 
 - (void)dealloc

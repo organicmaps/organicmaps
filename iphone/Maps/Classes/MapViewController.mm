@@ -1,5 +1,5 @@
 #import "MapViewController.h"
-#import "GuideViewController.h"
+#import "SearchVC.h"
 #import "MapsAppDelegate.h"
 #import "EAGLView.h"
 #import "WindowHandle.h"
@@ -30,55 +30,42 @@ storage::Storage m_storage;
 
 - (void)OnLocationUpdated
 {
-  m_myPositionButton.image = [UIImage imageNamed:@"location.png"];
+  [m_myPositionButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
 }
 
 - (IBAction)OnMyPositionClicked:(id)sender
-{  
-  if (((UIBarButtonItem *)sender).style == UIBarButtonItemStyleBordered)
+{
+  if (m_myPositionButton.isSelected == NO)
   {
     typedef void (*OnLocationUpdatedFunc)(id, SEL);
     SEL onLocUpdatedSel = @selector(OnLocationUpdated);
     OnLocationUpdatedFunc locUpdatedImpl = (OnLocationUpdatedFunc)[self methodForSelector:onLocUpdatedSel];
 
     m_framework->StartLocationService(bind(locUpdatedImpl, self, onLocUpdatedSel));
-    ((UIBarButtonItem *)sender).style = UIBarButtonItemStyleDone;
-    ((UIBarButtonItem *)sender).image = [UIImage imageNamed:@"location-search.png"];
+    m_myPositionButton.selected = YES;
+    [m_myPositionButton setImage:[UIImage imageNamed:@"location-search.png"] forState:UIControlStateSelected];
     [[MapsAppDelegate theApp] disableStandby];
   }
   else
   {
     m_framework->StopLocationService();
-    ((UIBarButtonItem *)sender).style = UIBarButtonItemStyleBordered;
-    m_myPositionButton.image = [UIImage imageNamed:@"location.png"];
+    m_myPositionButton.selected = NO;
+    [m_myPositionButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
     [[MapsAppDelegate theApp] enableStandby];
   }
 }
 
 - (IBAction)OnSettingsClicked:(id)sender
 {
-  m_framework->SetUpdatesEnabled(false);
   [[[MapsAppDelegate theApp] settingsManager] Show:self WithStorage:&m_storage];
 }
 
-- (IBAction)OnGuideClicked:(id)sender
+- (IBAction)OnSearchClicked:(id)sender
 {
-  UISegmentedControl * pSegmentedControl = (UISegmentedControl *)sender;
-  int const selectedIndex = pSegmentedControl.selectedSegmentIndex;
-
-  if (selectedIndex != 0)
-  {
-    LOG(LINFO, (selectedIndex));
-    m_framework->SetUpdatesEnabled(false);
-    UIView * guideView = [MapsAppDelegate theApp].guideViewController.view;
-    [guideView setFrame:self.view.frame];
-    [UIView transitionFromView:self.view
-                        toView:guideView
-                      duration:0
-                       options:UIViewAnimationOptionTransitionNone
-                    completion:nil];
-    [pSegmentedControl setSelectedSegmentIndex:0];
-  }
+  SearchVC * searchVC = [[[SearchVC alloc] 
+      initWithSearchFunc:bind(&framework_t::Search, m_framework, _1, _2)
+      andShowRectFunc:bind(&framework_t::ShowRect, m_framework, _1)] autorelease];
+  [self.navigationController pushViewController:searchVC animated:YES];
 }
 
 - (void) dealloc
@@ -107,8 +94,6 @@ storage::Storage m_storage;
 		// initialize with currently active screen orientation
     [self didRotateFromInterfaceOrientation: self.interfaceOrientation];
 
-    // to perform a proper resize
-    [(EAGLView*)self.view layoutSubviews];
     // restore previous screen position
     bool res = m_framework->LoadState();
 
@@ -118,9 +103,6 @@ storage::Storage m_storage;
     m_framework->InitializeGL([(EAGLView*)self.view renderContext], resourceManager);
 
     m_framework->Invalidate();
-    
-    
-//    m_framework->UpdateNow();
 	}
 
 	return self;
@@ -128,10 +110,6 @@ storage::Storage m_storage;
 
 - (void)onResize:(GLint) width withHeight:(GLint) height
 {
-	UIInterfaceOrientation orientation = [self interfaceOrientation];
-	if ((orientation == UIInterfaceOrientationLandscapeLeft)
-		||(orientation == UIInterfaceOrientationLandscapeRight))
-		std::swap(width, height);
 	m_framework->OnSize(width, height);
 }
 
@@ -143,22 +121,19 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void)updatePointsFromEvent:(UIEvent*)event
 {
 	NSSet * allTouches = [event allTouches];
-	int touchCount = [allTouches count];
 
-  CGFloat scaleFactor = 1.0;
-  if ([self.view respondsToSelector:@selector(contentScaleFactor)])
-  	scaleFactor = self.view.contentScaleFactor;
+  CGFloat const scaleFactor = self.view.contentScaleFactor;
 
-	if (touchCount == 1)
+	if ([allTouches count] == 1)
 	{
-		CGPoint pt = [[[allTouches allObjects] objectAtIndex:0] locationInView:nil];
+		CGPoint const pt = [[[allTouches allObjects] objectAtIndex:0] locationInView:nil];
 		m_Pt1 = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
 	}
 	else
 	{
 		NSArray * sortedTouches = [[allTouches allObjects] sortedArrayUsingFunction:compareAddress context:NULL];
-		CGPoint pt1 = [[sortedTouches objectAtIndex:0] locationInView:nil];
-		CGPoint pt2 = [[sortedTouches objectAtIndex:1] locationInView:nil];
+		CGPoint const pt1 = [[sortedTouches objectAtIndex:0] locationInView:nil];
+		CGPoint const pt2 = [[sortedTouches objectAtIndex:1] locationInView:nil];
 
 		m_Pt1 = m2::PointD(pt1.x * scaleFactor, pt1.y * scaleFactor);
 	  m_Pt2 = m2::PointD(pt2.x * scaleFactor, pt2.y * scaleFactor);
@@ -184,9 +159,8 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
 	[self updatePointsFromEvent:event];
-	int touchCount = [[event allTouches] count];
-	// NSLog(@"touchesBeg %i", touchCount);
-	if (touchCount == 1)
+
+	if ([[event allTouches] count] == 1)
 	{
 		m_framework->StartDrag(DragEvent(m_Pt1.x, m_Pt1.y));
 		m_CurrentAction = DRAGGING;
@@ -202,8 +176,8 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
 {
-	m2::PointD TempPt1 = m_Pt1;
-	m2::PointD TempPt2 = m_Pt2;
+	m2::PointD const TempPt1 = m_Pt1;
+	m2::PointD const TempPt2 = m_Pt2;
 
 	[self updatePointsFromEvent:event];
 
@@ -247,13 +221,13 @@ NSInteger compareAddress(id l, id r, void * context)
 	[self updatePointsFromEvent:event];
 	[self stopCurrentAction];
 
-  int tapCount = ((UITouch*)[touches anyObject]).tapCount;
-  int touchesCount = [[event allTouches] count];
+  int const tapCount = ((UITouch*)[touches anyObject]).tapCount;
+  int const touchesCount = [[event allTouches] count];
   
   if (tapCount == 2 && (touchesCount == 1) && m_isSticking)
     m_framework->ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
   
-  if ((touchesCount == 2) && (tapCount = 1) && m_isSticking)
+  if ((touchesCount == 2) && (tapCount == 1) && m_isSticking)
     m_framework->Scale(0.5);
 }
 
@@ -262,13 +236,13 @@ NSInteger compareAddress(id l, id r, void * context)
 	[self updatePointsFromEvent:event];
 	[self stopCurrentAction];
 
-  int tapCount = ((UITouch*)[touches anyObject]).tapCount;
-  int touchesCount = [[event allTouches] count];
+  int const tapCount = ((UITouch*)[touches anyObject]).tapCount;
+  int const touchesCount = [[event allTouches] count];
   
   if (tapCount == 2 && (touchesCount == 1) && m_isSticking)
     m_framework->ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
   
-  if ((touchesCount == 2) && (tapCount = 1) && m_isSticking)
+  if ((touchesCount == 2) && (tapCount == 1) && m_isSticking)
     m_framework->Scale(0.5);
 }
 
@@ -279,41 +253,15 @@ NSInteger compareAddress(id l, id r, void * context)
 	m_framework->Paint(paintEvent);
 }
 
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
-  [super viewDidLoad];
-}
-
-
-// Override to allow orientations other than the default portrait orientation.
 - (BOOL) shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation) interfaceOrientation
 {
-	return YES;
+	return YES; // We support all orientations
 }
 
 - (void)didReceiveMemoryWarning
 {
-  // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
-
 	m_framework->MemoryWarning();
-//	m_framework->Repaint();
-
-	// Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload
-{
-  // Release any retained subviews of the main view.
-  // e.g. self.myOutlet = nil;
 }
 
 - (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
@@ -369,12 +317,14 @@ NSInteger compareAddress(id l, id r, void * context)
   m_mapIsVisible = true;
   if (m_framework)
     [self Invalidate];
+  [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
   m_mapIsVisible = false;
   m_framework->SetUpdatesEnabled(false);
+  [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 @end

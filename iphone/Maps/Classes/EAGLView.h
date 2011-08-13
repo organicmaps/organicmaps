@@ -1,11 +1,3 @@
-//
-//  EAGLView.h
-//  chuchu_iphone
-//
-//  Created by Yury Melnichek on 08.03.09.
-//  Copyright __MyCompanyName__ 2009. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES1/gl.h>
@@ -51,11 +43,8 @@ namespace yg
   MapViewController * controller;
 }
 
-/// Called as a result of invalidate on iphone::WindowHandle
-- (void)drawView;
-- (void)drawViewThunk:(id)obj;
+// Called as a result of invalidate on iphone::WindowHandle
 - (void)drawViewOnMainThread;
-- (void)onSize:(int)width withHeight:(int)height;
 
 @property (nonatomic, assign) MapViewController * controller;
 @property (nonatomic, assign) shared_ptr<iphone::WindowHandle> windowHandle;

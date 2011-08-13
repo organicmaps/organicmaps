@@ -1,6 +1,7 @@
 #import "SettingsManager.h"
 #import "CountriesViewController.h"
 #import "MapViewController.h"
+#import "MapsAppDelegate.h"
 
 #include "../../../storage/storage.hpp"
 
@@ -11,47 +12,36 @@ using namespace storage;
 // Settings are always present globally
 @implementation SettingsManager
 
-// Destructor
 - (void) dealloc
 {
-  [m_prevController release];
-  m_prevController = nil;
-  [m_navController release];
-  m_navController = nil;
   [super dealloc];
 }
 
 /// Get right controller from the stack
 - (UIViewController *) ControllerByIndex:(TIndex const &)index
 {
-  NSArray * controllers = [m_navController viewControllers];
-  if (index.m_region != TIndex::INVALID && [controllers count] >= 3)
+  NSArray * controllers = [[MapsAppDelegate theApp].m_navigationController viewControllers];
+  if (index.m_region != TIndex::INVALID && [controllers count] >= 4)
+    return [controllers objectAtIndex:3];
+  else if (index.m_country != TIndex::INVALID && [controllers count] >= 3)
     return [controllers objectAtIndex:2];
-  else if (index.m_country != TIndex::INVALID && [controllers count] >= 2)
+  else if (index.m_group != TIndex::INVALID && [controllers count] >= 2)
     return [controllers objectAtIndex:1];
-  else if (index.m_group != TIndex::INVALID && [controllers count] >= 1)
-    return [controllers objectAtIndex:0];
   return nil;
 }
 
 - (void) OnCountryChange: (TIndex const &)index
 {
-	if (m_navController)
-  {
-    UIViewController * controller = [self ControllerByIndex:index];
-    if (controller && [controller respondsToSelector:@selector(OnCountryChange:)])
-      [(CountriesViewController *)controller OnCountryChange: index];
-  }
+  UIViewController * controller = [self ControllerByIndex:index];
+  if (controller && [controller respondsToSelector:@selector(OnCountryChange:)])
+    [(CountriesViewController *)controller OnCountryChange: index];
 }
 
 - (void) OnCountryDownload: (TIndex const &) index withProgress: (HttpProgressT const &) progress
 {
-	if (m_navController)
-  {
-    UIViewController * controller = [self ControllerByIndex:index];
-    if (controller && [controller respondsToSelector:@selector(OnDownload:withProgress:)])
-      [(CountriesViewController *)controller OnDownload: index withProgress: progress];
-  }
+  UIViewController * controller = [self ControllerByIndex:index];
+  if (controller && [controller respondsToSelector:@selector(OnDownload:withProgress:)])
+    [(CountriesViewController *)controller OnDownload: index withProgress: progress];
 }
 
 - (void) OnUpdateCheck: (TUpdateResult) result withText: (string const &) text
@@ -62,16 +52,9 @@ using namespace storage;
 - (void) Show:(UIViewController *)prevController WithStorage:(Storage *)storage
 {
   m_storage = storage;
-  m_prevController = [prevController retain];
-
-  if (!m_navController)
-  {
-    CountriesViewController * countriesController = [[CountriesViewController alloc]
-                               initWithStorage:*m_storage andIndex:TIndex() andHeader:@"Download"];
-    m_navController = [[UINavigationController alloc]
-                       initWithRootViewController:countriesController];
-    [countriesController release];
-  }
+  CountriesViewController * countriesController = [[[CountriesViewController alloc]
+      initWithStorage:*m_storage andIndex:TIndex() andHeader:@"Download"] autorelease];
+  [[MapsAppDelegate theApp].m_navigationController pushViewController:countriesController animated:YES];
 
   // Subscribe to storage callbacks.
   {
@@ -92,40 +75,16 @@ using namespace storage;
     		boost::bind(progressImpl, self, progressSel, _1, _2),
         boost::bind(updateImpl, self, updateSel, _1, _2));
   }
-
-  // Transition views.
-  [m_prevController presentModalViewController:m_navController animated:YES];
-  // This has bugs when device orientation is changed.
-  // [UIView transitionFromView:m_prevController.view
-  //                     toView:m_navController.view
-  //                   duration:1
-  //                    options:UIViewAnimationOptionTransitionCurlUp
-  //                 completion:nil];
 }
 
 // Hides all opened settings windows
 - (void) Hide
 {
-  if (!m_prevController)
-    return;
-
   m_storage->Unsubscribe();
 
-  // Transition views.
-  [m_prevController dismissModalViewControllerAnimated:YES];
-  // This has bugs when device orientation is changed.
-  // [UIView transitionFromView:m_navController.view
-  //                     toView:m_prevController.view
-  //                   duration:1
-  //                    options:UIViewAnimationOptionTransitionCurlDown
-  //                 completion:nil];
+  [[MapsAppDelegate theApp].m_navigationController popViewControllerAnimated:YES];
 
   m_storage = nil;
-  [m_prevController release];
-  m_prevController = nil;
-  [m_navController release];
-  m_navController = nil;
-
 }
 
 @end

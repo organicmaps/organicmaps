@@ -1,27 +1,24 @@
 #import <UIKit/UIKit.h>
 
 @class MapViewController;
-@class GuideViewController;
 @class SettingsManager;
-@class UIWindow;
 
 @interface MapsAppDelegate : NSObject <UIApplicationDelegate>
 {
-  GuideViewController * m_guideViewController;
+  UINavigationController * m_navigationController;
+  UIWindow * m_window;
+  MapViewController * m_mapViewController;
   SettingsManager * m_settingsManager;
   NSInteger m_standbyCounter;
 }
 
-@property (nonatomic, retain) IBOutlet UIWindow * window;
-@property (nonatomic, retain) IBOutlet MapViewController * mapViewController;
-@property (nonatomic, retain, readonly) GuideViewController * guideViewController;
-@property (nonatomic, retain, readonly) SettingsManager * settingsManager;
+@property (nonatomic, retain) IBOutlet UINavigationController * m_navigationController;
+@property (nonatomic, retain) IBOutlet UIWindow * m_window;
+@property (nonatomic, retain) IBOutlet MapViewController * m_mapViewController;
 
 + (MapsAppDelegate *) theApp;
 
-- (GuideViewController *)guideViewController;
 - (SettingsManager *)settingsManager;
-- (void)onSloynikEngineInitialized:(void *)pEngine;
 - (void)disableStandby;
 - (void)enableStandby;
 

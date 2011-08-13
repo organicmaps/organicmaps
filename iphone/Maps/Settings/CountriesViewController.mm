@@ -52,15 +52,9 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 
 @implementation CountriesViewController
 
-- (void) OnCloseButton:(id)sender
-{
-  [[[MapsAppDelegate theApp] settingsManager] Hide];
-}
-
 - (void) OnAboutButton:(id)sender
 {
   // display WebView with About text
-
   NSString * text;
   {
     ReaderPtr<Reader> r = GetPlatform().GetReader("about-travelguide-iphone.html");
@@ -81,22 +75,11 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   m_index = index;
   if ((self = [super initWithNibName:nil bundle:nil]))
   {
-    // Close button is displayed only on first view in hierarchy
-    if (index.m_group == TIndex::INVALID)
-    {
-     	UIBarButtonItem * closeButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style: UIBarButtonItemStyleDone
-                                                                      target:self action:@selector(OnCloseButton:)];
-      self.navigationItem.leftBarButtonItem = closeButton;
-      [closeButton release];
-    }
-
     self.navigationItem.title = header;
 
-    UIBarButtonItem * aboutButton = [[UIBarButtonItem alloc] initWithTitle:@"About" style: UIBarButtonItemStylePlain
-                                                                    target:self action:@selector(OnAboutButton:)];
+    UIBarButtonItem * aboutButton = [[[UIBarButtonItem alloc] initWithTitle:@"About" style: UIBarButtonItemStylePlain
+                                    target:self action:@selector(OnAboutButton:)] autorelease];
     self.navigationItem.rightBarButtonItem = aboutButton;
-    [aboutButton release];
-
   }
 	return self;
 }
@@ -118,24 +101,14 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 	return YES;
 }
 
-//- (NSInteger) numberOfSectionsInTableView: (UITableView *)tableView
-//{
-//	return 0;
-//}
-//
-//- (NSString *) tableView: (UITableView *)tableView titleForHeaderInSection: (NSInteger)section
-//{
-//	return nil;
-//}
-
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
   TIndex index = CalculateIndex(m_index, indexPath);
   if (m_storage->CountryStatus(index) == EOnDisk)
   {
     m2::RectD bounds = m_storage->CountryBounds(index);
-    [[MapsAppDelegate theApp].settingsManager Hide];
-    [[MapsAppDelegate theApp].mapViewController ZoomToRect:bounds];
+    [[[MapsAppDelegate theApp] settingsManager] Hide];
+    [[MapsAppDelegate theApp].m_mapViewController ZoomToRect:bounds];
   }
 }
 
