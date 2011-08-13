@@ -16,15 +16,23 @@
 #include "../std/shared_ptr.hpp"
 
 class RenderQueue;
+class TileCache;
 
 /// holds the tile coverage for a specific screen
 struct ScreenCoverage
 {
+  TileCache * m_tileCache;
   ScreenBase m_screen;
   vector<shared_ptr<Tile const> > m_tiles;
   yg::InfoLayer m_infoLayer;
 
+  bool m_IsRendering; //< while this flag is set - the object shouldn't
+                      //be altered, 'cause GUI thread is rendering from it
+
   ScreenCoverage();
+
+  void Merge(Tiler::RectInfo const & rectInfo, Tile const & tile);
+  void Compute(ScreenBase const & screen);
   void Clear();
 };
 

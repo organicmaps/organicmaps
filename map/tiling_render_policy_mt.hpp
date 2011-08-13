@@ -23,11 +23,11 @@ class TilingRenderPolicyMT : public RenderPolicy
 private:
 
   RenderQueue m_renderQueue;
-  CoverageGenerator m_coverageGenerator;
+//  CoverageGenerator m_coverageGenerator;
 
   yg::InfoLayer m_infoLayer;
 
-//  yg::Tiler m_tiler;
+  Tiler m_tiler;
 
 public:
 

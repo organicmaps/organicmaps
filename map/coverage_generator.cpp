@@ -7,25 +7,33 @@
 
 #include "../std/bind.hpp"
 
+ScreenCoverage::ScreenCoverage()
+{}
+
 struct unlock_synchronized
 {
-  TileCache * m_cache;
-  unlock_synchronized(TileCache * cache) : m_cache(cache)
+  TileCache * m_c;
+
+  unlock_synchronized(TileCache * c) : m_c(c)
   {}
 
   void operator()(Tile const * t)
   {
-    m_cache->lock();
-    m_cache->unlockTile(t->m_rectInfo);
-    m_cache->unlock();
+    m_c->lock();
+    m_c->unlockTile(t->m_rectInfo);
+    m_c->unlock();
   }
 };
 
-ScreenCoverage::ScreenCoverage()
-{}
-
 void ScreenCoverage::Clear()
 {
+  m_tileCache->lock();
+
+  for (unsigned i = 0; i < m_tiles.size(); ++i)
+    m_tileCache->unlockTile(m_tiles[i]->m_rectInfo);
+
+  m_tileCache->unlock();
+
   m_tiles.clear();
   m_infoLayer.clear();
 }
@@ -65,7 +73,6 @@ void CoverageGenerator::CoverageTask::execute(CoverageGenerator * generator)
 
       shared_ptr<Tile const> lockedTile = make_shared_ptr(tile, unlock_synchronized(&tileCache));
 
-
       generator->m_workCoverage->m_tiles.push_back(lockedTile);
       generator->m_workCoverage->m_infoLayer.merge(*tile->m_infoLayer.get(),
                                                     tile->m_tileScreen.PtoGMatrix() * generator->m_workCoverage->m_screen.GtoPMatrix());
@@ -84,9 +91,8 @@ void CoverageGenerator::CoverageTask::execute(CoverageGenerator * generator)
   }
 
   {
-    threads::MutexGuard g(generator->m_mutex);
-    LOG(LINFO, ("saving computed coverage into currentCoverage"));
-    *generator->m_currentCoverage = *generator->m_workCoverage;
+    threads::MutexGuard g(generator->Mutex());
+    swap(generator->m_currentCoverage, generator->m_workCoverage);
   }
 }
 

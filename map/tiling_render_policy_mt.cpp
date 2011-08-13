@@ -21,12 +21,12 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(shared_ptr<WindowHandle> const & wind
                   GetPlatform().MaxTilesCount(),
                   GetPlatform().CpuCores(),
                   bgColor()),
-//    m_tiler(GetPlatform().TileSize(),
-//            GetPlatform().ScaleEtalonSize())
-    m_coverageGenerator(GetPlatform().TileSize(),
-                        GetPlatform().ScaleEtalonSize(),
-                        renderFn,
-                        &m_renderQueue)
+    m_tiler(GetPlatform().TileSize(),
+            GetPlatform().ScaleEtalonSize())
+//    m_coverageGenerator(GetPlatform().TileSize(),
+//                        GetPlatform().ScaleEtalonSize(),
+//                        renderFn,
+//                        &m_renderQueue)
 {
   m_renderQueue.AddWindowHandle(windowHandle);
 }
@@ -36,7 +36,7 @@ void TilingRenderPolicyMT::Initialize(shared_ptr<yg::gl::RenderContext> const & 
 {
   RenderPolicy::Initialize(primaryContext, resourceManager);
   m_renderQueue.Initialize(primaryContext, resourceManager, GetPlatform().VisualScale());
-  m_coverageGenerator.Initialize();
+//  m_coverageGenerator.Initialize();
 }
 
 void TilingRenderPolicyMT::OnSize(int /*w*/, int /*h*/)
@@ -48,7 +48,7 @@ void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
   DrawerYG * pDrawer = e->drawer().get();
   pDrawer->screen()->clear(bgColor());
 
-  m_coverageGenerator.AddCoverageTask(currentScreen);
+/*  m_coverageGenerator.AddCoverageTask(currentScreen);
 
   ScreenCoverage coverage;
 
@@ -75,8 +75,8 @@ void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
   coverage.m_infoLayer.draw(pDrawer->screen().get(),
                             coverage.m_screen.PtoGMatrix() * currentScreen.GtoPMatrix());
 
-  coverage.Clear();
-/*
+  coverage.Clear();*/
+
   m_infoLayer.clear();
 
   m_tiler.seed(currentScreen,
@@ -86,13 +86,15 @@ void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
   {
     Tiler::RectInfo ri = m_tiler.nextTile();
 
-    m_renderQueue.TileCache().lock();
+    TileCache & tileCache = m_renderQueue.GetTileCache();
 
-    if (m_renderQueue.TileCache().hasTile(ri))
+    tileCache.lock();
+
+    if (tileCache.hasTile(ri))
     {
-      m_renderQueue.TileCache().touchTile(ri);
-      Tile tile = m_renderQueue.TileCache().getTile(ri);
-      m_renderQueue.TileCache().unlock();
+      tileCache.touchTile(ri);
+      Tile tile = tileCache.getTile(ri);
+      tileCache.unlock();
 
       size_t tileWidth = tile.m_renderTarget->width();
       size_t tileHeight = tile.m_renderTarget->height();
@@ -106,11 +108,11 @@ void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
     }
     else
     {
-      m_renderQueue.TileCache().unlock();
-      m_renderQueue.AddCommand(renderFn(), ri, m_tiler.seqNum(), bind(&WindowHandle::invalidate, windowHandle()));
+      tileCache.unlock();
+      m_renderQueue.AddCommand(renderFn(), ri, m_tiler.sequenceID(), bind(&WindowHandle::invalidate, windowHandle()));
     }
   }
 
-  m_infoLayer.draw(pDrawer->screen().get(),
-                   math::Identity<double, 3>());*/
+//  m_infoLayer.draw(pDrawer->screen().get(),
+//                   math::Identity<double, 3>());
 }
