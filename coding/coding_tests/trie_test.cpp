@@ -29,7 +29,7 @@ struct ChildNodeInfo
 
   uint32_t Size() const { return m_size; }
   bool IsLeaf() const { return m_isLeaf; }
-  uint32_t const * GetEdge() const { return m_edge.data(); }
+  uint32_t const * GetEdge() const { return &m_edge[0]; }
   uint32_t GetEdgeSize() const { return m_edge.size(); }
   void const * GetEdgeValue() const { return m_edgeValue.data(); }
   uint32_t GetEdgeValueSize() const { return m_edgeValue.size(); }
@@ -44,7 +44,7 @@ struct KeyValuePair
   KeyValuePair(StringT const & key, int value) : m_key(key.begin(), key.end()), m_value(value) {}
 
   uint32_t GetKeySize() const { return m_key.size(); }
-  trie::TrieChar const * GetKeyData() const { return m_key.data(); }
+  trie::TrieChar const * GetKeyData() const { return &m_key[0]; }
   uint32_t GetValueSize() const { return 4; }
   void const * GetValueData() const { return &m_value; }
 
@@ -156,7 +156,7 @@ UNIT_TEST(TrieBuilder_Build)
   vector<string> possibleStrings(1, string());
   for (int len = 1; len <= maxLen; ++len)
   {
-    for (int i = 0; i < pow(base, len); ++i)
+    for (int i = 0, p = static_cast<int>(pow((double) base, len)); i < p; ++i)
     {
       string s(len, 'A');
       int t = i;
@@ -186,7 +186,7 @@ UNIT_TEST(TrieBuilder_Build)
     reverse(serial.begin(), serial.end());
     // LOG(LINFO, (serial.size(), vs));
 
-    MemReader memReader = MemReader(serial.data(), serial.size());
+    MemReader memReader = MemReader(&serial[0], serial.size());
     typedef trie::Iterator<
         trie::reader::FixedSizeValueReader<4>::ValueType,
         trie::reader::FixedSizeValueReader<1>::ValueType
