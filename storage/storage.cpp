@@ -353,7 +353,9 @@ namespace storage
 
       // get file descriptor
       string file = result.m_file;
-      string::size_type const i = file.find_last_of('/');
+
+      // FIXME
+      string::size_type const i = file.find_last_of("/\\");
       if (i != string::npos)
         file = file.substr(i+1);
 
