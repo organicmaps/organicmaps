@@ -111,38 +111,36 @@ namespace my
       if (HasElem(key))
         Remove(key);
 
-      typename list<KeyT>::iterator it = (++m_list.rbegin()).base();
-
-      while (m_curWeight + weight > m_maxWeight)
+      if (!m_list.empty())
       {
-        if (m_list.empty())
-          return;
-
-        KeyT k = *it;
-
-        /// erasing only unlocked elements
-        if (m_map[k].m_lockCount == 0)
+        typename list<KeyT>::iterator it = (++m_list.rbegin()).base();
+        while (m_curWeight + weight > m_maxWeight)
         {
-          m_curWeight -= m_map[k].m_weight;
-          ValueTraitsT::Evict(m_map[k].m_value);
-          m_map.erase(k);
+          KeyT k = *it;
 
-          typename list<KeyT>::iterator nextIt = it;
-          if (nextIt != m_list.begin())
+          /// erasing only unlocked elements
+          if (m_map[k].m_lockCount == 0)
           {
-            --nextIt;
-            m_list.erase(it);
-            it = nextIt;
+            m_curWeight -= m_map[k].m_weight;
+            ValueTraitsT::Evict(m_map[k].m_value);
+            m_map.erase(k);
+
+            typename list<KeyT>::iterator nextIt = it;
+            if (nextIt != m_list.begin())
+            {
+              --nextIt;
+              m_list.erase(it);
+              it = nextIt;
+            }
+            else
+            {
+              m_list.erase(it);
+              break;
+            }
           }
           else
-          {
-            m_list.erase(it);
-            break;
-          }
+            --it;
         }
-        else
-          --it;
-
       }
 
       ASSERT(m_curWeight + weight <= m_maxWeight, ());
