@@ -1,4 +1,5 @@
 #pragma once
+#include "classificator.hpp"
 
 #include "../coding/multilang_utf8_string.hpp"
 #include "../coding/value_opt_string.hpp"
@@ -176,8 +177,10 @@ public:
 
     WriteToSink(sink, header);
 
+    Classificator & c = classif();
+
     for (size_t i = 0; i < m_Types.size(); ++i)
-      WriteVarUint(sink, m_Types[i]);
+      WriteVarUint(sink, c.TypeForIndex(m_Types[i]));
 
     FeatureParamsBase::Write(sink, header, GetGeomType());
   }

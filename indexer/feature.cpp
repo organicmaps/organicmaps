@@ -473,9 +473,14 @@ void FeatureBase::ParseTypes() const
 {
   ASSERT(!m_bTypesParsed, ());
 
+  Classificator & c = classif();
+
   ArrayByteSource source(DataPtr() + m_TypesOffset);
   for (size_t i = 0; i < GetTypesCount(); ++i)
-    m_Types[i] = ReadVarUint<uint32_t>(source);
+  {
+    m_Types[i] = c.IndexForType(ReadVarUint<uint32_t>(source));
+    //m_Types[i] = ReadVarUint<uint32_t>(source);
+  }
 
   m_bTypesParsed = true;
   m_CommonOffset = CalcOffset(source);
