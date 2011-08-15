@@ -36,7 +36,7 @@ macx {
                     ../data/countries.txt ../data/maps.update \
                     ../data/dictionary.slf ../data/languages.txt ../data/categories.txt
   CLASSIFICATOR_RES.path = Contents/Resources
-  CLASSIFICATOR_RES.files = ../data/classificator.txt ../data/drawing_rules.bin ../data/visibility.txt
+  CLASSIFICATOR_RES.files = ../data/classificator.txt ../data/drawing_rules.bin ../data/visibility.txt ../data/types.txt
   SKIN_RES.path = Contents/Resources
   SKIN_RES.files = ../data/basic.skn ../data/symbols_24.png
   FONT_RES.path = Contents/Resources
