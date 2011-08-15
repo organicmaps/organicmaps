@@ -10,7 +10,10 @@
 
 namespace classificator
 {
-  void Read(file_t const & rules, file_t const & classificator, file_t const & visibility)
+  void Read(file_t const & rules,
+            file_t const & classificator,
+            file_t const & visibility,
+            file_t const & types)
   {
     LOG(LINFO, ("Reading drawing rules"));
     ReaderPtrStream rulesS(rules);
@@ -18,13 +21,19 @@ namespace classificator
 
     string buffer;
 
+    Classificator & c = classif();
+
     LOG(LINFO, ("Reading classificator"));
     classificator.ReadAsString(buffer);
-    classif().ReadClassificator(buffer);
+    c.ReadClassificator(buffer);
 
     LOG(LINFO, ("Reading visibility"));
     visibility.ReadAsString(buffer);
-    classif().ReadVisibility(buffer);
+    c.ReadVisibility(buffer);
+
+    LOG(LINFO, ("Reading types mapping"));
+    types.ReadAsString(buffer);
+    c.ReadTypesMapping(buffer);
 
     LOG(LINFO, ("Reading of classificator done"));
   }

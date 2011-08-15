@@ -119,7 +119,8 @@ int main(int argc, char ** argv)
   {
     classificator::Read(pl.GetReader("drawing_rules.bin"),
                         pl.GetReader("classificator.txt"),
-                        pl.GetReader("visibility.txt"));
+                        pl.GetReader("visibility.txt"),
+                        pl.GetReader("types.txt"));
     classificator::PrepareForFeatureGeneration();
   }
 
@@ -220,7 +221,7 @@ int main(int argc, char ** argv)
 
   if (FLAGS_dump_types)
   {
-    feature::DumpNames(path + FLAGS_output + ".mwm");
+    //feature::DumpNames(path + FLAGS_output + ".mwm");
     feature::DumpTypes(path + FLAGS_output + ".mwm");
   }
 

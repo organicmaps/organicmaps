@@ -485,7 +485,7 @@ uint32_t Classificator::GetTypeByPath(vector<string> const & path)
   while (i < path.size())
   {
     ClassifObjectPtr ptr = p->BinaryFind(path[i]);
-    ASSERT ( ptr, ("Invalid path in Classificator::GetTypeByPath") );
+    ASSERT ( ptr, ("Invalid path in Classificator::GetTypeByPath", path) );
 
     ftype::PushValue(type, ptr.GetIndex());
 
@@ -494,4 +494,10 @@ uint32_t Classificator::GetTypeByPath(vector<string> const & path)
   }
 
   return type;
+}
+
+void Classificator::ReadTypesMapping(string const & buffer)
+{
+  m_i2t.Load(buffer);
+  m_t2i.Load(buffer);
 }

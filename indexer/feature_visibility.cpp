@@ -86,7 +86,7 @@ string Classificator::GetFullObjectName(uint32_t type) const
   {
     ++i;
     p = p->GetObject(v);
-    s = s + p->GetName() + '-';
+    s = s + p->GetName() + '|';
   }
 
   return s;

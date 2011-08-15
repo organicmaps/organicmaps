@@ -8,6 +8,9 @@
 namespace classificator
 {
   typedef ReaderPtr<Reader> file_t;
-  void Read(file_t const & rules, file_t const & classificator, file_t const & visibility);
+  void Read(file_t const & rules,
+            file_t const & classificator,
+            file_t const & visibility,
+            file_t const & types);
   void ReadVisibility(string const & fPath);
 }

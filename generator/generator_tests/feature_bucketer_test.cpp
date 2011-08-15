@@ -47,11 +47,14 @@ namespace
 
 UNIT_TEST(FeatureBucketerSmokeTest)
 {
+  Platform & pl = GetPlatform();
+
   // classificator is needed because inside bucketer we're use it in WorldMapGenerator
   // @TODO clean up or remove cell bucketer and replace with world countries bucketer
-  classificator::Read(GetPlatform().GetReader("drawing_rules.bin"),
-                      GetPlatform().GetReader("classificator.txt"),
-                      GetPlatform().GetReader("visibility.txt"));
+  classificator::Read(pl.GetReader("drawing_rules.bin"),
+                      pl.GetReader("classificator.txt"),
+                      pl.GetReader("visibility.txt"),
+                      pl.GetReader("types.txt"));
 
   map<string, vector<string> > out, expectedOut;
   FeatureBucketer bucketer(1, &out);

@@ -1,5 +1,6 @@
 #pragma once
 #include "drawing_rule_def.hpp"
+#include "types_mapping.hpp"
 
 #include "../base/base.hpp"
 
@@ -195,6 +196,9 @@ class Classificator
 {
   ClassifObject m_root;
 
+  Index2Type m_i2t;
+  Type2Index m_t2i;
+
   static ClassifObject * AddV(ClassifObject * parent, string const & key, string const & value);
 
 public:
@@ -210,12 +214,17 @@ public:
   void ReadVisibility(string const & buffer);
   void PrintVisibility(char const * fPath);
 
+  void ReadTypesMapping(string const & buffer);
+
   void SortClassificator();
   //@}
 
   /// Return type by path in classificator tree, example:
   /// path = ["natural", "caostline"].
   uint32_t GetTypeByPath(vector<string> const & path);
+
+  uint32_t TypeForIndex(uint32_t t) const { return m_t2i.GetIndex(t); }
+  uint32_t IndexForType(uint32_t i) const { return m_i2t.GetType(i); }
 
   // Iterate for possible objects types
   //template <class ToDo> void ForEachType(ToDo toDo)

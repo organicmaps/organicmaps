@@ -72,7 +72,8 @@ UNIT_TEST(LoadCategories)
   Platform & p = GetPlatform();
   classificator::Read(p.GetReader("drawing_rules.bin"),
                       p.GetReader("classificator.txt"),
-                      p.GetReader("visibility.txt"));
+                      p.GetReader("visibility.txt"),
+                      p.GetReader("types.txt"));
 
   search::CategoriesHolder h;
   string buffer = TEST_STRING;

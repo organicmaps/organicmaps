@@ -25,7 +25,8 @@ void FeaturesFetcher::InitClassificator()
   {
     classificator::Read(p.GetReader("drawing_rules.bin"),
                         p.GetReader("classificator.txt"),
-                        p.GetReader("visibility.txt"));
+                        p.GetReader("visibility.txt"),
+                        p.GetReader("types.txt"));
   }
   catch (FileAbsentException const & e)
   {

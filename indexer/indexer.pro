@@ -30,6 +30,7 @@ SOURCES += \
     tesselator.cpp \
     feature_data.cpp \
     feature_rect.cpp \
+    types_mapping.cpp
 
 HEADERS += \
     feature.hpp \
@@ -64,3 +65,4 @@ HEADERS += \
     tesselator_decl.hpp \
     feature_data.hpp \
     feature_rect.hpp \
+    types_mapping.hpp
