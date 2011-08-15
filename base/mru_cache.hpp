@@ -10,7 +10,7 @@ namespace my
   template <typename TValue>
   struct MRUCacheValueTraits
   {
-    static void Evict(TValue & val){}
+    static void Evict(TValue &){}
   };
 
   template <typename KeyT, typename ValueT, typename ValueTraitsT = MRUCacheValueTraits<ValueT> >
