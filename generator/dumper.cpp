@@ -10,62 +10,81 @@
 namespace feature
 {
   class TypesCollector
-  {
-    vector<uint32_t> m_currFeatureTypes;
-
+  { 
   public:
-    typedef unordered_map<vector<uint32_t>, size_t> value_type;
+    typedef map<uint32_t, size_t> value_type;
     value_type m_stats;
+
     size_t m_namesCount;
     size_t m_totalCount;
 
     TypesCollector() : m_namesCount(0), m_totalCount(0) {}
 
-    void operator()(FeatureType & f, uint32_t)
+    void operator() (FeatureType & f, uint32_t)
     {
       ++m_totalCount;
       if (!f.GetPreferredDrawableName().empty())
         ++m_namesCount;
 
-      m_currFeatureTypes.clear();
       f.ForEachTypeRef(*this);
-      CHECK(!m_currFeatureTypes.empty(), ("Feature without any type???"));
-      pair<value_type::iterator, bool> found = m_stats.insert(make_pair(m_currFeatureTypes, 1));
-      if (!found.second)
-        found.first->second++;
     }
 
-    void operator()(uint32_t type)
+    void operator() (uint32_t type)
     {
-      m_currFeatureTypes.push_back(type);
+      ++m_stats[type];
     }
   };
 
-  template <class T>
-  static bool SortFunc(T const & first, T const & second)
+  struct GreaterSecond
   {
-    return first.second > second.second;
+    template <class T> bool operator() (T const & t1, T const & t2)
+    {
+      return (t1.second > t2.second);
+    }
+  };
+
+  namespace
+  {
+    void CallCollect(ClassifObject * p, vector<string> & path, TypesCollector & c);
+
+    void CollectRecursive(ClassifObject * p, vector<string> & path, TypesCollector & c)
+    {
+      path.push_back(p->GetName());
+
+      c(classif().GetTypeByPath(path));
+      CallCollect(p, path, c);
+
+      path.pop_back();
+    }
+
+    void CallCollect(ClassifObject * p, vector<string> & path, TypesCollector & c)
+    {
+      p->ForEachObject(bind(&CollectRecursive, _1, ref(path), ref(c)));
+    }
   }
 
   void DumpTypes(string const & fPath)
   {
+    // get all types from mwm file
     TypesCollector doClass;
     feature::ForEachFromDat(fPath, doClass);
 
-    typedef pair<vector<uint32_t>, size_t> stats_elem_type;
-    typedef vector<stats_elem_type> vec_to_sort;
-    vec_to_sort vecToSort(doClass.m_stats.begin(), doClass.m_stats.end());
-    sort(vecToSort.begin(), vecToSort.end(), &SortFunc<stats_elem_type>);
+    // add types from initial classificator (to get full mapping)
+    vector<string> path;
+    CallCollect(classif().GetMutableRoot(), path, doClass);
 
-    for (vec_to_sort::iterator it = vecToSort.begin(); it != vecToSort.end(); ++it)
-    {
-      cout << it->second << " ";
-      for (size_t i = 0; i < it->first.size(); ++i)
-        cout << classif().GetFullObjectName(it->first[i]) << " ";
-      cout << endl;
-    }
-    cout << "Total features: " << doClass.m_totalCount << endl;
-    cout << "Features with names: " << doClass.m_namesCount << endl;
+    // sort types by frequency
+    typedef vector<pair<uint32_t, size_t> > vec_to_sort;
+    vec_to_sort vecToSort(doClass.m_stats.begin(), doClass.m_stats.end());
+    sort(vecToSort.begin(), vecToSort.end(), GreaterSecond());
+
+    // print types to out stream
+    Classificator & c = classif();
+    for (vec_to_sort::iterator i = vecToSort.begin(); i != vecToSort.end(); ++i)
+      cout << c.GetFullObjectName(i->first) << endl;
+
+    //cout << "Total features: " << doClass.m_totalCount << endl;
+    //cout << "Features with names: " << doClass.m_namesCount << endl;
   }
 
   class NamesCollector
@@ -111,10 +130,9 @@ namespace feature
 
     typedef vector<NameElemT> VecToSortT;
     VecToSortT vecToSort(doClass.m_stats.begin(), doClass.m_stats.end());
-    sort(vecToSort.begin(), vecToSort.end(), &SortFunc<NameElemT>);
+    sort(vecToSort.begin(), vecToSort.end(), GreaterSecond());
 
     for (VecToSortT::iterator it = vecToSort.begin(); it != vecToSort.end(); ++it)
       cout << it->second << " " << it->first << endl;
   }
-
 }
