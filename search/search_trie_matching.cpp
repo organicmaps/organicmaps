@@ -1,11 +1,16 @@
 #include "search_trie_matching.hpp"
 #include "query.hpp"
+#include "string_match.hpp"
+
+#include "../indexer/feature_visibility.hpp"
+
 #include "../std/algorithm.hpp"
 #include "../std/functional.hpp"
 #include "../std/queue.hpp"
 #include "../std/scoped_ptr.hpp"
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
+
 
 void search::MatchAgainstTrie(search::impl::Query & query, search::TrieIterator & trieRoot,
                               FeaturesVector const & featuresVector)
@@ -62,7 +67,7 @@ void search::MatchAgainstTrie(search::impl::Query & query, search::TrieIterator 
     // TODO: Deal with different names of the same feature.
     // TODO: Best name for features.
     FeatureType feature;
-    featuresVector.Get(featureQueue.top().second, features);
+    featuresVector.Get(featureQueue.top().second, feature);
     FeatureType::GetNamesFn names;
     feature.ForEachNameRef(names);
     string displayName;
@@ -75,9 +80,15 @@ void search::MatchAgainstTrie(search::impl::Query & query, search::TrieIterator 
         break;
       }
     }
-    ASSERT(!displayName.empty(), ());
-    query.AddResult(impl::IntermediateResult(query.GetViewport(), feature, displayName, 0,
-                                             feature::DrawableScaleRangeForText(feature).first));
+
+    /// @todo Need Yuri's review.
+    //ASSERT(!displayName.empty(), ());
+    if (!displayName.empty())
+    {
+      query.AddResult(impl::IntermediateResult(query.GetViewport(), feature, displayName, 0,
+                                               feature::DrawableScaleRangeForText(feature).first));
+    }
+
     featureQueue.pop();
   }
 }

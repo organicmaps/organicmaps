@@ -27,7 +27,8 @@ public:
   typedef Engine::IndexType IndexType;
 
   Query(string const & query, m2::RectD const & viewport, IndexType const * pIndex,
-        Engine * pEngine, CategoriesHolder * pCategories, TrieIterator * pTrieRoot = NULL);
+        Engine * pEngine, CategoriesHolder * pCategories,
+        TrieIterator * pTrieRoot, FeaturesVector * pFeatures);
   ~Query();
 
   // Search with parameters, passed in constructor.
@@ -59,6 +60,7 @@ private:
   m2::RectD m_viewport;
   CategoriesHolder * m_pCategories;
   TrieIterator * m_pTrieRoot;
+  FeaturesVector * m_pFeatures;
 
   vector<strings::UniString> m_keywords;
   unordered_map<uint32_t, uint32_t> m_keywordsToSkipForType;

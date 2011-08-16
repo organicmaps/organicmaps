@@ -15,7 +15,6 @@
 #include "../geometry/rect2d.hpp"
 
 #include "../coding/file_container.hpp"
-#include "../coding/trie_reader.hpp"
 
 #include "../base/base.hpp"
 #include "../base/macros.hpp"
@@ -141,9 +140,9 @@ public:
     }
   }
 
-  search::TrieIterator * GetWorldSearchIndex() const
+  search::SearchInfo * GetWorldSearchInfo() const
   {
-    return m_pWorldSearchIndex.get();
+    return m_pWorldSearchInfo.get();
   }
 
   void Add(string const & file)
@@ -159,10 +158,14 @@ public:
 
     UpdateIndexes();
 
-    if (m_indexes.back()->IsWorldData())
+    /// @todo Keep this until World.mwm has search index.
+    static bool isWorld = true;
+    //if (m_indexes.back()->IsWorldData())
+    if (isWorld)
     {
-      ASSERT(!m_pWorldSearchIndex.get(), ());
-      m_pWorldSearchIndex.reset(m_indexes.back()->GetSearchIndex());
+      ASSERT ( !m_pWorldSearchInfo.get(), () );
+      m_pWorldSearchInfo.reset(m_indexes.back()->GetSearchInfo());
+      isWorld = false;
     }
   }
 
@@ -293,12 +296,9 @@ private:
       return m_scaleRange.first <= 1;
     }
 
-    search::TrieIterator * GetSearchIndex() const
+    search::SearchInfo * GetSearchInfo() const
     {
-      return trie::reader::ReadTrie(
-            FilesContainerR(GetPlatform().GetReader(m_file)).GetReader(SEARCH_INDEX_FILE_TAG),
-            search::trie::ValueReader(),
-            search::trie::EdgeValueReader());
+      return new search::SearchInfo(FilesContainerR(GetPlatform().GetReader(m_file)));
     }
 
     void CloseIfUnlocked()
@@ -393,7 +393,7 @@ private:
 
   mutable vector<IndexProxy *> m_indexes;
   mutable threads::Mutex m_mutex;
-  scoped_ptr<search::TrieIterator> m_pWorldSearchIndex;
+  scoped_ptr<search::SearchInfo> m_pWorldSearchInfo;
 };
 
 template <class FeatureVectorT, class BaseT> class OffsetToFeatureAdapter : public BaseT

@@ -45,7 +45,7 @@ public:
 
 private:
   IndexType const * m_pIndex;
-  TrieIterator * m_pTrieIterator;
+  SearchInfo * m_pSearchInfo;
   scoped_ptr<CategoriesHolder> m_pCategories;
   scoped_ptr<threads::IRunner> m_pRunner;
   threads::Mutex m_mutex;

@@ -206,10 +206,11 @@ public:
     size_t m_size;
 
     GetNamesFn() : m_size(0) {}
-    void operator() (char lang, string const & name)
+    bool operator() (char lang, string const & name)
     {
       m_names[m_size++] = name;
       m_langs[m_size] = lang;
+      return true;
     }
   };
 

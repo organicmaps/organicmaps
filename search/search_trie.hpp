@@ -1,8 +1,12 @@
 #pragma once
+#include "../indexer/features_vector.hpp"
 
 #include "../coding/reader.hpp"
 #include "../coding/trie.hpp"
+#include "../coding/trie_reader.hpp"
+
 #include "../base/base.hpp"
+
 
 namespace search
 {
@@ -36,8 +40,26 @@ struct EdgeValueReader
 
 }  // namespace search::trie
 
-typedef ::trie::Iterator<
-    search::trie::ValueReader::ValueType,
-    search::trie::EdgeValueReader::ValueType> TrieIterator;
+  typedef ::trie::Iterator<
+      search::trie::ValueReader::ValueType,
+      search::trie::EdgeValueReader::ValueType> TrieIterator;
 
+  class SearchInfo
+  {
+    scoped_ptr<TrieIterator> m_iterator;
+    FeaturesVector m_features;
+
+  public:
+    SearchInfo(FilesContainerR const & cont)
+      : m_features(cont),
+        m_iterator(::trie::reader::ReadTrie(
+                        cont.GetReader(SEARCH_INDEX_FILE_TAG),
+                        trie::ValueReader(),
+                        trie::EdgeValueReader()))
+    {
+    }
+
+    TrieIterator * GetTrie() { return m_iterator.get(); }
+    FeaturesVector * GetFeatures() { return &m_features; }
+  };
 }  // namespace search

@@ -121,12 +121,14 @@ struct FeatureProcessor
 }  // unnamed namespace
 
 Query::Query(string const & query, m2::RectD const & viewport, IndexType const * pIndex,
-             Engine * pEngine, CategoriesHolder * pCategories, TrieIterator * pTrieRoot)
+             Engine * pEngine, CategoriesHolder * pCategories,
+             TrieIterator * pTrieRoot, FeaturesVector * pFeatures)
   : m_queryText(query), m_queryUniText(NormalizeAndSimplifyString(query)),
     m_viewport(viewport),
     m_pCategories(pCategories),
     m_pTrieRoot(pTrieRoot),
     m_pIndex(pIndex ? new IndexType(*pIndex) : NULL),
+    m_pFeatures(pFeatures),
     m_resultsRemaining(10),
     m_pEngine(pEngine), m_bTerminate(false)
 {
@@ -234,7 +236,7 @@ void Query::Search(function<void (Result const &)> const & f)
 
   if (m_pTrieRoot)
   {
-    search::MatchAgainstTrie(*this, *m_pTrieRoot);
+    search::MatchAgainstTrie(*this, *m_pTrieRoot, *m_pFeatures);
   }
 
   if (m_bTerminate)

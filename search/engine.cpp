@@ -15,7 +15,7 @@ namespace search
 
 Engine::Engine(IndexType const * pIndex,
                CategoriesHolder & categories)
-  : m_pIndex(pIndex), m_pTrieIterator(pIndex->GetWorldSearchIndex()),
+  : m_pIndex(pIndex), m_pSearchInfo(pIndex->GetWorldSearchInfo()),
     m_pCategories(new CategoriesHolder()),
     m_pRunner(new threads::ConcurrentRunner), m_pLastQuery(NULL),
     m_queriesActive(0)
@@ -36,7 +36,8 @@ void Engine::Search(string const & queryText,
   LOG(LDEBUG, (queryText, rect));
 
   impl::Query * pQuery =
-      new impl::Query(queryText, rect, m_pIndex, this, m_pCategories.get(), m_pTrieIterator);
+      new impl::Query(queryText, rect, m_pIndex, this, m_pCategories.get(),
+                      m_pSearchInfo->GetTrie(), m_pSearchInfo->GetFeatures());
 
   {
     threads::MutexGuard mutexGuard(m_mutex);
