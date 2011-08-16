@@ -27,7 +27,7 @@ HEADERS += \
     render_policy.hpp \
     tiling_render_policy_mt.hpp \
     tiling_render_policy_st.hpp \
-    tiling_render_policy.hpp \
+    benchmark_tiling_render_policy_mt.hpp \
     benchmark_framework.hpp \
     framework_factory.hpp \
     render_policy_st.hpp \
@@ -49,9 +49,9 @@ SOURCES += \
     benchmark_provider.cpp \
     languages.cpp \
     render_policy.cpp \
-    tiling_render_policy_mt.cpp \
+    benchmark_tiling_render_policy_mt.cpp \
     tiling_render_policy_st.cpp \
-    tiling_render_policy.cpp \
+    tiling_render_policy_mt.cpp \
     benchmark_framework.cpp \
     framework_factory.cpp \
     render_policy_st.cpp \

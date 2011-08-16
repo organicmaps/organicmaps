@@ -50,6 +50,11 @@ private:
   /// A list of window handles to notify about ending rendering operations.
   list<shared_ptr<WindowHandle> > m_windowHandles;
 
+  threads::Condition m_emptyAndFinished;
+
+  /// number of currently active render commands
+  int m_activeCommands;
+
 public:
 
   /// constructor.
@@ -87,4 +92,10 @@ public:
   ThreadedList<shared_ptr<RenderQueueRoutine::Command> > & RenderCommands();
   /// invalidate all connected windows
   void Invalidate();
+  /// wait on a condition variable for an empty queue.
+  void WaitForEmptyAndFinished();
+
+  void StartCommand();
+
+  void FinishCommand();
 };

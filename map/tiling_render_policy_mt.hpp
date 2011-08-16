@@ -29,6 +29,10 @@ private:
 
   Tiler m_tiler;
 
+protected:
+
+  RenderQueue & GetRenderQueue();
+
 public:
 
   TilingRenderPolicyMT(shared_ptr<WindowHandle> const & windowHandle,

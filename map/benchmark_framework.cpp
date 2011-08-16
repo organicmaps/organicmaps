@@ -12,7 +12,7 @@
 
 #include "../version/version.hpp"
 
-//#include "tiling_render_policy_st.hpp"
+#include "benchmark_tiling_render_policy_mt.hpp"
 #include "render_policy_st.hpp"
 
 template <class T> class DoGetBenchmarks
@@ -140,7 +140,13 @@ BenchmarkFramework<TModel>::BenchmarkFramework(shared_ptr<WindowHandle> const & 
     m_isBenchmarkFinished(false),
     m_isBenchmarkInitialized(false)
 {
-  base_type::SetRenderPolicy(make_shared_ptr(new RenderPolicyST(wh, bind(&base_type::DrawModel, this, _1, _2, _3, _4))));
+  bool isBenchmarkingMT = false;
+  Settings::Get("IsBenchmarkingMT", isBenchmarkingMT);
+
+  if (isBenchmarkingMT)
+    base_type::SetRenderPolicy(make_shared_ptr(new BenchmarkTilingRenderPolicyMT(wh, bind(&base_type::DrawModel, this, _1, _2, _3, _4))));
+  else
+    base_type::SetRenderPolicy(make_shared_ptr(new RenderPolicyST(wh, bind(&base_type::DrawModel, this, _1, _2, _3, _4))));
 
   m_startTime = my::FormatCurrentTime();
 

@@ -93,6 +93,12 @@ public:
     return m_list.size();
   }
 
+  bool Empty()
+  {
+    threads::ConditionGuard g(m_Cond);
+    return m_list.empty();
+  }
+
   void Clear()
   {
     threads::ConditionGuard g(m_Cond);

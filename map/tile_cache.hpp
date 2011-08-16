@@ -34,15 +34,18 @@ public:
 private:
 
   my::MRUCache<uint64_t, Entry, EntryValueTraits> m_cache;
-  threads::Mutex m_mutex;
+  threads::Mutex m_lock;
 
 public:
 
   TileCache(size_t maxCacheSize);
   /// lock for multithreaded access
-  void lock();
+  void readLock();
   /// unlock for multithreaded access
-  void unlock();
+  void readUnlock();
+
+  void writeLock();
+  void writeUnlock();
   /// add tile to cache
   void addTile(Tiler::RectInfo const & key, Entry const & entry);
   /// check, whether we have some tile in the cache

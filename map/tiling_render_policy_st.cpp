@@ -70,13 +70,13 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
   {
     Tiler::RectInfo ri = m_tiler.nextTile();
 
-    m_tileCache.lock();
+    m_tileCache.readLock();
 
     if (m_tileCache.hasTile(ri))
     {
       m_tileCache.touchTile(ri);
       Tile tile = m_tileCache.getTile(ri);
-      m_tileCache.unlock();
+      m_tileCache.readUnlock();
 
       size_t tileWidth = tile.m_renderTarget->width();
       size_t tileHeight = tile.m_renderTarget->height();
@@ -90,7 +90,7 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
     }
     else
     {
-      m_tileCache.unlock();
+      m_tileCache.readUnlock();
       shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_tileDrawer));
       shared_ptr<yg::gl::BaseTexture> tileTarget = resourceManager()->renderTargets().Front(true);
 
@@ -125,14 +125,14 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
       m_tileDrawer->screen()->resetInfoLayer();
 
       Tile tile(tileTarget, tileInfoLayer, m_tileScreen, ri, 0);
-      m_tileCache.lock();
+      m_tileCache.writeLock();
       m_tileCache.addTile(ri, TileCache::Entry(tile, resourceManager()));
-      m_tileCache.unlock();
+      m_tileCache.writeUnlock();
 
-      m_tileCache.lock();
+      m_tileCache.readLock();
       m_tileCache.touchTile(ri);
       tile = m_tileCache.getTile(ri);
-      m_tileCache.unlock();
+      m_tileCache.readUnlock();
 
       size_t tileWidth = tile.m_renderTarget->width();
       size_t tileHeight = tile.m_renderTarget->height();

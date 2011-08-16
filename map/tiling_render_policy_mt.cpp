@@ -88,13 +88,13 @@ void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
 
     TileCache & tileCache = m_renderQueue.GetTileCache();
 
-    tileCache.lock();
+    tileCache.readLock();
 
     if (tileCache.hasTile(ri))
     {
       tileCache.touchTile(ri);
       Tile tile = tileCache.getTile(ri);
-      tileCache.unlock();
+      tileCache.readUnlock();
 
       size_t tileWidth = tile.m_renderTarget->width();
       size_t tileHeight = tile.m_renderTarget->height();
@@ -104,15 +104,25 @@ void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
                               m2::RectI(0, 0, tileWidth - 2, tileHeight - 2),
                               m2::RectU(1, 1, tileWidth - 1, tileHeight - 1));
 
-      m_infoLayer.merge(*tile.m_infoLayer.get(), tile.m_tileScreen.PtoGMatrix() * currentScreen.GtoPMatrix());
+      m_infoLayer.merge(*tile.m_infoLayer.get(),
+                        tile.m_tileScreen.PtoGMatrix() * currentScreen.GtoPMatrix());
     }
     else
     {
-      tileCache.unlock();
-      m_renderQueue.AddCommand(renderFn(), ri, m_tiler.sequenceID(), bind(&WindowHandle::invalidate, windowHandle()));
+      tileCache.readUnlock();
+      m_renderQueue.AddCommand(
+            renderFn(),
+            ri,
+            m_tiler.sequenceID(),
+            bind(&WindowHandle::invalidate, windowHandle()));
     }
   }
 
   m_infoLayer.draw(pDrawer->screen().get(),
                    math::Identity<double, 3>());
+}
+
+RenderQueue & TilingRenderPolicyMT::GetRenderQueue()
+{
+  return m_renderQueue;
 }

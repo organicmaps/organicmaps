@@ -16,14 +16,24 @@ void TileCache::addTile(Tiler::RectInfo const & key, Entry const & entry)
   m_cache.Add(key.toUInt64Cell(), entry, 1);
 }
 
-void TileCache::lock()
+void TileCache::readLock()
 {
-  m_mutex.Lock();
+  m_lock.Lock();
 }
 
-void TileCache::unlock()
+void TileCache::readUnlock()
 {
-  m_mutex.Unlock();
+  m_lock.Unlock();
+}
+
+void TileCache::writeLock()
+{
+  m_lock.Lock();
+}
+
+void TileCache::writeUnlock()
+{
+  m_lock.Unlock();
 }
 
 bool TileCache::hasTile(Tiler::RectInfo const & key)

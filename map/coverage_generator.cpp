@@ -19,20 +19,20 @@ struct unlock_synchronized
 
   void operator()(Tile const * t)
   {
-    m_c->lock();
+    m_c->readLock();
     m_c->unlockTile(t->m_rectInfo);
-    m_c->unlock();
+    m_c->readUnlock();
   }
 };
 
 void ScreenCoverage::Clear()
 {
-  m_tileCache->lock();
+  m_tileCache->writeLock();
 
   for (unsigned i = 0; i < m_tiles.size(); ++i)
     m_tileCache->unlockTile(m_tiles[i]->m_rectInfo);
 
-  m_tileCache->unlock();
+  m_tileCache->writeUnlock();
 
   m_tiles.clear();
   m_infoLayer.clear();
@@ -63,7 +63,7 @@ void CoverageGenerator::CoverageTask::execute(CoverageGenerator * generator)
 
     TileCache & tileCache = generator->m_renderQueue->GetTileCache();
 
-    tileCache.lock();
+    tileCache.readLock();
 
     if (tileCache.hasTile(rectInfo))
     {
@@ -77,11 +77,11 @@ void CoverageGenerator::CoverageTask::execute(CoverageGenerator * generator)
       generator->m_workCoverage->m_infoLayer.merge(*tile->m_infoLayer.get(),
                                                     tile->m_tileScreen.PtoGMatrix() * generator->m_workCoverage->m_screen.GtoPMatrix());
 
-      tileCache.unlock();
+      tileCache.readUnlock();
     }
     else
     {
-      tileCache.unlock();
+      tileCache.readUnlock();
       generator->m_renderQueue->AddCommand(
             generator->m_renderFn,
             rectInfo,
@@ -169,7 +169,7 @@ void CoverageGenerator::AddCoverageTask(ScreenBase const & screen)
 void CoverageGenerator::AddMergeTileTask(Tiler::RectInfo const & rectInfo, Tile const &)
 {
   TileCache & tileCache = m_renderQueue->GetTileCache();
-  tileCache.lock();
+  tileCache.readLock();
 
   if (tileCache.hasTile(rectInfo))
   {
@@ -179,12 +179,12 @@ void CoverageGenerator::AddMergeTileTask(Tiler::RectInfo const & rectInfo, Tile 
 
     shared_ptr<Tile const> lockedTile = make_shared_ptr(tile, unlock_synchronized(&tileCache));
 
-    tileCache.unlock();
+    tileCache.readUnlock();
 
     m_tasks.PushBack(make_shared_ptr(new MergeTileTask(lockedTile)));
   }
   else
-    tileCache.unlock();
+    tileCache.readUnlock();
 }
 
 CoverageGenerator::Routine::Routine(CoverageGenerator * parent)

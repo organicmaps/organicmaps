@@ -53,21 +53,21 @@ RenderQueueRoutine::RenderQueueRoutine(string const & skinName,
 bool RenderQueueRoutine::HasTile(Tiler::RectInfo const & rectInfo)
 {
   TileCache & tileCache = m_renderQueue->GetTileCache();
-  tileCache.lock();
+  tileCache.readLock();
   bool res = tileCache.hasTile(rectInfo);
-  tileCache.unlock();
+  tileCache.readUnlock();
   return res;
 }
 
 void RenderQueueRoutine::AddTile(Tiler::RectInfo const & rectInfo, Tile const & tile)
 {
   TileCache & tileCache = m_renderQueue->GetTileCache();
-  tileCache.lock();
+  tileCache.writeLock();
   if (tileCache.hasTile(rectInfo))
     tileCache.touchTile(rectInfo);
   else
     tileCache.addTile(rectInfo, TileCache::Entry(tile, m_resourceManager));
-  tileCache.unlock();
+  tileCache.writeUnlock();
 }
 
 void RenderQueueRoutine::Cancel()
@@ -120,10 +120,14 @@ void RenderQueueRoutine::Do()
     {
       threads::MutexGuard guard(m_mutex);
 
+      m_renderQueue->StartCommand();
       m_currentCommand = m_renderQueue->RenderCommands().Front(true);
 
       if (m_renderQueue->RenderCommands().IsCancelled())
+      {
+        m_renderQueue->FinishCommand();
         break;
+      }
 
       /// commands from the previous sequence are ignored
       if (m_currentCommand->m_sequenceID < m_renderQueue->CurrentSequence())
@@ -136,7 +140,10 @@ void RenderQueueRoutine::Do()
     }
 
     if (IsCancelled())
+    {
+      m_renderQueue->FinishCommand();
       break;
+    }
 
     my::Timer timer;
 
@@ -145,7 +152,10 @@ void RenderQueueRoutine::Do()
     tileTarget = m_resourceManager->renderTargets().Front(true);
 
     if (m_resourceManager->renderTargets().IsCancelled())
+    {
+      m_renderQueue->FinishCommand();
       break;
+    }
 
     m_threadDrawer->screen()->setRenderTarget(tileTarget);
 
@@ -188,7 +198,10 @@ void RenderQueueRoutine::Do()
         threads::MutexGuard guard(m_mutex);
 
         if (m_currentCommand->m_paintEvent->isCancelled())
+        {
+          m_renderQueue->FinishCommand();
           break;
+        }
 
         rectInfo = m_currentCommand->m_rectInfo;
         tile = Tile(tileTarget, tileInfoLayer, frameScreen, m_currentCommand->m_rectInfo, duration);
@@ -197,10 +210,13 @@ void RenderQueueRoutine::Do()
         fn = m_currentCommand->m_commandFinishedFn;
 
         m_currentCommand.reset();
+        m_renderQueue->FinishCommand();
       }
 
       fn(rectInfo, tile);
     }
+    else
+      m_renderQueue->FinishCommand();
 
   }
 
@@ -232,3 +248,4 @@ void RenderQueueRoutine::EnterForeground()
 {
   m_threadDrawer->screen()->enterForeground();
 }
+

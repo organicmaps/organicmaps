@@ -9,6 +9,7 @@
 #include "../std/bind.hpp"
 
 #include "../base/logging.hpp"
+#include "../base/condition.hpp"
 
 RenderQueue::RenderQueue(
     string const & skinName,
@@ -17,7 +18,7 @@ RenderQueue::RenderQueue(
     unsigned maxTilesCount,
     unsigned tasksCount,
     yg::Color const & bgColor
-  ) : m_sequenceID(0), m_tileCache(maxTilesCount - 1)
+  ) : m_sequenceID(0), m_tileCache(maxTilesCount - 1), m_activeCommands(0)
 {
   m_tasksCount = tasksCount; //< calculate from the CPU Cores Number
   LOG(LINFO, ("initializing ", tasksCount, " rendering threads"));
@@ -109,3 +110,22 @@ ThreadedList<shared_ptr<RenderQueueRoutine::Command > > & RenderQueue::RenderCom
   return m_renderCommands;
 }
 
+void RenderQueue::WaitForEmptyAndFinished()
+{
+  threads::ConditionGuard g(m_emptyAndFinished);
+  m_emptyAndFinished.Wait();
+}
+
+void RenderQueue::StartCommand()
+{
+  threads::ConditionGuard g(m_emptyAndFinished);
+  ++m_activeCommands;
+}
+
+void RenderQueue::FinishCommand()
+{
+  threads::ConditionGuard g(m_emptyAndFinished);
+  --m_activeCommands;
+  if ((m_activeCommands == 0) && (m_renderCommands.Empty()))
+      m_emptyAndFinished.Signal();
+}
