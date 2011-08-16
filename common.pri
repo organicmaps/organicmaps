@@ -20,18 +20,6 @@ CONFIG(release, debug|release) {
   CONFIG_NAME = debug
 }
 
-CONFIG(production) {
-  DEFINES += OMIM_PRODUCTION
-} else {
-  # enable debugging information for non-production release builds
-  unix|win32-g++ {
-    QMAKE_CFLAGS_RELEASE += -g
-    QMAKE_CXXFLAGS_RELEASE += -g
-  } win32-msvc* {
-    QMAKE_LFLAGS += /PDB:$${DESTDIR}/$${TARGET}.pdb /DEBUG
-  }
-}
-
 # turn off maps downloader engine for desktops in release and production
 !iphone* {
   CONFIG(release, debug|release)|CONFIG(production) {
@@ -146,4 +134,16 @@ macx-* {
   QMAKE_OBJECTIVE_CFLAGS_X86_64 += -mmacosx-version-min=10.6
   QMAKE_LFLAGS_X86_64 -= -mmacosx-version-min=10.5
   QMAKE_LFLAGS_X86_64 += -mmacosx-version-min=10.6
+}
+
+CONFIG(production) {
+  DEFINES += OMIM_PRODUCTION
+} else {
+  # enable debugging information for non-production release builds
+  unix|win32-g++ {
+    QMAKE_CFLAGS_RELEASE += -g
+    QMAKE_CXXFLAGS_RELEASE += -g
+  } win32-msvc* {
+    QMAKE_LFLAGS += /PDB:$${DESTDIR}/$${TARGET}.pdb /DEBUG
+  }
 }
