@@ -1,4 +1,5 @@
 #import "SearchVC.h"
+#import "CompassView.h"
 
 #include "../../map/framework.hpp"
 #include "../../search/result.hpp"
@@ -134,9 +135,17 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   if (indexPath.row < m_results.size())
   {
     cell.textLabel.text = [NSString stringWithUTF8String:m_results[indexPath.row].GetString()];
+    float const h = tableView.rowHeight * 0.6;
+    CompassView * v = [[[CompassView alloc] initWithFrame:
+                      CGRectMake(0, 0, h, h)] autorelease];
+    v.angle = (float)m_results[indexPath.row].GetDirectionFromCenter();
+    cell.accessoryView = v;
   }
   else
+  {
     cell.textLabel.text = @"";
+    cell.accessoryView = nil;
+  }
   return cell;
 }
 
