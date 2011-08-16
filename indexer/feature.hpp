@@ -198,6 +198,21 @@ public:
     return (Header() & feature::HEADER_HAS_NAME) != 0;
   }
 
+  class GetNamesFn
+  {
+  public:
+    string m_names[64];
+    char m_langs[64];
+    size_t m_size;
+
+    GetNamesFn() : m_size(0) {}
+    void operator() (char lang, string const & name)
+    {
+      m_names[m_size++] = name;
+      m_langs[m_size] = lang;
+    }
+  };
+
   template <class T>
   inline bool ForEachNameRef(T & functor) const
   {
