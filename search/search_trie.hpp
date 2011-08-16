@@ -46,8 +46,8 @@ struct EdgeValueReader
 
   class SearchInfo
   {
-    scoped_ptr<TrieIterator> m_iterator;
     FeaturesVector m_features;
+    scoped_ptr<TrieIterator> m_iterator;
 
   public:
     SearchInfo(FilesContainerR const & cont)

@@ -127,8 +127,8 @@ Query::Query(string const & query, m2::RectD const & viewport, IndexType const *
     m_viewport(viewport),
     m_pCategories(pCategories),
     m_pTrieRoot(pTrieRoot),
-    m_pIndex(pIndex ? new IndexType(*pIndex) : NULL),
     m_pFeatures(pFeatures),
+    m_pIndex(pIndex ? new IndexType(*pIndex) : NULL),
     m_resultsRemaining(10),
     m_pEngine(pEngine), m_bTerminate(false)
 {

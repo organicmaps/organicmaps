@@ -169,7 +169,7 @@ public:
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
-  NSLog(@"locationManager failed with error: %d, %@", error.code, error.description);
+  NSLog(@"locationManager failed with error: %ld, %@", error.code, error.description);
   if (error.code == kCLErrorDenied)
   {
     GpsInfo info;
