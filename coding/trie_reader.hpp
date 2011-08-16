@@ -153,7 +153,7 @@ private:
 
       // [1: header]: [1: isLeaf] [1: isShortEdge] [6: (edgeChar0 - baseChar) or min(edgeLen-1, 63)]
       uint8_t const header = ReadPrimitiveFromSource<uint8_t>(src);
-      m_edgeInfo[i].m_isLeaf = (header & 128);
+      m_edgeInfo[i].m_isLeaf = ((header & 128) != 0);
       if (header & 64)
         e.m_str.push_back(baseChar + bits::ZigZagDecode(header & 63U));
       else

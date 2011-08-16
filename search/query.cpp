@@ -86,7 +86,7 @@ struct FeatureProcessor
     uint32_t keywordsSkipMask = 0;
     FeatureType::GetTypesFn types;
     feature.ForEachTypeRef(types);
-    for (int i = 0; i < types.m_size; ++i)
+    for (size_t i = 0; i < types.m_size; ++i)
       keywordsSkipMask |= m_query.GetKeywordsToSkipForType(types.m_types[i]);
 
     vector<strings::UniString> const & queryKeywords = m_query.GetKeywords();
@@ -189,7 +189,7 @@ void Query::Search(function<void (Result const &)> const & f)
           SplitUniString(NormalizeAndSimplifyString(iName->m_name),
                          MakeBackInsertFunctor(tokens),
                          Delimiters());
-          int const n = tokens.size();
+          size_t const n = tokens.size();
           if (m_keywords.size() >= n)
           {
             if (equal(tokens.begin(), tokens.end(), m_keywords.begin()))

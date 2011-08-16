@@ -244,12 +244,12 @@ void Build(SinkT & sink, IterT const beg, IterT const end, EdgeBuilderT const & 
     TrieChar const * const pKeyData = it->GetKeyData();
     TrieString key(pKeyData, pKeyData + it->GetKeySize());
     CHECK(!(key < prevKey), (key, prevKey));
-    int nCommon = 0;
+    size_t nCommon = 0;
     while (nCommon < min(key.size(), prevKey.size()) && prevKey[nCommon] == key[nCommon])
       ++nCommon;
     builder::PopNodes(sink, nodes, nodes.size() - nCommon - 1); // Root is also a common node.
     uint64_t const pos = sink.Pos();
-    for (int i = nCommon; i < key.size(); ++i)
+    for (size_t i = nCommon; i < key.size(); ++i)
       nodes.push_back(builder::NodeInfo<EdgeBuilderT>(pos, key[i], edgeBuilder));
     uint8_t const * const pValue = static_cast<uint8_t const *>(it->GetValueData());
     nodes.back().m_values.insert(nodes.back().m_values.end(), pValue, pValue + it->GetValueSize());
