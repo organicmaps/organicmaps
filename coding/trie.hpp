@@ -28,6 +28,7 @@ public:
 
   virtual ~Iterator() {}
 
+  virtual Iterator<ValueT, EdgeValueT> * Clone() const = 0;
   virtual Iterator<ValueT, EdgeValueT> * GoToEdge(uint32_t i) const = 0;
 };
 

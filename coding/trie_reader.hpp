@@ -11,13 +11,14 @@ namespace trie
 namespace reader
 {
 
-template <class ReaderT, class ValueReaderT, typename EdgeValueT>
+template <class ValueReaderT, typename EdgeValueT>
 class LeafIterator0 : public Iterator<typename ValueReaderT::ValueType, EdgeValueT>
 {
 public:
   typedef typename ValueReaderT::ValueType ValueType;
   typedef EdgeValueT EdgeValueType;
 
+  template <class ReaderT>
   LeafIterator0(ReaderT const & reader, ValueReaderT const & valueReader)
   {
     uint32_t const size = static_cast<uint32_t>(reader.Size());
@@ -32,6 +33,11 @@ public:
       ASSERT_NOT_EQUAL(pos, src.Pos(), ());
     }
     ASSERT_EQUAL(size, src.Pos(), ());
+  }
+
+  Iterator<ValueType, EdgeValueType> * Clone() const
+  {
+    return new LeafIterator0<ValueReaderT, EdgeValueT>(*this);
   }
 
   Iterator<ValueType, EdgeValueType> * GoToEdge(uint32_t i) const
@@ -75,6 +81,11 @@ public:
     ParseNode(baseChar);
   }
 
+  Iterator<ValueType, EdgeValueType> * Clone() const
+  {
+    return new Iterator0<ReaderT, ValueReaderT, EdgeValueReaderT>(*this);
+  }
+
   Iterator<ValueType, EdgeValueType> * GoToEdge(uint32_t i) const
   {
     ASSERT_LESS(i, this->m_edge.size(), ());
@@ -100,7 +111,7 @@ public:
     */
     {
       if (m_edgeInfo[i].m_isLeaf)
-        return new LeafIterator0<ReaderT, ValueReaderT, EdgeValueType>(
+        return new LeafIterator0<ValueReaderT, EdgeValueType>(
               m_reader.SubReader(offset, size), m_valueReader);
       else
         return new Iterator0<ReaderT, ValueReaderT, EdgeValueReaderT>(
