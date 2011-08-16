@@ -8,6 +8,7 @@
 #include <algorithm>
 
 using std::equal;
+using std::lexicographical_compare;
 using std::lower_bound;
 using std::max;
 using std::max_element;
