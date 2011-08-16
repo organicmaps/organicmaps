@@ -1,7 +1,9 @@
-# Project that just includes all other projects, except 3party.
+# Project that just includes all other projects, except 3party, publisher, sloynik.
 
 TEMPLATE = subdirs
 CONFIG += ordered
+
+HEADERS += defines.hpp
 
 # desktop projects
 win32|macx {
