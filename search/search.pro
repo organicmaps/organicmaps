@@ -19,7 +19,8 @@ HEADERS += \
     string_match.hpp \
     latlon_match.hpp \
     categories_holder.hpp \
-    search_trie.hpp
+    search_trie.hpp \
+    search_trie_matching.hpp \
 
 SOURCES += \
     delimiters.cpp \
@@ -31,3 +32,4 @@ SOURCES += \
     string_match.cpp \
     latlon_match.cpp \
     categories_holder.cpp \
+    search_trie_matching.cpp \

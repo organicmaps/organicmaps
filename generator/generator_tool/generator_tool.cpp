@@ -10,11 +10,12 @@
 #include "../mwm_rect_updater.hpp"
 #include "../dumper.hpp"
 
+#include "../../indexer/classificator_loader.hpp"
+#include "../../indexer/data_header.hpp"
 #include "../../indexer/features_vector.hpp"
 #include "../../indexer/index_builder.hpp"
 #include "../../indexer/osm_decl.hpp"
-#include "../../indexer/data_header.hpp"
-#include "../../indexer/classificator_loader.hpp"
+#include "../../indexer/search_index_builder.hpp"
 
 #include "../../defines.hpp"
 
@@ -40,6 +41,7 @@ DEFINE_bool(preprocess_xml, false, "1st pass - create nodes/ways/relations data"
 DEFINE_bool(generate_features, false, "2nd pass - generate intermediate features");
 DEFINE_bool(generate_geometry, false, "3rd pass - split and simplify geometry and triangles for features");
 DEFINE_bool(generate_index, false, "4rd pass - generate index");
+DEFINE_bool(generate_search_index, false, "5th pass - generate search index");
 DEFINE_bool(generate_grid, false, "Generate grid for given bucketing_level");
 DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files");
 DEFINE_bool(use_light_nodes, false,
@@ -180,6 +182,15 @@ int main(int argc, char ** argv)
       if (!indexer::BuildIndexFromDatFile(datFile, FLAGS_intermediate_data_path + FLAGS_output))
       {
         LOG(LCRITICAL, ("Error generating index."));
+      }
+    }
+
+    if (FLAGS_generate_search_index)
+    {
+      LOG(LINFO, ("Generating search index for ", datFile));
+      if (!indexer::BuildSearchIndexFromDatFile(datFile))
+      {
+        LOG(LCRITICAL, ("Error generating search index."));
       }
     }
 

@@ -32,8 +32,7 @@ public:
 
   /// Doesn't take ownership of @pIndex and @pTrieIterator. Modifies @categories.
   Engine(IndexType const * pIndex,
-         CategoriesHolder & categories,
-         TrieIterator const * pTrieIterator);
+         CategoriesHolder & categories);
   ~Engine();
 
   void Search(string const & query,
@@ -46,7 +45,7 @@ public:
 
 private:
   IndexType const * m_pIndex;
-  TrieIterator const * m_pTrieIterator;
+  TrieIterator * m_pTrieIterator;
   scoped_ptr<CategoriesHolder> m_pCategories;
   scoped_ptr<threads::IRunner> m_pRunner;
   threads::Mutex m_mutex;

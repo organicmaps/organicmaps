@@ -33,8 +33,9 @@ KeywordMatcher::KeywordMatcher(strings::UniString const * const * pKeywords,
 
 void KeywordMatcher::ProcessName(string const & name)
 {
-  SplitAndNormalizeAndSimplifyString(
-        name, bind(&KeywordMatcher::ProcessNameToken, this, cref(name), _1), Delimiters());
+  SplitUniString(NormalizeAndSimplifyString(name),
+                 bind(&KeywordMatcher::ProcessNameToken, this, cref(name), _1),
+                 Delimiters());
 }
 
 void KeywordMatcher::ProcessNameToken(string const & name, strings::UniString const & s)

@@ -3,6 +3,7 @@
 #include "delimiters.hpp"
 #include "latlon_match.hpp"
 #include "string_match.hpp"
+#include "search_trie_matching.hpp"
 #include "../indexer/feature_visibility.hpp"
 #include "../base/exception.hpp"
 #include "../base/stl_add.hpp"
@@ -120,14 +121,17 @@ struct FeatureProcessor
 }  // unnamed namespace
 
 Query::Query(string const & query, m2::RectD const & viewport, IndexType const * pIndex,
-             Engine * pEngine, CategoriesHolder * pCategories)
-  : m_queryText(query), m_viewport(viewport), m_pCategories(pCategories),
+             Engine * pEngine, CategoriesHolder * pCategories, TrieIterator * pTrieRoot)
+  : m_queryText(query), m_queryUniText(NormalizeAndSimplifyString(query)),
+    m_viewport(viewport),
+    m_pCategories(pCategories),
+    m_pTrieRoot(pTrieRoot),
     m_pIndex(pIndex ? new IndexType(*pIndex) : NULL),
     m_resultsRemaining(10),
     m_pEngine(pEngine), m_bTerminate(false)
 {
   search::Delimiters delims;
-  SplitAndNormalizeAndSimplifyString(query, MakeBackInsertFunctor(m_keywords), delims);
+  SplitUniString(m_queryUniText, MakeBackInsertFunctor(m_keywords), delims);
   if (!m_keywords.empty() && !delims(strings::LastUniChar(query)))
   {
     m_prefix.swap(m_keywords.back());
@@ -182,8 +186,9 @@ void Query::Search(function<void (Result const &)> const & f)
         {
           // TODO: Insert spelling here?
           vector<strings::UniString> tokens;
-          SplitAndNormalizeAndSimplifyString(iName->m_name, MakeBackInsertFunctor(tokens),
-                                             Delimiters());
+          SplitUniString(NormalizeAndSimplifyString(iName->m_name),
+                         MakeBackInsertFunctor(tokens),
+                         Delimiters());
           int const n = tokens.size();
           if (m_keywords.size() >= n)
           {
@@ -222,6 +227,14 @@ void Query::Search(function<void (Result const &)> const & f)
                                      bestPrefixMatchPenalty));
       }
     }
+  }
+
+  if (m_bTerminate)
+    return;
+
+  if (m_pTrieRoot)
+  {
+    search::MatchAgainstTrie(*this, *m_pTrieRoot);
   }
 
   if (m_bTerminate)

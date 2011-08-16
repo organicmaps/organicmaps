@@ -5,7 +5,7 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 ROOT_DIR = ..
-DEPENDENCIES = geometry coding base expat
+DEPENDENCIES = search geometry coding base expat
 
 include($$ROOT_DIR/common.pri)
 
@@ -30,7 +30,8 @@ SOURCES += \
     tesselator.cpp \
     feature_data.cpp \
     feature_rect.cpp \
-    types_mapping.cpp
+    types_mapping.cpp \
+    search_index_builder.cpp \
 
 HEADERS += \
     feature.hpp \
@@ -65,4 +66,5 @@ HEADERS += \
     tesselator_decl.hpp \
     feature_data.hpp \
     feature_rect.hpp \
-    types_mapping.hpp
+    types_mapping.hpp \
+    search_index_builder.hpp \

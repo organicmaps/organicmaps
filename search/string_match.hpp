@@ -9,9 +9,6 @@ namespace search
 
 using strings::UniChar;
 
-namespace impl
-{
-
 inline strings::UniString NormalizeAndSimplifyString(string const & s)
 {
   strings::UniString uniS = strings::MakeLowerCase(strings::MakeUniString(s));
@@ -20,12 +17,14 @@ inline strings::UniString NormalizeAndSimplifyString(string const & s)
 }
 
 template <class DelimsT, typename F>
-void SplitAndNormalizeAndSimplifyString(string const & s, F f, DelimsT const & delims)
+void SplitUniString(strings::UniString const & uniS, F f, DelimsT const & delims)
 {
-  strings::UniString const uniS = NormalizeAndSimplifyString(s);
   for (strings::TokenizeIterator<DelimsT> iter(uniS, delims); iter; ++iter)
     f(iter.GetUniString());
 }
+
+namespace impl
+{
 
 struct MatchCostData
 {

@@ -5,6 +5,7 @@
 #define GEOMETRY_FILE_TAG "geom"
 #define TRIANGLE_FILE_TAG "trg"
 #define INDEX_FILE_TAG "idx"
+#define SEARCH_INDEX_FILE_TAG "sdx"
 #define HEADER_FILE_TAG "header"
 #define VERSION_FILE_TAG "version"
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../coding/reader.hpp"
 #include "../coding/trie.hpp"
 #include "../base/base.hpp"
 
@@ -12,31 +13,31 @@ struct ValueReader
 {
   struct ValueType
   {
-    uint32_t m_FeatureId;
-    uint8_t m_Rank;
+    uint8_t m_rank;
+    uint32_t m_featureId;
   };
 
   template <typename SourceT> void operator() (SourceT & src, ValueType & value) const
   {
-    src.Read(&value, 5);
+    value.m_rank = ReadPrimitiveFromSource<uint8_t>(src);
+    value.m_featureId = ReadPrimitiveFromSource<uint32_t>(src);
   }
 };
 
 struct EdgeValueReader
 {
-  struct ValueType
-  {
-    uint8_t m_Rank;
-  };
+  typedef uint8_t ValueType;
 
   template <typename SourceT> void operator() (SourceT & src, ValueType & value) const
   {
-    src.Read(&value.m_Rank, 1);
+    src.Read(&value, 1);
   }
 };
 
 }  // namespace search::trie
 
-typedef ::trie::Iterator<search::trie::ValueReader, search::trie::EdgeValueReader> TrieIterator;
+typedef ::trie::Iterator<
+    search::trie::ValueReader::ValueType,
+    search::trie::EdgeValueReader::ValueType> TrieIterator;
 
 }  // namespace search

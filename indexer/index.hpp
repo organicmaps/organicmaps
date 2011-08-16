@@ -8,11 +8,14 @@
 
 #include "../../defines.hpp"
 
+#include "../search/search_trie.hpp"
+
 #include "../platform/platform.hpp"
 
 #include "../geometry/rect2d.hpp"
 
 #include "../coding/file_container.hpp"
+#include "../coding/trie_reader.hpp"
 
 #include "../base/base.hpp"
 #include "../base/macros.hpp"
@@ -138,6 +141,11 @@ public:
     }
   }
 
+  search::TrieIterator * GetWorldSearchIndex() const
+  {
+    return m_pWorldSearchIndex.get();
+  }
+
   void Add(string const & file)
   {
     threads::MutexGuard mutexGuard(m_mutex);
@@ -150,6 +158,12 @@ public:
     m_indexes.push_back(new IndexProxy(file));
 
     UpdateIndexes();
+
+    if (m_indexes.back()->IsWorldData())
+    {
+      ASSERT(!m_pWorldSearchIndex.get(), ());
+      m_pWorldSearchIndex.reset(m_indexes.back()->GetSearchIndex());
+    }
   }
 
   void Remove(string const & file)
@@ -274,6 +288,19 @@ private:
       return Reader::IsEqual(m_file, file);
     }
 
+    bool IsWorldData() const
+    {
+      return m_scaleRange.first <= 1;
+    }
+
+    search::TrieIterator * GetSearchIndex() const
+    {
+      return trie::reader::ReadTrie(
+            FilesContainerR(GetPlatform().GetReader(m_file)).GetReader(SEARCH_INDEX_FILE_TAG),
+            search::trie::ValueReader(),
+            search::trie::EdgeValueReader());
+    }
+
     void CloseIfUnlocked()
     {
       if (IsUnlocked())
@@ -366,6 +393,7 @@ private:
 
   mutable vector<IndexProxy *> m_indexes;
   mutable threads::Mutex m_mutex;
+  scoped_ptr<search::TrieIterator> m_pWorldSearchIndex;
 };
 
 template <class FeatureVectorT, class BaseT> class OffsetToFeatureAdapter : public BaseT
