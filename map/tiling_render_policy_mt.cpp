@@ -19,7 +19,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(shared_ptr<WindowHandle> const & wind
                   GetPlatform().IsBenchmarking(),
                   GetPlatform().ScaleEtalonSize(),
                   GetPlatform().MaxTilesCount(),
-                  GetPlatform().CpuCores(),
+                  1/*GetPlatform().CpuCores()*/,
                   bgColor()),
     m_tiler(GetPlatform().TileSize(),
             GetPlatform().ScaleEtalonSize())
