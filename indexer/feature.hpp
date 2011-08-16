@@ -378,6 +378,7 @@ public:
 
   uint32_t GetPopulation() const;
   double GetPopulationDrawRank() const;
+  uint8_t GetSearchRank() const;
 
   string GetRoadNumber() const { return m_Params.ref; }
 

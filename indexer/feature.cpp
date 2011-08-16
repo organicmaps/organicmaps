@@ -1015,3 +1015,10 @@ double FeatureType::GetPopulationDrawRank() const
   else
     return min(3.0E6, static_cast<double>(n)) / 3.0E6;
 }
+
+uint8_t FeatureType::GetSearchRank() const
+{
+  if (!m_bCommonParsed)
+    ParseCommon();
+  return m_Params.rank;
+}
