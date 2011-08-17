@@ -82,12 +82,14 @@ public:
     //  m_typesCorrector.SetMappingTypes(arr1, arr2);
     //}
 
-    char const * arrDontNormilize[][3] = {
+    // Do not strip last types for given tags,
+    // for example, do not cut "-2" in  "boundary-administrative-2"
+    char const * arrDontNormalize[][3] = {
       { "boundary", "administrative", "2" }
     };
 
-    for (size_t i = 0; i < ARRAY_SIZE(arrDontNormilize); ++i)
-      m_typesCorrector.SetDontNormilizeType(arrDontNormilize[i]);
+    for (size_t i = 0; i < ARRAY_SIZE(arrDontNormalize); ++i)
+      m_typesCorrector.SetDontNormalizeType(arrDontNormalize[i]);
   }
 
   ~WorldMapGenerator()

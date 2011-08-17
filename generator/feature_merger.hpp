@@ -88,7 +88,7 @@ public:
 /// Feature types corrector.
 class FeatureTypesProcessor
 {
-  set<uint32_t> m_dontNormilize;
+  set<uint32_t> m_dontNormalize;
   map<uint32_t, uint32_t> m_mapping;
 
   static uint32_t GetType(char const * arr[], size_t n);
@@ -108,7 +108,7 @@ public:
   void SetMappingTypes(char const * arr1[2], char const * arr2[2]);
 
   /// Leave original types, for example: boundary-administrative-2.
-  void SetDontNormilizeType(char const * arr[3]);
+  void SetDontNormalizeType(char const * arr[3]);
 
   MergedFeatureBuilder1 * operator() (FeatureBuilder1 const & fb);
 };

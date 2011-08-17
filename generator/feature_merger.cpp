@@ -254,7 +254,7 @@ uint32_t FeatureTypesProcessor::GetType(char const * arr[], size_t n)
 
 void FeatureTypesProcessor::CorrectType(uint32_t & t) const
 {
-  if (m_dontNormilize.count(t) > 0) return;
+  if (m_dontNormalize.count(t) > 0) return;
 
   // 1. get normalized type:
   // highway-motorway-bridge => highway-motorway
@@ -277,9 +277,9 @@ void FeatureTypesProcessor::SetMappingTypes(char const * arr1[2], char const * a
   m_mapping[GetType(arr1, 2)] = GetType(arr2, 2);
 }
 
-void FeatureTypesProcessor::SetDontNormilizeType(char const * arr[3])
+void FeatureTypesProcessor::SetDontNormalizeType(char const * arr[3])
 {
-  m_dontNormilize.insert(GetType(arr, 3));
+  m_dontNormalize.insert(GetType(arr, 3));
 }
 
 MergedFeatureBuilder1 * FeatureTypesProcessor::operator() (FeatureBuilder1 const & fb)
