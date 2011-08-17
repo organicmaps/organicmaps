@@ -109,16 +109,16 @@ fi
 # skip 1st pass if intermediate data path was given
 if [ $# -lt 3 ]; then
   # 1st pass - not paralleled
-  $PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL --intermediate_data_path=$TMPDIR \
-    --use_light_nodes=$LIGHT_NODES \
-    --preprocess_xml
+  $PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
+    -use_light_nodes=$LIGHT_NODES \
+    -preprocess_xml
 fi
 
 # 2nd pass - not paralleled
-$PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL --intermediate_data_path=$TMPDIR \
-  --use_light_nodes=$LIGHT_NODES --split_by_polygons --simplify_countries_level=$SIMPLIFY \
-  --generate_features --generate_world_scale=9 --merge_coastlines=true \
-  --data_path=$DATA_PATH
+$PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
+  -use_light_nodes=$LIGHT_NODES -split_by_polygons -simplify_countries_level=$SIMPLIFY \
+  -generate_features -generate_world_scale=9 -merge_coastlines=true \
+  -data_path=$DATA_PATH
 
 # 3rd pass - do in parallel
 for file in $DATA_PATH/*.mwm; do
@@ -126,7 +126,7 @@ for file in $DATA_PATH/*.mwm; do
     filename=$(basename "$file")
     extension="${filename##*.}"
     filename="${filename%.*}"
-    $GENERATOR_TOOL --data_path=$DATA_PATH --generate_geometry --sort_features --generate_index --output="$filename" &
+    $GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -sort_features -generate_index -generate_search_index -output="$filename" &
     forky $PROCESSORS
   fi
 done

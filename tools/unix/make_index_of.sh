@@ -103,10 +103,11 @@ else
   LIGHT_NODES=true
 fi
 
-$PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL --intermediate_data_path=$TMPDIR \
-  --use_light_nodes=$LIGHT_NODES \
-  --preprocess_xml
+$PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
+  -use_light_nodes=$LIGHT_NODES \
+  -preprocess_xml
 
-$PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL --intermediate_data_path=$TMPDIR \
-  --use_light_nodes=$LIGHT_NODES \
-  --generate_features --sort_features --generate_geometry --generate_index --output=$1 --bucketing_level=$DEFAULT_BUCKETING_LEVEL
+$PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
+  -use_light_nodes=$LIGHT_NODES \
+  -generate_features -sort_features -generate_geometry -generate_index \
+  -output=$1 -bucketing_level=$DEFAULT_BUCKETING_LEVEL -generate_search_index
