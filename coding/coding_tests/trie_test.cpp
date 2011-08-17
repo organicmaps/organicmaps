@@ -168,9 +168,10 @@ UNIT_TEST(TrieBuilder_Build)
   sort(possibleStrings.begin(), possibleStrings.end());
   // LOG(LINFO, (possibleStrings));
 
-  for (int i0 = -1; i0 < static_cast<int>(possibleStrings.size()); ++i0)
-    for (int i1 = i0; i1 < static_cast<int>(possibleStrings.size()); ++i1)
-      for (int i2 = i1; i2 < static_cast<int>(possibleStrings.size()); ++i2)
+  int const count = static_cast<int>(possibleStrings.size());
+  for (int i0 = -1; i0 < count; ++i0)
+    for (int i1 = i0; i1 < count; ++i1)
+      for (int i2 = i1; i2 < count; ++i2)
   {
     vector<KeyValuePair> v;
     if (i0 >= 0) v.push_back(KeyValuePair(possibleStrings[i0], i0));
