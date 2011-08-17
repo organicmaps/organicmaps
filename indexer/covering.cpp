@@ -60,8 +60,10 @@ public:
 
 }
 
-vector<int64_t> covering::CoverFeature(FeatureType const & f,
-                                       uint64_t cellPenaltyArea)
+namespace covering
+{
+
+vector<int64_t> CoverFeature(FeatureType const & f, uint64_t cellPenaltyArea)
 {
   FeatureIntersector featureIntersector;
   f.ForEachPointRef(featureIntersector, -1);
@@ -87,7 +89,7 @@ vector<int64_t> covering::CoverFeature(FeatureType const & f,
   return res;
 }
 
-vector<pair<int64_t, int64_t> > covering::SortAndMergeIntervals(vector<pair<int64_t, int64_t> > v)
+vector<pair<int64_t, int64_t> > SortAndMergeIntervals(vector<pair<int64_t, int64_t> > v)
 {
 #ifdef DEBUG
   for (size_t i = 0; i < v.size(); ++i)
@@ -106,23 +108,45 @@ vector<pair<int64_t, int64_t> > covering::SortAndMergeIntervals(vector<pair<int6
   return res;
 }
 
-vector<pair<int64_t, int64_t> > covering::CoverViewportAndAppendLowerLevels(m2::RectD const & rect)
+namespace
+{
+  vector<pair<int64_t, int64_t> > AppendLowerLevels(vector<RectId> const & ids)
+  {
+    vector<pair<int64_t, int64_t> > intervals;
+    intervals.reserve(ids.size() * 4);
+
+    for (vector<RectId>::const_iterator it = ids.begin(); it != ids.end(); ++it)
+    {
+      RectId id = *it;
+      int64_t idInt64 = id.ToInt64();
+      intervals.push_back(pair<int64_t, int64_t>(idInt64, idInt64 + id.SubTreeSize()));
+      while (id.Level() > 0)
+      {
+        id = id.Parent();
+        idInt64 = id.ToInt64();
+        intervals.push_back(pair<int64_t, int64_t>(idInt64, idInt64 + 1));
+      }
+    }
+
+    return SortAndMergeIntervals(intervals);
+  }
+}
+
+vector<pair<int64_t, int64_t> > CoverViewportAndAppendLowerLevels(m2::RectD const & r)
 {
   vector<RectId> ids;
-  CoverRect<MercatorBounds, RectId>(rect.minX(), rect.minY(), rect.maxX(), rect.maxY(), 8, ids);
-  vector<pair<int64_t, int64_t> > intervals;
-  intervals.reserve(ids.size() * 4);
-  for (vector<RectId>::const_iterator it = ids.begin(); it != ids.end(); ++it)
-  {
-    RectId id = *it;
-    int64_t idInt64 = id.ToInt64();
-    intervals.push_back(pair<int64_t, int64_t>(idInt64, idInt64 + id.SubTreeSize()));
-    while (id.Level() > 0)
-    {
-      id = id.Parent();
-      idInt64 = id.ToInt64();
-      intervals.push_back(pair<int64_t, int64_t>(idInt64, idInt64 + 1));
-    }
-  }
-  return SortAndMergeIntervals(intervals);
+  CoverRect<MercatorBounds, RectId>(r.minX(), r.minY(), r.maxX(), r.maxY(), 8, ids);
+
+  return AppendLowerLevels(ids);
+}
+
+vector<pair<int64_t, int64_t> > CoverLowerLevelsOnly(m2::RectD const & r)
+{
+  vector<RectId> ids;
+  ids.push_back(CellIdConverter<MercatorBounds, RectId>::Cover2PointsWithCell(
+        r.minX(), r.minY(), r.maxX(), r.maxY()));
+
+  return AppendLowerLevels(ids);
+}
+
 }
