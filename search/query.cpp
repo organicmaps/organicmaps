@@ -250,35 +250,22 @@ void Query::Search(function<void (Result const &)> const & f)
   }
 
   // Feature matching.
-  FeatureProcessor featureProcessor(*this);
-  int const scale = scales::GetScaleLevel(m_viewport) + 1;
-
-  try
-  {
-    m_pIndex->ForEachInRect(featureProcessor,
-                            //m2::RectD(MercatorBounds::minX, MercatorBounds::minY,
-                            //          MercatorBounds::maxX, MercatorBounds::maxY),
-                            m_viewport,
-                            scales::GetUpperWorldScale());
-  }
-  catch (FeatureProcessor::StopException &)
-  {
-    LOG(LDEBUG, ("FeatureProcessor::StopException"));
-  }
-  if (m_bTerminate)
-    return;
-
-  if (scale > scales::GetUpperWorldScale())
+  if (m_pTrieRoot == 0)
   {
     try
     {
-      m_pIndex->ForEachInRect(featureProcessor, m_viewport, min(scales::GetUpperScale(), scale));
+      /// @todo Tune depth scale search (1 is no enough)
+      int const scale = min(scales::GetUpperScale(), scales::GetScaleLevel(m_viewport) + 1);
+
+      FeatureProcessor featureProcessor(*this);
+      m_pIndex->ForEachInRect(featureProcessor, m_viewport, scale);
     }
     catch (FeatureProcessor::StopException &)
     {
       LOG(LDEBUG, ("FeatureProcessor::StopException"));
     }
   }
+
   if (m_bTerminate)
     return;
 

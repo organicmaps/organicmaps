@@ -22,17 +22,19 @@ void search::MatchAgainstTrie(search::impl::Query & query, search::TrieIterator 
   scoped_ptr<search::TrieIterator> pIter(trieRoot.Clone());
 
   size_t symbolsMatched = 0;
-  while (symbolsMatched < queryS.size())
+  size_t const szQuery = queryS.size();
+  while (symbolsMatched < szQuery)
   {
     bool bMatched = false;
     for (size_t i = 0; i < pIter->m_edge.size(); ++i)
     {
-      if (pIter->m_edge[i].m_str.size() + symbolsMatched <= queryS.size() &&
+      size_t const szEdge = pIter->m_edge[i].m_str.size();
+      if (szEdge + symbolsMatched <= szQuery &&
           equal(pIter->m_edge[i].m_str.begin(), pIter->m_edge[i].m_str.end(),
                 queryS.begin() + symbolsMatched))
       {
         scoped_ptr<search::TrieIterator>(pIter->GoToEdge(i)).swap(pIter);
-        symbolsMatched += queryS.size();
+        symbolsMatched += szEdge;
         bMatched = true;
         break;
       }
