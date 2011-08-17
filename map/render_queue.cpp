@@ -13,7 +13,6 @@
 
 RenderQueue::RenderQueue(
     string const & skinName,
-    bool isBenchmarking,
     unsigned scaleEtalonSize,
     unsigned maxTilesCount,
     unsigned tasksCount,
@@ -26,7 +25,6 @@ RenderQueue::RenderQueue(
   for (unsigned i = 0; i < m_tasksCount; ++i)
     m_tasks[i].m_routine = new RenderQueueRoutine(
                                     skinName,
-                                    isBenchmarking,
                                     scaleEtalonSize,
                                     bgColor,
                                     i,
@@ -63,6 +61,10 @@ void RenderQueue::AddCommand(
 {
   m_sequenceID = sequenceID;
   m_renderCommands.PushBack(make_shared_ptr(new RenderQueueRoutine::Command(renderFn, rectInfo, sequenceID, commandFinishedFn)));
+  {
+    threads::ConditionGuard g(m_emptyAndFinished);
+    m_activeCommands++;
+  }
 }
 
 void RenderQueue::AddWindowHandle(shared_ptr<WindowHandle> const & window)
@@ -116,16 +118,10 @@ void RenderQueue::WaitForEmptyAndFinished()
   m_emptyAndFinished.Wait();
 }
 
-void RenderQueue::StartCommand()
-{
-  threads::ConditionGuard g(m_emptyAndFinished);
-  ++m_activeCommands;
-}
-
 void RenderQueue::FinishCommand()
 {
   threads::ConditionGuard g(m_emptyAndFinished);
   --m_activeCommands;
-  if ((m_activeCommands == 0) && (m_renderCommands.Empty()))
-      m_emptyAndFinished.Signal();
+  if (m_activeCommands == 0)
+    m_emptyAndFinished.Signal();
 }

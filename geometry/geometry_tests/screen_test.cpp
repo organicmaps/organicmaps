@@ -119,3 +119,16 @@ UNIT_TEST(ScreenBase_CalcTransform)
   TEST(fabs(dx - dx1) < 0.00001, (dx, dx1));
   TEST(fabs(dy - dy1) < 0.00001, (dy, dy1));
 }
+
+UNIT_TEST(ScreenBase_Rotate)
+{
+  ScreenBase s;
+  s.OnSize(0, 0, 100, 200);
+  s.SetFromRect(m2::RectD(0, 0, 100, 200));
+  s.Rotate(math::pi / 4);
+
+  m2::RectD pxRect = s.PixelRect();
+  m2::RectD glbRect = s.GlobalRect();
+
+  TEST(pxRect == m2::RectD(0, 0, 100, 200), ());
+}

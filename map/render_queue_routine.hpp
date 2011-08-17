@@ -75,7 +75,6 @@ private:
 
   double m_visualScale;
   string m_skinName;
-  bool m_isBenchmarking;
   unsigned m_scaleEtalonSize;
   yg::Color m_bgColor;
 
@@ -89,7 +88,6 @@ private:
 public:
 
   RenderQueueRoutine(string const & skinName,
-                     bool isBenchmarking,
                      unsigned scaleEtalonSize,
                      yg::Color const & bgColor,
                      size_t threadNum,

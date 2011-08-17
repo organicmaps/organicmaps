@@ -16,7 +16,6 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(shared_ptr<WindowHandle> const & wind
                                            RenderPolicy::TRenderFn const & renderFn)
   : RenderPolicy(windowHandle, renderFn),
     m_renderQueue(GetPlatform().SkinName(),
-                  GetPlatform().IsBenchmarking(),
                   GetPlatform().ScaleEtalonSize(),
                   GetPlatform().MaxTilesCount(),
                   1/*GetPlatform().CpuCores()*/,

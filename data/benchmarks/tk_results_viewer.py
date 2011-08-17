@@ -300,5 +300,5 @@ class BenchmarkResultsFrame(Frame):
         self.resultsView.grid(row=0, column=1, columnspan=3)
         
 if __name__ == "__main__":
-    root = BenchmarkResultsFrame(sys.argv[2], sys.argv[1])
+    root = BenchmarkResultsFrame(sys.argv[1], sys.argv[2])
     root.mainloop()

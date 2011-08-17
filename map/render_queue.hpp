@@ -59,7 +59,6 @@ public:
 
   /// constructor.
   RenderQueue(string const & skinName,
-              bool isBenchmarking,
               unsigned scaleEtalonSize,
               unsigned maxTilesCount,
               unsigned tasksCount,
@@ -94,8 +93,6 @@ public:
   void Invalidate();
   /// wait on a condition variable for an empty queue.
   void WaitForEmptyAndFinished();
-
-  void StartCommand();
 
   void FinishCommand();
 };

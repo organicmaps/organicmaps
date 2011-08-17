@@ -35,7 +35,6 @@ RenderQueueRoutine::Command::Command(TRenderFn renderFn,
 {}
 
 RenderQueueRoutine::RenderQueueRoutine(string const & skinName,
-                                       bool isBenchmarking,
                                        unsigned scaleEtalonSize,
                                        yg::Color const & bgColor,
                                        size_t threadNum,
@@ -45,7 +44,6 @@ RenderQueueRoutine::RenderQueueRoutine(string const & skinName,
 {
   m_skinName = skinName;
   m_visualScale = 0;
-  m_isBenchmarking = isBenchmarking;
   m_scaleEtalonSize = scaleEtalonSize;
   m_bgColor = bgColor;
 }
@@ -120,7 +118,6 @@ void RenderQueueRoutine::Do()
     {
       threads::MutexGuard guard(m_mutex);
 
-      m_renderQueue->StartCommand();
       m_currentCommand = m_renderQueue->RenderCommands().Front(true);
 
       if (m_renderQueue->RenderCommands().IsCancelled())
