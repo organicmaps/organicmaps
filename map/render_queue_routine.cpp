@@ -173,9 +173,10 @@ void RenderQueueRoutine::Do()
 
     m2::RectD selectionRect;
 
-    double inflationSize = 24 * m_visualScale;
+    double const inflationSize = 24 * m_visualScale;
 
-    frameScreen.PtoG(m2::Inflate(m2::RectD(renderRect), inflationSize, inflationSize), selectionRect);
+    //frameScreen.PtoG(m2::Inflate(m2::RectD(renderRect), inflationSize, inflationSize), selectionRect);
+    frameScreen.PtoG(m2::RectD(renderRect), selectionRect);
 
     m_currentCommand->m_renderFn(
         m_currentCommand->m_paintEvent,

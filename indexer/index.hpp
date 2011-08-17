@@ -38,10 +38,18 @@ public:
   template <typename F>
   void ForEachInRect(F const & f, m2::RectD const & rect, uint32_t scale, Query & query) const
   {
-    vector<pair<int64_t, int64_t> > intervals = covering::CoverViewportAndAppendLowerLevels(rect);
+    using namespace covering;
+
+    //IntervalsT const intervals = CoverViewportAndAppendLowerLevels(rect);
+
+    IntervalsT intervals;
+    AppendLowerLevels(GetRectIdAsIs(rect), intervals);
+
     for (size_t i = 0; i < intervals.size(); ++i)
-      BaseT::ForEachInIntervalAndScale(f, intervals[i].first, intervals[i].second, scale,
-                                       rect, query);
+    {
+      BaseT::ForEachInIntervalAndScale(f, intervals[i].first, intervals[i].second,
+                                       scale, rect, query);
+    }
   }
 
   template <typename F>
