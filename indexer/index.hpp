@@ -158,14 +158,10 @@ public:
 
     UpdateIndexes();
 
-    /// @todo Keep this until World.mwm has search index.
-    static bool isWorld = true;
-    //if (m_indexes.back()->IsWorldData())
-    if (isWorld)
+    if (m_indexes.back()->IsWorldData())
     {
       ASSERT ( !m_pWorldSearchInfo.get(), () );
       m_pWorldSearchInfo.reset(m_indexes.back()->GetSearchInfo());
-      isWorld = false;
     }
   }
 

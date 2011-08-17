@@ -117,7 +117,8 @@ int main(int argc, char ** argv)
 
   // load classificator only if necessary
   if (FLAGS_generate_features || FLAGS_generate_geometry ||
-      FLAGS_generate_index || FLAGS_calc_statistics || FLAGS_dump_types)
+      FLAGS_generate_index || FLAGS_generate_search_index ||
+      FLAGS_calc_statistics || FLAGS_dump_types)
   {
     classificator::Read(pl.GetReader("drawing_rules.bin"),
                         pl.GetReader("classificator.txt"),
