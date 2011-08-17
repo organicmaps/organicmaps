@@ -22,7 +22,7 @@ versiontarget.depends = FORCE
 
 PRE_TARGETDEPS += $$VERSION_HEADER
 # regenerate version only in release and production builds
-CONFIG(release, debug|release)|CONFIG(production) {
+CONFIG(production) {
   QMAKE_EXTRA_TARGETS += versiontarget
 }
 
