@@ -1,7 +1,9 @@
 #pragma once
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
+
 #include "../base/math.hpp"
+
 
 struct MercatorBounds
 {
@@ -9,6 +11,20 @@ struct MercatorBounds
   static double maxX;
   static double minY;
   static double maxY;
+
+  inline static double ClampX(double d)
+  {
+    if (d < MercatorBounds::minX) return MercatorBounds::minX;
+    if (d > MercatorBounds::maxX) return MercatorBounds::maxX;
+    return d;
+  }
+
+  inline static double ClampY(double d)
+  {
+    if (d < MercatorBounds::minY) return MercatorBounds::minY;
+    if (d > MercatorBounds::maxY) return MercatorBounds::maxY;
+    return d;
+  }
 
   inline static double YToLat(double y)
   {
