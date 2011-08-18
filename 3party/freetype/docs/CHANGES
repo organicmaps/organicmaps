@@ -1,3 +1,42 @@
+CHANGES BETWEEN 2.4.5 and 2.4.6
+
+  I. IMPORTANT BUG FIXES
+
+    - For TrueType based fonts, the ascender and descender values were
+      incorrect sometimes  (off by a pixel if the ppem value was not a
+      multiple of 5).   Depending on the use you might now  experience
+      a different  layout; the  change should  result in  better, more
+      consistent line spacing.
+
+    - Fix CVE-2011-0226  which causes a  vulnerability while  handling
+      Type 1 fonts.
+
+    - BDF fonts  containing  glyphs with negative values  for ENCODING
+      were  incorrectly  rejected.  This  bug has  been introduced  in
+      FreeType version 2.2.0.
+
+    - David Bevan contributed a major revision of the FreeType stroker
+      code:
+
+      . The behaviour of FT_STROKER_LINEJOIN_BEVEL has been corrected.
+
+      . A new  line join style,  FT_STROKER_LINEJOIN_MITER_FIXED,  has
+        been introduced to support PostScript and PDF miter joins.
+
+      . FT_STROKER_LINEJOIN_MITER_VARIABLE  has been introduced  as an
+        alias for FT_STROKER_LINEJOIN_MITER.
+
+      . Various stroking glitches has been fixed.
+
+
+  II. MISCELLANEOUS
+
+      - SFNT bitmap fonts which contain an outline glyph for `.notdef'
+        only no longer set the FT_FACE_FLAG_SCALABLE flag.
+
+
+======================================================================
+
 CHANGES BETWEEN 2.4.4 and 2.4.5
 
   I. IMPORTANT BUG FIXES
@@ -41,6 +80,7 @@ CHANGES BETWEEN 2.4.4 and 2.4.5
 
     - The `ftgrid' demo program  can now display  autohinter segments,
       to be toggled on and off with key `s'.
+
 
 ======================================================================
 

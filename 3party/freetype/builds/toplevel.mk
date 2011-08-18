@@ -199,7 +199,7 @@ dist:
 
 	currdir=`pwd` ; \
 	for f in `find . -wholename '*/.git' -prune \
-	                 -o -name .cvsignore \
+	                 -o -name .gitignore \
 	                 -o -type d \
 	                 -o -print` ; do \
 	  ln -s $$currdir/$$f tmp/$$f ; \
