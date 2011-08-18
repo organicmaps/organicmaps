@@ -11,7 +11,7 @@
 
 namespace yg
 {
-  /// glyph metrics
+  /// metrics of the single glyph
   struct GlyphMetrics
   {
     int m_xAdvance;
@@ -25,11 +25,23 @@ namespace yg
   /// full info about single glyph
   struct GlyphInfo
   {
+  private:
+
+    /// copying is prohibited
+    GlyphInfo(GlyphInfo const &);
+    GlyphInfo & operator=(GlyphInfo const &);
+
+  public:
+
     GlyphMetrics m_metrics;
     yg::Color m_color;
-    vector<unsigned char> m_bitmap;
 
-    void dump(char const * fileName);
+    /// glyph bitmap in 8bpp grayscale format
+    unsigned char * m_bitmapData;
+    int m_bitmapPitch;
+
+    GlyphInfo();
+    virtual ~GlyphInfo();
   };
 
   struct GlyphKey

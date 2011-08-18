@@ -41,6 +41,40 @@ namespace yg
     return l.m_color < r.m_color;
   }
 
+  GlyphInfo::GlyphInfo()
+  {}
+
+  GlyphInfo::~GlyphInfo()
+  {}
+
+  struct FTGlyphInfo : public GlyphInfo
+  {
+    FTC_Node m_node;
+    FTC_Manager m_manager;
+
+    FTGlyphInfo(FTC_Node node, FTC_Manager manager)
+      : m_node(node), m_manager(manager)
+    {}
+
+    ~FTGlyphInfo()
+    {
+      FTC_Node_Unref(m_node, m_manager);
+    }
+  };
+
+  struct FTStrokedGlyphInfo : GlyphInfo
+  {
+    FT_Glyph m_glyph;
+
+    FTStrokedGlyphInfo(FT_Glyph glyph) : m_glyph(glyph)
+    {}
+
+    ~FTStrokedGlyphInfo()
+    {
+      FT_Done_Glyph(m_glyph);
+    }
+  };
+
   GlyphCache::Params::Params(char const * blocksFile, char const * whiteListFile, char const * blackListFile, size_t maxSize)
     : m_blocksFile(blocksFile), m_whiteListFile(whiteListFile), m_blackListFile(blackListFile), m_maxSize(maxSize)
   {}
@@ -171,6 +205,9 @@ namespace yg
     };
 
     FT_Glyph glyph = 0;
+    FTC_Node node;
+
+    GlyphInfo * info = 0;
 
     if (key.m_isMask)
     {
@@ -180,10 +217,12 @@ namespace yg
           FT_LOAD_DEFAULT,
           charIDX.second,
           &glyph,
-          0
+          &node
           ));
       FTCHECK(FT_Glyph_Stroke(&glyph, m_impl->m_stroker, 0));
       FTCHECK(FT_Glyph_To_Bitmap(&glyph, FT_RENDER_MODE_NORMAL, 0, 1));
+
+      info = new FTStrokedGlyphInfo(glyph);
     }
     else
     {
@@ -193,12 +232,13 @@ namespace yg
           FT_LOAD_DEFAULT | FT_LOAD_RENDER,
           charIDX.second,
           &glyph,
-          0
+          &node
           ));
-    }
-    FT_BitmapGlyph bitmapGlyph = (FT_BitmapGlyph)glyph;
 
-    shared_ptr<GlyphInfo> info(new GlyphInfo());
+      info = new FTGlyphInfo(node, m_impl->m_manager);
+    }
+
+    FT_BitmapGlyph bitmapGlyph = (FT_BitmapGlyph)glyph;
 
     info->m_metrics.m_height = bitmapGlyph ? bitmapGlyph->bitmap.rows : 0;
     info->m_metrics.m_width = bitmapGlyph ? bitmapGlyph->bitmap.width : 0;
@@ -208,18 +248,15 @@ namespace yg
     info->m_metrics.m_yAdvance = bitmapGlyph ? int(bitmapGlyph->root.advance.y >> 16) : 0;
     info->m_color = key.m_color;
 
+    info->m_bitmapData = 0;
+    info->m_bitmapPitch = 0;
+
     if ((info->m_metrics.m_width != 0) && (info->m_metrics.m_height != 0))
     {
-      info->m_bitmap.resize(info->m_metrics.m_width * info->m_metrics.m_height * sizeof(DATA_TRAITS::pixel_t));
+      info->m_bitmapData = bitmapGlyph->bitmap.buffer;
+      info->m_bitmapPitch = bitmapGlyph->bitmap.pitch;
 
-      DATA_TRAITS::view_t dstView = gil::interleaved_view(
-            info->m_metrics.m_width,
-            info->m_metrics.m_height,
-            (DATA_TRAITS::pixel_t*)&info->m_bitmap[0],
-            info->m_metrics.m_width * sizeof(DATA_TRAITS::pixel_t)
-            );
-
-      gil::gray8c_view_t srcView = gil::interleaved_view(
+/*      gil::gray8c_view_t srcView = gil::interleaved_view(
           info->m_metrics.m_width,
           info->m_metrics.m_height,
           (gil::gray8_pixel_t*)bitmapGlyph->bitmap.buffer,
@@ -238,13 +275,10 @@ namespace yg
         {
           gil::get_color(c, gil::alpha_t()) = srcView(x, y) / DATA_TRAITS::channelScaleFactor;
           dstView(x, y) = c;
-        }
+        }*/
     }
 
-    if (key.m_isMask)
-      FT_Done_Glyph(glyph);
-
-    return info;
+    return make_shared_ptr(info);
   }
 
   double GlyphCache::getTextLength(double fontSize, string const & text)
@@ -260,12 +294,4 @@ namespace yg
     return len;
   }
 
-  void GlyphInfo::dump(const char * /*fileName */)
-  {
-/*    gil::lodepng_write_view(fileName,
-                            gil::interleaved_view(m_width,
-                                                  m_height,
-                                                  (DATA_TRAITS::pixel_t*)&m_bitmap[0],
-                                                  m_width * sizeof(DATA_TRAITS::pixel_t)));*/
-  }
 }

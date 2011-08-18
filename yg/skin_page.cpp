@@ -645,16 +645,33 @@ namespace yg
 
       if ((gi->m_metrics.m_width != 0) && (gi->m_metrics.m_height != 0))
       {
-        TDynamicTexture::const_view_t srcView = gil::interleaved_view(
+        gil::gray8c_view_t srcView = gil::interleaved_view(
+              gi->m_metrics.m_width,
+              gi->m_metrics.m_height,
+              (gil::gray8_pixel_t*)gi->m_bitmapData,
+              gi->m_bitmapPitch
+              );
+
+/*        TDynamicTexture::const_view_t srcView = gil::interleaved_view(
             gi->m_metrics.m_width,
             gi->m_metrics.m_height,
             (TDynamicTexture::pixel_t*)&gi->m_bitmap[0],
             gi->m_metrics.m_width * sizeof(TDynamicTexture::pixel_t)
-            );
+            );*/
+
+        DATA_TRAITS::pixel_t c;
+
+        gil::get_color(c, gil::red_t()) = gi->m_color.r / DATA_TRAITS::channelScaleFactor;
+        gil::get_color(c, gil::green_t()) = gi->m_color.g / DATA_TRAITS::channelScaleFactor;
+        gil::get_color(c, gil::blue_t()) = gi->m_color.b / DATA_TRAITS::channelScaleFactor;
+        gil::get_color(c, gil::alpha_t()) = gi->m_color.a / DATA_TRAITS::channelScaleFactor;
 
         for (size_t y = 2; y < rect.SizeY() - 2; ++y)
           for (size_t x = 2; x < rect.SizeX() - 2; ++x)
-           v(x, y) = srcView(x - 2, y - 2);
+           {
+             gil::get_color(c, gil::alpha_t()) = srcView(x - 2, y - 2) / DATA_TRAITS::channelScaleFactor;
+             v(x, y) = c;
+           }
       }
 
       dynTexture->upload(&v(0, 0), rect);
