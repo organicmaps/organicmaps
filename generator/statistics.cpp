@@ -22,13 +22,18 @@ namespace stats
     FilesContainerR cont(fPath);
 
     vector<string> tags;
+    tags.push_back(VERSION_FILE_TAG);
+    tags.push_back(HEADER_FILE_TAG);
     tags.push_back(DATA_FILE_TAG);
+
     for (int i = 0; i < ARRAY_SIZE(feature::g_arrCountryScales); ++i)
     {
       tags.push_back(feature::GetTagForIndex(GEOMETRY_FILE_TAG, i));
       tags.push_back(feature::GetTagForIndex(TRIANGLE_FILE_TAG, i));
     }
+
     tags.push_back(INDEX_FILE_TAG);
+    tags.push_back(SEARCH_INDEX_FILE_TAG);
 
     for (size_t i = 0; i < tags.size(); ++i)
       cout << tags[i] << " : " << cont.GetReader(tags[i]).Size() << endl;
