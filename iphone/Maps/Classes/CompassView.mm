@@ -35,7 +35,7 @@
   [aPath closePath];
   
   CGAffineTransform matrix = CGAffineTransformMakeTranslation(w2, w2);
-  matrix = CGAffineTransformRotate(matrix, m_angle);
+  matrix = CGAffineTransformRotate(matrix, m_angle + M_PI_2);
   matrix = CGAffineTransformTranslate(matrix, -w2, -w2);
   [aPath applyTransform:matrix];
   

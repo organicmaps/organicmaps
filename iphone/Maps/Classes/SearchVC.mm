@@ -129,23 +129,27 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"MyTableViewCell"];
   if (!cell)
     cell = [[[UITableViewCell alloc]
-             initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MyTableViewCell"]
-            autorelease];
+           initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyTableViewCell"]
+           autorelease];
   
+  cell.accessoryView = nil;
   if (indexPath.row < m_results.size())
   {
-    cell.textLabel.text = [NSString stringWithUTF8String:m_results[indexPath.row].GetString()];
-    float const h = tableView.rowHeight * 0.6;
-    CompassView * v = [[[CompassView alloc] initWithFrame:
-                      CGRectMake(0, 0, h, h)] autorelease];
-    v.angle = (float)m_results[indexPath.row].GetDirectionFromCenter();
-    cell.accessoryView = v;
+    search::Result const & r = m_results[indexPath.row];
+    cell.textLabel.text = [NSString stringWithUTF8String:r.GetString()];
+    if (r.GetResultType() == search::Result::RESULT_FEATURE)
+    {
+      cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1lf m", r.GetDistanceFromCenter() / 1000.0];
+
+      float const h = tableView.rowHeight * 0.6;
+      CompassView * v = [[[CompassView alloc] initWithFrame:
+                        CGRectMake(0, 0, h, h)] autorelease];
+      v.angle = (float)r.GetDirectionFromCenter();
+      cell.accessoryView = v;
+    }
   }
   else
-  {
-    cell.textLabel.text = @"";
-    cell.accessoryView = nil;
-  }
+    cell.textLabel.text = @"BUG";
   return cell;
 }
 
