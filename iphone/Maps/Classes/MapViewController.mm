@@ -85,7 +85,7 @@ storage::Storage m_storage;
 		shared_ptr<iphone::WindowHandle> windowHandle = [(EAGLView*)self.view windowHandle];
 		shared_ptr<yg::ResourceManager> resourceManager = [(EAGLView*)self.view resourceManager];
         
-    m_framework = new framework_t(windowHandle, 40);
+    m_framework = FrameworkFactory<model::FeaturesFetcher>::CreateFramework(windowHandle, 40);
 		m_framework->InitStorage(m_storage);
 		m_StickyThreshold = 10;
 

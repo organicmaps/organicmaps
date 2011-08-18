@@ -2,7 +2,7 @@
 
 #include "../../geometry/point2d.hpp"
 #include "../../yg/texture.hpp"
-#include "../../map/framework.hpp"
+#include "../../map/framework_factory.hpp"
 #include "../../map/drawer_yg.hpp"
 #include "../../map/render_queue.hpp"
 #include "../../map/navigator.hpp"
