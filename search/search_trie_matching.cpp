@@ -12,6 +12,18 @@
 #include "../std/vector.hpp"
 
 
+namespace
+{
+  template <class SrcIterT, class CompIterT>
+  size_t CalcEqualLength(SrcIterT b, SrcIterT e, CompIterT bC, CompIterT eC)
+  {
+    size_t count = 0;
+    while ((b != e) && (bC != eC) && (*b++ == *bC++))
+      ++count;
+    return count;
+  }
+}
+
 void search::MatchAgainstTrie(search::impl::Query & query, search::TrieIterator & trieRoot,
                               FeaturesVector const & featuresVector)
 {
@@ -26,19 +38,25 @@ void search::MatchAgainstTrie(search::impl::Query & query, search::TrieIterator 
   while (symbolsMatched < szQuery)
   {
     bool bMatched = false;
+
     for (size_t i = 0; i < pIter->m_edge.size(); ++i)
     {
       size_t const szEdge = pIter->m_edge[i].m_str.size();
-      if (szEdge + symbolsMatched <= szQuery &&
-          equal(pIter->m_edge[i].m_str.begin(), pIter->m_edge[i].m_str.end(),
-                queryS.begin() + symbolsMatched))
+
+      size_t const count = CalcEqualLength(pIter->m_edge[i].m_str.begin(),
+                                           pIter->m_edge[i].m_str.end(),
+                                           queryS.begin() + symbolsMatched,
+                                           queryS.end());
+
+      if ((count > 0) && (count == szEdge || szQuery == count + symbolsMatched))
       {
         scoped_ptr<search::TrieIterator>(pIter->GoToEdge(i)).swap(pIter);
-        symbolsMatched += szEdge;
+        symbolsMatched += count;
         bMatched = true;
         break;
       }
     }
+
     if (!bMatched)
       return;
   }

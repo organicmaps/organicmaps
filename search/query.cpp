@@ -234,36 +234,40 @@ void Query::Search(function<void (Result const &)> const & f)
   if (m_bTerminate)
     return;
 
-  if (m_pTrieRoot)
+  int const scale = scales::GetScaleLevel(m_viewport);
+
+  if (scale > scales::GetUpperWorldScale())
   {
-    search::MatchAgainstTrie(*this, *m_pTrieRoot, *m_pFeatures);
+    // First - make features matching for viewport in current country.
+    try
+    {
+      FeatureProcessor featureProcessor(*this);
+      /// @todo Tune depth scale search (1 is no enough)
+      m_pIndex->ForEachInRect(featureProcessor, m_viewport, min(scales::GetUpperScale(), scale + 1));
+    }
+    catch (FeatureProcessor::StopException &)
+    {
+      LOG(LDEBUG, ("FeatureProcessor::StopException"));
+    }
   }
 
   if (m_bTerminate)
     return;
 
   FlushResults(f);
-  if (m_resultsRemaining == 0 || m_queryText.empty())
+  if (m_resultsRemaining == 0)
   {
     f(Result(string(), string()));  // Send last search result marker.
     return;
   }
 
-  // Feature matching.
-  if (m_pTrieRoot == 0)
-  {
-    try
-    {
-      /// @todo Tune depth scale search (1 is no enough)
-      int const scale = min(scales::GetUpperScale(), scales::GetScaleLevel(m_viewport) + 1);
+  if (m_bTerminate)
+    return;
 
-      FeatureProcessor featureProcessor(*this);
-      m_pIndex->ForEachInRect(featureProcessor, m_viewport, scale);
-    }
-    catch (FeatureProcessor::StopException &)
-    {
-      LOG(LDEBUG, ("FeatureProcessor::StopException"));
-    }
+  if (m_pTrieRoot)
+  {
+    // Make features matching in world trie.
+    search::MatchAgainstTrie(*this, *m_pTrieRoot, *m_pFeatures);
   }
 
   if (m_bTerminate)
