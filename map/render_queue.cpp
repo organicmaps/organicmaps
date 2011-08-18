@@ -115,7 +115,8 @@ ThreadedList<shared_ptr<RenderQueueRoutine::Command > > & RenderQueue::RenderCom
 void RenderQueue::WaitForEmptyAndFinished()
 {
   threads::ConditionGuard g(m_emptyAndFinished);
-  m_emptyAndFinished.Wait();
+  if (m_activeCommands != 0)
+    m_emptyAndFinished.Wait();
 }
 
 void RenderQueue::FinishCommand()
