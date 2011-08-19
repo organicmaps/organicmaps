@@ -23,8 +23,8 @@ en:change|exchange|currency
 ru:обменник|обмен валюты
 
 amenity-bus_station
-en:bus
-ru:автобус|автостанция
+en:bus station
+ru:автостанция
 
 amenity-cafe
 en:1cafe|coffee
@@ -172,3 +172,27 @@ place-locality
 place-farm
 en:farm
 ru:ферма
+
+waterway-river|waterway-stream
+en:river
+ru:река
+
+highway-primary|highway-residential|highway-secondary|highway-tertiary|highway-service|highway-road|highway-track
+en:street
+ru:улица
+
+highway-bus_stop
+en:bus stop
+ru:остановка|автобус
+
+natural-peak
+en:peak|mountain
+ru:гора|вершина
+
+leisure-park|leisure-garden
+en:park
+ru:парк
+
+tourism-hotel|tourism-hostel
+en:hotel|hostel
+ru:отель
