@@ -396,8 +396,7 @@ namespace feature
     return static_cast<FeatureBuilder2 &>(fb);
   }
 
-
-  bool GenerateFinalFeatures(string const & datFilePath, bool bSort, bool bWorld)
+  bool GenerateFinalFeatures(string const & datFilePath, bool bWorld)
   {
     // rename input file
     Platform & platform = GetPlatform();
@@ -416,8 +415,7 @@ namespace feature
     ForEachFromDatRawFormat(tempDatFilePath, midPoints);
 
     // sort features by their middle point
-    if (bSort)
-      std::sort(midPoints.m_vec.begin(), midPoints.m_vec.end(), &SortMidPointsFunc);
+    std::sort(midPoints.m_vec.begin(), midPoints.m_vec.end(), &SortMidPointsFunc);
 
     // store sorted features
     {

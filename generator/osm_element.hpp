@@ -16,9 +16,6 @@
 #include "../std/set.hpp"
 #include "../std/vector.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
-
 /// @param  TEmitter  Feature accumulating policy
 /// @param  THolder   Nodes, ways, relations holder
 template <class TEmitter, class THolder>
@@ -301,128 +298,6 @@ protected:
   }
 };
 
-/*
-template <class TEmitter, class THolder>
-class SecondPassParserJoin : public SecondPassParserBase<TEmitter, THolder>
-{
-  typedef SecondPassParserBase<TEmitter, THolder> base_type;
-
-  set<uint64_t> m_usedDirect;
-
-  bool TryEmitUnited(uint64_t featureID, typename base_type::feature_builder_t & ft)
-  {
-    // check, if feature already processed early
-    if (m_usedDirect.count(featureID) > 0)
-      return true;
-
-    set<uint64_t> path;
-    path.insert(featureID);
-
-    WayElement e;
-
-    // process geometry of initial way itself
-    base_type::m_holder.GetWay(featureID, e);
-    if (e.nodes.empty())
-      return false;
-
-    for (size_t i = 0; i < e.nodes.size(); ++i)
-    {
-      m2::PointD pt;
-      if (base_type::GetPoint(e.nodes[i], pt))
-        ft.AddPoint(pt);
-      else
-        return false;
-    }
-
-    // process connected ways in cycle while ...
-    uint64_t fID = featureID;
-    while (!ft.IsGeometryClosed())
-    {
-      uint64_t const nodeID = e.nodes.back();
-      if (!base_type::m_holder.GetNextWay(fID, nodeID, e))
-        break;
-
-      if (!path.insert(fID).second)
-      {
-        LOG_SHORT(LWARNING, ("JOIN_DBG! Cycle found during way joining, duplicate id = ", fID));
-        break;
-      }
-
-      // skip first point, because it's equal with previous
-      size_t i;
-      int inc;
-      if (e.nodes.front() == nodeID)
-      {
-        i = 1;
-        inc = 1;
-      }
-      else
-      {
-        ASSERT ( e.nodes.back() == nodeID, () );
-
-        i = e.nodes.size() - 2;
-        inc = -1;
-      }
-
-      size_t count = 1;
-      while (count++ < e.nodes.size())
-      {
-        m2::PointD pt;
-        if (base_type::GetPoint(e.nodes[i], pt))
-          ft.AddPoint(pt);
-        else
-          return false;
-
-        i += inc;
-      }
-    }
-
-    if (ft.IsGeometryClosed())
-    {
-      m_usedDirect.insert(path.begin(), path.end());
-
-      base_type::FinishAreaFeature(featureID, ft);
-
-      base_type::m_emitter(ft);
-      return true;
-    }
-    else
-    {
-      LOG_SHORT(LWARNING, ("JOIN_DBG! Ways not connected for root way = ", featureID));
-      return false;
-    }
-  }
-
-protected:
-  virtual void EmitElement(XMLElement * p)
-  {
-    uint64_t id;
-    FeatureParams fValue;
-    if (!ParseType(p, id, fValue))
-      return;
-
-    // check, if we can make united feature
-    for (typename FeatureParams::types_t::iterator i = fValue.types.begin(); i != fValue.types.end(); ++i)
-      if (feature::NeedUnite(*i))
-      {
-        typename base_type::feature_builder_t ft;
-        ft.AddName(fValue.name);
-        ft.AddTypes(fValue.types.begin(), fValue.types.end());
-        ft.AddLayer(fValue.layer);
-
-        TryEmitUnited(id, ft);
-        break;
-      }
-  }
-
-public:
-  SecondPassParserJoin(TEmitter & emitter, THolder & holder)
-    : base_type(emitter, holder)
-  {
-  }
-};
-*/
-
 template <class TEmitter, class THolder>
 class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
 {
@@ -459,11 +334,6 @@ protected:
     }
     else if (p->name == "way")
     {
-//#ifdef DEBUG
-//      if (id == 41082185 || id == 64452462 || id == 48922414)
-//        __debugbreak();
-//#endif
-
       bool const isLine = feature::IsDrawableLike(fValue.m_Types, feature::FEATURE_TYPE_LINE);
       bool const isArea = feature::IsDrawableLike(fValue.m_Types, feature::FEATURE_TYPE_AREA);
 
@@ -501,11 +371,6 @@ protected:
     }
     else if (p->name == "relation")
     {
-//#ifdef DEBUG
-//      if (id == 254789)
-//        __debugbreak();
-//#endif
-
       if (!feature::IsDrawableLike(fValue.m_Types, feature::FEATURE_TYPE_AREA))
         return;
 
@@ -577,5 +442,3 @@ public:
   {
   }
 };
-
-#include "../../base/stop_mem_debug.hpp"

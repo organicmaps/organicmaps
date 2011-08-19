@@ -11,9 +11,8 @@
 
 namespace feature
 {
-  /// Final generation of data from input feature-dat-file.
-  /// @param[in] bSort sorts features in the given file by their mid points
-  bool GenerateFinalFeatures(string const & datFile, bool bSort, bool bWorld);
+  /// Final generation of data from input feature-dat-file
+  bool GenerateFinalFeatures(string const & datFile, bool bWorld);
 
   template <class PointT>
   inline bool are_points_equal(PointT const & p1, PointT const & p2)
@@ -41,14 +40,6 @@ namespace feature
       CHECK_GREATER ( out.size(), 1, () );
       CHECK ( are_points_equal(in.front(), out.front()), () );
       CHECK ( are_points_equal(in.back(), out.back()), () );
-
-#ifdef DEBUG
-      //for (size_t i = 2; i < out.size(); ++i)
-      //{
-      //  double const dist = DistanceF(out[i-2], out[i])(out[i-1]);
-      //  CHECK ( dist >= eps, (dist, eps, in) );
-      //}
-#endif
     }
   }
 }

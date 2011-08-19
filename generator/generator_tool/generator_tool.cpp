@@ -34,8 +34,6 @@
 DEFINE_bool(version, false, "Display version");
 DEFINE_bool(generate_update, false,
               "If specified, update.maps file will be generated from cells in the data path");
-
-DEFINE_bool(sort_features, true, "Sort features data for better cache-friendliness.");
 DEFINE_bool(generate_classif, false, "Generate classificator.");
 DEFINE_bool(preprocess_xml, false, "1st pass - create nodes/ways/relations data");
 DEFINE_bool(generate_features, false, "2nd pass - generate intermediate features");
@@ -170,7 +168,7 @@ int main(int argc, char ** argv)
     {
       LOG(LINFO, ("Generating result features for ", datFile));
       if (!feature::GenerateFinalFeatures(datFile,
-        FLAGS_sort_features, datFile == path + WORLD_FILE_NAME + DATA_FILE_EXTENSION))
+                                          datFile == path + WORLD_FILE_NAME + DATA_FILE_EXTENSION))
       {
         // If error - move to next bucket without index generation
         continue;
