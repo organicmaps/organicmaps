@@ -3,7 +3,6 @@
 #include "../feature_sorter.hpp"
 #include "../update_generator.hpp"
 #include "../feature_bucketer.hpp"
-#include "../grid_generator.hpp"
 #include "../statistics.hpp"
 #include "../classif_routine.hpp"
 #include "../borders_generator.hpp"
@@ -40,7 +39,6 @@ DEFINE_bool(generate_features, false, "2nd pass - generate intermediate features
 DEFINE_bool(generate_geometry, false, "3rd pass - split and simplify geometry and triangles for features");
 DEFINE_bool(generate_index, false, "4rd pass - generate index");
 DEFINE_bool(generate_search_index, false, "5th pass - generate search index");
-DEFINE_bool(generate_grid, false, "Generate grid for given bucketing_level");
 DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files");
 DEFINE_bool(use_light_nodes, false,
             "If true, use temporary vector of nodes, instead of huge temp file");
@@ -95,11 +93,6 @@ int main(int argc, char ** argv)
   if (FLAGS_generate_classif)
   {
     classificator::GenerateAndWrite(path);
-  }
-
-  if (FLAGS_generate_grid)
-  {
-    grid::GenerateGridToStdout(FLAGS_bucketing_level);
   }
 
   // Generating intermediate files

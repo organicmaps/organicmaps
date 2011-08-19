@@ -18,7 +18,6 @@ SOURCES += \
     feature_generator.cpp \
     feature_sorter.cpp \
     update_generator.cpp \
-    grid_generator.cpp \
     statistics.cpp \
     osm2type.cpp \
     classif_routine.cpp \
@@ -39,7 +38,6 @@ HEADERS += \
     data_cache_file.hpp \
     feature_sorter.hpp \
     update_generator.hpp \
-    grid_generator.hpp \
     statistics.hpp \
     polygonizer.hpp \
     world_map_generator.hpp \
