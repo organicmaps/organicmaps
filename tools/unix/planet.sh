@@ -8,8 +8,8 @@
 set -e -u -x
 
 # global params
-LIGHT_NODES=true
-PROCESSORS=2
+LIGHT_NODES=false
+PROCESSORS=8
 
 # displays usage and exits
 function Usage {
