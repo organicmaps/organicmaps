@@ -21,7 +21,5 @@ namespace borders
 
   typedef m4::Tree<CountryPolygons> CountriesContainerT;
 
-  /// @param[in] simplifyCountriesLevel if positive, used as a level for simplificator
-  bool LoadCountriesList(string const & baseDir, CountriesContainerT & countries,
-                         int simplifyCountriesLevel = -1);
+  bool LoadCountriesList(string const & baseDir, CountriesContainerT & countries);
 }

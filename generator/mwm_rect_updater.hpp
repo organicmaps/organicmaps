@@ -2,4 +2,4 @@
 
 #include "../std/string.hpp"
 
-void UpdateMWMRectsFromBoundaries(string const & dataPath, int level);
+void UpdateMWMRectsFromBoundaries(string const & dataPath);

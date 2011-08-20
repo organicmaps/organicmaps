@@ -52,10 +52,10 @@ namespace
   };
 }
 
-void UpdateMWMRectsFromBoundaries(string const & dataPath, int level)
+void UpdateMWMRectsFromBoundaries(string const & dataPath)
 {
   borders::CountriesContainerT countries;
-  borders::LoadCountriesList(dataPath, countries, level);
+  borders::LoadCountriesList(dataPath, countries);
 
   countries.ForEachWithRect(DoUpdateRect(dataPath));
 }

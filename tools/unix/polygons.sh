@@ -8,15 +8,13 @@
 set -e -u -x
 
 # global params
-LIGHT_NODES=false
-PROCESSORS=8
-SIMPLIFY=-1
+LIGHT_NODES=true
+PROCESSORS=2
 
 # displays usage and exits
 function Usage {
   echo ''
-  echo "Usage: $0 [path_to_data_folder_with_classsif_and_planet.osm.bz2] [bucketing_level] [optional_path_to_intermediate_data] [world_only]"
-  echo "Planet squares size is (2^bucketing_level x 2^bucketing_level)"
+  echo "Usage: $0 [path_to_data_folder_with_classsif_and_planet.osm.bz2] [optional_path_to_intermediate_data]"
   echo "If optional intermediate path is given, only second pass will be executed"
   exit 0
 }
@@ -35,12 +33,11 @@ function forky() {
   done
 }
 
-if [ $# -lt 2 ]; then
+if [ $# -lt 1 ]; then
   Usage
 fi
 
 DATA_PATH=$1
-BUCKETING_LEVEL=$2
 
 # set up necessary Windows MinGW settings
 #if [ ${WINDIR+1} ]; then
@@ -86,8 +83,8 @@ fi
 
 TMPDIR=$DATA_PATH/intermediate_data/
 
-if [ $# -ge 3 ]; then
-  TMPDIR=$3/
+if [ $# -ge 2 ]; then
+  TMPDIR=$2/
 fi
 
 if ! [ -d $TMPDIR ]; then
@@ -100,24 +97,18 @@ then
   PV=pv
 fi
 
-WORLD_ONLY=false
-if [ $# -ge 4  ]; then
-  WORLD_ONLY=true
-fi
-
-
 # skip 1st pass if intermediate data path was given
-if [ $# -lt 3 ]; then
+if [ $# -lt 2 ]; then
   # 1st pass - not paralleled
   $PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
     -use_light_nodes=$LIGHT_NODES \
     -preprocess_xml
 fi
 
-# 2nd pass - not paralleled
+# 2nd pass - paralleled in the code
 $PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
-  -use_light_nodes=$LIGHT_NODES -split_by_polygons -simplify_countries_level=$SIMPLIFY \
-  -generate_features -generate_world_scale=9 -merge_coastlines=true \
+  -use_light_nodes=$LIGHT_NODES -split_by_polygons \
+  -generate_features -generate_world \
   -data_path=$DATA_PATH
 
 # 3rd pass - do in parallel
@@ -126,7 +117,7 @@ for file in $DATA_PATH/*.mwm; do
     filename=$(basename "$file")
     extension="${filename##*.}"
     filename="${filename%.*}"
-    $GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -sort_features -generate_index -generate_search_index -output="$filename" &
+    $GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -generate_index -generate_search_index -output="$filename" &
     forky $PROCESSORS
   fi
 done

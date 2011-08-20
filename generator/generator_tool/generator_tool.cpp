@@ -2,7 +2,6 @@
 #include "../feature_generator.hpp"
 #include "../feature_sorter.hpp"
 #include "../update_generator.hpp"
-#include "../feature_bucketer.hpp"
 #include "../statistics.hpp"
 #include "../classif_routine.hpp"
 #include "../borders_generator.hpp"
@@ -45,12 +44,8 @@ DEFINE_bool(use_light_nodes, false,
 DEFINE_string(data_path, "", "Working directory, 'path_to_exe/../../data' if empty.");
 DEFINE_string(output, "", "Prefix of filenames of outputted .dat and .idx files.");
 DEFINE_string(intermediate_data_path, "", "Path to store nodes, ways, relations.");
-DEFINE_int32(bucketing_level, -1, "If positive, level of cell ids for bucketing.");
-DEFINE_int32(generate_world_scale, -1, "If specified, features for zoomlevels [0..this_value] "
-             "which are enabled in classificator will be MOVED to the separate world file");
-DEFINE_bool(split_by_polygons, false, "Use kml shape files to split planet by regions and countries");
-DEFINE_int32(simplify_countries_level, -1, "If positive, simplifies country polygons. Recommended values [10..15]");
-DEFINE_bool(merge_coastlines, false, "If defined, tries to merge coastlines when renerating World file");
+DEFINE_bool(generate_world, false, "Generate separate world file");
+DEFINE_bool(split_by_polygons, false, "Use countries borders to split planet by regions and countries");
 DEFINE_string(generate_borders, "",
             "Create binary country .borders file for osm xml file given in 'output' parameter,"
             "specify tag name and optional value: ISO3166-1 or admin_level=4");
@@ -104,7 +99,7 @@ int main(int argc, char ** argv)
   }
 
   feature::GenerateInfo genInfo;
-  genInfo.tmpDir = FLAGS_intermediate_data_path;
+  genInfo.m_tmpDir = FLAGS_intermediate_data_path;
 
   // load classificator only if necessary
   if (FLAGS_generate_features || FLAGS_generate_geometry ||
@@ -124,38 +119,35 @@ int main(int argc, char ** argv)
     LOG(LINFO, ("Generating final data ..."));
 
     if (FLAGS_output.empty() || FLAGS_split_by_polygons)  // do not break data path for polygons
-      genInfo.datFilePrefix = path;
+      genInfo.m_datFilePrefix = path;
     else
-      genInfo.datFilePrefix = path + FLAGS_output + (FLAGS_bucketing_level > 0 ? "-" : "");
-    genInfo.datFileSuffix = DATA_FILE_EXTENSION;
+      genInfo.m_datFilePrefix = path + FLAGS_output;
+    genInfo.m_datFileSuffix = DATA_FILE_EXTENSION;
 
     // split data by countries polygons
-    genInfo.splitByPolygons = FLAGS_split_by_polygons;
-    genInfo.simplifyCountriesLevel = FLAGS_simplify_countries_level;
+    genInfo.m_splitByPolygons = FLAGS_split_by_polygons;
 
-    genInfo.cellBucketingLevel = FLAGS_bucketing_level;
-    genInfo.maxScaleForWorldFeatures = FLAGS_generate_world_scale;
-    genInfo.mergeCoastlines = FLAGS_merge_coastlines;
+    genInfo.m_createWorld = FLAGS_generate_world;
 
     if (!feature::GenerateFeatures(genInfo, FLAGS_use_light_nodes))
       return -1;
 
-    for (size_t i = 0; i < genInfo.bucketNames.size(); ++i)
-      genInfo.bucketNames[i] = genInfo.datFilePrefix + genInfo.bucketNames[i] + genInfo.datFileSuffix;
+    for (size_t i = 0; i < genInfo.m_bucketNames.size(); ++i)
+      genInfo.m_bucketNames[i] = genInfo.m_datFilePrefix + genInfo.m_bucketNames[i] + genInfo.m_datFileSuffix;
 
-    if (FLAGS_generate_world_scale >= 0)
-      genInfo.bucketNames.push_back(genInfo.datFilePrefix + WORLD_FILE_NAME + genInfo.datFileSuffix);
+    if (FLAGS_generate_world)
+      genInfo.m_bucketNames.push_back(genInfo.m_datFilePrefix + WORLD_FILE_NAME + genInfo.m_datFileSuffix);
   }
   else
   {
-    genInfo.bucketNames.push_back(path + FLAGS_output + DATA_FILE_EXTENSION);
+    genInfo.m_bucketNames.push_back(path + FLAGS_output + DATA_FILE_EXTENSION);
   }
 
   // Enumerate over all dat files that were created.
-  size_t const count = genInfo.bucketNames.size();
+  size_t const count = genInfo.m_bucketNames.size();
   for (size_t i = 0; i < count; ++i)
   {
-    string const & datFile = genInfo.bucketNames[i];
+    string const & datFile = genInfo.m_bucketNames[i];
 
     if (FLAGS_generate_geometry)
     {
@@ -199,7 +191,7 @@ int main(int argc, char ** argv)
   }
 
   //if (FLAGS_split_by_polygons)
-  //  UpdateMWMRectsFromBoundaries(path, FLAGS_simplify_countries_level);
+  //  UpdateMWMRectsFromBoundaries(path);
 
   // Create http update list for countries and corresponding files
   if (FLAGS_generate_update)

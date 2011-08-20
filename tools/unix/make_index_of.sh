@@ -1,13 +1,9 @@
 #!/bin/bash
 ################################################
-# Cool script for building dat and index files #
+# Cool script for building mwm files           #
 ################################################
 
-# At least "set -e -u" should always be here, not just for debugging!
-# "set -x" is useful to see what is going on.
 set -e -u -x
-
-DEFAULT_BUCKETING_LEVEL=0
 
 # displays usage and exits
 function Usage {
@@ -109,5 +105,5 @@ $PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
 
 $PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
   -use_light_nodes=$LIGHT_NODES \
-  -generate_features -sort_features -generate_geometry -generate_index \
-  -output=$1 -bucketing_level=$DEFAULT_BUCKETING_LEVEL -generate_search_index
+  -generate_features -generate_geometry -generate_index \
+  -generate_search_index -output=$1

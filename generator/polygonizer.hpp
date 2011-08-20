@@ -1,4 +1,5 @@
 #pragma once
+
 #include "borders_loader.hpp"
 #include "world_map_generator.hpp"
 
@@ -10,6 +11,7 @@
 #include "../base/base.hpp"
 #include "../base/buffer_vector.hpp"
 #include "../base/macros.hpp"
+
 #include "../std/scoped_ptr.hpp"
 #include "../std/string.hpp"
 
@@ -27,13 +29,24 @@
 namespace feature
 {
   // Groups features according to country polygons
-  template <class FeatureOutT, class BoundsT, typename CellIdT>
+  template <class FeatureOutT>
   class Polygonizer
   {
+    typename FeatureOutT::InitDataType m_filePrefixAndSuffix;
+    vector<FeatureOutT*> m_Buckets;
+    vector<string> m_Names;
+    borders::CountriesContainerT m_countries;
+    scoped_ptr<WorldMapGenerator<FeatureOutT> > m_worldMap;
+
+#if PARALLEL_POLYGONIZER
+    QThreadPool m_ThreadPool;
+    QSemaphore m_ThreadPoolSemaphore;
+    QMutex m_EmitFeatureMutex;
+#endif
+
   public:
-    template <class TInfo>
-    Polygonizer(TInfo & info) : m_FeatureOutInitData(info.datFilePrefix, info.datFileSuffix),
-      m_worldMap(info.maxScaleForWorldFeatures, info.mergeCoastlines, m_FeatureOutInitData)
+    template <class T>
+    Polygonizer(T const & info) : m_filePrefixAndSuffix(info.m_datFilePrefix, info.m_datFileSuffix)
 #if PARALLEL_POLYGONIZER
     , m_ThreadPoolSemaphore(m_ThreadPool.maxThreadCount() * 8)
 #endif
@@ -42,14 +55,21 @@ namespace feature
       LOG(LINFO, ("Polygonizer thread pool threads:", m_ThreadPool.maxThreadCount()));
 #endif
 
-      CHECK(borders::LoadCountriesList(info.datFilePrefix, m_countries, info.simplifyCountriesLevel),
-            ("Error loading country polygons files"));
+      if (info.m_createWorld)
+        m_worldMap.reset(new WorldMapGenerator<FeatureOutT>(info));
 
-      //LOG_SHORT(LINFO, ("Loaded polygons count for regions:"));
-      //for (size_t i = 0; i < m_countries.size(); ++i)
-      //{
-      //  LOG_SHORT(LINFO, (m_countries[i].m_name, m_countries[i].m_regions.size()));
-      //}
+      if (info.m_splitByPolygons)
+      {
+        CHECK(borders::LoadCountriesList(info.m_datFilePrefix, m_countries),
+            ("Error loading country polygons files"));
+      }
+      else
+      { // Insert fake country polygon equal to whole world to
+        // create only one output file which contains all features
+        m_countries.Add(borders::CountryPolygons(),
+                        m2::RectD(MercatorBounds::minX, MercatorBounds::minY,
+                                  MercatorBounds::maxX, MercatorBounds::maxY));
+      }
     }
     ~Polygonizer()
     {
@@ -93,7 +113,8 @@ namespace feature
 
     void operator () (FeatureBuilder1 const & fb)
     {
-      m_worldMap(fb);
+      if (m_worldMap)
+        (*m_worldMap)(fb);
 
       buffer_vector<borders::CountryPolygons const *, 32> vec;
       m_countries.ForEachInRect(fb.GetLimitRect(), InsertCountriesPtr(vec));
@@ -134,7 +155,7 @@ namespace feature
       if (country->m_index == -1)
       {
         m_Names.push_back(country->m_name);
-        m_Buckets.push_back(new FeatureOutT(country->m_name, m_FeatureOutInitData));
+        m_Buckets.push_back(new FeatureOutT(country->m_name, m_filePrefixAndSuffix));
         country->m_index = m_Buckets.size()-1;
       }
 
@@ -147,19 +168,6 @@ namespace feature
     }
 
   private:
-    typename FeatureOutT::InitDataType m_FeatureOutInitData;
-
-    vector<FeatureOutT*> m_Buckets;
-    vector<string> m_Names;
-    borders::CountriesContainerT m_countries;
-    WorldMapGenerator<FeatureOutT> m_worldMap;
-
-#if PARALLEL_POLYGONIZER
-    QThreadPool m_ThreadPool;
-    QSemaphore m_ThreadPoolSemaphore;
-    QMutex m_EmitFeatureMutex;
-#endif
-
     friend class PolygonizerTask;
 
     class PolygonizerTask

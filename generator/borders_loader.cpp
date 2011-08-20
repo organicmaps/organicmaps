@@ -16,16 +16,12 @@ namespace borders
   class PolygonLoader
   {
     string m_baseDir;
-    // @TODO not used
-    int m_level;
-
     CountryPolygons & m_polygons;
     m2::RectD & m_rect;
 
   public:
-    // @TODO level is not used
-    PolygonLoader(string const & basePolygonsDir, int level, CountryPolygons & polygons, m2::RectD & rect)
-      : m_baseDir(basePolygonsDir), m_level(level), m_polygons(polygons), m_rect(rect)
+    PolygonLoader(string const & basePolygonsDir, CountryPolygons & polygons, m2::RectD & rect)
+      : m_baseDir(basePolygonsDir), m_polygons(polygons), m_rect(rect)
     {
     }
 
@@ -47,14 +43,8 @@ namespace borders
     }
   };
 
-  bool LoadCountriesList(string const & baseDir, CountriesContainerT & countries,
-                         int simplifyCountriesLevel)
+  bool LoadCountriesList(string const & baseDir, CountriesContainerT & countries)
   {
-    if (simplifyCountriesLevel > 0)
-    {
-      LOG_SHORT(LINFO, ("Simplificator level for country polygons:", simplifyCountriesLevel));
-    }
-
     countries.Clear();
     ifstream stream((baseDir + POLYGONS_FILE).c_str());
     string line;
@@ -68,7 +58,7 @@ namespace borders
       CountryPolygons country;
       m2::RectD rect;
 
-      PolygonLoader loader(baseDir, simplifyCountriesLevel, country, rect);
+      PolygonLoader loader(baseDir, country, rect);
       strings::Tokenize(line, "|", loader);
       if (!country.m_regions.IsEmpty())
         countries.Add(country, rect);

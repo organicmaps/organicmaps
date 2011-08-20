@@ -1,5 +1,4 @@
 #include "feature_generator.hpp"
-#include "feature_bucketer.hpp"
 #include "data_cache_file.hpp"
 #include "osm_element.hpp"
 #include "polygonizer.hpp"
@@ -19,7 +18,6 @@
 
 #include "../std/bind.hpp"
 #include "../std/unordered_map.hpp"
-
 
 namespace feature
 {
@@ -271,35 +269,19 @@ bool GenerateImpl(GenerateInfo & info)
 {
   try
   {
-    TNodesHolder nodes(info.tmpDir + NODES_FILE);
+    TNodesHolder nodes(info.m_tmpDir + NODES_FILE);
 
     typedef FileHolder<TNodesHolder> holder_t;
-    holder_t holder(nodes, info.tmpDir);
+    holder_t holder(nodes, info.m_tmpDir);
 
     holder.LoadIndex();
 
-    if (info.splitByPolygons)
-    {
-      typedef Polygonizer<FeaturesCollector, MercatorBounds, RectId> FeaturePolygonizerType;
-      // prefix is data dir
-      FeaturePolygonizerType bucketer(info);
-      TParser<FeaturePolygonizerType, holder_t> parser(bucketer, holder);
-      ParseXMLFromStdIn(parser);
-      bucketer.Finish();
-      info.bucketNames = bucketer.Names();
-    }
-    else
-    {
-      CHECK_GREATER_OR_EQUAL(info.cellBucketingLevel, 0, ());
-      CHECK_LESS(info.cellBucketingLevel, 10, ());
-
-      typedef CellFeatureBucketer<FeaturesCollector, SimpleFeatureClipper,
-              MercatorBounds, RectId> FeatureBucketerType;
-      FeatureBucketerType bucketer(info);
-      TParser<FeatureBucketerType, holder_t> parser(bucketer, holder);
-      ParseXMLFromStdIn(parser);
-      bucketer.GetBucketNames(MakeBackInsertFunctor(info.bucketNames));
-    }
+    typedef Polygonizer<FeaturesCollector> PolygonizerT;
+    // prefix is data dir
+    PolygonizerT bucketer(info);
+    TParser<PolygonizerT, holder_t> parser(bucketer, holder);
+    ParseXMLFromStdIn(parser);
+    info.m_bucketNames = bucketer.Names();
   }
   catch (Reader::Exception const & e)
   {
@@ -317,15 +299,5 @@ bool GenerateFeatures(GenerateInfo & info, bool lightNodes)
   else
     return GenerateImpl<points_in_file, SecondPassParserUsual>(info);
 }
-
-/*
-bool GenerateCoastlines(GenerateInfo & info, bool lightNodes)
-{
-  if (lightNodes)
-    return GenerateImpl<points_in_map, SecondPassParserJoin>(info);
-  else
-    return GenerateImpl<points_in_file, SecondPassParserJoin>(info);
-}
-*/
 
 }

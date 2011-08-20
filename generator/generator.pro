@@ -30,7 +30,6 @@ SOURCES += \
 HEADERS += \
     feature_merger.hpp \
     xml_element.hpp \
-    feature_bucketer.hpp \
     osm_element.hpp \
     data_generator.hpp \
     feature_generator.hpp \
@@ -49,3 +48,4 @@ HEADERS += \
     mwm_rect_updater.hpp \
     feature_emitter_iface.hpp \
     dumper.hpp \
+    generate_info.hpp \
