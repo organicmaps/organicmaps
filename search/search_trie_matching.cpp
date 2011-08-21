@@ -1,6 +1,6 @@
 #include "search_trie_matching.hpp"
 #include "query.hpp"
-#include "string_match.hpp"
+#include "string_search_utils.hpp"
 
 #include "../indexer/feature_visibility.hpp"
 

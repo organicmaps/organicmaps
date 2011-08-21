@@ -2,7 +2,7 @@
 #include "categories_holder.hpp"
 #include "delimiters.hpp"
 #include "latlon_match.hpp"
-#include "string_match.hpp"
+#include "string_search_utils.hpp"
 #include "search_trie_matching.hpp"
 #include "../indexer/feature_visibility.hpp"
 #include "../base/exception.hpp"
@@ -21,30 +21,26 @@ uint32_t KeywordMatch(strings::UniChar const * sA, uint32_t sizeA,
                       strings::UniChar const * sB, uint32_t sizeB,
                       uint32_t maxCost)
 {
-  /*
   if (sizeA != sizeB)
     return maxCost + 1;
-  for (uint32_t i = 0; i< sizeA; ++i)
-    if (sA[i] != sB[i])
+  strings::UniChar const * const endA = sA + sizeA;
+  while (sA != endA)
+    if (*sA++ != *sB++)
       return maxCost + 1;
   return 0;
-  */
-  return StringMatchCost(sA, sizeA, sB, sizeB, DefaultMatchCost(), maxCost, false);
 }
 
 uint32_t PrefixMatch(strings::UniChar const * sA, uint32_t sizeA,
                      strings::UniChar const * sB, uint32_t sizeB,
                      uint32_t maxCost)
 {
-  /*
   if (sizeA > sizeB)
     return maxCost + 1;
-  for (uint32_t i = 0; i< sizeA; ++i)
-    if (sA[i] != sB[i])
+  strings::UniChar const * const endA = sA + sizeA;
+  while (sA != endA)
+    if (*sA++ != *sB++)
       return maxCost + 1;
   return 0;
-  */
-  return StringMatchCost(sA, sizeA, sB, sizeB, DefaultMatchCost(), maxCost, true);
 }
 
 inline uint32_t GetMaxKeywordMatchScore() { return 512; }
@@ -243,7 +239,7 @@ void Query::Search(function<void (Result const &)> const & f)
     {
       FeatureProcessor featureProcessor(*this);
       /// @todo Tune depth scale search (1 is no enough)
-      m_pIndex->ForEachInRect(featureProcessor, m_viewport, min(scales::GetUpperScale(), scale + 1));
+      m_pIndex->ForEachInRect(featureProcessor, m_viewport, min(scales::GetUpperScale(), scale + 7));
     }
     catch (FeatureProcessor::StopException &)
     {

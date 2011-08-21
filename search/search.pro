@@ -16,11 +16,12 @@ HEADERS += \
     keyword_matcher.hpp \
     query.hpp \
     result.hpp \
-    string_match.hpp \
     latlon_match.hpp \
     categories_holder.hpp \
     search_trie.hpp \
     search_trie_matching.hpp \
+    string_search_utils.hpp \
+    approximate_string_match.hpp \
 
 SOURCES += \
     delimiters.cpp \
@@ -29,7 +30,7 @@ SOURCES += \
     keyword_matcher.cpp \
     query.cpp \
     result.cpp \
-    string_match.cpp \
     latlon_match.cpp \
     categories_holder.cpp \
     search_trie_matching.cpp \
+    approximate_string_match.cpp \
