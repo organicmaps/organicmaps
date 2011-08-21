@@ -26,6 +26,7 @@ SOURCES += \
     borders_loader.cpp \
     mwm_rect_updater.cpp \
     dumper.cpp \
+    unpack_mwm.cpp \
 
 HEADERS += \
     feature_merger.hpp \
@@ -49,3 +50,4 @@ HEADERS += \
     feature_emitter_iface.hpp \
     dumper.hpp \
     generate_info.hpp \
+    unpack_mwm.hpp \

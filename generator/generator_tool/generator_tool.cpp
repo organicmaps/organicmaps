@@ -2,11 +2,12 @@
 #include "../feature_generator.hpp"
 #include "../feature_sorter.hpp"
 #include "../update_generator.hpp"
-#include "../statistics.hpp"
-#include "../classif_routine.hpp"
 #include "../borders_generator.hpp"
-#include "../mwm_rect_updater.hpp"
+#include "../classif_routine.hpp"
 #include "../dumper.hpp"
+#include "../mwm_rect_updater.hpp"
+#include "../statistics.hpp"
+#include "../unpack_mwm.hpp"
 
 #include "../../indexer/classificator_loader.hpp"
 #include "../../indexer/data_header.hpp"
@@ -50,6 +51,7 @@ DEFINE_string(generate_borders, "",
             "Create binary country .borders file for osm xml file given in 'output' parameter,"
             "specify tag name and optional value: ISO3166-1 or admin_level=4");
 DEFINE_bool(dump_types, false, "If defined, prints all types combinations and their total count");
+DEFINE_bool(unpack_mwm, false, "Unpack each section of mwm into a separate file with name filePath.sectionName.");
 
 string AddSlashIfNeeded(string const & str)
 {
@@ -218,6 +220,11 @@ int main(int argc, char ** argv)
   {
     //feature::DumpNames(path + FLAGS_output + ".mwm");
     feature::DumpTypes(path + FLAGS_output + ".mwm");
+  }
+
+  if (FLAGS_unpack_mwm)
+  {
+    UnpackMwm(path + FLAGS_output + ".mwm");
   }
 
   return 0;
