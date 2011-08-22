@@ -72,8 +72,10 @@ namespace qt
       p.m_dynamicPagesCount = 2;
       p.m_textPagesCount = 2;
       p.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
+      p.m_skinName = GetPlatform().SkinName();
+      p.m_visualScale = GetPlatform().VisualScale();
 
-      m_p = shared_ptr<DrawerYG>(new DrawerYG(GetPlatform().SkinName(), p));
+      m_p = shared_ptr<DrawerYG>(new DrawerYG(p));
     }
   }
 

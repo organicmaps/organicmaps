@@ -171,7 +171,7 @@ namespace qt
 
   void DrawWidget::DoDraw(shared_ptr<drawer_t> p)
   {
-    shared_ptr<PaintEvent> paintEvent(new PaintEvent(p));
+    shared_ptr<PaintEvent> paintEvent(new PaintEvent(p.get()));
     m_framework->Paint(paintEvent);
   }
 

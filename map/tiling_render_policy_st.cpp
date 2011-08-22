@@ -42,11 +42,11 @@ void TilingRenderPolicyST::Initialize(shared_ptr<yg::gl::RenderContext> const & 
   params.m_glyphCacheID = resourceManager()->guiThreadGlyphCacheID();
   params.m_useOverlay = true;
   params.m_threadID = 0;
+  params.m_skinName = GetPlatform().SkinName();
+  params.m_visualScale = GetPlatform().VisualScale();
 
-  m_tileDrawer = make_shared_ptr(new DrawerYG(GetPlatform().SkinName(), params));
+  m_tileDrawer = make_shared_ptr(new DrawerYG(params));
   m_tileDrawer->onSize(tileWidth, tileHeight);
-
-  m_tileDrawer->SetVisualScale(GetPlatform().VisualScale());
 
   m2::RectI renderRect(1, 1, tileWidth - 1, tileWidth - 1);
   m_tileScreen.OnSize(renderRect);
@@ -57,7 +57,7 @@ void TilingRenderPolicyST::OnSize(int /*w*/, int /*h*/)
 
 void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & currentScreen)
 {
-  DrawerYG * pDrawer = e->drawer().get();
+  DrawerYG * pDrawer = e->drawer();
 
   pDrawer->screen()->clear(bgColor());
 
@@ -66,9 +66,12 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
   m_tiler.seed(currentScreen,
                currentScreen.GlobalRect().Center());
 
-  while (m_tiler.hasTile())
+  vector<Tiler::RectInfo> visibleTiles;
+  m_tiler.visibleTiles(visibleTiles);
+
+  for (unsigned i = 0; i < visibleTiles.size(); ++i)
   {
-    Tiler::RectInfo ri = m_tiler.nextTile();
+    Tiler::RectInfo ri = visibleTiles[i];
 
     m_tileCache.readLock();
 
@@ -91,7 +94,7 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
     else
     {
       m_tileCache.readUnlock();
-      shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_tileDrawer));
+      shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_tileDrawer.get()));
       shared_ptr<yg::gl::BaseTexture> tileTarget = resourceManager()->renderTargets().Front(true);
 
       shared_ptr<yg::InfoLayer> tileInfoLayer(new yg::InfoLayer());

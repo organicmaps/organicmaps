@@ -3,6 +3,8 @@
 
 #include "../std/shared_ptr.hpp"
 
+#include "../base/commands_queue.hpp"
+
 #include "../base/start_mem_debug.hpp"
 
 
@@ -43,25 +45,24 @@ class DrawerYG;
 
 class PaintEvent : public Event
 {
-  shared_ptr<DrawerYG> m_drawer;
-  bool m_isCancelled;
+
+  DrawerYG * m_drawer;
+  core::CommandsQueue::Environment const * m_env;
 
 public:
-  PaintEvent(shared_ptr<DrawerYG> drawer)
-    : m_drawer(drawer), m_isCancelled(false) {}
 
-  shared_ptr<DrawerYG> drawer() const
+  PaintEvent(DrawerYG * drawer, core::CommandsQueue::Environment const * env = 0)
+    : m_drawer(drawer), m_env(env)
+  {}
+
+  DrawerYG * drawer() const
   {
     return m_drawer;
   }
 
-  void setIsCancelled(bool isCancelled)
-  {
-    m_isCancelled = isCancelled;
-  }
   bool isCancelled() const
   {
-    return m_isCancelled;
+    return (m_env && m_env->IsCancelled());
   }
 };
 

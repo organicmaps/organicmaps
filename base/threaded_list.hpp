@@ -14,6 +14,21 @@ private:
 
 public:
 
+  template <typename Fn>
+  void ProcessList(Fn const & fn)
+  {
+    threads::ConditionGuard g(m_Cond);
+
+    bool hadElements = !m_list.empty();
+
+    fn(m_list);
+
+    bool hasElements = !m_list.empty();
+
+    if (!hadElements && hasElements)
+      m_Cond.Signal();
+  }
+
   void PushBack(T const & t)
   {
     threads::ConditionGuard g(m_Cond);

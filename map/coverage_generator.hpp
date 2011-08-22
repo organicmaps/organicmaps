@@ -3,6 +3,7 @@
 #include "render_policy.hpp"
 #include "tiler.hpp"
 #include "tile.hpp"
+#include "window_handle.hpp"
 
 #include "../geometry/screenbase.hpp"
 
@@ -11,100 +12,52 @@
 #include "../base/thread.hpp"
 #include "../base/threaded_list.hpp"
 #include "../base/mutex.hpp"
+#include "../base/commands_queue.hpp"
 
 #include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
 
-class RenderQueue;
+class TileRenderer;
 class TileCache;
-
-/// holds the tile coverage for a specific screen
-struct ScreenCoverage
-{
-  TileCache * m_tileCache;
-  ScreenBase m_screen;
-  vector<shared_ptr<Tile const> > m_tiles;
-  yg::InfoLayer m_infoLayer;
-
-  bool m_IsRendering; //< while this flag is set - the object shouldn't
-                      //be altered, 'cause GUI thread is rendering from it
-
-  ScreenCoverage();
-
-  void Merge(Tiler::RectInfo const & rectInfo, Tile const & tile);
-  void Compute(ScreenBase const & screen);
-  void Clear();
-};
+class ScreenCoverage;
 
 class CoverageGenerator
 {
 private:
 
-  struct Task
-  {
-    virtual void execute(CoverageGenerator * generator) = 0;
-  };
+  core::CommandsQueue m_queue;
 
-  struct CoverageTask : Task
-  {
-    ScreenBase m_screen;
-    CoverageTask(ScreenBase const & screen);
-    void execute(CoverageGenerator * generator);
-  };
-
-  struct MergeTileTask : Task
-  {
-    shared_ptr<Tile const> m_tile;
-    MergeTileTask(shared_ptr<Tile const> const & tile);
-    void execute(CoverageGenerator * generator);
-  };
-
-  ThreadedList<shared_ptr<Task> > m_tasks;
-
-  struct Routine : public threads::IRoutine
-  {
-    CoverageGenerator * m_parent;
-    void Do();
-    Routine(CoverageGenerator * parent);
-  };
-
-  friend struct Routine;
-
-  Routine * m_routine;
-  threads::Thread m_thread;
-
-  threads::Mutex m_mutex;
-
-  Tiler m_tiler;
-
-  RenderPolicy::TRenderFn m_renderFn;
-  RenderQueue * m_renderQueue;
+  TileRenderer * m_tileRenderer;
 
   ScreenCoverage * m_workCoverage;
   ScreenCoverage * m_mergeCoverage;
   ScreenCoverage * m_currentCoverage;
 
   ScreenBase m_currentScreen;
-  size_t m_sequenceID;
+  int m_sequenceID;
+
+  shared_ptr<WindowHandle> m_windowHandle;
+
+  threads::Mutex m_mutex;
 
 public:
 
   CoverageGenerator(size_t tileSize,
              size_t scaleEtalonSize,
-             RenderPolicy::TRenderFn renderFn,
-             RenderQueue * renderQueue);
+             TileRenderer * tileRenderer,
+             shared_ptr<WindowHandle> const & windowHandle);
 
   ~CoverageGenerator();
 
-  void AddCoverageTask(ScreenBase const & screen);
+  void AddCoverScreenTask(ScreenBase const & screen);
+  void AddMergeTileTask(Tiler::RectInfo const & rectInfo);
 
-  void AddMergeTileTask(Tiler::RectInfo const & rectInfo, Tile const &);
+  void CoverScreen(ScreenBase const & screen, int sequenceID);
+  void MergeTile(Tiler::RectInfo const & rectInfo);
 
   void Cancel();
 
   void Initialize();
 
-  threads::Mutex & Mutex();
-
-  ScreenCoverage * CurrentCoverage();
+  void CopyCurrentCoverage(ScreenCoverage & dst);
 };

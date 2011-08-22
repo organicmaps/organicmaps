@@ -36,8 +36,6 @@ void RenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   e->drawer()->screen()->setInfoLayer(infoLayer);
 
-  e->drawer()->SetVisualScale(GetPlatform().VisualScale());
-
   e->drawer()->screen()->clear(bgColor());
   renderFn()(e, s, s.GlobalRect(), scales::GetScaleLevel(glbRect));
 

@@ -1,15 +1,18 @@
 #pragma once
 
-#include "render_queue_routine.hpp"
+#include "render_policy.hpp"
 #include "tiler.hpp"
 #include "tile_cache.hpp"
+#include "drawer_yg.hpp"
 
 #include "../geometry/screenbase.hpp"
 
 #include "../base/thread.hpp"
 #include "../base/threaded_list.hpp"
+#include "../base/commands_queue.hpp"
 
 #include "../std/shared_ptr.hpp"
+#include "../std/vector.hpp"
 
 namespace yg
 {
@@ -22,77 +25,58 @@ namespace yg
 }
 
 class WindowHandle;
+class DrawerYG;
 
-class RenderQueue
+class TileRenderer
 {
 private:
 
-  /// Single rendering task. Engine allocates tasks by number of cores
-  struct Task
-  {
-    threads::Thread m_thread;
-    RenderQueueRoutine * m_routine;
-  };
-
-  Task * m_tasks;
-  size_t m_tasksCount;
-
-  size_t m_sequenceID;
-
-  friend class RenderQueueRoutine;
+  core::CommandsQueue m_queue;
 
   shared_ptr<yg::ResourceManager> m_resourceManager;
 
-  ThreadedList<shared_ptr<RenderQueueRoutine::Command> > m_renderCommands;
+  vector<DrawerYG*> m_drawers;
+  vector<DrawerYG::params_t> m_drawerParams;
+  vector<shared_ptr<yg::gl::RenderContext> > m_renderContexts;
 
   TileCache m_tileCache;
 
-  /// A list of window handles to notify about ending rendering operations.
-  list<shared_ptr<WindowHandle> > m_windowHandles;
+  RenderPolicy::TRenderFn m_renderFn;
+  string m_skinName;
+  yg::Color m_bgColor;
+  int m_sequenceID;
 
-  threads::Condition m_emptyAndFinished;
+  void InitializeThreadGL(core::CommandsQueue::Environment const & env);
+  void FinalizeThreadGL(core::CommandsQueue::Environment const & env);
 
-  /// number of currently active render commands
-  int m_activeCommands;
+  void DrawTile(core::CommandsQueue::Environment const & env,
+                Tiler::RectInfo const & rectInfo,
+                int sequenceID);
 
 public:
 
   /// constructor.
-  RenderQueue(string const & skinName,
-              unsigned scaleEtalonSize,
-              unsigned maxTilesCount,
-              unsigned tasksCount,
-              yg::Color const & bgColor);
+  TileRenderer(string const & skinName,
+               unsigned scaleEtalonSize,
+               unsigned maxTilesCount,
+               unsigned tasksCount,
+               yg::Color const & bgColor,
+               RenderPolicy::TRenderFn const & renderFn);
   /// destructor.
-  ~RenderQueue();
+  ~TileRenderer();
   /// set the primary context. it starts the rendering thread.
   void Initialize(shared_ptr<yg::gl::RenderContext> const & primaryContext,
                   shared_ptr<yg::ResourceManager> const & resourceManager,
                   double visualScale);
   /// add command to the commands queue.
-  void AddCommand(RenderQueueRoutine::TRenderFn const & renderFn,
-                  Tiler::RectInfo const & rectInfo,
-                  size_t sequenceID,
-                  RenderQueueRoutine::TCommandFinishedFn const & commandFinishedFn);
-  /// add window handle to notify when rendering operation finishes
-  void AddWindowHandle(shared_ptr<WindowHandle> const & windowHandle);
-  /// free all possible memory caches.
-  void MemoryWarning();
-  /// free all possible memory caches, opengl resources,
-  /// and make sure no opengl call will be made in background
-  void EnterBackground();
-  /// load all necessary memory caches and opengl resources.
-  void EnterForeground();
+  void AddCommand(Tiler::RectInfo const & rectInfo,
+                  int sequenceID,
+                  core::CommandsQueue::Chain const & afterTileFns = core::CommandsQueue::Chain());
   /// get tile cache.
   TileCache & GetTileCache();
-  /// number of the current tiler sequence to skip the old commands upon rendering.
-  size_t CurrentSequence() const;
-  /// common render commands queue for all rendering threads.
-  ThreadedList<shared_ptr<RenderQueueRoutine::Command> > & RenderCommands();
-  /// invalidate all connected windows
-  void Invalidate();
   /// wait on a condition variable for an empty queue.
   void WaitForEmptyAndFinished();
 
-  void FinishCommand();
+  bool HasTile(Tiler::RectInfo const & rectInfo);
+  void AddTile(Tiler::RectInfo const & rectInfo, Tile const & tile);
 };

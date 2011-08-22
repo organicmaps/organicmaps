@@ -329,7 +329,7 @@ namespace fwork
     size_t m_drawCount;
 #endif
 
-    inline DrawerYG * GetDrawer() const { return m_paintEvent->drawer().get(); }
+    inline DrawerYG * GetDrawer() const { return m_paintEvent->drawer(); }
 
     void PreProcessKeys(vector<drule::Key> & keys) const;
 
@@ -340,8 +340,7 @@ namespace fwork
     DrawProcessor(m2::RectD const & r,
                   ScreenBase const & convertor,
                   shared_ptr<PaintEvent> const & paintEvent,
-                  int scaleLevel,
-                  yg::GlyphCache * glyphCache);
+                  int scaleLevel);
 
     bool operator() (FeatureType const & f) const;
   };

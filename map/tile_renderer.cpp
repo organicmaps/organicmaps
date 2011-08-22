@@ -1,128 +1,198 @@
 #include "../base/SRC_FIRST.hpp"
 
-#include "render_queue.hpp"
+#include "tile_renderer.hpp"
 #include "window_handle.hpp"
 
 #include "../yg/render_state.hpp"
 #include "../yg/rendercontext.hpp"
+#include "../yg/base_texture.hpp"
 
 #include "../std/bind.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/condition.hpp"
 
-RenderQueue::RenderQueue(
+TileRenderer::TileRenderer(
     string const & skinName,
     unsigned scaleEtalonSize,
     unsigned maxTilesCount,
-    unsigned tasksCount,
-    yg::Color const & bgColor
-  ) : m_sequenceID(0), m_tileCache(maxTilesCount - 1), m_activeCommands(0)
+    unsigned executorsCount,
+    yg::Color const & bgColor,
+    RenderPolicy::TRenderFn const & renderFn
+  ) : m_queue(executorsCount),
+      m_tileCache(maxTilesCount - executorsCount - 1),
+      m_renderFn(renderFn),
+      m_skinName(skinName),
+      m_bgColor(bgColor),
+      m_sequenceID(0)
 {
-  m_tasksCount = tasksCount; //< calculate from the CPU Cores Number
-  LOG(LINFO, ("initializing ", tasksCount, " rendering threads"));
-  m_tasks = new Task[m_tasksCount];
-  for (unsigned i = 0; i < m_tasksCount; ++i)
-    m_tasks[i].m_routine = new RenderQueueRoutine(
-                                    skinName,
-                                    scaleEtalonSize,
-                                    bgColor,
-                                    i,
-                                    this);
 }
 
-void RenderQueue::Initialize(shared_ptr<yg::gl::RenderContext> const & primaryContext,
+void TileRenderer::Initialize(shared_ptr<yg::gl::RenderContext> const & primaryContext,
                              shared_ptr<yg::ResourceManager> const & resourceManager,
                              double visualScale)
 {
   m_resourceManager = resourceManager;
-  for (unsigned i = 0; i < m_tasksCount; ++i)
+
+  LOG(LINFO, ("initializing ", m_queue.ExecutorsCount(), " rendering threads"));
+
+  int tileWidth = m_resourceManager->tileTextureWidth();
+  int tileHeight = m_resourceManager->tileTextureHeight();
+
+  for (unsigned i = 0; i < m_queue.ExecutorsCount(); ++i)
   {
-    m_tasks[i].m_routine->InitializeGL(primaryContext->createShared(),
-                                       m_resourceManager,
-                                       visualScale);
-    m_tasks[i].m_thread.Create(m_tasks[i].m_routine);
+    DrawerYG::params_t params;
+
+    params.m_resourceManager = m_resourceManager;
+    params.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer());
+
+    shared_ptr<yg::gl::RenderBuffer> depthBuffer(new yg::gl::RenderBuffer(tileWidth, tileHeight, true));
+    params.m_frameBuffer->setDepthBuffer(depthBuffer);
+
+    params.m_glyphCacheID = m_resourceManager->renderThreadGlyphCacheID(i);
+    params.m_useOverlay = true;
+    params.m_threadID = i;
+    params.m_visualScale = visualScale;
+    params.m_skinName = m_skinName;
+  /*  params.m_isDebugging = true;
+    params.m_drawPathes = false;
+    params.m_drawAreas = false;
+    params.m_drawTexts = false; */
+
+    m_drawerParams.push_back(params);
+    m_drawers.push_back(0);
+    m_renderContexts.push_back(primaryContext->createShared());
   }
+
+  m_queue.AddInitCommand(bind(&TileRenderer::InitializeThreadGL, this, _1));
+  m_queue.AddFinCommand(bind(&TileRenderer::FinalizeThreadGL, this, _1));
+
+  m_queue.Start();
 }
 
-RenderQueue::~RenderQueue()
+TileRenderer::~TileRenderer()
 {
-  m_renderCommands.Cancel();
-  for (unsigned i = 0; i < m_tasksCount; ++i)
-    m_tasks[i].m_thread.Cancel();
-  delete [] m_tasks;
+  m_queue.Cancel();
 }
 
-void RenderQueue::AddCommand(
-  RenderQueueRoutine::TRenderFn const & renderFn,
-  Tiler::RectInfo const & rectInfo,
-  size_t sequenceID,
-  RenderQueueRoutine::TCommandFinishedFn const & commandFinishedFn)
+void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & env)
+{
+  m_renderContexts[env.GetThreadNum()]->makeCurrent();
+
+  m_drawers[env.GetThreadNum()] = new DrawerYG(m_drawerParams[env.GetThreadNum()]);
+}
+
+void TileRenderer::FinalizeThreadGL(core::CommandsQueue::Environment const & env)
+{
+  m_renderContexts[env.GetThreadNum()]->endThreadDrawing();
+  if (m_drawers[env.GetThreadNum()] != 0)
+    delete m_drawers[env.GetThreadNum()];
+}
+
+void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
+                           Tiler::RectInfo const & rectInfo,
+                           int sequenceID)
+{
+  DrawerYG * drawer = m_drawers[env.GetThreadNum()];
+
+  ScreenBase frameScreen;
+
+  unsigned tileWidth = m_resourceManager->tileTextureWidth();
+  unsigned tileHeight = m_resourceManager->tileTextureHeight();
+
+  m2::RectI renderRect(1, 1, tileWidth - 1, tileHeight - 1);
+
+  frameScreen.OnSize(renderRect);
+
+  /// commands from the previous sequence are ignored
+  if (sequenceID < m_sequenceID)
+    return;
+
+  if (HasTile(rectInfo))
+    return;
+
+  shared_ptr<PaintEvent> paintEvent = make_shared_ptr(new PaintEvent(drawer, &env));
+
+  my::Timer timer;
+
+  shared_ptr<yg::gl::BaseTexture> tileTarget = m_resourceManager->renderTargets().Front(true);
+
+  if (m_resourceManager->renderTargets().IsCancelled())
+    return;
+
+  drawer->screen()->setRenderTarget(tileTarget);
+
+  shared_ptr<yg::InfoLayer> tileInfoLayer(new yg::InfoLayer());
+
+  drawer->screen()->setInfoLayer(tileInfoLayer);
+
+  drawer->beginFrame();
+  drawer->clear(yg::Color(m_bgColor.r, m_bgColor.g, m_bgColor.b, 0));
+  drawer->screen()->setClipRect(renderRect);
+  drawer->clear(m_bgColor);
+
+  frameScreen.SetFromRect(rectInfo.m_rect);
+
+  m2::RectD selectionRect;
+
+  double const inflationSize = 24 * drawer->VisualScale();
+  //frameScreen.PtoG(m2::Inflate(m2::RectD(renderRect), inflationSize, inflationSize), selectionRect);
+  frameScreen.PtoG(m2::RectD(renderRect), selectionRect);
+
+  m_renderFn(
+        paintEvent,
+        frameScreen,
+        selectionRect,
+        rectInfo.m_drawScale
+        );
+
+  drawer->endFrame();
+  drawer->screen()->resetInfoLayer();
+
+  double duration = timer.ElapsedSeconds();
+
+  if (env.IsCancelled())
+    m_resourceManager->renderTargets().PushBack(tileTarget);
+  else
+    AddTile(rectInfo, Tile(tileTarget, tileInfoLayer, frameScreen, rectInfo, duration));
+}
+
+void TileRenderer::AddCommand(Tiler::RectInfo const & rectInfo, int sequenceID, core::CommandsQueue::Chain const & afterTileFns)
 {
   m_sequenceID = sequenceID;
-  m_renderCommands.PushBack(make_shared_ptr(new RenderQueueRoutine::Command(renderFn, rectInfo, sequenceID, commandFinishedFn)));
-  {
-    threads::ConditionGuard g(m_emptyAndFinished);
-    m_activeCommands++;
-  }
+
+  core::CommandsQueue::Chain chain;
+  chain.addCommand(bind(&TileRenderer::DrawTile, this, _1, rectInfo, sequenceID));
+  chain.addCommand(afterTileFns);
+
+  m_queue.AddCommand(chain);
 }
 
-void RenderQueue::AddWindowHandle(shared_ptr<WindowHandle> const & window)
-{
-  m_windowHandles.push_back(window);
-}
-
-void RenderQueue::Invalidate()
-{
-  for_each(m_windowHandles.begin(),
-           m_windowHandles.end(),
-           bind(&WindowHandle::invalidate, _1));
-}
-
-void RenderQueue::MemoryWarning()
-{
-  for (unsigned i = 0; i < m_tasksCount; ++i)
-    m_tasks[i].m_routine->MemoryWarning();
-}
-
-void RenderQueue::EnterBackground()
-{
-  for (unsigned i = 0; i < m_tasksCount; ++i)
-    m_tasks[i].m_routine->EnterBackground();
-}
-
-void RenderQueue::EnterForeground()
-{
-  for (unsigned i = 0; i < m_tasksCount; ++i)
-    m_tasks[i].m_routine->EnterForeground();
-}
-
-TileCache & RenderQueue::GetTileCache()
+TileCache & TileRenderer::GetTileCache()
 {
   return m_tileCache;
 }
 
-size_t RenderQueue::CurrentSequence() const
+void TileRenderer::WaitForEmptyAndFinished()
 {
-  return m_sequenceID;
+  m_queue.Join();
 }
 
-ThreadedList<shared_ptr<RenderQueueRoutine::Command > > & RenderQueue::RenderCommands()
+bool TileRenderer::HasTile(Tiler::RectInfo const & rectInfo)
 {
-  return m_renderCommands;
+  m_tileCache.readLock();
+  bool res = m_tileCache.hasTile(rectInfo);
+  m_tileCache.readUnlock();
+  return res;
 }
 
-void RenderQueue::WaitForEmptyAndFinished()
+void TileRenderer::AddTile(Tiler::RectInfo const & rectInfo, Tile const & tile)
 {
-  threads::ConditionGuard g(m_emptyAndFinished);
-  if (m_activeCommands != 0)
-    m_emptyAndFinished.Wait();
+  m_tileCache.writeLock();
+  if (m_tileCache.hasTile(rectInfo))
+    m_tileCache.touchTile(rectInfo);
+  else
+    m_tileCache.addTile(rectInfo, TileCache::Entry(tile, m_resourceManager));
+  m_tileCache.writeUnlock();
 }
 
-void RenderQueue::FinishCommand()
-{
-  threads::ConditionGuard g(m_emptyAndFinished);
-  --m_activeCommands;
-  if (m_activeCommands == 0)
-    m_emptyAndFinished.Signal();
-}

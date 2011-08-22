@@ -123,23 +123,16 @@ void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt)
       m_coverage.push_back(RectInfo(m_drawScale, m_tileScale, tileX, tileY, screenRect, centerPt));
 
   /// sorting coverage elements
-  sort(m_coverage.begin(), m_coverage.end(), greater<RectInfo>());
+  sort(m_coverage.begin(), m_coverage.end(), less<RectInfo>());
 }
 
 Tiler::Tiler(size_t tileSize, size_t scaleEtalonSize)
   : m_sequenceID(0), m_tileSize(tileSize), m_scaleEtalonSize(scaleEtalonSize)
 {}
 
-bool Tiler::hasTile()
+void Tiler::visibleTiles(vector<RectInfo> & tiles)
 {
-  return !m_coverage.empty();
-}
-
-Tiler::RectInfo const Tiler::nextTile()
-{
-  RectInfo r = m_coverage.back();
-  m_coverage.pop_back();
-  return r;
+  tiles = m_coverage;
 }
 
 size_t Tiler::sequenceID() const

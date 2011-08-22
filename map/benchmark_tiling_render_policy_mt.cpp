@@ -23,7 +23,7 @@ void BenchmarkTilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,
 {
   TilingRenderPolicyMT::DrawFrame(e, s);
   /// waiting for render queue to empty
-  GetRenderQueue().WaitForEmptyAndFinished();
+  GetTileRenderer().WaitForEmptyAndFinished();
   /// current screen should be fully covered, so the following call will only blit results
   TilingRenderPolicyMT::DrawFrame(e, s);
 }

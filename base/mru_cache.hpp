@@ -32,7 +32,7 @@ namespace my
       typename list_t::iterator m_it;
     };
 
-    typedef unordered_map<KeyT, MapEntry> map_t;
+    typedef map<KeyT, MapEntry> map_t;
 
     map_t m_map;
     list_t m_list;

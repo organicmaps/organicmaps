@@ -2,7 +2,7 @@
 
 #include "events.hpp"
 #include "drawer_yg.hpp"
-#include "render_queue.hpp"
+#include "tile_renderer.hpp"
 #include "information_display.hpp"
 #include "window_handle.hpp"
 #include "location_state.hpp"
@@ -181,7 +181,7 @@ public:
 
 public:
 
-  void DrawModel(shared_ptr<PaintEvent> e,
+  void DrawModel(shared_ptr<PaintEvent> const & e,
                  ScreenBase const & screen,
                  m2::RectD const & selectRect,
                  int scaleLevel);

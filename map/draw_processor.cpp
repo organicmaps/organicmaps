@@ -208,14 +208,13 @@ namespace fwork
 
   DrawProcessor::DrawProcessor( m2::RectD const & r,
                                 ScreenBase const & convertor,
-                                shared_ptr<PaintEvent> const & paintEvent,
-                                int scaleLevel,
-                                yg::GlyphCache * glyphCache)
+                                shared_ptr<PaintEvent> const & e,
+                                int scaleLevel)
     : m_rect(r),
       m_convertor(convertor),
-      m_paintEvent(paintEvent),
+      m_paintEvent(e),
       m_zoom(scaleLevel),
-      m_glyphCache(glyphCache)
+      m_glyphCache(e->drawer()->screen()->glyphCache())
 #ifdef PROFILER_DRAWING
       , m_drawCount(0)
 #endif

@@ -287,12 +287,12 @@ double Framework<TModel>::GetCurrentScale() const
 
 /// Actual rendering function.
 template <typename TModel>
-void Framework<TModel>::DrawModel(shared_ptr<PaintEvent> e,
-               ScreenBase const & screen,
-               m2::RectD const & selectRect,
-               int scaleLevel)
+void Framework<TModel>::DrawModel(shared_ptr<PaintEvent> const & e,
+                                  ScreenBase const & screen,
+                                  m2::RectD const & selectRect,
+                                  int scaleLevel)
 {
-  fwork::DrawProcessor doDraw(selectRect, screen, e, scaleLevel, e->drawer()->screen()->glyphCache());
+  fwork::DrawProcessor doDraw(selectRect, screen, e, scaleLevel);
 
   try
   {
@@ -313,8 +313,7 @@ void Framework<TModel>::DrawModel(shared_ptr<PaintEvent> e,
 template <typename TModel>
 void Framework<TModel>::Paint(shared_ptr<PaintEvent> e)
 {
-  DrawerYG * pDrawer = e->drawer().get();
-  pDrawer->SetVisualScale(GetPlatform().VisualScale());
+  DrawerYG * pDrawer = e->drawer();
 
   m_informationDisplay.setScreen(m_navigator.Screen());
 

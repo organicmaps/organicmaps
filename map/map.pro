@@ -18,8 +18,7 @@ HEADERS += \
     draw_processor.hpp \
     draw_info.hpp \
     window_handle.hpp \
-    render_queue.hpp \
-    render_queue_routine.hpp \
+    tile_renderer.hpp \
     information_display.hpp \
     location_state.hpp \
     benchmark_provider.hpp \
@@ -34,7 +33,8 @@ HEADERS += \
     coverage_generator.hpp \
     tiler.hpp \
     tile.hpp \
-    tile_cache.hpp
+    tile_cache.hpp \
+    screen_coverage.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -42,8 +42,7 @@ SOURCES += \
     navigator.cpp \
     drawer_yg.cpp \
     draw_processor.cpp \
-    render_queue.cpp \
-    render_queue_routine.cpp \
+    tile_renderer.cpp \
     information_display.cpp \
     location_state.cpp \
     benchmark_provider.cpp \
@@ -58,7 +57,8 @@ SOURCES += \
     coverage_generator.cpp \
     tiler.cpp \
     tile_cache.cpp \
-    tile.cpp
+    tile.cpp \
+    screen_coverage.cpp
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp

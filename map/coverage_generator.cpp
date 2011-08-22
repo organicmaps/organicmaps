@@ -1,149 +1,31 @@
 #include "../base/SRC_FIRST.hpp"
 
 #include "coverage_generator.hpp"
-#include "render_queue.hpp"
+#include "screen_coverage.hpp"
+#include "tile_renderer.hpp"
 
 #include "../base/logging.hpp"
 
 #include "../std/bind.hpp"
 
-ScreenCoverage::ScreenCoverage()
-{}
-
-struct unlock_synchronized
-{
-  TileCache * m_c;
-
-  unlock_synchronized(TileCache * c) : m_c(c)
-  {}
-
-  void operator()(Tile const * t)
-  {
-    m_c->readLock();
-    m_c->unlockTile(t->m_rectInfo);
-    m_c->readUnlock();
-  }
-};
-
-void ScreenCoverage::Clear()
-{
-  m_tileCache->writeLock();
-
-  for (unsigned i = 0; i < m_tiles.size(); ++i)
-    m_tileCache->unlockTile(m_tiles[i]->m_rectInfo);
-
-  m_tileCache->writeUnlock();
-
-  m_tiles.clear();
-  m_infoLayer.clear();
-}
-
-CoverageGenerator::CoverageTask::CoverageTask(ScreenBase const & screen)
-  : m_screen(screen)
-{}
-
-void CoverageGenerator::CoverageTask::execute(CoverageGenerator * generator)
-{
-  unsigned tilesCount = 0;
-  generator->m_tiler.seed(m_screen, m_screen.GlobalRect().Center());
-  generator->m_sequenceID++;
-
-  {
-    threads::MutexGuard g(generator->m_mutex);
-    LOG(LINFO, ("clearing workCoverage"));
-    generator->m_workCoverage->Clear();
-  }
-
-  generator->m_workCoverage->m_screen = m_screen;
-
-  while (generator->m_tiler.hasTile())
-  {
-    ++tilesCount;
-    Tiler::RectInfo rectInfo = generator->m_tiler.nextTile();
-
-    TileCache & tileCache = generator->m_renderQueue->GetTileCache();
-
-    tileCache.readLock();
-
-    if (tileCache.hasTile(rectInfo))
-    {
-      tileCache.lockTile(rectInfo);
-
-      Tile const * tile = &tileCache.getTile(rectInfo);
-
-      shared_ptr<Tile const> lockedTile = make_shared_ptr(tile, unlock_synchronized(&tileCache));
-
-      generator->m_workCoverage->m_tiles.push_back(lockedTile);
-      generator->m_workCoverage->m_infoLayer.merge(*tile->m_infoLayer.get(),
-                                                    tile->m_tileScreen.PtoGMatrix() * generator->m_workCoverage->m_screen.GtoPMatrix());
-
-      tileCache.readUnlock();
-    }
-    else
-    {
-      tileCache.readUnlock();
-      generator->m_renderQueue->AddCommand(
-            generator->m_renderFn,
-            rectInfo,
-            generator->m_sequenceID,
-            bind(&CoverageGenerator::AddMergeTileTask, generator, _1, _2));
-    }
-  }
-
-  {
-    threads::MutexGuard g(generator->Mutex());
-    swap(generator->m_currentCoverage, generator->m_workCoverage);
-  }
-}
-
-CoverageGenerator::MergeTileTask::MergeTileTask(shared_ptr<Tile const> const & tile)
-  : m_tile(tile)
-{}
-
-void CoverageGenerator::MergeTileTask::execute(CoverageGenerator * generator)
-{
-  {
-    threads::MutexGuard g(generator->m_mutex);
-    LOG(LINFO, ("making a working copy of currentCoverage"));
-    *generator->m_mergeCoverage = *generator->m_currentCoverage;
-  }
-
-  LOG(LINFO, (generator->m_mergeCoverage->m_tiles.size()));
-
-  generator->m_mergeCoverage->m_tiles.push_back(m_tile);
-  generator->m_mergeCoverage->m_infoLayer.merge(*m_tile->m_infoLayer.get(),
-                                                 m_tile->m_tileScreen.PtoGMatrix() * generator->m_mergeCoverage->m_screen.GtoPMatrix());
-
-  {
-    threads::MutexGuard g(generator->m_mutex);
-    LOG(LINFO, ("saving merged coverage into workCoverage"));
-    *generator->m_workCoverage = *generator->m_mergeCoverage;
-    LOG(LINFO, ("saving merged coverage into currentCoverage"));
-    *generator->m_currentCoverage = *generator->m_mergeCoverage;
-  }
-
-  generator->m_renderQueue->Invalidate();
-}
-
 CoverageGenerator::CoverageGenerator(
   size_t tileSize,
   size_t scaleEtalonSize,
-  RenderPolicy::TRenderFn renderFn,
-  RenderQueue * renderQueue)
-  : m_tiler(tileSize, scaleEtalonSize),
+  TileRenderer * tileRenderer,
+  shared_ptr<WindowHandle> const & windowHandle)
+  : m_queue(1),
+    m_tileRenderer(tileRenderer),
+    m_workCoverage(new ScreenCoverage(tileRenderer, this, tileSize, scaleEtalonSize)),
+    m_mergeCoverage(new ScreenCoverage(tileRenderer, this, tileSize, scaleEtalonSize)),
+    m_currentCoverage(new ScreenCoverage(tileRenderer, this, tileSize, scaleEtalonSize)),
     m_sequenceID(0),
-    m_renderFn(renderFn),
-    m_renderQueue(renderQueue),
-    m_workCoverage(new ScreenCoverage()),
-    m_mergeCoverage(new ScreenCoverage()),
-    m_currentCoverage(new ScreenCoverage())
+    m_windowHandle(windowHandle)
 {
-  m_routine = new Routine(this);
 }
 
 void CoverageGenerator::Initialize()
 {
-  m_thread.Create(m_routine);
+  m_queue.Start();
 }
 
 CoverageGenerator::~CoverageGenerator()
@@ -155,61 +37,64 @@ CoverageGenerator::~CoverageGenerator()
 
 void CoverageGenerator::Cancel()
 {
-  m_thread.Cancel();
+  m_queue.Cancel();
 }
 
-void CoverageGenerator::AddCoverageTask(ScreenBase const & screen)
+void CoverageGenerator::AddCoverScreenTask(ScreenBase const & screen)
 {
   if (screen == m_currentScreen)
     return;
+
   m_currentScreen = screen;
-  m_tasks.PushBack(make_shared_ptr(new CoverageTask(screen)));
+  m_sequenceID++;
+
+  m_queue.AddCommand(bind(&CoverageGenerator::CoverScreen, this, screen, m_sequenceID));
 }
 
-void CoverageGenerator::AddMergeTileTask(Tiler::RectInfo const & rectInfo, Tile const &)
+void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
 {
-  TileCache & tileCache = m_renderQueue->GetTileCache();
-  tileCache.readLock();
+  if (sequenceID < m_sequenceID)
+    return;
 
-  if (tileCache.hasTile(rectInfo))
   {
-    tileCache.lockTile(rectInfo);
-
-    Tile const * tile = &tileCache.getTile(rectInfo);
-
-    shared_ptr<Tile const> lockedTile = make_shared_ptr(tile, unlock_synchronized(&tileCache));
-
-    tileCache.readUnlock();
-
-    m_tasks.PushBack(make_shared_ptr(new MergeTileTask(lockedTile)));
+    threads::MutexGuard g(m_mutex);
+    *m_workCoverage = *m_currentCoverage;
   }
-  else
-    tileCache.readUnlock();
-}
 
-CoverageGenerator::Routine::Routine(CoverageGenerator * parent)
-  : m_parent(parent)
-{}
+  m_workCoverage->SetScreen(screen);
 
-void CoverageGenerator::Routine::Do()
-{
-  while (!IsCancelled())
   {
-    shared_ptr<Task> task = m_parent->m_tasks.Front(true);
-
-    if (m_parent->m_tasks.IsCancelled())
-      break;
-
-    task->execute(m_parent);
+    threads::MutexGuard g(m_mutex);
+    *m_currentCoverage = *m_workCoverage;
+    m_workCoverage->Clear();
   }
 }
 
-threads::Mutex & CoverageGenerator::Mutex()
+void CoverageGenerator::AddMergeTileTask(Tiler::RectInfo const & rectInfo)
 {
-  return m_mutex;
+  m_queue.AddCommand(bind(&CoverageGenerator::MergeTile, this, rectInfo));
 }
 
-ScreenCoverage * CoverageGenerator::CurrentCoverage()
+void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo)
 {
-  return m_currentCoverage;
+  {
+    threads::MutexGuard g(m_mutex);
+    *m_workCoverage = *m_currentCoverage;
+  }
+
+  m_workCoverage->Merge(rectInfo);
+
+  {
+    threads::MutexGuard g(m_mutex);
+    *m_currentCoverage = *m_workCoverage;
+    m_workCoverage->Clear();
+  }
+
+  m_windowHandle->invalidate();
+}
+
+void CoverageGenerator::CopyCurrentCoverage(ScreenCoverage & dst)
+{
+  threads::MutexGuard g(m_mutex);
+  dst = *m_currentCoverage;
 }

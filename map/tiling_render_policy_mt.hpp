@@ -1,9 +1,10 @@
 #pragma once
 
 #include "render_policy.hpp"
-#include "render_queue.hpp"
+#include "tile_renderer.hpp"
 #include "coverage_generator.hpp"
 #include "tiler.hpp"
+#include "screen_coverage.hpp"
 
 #include "../yg/info_layer.hpp"
 
@@ -22,16 +23,17 @@ class TilingRenderPolicyMT : public RenderPolicy
 {
 private:
 
-  RenderQueue m_renderQueue;
-//  CoverageGenerator m_coverageGenerator;
+  TileRenderer m_tileRenderer;
 
-  yg::InfoLayer m_infoLayer;
+  CoverageGenerator m_coverageGenerator;
 
-  Tiler m_tiler;
+  ScreenBase m_currentScreen;
+
+//  ScreenCoverage m_screenCoverage;
 
 protected:
 
-  RenderQueue & GetRenderQueue();
+  TileRenderer & GetTileRenderer();
 
 public:
 

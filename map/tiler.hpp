@@ -51,10 +51,7 @@ public:
   /// seed tiler with new screenBase.
   void seed(ScreenBase const & screenBase, m2::PointD const & centerPt);
 
-  /// check whether the sequence has next tile
-  bool hasTile();
-  /// pop tile from the sequence and return it
-  RectInfo const nextTile();
+  void visibleTiles(vector<RectInfo> & tiles);
 
   size_t sequenceID() const;
 };

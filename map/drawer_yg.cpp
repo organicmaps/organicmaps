@@ -21,7 +21,8 @@
 DrawerYG::Params::Params()
   : m_dynamicPagesCount(2),
     m_textPagesCount(2),
-    m_threadID(0)
+    m_threadID(0),
+    m_visualScale(1)
 {
 }
 
@@ -35,12 +36,12 @@ void di::DrawRule::SetID(size_t threadID, uint32_t id) const
   m_transparent ? m_rule->SetID2(threadID, id) : m_rule->SetID(threadID, id);
 }
 
-DrawerYG::DrawerYG(string const & skinName, params_t const & params)
-  : m_threadID(params.m_threadID)
+DrawerYG::DrawerYG(params_t const & params)
+  : m_visualScale(params.m_visualScale), m_threadID(params.m_threadID)
 {
   m_pScreen = shared_ptr<yg::gl::Screen>(new yg::gl::Screen(params));
   m_pSkin = shared_ptr<yg::Skin>(loadSkin(params.m_resourceManager,
-                                          skinName,
+                                          params.m_skinName,
                                           params.m_dynamicPagesCount,
                                           params.m_textPagesCount));
   m_pScreen->setSkin(m_pSkin);
@@ -313,9 +314,9 @@ shared_ptr<yg::gl::Screen> DrawerYG::screen() const
   return m_pScreen;
 }
 
-void DrawerYG::SetVisualScale(double visualScale)
+int DrawerYG::VisualScale() const
 {
-  m_visualScale = visualScale;
+  return m_visualScale;
 }
 
 void DrawerYG::SetScale(int level)

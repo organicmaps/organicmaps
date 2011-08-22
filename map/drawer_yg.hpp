@@ -94,12 +94,14 @@ public:
     size_t m_dynamicPagesCount;
     size_t m_textPagesCount;
     size_t m_threadID;
+    string m_skinName;
+    double m_visualScale;
     Params();
   };
 
   typedef Params params_t;
 
-  DrawerYG(string const & skinName, params_t const & params = params_t());
+  DrawerYG(params_t const & params = params_t());
 
   void drawSymbol(m2::PointD const & pt, string const & symbolName, yg::EPosition pos, int depth);
 
@@ -112,7 +114,7 @@ public:
 
   shared_ptr<yg::gl::Screen> screen() const;
 
-  void SetVisualScale(double visualScale);
+  int VisualScale() const;
   void SetScale(int level);
 
   void Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t count);
