@@ -180,7 +180,7 @@ public:
     Classificator & c = classif();
 
     for (size_t i = 0; i < m_Types.size(); ++i)
-      WriteVarUint(sink, c.TypeForIndex(m_Types[i]));
+      WriteVarUint(sink, c.GetIndexForType(m_Types[i]));
 
     FeatureParamsBase::Write(sink, header, GetGeomType());
   }

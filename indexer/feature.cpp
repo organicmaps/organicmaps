@@ -478,7 +478,7 @@ void FeatureBase::ParseTypes() const
   ArrayByteSource source(DataPtr() + m_TypesOffset);
   for (size_t i = 0; i < GetTypesCount(); ++i)
   {
-    m_Types[i] = c.IndexForType(ReadVarUint<uint32_t>(source));
+    m_Types[i] = c.GetTypeForIndex(ReadVarUint<uint32_t>(source));
     //m_Types[i] = ReadVarUint<uint32_t>(source);
   }
 
