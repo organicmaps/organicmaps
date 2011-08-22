@@ -299,7 +299,7 @@ void Framework<TModel>::DrawModel(shared_ptr<PaintEvent> e,
   try
   {
     //threads::MutexGuard lock(m_modelSyn);
-    m_model.ForEachFeatureWithScale(selectRect, bind<bool>(ref(doDraw), _1), scaleLevel);
+    m_model.ForEachFeature_TileDrawing(selectRect, doDraw, scaleLevel);
   }
   catch (redraw_operation_cancelled const &)
   {

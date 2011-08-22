@@ -35,16 +35,11 @@ template <class BaseT> class IndexForEachAdapter : public BaseT
 public:
   typedef typename BaseT::Query Query;
 
+private:
   template <typename F>
-  void ForEachInRect(F const & f, m2::RectD const & rect, uint32_t scale, Query & query) const
+  void CallForIntervals(F const & f, covering::IntervalsT const & intervals,
+                        m2::RectD const & rect, uint32_t scale, Query & query) const
   {
-    using namespace covering;
-
-    //IntervalsT const intervals = CoverViewportAndAppendLowerLevels(rect);
-
-    IntervalsT intervals;
-    AppendLowerLevels(GetRectIdAsIs(rect), intervals);
-
     for (size_t i = 0; i < intervals.size(); ++i)
     {
       BaseT::ForEachInIntervalAndScale(f, intervals[i].first, intervals[i].second,
@@ -53,10 +48,35 @@ public:
   }
 
   template <typename F>
+  void ForEachInRect(F const & f, m2::RectD const & rect, uint32_t scale, Query & query) const
+  {
+    CallForIntervals(f, covering::CoverViewportAndAppendLowerLevels(rect), rect, scale, query);
+  }
+
+  template <typename F>
+  void ForEachInRect_TileDrawing(F const & f, m2::RectD const & rect, uint32_t scale, Query & query) const
+  {
+    using namespace covering;
+
+    IntervalsT intervals;
+    AppendLowerLevels(GetRectIdAsIs(rect), intervals);
+
+    CallForIntervals(f, intervals, rect, scale, query);
+  }
+
+public:
+  template <typename F>
   void ForEachInRect(F const & f, m2::RectD const & rect, uint32_t scale) const
   {
     Query query;
     ForEachInRect(f, rect, scale, query);
+  }
+
+  template <typename F>
+  void ForEachInRect_TileDrawing(F const & f, m2::RectD const & rect, uint32_t scale) const
+  {
+    Query query;
+    ForEachInRect_TileDrawing(f, rect, scale, query);
   }
 
   template <typename F>

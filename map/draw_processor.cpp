@@ -220,8 +220,6 @@ namespace fwork
       , m_drawCount(0)
 #endif
   {
-    m_keys.reserve(reserve_rules_count);
-
     GetDrawer()->SetScale(m_zoom);
   }
 
@@ -262,10 +260,10 @@ namespace fwork
     };
   }
 
-  void DrawProcessor::PreProcessKeys()
+  void DrawProcessor::PreProcessKeys(vector<drule::Key> & keys) const
   {
-    sort(m_keys.begin(), m_keys.end(), less_key());
-    m_keys.erase(unique(m_keys.begin(), m_keys.end(), equal_key()), m_keys.end());
+    sort(keys.begin(), keys.end(), less_key());
+    keys.erase(unique(keys.begin(), keys.end(), equal_key()), keys.end());
   }
 
 #define GET_POINTS(f, for_each_fun, fun, assign_fun)       \
@@ -278,17 +276,17 @@ namespace fwork
     }                                                      \
   }
 
-  bool DrawProcessor::operator()(FeatureType const & f)
+  bool DrawProcessor::operator() (FeatureType const & f) const
   {
     if (m_paintEvent->isCancelled())
       throw redraw_operation_cancelled();
 
     // get drawing rules
-    m_keys.clear();
+    vector<drule::Key> keys;
     string names;       // for debug use only, in release it's empty
-    int type = feature::GetDrawRule(f, m_zoom, m_keys, names);
+    int type = feature::GetDrawRule(f, m_zoom, keys, names);
 
-    if (m_keys.empty())
+    if (keys.empty())
     {
       // Index can pass here invisible features.
       // During indexing, features are placed at first visible scale bucket.
@@ -297,10 +295,10 @@ namespace fwork
     }
 
     // remove duplicating identical drawing keys
-    PreProcessKeys();
+    PreProcessKeys(keys);
 
     // get drawing rules for the m_keys array
-    size_t const count = m_keys.size();
+    size_t const count = keys.size();
 #ifdef PROFILER_DRAWING
     m_drawCount += count;
 #endif
@@ -318,11 +316,11 @@ namespace fwork
 
     for (size_t i = 0; i < count; ++i)
     {
-      int depth = m_keys[i].m_priority;
+      int depth = keys[i].m_priority;
       if (layer != 0)
         depth = (layer * drule::layer_base_priority) + (depth % drule::layer_base_priority);
 
-      rules[i] = di::DrawRule(drule::rules().Find(m_keys[i]), depth, isTransparent);
+      rules[i] = di::DrawRule(drule::rules().Find(keys[i]), depth, isTransparent);
     }
 
     sort(rules.begin(), rules.end(), less_depth());
@@ -364,8 +362,8 @@ namespace fwork
       GET_POINTS(f, ForEachTriangleExRef, fun, assign_area)
       {
         // if area feature has any line-drawing-rules, than draw it like line
-        for (size_t i = 0; i < m_keys.size(); ++i)
-          if (m_keys[i].m_type == drule::line)
+        for (size_t i = 0; i < keys.size(); ++i)
+          if (keys[i].m_type == drule::line)
             goto draw_line;
         break;
       }

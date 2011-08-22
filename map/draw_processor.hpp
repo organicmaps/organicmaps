@@ -321,7 +321,6 @@ namespace fwork
     ScreenBase const & m_convertor;
 
     shared_ptr<PaintEvent> m_paintEvent;
-    vector<drule::Key> m_keys;
 
     int m_zoom;
     yg::GlyphCache * m_glyphCache;
@@ -332,7 +331,7 @@ namespace fwork
 
     inline DrawerYG * GetDrawer() const { return m_paintEvent->drawer().get(); }
 
-    void PreProcessKeys();
+    void PreProcessKeys(vector<drule::Key> & keys) const;
 
     static const int reserve_rules_count = 16;
 
@@ -344,7 +343,7 @@ namespace fwork
                   int scaleLevel,
                   yg::GlyphCache * glyphCache);
 
-    bool operator() (FeatureType const & f);
+    bool operator() (FeatureType const & f) const;
   };
 }
 

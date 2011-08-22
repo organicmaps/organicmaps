@@ -52,9 +52,9 @@ namespace model
     }
 
     template <class ToDo>
-    void ForEachFeatureWithScale(m2::RectD const & rect, ToDo toDo, int scale) const
+    void ForEachFeature_TileDrawing(m2::RectD const & rect, ToDo const & toDo, int scale) const
     {
-      m_multiIndex.ForEachInRect(toDo, rect, scale);
+      m_multiIndex.ForEachInRect_TileDrawing(toDo, rect, scale);
     }
 
     index_t const & GetIndex() const { return m_multiIndex; }
