@@ -22,7 +22,7 @@ void UnpackMwm(string const & filePath)
     uint64_t pos = 0;
     while (pos < size)
     {
-      vector<char> buffer(static_cast<size_t>(min(size - pos, 1024 * 1024 * 1ULL)));
+      vector<char> buffer(min(static_cast<size_t>(size - pos), static_cast<size_t>(1024 * 1024)));
       reader.Read(pos, &buffer[0], buffer.size());
       writer.Write(&buffer[0], buffer.size());
       pos += buffer.size();
