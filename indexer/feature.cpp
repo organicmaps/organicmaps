@@ -4,8 +4,8 @@
 #include "feature_impl.hpp"
 #include "feature_visibility.hpp"
 #include "scales.hpp"
-#include "geometry_coding.hpp"
 #include "geometry_serialization.hpp"
+#include "coding_params.hpp"
 
 #include "../defines.hpp" // just for file extensions
 

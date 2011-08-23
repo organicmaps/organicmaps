@@ -4,6 +4,7 @@
 
 #include "../indexer/feature_impl.hpp"
 #include "../indexer/feature_visibility.hpp"
+#include "../indexer/geometry_serialization.hpp"
 
 #include "../geometry/region2d.hpp"
 

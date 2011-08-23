@@ -32,6 +32,7 @@ SOURCES += \
     feature_rect.cpp \
     types_mapping.cpp \
     search_index_builder.cpp \
+    coding_params.cpp \
 
 HEADERS += \
     feature.hpp \
@@ -68,3 +69,4 @@ HEADERS += \
     feature_rect.hpp \
     types_mapping.hpp \
     search_index_builder.hpp \
+    coding_params.hpp \

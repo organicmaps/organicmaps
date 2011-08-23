@@ -1,6 +1,6 @@
 #pragma once
 
-#include "geometry_serialization.hpp"
+#include "coding_params.hpp"
 
 #include "../geometry/rect2d.hpp"
 
