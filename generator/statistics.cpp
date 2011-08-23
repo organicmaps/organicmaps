@@ -9,6 +9,7 @@
 #include "../base/string_utils.hpp"
 
 #include "../std/iostream.hpp"
+#include "../std/iomanip.hpp"
 
 #include "../base/start_mem_debug.hpp"
 
@@ -36,7 +37,17 @@ namespace stats
     tags.push_back(SEARCH_INDEX_FILE_TAG);
 
     for (size_t i = 0; i < tags.size(); ++i)
-      cout << tags[i] << " : " << cont.GetReader(tags[i]).Size() << endl;
+    {
+      cout << setw(7) << tags[i] << " : ";
+      try
+      {
+        cout << cont.GetReader(tags[i]).Size() << endl;
+      }
+      catch (Reader::Exception const &)
+      {
+        cout << '-' << endl;
+      }
+    }
   }
 
   class AccumulateStatistic
