@@ -9,8 +9,6 @@
 #include "../base/start_mem_debug.hpp"
 
 
-#define POINT_COORD_BITS 30
-
 namespace
 {
 

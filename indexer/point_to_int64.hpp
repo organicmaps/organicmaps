@@ -5,6 +5,10 @@
 
 #include "../std/utility.hpp"
 
+
+#define POINT_COORD_BITS 30
+
+
 typedef double CoordT;
 typedef pair<CoordT, CoordT> CoordPointT;
 
