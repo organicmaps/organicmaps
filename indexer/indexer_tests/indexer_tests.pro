@@ -14,7 +14,7 @@ win32:LIBS += -lopengl32 -lShell32
 win32-g++:LIBS += -lpthread
 
 HEADERS += \
-    feature_routine.hpp \
+
 
 SOURCES += \
     ../../testing/testingmain.cpp \
@@ -28,8 +28,6 @@ SOURCES += \
     point_to_int64_test.cpp \
     mercator_test.cpp \
     sort_and_merge_intervals_test.cpp \
-    feature_test.cpp \
     geometry_coding_test.cpp \
     triangles_tree_coding_test.cpp \
-    feature_routine.cpp \
-	scales_test.cpp \
+    scales_test.cpp \

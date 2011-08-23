@@ -2,8 +2,8 @@
 
 #include "osm2type.hpp"
 #include "xml_element.hpp"
+#include "feature_builder.hpp"
 
-#include "../indexer/feature.hpp"
 #include "../indexer/osm_decl.hpp"
 #include "../indexer/feature_visibility.hpp"
 

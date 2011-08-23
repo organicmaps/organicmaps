@@ -1,7 +1,6 @@
 #pragma once
 #include "feature_emitter_iface.hpp"
-
-#include "../indexer/feature.hpp"
+#include "feature_builder.hpp"
 
 #include "../std/map.hpp"
 #include "../std/vector.hpp"

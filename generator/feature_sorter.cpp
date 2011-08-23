@@ -1,5 +1,6 @@
 #include "feature_sorter.hpp"
 #include "feature_generator.hpp"
+#include "feature_builder.hpp"
 
 #include "../defines.hpp"
 

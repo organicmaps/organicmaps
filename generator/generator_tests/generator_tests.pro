@@ -18,11 +18,10 @@ win32 {
 }
 
 HEADERS += \
-    ../../indexer/indexer_tests/feature_routine.hpp \
+
 
 SOURCES += \
     ../../testing/testingmain.cpp \
-    ../../indexer/indexer_tests/feature_routine.cpp \
     osm_parser_test.cpp \
     feature_merger_test.cpp \
     osm_type_test.cpp \
