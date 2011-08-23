@@ -60,18 +60,22 @@ bool MergedFeatureBuilder1::EqualGeometry(MergedFeatureBuilder1 const & fb) cons
 
 pair<m2::PointD, bool> MergedFeatureBuilder1::GetKeyPoint(size_t i) const
 {
+  // 1. check first rounds
   size_t sz = m_roundBounds[0].size();
   if (i < sz) return make_pair(m_roundBounds[0][i], false);
   i -= sz;
 
+  // 2. check first point
   if (i == 0) return make_pair(FirstPoint(), false);
 
+  // 3. check last rounds
+  --i;
   sz = m_roundBounds[1].size();
   if (i < sz) return make_pair(m_roundBounds[1][i], true);
-
   i -= sz;
 
-  ASSERT_EQUAL ( i, 1, () );
+  // 4. return last point
+  ASSERT_EQUAL ( i, 0, () );
   return make_pair(LastPoint(), true);
 }
 

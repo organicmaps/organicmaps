@@ -56,7 +56,7 @@ UNIT_TEST(FeatureMerger_MultipleTypes)
   arrF[1].AddType(4);
   arrF[2].AddType(4);
 
-  FeatureMergeProcessor processor(30);
+  FeatureMergeProcessor processor(POINT_COORD_BITS);
 
   for (size_t i = 0; i < count; ++i)
     processor(arrF[i]);
@@ -117,7 +117,7 @@ UNIT_TEST(FeatureMerger_Branches)
   vF.back().AddPoint(P(1, 0));
   vF.back().AddPoint(P(2, 0));
 
-  FeatureMergeProcessor processor(30);
+  FeatureMergeProcessor processor(POINT_COORD_BITS);
 
   for (size_t i = 0; i < vF.size(); ++i)
   {
@@ -131,4 +131,52 @@ UNIT_TEST(FeatureMerger_Branches)
   processor.DoMerge(emitter);
 
   TEST_LESS_OR_EQUAL(emitter.GetSize(), 2, ());
+}
+
+UNIT_TEST(FeatureMerger_Rounds)
+{
+  vector<FeatureBuilder1> vF;
+
+  vF.push_back(FeatureBuilder1());
+  vF.back().AddPoint(P(-10, 0));
+  vF.back().AddPoint(P(-5, 0));
+
+  // make first round feature
+  vF.push_back(FeatureBuilder1());
+  vF.back().AddPoint(P(-4, 1));
+  vF.back().AddPoint(P(-3, 0));
+  vF.back().AddPoint(P(-4, -1));
+  vF.back().AddPoint(P(-5, 0));
+  vF.back().AddPoint(P(-4, 1));
+
+  vF.push_back(FeatureBuilder1());
+  vF.back().AddPoint(P(-3, 0));
+  vF.back().AddPoint(P(3, 0));
+
+  // make second round feature
+  vF.push_back(FeatureBuilder1());
+  vF.back().AddPoint(P(4, -1));
+  vF.back().AddPoint(P(3, 0));
+  vF.back().AddPoint(P(4, 1));
+  vF.back().AddPoint(P(5, 0));
+  vF.back().AddPoint(P(4, -1));
+
+  vF.push_back(FeatureBuilder1());
+  vF.back().AddPoint(P(5, 0));
+  vF.back().AddPoint(P(10, 0));
+
+  FeatureMergeProcessor processor(POINT_COORD_BITS);
+
+  for (size_t i = 0; i < vF.size(); ++i)
+  {
+    vF[i].SetLinear();
+    vF[i].AddType(0);
+
+    processor(vF[i]);
+  }
+
+  VectorEmitter emitter;
+  processor.DoMerge(emitter);
+
+  TEST_EQUAL(emitter.GetSize(), 1, ());
 }
