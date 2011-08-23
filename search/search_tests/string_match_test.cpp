@@ -1,5 +1,5 @@
 #include "../../testing/testing.hpp"
-#include "../string_match.hpp"
+#include "../approximate_string_match.hpp"
 #include "match_cost_mock.hpp"
 #include "../../std/memcpy.hpp"
 
