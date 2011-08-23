@@ -130,6 +130,7 @@ namespace drule
 
     size_t AddRule(int32_t scale, rule_type_t type, BaseRule * p);
     size_t AddLineRule(int32_t scale, int color, double pixWidth);
+    size_t AddAreaRule(int32_t scale, int color);
 
     void Clean();
 

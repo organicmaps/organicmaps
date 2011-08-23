@@ -3,6 +3,12 @@
 
 #include "../indexer/classificator.hpp"
 #include "../indexer/drawing_rules.hpp"
+#include "../indexer/file_reader_stream.hpp"
+#include "../indexer/scales.hpp"
+
+#include "../platform/platform.hpp"
+
+#include "../base/logging.hpp"
 
 #include "../base/start_mem_debug.hpp"
 
@@ -23,21 +29,26 @@ namespace classificator
 
   void GenerateAndWrite(string const & path)
   {
-    // Experimental - add drawing rules in programm.
-    //string const fullName = path + "drawing_rules.bin";
-    //drule::ReadRules(fullName.c_str());
+    // Experimental - add drawing rules in program.
 
-    //int const color = 0;
-    //double const pixWidth = 1.5;
-    //for (int i = 0; i <= scales::GetUpperScale(); ++i)
-    //{
-    //  size_t const ind = drule::rules().AddLineRule(i, color, pixWidth);
-    //  LOG_SHORT(LINFO, ("Scale = ", i, "; Index = ", ind));
-    //}
+//    // 1. Read rules.
+//    string const name = "drawing_rules.bin";
+//    ReaderPtrStream rulesS(GetPlatform().GetReader(name));
+//    drule::ReadRules(rulesS);
 
-    //drule::WriteRules(fullName.c_str());
+//    // 2. Append rules.
+//    //int const color = 0;
+//    int const color = 0xD3D3D3;
+//    //double const pixWidth = 1.5;
+//    for (int i = 0; i <= scales::GetUpperScale(); ++i)
+//    {
+//      //size_t const ind = drule::rules().AddLineRule(i, color, pixWidth);
+//      size_t const ind = drule::rules().AddAreaRule(i, color);
+//      LOG_SHORT(LINFO, ("Scale = ", i, "; Index = ", ind));
+//    }
 
-    //return;
+//    drule::WriteRules((path + name).c_str());
+//    return;
 
     // 1. generic types
     parse_osm_types(0, 11, path + "styles/caption-z");

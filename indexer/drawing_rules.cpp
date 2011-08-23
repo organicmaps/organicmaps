@@ -994,6 +994,13 @@ size_t RulesHolder::AddLineRule(int32_t scale, int color, double pixWidth)
   return AddRule(scale, line, p);
 }
 
+size_t RulesHolder::AddAreaRule(int32_t scale, int color)
+{
+  AreaRule * p = new AreaRule();
+  p->m_params.get<0>() = color_t(color);
+  return AddRule(scale, area, p);
+}
+
 BaseRule const * RulesHolder::Find(Key const & k) const
 {
   rules_map_t::const_iterator i = m_rules.find(k.m_scale);
