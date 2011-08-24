@@ -11,6 +11,7 @@
 #include "../indexer/cell_id.hpp"
 
 #include "../coding/varint.hpp"
+#include "../coding/mmap_reader.hpp"
 
 #include "../base/assert.hpp"
 #include "../base/logging.hpp"
@@ -18,6 +19,7 @@
 
 #include "../std/bind.hpp"
 #include "../std/unordered_map.hpp"
+#include "../std/target_os.hpp"
 
 namespace feature
 {
@@ -189,16 +191,23 @@ void FeaturesCollector::operator() (FeatureBuilder1 const & fb)
 
 class points_in_file
 {
+#ifdef OMIM_OS_WINDOWS
   FileReader m_file;
+#else
+  MmapReader m_file;
+#endif
 
 public:
   points_in_file(string const & name) : m_file(name) {}
 
   bool GetPoint(uint64_t id, double & lat, double & lng) const
   {
+#ifdef OMIM_OS_WINDOWS
     LatLon ll;
     m_file.Read(id * sizeof(ll), &ll, sizeof(ll));
-
+#else
+    LatLon const & ll = *reinterpret_cast<LatLon const *>(m_file.Data() + id * sizeof(ll));
+#endif
     // assume that valid coordinate is not (0, 0)
     if (ll.lat != 0.0 || ll.lon != 0.0)
     {
