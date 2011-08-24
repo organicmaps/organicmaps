@@ -18,18 +18,14 @@ public:
     int m_y;
 
     m2::RectD m_rect;
-    double m_distance;
-    double m_coverage;
 
     RectInfo();
-    RectInfo(int drawScale, int tileScale, int x, int y, m2::RectD const & globRect, m2::PointD const & centerPt);
-
-    void init(m2::RectD const & globRect, m2::PointD const & centerPt);
+    RectInfo(int drawScale, int tileScale, int x, int y);
 
     /// pack scale, x, y into 64 bit word to use it as a cache key
     uint64_t toUInt64Cell() const;
     /// unpack 64bit integer and compute other parameters
-    void fromUInt64Cell(uint64_t v, m2::RectD const & globRect, m2::PointD const & centerPt);
+    void fromUInt64Cell(uint64_t v);
   };
 
 private:
@@ -56,5 +52,11 @@ public:
   size_t sequenceID() const;
 };
 
-bool operator <(Tiler::RectInfo const & l, Tiler::RectInfo const & r);
-bool operator >(Tiler::RectInfo const & l, Tiler::RectInfo const & r);
+struct LessByDistance
+{
+  m2::PointD m_pt;
+  LessByDistance(m2::PointD const & pt);
+  bool operator()(Tiler::RectInfo const & l, Tiler::RectInfo const & r);
+};
+
+bool operator<(Tiler::RectInfo const & l, Tiler::RectInfo const & r);

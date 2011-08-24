@@ -22,26 +22,20 @@ uint64_t Tiler::RectInfo::toUInt64Cell() const
       | (((uint64_t)m_drawScale & 0xFF) << 56);
 }
 
-void Tiler::RectInfo::fromUInt64Cell(uint64_t v, m2::RectD const & globRect, m2::PointD const & centerPt)
+void Tiler::RectInfo::fromUInt64Cell(uint64_t v)
 {
   m_y = v & 0xFFFFFF;
   m_x = (v >> 24) & 0xFFFFFF;
   m_tileScale = (v >> 48) & 0xFF;
   m_drawScale = (v >> 56) & 0xFF;
-  init(globRect, centerPt);
 }
 
 Tiler::RectInfo::RectInfo()
-  : m_drawScale(0), m_tileScale(0), m_x(0), m_y(0), m_distance(0), m_coverage(0)
+  : m_drawScale(0), m_tileScale(0), m_x(0), m_y(0)
 {}
 
-Tiler::RectInfo::RectInfo(int drawScale, int tileScale, int x, int y, m2::RectD const & globRect, m2::PointD const & centerPt)
+Tiler::RectInfo::RectInfo(int drawScale, int tileScale, int x, int y)
   : m_drawScale(drawScale), m_tileScale(tileScale), m_x(x), m_y(y)
-{
-  init(globRect, centerPt);
-}
-
-void Tiler::RectInfo::init(m2::RectD const & globRect, m2::PointD const & centerPt)
 {
   int k = 1 << m_tileScale;
 
@@ -52,29 +46,21 @@ void Tiler::RectInfo::init(m2::RectD const & globRect, m2::PointD const & center
   m_rect.setMaxX((m_x + 1) * rectSizeX);
   m_rect.setMinY(m_y * rectSizeY);
   m_rect.setMaxY((m_y + 1) * rectSizeY);
+}
 
-  m_distance = m_rect.Center().Length(centerPt);
-  m2::RectD r = globRect;
-  if (r.Intersect(m_rect))
-    m_coverage = r.SizeX() * r.SizeY() / (m_rect.SizeX() * m_rect.SizeY());
-  else
-    m_coverage = 0;
+LessByDistance::LessByDistance(m2::PointD const & pt)
+  : m_pt(pt)
+{
+}
+
+bool LessByDistance::operator()(Tiler::RectInfo const & l, Tiler::RectInfo const & r)
+{
+  return l.m_rect.Center().Length(m_pt) < r.m_rect.Center().Length(m_pt);
 }
 
 bool operator<(Tiler::RectInfo const & l, Tiler::RectInfo const & r)
 {
-  if (l.m_coverage != r.m_coverage)
-    return l.m_coverage > r.m_coverage;
-
-  return l.m_distance < r.m_distance;
-}
-
-bool operator>(Tiler::RectInfo const & l, Tiler::RectInfo const & r)
-{
-  if (l.m_coverage != r.m_coverage)
-    return l.m_coverage < r.m_coverage;
-
-  return l.m_distance > r.m_distance;
+  return l.toUInt64Cell() < r.toUInt64Cell();
 }
 
 void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt)
@@ -120,10 +106,10 @@ void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt)
 
   for (int tileY = minTileY; tileY < maxTileY; ++tileY)
     for (int tileX = minTileX; tileX < maxTileX; ++tileX)
-      m_coverage.push_back(RectInfo(m_drawScale, m_tileScale, tileX, tileY, screenRect, centerPt));
+      m_coverage.push_back(RectInfo(m_drawScale, m_tileScale, tileX, tileY));
 
   /// sorting coverage elements
-  sort(m_coverage.begin(), m_coverage.end(), less<RectInfo>());
+  sort(m_coverage.begin(), m_coverage.end(), LessByDistance(centerPt));
 }
 
 Tiler::Tiler(size_t tileSize, size_t scaleEtalonSize)
