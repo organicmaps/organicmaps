@@ -37,14 +37,14 @@ struct ChildNodeInfo
 
 struct KeyValuePair
 {
-  vector<trie::TrieChar> m_key;
+  buffer_vector<trie::TrieChar, 8> m_key;
   uint32_t m_value;
 
   template <class StringT>
   KeyValuePair(StringT const & key, int value) : m_key(key.begin(), key.end()), m_value(value) {}
 
   uint32_t GetKeySize() const { return m_key.size(); }
-  trie::TrieChar const * GetKeyData() const { return &m_key[0]; }
+  trie::TrieChar const * GetKeyData() const { return m_key.data(); }
   uint32_t GetValueSize() const { return 4; }
   void const * GetValueData() const { return &m_value; }
 
