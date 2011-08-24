@@ -23,8 +23,6 @@ UNIT_TEST(FilesContainer_Smoke)
       for (uint32_t j = 0; j < i; ++j)
         WriteVarUint(w, j);
     }
-
-    writer.Finish();
   }
 
   // read container one by one
@@ -45,7 +43,7 @@ UNIT_TEST(FilesContainer_Smoke)
   }
 
   // append to container
-  uint32_t const arrAppend[] = { 666, 777, 888 };
+  uint32_t const arrAppend[] = { 888, 777, 666 };
   for (size_t i = 0; i < ARRAY_SIZE(arrAppend); ++i)
   {
     {
@@ -53,8 +51,6 @@ UNIT_TEST(FilesContainer_Smoke)
 
       FileWriter w = writer.GetWriter(strings::to_string(arrAppend[i]));
       WriteVarUint(w, arrAppend[i]);
-
-      writer.Finish();
     }
 
     // read appended
@@ -93,7 +89,7 @@ UNIT_TEST(FilesContainer_Shared)
 
     FilesContainerW writer(fName);
 
-    FileWriter w1 = writer.GetWriter("1");
+    FileWriter w1 = writer.GetWriter("5");
     WriteToSink(w1, uint32_t(0));
 
     for (uint32_t i = 0; i < count; ++i)
@@ -103,15 +99,13 @@ UNIT_TEST(FilesContainer_Shared)
     FileWriter w2 = writer.GetWriter("2");
     WriteToSink(w2, test64);
     w2.Flush();
-
-    writer.Finish();
   }
 
   {
     // shared container read and fill
 
     FilesContainerR reader(fName);
-    FilesContainerR::ReaderT r1 = reader.GetReader("1");
+    FilesContainerR::ReaderT r1 = reader.GetReader("5");
     uint64_t const offset = sizeof(uint32_t);
     r1 = r1.SubReader(offset, r1.Size() - offset);
 
@@ -127,9 +121,6 @@ UNIT_TEST(FilesContainer_Shared)
       TEST_EQUAL(test, i, ());
       WriteVarUint(w, i);
     }
-
-    w.Flush();
-    writer.Finish();
   }
 
   {
@@ -146,7 +137,7 @@ UNIT_TEST(FilesContainer_RewriteExisting)
   string const fName = "file_container.tmp";
   FileWriter::DeleteFileX(fName);
 
-  char const * key[] = { "1", "2", "3" };
+  char const * key[] = { "3", "2", "1" };
   char const * value[] = { "prolog", "data", "epilog" };
   char const * buffer = "xxxx";
 

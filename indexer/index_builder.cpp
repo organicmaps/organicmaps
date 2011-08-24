@@ -23,9 +23,6 @@ namespace indexer
       header.Load(readCont.GetReader(HEADER_FILE_TAG));
 
       BuildIndex(header.GetScale(header.GetScalesCount()-1) + 1, featuresVector, writer, tmpFile);
-      writer.Flush();
-
-      writeCont.Finish();
     }
     catch (Reader::Exception const & e)
     {
