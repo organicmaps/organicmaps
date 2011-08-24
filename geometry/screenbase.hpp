@@ -47,6 +47,7 @@ protected:
 public:
 
   ScreenBase();
+  ScreenBase(m2::RectI const & pxRect, m2::RectD const & glbRect);
 
   void SetFromRect(m2::RectD const & rect);
   void SetOrg(m2::PointD const & p);

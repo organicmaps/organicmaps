@@ -19,6 +19,12 @@ ScreenBase::ScreenBase() :
 //  UpdateDependentParameters();
 }
 
+ScreenBase::ScreenBase(m2::RectI const & pxRect, m2::RectD const & glbRect)
+{
+  OnSize(pxRect);
+  SetFromRect(glbRect);
+}
+
 void ScreenBase::UpdateDependentParameters()
 {
   m_PtoG = math::Shift( /// 5. shifting on (E0, N0)
