@@ -113,6 +113,7 @@ namespace core
 
     list<Command> m_initCommands;
     list<Command> m_finCommands;
+    list<Command> m_cancelCommands;
 
     friend class Routine;
 
@@ -132,6 +133,7 @@ namespace core
     void AddCommand(Command const & cmd);
     void AddInitCommand(Command const & cmd);
     void AddFinCommand(Command const & cmd);
+    void AddCancelCommand(Command const & cmd);
     void Start();
     void Clear();
     void Cancel();
@@ -153,6 +155,12 @@ namespace core
     void AddFinCommand(command_tt cmd)
     {
       AddFinCommand(Command(m_cmdId++, cmd));
+    }
+
+    template <typename command_tt>
+    void AddCancelCommand(command_tt cmd)
+    {
+      AddCancelCommand(Command(m_cmdId++, cmd));
     }
 
   };

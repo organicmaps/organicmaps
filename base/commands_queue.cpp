@@ -79,6 +79,13 @@ namespace core
   void CommandsQueue::Routine::Cancel()
   {
     m_env.Cancel();
+
+    // performing cancellation tasks
+    for(list<Command>::const_iterator it = m_parent->m_cancelCommands.begin();
+        it != m_parent->m_cancelCommands.end();
+        ++it)
+      it->m_fn(m_env);
+
     IRoutine::Cancel();
   }
 
@@ -136,6 +143,11 @@ namespace core
   void CommandsQueue::AddFinCommand(Command const & cmd)
   {
     m_finCommands.push_back(cmd);
+  }
+
+  void CommandsQueue::AddCancelCommand(Command const & cmd)
+  {
+    m_cancelCommands.push_back(cmd);
   }
 
   void CommandsQueue::Clear()
