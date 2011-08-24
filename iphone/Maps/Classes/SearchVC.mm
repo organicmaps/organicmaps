@@ -100,6 +100,12 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   g_searchVC = nil;
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+  // hide keyboard immediately
+  [self.navigationItem.titleView resignFirstResponder];
+}
+
 - (void)searchBar:(UISearchBar *)sender textDidChange:(NSString *)searchText
 {
   [self clearResults];
