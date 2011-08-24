@@ -80,3 +80,8 @@ MmapReader * MmapReader::CreateSubReader(uint64_t pos, uint64_t size) const
   ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
   return new MmapReader(*this, m_offset + pos, size);
 }
+
+uint8_t * MmapReader::Data() const
+{
+  return m_data->m_memory;
+}

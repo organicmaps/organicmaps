@@ -22,4 +22,7 @@ public:
   virtual uint64_t Size() const;
   virtual void Read(uint64_t pos, void * p, size_t size) const;
   virtual MmapReader * CreateSubReader(uint64_t pos, uint64_t size) const;
+
+  /// Direct file/memory access
+  uint8_t * Data() const;
 };
