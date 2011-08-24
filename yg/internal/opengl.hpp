@@ -39,6 +39,7 @@ namespace yg
 {
   namespace gl
   {
+    extern bool g_doFakeOpenGLCalls; //< for testing support
     extern bool g_isBufferObjectsSupported;
     extern bool g_isFramebufferSupported;
     extern bool g_isRenderbufferSupported;
@@ -53,11 +54,11 @@ namespace yg
 }
 
 #ifdef DEBUG
-#define OGLCHECK(f) do {f; yg::gl::CheckError(SRC());} while(false)
-#define OGLCHECKAFTER yg::gl::CheckError(SRC())
+#define OGLCHECK(f) do {if (!g_doFakeOpenGLCalls) { f; yg::gl::CheckError(SRC()); } } while(false)
+#define OGLCHECKAFTER if (!g_doFakeOpenGLCalls) yg::gl::CheckError(SRC())
 #define EGLCHECK do {yg::gl::CheckEGLError(SRC());} while(false)
 #else
-#define OGLCHECK(f) f
+#define OGLCHECK(f) if (!g_doFakeOpenGLCalls) f
 #define OGLCHECKAFTER
 #define EGLCHECK
 #endif

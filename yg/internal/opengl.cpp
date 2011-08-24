@@ -12,6 +12,7 @@ namespace yg
 {
   namespace gl
   {
+    bool g_doFakeOpenGLCalls = false;
     bool g_isBufferObjectsSupported = true;
     bool g_isFramebufferSupported = true;
     bool g_isRenderbufferSupported = true;

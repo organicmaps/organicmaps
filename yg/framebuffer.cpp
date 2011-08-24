@@ -129,29 +129,32 @@ namespace yg
 
     void FrameBuffer::checkStatus()
     {
+      if (!yg::gl::g_doFakeOpenGLCalls)
+      {
 #ifdef OMIM_GL_ES
-      GLenum res = glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES);
-      if (res == GL_FRAMEBUFFER_UNSUPPORTED_OES)
-        LOG(LINFO, ("unsupported combination of attached target formats. could be possibly skipped"));
-      else if (res == GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_OES)
-        LOG(LINFO, ("incomplete attachement"));
-      else if (res == GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_OES)
-        LOG(LINFO, ("incomplete missing attachement"));
-      else if (res == GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_OES)
-      {
-        LOG(LINFO, ("incomplete dimensions"));
-      }
+        GLenum res = glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES);
+        if (res == GL_FRAMEBUFFER_UNSUPPORTED_OES)
+          LOG(LINFO, ("unsupported combination of attached target formats. could be possibly skipped"));
+        else if (res == GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_OES)
+          LOG(LINFO, ("incomplete attachement"));
+        else if (res == GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_OES)
+          LOG(LINFO, ("incomplete missing attachement"));
+        else if (res == GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_OES)
+        {
+          LOG(LINFO, ("incomplete dimensions"));
+        }
 #else
-      GLenum res = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
-      if (res == GL_FRAMEBUFFER_UNSUPPORTED)
-      {
-        LOG(LINFO, ("unsupported combination of attached target formats. could be possibly skipped"));
-      }
-      else if (res != GL_FRAMEBUFFER_COMPLETE_EXT)
-      {
-        LOG(LERROR, ("incomplete framebuffer"));
-      }
+        GLenum res = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
+        if (res == GL_FRAMEBUFFER_UNSUPPORTED)
+        {
+          LOG(LINFO, ("unsupported combination of attached target formats. could be possibly skipped"));
+        }
+        else if (res != GL_FRAMEBUFFER_COMPLETE_EXT)
+        {
+          LOG(LERROR, ("incomplete framebuffer"));
+        }
 #endif
+      }
     }
   }
 }
