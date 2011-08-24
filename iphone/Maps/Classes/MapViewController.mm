@@ -30,7 +30,7 @@ storage::Storage m_storage;
 
 - (void)OnLocationUpdated
 {
-  [m_myPositionButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
+  [m_myPositionButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
 }
 
 - (IBAction)OnMyPositionClicked:(id)sender
