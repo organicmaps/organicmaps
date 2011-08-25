@@ -82,7 +82,7 @@ using namespace storage;
 {
   m_storage->Unsubscribe();
 
-  [[MapsAppDelegate theApp].m_navigationController popViewControllerAnimated:YES];
+  [[MapsAppDelegate theApp].m_navigationController popToRootViewControllerAnimated:YES];
 
   m_storage = nil;
 }
