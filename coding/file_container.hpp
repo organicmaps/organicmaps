@@ -90,6 +90,8 @@ public:
 
   ReaderT GetReader(Tag const & tag) const;
 
+  bool IsReaderExist(Tag const & tag) const;
+
   template <typename F> void ForEachTag(F f) const
   {
     for (size_t i = 0; i < m_info.size(); ++i)

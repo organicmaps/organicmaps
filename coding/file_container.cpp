@@ -60,6 +60,14 @@ FilesContainerR::ReaderT FilesContainerR::GetReader(Tag const & tag) const
     MYTHROW(Reader::OpenException, (tag));
 }
 
+bool FilesContainerR::IsReaderExist(Tag const & tag) const
+{
+  InfoContainer::const_iterator i =
+    lower_bound(m_info.begin(), m_info.end(), tag, LessInfo());
+
+  return (i != m_info.end() && i->m_tag == tag);
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // FilesContainerW
 /////////////////////////////////////////////////////////////////////////////
