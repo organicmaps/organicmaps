@@ -9,7 +9,6 @@
 
 class ModelReaderPtr;
 class FileWriter;
-class FilesContainerR;
 
 namespace feature
 {
@@ -41,8 +40,6 @@ namespace feature
     //@{
     void Save(FileWriter & w) const;
     void Load(ModelReaderPtr const & r);
-
-    void LoadForVersion(FilesContainerR const & cont);
     //@}
   };
 }

@@ -1,18 +1,23 @@
 #pragma once
+#include "interval_index_iface.hpp"
+
 #include "../coding/endianness.hpp"
 #include "../coding/byte_stream.hpp"
 #include "../coding/reader.hpp"
 #include "../coding/varint.hpp"
+
 #include "../base/assert.hpp"
 #include "../base/base.hpp"
 #include "../base/bits.hpp"
 #include "../base/buffer_vector.hpp"
 #include "../base/macros.hpp"
+
 #include "../std/algorithm.hpp"
 #include "../std/memcpy.hpp"
 #include "../std/static_assert.hpp"
 
-class IntervalIndexBase
+
+class IntervalIndexBase : public IntervalIndexIFace
 {
 public:
 #pragma pack(push, 1)
@@ -38,9 +43,9 @@ public:
 template <class ReaderT>
 class IntervalIndex : public IntervalIndexBase
 {
+  typedef IntervalIndexBase base_t;
 public:
-
-  class Query
+  class Query : public base_t::QueryIFace
   {
   public:
     void Clear() {}
@@ -81,6 +86,11 @@ public:
   {
     Query query;
     ForEach(f, beg, end, query);
+  }
+
+  virtual void DoForEach(FunctionT const & f, uint64_t beg, uint64_t end, QueryIFace & /*query*/)
+  {
+    ForEach(f, beg, end);
   }
 
 private:

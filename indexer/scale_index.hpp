@@ -1,11 +1,18 @@
 #pragma once
 
-#include "interval_index.hpp"
+#include "data_factory.hpp"
+#include "interval_index_iface.hpp"
+
 #include "../coding/var_serial_vector.hpp"
+
 #include "../base/assert.hpp"
 #include "../base/base.hpp"
 #include "../base/macros.hpp"
+#include "../base/stl_add.hpp"
+
 #include "../std/algorithm.hpp"
+#include "../std/bind.hpp"
+
 
 class ScaleIndexBase
 {
@@ -55,20 +62,32 @@ class ScaleIndex : public ScaleIndexBase
 {
 public:
   typedef ReaderT ReaderType;
-  typedef IntervalIndex<ReaderT> IntervalIndexType;
-  typedef typename IntervalIndexType::Query Query;
+  typedef typename IntervalIndexIFace::QueryIFace Query;
 
   ScaleIndex() {}
-  explicit ScaleIndex(ReaderT const & reader) { Attach(reader); }
-
-  void Attach(ReaderT const & reader)
+  explicit ScaleIndex(ReaderT const & reader, IndexFactory & factory)
   {
+    Attach(reader, factory);
+  }
+  ~ScaleIndex()
+  {
+    Clear();
+  }
+
+  void Clear()
+  {
+    for_each(m_IndexForScale.begin(), m_IndexForScale.end(), DeleteFunctor());
     m_IndexForScale.clear();
+  }
+
+  void Attach(ReaderT const & reader, IndexFactory & factory)
+  {
+    Clear();
 
     ReaderSource<ReaderT> source(reader);
     VarSerialVectorReader<ReaderT> treesReader(source);
     for (size_t i = 0; i < treesReader.Size(); ++i)
-      m_IndexForScale.push_back(IntervalIndexType(treesReader.SubReader(i)));
+      m_IndexForScale.push_back(factory.CreateIndex(treesReader.SubReader(i)));
   }
 
   template <typename F>
@@ -78,9 +97,9 @@ public:
     size_t const scaleBucket = BucketByScale(scale);
     if (scaleBucket < m_IndexForScale.size())
       for (size_t i = 0; i <= scaleBucket; ++i)
-        m_IndexForScale[i].ForEach(f, beg, end, query);
+        m_IndexForScale[i]->DoForEach(bind<void>(ref(f), _1), beg, end, query);
   }
 
 private:
-  vector<IntervalIndexType> m_IndexForScale;
+  vector<IntervalIndexIFace *> m_IndexForScale;
 };

@@ -32,6 +32,7 @@ SOURCES += \
     feature_rect.cpp \
     types_mapping.cpp \
     search_index_builder.cpp \
+    data_factory.cpp \
     coding_params.cpp \
     feature_loader_base.cpp \
     feature_loader.cpp \
@@ -71,6 +72,8 @@ HEADERS += \
     feature_rect.hpp \
     types_mapping.hpp \
     search_index_builder.hpp \
+    interval_index_iface.hpp \
+    data_factory.hpp \
     coding_params.hpp \
     feature_loader_base.hpp \
     feature_loader.hpp \

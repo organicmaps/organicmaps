@@ -1,7 +1,7 @@
 #pragma once
 #include "cell_id.hpp"
 #include "covering.hpp"
-#include "data_header.hpp"
+#include "data_factory.hpp"
 #include "features_vector.hpp"
 #include "scale_index.hpp"
 #include "scales.hpp"
@@ -267,10 +267,11 @@ private:
       : m_action(INDEX_DO_NOTHING), m_file(file), m_lockCount(0),
         m_queriesSkipped(0)
     {
-      m_header.LoadForVersion(FilesContainerR(GetPlatform().GetReader(m_file)));
+      m_factory.Load(FilesContainerR(GetPlatform().GetReader(m_file)));
 
-      m_rect = m_header.GetBounds();
-      m_scaleRange = m_header.GetScaleRange();
+      feature::DataHeader const & h = m_factory.GetHeader();
+      m_rect = h.GetBounds();
+      m_scaleRange = h.GetScaleRange();
     }
 
     IndexT * Lock(int scale, m2::RectD const & occlusionRect)
@@ -321,7 +322,8 @@ private:
 
     search::SearchInfo * GetSearchInfo() const
     {
-      return new search::SearchInfo(FilesContainerR(GetPlatform().GetReader(m_file)), m_header);
+      return new search::SearchInfo(FilesContainerR(GetPlatform().GetReader(m_file)),
+                                    m_factory.GetHeader());
     }
 
     void CloseIfUnlocked()
@@ -356,7 +358,7 @@ private:
     {
       if (p == 0)
       {
-        p = new IndexT(FilesContainerR(GetPlatform().GetReader(m_file)), m_header);
+        p = new IndexT(FilesContainerR(GetPlatform().GetReader(m_file)), m_factory);
       }
     }
 
@@ -382,7 +384,7 @@ private:
 
     string m_file;
 
-    feature::DataHeader m_header;
+    IndexFactory m_factory;
     m2::RectD m_rect;
     pair<int, int> m_scaleRange;
 
@@ -425,8 +427,9 @@ template <class FeatureVectorT, class BaseT> class OffsetToFeatureAdapter : publ
 public:
   typedef typename BaseT::Query Query;
 
-  OffsetToFeatureAdapter(FilesContainerR const & cont, feature::DataHeader const & header)
-  : BaseT(cont.GetReader(INDEX_FILE_TAG)), m_FeatureVector(cont, header)
+  OffsetToFeatureAdapter(FilesContainerR const & cont, IndexFactory & factory)
+  : BaseT(cont.GetReader(INDEX_FILE_TAG), factory),
+    m_FeatureVector(cont, factory.GetHeader())
   {
   }
 
@@ -437,11 +440,6 @@ public:
     OffsetToFeatureReplacer<F> offsetToFeatureReplacer(m_FeatureVector, f);
     BaseT::ForEachInIntervalAndScale(offsetToFeatureReplacer, beg, end, scale, query);
   }
-
-  //bool IsMyData(string const & fName) const
-  //{
-  //  return m_FeatureVector.IsMyData(fName);
-  //}
 
 private:
   FeatureVectorT m_FeatureVector;
@@ -488,7 +486,7 @@ public:
   explicit UniqueOffsetAdapter(T1 const & t1) : BaseT(t1) {}
 
   template <typename T1, typename T2>
-  UniqueOffsetAdapter(T1 const & t1, T2 const & t2) : BaseT(t1, t2) {}
+  UniqueOffsetAdapter(T1 const & t1, T2 & t2) : BaseT(t1, t2) {}
 
   template <typename F>
   void ForEachInIntervalAndScale(F const & f, int64_t beg, int64_t end, uint32_t scale,

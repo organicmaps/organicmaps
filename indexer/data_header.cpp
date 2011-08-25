@@ -71,9 +71,4 @@ namespace feature
 
     src.Read(m_scales.data(), m_scales.size());
   }
-
-  void DataHeader::LoadForVersion(FilesContainerR const & cont)
-  {
-    Load(cont.GetReader(HEADER_FILE_TAG));
-  }
 }
