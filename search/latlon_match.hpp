@@ -5,7 +5,8 @@
 namespace search
 {
 
-bool MatchLatLon(string const & s, double & lat, double & lon,
+// Check if query can be represented as '(lat, lon)'.
+bool MatchLatLon(string const & query, double & lat, double & lon,
                  double & precisionLat, double & precisionLon);
 
 }  // namespace search

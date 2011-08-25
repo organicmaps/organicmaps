@@ -15,12 +15,13 @@ namespace search
 namespace trie
 {
 
+// Value: feature offset and search rank are stored.
 struct ValueReader
 {
   struct ValueType
   {
-    uint8_t m_rank;
-    uint32_t m_featureId;
+    uint8_t m_rank;        // Search rank of the feature.
+    uint32_t m_featureId;  // Offset of the featuer.
   };
 
   template <typename SourceT> void operator() (SourceT & src, ValueType & value) const
@@ -30,6 +31,7 @@ struct ValueReader
   }
 };
 
+// Edge value: maximum search rank of the subtree is stored.
 struct EdgeValueReader
 {
   typedef uint8_t ValueType;
