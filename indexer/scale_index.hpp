@@ -62,7 +62,6 @@ class ScaleIndex : public ScaleIndexBase
 {
 public:
   typedef ReaderT ReaderType;
-  typedef typename IntervalIndexIFace::QueryIFace Query;
 
   ScaleIndex() {}
   explicit ScaleIndex(ReaderT const & reader, IndexFactory & factory)
@@ -91,13 +90,12 @@ public:
   }
 
   template <typename F>
-  void ForEachInIntervalAndScale(F const & f, uint64_t beg, uint64_t end, uint32_t scale,
-                                 Query & query) const
+  void ForEachInIntervalAndScale(F const & f, uint64_t beg, uint64_t end, uint32_t scale) const
   {
     size_t const scaleBucket = BucketByScale(scale);
     if (scaleBucket < m_IndexForScale.size())
       for (size_t i = 0; i <= scaleBucket; ++i)
-        m_IndexForScale[i]->DoForEach(bind<void>(ref(f), _1), beg, end, query);
+        m_IndexForScale[i]->DoForEach(bind<void>(ref(f), _1), beg, end);
   }
 
 private:

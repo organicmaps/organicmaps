@@ -32,87 +32,56 @@
 
 template <class BaseT> class IndexForEachAdapter : public BaseT
 {
-public:
-  typedef typename BaseT::Query Query;
-
 private:
   template <typename F>
   void CallForIntervals(F const & f, covering::IntervalsT const & intervals,
-                        m2::RectD const & rect, uint32_t scale, Query & query) const
+                        m2::RectD const & rect, uint32_t scale) const
   {
     for (size_t i = 0; i < intervals.size(); ++i)
     {
       BaseT::ForEachInIntervalAndScale(f, intervals[i].first, intervals[i].second,
-                                       scale, rect, query);
+                                       scale, rect);
     }
-  }
-
-  template <typename F>
-  void ForEachInRect(F const & f, m2::RectD const & rect, uint32_t scale, Query & query) const
-  {
-    CallForIntervals(f, covering::CoverViewportAndAppendLowerLevels(rect), rect, scale, query);
-  }
-
-  template <typename F>
-  void ForEachInRect_TileDrawing(F const & f, m2::RectD const & rect, uint32_t scale, Query & query) const
-  {
-    using namespace covering;
-
-    IntervalsT intervals;
-    AppendLowerLevels(GetRectIdAsIs(rect), intervals);
-
-    CallForIntervals(f, intervals, rect, scale, query);
   }
 
 public:
   template <typename F>
   void ForEachInRect(F const & f, m2::RectD const & rect, uint32_t scale) const
   {
-    Query query;
-    ForEachInRect(f, rect, scale, query);
+    CallForIntervals(f, covering::CoverViewportAndAppendLowerLevels(rect), rect, scale);
   }
 
   template <typename F>
   void ForEachInRect_TileDrawing(F const & f, m2::RectD const & rect, uint32_t scale) const
   {
-    Query query;
-    ForEachInRect_TileDrawing(f, rect, scale, query);
+    using namespace covering;
+
+    IntervalsT intervals;
+    AppendLowerLevels(GetRectIdAsIs(rect), intervals);
+
+    CallForIntervals(f, intervals, rect, scale);
   }
 
-  template <typename F>
-  void ForEachInViewport(F const & f, m2::RectD const & viewport, Query & query) const
-  {
-    ForEachInRect(f, viewport, scales::GetScaleLevel(viewport), query);
-  }
+public:
 
   template <typename F>
   void ForEachInViewport(F const & f, m2::RectD const & viewport) const
   {
-    Query query;
-    ForEachInViewport(f, viewport, query);
-  }
-
-  template <typename F>
-  void ForEachInScale(F const & f, uint32_t scale, Query & query) const
-  {
-    int64_t const rootId = RectId("").ToInt64();
-    BaseT::ForEachInIntervalAndScale(f, rootId, rootId + RectId("").SubTreeSize(), scale,
-                                     m2::RectD::GetInfiniteRect(), query);
+    ForEachInRect(f, viewport, scales::GetScaleLevel(viewport));
   }
 
   template <typename F>
   void ForEachInScale(F const & f, uint32_t scale) const
   {
-    Query query;
-    ForEachInScale(f, scale, query);
+    int64_t const rootId = RectId("").ToInt64();
+    BaseT::ForEachInIntervalAndScale(f, rootId, rootId + RectId("").SubTreeSize(), scale,
+                                     m2::RectD::GetInfiniteRect());
   }
 };
 
 template <class IndexT> class MultiIndexAdapter
 {
 public:
-  typedef typename IndexT::Query Query;
-
   MultiIndexAdapter()
   {
   }
@@ -134,7 +103,7 @@ public:
 
   template <typename F>
   void ForEachInIntervalAndScale(F const & f, int64_t beg, int64_t end, uint32_t scale,
-                                 m2::RectD const & occlusionRect, Query & query) const
+                                 m2::RectD const & occlusionRect) const
   {
     for (size_t iIndex = 0; true;)
     {
@@ -163,7 +132,7 @@ public:
       {
         ProxyUnlockGuard proxyUnlockGuard(m_mutex, pProxy);
         UNUSED_VALUE(proxyUnlockGuard);
-        pIndex->ForEachInIntervalAndScale(f, beg, end, scale, query);
+        pIndex->ForEachInIntervalAndScale(f, beg, end, scale);
       }
     }
   }
@@ -425,8 +394,6 @@ private:
 template <class FeatureVectorT, class BaseT> class OffsetToFeatureAdapter : public BaseT
 {
 public:
-  typedef typename BaseT::Query Query;
-
   OffsetToFeatureAdapter(FilesContainerR const & cont, IndexFactory & factory)
   : BaseT(cont.GetReader(INDEX_FILE_TAG), factory),
     m_FeatureVector(cont, factory.GetHeader())
@@ -434,11 +401,10 @@ public:
   }
 
   template <typename F>
-  void ForEachInIntervalAndScale(F const & f, int64_t beg, int64_t end, uint32_t scale,
-                                 Query & query) const
+  void ForEachInIntervalAndScale(F const & f, int64_t beg, int64_t end, uint32_t scale) const
   {
     OffsetToFeatureReplacer<F> offsetToFeatureReplacer(m_FeatureVector, f);
-    BaseT::ForEachInIntervalAndScale(offsetToFeatureReplacer, beg, end, scale, query);
+    BaseT::ForEachInIntervalAndScale(offsetToFeatureReplacer, beg, end, scale);
   }
 
 private:
@@ -464,24 +430,6 @@ private:
 template <class BaseT> class UniqueOffsetAdapter : public BaseT
 {
 public:
-  // Defines base Query type.
-  class Query : public BaseT::Query
-  {
-  public:
-    // Clear query, so that it can be reused.
-    // This function doesn't release caches!
-    void Clear()
-    {
-      m_Offsets.clear();
-      BaseT::Query::Clear();
-    }
-
-  private:
-    // TODO: Remember max offsets.size() and initialize offsets with it?
-    unordered_set<uint32_t> m_Offsets;
-    friend class UniqueOffsetAdapter;
-  };
-
   template <typename T1>
   explicit UniqueOffsetAdapter(T1 const & t1) : BaseT(t1) {}
 
@@ -489,11 +437,11 @@ public:
   UniqueOffsetAdapter(T1 const & t1, T2 & t2) : BaseT(t1, t2) {}
 
   template <typename F>
-  void ForEachInIntervalAndScale(F const & f, int64_t beg, int64_t end, uint32_t scale,
-                                 Query & query) const
+  void ForEachInIntervalAndScale(F const & f, int64_t beg, int64_t end, uint32_t scale) const
   {
-    UniqueOffsetFunctorAdapter<F> uniqueOffsetFunctorAdapter(query.m_Offsets, f);
-    BaseT::ForEachInIntervalAndScale(uniqueOffsetFunctorAdapter, beg, end, scale, query);
+    unordered_set<uint32_t> offsets;
+    UniqueOffsetFunctorAdapter<F> uniqueOffsetFunctorAdapter(offsets, f);
+    BaseT::ForEachInIntervalAndScale(uniqueOffsetFunctorAdapter, beg, end, scale);
   }
 
 private:

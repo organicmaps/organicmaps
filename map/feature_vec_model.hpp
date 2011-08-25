@@ -45,8 +45,7 @@ namespace model
     template <class ToDo>
     void ForEachFeature(m2::RectD const & rect, ToDo toDo) const
     {
-      index_t::Query query;
-      m_multiIndex.ForEachInViewport(toDo, rect, query);
+      m_multiIndex.ForEachInViewport(toDo, rect);
       // Uncomment to traverse all features (SLOW!!):
       // m_multiIndex.ForEachInScale(toDo, GetScaleLevel(rect));
     }

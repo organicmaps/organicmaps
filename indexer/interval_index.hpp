@@ -45,13 +45,6 @@ class IntervalIndex : public IntervalIndexBase
 {
   typedef IntervalIndexBase base_t;
 public:
-  class Query : public base_t::QueryIFace
-  {
-  public:
-    void Clear() {}
-  private:
-    // TODO: Add IntervalIndex cache here.
-  };
 
   explicit IntervalIndex(ReaderT const & reader) : m_Reader(reader)
   {
@@ -69,7 +62,7 @@ public:
   }
 
   template <typename F>
-  void ForEach(F const & f, uint64_t beg, uint64_t end, Query &) const
+  void ForEach(F const & f, uint64_t beg, uint64_t end) const
   {
     if (m_Header.m_Levels != 0 && beg != end)
     {
@@ -81,14 +74,7 @@ public:
     }
   }
 
-  template <typename F>
-  void ForEach(F const & f, uint64_t beg, uint64_t end) const
-  {
-    Query query;
-    ForEach(f, beg, end, query);
-  }
-
-  virtual void DoForEach(FunctionT const & f, uint64_t beg, uint64_t end, QueryIFace & /*query*/)
+  virtual void DoForEach(FunctionT const & f, uint64_t beg, uint64_t end)
   {
     ForEach(f, beg, end);
   }

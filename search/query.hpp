@@ -67,7 +67,6 @@ private:
   strings::UniString m_prefix;
 
   scoped_ptr<IndexType const> m_pIndex;
-  IndexType::Query m_indexQuery;
 
   priority_queue<IntermediateResult> m_results;
   int m_resultsRemaining;
