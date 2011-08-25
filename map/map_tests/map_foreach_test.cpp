@@ -275,10 +275,10 @@ namespace
 
   void RunTestForChoice(string const & fName)
   {
-    cout << "Run " << fName << "? (y/n)\n";
-    char c;
-    cin >> c;
-    if (c == 'y')
+//    cout << "Run " << fName << "? (y/n)\n";
+//    char c;
+//    cin >> c;
+//    if (c == 'y')
       RunTest(fName + DATA_FILE_EXTENSION);
   }
 }
@@ -286,5 +286,5 @@ namespace
 UNIT_TEST(IndexForEachTest)
 {
   RunTestForChoice("minsk-pass");
-  RunTestForChoice("london-center");
+  //RunTestForChoice("london-center");
 }
