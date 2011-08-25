@@ -14,7 +14,7 @@ volatile int g_queryId = 0;
   search::Result * m_result;
 }
 - (id)initWithResult:(search::Result const &) res;
-- (search::Result *)get;
+- (search::Result const *)get;
 @end
 
 @implementation Wrapper
