@@ -33,16 +33,13 @@ namespace feature
 
   pair<int, int> DataHeader::GetScaleRange() const
   {
-    pair<int, int> ret(0, scales::GetUpperScale());
+    int const worldB = scales::GetUpperWorldScale();
+    int const countryB = scales::GetUpperScale();
 
-    int const bound = scales::GetUpperWorldScale();
-
-    if (m_scales.front() > bound)
-      ret.first = bound+1;
-    if (m_scales.back() <= bound)
-      ret.second = bound;
-
-    return ret;
+    if (m_scales.back() == countryB)
+      return make_pair(worldB + 1, countryB);
+    else
+      return make_pair(0, worldB);
   }
 
   void DataHeader::Save(FileWriter & w) const
@@ -70,5 +67,21 @@ namespace feature
     m_bounds.second = ReadPrimitiveFromSource<int64_t>(src);
 
     src.Read(m_scales.data(), m_scales.size());
+
+    m_ver = v2;
+  }
+
+  void DataHeader::LoadVer1(ModelReaderPtr const & r)
+  {
+    ReaderSource<ModelReaderPtr> src(r);
+    int64_t const base = ReadPrimitiveFromSource<int64_t>(src);
+    m_codingParams = serial::CodingParams(POINT_COORD_BITS, base);
+
+    m_bounds.first = ReadVarInt<int64_t>(src) + base;
+    m_bounds.second = ReadVarInt<int64_t>(src) + base;
+
+    src.Read(m_scales.data(), m_scales.size());
+
+    m_ver = v1;
   }
 }

@@ -17,6 +17,7 @@
 #include "../indexer/feature.hpp"
 #include "../indexer/scales.hpp"
 #include "../indexer/drawing_rules.hpp"
+#include "../indexer/data_factory.hpp"
 
 #include "../base/math.hpp"
 #include "../base/string_utils.hpp"
@@ -35,12 +36,9 @@ using namespace feature;
 template <typename TModel>
 void Framework<TModel>::AddMap(string const & file)
 {
-  // update rect for Show All button
-  feature::DataHeader header;
-  header.Load(FilesContainerR(GetPlatform().GetReader(file)).GetReader(HEADER_FILE_TAG));
-  m_model.AddWorldRect(header.GetBounds());
-
   threads::MutexGuard lock(m_modelSyn);
+
+  m_model.AddWorldRect(GetMapBounds(FilesContainerR(GetPlatform().GetReader(file))));
   m_model.AddMap(file);
 }
 

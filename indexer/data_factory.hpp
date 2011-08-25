@@ -18,3 +18,5 @@ public:
 
   IntervalIndexIFace * CreateIndex(ModelReaderPtr reader);
 };
+
+m2::RectD GetMapBounds(FilesContainerR const & cont);

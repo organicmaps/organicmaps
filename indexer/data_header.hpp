@@ -40,6 +40,17 @@ namespace feature
     //@{
     void Save(FileWriter & w) const;
     void Load(ModelReaderPtr const & r);
+
+    void LoadVer1(ModelReaderPtr const & r);
     //@}
+
+    enum Version {
+      v1,     // April 2011
+      v2      // September 2011
+    };
+    inline Version GetVersion() const { return m_ver; }
+
+  private:
+    Version m_ver;
   };
 }

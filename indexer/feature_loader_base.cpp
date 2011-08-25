@@ -4,6 +4,8 @@
 #include "feature_loader.hpp"
 #include "feature_impl.hpp"
 
+#include "old/feature_loader_101.hpp"
+
 #include "../defines.hpp"
 
 #include "../coding/byte_stream.hpp"
@@ -40,7 +42,20 @@ SharedLoadInfo::ReaderT SharedLoadInfo::GetTrianglesReader(int ind) const
 
 LoaderBase * SharedLoadInfo::CreateLoader() const
 {
-  return new LoaderCurrent(*this);
+  LoaderBase * p;
+
+  switch (m_header.GetVersion())
+  {
+  case DataHeader::v1:
+    p = new old_101::feature::LoaderImpl(*this);
+    break;
+
+  default:
+    p = new LoaderCurrent(*this);
+    break;
+  }
+
+  return p;
 }
 
 

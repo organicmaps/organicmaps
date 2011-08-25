@@ -17,6 +17,12 @@ namespace feature
   class LoaderCurrent;
 }
 
+namespace old_101 { namespace feature
+{
+  class LoaderImpl;
+}}
+
+
 /// Base feature class for storing common data (without geometry).
 class FeatureBase
 {
@@ -138,6 +144,7 @@ protected:
   mutable bool m_bTypesParsed, m_bCommonParsed;
 
   friend class feature::LoaderCurrent;
+  friend class old_101::feature::LoaderImpl;
 };
 
 /// Working feature class with geometry.
@@ -269,4 +276,15 @@ private:
   mutable inner_geom_stat_t m_InnerStats;
 
   friend class feature::LoaderCurrent;
+  friend class old_101::feature::LoaderImpl;
 };
+
+namespace feature
+{
+  template <class TCont>
+  void CalcRect(TCont const & points, m2::RectD & rect)
+  {
+    for (size_t i = 0; i < points.size(); ++i)
+      rect.Add(points[i]);
+  }
+}

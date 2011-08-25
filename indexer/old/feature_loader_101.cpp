@@ -1,61 +1,122 @@
-#include "../base/SRC_FIRST.hpp"
+#include "../../base/SRC_FIRST.hpp"
 
-#include "feature_loader.hpp"
-#include "feature.hpp"
-#include "scales.hpp"
-#include "geometry_serialization.hpp"
-#include "classificator.hpp"
+#include "feature_loader_101.hpp"
 
-#include "../geometry/pointu_to_uint64.hpp"
+#include "../feature.hpp"
+#include "../scales.hpp"
+#include "../geometry_serialization.hpp"
+#include "../coding_params.hpp"
 
-#include "../coding/byte_stream.hpp"
+#include "../../coding/byte_stream.hpp"
 
-#include "../base/start_mem_debug.hpp"
+#include "../../base/start_mem_debug.hpp"
 
 
-namespace feature
+namespace old_101 { namespace feature {
+
+
+uint8_t LoaderImpl::GetHeader()
 {
+  uint8_t const h = Header();
 
-uint8_t LoaderCurrent::GetHeader()
-{
-  return Header();
+  uint8_t header = static_cast<uint8_t>((h & 7) - 1);
+
+  if (h & HEADER_HAS_NAME)
+    header |= ::feature::HEADER_HAS_NAME;
+
+  if (h & HEADER_HAS_LAYER)
+    header |= ::feature::HEADER_HAS_LAYER;
+
+  if (h & HEADER_IS_LINE)
+    header |= ::feature::HEADER_GEOM_LINE;
+
+  if (h & HEADER_IS_AREA)
+    header |= ::feature::HEADER_GEOM_AREA;
+
+  return header;
 }
 
-void LoaderCurrent::ParseTypes()
+void LoaderImpl::ParseTypes()
 {
-  Classificator & c = classif();
-
   ArrayByteSource source(DataPtr() + m_TypesOffset);
 
   size_t const count = m_pF->GetTypesCount();
   for (size_t i = 0; i < count; ++i)
-    m_pF->m_Types[i] = c.GetTypeForIndex(ReadVarUint<uint32_t>(source));
+    m_pF->m_Types[i] = ReadVarUint<uint32_t>(source);
 
   m_CommonOffset = CalcOffset(source);
 }
 
-void LoaderCurrent::ParseCommon()
+void LoaderImpl::ParseCommon()
 {
   ArrayByteSource source(DataPtr() + m_CommonOffset);
 
   uint8_t const h = Header();
 
-  EGeomType const type = m_pF->GetFeatureType();
+  if (h & HEADER_HAS_LAYER)
+    m_pF->m_Params.layer = ReadVarInt<int32_t>(source);
 
-  m_pF->m_Params.Read(source, h, type);
-
-  if (type == GEOM_POINT)
+  if (h & HEADER_HAS_NAME)
   {
-    serial::CodingParams const & cp = GetCodingParams();
+    string name;
+    name.resize(ReadVarUint<uint32_t>(source) + 1);
+    source.Read(&name[0], name.size());
+    m_pF->m_Params.name.AddString(0, name);
+  }
 
-    CoordPointT const center = PointU2PointD(
-          DecodeDelta(ReadVarUint<uint64_t>(source), cp.GetBasePoint()), cp.GetCoordBits());
+  if (h & HEADER_HAS_POINT)
+  {
+    CoordPointT const center = Int64ToPoint(
+          ReadVarInt<int64_t>(source) + m_Info.GetCodingParams().GetBasePointInt64(), POINT_COORD_BITS);
 
     m_pF->m_Center = m2::PointD(center.first, center.second);
     m_pF->m_LimitRect.Add(m_pF->m_Center);
   }
 
   m_Header2Offset = CalcOffset(source);
+}
+
+namespace
+{
+    uint32_t const kInvalidOffset = uint32_t(-1);
+}
+
+int LoaderImpl::GetScaleIndex(int scale) const
+{
+  int const count = m_Info.GetScalesCount();
+  if (scale == -1) return count-1;
+
+  for (int i = 0; i < count; ++i)
+    if (scale <= m_Info.GetScale(i))
+      return i;
+  return -1;
+}
+
+int LoaderImpl::GetScaleIndex(int scale, offsets_t const & offsets) const
+{
+  if (scale == -1)
+  {
+    // Choose the best geometry for the last visible scale.
+    int i = offsets.size()-1;
+    while (i >= 0 && offsets[i] == kInvalidOffset) --i;
+    if (i >= 0)
+      return i;
+    else
+      CHECK ( false, ("Feature should have any geometry ...") );
+  }
+  else
+  {
+    for (size_t i = 0; i < m_Info.GetScalesCount(); ++i)
+      if (scale <= m_Info.GetScale(i))
+      {
+        if (offsets[i] != kInvalidOffset)
+          return i;
+        else
+          break;
+      }
+  }
+
+  return -1;
 }
 
 namespace
@@ -104,15 +165,14 @@ namespace
   }
 }
 
-void LoaderCurrent::ParseHeader2()
+void LoaderImpl::ParseHeader2()
 {
   uint8_t ptsCount, ptsMask, trgCount, trgMask;
 
+  uint8_t const commonH = Header();
   BitSource bitSource(DataPtr() + m_Header2Offset);
 
-  uint8_t const h = (Header() & HEADER_GEOTYPE_MASK);
-
-  if (h & HEADER_GEOM_LINE)
+  if (commonH & HEADER_IS_LINE)
   {
     ptsCount = bitSource.Read(4);
     if (ptsCount == 0)
@@ -123,7 +183,7 @@ void LoaderCurrent::ParseHeader2()
     }
   }
 
-  if (h & HEADER_GEOM_AREA)
+  if (commonH & HEADER_IS_AREA)
   {
     trgCount = bitSource.Read(4);
     if (trgCount == 0)
@@ -132,7 +192,7 @@ void LoaderCurrent::ParseHeader2()
 
   ArrayByteSource src(bitSource.RoundPtr());
 
-  if (h & HEADER_GEOM_LINE)
+  if (commonH & HEADER_IS_LINE)
   {
     if (ptsCount > 0)
     {
@@ -147,7 +207,8 @@ void LoaderCurrent::ParseHeader2()
 
       char const * start = static_cast<char const *>(src.Ptr());
 
-      src = ArrayByteSource(serial::LoadInnerPath(src.Ptr(), ptsCount, GetCodingParams(), m_pF->m_Points));
+      src = ArrayByteSource(serial::LoadInnerPath(
+                              src.Ptr(), ptsCount, m_Info.GetCodingParams(), m_pF->m_Points));
 
       m_pF->m_InnerStats.m_Points = static_cast<char const *>(src.Ptr()) - start;
     }
@@ -155,7 +216,7 @@ void LoaderCurrent::ParseHeader2()
       ReadOffsets(src, ptsMask, m_ptsOffsets);
   }
 
-  if (h & HEADER_GEOM_AREA)
+  if (commonH & HEADER_IS_AREA)
   {
     if (trgCount > 0)
     {
@@ -164,7 +225,8 @@ void LoaderCurrent::ParseHeader2()
       char const * start = static_cast<char const *>(src.Ptr());
 
       FeatureType::points_t points;
-      src = ArrayByteSource(serial::LoadInnerTriangles(src.Ptr(), trgCount, GetCodingParams(), points));
+      src = ArrayByteSource(serial::LoadInnerTriangles(
+                              src.Ptr(), trgCount, m_Info.GetCodingParams(), points));
 
       m_pF->m_InnerStats.m_Strips = static_cast<char const *>(src.Ptr()) - start;
 
@@ -182,10 +244,10 @@ void LoaderCurrent::ParseHeader2()
   m_pF->m_InnerStats.m_Size = static_cast<char const *>(src.Ptr()) - DataPtr();
 }
 
-uint32_t LoaderCurrent::ParseGeometry(int scale)
+uint32_t LoaderImpl::ParseGeometry(int scale)
 {
   uint32_t sz = 0;
-  if (Header() & HEADER_GEOM_LINE)
+  if (Header() & HEADER_IS_LINE)
   {
     if (m_pF->m_Points.empty())
     {
@@ -195,7 +257,7 @@ uint32_t LoaderCurrent::ParseGeometry(int scale)
       {
         ReaderSource<FilesContainerR::ReaderT> src(m_Info.GetGeometryReader(ind));
         src.Skip(m_ptsOffsets[ind]);
-        serial::LoadOuterPath(src, GetCodingParams(), m_pF->m_Points);
+        serial::LoadOuterPath(src, m_Info.GetCodingParams(), m_pF->m_Points);
 
         sz = static_cast<uint32_t>(src.Pos() - m_ptsOffsets[ind]);
       }
@@ -212,7 +274,7 @@ uint32_t LoaderCurrent::ParseGeometry(int scale)
       ASSERT_LESS ( scaleIndex, m_Info.GetScalesCount(), () );
 
       points.push_back(m_pF->m_Points.front());
-      for (int i = 1; i < count-1; ++i)
+      for (size_t i = 1; i < count-1; ++i)
       {
         // check for point visibility in needed scaleIndex
         if (((m_ptsSimpMask >> (2*(i-1))) & 0x3) <= scaleIndex)
@@ -223,16 +285,16 @@ uint32_t LoaderCurrent::ParseGeometry(int scale)
       m_pF->m_Points.swap(points);
     }
 
-    CalcRect(m_pF->m_Points, m_pF->m_LimitRect);
+    ::feature::CalcRect(m_pF->m_Points, m_pF->m_LimitRect);
   }
 
   return sz;
 }
 
-uint32_t LoaderCurrent::ParseTriangles(int scale)
+uint32_t LoaderImpl::ParseTriangles(int scale)
 {
   uint32_t sz = 0;
-  if (Header() & HEADER_GEOM_AREA)
+  if (Header() & HEADER_IS_AREA)
   {
     if (m_pF->m_Triangles.empty())
     {
@@ -241,24 +303,19 @@ uint32_t LoaderCurrent::ParseTriangles(int scale)
       {
         ReaderSource<FilesContainerR::ReaderT> src(m_Info.GetTrianglesReader(ind));
         src.Skip(m_trgOffsets[ind]);
-        serial::LoadOuterTriangles(src, GetCodingParams(), m_pF->m_Triangles);
+        serial::LoadOuterTriangles(src, m_Info.GetCodingParams(), m_pF->m_Triangles);
 
         sz = static_cast<uint32_t>(src.Pos() - m_trgOffsets[ind]);
       }
     }
 
-    CalcRect(m_pF->m_Triangles, m_pF->m_LimitRect);
+    ::feature::CalcRect(m_pF->m_Triangles, m_pF->m_LimitRect);
   }
 
   return sz;
 }
 
-namespace
-{
-    uint32_t const kInvalidOffset = uint32_t(-1);
-}
-
-void LoaderCurrent::ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets) const
+void LoaderImpl::ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets) const
 {
   ASSERT_GREATER ( mask, 0, () );
 
@@ -269,64 +326,7 @@ void LoaderCurrent::ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t &
     offsets[index++] = (mask & 0x01) ? ReadVarUint<uint32_t>(src) : kInvalidOffset;
     mask = mask >> 1;
   }
-
-  while (index < offsets.size())
-    offsets[index++] = kInvalidOffset;
 }
 
-int LoaderCurrent::GetScaleIndex(int scale) const
-{
-  int const count = m_Info.GetScalesCount();
-
-  switch (scale)
-  {
-  case -2: return 0;
-  case -1: return count-1;
-  default:
-    for (int i = 0; i < count; ++i)
-      if (scale <= m_Info.GetScale(i))
-        return i;
-    return -1;
-  }
 }
-
-int LoaderCurrent::GetScaleIndex(int scale, offsets_t const & offsets) const
-{
-  int ind = -1;
-  int const count = static_cast<int>(offsets.size());
-
-  switch (scale)
-  {
-  case -2:
-    // Choose the worst existing geometry.
-    ind = count-1;
-    while (ind >= 0 && offsets[ind] == kInvalidOffset) --ind;
-    break;
-
-  case -1:
-    // Choose the best geometry for the last visible scale.
-    ind = 0;
-    while (ind < count && offsets[ind] == kInvalidOffset) ++ind;
-    break;
-
-  default:
-    {
-      int const count = m_Info.GetScalesCount();
-      for (int i = 0; i < count; ++i)
-      {
-        if (scale <= m_Info.GetScale(i))
-          return (offsets[i] != kInvalidOffset ? i : -1);
-      }
-    }
-  }
-
-  if (ind >= 0 && ind < count)
-    return ind;
-  else
-  {
-    CHECK ( false, ("Feature should have any geometry ...") );
-    return -1;
-  }
-}
-
 }

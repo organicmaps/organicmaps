@@ -39,11 +39,4 @@ namespace feature
     str += arrChar[ind];
     return str;
   }
-
-  template <class TCont>
-  void CalcRect(TCont const & points, m2::RectD & rect)
-  {
-    for (size_t i = 0; i < points.size(); ++i)
-      rect.Add(points[i]);
-  }
 }
