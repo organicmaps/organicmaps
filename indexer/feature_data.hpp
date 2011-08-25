@@ -127,6 +127,8 @@ struct FeatureParamsBase
 
 class FeatureParams : public FeatureParamsBase
 {
+  typedef FeatureParamsBase BaseT;
+
   bool m_geomTypes[3];
 
 public:
@@ -182,6 +184,26 @@ public:
     for (size_t i = 0; i < m_Types.size(); ++i)
       WriteVarUint(sink, c.GetIndexForType(m_Types[i]));
 
-    FeatureParamsBase::Write(sink, header, GetGeomType());
+    BaseT::Write(sink, header, GetGeomType());
+  }
+
+  template <class TSrc> void Read(TSrc & src)
+  {
+    using namespace feature;
+
+    uint8_t const header = ReadPrimitiveFromSource<uint8_t>(src);
+
+    uint8_t const type = (header & HEADER_GEOTYPE_MASK);
+    if (type & HEADER_GEOM_LINE) SetGeomType(GEOM_LINE);
+    if (type & HEADER_GEOM_AREA) SetGeomType(GEOM_AREA);
+    if (type == HEADER_GEOM_POINT) SetGeomType(GEOM_POINT);
+
+    Classificator & c = classif();
+
+    size_t const count = (header & HEADER_TYPE_MASK) + 1;
+    for (size_t i = 0; i < count; ++i)
+      m_Types.push_back(c.GetTypeForIndex(ReadVarUint<uint32_t>(src)));
+
+    BaseT::Read(src, header, GetGeomType());
   }
 };

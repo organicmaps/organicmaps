@@ -1,22 +1,21 @@
 #pragma once
-
 #include "cell_id.hpp"
-#include "data_header.hpp"
 #include "feature_data.hpp"
 
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 
-#include "../coding/file_container.hpp"
-
-#include "../base/base.hpp"
 #include "../base/buffer_vector.hpp"
 
 #include "../std/string.hpp"
-#include "../std/bind.hpp"
+#include "../std/shared_ptr.hpp"
 
 
-class ArrayByteSource;
+namespace feature
+{
+  class LoaderBase;
+  class LoaderCurrent;
+}
 
 /// Base feature class for storing common data (without geometry).
 class FeatureBase
@@ -24,9 +23,16 @@ class FeatureBase
   static const int m_maxTypesCount = feature::max_types_count;
 
 public:
-  FeatureBase() : m_Offset(0) {}
 
-  typedef vector<char> buffer_t;
+  typedef char const * BufferT;
+
+  void Deserialize(feature::LoaderBase * pLoader, BufferT buffer);
+
+  /// @name Parse functions. Do simple dispatching to m_pLoader.
+  //@{
+  void ParseTypes() const;
+  void ParseCommon() const;
+  //@}
 
   feature::EGeomType GetFeatureType() const;
 
@@ -40,9 +46,7 @@ public:
     if (!(Header() & feature::HEADER_HAS_LAYER))
       return 0;
 
-    if (!m_bCommonParsed)
-      ParseCommon();
-
+    ParseCommon();
     return m_Params.layer;
   }
 
@@ -73,9 +77,7 @@ public:
     if (!HasName())
       return false;
 
-    if (!m_bCommonParsed)
-      ParseCommon();
-
+    ParseCommon();
     m_Params.name.ForEachRef(functor);
     return true;
   }
@@ -102,37 +104,28 @@ public:
   template <typename FunctorT>
   void ForEachTypeRef(FunctorT & f) const
   {
-    if (!m_bTypesParsed)
-      ParseTypes();
+    ParseTypes();
 
-    uint32_t const typeCount = GetTypesCount();
-    for (size_t i = 0; i < typeCount; ++i)
+    uint32_t const count = GetTypesCount();
+    for (size_t i = 0; i < count; ++i)
       f(m_Types[i]);
   }
 
-  /// @name Statistic functions.
+protected:
+  /// @name Need for FeatureBuilder.
   //@{
-  uint32_t GetTypesSize() const { return m_CommonOffset - m_TypesOffset; }
+  friend class FeatureBuilder1;
+  inline void SetHeader(uint8_t h) { m_Header = h; }
   //@}
 
-  FeatureParams GetFeatureParams() const;
-  inline m2::PointD GetCenter() const { return m_Center; }
-
-protected:
-  void Deserialize(buffer_t & data, uint32_t offset, serial::CodingParams const & params);
   string DebugString() const;
 
+  inline uint8_t Header() const { return m_Header; }
+
 protected:
-  buffer_t m_Data;
-  uint32_t m_Offset;
+  shared_ptr<feature::LoaderBase> m_pLoader;
 
-  friend class FeatureBuilder1;
-
-  void SetHeader(uint8_t h);
-
-  inline char const * DataPtr() const { return &m_Data[m_Offset]; }
-  inline uint8_t Header() const { return static_cast<uint8_t>(*DataPtr()); }
-  uint32_t CalcOffset(ArrayByteSource const & source) const;
+  uint8_t m_Header;
 
   mutable uint32_t m_Types[m_maxTypesCount];
 
@@ -142,17 +135,9 @@ protected:
 
   mutable m2::RectD m_LimitRect;
 
-  serial::CodingParams m_CodingParams;
-
-  static uint32_t const m_TypesOffset = 1;
-  mutable uint32_t m_CommonOffset, m_Header2Offset;
-
   mutable bool m_bTypesParsed, m_bCommonParsed;
 
-  void ParseTypes() const;
-  void ParseCommon() const;
-
-  void ParseAll() const;
+  friend class feature::LoaderCurrent;
 };
 
 /// Working feature class with geometry.
@@ -161,34 +146,14 @@ class FeatureType : public FeatureBase
   typedef FeatureBase base_type;
 
 public:
-  struct read_source_t
-  {
-    FilesContainerR m_cont;
+  void Deserialize(feature::LoaderBase * pLoader, BufferT buffer);
 
-    buffer_t m_data;
-    uint32_t m_offset;
-
-    feature::DataHeader m_header;
-
-    read_source_t(FilesContainerR const & cont)
-      : m_cont(cont), m_offset(0)
-    {
-    }
-
-    void assign(char const * data, uint32_t size)
-    {
-      m_data.assign(data, data + size);
-    }
-  };
-
-  FeatureType() {}
-  FeatureType(read_source_t & src);
-
-  /// @param priorities optional array of languages priorities
-  /// if NULL, default (0) lang will be used
-  string GetPreferredDrawableName(int8_t const * priorities = NULL) const;
-
-  void Deserialize(read_source_t & src);
+  /// @name Parse functions. Do simple dispatching to m_pLoader.
+  //@{
+  void ParseHeader2() const;
+  uint32_t ParseGeometry(int scale) const;
+  uint32_t ParseTriangles(int scale) const;
+  //@}
 
   /// @name Geometry.
   //@{
@@ -199,8 +164,7 @@ public:
   template <typename FunctorT>
   void ForEachPointRef(FunctorT & f, int scale) const
   {
-    if (!m_bPointsParsed)
-      ParseGeometry(scale);
+    ParseGeometry(scale);
 
     if (m_Points.empty())
     {
@@ -224,8 +188,7 @@ public:
   template <typename FunctorT>
   void ForEachTriangleRef(FunctorT & f, int scale) const
   {
-    if (!m_bTrianglesParsed)
-      ParseTriangles(scale);
+    ParseTriangles(scale);
 
     for (size_t i = 0; i < m_Triangles.size();)
     {
@@ -246,18 +209,21 @@ public:
   /// For test cases only.
   string DebugString(int scale) const;
 
+  /// @param priorities optional array of languages priorities
+  /// if NULL, default (0) lang will be used
+  string GetPreferredDrawableName(int8_t const * priorities = NULL) const;
+
   uint32_t GetPopulation() const;
   double GetPopulationDrawRank() const;
   uint8_t GetSearchRank() const;
 
-  string GetRoadNumber() const { return m_Params.ref; }
+  inline string GetRoadNumber() const { return m_Params.ref; }
 
   /// @name Statistic functions.
   //@{
-  void ParseBeforeStatistic() const
+  inline void ParseBeforeStatistic() const
   {
-    if (!m_bHeader2Parsed)
-      ParseHeader2();
+    ParseHeader2();
   }
 
   struct inner_geom_stat_t
@@ -289,10 +255,6 @@ public:
   //@}
 
 private:
-  void ParseHeader2() const;
-  uint32_t ParseGeometry(int scale) const;
-  uint32_t ParseTriangles(int scale) const;
-
   void ParseAll(int scale) const;
 
   // For better result this value should be greater than 17
@@ -302,29 +264,9 @@ private:
   typedef buffer_vector<m2::PointD, static_buffer> points_t;
   mutable points_t m_Points, m_Triangles;
 
-  FilesContainerR * m_cont;
-
-  feature::DataHeader const * m_header;
-
   mutable bool m_bHeader2Parsed, m_bPointsParsed, m_bTrianglesParsed;
 
   mutable inner_geom_stat_t m_InnerStats;
 
-  mutable uint32_t m_ptsSimpMask;
-
-  typedef array<uint32_t, 4> offsets_t; // should be synchronized with ARRAY_SIZE(g_arrScales)
-
-  void ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets) const;
-
-  /// Get the index for geometry serialization.
-  /// @param[in]  scale:
-  /// -1 : index for the best geometry
-  /// -2 : index for the worst geometry
-  /// default : needed geometry
-  //@{
-  int GetScaleIndex(int scale) const;
-  int GetScaleIndex(int scale, offsets_t const & offset) const;
-  //@}
-
-  mutable offsets_t m_ptsOffsets, m_trgOffsets;
+  friend class feature::LoaderCurrent;
 };

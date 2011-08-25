@@ -2,8 +2,11 @@
 #include "point_to_int64.hpp"
 #include "scales.hpp"
 
+#include "../defines.hpp"
+
 #include "../coding/file_reader.hpp"
 #include "../coding/file_writer.hpp"
+#include "../coding/file_container.hpp"
 #include "../coding/write_to_sink.hpp"
 #include "../coding/varint.hpp"
 
@@ -12,15 +15,6 @@
 
 namespace feature
 {
-  DataHeader::DataHeader()
-  {
-    Reset();
-  }
-
-  void DataHeader::Reset()
-  {
-  }
-
   m2::RectD const DataHeader::GetBounds() const
   {
     return Int64ToRect(m_bounds, m_codingParams.GetCoordBits());
@@ -76,5 +70,10 @@ namespace feature
     m_bounds.second = ReadPrimitiveFromSource<int64_t>(src);
 
     src.Read(m_scales.data(), m_scales.size());
+  }
+
+  void DataHeader::LoadForVersion(FilesContainerR const & cont)
+  {
+    Load(cont.GetReader(HEADER_FILE_TAG));
   }
 }

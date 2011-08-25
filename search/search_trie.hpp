@@ -1,4 +1,6 @@
 #pragma once
+#include "../defines.hpp"
+
 #include "../indexer/features_vector.hpp"
 
 #include "../coding/reader.hpp"
@@ -50,8 +52,8 @@ struct EdgeValueReader
     scoped_ptr<TrieIterator> m_iterator;
 
   public:
-    SearchInfo(FilesContainerR const & cont)
-      : m_features(cont),
+    SearchInfo(FilesContainerR const & cont, feature::DataHeader const & header)
+      : m_features(cont, header),
         m_iterator(::trie::reader::ReadTrie(
                         cont.GetReader(SEARCH_INDEX_FILE_TAG),
                         trie::ValueReader(),

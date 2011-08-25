@@ -1,76 +1,56 @@
 #pragma once
 #include "feature.hpp"
-
-#include "../defines.hpp"
+#include "feature_loader_base.hpp"
 
 #include "../coding/var_record_reader.hpp"
 
-#include "../base/logging.hpp"
 
-
-struct FeatureReaders
-{
-  FilesContainerR m_cont;
-  FilesContainerR::ReaderT m_datR;
-
-  FeatureReaders(FilesContainerR const & cont)
-    : m_cont(cont), m_datR(cont.GetReader(DATA_FILE_TAG))
-  {
-  }
-};
-
+/// Note! This class is NOT Thread-Safe.
+/// You should have separate instance of Vector for every thread.
 class FeaturesVector
 {
 public:
-  FeaturesVector(FeatureReaders const & dataR)
-    : m_RecordReader(dataR.m_datR, 256), m_source(dataR.m_cont)
+  FeaturesVector(FilesContainerR const & cont, feature::DataHeader const & header)
+    : m_LoadInfo(cont, header), m_RecordReader(m_LoadInfo.GetDataReader(), 256)
   {
-    m_source.m_header.Load(dataR.m_cont.GetReader(HEADER_FILE_TAG));
   }
 
-  void Get(uint64_t pos, FeatureType & feature) const
+  void Get(uint64_t pos, FeatureType & ft) const
   {
-    m_RecordReader.ReadRecord(pos, m_source.m_data, m_source.m_offset);
-    feature.Deserialize(m_source);
+    uint32_t offset;
+    m_RecordReader.ReadRecord(pos, m_buffer, offset);
+
+    ft.Deserialize(m_LoadInfo.CreateLoader(), &m_buffer[offset]);
   }
 
   template <class ToDo> void ForEachOffset(ToDo toDo) const
   {
-    m_RecordReader.ForEachRecord(feature_getter<ToDo>(toDo, m_source));
+    m_RecordReader.ForEachRecord(DoGetFeatures<ToDo>(m_LoadInfo, toDo));
   }
 
-  //template <class TDo> void ForEach(TDo const & toDo) const
-  //{
-  //  FeatureType f;
-  //  m_RecordReader.ForEachRecord(
-  //      bind<void>(toDo, bind(&FeaturesVector<ReaderT>::DeserializeFeature, this, _2, _3, &f)));
-  //}
-
-  //bool IsMyData(string const & fName) const
-  //{
-  //  return m_RecordReader.IsEqual(fName);
-  //}
-
 private:
-  template <class ToDo> class feature_getter
+  template <class ToDo> class DoGetFeatures
   {
+    feature::SharedLoadInfo const & m_loadInfo;
     ToDo & m_toDo;
-    FeatureType::read_source_t & m_source;
 
   public:
-    feature_getter(ToDo & toDo, FeatureType::read_source_t & src)
-      : m_toDo(toDo), m_source(src)
+    DoGetFeatures(feature::SharedLoadInfo const & loadInfo, ToDo & toDo)
+      : m_loadInfo(loadInfo), m_toDo(toDo)
     {
     }
-    void operator() (uint32_t pos, char const * data, uint32_t size) const
+
+    void operator() (uint32_t pos, char const * data, uint32_t /*size*/) const
     {
-      FeatureType f;
-      m_source.assign(data, size);
-      f.Deserialize(m_source);
-      m_toDo(f, pos);
+      FeatureType ft;
+      ft.Deserialize(m_loadInfo.CreateLoader(), data);
+
+      m_toDo(ft, pos);
     }
   };
 
+private:
+  feature::SharedLoadInfo m_LoadInfo;
   VarRecordReader<FilesContainerR::ReaderT, &VarRecordSizeReaderVarint> m_RecordReader;
-  mutable FeatureType::read_source_t m_source;
+  mutable vector<char> m_buffer;
 };

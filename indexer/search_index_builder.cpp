@@ -1,12 +1,20 @@
 #include "search_index_builder.hpp"
 #include "features_vector.hpp"
+
+#include "../defines.hpp"
+
 #include "../search/search_trie.hpp"
 #include "../search/string_search_utils.hpp"
+
 #include "../coding/trie_builder.hpp"
 #include "../coding/writer.hpp"
+
 #include "../base/string_utils.hpp"
+#include "../base/logging.hpp"
+
 #include "../std/algorithm.hpp"
 #include "../std/vector.hpp"
+
 
 namespace
 {
@@ -89,7 +97,11 @@ bool indexer::BuildSearchIndexFromDatFile(string const & datFile)
   try
   {
     FilesContainerR readCont(datFile);
-    FeaturesVector featuresVector(readCont);
+
+    feature::DataHeader header;
+    header.Load(readCont.GetReader(HEADER_FILE_TAG));
+
+    FeaturesVector featuresVector(readCont, header);
 
     FilesContainerW writeCont(datFile, FileWriter::OP_APPEND);
 
@@ -114,4 +126,3 @@ bool indexer::BuildSearchIndexFromDatFile(string const & datFile)
 
   return true;
 }
-

@@ -1,6 +1,12 @@
 #pragma once
 #include "../indexer/feature.hpp"
 
+#include "../coding/file_reader.hpp"
+
+#include "../std/bind.hpp"
+
+
+namespace serial { class CodingParams; }
 
 /// Used for serialization\deserialization of features during --generate_features.
 class FeatureBuilder1
@@ -73,7 +79,6 @@ public:
   inline void SetParams(FeatureParams const & params) { m_Params = params; }
 
 protected:
-  void InitFeatureBuilder(FeatureBase const & ft);
 
   /// @name For diagnostic use only.
   //@{
@@ -150,12 +155,12 @@ namespace feature
 {
   /// Read feature from feature source.
   template <class TSource>
-  void ReadFromSourceRowFormat(TSource & src, FeatureBuilder1 & f)
+  void ReadFromSourceRowFormat(TSource & src, FeatureBuilder1 & fb)
   {
    uint32_t const sz = ReadVarUint<uint32_t>(src);
    typename FeatureBuilder1::buffer_t buffer(sz);
    src.Read(&buffer[0], sz);
-   f.Deserialize(buffer);
+   fb.Deserialize(buffer);
   }
 
   /// Process features in .dat file.
@@ -171,9 +176,9 @@ namespace feature
    // read features one by one
    while (currPos < fSize)
    {
-     FeatureBuilder1 f;
-     ReadFromSourceRowFormat(src, f);
-     toDo(f, currPos);
+     FeatureBuilder1 fb;
+     ReadFromSourceRowFormat(src, fb);
+     toDo(fb, currPos);
      currPos = src.Pos();
    }
   }

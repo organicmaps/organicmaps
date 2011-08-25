@@ -27,7 +27,11 @@ UNIT_TEST(BuildIndexTest)
   // Build index.
   vector<char> serialIndex;
   {
-    FeaturesVector featuresVector(originalContainer);
+    feature::DataHeader header;
+    header.Load(originalContainer.GetReader(HEADER_FILE_TAG));
+
+    FeaturesVector featuresVector(originalContainer, header);
+
     MemWriter<vector<char> > serialWriter(serialIndex);
     indexer::BuildIndex(ScaleIndexBase::NUM_BUCKETS, featuresVector, serialWriter,
                         "build_index_test");

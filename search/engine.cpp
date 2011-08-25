@@ -5,6 +5,8 @@
 
 #include "../platform/concurrent_runner.hpp"
 
+#include "../base/logging.hpp"
+
 #include "../std/function.hpp"
 #include "../std/string.hpp"
 #include "../std/vector.hpp"

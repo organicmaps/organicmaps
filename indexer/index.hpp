@@ -267,11 +267,10 @@ private:
       : m_action(INDEX_DO_NOTHING), m_file(file), m_lockCount(0),
         m_queriesSkipped(0)
     {
-      feature::DataHeader header;
-      header.Load(FilesContainerR(GetPlatform().GetReader(m_file)).GetReader(HEADER_FILE_TAG));
+      m_header.LoadForVersion(FilesContainerR(GetPlatform().GetReader(m_file)));
 
-      m_rect = header.GetBounds();
-      m_scaleRange = header.GetScaleRange();
+      m_rect = m_header.GetBounds();
+      m_scaleRange = m_header.GetScaleRange();
     }
 
     IndexT * Lock(int scale, m2::RectD const & occlusionRect)
@@ -322,7 +321,7 @@ private:
 
     search::SearchInfo * GetSearchInfo() const
     {
-      return new search::SearchInfo(FilesContainerR(GetPlatform().GetReader(m_file)));
+      return new search::SearchInfo(FilesContainerR(GetPlatform().GetReader(m_file)), m_header);
     }
 
     void CloseIfUnlocked()
@@ -357,8 +356,7 @@ private:
     {
       if (p == 0)
       {
-        FilesContainerR container(GetPlatform().GetReader(m_file));
-        p = new IndexT(container);
+        p = new IndexT(FilesContainerR(GetPlatform().GetReader(m_file)), m_header);
       }
     }
 
@@ -383,6 +381,8 @@ private:
     }
 
     string m_file;
+
+    feature::DataHeader m_header;
     m2::RectD m_rect;
     pair<int, int> m_scaleRange;
 
@@ -425,9 +425,8 @@ template <class FeatureVectorT, class BaseT> class OffsetToFeatureAdapter : publ
 public:
   typedef typename BaseT::Query Query;
 
-  explicit OffsetToFeatureAdapter(FilesContainerR const & container)
-  : BaseT(container.GetReader(INDEX_FILE_TAG)),
-    m_FeatureVector(container)
+  OffsetToFeatureAdapter(FilesContainerR const & cont, feature::DataHeader const & header)
+  : BaseT(cont.GetReader(INDEX_FILE_TAG)), m_FeatureVector(cont, header)
   {
   }
 

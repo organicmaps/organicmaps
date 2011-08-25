@@ -33,6 +33,8 @@ SOURCES += \
     types_mapping.cpp \
     search_index_builder.cpp \
     coding_params.cpp \
+    feature_loader_base.cpp \
+    feature_loader.cpp \
 
 HEADERS += \
     feature.hpp \
@@ -70,3 +72,5 @@ HEADERS += \
     types_mapping.hpp \
     search_index_builder.hpp \
     coding_params.hpp \
+    feature_loader_base.hpp \
+    feature_loader.hpp \

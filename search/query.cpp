@@ -4,11 +4,16 @@
 #include "latlon_match.hpp"
 #include "string_search_utils.hpp"
 #include "search_trie_matching.hpp"
+
 #include "../indexer/feature_visibility.hpp"
+
 #include "../base/exception.hpp"
 #include "../base/stl_add.hpp"
+#include "../base/logging.hpp"
+
 #include "../std/algorithm.hpp"
 #include "../std/scoped_ptr.hpp"
+
 
 namespace search
 {

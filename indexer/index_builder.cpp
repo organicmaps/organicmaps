@@ -3,7 +3,7 @@
 
 #include "../defines.hpp"
 
-#include "../coding/file_container.hpp"
+#include "../base/logging.hpp"
 
 
 namespace indexer
@@ -13,16 +13,16 @@ namespace indexer
     try
     {
       FilesContainerR readCont(datFile);
-      FeaturesVector featuresVector(readCont);
-
-      FilesContainerW writeCont(datFile, FileWriter::OP_APPEND);
-
-      FileWriter writer = writeCont.GetWriter(INDEX_FILE_TAG);
 
       feature::DataHeader header;
       header.Load(readCont.GetReader(HEADER_FILE_TAG));
 
-      BuildIndex(header.GetScale(header.GetScalesCount()-1) + 1, featuresVector, writer, tmpFile);
+      FeaturesVector featuresVector(readCont, header);
+
+      FilesContainerW writeCont(datFile, FileWriter::OP_APPEND);
+      FileWriter writer = writeCont.GetWriter(INDEX_FILE_TAG);
+
+      BuildIndex(header.GetLastScale() + 1, featuresVector, writer, tmpFile);
     }
     catch (Reader::Exception const & e)
     {

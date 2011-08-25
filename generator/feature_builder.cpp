@@ -5,6 +5,7 @@
 #include "../indexer/feature_impl.hpp"
 #include "../indexer/feature_visibility.hpp"
 #include "../indexer/geometry_serialization.hpp"
+#include "../indexer/coding_params.hpp"
 
 #include "../geometry/region2d.hpp"
 
@@ -208,21 +209,23 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
 
   data.clear();
 
-  SerializeBase(data, serial::CodingParams());
+  serial::CodingParams cp;
+
+  SerializeBase(data, cp);
 
   PushBackByteSink<buffer_t> sink(data);
 
   EGeomType const type = m_Params.GetGeomType();
 
   if (type != GEOM_POINT)
-    serial::SaveOuterPath(m_Geometry, serial::CodingParams(), sink);
+    serial::SaveOuterPath(m_Geometry, cp, sink);
 
   if (type == GEOM_AREA)
   {
     WriteVarUint(sink, uint32_t(m_Holes.size()));
 
     for (list<points_t>::const_iterator i = m_Holes.begin(); i != m_Holes.end(); ++i)
-      serial::SaveOuterPath(*i, serial::CodingParams(), sink);
+      serial::SaveOuterPath(*i, cp, sink);
   }
 
   // check for correct serialization
@@ -236,27 +239,33 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
 
 void FeatureBuilder1::Deserialize(buffer_t & data)
 {
-  FeatureBase f;
-  f.Deserialize(data, 0, serial::CodingParams());
-  InitFeatureBuilder(f);
+  serial::CodingParams cp;
 
-  ArrayByteSource src(f.DataPtr() + f.m_Header2Offset);
+  ArrayByteSource source(&data[0]);
+  m_Params.Read(source);
 
   EGeomType const type = m_Params.GetGeomType();
 
-  if (type != GEOM_POINT)
+  if (type == GEOM_POINT)
   {
-    serial::LoadOuterPath(src, serial::CodingParams(), m_Geometry);
-    CalcRect(m_Geometry, m_LimitRect);
+    CoordPointT const center = PointU2PointD(
+          DecodeDelta(ReadVarUint<uint64_t>(source), cp.GetBasePoint()), cp.GetCoordBits());
+
+    m_Center = m2::PointD(center.first, center.second);
+    m_LimitRect.Add(m_Center);
+    return;
   }
+
+  serial::LoadOuterPath(source, cp, m_Geometry);
+  CalcRect(m_Geometry, m_LimitRect);
 
   if (type == GEOM_AREA)
   {
-    uint32_t const count = ReadVarUint<uint32_t>(src);
+    uint32_t const count = ReadVarUint<uint32_t>(source);
     for (uint32_t i = 0; i < count; ++i)
     {
       m_Holes.push_back(points_t());
-      serial::LoadOuterPath(src, serial::CodingParams(), m_Holes.back());
+      serial::LoadOuterPath(source, cp, m_Holes.back());
     }
   }
 
@@ -401,18 +410,5 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
       reverse(data.m_trgOffset.begin(), data.m_trgOffset.end());
       serial::WriteVarUintArray(data.m_trgOffset, sink);
     }
-  }
-}
-
-void FeatureBuilder1::InitFeatureBuilder(FeatureBase const & ft)
-{
-  ft.ParseAll();
-
-  m_Params = ft.GetFeatureParams();
-
-  if (ft.GetFeatureType() == GEOM_POINT)
-  {
-    SetCenter(ft.GetCenter());
-    m_Params.SetGeomType(GEOM_POINT);
   }
 }

@@ -1,6 +1,9 @@
 #pragma once
 
+#include "data_header.hpp"
 #include "features_vector.hpp"
+
+#include "../defines.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/file_container.hpp"
@@ -14,7 +17,11 @@ namespace feature
   void ForEachFromDat(ModelReaderPtr reader, ToDo & toDo)
   {
     FilesContainerR container(reader);
-    FeaturesVector featureSource(container);
+
+    DataHeader header;
+    header.Load(container.GetReader(HEADER_FILE_TAG));
+
+    FeaturesVector featureSource(container, header);
     featureSource.ForEachOffset(bind<void>(ref(toDo), _1, _2));
   }
 

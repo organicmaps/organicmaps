@@ -6,15 +6,13 @@
 
 #include "../std/array.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
 
 class ModelReaderPtr;
 class FileWriter;
+class FilesContainerR;
 
 namespace feature
 {
-  /// All file sizes are in bytes
   class DataHeader
   {
     serial::CodingParams m_codingParams;
@@ -24,10 +22,6 @@ namespace feature
     array<uint8_t, 4> m_scales;
 
   public:
-    DataHeader();
-
-    /// Zero all fields
-    void Reset();
 
     void SetCodingParams(serial::CodingParams const & params) { m_codingParams = params; }
     serial::CodingParams const & GetCodingParams() const { return m_codingParams; }
@@ -36,16 +30,19 @@ namespace feature
     void SetBounds(m2::RectD const & r);
 
     void SetScales(int * arr);
-    size_t GetScalesCount() const { return m_scales.size(); }
-    int GetScale(int i) const { return m_scales[i]; }
+
+    inline size_t GetScalesCount() const { return m_scales.size(); }
+    inline int GetScale(int i) const { return m_scales[i]; }
+    inline int GetLastScale() const { return GetScale(GetScalesCount() - 1); }
+
     pair<int, int> GetScaleRange() const;
 
     /// @name Serialization
     //@{
     void Save(FileWriter & w) const;
     void Load(ModelReaderPtr const & r);
+
+    void LoadForVersion(FilesContainerR const & cont);
     //@}
   };
 }
-
-#include "../base/stop_mem_debug.hpp"
