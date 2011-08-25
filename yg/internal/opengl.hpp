@@ -54,11 +54,11 @@ namespace yg
 }
 
 #ifdef DEBUG
-#define OGLCHECK(f) do {if (!g_doFakeOpenGLCalls) { f; yg::gl::CheckError(SRC()); } } while(false)
-#define OGLCHECKAFTER if (!g_doFakeOpenGLCalls) yg::gl::CheckError(SRC())
+#define OGLCHECK(f) do {f; yg::gl::CheckError(SRC()); } while(false)
+#define OGLCHECKAFTER yg::gl::CheckError(SRC())
 #define EGLCHECK do {yg::gl::CheckEGLError(SRC());} while(false)
 #else
-#define OGLCHECK(f) if (!g_doFakeOpenGLCalls) f
+#define OGLCHECK(f) f
 #define OGLCHECKAFTER
 #define EGLCHECK
 #endif
