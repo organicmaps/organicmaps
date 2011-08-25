@@ -29,7 +29,7 @@ class DrawerYG;
 
 class TileRenderer
 {
-private:
+protected:
 
   core::CommandsQueue m_queue;
 
@@ -48,10 +48,13 @@ private:
 
   void InitializeThreadGL(core::CommandsQueue::Environment const & env);
   void FinalizeThreadGL(core::CommandsQueue::Environment const & env);
+  void CancelThread(core::CommandsQueue::Environment const & env);
 
-  void DrawTile(core::CommandsQueue::Environment const & env,
-                Tiler::RectInfo const & rectInfo,
-                int sequenceID);
+protected:
+
+  virtual void DrawTile(core::CommandsQueue::Environment const & env,
+                        Tiler::RectInfo const & rectInfo,
+                        int sequenceID);
 
 public:
 

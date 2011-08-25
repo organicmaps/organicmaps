@@ -17,8 +17,11 @@ namespace my
   class MRUCache
   {
   public:
+
     typedef MRUCache<KeyT, ValueT> this_type;
+
   private:
+
     MRUCache(this_type const & c);
     this_type & operator= (this_type const &);
 
@@ -44,6 +47,14 @@ namespace my
       : m_curWeight(0), m_maxWeight(maxWeight)
     {}
 
+    set<KeyT> const Keys() const
+    {
+      set<KeyT> keys;
+      for (typename map_t::const_iterator it = m_map.begin(); it != m_map.end(); ++it)
+        keys.insert(it->first);
+      return keys;
+    }
+
     bool HasElem(KeyT const & key)
     {
       return m_map.find(key) != m_map.end();
@@ -52,20 +63,28 @@ namespace my
     void LockElem(KeyT const & key)
     {
       ASSERT(HasElem(key), ());
-      ++m_map[key].m_lockCount;
+      m_map[key].m_lockCount += 1;
+    }
+
+    size_t LockCount(KeyT const & key)
+    {
+      ASSERT(HasElem(key), ());
+      return m_map[key].m_lockCount;
     }
 
     void UnlockElem(KeyT const & key)
     {
       ASSERT(HasElem(key), ());
       ASSERT(m_map[key].m_lockCount > 0, ());
-      --m_map[key].m_lockCount;
+      m_map[key].m_lockCount -= 1;
     }
 
     ValueT const & Find(KeyT const & key, bool DoTouch = true)
     {
       typename map_t::iterator it = m_map.find(key);
+
       ASSERT(it != m_map.end(), ());
+
       if (DoTouch)
       {
         typename list_t::iterator listIt = it->second.m_it;
@@ -74,6 +93,7 @@ namespace my
         m_list.push_front(k);
         it->second.m_it = m_list.begin();
       }
+
       return it->second.m_value;
     }
 
@@ -81,7 +101,9 @@ namespace my
     {
       if (!HasElem(key))
         return;
+
       typename map_t::iterator it = m_map.find(key);
+
       ASSERT(it != m_map.end(), ());
 
       typename list_t::iterator listIt = it->second.m_it;
@@ -102,6 +124,7 @@ namespace my
         m_curWeight -= it->second.m_weight;
         m_list.erase(it->second.m_it);
         ValueTraitsT::Evict(it->second.m_value);
+//        LOG(LINFO, ("removing : ", m_curWeight));
         m_map.erase(it);
       }
     }
@@ -114,8 +137,14 @@ namespace my
       if (!m_list.empty())
       {
         typename list<KeyT>::iterator it = (++m_list.rbegin()).base();
+
+        bool needToFree = false;
+
         while (m_curWeight + weight > m_maxWeight)
         {
+/*          if (!needToFree)
+            LOG(LINFO, ("freeing elements from ", m_curWeight));*/
+          needToFree = true;
           KeyT k = *it;
 
           /// erasing only unlocked elements
@@ -123,6 +152,7 @@ namespace my
           {
             m_curWeight -= m_map[k].m_weight;
             ValueTraitsT::Evict(m_map[k].m_value);
+//            LOG(LINFO, ("freeing lru elem : ", m_map[k].m_weight, m_curWeight));
             m_map.erase(k);
 
             typename list<KeyT>::iterator nextIt = it;
@@ -139,7 +169,12 @@ namespace my
             }
           }
           else
+          {
+            if (it == m_list.begin())
+              break;
+
             --it;
+          }
         }
       }
 
@@ -150,6 +185,7 @@ namespace my
       m_map[key].m_value = val;
       m_map[key].m_lockCount = 0;
       m_map[key].m_it = m_list.begin();
+
       m_curWeight += weight;
     }
 

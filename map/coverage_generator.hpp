@@ -30,7 +30,6 @@ private:
   TileRenderer * m_tileRenderer;
 
   ScreenCoverage * m_workCoverage;
-  ScreenCoverage * m_mergeCoverage;
   ScreenCoverage * m_currentCoverage;
 
   ScreenBase m_currentScreen;
@@ -59,5 +58,7 @@ public:
 
   void Initialize();
 
-  void CopyCurrentCoverage(ScreenCoverage & dst);
+  ScreenCoverage * CloneCurrentCoverage();
+
+  void WaitForEmptyAndFinished();
 };

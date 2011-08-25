@@ -8,6 +8,8 @@
 #include "../base/mru_cache.hpp"
 #include "../base/mutex.hpp"
 
+#include "../std/bind.hpp"
+
 class ResourceManager;
 
 class TileCache
@@ -24,10 +26,16 @@ public:
 
   struct EntryValueTraits
   {
+    static void PushBackAndLog(list<shared_ptr<yg::gl::BaseTexture> > & l, shared_ptr<yg::gl::BaseTexture> const & t)
+    {
+      l.push_back(t);
+//      LOG(LINFO, ("eviction, list size : ", l.size()));
+    }
+
     static void Evict(Entry & val)
     {
       if (val.m_rm)
-        val.m_rm->renderTargets().PushBack(val.m_tile.m_renderTarget);
+        val.m_rm->renderTargets().ProcessList(bind(&PushBackAndLog, _1, val.m_tile.m_renderTarget));
     }
   };
 
@@ -35,6 +43,9 @@ private:
 
   my::MRUCache<uint64_t, Entry, EntryValueTraits> m_cache;
   threads::Mutex m_lock;
+
+  TileCache(TileCache const & src);
+  TileCache const & operator=(TileCache const & src);
 
 public:
 
@@ -47,6 +58,8 @@ public:
   void writeLock();
   /// unlock for multithreaded WRITE access
   void writeUnlock();
+  /// get keys of values in cache
+  set<Tiler::RectInfo> const keys() const;
   /// add tile to cache
   void addTile(Tiler::RectInfo const & key, Entry const & entry);
   /// check, whether we have some tile in the cache
@@ -55,8 +68,11 @@ public:
   void lockTile(Tiler::RectInfo const & key);
   /// unlock tile
   void unlockTile(Tiler::RectInfo const & key);
+  /// lock count
+  size_t lockCount(Tiler::RectInfo const & key);
   /// touch tile
   void touchTile(Tiler::RectInfo const & key);
   /// get tile from the cache
   Tile const & getTile(Tiler::RectInfo const & key);
+
 };

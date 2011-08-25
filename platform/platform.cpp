@@ -135,7 +135,7 @@ int BasePlatformImpl::ScaleEtalonSize() const
 
 int BasePlatformImpl::MaxTilesCount() const
 {
-  return 80;
+  return 120;
 }
 
 int BasePlatformImpl::TileSize() const

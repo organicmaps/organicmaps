@@ -66,6 +66,7 @@ void TileRenderer::Initialize(shared_ptr<yg::gl::RenderContext> const & primaryC
 
   m_queue.AddInitCommand(bind(&TileRenderer::InitializeThreadGL, this, _1));
   m_queue.AddFinCommand(bind(&TileRenderer::FinalizeThreadGL, this, _1));
+  m_queue.AddCancelCommand(bind(&TileRenderer::CancelThread, this, _1));
 
   m_queue.Start();
 }
@@ -73,6 +74,11 @@ void TileRenderer::Initialize(shared_ptr<yg::gl::RenderContext> const & primaryC
 TileRenderer::~TileRenderer()
 {
   m_queue.Cancel();
+}
+
+void TileRenderer::CancelThread(core::CommandsQueue::Environment const & env)
+{
+  m_resourceManager->renderTargets().Cancel();
 }
 
 void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & env)
@@ -93,6 +99,13 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
                            Tiler::RectInfo const & rectInfo,
                            int sequenceID)
 {
+  /// commands from the previous sequence are ignored
+  if (sequenceID < m_sequenceID)
+    return;
+
+  if (HasTile(rectInfo))
+    return;
+
   DrawerYG * drawer = m_drawers[env.GetThreadNum()];
 
   ScreenBase frameScreen;
@@ -103,13 +116,6 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   m2::RectI renderRect(1, 1, tileWidth - 1, tileHeight - 1);
 
   frameScreen.OnSize(renderRect);
-
-  /// commands from the previous sequence are ignored
-  if (sequenceID < m_sequenceID)
-    return;
-
-  if (HasTile(rectInfo))
-    return;
 
   shared_ptr<PaintEvent> paintEvent = make_shared_ptr(new PaintEvent(drawer, &env));
 
@@ -130,7 +136,13 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   drawer->clear(yg::Color(m_bgColor.r, m_bgColor.g, m_bgColor.b, 0));
   drawer->screen()->setClipRect(renderRect);
   drawer->clear(m_bgColor);
+/*  drawer->clear(yg::Color(rand() % 255, rand() % 64, rand() % 128, 128));
 
+  std::stringstream out;
+  out << rectInfo.m_y << ", " << rectInfo.m_x << ", " << rectInfo.m_tileScale << ", " << rectInfo.m_drawScale;
+
+  drawer->screen()->drawText(yg::FontDesc(), renderRect.Center(), yg::EPosCenter, out.str().c_str(), 0, false);
+*/
   frameScreen.SetFromRect(rectInfo.m_rect);
 
   m2::RectD selectionRect;
@@ -186,11 +198,20 @@ bool TileRenderer::HasTile(Tiler::RectInfo const & rectInfo)
   return res;
 }
 
+void PushBackAndLog(list<shared_ptr<yg::gl::BaseTexture> > & l, shared_ptr<yg::gl::BaseTexture> const & t)
+{
+  l.push_back(t);
+//  LOG(LINFO, ("double tile, list size : ", l.size()));
+}
+
 void TileRenderer::AddTile(Tiler::RectInfo const & rectInfo, Tile const & tile)
 {
   m_tileCache.writeLock();
   if (m_tileCache.hasTile(rectInfo))
+  {
+    m_resourceManager->renderTargets().ProcessList(bind(&PushBackAndLog, _1, tile.m_renderTarget));
     m_tileCache.touchTile(rectInfo);
+  }
   else
     m_tileCache.addTile(rectInfo, TileCache::Entry(tile, m_resourceManager));
   m_tileCache.writeUnlock();

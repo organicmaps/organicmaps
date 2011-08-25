@@ -15,8 +15,7 @@ CoverageGenerator::CoverageGenerator(
   shared_ptr<WindowHandle> const & windowHandle)
   : m_queue(1),
     m_tileRenderer(tileRenderer),
-    m_workCoverage(new ScreenCoverage(tileRenderer, this, tileSize, scaleEtalonSize)),
-    m_mergeCoverage(new ScreenCoverage(tileRenderer, this, tileSize, scaleEtalonSize)),
+    m_workCoverage(0),
     m_currentCoverage(new ScreenCoverage(tileRenderer, this, tileSize, scaleEtalonSize)),
     m_sequenceID(0),
     m_windowHandle(windowHandle)
@@ -31,7 +30,6 @@ void CoverageGenerator::Initialize()
 CoverageGenerator::~CoverageGenerator()
 {
   delete m_workCoverage;
-  delete m_mergeCoverage;
   delete m_currentCoverage;
 }
 
@@ -58,15 +56,16 @@ void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
 
   {
     threads::MutexGuard g(m_mutex);
-    *m_workCoverage = *m_currentCoverage;
+    m_workCoverage = m_currentCoverage->Clone();
   }
 
   m_workCoverage->SetScreen(screen);
 
   {
     threads::MutexGuard g(m_mutex);
-    *m_currentCoverage = *m_workCoverage;
-    m_workCoverage->Clear();
+    delete m_currentCoverage;
+    m_currentCoverage = m_workCoverage;
+    m_workCoverage = 0;
   }
 }
 
@@ -79,22 +78,28 @@ void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo)
 {
   {
     threads::MutexGuard g(m_mutex);
-    *m_workCoverage = *m_currentCoverage;
+    m_workCoverage = m_currentCoverage->Clone();
   }
 
   m_workCoverage->Merge(rectInfo);
 
   {
     threads::MutexGuard g(m_mutex);
-    *m_currentCoverage = *m_workCoverage;
-    m_workCoverage->Clear();
+    delete m_currentCoverage;
+    m_currentCoverage = m_workCoverage;
+    m_workCoverage = 0;
   }
 
   m_windowHandle->invalidate();
 }
 
-void CoverageGenerator::CopyCurrentCoverage(ScreenCoverage & dst)
+ScreenCoverage * CoverageGenerator::CloneCurrentCoverage()
 {
   threads::MutexGuard g(m_mutex);
-  dst = *m_currentCoverage;
+  return m_currentCoverage->Clone();
+}
+
+void CoverageGenerator::WaitForEmptyAndFinished()
+{
+  m_queue.Join();
 }

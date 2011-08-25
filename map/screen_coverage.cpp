@@ -25,155 +25,152 @@ ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
     m_coverageGenerator(coverageGenerator)
 {}
 
-ScreenCoverage::ScreenCoverage(ScreenCoverage const & src)
-  : m_tileRenderer(src.m_tileRenderer),
-    m_tiler(src.m_tiler),
-    m_screen(src.m_screen),
-    m_tiles(src.m_tiles),
-    m_infoLayer(src.m_infoLayer)
+ScreenCoverage * ScreenCoverage::Clone()
 {
+  ScreenCoverage * res = new ScreenCoverage();
+
+  res->m_tileRenderer = m_tileRenderer;
+  res->m_tiler = m_tiler;
+  res->m_screen = m_screen;
+  res->m_coverageGenerator = m_coverageGenerator;
+  res->m_tileRects = m_tileRects;
+
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
-  tileCache->readLock();
 
-  for (size_t i = 0; i < m_tiles.size(); ++i)
-    tileCache->lockTile(m_tiles[i]->m_rectInfo);
+  tileCache->writeLock();
 
-  tileCache->readUnlock();
-}
+  res->m_tiles = m_tiles;
 
-ScreenCoverage const & ScreenCoverage::operator=(ScreenCoverage const & src)
-{
-  if (&src != this)
+  for (TileSet::const_iterator it = res->m_tiles.begin(); it != res->m_tiles.end(); ++it)
   {
-    m_tileRenderer = src.m_tileRenderer;
-    m_tiler = src.m_tiler;
-    m_screen = src.m_screen;
-    m_tiles = src.m_tiles;
-
-    TileCache * tileCache = &m_tileRenderer->GetTileCache();
-
-    tileCache->readLock();
-
-    for (size_t i = 0; i < m_tiles.size(); ++i)
-      tileCache->lockTile(m_tiles[i]->m_rectInfo);
-
-    tileCache->readUnlock();
-
-    m_infoLayer = src.m_infoLayer;
+    Tiler::RectInfo const & ri = (*it)->m_rectInfo;
+    tileCache->lockTile(ri);
   }
-  return *this;
+
+  tileCache->writeUnlock();
+
+  res->m_infoLayer = m_infoLayer;
+
+  return res;
 }
 
 void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
 {
-  threads::MutexGuard g(m_mutex);
+  if (m_tileRects.find(ri) == m_tileRects.end())
+    return;
+
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
   Tile const * tile = 0;
   bool hasTile = false;
 
   tileCache->readLock();
+
   hasTile = tileCache->hasTile(ri);
   if (hasTile)
     tile = &tileCache->getTile(ri);
-  tileCache->readUnlock();
+
+  bool addTile = false;
 
   if (hasTile)
   {
-    m_tiles.push_back(tile);
-    m_infoLayer.merge(*tile->m_infoLayer.get(),
-                      tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
+    addTile = (m_tiles.find(tile) == m_tiles.end());
+
+    if (addTile)
+    {
+       tileCache->lockTile(ri);
+       m_tiles.insert(tile);
+       m_tileRects.erase(ri);
+    }
   }
+
+  tileCache->readUnlock();
+
+  if (addTile)
+    m_infoLayer.merge(*tile->m_infoLayer.get(),
+                       tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
+
 }
 
 void ScreenCoverage::Remove(Tile const * tile)
 {
-  threads::MutexGuard g(m_mutex);
 }
 
-struct lessRectInfo
+bool LessRectInfo::operator()(Tile const * l, Tile const * r)
 {
-  bool operator()(Tile const * l, Tile const * r)
-  {
-    return l->m_rectInfo.toUInt64Cell() < r->m_rectInfo.toUInt64Cell();
-  }
-};
+  return l->m_rectInfo.toUInt64Cell() < r->m_rectInfo.toUInt64Cell();
+}
 
 void ScreenCoverage::SetScreen(ScreenBase const & screen, bool mergePathNames)
 {
-  threads::MutexGuard g(m_mutex);
-
   m_screen = screen;
 
   m_tiler.seed(m_screen, m_screen.GlobalRect().Center());
 
   vector<Tiler::RectInfo> allRects;
   vector<Tiler::RectInfo> newRects;
-  vector<Tile const *> tiles;
+  TileSet tiles;
 
   m_tiler.visibleTiles(allRects);
 
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
-  tileCache->readLock();
+  tileCache->writeLock();
+
+  double drawScale = -1;
+
+  for (unsigned i = 0; i < allRects.size(); ++i)
+    if (drawScale == -1)
+      drawScale = allRects[i].m_drawScale;
+    else
+      ASSERT(drawScale == allRects[i].m_drawScale, (drawScale, allRects[i].m_drawScale));
 
   for (unsigned i = 0; i < allRects.size(); ++i)
   {
+    m_tileRects.insert(allRects[i]);
     Tiler::RectInfo ri = allRects[i];
     if (tileCache->hasTile(ri))
     {
-      tiles.push_back(&tileCache->getTile(ri));
       tileCache->touchTile(ri);
+      Tile const * tile = &tileCache->getTile(ri);
+      ASSERT(tiles.find(tile) == tiles.end(), ());
+      tiles.insert(tile);
     }
     else
       newRects.push_back(ri);
   }
 
+  tileCache->writeUnlock();
+
   /// computing difference between current and previous coverage
   /// tiles, that aren't in current coverage are unlocked to allow their deletion from TileCache
   /// tiles, that are new to the current coverage are added into m_tiles and locked in TileCache
 
-  typedef set<Tile const *, lessRectInfo> TileSet;
-
-  LOG(LINFO, ("prevSet size: ", m_tiles.size()));
-
-  TileSet prevSet;
-  copy(m_tiles.begin(), m_tiles.end(), inserter(prevSet, prevSet.end()));
-
-  LOG(LINFO, ("curSet size: ", tiles.size()));
-
-  TileSet curSet;
-  copy(tiles.begin(), tiles.end(), inserter(curSet, curSet.end()));
-
   TileSet erasedTiles;
   TileSet addedTiles;
 
-  set_difference(prevSet.begin(), prevSet.end(), curSet.begin(), curSet.end(), inserter(erasedTiles, erasedTiles.end()));
-  set_difference(curSet.begin(), curSet.end(), prevSet.begin(), prevSet.end(), inserter(addedTiles, addedTiles.end()));
+  set_difference(m_tiles.begin(), m_tiles.end(), tiles.begin(), tiles.end(), inserter(erasedTiles, erasedTiles.end()));
+  set_difference(tiles.begin(), tiles.end(), m_tiles.begin(), m_tiles.end(), inserter(addedTiles, addedTiles.end()));
 
-  LOG(LINFO, ("erased tiles size: ", erasedTiles.size()));
+  tileCache->readLock();
 
   for (TileSet::const_iterator it = erasedTiles.begin(); it != erasedTiles.end(); ++it)
   {
     Tiler::RectInfo ri = (*it)->m_rectInfo;
-//    LOG(LINFO, ("erasing tile: ", ri.m_tileScale, ri.m_drawScale, ri.m_y, ri.m_x));
     tileCache->unlockTile((*it)->m_rectInfo);
     /// here we should "unmerge" erasedTiles[i].m_infoLayer from m_infoLayer
   }
 
-  LOG(LINFO, ("added tiles size: ", addedTiles.size()));
-
   for (TileSet::const_iterator it = addedTiles.begin(); it != addedTiles.end(); ++it)
   {
     Tiler::RectInfo ri = (*it)->m_rectInfo;
-//    LOG(LINFO, ("adding tile: ", ri.m_tileScale, ri.m_drawScale, ri.m_y, ri.m_x));
     tileCache->lockTile((*it)->m_rectInfo);
 //    m_infoLayer.merge(*((*it)->m_infoLayer.get()), (*it)->m_tileScreen.PtoGMatrix() * screen.GtoPMatrix());
   }
 
   m_infoLayer.clear();
-  for (size_t i = 0; i < tiles.size(); ++i)
-    m_infoLayer.merge(*tiles[i]->m_infoLayer.get(), tiles[i]->m_tileScreen.PtoGMatrix() * screen.GtoPMatrix());
+  for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
+    m_infoLayer.merge(*((*it)->m_infoLayer.get()), (*it)->m_tileScreen.PtoGMatrix() * screen.GtoPMatrix());
 
   tileCache->readUnlock();
 
@@ -189,20 +186,16 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen, bool mergePathNames)
 
 ScreenCoverage::~ScreenCoverage()
 {
-  Clear();
-}
-
-void ScreenCoverage::Clear()
-{
-  threads::MutexGuard g(m_mutex);
-
   TileCache * tileCache = &m_tileRenderer->GetTileCache();
 
-  tileCache->readLock();
-  for (unsigned i = 0; i < m_tiles.size(); ++i)
-    tileCache->unlockTile(m_tiles[i]->m_rectInfo);
+  tileCache->writeLock();
+  for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
+  {
+    Tiler::RectInfo const & ri = (*it)->m_rectInfo;
+    tileCache->unlockTile(ri);
+  }
 
-  tileCache->readUnlock();
+  tileCache->writeUnlock();
 
   m_tiles.clear();
   m_infoLayer.clear();
@@ -210,11 +203,9 @@ void ScreenCoverage::Clear()
 
 void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
 {
-  threads::MutexGuard g(m_mutex);
-
-  for (size_t i = 0; i < m_tiles.size(); ++i)
+  for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
-    Tile const * tile = m_tiles[i];
+    Tile const * tile = *it;
     size_t tileWidth = tile->m_renderTarget->width();
     size_t tileHeight = tile->m_renderTarget->height();
 

@@ -19,16 +19,13 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(shared_ptr<WindowHandle> const & wind
     m_tileRenderer(GetPlatform().SkinName(),
                   GetPlatform().ScaleEtalonSize(),
                   GetPlatform().MaxTilesCount(),
-                  2/*GetPlatform().CpuCores()*/,
+                  GetPlatform().CpuCores(),
                   bgColor(),
                   renderFn),
     m_coverageGenerator(GetPlatform().TileSize(),
                         GetPlatform().ScaleEtalonSize(),
                         &m_tileRenderer,
                         windowHandle)
-/*    m_screenCoverage(&m_tileRenderer,
-                      GetPlatform().TileSize(),
-                      GetPlatform().ScaleEtalonSize())*/
 {
 }
 
@@ -51,16 +48,11 @@ void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
 
   m_coverageGenerator.AddCoverScreenTask(currentScreen);
 
-  ScreenCoverage coverage;
+  ScreenCoverage * coverage = m_coverageGenerator.CloneCurrentCoverage();
 
-  m_coverageGenerator.CopyCurrentCoverage(coverage);
+  coverage->Draw(pDrawer->screen().get(), currentScreen);
 
-  coverage.Draw(pDrawer->screen().get(), currentScreen);
-
-/*  m_screenCoverage.SetScreen(currentScreen);
-
-  m_screenCoverage.Draw(pDrawer->screen().get(), currentScreen);
-  m_currentScreen = currentScreen;*/
+  delete coverage;
 }
 
 TileRenderer & TilingRenderPolicyMT::GetTileRenderer()
