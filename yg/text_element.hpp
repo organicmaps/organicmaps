@@ -33,8 +33,6 @@ namespace yg
     bool m_log2vis;
     GlyphCache * m_glyphCache;
 
-    strings::UniString log2vis(strings::UniString const & str);
-
   public:
 
     struct Params : OverlayElement::Params

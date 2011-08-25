@@ -4,6 +4,9 @@
 #include "internal/opengl.hpp"
 #include "ft2_debug.hpp"
 
+#include "../3party/fribidi/lib/fribidi-deprecated.h"
+#include "../3party/fribidi/lib/fribidi.h"
+
 #include "../coding/lodepng_io.hpp"
 
 #include "../base/logging.hpp"
@@ -292,6 +295,17 @@ namespace yg
     }
 
     return len;
+  }
+
+  strings::UniString GlyphCache::log2vis(strings::UniString const & str)
+  {
+//    FriBidiEnv e;
+/*    size_t const count = str.size();
+    strings::UniString res(count);
+    FriBidiParType dir = FRIBIDI_PAR_LTR;  // requested base direction
+    fribidi_log2vis(&str[0], count, &dir, &res[0], 0, 0, 0);
+    return res;*/
+    return str;
   }
 
 }

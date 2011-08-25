@@ -4,21 +4,10 @@
 #include "overlay_renderer.hpp"
 #include "resource_style.hpp"
 
-#include "../3party/fribidi/lib/fribidi-deprecated.h"
-
 #include "../base/logging.hpp"
 
 namespace yg
 {
-  strings::UniString TextElement::log2vis(strings::UniString const & str)
-  {
-    size_t const count = str.size();
-    strings::UniString res(count);
-    FriBidiParType dir = FRIBIDI_PAR_LTR;  // requested base direction
-    fribidi_log2vis(&str[0], count, &dir, &res[0], 0, 0, 0);
-    return res;
-  }
-
   TextElement::TextElement(Params const & p)
     : OverlayElement(p),
       m_fontDesc(p.m_fontDesc),
@@ -27,7 +16,7 @@ namespace yg
       m_glyphCache(p.m_glyphCache)
   {
     if (m_log2vis)
-      m_visText = log2vis(m_logText);
+      m_visText = m_glyphCache->log2vis(m_logText);
     else
       m_visText = m_logText;
   }

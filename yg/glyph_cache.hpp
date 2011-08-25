@@ -93,5 +93,8 @@ namespace yg
     GlyphMetrics const getGlyphMetrics(GlyphKey const & key);
 
     double getTextLength(double fontSize, string const & text);
+
+    strings::UniString log2vis(strings::UniString const & str);
+
   };
 }
