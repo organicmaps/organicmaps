@@ -249,7 +249,7 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void)onPaint
 {
 	shared_ptr<iphone::WindowHandle> windowHandle = [(EAGLView*)self.view windowHandle];
-	shared_ptr<PaintEvent> paintEvent(new PaintEvent(windowHandle->drawer()));
+	shared_ptr<PaintEvent> paintEvent(new PaintEvent(windowHandle->drawer().get()));
 	m_framework->Paint(paintEvent);
 }
 

@@ -116,8 +116,10 @@
 		p.m_resourceManager = resourceManager;
     p.m_frameBuffer = frameBuffer;
     p.m_glyphCacheID = resourceManager->guiThreadGlyphCacheID();
+    p.m_skinName = pl.SkinName();
+    p.m_visualScale = pl.VisualScale();
 
-		drawer = shared_ptr<DrawerYG>(new DrawerYG(pl.SkinName(), p));
+		drawer = shared_ptr<DrawerYG>(new DrawerYG(p));
 
 //		frameBuffer->onSize(renderBuffer->width(), renderBuffer->height());
 //		frameBuffer->setRenderTarget(renderBuffer);

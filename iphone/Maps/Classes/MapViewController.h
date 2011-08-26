@@ -4,7 +4,6 @@
 #include "../../yg/texture.hpp"
 #include "../../map/framework_factory.hpp"
 #include "../../map/drawer_yg.hpp"
-#include "../../map/render_queue.hpp"
 #include "../../map/navigator.hpp"
 #include "../../map/feature_vec_model.hpp"
 #include "../../std/shared_ptr.hpp"
