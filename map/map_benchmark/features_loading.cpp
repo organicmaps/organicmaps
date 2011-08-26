@@ -11,6 +11,8 @@
 #include "../../base/timer.hpp"
 #include "../../base/logging.hpp"
 
+#include "../../std/iostream.hpp"
+
 #include "../../base/start_mem_debug.hpp"
 
 
@@ -101,7 +103,6 @@ void RunFeaturesLoadingBenchmark(string const & file)
     all += timer.ElapsedSeconds();
   }
 
-  LOG(LINFO, ("Benchmark time for ", file, " = ", all / count));
-  LOG(LINFO, ("Index time = ", (all - reading) / count));
-  LOG(LINFO, ("Reading time = ", reading / count));
+  // 'all time', 'index time', 'feature loading time'
+  cout << all / count << ' ' << (all - reading) / count << ' ' << reading / count << endl;
 }

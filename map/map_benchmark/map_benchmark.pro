@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map yg indexer platform geometry coding base expat freetype fribidi
+DEPENDENCIES = map yg indexer platform geometry coding base gflags expat freetype fribidi
 
 include($$ROOT_DIR/common.pri)
 

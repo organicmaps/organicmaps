@@ -2,9 +2,15 @@
 
 #include "api.hpp"
 
+#include "../../3party/gflags/src/gflags/gflags.h"
 
-int main()
+
+DEFINE_string(input, "", "Data file name.");
+
+int main(int argc, char ** argv)
 {
-  RunFeaturesLoadingBenchmark("Belarus.mwm");
+  google::ParseCommandLineFlags(&argc, &argv, true);
+
+  RunFeaturesLoadingBenchmark(FLAGS_input);
   return 0;
 }
