@@ -297,14 +297,14 @@ int LoaderCurrent::GetScaleIndex(int scale, offsets_t const & offsets) const
 
   switch (scale)
   {
-  case -2:
-    // Choose the worst existing geometry.
+  case -1:
+    // Choose the best existing geometry for the last visible scale.
     ind = count-1;
     while (ind >= 0 && offsets[ind] == kInvalidOffset) --ind;
     break;
 
-  case -1:
-    // Choose the best geometry for the last visible scale.
+  case -2:
+    // Choose the worst existing geometry for the first visible scale.
     ind = 0;
     while (ind < count && offsets[ind] == kInvalidOffset) ++ind;
     break;

@@ -45,6 +45,7 @@ namespace
 
       m_timer.Reset();
 
+      // Call this function to load feature's inner data and geometry.
       (void)ft.IsEmptyGeometry(m_scale);
 
       m_reading += m_timer.ElapsedSeconds();
