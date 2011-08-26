@@ -1,6 +1,6 @@
 # Map library tests.
 
-TARGET = map_tests
+TARGET = map_benchmark
 CONFIG += console
 CONFIG -= app_bundle
 TEMPLATE = app
@@ -28,9 +28,8 @@ macx|iphone* {
 }
 
 SOURCES += \
-  ../../testing/testingmain.cpp \
-  navigator_test.cpp \
-  map_foreach_test.cpp \
-  debug_features_test.cpp \
-  draw_processor_test.cpp \
+  features_loading.cpp \
+    main.cpp
 
+HEADERS += \
+    api.hpp

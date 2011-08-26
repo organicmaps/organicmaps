@@ -1,13 +1,11 @@
 #pragma once
 
-#include "../indexer/feature.hpp"
-#include "../indexer/features_vector.hpp"
 #include "../indexer/index.hpp"
 
 #include "../geometry/rect2d.hpp"
 #include "../geometry/point2d.hpp"
 
-#include "../coding/file_reader.hpp"
+#include "../coding/reader.hpp"
 #include "../coding/buffer_reader.hpp"
 
 #include "../base/start_mem_debug.hpp"
