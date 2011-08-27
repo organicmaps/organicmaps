@@ -416,7 +416,9 @@ namespace feature
     ForEachFromDatRawFormat(tempDatFilePath, midPoints);
 
     // sort features by their middle point
+    LOG(LINFO, ("Sorting features..."));
     std::sort(midPoints.m_vec.begin(), midPoints.m_vec.end(), &SortMidPointsFunc);
+    LOG(LINFO, ("Done sorting features"));
 
     // store sorted features
     {
