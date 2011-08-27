@@ -35,7 +35,7 @@ namespace
       m_count = 0;
     }
 
-    bool IsEmpty() const { return m_count > 0; }
+    bool IsEmpty() const { return m_count == 0; }
 
     double GetReadingTime() const { return m_reading; }
 
@@ -52,32 +52,33 @@ namespace
     }
   };
 
-  double RunBenchmark(model::FeaturesFetcher const & src, m2::RectD const & rect)
+  double RunBenchmark(model::FeaturesFetcher const & src, m2::RectD const & rect,
+                      pair<int, int> const & scaleRange)
   {
-    vector<m2::RectD> rects;
+    vector<m2::RectD> rects, newRects;
     rects.push_back(rect);
+
 
     Accumulator acc;
 
-    while (!rects.empty())
+    for (int scale = scaleRange.first; scale < scaleRange.second; ++scale)
     {
-      m2::RectD r = rects.back();
-      rects.pop_back();
-
-      int const scale = scales::GetScaleLevel(r);
-      acc.Reset(scale);
-
-      src.ForEachFeature_TileDrawing(r, acc, scale);
-
-      if (!acc.IsEmpty() && (scale < scales::GetUpperScale()))
+      for (size_t i = 0; i < rects.size(); ++i)
       {
+        m2::RectD const r = rects[i];
+
+        acc.Reset(scale);
+
+        src.ForEachFeature_TileDrawing(r, acc, scale);
+
         m2::RectD r1, r2;
         r.DivideByGreaterSize(r1, r2);
-        rects.push_back(r1);
-        rects.push_back(r2);
+        newRects.push_back(r1);
+        newRects.push_back(r2);
       }
+      rects.swap(newRects);
+      newRects.clear();
     }
-
     return acc.GetReadingTime();
   }
 }
@@ -89,17 +90,17 @@ void RunFeaturesLoadingBenchmark(string const & file, size_t count)
   src.AddMap(file);
 
   m2::RectD const rect = GetMapBounds(FilesContainerR(GetPlatform().GetReader(file)));
+  pair<int, int> const scaleRange = GetMapScaleRange(FilesContainerR(GetPlatform().GetReader(file)));
 
   my::Timer timer;
   double all = 0.0;
   double reading = 0.0;
 
-  size_t const count = 2;
   for (size_t i = 0; i < count; ++i)
   {
     timer.Reset();
 
-    reading += RunBenchmark(src, rect);
+    reading += RunBenchmark(src, rect, scaleRange);
 
     all += timer.ElapsedSeconds();
   }

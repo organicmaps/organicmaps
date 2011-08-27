@@ -20,3 +20,4 @@ public:
 };
 
 m2::RectD GetMapBounds(FilesContainerR const & cont);
+pair<int, int> GetMapScaleRange(FilesContainerR const & cont);

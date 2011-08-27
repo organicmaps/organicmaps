@@ -56,3 +56,10 @@ m2::RectD GetMapBounds(FilesContainerR const & cont)
   LoadHeader(cont, header);
   return header.GetBounds();
 }
+
+pair<int, int> GetMapScaleRange(FilesContainerR const & cont)
+{
+  feature::DataHeader header;
+  LoadHeader(cont, header);
+  return header.GetScaleRange();
+}
