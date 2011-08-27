@@ -16,7 +16,7 @@ namespace core
 
   public:
 
-    class Command;
+    struct Command;
 
     /// execution environment for single command
     class Environment
