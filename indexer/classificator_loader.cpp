@@ -15,7 +15,7 @@ namespace classificator
             file_t const & visibility,
             file_t const & types)
   {
-    LOG(LINFO, ("Reading drawing rules"));
+//    LOG(LINFO, ("Reading drawing rules"));
     ReaderPtrStream rulesS(rules);
     drule::ReadRules(rulesS);
 
@@ -23,19 +23,19 @@ namespace classificator
 
     Classificator & c = classif();
 
-    LOG(LINFO, ("Reading classificator"));
+//    LOG(LINFO, ("Reading classificator"));
     classificator.ReadAsString(buffer);
     c.ReadClassificator(buffer);
 
-    LOG(LINFO, ("Reading visibility"));
+//    LOG(LINFO, ("Reading visibility"));
     visibility.ReadAsString(buffer);
     c.ReadVisibility(buffer);
 
-    LOG(LINFO, ("Reading types mapping"));
+//    LOG(LINFO, ("Reading types mapping"));
     types.ReadAsString(buffer);
     c.ReadTypesMapping(buffer);
 
-    LOG(LINFO, ("Reading of classificator done"));
+//    LOG(LINFO, ("Reading of classificator done"));
   }
 
   void ReadVisibility(string const & fPath)
