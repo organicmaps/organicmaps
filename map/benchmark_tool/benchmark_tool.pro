@@ -1,6 +1,6 @@
 # Map library tests.
 
-TARGET = map_benchmark
+TARGET = benchmark_tool
 CONFIG += console
 CONFIG -= app_bundle
 TEMPLATE = app

@@ -82,7 +82,7 @@ namespace
   }
 }
 
-void RunFeaturesLoadingBenchmark(string const & file)
+void RunFeaturesLoadingBenchmark(string const & file, size_t count)
 {
   model::FeaturesFetcher src;
   src.InitClassificator();

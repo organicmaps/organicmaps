@@ -2,4 +2,5 @@
 
 #include "../../std/string.hpp"
 
-void RunFeaturesLoadingBenchmark(string const & file);
+/// @param[in] count number of times to run benchmark
+void RunFeaturesLoadingBenchmark(string const & file, size_t count);
