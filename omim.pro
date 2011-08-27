@@ -19,7 +19,7 @@ SUBDIRS = 3party \
           platform/platform_tests \
           yg \
           storage storage/storage_tests \
-          map map/map_tests map/map_benchmark \
+          map map/map_tests map/benchmark_tool \
           generator generator/generator_tests \
           generator/generator_tool \
           qt_tstfrm \
