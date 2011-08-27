@@ -1,10 +1,9 @@
 #include "search_index_builder.hpp"
 #include "features_vector.hpp"
+#include "search_trie.hpp"
+#include "string_search_utils.hpp"
 
 #include "../defines.hpp"
-
-#include "../search/search_trie.hpp"
-#include "../search/string_search_utils.hpp"
 
 #include "../coding/trie_builder.hpp"
 #include "../coding/writer.hpp"

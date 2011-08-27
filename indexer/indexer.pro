@@ -80,3 +80,5 @@ HEADERS += \
     coding_params.hpp \
     feature_loader_base.hpp \
     feature_loader.hpp \
+    search_trie.hpp \
+    string_search_utils.hpp \

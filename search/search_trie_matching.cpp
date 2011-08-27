@@ -1,8 +1,8 @@
 #include "search_trie_matching.hpp"
 #include "query.hpp"
-#include "string_search_utils.hpp"
 
 #include "../indexer/feature_visibility.hpp"
+#include "../indexer/string_search_utils.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/functional.hpp"

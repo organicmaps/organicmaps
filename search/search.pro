@@ -18,9 +18,7 @@ HEADERS += \
     result.hpp \
     latlon_match.hpp \
     categories_holder.hpp \
-    search_trie.hpp \
     search_trie_matching.hpp \
-    string_search_utils.hpp \
     approximate_string_match.hpp \
 
 SOURCES += \

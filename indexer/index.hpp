@@ -5,10 +5,9 @@
 #include "features_vector.hpp"
 #include "scale_index.hpp"
 #include "scales.hpp"
+#include "search_trie.hpp"
 
 #include "../../defines.hpp"
-
-#include "../search/search_trie.hpp"
 
 #include "../platform/platform.hpp"
 

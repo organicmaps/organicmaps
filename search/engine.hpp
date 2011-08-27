@@ -1,7 +1,7 @@
 #pragma once
-#include "search_trie.hpp"
 
 #include "../indexer/index.hpp"
+#include "../indexer/search_trie.hpp"
 
 #include "../geometry/rect2d.hpp"
 

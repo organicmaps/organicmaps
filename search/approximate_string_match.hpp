@@ -1,5 +1,5 @@
 #pragma once
-#include "string_search_utils.hpp"
+#include "../indexer/string_search_utils.hpp"
 #include "../base/base.hpp"
 #include "../base/buffer_vector.hpp"
 #include "../std/queue.hpp"

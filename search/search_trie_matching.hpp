@@ -1,5 +1,5 @@
 #pragma once
-#include "search_trie.hpp"
+#include "../indexer/search_trie.hpp"
 
 class FeaturesVector;
 
