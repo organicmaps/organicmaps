@@ -71,16 +71,24 @@ void search::MatchAgainstTrie(search::impl::Query & query, search::TrieIterator 
   size_t const featuresToMatch = 10;
   while (!trieQueue.empty() &&
          (featureQueue.size() < featuresToMatch ||
-          trieQueue.top().first >= featureQueue.top().first))
+          trieQueue.top().first > featureQueue.top().first))
   {
     scoped_ptr<search::TrieIterator> pIter(trieQueue.top().second);
     trieQueue.pop();
     for (size_t i = 0; i < pIter->m_value.size(); ++i)
-      featureQueue.push(make_pair(pIter->m_value[i].m_rank, pIter->m_value[i].m_featureId));
-    while (featureQueue.size() > featuresToMatch)
-      featureQueue.pop();
+    {
+      if (featureQueue.size() < featuresToMatch)
+        featureQueue.push(make_pair(pIter->m_value[i].m_rank, pIter->m_value[i].m_featureId));
+      else if (pIter->m_value[i].m_rank > featureQueue.top().first)
+      {
+        featureQueue.push(make_pair(pIter->m_value[i].m_rank, pIter->m_value[i].m_featureId));
+        featureQueue.pop();
+      }
+    }
     for (size_t i = 0; i < pIter->m_edge.size(); ++i)
-      trieQueue.push(make_pair(pIter->m_edge[i].m_value, pIter->GoToEdge(i)));
+      if (featureQueue.size() < featuresToMatch ||
+          pIter->m_edge[i].m_value > featureQueue.top().first)
+        trieQueue.push(make_pair(pIter->m_edge[i].m_value, pIter->GoToEdge(i)));
   }
   while (!featureQueue.empty())
   {
