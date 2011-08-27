@@ -213,6 +213,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 
 // stores clicked country index when confirmation dialog is displayed
 TIndex g_clickedIndex;
+UITableViewCell * g_clickedCell;
 
 // User confirmation after touching country
 - (void) actionSheet: (UIActionSheet *) actionSheet clickedButtonAtIndex: (NSInteger) buttonIndex
@@ -227,6 +228,8 @@ TIndex g_clickedIndex;
         break;
       default:
       	m_storage->DeleteCountry(g_clickedIndex);
+        // remove "zoom to country" icon
+        g_clickedCell.accessoryType = UITableViewCellAccessoryNone;
       }
     }
 }
@@ -248,25 +251,27 @@ TIndex g_clickedIndex;
   {
 		NSString * countryName = [[cell textLabel] text];
 
-		g_clickedIndex = index;
-		switch (m_storage->CountryStatus(g_clickedIndex))
+		switch (m_storage->CountryStatus(index))
   	{
   		case EOnDisk:
-    	{	// display confirmation popup
-    		UIActionSheet * popupQuery = [[UIActionSheet alloc]
+    	{
+        // pass parameters to dialog handler
+        g_clickedIndex = index;
+        g_clickedCell = cell;
+        // display confirmation popup
+    		UIActionSheet * popupQuery = [[[UIActionSheet alloc]
       			initWithTitle: countryName
         		delegate: self
         		cancelButtonTitle: @"Cancel"
         		destructiveButtonTitle: @"Delete"
-        		otherButtonTitles: nil];
+        		otherButtonTitles: nil] autorelease];
         [popupQuery showFromRect: [cell frame] inView: tableView animated: YES];
-    		[popupQuery release];
     	}
   		break;
       case ENotDownloaded:
       case EDownloadFailed:
       {
-        TLocalAndRemoteSize sizePair = m_storage->CountrySizeInBytes(g_clickedIndex);
+        TLocalAndRemoteSize sizePair = m_storage->CountrySizeInBytes(index);
         TLocalAndRemoteSize::first_type size = sizePair.second - sizePair.first;
 
         // check for disk free space first
@@ -352,7 +357,7 @@ TIndex g_clickedIndex;
     	break;
   		case EInQueue:
   		// cancel download
-    	m_storage->DeleteCountry(g_clickedIndex);
+    	m_storage->DeleteCountry(index);
 			break;
       default:
       break;
