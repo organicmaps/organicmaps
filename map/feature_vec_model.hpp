@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../indexer/index.hpp"
+#include "../indexer/scales.hpp"
 
 #include "../geometry/rect2d.hpp"
 #include "../geometry/point2d.hpp"
@@ -39,20 +40,26 @@ namespace model
     void Clean();
     void ClearCaches();
 
-    // process features by param type indices
+    /// @name Features enumeration.
+    //@{
     template <class ToDo>
-    void ForEachFeature(m2::RectD const & rect, ToDo toDo) const
+    void ForEachFeature(m2::RectD const & rect, ToDo & toDo) const
     {
-      m_multiIndex.ForEachInViewport(toDo, rect);
-      // Uncomment to traverse all features (SLOW!!):
-      // m_multiIndex.ForEachInScale(toDo, GetScaleLevel(rect));
+      ForEachFeature(rect, toDo, scales::GetScaleLevel(rect));
     }
 
     template <class ToDo>
-    void ForEachFeature_TileDrawing(m2::RectD const & rect, ToDo const & toDo, int scale) const
+    void ForEachFeature(m2::RectD const & rect, ToDo & toDo, int scale) const
+    {
+      m_multiIndex.ForEachInRect(toDo, rect, scale);
+    }
+
+    template <class ToDo>
+    void ForEachFeature_TileDrawing(m2::RectD const & rect, ToDo & toDo, int scale) const
     {
       m_multiIndex.ForEachInRect_TileDrawing(toDo, rect, scale);
     }
+    //@}
 
     index_t const & GetIndex() const { return m_multiIndex; }
 

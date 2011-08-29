@@ -61,7 +61,8 @@ UNIT_TEST(BuildIndexTest)
     index.Add(fileName);
 
     // Make sure that index is actually parsed.
-    index.ForEachInScale(NoopFunctor(), 15);
+    NoopFunctor fn;
+    index.ForEachInScale(fn, 15);
   }
 
   // Clean after the test.

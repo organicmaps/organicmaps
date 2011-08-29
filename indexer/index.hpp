@@ -4,7 +4,6 @@
 #include "data_factory.hpp"
 #include "features_vector.hpp"
 #include "scale_index.hpp"
-#include "scales.hpp"
 #include "search_trie.hpp"
 
 #include "../../defines.hpp"
@@ -33,7 +32,7 @@ template <class BaseT> class IndexForEachAdapter : public BaseT
 {
 private:
   template <typename F>
-  void CallForIntervals(F const & f, covering::IntervalsT const & intervals,
+  void CallForIntervals(F & f, covering::IntervalsT const & intervals,
                         m2::RectD const & rect, uint32_t scale) const
   {
     for (size_t i = 0; i < intervals.size(); ++i)
@@ -45,13 +44,13 @@ private:
 
 public:
   template <typename F>
-  void ForEachInRect(F const & f, m2::RectD const & rect, uint32_t scale) const
+  void ForEachInRect(F & f, m2::RectD const & rect, uint32_t scale) const
   {
     CallForIntervals(f, covering::CoverViewportAndAppendLowerLevels(rect), rect, scale);
   }
 
   template <typename F>
-  void ForEachInRect_TileDrawing(F const & f, m2::RectD const & rect, uint32_t scale) const
+  void ForEachInRect_TileDrawing(F & f, m2::RectD const & rect, uint32_t scale) const
   {
     using namespace covering;
 
@@ -62,15 +61,8 @@ public:
   }
 
 public:
-
   template <typename F>
-  void ForEachInViewport(F const & f, m2::RectD const & viewport) const
-  {
-    ForEachInRect(f, viewport, scales::GetScaleLevel(viewport));
-  }
-
-  template <typename F>
-  void ForEachInScale(F const & f, uint32_t scale) const
+  void ForEachInScale(F & f, uint32_t scale) const
   {
     int64_t const rootId = RectId("").ToInt64();
     BaseT::ForEachInIntervalAndScale(f, rootId, rootId + RectId("").SubTreeSize(), scale,
@@ -101,7 +93,7 @@ public:
   }
 
   template <typename F>
-  void ForEachInIntervalAndScale(F const & f, int64_t beg, int64_t end, uint32_t scale,
+  void ForEachInIntervalAndScale(F & f, int64_t beg, int64_t end, uint32_t scale,
                                  m2::RectD const & occlusionRect) const
   {
     for (size_t iIndex = 0; true;)
@@ -400,7 +392,7 @@ public:
   }
 
   template <typename F>
-  void ForEachInIntervalAndScale(F const & f, int64_t beg, int64_t end, uint32_t scale) const
+  void ForEachInIntervalAndScale(F & f, int64_t beg, int64_t end, uint32_t scale) const
   {
     OffsetToFeatureReplacer<F> offsetToFeatureReplacer(m_FeatureVector, f);
     BaseT::ForEachInIntervalAndScale(offsetToFeatureReplacer, beg, end, scale);
@@ -413,10 +405,10 @@ private:
   class OffsetToFeatureReplacer
   {
     FeatureVectorT const & m_V;
-    F const & m_F;
+    F & m_F;
 
   public:
-    OffsetToFeatureReplacer(FeatureVectorT const & v, F const & f) : m_V(v), m_F(f) {}
+    OffsetToFeatureReplacer(FeatureVectorT const & v, F & f) : m_V(v), m_F(f) {}
     void operator() (uint32_t offset) const
     {
       FeatureType feature;
@@ -436,7 +428,7 @@ public:
   UniqueOffsetAdapter(T1 const & t1, T2 & t2) : BaseT(t1, t2) {}
 
   template <typename F>
-  void ForEachInIntervalAndScale(F const & f, int64_t beg, int64_t end, uint32_t scale) const
+  void ForEachInIntervalAndScale(F & f, int64_t beg, int64_t end, uint32_t scale) const
   {
     unordered_set<uint32_t> offsets;
     UniqueOffsetFunctorAdapter<F> uniqueOffsetFunctorAdapter(offsets, f);
@@ -447,7 +439,7 @@ private:
   template <typename F>
   struct UniqueOffsetFunctorAdapter
   {
-    UniqueOffsetFunctorAdapter(unordered_set<uint32_t> & offsets, F const & f)
+    UniqueOffsetFunctorAdapter(unordered_set<uint32_t> & offsets, F & f)
       : m_Offsets(offsets), m_F(f) {}
 
     void operator() (uint32_t offset) const
@@ -457,7 +449,7 @@ private:
     }
 
     unordered_set<uint32_t> & m_Offsets;
-    F const & m_F;
+    F & m_F;
   };
 };
 

@@ -13,5 +13,6 @@ UNIT_TEST(IndexParseTest)
   index.Add("minsk-pass" DATA_FILE_EXTENSION);
 
   // Make sure that index is actually parsed.
-  index.ForEachInScale(NoopFunctor(), 15);
+  NoopFunctor fn;
+  index.ForEachInScale(fn, 15);
 }
