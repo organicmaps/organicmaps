@@ -64,7 +64,7 @@ protected:
 
   void GetWay(uint64_t id, way_map_t & m)
   {
-    shared_ptr<WayElement> e(new WayElement());
+    shared_ptr<WayElement> e(new WayElement(id));
     if (m_holder.GetWay(id, *e) && e->IsValid())
     {
       m.insert(make_pair(e->nodes.front(), e));
@@ -75,7 +75,7 @@ protected:
   template <class ToDo>
   void ForEachWayPoint(uint64_t id, ToDo toDo)
   {
-    WayElement e;
+    WayElement e(id);
     if (m_holder.GetWay(id, e))
     {
       process_points<ToDo> process(this, toDo);
@@ -419,13 +419,20 @@ protected:
         feature_t f;
         InitFeature(fValue, f);
 
+        for (typename base_type::way_map_t::iterator it = wayMap.begin(); it != wayMap.end(); ++it)
+          f.AddOsmId("way", it->second->m_wayOsmId);
+
         base_type::ProcessWayPoints(wayMap, bind(&base_type::feature_builder_t::AddPoint, ref(f), _1));
 
         if (f.IsGeometryClosed())
         {
           f.SetAreaAddHoles(holes.m_holes);
           if (f.PreSerialize())
+          {
+            // add osm id for debugging
+            f.AddOsmId("relation", id);
             base_type::m_emitter(f);
+          }
         }
       }
 
@@ -433,7 +440,11 @@ protected:
     }
 
     if (ft.PreSerialize())
+    {
+      // add osm id for debugging
+      ft.AddOsmId(p->name, id);
       base_type::m_emitter(ft);
+    }
   }
 
 public:

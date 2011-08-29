@@ -1,5 +1,3 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "feature_builder.hpp"
 
 #include "../indexer/feature_impl.hpp"
@@ -10,8 +8,6 @@
 #include "../geometry/region2d.hpp"
 
 #include "../coding/byte_stream.hpp"
-
-#include "../base/start_mem_debug.hpp"
 
 
 using namespace feature;
@@ -270,6 +266,27 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
   }
 
   CHECK ( CheckValid(), () );
+}
+
+void FeatureBuilder1::AddOsmId(string const & type, uint64_t osmId)
+{
+  m_osmIds.push_back(osm::OsmId(type, osmId));
+}
+
+string debug_print(FeatureBuilder1 const & f)
+{
+  ostringstream out;
+  for (size_t i = 0; i < f.m_osmIds.size(); ++i)
+    out << f.m_osmIds[i].Type() << " id=" << f.m_osmIds[i].Id() << " ";
+  switch (f.GetGeomType())
+  {
+  case feature::GEOM_POINT: out << "(" << f.m_Center << ")"; break;
+  case feature::GEOM_LINE: out << "line with " << f.GetPointsCount() << "points"; break;
+  case feature::GEOM_AREA: out << "area with " << f.GetPointsCount() << "points"; break;
+  default:
+    out << "ERROR: unknown geometry type"; break;
+  }
+  return out.str();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

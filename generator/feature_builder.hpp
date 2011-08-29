@@ -1,16 +1,21 @@
 #pragma once
+
+#include "osm_id.hpp"
+
 #include "../indexer/feature.hpp"
 
 #include "../coding/file_reader.hpp"
 
 #include "../std/bind.hpp"
 
-
 namespace serial { class CodingParams; }
 
 /// Used for serialization\deserialization of features during --generate_features.
 class FeatureBuilder1
 {
+  /// For debugging
+  friend string debug_print(FeatureBuilder1 const & f);
+
 public:
   /// @name Geometry manipulating functions.
   //@{
@@ -78,7 +83,12 @@ public:
 
   inline void SetParams(FeatureParams const & params) { m_Params = params; }
 
+  /// For OSM debugging, store original OSM id
+  void AddOsmId(string const & type, uint64_t osmId);
+
 protected:
+  /// Used for feature debugging
+  vector<osm::OsmId> m_osmIds;
 
   /// @name For diagnostic use only.
   //@{

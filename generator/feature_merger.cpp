@@ -18,6 +18,9 @@ void MergedFeatureBuilder1::SetRound()
 
 void MergedFeatureBuilder1::AppendFeature(MergedFeatureBuilder1 const & fb, bool fromBegin, bool toBack)
 {
+  // Also merge Osm IDs for debugging
+  m_osmIds.insert(m_osmIds.end(), fb.m_osmIds.begin(), fb.m_osmIds.end());
+
   if (fb.m_isRound)
   {
     if (toBack)

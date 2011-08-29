@@ -43,7 +43,7 @@ protected:
     {
       // store way
 
-      WayElement e;
+      WayElement e(id);
       bool bUnite = false;
       bool bEmptyTags = true;
 

@@ -28,6 +28,7 @@ SOURCES += \
     dumper.cpp \
     unpack_mwm.cpp \
     feature_builder.cpp \
+    osm_id.cpp \
     osm_decl.cpp \
 
 HEADERS += \
@@ -54,4 +55,5 @@ HEADERS += \
     generate_info.hpp \
     unpack_mwm.hpp \
     feature_builder.hpp \
+    osm_id.hpp \
     osm_decl.hpp \

@@ -25,3 +25,4 @@ SOURCES += \
     osm_parser_test.cpp \
     feature_merger_test.cpp \
     osm_type_test.cpp \
+    osm_id_test.cpp \
