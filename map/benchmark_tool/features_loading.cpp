@@ -5,6 +5,7 @@
 #include "../feature_vec_model.hpp"
 
 #include "../../indexer/data_factory.hpp"
+#include "../../indexer/feature_visibility.hpp"
 
 #include "../../platform/platform.hpp"
 
@@ -20,9 +21,9 @@ namespace
 {
   class Accumulator
   {
-    mutable my::Timer m_timer;
-    mutable double m_reading;
-    mutable size_t m_count;
+    my::Timer m_timer;
+    double m_reading;
+    size_t m_count;
 
     int m_scale;
 
@@ -39,58 +40,78 @@ namespace
 
     double GetReadingTime() const { return m_reading; }
 
-    void operator() (FeatureType const & ft) const
+    void operator() (FeatureType const & ft)
     {
       ++m_count;
 
       m_timer.Reset();
 
-      // Call this function to load feature's inner data and geometry.
-      (void)ft.IsEmptyGeometry(m_scale);
+      vector<drule::Key> keys;
+      string names;       // for debug use only, in release it's empty
+      (void)feature::GetDrawRule(ft, m_scale, keys, names);
+
+      if (!keys.empty())
+      {
+        // Call this function to load feature's inner data and geometry.
+        (void)ft.IsEmptyGeometry(m_scale);
+      }
 
       m_reading += m_timer.ElapsedSeconds();
     }
   };
 
   double RunBenchmark(model::FeaturesFetcher const & src, m2::RectD const & rect,
-                      pair<int, int> const & scaleRange)
+                      pair<int, int> const & scaleR)
   {
-    vector<m2::RectD> rects, newRects;
-    rects.push_back(rect);
+    ASSERT_LESS_OR_EQUAL ( scaleR.first, scaleR.second, () );
 
+    vector<m2::RectD> rects;
+    rects.push_back(rect);
 
     Accumulator acc;
 
-    for (int scale = scaleRange.first; scale < scaleRange.second; ++scale)
+    while (!rects.empty())
     {
-      for (size_t i = 0; i < rects.size(); ++i)
+      m2::RectD const r = rects.back();
+      rects.pop_back();
+
+      bool doDivide = true;
+      int const scale = scales::GetScaleLevel(r);
+      if (scale >= scaleR.first)
       {
-        m2::RectD const r = rects[i];
-
         acc.Reset(scale);
+        src.ForEachFeature(r, acc, scale);
+        doDivide = !acc.IsEmpty();
+      }
 
-        src.ForEachFeature_TileDrawing(r, acc, scale);
-
+      if (doDivide && scale < scaleR.second)
+      {
         m2::RectD r1, r2;
         r.DivideByGreaterSize(r1, r2);
-        newRects.push_back(r1);
-        newRects.push_back(r2);
+        rects.push_back(r1);
+        rects.push_back(r2);
       }
-      rects.swap(newRects);
-      newRects.clear();
     }
+
     return acc.GetReadingTime();
   }
 }
 
-void RunFeaturesLoadingBenchmark(string const & file, size_t count)
+void RunFeaturesLoadingBenchmark(string const & file, size_t count, pair<int, int> scaleR)
 {
+  pair<int, int> const r = GetMapScaleRange(FilesContainerR(GetPlatform().GetReader(file)));
+  if (r.first > scaleR.first)
+    scaleR.first = r.first;
+  if (r.second < scaleR.second)
+    scaleR.second = r.second;
+
+  if (scaleR.first > scaleR.second)
+    return;
+
   model::FeaturesFetcher src;
-  src.InitClassificator();
   src.AddMap(file);
 
   m2::RectD const rect = GetMapBounds(FilesContainerR(GetPlatform().GetReader(file)));
-  pair<int, int> const scaleRange = GetMapScaleRange(FilesContainerR(GetPlatform().GetReader(file)));
 
   my::Timer timer;
   double all = 0.0;
@@ -100,7 +121,7 @@ void RunFeaturesLoadingBenchmark(string const & file, size_t count)
   {
     timer.Reset();
 
-    reading += RunBenchmark(src, rect, scaleRange);
+    reading += RunBenchmark(src, rect, scaleR);
 
     all += timer.ElapsedSeconds();
   }
