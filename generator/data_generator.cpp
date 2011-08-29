@@ -1,16 +1,12 @@
 #include "data_generator.hpp"
 #include "data_cache_file.hpp"
 #include "first_pass_parser.hpp"
-
-#include "../indexer/osm_decl.hpp"
+#include "osm_decl.hpp"
 
 #include "../base/std_serialization.hpp"
 #include "../base/logging.hpp"
 
 #include "../std/bind.hpp"
-
-#include "../base/start_mem_debug.hpp"
-
 
 namespace data
 {

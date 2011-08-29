@@ -1,8 +1,7 @@
 #pragma once
 
 #include "generate_info.hpp"
-
-#include "../indexer/osm_decl.hpp"
+#include "osm_decl.hpp"
 
 #include "../geometry/rect2d.hpp"
 

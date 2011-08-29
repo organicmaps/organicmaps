@@ -45,7 +45,7 @@ namespace feature
   /// @param[in]  type  Type from feature.
   bool NeedUnite(uint32_t type);
   //@}
-};
+}
 
 class progress_policy
 {
@@ -63,6 +63,9 @@ public:
 struct WayElement
 {
   vector<uint64_t> nodes;
+  uint64_t m_wayOsmId;
+
+  explicit WayElement(uint64_t osmId) : m_wayOsmId(osmId) {}
 
   bool IsValid() const { return !nodes.empty(); }
 

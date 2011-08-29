@@ -15,7 +15,6 @@ SOURCES += \
     drawing_rules.cpp \
     drawing_rule_def.cpp \
     scales.cpp \
-    osm_decl.cpp \
     feature.cpp \
     classificator_loader.cpp \
     scale_index.cpp \
@@ -51,7 +50,6 @@ HEADERS += \
     index.hpp \
     index_builder.hpp \
     scales.hpp \
-    osm_decl.hpp \
     classificator_loader.hpp \
     interval_index.hpp \
     interval_index_builder.hpp \

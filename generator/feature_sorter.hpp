@@ -7,7 +7,6 @@
 #include "../indexer/scales.hpp"
 
 #include "../std/string.hpp"
-#include "../std/vector.hpp"
 
 namespace feature
 {

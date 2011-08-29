@@ -1,8 +1,9 @@
 #pragma once
 
+#include "osm_decl.hpp"
+
 #include "../indexer/file_reader_stream.hpp"
 #include "../indexer/file_writer_stream.hpp"
-#include "../indexer/osm_decl.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/file_writer.hpp"

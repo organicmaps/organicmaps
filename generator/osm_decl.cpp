@@ -1,13 +1,10 @@
 #include "osm_decl.hpp"
-#include "classificator.hpp"
+
+#include "../indexer/classificator.hpp"
 
 #include "../base/macros.hpp"
 
 #include "../std/target_os.hpp"
-#include "../std/iostream.hpp"
-
-#include "../base/start_mem_debug.hpp"
-
 
 namespace feature
 {

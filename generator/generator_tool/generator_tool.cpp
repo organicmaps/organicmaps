@@ -13,7 +13,6 @@
 #include "../../indexer/data_header.hpp"
 #include "../../indexer/features_vector.hpp"
 #include "../../indexer/index_builder.hpp"
-#include "../../indexer/osm_decl.hpp"
 #include "../../indexer/search_index_builder.hpp"
 
 #include "../../defines.hpp"

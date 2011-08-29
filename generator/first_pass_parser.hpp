@@ -1,12 +1,11 @@
 #pragma once
 
 #include "xml_element.hpp"
+#include "osm_decl.hpp"
 
-#include "../indexer/osm_decl.hpp"
 #include "../indexer/mercator.hpp"
 
 #include "../base/string_utils.hpp"
-
 
 template <class THolder>
 class FirstPassParser : public BaseOSMParser

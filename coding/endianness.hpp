@@ -1,7 +1,6 @@
 #pragma once
-#include "../base/base.hpp"
 
-#include "../base/start_mem_debug.hpp"
+#include "../base/base.hpp"
 
 // #define ENDIAN_IS_BIG
 
@@ -33,5 +32,3 @@ template <typename T> inline T SwapIfBigEndian(T t)
   return t;
 #endif
 }
-
-#include "../base/stop_mem_debug.hpp"

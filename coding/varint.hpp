@@ -1,5 +1,7 @@
 #pragma once
+
 #include "write_to_sink.hpp"
+
 #include "../base/assert.hpp"
 #include "../base/base.hpp"
 #include "../base/bits.hpp"

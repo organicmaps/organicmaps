@@ -1,7 +1,6 @@
 #include "string_utils.hpp"
 #include "assert.hpp"
 
-#include "../std/sstream.hpp"
 #include "../std/iterator.hpp"
 
 namespace strings

@@ -27,7 +27,8 @@ SOURCES += \
     mwm_rect_updater.cpp \
     dumper.cpp \
     unpack_mwm.cpp \
-    feature_builder.cpp
+    feature_builder.cpp \
+    osm_decl.cpp \
 
 HEADERS += \
     feature_merger.hpp \
@@ -52,4 +53,5 @@ HEADERS += \
     dumper.hpp \
     generate_info.hpp \
     unpack_mwm.hpp \
-    feature_builder.hpp
+    feature_builder.hpp \
+    osm_decl.hpp \

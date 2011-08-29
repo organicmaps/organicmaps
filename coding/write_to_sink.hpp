@@ -1,8 +1,6 @@
 #pragma once
-#include "endianness.hpp"
-#include "../base/base.hpp"
 
-#include "../base/start_mem_debug.hpp"
+#include "endianness.hpp"
 
 template <class TSink> void WriteToSink(TSink & sink, unsigned char c)
 {
@@ -75,5 +73,3 @@ struct WriterFunctor
     m_Sink.Write(&t, sizeof(T));
   }
 };
-
-#include "../base/stop_mem_debug.hpp"

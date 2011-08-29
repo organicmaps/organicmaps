@@ -2,11 +2,11 @@
 #include "data_cache_file.hpp"
 #include "osm_element.hpp"
 #include "polygonizer.hpp"
+#include "osm_decl.hpp"
 
 #include "../defines.hpp"
 
 #include "../indexer/data_header.hpp"
-#include "../indexer/osm_decl.hpp"
 #include "../indexer/mercator.hpp"
 #include "../indexer/cell_id.hpp"
 
