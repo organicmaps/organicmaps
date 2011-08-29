@@ -48,11 +48,10 @@ void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
 
   m_coverageGenerator.AddCoverScreenTask(currentScreen);
 
-  ScreenCoverage * coverage = m_coverageGenerator.CloneCurrentCoverage();
-
-  coverage->Draw(pDrawer->screen().get(), currentScreen);
-
-  delete coverage;
+  {
+    threads::MutexGuard g(m_coverageGenerator.Mutex());
+    m_coverageGenerator.CurrentCoverage().Draw(pDrawer->screen().get(), currentScreen);
+  }
 }
 
 TileRenderer & TilingRenderPolicyMT::GetTileRenderer()

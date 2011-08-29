@@ -58,7 +58,9 @@ public:
 
   void Initialize();
 
-  ScreenCoverage * CloneCurrentCoverage();
-
   void WaitForEmptyAndFinished();
+
+  ScreenCoverage & CurrentCoverage();
+
+  threads::Mutex & Mutex();
 };
