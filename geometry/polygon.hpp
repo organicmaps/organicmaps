@@ -109,11 +109,11 @@ bool IsDiagonalVisible(IterT beg, IterT end, IterT i0, IterT i1)
   if (prev == i1 || next == i1)
     return true;
 
-  if (!IsSegmentInCone(*i0, *i1, *prev, *next))
+  if (!m2::IsSegmentInCone(*i0, *i1, *prev, *next))
     return false;
 
   for (IterT j0 = beg, j1 = PrevIterInCycle(beg, beg, end); j0 != end; j1 = j0++)
-    if (j0 != i0 && j0 != i1 && j1 != i0 && j1 != i1 && SegmentsIntersect(*i0, *i1, *j0, *j1))
+    if (j0 != i0 && j0 != i1 && j1 != i0 && j1 != i1 && m2::robust::SegmentsIntersect(*i0, *i1, *j0, *j1))
       return false;
 
   return true;
