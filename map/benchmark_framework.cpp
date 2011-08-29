@@ -144,9 +144,9 @@ BenchmarkFramework<TModel>::BenchmarkFramework(shared_ptr<WindowHandle> const & 
   Settings::Get("IsBenchmarkingMT", isBenchmarkingMT);
 
   if (isBenchmarkingMT)
-    base_type::SetRenderPolicy(make_shared_ptr(new BenchmarkTilingRenderPolicyMT(wh, bind(&base_type::DrawModel, this, _1, _2, _3, _4))));
+    base_type::SetRenderPolicy(make_shared_ptr(new BenchmarkTilingRenderPolicyMT(wh, bind(&base_type::DrawModel, this, _1, _2, _3, _4, _5))));
   else
-    base_type::SetRenderPolicy(make_shared_ptr(new RenderPolicyST(wh, bind(&base_type::DrawModel, this, _1, _2, _3, _4))));
+    base_type::SetRenderPolicy(make_shared_ptr(new RenderPolicyST(wh, bind(&base_type::DrawModel, this, _1, _2, _3, _4, _5))));
 
   m_startTime = my::FormatCurrentTime();
 

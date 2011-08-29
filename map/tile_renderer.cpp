@@ -145,16 +145,18 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 */
   frameScreen.SetFromRect(rectInfo.m_rect);
 
-  m2::RectD selectionRect;
+  m2::RectD selectRect;
+  m2::RectD clipRect;
 
   double const inflationSize = 24 * drawer->VisualScale();
-  //frameScreen.PtoG(m2::Inflate(m2::RectD(renderRect), inflationSize, inflationSize), selectionRect);
-  frameScreen.PtoG(m2::RectD(renderRect), selectionRect);
+  frameScreen.PtoG(m2::Inflate(m2::RectD(renderRect), inflationSize, inflationSize), clipRect);
+  frameScreen.PtoG(m2::RectD(renderRect), selectRect);
 
   m_renderFn(
         paintEvent,
         frameScreen,
-        selectionRect,
+        selectRect,
+        clipRect,
         rectInfo.m_drawScale
         );
 

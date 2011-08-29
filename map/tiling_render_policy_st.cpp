@@ -113,15 +113,18 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
 
       m_tileScreen.SetFromRect(ri.m_rect);
 
-      m2::RectD selectionRect;
+      m2::RectD selectRect;
+      m2::RectD clipRect;
 
       double inflationSize = 24 * GetPlatform().VisualScale();
 
-      m_tileScreen.PtoG(m2::Inflate(m2::RectD(renderRect), inflationSize, inflationSize), selectionRect);
+      m_tileScreen.PtoG(m2::RectD(renderRect), selectRect);
+      m_tileScreen.PtoG(m2::Inflate(m2::RectD(renderRect), inflationSize, inflationSize), clipRect);
 
       renderFn()(paintEvent,
                 m_tileScreen,
-                selectionRect,
+                selectRect,
+                clipRect,
                 ri.m_drawScale);
 
       m_tileDrawer->endFrame();

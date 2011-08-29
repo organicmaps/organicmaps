@@ -26,7 +26,7 @@ class RenderPolicy
 {
 public:
 
-  typedef function<void(shared_ptr<PaintEvent>, ScreenBase const &, m2::RectD const &, int)> TRenderFn;
+  typedef function<void(shared_ptr<PaintEvent>, ScreenBase const &, m2::RectD const &, m2::RectD const &, int)> TRenderFn;
 
 private:
 

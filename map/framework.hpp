@@ -184,6 +184,7 @@ public:
   void DrawModel(shared_ptr<PaintEvent> const & e,
                  ScreenBase const & screen,
                  m2::RectD const & selectRect,
+                 m2::RectD const & clipRect,
                  int scaleLevel);
 
   void Search(string const & text, SearchCallbackT callback);

@@ -85,8 +85,8 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
 {
   // on Android policy is created in AndroidFramework
 #ifndef OMIM_OS_ANDROID
-//  SetRenderPolicy(make_shared_ptr(new RenderPolicyST(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4))));
-  SetRenderPolicy(make_shared_ptr(new TilingRenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4))));
+//  SetRenderPolicy(make_shared_ptr(new RenderPolicyST(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5))));
+  SetRenderPolicy(make_shared_ptr(new TilingRenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5))));
 #endif
   m_informationDisplay.setBottomShift(bottomShift);
 #ifdef DRAW_TOUCH_POINTS
@@ -290,9 +290,10 @@ template <typename TModel>
 void Framework<TModel>::DrawModel(shared_ptr<PaintEvent> const & e,
                                   ScreenBase const & screen,
                                   m2::RectD const & selectRect,
+                                  m2::RectD const & clipRect,
                                   int scaleLevel)
 {
-  fwork::DrawProcessor doDraw(selectRect, screen, e, scaleLevel);
+  fwork::DrawProcessor doDraw(clipRect, screen, e, scaleLevel);
 
   try
   {
