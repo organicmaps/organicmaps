@@ -24,7 +24,7 @@ class CoverageGenerator;
 
 struct LessRectInfo
 {
-  bool operator()(Tile const * l, Tile const * r);
+  bool operator()(Tile const * l, Tile const * r) const;
 };
 
 class ScreenCoverage

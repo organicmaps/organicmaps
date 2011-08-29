@@ -96,7 +96,7 @@ void ScreenCoverage::Remove(Tile const * tile)
 {
 }
 
-bool LessRectInfo::operator()(Tile const * l, Tile const * r)
+bool LessRectInfo::operator()(Tile const * l, Tile const * r) const
 {
   return l->m_rectInfo.toUInt64Cell() < r->m_rectInfo.toUInt64Cell();
 }
