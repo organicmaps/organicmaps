@@ -61,32 +61,48 @@ namespace m2
     friend TArchive & operator >> (TArchive & ar, Region<TPoint> & region);
 
   public:
-    typedef PointT value_type;
-    typedef typename PointT::value_type coord_type;
+    typedef PointT ValueT;
+    typedef typename PointT::value_type CoordT;
 
   private:
-    typedef vector<PointT> internal_container;
-    typedef detail::TraitsType<is_floating_point<coord_type>::value> traits_type;
+    typedef vector<PointT> ContainerT;
+    typedef detail::TraitsType<is_floating_point<CoordT>::value> TraitsT;
+
+  public:
+    /// @name Needed for boost region concept.
+    //@{
+    typedef typename ContainerT::const_iterator IteratorT;
+    IteratorT Begin() const { return m_points.begin(); }
+    IteratorT End() const { return m_points.end(); }
+    size_t Size() const { return m_points.size(); }
+    //@}
 
   public:
     Region() {}
 
-    template <class TInputIterator>
-    Region(TInputIterator first, TInputIterator last)
+    template <class IterT>
+    Region(IterT first, IterT last)
       : m_points(first, last)
     {
-      // update limit rect
-      for (; first != last; ++first)
-        m_rect.Add(*first);
+      CalcLimitRect();
     }
 
-    template <class TInputIterator>
-    void Assign(TInputIterator first, TInputIterator last)
+    template <class IterT>
+    void Assign(IterT first, IterT last)
     {
       m_points.assign(first, last);
-      m_rect.MakeEmpty();
-      for (; first != last; ++first)
-        m_rect.Add(*first);
+      CalcLimitRect();
+    }
+
+    template <class IterT, class Fn>
+    void AssignEx(IterT first, IterT last, Fn fn)
+    {
+      m_points.reserve(distance(first, last));
+
+      while (first != last)
+        m_points.push_back(fn(*first++));
+
+      CalcLimitRect();
     }
 
     void AddPoint(PointT const & pt)
@@ -101,7 +117,7 @@ namespace m2
       for_each(m_points.begin(), m_points.end(), toDo);
     }
 
-    m2::Rect<coord_type> GetRect() const { return m_rect; }
+    m2::Rect<CoordT> GetRect() const { return m_rect; }
 
     bool IsValid() const { return m_points.size() > 2; }
 
@@ -118,7 +134,7 @@ namespace m2
 
       size_t const numPoints = m_points.size();
 
-      typedef typename traits_type::BigType BigCoordT;
+      typedef typename TraitsT::BigType BigCoordT;
       typedef Point<BigCoordT> BigPointT;
 
       BigPointT prev = BigPointT(m_points[numPoints - 1]) - BigPointT(pt);
@@ -164,12 +180,19 @@ namespace m2
 
     bool Contains(PointT const & pt) const
     {
-      return Contains(pt, typename traits_type::EqualType());
+      return Contains(pt, typename TraitsT::EqualType());
     }
 
   private:
-    internal_container m_points;
-    m2::Rect<coord_type> m_rect;
+    void CalcLimitRect()
+    {
+      m_rect.MakeEmpty();
+      for (size_t i = 0; i < m_points.size(); ++i)
+        m_rect.Add(m_points[i]);
+    }
+
+    ContainerT m_points;
+    m2::Rect<CoordT> m_rect;
   };
 
   template <class TArchive, class PointT>

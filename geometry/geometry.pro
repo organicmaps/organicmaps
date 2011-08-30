@@ -14,6 +14,7 @@ SOURCES += \
   screenbase.cpp \
   packer.cpp \
   robust_orientation.cpp \
+  region2d/binary_operators.cpp \
 
 HEADERS += \
   rect2d.hpp \
@@ -33,4 +34,6 @@ HEADERS += \
   polygon.hpp \
   region2d.hpp \
   robust_orientation.hpp \
-    aa_rect2d.hpp
+  aa_rect2d.hpp \
+  region2d/binary_operators.hpp \
+  region2d/boost_concept.hpp \

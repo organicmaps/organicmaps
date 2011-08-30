@@ -11,7 +11,7 @@ template <class RegionT> struct ContainsChecker
 {
   RegionT const & m_region;
   ContainsChecker(RegionT const & region) : m_region(region) {}
-  void operator()(typename RegionT::value_type const & pt)
+  void operator()(typename RegionT::ValueT const & pt)
   {
     TEST(m_region.Contains(pt), ("Region should contain all it's points"));
   }
@@ -63,7 +63,7 @@ void TestContaints()
   ContainsChecker<RegionT> checker(region);
 
   // point type
-  typedef typename RegionT::value_type P;
+  typedef typename RegionT::ValueT P;
 
   // rectangular polygon
   {
