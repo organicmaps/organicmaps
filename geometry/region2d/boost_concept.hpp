@@ -119,42 +119,42 @@ namespace boost { namespace polygon {
   ////////////////////////////////////////////////////////////////////////////////
   // Polygon set concept.
   ////////////////////////////////////////////////////////////////////////////////
-  typedef vector<my_region_t> region_set_t;
+  typedef vector<my_region_t> my_region_set_t;
 
   template <>
-  struct geometry_concept<region_set_t>
+  struct geometry_concept<my_region_set_t>
   {
     typedef polygon_set_concept type;
   };
 
   // next we map to the concept through traits
   template <>
-  struct polygon_set_traits<region_set_t>
+  struct polygon_set_traits<my_region_set_t>
   {
     typedef my_coord_t coordinate_type;
-    typedef region_set_t::const_iterator iterator_type;
-    typedef region_set_t operator_arg_type;
+    typedef my_region_set_t::const_iterator iterator_type;
+    typedef my_region_set_t operator_arg_type;
 
-    static inline iterator_type begin(region_set_t const & t)
+    static inline iterator_type begin(my_region_set_t const & t)
     {
       return t.begin();
     }
 
-    static inline iterator_type end(region_set_t const & t)
+    static inline iterator_type end(my_region_set_t const & t)
     {
       return t.end();
     }
 
     // don't worry about these, just return false from them
-    static inline bool clean(region_set_t const & /*t*/) { return false; }
-    static inline bool sorted(region_set_t const & /*t*/) { return false; }
+    static inline bool clean(my_region_set_t const & /*t*/) { return false; }
+    static inline bool sorted(my_region_set_t const & /*t*/) { return false; }
   };
 
   template <>
-  struct polygon_set_mutable_traits<region_set_t>
+  struct polygon_set_mutable_traits<my_region_set_t>
   {
     template <typename IterT>
-    static inline void set(region_set_t & poly_set, IterT b, IterT e)
+    static inline void set(my_region_set_t & poly_set, IterT b, IterT e)
     {
       poly_set.clear();
 

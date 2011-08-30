@@ -6,12 +6,18 @@
 
 namespace m2
 {
+  using namespace boost::polygon;
+  using namespace boost::polygon::operators;
+
   void IntersectRegions(RegionI const & r1, RegionI const & r2, vector<RegionI> & res)
   {
-    using namespace boost::polygon;
-    using namespace boost::polygon::operators;
-
     res.clear();
     res += r1 * r2;
+  }
+
+  void DiffRegions(RegionI const & r1, RegionI const & r2, vector<RegionI> & res)
+  {
+    res.clear();
+    res += boost::polygon::operators::operator-(r1, r2);
   }
 }

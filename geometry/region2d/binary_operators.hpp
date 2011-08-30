@@ -8,4 +8,5 @@
 namespace m2
 {
   void IntersectRegions(RegionI const & r1, RegionI const & r2, vector<RegionI> & res);
+  void DiffRegions(RegionI const & r1, RegionI const & r2, vector<RegionI> & res);
 }
