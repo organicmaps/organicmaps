@@ -55,7 +55,8 @@ SOURCES += \
     info_layer.cpp \
     overlay_element.cpp \
     symbol_element.cpp \
-    overlay_renderer.cpp
+    overlay_renderer.cpp \
+    render_state_updater.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -103,7 +104,8 @@ HEADERS += \
     info_layer.hpp \
     overlay_element.hpp \
     symbol_element.hpp \
-    overlay_renderer.hpp
+    overlay_renderer.hpp \
+    render_state_updater.hpp
 
 win32 {
   HEADERS += internal/opengl_win32.hpp

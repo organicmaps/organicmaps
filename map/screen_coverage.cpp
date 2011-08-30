@@ -92,7 +92,7 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
 
 }
 
-void ScreenCoverage::Remove(Tile const * tile)
+void ScreenCoverage::Remove(Tile const *)
 {
 }
 

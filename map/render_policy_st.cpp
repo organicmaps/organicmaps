@@ -43,7 +43,3 @@ void RenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e,
   infoLayer->draw(e->drawer()->screen().get(), math::Identity<double, 3>());
   e->drawer()->screen()->resetInfoLayer();
 }
-
-void RenderPolicyST::OnSize(int w, int h)
-{
-}

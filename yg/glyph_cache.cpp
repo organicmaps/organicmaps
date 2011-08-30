@@ -300,12 +300,12 @@ namespace yg
   strings::UniString GlyphCache::log2vis(strings::UniString const & str)
   {
 //    FriBidiEnv e;
-/*    size_t const count = str.size();
+    size_t const count = str.size();
     strings::UniString res(count);
     FriBidiParType dir = FRIBIDI_PAR_LTR;  // requested base direction
     fribidi_log2vis(&str[0], count, &dir, &res[0], 0, 0, 0);
-    return res;*/
-    return str;
+    return res;
+//    return str;
   }
 
 }

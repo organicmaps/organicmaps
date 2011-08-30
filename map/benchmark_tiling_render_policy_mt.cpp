@@ -13,11 +13,6 @@ void BenchmarkTilingRenderPolicyMT::Initialize(shared_ptr<yg::gl::RenderContext>
   TilingRenderPolicyMT::Initialize(renderContext, resourceManager);
 }
 
-void BenchmarkTilingRenderPolicyMT::OnSize(int w, int h)
-{
-  TilingRenderPolicyMT::OnSize(w, h);
-}
-
 void BenchmarkTilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,
                                               ScreenBase const & s)
 {

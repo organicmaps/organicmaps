@@ -50,8 +50,19 @@ public:
   /// drawing single frame
   virtual void DrawFrame(shared_ptr<PaintEvent> const & paintEvent, ScreenBase const & currentScreen) = 0;
   /// processing resize request
-  virtual void OnSize(int w, int h) = 0;
+  virtual m2::RectI const OnSize(int w, int h);
   /// initialize render policy
   virtual void Initialize(shared_ptr<yg::gl::RenderContext> const & primaryContext,
                           shared_ptr<yg::ResourceManager> const & resourceManager) = 0;
+
+  /// reacting on navigation actions
+  /// @{
+  virtual void StartDrag(m2::PointD const & pt, double timeInSec);
+  virtual void DoDrag(m2::PointD const & pt, double timeInSec);
+  virtual void StopDrag(m2::PointD const & pt, double timeInSec);
+
+  virtual void StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
+  virtual void DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
+  virtual void StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
+  /// @}
 };

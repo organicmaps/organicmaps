@@ -26,6 +26,7 @@
 #include "../std/fstream.hpp"
 
 #include "render_policy_st.hpp"
+#include "render_policy_mt.hpp"
 
 #include "tiling_render_policy_st.hpp"
 #include "tiling_render_policy_mt.hpp"
@@ -86,7 +87,8 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
   // on Android policy is created in AndroidFramework
 #ifndef OMIM_OS_ANDROID
 //  SetRenderPolicy(make_shared_ptr(new RenderPolicyST(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5))));
-  SetRenderPolicy(make_shared_ptr(new TilingRenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5))));
+//  SetRenderPolicy(make_shared_ptr(new TilingRenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5))));
+  SetRenderPolicy(make_shared_ptr(new RenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5))));
 #endif
   m_informationDisplay.setBottomShift(bottomShift);
 #ifdef DRAW_TOUCH_POINTS
@@ -252,9 +254,13 @@ void Framework<TModel>::OnSize(int w, int h)
 
   m_informationDisplay.setDisplayRect(m2::RectI(m2::PointI(0, 0), m2::PointU(w, h)));
 
-  m_navigator.OnSize(0, 0, w, h);
+  m2::RectI const & viewPort = m_renderPolicy->OnSize(w, h);
 
-  m_renderPolicy->OnSize(w, h);
+  m_navigator.OnSize(
+        viewPort.minX(),
+        viewPort.minY(),
+        viewPort.SizeX(),
+        viewPort.SizeY());
 }
 
 template <typename TModel>
@@ -298,7 +304,8 @@ void Framework<TModel>::DrawModel(shared_ptr<PaintEvent> const & e,
   try
   {
     //threads::MutexGuard lock(m_modelSyn);
-    m_model.ForEachFeature_TileDrawing(selectRect, doDraw, scaleLevel);
+//    m_model.ForEachFeature_TileDrawing(selectRect, doDraw, scaleLevel);
+    m_model.ForEachFeature(selectRect, doDraw, scaleLevel);
   }
   catch (redraw_operation_cancelled const &)
   {
@@ -436,13 +443,13 @@ template <typename TModel>
 void Framework<TModel>::StartDrag(DragEvent const & e)
 {
   m2::PointD pos = m_navigator.OrientPoint(e.Pos());
-  m_navigator.StartDrag(pos, m_timer.ElapsedSeconds());
 
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.setDebugPoint(0, pos);
 #endif
 
-  Invalidate();
+  m_navigator.StartDrag(pos, m_timer.ElapsedSeconds());
+  m_renderPolicy->StartDrag(pos, m_timer.ElapsedSeconds());
 }
 
 template <typename TModel>
@@ -451,13 +458,14 @@ void Framework<TModel>::DoDrag(DragEvent const & e)
   m_centeringMode = EDoNothing;
 
   m2::PointD pos = m_navigator.OrientPoint(e.Pos());
-  m_navigator.DoDrag(pos, m_timer.ElapsedSeconds());
 
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.setDebugPoint(0, pos);
 #endif
 
-  Invalidate();
+  m_navigator.DoDrag(pos, m_timer.ElapsedSeconds());
+
+  m_renderPolicy->DoDrag(pos, m_timer.ElapsedSeconds());
 }
 
 template <typename TModel>
@@ -471,14 +479,14 @@ void Framework<TModel>::StopDrag(DragEvent const & e)
   m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));
 #endif
 
-  Invalidate();
+  m_renderPolicy->StopDrag(pos, m_timer.ElapsedSeconds());
 }
 
 template <typename TModel>
 void Framework<TModel>::Move(double azDir, double factor)
 {
   m_navigator.Move(azDir, factor);
-  //m_tiler.seed(m_navigator.Screen(), m_tileSize);
+
   Invalidate();
 }
 //@}
@@ -526,14 +534,13 @@ void Framework<TModel>::StartScale(ScaleEvent const & e)
     pt2 += ptDiff;
   }
 
-  m_navigator.StartScale(pt1, pt2, m_timer.ElapsedSeconds());
-
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.setDebugPoint(0, pt1);
   m_informationDisplay.setDebugPoint(1, pt2);
 #endif
 
-  Invalidate();
+  m_navigator.StartScale(pt1, pt2, m_timer.ElapsedSeconds());
+  m_renderPolicy->StartScale(pt1, pt2, m_timer.ElapsedSeconds());
 }
 
 template <typename TModel>
@@ -550,14 +557,13 @@ void Framework<TModel>::DoScale(ScaleEvent const & e)
     pt2 += ptDiff;
   }
 
-  m_navigator.DoScale(pt1, pt2, m_timer.ElapsedSeconds());
-
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.setDebugPoint(0, pt1);
   m_informationDisplay.setDebugPoint(1, pt2);
 #endif
 
-  Invalidate();
+  m_navigator.DoScale(pt1, pt2, m_timer.ElapsedSeconds());
+  m_renderPolicy->DoScale(pt1, pt2, m_timer.ElapsedSeconds());
 }
 
 template <typename TModel>
@@ -574,14 +580,13 @@ void Framework<TModel>::StopScale(ScaleEvent const & e)
     pt2 += ptDiff;
   }
 
-  m_navigator.StopScale(pt1, pt2, m_timer.ElapsedSeconds());
-
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));
   m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));
 #endif
 
-  Invalidate();
+  m_navigator.StopScale(pt1, pt2, m_timer.ElapsedSeconds());
+  m_renderPolicy->StopScale(pt1, pt2, m_timer.ElapsedSeconds());
 }
 
 template<typename TModel>

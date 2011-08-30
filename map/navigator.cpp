@@ -403,17 +403,19 @@ EOrientation Navigator::Orientation() const
 
 m2::PointD const Navigator::OrientPoint(m2::PointD const & pt) const
 {
+  m2::PointD ptShift(m_Screen.PixelRect().minX(), m_Screen.PixelRect().minY());
+
   switch (m_orientation)
   {
   case EOrientation90:
-    return m2::PointD(m_Screen.GetWidth() - pt.y, pt.x);
+    return m2::PointD(m_Screen.GetWidth() - pt.y, pt.x) + ptShift;
   case EOrientation180:
-    return m2::PointD(m_Screen.GetWidth() - pt.x, m_Screen.GetHeight() - pt.y);
+    return m2::PointD(m_Screen.GetWidth() - pt.x, m_Screen.GetHeight() - pt.y) + ptShift;
   case EOrientation270:
-    return m2::PointD(pt.y, m_Screen.GetHeight() - pt.x);
+    return m2::PointD(pt.y, m_Screen.GetHeight() - pt.x) + ptShift;
   case EOrientation0:
-    return pt;
+    return pt + ptShift;
   };
-  return m2::PointD(0, 0);
+  return ptShift;
 }
 

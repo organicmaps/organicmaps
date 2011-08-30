@@ -34,7 +34,10 @@ HEADERS += \
     tiler.hpp \
     tile.hpp \
     tile_cache.hpp \
-    screen_coverage.hpp
+    screen_coverage.hpp \
+    render_policy_mt.hpp \
+    render_queue.hpp \
+    render_queue_routine.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -58,7 +61,10 @@ SOURCES += \
     tiler.cpp \
     tile_cache.cpp \
     tile.cpp \
-    screen_coverage.cpp
+    screen_coverage.cpp \
+    render_policy_mt.cpp \
+    render_queue_routine.cpp \
+    render_queue.cpp
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp

@@ -55,6 +55,17 @@ namespace yg
                 ScreenBase const & to,
                 bool isSubPixel = false);
 
+      void blit(shared_ptr<BaseTexture> const & srcSurface,
+                math::Matrix<double, 3, 3> const & m,
+                bool isSubPixel = false);
+
+      void blit(shared_ptr<BaseTexture> const & srcSurface,
+                math::Matrix<double, 3, 3> const & m,
+                bool isSubPixel,
+                yg::Color const & color,
+                m2::RectI const & srcRect,
+                m2::RectU const & texRect);
+
       void immDrawSolidRect(m2::RectF const & rect,
                             yg::Color const & color);
 

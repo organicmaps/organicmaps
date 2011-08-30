@@ -34,6 +34,4 @@ public:
                   shared_ptr<yg::ResourceManager> const & resourceManager);
 
   void DrawFrame(shared_ptr<PaintEvent> const & paintEvent, ScreenBase const & screenBase);
-
-  void OnSize(int w, int h);
 };

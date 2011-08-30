@@ -52,9 +52,6 @@ void TilingRenderPolicyST::Initialize(shared_ptr<yg::gl::RenderContext> const & 
   m_tileScreen.OnSize(renderRect);
 }
 
-void TilingRenderPolicyST::OnSize(int /*w*/, int /*h*/)
-{}
-
 void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & currentScreen)
 {
   DrawerYG * pDrawer = e->drawer();

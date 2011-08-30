@@ -5,7 +5,7 @@
 #include "indexbuffer.hpp"
 #include "renderbuffer.hpp"
 #include "framebuffer.hpp"
-#include "geometry_renderer.hpp"
+#include "render_state_updater.hpp"
 #include "storage.hpp"
 #include "skin_page.hpp"
 
@@ -30,7 +30,7 @@ namespace yg
 
   namespace gl
   {
-    class GeometryBatcher : public GeometryRenderer
+    class GeometryBatcher : public RenderStateUpdater
     {
     public:
 
@@ -38,7 +38,7 @@ namespace yg
 
     private:
 
-      typedef GeometryRenderer base_t;
+      typedef RenderStateUpdater base_t;
 
       shared_ptr<yg::Skin> m_skin;
 

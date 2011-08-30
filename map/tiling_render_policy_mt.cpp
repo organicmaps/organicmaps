@@ -19,7 +19,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(shared_ptr<WindowHandle> const & wind
     m_tileRenderer(GetPlatform().SkinName(),
                   GetPlatform().ScaleEtalonSize(),
                   GetPlatform().MaxTilesCount(),
-                  GetPlatform().CpuCores(),
+                  1, //GetPlatform().CpuCores(),
                   bgColor(),
                   renderFn),
     m_coverageGenerator(GetPlatform().TileSize(),
@@ -35,10 +35,6 @@ void TilingRenderPolicyMT::Initialize(shared_ptr<yg::gl::RenderContext> const & 
   RenderPolicy::Initialize(primaryContext, resourceManager);
   m_tileRenderer.Initialize(primaryContext, resourceManager, GetPlatform().VisualScale());
   m_coverageGenerator.Initialize();
-}
-
-void TilingRenderPolicyMT::OnSize(int /*w*/, int /*h*/)
-{
 }
 
 void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & currentScreen)

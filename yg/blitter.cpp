@@ -45,7 +45,34 @@ namespace yg
                        m2::RectI const & srcRect,
                        m2::RectU const & texRect)
     {
-      m2::PointF pt = to.GtoP(from.PtoG(m2::PointF(srcRect.minX(), srcRect.minY())));
+      blit(srcSurface,
+           from.PtoGMatrix() * to.GtoPMatrix(),
+           isSubPixel,
+           color,
+           srcRect,
+           texRect);
+    }
+
+    void Blitter::blit(shared_ptr<yg::gl::BaseTexture> const & srcSurface,
+                       math::Matrix<double, 3, 3> const & m,
+                       bool isSubPixel)
+    {
+      blit(srcSurface,
+           m,
+           isSubPixel,
+           yg::Color(),
+           m2::RectI(0, 0, srcSurface->width(), srcSurface->height()),
+           m2::RectU(0, 0, srcSurface->width(), srcSurface->height()));
+    }
+
+    void Blitter::blit(shared_ptr<yg::gl::BaseTexture> const & srcSurface,
+                       math::Matrix<double, 3, 3> const & m,
+                       bool isSubPixel,
+                       yg::Color const & color,
+                       m2::RectI const & srcRect,
+                       m2::RectU const & texRect)
+    {
+      m2::PointF pt = m2::PointF(m2::PointD(srcRect.minX(), srcRect.minY()) * m);
 
       if (!isSubPixel)
       {
@@ -57,10 +84,10 @@ namespace yg
 
       m2::PointF pts[4] =
       {
-        to.GtoP(from.PtoG(m2::PointF(srcRect.minX(), srcRect.minY()))) + pt,
-        to.GtoP(from.PtoG(m2::PointF(srcRect.maxX(), srcRect.minY()))) + pt,
-        to.GtoP(from.PtoG(m2::PointF(srcRect.maxX(), srcRect.maxY()))) + pt,
-        to.GtoP(from.PtoG(m2::PointF(srcRect.minX(), srcRect.maxY()))) + pt
+        m2::PointF(m2::PointD(srcRect.minX(), srcRect.minY()) * m) + pt,
+        m2::PointF(m2::PointD(srcRect.maxX(), srcRect.minY()) * m) + pt,
+        m2::PointF(m2::PointD(srcRect.maxX(), srcRect.maxY()) * m) + pt,
+        m2::PointF(m2::PointD(srcRect.minX(), srcRect.maxY()) * m) + pt
       };
 
       m2::PointF texPts[4] =

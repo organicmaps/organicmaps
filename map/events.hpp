@@ -48,11 +48,12 @@ class PaintEvent : public Event
 
   DrawerYG * m_drawer;
   core::CommandsQueue::Environment const * m_env;
+  bool m_isCancelled;
 
 public:
 
   PaintEvent(DrawerYG * drawer, core::CommandsQueue::Environment const * env = 0)
-    : m_drawer(drawer), m_env(env)
+    : m_drawer(drawer), m_env(env), m_isCancelled(false)
   {}
 
   DrawerYG * drawer() const
@@ -60,9 +61,18 @@ public:
     return m_drawer;
   }
 
+  void Cancel()
+  {
+    ASSERT(m_env == 0, ());
+    m_isCancelled = true;
+  }
+
   bool isCancelled() const
   {
-    return (m_env && m_env->IsCancelled());
+    if (m_env)
+      return m_env->IsCancelled();
+    else
+      return m_isCancelled;
   }
 };
 
