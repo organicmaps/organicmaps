@@ -511,26 +511,6 @@ namespace ftype {
       FeatureParams & m_params;
       bool m_tunnel;
 
-      class get_lang
-      {
-        bool m_ok;
-        string & m_lang;
-
-      public:
-        get_lang(string & lang) : m_ok(false), m_lang(lang) {}
-
-        void operator() (string const & s)
-        {
-          if (m_ok)
-            m_lang = s;
-          else if (s == "name")
-          {
-            m_ok = true;
-            m_lang = "default";
-          }
-        }
-      };
-
     public:
       typedef bool result_type;
 
@@ -551,11 +531,13 @@ namespace ftype {
 
         if (v.empty()) return false;
 
-        // get names
-        string lang;
-        strings::Tokenize(k, "\t :", get_lang(lang));
-        if (!lang.empty())
+        // get name with language suffix
+        strings::SimpleTokenizer token(k, "\t :");
+        if (token && *token == "name")
         {
+          ++token;
+          string lang = (token ? *token : "default");
+
           // Unicode Compatibility Decomposition,
           // followed by Canonical Composition (NFKC).
           // Needed for better search matching
