@@ -332,18 +332,24 @@ void RenderQueueRoutine::Do()
 
         if (isPanning)
         {
-          m2::RectD oldRect = m2::RectD(m_renderState->m_currentScreen.GtoP(prevScreen.PtoG(m2::PointD(prevRect.minX(), prevRect.minY()))),
-                                        m_renderState->m_currentScreen.GtoP(prevScreen.PtoG(m2::PointD(prevRect.maxX(), prevRect.maxY()))));
+          math::Matrix<double, 3, 3> offsetM = prevScreen.PtoGMatrix() * m_renderState->m_currentScreen.GtoPMatrix();
+          m2::RectD oldRect = m2::RectD(m2::PointD(prevRect.minX(), prevRect.minY()) * offsetM,
+                                        m2::PointD(prevRect.maxX(), prevRect.maxY()) * offsetM);
           m2::RectD redrawTextRect(curRect);
 
           if (!redrawTextRect.Intersect(oldRect))
             redrawTextRect = m2::RectD(0, 0, 0, 0);
 
-          shared_ptr<yg::InfoLayer> infoLayer(new yg::InfoLayer());
+          m_threadDrawer->screen()->infoLayer()->offset(
+                m2::PointD(0, 0) * offsetM,
+                redrawTextRect
+                );
+
+/*          shared_ptr<yg::InfoLayer> infoLayer(new yg::InfoLayer());
           infoLayer->merge(*m_threadDrawer->screen()->infoLayer().get(),
                            prevScreen.PtoGMatrix() * m_renderState->m_currentScreen.GtoPMatrix());
 
-          m_threadDrawer->screen()->setInfoLayer(infoLayer);
+          m_threadDrawer->screen()->setInfoLayer(infoLayer);*/
         }
         else
           m_threadDrawer->screen()->infoLayer()->clear();

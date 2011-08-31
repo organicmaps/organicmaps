@@ -37,9 +37,9 @@ namespace yg
     typedef map<uint32_t, m4::Tree<SymbolElement> > symbols_map_t;
     symbols_map_t m_symbolsMap;
 
-/*    void offsetPathTexts(m2::PointD const & offs, m2::RectD const & rect);
+    void offsetPathTexts(m2::PointD const & offs, m2::RectD const & rect);
     void offsetTextTree(m2::PointD const & offs, m2::RectD const & rect);
-    void offsetSymbols(m2::PointD const & offs, m2::RectD const & rect);*/
+    void offsetSymbols(m2::PointD const & offs, m2::RectD const & rect);
 
     void addPathTextImpl(PathTextElement const & pte);
     void addStraightTextImpl(StraightTextElement const & ste);
@@ -55,7 +55,7 @@ namespace yg
 
     void addSymbol(SymbolElement const & se, math::Matrix<double, 3, 3> const & m);
 
-//    void offset(m2::PointD const & offs, m2::RectD const & rect);
+    void offset(m2::PointD const & offs, m2::RectD const & rect);
 
     void clear();
 

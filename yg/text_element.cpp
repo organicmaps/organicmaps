@@ -81,8 +81,20 @@ namespace yg
 
   void StraightTextElement::draw(gl::OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m) const
   {
-    if (!isNeedRedraw())
-      return;
+    if (screen->isDebugging())
+    {
+      yg::Color c(255, 255, 255, 32);
+
+      if (isFrozen())
+        c = yg::Color(0, 0, 255, 64);
+      if (isNeedRedraw())
+        c = yg::Color(255, 0, 0, 64);
+
+      screen->drawRectangle(boundRect(), c, yg::maxDepth - 3);
+    }
+    else
+      if (!isNeedRedraw())
+        return;
 
     yg::FontDesc desc = m_fontDesc;
     if (m_fontDesc.m_isMasked)
@@ -92,6 +104,12 @@ namespace yg
     }
 
     drawTextImpl(m_glyphLayout, screen, m, desc, yg::maxDepth);
+  }
+
+  void StraightTextElement::offset(m2::PointD const & offs)
+  {
+    TextElement::offset(offs);
+    m_glyphLayout.setPivot(pivot());
   }
 
   PathTextElement::PathTextElement(Params const & p)
@@ -122,6 +140,18 @@ namespace yg
 
   void PathTextElement::draw(gl::OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m) const
   {
+    if (screen->isDebugging())
+    {
+      yg::Color c(255, 255, 255, 32);
+
+      if (isFrozen())
+        c = yg::Color(0, 0, 255, 64);
+      if (isNeedRedraw())
+        c = yg::Color(255, 0, 0, 64);
+
+      screen->drawRectangle(boundRect(), c, yg::maxDepth - 3);
+    }
+
     yg::FontDesc desc = m_fontDesc;
     if (m_fontDesc.m_isMasked)
     {
@@ -130,5 +160,11 @@ namespace yg
     }
 
     drawTextImpl(m_glyphLayout, screen, m, desc, yg::maxDepth);
+  }
+
+  void PathTextElement::offset(m2::PointD const & offs)
+  {
+    TextElement::offset(offs);
+    m_glyphLayout.setPivot(pivot());
   }
 }

@@ -72,6 +72,7 @@ namespace yg
 
     m2::AARectD const boundRect() const;
     void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+    void offset(m2::PointD const & offs);
   };
 
   class PathTextElement : public TextElement
@@ -95,5 +96,6 @@ namespace yg
 
     m2::AARectD const boundRect() const;
     void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+    void offset(m2::PointD const & offs);
   };
 }

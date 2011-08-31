@@ -55,6 +55,8 @@ namespace yg
 
     bool isNeedRedraw() const;
     void setIsNeedRedraw(bool flag);
+
+    void offset(m2::PointD const & offs);
   };
 
 }

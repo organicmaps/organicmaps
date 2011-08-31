@@ -6,6 +6,8 @@
 #include "../std/bind.hpp"
 #include "../std/vector.hpp"
 
+#include "../base/logging.hpp"
+
 namespace yg
 {
   m2::RectD const StraightTextElementTraits::LimitRect(StraightTextElement const & elem)
@@ -49,7 +51,7 @@ namespace yg
     m_tree.ForEach(bind(&StraightTextElement::draw, _1, r, m));
   }
 
-/*  template <typename Tree>
+  template <typename Tree>
   void offsetTree(Tree & tree, m2::PointD const & offs, m2::RectD const & rect)
   {
     typedef typename Tree::elem_t elem_t;
@@ -63,11 +65,12 @@ namespace yg
       m2::RectD limitRect = it->boundRect().GetGlobalRect();
       bool doAppend = false;
 
-      it->setIsNeedRedraw(true);
+      it->setIsNeedRedraw(false);
       it->setIsFrozen(false);
 
       if (rect.IsRectInside(limitRect))
       {
+        it->setIsNeedRedraw(false);
         it->setIsFrozen(true);
         doAppend = true;
       }
@@ -75,6 +78,7 @@ namespace yg
         if (rect.IsIntersect(limitRect))
         {
           it->setIsFrozen(true);
+          it->setIsNeedRedraw(true);
           doAppend = true;
         }
 
@@ -136,7 +140,7 @@ namespace yg
     offsetTextTree(offs, rect);
     offsetPathTexts(offs, rect);
     offsetSymbols(offs, rect);
-  }*/
+  }
 
   void InfoLayer::clear()
   {
