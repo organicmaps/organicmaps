@@ -20,6 +20,8 @@ public:
   void SetRound();
   bool IsRound() const { return m_isRound; }
 
+  void ZeroParams() { m_Params.MakeZero(); }
+
   void AppendFeature(MergedFeatureBuilder1 const & fb, bool fromBegin, bool toBack);
 
   bool EqualGeometry(MergedFeatureBuilder1 const & fb) const;

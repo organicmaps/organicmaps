@@ -295,5 +295,8 @@ MergedFeatureBuilder1 * FeatureTypesProcessor::operator() (FeatureBuilder1 const
 
   p->ForEachChangeTypes(do_change_types(*this));
 
+  // zero all additional params for world merged features (names, ranks, ...)
+  p->ZeroParams();
+
   return p;
 }

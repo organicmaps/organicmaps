@@ -59,6 +59,8 @@ struct FeatureParamsBase
 
   FeatureParamsBase() : layer(0), rank(0) {}
 
+  void MakeZero();
+
   bool operator == (FeatureParamsBase const & rhs) const;
 
   bool CheckValid() const;

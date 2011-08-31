@@ -5,6 +5,15 @@
 
 using namespace feature;
 
+void FeatureParamsBase::MakeZero()
+{
+  layer = 0;
+  rank = 0;
+  ref.clear();
+  house.Clear();
+  name.Clear();
+}
+
 bool FeatureParamsBase::operator == (FeatureParamsBase const & rhs) const
 {
   return (name == rhs.name && house == rhs.house && ref == rhs.ref &&
