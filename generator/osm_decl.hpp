@@ -36,17 +36,6 @@ STATIC_ASSERT(sizeof(LatLonPos) == 24);
 #define MAPPED_WAYS "mapped_ways.n2w"
 
 
-namespace feature
-{
-  /// @name Need to unite features.
-  //@{
-  /// @param[in]  k, v  Key and Value from relation tags.
-  bool NeedUnite(string const & k, string const & v);
-  /// @param[in]  type  Type from feature.
-  bool NeedUnite(uint32_t type);
-  //@}
-}
-
 class progress_policy
 {
   size_t m_count;

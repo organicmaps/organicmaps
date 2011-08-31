@@ -7,6 +7,7 @@
 
 #include "../base/string_utils.hpp"
 
+
 template <class THolder>
 class FirstPassParser : public BaseOSMParser
 {
@@ -42,10 +43,7 @@ protected:
     else if (p->name == "way")
     {
       // store way
-
       WayElement e(id);
-      bool bUnite = false;
-      bool bEmptyTags = true;
 
       for (size_t i = 0; i < p->childs.size(); ++i)
       {
@@ -55,23 +53,10 @@ protected:
           VERIFY ( strings::to_uint64(p->childs[i].attrs["ref"], ref), ("Bad node ref in way : ", p->childs[i].attrs["ref"]) );
           e.nodes.push_back(ref);
         }
-        else if (!bUnite && (p->childs[i].name == "tag"))
-        {
-          bEmptyTags = false;
-
-          // process way's tags to define - if we need to join ways
-          string const & k = p->childs[i].attrs["k"];
-          string const & v = p->childs[i].attrs["v"];
-          bUnite = feature::NeedUnite(k, v);
-        }
       }
 
       if (e.IsValid())
-      {
         m_holder.AddWay(id, e);
-        if (bUnite || bEmptyTags)
-          m_holder.AddMappedWay(id, e, bEmptyTags);
-      }
     }
     else if (p->name == "relation")
     {

@@ -3,6 +3,7 @@
 #include "osm_element.hpp"
 #include "polygonizer.hpp"
 #include "osm_decl.hpp"
+#include "generate_info.hpp"
 
 #include "../defines.hpp"
 
@@ -31,7 +32,6 @@ class FileHolder : public cache::BaseFileHolder<TNodesHolder, cache::DataFileRea
   typedef cache::BaseFileHolder<TNodesHolder, reader_t, FileReader> base_type;
 
   typedef typename base_type::offset_map_t offset_map_t;
-  typedef typename base_type::ways_map_t ways_map_t;
 
   typedef typename base_type::user_id_t user_id_t;
 
@@ -91,23 +91,6 @@ public:
     return this->m_ways.Read(id, e);
   }
 
-  bool GetNextWay(user_id_t & prevWay, user_id_t node, WayElement & e)
-  {
-    typedef typename ways_map_t::iter_t iter_t;
-    pair<iter_t, iter_t> range = this->m_mappedWays.GetRange(node);
-    for (; range.first != range.second; ++range.first)
-    {
-      cache::MappedWay const & w = range.first->second;
-      if (w.GetType() != cache::MappedWay::coast_opposite && w.GetId() != prevWay)
-      {
-        this->m_ways.Read(w.GetId(), e);
-        prevWay = w.GetId();
-        return true;
-      }
-    }
-    return false;
-  }
-
   template <class ToDo> void ForEachRelationByWay(user_id_t id, ToDo & toDo)
   {
     process_relation<ToDo> processor(this->m_relations, toDo);
@@ -133,7 +116,6 @@ public:
 
     this->m_nodes2rel.read_to_memory();
     this->m_ways2rel.read_to_memory();
-    this->m_mappedWays.read_to_memory();
   }
 };
 
@@ -143,12 +125,6 @@ public:
 
 FeaturesCollector::FeaturesCollector(string const & fName)
 : m_datFile(fName)
-{
-}
-
-FeaturesCollector::FeaturesCollector(string const & bucket,
-                                     FeaturesCollector::InitDataType const & prefix)
-: m_datFile(prefix.first + bucket + prefix.second)
 {
 }
 

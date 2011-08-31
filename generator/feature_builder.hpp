@@ -8,6 +8,7 @@
 
 #include "../std/bind.hpp"
 
+
 namespace serial { class CodingParams; }
 
 /// Used for serialization\deserialization of features during --generate_features.
@@ -85,6 +86,8 @@ public:
 
   /// For OSM debugging, store original OSM id
   void AddOsmId(string const & type, uint64_t osmId);
+
+  int GetMinFeatureDrawScale() const;
 
 protected:
   /// Used for feature debugging

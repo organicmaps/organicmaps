@@ -6,14 +6,18 @@
 #include "../indexer/feature.hpp"
 #include "../indexer/feature_visibility.hpp"
 #include "../indexer/cell_id.hpp"
+
 #include "../geometry/rect2d.hpp"
+
 #include "../coding/file_writer.hpp"
+
 #include "../base/base.hpp"
 #include "../base/buffer_vector.hpp"
 #include "../base/macros.hpp"
 
 #include "../std/scoped_ptr.hpp"
 #include "../std/string.hpp"
+
 
 #ifndef PARALLEL_POLYGONIZER
 #define PARALLEL_POLYGONIZER 1
@@ -26,13 +30,16 @@
 #include <QMutexLocker>
 #endif
 
+
 namespace feature
 {
   // Groups features according to country polygons
   template <class FeatureOutT>
   class Polygonizer
   {
-    typename FeatureOutT::InitDataType m_filePrefixAndSuffix;
+    string m_prefix;
+    string m_suffix;
+
     vector<FeatureOutT*> m_Buckets;
     vector<string> m_Names;
     borders::CountriesContainerT m_countries;
@@ -45,8 +52,9 @@ namespace feature
 #endif
 
   public:
-    template <class T>
-    Polygonizer(T const & info) : m_filePrefixAndSuffix(info.m_datFilePrefix, info.m_datFileSuffix)
+    template <class TInfo>
+    explicit Polygonizer(TInfo const & info)
+      : m_prefix(info.m_datFilePrefix), m_suffix(info.m_datFileSuffix)
 #if PARALLEL_POLYGONIZER
     , m_ThreadPoolSemaphore(m_ThreadPool.maxThreadCount() * 8)
 #endif
@@ -64,7 +72,8 @@ namespace feature
             ("Error loading country polygons files"));
       }
       else
-      { // Insert fake country polygon equal to whole world to
+      {
+        // Insert fake country polygon equal to whole world to
         // create only one output file which contains all features
         m_countries.Add(borders::CountryPolygons(),
                         m2::RectD(MercatorBounds::minX, MercatorBounds::minY,
@@ -155,7 +164,7 @@ namespace feature
       if (country->m_index == -1)
       {
         m_Names.push_back(country->m_name);
-        m_Buckets.push_back(new FeatureOutT(country->m_name, m_filePrefixAndSuffix));
+        m_Buckets.push_back(new FeatureOutT(m_prefix + country->m_name + m_suffix));
         country->m_index = m_Buckets.size()-1;
       }
 

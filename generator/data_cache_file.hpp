@@ -194,36 +194,6 @@ namespace cache
     }
   };
 
-  class MappedWay
-  {
-  public:
-
-    enum WayType
-    {
-      coast_direct = 0,
-      empty_direct = 1,
-      coast_opposite = 2,
-      empty_opposite = 3
-    };
-
-    MappedWay() : m_id(0) {}
-    MappedWay(uint64_t id, WayType type) : m_id((id << 2) | type)
-    {
-      CHECK_EQUAL(0, id & 0xC000000000000000ULL, ("Highest 2 bits should be 0.", id));
-    }
-
-    bool operator<(MappedWay const & r) const
-    {
-      return m_id < r.m_id;
-    }
-
-    uint64_t GetId() const { return m_id >> 2; }
-    WayType GetType() const { return static_cast<WayType>(m_id & 3); }
-
-  private:
-    uint64_t m_id;
-  };
-  STATIC_ASSERT(sizeof(MappedWay) == 8);
 
   template <class TNodesHolder, class TData, class TFile>
   class BaseFileHolder
@@ -238,17 +208,13 @@ namespace cache
     typedef detail::file_map_t<TFile, uint64_t> offset_map_t;
     offset_map_t m_nodes2rel, m_ways2rel;
 
-    typedef detail::file_map_t<TFile, MappedWay> ways_map_t;
-    ways_map_t m_mappedWays;
-
   public:
     BaseFileHolder(TNodesHolder & nodes, string const & dir)
       : m_nodes(nodes),
         m_ways(dir + WAYS_FILE),
         m_relations(dir + RELATIONS_FILE),
         m_nodes2rel(dir + NODES_FILE + ID2REL_EXT),
-        m_ways2rel(dir + WAYS_FILE + ID2REL_EXT),
-        m_mappedWays(dir + MAPPED_WAYS)
+        m_ways2rel(dir + WAYS_FILE + ID2REL_EXT)
     {
     }
   };

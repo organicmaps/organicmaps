@@ -1,33 +1,26 @@
 #pragma once
 
 #include "feature_merger.hpp"
-#include "generate_info.hpp"
 
-#include "../indexer/feature_visibility.hpp"
 #include "../indexer/scales.hpp"
 
 #include "../defines.hpp"
 
 
-inline int GetMinFeatureDrawScale(FeatureBuilder1 const & fb)
-{
-  FeatureBase const fBase = fb.GetFeatureBase();
-  int const minScale = feature::MinDrawableScaleForFeature(fBase);
-
-  // some features become invisible after merge processing, so -1 is possible
-  return (minScale == -1 ? 1000 : minScale);
-}
-
+/// Process FeatureBuilder1 for world map. Main functions:
+/// - check for visibility in world map
+/// - merge linear features
 template <class FeatureOutT>
 class WorldMapGenerator
 {
-  class WorldEmitter : public FeatureEmitterIFace
+  class EmitterImpl : public FeatureEmitterIFace
   {
     FeatureOutT m_output;
 
   public:
-    template <class TInit>
-    WorldEmitter(TInit const & initData) : m_output(WORLD_FILE_NAME, initData)
+    template <class TInfo>
+    explicit EmitterImpl(TInfo const & info)
+      : m_output(info.m_datFilePrefix + WORLD_FILE_NAME + info.m_datFileSuffix)
     {
     }
 
@@ -39,20 +32,20 @@ class WorldMapGenerator
 
     bool NeedPushToWorld(FeatureBuilder1 const & fb) const
     {
-      return (scales::GetUpperWorldScale() >= GetMinFeatureDrawScale(fb));
+      return (scales::GetUpperWorldScale() >= fb.GetMinFeatureDrawScale());
     }
 
     void PushSure(FeatureBuilder1 const & fb) { m_output(fb); }
   };
 
-  WorldEmitter m_worldBucket;
+  EmitterImpl m_worldBucket;
   FeatureTypesProcessor m_typesCorrector;
   FeatureMergeProcessor m_merger;
 
 public:
-  template <class T>
-  WorldMapGenerator(T const & info) : m_worldBucket(typename FeatureOutT::InitDataType(
-        info.m_datFilePrefix, info.m_datFileSuffix)), m_merger(30)
+  template <class TInfo>
+  explicit WorldMapGenerator(TInfo const & info)
+    : m_worldBucket(info), m_merger(POINT_COORD_BITS)
   {
     // Do not strip last types for given tags,
     // for example, do not cut "-2" in  "boundary-administrative-2"
@@ -73,7 +66,6 @@ public:
   {
     if (m_worldBucket.NeedPushToWorld(fb))
     {
-      // Always try to merge coastlines
       if (fb.GetGeomType() == feature::GEOM_LINE)
         m_merger(m_typesCorrector(fb));
       else

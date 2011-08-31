@@ -273,6 +273,14 @@ void FeatureBuilder1::AddOsmId(string const & type, uint64_t osmId)
   m_osmIds.push_back(osm::OsmId(type, osmId));
 }
 
+int FeatureBuilder1::GetMinFeatureDrawScale() const
+{
+  int const minScale = feature::MinDrawableScaleForFeature(GetFeatureBase());
+
+  // some features become invisible after merge processing, so -1 is possible
+  return (minScale == -1 ? 1000 : minScale);
+}
+
 string debug_print(FeatureBuilder1 const & f)
 {
   ostringstream out;

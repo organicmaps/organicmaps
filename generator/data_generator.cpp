@@ -8,6 +8,7 @@
 
 #include "../std/bind.hpp"
 
+
 namespace data
 {
 
@@ -46,17 +47,6 @@ public:
     add_id2rel_vector(this->m_ways2rel, id, e.ways);
   }
 
-  void AddMappedWay(user_id_t id, WayElement const & e, bool emptyTags)
-  {
-    typedef cache::MappedWay way_t;
-
-    way_t::WayType const directType = (emptyTags ? way_t::empty_direct : way_t::coast_direct);
-    way_t::WayType const oppositeType = (emptyTags ? way_t::empty_opposite : way_t::coast_opposite);
-
-    this->m_mappedWays.write(e.nodes.front(),  way_t(id, directType));  // direct
-    this->m_mappedWays.write(e.nodes.back(), way_t(id, oppositeType));  // opposite
-  }
-
   void SaveIndex()
   {
     this->m_ways.SaveOffsets();
@@ -64,7 +54,6 @@ public:
 
     this->m_nodes2rel.flush_to_file();
     this->m_ways2rel.flush_to_file();
-    this->m_mappedWays.flush_to_file();
   }
 };
 

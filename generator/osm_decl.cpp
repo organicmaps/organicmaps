@@ -6,44 +6,6 @@
 
 #include "../std/target_os.hpp"
 
-namespace feature
-{
-  char const * arrUnite[1][2] = { { "natural", "coastline" } };
-
-  bool NeedUnite(string const & k, string const & v)
-  {
-    for (size_t i = 0; i < ARRAY_SIZE(arrUnite); ++i)
-      if (k == arrUnite[i][0] && v == arrUnite[i][1])
-        return true;
-
-    return false;
-  }
-
-  bool NeedUnite(uint32_t type)
-  {
-    static uint32_t arrTypes[1] = { 0 };
-
-    if (arrTypes[0] == 0)
-    {
-      // initialize static array
-      for (size_t i = 0; i < ARRAY_SIZE(arrUnite); ++i)
-      {
-        size_t const count = ARRAY_SIZE(arrUnite[i]);
-        vector<string> path(count);
-        for (size_t j = 0; j < count; ++j)
-          path[j] = arrUnite[i][j];
-
-        arrTypes[i] = classif().GetTypeByPath(path);
-      }
-    }
-
-    for (size_t i = 0; i < ARRAY_SIZE(arrTypes); ++i)
-      if (arrTypes[i] == type)
-        return true;
-
-    return false;
-  }
-}
 
 void progress_policy::Begin(string const & /*name*/, size_t factor)
 {

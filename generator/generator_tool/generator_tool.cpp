@@ -8,6 +8,7 @@
 #include "../mwm_rect_updater.hpp"
 #include "../statistics.hpp"
 #include "../unpack_mwm.hpp"
+#include "../generate_info.hpp"
 
 #include "../../indexer/classificator_loader.hpp"
 #include "../../indexer/data_header.hpp"
@@ -146,6 +147,8 @@ int main(int argc, char ** argv)
 
   // Enumerate over all dat files that were created.
   size_t const count = genInfo.m_bucketNames.size();
+  string const worldPath = path + WORLD_FILE_NAME + DATA_FILE_EXTENSION;
+
   for (size_t i = 0; i < count; ++i)
   {
     string const & datFile = genInfo.m_bucketNames[i];
@@ -153,8 +156,7 @@ int main(int argc, char ** argv)
     if (FLAGS_generate_geometry)
     {
       LOG(LINFO, ("Generating result features for ", datFile));
-      if (!feature::GenerateFinalFeatures(datFile,
-                                          datFile == path + WORLD_FILE_NAME + DATA_FILE_EXTENSION))
+      if (!feature::GenerateFinalFeatures(datFile, datFile == worldPath))
       {
         // If error - move to next bucket without index generation
         continue;
