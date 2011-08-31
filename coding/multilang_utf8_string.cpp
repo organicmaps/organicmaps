@@ -2,24 +2,31 @@
 
 #include "../defines.hpp"
 
+static char const * gLangs[] = { "default",
+                       "en", "ja", "fr", "ko_rm", "ar", "de", "ru", "sv", "zh", "fi",
+                       "ko", "ka", "he", "be", "nl", "ga", "ja_rm", "el", "it", "es",
+                       "th", "zh_pinyin", "ca", "cy", "hu", "hsb", "sr", "fa", "eu", "pl",
+                       "br", "uk", "sl", "ro", "sq", "am", "fy", "gd", "cs", "sk",
+                       "af", "hr", "hy", "tr", "kn", "pt", "lt", "lb", "bg", "eo",
+                       "kk", "la", "et", "vi", "mn", "mk", "lv", "fur", "gsw", "ja_kana",
+                       "is", "hi", "ku" };
+
 int8_t StringUtf8Multilang::GetLangIndex(string const & lang)
 {
-  static char const * arr[] = { "default",
-                         "en", "ja", "fr", "ko_rm", "ar", "de", "ru", "sv", "zh", "fi",
-                         "ko", "ka", "he", "be", "nl", "ga", "ja_rm", "el", "it", "es",
-                         "th", "zh_pinyin", "ca", "cy", "hu", "hsb", "sr", "fa", "eu", "pl",
-                         "br", "uk", "sl", "ro", "sq", "am", "fy", "gd", "cs", "sk",
-                         "af", "hr", "hy", "tr", "kn", "pt", "lt", "lb", "bg", "eo",
-                         "kk", "la", "et", "vi", "mn", "mk", "lv", "fur", "gsw", "ja_kana",
-                         "is", "hi", "ku" };
+  STATIC_ASSERT(ARRAY_SIZE(gLangs) == MAX_SUPPORTED_LANGUAGES);
 
-  STATIC_ASSERT(ARRAY_SIZE(arr) == MAX_SUPPORTED_LANGUAGES);
-
-  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
-    if (lang == arr[i])
+  for (size_t i = 0; i < ARRAY_SIZE(gLangs); ++i)
+    if (lang == gLangs[i])
       return static_cast<int8_t>(i);
 
   return -1;
+}
+
+char const * StringUtf8Multilang::GetLangByCode(int8_t langCode)
+{
+  if (langCode < 0 || langCode > ARRAY_SIZE(gLangs) - 1)
+    return "";
+  return gLangs[langCode];
 }
 
 size_t StringUtf8Multilang::GetNextIndex(size_t i) const

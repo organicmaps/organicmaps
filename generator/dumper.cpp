@@ -1,11 +1,15 @@
 #include "dumper.hpp"
 
-#include "../indexer/feature_processor.hpp"
-#include "../indexer/classificator.hpp"
+#include "../coding/multilang_utf8_string.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/unordered_map.hpp"
+#include "../indexer/classificator.hpp"
+#include "../indexer/feature_processor.hpp"
+
+#include "../std/algorithm.hpp"
+#include "../std/bind.hpp"
 #include "../std/iostream.hpp"
+#include "../std/map.hpp"
+#include "../std/vector.hpp"
 
 namespace feature
 {
@@ -14,7 +18,7 @@ namespace feature
     vector<uint32_t> m_currFeatureTypes;
 
   public:
-    typedef unordered_map<vector<uint32_t>, size_t> value_type;
+    typedef map<vector<uint32_t>, size_t> value_type;
     value_type m_stats;
     size_t m_namesCount;
     size_t m_totalCount;
@@ -68,53 +72,88 @@ namespace feature
     cout << "Features with names: " << doClass.m_namesCount << endl;
   }
 
-  class NamesCollector
+  ///////////////////////////////////////////////////////////////////
+
+  typedef map<int8_t, map<string, size_t> > TokensContainerT;
+  class PrefixesCollector
   {
-    typedef unordered_map<string, size_t> NamesContainerT;
-
-    class LangsFunctor
-    {
-    public:
-      vector<string> m_names;
-      bool operator()(signed char, string const & name)
-      {
-        m_names.push_back(name);
-        return true;
-      }
-    };
-
   public:
-    NamesContainerT m_stats;
+    TokensContainerT m_stats;
+
+    bool operator()(int8_t langCode, string const & name)
+    {
+      CHECK(!name.empty(), ("Feature name is empty"));
+
+      vector<string> tokens;
+      strings::SimpleTokenizer tok(name, " ");
+      while (tok)
+      {
+        tokens.push_back(*tok);
+        ++tok;
+      }
+
+      if (tokens.empty())
+        return true;
+      // ignore token if it's first letter is an uppercase letter
+      strings::UniString const s1 = strings::MakeUniString(tokens[0]);
+      strings::UniString const s2 = strings::MakeLowerCase(s1);
+      if (s1[0] != s2[0])
+        return true;
+
+      for (size_t i = 1; i < tokens.size(); ++i)
+      {
+        string s;
+        for (size_t numTokens = 0; numTokens < i; ++numTokens)
+        {
+          s += tokens[numTokens];
+          s += " ";
+        }
+        pair<TokensContainerT::mapped_type::iterator, bool> found = m_stats[langCode].insert(make_pair(s, 1));
+        if (!found.second)
+          found.first->second++;
+      }
+      return true;
+    }
+
     void operator()(FeatureType & f, uint32_t)
     {
-      LangsFunctor doLangs;
-      f.ForEachNameRef(doLangs);
-      for (size_t i = 0; i < doLangs.m_names.size(); ++i)
-      {
-        strings::SimpleTokenizer tok(doLangs.m_names[i], " ");
-        while (tok)
-        {
-          pair<NamesContainerT::iterator, bool> found = m_stats.insert(make_pair(*tok, 1));
-          if (!found.second)
-            found.first->second++;
-          ++tok;
-        }
-      }
+      f.ForEachNameRef(*this);
     }
   };
 
-  typedef pair<string, size_t> NameElemT;
-  void DumpNames(string const & fPath)
+  static size_t const MIN_OCCURRENCE = 3;
+
+  void Print(int8_t langCode, TokensContainerT::mapped_type const & container)
   {
-    NamesCollector doClass;
-    feature::ForEachFromDat(fPath, doClass);
-
+    typedef pair<string, size_t> NameElemT;
     typedef vector<NameElemT> VecToSortT;
-    VecToSortT vecToSort(doClass.m_stats.begin(), doClass.m_stats.end());
-    sort(vecToSort.begin(), vecToSort.end(), &SortFunc<NameElemT>);
+    VecToSortT v(container.begin(), container.end());
+    sort(v.begin(), v.end(), &SortFunc<NameElemT>);
 
-    for (VecToSortT::iterator it = vecToSort.begin(); it != vecToSort.end(); ++it)
-      cout << it->second << " " << it->first << endl;
+    // do not display prefixes with low occurrences
+    if (v[0].second > MIN_OCCURRENCE)
+    {
+      cout << "Language code: " << StringUtf8Multilang::GetLangByCode(langCode) << endl;
+
+      for (VecToSortT::iterator it = v.begin(); it != v.end(); ++it)
+      {
+        if (it->second <= MIN_OCCURRENCE)
+          break;
+        cout << it->second << " " << it->first << endl;
+      }
+    }
+  }
+
+  void DumpPrefixes(string const & fPath)
+  {
+    PrefixesCollector doClass;
+    feature::ForEachFromDat(fPath, doClass);
+    for (TokensContainerT::iterator it = doClass.m_stats.begin();
+         it != doClass.m_stats.end(); ++it)
+    {
+      Print(it->first, it->second);
+    }
+
   }
 
 }

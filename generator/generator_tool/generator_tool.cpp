@@ -51,6 +51,7 @@ DEFINE_string(generate_borders, "",
             "Create binary country .borders file for osm xml file given in 'output' parameter,"
             "specify tag name and optional value: ISO3166-1 or admin_level=4");
 DEFINE_bool(dump_types, false, "If defined, prints all types combinations and their total count");
+DEFINE_bool(dump_prefixes, false, "If defined, prints statistics on feature name prefixes");
 DEFINE_bool(unpack_mwm, false, "Unpack each section of mwm into a separate file with name filePath.sectionName.");
 
 string AddSlashIfNeeded(string const & str)
@@ -106,7 +107,7 @@ int main(int argc, char ** argv)
   // load classificator only if necessary
   if (FLAGS_generate_features || FLAGS_generate_geometry ||
       FLAGS_generate_index || FLAGS_generate_search_index ||
-      FLAGS_calc_statistics || FLAGS_dump_types)
+      FLAGS_calc_statistics || FLAGS_dump_types || FLAGS_dump_prefixes)
   {
     classificator::Read(pl.GetReader("drawing_rules.bin"),
                         pl.GetReader("classificator.txt"),
@@ -218,10 +219,10 @@ int main(int argc, char ** argv)
   }
 
   if (FLAGS_dump_types)
-  {
-    //feature::DumpNames(path + FLAGS_output + ".mwm");
     feature::DumpTypes(path + FLAGS_output + ".mwm");
-  }
+
+  if (FLAGS_dump_prefixes)
+    feature::DumpPrefixes(path + FLAGS_output + ".mwm");
 
   if (FLAGS_unpack_mwm)
   {

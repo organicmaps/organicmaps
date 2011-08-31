@@ -36,6 +36,8 @@ class StringUtf8Multilang
 
 public:
   static int8_t GetLangIndex(string const & lang);
+  /// @return empty string if langCode is invalid
+  static char const * GetLangByCode(int8_t langCode);
 
   inline bool operator== (StringUtf8Multilang const & rhs) const
   {
