@@ -2222,9 +2222,14 @@
       if ( error )
         goto Exit;
 
-      error = FT_Stroker_EndSubPath( stroker );
-      if ( error )
-        goto Exit;
+      // By VNG: http://old.nabble.com/Re%3A--bug--33992--heap-underflow-in-ft_stroke_border_close-td32265105.html
+      /* don't try to end the path if no segments have been generated */
+      if ( !stroker->first_point )
+      {
+        error = FT_Stroker_EndSubPath( stroker );
+        if ( error )
+          goto Exit;
+      }
 
       first = last + 1;
     }
