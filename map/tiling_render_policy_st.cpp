@@ -26,6 +26,8 @@ void TilingRenderPolicyST::Initialize(shared_ptr<yg::gl::RenderContext> const & 
 {
   RenderPolicy::Initialize(primaryContext, rm);
 
+  rm->initRenderTargets(GetPlatform().TileSize(), GetPlatform().TileSize(), GetPlatform().MaxTilesCount());
+
   /// render single tile on the same thread
   shared_ptr<yg::gl::FrameBuffer> frameBuffer(new yg::gl::FrameBuffer());
 

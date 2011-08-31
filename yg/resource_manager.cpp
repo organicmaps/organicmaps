@@ -24,7 +24,6 @@ namespace yg
                                    size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
                                    size_t dynamicTexWidth, size_t dynamicTexHeight, size_t dynamicTexCount,
                                    size_t fontTexWidth, size_t fontTexHeight, size_t fontTexCount,
-                                   size_t tileTexWidth, size_t tileTexHeight, size_t tileTexCount,
                                    char const * blocksFile, char const * whiteListFile, char const * blackListFile,
                                    size_t glyphCacheSize,
                                    size_t glyphCacheCount,
@@ -32,7 +31,6 @@ namespace yg
                                    bool useVA)
                                      : m_dynamicTextureWidth(dynamicTexWidth), m_dynamicTextureHeight(dynamicTexHeight),
                                        m_fontTextureWidth(fontTexWidth), m_fontTextureHeight(fontTexHeight),
-                                       m_tileTextureWidth(tileTexWidth), m_tileTextureHeight(tileTexHeight),
                                      m_vbSize(vbSize), m_ibSize(ibSize),
                                      m_smallVBSize(smallVBSize), m_smallIBSize(smallIBSize),
                                      m_blitVBSize(blitVBSize), m_blitIBSize(blitIBSize),
@@ -66,7 +64,7 @@ namespace yg
       m_dynamicTextures.PushBack(t);
     }
 
-    LOG(LINFO, ("allocating ", dynamicTexWidth * dynamicTexHeight * sizeof(TDynamicTexture::pixel_t), " bytes for textures"));
+    LOG(LINFO, ("allocating ", dynamicTexCount * dynamicTexWidth * dynamicTexHeight * sizeof(TDynamicTexture::pixel_t), " bytes for textures"));
 
     for (size_t i = 0; i < fontTexCount; ++i)
     {
@@ -74,15 +72,21 @@ namespace yg
       m_fontTextures.PushBack(t);
     }
 
-    LOG(LINFO, ("allocating ", fontTexWidth * fontTexHeight * sizeof(TDynamicTexture::pixel_t), " bytes for font textures"));
+    LOG(LINFO, ("allocating ", fontTexCount * fontTexWidth * fontTexHeight * sizeof(TDynamicTexture::pixel_t), " bytes for font textures"));
+  }
 
-    for (size_t i = 0; i < tileTexCount; ++i)
+  void ResourceManager::initRenderTargets(size_t renderTargetWidth, size_t renderTargetHeight, size_t renderTargetsCount)
+  {
+    m_renderTargetWidth = renderTargetWidth;
+    m_renderTargetHeight = renderTargetHeight;
+
+    for (size_t i = 0; i < renderTargetsCount; ++i)
     {
-      shared_ptr<gl::BaseTexture> t(new TStaticTexture(tileTexWidth, tileTexHeight));
+      shared_ptr<gl::BaseTexture> t(new TStaticTexture(renderTargetWidth, renderTargetHeight));
       m_renderTargets.PushBack(t);
     }
 
-    LOG(LINFO, ("allocating ", tileTexWidth * tileTexHeight * sizeof(TStaticTexture::pixel_t), " bytes for tiles"));
+    LOG(LINFO, ("allocating ", renderTargetsCount * renderTargetWidth * renderTargetHeight * sizeof(TStaticTexture::pixel_t), " bytes for render targets"));
   }
 
   shared_ptr<gl::BaseTexture> const & ResourceManager::getTexture(string const & fileName)
@@ -144,12 +148,12 @@ namespace yg
 
   size_t ResourceManager::tileTextureWidth() const
   {
-    return m_tileTextureWidth;
+    return m_renderTargetWidth;
   }
 
   size_t ResourceManager::tileTextureHeight() const
   {
-    return m_tileTextureHeight;
+    return m_renderTargetHeight;
   }
 
   GlyphCache * ResourceManager::glyphCache(int glyphCacheID)

@@ -56,7 +56,6 @@ void GLDrawWidget::initializeGL()
       30,
       512, 256, 10,
       512, 256, 5,
-      GetPlatform().TileSize(), GetPlatform().TileSize(), GetPlatform().MaxTilesCount(),
       "unicode_blocks.txt",
       "fonts_whitelist.txt",
       "fonts_blacklist.txt",

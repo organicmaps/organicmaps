@@ -27,12 +27,16 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(shared_ptr<WindowHandle> const & wind
                         &m_tileRenderer,
                         windowHandle)
 {
+
 }
 
 void TilingRenderPolicyMT::Initialize(shared_ptr<yg::gl::RenderContext> const & primaryContext,
                                       shared_ptr<yg::ResourceManager> const & resourceManager)
 {
   RenderPolicy::Initialize(primaryContext, resourceManager);
+
+  resourceManager->initRenderTargets(GetPlatform().TileSize(), GetPlatform().TileSize(), GetPlatform().MaxTilesCount());
+
   m_tileRenderer.Initialize(primaryContext, resourceManager, GetPlatform().VisualScale());
   m_coverageGenerator.Initialize();
 }

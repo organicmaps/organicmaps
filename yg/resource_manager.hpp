@@ -49,8 +49,8 @@ namespace yg
 
     ThreadedList<shared_ptr<gl::BaseTexture> > m_fontTextures;
 
-    size_t m_tileTextureWidth;
-    size_t m_tileTextureHeight;
+    size_t m_renderTargetWidth;
+    size_t m_renderTargetHeight;
 
     ThreadedList<shared_ptr<gl::BaseTexture> > m_renderTargets;
 
@@ -86,12 +86,13 @@ namespace yg
                     size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
                     size_t texWidth, size_t texHeight, size_t texCount,
                     size_t fontTexWidth, size_t fontTexHeight, size_t fontTexCount,
-                    size_t tileTexWidth, size_t tileTexHeight, size_t tileTexCount,
                     char const * blocksFile, char const * whileListFile, char const * blackListFile,
                     size_t glyphCacheSize,
                     size_t glyphCacheCount,
                     RtFormat fmt,
                     bool useVA);
+
+    void initRenderTargets(size_t renderTargetWidth, size_t renderTargetHeight, size_t renderTargetCount);
 
     shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
 
