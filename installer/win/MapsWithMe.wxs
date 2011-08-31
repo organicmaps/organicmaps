@@ -1,28 +1,65 @@
 <?xml version='1.0'?>
-<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi' xmlns:util='http://schemas.microsoft.com/wix/UtilExtension'>
+  <?define MWMVersion = '1.0.0' ?>
+  <?define MWMName = 'MapsWithMe' ?>
+  <?define MWMCompany = 'MapsWithMe' ?>
+  <?define MWMDescription = 'MapsWithMe - offline maps and travel guide' ?>
+  <?define MWMBinary = 'MapsWithMe.exe' ?>
+  <?define MWMUrl = 'http://www.mapswithme.com/' ?>
+  <?define MWMSupportUrl = 'http://support.mapswithme.com/' ?>
+
+  <Condition Message="This application is only supported on Windows XP SP3 and higher versions of Windows">
+    <![CDATA[Installed OR (VersionNT >= 501)]]>
+  </Condition>
+
   <Product Id='42180640-750C-4d9e-9087-519705C069D5'
-           Name='MapsWithMe'
+           Name=$(var.MWMName)
            Language='1033'
-           Version='1.0.0'
-           Manufacturer='MapsWithMe'
+           Version=$(var.MWMVersion)
+           Manufacturer=$(var.MWMCompany)
            UpgradeCode='DFCB23C7-99B3-4228-93E5-625C48370982'>
-    
-    <Package Description='MapsWithMe - offline maps and travel guide'
+
+    <Package Description=$(var.MWMDescription)
              Comments='Supports Windows XP SP3 and above'
-             Manufacturer='MapsWithMe'
+             Manufacturer=$(var.MWMCompany)
              InstallerVersion='300'
              Compressed='yes'
              InstallPrivileges='elevated'
              InstallScope='perMachine'
              Platform='x86' />
- 
+
       <Media Id='1' Cabinet='data.cab' EmbedCab='no' CompressionLevel='high' />
+
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name=$(var.MWMName)>
+          <Component Id="ApplicationShortcut" Guid="692265B1-912C-4ba0-B5C8-E0C984FEC743">
+            <Shortcut Id="ApplicationStartMenuShortcut"
+                      Name="My Application Name"
+                      Description=""
+                      Target="[APPLICATIONROOTDIRECTORY]$(var.MWMBinary)"
+                      WorkingDirectory="APPLICATIONROOTDIRECTORY"/>
+            <util:InternetShortcut Id="WebSiteShortcut"
+                                   Name="Visit MapsWithMe Web Site"
+                                   Target=$(var.MWMUrl)/>
+            <util:InternetShortcut Id="WebSupportShortcut"
+                                   Name="Support Forum"
+                                   Target=$(var.MWMSupportUrl)/>
+            <Shortcut Id="UninstallProduct"
+                      Name="Uninstall $(var.MWMName)"
+                      Target="[SystemFolder]msiexec.exe"
+                      Arguments="/x [ProductCode]"
+                      Description="Completely removes $(var.MWMName) from this computer" />
+            <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+            <RegistryValue Root="HKLM" Key="Software\Microsoft\$(var.MWMName)" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+          </Component>
+        </Directory>
+      </Directory>
 
       <Directory Id='TARGETDIR' Name='SourceDir'>
         <Directory Id='ProgramFilesFolder' Name='PFiles'>
           <Directory Id='MapsWithMeDir' Name='MapsWithMe'>
-            <Component Id='MapsWithMe.exe' Guid='67852405-8C7C-4ec4-81E7-698CE3CD9A67'>
-              <File Id='MapsWithMe.exe' Name='MapsWithMe.exe' Source='..\..\..\omim-build-msvc2010\out\release\MapsWithMe.exe' DiskId='1' KeyPath='yes' Checksum='yes' />
+            <Component Id='_MapsWithMe.exe' Guid='67852405-8C7C-4ec4-81E7-698CE3CD9A67'>
+              <File Id='_MapsWithMe.exe' Name='MapsWithMe.exe' Source='..\..\..\omim-build-msvc2010\out\release\MapsWithMe.exe' DiskId='1' KeyPath='yes' Checksum='yes' />
             </Component>
              <Component Id='_QtCore4.dll' Guid='51b99190-6a04-4611-bb08-367b9a73744b'>
                <File Id='_QtCore4.dll' Name='QtCore4.dll' Source='..\..\..\SDK\Desktop\Qt\4.7.3\msvc2010\bin\QtCore4.dll' DiskId='1' KeyPath='yes' Checksum='no' />
@@ -110,9 +147,9 @@
           </Directory>
         </Directory>
       </Directory>
- 
+
       <Feature Id='MapsWithMeFeature' Title='MapsWithMe' Level='1'>
-         <ComponentRef Id='MapsWithMe.exe' />
+         <ComponentRef Id='_MapsWithMe.exe' />
          <ComponentRef Id='_QtCore4.dll' />
          <ComponentRef Id='_QtGui4.dll' />
          <ComponentRef Id='_QtOpenGL4.dll' />
@@ -143,15 +180,16 @@
          <ComponentRef Id='_eula.html' />
          <ComponentRef Id='_dictionary.slf' />
 
+         <ComponentRef Id='ApplicationShortcut' />
       </Feature>
-      
+
       <DirectoryRef Id='TARGETDIR'>
         <Merge Id='VCRedist' SourceFile='\Program Files (x86)\Common Files\Merge Modules\Microsoft_VC100_CRT_x86.msm' DiskId='1' Language='0'/>
       </DirectoryRef>
       <Feature Id='VCRedist' Title='Visual C++ 10.0 Runtime' AllowAdvertise='no' Display='hidden' Level='1'>
         <MergeRef Id='VCRedist'/>
       </Feature>
-      
+
    </Product>
 </Wix>
 

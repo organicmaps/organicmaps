@@ -11,10 +11,10 @@ if NOT ERRORLEVEL 0 echo "Generator returned error %ERRORLEVEL%"
 
 set PATH="C:\Program Files (x86)\Windows Installer XML v3.5\bin";%PATH%
 
-candle MapsWithMe.wxs
+candle -ext WiXUtilExtension MapsWithMe.wxs
 
 if NOT ERRORLEVEL 0 echo "candle returned error %ERRORLEVEL%"
 
-light MapsWithMe.wixobj
+light -ext WiXUtilExtension MapsWithMe.wixobj
 
 if NOT ERRORLEVEL 0 echo "light returned error %ERRORLEVEL%"
