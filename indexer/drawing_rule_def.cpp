@@ -22,15 +22,21 @@ namespace drule
   void Key::fromString(string const & s)
   {
     int * arrParams[] = { &m_scale, &m_type, &m_index, &m_priority };
+    size_t const count = s.size();
 
-    strings::SimpleTokenizer it(s, "|");
+    size_t beg = 0;
     size_t i = 0;
-    while (it)
+    do
     {
-      ASSERT ( i < ARRAY_SIZE(arrParams), (i) );
+      size_t end = s.find_first_of('|', beg);
+      if (end == string::npos)
+        end = count;
 
-      *(arrParams[i++]) = atoi((*it).c_str());
-      ++it;
-    }
+      ASSERT ( i < ARRAY_SIZE(arrParams), (i) );
+      //*(arrParams[i++]) = atoi(s.substr(beg, end - beg).c_str());
+      *(arrParams[i++]) = strtol(&s[beg], 0, 10);
+
+      beg = end + 1;
+    } while (beg < count);
   }
 }
