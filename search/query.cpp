@@ -1,12 +1,12 @@
 #include "query.hpp"
 #include "categories_holder.hpp"
-#include "delimiters.hpp"
 #include "latlon_match.hpp"
 #include "search_trie_matching.hpp"
 
 #include "../indexer/feature_visibility.hpp"
-#include "../indexer/string_search_utils.hpp"
 #include "../indexer/scales.hpp"
+#include "../indexer/search_delimiters.hpp"
+#include "../indexer/string_search_utils.hpp"
 
 #include "../base/exception.hpp"
 #include "../base/stl_add.hpp"

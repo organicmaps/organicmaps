@@ -36,6 +36,7 @@ SOURCES += \
     coding_params.cpp \
     feature_loader_base.cpp \
     feature_loader.cpp \
+    search_delimiters.cpp \
 
 HEADERS += \
     feature.hpp \
@@ -80,3 +81,4 @@ HEADERS += \
     feature_loader.hpp \
     search_trie.hpp \
     string_search_utils.hpp \
+    search_delimiters.hpp \

@@ -1,5 +1,5 @@
 #include "keyword_matcher.hpp"
-#include "delimiters.hpp"
+#include "../indexer/search_delimiters.hpp"
 #include "../indexer/string_search_utils.hpp"
 #include "../base/logging.hpp"
 #include "../base/string_utils.hpp"

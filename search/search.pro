@@ -10,7 +10,6 @@ DEPENDENCIES = indexer geometry coding base
 include($$ROOT_DIR/common.pri)
 
 HEADERS += \
-    delimiters.hpp \
     engine.hpp \
     intermediate_result.hpp \
     keyword_matcher.hpp \
@@ -22,7 +21,6 @@ HEADERS += \
     approximate_string_match.hpp \
 
 SOURCES += \
-    delimiters.cpp \
     engine.cpp \
     intermediate_result.cpp \
     keyword_matcher.cpp \
