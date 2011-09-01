@@ -175,7 +175,7 @@ public:
     ASSERT_GREATER(level, 0, ());
     uint32_t const skipBits = m_LeafBytes * 8 + (level - 1) * m_BitsPerLevel;
     vector<uint32_t> expandedSizes(1 << m_BitsPerLevel);
-    uint64_t prevKey = -1;
+    uint64_t prevKey = static_cast<uint64_t>(-1);
     uint32_t childOffset = 0;
     uint32_t nextChildOffset = 0;
     for (CellIdValueIterT it = beg; it != end; ++it)
