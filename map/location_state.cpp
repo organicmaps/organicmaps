@@ -69,9 +69,11 @@ namespace location
   {
     double pxErrorRadius;
     m2::PointD pxPosition;
+    m2::PointD pxShift(screen.PixelRect().minX(), screen.PixelRect().minY());
+
     if ((m_flags & State::EGps) || (m_flags & State::ECompass))
     {
-      pxPosition = screen.GtoP(Position());
+      pxPosition = screen.GtoP(Position()) - pxShift;
       pxErrorRadius = pxPosition.Length(screen.GtoP(Position()
                                         + m2::PointD(ErrorRadius(), 0)));
 
