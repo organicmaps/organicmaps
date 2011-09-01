@@ -55,7 +55,7 @@ namespace bits
       if (x & 1)
         if (--i == 0)
           return j;
-    return SELECT1_ERROR;
+    return static_cast<unsigned int>(SELECT1_ERROR);
   }
 
   // Will be implemented when needed.
