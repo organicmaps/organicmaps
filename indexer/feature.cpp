@@ -89,6 +89,8 @@ void FeatureType::Deserialize(feature::LoaderBase * pLoader, BufferT buffer)
   m_pLoader->AssignFeature(this);
 
   m_bHeader2Parsed = m_bPointsParsed = m_bTrianglesParsed = false;
+
+  m_InnerStats.MakeZero();
 }
 
 void FeatureType::ParseHeader2() const
