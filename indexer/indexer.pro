@@ -5,7 +5,7 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 ROOT_DIR = ..
-DEPENDENCIES = search geometry coding base expat
+DEPENDENCIES = geometry coding base expat
 
 include($$ROOT_DIR/common.pri)
 
