@@ -40,8 +40,8 @@ public:
   // Direction from thethe center of the screen in radians, if GetResultType() == RESULT_FEATURE.
   double GetDirectionFromCenter() const;
 
-  // String writo in the search box.
-  string GetSuggestionString() const;
+  // String to write in the search box.
+  char const * GetSuggestionString() const;
 
 private:
   string m_str;

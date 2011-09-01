@@ -66,10 +66,10 @@ double Result::GetDirectionFromCenter() const
   return m_directionFromCenter;
 }
 
-string Result::GetSuggestionString() const
+char const * Result::GetSuggestionString() const
 {
   ASSERT_EQUAL(GetResultType(), RESULT_SUGGESTION, ());
-  return m_suggestionStr;
+  return m_suggestionStr.c_str();
 }
 
 }  // namespace search

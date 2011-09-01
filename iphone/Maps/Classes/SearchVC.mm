@@ -163,10 +163,18 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 {
   if (indexPath.row < m_results.size())
   {
-    if (m_results[indexPath.row].GetResultType() == search::Result::RESULT_FEATURE)
+    search::Result const & res = m_results[indexPath.row];
+    switch(res.GetResultType())
     {
-      g_showRectF(m_results[indexPath.row].GetFeatureRect());
+      // Zoom to the feature
+    case search::Result::RESULT_FEATURE:
+      g_showRectF(res.GetFeatureRect());
       [self.navigationController popViewControllerAnimated:YES];
+      break;
+
+    case search::Result::RESULT_SUGGESTION:
+      [(UISearchBar *)self.navigationItem.titleView setText: [NSString stringWithFormat:@"%s ", res.GetSuggestionString()]];
+      break;
     }
   }
 }
