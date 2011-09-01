@@ -2,7 +2,7 @@
 #include "../keyword_matcher.hpp"
 #include "match_cost_mock.hpp"
 #include "../approximate_string_match.hpp"
-#include "../../indexer/string_search_utils.hpp"
+#include "../../indexer/search_string_utils.hpp"
 #include "../../testing/testing_utils.hpp"
 #include "../../base/string_utils.hpp"
 #include "../../std/scoped_ptr.hpp"

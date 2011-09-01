@@ -80,5 +80,5 @@ HEADERS += \
     feature_loader_base.hpp \
     feature_loader.hpp \
     search_trie.hpp \
-    string_search_utils.hpp \
+    search_string_utils.hpp \
     search_delimiters.hpp \

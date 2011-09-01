@@ -6,7 +6,7 @@
 #include "../indexer/feature_visibility.hpp"
 #include "../indexer/scales.hpp"
 #include "../indexer/search_delimiters.hpp"
-#include "../indexer/string_search_utils.hpp"
+#include "../indexer/search_string_utils.hpp"
 
 #include "../base/exception.hpp"
 #include "../base/stl_add.hpp"

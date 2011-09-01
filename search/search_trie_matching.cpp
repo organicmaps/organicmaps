@@ -2,7 +2,7 @@
 #include "query.hpp"
 
 #include "../indexer/feature_visibility.hpp"
-#include "../indexer/string_search_utils.hpp"
+#include "../indexer/search_string_utils.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/functional.hpp"

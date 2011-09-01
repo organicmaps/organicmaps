@@ -1,7 +1,7 @@
 #include "search_index_builder.hpp"
 #include "features_vector.hpp"
 #include "search_trie.hpp"
-#include "string_search_utils.hpp"
+#include "search_string_utils.hpp"
 
 #include "../defines.hpp"
 
