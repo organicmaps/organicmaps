@@ -1,5 +1,8 @@
 #include "dumper.hpp"
 
+#include "../indexer/search_delimiters.hpp"
+#include "../indexer/search_string_utils.hpp"
+
 #include "../coding/multilang_utf8_string.hpp"
 
 #include "../indexer/classificator.hpp"
@@ -74,7 +77,7 @@ namespace feature
 
   ///////////////////////////////////////////////////////////////////
 
-  typedef map<int8_t, map<string, pair<unsigned int, string> > > TokensContainerT;
+  typedef map<int8_t, map<strings::UniString, pair<unsigned int, string> > > TokensContainerT;
   class PrefixesCollector
   {
   public:
@@ -84,31 +87,20 @@ namespace feature
     {
       CHECK(!name.empty(), ("Feature name is empty"));
 
-      vector<string> tokens;
-      strings::SimpleTokenizer tok(name, " ");
-      while (tok)
-      {
-        tokens.push_back(*tok);
-        ++tok;
-      }
+      vector<strings::UniString> tokens;
+      search::SplitUniString(search::NormalizeAndSimplifyString(name),
+                             MakeBackInsertFunctor(tokens), search::Delimiters());
 
       if (tokens.empty())
         return true;
-      /*
-      // ignore token if it's first letter is an uppercase letter
-      strings::UniString const s1 = strings::MakeUniString(tokens[0]);
-      strings::UniString const s2 = strings::MakeLowerCase(s1);
-      if (s1[0] != s2[0])
-        return true;
-      */
 
       for (size_t i = 1; i < tokens.size(); ++i)
       {
-        string s;
+        strings::UniString s;
         for (size_t numTokens = 0; numTokens < i; ++numTokens)
         {
-          s += tokens[numTokens];
-          s += " ";
+          s.append(tokens[numTokens].begin(), tokens[numTokens].end());
+          s.push_back(' ');
         }
         pair<TokensContainerT::mapped_type::iterator, bool> found =
             m_stats[langCode].insert(make_pair(s, make_pair(1U, name)));
@@ -128,7 +120,7 @@ namespace feature
 
   void Print(int8_t langCode, TokensContainerT::mapped_type const & container)
   {
-    typedef pair<string, pair<unsigned int, string> > NameElemT;
+    typedef pair<strings::UniString, pair<unsigned int, string> > NameElemT;
     typedef vector<NameElemT> VecToSortT;
     VecToSortT v(container.begin(), container.end());
     sort(v.begin(), v.end(), &SortFunc<NameElemT>);
@@ -142,7 +134,8 @@ namespace feature
       {
         if (it->second.first <= MIN_OCCURRENCE)
           break;
-        cout << it->second.first << " " << it->first << " \"" << it->second.second << "\"" << endl;
+        wcout << it->second.first << " " << std::wstring(it->first.begin(), it->first.end());
+        cout << " \"" << it->second.second << "\"" << endl;
       }
     }
   }
