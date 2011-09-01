@@ -74,7 +74,7 @@ namespace feature
 
   ///////////////////////////////////////////////////////////////////
 
-  typedef map<int8_t, map<string, size_t> > TokensContainerT;
+  typedef map<int8_t, map<string, pair<unsigned int, string> > > TokensContainerT;
   class PrefixesCollector
   {
   public:
@@ -108,9 +108,10 @@ namespace feature
           s += tokens[numTokens];
           s += " ";
         }
-        pair<TokensContainerT::mapped_type::iterator, bool> found = m_stats[langCode].insert(make_pair(s, 1));
+        pair<TokensContainerT::mapped_type::iterator, bool> found =
+            m_stats[langCode].insert(make_pair(s, make_pair(1U, name)));
         if (!found.second)
-          found.first->second++;
+          found.first->second.first++;
       }
       return true;
     }
@@ -125,21 +126,21 @@ namespace feature
 
   void Print(int8_t langCode, TokensContainerT::mapped_type const & container)
   {
-    typedef pair<string, size_t> NameElemT;
+    typedef pair<string, pair<unsigned int, string> > NameElemT;
     typedef vector<NameElemT> VecToSortT;
     VecToSortT v(container.begin(), container.end());
     sort(v.begin(), v.end(), &SortFunc<NameElemT>);
 
     // do not display prefixes with low occurrences
-    if (v[0].second > MIN_OCCURRENCE)
+    if (v[0].second.first > MIN_OCCURRENCE)
     {
       cout << "Language code: " << StringUtf8Multilang::GetLangByCode(langCode) << endl;
 
       for (VecToSortT::iterator it = v.begin(); it != v.end(); ++it)
       {
-        if (it->second <= MIN_OCCURRENCE)
+        if (it->second.first <= MIN_OCCURRENCE)
           break;
-        cout << it->second << " " << it->first << endl;
+        cout << it->second.first << " " << it->first << " \"" << it->second.second << "\"" << endl;
       }
     }
   }
