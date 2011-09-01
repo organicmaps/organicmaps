@@ -94,11 +94,13 @@ namespace feature
 
       if (tokens.empty())
         return true;
+      /*
       // ignore token if it's first letter is an uppercase letter
       strings::UniString const s1 = strings::MakeUniString(tokens[0]);
       strings::UniString const s2 = strings::MakeLowerCase(s1);
       if (s1[0] != s2[0])
         return true;
+      */
 
       for (size_t i = 1; i < tokens.size(); ++i)
       {
