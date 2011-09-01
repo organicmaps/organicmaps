@@ -14,7 +14,6 @@
 
 #include "../geometry/screenbase.hpp"
 
-#include "../base/profiler.hpp"
 #include "../base/logging.hpp"
 #include "../base/buffer_vector.hpp"
 

@@ -6,7 +6,6 @@
 #include "../platform/platform.hpp"
 
 #include "../base/logging.hpp"
-#include "../base/profiler.hpp"
 
 #include "../std/iterator.hpp"
 #include "../std/bind.hpp"

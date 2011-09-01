@@ -11,7 +11,6 @@
 #include "../geometry/rect2d.hpp"
 
 #include "../base/assert.hpp"
-#include "../base/profiler.hpp"
 #include "../base/math.hpp"
 #include "../base/mutex.hpp"
 #include "../base/logging.hpp"

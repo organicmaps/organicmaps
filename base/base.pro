@@ -14,7 +14,6 @@ SOURCES += \
     logging.cpp \
     thread.cpp \
     string_utils.cpp \
-    profiler.cpp \
     commands_queue.cpp \
     shared_buffer_manager.cpp \
     memory_mapped_file.cpp \
@@ -25,7 +24,7 @@ SOURCES += \
     timer.cpp \
     internal/message.cpp \
     exception.cpp \
-    threaded_container.cpp
+    threaded_container.cpp \
 
 HEADERS += \
     SRC_FIRST.hpp \
@@ -56,7 +55,6 @@ HEADERS += \
     stl_add.hpp \
     timer.hpp \
     cache.hpp \
-    profiler.hpp \
     matrix.hpp \
     set_operations.hpp \
     condition.hpp \
@@ -69,4 +67,4 @@ HEADERS += \
     runner.hpp \
     mru_cache.hpp \
     threaded_container.hpp \
-    threaded_list.hpp
+    threaded_list.hpp \

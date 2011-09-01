@@ -32,7 +32,6 @@
 #include "../geometry/screenbase.hpp"
 
 #include "../base/logging.hpp"
-#include "../base/profiler.hpp"
 #include "../base/mutex.hpp"
 #include "../base/timer.hpp"
 
