@@ -4,11 +4,9 @@
 #include "../base/base.hpp"
 #include "../std/iterator.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
-// TWord - тип слова, uint32_t или uint64_t.
-// TSink - куда писать.
-// TIter - итератор на bool.
+// TWord - word type, uint32_t or uint64_t.
+// TSink - where to write.
+// TIter - iterator to bool.
 template <typename TWord, typename TSink, typename TIter>
 void BuildMMBitVector(TSink & sink, TIter beg, TIter end, bool bWriteSize = true, size_t size = -1)
 {
@@ -35,9 +33,9 @@ void BuildMMBitVector(TSink & sink, TIter beg, TIter end, bool bWriteSize = true
     WriteToSink(sink, word);
 }
 
-// TSink - куда писать.
-// TIter - итератор на bool.
-// TODO: Оптимизировать значение logChunkSize по умолчанию.
+// TSink - where to write.
+// TIter - iterator to bool.
+// TODO: optimize logChunkSize default value.
 template <typename TSink, typename TIter>
 void BuildMMBitVector32RankDirectory(TSink & sink, TIter beg, TIter end, uint32_t logChunkSize = 5)
 {
@@ -52,5 +50,3 @@ void BuildMMBitVector32RankDirectory(TSink & sink, TIter beg, TIter end, uint32_
   }
   WriteToSink(sink, rank1);
 }
-
-#include "../base/stop_mem_debug.hpp"
