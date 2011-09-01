@@ -23,7 +23,7 @@ KeywordMatcher::KeywordMatcher(strings::UniString const * const * pKeywords,
     m_prefixMatchFn(prefixMatchFn),
     m_minKeywordMatchCost(keywordsCount, m_maxKeywordMatchCost + 1),
     m_minPrefixMatchCost(m_maxPrefixMatchCost + 1),
-    m_bestMatchNamePenalty(-1)
+    m_bestMatchNamePenalty(static_cast<uint32_t>(-1))
 {
 #ifdef DEBUG
   for (size_t i = 0; i < keywordsCount; ++i)

@@ -69,7 +69,7 @@ namespace core
       uint64_t m_id;
       function_t m_fn;
 
-      Command() : m_id(-1)
+      Command() : m_id(static_cast<uint64_t>(-1))
       {}
 
       template <typename tt>

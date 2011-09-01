@@ -4,8 +4,6 @@
 
 #include "expat_impl.h"
 
-#include "../../base/start_mem_debug.hpp"
-
 template <typename DispatcherT>
 class XmlParser : public CExpatImpl< XmlParser<DispatcherT> >
 {
@@ -13,7 +11,7 @@ public:
   typedef CExpatImpl< XmlParser<DispatcherT> > BaseT;
 
   XmlParser(DispatcherT& dispatcher, bool enableCharHandler = false)
-    : m_depth(0), m_restrictDepth(-1), m_dispatcher(dispatcher),
+    : m_depth(0), m_restrictDepth(static_cast<size_t>(-1)), m_dispatcher(dispatcher),
     m_enableCharHandler(enableCharHandler)
   {
   }
@@ -52,7 +50,7 @@ public:
       return;
 
     if (m_restrictDepth != size_t(-1)) {
-      m_restrictDepth = -1;
+      m_restrictDepth = static_cast<size_t>(-1);
     } else {
       m_dispatcher.Pop(string(pszName));
     }
@@ -69,5 +67,3 @@ private:
   DispatcherT & m_dispatcher;
   bool m_enableCharHandler;
 };
-
-#include "../../base/stop_mem_debug.hpp"
