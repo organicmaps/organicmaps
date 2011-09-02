@@ -193,10 +193,12 @@ namespace m2
 
     ContainerT m_points;
     m2::Rect<CoordT> m_rect;
+
+    template <class T> friend string debug_print(Region<T> const &);
   };
 
   template <class TArchive, class PointT>
-  TArchive & operator >> (TArchive & ar, m2::Region<PointT> & region)
+  TArchive & operator >> (TArchive & ar, Region<PointT> & region)
   {
     ar >> region.m_rect;
     ar >> region.m_points;
@@ -204,11 +206,17 @@ namespace m2
   }
 
   template <class TArchive, class PointT>
-  TArchive & operator << (TArchive & ar, m2::Region<PointT> const & region)
+  TArchive & operator << (TArchive & ar, Region<PointT> const & region)
   {
     ar << region.m_rect;
     ar << region.m_points;
     return ar;
+  }
+
+  template <class PointT>
+  inline string debug_print(Region<PointT> const & r)
+  {
+    return (debug_print(r.m_rect) + ::debug_print(r.m_points));
   }
 
   typedef Region<m2::PointD> RegionD;

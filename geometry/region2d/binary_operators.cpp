@@ -11,13 +11,11 @@ namespace m2
 
   void IntersectRegions(RegionI const & r1, RegionI const & r2, vector<RegionI> & res)
   {
-    res.clear();
     res += r1 * r2;
   }
 
   void DiffRegions(RegionI const & r1, RegionI const & r2, vector<RegionI> & res)
   {
-    res.clear();
     res += boost::polygon::operators::operator-(r1, r2);
   }
 }
