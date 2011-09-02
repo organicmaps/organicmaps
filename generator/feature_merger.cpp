@@ -13,7 +13,8 @@ MergedFeatureBuilder1::MergedFeatureBuilder1(FeatureBuilder1 const & fb)
 void MergedFeatureBuilder1::SetRound()
 {
   m_isRound = true;
-  m_roundBounds[0] = m_roundBounds[1] = m_Geometry;
+
+  m_roundBounds[0] = m_roundBounds[1] = GetGeometry();
 }
 
 void MergedFeatureBuilder1::AppendFeature(MergedFeatureBuilder1 const & fb, bool fromBegin, bool toBack)
@@ -21,12 +22,15 @@ void MergedFeatureBuilder1::AppendFeature(MergedFeatureBuilder1 const & fb, bool
   // Also merge Osm IDs for debugging
   m_osmIds.insert(m_osmIds.end(), fb.m_osmIds.begin(), fb.m_osmIds.end());
 
+  points_t & thisG = m_Polygons.front();
+  points_t const & fbG = fb.GetGeometry();
+
   if (fb.m_isRound)
   {
     if (toBack)
-      m_roundBounds[1] = fb.m_Geometry;
+      m_roundBounds[1] = fbG;
     else
-      m_roundBounds[0] = fb.m_Geometry;
+      m_roundBounds[0] = fbG;
     return;
   }
 
@@ -37,28 +41,28 @@ void MergedFeatureBuilder1::AppendFeature(MergedFeatureBuilder1 const & fb, bool
 
   m_isRound = false;
 
-  for (size_t i = 0; i < fb.m_Geometry.size(); ++i)
-    m_LimitRect.Add(fb.m_Geometry[i]);
+  for (size_t i = 0; i < fbG.size(); ++i)
+    m_LimitRect.Add(fbG[i]);
 
   if (fromBegin)
   {
     if (toBack)
-      m_Geometry.insert(m_Geometry.end(), fb.m_Geometry.begin() + 1, fb.m_Geometry.end());
+      thisG.insert(thisG.end(), fbG.begin() + 1, fbG.end());
     else
-      m_Geometry.insert(m_Geometry.begin(), fb.m_Geometry.begin(), fb.m_Geometry.end() - 1);
+      thisG.insert(thisG.begin(), fbG.begin(), fbG.end() - 1);
   }
   else
   {
     if (toBack)
-      m_Geometry.insert(m_Geometry.end(), fb.m_Geometry.rbegin() + 1, fb.m_Geometry.rend());
+      thisG.insert(thisG.end(), fbG.rbegin() + 1, fbG.rend());
     else
-      m_Geometry.insert(m_Geometry.begin(), fb.m_Geometry.rbegin(), fb.m_Geometry.rend() - 1);
+      thisG.insert(thisG.begin(), fbG.rbegin(), fbG.rend() - 1);
   }
 }
 
 bool MergedFeatureBuilder1::EqualGeometry(MergedFeatureBuilder1 const & fb) const
 {
-  return (m_Geometry == fb.m_Geometry);
+  return (GetGeometry() == fb.GetGeometry());
 }
 
 pair<m2::PointD, bool> MergedFeatureBuilder1::GetKeyPoint(size_t i) const
@@ -89,9 +93,11 @@ size_t MergedFeatureBuilder1::GetKeyPointsCount() const
 
 double MergedFeatureBuilder1::GetPriority() const
 {
+  points_t const & poly = GetGeometry();
+
   double pr = 0.0;
-  for (size_t i = 1; i < m_Geometry.size(); ++i)
-    pr += m_Geometry[i-1].SquareLength(m_Geometry[i]);
+  for (size_t i = 1; i < poly.size(); ++i)
+    pr += poly[i-1].SquareLength(poly[i]);
   return pr;
 }
 

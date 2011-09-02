@@ -48,7 +48,7 @@ namespace
       m_midLoc = m2::PointD(0, 0);
       m_locCount = 0;
 
-      ft.ForEachPointRef(*this);
+      ft.ForEachGeometryPoint(*this);
       m_midLoc = m_midLoc / m_locCount;
 
       uint64_t const pointAsInt64 = PointToInt64(m_midLoc.x, m_midLoc.y, m_coordBits);
@@ -59,12 +59,13 @@ namespace
       m_vec.push_back(make_pair(order, pos));
     }
 
-    void operator() (m2::PointD const & p)
+    bool operator() (m2::PointD const & p)
     {
       m_midLoc += p;
       m_midAll += p;
       ++m_locCount;
       ++m_allCount;
+      return true;
     }
 
     m2::PointD GetCenter() const { return m_midAll / m_allCount; }
@@ -147,7 +148,7 @@ namespace feature
 
   private:
     typedef vector<m2::PointD> points_t;
-    typedef list<points_t> holes_t;
+    typedef list<points_t> polygons_t;
 
     class GeometryHolder
     {
@@ -169,14 +170,14 @@ namespace feature
         serial::SaveOuterPath(points, m_codingParams, *m_rMain.m_geoFile[i]);
       }
 
-      void WriteOuterTriangles(points_t const & bound, holes_t const & holes, int i)
+      void WriteOuterTriangles(polygons_t const & polys, int i)
       {
         m_buffer.m_trgMask |= (1 << i);
         m_buffer.m_trgOffset.push_back(m_rMain.GetFileSize(*m_rMain.m_trgFile[i]));
 
         // tesselation
         tesselator::TrianglesInfo info;
-        tesselator::TesselateInterior(bound, holes, info);
+        tesselator::TesselateInterior(polys, info);
 
         serial::TrianglesChainSaver saver(m_codingParams);
 
@@ -255,7 +256,7 @@ namespace feature
 
       points_t const & GetSourcePoints()
       {
-        return (!m_current.empty() ? m_current : m_rFB.GetGeometry());
+        return (!m_current.empty() ? m_current : m_rFB.GetOuterPoly());
       }
 
       void AddPoints(points_t const & points, int scaleIndex)
@@ -327,12 +328,12 @@ namespace feature
         return true;
       }
 
-      void AddTriangles(points_t const & bound, holes_t const & holes, int scaleIndex)
+      void AddTriangles(polygons_t const & polys, int scaleIndex)
       {
         CHECK ( m_buffer.m_innerTrg.empty(), () );
         m_trgInner = false;
 
-        WriteOuterTriangles(bound, holes, scaleIndex);
+        WriteOuterTriangles(polys, scaleIndex);
       }
     };
 
@@ -361,23 +362,25 @@ namespace feature
           {
             // simplify and serialize triangles
 
-            holes_t const & holes = fb.GetHoles();
-
-            if (holes.empty() && holder.TryToMakeStrip(points))
+            polygons_t const & polys = fb.GetPolygons();
+            if (polys.size() == 1 && holder.TryToMakeStrip(points))
               continue;
 
-            holes_t simpleHoles;
-            for (holes_t::const_iterator iH = holes.begin(); iH != holes.end(); ++iH)
+            polygons_t simplified;
+            simplified.push_back(points);
+
+            polygons_t::const_iterator iH = polys.begin();
+            for (++iH; iH != polys.end(); ++iH)
             {
-              simpleHoles.push_back(points_t());
+              simplified.push_back(points_t());
 
-              SimplifyPoints(*iH, simpleHoles.back(), m_header.GetScale(i));
+              SimplifyPoints(*iH, simplified.back(), m_header.GetScale(i));
 
-              if (simpleHoles.back().size() < 3)
-                simpleHoles.pop_back();
+              if (simplified.back().size() < 3)
+                simplified.pop_back();
             }
 
-            holder.AddTriangles(points, simpleHoles, i);
+            holder.AddTriangles(simplified, i);
           }
         }
       }

@@ -26,7 +26,7 @@ namespace tesselator
     }
   };
 
-  void TesselateInterior(PointsT const & bound, HolesT const & holes, TrianglesInfo & info)
+  void TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
   {
     tess::VectorDispatcher disp;
     tess::Tesselator tess;
@@ -35,11 +35,7 @@ namespace tesselator
 
     tess.beginPolygon();
 
-    tess.beginContour();
-    for_each(bound.begin(), bound.end(), AddTessPointF(tess));
-    tess.endContour();
-
-    for (HolesT::const_iterator it = holes.begin(); it != holes.end(); ++it)
+    for (PolygonsT::const_iterator it = polys.begin(); it != polys.end(); ++it)
     {
       tess.beginContour();
       for_each(it->begin(), it->end(), AddTessPointF(tess));

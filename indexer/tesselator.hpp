@@ -13,7 +13,7 @@
 namespace tesselator
 {
   typedef vector<m2::PointD> PointsT;
-  typedef list<PointsT> HolesT;
+  typedef list<PointsT> PolygonsT;
 
   struct Triangle
   {
@@ -162,5 +162,5 @@ namespace tesselator
   };
 
   /// Main tesselate function.
-  void TesselateInterior(PointsT const & bound, HolesT const & holes, TrianglesInfo & info);
+  void TesselateInterior(PolygonsT const & polys, TrianglesInfo & info);
 }

@@ -18,6 +18,8 @@ class FeatureBuilder1
   friend string debug_print(FeatureBuilder1 const & f);
 
 public:
+  FeatureBuilder1();
+
   /// @name Geometry manipulating functions.
   //@{
   /// Set center (origin) point of feature and set that feature is point.
@@ -57,23 +59,18 @@ public:
 
   bool IsGeometryClosed() const;
 
-  inline size_t GetPointsCount() const { return m_Geometry.size(); }
-
-  template <class ToDo>
-  void ForEachPointRef(ToDo & toDo) const
-  {
-    for_each(m_Geometry.begin(), m_Geometry.end(), bind<void>(ref(toDo), _1));
-  }
+  inline size_t GetPointsCount() const { return GetGeometry().size(); }
 
   // stops processing when functor returns false
   template <class ToDo>
-  void ForEachTruePointRef(ToDo & toDo) const
+  void ForEachGeometryPoint(ToDo & toDo) const
   {
     if (m_Params.GetGeomType() == feature::GEOM_POINT)
       toDo(m_Center);
     else
     {
-      for (points_t::const_iterator it = m_Geometry.begin(); it != m_Geometry.end(); ++it)
+      points_t const & poly = GetGeometry();
+      for (points_t::const_iterator it = poly.begin(); it != poly.end(); ++it)
         if (!toDo(*it))
           return;
     }
@@ -112,13 +109,10 @@ protected:
 
   typedef vector<m2::PointD> points_t;
 
-  /// Can be one of the following:
-  /// - geometry in line-feature
-  /// - boundary in area-feature
-  points_t m_Geometry;    // Check HEADER_IS_LINE
+  inline points_t const & GetGeometry() const { return m_Polygons.front(); }
 
-  /// List of holes in area-feature.
-  list<points_t> m_Holes; // Check HEADER_IS_AREA
+  /// List of geometry polygons.
+  list<points_t> m_Polygons; // Check HEADER_IS_AREA
 };
 
 /// Used for serialization of features during final pass.
@@ -154,8 +148,8 @@ public:
   bool IsArea() const { return (m_Params.GetTypeMask() & feature::HEADER_GEOM_AREA) != 0; }
   bool IsDrawableInRange(int lowS, int highS) const;
 
-  points_t const & GetGeometry() const { return m_Geometry; }
-  list<points_t> const & GetHoles() const { return m_Holes; }
+  points_t const & GetOuterPoly() const { return GetGeometry(); }
+  list<points_t> const & GetPolygons() const { return m_Polygons; }
 
   /// @name Overwrite from base_type.
   //@{

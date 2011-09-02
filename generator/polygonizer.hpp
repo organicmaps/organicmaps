@@ -195,7 +195,7 @@ namespace feature
         for (size_t i = 0; i < m_Countries.size(); ++i)
         {
           PointChecker doCheck(m_Countries[i]->m_regions);
-          m_FB.ForEachTruePointRef(doCheck);
+          m_FB.ForEachGeometryPoint(doCheck);
 
           if (doCheck.m_belongs)
             m_pPolygonizer->EmitFeature(m_Countries[i], m_FB);

@@ -16,9 +16,15 @@ using namespace feature;
 // FeatureBuilder1 implementation
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+FeatureBuilder1::FeatureBuilder1()
+{
+  m_Polygons.push_back(points_t());
+}
+
 bool FeatureBuilder1::IsGeometryClosed() const
 {
-  return (m_Geometry.size() > 2 && m_Geometry.front() == m_Geometry.back());
+  points_t const & poly = GetGeometry();
+  return (poly.size() > 2 && poly.front() == poly.back());
 }
 
 void FeatureBuilder1::SetCenter(m2::PointD const & p)
@@ -30,25 +36,26 @@ void FeatureBuilder1::SetCenter(m2::PointD const & p)
 
 void FeatureBuilder1::AddPoint(m2::PointD const & p)
 {
-  m_Geometry.push_back(p);
+  m_Polygons.front().push_back(p);
   m_LimitRect.Add(p);
 }
 
 void FeatureBuilder1::SetAreaAddHoles(list<points_t> const & holes)
 {
   m_Params.SetGeomType(GEOM_AREA);
-  m_Holes.clear();
+  m_Polygons.resize(1);
 
   if (holes.empty()) return;
 
-  m2::Region<m2::PointD> rgn(m_Geometry.begin(), m_Geometry.end());
+  points_t const & poly = GetGeometry();
+  m2::Region<m2::PointD> rgn(poly.begin(), poly.end());
 
   for (list<points_t>::const_iterator i = holes.begin(); i != holes.end(); ++i)
   {
     ASSERT ( !i->empty(), () );
 
     if (rgn.Contains(i->front()))
-      m_Holes.push_back(*i);
+      m_Polygons.push_back(*i);
   }
 }
 
@@ -155,15 +162,12 @@ bool FeatureBuilder1::operator == (FeatureBuilder1 const & fb) const
   if (!is_equal(m_LimitRect, fb.m_LimitRect))
     return false;
 
-  if (!is_equal(m_Geometry, fb.m_Geometry))
+  if (m_Polygons.size() != fb.m_Polygons.size())
     return false;
 
-  if (m_Holes.size() != fb.m_Holes.size())
-    return false;
-
-  list<points_t>::const_iterator i = m_Holes.begin();
-  list<points_t>::const_iterator j = fb.m_Holes.begin();
-  for (; i != m_Holes.end(); ++i, ++j)
+  list<points_t>::const_iterator i = m_Polygons.begin();
+  list<points_t>::const_iterator j = fb.m_Polygons.begin();
+  for (; i != m_Polygons.end(); ++i, ++j)
     if (!is_equal(*i, *j))
       return false;
 
@@ -175,15 +179,19 @@ bool FeatureBuilder1::CheckValid() const
   CHECK(m_Params.CheckValid(), ());
 
   EGeomType const type = m_Params.GetGeomType();
+  CHECK ( type != GEOM_UNDEFINED, () );
 
-  CHECK(type != GEOM_LINE || m_Geometry.size() >= 2, ());
+  points_t const & poly = GetGeometry();
 
-  CHECK(type != GEOM_AREA || m_Geometry.size() >= 3, ());
+  if (type == GEOM_LINE)
+    CHECK(poly.size() >= 2, (*this));
 
-  CHECK(m_Holes.empty() || type == GEOM_AREA, ());
-
-  for (list<points_t>::const_iterator i = m_Holes.begin(); i != m_Holes.end(); ++i)
-    CHECK(i->size() >= 3, ());
+  if (type == GEOM_AREA)
+  {
+    // Use '4' because the first point should be equal with the last one
+    for (list<points_t>::const_iterator i = m_Polygons.begin(); i != m_Polygons.end(); ++i)
+      CHECK(i->size() >= 4, ());
+  }
 
   return true;
 }
@@ -211,16 +219,11 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
 
   PushBackByteSink<buffer_t> sink(data);
 
-  EGeomType const type = m_Params.GetGeomType();
-
-  if (type != GEOM_POINT)
-    serial::SaveOuterPath(m_Geometry, cp, sink);
-
-  if (type == GEOM_AREA)
+  if (m_Params.GetGeomType() != GEOM_POINT)
   {
-    WriteVarUint(sink, uint32_t(m_Holes.size()));
+    WriteVarUint(sink, uint32_t(m_Polygons.size()));
 
-    for (list<points_t>::const_iterator i = m_Holes.begin(); i != m_Holes.end(); ++i)
+    for (list<points_t>::const_iterator i = m_Polygons.begin(); i != m_Polygons.end(); ++i)
       serial::SaveOuterPath(*i, cp, sink);
   }
 
@@ -252,17 +255,15 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
     return;
   }
 
-  serial::LoadOuterPath(source, cp, m_Geometry);
-  CalcRect(m_Geometry, m_LimitRect);
+  m_Polygons.clear();
+  uint32_t const count = ReadVarUint<uint32_t>(source);
+  ASSERT_GREATER ( count, 0, () );
 
-  if (type == GEOM_AREA)
+  for (uint32_t i = 0; i < count; ++i)
   {
-    uint32_t const count = ReadVarUint<uint32_t>(source);
-    for (uint32_t i = 0; i < count; ++i)
-    {
-      m_Holes.push_back(points_t());
-      serial::LoadOuterPath(source, cp, m_Holes.back());
-    }
+    m_Polygons.push_back(points_t());
+    serial::LoadOuterPath(source, cp, m_Polygons.back());
+    CalcRect(m_Polygons.back(), m_LimitRect);
   }
 
   CHECK ( CheckValid(), () );
@@ -286,6 +287,7 @@ string debug_print(FeatureBuilder1 const & f)
   ostringstream out;
   for (size_t i = 0; i < f.m_osmIds.size(); ++i)
     out << f.m_osmIds[i].Type() << " id=" << f.m_osmIds[i].Id() << " ";
+
   switch (f.GetGeomType())
   {
   case feature::GEOM_POINT: out << "(" << f.m_Center << ")"; break;
@@ -303,7 +305,7 @@ string debug_print(FeatureBuilder1 const & f)
 
 bool FeatureBuilder2::IsDrawableInRange(int lowS, int highS) const
 {
-  if (!m_Geometry.empty())
+  if (!GetGeometry().empty())
   {
     FeatureBase const fb = GetFeatureBase();
 

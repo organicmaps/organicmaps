@@ -26,10 +26,10 @@ public:
 
   bool EqualGeometry(MergedFeatureBuilder1 const & fb) const;
 
-  inline bool NotEmpty() const { return !m_Geometry.empty(); }
+  inline bool NotEmpty() const { return !GetGeometry().empty(); }
 
-  inline m2::PointD FirstPoint() const { return m_Geometry.front(); }
-  inline m2::PointD LastPoint() const { return m_Geometry.back(); }
+  inline m2::PointD FirstPoint() const { return GetGeometry().front(); }
+  inline m2::PointD LastPoint() const { return GetGeometry().back(); }
 
   inline void SetType(uint32_t type) { m_Params.SetType(type); }
   inline bool PopAnyType(uint32_t & type) { return m_Params.PopAnyType(type); }
@@ -43,8 +43,9 @@ public:
 
   template <class ToDo> void ForEachMiddlePoints(ToDo toDo) const
   {
-    for (size_t i = 1; i < m_Geometry.size()-1; ++i)
-      toDo(m_Geometry[i]);
+    points_t const & poly = GetGeometry();
+    for (size_t i = 1; i < poly.size()-1; ++i)
+      toDo(poly[i]);
   }
 
   pair<m2::PointD, bool> GetKeyPoint(size_t i) const;
