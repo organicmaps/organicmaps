@@ -91,9 +91,6 @@ storage::Storage m_storage;
 
 		m_CurrentAction = NOTHING;
 
-		// initialize with currently active screen orientation
-    [self didRotateFromInterfaceOrientation: self.interfaceOrientation];
-
     // restore previous screen position
     bool res = m_framework->LoadState();
 
@@ -275,6 +272,8 @@ NSInteger compareAddress(id l, id r, void * context)
 		case UIInterfaceOrientationLandscapeRight: newOrientation = EOrientation270; break;
   }
 	m_framework->SetOrientation(newOrientation);
+  // needed to correctly startup in landscape
+  [self.view layoutSubviews];
 }
 
 - (void) OnTerminate
