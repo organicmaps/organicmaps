@@ -10,6 +10,7 @@ DEPENDENCIES = indexer geometry coding base
 include($$ROOT_DIR/common.pri)
 
 HEADERS += \
+    search_common.hpp \
     engine.hpp \
     intermediate_result.hpp \
     keyword_matcher.hpp \
