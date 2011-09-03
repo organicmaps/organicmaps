@@ -1,93 +1,75 @@
 #include "keyword_matcher.hpp"
 #include "../indexer/search_delimiters.hpp"
 #include "../indexer/search_string_utils.hpp"
-#include "../base/logging.hpp"
+#include "../base/stl_add.hpp"
 #include "../base/string_utils.hpp"
-#include "../std/bind.hpp"
-#include "../std/numeric.hpp"
+#include "../std/algorithm.hpp"
 
-namespace search
+search::KeywordMatcher::KeywordMatcher(strings::UniString const * const * pKeywords,
+                                       int keywordCount,
+                                       strings::UniString const * pPrefix)
+  : m_pKeywords(pKeywords), m_keywordCount(keywordCount), m_pPrefix(pPrefix)
 {
-namespace impl
-{
-
-KeywordMatcher::KeywordMatcher(strings::UniString const * const * pKeywords,
-                               size_t keywordsCount,
-                               strings::UniString const & prefix,
-                               uint32_t maxKeywordMatchCost, uint32_t maxPrefixMatchCost,
-                               StringMatchFn keywordMatchFn, StringMatchFn prefixMatchFn)
-  : m_pKeywords(pKeywords), m_prefix(prefix),
-    m_maxKeywordMatchCost(maxKeywordMatchCost),
-    m_maxPrefixMatchCost(maxPrefixMatchCost),
-    m_keywordMatchFn(keywordMatchFn),
-    m_prefixMatchFn(prefixMatchFn),
-    m_minKeywordMatchCost(keywordsCount, m_maxKeywordMatchCost + 1),
-    m_minPrefixMatchCost(m_maxPrefixMatchCost + 1),
-    m_bestMatchNamePenalty(static_cast<uint32_t>(-1))
-{
-#ifdef DEBUG
-  for (size_t i = 0; i < keywordsCount; ++i)
-    ASSERT(!m_pKeywords[i]->empty(), (i));
-#endif
+  ASSERT_LESS(m_keywordCount, int(MAX_TOKENS), ());
+  m_keywordCount = min(m_keywordCount, int(MAX_TOKENS));
+  if (m_pPrefix && m_pPrefix->empty())
+    m_pPrefix = NULL;
 }
 
-void KeywordMatcher::ProcessName(string const & name)
+uint32_t search::KeywordMatcher::Score(string const & name) const
 {
-  SplitUniString(NormalizeAndSimplifyString(name),
-                 bind(&KeywordMatcher::ProcessNameToken, this, cref(name), _1),
-                 Delimiters());
+  return Score(NormalizeAndSimplifyString(name));
 }
 
-void KeywordMatcher::ProcessNameToken(string const & name, strings::UniString const & s)
+uint32_t search::KeywordMatcher::Score(strings::UniString const & name) const
 {
-  uint32_t matchPenalty = 0;
-  for (size_t i = 0; i < m_minKeywordMatchCost.size(); ++i)
-  {
-    strings::UniString const & keyword = *(m_pKeywords[i]);
-    uint32_t const matchCost = m_keywordMatchFn(&keyword[0], keyword.size(),
-                                                &s[0], s.size(), m_minKeywordMatchCost[i]);
-    matchPenalty += matchCost;
-    if (matchCost <= m_maxKeywordMatchCost)
-    {
-      if (matchCost < m_minKeywordMatchCost[i])
-      {
-        // LOG(LDEBUG, (matchCost, name));
-        m_minKeywordMatchCost[i] = matchCost;
-      }
-    }
-  }
-
-  bool bPrefixMatch = false;
-  if (!m_prefix.empty())
-  {
-    uint32_t const matchCost = m_prefixMatchFn(&m_prefix[0], m_prefix.size(),
-                                               &s[0], s.size(), m_minPrefixMatchCost);
-    matchPenalty += matchCost;
-    if (matchCost <= m_maxPrefixMatchCost)
-    {
-      bPrefixMatch = true;
-      if (matchCost < m_minPrefixMatchCost)
-        m_minPrefixMatchCost = matchCost;
-    }
-  }
-  else
-  {
-    bPrefixMatch = true;
-    m_minPrefixMatchCost = 0;
-  }
-
-  if (bPrefixMatch && matchPenalty < m_bestMatchNamePenalty)
-  {
-    m_bestMatchName = name;
-    m_bestMatchNamePenalty = matchPenalty;
-  }
+  buffer_vector<strings::UniString, MAX_TOKENS> tokens;
+  SplitUniString(name, MakeBackInsertFunctor(tokens), Delimiters());
+  ASSERT_LESS(tokens.size(), size_t(MAX_TOKENS), ());
+  return Score(tokens.data(), static_cast<int>(tokens.size()));
 }
 
-uint32_t KeywordMatcher::GetMatchScore() const
+uint32_t search::KeywordMatcher::Score(strings::UniString const * tokens, int tokenCount) const
 {
-  return accumulate(m_minKeywordMatchCost.begin(), m_minKeywordMatchCost.end(),
-                    m_minPrefixMatchCost);
-}
+  ASSERT_LESS(tokenCount, int(MAX_TOKENS), ());
 
-}  // namespace search::impl
-}  // namespace search
+  // We will use this for scoring.
+  unsigned char isTokenMatched[MAX_TOKENS] = { 0 };
+
+  // Check that all keywords matched.
+  for (int k = 0; k < m_keywordCount; ++k)
+  {
+    unsigned char isKeywordMatched = 0;
+    for (int t = 0; t < tokenCount; ++t)
+      if (*m_pKeywords[k] == tokens[t])
+        isKeywordMatched = isTokenMatched[t] = 1;
+
+    // All keywords should be matched.
+    if (!isKeywordMatched)
+      return MAX_SCORE;
+  }
+
+  // Check that prefix matched.
+  if (m_pPrefix)
+  {
+    bool bPrefixMatched = false;
+    for (int t = 0; t < tokenCount && !bPrefixMatched; ++t)
+      if (StartsWith(tokens[t].begin(), tokens[t].end(),
+                     m_pPrefix->begin(), m_pPrefix->end()))
+        bPrefixMatched = true;
+    if (!bPrefixMatched)
+      return MAX_SCORE;
+  }
+
+  // Calculate score.
+  int lastTokenMatched = 0;
+  for (int t = 0; t < tokenCount; ++t)
+    if (isTokenMatched[t])
+      lastTokenMatched = t;
+  uint32_t score = 0;
+  for (int t = 0; t <= lastTokenMatched; ++t)
+    if (tokens[t].size() > 2 && !isTokenMatched[t])
+      ++score;
+
+  return score;
+}

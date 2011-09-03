@@ -59,15 +59,26 @@ inline uint32_t GetMaxPrefixMatchScore(int size)
   return 512;
 }
 
-template <typename UniStringPtrVectorT>
-inline KeywordMatcher MakeMatcher(UniStringPtrVectorT const & tokens,
-                                  strings::UniString const & prefix)
+struct FeatureMatcher
 {
-  return KeywordMatcher(tokens.empty() ? NULL : &tokens[0], tokens.size(),
-                        prefix,
-                        GetMaxKeywordMatchScore(), GetMaxPrefixMatchScore(prefix.size()),
-                        &KeywordMatch, &PrefixMatch);
-}
+  KeywordMatcher & m_keywordMatcher;
+  uint32_t m_minScore;
+  string m_bestName;
+
+  explicit FeatureMatcher(KeywordMatcher & keywordMatcher)
+    : m_keywordMatcher(keywordMatcher), m_minScore(keywordMatcher.MAX_SCORE) {}
+
+  bool operator () (int /*lang*/, string const & name)
+  {
+    uint32_t const score = m_keywordMatcher.Score(name);
+    if (score < m_minScore)
+    {
+      m_minScore = score;
+      m_bestName = name;
+    }
+    return true;
+  }
+};
 
 struct FeatureProcessor
 {
@@ -99,23 +110,20 @@ struct FeatureProcessor
       if (!(keywordsSkipMask & (1 << i)))
         keywords.push_back(&queryKeywords[i]);
 
-    KeywordMatcher matcher(MakeMatcher(keywords, m_query.GetPrefix()));
+    KeywordMatcher keywordMatcher(keywords.data(), int(keywords.size()), &m_query.GetPrefix());
+    FeatureMatcher matcher(keywordMatcher);
     feature.ForEachNameRef(matcher);
-    if (matcher.GetPrefixMatchScore() <= GetMaxPrefixMatchScore(m_query.GetPrefix().size()))
+    if (matcher.m_minScore < KeywordMatcher::MAX_SCORE)
     {
-      uint32_t const matchScore = matcher.GetMatchScore();
-      if (matchScore <= GetMaxKeywordMatchScore())
-      {
-        pair<int, int> const scaleRange = feature::DrawableScaleRangeForText(feature);
-        if (scaleRange.first < 0)
-          return;
-
-        m_query.AddResult(IntermediateResult(m_query.GetViewport(),
-                                             feature,
-                                             matcher.GetBestMatchName(),
-                                             matchScore,
-                                             scaleRange.first));
-      }
+      pair<int, int> const scaleRange = feature::DrawableScaleRangeForText(feature);
+      // TODO: Why scaleRange.first can be < 0?
+      if (scaleRange.first < 0)
+        return;
+      m_query.AddResult(IntermediateResult(m_query.GetViewport(),
+                                           feature,
+                                           matcher.m_bestName,
+                                           matcher.m_minScore,
+                                           scaleRange.first));
     }
   }
 };
@@ -211,15 +219,17 @@ void Query::Search(function<void (Result const &)> const & f)
           // TODO: Prefer user languages here.
           if (m_prefix.size() >= iName->m_prefixLengthToSuggest)
           {
-            KeywordMatcher matcher = MakeMatcher(vector<strings::UniString const *>(), m_prefix);
-            matcher.ProcessNameToken(string(), NormalizeAndSimplifyString(iName->m_name));
-            ASSERT_LESS(iName->m_prefixLengthToSuggest, 1 << PREFIX_LEN_BITS, ());
-            int const penalty =
-                (matcher.GetPrefixMatchScore() << PREFIX_LEN_BITS) + iName->m_prefixLengthToSuggest;
-            if (penalty < bestPrefixMatchPenalty)
+            KeywordMatcher matcher(NULL, 0, &m_prefix);
+            int const score = matcher.Score(iName->m_name);
+            if (score < KeywordMatcher::MAX_SCORE)
             {
-              bestPrefixMatchPenalty = penalty;
-              bestPrefixMatch = iName->m_name;
+              ASSERT_LESS(iName->m_prefixLengthToSuggest, 1 << PREFIX_LEN_BITS, ());
+              int const penalty = (score << PREFIX_LEN_BITS) + iName->m_prefixLengthToSuggest;
+              if (penalty < bestPrefixMatchPenalty)
+              {
+                bestPrefixMatchPenalty = penalty;
+                bestPrefixMatch = iName->m_name;
+              }
             }
           }
         }

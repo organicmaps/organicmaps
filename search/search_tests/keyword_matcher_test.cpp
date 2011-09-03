@@ -1,110 +1,90 @@
 #include "../../testing/testing.hpp"
 #include "../keyword_matcher.hpp"
-#include "match_cost_mock.hpp"
-#include "../approximate_string_match.hpp"
 #include "../../indexer/search_string_utils.hpp"
-#include "../../testing/testing_utils.hpp"
-#include "../../base/string_utils.hpp"
+#include "../../indexer/search_delimiters.hpp"
+#include "../../base/buffer_vector.hpp"
+#include "../../base/stl_add.hpp"
 #include "../../std/scoped_ptr.hpp"
-#include "../../std/vector.hpp"
 
 namespace
 {
+static const uint32_t MAX_SCORE = search::KeywordMatcher::MAX_SCORE;
 
-uint32_t KeywordMatchForTest(strings::UniChar const * sA, uint32_t sizeA,
-                             strings::UniChar const * sB, uint32_t sizeB,
-                             uint32_t maxCost)
+class Matcher
 {
-  return StringMatchCost(sA, sizeA, sB, sizeB, search::MatchCostMock<strings::UniChar>(),
-                         maxCost, false);
-}
-
-uint32_t PrefixMatchForTest(strings::UniChar const * sA, uint32_t sizeA,
-                            strings::UniChar const * sB, uint32_t sizeB,
-                            uint32_t maxCost)
-{
-  return StringMatchCost(sA, sizeA, sB, sizeB, search::MatchCostMock<strings::UniChar>(),
-                         maxCost, true);
-}
-
-struct KeywordMatcherAdaptor
-{
-  explicit KeywordMatcherAdaptor(char const * prefix,
-                                 uint32_t maxKeywordMatchCost, uint32_t maxPrefixMatchCost,
-                                 char const * s0, char const * s1 = NULL)
+public:
+  Matcher(char const * query)
   {
-    m_keywords.push_back(strings::MakeUniString(s0));
-    if (s1)
-      m_keywords.push_back(strings::MakeUniString(s1));
+    strings::UniString const uniQuery = search::NormalizeAndSimplifyString(query);
+    SplitUniString(uniQuery, MakeBackInsertFunctor(m_keywords), search::Delimiters());
+    if (!uniQuery.empty() && uniQuery.back() != ' ')
+    {
+      m_prefix = m_keywords.back();
+      m_keywords.pop_back();
+    }
+    m_ptrs.resize(m_keywords.size());
     for (size_t i = 0; i < m_keywords.size(); ++i)
-      m_keywordPtrs.push_back(&m_keywords[i]);
-    m_pMatcher.reset(new search::impl::KeywordMatcher(&m_keywordPtrs[0], m_keywordPtrs.size(),
-                                                      strings::MakeUniString(prefix),
-                                                      maxKeywordMatchCost, maxPrefixMatchCost,
-                                                      &KeywordMatchForTest, &PrefixMatchForTest));
+      m_ptrs[i] = &m_keywords[i];
+    m_pMatcher.reset(new search::KeywordMatcher(m_ptrs.data(), int(m_ptrs.size()), &m_prefix));
   }
 
-  vector<strings::UniString> m_keywords;
-  vector<strings::UniString const *> m_keywordPtrs;
-  scoped_ptr<search::impl::KeywordMatcher> m_pMatcher;
+  scoped_ptr<search::KeywordMatcher> m_pMatcher;
+private:
+  buffer_vector<strings::UniString, 10> m_keywords;
+  buffer_vector<strings::UniString const *, 10> m_ptrs;
+  strings::UniString m_prefix;
 };
 
 }  // unnamed namespace
-
-// TODO: KeywordMatcher tests.
-/*
-UNIT_TEST(KeywordMatcher_Smoke)
+UNIT_TEST(KeywordMatcher_New)
 {
-  KeywordMatcherAdaptor matcherAdaptor("l", 3, 3, "minsk", "belarus");
-  search::impl::KeywordMatcher & matcher = *matcherAdaptor.m_pMatcher;
-  TEST_EQUAL(matcher.GetPrefixMatchScore(), 4, ());
-  TEST_EQUAL(vector<uint32_t>(matcher.GetKeywordMatchScores(),
-                              matcher.GetKeywordMatchScores() + 2),
-             Vec<uint32_t>(4, 4), ());
-  TEST_EQUAL(matcher.GetMatchScore(), 4 + 4 + 4, ());
-
-  matcher.ProcessName("belarrr");
-  TEST_EQUAL(matcher.GetPrefixMatchScore(), 1, ());
-  TEST_EQUAL(vector<uint32_t>(matcher.GetKeywordMatchScores(),
-                              matcher.GetKeywordMatchScores() + 2),
-             Vec<uint32_t>(4, 2), ());
-  TEST_EQUAL(matcher.GetMatchScore(), 1 + 4 + 2, ());
-
-  matcher.ProcessName("belaruu minnn");
-  TEST_EQUAL(matcher.GetPrefixMatchScore(), 1, ());
-  TEST_EQUAL(vector<uint32_t>(matcher.GetKeywordMatchScores(),
-                              matcher.GetKeywordMatchScores() + 2),
-             Vec<uint32_t>(2, 1), ());
-  TEST_EQUAL(matcher.GetMatchScore(), 1 + 2 + 1, ());
-
-  matcher.ProcessName("belaruu les minnn");
-  TEST_EQUAL(matcher.GetPrefixMatchScore(), 0, ());
-  TEST_EQUAL(vector<uint32_t>(matcher.GetKeywordMatchScores(),
-                              matcher.GetKeywordMatchScores() + 2),
-             Vec<uint32_t>(2, 1), ());
-  TEST_EQUAL(matcher.GetMatchScore(), 0 + 2 + 1, ());
+  Matcher matcher("new ");
+  TEST_EQUAL(matcher.m_pMatcher->Score("new"), 0, ());
+  TEST_EQUAL(matcher.m_pMatcher->Score("york"), MAX_SCORE, ());
+  TEST_EQUAL(matcher.m_pMatcher->Score("new york"), 0, ());
 }
 
-UNIT_TEST(KeywordMatcher_NoPrefix)
+UNIT_TEST(KeywordMatcher_York)
 {
-  KeywordMatcherAdaptor matcherAdaptor("", 3, 3, "minsk", "belarus");
-  search::impl::KeywordMatcher & matcher = *matcherAdaptor.m_pMatcher;
-  TEST_EQUAL(matcher.GetPrefixMatchScore(), 4, ());
-  TEST_EQUAL(matcher.GetMatchScore(), 4 + 4 + 4, ());
-
-  matcher.ProcessName("belaruu zzz minnn");
-  TEST_EQUAL(matcher.GetPrefixMatchScore(), 0, ());
-  TEST_EQUAL(vector<uint32_t>(matcher.GetKeywordMatchScores(),
-                              matcher.GetKeywordMatchScores() + 1),
-             Vec<uint32_t>(2, 1), ());
-  TEST_EQUAL(matcher.GetMatchScore(), 0 + 2 + 1, ());
+  Matcher matcher("york ");
+  TEST_EQUAL(matcher.m_pMatcher->Score("new"), MAX_SCORE, ());
+  TEST_EQUAL(matcher.m_pMatcher->Score("york"), 0, ());
+  TEST_EQUAL(matcher.m_pMatcher->Score("new york"), 1, ());
 }
 
-UNIT_TEST(KeywordMatcher_Suomi)
+UNIT_TEST(KeywordMatcher_NewYork)
 {
-  KeywordMatcherAdaptor matcherAdaptor("", 4, 4, "minsk");
-  search::impl::KeywordMatcher & matcher = *matcherAdaptor.m_pMatcher;
-  matcher.ProcessName("Suomi");
-  TEST_EQUAL(matcher.GetMatchScore(), 5, ());
+  Matcher matcher1("new york ");
+  Matcher matcher2("new york");
+  TEST_EQUAL(matcher1.m_pMatcher->Score("new"), MAX_SCORE, ());
+  TEST_EQUAL(matcher2.m_pMatcher->Score("new"), MAX_SCORE, ());
+  TEST_EQUAL(matcher1.m_pMatcher->Score("york"), MAX_SCORE, ());
+  TEST_EQUAL(matcher2.m_pMatcher->Score("york"), MAX_SCORE, ());
+  TEST_EQUAL(matcher1.m_pMatcher->Score("new york"), 0, ());
+  TEST_EQUAL(matcher2.m_pMatcher->Score("new york"), 0, ());
 }
-*/
+
+UNIT_TEST(KeywordMatcher_YorkNew)
+{
+  Matcher matcher("new york ");
+  TEST_EQUAL(matcher.m_pMatcher->Score("new"), MAX_SCORE, ());
+  TEST_EQUAL(matcher.m_pMatcher->Score("york"), MAX_SCORE, ());
+  TEST_EQUAL(matcher.m_pMatcher->Score("new york"), 0, ());
+}
+
+UNIT_TEST(KeywordMatcher_NewYo)
+{
+  Matcher matcher("new yo");
+  TEST_EQUAL(matcher.m_pMatcher->Score("new"), MAX_SCORE, ());
+  TEST_EQUAL(matcher.m_pMatcher->Score("york"), MAX_SCORE, ());
+  TEST_EQUAL(matcher.m_pMatcher->Score("new york"), 0, ());
+}
+
+
+
+
+
+
+
+
+
