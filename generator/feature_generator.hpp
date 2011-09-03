@@ -12,7 +12,7 @@ class FeatureBuilder1;
 
 namespace feature
 {
-  class GenerateInfo;
+  struct GenerateInfo;
 
   bool GenerateFeatures(GenerateInfo & info, bool lightNodes);
 
