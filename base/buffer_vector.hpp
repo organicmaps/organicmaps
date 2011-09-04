@@ -213,7 +213,6 @@ public:
         m_dynamic.reserve(m_size + n);
         SwitchToDynamic();
         m_dynamic.insert(m_dynamic.begin() + pos, beg, end);
-        ASSERT_EQUAL(m_dynamic.size(), m_dynamic.capacity(), ());
       }
     }
   }
