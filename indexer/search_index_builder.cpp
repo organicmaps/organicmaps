@@ -35,12 +35,23 @@ struct FeatureName
   uint32_t GetValueSize() const { return 5; }
   void const * GetValueData() const { return &m_Value; }
 
+  uint8_t GetRank() const { return static_cast<uint8_t>(m_Value[0]); }
+  uint32_t GetOffset() const
+  {
+    uint32_t offset;
+    memcpy(&offset, &m_Value[1], 4);
+    return SwapIfBigEndian(offset);
+  }
+
   inline bool operator < (FeatureName const & name) const
   {
     if (m_name != name.m_name)
       return m_name < name.m_name;
-    return lexicographical_compare(&name.m_Value[0], &name.m_Value[0] + sizeof(name.m_Value),
-                                   &m_Value[0], &m_Value[0] + sizeof(m_Value));
+    if (GetRank() != name.GetRank())
+      return GetRank() > name.GetRank();
+    if (GetOffset() != name.GetOffset())
+      return GetOffset() < name.GetOffset();
+    return false;
   }
 };
 
