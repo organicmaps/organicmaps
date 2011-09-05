@@ -57,11 +57,6 @@ public:
       m_typesCorrector.SetDontNormalizeType(arrDontNormalize[i]);
   }
 
-  ~WorldMapGenerator()
-  {
-    DoMerge();
-  }
-
   void operator()(FeatureBuilder1 const & fb)
   {
     if (m_worldBucket.NeedPushToWorld(fb))

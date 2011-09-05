@@ -4,6 +4,8 @@
 #include "polygonizer.hpp"
 #include "osm_decl.hpp"
 #include "generate_info.hpp"
+#include "coastlines_generator.hpp"
+#include "world_map_generator.hpp"
 
 #include "../defines.hpp"
 
@@ -165,6 +167,9 @@ void FeaturesCollector::operator() (FeatureBuilder1 const & fb)
 // Generate functions implementations.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+namespace
+{
+
 class points_in_file
 {
 #ifdef OMIM_OS_WINDOWS
@@ -178,12 +183,15 @@ public:
 
   bool GetPoint(uint64_t id, double & lat, double & lng) const
   {
-#ifdef OMIM_OS_WINDOWS
+    // I think, it's not good idea to write this ugly code.
+    // memcpy isn't to slow for that.
+//#ifdef OMIM_OS_WINDOWS
     LatLon ll;
     m_file.Read(id * sizeof(ll), &ll, sizeof(ll));
-#else
-    LatLon const & ll = *reinterpret_cast<LatLon const *>(m_file.Data() + id * sizeof(ll));
-#endif
+//#else
+//    LatLon const & ll = *reinterpret_cast<LatLon const *>(m_file.Data() + id * sizeof(ll));
+//#endif
+
     // assume that valid coordinate is not (0, 0)
     if (ll.lat != 0.0 || ll.lon != 0.0)
     {
@@ -222,15 +230,7 @@ public:
       LatLonPos ll;
       reader.Read(pos, &ll, sizeof(ll));
 
-      pair<iter_t, bool> ret = m_map.insert(make_pair(ll.pos, make_pair(ll.lat, ll.lon)));
-      if (ret.second == true)
-      {
-#ifdef DEBUG
-        pair<double, double> const & c = ret.first->second;
-        ASSERT ( equal_coord(c.first, ll.lat), () );
-        ASSERT ( equal_coord(c.second, ll.lon), () );
-#endif
-      }
+      (void)m_map.insert(make_pair(ll.pos, make_pair(ll.lat, ll.lon)));
 
       pos += sizeof(ll);
     }
@@ -249,6 +249,79 @@ public:
   }
 };
 
+class MainFeaturesEmitter
+{
+  Polygonizer<FeaturesCollector> m_countries;
+
+  scoped_ptr<WorldMapGenerator<FeaturesCollector> > m_world;
+  scoped_ptr<CoastlineFeaturesGenerator> m_coasts;
+  scoped_ptr<FeaturesCollector> m_coastsHolder;
+
+  uint32_t m_coastType;
+
+public:
+  MainFeaturesEmitter(GenerateInfo const & info)
+    : m_countries(info)
+  {
+    {
+      vector<string> path;
+      path.push_back("natural");
+      path.push_back("coastline");
+      m_coastType = classif().GetTypeByPath(path);
+    }
+
+    if (info.m_createWorld)
+    {
+      m_world.reset(new WorldMapGenerator<FeaturesCollector>(info));
+      m_coasts.reset(new CoastlineFeaturesGenerator(m_coastType));
+      m_coastsHolder.reset(new FeaturesCollector(
+              info.m_datFilePrefix + WORLD_COASTS_FILE_NAME + info.m_datFileSuffix));
+    }
+  }
+
+  void operator() (FeatureBuilder1 fb)
+  {
+    if (m_coasts)
+    {
+      if (fb.HasType(m_coastType))
+        (*m_coasts)(fb);
+    }
+
+    if (!fb.PopExactType(m_coastType))
+    {
+      if (m_world)
+        (*m_world)(fb);
+
+      m_countries(fb);
+    }
+  }
+
+  void Finish()
+  {
+    if (m_world)
+      m_world->DoMerge();
+
+    if (m_coasts)
+    {
+      m_coasts->Finish();
+
+      size_t const count = m_coasts->GetFeaturesCount();
+      for (size_t i = 0; i < count; ++i)
+      {
+        FeatureBuilder1 fb;
+        m_coasts->GetFeature(i, fb);
+
+        (*m_coastsHolder)(fb);
+        m_countries(fb);
+      }
+    }
+  }
+
+  inline vector<string> const & GetNames() const { return m_countries.Names(); }
+};
+
+}
+
 template <class TNodesHolder, template <class, class> class TParser>
 bool GenerateImpl(GenerateInfo & info)
 {
@@ -258,15 +331,14 @@ bool GenerateImpl(GenerateInfo & info)
 
     typedef FileHolder<TNodesHolder> holder_t;
     holder_t holder(nodes, info.m_tmpDir);
-
     holder.LoadIndex();
 
-    typedef Polygonizer<FeaturesCollector> PolygonizerT;
-    // prefix is data dir
-    PolygonizerT bucketer(info);
-    TParser<PolygonizerT, holder_t> parser(bucketer, holder);
+    MainFeaturesEmitter bucketer(info);
+    TParser<MainFeaturesEmitter, holder_t> parser(bucketer, holder);
     ParseXMLFromStdIn(parser);
-    info.m_bucketNames = bucketer.Names();
+
+    bucketer.Finish();
+    info.m_bucketNames = bucketer.GetNames();
   }
   catch (Reader::Exception const & e)
   {

@@ -30,15 +30,19 @@ public:
 
   /// Set that feature is linear type.
   void SetLinear() { m_Params.SetGeomType(feature::GEOM_LINE); }
+  void SetArea() { m_Params.SetGeomType(feature::GEOM_AREA); }
 
   /// Set that feature is area and get ownership of holes.
   void SetAreaAddHoles(list<vector<m2::PointD> > const & holes);
+
+  void AddPolygon(vector<m2::PointD> & poly);
   //@}
 
   inline feature::EGeomType GetGeomType() const { return m_Params.GetGeomType(); }
 
   inline void AddType(uint32_t type) { m_Params.AddType(type); }
   inline bool HasType(uint32_t t) const { return m_Params.IsTypeExist(t); }
+  inline bool PopExactType(uint32_t type) { return m_Params.PopExactType(type); }
 
   typedef vector<char> buffer_t;
 

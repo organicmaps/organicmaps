@@ -1,7 +1,6 @@
 #pragma once
 
 #include "borders_loader.hpp"
-#include "world_map_generator.hpp"
 
 #include "../indexer/feature.hpp"
 #include "../indexer/feature_visibility.hpp"
@@ -43,7 +42,6 @@ namespace feature
     vector<FeatureOutT*> m_Buckets;
     vector<string> m_Names;
     borders::CountriesContainerT m_countries;
-    scoped_ptr<WorldMapGenerator<FeatureOutT> > m_worldMap;
 
 #if PARALLEL_POLYGONIZER
     QThreadPool m_ThreadPool;
@@ -62,9 +60,6 @@ namespace feature
 #if PARALLEL_POLYGONIZER
       LOG(LINFO, ("Polygonizer thread pool threads:", m_ThreadPool.maxThreadCount()));
 #endif
-
-      if (info.m_createWorld)
-        m_worldMap.reset(new WorldMapGenerator<FeatureOutT>(info));
 
       if (info.m_splitByPolygons)
       {
@@ -122,9 +117,6 @@ namespace feature
 
     void operator () (FeatureBuilder1 const & fb)
     {
-      if (m_worldMap)
-        (*m_worldMap)(fb);
-
       buffer_vector<borders::CountryPolygons const *, 32> vec;
       m_countries.ForEachInRect(fb.GetLimitRect(), InsertCountriesPtr(vec));
 
@@ -171,7 +163,7 @@ namespace feature
       (*(m_Buckets[country->m_index]))(fb);
     }
 
-    vector<string> const & Names()
+    vector<string> const & Names() const
     {
       return m_Names;
     }

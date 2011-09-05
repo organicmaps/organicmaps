@@ -33,7 +33,6 @@ public:
 
   inline void SetType(uint32_t type) { m_Params.SetType(type); }
   inline bool PopAnyType(uint32_t & type) { return m_Params.PopAnyType(type); }
-  inline bool PopExactType(uint32_t type) { return m_Params.PopExactType(type); }
 
   template <class ToDo> void ForEachChangeTypes(ToDo toDo)
   {

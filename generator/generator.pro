@@ -29,6 +29,7 @@ SOURCES += \
     feature_builder.cpp \
     osm_id.cpp \
     osm_decl.cpp \
+    coastlines_generator.cpp \
 
 HEADERS += \
     feature_merger.hpp \
@@ -55,3 +56,4 @@ HEADERS += \
     feature_builder.hpp \
     osm_id.hpp \
     osm_decl.hpp \
+    coastlines_generator.hpp \

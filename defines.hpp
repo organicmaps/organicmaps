@@ -20,6 +20,7 @@
 #endif
 
 #define WORLD_FILE_NAME "World"
+#define WORLD_COASTS_FILE_NAME "WorldCoasts"
 
 #define SETTINGS_FILE_NAME "settings.ini"
 

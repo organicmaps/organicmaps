@@ -59,6 +59,19 @@ void FeatureBuilder1::SetAreaAddHoles(list<points_t> const & holes)
   }
 }
 
+void FeatureBuilder1::AddPolygon(vector<m2::PointD> & poly)
+{
+  // check for closing
+  if (poly.size() < 3) return;
+  if (poly.front() != poly.back())
+    poly.push_back(poly.front());
+
+  if (!m_Polygons.back().empty())
+    m_Polygons.push_back(points_t());
+
+  m_Polygons.back().swap(poly);
+}
+
 FeatureBase FeatureBuilder1::GetFeatureBase() const
 {
   CHECK ( CheckValid(), () );
@@ -290,9 +303,9 @@ string debug_print(FeatureBuilder1 const & f)
 
   switch (f.GetGeomType())
   {
-  case feature::GEOM_POINT: out << "(" << f.m_Center << ")"; break;
-  case feature::GEOM_LINE: out << "line with " << f.GetPointsCount() << "points"; break;
-  case feature::GEOM_AREA: out << "area with " << f.GetPointsCount() << "points"; break;
+  case GEOM_POINT: out << "(" << f.m_Center << ")"; break;
+  case GEOM_LINE: out << "line with " << f.GetPointsCount() << "points"; break;
+  case GEOM_AREA: out << "area with " << f.GetPointsCount() << "points"; break;
   default:
     out << "ERROR: unknown geometry type"; break;
   }
