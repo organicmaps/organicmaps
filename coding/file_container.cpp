@@ -179,6 +179,7 @@ FileWriter FilesContainerW::GetWriter(Tag const & tag)
 
     FileWriter writer(m_name, FileWriter::OP_WRITE_EXISTING);
     writer.Seek(curr);
+    writer.Truncate(curr);
     return writer;
   }
   else
@@ -224,16 +225,14 @@ void FilesContainerW::Finish()
 {
   ASSERT(!m_bFinished, ());
 
-  {
-    uint64_t const curr = SaveCurrentSize();
-    FileWriter writer(m_name, FileWriter::OP_WRITE_EXISTING);
-    writer.Seek(0);
-    WriteToSink(writer, curr);
-  }
+  uint64_t const curr = SaveCurrentSize();
+
+  FileWriter writer(m_name, FileWriter::OP_WRITE_EXISTING);
+  writer.Seek(0);
+  WriteToSink(writer, curr);
+  writer.Seek(curr);
 
   sort(m_info.begin(), m_info.end(), LessInfo());
-
-  FileWriter writer(m_name, FileWriter::OP_APPEND);
 
   uint32_t const count = m_info.size();
   WriteVarUint(writer, count);

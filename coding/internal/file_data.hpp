@@ -27,7 +27,9 @@ public:
 
   void Read(uint64_t pos, void * p, size_t size);
   void Write(void const * p, size_t size);
+
   void Flush();
+  void Truncate(uint64_t sz);
 
   string GetName() const { return m_FileName; }
 

@@ -33,8 +33,10 @@ public:
   void Seek(int64_t pos);
   int64_t Pos() const;
   void Write(void const * p, size_t size);
+
   uint64_t Size() const;
   void Flush();
+  void Truncate(uint64_t sz);
 
   static void DeleteFileX(string const & fName);
 

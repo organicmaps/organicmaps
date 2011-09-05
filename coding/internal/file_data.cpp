@@ -153,6 +153,15 @@ void FileData::Flush()
 #endif
 }
 
+void FileData::Truncate(uint64_t sz)
+{
+#ifdef OMIM_OS_WINDOWS
+  _chsize(fileno(m_File), sz);
+#else
+  ftruncate(fileno(m_File), sz);
+#endif
+}
+
 bool GetFileSize(string const & fName, uint64_t & sz)
 {
   try

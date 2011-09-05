@@ -98,6 +98,8 @@ public:
       f(m_info[i].m_tag);
   }
 
+  inline uint64_t GetSize() const { return m_source.Size(); }
+
 private:
   ReaderT m_source;
 };

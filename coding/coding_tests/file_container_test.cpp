@@ -3,6 +3,7 @@
 #include "../file_container.hpp"
 #include "../varint.hpp"
 
+#include "../../base/logging.hpp"
 #include "../../base/string_utils.hpp"
 
 
@@ -146,6 +147,7 @@ namespace
                       char const * key[], char const * value[], size_t count)
   {
     FilesContainerR reader(fName);
+    LOG(LINFO, ("Size=", reader.GetSize()));
 
     for (size_t i = 0; i < count; ++i)
     {

@@ -51,6 +51,11 @@ void FileWriter::Flush()
   m_pFileData->Flush();
 }
 
+void FileWriter::Truncate(uint64_t sz)
+{
+  m_pFileData->Truncate(sz);
+}
+
 void FileWriter::DeleteFileX(string const & fName)
 {
     my::DeleteFileX(fName);
