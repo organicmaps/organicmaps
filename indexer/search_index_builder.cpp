@@ -1,5 +1,7 @@
 #include "search_index_builder.hpp"
+
 #include "features_vector.hpp"
+#include "search_delimiters.hpp"
 #include "search_trie.hpp"
 #include "search_string_utils.hpp"
 
@@ -53,6 +55,11 @@ struct FeatureName
       return GetOffset() < name.GetOffset();
     return false;
   }
+
+  inline bool operator == (FeatureName const & name) const
+  {
+    return m_name == name.m_name && 0 == memcmp(&m_Value, &name.m_Value, sizeof(m_Value));
+  }
 };
 
 struct FeatureNameInserter
@@ -64,7 +71,17 @@ struct FeatureNameInserter
     : m_names(names), m_pos(pos), m_rank(rank) {}
   bool operator()(signed char, string const & name) const
   {
-    m_names.push_back(FeatureName(search::NormalizeAndSimplifyString(name), m_pos, m_rank));
+    // m_names.push_back(FeatureName(, m_pos, m_rank));
+    strings::UniString uniName = search::NormalizeAndSimplifyString(name);
+    buffer_vector<strings::UniString, 32> tokens;
+    SplitUniString(uniName, MakeBackInsertFunctor(tokens), search::Delimiters());
+    if (tokens.size() > 30)
+    {
+      LOG(LWARNING, ("Name has too many tokens:", name));
+      tokens.resize(30);
+    }
+    for (size_t i = 0; i < tokens.size(); ++i)
+      m_names.push_back(FeatureName(tokens[i], m_pos, m_rank));
     return true;
   }
 };
