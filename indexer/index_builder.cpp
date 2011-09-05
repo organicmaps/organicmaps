@@ -19,7 +19,7 @@ namespace indexer
 
       FeaturesVector featuresVector(readCont, header);
 
-      FilesContainerW writeCont(datFile, FileWriter::OP_APPEND);
+      FilesContainerW writeCont(datFile, FileWriter::OP_WRITE_EXISTING);
       FileWriter writer = writeCont.GetWriter(INDEX_FILE_TAG);
 
       BuildIndex(header.GetLastScale() + 1, featuresVector, writer, tmpFile);

@@ -3,6 +3,7 @@
 #include "file_container.hpp"
 #include "varint.hpp"
 #include "write_to_sink.hpp"
+#include "internal/file_data.hpp"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -75,34 +76,45 @@ bool FilesContainerR::IsReaderExist(Tag const & tag) const
 FilesContainerW::FilesContainerW(string const & fName, FileWriter::Op op)
 : m_name(fName), m_bFinished(false)
 {
+  Open(op);
+}
+
+void FilesContainerW::Open(FileWriter::Op op)
+{
+  m_bNeedRewrite = true;
+
   switch (op)
   {
-  case FileWriter::OP_WRITE_TRUNCATE: // default usage
+  case FileWriter::OP_WRITE_TRUNCATE:
     break;
-
-  case FileWriter::OP_APPEND:
-    m_bNeedRewrite = true;    // need to override service info after appending
-                              // 'break' doesn't present!
 
   case FileWriter::OP_WRITE_EXISTING:
     {
       // read an existing service info
-      FileReader reader(fName);
+      FileReader reader(m_name);
       ReadInfo(reader);
 
       // Important: in append mode we should sort info-vector by offsets
       sort(m_info.begin(), m_info.end(), LessOffset());
+      break;
     }
+
+  default:
+    ASSERT ( false, ("Unsupperted options") );
+    break;
   }
 
   if (m_info.empty())
-  {
-    // leave space for offset to service info
-    FileWriter writer(fName);
-    uint64_t skip = 0;
-    writer.Write(&skip, sizeof(skip));
-    m_bNeedRewrite = false;
-  }
+    StartNew();
+}
+
+void FilesContainerW::StartNew()
+{
+  // leave space for offset to service info
+  FileWriter writer(m_name);
+  uint64_t skip = 0;
+  writer.Write(&skip, sizeof(skip));
+  m_bNeedRewrite = false;
 }
 
 FilesContainerW::~FilesContainerW()
@@ -123,6 +135,40 @@ uint64_t FilesContainerW::SaveCurrentSize()
 FileWriter FilesContainerW::GetWriter(Tag const & tag)
 {
   ASSERT(!m_bFinished, ());
+
+  InfoContainer::const_iterator it = find_if(m_info.begin(), m_info.end(), EqualTag(tag));
+  if (it != m_info.end())
+  {
+    if (it+1 == m_info.end())
+    {
+      m_info.pop_back();
+
+      if (m_info.empty())
+        StartNew();
+      else
+        m_bNeedRewrite = true;
+    }
+    else
+    {
+      {
+        FilesContainerR contR(m_name);
+        FilesContainerW contW(m_name + ".tmp");
+
+        for (size_t i = 0; i < m_info.size(); ++i)
+        {
+          if (m_info[i].m_tag != it->m_tag)
+            contW.Write(contR.GetReader(m_info[i].m_tag), m_info[i].m_tag);
+        }
+      }
+
+      my::DeleteFileX(m_name);
+      if (!my::RenameFileX(m_name + ".tmp", m_name))
+        MYTHROW(RootException, ("Can't rename file", m_name, "Sharing violation or disk error!"));
+
+      Open(FileWriter::OP_WRITE_EXISTING);
+    }
+  }
+
   if (m_bNeedRewrite)
   {
     m_bNeedRewrite = false;
@@ -143,28 +189,13 @@ FileWriter FilesContainerW::GetWriter(Tag const & tag)
   }
 }
 
-FileWriter FilesContainerW::GetExistingWriter(Tag const & tag)
+void FilesContainerW::Write(string const & fPath, Tag const & tag)
 {
-  InfoContainer::const_iterator i = find_if(m_info.begin(), m_info.end(), EqualTag(tag));
-
-  if (i != m_info.end())
-  {
-    FileWriter writer(m_name, FileWriter::OP_WRITE_EXISTING);
-    writer.Seek(i->m_offset);
-    return writer;
-  }
-  else
-    MYTHROW(Writer::OpenException, (tag));
+  Write(new FileReader(fPath), tag);
 }
 
-void FilesContainerW::Append(string const & fPath, Tag const & tag)
+void FilesContainerW::Write(ModelReaderPtr reader, Tag const & tag)
 {
-  Append(new FileReader(fPath), tag);
-}
-
-void FilesContainerW::Append(ModelReaderPtr reader, Tag const & tag)
-{
-  ASSERT(!m_bFinished, ());
   uint64_t const bufferSize = 4*1024;
   char buffer[bufferSize];
 
@@ -183,9 +214,8 @@ void FilesContainerW::Append(ModelReaderPtr reader, Tag const & tag)
   }
 }
 
-void FilesContainerW::Append(vector<char> const & buffer, Tag const & tag)
+void FilesContainerW::Write(vector<char> const & buffer, Tag const & tag)
 {
-  ASSERT(!m_bFinished, ());
   if (!buffer.empty())
     GetWriter(tag).Write(&buffer[0], buffer.size());
 }
@@ -193,6 +223,7 @@ void FilesContainerW::Append(vector<char> const & buffer, Tag const & tag)
 void FilesContainerW::Finish()
 {
   ASSERT(!m_bFinished, ());
+
   {
     uint64_t const curr = SaveCurrentSize();
     FileWriter writer(m_name, FileWriter::OP_WRITE_EXISTING);

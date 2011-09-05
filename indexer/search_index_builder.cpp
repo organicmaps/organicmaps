@@ -113,16 +113,16 @@ bool indexer::BuildSearchIndexFromDatFile(string const & datFile)
 
     FeaturesVector featuresVector(readCont, header);
 
-    FilesContainerW writeCont(datFile, FileWriter::OP_APPEND);
+    FilesContainerW writeCont(datFile, FileWriter::OP_WRITE_EXISTING);
 
-    vector<uint8_t> serialTrie;
+    vector<char> serialTrie;
     {
-      MemWriter<vector<uint8_t> > writer(serialTrie);
+      MemWriter<vector<char> > writer(serialTrie);
       BuildSearchIndex(featuresVector, writer);
       reverse(serialTrie.begin(), serialTrie.end());
     }
 
-    writeCont.GetWriter(SEARCH_INDEX_FILE_TAG).Write(&serialTrie[0], serialTrie.size());
+    writeCont.Write(serialTrie, SEARCH_INDEX_FILE_TAG);
   }
   catch (Reader::Exception const & e)
   {

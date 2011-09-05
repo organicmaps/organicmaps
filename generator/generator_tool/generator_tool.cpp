@@ -5,7 +5,6 @@
 #include "../borders_generator.hpp"
 #include "../classif_routine.hpp"
 #include "../dumper.hpp"
-#include "../mwm_rect_updater.hpp"
 #include "../statistics.hpp"
 #include "../unpack_mwm.hpp"
 #include "../generate_info.hpp"
@@ -193,9 +192,6 @@ int main(int argc, char ** argv)
       stats::PrintStatistic(info);
     }
   }
-
-  //if (FLAGS_split_by_polygons)
-  //  UpdateMWMRectsFromBoundaries(path);
 
   // Create http update list for countries and corresponding files
   if (FLAGS_generate_update)

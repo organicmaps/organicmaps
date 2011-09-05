@@ -24,7 +24,6 @@ SOURCES += \
     borders_generator.cpp \
     osm_xml_parser.cpp \
     borders_loader.cpp \
-    mwm_rect_updater.cpp \
     dumper.cpp \
     unpack_mwm.cpp \
     feature_builder.cpp \
@@ -49,7 +48,6 @@ HEADERS += \
     borders_generator.hpp \
     osm_xml_parser.hpp \
     borders_loader.hpp \
-    mwm_rect_updater.hpp \
     feature_emitter_iface.hpp \
     dumper.hpp \
     generate_info.hpp \

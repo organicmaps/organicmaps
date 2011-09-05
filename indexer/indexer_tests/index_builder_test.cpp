@@ -50,9 +50,9 @@ UNIT_TEST(BuildIndexTest)
     for (size_t i = 0; i < tags.size(); ++i)
     {
       if (tags[i] != INDEX_FILE_TAG)
-        containerWriter.Append(originalContainer.GetReader(tags[i]), tags[i]);
+        containerWriter.Write(originalContainer.GetReader(tags[i]), tags[i]);
     }
-    containerWriter.Append(serialIndex, INDEX_FILE_TAG);
+    containerWriter.Write(serialIndex, INDEX_FILE_TAG);
   }
 
   {

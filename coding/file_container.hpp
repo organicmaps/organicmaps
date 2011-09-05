@@ -111,23 +111,17 @@ public:
 
   FileWriter GetWriter(Tag const & tag);
 
-  /// @todo Subclass from FileWriter to check write bounds (avoid overrun).
-  /// Return this object with additional check.
-  /// @precondition Container should be constructed with OP_WRITE_EXISTING.
-  FileWriter GetExistingWriter(Tag const & tag);
-
-  /// @name Append to existing container.
-  /// @precondition Container should be constructed with OP_APPEND.
-  //@{
-  void Append(string const & fPath, Tag const & tag);
-  void Append(ModelReaderPtr reader, Tag const & tag);
-  void Append(vector<char> const & buffer, Tag const & tag);
-  //@}
+  void Write(string const & fPath, Tag const & tag);
+  void Write(ModelReaderPtr reader, Tag const & tag);
+  void Write(vector<char> const & buffer, Tag const & tag);
 
   void Finish();
 
 private:
   uint64_t SaveCurrentSize();
+
+  void Open(FileWriter::Op op);
+  void StartNew();
 
   string m_name;
   bool m_bNeedRewrite;

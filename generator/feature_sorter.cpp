@@ -119,7 +119,7 @@ namespace feature
       // assume like we close files
       m_datFile.Flush();
 
-      m_writer.Append(m_datFile.GetName(), DATA_FILE_TAG);
+      m_writer.Write(m_datFile.GetName(), DATA_FILE_TAG);
 
       for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
       {
@@ -136,8 +136,8 @@ namespace feature
         string trgPostfix = TRIANGLE_FILE_TAG;
         trgPostfix += postfix;
 
-        m_writer.Append(geomFile, geoPostfix);
-        m_writer.Append(trgFile, trgPostfix);
+        m_writer.Write(geomFile, geoPostfix);
+        m_writer.Write(trgFile, trgPostfix);
 
         FileWriter::DeleteFileX(geomFile);
         FileWriter::DeleteFileX(trgFile);

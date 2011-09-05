@@ -47,7 +47,7 @@ UNIT_TEST(FilesContainer_Smoke)
   for (size_t i = 0; i < ARRAY_SIZE(arrAppend); ++i)
   {
     {
-      FilesContainerW writer(fName, FileWriter::OP_APPEND);
+      FilesContainerW writer(fName, FileWriter::OP_WRITE_EXISTING);
 
       FileWriter w = writer.GetWriter(strings::to_string(arrAppend[i]));
       WriteVarUint(w, arrAppend[i]);
@@ -111,7 +111,7 @@ UNIT_TEST(FilesContainer_Shared)
 
     CheckInvariant(reader, "2", test64);
 
-    FilesContainerW writer(fName, FileWriter::OP_APPEND);
+    FilesContainerW writer(fName, FileWriter::OP_WRITE_EXISTING);
     FileWriter w = writer.GetWriter("3");
 
     ReaderSource<FilesContainerR::ReaderT> src(r1);
@@ -132,6 +132,29 @@ UNIT_TEST(FilesContainer_Shared)
   FileWriter::DeleteFileX(fName);
 }
 
+namespace
+{
+  void CheckContainer(string const & fName,
+                      char const * key[], char const * value[], size_t count)
+  {
+    FilesContainerR reader(fName);
+
+    for (size_t i = 0; i < count; ++i)
+    {
+      FilesContainerR::ReaderT r = reader.GetReader(key[i]);
+
+      size_t const szBuffer = 100;
+      size_t const szS = strlen(value[i]);
+
+      char s[szBuffer] = { 0 };
+      ASSERT_LESS ( szS, szBuffer, () );
+      r.Read(0, s, szS);
+
+      TEST(strcmp(value[i], s) == 0, (s));
+    }
+  }
+}
+
 UNIT_TEST(FilesContainer_RewriteExisting)
 {
   string const fName = "file_container.tmp";
@@ -139,7 +162,6 @@ UNIT_TEST(FilesContainer_RewriteExisting)
 
   char const * key[] = { "3", "2", "1" };
   char const * value[] = { "prolog", "data", "epilog" };
-  char const * buffer = "xxxx";
 
   // fill container
   {
@@ -153,33 +175,30 @@ UNIT_TEST(FilesContainer_RewriteExisting)
   }
 
   // re-write middle file in container
+  char const * buffer1 = "xxxxxxx";
   {
     FilesContainerW writer(fName, FileWriter::OP_WRITE_EXISTING);
-    FileWriter w = writer.GetExistingWriter(key[1]);
+    FileWriter w = writer.GetWriter(key[1]);
 
-    w.Write(buffer, strlen(buffer));
+    w.Write(buffer1, strlen(buffer1));
   }
 
   // check container files
+  char const * value1[] = { value[0], buffer1, value[2] };
+  CheckContainer(fName, key, value1, 3);
+
+  // re-write end file in container
+  char const * buffer2 = "yyyyyyyyyyyyyy";
   {
-    FilesContainerR reader(fName);
+    FilesContainerW writer(fName, FileWriter::OP_WRITE_EXISTING);
+    FileWriter w = writer.GetWriter(key[2]);
 
-    for (size_t i = 0; i < ARRAY_SIZE(key); ++i)
-    {
-      FilesContainerR::ReaderT r = reader.GetReader(key[i]);
-      char s[10] = { 0 };
-      r.Read(0, s, strlen(value[i]));
-
-      if (i == 1)
-      {
-        TEST(strcmp(buffer, s) == 0, (s));
-      }
-      else
-      {
-        TEST(strcmp(value[i], s) == 0, (s));
-      }
-    }
+    w.Write(buffer2, strlen(buffer2));
   }
+
+  // check container files
+  char const * value2[] = { value[0], buffer1, buffer2 };
+  CheckContainer(fName, key, value2, 3);
 
   FileWriter::DeleteFileX(fName);
 }
