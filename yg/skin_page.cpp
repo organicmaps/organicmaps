@@ -460,6 +460,8 @@ namespace yg
             v(static_cast<uint32_t>(curLen + 2 + penInfo.m_pat[i] + 1), y) = px;
 
             curLen += penInfo.m_pat[i];
+
+            curLenI = static_cast<uint32_t>(curLen);
           }
         }
       }

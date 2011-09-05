@@ -72,7 +72,7 @@ namespace yg
         }
 
         /// Geometry width. It's 1px wider than the pattern width.
-        int geomWidth = static_cast<uint32_t>(lineStyle->m_penInfo.m_w) + 4 - 2 * aaShift();
+        int geomWidth = static_cast<int>(lineStyle->m_penInfo.m_w) + 4 - 2 * aaShift();
         float geomHalfWidth =  geomWidth / 2.0;
 
         /// Starting point of the tiles on this segment
