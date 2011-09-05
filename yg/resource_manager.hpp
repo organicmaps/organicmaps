@@ -63,9 +63,13 @@ namespace yg
     size_t m_blitVBSize;
     size_t m_blitIBSize;
 
+    size_t m_multiBlitVBSize;
+    size_t m_multiBlitIBSize;
+
     ThreadedList<gl::Storage> m_storages;
     ThreadedList<gl::Storage> m_smallStorages;
     ThreadedList<gl::Storage> m_blitStorages;
+    ThreadedList<gl::Storage> m_multiBlitStorages;
 
     vector<GlyphCache> m_glyphCaches;
 
@@ -75,6 +79,8 @@ namespace yg
 
     size_t m_storagesCount;
     size_t m_smallStoragesCount;
+    size_t m_multiBlitStoragesCount;
+    size_t m_renderTargetsCount;
     size_t m_blitStoragesCount;
     size_t m_dynamicTexturesCount;
     size_t m_fontTexturesCount;
@@ -92,6 +98,7 @@ namespace yg
                     RtFormat fmt,
                     bool useVA);
 
+    void initMultiBlitStorage(size_t multiBlitVBSize, size_t multiBlitIBSize, size_t multiBlitStoragesCount);
     void initRenderTargets(size_t renderTargetWidth, size_t renderTargetHeight, size_t renderTargetCount);
 
     shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
@@ -99,6 +106,8 @@ namespace yg
     ThreadedList<gl::Storage> & storages();
     ThreadedList<gl::Storage> & smallStorages();
     ThreadedList<gl::Storage> & blitStorages();
+    ThreadedList<gl::Storage> & multiBlitStorages();
+
     ThreadedList<shared_ptr<gl::BaseTexture> > & dynamicTextures();
     ThreadedList<shared_ptr<gl::BaseTexture> > & fontTextures();
     ThreadedList<shared_ptr<gl::BaseTexture> > & renderTargets();
