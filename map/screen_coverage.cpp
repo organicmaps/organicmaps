@@ -165,7 +165,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen, bool mergePathNames)
   {
     Tiler::RectInfo ri = (*it)->m_rectInfo;
     tileCache->lockTile((*it)->m_rectInfo);
-//    m_infoLayer.merge(*((*it)->m_infoLayer.get()), (*it)->m_tileScreen.PtoGMatrix() * screen.GtoPMatrix());
+    m_infoLayer.merge(*((*it)->m_infoLayer.get()), (*it)->m_tileScreen.PtoGMatrix() * screen.GtoPMatrix());
   }
 
   m_infoLayer.clear();
@@ -203,18 +203,26 @@ ScreenCoverage::~ScreenCoverage()
 
 void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
 {
+  vector<yg::gl::BlitInfo> infos;
+
   for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
   {
     Tile const * tile = *it;
+
     size_t tileWidth = tile->m_renderTarget->width();
     size_t tileHeight = tile->m_renderTarget->height();
 
-    s->blit(tile->m_renderTarget, tile->m_tileScreen, screen, true,
-            yg::Color(),
-            m2::RectI(0, 0, tileWidth - 2, tileHeight - 2),
-            m2::RectU(1, 1, tileWidth - 1, tileHeight - 1));
+    yg::gl::BlitInfo bi;
 
+    bi.m_matrix = tile->m_tileScreen.PtoGMatrix() * screen.GtoPMatrix();
+    bi.m_srcRect = m2::RectI(0, 0, tileWidth - 2, tileHeight - 2);
+    bi.m_texRect = m2::RectU(1, 1, tileWidth - 1, tileHeight - 1);
+    bi.m_srcSurface = tile->m_renderTarget;
+
+    infos.push_back(bi);
   }
+
+  s->blit(&infos[0], infos.size(), true);
 
   m_infoLayer.draw(s, m_screen.PtoGMatrix() * screen.GtoPMatrix());
 }

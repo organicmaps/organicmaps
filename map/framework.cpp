@@ -86,9 +86,9 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
 {
   // on Android policy is created in AndroidFramework
 #ifndef OMIM_OS_ANDROID
-//  SetRenderPolicy(make_shared_ptr(new RenderPolicyST(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5))));
-//  SetRenderPolicy(make_shared_ptr(new TilingRenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5))));
-  SetRenderPolicy(make_shared_ptr(new RenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5))));
+//  SetRenderPolicy(make_shared_ptr(new RenderPolicyST(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5, false))));
+  SetRenderPolicy(make_shared_ptr(new TilingRenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5, true))));
+//  SetRenderPolicy(make_shared_ptr(new RenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5, false))));
 #endif
   m_informationDisplay.setBottomShift(bottomShift);
 #ifdef DRAW_TOUCH_POINTS
@@ -297,15 +297,18 @@ void Framework<TModel>::DrawModel(shared_ptr<PaintEvent> const & e,
                                   ScreenBase const & screen,
                                   m2::RectD const & selectRect,
                                   m2::RectD const & clipRect,
-                                  int scaleLevel)
+                                  int scaleLevel,
+                                  bool isTiling)
 {
   fwork::DrawProcessor doDraw(clipRect, screen, e, scaleLevel);
 
   try
   {
     //threads::MutexGuard lock(m_modelSyn);
-//    m_model.ForEachFeature_TileDrawing(selectRect, doDraw, scaleLevel);
-    m_model.ForEachFeature(selectRect, doDraw, scaleLevel);
+    if (isTiling)
+      m_model.ForEachFeature_TileDrawing(selectRect, doDraw, scaleLevel);
+    else
+      m_model.ForEachFeature(selectRect, doDraw, scaleLevel);
   }
   catch (redraw_operation_cancelled const &)
   {
@@ -338,7 +341,7 @@ void Framework<TModel>::Paint(shared_ptr<PaintEvent> e)
 
   m_renderPolicy->DrawFrame(e, m_navigator.Screen());
 
-  m_informationDisplay.doDraw(pDrawer);
+//  m_informationDisplay.doDraw(pDrawer);
 
   m_locationState.DrawMyPosition(*pDrawer, m_navigator.Screen());
 

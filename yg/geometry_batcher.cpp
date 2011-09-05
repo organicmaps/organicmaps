@@ -22,8 +22,11 @@ namespace yg
 {
   namespace gl
   {
-    GeometryBatcher::GeometryBatcher(base_t::Params const & params)
-      : base_t(params), m_isAntiAliased(true)
+    GeometryBatcher::Params::Params() : m_isSynchronized(true)
+    {}
+
+    GeometryBatcher::GeometryBatcher(Params const & params)
+      : base_t(params), m_isAntiAliased(true), m_isSynchronized(params.m_isSynchronized)
     {
       reset(-1);
       applyStates();
@@ -146,7 +149,9 @@ namespace yg
      flush(-1);
      /// Syncronization point.
      enableClipRect(false);
-     OGLCHECK(glFinish());
+
+     if (m_isSynchronized)
+       OGLCHECK(glFinish());
 
      if (isDebugging())
      {

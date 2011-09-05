@@ -184,7 +184,8 @@ public:
                  ScreenBase const & screen,
                  m2::RectD const & selectRect,
                  m2::RectD const & clipRect,
-                 int scaleLevel);
+                 int scaleLevel,
+                 bool isTiling);
 
   void Search(string const & text, SearchCallbackT callback);
 

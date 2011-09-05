@@ -60,6 +60,8 @@ namespace qt
           yg::Rt8Bpp,
           !yg::gl::g_isBufferObjectsSupported));
 
+      m_resourceManager->initMultiBlitStorage(500 * sizeof(yg::gl::AuxVertex), 500 * sizeof(unsigned short), 10);
+
       Platform::FilesList fonts;
       pl.GetFontNames(fonts);
       m_resourceManager->addFonts(fonts);

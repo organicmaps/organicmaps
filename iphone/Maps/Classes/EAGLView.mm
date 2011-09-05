@@ -86,6 +86,9 @@
     
     int blitVBSize = pow(2, ceil(log2(10 * sizeof(yg::gl::AuxVertex))));
     int blitIBSize = pow(2, ceil(log2(10 * sizeof(unsigned short))));
+    
+    int multiBlitVBSize = pow(2, ceil(log2(300 * sizeof(yg::gl::AuxVertex))));
+    int multiBlitIBSize = pow(2, ceil(log2(300 * sizeof(unsigned short))));
 
     NSLog(@"Vendor: %s, Renderer: %s", glGetString(GL_VENDOR), glGetString(GL_RENDERER));
     
@@ -105,6 +108,8 @@
           fmt,
           !yg::gl::g_isBufferObjectsSupported));
     
+    resourceManager->initMultiBlitStorage(multiBlitVBSize, multiBlitIBSize, 10);
+    
     Platform::FilesList fonts;
     pl.GetFontNames(fonts);
 		resourceManager->addFonts(fonts);
@@ -115,6 +120,7 @@
     p.m_glyphCacheID = resourceManager->guiThreadGlyphCacheID();
     p.m_skinName = pl.SkinName();
     p.m_visualScale = pl.VisualScale();
+    p.m_isSynchronized = false;
 
 		drawer = shared_ptr<DrawerYG>(new DrawerYG(p));
 

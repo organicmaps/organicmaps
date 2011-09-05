@@ -78,6 +78,7 @@ namespace yg
       void applyStates();
 
       bool m_isAntiAliased;
+      bool m_isSynchronized;
 
       int m_aaShift;
 
@@ -90,7 +91,13 @@ namespace yg
       size_t verticesLeft(int pageID);
       size_t indicesLeft(int pageID);
 
-      GeometryBatcher(base_t::Params const & params);
+      struct Params : public base_t::Params
+      {
+        bool m_isSynchronized;
+        Params();
+      };
+
+      GeometryBatcher(Params const & params);
       ~GeometryBatcher();
 
       void setSkin(shared_ptr<Skin> skin);

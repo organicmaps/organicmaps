@@ -12,6 +12,7 @@
 #include "texture.hpp"
 
 #include "../geometry/screenbase.hpp"
+#include "../base/logging.hpp"
 
 namespace yg
 {
@@ -19,12 +20,10 @@ namespace yg
   {
     Blitter::Blitter(base_t::Params const & params) : base_t(params)
     {
-//      m_blitStorage = resourceManager()->reserveBlitStorage();
     }
 
     Blitter::~Blitter()
     {
-//      resourceManager()->freeBlitStorage(m_blitStorage);
     }
 
     void Blitter::beginFrame()
@@ -53,6 +52,73 @@ namespace yg
            texRect);
     }
 
+    void Blitter::blit(BlitInfo const * blitInfo,
+                       size_t s,
+                       bool isSubPixel)
+    {
+      vector<m2::PointF> geomPts(4 * s);
+      vector<m2::PointF> texPts(4 * s);
+      vector<unsigned short> idxData(4 * s);
+
+      for (size_t i = 0; i < s; ++i)
+      {
+        calcPoints(blitInfo[i].m_srcRect,
+                   blitInfo[i].m_texRect,
+                   blitInfo[i].m_srcSurface,
+                   blitInfo[i].m_matrix,
+                   isSubPixel,
+                   &geomPts[i * 4],
+                   &texPts[i * 4]);
+
+        idxData[i * 4    ] = i * 4;
+        idxData[i * 4 + 1] = i * 4 + 1;
+        idxData[i * 4 + 2] = i * 4 + 2;
+        idxData[i * 4 + 3] = i * 4 + 3;
+      }
+
+      yg::gl::Storage storage = resourceManager()->multiBlitStorages().Front(true);
+
+      AuxVertex * pointsData = (AuxVertex*)storage.m_vertices->lock();
+
+      for (size_t i = 0; i < s * 4; ++i)
+      {
+        pointsData[i].pt.x = geomPts[i].x;
+        pointsData[i].pt.y = geomPts[i].y;
+        pointsData[i].texPt.x = texPts[i].x;
+        pointsData[i].texPt.y = texPts[i].y;
+        pointsData[i].color = yg::Color(255, 255, 255, 255);
+      }
+
+      storage.m_vertices->unlock();
+      storage.m_vertices->makeCurrent();
+
+      setupAuxVertexLayout(false, true, storage.m_vertices->glPtr());
+
+      OGLCHECK(glDisable(GL_BLEND));
+      OGLCHECK(glDisable(GL_DEPTH_TEST));
+
+      memcpy(storage.m_indices->lock(), &idxData[0], idxData.size() * sizeof(unsigned short));
+
+      storage.m_indices->unlock();
+      storage.m_indices->makeCurrent();
+
+      for (unsigned i = 0; i < s; ++i)
+      {
+        if (blitInfo[i].m_srcSurface)
+          blitInfo[i].m_srcSurface->makeCurrent();
+
+        OGLCHECK(glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, (unsigned short *)storage.m_indices->glPtr() + i * 4));
+      }
+
+      OGLCHECK(glEnable(GL_DEPTH_TEST));
+      OGLCHECK(glEnable(GL_TEXTURE_2D));
+      OGLCHECK(glEnable(GL_BLEND));
+//      /// This call is necessary to avoid parasite blitting in updateActualTarget() on IPhone.
+//      OGLCHECK(glFinish());
+
+      resourceManager()->multiBlitStorages().PushBack(storage);
+    }
+
     void Blitter::blit(shared_ptr<yg::gl::BaseTexture> const & srcSurface,
                        math::Matrix<double, 3, 3> const & m,
                        bool isSubPixel)
@@ -65,12 +131,13 @@ namespace yg
            m2::RectU(0, 0, srcSurface->width(), srcSurface->height()));
     }
 
-    void Blitter::blit(shared_ptr<yg::gl::BaseTexture> const & srcSurface,
-                       math::Matrix<double, 3, 3> const & m,
-                       bool isSubPixel,
-                       yg::Color const & color,
-                       m2::RectI const & srcRect,
-                       m2::RectU const & texRect)
+    void Blitter::calcPoints(m2::RectI const & srcRect,
+                             m2::RectU const & texRect,
+                             shared_ptr<BaseTexture> const & srcSurface,
+                             math::Matrix<double, 3, 3> const & m,
+                             bool isSubPixel,
+                             m2::PointF * geomPts,
+                             m2::PointF * texPts)
     {
       m2::PointF pt = m2::PointF(m2::PointD(srcRect.minX(), srcRect.minY()) * m);
 
@@ -82,21 +149,28 @@ namespace yg
       else
         pt = m2::PointF(0, 0);
 
-      m2::PointF pts[4] =
-      {
-        m2::PointF(m2::PointD(srcRect.minX(), srcRect.minY()) * m) + pt,
-        m2::PointF(m2::PointD(srcRect.maxX(), srcRect.minY()) * m) + pt,
-        m2::PointF(m2::PointD(srcRect.maxX(), srcRect.maxY()) * m) + pt,
-        m2::PointF(m2::PointD(srcRect.minX(), srcRect.maxY()) * m) + pt
-      };
+      geomPts[0] = m2::PointF(m2::PointD(srcRect.minX(), srcRect.minY()) * m) + pt;
+      geomPts[1] = m2::PointF(m2::PointD(srcRect.maxX(), srcRect.minY()) * m) + pt;
+      geomPts[2] = m2::PointF(m2::PointD(srcRect.maxX(), srcRect.maxY()) * m) + pt;
+      geomPts[3] = m2::PointF(m2::PointD(srcRect.minX(), srcRect.maxY()) * m) + pt;
 
-      m2::PointF texPts[4] =
-      {
-        srcSurface->mapPixel(m2::PointF(texRect.minX(), texRect.minY())),
-        srcSurface->mapPixel(m2::PointF(texRect.maxX(), texRect.minY())),
-        srcSurface->mapPixel(m2::PointF(texRect.maxX(), texRect.maxY())),
-        srcSurface->mapPixel(m2::PointF(texRect.minX(), texRect.maxY()))
-      };
+      texPts[0] = srcSurface->mapPixel(m2::PointF(texRect.minX(), texRect.minY()));
+      texPts[1] = srcSurface->mapPixel(m2::PointF(texRect.maxX(), texRect.minY()));
+      texPts[2] = srcSurface->mapPixel(m2::PointF(texRect.maxX(), texRect.maxY()));
+      texPts[3] = srcSurface->mapPixel(m2::PointF(texRect.minX(), texRect.maxY()));
+    }
+
+    void Blitter::blit(shared_ptr<yg::gl::BaseTexture> const & srcSurface,
+                       math::Matrix<double, 3, 3> const & m,
+                       bool isSubPixel,
+                       yg::Color const & color,
+                       m2::RectI const & srcRect,
+                       m2::RectU const & texRect)
+    {
+      m2::PointF pts[4];
+      m2::PointF texPts[4];
+
+      calcPoints(srcRect, texRect, srcSurface, m, isSubPixel, pts, texPts);
 
       immDrawTexturedPrimitives(pts, texPts, 4, srcSurface, true, color, false);
     }

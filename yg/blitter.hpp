@@ -18,6 +18,14 @@ namespace yg
     class VertexBuffer;
     class IndexBuffer;
 
+    struct BlitInfo
+    {
+      shared_ptr<BaseTexture> m_srcSurface;
+      math::Matrix<double, 3, 3> m_matrix;
+      m2::RectI m_srcRect;
+      m2::RectU m_texRect;
+    };
+
     class Blitter : public Clipper
     {
     private:
@@ -29,6 +37,14 @@ namespace yg
       typedef Clipper base_t;
 
       void setupAuxVertexLayout(bool hasColor, bool hasTexture, void * glPtr);
+
+      void calcPoints(m2::RectI const & srcRect,
+                      m2::RectU const & texRect,
+                      shared_ptr<BaseTexture> const & texture,
+                      math::Matrix<double, 3, 3> const & m,
+                      bool isSubPixel,
+                      m2::PointF * geomPts,
+                      m2::PointF * texPts);
 
     public:
 
@@ -65,6 +81,10 @@ namespace yg
                 yg::Color const & color,
                 m2::RectI const & srcRect,
                 m2::RectU const & texRect);
+
+      void blit(BlitInfo const * blitInfo,
+                size_t s,
+                bool isSubPixel);
 
       void immDrawSolidRect(m2::RectF const & rect,
                             yg::Color const & color);
