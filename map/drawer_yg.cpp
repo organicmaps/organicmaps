@@ -133,7 +133,7 @@ void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition
   // Use BaseRule::m_id to cache for point draw rule.
   // This rules doesn't mix with other rule-types.
 
-  uint32_t id = pRule->GetID(m_threadID);
+//  uint32_t id = pRule->GetID(m_threadID);
 
   string name;
   pRule->GetSymbol(name);
@@ -285,7 +285,7 @@ bool DrawerYG::drawPathText(di::PathInfo const & info, string const & name, uint
 
 void DrawerYG::drawPathNumber(di::PathInfo const & path, di::DrawInfo const * pInfo)
 {
-  int const textHeight = 12 * m_visualScale;
+  int const textHeight = static_cast<int>(12 * m_visualScale);
   m2::PointD pt;
   double const length = path.GetFullLength();
   if (length >= (pInfo->m_road.size() + 2)*textHeight)
@@ -313,7 +313,7 @@ shared_ptr<yg::gl::Screen> DrawerYG::screen() const
   return m_pScreen;
 }
 
-int DrawerYG::VisualScale() const
+double DrawerYG::VisualScale() const
 {
   return m_visualScale;
 }

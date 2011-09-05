@@ -17,7 +17,6 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(shared_ptr<WindowHandle> const & wind
                                            RenderPolicy::TRenderFn const & renderFn)
   : RenderPolicy(windowHandle, renderFn),
     m_tileRenderer(GetPlatform().SkinName(),
-                  GetPlatform().ScaleEtalonSize(),
                   GetPlatform().MaxTilesCount(),
                   1, //GetPlatform().CpuCores(),
                   bgColor(),

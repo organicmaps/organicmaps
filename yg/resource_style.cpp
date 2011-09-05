@@ -37,8 +37,10 @@ namespace yg
     else
     {
       double firstDashOffset = penInfo.firstDashOffset();
-      m_centerColorPixel = m2::PointU(firstDashOffset + texRect.minX() + 3, texRect.minY() + texRect.SizeY() / 2.0);
-      m_borderColorPixel = m2::PointU(firstDashOffset + texRect.minX() + 3, texRect.minY() + 1);
+      m_centerColorPixel = m2::PointU(static_cast<uint32_t>(firstDashOffset + texRect.minX() + 3),
+                                      static_cast<uint32_t>(texRect.minY() + texRect.SizeY() / 2.0));
+      m_borderColorPixel = m2::PointU(static_cast<uint32_t>(firstDashOffset + texRect.minX() + 3),
+                                      static_cast<uint32_t>(texRect.minY() + 1));
     }
   }
 

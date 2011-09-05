@@ -114,7 +114,7 @@ public:
 
   shared_ptr<yg::gl::Screen> screen() const;
 
-  int VisualScale() const;
+  double VisualScale() const;
   void SetScale(int level);
 
   void Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t count);

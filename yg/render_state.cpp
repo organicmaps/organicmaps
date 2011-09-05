@@ -57,8 +57,8 @@ namespace yg
         //unsigned oldTextureWidth = m_textureWidth;
         //unsigned oldTextureHeight = m_textureHeight;
 
-        m_textureWidth = pow(2, ceil(log(double(w)) / log2));
-        m_textureHeight = pow(2, ceil(log(double(h)) / log2));
+        m_textureWidth = static_cast<uint32_t>(pow(2, ceil(log(double(w)) / log2)));
+        m_textureHeight = static_cast<uint32_t>(pow(2, ceil(log(double(h)) / log2)));
 
         //bool hasChangedTextureSize;
         //if ((oldTextureWidth != m_textureWidth) || (oldTextureHeight != m_textureHeight))

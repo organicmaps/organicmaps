@@ -290,7 +290,7 @@ namespace yg
     double len = 0;
     for (unsigned i = 0; i < s.size(); ++i)
     {
-      GlyphKey k(s[i], fontSize, false, yg::Color(0, 0, 0, 255));
+      GlyphKey k(s[i], static_cast<uint32_t>(fontSize), false, yg::Color(0, 0, 0, 255));
       len += getGlyphMetrics(k).m_xAdvance;
     }
 

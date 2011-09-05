@@ -104,7 +104,7 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
 
   /// finding the closest higher metric value
   unsigned curFirstDigit = 2;
-  unsigned curVal = m_metresMinWidth;
+  unsigned curVal = static_cast<unsigned>(m_metresMinWidth);
   unsigned maxVal = 1000000;
   bool lessThanMin = false;
   bool isInfinity = false;
@@ -193,8 +193,8 @@ void InformationDisplay::setVisualScale(double visualScale)
 {
   m_visualScale = visualScale;
 
-  m_fontDesc.m_size = 12 * visualScale;
-  m_emptyMessageFont.m_size = 14 * visualScale;
+  m_fontDesc.m_size = static_cast<uint32_t>(12 * visualScale);
+  m_emptyMessageFont.m_size = static_cast<uint32_t>(14 * visualScale);
 }
 
 void InformationDisplay::enableCenter(bool doEnable)

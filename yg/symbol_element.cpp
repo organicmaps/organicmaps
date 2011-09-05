@@ -36,7 +36,7 @@ namespace yg
 
   m2::AARectD const SymbolElement::boundRect() const
   {
-    m2::RectU texRect = m_symbolRect;
+    m2::RectI texRect(m_symbolRect);
     texRect.Inflate(-1, -1);
 
     m2::PointD posPt = tieRect(m2::RectD(texRect), math::Identity<double, 3>());
@@ -56,7 +56,7 @@ namespace yg
     if (m_style == 0)
       return;
 
-    m2::RectU texRect = m_symbolRect;
+    m2::RectI texRect(m_symbolRect);
     texRect.Inflate(-1, -1);
 
     m2::PointD posPt = tieRect(m2::RectD(texRect), m);

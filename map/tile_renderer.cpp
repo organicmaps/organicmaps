@@ -14,7 +14,6 @@
 
 TileRenderer::TileRenderer(
     string const & skinName,
-    unsigned scaleEtalonSize,
     unsigned maxTilesCount,
     unsigned executorsCount,
     yg::Color const & bgColor,
@@ -76,7 +75,7 @@ TileRenderer::~TileRenderer()
   m_queue.Cancel();
 }
 
-void TileRenderer::CancelThread(core::CommandsQueue::Environment const & env)
+void TileRenderer::CancelThread(core::CommandsQueue::Environment const & /*env*/)
 {
   m_resourceManager->renderTargets().Cancel();
 }

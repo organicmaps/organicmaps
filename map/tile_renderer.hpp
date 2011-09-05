@@ -60,7 +60,6 @@ public:
 
   /// constructor.
   TileRenderer(string const & skinName,
-               unsigned scaleEtalonSize,
                unsigned maxTilesCount,
                unsigned tasksCount,
                yg::Color const & bgColor,

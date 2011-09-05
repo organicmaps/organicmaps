@@ -101,7 +101,7 @@ bool LessRectInfo::operator()(Tile const * l, Tile const * r) const
   return l->m_rectInfo.toUInt64Cell() < r->m_rectInfo.toUInt64Cell();
 }
 
-void ScreenCoverage::SetScreen(ScreenBase const & screen, bool mergePathNames)
+void ScreenCoverage::SetScreen(ScreenBase const & screen, bool /*mergePathNames*/)
 {
   m_screen = screen;
 
@@ -123,7 +123,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen, bool mergePathNames)
     if (drawScale == -1)
       drawScale = allRects[i].m_drawScale;
     else
-      ASSERT(drawScale == allRects[i].m_drawScale, (drawScale, allRects[i].m_drawScale));
+      CHECK(drawScale == allRects[i].m_drawScale, (drawScale, allRects[i].m_drawScale));
 
   for (unsigned i = 0; i < allRects.size(); ++i)
   {

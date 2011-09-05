@@ -108,12 +108,12 @@ namespace yg
   m2::PointU const PenInfo::patternSize() const
   {
     if (m_isSolid)
-      return m2::PointU(ceil(m_w / 2) * 2 + 4,
-                        ceil(m_w / 2) * 2 + 4);
+      return m2::PointU(static_cast<uint32_t>(ceil(m_w / 2)) * 2 + 4,
+                        static_cast<uint32_t>(ceil(m_w / 2)) * 2 + 4);
     else
     {
       uint32_t len = static_cast<uint32_t>(accumulate(m_pat.begin(), m_pat.end(), 0.0));
-      return m2::PointU(len + 4, m_w + 4);
+      return m2::PointU(len + 4, static_cast<uint32_t>(m_w) + 4);
     }
   }
 

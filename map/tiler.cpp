@@ -81,7 +81,7 @@ void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt)
   m2::RectD const screenRect = m_screen.GlobalRect();
 
   /// slightly smaller than original to produce "antialiasing" effect using bilinear filtration.
-  size_t tileSize = m_tileSize / 1.05;
+  size_t tileSize = static_cast<size_t>(m_tileSize / 1.05);
 
   screen.PtoG(m2::RectD(pxCenter - m2::PointD(tileSize / 2, tileSize / 2),
                         pxCenter + m2::PointD(tileSize / 2, tileSize / 2)),
@@ -89,15 +89,15 @@ void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt)
 
   double glbRectSize = min(glbRect.SizeX(), glbRect.SizeY());
 
-  m_tileScale = ceil(log((MercatorBounds::maxX - MercatorBounds::minX) / glbRectSize) / log(2.0));
+  m_tileScale = static_cast<int>(ceil(log((MercatorBounds::maxX - MercatorBounds::minX) / glbRectSize) / log(2.0)));
 
   double rectSizeX = (MercatorBounds::maxX - MercatorBounds::minX) / (1 << m_tileScale);
   double rectSizeY = (MercatorBounds::maxY - MercatorBounds::minY) / (1 << m_tileScale);
 
-  int minTileX = floor(screenRect.minX() / rectSizeX);
-  int maxTileX = ceil(screenRect.maxX() / rectSizeX);
-  int minTileY = floor(screenRect.minY() / rectSizeY);
-  int maxTileY = ceil(screenRect.maxY() / rectSizeY);
+  int minTileX = static_cast<int>(floor(screenRect.minX() / rectSizeX));
+  int maxTileX = static_cast<int>(ceil(screenRect.maxX() / rectSizeX));
+  int minTileY = static_cast<int>(floor(screenRect.minY() / rectSizeY));
+  int maxTileY = static_cast<int>(ceil(screenRect.maxY() / rectSizeY));
 
   /// clearing previous coverage
   m_coverage.clear();

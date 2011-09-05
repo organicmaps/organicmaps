@@ -28,7 +28,7 @@ namespace yg
     void ShapeRenderer::approximateArc(m2::PointD const & center, double startA, double endA, double r, vector<m2::PointD> & pts)
     {
       double sectorA = math::pi / 30.0;
-      size_t const sectorsCount = floor(fabs(endA - startA) / sectorA);
+      size_t const sectorsCount = static_cast<size_t>(floor(fabs(endA - startA) / sectorA));
       sectorA = (endA - startA) / sectorsCount;
 
       for (size_t i = 0; i <= sectorsCount; ++i)
@@ -88,7 +88,7 @@ namespace yg
       for (int i = 0; i < 4; ++i)
         rectPtsF[i] = m2::PointF(rectPts[i].x, rectPts[i].y);
 
-      m2::PointF texPt = skin()->pages()[style->m_pageID]->texture()->mapPixel(style->m_texRect.Center());
+      m2::PointF texPt = skin()->pages()[style->m_pageID]->texture()->mapPixel(m2::RectF(style->m_texRect).Center());
 
       addTexturedStripStrided(
             rectPtsF,
@@ -117,7 +117,7 @@ namespace yg
           m2::PointD(r.maxX(), r.maxY())
         };
 
-      m2::PointF texPt = skin()->pages()[style->m_pageID]->texture()->mapPixel(style->m_texRect.Center());
+      m2::PointF texPt = skin()->pages()[style->m_pageID]->texture()->mapPixel(m2::RectF(style->m_texRect).Center());
 
       addTexturedStripStrided(
           rectPts,

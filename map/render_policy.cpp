@@ -40,32 +40,32 @@ m2::RectI const RenderPolicy::OnSize(int w, int h)
   return m2::RectI(0, 0, w, h);
 }
 
-void RenderPolicy::StartDrag(m2::PointD const & pt, double timeInSec)
+void RenderPolicy::StartDrag(m2::PointD const &, double)
 {
   m_windowHandle->invalidate();
 }
 
-void RenderPolicy::DoDrag(m2::PointD const & pt, double timeInSec)
+void RenderPolicy::DoDrag(m2::PointD const &, double)
 {
   m_windowHandle->invalidate();
 }
 
-void RenderPolicy::StopDrag(m2::PointD const & pt, double timeInSec)
+void RenderPolicy::StopDrag(m2::PointD const &, double)
 {
   m_windowHandle->invalidate();
 }
 
-void RenderPolicy::StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec)
+void RenderPolicy::StartScale(m2::PointD const &, m2::PointD const &, double)
 {
   m_windowHandle->invalidate();
 }
 
-void RenderPolicy::DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec)
+void RenderPolicy::DoScale(m2::PointD const &, m2::PointD const &, double)
 {
   m_windowHandle->invalidate();
 }
 
-void RenderPolicy::StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec)
+void RenderPolicy::StopScale(m2::PointD const &, m2::PointD const &, double)
 {
   m_windowHandle->invalidate();
 }

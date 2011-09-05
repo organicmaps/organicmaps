@@ -142,7 +142,7 @@ void RenderQueueRoutine::getUpdateAreas(
       return;
     if (!o.IsIntersect(n))
     {
-      areas.push_back(m2::RectI(n));
+      areas.push_back(newRect);
       return;
     }
 
@@ -164,14 +164,14 @@ void RenderQueueRoutine::getUpdateAreas(
     if (o.maxY() < n.maxY())
       bottomBarMinY = floor(o.maxY());
 
-    if (leftBarMinX != leftBarMaxX)
-      areas.push_back(m2::RectI(leftBarMinX, topBarMinY, leftBarMaxX, bottomBarMinY));
-    if (topBarMinY != topBarMaxY)
-      areas.push_back(m2::RectI(leftBarMaxX, topBarMinY, rightBarMaxX, topBarMaxY));
-    if (rightBarMinX != rightBarMaxX)
-      areas.push_back(m2::RectI(rightBarMinX, topBarMaxY, rightBarMaxX, bottomBarMaxY));
-    if (bottomBarMinY != bottomBarMaxY)
-      areas.push_back(m2::RectI(leftBarMinX, bottomBarMinY, rightBarMinX, bottomBarMaxY));
+    if ((int)leftBarMinX != (int)leftBarMaxX)
+      areas.push_back(m2::RectI((int)leftBarMinX, (int)topBarMinY, (int)leftBarMaxX, (int)bottomBarMinY));
+    if ((int)topBarMinY != (int)topBarMaxY)
+      areas.push_back(m2::RectI((int)leftBarMaxX, (int)topBarMinY, (int)rightBarMaxX, (int)topBarMaxY));
+    if ((int)rightBarMinX != (int)rightBarMaxX)
+      areas.push_back(m2::RectI((int)rightBarMinX, (int)topBarMaxY, (int)rightBarMaxX, (int)bottomBarMaxY));
+    if ((int)bottomBarMinY != (int)bottomBarMaxY)
+      areas.push_back(m2::RectI((int)leftBarMinX, (int)bottomBarMinY, (int)rightBarMinX, (int)bottomBarMaxY));
   }
   else
   {
@@ -386,8 +386,8 @@ void RenderQueueRoutine::Do()
 
       ScreenBase const & frameScreen = m_currentRenderCommand->m_frameScreen;
       m2::RectD glbRect;
-      frameScreen.PtoG(m2::RectD(textureRect.Center() - m2::PointD(m_scaleEtalonSize / 2, m_scaleEtalonSize / 2),
-                                 textureRect.Center() + m2::PointD(m_scaleEtalonSize / 2, m_scaleEtalonSize / 2)),
+      frameScreen.PtoG(m2::RectD(m2::RectD(textureRect).Center() - m2::PointD(m_scaleEtalonSize / 2, m_scaleEtalonSize / 2),
+                                 m2::RectD(textureRect).Center() + m2::PointD(m_scaleEtalonSize / 2, m_scaleEtalonSize / 2)),
                        glbRect);
 //      frameScreen.PtoG(m2::RectD(surfaceRect), glbRect);
       int scaleLevel = scales::GetScaleLevel(glbRect);

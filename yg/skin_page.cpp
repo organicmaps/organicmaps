@@ -378,11 +378,13 @@ namespace yg
                                                     penInfo.m_color.b,
                                                     penInfo.m_color.a));
 
+          uint32_t ri = static_cast<uint32_t>(r);
+
           /// pixels that are used to texture inner part of the line should be fully opaque
-          v(2 + r - 1, 2) = penColor;
-          v(2 + r    , 2) = penColor;
-          v(2 + r - 1, 2 + r * 2 - 1) = penColor;
-          v(2 + r    , 2 + r * 2 - 1) = penColor;
+          v(2 + ri - 1, 2) = penColor;
+          v(2 + ri    , 2) = penColor;
+          v(2 + ri - 1, 2 + ri * 2 - 1) = penColor;
+          v(2 + ri    , 2 + ri * 2 - 1) = penColor;
 
           /// in non-transparent areas - premultiply color value with alpha and make it opaque
           for (size_t x = 2; x < v.width() - 2; ++x)
@@ -435,8 +437,10 @@ namespace yg
 
           /// In general case this code is incorrect.
           /// TODO : Make a pattern start and end with a dash.
-          v(curLen, y) = px;
-          v(curLen + 1, y) = px;
+          uint32_t curLenI = static_cast<uint32_t>(curLen);
+
+          v(curLenI, y) = px;
+          v(curLenI + 1, y) = px;
 
           for (size_t i = 0; i < penInfo.m_pat.size(); ++i)
           {
@@ -449,11 +453,11 @@ namespace yg
               else
                 gil::get_color(px, gil::alpha_t()) = penInfoColor.a;
 
-              v(curLen + j + 2, y) = px;
+              v(curLenI + j + 2, y) = px;
             }
 
-            v(curLen + 2 + penInfo.m_pat[i], y) = px;
-            v(curLen + 2 + penInfo.m_pat[i] + 1, y) = px;
+            v(static_cast<uint32_t>(curLen + 2 + penInfo.m_pat[i]), y) = px;
+            v(static_cast<uint32_t>(curLen + 2 + penInfo.m_pat[i] + 1), y) = px;
 
             curLen += penInfo.m_pat[i];
           }
