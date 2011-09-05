@@ -134,6 +134,14 @@ UNIT_TEST(FilesContainer_Shared)
 
 namespace
 {
+  void ReplaceInContainer(string const & fName,
+                          char const * key, char const * value)
+  {
+    FilesContainerW writer(fName, FileWriter::OP_WRITE_EXISTING);
+    FileWriter w = writer.GetWriter(key);
+    w.Write(value, strlen(value));
+  }
+
   void CheckContainer(string const & fName,
                       char const * key[], char const * value[], size_t count)
   {
@@ -176,29 +184,21 @@ UNIT_TEST(FilesContainer_RewriteExisting)
 
   // re-write middle file in container
   char const * buffer1 = "xxxxxxx";
-  {
-    FilesContainerW writer(fName, FileWriter::OP_WRITE_EXISTING);
-    FileWriter w = writer.GetWriter(key[1]);
-
-    w.Write(buffer1, strlen(buffer1));
-  }
-
-  // check container files
+  ReplaceInContainer(fName, key[1], buffer1);
   char const * value1[] = { value[0], buffer1, value[2] };
   CheckContainer(fName, key, value1, 3);
 
   // re-write end file in container
   char const * buffer2 = "yyyyyyyyyyyyyy";
-  {
-    FilesContainerW writer(fName, FileWriter::OP_WRITE_EXISTING);
-    FileWriter w = writer.GetWriter(key[2]);
-
-    w.Write(buffer2, strlen(buffer2));
-  }
-
-  // check container files
+  ReplaceInContainer(fName, key[2], buffer2);
   char const * value2[] = { value[0], buffer1, buffer2 };
   CheckContainer(fName, key, value2, 3);
+
+  // re-write end file in container once again
+  char const * buffer3 = "zzz";
+  ReplaceInContainer(fName, key[2], buffer3);
+  char const * value3[] = { value[0], buffer1, buffer3 };
+  CheckContainer(fName, key, value3, 3);
 
   FileWriter::DeleteFileX(fName);
 }
