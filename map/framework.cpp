@@ -341,7 +341,7 @@ void Framework<TModel>::Paint(shared_ptr<PaintEvent> e)
 
   m_renderPolicy->DrawFrame(e, m_navigator.Screen());
 
-//  m_informationDisplay.doDraw(pDrawer);
+  m_informationDisplay.doDraw(pDrawer);
 
   m_locationState.DrawMyPosition(*pDrawer, m_navigator.Screen());
 
