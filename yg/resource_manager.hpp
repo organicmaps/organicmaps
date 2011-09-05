@@ -4,9 +4,10 @@
 #include "../std/map.hpp"
 #include "../std/string.hpp"
 #include "../std/list.hpp"
+#include "../std/auto_ptr.hpp"
 
 #include "../base/mutex.hpp"
-#include "../base/threaded_list.hpp"
+#include "../base/resource_pool.hpp"
 
 #include "storage.hpp"
 #include "glyph_cache.hpp"
@@ -29,8 +30,33 @@ namespace yg
     Rt4Bpp
   };
 
+  struct TTextureFactory : BasePoolElemFactory
+  {
+    size_t m_w;
+    size_t m_h;
+    TTextureFactory(size_t w, size_t h, char const * resName);
+    shared_ptr<gl::BaseTexture> const Create();
+  };
+
+  struct TStorageFactory : BasePoolElemFactory
+  {
+    size_t m_vbSize;
+    size_t m_ibSize;
+    bool m_useVA;
+    TStorageFactory(size_t vbSize, size_t ibSize, bool useVA, char const * resName);
+    gl::Storage const Create();
+  };
+
   class ResourceManager
   {
+  public:
+
+    typedef FixedSizePoolTraits<shared_ptr<gl::BaseTexture>, TTextureFactory> TTexturePoolTraits;
+    typedef ResourcePool<shared_ptr<gl::BaseTexture>, TTexturePoolTraits> TTexturePool;
+
+    typedef FixedSizePoolTraits<gl::Storage, TStorageFactory> TStoragePoolTraits;
+    typedef ResourcePool<gl::Storage, TStoragePoolTraits> TStoragePool;
+
   private:
 
     typedef map<string, shared_ptr<gl::BaseTexture> > TStaticTextures;
@@ -42,17 +68,17 @@ namespace yg
     size_t m_dynamicTextureWidth;
     size_t m_dynamicTextureHeight;
 
-    ThreadedList<shared_ptr<gl::BaseTexture> > m_dynamicTextures;
+    auto_ptr<TTexturePool> m_dynamicTextures;
 
     size_t m_fontTextureWidth;
     size_t m_fontTextureHeight;
 
-    ThreadedList<shared_ptr<gl::BaseTexture> > m_fontTextures;
+    auto_ptr<TTexturePool> m_fontTextures;
 
     size_t m_renderTargetWidth;
     size_t m_renderTargetHeight;
 
-    ThreadedList<shared_ptr<gl::BaseTexture> > m_renderTargets;
+    auto_ptr<TTexturePool> m_renderTargets;
 
     size_t m_vbSize;
     size_t m_ibSize;
@@ -66,24 +92,16 @@ namespace yg
     size_t m_multiBlitVBSize;
     size_t m_multiBlitIBSize;
 
-    ThreadedList<gl::Storage> m_storages;
-    ThreadedList<gl::Storage> m_smallStorages;
-    ThreadedList<gl::Storage> m_blitStorages;
-    ThreadedList<gl::Storage> m_multiBlitStorages;
+    auto_ptr<TStoragePool> m_storages;
+    auto_ptr<TStoragePool> m_smallStorages;
+    auto_ptr<TStoragePool> m_blitStorages;
+    auto_ptr<TStoragePool> m_multiBlitStorages;
 
     vector<GlyphCache> m_glyphCaches;
 
     RtFormat m_format;
 
     bool m_useVA;
-
-    size_t m_storagesCount;
-    size_t m_smallStoragesCount;
-    size_t m_multiBlitStoragesCount;
-    size_t m_renderTargetsCount;
-    size_t m_blitStoragesCount;
-    size_t m_dynamicTexturesCount;
-    size_t m_fontTexturesCount;
 
   public:
 
@@ -103,14 +121,14 @@ namespace yg
 
     shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
 
-    ThreadedList<gl::Storage> & storages();
-    ThreadedList<gl::Storage> & smallStorages();
-    ThreadedList<gl::Storage> & blitStorages();
-    ThreadedList<gl::Storage> & multiBlitStorages();
+    TStoragePool * storages();
+    TStoragePool * smallStorages();
+    TStoragePool * blitStorages();
+    TStoragePool * multiBlitStorages();
 
-    ThreadedList<shared_ptr<gl::BaseTexture> > & dynamicTextures();
-    ThreadedList<shared_ptr<gl::BaseTexture> > & fontTextures();
-    ThreadedList<shared_ptr<gl::BaseTexture> > & renderTargets();
+    TTexturePool * dynamicTextures();
+    TTexturePool * fontTextures();
+    TTexturePool * renderTargets();
 
     size_t dynamicTextureWidth() const;
     size_t dynamicTextureHeight() const;
@@ -135,7 +153,6 @@ namespace yg
     void enterForeground();
 
     shared_ptr<yg::gl::BaseTexture> createRenderTarget(unsigned w, unsigned h);
-
   };
 
   Skin * loadSkin(shared_ptr<ResourceManager> const & resourceManager,

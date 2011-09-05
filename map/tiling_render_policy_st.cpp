@@ -94,7 +94,7 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
     {
       m_tileCache.readUnlock();
       shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_tileDrawer.get()));
-      shared_ptr<yg::gl::BaseTexture> tileTarget = resourceManager()->renderTargets().Front(true);
+      shared_ptr<yg::gl::BaseTexture> tileTarget = resourceManager()->renderTargets()->Reserve();
 
       shared_ptr<yg::InfoLayer> tileInfoLayer(new yg::InfoLayer());
 

@@ -19,6 +19,26 @@ namespace yg
 
   DECLARE_EXCEPTION(ResourceManagerException, RootException);
 
+  TTextureFactory::TTextureFactory(size_t w, size_t h, char const * resName)
+    : BasePoolElemFactory(resName, w * h * sizeof(TDynamicTexture::pixel_t)),
+      m_w(w), m_h(h)
+  {}
+
+  shared_ptr<gl::BaseTexture> const TTextureFactory::Create()
+  {
+    return shared_ptr<gl::BaseTexture>(new TDynamicTexture(m_w, m_h));
+  }
+
+  TStorageFactory::TStorageFactory(size_t vbSize, size_t ibSize, bool useVA, char const * resName)
+    : BasePoolElemFactory(resName, vbSize + ibSize),
+      m_vbSize(vbSize), m_ibSize(ibSize), m_useVA(useVA)
+  {}
+
+  gl::Storage const TStorageFactory::Create()
+  {
+    return gl::Storage(m_vbSize, m_ibSize, m_useVA);
+  }
+
   ResourceManager::ResourceManager(size_t vbSize, size_t ibSize, size_t storagesCount,
                                    size_t smallVBSize, size_t smallIBSize, size_t smallStoragesCount,
                                    size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
@@ -43,36 +63,12 @@ namespace yg
     if (useVA)
       LOG(LINFO, ("buffer objects are unsupported. using client vertex array instead."));
 
-    for (size_t i = 0; i < storagesCount; ++i)
-      m_storages.PushBack(gl::Storage(vbSize, ibSize, m_useVA));
+    m_storages.reset(new TStoragePool(TStoragePoolTraits(TStorageFactory(vbSize, ibSize, useVA, "primaryStorage"), storagesCount)));
+    m_smallStorages.reset(new TStoragePool(TStoragePoolTraits(TStorageFactory(smallVBSize, smallIBSize, useVA, "smallStorage"), smallStoragesCount)));
+    m_blitStorages.reset(new TStoragePool(TStoragePoolTraits(TStorageFactory(blitVBSize, blitIBSize, useVA, "blitStorage"), blitStoragesCount)));
 
-    LOG(LINFO, ("allocating ", (vbSize + ibSize) * storagesCount, " bytes for main storage"));
-
-    for (size_t i = 0; i < smallStoragesCount; ++i)
-      m_smallStorages.PushBack(gl::Storage(smallVBSize, smallIBSize, m_useVA));
-
-    LOG(LINFO, ("allocating ", (smallVBSize + smallIBSize) * smallStoragesCount, " bytes for small storage"));
-
-    for (size_t i = 0; i < blitStoragesCount; ++i)
-      m_blitStorages.PushBack(gl::Storage(blitVBSize, blitIBSize, m_useVA));
-
-    LOG(LINFO, ("allocating ", (blitVBSize + blitIBSize) * blitStoragesCount, " bytes for blit storage"));
-
-    for (size_t i = 0; i < dynamicTexCount; ++i)
-    {
-      shared_ptr<gl::BaseTexture> t(new TDynamicTexture(dynamicTexWidth, dynamicTexHeight));
-      m_dynamicTextures.PushBack(t);
-    }
-
-    LOG(LINFO, ("allocating ", dynamicTexCount * dynamicTexWidth * dynamicTexHeight * sizeof(TDynamicTexture::pixel_t), " bytes for textures"));
-
-    for (size_t i = 0; i < fontTexCount; ++i)
-    {
-      shared_ptr<gl::BaseTexture> t(new TDynamicTexture(fontTexWidth, fontTexHeight));
-      m_fontTextures.PushBack(t);
-    }
-
-    LOG(LINFO, ("allocating ", fontTexCount * fontTexWidth * fontTexHeight * sizeof(TDynamicTexture::pixel_t), " bytes for font textures"));
+    m_dynamicTextures.reset(new TTexturePool(TTexturePoolTraits(TTextureFactory(dynamicTexWidth, dynamicTexHeight, "dynamicTexture"), dynamicTexCount)));
+    m_fontTextures.reset(new TTexturePool(TTexturePoolTraits(TTextureFactory(fontTexWidth, fontTexHeight, "fontTexture"), fontTexCount)));
   }
 
   void ResourceManager::initMultiBlitStorage(size_t multiBlitVBSize, size_t multiBlitIBSize, size_t multiBlitStoragesCount)
@@ -80,10 +76,7 @@ namespace yg
     m_multiBlitVBSize = multiBlitVBSize;
     m_multiBlitIBSize = multiBlitIBSize;
 
-    for (size_t i = 0; i < multiBlitStoragesCount; ++i)
-      m_multiBlitStorages.PushBack(gl::Storage(multiBlitVBSize, multiBlitIBSize, m_useVA));
-
-    LOG(LINFO, ("allocating ", (multiBlitVBSize + multiBlitIBSize) * multiBlitStoragesCount, " bytes for multi-blit storages"));
+    m_multiBlitStorages.reset(new TStoragePool(TStoragePoolTraits(TStorageFactory(multiBlitVBSize, multiBlitIBSize, m_useVA, "multiBlitStorage"), multiBlitStoragesCount)));
   }
 
   void ResourceManager::initRenderTargets(size_t renderTargetWidth, size_t renderTargetHeight, size_t renderTargetsCount)
@@ -91,13 +84,7 @@ namespace yg
     m_renderTargetWidth = renderTargetWidth;
     m_renderTargetHeight = renderTargetHeight;
 
-    for (size_t i = 0; i < renderTargetsCount; ++i)
-    {
-      shared_ptr<gl::BaseTexture> t(new TStaticTexture(renderTargetWidth, renderTargetHeight));
-      m_renderTargets.PushBack(t);
-    }
-
-    LOG(LINFO, ("allocating ", renderTargetsCount * renderTargetWidth * renderTargetHeight * sizeof(TStaticTexture::pixel_t), " bytes for render targets"));
+    m_renderTargets.reset(new TTexturePool(TTexturePoolTraits(TTextureFactory(renderTargetWidth, renderTargetHeight, "renderTargets"), renderTargetsCount)));
   }
 
   shared_ptr<gl::BaseTexture> const & ResourceManager::getTexture(string const & fileName)
@@ -186,53 +173,52 @@ namespace yg
   {
     threads::MutexGuard guard(m_mutex);
 
-    m_storagesCount = m_storages.Size();
-    m_smallStoragesCount = m_smallStorages.Size();
-    m_blitStoragesCount = m_blitStorages.Size();
-    m_dynamicTexturesCount = m_dynamicTextures.Size();
-    m_fontTexturesCount = m_fontTextures.Size();
-    m_multiBlitStoragesCount = m_multiBlitStorages.Size();
-    m_renderTargetsCount = m_renderTargets.Size();
+    if (m_storages.get())
+    m_storages->EnterBackground();
 
-    m_storages.Clear();
-    m_smallStorages.Clear();
-    m_blitStorages.Clear();
-    m_multiBlitStorages.Clear();
+    if (m_smallStorages.get())
+      m_smallStorages->EnterBackground();
 
-    m_dynamicTextures.Clear();
-    m_fontTextures.Clear();
-    m_renderTargets.Clear();
+    if (m_blitStorages.get())
+      m_blitStorages->EnterBackground();
 
+    if (m_multiBlitStorages.get())
+      m_multiBlitStorages->EnterBackground();
 
-/*    LOG(LINFO, ("freed ", m_storagesCount, " storages, ",
-                          m_smallStoragesCount, " small storages, ",
-                          m_blitStoragesCount, " blit storages, ",
-                          m_dynamicTexturesCount, " dynamic textures, ",
-                          m_fontTexturesCount, " font textures, ",
-                          m_renderTargetsCount, " render targets and ",
-                          m_multiBlitStoragesCount, " multi-blit storages"));*/
+    if (m_dynamicTextures.get())
+      m_dynamicTextures->EnterBackground();
+
+    if (m_fontTextures.get())
+      m_fontTextures->EnterBackground();
+
+    if (m_renderTargets.get())
+      m_renderTargets->EnterBackground();
   }
 
   void ResourceManager::enterForeground()
   {
     threads::MutexGuard guard(m_mutex);
 
-    for (size_t i = 0; i < m_storagesCount; ++i)
-      m_storages.PushBack(gl::Storage(m_vbSize, m_ibSize, m_useVA));
-    for (size_t i = 0; i < m_smallStoragesCount; ++i)
-      m_smallStorages.PushBack(gl::Storage(m_smallVBSize, m_smallIBSize, m_useVA));
-    for (size_t i = 0; i < m_blitStoragesCount; ++i)
-      m_blitStorages.PushBack(gl::Storage(m_blitVBSize, m_blitIBSize, m_useVA));
-    for (size_t i = 0; i < m_multiBlitStoragesCount; ++i)
-      m_multiBlitStorages.PushBack(gl::Storage(m_multiBlitVBSize, m_multiBlitIBSize, m_useVA));
+    if (m_storages.get())
+      m_storages->EnterForeground();
 
-    for (size_t i = 0; i < m_dynamicTexturesCount; ++i)
-      m_dynamicTextures.PushBack(shared_ptr<gl::BaseTexture>(new TDynamicTexture(m_dynamicTextureWidth, m_dynamicTextureHeight)));
-    for (size_t i = 0; i < m_fontTexturesCount; ++i)
-      m_fontTextures.PushBack(shared_ptr<gl::BaseTexture>(new TDynamicTexture(m_fontTextureWidth, m_fontTextureHeight)));
-    for (size_t i = 0; i < m_renderTargetsCount; ++i)
-      m_renderTargets.PushBack(shared_ptr<gl::BaseTexture>(new TDynamicTexture(m_renderTargetWidth, m_renderTargetHeight)));
+    if (m_smallStorages.get())
+      m_smallStorages->EnterForeground();
 
+    if (m_blitStorages.get())
+      m_blitStorages->EnterForeground();
+
+    if (m_multiBlitStorages.get())
+      m_multiBlitStorages->EnterForeground();
+
+    if (m_dynamicTextures.get())
+      m_dynamicTextures->EnterForeground();
+
+    if (m_fontTextures.get())
+      m_fontTextures->EnterForeground();
+
+    if (m_renderTargets.get())
+      m_renderTargets->EnterForeground();
   }
 
   shared_ptr<yg::gl::BaseTexture> ResourceManager::createRenderTarget(unsigned w, unsigned h)
@@ -258,38 +244,38 @@ namespace yg
     return 0;
   }
 
-  ThreadedList<gl::Storage> & ResourceManager::storages()
+  ResourceManager::TStoragePool * ResourceManager::storages()
   {
-    return m_storages;
+    return m_storages.get();
   }
 
-  ThreadedList<gl::Storage> & ResourceManager::smallStorages()
+  ResourceManager::TStoragePool * ResourceManager::smallStorages()
   {
-    return m_smallStorages;
+    return m_smallStorages.get();
   }
 
-  ThreadedList<gl::Storage> & ResourceManager::blitStorages()
+  ResourceManager::TStoragePool * ResourceManager::blitStorages()
   {
-    return m_blitStorages;
+    return m_blitStorages.get();
   }
 
-  ThreadedList<gl::Storage> & ResourceManager::multiBlitStorages()
+  ResourceManager::TStoragePool * ResourceManager::multiBlitStorages()
   {
-    return m_multiBlitStorages;
+    return m_multiBlitStorages.get();
   }
 
-  ThreadedList<shared_ptr<gl::BaseTexture> > & ResourceManager::dynamicTextures()
+  ResourceManager::TTexturePool * ResourceManager::dynamicTextures()
   {
-    return m_dynamicTextures;
+    return m_dynamicTextures.get();
   }
 
-  ThreadedList<shared_ptr<gl::BaseTexture> > & ResourceManager::fontTextures()
+  ResourceManager::TTexturePool * ResourceManager::fontTextures()
   {
-    return m_fontTextures;
+    return m_fontTextures.get();
   }
 
-  ThreadedList<shared_ptr<gl::BaseTexture> > & ResourceManager::renderTargets()
+  ResourceManager::TTexturePool * ResourceManager::renderTargets()
   {
-    return m_renderTargets;
+    return m_renderTargets.get();
   }
 }

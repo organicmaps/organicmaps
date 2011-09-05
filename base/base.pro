@@ -25,6 +25,7 @@ SOURCES += \
     internal/message.cpp \
     exception.cpp \
     threaded_container.cpp \
+    resource_pool.cpp \
 
 HEADERS += \
     SRC_FIRST.hpp \
@@ -68,3 +69,4 @@ HEADERS += \
     mru_cache.hpp \
     threaded_container.hpp \
     threaded_list.hpp \
+    resource_pool.hpp \

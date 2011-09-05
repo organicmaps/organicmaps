@@ -26,16 +26,10 @@ public:
 
   struct EntryValueTraits
   {
-    static void PushBackAndLog(list<shared_ptr<yg::gl::BaseTexture> > & l, shared_ptr<yg::gl::BaseTexture> const & t)
-    {
-      l.push_back(t);
-//      LOG(LINFO, ("eviction, list size : ", l.size()));
-    }
-
     static void Evict(Entry & val)
     {
       if (val.m_rm)
-        val.m_rm->renderTargets().ProcessList(bind(&PushBackAndLog, _1, val.m_tile.m_renderTarget));
+        val.m_rm->renderTargets()->Free(val.m_tile.m_renderTarget);
     }
   };
 

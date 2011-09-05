@@ -76,7 +76,7 @@ namespace yg
         idxData[i * 4 + 3] = i * 4 + 3;
       }
 
-      yg::gl::Storage storage = resourceManager()->multiBlitStorages().Front(true);
+      yg::gl::Storage storage = resourceManager()->multiBlitStorages()->Reserve();
 
       AuxVertex * pointsData = (AuxVertex*)storage.m_vertices->lock();
 
@@ -116,7 +116,7 @@ namespace yg
 //      /// This call is necessary to avoid parasite blitting in updateActualTarget() on IPhone.
 //      OGLCHECK(glFinish());
 
-      resourceManager()->multiBlitStorages().PushBack(storage);
+      resourceManager()->multiBlitStorages()->Free(storage);
     }
 
     void Blitter::blit(shared_ptr<yg::gl::BaseTexture> const & srcSurface,
@@ -277,7 +277,7 @@ namespace yg
                                            yg::Color const & color,
                                            bool hasColor)
     {
-      m_blitStorage = resourceManager()->blitStorages().Front(true);
+      m_blitStorage = resourceManager()->blitStorages()->Reserve();
 
       AuxVertex * pointsData = (AuxVertex*)m_blitStorage.m_vertices->lock();
 
@@ -312,7 +312,7 @@ namespace yg
 //      /// This call is necessary to avoid parasite blitting in updateActualTarget() on IPhone.
 //      OGLCHECK(glFinish());
 
-      resourceManager()->blitStorages().PushBack(m_blitStorage);
+      resourceManager()->blitStorages()->Free(m_blitStorage);
       m_blitStorage = yg::gl::Storage();
     }
   }

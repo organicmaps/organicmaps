@@ -77,7 +77,7 @@ TileRenderer::~TileRenderer()
 
 void TileRenderer::CancelThread(core::CommandsQueue::Environment const & /*env*/)
 {
-  m_resourceManager->renderTargets().Cancel();
+  m_resourceManager->renderTargets()->Cancel();
 }
 
 void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & env)
@@ -120,9 +120,9 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   my::Timer timer;
 
-  shared_ptr<yg::gl::BaseTexture> tileTarget = m_resourceManager->renderTargets().Front(true);
+  shared_ptr<yg::gl::BaseTexture> tileTarget = m_resourceManager->renderTargets()->Reserve();
 
-  if (m_resourceManager->renderTargets().IsCancelled())
+  if (m_resourceManager->renderTargets()->IsCancelled())
     return;
 
   drawer->screen()->setRenderTarget(tileTarget);
@@ -165,7 +165,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   double duration = timer.ElapsedSeconds();
 
   if (env.IsCancelled())
-    m_resourceManager->renderTargets().PushBack(tileTarget);
+    m_resourceManager->renderTargets()->Free(tileTarget);
   else
     AddTile(rectInfo, Tile(tileTarget, tileInfoLayer, frameScreen, rectInfo, duration));
 }
@@ -199,18 +199,12 @@ bool TileRenderer::HasTile(Tiler::RectInfo const & rectInfo)
   return res;
 }
 
-void PushBackAndLog(list<shared_ptr<yg::gl::BaseTexture> > & l, shared_ptr<yg::gl::BaseTexture> const & t)
-{
-  l.push_back(t);
-//  LOG(LINFO, ("double tile, list size : ", l.size()));
-}
-
 void TileRenderer::AddTile(Tiler::RectInfo const & rectInfo, Tile const & tile)
 {
   m_tileCache.writeLock();
   if (m_tileCache.hasTile(rectInfo))
   {
-    m_resourceManager->renderTargets().ProcessList(bind(&PushBackAndLog, _1, tile.m_renderTarget));
+    m_resourceManager->renderTargets()->Free(tile.m_renderTarget);
     m_tileCache.touchTile(rectInfo);
   }
   else
