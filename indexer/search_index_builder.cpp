@@ -115,6 +115,7 @@ void indexer::BuildSearchIndex(FeaturesVector const & featuresVector, Writer & w
   vector<FeatureName> names;
   featuresVector.ForEachOffset(FeatureInserter(names));
   sort(names.begin(), names.end());
+  names.erase(unique(names.begin(), names.end()), names.end());
   trie::Build(writer, names.begin(), names.end(),
               trie::builder::MaxValueEdgeBuilder<MaxValueCalc>());
 }
