@@ -9,7 +9,7 @@ namespace
   size_t FixedDstSizeInfiniteMemoryEncode(char const *, size_t, char *, size_t /*dstSize*/)
   {
     // LOG(LINFO, ("DstSize", dstSize));
-    return -1;
+    return -1U;
   }
 }
 
