@@ -57,7 +57,7 @@ void SimplifyDP(IterT first, IterT last, double epsilon, OutT & out)
 
 struct SimplifyOptimalRes
 {
-  SimplifyOptimalRes() : m_PointCount(-1) {}
+  SimplifyOptimalRes() : m_PointCount(-1U) {}
   SimplifyOptimalRes(int32_t nextPoint, uint32_t pointCount)
     : m_NextPoint(nextPoint), m_PointCount(pointCount) {}
 
