@@ -436,7 +436,6 @@ namespace feature
 
       FeaturesCollector2 collector(datFilePath, header);
 
-      FeatureBuilder1::buffer_t buffer;
       for (size_t i = 0; i < midPoints.m_vec.size(); ++i)
       {
         ReaderSource<FileReader> src(reader);

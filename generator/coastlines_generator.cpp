@@ -5,6 +5,8 @@
 
 #include "../geometry/region2d/binary_operators.hpp"
 
+#include "../base/string_utils.hpp"
+
 #include "../std/bind.hpp"
 
 
@@ -167,6 +169,10 @@ bool CoastlineFeaturesGenerator::GetFeature(size_t i, FeatureBuilder1 & fb)
   m_tree.ForEachInRect(GetLimitRect(rectR), bind<void>(ref(doDiff), _1));
 
   // assign feature
+  FeatureParams params;
+  params.name.AddString(0, strings::to_string(i));
+  fb.SetParams(params);
+
   doDiff.AssignGeometry(fb);
   fb.SetArea();
   fb.AddType(m_coastType);

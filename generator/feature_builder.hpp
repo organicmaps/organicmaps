@@ -83,6 +83,7 @@ public:
 
   bool PreSerialize();
 
+  /// Note! This function overrides all previous assigned types.
   inline void SetParams(FeatureParams const & params) { m_Params = params; }
 
   /// For OSM debugging, store original OSM id

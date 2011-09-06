@@ -201,9 +201,8 @@ bool FeatureBuilder1::CheckValid() const
 
   if (type == GEOM_AREA)
   {
-    // Use '4' because the first point should be equal with the last one
     for (list<points_t>::const_iterator i = m_Polygons.begin(); i != m_Polygons.end(); ++i)
-      CHECK(i->size() >= 4, ());
+      CHECK(i->size() >= 3, ());
   }
 
   return true;
