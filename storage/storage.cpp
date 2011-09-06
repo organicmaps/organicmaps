@@ -90,9 +90,14 @@ namespace storage
     return NodeFromIndex(m_countries, index).SiblingsCount();
   }
 
-  string Storage::CountryName(TIndex const & index) const
+  string const & Storage::CountryName(TIndex const & index) const
   {
     return NodeFromIndex(m_countries, index).Value().Name();
+  }
+
+  string const & Storage::CountryFlag(TIndex const & index) const
+  {
+    return NodeFromIndex(m_countries, index).Value().Flag();
   }
 
   TLocalAndRemoteSize Storage::CountrySizeInBytes(TIndex const & index) const

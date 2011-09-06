@@ -133,9 +133,17 @@ namespace storage
       case 3: // region
         {
           line = line.substr(spaces);
+          // country can have a defined flag in the beginning, like by:Belarus
+          size_t const flagIndex = line.find(':');
+          string flag;
+          if (flagIndex != string::npos)
+          {
+            flag = line.substr(0, flagIndex);
+            line = line.substr(flagIndex + 1);
+          }
           strings::SimpleTokenizer tokIt(line, "|");
           // first string is country name, not always equal to country file name
-          currentCountry = &countries.AddAtDepth(spaces - 1, Country(*tokIt));
+          currentCountry = &countries.AddAtDepth(spaces - 1, Country(*tokIt, flag));
           // skip if > 1 names in the list - first name never corresponds to tile file
           if (!tokIt.IsLast())
             ++tokIt;

@@ -1,133 +1,133 @@
  Africa
-  Algeria
-  Angola
-  Benin
-  Botswana
-  Burkina Faso
-  Burundi
-  Cameroon
-  Central African Republic
-  Chad
-  Congo-Brazzaville
-  Congo-Kinshasa
-  Djibouti
-  Egypt
-  Equatorial Guinea
-  Eritrea
-  Ethiopia
-  Gabon
-  Gambia
-  Ghana
-  Guinea
-  Guinea-Bissau
-  Côte d'Ivoire|Ivory Coast
-  Kenya
-  Liberia
-  Libya
-  Malawi
-  Mali
-  Mauritania
-  Morocco
-  Mozambique
-  Namibia
-  Niger
-  Nigeria
-  Rwanda
-  Sahrawi
-  Senegal
-  Sierra Leone
-  Somalia
-  South Africa
-  South Sudan
-  Sudan
-  Swaziland
-  Tanzania
-  Togo
-  Tunisia
-  Uganda
-  Zambia
-  Zimbabwe
+  dz:Algeria
+  ao:Angola
+  bj:Benin
+  bw:Botswana
+  bf:Burkina Faso
+  bi:Burundi
+  cm:Cameroon
+  cf:Central African Republic
+  td:Chad
+  cg:Congo-Brazzaville
+  cd:Congo-Kinshasa
+  ci:Côte d'Ivoire|Ivory Coast
+  dj:Djibouti
+  eg:Egypt
+  gq:Equatorial Guinea
+  er:Eritrea
+  et:Ethiopia
+  ga:Gabon
+  gm:Gambia
+  gh:Ghana
+  gn:Guinea
+  gw:Guinea-Bissau
+  ke:Kenya
+  lr:Liberia
+  ly:Libya
+  mw:Malawi
+  ml:Mali
+  mr:Mauritania
+  ma:Morocco
+  mz:Mozambique
+  na:Namibia
+  ne:Niger
+  ng:Nigeria
+  rw:Rwanda
+  eh:Sahrawi
+  sn:Senegal
+  sl:Sierra Leone
+  so:Somalia
+  za:South Africa
+  ss:South Sudan
+  sd:Sudan
+  sz:Swaziland
+  tz:Tanzania
+  tg:Togo
+  tn:Tunisia
+  ug:Uganda
+  zm:Zambia
+  zw:Zimbabwe
  Asia
-  Afghanistan
-  Bangladesh
-  Bhutan
-  Brunei
-  Burma
-  Cambodia
-  China
-  East Timor
-  India
-  Indonesia
-  Japan
-  Kazakhstan
-  Kyrgyzstan
-  Laos
-  Malaysia
-  Mongolia
-  Nepal
-  North Korea
-  Pakistan
-  Philippines
-  Singapore
-  South Korea
-  Sri Lanka
-  Taiwan
-  Tajikistan
-  Thailand
-  Turkmenistan
-  Uzbekistan
-  Vietnam
+  af:Afghanistan
+  bd:Bangladesh
+  bt:Bhutan
+  bn:Brunei
+  mm:Burma
+  kh:Cambodia
+  cn:China
+  tl:East Timor
+  in:India
+  id:Indonesia
+  jp:Japan
+  kz:Kazakhstan
+  kg:Kyrgyzstan
+  la:Laos
+  my:Malaysia
+  mn:Mongolia
+  np:Nepal
+  kp:North Korea
+  pk:Pakistan
+  ph:Philippines
+  sg:Singapore
+  kr:South Korea
+  lk:Sri Lanka
+  tw:Taiwan
+  tj:Tajikistan
+  th:Thailand
+  tm:Turkmenistan
+  uz:Uzbekistan
+  vn:Vietnam
  Caribbean
-  Anguilla
-  Antigua and Barbuda
-  Aruba
-  Bahamas
-  Barbados
-  British Virgin Islands
-  Cayman Islands
-  Cuba
-  Curacao
-  Dominica
-  Dominican Republic
-  Grenada
-  Guadeloupe
-  Haiti
-  Jamaica
-  Martinique
-  Montserrat
-  Netherlands Antilles
-  Puerto Rico
-  Saint Barthelemy
-  Saint Kitts and Nevis
-  Saint Lucia
-  Saint Vincent and the Grenadines
-  Trinidad and Tobago
-  Turks and Caicos Islands
-  United States Virgin Islands
+  ai:Anguilla
+  ag:Antigua and Barbuda
+  aw:Aruba
+  bs:Bahamas
+  bb:Barbados
+  vg:British Virgin Islands
+  ky:Cayman Islands
+  cu:Cuba
+  cw:Curaçao|Curacao
+  dm:Dominica
+  do:Dominican Republic
+  gd:Grenada
+  gp:Guadeloupe
+  ht:Haiti
+  jm:Jamaica
+  mq:Martinique
+  ms:Montserrat
+  an:Netherlands Antilles
+  pr:Puerto Rico
+  bl:Saint Barthélemy|Saint Barthelemy
+  kn:Saint Kitts and Nevis
+  lc:Saint Lucia
+  vc:Saint Vincent and the Grenadines
+  tt:Trinidad and Tobago
+  tc:Turks and Caicos Islands
+  vi:United States Virgin Islands
  Central America
-  Belize
-  Costa Rica
-  El Salvador
-  Guatemala
-  Honduras
-  Nicaragua
-  Panama
+  bz:Belize
+  cr:Costa Rica
+  sv:El Salvador
+  gt:Guatemala
+  hn:Honduras
+  ni:Nicaragua
+  pa:Panama
  Europe
-  Albania
-  Andorra
-  Armenia
-  Austria
-  Azerbaijan
-  Belarus
-  Belgium
-  Bosnia and Herzegovina
-  Bulgaria
-  Croatia
-  Czech Republic
-  Denmark
-  Estonia
-  Finland
-  France
+  al:Albania
+  ad:Andorra
+  am:Armenia
+  au:Austria
+  az:Azerbaijan
+  by:Belarus
+  be:Belgium
+  ba:Bosnia and Herzegovina
+  bg:Bulgaria
+  hr:Croatia
+  cz:Czech Republic
+  dk:Denmark
+  ee:Estonia
+  fi:Finland
+  fr:France
    All regions|France_Alsace|France_Aquitaine|France_Auvergne|France_Basse-Normandie|France_Bourgogne|France_Bretagne|France_Centre|France_Champagne-Ardenne|France_Corsica|France_Franche-Comte|France_Haute-Normandie|France_Languedoc-Roussillon|France_Limousin|France_Lorraine|France_Midi-Pyrenees|France_Nord-Pas-de-Calais|France_Paris & Ile-de-France|France_Pays de la Loire|France_Picardie|France_Poitou-Charentes|France_Provence-Alpes-Cote d'Azur|France_Rhone-Alpes
    Alsace|France_Alsace
    Aquitaine|France_Aquitaine
@@ -151,8 +151,8 @@
    Poitou-Charentes|France_Poitou-Charentes
    Provence-Alpes-Côte d'Azur|France_Provence-Alpes-Cote d'Azur
    Rhône-Alpes|France_Rhone-Alpes
-  Georgia
-  Germany
+  ge:Georgia
+  de:Germany
    All states|Germany_Baden-Wurttemberg|Germany_Bavaria|Germany_Berlin & Brandenburg|Germany_Bremen & Lower Saxony|Germany_Hamburg|Germany_Hesse|Germany_Mecklenburg-Vorpommern|Germany_North Rhine-Westphalia|Germany_Rhineland-Palatinate|Germany_Saarland|Germany_Saxony-Anhalt|Germany_Saxony|Germany_Schleswig-Holstein|Germany_Thuringia
    Baden-Württemberg|Germany_Baden-Wurttemberg
    Bavaria|Germany_Bavaria
@@ -168,28 +168,28 @@
    Saxony|Germany_Saxony
    Schleswig-Holstein|Germany_Schleswig-Holstein
    Thuringia|Germany_Thuringia
-  Gibraltar
-  Greece
-  Hungary
-  Iceland
-  Ireland
-  Italy
-  Kosovo
-  Latvia
-  Liechtenstein
-  Lithuania
-  Luxembourg
-  Macedonia
-  Malta
-  Moldova
-  Monaco
-  Montenegro
-  Netherlands
-  Norway
-  Poland
-  Portugal
-  Romania
-  Russia
+  gi:Gibraltar
+  gr:Greece
+  hu:Hungary
+  is:Iceland
+  ie:Ireland
+  it:Italy
+  ks:Kosovo
+  lv:Latvia
+  li:Liechtenstein
+  lt:Lithuania
+  lu:Luxembourg
+  mk:Macedonia
+  mt:Malta
+  md:Moldova
+  mc:Monaco
+  me:Montenegro
+  nl:Netherlands
+  no:Norway
+  pl:Poland
+  pt:Portugal
+  ro:Romania
+  ru:Russia
    All federal districts|Russia_Central|Russia_Far Eastern|Russia_North Caucasian|Russia_Northwestern|Russia_Siberian|Russia_Southern|Russia_Urals|Russia_Volga
    Moscow & Central|Russia_Central
    Far Eastern|Russia_Far Eastern
@@ -199,13 +199,13 @@
    Southern|Russia_Southern
    Urals|Russia_Urals
    Volga|Russia_Volga
-  Serbia
-  Slovakia
-  Slovenia
-  Spain
-  Sweden
-  Switzerland
-  UK & Crown Dependencies
+  rs:Serbia
+  sk:Slovakia
+  si:Slovenia
+  es:Spain
+  se:Sweden
+  ch:Switzerland
+  gb:UK & Crown Dependencies
    All UK territories|Guernsey|Isle of Man|Jersey|UK_England|UK_Northern Ireland|UK_Scotland|UK_Wales
    Guernsey
    Isle of Man
@@ -214,50 +214,50 @@
    Northern Ireland|UK_Northern Ireland
    Scotland|UK_Scotland
    Wales|UK_Wales
-  Ukraine
+  ua:Ukraine
  Middle East
-  Bahrain
-  Cyprus
-  Iran
-  Iraq
-  Israel
-  Jordan
-  Kuwait
-  Lebanon
-  Oman
-  Palestine
-  Qatar
-  Saudi Arabia
-  Syria
-  Turkey
-  United Arab Emirates
-  Yemen
+  bh:Bahrain
+  cy:Cyprus
+  ir:Iran
+  iq:Iraq
+  il:Israel
+  jo:Jordan
+  kw:Kuwait
+  lb:Lebanon
+  om:Oman
+  ps:Palestine
+  qa:Qatar
+  sa:Saudi Arabia
+  sy:Syria
+  tr:Turkey
+  ae:United Arab Emirates
+  ye:Yemen
  Minor Islands
   Arctic
-   Svalbard and Jan Mayen
+   sj:Svalbard and Jan Mayen
   Atlantic Ocean
-   Bermuda
-   Bouvet Island
-   Cape Verde
-   Falkland Islands
-   Faroe Islands
-   Saint Helena, Ascension and Tristan da Cunha
-   Saint Pierre and Miquelon
-   São Tomé and Príncipe|Sao Tome and Principe
-   South Georgia and the South Sandwich Islands
+   bm:Bermuda
+   bv:Bouvet Island
+   cv:Cape Verde
+   fk:Falkland Islands
+   fo:Faroe Islands
+   sh:Saint Helena, Ascension and Tristan da Cunha
+   pm:Saint Pierre and Miquelon
+   st:São Tomé and Príncipe|Sao Tome and Principe
+   gs:South Georgia and the South Sandwich Islands
   Indian Ocean
-   British Indian Ocean Territory
-   Comoros
-   French Southern Territories
-   Heard Island and McDonald Islands
-   Madagascar
-   Maldives
-   Mauritius
-   Mayotte
-   Reunion
-   Seychelles
+   io:British Indian Ocean Territory
+   km:Comoros
+   tf:French Southern Territories
+   hm:Heard Island and McDonald Islands
+   mg:Madagascar
+   mv:Maldives
+   mu:Mauritius
+   yt:Mayotte
+   re:Réunion|Reunion
+   sc:Seychelles
  North America
-  Canada
+  ca:Canada
    All provinces and territories|Canada_Alberta|Canada_British Columbia|Canada_Manitoba|Canada_New Brunswick|Canada_Newfoundland and Labrador|Canada_Northwest Territories|Canada_Nova Scotia|Canada_Nunavut|Canada_Ontario|Canada_Prince Edward Island|Canada_Quebec|Canada_Saskatchewan|Canada_Yukon
    Alberta|Canada_Alberta
    British Columbia|Canada_British Columbia
@@ -272,9 +272,9 @@
    Quebec|Canada_Quebec
    Saskatchewan|Canada_Saskatchewan
    Yukon|Canada_Yukon
-  Greenland
-  Mexico
-  United States of America
+  gl:Greenland
+  mx:Mexico
+  us:United States of America
    All states|USA_Alabama|USA_Alaska|USA_Arizona|USA_Arkansas|USA_California|USA_Colorado|USA_Connecticut|USA_Delaware|USA_District of Columbia|USA_Florida|USA_Georgia|USA_Hawaii|USA_Idaho|USA_Illinois|USA_Indiana|USA_Iowa|USA_Kansas|USA_Kentucky|USA_Louisiana|USA_Maine|USA_Maryland|USA_Massachusetts|USA_Michigan|USA_Minnesota|USA_Mississippi|USA_Missouri|USA_Montana|USA_Nebraska|USA_Nevada|USA_New Hampshire|USA_New Jersey|USA_New Mexico|USA_New York|USA_North Carolina|USA_North Dakota|USA_Ohio|USA_Oklahoma|USA_Oregon|USA_Pennsylvania|USA_Rhode Island|USA_South Carolina|USA_South Dakota|USA_Tennessee|USA_Texas|USA_Utah|USA_Vermont|USA_Virginia|USA_Washington|USA_West Virginia|USA_Wisconsin|USA_Wyoming
    Alabama|USA_Alabama
    Alaska|USA_Alaska
@@ -328,40 +328,40 @@
    Wisconsin|USA_Wisconsin
    Wyoming|USA_Wyoming
  Oceania
-  American Samoa
-  Australia
-  Christmas Island
-  Cocos Islands
-  Cook Islands
-  Fiji
-  French Polynesia
-  Guam
-  Kiribati
-  Marshall Islands
-  Micronesia
-  Nauru
-  New Caledonia
-  New Zealand
-  Niue
-  Norfolk Island
-  Northern Mariana Islands
-  Palau
-  Papua New Guinea
-  Pitcairn Islands
-  Samoa
-  Tokelau
-  Wallis and Futuna
+  as:American Samoa
+  au:Australia
+  cx:Christmas Island
+  cc:Cocos Islands
+  ck:Cook Islands
+  fj:Fiji
+  pf:French Polynesia
+  gu:Guam
+  ki:Kiribati
+  mh:Marshall Islands
+  fm:Micronesia
+  nr:Nauru
+  nc:New Caledonia
+  nz:New Zealand
+  nu:Niue
+  nf:Norfolk Island
+  mp:Northern Mariana Islands
+  pw:Palau
+  pg:Papua New Guinea
+  pn:Pitcairn Islands
+  ws:Samoa
+  tk:Tokelau
+  wf:Wallis and Futuna
  South America
-  Argentina
-  Bolivia
-  Brazil
-  Chile
-  Colombia
-  Ecuador
-  French Guiana
-  Guyana
-  Paraguay
-  Peru
-  Suriname
-  Uruguay
-  Venezuela
+  ar:Argentina
+  bo:Bolivia
+  br:Brazil
+  cl:Chile
+  co:Colombia
+  ec:Ecuador
+  gf:French Guiana
+  gy:Guyana
+  py:Paraguay
+  pe:Peru
+  sr:Suriname
+  uy:Uruguay
+  ve:Venezuela

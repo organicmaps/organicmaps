@@ -39,20 +39,23 @@ namespace storage
   private:
     /// Name in the coutry node tree
     string m_name;
+    /// Flag to display
+    string m_flag;
     /// stores squares with world pieces which are part of the country
     TTilesContainer m_tiles;
 
   public:
     Country() {}
-    Country(string const & name)
-      : m_name(name) {}
+    Country(string const & name, string const & flag = "")
+      : m_name(name), m_flag(flag) {}
 
     bool operator<(Country const & other) const { return Name() < other.Name(); }
 
     void AddTile(TTile const & tile);
     TTilesContainer const & Tiles() const { return m_tiles; }
 
-    string Name() const { return m_name; }
+    string const & Name() const { return m_name; }
+    string const & Flag() const { return m_flag; }
 
     /// @return bounds for downloaded parts of the country or empty rect
     m2::RectD Bounds() const;

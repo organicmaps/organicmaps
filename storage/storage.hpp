@@ -130,7 +130,8 @@ namespace storage
     //@}
 
     size_t CountriesCount(TIndex const & index) const;
-    string CountryName(TIndex const & index) const;
+    string const & CountryName(TIndex const & index) const;
+    string const & CountryFlag(TIndex const & index) const;
     TLocalAndRemoteSize CountrySizeInBytes(TIndex const & index) const;
     TStatus CountryStatus(TIndex const & index) const;
     m2::RectD CountryBounds(TIndex const & index) const;

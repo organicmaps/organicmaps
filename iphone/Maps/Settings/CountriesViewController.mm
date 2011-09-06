@@ -103,10 +103,10 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-  TIndex index = CalculateIndex(m_index, indexPath);
+  TIndex const index = CalculateIndex(m_index, indexPath);
   if (m_storage->CountryStatus(index) == EOnDisk)
   {
-    m2::RectD bounds = m_storage->CountryBounds(index);
+    m2::RectD const bounds = m_storage->CountryBounds(index);
     [[[MapsAppDelegate theApp] settingsManager] Hide];
     [[MapsAppDelegate theApp].m_mapViewController ZoomToRect:bounds];
   }
@@ -120,7 +120,12 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 - (void) UpdateCell: (UITableViewCell *) cell forCountry: (TIndex const &) countryIndex
 {
   cell.accessoryView = nil;
-	// do not show status for parent categories
+
+  string const & flag = m_storage->CountryFlag(countryIndex);
+  if (!flag.empty())
+    cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flag.c_str()]];
+
+  // do not show status for parent categories
   if (cell.reuseIdentifier != @"ParentCell")
   {
     switch (m_storage->CountryStatus(countryIndex))
@@ -150,6 +155,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
       }
       break;
+
     case EDownloading:
       {
         cell.textLabel.textColor = [UIColor colorWithRed:52.f/255.f
@@ -164,10 +170,12 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
         [indicator release];
       }
       break;
+
     case EDownloadFailed:
       cell.textLabel.textColor = [UIColor redColor];
       cell.detailTextLabel.text = @"Download has failed, touch again for one more try";
       break;
+
     case EInQueue:
       {
         cell.textLabel.textColor = [UIColor colorWithRed:91.f/255.f
@@ -177,11 +185,13 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
         cell.detailTextLabel.text = [NSString stringWithFormat: @"Marked for downloading, touch to cancel"];
       }
       break;
+
     case ENotDownloaded:
       cell.textLabel.textColor = [UIColor blackColor];
       cell.detailTextLabel.text = [NSString stringWithFormat: @"Touch to download"];
       break;
-    default:
+
+    case EUnknown:
       break;
     }
   }
@@ -191,47 +201,50 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 - (UITableViewCell *) tableView: (UITableView *)tableView cellForRowAtIndexPath: (NSIndexPath *)indexPath
 {
   TIndex index = CalculateIndex(m_index, indexPath);
-	bool hasChildren = m_storage->CountriesCount(index) != 0;
+	bool const hasChildren = m_storage->CountriesCount(index) != 0;
 
 	NSString * cellId = hasChildren ? @"ParentCell" : @"DetailCell";
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier: cellId];
   if (cell == nil)
   {
   	if (hasChildren)
+    {
     	cell = [[[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier:cellId] autorelease];
+      cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
   	else
+    {
   		cell = [[[UITableViewCell alloc] initWithStyle: UITableViewCellStyleSubtitle reuseIdentifier:cellId] autorelease];
+      cell.accessoryType = UITableViewCellAccessoryNone;
+    }
 	}
   cell.textLabel.text = [NSString stringWithUTF8String:m_storage->CountryName(index).c_str()];
-  if (hasChildren)
-  	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-  else
-  	cell.accessoryType = UITableViewCellAccessoryNone;
+
   [self UpdateCell: cell forCountry: index];
   return cell;
 }
 
 // stores clicked country index when confirmation dialog is displayed
 TIndex g_clickedIndex;
-UITableViewCell * g_clickedCell;
+UITableViewCell * g_clickedCell = nil;
 
 // User confirmation after touching country
 - (void) actionSheet: (UIActionSheet *) actionSheet clickedButtonAtIndex: (NSInteger) buttonIndex
 {
-    if (buttonIndex == 0)
-    {	// Delete country
-    	switch (m_storage->CountryStatus(g_clickedIndex))
-      {
-      case ENotDownloaded:
-      case EDownloadFailed:
-      	m_storage->DownloadCountry(g_clickedIndex);
-        break;
-      default:
-      	m_storage->DeleteCountry(g_clickedIndex);
-        // remove "zoom to country" icon
-        g_clickedCell.accessoryType = UITableViewCellAccessoryNone;
-      }
+  if (buttonIndex == 0)
+  {	// Delete country
+    switch (m_storage->CountryStatus(g_clickedIndex))
+    {
+    case ENotDownloaded:
+    case EDownloadFailed:
+      m_storage->DownloadCountry(g_clickedIndex);
+      break;
+    default:
+      m_storage->DeleteCountry(g_clickedIndex);
+      // remove "zoom to country" icon
+      g_clickedCell.accessoryType = UITableViewCellAccessoryNone;
     }
+  }
 }
 
 - (void) tableView: (UITableView *) tableView didSelectRowAtIndexPath: (NSIndexPath *) indexPath
@@ -240,7 +253,7 @@ UITableViewCell * g_clickedCell;
 	[tableView deselectRowAtIndexPath: indexPath animated:YES];
   UITableViewCell * cell = [tableView cellForRowAtIndexPath: indexPath];
   // Push the new table view on the stack
-	TIndex index = CalculateIndex(m_index, indexPath);
+	TIndex const index = CalculateIndex(m_index, indexPath);
   if (m_storage->CountriesCount(index))
   {
 		CountriesViewController * newController = [[CountriesViewController alloc] initWithStorage:*m_storage
@@ -251,13 +264,14 @@ UITableViewCell * g_clickedCell;
   {
 		NSString * countryName = [[cell textLabel] text];
 
+    // pass parameters to dialog handler
+    g_clickedIndex = index;
+    g_clickedCell = cell;
+
 		switch (m_storage->CountryStatus(index))
   	{
   		case EOnDisk:
     	{
-        // pass parameters to dialog handler
-        g_clickedIndex = index;
-        g_clickedCell = cell;
         // display confirmation popup
     		UIActionSheet * popupQuery = [[[UIActionSheet alloc]
       			initWithTitle: countryName
@@ -271,68 +285,57 @@ UITableViewCell * g_clickedCell;
       case ENotDownloaded:
       case EDownloadFailed:
       {
-        TLocalAndRemoteSize sizePair = m_storage->CountrySizeInBytes(index);
+        TLocalAndRemoteSize const sizePair = m_storage->CountrySizeInBytes(index);
         TLocalAndRemoteSize::first_type size = sizePair.second - sizePair.first;
 
         // check for disk free space first
         if (FreeDiskSpaceInBytes() < (size + 1024*1024))
         { // display warning dialog about not enough free disk space
-          CustomAlertView * alert = [[CustomAlertView alloc] initWithTitle:@"There is not enough free disk space"
+          [[[[CustomAlertView alloc] initWithTitle:@"There is not enough free disk space"
                                                                    message:[NSString stringWithFormat:@"Please, free some space on your device first to download %@", countryName] 
                                                                   delegate:nil
                                                          cancelButtonTitle:@"OK"
-                                                         otherButtonTitles:nil];
-          [alert show];
-          [alert release];
+                                                         otherButtonTitles:nil] autorelease] show];
           break;
         }
 
-        TActiveConnectionType connType = GetActiveConnectionType();
+        TActiveConnectionType const connType = GetActiveConnectionType();
         if (connType == ENotConnected)
         { // do not initiate any download
-          CustomAlertView * alert =
-            [[CustomAlertView alloc] initWithTitle:@"No Internet connection detected"
+          [[[[CustomAlertView alloc] initWithTitle:@"No Internet connection detected"
                                            message:@"Please, use WiFi to download large countries"
                                           delegate:nil
                                  cancelButtonTitle:@"OK"
-                                 otherButtonTitles:nil];
-          [alert show];
-          [alert release];
+                                 otherButtonTitles:nil] autorelease] show];
         }
         else
         {
           if (connType == EConnectedBy3G && size > MAX_3G_MEGABYTES * MB)
           { // If user uses 3G, do not allow him to download large countries
-            CustomAlertView * alert =
-              [[CustomAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@ is too large to download over 3G", countryName]
-                                             message:@"Please, use WiFi connection to download large countries"
-                                            delegate:nil
-                                   cancelButtonTitle:@"OK"
-                                   otherButtonTitles:nil];
-            [alert show];
-            [alert release];
+            [[[[CustomAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@ is too large to download over 3G", countryName]
+                                            message:@"Please, use WiFi connection to download large countries"
+                                          delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil] autorelease] show];
           }
           else
           {
             // display confirmation popup with country size
             // convert size to human readable values
-            NSString * strTitle = nil;
             NSString * strDownload = nil;
             if (size > MB)
             {
               size /= MB;
-              strTitle = [NSString stringWithFormat:@"%@", countryName];
               strDownload = [NSString stringWithFormat:@"Download %qu MB", size];
             }
             else
             {
               size = (size + 999) / 1000;
-              strTitle = [NSString stringWithFormat:@"%@", countryName];
               strDownload = [NSString stringWithFormat:@"Download %qu kB", size];
             }
 
             UIActionSheet * popupQuery = [[UIActionSheet alloc]
-                                          initWithTitle: strTitle
+                                          initWithTitle: countryName
                                           delegate: self
                                           cancelButtonTitle: @"Cancel"
                                           destructiveButtonTitle: nil
