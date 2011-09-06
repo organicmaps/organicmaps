@@ -91,13 +91,24 @@ public:
 
   int GetMinFeatureDrawScale() const;
 
+  inline void SetCoastCell(uint32_t cell) { m_coastCell = cell; }
+  inline bool GetCoastCell(uint32_t & cell) const
+  {
+    if (m_coastCell != -1U)
+    {
+      cell = m_coastCell;
+      return true;
+    }
+    else return false;
+  }
+
 protected:
   /// Used for feature debugging
   vector<osm::OsmId> m_osmIds;
 
   /// @name For diagnostic use only.
   //@{
-  bool operator == (FeatureBuilder1 const &) const;
+  bool operator== (FeatureBuilder1 const &) const;
 
   bool CheckValid() const;
   //@}
@@ -118,6 +129,8 @@ protected:
 
   /// List of geometry polygons.
   list<points_t> m_Polygons; // Check HEADER_IS_AREA
+
+  uint32_t m_coastCell;
 };
 
 /// Used for serialization of features during final pass.

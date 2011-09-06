@@ -25,16 +25,16 @@ namespace feature
     return AlmostEqual(p1, p2);
   }
 
-  template <class PointsContainerT>
-  void SimplifyPoints(PointsContainerT const & in, PointsContainerT & out, int level)
+  template <class DistanceT, class PointsContainerT>
+  void SimplifyPoints(DistanceT dist, PointsContainerT const & in, PointsContainerT & out, int level)
   {
     if (in.size() >= 2)
     {
-      typedef mn::DistanceToLineSquare<m2::PointD> DistanceF;
       double const eps = my::sq(scales::GetEpsilonForSimplify(level));
+      dist.SetEpsilon(eps);
 
-      SimplifyNearOptimal<DistanceF>(20, in.begin(), in.end(), eps,
-                                     AccumulateSkipSmallTrg<DistanceF, m2::PointD>(out, eps));
+      SimplifyNearOptimal(20, in.begin(), in.end(), eps, dist,
+                          AccumulateSkipSmallTrg<DistanceT, m2::PointD>(dist, out, eps));
 
       CHECK_GREATER ( out.size(), 1, () );
       CHECK ( are_points_equal(in.front(), out.front()), () );

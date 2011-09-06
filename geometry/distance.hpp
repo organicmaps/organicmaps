@@ -17,9 +17,15 @@ private:
   STATIC_ASSERT(numeric_limits<typename PointT::value_type>::is_signed);
 
 public:
-  DistanceToLineSquare(PointT const & p0, PointT const & p1)
-    : m_P0(p0), m_P1(p1), m_D(m_P1 - m_P0), m_D2(DotProduct(m_D, m_D))
+  void SetEpsilon(double) {}
+
+  void SetBounds(PointT const & p0, PointT const & p1)
   {
+    m_P0 = p0;
+    m_P1 = p1;
+    m_D = m_P1 - m_P0;
+    m_D2 = DotProduct(m_D, m_D);
+
     m_D2 = sqrt(m_D2);
     if (my::AlmostEqual(m_D2, 0.0))
     {
@@ -33,7 +39,7 @@ public:
     }
   }
 
-  double operator () (PointT Y) const
+  double operator() (PointT Y) const
   {
     m2::PointD const YmP0 = Y - m_P0;
     double const t = DotProduct(m_D, YmP0);

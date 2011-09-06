@@ -337,11 +337,51 @@ namespace feature
       }
     };
 
+    class BoundsDistance : public mn::DistanceToLineSquare<m2::PointD>
+    {
+      double m_eps;
+      double m_minX, m_minY, m_maxX, m_maxY;
+
+    public:
+      BoundsDistance(uint32_t cellID, int level)
+      {
+        RectId cell = RectId::FromBitsAndLevel(cellID, level);
+        CellIdConverter<MercatorBounds, RectId>::GetCellBounds(cell, m_minX, m_minY, m_maxX, m_maxY);
+      }
+
+      void SetEpsilon(double eps) { m_eps = 2.0*eps; }
+
+      double operator() (m2::PointD const & p) const
+      {
+        if (fabs(p.x - m_minX) <= m_eps || fabs(p.x - m_maxX) <= m_eps ||
+            fabs(p.y - m_minY) <= m_eps || fabs(p.y - m_maxY) <= m_eps)
+        {
+          return std::numeric_limits<double>::max();
+        }
+
+        return mn::DistanceToLineSquare<m2::PointD>::operator()(p);
+      }
+    };
+
+    void SimplifyPoints(points_t const & in, points_t & out, int level,
+                        FeatureBuilder2 const & fb)
+    {
+      uint32_t cellID;
+      if (fb.GetCoastCell(cellID))
+      {
+        BoundsDistance dist(cellID, g_coastsCellLevel);
+        feature::SimplifyPoints(dist, in, out, level);
+      }
+      else
+      {
+        mn::DistanceToLineSquare<m2::PointD> dist;
+        feature::SimplifyPoints(dist, in, out, level);
+      }
+    }
+
   public:
     void operator() (FeatureBuilder2 & fb)
     {
-      (void)GetFileSize(m_datFile);
-
       GeometryHolder holder(*this, fb, m_header.GetCodingParams());
 
       bool const isLine = fb.IsLine();
@@ -349,11 +389,12 @@ namespace feature
 
       for (int i = m_header.GetScalesCount()-1; i >= 0; --i)
       {
-        if (fb.IsDrawableInRange(i > 0 ? m_header.GetScale(i-1) + 1 : 0, m_header.GetScale(i)))
+        int const level = m_header.GetScale(i);
+        if (fb.IsDrawableInRange(i > 0 ? m_header.GetScale(i-1) + 1 : 0, level))
         {
           // simplify and serialize geometry
           points_t points;
-          SimplifyPoints(holder.GetSourcePoints(), points, m_header.GetScale(i));
+          SimplifyPoints(holder.GetSourcePoints(), points, level, fb);
 
           if (isLine)
             holder.AddPoints(points, i);
@@ -374,7 +415,7 @@ namespace feature
             {
               simplified.push_back(points_t());
 
-              SimplifyPoints(*iH, simplified.back(), m_header.GetScale(i));
+              SimplifyPoints(*iH, simplified.back(), level, fb);
 
               if (simplified.back().size() < 3)
                 simplified.pop_back();
@@ -453,7 +494,6 @@ namespace feature
 
     // remove old not-sorted dat file
     FileWriter::DeleteFileX(tempDatFilePath);
-
     FileWriter::DeleteFileX(datFilePath + DATA_FILE_TAG);
 
     return true;

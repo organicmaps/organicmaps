@@ -127,8 +127,9 @@ vector<m2::PointU> SimplifyPoints(vector<m2::PointU> const & points, double eps)
 {
   vector<m2::PointU> simpPoints;
   typedef mn::DistanceToLineSquare<m2::PointD> DistanceF;
-  SimplifyNearOptimal<DistanceF>(20, points.begin(), points.end(), eps,
-                                 AccumulateSkipSmallTrg<DistanceF, m2::PointU>(simpPoints, eps));
+  DistanceF dist;
+  SimplifyNearOptimal(20, points.begin(), points.end(), eps, dist,
+                      AccumulateSkipSmallTrg<DistanceF, m2::PointU>(dist, simpPoints, eps));
   return simpPoints;
 }
 

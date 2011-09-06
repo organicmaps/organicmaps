@@ -19,19 +19,19 @@ namespace impl
 ///@name This functions take input range NOT like STL does: [first, last].
 //@{
 template <typename DistanceF, typename IterT>
-pair<double, IterT> MaxDistance(IterT first, IterT last)
+pair<double, IterT> MaxDistance(IterT first, IterT last, DistanceF & dist)
 {
   pair<double, IterT> res(0.0, last);
   if (distance(first, last) <= 1)
     return res;
 
-  DistanceF distanceF(*first, *last);
+  dist.SetBounds(*first, *last);
   for (IterT i = first + 1; i != last; ++i)
   {
-    double const dist = distanceF(*i);
-    if (dist > res.first)
+    double const d = dist(*i);
+    if (d > res.first)
     {
-      res.first = dist;
+      res.first = d;
       res.second = i;
     }
   }
@@ -40,17 +40,17 @@ pair<double, IterT> MaxDistance(IterT first, IterT last)
 
 // Actual SimplifyDP implementation.
 template <typename DistanceF, typename IterT, typename OutT>
-void SimplifyDP(IterT first, IterT last, double epsilon, OutT & out)
+void SimplifyDP(IterT first, IterT last, double epsilon, DistanceF & dist, OutT & out)
 {
-  pair<double, IterT> maxDist = impl::MaxDistance<DistanceF>(first, last);
+  pair<double, IterT> maxDist = impl::MaxDistance(first, last, dist);
   if (maxDist.second == last || maxDist.first < epsilon)
   {
     out(*last);
   }
   else
   {
-    impl::SimplifyDP<DistanceF>(first, maxDist.second, epsilon, out);
-    impl::SimplifyDP<DistanceF>(maxDist.second, last, epsilon, out);
+    impl::SimplifyDP(first, maxDist.second, epsilon, dist, out);
+    impl::SimplifyDP(maxDist.second, last, epsilon, dist, out);
   }
 }
 //@}
@@ -71,12 +71,12 @@ struct SimplifyOptimalRes
 // Iteratively includes the point with max distance form the current simplification.
 // Average O(n log n), worst case O(n^2).
 template <typename DistanceF, typename IterT, typename OutT>
-void SimplifyDP(IterT beg, IterT end, double epsilon, OutT out)
+void SimplifyDP(IterT beg, IterT end, double epsilon, DistanceF dist, OutT out)
 {
   if (beg != end)
   {
     out(*beg);
-    impl::SimplifyDP<DistanceF>(beg, end-1, epsilon, out);
+    impl::SimplifyDP(beg, end-1, epsilon, dist, out);
   }
 }
 
@@ -87,7 +87,8 @@ void SimplifyDP(IterT beg, IterT end, double epsilon, OutT out)
 // Essentially, it's a trade-off between optimality and performance.
 // Values around 20 - 200 are reasonable.
 template <typename DistanceF, typename IterT, typename OutT>
-void SimplifyNearOptimal(int kMaxFalseLookAhead, IterT beg, IterT end, double epsilon, OutT out)
+void SimplifyNearOptimal(int kMaxFalseLookAhead, IterT beg, IterT end,
+                         double epsilon, DistanceF dist, OutT out)
 {
   int32_t const n = end - beg;
   if (n <= 2)
@@ -106,7 +107,7 @@ void SimplifyNearOptimal(int kMaxFalseLookAhead, IterT beg, IterT end, double ep
       uint32_t const newPointCount = F[j].m_PointCount + 1;
       if (newPointCount < F[i].m_PointCount)
       {
-          if (impl::MaxDistance<DistanceF>(beg + i, beg + j).first < epsilon)
+          if (impl::MaxDistance(beg + i, beg + j, dist).first < epsilon)
           {
             F[i].m_NextPoint = j;
             F[i].m_PointCount = newPointCount;
@@ -129,12 +130,13 @@ void SimplifyNearOptimal(int kMaxFalseLookAhead, IterT beg, IterT end, double ep
 template <class DistanceF, class PointT>
 class AccumulateSkipSmallTrg
 {
+  DistanceF & m_dist;
   vector<PointT> & m_vec;
   double m_eps;
 
 public:
-  AccumulateSkipSmallTrg(vector<PointT> & vec, double eps)
-    : m_vec(vec), m_eps(eps)
+  AccumulateSkipSmallTrg(DistanceF & dist, vector<PointT> & vec, double eps)
+    : m_dist(dist), m_vec(vec), m_eps(eps)
   {
   }
 
@@ -144,7 +146,8 @@ public:
     size_t count;
     while ((count = m_vec.size()) >= 2)
     {
-      if (DistanceF(m_vec[count-2], p)(m_vec[count-1]) < m_eps)
+      m_dist.SetBounds(m_vec[count-2], p);
+      if (m_dist(m_vec[count-1]) < m_eps)
         m_vec.pop_back();
       else
         break;

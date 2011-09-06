@@ -176,6 +176,7 @@ bool CoastlineFeaturesGenerator::GetFeature(size_t i, FeatureBuilder1 & fb)
   doDiff.AssignGeometry(fb);
   fb.SetArea();
   fb.AddType(m_coastType);
+  fb.SetCoastCell(i);
 
   return true;
 }

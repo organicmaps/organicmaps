@@ -17,6 +17,7 @@ using namespace feature;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 FeatureBuilder1::FeatureBuilder1()
+: m_coastCell(-1U)
 {
   m_Polygons.push_back(points_t());
 }
@@ -168,6 +169,8 @@ bool FeatureBuilder1::operator == (FeatureBuilder1 const & fb) const
 {
   if (!(m_Params == fb.m_Params)) return false;
 
+  if (m_coastCell != fb.m_coastCell) return false;
+
   if (m_Params.GetGeomType() == GEOM_POINT &&
       !is_equal(m_Center, fb.m_Center))
   {
@@ -235,11 +238,13 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
 
   if (m_Params.GetGeomType() != GEOM_POINT)
   {
-    WriteVarUint(sink, uint32_t(m_Polygons.size()));
+    WriteVarUint(sink, static_cast<uint32_t>(m_Polygons.size()));
 
     for (list<points_t>::const_iterator i = m_Polygons.begin(); i != m_Polygons.end(); ++i)
       serial::SaveOuterPath(*i, cp, sink);
   }
+
+  WriteVarUint(sink, m_coastCell);
 
   // check for correct serialization
 #ifdef DEBUG
@@ -279,6 +284,8 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
     serial::LoadOuterPath(source, cp, m_Polygons.back());
     CalcRect(m_Polygons.back(), m_LimitRect);
   }
+
+  m_coastCell = ReadVarUint<uint32_t>(source);
 
   CHECK ( CheckValid(), () );
 }

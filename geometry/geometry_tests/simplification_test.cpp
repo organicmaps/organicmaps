@@ -20,7 +20,8 @@ namespace
 typedef m2::PointD P;
 typedef mn::DistanceToLineSquare<m2::PointD> DistanceF;
 typedef BackInsertFunctor<vector<m2::PointD> > PointOutput;
-typedef void (* SimplifyFn)(m2::PointD const *, m2::PointD const *, double, PointOutput);
+typedef void (* SimplifyFn)(m2::PointD const *, m2::PointD const *, double,
+                            DistanceF, PointOutput);
 
 struct LargePolylineTestData
 {
@@ -33,7 +34,7 @@ void TestSimplificationSmoke(SimplifyFn simplifyFn)
   m2::PointD const points[] = { P(0.0, 1.0), P(2.2, 3.6), P(3.2, 3.6)  };
   double const epsilon = 0.1;
   vector<m2::PointD> result, expectedResult(points, points + 3);
-  simplifyFn(points, points + 3, epsilon, MakeBackInsertFunctor(result));
+  simplifyFn(points, points + 3, epsilon, DistanceF(), MakeBackInsertFunctor(result));
   TEST_EQUAL(result, expectedResult, (epsilon));
 }
 
@@ -43,7 +44,7 @@ void TestSimplificationOfLine(SimplifyFn simplifyFn)
   for (double epsilon = numeric_limits<double>::denorm_min(); epsilon < 1000; epsilon *= 2)
   {
     vector<m2::PointD> result, expectedResult(points, points + 2);
-    simplifyFn(points, points + 2, epsilon, MakeBackInsertFunctor(result));
+    simplifyFn(points, points + 2, epsilon, DistanceF(), MakeBackInsertFunctor(result));
     TEST_EQUAL(result, expectedResult, (epsilon));
   }
 }
@@ -53,7 +54,7 @@ void TestSimplificationOfPoly(m2::PointD const * points, size_t count, SimplifyF
   for (double epsilon = 0.00001; epsilon < 0.11; epsilon *= 10)
   {
     vector<m2::PointD> result;
-    simplifyFn(points, points + count, epsilon, MakeBackInsertFunctor(result));
+    simplifyFn(points, points + count, epsilon, DistanceF(), MakeBackInsertFunctor(result));
     LOG(LINFO, ("eps:", epsilon, "size:", result.size()));
 
     TEST_GREATER(result.size(), 1, ());
@@ -90,13 +91,15 @@ UNIT_TEST(Simplification_DP_Polyline)
 namespace
 {
 
-void SimplifyNearOptimal10(m2::PointD const * f, m2::PointD const * l, double e, PointOutput out)
+void SimplifyNearOptimal10(m2::PointD const * f, m2::PointD const * l, double e,
+                           DistanceF dist, PointOutput out)
 {
-  SimplifyNearOptimal<DistanceF>(10, f, l, e, out);
+  SimplifyNearOptimal(10, f, l, e, dist, out);
 }
-void SimplifyNearOptimal20(m2::PointD const * f, m2::PointD const * l, double e, PointOutput out)
+void SimplifyNearOptimal20(m2::PointD const * f, m2::PointD const * l, double e,
+                           DistanceF dist, PointOutput out)
 {
-  SimplifyNearOptimal<DistanceF>(20, f, l, e, out);
+  SimplifyNearOptimal(20, f, l, e, dist, out);
 }
 
 }
@@ -128,8 +131,9 @@ namespace
   void CheckDPStrict(P const * arr, size_t n, double eps, size_t expectedCount)
   {
     vector<P> vec;
-    SimplifyDP<DistanceF>(arr, arr + n, eps,
-      AccumulateSkipSmallTrg<DistanceF, P>(vec, eps));
+    DistanceF dist;
+    SimplifyDP(arr, arr + n, eps, dist,
+      AccumulateSkipSmallTrg<DistanceF, P>(dist, vec, eps));
 
     TEST_GREATER(vec.size(), 1, ());
     TEST_EQUAL(arr[0], vec.front(), ());
@@ -142,8 +146,9 @@ namespace
 
     for (size_t i = 2; i < vec.size(); ++i)
     {
-      DistanceF fun(vec[i-2], vec[i]);
-      TEST_GREATER_OR_EQUAL(fun(vec[i-1]), eps, ());
+      DistanceF d;
+      d.SetBounds(vec[i-2], vec[i]);
+      TEST_GREATER_OR_EQUAL(d(vec[i-1]), eps, ());
     }
   }
 }

@@ -146,11 +146,11 @@ public:
 
     UpdateIndexes();
 
-    if (m_indexes.back()->IsWorldData())
-    {
-      ASSERT ( !m_pWorldSearchInfo.get(), () );
-      m_pWorldSearchInfo.reset(m_indexes.back()->GetSearchInfo());
-    }
+    //if (m_indexes.back()->IsWorldData())
+    //{
+    //  ASSERT ( !m_pWorldSearchInfo.get(), () );
+    //  m_pWorldSearchInfo.reset(m_indexes.back()->GetSearchInfo());
+    //}
   }
 
   void Remove(string const & file)
