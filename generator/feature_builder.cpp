@@ -66,6 +66,8 @@ void FeatureBuilder1::AddPolygon(vector<m2::PointD> & poly)
   if (poly.front() != poly.back())
     poly.push_back(poly.front());
 
+  CalcRect(poly, m_LimitRect);
+
   if (!m_Polygons.back().empty())
     m_Polygons.push_back(points_t());
 
