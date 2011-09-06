@@ -20,8 +20,8 @@
 
 Navigator::Navigator()
   : m_worldRect(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY),
+    m_InAction(false),
     m_orientation(EOrientation0)
-
 {
 }
 
