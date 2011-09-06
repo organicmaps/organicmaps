@@ -52,7 +52,7 @@ struct BenchmarkRectProvider;
 namespace search { class Result; }
 typedef function<void (search::Result const &)> SearchCallbackT;
 
-typedef function<void (void)> LocationRetrievedCallbackT;
+typedef function<void (location::TLocationStatus)> LocationRetrievedCallbackT;
 
 class DrawerYG;
 class RenderPolicy;

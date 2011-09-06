@@ -28,30 +28,62 @@ storage::Storage m_storage;
     m_framework->ShowRect(rect);
 }
 
-- (void)OnLocationUpdated
+- (void)startLocation
 {
-  [m_myPositionButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
+  typedef void (*OnLocationUpdatedFunc)(id, SEL, location::TLocationStatus);
+  SEL onLocUpdatedSel = @selector(OnLocationUpdated:);
+  OnLocationUpdatedFunc locUpdatedImpl = (OnLocationUpdatedFunc)[self methodForSelector:onLocUpdatedSel];
+
+  m_myPositionButton.selected = YES;
+  [m_myPositionButton setImage:[UIImage imageNamed:@"location-search.png"] forState:UIControlStateSelected];
+  [[MapsAppDelegate theApp] disableStandby];
+
+  m_framework->StartLocationService(bind(locUpdatedImpl, self, onLocUpdatedSel, _1));
+}
+
+- (void)stopLocation
+{
+  m_myPositionButton.selected = NO;
+  [m_myPositionButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
+  [[MapsAppDelegate theApp] enableStandby];
+
+  m_framework->StopLocationService();
 }
 
 - (IBAction)OnMyPositionClicked:(id)sender
 {
   if (m_myPositionButton.isSelected == NO)
-  {
-    typedef void (*OnLocationUpdatedFunc)(id, SEL);
-    SEL onLocUpdatedSel = @selector(OnLocationUpdated);
-    OnLocationUpdatedFunc locUpdatedImpl = (OnLocationUpdatedFunc)[self methodForSelector:onLocUpdatedSel];
-
-    m_framework->StartLocationService(bind(locUpdatedImpl, self, onLocUpdatedSel));
-    m_myPositionButton.selected = YES;
-    [m_myPositionButton setImage:[UIImage imageNamed:@"location-search.png"] forState:UIControlStateSelected];
-    [[MapsAppDelegate theApp] disableStandby];
-  }
+    [self startLocation];
   else
+    [self stopLocation];
+}
+
+- (void)OnLocationUpdated:(location::TLocationStatus) status
+{
+  switch (status)
   {
-    m_framework->StopLocationService();
-    m_myPositionButton.selected = NO;
-    [m_myPositionButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
-    [[MapsAppDelegate theApp] enableStandby];
+  case location::EDisabledByUser:
+    {
+      UIAlertView * alert = [[[UIAlertView alloc] initWithTitle:@"Location Services are disabled"
+                                                      message:@"You currently have all location services for this device or application disabled. Please, enable them in Settings->Location Services."
+                                                     delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+      [alert show];
+      [self stopLocation];
+    }
+    break;
+  case location::ENotSupported:
+    {
+      UIAlertView * alert = [[[UIAlertView alloc] initWithTitle:@"Location Services are not supported"
+                                                      message:@"Your device doesn't support location services"
+                                                     delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+      [alert show];
+      [self stopLocation];
+    }
+    break;
+  case location::ERoughMode:
+  case location::EAccurateMode:
+    [m_myPositionButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
+    break;
   }
 }
 

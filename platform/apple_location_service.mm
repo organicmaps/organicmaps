@@ -22,10 +22,8 @@ class AppleLocationService : public LocationService
   LocationManagerWrapper * m_objCppWrapper;
   CLLocationManager * m_locationManager;
 
-  TLocationStatus m_status;
-
 public:
-  AppleLocationService() : m_status(ENotSupported)
+  AppleLocationService()
   {
     m_objCppWrapper = [[LocationManagerWrapper alloc] initWithService:this];
     m_locationManager = [[CLLocationManager alloc] init];
@@ -40,7 +38,6 @@ public:
 
   void OnLocationUpdate(GpsInfo & newLocation)
   {
-    newLocation.m_status = m_status;
     NotifyGpsObserver(newLocation);
   }
 
@@ -73,23 +70,18 @@ public:
   {
     if (![CLLocationManager locationServicesEnabled])
     {
-      m_status = EDisabledByUser;
       GpsInfo info;
-      info.m_status = m_status;
+      info.m_status = EDisabledByUser;
+      info.m_source = location::EAppleNative;
+      info.m_timestamp = [[NSDate date] timeIntervalSince1970];
       NotifyGpsObserver(info);
     }
     else
     {
       if (useAccurateMode)
-      {
-        m_status = EAccurateMode;
         m_locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-      }
       else
-      {
-        m_status = ERoughMode;
         m_locationManager.desiredAccuracy = ROUGH_ACCURACY;
-      }
       [m_locationManager startUpdatingLocation];
       // enable compass
 #ifdef OMIM_OS_IPHONE
@@ -109,6 +101,11 @@ public:
       [m_locationManager stopUpdatingHeading];
 #endif
     [m_locationManager stopUpdatingLocation];
+  }
+
+  bool IsAccurateMode() const
+  {
+    return m_locationManager.desiredAccuracy == kCLLocationAccuracyBest;
   }
 };
 
@@ -147,6 +144,7 @@ public:
 {
   GpsInfo newInfo;
   [LocationManagerWrapper location:newLocation toGpsInfo:newInfo];
+  newInfo.m_status = m_service->IsAccurateMode() ? EAccurateMode : ERoughMode;
   m_service->OnLocationUpdate(newInfo);
 }
 

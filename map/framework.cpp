@@ -53,19 +53,23 @@ void Framework<TModel>::RemoveMap(string const & datFile)
 template <typename TModel>
 void Framework<TModel>::OnGpsUpdate(location::GpsInfo const & info)
 {
-  // notify GUI that we received gps position
+  LOG(LINFO, (info.m_status));
+  // notify GUI (note that gps can be disabled by user or even not available)
   if (!(m_locationState & location::State::EGps) && m_locationObserver)
-    m_locationObserver();
+    m_locationObserver(info.m_status);
 
-  m_locationState.UpdateGps(info);
-  if (m_centeringMode == ECenterAndScale)
+  if (info.m_status == location::EAccurateMode || info.m_status == location::ERoughMode)
   {
-    CenterAndScaleViewport();
-    m_centeringMode = ECenterOnly;
+    m_locationState.UpdateGps(info);
+    if (m_centeringMode == ECenterAndScale)
+    {
+      CenterAndScaleViewport();
+      m_centeringMode = ECenterOnly;
+    }
+    else if (m_centeringMode == ECenterOnly)
+      CenterViewport(m_locationState.Position());
+    Invalidate();
   }
-  else if (m_centeringMode == ECenterOnly)
-    CenterViewport(m_locationState.Position());
-  Invalidate();
 }
 
 template <typename TModel>
