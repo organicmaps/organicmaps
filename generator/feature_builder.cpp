@@ -159,8 +159,12 @@ bool FeatureBuilder1::PreSerialize()
   }
 
   // Clear name for features with invisible texts.
-  if (!m_Params.name.IsEmpty() && feature::DrawableScaleRangeForText(GetFeatureBase()).first == -1)
+  uint32_t dummy;
+  if (!m_Params.name.IsEmpty() && !GetCoastCell(dummy) &&
+      (feature::DrawableScaleRangeForText(GetFeatureBase()).first == -1))
+  {
     m_Params.name.Clear();
+  }
 
   return true;
 }
