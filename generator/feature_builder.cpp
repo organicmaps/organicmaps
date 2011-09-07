@@ -53,7 +53,7 @@ void FeatureBuilder1::SetAreaAddHoles(list<points_t> const & holes)
 
   for (list<points_t>::const_iterator i = holes.begin(); i != holes.end(); ++i)
   {
-    ASSERT ( !i->empty(), () );
+    ASSERT ( !i->empty(), (*this) );
 
     if (rgn.Contains(i->front()))
       m_Polygons.push_back(*i);
@@ -77,7 +77,7 @@ void FeatureBuilder1::AddPolygon(vector<m2::PointD> & poly)
 
 FeatureBase FeatureBuilder1::GetFeatureBase() const
 {
-  CHECK ( CheckValid(), () );
+  CHECK ( CheckValid(), (*this) );
 
   FeatureBase f;
   f.SetHeader(m_Params.GetHeader());
@@ -194,10 +194,10 @@ bool FeatureBuilder1::operator == (FeatureBuilder1 const & fb) const
 
 bool FeatureBuilder1::CheckValid() const
 {
-  CHECK(m_Params.CheckValid(), ());
+  CHECK(m_Params.CheckValid(), (*this));
 
   EGeomType const type = m_Params.GetGeomType();
-  CHECK ( type != GEOM_UNDEFINED, () );
+  CHECK ( type != GEOM_UNDEFINED, (*this) );
 
   points_t const & poly = GetGeometry();
 
@@ -207,7 +207,7 @@ bool FeatureBuilder1::CheckValid() const
   if (type == GEOM_AREA)
   {
     for (list<points_t>::const_iterator i = m_Polygons.begin(); i != m_Polygons.end(); ++i)
-      CHECK(i->size() >= 3, ());
+      CHECK(i->size() >= 3, (*this));
   }
 
   return true;
@@ -226,7 +226,7 @@ void FeatureBuilder1::SerializeBase(buffer_t & data, serial::CodingParams const 
 
 void FeatureBuilder1::Serialize(buffer_t & data) const
 {
-  CHECK ( CheckValid(), () );
+  CHECK ( CheckValid(), (*this) );
 
   data.clear();
 
@@ -251,7 +251,7 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
   buffer_t tmp(data);
   FeatureBuilder1 fb;
   fb.Deserialize(tmp);
-  ASSERT ( fb == *this, () );
+  ASSERT ( fb == *this, (*this) );
 #endif
 }
 
@@ -276,7 +276,7 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
 
   m_Polygons.clear();
   uint32_t const count = ReadVarUint<uint32_t>(source);
-  ASSERT_GREATER ( count, 0, () );
+  ASSERT_GREATER ( count, 0, (*this) );
 
   for (uint32_t i = 0; i < count; ++i)
   {
@@ -287,7 +287,7 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
 
   m_coastCell = ReadVarUint<uint32_t>(source);
 
-  CHECK ( CheckValid(), () );
+  CHECK ( CheckValid(), (*this) );
 }
 
 void FeatureBuilder1::AddOsmId(string const & type, uint64_t osmId)
