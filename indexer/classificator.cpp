@@ -96,6 +96,16 @@ void ClassifObject::LoadPolicy::Start(size_t i)
   base_type::Start(i);
 }
 
+namespace
+{
+  struct less_scales
+  {
+    bool operator() (drule::Key const & l, int r) const { return l.m_scale < r; }
+    bool operator() (int l, drule::Key const & r) const { return l < r.m_scale; }
+    bool operator() (drule::Key const & l, drule::Key const & r) const { return l.m_scale < r.m_scale; }
+  };
+}
+
 void ClassifObject::LoadPolicy::EndChilds()
 {
   ClassifObject * p = Current();
@@ -142,6 +152,7 @@ void ClassifObject::VisLoadPolicy::Start(size_t i)
 
 void ClassifObject::Sort()
 {
+  sort(m_drawRule.begin(), m_drawRule.end(), less_scales());
   sort(m_objs.begin(), m_objs.end(), less_name_t());
   for_each(m_objs.begin(), m_objs.end(), bind(&ClassifObject::Sort, _1));
 }
@@ -265,13 +276,6 @@ namespace
 {
   class suitable_getter
   {
-    struct compare_scales
-    {
-      bool operator() (drule::Key const & l, int r) const { return l.m_scale < r; }
-      bool operator() (int l, drule::Key const & r) const { return l < r.m_scale; }
-      bool operator() (drule::Key const & l, drule::Key const & r) const { return l.m_scale < r.m_scale; }
-    };
-
     typedef vector<drule::Key> vec_t;
     typedef vec_t::const_iterator iter_t;
 
@@ -332,7 +336,7 @@ namespace
     void find(int ft, int scale)
     {
       // find greater or equal scale
-      m_iters[0] = lower_bound(m_rules.begin(), m_rules.end(), scale, compare_scales());
+      m_iters[0] = lower_bound(m_rules.begin(), m_rules.end(), scale, less_scales());
       if (m_iters[0] != m_rules.end())
         m_scales[0] = m_iters[0]->m_scale;
       else
@@ -346,7 +350,7 @@ namespace
       }
 
       // find less or equal scale
-      m_iters[1] = upper_bound(m_rules.begin(), m_rules.end(), scale, compare_scales());
+      m_iters[1] = upper_bound(m_rules.begin(), m_rules.end(), scale, less_scales());
       if (m_iters[1] != m_rules.begin())
       {
         --m_iters[1];
