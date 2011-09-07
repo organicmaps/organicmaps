@@ -409,7 +409,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
         bool isN = ((pRule->GetType() & drule::way) != 0);
 
         // draw area text
-        if (isArea && isN)
+        if (isArea/* && isN*/)
         {
           for (list<di::AreaInfo>::const_iterator i = pInfo->m_areas.begin(); i != pInfo->m_areas.end(); ++i)
             drawText(i->GetCenter(), pInfo, pRule, yg::EPosAbove, depth);
