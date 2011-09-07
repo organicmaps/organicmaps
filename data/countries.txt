@@ -174,7 +174,7 @@
   is:Iceland
   ie:Ireland
   it:Italy
-  ks:Kosovo
+  xk:Kosovo
   lv:Latvia
   li:Liechtenstein
   lt:Lithuania
@@ -210,10 +210,10 @@
    Guernsey
    Isle of Man
    Jersey
-   London & England|UK_England
-   Northern Ireland|UK_Northern Ireland
-   Scotland|UK_Scotland
-   Wales|UK_Wales
+   uk_england:England|UK_England
+   uk_northern_ireland:Northern Ireland|UK_Northern Ireland
+   uk_scotland:Scotland|UK_Scotland
+   uk_wales:Wales|UK_Wales
   ua:Ukraine
  Middle East
   bh:Bahrain
