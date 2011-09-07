@@ -13,6 +13,7 @@ include($$ROOT_DIR/common.pri)
 HEADERS += \
   equality.hpp \
   large_polygon.hpp \
+  test_regions.hpp \
 
 SOURCES += \
   ../../testing/testingmain.cpp \
