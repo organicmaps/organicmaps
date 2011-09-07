@@ -345,17 +345,18 @@ namespace feature
     public:
       BoundsDistance(uint32_t cellID, int level)
       {
-        RectId cell = RectId::FromBitsAndLevel(cellID, level);
+        RectId const cell = RectId::FromBitsAndLevel(cellID, level);
         CellIdConverter<MercatorBounds, RectId>::GetCellBounds(cell, m_minX, m_minY, m_maxX, m_maxY);
       }
 
-      void SetEpsilon(double eps) { m_eps = 2.0*eps; }
+      void SetEpsilon(double eps) { m_eps = eps; }
 
       double operator() (m2::PointD const & p) const
       {
         if (fabs(p.x - m_minX) <= m_eps || fabs(p.x - m_maxX) <= m_eps ||
             fabs(p.y - m_minY) <= m_eps || fabs(p.y - m_maxY) <= m_eps)
         {
+          // points near rect should be in a result simplified vector
           return std::numeric_limits<double>::max();
         }
 
@@ -371,6 +372,8 @@ namespace feature
       {
         BoundsDistance dist(cellID, g_coastsCellLevel);
         feature::SimplifyPoints(dist, in, out, level);
+
+        //LOG(LINFO, ("Special simplification", in.size(), out.size()));
       }
       else
       {

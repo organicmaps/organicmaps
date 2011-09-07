@@ -6,11 +6,14 @@
 #include "../geometry/region2d/binary_operators.hpp"
 
 #include "../base/string_utils.hpp"
+#include "../base/logging.hpp"
 
 #include "../std/bind.hpp"
 
 
 typedef m2::RegionI RegionT;
+typedef m2::PointI PointT;
+typedef m2::RectI RectT;
 
 
 CoastlineFeaturesGenerator::CoastlineFeaturesGenerator(uint32_t coastType, int level)
@@ -22,15 +25,14 @@ namespace
 {
   m2::RectD GetLimitRect(RegionT const & rgn)
   {
-    m2::RectI r = rgn.GetRect();
+    RectT r = rgn.GetRect();
     return m2::RectD(r.minX(), r.minY(), r.maxX(), r.maxY());
   }
 
-  inline m2::PointI D2I(m2::PointD const & p)
+  inline PointT D2I(m2::PointD const & p)
   {
     m2::PointU const pu = PointD2PointU(p, POINT_COORD_BITS);
-    return m2::PointI(static_cast<int32_t>(pu.x),
-                      static_cast<int32_t>(pu.y));
+    return PointT(static_cast<int32_t>(pu.x), static_cast<int32_t>(pu.y));
   }
 
   class DoCreateRegion
@@ -109,26 +111,37 @@ namespace
 {
   class DoDifference
   {
-    vector<RegionT> m_res;
+    RectT m_src;
+    vector<RegionT> m_res, m_readyRes;
     vector<m2::PointD> m_points;
 
   public:
     DoDifference(RegionT const & rgn)
     {
       m_res.push_back(rgn);
+      m_src = rgn.GetRect();
     }
 
     void operator() (RegionT const & r)
     {
-      vector<RegionT> local;
+      if (m_src.IsRectInside(r.GetRect()))
+      {
+        // if r is fully inside source rect region,
+        // put it to the result vector without any intersection
+        m_readyRes.push_back(r);
+      }
+      else
+      {
+        vector<RegionT> local;
 
-      for (size_t i = 0; i < m_res.size(); ++i)
-        m2::DiffRegions(m_res[i], r, local);
+        for (size_t i = 0; i < m_res.size(); ++i)
+          m2::DiffRegions(m_res[i], r, local);
 
-      local.swap(m_res);
+        local.swap(m_res);
+      }
     }
 
-    void operator() (m2::PointI const & p)
+    void operator() (PointT const & p)
     {
       CoordPointT const c = PointU2PointD(m2::PointU(
                                 static_cast<uint32_t>(p.x),
@@ -136,23 +149,38 @@ namespace
       m_points.push_back(m2::PointD(c.first, c.second));
     }
 
-    void AssignGeometry(FeatureBuilder1 & fb)
+    void AssignGeometry(vector<RegionT> const & v, FeatureBuilder1 & fb)
     {
-      for (size_t i = 0; i < m_res.size(); ++i)
+      for (size_t i = 0; i < v.size(); ++i)
       {
         m_points.clear();
-        m_points.reserve(m_res[i].Size() + 1);
+        m_points.reserve(v[i].Size() + 1);
 
-        m_res[i].ForEachPoint(bind<void>(ref(*this), _1));
+        v[i].ForEachPoint(bind<void>(ref(*this), _1));
 
         fb.AddPolygon(m_points);
       }
+    }
+
+    void AssignGeometry(FeatureBuilder1 & fb)
+    {
+      AssignGeometry(m_res, fb);
+      AssignGeometry(m_readyRes, fb);
+    }
+  };
+
+  class DoLogRegions
+  {
+  public:
+    void operator() (RegionT const & r)
+    {
+      LOG_SHORT(LINFO, ("Boundary", r));
     }
   };
 }
 
 bool CoastlineFeaturesGenerator::GetFeature(size_t i, FeatureBuilder1 & fb)
-{
+{ 
   // get rect cell
   CellIdT cell = CellIdT::FromBitsAndLevel(i, m_Level);
   double minX, minY, maxX, maxY;
@@ -160,8 +188,8 @@ bool CoastlineFeaturesGenerator::GetFeature(size_t i, FeatureBuilder1 & fb)
 
   // create rect region
   typedef m2::PointD P;
-  m2::PointI arr[] = { D2I(P(minX, minY)), D2I(P(minX, maxY)),
-                       D2I(P(maxX, maxY)), D2I(P(maxX, minY)) };
+  PointT arr[] = { D2I(P(minX, minY)), D2I(P(minX, maxY)),
+                   D2I(P(maxX, maxY)), D2I(P(maxX, minY)) };
   RegionT rectR(arr, arr + ARRAY_SIZE(arr));
 
   // substract all 'land' from this region
