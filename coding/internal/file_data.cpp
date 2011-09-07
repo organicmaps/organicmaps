@@ -6,6 +6,12 @@
 #include "../../base/exception.hpp"
 #include "../../base/logging.hpp"
 
+#include "../../std/target_os.hpp"
+
+#ifdef OMIM_OS_WINDOWS
+#include <io.h>
+#endif
+
 #include "../../base/start_mem_debug.hpp"
 
 
