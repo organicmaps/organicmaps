@@ -11,7 +11,7 @@
 namespace feature
 {
   /// Final generation of data from input feature-dat-file
-  bool GenerateFinalFeatures(string const & datFile, bool bWorld);
+  bool GenerateFinalFeatures(string const & datFile, int mapType);
 
   template <class PointT>
   inline bool are_points_equal(PointT const & p1, PointT const & p2)

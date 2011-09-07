@@ -160,8 +160,14 @@ int main(int argc, char ** argv)
     if (FLAGS_generate_geometry)
     {
       LOG(LINFO, ("Generating result features for ", datFile));
-      if (!feature::GenerateFinalFeatures(datFile,
-                    datFile == worldPath || datFile == worldCoastsPath))
+
+      int mapType = feature::DataHeader::country;
+      if (datFile == worldPath)
+        mapType = feature::DataHeader::world;
+      if (datFile == worldCoastsPath)
+        mapType = feature::DataHeader::worldcoasts;
+
+      if (!feature::GenerateFinalFeatures(datFile, mapType))
       {
         // If error - move to next bucket without index generation
         continue;

@@ -50,7 +50,17 @@ namespace feature
     };
     inline Version GetVersion() const { return m_ver; }
 
+    enum MapType {
+      world,
+      worldcoasts,
+      country
+    };
+
+    inline void SetType(MapType t) { m_type = t; }
+    inline MapType GetType() const { return m_type; }
+
   private:
     Version m_ver;
+    MapType m_type;
   };
 }

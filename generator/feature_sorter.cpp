@@ -444,7 +444,7 @@ namespace feature
     return static_cast<FeatureBuilder2 &>(fb);
   }
 
-  bool GenerateFinalFeatures(string const & datFilePath, bool bWorld)
+  bool GenerateFinalFeatures(string const & datFilePath, int mapType)
   {
     // rename input file
     Platform & platform = GetPlatform();
@@ -471,12 +471,16 @@ namespace feature
     {
       FileReader reader(tempDatFilePath);
 
+      bool const isWorld = (mapType != feature::DataHeader::country);
+
       feature::DataHeader header;
       uint32_t coordBits = 27;
-      if (bWorld)
+      if (isWorld)
         coordBits -= (scales::GetUpperScale() - scales::GetUpperWorldScale());
+
       header.SetCodingParams(serial::CodingParams(coordBits, midPoints.GetCenter()));
-      header.SetScales(bWorld ? g_arrWorldScales : g_arrCountryScales);
+      header.SetScales(isWorld ? g_arrWorldScales : g_arrCountryScales);
+      header.SetType(static_cast<feature::DataHeader::MapType>(mapType));
 
       FeaturesCollector2 collector(datFilePath, header);
 

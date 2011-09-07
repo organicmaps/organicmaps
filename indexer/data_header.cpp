@@ -46,13 +46,12 @@ namespace feature
   {
     m_codingParams.Save(w);
 
-    //int64_t const base = m_codingParams.GetBasePointInt64();
-    //WriteVarInt(w, m_bounds.first - base);
-    //WriteVarInt(w, m_bounds.second - base);
-    WriteToSink(w, m_bounds.first);
-    WriteToSink(w, m_bounds.second);
+    WriteVarInt(w, m_bounds.first);
+    WriteVarInt(w, m_bounds.second);
 
     w.Write(m_scales.data(), m_scales.size());
+
+    WriteVarInt(w, static_cast<int32_t>(m_type));
   }
 
   void DataHeader::Load(ModelReaderPtr const & r)
@@ -60,13 +59,12 @@ namespace feature
     ReaderSource<ModelReaderPtr> src(r);
     m_codingParams.Load(src);
 
-    //int64_t const base = m_codingParams.GetBasePointInt64();
-    //m_bounds.first = ReadVarInt<int64_t>(src) + base;
-    //m_bounds.second = ReadVarInt<int64_t>(src) + base;
-    m_bounds.first = ReadPrimitiveFromSource<int64_t>(src);
-    m_bounds.second = ReadPrimitiveFromSource<int64_t>(src);
+    m_bounds.first = ReadVarInt<int64_t>(src);
+    m_bounds.second = ReadVarInt<int64_t>(src);
 
     src.Read(m_scales.data(), m_scales.size());
+
+    m_type = static_cast<MapType>(ReadVarInt<int32_t>(src));
 
     m_ver = v2;
   }
