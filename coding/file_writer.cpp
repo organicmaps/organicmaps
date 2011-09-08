@@ -4,20 +4,26 @@
 #include "../../base/start_mem_debug.hpp"
 
 
-FileWriter::FileWriter(FileWriter const & rhs) : Writer(*this)
+FileWriter::FileWriter(FileWriter const & rhs)
+: Writer(*this), m_bTruncOnClose(rhs.m_bTruncOnClose)
 {
   m_pFileData.swap(const_cast<FileWriter &>(rhs).m_pFileData);
 }
 
-FileWriter::FileWriter(string const & fileName, FileWriter::Op op)
-  : m_pFileData(new fdata_t(fileName, static_cast<fdata_t::Op>(op)))
+FileWriter::FileWriter(string const & fileName, FileWriter::Op op, bool bTruncOnClose)
+: m_pFileData(new fdata_t(fileName, static_cast<fdata_t::Op>(op))), m_bTruncOnClose(bTruncOnClose)
 {
 }
 
 FileWriter::~FileWriter()
 {
   if (m_pFileData)
+  {
     Flush();
+
+    if (m_bTruncOnClose)
+      m_pFileData->Truncate(Pos());
+  }
 }
 
 int64_t FileWriter::Pos() const
@@ -49,11 +55,6 @@ uint64_t FileWriter::Size() const
 void FileWriter::Flush()
 {
   m_pFileData->Flush();
-}
-
-void FileWriter::Truncate(uint64_t sz)
-{
-  m_pFileData->Truncate(sz);
 }
 
 void FileWriter::DeleteFileX(string const & fName)

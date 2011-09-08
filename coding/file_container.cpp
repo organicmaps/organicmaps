@@ -177,9 +177,8 @@ FileWriter FilesContainerW::GetWriter(Tag const & tag)
     uint64_t const curr = m_info.back().m_offset + m_info.back().m_size;
     m_info.push_back(Info(tag, curr));
 
-    FileWriter writer(m_name, FileWriter::OP_WRITE_EXISTING);
+    FileWriter writer(m_name, FileWriter::OP_WRITE_EXISTING, true);
     writer.Seek(curr);
-    writer.Truncate(curr);
     return writer;
   }
   else

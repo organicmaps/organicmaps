@@ -27,7 +27,8 @@ public:
   /// Added for use in FilesContainerW interface.
   FileWriter(FileWriter const & rhs);
 
-  explicit FileWriter(string const & fileName, Op operation = OP_WRITE_TRUNCATE);
+  explicit FileWriter(string const & fileName,
+                      Op operation = OP_WRITE_TRUNCATE, bool bTruncOnClose = false);
   ~FileWriter();
 
   void Seek(int64_t pos);
@@ -36,7 +37,6 @@ public:
 
   uint64_t Size() const;
   void Flush();
-  void Truncate(uint64_t sz);
 
   static void DeleteFileX(string const & fName);
 
@@ -45,4 +45,5 @@ public:
 private:
   typedef my::FileData fdata_t;
   scoped_ptr<fdata_t> m_pFileData;
+  bool m_bTruncOnClose;
 };
