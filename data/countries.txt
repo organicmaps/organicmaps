@@ -77,33 +77,6 @@
   tm:Turkmenistan
   uz:Uzbekistan
   vn:Vietnam
- Caribbean
-  ai:Anguilla
-  ag:Antigua and Barbuda
-  aw:Aruba
-  bs:Bahamas
-  bb:Barbados
-  vg:British Virgin Islands
-  ky:Cayman Islands
-  cu:Cuba
-  cw:Curaçao|Curacao
-  dm:Dominica
-  do:Dominican Republic
-  gd:Grenada
-  gp:Guadeloupe
-  ht:Haiti
-  jm:Jamaica
-  mq:Martinique
-  ms:Montserrat
-  an:Netherlands Antilles
-  pr:Puerto Rico
-  bl:Saint Barthélemy|Saint Barthelemy
-  kn:Saint Kitts and Nevis
-  lc:Saint Lucia
-  vc:Saint Vincent and the Grenadines
-  tt:Trinidad and Tobago
-  tc:Turks and Caicos Islands
-  vi:United States Virgin Islands
  Central America
   bz:Belize
   cr:Costa Rica
@@ -233,7 +206,7 @@
   tr:Turkey
   ae:United Arab Emirates
   ye:Yemen
- Minor Islands
+ Islands
   Atlantic Ocean
    bm:Bermuda
    bv:Bouvet Island
@@ -244,6 +217,33 @@
    pm:Saint Pierre and Miquelon
    st:São Tomé and Príncipe|Sao Tome and Principe
    gs:South Georgia and the South Sandwich Islands
+  Caribbean
+   ai:Anguilla
+   ag:Antigua and Barbuda
+   aw:Aruba
+   bs:Bahamas
+   bb:Barbados
+   vg:British Virgin Islands
+   ky:Cayman Islands
+   cu:Cuba
+   cw:Curaçao|Curacao
+   dm:Dominica
+   do:Dominican Republic
+   gd:Grenada
+   gp:Guadeloupe
+   ht:Haiti
+   jm:Jamaica
+   mq:Martinique
+   ms:Montserrat
+   an:Netherlands Antilles
+   pr:Puerto Rico
+   bl:Saint Barthélemy|Saint Barthelemy
+   kn:Saint Kitts and Nevis
+   lc:Saint Lucia
+   vc:Saint Vincent and the Grenadines
+   tt:Trinidad and Tobago
+   tc:Turks and Caicos Islands
+   vi:United States Virgin Islands
   Indian Ocean
    io:British Indian Ocean Territory
    km:Comoros
