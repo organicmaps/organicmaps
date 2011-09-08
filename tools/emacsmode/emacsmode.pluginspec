@@ -13,9 +13,9 @@ Alternatively, this plugin may be used under the terms of the GNU Lesser General
     <description>Emacs-style keyboard navigation.</description>
     <url></url>
     <dependencyList>
-        <dependency name="CppEditor" version="2.1.81"/><!-- Plugin adds items to the editor's context menu -->
-        <dependency name="TextEditor" version="2.1.81"/>
-        <dependency name="ProjectExplorer" version="2.1.81"/>
-        <dependency name="Core" version="2.1.81"/>
+        <dependency name="CppEditor" version="2.3.0"/><!-- Plugin adds items to the editor's context menu -->
+        <dependency name="TextEditor" version="2.3.0"/>
+        <dependency name="ProjectExplorer" version="2.3.0"/>
+        <dependency name="Core" version="2.3.0"/>
     </dependencyList>
 </plugin>

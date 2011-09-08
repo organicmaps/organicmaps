@@ -1,12 +1,12 @@
-QTC_SOURCE = ../../../qt-creator-2.2.0-beta-src
-QTC_BUILD = ../../../qt-creator-2.2.0-beta-src
+QTC_SOURCE = ../../../qt-creator-2.3.0-src
+QTC_BUILD = ../../../qtcreator-build-desktop-release
 
 TEMPLATE = lib
 TARGET = EmacsMode
 IDE_SOURCE_TREE = $$QTC_SOURCE
 IDE_BUILD_TREE = $$QTC_BUILD
-PROVIDER = Spliny
-DESTDIR = $$QTC_BUILD/lib/qtcreator/plugins/Spliny
+PROVIDER = MapsWithMe
+DESTDIR = $$QTC_BUILD/lib/qtcreator/plugins/MapsWithMe
 LIBS += -L$$QTC_BUILD/bin/Qt\ Creator.app/Contents/PlugIns/Nokia
 
 include($$QTC_SOURCE/src/qtcreatorplugin.pri)

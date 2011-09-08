@@ -51,9 +51,10 @@
 #include <texteditor/basetextdocumentlayout.h>
 #include <texteditor/basetexteditor.h>
 #include <texteditor/basetextmark.h>
-#include <texteditor/completionsupport.h>
+//#include <texteditor/completionsupport.h>
 #include <texteditor/texteditorconstants.h>
 #include <texteditor/tabsettings.h>
+#include <texteditor/tabpreferences.h>
 #include <texteditor/texteditorsettings.h>
 #include <texteditor/indenter.h>
 //#include <texteditor/textblockiterator.h>
@@ -138,9 +139,16 @@ QWidget *EmacsModeOptionPage::createPage(QWidget *parent)
 
 void EmacsModeOptionPage::copyTextEditorSettings()
 {
-    TextEditor::TabSettings ts = 
-        TextEditor::TextEditorSettings::instance()->tabSettings();
-    
+    TabSettings ts = TextEditorSettings::instance()->tabPreferences()->settings();
+
+ /*   m_ui.checkBoxExpandTab->setChecked(ts.m_spacesForTabs);
+    m_ui.spinBoxTabStop->setValue(ts.m_tabSize);
+    m_ui.spinBoxShiftWidth->setValue(ts.m_indentSize);
+    m_ui.checkBoxSmartTab->setChecked(ts.m_smartBackspace);
+    m_ui.checkBoxAutoIndent->setChecked(true);
+    m_ui.checkBoxSmartIndent->setChecked(ts.m_autoIndent);
+    m_ui.checkBoxIncSearch->setChecked(true);
+   */
     m_ui.checkBoxExpandTab->setChecked(ts.m_spacesForTabs);
     m_ui.lineEditTabStop->setText(QString::number(ts.m_tabSize));
     m_ui.lineEditShiftWidth->setText(QString::number(ts.m_indentSize));
@@ -434,9 +442,9 @@ void EmacsModePluginPrivate::writeFile(bool *handled,
     if (editor && editor->file()->fileName() == fileName) {
         // Handle that as a special case for nicer interaction with core
         Core::IFile *file = editor->file();
-        Core::ICore::instance()->fileManager()->blockFileChange(file);
+        Core::ICore::instance()->fileManager()->saveFile(file);/*blockFileChange(file);
         file->save(fileName);
-        Core::ICore::instance()->fileManager()->unblockFileChange(file);
+        Core::ICore::instance()->fileManager()->unblockFileChange(file);*/
         *handled = true;
     } 
 }
