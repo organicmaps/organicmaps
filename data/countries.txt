@@ -203,6 +203,7 @@
   sk:Slovakia
   si:Slovenia
   es:Spain
+  sj:Svalbard and Jan Mayen
   se:Sweden
   ch:Switzerland
   gb:UK & Crown Dependencies
@@ -233,8 +234,6 @@
   ae:United Arab Emirates
   ye:Yemen
  Minor Islands
-  Arctic
-   sj:Svalbard and Jan Mayen
   Atlantic Ocean
    bm:Bermuda
    bv:Bouvet Island
