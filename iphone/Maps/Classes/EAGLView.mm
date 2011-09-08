@@ -19,12 +19,16 @@
 @synthesize windowHandle;
 @synthesize renderContext;
 @synthesize resourceManager;
+@synthesize doRepaint;
+@synthesize displayLink;
 
 // You must implement this method
 + (Class)layerClass
 {
   return [CAEAGLLayer class];
 }
+
+static bool _doRepaint = true;
 
 // The GL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:
 - (id)initWithCoder:(NSCoder*)coder
@@ -140,9 +144,15 @@
 //		frameBuffer->onSize(renderBuffer->width(), renderBuffer->height());
 //		frameBuffer->setRenderTarget(renderBuffer);
 
-		windowHandle = shared_ptr<iphone::WindowHandle>(new iphone::WindowHandle(self));
+//    self.doRepaint = true;
+    
+    windowHandle = shared_ptr<iphone::WindowHandle>(new iphone::WindowHandle(_doRepaint));
+    
 		windowHandle->setDrawer(drawer);
 		windowHandle->setRenderContext(renderContext);
+    
+    displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(drawView)];
+    [displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
   }
 
   return self;
@@ -168,8 +178,12 @@
 
 - (void)drawView
 {
-	[controller onPaint];
-	renderBuffer->present();
+  if (_doRepaint)
+  {
+  	[controller onPaint];
+	  renderBuffer->present();
+    _doRepaint = false;
+  }
 }
 
 - (void)drawViewThunk:(id)obj
@@ -192,6 +206,7 @@
 
 - (void)dealloc
 {
+  [displayLink release];
   [EAGLContext setCurrentContext:nil];
   [super dealloc];
 }

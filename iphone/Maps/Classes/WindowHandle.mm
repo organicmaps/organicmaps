@@ -3,13 +3,13 @@
 
 namespace iphone
 {
-	WindowHandle::WindowHandle(EAGLView * view)
-	{
-		m_view = view;
+	WindowHandle::WindowHandle(bool & doRepaint)
+  {
+    m_doRepaint = &doRepaint;
 	}
 
 	void WindowHandle::invalidateImpl()
 	{
-		[m_view drawViewOnMainThread];
-	}
+    *m_doRepaint = true;
+  }
 }

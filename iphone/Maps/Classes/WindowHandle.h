@@ -8,10 +8,10 @@ namespace iphone
 {
   class WindowHandle : public ::WindowHandle
   {
-    EAGLView * m_view;
+    bool * m_doRepaint;
 
 	public:
-    WindowHandle(EAGLView * view);
+    WindowHandle(bool & doRepaint);
 	  virtual void invalidateImpl();
   };
 }

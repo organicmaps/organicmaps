@@ -2,6 +2,7 @@
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
+#import <QuartzCore/CADisplayLink.h>
 #import "MapViewController.h"
 #include "../../std/shared_ptr.hpp"
 #include "../../map/drawer_yg.hpp"
@@ -41,14 +42,17 @@ namespace yg
 	shared_ptr<yg::ResourceManager> textureManager;
 
   MapViewController * controller;
+  bool doRepaint;
 }
 
 // Called as a result of invalidate on iphone::WindowHandle
 - (void)drawViewOnMainThread;
 
+@property (nonatomic, assign) CADisplayLink * displayLink;
 @property (nonatomic, assign) MapViewController * controller;
 @property (nonatomic, assign) shared_ptr<iphone::WindowHandle> windowHandle;
 @property (nonatomic, assign) shared_ptr<iphone::RenderContext> renderContext;
 @property (nonatomic, assign) shared_ptr<yg::ResourceManager> resourceManager;
+@property (nonatomic, assign) bool doRepaint;
 
 @end
