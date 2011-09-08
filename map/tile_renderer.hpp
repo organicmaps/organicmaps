@@ -35,9 +35,17 @@ protected:
 
   shared_ptr<yg::ResourceManager> m_resourceManager;
 
-  vector<DrawerYG*> m_drawers;
-  vector<DrawerYG::params_t> m_drawerParams;
-  vector<shared_ptr<yg::gl::RenderContext> > m_renderContexts;
+  struct ThreadData
+  {
+    DrawerYG * m_drawer;
+    DrawerYG::params_t m_drawerParams;
+    shared_ptr<yg::gl::BaseTexture> m_fakeTarget;
+    shared_ptr<yg::gl::RenderContext> m_renderContext;
+  };
+
+  buffer_vector<ThreadData, 4> m_threadData;
+
+  shared_ptr<yg::gl::RenderContext> m_primaryContext;
 
   TileCache m_tileCache;
 

@@ -32,6 +32,9 @@ void TileRenderer::Initialize(shared_ptr<yg::gl::RenderContext> const & primaryC
                              double visualScale)
 {
   m_resourceManager = resourceManager;
+  m_primaryContext = primaryContext;
+
+  m_threadData.resize(m_queue.ExecutorsCount());
 
   LOG(LINFO, ("initializing ", m_queue.ExecutorsCount(), " rendering threads"));
 
@@ -58,9 +61,9 @@ void TileRenderer::Initialize(shared_ptr<yg::gl::RenderContext> const & primaryC
     params.m_drawAreas = false;
     params.m_drawTexts = false; */
 
-    m_drawerParams.push_back(params);
-    m_drawers.push_back(0);
-    m_renderContexts.push_back(primaryContext->createShared());
+    m_threadData[i].m_drawerParams = params;
+    m_threadData[i].m_drawer = 0;
+    m_threadData[i].m_fakeTarget = m_resourceManager->createRenderTarget(2, 2);
   }
 
   m_queue.AddInitCommand(bind(&TileRenderer::InitializeThreadGL, this, _1));
@@ -82,16 +85,21 @@ void TileRenderer::CancelThread(core::CommandsQueue::Environment const & /*env*/
 
 void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & env)
 {
-  m_renderContexts[env.GetThreadNum()]->makeCurrent();
+  ThreadData & threadData = m_threadData[env.GetThreadNum()];
 
-  m_drawers[env.GetThreadNum()] = new DrawerYG(m_drawerParams[env.GetThreadNum()]);
+  threadData.m_renderContext = m_primaryContext->createShared();
+  threadData.m_renderContext->makeCurrent();
+  threadData.m_drawer = new DrawerYG(threadData.m_drawerParams);
 }
 
 void TileRenderer::FinalizeThreadGL(core::CommandsQueue::Environment const & env)
 {
-  m_renderContexts[env.GetThreadNum()]->endThreadDrawing();
-  if (m_drawers[env.GetThreadNum()] != 0)
-    delete m_drawers[env.GetThreadNum()];
+  ThreadData & threadData = m_threadData[env.GetThreadNum()];
+
+  threadData.m_renderContext->endThreadDrawing();
+
+  if (threadData.m_drawer != 0)
+    delete threadData.m_drawer;
 }
 
 void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
@@ -105,7 +113,9 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   if (HasTile(rectInfo))
     return;
 
-  DrawerYG * drawer = m_drawers[env.GetThreadNum()];
+  ThreadData & threadData = m_threadData[env.GetThreadNum()];
+
+  DrawerYG * drawer = threadData.m_drawer;
 
   ScreenBase frameScreen;
 
@@ -160,6 +170,11 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
         );
 
   drawer->endFrame();
+
+/*  drawer->beginFrame();
+  drawer->screen()->setRenderTarget(threadData.m_fakeTarget);
+  drawer->endFrame();*/
+
   drawer->screen()->resetInfoLayer();
 
   double duration = timer.ElapsedSeconds();
