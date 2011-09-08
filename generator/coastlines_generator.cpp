@@ -206,5 +206,6 @@ bool CoastlineFeaturesGenerator::GetFeature(size_t i, FeatureBuilder1 & fb)
   fb.AddType(m_coastType);
   fb.SetCoastCell(i);
 
-  return true;
+  // should present any geometry
+  return (fb.GetPointsCount() >= 3);
 }

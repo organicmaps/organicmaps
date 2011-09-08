@@ -309,10 +309,11 @@ public:
       for (size_t i = 0; i < count; ++i)
       {
         FeatureBuilder1 fb;
-        m_coasts->GetFeature(i, fb);
-
-        (*m_coastsHolder)(fb);
-        m_countries(fb);
+        if (m_coasts->GetFeature(i, fb))
+        {
+          (*m_coastsHolder)(fb);
+          m_countries(fb);
+        }
       }
     }
   }
