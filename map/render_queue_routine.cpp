@@ -431,11 +431,14 @@ void RenderQueueRoutine::Do()
       /// in the endFrame function
       /// updateActualTarget();
 
-      m_currentRenderCommand.reset();
-
+      threads::ConditionGuard g1(m_hasRenderCommands);
       {
-        threads::MutexGuard guard(*m_renderState->m_mutex.get());
-        m_renderState->m_duration = duration;
+        m_currentRenderCommand.reset();
+
+        {
+          threads::MutexGuard g2(*m_renderState->m_mutex.get());
+          m_renderState->m_duration = duration;
+        }
       }
 
       invalidate();
