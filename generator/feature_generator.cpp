@@ -264,10 +264,8 @@ public:
     : m_countries(info)
   {
     {
-      vector<string> path;
-      path.push_back("natural");
-      path.push_back("coastline");
-      m_coastType = classif().GetTypeByPath(path);
+      static char const * path[] = {"natural", "coastline"};
+      m_coastType = classif().GetTypeByPath(vector<string>(path, path + 2));
     }
 
     if (info.m_createWorld)
@@ -306,6 +304,7 @@ public:
       m_coasts->Finish();
 
       size_t const count = m_coasts->GetFeaturesCount();
+      LOG(LINFO, ("Generating coastline polygons", count));
       for (size_t i = 0; i < count; ++i)
       {
         FeatureBuilder1 fb;

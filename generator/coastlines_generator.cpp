@@ -97,6 +97,8 @@ namespace
     {
       if (fb.IsGeometryClosed())
         m_rMain.AddRegionToTree(fb);
+      else
+        LOG(LINFO, ("Not merged coastline", fb));
     }
   };
 }
@@ -180,7 +182,7 @@ namespace
 }
 
 bool CoastlineFeaturesGenerator::GetFeature(size_t i, FeatureBuilder1 & fb)
-{ 
+{
   // get rect cell
   CellIdT cell = CellIdT::FromBitsAndLevel(i, m_Level);
   double minX, minY, maxX, maxY;
