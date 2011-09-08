@@ -116,7 +116,7 @@
   al:Albania
   ad:Andorra
   am:Armenia
-  au:Austria
+  at:Austria
   az:Azerbaijan
   by:Belarus
   be:Belgium
