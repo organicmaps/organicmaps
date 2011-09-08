@@ -179,7 +179,7 @@
   sj:Svalbard and Jan Mayen
   se:Sweden
   ch:Switzerland
-  gb:UK & Crown Dependencies
+  gb:UK and Crown Dependencies
    All UK territories|Guernsey|Isle of Man|Jersey|UK_England|UK_Northern Ireland|UK_Scotland|UK_Wales
    Guernsey
    Isle of Man
