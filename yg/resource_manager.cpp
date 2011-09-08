@@ -79,6 +79,14 @@ namespace yg
     m_multiBlitStorages.reset(new TStoragePool(TStoragePoolTraits(TStorageFactory(multiBlitVBSize, multiBlitIBSize, m_useVA, "multiBlitStorage"), multiBlitStoragesCount)));
   }
 
+  void ResourceManager::initTinyStorage(size_t tinyVBSize, size_t tinyIBSize, size_t tinyStoragesCount)
+  {
+    m_tinyVBSize = tinyVBSize;
+    m_tinyIBSize = tinyIBSize;
+
+    m_tinyStorages.reset(new TStoragePool(TStoragePoolTraits(TStorageFactory(tinyVBSize, tinyIBSize, m_useVA, "tinyStorage"), tinyStoragesCount)));
+  }
+
   void ResourceManager::initRenderTargets(size_t renderTargetWidth, size_t renderTargetHeight, size_t renderTargetsCount)
   {
     m_renderTargetWidth = renderTargetWidth;
@@ -185,6 +193,9 @@ namespace yg
     if (m_multiBlitStorages.get())
       m_multiBlitStorages->EnterBackground();
 
+    if (m_tinyStorages.get())
+      m_tinyStorages->EnterBackground();
+
     if (m_dynamicTextures.get())
       m_dynamicTextures->EnterBackground();
 
@@ -210,6 +221,9 @@ namespace yg
 
     if (m_multiBlitStorages.get())
       m_multiBlitStorages->EnterForeground();
+
+    if (m_tinyStorages.get())
+      m_tinyStorages->EnterForeground();
 
     if (m_dynamicTextures.get())
       m_dynamicTextures->EnterForeground();
@@ -262,6 +276,11 @@ namespace yg
   ResourceManager::TStoragePool * ResourceManager::multiBlitStorages()
   {
     return m_multiBlitStorages.get();
+  }
+
+  ResourceManager::TStoragePool * ResourceManager::tinyStorages()
+  {
+    return m_tinyStorages.get();
   }
 
   ResourceManager::TTexturePool * ResourceManager::dynamicTextures()

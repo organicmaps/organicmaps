@@ -92,10 +92,14 @@ namespace yg
     size_t m_multiBlitVBSize;
     size_t m_multiBlitIBSize;
 
+    size_t m_tinyVBSize;
+    size_t m_tinyIBSize;
+
     auto_ptr<TStoragePool> m_storages;
     auto_ptr<TStoragePool> m_smallStorages;
     auto_ptr<TStoragePool> m_blitStorages;
     auto_ptr<TStoragePool> m_multiBlitStorages;
+    auto_ptr<TStoragePool> m_tinyStorages;
 
     vector<GlyphCache> m_glyphCaches;
 
@@ -118,6 +122,7 @@ namespace yg
 
     void initMultiBlitStorage(size_t multiBlitVBSize, size_t multiBlitIBSize, size_t multiBlitStoragesCount);
     void initRenderTargets(size_t renderTargetWidth, size_t renderTargetHeight, size_t renderTargetCount);
+    void initTinyStorage(size_t tinyVBSize, size_t tinyIBSize, size_t tinyStoragesCount);
 
     shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
 
@@ -125,6 +130,7 @@ namespace yg
     TStoragePool * smallStorages();
     TStoragePool * blitStorages();
     TStoragePool * multiBlitStorages();
+    TStoragePool * tinyStorages();
 
     TTexturePool * dynamicTextures();
     TTexturePool * fontTextures();

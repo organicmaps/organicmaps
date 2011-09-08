@@ -22,11 +22,16 @@ namespace yg
 {
   namespace gl
   {
-    GeometryBatcher::Params::Params() : m_isSynchronized(true)
+    GeometryBatcher::Params::Params()
+      : m_isSynchronized(true),
+        m_useTinyStorage(false)
     {}
 
     GeometryBatcher::GeometryBatcher(Params const & params)
-      : base_t(params), m_isAntiAliased(true), m_isSynchronized(params.m_isSynchronized)
+      : base_t(params),
+        m_isAntiAliased(true),
+        m_isSynchronized(params.m_isSynchronized),
+        m_useTinyStorage(params.m_useTinyStorage)
     {
       reset(-1);
       applyStates();
@@ -77,8 +82,11 @@ namespace yg
    {
      if (!m_hasStorage)
      {
-       m_storage = usage != SkinPage::EStaticUsage ? resourceManager->storages()->Reserve()
-                                                   : resourceManager->smallStorages()->Reserve();
+       if (m_useTinyStorage)
+         m_storage = resourceManager->tinyStorages()->Reserve();
+       else
+         m_storage = usage != SkinPage::EStaticUsage ? resourceManager->storages()->Reserve()
+                                                     : resourceManager->smallStorages()->Reserve();
 
        m_maxVertices = m_storage.m_vertices->size() / sizeof(Vertex);
        m_maxIndices = m_storage.m_indices->size() / sizeof(unsigned short);
@@ -103,6 +111,7 @@ namespace yg
 
        for (size_t i = 0; i < m_pipelines.size(); ++i)
        {
+         m_pipelines[i].m_useTinyStorage = m_useTinyStorage;
          m_pipelines[i].m_currentVertex = 0;
          m_pipelines[i].m_currentIndex = 0;
 
@@ -223,10 +232,13 @@ namespace yg
 
              renderedData = true;
 
-             if (skinPage->usage() != SkinPage::EStaticUsage)
-               resourceManager()->storages()->Free(pipeline.m_storage);
+             if (m_useTinyStorage)
+               resourceManager()->tinyStorages()->Free(pipeline.m_storage);
              else
-               resourceManager()->smallStorages()->Free(pipeline.m_storage);
+               if (skinPage->usage() != SkinPage::EStaticUsage)
+                 resourceManager()->storages()->Free(pipeline.m_storage);
+               else
+                 resourceManager()->smallStorages()->Free(pipeline.m_storage);
 
              pipeline.m_hasStorage = false;
              pipeline.m_storage = Storage();

@@ -62,6 +62,8 @@ namespace yg
         mutable unsigned short * m_indices;
         /// @}
 
+        bool m_useTinyStorage;
+
         size_t verticesLeft();
         size_t indicesLeft();
 
@@ -79,6 +81,7 @@ namespace yg
 
       bool m_isAntiAliased;
       bool m_isSynchronized;
+      bool m_useTinyStorage;
 
       int m_aaShift;
 
@@ -94,6 +97,7 @@ namespace yg
       struct Params : public base_t::Params
       {
         bool m_isSynchronized;
+        bool m_useTinyStorage;
         Params();
       };
 

@@ -90,16 +90,27 @@
     int multiBlitVBSize = pow(2, ceil(log2(300 * sizeof(yg::gl::AuxVertex))));
     int multiBlitIBSize = pow(2, ceil(log2(300 * sizeof(unsigned short))));
 
+    int tinyVBSize = pow(2, ceil(log2(300 * sizeof(yg::gl::AuxVertex))));
+    int tinyIBSize = pow(2, ceil(log2(300 * sizeof(unsigned short))));
+    
     NSLog(@"Vendor: %s, Renderer: %s", glGetString(GL_VENDOR), glGetString(GL_RENDERER));
     
     Platform & pl = GetPlatform();
+    
+    size_t dynTexWidth = 512;
+    size_t dynTexHeight = 256;
+    size_t dynTexCount = 10;
+    
+    size_t fontTexWidth = 512;
+    size_t fontTexHeight = 256;
+    size_t fontTexCount = 10;
     
     resourceManager = shared_ptr<yg::ResourceManager>(new yg::ResourceManager(
           bigVBSize, bigIBSize, 6 * GetPlatform().CpuCores(),
           smallVBSize, smallIBSize, 15 * GetPlatform().CpuCores(),
           blitVBSize, blitIBSize, 15 * GetPlatform().CpuCores(),
-          512, 256, 10 * GetPlatform().CpuCores(),
-          512, 256, 10 * GetPlatform().CpuCores(),
+          dynTexWidth, dynTexHeight, dynTexCount * GetPlatform().CpuCores(),
+          fontTexWidth, fontTexHeight, fontTexCount * GetPlatform().CpuCores(),
 					"unicode_blocks.txt",
 					"fonts_whitelist.txt",
  					"fonts_blacklist.txt",
@@ -109,6 +120,7 @@
           !yg::gl::g_isBufferObjectsSupported));
     
     resourceManager->initMultiBlitStorage(multiBlitVBSize, multiBlitIBSize, 10);
+    resourceManager->initTinyStorage(tinyVBSize, tinyIBSize, 10);
     
     Platform::FilesList fonts;
     pl.GetFontNames(fonts);
@@ -121,6 +133,7 @@
     p.m_skinName = pl.SkinName();
     p.m_visualScale = pl.VisualScale();
     p.m_isSynchronized = false;
+    p.m_useTinyStorage = true; //< use tiny buffers to minimize CPU->GPU data transfer overhead. 
 
 		drawer = shared_ptr<DrawerYG>(new DrawerYG(p));
 
