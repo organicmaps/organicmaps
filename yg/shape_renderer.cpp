@@ -22,6 +22,9 @@ namespace yg
       vector<m2::PointD> pts;
       approximateArc(center, startA, endA, r, pts);
 
+      if (pts.size() < 2)
+        return;
+
       drawPath(&pts[0], pts.size(), 0, skin()->mapPenInfo(yg::PenInfo(c, 3, 0, 0, 0)), depth);
     }
 
@@ -43,6 +46,9 @@ namespace yg
       approximateArc(center, startA, endA, r, pts);
       pts.push_back(center);
 
+      if (pts.size() < 3)
+        return;
+
       drawPath(&pts[0], pts.size(), 0, skin()->mapPenInfo(yg::PenInfo(c, 2, 0, 0, 0)), depth);
     }
 
@@ -52,6 +58,9 @@ namespace yg
 
       arcPts.push_back(center);
       approximateArc(center, startA, endA, r, arcPts);
+
+      if (arcPts.size() < 3)
+        return;
 
       m2::PointD pt0 = arcPts[0];
       m2::PointD pt1 = arcPts[1];

@@ -73,9 +73,10 @@ namespace location
 
     if ((m_flags & State::EGps) || (m_flags & State::ECompass))
     {
-      pxPosition = screen.GtoP(Position()) - pxShift;
-      pxErrorRadius = pxPosition.Length(screen.GtoP(Position()
-                                        + m2::PointD(ErrorRadius(), 0)));
+      pxPosition = screen.GtoP(Position());
+      pxErrorRadius = pxPosition.Length(screen.GtoP(Position() + m2::PointD(ErrorRadius(), 0)));
+
+      pxPosition -= pxShift;
 
       if (m_flags & State::EGps)
       {
