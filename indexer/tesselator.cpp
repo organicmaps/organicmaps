@@ -256,7 +256,7 @@ namespace tesselator
   void TrianglesInfo::Add(uintptr_t const * arr)
   {
     // When adding triangles, check that they all have identical orientation!
-
+    /*
     m2::PointD arrP[] = { m_points[arr[0]], m_points[arr[1]], m_points[arr[2]] };
     double const cp = m2::robust::OrientedS(arrP[0], arrP[1], arrP[2]);
 
@@ -271,6 +271,9 @@ namespace tesselator
 
       m_triangles.back().Add(arr);
     }
+    */
+
+    m_triangles.back().Add(arr);
   }
 
   void TrianglesInfo::GetPointsInfo(m2::PointU const & baseP,
