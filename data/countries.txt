@@ -326,7 +326,7 @@
    West Virginia|USA_West Virginia
    Wisconsin|USA_Wisconsin
    Wyoming|USA_Wyoming
- Oceania
+ Australia and Oceania
   as:American Samoa
   au:Australia
   cx:Christmas Island
