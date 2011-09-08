@@ -121,7 +121,8 @@ bool indexer::BuildSearchIndexFromDatFile(string const & datFile)
       reverse(serialTrie.begin(), serialTrie.end());
     }
 
-    FilesContainerW(datFile).Write(serialTrie, SEARCH_INDEX_FILE_TAG);
+    FilesContainerW writer(datFile, FileWriter::OP_WRITE_EXISTING);
+    writer.Write(serialTrie, SEARCH_INDEX_FILE_TAG);
   }
   catch (Reader::Exception const & e)
   {
