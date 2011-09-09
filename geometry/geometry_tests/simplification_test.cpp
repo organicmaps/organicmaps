@@ -55,7 +55,7 @@ void TestSimplificationOfPoly(m2::PointD const * points, size_t count, SimplifyF
   {
     vector<m2::PointD> result;
     simplifyFn(points, points + count, epsilon, DistanceF(), MakeBackInsertFunctor(result));
-    LOG(LINFO, ("eps:", epsilon, "size:", result.size()));
+    // LOG(LINFO, ("eps:", epsilon, "size:", result.size()));
 
     TEST_GREATER(result.size(), 1, ());
     TEST_EQUAL(result.front(), points[0], (epsilon));
@@ -69,7 +69,7 @@ void TestSimplificationOfPoly(m2::PointD const * points, size_t count, SimplifyF
 UNIT_TEST(Simplification_TestDataIsCorrect)
 {
   TEST_GREATER_OR_EQUAL(LargePolylineTestData::m_Size, 3, ());
-  LOG(LINFO, ("Polyline test size:", LargePolylineTestData::m_Size));
+  // LOG(LINFO, ("Polyline test size:", LargePolylineTestData::m_Size));
 }
 
 UNIT_TEST(Simplification_DP_Smoke)

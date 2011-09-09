@@ -66,7 +66,7 @@ UNIT_TEST(RegionDifference_Smoke)
     TEST_EQUAL(res.size(), 1, ());
     TEST_EQUAL(res[0].GetRect(), r2.GetRect(), ());
 
-    LOG(LINFO, (res[0]));
+    // LOG(LINFO, (res[0]));
   }
 
   {
