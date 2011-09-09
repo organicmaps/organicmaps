@@ -18,7 +18,7 @@ SOURCES += \
     feature.cpp \
     classificator_loader.cpp \
     scale_index.cpp \
-    covering.cpp \
+    feature_covering.cpp \
     point_to_int64.cpp \
     mercator.cpp \
     index_builder.cpp \
@@ -54,7 +54,7 @@ HEADERS += \
     classificator_loader.hpp \
     interval_index.hpp \
     interval_index_builder.hpp \
-    covering.hpp \
+    feature_covering.hpp \
     mercator.hpp \
     feature_processor.hpp \
     file_reader_stream.hpp \

@@ -1,7 +1,7 @@
 #pragma once
 #include "cell_id.hpp"
-#include "covering.hpp"
 #include "data_factory.hpp"
+#include "feature_covering.hpp"
 #include "features_vector.hpp"
 #include "scale_index.hpp"
 #include "search_trie.hpp"

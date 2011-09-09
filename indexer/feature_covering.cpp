@@ -1,4 +1,4 @@
-#include "covering.hpp"
+#include "feature_covering.hpp"
 #include "cell_coverer.hpp"
 #include "cell_id.hpp"
 #include "feature.hpp"

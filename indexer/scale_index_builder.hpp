@@ -1,7 +1,7 @@
 #pragma once
 #include "scale_index.hpp"
+#include "feature_covering.hpp"
 #include "feature_visibility.hpp"
-#include "covering.hpp"
 #include "interval_index_builder.hpp"
 #include "cell_id.hpp"
 
