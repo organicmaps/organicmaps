@@ -75,6 +75,23 @@ void FeatureBuilder1::AddPolygon(vector<m2::PointD> & poly)
   m_Polygons.back().swap(poly);
 }
 
+void FeatureBuilder1::DoCorrectForType(EGeomType type)
+{
+  if (m_Params.GetGeomType() == type &&
+      !IsDrawableLike(m_Params.m_Types, static_cast<FeatureGeoType>(type)))
+  {
+    m_Params.RemoveGeomType(type);
+  }
+}
+
+bool FeatureBuilder1::DoCorrect()
+{
+  DoCorrectForType(GEOM_AREA);
+  DoCorrectForType(GEOM_LINE);
+
+  return (m_Params.GetGeomType() != GEOM_UNDEFINED);
+}
+
 FeatureBase FeatureBuilder1::GetFeatureBase() const
 {
   CHECK ( CheckValid(), (*this) );

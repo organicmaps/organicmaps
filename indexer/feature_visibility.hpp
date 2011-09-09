@@ -13,7 +13,12 @@ class FeatureBase;
 
 namespace feature
 {
-  enum FeatureGeoType { FEATURE_TYPE_POINT = 0, FEATURE_TYPE_LINE, FEATURE_TYPE_AREA };
+  // Note! do not change this values. Should be equal with EGeomType.
+  enum FeatureGeoType {
+    FEATURE_TYPE_POINT = 0,
+    FEATURE_TYPE_LINE = 1,
+    FEATURE_TYPE_AREA = 2
+  };
 
   bool IsDrawableAny(uint32_t type);
   bool IsDrawableLike(vector<uint32_t> const & type, FeatureGeoType ft);

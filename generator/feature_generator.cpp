@@ -282,10 +282,15 @@ public:
     if (m_coasts)
     {
       if (fb.HasType(m_coastType))
+      {
+        // leave only coastline type
+        fb.SetType(m_coastType);
         (*m_coasts)(fb);
+      }
     }
 
-    if (!fb.PopExactType(m_coastType))
+    // remove coastline type
+    if (!fb.PopExactType(m_coastType) && fb.DoCorrect())
     {
       if (m_world)
         (*m_world)(fb);

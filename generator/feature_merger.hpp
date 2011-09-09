@@ -31,7 +31,6 @@ public:
   inline m2::PointD FirstPoint() const { return GetGeometry().front(); }
   inline m2::PointD LastPoint() const { return GetGeometry().back(); }
 
-  inline void SetType(uint32_t type) { m_Params.SetType(type); }
   inline bool PopAnyType(uint32_t & type) { return m_Params.PopAnyType(type); }
 
   template <class ToDo> void ForEachChangeTypes(ToDo toDo)

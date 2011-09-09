@@ -43,6 +43,13 @@ public:
   inline void AddType(uint32_t type) { m_Params.AddType(type); }
   inline bool HasType(uint32_t t) const { return m_Params.IsTypeExist(t); }
   inline bool PopExactType(uint32_t type) { return m_Params.PopExactType(type); }
+  inline void SetType(uint32_t type) { m_Params.SetType(type); }
+
+  /// Check for feature visibility according to it's types.
+  /// If feature is invisible, it's not correct.
+  /// This fuction is called after it's classificator types manipulating.
+  void DoCorrectForType(feature::EGeomType type);
+  bool DoCorrect();
 
   typedef vector<char> buffer_t;
 
