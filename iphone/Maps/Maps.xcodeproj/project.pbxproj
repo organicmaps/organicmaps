@@ -2638,7 +2638,7 @@
 				);
 				INFOPLIST_FILE = "MapsWithMe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphonesim-build/out/debug\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphonesim-debug/out/debug\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
@@ -2684,7 +2684,7 @@
 				);
 				INFOPLIST_FILE = "MapsWithMe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-build/out/release\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production/out/release\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
@@ -2735,7 +2735,7 @@
 				);
 				INFOPLIST_FILE = "MapsWithMe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphonesim-build/out/release\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphonesim-release/out/release\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
@@ -2785,7 +2785,7 @@
 				);
 				INFOPLIST_FILE = "MapsWithMe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-build/out/debug\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug/out/debug\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
@@ -2838,7 +2838,7 @@
 				);
 				INFOPLIST_FILE = "MapsWithMe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-build/out/release\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release/out/release\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
