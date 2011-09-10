@@ -1,6 +1,7 @@
 #include "string_utils.hpp"
 #include "assert.hpp"
 
+#include "../std/target_os.hpp"
 #include "../std/iterator.hpp"
 
 namespace strings
@@ -34,10 +35,11 @@ UniChar LastUniChar(string const & s)
 bool to_int(char const * s, int & i)
 {
   char * stop;
-  int x = strtol(s, &stop, 10);
+  long const x = strtol(s, &stop, 10);
   if (stop && *stop == 0)
   {
-    i = x;
+    i = static_cast<int>(x);
+    ASSERT_EQUAL(static_cast<long>(i), x, ());
     return true;
   }
   return false;
@@ -45,30 +47,31 @@ bool to_int(char const * s, int & i)
 
 bool to_uint64(char const * s, uint64_t & i)
 {
-  istringstream ss;
-  ss.str(s);
-  ss >> i;
-  return !ss.fail();
+  char * stop;
+#ifdef OMIM_OS_WINDOWS
+  i = _strtoui64(s, &stop, 10);
+#else
+  i = strtoull(s, &stop, 10);
+#endif
+  return stop && *stop == 0;
 }
 
 bool to_int64(char const * s, int64_t & i)
 {
-  istringstream ss;
-  ss.str(s);
-  ss >> i;
-  return !ss.fail();
+  char * stop;
+#ifdef OMIM_OS_WINDOWS
+  i = _strtoi64(s, &stop, 10);
+#else
+  i = strtoll(s, &stop, 10);
+#endif
+  return stop && *stop == 0;
 }
 
 bool to_double(char const * s, double & d)
 {
   char * stop;
-  double x = strtod(s, &stop);
-  if (stop && *stop == 0)
-  {
-    d = x;
-    return true;
-  }
-  return false;
+  d = strtod(s, &stop);
+  return stop && *stop == 0;
 }
 
 UniString MakeLowerCase(UniString const & s)

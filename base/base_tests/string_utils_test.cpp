@@ -152,6 +152,97 @@ UNIT_TEST(to_double)
   s = "-2";
   TEST(strings::to_double(s, d), ());
   TEST_ALMOST_EQUAL(-2.0, d, ());
+
+  s = "labuda";
+  TEST(!strings::to_double(s, d), ());
+}
+
+UNIT_TEST(to_float)
+{
+  string s;
+  float f;
+
+  s = "0.123";
+  TEST(strings::to_float(s, f), ());
+  TEST_ALMOST_EQUAL(0.123f, f, ());
+
+  s = "1.";
+  TEST(strings::to_float(s, f), ());
+  TEST_ALMOST_EQUAL(1.0f, f, ());
+
+  s = "0";
+  TEST(strings::to_float(s, f), ());
+  TEST_ALMOST_EQUAL(0.f, f, ());
+
+  s = "5.68434e-14";
+  TEST(strings::to_float(s, f), ());
+  TEST_ALMOST_EQUAL(5.68434e-14f, f, ());
+
+  s = "-179.654321";
+  TEST(strings::to_float(s, f), ());
+  TEST_ALMOST_EQUAL(-179.654321f, f, ());
+
+  s = "labuda";
+  TEST(!strings::to_float(s, f), ());
+}
+
+UNIT_TEST(to_int)
+{
+  int i;
+  string s;
+
+  s = "-2";
+  TEST(strings::to_int(s, i), ());
+  TEST_EQUAL(-2, i, ());
+
+  s = "0";
+  TEST(strings::to_int(s, i), ());
+  TEST_EQUAL(0, i, ());
+
+  s = "123456789";
+  TEST(strings::to_int(s, i), ());
+  TEST_EQUAL(123456789, i, ());
+
+  s = "labuda";
+  TEST(!strings::to_int(s, i), ());
+}
+
+UNIT_TEST(to_uint64)
+{
+  uint64_t i;
+  string s;
+
+  s = "0";
+  TEST(strings::to_uint64(s, i), ());
+  TEST_EQUAL(0, i, ());
+
+  s = "123456789101112";
+  TEST(strings::to_uint64(s, i), ());
+  TEST_EQUAL(123456789101112UL, i, ());
+
+  s = "labuda";
+  TEST(!strings::to_uint64(s, i), ());
+}
+
+UNIT_TEST(to_int64)
+{
+  int64_t i;
+  string s;
+
+  s = "-24567";
+  TEST(strings::to_int64(s, i), ());
+  TEST_EQUAL(-24567, i, ());
+
+  s = "0";
+  TEST(strings::to_int64(s, i), ());
+  TEST_EQUAL(0, i, ());
+
+  s = "12345678911212";
+  TEST(strings::to_int64(s, i), ());
+  TEST_EQUAL(12345678911212L, i, ());
+
+  s = "labuda";
+  TEST(!strings::to_int64(s, i), ());
 }
 
 UNIT_TEST(to_string)
