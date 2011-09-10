@@ -53,10 +53,19 @@ CellObjectIntersection IntersectCellWithTriangle(
   CellObjectIntersection const i3 = IntersectCellWithLine(cell, c, a);
   if (i3 == CELL_OBJECT_INTERSECT)
     return CELL_OBJECT_INTERSECT;
+  // At this point either:
+  // 1. Triangle is inside cell.
+  // 2. Cell is inside triangle.
+  // 3. Cell and triangle do not intersect.
   ASSERT_EQUAL(i1, i2, (cell, a, b, c));
   ASSERT_EQUAL(i2, i3, (cell, a, b, c));
   ASSERT_EQUAL(i3, i1, (cell, a, b, c));
-  return i1;
+  if (i1 == OBJECT_INSIDE_CELL || i2 == OBJECT_INSIDE_CELL || i3 == OBJECT_INSIDE_CELL)
+    return OBJECT_INSIDE_CELL;
+  pair<uint32_t, uint32_t> const xy = cell.XY();
+  if (m2::IsPointStrictlyInsideTriangle(m2::PointD(xy.first, xy.second), a, b, c))
+    return CELL_INSIDE_OBJECT;
+  return CELL_OBJECT_NO_INTERSECTION;
 }
 
 template <class CellIdT, class CellIdContainerT, typename IntersectF>
