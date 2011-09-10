@@ -10,8 +10,10 @@
 namespace covering
 {
 
+// Result of an intersection between object and cell.
 enum CellObjectIntersection
 {
+  // No intersection. It is important, that its value is 0, so one can do if (intersection) ... .
   CELL_OBJECT_NO_INTERSECTION = 0,
   CELL_OBJECT_INTERSECT = 1,
   CELL_INSIDE_OBJECT = 2,
