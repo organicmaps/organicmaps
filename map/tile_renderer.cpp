@@ -64,6 +64,7 @@ void TileRenderer::Initialize(shared_ptr<yg::gl::RenderContext> const & primaryC
     m_threadData[i].m_drawerParams = params;
     m_threadData[i].m_drawer = 0;
     m_threadData[i].m_fakeTarget = m_resourceManager->createRenderTarget(2, 2);
+    m_threadData[i].m_renderContext = m_primaryContext->createShared();
   }
 
   m_queue.AddInitCommand(bind(&TileRenderer::InitializeThreadGL, this, _1));
@@ -87,7 +88,6 @@ void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & e
 {
   ThreadData & threadData = m_threadData[env.GetThreadNum()];
 
-  threadData.m_renderContext = m_primaryContext->createShared();
   threadData.m_renderContext->makeCurrent();
   threadData.m_drawer = new DrawerYG(threadData.m_drawerParams);
 }

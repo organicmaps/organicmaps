@@ -13,6 +13,7 @@
 #include "../version/version.hpp"
 
 #include "benchmark_tiling_render_policy_mt.hpp"
+#include "benchmark_render_policy_mt.hpp"
 #include "render_policy_st.hpp"
 
 template <class T> class DoGetBenchmarks
@@ -146,7 +147,7 @@ BenchmarkFramework<TModel>::BenchmarkFramework(shared_ptr<WindowHandle> const & 
   if (isBenchmarkingMT)
     base_type::SetRenderPolicy(make_shared_ptr(new BenchmarkTilingRenderPolicyMT(wh, bind(&base_type::DrawModel, this, _1, _2, _3, _4, _5, true))));
   else
-    base_type::SetRenderPolicy(make_shared_ptr(new RenderPolicyST(wh, bind(&base_type::DrawModel, this, _1, _2, _3, _4, _5, true))));
+    base_type::SetRenderPolicy(make_shared_ptr(new BenchmarkRenderPolicyMT(wh, bind(&base_type::DrawModel, this, _1, _2, _3, _4, _5, false))));
 
   m_startTime = my::FormatCurrentTime();
 
@@ -294,20 +295,6 @@ void BenchmarkFramework<TModel>::OnSize(int w, int h)
 template <typename TModel>
 void BenchmarkFramework<TModel>::Paint(shared_ptr<PaintEvent> e)
 {
-/*  m2::PointD const center = base_type::m_renderQueue.renderState().m_actualScreen.ClipRect().Center();
-  base_type::m_informationDisplay.setScreen(m_renderQueue.renderState().m_actualScreen);
-  base_type::m_informationDisplay.setCenter(m2::PointD(MercatorBounds::XToLon(center.x), MercatorBounds::YToLat(center.y)));
-
-  if (!m_isBenchmarkInitialized)
-  {
-    e->drawer()->screen()->beginFrame();
-    e->drawer()->screen()->clear(base_type::m_renderPolicy->bgColor());
-    base_type::m_informationDisplay.setDisplayRect(m2::RectI(0, 0, 100, 100));
-    base_type::m_informationDisplay.enableRuler(false);
-    base_type::m_informationDisplay.doDraw(e->drawer().get());
-    e->drawer()->screen()->endFrame();
-  }
-  else*/
   double s = m_benchmarksTimer.ElapsedSeconds();
   Framework<TModel>::Paint(e);
   m_paintDuration += m_benchmarksTimer.ElapsedSeconds() - s;

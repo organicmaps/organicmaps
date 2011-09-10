@@ -51,23 +51,25 @@ void RenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   DrawerYG * pDrawer = e->drawer();
 
-  threads::MutexGuard g(*m_renderQueue.renderState().m_mutex.get());
-
-  e->drawer()->screen()->clear(bgColor());
-
-  if (m_renderQueue.renderState().m_actualTarget.get() != 0)
   {
-    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(false);
+    threads::MutexGuard g(*m_renderQueue.renderState().m_mutex.get());
+
+    e->drawer()->screen()->clear(bgColor());
+
+    if (m_renderQueue.renderState().m_actualTarget.get() != 0)
+    {
+      m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(false);
 
 //    OGLCHECK(glMatrixMode(GL_MODELVIEW));
 //    OGLCHECK(glPushMatrix());
 //    OGLCHECK(glTranslatef(-ptShift.x, -ptShift.y, 0));
 
-    math::Matrix<double, 3, 3> m = m_renderQueue.renderState().m_actualScreen.PtoGMatrix() * s.GtoPMatrix();
-    m = math::Shift(m, -ptShift);
+      math::Matrix<double, 3, 3> m = m_renderQueue.renderState().m_actualScreen.PtoGMatrix() * s.GtoPMatrix();
+      m = math::Shift(m, -ptShift);
 
-    pDrawer->screen()->blit(m_renderQueue.renderState().m_actualTarget,
-                            m);
+      pDrawer->screen()->blit(m_renderQueue.renderState().m_actualTarget,
+                              m);
+    }
   }
 }
 
@@ -93,4 +95,9 @@ void RenderPolicyMT::StopScale(m2::PointD const & pt1, m2::PointD const & pt2, d
 {
   m_DoAddCommand = true;
   RenderPolicy::StartScale(pt1, pt2, timeInSec);
+}
+
+RenderQueue & RenderPolicyMT::GetRenderQueue()
+{
+  return m_renderQueue;
 }

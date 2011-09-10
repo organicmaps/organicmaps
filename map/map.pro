@@ -37,7 +37,8 @@ HEADERS += \
     screen_coverage.hpp \
     render_policy_mt.hpp \
     render_queue.hpp \
-    render_queue_routine.hpp
+    render_queue_routine.hpp \
+    benchmark_render_policy_mt.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -64,10 +65,13 @@ SOURCES += \
     screen_coverage.cpp \
     render_policy_mt.cpp \
     render_queue_routine.cpp \
-    render_queue.cpp
+    render_queue.cpp \
+    benchmark_render_policy_mt.cpp
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp
   SOURCES += qgl_render_context.cpp
   QT += opengl
 }
+
+

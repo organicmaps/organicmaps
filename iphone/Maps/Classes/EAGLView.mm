@@ -13,13 +13,15 @@
 #include "RenderBuffer.hpp"
 #include "RenderContext.hpp"
 
+bool _doRepaint = true;
+bool _inRepaint = false;
+
 @implementation EAGLView
 
 @synthesize controller;
 @synthesize windowHandle;
 @synthesize renderContext;
 @synthesize resourceManager;
-@synthesize doRepaint;
 @synthesize displayLink;
 
 // You must implement this method
@@ -27,8 +29,6 @@
 {
   return [CAEAGLLayer class];
 }
-
-static bool _doRepaint = true;
 
 // The GL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:
 - (id)initWithCoder:(NSCoder*)coder
@@ -141,17 +141,13 @@ static bool _doRepaint = true;
 
 		drawer = shared_ptr<DrawerYG>(new DrawerYG(p));
 
-//		frameBuffer->onSize(renderBuffer->width(), renderBuffer->height());
-//		frameBuffer->setRenderTarget(renderBuffer);
-
-//    self.doRepaint = true;
-    
     windowHandle = shared_ptr<iphone::WindowHandle>(new iphone::WindowHandle(_doRepaint));
     
 		windowHandle->setDrawer(drawer);
 		windowHandle->setRenderContext(renderContext);
     
     displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(drawView)];
+    displayLink.frameInterval = 1;
     [displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
   }
 
@@ -178,11 +174,17 @@ static bool _doRepaint = true;
 
 - (void)drawView
 {
-  if (_doRepaint)
+  if (!_inRepaint)
   {
-  	[controller onPaint];
-	  renderBuffer->present();
-    _doRepaint = false;
+    _inRepaint = true;
+  
+    if (_doRepaint)
+    {
+      _doRepaint = false;
+    	[controller onPaint];
+  	  renderBuffer->present();
+    }
+    _inRepaint = false;
   }
 }
 
@@ -206,6 +208,7 @@ static bool _doRepaint = true;
 
 - (void)dealloc
 {
+  [displayLink invalidate];
   [displayLink release];
   [EAGLContext setCurrentContext:nil];
   [super dealloc];

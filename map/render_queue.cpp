@@ -54,11 +54,6 @@ void RenderQueue::AddCommand(RenderQueueRoutine::render_fn_t const & fn, ScreenB
   m_routine->addCommand(fn, frameScreen);
 }
 
-void RenderQueue::AddBenchmarkCommand(RenderQueueRoutine::render_fn_t const & fn, ScreenBase const & frameScreen)
-{
-  m_routine->addBenchmarkCommand(fn, frameScreen);
-}
-
 void RenderQueue::SetRedrawAll()
 {
   m_renderState->m_doRepaintAll = true;
@@ -106,4 +101,8 @@ void RenderQueue::enterForeground()
   m_routine->enterForeground();
 }
 
+void RenderQueue::WaitForEmptyAndFinished()
+{
+  m_routine->waitForEmptyAndFinished();
+}
 

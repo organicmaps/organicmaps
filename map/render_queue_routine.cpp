@@ -431,14 +431,18 @@ void RenderQueueRoutine::Do()
       /// in the endFrame function
       /// updateActualTarget();
 
-      threads::ConditionGuard g1(m_hasRenderCommands);
       {
-        m_currentRenderCommand.reset();
+        threads::ConditionGuard g1(m_hasRenderCommands);
 
         {
           threads::MutexGuard g2(*m_renderState->m_mutex.get());
           m_renderState->m_duration = duration;
         }
+
+        m_currentRenderCommand.reset();
+
+        if (m_renderCommands.empty())
+          g1.Signal();
       }
 
       invalidate();
@@ -486,19 +490,6 @@ void RenderQueueRoutine::addCommand(render_fn_t const & fn, ScreenBase const & f
     guard.Signal();
 }
 
-void RenderQueueRoutine::addBenchmarkCommand(render_fn_t const & fn, ScreenBase const & frameScreen)
-{
-  /// Command queue modification is syncronized by mutex
-  threads::ConditionGuard guard(m_hasRenderCommands);
-
-  bool needToSignal = m_renderCommands.empty();
-
-  m_benchmarkRenderCommands.push_back(make_shared_ptr(new RenderModelCommand(frameScreen, fn)));
-
-  if (needToSignal)
-    guard.Signal();
-}
-
 void RenderQueueRoutine::initializeGL(shared_ptr<yg::gl::RenderContext> const & renderContext,
                                       shared_ptr<yg::ResourceManager> const & resourceManager)
 {
@@ -521,3 +512,15 @@ void RenderQueueRoutine::enterForeground()
   m_threadDrawer->screen()->enterForeground();
 }
 
+void RenderQueueRoutine::waitForEmptyAndFinished()
+{
+  /// Command queue modification is syncronized by mutex
+  threads::ConditionGuard guard(m_hasRenderCommands);
+
+  if (!m_renderCommands.empty() || (m_currentRenderCommand != 0))
+  {
+//    LOG(LINFO, ("Waiting For Guard"));
+    guard.Wait();
+//    LOG(LINFO, ("Completed"));
+  }
+}

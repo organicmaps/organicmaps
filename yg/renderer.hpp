@@ -73,6 +73,8 @@ namespace yg
       unsigned int width() const;
       unsigned int height() const;
 
+      void finish();
+
       bool isDebugging() const;
     };
   }

@@ -78,6 +78,11 @@ namespace yg
       OGLCHECK(glClear(mask));
     }
 
+    void Renderer::finish()
+    {
+      OGLCHECK(glFinish());
+    }
+
     void Renderer::onSize(unsigned int width, unsigned int height)
     {
       if (width < 2) width = 2;

@@ -42,7 +42,6 @@ namespace yg
 	shared_ptr<yg::ResourceManager> textureManager;
 
   MapViewController * controller;
-  bool doRepaint;
 }
 
 // Called as a result of invalidate on iphone::WindowHandle
@@ -53,6 +52,5 @@ namespace yg
 @property (nonatomic, assign) shared_ptr<iphone::WindowHandle> windowHandle;
 @property (nonatomic, assign) shared_ptr<iphone::RenderContext> renderContext;
 @property (nonatomic, assign) shared_ptr<yg::ResourceManager> resourceManager;
-@property (nonatomic, assign) bool doRepaint;
 
 @end

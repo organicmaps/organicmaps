@@ -46,7 +46,6 @@ public:
                     shared_ptr<yg::ResourceManager> const & resourceManager);
   /// add command to the commands queue.
   void AddCommand(RenderQueueRoutine::render_fn_t const & fn, ScreenBase const & frameScreen);
-  void AddBenchmarkCommand(RenderQueueRoutine::render_fn_t const & fn, ScreenBase const & frameScreen);
 
   void SetRedrawAll();
 
@@ -70,4 +69,6 @@ public:
   void enterBackground();
   /// load all necessary memory caches and opengl resources.
   void enterForeground();
+
+  void WaitForEmptyAndFinished();
 };

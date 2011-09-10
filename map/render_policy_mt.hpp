@@ -30,4 +30,7 @@ public:
 
   void StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
   void StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
+
+  RenderQueue & GetRenderQueue();
+
 };

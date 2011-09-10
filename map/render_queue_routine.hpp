@@ -58,6 +58,7 @@ private:
   shared_ptr<yg::gl::Screen> m_auxScreen;
 
   threads::Condition m_hasRenderCommands;
+
   shared_ptr<RenderModelCommand> m_currentRenderCommand;
   list<shared_ptr<RenderModelCommand> > m_renderCommands;
   list<shared_ptr<RenderModelCommand> > m_benchmarkRenderCommands;
@@ -111,8 +112,6 @@ public:
   void addWindowHandle(shared_ptr<WindowHandle> window);
   /// add model rendering command to rendering queue
   void addCommand(render_fn_t const & fn, ScreenBase const & frameScreen);
-  /// add benchmark rendering command
-  void addBenchmarkCommand(render_fn_t const & fn, ScreenBase const & frameScreen);
   /// set the resolution scale factor to the main thread drawer;
   void setVisualScale(double visualScale);
   /// free all available memory
@@ -121,4 +120,6 @@ public:
   void enterBackground();
   /// recreate all necessary opengl resources and prepare to run in foreground.
   void enterForeground();
+  /// wait for all commands are processed.
+  void waitForEmptyAndFinished();
 };
