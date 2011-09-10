@@ -305,7 +305,12 @@ NSInteger compareAddress(id l, id r, void * context)
   }
 	m_framework->SetOrientation(newOrientation);
   // needed to correctly startup in landscape
-  [self.view layoutSubviews];
+  static bool firstCall = true;
+  if (firstCall)
+  {
+    [self.view layoutSubviews];
+    firstCall = false;
+  }
 }
 
 - (void) OnTerminate
