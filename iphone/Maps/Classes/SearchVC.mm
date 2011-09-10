@@ -184,6 +184,13 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   return YES;  // All orientations are supported.
 }
 
+// correctly pass rotation event up to the root mapViewController
+// to fix rotation bug when other controller is above the root
+- (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
+{
+  [[self.navigationController.viewControllers objectAtIndex:0] didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+}
+
 - (void)addResult:(id)result
 {
   m_results.push_back(*[result get]);

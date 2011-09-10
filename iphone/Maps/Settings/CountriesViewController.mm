@@ -101,6 +101,13 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 	return YES;
 }
 
+// correctly pass rotation event up to the root mapViewController
+// to fix rotation bug when other controller is above the root
+- (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
+{
+  [[self.navigationController.viewControllers objectAtIndex:0] didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+}
+
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
   TIndex const index = CalculateIndex(m_index, indexPath);

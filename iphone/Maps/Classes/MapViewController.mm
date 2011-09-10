@@ -304,13 +304,6 @@ NSInteger compareAddress(id l, id r, void * context)
 		case UIInterfaceOrientationLandscapeRight: newOrientation = EOrientation270; break;
   }
 	m_framework->SetOrientation(newOrientation);
-  // needed to correctly startup in landscape
-  static bool firstCall = true;
-  if (firstCall)
-  {
-    [self.view layoutSubviews];
-    firstCall = false;
-  }
 }
 
 - (void) OnTerminate
@@ -321,38 +314,33 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void) Invalidate
 {
-	if (m_framework)
-  {
-    if (!m_framework->SetUpdatesEnabled(true))
-      m_framework->Invalidate();
-  }
+  if (!m_framework->SetUpdatesEnabled(true))
+    m_framework->Invalidate();
 }
 
 - (void) OnEnterBackground
 {
-	if (m_framework)
-  {	// save world rect for next launch
-    m_framework->SaveState();
-    m_framework->SetUpdatesEnabled(false);
-    m_framework->EnterBackground();
-  }
+  // save world rect for next launch
+  m_framework->SaveState();
+  m_framework->SetUpdatesEnabled(false);
+  m_framework->EnterBackground();
 }
 
 - (void) OnEnterForeground
 {
-  if (m_framework)
-  {
-    m_framework->EnterForeground();
-    if (m_mapIsVisible)
-      [self Invalidate];
-  }
+  m_framework->EnterForeground();
+  if (m_mapIsVisible)
+    [self Invalidate];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+  // needed to correctly handle startup landscape orientation
+  // and orientation changes when mapVC is not visible
+  [self.view layoutSubviews];
+
   m_mapIsVisible = true;
-  if (m_framework)
-    [self Invalidate];
+  [self Invalidate];
   [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
