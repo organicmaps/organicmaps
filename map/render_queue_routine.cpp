@@ -518,9 +518,5 @@ void RenderQueueRoutine::waitForEmptyAndFinished()
   threads::ConditionGuard guard(m_hasRenderCommands);
 
   if (!m_renderCommands.empty() || (m_currentRenderCommand != 0))
-  {
-//    LOG(LINFO, ("Waiting For Guard"));
     guard.Wait();
-//    LOG(LINFO, ("Completed"));
-  }
 }
