@@ -25,7 +25,7 @@ HEADERS += \
   screenbase.hpp \
   cellid.hpp \
   rect_intersect.hpp \
-  covering.hpp \
+  covering_utils.hpp \
   packer.hpp \
   pointu_to_uint64.hpp \
   simplification.hpp \

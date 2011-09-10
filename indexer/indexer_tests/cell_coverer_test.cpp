@@ -1,7 +1,7 @@
 #include "../cell_coverer.hpp"
 #include "../../testing/testing.hpp"
 
-#include "../../geometry/covering.hpp"
+#include "../../geometry/covering_utils.hpp"
 #include "../../coding/hex.hpp"
 #include "../../base/logging.hpp"
 

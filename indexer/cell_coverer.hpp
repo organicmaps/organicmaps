@@ -5,7 +5,7 @@
 #include "../std/queue.hpp"
 #include "../std/vector.hpp"
 
-// TODO: Move neccessary functions to geometry/covering.hpp and delete this file.
+// TODO: Move neccessary functions to geometry/covering_utils.hpp and delete this file.
 
 template <typename BoundsT, typename CellIdT>
 inline void SplitRectCell(CellIdT id,

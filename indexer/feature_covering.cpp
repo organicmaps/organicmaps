@@ -2,7 +2,7 @@
 #include "cell_coverer.hpp"
 #include "cell_id.hpp"
 #include "feature.hpp"
-#include "../geometry/covering.hpp"
+#include "../geometry/covering_utils.hpp"
 #include "../base/base.hpp"
 #include "../base/stl_add.hpp"
 #include "../std/algorithm.hpp"
