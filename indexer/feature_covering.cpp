@@ -12,6 +12,7 @@
 namespace
 {
 
+// This class should only be used with covering::CoverObject()!
 class FeatureIntersector
 {
 public:
@@ -25,15 +26,43 @@ public:
   vector<m2::PointD> m_Polyline;
   vector<Trg> m_Trg;
 
+  // Note:
+  // 1. Here we don't need to differentiate between CELL_OBJECT_INTERSECT and OBJECT_INSIDE_CELL.
+  // 2. We can return CELL_OBJECT_INTERSECT instead of CELL_INSIDE_OBJECT - it's just
+  //    a performance penalty.
   covering::CellObjectIntersection operator() (RectId const & cell) const
   {
-    for (size_t i = 1; i < m_Polyline.size(); ++i)
-      if (covering::IntersectCellWithLine(cell, m_Polyline[i], m_Polyline[i-1]))
-        return covering::CELL_OBJECT_INTERSECT;
     for (size_t i = 0; i < m_Trg.size(); ++i)
-      if (covering::CellObjectIntersection res =
-          covering::IntersectCellWithTriangle(cell, m_Trg[i].m_A, m_Trg[i].m_B, m_Trg[i].m_C))
-        return res == covering::OBJECT_INSIDE_CELL ? covering::CELL_OBJECT_INTERSECT : res;
+    {
+      covering::CellObjectIntersection const res =
+          covering::IntersectCellWithTriangle(cell, m_Trg[i].m_A, m_Trg[i].m_B, m_Trg[i].m_C);
+      switch (res)
+      {
+      case covering::CELL_OBJECT_NO_INTERSECTION:
+        break;
+      case covering::CELL_INSIDE_OBJECT:
+        return covering::CELL_INSIDE_OBJECT;
+      case covering::CELL_OBJECT_INTERSECT:
+      case covering::OBJECT_INSIDE_CELL:
+        return covering::CELL_OBJECT_INTERSECT;
+      }
+    }
+    for (size_t i = 1; i < m_Polyline.size(); ++i)
+    {
+      covering::CellObjectIntersection const res =
+          covering::IntersectCellWithLine(cell, m_Polyline[i], m_Polyline[i-1]);
+      switch (res)
+      {
+      case covering::CELL_OBJECT_NO_INTERSECTION:
+        break;
+      case covering::CELL_INSIDE_OBJECT:
+        ASSERT(false, (cell, i, m_Polyline));
+        return covering::CELL_OBJECT_INTERSECT;
+      case covering::CELL_OBJECT_INTERSECT:
+      case covering::OBJECT_INSIDE_CELL:
+        return covering::CELL_OBJECT_INTERSECT;
+      }
+    }
     return covering::CELL_OBJECT_NO_INTERSECTION;
   }
 
