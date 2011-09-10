@@ -47,8 +47,12 @@ public:
   /// constructor
   RenderPolicy(shared_ptr<WindowHandle> const & windowHandle, TRenderFn const & renderFn);
   virtual ~RenderPolicy() {}
+  /// starting frame
+  virtual void BeginFrame();
   /// drawing single frame
   virtual void DrawFrame(shared_ptr<PaintEvent> const & paintEvent, ScreenBase const & currentScreen) = 0;
+  /// ending frame
+  virtual void EndFrame();
   /// processing resize request
   virtual m2::RectI const OnSize(int w, int h);
   /// initialize render policy

@@ -275,11 +275,21 @@ NSInteger compareAddress(id l, id r, void * context)
     m_framework->Scale(0.5);
 }
 
-- (void)onPaint
+- (void)beginPaint
+{
+  m_framework->BeginPaint();
+}
+
+- (void)endPaint
+{
+  m_framework->EndPaint();
+}
+
+- (void)doPaint
 {
 	shared_ptr<iphone::WindowHandle> windowHandle = [(EAGLView*)self.view windowHandle];
 	shared_ptr<PaintEvent> paintEvent(new PaintEvent(windowHandle->drawer().get()));
-	m_framework->Paint(paintEvent);
+	m_framework->DoPaint(paintEvent);
 }
 
 - (BOOL) shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation) interfaceOrientation

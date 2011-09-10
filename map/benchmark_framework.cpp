@@ -293,10 +293,10 @@ void BenchmarkFramework<TModel>::OnSize(int w, int h)
 }
 
 template <typename TModel>
-void BenchmarkFramework<TModel>::Paint(shared_ptr<PaintEvent> e)
+void BenchmarkFramework<TModel>::DoPaint(shared_ptr<PaintEvent> e)
 {
   double s = m_benchmarksTimer.ElapsedSeconds();
-  Framework<TModel>::Paint(e);
+  Framework<TModel>::DoPaint(e);
   m_paintDuration += m_benchmarksTimer.ElapsedSeconds() - s;
   if (!m_isBenchmarkFinished)
     BenchmarkCommandFinished();

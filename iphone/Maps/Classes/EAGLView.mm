@@ -181,8 +181,10 @@ bool _inRepaint = false;
     if (_doRepaint)
     {
       _doRepaint = false;
-    	[controller onPaint];
+      [controller beginPaint];
+    	[controller doPaint];
   	  renderBuffer->present();
+      [controller endPaint];
     }
     _inRepaint = false;
   }

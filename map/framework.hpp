@@ -207,8 +207,11 @@ public:
 
   double GetCurrentScale() const;
 
+  virtual void BeginPaint();
   /// Function for calling from platform dependent-paint function.
-  virtual void Paint(shared_ptr<PaintEvent> e);
+  virtual void DoPaint(shared_ptr<PaintEvent> e);
+
+  virtual void EndPaint();
 
   void CenterViewport(m2::PointD const & pt);
 

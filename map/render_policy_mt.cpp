@@ -43,6 +43,16 @@ m2::RectI const RenderPolicyMT::OnSize(int w, int h)
   return m2::RectI(pt.x, pt.y, pt.x + w, pt.y + h);
 }
 
+void RenderPolicyMT::BeginFrame()
+{
+  m_renderQueue.renderState().m_mutex->Lock();
+}
+
+void RenderPolicyMT::EndFrame()
+{
+  m_renderQueue.renderState().m_mutex->Unlock();
+}
+
 void RenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,
                                ScreenBase const & s)
 {
@@ -51,25 +61,21 @@ void RenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   DrawerYG * pDrawer = e->drawer();
 
+  e->drawer()->screen()->clear(bgColor());
+
+  if (m_renderQueue.renderState().m_actualTarget.get() != 0)
   {
-    threads::MutexGuard g(*m_renderQueue.renderState().m_mutex.get());
-
-    e->drawer()->screen()->clear(bgColor());
-
-    if (m_renderQueue.renderState().m_actualTarget.get() != 0)
-    {
-      m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(false);
+    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(false);
 
 //    OGLCHECK(glMatrixMode(GL_MODELVIEW));
 //    OGLCHECK(glPushMatrix());
 //    OGLCHECK(glTranslatef(-ptShift.x, -ptShift.y, 0));
 
-      math::Matrix<double, 3, 3> m = m_renderQueue.renderState().m_actualScreen.PtoGMatrix() * s.GtoPMatrix();
-      m = math::Shift(m, -ptShift);
+    math::Matrix<double, 3, 3> m = m_renderQueue.renderState().m_actualScreen.PtoGMatrix() * s.GtoPMatrix();
+    m = math::Shift(m, -ptShift);
 
-      pDrawer->screen()->blit(m_renderQueue.renderState().m_actualTarget,
-                              m);
-    }
+    pDrawer->screen()->blit(m_renderQueue.renderState().m_actualTarget,
+                            m);
   }
 }
 

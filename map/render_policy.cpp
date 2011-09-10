@@ -69,3 +69,9 @@ void RenderPolicy::StopScale(m2::PointD const &, m2::PointD const &, double)
 {
   m_windowHandle->invalidate();
 }
+
+void RenderPolicy::BeginFrame()
+{}
+
+void RenderPolicy::EndFrame()
+{}
