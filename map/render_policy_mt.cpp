@@ -45,7 +45,6 @@ m2::RectI const RenderPolicyMT::OnSize(int w, int h)
 
 void RenderPolicyMT::BeginFrame()
 {
-  m_renderQueue.renderState().m_mutex->Lock();
 }
 
 void RenderPolicyMT::EndFrame()
@@ -62,6 +61,8 @@ void RenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,
   DrawerYG * pDrawer = e->drawer();
 
   e->drawer()->screen()->clear(bgColor());
+
+  m_renderQueue.renderState().m_mutex->Lock();
 
   if (m_renderQueue.renderState().m_actualTarget.get() != 0)
   {
