@@ -32,14 +32,14 @@ public:
     m_Covering[cell.Level()].push_back(cell);
   }
 
-  explicit Covering(vector<CellId> const & v, int64_t minId = 0)
+  explicit Covering(vector<CellId> const & v)
   {
     for (size_t i = 0; i < v.size(); ++i)
       m_Covering[v[i].Level()].push_back(v[i]);
     Sort();
     Unique();
     RemoveDuplicateChildren();
-    RemoveFullSquares(minId);
+    RemoveFullSquares();
     m_Size = CalculateSize();
   }
 
@@ -88,7 +88,7 @@ public:
         result.push_back(m_Covering[level][i].ToInt64());
   }
 
-  void Simplify(int64_t minId = 0)
+  void Simplify()
   {
     int cellsSimplified = 0;
     int const initialSize = m_Size;
@@ -97,25 +97,24 @@ public:
       if (m_Covering[level].size() >= 2)
       {
         int const initialLevelSize = static_cast<int>(m_Covering[level].size());
-        SimplifyLevel(level, minId);
+        SimplifyLevel(level);
         cellsSimplified += initialLevelSize - static_cast<int>(m_Covering[level].size());
         if (cellsSimplified > initialSize / 2)
           break;
       }
     }
     RemoveDuplicateChildren();
-    RemoveFullSquares(minId);
+    RemoveFullSquares();
     m_Size = CalculateSize();
   }
 
 private:
 
-  void SimplifyLevel(int level, int64_t minId)
+  void SimplifyLevel(int level)
   {
     map<CellId, uint32_t, LessQueueOrder> parentCellCounts;
     typedef typename vector<CellId>::const_iterator ConstIteartor;
     for (ConstIteartor it = m_Covering[level].begin(); it != m_Covering[level].end(); ++it)
-      if (it->Parent().ToInt64() >= minId)
         ++parentCellCounts[it->Parent()];
 
     vector<CellId> parentCells, childCells;
@@ -214,7 +213,7 @@ private:
     }
   }
 
-  void RemoveFullSquares(int64_t minId = 0)
+  void RemoveFullSquares()
   {
     vector<CellId> cellsToAppend;
     for (int level = m_Covering.size() - 1; level >= 0; --level)
@@ -231,8 +230,7 @@ private:
           CellId const parent = a[i].Parent();
           if (parent == a[i+1].Parent() &&
               parent == a[i+2].Parent() &&
-              parent == a[i+3].Parent() &&
-              parent.ToInt64() >= minId)
+              parent == a[i+3].Parent())
           {
             parents.push_back(parent);
             i += 3;
