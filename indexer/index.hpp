@@ -46,7 +46,8 @@ public:
   template <typename F>
   void ForEachInRect(F & f, m2::RectD const & rect, uint32_t scale) const
   {
-    CallForIntervals(f, covering::CoverViewportAndAppendLowerLevels(rect), rect, scale);
+    CallForIntervals(f, covering::CoverViewportAndAppendLowerLevels(rect, RectId::DEPTH_LEVELS),
+                     rect, scale);
   }
 
   template <typename F>
@@ -55,7 +56,7 @@ public:
     using namespace covering;
 
     IntervalsT intervals;
-    AppendLowerLevels(GetRectIdAsIs(rect), intervals);
+    AppendLowerLevels(GetRectIdAsIs(rect), RectId::DEPTH_LEVELS, intervals);
 
     CallForIntervals(f, intervals, rect, scale);
   }
@@ -64,8 +65,7 @@ public:
   template <typename F>
   void ForEachInScale(F & f, uint32_t scale) const
   {
-    int64_t const rootId = RectId("").ToInt64();
-    BaseT::ForEachInIntervalAndScale(f, rootId, rootId + RectId("").SubTreeSize(), scale,
+    BaseT::ForEachInIntervalAndScale(f, 0, static_cast<int64_t>((1ULL << 63) - 1), scale,
                                      m2::RectD::GetInfiniteRect());
   }
 };

@@ -33,38 +33,38 @@ UNIT_TEST(CellId_ToString)
 
 UNIT_TEST(CellId_ToInt64)
 {
-  TEST_EQUAL(m2::CellId<3>("").ToInt64(), 1, ());
-  TEST_EQUAL(m2::CellId<3>("0").ToInt64(), 2, ());
-  TEST_EQUAL(m2::CellId<3>("1").ToInt64(), 7, ());
-  TEST_EQUAL(m2::CellId<3>("2").ToInt64(), 12, ());
-  TEST_EQUAL(m2::CellId<3>("3").ToInt64(), 17, ());
-  TEST_EQUAL(m2::CellId<3>("00").ToInt64(), 3, ());
-  TEST_EQUAL(m2::CellId<3>("01").ToInt64(), 4, ());
-  TEST_EQUAL(m2::CellId<3>("03").ToInt64(), 6, ());
-  TEST_EQUAL(m2::CellId<3>("10").ToInt64(), 8, ());
-  TEST_EQUAL(m2::CellId<3>("20").ToInt64(), 13, ());
-  TEST_EQUAL(m2::CellId<3>("23").ToInt64(), 16, ());
-  TEST_EQUAL(m2::CellId<3>("30").ToInt64(), 18, ());
-  TEST_EQUAL(m2::CellId<3>("31").ToInt64(), 19, ());
-  TEST_EQUAL(m2::CellId<3>("33").ToInt64(), 21, ());
+  TEST_EQUAL(m2::CellId<3>("").ToInt64(3), 1, ());
+  TEST_EQUAL(m2::CellId<3>("0").ToInt64(3), 2, ());
+  TEST_EQUAL(m2::CellId<3>("1").ToInt64(3), 7, ());
+  TEST_EQUAL(m2::CellId<3>("2").ToInt64(3), 12, ());
+  TEST_EQUAL(m2::CellId<3>("3").ToInt64(3), 17, ());
+  TEST_EQUAL(m2::CellId<3>("00").ToInt64(3), 3, ());
+  TEST_EQUAL(m2::CellId<3>("01").ToInt64(3), 4, ());
+  TEST_EQUAL(m2::CellId<3>("03").ToInt64(3), 6, ());
+  TEST_EQUAL(m2::CellId<3>("10").ToInt64(3), 8, ());
+  TEST_EQUAL(m2::CellId<3>("20").ToInt64(3), 13, ());
+  TEST_EQUAL(m2::CellId<3>("23").ToInt64(3), 16, ());
+  TEST_EQUAL(m2::CellId<3>("30").ToInt64(3), 18, ());
+  TEST_EQUAL(m2::CellId<3>("31").ToInt64(3), 19, ());
+  TEST_EQUAL(m2::CellId<3>("33").ToInt64(3), 21, ());
 }
 
 UNIT_TEST(CellId_FromInt64)
 {
-  TEST_EQUAL(m2::CellId<3>(""), m2::CellId<3>::FromInt64(1), ());
-  TEST_EQUAL(m2::CellId<3>("0"), m2::CellId<3>::FromInt64(2), ());
-  TEST_EQUAL(m2::CellId<3>("1"), m2::CellId<3>::FromInt64(7), ());
-  TEST_EQUAL(m2::CellId<3>("2"), m2::CellId<3>::FromInt64(12), ());
-  TEST_EQUAL(m2::CellId<3>("3"), m2::CellId<3>::FromInt64(17), ());
-  TEST_EQUAL(m2::CellId<3>("00"), m2::CellId<3>::FromInt64(3), ());
-  TEST_EQUAL(m2::CellId<3>("01"), m2::CellId<3>::FromInt64(4), ());
-  TEST_EQUAL(m2::CellId<3>("03"), m2::CellId<3>::FromInt64(6), ());
-  TEST_EQUAL(m2::CellId<3>("10"), m2::CellId<3>::FromInt64(8), ());
-  TEST_EQUAL(m2::CellId<3>("20"), m2::CellId<3>::FromInt64(13), ());
-  TEST_EQUAL(m2::CellId<3>("23"), m2::CellId<3>::FromInt64(16), ());
-  TEST_EQUAL(m2::CellId<3>("30"), m2::CellId<3>::FromInt64(18), ());
-  TEST_EQUAL(m2::CellId<3>("31"), m2::CellId<3>::FromInt64(19), ());
-  TEST_EQUAL(m2::CellId<3>("33"), m2::CellId<3>::FromInt64(21), ());
+  TEST_EQUAL(m2::CellId<3>(""), m2::CellId<3>::FromInt64(1, 3), ());
+  TEST_EQUAL(m2::CellId<3>("0"), m2::CellId<3>::FromInt64(2, 3), ());
+  TEST_EQUAL(m2::CellId<3>("1"), m2::CellId<3>::FromInt64(7, 3), ());
+  TEST_EQUAL(m2::CellId<3>("2"), m2::CellId<3>::FromInt64(12, 3), ());
+  TEST_EQUAL(m2::CellId<3>("3"), m2::CellId<3>::FromInt64(17, 3), ());
+  TEST_EQUAL(m2::CellId<3>("00"), m2::CellId<3>::FromInt64(3, 3), ());
+  TEST_EQUAL(m2::CellId<3>("01"), m2::CellId<3>::FromInt64(4, 3), ());
+  TEST_EQUAL(m2::CellId<3>("03"), m2::CellId<3>::FromInt64(6, 3), ());
+  TEST_EQUAL(m2::CellId<3>("10"), m2::CellId<3>::FromInt64(8, 3), ());
+  TEST_EQUAL(m2::CellId<3>("20"), m2::CellId<3>::FromInt64(13, 3), ());
+  TEST_EQUAL(m2::CellId<3>("23"), m2::CellId<3>::FromInt64(16, 3), ());
+  TEST_EQUAL(m2::CellId<3>("30"), m2::CellId<3>::FromInt64(18, 3), ());
+  TEST_EQUAL(m2::CellId<3>("31"), m2::CellId<3>::FromInt64(19, 3), ());
+  TEST_EQUAL(m2::CellId<3>("33"), m2::CellId<3>::FromInt64(21, 3), ());
 }
 
 UNIT_TEST(CellId_XY)
@@ -118,13 +118,13 @@ UNIT_TEST(CellId_FromXY_XY_Match)
 
 UNIT_TEST(CellId_SubTreeSize)
 {
-  TEST_EQUAL(m2::CellId<3>("00").SubTreeSize(), 1, ());
-  TEST_EQUAL(m2::CellId<3>("22").SubTreeSize(), 1, ());
-  TEST_EQUAL(m2::CellId<3>("33").SubTreeSize(), 1, ());
-  TEST_EQUAL(m2::CellId<3>("0").SubTreeSize(), 5, ());
-  TEST_EQUAL(m2::CellId<3>("1").SubTreeSize(), 5, ());
-  TEST_EQUAL(m2::CellId<3>("3").SubTreeSize(), 5, ());
-  TEST_EQUAL(m2::CellId<3>("").SubTreeSize(), 21, ());
+  TEST_EQUAL(m2::CellId<3>("00").SubTreeSize(3), 1, ());
+  TEST_EQUAL(m2::CellId<3>("22").SubTreeSize(3), 1, ());
+  TEST_EQUAL(m2::CellId<3>("33").SubTreeSize(3), 1, ());
+  TEST_EQUAL(m2::CellId<3>("0").SubTreeSize(3), 5, ());
+  TEST_EQUAL(m2::CellId<3>("1").SubTreeSize(3), 5, ());
+  TEST_EQUAL(m2::CellId<3>("3").SubTreeSize(3), 5, ());
+  TEST_EQUAL(m2::CellId<3>("").SubTreeSize(3), 21, ());
 }
 
 UNIT_TEST(CellID_LessQueueOrder)

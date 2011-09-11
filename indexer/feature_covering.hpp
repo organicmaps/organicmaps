@@ -16,12 +16,13 @@ namespace covering
 
   // Cover feature with RectIds and return their integer representations.
   vector<int64_t> CoverFeature(FeatureType const & feature,
+                               int cellDepth,
                                uint64_t cellPenaltyArea);
 
-  void AppendLowerLevels(RectId id, IntervalsT & intervals);
+  void AppendLowerLevels(RectId id, int cellDepth, IntervalsT & intervals);
 
   // Cover viewport with RectIds and append their RectIds as well.
-  IntervalsT CoverViewportAndAppendLowerLevels(m2::RectD const & rect);
+  IntervalsT CoverViewportAndAppendLowerLevels(m2::RectD const & rect, int cellDepth);
 
   // Given a vector of intervals [a, b), sort them and merge overlapping intervals.
   IntervalsT SortAndMergeIntervals(IntervalsT intervals);

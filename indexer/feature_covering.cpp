@@ -92,7 +92,7 @@ public:
 namespace covering
 {
 
-vector<int64_t> CoverFeature(FeatureType const & f, uint64_t cellPenaltyArea)
+vector<int64_t> CoverFeature(FeatureType const & f, int cellDepth, uint64_t cellPenaltyArea)
 {
   FeatureIntersector featureIntersector;
   f.ForEachPointRef(featureIntersector, -1);
@@ -106,7 +106,7 @@ vector<int64_t> CoverFeature(FeatureType const & f, uint64_t cellPenaltyArea)
     m2::PointD pt = featureIntersector.m_Polyline[0];
     return vector<int64_t>(
           1, RectId::FromXY(static_cast<uint32_t>(pt.x), static_cast<uint32_t>(pt.y),
-                            RectId::DEPTH_LEVELS - 1).ToInt64());
+                            RectId::DEPTH_LEVELS - 1).ToInt64(cellDepth));
   }
 
   vector<RectId> cells;
@@ -114,7 +114,7 @@ vector<int64_t> CoverFeature(FeatureType const & f, uint64_t cellPenaltyArea)
 
   vector<int64_t> res(cells.size());
   for (size_t i = 0; i < cells.size(); ++i)
-    res[i] = cells[i].ToInt64();
+    res[i] = cells[i].ToInt64(cellDepth);
 
   return res;
 }
@@ -141,19 +141,19 @@ IntervalsT SortAndMergeIntervals(IntervalsT v)
   return res;
 }
 
-void AppendLowerLevels(RectId id, IntervalsT & intervals)
+void AppendLowerLevels(RectId id, int cellDepth, IntervalsT & intervals)
 {
-  int64_t idInt64 = id.ToInt64();
-  intervals.push_back(make_pair(idInt64, idInt64 + id.SubTreeSize()));
+  int64_t idInt64 = id.ToInt64(cellDepth);
+  intervals.push_back(make_pair(idInt64, idInt64 + id.SubTreeSize(cellDepth)));
   while (id.Level() > 0)
   {
     id = id.Parent();
-    idInt64 = id.ToInt64();
+    idInt64 = id.ToInt64(cellDepth);
     intervals.push_back(make_pair(idInt64, idInt64 + 1));
   }
 }
 
-IntervalsT CoverViewportAndAppendLowerLevels(m2::RectD const & r)
+IntervalsT CoverViewportAndAppendLowerLevels(m2::RectD const & r, int cellDepth)
 {
   vector<RectId> ids;
   CoverRect<MercatorBounds, RectId>(r.minX(), r.minY(), r.maxX(), r.maxY(), 8, ids);
@@ -162,7 +162,7 @@ IntervalsT CoverViewportAndAppendLowerLevels(m2::RectD const & r)
   intervals.reserve(ids.size() * 4);
 
   for (size_t i = 0; i < ids.size(); ++i)
-    AppendLowerLevels(ids[i], intervals);
+    AppendLowerLevels(ids[i], cellDepth, intervals);
 
   return SortAndMergeIntervals(intervals);
 }

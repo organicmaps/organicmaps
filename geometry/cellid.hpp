@@ -74,10 +74,10 @@ public:
     return m_Bits & 3;
   }
 
-  uint64_t SubTreeSize(int depth = DEPTH_LEVELS) const
+  uint64_t SubTreeSize(int depth) const
   {
     ASSERT(IsValid(), (m_Bits, m_Level));
-    ASSERT_LESS(m_Level, depth, (m_Bits, m_Level, depth));
+    ASSERT(m_Level < depth && depth <= DEPTH_LEVELS, (m_Bits, m_Level, depth));
     return TreeSizeForDepth(depth - m_Level);
   }
 
@@ -222,13 +222,13 @@ public:
   // Numbering
 
   // Default ToInt64().
-  int64_t ToInt64(int depth = DEPTH_LEVELS) const
+  int64_t ToInt64(int depth) const
   {
     return ToInt64LevelZOrder(depth);
   }
 
   // Default FromInt64().
-  static CellId FromInt64(int64_t v, int depth = DEPTH_LEVELS)
+  static CellId FromInt64(int64_t v, int depth)
   {
     return FromInt64LevelZOrder(v, depth);
   }
@@ -236,6 +236,7 @@ public:
   // Level order, numbering by Z-curve.
   int64_t ToInt64LevelZOrder(int depth) const
   {
+    ASSERT(0 < depth && depth <= DEPTH_LEVELS, (m_Bits, m_Level, depth));
     ASSERT(IsValid(), (m_Bits, m_Level));
     uint64_t bits = m_Bits, res = 0;
     for (int i = 0; i <= m_Level; ++i, bits >>= 2)
@@ -255,6 +256,7 @@ public:
   static CellId FromInt64LevelZOrder(int64_t v, int depth)
   {
     ASSERT_GREATER(v, 0, ());
+    ASSERT(0 < depth && depth <= DEPTH_LEVELS, (v, depth));
     ASSERT_LESS_OR_EQUAL(v, TreeSizeForDepth(depth), ());
     uint64_t bits = 0;
     int level = 0;
@@ -275,7 +277,7 @@ private:
 
   static uint64_t TreeSizeForDepth(int depth)
   {
-    ASSERT_GREATER(depth, 0, ());
+    ASSERT(0 < depth && depth <= DEPTH_LEVELS, (depth));
     return ((1ULL << 2 * depth) - 1) / 3ULL;
   }
 

@@ -81,11 +81,11 @@ public:
         result.insert(result.end(), m_Covering[level].begin(), m_Covering[level].end());
   }
 
-  void OutputToVector(vector<int64_t> & result) const
+  void OutputToVector(vector<int64_t> & result, int cellDepth) const
   {
     for (int level = 0; level < CellId::DEPTH_LEVELS; ++level)
       for (size_t i = 0; i < m_Covering[level].size(); ++i)
-        result.push_back(m_Covering[level][i].ToInt64());
+        result.push_back(m_Covering[level][i].ToInt64(cellDepth));
   }
 
   void Simplify()
@@ -182,7 +182,7 @@ private:
     RemoveDuplicateChildrenImpl();
 #ifdef DEBUG
     // Assert that all duplicate children were removed.
-    vector<int64_t> v1, v2;
+    vector<CellId> v1, v2;
     OutputToVector(v1);
     RemoveDuplicateChildrenImpl();
     OutputToVector(v2);
