@@ -9,11 +9,11 @@
 namespace m2
 {
 
-template <int kDepthLevels> class CellId
+template <int kDepthLevels = 31> class CellId
 {
 public:
-  enum { DEPTH_LEVELS = kDepthLevels };
-  enum { MAX_COORD = 1 << DEPTH_LEVELS };
+  static int const DEPTH_LEVELS = kDepthLevels;
+  static uint32_t const MAX_COORD = 1U << DEPTH_LEVELS;
 
   CellId() : m_Bits(0), m_Level(0)
   {
@@ -25,28 +25,28 @@ public:
     *this = FromString(s);
   }
 
-  pair<int64_t, int> ToBitsAndLevel() const
+  pair<uint64_t, int> ToBitsAndLevel() const
   {
     ASSERT(IsValid(), (m_Bits, m_Level));
-    return pair<int64_t, int>(m_Bits, m_Level);
+    return pair<uint64_t, int>(m_Bits, m_Level);
   }
 
   // Only some number of lowest bits are used.
-  int64_t ToInt64() const
+  int64_t ToInt64(int depth = DEPTH_LEVELS) const
   {
     ASSERT(IsValid(), (m_Bits, m_Level));
-    int64_t bits = m_Bits, res = 0;
+    uint64_t bits = m_Bits, res = 0;
     for (int i = 0; i <= m_Level; ++i, bits >>= 2)
       res += bits + 1;
     bits = m_Bits;
-    for (int i = m_Level + 1; i < DEPTH_LEVELS; ++i)
+    for (int i = m_Level + 1; i < depth; ++i)
     {
       bits <<= 2;
       res += bits;
     }
     ASSERT_GREATER(res, 0, (m_Bits, m_Level));
-    ASSERT_LESS_OR_EQUAL(res, SubTreeSize(DEPTH_LEVELS - 1), (m_Bits, m_Level));
-    return res;
+    ASSERT_LESS_OR_EQUAL(res, SubTreeSize(depth - 1), (m_Bits, m_Level));
+    return static_cast<int64_t>(res);
   }
 
   static CellId Root()
@@ -54,7 +54,7 @@ public:
     return CellId(0, 0);
   }
 
-  static CellId FromBitsAndLevel(int64_t bits, int level)
+  static CellId FromBitsAndLevel(uint64_t bits, int level)
   {
     return CellId(bits, level);
   }
@@ -74,7 +74,7 @@ public:
 
   static CellId FromString(string const & s)
   {
-    int64_t bits = 0;
+    uint64_t bits = 0;
     size_t const level = s.size();
     ASSERT_LESS ( level, static_cast<size_t>(DEPTH_LEVELS), (s) );
     for (size_t i = 0; i < level; ++i)
@@ -85,18 +85,18 @@ public:
     return CellId(bits, static_cast<int>(level));
   }
 
-  static CellId FromInt64(int64_t v)
+  static CellId FromInt64(int64_t v, int depth = DEPTH_LEVELS)
   {
     ASSERT_GREATER(v, 0, ());
-    ASSERT_LESS_OR_EQUAL(v, SubTreeSize(DEPTH_LEVELS - 1), ());
-    int64_t bits = 0;
+    ASSERT_LESS_OR_EQUAL(v, SubTreeSize(depth - 1), ());
+    uint64_t bits = 0;
     int level = 0;
     --v;
     while (v > 0)
     {
       bits <<= 2;
       ++level;
-      int64_t subTreeSize = SubTreeSize(DEPTH_LEVELS - 1 - level);
+      uint64_t subTreeSize = SubTreeSize(depth - 1 - level);
       for (--v; v >= subTreeSize; v -= subTreeSize)
         ++bits;
     }
@@ -107,7 +107,7 @@ public:
   {
     ASSERT(IsValid(), (m_Bits, m_Level));
     string result(m_Level, '0');
-    int64_t bits = m_Bits;
+    uint64_t bits = m_Bits;
     for (int i = 0; i < m_Level; ++i, bits >>= 2)
       result[m_Level - 1 - i] += (bits & 3);
     ASSERT_EQUAL(*this, FromString(result), (m_Bits, m_Level, result));
@@ -160,7 +160,7 @@ public:
     ASSERT(IsValid(), (m_Bits, m_Level));
     uint32_t offset = 1 << (DEPTH_LEVELS - 1 - m_Level);
     pair<uint32_t, uint32_t> xy(offset, offset);
-    int64_t bits = m_Bits;
+    uint64_t bits = m_Bits;
     while (bits > 0)
     {
       offset <<= 1;
@@ -203,13 +203,13 @@ public:
     x >>= DEPTH_LEVELS - level;
     y >>= DEPTH_LEVELS - level;
     // This operation is called "perfect shuffle". Optimized bit trick can be used here.
-    int64_t bits = 0;
+    uint64_t bits = 0;
     for (int i = 0; i < level; ++i)
-      bits |= ((int64_t((y >> i) & 1) << (2 * i + 1)) | (int64_t((x >> i) & 1) << (2 * i)));
+      bits |= ((uint64_t((y >> i) & 1) << (2 * i + 1)) | (uint64_t((x >> i) & 1) << (2 * i)));
     return CellId(bits, level);
   }
 
-  int64_t SubTreeSize() const
+  uint64_t SubTreeSize() const
   {
     ASSERT(IsValid(), (m_Bits, m_Level));
     return ((1ULL << 2 * (DEPTH_LEVELS - m_Level)) - 1) / 3ULL;
@@ -217,7 +217,7 @@ public:
 
   struct LessQueueOrder
   {
-    bool operator() (CellId<kDepthLevels> const & id1, CellId<kDepthLevels> const & id2) const
+    bool operator() (CellId<DEPTH_LEVELS> const & id1, CellId<DEPTH_LEVELS> const & id2) const
     {
       if (id1.m_Level != id2.m_Level)
         return id1.m_Level < id2.m_Level;
@@ -229,18 +229,18 @@ public:
 
   struct LessStackOrder
   {
-    bool operator() (CellId<kDepthLevels> const & id1, CellId<kDepthLevels> const & id2) const
+    bool operator() (CellId<DEPTH_LEVELS> const & id1, CellId<DEPTH_LEVELS> const & id2) const
     {
-      return id1.ToInt64() < id2.ToInt64();
+      return id1.ToString() < id2.ToString();
     }
   };
 
 private:
 
-  inline static int64_t SubTreeSize(int level)
+  inline static uint64_t SubTreeSize(int level)
   {
     ASSERT_GREATER_OR_EQUAL(level, 0, ());
-    static int64_t const kSubTreeSize[] =
+    static uint64_t const kSubTreeSize[] =
     {
       1LL,5LL,21LL,85LL,341LL,1365LL,5461LL,21845LL,87381LL,349525LL,1398101LL,5592405LL,22369621LL,
       89478485LL,357913941LL,1431655765LL,5726623061LL,22906492245LL,91625968981LL,366503875925LL,
@@ -251,21 +251,23 @@ private:
     return kSubTreeSize[level];
   }
 
-  CellId(int64_t bits, int level) : m_Bits(bits), m_Level(level)
+  CellId(uint64_t bits, int level) : m_Bits(bits), m_Level(level)
   {
     ASSERT_LESS(level, static_cast<uint32_t>(DEPTH_LEVELS), (bits, level));
-    ASSERT_LESS(static_cast<uint64_t>(bits), 1ULL << m_Level * 2, (bits, m_Level));
+    ASSERT_LESS(bits, 1ULL << m_Level * 2, (bits, m_Level));
     ASSERT(IsValid(), (m_Bits, m_Level));
   }
 
   bool IsValid() const
   {
-    if (m_Level >= DEPTH_LEVELS) return false;
-    if (static_cast<uint64_t>(m_Bits) >= (1ULL << m_Level * 2)) return false;
+    if (m_Level < 0 || m_Level >= DEPTH_LEVELS)
+      return false;
+    if (m_Bits >= (1ULL << m_Level * 2))
+      return false;
     return true;
   }
 
-  int64_t m_Bits;
+  uint64_t m_Bits;
   int m_Level;
 };
 
