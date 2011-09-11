@@ -157,35 +157,6 @@ UNIT_TEST(to_double)
   TEST(!strings::to_double(s, d), ());
 }
 
-UNIT_TEST(to_float)
-{
-  string s;
-  float f;
-
-  s = "0.123";
-  TEST(strings::to_float(s, f), ());
-  TEST_ALMOST_EQUAL(0.123f, f, ());
-
-  s = "1.";
-  TEST(strings::to_float(s, f), ());
-  TEST_ALMOST_EQUAL(1.0f, f, ());
-
-  s = "0";
-  TEST(strings::to_float(s, f), ());
-  TEST_ALMOST_EQUAL(0.f, f, ());
-
-  s = "5.68434e-14";
-  TEST(strings::to_float(s, f), ());
-  TEST_ALMOST_EQUAL(5.68434e-14f, f, ());
-
-  s = "-179.654321";
-  TEST(strings::to_float(s, f), ());
-  TEST_ALMOST_EQUAL(-179.654321f, f, ());
-
-  s = "labuda";
-  TEST(!strings::to_float(s, f), ());
-}
-
 UNIT_TEST(to_int)
 {
   int i;
