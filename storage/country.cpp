@@ -84,19 +84,6 @@ namespace storage
 //    return ar;
 //  }
 
-  inline bool IsCellId(string const & cellId)
-  {
-    size_t const size = cellId.size();
-    if (size == 0)
-      return false;
-    for (size_t i = 0; i < size; ++i)
-    {
-      if (cellId[i] < '0' || cellId[i] > '3')
-        return false;
-    }
-    return true;
-  }
-
   bool LoadCountries(file_t const & file, TTilesContainer const & sortedTiles,
                      TCountriesContainer & countries)
   {
