@@ -147,7 +147,7 @@ UNIT_TEST(CellID_LessQueueOrder)
       tst.push_back(m2::CellId<4>(e[i]));
       exp.push_back(m2::CellId<4>(v[i]));
     }
-    sort(tst.begin(), tst.end(), m2::CellId<4>::LessQueueOrder());
+    sort(tst.begin(), tst.end(), m2::CellId<4>::LessLevelOrder());
     TEST_EQUAL(tst, exp, ());
   } while (next_permutation(e.begin(), e.end()));
 }
@@ -171,7 +171,7 @@ UNIT_TEST(CellID_LessStackOrder)
       tst.push_back(m2::CellId<4>(e[i]));
       exp.push_back(m2::CellId<4>(v[i]));
     }
-    sort(tst.begin(), tst.end(), m2::CellId<4>::LessStackOrder());
+    sort(tst.begin(), tst.end(), m2::CellId<4>::LessPreOrder());
     TEST_EQUAL(tst, exp, ());
   } while (next_permutation(e.begin(), e.end()));
 }
@@ -180,7 +180,7 @@ UNIT_TEST(CellID_IsStringValid)
 {
   typedef m2::CellId<9> TId;
   TEST( TId::IsCellId("0123132"), () );
-  TEST( !TId::IsCellId(""), () );
+  TEST( TId::IsCellId(""), () );
   TEST( !TId::IsCellId("-1332"), () );
   TEST( !TId::IsCellId("023."), () );
   TEST( !TId::IsCellId("121832"), () );

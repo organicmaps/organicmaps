@@ -23,7 +23,7 @@ class Covering
 {
 public:
   typedef CellIdT CellId;
-  typedef typename CellId::LessQueueOrder LessQueueOrder;
+  typedef typename CellId::LessLevelOrder LessLevelOrder;
 
   Covering() : m_Size(0) {}
 
@@ -112,7 +112,7 @@ private:
 
   void SimplifyLevel(int level)
   {
-    map<CellId, uint32_t, LessQueueOrder> parentCellCounts;
+    map<CellId, uint32_t, LessLevelOrder> parentCellCounts;
     typedef typename vector<CellId>::const_iterator ConstIteartor;
     for (ConstIteartor it = m_Covering[level].begin(); it != m_Covering[level].end(); ++it)
         ++parentCellCounts[it->Parent()];
@@ -125,8 +125,8 @@ private:
       else
         childCells.push_back(*it);
     }
-    ASSERT(IsSorted(parentCells.begin(), parentCells.end(), LessQueueOrder()), (parentCells));
-    ASSERT(IsSorted(childCells.begin(), childCells.end(), LessQueueOrder()), (childCells));
+    ASSERT(IsSorted(parentCells.begin(), parentCells.end(), LessLevelOrder()), (parentCells));
+    ASSERT(IsSorted(childCells.begin(), childCells.end(), LessLevelOrder()), (childCells));
     m_Covering[level].swap(childCells);
     parentCells.erase(unique(parentCells.begin(), parentCells.end()), parentCells.end());
     AppendToVector(m_Covering[level - 1], parentCells);
@@ -134,10 +134,10 @@ private:
 
   static void AppendToVector(vector<CellId> & a, vector<CellId> const & b)
   {
-    ASSERT(IsSortedAndUnique(a.begin(), a.end(), LessQueueOrder()), (a));
-    ASSERT(IsSortedAndUnique(b.begin(), b.end(), LessQueueOrder()), (b));
+    ASSERT(IsSortedAndUnique(a.begin(), a.end(), LessLevelOrder()), (a));
+    ASSERT(IsSortedAndUnique(b.begin(), b.end(), LessLevelOrder()), (b));
     vector<CellId> merged;
-    set_union(a.begin(), a.end(), b.begin(), b.end(), back_inserter(merged), LessQueueOrder());
+    set_union(a.begin(), a.end(), b.begin(), b.end(), back_inserter(merged), LessLevelOrder());
     a.swap(merged);
   }
 
@@ -164,7 +164,7 @@ private:
   void Sort()
   {
     for (int level = 0; level < CellId::DEPTH_LEVELS; ++level)
-      sort(m_Covering[level].begin(), m_Covering[level].end(), LessQueueOrder());
+      sort(m_Covering[level].begin(), m_Covering[level].end(), LessLevelOrder());
   }
 
   void Unique()
@@ -172,7 +172,7 @@ private:
     for (int level = 0; level < CellId::DEPTH_LEVELS; ++level)
     {
       vector<CellId> & covering = m_Covering[level];
-      ASSERT(IsSorted(covering.begin(), covering.end(), LessQueueOrder()), (covering));
+      ASSERT(IsSorted(covering.begin(), covering.end(), LessLevelOrder()), (covering));
       covering.erase(unique(covering.begin(), covering.end()), covering.end());
     }
   }
@@ -200,7 +200,7 @@ private:
            ++childLevel)
       {
         vector<CellId> substracted;
-        CompareCellsAtLevel<LessQueueOrder> comparator(parentLevel);
+        CompareCellsAtLevel<LessLevelOrder> comparator(parentLevel);
         ASSERT(IsSorted(m_Covering[childLevel].begin(), m_Covering[childLevel].end(), comparator),
                (m_Covering[childLevel]));
         ASSERT(IsSorted(m_Covering[parentLevel].begin(), m_Covering[parentLevel].end(), comparator),

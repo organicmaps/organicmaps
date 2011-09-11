@@ -84,7 +84,7 @@ UNIT_TEST(Covering_Append_Simple)
   c1.Append(covering::Covering<CellId>(v2));
   vector<CellId> v4;
   c1.OutputToVector(v4);
-  sort(v4.begin(), v4.end(), CellId::LessStackOrder());
+  sort(v4.begin(), v4.end(), CellId::LessPreOrder());
   TEST_EQUAL(v3, v4, ());
 }
 
