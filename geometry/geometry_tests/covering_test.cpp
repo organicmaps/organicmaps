@@ -104,7 +104,7 @@ UNIT_TEST(IntersectCellWithTriangle_EmptyTriangle)
 UNIT_TEST(Covering_EmptyTriangle)
 {
   m2::PointU pt(27, 31);
-  CellId const expectedCellId = CellId::FromXY(pt.x, pt.y);
+  CellId const expectedCellId = CellId::FromXY(pt.x, pt.y, CellId::DEPTH_LEVELS - 1);
   TEST_GREATER(expectedCellId.ToInt64(), 5, ());
   covering::Covering<CellId> covering(pt, pt, pt);
   vector<CellId> ids;

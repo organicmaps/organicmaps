@@ -105,7 +105,8 @@ vector<int64_t> CoverFeature(FeatureType const & f, uint64_t cellPenaltyArea)
   {
     m2::PointD pt = featureIntersector.m_Polyline[0];
     return vector<int64_t>(
-          1, RectId::FromXY(static_cast<uint32_t>(pt.x), static_cast<uint32_t>(pt.y)).ToInt64());
+          1, RectId::FromXY(static_cast<uint32_t>(pt.x), static_cast<uint32_t>(pt.y),
+                            RectId::DEPTH_LEVELS - 1).ToInt64());
   }
 
   vector<RectId> cells;

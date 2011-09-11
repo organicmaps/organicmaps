@@ -169,7 +169,7 @@ public:
     return xy;
   }
 
-  static CellId FromXY(uint32_t x, uint32_t y, int level = DEPTH_LEVELS - 1)
+  static CellId FromXY(uint32_t x, uint32_t y, int level)
   {
     ASSERT_LESS(level, static_cast<int>(DEPTH_LEVELS), (x, y, level));
     // Since MAX_COORD == 1 << DEPTH_LEVELS, if x|y == MAX_COORD, they should be decremented.

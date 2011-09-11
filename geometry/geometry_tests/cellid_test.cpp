@@ -95,12 +95,11 @@ UNIT_TEST(CellId_Radius)
 
 UNIT_TEST(CellId_FromXY)
 {
-  TEST_EQUAL((m2::CellId<3>::FromXY(0, 0)), (m2::CellId<3>("00")), ());
   TEST_EQUAL((m2::CellId<3>::FromXY(0, 0, 2)), (m2::CellId<3>("00")), ());
   TEST_EQUAL((m2::CellId<3>::FromXY(0, 0, 1)), (m2::CellId<3>("0")), ());
   TEST_EQUAL((m2::CellId<3>::FromXY(0, 0, 0)), (m2::CellId<3>("")), ());
   TEST_EQUAL((m2::CellId<3>::FromXY(5, 4, 0)), (m2::CellId<3>("")), ());
-  TEST_EQUAL((m2::CellId<3>::FromXY(5, 0)), (m2::CellId<3>("10")), ());
+  TEST_EQUAL((m2::CellId<3>::FromXY(5, 0, 2)), (m2::CellId<3>("10")), ());
   TEST_EQUAL((m2::CellId<3>::FromXY(5, 0, 1)), (m2::CellId<3>("1")), ());
   TEST_EQUAL((m2::CellId<3>::FromXY(5, 0, 1)), (m2::CellId<3>("1")), ());
   TEST_EQUAL((m2::CellId<3>::FromXY(7, 7, 2)), (m2::CellId<3>("33")), ());
@@ -111,10 +110,10 @@ UNIT_TEST(CellId_FromXY)
 
 UNIT_TEST(CellId_FromXY_XY_Match)
 {
-  TEST_EQUAL((m2::CellId<9>::FromXY(48, 80).XY()), make_pair(49U, 81U), ());
-  TEST_EQUAL((m2::CellId<9>::FromXY(192, 320).XY()), make_pair(193U, 321U), ());
-  TEST_EQUAL((m2::CellId<11>::FromXY(768, 1280).XY()), make_pair(769U, 1281U), ());
-  TEST_EQUAL((m2::CellId<21>::FromXY(786432, 1310720).XY()), make_pair(786433U, 1310721U), ());
+  TEST_EQUAL((m2::CellId<9>::FromXY(48, 80, 8).XY()), make_pair(49U, 81U), ());
+  TEST_EQUAL((m2::CellId<9>::FromXY(192, 320, 8).XY()), make_pair(193U, 321U), ());
+  TEST_EQUAL((m2::CellId<11>::FromXY(768, 1280, 10).XY()), make_pair(769U, 1281U), ());
+  TEST_EQUAL((m2::CellId<21>::FromXY(786432, 1310720, 20).XY()), make_pair(786433U, 1310721U), ());
 }
 
 UNIT_TEST(CellId_SubTreeSize)

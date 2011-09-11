@@ -45,7 +45,7 @@ public:
   {
     uint32_t const ix = static_cast<uint32_t>(XToCellIdX(x));
     uint32_t const iy = static_cast<uint32_t>(YToCellIdY(y));
-    CellIdT id = CellIdT::FromXY(ix, iy);
+    CellIdT id = CellIdT::FromXY(ix, iy, CellIdT::DEPTH_LEVELS - 1);
 #if 0 // DEBUG
     pair<uint32_t, uint32_t> ixy = id.XY();
     ASSERT(Abs(ixy.first  - ix) <= 1, (x, y, id, ixy));
