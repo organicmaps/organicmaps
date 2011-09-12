@@ -112,6 +112,10 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   [(UITableView *)self.view reloadData];
   ++g_queryId;
 
+  // show active search indicator
+  //  self.navigationItem.rightBarButtonItem.customView = [[[UIActivityIndicatorView alloc]
+  //      initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleGray] autorelease];
+
   if ([searchText length] > 0)
   {
     g_searchF([[searchText precomposedStringWithCompatibilityMapping] UTF8String],
@@ -142,16 +146,25 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   if (indexPath.row < m_results.size())
   {
     search::Result const & r = m_results[indexPath.row];
-    cell.textLabel.text = [NSString stringWithUTF8String:r.GetString()];
-    if (r.GetResultType() == search::Result::RESULT_FEATURE)
-    {
-      cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1lf m", r.GetDistanceFromCenter() / 1000.0];
 
-      float const h = tableView.rowHeight * 0.6;
-      CompassView * v = [[[CompassView alloc] initWithFrame:
-                        CGRectMake(0, 0, h, h)] autorelease];
-      v.angle = (float)r.GetDirectionFromCenter();
-      cell.accessoryView = v;
+    if (r.IsEndMarker())
+    { // search is finished
+      // hide search indicator
+      //self.navigationItem.rightBarButtonItem.customView = nil;
+    }
+    else
+    {
+      cell.textLabel.text = [NSString stringWithUTF8String:r.GetString()];
+      if (r.GetResultType() == search::Result::RESULT_FEATURE)
+      {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1lf m", r.GetDistanceFromCenter() / 1000.0];
+
+        float const h = tableView.rowHeight * 0.6;
+        CompassView * v = [[[CompassView alloc] initWithFrame:
+                          CGRectMake(0, 0, h, h)] autorelease];
+        v.angle = (float)r.GetDirectionFromCenter();
+        cell.accessoryView = v;
+      }
     }
   }
   else
