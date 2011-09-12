@@ -105,7 +105,15 @@ namespace
   {
     using namespace Settings;
     Units u;
-    if (!Settings::Get("Units", u)) u = Metric;
+    if (!Settings::Get("Units", u))
+    {
+      // set default measurement from system locale
+      if (QLocale::system().measurementSystem() == QLocale::MetricSystem)
+        u = Metric;
+      else
+        u = Foot;
+      Settings::Set("Units", u);
+    }
 
     switch (u)
     {

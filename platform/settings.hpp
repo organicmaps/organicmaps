@@ -40,4 +40,4 @@ namespace Settings
   }
 
   enum Units { Metric, Yard, Foot };
-};
+}
