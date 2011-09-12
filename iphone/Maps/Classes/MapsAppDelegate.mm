@@ -62,4 +62,9 @@
     [UIApplication sharedApplication].idleTimerDisabled = NO;
 }
 
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
+{
+  NSLog(@"applicationDidReceiveMemoryWarning");
+}
+
 @end
