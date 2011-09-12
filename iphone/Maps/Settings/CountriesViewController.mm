@@ -215,16 +215,16 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   if (cell == nil)
   {
   	if (hasChildren)
-    {
     	cell = [[[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier:cellId] autorelease];
-      cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
   	else
-    {
   		cell = [[[UITableViewCell alloc] initWithStyle: UITableViewCellStyleSubtitle reuseIdentifier:cellId] autorelease];
-      cell.accessoryType = UITableViewCellAccessoryNone;
-    }
 	}
+
+  if (hasChildren)
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+  else
+    cell.accessoryType = UITableViewCellAccessoryNone;
+
   cell.textLabel.text = [NSString stringWithUTF8String:m_storage->CountryName(index).c_str()];
 
   [self UpdateCell: cell forCountry: index];
