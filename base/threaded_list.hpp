@@ -102,7 +102,7 @@ public:
     return res;
   }
 
-  size_t Size()
+  size_t Size() const
   {
     threads::ConditionGuard g(m_Cond);
     return m_list.size();

@@ -250,12 +250,17 @@ namespace yg
 
   int ResourceManager::renderThreadGlyphCacheID(int threadNum) const
   {
-    return 1 + threadNum;
+    return 2 + threadNum;
   }
 
   int ResourceManager::guiThreadGlyphCacheID() const
   {
     return 0;
+  }
+
+  int ResourceManager::cacheThreadGlyphCacheID() const
+  {
+    return 1;
   }
 
   ResourceManager::TStoragePool * ResourceManager::storages()

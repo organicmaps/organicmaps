@@ -87,9 +87,18 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
   tileCache->readUnlock();
 
   if (addTile)
+  {
     m_infoLayer.merge(*tile->m_infoLayer.get(),
                        tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
 
+    if (!m_stylesCache)
+      m_stylesCache.reset(new yg::StylesCache(m_coverageGenerator->resourceManager(),
+                                              m_coverageGenerator->resourceManager()->cacheThreadGlyphCacheID(),
+                                              2));
+
+    m_infoLayer.cache(m_stylesCache.get());
+    m_stylesCache->upload();
+  }
 }
 
 void ScreenCoverage::Remove(Tile const *)
@@ -165,16 +174,22 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen, bool /*mergePathNames*
   {
     Tiler::RectInfo ri = (*it)->m_rectInfo;
     tileCache->lockTile((*it)->m_rectInfo);
-    m_infoLayer.merge(*((*it)->m_infoLayer.get()), (*it)->m_tileScreen.PtoGMatrix() * screen.GtoPMatrix());
   }
+
+  tileCache->readUnlock();
+
+  m_tiles = tiles;
+
+  m_stylesCache.reset(new yg::StylesCache(m_coverageGenerator->resourceManager(),
+                                          m_coverageGenerator->resourceManager()->cacheThreadGlyphCacheID(),
+                                          2));
 
   m_infoLayer.clear();
   for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
     m_infoLayer.merge(*((*it)->m_infoLayer.get()), (*it)->m_tileScreen.PtoGMatrix() * screen.GtoPMatrix());
 
-  tileCache->readUnlock();
-
-  m_tiles = tiles;
+  m_infoLayer.cache(m_stylesCache.get());
+  m_stylesCache->upload();
 
   /// adding commands for tiles which aren't in cache
   for (size_t i = 0; i < newRects.size(); ++i)
@@ -182,6 +197,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen, bool /*mergePathNames*
     m_tileRenderer->AddCommand(newRects[i], m_tiler.sequenceID(),
                                bind(&CoverageGenerator::AddMergeTileTask, m_coverageGenerator, newRects[i]));
   }
+
 }
 
 ScreenCoverage::~ScreenCoverage()
@@ -196,9 +212,6 @@ ScreenCoverage::~ScreenCoverage()
   }
 
   tileCache->writeUnlock();
-
-  m_tiles.clear();
-  m_infoLayer.clear();
 }
 
 void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
@@ -223,6 +236,9 @@ void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
   }
 
   s->blit(&infos[0], infos.size(), true);
+
+  if (m_stylesCache)
+    s->setAdditionalSkinPages(m_stylesCache->cachePages());
 
   m_infoLayer.draw(s, m_screen.PtoGMatrix() * screen.GtoPMatrix());
 }

@@ -17,7 +17,10 @@ namespace yg
   namespace gl
   {
     class TextRenderer;
+    class SkinPage;
   }
+
+  class StylesCache;
 
   struct StraightTextElementTraits
   {
@@ -58,6 +61,8 @@ namespace yg
     void offset(m2::PointD const & offs, m2::RectD const & rect);
 
     void clear();
+
+    void cache(StylesCache * cache);
 
     void merge(InfoLayer const & infoLayer, math::Matrix<double, 3, 3> const & m);
   };

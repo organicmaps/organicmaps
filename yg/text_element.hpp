@@ -16,6 +16,7 @@ namespace yg
 {
   class ResourceManager;
   class Skin;
+  class SkinPage;
 
   namespace gl
   {
@@ -45,6 +46,12 @@ namespace yg
 
     TextElement(Params const & p);
 
+    void cacheTextImpl(GlyphLayout const & layout,
+                       vector<shared_ptr<SkinPage> > & skinPages,
+                       shared_ptr<ResourceManager> const & rm,
+                       GlyphCache * glyphCache,
+                       FontDesc const & desc) const;
+
     void drawTextImpl(GlyphLayout const & layout,
                       gl::OverlayRenderer * r,
                       math::Matrix<double, 3, 3> const & m,
@@ -73,6 +80,9 @@ namespace yg
     m2::AARectD const boundRect() const;
     void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
     void offset(m2::PointD const & offs);
+    void cache(vector<shared_ptr<SkinPage> > & skinPages,
+               shared_ptr<ResourceManager> const & rm,
+               GlyphCache * glyphCache) const;
   };
 
   class PathTextElement : public TextElement
@@ -97,5 +107,9 @@ namespace yg
     m2::AARectD const boundRect() const;
     void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
     void offset(m2::PointD const & offs);
+
+    void cache(vector<shared_ptr<SkinPage> > & skinPages,
+               shared_ptr<ResourceManager> const & rm,
+               GlyphCache * glyphCache) const;
   };
 }

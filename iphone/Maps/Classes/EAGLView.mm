@@ -119,7 +119,7 @@ bool _inRepaint = false;
 					"fonts_whitelist.txt",
  					"fonts_blacklist.txt",
           1.5 * 1024 * 1024,
-          GetPlatform().CpuCores() + 1,
+          GetPlatform().CpuCores() + 2,
           fmt,
           !yg::gl::g_isBufferObjectsSupported));
     

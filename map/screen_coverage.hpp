@@ -5,6 +5,7 @@
 #include "../geometry/screenbase.hpp"
 
 #include "../yg/info_layer.hpp"
+#include "../yg/styles_cache.hpp"
 
 #include "tile.hpp"
 #include "tiler.hpp"
@@ -43,6 +44,7 @@ private:
 
   TileSet m_tiles; //< set of tiles, that are visible for the m_screen
   yg::InfoLayer m_infoLayer; //< composite infoLayers for visible tiles
+  shared_ptr<yg::StylesCache> m_stylesCache;
 
   CoverageGenerator * m_coverageGenerator;
 

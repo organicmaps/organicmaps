@@ -2,6 +2,7 @@
 
 #include "info_layer.hpp"
 #include "text_element.hpp"
+#include "styles_cache.hpp"
 
 #include "../std/bind.hpp"
 #include "../std/vector.hpp"
@@ -219,5 +220,27 @@ namespace yg
     for (path_text_elements::const_iterator it = layer.m_pathTexts.begin(); it != layer.m_pathTexts.end(); ++it)
       for_each(it->second.begin(), it->second.end(), bind(&InfoLayer::addPathText, this, _1, m));
   }
+
+  void InfoLayer::cache(StylesCache * stylesCache)
+  {
+    list<strings::UniString> toErase;
+
+    for (path_text_elements::const_iterator it = m_pathTexts.begin(); it != m_pathTexts.end(); ++it)
+    {
+      list<PathTextElement> const & l = it->second;
+
+      for (list<PathTextElement>::const_iterator j = l.begin(); j != l.end(); ++j)
+        stylesCache->cachePathText(*j);
+
+      if (l.empty())
+        toErase.push_back(it->first);
+    }
+
+    for (list<strings::UniString>::const_iterator it = toErase.begin(); it != toErase.end(); ++it)
+      m_pathTexts.erase(*it);
+
+    m_tree.ForEach(bind(&StylesCache::cacheStraightText, stylesCache, _1));
+  }
+
 }
 

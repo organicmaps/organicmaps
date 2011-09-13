@@ -151,6 +151,7 @@ namespace yg
 
     int renderThreadGlyphCacheID(int threadNum) const;
     int guiThreadGlyphCacheID() const;
+    int cacheThreadGlyphCacheID() const;
 
     void addFonts(vector<string> const & fontNames);
 

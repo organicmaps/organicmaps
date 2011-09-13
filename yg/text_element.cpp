@@ -1,6 +1,8 @@
 #include "text_element.hpp"
 #include "screen.hpp"
 #include "skin.hpp"
+#include "skin_page.hpp"
+#include "resource_manager.hpp"
 #include "overlay_renderer.hpp"
 #include "resource_style.hpp"
 
@@ -52,6 +54,43 @@ namespace yg
       CharStyle const * charStyle = static_cast<CharStyle const *>(skin->fromID(glyphID));
 
       screen->drawGlyph(elem.m_pt + pv, m2::PointD(0.0, 0.0), elem.m_angle, 0, charStyle, depth);
+    }
+  }
+
+  void TextElement::cacheTextImpl(GlyphLayout const & layout,
+                                  vector<shared_ptr<SkinPage> > & skinPages,
+                                  shared_ptr<ResourceManager> const & rm,
+                                  GlyphCache * glyphCache,
+                                  FontDesc const & desc) const
+  {
+    for (unsigned i = layout.firstVisible(); i < layout.lastVisible(); ++i)
+    {
+      GlyphLayoutElem const & elem = layout.entries()[i];
+
+      GlyphKey glyphKey(elem.m_sym,
+                        m_fontDesc.m_size,
+                        m_fontDesc.m_isMasked,
+                        m_fontDesc.m_isMasked ? m_fontDesc.m_maskColor : m_fontDesc.m_color);
+
+      bool found = false;
+
+      for (unsigned j = 0; j < skinPages.size(); ++j)
+        if (skinPages[j]->findGlyph(glyphKey) != 0x00FFFFFF)
+        {
+          found = true;
+          break;
+        }
+
+      if (!found)
+      {
+        if (!skinPages.empty() && skinPages.back()->hasRoom(glyphKey, glyphCache))
+          skinPages.back()->mapGlyph(glyphKey, glyphCache);
+        else
+        {
+          skinPages.push_back(make_shared_ptr(new SkinPage(rm, SkinPage::EFontsUsage, 0)));
+          skinPages.back()->mapGlyph(glyphKey, glyphCache);
+        }
+      }
     }
   }
 
@@ -112,6 +151,20 @@ namespace yg
     m_glyphLayout.setPivot(pivot());
   }
 
+  void StraightTextElement::cache(vector<shared_ptr<SkinPage> > & skinPages,
+                                  shared_ptr<ResourceManager> const & rm,
+                                  GlyphCache * glyphCache) const
+  {
+    yg::FontDesc desc = m_fontDesc;
+    if (m_fontDesc.m_isMasked)
+    {
+      cacheTextImpl(m_glyphLayout, skinPages, rm, glyphCache, m_fontDesc);
+      desc.m_isMasked = false;
+    }
+
+    cacheTextImpl(m_glyphLayout, skinPages, rm, glyphCache, desc);
+  }
+
   PathTextElement::PathTextElement(Params const & p)
     : TextElement(p),
       m_glyphLayout(p.m_glyphCache,
@@ -166,5 +219,20 @@ namespace yg
   {
     TextElement::offset(offs);
     m_glyphLayout.setPivot(pivot());
+  }
+
+  void PathTextElement::cache(vector<shared_ptr<SkinPage> > & skinPages,
+                              shared_ptr<ResourceManager> const & rm,
+                              GlyphCache * glyphCache) const
+  {
+    yg::FontDesc desc = m_fontDesc;
+
+    if (m_fontDesc.m_isMasked)
+    {
+      cacheTextImpl(m_glyphLayout, skinPages, rm, glyphCache, m_fontDesc);
+      desc.m_isMasked = false;
+    }
+
+    cacheTextImpl(m_glyphLayout, skinPages, rm, glyphCache, desc);
   }
 }

@@ -10,7 +10,7 @@ protected:
   my::Timer m_Timer;
   double m_WaitTime;
 
-  threads::Condition m_Cond;
+  mutable threads::Condition m_Cond;
   bool m_IsCancelled;
 
 public:

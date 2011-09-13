@@ -116,6 +116,11 @@ public:
     m_traits.Free(m_pool, elem);
   }
 
+  size_t Size() const
+  {
+    return m_pool.Size();
+  }
+
   void EnterForeground()
   {}
 

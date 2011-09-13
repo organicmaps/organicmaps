@@ -29,6 +29,9 @@ private:
 
   TileRenderer * m_tileRenderer;
 
+  shared_ptr<yg::ResourceManager> m_resourceManager;
+  shared_ptr<yg::gl::RenderContext> m_renderContext;
+
   ScreenCoverage * m_workCoverage;
   ScreenCoverage * m_currentCoverage;
 
@@ -42,11 +45,14 @@ private:
 public:
 
   CoverageGenerator(size_t tileSize,
-             size_t scaleEtalonSize,
-             TileRenderer * tileRenderer,
-             shared_ptr<WindowHandle> const & windowHandle);
+                    size_t scaleEtalonSize,
+                    TileRenderer * tileRenderer,
+                    shared_ptr<WindowHandle> const & windowHandle);
 
   ~CoverageGenerator();
+
+  void InitializeThreadGL();
+  void FinalizeThreadGL();
 
   void AddCoverScreenTask(ScreenBase const & screen);
   void AddMergeTileTask(Tiler::RectInfo const & rectInfo);
@@ -56,11 +62,14 @@ public:
 
   void Cancel();
 
-  void Initialize();
+  void Initialize(shared_ptr<yg::gl::RenderContext> const & rc,
+                  shared_ptr<yg::ResourceManager> const & rm);
 
   void WaitForEmptyAndFinished();
 
   ScreenCoverage & CurrentCoverage();
 
   threads::Mutex & Mutex();
+
+  shared_ptr<yg::ResourceManager> const & resourceManager() const;
 };

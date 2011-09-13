@@ -6,6 +6,7 @@
 #include "../geometry/screenbase.hpp"
 
 #include "../yg/base_texture.hpp"
+#include "../yg/internal/opengl.hpp"
 
 #include "drawer_yg.hpp"
 #include "events.hpp"
@@ -37,12 +38,21 @@ void TilingRenderPolicyMT::Initialize(shared_ptr<yg::gl::RenderContext> const & 
   resourceManager->initRenderTargets(GetPlatform().TileSize(), GetPlatform().TileSize(), GetPlatform().MaxTilesCount());
 
   m_tileRenderer.Initialize(primaryContext, resourceManager, GetPlatform().VisualScale());
-  m_coverageGenerator.Initialize();
+  m_coverageGenerator.Initialize(primaryContext, resourceManager);
+}
+
+void TilingRenderPolicyMT::BeginFrame()
+{
+}
+
+void TilingRenderPolicyMT::EndFrame()
+{
 }
 
 void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & currentScreen)
 {
   DrawerYG * pDrawer = e->drawer();
+
   pDrawer->screen()->clear(bgColor());
 
   m_coverageGenerator.AddCoverScreenTask(currentScreen);

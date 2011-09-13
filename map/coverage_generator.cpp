@@ -4,15 +4,17 @@
 #include "screen_coverage.hpp"
 #include "tile_renderer.hpp"
 
+#include "../yg/rendercontext.hpp"
+
 #include "../base/logging.hpp"
 
 #include "../std/bind.hpp"
 
 CoverageGenerator::CoverageGenerator(
-  size_t tileSize,
-  size_t scaleEtalonSize,
-  TileRenderer * tileRenderer,
-  shared_ptr<WindowHandle> const & windowHandle)
+    size_t tileSize,
+    size_t scaleEtalonSize,
+    TileRenderer * tileRenderer,
+    shared_ptr<WindowHandle> const & windowHandle)
   : m_queue(1),
     m_tileRenderer(tileRenderer),
     m_workCoverage(0),
@@ -22,8 +24,25 @@ CoverageGenerator::CoverageGenerator(
 {
 }
 
-void CoverageGenerator::Initialize()
+void CoverageGenerator::InitializeThreadGL()
 {
+  m_renderContext->makeCurrent();
+}
+
+void CoverageGenerator::FinalizeThreadGL()
+{
+  m_renderContext->endThreadDrawing();
+}
+
+void CoverageGenerator::Initialize(shared_ptr<yg::gl::RenderContext> const & rc,
+                                   shared_ptr<yg::ResourceManager> const & rm)
+{
+  m_resourceManager = rm;
+  m_renderContext = rc->createShared();
+
+  m_queue.AddInitCommand(bind(&CoverageGenerator::InitializeThreadGL, this));
+  m_queue.AddFinCommand(bind(&CoverageGenerator::FinalizeThreadGL, this));
+
   m_queue.Start();
 }
 
@@ -66,6 +85,8 @@ void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
 
   delete oldCoverage;
   m_workCoverage = 0;
+
+  m_windowHandle->invalidate();
 }
 
 void CoverageGenerator::AddMergeTileTask(Tiler::RectInfo const & rectInfo)
@@ -105,4 +126,9 @@ ScreenCoverage & CoverageGenerator::CurrentCoverage()
 threads::Mutex & CoverageGenerator::Mutex()
 {
   return m_mutex;
+}
+
+shared_ptr<yg::ResourceManager> const & CoverageGenerator::resourceManager() const
+{
+  return m_resourceManager;
 }
