@@ -2,6 +2,7 @@
 
 @class MapViewController;
 @class SettingsManager;
+@class Preferences;
 
 @interface MapsAppDelegate : NSObject <UIApplicationDelegate>
 {
@@ -10,6 +11,8 @@
   MapViewController * m_mapViewController;
   SettingsManager * m_settingsManager;
   NSInteger m_standbyCounter;
+
+  Preferences * m_preferences;
 }
 
 @property (nonatomic, retain) IBOutlet UINavigationController * m_navigationController;

@@ -145,18 +145,22 @@ namespace Settings
   {
     switch (v)
     {
-    case Yard: return "Y";
-    case Foot: return "F";
-    default: return "M";
+    case Yard: return "Yard";
+    case Foot: return "Foot";
+    default: return "Metric";
     }
   }
 
   template <> bool FromString<Units>(string const & s, Units & v)
   {
-    if (s == "M") v = Metric;
-    else if (s == "Y") v = Yard;
-    else if (s == "F") v = Foot;
-    else return false;
+    if (s == "Metric")
+      v = Metric;
+    else if (s == "Yard")
+      v = Yard;
+    else if (s == "Foot")
+      v = Foot;
+    else
+      return false;
 
     return true;
   }
