@@ -114,7 +114,7 @@ namespace yg
             m2::PointF(rawTileEndPt.x + fNorm.x, rawTileEndPt.y + fNorm.y)
           };
 
-          shared_ptr<BaseTexture> texture = skin()->pages()[lineStyle->m_pageID]->texture();
+          shared_ptr<BaseTexture> texture = skin()->getPage(lineStyle->m_pipelineID)->texture();
 
           m2::PointF texCoords[4] =
           {
@@ -124,7 +124,7 @@ namespace yg
             texture->mapPixel(m2::PointF(texMaxX, texMinY))
           };
 
-          addTexturedFan(coords, texCoords, 4, depth, lineStyle->m_pageID);
+          addTexturedFan(coords, texCoords, 4, depth, lineStyle->m_pipelineID);
 
           segLenRemain -= rawTileLen;
 
@@ -160,7 +160,7 @@ namespace yg
             startVec = norm;
           }
 
-          shared_ptr<BaseTexture> texture = skin()->pages()[lineStyle->m_pageID]->texture();
+          shared_ptr<BaseTexture> texture = skin()->getPage(lineStyle->m_pipelineID)->texture();
 
           m2::PointF joinSegTex[3] =
           {
@@ -183,7 +183,7 @@ namespace yg
               m2::PointF(points[i + 1] + prevStartVec * geomHalfWidth)
             };
 
-            addTexturedFan(joinSeg, joinSegTex, 3, depth, lineStyle->m_pageID);
+            addTexturedFan(joinSeg, joinSegTex, 3, depth, lineStyle->m_pipelineID);
 
             prevStartVec = startVec;
           }
@@ -237,7 +237,7 @@ namespace yg
           nextPt + fDir - fNorm
         };
 
-        shared_ptr<BaseTexture> texture = skin()->pages()[lineStyle->m_pageID]->texture();
+        shared_ptr<BaseTexture> texture = skin()->getPage(lineStyle->m_pipelineID)->texture();
 
         m2::PointF texCoords[8] =
         {
@@ -251,7 +251,7 @@ namespace yg
           texture->mapPixel(m2::PointF(texMaxX, texMaxY))
         };
 
-        addTexturedStrip(coords, texCoords, 8, depth, lineStyle->m_pageID);
+        addTexturedStrip(coords, texCoords, 8, depth, lineStyle->m_pipelineID);
       }
     }
 

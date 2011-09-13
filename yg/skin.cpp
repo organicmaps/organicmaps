@@ -43,9 +43,9 @@ namespace yg
 
     for (int i = 0; i < count; ++i)
     {
-      uint8_t pageID = (uint8_t)m_pages.size();
-      m_pages.push_back(make_shared_ptr(new SkinPage(m_resourceManager, SkinPage::EFontsUsage, pageID)));
-      m_pages.back()->addOverflowFn(bind(&Skin::onTextOverflow, this, pageID), 0);
+      uint8_t pipelineID = (uint8_t)m_pages.size();
+      m_pages.push_back(make_shared_ptr(new SkinPage(m_resourceManager, SkinPage::EFontsUsage, pipelineID)));
+      m_pages.back()->addOverflowFn(bind(&Skin::onTextOverflow, this, pipelineID), 0);
     }
   }
 
@@ -57,9 +57,9 @@ namespace yg
 
     for (int i = 0; i < count; ++i)
     {
-      uint8_t pageID = (uint8_t)m_pages.size();
-      m_pages.push_back(make_shared_ptr(new SkinPage(m_resourceManager, SkinPage::EDynamicUsage, pageID)));
-      m_pages.back()->addOverflowFn(bind(&Skin::onDynamicOverflow, this, pageID), 0);
+      uint8_t pipelineID = (uint8_t)m_pages.size();
+      m_pages.push_back(make_shared_ptr(new SkinPage(m_resourceManager, SkinPage::EDynamicUsage, pipelineID)));
+      m_pages.back()->addOverflowFn(bind(&Skin::onDynamicOverflow, this, pipelineID), 0);
     }
   }
 
@@ -68,22 +68,25 @@ namespace yg
 
   pair<uint8_t, uint32_t> Skin::unpackID(uint32_t id) const
   {
-    uint8_t pageID = (id & 0xFF000000) >> 24;
+    uint8_t pipelineID = (id & 0xFF000000) >> 24;
     uint32_t h = (id & 0x00FFFFFF);
-    return make_pair<uint8_t, uint32_t>(pageID, h);
+    return make_pair<uint8_t, uint32_t>(pipelineID, h);
   }
 
-  uint32_t Skin::packID(uint8_t pageID, uint32_t handle) const
+  uint32_t Skin::packID(uint8_t pipelineID, uint32_t handle) const
   {
-    uint32_t pageIDMask = (uint32_t)pageID << 24;
+    uint32_t pipelineIDMask = (uint32_t)pipelineID << 24;
     uint32_t h = (handle & 0x00FFFFFF);
-    return (uint32_t)(pageIDMask | h);
+    return (uint32_t)(pipelineIDMask | h);
   }
 
   ResourceStyle const * Skin::fromID(uint32_t id)
   {
     id_pair_t p = unpackID(id);
-    return m_pages[p.first]->fromID(p.second);
+    if (p.first < m_pages.size())
+      return m_pages[p.first]->fromID(p.second);
+    else
+      return m_additionalPages[p.first - m_pages.size()]->fromID(p.second);
   }
 
   uint32_t Skin::mapSymbol(char const * symbolName)
@@ -94,6 +97,14 @@ namespace yg
       if (res != invalidPageHandle())
         return packID(i, res);
     }
+
+    for (uint8_t i = 0; i < m_additionalPages.size(); ++i)
+    {
+      uint32_t res = m_additionalPages[i]->findSymbol(symbolName);
+      if (res != invalidPageHandle())
+        return packID(i + m_pages.size(), res);
+    }
+
     return invalidHandle();
   }
 
@@ -108,6 +119,13 @@ namespace yg
         return packID(i, res);
     }
 
+    for (uint8_t i = 0; i < m_additionalPages.size(); ++i)
+    {
+      res = m_additionalPages[i]->findColor(c);
+      if (res != invalidPageHandle())
+        return packID(i + m_pages.size(), res);
+    }
+
     if (!m_pages[m_currentDynamicPage]->hasRoom(c))
       changeCurrentDynamicPage();
 
@@ -117,11 +135,19 @@ namespace yg
   uint32_t Skin::mapPenInfo(PenInfo const & penInfo)
   {
     uint32_t res = invalidPageHandle();
+
     for (uint8_t i = 0; i < m_pages.size(); ++i)
     {
       res = m_pages[i]->findPenInfo(penInfo);
       if (res != invalidPageHandle())
         return packID(i, res);
+    }
+
+    for (uint8_t i = 0; i < m_additionalPages.size(); ++i)
+    {
+      res = m_additionalPages[i]->findPenInfo(penInfo);
+      if (res != invalidPageHandle())
+        return packID(i + m_pages.size(), res);
     }
 
     if (!m_pages[m_currentDynamicPage]->hasRoom(penInfo))
@@ -133,9 +159,17 @@ namespace yg
   uint32_t Skin::mapCircleInfo(CircleInfo const & circleInfo)
   {
     uint32_t res = invalidPageHandle();
+
     for (uint8_t i = 0; i < m_pages.size(); ++i)
     {
       res = m_pages[i]->findCircleInfo(circleInfo);
+      if (res != invalidPageHandle())
+        return packID(i, res);
+    }
+
+    for (uint8_t i = 0; i < m_additionalPages.size(); ++i)
+    {
+      res = m_additionalPages[i]->findCircleInfo(circleInfo);
       if (res != invalidPageHandle())
         return packID(i, res);
     }
@@ -190,15 +224,35 @@ namespace yg
         return packID(i, res);
     }
 
+    for (uint8_t i = 0; i < m_additionalPages.size(); ++i)
+    {
+      res = m_additionalPages[i]->findGlyph(gk);
+      if (res != invalidPageHandle())
+        return packID(i + m_pages.size(), res);
+    }
+
     if (!m_pages[m_currentTextPage]->hasRoom(gk, glyphCache))
       changeCurrentTextPage();
 
     return packID(m_currentTextPage, m_pages[m_currentTextPage]->mapGlyph(gk, glyphCache));
   }
 
-  Skin::TSkinPages const & Skin::pages() const
+/*  Skin::TSkinPages const & Skin::pages() const
   {
     return m_pages;
+  }*/
+
+  shared_ptr<SkinPage> const & Skin::getPage(int i) const
+  {
+    if (i < m_pages.size())
+      return m_pages[i];
+    else
+      return m_additionalPages[i - m_pages.size()];
+  }
+
+  size_t Skin::getPagesCount() const
+  {
+    return m_pages.size();
   }
 
   void Skin::addClearPageFn(clearPageFn fn, int priority)
@@ -206,12 +260,12 @@ namespace yg
     m_clearPageFns.push(std::pair<size_t, clearPageFn>(priority, fn));
   }
 
-  void Skin::callClearPageFns(uint8_t pageID)
+  void Skin::callClearPageFns(uint8_t pipelineID)
   {
     clearPageFns handlersCopy = m_clearPageFns;
     while (!handlersCopy.empty())
     {
-      handlersCopy.top().second(pageID);
+      handlersCopy.top().second(pipelineID);
       handlersCopy.pop();
     }
   }
@@ -221,33 +275,33 @@ namespace yg
     m_overflowFns.push(std::pair<size_t, overflowFn>(priority, fn));
   }
 
-  void Skin::callOverflowFns(uint8_t pageID)
+  void Skin::callOverflowFns(uint8_t pipelineID)
   {
     overflowFns handlersCopy = m_overflowFns;
     while (!handlersCopy.empty())
     {
-      handlersCopy.top().second(pageID);
+      handlersCopy.top().second(pipelineID);
       handlersCopy.pop();
     }
   }
 
-  void Skin::clearPageHandles(uint8_t pageID)
+  void Skin::clearPageHandles(uint8_t pipelineID)
   {
-    m_pages[pageID]->clearHandles();
+    getPage(pipelineID)->clearHandles();
   }
 
   /// This function is set to perform as a callback on texture or handles overflow
   /// BUT! Never called on texture overflow, as this situation
   /// is explicitly checked in the mapXXX() functions.
-  void Skin::onDynamicOverflow(uint8_t pageID)
+  void Skin::onDynamicOverflow(uint8_t pipelineID)
   {
-    LOG(LINFO, ("DynamicPage switching, pageID=", (uint32_t)pageID));
+    LOG(LINFO, ("DynamicPage switching, pipelineID=", (uint32_t)pipelineID));
     changeCurrentDynamicPage();
   }
 
-  void Skin::onTextOverflow(uint8_t pageID)
+  void Skin::onTextOverflow(uint8_t pipelineID)
   {
-    LOG(LINFO, ("TextPage switching, pageID=", (uint32_t)pageID));
+    LOG(LINFO, ("TextPage switching, pipelineID=", (uint32_t)pipelineID));
     changeCurrentTextPage();
   }
 
@@ -312,5 +366,19 @@ namespace yg
 
   void Skin::enterForeground()
   {
+  }
+
+  void Skin::setAdditionalPages(vector<shared_ptr<SkinPage> > const & pages)
+  {
+    m_additionalPages = pages;
+    for (unsigned i = 0; i < pages.size(); ++i)
+      m_additionalPages[i]->setPipelineID(i + m_pages.size());
+  }
+
+  void Skin::clearAdditionalPages()
+  {
+    for (unsigned i = 0; i < m_additionalPages.size(); ++i)
+      m_additionalPages[i]->freeTexture();
+    m_additionalPages.clear();
   }
 }

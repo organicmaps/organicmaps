@@ -91,12 +91,13 @@ namespace yg
         return it->second.first.get();
   }
 
+
   SkinPage::SkinPage(shared_ptr<ResourceManager> const & resourceManager,
                      char const * name,
-                     uint8_t pageID)
+                     uint8_t pipelineID)
                    : m_texture(resourceManager->getTexture(name)),
                      m_usage(EStaticUsage),
-                     m_pageID(pageID)
+                     m_pipelineID(pipelineID)
   {
     m_packer = m2::Packer(m_texture->width(), m_texture->height(), 0x00FFFFFF - 1);
   }
@@ -104,10 +105,10 @@ namespace yg
 
   SkinPage::SkinPage(shared_ptr<ResourceManager> const & resourceManager,
                      EUsage usage,
-                     uint8_t pageID)
+                     uint8_t pipelineID)
     : m_resourceManager(resourceManager),
       m_usage(usage),
-      m_pageID(pageID)
+      m_pipelineID(pipelineID)
   {
     createPacker();
     /// clear handles will be called only upon handles overflow,
@@ -169,6 +170,7 @@ namespace yg
   uint32_t SkinPage::mapColor(yg::Color const & c)
   {
     uint32_t foundHandle = findColor(c);
+
     if (foundHandle != m_packer.invalidHandle())
       return foundHandle;
 
@@ -179,7 +181,7 @@ namespace yg
     m_colorUploadCommands.push_back(ColorUploadCmd(c, texRect));
     m_colorMap[c] = h;
 
-    m_styles[h] = shared_ptr<ResourceStyle>(new GenericStyle(texRect, m_pageID));
+    m_styles[h] = shared_ptr<ResourceStyle>(new GenericStyle(texRect, m_pipelineID));
 
     return h;
   }
@@ -224,7 +226,7 @@ namespace yg
 
     m_styles[handle] = boost::shared_ptr<ResourceStyle>(
         new CharStyle(texRect,
-                      m_pageID,
+                      m_pipelineID,
                       gi->m_metrics.m_xOffset,
                       gi->m_metrics.m_yOffset,
                       gi->m_metrics.m_xAdvance));
@@ -264,7 +266,7 @@ namespace yg
     m_circleUploadCommands.push_back(CircleUploadCmd(circleInfo, texRect));
     m_circleInfoMap[circleInfo] = handle;
 
-    m_styles[handle] = shared_ptr<ResourceStyle>(new GenericStyle(texRect, m_pageID) );
+    m_styles[handle] = shared_ptr<ResourceStyle>(new GenericStyle(texRect, m_pipelineID) );
 
     return m_circleInfoMap[circleInfo];
   }
@@ -302,7 +304,7 @@ namespace yg
     m_styles[handle] = boost::shared_ptr<ResourceStyle>(
         new LineStyle(false,
                       texRect,
-                      m_pageID,
+                      m_pipelineID,
                       penInfo));
 
     return m_penInfoMap[penInfo];
@@ -727,6 +729,13 @@ namespace yg
       reserveTexture();
   }
 
+  void SkinPage::setPipelineID(uint8_t pipelineID)
+  {
+    m_pipelineID = pipelineID;
+    for (TStyles::iterator it = m_styles.begin(); it != m_styles.end(); ++it)
+      it->second->m_pipelineID = pipelineID;
+  }
+
   void SkinPage::uploadData()
   {
     if ((m_usage != EStaticUsage) && (hasData()))
@@ -814,5 +823,10 @@ namespace yg
     default:
       LOG(LINFO, ("createPacker call for invalid usage param"));
     }
+  }
+
+  shared_ptr<ResourceManager> const & SkinPage::resourceManager() const
+  {
+    return m_resourceManager;
   }
 }

@@ -97,7 +97,7 @@ namespace yg
       for (int i = 0; i < 4; ++i)
         rectPtsF[i] = m2::PointF(rectPts[i].x, rectPts[i].y);
 
-      m2::PointF texPt = skin()->pages()[style->m_pageID]->texture()->mapPixel(m2::RectF(style->m_texRect).Center());
+      m2::PointF texPt = skin()->getPage(style->m_pipelineID)->texture()->mapPixel(m2::RectF(style->m_texRect).Center());
 
       addTexturedStripStrided(
             rectPtsF,
@@ -106,7 +106,7 @@ namespace yg
             0,
             4,
             depth,
-            style->m_pageID);
+            style->m_pipelineID);
     }
 
     void ShapeRenderer::drawRectangle(m2::RectD const & r, yg::Color const & c, double depth)
@@ -126,7 +126,7 @@ namespace yg
           m2::PointD(r.maxX(), r.maxY())
         };
 
-      m2::PointF texPt = skin()->pages()[style->m_pageID]->texture()->mapPixel(m2::RectF(style->m_texRect).Center());
+      m2::PointF texPt = skin()->getPage(style->m_pipelineID)->texture()->mapPixel(m2::RectF(style->m_texRect).Center());
 
       addTexturedStripStrided(
           rectPts,
@@ -135,7 +135,7 @@ namespace yg
           0,
           4,
           depth,
-          style->m_pageID
+          style->m_pipelineID
           );
     }
   }

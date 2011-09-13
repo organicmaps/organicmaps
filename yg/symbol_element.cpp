@@ -65,7 +65,7 @@ namespace yg
                           texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
                           posPt.x, posPt.y, posPt.x + texRect.SizeX(), posPt.y + texRect.SizeY(),
                           depth(),
-                          m_style->m_pageID);
+                          m_style->m_pipelineID);
   }
 
   uint32_t SymbolElement::styleID() const

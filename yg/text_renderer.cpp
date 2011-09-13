@@ -42,7 +42,7 @@ namespace yg
                           p->m_texRect.maxY() - 1,
                           x0, y0, x1, y1,
                           depth,
-                          p->m_pageID);
+                          p->m_pipelineID);
     }
 
     GlyphCache * TextRenderer::glyphCache() const

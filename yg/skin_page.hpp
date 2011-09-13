@@ -120,7 +120,7 @@ namespace yg
     TFonts m_fonts;
 
     EUsage m_usage;
-    uint32_t m_pageID;
+    uint32_t m_pipelineID;
 
     bool m_fillAlpha;
 
@@ -143,18 +143,17 @@ namespace yg
     void uploadData();
 
     void checkTexture() const;
-
-    SkinPage();
+    void setPipelineID(uint8_t pipelineID);
 
     /// creation of a static page
     SkinPage(shared_ptr<ResourceManager> const & resourceManager,
              char const * name,
-             uint8_t pageID);
+             uint8_t pipelineID);
 
     /// creation of a dynamic page
     SkinPage(shared_ptr<ResourceManager> const & resourceManager,
              EUsage usage,
-             uint8_t pageID);
+             uint8_t pipelineID);
 
     void reserveTexture() const;
     void freeTexture();
@@ -181,6 +180,7 @@ namespace yg
     ResourceStyle * fromID(uint32_t idx) const;
 
     EUsage usage() const;
+    shared_ptr<ResourceManager> const & resourceManager() const;
 
     void addOverflowFn(overflowFn fn, int priority);
 

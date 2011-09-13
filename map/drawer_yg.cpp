@@ -54,25 +54,25 @@ namespace
   struct make_invalid
   {
     size_t m_threadID;
-    uint32_t m_pageIDMask;
+    uint32_t m_pipelineIDMask;
 
-    make_invalid(size_t threadID, uint8_t pageID)
-      : m_threadID(threadID), m_pageIDMask(pageID << 24)
+    make_invalid(size_t threadID, uint8_t pipelineID)
+      : m_threadID(threadID), m_pipelineIDMask(pipelineID << 24)
     {}
 
     void operator() (int, int, drule::BaseRule * p)
     {
-      if ((p->GetID(m_threadID) & 0xFF000000) == m_pageIDMask)
+      if ((p->GetID(m_threadID) & 0xFF000000) == m_pipelineIDMask)
         p->MakeEmptyID(m_threadID);
-      if ((p->GetID2(m_threadID) & 0xFF000000) == m_pageIDMask)
+      if ((p->GetID2(m_threadID) & 0xFF000000) == m_pipelineIDMask)
         p->MakeEmptyID2(m_threadID);
     }
   };
 }
 
-void DrawerYG::ClearSkinPage(size_t threadID, uint8_t pageID)
+void DrawerYG::ClearSkinPage(size_t threadID, uint8_t pipelineID)
 {
-  drule::rules().ForEachRule(make_invalid(threadID, pageID));
+  drule::rules().ForEachRule(make_invalid(threadID, pipelineID));
 }
 
 void DrawerYG::beginFrame()

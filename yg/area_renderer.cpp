@@ -52,15 +52,15 @@ namespace yg
         return;
       }
 
-      if (!hasRoom(pointsCount, pointsCount, style->m_pageID))
-        flush(style->m_pageID);
+      if (!hasRoom(pointsCount, pointsCount, style->m_pipelineID))
+        flush(style->m_pipelineID);
 
       ASSERT_GREATER_OR_EQUAL(pointsCount, 2, ());
 
       float texX = style->m_texRect.minX() + 1.0f;
       float texY = style->m_texRect.minY() + 1.0f;
 
-      skin()->pages()[style->m_pageID]->texture()->mapPixel(texX, texY);
+      skin()->getPage(style->m_pipelineID)->texture()->mapPixel(texX, texY);
 
       size_t pointsLeft = pointsCount;
       size_t batchOffset = 0;
@@ -69,23 +69,23 @@ namespace yg
       {
         size_t batchSize = pointsLeft;
 
-        if (batchSize > verticesLeft(style->m_pageID))
+        if (batchSize > verticesLeft(style->m_pipelineID))
           /// Rounding to the boundary of 3 vertices
-          batchSize = verticesLeft(style->m_pageID) / 3 * 3;
+          batchSize = verticesLeft(style->m_pipelineID) / 3 * 3;
 
-        if (batchSize > indicesLeft(style->m_pageID))
-          batchSize = indicesLeft(style->m_pageID) / 3 * 3;
+        if (batchSize > indicesLeft(style->m_pipelineID))
+          batchSize = indicesLeft(style->m_pipelineID) / 3 * 3;
 
         bool needToFlush = (batchSize < pointsLeft);
 
         m2::PointF texCoord(texX, texY);
-        addTexturedListStrided(&points[batchOffset], sizeof(m2::PointD), &texCoord, 0, batchSize, depth, style->m_pageID);
+        addTexturedListStrided(&points[batchOffset], sizeof(m2::PointD), &texCoord, 0, batchSize, depth, style->m_pipelineID);
 
         batchOffset += batchSize;
         pointsLeft -= batchSize;
 
         if (needToFlush)
-          flush(style->m_pageID);
+          flush(style->m_pipelineID);
 
         if (pointsLeft == 0)
           break;

@@ -46,6 +46,7 @@ namespace yg
   private:
 
     TSkinPages m_pages;
+    TSkinPages m_additionalPages;
 
     uint8_t m_startDynamicPage;
     uint8_t m_currentDynamicPage;
@@ -85,7 +86,7 @@ namespace yg
                            > clearPageFns;
 
     clearPageFns m_clearPageFns;
-    void callClearPageFns(uint8_t pageID);
+    void callClearPageFns(uint8_t pipelineID);
 
     typedef priority_queue<pair<size_t, overflowFn>,
                            vector<pair<size_t, overflowFn> >,
@@ -93,11 +94,11 @@ namespace yg
                            > overflowFns;
 
     overflowFns m_overflowFns;
-    void callOverflowFns(uint8_t pageID);
+    void callOverflowFns(uint8_t pipelineID);
 
-    void clearPageHandles(uint8_t pageID);
-    void onDynamicOverflow(uint8_t pageID);
-    void onTextOverflow(uint8_t pageID);
+    void clearPageHandles(uint8_t pipelineID);
+    void onDynamicOverflow(uint8_t pipelineID);
+    void onTextOverflow(uint8_t pipelineID);
 
     void changeCurrentDynamicPage();
     void changeCurrentTextPage();
@@ -138,13 +139,17 @@ namespace yg
 
     FontInfo const & getFont(int size) const;
 
-    TSkinPages const & pages() const;
+    shared_ptr<SkinPage> const & getPage(int i) const;
+    size_t getPagesCount() const;
 
     uint32_t invalidHandle() const;
     uint32_t invalidPageHandle() const;
 
     uint8_t currentTextPage() const;
     uint8_t currentDynamicPage() const;
+
+    void setAdditionalPages(vector<shared_ptr<SkinPage> > const & pages);
+    void clearAdditionalPages();
 
     void memoryWarning();
     void enterBackground();

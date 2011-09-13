@@ -66,11 +66,11 @@ namespace yg
    GeometryBatcher::~GeometryBatcher()
    {}
 
-   void GeometryBatcher::reset(int pageID)
+   void GeometryBatcher::reset(int pipelineID)
    {
      for (size_t i = 0; i < m_pipelines.size(); ++i)
      {
-       if ((pageID == -1) || ((size_t)pageID == i))
+       if ((pipelineID == -1) || ((size_t)pipelineID == i))
        {
          m_pipelines[i].m_currentVertex = 0;
          m_pipelines[i].m_currentIndex = 0;
@@ -97,12 +97,52 @@ namespace yg
      }
    }
 
+   void GeometryBatcher::setAdditionalSkinPages(vector<shared_ptr<SkinPage> > const & v)
+   {
+     if (m_skin != 0)
+     {
+       m_skin->setAdditionalPages(v);
+       int pagesCount = m_skin->getPagesCount();
+       m_pipelines.resize(pagesCount + v.size());
+
+       /// additional pages are fixed
+       /*m_skin->addOverflowFn(bind(&GeometryBatcher::flush, this, _1), 100);
+
+       m_skin->addClearPageFn(bind(&GeometryBatcher::flush, this, _1), 100);
+       m_skin->addClearPageFn(bind(&GeometryBatcher::switchTextures, this, _1), 99);*/
+
+       for (size_t i = 0; i < v.size(); ++i)
+       {
+         m_pipelines[i + pagesCount].m_useTinyStorage = m_useTinyStorage;
+         m_pipelines[i + pagesCount].m_currentVertex = 0;
+         m_pipelines[i + pagesCount].m_currentIndex = 0;
+
+         m_pipelines[i + pagesCount].m_hasStorage = false;
+
+         m_pipelines[i + pagesCount].m_maxVertices = 0;
+         m_pipelines[i + pagesCount].m_maxIndices = 0;
+
+         m_pipelines[i + pagesCount].m_vertices = 0;
+         m_pipelines[i + pagesCount].m_indices = 0;
+       }
+     }
+   }
+
+   void GeometryBatcher::clearAdditionalSkinPages()
+   {
+     if (m_skin != 0)
+     {
+       m_skin->clearAdditionalPages();
+       m_pipelines.resize(m_skin->getPagesCount());
+     }
+   }
+
    void GeometryBatcher::setSkin(shared_ptr<Skin> skin)
    {
      m_skin = skin;
      if (m_skin != 0)
      {
-       m_pipelines.resize(m_skin->pages().size());
+       m_pipelines.resize(m_skin->getPagesCount());
 
        m_skin->addOverflowFn(bind(&GeometryBatcher::flush, this, _1), 100);
 
@@ -172,32 +212,38 @@ namespace yg
          }
      }
 
+     clearAdditionalSkinPages();
+
      base_t::endFrame();
    }
 
-
-   bool GeometryBatcher::hasRoom(size_t verticesCount, size_t indicesCount, int pageID) const
+   bool GeometryBatcher::hasRoom(size_t verticesCount, size_t indicesCount, int pipelineID) const
    {
-     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->usage());
+     GeometryPipeline const & pipeline = m_pipelines[pipelineID];
 
-     return ((m_pipelines[pageID].m_currentVertex + verticesCount <= m_pipelines[pageID].m_maxVertices)
-         &&  (m_pipelines[pageID].m_currentIndex + indicesCount <= m_pipelines[pageID].m_maxIndices));
+     pipeline.checkStorage(resourceManager(), skin()->getPage(pipelineID)->usage());
+
+     return ((pipeline.m_currentVertex + verticesCount <= pipeline.m_maxVertices)
+         &&  (pipeline.m_currentIndex + indicesCount <= pipeline.m_maxIndices));
    }
 
-   size_t GeometryBatcher::verticesLeft(int pageID)
+   size_t GeometryBatcher::verticesLeft(int pipelineID) const
    {
-     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->usage());
+     GeometryPipeline const & pipeline = m_pipelines[pipelineID];
 
-     return m_pipelines[pageID].m_maxVertices - m_pipelines[pageID].m_currentVertex;
+     pipeline.checkStorage(resourceManager(), skin()->getPage(pipelineID)->usage());
+
+     return pipeline.m_maxVertices - pipeline.m_currentVertex;
    }
 
-   size_t GeometryBatcher::indicesLeft(int pageID)
+   size_t GeometryBatcher::indicesLeft(int pipelineID) const
    {
-     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->usage());
-     return m_pipelines[pageID].m_maxIndices - m_pipelines[pageID].m_currentIndex;
+     GeometryPipeline const & pipeline = m_pipelines[pipelineID];
+     pipeline.checkStorage(resourceManager(), skin()->getPage(pipelineID)->usage());
+     return pipeline.m_maxIndices - pipeline.m_currentIndex;
    }
 
-   void GeometryBatcher::flush(int pageID)
+   void GeometryBatcher::flush(int pipelineID)
    {
      bool renderedData = false;
 
@@ -205,9 +251,9 @@ namespace yg
      {
        for (size_t i = m_pipelines.size(); i > 0; --i)
        {
-         if ((pageID == -1) || ((i - 1) == (size_t)pageID))
+         if ((pipelineID == -1) || ((i - 1) == (size_t)pipelineID))
          {
-           shared_ptr<SkinPage> skinPage = m_skin->pages()[i - 1];
+           shared_ptr<SkinPage> skinPage = m_skin->getPage(i - 1);
            GeometryPipeline & pipeline = m_pipelines[i - 1];
 
            skinPage->uploadData();
@@ -255,10 +301,9 @@ namespace yg
      }
    }
 
-   void GeometryBatcher::switchTextures(int pageID)
+   void GeometryBatcher::switchTextures(int pipelineID)
    {
-       m_skin->pages()[pageID]->freeTexture();
-//       m_skin->pages()[pageID]->reserveTexture();
+       m_skin->getPage(pipelineID)->freeTexture();
    }
 
    void GeometryBatcher::drawTexturedPolygon(
@@ -267,19 +312,19 @@ namespace yg
        float tx0, float ty0, float tx1, float ty1,
        float x0, float y0, float x1, float y1,
        double depth,
-       int pageID)
+       int pipelineID)
    {
-     if (!hasRoom(4, 6, pageID))
-       flush(pageID);
+     if (!hasRoom(4, 6, pipelineID))
+       flush(pipelineID);
 
-     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->usage());
+     m_pipelines[pipelineID].checkStorage(resourceManager(), skin()->getPage(pipelineID)->usage());
 
      float texMinX = tx0;
      float texMaxX = tx1;
      float texMinY = ty0;
      float texMaxY = ty1;
 
-     shared_ptr<BaseTexture> texture = m_skin->pages()[pageID]->texture();
+     shared_ptr<BaseTexture> const & texture = m_skin->getPage(pipelineID)->texture();
 
      texture->mapPixel(texMinX, texMinY);
      texture->mapPixel(texMaxX, texMaxY);
@@ -315,39 +360,40 @@ namespace yg
        m2::PointF(texMaxX, texMinY)
      };
 
-     addTexturedFan(coords, texCoords, 4, depth, pageID);
+     addTexturedFan(coords, texCoords, 4, depth, pipelineID);
    }
 
-   void GeometryBatcher::addTexturedFan(m2::PointF const * coords, m2::PointF const * texCoords, unsigned size, double depth, int pageID)
+   void GeometryBatcher::addTexturedFan(m2::PointF const * coords, m2::PointF const * texCoords, unsigned size, double depth, int pipelineID)
    {
-     if (!hasRoom(size, (size - 2) * 3, pageID))
-       flush(pageID);
+     if (!hasRoom(size, (size - 2) * 3, pipelineID))
+       flush(pipelineID);
 
-     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->usage());
+     GeometryPipeline & pipeline = m_pipelines[pipelineID];
+
+     pipeline.checkStorage(resourceManager(), skin()->getPage(pipelineID)->usage());
 
      ASSERT(size > 2, ());
 
-     size_t vOffset = m_pipelines[pageID].m_currentVertex;
-     size_t iOffset = m_pipelines[pageID].m_currentIndex;
+     size_t vOffset = pipeline.m_currentVertex;
+     size_t iOffset = pipeline.m_currentIndex;
 
      for (unsigned i = 0; i < size; ++i)
      {
-       m_pipelines[pageID].m_vertices[vOffset + i].pt = coords[i];
-       m_pipelines[pageID].m_vertices[vOffset + i].tex = texCoords[i];
-       m_pipelines[pageID].m_vertices[vOffset + i].depth = depth;
+       pipeline.m_vertices[vOffset + i].pt = coords[i];
+       pipeline.m_vertices[vOffset + i].tex = texCoords[i];
+       pipeline.m_vertices[vOffset + i].depth = depth;
      }
 
-
-     m_pipelines[pageID].m_currentVertex += size;
+     pipeline.m_currentVertex += size;
 
      for (size_t j = 0; j < size - 2; ++j)
      {
-       m_pipelines[pageID].m_indices[iOffset + j * 3] = vOffset;
-       m_pipelines[pageID].m_indices[iOffset + j * 3 + 1] = vOffset + j + 1;
-       m_pipelines[pageID].m_indices[iOffset + j * 3 + 2] = vOffset + j + 2;
+       pipeline.m_indices[iOffset + j * 3] = vOffset;
+       pipeline.m_indices[iOffset + j * 3 + 1] = vOffset + j + 1;
+       pipeline.m_indices[iOffset + j * 3 + 2] = vOffset + j + 2;
      }
 
-     m_pipelines[pageID].m_currentIndex += (size - 2) * 3;
+     pipeline.m_currentIndex += (size - 2) * 3;
    }
 
    void GeometryBatcher::addTexturedStrip(
@@ -355,10 +401,10 @@ namespace yg
        m2::PointF const * texCoords,
        unsigned size,
        double depth,
-       int pageID
+       int pipelineID
        )
    {
-     addTexturedStripStrided(coords, sizeof(m2::PointF), texCoords, sizeof(m2::PointF), size, depth, pageID);
+     addTexturedStripStrided(coords, sizeof(m2::PointF), texCoords, sizeof(m2::PointF), size, depth, pipelineID);
    }
 
    void GeometryBatcher::addTexturedStripStrided(
@@ -368,43 +414,45 @@ namespace yg
        size_t texCoordsStride,
        unsigned size,
        double depth,
-       int pageID)
+       int pipelineID)
    {
-     if (!hasRoom(size, (size - 2) * 3, pageID))
-       flush(pageID);
+     if (!hasRoom(size, (size - 2) * 3, pipelineID))
+       flush(pipelineID);
 
-     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->usage());
+     GeometryPipeline & pipeline = m_pipelines[pipelineID];
+
+     pipeline.checkStorage(resourceManager(), skin()->getPage(pipelineID)->usage());
 
      ASSERT(size > 2, ());
 
-     size_t vOffset = m_pipelines[pageID].m_currentVertex;
-     size_t iOffset = m_pipelines[pageID].m_currentIndex;
+     size_t vOffset = pipeline.m_currentVertex;
+     size_t iOffset = pipeline.m_currentIndex;
 
      for (unsigned i = 0; i < size; ++i)
      {
-       m_pipelines[pageID].m_vertices[vOffset + i].pt = *coords;
-       m_pipelines[pageID].m_vertices[vOffset + i].tex = *texCoords;
-       m_pipelines[pageID].m_vertices[vOffset + i].depth = depth;
+       pipeline.m_vertices[vOffset + i].pt = *coords;
+       pipeline.m_vertices[vOffset + i].tex = *texCoords;
+       pipeline.m_vertices[vOffset + i].depth = depth;
        coords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
        texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
      }
 
-     m_pipelines[pageID].m_currentVertex += size;
+     pipeline.m_currentVertex += size;
 
      size_t oldIdx1 = vOffset;
      size_t oldIdx2 = vOffset + 1;
 
      for (size_t j = 0; j < size - 2; ++j)
      {
-       m_pipelines[pageID].m_indices[iOffset + j * 3] = oldIdx1;
-       m_pipelines[pageID].m_indices[iOffset + j * 3 + 1] = oldIdx2;
-       m_pipelines[pageID].m_indices[iOffset + j * 3 + 2] = vOffset + j + 2;
+       pipeline.m_indices[iOffset + j * 3] = oldIdx1;
+       pipeline.m_indices[iOffset + j * 3 + 1] = oldIdx2;
+       pipeline.m_indices[iOffset + j * 3 + 2] = vOffset + j + 2;
 
        oldIdx1 = oldIdx2;
        oldIdx2 = vOffset + j + 2;
      }
 
-     m_pipelines[pageID].m_currentIndex += (size - 2) * 3;
+     pipeline.m_currentIndex += (size - 2) * 3;
    }
 
    void GeometryBatcher::addTexturedListStrided(
@@ -414,33 +462,35 @@ namespace yg
        size_t texCoordsStride,
        unsigned size,
        double depth,
-       int pageID)
+       int pipelineID)
    {
-     if (!hasRoom(size, size, pageID))
-       flush(pageID);
+     if (!hasRoom(size, size, pipelineID))
+       flush(pipelineID);
 
-     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->usage());
+     GeometryPipeline & pipeline = m_pipelines[pipelineID];
+
+     pipeline.checkStorage(resourceManager(), skin()->getPage(pipelineID)->usage());
 
      ASSERT(size > 2, ());
 
-     size_t vOffset = m_pipelines[pageID].m_currentVertex;
-     size_t iOffset = m_pipelines[pageID].m_currentIndex;
+     size_t vOffset = pipeline.m_currentVertex;
+     size_t iOffset = pipeline.m_currentIndex;
 
      for (size_t i = 0; i < size; ++i)
      {
-       m_pipelines[pageID].m_vertices[vOffset + i].pt = m2::PointF(coords->x, coords->y);
-       m_pipelines[pageID].m_vertices[vOffset + i].tex = *texCoords;
-       m_pipelines[pageID].m_vertices[vOffset + i].depth = depth;
+       pipeline.m_vertices[vOffset + i].pt = m2::PointF(coords->x, coords->y);
+       pipeline.m_vertices[vOffset + i].tex = *texCoords;
+       pipeline.m_vertices[vOffset + i].depth = depth;
        coords = reinterpret_cast<m2::PointD const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
        texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
      }
 
-     m_pipelines[pageID].m_currentVertex += size;
+     pipeline.m_currentVertex += size;
 
      for (size_t i = 0; i < size; ++i)
-       m_pipelines[pageID].m_indices[iOffset + i] = vOffset + i;
+       pipeline.m_indices[iOffset + i] = vOffset + i;
 
-     m_pipelines[pageID].m_currentIndex += size;
+     pipeline.m_currentIndex += size;
    }
 
 
@@ -451,38 +501,40 @@ namespace yg
        size_t texCoordsStride,
        unsigned size,
        double depth,
-       int pageID)
+       int pipelineID)
    {
-     if (!hasRoom(size, size, pageID))
-       flush(pageID);
+     if (!hasRoom(size, size, pipelineID))
+       flush(pipelineID);
 
-     m_pipelines[pageID].checkStorage(resourceManager(), skin()->pages()[pageID]->usage());
+     GeometryPipeline & pipeline = m_pipelines[pipelineID];
+
+     pipeline.checkStorage(resourceManager(), skin()->getPage(pipelineID)->usage());
 
      ASSERT(size > 2, ());
 
-     size_t vOffset = m_pipelines[pageID].m_currentVertex;
-     size_t iOffset = m_pipelines[pageID].m_currentIndex;
+     size_t vOffset = pipeline.m_currentVertex;
+     size_t iOffset = pipeline.m_currentIndex;
 
      for (size_t i = 0; i < size; ++i)
      {
-       m_pipelines[pageID].m_vertices[vOffset + i].pt = *coords;
-       m_pipelines[pageID].m_vertices[vOffset + i].tex = *texCoords;
-       m_pipelines[pageID].m_vertices[vOffset + i].depth = depth;
+       pipeline.m_vertices[vOffset + i].pt = *coords;
+       pipeline.m_vertices[vOffset + i].tex = *texCoords;
+       pipeline.m_vertices[vOffset + i].depth = depth;
        coords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(coords) + coordsStride);
        texCoords = reinterpret_cast<m2::PointF const*>(reinterpret_cast<unsigned char const*>(texCoords) + texCoordsStride);
      }
 
-     m_pipelines[pageID].m_currentVertex += size;
+     pipeline.m_currentVertex += size;
 
      for (size_t i = 0; i < size; ++i)
-       m_pipelines[pageID].m_indices[iOffset + i] = vOffset + i;
+       pipeline.m_indices[iOffset + i] = vOffset + i;
 
-     m_pipelines[pageID].m_currentIndex += size;
+     pipeline.m_currentIndex += size;
    }
 
-   void GeometryBatcher::addTexturedList(m2::PointF const * coords, m2::PointF const * texCoords, unsigned size, double depth, int pageID)
+   void GeometryBatcher::addTexturedList(m2::PointF const * coords, m2::PointF const * texCoords, unsigned size, double depth, int pipelineID)
    {
-     addTexturedListStrided(coords, sizeof(m2::PointF), texCoords, sizeof(m2::PointF), size, depth, pageID);
+     addTexturedListStrided(coords, sizeof(m2::PointF), texCoords, sizeof(m2::PointF), size, depth, pipelineID);
    }
 
    void GeometryBatcher::enableClipRect(bool flag)

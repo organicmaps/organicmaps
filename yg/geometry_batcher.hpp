@@ -67,14 +67,14 @@ namespace yg
         size_t verticesLeft();
         size_t indicesLeft();
 
-        void checkStorage(shared_ptr<ResourceManager> const & resourceManager, SkinPage::EUsage usage) const;
+        void checkStorage(shared_ptr<ResourceManager> const & resourceManager, yg::SkinPage::EUsage usage) const;
       };
 
       vector<GeometryPipeline> m_pipelines;
 
-      void reset(int pageID);
+      void reset(int pipelineID);
 
-      void switchTextures(int pageID);
+      void switchTextures(int pipelineID);
 
       /// Apply all states needed for rendering a batch of geometry.
       void applyStates();
@@ -89,10 +89,10 @@ namespace yg
     public:
 
       /// INTERNAL API! USE WITH CAUTION
-      void flush(int pageID);
-      bool hasRoom(size_t verticesCount, size_t indicesCount, int pageID) const;
-      size_t verticesLeft(int pageID);
-      size_t indicesLeft(int pageID);
+      void flush(int pipelineID);
+      bool hasRoom(size_t verticesCount, size_t indicesCount, int pipelineID) const;
+      size_t verticesLeft(int pipelineID) const;
+      size_t indicesLeft(int pipelineID) const;
 
       struct Params : public base_t::Params
       {
@@ -128,7 +128,7 @@ namespace yg
                           m2::PointF const * texCoords,
                           unsigned size,
                           double depth,
-                          int pageID);
+                          int pipelineID);
 
       void addTexturedStripStrided(m2::PointF const * coords,
                                    size_t coordsStride,
@@ -136,13 +136,13 @@ namespace yg
                                    size_t texCoordsStride,
                                    unsigned size,
                                    double depth,
-                                   int pageID);
+                                   int pipelineID);
 
       void addTexturedStrip(m2::PointF const * coords,
                             m2::PointF const * texCoords,
                             unsigned size,
                             double depth,
-                            int pageID);
+                            int pipelineID);
 
       void addTexturedListStrided(m2::PointD const * coords,
                                   size_t coordsStride,
@@ -150,7 +150,7 @@ namespace yg
                                   size_t texCoordsStride,
                                   unsigned size,
                                   double depth,
-                                  int pageID);
+                                  int pipelineID);
 
       void addTexturedListStrided(m2::PointF const * coords,
                                   size_t coordsStride,
@@ -158,13 +158,13 @@ namespace yg
                                   size_t texCoordsStride,
                                   unsigned size,
                                   double depth,
-                                  int pageID);
+                                  int pipelineID);
 
       void addTexturedList(m2::PointF const * coords,
                            m2::PointF const * texCoords,
                            unsigned size,
                            double depth,
-                           int pageID);
+                           int pipelineID);
 
       int aaShift() const;
 
@@ -177,11 +177,14 @@ namespace yg
           float tx0, float ty0, float tx1, float ty1,
           float x0, float y0, float x1, float y1,
           double depth,
-          int pageID);
+          int pipelineID);
 
       void memoryWarning();
       void enterBackground();
       void enterForeground();
+
+      void setAdditionalSkinPages(vector<shared_ptr<SkinPage> > const & v);
+      void clearAdditionalSkinPages();
     };
   }
 }

@@ -71,7 +71,7 @@ class DrawerYG
   shared_ptr<yg::gl::Screen> m_pScreen;
   shared_ptr<yg::Skin> m_pSkin;
 
-  static void ClearSkinPage(size_t threadID, uint8_t pageID);
+  static void ClearSkinPage(size_t threadID, uint8_t pipelineID);
 
 protected:
   void drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth);
