@@ -128,11 +128,6 @@ public:
     }
   }
 
-  search::SearchInfo * GetWorldSearchInfo() const
-  {
-    return m_pWorldSearchInfo.get();
-  }
-
   void Add(string const & file)
   {
     threads::MutexGuard mutexGuard(m_mutex);
@@ -145,12 +140,6 @@ public:
     m_indexes.push_back(new IndexProxy(file));
 
     UpdateIndexes();
-
-    //if (m_indexes.back()->IsWorldData())
-    //{
-    //  ASSERT ( !m_pWorldSearchInfo.get(), () );
-    //  m_pWorldSearchInfo.reset(m_indexes.back()->GetSearchInfo());
-    //}
   }
 
   void Remove(string const & file)
@@ -379,7 +368,6 @@ private:
 
   mutable vector<IndexProxy *> m_indexes;
   mutable threads::Mutex m_mutex;
-  scoped_ptr<search::SearchInfo> m_pWorldSearchInfo;
 };
 
 template <class FeatureVectorT, class BaseT> class OffsetToFeatureAdapter : public BaseT

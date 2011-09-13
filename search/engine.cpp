@@ -17,7 +17,7 @@ namespace search
 
 Engine::Engine(IndexType const * pIndex,
                CategoriesHolder & categories)
-  : m_pIndex(pIndex), m_pSearchInfo(pIndex->GetWorldSearchInfo()),
+  : m_pIndex(pIndex), m_pSearchInfo(NULL),
     m_pCategories(new CategoriesHolder()),
     m_pRunner(new threads::ConcurrentRunner), m_pLastQuery(NULL),
     m_queriesActive(0)
