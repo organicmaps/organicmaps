@@ -281,10 +281,16 @@ private:
 
 namespace feature
 {
+  template <class IterT>
+  void CalcRect(IterT b, IterT e, m2::RectD & rect)
+  {
+    while (b != e)
+      rect.Add(*b++);
+  }
+
   template <class TCont>
   void CalcRect(TCont const & points, m2::RectD & rect)
   {
-    for (size_t i = 0; i < points.size(); ++i)
-      rect.Add(points[i]);
+    CalcRect(points.begin(), points.end(), rect);
   }
 }

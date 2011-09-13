@@ -210,3 +210,5 @@ public:
     BaseT::Read(src, header, GetGeomType());
   }
 };
+
+string debug_print(FeatureParams const & p);

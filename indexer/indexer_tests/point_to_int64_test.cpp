@@ -1,12 +1,16 @@
 #include "../../testing/testing.hpp"
+
+#include "test_polylines.hpp"
+
 #include "../cell_id.hpp"
+
 #include "../../std/cmath.hpp"
 
 
 namespace
 {
   double const eps = MercatorBounds::GetCellID2PointAbsEpsilon();
-  uint32_t const coordBits = 30;
+  uint32_t const coordBits = POINT_COORD_BITS;
 
   void CheckEqualPoints(CoordPointT const & p1, CoordPointT const & p2)
   {
@@ -41,29 +45,6 @@ UNIT_TEST(PointToInt64_Smoke)
     CheckEqualPoints(p, Int64ToPoint(PointToInt64(p, coordBits), coordBits));
   }
 }
-
-/*
-UNIT_TEST(PointToInt64_908175295886057813)
-{
-  int64_t const id1 = 908175295886057813LL;
-  CoordPointT const pt1 = Int64ToPoint(id1);
-  int64_t const id2 = PointToInt64(pt1);
-  TEST_EQUAL(id1, id2, (pt1));
-}
-*/
-
-/*
-UNIT_TEST(PointToInt64_Values)
-{
-  CoordPointT const p = PointU2PointD(m2::PointU(3225901878, 23488265));
-
-  TEST_GREATER_OR_EQUAL(p.first, -180.0, ());
-  TEST_GREATER_OR_EQUAL(p.second, -180.0, ());
-
-  TEST_LESS_OR_EQUAL(p.first, 180.0, ());
-  TEST_LESS_OR_EQUAL(p.second, 180.0, ());
-}
-*/
 
 UNIT_TEST(PointToInt64_Grid)
 {
@@ -101,4 +82,19 @@ UNIT_TEST(PointToInt64_Bounds)
         TEST(fabs(pt.first - pt1.first) <= (fabs(arrEps[iX]) + eps) &&
              fabs(pt.second - pt1.second) <= (fabs(arrEps[iY]) + eps), (pt, pt1));
       }
+}
+
+UNIT_TEST(PointToInt64_DataSet1)
+{
+  for(size_t i = 0; i < ARRAY_SIZE(index_test::arr1); ++i)
+  {
+    CoordPointT const pt(index_test::arr1[i].x, index_test::arr1[i].y);
+    int64_t const id = PointToInt64(pt, coordBits);
+    CoordPointT const pt1 = Int64ToPoint(id, coordBits);
+
+    CheckEqualPoints(pt, pt1);
+
+    int64_t const id1 = PointToInt64(pt1, coordBits);
+    TEST_EQUAL(id, id1, (pt, pt1));
+  }
 }

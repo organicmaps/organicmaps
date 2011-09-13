@@ -1,5 +1,6 @@
 #include "feature_merger.hpp"
 
+#include "../indexer/feature.hpp"
 #include "../indexer/point_to_int64.hpp"
 #include "../indexer/classificator.hpp"
 
@@ -41,22 +42,33 @@ void MergedFeatureBuilder1::AppendFeature(MergedFeatureBuilder1 const & fb, bool
 
   m_isRound = false;
 
-  for (size_t i = 0; i < fbG.size(); ++i)
-    m_LimitRect.Add(fbG[i]);
+  using namespace feature;
 
   if (fromBegin)
   {
     if (toBack)
+    {
       thisG.insert(thisG.end(), fbG.begin() + 1, fbG.end());
+      CalcRect(fbG.begin() + 1, fbG.end(), m_LimitRect);
+    }
     else
+    {
       thisG.insert(thisG.begin(), fbG.begin(), fbG.end() - 1);
+      CalcRect(fbG.begin(), fbG.end() - 1, m_LimitRect);
+    }
   }
   else
   {
     if (toBack)
+    {
       thisG.insert(thisG.end(), fbG.rbegin() + 1, fbG.rend());
+      CalcRect(fbG.rbegin() + 1, fbG.rend(), m_LimitRect);
+    }
     else
+    {
       thisG.insert(thisG.begin(), fbG.rbegin(), fbG.rend() - 1);
+      CalcRect(fbG.rbegin(), fbG.rend() - 1, m_LimitRect);
+    }
   }
 }
 

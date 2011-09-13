@@ -1,20 +1,21 @@
-#include "../geometry_coding.hpp"
 #include "../../testing/testing.hpp"
 
-//#include "../../indexer/mercator.hpp"
-//#include "../../indexer/point_to_int64.hpp"
+#include "../geometry_coding.hpp"
+#include "../point_to_int64.hpp"
+#include "../mercator.hpp"
+#include "../coding_params.hpp"
+
+#include "test_polylines.hpp"
 
 #include "../../geometry/geometry_tests/large_polygon.hpp"
 #include "../../geometry/distance.hpp"
 #include "../../geometry/simplification.hpp"
-//#include "../../geometry/pointu_to_uint64.hpp"
 
 #include "../../coding/byte_stream.hpp"
 #include "../../coding/varint.hpp"
 #include "../../coding/writer.hpp"
 
 #include "../../base/logging.hpp"
-//#include "../../base/array_adapters.hpp"
 
 
 typedef m2::PointU PU;
@@ -95,7 +96,7 @@ void TestPolylineEncode(string testName,
   size_t const count = points.size();
   if (count == 0) return;
 
-  m2::PointU const basePoint = points[count / 2];
+  m2::PointU const basePoint = serial::CodingParams().GetBasePoint();
 
   vector<uint64_t> deltas;
   deltas.resize(count);
@@ -171,3 +172,28 @@ UNIT_TEST(EncodePolyline)
 }
 
 // see 476c1d1d125f0c2deb8c commit for special decode test
+
+namespace
+{
+  inline m2::PointU D2U(m2::PointD const & p)
+  {
+    return PointD2PointU(p, POINT_COORD_BITS);
+  }
+
+  inline m2::PointU GetMaxPoint()
+  {
+    return D2U(m2::PointD(MercatorBounds::maxX, MercatorBounds::maxY));
+  }
+}
+
+UNIT_TEST(DecodeEncodePolyline_DataSet1)
+{
+  size_t const count = ARRAY_SIZE(index_test::arr1);
+  vector<m2::PointU> points;
+  points.reserve(count);
+  for (size_t i = 0; i < count; ++i)
+    points.push_back(D2U(index_test::arr1[i]));
+
+  TestPolylineEncode("DataSet1", points, GetMaxPoint(),
+                     &geo_coding::EncodePolyline, &geo_coding::DecodePolyline);
+}

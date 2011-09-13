@@ -9,6 +9,8 @@
 
 #include "../coding/byte_stream.hpp"
 
+#include "../base/logging.hpp"
+
 
 using namespace feature;
 
@@ -56,7 +58,15 @@ void FeatureBuilder1::SetAreaAddHoles(list<points_t> const & holes)
     ASSERT ( !i->empty(), (*this) );
 
     if (rgn.Contains(i->front()))
+    {
+#ifdef DEBUG
+    m2::RectD r;
+    CalcRect(*i, r);
+    ASSERT ( m_LimitRect.IsRectInside(r), (m_LimitRect, r) );
+#endif
+
       m_Polygons.push_back(*i);
+    }
   }
 }
 
@@ -199,7 +209,10 @@ bool FeatureBuilder1::operator == (FeatureBuilder1 const & fb) const
   }
 
   if (!is_equal(m_LimitRect, fb.m_LimitRect))
+  {
+    //LOG(LERROR, ("Different rects: ", m_LimitRect, fb.m_LimitRect));
     return false;
+  }
 
   if (m_Polygons.size() != fb.m_Polygons.size())
     return false;
@@ -208,7 +221,10 @@ bool FeatureBuilder1::operator == (FeatureBuilder1 const & fb) const
   list<points_t>::const_iterator j = fb.m_Polygons.begin();
   for (; i != m_Polygons.end(); ++i, ++j)
     if (!is_equal(*i, *j))
+    {
+      //LOG(LERROR, ("Different points: ", *i, *j));
       return false;
+    }
 
   return true;
 }
@@ -272,7 +288,7 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
   buffer_t tmp(data);
   FeatureBuilder1 fb;
   fb.Deserialize(tmp);
-  ASSERT ( fb == *this, (*this) );
+  ASSERT ( fb == *this, ("Source feature: ", *this, "Deserialized feature: ", fb) );
 #endif
 }
 
@@ -283,8 +299,9 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
   ArrayByteSource source(&data[0]);
   m_Params.Read(source);
 
-  EGeomType const type = m_Params.GetGeomType();
+  m_LimitRect.MakeEmpty();
 
+  EGeomType const type = m_Params.GetGeomType();
   if (type == GEOM_POINT)
   {
     CoordPointT const center = PointU2PointD(
@@ -333,12 +350,16 @@ string debug_print(FeatureBuilder1 const & f)
   switch (f.GetGeomType())
   {
   case GEOM_POINT: out << "(" << f.m_Center << ")"; break;
-  case GEOM_LINE: out << "line with " << f.GetPointsCount() << "points"; break;
-  case GEOM_AREA: out << "area with " << f.GetPointsCount() << "points"; break;
+  case GEOM_LINE: out << "line with " << f.GetPointsCount() << " points"; break;
+  case GEOM_AREA: out << "area with " << f.GetPointsCount() << " points"; break;
   default:
     out << "ERROR: unknown geometry type"; break;
   }
-  return out.str();
+
+  return (out.str() + " " +
+          debug_print(f.m_LimitRect) + " " +
+          debug_print(f.m_Params) + " " +
+          debug_print(f.m_Polygons));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

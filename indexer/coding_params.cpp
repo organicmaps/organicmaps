@@ -7,7 +7,7 @@
 namespace serial
 {
   CodingParams::CodingParams()
-    : m_BasePointUint64(0), m_CoordBits(30)
+    : m_BasePointUint64(0), m_CoordBits(POINT_COORD_BITS)
   {
      m_BasePoint = m2::Uint64ToPointU(m_BasePointUint64);
   }

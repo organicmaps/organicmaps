@@ -14,6 +14,7 @@ win32:LIBS += -lopengl32 -lShell32
 win32-g++:LIBS += -lpthread
 
 HEADERS += \
+    test_polylines.hpp
 
 
 SOURCES += \
@@ -31,3 +32,8 @@ SOURCES += \
     geometry_coding_test.cpp \
     triangles_tree_coding_test.cpp \
     scales_test.cpp \
+    test_polylines.cpp \
+    geometry_serialization_test.cpp \
+
+
+
