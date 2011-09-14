@@ -27,7 +27,6 @@ function forky() {
   else
     num_par_procs=$1
   fi
-
   while [[ $(jobs | wc -l) -ge $num_par_procs ]] ; do
     sleep 1
   done
@@ -112,14 +111,21 @@ $PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
   -data_path=$DATA_PATH
 
 # 3rd pass - do in parallel
+# but separate exceptions for wolrd files
+$GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -generate_index -output=World &
+$GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -generate_index -output=WorldCoasts &
 for file in $DATA_PATH/*.mwm; do
-  if [ "$file" != "minsk-pass"  ]; then
-    filename=$(basename "$file")
-    extension="${filename##*.}"
-    filename="${filename%.*}"
-    $GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -generate_index -generate_search_index -output="$filename" &
-    forky $PROCESSORS
+  if [[ "$file" == *minsk-pass*  ]]; then
+    continue
   fi
+  if [[ "$file" == *World*  ]]; then
+    continue
+  fi
+  filename=$(basename "$file")
+  extension="${filename##*.}"
+  filename="${filename%.*}"
+  $GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -generate_index -output="$filename" &
+  forky $PROCESSORS
 done
 
 wait
