@@ -172,12 +172,11 @@ namespace feature
 
       void WriteOuterTriangles(polygons_t const & polys, int i)
       {
-        m_buffer.m_trgMask |= (1 << i);
-        m_buffer.m_trgOffset.push_back(m_rMain.GetFileSize(*m_rMain.m_trgFile[i]));
-
         // tesselation
         tesselator::TrianglesInfo info;
         tesselator::TesselateInterior(polys, info);
+
+        if (info.IsEmpty()) return;
 
         serial::TrianglesChainSaver saver(m_codingParams);
 
@@ -197,6 +196,8 @@ namespace feature
         //CHECK_LESS_OR_EQUAL(saver.GetBufferSize(), checkSaver.GetBufferSize(), ());
 
         // saving to file
+        m_buffer.m_trgMask |= (1 << i);
+        m_buffer.m_trgOffset.push_back(m_rMain.GetFileSize(*m_rMain.m_trgFile[i]));
         saver.Save(*m_rMain.m_trgFile[i]);
       }
 

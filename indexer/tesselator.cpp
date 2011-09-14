@@ -255,6 +255,8 @@ namespace tesselator
 
   void TrianglesInfo::Add(uintptr_t const * arr)
   {
+    // This checks are useless. We don't care about triangle orientation.
+
     // When adding triangles, check that they all have identical orientation!
     /*
     m2::PointD arrP[] = { m_points[arr[0]], m_points[arr[1]], m_points[arr[2]] };

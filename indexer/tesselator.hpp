@@ -130,7 +130,9 @@ namespace tesselator
     void Reserve(size_t count) { m_triangles.push_back(ListInfo(count)); }
 
     void Add(uintptr_t const * arr);
-    //@{
+    //@}
+
+    inline bool IsEmpty() const { return m_triangles.empty(); }
 
     // Convert points from double to uint.
     void GetPointsInfo(m2::PointU const & baseP, m2::PointU const & maxP,

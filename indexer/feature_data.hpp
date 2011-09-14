@@ -148,7 +148,7 @@ public:
     m_geomTypes[0] = m_geomTypes[1] = m_geomTypes[2] = false;
   }
 
-  bool IsValid() const { return !m_Types.empty(); }
+  inline bool IsValid() const { return !m_Types.empty(); }
 
   inline void SetGeomType(feature::EGeomType t) { m_geomTypes[t] = true; }
   inline void RemoveGeomType(feature::EGeomType t) { m_geomTypes[t] = false; }
