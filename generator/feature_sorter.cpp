@@ -338,13 +338,45 @@ namespace feature
       }
     };
 
+    class less_points
+    {
+      double const m_eps;
+    public:
+      less_points() : m_eps(1.0E-6) {}
+
+      bool operator() (m2::PointD const & p1, m2::PointD const & p2) const
+      {
+        if (p1.x + m_eps < p2.x) return true;
+        if (fabs(p1.x - p2.x) <= m_eps)
+          return (p1.y + m_eps < p2.y);
+        else return false;
+      }
+    };
+
+    class equal_points
+    {
+      double const m_eps;
+    public:
+      equal_points() : m_eps(1.0E-6) {}
+
+      bool operator() (m2::PointD const & p1, m2::PointD const & p2) const
+      {
+        return p1.EqualDxDy(p2, m_eps);
+      }
+    };
+
+    typedef set<m2::PointD, less_points> points_set_t;
+
     class BoundsDistance : public mn::DistanceToLineSquare<m2::PointD>
     {
+      points_set_t const & m_skip;
+
       double m_eps;
       double m_minX, m_minY, m_maxX, m_maxY;
 
     public:
-      BoundsDistance(uint32_t cellID, int level)
+      BoundsDistance(uint32_t cellID, int level, points_set_t const & skip)
+        : m_skip(skip)
       {
         RectId const cell = RectId::FromBitsAndLevel(cellID, level);
         CellIdConverter<MercatorBounds, RectId>::GetCellBounds(cell, m_minX, m_minY, m_maxX, m_maxY);
@@ -361,6 +393,12 @@ namespace feature
           return std::numeric_limits<double>::max();
         }
 
+        if (m_skip.count(p) > 0)
+        {
+          // if we have more than one point with equal coordinates - do not simplify them
+          return std::numeric_limits<double>::max();
+        }
+
         return mn::DistanceToLineSquare<m2::PointD>::operator()(p);
       }
     };
@@ -371,7 +409,14 @@ namespace feature
       uint32_t cellID;
       if (fb.GetCoastCell(cellID))
       {
-        BoundsDistance dist(cellID, g_coastsCellLevel);
+        points_set_t toSkip;
+        {
+          points_t v(in);
+          sort(v.begin(), v.end(), less_points());
+          toSkip.insert(unique(v.begin(), v.end(), equal_points()), v.end());
+        }
+
+        BoundsDistance dist(cellID, g_coastsCellLevel, toSkip);
         feature::SimplifyPoints(dist, in, out, level);
 
         //LOG(LINFO, ("Special simplification", in.size(), out.size()));
