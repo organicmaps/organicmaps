@@ -83,7 +83,12 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
           size_t bottomShift)
   : m_windowHandle(windowHandle),
     m_metresMinWidth(20),
+    m_metresMaxWidth(1000000),
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_WINDOWS) || defined(OMIM_OS_LINUX)
     m_minRulerWidth(97),
+#else
+    m_minRulerWidth(48),
+#endif
     m_centeringMode(EDoNothing),
     m_tileSize(GetPlatform().TileSize())
 {
@@ -105,7 +110,7 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
   m_informationDisplay.enableCenter(true);
 
   m_informationDisplay.enableRuler(true);
-  m_informationDisplay.setRulerParams(m_minRulerWidth, m_metresMinWidth);
+  m_informationDisplay.setRulerParams(m_minRulerWidth, m_metresMinWidth, m_metresMaxWidth);
   m_navigator.SetMinScreenParams(m_minRulerWidth, m_metresMinWidth);
 
 #ifdef DEBUG

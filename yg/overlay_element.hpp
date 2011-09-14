@@ -34,6 +34,7 @@ namespace yg
       m2::PointD m_pivot;
       yg::EPosition m_position;
       double m_depth;
+      Params();
     };
 
     OverlayElement(Params const & p);

@@ -107,6 +107,7 @@ protected:
   InformationDisplay m_informationDisplay;
 
   double const m_metresMinWidth;
+  double const m_metresMaxWidth;
   int const m_minRulerWidth;
 
   enum TGpsCenteringMode

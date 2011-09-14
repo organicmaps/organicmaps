@@ -1,6 +1,7 @@
 #pragma once
 
 #include "window_handle.hpp"
+#include "ruler.hpp"
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"
@@ -33,9 +34,7 @@ private:
   m2::PointD m_DebugPts[10];
 
   bool m_isRulerEnabled;
-  m2::PointD m_basePoint;
-  unsigned m_pxMinWidth;
-  double m_metresMinWidth;
+  Ruler m_ruler;
 
   bool m_isCenterEnabled;
   m2::PointD m_centerPtLonLat;
@@ -87,7 +86,7 @@ public:
 
   void enableRuler(bool doEnable);
   void drawRuler(DrawerYG * pDrawer);
-  void setRulerParams(unsigned pxMinWidth, double metresMinWidth);
+  void setRulerParams(unsigned pxMinWidth, double metresMinWidth, double metresMaxWidth);
 
   void enableCenter(bool doEnable);
   void setCenter(m2::PointD const & latLongPt);

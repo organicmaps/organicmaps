@@ -20,6 +20,7 @@
 #include "../std/iomanip.hpp"
 
 InformationDisplay::InformationDisplay()
+  : m_ruler(Ruler::Params())
 {
   enableDebugPoints(false);
   enableRuler(false);
@@ -40,6 +41,7 @@ InformationDisplay::InformationDisplay()
 void InformationDisplay::setScreen(ScreenBase const & screen)
 {
   m_screen = screen;
+  m_ruler.setScreen(screen);
 }
 
 void InformationDisplay::setBottomShift(double bottomShift)
@@ -77,116 +79,33 @@ void InformationDisplay::enableRuler(bool doEnable)
   m_isRulerEnabled = doEnable;
 }
 
-void InformationDisplay::setRulerParams(unsigned pxMinWidth, double metresMinWidth)
+void InformationDisplay::setRulerParams(unsigned pxMinWidth, double metresMinWidth, double metresMaxWidth)
 {
-  m_pxMinWidth = pxMinWidth;
-  m_metresMinWidth = metresMinWidth;
+  m_ruler.setMinPxWidth(pxMinWidth);
+  m_ruler.setMinUnitsWidth(metresMinWidth);
+  m_ruler.setMaxUnitsWidth(metresMaxWidth);
 }
 
 void InformationDisplay::drawRuler(DrawerYG * pDrawer)
 {
-  /// Compute Scaler
-  /// scaler should be between minPixSize and maxPixSize
-  int minPixSize = m_pxMinWidth;
+  m_ruler.setFontDesc(m_fontDesc);
+  m_ruler.setVisualScale(m_visualScale);
 
-  m2::PointD const scalerOrg =
-      m2::PointD(m_displayRect.minX(), m_displayRect.maxY() - m_bottomShift * m_visualScale)
-      + m2::PointD(10 * m_visualScale, -10 * m_visualScale);
+#ifdef OMIM_OS_IPHONE
+  m2::PointD pivot(m2::PointD(m_displayRect.maxX(), m_displayRect.maxY() - m_bottomShift * m_visualScale)
+                 + m2::PointD(-10 * m_visualScale, -10 * m_visualScale));
+  m_ruler.setPosition(yg::EPosAboveLeft);
+#else
+  m2::PointD pivot(m2::PointD(m_displayRect.minX(), m_displayRect.maxY() - m_bottomShift * m_visualScale)
+                 + m2::PointD(10 * m_visualScale, -10 * m_visualScale));
 
-  m2::PointD pt0 = m_screen.PtoG(scalerOrg);
-  m2::PointD pt1 = m_screen.PtoG(m_screen.GtoP(pt0) + m2::PointD(minPixSize, 0));
+  m_ruler.setPosition(yg::EPosAboveRight);
+#endif
+  m_ruler.setPivot(pivot);
+  m_ruler.update();
 
-  double const lonDiffCorrection = cos(MercatorBounds::YToLat(pt0.y) / 180.0 * math::pi);
-
-  double lonDiff = fabs(MercatorBounds::XToLon(pt1.x) - MercatorBounds::XToLon(pt0.x));
-  double metresDiff = lonDiff / MercatorBounds::degreeInMetres * lonDiffCorrection;
-
-
-  /// finding the closest higher metric value
-  unsigned curFirstDigit = 2;
-  unsigned curVal = static_cast<unsigned>(m_metresMinWidth);
-  unsigned maxVal = 1000000;
-  bool lessThanMin = false;
-  bool isInfinity = false;
-
-  if (metresDiff > maxVal)
-  {
-    isInfinity = true;
-    curVal = maxVal;
-  }
-  else
-  if (metresDiff < curVal)
-    lessThanMin = true;
-  else
-    while (true)
-    {
-      unsigned nextVal = curFirstDigit == 2 ? (curVal * 5 / 2) : curVal * 2;
-      unsigned nextFirstDigit = curFirstDigit == 2 ? (curFirstDigit * 5 / 2) : curFirstDigit * 2;
-
-      if (nextFirstDigit >= 10)
-        nextFirstDigit /= 10;
-
-      if ((curVal <= metresDiff) && (nextVal > metresDiff))
-      {
-        curVal = nextVal;
-        curFirstDigit = nextFirstDigit;
-        break;
-      }
-
-      curVal = nextVal;
-      curFirstDigit = nextFirstDigit;
-    }
-
-  /// translating meters to pixels
-  double scalerWidthLatDiff = (double)curVal * MercatorBounds::degreeInMetres / lonDiffCorrection;
-  double scalerWidthXDiff = MercatorBounds::LonToX(pt0.x + scalerWidthLatDiff) - MercatorBounds::LonToX(pt0.x);
-
-  double scalerWidthInPx = m_screen.GtoP(pt0).x - m_screen.GtoP(pt0 + m2::PointD(scalerWidthXDiff, 0)).x;
-  scalerWidthInPx = (lessThanMin || isInfinity) ? minPixSize : abs(my::rounds(scalerWidthInPx));
-
-  string scalerText;
-
-  if (isInfinity)
-    scalerText = ">";
-  else
-    if (lessThanMin)
-      scalerText = "<";
-
-    if (curVal >= 1000)
-      scalerText += strings::to_string(curVal / 1000) + " km";
-    else
-      scalerText += strings::to_string(curVal) + " m";
-
-  m2::PointD scalerPts[4];
-  scalerPts[0] = scalerOrg + m2::PointD(0, -14 * m_visualScale);
-  scalerPts[1] = scalerOrg;
-  scalerPts[2] = scalerOrg + m2::PointD(scalerWidthInPx, 0);
-  scalerPts[3] = scalerPts[2] + m2::PointD(0, -14 * m_visualScale);
-
-  pDrawer->screen()->drawPath(
-      scalerPts, 4, 0,
-      pDrawer->screen()->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 255), 2, 0, 0, 0)),
-      yg::maxDepth);
-
-//  m2::RectD textRect = pDrawer->screen()->textRect(fontDesc, scalerText.c_str(), false);
-  pDrawer->screen()->drawText(m_fontDesc,
-                              scalerPts[1] + m2::PointD(7, -7),
-                              yg::EPosAboveRight,
-                              scalerText.c_str(),
-                              yg::maxDepth,
-                              false);
-
-/*  m2::PointD minPixPath[4];
-  minPixPath[0] = scalerOrg + m2::PointD(0, -14);
-  minPixPath[1] = scalerOrg;
-  minPixPath[2] = scalerOrg + m2::PointD(minPixSize, 0);
-  minPixPath[3] = minPixPath[2] + m2::PointD(0, -14);
-
-  pDrawer->screen()->drawPath(
-      minPixPath, 4, 0,
-      pDrawer->screen()->skin()->mapPenInfo(yg::PenInfo(yg::Color(255, 0, 0, 255), 4, 0, 0, 0)),
-      yg::maxDepth);
- */
+  m_ruler.draw(pDrawer->screen().get(), math::Identity<double, 3>());
+//  pDrawer->screen()->drawRectangle(m2::Inflate(m2::RectD(pivot, pivot), 2.0, 2.0), yg::Color(0, 0, 0, 255), yg::maxDepth);
 }
 
 void InformationDisplay::setVisualScale(double visualScale)
@@ -215,11 +134,19 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
              << fixed << setprecision(4) << setw(8) << m_centerPtLonLat.x << ")";
 
   yg::StraightTextElement::Params params;
+
   params.m_depth = yg::maxDepth;
   params.m_fontDesc = m_fontDesc;
   params.m_log2vis = false;
+
+#ifdef OMIM_OS_IPHONE
   params.m_pivot = m2::PointD(m_displayRect.maxX() - 10 * m_visualScale,
-                              m_displayRect.maxY() - (m_bottomShift + 10) * m_visualScale - 5);
+                              m_displayRect.maxY() - 20 * m_visualScale - 5);
+#else
+  params.m_pivot = m2::PointD(m_displayRect.maxX() - 10 * m_visualScale,
+                              m_displayRect.maxY() - (/*m_bottomShift*/ + 14) * m_visualScale - 5);
+#endif
+
   params.m_position = yg::EPosAboveLeft;
   params.m_glyphCache = drawer->screen()->glyphCache();
   params.m_logText = strings::MakeUniString(out.str());

@@ -3,6 +3,10 @@
 
 namespace yg
 {
+  OverlayElement::Params::Params()
+    : m_pivot(), m_position(yg::EPosAboveRight), m_depth(yg::maxDepth)
+  {}
+
   OverlayElement::OverlayElement(Params const & p)
     : m_pivot(p.m_pivot),
       m_position(p.m_position),

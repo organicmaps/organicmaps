@@ -38,7 +38,8 @@ HEADERS += \
     render_policy_mt.hpp \
     render_queue.hpp \
     render_queue_routine.hpp \
-    benchmark_render_policy_mt.hpp
+    benchmark_render_policy_mt.hpp \
+    ruler.hpp \
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -66,12 +67,15 @@ SOURCES += \
     render_policy_mt.cpp \
     render_queue_routine.cpp \
     render_queue.cpp \
-    benchmark_render_policy_mt.cpp
+    benchmark_render_policy_mt.cpp \
+    ruler.cpp \
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp
   SOURCES += qgl_render_context.cpp
   QT += opengl
 }
+
+
 
 
