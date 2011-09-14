@@ -46,6 +46,9 @@ namespace yg
 
   void SymbolElement::draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const
   {
+    if (!isNeedRedraw())
+      return;
+
     if (m_styleID == 0)
     {
       m_styleID = r->skin()->mapSymbol(m_symbolName.c_str());

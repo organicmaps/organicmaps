@@ -108,7 +108,11 @@ namespace yg
       {
         it->offset(offs);
         m2::AARectD const & r = it->boundRect();
-        if (!aaRect.IsIntersect(r) && !aaRect.IsRectInside(r))
+
+        bool isIntersect = aaRect.IsIntersect(r);
+        bool isRectInside = aaRect.IsRectInside(r);
+
+        if (!isIntersect && !isRectInside)
         {
           list<PathTextElement>::iterator tempIt = it;
           ++tempIt;
@@ -117,6 +121,7 @@ namespace yg
         }
         else
         {
+          it->setIsNeedRedraw(isIntersect);
           isEmpty = false;
           ++it;
         }

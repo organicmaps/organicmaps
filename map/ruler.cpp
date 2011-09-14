@@ -51,9 +51,9 @@ void Ruler::setFontDesc(yg::FontDesc const & fontDesc)
 unsigned Ruler::ceil(double unitsDiff)
 {
   /// finding the closest higher metric value
-  unsigned curVal = (unsigned)m_minUnitsWidth;
+  double curVal = m_minUnitsWidth;
 
-  unsigned curFirstDigit = m_minUnitsWidth;
+  unsigned curFirstDigit = (unsigned)m_minUnitsWidth;
   while (curFirstDigit > 10)
     curFirstDigit /= 10;
 
@@ -65,7 +65,7 @@ unsigned Ruler::ceil(double unitsDiff)
   else
     while (true)
     {
-      unsigned nextVal = curFirstDigit == 2 ? (curVal * 5 / 2) : curVal * 2;
+      double nextVal = curFirstDigit == 2 ? (curVal * 5 / 2) : curVal * 2;
       unsigned nextFirstDigit = curFirstDigit == 2 ? (curFirstDigit * 5 / 2) : curFirstDigit * 2;
 
       if (nextFirstDigit >= 10)
@@ -82,15 +82,15 @@ unsigned Ruler::ceil(double unitsDiff)
       curFirstDigit = nextFirstDigit;
     }
 
-  return curVal;
+  return (unsigned)curVal;
 }
 
 void Ruler::update()
 {
   m2::PointD glbPivot = m_screen.PtoG(pivot());
 
-  int rulerHeight = 14 * m_visualScale;
-  unsigned minPxWidth = m_minPxWidth * m_visualScale;
+  int rulerHeight = static_cast<int>(14 * m_visualScale);
+  unsigned minPxWidth = static_cast<unsigned>(m_minPxWidth * m_visualScale);
 
   m2::PointD pt0 = m_screen.PtoG(pivot() - m2::PointD(minPxWidth / 2, 0));
   m2::PointD pt1 = m_screen.PtoG(pivot() + m2::PointD(minPxWidth / 2, 0));
@@ -112,23 +112,25 @@ void Ruler::update()
   bool higherThanMax = m_unitsDiff > m_maxUnitsWidth;
   bool lessThanMin = m_unitsDiff < m_minUnitsWidth;
 
+  double textUnitsDiff = m_unitsDiff;
+
   m_scalerText = "";
   if (higherThanMax)
   {
     m_scalerText = ">";
-    m_unitsDiff = m_maxUnitsWidth;
+    textUnitsDiff = m_maxUnitsWidth;
   }
   else
     if (lessThanMin)
     {
       m_scalerText = "<";
-      m_unitsDiff = m_minUnitsWidth;
+      textUnitsDiff = m_minUnitsWidth;
     }
 
   if (m_unitsDiff >= 1000)
-    m_scalerText += strings::to_string(m_unitsDiff / 1000) + " km";
+    m_scalerText += strings::to_string(textUnitsDiff / 1000) + " km";
   else
-    m_scalerText += strings::to_string(m_unitsDiff) + " m";
+    m_scalerText += strings::to_string(textUnitsDiff) + " m";
 
   /// translating units into pixels
   double scalerWidthLatDiff = (double)m_unitsDiff * MercatorBounds::degreeInMetres / lonDiffCorrection;
@@ -175,8 +177,13 @@ void Ruler::draw(yg::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const &
 {
   s->drawPath(
       &m_path[0], m_path.size(), 0,
-      s->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 255), 2, 0, 0, 0)),
-      depth());
+        s->skin()->mapPenInfo(yg::PenInfo(yg::Color(255, 255, 255, 255), 2 * m_visualScale, 0, 0, 0)),
+      depth() - 3);
+
+  s->drawPath(
+      &m_path[0], m_path.size(), 0,
+      s->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 255), 1 * m_visualScale, 0, 0, 0)),
+      depth() - 2);
 
   if (position() & yg::EPosLeft)
     s->drawText(m_fontDesc,
