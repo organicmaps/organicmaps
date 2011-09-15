@@ -469,16 +469,21 @@ namespace feature
           if (isLine)
             holder.AddPoints(points, i);
 
-          if (isArea && IsGoodArea(points, level) && holder.NeedProcessTriangles())
+          if (isArea && holder.NeedProcessTriangles())
           {
             // simplify and serialize triangles
+            bool const good = IsGoodArea(points, level);
 
             polygons_t const & polys = fb.GetPolygons();
-            if (polys.size() == 1 && holder.TryToMakeStrip(points))
+            if (polys.size() == 1 && good && holder.TryToMakeStrip(points))
               continue;
 
             polygons_t simplified;
-            simplified.push_back(points);
+            if (good)
+            {
+              simplified.push_back(points_t());
+              simplified.back().swap(points);
+            }
 
             polygons_t::const_iterator iH = polys.begin();
             for (++iH; iH != polys.end(); ++iH)
@@ -491,7 +496,8 @@ namespace feature
                 simplified.pop_back();
             }
 
-            holder.AddTriangles(simplified, i);
+            if (!simplified.empty())
+              holder.AddTriangles(simplified, i);
           }
         }
       }
