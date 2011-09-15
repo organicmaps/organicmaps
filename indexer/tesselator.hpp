@@ -105,6 +105,7 @@ namespace tesselator
     public:
       void MakeTrianglesChain(PointsInfo const & points, iter_t start, vector<Edge> & chain, bool goodOrder) const;
 
+      size_t GetCount() const { return m_triangles.size(); }
       Triangle GetTriangle(int i) const { return m_triangles[i]; }
     };
 
@@ -133,6 +134,19 @@ namespace tesselator
     //@}
 
     inline bool IsEmpty() const { return m_triangles.empty(); }
+
+    template <class ToDo> void ForEachTriangle(ToDo toDo) const
+    {
+      for (list<ListInfo>::const_iterator i = m_triangles.begin(); i != m_triangles.end(); ++i)
+      {
+        size_t const count = i->GetCount();
+        for (size_t j = 0; j < count; ++j)
+        {
+          Triangle const t = i->GetTriangle(j);
+          toDo(m_points[t.m_p[0]], m_points[t.m_p[1]], m_points[t.m_p[2]]);
+        }
+      }
+    }
 
     // Convert points from double to uint.
     void GetPointsInfo(m2::PointU const & baseP, m2::PointU const & maxP,
