@@ -40,6 +40,7 @@ HEADERS += \
     render_queue_routine.hpp \
     benchmark_render_policy_mt.hpp \
     ruler.hpp \
+    measurement_utils.hpp \
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -69,6 +70,7 @@ SOURCES += \
     render_queue.cpp \
     benchmark_render_policy_mt.cpp \
     ruler.cpp \
+    measurement_utils.cpp \
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp

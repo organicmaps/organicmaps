@@ -1,7 +1,7 @@
 #include "search_panel.hpp"
 #include "draw_widget.hpp"
 
-#include "../platform/settings.hpp"
+#include "../map/measurement_utils.hpp"
 
 #include "../std/bind.hpp"
 
@@ -86,43 +86,6 @@ namespace
     return item;
   }
 
-  QString format_distance_impl(double m, bool & drawDir,
-                            char const * high, char const * low, double highF, double lowF)
-  {
-    double const lowV = m / lowF;
-    drawDir = true;
-    if (lowV < 1.0)
-    {
-      drawDir = false;
-      return (QString::fromAscii("0") + QString::fromAscii(low));
-    }
-
-    if (m >= highF) return QString("%1").arg(m / highF, 0, 'f', 1) + QString::fromAscii(high);
-    else            return QString("%1").arg(lowV, 0, 'f', 0) + QString::fromAscii(low);
-  }
-
-  QString format_distance(double m, bool & drawDir)
-  {
-    using namespace Settings;
-    Units u;
-    if (!Settings::Get("Units", u))
-    {
-      // set default measurement from system locale
-      if (QLocale::system().measurementSystem() == QLocale::MetricSystem)
-        u = Metric;
-      else
-        u = Foot;
-      Settings::Set("Units", u);
-    }
-
-    switch (u)
-    {
-    case Yard: return format_distance_impl(m, drawDir, " mi", " yd", 1609.344, 0.9144);
-    case Foot: return format_distance_impl(m, drawDir, " mi", " ft", 1609.344, 0.3048);
-    default: return format_distance_impl(m, drawDir, " km", " m", 1000.0, 1.0);
-    }
-  }
-
   QIcon draw_direction(double a)
   {
     int const dim = 64;
@@ -175,7 +138,7 @@ void SearchPanel::OnSearchResult(ResultT * res, int queryId)
 
       bool drawDir;
       m_pTable->setItem(rowCount, 2,
-                        create_item(format_distance(res->GetDistanceFromCenter(), drawDir)));
+                        create_item(MeasurementUtils::FormatDistance(res->GetDistanceFromCenter(), drawDir).c_str()));
 
       if (drawDir)
       {
