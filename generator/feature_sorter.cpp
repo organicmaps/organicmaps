@@ -87,10 +87,10 @@ namespace feature
 
     vector<FileWriter*> m_geoFile, m_trgFile;
 
-    feature::DataHeader m_header;
+    DataHeader m_header;
 
   public:
-    FeaturesCollector2(string const & fName, feature::DataHeader const & header)
+    FeaturesCollector2(string const & fName, DataHeader const & header)
       : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName), m_header(header)
     {
       for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
@@ -176,7 +176,11 @@ namespace feature
         tesselator::TrianglesInfo info;
         tesselator::TesselateInterior(polys, info);
 
-        if (info.IsEmpty()) return;
+        if (info.IsEmpty())
+        {
+          LOG(LINFO, ("NO TRIANGLES"));
+          return;
+        }
 
         serial::TrianglesChainSaver saver(m_codingParams);
 
@@ -338,6 +342,7 @@ namespace feature
       }
     };
 
+    /*
     class less_points
     {
       double const m_eps;
@@ -366,17 +371,15 @@ namespace feature
     };
 
     typedef set<m2::PointD, less_points> points_set_t;
+    */
 
     class BoundsDistance : public mn::DistanceToLineSquare<m2::PointD>
     {
-      points_set_t const & m_skip;
-
       double m_eps;
       double m_minX, m_minY, m_maxX, m_maxY;
 
     public:
-      BoundsDistance(uint32_t cellID, int level, points_set_t const & skip)
-        : m_skip(skip)
+      BoundsDistance(uint32_t cellID, int level)
       {
         RectId const cell = RectId::FromBitsAndLevel(cellID, level);
         CellIdConverter<MercatorBounds, RectId>::GetCellBounds(cell, m_minX, m_minY, m_maxX, m_maxY);
@@ -393,12 +396,6 @@ namespace feature
           return std::numeric_limits<double>::max();
         }
 
-        if (m_skip.count(p) > 0)
-        {
-          // if we have more than one point with equal coordinates - do not simplify them
-          return std::numeric_limits<double>::max();
-        }
-
         return mn::DistanceToLineSquare<m2::PointD>::operator()(p);
       }
     };
@@ -409,23 +406,47 @@ namespace feature
       uint32_t cellID;
       if (fb.GetCoastCell(cellID))
       {
+        /*
         points_set_t toSkip;
         {
           points_t v(in);
           sort(v.begin(), v.end(), less_points());
           toSkip.insert(unique(v.begin(), v.end(), equal_points()), v.end());
         }
+        */
 
-        BoundsDistance dist(cellID, g_coastsCellLevel, toSkip);
+        BoundsDistance dist(cellID, g_coastsCellLevel);
         feature::SimplifyPoints(dist, in, out, level);
-
-        //LOG(LINFO, ("Special simplification", in.size(), out.size()));
       }
       else
       {
         mn::DistanceToLineSquare<m2::PointD> dist;
         feature::SimplifyPoints(dist, in, out, level);
       }
+    }
+
+    static double CalcSquare(points_t const & poly)
+    {
+      ASSERT ( poly.front() == poly.back(), () );
+
+      double res = 0;
+      for (size_t i = 0; i < poly.size()-1; ++i)
+      {
+        res += (poly[i+1].x - poly[i].x) *
+               (poly[i+1].y + poly[i].y) / 2.0;
+      }
+      return fabs(res);
+    }
+
+    static bool IsGoodArea(points_t const & poly, int level)
+    {
+      if (poly.size() < 4)
+        return false;
+
+      m2::RectD r;
+      CalcRect(poly, r);
+
+      return scales::IsGoodForLevel(level, r);
     }
 
   public:
@@ -448,7 +469,7 @@ namespace feature
           if (isLine)
             holder.AddPoints(points, i);
 
-          if (isArea && points.size() > 3 && holder.NeedProcessTriangles())
+          if (isArea && IsGoodArea(points, level) && holder.NeedProcessTriangles())
           {
             // simplify and serialize triangles
 
@@ -466,7 +487,7 @@ namespace feature
 
               SimplifyPoints(*iH, simplified.back(), level, fb);
 
-              if (simplified.back().size() < 3)
+              if (!IsGoodArea(simplified.back(), level))
                 simplified.pop_back();
             }
 
@@ -517,16 +538,16 @@ namespace feature
     {
       FileReader reader(tempDatFilePath);
 
-      bool const isWorld = (mapType != feature::DataHeader::country);
+      bool const isWorld = (mapType != DataHeader::country);
 
-      feature::DataHeader header;
+      DataHeader header;
       uint32_t coordBits = 27;
       if (isWorld)
         coordBits -= (scales::GetUpperScale() - scales::GetUpperWorldScale());
 
       header.SetCodingParams(serial::CodingParams(coordBits, midPoints.GetCenter()));
       header.SetScales(isWorld ? g_arrWorldScales : g_arrCountryScales);
-      header.SetType(static_cast<feature::DataHeader::MapType>(mapType));
+      header.SetType(static_cast<DataHeader::MapType>(mapType));
 
       FeaturesCollector2 collector(datFilePath, header);
 
@@ -536,7 +557,7 @@ namespace feature
         src.Skip(midPoints.m_vec[i].second);
 
         FeatureBuilder1 f;
-        feature::ReadFromSourceRowFormat(src, f);
+        ReadFromSourceRowFormat(src, f);
 
         // emit the feature
         collector(GetFeatureBuilder2(f));

@@ -1,6 +1,7 @@
 #include "coastlines_generator.hpp"
 #include "feature_builder.hpp"
 
+//#include "../indexer/tesselator.hpp"
 #include "../indexer/point_to_int64.hpp"
 
 #include "../geometry/region2d/binary_operators.hpp"
@@ -66,6 +67,48 @@ namespace
       tree.Add(m_rgn, GetLimitRect(m_rgn));
     }
   };
+
+  /*
+  class DoTesselateRegion
+  {
+    typedef vector<m2::PointD> PointsT;
+    PointsT m_vec;
+  public:
+    bool operator() (m2::PointD const & p)
+    {
+      m_vec.push_back(p);
+      return true;
+    }
+
+    template <class TreeT> class DoAddRegion
+    {
+      TreeT & m_tree;
+    public:
+      DoAddRegion(TreeT & tree) : m_tree(tree) {}
+
+      void operator() (m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+      {
+        RegionT rgn;
+        rgn.AddPoint(D2I(p1));
+        rgn.AddPoint(D2I(p2));
+        rgn.AddPoint(D2I(p3));
+        m_tree.Add(rgn, GetLimitRect(rgn));
+      }
+    };
+
+    template <class TreeT> void Add(TreeT & tree)
+    {
+      list<PointsT> lst;
+      lst.push_back(PointsT());
+      lst.back().swap(m_vec);
+
+      tesselator::TrianglesInfo info;
+      tesselator::TesselateInterior(lst, info);
+
+      info.ForEachTriangle(DoAddRegion<TreeT>(tree));
+    }
+  };
+  */
 }
 
 void CoastlineFeaturesGenerator::AddRegionToTree(FeatureBuilder1 const & fb)
@@ -73,6 +116,7 @@ void CoastlineFeaturesGenerator::AddRegionToTree(FeatureBuilder1 const & fb)
   ASSERT ( fb.IsGeometryClosed(), () );
 
   DoCreateRegion createRgn;
+  //DoTesselateRegion createRgn;
   fb.ForEachGeometryPoint(createRgn);
   createRgn.Add(m_tree);
 }
