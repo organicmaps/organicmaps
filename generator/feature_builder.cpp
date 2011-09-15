@@ -358,8 +358,9 @@ string debug_print(FeatureBuilder1 const & f)
 
   return (out.str() + " " +
           debug_print(f.m_LimitRect) + " " +
-          debug_print(f.m_Params) + " " +
-          debug_print(f.m_Polygons));
+          debug_print(f.m_Params)
+          //+ " " + debug_print(f.m_Polygons)
+          );
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
