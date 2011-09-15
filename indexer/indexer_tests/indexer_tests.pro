@@ -30,9 +30,6 @@ SOURCES += \
     mercator_test.cpp \
     sort_and_merge_intervals_test.cpp \
     geometry_coding_test.cpp \
-    triangles_tree_coding_test.cpp \
     scales_test.cpp \
     test_polylines.cpp \
     geometry_serialization_test.cpp \
-    tesselator_test.cpp
-

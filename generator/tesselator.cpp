@@ -1,5 +1,6 @@
 #include "tesselator.hpp"
-#include "geometry_coding.hpp"
+
+#include "../indexer/geometry_coding.hpp"
 
 #include "../geometry/robust_orientation.hpp"
 

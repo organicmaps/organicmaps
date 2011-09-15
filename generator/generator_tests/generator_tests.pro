@@ -26,3 +26,5 @@ SOURCES += \
     feature_merger_test.cpp \
     osm_type_test.cpp \
     osm_id_test.cpp \
+    tesselator_test.cpp \
+    triangles_tree_coding_test.cpp \

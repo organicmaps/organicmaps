@@ -1,6 +1,7 @@
 #include "feature_sorter.hpp"
 #include "feature_generator.hpp"
 #include "feature_builder.hpp"
+#include "tesselator.hpp"
 
 #include "../defines.hpp"
 
@@ -10,7 +11,6 @@
 #include "../indexer/feature_impl.hpp"
 #include "../indexer/geometry_serialization.hpp"
 #include "../indexer/scales.hpp"
-#include "../indexer/tesselator.hpp"
 
 #include "../geometry/polygon.hpp"
 

@@ -26,7 +26,6 @@ SOURCES += \
     data_header.cpp \
     geometry_coding.cpp \
     geometry_serialization.cpp \
-    tesselator.cpp \
     feature_data.cpp \
     feature_rect.cpp \
     types_mapping.cpp \
@@ -66,7 +65,6 @@ HEADERS += \
     geometry_coding.hpp \
     geometry_serialization.hpp \
     point_to_int64.hpp \
-    tesselator.hpp \
     tesselator_decl.hpp \
     feature_data.hpp \
     feature_rect.hpp \
