@@ -63,7 +63,6 @@
 		FA09E01113F71F6C007E69CA /* SearchVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA09E01013F71F6C007E69CA /* SearchVC.mm */; };
 		FA0E845E138554CF008CEABB /* languages.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA0E845D138554CF008CEABB /* languages.txt */; };
 		FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA29FDA9141E77F8004ADF66 /* Preferences.mm */; };
-		FA29FDAC141E7D84004ADF66 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FA29FDAB141E7D84004ADF66 /* Settings.bundle */; };
 		FA2EF9C713630C3B00E3E484 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2EF9C613630C3B00E3E484 /* libplatform.a */; };
 		FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */; };
 		FA4135EA120A263C0062D5B4 /* CountriesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4135E2120A263C0062D5B4 /* CountriesViewController.mm */; };
@@ -671,7 +670,6 @@
 		FA0E845D138554CF008CEABB /* languages.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = languages.txt; path = ../../data/languages.txt; sourceTree = SOURCE_ROOT; };
 		FA29FDA8141E77F8004ADF66 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Preferences.h; path = Settings/Preferences.h; sourceTree = "<group>"; };
 		FA29FDA9141E77F8004ADF66 /* Preferences.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Preferences.mm; path = Settings/Preferences.mm; sourceTree = "<group>"; };
-		FA29FDAB141E7D84004ADF66 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		FA2EF9C613630C3B00E3E484 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libplatform.a; sourceTree = SOURCE_ROOT; };
 		FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomAlertView.mm; sourceTree = "<group>"; };
 		FA34BEC91338D72F00FFB2A7 /* CustomAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlertView.h; sourceTree = "<group>"; };
@@ -1287,7 +1285,6 @@
 		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
-				FA29FDAB141E7D84004ADF66 /* Settings.bundle */,
 				FA34BEC71338D6DB00FFB2A7 /* Common */,
 				FA6E1F1B124E6B2800F59149 /* Platform */,
 				FA4135DF120A25B90062D5B4 /* Settings */,
@@ -2578,7 +2575,6 @@
 				FAF8052F1417E3510024E8C1 /* za@2x.png in Resources */,
 				FAF805301417E3510024E8C1 /* zm@2x.png in Resources */,
 				FAF805311417E3510024E8C1 /* zw@2x.png in Resources */,
-				FA29FDAC141E7D84004ADF66 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

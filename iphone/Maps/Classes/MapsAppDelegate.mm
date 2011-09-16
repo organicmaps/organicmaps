@@ -31,7 +31,7 @@
 
 - (void) applicationDidFinishLaunching: (UIApplication *) application
 {
-  m_preferences = [[Preferences alloc] init];
+  [Preferences setup];
 
   [m_window addSubview:m_mapViewController.view];
   [m_window makeKeyAndVisible];
@@ -46,7 +46,6 @@
 
 - (void) dealloc
 {
-  [m_preferences release];
   [m_settingsManager release];
   m_mapViewController = nil;
   m_window = nil;

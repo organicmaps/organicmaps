@@ -1,10 +1,6 @@
 #import <Foundation/NSObject.h>
 
-/// Synchronizes device's Settings/App Preferences panel with
-/// internal settings.ini file, also initializes app preferences
-/// if Settings panel was not opened
+// Initialize default preferences if they're not initialized
 @interface Preferences : NSObject
-
-+ (void)setupByPreferences;
-
++ (void)setup;
 @end
