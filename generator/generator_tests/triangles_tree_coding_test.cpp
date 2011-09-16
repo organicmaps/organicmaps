@@ -1,8 +1,9 @@
 #include "../tesselator.hpp"
-#include "../geometry_serialization.hpp"
-#include "../mercator.hpp"
-#include "../point_to_int64.hpp"
-#include "../coding_params.hpp"
+
+#include "../../indexer/geometry_serialization.hpp"
+#include "../../indexer/mercator.hpp"
+#include "../../indexer/point_to_int64.hpp"
+#include "../../indexer/coding_params.hpp"
 
 #include "../../coding/reader.hpp"
 #include "../../coding/writer.hpp"
