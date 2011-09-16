@@ -24,6 +24,8 @@ namespace serial
     {
       return static_cast<int64_t>(m_BasePointUint64);
     }
+
+    void SetBasePoint(m2::PointD const & pt);
     //@}
 
     inline uint32_t GetCoordBits() const { return m_CoordBits; }

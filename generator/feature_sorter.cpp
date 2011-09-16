@@ -165,11 +165,18 @@ namespace feature
 
       void WriteOuterPoints(points_t const & points, int i)
       {
-        serial::CodingParams const cp = m_header.GetCodingParams(i);
+        ASSERT_GREATER ( points.size(), 2, () );
+
+        serial::CodingParams cp = m_header.GetCodingParams(i);
+
+        // Optimization: Store first point once in header for outer linear features.
+        cp.SetBasePoint(points[0]);
+        // "!!!Cry for me, river!!!"
+        points_t toSave(points.begin() + 1, points.end());
 
         m_buffer.m_ptsMask |= (1 << i);
         m_buffer.m_ptsOffset.push_back(m_rMain.GetFileSize(*m_rMain.m_geoFile[i]));
-        serial::SaveOuterPath(points, cp, *m_rMain.m_geoFile[i]);
+        serial::SaveOuterPath(toSave, cp, *m_rMain.m_geoFile[i]);
       }
 
       void WriteOuterTriangles(polygons_t const & polys, int i)

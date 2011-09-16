@@ -127,6 +127,8 @@ void LoaderCurrent::ParseHeader2()
 
   ArrayByteSource src(bitSource.RoundPtr());
 
+  serial::CodingParams const & cp = GetDefCodingParams();
+
   if (h & HEADER_GEOM_LINE)
   {
     if (ptsCount > 0)
@@ -142,13 +144,16 @@ void LoaderCurrent::ParseHeader2()
 
       char const * start = static_cast<char const *>(src.Ptr());
 
-      src = ArrayByteSource(serial::LoadInnerPath(
-                              src.Ptr(), ptsCount, GetDefCodingParams(), m_pF->m_Points));
+      src = ArrayByteSource(serial::LoadInnerPath(src.Ptr(), ptsCount, cp, m_pF->m_Points));
 
       m_pF->m_InnerStats.m_Points = static_cast<char const *>(src.Ptr()) - start;
     }
     else
+    {
+      m_pF->m_Points.push_back(serial::LoadPoint(src, cp));
+
       ReadOffsets(src, ptsMask, m_ptsOffsets);
+    }
   }
 
   if (h & HEADER_GEOM_AREA)
@@ -160,8 +165,7 @@ void LoaderCurrent::ParseHeader2()
       char const * start = static_cast<char const *>(src.Ptr());
 
       FeatureType::points_t points;
-      src = ArrayByteSource(serial::LoadInnerTriangles(
-                              src.Ptr(), trgCount, GetDefCodingParams(), points));
+      src = ArrayByteSource(serial::LoadInnerTriangles(src.Ptr(), trgCount, cp, points));
 
       m_pF->m_InnerStats.m_Strips = static_cast<char const *>(src.Ptr()) - start;
 
@@ -184,15 +188,21 @@ uint32_t LoaderCurrent::ParseGeometry(int scale)
   uint32_t sz = 0;
   if (Header() & HEADER_GEOM_LINE)
   {
-    if (m_pF->m_Points.empty())
+    size_t const count = m_pF->m_Points.size();
+    if (count < 2)
     {
+      ASSERT_EQUAL ( count, 1, () );
+
       // outer geometry
       int const ind = GetScaleIndex(scale, m_ptsOffsets);
       if (ind != -1)
       {
         ReaderSource<FilesContainerR::ReaderT> src(m_Info.GetGeometryReader(ind));
         src.Skip(m_ptsOffsets[ind]);
-        serial::LoadOuterPath(src, GetCodingParams(ind), m_pF->m_Points);
+
+        serial::CodingParams cp = GetCodingParams(ind);
+        cp.SetBasePoint(m_pF->m_Points[0]);
+        serial::LoadOuterPath(src, cp, m_pF->m_Points);
 
         sz = static_cast<uint32_t>(src.Pos() - m_ptsOffsets[ind]);
       }
@@ -201,7 +211,6 @@ uint32_t LoaderCurrent::ParseGeometry(int scale)
     {
       // filter inner geometry
 
-      size_t const count = m_pF->m_Points.size();
       FeatureType::points_t points;
       points.reserve(count);
 

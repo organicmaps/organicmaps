@@ -15,13 +15,18 @@ namespace serial
   CodingParams::CodingParams(uint8_t coordBits, m2::PointD const & pt)
     : m_CoordBits(coordBits)
   {
-    m_BasePoint = PointD2PointU(pt.x, pt.y, coordBits);
-    m_BasePointUint64 = m2::PointUToUint64(m_BasePoint);
+    SetBasePoint(pt);
   }
 
   CodingParams::CodingParams(uint8_t coordBits, uint64_t basePointUint64)
     : m_BasePointUint64(basePointUint64), m_CoordBits(coordBits)
   {
     m_BasePoint = m2::Uint64ToPointU(m_BasePointUint64);
+  }
+
+  void CodingParams::SetBasePoint(m2::PointD const & pt)
+  {
+    m_BasePoint = PointD2PointU(pt.x, pt.y, m_CoordBits);
+    m_BasePointUint64 = m2::PointUToUint64(m_BasePoint);
   }
 }

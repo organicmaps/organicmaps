@@ -481,6 +481,11 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
     }
     else
     {
+      ASSERT_GREATER ( GetGeometry().size(), 2, () );
+
+      // Store first point once for outer linear features.
+      serial::SavePoint(sink, GetGeometry()[0], params);
+
       // offsets was pushed from high scale index to low
       reverse(data.m_ptsOffset.begin(), data.m_ptsOffset.end());
       serial::WriteVarUintArray(data.m_ptsOffset, sink);
