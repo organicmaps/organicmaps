@@ -340,6 +340,7 @@ namespace m2
   typedef Rect<float> RectF;
   typedef Rect<double> RectD;
   typedef Rect<unsigned> RectU;
+  typedef Rect<uint32_t> RectU32;
   typedef Rect<int> RectI;
 
   template <typename T>

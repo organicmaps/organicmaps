@@ -33,3 +33,5 @@ SOURCES += \
     scales_test.cpp \
     test_polylines.cpp \
     geometry_serialization_test.cpp \
+    mwm_set_test.cpp
+

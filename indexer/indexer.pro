@@ -36,6 +36,7 @@ SOURCES += \
     feature_loader_base.cpp \
     feature_loader.cpp \
     search_delimiters.cpp \
+    mwm_set.cpp \
 
 HEADERS += \
     feature.hpp \
@@ -80,3 +81,6 @@ HEADERS += \
     search_trie.hpp \
     search_string_utils.hpp \
     search_delimiters.hpp \
+    mwm_set.hpp \
+
+
