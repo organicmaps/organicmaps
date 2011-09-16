@@ -102,45 +102,45 @@
   fi:Finland
   fr:France
    All regions|France_Alsace|France_Aquitaine|France_Auvergne|France_Basse-Normandie|France_Bourgogne|France_Bretagne|France_Centre|France_Champagne-Ardenne|France_Corsica|France_Franche-Comte|France_Haute-Normandie|France_Languedoc-Roussillon|France_Limousin|France_Lorraine|France_Midi-Pyrenees|France_Nord-Pas-de-Calais|France_Paris & Ile-de-France|France_Pays de la Loire|France_Picardie|France_Poitou-Charentes|France_Provence-Alpes-Cote d'Azur|France_Rhone-Alpes
-   Alsace|France_Alsace
-   Aquitaine|France_Aquitaine
-   Auvergne|France_Auvergne
-   Basse-Normandie|France_Basse-Normandie
-   Bourgogne|France_Bourgogne
-   Bretagne|France_Bretagne
-   Centre|France_Centre
-   Champagne-Ardenne|France_Champagne-Ardenne
-   Corsica|France_Corsica
-   Franche-Comté|France_Franche-Comte
-   Haute-Normandie|France_Haute-Normandie
-   Languedoc-Roussillon|France_Languedoc-Roussillon
-   Limousin|France_Limousin
-   Lorraine|France_Lorraine
-   Midi-Pyrénées|France_Midi-Pyrenees
-   Nord-Pas-de-Calais|France_Nord-Pas-de-Calais
-   Paris & Île-de-France|France_Paris & Ile-de-France
-   Pays de la Loire|France_Pays de la Loire
-   Picardie|France_Picardie
-   Poitou-Charentes|France_Poitou-Charentes
-   Provence-Alpes-Côte d'Azur|France_Provence-Alpes-Cote d'Azur
-   Rhône-Alpes|France_Rhone-Alpes
+   fr:Alsace|France_Alsace
+   fr:Aquitaine|France_Aquitaine
+   fr:Auvergne|France_Auvergne
+   fr:Basse-Normandie|France_Basse-Normandie
+   fr:Bourgogne|France_Bourgogne
+   fr:Bretagne|France_Bretagne
+   fr:Centre|France_Centre
+   fr:Champagne-Ardenne|France_Champagne-Ardenne
+   fr:Corsica|France_Corsica
+   fr:Franche-Comté|France_Franche-Comte
+   fr:Haute-Normandie|France_Haute-Normandie
+   fr:Languedoc-Roussillon|France_Languedoc-Roussillon
+   fr:Limousin|France_Limousin
+   fr:Lorraine|France_Lorraine
+   fr:Midi-Pyrénées|France_Midi-Pyrenees
+   fr:Nord-Pas-de-Calais|France_Nord-Pas-de-Calais
+   fr:Paris & Île-de-France|France_Paris & Ile-de-France
+   fr:Pays de la Loire|France_Pays de la Loire
+   fr:Picardie|France_Picardie
+   fr:Poitou-Charentes|France_Poitou-Charentes
+   fr:Provence-Alpes-Côte d'Azur|France_Provence-Alpes-Cote d'Azur
+   fr:Rhône-Alpes|France_Rhone-Alpes
   ge:Georgia
   de:Germany
    All states|Germany_Baden-Wurttemberg|Germany_Bavaria|Germany_Berlin & Brandenburg|Germany_Bremen & Lower Saxony|Germany_Hamburg|Germany_Hesse|Germany_Mecklenburg-Vorpommern|Germany_North Rhine-Westphalia|Germany_Rhineland-Palatinate|Germany_Saarland|Germany_Saxony-Anhalt|Germany_Saxony|Germany_Schleswig-Holstein|Germany_Thuringia
-   Baden-Württemberg|Germany_Baden-Wurttemberg
-   Bavaria|Germany_Bavaria
-   Berlin & Brandenburg|Germany_Berlin & Brandenburg
-   Bremen & Lower Saxony|Germany_Bremen & Lower Saxony
-   Hamburg|Germany_Hamburg
-   Hesse|Germany_Hesse
-   Mecklenburg-Vorpommern|Germany_Mecklenburg-Vorpommern
-   North Rhine-Westphalia|Germany_North Rhine-Westphalia
-   Rhineland-Palatinate|Germany_Rhineland-Palatinate
-   Saarland|Germany_Saarland
-   Saxony-Anhalt|Germany_Saxony-Anhalt
-   Saxony|Germany_Saxony
-   Schleswig-Holstein|Germany_Schleswig-Holstein
-   Thuringia|Germany_Thuringia
+   de:Baden-Württemberg|Germany_Baden-Wurttemberg
+   de:Bavaria|Germany_Bavaria
+   de:Berlin & Brandenburg|Germany_Berlin & Brandenburg
+   de:Bremen & Lower Saxony|Germany_Bremen & Lower Saxony
+   de:Hamburg|Germany_Hamburg
+   de:Hesse|Germany_Hesse
+   de:Mecklenburg-Vorpommern|Germany_Mecklenburg-Vorpommern
+   de:North Rhine-Westphalia|Germany_North Rhine-Westphalia
+   de:Rhineland-Palatinate|Germany_Rhineland-Palatinate
+   de:Saarland|Germany_Saarland
+   de:Saxony-Anhalt|Germany_Saxony-Anhalt
+   de:Saxony|Germany_Saxony
+   de:Schleswig-Holstein|Germany_Schleswig-Holstein
+   de:Thuringia|Germany_Thuringia
   gi:Gibraltar
   gr:Greece
   hu:Hungary
@@ -164,14 +164,14 @@
   ro:Romania
   ru:Russia
    All federal districts|Russia_Central|Russia_Far Eastern|Russia_North Caucasian|Russia_Northwestern|Russia_Siberian|Russia_Southern|Russia_Urals|Russia_Volga
-   Moscow & Central|Russia_Central
-   Far Eastern|Russia_Far Eastern
-   North Caucasian|Russia_North Caucasian
-   Saint Petersburg & Northwestern|Russia_Northwestern
-   Siberian|Russia_Siberian
-   Southern|Russia_Southern
-   Urals|Russia_Urals
-   Volga|Russia_Volga
+   ru:Moscow & Central|Russia_Central
+   ru:Far Eastern|Russia_Far Eastern
+   ru:North Caucasian|Russia_North Caucasian
+   ru:Saint Petersburg & Northwestern|Russia_Northwestern
+   ru:Siberian|Russia_Siberian
+   ru:Southern|Russia_Southern
+   ru:Urals|Russia_Urals
+   ru:Volga|Russia_Volga
   rs:Serbia
   sk:Slovakia
   si:Slovenia
@@ -258,74 +258,74 @@
  North America
   ca:Canada
    All provinces and territories|Canada_Alberta|Canada_British Columbia|Canada_Manitoba|Canada_New Brunswick|Canada_Newfoundland and Labrador|Canada_Northwest Territories|Canada_Nova Scotia|Canada_Nunavut|Canada_Ontario|Canada_Prince Edward Island|Canada_Quebec|Canada_Saskatchewan|Canada_Yukon
-   Alberta|Canada_Alberta
-   British Columbia|Canada_British Columbia
-   Manitoba|Canada_Manitoba
-   New Brunswick|Canada_New Brunswick
-   Newfoundland and Labrador|Canada_Newfoundland and Labrador
-   Northwest Territories|Canada_Northwest Territories
-   Nova Scotia|Canada_Nova Scotia
-   Nunavut|Canada_Nunavut
-   Ontario|Canada_Ontario
-   Prince Edward Island|Canada_Prince Edward Island
-   Quebec|Canada_Quebec
-   Saskatchewan|Canada_Saskatchewan
-   Yukon|Canada_Yukon
+   ca:Alberta|Canada_Alberta
+   ca:British Columbia|Canada_British Columbia
+   ca:Manitoba|Canada_Manitoba
+   ca:New Brunswick|Canada_New Brunswick
+   ca:Newfoundland and Labrador|Canada_Newfoundland and Labrador
+   ca:Northwest Territories|Canada_Northwest Territories
+   ca:Nova Scotia|Canada_Nova Scotia
+   ca:Nunavut|Canada_Nunavut
+   ca:Ontario|Canada_Ontario
+   ca:Prince Edward Island|Canada_Prince Edward Island
+   ca:Quebec|Canada_Quebec
+   ca:Saskatchewan|Canada_Saskatchewan
+   ca:Yukon|Canada_Yukon
   gl:Greenland
   mx:Mexico
   us:United States of America
    All states|USA_Alabama|USA_Alaska|USA_Arizona|USA_Arkansas|USA_California|USA_Colorado|USA_Connecticut|USA_Delaware|USA_District of Columbia|USA_Florida|USA_Georgia|USA_Hawaii|USA_Idaho|USA_Illinois|USA_Indiana|USA_Iowa|USA_Kansas|USA_Kentucky|USA_Louisiana|USA_Maine|USA_Maryland|USA_Massachusetts|USA_Michigan|USA_Minnesota|USA_Mississippi|USA_Missouri|USA_Montana|USA_Nebraska|USA_Nevada|USA_New Hampshire|USA_New Jersey|USA_New Mexico|USA_New York|USA_North Carolina|USA_North Dakota|USA_Ohio|USA_Oklahoma|USA_Oregon|USA_Pennsylvania|USA_Rhode Island|USA_South Carolina|USA_South Dakota|USA_Tennessee|USA_Texas|USA_Utah|USA_Vermont|USA_Virginia|USA_Washington|USA_West Virginia|USA_Wisconsin|USA_Wyoming
-   Alabama|USA_Alabama
-   Alaska|USA_Alaska
-   Arizona|USA_Arizona
-   Arkansas|USA_Arkansas
-   California|USA_California
-   Colorado|USA_Colorado
-   Connecticut|USA_Connecticut
-   Delaware|USA_Delaware
-   District of Columbia|USA_District of Columbia
-   Florida|USA_Florida
-   Georgia|USA_Georgia
-   Hawaii|USA_Hawaii
-   Idaho|USA_Idaho
-   Illinois|USA_Illinois
-   Indiana|USA_Indiana
-   Iowa|USA_Iowa
-   Kansas|USA_Kansas
-   Kentucky|USA_Kentucky
-   Louisiana|USA_Louisiana
-   Maine|USA_Maine
-   Maryland|USA_Maryland
-   Massachusetts|USA_Massachusetts
-   Michigan|USA_Michigan
-   Minnesota|USA_Minnesota
-   Mississippi|USA_Mississippi
-   Missouri|USA_Missouri
-   Montana|USA_Montana
-   Nebraska|USA_Nebraska
-   Nevada|USA_Nevada
-   New Hampshire|USA_New Hampshire
-   New Jersey|USA_New Jersey
-   New Mexico|USA_New Mexico
-   New York|USA_New York
-   North Carolina|USA_North Carolina
-   North Dakota|USA_North Dakota
-   Ohio|USA_Ohio
-   Oklahoma|USA_Oklahoma
-   Oregon|USA_Oregon
-   Pennsylvania|USA_Pennsylvania
-   Rhode Island|USA_Rhode Island
-   South Carolina|USA_South Carolina
-   South Dakota|USA_South Dakota
-   Tennessee|USA_Tennessee
-   Texas|USA_Texas
-   Utah|USA_Utah
-   Vermont|USA_Vermont
-   Virginia|USA_Virginia
-   Washington|USA_Washington
-   West Virginia|USA_West Virginia
-   Wisconsin|USA_Wisconsin
-   Wyoming|USA_Wyoming
+   us:Alabama|USA_Alabama
+   us:Alaska|USA_Alaska
+   us:Arizona|USA_Arizona
+   us:Arkansas|USA_Arkansas
+   us:California|USA_California
+   us:Colorado|USA_Colorado
+   us:Connecticut|USA_Connecticut
+   us:Delaware|USA_Delaware
+   us:District of Columbia|USA_District of Columbia
+   us:Florida|USA_Florida
+   us:Georgia|USA_Georgia
+   us:Hawaii|USA_Hawaii
+   us:Idaho|USA_Idaho
+   us:Illinois|USA_Illinois
+   us:Indiana|USA_Indiana
+   us:Iowa|USA_Iowa
+   us:Kansas|USA_Kansas
+   us:Kentucky|USA_Kentucky
+   us:Louisiana|USA_Louisiana
+   us:Maine|USA_Maine
+   us:Maryland|USA_Maryland
+   us:Massachusetts|USA_Massachusetts
+   us:Michigan|USA_Michigan
+   us:Minnesota|USA_Minnesota
+   us:Mississippi|USA_Mississippi
+   us:Missouri|USA_Missouri
+   us:Montana|USA_Montana
+   us:Nebraska|USA_Nebraska
+   us:Nevada|USA_Nevada
+   us:New Hampshire|USA_New Hampshire
+   us:New Jersey|USA_New Jersey
+   us:New Mexico|USA_New Mexico
+   us:New York|USA_New York
+   us:North Carolina|USA_North Carolina
+   us:North Dakota|USA_North Dakota
+   us:Ohio|USA_Ohio
+   us:Oklahoma|USA_Oklahoma
+   us:Oregon|USA_Oregon
+   us:Pennsylvania|USA_Pennsylvania
+   us:Rhode Island|USA_Rhode Island
+   us:South Carolina|USA_South Carolina
+   us:South Dakota|USA_South Dakota
+   us:Tennessee|USA_Tennessee
+   us:Texas|USA_Texas
+   us:Utah|USA_Utah
+   us:Vermont|USA_Vermont
+   us:Virginia|USA_Virginia
+   us:Washington|USA_Washington
+   us:West Virginia|USA_West Virginia
+   us:Wisconsin|USA_Wisconsin
+   us:Wyoming|USA_Wyoming
  Australia and Oceania
   as:American Samoa
   au:Australia
