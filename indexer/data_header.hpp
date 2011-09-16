@@ -22,8 +22,15 @@ namespace feature
 
   public:
 
-    void SetCodingParams(serial::CodingParams const & params) { m_codingParams = params; }
-    serial::CodingParams const & GetCodingParams() const { return m_codingParams; }
+    inline void SetCodingParams(serial::CodingParams const & cp)
+    {
+      m_codingParams = cp;
+    }
+    inline serial::CodingParams const & GetDefCodingParams() const
+    {
+      return m_codingParams;
+    }
+    serial::CodingParams GetCodingParams(int scaleIndex) const;
 
     m2::RectD const GetBounds() const;
     void SetBounds(m2::RectD const & r);

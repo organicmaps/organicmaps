@@ -9,19 +9,24 @@ namespace serial
   class CodingParams
   {
   public:
-    // TODO: Factor out?
+    /// @todo: Factor out?
+    //@{
     CodingParams();
     CodingParams(uint8_t coordBits, m2::PointD const & pt);
     CodingParams(uint8_t coordBits, uint64_t basePointUint64);
+    //@}
 
-    m2::PointU GetBasePointPrediction(uint64_t offset) const;
+    /// @todo: Factor out.
+    //@{
+    inline m2::PointU GetBasePoint() const { return m_BasePoint; }
+    inline uint64_t GetBasePointUint64() const { return m_BasePointUint64; }
+    inline int64_t GetBasePointInt64() const
+    {
+      return static_cast<int64_t>(m_BasePointUint64);
+    }
+    //@}
 
-    // TODO: Factor out.
-    m2::PointU GetBasePoint() const { return m_BasePoint; }
-    // TODO: Factor out.
-    int64_t GetBasePointInt64() const { return static_cast<int64_t>(m_BasePointUint64); }
-
-    uint32_t GetCoordBits() const { return m_CoordBits; }
+    inline uint32_t GetCoordBits() const { return m_CoordBits; }
 
     template <typename WriterT> void Save(WriterT & writer) const
     {
@@ -39,7 +44,6 @@ namespace serial
 
   private:
     uint64_t m_BasePointUint64;
-    // TODO: Factor out.
     m2::PointU m_BasePoint;
     uint8_t m_CoordBits;
   };

@@ -39,6 +39,5 @@ namespace old_101 { namespace feature
     virtual uint32_t ParseGeometry(int scale);
     virtual uint32_t ParseTriangles(int scale);
   };
-
 }
 }

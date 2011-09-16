@@ -67,7 +67,7 @@ void LoaderImpl::ParseCommon()
   if (h & HEADER_HAS_POINT)
   {
     CoordPointT const center = Int64ToPoint(
-          ReadVarInt<int64_t>(source) + m_Info.GetCodingParams().GetBasePointInt64(), POINT_COORD_BITS);
+          ReadVarInt<int64_t>(source) + GetDefCodingParams().GetBasePointInt64(), POINT_COORD_BITS);
 
     m_pF->m_Center = m2::PointD(center.first, center.second);
     m_pF->m_LimitRect.Add(m_pF->m_Center);
@@ -208,7 +208,7 @@ void LoaderImpl::ParseHeader2()
       char const * start = static_cast<char const *>(src.Ptr());
 
       src = ArrayByteSource(serial::LoadInnerPath(
-                              src.Ptr(), ptsCount, m_Info.GetCodingParams(), m_pF->m_Points));
+                              src.Ptr(), ptsCount, GetDefCodingParams(), m_pF->m_Points));
 
       m_pF->m_InnerStats.m_Points = static_cast<char const *>(src.Ptr()) - start;
     }
@@ -226,7 +226,7 @@ void LoaderImpl::ParseHeader2()
 
       FeatureType::points_t points;
       src = ArrayByteSource(serial::LoadInnerTriangles(
-                              src.Ptr(), trgCount, m_Info.GetCodingParams(), points));
+                              src.Ptr(), trgCount, GetDefCodingParams(), points));
 
       m_pF->m_InnerStats.m_Strips = static_cast<char const *>(src.Ptr()) - start;
 
@@ -257,7 +257,7 @@ uint32_t LoaderImpl::ParseGeometry(int scale)
       {
         ReaderSource<FilesContainerR::ReaderT> src(m_Info.GetGeometryReader(ind));
         src.Skip(m_ptsOffsets[ind]);
-        serial::LoadOuterPath(src, m_Info.GetCodingParams(), m_pF->m_Points);
+        serial::LoadOuterPath(src, GetDefCodingParams(), m_pF->m_Points);
 
         sz = static_cast<uint32_t>(src.Pos() - m_ptsOffsets[ind]);
       }
@@ -303,7 +303,7 @@ uint32_t LoaderImpl::ParseTriangles(int scale)
       {
         ReaderSource<FilesContainerR::ReaderT> src(m_Info.GetTrianglesReader(ind));
         src.Skip(m_trgOffsets[ind]);
-        serial::LoadOuterTriangles(src, m_Info.GetCodingParams(), m_pF->m_Triangles);
+        serial::LoadOuterTriangles(src, GetDefCodingParams(), m_pF->m_Triangles);
 
         sz = static_cast<uint32_t>(src.Pos() - m_trgOffsets[ind]);
       }

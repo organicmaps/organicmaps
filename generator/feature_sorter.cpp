@@ -161,13 +161,15 @@ namespace feature
 
       points_t m_current;
 
-      serial::CodingParams m_codingParams;
+      DataHeader m_header;
 
       void WriteOuterPoints(points_t const & points, int i)
       {
+        serial::CodingParams const cp = m_header.GetCodingParams(i);
+
         m_buffer.m_ptsMask |= (1 << i);
         m_buffer.m_ptsOffset.push_back(m_rMain.GetFileSize(*m_rMain.m_geoFile[i]));
-        serial::SaveOuterPath(points, m_codingParams, *m_rMain.m_geoFile[i]);
+        serial::SaveOuterPath(points, cp, *m_rMain.m_geoFile[i]);
       }
 
       void WriteOuterTriangles(polygons_t const & polys, int i)
@@ -182,19 +184,21 @@ namespace feature
           return;
         }
 
-        serial::TrianglesChainSaver saver(m_codingParams);
+        serial::CodingParams const cp = m_header.GetCodingParams(i);
+
+        serial::TrianglesChainSaver saver(cp);
 
         // points conversion
         tesselator::PointsInfo points;
         m2::PointU (* D2U)(m2::PointD const &, uint32_t) = &PointD2PointU;
         info.GetPointsInfo(saver.GetBasePoint(), saver.GetMaxPoint(),
-                           bind(D2U, _1, m_codingParams.GetCoordBits()), points);
+                           bind(D2U, _1, cp.GetCoordBits()), points);
 
         // triangles processing (should be optimal)
         info.ProcessPortions(points, saver, true);
 
         // check triangles processing (to compare with optimal)
-        //serial::TrianglesChainSaver checkSaver(m_codingParams);
+        //serial::TrianglesChainSaver checkSaver(cp);
         //info.ProcessPortions(points, checkSaver, false);
 
         //CHECK_LESS_OR_EQUAL(saver.GetBufferSize(), checkSaver.GetBufferSize(), ());
@@ -253,8 +257,8 @@ namespace feature
     public:
       GeometryHolder(FeaturesCollector2 & rMain,
                      FeatureBuilder2 & fb,
-                     serial::CodingParams const & codingParams)
-        : m_rMain(rMain), m_rFB(fb), m_codingParams(codingParams),
+                     DataHeader const & header)
+        : m_rMain(rMain), m_rFB(fb), m_header(header),
           m_ptsInner(true), m_trgInner(true)
       {
       }
@@ -452,7 +456,7 @@ namespace feature
   public:
     void operator() (FeatureBuilder2 & fb)
     {
-      GeometryHolder holder(*this, fb, m_header.GetCodingParams());
+      GeometryHolder holder(*this, fb, m_header);
 
       bool const isLine = fb.IsLine();
       bool const isArea = fb.IsArea();
@@ -504,7 +508,7 @@ namespace feature
 
       if (fb.PreSerialize(holder.m_buffer))
       {
-        fb.Serialize(holder.m_buffer, m_header.GetCodingParams());
+        fb.Serialize(holder.m_buffer, m_header.GetDefCodingParams());
 
         WriteFeatureBase(holder.m_buffer.m_buffer, fb);
       }

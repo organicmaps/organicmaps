@@ -15,6 +15,12 @@
 
 namespace feature
 {
+  serial::CodingParams DataHeader::GetCodingParams(int scaleIndex) const
+  {
+    return serial::CodingParams(m_codingParams.GetCoordBits() - (m_scales[3] - m_scales[scaleIndex]),
+                                m_codingParams.GetBasePointUint64());
+  }
+
   m2::RectD const DataHeader::GetBounds() const
   {
     return Int64ToRect(m_bounds, m_codingParams.GetCoordBits());

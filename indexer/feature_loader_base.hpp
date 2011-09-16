@@ -29,9 +29,13 @@ namespace feature
 
     LoaderBase * CreateLoader() const;
 
-    inline serial::CodingParams const & GetCodingParams() const
+    inline serial::CodingParams const & GetDefCodingParams() const
     {
-      return m_header.GetCodingParams();
+      return m_header.GetDefCodingParams();
+    }
+    inline serial::CodingParams GetCodingParams(int scaleIndex) const
+    {
+      return m_header.GetCodingParams(scaleIndex);
     }
     inline int GetScalesCount() const { return m_header.GetScalesCount(); }
     inline int GetScale(int i) const { return m_header.GetScale(i); }
@@ -65,9 +69,13 @@ namespace feature
 
     uint32_t CalcOffset(ArrayByteSource const & source) const;
 
-    inline serial::CodingParams const & GetCodingParams() const
+    inline serial::CodingParams const & GetDefCodingParams() const
     {
-      return m_Info.GetCodingParams();
+      return m_Info.GetDefCodingParams();
+    }
+    inline serial::CodingParams GetCodingParams(int scaleIndex) const
+    {
+      return m_Info.GetCodingParams(scaleIndex);
     }
 
     uint8_t Header() const { return static_cast<uint8_t>(*DataPtr()); }
