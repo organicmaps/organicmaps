@@ -1,27 +1,10 @@
 #pragma once
 
-#include "point_to_int64.hpp"
-
 #include "../geometry/point2d.hpp"
 
 
 namespace feature
 {
-  namespace pts
-  {
-    inline int64_t FromPoint(m2::PointD const & p, uint32_t coordBits)
-    {
-      return PointToInt64(p.x, p.y, coordBits);
-    }
-
-    inline m2::PointD ToPoint(int64_t i, uint32_t coordBits)
-    {
-      CoordPointT const pt = Int64ToPoint(i, coordBits);
-      return m2::PointD(pt.first, pt.second);
-    }
-  }
-
-
   static int g_arrWorldScales[] = { 2, 5, 7, 9 };       // 9 = scales::GetUpperWorldScale()
   static int g_arrCountryScales[] = { 10, 12, 14, 17 };  // 17 = scales::GetUpperScale()
 

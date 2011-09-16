@@ -2,6 +2,8 @@
 
 #include "geometry_coding.hpp"
 #include "tesselator_decl.hpp"
+#include "point_to_int64.hpp"
+#include "coding_params.hpp"
 
 #include "../geometry/point2d.hpp"
 
@@ -18,8 +20,6 @@
 
 namespace serial
 {
-  class CodingParams;
-
   template <class TCont, class TSink>
   inline void WriteVarUintArray(TCont const & v, TSink & sink)
   {
@@ -50,6 +50,20 @@ namespace serial
   void Decode(DecodeFunT fn, DeltasT const & deltas, CodingParams const & params,
               vector<m2::PointD> & points, size_t reserveF = 1);
   //@}
+
+  template <class TSink>
+  void SavePoint(TSink & sink, m2::PointD const & pt, CodingParams const & cp)
+  {
+    WriteVarUint(sink, EncodeDelta(PointD2PointU(pt.x, pt.y, cp.GetCoordBits()), cp.GetBasePoint()));
+  }
+
+  template <class TSource>
+  m2::PointD LoadPoint(TSource & src, CodingParams const & cp)
+  {
+    CoordPointT const c = PointU2PointD(
+              DecodeDelta(ReadVarUint<uint64_t>(src), cp.GetBasePoint()), cp.GetCoordBits());
+    return m2::PointD(c.first, c.second);
+  }
 
   template <class TSink>
   void SaveInner(EncodeFunT fn, vector<m2::PointD> const & points,

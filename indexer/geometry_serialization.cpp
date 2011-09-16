@@ -2,7 +2,6 @@
 #include "mercator.hpp"
 #include "point_to_int64.hpp"
 #include "geometry_coding.hpp"
-#include "coding_params.hpp"
 
 #include "../geometry/pointu_to_uint64.hpp"
 
@@ -76,9 +75,12 @@ namespace serial
     geo_coding::OutPointsT adapt(upoints);
     (*fn)(make_read_adapter(deltas), pts::GetBasePoint(params), pts::GetMaxPoint(params), adapt);
 
-    // It is may be not empty, when storing triangles.
-    if (points.empty())
+    if (points.size() < 2)
+    {
+      // Do not call reserve when loading triangles - they are accumulated to one vector.
       points.reserve(count);
+    }
+
     transform(upoints.begin(), upoints.begin() + adapt.size(), back_inserter(points),
               bind(&pts::U2D, _1, params.GetCoordBits()));
   }

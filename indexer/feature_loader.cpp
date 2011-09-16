@@ -46,12 +46,7 @@ void LoaderCurrent::ParseCommon()
 
   if (type == GEOM_POINT)
   {
-    serial::CodingParams const & cp = GetDefCodingParams();
-
-    CoordPointT const center = PointU2PointD(
-          DecodeDelta(ReadVarUint<uint64_t>(source), cp.GetBasePoint()), cp.GetCoordBits());
-
-    m_pF->m_Center = m2::PointD(center.first, center.second);
+    m_pF->m_Center = serial::LoadPoint(source, GetDefCodingParams());
     m_pF->m_LimitRect.Add(m_pF->m_Center);
   }
 

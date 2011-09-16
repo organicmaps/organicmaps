@@ -31,15 +31,14 @@ namespace serial
     template <typename WriterT> void Save(WriterT & writer) const
     {
       WriteVarUint(writer, GetCoordBits());
-      WriteVarUint(writer, static_cast<uint64_t>(GetBasePointInt64()));
+      WriteVarUint(writer, m_BasePointUint64);
     }
 
     template <typename SourceT> void Load(SourceT & src)
     {
       uint32_t const coordBits = ReadVarUint<uint32_t>(src);
       ASSERT_LESS(coordBits, 32, ());
-      uint64_t const basePointUint64 = ReadVarUint<uint64_t>(src);
-      *this = CodingParams(coordBits, basePointUint64);
+      *this = CodingParams(coordBits, ReadVarUint<uint64_t>(src));
     }
 
   private:

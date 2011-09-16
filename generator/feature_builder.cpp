@@ -257,8 +257,7 @@ void FeatureBuilder1::SerializeBase(buffer_t & data, serial::CodingParams const 
   m_Params.Write(sink);
 
   if (m_Params.GetGeomType() == GEOM_POINT)
-    WriteVarUint(sink, EncodeDelta(PointD2PointU(m_Center.x, m_Center.y, params.GetCoordBits()),
-                                   params.GetBasePoint()));
+    serial::SavePoint(sink, m_Center, params);
 }
 
 void FeatureBuilder1::Serialize(buffer_t & data) const
@@ -304,10 +303,7 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
   EGeomType const type = m_Params.GetGeomType();
   if (type == GEOM_POINT)
   {
-    CoordPointT const center = PointU2PointD(
-          DecodeDelta(ReadVarUint<uint64_t>(source), cp.GetBasePoint()), cp.GetCoordBits());
-
-    m_Center = m2::PointD(center.first, center.second);
+    m_Center = serial::LoadPoint(source, cp);
     m_LimitRect.Add(m_Center);
     return;
   }
