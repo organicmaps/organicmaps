@@ -1,13 +1,15 @@
 #pragma once
 
 #include "overlay_element.hpp"
+#include "text_element.hpp"
 
 namespace yg
 {
   struct ResourceStyle;
   class Skin;
+  class StylesCache;
 
-  class SymbolElement : public OverlayElement
+  class SymbolElement : public StraightTextElement
   {
   private:
 
@@ -16,9 +18,15 @@ namespace yg
     string m_symbolName;
     mutable m2::RectU m_symbolRect;
 
+    mutable vector<m2::AARectD> m_boundRects;
+
+    m2::AARectD const boundRect() const;
+
   public:
 
-    struct Params : public OverlayElement::Params
+    typedef StraightTextElement base_t;
+
+    struct Params : public base_t::Params
     {
       Skin * m_skin;
       string m_symbolName;
@@ -28,9 +36,14 @@ namespace yg
     SymbolElement(Params const & p);
     SymbolElement(SymbolElement const & se, math::Matrix<double, 3, 3> const & m);
 
-    m2::AARectD const boundRect() const;
+    vector<m2::AARectD> const & boundRects() const;
     void draw(gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const;
+    void cache(StylesCache * stylesCache) const;
 
     uint32_t styleID() const;
+
+    int visualRank() const;
+
+    OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
   };
 }

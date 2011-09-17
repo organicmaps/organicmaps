@@ -34,6 +34,8 @@ namespace yg
     bool m_log2vis;
     GlyphCache * m_glyphCache;
 
+    mutable vector<m2::AARectD> m_boundRects;
+
   public:
 
     struct Params : OverlayElement::Params
@@ -47,9 +49,7 @@ namespace yg
     TextElement(Params const & p);
 
     void cacheTextImpl(GlyphLayout const & layout,
-                       vector<shared_ptr<SkinPage> > & skinPages,
-                       shared_ptr<ResourceManager> const & rm,
-                       GlyphCache * glyphCache,
+                       StylesCache * stylesCache,
                        FontDesc const & desc) const;
 
     void drawTextImpl(GlyphLayout const & layout,
@@ -69,6 +69,8 @@ namespace yg
     /// glyph layout aligned to pivot point
     GlyphLayout m_glyphLayout;
 
+    m2::AARectD const boundRect() const;
+
   public:
 
     struct Params : TextElement::Params
@@ -77,12 +79,15 @@ namespace yg
     StraightTextElement(Params const & p);
     StraightTextElement(StraightTextElement const & src, math::Matrix<double, 3, 3> const & m);
 
-    m2::AARectD const boundRect() const;
+    vector<m2::AARectD> const & boundRects() const;
+
     void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+    void cache(StylesCache * stylesCache) const;
+    int visualRank() const;
+
     void offset(m2::PointD const & offs);
-    void cache(vector<shared_ptr<SkinPage> > & skinPages,
-               shared_ptr<ResourceManager> const & rm,
-               GlyphCache * glyphCache) const;
+
+    OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
   };
 
   class PathTextElement : public TextElement
@@ -90,6 +95,8 @@ namespace yg
   private:
 
     GlyphLayout m_glyphLayout;
+
+    m2::AARectD const boundRect() const;
 
   public:
 
@@ -104,12 +111,14 @@ namespace yg
     PathTextElement(Params const & p);
     PathTextElement(PathTextElement const & src, math::Matrix<double, 3, 3> const & m);
 
-    m2::AARectD const boundRect() const;
+    vector<m2::AARectD> const & boundRects() const;
+
     void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+    void cache(StylesCache * stylesCache) const;
+    int visualRank() const;
+
     void offset(m2::PointD const & offs);
 
-    void cache(vector<shared_ptr<SkinPage> > & skinPages,
-               shared_ptr<ResourceManager> const & rm,
-               GlyphCache * glyphCache) const;
+    OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
   };
 }

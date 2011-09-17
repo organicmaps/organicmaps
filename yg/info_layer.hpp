@@ -27,13 +27,22 @@ namespace yg
     static m2::RectD const LimitRect(StraightTextElement const & elem);
   };
 
+  struct OverlayElementTraits
+  {
+    static m2::RectD const LimitRect(shared_ptr<OverlayElement> const & elem);
+  };
+
   class InfoLayer
   {
   private:
 
+    bool m_couldOverlap;
+
     static bool better_text(StraightTextElement const & r1, StraightTextElement const & r2);
 
-    m4::Tree<StraightTextElement, StraightTextElementTraits> m_tree;
+    m4::Tree<shared_ptr<OverlayElement>, OverlayElementTraits> m_tree;
+
+    m4::Tree<StraightTextElement, StraightTextElementTraits> m_textTree;
     typedef map<strings::UniString, list<PathTextElement> > path_text_elements;
     path_text_elements m_pathTexts;
 
@@ -48,7 +57,12 @@ namespace yg
     void addStraightTextImpl(StraightTextElement const & ste);
     void addSymbolImpl(SymbolElement const & se);
 
+    void addOverlayElementImpl(shared_ptr<OverlayElement> const & oe);
+    void replaceOverlayElementImpl(shared_ptr<OverlayElement> const & oe);
+
   public:
+
+    InfoLayer();
 
     void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m);
 
@@ -58,11 +72,16 @@ namespace yg
 
     void addSymbol(SymbolElement const & se, math::Matrix<double, 3, 3> const & m);
 
+    void addOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m);
+    void replaceOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m);
+
     void offset(m2::PointD const & offs, m2::RectD const & rect);
 
     void clear();
 
     void cache(StylesCache * cache);
+
+    void setCouldOverlap(bool flag);
 
     void merge(InfoLayer const & infoLayer, math::Matrix<double, 3, 3> const & m);
   };

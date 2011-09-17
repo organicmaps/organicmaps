@@ -138,6 +138,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   drawer->screen()->setRenderTarget(tileTarget);
 
   shared_ptr<yg::InfoLayer> tileInfoLayer(new yg::InfoLayer());
+  tileInfoLayer->setCouldOverlap(true);
 
   drawer->screen()->setInfoLayer(tileInfoLayer);
 

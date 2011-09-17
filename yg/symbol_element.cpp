@@ -2,6 +2,7 @@
 #include "../base/logging.hpp"
 
 #include "symbol_element.hpp"
+#include "styles_cache.hpp"
 #include "resource_style.hpp"
 #include "overlay_renderer.hpp"
 #include "skin.hpp"
@@ -9,7 +10,7 @@
 namespace yg
 {
   SymbolElement::SymbolElement(Params const & p)
-    : OverlayElement(p),
+    : base_t(p),
       m_styleID(p.m_styleID),
       m_symbolName(p.m_symbolName)
   {
@@ -25,13 +26,24 @@ namespace yg
   }
 
   SymbolElement::SymbolElement(SymbolElement const & se, math::Matrix<double, 3, 3> const & m)
-    : OverlayElement(se),
+    : base_t(se),
       m_styleID(0),
       m_style(0),
       m_symbolName(se.m_symbolName),
       m_symbolRect(se.m_symbolRect)
   {
     setPivot(se.pivot() * m);
+  }
+
+  vector<m2::AARectD> const & SymbolElement::boundRects() const
+  {
+    if (isDirtyRect())
+    {
+      m_boundRects.clear();
+      m_boundRects.push_back(boundRect());
+      setIsDirtyRect(false);
+    }
+    return m_boundRects;
   }
 
   m2::AARectD const SymbolElement::boundRect() const
@@ -74,5 +86,19 @@ namespace yg
   uint32_t SymbolElement::styleID() const
   {
     return m_styleID;
+  }
+
+  void SymbolElement::cache(StylesCache * stylesCache) const
+  {
+  }
+
+  int SymbolElement::visualRank() const
+  {
+    return 1000;
+  }
+
+  OverlayElement * SymbolElement::clone(math::Matrix<double, 3, 3> const & m) const
+  {
+    return new SymbolElement(*this, m);
   }
 }

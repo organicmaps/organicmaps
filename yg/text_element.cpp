@@ -2,6 +2,7 @@
 #include "screen.hpp"
 #include "skin.hpp"
 #include "skin_page.hpp"
+#include "styles_cache.hpp"
 #include "resource_manager.hpp"
 #include "overlay_renderer.hpp"
 #include "resource_style.hpp"
@@ -58,11 +59,13 @@ namespace yg
   }
 
   void TextElement::cacheTextImpl(GlyphLayout const & layout,
-                                  vector<shared_ptr<SkinPage> > & skinPages,
-                                  shared_ptr<ResourceManager> const & rm,
-                                  GlyphCache * glyphCache,
+                                  StylesCache * stylesCache,
                                   FontDesc const & desc) const
   {
+    vector<shared_ptr<SkinPage> > & skinPages = stylesCache->cachePages();
+    GlyphCache * glyphCache = stylesCache->glyphCache();
+    shared_ptr<ResourceManager> const & rm = stylesCache->resourceManager();
+
     for (unsigned i = layout.firstVisible(); i < layout.lastVisible(); ++i)
     {
       GlyphLayoutElem const & elem = layout.entries()[i];
@@ -118,6 +121,17 @@ namespace yg
     return m_glyphLayout.limitRect();
   }
 
+  vector<m2::AARectD> const & StraightTextElement::boundRects() const
+  {
+    if (isDirtyRect())
+    {
+      m_boundRects.clear();
+      m_boundRects.push_back(boundRect());
+      setIsDirtyRect(false);
+    }
+    return m_boundRects;
+  }
+
   void StraightTextElement::draw(gl::OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m) const
   {
     if (screen->isDebugging())
@@ -129,7 +143,8 @@ namespace yg
       if (isNeedRedraw())
         c = yg::Color(255, 0, 0, 64);
 
-      screen->drawRectangle(boundRect(), c, yg::maxDepth - 3);
+      for (unsigned i = 0 ; i < boundRects().size(); ++i)
+        screen->drawRectangle(boundRects()[i], c, yg::maxDepth - 3);
     }
     else
       if (!isNeedRedraw())
@@ -151,18 +166,26 @@ namespace yg
     m_glyphLayout.setPivot(pivot());
   }
 
-  void StraightTextElement::cache(vector<shared_ptr<SkinPage> > & skinPages,
-                                  shared_ptr<ResourceManager> const & rm,
-                                  GlyphCache * glyphCache) const
+  void StraightTextElement::cache(StylesCache * stylesCache) const
   {
     yg::FontDesc desc = m_fontDesc;
     if (m_fontDesc.m_isMasked)
     {
-      cacheTextImpl(m_glyphLayout, skinPages, rm, glyphCache, m_fontDesc);
+      cacheTextImpl(m_glyphLayout, stylesCache, m_fontDesc);
       desc.m_isMasked = false;
     }
 
-    cacheTextImpl(m_glyphLayout, skinPages, rm, glyphCache, desc);
+    cacheTextImpl(m_glyphLayout, stylesCache, desc);
+  }
+
+  int StraightTextElement::visualRank() const
+  {
+    return 0000 + m_fontDesc.m_size;
+  }
+
+  OverlayElement * StraightTextElement::clone(math::Matrix<double, 3, 3> const & m) const
+  {
+    return new StraightTextElement(*this, m);
   }
 
   PathTextElement::PathTextElement(Params const & p)
@@ -188,7 +211,20 @@ namespace yg
 
   m2::AARectD const PathTextElement::boundRect() const
   {
-    return m2::Inflate(m_glyphLayout.limitRect(), m2::PointD(40, 2)); //< to create more sparse street names structure
+    return m2::Inflate(m_glyphLayout.limitRect(), m2::PointD(2, 2)); //< to create more sparse street names structure
+//    return m2::Inflate(m_glyphLayout.limitRect(), m2::PointD(40, 2)); //< to create more sparse street names structure
+  }
+
+  vector<m2::AARectD> const & PathTextElement::boundRects() const
+  {
+    if (isDirtyRect())
+    {
+      m_boundRects.clear();
+      m_boundRects.push_back(boundRect());
+      setIsDirtyRect(false);
+    }
+
+    return m_boundRects;
   }
 
   void PathTextElement::draw(gl::OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m) const
@@ -202,8 +238,11 @@ namespace yg
       if (isNeedRedraw())
         c = yg::Color(255, 0, 0, 64);
 
-      screen->drawRectangle(boundRect(), c, yg::maxDepth - 3);
+      for (unsigned i = 0; i < boundRects().size(); ++i)
+        screen->drawRectangle(boundRects()[i], c, yg::maxDepth - 3);
     }
+      if (!isNeedRedraw())
+        return;
 
     yg::FontDesc desc = m_fontDesc;
     if (m_fontDesc.m_isMasked)
@@ -221,18 +260,26 @@ namespace yg
     m_glyphLayout.setPivot(pivot());
   }
 
-  void PathTextElement::cache(vector<shared_ptr<SkinPage> > & skinPages,
-                              shared_ptr<ResourceManager> const & rm,
-                              GlyphCache * glyphCache) const
+  void PathTextElement::cache(StylesCache * stylesCache) const
   {
     yg::FontDesc desc = m_fontDesc;
 
     if (m_fontDesc.m_isMasked)
     {
-      cacheTextImpl(m_glyphLayout, skinPages, rm, glyphCache, m_fontDesc);
+      cacheTextImpl(m_glyphLayout, stylesCache, m_fontDesc);
       desc.m_isMasked = false;
     }
 
-    cacheTextImpl(m_glyphLayout, skinPages, rm, glyphCache, desc);
+    cacheTextImpl(m_glyphLayout, stylesCache, desc);
+  }
+
+  int PathTextElement::visualRank() const
+  {
+    return 2000 + m_fontDesc.m_size;
+  }
+
+  OverlayElement * PathTextElement::clone(math::Matrix<double, 3, 3> const & m) const
+  {
+    return new PathTextElement(*this, m);
   }
 }

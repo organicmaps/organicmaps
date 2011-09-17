@@ -126,6 +126,11 @@ namespace m4
 
     typedef T elem_t;
 
+    void Add(T const & obj)
+    {
+      Add(obj, Traits::LimitRect(obj));
+    }
+
     void Add(T const & obj, m2::RectD const & rect)
     {
       m_tree.insert(value_t(obj, rect));

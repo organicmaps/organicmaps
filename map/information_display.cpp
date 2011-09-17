@@ -153,7 +153,7 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
 
   yg::StraightTextElement ste(params);
 
-  m2::AARectD bgRect = m2::Inflate(ste.boundRect(), 5.0, 5.0);
+  m2::RectD bgRect = m2::Inflate(ste.roughBoundRect(), 5.0, 5.0);
 
   drawer->screen()->drawRectangle(
         bgRect,
@@ -319,7 +319,7 @@ void InformationDisplay::drawLog(DrawerYG * drawer)
     yg::StraightTextElement ste(params);
 
     drawer->screen()->drawRectangle(
-        m2::Inflate(ste.boundRect(), m2::PointD(2, 2)),
+        m2::Inflate(ste.roughBoundRect(), m2::PointD(2, 2)),
         yg::Color(0, 0, 0, 128),
         yg::maxDepth - 1
         );

@@ -37,6 +37,40 @@ namespace yg
         return;
 
       SymbolElement::Params params;
+      params.m_depth = depth;
+      params.m_fontDesc = yg::FontDesc();
+      params.m_glyphCache = glyphCache();
+      params.m_position = pos;
+      params.m_pivot = pt;
+      params.m_symbolName = symbolName;
+      params.m_styleID = 0;
+      params.m_skin = skin().get();
+
+      SymbolElement se(params);
+
+      if (!m_infoLayer.get() || !m_useOverlay)
+        se.draw(this, math::Identity<double, 3>());
+      else
+        m_infoLayer->addSymbol(se, math::Identity<double, 3>());
+    }
+
+    void OverlayRenderer::drawSymbol(m2::PointD const & pt,
+                                     string const & symbolName,
+                                     string const & utf8Text,
+                                     yg::FontDesc const & fontDesc,
+                                     bool log2vis,
+                                     EPosition pos,
+                                     int depth)
+    {
+      if (!m_drawSymbols)
+        return;
+
+      SymbolElement::Params params;
+
+      params.m_fontDesc = fontDesc;
+      params.m_log2vis = log2vis;
+      params.m_glyphCache = glyphCache();
+      params.m_logText = strings::MakeUniString(utf8Text);
 
       params.m_depth = depth;
       params.m_position = pos;

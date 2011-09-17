@@ -4,6 +4,7 @@
 #include "../geometry/aa_rect2d.hpp"
 #include "../base/matrix.hpp"
 #include "defines.hpp"
+#include "../std/vector.hpp"
 
 namespace yg
 {
@@ -11,6 +12,8 @@ namespace yg
   {
     class OverlayRenderer;
   }
+
+  class StylesCache;
 
   class OverlayElement
   {
@@ -22,6 +25,9 @@ namespace yg
 
     bool m_isNeedRedraw;
     bool m_isFrozen;
+    mutable bool m_isDirtyRect;
+
+    mutable m2::RectD m_roughBoundRect;
 
   protected:
 
@@ -39,8 +45,13 @@ namespace yg
 
     OverlayElement(Params const & p);
 
-    virtual m2::AARectD const boundRect() const = 0;
+    virtual OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const = 0;
+
+    /// PLEASE, REMEMBER THE REFERENCE!!!
+    virtual vector<m2::AARectD> const & boundRects() const = 0;
     virtual void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const = 0;
+    virtual void cache(StylesCache * stylesCache) const = 0;
+    virtual int visualRank() const = 0;
 
     m2::PointD const & pivot() const;
     void setPivot(m2::PointD const & pv);
@@ -57,7 +68,12 @@ namespace yg
     bool isNeedRedraw() const;
     void setIsNeedRedraw(bool flag);
 
-    void offset(m2::PointD const & offs);
+    bool isDirtyRect() const;
+    void setIsDirtyRect(bool flag) const;
+
+    m2::RectD const & roughBoundRect() const;
+
+    virtual void offset(m2::PointD const & offs);
   };
 
 }

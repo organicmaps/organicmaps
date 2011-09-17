@@ -11,9 +11,38 @@
 
 namespace yg
 {
-  m2::RectD const StraightTextElementTraits::LimitRect(StraightTextElement const & elem)
+  bool betterOverlayElement(shared_ptr<OverlayElement> const & l,
+                            shared_ptr<OverlayElement> const & r)
   {
-    return elem.boundRect().GetGlobalRect();
+    if (r->isFrozen())
+      return false;
+
+    vector<m2::AARectD> const & lr = l->boundRects();
+    vector<m2::AARectD> const & rr = r->boundRects();
+
+    bool isIntersect = false;
+
+    for (vector<m2::AARectD>::const_iterator lit = lr.begin(); lit != lr.end(); ++lit)
+    {
+      for (vector<m2::AARectD>::const_iterator rit = rr.begin(); rit != rr.end(); ++rit)
+      {
+        isIntersect = lit->IsIntersect(*rit);
+        if (isIntersect)
+          break;
+      }
+      if (isIntersect)
+        break;
+    }
+
+    if (!isIntersect)
+      return true;
+
+    return l->visualRank() > r->visualRank();
+  }
+
+  m2::RectD const OverlayElementTraits::LimitRect(shared_ptr<OverlayElement> const & elem)
+  {
+    return elem->roughBoundRect();
   }
 
   bool InfoLayer::better_text(StraightTextElement const & r1, StraightTextElement const & r2)
@@ -30,31 +59,22 @@ namespace yg
 
   void InfoLayer::draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m)
   {
-    for (symbols_map_t::const_iterator it = m_symbolsMap.begin(); it != m_symbolsMap.end(); ++it)
-      it->second.ForEach(bind(&SymbolElement::draw, _1, r, m));
+    m_tree.ForEach(bind(&OverlayElement::draw, _1, r, m));
+  }
 
-    list<strings::UniString> toErase;
+  InfoLayer::InfoLayer()
+    : m_couldOverlap(true)
+  {}
 
-    for (path_text_elements::const_iterator it = m_pathTexts.begin(); it != m_pathTexts.end(); ++it)
-    {
-      list<PathTextElement> const & l = it->second;
-
-      for (list<PathTextElement>::const_iterator j = l.begin(); j != l.end(); ++j)
-        j->draw(r, m);
-
-      if (l.empty())
-        toErase.push_back(it->first);
-    }
-
-    for (list<strings::UniString>::const_iterator it = toErase.begin(); it != toErase.end(); ++it)
-      m_pathTexts.erase(*it);
-
-    m_tree.ForEach(bind(&StraightTextElement::draw, _1, r, m));
+  void InfoLayer::setCouldOverlap(bool flag)
+  {
+    m_couldOverlap = flag;
   }
 
   template <typename Tree>
-  void offsetTree(Tree & tree, m2::PointD const & offs, m2::RectD const & rect)
+  void offsetTree(Tree & tree, m2::PointD const & offs, m2::RectD const & r)
   {
+    m2::AARectD aaRect(r);
     typedef typename Tree::elem_t elem_t;
     vector<elem_t> elems;
     tree.ForEach(MakeBackInsertFunctor(elems));
@@ -62,102 +82,54 @@ namespace yg
 
     for (typename vector<elem_t>::iterator it = elems.begin(); it != elems.end(); ++it)
     {
-      it->offset(offs);
-      m2::RectD limitRect = it->boundRect().GetGlobalRect();
+      (*it)->offset(offs);
+      vector<m2::AARectD> aaLimitRects = (*it)->boundRects();
       bool doAppend = false;
 
-      it->setIsNeedRedraw(false);
-      it->setIsFrozen(false);
+      (*it)->setIsNeedRedraw(false);
+      (*it)->setIsFrozen(false);
 
-      if (rect.IsRectInside(limitRect))
+      for (int i = 0; i < aaLimitRects.size(); ++i)
       {
-        it->setIsNeedRedraw(false);
-        it->setIsFrozen(true);
-        doAppend = true;
-      }
-      else
-        if (rect.IsIntersect(limitRect))
+        if (aaRect.IsRectInside(aaLimitRects[i]))
         {
-          it->setIsFrozen(true);
-          it->setIsNeedRedraw(true);
+          (*it)->setIsNeedRedraw(false);
+          (*it)->setIsFrozen(true);
           doAppend = true;
-        }
-
-      if (doAppend)
-        tree.Add(*it, limitRect);
-    }
-  }
-
-  void InfoLayer::offsetTextTree(m2::PointD const & offs, m2::RectD const & rect)
-  {
-    offsetTree(m_tree, offs, rect);
-  }
-
-  void InfoLayer::offsetPathTexts(m2::PointD const & offs, m2::RectD const & rect)
-  {
-    m2::AARectD aaRect(rect);
-
-    path_text_elements newPathTexts;
-
-    for (path_text_elements::iterator i = m_pathTexts.begin(); i != m_pathTexts.end(); ++i)
-    {
-      list<PathTextElement> & l = i->second;
-      list<PathTextElement>::iterator it = l.begin();
-      bool isEmpty = true;
-      while (it != l.end())
-      {
-        it->offset(offs);
-        m2::AARectD const & r = it->boundRect();
-
-        bool isIntersect = aaRect.IsIntersect(r);
-        bool isRectInside = aaRect.IsRectInside(r);
-
-        if (!isIntersect && !isRectInside)
-        {
-          list<PathTextElement>::iterator tempIt = it;
-          ++tempIt;
-          l.erase(it);
-          it = tempIt;
+          break;
         }
         else
-        {
-          it->setIsNeedRedraw(isIntersect);
-          isEmpty = false;
-          ++it;
-        }
+          if (aaRect.IsIntersect(aaLimitRects[i]))
+          {
+            (*it)->setIsFrozen(true);
+            (*it)->setIsNeedRedraw(true);
+            doAppend = true;
+            break;
+          }
       }
 
-      if (!isEmpty)
-        newPathTexts[i->first] = l;
+      if (doAppend)
+        tree.Add(*it);
     }
-
-    /// to clear an empty elements from the map.
-    m_pathTexts = newPathTexts;
-  }
-
-  void InfoLayer::offsetSymbols(m2::PointD const & offs, m2::RectD const & r)
-  {
-    for (symbols_map_t::iterator it = m_symbolsMap.begin(); it != m_symbolsMap.end(); ++it)
-      offsetTree(it->second, offs, r);
   }
 
   void InfoLayer::offset(m2::PointD const & offs, m2::RectD const & rect)
   {
-    offsetTextTree(offs, rect);
-    offsetPathTexts(offs, rect);
-    offsetSymbols(offs, rect);
+    offsetTree(m_tree, offs, rect);
   }
 
   void InfoLayer::clear()
   {
     m_tree.Clear();
-    m_pathTexts.clear();
-    m_symbolsMap.clear();
   }
 
   void InfoLayer::addStraightTextImpl(StraightTextElement const & ste)
   {
-    m_tree.ReplaceIf(ste, ste.boundRect().GetGlobalRect(), &better_text);
+    shared_ptr<OverlayElement> e(new StraightTextElement(ste));
+    if (m_couldOverlap)
+      addOverlayElementImpl(e);
+    else
+      replaceOverlayElementImpl(e);
   }
 
   void InfoLayer::addStraightText(StraightTextElement const & ste, math::Matrix<double, 3, 3> const & m)
@@ -168,18 +140,24 @@ namespace yg
       addStraightTextImpl(StraightTextElement(ste, m));
   }
 
-  void mark_intersect(bool & flag)
+  void InfoLayer::addOverlayElementImpl(shared_ptr<OverlayElement> const & oe)
   {
-    flag = true;
+    m_tree.Add(oe);
+  }
+
+  void InfoLayer::replaceOverlayElementImpl(shared_ptr<OverlayElement> const & oe)
+  {
+    m_tree.ReplaceIf(oe, &betterOverlayElement);
   }
 
   void InfoLayer::addSymbolImpl(SymbolElement const & se)
   {
-    bool isIntersect = false;
-    m2::RectD limitRect = se.boundRect().GetGlobalRect();
-    m_symbolsMap[se.styleID()].ForEachInRect(limitRect, bind(&mark_intersect, ref(isIntersect)));
-    if (!isIntersect)
-      m_symbolsMap[se.styleID()].Add(se, limitRect);
+    shared_ptr<OverlayElement> e(new SymbolElement(se));
+
+    if (m_couldOverlap)
+      addOverlayElementImpl(e);
+    else
+      replaceOverlayElementImpl(e);
   }
 
   void InfoLayer::addSymbol(SymbolElement const & se, math::Matrix<double, 3, 3> const & m)
@@ -192,19 +170,11 @@ namespace yg
 
   void InfoLayer::addPathTextImpl(PathTextElement const & pte)
   {
-    list<PathTextElement> & l = m_pathTexts[pte.logText()];
-
-    bool doAppend = true;
-
-    for (list<PathTextElement>::const_iterator it = l.begin(); it != l.end(); ++it)
-      if (it->boundRect().IsIntersect(pte.boundRect()))
-      {
-        doAppend = false;
-        break;
-      }
-
-    if (doAppend)
-      l.push_back(pte);
+    shared_ptr<OverlayElement> e(new PathTextElement(pte));
+    if (m_couldOverlap)
+      addOverlayElementImpl(e);
+    else
+      replaceOverlayElementImpl(e);
   }
 
   void InfoLayer::addPathText(PathTextElement const & pte, math::Matrix<double, 3, 3> const & m)
@@ -215,37 +185,26 @@ namespace yg
       addPathTextImpl(PathTextElement(pte, m));
   }
 
+  void InfoLayer::addOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m)
+  {
+    shared_ptr<OverlayElement> oe1(oe->clone(m));
+    addOverlayElementImpl(oe1);
+  }
+
+  void InfoLayer::replaceOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m)
+  {
+    shared_ptr<OverlayElement> oe1(oe->clone(m));
+    replaceOverlayElementImpl(oe1);
+  }
+
   void InfoLayer::merge(InfoLayer const & layer, math::Matrix<double, 3, 3> const & m)
   {
-    for (symbols_map_t::const_iterator it = layer.m_symbolsMap.begin(); it != layer.m_symbolsMap.end(); ++it)
-      it->second.ForEach(bind(&InfoLayer::addSymbol, this, _1, m));
-
-    layer.m_tree.ForEach(bind(&InfoLayer::addStraightText, this, _1, m));
-
-    for (path_text_elements::const_iterator it = layer.m_pathTexts.begin(); it != layer.m_pathTexts.end(); ++it)
-      for_each(it->second.begin(), it->second.end(), bind(&InfoLayer::addPathText, this, _1, m));
+    layer.m_tree.ForEach(bind(&InfoLayer::replaceOverlayElement, this, _1, m));
   }
 
   void InfoLayer::cache(StylesCache * stylesCache)
   {
-    list<strings::UniString> toErase;
-
-    for (path_text_elements::const_iterator it = m_pathTexts.begin(); it != m_pathTexts.end(); ++it)
-    {
-      list<PathTextElement> const & l = it->second;
-
-      for (list<PathTextElement>::const_iterator j = l.begin(); j != l.end(); ++j)
-        stylesCache->cachePathText(*j);
-
-      if (l.empty())
-        toErase.push_back(it->first);
-    }
-
-    for (list<strings::UniString>::const_iterator it = toErase.begin(); it != toErase.end(); ++it)
-      m_pathTexts.erase(*it);
-
-    m_tree.ForEach(bind(&StylesCache::cacheStraightText, stylesCache, _1));
+    m_tree.ForEach(bind(&OverlayElement::cache, _1, stylesCache));
   }
-
 }
 

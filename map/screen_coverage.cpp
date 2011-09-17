@@ -23,7 +23,9 @@ ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
   : m_tileRenderer(tileRenderer),
     m_tiler(tileSize, scaleEtalonSize),
     m_coverageGenerator(coverageGenerator)
-{}
+{
+  m_infoLayer.setCouldOverlap(false);
+}
 
 ScreenCoverage * ScreenCoverage::Clone()
 {

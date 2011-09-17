@@ -708,7 +708,7 @@ namespace
       params.m_logText = strings::MakeUniString("Simplicity is the ultimate sophistication");
       yg::StraightTextElement ste(params);
 
-      m2::AARectD r = ste.boundRect();
+      m2::RectD r = ste.roughBoundRect();
       p->drawRectangle(r, yg::Color(0, 0, 255, 255), 0);
 
       base_t::DoDraw(p);

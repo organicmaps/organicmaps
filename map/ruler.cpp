@@ -10,7 +10,7 @@
 #include "../base/string_utils.hpp"
 
 Ruler::Ruler(Params const & p)
-  : base_t(p)
+  : base_t(p), m_boundRects(1)
 {}
 
 void Ruler::setScreen(ScreenBase const & screen)
@@ -168,9 +168,10 @@ void Ruler::update()
   m_boundRect.Add(m_path[3]);
 }
 
-m2::AARectD const Ruler::boundRect() const
+vector<m2::AARectD> const & Ruler::boundRects() const
 {
-  return m2::AARectD(m_boundRect);
+  m_boundRects[0] = m2::AARectD(m_boundRect);
+  return m_boundRects;
 }
 
 void Ruler::draw(yg::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const
@@ -210,6 +211,17 @@ void Ruler::draw(yg::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const &
 
 }
 
-void Ruler::cache(yg::StylesCache * stylesCache)
+void Ruler::cache(yg::StylesCache * stylesCache) const
 {
 }
+
+int Ruler::visualRank() const
+{
+  return 0;
+}
+
+yg::OverlayElement * Ruler::clone(math::Matrix<double, 3, 3> const & m) const
+{
+  return new Ruler(*this);
+}
+

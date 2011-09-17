@@ -23,19 +23,19 @@ namespace yg
       m_cachePages[i]->freeTexture();
   }
 
-  void StylesCache::cachePathText(PathTextElement const & pte)
-  {
-    pte.cache(m_cachePages, m_rm, m_glyphCache);
-  }
-
-  void StylesCache::cacheStraightText(StraightTextElement const & ste)
-  {
-    ste.cache(m_cachePages, m_rm, m_glyphCache);
-  }
-
-  vector<shared_ptr<SkinPage> > const & StylesCache::cachePages() const
+  vector<shared_ptr<SkinPage> > & StylesCache::cachePages()
   {
     return m_cachePages;
+  }
+
+  shared_ptr<ResourceManager> const & StylesCache::resourceManager()
+  {
+    return m_rm;
+  }
+
+  GlyphCache * StylesCache::glyphCache()
+  {
+    return m_glyphCache;
   }
 
   void StylesCache::upload()

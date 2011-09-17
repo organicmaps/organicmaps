@@ -12,7 +12,8 @@ namespace yg
       m_position(p.m_position),
       m_depth(p.m_depth),
       m_isNeedRedraw(true),
-      m_isFrozen(false)
+      m_isFrozen(false),
+      m_isDirtyRect(true)
   {}
 
   m2::PointD const OverlayElement::tieRect(m2::RectD const & r, math::Matrix<double, 3, 3> const & m) const
@@ -42,6 +43,7 @@ namespace yg
   void OverlayElement::offset(m2::PointD const & offs)
   {
     m_pivot += offs;
+    setIsDirtyRect(true);
   }
 
   m2::PointD const & OverlayElement::pivot() const
@@ -52,6 +54,7 @@ namespace yg
   void OverlayElement::setPivot(m2::PointD const & pivot)
   {
     m_pivot = pivot;
+    setIsDirtyRect(true);
   }
 
   yg::EPosition OverlayElement::position() const
@@ -62,6 +65,7 @@ namespace yg
   void OverlayElement::setPosition(yg::EPosition pos)
   {
     m_position = pos;
+    setIsDirtyRect(true);
   }
 
   double OverlayElement::depth() const
@@ -92,5 +96,30 @@ namespace yg
   void OverlayElement::setIsNeedRedraw(bool flag)
   {
     m_isNeedRedraw = flag;
+  }
+
+  bool OverlayElement::isDirtyRect() const
+  {
+    return m_isDirtyRect;
+  }
+
+  void OverlayElement::setIsDirtyRect(bool flag) const
+  {
+    m_isDirtyRect = flag;
+  }
+
+  m2::RectD const & OverlayElement::roughBoundRect() const
+  {
+    if (isDirtyRect())
+    {
+      for (int i = 0; i < boundRects().size(); ++i)
+        if (i == 0)
+          m_roughBoundRect = boundRects()[i].GetGlobalRect();
+        else
+          m_roughBoundRect.Add(boundRects()[i].GetGlobalRect());
+
+      setIsDirtyRect(true);
+    }
+    return m_roughBoundRect;
   }
 }

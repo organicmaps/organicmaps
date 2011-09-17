@@ -266,6 +266,7 @@ void RenderQueueRoutine::Do()
   m2::RectI  textureRect;
 
   shared_ptr<yg::InfoLayer> infoLayer(new yg::InfoLayer());
+  infoLayer->setCouldOverlap(false);
   m_threadDrawer->screen()->setInfoLayer(infoLayer);
 
   while (!IsCancelled())

@@ -33,6 +33,9 @@ namespace yg
       /// Drawing POI symbol
       void drawSymbol(m2::PointD const & pt, string const & symbolName, EPosition pos, int depth);
 
+      /// Drawing POI symbol with text
+      void drawSymbol(m2::PointD const & pt, string const & symbolName, string const & utf8Text, yg::FontDesc const & fontDesc, bool log2vis, EPosition pos, int depth);
+
       /// Drawing circle
       void drawCircle(m2::PointD const & pt, uint32_t styleID, EPosition pos, int depth);
 

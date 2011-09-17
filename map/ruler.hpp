@@ -41,6 +41,8 @@ private:
 
   typedef OverlayElement base_t;
 
+  mutable vector<m2::AARectD> m_boundRects;
+
 public:
 
   void update(); //< update internal params after some other params changed.
@@ -60,8 +62,11 @@ public:
   void setVisualScale(double visualScale);
   void setFontDesc(yg::FontDesc const & fontDesc);
 
-  m2::AARectD const boundRect() const;
+  vector<m2::AARectD> const & boundRects() const;
+
   void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
-  void cache(yg::StylesCache * stylesCache);
+  void cache(yg::StylesCache * stylesCache) const;
+  int visualRank() const;
+  yg::OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
 };

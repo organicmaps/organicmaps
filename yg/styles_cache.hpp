@@ -28,11 +28,11 @@ namespace yg
 
     ~StylesCache();
 
-    void cacheStraightText(StraightTextElement const & ste);
+    vector<shared_ptr<SkinPage> > & cachePages();
 
-    void cachePathText(PathTextElement const & pte);
+    shared_ptr<ResourceManager> const & resourceManager();
 
-    vector<shared_ptr<SkinPage> > const & cachePages() const;
+    GlyphCache * glyphCache();
 
     void upload();
   };
