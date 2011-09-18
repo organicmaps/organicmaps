@@ -34,27 +34,15 @@ HEADERS += \
     internal/file64_api.hpp \
     parse_xml.hpp \
     varint.hpp \
-    mm_vector.hpp \
-    mm_bit_vector.hpp \
-    mm_base.hpp \
     endianness.hpp \
     byte_stream.hpp \
     var_serial_vector.hpp \
     hex.hpp \
-    mm_compact_trie.hpp \
-    mm_compact_tree.hpp \
-    compact_trie_builder.hpp \
-    compact_tree_builder.hpp \
-    bit_vector_builder.hpp \
     dd_vector.hpp \
-    dd_bit_vector.hpp \
     dd_base.hpp \
     writer.hpp \
     write_to_sink.hpp \
     reader.hpp \
-    dd_bit_rank_directory.hpp \
-    dd_compact_tree.hpp \
-    dd_compact_trie.hpp \
     diff.hpp \
     diff_patch_common.hpp \
     source.hpp \

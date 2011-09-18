@@ -12,8 +12,6 @@ include($$ROOT_DIR/common.pri)
 SOURCES += ../../testing/testingmain.cpp \
     endianness_test.cpp \
     varint_test.cpp \
-    mm_bit_vector_test.cpp \
-    mm_compact_trie_test.cpp \
     mem_file_reader_test.cpp \
     mem_file_writer_test.cpp \
     var_serial_vector_test.cpp \
