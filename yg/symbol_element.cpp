@@ -79,7 +79,7 @@ namespace yg
     r->drawTexturedPolygon(m2::PointD(0.0, 0.0), 0.0,
                           texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
                           posPt.x, posPt.y, posPt.x + texRect.SizeX(), posPt.y + texRect.SizeY(),
-                          depth(),
+                          yg::maxDepth,
                           m_style->m_pipelineID);
   }
 
