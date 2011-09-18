@@ -69,6 +69,8 @@ namespace yg
     /// glyph layout aligned to pivot point
     GlyphLayout m_glyphLayout;
 
+  protected:
+
     m2::AARectD const boundRect() const;
 
   public:

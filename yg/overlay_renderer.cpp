@@ -1,6 +1,7 @@
 #include "../base/SRC_FIRST.hpp"
 
 #include "overlay_renderer.hpp"
+#include "composite_overlay_element.hpp"
 #include "text_element.hpp"
 #include "symbol_element.hpp"
 #include "render_state.hpp"
@@ -13,15 +14,13 @@ namespace yg
   namespace gl
   {
     OverlayRenderer::Params::Params()
-      : m_useOverlay(false),
-        m_drawTexts(true),
+      : m_drawTexts(true),
         m_drawSymbols(true)
     {
     }
 
     OverlayRenderer::OverlayRenderer(Params const & p)
       : TextRenderer(p),
-        m_useOverlay(p.m_useOverlay),
         m_drawTexts(p.m_drawTexts),
         m_drawSymbols(p.m_drawSymbols),
         m_infoLayer(p.m_infoLayer)
@@ -38,53 +37,40 @@ namespace yg
 
       SymbolElement::Params params;
       params.m_depth = depth;
-      params.m_fontDesc = yg::FontDesc();
-      params.m_glyphCache = glyphCache();
       params.m_position = pos;
       params.m_pivot = pt;
       params.m_symbolName = symbolName;
       params.m_styleID = 0;
       params.m_skin = skin().get();
 
-      SymbolElement se(params);
+      shared_ptr<OverlayElement> oe(new SymbolElement(params));
 
-      if (!m_infoLayer.get() || !m_useOverlay)
-        se.draw(this, math::Identity<double, 3>());
+      math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
+
+      if (!m_infoLayer.get())
+        oe->draw(this, id);
       else
-        m_infoLayer->addSymbol(se, math::Identity<double, 3>());
-    }
+      {
+        m_infoLayer->processOverlayElement(oe);
+/*        m2::PointI keyPt((int)pt.x, (int)pt.y);
+        LOG(LINFO, ("symbolPos:", keyPt));
 
-    void OverlayRenderer::drawSymbol(m2::PointD const & pt,
-                                     string const & symbolName,
-                                     string const & utf8Text,
-                                     yg::FontDesc const & fontDesc,
-                                     bool log2vis,
-                                     EPosition pos,
-                                     int depth)
-    {
-      if (!m_drawSymbols)
-        return;
+        TElements::const_iterator it = m_elements.find(keyPt);
 
-      SymbolElement::Params params;
+        if (it != m_elements.end())
+        {
+          LOG(LINFO, ("matched : ", keyPt));
+          shared_ptr<OverlayElement> e = it->second;
 
-      params.m_fontDesc = fontDesc;
-      params.m_log2vis = log2vis;
-      params.m_glyphCache = glyphCache();
-      params.m_logText = strings::MakeUniString(utf8Text);
+          shared_ptr<CompositeOverlayElement> coe(new CompositeOverlayElement(OverlayElement::Params()));
+          coe->addElement(it->second);
+          coe->addElement(oe);
 
-      params.m_depth = depth;
-      params.m_position = pos;
-      params.m_pivot = pt;
-      params.m_symbolName = symbolName;
-      params.m_styleID = 0;
-      params.m_skin = skin().get();
+          oe = coe;
+        }
 
-      SymbolElement se(params);
-
-      if (!m_infoLayer.get() || !m_useOverlay)
-        se.draw(this, math::Identity<double, 3>());
-      else
-        m_infoLayer->addSymbol(se, math::Identity<double, 3>());
+        m_elements[keyPt] = oe;*/
+      }
     }
 
     void OverlayRenderer::drawCircle(m2::PointD const & pt,
@@ -93,6 +79,7 @@ namespace yg
                                      int depth)
     {
       SymbolElement::Params params;
+
       params.m_depth = depth;
       params.m_position = pos;
       params.m_pivot = pt;
@@ -127,12 +114,34 @@ namespace yg
 
       StraightTextElement ste(params);
 
+      shared_ptr<OverlayElement> oe(new StraightTextElement(params));
+
       math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
 
-      if (!m_infoLayer.get() || !m_useOverlay)
-        ste.draw(this, id);
+      if (!m_infoLayer.get())
+        oe->draw(this, id);
       else
-        m_infoLayer->addStraightText(ste, id);
+      {
+        m_infoLayer->processOverlayElement(oe);
+/*        m2::PointI keyPt((int)pt.x, (int)pt.y);
+        LOG(LINFO, ("textPos:", keyPt));
+
+        TElements::const_iterator it = m_elements.find(keyPt);
+
+        if (it != m_elements.end())
+        {
+          LOG(LINFO, ("matched :", keyPt));
+          shared_ptr<OverlayElement> e = it->second;
+
+          shared_ptr<CompositeOverlayElement> coe(new CompositeOverlayElement(OverlayElement::Params()));
+          coe->addElement(it->second);
+          coe->addElement(oe);
+
+          oe = coe;
+        }
+
+        m_elements[keyPt] = oe;*/
+      }
     }
 
     bool OverlayRenderer::drawPathText(
@@ -156,14 +165,14 @@ namespace yg
       params.m_pivot = path[0];
       params.m_position = pos;
 
-      PathTextElement pte(params);
+      shared_ptr<PathTextElement> pte(new PathTextElement(params));
 
       math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
 
-      if (!m_infoLayer.get() || !m_useOverlay)
-        pte.draw(this, id);
+      if (!m_infoLayer.get())
+        pte->draw(this, id);
       else
-        m_infoLayer->addPathText(pte, id);
+        m_infoLayer->processOverlayElement(pte);
 
       return true;
     }
@@ -181,6 +190,19 @@ namespace yg
     void OverlayRenderer::resetInfoLayer()
     {
       m_infoLayer.reset();
+    }
+
+    void OverlayRenderer::endFrame()
+    {
+      if (m_infoLayer != 0)
+      {
+        for (TElements::const_iterator it = m_elements.begin(); it != m_elements.end(); ++it)
+          m_infoLayer->processOverlayElement(it->second);
+      }
+
+      m_elements.clear();
+
+      base_t::endFrame();
     }
   }
 }

@@ -143,6 +143,8 @@ namespace yg
       if (isNeedRedraw())
         c = yg::Color(255, 0, 0, 64);
 
+      screen->drawRectangle(roughBoundRect(), yg::Color(255, 255, 0, 64), yg::maxDepth - 3);
+
       for (unsigned i = 0 ; i < boundRects().size(); ++i)
         screen->drawRectangle(boundRects()[i], c, yg::maxDepth - 3);
     }
@@ -211,7 +213,8 @@ namespace yg
 
   m2::AARectD const PathTextElement::boundRect() const
   {
-    return m2::Inflate(m_glyphLayout.limitRect(), m2::PointD(2, 2)); //< to create more sparse street names structure
+//    return m2::Inflate(m_glyphLayout.limitRect(), m2::PointD(2, 2));
+    return m2::Inflate(m_glyphLayout.limitRect(), m2::PointD(10, 2));
 //    return m2::Inflate(m_glyphLayout.limitRect(), m2::PointD(40, 2)); //< to create more sparse street names structure
   }
 
@@ -237,6 +240,8 @@ namespace yg
         c = yg::Color(0, 0, 255, 64);
       if (isNeedRedraw())
         c = yg::Color(255, 0, 0, 64);
+
+      screen->drawRectangle(roughBoundRect(), yg::Color(255, 255, 0, 64), yg::maxDepth - 3);
 
       for (unsigned i = 0; i < boundRects().size(); ++i)
         screen->drawRectangle(boundRects()[i], c, yg::maxDepth - 3);

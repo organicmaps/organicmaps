@@ -9,7 +9,7 @@ namespace yg
   class Skin;
   class StylesCache;
 
-  class SymbolElement : public StraightTextElement
+  class SymbolElement : public OverlayElement
   {
   private:
 
@@ -24,7 +24,7 @@ namespace yg
 
   public:
 
-    typedef StraightTextElement base_t;
+    typedef OverlayElement base_t;
 
     struct Params : public base_t::Params
     {

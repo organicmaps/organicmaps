@@ -12,16 +12,18 @@ namespace yg
     {
     private:
 
-      bool m_useOverlay;
       bool m_drawTexts;
       bool m_drawSymbols;
       shared_ptr<yg::InfoLayer> m_infoLayer;
+
+      typedef map<m2::PointI, shared_ptr<OverlayElement> > TElements;
+
+      TElements m_elements;
 
     public:
 
       struct Params : public TextRenderer::Params
       {
-        bool m_useOverlay;
         bool m_drawTexts;
         bool m_drawSymbols;
         shared_ptr<yg::InfoLayer> m_infoLayer;
@@ -32,9 +34,6 @@ namespace yg
 
       /// Drawing POI symbol
       void drawSymbol(m2::PointD const & pt, string const & symbolName, EPosition pos, int depth);
-
-      /// Drawing POI symbol with text
-      void drawSymbol(m2::PointD const & pt, string const & symbolName, string const & utf8Text, yg::FontDesc const & fontDesc, bool log2vis, EPosition pos, int depth);
 
       /// Drawing circle
       void drawCircle(m2::PointD const & pt, uint32_t styleID, EPosition pos, int depth);
@@ -62,6 +61,8 @@ namespace yg
       shared_ptr<InfoLayer> const & infoLayer() const;
 
       void resetInfoLayer();
+
+      void endFrame();
     };
   }
 }

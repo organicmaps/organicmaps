@@ -13,7 +13,8 @@ namespace yg
       m_depth(p.m_depth),
       m_isNeedRedraw(true),
       m_isFrozen(false),
-      m_isDirtyRect(true)
+      m_isDirtyRect(true),
+      m_isDirtyRoughRect(true)
   {}
 
   m2::PointD const OverlayElement::tieRect(m2::RectD const & r, math::Matrix<double, 3, 3> const & m) const
@@ -105,12 +106,14 @@ namespace yg
 
   void OverlayElement::setIsDirtyRect(bool flag) const
   {
+    if (flag)
+      m_isDirtyRoughRect = true;
     m_isDirtyRect = flag;
   }
 
   m2::RectD const & OverlayElement::roughBoundRect() const
   {
-    if (isDirtyRect())
+    if (m_isDirtyRoughRect)
     {
       for (int i = 0; i < boundRects().size(); ++i)
         if (i == 0)
@@ -118,7 +121,7 @@ namespace yg
         else
           m_roughBoundRect.Add(boundRects()[i].GetGlobalRect());
 
-      setIsDirtyRect(true);
+      m_isDirtyRoughRect = false;
     }
     return m_roughBoundRect;
   }

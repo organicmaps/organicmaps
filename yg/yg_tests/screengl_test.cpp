@@ -1058,6 +1058,28 @@ namespace
     }
   };
 
+  struct TestDrawOverlappedSymbolWithText
+  {
+  public:
+    void DoDraw(shared_ptr<yg::gl::Screen> p)
+    {
+      p->setInfoLayer(make_shared_ptr(new yg::InfoLayer()));
+      p->infoLayer()->setCouldOverlap(false);
+
+      p->drawSymbol(m2::PointD(200, 200), "current-position", yg::EPosUnder, yg::maxDepth);
+      p->drawText(yg::FontDesc(), m2::PointD(200, 200), yg::EPosAbove, "Test Text", yg::maxDepth, true);
+
+      p->drawSymbol(m2::PointD(180, 200), "current-position", yg::EPosUnder, yg::maxDepth);
+      p->drawText(yg::FontDesc(), m2::PointD(180, 200), yg::EPosAbove, "Test Text", yg::maxDepth, true);
+
+      p->endFrame();
+      p->beginFrame();
+
+      p->infoLayer()->draw(p.get(), math::Identity<double, 3>());
+      p->resetInfoLayer();
+    }
+  };
+
   struct TestDrawAARect
   {
   public:
@@ -1255,7 +1277,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawTextOnPathInteractive);
 //   UNIT_TEST_GL(TestDrawTextOnPathBigSymbols);
 //   UNIT_TEST_GL(TestDrawTextOnPath);
-   UNIT_TEST_GL(TestDrawTextOnPathZigZag);
+//   UNIT_TEST_GL(TestDrawTextOnPathZigZag);
 //   UNIT_TEST_GL(TestDrawTextOnPathWithOffset);
 //   UNIT_TEST_GL(TestDrawStraightTextElement);
 //   UNIT_TEST_GL(TestDrawPathTextElement);
@@ -1271,7 +1293,8 @@ namespace
 //   UNIT_TEST_GL(TestDrawPathSolid1PX);
 //   UNIT_TEST_GL(TestDrawPathSolid2PX);
 //   UNIT_TEST_GL(TestDrawPathSolid);
-   UNIT_TEST_GL(TestDrawAARect);
+   UNIT_TEST_GL(TestDrawOverlappedSymbolWithText);
+//   UNIT_TEST_GL(TestDrawAARect);
 //   UNIT_TEST_GL(TestDrawSector);
 //   UNIT_TEST_GL(TestDrawPathSolidDiffWidth);
 //   UNIT_TEST_GL(TestDrawPathZigZag);

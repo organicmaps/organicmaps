@@ -32,6 +32,13 @@ UNIT_TEST(AARect_TestConvertFrom)
   TEST(r.ConvertTo(m2::PointD(100 + 50 * sqrt3 / 2, 100 + 50 * 1.0 / 2)).EqualDxDy(m2::PointD(50, 0), 10e-5), ());
 }
 
+UNIT_TEST(AARect_ZeroRect)
+{
+  m2::AARectD r0(m2::RectD(0, 0, 0, 0));
+  m2::AARectD r1(m2::Offset(r0, m2::PointD(300.0, 300.0)));
+  m2::AARectD r2(m2::Inflate(r0, 2.0, 2.0));
+}
+
 UNIT_TEST(AARect_TestIntersection)
 {
   m2::AARectD r0(m2::PointD(93.196, 104.21),  1.03, m2::RectD(2, 0, 4, 15));

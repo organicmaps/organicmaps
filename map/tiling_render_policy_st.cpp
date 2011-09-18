@@ -42,7 +42,6 @@ void TilingRenderPolicyST::Initialize(shared_ptr<yg::gl::RenderContext> const & 
   params.m_resourceManager = resourceManager();
   params.m_frameBuffer = frameBuffer;
   params.m_glyphCacheID = resourceManager()->guiThreadGlyphCacheID();
-  params.m_useOverlay = true;
   params.m_threadID = 0;
   params.m_skinName = GetPlatform().SkinName();
   params.m_visualScale = GetPlatform().VisualScale();

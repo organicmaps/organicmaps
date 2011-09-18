@@ -27,6 +27,7 @@ namespace yg
     bool m_isFrozen;
     mutable bool m_isDirtyRect;
 
+    mutable bool m_isDirtyRoughRect;
     mutable m2::RectD m_roughBoundRect;
 
   protected:

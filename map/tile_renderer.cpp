@@ -52,7 +52,6 @@ void TileRenderer::Initialize(shared_ptr<yg::gl::RenderContext> const & primaryC
     params.m_frameBuffer->setDepthBuffer(depthBuffer);
 
     params.m_glyphCacheID = m_resourceManager->renderThreadGlyphCacheID(i);
-    params.m_useOverlay = true;
     params.m_threadID = i;
     params.m_visualScale = visualScale;
     params.m_skinName = m_skinName;

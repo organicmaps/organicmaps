@@ -37,24 +37,13 @@ namespace yg
     if (!isIntersect)
       return true;
 
-    return l->visualRank() > r->visualRank();
+    /// for the composite elements, collected in OverlayRenderer to replace the part elements
+    return l->visualRank() >= r->visualRank();
   }
 
   m2::RectD const OverlayElementTraits::LimitRect(shared_ptr<OverlayElement> const & elem)
   {
     return elem->roughBoundRect();
-  }
-
-  bool InfoLayer::better_text(StraightTextElement const & r1, StraightTextElement const & r2)
-  {
-    /// any text is worse than a frozen one
-    if (r2.isFrozen())
-      return false;
-    if (r1.fontDesc() != r2.fontDesc())
-      return r1.fontDesc() > r2.fontDesc();
-    if (r1.depth() != r2.depth())
-      return r1.depth() > r2.depth();
-    return false;
   }
 
   void InfoLayer::draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m)
@@ -83,7 +72,7 @@ namespace yg
     for (typename vector<elem_t>::iterator it = elems.begin(); it != elems.end(); ++it)
     {
       (*it)->offset(offs);
-      vector<m2::AARectD> aaLimitRects = (*it)->boundRects();
+      vector<m2::AARectD> const & aaLimitRects = (*it)->boundRects();
       bool doAppend = false;
 
       (*it)->setIsNeedRedraw(false);
@@ -123,83 +112,35 @@ namespace yg
     m_tree.Clear();
   }
 
-  void InfoLayer::addStraightTextImpl(StraightTextElement const & ste)
-  {
-    shared_ptr<OverlayElement> e(new StraightTextElement(ste));
-    if (m_couldOverlap)
-      addOverlayElementImpl(e);
-    else
-      replaceOverlayElementImpl(e);
-  }
-
-  void InfoLayer::addStraightText(StraightTextElement const & ste, math::Matrix<double, 3, 3> const & m)
-  {
-    if (m == math::Identity<double, 3>())
-      addStraightTextImpl(ste);
-    else
-      addStraightTextImpl(StraightTextElement(ste, m));
-  }
-
-  void InfoLayer::addOverlayElementImpl(shared_ptr<OverlayElement> const & oe)
+  void InfoLayer::addOverlayElement(shared_ptr<OverlayElement> const & oe)
   {
     m_tree.Add(oe);
   }
 
-  void InfoLayer::replaceOverlayElementImpl(shared_ptr<OverlayElement> const & oe)
+  void InfoLayer::replaceOverlayElement(shared_ptr<OverlayElement> const & oe)
   {
     m_tree.ReplaceIf(oe, &betterOverlayElement);
   }
 
-  void InfoLayer::addSymbolImpl(SymbolElement const & se)
+  void InfoLayer::processOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m)
   {
-    shared_ptr<OverlayElement> e(new SymbolElement(se));
+    if (m != math::Identity<double, 3>())
+      processOverlayElement(make_shared_ptr(oe->clone(m)));
+    else
+      processOverlayElement(oe);
+  }
 
+  void InfoLayer::processOverlayElement(shared_ptr<OverlayElement> const & oe)
+  {
     if (m_couldOverlap)
-      addOverlayElementImpl(e);
+      addOverlayElement(oe);
     else
-      replaceOverlayElementImpl(e);
-  }
-
-  void InfoLayer::addSymbol(SymbolElement const & se, math::Matrix<double, 3, 3> const & m)
-  {
-    if (m == math::Identity<double, 3>())
-      addSymbolImpl(se);
-    else
-      addSymbolImpl(SymbolElement(se, m));
-  }
-
-  void InfoLayer::addPathTextImpl(PathTextElement const & pte)
-  {
-    shared_ptr<OverlayElement> e(new PathTextElement(pte));
-    if (m_couldOverlap)
-      addOverlayElementImpl(e);
-    else
-      replaceOverlayElementImpl(e);
-  }
-
-  void InfoLayer::addPathText(PathTextElement const & pte, math::Matrix<double, 3, 3> const & m)
-  {
-    if (m == math::Identity<double, 3>())
-      addPathTextImpl(pte);
-    else
-      addPathTextImpl(PathTextElement(pte, m));
-  }
-
-  void InfoLayer::addOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m)
-  {
-    shared_ptr<OverlayElement> oe1(oe->clone(m));
-    addOverlayElementImpl(oe1);
-  }
-
-  void InfoLayer::replaceOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m)
-  {
-    shared_ptr<OverlayElement> oe1(oe->clone(m));
-    replaceOverlayElementImpl(oe1);
+      replaceOverlayElement(oe);
   }
 
   void InfoLayer::merge(InfoLayer const & layer, math::Matrix<double, 3, 3> const & m)
   {
-    layer.m_tree.ForEach(bind(&InfoLayer::replaceOverlayElement, this, _1, m));
+    layer.m_tree.ForEach(bind(&InfoLayer::processOverlayElement, this, _1, m));
   }
 
   void InfoLayer::cache(StylesCache * stylesCache)

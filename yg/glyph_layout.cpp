@@ -151,7 +151,8 @@ namespace yg
                            yg::EPosition pos)
     : m_firstVisible(0),
       m_lastVisible(0),
-      m_limitRect(m2::RectD(0, 0, 0, 0))
+      m_limitRect(m2::RectD(0, 0, 0, 0)),
+      m_pivot(0, 0)
   {
     TextPath arrPath(pts, ptsCount, fullLength, pathOffset);
 

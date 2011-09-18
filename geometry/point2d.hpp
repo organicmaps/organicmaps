@@ -280,6 +280,14 @@ namespace m2
     return ar;
   }
 
+  template <typename T>
+  bool operator< (Point<T> const & l, Point<T> const & r)
+  {
+    if (l.x != r.x)
+      return l.x < r.x;
+    return l.y < r.y;
+  }
+
   typedef Point<float> PointF;
   typedef Point<double> PointD;
   typedef Point<uint32_t> PointU;

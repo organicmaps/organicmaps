@@ -242,7 +242,6 @@ void RenderQueueRoutine::Do()
   params.m_visualScale = m_visualScale;
   params.m_threadID = 0;
   params.m_glyphCacheID = m_resourceManager->renderThreadGlyphCacheID(0);
-  params.m_useOverlay = true;
 /*  params.m_isDebugging = true;
   params.m_drawPathes = false;
   params.m_drawAreas = false;
