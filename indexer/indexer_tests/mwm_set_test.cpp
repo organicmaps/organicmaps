@@ -1,6 +1,7 @@
 #include "../../testing/testing.hpp"
 #include "../mwm_set.hpp"
 #include "../../coding/file_container.hpp"
+#include "../../platform/platform.hpp"
 
 namespace
 {
@@ -11,7 +12,7 @@ void SetMwmInfoForTest(string const & path, MwmInfo & info)
 }
 FilesContainerR * CreateFileContainerForTest(string const &)
 {
-  return new FilesContainerR("minsk-pass.mwm");
+  return new FilesContainerR(GetPlatform().WritablePathForFile("minsk-pass.mwm"));
 }
 }  // unnamed namespace
 

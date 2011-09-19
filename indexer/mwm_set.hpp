@@ -88,7 +88,7 @@ private:
   vector<string> m_name;
   CacheType m_cache;
   size_t m_cacheSize;
-  function<void (string const &, MwmInfo &)> m_fnGetMwmInfo;
-  function<FilesContainerR * (string const &)> const & m_fnCreateContainer;
+  function<void (string const &, MwmInfo &)> const m_fnGetMwmInfo;
+  function<FilesContainerR * (string const &)> const m_fnCreateContainer;
   threads::Mutex m_lock;
 };
