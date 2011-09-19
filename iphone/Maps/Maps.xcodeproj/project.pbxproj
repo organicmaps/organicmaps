@@ -16,6 +16,9 @@
 		46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
 		46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
+		490830551426B0900088EE84 /* downloader.png in Resources */ = {isa = PBXBuildFile; fileRef = 490830531426B0900088EE84 /* downloader.png */; };
+		490830561426B0900088EE84 /* downloader@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 490830541426B0900088EE84 /* downloader@2x.png */; };
+		490830591426BD460088EE84 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 490830581426BD460088EE84 /* Search.xib */; };
 		4938BB1D1343652600E0815A /* dictionary.slf in Resources */ = {isa = PBXBuildFile; fileRef = 4938BB1C1343652600E0815A /* dictionary.slf */; };
 		4945D21C1334187D0082387C /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 4945D21A1334187D0082387C /* settings.png */; };
 		4945D21D1334187D0082387C /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4945D21B1334187D0082387C /* settings@2x.png */; };
@@ -617,6 +620,9 @@
 		46F26CD710F623BA00ECCA39 /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 11; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = EAGLView.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		490830531426B0900088EE84 /* downloader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downloader.png; sourceTree = "<group>"; };
+		490830541426B0900088EE84 /* downloader@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "downloader@2x.png"; sourceTree = "<group>"; };
+		490830581426BD460088EE84 /* Search.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Search.xib; sourceTree = "<group>"; };
 		4938BB1C1343652600E0815A /* dictionary.slf */ = {isa = PBXFileReference; lastKnownFileType = file; name = dictionary.slf; path = ../../data/dictionary.slf; sourceTree = "<group>"; };
 		4945D21A1334187D0082387C /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		4945D21B1334187D0082387C /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
@@ -1312,6 +1318,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				490830531426B0900088EE84 /* downloader.png */,
+				490830541426B0900088EE84 /* downloader@2x.png */,
 				FAA7A73214055351009F76D8 /* location-selected.png */,
 				FAA7A73314055351009F76D8 /* location-selected@2x.png */,
 				FAD4906A13EFF61F005E7D43 /* search.png */,
@@ -1332,6 +1340,7 @@
 				FA5005611287BFCE002961F0 /* Icon@2x.png */,
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* MapsWithMe-Info.plist */,
+				490830581426BD460088EE84 /* Search.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2575,6 +2584,9 @@
 				FAF8052F1417E3510024E8C1 /* za@2x.png in Resources */,
 				FAF805301417E3510024E8C1 /* zm@2x.png in Resources */,
 				FAF805311417E3510024E8C1 /* zw@2x.png in Resources */,
+				490830551426B0900088EE84 /* downloader.png in Resources */,
+				490830561426B0900088EE84 /* downloader@2x.png in Resources */,
+				490830591426BD460088EE84 /* Search.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

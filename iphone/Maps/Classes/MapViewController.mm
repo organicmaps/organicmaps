@@ -34,8 +34,9 @@ storage::Storage m_storage;
   SEL onLocUpdatedSel = @selector(OnLocationUpdated:);
   OnLocationUpdatedFunc locUpdatedImpl = (OnLocationUpdatedFunc)[self methodForSelector:onLocUpdatedSel];
 
-  m_myPositionButton.selected = YES;
-  [m_myPositionButton setImage:[UIImage imageNamed:@"location-search.png"] forState:UIControlStateSelected];
+  m_positionButtonSelected = true;
+  m_myPositionButton.image = [UIImage imageNamed:@"location-search.png"];
+
   [[MapsAppDelegate theApp] disableStandby];
 
   m_framework->StartLocationService(bind(locUpdatedImpl, self, onLocUpdatedSel, _1));
@@ -43,8 +44,8 @@ storage::Storage m_storage;
 
 - (void)stopLocation
 {
-  m_myPositionButton.selected = NO;
-  [m_myPositionButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
+  m_positionButtonSelected = false;
+  m_myPositionButton.image = [UIImage imageNamed:@"location.png"];
   [[MapsAppDelegate theApp] enableStandby];
 
   m_framework->StopLocationService();
@@ -52,7 +53,7 @@ storage::Storage m_storage;
 
 - (IBAction)OnMyPositionClicked:(id)sender
 {
-  if (m_myPositionButton.isSelected == NO)
+  if (!m_positionButtonSelected)
     [self startLocation];
   else
     [self stopLocation];
@@ -82,7 +83,7 @@ storage::Storage m_storage;
     break;
   case location::ERoughMode:
   case location::EAccurateMode:
-    [m_myPositionButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
+    m_myPositionButton.image = [UIImage imageNamed:@"location-selected.png"];
     break;
   }
 }
@@ -111,6 +112,7 @@ storage::Storage m_storage;
 	if ((self = [super initWithCoder:coder]))
 	{
     m_mapIsVisible = false;
+    m_positionButtonSelected = false;
 
     [(EAGLView*)self.view setController : self];
 

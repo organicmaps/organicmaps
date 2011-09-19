@@ -23,10 +23,11 @@
 
 	m2::PointD m_Pt1, m_Pt2;
   
-  UIButton * m_myPositionButton;
+  UIBarButtonItem * m_myPositionButton;
   NSTimer * m_iconTimer;
 
   bool m_mapIsVisible;
+  bool m_positionButtonSelected;
 }
 
 - (void) ZoomToRect: (m2::RectD const &) rect;
@@ -45,6 +46,6 @@
 - (IBAction)OnSettingsClicked:(id)sender;
 - (IBAction)OnSearchClicked:(id)sender;
 
-@property (nonatomic, retain) IBOutlet UIButton * m_myPositionButton;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem * m_myPositionButton;
 
 @end
