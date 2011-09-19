@@ -73,7 +73,7 @@
 								<object class="IBUIToolbar" id="1018283678">
 									<reference key="NSNextResponder" ref="53915144"/>
 									<int key="NSvFlags">266</int>
-									<string key="NSFrameSize">{320, 44}</string>
+									<string key="NSFrame">{{0, 436}, {320, 44}}</string>
 									<reference key="NSSuperview" ref="53915144"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView"/>
@@ -171,10 +171,11 @@
 				<bool key="IBUINavigationBarHidden">YES</bool>
 			</object>
 			<object class="IBUIWindow" id="380026005">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">1280</int>
 				<object class="NSPSMatrix" key="NSFrameMatrix"/>
 				<string key="NSFrameSize">{320, 480}</string>
+				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
 					<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -537,7 +538,7 @@
 			<string key="downloader.png">{24, 24}</string>
 			<string key="location.png">{20, 20}</string>
 			<string key="search.png">{24, 24}</string>
-			<string key="settings.png">{26, 28}</string>
+			<string key="settings.png">{26, 26}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">534</string>
 	</data>
