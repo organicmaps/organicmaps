@@ -338,10 +338,10 @@ void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
 {
   m2::PointD pt = m_screen.PixelRect().Center() - m2::PointD(0, m_bottomShift * m_visualScale);
 
-  char const s0 [] = "Nothing found. Have you tried";
-  char const s1 [] = "downloading maps of the countries?";
-  char const s2 [] = "Just click the button at the bottom";
-  char const s3 [] = "right corner to download the maps.";
+  char const s [] = "Nothing found. Have you tried\n"\
+                    "downloading maps of the countries?\n"\
+                    "Just click the button at the bottom\n"\
+                    "right corner to download the maps.";
 
 //  yg::FontDesc bigFont(false, 30 * m_visualScale);
 
@@ -352,31 +352,13 @@ void InformationDisplay::drawEmptyModelMessage(DrawerYG * pDrawer)
   params.m_pivot = pt;
   params.m_position = yg::EPosCenter;
   params.m_glyphCache = pDrawer->screen()->glyphCache();
-  params.m_logText = strings::MakeUniString(s0);
+  params.m_logText = strings::MakeUniString(s);
+  params.m_doSplit = true;
+  params.m_delimiters = "\n";
 
-  yg::StraightTextElement ste0(params);
+  yg::StraightTextElement ste(params);
 
-  math::Matrix<double, 3, 3> m = math::Shift(math::Identity<double, 3>(),
-                                             m2::PointD(0, -ste0.roughBoundRect().SizeY() - 5));
-  ste0.draw(pDrawer->screen().get(), m);
-
-  params.m_pivot = pt;
-  params.m_logText = strings::MakeUniString(s1);
-  yg::StraightTextElement ste1(params);
-
-  ste1.draw(pDrawer->screen().get(), math::Identity<double, 3>());
-
-  params.m_pivot.y += ste1.roughBoundRect().SizeY() + 5;
-  params.m_logText = strings::MakeUniString(s2);
-  yg::StraightTextElement ste2(params);
-
-  ste2.draw(pDrawer->screen().get(), math::Identity<double, 3>());
-
-  params.m_pivot.y += ste2.roughBoundRect().SizeY() + 5;
-  params.m_logText = strings::MakeUniString(s3);
-  yg::StraightTextElement ste3(params);
-
-  ste3.draw(pDrawer->screen().get(), math::Identity<double, 3>());
+  ste.draw(pDrawer->screen().get(), math::Identity<double, 3>());
 }
 #endif
 
