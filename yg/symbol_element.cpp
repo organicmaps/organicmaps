@@ -94,7 +94,7 @@ namespace yg
 
   int SymbolElement::visualRank() const
   {
-    return 1000;
+    return 0000;
   }
 
   OverlayElement * SymbolElement::clone(math::Matrix<double, 3, 3> const & m) const

@@ -234,7 +234,7 @@ namespace yg
 
   int StraightTextElement::visualRank() const
   {
-    return 0000 + m_fontDesc.m_size;
+    return 1000 + m_fontDesc.m_size;
   }
 
   OverlayElement * StraightTextElement::clone(math::Matrix<double, 3, 3> const & m) const
