@@ -44,7 +44,8 @@ namespace yg
                     yg::EPosition pos,
                     string const & utf8Text,
                     double depth,
-                    bool log2vis);
+                    bool log2vis,
+                    bool doSplit = false);
 
       /// drawing text on the path
       bool drawPathText(FontDesc const & fontDesc,

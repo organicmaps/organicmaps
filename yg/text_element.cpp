@@ -39,6 +39,11 @@ namespace yg
     return m_fontDesc;
   }
 
+  bool TextElement::isBidi() const
+  {
+    return m_logText != m_visText;
+  }
+
   void TextElement::drawTextImpl(GlyphLayout const & layout, gl::OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m, FontDesc const & fontDesc, double depth) const
   {
     m2::PointD pv = layout.pivot() * m;

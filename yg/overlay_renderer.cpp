@@ -99,7 +99,8 @@ namespace yg
                                 yg::EPosition pos,
                                 string const & utf8Text,
                                 double depth,
-                                bool log2vis)
+                                bool log2vis,
+                                bool doSplit)
     {
       if (!m_drawTexts)
         return;
@@ -112,6 +113,7 @@ namespace yg
       params.m_position = pos;
       params.m_glyphCache = glyphCache();
       params.m_logText = strings::MakeUniString(utf8Text);
+      params.m_doSplit = doSplit;
 
       shared_ptr<OverlayElement> oe(new StraightTextElement(params));
 

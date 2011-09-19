@@ -71,7 +71,7 @@ namespace yg
     : TextElement(p)
   {
     buffer_vector<strings::UniString, 3> res;
-    if (p.m_doSplit)
+    if ((p.m_doSplit) && (!isBidi()))
     {
       res.clear();
       visSplit(visText(), res);

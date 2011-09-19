@@ -264,6 +264,7 @@ void DrawerYG::drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_
           pos,
           pInfo->m_name,
           depth,
+          true,
           true);
 }
 

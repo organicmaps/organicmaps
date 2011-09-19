@@ -36,6 +36,8 @@ namespace yg
 
     mutable vector<m2::AARectD> m_boundRects;
 
+    bool isBidi() const;
+
   public:
 
     struct Params : OverlayElement::Params
