@@ -111,7 +111,7 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
 
   m_informationDisplay.enableRuler(true);
   m_informationDisplay.setRulerParams(m_minRulerWidth, m_metresMinWidth, m_metresMaxWidth);
-  m_navigator.SetMinScreenParams(m_minRulerWidth, m_metresMinWidth);
+  m_navigator.SetMinScreenParams(m_minRulerWidth * GetPlatform().VisualScale(), m_metresMinWidth);
 
 #ifdef DEBUG
   m_informationDisplay.enableDebugInfo(true);
