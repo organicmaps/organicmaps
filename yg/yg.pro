@@ -58,7 +58,9 @@ SOURCES += \
     overlay_renderer.cpp \
     render_state_updater.cpp \
     styles_cache.cpp \
-    composite_overlay_element.cpp
+    composite_overlay_element.cpp \
+    path_text_element.cpp \
+    straight_text_element.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -109,12 +111,18 @@ HEADERS += \
     overlay_renderer.hpp \
     render_state_updater.hpp \
     styles_cache.hpp \
-    composite_overlay_element.hpp
+    composite_overlay_element.hpp \
+    path_text_element.hpp \
+    straight_text_element.hpp
 
 win32 {
   HEADERS += internal/opengl_win32.hpp
   SOURCES += internal/opengl_win32.cpp
 }
+
+
+
+
 
 
 

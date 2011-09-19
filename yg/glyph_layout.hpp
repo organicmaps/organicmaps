@@ -49,6 +49,8 @@ namespace yg
 
   public:
 
+    GlyphLayout();
+
     GlyphLayout(GlyphLayout const & layout, math::Matrix<double, 3, 3> const & m);
 
     GlyphLayout(GlyphCache * glyphCache,

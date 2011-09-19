@@ -2,7 +2,8 @@
 
 #include "overlay_renderer.hpp"
 #include "composite_overlay_element.hpp"
-#include "text_element.hpp"
+#include "straight_text_element.hpp"
+#include "path_text_element.hpp"
 #include "symbol_element.hpp"
 #include "render_state.hpp"
 #include "info_layer.hpp"
@@ -111,8 +112,6 @@ namespace yg
       params.m_position = pos;
       params.m_glyphCache = glyphCache();
       params.m_logText = strings::MakeUniString(utf8Text);
-
-      StraightTextElement ste(params);
 
       shared_ptr<OverlayElement> oe(new StraightTextElement(params));
 

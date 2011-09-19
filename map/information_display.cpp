@@ -5,7 +5,7 @@
 #include "../yg/defines.hpp"
 #include "../yg/skin.hpp"
 #include "../yg/pen_info.hpp"
-#include "../yg/text_element.hpp"
+#include "../yg/straight_text_element.hpp"
 
 #include "../version/version.hpp"
 

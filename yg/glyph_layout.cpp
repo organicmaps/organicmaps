@@ -62,6 +62,9 @@ namespace yg
     return res;
   }
 
+  GlyphLayout::GlyphLayout()
+  {}
+
   GlyphLayout::GlyphLayout(GlyphLayout const & src, math::Matrix<double, 3, 3> const & m)
     : m_firstVisible(src.m_firstVisible),
       m_lastVisible(src.m_lastVisible),
@@ -118,8 +121,8 @@ namespace yg
 
     limitRect.Inflate(2, 2);
 
-    m2::PointD ptOffs(-limitRect.SizeX() / 2,
-                      -limitRect.SizeY() / 2);
+    m2::PointD ptOffs(-limitRect.SizeX() / 2 - limitRect.minX(),
+                      -limitRect.SizeY() / 2 - limitRect.minY());
 
     /// adjusting according to position
     if (pos & EPosLeft)
@@ -128,10 +131,10 @@ namespace yg
       ptOffs += m2::PointD(limitRect.SizeX() / 2, 0);
 
     if (pos & EPosAbove)
-      ptOffs += m2::PointD(0, limitRect.SizeY() / 2);
+      ptOffs += m2::PointD(0, -limitRect.SizeY() / 2);
 
     if (pos & EPosUnder)
-      ptOffs += m2::PointD(0, -limitRect.SizeY() / 2);
+      ptOffs += m2::PointD(0, limitRect.SizeY() / 2);
 
     m_limitRect = m2::AARectD(limitRect);
 

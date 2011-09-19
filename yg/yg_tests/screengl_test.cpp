@@ -8,6 +8,8 @@
 #include "../../yg/pen_info.hpp"
 #include "../../yg/circle_info.hpp"
 #include "../../yg/text_element.hpp"
+#include "../../yg/straight_text_element.hpp"
+#include "../../yg/path_text_element.hpp"
 
 #include "../../qt_tstfrm/macros.hpp"
 
@@ -662,12 +664,65 @@ namespace
     }
   };
 
+  struct TestDrawMultiLineStringWithPosition
+  {
+    void DoDraw(shared_ptr<yg::gl::Screen> p)
+    {
+      yg::FontDesc fontDesc(14, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
+
+      m2::PointD pt = m2::PointD(50, 150);
+
+      p->drawText(fontDesc, pt, yg::EPosAboveRight, "Simplicity is the ultimate sophistication", yg::maxDepth, true);
+      p->drawRectangle(m2::Inflate(m2::RectD(pt, pt), m2::PointD(2, 2)), yg::Color(0, 0, 0, 255), yg::maxDepth);
+
+      pt = m2::PointD(50, 300);
+
+      p->drawText(fontDesc, pt, yg::EPosRight, "Simplicity is the ultimate sophistication", yg::maxDepth, true);
+      p->drawRectangle(m2::Inflate(m2::RectD(pt, pt), m2::PointD(2, 2)), yg::Color(0, 0, 0, 255), yg::maxDepth);
+
+      pt = m2::PointD(50, 450);
+
+      p->drawText(fontDesc, pt, yg::EPosUnderRight, "Simplicity is the ultimate sophistication", yg::maxDepth, true);
+      p->drawRectangle(m2::Inflate(m2::RectD(pt, pt), m2::PointD(2, 2)), yg::Color(0, 0, 0, 255), yg::maxDepth);
+
+      pt = m2::PointD(400, 150);
+
+      p->drawText(fontDesc, pt, yg::EPosAbove, "Simplicity is the ultimate sophistication", yg::maxDepth, true);
+      p->drawRectangle(m2::Inflate(m2::RectD(pt, pt), m2::PointD(2, 2)), yg::Color(0, 0, 0, 255), yg::maxDepth);
+
+      pt = m2::PointD(400, 300);
+
+      p->drawText(fontDesc, pt, yg::EPosCenter, "Simplicity is the ultimate sophistication", yg::maxDepth, true);
+      p->drawRectangle(m2::Inflate(m2::RectD(pt, pt), m2::PointD(2, 2)), yg::Color(0, 0, 0, 255), yg::maxDepth);
+
+      pt = m2::PointD(400, 450);
+
+      p->drawText(fontDesc, pt, yg::EPosUnder, "Simplicity is the ultimate sophistication", yg::maxDepth, true);
+      p->drawRectangle(m2::Inflate(m2::RectD(pt, pt), m2::PointD(2, 2)), yg::Color(0, 0, 0, 255), yg::maxDepth);
+
+      pt = m2::PointD(750, 150);
+
+      p->drawText(fontDesc, pt, yg::EPosAboveLeft, "Simplicity is the ultimate sophistication", yg::maxDepth, true);
+      p->drawRectangle(m2::Inflate(m2::RectD(pt, pt), m2::PointD(2, 2)), yg::Color(0, 0, 0, 255), yg::maxDepth);
+
+      pt = m2::PointD(750, 300);
+
+      p->drawText(fontDesc, pt, yg::EPosLeft, "Simplicity is the ultimate sophistication", yg::maxDepth, true);
+      p->drawRectangle(m2::Inflate(m2::RectD(pt, pt), m2::PointD(2, 2)), yg::Color(0, 0, 0, 255), yg::maxDepth);
+
+      pt = m2::PointD(750, 450);
+
+      p->drawText(fontDesc, pt, yg::EPosUnderLeft, "Simplicity is the ultimate sophistication", yg::maxDepth, true);
+      p->drawRectangle(m2::Inflate(m2::RectD(pt, pt), m2::PointD(2, 2)), yg::Color(0, 0, 0, 255), yg::maxDepth);
+    }
+  };
+
   struct TestDrawString
   {
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
       yg::FontDesc fontDesc(20, yg::Color(0, 0, 0, 0), true, yg::Color(255, 255, 255, 255));
-      p->drawText(fontDesc, m2::PointD(40, 50), yg::EPosAboveRight, "Simplicity is the ultimate sophistication", 0, true);
+      p->drawText(fontDesc, m2::PointD(40, 150), yg::EPosAboveRight, "Simplicity is the ultimate sophistication", 0, true);
     }
   };
 
@@ -1267,6 +1322,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawSingleSymbol);
 //   UNIT_TEST_GL(TestDrawEmptySymbol);
 //   UNIT_TEST_GL(TestDrawSingleSymbolAndSolidPath);
+   UNIT_TEST_GL(TestDrawMultiLineStringWithPosition);
 //   UNIT_TEST_GL(TestDrawString);
 //   UNIT_TEST_GL(TestDrawStringWithFixedFont);
 //   UNIT_TEST_GL(TestDrawStringWithColor);
@@ -1293,7 +1349,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawPathSolid1PX);
 //   UNIT_TEST_GL(TestDrawPathSolid2PX);
 //   UNIT_TEST_GL(TestDrawPathSolid);
-   UNIT_TEST_GL(TestDrawOverlappedSymbolWithText);
+//   UNIT_TEST_GL(TestDrawOverlappedSymbolWithText);
 //   UNIT_TEST_GL(TestDrawAARect);
 //   UNIT_TEST_GL(TestDrawSector);
 //   UNIT_TEST_GL(TestDrawPathSolidDiffWidth);
