@@ -4,7 +4,7 @@
 
 namespace yg
 {
-  void visSplit(strings::UniString const & visText, buffer_vector<strings::UniString, 3> & res)
+  void visSplit(strings::UniString const & visText, buffer_vector<strings::UniString, 3> & res, char const * delimiters, size_t delimSize)
   {
     if (visText.size() > 15)
     {
@@ -19,10 +19,17 @@ namespace yg
         if (rs == visText.size() - 1)
           break;
 
-        if ((visText[rs] == strings::UniChar(' '))
-         || (visText[rs] == strings::UniChar('\t'))
-         || (visText[rs] == strings::UniChar('\n')))
-           break;
+        bool foundDelim = false;
+
+        for (int i = 0; i < delimSize; ++i)
+          if (visText[rs] == strings::UniChar(delimiters[i]))
+          {
+            foundDelim = true;
+            break;
+          }
+
+        if (foundDelim)
+          break;
 
         ++rs;
       }
@@ -34,10 +41,17 @@ namespace yg
           if (ls == 0)
             break;
 
-          if ((visText[ls] == strings::UniChar(' '))
-           || (visText[rs] == strings::UniChar('\t'))
-           || (visText[rs] == strings::UniChar('\n')))
-             break;
+          bool foundDelim = false;
+
+          for (int i = 0; i < delimSize; ++i)
+            if (visText[ls] == strings::UniChar(delimiters[i]))
+            {
+              foundDelim = true;
+              break;
+            }
+
+          if (foundDelim)
+            break;
 
           --ls;
         }
@@ -74,14 +88,16 @@ namespace yg
     if ((p.m_doSplit) && (!isBidi()))
     {
       res.clear();
-      visSplit(visText(), res);
+      if (!p.m_delimiters.empty())
+        visSplit(visText(), res, p.m_delimiters.c_str(), p.m_delimiters.size());
+      else
+        visSplit(visText(), res, " \n\t", 3);
     }
     else
       res.push_back(visText());
 
     double allElemWidth = 0;
     double allElemHeight = 0;
-    double elemShift = 0;
 
     for (unsigned i = 0; i < res.size(); ++i)
     {

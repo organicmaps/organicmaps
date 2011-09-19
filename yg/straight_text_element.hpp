@@ -20,6 +20,7 @@ namespace yg
       unsigned m_minSymInRow;
       unsigned m_maxSymInRow;
       bool m_doSplit;
+      string m_delimiters;
       Params();
     };
 
