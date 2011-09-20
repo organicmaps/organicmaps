@@ -2,6 +2,7 @@
 
 #include "../geometry/point2d.hpp"
 #include "../geometry/angles.hpp"
+#include "../base/matrix.hpp"
 #include "glyph_cache.hpp"
 
 namespace yg
@@ -25,10 +26,12 @@ namespace yg
 
   class TextPath
   {
-    m2::PointD const * m_arr;
-    size_t m_size;
+    buffer_vector<m2::PointD, 8> m_arr;
     bool m_reverse;
   public:
+
+    TextPath();
+    TextPath(TextPath const & src, math::Matrix<double, 3, 3> const & m);
     TextPath(m2::PointD const * arr, size_t sz, double fullLength, double & pathOffset);
 
     size_t size() const;

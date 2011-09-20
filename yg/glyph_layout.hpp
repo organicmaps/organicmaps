@@ -14,6 +14,8 @@
 #include "../std/shared_ptr.hpp"
 
 #include "glyph_cache.hpp"
+#include "text_path.hpp"
+#include "font_desc.hpp"
 
 namespace yg
 {
@@ -23,7 +25,6 @@ namespace yg
   struct GlyphLayoutElem
   {
     wchar_t m_sym;
-    GlyphMetrics m_metrics;
     ang::AngleD m_angle;
     m2::PointD m_pt;
 
@@ -37,21 +38,34 @@ namespace yg
     size_t m_firstVisible;
     size_t m_lastVisible;
 
+    TextPath m_path;
+    double m_fullLength;
+    double m_pathOffset;
+
+    strings::UniString m_visText;
+    yg::EPosition m_pos;
+
+    yg::FontDesc m_fontDesc;
+
+    vector<GlyphMetrics> m_metrics;
     vector<GlyphLayoutElem> m_entries;
 
     m2::AARectD m_limitRect;
 
     m2::PointD m_pivot;
 
-    double getKerning(GlyphLayoutElem const & prevElem, GlyphLayoutElem const & curElem);
+    double getKerning(GlyphLayoutElem const & prevElem, GlyphMetrics const & prevMetrics, GlyphLayoutElem const & curElem, GlyphMetrics const & curMetrics);
     void computeMinLimitRect();
+
     void recalcPivot();
+    void recalcAlongPath();
 
   public:
 
     GlyphLayout();
 
-    GlyphLayout(GlyphLayout const & layout, math::Matrix<double, 3, 3> const & m);
+    GlyphLayout(GlyphLayout const & layout,
+                math::Matrix<double, 3, 3> const & m);
 
     GlyphLayout(GlyphCache * glyphCache,
                 FontDesc const & font,
@@ -72,6 +86,7 @@ namespace yg
     size_t lastVisible() const;
 
     vector<GlyphLayoutElem> const & entries() const;
+    vector<GlyphMetrics> const & metrics() const;
 
     m2::AARectD const limitRect() const;
 

@@ -1,7 +1,6 @@
 #include "glyph_layout.hpp"
 #include "font_desc.hpp"
 #include "resource_style.hpp"
-#include "text_path.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/math.hpp"
@@ -13,32 +12,27 @@
 
 namespace yg
 {
-  void GlyphLayoutElem::transform(math::Matrix<double, 3, 3> const & m)
-  {
-    m_pt = m_pt * m;
-  }
-
-  double GlyphLayout::getKerning(GlyphLayoutElem const & prevElem, GlyphLayoutElem const & curElem)
+  double GlyphLayout::getKerning(GlyphLayoutElem const & prevElem, GlyphMetrics const & prevMetrics, GlyphLayoutElem const & curElem, GlyphMetrics const & curMetrics)
   {
     double res = 0;
     /// check, whether we should offset this symbol slightly
     /// not to overlap the previous symbol
 
     m2::AARectD prevSymRectAA(
-          prevElem.m_pt.Move(prevElem.m_metrics.m_height, -prevElem.m_angle.cos(), prevElem.m_angle.sin()), //< moving by angle = prevElem.m_angle - math::pi / 2
+          prevElem.m_pt.Move(prevMetrics.m_height, -prevElem.m_angle.cos(), prevElem.m_angle.sin()), //< moving by angle = prevElem.m_angle - math::pi / 2
           prevElem.m_angle,
-          m2::RectD(prevElem.m_metrics.m_xOffset,
-                    prevElem.m_metrics.m_yOffset,
-                    prevElem.m_metrics.m_xOffset + prevElem.m_metrics.m_width,
-                    prevElem.m_metrics.m_yOffset + prevElem.m_metrics.m_height));
+          m2::RectD(prevMetrics.m_xOffset,
+                    prevMetrics.m_yOffset,
+                    prevMetrics.m_xOffset + prevMetrics.m_width,
+                    prevMetrics.m_yOffset + prevMetrics.m_height));
 
     m2::AARectD curSymRectAA(
-          curElem.m_pt.Move(curElem.m_metrics.m_height, -curElem.m_angle.cos(), curElem.m_angle.sin()), //< moving by angle = curElem.m_angle - math::pi / 2
+          curElem.m_pt.Move(curMetrics.m_height, -curElem.m_angle.cos(), curElem.m_angle.sin()), //< moving by angle = curElem.m_angle - math::pi / 2
           curElem.m_angle,
-          m2::RectD(curElem.m_metrics.m_xOffset,
-                    curElem.m_metrics.m_yOffset,
-                    curElem.m_metrics.m_xOffset + curElem.m_metrics.m_width,
-                    curElem.m_metrics.m_yOffset + curElem.m_metrics.m_height)
+          m2::RectD(curMetrics.m_xOffset,
+                    curMetrics.m_yOffset,
+                    curMetrics.m_xOffset + curMetrics.m_width,
+                    curMetrics.m_yOffset + curMetrics.m_height)
           );
 
     if (prevElem.m_angle.val() == curElem.m_angle.val())
@@ -64,16 +58,6 @@ namespace yg
 
   GlyphLayout::GlyphLayout()
   {}
-
-  GlyphLayout::GlyphLayout(GlyphLayout const & src, math::Matrix<double, 3, 3> const & m)
-    : m_firstVisible(src.m_firstVisible),
-      m_lastVisible(src.m_lastVisible),
-      m_pivot(src.m_pivot * m)
-  {
-    m_entries = src.m_entries;
-    /// TODO: it's better and faster to transform AARect, not calculate it once again.
-    computeMinLimitRect();
-  }
 
   GlyphLayout::GlyphLayout(GlyphCache * glyphCache,
                            FontDesc const & fontDesc,
@@ -113,8 +97,8 @@ namespace yg
       elem.m_sym = visText[i];
       elem.m_angle = 0;
       elem.m_pt = curPt;
-      elem.m_metrics = m;
       m_entries.push_back(elem);
+      m_metrics.push_back(m);
 
       curPt += m2::PointD(m.m_xAdvance, m.m_yAdvance);
     }
@@ -144,6 +128,23 @@ namespace yg
     m_limitRect.Offset(ptOffs);
   }
 
+  GlyphLayout::GlyphLayout(GlyphLayout const & src,
+                           math::Matrix<double, 3, 3> const & m)
+    : m_firstVisible(0),
+      m_lastVisible(0),
+      m_path(src.m_path, m),
+      m_visText(src.m_visText),
+      m_pos(src.m_pos),
+      m_fontDesc(src.m_fontDesc),
+      m_metrics(src.m_metrics),
+      m_limitRect(m2::RectD(0, 0, 0, 0)),
+      m_pivot(0, 0)
+  {
+    m_fullLength = (m2::PointD(src.m_fullLength, 0) * m).Length(m2::PointD(0, 0) * m);
+    m_pathOffset = (m2::PointD(src.m_pathOffset, 0) * m).Length(m2::PointD(0, 0) * m);
+    recalcAlongPath();
+  }
+
   GlyphLayout::GlyphLayout(GlyphCache * glyphCache,
                            FontDesc const & fontDesc,
                            m2::PointD const * pts,
@@ -154,79 +155,90 @@ namespace yg
                            yg::EPosition pos)
     : m_firstVisible(0),
       m_lastVisible(0),
+      m_path(pts, ptsCount, fullLength, pathOffset),
+      m_fullLength(fullLength),
+      m_pathOffset(pathOffset),
+      m_visText(visText),
+      m_pos(pos),
+      m_fontDesc(fontDesc),
       m_limitRect(m2::RectD(0, 0, 0, 0)),
       m_pivot(0, 0)
   {
-    TextPath arrPath(pts, ptsCount, fullLength, pathOffset);
+    for (size_t i = 0; i < m_visText.size(); ++i)
+      m_metrics.push_back(glyphCache->getGlyphMetrics(GlyphKey(visText[i], m_fontDesc.m_size, m_fontDesc.m_isMasked, yg::Color(0, 0, 0, 0))));
+    recalcAlongPath();
+  }
 
+  void GlyphLayout::recalcAlongPath()
+  {
     // get vector of glyphs and calculate string length
     double strLength = 0.0;
-    size_t count = visText.size();
+    size_t count = m_visText.size();
 
     if (count != 0)
       m_entries.resize(count);
 
     for (size_t i = 0; i < m_entries.size(); ++i)
     {
-      m_entries[i].m_sym = visText[i];
-      m_entries[i].m_metrics = glyphCache->getGlyphMetrics(GlyphKey(m_entries[i].m_sym, fontDesc.m_size, fontDesc.m_isMasked, yg::Color(0, 0, 0, 0)));
-      strLength += m_entries[i].m_metrics.m_xAdvance;
+      m_entries[i].m_sym = m_visText[i];
+      strLength += m_metrics[i].m_xAdvance;
     }
 
-    if (fullLength < strLength)
+    if (m_fullLength < strLength)
       return;
 
-    PathPoint arrPathStart(0, ang::AngleD(ang::AngleTo(arrPath.get(0), arrPath.get(1))), arrPath.get(0));
+    PathPoint arrPathStart(0, ang::AngleD(ang::AngleTo(m_path.get(0), m_path.get(1))), m_path.get(0));
 
-    m_pivot = arrPath.offsetPoint(arrPathStart, fullLength / 2.0).m_pt;
+    m_pivot = m_path.offsetPoint(arrPathStart, m_fullLength / 2.0).m_pt;
 
     // offset of the text from path's start
-    double offset = (fullLength - strLength) / 2.0;
+    double offset = (m_fullLength - strLength) / 2.0;
 
-    if (pos & yg::EPosLeft)
+    if (m_pos & yg::EPosLeft)
     {
       offset = 0;
       m_pivot = arrPathStart.m_pt;
     }
 
-    if (pos & yg::EPosRight)
+    if (m_pos & yg::EPosRight)
     {
-      offset = (fullLength - strLength);
-      m_pivot = arrPath.get(arrPath.size() - 1);
+      offset = (m_fullLength - strLength);
+      m_pivot = m_path.get(m_path.size() - 1);
     }
 
     // calculate base line offset
-    double blOffset = 2 - fontDesc.m_size / 2;
+    double blOffset = 2 - m_fontDesc.m_size / 2;
     // on-path kerning should be done for baseline-centered glyphs
     //double kernOffset = blOffset;
 
-    if (pos & yg::EPosUnder)
-      blOffset = 2 - fontDesc.m_size;
-    if (pos & yg::EPosAbove)
+    if (m_pos & yg::EPosUnder)
+      blOffset = 2 - m_fontDesc.m_size;
+    if (m_pos & yg::EPosAbove)
       blOffset = 2;
 
-    offset -= pathOffset;
+    offset -= m_pathOffset;
     if (-offset >= strLength)
       return;
 
     // find first visible glyph
     size_t symPos = 0;
     while (offset < 0 &&  symPos < count)
-      offset += m_entries[symPos++].m_metrics.m_xAdvance;
+      offset += m_metrics[symPos++].m_xAdvance;
 
-    PathPoint glyphStartPt = arrPath.offsetPoint(arrPathStart, offset);
+    PathPoint glyphStartPt = m_path.offsetPoint(arrPathStart, offset);
 
     m_firstVisible = symPos;
 
     GlyphLayoutElem prevElem; //< previous glyph, to compute kerning from
+    GlyphMetrics prevMetrics;
     bool hasPrevElem = false;
 
     for (; symPos < count; ++symPos)
     {
       /// full advance, including possible kerning.
-      double fullGlyphAdvance = m_entries[symPos].m_metrics.m_xAdvance;
+      double fullGlyphAdvance = m_metrics[symPos].m_xAdvance;
 
-      GlyphMetrics const & metrics = m_entries[symPos].m_metrics;
+      GlyphMetrics const & metrics = m_metrics[symPos];
 
       if (glyphStartPt.m_i == -1)
         return;
@@ -239,7 +251,7 @@ namespace yg
         int i = 0;
         for (; i < 100; ++i)
         {
-          PivotPoint pivotPt = arrPath.findPivotPoint(glyphStartPt, metrics, fullKern);
+          PivotPoint pivotPt = m_path.findPivotPoint(glyphStartPt, metrics, fullKern);
 
           if (pivotPt.m_pp.m_i == -1)
             return;
@@ -258,7 +270,7 @@ namespace yg
           // < check whether we should "kern"
           if (hasPrevElem)
           {
-            kern = getKerning(prevElem, m_entries[symPos]);
+            kern = getKerning(prevElem, prevMetrics, m_entries[symPos], m_metrics[symPos]);
             if (kern < 0.5)
               kern = 0;
 
@@ -276,6 +288,7 @@ namespace yg
 
         /// kerning should be computed for baseline centered glyph
         prevElem = m_entries[symPos];
+        prevMetrics = m_metrics[symPos];
         hasPrevElem = true;
 
         // < align to baseline
@@ -294,7 +307,7 @@ namespace yg
         }
       }
 
-      glyphStartPt = arrPath.offsetPoint(glyphStartPt, fullGlyphAdvance);
+      glyphStartPt = m_path.offsetPoint(glyphStartPt, fullGlyphAdvance);
       offset += fullGlyphAdvance;
 
       m_lastVisible = symPos + 1;
@@ -320,19 +333,19 @@ namespace yg
 
     for (unsigned i = m_firstVisible; i < m_lastVisible; ++i)
     {
-      if (m_entries[i].m_metrics.m_width != 0)
+      if (m_metrics[i].m_width != 0)
       {
         map<double, m2::AARectD>::iterator it = rects.find(m_entries[i].m_angle.val());
 
         if (it == rects.end())
         {
           m2::AARectD symRectAA(
-                m_entries[i].m_pt.Move(m_entries[i].m_metrics.m_height, -m_entries[i].m_angle.cos(), m_entries[i].m_angle.sin()), //< moving by angle = m_entries[i].m_angle - math::pi / 2
+                m_entries[i].m_pt.Move(m_metrics[i].m_height, -m_entries[i].m_angle.cos(), m_entries[i].m_angle.sin()), //< moving by angle = m_entries[i].m_angle - math::pi / 2
                 m_entries[i].m_angle,
-                m2::RectD(m_entries[i].m_metrics.m_xOffset,
-                          m_entries[i].m_metrics.m_yOffset,
-                          m_entries[i].m_metrics.m_xOffset + m_entries[i].m_metrics.m_width,
-                          m_entries[i].m_metrics.m_yOffset + m_entries[i].m_metrics.m_height
+                m2::RectD(m_metrics[i].m_xOffset,
+                          m_metrics[i].m_yOffset,
+                          m_metrics[i].m_xOffset + m_metrics[i].m_width,
+                          m_metrics[i].m_yOffset + m_metrics[i].m_height
                           ));
 
           rects[m_entries[i].m_angle.val()] = symRectAA;
@@ -342,15 +355,15 @@ namespace yg
 
     for (unsigned i = m_firstVisible; i < m_lastVisible; ++i)
     {
-      if (m_entries[i].m_metrics.m_width != 0)
+      if (m_metrics[i].m_width != 0)
       {
         m2::AARectD symRectAA(
-              m_entries[i].m_pt.Move(m_entries[i].m_metrics.m_height, -m_entries[i].m_angle.cos(), m_entries[i].m_angle.sin()), //< moving by angle = m_entries[i].m_angle - math::pi / 2
+              m_entries[i].m_pt.Move(m_metrics[i].m_height, -m_entries[i].m_angle.cos(), m_entries[i].m_angle.sin()), //< moving by angle = m_entries[i].m_angle - math::pi / 2
               m_entries[i].m_angle,
-              m2::RectD(m_entries[i].m_metrics.m_xOffset,
-                        m_entries[i].m_metrics.m_yOffset,
-                        m_entries[i].m_metrics.m_xOffset + m_entries[i].m_metrics.m_width,
-                        m_entries[i].m_metrics.m_yOffset + m_entries[i].m_metrics.m_height));
+              m2::RectD(m_metrics[i].m_xOffset,
+                        m_metrics[i].m_yOffset,
+                        m_metrics[i].m_xOffset + m_metrics[i].m_width,
+                        m_metrics[i].m_yOffset + m_metrics[i].m_height));
 
         for (map<double, m2::AARectD>::iterator it = rects.begin(); it != rects.end(); ++it)
           it->second.Add(symRectAA);
@@ -391,6 +404,11 @@ namespace yg
   vector<GlyphLayoutElem> const & GlyphLayout::entries() const
   {
     return m_entries;
+  }
+
+  vector<GlyphMetrics> const & GlyphLayout::metrics() const
+  {
+    return m_metrics;
   }
 
   m2::AARectD const GlyphLayout::limitRect() const

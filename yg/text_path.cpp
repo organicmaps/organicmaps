@@ -16,10 +16,24 @@ namespace yg
     : m_angle(angle), m_pp(pp)
   {}
 
-  TextPath::TextPath(m2::PointD const * arr, size_t sz, double fullLength, double & pathOffset)
-    : m_arr(arr), m_size(sz), m_reverse(false)
+  TextPath::TextPath() : m_reverse(false)
+  {}
+
+  TextPath::TextPath(TextPath const & src, math::Matrix<double, 3, 3> const & m)
+    : m_reverse(src.m_reverse),
+      m_arr(src.m_arr)
   {
-    ASSERT ( m_size > 1, () );
+    for (unsigned i = 0; i < m_arr.size(); ++i)
+      m_arr[i] = m_arr[i] * m;
+  }
+
+  TextPath::TextPath(m2::PointD const * arr, size_t sz, double fullLength, double & pathOffset)
+    : m_reverse(false)
+  {
+    ASSERT ( sz > 1, () );
+
+    m_arr.resize(sz);
+    copy(arr, arr + sz, m_arr.begin());
 
     /* assume, that readable text in path should be ('o' - start draw point):
      *    /   o
@@ -28,12 +42,12 @@ namespace yg
      * o         \
      */
 
-    double const a = ang::AngleTo(m_arr[0], m_arr[m_size-1]);
+    double const a = ang::AngleTo(m_arr[0], m_arr[m_arr.size() - 1]);
     if (fabs(a) > math::pi / 2.0)
     {
       // if we swap direction, we need to recalculate path offset from the end
       double len = 0.0;
-      for (size_t i = 1; i < m_size; ++i)
+      for (size_t i = 1; i < m_arr.size(); ++i)
         len += m_arr[i-1].Length(m_arr[i]);
 
       pathOffset = fullLength - pathOffset - len;
@@ -44,12 +58,12 @@ namespace yg
     }
   }
 
-  size_t TextPath::size() const { return m_size; }
+  size_t TextPath::size() const { return m_arr.size(); }
 
   m2::PointD TextPath::get(size_t i) const
   {
-    ASSERT ( i < m_size, ("Index out of range") );
-    return m_arr[m_reverse ? m_size - i - 1 : i];
+    ASSERT ( i < m_arr.size(), ("Index out of range") );
+    return m_arr[m_reverse ? m_arr.size() - i - 1 : i];
   }
 
   m2::PointD TextPath::operator[](size_t i) const { return get(i); }
