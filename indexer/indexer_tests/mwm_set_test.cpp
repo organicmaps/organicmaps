@@ -64,7 +64,7 @@ UNIT_TEST(MwmSetSmokeTest)
   TEST(info[2].isValid(), ());
   TEST_EQUAL(info[2].m_maxScale, 2, ());
   TEST(info[3].isValid(), ());
-  TEST_EQUAL(info[3].m_maxScale, 3, ());
+  TEST_EQUAL(info[3].m_maxScale, 4, ());
 
   mwmSet.Add("5");
   mwmSet.GetMwmInfo(info);
@@ -76,5 +76,5 @@ UNIT_TEST(MwmSetSmokeTest)
   TEST(info[2].isValid(), ());
   TEST_EQUAL(info[2].m_maxScale, 2, ());
   TEST(info[3].isValid(), ());
-  TEST_EQUAL(info[3].m_maxScale, 3, ());
+  TEST_EQUAL(info[3].m_maxScale, 4, ());
 }
