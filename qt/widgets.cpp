@@ -24,6 +24,9 @@ namespace qt
 
   void GLDrawWidget::initializeGL()
   {
+    /// we'll perform swap by ourselves, see issue #333
+    setAutoBufferSwap(false);
+
     if (m_p == 0)
     {
 #ifdef OMIM_OS_WINDOWS
@@ -75,6 +78,7 @@ namespace qt
       p.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
       p.m_skinName = GetPlatform().SkinName();
       p.m_visualScale = GetPlatform().VisualScale();
+      p.m_isSynchronized = true;
 
       m_p = shared_ptr<DrawerYG>(new DrawerYG(p));
     }

@@ -174,6 +174,10 @@ namespace qt
     m_framework->BeginPaint();
     shared_ptr<PaintEvent> paintEvent(new PaintEvent(p.get()));
     m_framework->DoPaint(paintEvent);
+
+    /// swapping buffers before ending the frame, see issue #333
+    swapBuffers();
+
     m_framework->EndPaint();
   }
 
