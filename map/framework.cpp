@@ -98,7 +98,9 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
 //  SetRenderPolicy(make_shared_ptr(new TilingRenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5, true))));
   SetRenderPolicy(make_shared_ptr(new RenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5, false))));
 #endif
+
   m_informationDisplay.setBottomShift(bottomShift);
+
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.enableDebugPoints(true);
 #endif
@@ -108,18 +110,19 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
 #endif
 
   m_informationDisplay.enableCenter(true);
-
   m_informationDisplay.enableRuler(true);
   m_informationDisplay.setRulerParams(m_minRulerWidth, m_metresMinWidth, m_metresMaxWidth);
-  m_navigator.SetMinScreenParams(m_minRulerWidth * GetPlatform().VisualScale(), m_metresMinWidth);
+
+  double const visScale = GetPlatform().VisualScale();
+  m_navigator.SetMinScreenParams(
+        static_cast<unsigned>(m_minRulerWidth * visScale), m_metresMinWidth);
 
 #ifdef DEBUG
   m_informationDisplay.enableDebugInfo(true);
 #endif
 
   m_informationDisplay.enableLog(GetPlatform().IsVisualLog(), m_windowHandle.get());
-
-  m_informationDisplay.setVisualScale(GetPlatform().VisualScale());
+  m_informationDisplay.setVisualScale(visScale);
 
   // initialize gps and compass subsystem
   GetLocationManager().SetGpsObserver(
@@ -127,11 +130,11 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
   GetLocationManager().SetCompassObserver(
         bind(&this_type::OnCompassUpdate, this, _1));
 
-    // set language priorities
-    languages::CodesT langCodes;
-    languages::GetCurrentSettings(langCodes);
-    languages::SaveSettings(langCodes);
-  }
+  // set language priorities
+  languages::CodesT langCodes;
+  languages::GetCurrentSettings(langCodes);
+  languages::SaveSettings(langCodes);
+}
 
 template <typename TModel>
 void Framework<TModel>::EnumLocalMaps(maps_list_t & filesList)
