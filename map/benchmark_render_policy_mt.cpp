@@ -19,7 +19,9 @@ void BenchmarkRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,
                                         ScreenBase const & s)
 {
   RenderPolicyMT::DrawFrame(e, s);
+  RenderPolicyMT::EndFrame();
   GetRenderQueue().WaitForEmptyAndFinished();
+  RenderPolicyMT::BeginFrame();
   RenderPolicyMT::DrawFrame(e, s);
 }
 
