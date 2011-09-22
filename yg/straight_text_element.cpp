@@ -135,7 +135,10 @@ namespace yg
         m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + m2::PointD(0, allElemHeight / 2));
 
     for (unsigned i = 0; i < res.size(); ++i)
-      m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + pivot());
+    {
+      m_offsets.push_back(m_glyphLayouts[i].pivot());
+      m_glyphLayouts[i].setPivot(m_offsets[i] + pivot());
+    }
   }
 
   StraightTextElement::Params::Params()
@@ -150,16 +153,13 @@ namespace yg
     : TextElement(src),
       m_glyphLayouts(src.m_glyphLayouts)
   {
-    static vector<m2::PointD> offsets;
-    offsets.clear();
-
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-      offsets.push_back(m2::PointD(m_glyphLayouts[i].pivot() - pivot()));
+      m_offsets = src.m_offsets;
 
     setPivot(pivot() * m);
 
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-      m_glyphLayouts[i].setPivot(pivot() + offsets[i]);
+      m_glyphLayouts[i].setPivot(pivot() + m_offsets[i]);
   }
 
   vector<m2::AARectD> const & StraightTextElement::boundRects() const

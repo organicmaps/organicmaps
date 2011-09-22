@@ -10,6 +10,7 @@ namespace yg
 
     /// glyph layout of the text parts.
     vector<GlyphLayout> m_glyphLayouts;
+    vector<m2::PointD> m_offsets;
 
   public:
 
