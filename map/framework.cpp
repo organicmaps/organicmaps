@@ -235,6 +235,18 @@ void Framework<TModel>::SetMaxWorldRect()
 }
 
 template <typename TModel>
+bool Framework<TModel>::NeedRedraw() const
+{
+  return m_windowHandle->needRedraw();
+}
+
+template <typename TModel>
+void Framework<TModel>::SetNeedRedraw(bool flag)
+{
+  m_windowHandle->setNeedRedraw(false);
+}
+
+template <typename TModel>
 void Framework<TModel>::Invalidate()
 {
   m_windowHandle->invalidate();

@@ -19,7 +19,7 @@ win32-msvc* {
 }
 
 macx {
-  LIBS += -framework CoreLocation -framework Foundation -framework CoreWLAN
+  LIBS += -framework CoreLocation -framework Foundation -framework CoreWLAN -framework QuartzCore
 
   ICON = res/mac.icns
   PLIST_FILE = Info.plist
@@ -77,7 +77,6 @@ HEADERS += \
     mainwindow.hpp \
     widgets.hpp \
     draw_widget.hpp \
-    qt_window_handle.hpp \
     proxystyle.hpp \
     slider_ctrl.hpp \
     about.hpp \

@@ -208,6 +208,9 @@ public:
 
   double GetCurrentScale() const;
 
+  bool NeedRedraw() const;
+  void SetNeedRedraw(bool flag);
+
   virtual void BeginPaint();
   /// Function for calling from platform dependent-paint function.
   virtual void DoPaint(shared_ptr<PaintEvent> e);

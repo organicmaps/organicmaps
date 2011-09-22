@@ -15,22 +15,28 @@ namespace yg
 
 class WindowHandle
 {
-  // iOS implementation needs this parameter.
-  // Desktop realization holds DrawerYG in draw_widget.hpp.
-  shared_ptr<DrawerYG> m_drawer;
-
   shared_ptr<yg::gl::RenderContext> m_renderContext;
 
   bool m_hasPendingUpdates;
   bool m_isUpdatesEnabled;
+  bool m_needRedraw;
 
 public:
-  WindowHandle() : m_hasPendingUpdates(false), m_isUpdatesEnabled(true) {}
+  WindowHandle() :
+    m_hasPendingUpdates(false),
+    m_isUpdatesEnabled(true),
+    m_needRedraw(true)
+  {}
   virtual ~WindowHandle() {}
 
-  shared_ptr<DrawerYG> const & drawer()
+  bool needRedraw() const
   {
-    return m_drawer;
+    return m_isUpdatesEnabled && m_needRedraw;
+  }
+
+  void setNeedRedraw(bool flag)
+  {
+    m_needRedraw = flag;
   }
 
   shared_ptr<yg::gl::RenderContext> const & renderContext()
@@ -43,17 +49,12 @@ public:
     m_renderContext = renderContext;
   }
 
-  void setDrawer(shared_ptr<DrawerYG> const & drawer)
-  {
-    m_drawer = drawer;
-  }
-
   bool setUpdatesEnabled(bool doEnable)
   {
     bool res = false;
     if ((!m_isUpdatesEnabled) && (doEnable) && (m_hasPendingUpdates))
     {
-      invalidateImpl();
+      setNeedRedraw(true);
       m_hasPendingUpdates = false;
       res = true;
     }
@@ -64,10 +65,8 @@ public:
   void invalidate()
   {
     if (m_isUpdatesEnabled)
-      invalidateImpl();
+      setNeedRedraw(true);
     else
       m_hasPendingUpdates = true;
   }
-
-  virtual void invalidateImpl() = 0;
 };

@@ -22,6 +22,11 @@ namespace qt
   {
   }
 
+  shared_ptr<GLDrawWidget::drawer_t> const & GLDrawWidget::GetDrawer() const
+  {
+    return m_p;
+  }
+
   void GLDrawWidget::initializeGL()
   {
     /// we'll perform swap by ourselves, see issue #333

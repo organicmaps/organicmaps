@@ -35,8 +35,15 @@ macx|iphone* {
 }
 
 macx:!iphone* {
-  OBJECTIVE_SOURCES += wifi_info_mac.mm
-  LIBS += -framework CoreWLAN
+  OBJECTIVE_SOURCES += wifi_info_mac.mm \
+                       apple_video_timer.mm
+
+  LIBS += -framework CoreWLAN -framework QuartzCore
+}
+
+iphone* {
+  OBJECTIVE_SOURCES += ios_video_timer.mm
+  LIBS += -framework QuartzCore
 }
 
 win32 {
@@ -52,9 +59,11 @@ HEADERS += \
     concurrent_runner.hpp \
     preferred_languages.hpp \
     settings.hpp \
+    video_timer.hpp
 
 SOURCES += \
     location_manager.cpp \
     preferred_languages.cpp \
     settings.cpp \
     platform.cpp \
+    video_timer.cpp

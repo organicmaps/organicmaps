@@ -33,6 +33,8 @@ namespace qt
     shared_ptr<yg::gl::RenderContext> const & renderContext();
     shared_ptr<yg::ResourceManager> const & resourceManager();
 
+    shared_ptr<drawer_t> const & GetDrawer() const;
+
   protected:
     virtual void initializeGL();
   };

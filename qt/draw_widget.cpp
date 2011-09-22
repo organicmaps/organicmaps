@@ -17,19 +17,32 @@ namespace qt
 {
   DrawWidget::DrawWidget(QWidget * pParent, Storage & storage)
     : base_type(pParent),
-      m_handle(new qt::WindowHandle(this)),
+      m_handle(new WindowHandle()),
       m_framework(FrameworkFactory<model_t>::CreateFramework(m_handle, 0)),
       m_isDrag(false),
       m_redrawInterval(100),
-      m_pScale(0)
+      m_pScale(0),
+      m_isInitialized(false),
+      m_isTimerStarted(false)
   {
     m_framework->InitStorage(storage);
     m_timer = new QTimer(this);
+//#ifdef OMIM_OS_MAC
+//    m_videoTimer.reset(CreateAppleVideoTimer(bind(&DrawWidget::DrawFrame, this)));
+//#else
+    m_animTimer = new QTimer(this);
+    connect(m_animTimer, SIGNAL(timeout()), this, SLOT(AnimTimerElapsed()));
+//#endif
     connect(m_timer, SIGNAL(timeout()), this, SLOT(ScaleTimerElapsed()));
   }
 
   void DrawWidget::PrepareShutdown()
   {
+//#ifdef OMIM_OS_MAC
+//    m_videoTimer->stop();
+//#else
+    m_animTimer->stop();
+//#endif
     m_framework->PrepareToShutdown();
   }
 
@@ -165,26 +178,51 @@ namespace qt
   {
     widget_type::initializeGL();
     m_handle->setRenderContext(renderContext());
-    //m_handle->setDrawer(GetDrawer());
     m_framework->InitializeGL(renderContext(), resourceManager());
+    m_isInitialized = true;
   }
 
-  void DrawWidget::DoDraw(shared_ptr<drawer_t> p)
+  void DrawWidget::DrawFrame()
   {
-    m_framework->BeginPaint();
-    shared_ptr<PaintEvent> paintEvent(new PaintEvent(p.get()));
-    m_framework->DoPaint(paintEvent);
+    if (m_framework->NeedRedraw())
+    {
+      makeCurrent();
+      m_framework->SetNeedRedraw(false);
+      m_framework->BeginPaint();
+      shared_ptr<PaintEvent> paintEvent(new PaintEvent(GetDrawer().get()));
+      m_framework->DoPaint(paintEvent);
 
-    /// swapping buffers before ending the frame, see issue #333
-    swapBuffers();
+      /// swapping buffers before ending the frame, see issue #333
+      swapBuffers();
 
-    m_framework->EndPaint();
+      m_framework->EndPaint();
+      doneCurrent();
+    }
+  }
+
+  void DrawWidget::DoDraw(shared_ptr<screen_t> p)
+  {
+    if ((m_isInitialized) && (!m_isTimerStarted))
+    {
+      /// timer should be started upon the first repaint
+      /// request to fully initialized GLWidget.
+      m_isTimerStarted = true;
+//#ifdef OMIM_OS_MAC
+//      m_videoTimer->start();
+//#else
+      m_animTimer->start(1000 / 60);
+//#endif
+    }
+
+    m_framework->Invalidate();
   }
 
   void DrawWidget::DoResize(int w, int h)
   {
     m_framework->OnSize(w, h);
     m_framework->Invalidate();
+    if (m_isInitialized && m_isTimerStarted)
+      DrawFrame();
     UpdateScaleControl();
     emit ViewportChanged();
   }
@@ -256,6 +294,11 @@ namespace qt
   void DrawWidget::ScaleTimerElapsed()
   {
     m_timer->stop();
+  }
+
+  void DrawWidget::AnimTimerElapsed()
+  {
+    DrawFrame();
   }
 
   void DrawWidget::wheelEvent(QWheelEvent * e)

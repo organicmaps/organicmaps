@@ -34,12 +34,11 @@ namespace yg
 	shared_ptr<iphone::RenderContext> renderContext;
 	shared_ptr<iphone::RenderBuffer> renderBuffer;
 	shared_ptr<yg::gl::FrameBuffer> frameBuffer;
-  shared_ptr<DrawerYG> drawer;
 
 @public
 
 	shared_ptr<iphone::WindowHandle> windowHandle;
-	shared_ptr<yg::ResourceManager> textureManager;
+  shared_ptr<DrawerYG> drawer;
 
   MapViewController * controller;
 }
@@ -50,6 +49,7 @@ namespace yg
 @property (nonatomic, assign) CADisplayLink * displayLink;
 @property (nonatomic, assign) MapViewController * controller;
 @property (nonatomic, assign) shared_ptr<iphone::WindowHandle> windowHandle;
+@property (nonatomic, assign) shared_ptr<DrawerYG> drawer;
 @property (nonatomic, assign) shared_ptr<iphone::RenderContext> renderContext;
 @property (nonatomic, assign) shared_ptr<yg::ResourceManager> resourceManager;
 

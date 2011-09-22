@@ -1,11 +1,13 @@
 #pragma once
 
-#include "qt_window_handle.hpp"
 #include "widgets.hpp"
 
+#include "../map/window_handle.hpp"
 #include "../map/feature_vec_model.hpp"
 #include "../map/framework.hpp"
 #include "../map/navigator.hpp"
+
+#include "../platform/video_timer.hpp"
 
 #include "../std/auto_ptr.hpp"
 
@@ -28,15 +30,22 @@ namespace qt
   {
     typedef widget_type base_type;
 
-    shared_ptr<qt::WindowHandle> m_handle;
+    shared_ptr<WindowHandle> m_handle;
+
+    shared_ptr<drawer_t> m_drawer;
+    bool m_isInitialized;
+    bool m_isTimerStarted;
 
     typedef model::FeaturesFetcher model_t;
 
     auto_ptr<Framework<model_t> > m_framework;
 
+    auto_ptr<VideoTimer> m_videoTimer;
+
     bool m_isDrag;
 
     QTimer * m_timer;
+    QTimer * m_animTimer;
     size_t m_redrawInterval;
 
     Q_OBJECT
@@ -59,6 +68,7 @@ namespace qt
     void Repaint();
     void ScaleChanged(int action);
     void ScaleTimerElapsed();
+    void AnimTimerElapsed();
 
   public:
     DrawWidget(QWidget * pParent, storage::Storage & storage);
@@ -86,9 +96,11 @@ namespace qt
     /// @name Overriden from base_type.
     //@{
     virtual void initializeGL();
-    virtual void DoDraw(shared_ptr<drawer_t> p);
+    virtual void DoDraw(shared_ptr<screen_t> p);
     virtual void DoResize(int w, int h);
     //@}
+
+    void DrawFrame();
 
     /// @name Overriden from QWidget.
     //@{

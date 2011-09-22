@@ -20,6 +20,7 @@ bool _inRepaint = false;
 
 @synthesize controller;
 @synthesize windowHandle;
+@synthesize drawer;
 @synthesize renderContext;
 @synthesize resourceManager;
 @synthesize displayLink;
@@ -143,7 +144,6 @@ bool _inRepaint = false;
 
     windowHandle = shared_ptr<iphone::WindowHandle>(new iphone::WindowHandle(_doRepaint));
     
-		windowHandle->setDrawer(drawer);
 		windowHandle->setRenderContext(renderContext);
     
     displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(drawView)];
@@ -174,19 +174,13 @@ bool _inRepaint = false;
 
 - (void)drawView
 {
-  if (!_inRepaint)
+  if (windowHandle->needRedraw())
   {
-    _inRepaint = true;
-  
-    if (_doRepaint)
-    {
-      _doRepaint = false;
-      [controller beginPaint];
-    	[controller doPaint];
-  	  renderBuffer->present();
-      [controller endPaint];
-    }
-    _inRepaint = false;
+    windowHandle->setNeedRedraw(false);
+    [controller beginPaint];
+  	[controller doPaint];
+	  renderBuffer->present();
+    [controller endPaint];
   }
 }
 
