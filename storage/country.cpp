@@ -1,5 +1,7 @@
 #include "country.hpp"
 
+#include "../defines.hpp"
+
 #include "../version/version.hpp"
 
 #include "../platform/platform.hpp"
@@ -77,13 +79,6 @@ namespace storage
 
   ////////////////////////////////////////////////////////////////////////
 
-//  template <class TArchive> TArchive & operator << (TArchive & ar, storage::Country const & country)
-//  {
-//    ar << country.m_name;
-//    ar << country.m_tiles;
-//    return ar;
-//  }
-
   bool LoadCountries(file_t const & file, TTilesContainer const & sortedTiles,
                      TCountriesContainer & countries)
   {
@@ -154,15 +149,13 @@ namespace storage
     return countries.SiblingsCount() > 0;
   }
 
-  void SaveTiles(string const & file, int32_t level, TDataFiles const & cellFiles, TCommonFiles const & commonFiles)
+  void SaveTiles(string const & file, TCommonFiles const & commonFiles)
   {
     FileWriter writer(file);
     stream::SinkWriterStream<Writer> wStream(writer);
 
     // save version - it's equal to current date in GMT
     wStream << my::TodayAsYYMMDD();
-    wStream << level;
-    wStream << cellFiles;
     wStream << commonFiles;
   }
 
@@ -175,19 +168,13 @@ namespace storage
       ReaderSource<file_t> source(file);
       stream::SinkReaderStream<ReaderSource<file_t> > stream(source);
 
-      TDataFiles dataFiles;
       TCommonFiles commonFiles;
 
-      int32_t level = -1;
       stream >> dataVersion;
-      stream >> level;
-      stream >> dataFiles;
       stream >> commonFiles;
 
-      tiles.reserve(dataFiles.size() + commonFiles.size());
+      tiles.reserve(commonFiles.size());
 
-      for (TDataFiles::iterator it = dataFiles.begin(); it != dataFiles.end(); ++it)
-        tiles.push_back(TTile(CountryCellId::FromBitsAndLevel(it->first, level).ToString(), it->second));
       for (TCommonFiles::iterator it = commonFiles.begin(); it != commonFiles.end(); ++it)
         tiles.push_back(TTile(it->first, it->second));
 
@@ -201,11 +188,4 @@ namespace storage
 
     return true;
   }
-
-//  void SaveCountries(TCountriesContainer const & countries, Writer & writer)
-//  {
-//    stream::SinkWriterStream<Writer> wStream(writer);
-//    wStream << MAPS_MAJOR_VERSION_BINARY_FORMAT;
-//    wStream << countries;
-//  }
 }
