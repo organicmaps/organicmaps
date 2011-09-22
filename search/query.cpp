@@ -138,7 +138,7 @@ Query::Query(string const & query, m2::RectD const & viewport, IndexType const *
     m_pCategories(pCategories),
     m_pTrieRoot(pTrieRoot),
     m_pFeatures(pFeatures),
-    m_pIndex(pIndex ? new IndexType(*pIndex) : NULL),
+    m_pIndex(/*pIndex ? new IndexType(*pIndex) : */NULL),
     m_resultsRemaining(10),
     m_pEngine(pEngine), m_bTerminate(false)
 {
@@ -255,7 +255,7 @@ void Query::Search(function<void (Result const &)> const & f)
     {
       FeatureProcessor featureProcessor(*this);
       /// @todo Tune depth scale search (1 is no enough)
-      m_pIndex->ForEachInRect(featureProcessor, m_viewport, min(scales::GetUpperScale(), scale + 7));
+      // m_pIndex->ForEachInRect(featureProcessor, m_viewport, min(scales::GetUpperScale(), scale + 7));
     }
     catch (FeatureProcessor::StopException &)
     {

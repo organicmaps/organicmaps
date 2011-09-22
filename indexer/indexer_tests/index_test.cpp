@@ -9,7 +9,7 @@
 
 UNIT_TEST(IndexParseTest)
 {
-  Index<ModelReaderPtr>::Type index;
+  Index index;
   index.Add("minsk-pass" DATA_FILE_EXTENSION);
 
   // Make sure that index is actually parsed.

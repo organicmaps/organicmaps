@@ -28,7 +28,7 @@ class Result;
 class Engine
 {
 public:
-  typedef Index<ModelReaderPtr>::Type IndexType;
+  typedef Index IndexType;
 
   /// Doesn't take ownership of @pIndex and @pTrieIterator. Modifies @categories.
   Engine(IndexType const * pIndex,

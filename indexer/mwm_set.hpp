@@ -11,7 +11,7 @@ class FilesContainerR;
 // Information about stored mwm.
 struct MwmInfo
 {
-  m2::RectU32 m_limitRect;  // Limit rect of mwm.
+  m2::RectD m_limitRect;    // Limit rect of mwm.
   uint8_t m_minScale;       // Min zoom level of mwm.
   uint8_t m_maxScale;       // Max zoom level of mwm.
 
@@ -40,12 +40,12 @@ public:
   class MwmLock
   {
   public:
-    MwmLock(MwmSet & mwmSet, MwmId mwmId);
+    MwmLock(MwmSet const & mwmSet, MwmId mwmId);
     ~MwmLock();
 
     FilesContainerR * GetFileContainer() const;
   private:
-    MwmSet & m_mwmSet;
+    MwmSet const & m_mwmSet;
     MwmId m_id;
     FilesContainerR * m_pFileContainer;
   };
@@ -57,7 +57,7 @@ public:
   void Remove(string const & fileName);
 
   // Get ids of all mwms. Some of them may be marked to remove.
-  void GetMwmInfo(vector<MwmInfo> & info);
+  void GetMwmInfo(vector<MwmInfo> & info) const;
 
   // Clear caches.
   void ClearCache();
@@ -72,8 +72,8 @@ private:
   // Update given MwmInfo.
   inline static void UpdateMwmInfo(MwmInfo & info);
 
-  FilesContainerR * LockContainer(MwmId id);
-  void UnlockContainer(MwmId id, FilesContainerR * pContainer);
+  FilesContainerR * LockContainer(MwmId id) const;
+  void UnlockContainer(MwmId id, FilesContainerR * pContainer) const;
 
   // Find first removed mwm or add a new one.
   MwmId GetFreeId();
@@ -84,11 +84,11 @@ private:
   // Do the cleaning for [beg, end) without acquiring the mutex.
   void ClearCacheImpl(CacheType::iterator beg, CacheType::iterator end);
 
-  vector<MwmInfo> m_info;
-  vector<string> m_name;
-  CacheType m_cache;
+  mutable vector<MwmInfo> m_info;
+  mutable vector<string> m_name;
+  mutable CacheType m_cache;
   size_t m_cacheSize;
   function<void (string const &, MwmInfo &)> const m_fnGetMwmInfo;
   function<FilesContainerR * (string const &)> const m_fnCreateContainer;
-  threads::Mutex m_lock;
+  mutable threads::Mutex m_lock;
 };

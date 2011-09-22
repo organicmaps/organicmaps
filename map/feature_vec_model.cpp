@@ -58,12 +58,12 @@ void FeaturesFetcher::RemoveMap(string const & fName)
 void FeaturesFetcher::Clean()
 {
   m_rect.MakeEmpty();
-  m_multiIndex.Clean();
+  // TODO: m_multiIndex.Clear(); - is it needed?
 }
 
 void FeaturesFetcher::ClearCaches()
 {
-  m_multiIndex.ClearCaches();
+  m_multiIndex.ClearCache();
 }
 
 m2::RectD FeaturesFetcher::GetWorldRect() const

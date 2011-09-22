@@ -16,7 +16,7 @@ struct MwmIdIsEqualTo
 };
 }  // unnamed namespace
 
-MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, MwmId mwmId)
+MwmSet::MwmLock::MwmLock(MwmSet const & mwmSet, MwmId mwmId)
   : m_mwmSet(mwmSet), m_id(mwmId), m_pFileContainer(mwmSet.LockContainer(mwmId))
 {
   LOG(LINFO, ("MwmLock::MwmLock()", m_id));
@@ -35,7 +35,7 @@ FilesContainerR * MwmSet::MwmLock::GetFileContainer() const
 }
 
 
-MwmSet::MwmSet(function<void (const string &, MwmInfo &)> const & fnGetMwmInfo,
+MwmSet::MwmSet(function<void (string const &, MwmInfo &)> const & fnGetMwmInfo,
                function<FilesContainerR * (string const &)> const & fnCreateContainer,
                size_t cacheSize)
   : m_cacheSize(cacheSize), m_fnGetMwmInfo(fnGetMwmInfo), m_fnCreateContainer(fnCreateContainer)
@@ -135,7 +135,7 @@ void MwmSet::Remove(string const & fileName)
   }
 }
 
-void MwmSet::GetMwmInfo(vector<MwmInfo> & info)
+void MwmSet::GetMwmInfo(vector<MwmInfo> & info) const
 {
   threads::MutexGuard mutexGuard(m_lock);
   UNUSED_VALUE(mutexGuard);
@@ -146,7 +146,7 @@ void MwmSet::GetMwmInfo(vector<MwmInfo> & info)
   info = m_info;
 }
 
-FilesContainerR * MwmSet::LockContainer(MwmId id)
+FilesContainerR * MwmSet::LockContainer(MwmId id) const
 {
   threads::MutexGuard mutexGuard(m_lock);
   UNUSED_VALUE(mutexGuard);
@@ -176,7 +176,7 @@ FilesContainerR * MwmSet::LockContainer(MwmId id)
   return m_fnCreateContainer(m_name[id]);
 }
 
-void MwmSet::UnlockContainer(MwmId id, FilesContainerR * pContainer)
+void MwmSet::UnlockContainer(MwmId id, FilesContainerR * pContainer) const
 {
   threads::MutexGuard mutexGuard(m_lock);
   UNUSED_VALUE(mutexGuard);

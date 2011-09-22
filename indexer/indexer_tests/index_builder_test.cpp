@@ -60,7 +60,7 @@ UNIT_TEST(BuildIndexTest)
 
   {
     // Check that index actually works.
-    Index<ModelReaderPtr>::Type index;
+    Index index;
     index.Add(fileName);
 
     // Make sure that index is actually parsed.

@@ -28,7 +28,7 @@ namespace model
   private:
     m2::RectD m_rect;
 
-    typedef Index<ReaderT>::Type index_t;
+    typedef Index index_t;
 
     index_t m_multiIndex;
 
