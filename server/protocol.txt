@@ -1,0 +1,63 @@
+Description: Sent when client opens Downloader
+Request: ID, CountriesV, PurchasesV
+{
+  "ID":"12345",                   // unique client id
+  "CountriesVersion":1,
+  "PurchasesVersion":1
+}
+Response: Credit [, CountriesV, Countries, PurchasesV, Purchases]
+{
+  "Credit":10,                    // current credit for the client
+  "CountriesV":2,                 // optional, latest version of countries list
+  "Countries":{...},              // optional, latest countries list with new prices and new countries
+  "PurchasesV":2,                 // optional, latest inapp purchases list version
+  "StoreIDS":["123","456","789"]  // optional, latest inapp purchases IDS
+}
+
+Description: Sent by client to validate payment and add credits
+Request: ID, Receipt
+{
+  "ID":"12345",
+  "Receipt":"ASD24@#$!@$%"        // base 64 encoded app store receipt to validate and store on our server
+}
+Response: Credit [, Error]
+{
+  "Credit":23,                          // current credit for the client
+  "Error":"Invalid purchase receipt"    // optional, sent if receipt was not validated by Apple server
+}
+
+Description: Sent by client to add some credit by entering friend promo code or any other public promo code
+Request: ID, PromoCode
+{
+  "ID":"12345",
+  "PromoCode":"123asdREWR24ad"
+}
+Response: Credit [, Error]
+{
+  "Credit":27,                            // current credit for the client
+  "Error":"Promo Code is already used"    // optional, sent if promo code is invalid
+}
+
+Description: Sent by client when he tries to download the country
+Request: ID, Country
+{
+  "ID":"12345",
+  "Country":"Belarus"
+}
+Response: Country[, Url | Error]
+{
+  "Country":"Belarus",
+  "Url":"http://blablalba.com/casd/234dsf",  // special url valid only for this client to download given country
+  "Error":"Invalid country or no credit"     // sent if no credit is left instead of Url
+}
+
+Description: Client requests own "Bring friend" code once, which should be entered as Promo code by any friend
+Request: ID, FriendCode
+{
+  "ID":"12345",
+  "FriendCode":""
+}
+Response: FriendCode
+{
+  "FriendCode":"ASDF123Gsdf342"  // unique promo code for this client, to bring his friends
+}
