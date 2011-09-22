@@ -5,13 +5,15 @@
 
 #include "../../platform/platform.hpp"
 
-
-class MwmValue
+namespace
+{
+class MwmValue : public MwmSet::MwmValueBase
 {
   FilesContainerR m_cont;
 public:
   MwmValue(string const & name) : m_cont(name) {}
 };
+}  // unnamed namespace
 
 namespace
 {

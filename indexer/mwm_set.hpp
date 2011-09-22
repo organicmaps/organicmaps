@@ -26,22 +26,19 @@ private:
   uint8_t m_status;         //
 };
 
-class MwmValue;
-
 class MwmSet
 {
-protected:
-  virtual void GetInfo(string const & name, MwmInfo & info) const = 0;
-  virtual MwmValue * CreateValue(string const & name) const = 0;
-  virtual void DestroyValue(MwmValue * p) const = 0;
-
-  void Cleanup();
-
 public:
   typedef size_t MwmId;
 
   explicit MwmSet(size_t cacheSize = 5);
   virtual ~MwmSet() = 0;
+
+  class MwmValueBase
+  {
+  public:
+    virtual ~MwmValueBase() {}
+  };
 
   // Mwm lock, which is used to lock mwm when its FileContainer is used.
   class MwmLock
@@ -50,12 +47,12 @@ public:
     MwmLock(MwmSet const & mwmSet, MwmId mwmId);
     ~MwmLock();
 
-    inline MwmValue * GetValue() const { return m_pValue; }
+    inline MwmValueBase * GetValue() const { return m_pValue; }
 
   private:
     MwmSet const & m_mwmSet;
     MwmId m_id;
-    MwmValue * m_pValue;
+    MwmValueBase * m_pValue;
   };
 
   // Add new mwm. Returns false, if mwm with given fileName already exists.
@@ -70,18 +67,24 @@ public:
   // Clear caches.
   void ClearCache();
 
+protected:
+  virtual void GetInfo(string const & name, MwmInfo & info) const = 0;
+  virtual MwmValueBase * CreateValue(string const & name) const = 0;
+
+  void Cleanup();
+
 private:
   friend class MwmLock;
 
   static const MwmId INVALID_MWM_ID = static_cast<MwmId>(-1);
 
-  typedef deque<pair<MwmId, MwmValue *> > CacheType;
+  typedef deque<pair<MwmId, MwmValueBase *> > CacheType;
 
   // Update given MwmInfo.
   inline static void UpdateMwmInfo(MwmInfo & info);
 
-  MwmValue * LockValue(MwmId id) const;
-  void UnlockValue(MwmId id, MwmValue * p) const;
+  MwmValueBase * LockValue(MwmId id) const;
+  void UnlockValue(MwmId id, MwmValueBase * p) const;
 
   // Find first removed mwm or add a new one.
   MwmId GetFreeId();

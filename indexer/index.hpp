@@ -14,7 +14,7 @@
 #include "../std/vector.hpp"
 
 
-class MwmValue
+class MwmValue : public MwmSet::MwmValueBase
 {
 public:
   FilesContainerR m_cont;
@@ -29,11 +29,21 @@ class Index : public MwmSet
 protected:
   virtual void GetInfo(string const & name, MwmInfo & info) const;
   virtual MwmValue * CreateValue(string const & name) const;
-  virtual void DestroyValue(MwmValue *) const;
 
 public:
   Index();
   ~Index();
+
+  class MwmLock : public MwmSet::MwmLock
+  {
+  public:
+    MwmLock(Index const & index, MwmId mwmId) : MwmSet::MwmLock(index, mwmId) {}
+
+    inline MwmValue * GetValue() const
+    {
+      return static_cast<MwmValue *>(MwmSet::MwmLock::GetValue());
+    }
+  };
 
   template <typename F>
   void ForEachInRect(F & f, m2::RectD const & rect, uint32_t scale) const
@@ -99,7 +109,8 @@ private:
         if (pValue)
         {
           FeaturesVector fv(pValue->m_cont, pValue->GetHeader());
-          ScaleIndex<ModelReaderPtr> index(pValue->m_cont.GetReader(INDEX_FILE_TAG), pValue->m_factory);
+          ScaleIndex<ModelReaderPtr> index(pValue->m_cont.GetReader(INDEX_FILE_TAG),
+                                           pValue->m_factory);
 
           unordered_set<uint32_t> offsets;
           ReadFeatureFunctor<F> f1(fv, f, offsets);

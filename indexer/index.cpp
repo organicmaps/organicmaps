@@ -27,11 +27,6 @@ MwmValue * Index::CreateValue(string const & name) const
   return new MwmValue(name);
 }
 
-void Index::DestroyValue(MwmValue * p) const
-{
-  delete p;
-}
-
 Index::Index()
 {
 }

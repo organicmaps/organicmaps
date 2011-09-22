@@ -12,7 +12,7 @@ namespace
   {
     MwmSet::MwmId m_id;
     explicit MwmIdIsEqualTo(MwmSet::MwmId id) : m_id(id) {}
-    bool operator() (pair<MwmSet::MwmId, MwmValue *> const & p) const
+    bool operator() (pair<MwmSet::MwmId, MwmSet::MwmValueBase *> const & p) const
     {
       return p.first == m_id;
     }
@@ -148,7 +148,7 @@ void MwmSet::GetMwmInfo(vector<MwmInfo> & info) const
   info = m_info;
 }
 
-MwmValue * MwmSet::LockValue(MwmId id) const
+MwmSet::MwmValueBase * MwmSet::LockValue(MwmId id) const
 {
   threads::MutexGuard mutexGuard(m_lock);
   UNUSED_VALUE(mutexGuard);
@@ -170,7 +170,7 @@ MwmValue * MwmSet::LockValue(MwmId id) const
   {
     if (it->first == id)
     {
-      MwmValue * result = it->second;
+      MwmValueBase * result = it->second;
       m_cache.erase(it);
       return result;
     }
@@ -178,7 +178,7 @@ MwmValue * MwmSet::LockValue(MwmId id) const
   return CreateValue(m_name[id]);
 }
 
-void MwmSet::UnlockValue(MwmId id, MwmValue * p) const
+void MwmSet::UnlockValue(MwmId id, MwmValueBase * p) const
 {
   threads::MutexGuard mutexGuard(m_lock);
   UNUSED_VALUE(mutexGuard);
@@ -201,12 +201,12 @@ void MwmSet::UnlockValue(MwmId id, MwmValue * p) const
     if (m_cache.size() > m_cacheSize)
     {
       ASSERT_EQUAL(m_cache.size(), m_cacheSize + 1, ());
-      DestroyValue(m_cache.front().second);
+      delete m_cache.front().second;
       m_cache.pop_front();
     }
   }
   else
-    DestroyValue(p);
+    delete p;
 }
 
 void MwmSet::ClearCache()
@@ -220,6 +220,6 @@ void MwmSet::ClearCache()
 void MwmSet::ClearCacheImpl(CacheType::iterator beg, CacheType::iterator end)
 {
   for (CacheType::iterator it = beg; it != end; ++it)
-    DestroyValue(it->second);
+    delete it->second;
   m_cache.erase(beg, end);
 }
