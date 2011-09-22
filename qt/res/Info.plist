@@ -24,6 +24,6 @@
     <string>@EXECUTABLE@</string>
     
     <key>CFBundleIdentifier</key>
-    <string>com.mapswithme.@EXECUTABLE@</string>
+    <string>com.mapswithme.mactestapp</string>
   </dict>
 </plist>
