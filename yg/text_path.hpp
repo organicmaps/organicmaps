@@ -26,8 +26,8 @@ namespace yg
 
   class TextPath
   {
-    buffer_vector<m2::PointD, 8> m_arr;
     bool m_reverse;
+    buffer_vector<m2::PointD, 8> m_arr;
   public:
 
     TextPath();
