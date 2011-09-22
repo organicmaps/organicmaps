@@ -1,22 +1,13 @@
 #include "../../testing/testing.hpp"
 #include "../mwm_set.hpp"
 
-#include "../../coding/file_container.hpp"
-
-#include "../../platform/platform.hpp"
 
 namespace
 {
-class MwmValue : public MwmSet::MwmValueBase
-{
-  FilesContainerR m_cont;
-public:
-  MwmValue(string const & name) : m_cont(name) {}
-};
-}  // unnamed namespace
+  class MwmValue : public MwmSet::MwmValueBase
+  {
+  };
 
-namespace
-{
   class TestMwmSet : public MwmSet
   {
   protected:
@@ -27,15 +18,14 @@ namespace
     }
     virtual MwmValue * CreateValue(string const &) const
     {
-      return new MwmValue(GetPlatform().WritablePathForFile("minsk-pass.mwm"));
-    }
-    virtual void DestroyValue(MwmValue * p) const
-    {
-      delete p;
+      return new MwmValue();
     }
 
   public:
-    ~TestMwmSet() { Cleanup(); }
+    ~TestMwmSet()
+    {
+      Cleanup();
+    }
   };
 }  // unnamed namespace
 

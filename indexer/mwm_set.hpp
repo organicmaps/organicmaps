@@ -74,8 +74,6 @@ protected:
   void Cleanup();
 
 private:
-  friend class MwmLock;
-
   static const MwmId INVALID_MWM_ID = static_cast<MwmId>(-1);
 
   typedef deque<pair<MwmId, MwmValueBase *> > CacheType;
