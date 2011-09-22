@@ -1,25 +1,43 @@
 #include "../../testing/testing.hpp"
 #include "../mwm_set.hpp"
+
 #include "../../coding/file_container.hpp"
+
 #include "../../platform/platform.hpp"
+
+
+class MwmValue
+{
+  FilesContainerR m_cont;
+public:
+  MwmValue(string const & name) : m_cont(name) {}
+};
 
 namespace
 {
-void SetMwmInfoForTest(string const & path, MwmInfo & info)
-{
-  int n = path[0] - '0';
-  info.m_maxScale = n;
-}
-FilesContainerR * CreateFileContainerForTest(string const &)
-{
-  return new FilesContainerR(GetPlatform().WritablePathForFile("minsk-pass.mwm"));
-}
+  class TestMwmSet : public MwmSet
+  {
+  protected:
+    virtual void GetInfo(string const & path, MwmInfo & info) const
+    {
+      int n = path[0] - '0';
+      info.m_maxScale = n;
+    }
+    virtual MwmValue * CreateValue(string const &) const
+    {
+      return new MwmValue(GetPlatform().WritablePathForFile("minsk-pass.mwm"));
+    }
+    virtual void DestroyValue(MwmValue * p) const
+    {
+      delete p;
+    }
+  };
 }  // unnamed namespace
 
 
 UNIT_TEST(MwmSetSmokeTest)
 {
-  MwmSet mwmSet(&SetMwmInfoForTest, &CreateFileContainerForTest);
+  TestMwmSet mwmSet;
   vector<MwmInfo> info;
 
   mwmSet.Add("0");
@@ -36,8 +54,8 @@ UNIT_TEST(MwmSetSmokeTest)
   {
     MwmSet::MwmLock lock0(mwmSet, 0);
     MwmSet::MwmLock lock1(mwmSet, 1);
-    TEST(lock0.GetFileContainer() != NULL, ());
-    TEST(lock1.GetFileContainer() == NULL, ());
+    TEST(lock0.GetValue() != NULL, ());
+    TEST(lock1.GetValue() == NULL, ());
   }
 
   mwmSet.Add("3");
@@ -52,7 +70,7 @@ UNIT_TEST(MwmSetSmokeTest)
 
   {
     MwmSet::MwmLock lock(mwmSet, 1);
-    TEST(lock.GetFileContainer() != NULL, ());
+    TEST(lock.GetValue() != NULL, ());
     mwmSet.Remove("3");
     mwmSet.Add("4");
   }

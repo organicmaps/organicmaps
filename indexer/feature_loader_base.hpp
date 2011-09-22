@@ -15,7 +15,7 @@ namespace feature
   /// This info is created once.
   class SharedLoadInfo
   {
-    FilesContainerR m_cont;
+    FilesContainerR const & m_cont;
     DataHeader const & m_header;
 
     typedef FilesContainerR::ReaderT ReaderT;

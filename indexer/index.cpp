@@ -3,27 +3,40 @@
 #include "../platform/platform.hpp"
 #include "../std/bind.hpp"
 
-namespace
-{
-  FilesContainerR * CreateFileContainer(string const & fileName)
-  {
-    return new FilesContainerR(GetPlatform().GetReader(fileName));
-  }
-}  // unnamed namespace
 
-Index::Index() : MwmSet(bind(&Index::FillInMwmInfo, this, _1, _2), &CreateFileContainer)
+MwmValue::MwmValue(string const & name)
+  : m_cont(GetPlatform().GetReader(name))
 {
+  m_factory.Load(m_cont);
 }
 
-void Index::FillInMwmInfo(string const & fileName, MwmInfo & info)
+void Index::GetInfo(string const & name, MwmInfo & info) const
 {
-  IndexFactory factory;
-  factory.Load(FilesContainerR(GetPlatform().GetReader(fileName)));
+  MwmValue value(name);
 
-  feature::DataHeader const & h = factory.GetHeader();
+  feature::DataHeader const & h = value.GetHeader();
   info.m_limitRect = h.GetBounds();
 
   pair<int, int> const scaleR = h.GetScaleRange();
   info.m_minScale = static_cast<uint8_t>(scaleR.first);
   info.m_maxScale = static_cast<uint8_t>(scaleR.second);
+}
+
+MwmValue * Index::CreateValue(string const & name) const
+{
+  return new MwmValue(name);
+}
+
+void Index::DestroyValue(MwmValue * p) const
+{
+  delete p;
+}
+
+Index::Index()
+{
+}
+
+Index::~Index()
+{
+  Cleanup();
 }

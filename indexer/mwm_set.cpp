@@ -1,7 +1,10 @@
 #include "mwm_set.hpp"
-#include "../coding/file_container.hpp"
+
 #include "../base/logging.hpp"
+#include "../base/macros.hpp"
+
 #include "../std/algorithm.hpp"
+
 
 namespace
 {
@@ -9,7 +12,7 @@ namespace
   {
     MwmSet::MwmId m_id;
     explicit MwmIdIsEqualTo(MwmSet::MwmId id) : m_id(id) {}
-    bool operator() (pair<MwmSet::MwmId, FilesContainerR *> const & p) const
+    bool operator() (pair<MwmSet::MwmId, MwmValue *> const & p) const
     {
       return p.first == m_id;
     }
@@ -17,7 +20,7 @@ namespace
 }  // unnamed namespace
 
 MwmSet::MwmLock::MwmLock(MwmSet const & mwmSet, MwmId mwmId)
-  : m_mwmSet(mwmSet), m_id(mwmId), m_pFileContainer(mwmSet.LockContainer(mwmId))
+  : m_mwmSet(mwmSet), m_id(mwmId), m_pValue(mwmSet.LockValue(mwmId))
 {
   //LOG(LINFO, ("MwmLock::MwmLock()", m_id));
 }
@@ -25,25 +28,22 @@ MwmSet::MwmLock::MwmLock(MwmSet const & mwmSet, MwmId mwmId)
 MwmSet::MwmLock::~MwmLock()
 {
   //LOG(LINFO, ("MwmLock::~MwmLock()", m_id));
-  if (m_pFileContainer)
-    m_mwmSet.UnlockContainer(m_id, m_pFileContainer);
-}
-
-FilesContainerR * MwmSet::MwmLock::GetFileContainer() const
-{
-  return m_pFileContainer;
+  if (m_pValue)
+    m_mwmSet.UnlockValue(m_id, m_pValue);
 }
 
 
-MwmSet::MwmSet(function<void (string const &, MwmInfo &)> const & fnGetMwmInfo,
-               function<FilesContainerR * (string const &)> const & fnCreateContainer,
-               size_t cacheSize)
-  : m_cacheSize(cacheSize), m_fnGetMwmInfo(fnGetMwmInfo), m_fnCreateContainer(fnCreateContainer)
+MwmSet::MwmSet(size_t cacheSize)
+  : m_cacheSize(cacheSize)
 {
   //LOG(LINFO, ("MwmSet::MwmSet()"));
 }
 
 MwmSet::~MwmSet()
+{
+}
+
+void MwmSet::Cleanup()
 {
   threads::MutexGuard mutexGuard(m_lock);
   UNUSED_VALUE(mutexGuard);
@@ -108,7 +108,7 @@ bool MwmSet::Add(string const & fileName)
   MwmId const id = GetFreeId();
   m_name[id] = fileName;
   memset(&m_info[id], 0, sizeof(MwmInfo));
-  m_fnGetMwmInfo(fileName, m_info[id]);
+  GetInfo(fileName, m_info[id]);
   m_info[id].m_lockCount = 0;
   m_info[id].m_status = MwmInfo::STATUS_ACTIVE;
   return true;
@@ -146,7 +146,7 @@ void MwmSet::GetMwmInfo(vector<MwmInfo> & info) const
   info = m_info;
 }
 
-FilesContainerR * MwmSet::LockContainer(MwmId id) const
+MwmValue * MwmSet::LockValue(MwmId id) const
 {
   threads::MutexGuard mutexGuard(m_lock);
   UNUSED_VALUE(mutexGuard);
@@ -168,24 +168,24 @@ FilesContainerR * MwmSet::LockContainer(MwmId id) const
   {
     if (it->first == id)
     {
-      FilesContainerR * result = it->second;
+      MwmValue * result = it->second;
       m_cache.erase(it);
       return result;
     }
   }
-  return m_fnCreateContainer(m_name[id]);
+  return CreateValue(m_name[id]);
 }
 
-void MwmSet::UnlockContainer(MwmId id, FilesContainerR * pContainer) const
+void MwmSet::UnlockValue(MwmId id, MwmValue * p) const
 {
   threads::MutexGuard mutexGuard(m_lock);
   UNUSED_VALUE(mutexGuard);
 
   //LOG(LINFO, ("MwmSet::UnlockContainer()", id));
 
-  ASSERT(pContainer, (id));
+  ASSERT(p, (id));
   ASSERT_LESS(id, m_info.size(), ());
-  if (id >= m_info.size() || !pContainer)
+  if (id >= m_info.size() || p == 0)
     return;
 
   ASSERT_GREATER(m_info[id].m_lockCount, 0, ());
@@ -195,16 +195,16 @@ void MwmSet::UnlockContainer(MwmId id, FilesContainerR * pContainer) const
 
   if (m_info[id].m_status == MwmInfo::STATUS_ACTIVE)
   {
-    m_cache.push_back(make_pair(id, pContainer));
+    m_cache.push_back(make_pair(id, p));
     if (m_cache.size() > m_cacheSize)
     {
       ASSERT_EQUAL(m_cache.size(), m_cacheSize + 1, ());
-      delete m_cache.front().second;
+      DestroyValue(m_cache.front().second);
       m_cache.pop_front();
     }
   }
   else
-    delete pContainer;
+    DestroyValue(p);
 }
 
 void MwmSet::ClearCache()
@@ -218,6 +218,6 @@ void MwmSet::ClearCache()
 void MwmSet::ClearCacheImpl(CacheType::iterator beg, CacheType::iterator end)
 {
   for (CacheType::iterator it = beg; it != end; ++it)
-    delete it->second;
+    DestroyValue(it->second);
   m_cache.erase(beg, end);
 }

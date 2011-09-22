@@ -4,18 +4,36 @@
 #include "feature_covering.hpp"
 #include "features_vector.hpp"
 #include "scale_index.hpp"
+#include "mwm_set.hpp"
+
+#include "../coding/file_container.hpp"
 
 #include "../../defines.hpp"
-#include "data_factory.hpp"
-#include "mwm_set.hpp"
 
 #include "../std/unordered_set.hpp"
 #include "../std/vector.hpp"
 
-class Index : public MwmSet
+
+class MwmValue
 {
 public:
+  FilesContainerR m_cont;
+  IndexFactory m_factory;
+
+  MwmValue(string const & name);
+  feature::DataHeader const & GetHeader() const { return m_factory.GetHeader(); }
+};
+
+class Index : public MwmSet
+{
+protected:
+  virtual void GetInfo(string const & name, MwmInfo & info) const;
+  virtual MwmValue * CreateValue(string const & name) const;
+  virtual void DestroyValue(MwmValue *) const;
+
+public:
   Index();
+  ~Index();
 
   template <typename F>
   void ForEachInRect(F & f, m2::RectD const & rect, uint32_t scale) const
@@ -77,13 +95,12 @@ private:
           rect.IsIntersect(mwm[id].m_limitRect))
       {
         MwmLock lock(*this, id);
-        FilesContainerR * pContainer = lock.GetFileContainer();
-        if (pContainer)
+        MwmValue * pValue = lock.GetValue();
+        if (pValue)
         {
-          IndexFactory factory;
-          factory.Load(*pContainer);
-          FeaturesVector fv(*pContainer, factory.GetHeader());
-          ScaleIndex<ModelReaderPtr> index(pContainer->GetReader(INDEX_FILE_TAG), factory);
+          FeaturesVector fv(pValue->m_cont, pValue->GetHeader());
+          ScaleIndex<ModelReaderPtr> index(pValue->m_cont.GetReader(INDEX_FILE_TAG), pValue->m_factory);
+
           unordered_set<uint32_t> offsets;
           ReadFeatureFunctor<F> f1(fv, f, offsets);
           for (size_t i = 0; i < intervals.size(); ++i)
@@ -94,7 +111,4 @@ private:
       }
     }
   }
-
-
-  void FillInMwmInfo(string const & path, MwmInfo & info);
 };
