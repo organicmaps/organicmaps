@@ -20,8 +20,8 @@ namespace yg
   {}
 
   TextPath::TextPath(TextPath const & src, math::Matrix<double, 3, 3> const & m)
-    : m_reverse(src.m_reverse),
-      m_arr(src.m_arr)
+    : m_arr(src.m_arr),
+      m_reverse(src.m_reverse)
   {
     for (unsigned i = 0; i < m_arr.size(); ++i)
       m_arr[i] = m_arr[i] * m;
