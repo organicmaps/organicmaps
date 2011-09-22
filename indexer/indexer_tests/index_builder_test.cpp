@@ -4,6 +4,7 @@
 #include "../index_builder.hpp"
 #include "../classificator_loader.hpp"
 #include "../features_vector.hpp"
+#include "../scales.hpp"
 
 #include "../../defines.hpp"
 
@@ -33,7 +34,9 @@ UNIT_TEST(BuildIndexTest)
     FeaturesVector featuresVector(originalContainer, header);
 
     MemWriter<vector<char> > serialWriter(serialIndex);
-    indexer::BuildIndex(ScaleIndexBase::NUM_BUCKETS, featuresVector, serialWriter,
+    indexer::BuildIndex(ScaleIndexBase::NUM_BUCKETS,
+                        make_pair(0, scales::GetUpperScale()),
+                        featuresVector, serialWriter,
                         "build_index_test");
   }
 

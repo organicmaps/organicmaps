@@ -56,9 +56,11 @@ class FeatureCoverer
 
 public:
   FeatureCoverer(uint32_t bucket,
+                 pair<int, int> const & scaleRange,
                  SorterT & sorter,
-                 uint32_t & numFeatures) :
-      m_Sorter(sorter),
+                 uint32_t & numFeatures)
+    : m_Sorter(sorter),
+      m_mwmScaleRange(scaleRange),
       m_ScaleRange(ScaleIndexBase::ScaleRangeForBucket(bucket)),
       m_NumFeatures(numFeatures)
   {
@@ -69,7 +71,9 @@ public:
   {
     if (FeatureShouldBeIndexed(f))
     {
+      /// @todo Use m_mwmScaleRange to make better covering.
       vector<int64_t> const cells = covering::CoverFeature(f, RectId::DEPTH_LEVELS, 250);
+
       for (vector<int64_t>::const_iterator it = cells.begin(); it != cells.end(); ++it)
         m_Sorter.Add(CellFeaturePair(*it, offset));
       ++m_NumFeatures;
@@ -89,6 +93,7 @@ public:
 
 private:
   SorterT & m_Sorter;
+  pair<int, int> m_mwmScaleRange;
   pair<uint32_t, uint32_t> m_ScaleRange;
   uint32_t & m_NumFeatures;
 };
@@ -112,6 +117,7 @@ private:
 
 template <class FeaturesVectorT, class WriterT>
 inline void IndexScales(uint32_t bucketsCount,
+                        pair<int, int> const & scaleRange,
                         FeaturesVectorT const & featuresVector,
                         WriterT & writer,
                         string const & tmpFilePrefix)
@@ -133,7 +139,7 @@ inline void IndexScales(uint32_t bucketsCount,
       WriterFunctor<FileWriter> out(cellsToFeaturesWriter);
       SorterType sorter(1024*1024, tmpFilePrefix + ".c2f.tmp", out);
       featuresVector.ForEachOffset(
-            FeatureCoverer<SorterType>(bucket, sorter, numFeatures));
+            FeatureCoverer<SorterType>(bucket, scaleRange, sorter, numFeatures));
       // LOG(LINFO, ("Sorting..."));
       sorter.SortAndFinish();
     }

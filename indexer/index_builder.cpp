@@ -24,7 +24,7 @@ namespace indexer
 
       FeaturesVector featuresVector(readCont, header);
 
-      BuildIndex(header.GetLastScale() + 1, featuresVector, writer, tmpFile);
+      BuildIndex(header.GetLastScale() + 1, header.GetScaleRange(), featuresVector, writer, tmpFile);
     }
     catch (Reader::Exception const & e)
     {

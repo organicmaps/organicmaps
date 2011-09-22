@@ -6,6 +6,7 @@ namespace indexer
 {
   template <class FeaturesVectorT, typename WriterT>
   void BuildIndex(uint32_t bucketsCount,
+                  pair<int, int> const & scaleRange,
                   FeaturesVectorT const & featuresVector,
                   WriterT & writer,
                   string const & tmpFilePrefix)
@@ -14,7 +15,7 @@ namespace indexer
     uint64_t indexSize;
     {
       SubWriter<WriterT> subWriter(writer);
-      IndexScales(bucketsCount, featuresVector, subWriter, tmpFilePrefix);
+      IndexScales(bucketsCount, scaleRange, featuresVector, subWriter, tmpFilePrefix);
       indexSize = subWriter.Size();
     }
     LOG(LINFO, ("Built scale index. Size =", indexSize));
