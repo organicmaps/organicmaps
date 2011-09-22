@@ -31,6 +31,9 @@ namespace
     {
       delete p;
     }
+
+  public:
+    ~TestMwmSet() { Cleanup(); }
   };
 }  // unnamed namespace
 

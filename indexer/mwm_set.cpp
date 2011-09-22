@@ -41,6 +41,8 @@ MwmSet::MwmSet(size_t cacheSize)
 
 MwmSet::~MwmSet()
 {
+  // Need do call Cleanup() in derived class.
+  ASSERT ( m_cache.empty(), () );
 }
 
 void MwmSet::Cleanup()

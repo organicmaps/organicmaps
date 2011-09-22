@@ -63,7 +63,7 @@ UNIT_TEST(SaveLoadPolyline_DataSet1)
     TEST(is_equal(data1[i], data2[i]), (data1[i], data2[i]));
   }
 
-  LOG(LINFO, (data2));
+  //LOG(LINFO, (data2));
 
   TEST(is_equal(r1, r2), (r1, r2));
 }

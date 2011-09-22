@@ -1,7 +1,7 @@
 #include "index.hpp"
 #include "data_header.hpp"
+
 #include "../platform/platform.hpp"
-#include "../std/bind.hpp"
 
 
 MwmValue::MwmValue(string const & name)
