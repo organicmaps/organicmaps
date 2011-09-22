@@ -29,6 +29,7 @@ namespace qt
     typedef DrawerYG drawer_t;
 
     GLDrawWidget(QWidget * pParent);
+    ~GLDrawWidget();
 
     shared_ptr<yg::gl::RenderContext> const & renderContext();
     shared_ptr<yg::ResourceManager> const & resourceManager();

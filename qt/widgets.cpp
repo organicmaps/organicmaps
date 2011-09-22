@@ -27,6 +27,13 @@ namespace qt
     return m_p;
   }
 
+  GLDrawWidget::~GLDrawWidget()
+  {
+    makeCurrent();
+    m_p.reset();
+    doneCurrent();
+  }
+
   void GLDrawWidget::initializeGL()
   {
     /// we'll perform swap by ourselves, see issue #333
