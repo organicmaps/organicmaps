@@ -21,7 +21,10 @@ public:
   IndexFactory m_factory;
 
   MwmValue(string const & name);
-  feature::DataHeader const & GetHeader() const { return m_factory.GetHeader(); }
+  inline feature::DataHeader const & GetHeader() const
+  {
+    return m_factory.GetHeader();
+  }
 };
 
 class Index : public MwmSet
@@ -48,25 +51,19 @@ public:
   template <typename F>
   void ForEachInRect(F & f, m2::RectD const & rect, uint32_t scale) const
   {
-    ForEachInIntervals(f, covering::CoverViewportAndAppendLowerLevels(rect, RectId::DEPTH_LEVELS),
-                       rect, scale);
+    ForEachInIntervals(f, 0, rect, scale);
   }
 
   template <typename F>
   void ForEachInRect_TileDrawing(F & f, m2::RectD const & rect, uint32_t scale) const
   {
-    covering::IntervalsT intervals;
-    covering::AppendLowerLevels(covering::GetRectIdAsIs(rect), RectId::DEPTH_LEVELS, intervals);
-    ForEachInIntervals(f, intervals, rect, scale);
+    ForEachInIntervals(f, 1, rect, scale);
   }
 
   template <typename F>
   void ForEachInScale(F & f, uint32_t scale) const
   {
-    covering::IntervalsT intervals;
-    intervals.push_back(covering::IntervalsT::value_type(
-                          0, static_cast<int64_t>((1ULL << 63) - 1)));
-    ForEachInIntervals(f, intervals, m2::RectD::GetInfiniteRect(), scale);
+    ForEachInIntervals(f, 2, m2::RectD::GetInfiniteRect(), scale);
   }
 
 private:
@@ -92,13 +89,22 @@ private:
     }
   };
 
+  /// @param[in] mode\n
+  /// - 0 - cover viewport with low lovels;\n
+  /// - 1 - cover append low levels only;\n
+  /// - 2 - make full cover\n
+  static void GetCovering(m2::RectD const & rect,
+                          int mode, int cellDepth,
+                          covering::IntervalsT & res);
 
   template <typename F>
-  void ForEachInIntervals(F & f, covering::IntervalsT const & intervals,
-                          m2::RectD const & rect, uint32_t scale) const
+  void ForEachInIntervals(F & f, int mode, m2::RectD const & rect, uint32_t scale) const
   {
     vector<MwmInfo> mwm;
     GetMwmInfo(mwm);
+
+    covering::IntervalsT intervals[2];
+
     for (MwmId id = 0; id < mwm.size(); ++id)
     {
       if ((mwm[id].m_minScale <= scale && scale <= mwm[id].m_maxScale) &&
@@ -108,15 +114,26 @@ private:
         MwmValue * pValue = lock.GetValue();
         if (pValue)
         {
-          FeaturesVector fv(pValue->m_cont, pValue->GetHeader());
+          feature::DataHeader const & header = pValue->GetHeader();
+
+          // prepare needed covering
+          int const cellDepth = covering::GetCodingDepth(header.GetScaleRange());
+          int const ind = (cellDepth == RectId::DEPTH_LEVELS ? 0 : 1);
+
+          if (intervals[ind].empty())
+            GetCovering(rect, mode, cellDepth, intervals[ind]);
+
+          // prepare features reading
+          FeaturesVector fv(pValue->m_cont, header);
           ScaleIndex<ModelReaderPtr> index(pValue->m_cont.GetReader(INDEX_FILE_TAG),
                                            pValue->m_factory);
 
+          // iterate through intervals
           unordered_set<uint32_t> offsets;
           ReadFeatureFunctor<F> f1(fv, f, offsets);
-          for (size_t i = 0; i < intervals.size(); ++i)
+          for (size_t i = 0; i < intervals[ind].size(); ++i)
           {
-            index.ForEachInIntervalAndScale(f1, intervals[i].first, intervals[i].second, scale);
+            index.ForEachInIntervalAndScale(f1, intervals[ind][i].first, intervals[ind][i].second, scale);
           }
         }
       }

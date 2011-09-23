@@ -2,9 +2,13 @@
 #include "cell_coverer.hpp"
 #include "cell_id.hpp"
 #include "feature.hpp"
+#include "scales.hpp"
+
 #include "../geometry/covering_utils.hpp"
+
 #include "../base/base.hpp"
 #include "../base/stl_add.hpp"
+
 #include "../std/algorithm.hpp"
 #include "../std/bind.hpp"
 #include "../std/vector.hpp"
@@ -119,16 +123,16 @@ vector<int64_t> CoverFeature(FeatureType const & f, int cellDepth, uint64_t cell
   return res;
 }
 
-IntervalsT SortAndMergeIntervals(IntervalsT v)
+void SortAndMergeIntervals(IntervalsT v, IntervalsT & res)
 {
 #ifdef DEBUG
+  ASSERT ( res.empty(), () );
   for (size_t i = 0; i < v.size(); ++i)
     ASSERT_LESS(v[i].first, v[i].second, (i));
 #endif
 
   sort(v.begin(), v.end());
 
-  IntervalsT res;
   res.reserve(v.size());
   for (size_t i = 0; i < v.size(); ++i)
   {
@@ -137,7 +141,12 @@ IntervalsT SortAndMergeIntervals(IntervalsT v)
     else
       res.back().second = max(res.back().second, v[i].second);
   }
+}
 
+IntervalsT SortAndMergeIntervals(IntervalsT const & v)
+{
+  IntervalsT res;
+  SortAndMergeIntervals(v, res);
   return res;
 }
 
@@ -153,7 +162,7 @@ void AppendLowerLevels(RectId id, int cellDepth, IntervalsT & intervals)
   }
 }
 
-IntervalsT CoverViewportAndAppendLowerLevels(m2::RectD const & r, int cellDepth)
+void CoverViewportAndAppendLowerLevels(m2::RectD const & r, int cellDepth, IntervalsT & res)
 {
   vector<RectId> ids;
   CoverRect<MercatorBounds, RectId>(r.minX(), r.minY(), r.maxX(), r.maxY(), 8, ids);
@@ -164,7 +173,7 @@ IntervalsT CoverViewportAndAppendLowerLevels(m2::RectD const & r, int cellDepth)
   for (size_t i = 0; i < ids.size(); ++i)
     AppendLowerLevels(ids[i], cellDepth, intervals);
 
-  return SortAndMergeIntervals(intervals);
+  SortAndMergeIntervals(intervals, res);
 }
 
 RectId GetRectIdAsIs(m2::RectD const & r)
@@ -176,6 +185,16 @@ RectId GetRectIdAsIs(m2::RectD const & r)
     MercatorBounds::ClampY(r.minY() + eps),
     MercatorBounds::ClampX(r.maxX() - eps),
     MercatorBounds::ClampY(r.maxY() - eps));
+}
+
+int GetCodingDepth(pair<int, int> const & scalesR)
+{
+  ASSERT_LESS_OR_EQUAL ( scalesR.first, scalesR.second, () );
+
+  int const delta = scales::GetUpperScale() - scalesR.second;
+  ASSERT_GREATER_OR_EQUAL ( delta, 0, () );
+
+  return (RectId::DEPTH_LEVELS - delta);
 }
 
 }

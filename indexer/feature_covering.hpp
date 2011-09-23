@@ -22,10 +22,14 @@ namespace covering
   void AppendLowerLevels(RectId id, int cellDepth, IntervalsT & intervals);
 
   // Cover viewport with RectIds and append their RectIds as well.
-  IntervalsT CoverViewportAndAppendLowerLevels(m2::RectD const & rect, int cellDepth);
+  void CoverViewportAndAppendLowerLevels(m2::RectD const & rect, int cellDepth,
+                                         IntervalsT & intervals);
 
   // Given a vector of intervals [a, b), sort them and merge overlapping intervals.
-  IntervalsT SortAndMergeIntervals(IntervalsT intervals);
+  IntervalsT SortAndMergeIntervals(IntervalsT const & intervals);
 
   RectId GetRectIdAsIs(m2::RectD const & r);
+
+  // Calculate cell coding depth according to max visual scale for mwm.
+  int GetCodingDepth(pair<int, int> const & scalesR);
 }

@@ -35,3 +35,25 @@ Index::~Index()
 {
   Cleanup();
 }
+
+using namespace covering;
+
+void Index::GetCovering(m2::RectD const & rect, int mode, int cellDepth, IntervalsT & res)
+{
+  ASSERT ( res.empty(), () );
+
+  switch (mode)
+  {
+  case 0:
+    CoverViewportAndAppendLowerLevels(rect, cellDepth, res);
+    break;
+
+  case 1:
+    AppendLowerLevels(GetRectIdAsIs(rect), cellDepth, res);
+    break;
+
+  case 2:
+    res.push_back(IntervalsT::value_type(0, static_cast<int64_t>((1ULL << 63) - 1)));
+    break;
+  }
+}
