@@ -49,6 +49,24 @@ UNIT_TEST(CellId_ToInt64)
   TEST_EQUAL(m2::CellId<3>("33").ToInt64(3), 21, ());
 }
 
+UNIT_TEST(CellId_ToInt64_LevelLessThanDepth)
+{
+  TEST_EQUAL(m2::CellId<3>("").ToInt64(2), 1, ());
+  TEST_EQUAL(m2::CellId<3>("0").ToInt64(2), 2, ());
+  TEST_EQUAL(m2::CellId<3>("1").ToInt64(2), 3, ());
+  TEST_EQUAL(m2::CellId<3>("2").ToInt64(2), 4, ());
+  TEST_EQUAL(m2::CellId<3>("3").ToInt64(2), 5, ());
+  TEST_EQUAL(m2::CellId<3>("00").ToInt64(2), 2, ());
+  TEST_EQUAL(m2::CellId<3>("01").ToInt64(2), 2, ());
+  TEST_EQUAL(m2::CellId<3>("03").ToInt64(2), 2, ());
+  TEST_EQUAL(m2::CellId<3>("10").ToInt64(2), 3, ());
+  TEST_EQUAL(m2::CellId<3>("20").ToInt64(2), 4, ());
+  TEST_EQUAL(m2::CellId<3>("23").ToInt64(2), 4, ());
+  TEST_EQUAL(m2::CellId<3>("30").ToInt64(2), 5, ());
+  TEST_EQUAL(m2::CellId<3>("31").ToInt64(2), 5, ());
+  TEST_EQUAL(m2::CellId<3>("33").ToInt64(2), 5, ());
+}
+
 UNIT_TEST(CellId_FromInt64)
 {
   TEST_EQUAL(m2::CellId<3>(""), m2::CellId<3>::FromInt64(1, 3), ());

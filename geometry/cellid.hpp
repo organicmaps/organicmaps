@@ -238,18 +238,24 @@ public:
   {
     ASSERT(0 < depth && depth <= DEPTH_LEVELS, (m_Bits, m_Level, depth));
     ASSERT(IsValid(), (m_Bits, m_Level));
-    uint64_t bits = m_Bits, res = 0;
-    for (int i = 0; i <= m_Level; ++i, bits >>= 2)
-      res += bits + 1;
-    bits = m_Bits;
-    for (int i = m_Level + 1; i < depth; ++i)
+
+    if (m_Level >= depth)
+      return AncestorAtLevel(depth - 1).ToInt64(depth);
+    else
     {
-      bits <<= 2;
-      res += bits;
+      uint64_t bits = m_Bits, res = 0;
+      for (int i = 0; i <= m_Level; ++i, bits >>= 2)
+        res += bits + 1;
+      bits = m_Bits;
+      for (int i = m_Level + 1; i < depth; ++i)
+      {
+        bits <<= 2;
+        res += bits;
+      }
+      ASSERT_GREATER(res, 0, (m_Bits, m_Level));
+      ASSERT_LESS_OR_EQUAL(res, TreeSizeForDepth(depth), (m_Bits, m_Level));
+      return static_cast<int64_t>(res);
     }
-    ASSERT_GREATER(res, 0, (m_Bits, m_Level));
-    ASSERT_LESS_OR_EQUAL(res, TreeSizeForDepth(depth), (m_Bits, m_Level));
-    return static_cast<int64_t>(res);
   }
 
   // Level order, numbering by Z-curve.
