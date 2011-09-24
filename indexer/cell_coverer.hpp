@@ -26,7 +26,7 @@ inline void SplitRectCell(CellIdT id,
 template <typename BoundsT, typename CellIdT>
 inline void CoverRect(CoordT minX, CoordT minY,
                       CoordT maxX, CoordT maxY,
-                      size_t cells_count,
+                      size_t cells_count, int maxDepth,
                       vector<CellIdT> & cells)
 {
   ASSERT_LESS(minX, maxX, ());
@@ -53,7 +53,7 @@ inline void CoverRect(CoordT minX, CoordT minY,
     CellIdT id = cellQueue.front();
     cellQueue.pop();
 
-    if (id.Level() == CellIdT::DEPTH_LEVELS - 1)
+    if (id.Level() == maxDepth - 1)
     {
       result.push_back(id);
       break;
@@ -85,7 +85,7 @@ inline void CoverRect(CoordT minX, CoordT minY,
   for (size_t i = 0; i < result.size(); ++i)
   {
     CellIdT id = result[i];
-    while (id.Level() < CellIdT::DEPTH_LEVELS - 1)
+    while (id.Level() < maxDepth - 1)
     {
       vector<CellIdT> children;
       SplitRectCell<BoundsT>(id, minX, minY, maxX, maxY, children);

@@ -165,7 +165,7 @@ void AppendLowerLevels(RectId id, int cellDepth, IntervalsT & intervals)
 void CoverViewportAndAppendLowerLevels(m2::RectD const & r, int cellDepth, IntervalsT & res)
 {
   vector<RectId> ids;
-  CoverRect<MercatorBounds, RectId>(r.minX(), r.minY(), r.maxX(), r.maxY(), 8, ids);
+  CoverRect<MercatorBounds, RectId>(r.minX(), r.minY(), r.maxX(), r.maxY(), 8, cellDepth, ids);
 
   IntervalsT intervals;
   intervals.reserve(ids.size() * 4);
