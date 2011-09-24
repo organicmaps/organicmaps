@@ -1,9 +1,12 @@
 #pragma once
 
-#include "engine.hpp"
+/*
+
+#include "search_engine.hpp"
 #include "intermediate_result.hpp"
 #include "keyword_matcher.hpp"
 #include "result.hpp"
+#include "../indexer/search_trie.hpp"
 #include "../geometry/rect2d.hpp"
 #include "../base/string_utils.hpp"
 #include "../std/function.hpp"
@@ -27,7 +30,7 @@ public:
   typedef Engine::IndexType IndexType;
 
   Query(string const & query, m2::RectD const & viewport, IndexType const * pIndex,
-        Engine * pEngine, CategoriesHolder * pCategories,
+        CategoriesHolder * pCategories,
         TrieIterator * pTrieRoot, FeaturesVector * pFeatures);
   ~Query();
 
@@ -71,9 +74,9 @@ private:
   priority_queue<IntermediateResult> m_results;
   int m_resultsRemaining;
 
-  Engine * m_pEngine;
   bool volatile m_bTerminate;
 };
 
 }  // namespace search::impl
 }  // namespace search
+*/

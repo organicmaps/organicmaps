@@ -18,6 +18,13 @@ Result::Result(string const & str, string const & suggestionStr)
 {
 }
 
+Result Result::GetEndResult()
+{
+  Result result("", "");
+  ASSERT(result.IsEndMarker(), ());
+  return result;
+}
+
 Result::ResultType Result::GetResultType() const
 {
   if (!m_suggestionStr.empty())

@@ -48,22 +48,4 @@ struct EdgeValueReader
       search::trie::ValueReader::ValueType,
       search::trie::EdgeValueReader::ValueType> TrieIterator;
 
-  class SearchInfo
-  {
-    FeaturesVector m_features;
-    scoped_ptr<TrieIterator> m_iterator;
-
-  public:
-    SearchInfo(FilesContainerR const & cont, feature::DataHeader const & header)
-      : m_features(cont, header),
-        m_iterator(::trie::reader::ReadTrie(
-                        cont.GetReader(SEARCH_INDEX_FILE_TAG),
-                        trie::ValueReader(),
-                        trie::EdgeValueReader()))
-    {
-    }
-
-    TrieIterator * GetTrie() { return m_iterator.get(); }
-    FeaturesVector * GetFeatures() { return &m_features; }
-  };
 }  // namespace search

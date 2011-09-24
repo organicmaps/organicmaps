@@ -19,6 +19,7 @@ public:
          double distanceFromCenter, double directionFromCenter);
   Result(string const & str, string const & suggestionStr);
 
+  static Result GetEndResult();
   bool IsEndMarker() const { return m_str.empty(); }
 
   // String that is displayed in the GUI.

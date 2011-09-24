@@ -133,7 +133,8 @@ private:
           ReadFeatureFunctor<F> f1(fv, f, offsets);
           for (size_t i = 0; i < intervals[ind].size(); ++i)
           {
-            index.ForEachInIntervalAndScale(f1, intervals[ind][i].first, intervals[ind][i].second, scale);
+            index.ForEachInIntervalAndScale(f1, intervals[ind][i].first, intervals[ind][i].second,
+                                            scale);
           }
         }
       }

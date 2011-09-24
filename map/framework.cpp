@@ -9,7 +9,7 @@
 
 #include "../platform/settings.hpp"
 
-#include "../search/engine.hpp"
+#include "../search/search_engine.hpp"
 #include "../search/result.hpp"
 #include "../search/categories_holder.hpp"
 
@@ -224,8 +224,6 @@ void Framework<TModel>::Clean()
 template <typename TModel>
 void Framework<TModel>::PrepareToShutdown()
 {
-  if (m_pSearchEngine)
-    m_pSearchEngine->StopEverything();
 }
 
 template <typename TModel>
@@ -634,11 +632,9 @@ void Framework<TModel>::Search(string const & text, SearchCallbackT callback)
 
   if (!m_pSearchEngine.get())
   {
-    search::CategoriesHolder holder;
-    string buffer;
-    ReaderT(GetPlatform().GetReader(SEARCH_CATEGORIES_FILE_NAME)).ReadAsString(buffer);
-    holder.LoadFromStream(buffer);
-    m_pSearchEngine.reset(new search::Engine(&m_model.GetIndex(), holder));
+    scoped_ptr<Reader> pReader(GetPlatform().GetReader(SEARCH_CATEGORIES_FILE_NAME));
+    m_pSearchEngine.reset(
+          new search::Engine(&m_model.GetIndex(), new search::CategoriesHolder(*pReader)));
   }
 
   m_pSearchEngine->Search(text, m_navigator.Screen().GlobalRect(), callback);

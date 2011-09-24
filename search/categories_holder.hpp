@@ -5,6 +5,7 @@
 #include "../std/string.hpp"
 #include "../std/algorithm.hpp"
 
+class Reader;
 
 namespace search
 {
@@ -32,6 +33,9 @@ class CategoriesHolder
 
 public:
   typedef ContainerT::const_iterator const_iterator;
+
+  CategoriesHolder();
+  explicit CategoriesHolder(Reader const & reader);
 
   /// @return number of loaded categories or 0 if something goes wrong
   size_t LoadFromStream(string const & buffer);

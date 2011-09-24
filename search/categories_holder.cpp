@@ -106,12 +106,24 @@ size_t CategoriesHolder::LoadFromStream(string const & buffer)
   if (!cat.m_synonyms.empty() && !cat.m_types.empty())
     m_categories.push_back(cat);
 
+  LOG(LINFO, ("Categories loaded: ", m_categories.size()));
   return m_categories.size();
 }
 
 void CategoriesHolder::swap(CategoriesHolder & o)
 {
   m_categories.swap(o.m_categories);
+}
+
+CategoriesHolder::CategoriesHolder()
+{
+}
+
+CategoriesHolder::CategoriesHolder(Reader const & reader)
+{
+  string buffer;
+  reader.ReadAsString(buffer);
+  LoadFromStream(buffer);
 }
 
 }

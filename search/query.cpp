@@ -15,7 +15,7 @@
 #include "../std/algorithm.hpp"
 #include "../std/scoped_ptr.hpp"
 
-
+/*
 namespace search
 {
 namespace impl
@@ -68,7 +68,7 @@ struct FeatureMatcher
   explicit FeatureMatcher(KeywordMatcher & keywordMatcher)
     : m_keywordMatcher(keywordMatcher), m_minScore(keywordMatcher.MAX_SCORE) {}
 
-  bool operator () (int /*lang*/, string const & name)
+  bool operator () (int , string const & name)
   {
     uint32_t const score = m_keywordMatcher.Score(name);
     if (score < m_minScore)
@@ -131,16 +131,18 @@ struct FeatureProcessor
 }  // unnamed namespace
 
 Query::Query(string const & query, m2::RectD const & viewport, IndexType const * pIndex,
-             Engine * pEngine, CategoriesHolder * pCategories,
+             CategoriesHolder * pCategories,
              TrieIterator * pTrieRoot, FeaturesVector * pFeatures)
   : m_queryText(query), m_queryUniText(NormalizeAndSimplifyString(query)),
     m_viewport(viewport),
     m_pCategories(pCategories),
     m_pTrieRoot(pTrieRoot),
     m_pFeatures(pFeatures),
-    m_pIndex(/*pIndex ? new IndexType(*pIndex) : */NULL),
+    m_pIndex(
+      // pIndex ? new IndexType(*pIndex) :
+      NULL),
     m_resultsRemaining(10),
-    m_pEngine(pEngine), m_bTerminate(false)
+    m_bTerminate(false)
 {
   search::Delimiters delims;
   SplitUniString(m_queryUniText, MakeBackInsertFunctor(m_keywords), delims);
@@ -157,8 +159,6 @@ Query::Query(string const & query, m2::RectD const & viewport, IndexType const *
 
 Query::~Query()
 {
-  if (m_pEngine)
-    m_pEngine->OnQueryDelete(this);
 }
 
 void Query::Search(function<void (Result const &)> const & f)
@@ -289,19 +289,6 @@ void Query::Search(function<void (Result const &)> const & f)
   f(Result(string(), string()));  // Send last search result marker.
 }
 
-void Query::FlushResults(const function<void (const Result &)> &f)
-{
-  vector<Result> results;
-  results.reserve(m_results.size());
-  while (!m_results.empty())
-  {
-    results.push_back(m_results.top().GenerateFinalResult());
-    m_results.pop();
-  }
-  for (vector<Result>::const_reverse_iterator it = results.rbegin(); it != results.rend(); ++it)
-    f(*it);
-  m_resultsRemaining = max(0, m_resultsRemaining - static_cast<int>(results.size()));
-}
 
 void Query::SearchAndDestroy(function<void (const Result &)> const & f)
 {
@@ -331,3 +318,4 @@ uint32_t Query::GetKeywordsToSkipForType(uint32_t const type) const
 
 }  // namespace search::impl
 }  // namespace search
+*/

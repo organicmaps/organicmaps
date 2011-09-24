@@ -10,8 +10,6 @@
 #include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
 
-#include "../search/engine.hpp"
-
 struct BenchmarkRectProvider;
 class WindowHandle;
 class PaintEvent;

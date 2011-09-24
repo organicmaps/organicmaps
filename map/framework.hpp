@@ -41,7 +41,7 @@
 #include "../std/shared_ptr.hpp"
 #include "../std/target_os.hpp"
 
-#include "../search/engine.hpp"
+#include "../search/search_engine.hpp"
 
 //#define DRAW_TOUCH_POINTS
 

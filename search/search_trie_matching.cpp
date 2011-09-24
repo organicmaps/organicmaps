@@ -11,7 +11,7 @@
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
 
-
+/*
 namespace
 {
   template <class SrcIterT, class CompIterT>
@@ -120,3 +120,4 @@ void search::MatchAgainstTrie(search::impl::Query & query, search::TrieIterator 
     featureQueue.pop();
   }
 }
+*/
