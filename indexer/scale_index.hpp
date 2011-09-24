@@ -11,7 +11,6 @@
 #include "../base/stl_add.hpp"
 
 #include "../std/algorithm.hpp"
-#include "../std/bind.hpp"
 
 
 class ScaleIndexBase
@@ -94,8 +93,11 @@ public:
   {
     size_t const scaleBucket = BucketByScale(scale);
     if (scaleBucket < m_IndexForScale.size())
+    {
+      IntervalIndexIFace::FunctionT f1(f);
       for (size_t i = 0; i <= scaleBucket; ++i)
-        m_IndexForScale[i]->DoForEach(bind<void>(ref(f), _1), beg, end);
+        m_IndexForScale[i]->DoForEach(f1, beg, end);
+    }
   }
 
 private:

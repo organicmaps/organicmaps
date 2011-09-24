@@ -7,6 +7,7 @@
 
 #include "../base/logging.hpp"
 
+#include "../std/bind.hpp"
 #include "../std/function.hpp"
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
