@@ -70,3 +70,4 @@ HEADERS += \
     threaded_container.hpp \
     threaded_list.hpp \
     resource_pool.hpp \
+    limited_priority_queue.hpp \
