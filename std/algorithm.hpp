@@ -17,6 +17,7 @@ using std::min;
 using std::next_permutation;
 using std::sort;
 using std::stable_sort;
+using std::partial_sort;
 using std::swap;
 using std::upper_bound;
 using std::unique;
