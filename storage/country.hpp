@@ -2,6 +2,8 @@
 
 #include "simple_tree.hpp"
 
+#include "../base/buffer_vector.hpp"
+
 #include "../geometry/rect2d.hpp"
 
 #include "../std/string.hpp"
@@ -14,14 +16,14 @@ class Writer;
 namespace storage
 {
   /// holds file name for tile and it's total size
-  typedef pair<string, uint32_t> TTile;
-  typedef vector<TTile> TTilesContainer;
-  typedef pair<uint64_t, uint64_t> TLocalAndRemoteSize;
+  typedef pair<string, uint32_t> CountryFile;
+  typedef buffer_vector<CountryFile, 1> FilesContainerT;
+  typedef pair<uint64_t, uint64_t> LocalAndRemoteSizeT;
 
   /// Intermediate container for data transfer
-  typedef vector<pair<string, uint32_t> > TCommonFiles;
+  typedef vector<pair<string, uint32_t> > CommonFilesT;
 
-  bool IsTileDownloaded(TTile const & tile);
+  bool IsFileDownloaded(CountryFile const & file);
 
   /// Serves as a proxy between GUI and downloaded files
   class Country
@@ -31,7 +33,7 @@ namespace storage
     /// Flag to display
     string m_flag;
     /// stores squares with world pieces which are part of the country
-    TTilesContainer m_tiles;
+    FilesContainerT m_files;
 
   public:
     Country() {}
@@ -40,15 +42,15 @@ namespace storage
 
     bool operator<(Country const & other) const { return Name() < other.Name(); }
 
-    void AddTile(TTile const & tile);
-    TTilesContainer const & Tiles() const { return m_tiles; }
+    void AddFile(CountryFile const & file);
+    FilesContainerT const & Files() const { return m_files; }
 
     string const & Name() const { return m_name; }
     string const & Flag() const { return m_flag; }
 
     /// @return bounds for downloaded parts of the country or empty rect
     m2::RectD Bounds() const;
-    TLocalAndRemoteSize Size() const;
+    LocalAndRemoteSizeT Size() const;
   };
 
   typedef SimpleTree<Country> TCountriesContainer;
@@ -56,9 +58,8 @@ namespace storage
   /// @param tiles contains files and their sizes
   /// @return false if new application version should be downloaded
   typedef ReaderPtr<Reader> file_t;
-  bool LoadCountries(file_t const & file, TTilesContainer const & sortedTiles,
+  bool LoadCountries(file_t const & file, FilesContainerT const & sortedTiles,
                      TCountriesContainer & countries);
-  void SaveTiles(string const & file, TCommonFiles const & commonFiles);
-  bool LoadTiles(file_t const & file, TTilesContainer & tiles, uint32_t & dataVersion);
-  //void SaveCountries(TCountriesContainer const & countries, Writer & writer);
+  void SaveFiles(string const & file, CommonFilesT const & commonFiles);
+  bool LoadFiles(file_t const & file, FilesContainerT & files, uint32_t & dataVersion);
 }

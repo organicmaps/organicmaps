@@ -66,7 +66,7 @@ namespace update
       LOG_SHORT(LINFO, ("Files count included in update file:", files.size()));
     }
 
-    TCommonFiles commonFiles;
+    CommonFilesT commonFiles;
 
     for (Platform::FilesList::iterator it = files.begin(); it != files.end(); ++it)
     {
@@ -77,7 +77,7 @@ namespace update
       commonFiles.push_back(make_pair(*it, static_cast<uint32_t>(size)));
     }
 
-    SaveTiles(dataDir + DATA_UPDATE_FILE, commonFiles);
+    SaveFiles(dataDir + DATA_UPDATE_FILE, commonFiles);
 
     LOG_SHORT(LINFO, ("Created update file with ", commonFiles.size(), " files"));
 

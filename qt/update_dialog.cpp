@@ -273,7 +273,7 @@ namespace qt
     {
       QColor rowColor;
       QString statusString;
-      TLocalAndRemoteSize size(0, 0);
+      LocalAndRemoteSizeT size(0, 0);
       switch (m_storage.CountryStatus(index))
       {
       case ENotDownloaded:

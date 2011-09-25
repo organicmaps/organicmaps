@@ -22,10 +22,10 @@
 namespace storage
 {
   /// Simple check - compare url size with real file size on disk
-  bool IsTileDownloaded(TTile const & tile)
+  bool IsFileDownloaded(CountryFile const & file)
   {
     uint64_t size = 0;
-    if (!GetPlatform().GetFileSize(GetPlatform().WritablePathForFile(tile.first), size))
+    if (!GetPlatform().GetFileSize(GetPlatform().WritablePathForFile(file.first), size))
       return false;
     return true;//tile.second == size;
   }
@@ -34,10 +34,10 @@ namespace storage
   {
     m2::RectD & m_bounds;
     CountryBoundsCalculator(m2::RectD & bounds) : m_bounds(bounds) {}
-    void operator()(TTile const & tile)
+    void operator()(CountryFile const & file)
     {
       feature::DataHeader header;
-      FilesContainerR reader(GetPlatform().WritablePathForFile(tile.first));
+      FilesContainerR reader(GetPlatform().WritablePathForFile(file.first));
       header.Load(reader.GetReader(HEADER_FILE_TAG));
       m_bounds.Add(header.GetBounds());
     }
@@ -46,7 +46,7 @@ namespace storage
   m2::RectD Country::Bounds() const
   {
     m2::RectD bounds;
-    std::for_each(m_tiles.begin(), m_tiles.end(), CountryBoundsCalculator(bounds));
+    std::for_each(m_files.begin(), m_files.end(), CountryBoundsCalculator(bounds));
     return bounds;
   }
 
@@ -56,30 +56,30 @@ namespace storage
     uint64_t & m_remoteSize;
     SizeCalculator(uint64_t & localSize, uint64_t & remoteSize)
       : m_localSize(localSize), m_remoteSize(remoteSize) {}
-    void operator()(TTile const & tile)
+    void operator()(CountryFile const & file)
     {
-      if (IsTileDownloaded(tile))
-        m_localSize += tile.second;
-      m_remoteSize += tile.second;
+      if (IsFileDownloaded(file))
+        m_localSize += file.second;
+      m_remoteSize += file.second;
     }
   };
 
-  TLocalAndRemoteSize Country::Size() const
+  LocalAndRemoteSizeT Country::Size() const
   {
     uint64_t localSize = 0;
     uint64_t remoteSize = 0;
-    std::for_each(m_tiles.begin(), m_tiles.end(), SizeCalculator(localSize, remoteSize));
-    return TLocalAndRemoteSize(localSize, remoteSize);
+    std::for_each(m_files.begin(), m_files.end(), SizeCalculator(localSize, remoteSize));
+    return LocalAndRemoteSizeT(localSize, remoteSize);
   }
 
-  void Country::AddTile(TTile const & tile)
+  void Country::AddFile(CountryFile const & file)
   {
-    m_tiles.push_back(tile);
+    m_files.push_back(file);
   }
 
   ////////////////////////////////////////////////////////////////////////
 
-  bool LoadCountries(file_t const & file, TTilesContainer const & sortedTiles,
+  bool LoadCountries(file_t const & file, FilesContainerT const & sortedFiles,
                      TCountriesContainer & countries)
   {
     countries.Clear();
@@ -131,13 +131,13 @@ namespace storage
             ++tokIt;
           while (tokIt)
           {
-            TTilesContainer::const_iterator const first = sortedTiles.begin();
-            TTilesContainer::const_iterator const last = sortedTiles.end();
+            FilesContainerT::const_iterator const first = sortedFiles.begin();
+            FilesContainerT::const_iterator const last = sortedFiles.end();
             string const nameWithExt = *tokIt + DATA_FILE_EXTENSION;
-            TTilesContainer::const_iterator const found = lower_bound(
-                first, last, TTile(nameWithExt, 0));
+            FilesContainerT::const_iterator const found = lower_bound(
+                first, last, CountryFile(nameWithExt, 0));
             if (found != last && !(nameWithExt < found->first))
-              currentCountry->AddTile(*found);
+              currentCountry->AddFile(*found);
             ++tokIt;
           }
         }
@@ -149,7 +149,7 @@ namespace storage
     return countries.SiblingsCount() > 0;
   }
 
-  void SaveTiles(string const & file, TCommonFiles const & commonFiles)
+  void SaveFiles(string const & file, CommonFilesT const & commonFiles)
   {
     FileWriter writer(file);
     stream::SinkWriterStream<Writer> wStream(writer);
@@ -159,26 +159,26 @@ namespace storage
     wStream << commonFiles;
   }
 
-  bool LoadTiles(file_t const & file, TTilesContainer & tiles, uint32_t & dataVersion)
+  bool LoadFiles(file_t const & file, FilesContainerT & files, uint32_t & dataVersion)
   {
-    tiles.clear();
+    files.clear();
 
     try
     {
       ReaderSource<file_t> source(file);
       stream::SinkReaderStream<ReaderSource<file_t> > stream(source);
 
-      TCommonFiles commonFiles;
+      CommonFilesT commonFiles;
 
       stream >> dataVersion;
       stream >> commonFiles;
 
-      tiles.reserve(commonFiles.size());
+      files.reserve(commonFiles.size());
 
-      for (TCommonFiles::iterator it = commonFiles.begin(); it != commonFiles.end(); ++it)
-        tiles.push_back(TTile(it->first, it->second));
+      for (CommonFilesT::iterator it = commonFiles.begin(); it != commonFiles.end(); ++it)
+        files.push_back(CountryFile(it->first, it->second));
 
-      sort(tiles.begin(), tiles.end());
+      sort(files.begin(), files.end());
     }
     catch (RootException const & e)
     {

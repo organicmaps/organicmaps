@@ -100,7 +100,7 @@ namespace storage
     return NodeFromIndex(m_countries, index).Value().Flag();
   }
 
-  TLocalAndRemoteSize Storage::CountrySizeInBytes(TIndex const & index) const
+  LocalAndRemoteSizeT Storage::CountrySizeInBytes(TIndex const & index) const
   {
     return CountryByIndex(index).Size();
   }
@@ -121,7 +121,7 @@ namespace storage
     if (m_failedCountries.find(index) != m_failedCountries.end())
       return EDownloadFailed;
 
-    TLocalAndRemoteSize size = CountryByIndex(index).Size();
+    LocalAndRemoteSizeT size = CountryByIndex(index).Size();
     if (size.first == size.second)
     {
       if (size.second == 0)
@@ -149,7 +149,7 @@ namespace storage
     if (m_queue.size() == 1)
     {
       // reset total country's download progress
-      TLocalAndRemoteSize const size = CountryByIndex(index).Size();
+      LocalAndRemoteSizeT const size = CountryByIndex(index).Size();
       m_countryProgress.m_current = 0;
       m_countryProgress.m_total = size.second;
 
@@ -172,7 +172,7 @@ namespace storage
     {
       m_workingDir = GetPlatform().WritableDir();
     }
-    void operator()(TTile const & tile)
+    void operator()(CountryFile const & tile)
     {
       m_removeFn(tile.first);
     }
@@ -183,10 +183,10 @@ namespace storage
     while (!m_queue.empty())
     {
       TIndex index = m_queue.front();
-      TTilesContainer const & tiles = CountryByIndex(index).Tiles();
-      for (TTilesContainer::const_iterator it = tiles.begin(); it != tiles.end(); ++it)
+      FilesContainerT const & tiles = CountryByIndex(index).Files();
+      for (FilesContainerT::const_iterator it = tiles.begin(); it != tiles.end(); ++it)
       {
-        if (!IsTileDownloaded(*it))
+        if (!IsFileDownloaded(*it))
         {
           HttpStartParams params;
           params.m_url = UpdateBaseUrl() + UrlEncode(it->first);
@@ -219,7 +219,7 @@ namespace storage
   {
     string const m_baseUrl;
     CancelDownloading(string const & baseUrl) : m_baseUrl(baseUrl) {}
-    void operator()(TTile const & tile)
+    void operator()(CountryFile const & tile)
     {
       GetDownloadManager().CancelDownload((m_baseUrl + UrlEncode(tile.first)).c_str());
     }
@@ -234,7 +234,7 @@ namespace storage
       m_workingDir = GetPlatform().WritableDir();
     }
     /// @TODO do not delete other countries cells
-    void operator()(TTile const & tile)
+    void operator()(CountryFile const & tile)
     {
       FileWriter::DeleteFileX(m_workingDir + tile.first);
     }
@@ -244,9 +244,9 @@ namespace storage
   void DeactivateAndDeleteCountry(Country const & country, TRemoveFunc removeFunc)
   {
     // deactivate from multiindex
-    for_each(country.Tiles().begin(), country.Tiles().end(), DeactivateMap<TRemoveFunc>(removeFunc));
+    for_each(country.Files().begin(), country.Files().end(), DeactivateMap<TRemoveFunc>(removeFunc));
     // delete from disk
-    for_each(country.Tiles().begin(), country.Tiles().end(), DeleteMap());
+    for_each(country.Files().begin(), country.Files().end(), DeleteMap());
   }
 
   m2::RectD Storage::CountryBounds(TIndex const & index) const
@@ -267,7 +267,7 @@ namespace storage
     {
       if (found == m_queue.begin())
       { // stop download
-        for_each(country.Tiles().begin(), country.Tiles().end(), CancelDownloading(UpdateBaseUrl()));
+        for_each(country.Files().begin(), country.Files().end(), CancelDownloading(UpdateBaseUrl()));
         // remove from the queue
         m_queue.erase(found);
         // start another download if the queue is not empty
@@ -300,8 +300,8 @@ namespace storage
     if (m_countries.SiblingsCount() == 0)
     {
       Platform & pl = GetPlatform();
-      TTilesContainer tiles;
-      if (LoadTiles(pl.GetReader(DATA_UPDATE_FILE), tiles, m_currentVersion))
+      FilesContainerT tiles;
+      if (LoadFiles(pl.GetReader(DATA_UPDATE_FILE), tiles, m_currentVersion))
       {
         if (!LoadCountries(pl.GetReader(COUNTRIES_FILE), tiles, m_countries))
         {
@@ -352,7 +352,7 @@ namespace storage
     }
     else
     {
-      TLocalAndRemoteSize size = CountryByIndex(m_queue.front()).Size();
+      LocalAndRemoteSizeT size = CountryByIndex(m_queue.front()).Size();
       if (size.second != 0)
         m_countryProgress.m_current = size.first;
 
