@@ -128,7 +128,8 @@ void Query::SearchFeatures()
         {
           FeaturesVector featuresVector(pMwmValue->m_cont, pMwmValue->GetHeader());
           impl::FeatureLoader f(featuresVector, *this);
-          MatchFeaturesInTrie(m_tokens.data(), m_tokens.size(), m_prefix, *pTrieRoot, f, 10);
+          MatchFeaturesInTrie(m_tokens.data(), m_tokens.size(), m_prefix, *pTrieRoot, f,
+                              m_results.get_max_size() * 10);
           LOG(LINFO, ("Matched: ", f.m_count));
         }
       }
