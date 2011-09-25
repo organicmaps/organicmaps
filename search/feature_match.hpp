@@ -110,6 +110,8 @@ struct OffsetIntersecter
   MapType m_map;
   bool m_bFirstStep;
 
+  OffsetIntersecter() : m_bFirstStep(true) {}
+
   void operator() (uint32_t offset, uint8_t rank)
   {
     uint16_t prevRankSum = 0;
