@@ -129,7 +129,7 @@ void Query::SearchFeatures()
           FeaturesVector featuresVector(pMwmValue->m_cont, pMwmValue->GetHeader());
           impl::FeatureLoader f(featuresVector, *this);
           MatchFeaturesInTrie(m_tokens.data(), m_tokens.size(), m_prefix, *pTrieRoot, f,
-                              m_results.get_max_size() * 10);
+                              m_results.max_size() * 10);
           LOG(LINFO, ("Matched: ", f.m_count));
         }
       }
