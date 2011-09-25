@@ -31,8 +31,8 @@ string FeatureParamsBase::DebugString() const
   string utf8name;
   name.GetString(0, utf8name);
 
-  return ("'" + utf8name + "' Layer:" + debug_print(layer) +
-          (rank != 0 ? " Rank:" + debug_print(rank) : "") +
+  return ("'" + utf8name + "' Layer:" + DebugPrint(layer) +
+          (rank != 0 ? " Rank:" + DebugPrint(rank) : "") +
           (!house.IsEmpty() ? " House:" + house.Get() : "") +
           (!ref.empty() ? " Ref:" + ref : "") + " ");
 }
@@ -144,7 +144,7 @@ uint8_t FeatureParams::GetHeader() const
   return header;
 }
 
-string debug_print(FeatureParams const & p)
+string DebugPrint(FeatureParams const & p)
 {
   ostringstream out;
 

@@ -307,7 +307,7 @@ private:
   int m_Level;
 };
 
-template <int DEPTH_LEVELS> string debug_print(CellId<DEPTH_LEVELS> const & id)
+template <int DEPTH_LEVELS> string DebugPrint(CellId<DEPTH_LEVELS> const & id)
 {
   ostringstream out;
   out << "CellId<" << DEPTH_LEVELS << ">(\"" << id.ToString().c_str() << "\")";

@@ -194,7 +194,7 @@ namespace m2
     ContainerT m_points;
     m2::Rect<CoordT> m_rect;
 
-    template <class T> friend string debug_print(Region<T> const &);
+    template <class T> friend string DebugPrint(Region<T> const &);
   };
 
   template <class TArchive, class PointT>
@@ -214,9 +214,9 @@ namespace m2
   }
 
   template <class PointT>
-  inline string debug_print(Region<PointT> const & r)
+  inline string DebugPrint(Region<PointT> const & r)
   {
-    return (debug_print(r.m_rect) + ::debug_print(r.m_points));
+    return (DebugPrint(r.m_rect) + ::DebugPrint(r.m_points));
   }
 
   typedef Region<m2::PointD> RegionD;

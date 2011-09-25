@@ -251,7 +251,7 @@ namespace m2
     }
   }
 
-  template <typename T> string debug_print(m2::Point<T> const & p)
+  template <typename T> string DebugPrint(m2::Point<T> const & p)
   {
     ostringstream out;
     out.precision(20);

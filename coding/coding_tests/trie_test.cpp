@@ -61,9 +61,9 @@ struct KeyValuePair
   }
 };
 
-string debug_print(KeyValuePair const & p)
+string DebugPrint(KeyValuePair const & p)
 {
-  string keyS = ::debug_print(p.m_key);
+  string keyS = ::DebugPrint(p.m_key);
   ostringstream out;
   out << "KVP(" << keyS << ", " << p.m_value << ")";
   return out.str();

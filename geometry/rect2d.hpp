@@ -344,7 +344,7 @@ namespace m2
   typedef Rect<int> RectI;
 
   template <typename T>
-  inline string debug_print(m2::Rect<T> const & r)
+  inline string DebugPrint(m2::Rect<T> const & r)
   {
     ostringstream out;
     out.precision(20);

@@ -337,7 +337,7 @@ int FeatureBuilder1::GetMinFeatureDrawScale() const
   return (minScale == -1 ? 1000 : minScale);
 }
 
-string debug_print(FeatureBuilder1 const & f)
+string DebugPrint(FeatureBuilder1 const & f)
 {
   ostringstream out;
   for (size_t i = 0; i < f.m_osmIds.size(); ++i)
@@ -353,9 +353,9 @@ string debug_print(FeatureBuilder1 const & f)
   }
 
   return (out.str() + " " +
-          debug_print(f.m_LimitRect) + " " +
-          debug_print(f.m_Params)
-          //+ " " + debug_print(f.m_Polygons)
+          DebugPrint(f.m_LimitRect) + " " +
+          DebugPrint(f.m_Params)
+          //+ " " + DebugPrint(f.m_Polygons)
           );
 }
 

@@ -211,4 +211,4 @@ public:
   }
 };
 
-string debug_print(FeatureParams const & p);
+string DebugPrint(FeatureParams const & p);

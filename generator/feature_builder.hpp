@@ -15,7 +15,7 @@ namespace serial { class CodingParams; }
 class FeatureBuilder1
 {
   /// For debugging
-  friend string debug_print(FeatureBuilder1 const & f);
+  friend string DebugPrint(FeatureBuilder1 const & f);
 
 public:
   FeatureBuilder1();

@@ -67,12 +67,12 @@ string FeatureBase::DebugString() const
   string res("FEATURE: ");
 
   for (size_t i = 0; i < GetTypesCount(); ++i)
-    res += "Type:" + debug_print(m_Types[i]) + " ";
+    res += "Type:" + DebugPrint(m_Types[i]) + " ";
 
   res += m_Params.DebugString();
 
   if (GetFeatureType() == GEOM_POINT)
-    res += "Center:" + debug_print(m_Center) + " ";
+    res += "Center:" + DebugPrint(m_Center) + " ";
 
   return res;
 }
@@ -136,7 +136,7 @@ namespace
   void Points2String(string & s, TCont const & points)
   {
     for (size_t i = 0; i < points.size(); ++i)
-      s += debug_print(points[i]) + " ";
+      s += DebugPrint(points[i]) + " ";
   }
 }
 

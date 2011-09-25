@@ -12,44 +12,44 @@
 
 /// @name Declarations.
 //@{
-template <typename T> inline string debug_print(T const & t);
+template <typename T> inline string DebugPrint(T const & t);
 
-string debug_print(string const & t);
-inline string debug_print(char const * t);
-inline string debug_print(char t);
+string DebugPrint(string const & t);
+inline string DebugPrint(char const * t);
+inline string DebugPrint(char t);
 
-template <typename U, typename V> inline string debug_print(pair<U,V> const & p);
-template <typename T> inline string debug_print(list<T> const & v);
-template <typename T> inline string debug_print(vector<T> const & v);
-template <typename T> inline string debug_print(set<T> const & v);
-template <typename U, typename V> inline string debug_print(map<U,V> const & v);
+template <typename U, typename V> inline string DebugPrint(pair<U,V> const & p);
+template <typename T> inline string DebugPrint(list<T> const & v);
+template <typename T> inline string DebugPrint(vector<T> const & v);
+template <typename T> inline string DebugPrint(set<T> const & v);
+template <typename U, typename V> inline string DebugPrint(map<U,V> const & v);
 //@}
 
 
-inline string debug_print(char const * t)
+inline string DebugPrint(char const * t)
 {
-  return debug_print(string(t));
+  return DebugPrint(string(t));
 }
 
-inline string debug_print(char t)
+inline string DebugPrint(char t)
 {
-  return debug_print(string(1, t));
+  return DebugPrint(string(1, t));
 }
 
-inline string debug_print(signed char t)
+inline string DebugPrint(signed char t)
 {
-  return debug_print(static_cast<int>(t));
+  return DebugPrint(static_cast<int>(t));
 }
 
-inline string debug_print(unsigned char t)
+inline string DebugPrint(unsigned char t)
 {
-  return debug_print(static_cast<unsigned int>(t));
+  return DebugPrint(static_cast<unsigned int>(t));
 }
 
-template <typename U, typename V> inline string debug_print(pair<U,V> const & p)
+template <typename U, typename V> inline string DebugPrint(pair<U,V> const & p)
 {
     ostringstream out;
-    out << "(" << debug_print(p.first) << ", " << debug_print(p.second) << ")";
+    out << "(" << DebugPrint(p.first) << ", " << DebugPrint(p.second) << ")";
     return out.str();
 }
 
@@ -62,34 +62,34 @@ namespace my
       ostringstream out;
       out << "[" << distance(beg, end) << ":";
       for (;  beg != end; ++beg)
-        out << " " << debug_print(*beg);
+        out << " " << DebugPrint(*beg);
       out << " ]";
       return out.str();
     }
   }
 }
 
-template <typename T> inline string debug_print(vector<T> const & v)
+template <typename T> inline string DebugPrint(vector<T> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
-template <typename T> inline string debug_print(list<T> const & v)
+template <typename T> inline string DebugPrint(list<T> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
-template <typename T> inline string debug_print(set<T> const & v)
+template <typename T> inline string DebugPrint(set<T> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
-template <typename U, typename V> inline string debug_print(map<U,V> const & v)
+template <typename U, typename V> inline string DebugPrint(map<U,V> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
-template <typename T> inline string debug_print(T const & t)
+template <typename T> inline string DebugPrint(T const & t)
 {
   ostringstream out;
   out << t;
@@ -115,7 +115,7 @@ namespace my
     template <typename T1>
         string Message(T1 const & t1)
     {
-      return debug_print(t1);
+      return DebugPrint(t1);
     }
     template <typename T1, typename T2>
         string Message(T1 const & t1, T2 const & t2)

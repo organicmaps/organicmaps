@@ -1,6 +1,6 @@
 #include "message.hpp"
 
-string debug_print(string const & t)
+string DebugPrint(string const & t)
 {
   string res;
   res.push_back('\'');

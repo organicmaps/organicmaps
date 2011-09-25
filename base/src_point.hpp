@@ -66,7 +66,7 @@ namespace my
   };
 }
 
-inline string debug_print(my::SrcPoint const & srcPoint)
+inline string DebugPrint(my::SrcPoint const & srcPoint)
 {
     ostringstream out;
     out << srcPoint.FileName() << ":" << srcPoint.Line() << " " << srcPoint.Function() << "()";
