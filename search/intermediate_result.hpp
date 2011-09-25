@@ -19,10 +19,7 @@ public:
 
   // For RESULT_FEATURE.
   IntermediateResult(m2::RectD const & viewportRect,
-                     FeatureType const & feature,
-                     string const & displayName,
-                     int matchPenalty,
-                     int minVisibleScale);
+                     FeatureType const & feature);
 
   // For RESULT_LATLON.
   IntermediateResult(m2::RectD const & viewportRect, double lat, double lon, double precision);
@@ -44,8 +41,6 @@ private:
   string m_completionString;
   m2::RectD m_rect;
   uint32_t m_type;
-  int m_matchPenalty;
-  int m_minVisibleScale;
   double m_distance;
   double m_direction;
   ResultType m_resultType;

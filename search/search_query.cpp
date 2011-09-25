@@ -95,8 +95,7 @@ struct FeatureLoader
     ++m_count;
     FeatureType feature;
     m_featuresVector.Get(offset, feature);
-    m_query.AddResult(impl::IntermediateResult(m_query.m_viewport, feature,
-                                               feature.GetPreferredDrawableName(), 0, 0));
+    m_query.AddResult(impl::IntermediateResult(m_query.m_viewport, feature));
   }
 };
 

@@ -11,12 +11,9 @@ namespace impl
 {
 
 IntermediateResult::IntermediateResult(m2::RectD const & viewportRect,
-                                       FeatureType const & feature,
-                                       string const & displayName,
-                                       int matchPenalty,
-                                       int minVisibleScale)
-  : m_str(displayName), m_rect(feature::GetFeatureViewport(feature)), m_matchPenalty(matchPenalty),
-    m_minVisibleScale(minVisibleScale), m_resultType(RESULT_FEATURE)
+                                       FeatureType const & feature)
+  : m_str(feature.GetPreferredDrawableName()), m_rect(feature::GetFeatureViewport(feature)),
+    m_resultType(RESULT_FEATURE)
 {
   FeatureType::GetTypesFn types;
   feature.ForEachTypeRef(types);
@@ -31,7 +28,7 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect,
   : m_str("(" + strings::to_string(lat) + ", " + strings::to_string(lon) + ")"),
     m_rect(MercatorBounds::LonToX(lon - precision), MercatorBounds::LatToY(lat - precision),
            MercatorBounds::LonToX(lon + precision), MercatorBounds::LatToY(lat + precision)),
-    m_type(0), m_matchPenalty(0), m_minVisibleScale(0), m_resultType(RESULT_LATLON)
+    m_type(0), m_resultType(RESULT_LATLON)
 {
   m_distance = ResultDistance(viewportRect.Center(), m_rect.Center());
   m_direction = ResultDirection(viewportRect.Center(), m_rect.Center());
@@ -39,7 +36,7 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect,
 
 IntermediateResult::IntermediateResult(string name, string completionString, int penalty)
   : m_str(name), m_completionString(completionString),
-    m_matchPenalty(0), m_minVisibleScale(penalty), m_distance(0), m_direction(0),
+    m_distance(0), m_direction(0),
     m_resultType(RESULT_CATEGORY)
 {
 }
@@ -48,27 +45,17 @@ bool IntermediateResult::operator < (IntermediateResult const & o) const
 {
   if (m_resultType != o.m_resultType)
     return m_resultType < o.m_resultType;
-  if (m_matchPenalty != o.m_matchPenalty)
-    return m_matchPenalty < o.m_matchPenalty;
-  if (m_minVisibleScale != o.m_minVisibleScale)
-    return m_minVisibleScale < o.m_minVisibleScale;
+  if (m_distance != o.m_distance)
+    return m_distance < o.m_distance;
   return false;
 }
 
 Result IntermediateResult::GenerateFinalResult() const
 {
-//#ifdef DEBUG
-//  return Result(m_str
-//                + ' ' + strings::to_string(m_distance * 0.001)
-//                + ' ' + strings::to_string(m_direction / math::pi * 180.0)
-//                + ' ' + strings::to_string(m_matchPenalty)
-//                + ' ' + strings::to_string(m_minVisibleScale),
-//#else
   switch (m_resultType)
   {
   case RESULT_FEATURE:
-    return Result(m_str + ' ' + strings::to_string(m_matchPenalty), m_type, m_rect,
-                  m_distance, m_direction);
+    return Result(m_str, m_type, m_rect, m_distance, m_direction);
   case RESULT_LATLON:
     return Result(m_str, 0, m_rect, m_distance, m_direction);
   case RESULT_CATEGORY:
