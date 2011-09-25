@@ -33,7 +33,7 @@ void Query::Search(string const & query,
     m_rawQuery = query;
     m_viewport = viewport;
 
-    m_uniQuery = strings::MakeUniString(m_rawQuery);
+    m_uniQuery = NormalizeAndSimplifyString(m_rawQuery);
 
     search::Delimiters delims;
     SplitUniString(m_uniQuery, MakeBackInsertFunctor(m_tokens), delims);
