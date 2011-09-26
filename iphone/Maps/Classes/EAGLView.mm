@@ -109,7 +109,7 @@ bool _inRepaint = false;
     
     size_t fontTexWidth = 512;
     size_t fontTexHeight = 256;
-    size_t fontTexCount = 15;
+    size_t fontTexCount = 5;
     
     resourceManager = shared_ptr<yg::ResourceManager>(new yg::ResourceManager(
           bigVBSize, bigIBSize, 6 * GetPlatform().CpuCores(),
@@ -164,6 +164,7 @@ bool _inRepaint = false;
 	/// allocate the new one
 	renderBuffer = shared_ptr<iphone::RenderBuffer>(new iphone::RenderBuffer(renderContext, (CAEAGLLayer*)self.layer));
 	frameBuffer->setRenderTarget(renderBuffer);
+  frameBuffer->setDepthBuffer(make_shared_ptr(new yg::gl::RenderBuffer(width, height, true)));
 	frameBuffer->onSize(width, height);
 	drawer->onSize(width, height);
 
