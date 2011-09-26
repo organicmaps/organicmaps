@@ -44,6 +44,7 @@ private:
   double m_distance;
   double m_direction;
   ResultType m_resultType;
+  uint8_t m_searchRank;
 };
 
 }  // namespace search::impl
