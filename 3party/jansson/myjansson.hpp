@@ -62,6 +62,11 @@ public:
     return m_pJson;
   }
 
+  operator bool () const
+  {
+    return m_pJson != 0;
+  }
+
 private:
   json_t * m_pJson;
 };
