@@ -47,7 +47,7 @@ struct FixedSizePoolTraits : BasePoolTraits<TElem, TElemFactory>
     {
       m_isAllocated = true;
 
-      LOG(LINFO, ("allocating ", m_count, " elements, ", base_t::m_factory.ElemSize() * m_count, "bytes total for ", base_t::m_factory.ResName()));
+      LOG(LDEBUG, ("allocating ", m_count, " elements, ", base_t::m_factory.ElemSize() * m_count, "bytes total for ", base_t::m_factory.ResName()));
 
       for (size_t i = 0; i < m_count; ++i)
         elems.PushBack(base_t::m_factory.Create());
@@ -73,7 +73,7 @@ struct AllocateOnDemandPoolTraits : BasePoolTraits<TElem, TElemFactory>
     if (l.empty())
     {
       m_poolSize += base_t::m_factory.ElemSize();
-      LOG(LINFO, ("allocating ", base_t::m_factory.ElemSize(), "bytes for ", base_t::m_factory.ResName(), " on-demand, poolSize=", m_poolSize));
+      LOG(LDEBUG, ("allocating ", base_t::m_factory.ElemSize(), "bytes for ", base_t::m_factory.ResName(), " on-demand, poolSize=", m_poolSize));
       l.push_back(base_t::m_factory.Create());
     }
 
