@@ -101,7 +101,7 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
                        tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
 
     if (!m_stylesCache)
-      LOG(LWARN, ("no styles cache"));
+      LOG(LWARNING, ("no styles cache"));
     else
     {
       m_infoLayer.cache(m_stylesCache);
@@ -194,7 +194,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen, bool /*mergePathNames*
     m_infoLayer.merge(*((*it)->m_infoLayer.get()), (*it)->m_tileScreen.PtoGMatrix() * screen.GtoPMatrix());
 
   if (!m_stylesCache)
-    LOG(LWARN, ("no styles cache"));
+    LOG(LWARNING, ("no styles cache"));
   else
   {
     m_infoLayer.cache(m_stylesCache);
