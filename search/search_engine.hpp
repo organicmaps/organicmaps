@@ -16,6 +16,7 @@ namespace search
 {
 
 class CategoriesHolder;
+class Query;
 class Result;
 
 class Engine
@@ -27,13 +28,13 @@ public:
   Engine(IndexType const * pIndex, CategoriesHolder * pCategories);
   ~Engine();
 
-  void Search(string const & query,
-              m2::RectD const & rect,
-              function<void (Result const &)> const & f);
+  void SetViewport(m2::RectD const & viewport);
+  void Search(string const & query, function<void (Result const &)> const & f);
 
 private:
   Index const * m_pIndex;
   scoped_ptr<CategoriesHolder> m_pCategories;
+  scoped_ptr<search::Query> m_pQuery;
 };
 
 }  // namespace search

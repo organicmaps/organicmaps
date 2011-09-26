@@ -7,6 +7,7 @@
 #include "../std/queue.hpp"
 #include "../std/scoped_ptr.hpp"
 #include "../std/unordered_map.hpp"
+#include "../std/unordered_set.hpp"
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
 
@@ -106,14 +107,19 @@ struct OffsetIntersecter
 {
   typedef unordered_map<uint32_t, uint16_t> MapType;
 
+  unordered_set<uint32_t> const * m_pOffsetFilter;
   MapType m_prevMap;
   MapType m_map;
   bool m_bFirstStep;
 
-  OffsetIntersecter() : m_bFirstStep(true) {}
+  explicit OffsetIntersecter(unordered_set<uint32_t> const * pOffsetFilter)
+    : m_pOffsetFilter(pOffsetFilter), m_bFirstStep(true) {}
 
   void operator() (uint32_t offset, uint8_t rank)
   {
+    if (m_pOffsetFilter && !m_pOffsetFilter->count(offset))
+      return;
+
     uint16_t prevRankSum = 0;
     if (!m_bFirstStep)
     {
@@ -141,10 +147,11 @@ template <typename F>
 void MatchFeaturesInTrie(strings::UniString const * tokens, size_t tokenCount,
                          strings::UniString const & prefix,
                          TrieIterator const & trieRoot,
+                         unordered_set<uint32_t> const * pOffsetsFilter,
                          F & f,
                          size_t resultsNeeded)
 {
-  impl::OffsetIntersecter intersecter;
+  impl::OffsetIntersecter intersecter(pOffsetsFilter);
 
   // Match tokens.
   for (size_t i = 0; i < tokenCount; ++i)

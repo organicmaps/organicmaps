@@ -626,18 +626,28 @@ void Framework<TModel>::StopScale(ScaleEvent const & e)
 }
 
 template<typename TModel>
+search::Engine * Framework<TModel>::GetSearchEngine()
+{
+  // Classical "double check" synchronization pattern.
+  if (!m_pSearchEngine)
+  {
+    threads::MutexGuard lock(m_modelSyn);
+    if (!m_pSearchEngine)
+    {
+      scoped_ptr<Reader> pReader(GetPlatform().GetReader(SEARCH_CATEGORIES_FILE_NAME));
+      m_pSearchEngine.reset(
+            new search::Engine(&m_model.GetIndex(), new search::CategoriesHolder(*pReader)));
+    }
+  }
+  return m_pSearchEngine.get();
+}
+
+template<typename TModel>
 void Framework<TModel>::Search(string const & text, SearchCallbackT callback)
 {
-  threads::MutexGuard lock(m_modelSyn);
-
-  if (!m_pSearchEngine.get())
-  {
-    scoped_ptr<Reader> pReader(GetPlatform().GetReader(SEARCH_CATEGORIES_FILE_NAME));
-    m_pSearchEngine.reset(
-          new search::Engine(&m_model.GetIndex(), new search::CategoriesHolder(*pReader)));
-  }
-
-  m_pSearchEngine->Search(text, m_navigator.Screen().GlobalRect(), callback);
+  search::Engine * pSearchEngine = GetSearchEngine();
+  pSearchEngine->SetViewport(m_navigator.Screen().GlobalRect());
+  pSearchEngine->Search(text, callback);
 }
 
 template <typename TModel>

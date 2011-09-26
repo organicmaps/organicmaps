@@ -16,19 +16,22 @@ namespace search
 Engine::Engine(IndexType const * pIndex, CategoriesHolder * pCategories)
   : m_pIndex(pIndex), m_pCategories(pCategories)
 {
+  m_pQuery.reset(new Query(pIndex, pCategories));
 }
 
 Engine::~Engine()
 {
 }
 
-void Engine::Search(string const & queryText,
-                    m2::RectD const & viewport,
-                    function<void (Result const &)> const & f)
+void Engine::SetViewport(m2::RectD const & viewport)
 {
-  LOG(LDEBUG, (queryText, viewport));
-  search::Query query(m_pIndex, m_pCategories.get());
-  query.Search(queryText, viewport, f);
+  m_pQuery->SetViewport(viewport);
+}
+
+void Engine::Search(string const & queryText, function<void (Result const &)> const & f)
+{
+  LOG(LDEBUG, (queryText));
+  m_pQuery->Search(queryText, f);
   f(Result::GetEndResult());
 }
 

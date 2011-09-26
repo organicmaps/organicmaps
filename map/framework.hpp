@@ -189,6 +189,7 @@ public:
                  bool isTiling);
 
   void Search(string const & text, SearchCallbackT callback);
+  search::Engine * GetSearchEngine();
 
   void SetMaxWorldRect();
 
