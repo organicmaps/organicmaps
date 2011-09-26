@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../std/shared_ptr.hpp"
-#include "../std/vector.hpp"
+#include "../geometry/point2d.hpp"
 
 namespace yg
 {
@@ -11,29 +11,34 @@ namespace yg
   class GlyphCache;
   class ResourceManager;
 
+  /// - cache of potentially all yg::ResourceStyle's
+  /// - cache is build on the separate thread (CoverageGenerator thread)
+  /// - it is used to remove texture uploading code from the GUI-thread
   class StylesCache
   {
   private:
 
-    vector<shared_ptr<SkinPage> > m_cachePages;
     shared_ptr<ResourceManager> m_rm;
     GlyphCache * m_glyphCache;
-    int m_maxPagesCount;
+
+    shared_ptr<SkinPage> m_cachePage;
 
   public:
 
     StylesCache(shared_ptr<ResourceManager> const & rm,
-                int glyphCacheID,
-                int maxPagesCount);
+                int glyphCacheID);
 
     ~StylesCache();
 
-    vector<shared_ptr<SkinPage> > & cachePages();
+    shared_ptr<SkinPage> const & cachePage();
 
     shared_ptr<ResourceManager> const & resourceManager();
 
     GlyphCache * glyphCache();
 
     void upload();
+    void clear();
+
+    bool hasRoom(m2::PointU const * sizes, size_t cnt) const;
   };
 }

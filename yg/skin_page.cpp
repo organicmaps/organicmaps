@@ -91,6 +91,11 @@ namespace yg
         return it->second.first.get();
   }
 
+  SkinPage::SkinPage()
+    : m_usage(EStaticUsage),
+      m_pipelineID(0)
+  {}
+
 
   SkinPage::SkinPage(shared_ptr<ResourceManager> const & resourceManager,
                      char const * name,
@@ -101,7 +106,6 @@ namespace yg
   {
     m_packer = m2::Packer(m_texture->width(), m_texture->height(), 0x00FFFFFF - 1);
   }
-
 
   SkinPage::SkinPage(shared_ptr<ResourceManager> const & resourceManager,
                      EUsage usage,
@@ -124,6 +128,20 @@ namespace yg
     clearCircleInfoHandles();
 
     m_packer.reset();
+  }
+
+  void SkinPage::clearUploadCommands()
+  {
+    m_penUploadCommands.clear();
+    m_colorUploadCommands.clear();
+    m_glyphUploadCommands.clear();
+    m_circleUploadCommands.clear();
+  }
+
+  void SkinPage::clear()
+  {
+    clearHandles();
+    clearUploadCommands();
   }
 
   void SkinPage::clearColorHandles()
@@ -238,6 +256,11 @@ namespace yg
   {
     shared_ptr<GlyphInfo> gi = glyphCache->getGlyphInfo(gk);
     return m_packer.hasRoom(gi->m_metrics.m_width + 4, gi->m_metrics.m_height + 4);
+  }
+
+  bool SkinPage::hasRoom(m2::PointU const * sizes, size_t cnt) const
+  {
+    return m_packer.hasRoom(sizes, cnt);
   }
 
   uint32_t SkinPage::findCircleInfo(CircleInfo const & circleInfo) const
@@ -738,7 +761,7 @@ namespace yg
 
   void SkinPage::uploadData()
   {
-    if ((m_usage != EStaticUsage) && (hasData()))
+    if (hasData())
     {
       checkTexture();
       static_cast<gl::ManagedTexture*>(m_texture.get())->lock();
@@ -769,6 +792,14 @@ namespace yg
   {
     checkTexture();
     return m_texture;
+  }
+
+  void SkinPage::setTexture(shared_ptr<gl::BaseTexture> const & texture)
+  {
+    m_texture = texture;
+    m_packer = m2::Packer(texture->width(),
+                          texture->height(),
+                          0x00FFFFFF - 1);
   }
 
   void SkinPage::freeTexture()

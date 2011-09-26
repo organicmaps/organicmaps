@@ -38,7 +38,10 @@ namespace yg
 
     vector<m2::AARectD> const & boundRects() const;
     void draw(gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const;
-    void cache(StylesCache * stylesCache) const;
+
+    void map(StylesCache * stylesCache) const;
+    void fillUnpacked(StylesCache * stylesCache, vector<m2::PointU> & v) const;
+    bool find(StylesCache * stylesCache) const;
 
     uint32_t styleID() const;
 

@@ -20,12 +20,14 @@ public:
   void Initialize(shared_ptr<yg::gl::RenderContext> const & rc,
                   shared_ptr<yg::ResourceManager> const & rm);
 
-  void BeginFrame();
+  void BeginFrame(shared_ptr<PaintEvent> const & e,
+                  ScreenBase const & s);
 
-  void DrawFrame(shared_ptr<PaintEvent> const & paintEvent,
-                 ScreenBase const & screenBase);
+  void DrawFrame(shared_ptr<PaintEvent> const & e,
+                 ScreenBase const & s);
 
-  void EndFrame();
+  void EndFrame(shared_ptr<PaintEvent> const & e,
+                ScreenBase const & s);
 
   m2::RectI const OnSize(int w, int h);
 

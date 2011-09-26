@@ -47,7 +47,7 @@ struct FixedSizePoolTraits : BasePoolTraits<TElem, TElemFactory>
     {
       m_isAllocated = true;
 
-      LOG(LINFO, ("allocating ", base_t::m_factory.ElemSize() * m_count, "bytes for ", base_t::m_factory.ResName()));
+      LOG(LINFO, ("allocating ", m_count, " elements, ", base_t::m_factory.ElemSize() * m_count, "bytes total for ", base_t::m_factory.ResName()));
 
       for (size_t i = 0; i < m_count; ++i)
         elems.PushBack(base_t::m_factory.Create());

@@ -48,10 +48,25 @@ namespace yg
       m_elements[i]->draw(r, m);
   }
 
-  void CompositeOverlayElement::cache(StylesCache * stylesCache) const
+  void CompositeOverlayElement::map(StylesCache * stylesCache) const
   {
     for (unsigned i = 0; i < m_elements.size(); ++i)
-      m_elements[i]->cache(stylesCache);
+      m_elements[i]->map(stylesCache);
+  }
+
+  void CompositeOverlayElement::fillUnpacked(StylesCache * stylesCache, vector<m2::PointU> & v) const
+  {
+    for (unsigned i = 0; i < m_elements.size(); ++i)
+      m_elements[i]->fillUnpacked(stylesCache, v);
+  }
+
+  bool CompositeOverlayElement::find(StylesCache * stylesCache) const
+  {
+    for (unsigned i = 0; i < m_elements.size(); ++i)
+      if (!m_elements[i]->find(stylesCache))
+        return false;
+
+    return true;
   }
 
   int CompositeOverlayElement::visualRank() const

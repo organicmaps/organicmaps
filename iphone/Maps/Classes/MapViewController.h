@@ -33,9 +33,7 @@
 - (void) ZoomToRect: (m2::RectD const &) rect;
 
 - (void) onResize: (GLint)width withHeight: (GLint)height;
-- (void) beginPaint;
-- (void) doPaint;
-- (void) endPaint;
+- (void) drawFrame;
 
 // called when app is terminated by system
 - (void) OnTerminate;

@@ -183,8 +183,8 @@ namespace yg
       void enterBackground();
       void enterForeground();
 
-      void setAdditionalSkinPages(vector<shared_ptr<SkinPage> > const & v);
-      void clearAdditionalSkinPages();
+      void setAdditionalSkinPage(shared_ptr<SkinPage> const & v);
+      void clearAdditionalSkinPage();
     };
   }
 }

@@ -22,6 +22,7 @@ bool _inRepaint = false;
 @synthesize windowHandle;
 @synthesize drawer;
 @synthesize renderContext;
+@synthesize renderBuffer;
 @synthesize resourceManager;
 @synthesize displayLink;
 
@@ -108,7 +109,7 @@ bool _inRepaint = false;
     
     size_t fontTexWidth = 512;
     size_t fontTexHeight = 256;
-    size_t fontTexCount = 10;
+    size_t fontTexCount = 15;
     
     resourceManager = shared_ptr<yg::ResourceManager>(new yg::ResourceManager(
           bigVBSize, bigIBSize, 6 * GetPlatform().CpuCores(),
@@ -119,7 +120,7 @@ bool _inRepaint = false;
 					"unicode_blocks.txt",
 					"fonts_whitelist.txt",
  					"fonts_blacklist.txt",
-          1.5 * 1024 * 1024,
+          2 * 1024 * 1024,
           GetPlatform().CpuCores() + 2,
           fmt,
           !yg::gl::g_isBufferObjectsSupported));
@@ -138,7 +139,7 @@ bool _inRepaint = false;
     p.m_skinName = pl.SkinName();
     p.m_visualScale = pl.VisualScale();
     p.m_isSynchronized = false;
-    p.m_useTinyStorage = true; //< use tiny buffers to minimize CPU->GPU data transfer overhead. 
+    p.m_useTinyStorage = false; //< use tiny buffers to minimize CPU->GPU data transfer overhead. 
 
 		drawer = shared_ptr<DrawerYG>(new DrawerYG(p));
 
@@ -174,14 +175,15 @@ bool _inRepaint = false;
 
 - (void)drawView
 {
-  if (windowHandle->needRedraw())
+  [controller drawFrame];
+  /*if (windowHandle->needRedraw())
   {
     windowHandle->setNeedRedraw(false);
     [controller beginPaint];
   	[controller doPaint];
 	  renderBuffer->present();
     [controller endPaint];
-  }
+  }*/
 }
 
 - (void)drawViewThunk:(id)obj

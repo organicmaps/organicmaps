@@ -35,6 +35,9 @@ private:
   ScreenCoverage * m_workCoverage;
   ScreenCoverage * m_currentCoverage;
 
+  shared_ptr<yg::StylesCache> m_workStylesCache;
+  shared_ptr<yg::StylesCache> m_currentStylesCache;
+
   ScreenBase m_currentScreen;
   int m_sequenceID;
 

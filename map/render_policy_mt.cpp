@@ -43,11 +43,13 @@ m2::RectI const RenderPolicyMT::OnSize(int w, int h)
   return m2::RectI(pt.x, pt.y, pt.x + w, pt.y + h);
 }
 
-void RenderPolicyMT::BeginFrame()
+void RenderPolicyMT::BeginFrame(shared_ptr<PaintEvent> const & e,
+                                ScreenBase const & s)
 {
 }
 
-void RenderPolicyMT::EndFrame()
+void RenderPolicyMT::EndFrame(shared_ptr<PaintEvent> const & e,
+                              ScreenBase const & s)
 {
   m_renderQueue.renderState().m_mutex->Unlock();
 }

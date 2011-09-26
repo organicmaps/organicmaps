@@ -129,13 +129,18 @@ namespace core
     CommandsQueue(size_t executorsCount);
     ~CommandsQueue();
 
+    /// Number of executors in this queue
     int ExecutorsCount() const;
+
+    /// Adding different types of commands
+    /// @{
     void AddCommand(Command const & cmd);
     void AddInitCommand(Command const & cmd);
     void AddFinCommand(Command const & cmd);
     void AddCancelCommand(Command const & cmd);
+    /// @}
+
     void Start();
-    void Clear();
     void Cancel();
     void Join();
 

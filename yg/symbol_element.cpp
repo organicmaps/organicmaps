@@ -88,7 +88,16 @@ namespace yg
     return m_styleID;
   }
 
-  void SymbolElement::cache(StylesCache * stylesCache) const
+  void SymbolElement::map(StylesCache * stylesCache) const
+  {
+  }
+
+  bool SymbolElement::find(StylesCache * stylesCache) const
+  {
+    return true;
+  }
+
+  void SymbolElement::fillUnpacked(StylesCache * stylesCache, vector<m2::PointU> & v) const
   {
   }
 

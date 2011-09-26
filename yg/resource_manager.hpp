@@ -75,6 +75,11 @@ namespace yg
 
     auto_ptr<TTexturePool> m_fontTextures;
 
+    size_t m_styleCacheTextureWidth;
+    size_t m_styleCacheTextureHeight;
+
+    auto_ptr<TTexturePool> m_styleCacheTextures;
+
     size_t m_renderTargetWidth;
     size_t m_renderTargetHeight;
 
@@ -123,6 +128,7 @@ namespace yg
     void initMultiBlitStorage(size_t multiBlitVBSize, size_t multiBlitIBSize, size_t multiBlitStoragesCount);
     void initRenderTargets(size_t renderTargetWidth, size_t renderTargetHeight, size_t renderTargetCount);
     void initTinyStorage(size_t tinyVBSize, size_t tinyIBSize, size_t tinyStoragesCount);
+    void initStyleCacheTextures(size_t styleCacheTextureWidth, size_t styleCacheTextureHeight, size_t styleCacheTexturesCount);
 
     shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
 
@@ -135,6 +141,7 @@ namespace yg
     TTexturePool * dynamicTextures();
     TTexturePool * fontTextures();
     TTexturePool * renderTargets();
+    TTexturePool * styleCacheTextures();
 
     size_t dynamicTextureWidth() const;
     size_t dynamicTextureHeight() const;

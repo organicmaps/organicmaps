@@ -342,20 +342,20 @@ void Framework<TModel>::DrawModel(shared_ptr<PaintEvent> const & e,
 }
 
 template <typename TModel>
-void Framework<TModel>::BeginPaint()
+void Framework<TModel>::BeginPaint(shared_ptr<PaintEvent> const & e)
 {
-  m_renderPolicy->BeginFrame();
+  m_renderPolicy->BeginFrame(e, m_navigator.Screen());
 }
 
 template <typename TModel>
-void Framework<TModel>::EndPaint()
+void Framework<TModel>::EndPaint(shared_ptr<PaintEvent> const & e)
 {
-  m_renderPolicy->EndFrame();
+  m_renderPolicy->EndFrame(e, m_navigator.Screen());
 }
 
 /// Function for calling from platform dependent-paint function.
 template <typename TModel>
-void Framework<TModel>::DoPaint(shared_ptr<PaintEvent> e)
+void Framework<TModel>::DoPaint(shared_ptr<PaintEvent> const & e)
 {
   DrawerYG * pDrawer = e->drawer();
 

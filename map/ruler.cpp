@@ -211,7 +211,16 @@ void Ruler::draw(yg::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const &
 
 }
 
-void Ruler::cache(yg::StylesCache * stylesCache) const
+void Ruler::map(yg::StylesCache * stylesCache) const
+{
+}
+
+bool Ruler::find(yg::StylesCache * stylesCache) const
+{
+  return true;
+}
+
+void Ruler::fillUnpacked(yg::StylesCache * stylesCache, vector<m2::PointU> & v) const
 {
 }
 

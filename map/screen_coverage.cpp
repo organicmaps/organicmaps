@@ -13,7 +13,7 @@
 #include "coverage_generator.hpp"
 
 ScreenCoverage::ScreenCoverage()
-  : m_tiler(0, 0)
+  : m_tiler(0, 0), m_stylesCache(0)
 {}
 
 ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
@@ -22,7 +22,8 @@ ScreenCoverage::ScreenCoverage(TileRenderer * tileRenderer,
                                size_t scaleEtalonSize)
   : m_tileRenderer(tileRenderer),
     m_tiler(tileSize, scaleEtalonSize),
-    m_coverageGenerator(coverageGenerator)
+    m_coverageGenerator(coverageGenerator),
+    m_stylesCache(0)
 {
   m_infoLayer.setCouldOverlap(false);
 }
@@ -52,8 +53,14 @@ ScreenCoverage * ScreenCoverage::Clone()
   tileCache->writeUnlock();
 
   res->m_infoLayer = m_infoLayer;
+  res->m_stylesCache = 0;
 
   return res;
+}
+
+void ScreenCoverage::SetStylesCache(yg::StylesCache * stylesCache)
+{
+  m_stylesCache = stylesCache;
 }
 
 void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
@@ -94,12 +101,12 @@ void ScreenCoverage::Merge(Tiler::RectInfo const & ri)
                        tile->m_tileScreen.PtoGMatrix() * m_screen.GtoPMatrix());
 
     if (!m_stylesCache)
-      m_stylesCache.reset(new yg::StylesCache(m_coverageGenerator->resourceManager(),
-                                              m_coverageGenerator->resourceManager()->cacheThreadGlyphCacheID(),
-                                              2));
-
-    m_infoLayer.cache(m_stylesCache.get());
-    m_stylesCache->upload();
+      LOG(LWARN, ("no styles cache"));
+    else
+    {
+      m_infoLayer.cache(m_stylesCache);
+      m_stylesCache->upload();
+    }
   }
 }
 
@@ -182,16 +189,17 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen, bool /*mergePathNames*
 
   m_tiles = tiles;
 
-  m_stylesCache.reset(new yg::StylesCache(m_coverageGenerator->resourceManager(),
-                                          m_coverageGenerator->resourceManager()->cacheThreadGlyphCacheID(),
-                                          2));
-
   m_infoLayer.clear();
   for (TileSet::const_iterator it = m_tiles.begin(); it != m_tiles.end(); ++it)
     m_infoLayer.merge(*((*it)->m_infoLayer.get()), (*it)->m_tileScreen.PtoGMatrix() * screen.GtoPMatrix());
 
-  m_infoLayer.cache(m_stylesCache.get());
-  m_stylesCache->upload();
+  if (!m_stylesCache)
+    LOG(LWARN, ("no styles cache"));
+  else
+  {
+    m_infoLayer.cache(m_stylesCache);
+    m_stylesCache->upload();
+  }
 
   /// adding commands for tiles which aren't in cache
   for (size_t i = 0; i < newRects.size(); ++i)
@@ -240,7 +248,12 @@ void ScreenCoverage::Draw(yg::gl::Screen * s, ScreenBase const & screen)
   s->blit(&infos[0], infos.size(), true);
 
   if (m_stylesCache)
-    s->setAdditionalSkinPages(m_stylesCache->cachePages());
+    s->setAdditionalSkinPage(m_stylesCache->cachePage());
 
   m_infoLayer.draw(s, m_screen.PtoGMatrix() * screen.GtoPMatrix());
+}
+
+void ScreenCoverage::EndFrame(yg::gl::Screen *s)
+{
+  s->clearAdditionalSkinPage();
 }

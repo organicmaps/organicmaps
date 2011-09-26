@@ -51,8 +51,14 @@ namespace yg
     /// PLEASE, REMEMBER THE REFERENCE!!!
     virtual vector<m2::AARectD> const & boundRects() const = 0;
     virtual void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const = 0;
-    virtual void cache(StylesCache * stylesCache) const = 0;
     virtual int visualRank() const = 0;
+
+    /// caching-related functions.
+    /// @{
+    virtual void fillUnpacked(StylesCache * stylesCache, vector<m2::PointU> & sizes) const = 0;
+    virtual bool find(StylesCache * stylesCache) const = 0;
+    virtual void map(StylesCache * stylesCache) const = 0;
+    /// @}
 
     m2::PointD const & pivot() const;
     void setPivot(m2::PointD const & pv);

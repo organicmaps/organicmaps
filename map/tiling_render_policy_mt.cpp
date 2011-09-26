@@ -36,17 +36,21 @@ void TilingRenderPolicyMT::Initialize(shared_ptr<yg::gl::RenderContext> const & 
   RenderPolicy::Initialize(primaryContext, resourceManager);
 
   resourceManager->initRenderTargets(GetPlatform().TileSize(), GetPlatform().TileSize(), GetPlatform().MaxTilesCount());
+  resourceManager->initStyleCacheTextures(resourceManager->fontTextureWidth(), resourceManager->fontTextureHeight() * 2, 2);
 
   m_tileRenderer.Initialize(primaryContext, resourceManager, GetPlatform().VisualScale());
   m_coverageGenerator.Initialize(primaryContext, resourceManager);
 }
 
-void TilingRenderPolicyMT::BeginFrame()
+void TilingRenderPolicyMT::BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {
 }
 
-void TilingRenderPolicyMT::EndFrame()
+void TilingRenderPolicyMT::EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {
+  ScreenCoverage * curCvg = &m_coverageGenerator.CurrentCoverage();
+  curCvg->EndFrame(e->drawer()->screen().get());
+  m_coverageGenerator.Mutex().Unlock();
 }
 
 void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & currentScreen)
@@ -57,10 +61,11 @@ void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
 
   m_coverageGenerator.AddCoverScreenTask(currentScreen);
 
-  {
-    threads::MutexGuard g(m_coverageGenerator.Mutex());
-    m_coverageGenerator.CurrentCoverage().Draw(pDrawer->screen().get(), currentScreen);
-  }
+  m_coverageGenerator.Mutex().Lock();
+
+  ScreenCoverage * curCvg = &m_coverageGenerator.CurrentCoverage();
+
+  curCvg->Draw(pDrawer->screen().get(), currentScreen);
 }
 
 TileRenderer & TilingRenderPolicyMT::GetTileRenderer()

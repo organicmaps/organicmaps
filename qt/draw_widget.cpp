@@ -188,14 +188,16 @@ namespace qt
     {
       makeCurrent();
       m_framework->SetNeedRedraw(false);
-      m_framework->BeginPaint();
+
       shared_ptr<PaintEvent> paintEvent(new PaintEvent(GetDrawer().get()));
+
+      m_framework->BeginPaint(paintEvent);
       m_framework->DoPaint(paintEvent);
 
       /// swapping buffers before ending the frame, see issue #333
       swapBuffers();
 
-      m_framework->EndPaint();
+      m_framework->EndPaint(paintEvent);
       doneCurrent();
     }
   }

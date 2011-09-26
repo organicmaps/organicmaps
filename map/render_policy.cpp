@@ -70,8 +70,8 @@ void RenderPolicy::StopScale(m2::PointD const &, m2::PointD const &, double)
   m_windowHandle->invalidate();
 }
 
-void RenderPolicy::BeginFrame()
+void RenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {}
 
-void RenderPolicy::EndFrame()
+void RenderPolicy::EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {}

@@ -143,9 +143,61 @@ namespace yg
     layer.m_tree.ForEach(bind(&InfoLayer::processOverlayElement, this, _1, m));
   }
 
+  bool greater_priority(shared_ptr<OverlayElement> const & l,
+                        shared_ptr<OverlayElement> const & r)
+  {
+    return l->visualRank() > r->visualRank();
+  }
+
   void InfoLayer::cache(StylesCache * stylesCache)
   {
-    m_tree.ForEach(bind(&OverlayElement::cache, _1, stylesCache));
+    /// collecting elements into vector sorted by visualPriority
+
+    vector<shared_ptr<OverlayElement> > v;
+    m_tree.ForEach(bind(&vector<shared_ptr<OverlayElement> >::push_back, &v, _1));
+
+    sort(v.begin(), v.end(), &greater_priority);
+
+    for (unsigned i = 0; i < v.size(); ++i)
+      v[i]->setIsNeedRedraw(true);
+
+    /// caching on StylesCache::m_maxPagesCount at most
+
+    vector<m2::PointU> sizes;
+    sizes.reserve(100);
+
+    for (unsigned i = 0; i < v.size(); ++i)
+      v[i]->fillUnpacked(stylesCache, sizes);
+
+    if (stylesCache->hasRoom(&sizes[0], sizes.size()))
+    {
+      for (unsigned i = 0; i < v.size(); ++i)
+        v[i]->map(stylesCache);
+    }
+    else
+    {
+      /// no room to cache, so clear all pages and re-cache from the beginning
+      stylesCache->clear();
+
+      int pos = 0;
+
+      for (pos = 0; pos < v.size(); ++pos)
+      {
+        sizes.clear();
+        v[pos]->fillUnpacked(stylesCache, sizes);
+        if (stylesCache->hasRoom(&sizes[0], sizes.size()))
+          v[pos]->map(stylesCache);
+        else
+          break;
+      }
+
+      if (v.size() - pos > 1)
+        LOG(LINFO, ("making ", v.size() - pos, "elements invisible"));
+
+      /// making all uncached elements invisible
+      for (; pos < v.size(); ++pos)
+        v[pos]->setIsNeedRedraw(false);
+    }
   }
 }
 

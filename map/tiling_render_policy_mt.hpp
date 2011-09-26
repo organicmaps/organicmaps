@@ -43,7 +43,7 @@ public:
   void Initialize(shared_ptr<yg::gl::RenderContext> const & renderContext,
                   shared_ptr<yg::ResourceManager> const & resourceManager);
 
-  void BeginFrame();
-  void DrawFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & currentScreen);
-  void EndFrame();
+  void BeginFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
+  void DrawFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
+  void EndFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
 };

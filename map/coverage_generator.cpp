@@ -40,6 +40,12 @@ void CoverageGenerator::Initialize(shared_ptr<yg::gl::RenderContext> const & rc,
   m_resourceManager = rm;
   m_renderContext = rc->createShared();
 
+  m_currentStylesCache.reset(new yg::StylesCache(rm,
+                                                 rm->cacheThreadGlyphCacheID()));
+
+  m_workStylesCache.reset(new yg::StylesCache(rm,
+                                              rm->cacheThreadGlyphCacheID()));
+
   m_queue.AddInitCommand(bind(&CoverageGenerator::InitializeThreadGL, this));
   m_queue.AddFinCommand(bind(&CoverageGenerator::FinalizeThreadGL, this));
 
@@ -74,13 +80,16 @@ void CoverageGenerator::CoverScreen(ScreenBase const & screen, int sequenceID)
     return;
 
   m_workCoverage = m_currentCoverage->Clone();
+  m_workCoverage->SetStylesCache(m_workStylesCache.get());
   m_workCoverage->SetScreen(screen);
 
   ScreenCoverage * oldCoverage = m_currentCoverage;
 
   {
     threads::MutexGuard g(m_mutex);
+    m_currentCoverage->SetStylesCache(0);
     m_currentCoverage = m_workCoverage;
+    swap(m_currentStylesCache, m_workStylesCache);
   }
 
   delete oldCoverage;
@@ -97,6 +106,7 @@ void CoverageGenerator::AddMergeTileTask(Tiler::RectInfo const & rectInfo)
 void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo)
 {
   m_workCoverage = m_currentCoverage->Clone();
+  m_workCoverage->SetStylesCache(m_workStylesCache.get());
 
   m_workCoverage->Merge(rectInfo);
 
@@ -104,7 +114,9 @@ void CoverageGenerator::MergeTile(Tiler::RectInfo const & rectInfo)
 
   {
     threads::MutexGuard g(m_mutex);
+    m_currentCoverage->SetStylesCache(0);
     m_currentCoverage = m_workCoverage;
+    swap(m_currentStylesCache, m_workStylesCache);
   }
 
   delete oldCoverage;

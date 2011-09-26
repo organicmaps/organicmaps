@@ -48,11 +48,11 @@ public:
   RenderPolicy(shared_ptr<WindowHandle> const & windowHandle, TRenderFn const & renderFn);
   virtual ~RenderPolicy() {}
   /// starting frame
-  virtual void BeginFrame();
+  virtual void BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s);
   /// drawing single frame
-  virtual void DrawFrame(shared_ptr<PaintEvent> const & paintEvent, ScreenBase const & currentScreen) = 0;
+  virtual void DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s) = 0;
   /// ending frame
-  virtual void EndFrame();
+  virtual void EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s);
   /// processing resize request
   virtual m2::RectI const OnSize(int w, int h);
   /// initialize render policy

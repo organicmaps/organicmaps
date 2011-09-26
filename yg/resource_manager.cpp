@@ -57,6 +57,8 @@ namespace yg
                                      m_format(fmt),
                                      m_useVA(useVA)
   {
+    LOG(LINFO, ("allocating ", glyphCacheCount, " glyphCaches, ", glyphCacheSize, " bytes total."));
+
     for (size_t i = 0; i < glyphCacheCount; ++i)
       m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, glyphCacheSize / glyphCacheCount)));
 
@@ -93,6 +95,14 @@ namespace yg
     m_renderTargetHeight = renderTargetHeight;
 
     m_renderTargets.reset(new TTexturePool(TTexturePoolTraits(TTextureFactory(renderTargetWidth, renderTargetHeight, "renderTargets"), renderTargetsCount)));
+  }
+
+  void ResourceManager::initStyleCacheTextures(size_t styleCacheTextureWidth, size_t styleCacheTextureHeight, size_t styleCacheTexturesCount)
+  {
+    m_styleCacheTextureWidth = styleCacheTextureWidth;
+    m_styleCacheTextureHeight = styleCacheTextureHeight;
+
+    m_styleCacheTextures.reset(new TTexturePool(TTexturePoolTraits(TTextureFactory(styleCacheTextureWidth, styleCacheTextureHeight, "styleCacheTextures"), styleCacheTexturesCount)));
   }
 
   shared_ptr<gl::BaseTexture> const & ResourceManager::getTexture(string const & fileName)
@@ -204,6 +214,9 @@ namespace yg
 
     if (m_renderTargets.get())
       m_renderTargets->EnterBackground();
+
+    if (m_styleCacheTextures.get())
+      m_styleCacheTextures->EnterBackground();
   }
 
   void ResourceManager::enterForeground()
@@ -233,6 +246,9 @@ namespace yg
 
     if (m_renderTargets.get())
       m_renderTargets->EnterForeground();
+
+    if (m_styleCacheTextures.get())
+      m_styleCacheTextures->EnterForeground();
   }
 
   shared_ptr<yg::gl::BaseTexture> ResourceManager::createRenderTarget(unsigned w, unsigned h)
@@ -301,5 +317,10 @@ namespace yg
   ResourceManager::TTexturePool * ResourceManager::renderTargets()
   {
     return m_renderTargets.get();
+  }
+
+  ResourceManager::TTexturePool * ResourceManager::styleCacheTextures()
+  {
+    return m_styleCacheTextures.get();
   }
 }

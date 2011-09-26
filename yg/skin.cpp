@@ -255,6 +255,11 @@ namespace yg
     return m_pages.size();
   }
 
+  size_t Skin::getAdditionalPagesCount() const
+  {
+    return m_additionalPages.size();
+  }
+
   void Skin::addClearPageFn(clearPageFn fn, int priority)
   {
     m_clearPageFns.push(std::pair<size_t, clearPageFn>(priority, fn));
@@ -368,17 +373,15 @@ namespace yg
   {
   }
 
-  void Skin::setAdditionalPages(vector<shared_ptr<SkinPage> > const & pages)
+  void Skin::setAdditionalPage(shared_ptr<SkinPage> const & page)
   {
-    m_additionalPages = pages;
-    for (unsigned i = 0; i < pages.size(); ++i)
-      m_additionalPages[i]->setPipelineID(i + m_pages.size());
+    m_additionalPages.clear();
+    m_additionalPages.push_back(page);
+    m_additionalPages[0]->setPipelineID(0 + m_pages.size());
   }
 
-  void Skin::clearAdditionalPages()
+  void Skin::clearAdditionalPage()
   {
-    for (unsigned i = 0; i < m_additionalPages.size(); ++i)
-      m_additionalPages[i]->freeTexture();
     m_additionalPages.clear();
   }
 }

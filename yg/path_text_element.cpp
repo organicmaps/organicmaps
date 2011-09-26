@@ -64,12 +64,13 @@ namespace yg
       return;
 
     yg::FontDesc desc = m_fontDesc;
-    if (m_fontDesc.m_isMasked)
+
+    if (desc.m_isMasked)
     {
       if ((m_glyphLayout.firstVisible() != 0) || (m_glyphLayout.lastVisible() != visText().size()))
         return;
 
-      drawTextImpl(m_glyphLayout, screen, m, m_fontDesc, yg::maxDepth);
+      drawTextImpl(m_glyphLayout, screen, m, desc, yg::maxDepth - 1);
       desc.m_isMasked = false;
     }
 
@@ -82,17 +83,42 @@ namespace yg
     m_glyphLayout.setPivot(pivot());
   }
 
-  void PathTextElement::cache(StylesCache * stylesCache) const
+  bool PathTextElement::find(StylesCache * stylesCache) const
   {
     yg::FontDesc desc = m_fontDesc;
-
-    if (m_fontDesc.m_isMasked)
+    if (desc.m_isMasked)
     {
-      cacheTextImpl(m_glyphLayout, stylesCache, m_fontDesc);
+      if (!TextElement::find(m_glyphLayout, stylesCache, desc))
+        return false;
       desc.m_isMasked = false;
     }
 
-    cacheTextImpl(m_glyphLayout, stylesCache, desc);
+    return TextElement::find(m_glyphLayout, stylesCache, desc);
+  }
+
+  void PathTextElement::fillUnpacked(StylesCache * stylesCache, vector<m2::PointU> & v) const
+  {
+    yg::FontDesc desc = m_fontDesc;
+    if (desc.m_isMasked)
+    {
+      TextElement::fillUnpacked(m_glyphLayout, desc, stylesCache, v);
+      desc.m_isMasked = false;
+    }
+
+    return TextElement::fillUnpacked(m_glyphLayout, desc, stylesCache, v);
+  }
+
+  void PathTextElement::map(StylesCache * stylesCache) const
+  {
+    yg::FontDesc desc = m_fontDesc;
+
+    if (desc.m_isMasked)
+    {
+      TextElement::map(m_glyphLayout, stylesCache, desc);
+      desc.m_isMasked = false;
+    }
+
+    TextElement::map(m_glyphLayout, stylesCache, desc);
   }
 
   int PathTextElement::visualRank() const

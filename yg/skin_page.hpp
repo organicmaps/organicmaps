@@ -116,6 +116,8 @@ namespace yg
     void uploadGlyphs();
     void uploadCircleInfo();
 
+    void clearUploadCommands();
+
     typedef vector<FontInfo> TFonts;
     TFonts m_fonts;
 
@@ -139,11 +141,16 @@ namespace yg
 
     void clearHandles();
 
+    void clear();
+
     bool hasData();
     void uploadData();
 
     void checkTexture() const;
     void setPipelineID(uint8_t pipelineID);
+
+    /// creation of detached page
+    SkinPage();
 
     /// creation of a static page
     SkinPage(shared_ptr<ResourceManager> const & resourceManager,
@@ -174,6 +181,7 @@ namespace yg
     uint32_t findGlyph(GlyphKey const & g) const;
     uint32_t mapGlyph(GlyphKey const & g, GlyphCache * glyphCache);
     bool hasRoom(GlyphKey const & g, GlyphCache * glyphCache) const;
+    bool hasRoom(m2::PointU const * sizes, size_t cnt) const;
 
     uint32_t findSymbol(char const * symbolName) const;
 
@@ -185,5 +193,6 @@ namespace yg
     void addOverflowFn(overflowFn fn, int priority);
 
     shared_ptr<gl::BaseTexture> const & texture() const;
+    void setTexture(shared_ptr<gl::BaseTexture> const & t);
   };
 }

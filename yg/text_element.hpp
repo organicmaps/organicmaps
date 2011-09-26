@@ -38,6 +38,21 @@ namespace yg
 
     bool isBidi() const;
 
+  protected:
+
+    void map(GlyphLayout const & layout,
+             StylesCache * stylesCache,
+             FontDesc const & desc) const;
+
+    bool find(GlyphLayout const & layout,
+              StylesCache * stylesCache,
+              FontDesc const & desc) const;
+
+    void fillUnpacked(GlyphLayout const & layout,
+                      FontDesc const & desc,
+                      StylesCache * stylesCache,
+                      vector<m2::PointU> & v) const;
+
   public:
 
     struct Params : OverlayElement::Params
@@ -49,10 +64,6 @@ namespace yg
     };
 
     TextElement(Params const & p);
-
-    void cacheTextImpl(GlyphLayout const & layout,
-                       StylesCache * stylesCache,
-                       FontDesc const & desc) const;
 
     void drawTextImpl(GlyphLayout const & layout,
                       gl::OverlayRenderer * r,

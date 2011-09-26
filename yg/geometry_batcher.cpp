@@ -97,21 +97,21 @@ namespace yg
      }
    }
 
-   void GeometryBatcher::setAdditionalSkinPages(vector<shared_ptr<SkinPage> > const & v)
+   void GeometryBatcher::setAdditionalSkinPage(shared_ptr<SkinPage> const & p)
    {
      if (m_skin != 0)
      {
-       m_skin->setAdditionalPages(v);
+       m_skin->setAdditionalPage(p);
        int pagesCount = m_skin->getPagesCount();
-       m_pipelines.resize(pagesCount + v.size());
+       m_pipelines.resize(pagesCount + 1);
 
-       /// additional pages are fixed
+       /// additional page are fixed
        /*m_skin->addOverflowFn(bind(&GeometryBatcher::flush, this, _1), 100);
 
        m_skin->addClearPageFn(bind(&GeometryBatcher::flush, this, _1), 100);
        m_skin->addClearPageFn(bind(&GeometryBatcher::switchTextures, this, _1), 99);*/
 
-       for (size_t i = 0; i < v.size(); ++i)
+       for (size_t i = 0; i < 1; ++i)
        {
          m_pipelines[i + pagesCount].m_useTinyStorage = m_useTinyStorage;
          m_pipelines[i + pagesCount].m_currentVertex = 0;
@@ -128,11 +128,29 @@ namespace yg
      }
    }
 
-   void GeometryBatcher::clearAdditionalSkinPages()
+   void GeometryBatcher::clearAdditionalSkinPage()
    {
      if (m_skin != 0)
      {
-       m_skin->clearAdditionalPages();
+       size_t pagesCount = m_skin->getPagesCount();
+       size_t additionalPagesCount = m_skin->getAdditionalPagesCount();
+
+       m_skin->clearAdditionalPage();
+
+       for (unsigned i = pagesCount; i < pagesCount + additionalPagesCount; ++i)
+       {
+         if (m_pipelines[i].m_hasStorage)
+         {
+           if (m_useTinyStorage)
+             resourceManager()->tinyStorages()->Free(m_pipelines[i].m_storage);
+           else
+             if (m_skin->getPage(i)->usage() != SkinPage::EStaticUsage)
+               resourceManager()->storages()->Free(m_pipelines[i].m_storage);
+             else
+               resourceManager()->smallStorages()->Free(m_pipelines[i].m_storage);
+         }
+       }
+
        m_pipelines.resize(m_skin->getPagesCount());
      }
    }
@@ -211,8 +229,6 @@ namespace yg
            LOG(LINFO, ("pipeline #", i, " vertices=", m_pipelines[i].m_verticesDrawn, ", triangles=", m_pipelines[i].m_indicesDrawn / 3));
          }
      }
-
-     clearAdditionalSkinPages();
 
      base_t::endFrame();
    }

@@ -211,11 +211,11 @@ public:
   bool NeedRedraw() const;
   void SetNeedRedraw(bool flag);
 
-  virtual void BeginPaint();
+  virtual void BeginPaint(shared_ptr<PaintEvent> const & e);
   /// Function for calling from platform dependent-paint function.
-  virtual void DoPaint(shared_ptr<PaintEvent> e);
+  virtual void DoPaint(shared_ptr<PaintEvent> const & e);
 
-  virtual void EndPaint();
+  virtual void EndPaint(shared_ptr<PaintEvent> const & e);
 
   void CenterViewport(m2::PointD const & pt);
 

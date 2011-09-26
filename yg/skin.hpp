@@ -141,6 +141,7 @@ namespace yg
 
     shared_ptr<SkinPage> const & getPage(int i) const;
     size_t getPagesCount() const;
+    size_t getAdditionalPagesCount() const;
 
     uint32_t invalidHandle() const;
     uint32_t invalidPageHandle() const;
@@ -148,8 +149,8 @@ namespace yg
     uint8_t currentTextPage() const;
     uint8_t currentDynamicPage() const;
 
-    void setAdditionalPages(vector<shared_ptr<SkinPage> > const & pages);
-    void clearAdditionalPages();
+    void setAdditionalPage(shared_ptr<SkinPage> const & pages);
+    void clearAdditionalPage();
 
     void memoryWarning();
     void enterBackground();

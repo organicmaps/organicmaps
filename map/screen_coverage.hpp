@@ -44,9 +44,9 @@ private:
 
   TileSet m_tiles; //< set of tiles, that are visible for the m_screen
   yg::InfoLayer m_infoLayer; //< composite infoLayers for visible tiles
-  shared_ptr<yg::StylesCache> m_stylesCache;
 
   CoverageGenerator * m_coverageGenerator;
+  yg::StylesCache * m_stylesCache;
 
   ScreenCoverage(ScreenCoverage const & src);
   ScreenCoverage const & operator=(ScreenCoverage const & src);
@@ -61,6 +61,7 @@ public:
                  size_t scaleEtalonSize);
 
   ScreenCoverage * Clone();
+  void SetStylesCache(yg::StylesCache * stylesCache);
 
   /// add rendered tile to coverage. Tile is locked, so make sure to unlock it in case it's not needed.
   void Merge(Tiler::RectInfo const & ri);
@@ -70,4 +71,5 @@ public:
   void SetScreen(ScreenBase const & screen, bool mergePathNames = true);
   /// draw screen coverage
   void Draw(yg::gl::Screen * s, ScreenBase const & currentScreen);
+  void EndFrame(yg::gl::Screen * s);
 };

@@ -150,18 +150,10 @@ namespace core
     m_cancelCommands.push_back(cmd);
   }
 
-  void CommandsQueue::Clear()
-  {
-    threads::ConditionGuard g(m_cond);
-    m_commands.Clear();
-    m_activeCommands = 0;
-    if (m_activeCommands == 0)
-      m_cond.Signal();
-  }
-
   void CommandsQueue::FinishCommand()
   {
     threads::ConditionGuard g(m_cond);
+
     --m_activeCommands;
     if (m_activeCommands == 0)
       m_cond.Signal();

@@ -2669,6 +2669,111 @@
 			};
 			name = "Simulator Debug";
 		};
+		EE423F1B142E8BB100E0A701 /* Device Release Clang */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COMPRESS_PNG_FILES = NO;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1.0.1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					RELEASE,
+					_RELEASE,
+					TARGET_OS_IPHONE,
+				);
+				GCC_THUMB_SUPPORT = NO;
+				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					../../3party/protobuf,
+					../../3party/protobuf/src,
+					../../3party/boost,
+				);
+				INFOPLIST_FILE = "MapsWithMe-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release-clang/out/release\"";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-Wall";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PRODUCT_NAME = MapsWithMe;
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv6 armv7";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "Device Release Clang";
+		};
+		EE423F1C142E8BB100E0A701 /* Device Release Clang */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+			};
+			name = "Device Release Clang";
+		};
+		EE423F1D142E8BBD00E0A701 /* Device Debug Clang */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COMPRESS_PNG_FILES = NO;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1.0.1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DEBUG,
+					_DEBUG,
+					TARGET_OS_IPHONE,
+				);
+				GCC_THUMB_SUPPORT = NO;
+				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					../../3party/protobuf,
+					../../3party/protobuf/src,
+					../../3party/boost,
+				);
+				INFOPLIST_FILE = "MapsWithMe-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug-clang/out/debug\"";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-Wall";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PRODUCT_NAME = MapsWithMe;
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv6 armv7";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "Device Debug Clang";
+		};
+		EE423F1E142E8BBD00E0A701 /* Device Debug Clang */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+			};
+			name = "Device Debug Clang";
+		};
 		FA0686DE13578E1D004CFF81 /* Production Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2885,8 +2990,10 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Simulator Debug */,
 				FA1DE85A11E2235D00C6D69A /* Device Debug */,
+				EE423F1E142E8BBD00E0A701 /* Device Debug Clang */,
 				FA1DE83211E2205400C6D69A /* Simulator Release */,
 				FA1DE85C11E2236200C6D69A /* Device Release */,
+				EE423F1C142E8BB100E0A701 /* Device Release Clang */,
 				FA0686DF13578E1D004CFF81 /* Production Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2897,8 +3004,10 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Simulator Debug */,
 				FA1DE85911E2235D00C6D69A /* Device Debug */,
+				EE423F1D142E8BBD00E0A701 /* Device Debug Clang */,
 				FA1DE83111E2205400C6D69A /* Simulator Release */,
 				FA1DE85B11E2236200C6D69A /* Device Release */,
+				EE423F1B142E8BB100E0A701 /* Device Release Clang */,
 				FA0686DE13578E1D004CFF81 /* Production Release */,
 			);
 			defaultConfigurationIsVisible = 0;

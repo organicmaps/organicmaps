@@ -201,7 +201,7 @@ namespace yg
     if (m_fontDesc.m_isMasked)
     {
       for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-        drawTextImpl(m_glyphLayouts[i], screen, m, m_fontDesc, yg::maxDepth);
+        drawTextImpl(m_glyphLayouts[i], screen, m, m_fontDesc, yg::maxDepth - 1);
 
       desc.m_isMasked = false;
     }
@@ -218,18 +218,54 @@ namespace yg
       m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + offs);
   }
 
-  void StraightTextElement::cache(StylesCache * stylesCache) const
+  void StraightTextElement::map(StylesCache * stylesCache) const
   {
     yg::FontDesc desc = m_fontDesc;
-    if (m_fontDesc.m_isMasked)
+    if (desc.m_isMasked)
     {
       for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-        cacheTextImpl(m_glyphLayouts[i], stylesCache, m_fontDesc);
+        TextElement::map(m_glyphLayouts[i], stylesCache, desc);
       desc.m_isMasked = false;
     }
 
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-      cacheTextImpl(m_glyphLayouts[i], stylesCache, desc);
+      TextElement::map(m_glyphLayouts[i], stylesCache, desc);
+  }
+
+  bool StraightTextElement::find(StylesCache * stylesCache) const
+  {
+    yg::FontDesc desc = m_fontDesc;
+
+    if (desc.m_isMasked)
+    {
+      for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
+        if (!TextElement::find(m_glyphLayouts[i], stylesCache, desc))
+          return false;
+
+      desc.m_isMasked = false;
+    }
+
+    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
+      if (!TextElement::find(m_glyphLayouts[i], stylesCache, desc))
+        return false;
+
+    return true;
+  }
+
+  void StraightTextElement::fillUnpacked(StylesCache * stylesCache, vector<m2::PointU> & v) const
+  {
+    yg::FontDesc desc = m_fontDesc;
+
+    if (desc.m_isMasked)
+    {
+      for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
+        TextElement::fillUnpacked(m_glyphLayouts[i], desc, stylesCache, v);
+
+      desc.m_isMasked = false;
+    }
+
+    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
+      TextElement::fillUnpacked(m_glyphLayouts[i], desc, stylesCache, v);
   }
 
   int StraightTextElement::visualRank() const

@@ -5,27 +5,30 @@
 #include "glyph_cache.hpp"
 #include "skin_page.hpp"
 #include "resource_manager.hpp"
+#include "base_texture.hpp"
+#include "internal/opengl.hpp"
+
+#include "../base/thread.hpp"
 
 namespace yg
 {
   StylesCache::StylesCache(shared_ptr<ResourceManager> const & rm,
-                           int glyphCacheID,
-                           int maxPagesCount)
-    : m_rm(rm),
-      m_maxPagesCount(maxPagesCount)
+                           int glyphCacheID)
+    : m_rm(rm)
   {
     m_glyphCache = m_rm->glyphCache(glyphCacheID);
+    m_cachePage.reset(new SkinPage());
+    m_cachePage->setTexture(m_rm->styleCacheTextures()->Reserve());
   }
 
   StylesCache::~StylesCache()
   {
-    for (unsigned i = 0; i < m_cachePages.size(); ++i)
-      m_cachePages[i]->freeTexture();
+    m_rm->styleCacheTextures()->Free(m_cachePage->texture());
   }
 
-  vector<shared_ptr<SkinPage> > & StylesCache::cachePages()
+  shared_ptr<SkinPage> const & StylesCache::cachePage()
   {
-    return m_cachePages;
+    return m_cachePage;
   }
 
   shared_ptr<ResourceManager> const & StylesCache::resourceManager()
@@ -38,9 +41,19 @@ namespace yg
     return m_glyphCache;
   }
 
+  void StylesCache::clear()
+  {
+    m_cachePage->clear();
+  }
+
   void StylesCache::upload()
   {
-    for (unsigned i = 0; i < m_cachePages.size(); ++i)
-      m_cachePages[i]->uploadData();
+    m_cachePage->uploadData();
+    OGLCHECK(glFinish());
+  }
+
+  bool StylesCache::hasRoom(m2::PointU const * sizes, size_t cnt) const
+  {
+    return m_cachePage->hasRoom(sizes, cnt);
   }
 }

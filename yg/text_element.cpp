@@ -52,7 +52,10 @@ namespace yg
     {
       Skin * skin = screen->skin().get();
       GlyphLayoutElem const & elem = layout.entries()[i];
-      GlyphKey glyphKey(elem.m_sym, fontDesc.m_size, fontDesc.m_isMasked, fontDesc.m_isMasked ? fontDesc.m_maskColor : fontDesc.m_color);
+      GlyphKey glyphKey(elem.m_sym,
+                        fontDesc.m_size,
+                        fontDesc.m_isMasked,
+                        fontDesc.m_isMasked ? fontDesc.m_maskColor : fontDesc.m_color);
       uint32_t const glyphID = skin->mapGlyph(glyphKey, screen->glyphCache());
       CharStyle const * charStyle = static_cast<CharStyle const *>(skin->fromID(glyphID));
 
@@ -60,41 +63,78 @@ namespace yg
     }
   }
 
-  void TextElement::cacheTextImpl(GlyphLayout const & layout,
-                                  StylesCache * stylesCache,
-                                  FontDesc const & desc) const
+  void TextElement::map(GlyphLayout const & layout,
+                        StylesCache * stylesCache,
+                        FontDesc const & desc) const
   {
-    vector<shared_ptr<SkinPage> > & skinPages = stylesCache->cachePages();
+    shared_ptr<SkinPage> const & skinPage = stylesCache->cachePage();
     GlyphCache * glyphCache = stylesCache->glyphCache();
-    shared_ptr<ResourceManager> const & rm = stylesCache->resourceManager();
 
     for (unsigned i = layout.firstVisible(); i < layout.lastVisible(); ++i)
     {
       GlyphLayoutElem const & elem = layout.entries()[i];
 
       GlyphKey glyphKey(elem.m_sym,
-                        m_fontDesc.m_size,
-                        m_fontDesc.m_isMasked,
-                        m_fontDesc.m_isMasked ? m_fontDesc.m_maskColor : m_fontDesc.m_color);
+                        desc.m_size,
+                        desc.m_isMasked,
+                        desc.m_isMasked ? desc.m_maskColor : desc.m_color);
 
-      bool found = false;
+      bool packed = skinPage->findGlyph(glyphKey) != 0x00FFFFFF;
 
-      for (unsigned j = 0; j < skinPages.size(); ++j)
-        if (skinPages[j]->findGlyph(glyphKey) != 0x00FFFFFF)
-        {
-          found = true;
-          break;
-        }
-
-      if (!found)
+      if (!packed)
       {
-        if (!skinPages.empty() && skinPages.back()->hasRoom(glyphKey, glyphCache))
-          skinPages.back()->mapGlyph(glyphKey, glyphCache);
-        else
+        if (skinPage->hasRoom(glyphKey, glyphCache))
         {
-          skinPages.push_back(make_shared_ptr(new SkinPage(rm, SkinPage::EFontsUsage, 0)));
-          skinPages.back()->mapGlyph(glyphKey, glyphCache);
+          skinPage->mapGlyph(glyphKey, glyphCache);
+          packed = true;
         }
+      }
+
+      CHECK(packed, ("couldn't pack"));
+    }
+  }
+
+  bool TextElement::find(GlyphLayout const & layout, StylesCache * stylesCache, FontDesc const & desc) const
+  {
+    shared_ptr<SkinPage> const & skinPage = stylesCache->cachePage();
+
+    for (unsigned i = layout.firstVisible(); i < layout.lastVisible(); ++i)
+    {
+      GlyphLayoutElem const & elem = layout.entries()[i];
+
+      GlyphKey glyphKey(elem.m_sym,
+                        desc.m_size,
+                        desc.m_isMasked,
+                        desc.m_isMasked ? desc.m_maskColor : desc.m_color);
+
+      if (skinPage->findGlyph(glyphKey) == 0x00FFFFFF)
+        return false;
+    }
+
+    return true;
+  }
+
+  void TextElement::fillUnpacked(GlyphLayout const & layout,
+                                 FontDesc const & desc,
+                                 StylesCache * stylesCache,
+                                 vector<m2::PointU> & v) const
+  {
+    shared_ptr<SkinPage> const & skinPage = stylesCache->cachePage();
+    GlyphCache * glyphCache = stylesCache->glyphCache();
+
+    for (unsigned i = layout.firstVisible(); i < layout.lastVisible(); ++i)
+    {
+      GlyphLayoutElem const & elem = layout.entries()[i];
+
+      GlyphKey glyphKey(elem.m_sym,
+                        desc.m_size,
+                        desc.m_isMasked,
+                        desc.m_isMasked ? desc.m_maskColor : desc.m_color);
+
+      if (skinPage->findGlyph(glyphKey) == 0x00FFFFFF)
+      {
+        shared_ptr<GlyphInfo> gi = glyphCache->getGlyphInfo(glyphKey);
+        v.push_back(m2::PointU(gi->m_metrics.m_width + 4, gi->m_metrics.m_height + 4));
       }
     }
   }
