@@ -271,7 +271,8 @@ public:
     if (info.m_createWorld)
     {
       m_world.reset(new WorldMapGenerator<FeaturesCollector>(info));
-      m_coasts.reset(new CoastlineFeaturesGenerator(m_coastType, g_coastsCellLevel));
+      // 6 - is cell level for oceans covering
+      m_coasts.reset(new CoastlineFeaturesGenerator(m_coastType, 6));
       m_coastsHolder.reset(new FeaturesCollector(
               info.m_datFilePrefix + WORLD_COASTS_FILE_NAME + info.m_datFileSuffix));
     }

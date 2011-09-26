@@ -34,6 +34,4 @@ namespace feature
 
     void operator() (FeatureBuilder1 const & f);
   };
-
-  static const int g_coastsCellLevel = 7;
 }

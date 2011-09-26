@@ -17,8 +17,6 @@ private:
   STATIC_ASSERT(numeric_limits<typename PointT::value_type>::is_signed);
 
 public:
-  void SetEpsilon(double) {}
-
   void SetBounds(PointT const & p0, PointT const & p1)
   {
     m_P0 = p0;

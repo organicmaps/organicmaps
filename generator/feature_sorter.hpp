@@ -30,10 +30,8 @@ namespace feature
   {
     if (in.size() >= 2)
     {
-      double eps = scales::GetEpsilonForSimplify(level);
-      dist.SetEpsilon(eps);
+      double const eps = my::sq(scales::GetEpsilonForSimplify(level));
 
-      eps = my::sq(eps);
       SimplifyNearOptimal(20, in.begin(), in.end(), eps, dist,
                           AccumulateSkipSmallTrg<DistanceT, m2::PointD>(dist, out, eps));
 
