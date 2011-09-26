@@ -1,6 +1,6 @@
 #include "search_query.hpp"
 #include "categories_holder.hpp"
-#include "feature_match.hpp"
+#include "feature_offset_match.hpp"
 #include "latlon_match.hpp"
 #include "result.hpp"
 #include "../indexer/feature_covering.hpp"

@@ -21,7 +21,7 @@ HEADERS += \
     categories_holder.hpp \
     search_trie_matching.hpp \
     approximate_string_match.hpp \
-    feature_match.hpp \
+    feature_offset_match.hpp \
 
 SOURCES += \
     search_engine.cpp \
