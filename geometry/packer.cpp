@@ -80,6 +80,47 @@ namespace m2
         || ((m_width - m_currentX >= width ) && (m_height - m_currentY >= height));
   }
 
+  bool Packer::hasRoom(m2::PointU const * sizes, size_t cnt) const
+  {
+    unsigned currentX = m_currentX;
+    unsigned currentY = m_currentY;
+    unsigned yStep = m_yStep;
+
+    for (unsigned i = 0; i < cnt; ++i)
+    {
+      unsigned width = sizes[i].x;
+      unsigned height = sizes[i].y;
+
+      if (width <= m_width - currentX)
+      {
+        if (height <= m_height - currentY)
+        {
+          yStep = max(height, yStep);
+          currentX += width;
+        }
+        else
+          return false;
+      }
+      else
+      {
+        currentX = 0;
+        currentY += yStep;
+        yStep = 0;
+
+        if (width <= m_width - currentX)
+          if (height <= m_height - currentY)
+          {
+            yStep = max(height, yStep);
+            currentX += width;
+          }
+          else
+            return false;
+      }
+    }
+
+    return true;
+  }
+
   bool Packer::isPacked(handle_t handle)
   {
     return m_rects.find(handle) != m_rects.end();

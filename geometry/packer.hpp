@@ -77,6 +77,9 @@ namespace m2
     /// Does we have room to pack another rectangle?
     bool hasRoom(unsigned width, unsigned height) const;
 
+    /// Does we have room to pack a sequence of rectangles?
+    bool hasRoom(m2::PointU const * sizes, size_t cnt) const;
+
     /// is the handle present on the texture.
     bool isPacked(handle_t handle);
 

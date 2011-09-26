@@ -54,8 +54,11 @@ private:
 public:
 
   ScreenCoverage();
-  ScreenCoverage(TileRenderer * tileRenderer, CoverageGenerator * coverageGenerator, size_t tileSize, size_t scaleEtalonSize);
   ~ScreenCoverage();
+  ScreenCoverage(TileRenderer * tileRenderer,
+                 CoverageGenerator * coverageGenerator,
+                 size_t tileSize,
+                 size_t scaleEtalonSize);
 
   ScreenCoverage * Clone();
 

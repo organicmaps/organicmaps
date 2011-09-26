@@ -51,3 +51,58 @@ UNIT_TEST(PackerTest_SimplePack)
 
   TEST_EQUAL(r2, m2::RectU(0, 0, 5, 5), ());
 }
+
+UNIT_TEST(PackerTest_HasRoom_Sequence)
+{
+  m2::Packer p(20, 20);
+
+  m2::PointU pts[] = {
+    m2::PointU(10, 10),
+    m2::PointU(11, 3),
+    m2::PointU(5, 5),
+    m2::PointU(5, 5)
+  };
+
+  TEST(p.hasRoom(pts, sizeof(pts) / sizeof(m2::PointU)), ());
+
+  m2::PointU pts1[] = {
+    m2::PointU(10, 10),
+    m2::PointU(11, 3),
+    m2::PointU(5, 5),
+    m2::PointU(5, 5),
+    m2::PointU(16, 5)
+  };
+
+  TEST(!p.hasRoom(pts1, sizeof(pts1) / sizeof(m2::PointU)), ());
+
+  m2::PointU pts2[] = {
+    m2::PointU(10, 10),
+    m2::PointU(11, 3),
+    m2::PointU(5, 5),
+    m2::PointU(5, 5),
+    m2::PointU(10, 6)
+  };
+
+  TEST(!p.hasRoom(pts2, sizeof(pts2) / sizeof(m2::PointU)), ());
+
+  m2::PointU pts3[] = {
+    m2::PointU(10, 10),
+    m2::PointU(11, 3),
+    m2::PointU(5, 5),
+    m2::PointU(5, 5),
+    m2::PointU(15, 5)
+  };
+
+  TEST(p.hasRoom(pts3, sizeof(pts3) / sizeof(m2::PointU)), ());
+
+  m2::PointU pts4[] = {
+    m2::PointU(10, 10),
+    m2::PointU(11, 3),
+    m2::PointU(5, 5),
+    m2::PointU(5, 5),
+    m2::PointU(16, 5)
+  };
+
+  TEST(!p.hasRoom(pts4, sizeof(pts4) / sizeof(m2::PointU)), ());
+
+}
