@@ -361,7 +361,7 @@ void Framework<TModel>::DoPaint(shared_ptr<PaintEvent> const & e)
 
   m_informationDisplay.setScreen(m_navigator.Screen());
 
-//  m_informationDisplay.setDebugInfo(m_renderQueue.renderState().m_duration, my::rounds(GetCurrentScale()));
+  m_informationDisplay.setDebugInfo(0/*m_renderQueue.renderState().m_duration*/, my::rounds(GetCurrentScale()));
 
   m_informationDisplay.enableRuler(!IsEmptyModel());
 
