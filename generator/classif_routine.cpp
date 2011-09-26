@@ -38,7 +38,7 @@ namespace classificator
 
 //    // 2. Append rules.
 //    //int const color = 0;
-//    int const color = 0xD3D3D3;
+//    int const color = 0xB5D6F1;
 //    //double const pixWidth = 1.5;
 //    for (int i = 0; i <= scales::GetUpperScale(); ++i)
 //    {
