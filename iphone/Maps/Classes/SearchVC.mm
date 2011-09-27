@@ -1,12 +1,16 @@
 #import "SearchVC.h"
 #import "CompassView.h"
 
+#include "../../geometry/angles.hpp"
+#include "../../geometry/distance_on_sphere.hpp"
+#include "../../indexer/mercator.hpp"
 #include "../../map/framework.hpp"
 #include "../../search/result.hpp"
 
 SearchVC * g_searchVC = nil;
 SearchF g_searchF;
 ShowRectF g_showRectF;
+GetViewportCenterF g_getViewportCenterF;
 volatile int g_queryId = 0;
 
 @interface Wrapper : NSObject
@@ -52,12 +56,20 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
 @implementation SearchVC
 
-- (id)initWithSearchFunc:(SearchF)s andShowRectFunc:(ShowRectF)r
+- (id)initWithSearchFunc:(SearchF)s andShowRectFunc:(ShowRectF)r 
+  andGetViewportCenterFunc:(GetViewportCenterF)c
 {
   if ((self = [super initWithNibName:nil bundle:nil]))
   {
     g_searchF = s;
     g_showRectF = r;
+    g_getViewportCenterF = c;
+    m_locationManager = [[CLLocationManager alloc] init];
+    m_locationManager.delegate = self;
+    // filter out unnecessary events
+    m_locationManager.headingFilter = 3;
+    m_locationManager.distanceFilter = 1.0;
+    m_isRadarEnabled = false;
   }
   return self;
 }
@@ -69,9 +81,52 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
 - (void)dealloc
 {
+  [m_locationManager release];
   g_searchVC = nil;
   [self clearResults];
   [super dealloc];
+}
+
+- (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
+{
+  return YES;
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
+{
+//  CLLocationDirection north = newHeading.trueHeading;
+//  if (north < 0.)
+//    north = newHeading.magneticHeading;
+//  
+//  UITableView * table = (UITableView *)self.view;
+//  NSArray * indexes = [table indexPathsForVisibleRows];
+//  for (NSUInteger i = 0; i < indexes.count; ++i)
+//  {
+//    UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
+//    UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
+//    CompassView * compass = (CompassView *)cell.accessoryView;
+//    compass.north = north * M_PI / 180.;
+//  }
+}
+
+- (void)onRadarButtonClick:(id)button
+{
+  m_isRadarEnabled = !m_isRadarEnabled;
+  self.navigationItem.rightBarButtonItem.image = m_isRadarEnabled ? 
+      [UIImage imageNamed:@"location-selected.png"] :
+      [UIImage imageNamed:@"location.png"];
+  if (m_isRadarEnabled)
+  {
+    [m_locationManager startUpdatingLocation];
+    if ([CLLocationManager headingAvailable])
+      [m_locationManager startUpdatingHeading];
+  }
+  else
+  {
+    if ([CLLocationManager headingAvailable])
+      [m_locationManager stopUpdatingHeading];
+    [m_locationManager stopUpdatingLocation];
+  }
 }
 
 - (void)loadView
@@ -88,6 +143,13 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   self.navigationItem.titleView = searchBar;
   [searchBar sizeToFit];
   searchBar.delegate = self;
+  
+  // add radar mode button
+  UIImage * img = m_isRadarEnabled ? [UIImage imageNamed:@"location-selected.png"] : [UIImage imageNamed:@"location.png"];
+  self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithImage:img
+                                                                            style:UIBarButtonItemStylePlain
+                                                                           target:self
+                                                                           action:@selector(onRadarButtonClick:)] autorelease];
 }
 
 - (void)viewDidLoad
@@ -97,6 +159,8 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
 - (void)viewDidUnload
 {
+  [m_locationManager stopUpdatingHeading];
+  [m_locationManager stopUpdatingLocation];
   g_searchVC = nil;
 }
 
@@ -121,6 +185,35 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
     g_searchF([[searchText precomposedStringWithCompatibilityMapping] UTF8String],
               bind(&OnSearchResultCallback, _1, g_queryId));
   }
+}
+
+- (float)calculateAngle:(m2::PointD const &)pt
+{
+  if (m_isRadarEnabled)
+  {
+    CLLocation * loc = m_locationManager.location;
+    if (loc)
+      return ang::AngleTo(m2::PointD(MercatorBounds::LonToX(loc.coordinate.longitude),
+                                   MercatorBounds::LatToY(loc.coordinate.latitude)), pt);
+  }
+  m2::PointD const center = g_getViewportCenterF();
+  return ang::AngleTo(center, pt);
+}
+
+- (double)calculateDistance:(m2::PointD const &)pt
+{
+  double const ptLat = MercatorBounds::YToLat(pt.y);
+  double const ptLon = MercatorBounds::XToLon(pt.x);
+  if (m_isRadarEnabled)
+  {
+    CLLocation * loc = m_locationManager.location;
+    if (loc)
+      return ms::DistanceOnEarth(loc.coordinate.latitude, loc.coordinate.longitude,
+                                          ptLat, ptLon);
+  }
+  m2::PointD const center = g_getViewportCenterF();
+  return ms::DistanceOnEarth(MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x),
+                             ptLat, ptLon);
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -164,7 +257,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
         float const h = tableView.rowHeight * 0.6;
         CompassView * v = [[[CompassView alloc] initWithFrame:
                           CGRectMake(0, 0, h, h)] autorelease];
-        v.angle = (float)r.GetDirectionFromCenter();
+        v.angle = [self calculateAngle:r.GetFeatureCenter()];
         cell.accessoryView = v;
       }
     }
