@@ -22,7 +22,6 @@ HEADERS += \
     information_display.hpp \
     location_state.hpp \
     benchmark_provider.hpp \
-    languages.hpp \
     render_policy.hpp \
     tiling_render_policy_mt.hpp \
     tiling_render_policy_st.hpp \
@@ -52,7 +51,6 @@ SOURCES += \
     information_display.cpp \
     location_state.cpp \
     benchmark_provider.cpp \
-    languages.cpp \
     render_policy.cpp \
     benchmark_tiling_render_policy_mt.cpp \
     tiling_render_policy_st.cpp \

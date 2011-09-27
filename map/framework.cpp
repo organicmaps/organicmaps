@@ -5,8 +5,8 @@
 #include "drawer_yg.hpp"
 #include "feature_vec_model.hpp"
 #include "benchmark_provider.hpp"
-#include "languages.hpp"
 
+#include "../platform/languages.hpp"
 #include "../platform/settings.hpp"
 
 #include "../yg/rendercontext.hpp"

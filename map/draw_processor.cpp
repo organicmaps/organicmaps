@@ -1,7 +1,7 @@
 #include "draw_processor.hpp"
-
 #include "drawer_yg.hpp"
-#include "languages.hpp"
+
+#include "../platform/languages.hpp"
 
 #include "../geometry/screenbase.hpp"
 #include "../geometry/rect_intersect.hpp"

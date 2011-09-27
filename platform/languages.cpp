@@ -1,10 +1,9 @@
 #include "languages.hpp"
+#include "platform.hpp"
+#include "preferred_languages.hpp"
+#include "settings.hpp"
 
 #include "../defines.hpp"
-
-#include "../platform/platform.hpp"
-#include "../platform/preferred_languages.hpp"
-#include "../platform/settings.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/multilang_utf8_string.hpp"

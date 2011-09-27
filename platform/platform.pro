@@ -59,11 +59,13 @@ HEADERS += \
     concurrent_runner.hpp \
     preferred_languages.hpp \
     settings.hpp \
-    video_timer.hpp
+    video_timer.hpp \
+    languages.hpp \
 
 SOURCES += \
     location_manager.cpp \
     preferred_languages.cpp \
     settings.cpp \
     platform.cpp \
-    video_timer.cpp
+    video_timer.cpp \
+    languages.cpp \

@@ -1,7 +1,6 @@
 #include "preferences_dialog.hpp"
 
-#include "../map/languages.hpp"
-
+#include "../platform/languages.hpp"
 #include "../platform/settings.hpp"
 
 #include <QtGui/QIcon>
