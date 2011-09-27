@@ -35,31 +35,3 @@ Index::~Index()
 {
   Cleanup();
 }
-
-using namespace covering;
-
-IntervalsT const & Index::CoveringGetter::Get(feature::DataHeader const & header)
-{
-  int const cellDepth = GetCodingDepth(header.GetScaleRange());
-  int const ind = (cellDepth == RectId::DEPTH_LEVELS ? 0 : 1);
-
-  if (m_res[ind].empty())
-  {
-    switch (m_mode)
-    {
-    case 0:
-      CoverViewportAndAppendLowerLevels(m_rect, cellDepth, m_res[ind]);
-      break;
-
-    case 1:
-      AppendLowerLevels(GetRectIdAsIs(m_rect), cellDepth, m_res[ind]);
-      break;
-
-    case 2:
-      m_res[ind].push_back(IntervalsT::value_type(0, static_cast<int64_t>((1ULL << 63) - 1)));
-      break;
-    }
-  }
-
-  return m_res[ind];
-}

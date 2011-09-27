@@ -47,9 +47,8 @@ void Query::UpdateViewportOffsets()
   m_pIndex->GetMwmInfo(mwmInfo);
   m_offsetsInViewport.resize(mwmInfo.size());
 
-  int const scale = min(max(scales::GetScaleLevel(m_viewport) + 7, 10), scales::GetUpperScale());
-  covering::IntervalsT intervals[2];
-  bool intervalCovered[2] = {false, false};
+  int const viewScale = scales::GetScaleLevel(m_viewport);
+  covering::CoveringGetter cov(m_viewport, 0);
 
   for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
   {
@@ -57,28 +56,24 @@ void Query::UpdateViewportOffsets()
     if (m_viewportExtended.IsIntersect(mwmInfo[mwmId].m_limitRect))
     {
       Index::MwmLock mwmLock(*m_pIndex, mwmId);
-      if (MwmValue * pMwmValue = mwmLock.GetValue())
+      if (MwmValue * pMwm = mwmLock.GetValue())
       {
-        feature::DataHeader const & header = pMwmValue->GetHeader();
+        feature::DataHeader const & header = pMwm->GetHeader();
+        if (header.GetType() == feature::DataHeader::worldcoasts)
+          continue;
 
-        // TODO: Refactor me!
-        // prepare needed covering
-        int const cellDepth = covering::GetCodingDepth(header.GetScaleRange());
-        int const ind = (cellDepth == RectId::DEPTH_LEVELS ? 0 : 1);
+        pair<int, int> const scaleR = header.GetScaleRange();
+        int const scale = min(max(viewScale + 7, scaleR.first), scaleR.second);
 
-        if (!intervalCovered[ind])
-        {
-          covering::CoverViewportAndAppendLowerLevels(m_viewport, cellDepth, intervals[ind]);
-          intervalCovered[ind] = true;
-        }
+        covering::IntervalsT const & interval = cov.Get(scaleR);
 
-        ScaleIndex<ModelReaderPtr> index(pMwmValue->m_cont.GetReader(INDEX_FILE_TAG),
-                                         pMwmValue->m_factory);
+        ScaleIndex<ModelReaderPtr> index(pMwm->m_cont.GetReader(INDEX_FILE_TAG),
+                                         pMwm->m_factory);
 
-        for (size_t i = 0; i < intervals[ind].size(); ++i)
+        for (size_t i = 0; i < interval.size(); ++i)
         {
           index.ForEachInIntervalAndScale(MakeInsertFunctor(m_offsetsInViewport[mwmId]),
-                                          intervals[ind][i].first, intervals[ind][i].second,
+                                          interval[i].first, interval[i].second,
                                           scale);
         }
       }
@@ -182,19 +177,23 @@ void Query::SearchFeatures()
     if (m_viewportExtended.IsIntersect(mwmInfo[mwmId].m_limitRect))
     {
       Index::MwmLock mwmLock(*m_pIndex, mwmId);
-      if (MwmValue * pMwmValue = mwmLock.GetValue())
+      if (MwmValue * pMwm = mwmLock.GetValue())
       {
-        scoped_ptr<TrieIterator> pTrieRoot(::trie::reader::ReadTrie(
-                                             pMwmValue->m_cont.GetReader(SEARCH_INDEX_FILE_TAG),
-                                             ::search::trie::ValueReader(),
-                                             ::search::trie::EdgeValueReader()));
-        if (pTrieRoot)
+        if (pMwm->m_cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
         {
-          FeaturesVector featuresVector(pMwmValue->m_cont, pMwmValue->GetHeader());
-          impl::FeatureLoader f(featuresVector, *this);
-          MatchFeaturesInTrie(m_tokens.data(), m_tokens.size(), m_prefix, *pTrieRoot,
-                              &m_offsetsInViewport[mwmId], f, m_results.max_size() * 10);
-          LOG(LINFO, ("Matched: ", f.m_count));
+          scoped_ptr<TrieIterator> pTrieRoot(::trie::reader::ReadTrie(
+                                               pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG),
+                                               ::search::trie::ValueReader(),
+                                               ::search::trie::EdgeValueReader()));
+          if (pTrieRoot)
+          {
+            FeaturesVector featuresVector(pMwm->m_cont, pMwm->GetHeader());
+            impl::FeatureLoader f(featuresVector, *this);
+            MatchFeaturesInTrie(m_tokens.data(), m_tokens.size(), m_prefix, *pTrieRoot,
+                                &m_offsetsInViewport[mwmId], f, m_results.max_size() * 10);
+
+            LOG(LINFO, ("Matched: ", f.m_count));
+          }
         }
       }
     }
