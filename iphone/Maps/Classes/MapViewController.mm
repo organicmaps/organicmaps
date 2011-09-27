@@ -34,9 +34,8 @@ storage::Storage m_storage;
   SEL onLocUpdatedSel = @selector(OnLocationUpdated:);
   OnLocationUpdatedFunc locUpdatedImpl = (OnLocationUpdatedFunc)[self methodForSelector:onLocUpdatedSel];
 
-  m_positionButtonSelected = true;
-  m_myPositionButton.image = [UIImage imageNamed:@"location-search.png"];
-
+  m_myPositionButton.selected = YES;
+  [m_myPositionButton setImage:[UIImage imageNamed:@"location-search.png"] forState:UIControlStateSelected];
   [[MapsAppDelegate theApp] disableStandby];
 
   m_framework->StartLocationService(bind(locUpdatedImpl, self, onLocUpdatedSel, _1));
@@ -44,8 +43,8 @@ storage::Storage m_storage;
 
 - (void)stopLocation
 {
-  m_positionButtonSelected = false;
-  m_myPositionButton.image = [UIImage imageNamed:@"location.png"];
+  m_myPositionButton.selected = NO;
+  [m_myPositionButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
   [[MapsAppDelegate theApp] enableStandby];
 
   m_framework->StopLocationService();
@@ -53,7 +52,7 @@ storage::Storage m_storage;
 
 - (IBAction)OnMyPositionClicked:(id)sender
 {
-  if (!m_positionButtonSelected)
+  if (m_myPositionButton.isSelected == NO)
     [self startLocation];
   else
     [self stopLocation];
@@ -83,7 +82,7 @@ storage::Storage m_storage;
     break;
   case location::ERoughMode:
   case location::EAccurateMode:
-    m_myPositionButton.image = [UIImage imageNamed:@"location-selected.png"];
+    [m_myPositionButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
     break;
   }
 }
@@ -97,7 +96,8 @@ storage::Storage m_storage;
 {
   SearchVC * searchVC = [[[SearchVC alloc] 
       initWithSearchFunc:bind(&framework_t::Search, m_framework, _1, _2)
-      andShowRectFunc:bind(&framework_t::ShowRect, m_framework, _1)] autorelease];
+      andShowRectFunc:bind(&framework_t::ShowRect, m_framework, _1)
+      andGetViewportCenterFunc:bind(&framework_t::GetViewportCenter, m_framework)] autorelease];
   [self.navigationController pushViewController:searchVC animated:YES];
 }
 
@@ -112,7 +112,6 @@ storage::Storage m_storage;
 	if ((self = [super initWithCoder:coder]))
 	{
     m_mapIsVisible = false;
-    m_positionButtonSelected = false;
 
     [(EAGLView*)self.view setController : self];
 
