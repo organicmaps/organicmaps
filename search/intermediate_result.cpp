@@ -11,8 +11,9 @@ namespace impl
 {
 
 IntermediateResult::IntermediateResult(m2::RectD const & viewportRect,
-                                       FeatureType const & feature)
-  : m_str(feature.GetPreferredDrawableName()), m_rect(feature::GetFeatureViewport(feature)),
+                                       FeatureType const & feature,
+                                       string const & displayName)
+  : m_str(displayName), m_rect(feature::GetFeatureViewport(feature)),
     m_resultType(RESULT_FEATURE)
 {
   FeatureType::GetTypesFn types;

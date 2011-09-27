@@ -1,6 +1,7 @@
 #include "search_query.hpp"
 #include "categories_holder.hpp"
 #include "feature_offset_match.hpp"
+#include "keyword_matcher.hpp"
 #include "latlon_match.hpp"
 #include "result.hpp"
 #include "../indexer/feature_covering.hpp"
@@ -107,6 +108,8 @@ void Query::Search(string const & query,
     if (m_tokens.size() > 31)
       m_tokens.resize(31);
 
+    m_pKeywordMatcher.reset(new KeywordMatcher(m_tokens.data(), (int)m_tokens.size(), &m_prefix));
+
     m_results = my::limited_priority_queue<impl::IntermediateResult>(resultsNeeded);
   }
 
@@ -138,6 +141,49 @@ void Query::FlushResults(function<void (Result const &)> const & f)
     f(it->GenerateFinalResult());
 }
 
+void Query::AddFeatureResult(FeatureType const & feature)
+{
+  uint32_t penalty;
+  string name;
+  GetBestMatchName(feature, penalty, name);
+  AddResult(impl::IntermediateResult(m_viewport, feature, name));
+}
+
+namespace impl
+{
+
+class BestNameFinder
+{
+  uint32_t & m_penalty;
+  string & m_name;
+  KeywordMatcher & m_keywordMatcher;
+public:
+  BestNameFinder(uint32_t & penalty, string & name, KeywordMatcher & keywordMatcher)
+    : m_penalty(penalty), m_name(name), m_keywordMatcher(keywordMatcher)
+  {
+    m_penalty = uint32_t(-1);
+  }
+
+  bool operator()(signed char, string const & name) const
+  {
+    uint32_t penalty = m_keywordMatcher.Score(name);
+    if (penalty < m_penalty)
+    {
+      m_penalty = penalty;
+      m_name = name;
+    }
+    return true;
+  }
+};
+
+}  // namespace search::impl
+
+void Query::GetBestMatchName(FeatureType const & feature, uint32_t & penalty, string & name)
+{
+  impl::BestNameFinder bestNameFinder(penalty, name, *m_pKeywordMatcher);
+  feature.ForEachNameRef(bestNameFinder);
+}
+
 namespace impl
 {
 
@@ -157,7 +203,7 @@ struct FeatureLoader
     ++m_count;
     FeatureType feature;
     m_featuresVector.Get(offset, feature);
-    m_query.AddResult(impl::IntermediateResult(m_query.m_viewport, feature));
+    m_query.AddFeatureResult(feature);
   }
 };
 

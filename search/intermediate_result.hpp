@@ -19,7 +19,8 @@ public:
 
   // For RESULT_FEATURE.
   IntermediateResult(m2::RectD const & viewportRect,
-                     FeatureType const & feature);
+                     FeatureType const & feature,
+                     string const & displayName);
 
   // For RESULT_LATLON.
   IntermediateResult(m2::RectD const & viewportRect, double lat, double lon, double precision);
