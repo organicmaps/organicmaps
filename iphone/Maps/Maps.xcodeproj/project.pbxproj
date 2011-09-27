@@ -70,6 +70,7 @@
 		FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */; };
 		FA4135EA120A263C0062D5B4 /* CountriesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4135E2120A263C0062D5B4 /* CountriesViewController.mm */; };
 		FA4135ED120A263C0062D5B4 /* SettingsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4135E7120A263C0062D5B4 /* SettingsManager.mm */; };
+		FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */; };
 		FA46DA0512D414D200968C36 /* maps.update in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA0412D414D200968C36 /* maps.update */; };
 		FA46DA2C12D4166E00968C36 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
 		FA5005621287BFCE002961F0 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = FA50055C1287BFCE002961F0 /* Icon-72.png */; };
@@ -683,6 +684,7 @@
 		FA4135E2120A263C0062D5B4 /* CountriesViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = CountriesViewController.mm; path = Settings/CountriesViewController.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FA4135E6120A263C0062D5B4 /* SettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsManager.h; path = Settings/SettingsManager.h; sourceTree = SOURCE_ROOT; };
 		FA4135E7120A263C0062D5B4 /* SettingsManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = SettingsManager.mm; path = Settings/SettingsManager.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = WorldCoasts.mwm; path = ../../data/WorldCoasts.mwm; sourceTree = "<group>"; };
 		FA46DA0412D414D200968C36 /* maps.update */ = {isa = PBXFileReference; lastKnownFileType = file; name = maps.update; path = ../../data/maps.update; sourceTree = SOURCE_ROOT; };
 		FA46DA2B12D4166E00968C36 /* countries.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries.txt; path = ../../data/countries.txt; sourceTree = SOURCE_ROOT; };
 		FA50055C1287BFCE002961F0 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = SOURCE_ROOT; };
@@ -1373,6 +1375,7 @@
 				EEA615E9134C4968003A9827 /* 05_khmeros.ttf */,
 				EE164810135CEE49003B8A3E /* 06_code2000.ttf */,
 				FAFF42291347F101009BBB14 /* World.mwm */,
+				FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */,
 				4938BB1C1343652600E0815A /* dictionary.slf */,
 				FAFCB63713367AD1001A5C59 /* about-travelguide-iphone.html */,
 				EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */,
@@ -2587,6 +2590,7 @@
 				490830551426B0900088EE84 /* downloader.png in Resources */,
 				490830561426B0900088EE84 /* downloader@2x.png in Resources */,
 				490830591426BD460088EE84 /* Search.xib in Resources */,
+				FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
