@@ -10,6 +10,7 @@ set -e -u -x
 # global params
 LIGHT_NODES=false
 PROCESSORS=8
+BZIP="pbzip2 -d"
 
 # displays usage and exits
 function Usage {
@@ -99,13 +100,13 @@ fi
 # skip 1st pass if intermediate data path was given
 if [ $# -lt 2 ]; then
   # 1st pass - not paralleled
-  $PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
+  $PV $OSM_BZ2 | $BZIP | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
     -use_light_nodes=$LIGHT_NODES \
     -preprocess_xml
 fi
 
 # 2nd pass - paralleled in the code
-$PV $OSM_BZ2 | bzip2 -d | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
+$PV $OSM_BZ2 | $BZIP | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
   -use_light_nodes=$LIGHT_NODES -split_by_polygons \
   -generate_features -generate_world \
   -data_path=$DATA_PATH
