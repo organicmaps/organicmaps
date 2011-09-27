@@ -48,12 +48,17 @@ inline void CoverRect(CoordT minX, CoordT minY,
   queue<CellIdT> cellQueue;
   cellQueue.push(commonCell);
 
+  maxDepth -= 1;
+
   while (!cellQueue.empty() && cellQueue.size() + result.size() < cells_count)
   {
     CellIdT id = cellQueue.front();
     cellQueue.pop();
 
-    if (id.Level() == maxDepth - 1)
+    while (id.Level() > maxDepth)
+      id = id.Parent();
+
+    if (id.Level() == maxDepth)
     {
       result.push_back(id);
       break;
@@ -85,7 +90,7 @@ inline void CoverRect(CoordT minX, CoordT minY,
   for (size_t i = 0; i < result.size(); ++i)
   {
     CellIdT id = result[i];
-    while (id.Level() < maxDepth - 1)
+    while (id.Level() < maxDepth)
     {
       vector<CellIdT> children;
       SplitRectCell<BoundsT>(id, minX, minY, maxX, maxY, children);
