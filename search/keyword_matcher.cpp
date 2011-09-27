@@ -5,23 +5,53 @@
 #include "../base/string_utils.hpp"
 #include "../std/algorithm.hpp"
 
-search::KeywordMatcher::KeywordMatcher(strings::UniString const * const * pKeywords,
-                                       int keywordCount,
-                                       strings::UniString const * pPrefix)
-  : m_pKeywords(pKeywords), m_keywordCount(keywordCount), m_pPrefix(pPrefix)
+namespace search
 {
-  ASSERT_LESS(m_keywordCount, int(MAX_TOKENS), ());
-  m_keywordCount = min(m_keywordCount, int(MAX_TOKENS));
+
+KeywordMatcher::KeywordMatcher(strings::UniString const * const * pKeywords,
+                               size_t keywordCount,
+                               strings::UniString const * pPrefix)
+  : m_pKeywords(pKeywords), m_keywordCount(keywordCount), m_pPrefix(pPrefix), m_bOwnKeywords(false)
+{
+  Initialize();
+}
+
+KeywordMatcher::KeywordMatcher(strings::UniString const * keywords,
+                               size_t keywordCount,
+                               strings::UniString const * pPrefix)
+  : m_keywordCount(keywordCount), m_pPrefix(pPrefix), m_bOwnKeywords(false)
+{
+  Initialize();
+  if (m_keywordCount > 0)
+  {
+    strings::UniString const * * pKeywords = new strings::UniString const * [m_keywordCount];
+    for (size_t i = 0; i < m_keywordCount; ++i)
+      pKeywords[i] = &keywords[i];
+    m_bOwnKeywords = true;
+    m_pKeywords = pKeywords;
+  }
+}
+
+void KeywordMatcher::Initialize()
+{
+  ASSERT_LESS(m_keywordCount, size_t(MAX_TOKENS), ());
+  m_keywordCount = min(m_keywordCount, size_t(MAX_TOKENS));
   if (m_pPrefix && m_pPrefix->empty())
     m_pPrefix = NULL;
 }
 
-uint32_t search::KeywordMatcher::Score(string const & name) const
+KeywordMatcher::~KeywordMatcher()
+{
+  if (m_bOwnKeywords)
+    delete [] m_pKeywords;
+}
+
+uint32_t KeywordMatcher::Score(string const & name) const
 {
   return Score(NormalizeAndSimplifyString(name));
 }
 
-uint32_t search::KeywordMatcher::Score(strings::UniString const & name) const
+uint32_t KeywordMatcher::Score(strings::UniString const & name) const
 {
   buffer_vector<strings::UniString, MAX_TOKENS> tokens;
   SplitUniString(name, MakeBackInsertFunctor(tokens), Delimiters());
@@ -29,7 +59,7 @@ uint32_t search::KeywordMatcher::Score(strings::UniString const & name) const
   return Score(tokens.data(), static_cast<int>(tokens.size()));
 }
 
-uint32_t search::KeywordMatcher::Score(strings::UniString const * tokens, int tokenCount) const
+uint32_t KeywordMatcher::Score(strings::UniString const * tokens, int tokenCount) const
 {
   ASSERT_LESS(tokenCount, int(MAX_TOKENS), ());
 
@@ -73,3 +103,5 @@ uint32_t search::KeywordMatcher::Score(strings::UniString const * tokens, int to
 
   return score;
 }
+
+}  // namespace search
