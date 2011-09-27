@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../base/base.hpp"
+#include "../base/assert.hpp"
+
 #include "../std/algorithm.hpp"
 #include "../std/functional.hpp"
 #include "../std/vector.hpp"
@@ -28,7 +30,7 @@ public:
       m_queue.push_back(t);
       push_heap(m_queue.begin(), m_queue.end(), m_compare);
     }
-    else if (m_compare(t, m_queue.back()))
+    else if (m_compare(t, top()))
     {
       // This can be optimized by writing decrease_head_heap().
       pop_heap(m_queue.begin(), m_queue.end(), m_compare);
@@ -39,6 +41,7 @@ public:
 
   void pop()
   {
+    ASSERT ( !empty(), () );
     pop_heap(m_queue.begin(), m_queue.end(), m_compare);
     m_queue.pop_back();
   }
@@ -54,7 +57,11 @@ public:
   size_t max_size() const { return m_maxSize; }
   bool empty() const { return m_queue.empty(); }
   size_t size() const { return m_queue.size(); }
-  T const & top() const { return m_queue.back(); }
+  T const & top() const
+  {
+    ASSERT ( !empty(), () );
+    return m_queue.front();
+  }
 
   const_iterator begin() const { return m_queue.begin(); }
   const_iterator end() const { return m_queue.end(); }

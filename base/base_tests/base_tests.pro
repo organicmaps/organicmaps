@@ -33,6 +33,9 @@ SOURCES += \
   timer_test.cpp \
   mru_cache_test.cpp \
   threaded_list_test.cpp \
-    condition_test.cpp
+  condition_test.cpp \
+  containers_test.cpp \
+
 
 HEADERS +=
+

@@ -26,7 +26,7 @@ UNIT_TEST(Timer_Seconds)
 #endif
 }
 
-UNIT_TEST(Tiner_CurrentStringTime)
+UNIT_TEST(Timer_CurrentStringTime)
 {
-    LOG(LINFO, (my::FormatCurrentTime()));
+  LOG(LINFO, (my::FormatCurrentTime()));
 }
