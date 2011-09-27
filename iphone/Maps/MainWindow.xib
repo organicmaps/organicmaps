@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1024</int>
-		<string key="IBDocument.SystemVersion">11A511</string>
+		<string key="IBDocument.SystemVersion">11B26</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1617</string>
 		<string key="IBDocument.AppKitVersion">1138</string>
 		<string key="IBDocument.HIToolboxVersion">566.00</string>
@@ -74,7 +74,6 @@
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{10, 435}, {40, 40}}</string>
 									<reference key="NSSuperview" ref="53915144"/>
-									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="23888313"/>
 									<string key="NSReuseIdentifierKey">_NS:222</string>
 									<bool key="IBUIOpaque">NO</bool>
@@ -111,7 +110,6 @@
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{60, 435}, {40, 40}}</string>
 									<reference key="NSSuperview" ref="53915144"/>
-									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="773974234"/>
 									<string key="NSReuseIdentifierKey">_NS:222</string>
 									<bool key="IBUIOpaque">NO</bool>
@@ -137,7 +135,6 @@
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{110, 435}, {40, 40}}</string>
 									<reference key="NSSuperview" ref="53915144"/>
-									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:222</string>
 									<bool key="IBUIOpaque">NO</bool>
@@ -155,13 +152,12 @@
 									<reference key="IBUINormalTitleShadowColor" ref="538042181"/>
 									<object class="NSCustomResource" key="IBUINormalImage">
 										<string key="NSClassName">NSImage</string>
-										<string key="NSResourceName">settings.png</string>
+										<string key="NSResourceName">downloader.png</string>
 									</object>
 								</object>
 							</array>
 							<string key="NSFrameSize">{320, 480}</string>
 							<reference key="NSSuperview"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="803813744"/>
 							<object class="NSColor" key="IBUIBackgroundColor">
 								<int key="NSColorSpace">3</int>
@@ -192,13 +188,10 @@
 				<bool key="IBUINavigationBarHidden">YES</bool>
 			</object>
 			<object class="IBUIWindow" id="380026005">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">1280</int>
 				<object class="NSPSMatrix" key="NSFrameMatrix"/>
 				<string key="NSFrameSize">{320, 480}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
 					<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -409,14 +402,6 @@
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
-					<string key="className">EAGLView</string>
-					<string key="superclassName">UIView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/EAGLView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">FirstResponder</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="OnGuideClicked:">id</string>
@@ -442,71 +427,6 @@
 						<string key="minorKey"/>
 					</object>
 				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">MapViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="OnMyPositionClicked:">id</string>
-						<string key="OnSearchClicked:">id</string>
-						<string key="OnSettingsClicked:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="OnMyPositionClicked:">
-							<string key="name">OnMyPositionClicked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="OnSearchClicked:">
-							<string key="name">OnSearchClicked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="OnSettingsClicked:">
-							<string key="name">OnSettingsClicked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">m_myPositionButton</string>
-						<string key="NS.object.0">UIButton</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">m_myPositionButton</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">m_myPositionButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/MapViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">MapsAppDelegate</string>
-					<string key="superclassName">NSObject</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="m_mapViewController">MapViewController</string>
-						<string key="m_navigationController">UINavigationController</string>
-						<string key="m_window">UIWindow</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="m_mapViewController">
-							<string key="name">m_mapViewController</string>
-							<string key="candidateClassName">MapViewController</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="m_navigationController">
-							<string key="name">m_navigationController</string>
-							<string key="candidateClassName">UINavigationController</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="m_window">
-							<string key="name">m_window</string>
-							<string key="candidateClassName">UIWindow</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/MapsAppDelegate.h</string>
-					</object>
-				</object>
 			</array>
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
@@ -522,10 +442,10 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="location-search.png">{16, 16}</string>
-			<string key="location.png">{16, 16}</string>
+			<string key="downloader.png">{24, 24}</string>
+			<string key="location-search.png">{20, 20}</string>
+			<string key="location.png">{20, 20}</string>
 			<string key="search.png">{24, 24}</string>
-			<string key="settings.png">{24, 24}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">534</string>
 	</data>
