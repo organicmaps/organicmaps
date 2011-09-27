@@ -157,7 +157,9 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
       cell.textLabel.text = [NSString stringWithUTF8String:r.GetString()];
       if (r.GetResultType() == search::Result::RESULT_FEATURE)
       {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1lf m", r.GetDistanceFromCenter() / 1000.0];
+        // @TODO use imperial system from the settings if needed
+        // @TODO use meters too
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1lf km", r.GetDistanceFromCenter() / 1000.0];
 
         float const h = tableView.rowHeight * 0.6;
         CompassView * v = [[[CompassView alloc] initWithFrame:
