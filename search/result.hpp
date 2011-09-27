@@ -1,4 +1,5 @@
 #pragma once
+#include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 #include "../std/string.hpp"
 
@@ -30,6 +31,9 @@ public:
 
   // Rect of a feature, if GetResultType() == RESULT_FEATURE.
   m2::RectD GetFeatureRect() const;
+
+  // Center point of a feature, if GetResultType() == RESULT_FEATURE.
+  m2::PointD GetFeatureCenter() const;
 
   // Type of a feature, if GetResultType() == RESULT_FEATURE.
   uint32_t GetFetureType() const;

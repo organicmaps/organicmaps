@@ -38,6 +38,12 @@ m2::RectD Result::GetFeatureRect() const
   return m_featureRect;
 }
 
+m2::PointD Result::GetFeatureCenter() const
+{
+  ASSERT_EQUAL(GetResultType(), RESULT_FEATURE, ());
+  return m_featureRect.Center();
+}
+
 uint32_t Result::GetFetureType() const
 {
   ASSERT_EQUAL(GetResultType(), RESULT_FEATURE, ());
