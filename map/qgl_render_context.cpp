@@ -30,6 +30,7 @@ namespace qt
     void RenderContext::makeCurrent()
     {
       m_context->makeCurrent();
+      yg::gl::RenderContext::initParams();
     }
 
     shared_ptr<yg::gl::RenderContext> RenderContext::createShared()

@@ -9,6 +9,8 @@
 
 #include "../platform/settings.hpp"
 
+#include "../yg/rendercontext.hpp"
+
 #include "../search/search_engine.hpp"
 #include "../search/result.hpp"
 #include "../search/categories_holder.hpp"
@@ -179,6 +181,7 @@ void Framework<TModel>::InitializeGL(
                   shared_ptr<yg::gl::RenderContext> const & primaryContext,
                   shared_ptr<yg::ResourceManager> const & resourceManager)
 {
+  yg::gl::RenderContext::initParams();
   m_renderPolicy->Initialize(primaryContext, resourceManager);
 }
 

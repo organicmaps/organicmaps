@@ -16,6 +16,10 @@ namespace yg
       virtual shared_ptr<RenderContext> createShared() = 0;
       /// called at the end of thread
       virtual void endThreadDrawing() = 0;
+      /// !! IMPORTANT !!
+      /// this function must be called from each opengl
+      /// thread to setup texture related params
+      static void initParams();
     };
   }
 }

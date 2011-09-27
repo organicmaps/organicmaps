@@ -29,8 +29,9 @@ namespace iphone
 	void RenderContext::makeCurrent()
 	{
     [EAGLContext setCurrentContext:m_context];
+    yg::gl::RenderContext::initParams();
 	}
-
+ 
   shared_ptr<yg::gl::RenderContext> RenderContext::createShared()
 	{
 		return shared_ptr<yg::gl::RenderContext>(new RenderContext(this));

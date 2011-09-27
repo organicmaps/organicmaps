@@ -20,9 +20,6 @@ namespace yg
       OGLCHECK(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
       OGLCHECK(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
       OGLCHECK(glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-
-      OGLCHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
-      OGLCHECK(glPixelStorei(GL_PACK_ALIGNMENT, 1));
     }
 
     BaseTexture::BaseTexture(m2::PointU const & size)

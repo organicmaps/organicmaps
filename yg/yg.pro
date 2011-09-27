@@ -60,7 +60,8 @@ SOURCES += \
     styles_cache.cpp \
     composite_overlay_element.cpp \
     path_text_element.cpp \
-    straight_text_element.cpp
+    straight_text_element.cpp \
+    rendercontext.cpp
 
 HEADERS += \
     internal/opengl.hpp \
