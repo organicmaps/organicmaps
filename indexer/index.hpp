@@ -89,13 +89,23 @@ private:
     }
   };
 
-  /// @param[in] mode\n
-  /// - 0 - cover viewport with low lovels;\n
-  /// - 1 - cover append low levels only;\n
-  /// - 2 - make full cover\n
-  static void GetCovering(m2::RectD const & rect,
-                          int mode, int cellDepth,
-                          covering::IntervalsT & res);
+  class CoveringGetter
+  {
+    typedef covering::IntervalsT ResT;
+    ResT m_res[2];
+
+    m2::RectD const & m_rect;
+    int m_mode;
+
+  public:
+    /// @param[in] mode\n
+    /// - 0 - cover viewport with low lovels;\n
+    /// - 1 - cover append low levels only;\n
+    /// - 2 - make full cover\n
+    CoveringGetter(m2::RectD const & r, int mode) : m_rect(r), m_mode(mode) {}
+
+    ResT const & Get(feature::DataHeader const & header);
+  };
 
   template <typename F>
   void ForEachInIntervals(F & f, int mode, m2::RectD const & rect, uint32_t scale) const
@@ -103,7 +113,7 @@ private:
     vector<MwmInfo> mwm;
     GetMwmInfo(mwm);
 
-    covering::IntervalsT intervals[2];
+    CoveringGetter cov(rect, mode);
 
     for (MwmId id = 0; id < mwm.size(); ++id)
     {
@@ -117,11 +127,7 @@ private:
           feature::DataHeader const & header = pValue->GetHeader();
 
           // prepare needed covering
-          int const cellDepth = covering::GetCodingDepth(header.GetScaleRange());
-          int const ind = (cellDepth == RectId::DEPTH_LEVELS ? 0 : 1);
-
-          if (intervals[ind].empty())
-            GetCovering(rect, mode, cellDepth, intervals[ind]);
+          covering::IntervalsT const & interval = cov.Get(header);
 
           // prepare features reading
           FeaturesVector fv(pValue->m_cont, header);
@@ -131,10 +137,9 @@ private:
           // iterate through intervals
           unordered_set<uint32_t> offsets;
           ReadFeatureFunctor<F> f1(fv, f, offsets);
-          for (size_t i = 0; i < intervals[ind].size(); ++i)
+          for (size_t i = 0; i < interval.size(); ++i)
           {
-            index.ForEachInIntervalAndScale(f1, intervals[ind][i].first, intervals[ind][i].second,
-                                            scale);
+            index.ForEachInIntervalAndScale(f1, interval[i].first, interval[i].second, scale);
           }
         }
       }
