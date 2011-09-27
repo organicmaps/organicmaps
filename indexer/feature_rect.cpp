@@ -48,11 +48,17 @@ public:
     static double const km = 1000.0;
     if (type == m_TypeContinent)
       return m2::PointD(5000*km, 5000*km);
+
+    /// @todo Load countries bounding rects.
+    if (type == m_TypeCountry)
+      return m2::PointD(500*km, 500*km);
+
     if (type == m_TypeCity || type == m_TypeCityCapital)
     {
       double const radius = sqrt(static_cast<double>(feature.GetPopulation() / 3000));
       return m2::PointD(radius*km, radius*km);
     }
+
     if (type == m_TypeTown)
       return m2::PointD(8*km, 8*km);
     if (type == m_TypeVillage)
