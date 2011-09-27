@@ -68,7 +68,7 @@ void Framework<TModel>::OnGpsUpdate(location::GpsInfo const & info)
       m_centeringMode = ECenterOnly;
     }
     else if (m_centeringMode == ECenterOnly)
-      CenterViewport(m_locationState.Position());
+      SetViewportCenter(m_locationState.Position());
     Invalidate();
   }
 }
@@ -385,7 +385,13 @@ void Framework<TModel>::DoPaint(shared_ptr<PaintEvent> const & e)
 }
 
 template <typename TModel>
-void Framework<TModel>::CenterViewport(m2::PointD const & pt)
+m2::PointD Framework<TModel>::GetViewportCenter() const
+{
+  return m_navigator.Screen().GlobalRect().Center();
+}
+
+template <typename TModel>
+void Framework<TModel>::SetViewportCenter(m2::PointD const & pt)
 {
   m_navigator.CenterViewport(pt);
   Invalidate();

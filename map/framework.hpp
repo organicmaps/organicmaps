@@ -209,6 +209,9 @@ public:
 
   double GetCurrentScale() const;
 
+  m2::PointD GetViewportCenter() const;
+  void SetViewportCenter(m2::PointD const & pt);
+
   bool NeedRedraw() const;
   void SetNeedRedraw(bool flag);
 
@@ -217,8 +220,6 @@ public:
   virtual void DoPaint(shared_ptr<PaintEvent> const & e);
 
   virtual void EndPaint(shared_ptr<PaintEvent> const & e);
-
-  void CenterViewport(m2::PointD const & pt);
 
   void ShowRect(m2::RectD rect);
 
