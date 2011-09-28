@@ -174,7 +174,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
     if (loc)
     {
       double angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(loc.coordinate.longitude),
-                                   MercatorBounds::LatToY(loc.coordinate.latitude)), pt);
+                                             MercatorBounds::LatToY(loc.coordinate.latitude)), pt);
       CLHeading * h = m_locationManager.heading;
       if (h)
       {
@@ -182,11 +182,12 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
         if (northDeg < 0.)
           northDeg = h.magneticHeading;
         double const northRad = northDeg / 180. * math::pi;
-        angle -= northRad;
+        angle += northRad;
       }
       return angle;
     }
   }
+  
   m2::PointD const center = g_getViewportCenterF();
   return ang::AngleTo(center, pt);
 }
