@@ -87,28 +87,6 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   [super dealloc];
 }
 
-- (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
-{
-  return YES;
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
-{
-//  CLLocationDirection north = newHeading.trueHeading;
-//  if (north < 0.)
-//    north = newHeading.magneticHeading;
-//  
-//  UITableView * table = (UITableView *)self.view;
-//  NSArray * indexes = [table indexPathsForVisibleRows];
-//  for (NSUInteger i = 0; i < indexes.count; ++i)
-//  {
-//    UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
-//    UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
-//    CompassView * compass = (CompassView *)cell.accessoryView;
-//    compass.north = north * M_PI / 180.;
-//  }
-}
-
 - (void)onRadarButtonClick:(id)button
 {
   m_isRadarEnabled = !m_isRadarEnabled;
@@ -126,6 +104,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
     if ([CLLocationManager headingAvailable])
       [m_locationManager stopUpdatingHeading];
     [m_locationManager stopUpdatingLocation];
+    [(UITableView *)self.view reloadData];
   }
 }
 
@@ -187,14 +166,26 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   }
 }
 
-- (float)calculateAngle:(m2::PointD const &)pt
+- (double)calculateAngle:(m2::PointD const &)pt
 {
   if (m_isRadarEnabled)
   {
     CLLocation * loc = m_locationManager.location;
     if (loc)
-      return ang::AngleTo(m2::PointD(MercatorBounds::LonToX(loc.coordinate.longitude),
+    {
+      double angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(loc.coordinate.longitude),
                                    MercatorBounds::LatToY(loc.coordinate.latitude)), pt);
+      CLHeading * h = m_locationManager.heading;
+      if (h)
+      {
+        CLLocationDirection northDeg = h.trueHeading;
+        if (northDeg < 0.)
+          northDeg = h.magneticHeading;
+        double const northRad = northDeg / 180. * math::pi;
+        angle -= northRad;
+      }
+      return angle;
+    }
   }
   m2::PointD const center = g_getViewportCenterF();
   return ang::AngleTo(center, pt);
@@ -214,6 +205,21 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   m2::PointD const center = g_getViewportCenterF();
   return ms::DistanceOnEarth(MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x),
                              ptLat, ptLon);
+}
+
+- (void)updateCellAngle:(UITableViewCell *)cell withIndex:(NSUInteger)index
+{
+  double const angle = [self calculateAngle:m_results[index].GetFeatureCenter()];  
+  CompassView * compass = (CompassView *)cell.accessoryView;
+  compass.angle = angle;
+}
+
+- (void)updateCellDistance:(UITableViewCell *)cell withIndex:(NSUInteger)index
+{
+    // @TODO use imperial system from the settings if needed
+    // @TODO use meters too
+  cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1lf km", 
+                               [self calculateDistance:m_results[index].GetFeatureCenter()] / 1000.0];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -250,15 +256,13 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
       cell.textLabel.text = [NSString stringWithUTF8String:r.GetString()];
       if (r.GetResultType() == search::Result::RESULT_FEATURE)
       {
-        // @TODO use imperial system from the settings if needed
-        // @TODO use meters too
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1lf km", r.GetDistanceFromCenter() / 1000.0];
-
+        [self updateCellDistance:cell withIndex:indexPath.row];
+      
         float const h = tableView.rowHeight * 0.6;
         CompassView * v = [[[CompassView alloc] initWithFrame:
                           CGRectMake(0, 0, h, h)] autorelease];
-        v.angle = [self calculateAngle:r.GetFeatureCenter()];
         cell.accessoryView = v;
+        [self updateCellAngle:cell withIndex:indexPath.row];
       }
     }
   }
@@ -303,6 +307,34 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 {
   m_results.push_back(*[result get]);
   [(UITableView *)self.view reloadData];
+}
+
+- (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
+{
+  return YES;
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
+{
+  UITableView * table = (UITableView *)self.view;
+  NSArray * cells = [table visibleCells];
+  for (NSUInteger i = 0; i < cells.count; ++i)
+  {
+    UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
+    [self updateCellAngle:cell withIndex:[table indexPathForCell:cell].row];
+  }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation
+{
+  UITableView * table = (UITableView *)self.view;
+  NSArray * cells = [table visibleCells];
+  for (NSUInteger i = 0; i < cells.count; ++i)
+  {
+    UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
+    [self updateCellDistance:cell withIndex:[table indexPathForCell:cell].row];
+  }
 }
 
 @end

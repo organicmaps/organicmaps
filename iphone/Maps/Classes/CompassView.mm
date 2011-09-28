@@ -21,6 +21,9 @@
   [self setNeedsDisplay];
 }
 
+// Draws an arrow looking to the right like this:
+// =>
+// and rotates it to given angle
 - (void)drawRect:(CGRect)rect
 {
   UIBezierPath * aPath = [UIBezierPath bezierPath];
