@@ -45,6 +45,7 @@ namespace yg
     };
 
     OverlayElement(Params const & p);
+    virtual ~OverlayElement();
 
     virtual OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const = 0;
 
