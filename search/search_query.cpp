@@ -20,7 +20,7 @@ namespace search
 
 Query::Query(Index const * pIndex, search::CategoriesHolder const * pCategories)
   : m_pIndex(pIndex), m_pCategories(pCategories), m_viewport(m2::RectD::GetEmptyRect()),
-    m_viewportExtended(m2::RectD::GetEmptyRect())
+    m_viewportExtended(m2::RectD::GetEmptyRect()), m_bOffsetsCacheIsValid(false)
 {
 }
 
@@ -32,7 +32,7 @@ void Query::SetViewport(m2::RectD const & viewport)
 {
   // TODO: Clear m_viewportExtended when mwm index is added or removed!
 
-  if (m_viewport != viewport)
+  if (m_viewport != viewport || !m_bOffsetsCacheIsValid)
   {
     m_viewport = viewport;
     m_viewportExtended = m_viewport;
@@ -42,8 +42,16 @@ void Query::SetViewport(m2::RectD const & viewport)
   }
 }
 
+void Query::ClearCache()
+{
+  m_offsetsInViewport.clear();
+  m_bOffsetsCacheIsValid = false;
+}
+
 void Query::UpdateViewportOffsets()
 {
+  m_offsetsInViewport.clear();
+
   vector<MwmInfo> mwmInfo;
   m_pIndex->GetMwmInfo(mwmInfo);
   m_offsetsInViewport.resize(mwmInfo.size());
@@ -80,6 +88,8 @@ void Query::UpdateViewportOffsets()
       }
     }
   }
+
+  m_bOffsetsCacheIsValid = true;
 
   size_t offsetsCached = 0;
   for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)

@@ -30,6 +30,8 @@ public:
               function<void (Result const &)> const & f,
               unsigned int resultsNeeded = 10);
 
+  void ClearCache();
+
 private:
 
   friend class impl::FeatureLoader;
@@ -54,6 +56,7 @@ private:
 
   scoped_ptr<KeywordMatcher> m_pKeywordMatcher;
 
+  bool m_bOffsetsCacheIsValid;
   vector<unordered_set<uint32_t> > m_offsetsInViewport;
 
   my::limited_priority_queue<impl::IntermediateResult> m_results;
