@@ -187,13 +187,28 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
 void TileRenderer::AddCommand(Tiler::RectInfo const & rectInfo, int sequenceID, core::CommandsQueue::Chain const & afterTileFns)
 {
-  m_sequenceID = sequenceID;
+  SetSequenceID(sequenceID);
 
   core::CommandsQueue::Chain chain;
   chain.addCommand(bind(&TileRenderer::DrawTile, this, _1, rectInfo, sequenceID));
   chain.addCommand(afterTileFns);
 
   m_queue.AddCommand(chain);
+}
+
+void TileRenderer::CancelCommands()
+{
+  m_queue.CancelCommands();
+}
+
+void TileRenderer::ClearCommands()
+{
+  m_queue.Clear();
+}
+
+void TileRenderer::SetSequenceID(int sequenceID)
+{
+  m_sequenceID = sequenceID;
 }
 
 TileCache & TileRenderer::GetTileCache()
@@ -226,4 +241,5 @@ void TileRenderer::AddTile(Tiler::RectInfo const & rectInfo, Tile const & tile)
     m_tileCache.addTile(rectInfo, TileCache::Entry(tile, m_resourceManager));
   m_tileCache.writeUnlock();
 }
+
 

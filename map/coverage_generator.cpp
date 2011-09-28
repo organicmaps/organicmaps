@@ -69,7 +69,10 @@ void CoverageGenerator::AddCoverScreenTask(ScreenBase const & screen)
     return;
 
   m_currentScreen = screen;
+
+  m_queue.Clear();
   m_sequenceID++;
+  m_queue.CancelCommands();
 
   m_queue.AddCommand(bind(&CoverageGenerator::CoverScreen, this, screen, m_sequenceID));
 }

@@ -201,12 +201,16 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen, bool /*mergePathNames*
     m_stylesCache->upload();
   }
 
+  /// clearing all old commands
+  m_tileRenderer->ClearCommands();
+  /// setting new sequenceID
+  m_tileRenderer->SetSequenceID(m_tiler.sequenceID());
+  /// cancelling commands in progress
+  m_tileRenderer->CancelCommands();
   /// adding commands for tiles which aren't in cache
   for (size_t i = 0; i < newRects.size(); ++i)
-  {
     m_tileRenderer->AddCommand(newRects[i], m_tiler.sequenceID(),
                                bind(&CoverageGenerator::AddMergeTileTask, m_coverageGenerator, newRects[i]));
-  }
 
 }
 

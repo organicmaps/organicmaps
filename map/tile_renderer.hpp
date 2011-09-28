@@ -87,6 +87,12 @@ public:
   /// wait on a condition variable for an empty queue.
   void WaitForEmptyAndFinished();
 
+  void SetSequenceID(int sequenceID);
+
+  void CancelCommands();
+
+  void ClearCommands();
+
   bool HasTile(Tiler::RectInfo const & rectInfo);
   void AddTile(Tiler::RectInfo const & rectInfo, Tile const & tile);
 };
