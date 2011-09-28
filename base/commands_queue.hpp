@@ -8,6 +8,8 @@
 
 namespace core
 {
+  /// class, that executes task, specified as a functors on the specified number of threads
+  /// - all tasks are stored in the single ThreadedList
   class CommandsQueue
   {
   private:
@@ -19,6 +21,10 @@ namespace core
     struct Command;
 
     /// execution environment for single command
+    /// - passed into the task functor
+    /// - task functor should check the IsCancelled()
+    ///   on the reasonable small interval and cancel
+    ///   it's work upon receiving "true".
     class Environment
     {
     private:
@@ -35,13 +41,15 @@ namespace core
 
     public:
 
-      int GetThreadNum() const; //< number of thread, that is executing the command
-      bool IsCancelled() const; //< command should ping this flag to see, whether it should cancel execution
+      int GetThreadNum() const; //< number of thread executing the commands
+      bool IsCancelled() const; //< command should ping this flag to see,
+                                //  whether it should cancel execution
     };
 
     /// single commmand
     typedef function<void(Environment const &)> function_t;
 
+    /// chain of commands
     struct Chain
     {
       list<function_t> m_fns;
@@ -64,6 +72,8 @@ namespace core
       void operator()(Environment const & env);
     };
 
+    /// single command.
+    /// - could be chained together, using Chain class
     struct Command
     {
       uint64_t m_id;
@@ -71,6 +81,7 @@ namespace core
 
       Command() : m_id(static_cast<uint64_t>(-1))
       {}
+
 
       template <typename tt>
       Command(uint64_t id, tt t)
@@ -80,6 +91,7 @@ namespace core
 
   private:
 
+    /// single execution routine
     class Routine : public threads::IRoutine
     {
     private:
@@ -95,21 +107,23 @@ namespace core
 
       void Do();
       void Cancel();
+      void CancelCommand();
     };
 
+    /// class, which excapsulates thread and routine into single class.
     struct Executor
     {
       threads::Thread m_thread;
       Routine * m_routine;
       Executor();
       void Cancel();
+      void CancelCommand();
     };
 
     Executor * m_executors;
     size_t m_executorsCount;
     ThreadedList<Command> m_commands;
     uint64_t m_cmdId;
-
 
     list<Command> m_initCommands;
     list<Command> m_finCommands;
@@ -142,7 +156,9 @@ namespace core
 
     void Start();
     void Cancel();
+    void CancelCommands();
     void Join();
+    void Clear();
 
     template<typename command_tt>
     void AddCommand(command_tt cmd)

@@ -61,10 +61,9 @@ namespace core
       if (m_parent->m_commands.IsCancelled())
         break;
 
-      cmd.m_fn(m_env);
+      m_env.m_isCancelled = false;
 
-      if (m_env.IsCancelled())
-        break;
+      cmd.m_fn(m_env);
 
       m_parent->FinishCommand();
     }
@@ -89,6 +88,11 @@ namespace core
     IRoutine::Cancel();
   }
 
+  void CommandsQueue::Routine::CancelCommand()
+  {
+    m_env.Cancel();
+  }
+
   CommandsQueue::Executor::Executor() : m_routine(0)
   {}
 
@@ -96,6 +100,11 @@ namespace core
   {
     if (m_routine != 0)
       m_thread.Cancel();
+  }
+
+  void CommandsQueue::Executor::CancelCommand()
+  {
+    m_routine->CancelCommand();
   }
 
   CommandsQueue::CommandsQueue(size_t executorsCount)
@@ -117,6 +126,12 @@ namespace core
 
     delete [] m_executors;
     m_executors = 0;
+  }
+
+  void CommandsQueue::CancelCommands()
+  {
+    for (size_t i = 0; i < m_executorsCount; ++i)
+      m_executors[i].CancelCommand();
   }
 
   void CommandsQueue::Start()
@@ -164,6 +179,11 @@ namespace core
     threads::ConditionGuard g(m_cond);
     if (m_activeCommands != 0)
       m_cond.Wait();
+  }
+
+  void CommandsQueue::Clear()
+  {
+    m_commands.Clear();
   }
 
   int CommandsQueue::ExecutorsCount() const
