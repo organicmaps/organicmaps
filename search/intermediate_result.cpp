@@ -22,7 +22,7 @@ IntermediateResult::IntermediateResult(m2::RectD const & viewportRect,
   m_type = types.m_types[0];
   m_distance = ResultDistance(viewportRect.Center(), m_rect.Center());
   m_direction = ResultDirection(viewportRect.Center(), m_rect.Center());
-  m_searchRank = feature.GetSearchRank();
+  m_searchRank = feature::GetSearchRank(feature);
 }
 
 IntermediateResult::IntermediateResult(m2::RectD const & viewportRect,

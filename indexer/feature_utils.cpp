@@ -4,14 +4,17 @@
 #include "../base/base.hpp"
 #include "../std/vector.hpp"
 
-namespace
+namespace feature
 {
 
-class FeatureViewportEstimator
+namespace impl
+{
+
+class FeatureEstimator
 {
 public:
 
-  FeatureViewportEstimator()
+  FeatureEstimator()
   {
     m_TypeContinent   = GetType("place", "continent");
     m_TypeCountry     = GetType("place", "country");
@@ -42,6 +45,14 @@ public:
                                                          maxSizeMeters.x, maxSizeMeters.y);
   }
 
+  uint8_t GetSearchRank(FeatureType const & feature) const
+  {
+    uint32_t const population = feature.GetPopulation();
+    return static_cast<uint8_t>(log(double(population)) / log(1.1));
+  }
+
+private:
+
   // Returns width and height (lon and lat) for a given type.
   m2::PointD GetSizeForType(uint32_t const type, FeatureType const & feature) const
   {
@@ -66,8 +77,6 @@ public:
     return m2::PointD(0, 0);
   }
 
-private:
-
   static uint32_t GetType(string const & s1,
                           string const & s2 = string(),
                           string const & s3 = string())
@@ -87,10 +96,22 @@ private:
   uint32_t m_TypeVillage;
 };
 
-}  // unnamed namespace
-
-m2::RectD feature::GetFeatureViewport(FeatureType const & feature)
+FeatureEstimator const & GetFeatureEstimator()
 {
-  static FeatureViewportEstimator const featureViewportEstimator;
-  return featureViewportEstimator.GetViewport(feature);
+  static FeatureEstimator const featureEstimator;
+  return featureEstimator;
 }
+
+}  // namespace feature::impl
+
+m2::RectD GetFeatureViewport(FeatureType const & feature)
+{
+  return impl::GetFeatureEstimator().GetViewport(feature);
+}
+
+uint8_t GetSearchRank(FeatureType const & feature)
+{
+  return impl::GetFeatureEstimator().GetSearchRank(feature);
+}
+
+} // namespace feature

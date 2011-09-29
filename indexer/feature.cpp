@@ -279,9 +279,3 @@ double FeatureType::GetPopulationDrawRank() const
     return min(upperBound, static_cast<double>(n)) / upperBound;
   }
 }
-
-uint8_t FeatureType::GetSearchRank() const
-{
-  ParseCommon();
-  return m_Params.rank;
-}

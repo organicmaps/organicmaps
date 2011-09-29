@@ -1,5 +1,6 @@
 #include "search_index_builder.hpp"
 
+#include "feature_utils.hpp"
 #include "features_vector.hpp"
 #include "search_delimiters.hpp"
 #include "search_trie.hpp"
@@ -92,7 +93,7 @@ struct FeatureInserter
   explicit FeatureInserter(vector<FeatureName> & names) : m_names(names) {}
   void operator() (FeatureType const & feature, uint64_t pos) const
   {
-    FeatureNameInserter f(m_names, static_cast<uint32_t>(pos), feature.GetSearchRank());
+    FeatureNameInserter f(m_names, static_cast<uint32_t>(pos), feature::GetSearchRank(feature));
     feature.ForEachNameRef(f);
   }
 };
