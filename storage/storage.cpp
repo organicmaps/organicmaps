@@ -65,7 +65,7 @@ namespace storage
     return UPDATE_BASE_URL OMIM_OS_NAME "/" + strings::to_string(m_currentVersion) + "/";
   }
 
-  TCountriesContainer const & NodeFromIndex(TCountriesContainer const & root, TIndex const & index)
+  CountriesContainerT const & NodeFromIndex(CountriesContainerT const & root, TIndex const & index)
   {
     // complex logic to avoid [] out_of_bounds exceptions
     if (index.m_group == TIndex::INVALID || index.m_group >= static_cast<int>(root.SiblingsCount()))
@@ -172,9 +172,9 @@ namespace storage
     {
       m_workingDir = GetPlatform().WritableDir();
     }
-    void operator()(CountryFile const & tile)
+    void operator()(CountryFile const & file)
     {
-      m_removeFn(tile.first);
+      m_removeFn(file.m_nameWithExt);
     }
   };
 
@@ -189,8 +189,8 @@ namespace storage
         if (!IsFileDownloaded(*it))
         {
           HttpStartParams params;
-          params.m_url = UpdateBaseUrl() + UrlEncode(it->first);
-          params.m_fileToSave = GetPlatform().WritablePathForFile(it->first);
+          params.m_url = UpdateBaseUrl() + UrlEncode(it->m_nameWithExt);
+          params.m_fileToSave = GetPlatform().WritablePathForFile(it->m_nameWithExt);
           params.m_finish = bind(&Storage::OnMapDownloadFinished, this, _1);
           params.m_progress = bind(&Storage::OnMapDownloadProgress, this, _1);
           params.m_useResume = true;   // enabled resume support by default
@@ -219,9 +219,9 @@ namespace storage
   {
     string const m_baseUrl;
     CancelDownloading(string const & baseUrl) : m_baseUrl(baseUrl) {}
-    void operator()(CountryFile const & tile)
+    void operator()(CountryFile const & file)
     {
-      GetDownloadManager().CancelDownload((m_baseUrl + UrlEncode(tile.first)).c_str());
+      GetDownloadManager().CancelDownload((m_baseUrl + UrlEncode(file.m_nameWithExt)).c_str());
     }
   };
 
@@ -234,9 +234,9 @@ namespace storage
       m_workingDir = GetPlatform().WritableDir();
     }
     /// @TODO do not delete other countries cells
-    void operator()(CountryFile const & tile)
+    void operator()(CountryFile const & file)
     {
-      FileWriter::DeleteFileX(m_workingDir + tile.first);
+      FileWriter::DeleteFileX(m_workingDir + file.m_nameWithExt);
     }
   };
 
@@ -299,19 +299,11 @@ namespace storage
 
     if (m_countries.SiblingsCount() == 0)
     {
-      Platform & pl = GetPlatform();
-      FilesContainerT tiles;
-      if (LoadFiles(pl.GetReader(DATA_UPDATE_FILE), tiles, m_currentVersion))
-      {
-        if (!LoadCountries(pl.GetReader(COUNTRIES_FILE), tiles, m_countries))
-        {
-          LOG(LWARNING, ("Can't load countries file", COUNTRIES_FILE));
-        }
-      }
-      else
-      {
-        LOG(LWARNING, ("Can't load update file", DATA_UPDATE_FILE));
-      }
+      string json;
+      ReaderPtr<Reader>(GetPlatform().GetReader(COUNTRIES_FILE)).ReadAsString(json);
+      m_currentVersion = LoadCountries(json, m_countries);
+      if (m_currentVersion < 0)
+        LOG(LERROR, ("Can't load countries file", COUNTRIES_FILE));
     }
   }
 

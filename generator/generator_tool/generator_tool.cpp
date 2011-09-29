@@ -207,8 +207,8 @@ int main(int argc, char ** argv)
   // Create http update list for countries and corresponding files
   if (FLAGS_generate_update)
   {
-    LOG(LINFO, ("Creating maps.update file..."));
-    update::GenerateFilesList(path);
+    LOG(LINFO, ("Updating countries file..."));
+    update::UpdateCountries(path);
   }
 
   if (!FLAGS_generate_borders.empty())

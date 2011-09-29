@@ -1,23 +1,21 @@
 #include "update_generator.hpp"
 
+#include "../defines.hpp"
+
 #include "../platform/platform.hpp"
 
 #include "../storage/country.hpp"
-#include "../defines.hpp"
+
+#include "../coding/file_writer.hpp"
 
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
 #include "../base/macros.hpp"
+#include "../base/timer.hpp"
 
 #include "../std/iterator.hpp"
 
-
 using namespace storage;
-
-/// files which can be updated through downloader
-char const * gExtensionsToUpdate[] = {
-  "*" DATA_FILE_EXTENSION, "*.txt", "*.bin", "*.skn", "*.ttf", "*.png"
-};
 
 namespace update
 {
@@ -38,48 +36,75 @@ namespace update
     return true;
   }
 
-  bool GenerateFilesList(string const & dataDir)
+  class SizeUpdater
   {
-    Platform & platform = GetPlatform();
+    size_t m_processedFiles;
+    string m_dataDir;
 
-    Platform::FilesList files;
-    for (size_t i = 0; i < ARRAY_SIZE(gExtensionsToUpdate); ++i)
+  public:
+    SizeUpdater(string const & dataDir) : m_processedFiles(0), m_dataDir(dataDir) {}
+    ~SizeUpdater()
     {
-      Platform::FilesList otherFiles;
-      platform.GetFilesInDir(dataDir, gExtensionsToUpdate[i], otherFiles);
-      std::copy(otherFiles.begin(), otherFiles.end(), std::back_inserter(files));
+      LOG(LINFO, (m_processedFiles, "file sizes were updated in the country list"));
+    }
+    template <class T>
+    void operator()(T & c)
+    {
+      for (size_t i = 0; i < c.Value().m_files.size(); ++i)
+      {
+        ++m_processedFiles;
+        uint64_t size = 0;
+        string const fname = c.Value().m_files[i].m_nameWithExt;
+        if (!GetPlatform().GetFileSize(m_dataDir + fname, size))
+          LOG(LERROR, ("File was not found:", fname));
+        CHECK_GREATER(size, 0, ("Zero file size?", fname));
+        c.Value().m_files[i].m_remoteSize = size;
+      }
+    }
+  };
+
+  bool UpdateCountries(string const & dataDir)
+  {
+    Platform::FilesList mwmFiles;
+    GetPlatform().GetFilesInDir(dataDir, "*" DATA_FILE_EXTENSION, mwmFiles);
+
+    // remove some files from list
+    char const * filesToRemove[] = {"minsk-pass"DATA_FILE_EXTENSION,
+                                    "World"DATA_FILE_EXTENSION,
+                                    "WorldCoasts"DATA_FILE_EXTENSION};
+    for (size_t i = 0; i < ARRAY_SIZE(filesToRemove); ++i)
+    {
+      Platform::FilesList::iterator found = std::find(mwmFiles.begin(), mwmFiles.end(),
+                                                      filesToRemove[i]);
+      if (found != mwmFiles.end())
+        mwmFiles.erase(found);
     }
 
-    { // remove minsk-pass from list
-      Platform::FilesList::iterator minskPassIt = std::find(files.begin(), files.end(), "minsk-pass" DATA_FILE_EXTENSION);
-      if (minskPassIt != files.end())
-        files.erase(minskPassIt);
-    }
-
-    if (files.empty())
+    if (mwmFiles.empty())
     {
       LOG(LERROR, ("Can't find any files at path", dataDir));
       return false;
     }
     else
+      LOG_SHORT(LINFO, (mwmFiles.size(), "mwm files were found"));
+
+    // load current countries information to update file sizes
+    storage::CountriesContainerT countries;
+    string jsonBuffer;
+    ReaderPtr<Reader>(GetPlatform().GetReader(COUNTRIES_FILE)).ReadAsString(jsonBuffer);
+    storage::LoadCountries(jsonBuffer, countries);
     {
-      LOG_SHORT(LINFO, ("Files count included in update file:", files.size()));
+      SizeUpdater sizeUpdater(dataDir);
+      countries.ForEachChildren(sizeUpdater);
     }
 
-    CommonFilesT commonFiles;
-
-    for (Platform::FilesList::iterator it = files.begin(); it != files.end(); ++it)
+    storage::SaveCountries(my::TodayAsYYMMDD(), countries, jsonBuffer);
     {
-      uint64_t size = 0;
-      CHECK( platform.GetFileSize(dataDir + *it, size), ());
-      CHECK_EQUAL( size, static_cast<uint32_t>(size), ("We don't support files > 4gb", *it));
-
-      commonFiles.push_back(make_pair(*it, static_cast<uint32_t>(size)));
+      string const outFileName = GetPlatform().WritablePathForFile(COUNTRIES_FILE".updated");
+      FileWriter f(outFileName);
+      f.Write(&jsonBuffer[0], jsonBuffer.size());
+      LOG(LINFO, ("Saved updated countries to", outFileName));
     }
-
-    SaveFiles(dataDir + DATA_UPDATE_FILE, commonFiles);
-
-    LOG_SHORT(LINFO, ("Created update file with ", commonFiles.size(), " files"));
 
     return true;
   }

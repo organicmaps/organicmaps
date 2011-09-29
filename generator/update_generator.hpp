@@ -4,5 +4,5 @@
 
 namespace update
 {
-  bool GenerateFilesList(string const & dataDir);
+  bool UpdateCountries(string const & dataDir);
 } // namespace update

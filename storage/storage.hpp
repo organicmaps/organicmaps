@@ -63,9 +63,9 @@ namespace storage
   class Storage
   {
     /// stores timestamp for update checks
-    uint32_t m_currentVersion;
+    int64_t m_currentVersion;
 
-    TCountriesContainer m_countries;
+    CountriesContainerT m_countries;
 
     typedef list<TIndex> TQueue;
     TQueue m_queue;

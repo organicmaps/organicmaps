@@ -9,25 +9,31 @@
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 
-template <class ReaderT> class ReaderPtr;
-class Reader;
-class Writer;
+namespace update { class SizeUpdater; }
 
 namespace storage
 {
-  /// holds file name for tile and it's total size
-  typedef pair<string, uint32_t> CountryFile;
+  static int64_t const INVALID_PRICE = -1;
+
+  /// Information about each file for a country
+  struct CountryFile
+  {
+    CountryFile() : m_remoteSize(0), m_price(INVALID_PRICE) {}
+    CountryFile(string const & fileNameWithExt, uint32_t remoteSize, int64_t price = -1)
+      : m_nameWithExt(fileNameWithExt), m_remoteSize(remoteSize), m_price(price) {}
+    string m_nameWithExt;
+    uint32_t m_remoteSize;
+    int64_t m_price;
+  };
   typedef buffer_vector<CountryFile, 1> FilesContainerT;
   typedef pair<uint64_t, uint64_t> LocalAndRemoteSizeT;
-
-  /// Intermediate container for data transfer
-  typedef vector<pair<string, uint32_t> > CommonFilesT;
 
   bool IsFileDownloaded(CountryFile const & file);
 
   /// Serves as a proxy between GUI and downloaded files
   class Country
   {
+    friend class update::SizeUpdater;
     /// Name in the coutry node tree
     string m_name;
     /// Flag to display
@@ -47,19 +53,16 @@ namespace storage
 
     string const & Name() const { return m_name; }
     string const & Flag() const { return m_flag; }
+    int64_t Price() const;
 
     /// @return bounds for downloaded parts of the country or empty rect
     m2::RectD Bounds() const;
     LocalAndRemoteSizeT Size() const;
   };
 
-  typedef SimpleTree<Country> TCountriesContainer;
+  typedef SimpleTree<Country> CountriesContainerT;
 
-  /// @param tiles contains files and their sizes
-  /// @return false if new application version should be downloaded
-  typedef ReaderPtr<Reader> file_t;
-  bool LoadCountries(file_t const & file, FilesContainerT const & sortedTiles,
-                     TCountriesContainer & countries);
-  void SaveFiles(string const & file, CommonFilesT const & commonFiles);
-  bool LoadFiles(file_t const & file, FilesContainerT & files, uint32_t & dataVersion);
+  /// @return version of country file or -1 if error was encountered
+  int64_t LoadCountries(string const & jsonBuffer, CountriesContainerT & countries);
+  bool SaveCountries(int64_t version, CountriesContainerT const & countries, string & jsonBuffer);
 }

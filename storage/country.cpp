@@ -2,190 +2,178 @@
 
 #include "../defines.hpp"
 
+#include "../base/logging.hpp"
+
+#include "../coding/file_container.hpp"
+
 #include "../version/version.hpp"
 
 #include "../platform/platform.hpp"
 
 #include "../indexer/data_header.hpp"
 
-#include "../coding/streams_sink.hpp"
-#include "../coding/file_reader.hpp"
-#include "../coding/file_writer.hpp"
-#include "../coding/file_container.hpp"
-
-#include "../base/logging.hpp"
-#include "../base/std_serialization.hpp"
-#include "../base/string_utils.hpp"
-#include "../base/timer.hpp"
-
+#include "../3party/jansson/myjansson.hpp"
 
 namespace storage
 {
-  /// Simple check - compare url size with real file size on disk
-  bool IsFileDownloaded(CountryFile const & file)
+
+/// Simple check - compare url size with real file size on disk
+bool IsFileDownloaded(CountryFile const & file)
+{
+  uint64_t size = 0;
+  if (!GetPlatform().GetFileSize(GetPlatform().WritablePathForFile(file.m_nameWithExt), size))
+    return false;
+  return true;//tile.second == size;
+}
+
+struct CountryBoundsCalculator
+{
+  m2::RectD & m_bounds;
+  CountryBoundsCalculator(m2::RectD & bounds) : m_bounds(bounds) {}
+  void operator()(CountryFile const & file)
   {
-    uint64_t size = 0;
-    if (!GetPlatform().GetFileSize(GetPlatform().WritablePathForFile(file.first), size))
-      return false;
-    return true;//tile.second == size;
+    feature::DataHeader header;
+    FilesContainerR reader(GetPlatform().WritablePathForFile(file.m_nameWithExt));
+    header.Load(reader.GetReader(HEADER_FILE_TAG));
+    m_bounds.Add(header.GetBounds());
   }
+};
 
-  struct CountryBoundsCalculator
-  {
-    m2::RectD & m_bounds;
-    CountryBoundsCalculator(m2::RectD & bounds) : m_bounds(bounds) {}
-    void operator()(CountryFile const & file)
-    {
-      feature::DataHeader header;
-      FilesContainerR reader(GetPlatform().WritablePathForFile(file.first));
-      header.Load(reader.GetReader(HEADER_FILE_TAG));
-      m_bounds.Add(header.GetBounds());
-    }
-  };
+m2::RectD Country::Bounds() const
+{
+  m2::RectD bounds;
+  std::for_each(m_files.begin(), m_files.end(), CountryBoundsCalculator(bounds));
+  return bounds;
+}
 
-  m2::RectD Country::Bounds() const
+LocalAndRemoteSizeT Country::Size() const
+{
+  uint64_t localSize = 0, remoteSize = 0;
+  for (FilesContainerT::const_iterator it = m_files.begin(); it != m_files.end(); ++it)
   {
-    m2::RectD bounds;
-    std::for_each(m_files.begin(), m_files.end(), CountryBoundsCalculator(bounds));
-    return bounds;
+    if (IsFileDownloaded(*it))
+      localSize += it->m_remoteSize;
+    remoteSize += it->m_remoteSize;
   }
+  return LocalAndRemoteSizeT(localSize, remoteSize);
+}
 
-  struct SizeCalculator
+void Country::AddFile(CountryFile const & file)
+{
+  m_files.push_back(file);
+}
+
+int64_t Country::Price() const
+{
+  int64_t price = 0;
+  for (FilesContainerT::const_iterator it = m_files.begin(); it != m_files.end(); ++it)
+    price += it->m_price;
+  return price;
+}
+
+////////////////////////////////////////////////////////////////////////
+
+void LoadGroupImpl(int depth, json_t * group, CountriesContainerT & container)
+{
+  for (size_t i = 0; i < json_array_size(group); ++i)
   {
-    uint64_t & m_localSize;
-    uint64_t & m_remoteSize;
-    SizeCalculator(uint64_t & localSize, uint64_t & remoteSize)
-      : m_localSize(localSize), m_remoteSize(remoteSize) {}
-    void operator()(CountryFile const & file)
-    {
-      if (IsFileDownloaded(file))
-        m_localSize += file.second;
-      m_remoteSize += file.second;
-    }
-  };
+    json_t * j = json_array_get(group, i);
+    // name is mandatory
+    char const * name = json_string_value(json_object_get(j, "n"));
+    if (!name)
+      MYTHROW(my::Json::Exception, ("Country name is missing"));
+    // other fields are optional
+    char const * flag = json_string_value(json_object_get(j, "c"));
+    char const * file = json_string_value(json_object_get(j, "f"));
+    // if file is empty, it's the same as the name
+    if (!file)
+      file = name;
+    // price is valid only if size is not 0
+    json_int_t size = json_integer_value(json_object_get(j, "s"));
+    json_t * jPrice = json_object_get(j, "p");
+    json_int_t price = jPrice ? json_integer_value(jPrice) : INVALID_PRICE;
 
-  LocalAndRemoteSizeT Country::Size() const
-  {
-    uint64_t localSize = 0;
-    uint64_t remoteSize = 0;
-    std::for_each(m_files.begin(), m_files.end(), SizeCalculator(localSize, remoteSize));
-    return LocalAndRemoteSizeT(localSize, remoteSize);
-  }
+    Country country(name, flag ? flag : "");
+    if (size)
+      country.AddFile(CountryFile(string(file) + DATA_FILE_EXTENSION, size, price));
+    container.AddAtDepth(depth, country);
 
-  void Country::AddFile(CountryFile const & file)
-  {
-    m_files.push_back(file);
-  }
-
-  ////////////////////////////////////////////////////////////////////////
-
-  bool LoadCountries(file_t const & file, FilesContainerT const & sortedFiles,
-                     TCountriesContainer & countries)
-  {
-    countries.Clear();
-
-    string buffer;
-    file.ReadAsString(buffer);
-    istringstream stream(buffer);
-
-    std::string line;
-    Country * currentCountry = &countries.Value();
-    while (stream.good())
-    {
-      std::getline(stream, line);
-      if (line.empty())
-        continue;
-
-      // calculate spaces - depth inside the tree
-      int spaces = 0;
-      for (size_t i = 0; i < line.size(); ++i)
-      {
-        if (line[i] == ' ')
-          ++spaces;
-        else
-          break;
-      }
-      switch (spaces)
-      {
-      case 0:
-        CHECK(false, ("We should never be here"));
-        break;
-      case 1: // country group
-      case 2: // country name
-      case 3: // region
-        {
-          line = line.substr(spaces);
-          // country can have a defined flag in the beginning, like by:Belarus
-          size_t const flagIndex = line.find(':');
-          string flag;
-          if (flagIndex != string::npos)
-          {
-            flag = line.substr(0, flagIndex);
-            line = line.substr(flagIndex + 1);
-          }
-          strings::SimpleTokenizer tokIt(line, "|");
-          // first string is country name, not always equal to country file name
-          currentCountry = &countries.AddAtDepth(spaces - 1, Country(*tokIt, flag));
-          // skip if > 1 names in the list - first name never corresponds to tile file
-          if (!tokIt.IsLast())
-            ++tokIt;
-          while (tokIt)
-          {
-            FilesContainerT::const_iterator const first = sortedFiles.begin();
-            FilesContainerT::const_iterator const last = sortedFiles.end();
-            string const nameWithExt = *tokIt + DATA_FILE_EXTENSION;
-            FilesContainerT::const_iterator const found = lower_bound(
-                first, last, CountryFile(nameWithExt, 0));
-            if (found != last && !(nameWithExt < found->first))
-              currentCountry->AddFile(*found);
-            ++tokIt;
-          }
-        }
-        break;
-      default:
-        return false;
-      }
-    }
-    return countries.SiblingsCount() > 0;
-  }
-
-  void SaveFiles(string const & file, CommonFilesT const & commonFiles)
-  {
-    FileWriter writer(file);
-    stream::SinkWriterStream<Writer> wStream(writer);
-
-    // save version - it's equal to current date in GMT
-    wStream << my::TodayAsYYMMDD();
-    wStream << commonFiles;
-  }
-
-  bool LoadFiles(file_t const & file, FilesContainerT & files, uint32_t & dataVersion)
-  {
-    files.clear();
-
-    try
-    {
-      ReaderSource<file_t> source(file);
-      stream::SinkReaderStream<ReaderSource<file_t> > stream(source);
-
-      CommonFilesT commonFiles;
-
-      stream >> dataVersion;
-      stream >> commonFiles;
-
-      files.reserve(commonFiles.size());
-
-      for (CommonFilesT::iterator it = commonFiles.begin(); it != commonFiles.end(); ++it)
-        files.push_back(CountryFile(it->first, it->second));
-
-      sort(files.begin(), files.end());
-    }
-    catch (RootException const & e)
-    {
-      LOG(LWARNING, ("Can't read tiles file", e.what()));
-      return false;
-    }
-
-    return true;
+    json_t * children = json_object_get(j, "g");
+    if (children)
+      LoadGroupImpl(depth + 1, children, container);
   }
 }
+
+int64_t LoadCountries(string const & jsonBuffer, CountriesContainerT & countries)
+{
+  countries.Clear();
+
+  int64_t version = -1;
+
+  try
+  {
+    my::Json root(jsonBuffer.c_str());
+    version = json_integer_value(json_object_get(root, "v"));
+    json_t * children = json_object_get(root, "g");
+    if (!children)
+      MYTHROW(my::Json::Exception, ("Root country doesn't have any groups"));
+    LoadGroupImpl(0, children, countries);
+  }
+  catch (my::Json::Exception const & e)
+  {
+    LOG(LERROR, (e.what()));
+    return -1;
+  }
+
+  return version;
+}
+
+template <class T>
+void SaveImpl(T const & v, json_t * jParent)
+{
+  size_t const siblingsCount = v.SiblingsCount();
+  CHECK_GREATER(siblingsCount, 0, ());
+  my::Json jArray(json_array());
+  for (size_t i = 0; i < siblingsCount; ++i)
+  {
+    my::Json jCountry(json_object());
+    string const strName = v[i].Value().Name();
+    CHECK(!strName.empty(), ("Empty country name?"));
+    json_object_set_new(jCountry, "n", json_string(strName.c_str()));
+    string const strFlag = v[i].Value().Flag();
+    if (!strFlag.empty())
+      json_object_set_new(jCountry, "c", json_string(strFlag.c_str()));
+    CHECK_LESS_OR_EQUAL(v[i].Value().Files().size(), 1, ("Not supporting more than 1 file for the country at the moment"));
+    if (v[i].Value().Files().size())
+    {
+      int64_t const price = v[i].Value().Files()[0].m_price;
+      CHECK_GREATER_OR_EQUAL(price, 0, ("Invalid price"));
+      json_object_set_new(jCountry, "p", json_integer(price));
+      string const strFile = v[i].Value().Files()[0].m_nameWithExt.substr(0,
+          v[i].Value().Files()[0].m_nameWithExt.size() - string(DATA_FILE_EXTENSION).size());
+      if (strFile != strName)
+        json_object_set_new(jCountry, "f", json_string(strFile.c_str()));
+      json_object_set_new(jCountry, "s", json_integer(v[i].Value().Files()[0].m_remoteSize));
+    }
+    if (v[i].SiblingsCount())
+      SaveImpl(v[i], jCountry);
+
+    json_array_append(jArray, jCountry);
+  }
+  json_object_set(jParent, "g", jArray);
+}
+
+bool SaveCountries(int64_t version, CountriesContainerT const & countries, string & jsonBuffer)
+{
+  jsonBuffer.clear();
+  my::Json root(json_object());
+  json_object_set_new(root, "v", json_integer(version));
+  json_object_set_new(root, "n", json_string("World"));
+  SaveImpl(countries, root);
+  char * res = json_dumps(root, JSON_PRESERVE_ORDER | JSON_COMPACT | JSON_INDENT(1));
+  jsonBuffer = res;
+  free(res);
+  return true;
+}
+
+} // namespace storage
