@@ -1,5 +1,5 @@
 #include "intermediate_result.hpp"
-#include "../indexer/feature_rect.hpp"
+#include "../indexer/feature_utils.hpp"
 #include "../indexer/mercator.hpp"
 #include "../geometry/angles.hpp"
 #include "../geometry/distance_on_sphere.hpp"

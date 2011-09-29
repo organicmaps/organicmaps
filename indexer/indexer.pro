@@ -26,7 +26,7 @@ SOURCES += \
     geometry_coding.cpp \
     geometry_serialization.cpp \
     feature_data.cpp \
-    feature_rect.cpp \
+    feature_utils.cpp \
     types_mapping.cpp \
     search_index_builder.cpp \
     data_factory.cpp \
@@ -68,7 +68,7 @@ HEADERS += \
     point_to_int64.hpp \
     tesselator_decl.hpp \
     feature_data.hpp \
-    feature_rect.hpp \
+    feature_utils.hpp \
     types_mapping.hpp \
     search_index_builder.hpp \
     interval_index_iface.hpp \

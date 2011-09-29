@@ -1,4 +1,4 @@
-#include "feature_rect.hpp"
+#include "feature_utils.hpp"
 #include "classificator.hpp"
 #include "../geometry/point2d.hpp"
 #include "../base/base.hpp"
