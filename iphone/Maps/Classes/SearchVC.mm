@@ -143,6 +143,16 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   g_searchVC = nil;
 }
 
+- (void)fixHeadingOrientation
+{
+  m_locationManager.headingOrientation = (CLDeviceOrientation)[UIDevice currentDevice].orientation;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [self fixHeadingOrientation];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
   // hide keyboard immediately
@@ -302,6 +312,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 - (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
 {
   [[self.navigationController.viewControllers objectAtIndex:0] didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+  [self fixHeadingOrientation];
 }
 
 - (void)addResult:(id)result
