@@ -69,5 +69,5 @@ public:
 
   void OnSize(int w, int h);
 
-  virtual void DoPaint(shared_ptr<PaintEvent> e);
+  virtual void DoPaint(shared_ptr<PaintEvent> const & e);
 };
