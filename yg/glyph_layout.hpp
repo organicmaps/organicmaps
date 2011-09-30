@@ -50,12 +50,12 @@ namespace yg
     vector<GlyphMetrics> m_metrics;
     vector<GlyphLayoutElem> m_entries;
 
-    m2::AARectD m_limitRect;
+    vector<m2::AARectD> m_boundRects;
 
     m2::PointD m_pivot;
 
     double getKerning(GlyphLayoutElem const & prevElem, GlyphMetrics const & prevMetrics, GlyphLayoutElem const & curElem, GlyphMetrics const & curMetrics);
-    void computeMinLimitRect();
+    void computeBoundRects();
 
     void recalcPivot();
     void recalcAlongPath();
@@ -88,7 +88,7 @@ namespace yg
     vector<GlyphLayoutElem> const & entries() const;
     vector<GlyphMetrics> const & metrics() const;
 
-    m2::AARectD const limitRect() const;
+    vector<m2::AARectD> const & boundRects() const;
 
     m2::PointD const & pivot() const;
 

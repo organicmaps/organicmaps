@@ -102,7 +102,7 @@ namespace yg
     for (unsigned i = 0; i < res.size(); ++i)
     {
       m_glyphLayouts.push_back(GlyphLayout(p.m_glyphCache, p.m_fontDesc, m2::PointD(0, 0), res[i], yg::EPosCenter));
-      m2::RectD r = m_glyphLayouts.back().limitRect().GetGlobalRect();
+      m2::RectD r = m_glyphLayouts.back().boundRects().back().GetGlobalRect();
       allElemWidth = max(r.SizeX(), allElemWidth);
       allElemHeight += r.SizeY();
     }
@@ -113,7 +113,7 @@ namespace yg
 
     for (unsigned i = 0; i < res.size(); ++i)
     {
-      double elemSize = m_glyphLayouts[i].limitRect().GetGlobalRect().SizeY();
+      double elemSize = m_glyphLayouts[i].boundRects().back().GetGlobalRect().SizeY();
       m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + m2::PointD(0, -curShift + elemSize / 2));
       curShift -= elemSize;
     }
@@ -169,7 +169,9 @@ namespace yg
       m_boundRects.clear();
 
       for (size_t i = 0; i < m_glyphLayouts.size(); ++i)
-        m_boundRects.push_back(m_glyphLayouts[i].limitRect());
+        copy(m_glyphLayouts[i].boundRects().begin(),
+             m_glyphLayouts[i].boundRects().end(),
+             back_inserter(m_boundRects));
 
       setIsDirtyRect(false);
     }

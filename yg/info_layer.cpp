@@ -14,28 +14,9 @@ namespace yg
   bool betterOverlayElement(shared_ptr<OverlayElement> const & l,
                             shared_ptr<OverlayElement> const & r)
   {
+    /// "frozen" object shouldn't be popped out.
     if (r->isFrozen())
       return false;
-
-    vector<m2::AARectD> const & lr = l->boundRects();
-    vector<m2::AARectD> const & rr = r->boundRects();
-
-    bool isIntersect = false;
-
-    for (vector<m2::AARectD>::const_iterator lit = lr.begin(); lit != lr.end(); ++lit)
-    {
-      for (vector<m2::AARectD>::const_iterator rit = rr.begin(); rit != rr.end(); ++rit)
-      {
-        isIntersect = lit->IsIntersect(*rit);
-        if (isIntersect)
-          break;
-      }
-      if (isIntersect)
-        break;
-    }
-
-    if (!isIntersect)
-      return true;
 
     /// for the composite elements, collected in OverlayRenderer to replace the part elements
     return l->visualRank() >= r->visualRank();
@@ -117,9 +98,45 @@ namespace yg
     m_tree.Add(oe);
   }
 
+  struct DoPreciseIntersect
+  {
+    shared_ptr<OverlayElement> m_oe;
+    bool * m_isIntersect;
+
+    DoPreciseIntersect(shared_ptr<OverlayElement> const & oe, bool * isIntersect)
+      : m_oe(oe),
+        m_isIntersect(isIntersect)
+    {}
+
+    void operator()(shared_ptr<OverlayElement> const & e)
+    {
+      if (*m_isIntersect)
+        return;
+
+      vector<m2::AARectD> const & lr = m_oe->boundRects();
+      vector<m2::AARectD> const & rr = e->boundRects();
+
+      for (vector<m2::AARectD>::const_iterator lit = lr.begin(); lit != lr.end(); ++lit)
+      {
+        for (vector<m2::AARectD>::const_iterator rit = rr.begin(); rit != rr.end(); ++rit)
+        {
+          *m_isIntersect = lit->IsIntersect(*rit);
+          if (*m_isIntersect)
+            return;
+        }
+      }
+    }
+  };
+
   void InfoLayer::replaceOverlayElement(shared_ptr<OverlayElement> const & oe)
   {
-    m_tree.ReplaceIf(oe, &betterOverlayElement);
+    bool isIntersect = false;
+    DoPreciseIntersect fn(oe, &isIntersect);
+    m_tree.ForEachInRect(oe->roughBoundRect(), fn);
+    if (isIntersect)
+      m_tree.ReplaceIf(oe, &betterOverlayElement);
+    else
+      m_tree.Add(oe);
   }
 
   void InfoLayer::processOverlayElement(shared_ptr<OverlayElement> const & oe, math::Matrix<double, 3, 3> const & m)
@@ -132,10 +149,11 @@ namespace yg
 
   void InfoLayer::processOverlayElement(shared_ptr<OverlayElement> const & oe)
   {
-    if (m_couldOverlap)
-      addOverlayElement(oe);
-    else
-      replaceOverlayElement(oe);
+    if (oe->isVisible())
+      if (m_couldOverlap)
+        addOverlayElement(oe);
+      else
+        replaceOverlayElement(oe);
   }
 
   void InfoLayer::merge(InfoLayer const & layer, math::Matrix<double, 3, 3> const & m)

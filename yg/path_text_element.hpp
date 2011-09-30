@@ -10,8 +10,6 @@ namespace yg
 
     GlyphLayout m_glyphLayout;
 
-    m2::AARectD const boundRect() const;
-
   public:
 
     struct Params : TextElement::Params

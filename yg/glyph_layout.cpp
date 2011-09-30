@@ -68,7 +68,7 @@ namespace yg
       m_lastVisible(visText.size()),
       m_pivot(pt)
   {
-    m2::RectD limitRect;
+    m2::RectD boundRect;
     m2::PointD curPt(0, 0);
 
     bool isFirst = true;
@@ -81,16 +81,16 @@ namespace yg
 
       if (isFirst)
       {
-        limitRect = m2::RectD(m.m_xOffset,
+        boundRect = m2::RectD(m.m_xOffset,
                              -m.m_yOffset,
                               m.m_xOffset,
                              -m.m_yOffset);
         isFirst = false;
       }
       else
-        limitRect.Add(m2::PointD(m.m_xOffset + curPt.x, -m.m_yOffset + curPt.y));
+        boundRect.Add(m2::PointD(m.m_xOffset + curPt.x, -m.m_yOffset + curPt.y));
 
-      limitRect.Add(m2::PointD(m.m_xOffset + m.m_width,
+      boundRect.Add(m2::PointD(m.m_xOffset + m.m_width,
                              -(m.m_yOffset + m.m_height)) + curPt);
 
       GlyphLayoutElem elem;
@@ -103,29 +103,30 @@ namespace yg
       curPt += m2::PointD(m.m_xAdvance, m.m_yAdvance);
     }
 
-    limitRect.Inflate(2, 2);
+    boundRect.Inflate(2, 2);
 
-    m2::PointD ptOffs(-limitRect.SizeX() / 2 - limitRect.minX(),
-                      -limitRect.SizeY() / 2 - limitRect.minY());
+    m2::PointD ptOffs(-boundRect.SizeX() / 2 - boundRect.minX(),
+                      -boundRect.SizeY() / 2 - boundRect.minY());
 
     /// adjusting according to position
     if (pos & EPosLeft)
-      ptOffs += m2::PointD(-limitRect.SizeX() / 2, 0);
+      ptOffs += m2::PointD(-boundRect.SizeX() / 2, 0);
+
     if (pos & EPosRight)
-      ptOffs += m2::PointD(limitRect.SizeX() / 2, 0);
+      ptOffs += m2::PointD(boundRect.SizeX() / 2, 0);
 
     if (pos & EPosAbove)
-      ptOffs += m2::PointD(0, -limitRect.SizeY() / 2);
+      ptOffs += m2::PointD(0, -boundRect.SizeY() / 2);
 
     if (pos & EPosUnder)
-      ptOffs += m2::PointD(0, limitRect.SizeY() / 2);
-
-    m_limitRect = m2::AARectD(limitRect);
+      ptOffs += m2::PointD(0, boundRect.SizeY() / 2);
 
     for (unsigned i = 0; i < m_entries.size(); ++i)
       m_entries[i].m_pt += ptOffs;
 
-    m_limitRect.Offset(ptOffs);
+    boundRect.Offset(ptOffs);
+
+    m_boundRects.push_back(boundRect);
   }
 
   GlyphLayout::GlyphLayout(GlyphLayout const & src,
@@ -137,9 +138,9 @@ namespace yg
       m_pos(src.m_pos),
       m_fontDesc(src.m_fontDesc),
       m_metrics(src.m_metrics),
-      m_limitRect(m2::RectD(0, 0, 0, 0)),
       m_pivot(0, 0)
   {
+    m_boundRects.push_back(m2::AARectD(m2::RectD(0, 0, 0, 0)));
     m_fullLength = (m2::PointD(src.m_fullLength, 0) * m).Length(m2::PointD(0, 0) * m);
     m_pathOffset = (m2::PointD(src.m_pathOffset, 0) * m).Length(m2::PointD(0, 0) * m);
     recalcAlongPath();
@@ -161,9 +162,9 @@ namespace yg
       m_visText(visText),
       m_pos(pos),
       m_fontDesc(fontDesc),
-      m_limitRect(m2::RectD(0, 0, 0, 0)),
       m_pivot(0, 0)
   {
+    m_boundRects.push_back(m2::AARectD(m2::RectD(0, 0, 0, 0)));
     for (size_t i = 0; i < m_visText.size(); ++i)
       m_metrics.push_back(glyphCache->getGlyphMetrics(GlyphKey(visText[i], m_fontDesc.m_size, m_fontDesc.m_isMasked, yg::Color(0, 0, 0, 0))));
     recalcAlongPath();
@@ -317,17 +318,10 @@ namespace yg
     for (unsigned i = m_firstVisible; i < m_lastVisible; ++i)
       m_entries[i].m_pt -= m_pivot;
 
-    computeMinLimitRect();
-
-//    recalcPivot();
+    computeBoundRects();
   }
 
-  void GlyphLayout::recalcPivot()
-  {
-
-  }
-
-  void GlyphLayout::computeMinLimitRect()
+  void GlyphLayout::computeBoundRects()
   {
     map<double, m2::AARectD> rects;
 
@@ -337,58 +331,39 @@ namespace yg
       {
         map<double, m2::AARectD>::iterator it = rects.find(m_entries[i].m_angle.val());
 
-        if (it == rects.end())
-        {
-          m2::AARectD symRectAA(
-                m_entries[i].m_pt.Move(m_metrics[i].m_height, -m_entries[i].m_angle.cos(), m_entries[i].m_angle.sin()), //< moving by angle = m_entries[i].m_angle - math::pi / 2
-                m_entries[i].m_angle,
-                m2::RectD(m_metrics[i].m_xOffset,
-                          m_metrics[i].m_yOffset,
-                          m_metrics[i].m_xOffset + m_metrics[i].m_width,
-                          m_metrics[i].m_yOffset + m_metrics[i].m_height
-                          ));
-
-          rects[m_entries[i].m_angle.val()] = symRectAA;
-        }
-      }
-    }
-
-    for (unsigned i = m_firstVisible; i < m_lastVisible; ++i)
-    {
-      if (m_metrics[i].m_width != 0)
-      {
         m2::AARectD symRectAA(
               m_entries[i].m_pt.Move(m_metrics[i].m_height, -m_entries[i].m_angle.cos(), m_entries[i].m_angle.sin()), //< moving by angle = m_entries[i].m_angle - math::pi / 2
               m_entries[i].m_angle,
               m2::RectD(m_metrics[i].m_xOffset,
                         m_metrics[i].m_yOffset,
                         m_metrics[i].m_xOffset + m_metrics[i].m_width,
-                        m_metrics[i].m_yOffset + m_metrics[i].m_height));
+                        m_metrics[i].m_yOffset + m_metrics[i].m_height
+                        ));
 
-        for (map<double, m2::AARectD>::iterator it = rects.begin(); it != rects.end(); ++it)
-          it->second.Add(symRectAA);
+        if (it == rects.end())
+          rects[m_entries[i].m_angle.val()] = symRectAA;
+        else
+          rects[m_entries[i].m_angle.val()].Add(symRectAA);
       }
     }
 
-    double square = numeric_limits<double>::max();
+    m_boundRects.clear();
 
-    for (map<double, m2::AARectD>::iterator it = rects.begin(); it != rects.end(); ++it)
+    for (map<double, m2::AARectD>::const_iterator it = rects.begin(); it != rects.end(); ++it)
     {
-      m2::RectD r = it->second.GetLocalRect();
-      if (square > r.SizeX() * r.SizeY())
-      {
-        m_limitRect = it->second;
-        square = r.SizeX() * r.SizeY();
-      }
+      m2::AARectD r(it->second);
+      m2::PointD zero = r.zero();
+      zero = r.ConvertFrom(zero);
+
+      double dx = zero.x - floor(zero.x);
+      double dy = zero.y - floor(zero.y);
+
+      r.Offset(m2::PointD(-dx, -dy));
+
+      r.Offset(m_pivot);
+
+      m_boundRects.push_back(r);
     }
-
-    m2::PointD zero = m_limitRect.zero();
-    zero = m_limitRect.ConvertFrom(zero);
-
-    double dx = zero.x - floor(zero.x);
-    double dy = zero.y - floor(zero.y);
-
-    m_limitRect.Offset(m2::PointD(-dx, -dy));
   }
 
   size_t GlyphLayout::firstVisible() const
@@ -411,9 +386,9 @@ namespace yg
     return m_metrics;
   }
 
-  m2::AARectD const GlyphLayout::limitRect() const
+  vector<m2::AARectD> const & GlyphLayout::boundRects() const
   {
-    return m2::Offset(m_limitRect, pivot());
+    return m_boundRects;
   }
 
   m2::PointD const & GlyphLayout::pivot() const
@@ -423,6 +398,9 @@ namespace yg
 
   void GlyphLayout::setPivot(m2::PointD const & pivot)
   {
+    for (unsigned i = 0; i < m_boundRects.size(); ++i)
+      m_boundRects[i].Offset(pivot - m_pivot);
+
     m_pivot = pivot;
   }
 }

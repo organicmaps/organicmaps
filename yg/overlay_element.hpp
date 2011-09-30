@@ -25,6 +25,7 @@ namespace yg
 
     bool m_isNeedRedraw;
     bool m_isFrozen;
+    bool m_isVisible;
     mutable bool m_isDirtyRect;
 
     mutable bool m_isDirtyRoughRect;
@@ -78,6 +79,9 @@ namespace yg
 
     bool isDirtyRect() const;
     void setIsDirtyRect(bool flag) const;
+
+    bool isVisible() const;
+    void setIsVisible(bool flag);
 
     m2::RectD const & roughBoundRect() const;
 

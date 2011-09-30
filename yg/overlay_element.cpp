@@ -16,6 +16,7 @@ namespace yg
       m_depth(p.m_depth),
       m_isNeedRedraw(true),
       m_isFrozen(false),
+      m_isVisible(true),
       m_isDirtyRect(true),
       m_isDirtyRoughRect(true)
   {}
@@ -100,6 +101,16 @@ namespace yg
   void OverlayElement::setIsNeedRedraw(bool flag)
   {
     m_isNeedRedraw = flag;
+  }
+
+  bool OverlayElement::isVisible() const
+  {
+    return m_isVisible;
+  }
+
+  void OverlayElement::setIsVisible(bool flag)
+  {
+    m_isVisible = flag;
   }
 
   bool OverlayElement::isDirtyRect() const

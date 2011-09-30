@@ -16,6 +16,7 @@ namespace yg
         p.m_position)
   {
     setPivot(m_glyphLayout.pivot());
+    setIsVisible((m_glyphLayout.firstVisible() == 0) && (m_glyphLayout.lastVisible() == visText().size()));
   }
 
   PathTextElement::PathTextElement(PathTextElement const & src, math::Matrix<double, 3, 3> const & m)
@@ -23,21 +24,17 @@ namespace yg
       m_glyphLayout(src.m_glyphLayout, m)
   {
     setPivot(m_glyphLayout.pivot());
-  }
-
-  m2::AARectD const PathTextElement::boundRect() const
-  {
-  //    return m2::Inflate(m_glyphLayout.limitRect(), m2::PointD(2, 2));
-    return m2::Inflate(m_glyphLayout.limitRect(), m2::PointD(10, 2));
-  //    return m2::Inflate(m_glyphLayout.limitRect(), m2::PointD(40, 2)); //< to create more sparse street names structure
+    setIsVisible((m_glyphLayout.firstVisible() == 0) && (m_glyphLayout.lastVisible() == visText().size()));
   }
 
   vector<m2::AARectD> const & PathTextElement::boundRects() const
   {
     if (isDirtyRect())
     {
-      m_boundRects.clear();
-      m_boundRects.push_back(boundRect());
+      m_boundRects = m_glyphLayout.boundRects();
+      for (unsigned i = 0; i < m_boundRects.size(); ++i)
+        m_boundRects[i] = m2::Inflate(m_boundRects[i], m2::PointD(10, 2));
+  //    m_boundRects[i].m2::Inflate(m2::PointD(40, 2)); //< to create more sparse street names structure
       setIsDirtyRect(false);
     }
 
