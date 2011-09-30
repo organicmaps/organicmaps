@@ -58,12 +58,13 @@ namespace
     for (size_t i = 0; i < countT; ++i)
       info.Add(arrT[i]);
 
-    serial::CodingParams codingParams;
-    serial::TrianglesChainSaver saver(codingParams);
+    serial::CodingParams cp;
+
+    serial::TrianglesChainSaver saver(cp);
     tesselator::PointsInfo points;
     m2::PointU (* D2U)(m2::PointD const &, uint32_t) = &PointD2PointU;
     info.GetPointsInfo(saver.GetBasePoint(), saver.GetMaxPoint(),
-                       bind(D2U, _1, codingParams.GetCoordBits()), points);
+                       bind(D2U, _1, cp.GetCoordBits()), points);
 
     info.ProcessPortions(points, saver);
 
@@ -77,7 +78,7 @@ namespace
     ReaderSource<MemReader> src(reader);
 
     serial::OutPointsT triangles;
-    serial::LoadOuterTriangles(src, serial::CodingParams(), triangles);
+    serial::LoadOuterTriangles(src, cp, triangles);
 
     CompareTriangles(triangles, arrP, arrT, countT);
   }
@@ -88,6 +89,21 @@ UNIT_TEST(TrianglesCoding_Smoke)
   {
     P arrP[] =  { P(0, 0), P(0, 1), P(1, 0), P(1, 1), P(0, -1), P(-1, 0) };
     uintptr_t arrT[][3] = { {0, 1, 2}, {1, 3, 2}, {4, 0, 2}, {1, 0, 5}, {4, 5, 0} };
+
+    TestTrianglesCoding(arrP, ARRAY_SIZE(arrP), arrT, ARRAY_SIZE(arrT));
+  }
+}
+
+UNIT_TEST(TrianglesCoding_Rect)
+{
+  {
+    P arrP[] =  { P(-16.874999848078005, -44.999999874271452),
+                  P(-16.874999848078005, -39.374999869032763),
+                  P(-11.249999842839316, -39.374999869032763),
+                  P(-11.249999842839316, -44.999999874271452)
+                };
+
+    uintptr_t arrT[][3] = { {2, 0, 1}, {0, 2, 3} };
 
     TestTrianglesCoding(arrP, ARRAY_SIZE(arrP), arrT, ARRAY_SIZE(arrT));
   }
