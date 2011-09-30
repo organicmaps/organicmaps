@@ -17,7 +17,7 @@ namespace feature
 {
   serial::CodingParams DataHeader::GetCodingParams(int scaleIndex) const
   {
-    return serial::CodingParams(m_codingParams.GetCoordBits() - (m_scales[3] - m_scales[scaleIndex]),
+    return serial::CodingParams(m_codingParams.GetCoordBits() - (m_scales[3] - m_scales[scaleIndex]) / 2,
                                 m_codingParams.GetBasePointUint64());
   }
 
