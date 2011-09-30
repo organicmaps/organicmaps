@@ -299,11 +299,6 @@ namespace feature
 
       bool TryToMakeStrip(points_t & points)
       {
-        CHECK ( are_points_equal(points.front(), points.back()), () );
-        // At this point we don't need last point equal to first.
-        // If you try to remove it in first step, 'simplify' will work bad for such polygons.
-        points.pop_back();
-
         size_t const count = points.size();
         if (!m_trgInner || count > 15 + 2)
         {
@@ -444,6 +439,9 @@ namespace feature
             // simplify and serialize triangles
             bool const good = IsGoodArea(points, level);
 
+            // At this point we don't need last point equal to first.
+            points.pop_back();
+
             polygons_t const & polys = fb.GetPolygons();
             if (polys.size() == 1 && good && holder.TryToMakeStrip(points))
               continue;
@@ -464,6 +462,11 @@ namespace feature
 
               if (!IsGoodArea(simplified.back(), level))
                 simplified.pop_back();
+              else
+              {
+                // At this point we don't need last point equal to first.
+                simplified.back().pop_back();
+              }
             }
 
             if (!simplified.empty())
