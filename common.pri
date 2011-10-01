@@ -134,6 +134,7 @@ macx* {
   QMAKE_OBJECTIVE_CFLAGS_X86_64 += -mmacosx-version-min=10.6
   QMAKE_LFLAGS_X86_64 -= -mmacosx-version-min=10.5
   QMAKE_LFLAGS_X86_64 += -mmacosx-version-min=10.6
+  QMAKE_LFLAGS *= -dead_strip
 }
 
 CONFIG(production) {
