@@ -12,18 +12,11 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 
 QT *= core network
 
-win32 {
-  LIBS += -lShell32
+win32* {
+  LIBS *= -lShell32
+  win32-g++: LIBS *= -lpthread
 }
-
-win32-g++ {
-  LIBS += -lpthread
-}
-
-macx {
-  LIBS += -framework CoreLocation -framework Foundation
-}
-
+macx*: LIBS *= "-framework CoreFoundation"
 
 SOURCES += \
     ../../testing/testingmain.cpp \

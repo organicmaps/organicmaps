@@ -6,13 +6,14 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = storage indexer geometry platform coding base
+DEPENDENCIES = storage platform coding base jansson tomcrypt
 
 include($$ROOT_DIR/common.pri)
 
-win32 {
-  LIBS += -lshell32
-}
+QT *= network
+
+win32: LIBS *= -lshell32
+macx*: LIBS *= "-framework Foundation" "-framework IOKit"
 
 QT += core
 

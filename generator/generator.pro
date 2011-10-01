@@ -9,7 +9,7 @@ DEPENDENCIES = storage indexer geometry coding base expat
 
 include($$ROOT_DIR/common.pri)
 
-QT += core
+QT *= core
 
 SOURCES += \
     feature_merger.cpp \

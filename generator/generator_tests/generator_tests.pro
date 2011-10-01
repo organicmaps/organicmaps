@@ -11,14 +11,11 @@ include($$ROOT_DIR/common.pri)
 QT *= core
 
 win32 {
-  LIBS += -lShell32
-  win32-g++ {
-    LIBS += -lpthread
-  }
+  LIBS *= -lShell32
+  win32-g++: LIBS *= -lpthread
 }
 
 HEADERS += \
-
 
 SOURCES += \
     ../../testing/testingmain.cpp \

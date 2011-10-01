@@ -4,18 +4,18 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = qt_tstfrm yg map indexer platform geometry coding base expat sgitess freetype fribidi
-
+DEPENDENCIES = indexer platform coding base
 include($$ROOT_DIR/common.pri)
 
-QT *= core gui opengl
+QT *= core
 
-win32:LIBS += -lopengl32 -lShell32
-win32-g++:LIBS += -lpthread
+win32 {
+  LIBS *= -lopengl32 -lShell32
+  win32-g++: LIBS *= -lpthread
+}
 
 HEADERS += \
-    test_polylines.hpp
-
+    test_polylines.hpp \
 
 SOURCES += \
     ../../testing/testingmain.cpp \
@@ -33,5 +33,4 @@ SOURCES += \
     scales_test.cpp \
     test_polylines.cpp \
     geometry_serialization_test.cpp \
-    mwm_set_test.cpp
-
+    mwm_set_test.cpp \

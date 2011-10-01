@@ -10,13 +10,13 @@ VERSION_MINOR = 0
 VERSION = $${VERSION_MAJOR}.$${VERSION_MINOR}
 
 # Additional include directories, common to most projects.
-INCLUDEPATH += $$ROOT_DIR/3party/boost
+INCLUDEPATH *= $$ROOT_DIR/3party/boost
 
 CONFIG(release, debug|release) {
-  DEFINES += RELEASE _RELEASE NDEBUG
+  DEFINES *= RELEASE _RELEASE NDEBUG
   CONFIG_NAME = release
 } else {
-  DEFINES += DEBUG _DEBUG
+  DEFINES *= DEBUG _DEBUG
   CONFIG_NAME = debug
 }
 
@@ -98,7 +98,7 @@ win32-msvc2010 {
 }
 
 unix|win32-g++ {
-  QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-compare -Wno-strict-aliasing -Wconversion -Wno-unused-parameter
+  QMAKE_CXXFLAGS_WARN_ON *= -Wno-sign-compare -Wno-strict-aliasing -Wconversion -Wno-unused-parameter
   # experimental
   QMAKE_CFLAGS_RELEASE -= -O2
   QMAKE_CFLAGS_RELEASE += -O3
@@ -121,7 +121,7 @@ win32-g++ {
   QMAKE_CXXFLAGS *= -Wextra
 }
 
-macx-* {
+macx* {
   # minimum supported Mac OS X version
   QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.6
   QMAKE_CFLAGS *= -mmacosx-version-min=10.6

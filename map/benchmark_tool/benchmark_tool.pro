@@ -6,30 +6,20 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map yg indexer platform geometry coding base gflags expat freetype fribidi
+DEPENDENCIES = map indexer platform coding base gflags
 
 include($$ROOT_DIR/common.pri)
 
-QT *= core network
+QT *= core
 
 win32 {
-  LIBS += -lShell32
-  win32-g++ {
-    LIBS += -lpthread
-  }
-}
-
-!iphone*:!bada*:!android* {
-  QT += opengl
-}
-
-macx|iphone* {
-  LIBS += -framework Foundation
+  LIBS *= -lShell32
+  win32-g++: LIBS *= -lpthread
 }
 
 SOURCES += \
-  features_loading.cpp \
-    main.cpp
+    features_loading.cpp \
+    main.cpp \
 
 HEADERS += \
-    api.hpp
+    api.hpp \

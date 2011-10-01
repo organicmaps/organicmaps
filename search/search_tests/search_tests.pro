@@ -11,13 +11,11 @@ DEPENDENCIES =  search platform indexer geometry coding base
 include($$ROOT_DIR/common.pri)
 
 # needed for GetPlatform::ReadPathForFile()
-QT += core
+QT *= core
 
 win32 {
   LIBS += -lShell32
-  win32-g++ {
-    LIBS += -lpthread
-  }
+  win32-g++: LIBS += -lpthread
 }
 
 SOURCES += \

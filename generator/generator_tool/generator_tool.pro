@@ -10,7 +10,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 # needed for Platform::WorkingDir() and unicode combining
-QT += core
+QT *= core
 
 win32:LIBS += -lShell32
 

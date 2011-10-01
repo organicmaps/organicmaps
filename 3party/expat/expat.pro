@@ -3,8 +3,6 @@
 TARGET = expat
 TEMPLATE = lib
 CONFIG += staticlib
-#!macx:DEFINES += COMPILED_FROM_DSP # needed for Expat
-#macx:DEFINES += HAVE_MEMMOVE # needed for Expat
 
 ROOT_DIR = ../..
 DEPENDENCIES =

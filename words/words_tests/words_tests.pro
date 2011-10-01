@@ -8,11 +8,9 @@ DEPENDENCIES = words platform coding base zlib bzip2
 
 include($$ROOT_DIR/common.pri)
 
-QT += core
+QT *= core
 
-win32 {
-  LIBS += -lshell32
-}
+win32: LIBS *= -lshell32
 
 SOURCES += $$ROOT_DIR/testing/testingmain.cpp \
   sorted_index_test.cpp \

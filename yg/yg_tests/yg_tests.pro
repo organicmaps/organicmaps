@@ -4,14 +4,16 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = qt_tstfrm map yg indexer geometry platform coding base sgitess freetype fribidi expat
+DEPENDENCIES = qt_tstfrm map yg platform geometry coding base expat freetype fribidi
 
 include($$ROOT_DIR/common.pri)
 
-QT += opengl gui core
+QT *= opengl gui core
 
-win32:LIBS += -lopengl32 -lshell32
-win32-g++:LIBS += -lpthread
+win32 {
+  LIBS *= -lopengl32 -lshell32
+  win32-g++: LIBS *= -lpthread
+}
 
 SOURCES += \
     ../../testing/testingmain.cpp \
@@ -20,7 +22,6 @@ SOURCES += \
     skin_loader_test.cpp \
     skin_test.cpp \
     screengl_test.cpp \
-#    formats_loading_test.cpp \
     thread_render.cpp \
     opengl_test.cpp \
     screenglglobal_test.cpp \

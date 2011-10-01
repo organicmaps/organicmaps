@@ -13,13 +13,12 @@ QT *= core gui opengl network
 win32 {
   LIBS += -lopengl32 -lws2_32 -lshell32 -liphlpapi
   RC_FILE = res/windows.rc
-}
-win32-msvc* {
-  LIBS += -lwlanapi
+  win32-msvc*: LIBS += -lwlanapi
+  win32-g++: LIBS += -lpthread
 }
 
-macx {
-  LIBS += -framework CoreLocation -framework Foundation -framework CoreWLAN -framework QuartzCore
+macx* {
+  LIBS *= "-framework CoreLocation" "-framework Foundation" "-framework CoreWLAN" "-framework QuartzCore"
 
   ICON = res/mac.icns
   PLIST_FILE = Info.plist
@@ -55,10 +54,6 @@ macx {
 
     QMAKE_BUNDLE_DATA += OTHER_RES CLASSIFICATOR_RES SKIN_RES FONT_RES MWM_RES
   }
-}
-
-win32-g++ {
-  LIBS += -lpthread
 }
 
 SOURCES += \

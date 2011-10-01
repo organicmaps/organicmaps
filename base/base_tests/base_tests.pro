@@ -10,9 +10,7 @@ DEPENDENCIES = base
 
 include($$ROOT_DIR/common.pri)
 
-win32-g++ {
-  LIBS += -lpthread
-}
+win32-g++: LIBS += -lpthread
 
 SOURCES += \
   ../../testing/testingmain.cpp \

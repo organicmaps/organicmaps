@@ -9,7 +9,6 @@ DEPENDENCIES = geometry coding base expat
 
 include($$ROOT_DIR/common.pri)
 
-
 SOURCES += \
     classificator.cpp \
     drawing_rules.cpp \

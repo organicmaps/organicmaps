@@ -6,25 +6,15 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map yg indexer platform geometry coding base expat freetype fribidi
+DEPENDENCIES = map indexer platform geometry coding base
 
 include($$ROOT_DIR/common.pri)
 
-QT *= core network
+QT *= core
 
 win32 {
-  LIBS += -lShell32
-  win32-g++ {
-    LIBS += -lpthread
-  }
-}
-
-!iphone*:!bada*:!android* {
-  QT += opengl
-}
-
-macx|iphone* {
-  LIBS += -framework Foundation
+  LIBS *= -lShell32
+  win32-g++: LIBS *= -lpthread
 }
 
 SOURCES += \
@@ -33,4 +23,3 @@ SOURCES += \
   map_foreach_test.cpp \
   debug_features_test.cpp \
   draw_processor_test.cpp \
-
