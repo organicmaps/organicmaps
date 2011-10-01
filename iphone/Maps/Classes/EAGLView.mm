@@ -9,7 +9,7 @@
 #include "../../yg/resource_manager.hpp"
 #include "../../yg/internal/opengl.hpp"
 #include "../../yg/skin.hpp"
-#include "IPhonePlatform.hpp"
+#include "../../platform/platform.hpp"
 #include "RenderBuffer.hpp"
 #include "RenderContext.hpp"
 

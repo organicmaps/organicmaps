@@ -4,12 +4,15 @@
 #include "benchmark_framework.hpp"
 #include "feature_vec_model.hpp"
 
-#include "../platform/platform.hpp"
+#include "../platform/settings.hpp"
 
 template <typename TModel>
 Framework<TModel> * FrameworkFactory<TModel>::CreateFramework(shared_ptr<WindowHandle> const & wh, size_t bottomShift)
 {
-  if (GetPlatform().IsBenchmarking())
+  bool benchmarkingEnabled = false;
+  (void)Settings::Get("IsBenchmarking", benchmarkingEnabled);
+
+  if (benchmarkingEnabled)
     return new BenchmarkFramework<TModel>(wh, bottomShift);
   else
     return new Framework<TModel>(wh, bottomShift);

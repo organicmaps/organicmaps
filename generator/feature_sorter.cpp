@@ -18,6 +18,7 @@
 
 #include "../version/ver_serialization.hpp"
 
+#include "../coding/internal/file_data.hpp"
 #include "../coding/file_container.hpp"
 
 #include "../base/string_utils.hpp"
@@ -498,7 +499,7 @@ namespace feature
     tempDatFilePath += ".notsorted";
 
     FileWriter::DeleteFileX(tempDatFilePath);
-    if (!platform.RenameFileX(datFilePath, tempDatFilePath))
+    if (!my::RenameFileX(datFilePath, tempDatFilePath))
     {
       LOG(LWARNING, ("File ", datFilePath, " doesn't exist or sharing violation!"));
       return false;

@@ -124,7 +124,9 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
   m_informationDisplay.enableDebugInfo(true);
 #endif
 
-  m_informationDisplay.enableLog(GetPlatform().IsVisualLog(), m_windowHandle.get());
+  bool isVisualLogEnabled = false;
+  Settings::Get("VisualLog", isVisualLogEnabled);
+  m_informationDisplay.enableLog(isVisualLogEnabled, m_windowHandle.get());
   m_informationDisplay.setVisualScale(visScale);
 
   // initialize gps and compass subsystem

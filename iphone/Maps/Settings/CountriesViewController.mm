@@ -7,7 +7,8 @@
 #import "DiskFreeSpace.h"
 
 #include "GetActiveConnectionType.h"
-#include "IPhonePlatform.hpp"
+
+#include "../../platform/platform.hpp"
 
 #define MAX_3G_MEGABYTES 20
 
@@ -139,7 +140,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
     {
     case EOnDisk:
       {
-        TLocalAndRemoteSize::first_type size = m_storage->CountrySizeInBytes(countryIndex).first;
+        LocalAndRemoteSizeT::first_type size = m_storage->CountrySizeInBytes(countryIndex).first;
         // convert size to human readable values
         char const * kBorMB = "kB";
         if (size > MB)
@@ -292,8 +293,8 @@ UITableViewCell * g_clickedCell = nil;
       case ENotDownloaded:
       case EDownloadFailed:
       {
-        TLocalAndRemoteSize const sizePair = m_storage->CountrySizeInBytes(index);
-        TLocalAndRemoteSize::first_type size = sizePair.second - sizePair.first;
+        LocalAndRemoteSizeT const sizePair = m_storage->CountrySizeInBytes(index);
+        LocalAndRemoteSizeT::first_type size = sizePair.second - sizePair.first;
 
         // check for disk free space first
         if (FreeDiskSpaceInBytes() < (size + 1024*1024))

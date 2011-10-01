@@ -195,7 +195,7 @@ void BenchmarkFramework<TModel>::SaveBenchmarkResults()
 
   for (size_t i = 0; i < m_benchmarkResults.size(); ++i)
   {
-    fout << GetPlatform().DeviceID() << " "
+    fout << GetPlatform().DeviceName() << " "
          << VERSION_STRING << " "
          << m_startTime << " "
          << m_benchmarkResults[i].m_name << " "

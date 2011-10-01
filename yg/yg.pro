@@ -6,15 +6,11 @@ CONFIG += staticlib
 DEFINES += YG_LIBRARY
 
 ROOT_DIR = ..
-DEPENDENCIES = indexer geometry coding base freetype fribidi expat
+DEPENDENCIES = indexer geometry platform coding base freetype fribidi expat
 
 INCLUDEPATH += $$ROOT_DIR/3party/freetype/include $$ROOT_DIR/3party/agg
 
 include($$ROOT_DIR/common.pri)
-
-!iphone*:!bada* {
-  DEPENDENCIES += platform
-}
 
 SOURCES += \
     internal/opengl.cpp \

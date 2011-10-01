@@ -11,43 +11,35 @@ include($$ROOT_DIR/common.pri)
 
 QT *= core network
 
-!iphone*:!android* {
+!iphone*:!android*:!bada {
   INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 
-  SOURCES += \
-    qtplatform.cpp \
-    wifi_location_service.cpp \
-    qt_download_manager.cpp \
-    qt_download.cpp \
-    qt_concurrent_runner.cpp \
-
-  HEADERS += \
-      qt_download_manager.hpp \
-      qt_download.hpp \
-      wifi_info.hpp
+  SOURCES += platform_qt.cpp \
+             wifi_location_service.cpp \
+             qt_download_manager.cpp \
+             qt_download.cpp \
+             qt_concurrent_runner.cpp
+  HEADERS += qt_download_manager.hpp \
+             qt_download.hpp \
+             wifi_info.hpp
+  win32* {
+    SOURCES += platform_win.cpp \
+               wifi_info_windows.cpp
+  } else:macx* {
+    OBJECTIVE_SOURCES += platform_mac.mm \
+                         wifi_info_mac.mm \
+                         apple_video_timer.mm
+  } else:linux* {
+    SOURCES += platform_linux.cpp
+  }
 } else:iphone* {
-  SOURCES += ios_concurrent_runner.mm
+  OBJECTIVE_SOURCES += ios_video_timer.mm \
+                       ios_concurrent_runner.mm \
+                       platform_ios.mm
 }
 
 macx|iphone* {
   OBJECTIVE_SOURCES += apple_location_service.mm
-  LIBS += -framework CoreLocation -framework Foundation
-}
-
-macx:!iphone* {
-  OBJECTIVE_SOURCES += wifi_info_mac.mm \
-                       apple_video_timer.mm
-
-  LIBS += -framework CoreWLAN -framework QuartzCore
-}
-
-iphone* {
-  OBJECTIVE_SOURCES += ios_video_timer.mm
-  LIBS += -framework QuartzCore
-}
-
-win32 {
-  SOURCES += wifi_info_windows.cpp
 }
 
 # common sources for all platforms
@@ -66,6 +58,5 @@ SOURCES += \
     location_manager.cpp \
     preferred_languages.cpp \
     settings.cpp \
-    platform.cpp \
     video_timer.cpp \
     languages.cpp \
