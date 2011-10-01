@@ -33,7 +33,7 @@ namespace yg
     {
       m_boundRects = m_glyphLayout.boundRects();
       for (unsigned i = 0; i < m_boundRects.size(); ++i)
-        m_boundRects[i] = m2::Inflate(m_boundRects[i], m2::PointD(10, 2));
+        m_boundRects[i] = m2::Inflate(m_boundRects[i], m2::PointD(10, 10));
   //    m_boundRects[i].m2::Inflate(m2::PointD(40, 2)); //< to create more sparse street names structure
       setIsDirtyRect(false);
     }
@@ -64,7 +64,7 @@ namespace yg
 
     if (desc.m_isMasked)
     {
-      if ((m_glyphLayout.firstVisible() != 0) || (m_glyphLayout.lastVisible() != visText().size()))
+      if (!isVisible())
         return;
 
       drawTextImpl(m_glyphLayout, screen, m, desc, yg::maxDepth - 1);

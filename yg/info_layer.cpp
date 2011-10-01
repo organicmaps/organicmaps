@@ -57,25 +57,59 @@ namespace yg
       bool doAppend = false;
 
       (*it)->setIsNeedRedraw(false);
-      (*it)->setIsFrozen(false);
+      (*it)->setIsFrozen(true);
+
+      bool hasInside = false;
+      bool hasOutside = false;
 
       for (int i = 0; i < aaLimitRects.size(); ++i)
       {
-        if (aaRect.IsRectInside(aaLimitRects[i]))
+        bool isPartInsideRect = aaRect.IsRectInside(aaLimitRects[i]);
+
+        if (isPartInsideRect)
         {
-          (*it)->setIsNeedRedraw(false);
-          (*it)->setIsFrozen(true);
-          doAppend = true;
-          break;
-        }
-        else
-          if (aaRect.IsIntersect(aaLimitRects[i]))
+          if (hasOutside)
           {
-            (*it)->setIsFrozen(true);
+            /// intersecting
             (*it)->setIsNeedRedraw(true);
             doAppend = true;
             break;
           }
+          else
+          {
+            hasInside = true;
+            doAppend = true;
+            continue;
+          }
+        }
+
+        bool isRectInsidePart = aaLimitRects[i].IsRectInside(aaRect);
+
+        if (isRectInsidePart)
+        {
+          doAppend = true;
+          break;
+        }
+
+        bool isPartIntersectRect = aaRect.IsIntersect(aaLimitRects[i]);
+
+        if (isPartIntersectRect)
+        {
+          /// intersecting
+          (*it)->setIsNeedRedraw(true);
+          doAppend = true;
+          break;
+        }
+
+        /// the last case remains here - part rect is outside big rect
+        if (hasInside)
+        {
+          (*it)->setIsNeedRedraw(true);
+          doAppend = true;
+          break;
+        }
+        else
+          hasOutside = true;
       }
 
       if (doAppend)

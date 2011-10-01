@@ -329,21 +329,23 @@ namespace yg
     {
       if (m_metrics[i].m_width != 0)
       {
-        map<double, m2::AARectD>::iterator it = rects.find(m_entries[i].m_angle.val());
+        ang::AngleD const & a = m_entries[i].m_angle;
+
+        map<double, m2::AARectD>::iterator it = rects.find(a.val());
 
         m2::AARectD symRectAA(
-              m_entries[i].m_pt.Move(m_metrics[i].m_height, -m_entries[i].m_angle.cos(), m_entries[i].m_angle.sin()), //< moving by angle = m_entries[i].m_angle - math::pi / 2
-              m_entries[i].m_angle,
+              m_entries[i].m_pt.Move(m_metrics[i].m_height + m_metrics[i].m_yOffset, -a.cos(), a.sin()), //< moving by angle = m_entries[i].m_angle - math::pi / 2
+              a,
               m2::RectD(m_metrics[i].m_xOffset,
-                        m_metrics[i].m_yOffset,
+                        0,
                         m_metrics[i].m_xOffset + m_metrics[i].m_width,
-                        m_metrics[i].m_yOffset + m_metrics[i].m_height
+                        m_metrics[i].m_height
                         ));
 
         if (it == rects.end())
-          rects[m_entries[i].m_angle.val()] = symRectAA;
+          rects[a.val()] = symRectAA;
         else
-          rects[m_entries[i].m_angle.val()].Add(symRectAA);
+          rects[a.val()].Add(symRectAA);
       }
     }
 
