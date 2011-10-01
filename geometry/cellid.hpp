@@ -134,7 +134,7 @@ public:
     for (size_t i = 0; i < level; ++i)
     {
       ASSERT((s[i] >= '0') && (s[i] <= '3'), (s, i));
-      bits = (bits << 2) | (s[i] - '0');
+      bits = (bits << 2) | static_cast<uint64_t>(s[i] - '0');
     }
     return CellId(bits, static_cast<int>(level));
   }
