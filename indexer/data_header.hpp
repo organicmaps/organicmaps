@@ -38,8 +38,8 @@ namespace feature
     void SetScales(int * arr);
 
     inline size_t GetScalesCount() const { return m_scales.size(); }
-    inline int GetScale(int i) const { return m_scales[i]; }
-    inline int GetLastScale() const { return GetScale(GetScalesCount() - 1); }
+    inline int GetScale(int i) const { return static_cast<int>(m_scales[i]); }
+    inline int GetLastScale() const { return GetScale(static_cast<int>(GetScalesCount()) - 1); }
 
     pair<int, int> GetScaleRange() const;
 
