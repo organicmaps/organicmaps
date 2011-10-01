@@ -21,12 +21,12 @@ CONFIG(release, debug|release) {
 }
 
 # turn off maps downloader engine for desktops in release and production
-!iphone* {
-  CONFIG(release, debug|release)|CONFIG(production) {
-    CONFIG += no_downloader
-    DEFINES += NO_DOWNLOADER
-  }
-}
+#!iphone* {
+#  CONFIG(release, debug|release)|CONFIG(production) {
+#    CONFIG += no_downloader
+#    DEFINES += NO_DOWNLOADER
+#  }
+#}
 
 BINARIES_PATH = $$ROOT_DIR/out/$$CONFIG_NAME
 TEMP_PATH = $$ROOT_DIR/out/$$CONFIG_NAME/tmp/$$TARGET
