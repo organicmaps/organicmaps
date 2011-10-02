@@ -70,10 +70,6 @@ void RenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,
   {
     m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(false);
 
-//    OGLCHECK(glMatrixMode(GL_MODELVIEW));
-//    OGLCHECK(glPushMatrix());
-//    OGLCHECK(glTranslatef(-ptShift.x, -ptShift.y, 0));
-
     math::Matrix<double, 3, 3> m = m_renderQueue.renderState().m_actualScreen.PtoGMatrix() * s.GtoPMatrix();
     m = math::Shift(m, -ptShift);
 
