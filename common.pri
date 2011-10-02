@@ -110,6 +110,9 @@ unix|win32-g++ {
   QMAKE_CXXFLAGS_RELEASE += -O3
   QMAKE_CFLAGS_RELEASE *= -ffast-math
   QMAKE_CXXFLAGS_RELEASE *= -ffast-math
+  QMAKE_CFLAGS *= -fdata-sections -ffunction-sections
+  QMAKE_CXXFLAGS *= -fdata-sections -ffunction-sections
+  QMAKE_LFLAGS *= -Wl,--gc-sections
 }
 
 linux-g++* {

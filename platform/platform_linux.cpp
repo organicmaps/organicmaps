@@ -4,7 +4,9 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
-static bool GetUserWritableDir(string & outDir)
+#define LOCALAPPDATA_DIR "MapsWithMe"
+
+bool GetUserWritableDir(string & outDir)
 {
   char * path = ::getenv("HOME");
   if (path)
@@ -18,7 +20,7 @@ static bool GetUserWritableDir(string & outDir)
 }
 
 /// @return full path including binary itself
-static bool GetPathToBinary(string & outPath)
+bool GetPathToBinary(string & outPath)
 {
   char path[4096] = {0};
   if (0 < ::readlink("/proc/self/exe", path, ARRAY_SIZE(path)))
