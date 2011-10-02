@@ -82,7 +82,11 @@ win32-msvc* {
   # don't set -GL - bug in msvc2008
   QMAKE_CXXFLAGS_RELEASE += /Ox /GF
   # don't set /LTCG - bug in msvc2008
-  QMAKE_LFLAGS_RELEASE += /MACHINE:X86 /OPT:REF
+  QMAKE_LFLAGS_RELEASE += /MACHINE:X86
+
+  QMAKE_LFLAGS *= /OPT:REF
+  QMAKE_LFLAGS_RELEASE *= /OPT:ICF
+  QMAKE_LFLAGS_DEBUG *= /OPT:NOICF
 
   CONFIG(release, debug|release) {
     DEFINES += _SECURE_SCL=0
@@ -119,6 +123,8 @@ linux-g++* {
 win32-g++ {
   QMAKE_CFLAGS *= -Wextra
   QMAKE_CXXFLAGS *= -Wextra
+  QMAKE_LFLAGS *= -s
+  QMAKE_LFLAGS_RELEASE *= -O
 }
 
 macx* {
