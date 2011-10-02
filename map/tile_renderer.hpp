@@ -39,7 +39,6 @@ protected:
   {
     DrawerYG * m_drawer;
     DrawerYG::params_t m_drawerParams;
-    shared_ptr<yg::gl::BaseTexture> m_fakeTarget;
     shared_ptr<yg::gl::RenderContext> m_renderContext;
   };
 

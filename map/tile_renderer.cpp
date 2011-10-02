@@ -62,7 +62,6 @@ void TileRenderer::Initialize(shared_ptr<yg::gl::RenderContext> const & primaryC
 
     m_threadData[i].m_drawerParams = params;
     m_threadData[i].m_drawer = 0;
-    m_threadData[i].m_fakeTarget = m_resourceManager->createRenderTarget(2, 2);
     m_threadData[i].m_renderContext = m_primaryContext->createShared();
   }
 
@@ -170,10 +169,6 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
         );
 
   drawer->endFrame();
-
-/*  drawer->beginFrame();
-  drawer->screen()->setRenderTarget(threadData.m_fakeTarget);
-  drawer->endFrame();*/
 
   drawer->screen()->resetInfoLayer();
 
