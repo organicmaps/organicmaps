@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = qt_tstfrm map yg platform geometry coding base expat freetype fribidi
+DEPENDENCIES = qt_tstfrm map indexer yg platform geometry coding base expat freetype fribidi
 
 include($$ROOT_DIR/common.pri)
 

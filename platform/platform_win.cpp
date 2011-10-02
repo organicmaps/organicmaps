@@ -4,7 +4,9 @@
 
 #include <shlobj.h>
 
-static bool GetUserWritableDir(string & outDir)
+#define LOCALAPPDATA_DIR "MapsWithMe"
+
+bool GetUserWritableDir(string & outDir)
 {
   char pathBuf[MAX_PATH] = {0};
   if (SUCCEEDED(::SHGetFolderPathA(NULL, CSIDL_LOCAL_APPDATA | CSIDL_FLAG_CREATE, NULL, SHGFP_TYPE_CURRENT, pathBuf)))
@@ -19,7 +21,7 @@ static bool GetUserWritableDir(string & outDir)
 }
 
 /// @return full path including binary itself
-static bool GetPathToBinary(string & outPath)
+bool GetPathToBinary(string & outPath)
 {
   // get path to executable
   char pathBuf[MAX_PATH] = {0};

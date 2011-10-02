@@ -10,7 +10,7 @@ include($$ROOT_DIR/common.pri)
 QT *= core
 
 win32 {
-  LIBS *= -lopengl32 -lShell32
+  LIBS *= -lShell32
   win32-g++: LIBS *= -lpthread
 }
 
@@ -19,7 +19,6 @@ HEADERS += \
 
 SOURCES += \
     ../../testing/testingmain.cpp \
-    cell_covering_visualize_test.cpp \
     cell_id_test.cpp \
     cell_coverer_test.cpp \
     test_type.cpp \
@@ -34,3 +33,4 @@ SOURCES += \
     test_polylines.cpp \
     geometry_serialization_test.cpp \
     mwm_set_test.cpp \
+

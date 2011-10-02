@@ -1,10 +1,6 @@
-#include "../../base/SRC_FIRST.hpp"
-
 #include "opengl_win32.hpp"
 
 #include "../../base/logging.hpp"
-
-#include "../../base/start_mem_debug.hpp"
 
 #ifdef OMIM_OS_WINDOWS
 
@@ -35,7 +31,7 @@ namespace win32
 #define DEFINE_GL_PROC(type, name) \
     name = GetGLProc<type>(hInst, #name);             \
     if (name == NULL)                                 \
-      name = GetGLProc<type>(hInst, #name ## "EXT");
+      name = GetGLProc<type>(hInst, #name "EXT");
 #include "gl_procedures.inl"
 #undef DEFINE_GL_PROC
 
