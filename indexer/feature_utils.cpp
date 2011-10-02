@@ -48,6 +48,25 @@ public:
   uint8_t GetSearchRank(FeatureType const & feature) const
   {
     uint32_t const population = feature.GetPopulation();
+
+    FeatureBase::GetTypesFn types;
+    feature.ForEachTypeRef(types);
+    for (size_t i = 0; i < types.m_size; ++i)
+    {
+      if (types.m_types[i] == m_TypeVillage)
+        population = max(population, 1000);
+      else if (types.m_types[i] == m_TypeTown)
+        population = max(population, 10000);
+      else if (types.m_types[i] == m_TypeCity)
+        population = max(population, 100000);
+      else if (types.m_types[i] == m_TypeCityCapital)
+        population = max(population, 1000000);
+      else if (types.m_types[i] == m_TypeCountry)
+        population = max(population, 2000000);
+      else if (types.m_types[i] == m_TypeContinent)
+        population = max(population, 20000000);
+    }
+
     return static_cast<uint8_t>(log(double(population)) / log(1.1));
   }
 
