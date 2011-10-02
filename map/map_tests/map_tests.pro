@@ -6,11 +6,11 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map indexer platform geometry coding base
+DEPENDENCIES = map yg indexer platform geometry coding base freetype fribidi expat
 
 include($$ROOT_DIR/common.pri)
 
-QT *= core
+QT *= core opengl
 
 win32 {
   LIBS *= -lShell32 -lOpengl32
