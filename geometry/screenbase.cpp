@@ -20,7 +20,7 @@ ScreenBase::ScreenBase() :
 //  UpdateDependentParameters();
 }
 
-ScreenBase::ScreenBase(m2::RectI const & pxRect, m2::AARectD const & glbRect)
+ScreenBase::ScreenBase(m2::RectI const & pxRect, m2::AnyRectD const & glbRect)
 {
   OnSize(pxRect);
   SetFromRect(glbRect);
@@ -53,11 +53,11 @@ void ScreenBase::UpdateDependentParameters()
   double HalfSizeX = PtoG(m2::PointD(m_PixelRect.maxX(), m_PixelRect.Center().y)).Length(PtoG(m2::PointD(m_PixelRect.Center())));
   double HalfSizeY = PtoG(m2::PointD(m_PixelRect.Center().x, m_PixelRect.minY())).Length(PtoG(m2::PointD(m_PixelRect.Center())));
 
-  m_GlobalRect = m2::AARectD(m_Org, m_Angle, m2::RectD(-HalfSizeX, -HalfSizeY, HalfSizeX, HalfSizeY));
+  m_GlobalRect = m2::AnyRectD(m_Org, m_Angle, m2::RectD(-HalfSizeX, -HalfSizeY, HalfSizeX, HalfSizeY));
   m_ClipRect = m_GlobalRect.GetGlobalRect();
 }
 
-void ScreenBase::SetFromRect(m2::AARectD const & GlobalRect)
+void ScreenBase::SetFromRect(m2::AnyRectD const & GlobalRect)
 {
   double hScale = GlobalRect.GetLocalRect().SizeX() / m_PixelRect.SizeX();
   double vScale = GlobalRect.GetLocalRect().SizeY() / m_PixelRect.SizeY();
@@ -125,7 +125,7 @@ m2::RectD const & ScreenBase::PixelRect() const
   return m_PixelRect;
 }
 
-m2::AARectD const & ScreenBase::GlobalRect() const
+m2::AnyRectD const & ScreenBase::GlobalRect() const
 {
   return m_GlobalRect;
 }

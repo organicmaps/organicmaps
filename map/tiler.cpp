@@ -111,7 +111,7 @@ void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt)
   double rectSizeX = (MercatorBounds::maxX - MercatorBounds::minX) / (1 << m_tileScale);
   double rectSizeY = (MercatorBounds::maxY - MercatorBounds::minY) / (1 << m_tileScale);
 
-  m2::AARectD const globalRect = m_screen.GlobalRect();
+  m2::AnyRectD const globalRect = m_screen.GlobalRect();
   m2::RectD const clipRect = m_screen.ClipRect();
 
   int minTileX = static_cast<int>(floor(clipRect.minX() / rectSizeX));
@@ -132,7 +132,7 @@ void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt)
                          (tileX + 1) * rectSizeX,
                          (tileY + 1) * rectSizeY);
 
-      if (globalRect.IsIntersect(m2::AARectD(tileRect)))
+      if (globalRect.IsIntersect(m2::AnyRectD(tileRect)))
         m_coverage.push_back(RectInfo(m_drawScale, m_tileScale, tileX, tileY));
     }
 

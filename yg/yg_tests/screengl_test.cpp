@@ -1135,16 +1135,16 @@ namespace
     }
   };
 
-  struct TestDrawAARect
+  struct TestDrawAnyRect
   {
   public:
     void DoDraw(shared_ptr<yg::gl::Screen> p)
     {
-      m2::AARectD r[3] =
+      m2::AnyRectD r[3] =
       {
-        m2::AARectD(m2::PointD(100, 100), math::pi / 6, m2::RectD(0, 0, 50, 20)),
-        m2::AARectD(m2::PointD(100, 100), math::pi / 6, m2::RectD(0, -10, 50, 10)),
-        m2::AARectD(m2::PointD(100, 100), math::pi / 6, m2::RectD(0, -22, 50, -2))
+        m2::AnyRectD(m2::PointD(100, 100), math::pi / 6, m2::RectD(0, 0, 50, 20)),
+        m2::AnyRectD(m2::PointD(100, 100), math::pi / 6, m2::RectD(0, -10, 50, 10)),
+        m2::AnyRectD(m2::PointD(100, 100), math::pi / 6, m2::RectD(0, -22, 50, -2))
       };
 
       p->drawRectangle(r[0], yg::Color(255, 0, 0, 128), yg::maxDepth - 2);
@@ -1350,7 +1350,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawPathSolid2PX);
 //   UNIT_TEST_GL(TestDrawPathSolid);
 //   UNIT_TEST_GL(TestDrawOverlappedSymbolWithText);
-//   UNIT_TEST_GL(TestDrawAARect);
+//   UNIT_TEST_GL(TestDrawAnyRect);
 //   UNIT_TEST_GL(TestDrawSector);
 //   UNIT_TEST_GL(TestDrawPathSolidDiffWidth);
 //   UNIT_TEST_GL(TestDrawPathZigZag);

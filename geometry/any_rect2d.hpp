@@ -11,7 +11,7 @@ namespace m2
 {
   /// axis aligned rect
   template <typename T>
-  class AARect
+  class AnyRect
   {
   private:
 
@@ -37,17 +37,17 @@ namespace m2
 
   public:
 
-    AARect() : m_i(1, 0), m_j(0, 1), m_zero(0, 0), m_rect(){}
+    AnyRect() : m_i(1, 0), m_j(0, 1), m_zero(0, 0), m_rect(){}
 
     /// creating from regular rect
-    explicit AARect(Rect<T> const & r)
+    explicit AnyRect(Rect<T> const & r)
       : m_angle(0), m_i(m_angle.cos(), m_angle.sin()), m_j(-m_angle.sin(), m_angle.cos()),
         m_zero(r == Rect<T>() ? Point<T>(0, 0) : Point<T>(r.minX(), r.minY())),
         m_rect(r == Rect<T>() ? Rect<T>() : Rect<T>(0, 0, r.SizeX(), r.SizeY()))
     {
     }
 
-    AARect(Point<T> const & zero, ang::Angle<T> const & angle, Rect<T> const & r)
+    AnyRect(Point<T> const & zero, ang::Angle<T> const & angle, Rect<T> const & r)
       : m_angle(angle), m_i(m_angle.cos(), m_angle.sin()), m_j(-m_angle.sin(), m_angle.cos()),
         m_zero(Convert(zero, Point<T>(1, 0), Point<T>(0, 1), m_i, m_j)),
         m_rect(r)
@@ -96,7 +96,7 @@ namespace m2
       return m_rect.IsPointInside(ConvertTo(pt));
     }
 
-    bool IsRectInside(AARect<T> const & r) const
+    bool IsRectInside(AnyRect<T> const & r) const
     {
       m2::Point<T> pts[4];
       r.GetGlobalPoints(pts);
@@ -107,7 +107,7 @@ namespace m2
           && m_rect.IsPointInside(pts[3]);
     }
 
-    bool IsIntersect(AARect<T> const & r) const
+    bool IsIntersect(AnyRect<T> const & r) const
     {
       m2::Point<T> pts[4];
       if (r.GetLocalRect() == Rect<T>())
@@ -135,7 +135,7 @@ namespace m2
           || Intersect(GetLocalRect(), pts[3], pts[0]);
     }
 
-    /// Convert into coordinate system of this AARect
+    /// Convert into coordinate system of this AnyRect
     Point<T> const ConvertTo(Point<T> const & p) const
     {
       m2::Point<T> i(1, 0);
@@ -149,7 +149,7 @@ namespace m2
         pts[i] = ConvertTo(pts[i]);
     }
 
-    /// Convert into global coordinates from the local coordinates of this AARect
+    /// Convert into global coordinates from the local coordinates of this AnyRect
     Point<T> const ConvertFrom(Point<T> const & p) const
     {
       m2::PointD i(1, 0);
@@ -196,7 +196,7 @@ namespace m2
       m_rect.Inflate(dx, dy);
     }
 
-    void Add(AARect<T> const & r)
+    void Add(AnyRect<T> const & r)
     {
       Point<T> pts[4];
       r.GetGlobalPoints(pts);
@@ -214,27 +214,27 @@ namespace m2
   };
 
   template <typename T>
-  AARect<T> const Offset(AARect<T> const & r, Point<T> const & pt)
+  AnyRect<T> const Offset(AnyRect<T> const & r, Point<T> const & pt)
   {
-    AARect<T> res(r);
+    AnyRect<T> res(r);
     res.Offset(pt);
     return res;
   }
 
   template <typename T, typename U>
-  AARect<T> const Inflate(AARect<T> const & r, U const & dx, U const & dy)
+  AnyRect<T> const Inflate(AnyRect<T> const & r, U const & dx, U const & dy)
   {
-    AARect<T> res = r;
+    AnyRect<T> res = r;
     res.Inflate(dx, dy);
     return res;
   }
 
   template <typename T, typename U>
-  AARect<T> const Inflate(AARect<T> const & r, Point<U> const & pt)
+  AnyRect<T> const Inflate(AnyRect<T> const & r, Point<U> const & pt)
   {
     return Inflate(r, pt.x, pt.y);
   }
 
-  typedef AARect<double> AARectD;
-  typedef AARect<float> AARectF;
+  typedef AnyRect<double> AnyRectD;
+  typedef AnyRect<float> AnyRectF;
 }

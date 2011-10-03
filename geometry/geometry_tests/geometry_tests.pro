@@ -36,5 +36,5 @@ SOURCES += \
   region_test.cpp \
   rect_test.cpp \
   robust_test.cpp \
-  aarect_test.cpp \
+  anyrect_test.cpp \
   region2d_binary_op_test.cpp \

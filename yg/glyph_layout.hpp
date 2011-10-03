@@ -6,7 +6,7 @@
 
 #include "../geometry/rect2d.hpp"
 #include "../geometry/point2d.hpp"
-#include "../geometry/aa_rect2d.hpp"
+#include "../geometry/any_rect2d.hpp"
 #include "../geometry/angles.hpp"
 
 #include "../std/vector.hpp"
@@ -50,7 +50,7 @@ namespace yg
     vector<GlyphMetrics> m_metrics;
     vector<GlyphLayoutElem> m_entries;
 
-    vector<m2::AARectD> m_boundRects;
+    vector<m2::AnyRectD> m_boundRects;
 
     m2::PointD m_pivot;
 
@@ -88,7 +88,7 @@ namespace yg
     vector<GlyphLayoutElem> const & entries() const;
     vector<GlyphMetrics> const & metrics() const;
 
-    vector<m2::AARectD> const & boundRects() const;
+    vector<m2::AnyRectD> const & boundRects() const;
 
     m2::PointD const & pivot() const;
 

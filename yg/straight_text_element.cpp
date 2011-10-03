@@ -162,7 +162,7 @@ namespace yg
       m_glyphLayouts[i].setPivot(pivot() + m_offsets[i]);
   }
 
-  vector<m2::AARectD> const & StraightTextElement::boundRects() const
+  vector<m2::AnyRectD> const & StraightTextElement::boundRects() const
   {
     if (isDirtyRect())
     {

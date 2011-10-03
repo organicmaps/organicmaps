@@ -27,7 +27,7 @@ namespace yg
     setIsVisible((m_glyphLayout.firstVisible() == 0) && (m_glyphLayout.lastVisible() == visText().size()));
   }
 
-  vector<m2::AARectD> const & PathTextElement::boundRects() const
+  vector<m2::AnyRectD> const & PathTextElement::boundRects() const
   {
     if (isDirtyRect())
     {

@@ -12,7 +12,7 @@ namespace yg
 
     vector<shared_ptr<OverlayElement> > m_elements;
 
-    mutable vector<m2::AARectD> m_boundRects;
+    mutable vector<m2::AnyRectD> m_boundRects;
 
   public:
 
@@ -22,7 +22,7 @@ namespace yg
 
     OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const;
 
-    vector<m2::AARectD> const & boundRects() const;
+    vector<m2::AnyRectD> const & boundRects() const;
 
     void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 

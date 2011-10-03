@@ -4,7 +4,7 @@
 
 #include "../base/matrix.hpp"
 
-#include "../geometry/aa_rect2d.hpp"
+#include "../geometry/any_rect2d.hpp"
 
 #include "../std/shared_ptr.hpp"
 
@@ -34,7 +34,7 @@ namespace yg
     bool m_log2vis;
     GlyphCache * m_glyphCache;
 
-    mutable vector<m2::AARectD> m_boundRects;
+    mutable vector<m2::AnyRectD> m_boundRects;
 
     bool isBidi() const;
 

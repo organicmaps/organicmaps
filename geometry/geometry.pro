@@ -35,6 +35,6 @@ HEADERS += \
   polygon.hpp \
   region2d.hpp \
   robust_orientation.hpp \
-  aa_rect2d.hpp \
+  any_rect2d.hpp \
   region2d/binary_operators.hpp \
   region2d/boost_concept.hpp \

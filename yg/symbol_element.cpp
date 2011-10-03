@@ -35,7 +35,7 @@ namespace yg
     setPivot(se.pivot() * m);
   }
 
-  vector<m2::AARectD> const & SymbolElement::boundRects() const
+  vector<m2::AnyRectD> const & SymbolElement::boundRects() const
   {
     if (isDirtyRect())
     {
@@ -46,14 +46,14 @@ namespace yg
     return m_boundRects;
   }
 
-  m2::AARectD const SymbolElement::boundRect() const
+  m2::AnyRectD const SymbolElement::boundRect() const
   {
     m2::RectI texRect(m_symbolRect);
     texRect.Inflate(-1, -1);
 
     m2::PointD posPt = tieRect(m2::RectD(texRect), math::Identity<double, 3>());
 
-    return m2::AARectD(m2::RectD(posPt, posPt + m2::PointD(texRect.SizeX(), texRect.SizeY())));
+    return m2::AnyRectD(m2::RectD(posPt, posPt + m2::PointD(texRect.SizeX(), texRect.SizeY())));
   }
 
   void SymbolElement::draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const

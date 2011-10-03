@@ -2,7 +2,7 @@
 
 #include "path_renderer.hpp"
 #include "../geometry/rect2d.hpp"
-#include "../geometry/aa_rect2d.hpp"
+#include "../geometry/any_rect2d.hpp"
 
 namespace yg
 {
@@ -21,7 +21,7 @@ namespace yg
       void drawSector(m2::PointD const & center, double startA, double endA, double r, yg::Color const & c, double depth);
       void fillSector(m2::PointD const & center, double startA, double endA, double r, yg::Color const & c, double depth);
 
-      void drawRectangle(m2::AARectD const & r, yg::Color const & c, double depth);
+      void drawRectangle(m2::AnyRectD const & r, yg::Color const & c, double depth);
       void drawRectangle(m2::RectD const & r, yg::Color const & c, double depth);
     };
   }

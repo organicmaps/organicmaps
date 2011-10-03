@@ -18,9 +18,9 @@ namespace yg
     string m_symbolName;
     mutable m2::RectU m_symbolRect;
 
-    mutable vector<m2::AARectD> m_boundRects;
+    mutable vector<m2::AnyRectD> m_boundRects;
 
-    m2::AARectD const boundRect() const;
+    m2::AnyRectD const boundRect() const;
 
   public:
 
@@ -36,7 +36,7 @@ namespace yg
     SymbolElement(Params const & p);
     SymbolElement(SymbolElement const & se, math::Matrix<double, 3, 3> const & m);
 
-    vector<m2::AARectD> const & boundRects() const;
+    vector<m2::AnyRectD> const & boundRects() const;
     void draw(gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const;
 
     void map(StylesCache * stylesCache) const;

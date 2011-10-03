@@ -7,7 +7,7 @@
 #include "../std/sstream.hpp"
 
 #include "../geometry/angles.hpp"
-#include "../geometry/aa_rect2d.hpp"
+#include "../geometry/any_rect2d.hpp"
 #include "../base/thread.hpp"
 
 namespace yg
@@ -18,7 +18,7 @@ namespace yg
     /// check, whether we should offset this symbol slightly
     /// not to overlap the previous symbol
 
-    m2::AARectD prevSymRectAA(
+    m2::AnyRectD prevSymRectAA(
           prevElem.m_pt.Move(prevMetrics.m_height, -prevElem.m_angle.cos(), prevElem.m_angle.sin()), //< moving by angle = prevElem.m_angle - math::pi / 2
           prevElem.m_angle,
           m2::RectD(prevMetrics.m_xOffset,
@@ -26,7 +26,7 @@ namespace yg
                     prevMetrics.m_xOffset + prevMetrics.m_width,
                     prevMetrics.m_yOffset + prevMetrics.m_height));
 
-    m2::AARectD curSymRectAA(
+    m2::AnyRectD curSymRectAA(
           curElem.m_pt.Move(curMetrics.m_height, -curElem.m_angle.cos(), curElem.m_angle.sin()), //< moving by angle = curElem.m_angle - math::pi / 2
           curElem.m_angle,
           m2::RectD(curMetrics.m_xOffset,
@@ -126,7 +126,7 @@ namespace yg
 
     boundRect.Offset(ptOffs);
 
-    m_boundRects.push_back(m2::AARectD(boundRect));
+    m_boundRects.push_back(m2::AnyRectD(boundRect));
   }
 
   GlyphLayout::GlyphLayout(GlyphLayout const & src,
@@ -140,7 +140,7 @@ namespace yg
       m_metrics(src.m_metrics),
       m_pivot(0, 0)
   {
-    m_boundRects.push_back(m2::AARectD(m2::RectD(0, 0, 0, 0)));
+    m_boundRects.push_back(m2::AnyRectD(m2::RectD(0, 0, 0, 0)));
     m_fullLength = (m2::PointD(src.m_fullLength, 0) * m).Length(m2::PointD(0, 0) * m);
     m_pathOffset = (m2::PointD(src.m_pathOffset, 0) * m).Length(m2::PointD(0, 0) * m);
     recalcAlongPath();
@@ -164,7 +164,7 @@ namespace yg
       m_fontDesc(fontDesc),
       m_pivot(0, 0)
   {
-    m_boundRects.push_back(m2::AARectD(m2::RectD(0, 0, 0, 0)));
+    m_boundRects.push_back(m2::AnyRectD(m2::RectD(0, 0, 0, 0)));
     for (size_t i = 0; i < m_visText.size(); ++i)
       m_metrics.push_back(glyphCache->getGlyphMetrics(GlyphKey(visText[i], m_fontDesc.m_size, m_fontDesc.m_isMasked, yg::Color(0, 0, 0, 0))));
     recalcAlongPath();
@@ -323,7 +323,7 @@ namespace yg
 
   void GlyphLayout::computeBoundRects()
   {
-    map<double, m2::AARectD> rects;
+    map<double, m2::AnyRectD> rects;
 
     for (unsigned i = m_firstVisible; i < m_lastVisible; ++i)
     {
@@ -331,9 +331,9 @@ namespace yg
       {
         ang::AngleD const & a = m_entries[i].m_angle;
 
-        map<double, m2::AARectD>::iterator it = rects.find(a.val());
+        map<double, m2::AnyRectD>::iterator it = rects.find(a.val());
 
-        m2::AARectD symRectAA(
+        m2::AnyRectD symRectAA(
               m_entries[i].m_pt.Move(m_metrics[i].m_height + m_metrics[i].m_yOffset, -a.cos(), a.sin()), //< moving by angle = m_entries[i].m_angle - math::pi / 2
               a,
               m2::RectD(m_metrics[i].m_xOffset,
@@ -351,9 +351,9 @@ namespace yg
 
     m_boundRects.clear();
 
-    for (map<double, m2::AARectD>::const_iterator it = rects.begin(); it != rects.end(); ++it)
+    for (map<double, m2::AnyRectD>::const_iterator it = rects.begin(); it != rects.end(); ++it)
     {
-      m2::AARectD r(it->second);
+      m2::AnyRectD r(it->second);
       m2::PointD zero = r.GlobalZero();
 
       double dx = zero.x - floor(zero.x);
@@ -387,7 +387,7 @@ namespace yg
     return m_metrics;
   }
 
-  vector<m2::AARectD> const & GlyphLayout::boundRects() const
+  vector<m2::AnyRectD> const & GlyphLayout::boundRects() const
   {
     return m_boundRects;
   }

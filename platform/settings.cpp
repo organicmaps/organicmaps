@@ -3,7 +3,7 @@
 #include "../defines.hpp"
 
 #include "../geometry/rect2d.hpp"
-#include "../geometry/aa_rect2d.hpp"
+#include "../geometry/any_rect2d.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -79,7 +79,7 @@ namespace Settings
     return true;
   }
 
-  template <> string ToString<m2::AARectD>(m2::AARectD const & rect)
+  template <> string ToString<m2::AnyRectD>(m2::AnyRectD const & rect)
   {
     ostringstream out;
     out.precision(12);
@@ -91,7 +91,7 @@ namespace Settings
     return out.str();
   }
 
-  template <> bool FromString<m2::AARectD>(string const & str, m2::AARectD & rect)
+  template <> bool FromString<m2::AnyRectD>(string const & str, m2::AnyRectD & rect)
   {
     istringstream in(str);
     double val[7];
@@ -102,7 +102,7 @@ namespace Settings
     if (count != 7)
       return false;
 
-    rect = m2::AARectD(m2::PointD(val[0], val[1]),
+    rect = m2::AnyRectD(m2::PointD(val[0], val[1]),
                        ang::AngleD(val[2]),
                        m2::RectD(val[3], val[4], val[5], val[6]));
 

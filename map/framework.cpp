@@ -235,7 +235,7 @@ void Framework<TModel>::PrepareToShutdown()
 template <typename TModel>
 void Framework<TModel>::SetMaxWorldRect()
 {
-  m_navigator.SetFromRect(m2::AARectD(m_model.GetWorldRect()));
+  m_navigator.SetFromRect(m2::AnyRectD(m_model.GetWorldRect()));
 }
 
 template <typename TModel>
@@ -411,7 +411,7 @@ void Framework<TModel>::ShowRect(m2::RectD rect)
   if (rect.SizeX() < minSizeX && rect.SizeY() < minSizeY)
     rect.SetSizes(minSizeX, minSizeY);
 
-  m_navigator.SetFromRect(m2::AARectD(rect));
+  m_navigator.SetFromRect(m2::AnyRectD(rect));
   Invalidate();
 }
 
@@ -465,7 +465,7 @@ void Framework<TModel>::CenterAndScaleViewport()
                          yMinSize / clipRect.SizeY());
 
     clipRect.Scale(k);
-    m_navigator.SetFromRect(m2::AARectD(clipRect));
+    m_navigator.SetFromRect(m2::AnyRectD(clipRect));
   }
 
   Invalidate();
@@ -482,7 +482,7 @@ void Framework<TModel>::ShowAll()
 template <typename TModel>
 void Framework<TModel>::InvalidateRect(m2::RectD const & rect)
 {
-  if (m_navigator.Screen().GlobalRect().IsIntersect(m2::AARectD(rect)))
+  if (m_navigator.Screen().GlobalRect().IsIntersect(m2::AnyRectD(rect)))
     Invalidate();
 }
 

@@ -109,7 +109,7 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
       m_tileDrawer->screen()->setClipRect(renderRect);
       m_tileDrawer->clear(c);
 
-      m_tileScreen.SetFromRect(m2::AARectD(ri.m_rect));
+      m_tileScreen.SetFromRect(m2::AnyRectD(ri.m_rect));
 
       m2::RectD selectRect;
       m2::RectD clipRect;

@@ -245,7 +245,7 @@ void BenchmarkFramework<TModel>::NextBenchmarkCommand()
   if ((m_benchmarks[m_curBenchmark].m_provider->hasRect()) || (++m_curBenchmark < m_benchmarks.size()))
   {
     m_curBenchmarkRect = m_benchmarks[m_curBenchmark].m_provider->nextRect();
-    base_type::m_navigator.SetFromRect(m2::AARectD(m_curBenchmarkRect));
+    base_type::m_navigator.SetFromRect(m2::AnyRectD(m_curBenchmarkRect));
     base_type::Invalidate();
   }
   else

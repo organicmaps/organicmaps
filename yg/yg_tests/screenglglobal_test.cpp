@@ -15,7 +15,7 @@ namespace
 
     void Init()
     {
-      m_screenBase.SetFromRect(m2::AARectD(m2::RectD(-20, -10, 20, 10)));
+      m_screenBase.SetFromRect(m2::AnyRectD(m2::RectD(-20, -10, 20, 10)));
       m_screenBase.Rotate(math::pi / 6);
     }
 

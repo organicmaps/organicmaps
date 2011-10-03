@@ -44,7 +44,7 @@ namespace yg
   template <typename Tree>
   void offsetTree(Tree & tree, m2::PointD const & offs, m2::RectD const & r)
   {
-    m2::AARectD aaRect(r);
+    m2::AnyRectD AnyRect(r);
     typedef typename Tree::elem_t elem_t;
     vector<elem_t> elems;
     tree.ForEach(MakeBackInsertFunctor(elems));
@@ -53,7 +53,7 @@ namespace yg
     for (typename vector<elem_t>::iterator it = elems.begin(); it != elems.end(); ++it)
     {
       (*it)->offset(offs);
-      vector<m2::AARectD> const & aaLimitRects = (*it)->boundRects();
+      vector<m2::AnyRectD> const & aaLimitRects = (*it)->boundRects();
       bool doAppend = false;
 
       (*it)->setIsNeedRedraw(false);
@@ -64,7 +64,7 @@ namespace yg
 
       for (int i = 0; i < aaLimitRects.size(); ++i)
       {
-        bool isPartInsideRect = aaRect.IsRectInside(aaLimitRects[i]);
+        bool isPartInsideRect = AnyRect.IsRectInside(aaLimitRects[i]);
 
         if (isPartInsideRect)
         {
@@ -83,7 +83,7 @@ namespace yg
           }
         }
 
-        bool isRectInsidePart = aaLimitRects[i].IsRectInside(aaRect);
+        bool isRectInsidePart = aaLimitRects[i].IsRectInside(AnyRect);
 
         if (isRectInsidePart)
         {
@@ -91,7 +91,7 @@ namespace yg
           break;
         }
 
-        bool isPartIntersectRect = aaRect.IsIntersect(aaLimitRects[i]);
+        bool isPartIntersectRect = AnyRect.IsIntersect(aaLimitRects[i]);
 
         if (isPartIntersectRect)
         {
@@ -147,12 +147,12 @@ namespace yg
       if (*m_isIntersect)
         return;
 
-      vector<m2::AARectD> const & lr = m_oe->boundRects();
-      vector<m2::AARectD> const & rr = e->boundRects();
+      vector<m2::AnyRectD> const & lr = m_oe->boundRects();
+      vector<m2::AnyRectD> const & rr = e->boundRects();
 
-      for (vector<m2::AARectD>::const_iterator lit = lr.begin(); lit != lr.end(); ++lit)
+      for (vector<m2::AnyRectD>::const_iterator lit = lr.begin(); lit != lr.end(); ++lit)
       {
-        for (vector<m2::AARectD>::const_iterator rit = rr.begin(); rit != rr.end(); ++rit)
+        for (vector<m2::AnyRectD>::const_iterator rit = rr.begin(); rit != rr.end(); ++rit)
         {
           *m_isIntersect = lit->IsIntersect(*rit);
           if (*m_isIntersect)

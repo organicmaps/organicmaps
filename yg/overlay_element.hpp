@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../geometry/point2d.hpp"
-#include "../geometry/aa_rect2d.hpp"
+#include "../geometry/any_rect2d.hpp"
 #include "../base/matrix.hpp"
 #include "defines.hpp"
 #include "../std/vector.hpp"
@@ -51,7 +51,7 @@ namespace yg
     virtual OverlayElement * clone(math::Matrix<double, 3, 3> const & m) const = 0;
 
     /// PLEASE, REMEMBER THE REFERENCE!!!
-    virtual vector<m2::AARectD> const & boundRects() const = 0;
+    virtual vector<m2::AnyRectD> const & boundRects() const = 0;
     virtual void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const = 0;
     virtual int visualRank() const = 0;
 

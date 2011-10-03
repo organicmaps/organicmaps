@@ -168,9 +168,9 @@ void Ruler::update()
   m_boundRect.Add(m_path[3]);
 }
 
-vector<m2::AARectD> const & Ruler::boundRects() const
+vector<m2::AnyRectD> const & Ruler::boundRects() const
 {
-  m_boundRects[0] = m2::AARectD(m_boundRect);
+  m_boundRects[0] = m2::AnyRectD(m_boundRect);
   return m_boundRects;
 }
 

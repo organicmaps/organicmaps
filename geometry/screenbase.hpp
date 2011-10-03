@@ -2,7 +2,7 @@
 
 #include "point2d.hpp"
 #include "rect2d.hpp"
-#include "aa_rect2d.hpp"
+#include "any_rect2d.hpp"
 
 #include "../base/math.hpp"
 
@@ -38,7 +38,7 @@ protected:
   math::Matrix<double, 3, 3> m_PtoG;
 
   /// Global Rect
-  m2::AARectD m_GlobalRect;
+  m2::AnyRectD m_GlobalRect;
 
   /// X-axis aligned global rect used for clipping
   m2::RectD m_ClipRect;
@@ -52,9 +52,9 @@ protected:
 public:
 
   ScreenBase();
-  ScreenBase(m2::RectI const & pxRect, m2::AARectD const & glbRect);
+  ScreenBase(m2::RectI const & pxRect, m2::AnyRectD const & glbRect);
 
-  void SetFromRect(m2::AARectD const & rect);
+  void SetFromRect(m2::AnyRectD const & rect);
   void SetOrg(m2::PointD const & p);
 
   void Move(double dx, double dy);
@@ -104,7 +104,7 @@ public:
   math::Matrix<double, 3, 3> const & PtoGMatrix() const;
 
   m2::RectD const & PixelRect() const;
-  m2::AARectD const & GlobalRect() const;
+  m2::AnyRectD const & GlobalRect() const;
   m2::RectD const & ClipRect() const;
 
   /// Compute arbitrary pixel transformation, that translates the (oldPt1, oldPt2) -> (newPt1, newPt2)

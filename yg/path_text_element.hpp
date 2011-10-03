@@ -23,7 +23,7 @@ namespace yg
     PathTextElement(Params const & p);
     PathTextElement(PathTextElement const & src, math::Matrix<double, 3, 3> const & m);
 
-    vector<m2::AARectD> const & boundRects() const;
+    vector<m2::AnyRectD> const & boundRects() const;
 
     void draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 

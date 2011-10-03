@@ -168,7 +168,7 @@ void InformationDisplay::enableGlobalRect(bool doEnable)
   m_isGlobalRectEnabled = doEnable;
 }
 
-void InformationDisplay::setGlobalRect(m2::AARectD const & r)
+void InformationDisplay::setGlobalRect(m2::AnyRectD const & r)
 {
   m_globalRect = r;
 }

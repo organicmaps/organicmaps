@@ -24,7 +24,7 @@ namespace yg
     return res;
   }
 
-  vector<m2::AARectD> const & CompositeOverlayElement::boundRects() const
+  vector<m2::AnyRectD> const & CompositeOverlayElement::boundRects() const
   {
     if (isDirtyRect())
     {

@@ -78,7 +78,7 @@ namespace yg
       drawTrianglesList(&sectorPts[0], sectorPts.size(), skin()->mapColor(c), depth);
     }
 
-    void ShapeRenderer::drawRectangle(m2::AARectD const & r, yg::Color const & c, double depth)
+    void ShapeRenderer::drawRectangle(m2::AnyRectD const & r, yg::Color const & c, double depth)
     {
       ResourceStyle const * style = skin()->fromID(skin()->mapColor(c));
 

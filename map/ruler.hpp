@@ -2,7 +2,7 @@
 
 #include "../geometry/screenbase.hpp"
 #include "../geometry/point2d.hpp"
-#include "../geometry/aa_rect2d.hpp"
+#include "../geometry/any_rect2d.hpp"
 #include "../yg/overlay_element.hpp"
 #include "../yg/font_desc.hpp"
 
@@ -41,7 +41,7 @@ private:
 
   typedef OverlayElement base_t;
 
-  mutable vector<m2::AARectD> m_boundRects;
+  mutable vector<m2::AnyRectD> m_boundRects;
 
 public:
 
@@ -62,7 +62,7 @@ public:
   void setVisualScale(double visualScale);
   void setFontDesc(yg::FontDesc const & fontDesc);
 
-  vector<m2::AARectD> const & boundRects() const;
+  vector<m2::AnyRectD> const & boundRects() const;
 
   void draw(yg::gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
