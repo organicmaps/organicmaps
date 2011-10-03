@@ -40,6 +40,9 @@ private:
   size_t m_tileSize;
   size_t m_scaleEtalonSize;
 
+  int drawScale(ScreenBase const & s) const;
+  int tileScale(ScreenBase const & s) const;
+
 public:
 
   Tiler(size_t tileSize, size_t scaleEtalonSize);

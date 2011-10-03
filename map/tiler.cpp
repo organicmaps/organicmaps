@@ -63,41 +63,61 @@ bool operator<(Tiler::RectInfo const & l, Tiler::RectInfo const & r)
   return l.toUInt64Cell() < r.toUInt64Cell();
 }
 
+int Tiler::drawScale(ScreenBase const & s) const
+{
+  ScreenBase tmpS = s;
+  tmpS.Rotate(-tmpS.GetAngle());
+
+  m2::RectD glbRect;
+  m2::PointD pxCenter = tmpS.PixelRect().Center();
+  tmpS.PtoG(m2::RectD(pxCenter - m2::PointD(m_scaleEtalonSize / 2, m_scaleEtalonSize / 2),
+                      pxCenter + m2::PointD(m_scaleEtalonSize / 2, m_scaleEtalonSize / 2)),
+            glbRect);
+
+  return scales::GetScaleLevel(glbRect);
+}
+
+int Tiler::tileScale(ScreenBase const & s) const
+{
+  ScreenBase tmpS = s;
+  tmpS.Rotate(-tmpS.GetAngle());
+
+  /// slightly smaller than original to produce "antialiasing" effect using bilinear filtration.
+  size_t tileSize = static_cast<size_t>(m_tileSize / 1.05);
+
+  m2::RectD glbRect;
+  m2::PointD pxCenter = tmpS.PixelRect().Center();
+  tmpS.PtoG(m2::RectD(pxCenter - m2::PointD(tileSize / 2, tileSize / 2),
+                      pxCenter + m2::PointD(tileSize / 2, tileSize / 2)),
+            glbRect);
+
+  double glbRectSize = min(glbRect.SizeX(), glbRect.SizeY());
+
+  int res = static_cast<int>(ceil(log((MercatorBounds::maxX - MercatorBounds::minX) / glbRectSize) / log(2.0)));
+
+  return res;
+}
+
 void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt)
 {
   if (screen != m_screen)
     ++m_sequenceID;
 
-  m2::RectD glbRect;
-  m2::PointD pxCenter = screen.PixelRect().Center();
-  screen.PtoG(m2::RectD(pxCenter - m2::PointD(m_scaleEtalonSize / 2, m_scaleEtalonSize / 2),
-                        pxCenter + m2::PointD(m_scaleEtalonSize / 2, m_scaleEtalonSize / 2)),
-              glbRect);
-
-  m_drawScale = scales::GetScaleLevel(glbRect);
-
   m_screen = screen;
 
-  m2::RectD const screenRect = m_screen.GlobalRect();
-
-  /// slightly smaller than original to produce "antialiasing" effect using bilinear filtration.
-  size_t tileSize = static_cast<size_t>(m_tileSize / 1.05);
-
-  screen.PtoG(m2::RectD(pxCenter - m2::PointD(tileSize / 2, tileSize / 2),
-                        pxCenter + m2::PointD(tileSize / 2, tileSize / 2)),
-              glbRect);
-
-  double glbRectSize = min(glbRect.SizeX(), glbRect.SizeY());
-
-  m_tileScale = static_cast<int>(ceil(log((MercatorBounds::maxX - MercatorBounds::minX) / glbRectSize) / log(2.0)));
+  m_drawScale = drawScale(screen);
+  m_tileScale = tileScale(screen);
 
   double rectSizeX = (MercatorBounds::maxX - MercatorBounds::minX) / (1 << m_tileScale);
   double rectSizeY = (MercatorBounds::maxY - MercatorBounds::minY) / (1 << m_tileScale);
 
-  int minTileX = static_cast<int>(floor(screenRect.minX() / rectSizeX));
-  int maxTileX = static_cast<int>(ceil(screenRect.maxX() / rectSizeX));
-  int minTileY = static_cast<int>(floor(screenRect.minY() / rectSizeY));
-  int maxTileY = static_cast<int>(ceil(screenRect.maxY() / rectSizeY));
+  m2::AARectD const globalRect = m_screen.GlobalRect();
+  m2::RectD const clipRect = m_screen.ClipRect();
+
+  int minTileX = static_cast<int>(floor(clipRect.minX() / rectSizeX));
+  int maxTileX = static_cast<int>(ceil(clipRect.maxX() / rectSizeX));
+  int minTileY = static_cast<int>(floor(clipRect.minY() / rectSizeY));
+  int maxTileY = static_cast<int>(ceil(clipRect.maxY() / rectSizeY));
 
   /// clearing previous coverage
   m_coverage.clear();
@@ -106,7 +126,15 @@ void Tiler::seed(ScreenBase const & screen, m2::PointD const & centerPt)
 
   for (int tileY = minTileY; tileY < maxTileY; ++tileY)
     for (int tileX = minTileX; tileX < maxTileX; ++tileX)
-      m_coverage.push_back(RectInfo(m_drawScale, m_tileScale, tileX, tileY));
+    {
+      m2::RectD tileRect(tileX * rectSizeX,
+                         tileY * rectSizeY,
+                         (tileX + 1) * rectSizeX,
+                         (tileY + 1) * rectSizeY);
+
+      if (globalRect.IsIntersect(m2::AARectD(tileRect)))
+        m_coverage.push_back(RectInfo(m_drawScale, m_tileScale, tileX, tileY));
+    }
 
   /// sorting coverage elements
   sort(m_coverage.begin(), m_coverage.end(), LessByDistance(centerPt));
