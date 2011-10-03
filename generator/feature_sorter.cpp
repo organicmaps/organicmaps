@@ -523,7 +523,7 @@ namespace feature
       DataHeader header;
       uint32_t coordBits = 27;
       if (isWorld)
-        coordBits -= (scales::GetUpperScale() - scales::GetUpperWorldScale());
+        coordBits -= ((scales::GetUpperScale() - scales::GetUpperWorldScale()) / 2);
 
       header.SetCodingParams(serial::CodingParams(coordBits, midPoints.GetCenter()));
       header.SetScales(isWorld ? g_arrWorldScales : g_arrCountryScales);
