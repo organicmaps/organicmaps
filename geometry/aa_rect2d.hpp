@@ -15,6 +15,7 @@ namespace m2
   {
   private:
 
+    ang::Angle<T> m_angle;
     Point<T> m_i;
     Point<T> m_j;
     Point<T> m_zero;
@@ -39,23 +40,30 @@ namespace m2
     AARect() : m_i(1, 0), m_j(0, 1), m_zero(0, 0), m_rect(){}
 
     /// creating from regular rect
-    AARect(Rect<T> const & r)
-      : m_i(1, 0), m_j(0, 1),
+    explicit AARect(Rect<T> const & r)
+      : m_angle(0), m_i(m_angle.cos(), m_angle.sin()), m_j(-m_angle.sin(), m_angle.cos()),
         m_zero(r == Rect<T>() ? Point<T>(0, 0) : Point<T>(r.minX(), r.minY())),
         m_rect(r == Rect<T>() ? Rect<T>() : Rect<T>(0, 0, r.SizeX(), r.SizeY()))
     {
     }
 
     AARect(Point<T> const & zero, ang::Angle<T> const & angle, Rect<T> const & r)
-      : m_i(angle.cos(), angle.sin()), m_j(-angle.sin(), angle.cos()),
+      : m_angle(angle), m_i(m_angle.cos(), m_angle.sin()), m_j(-m_angle.sin(), m_angle.cos()),
         m_zero(Convert(zero, Point<T>(1, 0), Point<T>(0, 1), m_i, m_j)),
         m_rect(r)
     {
     }
 
-    Point<T> const & zero() const
+    Point<T> const & LocalZero() const
     {
       return m_zero;
+    }
+
+    Point<T> const GlobalZero() const
+    {
+      m2::PointD i(1, 0);
+      m2::PointD j(0, 1);
+      return Convert(m_zero, m_i, m_j, i, j);
     }
 
     Point<T> const & i() const
@@ -66,6 +74,21 @@ namespace m2
     Point<T> const & j() const
     {
       return m_j;
+    }
+
+    ang::Angle<T> const & angle() const
+    {
+      return m_angle;
+    }
+
+    Point<T> const GlobalCenter() const
+    {
+      return ConvertFrom(m_rect.Center());
+    }
+
+    Point<T> const LocalCenter() const
+    {
+      return m_rect.Center();
     }
 
     bool IsPointInside(Point<T> const & pt) const

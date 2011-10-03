@@ -235,7 +235,7 @@ void Framework<TModel>::PrepareToShutdown()
 template <typename TModel>
 void Framework<TModel>::SetMaxWorldRect()
 {
-  m_navigator.SetFromRect(m_model.GetWorldRect());
+  m_navigator.SetFromRect(m2::AARectD(m_model.GetWorldRect()));
 }
 
 template <typename TModel>
@@ -371,7 +371,7 @@ void Framework<TModel>::DoPaint(shared_ptr<PaintEvent> const & e)
 
   m_informationDisplay.enableRuler(!IsEmptyModel());
 
-  m2::PointD const center = m_navigator.Screen().ClipRect().Center();
+  m2::PointD const center = m_navigator.Screen().GlobalRect().GlobalCenter();
 
   m_informationDisplay.setGlobalRect(m_navigator.Screen().GlobalRect());
   m_informationDisplay.setCenter(m2::PointD(MercatorBounds::XToLon(center.x), MercatorBounds::YToLat(center.y)));
@@ -390,7 +390,7 @@ void Framework<TModel>::DoPaint(shared_ptr<PaintEvent> const & e)
 template <typename TModel>
 m2::PointD Framework<TModel>::GetViewportCenter() const
 {
-  return m_navigator.Screen().GlobalRect().Center();
+  return m_navigator.Screen().GlobalRect().GlobalCenter();
 }
 
 template <typename TModel>
@@ -407,10 +407,11 @@ void Framework<TModel>::ShowRect(m2::RectD rect)
 {
   double const minSizeX = MercatorBounds::ConvertMetresToX(rect.minX(), theMetersFactor * m_metresMinWidth);
   double const minSizeY = MercatorBounds::ConvertMetresToY(rect.minY(), theMetersFactor * m_metresMinWidth);
+
   if (rect.SizeX() < minSizeX && rect.SizeY() < minSizeY)
     rect.SetSizes(minSizeX, minSizeY);
 
-  m_navigator.SetFromRect(rect);
+  m_navigator.SetFromRect(m2::AARectD(rect));
   Invalidate();
 }
 
@@ -464,7 +465,7 @@ void Framework<TModel>::CenterAndScaleViewport()
                          yMinSize / clipRect.SizeY());
 
     clipRect.Scale(k);
-    m_navigator.SetFromRect(clipRect);
+    m_navigator.SetFromRect(m2::AARectD(clipRect));
   }
 
   Invalidate();
@@ -481,7 +482,7 @@ void Framework<TModel>::ShowAll()
 template <typename TModel>
 void Framework<TModel>::InvalidateRect(m2::RectD const & rect)
 {
-  if (m_navigator.Screen().GlobalRect().IsIntersect(rect))
+  if (m_navigator.Screen().GlobalRect().IsIntersect(m2::AARectD(rect)))
     Invalidate();
 }
 
@@ -658,7 +659,7 @@ template<typename TModel>
 void Framework<TModel>::Search(string const & text, SearchCallbackT callback)
 {
   search::Engine * pSearchEngine = GetSearchEngine();
-  pSearchEngine->SetViewport(m_navigator.Screen().GlobalRect());
+  pSearchEngine->SetViewport(m_navigator.Screen().ClipRect());
   pSearchEngine->Search(text, callback);
 }
 

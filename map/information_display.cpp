@@ -168,7 +168,7 @@ void InformationDisplay::enableGlobalRect(bool doEnable)
   m_isGlobalRectEnabled = doEnable;
 }
 
-void InformationDisplay::setGlobalRect(m2::RectD const & r)
+void InformationDisplay::setGlobalRect(m2::AARectD const & r)
 {
   m_globalRect = r;
 }
@@ -177,14 +177,14 @@ void InformationDisplay::drawGlobalRect(DrawerYG *pDrawer)
 {
   m_yOffset += 20;
   ostringstream out;
-  out << "(" << m_globalRect.minX() << ", " << m_globalRect.minY() << ", " << m_globalRect.maxX() << ", " << m_globalRect.maxY() << ") Scale : " << m_currentScale;
+/*  out << "(" << m_globalRect.minX() << ", " << m_globalRect.minY() << ", " << m_globalRect.maxX() << ", " << m_globalRect.maxY() << ") Scale : " << m_currentScale;
   pDrawer->screen()->drawText(
         m_fontDesc,
         m2::PointD(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset),
         yg::EPosAboveRight,
         out.str().c_str(),
         yg::maxDepth,
-        false);
+        false);*/
 }
 
 void InformationDisplay::enableDebugInfo(bool doEnable)

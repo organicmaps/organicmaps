@@ -126,7 +126,7 @@ namespace yg
 
     boundRect.Offset(ptOffs);
 
-    m_boundRects.push_back(boundRect);
+    m_boundRects.push_back(m2::AARectD(boundRect));
   }
 
   GlyphLayout::GlyphLayout(GlyphLayout const & src,
@@ -354,8 +354,7 @@ namespace yg
     for (map<double, m2::AARectD>::const_iterator it = rects.begin(); it != rects.end(); ++it)
     {
       m2::AARectD r(it->second);
-      m2::PointD zero = r.zero();
-      zero = r.ConvertFrom(zero);
+      m2::PointD zero = r.GlobalZero();
 
       double dx = zero.x - floor(zero.x);
       double dy = zero.y - floor(zero.y);

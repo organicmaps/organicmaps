@@ -53,7 +53,7 @@ namespace yg
 
     m2::PointD posPt = tieRect(m2::RectD(texRect), math::Identity<double, 3>());
 
-    return m2::RectD(posPt, posPt + m2::PointD(texRect.SizeX(), texRect.SizeY()));
+    return m2::AARectD(m2::RectD(posPt, posPt + m2::PointD(texRect.SizeX(), texRect.SizeY())));
   }
 
   void SymbolElement::draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const

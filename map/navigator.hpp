@@ -16,7 +16,7 @@ public:
   explicit Navigator(ScreenBase const & screen);
 
   void SetMinScreenParams(unsigned pxMinWidth, double metresMinWidth);
-  void SetFromRect(m2::RectD const & r);
+  void SetFromRect(m2::AARectD const & r);
   void CenterViewport(m2::PointD const & p);
 
   void SaveState();

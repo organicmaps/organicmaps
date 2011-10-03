@@ -123,7 +123,7 @@ void ScreenCoverage::SetScreen(ScreenBase const & screen, bool /*mergePathNames*
 {
   m_screen = screen;
 
-  m_tiler.seed(m_screen, m_screen.GlobalRect().Center());
+  m_tiler.seed(m_screen, m_screen.GlobalRect().GlobalCenter());
 
   vector<Tiler::RectInfo> allRects;
   vector<Tiler::RectInfo> newRects;

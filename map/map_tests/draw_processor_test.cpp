@@ -26,7 +26,7 @@ UNIT_TEST(PathPoints_DeadZoneClipping)
   ScreenBase s;
   s.OnSize(45 - 640, 0, 640, 480);
 
-  m2::RectD r = s.GlobalRect();
+  m2::RectD r = s.ClipRect();
 
   get_pts::path_points::params p;
   p.m_startLength = 80;

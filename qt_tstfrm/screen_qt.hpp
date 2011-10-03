@@ -32,7 +32,7 @@ namespace qt
   public:
     void setPainter(QPainter * p) { m_p = p; }
     void onSize(int w, int h) { m_convertor.OnSize(0, 0, w, h); }
-    void setFromRect(m2::RectD const & r) { m_convertor.SetFromRect(r); }
+    void setFromRect(m2::RectD const & r) { m_convertor.SetFromRect(m2::AARectD(r)); }
 
     template <class TCont> void drawPath(TCont const & c)
     {

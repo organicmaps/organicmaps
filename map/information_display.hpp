@@ -41,7 +41,7 @@ private:
   int m_currentScale;
 
   bool m_isGlobalRectEnabled;
-  m2::RectD m_globalRect;
+  m2::AARectD m_globalRect;
 
   bool m_isDebugInfoEnabled;
   double m_frameDuration;
@@ -93,7 +93,7 @@ public:
   void drawCenter(DrawerYG * pDrawer);
 
   void enableGlobalRect(bool doEnable);
-  void setGlobalRect(m2::RectD const & r);
+  void setGlobalRect(m2::AARectD const & r);
   void drawGlobalRect(DrawerYG * pDrawer);
 
   void enableDebugInfo(bool doEnable);

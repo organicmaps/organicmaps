@@ -17,6 +17,15 @@ namespace math
   }
 
   template <typename T, typename U>
+      Matrix<T, 3, 3> const Rotate(Matrix<T, 3, 3> const & m, U const & cos, U const & sin)
+  {
+    Matrix<T, 3, 3> m1 = Identity<T, 3>();
+    m1(0, 0) = cos; m1(0, 1) = sin;
+    m1(1, 0) = -sin; m1(1, 1) = cos;
+    return m * m1;
+  }
+
+  template <typename T, typename U>
       Matrix<T, 3, 3> const Shift(Matrix<T, 3, 3> const & m, U const & dx, U const & dy)
   {
     Matrix<T, 3, 3> m1 = Identity<T, 3>();

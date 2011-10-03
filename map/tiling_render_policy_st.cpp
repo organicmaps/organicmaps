@@ -62,7 +62,7 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
   m_infoLayer.clear();
 
   m_tiler.seed(currentScreen,
-               currentScreen.GlobalRect().Center());
+               currentScreen.GlobalRect().GetGlobalRect().Center());
 
   vector<Tiler::RectInfo> visibleTiles;
   m_tiler.visibleTiles(visibleTiles);
@@ -109,7 +109,7 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
       m_tileDrawer->screen()->setClipRect(renderRect);
       m_tileDrawer->clear(c);
 
-      m_tileScreen.SetFromRect(ri.m_rect);
+      m_tileScreen.SetFromRect(m2::AARectD(ri.m_rect));
 
       m2::RectD selectRect;
       m2::RectD clipRect;

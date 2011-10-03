@@ -32,7 +32,7 @@ UNIT_TEST(NavigatorScale2Points)
   Navigator navigator;
   { // Initialize.
     navigator.OnSize(0, 0, 200, 100);
-    navigator.SetFromRect(m2::RectD(0, 0, 8, 4));
+    navigator.SetFromRect(m2::AARectD(m2::RectD(0, 0, 8, 4)));
     TEST_EQUAL(navigator.Screen().ClipRect(), m2::RectD(0, 0, 8, 4), ());
   }
   navigator.StartScale(navigator.Screen().GtoP(m2::PointD(1, 1)),

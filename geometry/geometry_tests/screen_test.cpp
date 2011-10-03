@@ -16,7 +16,7 @@ namespace
 
     m2::PointD b1(0.0, 0.0);
     m2::PointD b2(300.0, 300.0);
-    screen.SetFromRect(m2::RectD(b1, b2));
+    screen.SetFromRect(m2::AARectD(m2::RectD(b1, b2)));
 
     b1 = screen.GtoP(b1);
     b2 = screen.GtoP(b2);
@@ -37,7 +37,7 @@ UNIT_TEST(ScreenBase_P2G2P)
   check_set_from_rect(screen, 500, 1000);
 
   screen.OnSize(0, 0, 640, 480);
-  screen.SetFromRect(m2::RectD(-100, -200, 500, 680));
+  screen.SetFromRect(m2::AARectD(m2::RectD(-100, -200, 500, 680)));
 
   /// checking that PtoG(GtoP(p)) == p
 
@@ -55,7 +55,7 @@ UNIT_TEST(ScreenBase_AxisOrientation)
   ScreenBase screen;
 
   screen.OnSize(0, 0, 300, 200);
-  screen.SetFromRect(m2::RectD(0, 0, 300, 200));
+  screen.SetFromRect(m2::AARectD(m2::RectD(0, 0, 300, 200)));
 
   TEST(is_equal(m2::PointD(150, 100), screen.GtoP(m2::PointD(150, 100))), ());
   TEST(is_equal(m2::PointD(0, 0), screen.GtoP(m2::PointD(0, 200))), ());
@@ -68,7 +68,7 @@ UNIT_TEST(ScreenBase_X0Y0)
 {
   ScreenBase screen;
   screen.OnSize(10, 10, 300, 200);
-  screen.SetFromRect(m2::RectD(0, 0, 300, 200));
+  screen.SetFromRect(m2::AARectD(m2::RectD(0, 0, 300, 200)));
 
   m2::PointD pxPt = screen.PtoG(m2::PointD(0, 0));
 
@@ -79,7 +79,7 @@ UNIT_TEST(ScreenBase_ChoosingMaxScale)
 {
   ScreenBase screen;
   screen.OnSize(10, 10, 300, 200);
-  screen.SetFromRect(m2::RectD(0, 0, 200, 400));
+  screen.SetFromRect(m2::AARectD(m2::RectD(0, 0, 200, 400)));
 
   TEST(is_equal(screen.GtoP(m2::PointD(100, 200)), m2::PointD(160, 110)), ());
   TEST(is_equal(screen.GtoP(m2::PointD(0, 0)), m2::PointD(110, 210)), ());
@@ -124,11 +124,11 @@ UNIT_TEST(ScreenBase_Rotate)
 {
   ScreenBase s;
   s.OnSize(0, 0, 100, 200);
-  s.SetFromRect(m2::RectD(0, 0, 100, 200));
+  s.SetFromRect(m2::AARectD(m2::RectD(0, 0, 100, 200)));
   s.Rotate(math::pi / 4);
 
   m2::RectD pxRect = s.PixelRect();
-  m2::RectD glbRect = s.GlobalRect();
+  m2::AARectD glbRect = s.GlobalRect();
 
   TEST(pxRect == m2::RectD(0, 0, 100, 200), ());
 }

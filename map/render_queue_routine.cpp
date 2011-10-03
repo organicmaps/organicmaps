@@ -131,7 +131,7 @@ void RenderQueueRoutine::getUpdateAreas(
 {
   areas.clear();
 
-  if (IsPanning(oldScreen, newScreen))
+  if (IsPanningAndRotate(oldScreen, newScreen))
   {
     m2::RectD o(newScreen.GtoP(oldScreen.PtoG(m2::PointD(oldRect.minX(), oldRect.minY()))),
                  newScreen.GtoP(oldScreen.PtoG(m2::PointD(oldRect.maxX(), oldRect.maxY()))));
@@ -328,7 +328,7 @@ void RenderQueueRoutine::Do()
             fullRectRepaint = true;
         }
 
-        isPanning = IsPanning(prevScreen, m_renderState->m_currentScreen);
+        isPanning = IsPanningAndRotate(prevScreen, m_renderState->m_currentScreen);
 
         if (isPanning)
         {
@@ -483,7 +483,7 @@ void RenderQueueRoutine::addCommand(render_fn_t const & fn, ScreenBase const & f
   /// if we are in benchmarking mode, we shouldn't cancel any render command
   /// else, if we are not panning, we should cancel the render command in progress to start a new one
   if ((m_currentRenderCommand != 0)
-   && (!IsPanning(m_currentRenderCommand->m_frameScreen, frameScreen)))
+   && (!IsPanningAndRotate(m_currentRenderCommand->m_frameScreen, frameScreen)))
     m_currentRenderCommand->m_paintEvent->Cancel();
 
   if (needToSignal)

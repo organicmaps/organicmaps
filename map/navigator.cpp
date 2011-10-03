@@ -40,7 +40,7 @@ void Navigator::SetMinScreenParams(unsigned pxMinWidth, double metresMinWidth)
   m_metresMinWidth = metresMinWidth;
 }
 
-void Navigator::SetFromRect(m2::RectD const & r)
+void Navigator::SetFromRect(m2::AARectD const & r)
 {
   m_Screen.SetFromRect(r);
   m_Screen = ScaleInto(m_Screen, m_worldRect);
@@ -74,7 +74,7 @@ void Navigator::SaveState()
 
 bool Navigator::LoadState()
 {
-  m2::RectD rect;
+  m2::AARectD rect;
   if (!Settings::Get("ScreenClipRect", rect))
     return false;
 

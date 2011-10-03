@@ -38,7 +38,7 @@ void RenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   e->drawer()->screen()->clear(bgColor());
 
-  renderFn()(e, s, s.GlobalRect(), s.GlobalRect(), scales::GetScaleLevel(glbRect));
+  renderFn()(e, s, s.ClipRect(), s.ClipRect(), scales::GetScaleLevel(glbRect));
 
   infoLayer->draw(e->drawer()->screen().get(), math::Identity<double, 3>());
   e->drawer()->screen()->resetInfoLayer();
