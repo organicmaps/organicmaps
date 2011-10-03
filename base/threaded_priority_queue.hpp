@@ -57,7 +57,7 @@ public:
     return false;
   }
 
-  T const & Top(bool doPop)
+  T Top(bool doPop)
   {
     threads::ConditionGuard g(m_Cond);
 
