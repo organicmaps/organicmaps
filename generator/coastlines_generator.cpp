@@ -1,6 +1,6 @@
 #include "coastlines_generator.hpp"
 #include "feature_builder.hpp"
-//#include "tesselator.hpp"
+#include "tesselator.hpp"
 
 #include "../indexer/point_to_int64.hpp"
 
@@ -36,6 +36,7 @@ namespace
     return PointT(static_cast<int32_t>(pu.x), static_cast<int32_t>(pu.y));
   }
 
+  /*
   class DoCreateRegion
   {
     RegionT m_rgn;
@@ -67,58 +68,29 @@ namespace
       tree.Add(m_rgn, GetLimitRect(m_rgn));
     }
   };
+  */
 
-  /*
-  class DoTesselateRegion
+  template <class ContainerT> class DoAccumulate
   {
-    typedef vector<m2::PointD> PointsT;
-    PointsT m_vec;
+    ContainerT & m_list;
   public:
+    DoAccumulate(ContainerT & lst) : m_list(lst) {}
     bool operator() (m2::PointD const & p)
     {
-      m_vec.push_back(p);
+      m_list.back().push_back(p);
       return true;
     }
-
-    template <class TreeT> class DoAddRegion
-    {
-      TreeT & m_tree;
-    public:
-      DoAddRegion(TreeT & tree) : m_tree(tree) {}
-
-      void operator() (m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-      {
-        RegionT rgn;
-        rgn.AddPoint(D2I(p1));
-        rgn.AddPoint(D2I(p2));
-        rgn.AddPoint(D2I(p3));
-        m_tree.Add(rgn, GetLimitRect(rgn));
-      }
-    };
-
-    template <class TreeT> void Add(TreeT & tree)
-    {
-      list<PointsT> lst;
-      lst.push_back(PointsT());
-      lst.back().swap(m_vec);
-
-      tesselator::TrianglesInfo info;
-      tesselator::TesselateInterior(lst, info);
-
-      info.ForEachTriangle(DoAddRegion<TreeT>(tree));
-    }
   };
-  */
 }
 
 void CoastlineFeaturesGenerator::AddRegionToTree(FeatureBuilder1 const & fb)
 {
   ASSERT ( fb.IsGeometryClosed(), () );
 
-  DoCreateRegion createRgn;
-  //DoTesselateRegion createRgn;
+  //DoCreateRegion createRgn;
+  DoAccumulate<RegionsT> createRgn(m_regions);
   fb.ForEachGeometryPoint(createRgn);
-  createRgn.Add(m_tree);
+  //createRgn.Add(m_tree);
 }
 
 void CoastlineFeaturesGenerator::operator()(FeatureBuilder1 const & fb)
@@ -145,12 +117,36 @@ namespace
         LOG(LINFO, ("Not merged coastline", fb));
     }
   };
+
+  template <class TreeT> class DoMakeRegions
+  {
+    TreeT & m_tree;
+  public:
+    DoMakeRegions(TreeT & tree) : m_tree(tree) {}
+
+    void operator() (m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+    {
+      RegionT rgn;
+      rgn.AddPoint(D2I(p1));
+      rgn.AddPoint(D2I(p2));
+      rgn.AddPoint(D2I(p3));
+      m_tree.Add(rgn, GetLimitRect(rgn));
+    }
+  };
 }
 
 void CoastlineFeaturesGenerator::Finish()
 {
   DoAddToTree doAdd(*this);
   m_merger.DoMerge(doAdd);
+
+  LOG(LINFO, ("Start continents tesselation"));
+
+  tesselator::TrianglesInfo info;
+  tesselator::TesselateInterior(m_regions, info);
+  info.ForEachTriangle(DoMakeRegions<TreeT>(m_tree));
+
+  LOG(LINFO, ("End continents tesselation"));
 }
 
 namespace

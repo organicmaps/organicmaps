@@ -16,7 +16,11 @@ class CoastlineFeaturesGenerator
 
   FeatureMergeProcessor m_merger;
 
-  m4::Tree<m2::RegionI> m_tree;
+  typedef list<vector<m2::PointD> > RegionsT;
+  RegionsT m_regions;
+
+  typedef m4::Tree<m2::RegionI> TreeT;
+  TreeT m_tree;
 
   uint32_t m_coastType;
   int m_Level;
