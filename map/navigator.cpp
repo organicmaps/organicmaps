@@ -96,14 +96,14 @@ void Navigator::OnSize(int x0, int y0, int w, int h)
 
 bool Navigator::CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
-  m2::RectD globalRect = screen.GlobalRect();
+  m2::RectD globalRect = screen.ClipRect();
   return (boundRect.SizeX() >= globalRect.SizeX()) && (boundRect.SizeY() >= globalRect.SizeY());
 }
 
 ScreenBase const Navigator::ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   ScreenBase res = screen;
-  m2::RectD globalRect = res.GlobalRect();
+  m2::RectD globalRect = res.ClipRect();
   if (globalRect.minX() < boundRect.minX())
     globalRect.Offset(boundRect.minX() - globalRect.minX(), 0);
   if (globalRect.maxX() > boundRect.maxX())
@@ -112,14 +112,14 @@ ScreenBase const Navigator::ShrinkInto(ScreenBase const & screen, m2::RectD cons
     globalRect.Offset(0, boundRect.minY() - globalRect.minY());
   if (globalRect.maxY() > boundRect.maxY())
     globalRect.Offset(0, boundRect.maxY() - globalRect.maxY());
-  res.SetFromRect(globalRect);
+  res.SetFromRect(m2::AnyRectD(globalRect));
   return res;
 }
 
 ScreenBase const Navigator::ScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   ScreenBase res = screen;
-  m2::RectD globalRect = res.GlobalRect();
+  m2::RectD globalRect = res.ClipRect();
 
   if (globalRect.minX() < boundRect.minX())
     globalRect.Scale((boundRect.minX() - globalRect.Center().x) / (globalRect.minX() - globalRect.Center().x));
@@ -130,14 +130,14 @@ ScreenBase const Navigator::ScaleInto(ScreenBase const & screen, m2::RectD const
   if (globalRect.maxY() > boundRect.maxY())
     globalRect.Scale((boundRect.maxY() - globalRect.Center().y) / (globalRect.maxY() - globalRect.Center().y));
 
-  res.SetFromRect(globalRect);
+  res.SetFromRect(m2::AnyRectD(globalRect));
   return res;
 }
 
 ScreenBase const Navigator::ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   ScreenBase res = screen;
-  m2::RectD globalRect = res.GlobalRect();
+  m2::RectD globalRect = res.ClipRect();
 
   if (globalRect.minX() < boundRect.minX())
   {
@@ -167,7 +167,7 @@ ScreenBase const Navigator::ShrinkAndScaleInto(ScreenBase const & screen, m2::Re
       globalRect.Scale((globalRect.Center().y - boundRect.minY()) / (globalRect.Center().y - globalRect.minY()));
   }
 
-  res.SetFromRect(globalRect);
+  res.SetFromRect(m2::AnyRectD(globalRect));
   return res;
 }
 
@@ -319,7 +319,7 @@ bool Navigator::CheckMinScale(ScreenBase const & screen)
 
 bool Navigator::CheckBorders(ScreenBase const & screen)
 {
-  m2::RectD ScreenBounds = screen.GlobalRect();
+  m2::RectD ScreenBounds = screen.ClipRect();
   return ScreenBounds.IsRectInside(m_worldRect) || m_worldRect.IsRectInside(ScreenBounds);
 }
 
@@ -331,7 +331,7 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
 
   ScreenBase tmp = m_Screen;
   tmp.SetGtoPMatrix(newM);
-  //tmp.Rotate(tmp.GetAngle());
+//  tmp.Rotate(-tmp.GetAngle());
 
   if (!skipMaxScaleAndBordersCheck && !CheckMaxScale(tmp))
     return false;

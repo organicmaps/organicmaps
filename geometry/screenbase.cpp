@@ -10,10 +10,11 @@
 
 ScreenBase::ScreenBase() :
     m_PixelRect(0, 0, 640, 480),
-    m_Scale(1),
+    m_Scale(0.1),
     m_Angle(0.0),
     m_Org(320, 240),
-    m_GlobalRect(m2::RectD(0, 0, 640, 480))
+    m_GlobalRect(m_Org, ang::AngleD(0), m2::RectD(-320, -240, 320, 240)),
+    m_ClipRect(m2::RectD(0, 0, 640, 480))
 {
   m_GtoP = math::Identity<double, 3>();
   m_PtoG = math::Identity<double, 3>();

@@ -22,7 +22,7 @@ namespace yg
 
     bool RenderState::isPanning() const
     {
-      return IsPanning(m_actualScreen, m_currentScreen);
+      return IsPanningAndRotate(m_actualScreen, m_currentScreen);
     }
 
     void RenderState::copyTo(RenderState &s) const
