@@ -1,7 +1,9 @@
 #pragma once
-#include "feature.hpp"
+
 #include "../geometry/rect2d.hpp"
 #include "../base/base.hpp"
+
+class FeatureType;
 
 namespace feature
 {
