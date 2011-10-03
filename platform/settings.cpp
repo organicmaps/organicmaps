@@ -3,6 +3,7 @@
 #include "../defines.hpp"
 
 #include "../geometry/rect2d.hpp"
+#include "../geometry/aa_rect2d.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -75,6 +76,36 @@ namespace Settings
   template <> bool FromString<string>(string const & strIn, string & strOut)
   {
     strOut = strIn;
+    return true;
+  }
+
+  template <> string ToString<m2::AARectD>(m2::AARectD const & rect)
+  {
+    ostringstream out;
+    out.precision(12);
+    m2::PointD glbZero(rect.GlobalZero());
+    out << glbZero.x << " " << glbZero.y << " ";
+    out << rect.angle().val() << " ";
+    m2::RectD r = rect.GetLocalRect();
+    out << r.minX() << " " << r.minY() << " " << r.maxX() << " " << r.maxY();
+    return out.str();
+  }
+
+  template <> bool FromString<m2::AARectD>(string const & str, m2::AARectD & rect)
+  {
+    istringstream in(str);
+    double val[7];
+    size_t count = 0;
+    while (in.good() && count < 7)
+      in >> val[count++];
+
+    if (count != 7)
+      return false;
+
+    rect = m2::AARectD(m2::PointD(val[0], val[1]),
+                       ang::AngleD(val[2]),
+                       m2::RectD(val[3], val[4], val[5], val[6]));
+
     return true;
   }
 
