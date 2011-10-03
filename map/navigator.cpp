@@ -171,6 +171,28 @@ ScreenBase const Navigator::ShrinkAndScaleInto(ScreenBase const & screen, m2::Re
   return res;
 }
 
+void Navigator::StartRotate(double a, double /*timeInSec*/)
+{
+  m_StartAngle = a;
+  m_StartScreen = m_Screen;
+  m_InAction = true;
+}
+
+void Navigator::DoRotate(double a, double /*timeInSec*/)
+{
+  ScreenBase tmp = m_StartScreen;
+  tmp.Rotate(a - m_StartAngle);
+  m_StartAngle = a;
+  m_Screen = tmp;
+  m_StartScreen = tmp;
+}
+
+void Navigator::StopRotate(double a, double timeInSec)
+{
+  DoRotate(a, timeInSec);
+  m_InAction = false;
+}
+
 void Navigator::StartDrag(m2::PointD const & pt, double /*timeInSec*/)
 {
   //LOG(LDEBUG, (pt.x, pt.y));

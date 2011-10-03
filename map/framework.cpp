@@ -532,6 +532,28 @@ void Framework<TModel>::StopDrag(DragEvent const & e)
 }
 
 template <typename TModel>
+void Framework<TModel>::StartRotate(RotateEvent const & e)
+{
+  m_navigator.StartRotate(e.Angle(), m_timer.ElapsedSeconds());
+  m_renderPolicy->StartRotate(e.Angle(), m_timer.ElapsedSeconds());
+}
+
+template <typename TModel>
+void Framework<TModel>::DoRotate(RotateEvent const & e)
+{
+  m_navigator.DoRotate(e.Angle(), m_timer.ElapsedSeconds());
+  m_renderPolicy->DoRotate(e.Angle(), m_timer.ElapsedSeconds());
+}
+
+template <typename TModel>
+void Framework<TModel>::StopRotate(RotateEvent const & e)
+{
+  m_navigator.StopRotate(e.Angle(), m_timer.ElapsedSeconds());
+  m_renderPolicy->StopRotate(e.Angle(), m_timer.ElapsedSeconds());
+}
+
+
+template <typename TModel>
 void Framework<TModel>::Move(double azDir, double factor)
 {
   m_navigator.Move(azDir, factor);

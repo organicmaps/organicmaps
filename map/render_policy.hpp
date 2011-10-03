@@ -68,5 +68,9 @@ public:
   virtual void StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
   virtual void DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
   virtual void StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
+
+  virtual void StartRotate(double a, double timeInSec);
+  virtual void DoRotate(double a, double timeInSec);
+  virtual void StopRotate(double a, double timeInSec);
   /// @}
 };

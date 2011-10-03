@@ -243,6 +243,13 @@ public:
   void Move(double azDir, double factor);
   //@}
 
+  /// @name Rotation implementation
+  //@{
+  void StartRotate(RotateEvent const & e);
+  void DoRotate(RotateEvent const & e);
+  void StopRotate(RotateEvent const & e);
+  //@}
+
   /// @name Scaling.
   //@{
   void ScaleToPoint(ScaleToPointEvent const & e);

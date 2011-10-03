@@ -43,6 +43,7 @@ namespace qt
     auto_ptr<VideoTimer> m_videoTimer;
 
     bool m_isDrag;
+    bool m_isRotate;
 
     QTimer * m_timer;
     QTimer * m_animTimer;
@@ -109,11 +110,14 @@ namespace qt
     virtual void mouseMoveEvent(QMouseEvent * e);
     virtual void mouseReleaseEvent(QMouseEvent * e);
     virtual void wheelEvent(QWheelEvent * e);
+    virtual void keyReleaseEvent(QKeyEvent * e);
     //@}
 
   private:
     void UpdateScaleControl();
     void StopDragging(QMouseEvent * e);
+    void StopRotating(QMouseEvent * e);
+    void StopRotating(QKeyEvent * e);
 
     QScaleSlider * m_pScale;
   };

@@ -20,6 +20,7 @@ namespace qt
       m_handle(new WindowHandle()),
       m_framework(FrameworkFactory<model_t>::CreateFramework(m_handle, 0)),
       m_isDrag(false),
+      m_isRotate(false),
       m_redrawInterval(100),
       m_pScale(0),
       m_isInitialized(false),
@@ -234,7 +235,12 @@ namespace qt
     DragEvent get_drag_event(QMouseEvent * e)
     {
       QPoint const p = e->pos();
-      return DragEvent(DragEvent(p.x(), p.y()));
+      return DragEvent(p.x(), p.y());
+    }
+
+    RotateEvent get_rotate_event(QPoint const & pt, QPoint const & centerPt)
+    {
+      return RotateEvent(centerPt.x(), centerPt.y(), pt.x(), pt.y());
     }
   }
 
@@ -244,10 +250,21 @@ namespace qt
 
     if (e->button() == Qt::LeftButton)
     {
-      m_framework->StartDrag(get_drag_event(e));
+      if (e->modifiers() & Qt::ControlModifier)
+      {
+        /// starting rotation
+        m_framework->StartRotate(get_rotate_event(e->pos(), this->rect().center()));
+        setCursor(Qt::CrossCursor);
+        m_isRotate = true;
+      }
+      else
+      {
+        /// starting drag
+        m_framework->StartDrag(get_drag_event(e));
 
-      setCursor(Qt::CrossCursor);
-      m_isDrag = true;
+        setCursor(Qt::CrossCursor);
+        m_isDrag = true;
+      }
     }
   }
 
@@ -272,6 +289,9 @@ namespace qt
 
     if (m_isDrag)
       m_framework->DoDrag(get_drag_event(e));
+
+    if (m_isRotate)
+      m_framework->DoRotate(get_rotate_event(e->pos(), this->rect().center()));
   }
 
   void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
@@ -279,7 +299,36 @@ namespace qt
     base_type::mouseReleaseEvent(e);
 
     StopDragging(e);
+    StopRotating(e);
+
     emit ViewportChanged();
+  }
+
+  void DrawWidget::keyReleaseEvent(QKeyEvent * e)
+  {
+    base_type::keyReleaseEvent(e);
+
+    StopRotating(e);
+
+    emit ViewportChanged();
+  }
+
+  void DrawWidget::StopRotating(QMouseEvent * e)
+  {
+    if (m_isRotate && (e->button() == Qt::LeftButton))
+    {
+      m_framework->StopRotate(get_rotate_event(e->pos(), this->rect().center()));
+      setCursor(Qt::ArrowCursor);
+      m_isRotate = false;
+    }
+  }
+
+  void DrawWidget::StopRotating(QKeyEvent * e)
+  {
+    if (m_isRotate && (e->key() == Qt::Key_Control))
+    {
+      m_framework->StopRotate(get_rotate_event(this->mapFromGlobal(QCursor::pos()), this->rect().center()));
+    }
   }
 
   void DrawWidget::StopDragging(QMouseEvent * e)
@@ -305,7 +354,7 @@ namespace qt
 
   void DrawWidget::wheelEvent(QWheelEvent * e)
   {
-    if (!m_isDrag)
+    if ((!m_isDrag) && (!m_isRotate))
     {
       /// if we are inside the timer, cancel it
       if (m_timer->isActive())

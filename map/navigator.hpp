@@ -34,6 +34,10 @@ public:
   void DoDrag(m2::PointD const & pt, double timeInSec);
   void StopDrag(m2::PointD const & pt, double timeInSec, bool animate);
 
+  void StartRotate(double Angle, double timeInSec);
+  void DoRotate(double Angle, double timeInSec);
+  void StopRotate(double Angle, double timeInSec);
+
   void StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
   void DoScale(m2::PointD const & org, m2::PointD const & p1, m2::PointD const & p2);
   void DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
@@ -84,6 +88,8 @@ private:
   m2::PointD m_StartPt2;
   // Second Last point for scaling.
   m2::PointD m_LastPt2;
+  // Start value of rotation angle
+  double m_StartAngle;
   // Current screen speed in post-dragging animation.
   double m_DragAnimationSpeed;
   // Move direction of the screen in post-dragging animation.

@@ -70,6 +70,21 @@ void RenderPolicy::StopScale(m2::PointD const &, m2::PointD const &, double)
   m_windowHandle->invalidate();
 }
 
+void RenderPolicy::StartRotate(double a, double)
+{
+  m_windowHandle->invalidate();
+}
+
+void RenderPolicy::DoRotate(double a, double)
+{
+  m_windowHandle->invalidate();
+}
+
+void RenderPolicy::StopRotate(double a, double)
+{
+  m_windowHandle->invalidate();
+}
+
 void RenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {}
 
