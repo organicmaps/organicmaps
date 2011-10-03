@@ -494,7 +494,6 @@ namespace feature
   bool GenerateFinalFeatures(string const & datFilePath, int mapType)
   {
     // rename input file
-    Platform & platform = GetPlatform();
     string tempDatFilePath(datFilePath);
     tempDatFilePath += ".notsorted";
 
