@@ -74,7 +74,10 @@ namespace
   {
     ContainerT & m_list;
   public:
-    DoAccumulate(ContainerT & lst) : m_list(lst) {}
+    DoAccumulate(ContainerT & lst) : m_list(lst)
+    {
+      m_list.push_back(typename ContainerT::value_type());
+    }
     bool operator() (m2::PointD const & p)
     {
       m_list.back().push_back(p);
