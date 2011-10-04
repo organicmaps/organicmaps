@@ -5,10 +5,14 @@
 
 // @TODO we don't support windows at the moment
 #ifndef OMIM_OS_WINDOWS
+  #include <unistd.h>
   #include <sys/mman.h>
   #include <sys/stat.h>
-  #include <sys/fcntl.h>
-  #include <unistd.h>
+  #ifdef OMIM_OS_ANDROID
+    #include <fcntl.h>
+  #else
+    #include <sys/fcntl.h>
+  #endif
 #endif
 
 class MmapReader::MmapData
