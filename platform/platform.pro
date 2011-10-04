@@ -53,6 +53,7 @@ HEADERS += \
     settings.hpp \
     video_timer.hpp \
     languages.hpp \
+    url_generator.hpp \
 
 SOURCES += \
     location_manager.cpp \
@@ -60,3 +61,4 @@ SOURCES += \
     settings.cpp \
     video_timer.cpp \
     languages.cpp \
+    url_generator.cpp \

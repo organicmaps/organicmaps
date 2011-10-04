@@ -2,8 +2,6 @@
 
 #include "../base/base.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
 class LCG32
 {
 public:
@@ -21,5 +19,3 @@ private:
 };
 
 typedef LCG32 PseudoRNG32;
-
-#include "../base/stop_mem_debug.hpp"
