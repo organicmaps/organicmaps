@@ -92,7 +92,7 @@ namespace internal
     template <typename u32>
     inline bool is_code_point_valid(u32 cp)
     {
-        return (cp <= CODE_POINT_MAX && !is_surrogate(cp) && cp != 0xfffe && cp != 0xffff);
+        return (cp <= CODE_POINT_MAX && !is_surrogate(cp));
     }
 
     template <typename octet_iterator>
@@ -112,7 +112,8 @@ namespace internal
             return 0;
     }
 
-    inline bool is_overlong_sequence(uint32_t cp, int length)
+    template <typename octet_difference_type>
+    inline bool is_overlong_sequence(uint32_t cp, octet_difference_type length)
     {
         if (cp < 0x80) {
             if (length != 1) 
@@ -330,6 +331,17 @@ namespace internal
         return (find_invalid(start, end) == end);
     }
 
+    template <typename octet_iterator>
+    inline bool starts_with_bom (octet_iterator it, octet_iterator end)
+    {
+        return (
+            ((it != end) && (internal::mask8(*it++)) == bom[0]) &&
+            ((it != end) && (internal::mask8(*it++)) == bom[1]) &&
+            ((it != end) && (internal::mask8(*it))   == bom[2])
+           );
+    }
+	
+	//Deprecated in release 2.3 
     template <typename octet_iterator>
     inline bool is_bom (octet_iterator it)
     {

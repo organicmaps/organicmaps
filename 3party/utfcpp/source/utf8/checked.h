@@ -33,8 +33,12 @@ DEALINGS IN THE SOFTWARE.
 
 namespace utf8
 {
+    // Base for the exceptions that may be thrown from the library
+    class exception : public std::exception {
+    };
+
     // Exceptions that may be thrown from the library functions.
-    class invalid_code_point : public std::exception {
+    class invalid_code_point : public exception {
         uint32_t cp;
     public:
         invalid_code_point(uint32_t cp) : cp(cp) {}
@@ -42,7 +46,7 @@ namespace utf8
         uint32_t code_point() const {return cp;}
     };
 
-    class invalid_utf8 : public std::exception {
+    class invalid_utf8 : public exception {
         uint8_t u8;
     public:
         invalid_utf8 (uint8_t u) : u8(u) {}
@@ -50,7 +54,7 @@ namespace utf8
         uint8_t utf8_octet() const {return u8;}
     };
 
-    class invalid_utf16 : public std::exception {
+    class invalid_utf16 : public exception {
         uint16_t u16;
     public:
         invalid_utf16 (uint16_t u) : u16(u) {}
@@ -58,7 +62,7 @@ namespace utf8
         uint16_t utf16_word() const {return u16;}
     };
 
-    class not_enough_room : public std::exception {
+    class not_enough_room : public exception {
     public:
         virtual const char* what() const throw() { return "Not enough space"; }
     };
@@ -158,12 +162,16 @@ namespace utf8
     template <typename octet_iterator>
     uint32_t prior(octet_iterator& it, octet_iterator start)
     {
+        // can't do much if it == start
+        if (it == start)
+            throw not_enough_room();
+
         octet_iterator end = it;
+        // Go back until we hit either a lead octet or start
         while (internal::is_trail(*(--it)))
-            if (it < start)
+            if (it == start)
                 throw invalid_utf8(*it); // error - no lead byte in the sequence
-        octet_iterator temp = it;
-        return next(temp, end);
+        return peek_next(it, end);
     }
 
     /// Deprecated in versions that include "prior"
@@ -249,7 +257,7 @@ namespace utf8
     template <typename octet_iterator, typename u32bit_iterator>
     u32bit_iterator utf8to32 (octet_iterator start, octet_iterator end, u32bit_iterator result)
     {
-        while (start < end)
+        while (start != end)
             (*result++) = next(start, end);
 
         return result;

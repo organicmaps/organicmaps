@@ -1,9 +1,12 @@
 utf8 cpp library
-Release 2.2.4
+Release 2.3.1
 
-This is a minor bug fix release that improves converting from utf-16 to utf-8 error detection.
+A bug fix release. Special thanks to dalle and Ivan Sorokin who reported the bugs.
 
-Changes from version 2.2.3
-- Bug fix [2857454]	dereference invalid iterator when lead surrogate was last element of the string.
+Changes from version 2.3
+- Bug fix [3025042]: is_bom documentation issue.
+- Bug fix [3083640]: is_code_point_valid incorrectly returns false.
+- Bug fix [3167987]: prior moves it before start.
+- Bug fix [3185087]: utf8::prior and utf8::previous documentation issue.
 
 Files included in the release: utf8.h, core.h, checked.h, unchecked.h, utf8cpp.html, ReleaseNotes
