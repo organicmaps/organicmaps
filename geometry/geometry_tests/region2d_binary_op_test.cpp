@@ -45,6 +45,22 @@ UNIT_TEST(RegionIntersect_Smoke)
 
     TEST_EQUAL(res.size(), 0, ());
   }
+
+  {
+    P arr1[] = { P(-10, -10), P(10, -10), P(10, 10), P(-10, 10) };
+    P arr2[] = { P(-5, -5), P(5, -5), P(5, 5), P(-5, 5) };
+
+    R r1, r2;
+    r1.Assign(arr1, arr1 + ARRAY_SIZE(arr1));
+    r2.Assign(arr2, arr2 + ARRAY_SIZE(arr2));
+
+    vector<R> res;
+    res.push_back(r1);  // do some smoke
+    m2::IntersectRegions(r1, r2, res);
+
+    TEST_EQUAL(res.size(), 2, ());
+    TEST_EQUAL(res[1].GetRect(), m2::RectI(-5, -5, 5, 5), ());
+  }
 }
 
 UNIT_TEST(RegionDifference_Smoke)
@@ -65,8 +81,6 @@ UNIT_TEST(RegionDifference_Smoke)
 
     TEST_EQUAL(res.size(), 1, ());
     TEST_EQUAL(res[0].GetRect(), r2.GetRect(), ());
-
-    // LOG(LINFO, (res[0]));
   }
 
   {
@@ -85,6 +99,7 @@ UNIT_TEST(RegionDifference_Smoke)
   }
 }
 
+/*
 UNIT_TEST(RegionDifference_Data1)
 {
   using namespace geom_test;
@@ -150,3 +165,4 @@ UNIT_TEST(RegionDifference_Data1)
     local.swap(res);
   }
 }
+*/
