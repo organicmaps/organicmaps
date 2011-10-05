@@ -17,9 +17,8 @@
 
 namespace qt
 {
-  PreferencesDialog::PreferencesDialog(QWidget * parent, bool & autoUpdatesEnabled)
-  : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint),
-    m_autoUpdatesEnabled(autoUpdatesEnabled)
+  PreferencesDialog::PreferencesDialog(QWidget * parent)
+  : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint)
   {
     QIcon icon(":/ui/logo.png");
     setWindowIcon(icon);

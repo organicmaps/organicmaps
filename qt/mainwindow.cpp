@@ -338,13 +338,8 @@ void MainWindow::OnSearchButtonClicked()
 
 void MainWindow::OnPreferences()
 {
-  bool autoUpdatesEnabled = DEFAULT_AUTO_UPDATES_ENABLED;
-  Settings::Get("AutomaticUpdateCheck", autoUpdatesEnabled);
-
-  PreferencesDialog dlg(this, autoUpdatesEnabled);
+  PreferencesDialog dlg(this);
   dlg.exec();
-
-  Settings::Set("AutomaticUpdateCheck", autoUpdatesEnabled);
 }
 
 #ifndef NO_DOWNLOADER

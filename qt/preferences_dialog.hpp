@@ -17,7 +17,7 @@ namespace qt
     virtual void done(int);
 
   public:
-    explicit PreferencesDialog(QWidget * parent, bool & autoUpdatesEnabled);
+    explicit PreferencesDialog(QWidget * parent);
 
   private slots:
     void OnCloseClick();
@@ -26,7 +26,6 @@ namespace qt
     void OnUnitsChanged(int i);
 
   private:
-    bool & m_autoUpdatesEnabled;
     QTableWidget * m_pTable;
     QButtonGroup * m_pUnits;
   };

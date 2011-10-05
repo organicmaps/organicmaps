@@ -44,10 +44,6 @@ using namespace storage;
     [(CountriesViewController *)controller OnDownload: index withProgress: progress];
 }
 
-- (void) OnUpdateCheck: (TUpdateResult) result withText: (string const &) text
-{
-}
-
 // Currently displays only countries to download
 - (void) Show:(UIViewController *)prevController WithStorage:(Storage *)storage
 {
@@ -67,13 +63,8 @@ using namespace storage;
 		SEL progressSel = @selector(OnCountryDownload:withProgress:);
 		TProgressFunc progressImpl = (TProgressFunc)[self methodForSelector:progressSel];
 
-		typedef void (*TUpdateFunc)(id, SEL, bool, string const &);
-		SEL updateSel = @selector(OnUpdateCheck:);
-		TUpdateFunc updateImpl = (TUpdateFunc)[self methodForSelector:updateSel];
-
 		m_storage->Subscribe(boost::bind(changeImpl, self, changeSel, _1),
-    		boost::bind(progressImpl, self, progressSel, _1, _2),
-        boost::bind(updateImpl, self, updateSel, _1, _2));
+    		boost::bind(progressImpl, self, progressSel, _1, _2));
   }
 }
 
