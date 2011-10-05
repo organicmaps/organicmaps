@@ -150,7 +150,7 @@ QtDownload::~QtDownload()
       m_file.remove();
     }
   }
-  LOG(LDEBUG, (m_currentUrl.toString().toLocal8Bit()));
+  LOG(LDEBUG, (m_currentUrl.toString().toLocal8Bit().data()));
 }
 
 void QtDownload::StartRequest()
