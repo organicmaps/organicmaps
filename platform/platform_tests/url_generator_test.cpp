@@ -7,7 +7,6 @@
 void VectorContains(vector<string> & v, string const & s)
 {
   vector<string>::iterator found = find(v.begin(), v.end(), s);
-  std::cout << s << endl;
   TEST(found != v.end(), (s, "was not found in", v));
   v.erase(found);
 }
@@ -37,5 +36,9 @@ UNIT_TEST(UrlGenerator)
     size_t const count = second.size();
     for (size_t i = 0; i < count; ++i)
       VectorContains(second, g.PopNextUrl());
+  }
+  {
+    for (size_t i = 0; i < 10; ++i)
+      TEST_EQUAL(g.PopNextUrl(), string(), ());
   }
 }
