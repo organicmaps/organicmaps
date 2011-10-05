@@ -121,6 +121,12 @@ namespace m2
 
     bool IsValid() const { return m_points.size() > 2; }
 
+    void Swap(Region<PointT> & rhs)
+    {
+      m_points.swap(rhs.m_points);
+      swap(m_rect, rhs.m_rect);
+    }
+
   public:
     /// Taken from Computational Geometry in C and modified
     template <class EqualF>
@@ -196,6 +202,12 @@ namespace m2
 
     template <class T> friend string DebugPrint(Region<T> const &);
   };
+
+  template <class PointT>
+  void swap(Region<PointT> & r1, Region<PointT> & r2)
+  {
+    r1.Swap(r2);
+  }
 
   template <class TArchive, class PointT>
   TArchive & operator >> (TArchive & ar, Region<PointT> & region)
