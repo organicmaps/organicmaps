@@ -24,22 +24,50 @@ namespace
     }
   };
 
+  size_t RunTest(list<vector<P> > const & l)
+  {
+    tesselator::TrianglesInfo info;
+    tesselator::TesselateInterior(l, info);
+
+    size_t count;
+    info.ForEachTriangle(DoDump(count));
+    return count;
+  }
+
   size_t RunTess(P const * arr, size_t count)
   {
     list<vector<P> > l;
     l.push_back(vector<P>());
     l.back().assign(arr, arr + count);
 
-    tesselator::TrianglesInfo info;
-    tesselator::TesselateInterior(l, info);
-
-    info.ForEachTriangle(DoDump(count));
-    return count;
+    return RunTest(l);
   }
 }
 
-UNIT_TEST(TesselatorSelfISect_Smoke)
+UNIT_TEST(Tesselator_SelfISect)
 {
   P arr[] = { P(0, 0), P(0, 4), P(4, 4), P(1, 1), P(1, 3), P(4, 0), P(0, 0) };
   TEST_EQUAL(6, RunTess(arr, ARRAY_SIZE(arr)), ());
+}
+
+UNIT_TEST(Tesselator_Odd)
+{
+  P arr[] = { P(-100, -100), P(100, 100), P(100, -100) };
+
+  size_t const count = ARRAY_SIZE(arr);
+
+  list<vector<P> > l;
+  l.push_back(vector<P>());
+  l.back().assign(arr, arr + count);
+  l.push_back(vector<P>());
+  l.back().assign(arr, arr + count);
+
+  TEST_EQUAL(0, RunTest(l), ());
+
+  P arr1[] = { P(-100, -100), P(100, -100), P(100, 100), P(-100, 100) };
+
+  l.push_back(vector<P>());
+  l.back().assign(arr1, arr1 + ARRAY_SIZE(arr1));
+
+  TEST_EQUAL(2, RunTest(l), ());
 }
