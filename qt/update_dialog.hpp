@@ -24,14 +24,12 @@ namespace qt
     void OnCountryChanged(storage::TIndex const & index);
     void OnCountryDownloadProgress(storage::TIndex const & index,
                                    HttpProgressT const & progress);
-    void OnUpdateRequest(storage::TUpdateResult result, string const & description);
     //@}
 
     void ShowDialog();
 
   private slots:
     void OnItemClick(QTreeWidgetItem * item, int column);
-    void OnUpdateClick();
     void OnCloseClick();
 
   private:
@@ -40,8 +38,6 @@ namespace qt
 
   private:
     QTreeWidget * m_tree;
-    QLabel * m_label;
-    QPushButton * m_updateButton;
     storage::Storage & m_storage;
   };
 } // namespace qt

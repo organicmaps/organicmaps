@@ -307,12 +307,10 @@ namespace storage
     }
   }
 
-  void Storage::Subscribe(TObserverChangeCountryFunction change, TObserverProgressFunction progress,
-                          TUpdateRequestFunction updateRequest)
+  void Storage::Subscribe(TObserverChangeCountryFunction change, TObserverProgressFunction progress)
   {
     m_observerChange = change;
     m_observerProgress = progress;
-    m_observerUpdateRequest = updateRequest;
 
     ReInitCountries(false);
   }
@@ -321,7 +319,6 @@ namespace storage
   {
     m_observerChange.clear();
     m_observerProgress.clear();
-    m_observerUpdateRequest.clear();
   }
 
   void Storage::OnMapDownloadFinished(HttpFinishedParams const & result)
@@ -381,86 +378,6 @@ namespace storage
       p.m_current = m_countryProgress.m_current + progress.m_current;
       p.m_total = m_countryProgress.m_total;
       m_observerProgress(m_queue.front(), p);
-    }
-  }
-
-  void Storage::CheckForUpdate()
-  {
-    // at this moment we support only binary update checks
-    string const update = UpdateBaseUrl() + BINARY_UPDATE_FILE/*DATA_UPDATE_FILE*/;
-    GetDownloadManager().CancelDownload(update);
-    HttpStartParams params;
-    params.m_url = update;
-    params.m_fileToSave = GetPlatform().WritablePathForFile(DATA_UPDATE_FILE);
-    params.m_finish = bind(&Storage::OnBinaryUpdateCheckFinished, this, _1);
-    params.m_useResume = false;
-    GetDownloadManager().HttpRequest(params);
-  }
-
-  void Storage::OnDataUpdateCheckFinished(HttpFinishedParams const & params)
-  {
-    if (params.m_error != EHttpDownloadOk)
-    {
-      LOG(LWARNING, ("Update check failed for url:", params.m_url));
-      if (m_observerUpdateRequest)
-        m_observerUpdateRequest(EDataCheckFailed, ErrorString(params.m_error));
-    }
-    else
-    { // @TODO parse update file and notify GUI
-    }
-
-    // parse update file
-//    TCountriesContainer tempCountries;
-//    if (!LoadCountries(tempCountries, GetPlatform().WritablePathForFile(DATA_UPDATE_FILE)))
-//    {
-//      LOG(LWARNING, ("New application version should be downloaded, "
-//                     "update file format can't be parsed"));
-//      // @TODO: report to GUI
-//      return;
-//    }
-//    // stop any active download, clear the queue, replace countries and notify GUI
-//    if (!m_queue.empty())
-//    {
-//      CancelCountryDownload(CountryByIndex(m_queue.front()));
-//      m_queue.clear();
-//    }
-//    m_countries.swap(tempCountries);
-//    // @TODO report to GUI about reloading all countries
-//    LOG(LINFO, ("Update check complete"));
-  }
-
-  void Storage::OnBinaryUpdateCheckFinished(HttpFinishedParams const & params)
-  {
-    if (params.m_error == EHttpDownloadFileNotFound)
-    {
-      // no binary update is available
-      if (m_observerUpdateRequest)
-        m_observerUpdateRequest(ENoAnyUpdateAvailable, "No update is available");
-    }
-    else if (params.m_error == EHttpDownloadOk)
-    {
-      // update is available!
-      try
-      {
-        if (m_observerUpdateRequest)
-        {
-          string buffer;
-          ReaderPtr<Reader>(GetPlatform().GetReader(params.m_file)).ReadAsString(buffer);
-          m_observerUpdateRequest(ENewBinaryAvailable, buffer);
-        }
-      }
-      catch (std::exception const & e)
-      {
-        if (m_observerUpdateRequest)
-          m_observerUpdateRequest(EBinaryCheckFailed,
-                                    string("Error loading b-update text file ") + e.what());
-      }
-    }
-    else
-    {
-      // connection error
-      if (m_observerUpdateRequest)
-        m_observerUpdateRequest(EBinaryCheckFailed, ErrorString(params.m_error));
     }
   }
 }

@@ -80,10 +80,8 @@ namespace storage
     //@{
     typedef function<void (TIndex const &)> TObserverChangeCountryFunction;
     typedef function<void (TIndex const &, HttpProgressT const &)> TObserverProgressFunction;
-    typedef function<void (TUpdateResult, string const &)> TUpdateRequestFunction;
     TObserverChangeCountryFunction m_observerChange;
     TObserverProgressFunction m_observerProgress;
-    TUpdateRequestFunction m_observerUpdateRequest;
     //@}
 
     /// @name Communicate with Framework
@@ -117,15 +115,12 @@ namespace storage
     //@{
     void OnMapDownloadFinished(HttpFinishedParams const & params);
     void OnMapDownloadProgress(HttpProgressT const & progress);
-    void OnDataUpdateCheckFinished(HttpFinishedParams const & params);
-    void OnBinaryUpdateCheckFinished(HttpFinishedParams const & params);
     //@}
 
     /// @name Current impl supports only one observer
     //@{
     void Subscribe(TObserverChangeCountryFunction change,
-                   TObserverProgressFunction progress,
-                   TUpdateRequestFunction dataCheck);
+                   TObserverProgressFunction progress);
     void Unsubscribe();
     //@}
 

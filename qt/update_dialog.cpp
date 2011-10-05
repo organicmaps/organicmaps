@@ -61,15 +61,6 @@ namespace qt
   {
     setWindowModality(Qt::WindowModal);
 
-    string timeString;
-    if (!Settings::Get(LAST_CHECK_TIME_KEY, timeString))
-      timeString = "Never checked";
-    m_label = new QLabel(QString(QObject::tr(LAST_UPDATE_CHECK)) + QString::fromUtf8(timeString.c_str()), this);
-
-    m_updateButton = new QPushButton(QObject::tr(CHECK_FOR_UPDATE), this);
-    m_updateButton->setDefault(false);
-    connect(m_updateButton, SIGNAL(clicked()), this, SLOT(OnUpdateClick()));
-
     QPushButton * closeButton = new QPushButton(QObject::tr("Close"), this);
     closeButton->setDefault(true);
     connect(closeButton, SIGNAL(clicked()), this, SLOT(OnCloseClick()));
@@ -82,8 +73,7 @@ namespace qt
     connect(m_tree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(OnItemClick(QTreeWidgetItem *, int)));
 
     QHBoxLayout * horizontalLayout = new QHBoxLayout();
-    horizontalLayout->addWidget(m_label);
-    horizontalLayout->addWidget(m_updateButton);
+    horizontalLayout->addStretch();
     horizontalLayout->addWidget(closeButton);
 
     QVBoxLayout * verticalLayout = new QVBoxLayout();
@@ -96,8 +86,7 @@ namespace qt
 
     // we want to receive all download progress and result events
     m_storage.Subscribe(bind(&UpdateDialog::OnCountryChanged, this, _1),
-                        bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2),
-                        bind(&UpdateDialog::OnUpdateRequest, this, _1, _2));
+                        bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2));
   }
 
   UpdateDialog::~UpdateDialog()
@@ -190,13 +179,6 @@ namespace qt
     return item;
   }
 
-  void UpdateDialog::OnUpdateClick()
-  {
-    m_updateButton->setText(QObject::tr("Checking for update..."));
-    m_updateButton->setDisabled(true);
-    m_storage.CheckForUpdate();
-  }
-
   void UpdateDialog::OnCloseClick()
   {
     done(0);
@@ -207,63 +189,6 @@ namespace qt
   {
     for (int column = 0; column < item.columnCount(); ++column)
       item.setTextColor(column, color);
-  }
-
-  void UpdateDialog::OnUpdateRequest(storage::TUpdateResult res, string const & description)
-  {
-    switch (res)
-    {
-    case ENoAnyUpdateAvailable:
-      {
-        // @TODO do not show it for automatic update checks
-        InfoDialog dlg(tr("No update is available"),
-                       tr("At this moment, no new version is available. Please, try again later or "
-                          "visit our web site <a href=\"http://www.mapswithme.com\">www.mapswithme.com</a> "
-                          "for latest news."),
-                       this, QStringList(tr("Ok")));
-        dlg.exec();
-      }
-      break;
-    case ENewBinaryAvailable:
-      {
-        InfoDialog dlg(tr("New version is available!"), description.c_str(), this,
-                       QStringList(tr("Postpone update")));
-        dlg.exec();
-      }
-      break;
-    case storage::EBinaryCheckFailed:
-      {
-        InfoDialog dlg(tr("Update check failed"), description.c_str(), this, QStringList(tr("Ok")));
-        dlg.exec();
-      }
-      break;
-      default: /// @TODO handle all other cases
-      break;
-    }
-//    if (updateSize < 0)
-//      ;//m_label->setText(QObject::tr("No update is available"));
-//    else
-//    {
-//      QString title(QObject::tr("Update is available"));
-//      QString text(readme ? readme : "");
-//      if (updateSize / (1000 * 1000 * 1000) > 0)
-//        text.append(QObject::tr("\n\nDo you want to perform update and download %1 GB?").arg(
-//            uint(updateSize / (1000 * 1000 * 1000))));
-//      else if (updateSize / (1000 * 1000) > 0)
-//        text.append(QObject::tr("\n\nDo you want to perform update and download %1 MB?").arg(
-//            uint(updateSize / (1000 * 1000))));
-//      else
-//        text.append(QObject::tr("\n\nDo you want to perform update and download %1 kB?").arg(
-//            uint((updateSize + 999) / 1000)));
-//      if (QMessageBox::Yes == QMessageBox::question(this, title, text, QMessageBox::Yes, QMessageBox::No))
-//        m_storage.PerformUpdate();
-//    }
-    QString labelText(LAST_UPDATE_CHECK);
-    QString const textDate = QDateTime::currentDateTime().toString();
-    Settings::Set(LAST_CHECK_TIME_KEY, string(textDate.toUtf8().data()));
-    m_label->setText(labelText.append(textDate));
-    m_updateButton->setText(CHECK_FOR_UPDATE);
-    m_updateButton->setDisabled(false);
   }
 
   void UpdateDialog::UpdateRowWithCountryInfo(TIndex const & index)
