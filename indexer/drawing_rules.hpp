@@ -128,9 +128,10 @@ namespace drule
   public:
     ~RulesHolder();
 
-    size_t AddRule(int32_t scale, rule_type_t type, BaseRule * p);
-    size_t AddLineRule(int32_t scale, int color, double pixWidth);
-    size_t AddAreaRule(int32_t scale, int color);
+    size_t AddRule(int scale, rule_type_t type, BaseRule * p);
+    size_t AddLineRule(int scale, int color, double pixWidth);
+    size_t AddAreaRule(int scale, int color);
+    size_t AddSymbolRule(int scale, string const & sym);
 
     void Clean();
 
@@ -155,7 +156,7 @@ namespace drule
           for (size_t k = 0; k < v.size(); ++k)
           {
             // scale, type, rule
-            toDo(i->first, j, m_container[j][v[k]]);
+            toDo(i->first, j, v[k], m_container[j][v[k]]);
           }
         }
       }

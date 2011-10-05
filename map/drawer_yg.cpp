@@ -51,16 +51,16 @@ DrawerYG::DrawerYG(params_t const & params)
 
 namespace
 {
-  struct make_invalid
+  struct DoMakeInvalidRule
   {
     size_t m_threadID;
     uint32_t m_pipelineIDMask;
 
-    make_invalid(size_t threadID, uint8_t pipelineID)
+    DoMakeInvalidRule(size_t threadID, uint8_t pipelineID)
       : m_threadID(threadID), m_pipelineIDMask(pipelineID << 24)
     {}
 
-    void operator() (int, int, drule::BaseRule * p)
+    void operator() (int, int, int, drule::BaseRule * p)
     {
       if ((p->GetID(m_threadID) & 0xFF000000) == m_pipelineIDMask)
         p->MakeEmptyID(m_threadID);
@@ -72,7 +72,7 @@ namespace
 
 void DrawerYG::ClearSkinPage(size_t threadID, uint8_t pipelineID)
 {
-  drule::rules().ForEachRule(make_invalid(threadID, pipelineID));
+  drule::rules().ForEachRule(DoMakeInvalidRule(threadID, pipelineID));
 }
 
 void DrawerYG::beginFrame()

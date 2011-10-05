@@ -971,7 +971,7 @@ Key RulesHolder::CreateRuleImpl2(string const & name,
   }
 }
 
-size_t RulesHolder::AddRule(int32_t scale, rule_type_t type, BaseRule * p)
+size_t RulesHolder::AddRule(int scale, rule_type_t type, BaseRule * p)
 {
   ASSERT ( 0 <= scale && scale <= scales::GetUpperScale(), (scale) );
   ASSERT ( 0 <= type && type < count_of_rules, () );
@@ -986,7 +986,7 @@ size_t RulesHolder::AddRule(int32_t scale, rule_type_t type, BaseRule * p)
   return ret;
 }
 
-size_t RulesHolder::AddLineRule(int32_t scale, int color, double pixWidth)
+size_t RulesHolder::AddLineRule(int scale, int color, double pixWidth)
 {
   LineRule * p = new LineRule();
   p->m_params.get<4>() = color_t(color);
@@ -994,11 +994,18 @@ size_t RulesHolder::AddLineRule(int32_t scale, int color, double pixWidth)
   return AddRule(scale, line, p);
 }
 
-size_t RulesHolder::AddAreaRule(int32_t scale, int color)
+size_t RulesHolder::AddAreaRule(int scale, int color)
 {
   AreaRule * p = new AreaRule();
   p->m_params.get<0>() = color_t(color);
   return AddRule(scale, area, p);
+}
+
+size_t RulesHolder::AddSymbolRule(int scale, string const & sym)
+{
+  SymbolRule * p = new SymbolRule();
+  p->m_params.get<0>() = sym;
+  return AddRule(scale, symbol, p);
 }
 
 BaseRule const * RulesHolder::Find(Key const & k) const

@@ -8,7 +8,7 @@
 void BaseTypeMapper::Load(string const & buffer)
 {
   istringstream ss(buffer);
-  Classificator & c = classif();
+  Classificator const & c = classif();
 
   string v;
   vector<string> path;
