@@ -251,30 +251,58 @@ public:
 
 class MainFeaturesEmitter
 {
-  Polygonizer<FeaturesCollector> m_countries;
-
+  scoped_ptr<Polygonizer<FeaturesCollector> > m_countries;
   scoped_ptr<WorldMapGenerator<FeaturesCollector> > m_world;
   scoped_ptr<CoastlineFeaturesGenerator> m_coasts;
   scoped_ptr<FeaturesCollector> m_coastsHolder;
 
+  string m_srcCoastsFile;
   uint32_t m_coastType;
+
+  template <class T1, class T2> class CombinedEmitter
+  {
+    T1 * m_p1;
+    T2 * m_p2;
+  public:
+    CombinedEmitter(T1 * p1, T2 * p2) : m_p1(p1), m_p2(p2) {}
+    void operator() (FeatureBuilder1 const & fb, uint64_t)
+    {
+      if (m_p1) (*m_p1)(fb);
+      if (m_p2) (*m_p2)(fb);
+    }
+  };
 
 public:
   MainFeaturesEmitter(GenerateInfo const & info)
-    : m_countries(info)
   {
     {
-      static char const * path[] = {"natural", "coastline"};
+      static char const * path[] = { "natural", "coastline" };
       m_coastType = classif().GetTypeByPath(vector<string>(path, path + 2));
+    }
+
+    m_srcCoastsFile = info.m_tmpDir + WORLD_COASTS_FILE_NAME + info.m_datFileSuffix;
+
+    if (!info.m_makeCoasts)
+    {
+      m_countries.reset(new Polygonizer<FeaturesCollector>(info));
+
+      if (info.m_emitCoasts)
+      {
+        m_coastsHolder.reset(new FeaturesCollector(
+                info.m_datFilePrefix + WORLD_COASTS_FILE_NAME + info.m_datFileSuffix));
+      }
+    }
+    else
+    {
+      // 6 - is cell level for oceans covering
+      m_coasts.reset(new CoastlineFeaturesGenerator(m_coastType, 6));
+
+      m_coastsHolder.reset(new FeaturesCollector(m_srcCoastsFile));
     }
 
     if (info.m_createWorld)
     {
       m_world.reset(new WorldMapGenerator<FeaturesCollector>(info));
-      // 6 - is cell level for oceans covering
-      m_coasts.reset(new CoastlineFeaturesGenerator(m_coastType, 6));
-      m_coastsHolder.reset(new FeaturesCollector(
-              info.m_datFilePrefix + WORLD_COASTS_FILE_NAME + info.m_datFileSuffix));
     }
   }
 
@@ -296,7 +324,8 @@ public:
       if (m_world)
         (*m_world)(fb);
 
-      m_countries(fb);
+      if (m_countries)
+        (*m_countries)(fb);
     }
   }
 
@@ -315,15 +344,25 @@ public:
       {
         FeatureBuilder1 fb;
         if (m_coasts->GetFeature(i, fb))
-        {
           (*m_coastsHolder)(fb);
-          m_countries(fb);
-        }
       }
+    }
+    else if (m_coastsHolder)
+    {
+      CombinedEmitter<
+          FeaturesCollector,
+          Polygonizer<FeaturesCollector> > emitter(m_coastsHolder.get(), m_countries.get());
+      feature::ForEachFromDatRawFormat(m_srcCoastsFile, emitter);
     }
   }
 
-  inline vector<string> const & GetNames() const { return m_countries.Names(); }
+  inline void GetNames(vector<string> & names) const
+  {
+    if (m_countries)
+      names = m_countries->Names();
+    else
+      names.clear();
+  }
 };
 
 }
@@ -344,7 +383,7 @@ bool GenerateImpl(GenerateInfo & info)
     ParseXMLFromStdIn(parser);
 
     bucketer.Finish();
-    info.m_bucketNames = bucketer.GetNames();
+    bucketer.GetNames(info.m_bucketNames);
   }
   catch (Reader::Exception const & e)
   {

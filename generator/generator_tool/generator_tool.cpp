@@ -32,8 +32,12 @@
 DEFINE_bool(version, false, "Display version");
 DEFINE_bool(generate_update, false,
               "If specified, update.maps file will be generated from cells in the data path");
+
 DEFINE_bool(generate_classif, false, "Generate classificator.");
 DEFINE_bool(preprocess_xml, false, "1st pass - create nodes/ways/relations data");
+DEFINE_bool(make_coasts, false, "create intermediate file with coasts data");
+DEFINE_bool(emit_coasts, false, "push coasts features from intermediate file to out files/countries");
+
 DEFINE_bool(generate_features, false, "2nd pass - generate intermediate features");
 DEFINE_bool(generate_geometry, false, "3rd pass - split and simplify geometry and triangles for features");
 DEFINE_bool(generate_index, false, "4rd pass - generate index");
@@ -104,7 +108,7 @@ int main(int argc, char ** argv)
   genInfo.m_tmpDir = FLAGS_intermediate_data_path;
 
   // load classificator only if necessary
-  if (FLAGS_generate_features || FLAGS_generate_geometry ||
+  if (FLAGS_make_coasts || FLAGS_generate_features || FLAGS_generate_geometry ||
       FLAGS_generate_index || FLAGS_generate_search_index ||
       FLAGS_calc_statistics || FLAGS_dump_types || FLAGS_dump_prefixes)
   {
@@ -116,7 +120,7 @@ int main(int argc, char ** argv)
   }
 
   // Generate dat file
-  if (FLAGS_generate_features)
+  if (FLAGS_generate_features || FLAGS_make_coasts)
   {
     LOG(LINFO, ("Generating final data ..."));
 
@@ -124,12 +128,13 @@ int main(int argc, char ** argv)
       genInfo.m_datFilePrefix = path;
     else
       genInfo.m_datFilePrefix = path + FLAGS_output;
+
     genInfo.m_datFileSuffix = DATA_FILE_EXTENSION;
 
-    // split data by countries polygons
     genInfo.m_splitByPolygons = FLAGS_split_by_polygons;
-
     genInfo.m_createWorld = FLAGS_generate_world;
+    genInfo.m_makeCoasts = FLAGS_make_coasts;
+    genInfo.m_emitCoasts = FLAGS_emit_coasts;
 
     if (!feature::GenerateFeatures(genInfo, FLAGS_use_light_nodes))
       return -1;
