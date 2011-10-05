@@ -479,7 +479,7 @@ void Classificator::SortClassificator()
   GetMutableRoot()->Sort();
 }
 
-uint32_t Classificator::GetTypeByPath(vector<string> const & path)
+uint32_t Classificator::GetTypeByPath(vector<string> const & path) const
 {
   ClassifObject const * p = GetRoot();
 

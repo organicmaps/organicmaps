@@ -221,7 +221,7 @@ public:
 
   /// Return type by path in classificator tree, example:
   /// path = ["natural", "caostline"].
-  uint32_t GetTypeByPath(vector<string> const & path);
+  uint32_t GetTypeByPath(vector<string> const & path) const;
 
   uint32_t GetIndexForType(uint32_t t) const { return m_t2i.GetIndex(t); }
   uint32_t GetTypeForIndex(uint32_t i) const { return m_i2t.GetType(i); }

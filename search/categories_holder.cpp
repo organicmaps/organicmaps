@@ -36,6 +36,8 @@ size_t CategoriesHolder::LoadFromStream(string const & buffer)
   string line;
   Category cat;
 
+  Classificator const & c = classif();
+
   istringstream stream(buffer);
   while (stream.good())
   {
@@ -56,7 +58,7 @@ size_t CategoriesHolder::LoadFromStream(string const & buffer)
           vector<string> v;
           strings::Tokenize(*iter, "-", Splitter(v));
           // get classificator type
-          cat.m_types.push_back(classif().GetTypeByPath(v));
+          cat.m_types.push_back(c.GetTypeByPath(v));
           ++iter;
         }
         if (!cat.m_types.empty())
