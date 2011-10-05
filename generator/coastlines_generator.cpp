@@ -162,7 +162,7 @@ namespace
   class DoDifference
   {
     RectT m_src;
-    vector<RegionT> m_res, m_readyRes;
+    vector<RegionT> m_res;
     vector<m2::PointD> m_points;
 
   public:
@@ -178,16 +178,11 @@ namespace
       {
         // if r is fully inside source rect region,
         // put it to the result vector without any intersection
-        m_readyRes.push_back(r);
+        m_res.push_back(r);
       }
       else
       {
-        vector<RegionT> local;
-
-        for (size_t i = 0; i < m_res.size(); ++i)
-          m2::DiffRegions(m_res[i], r, local);
-
-        local.swap(m_res);
+        m2::IntersectRegions(m_res.front(), r, m_res);
       }
     }
 
@@ -215,7 +210,6 @@ namespace
     void AssignGeometry(FeatureBuilder1 & fb)
     {
       AssignGeometry(m_res, fb);
-      AssignGeometry(m_readyRes, fb);
     }
   };
 
@@ -242,7 +236,8 @@ bool CoastlineFeaturesGenerator::GetFeature(size_t i, FeatureBuilder1 & fb)
                    D2I(P(maxX, maxY)), D2I(P(maxX, minY)) };
   RegionT rectR(arr, arr + ARRAY_SIZE(arr));
 
-  // substract all 'land' from this region
+  // Do 'and' with all regions and accumulate the result, including bound region.
+  // In 'odd' parts we will have an ocean.
   DoDifference doDiff(rectR);
   m_tree.ForEachInRect(GetLimitRect(rectR), bind<void>(ref(doDiff), _1));
 
