@@ -36,13 +36,55 @@ uint8_t LoaderImpl::GetHeader()
   return header;
 }
 
+namespace
+{
+  class TypeConvertor
+  {
+    vector<uint32_t> m_inc;
+
+  public:
+    TypeConvertor()
+    {
+      char const * arr[][2] = {
+                                { "shop", "convenience" },      // new type
+                                { "shop", "hairdresser" }
+                              };
+
+      Classificator const & c = classif();
+
+      for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+      {
+        vector<string> v;
+        v.push_back(arr[i][0]);
+        v.push_back(arr[i][1]);
+        m_inc.push_back(c.GetTypeByPath(v));
+      }
+    }
+
+    uint32_t Convert(uint32_t t) const
+    {
+      size_t const count = m_inc.size();
+      for (size_t i = 0; i < count; ++i)
+        if (m_inc[i] == t)
+        {
+          // return next type (advance by 1)
+          ASSERT_LESS ( i+1, count, () );
+          return m_inc[i+1];
+        }
+      return t;
+    }
+  };
+}
+
 void LoaderImpl::ParseTypes()
 {
   ArrayByteSource source(DataPtr() + m_TypesOffset);
 
+  static TypeConvertor typeC;
+
   size_t const count = m_pF->GetTypesCount();
   for (size_t i = 0; i < count; ++i)
-    m_pF->m_Types[i] = ReadVarUint<uint32_t>(source);
+    m_pF->m_Types[i] = typeC.Convert(ReadVarUint<uint32_t>(source));
 
   m_CommonOffset = CalcOffset(source);
 }
