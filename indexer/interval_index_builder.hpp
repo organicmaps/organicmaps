@@ -90,9 +90,12 @@ public:
     {
       IntervalIndexBase::Header header;
       header.m_Version = IntervalIndexBase::kVersion;
-      header.m_BitsPerLevel = m_BitsPerLevel;
-      header.m_Levels = m_Levels;
-      header.m_LeafBytes = m_LeafBytes;
+      header.m_BitsPerLevel = static_cast<uint8_t>(m_BitsPerLevel);
+      ASSERT_EQUAL(header.m_BitsPerLevel, m_BitsPerLevel, ());
+      header.m_Levels = static_cast<uint8_t>(m_Levels);
+      ASSERT_EQUAL(header.m_Levels, m_Levels, ());
+      header.m_LeafBytes = static_cast<uint8_t>(m_LeafBytes);
+      ASSERT_EQUAL(header.m_LeafBytes, m_LeafBytes, ());
       writer.Write(&header, sizeof(header));
     }
 
@@ -157,12 +160,14 @@ public:
     if (bitmapSerial.size() <= listSerial.size())
     {
       sink.Write(&bitmapSerial[0], bitmapSerial.size());
-      return bitmapSerial.size();
+      ASSERT_EQUAL(bitmapSerial.size(), static_cast<uint32_t>(bitmapSerial.size()), ());
+      return static_cast<uint32_t>(bitmapSerial.size());
     }
     else
     {
       sink.Write(&listSerial[0], listSerial.size());
-      return listSerial.size();
+      ASSERT_EQUAL(listSerial.size(), static_cast<uint32_t>(listSerial.size()), ());
+      return static_cast<uint32_t>(listSerial.size());
     }
   }
 

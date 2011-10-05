@@ -43,7 +43,7 @@ namespace my
     int m_maxWeight;
 
   public:
-    explicit MRUCache(size_t maxWeight)
+    explicit MRUCache(int maxWeight)
       : m_curWeight(0), m_maxWeight(maxWeight)
     {}
 
