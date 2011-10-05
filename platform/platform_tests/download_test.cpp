@@ -225,7 +225,6 @@ UNIT_TEST(DownloadResume)
   params.m_fileToSave = TEST_FILE_NAME1;
   params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer1, _1);
   params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer1, _1);
-  params.m_useResume = false;
   gMgr.HttpRequest(params);
   WAIT_FOR_ASYNC_DOWNLOAD;
   TEST_EQUAL( observer1.m_result[0].m_error, EHttpDownloadOk, () );
@@ -235,7 +234,6 @@ UNIT_TEST(DownloadResume)
   params.m_fileToSave = TEST_FILE_NAME2;
   params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer2, _1);
   params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer2, _1);
-  params.m_useResume = false;
   gMgr.HttpRequest(params);
   WAIT_FOR_ASYNC_DOWNLOAD;
   TEST_EQUAL( observer2.m_result[0].m_error, EHttpDownloadOk, () );
@@ -256,7 +254,6 @@ UNIT_TEST(DownloadResume)
   params.m_fileToSave = TEST_FILE_NAME1;
   params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer3, _1);
   params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer3, _1);
-  params.m_useResume = true;
   gMgr.HttpRequest(params);
   WAIT_FOR_ASYNC_DOWNLOAD;
   TEST_EQUAL( observer3.m_result[0].m_error, EHttpDownloadOk, () );
@@ -292,6 +289,27 @@ UNIT_TEST(DownloadAbsentFile)
   TEST( !GetPlatform().IsFileExists(TEST_ABSENT_FILE_NAME), () );
 
   FileWriter::DeleteFileX(TEST_ABSENT_FILE_NAME);
+}
+
+UNIT_TEST(DownloadUsingUrlGenerator)
+{
+  size_t const NUM = 1;
+  DlObserver<NUM> observer;
+
+  string const LOCAL_FILE = "unit_test.txt";
+
+  HttpStartParams params;
+  params.m_url = LOCAL_FILE;
+  params.m_fileToSave = LOCAL_FILE;
+  params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1);
+  params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1);
+  gMgr.HttpRequest(params);
+  WAIT_FOR_ASYNC_DOWNLOAD;
+
+  TEST_NOT_EQUAL( observer.m_result[0].m_error, EHttpDownloadFileNotFound, () );
+  TEST( GetPlatform().IsFileExists(LOCAL_FILE), () );
+
+  FileWriter::DeleteFileX(LOCAL_FILE);
 }
 
 // only on Windows files are actually locked by system

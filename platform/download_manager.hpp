@@ -42,7 +42,6 @@ struct HttpStartParams
   string m_fileToSave;
   HttpFinishedCallbackT m_finish;
   HttpProgressCallbackT m_progress;
-  bool m_useResume;
   string m_contentType;
   string m_postData;        //!< if not empty, send POST instead of GET
 };
@@ -54,6 +53,8 @@ class DownloadManager
 public:
   virtual ~DownloadManager() {}
 
+  /// By default, http resume feature is used for requests which contains out file
+  /// If url doesn't contain http:// or https:// Url_Generator is used for base server url
   virtual void HttpRequest(HttpStartParams const & params) = 0;
   /// @note Doesn't notifies clients on canceling!
   virtual void CancelDownload(string const & url) = 0;

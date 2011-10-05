@@ -19,15 +19,14 @@
 #endif
 
 #define TIMEOUT_IN_SECONDS 15.0
-#define MAX_AUTOMATIC_RETRIES 3
 
-string GetDeviceUid()
+static string GetDeviceUid()
 {
   NSString * uid = [[UIDevice currentDevice] uniqueIdentifier];
   return [uid UTF8String];
 }
 
-string GetMacAddress()
+static string GetMacAddress()
 {
   string result;
   // get wifi mac addr
@@ -53,7 +52,7 @@ string GetMacAddress()
   return result;
 }
 
-string GetUniqueHashedId()
+static string GetUniqueHashedId()
 {
   // generate sha2 hash for mac address
   string const hash = sha2::digest256(GetMacAddress() + GetDeviceUid(), false);
@@ -64,6 +63,11 @@ string GetUniqueHashedId()
     xoredHash.push_back(hash[i] ^ hash[i + offset] ^ hash[i + offset * 2] ^ hash[i + offset * 3]);
   // and use base64 encoding
   return base64::encode(xoredHash);
+}
+
+static bool NeedToGenerateUrl(string const & url)
+{
+  return url.find("http://") != 0 && url.find("https://") != 0;
 }
 
 @implementation IPhoneDownload
@@ -101,7 +105,7 @@ string GetUniqueHashedId()
 {
   // Create the request.
 	NSMutableURLRequest * request =
-  [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithUTF8String:m_params.m_url.c_str()]]
+  [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithUTF8String:m_currentUrl.c_str()]]
   		cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:TIMEOUT_IN_SECONDS];
   if (m_file)
   {
@@ -126,7 +130,7 @@ string GetUniqueHashedId()
     [request setHTTPBody:postData];
   }
   // set user-agent with unique client id only for mapswithme requests
-  if (m_params.m_url.find("mapswithme.com") != string::npos)
+  if (m_currentUrl.find("mapswithme.com") != string::npos)
   {
     static string const uid = GetUniqueHashedId();
     [request addValue:[NSString stringWithUTF8String: uid.c_str()] forHTTPHeaderField:@"User-Agent"];
@@ -138,13 +142,11 @@ string GetUniqueHashedId()
 {
   m_params = params;
 
-  m_retryCounter = 0;
-
   if (!params.m_fileToSave.empty())
   {
     // try to create file first
     string const tmpFile = m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION;
-    m_file = fopen(tmpFile.c_str(), params.m_useResume ? "ab" : "wb");
+    m_file = fopen(tmpFile.c_str(), "ab");
     if (m_file == 0)
     {
       NSLog(@"Error opening %s file for download: %s", tmpFile.c_str(), strerror(errno));
@@ -160,13 +162,16 @@ string GetUniqueHashedId()
       return NO;
     }
   }
+  
+  if (NeedToGenerateUrl(m_params.m_url))
+    m_currentUrl = m_urlGenerator.PopNextUrl() + m_params.m_url;
 
 	// create the connection with the request and start loading the data
 	m_connection = [[NSURLConnection alloc] initWithRequest:[self CreateRequest] delegate:self];
 
 	if (m_connection == 0)
   {
-		NSLog(@"Can't create connection for url %s", params.m_url.c_str());
+		NSLog(@"Can't create connection for url %s", m_currentUrl.c_str());
 		// notify observer about error and exit
     if (m_params.m_finish)
     {
@@ -255,26 +260,34 @@ string GetUniqueHashedId()
   }
 }
 
+- (BOOL) shouldRetry: (NSError *)error
+{
+  NSInteger const code = [error code];
+  return (code < 0 || code == 401 || code == 403 || code == 404) && NeedToGenerateUrl(m_params.m_url);
+}
+
 - (void) connection: (NSURLConnection *)connection didFailWithError: (NSError *)error
 {
 	// inform the user
-  NSLog(@"Connection failed for url %s\n%@", m_params.m_url.c_str(), [error localizedDescription]);
+  NSLog(@"Connection failed for url %s\n%@", m_currentUrl.c_str(), [error localizedDescription]);
 
   // retry connection if it's network-specific error
-  if ([error code] < 0 && ++m_retryCounter <= MAX_AUTOMATIC_RETRIES)
+  if ([self shouldRetry:error])
   {
-    [m_connection release];
-  	// create the connection with the request and start loading the data
-		m_connection = [[NSURLConnection alloc] initWithRequest:[self CreateRequest] delegate:self];
-
-		if (m_connection)
+    string const newUrl = m_urlGenerator.PopNextUrl();
+    if (!newUrl.empty())
     {
-    	NSLog(@"Retrying %d time", m_retryCounter);
-    	return;	// successfully restarted connection
-    }
+      m_currentUrl = newUrl + m_params.m_url;
+      [m_connection release];
+  	  // create the connection with the request and start loading the data
+		  m_connection = [[NSURLConnection alloc] initWithRequest:[self CreateRequest] delegate:self];
 
-    NSLog(@"Can't retry connection");
-    // notify observer about error and exit after this if-block
+		  if (m_connection)
+    	  return;	// successfully restarted connection
+
+      NSLog(@"Can't retry connection");
+      // notify observer about error and exit after this if-block
+    }
   }
 
   if (m_file)

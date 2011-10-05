@@ -91,16 +91,21 @@ static QString UserAgent()
   return userAgent;
 }
 
+static bool NeedToUseUrlGenerator(string const & url)
+{
+  return url.find("http://") != 0 && url.find("https://") != 0;
+}
+
 QtDownload::QtDownload(QtDownloadManager & manager, HttpStartParams const & params)
   : QObject(&manager), m_currentUrl(params.m_url.c_str()), m_reply(0),
-    m_retryCounter(0), m_params(params)
+    m_params(params)
 {
   // if we need to save server response to the file...
   if (!m_params.m_fileToSave.empty())
   {
     // use temporary file for download
     m_file.setFileName((m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str());
-    if (!m_file.open(m_params.m_useResume ? QIODevice::Append : QIODevice::WriteOnly))
+    if (!m_file.open(QIODevice::Append))
     {
       QString const err = m_file.errorString();
       LOG(LERROR, ("Can't open file while downloading", qPrintable(m_file.fileName()), qPrintable(err)));
@@ -119,6 +124,10 @@ QtDownload::QtDownload(QtDownloadManager & manager, HttpStartParams const & para
   }
   // url acts as a key to find this download by QtDownloadManager::findChild(url)
   setObjectName(m_params.m_url.c_str());
+
+  // if url doesn't contain valid http:// or https:// we use UrlGenerator
+  if (NeedToUseUrlGenerator(m_params.m_url))
+    m_currentUrl = (m_urlGenerator.PopNextUrl() + m_params.m_url).c_str();
 
   StartRequest();
 }
@@ -141,14 +150,14 @@ QtDownload::~QtDownload()
       m_file.remove();
     }
   }
-  LOG(LDEBUG, (m_params.m_url));
+  LOG(LDEBUG, (m_currentUrl.toString().toLocal8Bit()));
 }
 
 void QtDownload::StartRequest()
 {
   QNetworkRequest httpRequest(m_currentUrl);
   // set user-agent with unique client id only for mapswithme requests
-  if (m_params.m_url.find("mapswithme.com") != string::npos)
+  if (m_currentUrl.host().contains("mapswithme.com"))
     httpRequest.setRawHeader("User-Agent", UserAgent().toAscii());
   if (m_file.isOpen())
   {
@@ -189,11 +198,17 @@ void QtDownload::OnHttpFinished()
   QNetworkReply::NetworkError const netError = m_reply->error();
   if (netError)
   {
-    if (netError <= QNetworkReply::UnknownNetworkError && ++m_retryCounter <= MAX_AUTOMATIC_RETRIES)
-    { // try one more time
-      m_reply->deleteLater();
-      StartRequest();
-      return;
+    if (netError <= QNetworkReply::UnknownNetworkError && NeedToUseUrlGenerator(m_params.m_url))
+    {
+      string const nextUrl = m_urlGenerator.PopNextUrl();
+      if (!nextUrl.empty())
+      {
+        // try one more time
+        m_reply->deleteLater();
+        m_currentUrl = (nextUrl + m_params.m_url).c_str();
+        StartRequest();
+        return;
+      }
     }
     // do not delete file if we can resume it's downloading later
     if (m_file.isOpen())

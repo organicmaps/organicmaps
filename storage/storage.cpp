@@ -62,7 +62,8 @@ namespace storage
 
   string Storage::UpdateBaseUrl() const
   {
-    return UPDATE_BASE_URL OMIM_OS_NAME "/" + strings::to_string(m_currentVersion) + "/";
+    // we do not add server name here - it should be added automatically in Downloader Engine
+    return OMIM_OS_NAME "/" + strings::to_string(m_currentVersion) + "/";
   }
 
   CountriesContainerT const & NodeFromIndex(CountriesContainerT const & root, TIndex const & index)
@@ -193,7 +194,6 @@ namespace storage
           params.m_fileToSave = GetPlatform().WritablePathForFile(it->m_nameWithExt);
           params.m_finish = bind(&Storage::OnMapDownloadFinished, this, _1);
           params.m_progress = bind(&Storage::OnMapDownloadProgress, this, _1);
-          params.m_useResume = true;   // enabled resume support by default
           GetDownloadManager().HttpRequest(params);
           // notify GUI - new status for country, "Downloading"
           if (m_observerChange)

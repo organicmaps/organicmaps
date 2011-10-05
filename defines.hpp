@@ -13,12 +13,6 @@
 #define DATA_UPDATE_FILE "maps.update"
 #define BINARY_UPDATE_FILE "binary.update"
 
-#ifdef OMIM_PRODUCTION
-  #define UPDATE_BASE_URL "http://data.mapswithme.com/"
-#else
-  #define UPDATE_BASE_URL "http://svobodu404popugajam.mapswithme.com:34568/maps/"
-#endif
-
 #define WORLD_FILE_NAME "World"
 #define WORLD_COASTS_FILE_NAME "WorldCoasts"
 

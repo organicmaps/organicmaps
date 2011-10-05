@@ -1,6 +1,7 @@
 #pragma once
 
 #include "download_manager.hpp"
+#include "url_generator.hpp"
 
 #include <QtNetwork/QtNetwork>
 
@@ -8,16 +9,16 @@ class QtDownloadManager;
 
 class QtDownload : public QObject
 {
-private:
   Q_OBJECT
 
   // can be changed during server redirections
   QUrl m_currentUrl;
   QNetworkReply * m_reply;
   QFile m_file;
-  int m_retryCounter;
 
   HttpStartParams m_params;
+
+  UrlGenerator m_urlGenerator;
 
   void StartRequest();
 
