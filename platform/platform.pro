@@ -36,6 +36,8 @@ QT *= core network
   OBJECTIVE_SOURCES += ios_video_timer.mm \
                        ios_concurrent_runner.mm \
                        platform_ios.mm
+} else:android* {
+  SOURCES += platform_android.cpp
 }
 
 macx|iphone* {

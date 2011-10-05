@@ -120,7 +120,7 @@ JNIEXPORT jlong JNICALL
 Java_com_mapswithme_maps_DownloadUI_countrySizeInBytes(JNIEnv * env, jobject thiz,
     jint group, jint country, jint region)
 {
-  storage::TLocalAndRemoteSize const s = g_work->Storage().CountrySizeInBytes(storage::TIndex(group, country, region));
+  storage::LocalAndRemoteSizeT const s = g_work->Storage().CountrySizeInBytes(storage::TIndex(group, country, region));
   // lower int contains remote size, and upper - local one
   int64_t mergedSize = s.second;
   mergedSize |= (s.first << 32);

@@ -13,6 +13,7 @@ DECLARE_EXCEPTION(NotImplementedException, RootException);
 
 class Platform
 {
+protected:
   string m_writableDir, m_resourcesDir;
   class PlatformImpl;
   PlatformImpl * m_impl;
