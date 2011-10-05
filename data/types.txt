@@ -157,6 +157,8 @@ tourism|viewpoint|
 amenity|atm|
 highway|pedestrian|area|
 tourism|picnic_site|
+shop|supermarket|
+shop|convenience|
 shop|bakery|
 highway|construction|
 highway|cycleway|bridge|
@@ -698,5 +700,3 @@ highway|tertiary_link|area|
 highway|unsurfaced|tunnel|
 highway|secondary_link|area|
 natural|allotments|
-shop|convenience|
-shop|supermarket|
