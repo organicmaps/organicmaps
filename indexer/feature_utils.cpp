@@ -14,16 +14,35 @@ namespace impl
 
 class FeatureEstimator
 {
+  template <size_t N>
+  static bool IsEqual(uint32_t t, uint32_t const (&arr)[N])
+  {
+    for (size_t i = 0; i < N; ++i)
+      if (arr[i] == t)
+        return true;
+    return false;
+  }
+
 public:
 
   FeatureEstimator()
   {
     m_TypeContinent   = GetType("place", "continent");
     m_TypeCountry     = GetType("place", "country");
+
+    m_TypeState[0]    = GetType("place", "state");
+    m_TypeState[1]    = GetType("place", "region");
+    m_TypeState[2]    = GetType("place", "county");
+
     m_TypeCity        = GetType("place", "city");
     m_TypeCityCapital = GetType("place", "city", "capital");
     m_TypeTown        = GetType("place", "town");
-    m_TypeVillage     = GetType("place", "village");
+
+    m_TypeVillage[0]  = GetType("place", "village");
+    m_TypeVillage[1]  = GetType("place", "suburb");
+    m_TypeVillage[2]  = GetType("place", "hamlet");
+    m_TypeVillage[3]  = GetType("place", "locality");
+    m_TypeVillage[4]  = GetType("place", "farm");
   }
 
   m2::RectD GetViewport(FeatureType const & feature) const
@@ -55,7 +74,7 @@ public:
     feature.ForEachTypeRef(types);
     for (size_t i = 0; i < types.m_size; ++i)
     {
-      if (types.m_types[i] == m_TypeVillage)
+      if (IsEqual(types.m_types[i], m_TypeVillage))
         population = max(population, static_cast<uint32_t>(1000));
       else if (types.m_types[i] == m_TypeTown)
         population = max(population, static_cast<uint32_t>(10000));
@@ -63,6 +82,8 @@ public:
         population = max(population, static_cast<uint32_t>(100000));
       else if (types.m_types[i] == m_TypeCityCapital)
         population = max(population, static_cast<uint32_t>(1000000));
+      else if (IsEqual(types.m_types[i], m_TypeState))
+        population = max(population, static_cast<uint32_t>(1500000));
       else if (types.m_types[i] == m_TypeCountry)
         population = max(population, static_cast<uint32_t>(2000000));
       else if (types.m_types[i] == m_TypeContinent)
@@ -85,6 +106,9 @@ private:
     if (type == m_TypeCountry)
       return m2::PointD(500*km, 500*km);
 
+    if (IsEqual(type, m_TypeState))
+      return m2::PointD(200*km, 200*km);
+
     if (type == m_TypeCity || type == m_TypeCityCapital)
     {
       double const radius = sqrt(static_cast<double>(feature.GetPopulation() / 3000));
@@ -93,8 +117,10 @@ private:
 
     if (type == m_TypeTown)
       return m2::PointD(8*km, 8*km);
-    if (type == m_TypeVillage)
+
+    if (IsEqual(type, m_TypeVillage))
       return m2::PointD(3*km, 3*km);
+
     return m2::PointD(0, 0);
   }
 
@@ -111,10 +137,11 @@ private:
 
   uint32_t m_TypeContinent;
   uint32_t m_TypeCountry;
+  uint32_t m_TypeState[3];
   uint32_t m_TypeCity;
   uint32_t m_TypeCityCapital;
   uint32_t m_TypeTown;
-  uint32_t m_TypeVillage;
+  uint32_t m_TypeVillage[5];
 };
 
 FeatureEstimator const & GetFeatureEstimator()
