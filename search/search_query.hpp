@@ -17,7 +17,7 @@ namespace search
 
 class CategoriesHolder;
 class KeywordMatcher;
-namespace impl { class IntermediateResult; class FeatureLoader; class BestNameFinder; }
+namespace impl { class IntermediateResult; struct FeatureLoader; class BestNameFinder; }
 
 class Query
 {

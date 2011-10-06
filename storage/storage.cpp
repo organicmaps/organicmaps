@@ -21,28 +21,28 @@ namespace storage
 {
   const int TIndex::INVALID = -1;
 
-  static string ErrorString(DownloadResultT res)
-  {
-    switch (res)
-    {
-    case EHttpDownloadCantCreateFile:
-      return "File can't be created. Probably, you have no disk space available or "
-                         "using read-only file system.";
-    case EHttpDownloadFailed:
-      return "Download failed due to missing or poor connection. "
-                         "Please, try again later.";
-    case EHttpDownloadFileIsLocked:
-      return "Download can't be finished because file is locked. "
-                         "Please, try again after restarting application.";
-    case EHttpDownloadFileNotFound:
-      return "Requested file is absent on the server.";
-    case EHttpDownloadNoConnectionAvailable:
-      return "No network connection is available.";
-    case EHttpDownloadOk:
-      return "Download finished successfully.";
-    }
-    return "Unknown error";
-  }
+//  static string ErrorString(DownloadResultT res)
+//  {
+//    switch (res)
+//    {
+//    case EHttpDownloadCantCreateFile:
+//      return "File can't be created. Probably, you have no disk space available or "
+//                         "using read-only file system.";
+//    case EHttpDownloadFailed:
+//      return "Download failed due to missing or poor connection. "
+//                         "Please, try again later.";
+//    case EHttpDownloadFileIsLocked:
+//      return "Download can't be finished because file is locked. "
+//                         "Please, try again after restarting application.";
+//    case EHttpDownloadFileNotFound:
+//      return "Requested file is absent on the server.";
+//    case EHttpDownloadNoConnectionAvailable:
+//      return "No network connection is available.";
+//    case EHttpDownloadOk:
+//      return "Download finished successfully.";
+//    }
+//    return "Unknown error";
+//  }
 
   ////////////////////////////////////////////////////////////////////////////
   void Storage::Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc, TUpdateRectFunction updateRectFunc, TEnumMapsFunction enumMapsFunc)

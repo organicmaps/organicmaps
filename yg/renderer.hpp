@@ -18,6 +18,7 @@ namespace yg
     class Renderer
     {
     public:
+      virtual ~Renderer() {}
 
       struct Params
       {
