@@ -331,7 +331,7 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
 
   ScreenBase tmp = m_Screen;
   tmp.SetGtoPMatrix(newM);
-//  tmp.Rotate(-tmp.GetAngle());
+  tmp.Rotate(-tmp.GetAngle());
 
   if (!skipMaxScaleAndBordersCheck && !CheckMaxScale(tmp))
     return false;
