@@ -44,12 +44,8 @@ private:
   mutable vector<m2::AnyRectD> m_boundRects;
 
   typedef double (*ConversionFn)(double);
-  vector<pair<string, double> > * m_units;
+  vector<pair<string, double> > m_units;
   ConversionFn m_conversionFn;
-
-  vector<pair<string, double> > m_yards;
-  vector<pair<string, double> > m_feets;
-  vector<pair<string, double> > m_metres;
 
   void initYards();
   void initMetres();
