@@ -349,6 +349,10 @@ public:
     void moveDown(int n = 1) { m_tc.movePosition(Down, m_moveMode, n); }
     void moveRight(int n = 1) { m_tc.movePosition(Right, m_moveMode, n); }
     void moveLeft(int n = 1) { m_tc.movePosition(Left, m_moveMode, n); }
+    void newLine(){m_tc.insertBlock();}
+    void backspace(){m_tc.deletePreviousChar();}
+    void insertBackSlash(){m_tc.insertText("\\");}
+    void insertStraightDelim(){m_tc.insertText("|");}
     void setAnchor() { m_anchor = m_tc.position(); }
     void setAnchor(int position) { m_anchor = position; }
     void setPosition(int position) { m_tc.setPosition(position, MoveAnchor); }
@@ -576,6 +580,12 @@ void EmacsModeHandler::Private::init()
     m_shortcuts.push_back(Emacs::Shortcut("<META>|b")
                             .addFn(boost::bind(&EmacsModeHandler::Private::moveLeft, this, 1))
                             .addFn(boost::bind(&EmacsModeHandler::Private::setKillBufferAppending, this, false)));
+    m_shortcuts.push_back(Emacs::Shortcut("<META>|m")
+                            .addFn(boost::bind(&EmacsModeHandler::Private::newLine, this))
+                            .addFn(boost::bind(&EmacsModeHandler::Private::setKillBufferAppending, this, false)));
+    m_shortcuts.push_back(Emacs::Shortcut("<META>|j")
+                            .addFn(boost::bind(&EmacsModeHandler::Private::backspace, this))
+                            .addFn(boost::bind(&EmacsModeHandler::Private::setKillBufferAppending, this, false)));
     m_shortcuts.push_back(Emacs::Shortcut("<META>|e")
                             .addFn(boost::bind(&EmacsModeHandler::Private::moveToEndOfLine, this))
                             .addFn(boost::bind(&EmacsModeHandler::Private::setKillBufferAppending, this, false)));
@@ -597,6 +607,11 @@ void EmacsModeHandler::Private::init()
 
     m_shortcuts.push_back(Emacs::Shortcut("<META>|w").addFn(boost::bind(&EmacsModeHandler::Private::killSelected, this)));
     m_shortcuts.push_back(Emacs::Shortcut("<ALT>|w").addFn(boost::bind(&EmacsModeHandler::Private::copySelected, this)));
+    m_shortcuts.push_back(Emacs::Shortcut("<META>|<SLASH>").addFn(boost::bind(&EmacsModeHandler::Private::insertBackSlash, this))
+                                                           .addFn(boost::bind(&EmacsModeHandler::Private::setKillBufferAppending, this, false)));
+    m_shortcuts.push_back(Emacs::Shortcut("<CONTROL>|<SLASH>").addFn(boost::bind(&EmacsModeHandler::Private::insertStraightDelim, this))
+                                                                   .addFn(boost::bind(&EmacsModeHandler::Private::setKillBufferAppending, this, false)));
+//    m_shortcuts.push_back(Emacs::Shortcut("<ALT>|w").addFn(boost::bind(&EmacsModeHandler::Private::copySelected, this)));
     m_shortcuts.push_back(Emacs::Shortcut("<META>|k").addFn(boost::bind(&EmacsModeHandler::Private::killLine, this)));
     m_shortcuts.push_back(Emacs::Shortcut("<META>|y").addFn(boost::bind(&EmacsModeHandler::Private::yank, this)));
     m_shortcuts.push_back(Emacs::Shortcut("<META>|x|s").addFn(boost::bind(&EmacsModeHandler::Private::saveCurrentFile, this)));

@@ -32,8 +32,10 @@ namespace Emacs
         m_keys.push_back(Qt::Key_Underscore);
       else if (key == "<ESC>")
         m_keys.push_back(Qt::Key_Escape);
+      else if (key == "<SLASH>")
+        m_keys.push_back(Qt::Key_Slash);
       else
-          m_keys.push_back(key.at(0).toAscii() - 'A' + Qt::Key_A);
+        m_keys.push_back(key.at(0).toAscii() - 'A' + Qt::Key_A);
     }
   }
 
