@@ -31,7 +31,7 @@ private:
   yg::FontDesc m_fontDesc;
   ScreenBase m_screen;
 
-  float m_unitsDiff; //< current diff in units between two endpoints of the ruler.
+  float m_metresDiff; //< current diff in units between two endpoints of the ruler.
   string m_scalerText;
   vector<m2::PointD> m_path;
 
@@ -42,6 +42,18 @@ private:
   typedef OverlayElement base_t;
 
   mutable vector<m2::AnyRectD> m_boundRects;
+
+  typedef double (*ConversionFn)(double);
+  vector<pair<string, double> > * m_units;
+  ConversionFn m_conversionFn;
+
+  vector<pair<string, double> > m_yards;
+  vector<pair<string, double> > m_feets;
+  vector<pair<string, double> > m_metres;
+
+  void initYards();
+  void initMetres();
+  void initFeets();
 
 public:
 

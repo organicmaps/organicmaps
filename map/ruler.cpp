@@ -1,6 +1,9 @@
 #include "../base/SRC_FIRST.hpp"
 
 #include "ruler.hpp"
+#include "measurement_utils.hpp"
+
+#include "../platform/settings.hpp"
 
 #include "../yg/overlay_renderer.hpp"
 #include "../yg/skin.hpp"
@@ -9,9 +12,98 @@
 #include "../base/logging.hpp"
 #include "../base/string_utils.hpp"
 
+void Ruler::initFeets()
+{
+  m_feets.push_back(make_pair("100 ft", 100));
+  m_feets.push_back(make_pair("200 ft", 200));
+  m_feets.push_back(make_pair("0.1 mi", 528));
+  m_feets.push_back(make_pair("0.2 mi", 528 * 2));
+  m_feets.push_back(make_pair("0.5 mi", 528 * 5));
+  m_feets.push_back(make_pair("1 mi", 5280));
+  m_feets.push_back(make_pair("2 mi", 2 * 5280));
+  m_feets.push_back(make_pair("5 mi", 5 * 5280));
+  m_feets.push_back(make_pair("10 mi", 10 * 5280));
+  m_feets.push_back(make_pair("20 mi", 20 * 5280));
+  m_feets.push_back(make_pair("50 mi", 50 * 5280));
+  m_feets.push_back(make_pair("100 mi", 100 * 5280));
+  m_feets.push_back(make_pair("200 mi", 200 * 5280));
+  m_feets.push_back(make_pair("500 mi", 500 * 5280));
+}
+
+void Ruler::initYards()
+{
+  m_yards.push_back(make_pair("50 yd", 50));
+  m_yards.push_back(make_pair("100 yd", 100));
+  m_yards.push_back(make_pair("200 yd", 200));
+  m_yards.push_back(make_pair("500 yd", 500));
+  m_yards.push_back(make_pair("0.5 mi", 0.5 * 1760));
+  m_yards.push_back(make_pair("1 mi", 1760));
+  m_yards.push_back(make_pair("2 mi", 2 * 1760));
+  m_yards.push_back(make_pair("5 mi", 5 * 1760));
+  m_yards.push_back(make_pair("10 mi", 10 * 1760));
+  m_yards.push_back(make_pair("20 mi", 20 * 1760));
+  m_yards.push_back(make_pair("50 mi", 50 * 1760));
+  m_yards.push_back(make_pair("100 mi", 100 * 1760));
+  m_yards.push_back(make_pair("200 mi", 200 * 1760));
+  m_yards.push_back(make_pair("500 mi", 500 * 1760));
+}
+
+void Ruler::initMetres()
+{
+  m_metres.push_back(make_pair("20 m", 20));
+  m_metres.push_back(make_pair("50 m", 50));
+  m_metres.push_back(make_pair("100 m", 100));
+  m_metres.push_back(make_pair("200 m", 200));
+  m_metres.push_back(make_pair("500 m", 500));
+  m_metres.push_back(make_pair("1 km", 1000));
+  m_metres.push_back(make_pair("2 km", 2000));
+  m_metres.push_back(make_pair("5 km", 5000));
+  m_metres.push_back(make_pair("10 km", 10000));
+  m_metres.push_back(make_pair("20 km", 20000));
+  m_metres.push_back(make_pair("50 km", 50000));
+  m_metres.push_back(make_pair("100 km", 100000));
+  m_metres.push_back(make_pair("200 km", 200000));
+  m_metres.push_back(make_pair("500 km", 500000));
+  m_metres.push_back(make_pair("1000 km", 1000000));
+}
+
+namespace {
+  double identity(double val)
+  {
+    return val;
+  }
+}
+
 Ruler::Ruler(Params const & p)
   : base_t(p), m_boundRects(1)
-{}
+{
+  Settings::Units units;
+  Settings::Get("Units", units);
+  switch (units)
+  {
+    case Settings::Foot:
+    {
+      initFeets();
+      m_units = &m_feets;
+      m_conversionFn = &MeasurementUtils::MetersToFeet;
+      break;
+    }
+    case Settings::Metric:
+    {
+      initMetres();
+      m_units = &m_metres;
+      m_conversionFn = &identity;
+      break;
+    }
+    case Settings::Yard:
+    {
+      initYards();
+      m_units = &m_yards;
+      m_conversionFn = &MeasurementUtils::MetersToYards;
+      break;
+    }
+  }
+}
 
 void Ruler::setScreen(ScreenBase const & screen)
 {
@@ -48,43 +140,6 @@ void Ruler::setFontDesc(yg::FontDesc const & fontDesc)
   m_fontDesc = fontDesc;
 }
 
-unsigned Ruler::ceil(double unitsDiff)
-{
-  /// finding the closest higher metric value
-  double curVal = m_minUnitsWidth;
-
-  unsigned curFirstDigit = (unsigned)m_minUnitsWidth;
-  while (curFirstDigit > 10)
-    curFirstDigit /= 10;
-
-  if (unitsDiff > m_maxUnitsWidth)
-    curVal = m_maxUnitsWidth + 1;
-  else
-  if (unitsDiff < m_minUnitsWidth)
-    curVal = m_minUnitsWidth - 1;
-  else
-    while (true)
-    {
-      double nextVal = curFirstDigit == 2 ? (curVal * 5 / 2) : curVal * 2;
-      unsigned nextFirstDigit = curFirstDigit == 2 ? (curFirstDigit * 5 / 2) : curFirstDigit * 2;
-
-      if (nextFirstDigit >= 10)
-        nextFirstDigit /= 10;
-
-      if ((curVal <= unitsDiff) && (nextVal > unitsDiff))
-      {
-        curVal = nextVal;
-        curFirstDigit = nextFirstDigit;
-        break;
-      }
-
-      curVal = nextVal;
-      curFirstDigit = nextFirstDigit;
-    }
-
-  return (unsigned)curVal;
-}
-
 void Ruler::update()
 {
   m2::PointD glbPivot = m_screen.PtoG(pivot());
@@ -104,36 +159,34 @@ void Ruler::update()
   /// converting into metres
   /// TODO : calculate in different units
 
-  m_unitsDiff = lonDiff / MercatorBounds::degreeInMetres * lonDiffCorrection;
-  m_unitsDiff = ceil(m_unitsDiff);
+  m_metresDiff = lonDiff / MercatorBounds::degreeInMetres * lonDiffCorrection;
 
-  /// updating scaler text
-
-  bool higherThanMax = m_unitsDiff > m_maxUnitsWidth;
-  bool lessThanMin = m_unitsDiff < m_minUnitsWidth;
-
-  double textUnitsDiff = m_unitsDiff;
-
-  m_scalerText = "";
-  if (higherThanMax)
+  if (m_units->at(0).second > m_conversionFn(m_metresDiff))
   {
-    m_scalerText = ">";
-    textUnitsDiff = m_maxUnitsWidth;
+    m_scalerText = "<" + m_units->at(0).first;
+    m_metresDiff = m_minUnitsWidth - 1;
+  }
+  else if (m_units->back().second <= m_conversionFn(m_metresDiff))
+  {
+    m_scalerText = ">" + m_units->back().first;
+    m_metresDiff = m_maxUnitsWidth + 1;
   }
   else
-    if (lessThanMin)
+    for (size_t i = 0; i < m_units->size(); ++i)
     {
-      m_scalerText = "<";
-      textUnitsDiff = m_minUnitsWidth;
+      if (m_units->at(i).second > m_conversionFn(m_metresDiff))
+      {
+        m_metresDiff = m_units->at(i).second / m_conversionFn(1);
+        m_scalerText = m_units->at(i).first;
+        break;
+      }
     }
 
-  if (m_unitsDiff >= 1000)
-    m_scalerText += strings::to_string(textUnitsDiff / 1000) + " km";
-  else
-    m_scalerText += strings::to_string(textUnitsDiff) + " m";
+  bool higherThanMax = m_metresDiff > m_maxUnitsWidth;
+  bool lessThanMin = m_metresDiff < m_minUnitsWidth;
 
-  /// translating units into pixels
-  double scalerWidthLatDiff = (double)m_unitsDiff * MercatorBounds::degreeInMetres / lonDiffCorrection;
+  /// translating metres into pixels
+  double scalerWidthLatDiff = (double)m_metresDiff * MercatorBounds::degreeInMetres / lonDiffCorrection;
   double scalerWidthXDiff = MercatorBounds::LonToX(glbPivot.x + scalerWidthLatDiff / 2)
                           - MercatorBounds::LonToX(glbPivot.x - scalerWidthLatDiff / 2);
 
