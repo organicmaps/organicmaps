@@ -78,7 +78,10 @@ Ruler::Ruler(Params const & p)
   : base_t(p), m_boundRects(1)
 {
   Settings::Units units;
-  Settings::Get("Units", units);
+  units = Settings::Metric;
+
+  VERIFY(Settings::Get("Units", units), ());
+
   switch (units)
   {
     case Settings::Foot:

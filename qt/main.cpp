@@ -14,6 +14,7 @@
 #include "../std/cstdio.hpp"
 
 #include <QtGui/QApplication>
+#include <QtCore/QLocale>
 
 //#ifdef OMIM_OS_WINDOWS
 //  #include <../src/gui/image/qimageiohandler.h>
@@ -84,6 +85,21 @@ int main(int argc, char *argv[])
   QApplication a(argc, argv);
 
   (void)GetPlatform();
+
+  // checking default measurement system.
+
+  Settings::Units u;
+
+  if (!Settings::Get("Units", u))
+  {
+    // set default measurement from system locale
+    if (QLocale::system().measurementSystem() == QLocale::MetricSystem)
+      u = Settings::Metric;
+    else
+      u = Settings::Foot;
+  }
+
+  Settings::Set("Units", u);
 
   // display EULA if needed
   bool eulaAccepted = false;
