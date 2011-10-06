@@ -124,7 +124,7 @@ namespace m2
     void Swap(Region<PointT> & rhs)
     {
       m_points.swap(rhs.m_points);
-      swap(m_rect, rhs.m_rect);
+      std::swap(m_rect, rhs.m_rect);
     }
 
   public:
