@@ -151,10 +151,6 @@ BenchmarkFramework<TModel>::BenchmarkFramework(shared_ptr<WindowHandle> const & 
 
   m_startTime = my::FormatCurrentTime();
 
-#ifdef DEBUG
-  base_type::m_informationDisplay.enableGlobalRect(false);
-#endif
-
   base_type::m_informationDisplay.enableBenchmarkInfo(true);
 }
 

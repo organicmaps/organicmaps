@@ -108,10 +108,6 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
   m_informationDisplay.enableDebugPoints(true);
 #endif
 
-#ifdef DEBUG
-  m_informationDisplay.enableGlobalRect(true);
-#endif
-
   m_informationDisplay.enableCenter(true);
   m_informationDisplay.enableRuler(true);
   m_informationDisplay.setRulerParams(m_minRulerWidth, m_metresMinWidth, m_metresMaxWidth);
@@ -373,7 +369,6 @@ void Framework<TModel>::DoPaint(shared_ptr<PaintEvent> const & e)
 
   m2::PointD const center = m_navigator.Screen().GlobalRect().GlobalCenter();
 
-  m_informationDisplay.setGlobalRect(m_navigator.Screen().GlobalRect());
   m_informationDisplay.setCenter(m2::PointD(MercatorBounds::XToLon(center.x), MercatorBounds::YToLat(center.y)));
 
   e->drawer()->screen()->beginFrame();

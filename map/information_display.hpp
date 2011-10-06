@@ -40,9 +40,6 @@ private:
   m2::PointD m_centerPtLonLat;
   int m_currentScale;
 
-  bool m_isGlobalRectEnabled;
-  m2::AnyRectD m_globalRect;
-
   bool m_isDebugInfoEnabled;
   double m_frameDuration;
 
@@ -91,10 +88,6 @@ public:
   void enableCenter(bool doEnable);
   void setCenter(m2::PointD const & latLongPt);
   void drawCenter(DrawerYG * pDrawer);
-
-  void enableGlobalRect(bool doEnable);
-  void setGlobalRect(m2::AnyRectD const & r);
-  void drawGlobalRect(DrawerYG * pDrawer);
 
   void enableDebugInfo(bool doEnable);
   void setDebugInfo(double frameDuration, int currentScale);

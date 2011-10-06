@@ -28,7 +28,6 @@ InformationDisplay::InformationDisplay()
   enableDebugInfo(false);
   enableMemoryWarning(false);
   enableBenchmarkInfo(false);
-  enableGlobalRect(false);
   enableEmptyModelMessage(false);
 
   for (int i = 0; i < sizeof(m_DebugPts) / sizeof(m2::PointD); ++i)
@@ -105,7 +104,6 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
   m_ruler.update();
 
   m_ruler.draw(pDrawer->screen().get(), math::Identity<double, 3>());
-//  pDrawer->screen()->drawRectangle(m2::Inflate(m2::RectD(pivot, pivot), 2.0, 2.0), yg::Color(0, 0, 0, 255), yg::maxDepth);
 }
 
 void InformationDisplay::setVisualScale(double visualScale)
@@ -161,30 +159,6 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
         yg::maxDepth - 1);
 
   ste.draw(drawer->screen().get(), math::Identity<double, 3>());
-}
-
-void InformationDisplay::enableGlobalRect(bool doEnable)
-{
-  m_isGlobalRectEnabled = doEnable;
-}
-
-void InformationDisplay::setGlobalRect(m2::AnyRectD const & r)
-{
-  m_globalRect = r;
-}
-
-void InformationDisplay::drawGlobalRect(DrawerYG *pDrawer)
-{
-  m_yOffset += 20;
-  ostringstream out;
-/*  out << "(" << m_globalRect.minX() << ", " << m_globalRect.minY() << ", " << m_globalRect.maxX() << ", " << m_globalRect.maxY() << ") Scale : " << m_currentScale;
-  pDrawer->screen()->drawText(
-        m_fontDesc,
-        m2::PointD(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset),
-        yg::EPosAboveRight,
-        out.str().c_str(),
-        yg::maxDepth,
-        false);*/
 }
 
 void InformationDisplay::enableDebugInfo(bool doEnable)
@@ -434,8 +408,6 @@ void InformationDisplay::doDraw(DrawerYG *drawer)
     drawRuler(drawer);
   if (m_isCenterEnabled)
     drawCenter(drawer);
-  if (m_isGlobalRectEnabled)
-    drawGlobalRect(drawer);
   if (m_isDebugInfoEnabled)
     drawDebugInfo(drawer);
   if (m_isMemoryWarningEnabled)
