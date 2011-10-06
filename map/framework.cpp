@@ -35,6 +35,9 @@
 
 using namespace feature;
 
+template <typename TModel>
+Framework<TModel>::~Framework()
+{}
 
 template <typename TModel>
 void Framework<TModel>::AddMap(string const & file)

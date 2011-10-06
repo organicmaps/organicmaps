@@ -140,6 +140,8 @@ public:
   Framework(shared_ptr<WindowHandle> windowHandle,
             size_t bottomShift);
 
+  virtual ~Framework();
+
   void SetRenderPolicy(shared_ptr<RenderPolicy> const & rp);
 
   void InitializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
