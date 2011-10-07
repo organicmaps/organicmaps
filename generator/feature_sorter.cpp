@@ -166,13 +166,14 @@ namespace feature
 
       void WriteOuterPoints(points_t const & points, int i)
       {
-        ASSERT_GREATER ( points.size(), 2, () );
+        // outer path can have 2 points in small scale levels
+        ASSERT_GREATER ( points.size(), 1, () );
 
         serial::CodingParams cp = m_header.GetCodingParams(i);
 
         // Optimization: Store first point once in header for outer linear features.
         cp.SetBasePoint(points[0]);
-        // "!!!Cry for me, river!!!"
+        // Can optimize here, but ... Make copy of vector.
         points_t toSave(points.begin() + 1, points.end());
 
         m_buffer.m_ptsMask |= (1 << i);
