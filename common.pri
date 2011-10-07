@@ -126,6 +126,12 @@ linux-g++* {
   QMAKE_LFLAGS *= -Wl,--gc-sections
 }
 
+android-g++ {
+  QMAKE_CFLAGS *= -fdata-sections -ffunction-sections
+  QMAKE_CXXFLAGS *= -fdata-sections -ffunction-sections
+  QMAKE_LFLAGS *= -Wl,--gc-sections
+}
+
 win32-g++ {
   QMAKE_CFLAGS *= -Wextra
   QMAKE_CXXFLAGS *= -Wextra

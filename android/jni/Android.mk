@@ -7,6 +7,9 @@ LOCAL_MODULE    := mapswithme
 #LOCAL_CFLAGS := -DANDROID_NDK \
 #                -DDISABLE_IMPORTGL
 
+LOCAL_CFLAGS := -ffunction-sections -fdata-sections
+
+
 LOCAL_HEADER_FILES := \
 	jni_helper.h \
 	jni_string.h \
@@ -32,5 +35,7 @@ LOCAL_LDLIBS := -llog -lGLESv1_CM \
 
 LOCAL_LDLIBS += -L../../omim-android-debug/out/debug
 #LOCAL_LDLIBS += -L../../omim-android-release/out/release
+
+LOCAL_LDLIBS += -Wl,--gc-sections
 
 include $(BUILD_SHARED_LIBRARY)
