@@ -1,8 +1,8 @@
 #pragma once
 
 #include "borders_loader.hpp"
+#include "feature_builder.hpp"
 
-#include "../indexer/feature.hpp"
 #include "../indexer/feature_visibility.hpp"
 #include "../indexer/cell_id.hpp"
 

@@ -92,6 +92,7 @@ void CoastlineFeaturesGenerator::AddRegionToTree(FeatureBuilder1 const & fb)
 
   DoCreateRegion createRgn;
   //DoAccumulate<RegionsT> createRgn(m_regions);
+  CHECK_EQUAL(fb.GetPolygonsCount(), 1, ());
   fb.ForEachGeometryPoint(createRgn);
   createRgn.Add(m_tree);
 }

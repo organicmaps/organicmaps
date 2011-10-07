@@ -71,6 +71,7 @@ public:
   bool IsGeometryClosed() const;
 
   inline size_t GetPointsCount() const { return GetGeometry().size(); }
+  inline size_t GetPolygonsCount() const { return m_Polygons.size(); }
 
   // stops processing when functor returns false
   template <class ToDo>
@@ -80,10 +81,10 @@ public:
       toDo(m_Center);
     else
     {
-      points_t const & poly = GetGeometry();
-      for (points_t::const_iterator it = poly.begin(); it != poly.end(); ++it)
-        if (!toDo(*it))
-          return;
+      for (list<points_t>::const_iterator i = m_Polygons.begin(); i != m_Polygons.end(); ++i)
+        for (points_t::const_iterator j = i->begin(); j != i->end(); ++j)
+          if (!toDo(*j))
+            return;
     }
   }
   //@}
