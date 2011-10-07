@@ -161,11 +161,24 @@ namespace
       vector<m2::PointD> pts;
       vector<double> pattern;
 
+      pattern.push_back(20);
+      pattern.push_back(30);
+
+      pts.push_back(m2::PointD(200, 80));
+      pts.push_back(m2::PointD(300, 80));
+
+      AddTest(pts, pattern, yg::Color(0, 0, 0, 255), 4, 0, 150);
+
+      pts.clear();
+      pts.push_back(m2::PointD(200, 90));
+      pts.push_back(m2::PointD(300, 90));
+
+      AddTest(pts, pattern, yg::Color(0, 0, 0, 255), 4, 0, -150);
+
+      pts.clear();
       pts.push_back(m2::PointD(200, 100));
       pts.push_back(m2::PointD(400, 100));
 
-      pattern.push_back(20);
-      pattern.push_back(30);
 
       /// The path should start from -10px path offset.
       AddTest(pts, pattern, yg::Color(0, 0, 0, 255), 4, 0, -10);
@@ -1322,7 +1335,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawSingleSymbol);
 //   UNIT_TEST_GL(TestDrawEmptySymbol);
 //   UNIT_TEST_GL(TestDrawSingleSymbolAndSolidPath);
-   UNIT_TEST_GL(TestDrawMultiLineStringWithPosition);
+//   UNIT_TEST_GL(TestDrawMultiLineStringWithPosition);
 //   UNIT_TEST_GL(TestDrawString);
 //   UNIT_TEST_GL(TestDrawStringWithFixedFont);
 //   UNIT_TEST_GL(TestDrawStringWithColor);
@@ -1344,7 +1357,7 @@ namespace
 //   UNIT_TEST_GL(TestDrawPoly);
 //   UNIT_TEST_GL(TestDrawSolidRect);
 //   UNIT_TEST_GL(TestDrawPathWithSkinPageMiss);
-//   UNIT_TEST_GL(TestDrawPathWithOffset);
+   UNIT_TEST_GL(TestDrawPathWithOffset);
 //   UNIT_TEST_GL(TestDrawPathJoin);
 //   UNIT_TEST_GL(TestDrawPathSolid1PX);
 //   UNIT_TEST_GL(TestDrawPathSolid2PX);

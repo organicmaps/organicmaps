@@ -46,6 +46,11 @@ namespace yg
 
       float rawTileStartLen = 0;
 
+      float rawTileLen = (float)lineStyle->rawTileLen();
+
+      if ((offset < 0) && (!lineStyle->m_isWrapped))
+        offset = offset - rawTileLen * ceil(offset / rawTileLen);
+
       bool skipToOffset = true;
 
       for (size_t i = 0; i < pointsCount - 1; ++i)
@@ -84,15 +89,21 @@ namespace yg
         /// The rightmost tile goes non-antialised at left and antialiased at right side.
 
         /// Length of the actual pattern data being tiling(without antialiasing zones).
-        float rawTileLen = 0;
+        rawTileLen = 0;
+
+        shared_ptr<BaseTexture> texture = skin()->getPage(lineStyle->m_pipelineID)->texture();
+
+        float texMaxY = lineStyle->m_texRect.maxY() - aaShift();
+        float texMinY = lineStyle->m_texRect.minY() + aaShift();
+
+        m2::PointF const fNorm = norm * geomHalfWidth;  // enough to calc it once
+
         while (segLenRemain > 0)
         {
           rawTileLen = lineStyle->m_isWrapped
                        ? segLen
                        : std::min(((float)lineStyle->rawTileLen() - rawTileStartLen), segLenRemain);
 
-          float texMaxY = lineStyle->m_texRect.maxY() - aaShift();
-          float texMinY = lineStyle->m_texRect.minY() + aaShift();
 
           float texMinX = lineStyle->m_isWrapped ? 0 : lineStyle->m_texRect.minX() + 2 + rawTileStartLen;
           float texMaxX = texMinX + rawTileLen;
@@ -104,7 +115,6 @@ namespace yg
 
           m2::PointF rawTileEndPt(rawTileStartPt.x + dir.x * rawTileLen, rawTileStartPt.y + dir.y * rawTileLen);
 
-          m2::PointF const fNorm = norm * geomHalfWidth;  // enough to calc it once
           m2::PointF coords[4] =
           {
             // vng: i think this "rawTileStartPt + fNorm" reading better, isn't it?
@@ -113,8 +123,6 @@ namespace yg
             m2::PointF(rawTileEndPt.x - fNorm.x, rawTileEndPt.y - fNorm.y),
             m2::PointF(rawTileEndPt.x + fNorm.x, rawTileEndPt.y + fNorm.y)
           };
-
-          shared_ptr<BaseTexture> texture = skin()->getPage(lineStyle->m_pipelineID)->texture();
 
           m2::PointF texCoords[4] =
           {
