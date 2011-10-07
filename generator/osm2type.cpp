@@ -476,8 +476,8 @@ namespace ftype {
             continue;
 
           // this means "no"
-          //if (get_mark_value(k, v) == -1)
-          //  continue;
+          if (get_mark_value(k, v) == -1)
+            continue;
 
           strings::Tokenize(v, ";", tags_wrapper<ToDo>(k, toDo, res));
           if (res) return res;
