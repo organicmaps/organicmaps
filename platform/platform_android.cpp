@@ -19,6 +19,12 @@ static string ReadPathForFile(string const & writableDir,
   return fullPath;
 }
 
+Platform::Platform()
+{}
+
+Platform::~Platform()
+{}
+
 ModelReader * Platform::GetReader(string const & file) const
 {
   if (IsFileExists(m_writableDir + file))
@@ -101,3 +107,26 @@ string Platform::SkinName() const
   return "basic.skn";
 }
 
+void Platform::GetFontNames(FilesList & res) const
+{
+  GetFilesInDir(ResourcesDir(), "*.ttf", res);
+  sort(res.begin(), res.end());
+}
+
+int Platform::ScaleEtalonSize() const
+{
+  return 512 + 256;
+}
+
+bool Platform::GetFileSize(string const & file, uint64_t & size) const
+{
+  try
+  {
+    size = ReaderPtr<Reader>(GetReader(file)).Size();
+    return true;
+  }
+  catch (RootException)
+  {
+    return false;
+  }
+}

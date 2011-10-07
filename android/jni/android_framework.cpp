@@ -13,12 +13,6 @@
 #include "../../std/shared_ptr.hpp"
 #include "../../std/bind.hpp"
 
-
-void AndroidFramework::ViewHandle::invalidateImpl()
-{
-  m_parent->CallRepaint();
-}
-
 void AndroidFramework::CallRepaint()
 {
   // Always get current env pointer, it's different for each thread
@@ -28,7 +22,9 @@ void AndroidFramework::CallRepaint()
 }
 
 AndroidFramework::AndroidFramework(JavaVM * jvm)
-: m_jvm(jvm), m_view(new ViewHandle(this)), m_work(m_view, 0)
+: m_jvm(jvm),
+  m_handle(new WindowHandle()),
+  m_work(m_handle, 0)
 {
   m_work.InitStorage(m_storage);
   // @TODO refactor storage
@@ -50,7 +46,7 @@ namespace
       : m_threadCount(threadCount)
     {}
 
-    void operator() (int, int, drule::BaseRule * p)
+    void operator() (int, int, int, drule::BaseRule * p)
     {
       for (size_t threadID = 0; threadID < m_threadCount; ++threadID)
       {
@@ -67,10 +63,10 @@ void AndroidFramework::InitRenderer()
   drule::rules().ForEachRule(make_all_invalid(GetPlatform().CpuCores() + 1));
 
   // temporary workaround
-  m_work.SetRenderPolicy(shared_ptr<RenderPolicy>(new RenderPolicyST(m_view, bind(&Framework<model::FeaturesFetcher>::DrawModel, &m_work, _1, _2, _3, _4))));
+  m_work.SetRenderPolicy(shared_ptr<RenderPolicy>(new RenderPolicyST(m_handle, bind(&Framework<model::FeaturesFetcher>::DrawModel, &m_work, _1, _2, _3, _4, _5, false))));
 
-  m_view->setRenderContext(shared_ptr<yg::gl::RenderContext>());
-  m_view->setDrawer(shared_ptr<DrawerYG>());
+//  m_view->setRenderContext(shared_ptr<yg::gl::RenderContext>());
+//  m_view->setDrawer(shared_ptr<DrawerYG>());
 
   shared_ptr<yg::gl::RenderContext> pRC = CreateRenderContext();
 
@@ -78,11 +74,11 @@ void AndroidFramework::InitRenderer()
   shared_ptr<yg::ResourceManager> pRM = CreateResourceManager();
 
   LOG(LDEBUG, ("AF::InitRenderer 3"));
-  m_view->setRenderContext(pRC);
-  m_view->setDrawer(CreateDrawer(pRM));
+  //m_view->setRenderContext(pRC);
+  m_drawer = CreateDrawer(pRM);
 
   LOG(LDEBUG, ("AF::InitRenderer 4"));
-  m_work.initializeGL(pRC, pRM);
+  m_work.InitializeGL(pRC, pRM);
 
   LOG(LDEBUG, ("AF::InitRenderer 5"));
 
@@ -93,13 +89,23 @@ void AndroidFramework::InitRenderer()
 
 void AndroidFramework::Resize(int w, int h)
 {
-  m_view->drawer()->onSize(w, h);
+  m_drawer->onSize(w, h);
   m_work.OnSize(w, h);
 }
 
 void AndroidFramework::DrawFrame()
 {
-  m_work.Paint(make_shared_ptr(new PaintEvent(m_view->drawer())));
+  if (m_work.NeedRedraw())
+  {
+    m_work.SetNeedRedraw(false);
+
+    shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_drawer.get()));
+
+    m_work.BeginPaint(paintEvent);
+    m_work.DoPaint(paintEvent);
+
+    m_work.EndPaint(paintEvent);
+  }
 }
 
 void AndroidFramework::Move(int mode, double x, double y)

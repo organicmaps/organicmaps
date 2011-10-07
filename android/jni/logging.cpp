@@ -19,7 +19,7 @@ void AndroidLogMessage(LogLevel l, SrcPoint const & src, string const & s)
   case LCRITICAL: pr = ANDROID_LOG_FATAL; break;
   }
 
-  string const out = debug_print(src) + " " + s;
+  string const out = DebugPrint(src) + " " + s;
   __android_log_print(pr, "MapsWithMe_JNI", out.c_str());
 }
 

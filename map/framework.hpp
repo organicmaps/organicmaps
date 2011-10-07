@@ -123,7 +123,7 @@ protected:
 
   mutable threads::Mutex m_modelSyn;
 
-  int m_tileSize;
+//  int m_tileSize;
 
   my::Timer m_timer;
 

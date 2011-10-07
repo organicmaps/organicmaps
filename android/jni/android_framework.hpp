@@ -1,27 +1,21 @@
 #pragma once
 
 #include "../../map/framework.hpp"
-#include "../../map/feature_vec_model.hpp"
+#include "../../map/drawer_yg.hpp"
 #include "../../map/window_handle.hpp"
+#include "../../map/feature_vec_model.hpp"
 
 #include "../../storage/storage.hpp"
 
 #include <jni.h>
 
-
 class AndroidFramework
 {
-public:
-  class ViewHandle : public WindowHandle
-  {
-    AndroidFramework * m_parent;
-  public:
-    ViewHandle(AndroidFramework * parent) : m_parent(parent) {}
-    virtual void invalidateImpl();
-  };
 
 private:
-  shared_ptr<ViewHandle> m_view;
+  shared_ptr<DrawerYG> m_drawer;
+  shared_ptr<WindowHandle> m_handle;
+
   Framework<model::FeaturesFetcher> m_work;
   storage::Storage m_storage;
 

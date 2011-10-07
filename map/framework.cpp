@@ -95,8 +95,8 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
 #else
     m_minRulerWidth(48),
 #endif
-    m_centeringMode(EDoNothing),
-    m_tileSize(GetPlatform().TileSize())
+    m_centeringMode(EDoNothing)
+//    m_tileSize(GetPlatform().TileSize())
 {
   // on Android policy is created in AndroidFramework
 #ifndef OMIM_OS_ANDROID

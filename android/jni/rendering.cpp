@@ -26,11 +26,10 @@ shared_ptr<yg::ResourceManager> CreateResourceManager()
         blitVBSize, blitIBSize, 10,
         512, 256, 6,
         512, 256, 4,
-        pl.TileSize(), pl.TileSize(), pl.MaxTilesCount(),
         "unicode_blocks.txt",
         "fonts_whitelist.txt",
         "fonts_blacklist.txt",
-        1.5 * 1024 * 1024,
+        2 * 1024 * 1024,
         GetPlatform().CpuCores() + 1,
         yg::Rt8Bpp,
         false);
@@ -50,9 +49,9 @@ shared_ptr<DrawerYG> CreateDrawer(shared_ptr<yg::ResourceManager> pRM)
   p.m_resourceManager = pRM;
   p.m_glyphCacheID = pRM->guiThreadGlyphCacheID();
   p.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
-  p.m_useOverlay = true;
+  p.m_skinName = pl.SkinName();
 
-  return make_shared_ptr(new DrawerYG(pl.SkinName(), p));
+  return make_shared_ptr(new DrawerYG(p));
 }
 
 namespace
