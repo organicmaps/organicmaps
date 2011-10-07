@@ -376,8 +376,8 @@ namespace feature
     void SimplifyPoints(points_t const & in, points_t & out, int level,
                         FeatureBuilder2 const & fb)
     {
-      uint32_t cellID;
-      if ((level >= scales::GetUpperWorldScale()) && fb.GetCoastCell(cellID))
+      int64_t dummy;
+      if ((level >= scales::GetUpperWorldScale()) && fb.GetCoastCell(dummy))
       {
         // Note! Do such special simplification only for upper world level and countries levels.
         // There is no need for this simplification in small world levels.

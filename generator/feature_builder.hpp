@@ -61,7 +61,7 @@ public:
   void Deserialize(buffer_t & data);
   //@}
 
-  ///@name Selectors.
+  /// @name Selectors.
   //@{
   inline m2::RectD GetLimitRect() const { return m_LimitRect; }
 
@@ -72,20 +72,44 @@ public:
 
   inline size_t GetPointsCount() const { return GetGeometry().size(); }
   inline size_t GetPolygonsCount() const { return m_Polygons.size(); }
+  //@}
 
-  // stops processing when functor returns false
+  /// @name Iterate through polygons points.
+  /// Stops processing when functor returns false.
+  //@{
+private:
+  template <class ToDo> class ToDoWrapper
+  {
+    ToDo & m_toDo;
+  public:
+    ToDoWrapper(ToDo & toDo) : m_toDo(toDo) {}
+    bool operator() (m2::PointD const & p) { return m_toDo(p); }
+    void EndRegion() {}
+  };
+
+public:
   template <class ToDo>
-  void ForEachGeometryPoint(ToDo & toDo) const
+  void ForEachGeometryPointEx(ToDo & toDo) const
   {
     if (m_Params.GetGeomType() == feature::GEOM_POINT)
       toDo(m_Center);
     else
     {
       for (list<points_t>::const_iterator i = m_Polygons.begin(); i != m_Polygons.end(); ++i)
+      {
         for (points_t::const_iterator j = i->begin(); j != i->end(); ++j)
           if (!toDo(*j))
             return;
+        toDo.EndRegion();
+      }
     }
+  }
+
+  template <class ToDo>
+  void ForEachGeometryPoint(ToDo & toDo) const
+  {
+    ToDoWrapper<ToDo> wrapper(toDo);
+    ForEachGeometryPointEx(wrapper);
   }
   //@}
 
@@ -99,10 +123,10 @@ public:
 
   int GetMinFeatureDrawScale() const;
 
-  inline void SetCoastCell(uint32_t cell) { m_coastCell = cell; }
-  inline bool GetCoastCell(uint32_t & cell) const
+  void SetCoastCell(int64_t cell);
+  inline bool GetCoastCell(int64_t & cell) const
   {
-    if (m_coastCell != -1U)
+    if (m_coastCell != -1)
     {
       cell = m_coastCell;
       return true;
@@ -138,7 +162,7 @@ protected:
   /// List of geometry polygons.
   list<points_t> m_Polygons; // Check HEADER_IS_AREA
 
-  uint32_t m_coastCell;
+  int64_t m_coastCell;
 };
 
 /// Used for serialization of features during final pass.

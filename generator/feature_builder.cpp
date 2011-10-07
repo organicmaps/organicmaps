@@ -19,7 +19,7 @@ using namespace feature;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 FeatureBuilder1::FeatureBuilder1()
-: m_coastCell(-1U)
+: m_coastCell(-1)
 {
   m_Polygons.push_back(points_t());
 }
@@ -186,7 +186,7 @@ bool FeatureBuilder1::PreSerialize()
   }
 
   // Clear name for features with invisible texts.
-  uint32_t dummy;
+  int64_t dummy;
   if (!m_Params.name.IsEmpty() && !GetCoastCell(dummy) &&
       (feature::DrawableScaleRangeForText(GetFeatureBase()).first == -1))
   {
@@ -280,7 +280,7 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
       serial::SaveOuterPath(*i, cp, sink);
   }
 
-  WriteVarUint(sink, m_coastCell);
+  WriteVarInt(sink, m_coastCell);
 
   // check for correct serialization
 #ifdef DEBUG
@@ -319,7 +319,7 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
     CalcRect(m_Polygons.back(), m_LimitRect);
   }
 
-  m_coastCell = ReadVarUint<uint32_t>(source);
+  m_coastCell = ReadVarInt<int64_t>(source);
 
   CHECK ( CheckValid(), (*this) );
 }
@@ -335,6 +335,15 @@ int FeatureBuilder1::GetMinFeatureDrawScale() const
 
   // some features become invisible after merge processing, so -1 is possible
   return (minScale == -1 ? 1000 : minScale);
+}
+
+void FeatureBuilder1::SetCoastCell(int64_t cell)
+{
+  m_coastCell = cell;
+
+  FeatureParams params;
+  params.name.AddString(0, strings::to_string(cell));
+  SetParams(params);
 }
 
 string DebugPrint(FeatureBuilder1 const & f)

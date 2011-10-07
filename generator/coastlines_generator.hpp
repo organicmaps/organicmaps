@@ -16,23 +16,23 @@ class CoastlineFeaturesGenerator
 
   FeatureMergeProcessor m_merger;
 
-  typedef list<vector<m2::PointD> > RegionsT;
-  RegionsT m_regions;
-
   typedef m4::Tree<m2::RegionI> TreeT;
   TreeT m_tree;
 
   uint32_t m_coastType;
-  int m_Level;
+  int m_lowLevel, m_highLevel, m_maxPoints;
+
+  bool GetFeature(CellIdT const & cell, FeatureBuilder1 & fb);
 
 public:
-  CoastlineFeaturesGenerator(uint32_t coastType, int level = 6);
+  CoastlineFeaturesGenerator(uint32_t coastType,
+                             int lowLevel, int highLevel, int maxPoints);
 
   void AddRegionToTree(FeatureBuilder1 const & fb);
 
   void operator() (FeatureBuilder1 const & fb);
   void Finish();
 
-  inline size_t GetFeaturesCount() const { return 1 << 2 * m_Level; }
-  bool GetFeature(size_t i, FeatureBuilder1 & fb);
+  inline size_t GetCellsCount() const { return 1 << 2 * m_lowLevel; }
+  void GetFeatures(size_t i, vector<FeatureBuilder1> & vecFb);
 };

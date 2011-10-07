@@ -117,9 +117,9 @@ namespace m2
       for_each(m_points.begin(), m_points.end(), toDo);
     }
 
-    m2::Rect<CoordT> GetRect() const { return m_rect; }
-
-    bool IsValid() const { return m_points.size() > 2; }
+    inline m2::Rect<CoordT> GetRect() const { return m_rect; }
+    inline size_t GetPointsCount() const { return m_points.size(); }
+    inline bool IsValid() const { return GetPointsCount() > 2; }
 
     void Swap(Region<PointT> & rhs)
     {

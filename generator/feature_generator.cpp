@@ -295,7 +295,7 @@ public:
     else
     {
       // 6 - is cell level for oceans covering
-      m_coasts.reset(new CoastlineFeaturesGenerator(m_coastType, 6));
+      m_coasts.reset(new CoastlineFeaturesGenerator(m_coastType, 4, 10, 20000));
 
       m_coastsHolder.reset(new FeaturesCollector(m_srcCoastsFile));
     }
@@ -338,13 +338,16 @@ public:
     {
       m_coasts->Finish();
 
-      size_t const count = m_coasts->GetFeaturesCount();
+      size_t const count = m_coasts->GetCellsCount();
       LOG(LINFO, ("Generating coastline polygons", count));
+
       for (size_t i = 0; i < count; ++i)
       {
-        FeatureBuilder1 fb;
-        if (m_coasts->GetFeature(i, fb))
-          (*m_coastsHolder)(fb);
+        vector<FeatureBuilder1> vecFb;
+        m_coasts->GetFeatures(i, vecFb);
+
+        for (size_t j = 0; j < vecFb.size(); ++j)
+          (*m_coastsHolder)(vecFb[j]);
       }
     }
     else if (m_coastsHolder)
