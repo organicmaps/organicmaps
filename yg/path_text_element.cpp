@@ -67,11 +67,11 @@ namespace yg
       if (!isVisible())
         return;
 
-      drawTextImpl(m_glyphLayout, screen, m, desc, yg::maxDepth - 1);
+      drawTextImpl(m_glyphLayout, screen, m, false, desc, yg::maxDepth - 1);
       desc.m_isMasked = false;
     }
 
-    drawTextImpl(m_glyphLayout, screen, m, desc, yg::maxDepth);
+    drawTextImpl(m_glyphLayout, screen, m, false, desc, yg::maxDepth);
   }
 
   void PathTextElement::offset(m2::PointD const & offs)

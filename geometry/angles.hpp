@@ -3,6 +3,7 @@
 #include <cmath>
 #include "point2d.hpp"
 
+#include "../base/matrix.hpp"
 #include "../base/start_mem_debug.hpp"
 
 namespace ang
@@ -36,10 +37,37 @@ namespace ang
     {
       return m_cos;
     }
+
+    Angle<T> const & operator*=(math::Matrix<T, 3, 3> const & m)
+    {
+      m2::Point<T> pt0(0, 0);
+      m2::Point<T> pt1(m_cos, m_sin);
+
+      pt1 *= m;
+      pt0 *= m;
+
+      m_val = atan2(pt1.y - pt0.y, pt1.x - pt0.x);
+      m_sin = sin(m_val);
+      m_cos = cos(m_val);
+
+      return this;
+    }
   };
 
   typedef Angle<double> AngleD;
   typedef Angle<float> AngleF;
+
+  template <typename T>
+  Angle<T> const operator*(Angle<T> const & a, math::Matrix<T, 3, 3> const & m)
+  {
+    m2::Point<T> pt0(0, 0);
+    m2::Point<T> pt1(a.cos(), a.sin());
+
+    pt1 *= m;
+    pt0 *= m;
+
+    return Angle<T>(atan2(pt1.y - pt0.y, pt1.x - pt0.x));
+  }
 
   /// Returns an angle of vector [p1, p2] from x-axis directed to y-axis.
   /// Angle is in range [-pi, pi].

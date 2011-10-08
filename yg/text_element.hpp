@@ -68,6 +68,7 @@ namespace yg
     void drawTextImpl(GlyphLayout const & layout,
                       gl::OverlayRenderer * r,
                       math::Matrix<double, 3, 3> const & m,
+                      bool doTransformPivotOnly,
                       FontDesc const & desc,
                       double depth) const;
     strings::UniString const & logText() const;

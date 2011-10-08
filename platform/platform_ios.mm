@@ -187,12 +187,12 @@ int Platform::ScaleEtalonSize() const
 
 int Platform::MaxTilesCount() const
 {
-  return 120;
+  return 60;
 }
 
 int Platform::TileSize() const
 {
-  return 256;
+  return 512;
 }
 
 string Platform::DeviceName() const

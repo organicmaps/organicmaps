@@ -44,9 +44,27 @@ namespace yg
     return m_logText != m_visText;
   }
 
-  void TextElement::drawTextImpl(GlyphLayout const & layout, gl::OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m, FontDesc const & fontDesc, double depth) const
+  void TextElement::drawTextImpl(GlyphLayout const & layout,
+                                 gl::OverlayRenderer * screen,
+                                 math::Matrix<double, 3, 3> const & m,
+                                 bool doTransformPivotOnly,
+                                 FontDesc const & fontDesc,
+                                 double depth) const
   {
-    m2::PointD pv = layout.pivot() * m;
+    m2::PointD pv = layout.pivot();
+    double deltaA = 0;
+
+    if (doTransformPivotOnly)
+      pv *= m;
+    else
+    {
+      double k = (sqrt((m(0, 0) * m(0, 0) + m(0, 1) * m(0, 1) + m(1, 0) * m(1, 0) + m(1, 1) * m(1, 1)) / 2));
+
+      if ((k > 1.1) || (k < 1 / 1.1))
+        return;
+
+      deltaA = (ang::AngleD(0) * m).val();
+    }
 
     for (unsigned i = layout.firstVisible(); i < layout.lastVisible(); ++i)
     {
@@ -59,7 +77,21 @@ namespace yg
       uint32_t const glyphID = skin->mapGlyph(glyphKey, screen->glyphCache());
       CharStyle const * charStyle = static_cast<CharStyle const *>(skin->fromID(glyphID));
 
-      screen->drawGlyph(elem.m_pt + pv, m2::PointD(0.0, 0.0), elem.m_angle, 0, charStyle, depth);
+      m2::PointD glyphPt;
+      ang::AngleD glyphAngle;
+
+      if (doTransformPivotOnly)
+      {
+        glyphPt = pv + elem.m_pt;
+        glyphAngle = elem.m_angle;
+      }
+      else
+      {
+        glyphPt = (pv + elem.m_pt) * m;
+        glyphAngle = ang::AngleD(elem.m_angle.val() + deltaA);
+      }
+
+      screen->drawGlyph(glyphPt, m2::PointD(0.0, 0.0), glyphAngle, 0, charStyle, depth);
     }
   }
 

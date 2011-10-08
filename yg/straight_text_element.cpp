@@ -203,13 +203,13 @@ namespace yg
     if (m_fontDesc.m_isMasked)
     {
       for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-        drawTextImpl(m_glyphLayouts[i], screen, m, m_fontDesc, yg::maxDepth - 1);
+        drawTextImpl(m_glyphLayouts[i], screen, m, true, m_fontDesc, yg::maxDepth - 1);
 
       desc.m_isMasked = false;
     }
 
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-      drawTextImpl(m_glyphLayouts[i], screen, m, desc, yg::maxDepth);
+      drawTextImpl(m_glyphLayouts[i], screen, m, true, desc, yg::maxDepth);
   }
 
   void StraightTextElement::offset(m2::PointD const & offs)
