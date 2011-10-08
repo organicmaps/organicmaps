@@ -3,10 +3,13 @@
 #include "render_policy.hpp"
 #include "window_handle.hpp"
 
-RenderPolicy::RenderPolicy(shared_ptr<WindowHandle> const & windowHandle, TRenderFn const & renderFn)
+RenderPolicy::RenderPolicy(shared_ptr<WindowHandle> const & windowHandle,
+                           TRenderFn const & renderFn,
+                           bool doSupportRotation)
   : m_bgColor(0xEE, 0xEE, 0xDD, 0xFF),
     m_windowHandle(windowHandle),
-    m_renderFn(renderFn)
+    m_renderFn(renderFn),
+    m_doSupportRotation(doSupportRotation)
 {}
 
 yg::Color const & RenderPolicy::bgColor() const
@@ -90,3 +93,8 @@ void RenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const
 
 void RenderPolicy::EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {}
+
+bool RenderPolicy::DoSupportRotation() const
+{
+  return m_doSupportRotation;
+}

@@ -105,6 +105,8 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
   SetRenderPolicy(make_shared_ptr(new RenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5, false))));
 #endif
 
+  m_navigator.SetSupportRotation(m_renderPolicy->DoSupportRotation());
+
   m_informationDisplay.setBottomShift(bottomShift);
 
 #ifdef DRAW_TOUCH_POINTS

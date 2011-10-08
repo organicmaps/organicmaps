@@ -16,7 +16,7 @@
 
 TilingRenderPolicyST::TilingRenderPolicyST(shared_ptr<WindowHandle> const & windowHandle,
                                            RenderPolicy::TRenderFn const & renderFn)
-  : RenderPolicy(windowHandle, renderFn),
+  : RenderPolicy(windowHandle, renderFn, false),
     m_tileCache(GetPlatform().MaxTilesCount() - 1),
     m_tiler(GetPlatform().TileSize(), GetPlatform().ScaleEtalonSize())
 {}

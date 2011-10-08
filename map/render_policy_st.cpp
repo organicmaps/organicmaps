@@ -12,7 +12,7 @@
 
 RenderPolicyST::RenderPolicyST(shared_ptr<WindowHandle> const & wh,
                                RenderPolicy::TRenderFn const & renderFn)
-  : RenderPolicy(wh, renderFn)
+  : RenderPolicy(wh, renderFn, false)
 {}
 
 void RenderPolicyST::Initialize(shared_ptr<yg::gl::RenderContext> const & rc,

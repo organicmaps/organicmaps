@@ -16,7 +16,7 @@
 
 TilingRenderPolicyMT::TilingRenderPolicyMT(shared_ptr<WindowHandle> const & windowHandle,
                                            RenderPolicy::TRenderFn const & renderFn)
-  : RenderPolicy(windowHandle, renderFn),
+  : RenderPolicy(windowHandle, renderFn, true),
     m_tileRenderer(GetPlatform().SkinName(),
                   GetPlatform().MaxTilesCount(),
                   1, //GetPlatform().CpuCores(),
@@ -71,4 +71,14 @@ void TilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
 TileRenderer & TilingRenderPolicyMT::GetTileRenderer()
 {
   return m_tileRenderer;
+}
+
+void TilingRenderPolicyMT::StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec)
+{
+  m_isScaling = true;
+}
+
+void TilingRenderPolicyMT::StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec)
+{
+  m_isScaling = false;
 }

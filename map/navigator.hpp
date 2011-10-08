@@ -61,6 +61,7 @@ public:
   // Do appropriate coordinate axes swapping according to orientation
   m2::PointD const OrientPoint(m2::PointD const & pt) const;
 
+  void SetSupportRotation(bool flag);
 
 private:
 
@@ -102,6 +103,8 @@ private:
   bool m_InAction;
   // Device orientation
   EOrientation m_orientation;
+  // Does Navigator supports screen rotation.
+  bool m_doSupportRotation;
   // Used in DoScale and ScaleByPoint
   bool ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2, m2::PointD const & oldPt1, m2::PointD const & oldPt2, bool skipMaxScaleAndBordersCheck);
 };

@@ -68,7 +68,7 @@ public:
   /// remove tile from coverage
   void Remove(Tile const * tile);
   /// recalculate screen coverage, using as much info from prev coverage as possible
-  void SetScreen(ScreenBase const & screen, bool mergePathNames = true);
+  void SetScreen(ScreenBase const & screen);
   /// draw screen coverage
   void Draw(yg::gl::Screen * s, ScreenBase const & currentScreen);
   void EndFrame(yg::gl::Screen * s);

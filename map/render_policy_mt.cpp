@@ -13,7 +13,7 @@
 
 RenderPolicyMT::RenderPolicyMT(shared_ptr<WindowHandle> const & wh,
                                RenderPolicy::TRenderFn const & renderFn)
-  : RenderPolicy(wh, renderFn),
+  : RenderPolicy(wh, renderFn, false),
     m_renderQueue(GetPlatform().SkinName(),
                   false,
                   true,

@@ -29,6 +29,8 @@ private:
 
   ScreenBase m_currentScreen;
 
+  bool m_isScaling;
+
 //  ScreenCoverage m_screenCoverage;
 
 protected:
@@ -46,4 +48,7 @@ public:
   void BeginFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
   void DrawFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
   void EndFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
+
+  void StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
+  void StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
 };

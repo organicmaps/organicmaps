@@ -21,16 +21,18 @@
 Navigator::Navigator()
   : m_worldRect(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY),
     m_InAction(false),
-    m_orientation(EOrientation0)
+    m_orientation(EOrientation0),
+    m_doSupportRotation(false)
 {
 }
 
 Navigator::Navigator(ScreenBase const & screen)
   : m_worldRect(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY),
-  m_StartScreen(screen),
-  m_Screen(screen),
-  m_InAction(false),
-  m_orientation(EOrientation0)
+    m_StartScreen(screen),
+    m_Screen(screen),
+    m_InAction(false),
+    m_orientation(EOrientation0),
+    m_doSupportRotation(false)
 {
 }
 
@@ -103,6 +105,10 @@ bool Navigator::CanShrinkInto(ScreenBase const & screen, m2::RectD const & bound
 ScreenBase const Navigator::ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   ScreenBase res = screen;
+
+  if (m_doSupportRotation)
+    return res;
+
   m2::RectD globalRect = res.ClipRect();
   if (globalRect.minX() < boundRect.minX())
     globalRect.Offset(boundRect.minX() - globalRect.minX(), 0);
@@ -119,6 +125,10 @@ ScreenBase const Navigator::ShrinkInto(ScreenBase const & screen, m2::RectD cons
 ScreenBase const Navigator::ScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   ScreenBase res = screen;
+
+  if (m_doSupportRotation)
+    return res;
+
   m2::RectD globalRect = res.ClipRect();
 
   if (globalRect.minX() < boundRect.minX())
@@ -137,6 +147,10 @@ ScreenBase const Navigator::ScaleInto(ScreenBase const & screen, m2::RectD const
 ScreenBase const Navigator::ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   ScreenBase res = screen;
+
+  if (m_doSupportRotation)
+    return res;
+
   m2::RectD globalRect = res.ClipRect();
 
   if (globalRect.minX() < boundRect.minX())
@@ -331,7 +345,8 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
 
   ScreenBase tmp = m_Screen;
   tmp.SetGtoPMatrix(newM);
-  tmp.Rotate(-tmp.GetAngle());
+  if (!m_doSupportRotation)
+    tmp.Rotate(-tmp.GetAngle());
 
   if (!skipMaxScaleAndBordersCheck && !CheckMaxScale(tmp))
     return false;
@@ -439,5 +454,10 @@ m2::PointD const Navigator::OrientPoint(m2::PointD const & pt) const
     return pt + ptShift;
   };
   return ptShift;
+}
+
+void Navigator::SetSupportRotation(bool flag)
+{
+  m_doSupportRotation = flag;
 }
 

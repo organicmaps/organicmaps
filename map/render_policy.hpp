@@ -34,6 +34,7 @@ private:
   shared_ptr<yg::ResourceManager> m_resourceManager;
   shared_ptr<WindowHandle> m_windowHandle;
   TRenderFn m_renderFn;
+  bool m_doSupportRotation;
 
 protected:
 
@@ -45,7 +46,7 @@ protected:
 public:
 
   /// constructor
-  RenderPolicy(shared_ptr<WindowHandle> const & windowHandle, TRenderFn const & renderFn);
+  RenderPolicy(shared_ptr<WindowHandle> const & windowHandle, TRenderFn const & renderFn, bool doSupportRotation);
   virtual ~RenderPolicy() {}
   /// starting frame
   virtual void BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s);
@@ -73,4 +74,6 @@ public:
   virtual void DoRotate(double a, double timeInSec);
   virtual void StopRotate(double a, double timeInSec);
   /// @}
+
+  bool DoSupportRotation() const;
 };
