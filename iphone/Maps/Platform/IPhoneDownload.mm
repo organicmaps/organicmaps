@@ -1,69 +1,11 @@
 #import "IPhoneDownload.h"
 
-#include "../../platform/download_manager.hpp"
-
-#include "../../coding/base64.hpp"
-#include "../../coding/sha2.hpp"
-
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <ifaddrs.h>
-#include <net/if_dl.h>
-#include <net/if.h>
-
-#import <UIKit/UIDevice.h>
 #import <UIKit/UIApplication.h>
 
-#if !defined(IFT_ETHER)
-  #define IFT_ETHER 0x6 /* Ethernet CSMACD */
-#endif
+#include "../../platform/download_manager.hpp"
+#include "../../platform/platform.hpp"
 
 #define TIMEOUT_IN_SECONDS 15.0
-
-static string GetDeviceUid()
-{
-  NSString * uid = [[UIDevice currentDevice] uniqueIdentifier];
-  return [uid UTF8String];
-}
-
-static string GetMacAddress()
-{
-  string result;
-  // get wifi mac addr
-  ifaddrs * addresses = NULL;
-  if (getifaddrs(&addresses) == 0 && addresses != NULL)
-  {
-    ifaddrs * currentAddr = addresses;
-    do
-    {
-      if (currentAddr->ifa_addr->sa_family == AF_LINK
-          && ((const struct sockaddr_dl *) currentAddr->ifa_addr)->sdl_type == IFT_ETHER)
-      {
-        const struct sockaddr_dl * dlAddr = (const struct sockaddr_dl *) currentAddr->ifa_addr;
-        const char * base = &dlAddr->sdl_data[dlAddr->sdl_nlen];
-        result.assign(base, dlAddr->sdl_alen);
-        break;
-      }
-      currentAddr = currentAddr->ifa_next;
-    }
-    while (currentAddr->ifa_next);
-    freeifaddrs(addresses);
-  }
-  return result;
-}
-
-static string GetUniqueHashedId()
-{
-  // generate sha2 hash for mac address
-  string const hash = sha2::digest256(GetMacAddress() + GetDeviceUid(), false);
-  // xor it
-  size_t const offset = hash.size() / 4;
-  string xoredHash;
-  for (size_t i = 0; i < offset; ++i)
-    xoredHash.push_back(hash[i] ^ hash[i + offset] ^ hash[i + offset * 2] ^ hash[i + offset * 3]);
-  // and use base64 encoding
-  return base64::encode(xoredHash);
-}
 
 static bool NeedToGenerateUrl(string const & url)
 {
@@ -79,8 +21,8 @@ static bool NeedToGenerateUrl(string const & url)
 
 - (void) Cancel
 {
-	if (m_connection)
-  	[m_connection cancel];
+  if (m_connection)
+    [m_connection cancel];
 }
 
 - (void) dealloc
@@ -88,54 +30,54 @@ static bool NeedToGenerateUrl(string const & url)
 //  NSLog(@"~IPhoneDownload() for url: %s", m_url.c_str());
   if (m_connection)
   {
-  	[m_connection cancel];
-  	[m_connection release];
+    [m_connection cancel];
+    [m_connection release];
   }
   // Non-zero means that download is canceled
-	if (m_file)
+  if (m_file)
   {
-  	fclose(m_file);
+    fclose(m_file);
     if (!m_params.m_fileToSave.empty())
-   		remove((m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str());
+      remove((m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str());
   }
-	[super dealloc];
+  [super dealloc];
 }
 
 - (NSMutableURLRequest *) CreateRequest
 {
-  // Create the request.
+	// Create the request.
 	NSMutableURLRequest * request =
-  [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithUTF8String:m_currentUrl.c_str()]]
-  		cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:TIMEOUT_IN_SECONDS];
-  if (m_file)
-  {
-    long long fileSize = ftello(m_file);
-    if (fileSize > 0)
-    {
-      NSLog(@"Resuming download for file %s from position %qi",
-            (m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str(),
-            fileSize);
-      NSString * val = [[NSString alloc] initWithFormat: @"bytes=%qi-", fileSize];
-      [request addValue:val forHTTPHeaderField:@"Range"];
-      [val release];
-    }
-  }
-  if (!m_params.m_contentType.empty())
-  {
-    [request addValue:[NSString stringWithUTF8String: m_params.m_contentType.c_str()] forHTTPHeaderField:@"Content-Type"];
-  }
-  if (!m_params.m_postData.empty())
-  {
-    NSData * postData = [NSData dataWithBytes:m_params.m_postData.data() length:m_params.m_postData.size()];
-    [request setHTTPBody:postData];
-  }
-  // set user-agent with unique client id only for mapswithme requests
-  if (m_currentUrl.find("mapswithme.com") != string::npos)
-  {
-    static string const uid = GetUniqueHashedId();
-    [request addValue:[NSString stringWithUTF8String: uid.c_str()] forHTTPHeaderField:@"User-Agent"];
-  }
-  return request;
+	[NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithUTF8String:m_currentUrl.c_str()]]
+			cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:TIMEOUT_IN_SECONDS];
+	if (m_file)
+	{
+		long long fileSize = ftello(m_file);
+		if (fileSize > 0)
+		{
+			NSLog(@"Resuming download for file %s from position %qi",
+						(m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str(),
+						fileSize);
+			NSString * val = [[NSString alloc] initWithFormat: @"bytes=%qi-", fileSize];
+			[request addValue:val forHTTPHeaderField:@"Range"];
+			[val release];
+		}
+	}
+	if (!m_params.m_contentType.empty())
+	{
+		[request addValue:[NSString stringWithUTF8String: m_params.m_contentType.c_str()] forHTTPHeaderField:@"Content-Type"];
+	}
+	if (!m_params.m_postData.empty())
+	{
+		NSData * postData = [NSData dataWithBytes:m_params.m_postData.data() length:m_params.m_postData.size()];
+		[request setHTTPBody:postData];
+	}
+	// set user-agent with unique client id only for mapswithme requests
+	if (m_currentUrl.find("mapswithme.com") != string::npos)
+	{
+		static string const uid = GetPlatform().UniqueClientId();
+		[request addValue:[NSString stringWithUTF8String: uid.c_str()] forHTTPHeaderField:@"User-Agent"];
+	}
+	return request;
 }
 
 - (BOOL) StartDownload: (HttpStartParams const &)params
@@ -162,17 +104,17 @@ static bool NeedToGenerateUrl(string const & url)
       return NO;
     }
   }
-  
+
   if (NeedToGenerateUrl(m_params.m_url))
     m_currentUrl = m_urlGenerator.PopNextUrl() + m_params.m_url;
 
 	// create the connection with the request and start loading the data
 	m_connection = [[NSURLConnection alloc] initWithRequest:[self CreateRequest] delegate:self];
 
-	if (m_connection == 0)
+  if (m_connection == 0)
   {
-		NSLog(@"Can't create connection for url %s", m_currentUrl.c_str());
-		// notify observer about error and exit
+    NSLog(@"Can't create connection for url %s", m_currentUrl.c_str());
+    // notify observer about error and exit
     if (m_params.m_finish)
     {
       HttpFinishedParams result;
@@ -182,7 +124,7 @@ static bool NeedToGenerateUrl(string const & url)
       m_params.m_finish(result);
     }
     return NO;
-	}
+  }
 
   return YES;
 }
@@ -192,13 +134,13 @@ static bool NeedToGenerateUrl(string const & url)
 	// This method is called when the server has determined that it
 	// has enough information to create the NSURLResponse.
 
-	// check if this is OK (not a 404 or the like)
+  // check if this is OK (not a 404 or the like)
   if ([response respondsToSelector:@selector(statusCode)])
   {
-  	NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
+    NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
     if (statusCode < 200 || statusCode > 299)
     {
-    	NSLog(@"Received HTTP error code %d, canceling download", statusCode);
+      NSLog(@"Received HTTP error code %d, canceling download", statusCode);
       if (m_file)
       {
         long long fileSize = ftello(m_file);
@@ -209,7 +151,7 @@ static bool NeedToGenerateUrl(string const & url)
           remove((m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str());
       }
       // notify user
-		  if (m_params.m_finish)
+      if (m_params.m_finish)
       {
         HttpFinishedParams result;
         result.m_url = m_params.m_url;
@@ -217,9 +159,9 @@ static bool NeedToGenerateUrl(string const & url)
         result.m_error = statusCode == 404 ? EHttpDownloadFileNotFound : EHttpDownloadFailed;
         m_params.m_finish(result);
       }
-  		// and selfdestruct...
-  		GetDownloadManager().CancelDownload(m_params.m_url);
-			return;
+      // and selfdestruct...
+      GetDownloadManager().CancelDownload(m_params.m_url);
+      return;
     }
   }
 
@@ -228,9 +170,9 @@ static bool NeedToGenerateUrl(string const & url)
 
   m_projectedFileSize = [response expectedContentLength];
   // if server doesn't support resume, make sure we're downloading file from scratch
-	if (m_projectedFileSize < 0)
+  if (m_projectedFileSize < 0)
   {
-  	fclose(m_file);
+    fclose(m_file);
     m_file = fopen((m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str(), "wb");
   }
   NSLog(@"Projected file size: %qi", m_projectedFileSize);
@@ -238,7 +180,7 @@ static bool NeedToGenerateUrl(string const & url)
 
 - (void) connection: (NSURLConnection *)connection didReceiveData: (NSData *)data
 {
-	// Append the new data
+  // Append the new data
   int64_t size = -1;
   if (m_file)
   {
@@ -256,7 +198,7 @@ static bool NeedToGenerateUrl(string const & url)
     progress.m_url = m_params.m_url;
     progress.m_current = size;
     progress.m_total = m_projectedFileSize;
-	  m_params.m_progress(progress);
+    m_params.m_progress(progress);
   }
 }
 
@@ -268,7 +210,7 @@ static bool NeedToGenerateUrl(string const & url)
 
 - (void) connection: (NSURLConnection *)connection didFailWithError: (NSError *)error
 {
-	// inform the user
+  // inform the user
   NSLog(@"Connection failed for url %s\n%@", m_currentUrl.c_str(), [error localizedDescription]);
 
   // retry connection if it's network-specific error
@@ -279,11 +221,11 @@ static bool NeedToGenerateUrl(string const & url)
     {
       m_currentUrl = newUrl + m_params.m_url;
       [m_connection release];
-  	  // create the connection with the request and start loading the data
-		  m_connection = [[NSURLConnection alloc] initWithRequest:[self CreateRequest] delegate:self];
+      // create the connection with the request and start loading the data
+      m_connection = [[NSURLConnection alloc] initWithRequest:[self CreateRequest] delegate:self];
 
-		  if (m_connection)
-    	  return;	// successfully restarted connection
+      if (m_connection)
+        return;	// successfully restarted connection
 
       NSLog(@"Can't retry connection");
       // notify observer about error and exit after this if-block
@@ -306,7 +248,7 @@ static bool NeedToGenerateUrl(string const & url)
     result.m_url = m_params.m_url;
     result.m_file = m_params.m_fileToSave;
     result.m_error = EHttpDownloadFailed;
-	  m_params.m_finish(result);
+    m_params.m_finish(result);
   }
 
   // and selfdestruct...
@@ -342,7 +284,7 @@ static bool NeedToGenerateUrl(string const & url)
     result.m_file = m_params.m_fileToSave;
     result.m_data.swap(m_receivedBuffer);
     result.m_error = isLocked ? EHttpDownloadFileIsLocked : EHttpDownloadOk;
-	  m_params.m_finish(result);
+    m_params.m_finish(result);
   }
   // and selfdestruct...
   GetDownloadManager().CancelDownload(m_params.m_url);

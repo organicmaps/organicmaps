@@ -1,9 +1,20 @@
 #include "platform.hpp"
 
 #include "../coding/file_reader.hpp"
+#include "../coding/base64.hpp"
+#include "../coding/sha2.hpp"
 
 #include <dirent.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <ifaddrs.h>
+#include <net/if_dl.h>
+#include <net/if.h>
+
+#if !defined(IFT_ETHER)
+  #define IFT_ETHER 0x6 /* Ethernet CSMACD */
+#endif
 
 #import <Foundation/NSAutoreleasePool.h>
 #import <Foundation/NSBundle.h>
@@ -13,6 +24,8 @@
 #import <UIKit/UIDevice.h>
 #import <UIKit/UIScreen.h>
 #import <UIKit/UIScreenMode.h>
+
+
 
 class Platform::PlatformImpl
 {
@@ -185,6 +198,56 @@ int Platform::TileSize() const
 string Platform::DeviceName() const
 {
   return m_impl->m_deviceName;
+}
+
+static string GetDeviceUid()
+{
+  NSString * uid = [[UIDevice currentDevice] uniqueIdentifier];
+  return [uid UTF8String];
+}
+
+static string GetMacAddress()
+{
+  string result;
+  // get wifi mac addr
+  ifaddrs * addresses = NULL;
+  if (getifaddrs(&addresses) == 0 && addresses != NULL)
+  {
+    ifaddrs * currentAddr = addresses;
+    do
+    {
+      if (currentAddr->ifa_addr->sa_family == AF_LINK
+          && ((const struct sockaddr_dl *) currentAddr->ifa_addr)->sdl_type == IFT_ETHER)
+      {
+        const struct sockaddr_dl * dlAddr = (const struct sockaddr_dl *) currentAddr->ifa_addr;
+        const char * base = &dlAddr->sdl_data[dlAddr->sdl_nlen];
+        result.assign(base, dlAddr->sdl_alen);
+        break;
+      }
+      currentAddr = currentAddr->ifa_next;
+    }
+    while (currentAddr->ifa_next);
+    freeifaddrs(addresses);
+  }
+  return result;
+}
+
+static string GetUniqueHashedId()
+{
+  // generate sha2 hash for mac address
+  string const hash = sha2::digest256(GetMacAddress() + GetDeviceUid(), false);
+  // xor it
+  size_t const offset = hash.size() / 4;
+  string xoredHash;
+  for (size_t i = 0; i < offset; ++i)
+    xoredHash.push_back(hash[i] ^ hash[i + offset] ^ hash[i + offset * 2] ^ hash[i + offset * 3]);
+  // and use base64 encoding
+  return base64::encode(xoredHash);
+}
+
+string Platform::UniqueClientId() const
+{
+  return GetUniqueHashedId();
 }
 
 ////////////////////////////////////////////////////////////////////////
