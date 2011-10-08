@@ -16,7 +16,6 @@ BZIP="pbzip2 -d"
 function Usage {
   echo ''
   echo "Usage: $0 [path_to_data_folder_with_classsif_and_planet.osm.bz2] [optional_path_to_intermediate_data]"
-  echo "If optional intermediate path is given, only second pass will be executed"
   exit 0
 }
 
@@ -73,10 +72,17 @@ if [[ ! -n $GENERATOR_TOOL ]]; then
   Usage
 fi
 
-OSM_BZ2=$DATA_PATH/planet.osm.bz2
+PLANET_OSM_BZ2=$DATA_PATH/planet.osm.bz2
+COASTS_OSM_BZ2=$DATA_PATH/coastlines.osm.bz2
 
-if ! [ -f $OSM_BZ2 ]; then
-  echo "Can't open file $OSM_BZ2, did you forgot to specify dataDir?"
+if ! [ -f $PLANET_OSM_BZ2 ]; then
+  echo "Can't open file $PLANET_OSM_BZ2, did you forgot to specify dataDir?"
+  echo ""
+  Usage
+fi
+
+if ! [ -f $COASTS_OSM_BZ2 ]; then
+  echo "Can't open file $COASTS_OSM_BZ2, did you forgot to specify dataDir?"
   echo ""
   Usage
 fi
@@ -97,22 +103,31 @@ then
   PV=pv
 fi
 
-# skip 1st pass if intermediate data path was given
-if [ $# -lt 2 ]; then
-  # 1st pass - not paralleled
-  $PV $OSM_BZ2 | $BZIP | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
+# 1st pass - preprocess coastlines
+$PV $COASTS_OSM_BZ2 | $BZIP | $GENERATOR_TOOL -intermediate_data_path="${TMPDIR}coasts" \
+    -use_light_nodes=true \
+    -preprocess_xml
+
+# 2nd pass - generate temporary coastlines file in the intermediate dir
+$BZIP $COASTS_OSM_BZ2 | $GENERATOR_TOOL -intermediate_data_path="${TMPDIR}coasts" \
+    -use_light_nodes=true -make_coasts &
+
+# 3rd pass - preprocess planet
+$PV $PLANET_OSM_BZ2 | $BZIP | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
     -use_light_nodes=$LIGHT_NODES \
     -preprocess_xml
-fi
 
-# 2nd pass - paralleled in the code
-$PV $OSM_BZ2 | $BZIP | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
+# wait until 2nd pass is finished
+wait
+
+# 4nd pass - paralleled in the code
+$PV $PLANET_OSM_BZ2 | $BZIP | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
   -use_light_nodes=$LIGHT_NODES -split_by_polygons \
   -generate_features -generate_world \
-  -data_path=$DATA_PATH
+  -data_path=$DATA_PATH -emit_coasts
 
-# 3rd pass - do in parallel
-# but separate exceptions for wolrd files
+# 5rd pass - do in parallel
+# but separate exceptions for wolrd files to finish them earlier
 $GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -generate_index -output=World &
 $GENERATOR_TOOL -data_path=$DATA_PATH -generate_geometry -generate_index -output=WorldCoasts &
 for file in $DATA_PATH/*.mwm; do
