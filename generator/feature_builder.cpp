@@ -337,12 +337,12 @@ int FeatureBuilder1::GetMinFeatureDrawScale() const
   return (minScale == -1 ? 1000 : minScale);
 }
 
-void FeatureBuilder1::SetCoastCell(int64_t cell)
+void FeatureBuilder1::SetCoastCell(int64_t iCell, string const & strCell)
 {
-  m_coastCell = cell;
+  m_coastCell = iCell;
 
   FeatureParams params;
-  params.name.AddString(0, strings::to_string(cell));
+  params.name.AddString(0, strCell);
   SetParams(params);
 }
 

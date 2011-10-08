@@ -198,7 +198,7 @@ bool CoastlineFeaturesGenerator::GetFeature(CellIdT const & cell, FeatureBuilder
     return false;
 
   // assign feature
-  fb.SetCoastCell(cell.ToInt64(CellIdT::DEPTH_LEVELS));
+  fb.SetCoastCell(cell.ToInt64(m_highLevel + 1), cell.ToString());
 
   doDiff.AssignGeometry(fb);
   fb.SetArea();
