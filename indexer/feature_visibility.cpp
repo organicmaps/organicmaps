@@ -242,14 +242,15 @@ bool IsDrawableLike(vector<uint32_t> const & types, FeatureGeoType ft)
 
 bool IsDrawableForIndex(FeatureBase const & f, int level)
 {
-  if (f.GetFeatureType() == feature::GEOM_AREA)
-    if (!scales::IsGoodForLevel(level, f.GetLimitRect()))
-      return false;
+  Classificator const & c = classif();
+  static uint32_t const coastType = c.GetCoastType();
 
   FeatureBase::GetTypesFn types;
   f.ForEachTypeRef(types);
 
-  Classificator const & c = classif();
+  if (f.GetFeatureType() == feature::GEOM_AREA && !types.Has(coastType))
+    if (!scales::IsGoodForLevel(level, f.GetLimitRect()))
+      return false;
 
   IsDrawableChecker doCheck(level);
   for (size_t i = 0; i < types.m_size; ++i)

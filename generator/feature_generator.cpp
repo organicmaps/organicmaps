@@ -275,10 +275,7 @@ class MainFeaturesEmitter
 public:
   MainFeaturesEmitter(GenerateInfo const & info)
   {
-    {
-      static char const * path[] = { "natural", "coastline" };
-      m_coastType = classif().GetTypeByPath(vector<string>(path, path + 2));
-    }
+    m_coastType = classif().GetCoastType();
 
     m_srcCoastsFile = info.m_tmpDir + WORLD_COASTS_FILE_NAME + info.m_datFileSuffix;
 
@@ -294,7 +291,8 @@ public:
     }
     else
     {
-      // 6 - is cell level for oceans covering
+      // 4-10 - level range for cells
+      // 20000 - max points count per feature
       m_coasts.reset(new CoastlineFeaturesGenerator(m_coastType, 4, 10, 20000));
 
       m_coastsHolder.reset(new FeaturesCollector(m_srcCoastsFile));

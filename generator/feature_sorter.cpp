@@ -373,11 +373,9 @@ namespace feature
       }
     };
 
-    void SimplifyPoints(points_t const & in, points_t & out, int level,
-                        FeatureBuilder2 const & fb)
+    void SimplifyPoints(points_t const & in, points_t & out, int level, bool isCoast)
     {
-      int64_t dummy;
-      if ((level >= scales::GetUpperWorldScale()) && fb.GetCoastCell(dummy))
+      if (level >= scales::GetUpperWorldScale() && isCoast)
       {
         // Note! Do such special simplification only for upper world level and countries levels.
         // There is no need for this simplification in small world levels.
@@ -429,9 +427,12 @@ namespace feature
         int const level = m_header.GetScale(i);
         if (fb.IsDrawableInRange(i > 0 ? m_header.GetScale(i-1) + 1 : 0, level))
         {
+          int64_t dummy;
+          bool const isCoast = fb.GetCoastCell(dummy);
+
           // simplify and serialize geometry
           points_t points;
-          SimplifyPoints(holder.GetSourcePoints(), points, level, fb);
+          SimplifyPoints(holder.GetSourcePoints(), points, level, isCoast);
 
           if (isLine)
             holder.AddPoints(points, i);
@@ -439,7 +440,7 @@ namespace feature
           if (isArea && holder.NeedProcessTriangles())
           {
             // simplify and serialize triangles
-            bool const good = IsGoodArea(points, level);
+            bool const good = isCoast || IsGoodArea(points, level);
 
             // At this point we don't need last point equal to first.
             points.pop_back();
@@ -460,7 +461,7 @@ namespace feature
             {
               simplified.push_back(points_t());
 
-              SimplifyPoints(*iH, simplified.back(), level, fb);
+              SimplifyPoints(*iH, simplified.back(), level, isCoast);
 
               if (!IsGoodArea(simplified.back(), level))
                 simplified.pop_back();

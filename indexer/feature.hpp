@@ -101,9 +101,15 @@ public:
     size_t m_size;
 
     GetTypesFn() : m_size(0) {}
-    void operator() (uint32_t t)
+
+    inline void operator() (uint32_t t) { m_types[m_size++] = t; }
+
+    inline bool Has(uint32_t t) const
     {
-      m_types[m_size++] = t;
+      for (int i = 0; i < m_size; ++i)
+        if (m_types[i] == t)
+          return true;
+      return false;
     }
   };
 
