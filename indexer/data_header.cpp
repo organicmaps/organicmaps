@@ -39,13 +39,21 @@ namespace feature
 
   pair<int, int> DataHeader::GetScaleRange() const
   {
-    int const worldB = scales::GetUpperWorldScale();
-    int const countryB = scales::GetUpperScale();
+    using namespace scales;
 
-    if (m_scales.back() == countryB)
-      return make_pair(worldB + 1, countryB);
-    else
-      return make_pair(0, worldB);
+    int const low = 0;
+    int const worldH = GetUpperWorldScale();
+    MapType const type = GetType();
+
+    switch (type)
+    {
+    case world: return make_pair(low, worldH);
+    case worldcoasts: return make_pair(low, worldH);
+    default:
+      ASSERT_EQUAL(type, country, ());
+      return make_pair(worldH + 1, GetUpperScale());
+      //return make_pair(low, GetUpperScale());
+    }
   }
 
   void DataHeader::Save(FileWriter & w) const
