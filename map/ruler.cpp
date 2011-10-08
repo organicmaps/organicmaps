@@ -80,7 +80,7 @@ Ruler::Ruler(Params const & p)
   Settings::Units units;
   units = Settings::Metric;
 
-  VERIFY(Settings::Get("Units", units), ());
+  Settings::Get("Units", units);
 
   switch (units)
   {
