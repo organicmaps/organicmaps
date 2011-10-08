@@ -34,7 +34,7 @@ public:
 
 private:
 
-  friend class impl::FeatureLoader;
+  friend struct impl::FeatureLoader;
   friend class impl::BestNameFinder;
 
   void AddResult(impl::IntermediateResult const & result);
