@@ -6,4 +6,4 @@
 # Main purpose is transparently disable compression
 # for given file types inside .zip (.apk) file
 
-/Developer/android-sdk-mac_x86/platform-tools/aapt2 $@ -0 mwm -0 txt -0 bin -0 update -0 skn -0 slf -0 html -0 png -0 ttf
+${0}2 $@ -0 mwm -0 txt -0 bin -0 skn -0 slf -0 html -0 png -0 ttf
