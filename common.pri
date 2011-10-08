@@ -153,6 +153,14 @@ macx* {
   QMAKE_LFLAGS_X86_64 -= -mmacosx-version-min=10.5
   QMAKE_LFLAGS_X86_64 += -mmacosx-version-min=10.6
   QMAKE_LFLAGS *= -dead_strip
+
+#  macx-clang {
+#    QMAKE_CFLAGS_RELEASE -= -O3
+#    QMAKE_CFLAGS_RELEASE += -O4 -flto
+#    QMAKE_CXXFLAGS_RELEASE -= -O3
+#    QMAKE_CXXFLAGS_RELEASE += -O4 -flto
+#    QMAKE_LFLAGS_RELEASE += -O4 -flto
+#  }
 }
 
 CONFIG(production) {
