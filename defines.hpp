@@ -10,8 +10,6 @@
 #define VERSION_FILE_TAG "version"
 
 #define COUNTRIES_FILE  "countries.txt"
-#define DATA_UPDATE_FILE "maps.update"
-#define BINARY_UPDATE_FILE "binary.update"
 
 #define WORLD_FILE_NAME "World"
 #define WORLD_COASTS_FILE_NAME "WorldCoasts"
