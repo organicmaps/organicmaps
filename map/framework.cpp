@@ -103,9 +103,10 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
 //  SetRenderPolicy(make_shared_ptr(new RenderPolicyST(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5, false))));
 //  SetRenderPolicy(make_shared_ptr(new TilingRenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5, true))));
   SetRenderPolicy(make_shared_ptr(new RenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5, false))));
-#endif
 
   m_navigator.SetSupportRotation(m_renderPolicy->DoSupportRotation());
+
+#endif
 
   m_informationDisplay.setBottomShift(bottomShift);
 
@@ -534,22 +535,31 @@ void Framework<TModel>::StopDrag(DragEvent const & e)
 template <typename TModel>
 void Framework<TModel>::StartRotate(RotateEvent const & e)
 {
-/*  m_navigator.StartRotate(e.Angle(), m_timer.ElapsedSeconds());
-  m_renderPolicy->StartRotate(e.Angle(), m_timer.ElapsedSeconds());*/
+  if (m_renderPolicy->DoSupportRotation())
+  {
+    m_navigator.StartRotate(e.Angle(), m_timer.ElapsedSeconds());
+    m_renderPolicy->StartRotate(e.Angle(), m_timer.ElapsedSeconds());
+  }
 }
 
 template <typename TModel>
 void Framework<TModel>::DoRotate(RotateEvent const & e)
 {
-/*  m_navigator.DoRotate(e.Angle(), m_timer.ElapsedSeconds());
-  m_renderPolicy->DoRotate(e.Angle(), m_timer.ElapsedSeconds());*/
+  if (m_renderPolicy->DoSupportRotation())
+  {
+    m_navigator.DoRotate(e.Angle(), m_timer.ElapsedSeconds());
+    m_renderPolicy->DoRotate(e.Angle(), m_timer.ElapsedSeconds());
+  }
 }
 
 template <typename TModel>
 void Framework<TModel>::StopRotate(RotateEvent const & e)
 {
-/*  m_navigator.StopRotate(e.Angle(), m_timer.ElapsedSeconds());
-  m_renderPolicy->StopRotate(e.Angle(), m_timer.ElapsedSeconds());*/
+  if (m_renderPolicy->DoSupportRotation())
+  {
+    m_navigator.StopRotate(e.Angle(), m_timer.ElapsedSeconds());
+    m_renderPolicy->StopRotate(e.Angle(), m_timer.ElapsedSeconds());
+  }
 }
 
 
