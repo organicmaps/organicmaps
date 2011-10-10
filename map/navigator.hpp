@@ -74,6 +74,10 @@ private:
 
   bool CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect);
   ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect);
+
+  bool CanRotateInto(ScreenBase const & screen, m2::RectD const & boundRect);
+  ScreenBase const RotateInto(ScreenBase const & screen, m2::RectD const & boundRect);
+
   ScreenBase const ScaleInto(ScreenBase const & screen, m2::RectD const & boundRect);
   ScreenBase const ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD const & boundRect);
 

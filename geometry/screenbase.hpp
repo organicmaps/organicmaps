@@ -60,6 +60,7 @@ public:
   void Move(double dx, double dy);
   void MoveG(m2::PointD const & p);
 
+  /// scale global rect
   void Scale(double scale);
   void Rotate(double angle);
 
@@ -70,6 +71,9 @@ public:
 
   double GetScale() const;
   double GetAngle() const;
+
+  m2::PointD const & GetOrg() const;
+
   int GetWidth() const;
   int GetHeight() const;
 

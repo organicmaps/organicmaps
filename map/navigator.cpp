@@ -98,49 +98,84 @@ void Navigator::OnSize(int x0, int y0, int w, int h)
 
 bool Navigator::CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
-  m2::RectD globalRect = screen.ClipRect();
-  return (boundRect.SizeX() >= globalRect.SizeX()) && (boundRect.SizeY() >= globalRect.SizeY());
+  m2::RectD clipRect = screen.ClipRect();
+  return (boundRect.SizeX() >= clipRect.SizeX())
+      && (boundRect.SizeY() >= clipRect.SizeY());
 }
 
 ScreenBase const Navigator::ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   ScreenBase res = screen;
 
-  if (m_doSupportRotation)
-    return res;
+/*  if (m_doSupportRotation)
+    return res;*/
 
-  m2::RectD globalRect = res.ClipRect();
-  if (globalRect.minX() < boundRect.minX())
-    globalRect.Offset(boundRect.minX() - globalRect.minX(), 0);
-  if (globalRect.maxX() > boundRect.maxX())
-    globalRect.Offset(boundRect.maxX() - globalRect.maxX(), 0);
-  if (globalRect.minY() < boundRect.minY())
-    globalRect.Offset(0, boundRect.minY() - globalRect.minY());
-  if (globalRect.maxY() > boundRect.maxY())
-    globalRect.Offset(0, boundRect.maxY() - globalRect.maxY());
-  res.SetFromRect(m2::AnyRectD(globalRect));
+  m2::RectD clipRect = res.ClipRect();
+  if (clipRect.minX() < boundRect.minX())
+    clipRect.Offset(boundRect.minX() - clipRect.minX(), 0);
+  if (clipRect.maxX() > boundRect.maxX())
+    clipRect.Offset(boundRect.maxX() - clipRect.maxX(), 0);
+  if (clipRect.minY() < boundRect.minY())
+    clipRect.Offset(0, boundRect.minY() - clipRect.minY());
+  if (clipRect.maxY() > boundRect.maxY())
+    clipRect.Offset(0, boundRect.maxY() - clipRect.maxY());
+
+  res.SetOrg(clipRect.Center());
+
   return res;
+}
+
+bool Navigator::CanRotateInto(ScreenBase const & screen, m2::RectD const & boundRect)
+{
+  m2::RectD clipRect = screen.ClipRect();
+  //@TODO
+  return false;
+}
+
+ScreenBase const Navigator::RotateInto(ScreenBase const & screen, m2::RectD const & boundRect)
+{
+  return screen; //@TODO
 }
 
 ScreenBase const Navigator::ScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   ScreenBase res = screen;
 
-  if (m_doSupportRotation)
-    return res;
+/*  if (m_doSupportRotation)
+    return res;*/
 
-  m2::RectD globalRect = res.ClipRect();
+  double scale = 1;
 
-  if (globalRect.minX() < boundRect.minX())
-    globalRect.Scale((boundRect.minX() - globalRect.Center().x) / (globalRect.minX() - globalRect.Center().x));
-  if (globalRect.maxX() > boundRect.maxX())
-    globalRect.Scale((boundRect.maxX() - globalRect.Center().x) / (globalRect.maxX() - globalRect.Center().x));
-  if (globalRect.minY() < boundRect.minY())
-    globalRect.Scale((boundRect.minY() - globalRect.Center().y) / (globalRect.minY() - globalRect.Center().y));
-  if (globalRect.maxY() > boundRect.maxY())
-    globalRect.Scale((boundRect.maxY() - globalRect.Center().y) / (globalRect.maxY() - globalRect.Center().y));
+  m2::RectD clipRect = res.ClipRect();
 
-  res.SetFromRect(m2::AnyRectD(globalRect));
+  if (clipRect.minX() < boundRect.minX())
+  {
+    double k = (boundRect.minX() - clipRect.Center().x) / (clipRect.minX() - clipRect.Center().x);
+    scale /= k;
+    clipRect.Scale(k);
+  }
+  if (clipRect.maxX() > boundRect.maxX())
+  {
+    double k = (boundRect.maxX() - clipRect.Center().x) / (clipRect.maxX() - clipRect.Center().x);
+    scale /= k;
+    clipRect.Scale(k);
+  }
+  if (clipRect.minY() < boundRect.minY())
+  {
+    double k = (boundRect.minY() - clipRect.Center().y) / (clipRect.minY() - clipRect.Center().y);
+    scale /= k;
+    clipRect.Scale(k);
+  }
+  if (clipRect.maxY() > boundRect.maxY())
+  {
+    double k = (boundRect.maxY() - clipRect.Center().y) / (clipRect.maxY() - clipRect.Center().y);
+    scale /= k;
+    clipRect.Scale(k);
+  }
+
+  res.Scale(scale);
+  res.SetOrg(clipRect.Center());
+
   return res;
 }
 
@@ -148,40 +183,74 @@ ScreenBase const Navigator::ShrinkAndScaleInto(ScreenBase const & screen, m2::Re
 {
   ScreenBase res = screen;
 
-  if (m_doSupportRotation)
-    return res;
+/*  if (m_doSupportRotation)
+    return res;*/
 
   m2::RectD globalRect = res.ClipRect();
 
+  m2::PointD newOrg = res.GetOrg();
+  double scale = 1;
+  double offs = 0;
+
   if (globalRect.minX() < boundRect.minX())
   {
-    globalRect.Offset(boundRect.minX() - globalRect.minX(), 0);
+    offs = boundRect.minX() - globalRect.minX();
+    globalRect.Offset(offs, 0);
+    newOrg.x += offs;
+
     if (globalRect.maxX() > boundRect.maxX())
-      globalRect.Scale((globalRect.Center().x - boundRect.maxX()) / (globalRect.Center().x - globalRect.maxX()));
+    {
+      double k = (globalRect.Center().x - boundRect.maxX()) / (globalRect.Center().x - globalRect.maxX());
+      scale /= k;
+      globalRect.Scale(k);
+    }
   }
 
   if (globalRect.maxX() > boundRect.maxX())
   {
-    globalRect.Offset(boundRect.maxX() - globalRect.maxX(), 0);
+    offs = boundRect.maxX() - globalRect.maxX();
+    globalRect.Offset(offs, 0);
+    newOrg.x += offs;
+
     if (globalRect.minX() < boundRect.minX())
-      globalRect.Scale((globalRect.Center().x - boundRect.minX()) / (globalRect.Center().x - globalRect.minX()));
+    {
+      double k = (globalRect.Center().x - boundRect.minX()) / (globalRect.Center().x - globalRect.minX());
+      scale /= k;
+      globalRect.Scale(k);
+    }
   }
 
   if (globalRect.minY() < boundRect.minY())
   {
-    globalRect.Offset(0, boundRect.minY() - globalRect.minY());
+    offs = boundRect.minY() - globalRect.minY();
+    globalRect.Offset(0, offs);
+    newOrg.y += offs;
+
     if (globalRect.maxY() > boundRect.maxY())
-      globalRect.Scale((globalRect.Center().y - boundRect.maxY()) / (globalRect.Center().y - globalRect.maxY()));
+    {
+      double k = (globalRect.Center().y - boundRect.maxY()) / (globalRect.Center().y - globalRect.maxY());
+      scale /= k;
+      globalRect.Scale(k);
+    }
   }
 
   if (globalRect.maxY() > boundRect.maxY())
   {
-    globalRect.Offset(0, boundRect.maxY() - globalRect.maxY());
+    offs = boundRect.maxY() - globalRect.maxY();
+    globalRect.Offset(0, offs);
+    newOrg.y += offs;
+
     if (globalRect.minY() < boundRect.minY())
-      globalRect.Scale((globalRect.Center().y - boundRect.minY()) / (globalRect.Center().y - globalRect.minY()));
+    {
+      double k = (globalRect.Center().y - boundRect.minY()) / (globalRect.Center().y - globalRect.minY());
+      scale /= k;
+      globalRect.Scale(k);
+    }
   }
 
-  res.SetFromRect(m2::AnyRectD(globalRect));
+  res.SetOrg(globalRect.Center());
+  res.Scale(scale);
+
   return res;
 }
 

@@ -146,6 +146,11 @@ double ScreenBase::GetAngle() const
   return m_Angle.val();
 }
 
+m2::PointD const & ScreenBase::GetOrg() const
+{
+  return m_Org;
+}
+
 int ScreenBase::GetWidth() const
 {
   return my::rounds(m_PixelRect.SizeX());
