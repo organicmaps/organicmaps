@@ -109,7 +109,7 @@ $PV $COASTS_OSM_BZ2 | $BZIP | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
     -preprocess_xml
 
 # 2nd pass - generate temporary coastlines file in the intermediate dir
-$BZIP $COASTS_OSM_BZ2 | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
+$PV $COASTS_OSM_BZ2 | $BZIP | $GENERATOR_TOOL -intermediate_data_path=$TMPDIR \
     -use_light_nodes=true -make_coasts
 
 # 3rd pass - preprocess planet
