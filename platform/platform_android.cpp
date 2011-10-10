@@ -5,6 +5,7 @@
 
 #include <dirent.h>
 #include <unistd.h>
+#include <sys/stat.h>
 
 static string ReadPathForFile(string const & writableDir,
     string const & resourcesDir, string const & file)
@@ -25,9 +26,16 @@ Platform::Platform()
 Platform::~Platform()
 {}
 
+static bool IsFilePresent(string const & file)
+{
+  struct stat s;
+  return stat(file.c_str(), &s) == 0;
+}
+
 ModelReader * Platform::GetReader(string const & file) const
 {
-  if (IsFileExists(m_writableDir + file))
+  // can't use Platform::IsFileExists here to avoid recursion
+  if (IsFilePresent(m_writableDir + file))
     return new FileReader(ReadPathForFile(m_writableDir, m_resourcesDir, file), 10, 12);
   else
   { // paths from GetFilesInDir will already contain "assets/"
@@ -125,7 +133,7 @@ bool Platform::GetFileSize(string const & file, uint64_t & size) const
     size = ReaderPtr<Reader>(GetReader(file)).Size();
     return true;
   }
-  catch (RootException)
+  catch (RootException const &)
   {
     return false;
   }
