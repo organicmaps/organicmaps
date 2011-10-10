@@ -72,16 +72,20 @@ CellObjectIntersection IntersectCellWithTriangle(
 
 template <class CellIdT, class CellIdContainerT, typename IntersectF>
 void CoverObject(IntersectF const & intersect, uint64_t cellPenaltyArea, CellIdContainerT & out,
-                 CellIdT cell)
+                 int cellDepth, CellIdT cell)
 {
-  uint64_t const cellArea = my::sq(uint64_t(1 << (CellIdT::DEPTH_LEVELS - 1 - cell.Level())));
+  if (cell.Level() == cellDepth - 1)
+  {
+    out.push_back(cell);
+    return;
+  }
+
+  uint64_t const cellArea = my::sq(uint64_t(1 << (cellDepth - 1 - cell.Level())));
   CellObjectIntersection const intersection = intersect(cell);
 
   if (intersection == CELL_OBJECT_NO_INTERSECTION)
     return;
-  if (intersection == CELL_INSIDE_OBJECT ||
-      cell.Level() == CellIdT::DEPTH_LEVELS - 1 ||
-      cellPenaltyArea >= cellArea)
+  if (intersection == CELL_INSIDE_OBJECT || cellPenaltyArea >= cellArea)
   {
     out.push_back(cell);
     return;
@@ -89,7 +93,7 @@ void CoverObject(IntersectF const & intersect, uint64_t cellPenaltyArea, CellIdC
 
   buffer_vector<CellIdT, 32> subdiv;
   for (uint8_t i = 0; i < 4; ++i)
-    CoverObject(intersect, cellPenaltyArea, subdiv, cell.Child(i));
+    CoverObject(intersect, cellPenaltyArea, subdiv, cellDepth, cell.Child(i));
 
   uint64_t subdivArea = 0;
   for (size_t i = 0; i < subdiv.size(); ++i)

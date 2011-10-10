@@ -114,7 +114,7 @@ vector<int64_t> CoverFeature(FeatureType const & f, int cellDepth, uint64_t cell
   }
 
   vector<RectId> cells;
-  covering::CoverObject(featureIntersector, cellPenaltyArea, cells, RectId::Root());
+  covering::CoverObject(featureIntersector, cellPenaltyArea, cells, cellDepth, RectId::Root());
 
   vector<int64_t> res(cells.size());
   for (size_t i = 0; i < cells.size(); ++i)
