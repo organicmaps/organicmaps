@@ -14,6 +14,7 @@ struct HttpProgressT
   string m_url;
   int64_t m_current;
   int64_t m_total;
+  int64_t m_bytesPerSec;
 };
 typedef function<void (HttpProgressT const &)> HttpProgressCallbackT;
 

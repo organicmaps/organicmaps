@@ -38,12 +38,14 @@ static char const * g_defaultSecondGroup[] = {
 UrlGenerator::UrlGenerator()
   : m_randomGenerator(static_cast<uint32_t>(time(NULL))),
     m_firstGroup(&g_defaultFirstGroup[0], &g_defaultFirstGroup[0] + ARRAY_SIZE(g_defaultFirstGroup)),
-    m_secondGroup(&g_defaultSecondGroup[0], &g_defaultSecondGroup[0] + ARRAY_SIZE(g_defaultSecondGroup))
+    m_secondGroup(&g_defaultSecondGroup[0], &g_defaultSecondGroup[0] + ARRAY_SIZE(g_defaultSecondGroup)),
+    m_lastSecond(0.)
 {
 }
 
 UrlGenerator::UrlGenerator(vector<string> const & firstGroup, vector<string> const & secondGroup)
-  : m_randomGenerator(static_cast<uint32_t>(time(NULL))), m_firstGroup(firstGroup), m_secondGroup(secondGroup)
+  : m_randomGenerator(static_cast<uint32_t>(time(NULL))), m_firstGroup(firstGroup), m_secondGroup(secondGroup),
+    m_lastSecond(0.)
 {
 }
 
@@ -83,4 +85,32 @@ string UrlGenerator::PopNextUrl()
     }
   }
   return s;
+}
+
+void UrlGenerator::UpdateSpeed(int64_t totalBytesRead)
+{
+  double const seconds = m_timer.ElapsedSeconds();
+  if (static_cast<int>(seconds) - static_cast<int>(m_lastSecond) > 0)
+  {
+    m_lastSecond = seconds;
+    m_speeds.push_back(make_pair(seconds, totalBytesRead));
+    if (m_speeds.size() > 6)
+      m_speeds.pop_front();
+  }
+}
+
+int64_t UrlGenerator::CurrentSpeed() const
+{
+  switch (m_speeds.size())
+  {
+  case 0:
+  case 1: return -1;
+  default: return static_cast<int64_t>((m_speeds.back().second - m_speeds.front().second)
+                                       / (m_speeds.back().first - m_speeds.front().first));
+  }
+}
+
+string UrlGenerator::GetFasterUrl()
+{
+  return string();
 }

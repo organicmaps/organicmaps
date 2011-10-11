@@ -302,12 +302,23 @@ void QtDownload::OnHttpReadyRead()
 
 void QtDownload::OnUpdateDataReadProgress(qint64 bytesRead, qint64 totalBytes)
 {
+  m_urlGenerator.UpdateSpeed(bytesRead);
   if (m_params.m_progress)
   {
     HttpProgressT p;
     p.m_current = bytesRead;
     p.m_total = totalBytes;
     p.m_url = m_params.m_url;
+    p.m_bytesPerSec = m_urlGenerator.CurrentSpeed();
     m_params.m_progress(p);
+  }
+  // if download speed is slow, use next server
+  string const fasterUrl = m_urlGenerator.GetFasterUrl();
+  if (!fasterUrl.empty())
+  {
+    m_reply->abort();
+    m_reply->deleteLater();
+    m_currentUrl.setUrl(fasterUrl.c_str());
+    StartRequest();
   }
 }
