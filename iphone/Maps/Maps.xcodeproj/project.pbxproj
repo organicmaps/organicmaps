@@ -71,7 +71,6 @@
 		FA4135EA120A263C0062D5B4 /* CountriesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4135E2120A263C0062D5B4 /* CountriesViewController.mm */; };
 		FA4135ED120A263C0062D5B4 /* SettingsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4135E7120A263C0062D5B4 /* SettingsManager.mm */; };
 		FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */; };
-		FA46DA0512D414D200968C36 /* maps.update in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA0412D414D200968C36 /* maps.update */; };
 		FA46DA2C12D4166E00968C36 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
 		FA5005621287BFCE002961F0 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = FA50055C1287BFCE002961F0 /* Icon-72.png */; };
 		FA5005631287BFCE002961F0 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = FA50055D1287BFCE002961F0 /* Icon-Small-50.png */; };
@@ -685,7 +684,6 @@
 		FA4135E6120A263C0062D5B4 /* SettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsManager.h; path = Settings/SettingsManager.h; sourceTree = SOURCE_ROOT; };
 		FA4135E7120A263C0062D5B4 /* SettingsManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = SettingsManager.mm; path = Settings/SettingsManager.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = WorldCoasts.mwm; path = ../../data/WorldCoasts.mwm; sourceTree = "<group>"; };
-		FA46DA0412D414D200968C36 /* maps.update */ = {isa = PBXFileReference; lastKnownFileType = file; name = maps.update; path = ../../data/maps.update; sourceTree = SOURCE_ROOT; };
 		FA46DA2B12D4166E00968C36 /* countries.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries.txt; path = ../../data/countries.txt; sourceTree = SOURCE_ROOT; };
 		FA50055C1287BFCE002961F0 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = SOURCE_ROOT; };
 		FA50055D1287BFCE002961F0 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = SOURCE_ROOT; };
@@ -1382,7 +1380,6 @@
 				EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */,
 				EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */,
 				FA46DA2B12D4166E00968C36 /* countries.txt */,
-				FA46DA0412D414D200968C36 /* maps.update */,
 				EEE4C9411298A31B007231A9 /* basic_highres.skn */,
 				EEE4C93F1298A303007231A9 /* symbols_48.png */,
 				EEE4C93D1298A2F3007231A9 /* symbols_24.png */,
@@ -2051,7 +2048,6 @@
 				EEE4C93E1298A2F3007231A9 /* symbols_24.png in Resources */,
 				EEE4C9401298A303007231A9 /* symbols_48.png in Resources */,
 				EEE4C9421298A31B007231A9 /* basic_highres.skn in Resources */,
-				FA46DA0512D414D200968C36 /* maps.update in Resources */,
 				FA46DA2C12D4166E00968C36 /* countries.txt in Resources */,
 				EE583CBB12F773F00042CBE3 /* unicode_blocks.txt in Resources */,
 				EEFE7C1412F8C9E1006AF8C3 /* fonts_blacklist.txt in Resources */,
