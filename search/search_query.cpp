@@ -107,9 +107,11 @@ void Query::Search(string const & query,
   {
     m_rawQuery = query;
     m_uniQuery = NormalizeAndSimplifyString(m_rawQuery);
+    m_tokens.clear();
 
     search::Delimiters delims;
     SplitUniString(m_uniQuery, MakeBackInsertFunctor(m_tokens), delims);
+
     if (!m_tokens.empty() && !delims(strings::LastUniChar(m_rawQuery)))
     {
       m_prefix.swap(m_tokens.back());
@@ -118,7 +120,7 @@ void Query::Search(string const & query,
     if (m_tokens.size() > 31)
       m_tokens.resize(31);
 
-    m_pKeywordMatcher.reset(new KeywordMatcher(m_tokens.data(), (int)m_tokens.size(), &m_prefix));
+    m_pKeywordMatcher.reset(new KeywordMatcher(m_tokens.data(), m_tokens.size(), &m_prefix));
 
     m_results = my::limited_priority_queue<impl::IntermediateResult>(resultsNeeded);
   }
