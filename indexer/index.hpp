@@ -108,8 +108,14 @@ private:
         {
           feature::DataHeader const & header = pValue->GetHeader();
 
-          // prepare needed covering
-          covering::IntervalsT const & interval = cov.Get(header.GetScaleRange());
+          // Prepare needed covering.
+
+          // In case of WorldCoasts we should pass correct scale in ForEachInIntervalAndScale.
+          int const lastScale = header.GetLastScale();
+          if (scale > lastScale) scale = lastScale;
+
+          // Use last coding scale for covering (see index_builder.cpp).
+          covering::IntervalsT const & interval = cov.Get(lastScale);
 
           // prepare features reading
           FeaturesVector fv(pValue->m_cont, header);

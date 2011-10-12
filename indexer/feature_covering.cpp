@@ -187,19 +187,17 @@ RectId GetRectIdAsIs(m2::RectD const & r)
     MercatorBounds::ClampY(r.maxY() - eps));
 }
 
-int GetCodingDepth(pair<int, int> const & scalesR)
+int GetCodingDepth(int scale)
 {
-  ASSERT_LESS_OR_EQUAL ( scalesR.first, scalesR.second, () );
-
-  int const delta = scales::GetUpperScale() - scalesR.second;
+  int const delta = scales::GetUpperScale() - scale;
   ASSERT_GREATER_OR_EQUAL ( delta, 0, () );
 
   return (RectId::DEPTH_LEVELS - delta);
 }
 
-IntervalsT const & CoveringGetter::Get(pair<int, int> const & scaleR)
+IntervalsT const & CoveringGetter::Get(int scale)
 {
-  int const cellDepth = GetCodingDepth(scaleR);
+  int const cellDepth = GetCodingDepth(scale);
   int const ind = (cellDepth == RectId::DEPTH_LEVELS ? 0 : 1);
 
   if (m_res[ind].empty())

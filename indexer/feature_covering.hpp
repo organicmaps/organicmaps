@@ -31,7 +31,7 @@ namespace covering
   RectId GetRectIdAsIs(m2::RectD const & r);
 
   // Calculate cell coding depth according to max visual scale for mwm.
-  int GetCodingDepth(pair<int, int> const & scalesR);
+  int GetCodingDepth(int scale);
 
   class CoveringGetter
   {
@@ -47,6 +47,6 @@ namespace covering
     /// - 2 - make full cover\n
     CoveringGetter(m2::RectD const & r, int mode) : m_rect(r), m_mode(mode) {}
 
-    IntervalsT const & Get(pair<int, int> const & scaleR);
+    IntervalsT const & Get(int scale);
   };
 }

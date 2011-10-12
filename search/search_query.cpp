@@ -74,7 +74,7 @@ void Query::UpdateViewportOffsets()
         pair<int, int> const scaleR = header.GetScaleRange();
         int const scale = min(max(viewScale + 7, scaleR.first), scaleR.second);
 
-        covering::IntervalsT const & interval = cov.Get(scaleR);
+        covering::IntervalsT const & interval = cov.Get(header.GetLastScale());
 
         ScaleIndex<ModelReaderPtr> index(pMwm->m_cont.GetReader(INDEX_FILE_TAG),
                                          pMwm->m_factory);
