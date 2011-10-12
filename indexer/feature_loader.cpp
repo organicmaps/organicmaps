@@ -285,8 +285,9 @@ int LoaderCurrent::GetScaleIndex(int scale) const
   int const count = m_Info.GetScalesCount();
 
   // In case of WorldCoasts we should get correct last geometry.
-  if (scale > m_Info.GetLastScale())
-    scale = -1;
+  int const lastScale = m_Info.GetLastScale();
+  if (scale > lastScale)
+    scale = lastScale;
 
   switch (scale)
   {
@@ -306,8 +307,9 @@ int LoaderCurrent::GetScaleIndex(int scale, offsets_t const & offsets) const
   int const count = static_cast<int>(offsets.size());
 
   // In case of WorldCoasts we should get correct last geometry.
-  if (scale > m_Info.GetLastScale())
-    scale = -1;
+  int const lastScale = m_Info.GetLastScale();
+  if (scale > lastScale)
+    scale = lastScale;
 
   switch (scale)
   {
