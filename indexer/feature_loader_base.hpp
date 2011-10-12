@@ -37,8 +37,10 @@ namespace feature
     {
       return m_header.GetCodingParams(scaleIndex);
     }
+
     inline int GetScalesCount() const { return static_cast<int>(m_header.GetScalesCount()); }
     inline int GetScale(int i) const { return m_header.GetScale(i); }
+    inline int GetLastScale() const { return m_header.GetLastScale(); }
   };
 
   class LoaderBase
