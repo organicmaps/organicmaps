@@ -42,17 +42,18 @@ namespace feature
     using namespace scales;
 
     int const low = 0;
+    int const high = GetUpperScale();
     int const worldH = GetUpperWorldScale();
     MapType const type = GetType();
 
     switch (type)
     {
     case world: return make_pair(low, worldH);
-    case worldcoasts: return make_pair(low, worldH);
+    case worldcoasts: return make_pair(low, high);
     default:
       ASSERT_EQUAL(type, country, ());
-      return make_pair(worldH + 1, GetUpperScale());
-      //return make_pair(low, GetUpperScale());
+      return make_pair(worldH + 1, high);
+      //return make_pair(low, high);
     }
   }
 

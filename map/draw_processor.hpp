@@ -318,6 +318,8 @@ namespace fwork
   {
     m2::RectD m_rect;
 
+    set<string> m_coasts;
+
     ScreenBase const & m_convertor;
 
     shared_ptr<PaintEvent> m_paintEvent;
@@ -342,7 +344,7 @@ namespace fwork
                   shared_ptr<PaintEvent> const & paintEvent,
                   int scaleLevel);
 
-    bool operator() (FeatureType const & f) const;
+    bool operator() (FeatureType const & f);
   };
 }
 

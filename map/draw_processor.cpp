@@ -275,7 +275,7 @@ namespace fwork
     }                                                      \
   }
 
-  bool DrawProcessor::operator() (FeatureType const & f) const
+  bool DrawProcessor::operator() (FeatureType const & f)
   {
     if (m_paintEvent->isCancelled())
       throw redraw_operation_cancelled();
@@ -283,7 +283,7 @@ namespace fwork
     // get drawing rules
     vector<drule::Key> keys;
     string names;       // for debug use only, in release it's empty
-    int type = feature::GetDrawRule(f, m_zoom, keys, names);
+    pair<int, bool> type = feature::GetDrawRule(f, m_zoom, keys, names);
 
     if (keys.empty())
     {
@@ -291,6 +291,13 @@ namespace fwork
       // During indexing, features are placed at first visible scale bucket.
       // At higher scales it can become invisible - it depends on classificator.
       return true;
+    }
+
+    if (type.second)
+    {
+      // Draw coastlines features only once.
+      if (!m_coasts.insert(f.GetPreferredDrawableName(0)).second)
+        return true;
     }
 
     // remove duplicating identical drawing keys
@@ -334,7 +341,7 @@ namespace fwork
     using namespace get_pts;
 
     bool isExist = false;
-    switch (type)
+    switch (type.first)
     {
     case feature::GEOM_POINT:
     {

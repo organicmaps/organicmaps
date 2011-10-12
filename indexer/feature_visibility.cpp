@@ -129,7 +129,8 @@ namespace
   };
 }
 
-int GetDrawRule(FeatureBase const & f, int level, vector<drule::Key> & keys, string & names)
+pair<int, bool> GetDrawRule(FeatureBase const & f, int level,
+                            vector<drule::Key> & keys, string & names)
 {
   feature::EGeomType const geoType = f.GetFeatureType();
 
@@ -143,7 +144,7 @@ int GetDrawRule(FeatureBase const & f, int level, vector<drule::Key> & keys, str
   for (size_t i = 0; i < types.m_size; ++i)
     (void)c.ProcessObjects(types.m_types[i], doRules);
 
-  return geoType;
+  return make_pair(geoType, types.Has(c.GetCoastType()));
 }
 
 namespace

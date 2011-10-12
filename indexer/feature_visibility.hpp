@@ -27,7 +27,9 @@ namespace feature
   int MinDrawableScaleForFeature(FeatureBase const & f);
   pair<int, int> DrawableScaleRangeForText(FeatureBase const & f);
 
-  int GetDrawRule(FeatureBase const & f, int level, vector<drule::Key> & keys, string & names);
+  /// @return (geometry type, is coastline)
+  pair<int, bool> GetDrawRule(FeatureBase const & f, int level,
+                              vector<drule::Key> & keys, string & names);
 
   bool IsHighway(vector<uint32_t> const & types);
 
