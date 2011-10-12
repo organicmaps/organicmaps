@@ -77,7 +77,7 @@ namespace serial
   template <class TSink>
   void WriteBufferToSink(vector<char> const & buffer, TSink & sink)
   {
-    uint32_t const count = buffer.size();
+    uint32_t const count = static_cast<uint32_t>(buffer.size());
     WriteVarUint(sink, count);
     sink.Write(&buffer[0], count);
   }

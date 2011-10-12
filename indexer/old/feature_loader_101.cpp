@@ -247,12 +247,12 @@ void LoaderImpl::ParseHeader2()
         m_ptsSimpMask += (mask << (i << 3));
       }
 
-      char const * start = static_cast<char const *>(src.Ptr());
+      char const * start = src.PtrC();
 
       src = ArrayByteSource(serial::LoadInnerPath(
-                              src.Ptr(), ptsCount, GetDefCodingParams(), m_pF->m_Points));
+                              start, ptsCount, GetDefCodingParams(), m_pF->m_Points));
 
-      m_pF->m_InnerStats.m_Points = static_cast<char const *>(src.Ptr()) - start;
+      m_pF->m_InnerStats.m_Points = src.PtrC() - start;
     }
     else
       ReadOffsets(src, ptsMask, m_ptsOffsets);
@@ -264,13 +264,13 @@ void LoaderImpl::ParseHeader2()
     {
       trgCount += 2;
 
-      char const * start = static_cast<char const *>(src.Ptr());
+      char const * start = src.PtrC();
 
       FeatureType::points_t points;
       src = ArrayByteSource(serial::LoadInnerTriangles(
-                              src.Ptr(), trgCount, GetDefCodingParams(), points));
+                              start, trgCount, GetDefCodingParams(), points));
 
-      m_pF->m_InnerStats.m_Strips = static_cast<char const *>(src.Ptr()) - start;
+      m_pF->m_InnerStats.m_Strips = src.PtrC() - start;
 
       for (uint8_t i = 2; i < trgCount; ++i)
       {
@@ -283,7 +283,7 @@ void LoaderImpl::ParseHeader2()
       ReadOffsets(src, trgMask, m_trgOffsets);
   }
 
-  m_pF->m_InnerStats.m_Size = static_cast<char const *>(src.Ptr()) - DataPtr();
+  m_pF->m_InnerStats.m_Size = src.PtrC() - DataPtr();
 }
 
 uint32_t LoaderImpl::ParseGeometry(int scale)

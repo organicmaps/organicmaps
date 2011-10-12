@@ -28,7 +28,7 @@ TArchive & operator >> (TArchive & ar, pair<T1, T2> & t)
 
 template <class TArchive, class TCont> void save_like_map(TArchive & ar, TCont const & rMap)
 {
-  uint32_t const count = rMap.size();
+  uint32_t const count = static_cast<uint32_t>(rMap.size());
   ar << count;
 
   for (typename TCont::const_iterator i = rMap.begin(); i != rMap.end(); ++i)
@@ -56,7 +56,7 @@ template <class TArchive, class TCont> void load_like_map(TArchive & ar, TCont &
 
 template <class TArchive, class TCont> void save_like_vector(TArchive & ar, TCont const & rCont)
 {
-  uint32_t const count = rCont.size();
+  uint32_t const count = static_cast<uint32_t>(rCont.size());
   ar << count;
 
   for (uint32_t i = 0; i < count; ++i)

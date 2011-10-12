@@ -14,7 +14,7 @@ namespace
     WriteVarUint(dst, x);
     ArrayByteSource src(&data[0]);
     TEST_EQUAL(ReadVarUint<T>(src), x, ());
-    size_t const bytesRead = static_cast<const unsigned char*>(src.Ptr()) - &data[0];
+    size_t const bytesRead = src.PtrUC() - &data[0];
     TEST_EQUAL(bytesRead, data.size(), (x));
   }
 
@@ -25,7 +25,7 @@ namespace
     WriteVarInt(dst, x);
     ArrayByteSource src(&data[0]);
     TEST_EQUAL(ReadVarInt<T>(src), x, ());
-    size_t const bytesRead = static_cast<const unsigned char*>(src.Ptr()) - &data[0];
+    size_t const bytesRead = src.PtrUC() - &data[0];
     TEST_EQUAL(bytesRead, data.size(), (x));
   }
 }

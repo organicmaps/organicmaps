@@ -21,14 +21,15 @@ public:
     m_p += size;
   }
 
-  const void * Ptr() const {
-    return m_p;
-  }
+  inline const void * Ptr() const { return m_p; }
+  inline const unsigned char * PtrUC() const { return m_p; }
+  inline const char * PtrC() const { return static_cast<char const *>(Ptr()); }
 
   void Advance(size_t size)
   {
     m_p += size;
   }
+
 private:
   const unsigned char * m_p;
 };

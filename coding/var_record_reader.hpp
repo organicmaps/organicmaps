@@ -40,7 +40,7 @@ public:
     m_Reader.Read(pos, &buffer[0], initialSize);
     ArrayByteSource source(&buffer[0]);
     uint32_t const recordSize = VarRecordSizeReaderFn(source);
-    uint32_t const recordSizeSize = static_cast<char const *>(source.Ptr()) - &buffer[0];
+    uint32_t const recordSizeSize = static_cast<uint32_t>(source.PtrC() - &buffer[0]);
     uint32_t const fullSize = recordSize + recordSizeSize;
     ASSERT_LESS_OR_EQUAL(pos + fullSize, m_ReaderSize, ());
     buffer.resize(fullSize);

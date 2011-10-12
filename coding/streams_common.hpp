@@ -28,7 +28,7 @@ namespace stream
     template <class TStream, class TWriter>
     void WriteString(TStream & s, TWriter & w, string const & t)
     {
-      uint32_t const count = t.size();
+      uint32_t const count = static_cast<uint32_t>(t.size());
       s << count;
       if (count > 0)
         w.Write(t.c_str(), count);

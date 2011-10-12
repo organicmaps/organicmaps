@@ -86,7 +86,7 @@ void sl::SlofDictionary::ArticleById(sl::Dictionary::Id id, string & article) co
   m_pReader->Read(m_Header.m_ArticleOffset + articleChunkPos + 4, &chunk[0], chunkSize);
   ArrayByteSource chunkSource(&chunk[0]);
   uint32_t chunkHeaderSize = ReadVarUint<uint32_t>(chunkSource);
-  chunkHeaderSize += static_cast<char const *>(chunkSource.Ptr()) - &chunk[0];
+  chunkHeaderSize += (chunkSource.PtrC() - &chunk[0]);
   uint32_t const decompressedChunkSize = ReadVarUint<uint32_t>(chunkSource);
   uint32_t articleBegInChunk = 0;
   for (uint32_t i = 0; i < articleNumInChunk; ++i)

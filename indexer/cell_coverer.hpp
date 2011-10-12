@@ -13,7 +13,7 @@ inline void SplitRectCell(CellIdT id,
                           CoordT maxX, CoordT maxY,
                           vector<CellIdT> & result)
 {
-  for (size_t i = 0; i < 4; ++i)
+  for (int8_t i = 0; i < 4; ++i)
   {
     CellIdT child = id.Child(i);
     CoordT minCellX, minCellY, maxCellX, maxCellY;

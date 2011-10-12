@@ -77,7 +77,7 @@ void LoaderBase::Deserialize(BufferT data)
 
 uint32_t LoaderBase::CalcOffset(ArrayByteSource const & source) const
 {
-  return static_cast<uint32_t>(static_cast<char const *>(source.Ptr()) - DataPtr());
+  return static_cast<uint32_t>(source.PtrC() - DataPtr());
 }
 
 }
