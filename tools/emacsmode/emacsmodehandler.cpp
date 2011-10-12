@@ -583,7 +583,7 @@ void EmacsModeHandler::Private::init()
     m_shortcuts.push_back(Emacs::Shortcut("<META>|m")
                             .addFn(boost::bind(&EmacsModeHandler::Private::newLine, this))
                             .addFn(boost::bind(&EmacsModeHandler::Private::setKillBufferAppending, this, false)));
-    m_shortcuts.push_back(Emacs::Shortcut("<META>|j")
+    m_shortcuts.push_back(Emacs::Shortcut("<META>|h")
                             .addFn(boost::bind(&EmacsModeHandler::Private::backspace, this))
                             .addFn(boost::bind(&EmacsModeHandler::Private::setKillBufferAppending, this, false)));
     m_shortcuts.push_back(Emacs::Shortcut("<META>|e")
