@@ -175,11 +175,13 @@ void InformationDisplay::setDebugInfo(double frameDuration, int currentScale)
 void InformationDisplay::drawDebugInfo(DrawerYG * drawer)
 {
   ostringstream out;
-  out << "SPF: " << m_frameDuration;
+  out << "Scale : " << m_currentScale;
+
+/*  out << "SPF: " << m_frameDuration;
   if (m_frameDuration == 0.0)
     out << " FPS: inf";
   else
-    out << " FPS: " << 1.0 / m_frameDuration;
+    out << " FPS: " << 1.0 / m_frameDuration;*/
 
   m_yOffset += 20;
 
