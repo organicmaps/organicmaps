@@ -199,6 +199,8 @@ class Classificator
   Index2Type m_i2t;
   Type2Index m_t2i;
 
+  uint32_t m_coastType;
+
   static ClassifObject * AddV(ClassifObject * parent, string const & key, string const & value);
 
 public:
@@ -226,7 +228,7 @@ public:
   uint32_t GetIndexForType(uint32_t t) const { return m_t2i.GetIndex(t); }
   uint32_t GetTypeForIndex(uint32_t i) const { return m_i2t.GetType(i); }
 
-  uint32_t GetCoastType() const;
+  inline uint32_t GetCoastType() const { return m_coastType; }
 
   // Iterate for possible objects types
   //template <class ToDo> void ForEachType(ToDo toDo)
@@ -240,7 +242,6 @@ public:
   ClassifObject * GetMutableRoot() { return &m_root; }
   //@}
 
-public:
   /// @name Used only in feature_visibility.cpp, not for public use.
   //@{
   template <class ToDo> typename ToDo::ResultType

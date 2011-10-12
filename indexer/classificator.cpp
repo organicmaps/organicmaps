@@ -438,6 +438,9 @@ void Classificator::ReadClassificator(string const & buffer)
   tree::LoadTreeAsText(iss, policy);
 
   m_root.Sort();
+
+  char const * path[] = { "natural", "coastline" };
+  m_coastType = GetTypeByPath(vector<string>(path, path + 2));
 }
 
 void Classificator::PrintClassificator(char const * fPath)
@@ -498,12 +501,6 @@ uint32_t Classificator::GetTypeByPath(vector<string> const & path) const
   }
 
   return type;
-}
-
-uint32_t Classificator::GetCoastType() const
-{
-  char const * path[] = { "natural", "coastline" };
-  return GetTypeByPath(vector<string>(path, path + 2));
 }
 
 void Classificator::ReadTypesMapping(string const & buffer)
