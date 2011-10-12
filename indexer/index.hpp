@@ -5,6 +5,7 @@
 #include "features_vector.hpp"
 #include "scale_index.hpp"
 #include "mwm_set.hpp"
+#include "scales.hpp"
 
 #include "../coding/file_container.hpp"
 
@@ -90,6 +91,39 @@ private:
   };
 
   template <typename F>
+  void ProcessMwm(F & f, MwmId id, covering::CoveringGetter & cov, uint32_t scale) const
+  {
+    MwmLock lock(*this, id);
+    MwmValue * pValue = lock.GetValue();
+    if (pValue)
+    {
+      feature::DataHeader const & header = pValue->GetHeader();
+
+      // Prepare needed covering.
+      int const lastScale = header.GetLastScale();
+
+      // In case of WorldCoasts we should pass correct scale in ForEachInIntervalAndScale.
+      if (scale > lastScale) scale = lastScale;
+
+      // Use last coding scale for covering (see index_builder.cpp).
+      covering::IntervalsT const & interval = cov.Get(lastScale);
+
+      // prepare features reading
+      FeaturesVector fv(pValue->m_cont, header);
+      ScaleIndex<ModelReaderPtr> index(pValue->m_cont.GetReader(INDEX_FILE_TAG),
+                                       pValue->m_factory);
+
+      // iterate through intervals
+      unordered_set<uint32_t> offsets;
+      ReadFeatureFunctor<F> f1(fv, f, offsets);
+      for (size_t i = 0; i < interval.size(); ++i)
+      {
+        index.ForEachInIntervalAndScale(f1, interval[i].first, interval[i].second, scale);
+      }
+    }
+  }
+
+  template <typename F>
   void ForEachInIntervals(F & f, int mode, m2::RectD const & rect, uint32_t scale) const
   {
     vector<MwmInfo> mwm;
@@ -97,40 +131,35 @@ private:
 
     covering::CoveringGetter cov(rect, mode);
 
-    for (MwmId id = 0; id < mwm.size(); ++id)
+    size_t const count = mwm.size();
+    MwmId worldID[2] = { count, count };
+
+    for (MwmId id = 0; id < count; ++id)
     {
       if ((mwm[id].m_minScale <= scale && scale <= mwm[id].m_maxScale) &&
           rect.IsIntersect(mwm[id].m_limitRect))
       {
-        MwmLock lock(*this, id);
-        MwmValue * pValue = lock.GetValue();
-        if (pValue)
+        /// @todo It's better to avoid hacks with scale comparison.
+
+        if (mwm[id].m_minScale > 0)
         {
-          feature::DataHeader const & header = pValue->GetHeader();
-
-          // Prepare needed covering.
-
-          // In case of WorldCoasts we should pass correct scale in ForEachInIntervalAndScale.
-          int const lastScale = header.GetLastScale();
-          if (scale > lastScale) scale = lastScale;
-
-          // Use last coding scale for covering (see index_builder.cpp).
-          covering::IntervalsT const & interval = cov.Get(lastScale);
-
-          // prepare features reading
-          FeaturesVector fv(pValue->m_cont, header);
-          ScaleIndex<ModelReaderPtr> index(pValue->m_cont.GetReader(INDEX_FILE_TAG),
-                                           pValue->m_factory);
-
-          // iterate through intervals
-          unordered_set<uint32_t> offsets;
-          ReadFeatureFunctor<F> f1(fv, f, offsets);
-          for (size_t i = 0; i < interval.size(); ++i)
-          {
-            index.ForEachInIntervalAndScale(f1, interval[i].first, interval[i].second, scale);
-          }
+          // process countries first
+          ProcessMwm(f, id, cov, scale);
+        }
+        else
+        {
+          if (mwm[id].m_maxScale == scales::GetUpperScale())
+            worldID[0] = id;  // store WorldCoasts to process
+          else
+            worldID[1] = id;  // store World to process
         }
       }
     }
+
+    if (worldID[0] < count)
+      ProcessMwm(f, worldID[0], cov, scale);
+
+    if (worldID[1] < count)
+      ProcessMwm(f, worldID[1], cov, scale);
   }
 };
