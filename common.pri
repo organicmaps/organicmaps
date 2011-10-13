@@ -102,9 +102,9 @@ win32-msvc2010 {
 }
 
 unix|win32-g++ {
-  QMAKE_CXXFLAGS_WARN_ON *= -Wno-sign-compare -Wno-strict-aliasing -Wconversion -Wno-unused-parameter
+  QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-compare -Wno-strict-aliasing -Wno-unused-parameter
   !*-g++* {
-    QMAKE_CXXFLAGS_WARN_ON *= -Wno-sign-conversion
+    QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-conversion
   }
   # experimental
   QMAKE_CFLAGS_RELEASE -= -O2
