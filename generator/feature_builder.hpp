@@ -134,6 +134,13 @@ public:
     else return false;
   }
 
+  inline string GetName() const
+  {
+    string s;
+    m_Params.name.GetString(0, s);
+    return s;
+  }
+
 protected:
   /// Used for feature debugging
   vector<osm::OsmId> m_osmIds;
