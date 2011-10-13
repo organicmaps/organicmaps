@@ -124,7 +124,6 @@ struct ChildInfo
   typedef buffer_vector<uint8_t, 8> EdgeValueStorageType;
   EdgeValueStorageType m_edgeValue;
 
-  ChildInfo() {}
   ChildInfo(bool isLeaf, uint32_t size, TrieChar c) : m_isLeaf(isLeaf), m_size(size), m_edge(1, c)
   {
   }

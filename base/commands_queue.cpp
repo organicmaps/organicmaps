@@ -38,9 +38,6 @@ namespace core
     }
   }
 
-  CommandsQueue::Routine::Routine() : m_env(-1)
-  {}
-
   CommandsQueue::Routine::Routine(CommandsQueue * parent, int idx)
     : m_parent(parent), m_idx(idx), m_env(idx)
   {}
@@ -108,14 +105,15 @@ namespace core
   }
 
   CommandsQueue::CommandsQueue(size_t executorsCount)
-    : m_executorsCount(executorsCount), m_cmdId(0), m_activeCommands(0)
+    : m_executors(new Executor[executorsCount]), m_executorsCount(executorsCount),
+      m_cmdId(0), m_activeCommands(0)
   {
-    m_executors = new Executor[executorsCount];
-    m_executorsCount = executorsCount;
   }
 
   CommandsQueue::~CommandsQueue()
-  {}
+  {
+    // @TODO memory leak in m_executors? call Cancel()?
+  }
 
   void CommandsQueue::Cancel()
   {

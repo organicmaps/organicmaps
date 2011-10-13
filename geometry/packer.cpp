@@ -8,6 +8,7 @@ namespace m2
   Packer::Packer()
     : m_currentX(0),
     m_currentY(0),
+    m_yStep(0),
     m_width(0),
     m_height(0),
     m_currentHandle(0),

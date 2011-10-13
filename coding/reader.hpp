@@ -35,8 +35,6 @@ public:
 class MemReader : public Reader
 {
 public:
-  MemReader() {} // TODO: Remove MemReader().
-
   // Construct from block of memory.
   MemReader(void const * pData, size_t size)
     : m_pData(static_cast<char const *>(pData)), m_size(size)

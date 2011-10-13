@@ -11,7 +11,6 @@
 struct ThreadedListProcessor : public threads::IRoutine
 {
   ThreadedList<int> * m_p;
-  int m_data;
   list<int> * m_res;
   int m_id;
 
@@ -35,7 +34,6 @@ struct ThreadedListProcessor : public threads::IRoutine
 struct ThreadedPriorityQueueProcessor : public threads::IRoutine
 {
   ThreadedPriorityQueue<int> * m_p;
-  int m_data;
   list<int> * m_res;
   int m_id;
 

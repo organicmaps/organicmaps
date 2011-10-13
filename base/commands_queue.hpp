@@ -102,7 +102,6 @@ namespace core
 
     public:
 
-      Routine();
       Routine(CommandsQueue * parent, int idx);
 
       void Do();
