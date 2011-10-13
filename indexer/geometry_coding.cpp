@@ -1,7 +1,5 @@
 #include "geometry_coding.hpp"
 
-#include "../../geometry/distance.hpp"
-
 #include "../base/assert.hpp"
 #include "../base/stl_add.hpp"
 
