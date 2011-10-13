@@ -352,18 +352,19 @@ namespace feature
 
     class BoundsDistance : public mn::DistanceToLineSquare<m2::PointD>
     {
+      m2::RectD const & m_rect;
       double m_eps;
-      double m_minX, m_minY, m_maxX, m_maxY;
 
     public:
-      BoundsDistance() : m_eps(MercatorBounds::GetCellID2PointAbsEpsilon())
+      BoundsDistance(m2::RectD const & rect)
+        : m_rect(rect), m_eps(MercatorBounds::GetCellID2PointAbsEpsilon())
       {
       }
 
       double operator() (m2::PointD const & p) const
       {
-        if (fabs(p.x - m_minX) <= m_eps || fabs(p.x - m_maxX) <= m_eps ||
-            fabs(p.y - m_minY) <= m_eps || fabs(p.y - m_maxY) <= m_eps)
+        if (fabs(p.x - m_rect.minX()) <= m_eps || fabs(p.x - m_rect.maxX()) <= m_eps ||
+            fabs(p.y - m_rect.minY()) <= m_eps || fabs(p.y - m_rect.maxY()) <= m_eps)
         {
           // points near rect should be in a result simplified vector
           return std::numeric_limits<double>::max();
@@ -373,14 +374,15 @@ namespace feature
       }
     };
 
-    void SimplifyPoints(points_t const & in, points_t & out, int level, bool isCoast)
+    void SimplifyPoints(points_t const & in, points_t & out, int level,
+                        bool isCoast, m2::RectD const & rect)
     {
       if (level >= scales::GetUpperWorldScale() && isCoast)
       {
         // Note! Do such special simplification only for upper world level and countries levels.
         // There is no need for this simplification in small world levels.
 
-        BoundsDistance dist;
+        BoundsDistance dist(rect);
         feature::SimplifyPoints(dist, in, out, level);
       }
       else
@@ -429,10 +431,11 @@ namespace feature
         {
           int64_t dummy;
           bool const isCoast = fb.GetCoastCell(dummy);
+          m2::RectD const rect = fb.GetLimitRect();
 
           // simplify and serialize geometry
           points_t points;
-          SimplifyPoints(holder.GetSourcePoints(), points, level, isCoast);
+          SimplifyPoints(holder.GetSourcePoints(), points, level, isCoast, rect);
 
           if (isLine)
             holder.AddPoints(points, i);
@@ -461,7 +464,7 @@ namespace feature
             {
               simplified.push_back(points_t());
 
-              SimplifyPoints(*iH, simplified.back(), level, isCoast);
+              SimplifyPoints(*iH, simplified.back(), level, isCoast, rect);
 
               if (!IsGoodArea(simplified.back(), level))
                 simplified.pop_back();
