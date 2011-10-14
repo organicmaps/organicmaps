@@ -3,7 +3,7 @@
 #include <string.h>
 #include <jni.h>
 
-#include "../../std/string.hpp"
+#include "../../../../../std/string.hpp"
 
 namespace jni
 {

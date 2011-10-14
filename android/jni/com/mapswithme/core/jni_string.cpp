@@ -1,6 +1,6 @@
-#include "jni_string.h"
+#include "jni_string.hpp"
 
-#include "../../base/string_utils.hpp"
+#include "../../../../../base/string_utils.hpp"
 
 
 namespace jni

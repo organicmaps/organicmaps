@@ -11,23 +11,29 @@ LOCAL_CFLAGS := -ffunction-sections -fdata-sections
 
 
 LOCAL_HEADER_FILES := \
-	jni_helper.h \
-	jni_string.h \
-	logging.h \
-	android_platform.hpp \
-	android_framework.hpp \
-	rendering.h \	
+ 	com/mapswithme/core/jni_helper.hpp \
+	com/mapswithme/core/jni_string.hpp \
+	com/mapswithme/core/logging.hpp \
+	com/mapswithme/core/download_manager.hpp \
+	com/mapswithme/core/render_context.hpp \
+	com/mapswithme/maps/Framework.hpp \
+	com/mapswithme/maps/Platform.hpp \
 
 LOCAL_SRC_FILES := \
-	main_native.cpp \
-	jni_helper.cpp \
-	jni_string.cpp \
-	android_platform.cpp \
-	android_framework.cpp \
-	logging.cpp \
-	temp_stubs.cpp \
-	rendering.cpp \
-
+	com/mapswithme/core/concurrent_runner.cpp \
+	com/mapswithme/core/download_manager.cpp \
+	com/mapswithme/core/jni_helper.cpp \
+	com/mapswithme/core/jni_string.cpp \
+	com/mapswithme/core/logging.cpp \
+	com/mapswithme/core/render_context.cpp \
+	com/mapswithme/location/LocationService.cpp \
+	com/mapswithme/maps/DownloadUI.cpp \
+	com/mapswithme/maps/Framework.cpp \
+	com/mapswithme/maps/GesturesProcessor.cpp \
+	com/mapswithme/maps/MainGLView.cpp \
+	com/mapswithme/maps/Platform.cpp \
+	com/mapswithme/maps/MWMActivity.cpp \
+	
 LOCAL_LDLIBS := -llog -lGLESv1_CM \
   	-lwords -lmap -lstorage -lversion -lsearch -lindexer -lyg -lplatform \
   	-lgeometry -lcoding -lbase -lexpat -lfreetype -lfribidi -lzlib -lbzip2 \

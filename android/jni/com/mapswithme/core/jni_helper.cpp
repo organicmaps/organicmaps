@@ -1,6 +1,6 @@
-#include "jni_helper.h"
+#include "jni_helper.hpp"
 
-#include "../../base/assert.hpp"
+#include "../../../../../base/assert.hpp"
 
 
 namespace jni {

@@ -1,6 +1,8 @@
-#include "logging.h"
+#include "logging.hpp"
 
 #include <android/log.h>
+
+#include "../../../../../base/assert.hpp"
 
 namespace jni {
 
