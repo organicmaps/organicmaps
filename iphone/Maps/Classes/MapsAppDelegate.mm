@@ -33,7 +33,7 @@
 {
   [Preferences setup];
 
-  [m_window addSubview:m_mapViewController.view];
+  [m_window addSubview:m_navigationController.view];
   [m_window makeKeyAndVisible];
 }
 
