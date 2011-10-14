@@ -4,18 +4,21 @@
 
 #include "../cell_id.hpp"
 
+#include "../../base/logging.hpp"
+
 #include "../../std/cmath.hpp"
+#include "../../std/utility.hpp"
 
 
 namespace
 {
-  double const eps = MercatorBounds::GetCellID2PointAbsEpsilon();
-  uint32_t const coordBits = POINT_COORD_BITS;
+  double const g_eps = MercatorBounds::GetCellID2PointAbsEpsilon();
+  uint32_t const g_coordBits = POINT_COORD_BITS;
 
   void CheckEqualPoints(CoordPointT const & p1, CoordPointT const & p2)
   {
-    TEST(fabs(p1.first - p2.first) < eps &&
-         fabs(p1.second - p2.second) < eps,
+    TEST(fabs(p1.first - p2.first) < g_eps &&
+         fabs(p1.second - p2.second) < g_eps,
         (p1, p2));
 
     TEST_GREATER_OR_EQUAL(p1.first, -180.0, ());
@@ -42,7 +45,7 @@ UNIT_TEST(PointToInt64_Smoke)
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
   {
     CoordPointT p(arr[i].x, arr[i].y);
-    CheckEqualPoints(p, Int64ToPoint(PointToInt64(p, coordBits), coordBits));
+    CheckEqualPoints(p, Int64ToPoint(PointToInt64(p, g_coordBits), g_coordBits));
   }
 }
 
@@ -53,12 +56,12 @@ UNIT_TEST(PointToInt64_Grid)
     for (int iy = -180; iy <= 180; iy += delta)
     {
       CoordPointT const pt(ix, iy);
-      int64_t const id = PointToInt64(pt, coordBits);
-      CoordPointT const pt1 = Int64ToPoint(id, coordBits);
+      int64_t const id = PointToInt64(pt, g_coordBits);
+      CoordPointT const pt1 = Int64ToPoint(id, g_coordBits);
 
       CheckEqualPoints(pt, pt1);
 
-      int64_t const id1 = PointToInt64(pt1, coordBits);
+      int64_t const id1 = PointToInt64(pt1, g_coordBits);
       TEST_EQUAL(id, id1, (pt, pt1));
     }
 }
@@ -77,24 +80,60 @@ UNIT_TEST(PointToInt64_Bounds)
       for (size_t iY = 0; iY < ARRAY_SIZE(arrEps); ++iY)
       {
         CoordPointT const pt(arrPt[iP].x + arrEps[iX], arrPt[iP].y + arrEps[iY]);
-        CoordPointT const pt1 = Int64ToPoint(PointToInt64(pt, coordBits), coordBits);
+        CoordPointT const pt1 = Int64ToPoint(PointToInt64(pt, g_coordBits), g_coordBits);
 
-        TEST(fabs(pt.first - pt1.first) <= (fabs(arrEps[iX]) + eps) &&
-             fabs(pt.second - pt1.second) <= (fabs(arrEps[iY]) + eps), (pt, pt1));
+        TEST(fabs(pt.first - pt1.first) <= (fabs(arrEps[iX]) + g_eps) &&
+             fabs(pt.second - pt1.second) <= (fabs(arrEps[iY]) + g_eps), (pt, pt1));
       }
 }
 
 UNIT_TEST(PointToInt64_DataSet1)
 {
-  for(size_t i = 0; i < ARRAY_SIZE(index_test::arr1); ++i)
+  for (size_t i = 0; i < ARRAY_SIZE(index_test::arr1); ++i)
   {
     CoordPointT const pt(index_test::arr1[i].x, index_test::arr1[i].y);
-    int64_t const id = PointToInt64(pt, coordBits);
-    CoordPointT const pt1 = Int64ToPoint(id, coordBits);
+    int64_t const id = PointToInt64(pt, g_coordBits);
+    CoordPointT const pt1 = Int64ToPoint(id, g_coordBits);
 
     CheckEqualPoints(pt, pt1);
 
-    int64_t const id1 = PointToInt64(pt1, coordBits);
+    int64_t const id1 = PointToInt64(pt1, g_coordBits);
     TEST_EQUAL(id, id1, (pt, pt1));
+  }
+}
+
+UNIT_TEST(PointD2PointU_Epsilons)
+{
+  pod_point_t arrPt[] = { {-180, -180}, {-180, 180}, {180, 180}, {180, -180} };
+  pod_point_t arrD[] = { {1, 1}, {1, -1}, {-1, -1}, {-1, 1} };
+  size_t const count = ARRAY_SIZE(arrPt);
+
+  /*
+  double eps = 1.0;
+  for (; true; eps = eps / 10.0)
+  {
+    size_t i = 0;
+    for (; i < count; ++i)
+    {
+      m2::PointU p = PointD2PointU(arrPt[i].x, arrPt[i].y, g_coordBits);
+      m2::PointU p1 = PointD2PointU(arrPt[i].x + arrD[i].x * eps,
+                                    arrPt[i].y + arrD[i].y * eps,
+                                    g_coordBits);
+
+      if (p != p1) break;
+    }
+    if (i == count) break;
+  }
+
+  LOG(LINFO, ("Epsilon = ", eps));
+  */
+
+  for (size_t i = 0; i < count; ++i)
+  {
+    m2::PointU const p1 = PointD2PointU(arrPt[i].x, arrPt[i].y, g_coordBits);
+    m2::PointU const p2(p1.x + arrD[i].x, p1.y + arrD[i].y);
+    CoordPointT const p3 = PointU2PointD(p2, g_coordBits);
+
+    LOG(LINFO, ("Dx = ", p3.first - arrPt[i].x, "Dy = ", p3.second - arrPt[i].y));
   }
 }
