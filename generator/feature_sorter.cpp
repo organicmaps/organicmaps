@@ -357,8 +357,10 @@ namespace feature
 
     public:
       BoundsDistance(m2::RectD const & rect)
-        : m_rect(rect), m_eps(MercatorBounds::GetCellID2PointAbsEpsilon())
+        : m_rect(rect), m_eps(5.0E-7)
       {
+        // 5.0E-7 is near with minimal epsilon when integer points are different
+        // PointD2PointU(x, y) != PointD2PointU(x + m_eps, y + m_eps)
       }
 
       double operator() (m2::PointD const & p) const
@@ -377,11 +379,8 @@ namespace feature
     void SimplifyPoints(points_t const & in, points_t & out, int level,
                         bool isCoast, m2::RectD const & rect)
     {
-      if (level >= scales::GetUpperWorldScale() && isCoast)
+      if (isCoast)
       {
-        // Note! Do such special simplification only for upper world level and countries levels.
-        // There is no need for this simplification in small world levels.
-
         BoundsDistance dist(rect);
         feature::SimplifyPoints(dist, in, out, level);
       }
