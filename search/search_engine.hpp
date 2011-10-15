@@ -10,12 +10,12 @@
 #include "../std/scoped_ptr.hpp"
 #include "../std/string.hpp"
 
+class CategoriesHolder;
 class Index;
 
 namespace search
 {
 
-class CategoriesHolder;
 class Query;
 class Result;
 

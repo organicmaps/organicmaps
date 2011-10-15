@@ -9,7 +9,7 @@
 #include "../base/logging.hpp"
 
 
-namespace search
+namespace
 {
 
 struct Splitter
@@ -26,6 +26,8 @@ enum State {
   EParseTypes,
   EParseLanguages
 };
+
+}  // unnamed namespace
 
 size_t CategoriesHolder::LoadFromStream(string const & buffer)
 {
@@ -128,4 +130,3 @@ CategoriesHolder::CategoriesHolder(Reader const & reader)
   LoadFromStream(buffer);
 }
 
-}

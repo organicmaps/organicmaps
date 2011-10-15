@@ -7,31 +7,26 @@
 
 class Reader;
 
-namespace search
-{
-
-struct Category
-{
-  /// Classificator types
-  vector<uint32_t> m_types;
-
-  struct Name
-  {
-    string m_name;
-    int8_t m_lang;
-    uint8_t m_prefixLengthToSuggest;
-  };
-
-  /// <language, synonym>
-  vector<Name> m_synonyms;
-};
-
 class CategoriesHolder
 {
-  typedef vector<Category> ContainerT;
-  ContainerT m_categories;
-
 public:
+  struct Category
+  {
+    /// Classificator types
+    vector<uint32_t> m_types;
+
+    struct Name
+    {
+      string m_name;
+      int8_t m_lang;
+      uint8_t m_prefixLengthToSuggest;
+    };
+
+    /// <language, synonym>
+    vector<Name> m_synonyms;
+  };
+
+  typedef vector<Category> ContainerT;
   typedef ContainerT::const_iterator const_iterator;
 
   CategoriesHolder();
@@ -50,11 +45,12 @@ public:
   const_iterator end() const { return m_categories.end(); }
 
   void swap(CategoriesHolder & o);
+
+private:
+  ContainerT m_categories;
 };
 
 inline void swap(CategoriesHolder & a, CategoriesHolder & b)
 {
   return a.swap(b);
-}
-
 }

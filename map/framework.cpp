@@ -681,7 +681,7 @@ search::Engine * Framework<TModel>::GetSearchEngine()
     {
       scoped_ptr<Reader> pReader(GetPlatform().GetReader(SEARCH_CATEGORIES_FILE_NAME));
       m_pSearchEngine.reset(
-            new search::Engine(&m_model.GetIndex(), new search::CategoriesHolder(*pReader)));
+            new search::Engine(&m_model.GetIndex(), new CategoriesHolder(*pReader)));
     }
   }
   return m_pSearchEngine.get();

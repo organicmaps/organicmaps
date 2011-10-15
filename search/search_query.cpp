@@ -18,7 +18,7 @@
 namespace search
 {
 
-Query::Query(Index const * pIndex, search::CategoriesHolder const * pCategories)
+Query::Query(Index const * pIndex, CategoriesHolder const * pCategories)
   : m_pIndex(pIndex), m_pCategories(pCategories), m_viewport(m2::RectD::GetEmptyRect()),
     m_viewportExtended(m2::RectD::GetEmptyRect()), m_bOffsetsCacheIsValid(false)
 {

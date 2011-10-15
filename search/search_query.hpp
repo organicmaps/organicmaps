@@ -9,13 +9,13 @@
 #include "../std/unordered_set.hpp"
 #include "../std/vector.hpp"
 
+class CategoriesHolder;
 class FeatureType;
 class Index;
 
 namespace search
 {
 
-class CategoriesHolder;
 class KeywordMatcher;
 namespace impl { class IntermediateResult; struct FeatureLoader; class BestNameFinder; }
 
