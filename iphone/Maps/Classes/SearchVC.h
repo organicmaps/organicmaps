@@ -18,10 +18,14 @@ typedef function<m2::PointD (void)> GetViewportCenterF;
 {
   vector<search::Result> m_results;
   CLLocationManager * m_locationManager;
-  bool m_isRadarEnabled;
+  UISearchBar * m_searchBar;
+  UITableView * m_table;
 }
 
-- (id)initWithSearchFunc:(SearchF)s andShowRectFunc:(ShowRectF)r
+@property (nonatomic, retain) IBOutlet UISearchBar * m_searchBar;
+@property (nonatomic, retain) IBOutlet UITableView * m_table;
+
+- (void)setSearchFunc:(SearchF)s andShowRectFunc:(ShowRectF)r
     andGetViewportCenterFunc:(GetViewportCenterF)c;
 
 @end

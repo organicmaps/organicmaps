@@ -14,7 +14,7 @@ GetViewportCenterF g_getViewportCenterF;
 volatile int g_queryId = 0;
 
 @interface Wrapper : NSObject
-{ // HACK: ownership is taken by the "get" method caller
+{
   search::Result * m_result;
 }
 - (id)initWithResult:(search::Result const &) res;
@@ -22,7 +22,6 @@ volatile int g_queryId = 0;
 @end
 
 @implementation Wrapper
-
 - (id)initWithResult:(search::Result const &) res
 {
   if ((self = [super init]))
@@ -46,32 +45,39 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 {
   if (g_searchVC && queryId == g_queryId)
   {
-    Wrapper * w = [[Wrapper alloc] initWithResult:res];
-    [g_searchVC performSelectorOnMainThread:@selector(addResult:)
+    // end marker means that the search is finished
+    if (!res.IsEndMarker())
+    {
+      Wrapper * w = [[Wrapper alloc] initWithResult:res];
+      [g_searchVC performSelectorOnMainThread:@selector(addResult:)
                                  withObject:w
                               waitUntilDone:NO];
-    [w release];
+      [w release];
+    }
   }
 }
 
+/////////////////////////////////////////////////////////////////////
+
 @implementation SearchVC
 
-- (id)initWithSearchFunc:(SearchF)s andShowRectFunc:(ShowRectF)r 
+@synthesize m_searchBar;
+@synthesize m_table;
+
+- (void)setSearchFunc:(SearchF)s andShowRectFunc:(ShowRectF)r 
   andGetViewportCenterFunc:(GetViewportCenterF)c
 {
-  if ((self = [super initWithNibName:nil bundle:nil]))
-  {
-    g_searchF = s;
-    g_showRectF = r;
-    g_getViewportCenterF = c;
-    m_locationManager = [[CLLocationManager alloc] init];
-    m_locationManager.delegate = self;
-    // filter out unnecessary events
-    m_locationManager.headingFilter = 3;
-    m_locationManager.distanceFilter = 1.0;
-    m_isRadarEnabled = false;
-  }
-  return self;
+  g_searchF = s;
+  g_showRectF = r;
+  g_getViewportCenterF = c;
+  m_locationManager = [[CLLocationManager alloc] init];
+  m_locationManager.delegate = self;
+  // filter out unnecessary events
+  m_locationManager.headingFilter = 3;
+  m_locationManager.distanceFilter = 1.0;
+  [m_locationManager startUpdatingLocation];
+  if ([CLLocationManager headingAvailable])
+    [m_locationManager startUpdatingHeading];
 }
 
 - (void)clearResults
@@ -87,50 +93,6 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   [super dealloc];
 }
 
-- (void)onRadarButtonClick:(id)button
-{
-  m_isRadarEnabled = !m_isRadarEnabled;
-  self.navigationItem.rightBarButtonItem.image = m_isRadarEnabled ? 
-      [UIImage imageNamed:@"location-selected.png"] :
-      [UIImage imageNamed:@"location.png"];
-  if (m_isRadarEnabled)
-  {
-    [m_locationManager startUpdatingLocation];
-    if ([CLLocationManager headingAvailable])
-      [m_locationManager startUpdatingHeading];
-  }
-  else
-  {
-    if ([CLLocationManager headingAvailable])
-      [m_locationManager stopUpdatingHeading];
-    [m_locationManager stopUpdatingLocation];
-    [(UITableView *)self.view reloadData];
-  }
-}
-
-- (void)loadView
-{
-  UITableView * tableView = [[[UITableView alloc] init] autorelease];
-  tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  tableView.delegate = self;
-  tableView.dataSource = self;
-  self.view = tableView;
-  self.title = @"Search";
-
-  UISearchBar * searchBar = [[[UISearchBar alloc] init] autorelease];
-  searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  self.navigationItem.titleView = searchBar;
-  [searchBar sizeToFit];
-  searchBar.delegate = self;
-  
-  // add radar mode button
-  UIImage * img = m_isRadarEnabled ? [UIImage imageNamed:@"location-selected.png"] : [UIImage imageNamed:@"location.png"];
-  self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithImage:img
-                                                                            style:UIBarButtonItemStylePlain
-                                                                           target:self
-                                                                           action:@selector(onRadarButtonClick:)] autorelease];
-}
-
 - (void)viewDidLoad
 {
   g_searchVC = self;
@@ -138,7 +100,8 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
 - (void)viewDidUnload
 {
-  [m_locationManager stopUpdatingHeading];
+  if ([CLLocationManager headingAvailable])
+    [m_locationManager stopUpdatingHeading];
   [m_locationManager stopUpdatingLocation];
   g_searchVC = nil;
 }
@@ -151,23 +114,36 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 - (void)viewWillAppear:(BOOL)animated
 {
   [self fixHeadingOrientation];
+  // show keyboard
+  [m_searchBar becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
   // hide keyboard immediately
-  [self.navigationItem.titleView resignFirstResponder];
+  [m_searchBar resignFirstResponder];
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+  return YES;  // All orientations are supported.
+}
+
+// correctly pass rotation event up to the root mapViewController
+// to fix rotation bug when other controller is above the root
+- (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
+{
+  [[self.navigationController.viewControllers objectAtIndex:0] didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+  [self fixHeadingOrientation];
+}
+
+//**************************************************************************
+//*********** SearchBar handlers *******************************************
 - (void)searchBar:(UISearchBar *)sender textDidChange:(NSString *)searchText
 {
   [self clearResults];
-  [(UITableView *)self.view reloadData];
+  [m_table reloadData];
   ++g_queryId;
-
-  // show active search indicator
-  //  self.navigationItem.rightBarButtonItem.customView = [[[UIActivityIndicatorView alloc]
-  //      initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleGray] autorelease];
 
   if ([searchText length] > 0)
   {
@@ -176,9 +152,30 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   }
 }
 
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+  [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
+{
+  // @TODO change search scope
+  switch (selectedScope)
+  {
+  case 0: // By popularity
+    break;
+  case 1: // On the screen
+    break;
+  default: // Near me
+    break;
+  }
+}
+//*********** End of SearchBar handlers *************************************
+//***************************************************************************
+
 - (double)calculateAngle:(m2::PointD const &)pt
 {
-  if (m_isRadarEnabled)
+  if ([CLLocationManager headingAvailable])
   {
     CLLocation * loc = m_locationManager.location;
     if (loc)
@@ -206,16 +203,15 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 {
   double const ptLat = MercatorBounds::YToLat(pt.y);
   double const ptLon = MercatorBounds::XToLon(pt.x);
-  if (m_isRadarEnabled)
+  CLLocation * loc = m_locationManager.location;
+  if (loc)
+    return ms::DistanceOnEarth(loc.coordinate.latitude, loc.coordinate.longitude, ptLat, ptLon);
+  else
   {
-    CLLocation * loc = m_locationManager.location;
-    if (loc)
-      return ms::DistanceOnEarth(loc.coordinate.latitude, loc.coordinate.longitude,
-                                          ptLat, ptLon);
-  }
-  m2::PointD const center = g_getViewportCenterF();
-  return ms::DistanceOnEarth(MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x),
+    m2::PointD const center = g_getViewportCenterF();
+    return ms::DistanceOnEarth(MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x),
                              ptLat, ptLon);
+  }
 }
 
 - (void)updateCellAngle:(UITableViewCell *)cell withIndex:(NSUInteger)index
@@ -227,8 +223,8 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
 - (void)updateCellDistance:(UITableViewCell *)cell withIndex:(NSUInteger)index
 {
-    // @TODO use imperial system from the settings if needed
-    // @TODO use meters too
+  // @TODO use imperial system from the settings if needed
+  // @TODO use meters too
   cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1lf km", 
                                [self calculateDistance:m_results[index].GetFeatureCenter()] / 1000.0];
 }
@@ -257,24 +253,16 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   {
     search::Result const & r = m_results[indexPath.row];
 
-    if (r.IsEndMarker())
-    { // search is finished
-      // hide search indicator
-      //self.navigationItem.rightBarButtonItem.customView = nil;
-    }
-    else
+    cell.textLabel.text = [NSString stringWithUTF8String:r.GetString()];
+    if (r.GetResultType() == search::Result::RESULT_FEATURE)
     {
-      cell.textLabel.text = [NSString stringWithUTF8String:r.GetString()];
-      if (r.GetResultType() == search::Result::RESULT_FEATURE)
-      {
-        [self updateCellDistance:cell withIndex:indexPath.row];
+      [self updateCellDistance:cell withIndex:indexPath.row];
       
-        float const h = tableView.rowHeight * 0.6;
-        CompassView * v = [[[CompassView alloc] initWithFrame:
+      float const h = tableView.rowHeight * 0.6;
+      CompassView * v = [[[CompassView alloc] initWithFrame:
                           CGRectMake(0, 0, h, h)] autorelease];
-        cell.accessoryView = v;
-        [self updateCellAngle:cell withIndex:indexPath.row];
-      }
+      cell.accessoryView = v;
+      [self updateCellAngle:cell withIndex:indexPath.row];
     }
   }
   else
@@ -292,7 +280,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
       // Zoom to the feature
     case search::Result::RESULT_FEATURE:
       g_showRectF(res.GetFeatureRect());
-      [self.navigationController popViewControllerAnimated:YES];
+      [self searchBarCancelButtonClicked:m_searchBar];
       break;
 
     case search::Result::RESULT_SUGGESTION:
@@ -302,23 +290,10 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   }
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-  return YES;  // All orientations are supported.
-}
-
-// correctly pass rotation event up to the root mapViewController
-// to fix rotation bug when other controller is above the root
-- (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
-{
-  [[self.navigationController.viewControllers objectAtIndex:0] didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-  [self fixHeadingOrientation];
-}
-
 - (void)addResult:(id)result
 {
   m_results.push_back(*[result get]);
-  [(UITableView *)self.view reloadData];
+  [m_table reloadData];
 }
 
 - (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
@@ -328,25 +303,45 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
-  UITableView * table = (UITableView *)self.view;
-  NSArray * cells = [table visibleCells];
+  NSArray * cells = [m_table visibleCells];
   for (NSUInteger i = 0; i < cells.count; ++i)
   {
     UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
-    [self updateCellAngle:cell withIndex:[table indexPathForCell:cell].row];
+    [self updateCellAngle:cell withIndex:[m_table indexPathForCell:cell].row];
   }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-  UITableView * table = (UITableView *)self.view;
-  NSArray * cells = [table visibleCells];
+  NSArray * cells = [m_table visibleCells];
   for (NSUInteger i = 0; i < cells.count; ++i)
   {
     UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
-    [self updateCellDistance:cell withIndex:[table indexPathForCell:cell].row];
+    [self updateCellDistance:cell withIndex:[m_table indexPathForCell:cell].row];
   }
 }
+
+//****************************************************************** 
+//*********** Hack to keep Cancel button always enabled ************
+- (void)enableCancelButton:(UISearchBar *)aSearchBar
+{
+  for (id subview in [aSearchBar subviews])
+  {
+    if ([subview isKindOfClass:[UIButton class]])
+    {
+      [subview setEnabled:TRUE];
+      break;
+    }
+  }
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)aSearchBar
+{
+  [aSearchBar resignFirstResponder];
+  [self performSelector:@selector(enableCancelButton:) withObject:aSearchBar afterDelay:0.0];
+}
+// ********** End of hack ******************************************
+// *****************************************************************
 
 @end

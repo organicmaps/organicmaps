@@ -94,11 +94,11 @@ storage::Storage m_storage;
 
 - (IBAction)OnSearchClicked:(id)sender
 {
-  SearchVC * searchVC = [[[SearchVC alloc] 
-      initWithSearchFunc:bind(&framework_t::Search, m_framework, _1, _2)
+  SearchVC * searchVC = [[[SearchVC alloc] initWithNibName:@"Search" bundle:nil] autorelease];
+  [searchVC setSearchFunc:bind(&framework_t::Search, m_framework, _1, _2)
       andShowRectFunc:bind(&framework_t::ShowRect, m_framework, _1)
-      andGetViewportCenterFunc:bind(&framework_t::GetViewportCenter, m_framework)] autorelease];
-  [self.navigationController pushViewController:searchVC animated:YES];
+      andGetViewportCenterFunc:bind(&framework_t::GetViewportCenter, m_framework)];
+  [self presentModalViewController:searchVC animated:YES];
 }
 
 - (void) dealloc

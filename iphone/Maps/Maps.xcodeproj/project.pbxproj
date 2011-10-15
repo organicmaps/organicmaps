@@ -622,7 +622,7 @@
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		490830531426B0900088EE84 /* downloader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downloader.png; sourceTree = "<group>"; };
 		490830541426B0900088EE84 /* downloader@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "downloader@2x.png"; sourceTree = "<group>"; };
-		490830581426BD460088EE84 /* Search.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Search.xib; sourceTree = "<group>"; };
+		490830581426BD460088EE84 /* Search.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Search.xib; sourceTree = SOURCE_ROOT; };
 		4938BB1C1343652600E0815A /* dictionary.slf */ = {isa = PBXFileReference; lastKnownFileType = file; name = dictionary.slf; path = ../../data/dictionary.slf; sourceTree = "<group>"; };
 		4945D21A1334187D0082387C /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		4945D21B1334187D0082387C /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
