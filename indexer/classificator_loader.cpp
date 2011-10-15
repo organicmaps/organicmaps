@@ -22,6 +22,7 @@ namespace classificator
     string buffer;
 
     Classificator & c = classif();
+    c.Clear();
 
 //    LOG(LINFO, ("Reading classificator"));
     classificator.ReadAsString(buffer);

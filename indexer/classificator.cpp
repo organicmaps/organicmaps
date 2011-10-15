@@ -508,3 +508,8 @@ void Classificator::ReadTypesMapping(string const & buffer)
   m_i2t.Load(buffer);
   m_t2i.Load(buffer);
 }
+
+void Classificator::Clear()
+{
+  *this = Classificator();
+}

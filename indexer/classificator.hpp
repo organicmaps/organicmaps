@@ -221,6 +221,8 @@ public:
   void SortClassificator();
   //@}
 
+  void Clear();
+
   /// Return type by path in classificator tree, example:
   /// path = ["natural", "caostline"].
   uint32_t GetTypeByPath(vector<string> const & path) const;
