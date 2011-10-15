@@ -1,7 +1,8 @@
 #include "search_engine.hpp"
-#include "categories_holder.hpp"
 #include "result.hpp"
 #include "search_query.hpp"
+
+#include "../indexer/categories_holder.hpp"
 
 #include "../base/logging.hpp"
 

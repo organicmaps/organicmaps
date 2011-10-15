@@ -13,8 +13,8 @@
 
 #include "../search/search_engine.hpp"
 #include "../search/result.hpp"
-#include "../search/categories_holder.hpp"
 
+#include "../indexer/categories_holder.hpp"
 #include "../indexer/feature_visibility.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/scales.hpp"

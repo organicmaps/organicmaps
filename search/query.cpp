@@ -1,8 +1,8 @@
 #include "query.hpp"
-#include "categories_holder.hpp"
 #include "latlon_match.hpp"
 #include "search_trie_matching.hpp"
 
+#include "../indexer/categories_holder.hpp"
 #include "../indexer/feature_visibility.hpp"
 #include "../indexer/scales.hpp"
 #include "../indexer/search_delimiters.hpp"

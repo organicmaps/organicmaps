@@ -18,7 +18,6 @@ HEADERS += \
     search_query.hpp \
     result.hpp \
     latlon_match.hpp \
-    categories_holder.hpp \
     search_trie_matching.hpp \
     approximate_string_match.hpp \
     feature_offset_match.hpp \
@@ -31,7 +30,6 @@ SOURCES += \
     search_query.cpp \
     result.cpp \
     latlon_match.cpp \
-    categories_holder.cpp \
     search_trie_matching.cpp \
     approximate_string_match.cpp \
 

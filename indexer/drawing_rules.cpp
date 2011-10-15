@@ -1068,6 +1068,7 @@ void WriteRules(char const * fPath)
 
 void ReadRules(ReaderPtrStream & s)
 {
+  rules().Clean();
   rules().Read(s);
 }
 

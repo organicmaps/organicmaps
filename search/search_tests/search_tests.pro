@@ -20,7 +20,6 @@ win32 {
 
 SOURCES += \
     ../../testing/testingmain.cpp \
-    categories_test.cpp \
     keyword_matcher_test.cpp \
     latlon_match_test.cpp \
     query_test.cpp \
