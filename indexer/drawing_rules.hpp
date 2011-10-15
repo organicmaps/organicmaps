@@ -14,7 +14,7 @@ class FileWriterStream;
 
 namespace drule
 {
-  typedef map<string, string> attrs_map_t;
+  typedef map<string, string> AttrsMapType;
 
   class BaseRule
   {
@@ -120,10 +120,12 @@ namespace drule
     int m_currScale;
     //@}
 
-    void PushAttributes(string objClass, attrs_map_t & attrs);
+    void PushAttributes(string objClass, AttrsMapType & attrs);
 
-    Key CreateRuleImpl1(string const & name, uint8_t type, string const & clValue, attrs_map_t const & attrs, bool isMask);
-    Key CreateRuleImpl2(string const & name, uint8_t type, string const & clName, attrs_map_t const & attrs);
+    Key CreateRuleImpl1(string const & name, uint8_t type, string const & clValue,
+                        AttrsMapType const & attrs, bool isMask);
+    Key CreateRuleImpl2(string const & name, uint8_t type, string const & clName,
+                        AttrsMapType const & attrs);
 
   public:
     ~RulesHolder();
@@ -137,7 +139,8 @@ namespace drule
 
     void SetParseFile(char const * fPath, int scale);
 
-    void CreateRules(string const & name, uint8_t type, attrs_map_t const & attrs, vector<Key> & v);
+    void CreateRules(string const & name, uint8_t type,
+                     AttrsMapType const & attrs, vector<Key> & v);
 
     BaseRule const * Find(Key const & k) const;
 

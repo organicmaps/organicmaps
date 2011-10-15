@@ -57,22 +57,22 @@ namespace drule {
   //@{
   class assign_element
   {
-    attrs_map_t const & m_attrs;
+    AttrsMapType const & m_attrs;
     string * m_keys;
 
   public:
-    assign_element(attrs_map_t const & attrs, string * keys) : m_attrs(attrs), m_keys(keys) {}
+    assign_element(AttrsMapType const & attrs, string * keys) : m_attrs(attrs), m_keys(keys) {}
 
     template <class T> void operator() (T & t, int n)
     {
-      attrs_map_t::const_iterator i = m_attrs.find(m_keys[n]);
+      AttrsMapType::const_iterator i = m_attrs.find(m_keys[n]);
       if (i != m_attrs.end())
         t = get_value<T>(i->second);
     }
   };
 
   template <class Tuple, int N>
-  void parse_tuple(Tuple & t, attrs_map_t const & attrs, string (&keys)[N])
+  void parse_tuple(Tuple & t, AttrsMapType const & attrs, string (&keys)[N])
   {
     STATIC_ASSERT ( N == tuple_length<Tuple>::value );
     assign_element toDo(attrs, keys);
@@ -81,7 +81,7 @@ namespace drule {
   //@}
 
   /// main function for rule creation
-  template <class T> T * create_rule(attrs_map_t const & attrs)
+  template <class T> T * create_rule(AttrsMapType const & attrs)
   {
     T * p = new T();
     parse_tuple(p->m_params, attrs, T::arrKeys);
@@ -782,7 +782,7 @@ void RulesHolder::SetParseFile(char const * fPath, int scale)
 }
 
 /// parse pairs (<key>:<value>;) for a specified 'class' attribute obj in file buffer
-void RulesHolder::PushAttributes(string objClass, attrs_map_t & attrs)
+void RulesHolder::PushAttributes(string objClass, AttrsMapType & attrs)
 {
   objClass = '.' + objClass;
 
@@ -834,13 +834,13 @@ namespace
   char const * arrClassTags[] = { "class", "mask-class" };
 }
 
-void RulesHolder::CreateRules(string const & name, uint8_t type, attrs_map_t const & attrs, vector<Key> & v)
+void RulesHolder::CreateRules(string const & name, uint8_t type, AttrsMapType const & attrs, vector<Key> & v)
 {
   bool added = false;
 
   for (size_t i = 0; i < ARRAY_SIZE(arrClassTags); ++i)
   {
-    attrs_map_t::const_iterator it = attrs.find(arrClassTags[i]);
+    AttrsMapType::const_iterator it = attrs.find(arrClassTags[i]);
     if (it != attrs.end())
     {
       added = true;
@@ -855,7 +855,7 @@ void RulesHolder::CreateRules(string const & name, uint8_t type, attrs_map_t con
 Key RulesHolder::CreateRuleImpl1(string const & name,
                                  uint8_t type,
                                  string const & clValue,
-                                 attrs_map_t const & attrs,
+                                 AttrsMapType const & attrs,
                                  bool isMask)
 {
 #ifdef DEBUG
@@ -865,10 +865,10 @@ Key RulesHolder::CreateRuleImpl1(string const & name,
   }
 #endif
 
-  attrs_map_t a;
+  AttrsMapType a;
   strings::Tokenize(clValue, " \t", bind(&RulesHolder::PushAttributes, this, _1, ref(a)));
 
-  for (attrs_map_t::const_iterator i = attrs.begin(); i != attrs.end(); ++i)
+  for (AttrsMapType::const_iterator i = attrs.begin(); i != attrs.end(); ++i)
     if (!strings::IsInArray(arrClassTags, i->first))
       a[i->first] = i->second;
 
@@ -878,7 +878,7 @@ Key RulesHolder::CreateRuleImpl1(string const & name,
   // patch the tunnel draw rules -> make line draw rule
   if (name == "tunnel")
   {
-    attrs_map_t::iterator i = a.find("width");
+    AttrsMapType::iterator i = a.find("width");
     if (i != a.end())
     {
       a["stroke-width"] = i->second;
@@ -894,7 +894,7 @@ Key RulesHolder::CreateRuleImpl1(string const & name,
 Key RulesHolder::CreateRuleImpl2(string const & name,
                                  uint8_t rType,
                                  string const & clName,
-                                 attrs_map_t const & attrs)
+                                 AttrsMapType const & attrs)
 {
   BaseRule * pRule = 0;
   int type = -1;

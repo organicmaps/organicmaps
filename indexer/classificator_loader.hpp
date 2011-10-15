@@ -7,12 +7,12 @@
 
 namespace classificator
 {
-  typedef ReaderPtr<Reader> file_t;
+  typedef ReaderPtr<Reader> ReaderType;
 
-  void Read(file_t const & rules,
-            file_t const & classificator,
-            file_t const & visibility,
-            file_t const & types);
+  void Read(ReaderType const & rules,
+            ReaderType const & classificator,
+            ReaderType const & visibility,
+            ReaderType const & types);
   void ReadVisibility(string const & fPath);
 
   /// This function used only in unit test to get any valid type value for feature testing.
