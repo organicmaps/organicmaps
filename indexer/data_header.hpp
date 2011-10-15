@@ -4,7 +4,7 @@
 
 #include "../geometry/rect2d.hpp"
 
-#include "../std/array.hpp"
+#include "../base/buffer_vector.hpp"
 
 
 class ModelReaderPtr;
@@ -14,11 +14,15 @@ namespace feature
 {
   class DataHeader
   {
+  public:
+    static const size_t MAX_SCALES_COUNT = 4;
+
+  private:
     serial::CodingParams m_codingParams;
 
     pair<int64_t, int64_t> m_bounds;
 
-    array<uint8_t, 4> m_scales;
+    buffer_vector<uint8_t, MAX_SCALES_COUNT> m_scales;
 
   public:
 
@@ -35,7 +39,11 @@ namespace feature
     m2::RectD const GetBounds() const;
     void SetBounds(m2::RectD const & r);
 
-    void SetScales(int * arr);
+    template <size_t N>
+    void SetScales(int const (&arr)[N])
+    {
+      m_scales.assign(arr, arr + N);
+    }
 
     inline size_t GetScalesCount() const { return m_scales.size(); }
     inline int GetScale(int i) const { return static_cast<int>(m_scales[i]); }

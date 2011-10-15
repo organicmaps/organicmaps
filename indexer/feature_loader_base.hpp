@@ -93,7 +93,7 @@ namespace feature
 
     uint32_t m_ptsSimpMask;
 
-    typedef array<uint32_t, 4> offsets_t; // should be synchronized with ARRAY_SIZE(g_arrScales)
+    typedef buffer_vector<uint32_t, DataHeader::MAX_SCALES_COUNT> offsets_t;
 
     offsets_t m_ptsOffsets, m_trgOffsets;
   };

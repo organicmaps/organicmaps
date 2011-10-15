@@ -80,8 +80,6 @@ namespace
 
 namespace feature
 {
-  typedef array<uint8_t, 4> scales_t;
-
   class FeaturesCollector2 : public FeaturesCollector
   {
     FilesContainerW m_writer;

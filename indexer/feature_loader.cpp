@@ -266,18 +266,14 @@ namespace
 
 void LoaderCurrent::ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets) const
 {
+  ASSERT ( offsets.empty(), () );
   ASSERT_GREATER ( mask, 0, () );
 
-  int index = 0;
   while (mask > 0)
   {
-    ASSERT_LESS ( index, m_Info.GetScalesCount(), () );
-    offsets[index++] = (mask & 0x01) ? ReadVarUint<uint32_t>(src) : kInvalidOffset;
+    offsets.push_back((mask & 0x01) ? ReadVarUint<uint32_t>(src) : kInvalidOffset);
     mask = mask >> 1;
   }
-
-  while (index < offsets.size())
-    offsets[index++] = kInvalidOffset;
 }
 
 int LoaderCurrent::GetScaleIndex(int scale) const
@@ -340,7 +336,7 @@ int LoaderCurrent::GetScaleIndex(int scale, offsets_t const & offsets) const
     return ind;
   else
   {
-    CHECK ( false, ("Feature should have any geometry ...") );
+    ASSERT ( false, ("Feature should have any geometry ...") );
     return -1;
   }
 }

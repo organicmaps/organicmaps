@@ -359,13 +359,12 @@ uint32_t LoaderImpl::ParseTriangles(int scale)
 
 void LoaderImpl::ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets) const
 {
+  ASSERT ( offsets.empty(), () );
   ASSERT_GREATER ( mask, 0, () );
 
-  int index = 0;
   while (mask > 0)
   {
-    ASSERT_LESS ( index, m_Info.GetScalesCount(), () );
-    offsets[index++] = (mask & 0x01) ? ReadVarUint<uint32_t>(src) : kInvalidOffset;
+    offsets.push_back((mask & 0x01) ? ReadVarUint<uint32_t>(src) : kInvalidOffset);
     mask = mask >> 1;
   }
 }

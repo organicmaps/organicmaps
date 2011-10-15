@@ -16,8 +16,9 @@
 namespace feature
 {
   serial::CodingParams DataHeader::GetCodingParams(int scaleIndex) const
-  {
-    return serial::CodingParams(m_codingParams.GetCoordBits() - (m_scales[3] - m_scales[scaleIndex]) / 2,
+  { 
+    return serial::CodingParams(m_codingParams.GetCoordBits() -
+                                (m_scales.back() - m_scales[scaleIndex]) / 2,
                                 m_codingParams.GetBasePointUint64());
   }
 
@@ -29,12 +30,6 @@ namespace feature
   void DataHeader::SetBounds(m2::RectD const & r)
   {
     m_bounds = RectToInt64(r, m_codingParams.GetCoordBits());
-  }
-
-  void DataHeader::SetScales(int * arr)
-  {
-    for (size_t i = 0; i < m_scales.size(); ++i)
-      m_scales[i] = static_cast<uint8_t>(arr[i]);
   }
 
   pair<int, int> DataHeader::GetScaleRange() const
@@ -64,6 +59,7 @@ namespace feature
     WriteVarInt(w, m_bounds.first);
     WriteVarInt(w, m_bounds.second);
 
+    WriteVarUint(w, m_scales.size());
     w.Write(m_scales.data(), m_scales.size());
 
     WriteVarInt(w, static_cast<int32_t>(m_type));
@@ -77,7 +73,9 @@ namespace feature
     m_bounds.first = ReadVarInt<int64_t>(src);
     m_bounds.second = ReadVarInt<int64_t>(src);
 
-    src.Read(m_scales.data(), m_scales.size());
+    uint32_t const count = ReadVarUint<uint32_t>(src);
+    m_scales.resize(count);
+    src.Read(m_scales.data(), count);
 
     m_type = static_cast<MapType>(ReadVarInt<int32_t>(src));
 
@@ -93,6 +91,7 @@ namespace feature
     m_bounds.first = ReadVarInt<int64_t>(src) + base;
     m_bounds.second = ReadVarInt<int64_t>(src) + base;
 
+    m_scales.resize(4);
     src.Read(m_scales.data(), m_scales.size());
 
     m_ver = v1;
