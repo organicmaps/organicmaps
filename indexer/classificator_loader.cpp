@@ -45,12 +45,4 @@ namespace classificator
     ReaderType(new FileReader(fPath)).ReadAsString(buffer);
     classif().ReadVisibility(buffer);
   }
-
-  uint32_t GetTestDefaultType()
-  {
-    vector<string> v;
-    v.push_back("highway");
-    v.push_back("motorway");
-    return classif().GetTypeByPath(v);
-  }
 }

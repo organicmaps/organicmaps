@@ -48,6 +48,8 @@ namespace feature
     default:
       ASSERT_EQUAL(type, country, ());
       return make_pair(worldH + 1, high);
+
+      // Uncomment this to test countries drawing in all scales.
       //return make_pair(low, high);
     }
   }
@@ -91,8 +93,9 @@ namespace feature
     m_bounds.first = ReadVarInt<int64_t>(src) + base;
     m_bounds.second = ReadVarInt<int64_t>(src) + base;
 
-    m_scales.resize(4);
-    src.Read(m_scales.data(), m_scales.size());
+    uint32_t const count = 4;
+    m_scales.resize(count);
+    src.Read(m_scales.data(), count);
 
     m_ver = v1;
   }

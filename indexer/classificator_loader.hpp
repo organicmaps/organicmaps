@@ -14,7 +14,4 @@ namespace classificator
             ReaderType const & visibility,
             ReaderType const & types);
   void ReadVisibility(string const & fPath);
-
-  /// This function used only in unit test to get any valid type value for feature testing.
-  uint32_t GetTestDefaultType();
 }
