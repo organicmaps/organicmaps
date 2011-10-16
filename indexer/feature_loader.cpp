@@ -259,23 +259,6 @@ uint32_t LoaderCurrent::ParseTriangles(int scale)
   return sz;
 }
 
-namespace
-{
-    uint32_t const kInvalidOffset = uint32_t(-1);
-}
-
-void LoaderCurrent::ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets) const
-{
-  ASSERT ( offsets.empty(), () );
-  ASSERT_GREATER ( mask, 0, () );
-
-  while (mask > 0)
-  {
-    offsets.push_back((mask & 0x01) ? ReadVarUint<uint32_t>(src) : kInvalidOffset);
-    mask = mask >> 1;
-  }
-}
-
 int LoaderCurrent::GetScaleIndex(int scale) const
 {
   int const count = m_Info.GetScalesCount();
@@ -312,13 +295,13 @@ int LoaderCurrent::GetScaleIndex(int scale, offsets_t const & offsets) const
   case -1:
     // Choose the best existing geometry for the last visible scale.
     ind = count-1;
-    while (ind >= 0 && offsets[ind] == kInvalidOffset) --ind;
+    while (ind >= 0 && offsets[ind] == s_InvalidOffset) --ind;
     break;
 
   case -2:
     // Choose the worst existing geometry for the first visible scale.
     ind = 0;
-    while (ind < count && offsets[ind] == kInvalidOffset) ++ind;
+    while (ind < count && offsets[ind] == s_InvalidOffset) ++ind;
     break;
 
   default:
@@ -327,7 +310,7 @@ int LoaderCurrent::GetScaleIndex(int scale, offsets_t const & offsets) const
       for (int i = 0; i < n; ++i)
       {
         if (scale <= m_Info.GetScale(i))
-          return (offsets[i] != kInvalidOffset ? i : -1);
+          return (offsets[i] != s_InvalidOffset ? i : -1);
       }
     }
   }

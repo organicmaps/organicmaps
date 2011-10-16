@@ -97,6 +97,8 @@ namespace feature
     m_scales.resize(count);
     src.Read(m_scales.data(), count);
 
+    m_type = country;
+
     m_ver = v1;
   }
 }

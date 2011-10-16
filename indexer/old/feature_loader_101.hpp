@@ -8,8 +8,6 @@ namespace old_101 { namespace feature
   {
     typedef ::feature::LoaderBase BaseT;
 
-    void ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets) const;
-
     /// Get the index for geometry serialization.
     /// @param[in]  scale:
     /// -1 : index for the best geometry

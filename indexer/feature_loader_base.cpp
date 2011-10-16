@@ -80,4 +80,22 @@ uint32_t LoaderBase::CalcOffset(ArrayByteSource const & source) const
   return static_cast<uint32_t>(source.PtrC() - DataPtr());
 }
 
+void LoaderBase::ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets) const
+{
+  ASSERT ( offsets.empty(), () );
+  ASSERT_GREATER ( mask, 0, () );
+
+  offsets.resize(m_Info.GetScalesCount(), s_InvalidOffset);
+  size_t ind = 0;
+
+  while (mask > 0)
+  {
+    if (mask & 0x01)
+      offsets[ind] = ReadVarUint<uint32_t>(src);
+
+    ++ind;
+    mask = mask >> 1;
+  }
+}
+
 }

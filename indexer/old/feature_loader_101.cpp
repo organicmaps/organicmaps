@@ -118,11 +118,6 @@ void LoaderImpl::ParseCommon()
   m_Header2Offset = CalcOffset(source);
 }
 
-namespace
-{
-    uint32_t const kInvalidOffset = uint32_t(-1);
-}
-
 int LoaderImpl::GetScaleIndex(int scale) const
 {
   int const count = m_Info.GetScalesCount();
@@ -140,7 +135,7 @@ int LoaderImpl::GetScaleIndex(int scale, offsets_t const & offsets) const
   {
     // Choose the best geometry for the last visible scale.
     int i = offsets.size()-1;
-    while (i >= 0 && offsets[i] == kInvalidOffset) --i;
+    while (i >= 0 && offsets[i] == s_InvalidOffset) --i;
     if (i >= 0)
       return i;
     else
@@ -151,7 +146,7 @@ int LoaderImpl::GetScaleIndex(int scale, offsets_t const & offsets) const
     for (size_t i = 0; i < m_Info.GetScalesCount(); ++i)
       if (scale <= m_Info.GetScale(i))
       {
-        if (offsets[i] != kInvalidOffset)
+        if (offsets[i] != s_InvalidOffset)
           return i;
         else
           break;
@@ -355,18 +350,6 @@ uint32_t LoaderImpl::ParseTriangles(int scale)
   }
 
   return sz;
-}
-
-void LoaderImpl::ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets) const
-{
-  ASSERT ( offsets.empty(), () );
-  ASSERT_GREATER ( mask, 0, () );
-
-  while (mask > 0)
-  {
-    offsets.push_back((mask & 0x01) ? ReadVarUint<uint32_t>(src) : kInvalidOffset);
-    mask = mask >> 1;
-  }
 }
 
 }

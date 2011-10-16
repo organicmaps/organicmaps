@@ -94,7 +94,10 @@ namespace feature
     uint32_t m_ptsSimpMask;
 
     typedef buffer_vector<uint32_t, DataHeader::MAX_SCALES_COUNT> offsets_t;
-
     offsets_t m_ptsOffsets, m_trgOffsets;
+
+    static uint32_t const s_InvalidOffset = uint32_t(-1);
+
+    void ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets) const;
   };
 }
