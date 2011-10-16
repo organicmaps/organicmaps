@@ -2645,6 +2645,7 @@
 					DEBUG,
 					_DEBUG,
 				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
@@ -2688,6 +2689,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
 				GCC_UNROLL_LOOPS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
@@ -2734,6 +2736,7 @@
 					_RELEASE,
 				);
 				GCC_UNROLL_LOOPS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
@@ -2781,6 +2784,7 @@
 				);
 				GCC_THUMB_SUPPORT = NO;
 				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
@@ -2832,6 +2836,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
 				GCC_UNROLL_LOOPS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
 				INFOPLIST_FILE = "MapsWithMe-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
