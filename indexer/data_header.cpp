@@ -50,7 +50,7 @@ namespace feature
       return make_pair(worldH + 1, high);
 
       // Uncomment this to test countries drawing in all scales.
-      //return make_pair(low, high);
+      //return make_pair(1, high);
     }
   }
 
