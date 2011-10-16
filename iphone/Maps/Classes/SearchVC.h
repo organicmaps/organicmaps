@@ -2,6 +2,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 #include "../../map/framework.hpp"
+#include "../../map/feature_vec_model.hpp"
 
 #include "../../std/vector.hpp"
 #include "../../std/function.hpp"
@@ -9,13 +10,12 @@
 
 namespace search { class Result; }
 
-typedef function<void (string const &, SearchCallbackT)> SearchF;
-typedef function<void (m2::RectD)> ShowRectF;
-typedef function<m2::PointD (void)> GetViewportCenterF;
+typedef Framework<model::FeaturesFetcher> framework_t;
 
 @interface SearchVC : UIViewController
     <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
 {
+  framework_t * m_framework;
   vector<search::Result> m_results;
   CLLocationManager * m_locationManager;
   UISearchBar * m_searchBar;
@@ -25,7 +25,6 @@ typedef function<m2::PointD (void)> GetViewportCenterF;
 @property (nonatomic, retain) IBOutlet UISearchBar * m_searchBar;
 @property (nonatomic, retain) IBOutlet UITableView * m_table;
 
-- (void)setSearchFunc:(SearchF)s andShowRectFunc:(ShowRectF)r
-    andGetViewportCenterFunc:(GetViewportCenterF)c;
+- (id)initWithFramework:(framework_t *)framework;
 
 @end

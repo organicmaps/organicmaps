@@ -8,9 +8,6 @@
 #include "../../search/result.hpp"
 
 SearchVC * g_searchVC = nil;
-SearchF g_searchF;
-ShowRectF g_showRectF;
-GetViewportCenterF g_getViewportCenterF;
 volatile int g_queryId = 0;
 
 @interface Wrapper : NSObject
@@ -64,20 +61,22 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 @synthesize m_searchBar;
 @synthesize m_table;
 
-- (void)setSearchFunc:(SearchF)s andShowRectFunc:(ShowRectF)r 
-  andGetViewportCenterFunc:(GetViewportCenterF)c
+- (id)initWithFramework:(framework_t *)framework
 {
-  g_searchF = s;
-  g_showRectF = r;
-  g_getViewportCenterF = c;
-  m_locationManager = [[CLLocationManager alloc] init];
-  m_locationManager.delegate = self;
-  // filter out unnecessary events
-  m_locationManager.headingFilter = 3;
-  m_locationManager.distanceFilter = 1.0;
-  [m_locationManager startUpdatingLocation];
-  if ([CLLocationManager headingAvailable])
-    [m_locationManager startUpdatingHeading];
+  if ((self = [super initWithNibName:@"Search" bundle:nil]))
+  {
+    m_framework = framework;
+    m_locationManager = [[CLLocationManager alloc] init];
+    m_locationManager.delegate = self;
+    // filter out unnecessary events
+    m_locationManager.headingFilter = 3;
+    m_locationManager.distanceFilter = 1.0;
+    [m_locationManager startUpdatingLocation];
+    if ([CLLocationManager headingAvailable])
+      [m_locationManager startUpdatingHeading];
+  }
+  
+  return self;
 }
 
 - (void)clearResults
@@ -154,7 +153,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
   if ([searchText length] > 0)
   {
-    g_searchF([[searchText precomposedStringWithCompatibilityMapping] UTF8String],
+    m_framework->Search([[searchText precomposedStringWithCompatibilityMapping] UTF8String],
               bind(&OnSearchResultCallback, _1, g_queryId));
   }
 }
@@ -202,7 +201,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
     }
   }
   
-  m2::PointD const center = g_getViewportCenterF();
+  m2::PointD const center = m_framework->GetViewportCenter();
   return ang::AngleTo(center, pt);
 }
 
@@ -215,7 +214,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
     return ms::DistanceOnEarth(loc.coordinate.latitude, loc.coordinate.longitude, ptLat, ptLon);
   else
   {
-    m2::PointD const center = g_getViewportCenterF();
+    m2::PointD const center = m_framework->GetViewportCenter();
     return ms::DistanceOnEarth(MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x),
                              ptLat, ptLon);
   }
@@ -286,7 +285,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
     {
       // Zoom to the feature
     case search::Result::RESULT_FEATURE:
-      g_showRectF(res.GetFeatureRect());
+      m_framework->ShowRect(res.GetFeatureRect());
       [self searchBarCancelButtonClicked:m_searchBar];
       break;
 

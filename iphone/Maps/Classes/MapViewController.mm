@@ -94,10 +94,7 @@ storage::Storage m_storage;
 
 - (IBAction)OnSearchClicked:(id)sender
 {
-  SearchVC * searchVC = [[[SearchVC alloc] initWithNibName:@"Search" bundle:nil] autorelease];
-  [searchVC setSearchFunc:bind(&framework_t::Search, m_framework, _1, _2)
-      andShowRectFunc:bind(&framework_t::ShowRect, m_framework, _1)
-      andGetViewportCenterFunc:bind(&framework_t::GetViewportCenter, m_framework)];
+  SearchVC * searchVC = [[[SearchVC alloc] initWithFramework:m_framework] autorelease];
   [self presentModalViewController:searchVC animated:YES];
 }
 
@@ -281,7 +278,7 @@ NSInteger compareAddress(id l, id r, void * context)
   EAGLView * v = (EAGLView*)self.view;
   boost::shared_ptr<WindowHandle> wh = [v windowHandle];
   boost::shared_ptr<iphone::RenderBuffer> rb = [v renderBuffer];
-  shared_ptr<DrawerYG> drawer = [(EAGLView*)self.view drawer];
+  shared_ptr<DrawerYG> drawer = [v drawer];
 	shared_ptr<PaintEvent> pe(new PaintEvent(drawer.get()));
   
   if (wh->needRedraw())
