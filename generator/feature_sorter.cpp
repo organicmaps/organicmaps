@@ -527,7 +527,10 @@ namespace feature
         coordBits -= ((scales::GetUpperScale() - scales::GetUpperWorldScale()) / 2);
 
       header.SetCodingParams(serial::CodingParams(coordBits, midPoints.GetCenter()));
-      header.SetScales(isWorld ? g_arrWorldScales : g_arrCountryScales);
+      if (isWorld)
+        header.SetScales(g_arrWorldScales);
+      else
+        header.SetScales(g_arrCountryScales);
       header.SetType(static_cast<DataHeader::MapType>(mapType));
 
       FeaturesCollector2 collector(datFilePath, header);
