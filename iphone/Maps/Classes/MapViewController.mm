@@ -301,8 +301,15 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void)didReceiveMemoryWarning
 {
-  [super didReceiveMemoryWarning];
 	m_framework->MemoryWarning();
+  [super didReceiveMemoryWarning];
+}
+
+- (void)viewDidUnload
+{
+  // to correctly release view on memory warnings
+  self.m_myPositionButton = nil;
+  [super viewDidUnload];
 }
 
 - (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
@@ -354,6 +361,7 @@ NSInteger compareAddress(id l, id r, void * context)
   m_mapIsVisible = true;
   [self Invalidate];
   [self.navigationController setNavigationBarHidden:YES animated:YES];
+  [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -361,6 +369,7 @@ NSInteger compareAddress(id l, id r, void * context)
   m_mapIsVisible = false;
   m_framework->SetUpdatesEnabled(false);
   [self.navigationController setNavigationBarHidden:NO animated:YES];
+  [super viewWillDisappear:animated];
 }
 
 @end

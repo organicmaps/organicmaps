@@ -104,6 +104,11 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
     [m_locationManager stopUpdatingHeading];
   [m_locationManager stopUpdatingLocation];
   g_searchVC = nil;
+  // to correctly free memory
+  self.m_searchBar = nil;
+  self.m_table = nil;
+  m_results.clear();
+  [super viewDidUnload];
 }
 
 - (void)fixHeadingOrientation
@@ -116,12 +121,14 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   [self fixHeadingOrientation];
   // show keyboard
   [m_searchBar becomeFirstResponder];
+  [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
   // hide keyboard immediately
   [m_searchBar resignFirstResponder];
+  [super viewWillDisappear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
