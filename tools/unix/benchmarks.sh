@@ -42,7 +42,7 @@ echo "Starting benchmarking $FILE on `date`"
 echo "HEAD commit:"
 echo `git --git-dir=$SCRIPT_DIR/../../.git log -1`
 
-echo "Scales in $FILE: `$BENCHMARK_TOOL -input=$FILE.mwm -print_scales`"
+echo "`$BENCHMARK_TOOL -input=$FILE.mwm -print_scales`"
 for SCALE in 10 11 12 13 14 15 16 17; do
   echo -n "Scale $SCALE: "
   $BENCHMARK_TOOL -lowS=$SCALE -highS=$SCALE -input=$FILE.mwm
