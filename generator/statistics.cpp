@@ -5,6 +5,7 @@
 #include "../indexer/feature_processor.hpp"
 #include "../indexer/classificator.hpp"
 #include "../indexer/feature_impl.hpp"
+#include "../indexer/data_factory.hpp"
 
 #include "../base/string_utils.hpp"
 
@@ -19,23 +20,30 @@ using namespace feature;
 namespace stats
 {
   void FileContainerStatistic(string const & fPath)
-  {
-    FilesContainerR cont(fPath);
+  { 
+    feature::DataHeader header;
+    ModelReaderPtr reader(new FileReader(fPath));
+    LoadMapHeader(reader, header);
 
     vector<string> tags;
     tags.push_back(VERSION_FILE_TAG);
     tags.push_back(HEADER_FILE_TAG);
     tags.push_back(DATA_FILE_TAG);
 
-    for (int i = 0; i < ARRAY_SIZE(feature::g_arrCountryScales); ++i)
+    for (size_t i = 0; i < header.GetScalesCount(); ++i)
     {
+      cout << header.GetScale(i) << " ";
+
       tags.push_back(feature::GetTagForIndex(GEOMETRY_FILE_TAG, i));
       tags.push_back(feature::GetTagForIndex(TRIANGLE_FILE_TAG, i));
     }
 
+    cout << endl;
+
     tags.push_back(INDEX_FILE_TAG);
     tags.push_back(SEARCH_INDEX_FILE_TAG);
 
+    FilesContainerR cont(reader);
     for (size_t i = 0; i < tags.size(); ++i)
     {
       cout << setw(7) << tags[i] << " : ";

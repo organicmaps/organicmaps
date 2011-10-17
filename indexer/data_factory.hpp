@@ -19,4 +19,4 @@ public:
   IntervalIndexIFace * CreateIndex(ModelReaderPtr reader);
 };
 
-void LoadMapHeader(ModelReader * pReader, feature::DataHeader & header);
+void LoadMapHeader(ModelReaderPtr const & reader, feature::DataHeader & header);

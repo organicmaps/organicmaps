@@ -22,9 +22,9 @@ void LoadMapHeader(FilesContainerR const & cont, feature::DataHeader & header)
     header.LoadVer1(r);
 }
 
-void LoadMapHeader(ModelReader * pReader, feature::DataHeader & header)
+void LoadMapHeader(ModelReaderPtr const & reader, feature::DataHeader & header)
 {
-  LoadMapHeader(FilesContainerR(pReader), header);
+  LoadMapHeader(FilesContainerR(reader), header);
 }
 
 void IndexFactory::Load(FilesContainerR const & cont)
