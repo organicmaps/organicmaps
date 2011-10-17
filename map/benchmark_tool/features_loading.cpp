@@ -106,7 +106,7 @@ AllResult RunFeaturesLoadingBenchmark(string const & file, size_t count, pair<in
     scaleR.second = r.second;
 
   if (scaleR.first > scaleR.second)
-    return;
+    return AllResult();
 
   model::FeaturesFetcher src;
   src.AddMap(file);
