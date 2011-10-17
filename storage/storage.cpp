@@ -3,7 +3,7 @@
 #include "../base/logging.hpp"
 #include "../base/string_utils.hpp"
 
-#include "../indexer/data_header.hpp"
+#include "../indexer/data_factory.hpp"
 
 #include "../coding/file_writer.hpp"
 #include "../coding/file_reader.hpp"
@@ -175,7 +175,7 @@ namespace storage
     }
     void operator()(CountryFile const & file)
     {
-      m_removeFn(file.m_nameWithExt);
+      m_removeFn(file.GetFileWithExt());
     }
   };
 
@@ -190,8 +190,8 @@ namespace storage
         if (!IsFileDownloaded(*it))
         {
           HttpStartParams params;
-          params.m_url = UpdateBaseUrl() + UrlEncode(it->m_nameWithExt);
-          params.m_fileToSave = GetPlatform().WritablePathForFile(it->m_nameWithExt);
+          params.m_url = UpdateBaseUrl() + UrlEncode(it->GetFileWithExt());
+          params.m_fileToSave = GetPlatform().WritablePathForFile(it->GetFileWithExt());
           params.m_finish = bind(&Storage::OnMapDownloadFinished, this, _1);
           params.m_progress = bind(&Storage::OnMapDownloadProgress, this, _1);
           GetDownloadManager().HttpRequest(params);
@@ -221,7 +221,7 @@ namespace storage
     CancelDownloading(string const & baseUrl) : m_baseUrl(baseUrl) {}
     void operator()(CountryFile const & file)
     {
-      GetDownloadManager().CancelDownload((m_baseUrl + UrlEncode(file.m_nameWithExt)).c_str());
+      GetDownloadManager().CancelDownload((m_baseUrl + UrlEncode(file.GetFileWithExt())).c_str());
     }
   };
 
@@ -236,7 +236,7 @@ namespace storage
     /// @TODO do not delete other countries cells
     void operator()(CountryFile const & file)
     {
-      FileWriter::DeleteFileX(m_workingDir + file.m_nameWithExt);
+      FileWriter::DeleteFileX(m_workingDir + file.GetFileWithExt());
     }
   };
 
@@ -358,7 +358,7 @@ namespace storage
 
       // update rect from downloaded file
       feature::DataHeader header;
-      header.Load(FilesContainerR(GetPlatform().GetReader(file)).GetReader(HEADER_FILE_TAG));
+      LoadMapHeader(GetPlatform().GetReader(file), header);
       m_updateRect(header.GetBounds());
     }
     DownloadNextCountryFromQueue();

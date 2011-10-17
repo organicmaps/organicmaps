@@ -2,12 +2,15 @@
 
 #include "simple_tree.hpp"
 
-#include "../base/buffer_vector.hpp"
+#include "../defines.hpp"
 
 #include "../geometry/rect2d.hpp"
 
+#include "../base/buffer_vector.hpp"
+
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
+
 
 namespace update { class SizeUpdater; }
 
@@ -19,9 +22,12 @@ namespace storage
   struct CountryFile
   {
     CountryFile() : m_remoteSize(0), m_price(INVALID_PRICE) {}
-    CountryFile(string const & fileNameWithExt, uint32_t remoteSize, int64_t price = -1)
-      : m_nameWithExt(fileNameWithExt), m_remoteSize(remoteSize), m_price(price) {}
-    string m_nameWithExt;
+    CountryFile(string const & fName, uint32_t remoteSize, int64_t price = -1)
+      : m_fileName(fName), m_remoteSize(remoteSize), m_price(price) {}
+
+    string GetFileWithExt() const { return m_fileName + DATA_FILE_EXTENSION; }
+
+    string m_fileName;    /// Same as id of country\region.
     uint32_t m_remoteSize;
     int64_t m_price;
   };

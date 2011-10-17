@@ -1,18 +1,17 @@
 #include "country.hpp"
 
-#include "../defines.hpp"
-
-#include "../base/logging.hpp"
+#include "../indexer/data_factory.hpp"
 
 #include "../coding/file_container.hpp"
 
-#include "../version/version.hpp"
-
 #include "../platform/platform.hpp"
 
-#include "../indexer/data_header.hpp"
+#include "../version/version.hpp"
+
+#include "../base/logging.hpp"
 
 #include "../3party/jansson/myjansson.hpp"
+
 
 namespace storage
 {
@@ -21,8 +20,9 @@ namespace storage
 bool IsFileDownloaded(CountryFile const & file)
 {
   uint64_t size = 0;
-  if (!GetPlatform().GetFileSize(GetPlatform().WritablePathForFile(file.m_nameWithExt), size))
+  if (!GetPlatform().GetFileSize(GetPlatform().WritablePathForFile(file.GetFileWithExt()), size))
     return false;
+
   return true;//tile.second == size;
 }
 
@@ -32,10 +32,9 @@ struct CountryBoundsCalculator
   CountryBoundsCalculator(m2::RectD & bounds) : m_bounds(bounds) {}
   void operator()(CountryFile const & file)
   {
-    feature::DataHeader header;
-    FilesContainerR reader(GetPlatform().WritablePathForFile(file.m_nameWithExt));
-    header.Load(reader.GetReader(HEADER_FILE_TAG));
-    m_bounds.Add(header.GetBounds());
+    feature::DataHeader h;
+    LoadMapHeader(GetPlatform().GetReader(file.GetFileWithExt()), h);
+    m_bounds.Add(h.GetBounds());
   }
 };
 
@@ -95,7 +94,7 @@ void LoadGroupImpl(int depth, json_t * group, CountriesContainerT & container)
 
     Country country(name, flag ? flag : "");
     if (size)
-      country.AddFile(CountryFile(string(file) + DATA_FILE_EXTENSION, size, price));
+      country.AddFile(CountryFile(file, size, price));
     container.AddAtDepth(depth, country);
 
     json_t * children = json_object_get(j, "g");
@@ -149,8 +148,7 @@ void SaveImpl(T const & v, json_t * jParent)
       int64_t const price = v[i].Value().Files()[0].m_price;
       CHECK_GREATER_OR_EQUAL(price, 0, ("Invalid price"));
       json_object_set_new(jCountry, "p", json_integer(price));
-      string const strFile = v[i].Value().Files()[0].m_nameWithExt.substr(0,
-          v[i].Value().Files()[0].m_nameWithExt.size() - string(DATA_FILE_EXTENSION).size());
+      string const strFile = v[i].Value().Files()[0].m_fileName;
       if (strFile != strName)
         json_object_set_new(jCountry, "f", json_string(strFile.c_str()));
       json_object_set_new(jCountry, "s", json_integer(v[i].Value().Files()[0].m_remoteSize));
