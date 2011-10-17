@@ -34,8 +34,8 @@ fi
 # build fresh data
 DATA_DIR="$SCRIPT_DIR/../../data"
 TMP_DIR="$DATA_DIR/intermediate_data/"
-#bzcat $DATA_DIR/$FILE.osm.bz2 | $GENERATOR_TOOL -preprocess_xml -use_light_nodes=true -intermediate_data_path=$TMP_DIR &> /dev/null
-#bzcat $DATA_DIR/$FILE.osm.bz2 | $GENERATOR_TOOL -intermediate_data_path=$TMP_DIR -use_light_nodes=true -generate_features -generate_geometry -generate_index -output=$FILE &> /dev/null
+bzcat $DATA_DIR/$FILE.osm.bz2 | $GENERATOR_TOOL -preprocess_xml -use_light_nodes=true -intermediate_data_path=$TMP_DIR &> /dev/null
+bzcat $DATA_DIR/$FILE.osm.bz2 | $GENERATOR_TOOL -intermediate_data_path=$TMP_DIR -use_light_nodes=true -generate_features -generate_geometry -generate_index -output=$FILE &> /dev/null
 
 echo "**************************"
 echo "Starting benchmarking $FILE on `date`"
