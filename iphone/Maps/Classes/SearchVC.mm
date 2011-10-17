@@ -325,7 +325,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
       break;
 
     case search::Result::RESULT_SUGGESTION:
-      [(UISearchBar *)self.navigationItem.titleView setText: [NSString stringWithFormat:@"%s ", res.GetSuggestionString()]];
+      [m_searchBar setText: [NSString stringWithFormat:@"%s ", res.GetSuggestionString()]];
       break;
     }
   }
