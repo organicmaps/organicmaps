@@ -1,6 +1,11 @@
 #include "../../testing/testing.hpp"
+
 #include "../macros.hpp"
+
 #include "../stl_add.hpp"
+
+#include "../../std/deque.hpp"
+
 
 UNIT_TEST(STLAdd_IsSorted)
 {
@@ -62,6 +67,19 @@ UNIT_TEST(STLAdd_RemoveIfKeepValid)
     v.push_back(0);
     v.push_back(0);
     v.push_back(1);
+    v.push_back(1);
+    CheckNoZero(v, RemoveIfKeepValid(v.begin(), v.end(), EqualZero()));
+    TEST_EQUAL(v.size(), 4, ());
+  }
+
+  {
+    deque<int> v;
+    v.push_back(1);
+    v.push_back(0);
+    v.push_back(1);
+    v.push_back(0);
+    v.push_back(1);
+    v.push_back(0);
     v.push_back(1);
     CheckNoZero(v, RemoveIfKeepValid(v.begin(), v.end(), EqualZero()));
     TEST_EQUAL(v.size(), 4, ());
