@@ -10,25 +10,24 @@
 #include "../../platform/platform.hpp"
 
 #include "../../base/timer.hpp"
-#include "../../base/logging.hpp"
-
-#include "../../std/iostream.hpp"
 
 #include "../../base/start_mem_debug.hpp"
 
+
+namespace bench
+{
 
 namespace
 {
   class Accumulator
   {
     my::Timer m_timer;
-    double m_reading;
     size_t m_count;
 
     int m_scale;
 
   public:
-    Accumulator() : m_reading(0.0) {}
+    Result m_res;
 
     void Reset(int scale)
     {
@@ -37,8 +36,6 @@ namespace
     }
 
     bool IsEmpty() const { return m_count == 0; }
-
-    double GetReadingTime() const { return m_reading; }
 
     void operator() (FeatureType const & ft)
     {
@@ -56,11 +53,11 @@ namespace
         (void)ft.IsEmptyGeometry(m_scale);
       }
 
-      m_reading += m_timer.ElapsedSeconds();
+      m_res.Add(m_timer.ElapsedSeconds());
     }
   };
 
-  double RunBenchmark(model::FeaturesFetcher const & src, m2::RectD const & rect,
+  Result RunBenchmark(model::FeaturesFetcher const & src, m2::RectD const & rect,
                       pair<int, int> const & scaleR)
   {
     ASSERT_LESS_OR_EQUAL ( scaleR.first, scaleR.second, () );
@@ -93,11 +90,11 @@ namespace
       }
     }
 
-    return acc.GetReadingTime();
+    return acc.m_res;
   }
 }
 
-void RunFeaturesLoadingBenchmark(string const & file, size_t count, pair<int, int> scaleR)
+AllResult RunFeaturesLoadingBenchmark(string const & file, size_t count, pair<int, int> scaleR)
 {
   feature::DataHeader header;
   LoadMapHeader(GetPlatform().GetReader(file), header);
@@ -117,18 +114,18 @@ void RunFeaturesLoadingBenchmark(string const & file, size_t count, pair<int, in
   m2::RectD const rect = header.GetBounds();
 
   my::Timer timer;
-  double all = 0.0;
-  double reading = 0.0;
+  AllResult res;
 
   for (size_t i = 0; i < count; ++i)
   {
     timer.Reset();
 
-    reading += RunBenchmark(src, rect, scaleR);
+    res.m_reading.Add(RunBenchmark(src, rect, scaleR));
 
-    all += timer.ElapsedSeconds();
+    res.m_all.Add(timer.ElapsedSeconds());
   }
 
-  // 'all time', 'index time', 'feature loading time'
-  cout << all / count << ' ' << (all - reading) / count << ' ' << reading / count << endl;
+  return res;
+}
+
 }

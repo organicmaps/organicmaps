@@ -15,6 +15,7 @@ DEFINE_int32(count, 3, "How many times to run benchmark");
 DEFINE_int32(lowS, 10, "Low processing scale");
 DEFINE_int32(highS, 17, "High processing scale");
 DEFINE_bool(print_scales, false, "Print geometry scales for MWM and exit");
+DEFINE_bool(per_frame, false, "Print result timings per one frame");
 
 int main(int argc, char ** argv)
 {
@@ -47,8 +48,12 @@ int main(int argc, char ** argv)
 
   if (!FLAGS_input.empty())
   {
-    RunFeaturesLoadingBenchmark(FLAGS_input, FLAGS_count,
+    using namespace bench;
+
+    AllResult res = RunFeaturesLoadingBenchmark(FLAGS_input, FLAGS_count,
                                 make_pair(FLAGS_lowS, FLAGS_highS));
+
+    res.Print(FLAGS_per_frame);
   }
 
   return 0;

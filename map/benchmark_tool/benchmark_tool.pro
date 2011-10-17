@@ -20,6 +20,7 @@ win32 {
 SOURCES += \
     features_loading.cpp \
     main.cpp \
+    api.cpp \
 
 HEADERS += \
     api.hpp \
