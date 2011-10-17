@@ -99,7 +99,10 @@ namespace
 
 void RunFeaturesLoadingBenchmark(string const & file, size_t count, pair<int, int> scaleR)
 {
-  pair<int, int> const r = GetMapScaleRange(FilesContainerR(GetPlatform().GetReader(file)));
+  feature::DataHeader header;
+  LoadMapHeader(GetPlatform().GetReader(file), header);
+
+  pair<int, int> const r = header.GetScaleRange();
   if (r.first > scaleR.first)
     scaleR.first = r.first;
   if (r.second < scaleR.second)
@@ -111,7 +114,7 @@ void RunFeaturesLoadingBenchmark(string const & file, size_t count, pair<int, in
   model::FeaturesFetcher src;
   src.AddMap(file);
 
-  m2::RectD const rect = GetMapBounds(FilesContainerR(GetPlatform().GetReader(file)));
+  m2::RectD const rect = header.GetBounds();
 
   my::Timer timer;
   double all = 0.0;

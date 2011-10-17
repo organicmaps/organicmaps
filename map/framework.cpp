@@ -45,7 +45,10 @@ void Framework<TModel>::AddMap(string const & file)
   LOG(LDEBUG, ("Loading map:", file));
   threads::MutexGuard lock(m_modelSyn);
 
-  m_model.AddWorldRect(GetMapBounds(FilesContainerR(GetPlatform().GetReader(file))));
+  feature::DataHeader h;
+  LoadMapHeader(GetPlatform().GetReader(file), h);
+
+  m_model.AddWorldRect(h.GetBounds());
   m_model.AddMap(file);
 }
 

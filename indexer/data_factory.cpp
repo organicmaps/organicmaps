@@ -12,22 +12,24 @@
 #include "../base/start_mem_debug.hpp"
 
 
-namespace
+void LoadMapHeader(FilesContainerR const & cont, feature::DataHeader & header)
 {
-  void LoadHeader(FilesContainerR const & cont, feature::DataHeader & header)
-  {
-    ModelReaderPtr r = cont.GetReader(HEADER_FILE_TAG);
+  ModelReaderPtr r = cont.GetReader(HEADER_FILE_TAG);
 
-    if (cont.IsReaderExist(VERSION_FILE_TAG))
-      header.Load(r);
-    else
-      header.LoadVer1(r);
-  }
+  if (cont.IsReaderExist(VERSION_FILE_TAG))
+    header.Load(r);
+  else
+    header.LoadVer1(r);
+}
+
+void LoadMapHeader(ModelReader * pReader, feature::DataHeader & header)
+{
+  LoadMapHeader(FilesContainerR(pReader), header);
 }
 
 void IndexFactory::Load(FilesContainerR const & cont)
 {
-  LoadHeader(cont, m_header);
+  LoadMapHeader(cont, m_header);
 }
 
 IntervalIndexIFace * IndexFactory::CreateIndex(ModelReaderPtr reader)
@@ -48,18 +50,4 @@ IntervalIndexIFace * IndexFactory::CreateIndex(ModelReaderPtr reader)
   }
 
   return p;
-}
-
-m2::RectD GetMapBounds(FilesContainerR const & cont)
-{
-  feature::DataHeader header;
-  LoadHeader(cont, header);
-  return header.GetBounds();
-}
-
-pair<int, int> GetMapScaleRange(FilesContainerR const & cont)
-{
-  feature::DataHeader header;
-  LoadHeader(cont, header);
-  return header.GetScaleRange();
 }

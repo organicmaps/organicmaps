@@ -19,5 +19,4 @@ public:
   IntervalIndexIFace * CreateIndex(ModelReaderPtr reader);
 };
 
-m2::RectD GetMapBounds(FilesContainerR const & cont);
-pair<int, int> GetMapScaleRange(FilesContainerR const & cont);
+void LoadMapHeader(ModelReader * pReader, feature::DataHeader & header);
