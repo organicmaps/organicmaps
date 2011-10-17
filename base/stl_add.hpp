@@ -68,6 +68,30 @@ inline bool IsSortedAndUnique(IterT beg, IterT end, CompareT comp)
   return true;
 }
 
+template <class IterT, class CompareT>
+IterT RemoveIfKeepValid(IterT beg, IterT end, CompareT comp)
+{
+  while (beg != end)
+  {
+    if (comp(*beg))
+    {
+      while (beg != --end)
+      {
+        if (!comp(*end))
+        {
+          swap(*beg, *end);
+          ++beg;
+          break;
+        }
+      }
+    }
+    else
+      ++beg;
+  }
+
+  return end;
+}
+
 
 template <class IterT> inline bool IsSorted(IterT beg, IterT end)
 {

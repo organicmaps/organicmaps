@@ -2,9 +2,11 @@
 
 #include "../base/logging.hpp"
 #include "../base/macros.hpp"
+#include "../base/stl_add.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/memcpy.hpp"
+
 
 namespace
 {
@@ -133,7 +135,7 @@ void MwmSet::Remove(string const & fileName)
     m_name[id].clear();
 
     // Update the cache.
-    ClearCacheImpl(remove_if(m_cache.begin(), m_cache.end(), MwmIdIsEqualTo(id)), m_cache.end());
+    ClearCacheImpl(RemoveIfKeepValid(m_cache.begin(), m_cache.end(), MwmIdIsEqualTo(id)), m_cache.end());
   }
 }
 
