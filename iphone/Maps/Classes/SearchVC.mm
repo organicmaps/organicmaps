@@ -3,6 +3,7 @@
 
 #include "../../geometry/angles.hpp"
 #include "../../geometry/distance_on_sphere.hpp"
+#include "../../platform/settings.hpp"
 #include "../../indexer/mercator.hpp"
 #include "../../map/framework.hpp"
 #include "../../search/result.hpp"
@@ -56,10 +57,40 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
 /////////////////////////////////////////////////////////////////////
 
+/// Key to store settings
+#define SEARCH_MODE_SETTING     "SearchMode"
+#define SEARCH_MODE_POPULARITY  "ByPopularity"
+#define SEARCH_MODE_ONTHESCREEN "OnTheScreen"
+#define SEARCH_MODE_NEARME      "NearMe"
+#define SEARCH_MODE_DEFAULT     SEARCH_MODE_POPULARITY
+
 @implementation SearchVC
 
 @synthesize m_searchBar;
 @synthesize m_table;
+
+- (void)setSearchMode:(string const &)mode
+{
+  if (mode == SEARCH_MODE_POPULARITY)
+  {
+    m_searchBar.selectedScopeButtonIndex = 0;
+    // @TODO switch search mode
+    //m_framework->SearchEngine()->SetXXXXXX();
+  }
+  else if (mode == SEARCH_MODE_ONTHESCREEN)
+  {
+    m_searchBar.selectedScopeButtonIndex = 1;
+    // @TODO switch search mode
+    //m_framework->SearchEngine()->SetXXXXXX();
+  }
+  else // Search mode "Near me"
+  {
+    m_searchBar.selectedScopeButtonIndex = 2;
+    // @TODO switch search mode
+    //m_framework->SearchEngine()->SetXXXXXX();
+  }
+  Settings::Set(SEARCH_MODE_SETTING, mode);
+}
 
 - (id)initWithFramework:(framework_t *)framework
 {
@@ -74,6 +105,12 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
     [m_locationManager startUpdatingLocation];
     if ([CLLocationManager headingAvailable])
       [m_locationManager startUpdatingHeading];
+  
+    // load previously saved search mode
+    string searchMode;
+    if (!Settings::Get(SEARCH_MODE_SETTING, searchMode))
+      searchMode = SEARCH_MODE_DEFAULT;
+    [self setSearchMode:searchMode];
   }
   
   return self;
@@ -165,16 +202,14 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 {
-  // @TODO change search scope
+  string searchMode;
   switch (selectedScope)
   {
-  case 0: // By popularity
-    break;
-  case 1: // On the screen
-    break;
-  default: // Near me
-    break;
+  case 0: searchMode = SEARCH_MODE_POPULARITY; break;
+  case 1: searchMode = SEARCH_MODE_ONTHESCREEN; break;
+  default: searchMode = SEARCH_MODE_NEARME; break;
   }
+  [self setSearchMode:searchMode];
 }
 //*********** End of SearchBar handlers *************************************
 //***************************************************************************
