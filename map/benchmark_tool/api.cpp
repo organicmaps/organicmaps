@@ -3,7 +3,7 @@
 #include "../../std/iostream.hpp"
 #include "../../std/numeric.hpp"
 #include "../../std/algorithm.hpp"
-
+#include "../../std/iomanip.hpp"
 
 namespace bench
 {
@@ -25,10 +25,11 @@ void AllResult::Print()
   m_reading.CalcMetrics();
 
   //              'all time',       'index time',                     'feature loading time'
-  cout << "all: " << m_all << ' ' << m_all - m_reading.m_all << ' ' << m_reading.m_all << endl;
-  cout << "med: " << m_reading.m_med << endl;
-  cout << "avg: " << m_reading.m_avg << endl;
-  cout << "max: " << m_reading.m_max << endl;
+  cout << fixed << setprecision(10);
+  cout << "FRAME*1000[ median:" << m_reading.m_med * 1000 << " ";
+  cout << "avg:" << m_reading.m_avg * 1000 << " ";
+  cout << "max:" << m_reading.m_max * 1000 << " ] ";
+  cout << "TOTAL[ idx:" << m_all - m_reading.m_all << " decoding:" << m_reading.m_all << " summ:" << m_all << " ]" << endl;
 }
 
 }
