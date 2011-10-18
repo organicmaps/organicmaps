@@ -40,6 +40,10 @@ namespace yg
 
   protected:
 
+    using OverlayElement::map;
+    using OverlayElement::find;
+    using OverlayElement::fillUnpacked;
+
     void map(GlyphLayout const & layout,
              StylesCache * stylesCache,
              FontDesc const & desc) const;
