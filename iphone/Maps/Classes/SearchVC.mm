@@ -105,14 +105,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
     [m_locationManager startUpdatingLocation];
     if ([CLLocationManager headingAvailable])
       [m_locationManager startUpdatingHeading];
-  
-    // load previously saved search mode
-    string searchMode;
-    if (!Settings::Get(SEARCH_MODE_SETTING, searchMode))
-      searchMode = SEARCH_MODE_DEFAULT;
-    [self setSearchMode:searchMode];
-  }
-  
+  }  
   return self;
 }
 
@@ -153,7 +146,13 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 }
 
 - (void)viewWillAppear:(BOOL)animated
-{
+{  
+  // load previously saved search mode
+  string searchMode;
+  if (!Settings::Get(SEARCH_MODE_SETTING, searchMode))
+    searchMode = SEARCH_MODE_DEFAULT;
+  [self setSearchMode:searchMode];
+
   [self fixHeadingOrientation];
   // show keyboard
   [m_searchBar becomeFirstResponder];
