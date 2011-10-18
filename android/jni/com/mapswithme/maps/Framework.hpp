@@ -22,7 +22,7 @@ namespace android
   private:
 
     JavaVM * m_jvm;
-    jobject m_parentView;
+    jobject m_mainGLView;
 
     shared_ptr<DrawerYG> m_drawer;
     shared_ptr<WindowHandle> m_handle;

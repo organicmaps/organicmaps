@@ -36,7 +36,7 @@ namespace android
     // Always get current env pointer, it's different for each thread
     JNIEnv * env;
     m_jvm->AttachCurrentThread(&env, NULL);
-    env->CallVoidMethod(m_parentView, jni::GetJavaMethodID(env, m_parentView, "requestRender", "()V"));
+    env->CallVoidMethod(m_mainGLView, jni::GetJavaMethodID(env, m_mainGLView, "requestRender", "()V"));
   }
 
   Framework::Framework(JavaVM * jvm)
@@ -54,7 +54,7 @@ namespace android
 
   void Framework::SetParentView(jobject view)
   {
-    m_parentView = view;
+    m_mainGLView = view;
   }
 
   namespace
@@ -93,8 +93,8 @@ namespace android
 
   void Framework::CreateResourceManager()
   {
-    int bigVBSize = pow(2, ceil(log(15000.0 * sizeof(yg::gl::Vertex)) / log(2)));
-    int bigIBSize = pow(2, ceil(log(30000.0 * sizeof(unsigned short)) / log(2)));
+    int bigVBSize = pow(2, ceil(log(1500.0 * sizeof(yg::gl::Vertex)) / log(2)));
+    int bigIBSize = pow(2, ceil(log(3000.0 * sizeof(unsigned short)) / log(2)));
 
     int smallVBSize = pow(2, ceil(log(1500.0 * sizeof(yg::gl::Vertex)) / log(2)));
     int smallIBSize = pow(2, ceil(log(3000.0 * sizeof(unsigned short)) / log(2)));
@@ -104,7 +104,7 @@ namespace android
 
     Platform & pl = GetPlatform();
     m_rm = make_shared_ptr(new yg::ResourceManager(
-          bigVBSize, bigIBSize, 4,
+          bigVBSize, bigIBSize, 40,
           smallVBSize, smallIBSize, 10,
           blitVBSize, blitIBSize, 10,
           512, 256, 6,
@@ -113,7 +113,7 @@ namespace android
           "fonts_whitelist.txt",
           "fonts_blacklist.txt",
           2 * 1024 * 1024,
-          GetPlatform().CpuCores() + 1,
+          1,
           yg::Rt8Bpp,
           false));
 
