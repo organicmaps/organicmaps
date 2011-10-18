@@ -24,10 +24,12 @@ namespace
     my::Timer m_timer;
     size_t m_count;
 
+    Result & m_res;
+
     int m_scale;
 
   public:
-    Result m_res;
+    Accumulator(Result & res) : m_res(res) {}
 
     void Reset(int scale)
     {
@@ -57,15 +59,15 @@ namespace
     }
   };
 
-  Result RunBenchmark(model::FeaturesFetcher const & src, m2::RectD const & rect,
-                      pair<int, int> const & scaleR)
+  void RunBenchmark(model::FeaturesFetcher const & src, m2::RectD const & rect,
+                    pair<int, int> const & scaleR, AllResult & res)
   {
     ASSERT_LESS_OR_EQUAL ( scaleR.first, scaleR.second, () );
 
     vector<m2::RectD> rects;
     rects.push_back(rect);
 
-    Accumulator acc;
+    Accumulator acc(res.m_reading);
 
     while (!rects.empty())
     {
@@ -77,7 +79,11 @@ namespace
       if (scale >= scaleR.first)
       {
         acc.Reset(scale);
+
+        my::Timer timer;
         src.ForEachFeature(r, acc, scale);
+        res.Add(timer.ElapsedSeconds());
+
         doDivide = !acc.IsEmpty();
       }
 
@@ -89,12 +95,10 @@ namespace
         rects.push_back(r2);
       }
     }
-
-    return acc.m_res;
   }
 }
 
-AllResult RunFeaturesLoadingBenchmark(string const & file, size_t count, pair<int, int> scaleR)
+void RunFeaturesLoadingBenchmark(string const & file, pair<int, int> scaleR, AllResult & res)
 {
   feature::DataHeader header;
   LoadMapHeader(GetPlatform().GetReader(file), header);
@@ -106,26 +110,12 @@ AllResult RunFeaturesLoadingBenchmark(string const & file, size_t count, pair<in
     scaleR.second = r.second;
 
   if (scaleR.first > scaleR.second)
-    return AllResult();
+    return;
 
   model::FeaturesFetcher src;
   src.AddMap(file);
 
-  m2::RectD const rect = header.GetBounds();
-
-  my::Timer timer;
-  AllResult res;
-
-  for (size_t i = 0; i < count; ++i)
-  {
-    timer.Reset();
-
-    res.m_reading.Add(RunBenchmark(src, rect, scaleR));
-
-    res.m_all.Add(timer.ElapsedSeconds());
-  }
-
-  return res;
+  RunBenchmark(src, header.GetBounds(), scaleR, res);
 }
 
 }

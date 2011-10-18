@@ -1,38 +1,45 @@
 #pragma once
 
+#include "../../std/vector.hpp"
 #include "../../std/string.hpp"
 #include "../../std/utility.hpp"
+
 
 namespace bench
 {
   struct Result
   {
-    double m_time;
-    size_t m_count;
+    vector<double> m_time;
 
-    Result() : m_time(0), m_count(0) {}
+  public:
+    double m_all, m_max, m_avg, m_med;
 
+  public:
     void Add(double t)
     {
-      m_time += t;
-      ++m_count;
+      m_time.push_back(t);
     }
-
     void Add(Result const & r)
     {
-      m_time += r.m_time;
-      m_count += r.m_count;
+      m_time.insert(m_time.end(), r.m_time.begin(), r.m_time.end());
     }
+
+    void CalcMetrics();
   };
 
-  struct AllResult
+  class AllResult
   {
-    Result m_all, m_reading;
+  public:
+    Result m_reading;
+    double m_all;
 
-    void Print(bool perFrame) const;
+  public:
+    AllResult() : m_all(0.0) {}
+
+    void Add(double t) { m_all += t; }
+    void Print();
   };
 
   /// @param[in] count number of times to run benchmark
-  AllResult RunFeaturesLoadingBenchmark(
-      string const & file, size_t count, pair<int, int> scaleR);
+  void RunFeaturesLoadingBenchmark(string const & file, pair<int, int> scaleR, AllResult & res);
 }

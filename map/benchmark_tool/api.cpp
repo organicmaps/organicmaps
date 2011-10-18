@@ -1,6 +1,7 @@
 #include "api.hpp"
 
 #include "../../std/iostream.hpp"
+#include "../../std/numeric.hpp"
 
 #include "../../base/start_mem_debug.hpp"
 
@@ -8,16 +9,27 @@
 namespace bench
 {
 
-void AllResult::Print(bool perFrame) const
+void Result::CalcMetrics()
 {
-  size_t count = m_all.m_count;
-  if (perFrame)
-    count *= m_reading.m_count;
+  sort(m_time.begin(), m_time.end());
 
-  // 'all time', 'index time', 'feature loading time'
-  cout << m_all.m_time / count << ' ' <<
-          (m_all.m_time - m_reading.m_time) / count << ' ' <<
-          m_reading.m_time / count << endl;
+  m_max = m_time.back();
+  m_med = m_time[m_time.size()/2];
+  m_all = accumulate(m_time.begin(), m_time.end(), 0.0);
+  m_avg = m_all / m_time.size();
+
+  m_time.clear();
+}
+
+void AllResult::Print()
+{
+  m_reading.CalcMetrics();
+
+  //              'all time',       'index time',                     'feature loading time'
+  cout << "all: " << m_all << ' ' << m_all - m_reading.m_all << ' ' << m_reading.m_all << endl;
+  cout << "med: " << m_reading.m_med << endl;
+  cout << "avg: " << m_reading.m_avg << endl;
+  cout << "max: " << m_reading.m_max << endl;
 }
 
 }
