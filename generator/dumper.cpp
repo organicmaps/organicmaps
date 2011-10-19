@@ -2,16 +2,19 @@
 
 #include "../indexer/search_delimiters.hpp"
 #include "../indexer/search_string_utils.hpp"
+#include "../indexer/classificator.hpp"
+#include "../indexer/feature_processor.hpp"
+#include "../indexer/search_trie.hpp"
 
 #include "../coding/multilang_utf8_string.hpp"
 
-#include "../indexer/classificator.hpp"
-#include "../indexer/feature_processor.hpp"
+#include "../base/logging.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/bind.hpp"
 #include "../std/iostream.hpp"
 #include "../std/map.hpp"
+#include "../std/queue.hpp"
 #include "../std/vector.hpp"
 
 namespace feature
@@ -149,7 +152,63 @@ namespace feature
     {
       Print(it->first, it->second);
     }
-
   }
 
-}
+  struct SearchTokensCollector
+  {
+    priority_queue<pair<uint32_t, strings::UniString> > tokens;
+    strings::UniString m_currentS;
+    uint32_t m_currentCount;
+
+    SearchTokensCollector() : m_currentS(), m_currentCount(0) {}
+
+    void operator() (strings::UniString const & s, search::trie::ValueReader::ValueType value)
+    {
+      if (m_currentS == s)
+      {
+        ++m_currentCount;
+      }
+      else
+      {
+        if (m_currentCount > 0)
+        {
+          tokens.push(make_pair(m_currentCount, m_currentS));
+          if (tokens.size() > 100)
+            tokens.pop();
+        }
+        m_currentS = s;
+        m_currentCount = 0;
+      }
+    }
+
+    void Finish()
+    {
+      if (m_currentCount > 0)
+      {
+        tokens.push(make_pair(m_currentCount, m_currentS));
+        if (tokens.size() > 100)
+          tokens.pop();
+      }
+    }
+  };
+
+  void DumpSearchTokens(string const & fPath)
+  {
+    FilesContainerR container(new FileReader(fPath));
+    scoped_ptr<search::TrieIterator> pTrieRoot(
+          ::trie::reader::ReadTrie(container.GetReader(SEARCH_INDEX_FILE_TAG),
+                                   ::search::trie::ValueReader(),
+                                   ::search::trie::EdgeValueReader()));
+    SearchTokensCollector f;
+    trie::ForEachRef(*pTrieRoot, f, strings::UniString());
+    f.Finish();
+
+    while (!f.tokens.empty())
+    {
+      strings::UniString const & s = f.tokens.top().second;
+      cout << f.tokens.top().first << " '" << strings::ToUtf8(s) << "'" << endl;
+      f.tokens.pop();
+    }
+  }
+
+}  // namespace feature

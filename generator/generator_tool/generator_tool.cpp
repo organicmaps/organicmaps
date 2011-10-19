@@ -56,6 +56,7 @@ DEFINE_string(generate_borders, "",
             "specify tag name and optional value: ISO3166-1 or admin_level=4");
 DEFINE_bool(dump_types, false, "If defined, prints all types combinations and their total count");
 DEFINE_bool(dump_prefixes, false, "If defined, prints statistics on feature name prefixes");
+DEFINE_bool(dump_search_tokens, false, "Print statistics on search tokens.");
 DEFINE_bool(unpack_mwm, false, "Unpack each section of mwm into a separate file with name filePath.sectionName.");
 DEFINE_bool(generate_packed_borders, false, "Generate packed file with country polygons");
 
@@ -237,6 +238,9 @@ int main(int argc, char ** argv)
 
   if (FLAGS_dump_prefixes)
     feature::DumpPrefixes(path + FLAGS_output + ".mwm");
+
+  if (FLAGS_dump_search_tokens)
+    feature::DumpSearchTokens(path + FLAGS_output + ".mwm");
 
   if (FLAGS_unpack_mwm)
     UnpackMwm(path + FLAGS_output + ".mwm");
