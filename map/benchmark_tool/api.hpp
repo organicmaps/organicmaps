@@ -24,6 +24,7 @@ namespace bench
       m_time.insert(m_time.end(), r.m_time.begin(), r.m_time.end());
     }
 
+    void PrintAllTimes();
     void CalcMetrics();
   };
 
