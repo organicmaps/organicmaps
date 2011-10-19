@@ -17,7 +17,6 @@ fi
 
 # trying to locate benchmark tool
 SCRIPT_DIR=`dirname $0`
-GENERATOR_TOOL="$SCRIPT_DIR/../../../omim-build-release/out/release/generator_tool"
 BENCHMARK_TOOL="$SCRIPT_DIR/../../../omim-build-release/out/release/benchmark_tool"
 FILE=$1
 
@@ -26,24 +25,19 @@ if [ ! -f $BENCHMARK_TOOL ]; then
   exit -1
 fi
 
-if [ ! -f $GENERATOR_TOOL ]; then
-  echo "Can't open $GENERATOR_TOOL"
-  exit -1
-fi
-
 # build fresh data
-DATA_DIR="$SCRIPT_DIR/../../data"
-TMP_DIR="$DATA_DIR/intermediate_data/"
-bzcat $DATA_DIR/$FILE.osm.bz2 | $GENERATOR_TOOL -preprocess_xml -use_light_nodes=true -intermediate_data_path=$TMP_DIR &> /dev/null
-bzcat $DATA_DIR/$FILE.osm.bz2 | $GENERATOR_TOOL -intermediate_data_path=$TMP_DIR -use_light_nodes=true -generate_features -generate_geometry -generate_index -output=$FILE &> /dev/null
-
 echo "**************************"
 echo "Starting benchmarking $FILE on `date`"
 echo "HEAD commit:"
 echo `git --git-dir=$SCRIPT_DIR/../../.git log -1`
 
 echo "`$BENCHMARK_TOOL -input=$FILE.mwm -print_scales`"
-for SCALE in 10 11 12 13 14 15 16 17; do
+if [[ $FILE == World* ]]; then
+  SCALES="0 1 2 3 4 5 6 7 8 9"
+else
+  SCALES="10 11 12 13 14 15 16 17"
+fi
+for SCALE in $SCALES; do
   echo -n "Scale $SCALE: "
   $BENCHMARK_TOOL -lowS=$SCALE -highS=$SCALE -input=$FILE.mwm
 done
