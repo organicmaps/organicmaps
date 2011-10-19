@@ -16,39 +16,39 @@ namespace my
 }
 
 // TODO: Evaluate X only once in CHECK().
-#define CHECK(X, msg) if (X) {} else { \
-  ::my::OnAssertFailed(SRC(), ::my::impl::MergeMsg("CHECK("#X")", ::my::impl::Message msg));}
-#define CHECK_EQUAL(X, Y, msg) if ((X) == (Y)) {} else { \
+#define CHECK(X, msg) do { if (X) {} else { \
+    ::my::OnAssertFailed(SRC(), ::my::impl::MergeMsg("CHECK("#X")", ::my::impl::Message msg));} } while(false)
+#define CHECK_EQUAL(X, Y, msg) do { if ((X) == (Y)) {} else { \
   ::my::OnAssertFailed(SRC(), ::my::impl::MergeMsg("CHECK("#X" == "#Y")", \
                                                    ::my::impl::Message(X, Y), \
-                                                   ::my::impl::Message msg));}
-#define CHECK_NOT_EQUAL(X, Y, msg) if ((X) != (Y)) {} else { \
+                                                   ::my::impl::Message msg));} } while (false)
+#define CHECK_NOT_EQUAL(X, Y, msg) do { if ((X) != (Y)) {} else { \
   ::my::OnAssertFailed(SRC(), ::my::impl::MergeMsg("CHECK("#X" != "#Y")", \
                                                    ::my::impl::Message(X, Y), \
-                                                   ::my::impl::Message msg));}
-#define CHECK_LESS(X, Y, msg) if ((X) < (Y)) {} else { \
+                                                   ::my::impl::Message msg));} } while (false)
+#define CHECK_LESS(X, Y, msg) do { if ((X) < (Y)) {} else { \
   ::my::OnAssertFailed(SRC(), ::my::impl::MergeMsg("CHECK("#X" < "#Y")", \
                                                    ::my::impl::Message(X, Y), \
-                                                   ::my::impl::Message msg));}
-#define CHECK_LESS_OR_EQUAL(X, Y, msg) if ((X) <= (Y)) {} else { \
+                                                   ::my::impl::Message msg));} } while (false)
+#define CHECK_LESS_OR_EQUAL(X, Y, msg) do { if ((X) <= (Y)) {} else { \
   ::my::OnAssertFailed(SRC(), ::my::impl::MergeMsg("CHECK("#X" <= "#Y")", \
                                                    ::my::impl::Message(X, Y), \
-                                                   ::my::impl::Message msg));}
-#define CHECK_GREATER(X, Y, msg) if ((X) > (Y)) {} else { \
+                                                   ::my::impl::Message msg));} } while (false)
+#define CHECK_GREATER(X, Y, msg) do { if ((X) > (Y)) {} else { \
   ::my::OnAssertFailed(SRC(), ::my::impl::MergeMsg("CHECK("#X" > "#Y")", \
                                                    ::my::impl::Message(X, Y), \
-                                                   ::my::impl::Message msg));}
-#define CHECK_GREATER_OR_EQUAL(X, Y, msg) if ((X) >= (Y)) {} else { \
+                                                   ::my::impl::Message msg));} } while (false)
+#define CHECK_GREATER_OR_EQUAL(X, Y, msg) do { if ((X) >= (Y)) {} else { \
   ::my::OnAssertFailed(SRC(), ::my::impl::MergeMsg("CHECK("#X" >= "#Y")", \
                                                    ::my::impl::Message(X, Y), \
-                                                   ::my::impl::Message msg));}
-#define CHECK_OR_CALL(fail, call, X, msg) if (X) {} else { \
+                                                   ::my::impl::Message msg));} } while (false)
+#define CHECK_OR_CALL(fail, call, X, msg) do { if (X) {} else { \
   if (fail) {\
     ::my::OnAssertFailed(SRC(), ::my::impl::MergeMsg(::my::impl::Message("CHECK("#X")"), \
                                                      ::my::impl::Message msg)); \
   } else { \
     call(); \
-  } }
+  } } } while (false)
 
 #ifdef DEBUG
 // for Symbian compatibility
