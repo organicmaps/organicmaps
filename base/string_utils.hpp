@@ -31,6 +31,13 @@ inline UniString MakeUniString(string const & utf8s)
   return result;
 }
 
+inline string ToUtf8(UniString const & s)
+{
+  string result;
+  utf8::unchecked::utf32to8(s.begin(), s.end(), back_inserter(result));
+  return result;
+}
+
 template <typename DelimFuncT, typename UniCharIterT = UniString::const_iterator>
 class TokenizeIterator
 {

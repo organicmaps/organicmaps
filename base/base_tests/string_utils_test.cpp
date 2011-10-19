@@ -345,3 +345,10 @@ UNIT_TEST(UniString_Less)
   strings::UniString s7 = strings::MakeUniString("Tiste");
   TEST(s0 < s7, ());
 }
+
+UNIT_TEST(UniStringToUtf8)
+{
+  char const utf8Text[] = "У нас исходники хранятся в Utf8!";
+  strings::UniString uniS = strings::MakeUniString(utf8Text);
+  TEST_EQUAL(string(utf8Text), strings::ToUtf8(uniS), ());
+}
