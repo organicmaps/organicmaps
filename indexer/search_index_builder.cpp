@@ -68,9 +68,16 @@ struct FeatureNameInserter
   vector<FeatureName> & m_names;
   uint32_t m_pos;
   uint8_t m_rank;
+
   FeatureNameInserter(vector<FeatureName> & names, uint32_t pos, uint8_t rank)
     : m_names(names), m_pos(pos), m_rank(rank) {}
-  bool operator()(signed char, string const & name) const
+
+  void AddToken(signed char, strings::UniString const & s) const
+  {
+    m_names.push_back(FeatureName(s, m_pos, m_rank));
+  }
+
+  bool operator()(signed char lang, string const & name) const
   {
     // m_names.push_back(FeatureName(, m_pos, m_rank));
     strings::UniString uniName = search::NormalizeAndSimplifyString(name);
@@ -82,7 +89,7 @@ struct FeatureNameInserter
       tokens.resize(30);
     }
     for (size_t i = 0; i < tokens.size(); ++i)
-      m_names.push_back(FeatureName(tokens[i], m_pos, m_rank));
+      AddToken(lang, tokens[i]);
     return true;
   }
 };
@@ -90,11 +97,20 @@ struct FeatureNameInserter
 struct FeatureInserter
 {
   vector<FeatureName> & m_names;
+
   explicit FeatureInserter(vector<FeatureName> & names) : m_names(names) {}
+
   void operator() (FeatureType const & feature, uint64_t pos) const
   {
+    // Add names of the feature.
     FeatureNameInserter f(m_names, static_cast<uint32_t>(pos), feature::GetSearchRank(feature));
     feature.ForEachNameRef(f);
+
+    // Add names of categories of the feature.
+    FeatureType::GetTypesFn getTypesFn;
+    feature.ForEachTypeRef(getTypesFn);
+    for (size_t i = 0; i < getTypesFn.m_size; ++i)
+      f.AddToken(0, search::FeatureTypeToString(getTypesFn.m_types[i]));
   }
 };
 
