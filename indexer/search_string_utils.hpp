@@ -21,4 +21,6 @@ void SplitUniString(strings::UniString const & uniS, F f, DelimsT const & delims
     f(iter.GetUniString());
 }
 
+strings::UniString FeatureTypeToString(uint32_t type);
+
 }  // namespace search

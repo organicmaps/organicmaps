@@ -38,6 +38,7 @@ SOURCES += \
     mwm_set.cpp \
     index.cpp \
     categories_holder.cpp \
+    search_string_utils.cpp
 
 HEADERS += \
     feature.hpp \
