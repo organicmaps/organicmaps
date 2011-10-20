@@ -144,7 +144,7 @@ struct OffsetIntersecter
 }  // namespace search::impl
 
 template <typename F>
-void MatchFeaturesInTrie(strings::UniString const * tokens, size_t tokenCount,
+void MatchFeaturesInTrie(vector<vector<strings::UniString> > const & tokens,
                          strings::UniString const & prefix,
                          TrieIterator const & trieRoot,
                          unordered_set<uint32_t> const * pOffsetsFilter,
@@ -154,9 +154,11 @@ void MatchFeaturesInTrie(strings::UniString const * tokens, size_t tokenCount,
   impl::OffsetIntersecter intersecter(pOffsetsFilter);
 
   // Match tokens.
-  for (size_t i = 0; i < tokenCount; ++i)
+  for (size_t i = 0; i < tokens.size(); ++i)
   {
-    impl::FullMatchInTrie(trieRoot, tokens[i], intersecter);
+    for (size_t j = 0; j < tokens[i].size(); ++j)
+      impl::FullMatchInTrie(trieRoot, tokens[i][j], intersecter);
+
     intersecter.NextStep();
   }
 

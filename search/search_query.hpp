@@ -3,13 +3,14 @@
 #include "../geometry/rect2d.hpp"
 #include "../base/buffer_vector.hpp"
 #include "../base/limited_priority_queue.hpp"
+#include "../base/string_utils.hpp"
 #include "../std/function.hpp"
+#include "../std/map.hpp"
 #include "../std/scoped_ptr.hpp"
 #include "../std/string.hpp"
 #include "../std/unordered_set.hpp"
 #include "../std/vector.hpp"
 
-class CategoriesHolder;
 class FeatureType;
 class Index;
 
@@ -22,7 +23,9 @@ namespace impl { class IntermediateResult; struct FeatureLoader; class BestNameF
 class Query
 {
 public:
-  Query(Index const * pIndex, CategoriesHolder const * pCategories);
+  typedef map<strings::UniString, vector<uint32_t> > CategoriesMapT;
+
+  Query(Index const * pIndex, CategoriesMapT const * pCategories);
   ~Query();
 
   void SetViewport(m2::RectD const & viewport);
@@ -45,7 +48,7 @@ private:
   void GetBestMatchName(FeatureType const & feature, uint32_t & penalty, string & name);
 
   Index const * m_pIndex;
-  CategoriesHolder const * m_pCategories;
+  CategoriesMapT const * m_pCategories;
 
   string m_rawQuery;
   strings::UniString m_uniQuery;

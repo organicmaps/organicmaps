@@ -3,6 +3,7 @@
 #include "search_query.hpp"
 
 #include "../indexer/categories_holder.hpp"
+#include "../indexer/search_string_utils.hpp"
 
 #include "../base/logging.hpp"
 
@@ -15,9 +16,20 @@ namespace search
 {
 
 Engine::Engine(IndexType const * pIndex, CategoriesHolder * pCategories)
-  : m_pIndex(pIndex), m_pCategories(pCategories)
+  : m_pIndex(pIndex)
 {
-  m_pQuery.reset(new Query(pIndex, pCategories));
+  for (CategoriesHolder::const_iterator it = pCategories->begin(); it != pCategories->end(); ++it)
+  {
+    for (size_t i = 0; i < it->m_synonyms.size(); ++i)
+    {
+      vector<uint32_t> & types = m_categories[NormalizeAndSimplifyString(it->m_synonyms[i].m_name)];
+      types.insert(types.end(), it->m_types.begin(), it->m_types.end());
+    }
+  }
+
+  delete pCategories;
+
+  m_pQuery.reset(new Query(pIndex, &m_categories));
 }
 
 Engine::~Engine()

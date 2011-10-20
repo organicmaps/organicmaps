@@ -5,10 +5,13 @@
 #include "../geometry/rect2d.hpp"
 
 #include "../base/base.hpp"
+#include "../base/string_utils.hpp"
 
 #include "../std/function.hpp"
+#include "../std/map.hpp"
 #include "../std/scoped_ptr.hpp"
 #include "../std/string.hpp"
+#include "../std/vector.hpp"
 
 class CategoriesHolder;
 class Index;
@@ -33,7 +36,7 @@ public:
 
 private:
   Index const * m_pIndex;
-  scoped_ptr<CategoriesHolder> m_pCategories;
+  map<strings::UniString, vector<uint32_t> > m_categories;
   scoped_ptr<search::Query> m_pQuery;
 };
 

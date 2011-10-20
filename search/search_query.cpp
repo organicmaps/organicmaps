@@ -14,11 +14,12 @@
 #include "../base/string_utils.hpp"
 #include "../base/stl_add.hpp"
 #include "../std/algorithm.hpp"
+#include "../std/vector.hpp"
 
 namespace search
 {
 
-Query::Query(Index const * pIndex, CategoriesHolder const * pCategories)
+Query::Query(Index const * pIndex, CategoriesMapT const * pCategories)
   : m_pIndex(pIndex), m_pCategories(pCategories), m_viewport(m2::RectD::GetEmptyRect()),
     m_viewportExtended(m2::RectD::GetEmptyRect()), m_bOffsetsCacheIsValid(false)
 {
@@ -248,7 +249,28 @@ void Query::SearchFeatures()
           {
             FeaturesVector featuresVector(pMwm->m_cont, pMwm->GetHeader());
             impl::FeatureLoader f(featuresVector, *this);
-            MatchFeaturesInTrie(m_tokens.data(), m_tokens.size(), m_prefix, *pTrieRoot,
+
+            vector<vector<strings::UniString> > tokens(m_tokens.size());
+
+            // Add normal tokens.
+            for (size_t i = 0; i < m_tokens.size(); ++i)
+              tokens[i].push_back(m_tokens[i]);
+
+            // Add names of categories.
+            if (m_pCategories)
+            {
+              for (size_t i = 0; i < m_tokens.size(); ++i)
+              {
+                CategoriesMapT::const_iterator it = m_pCategories->find(m_tokens[i]);
+                if (it != m_pCategories->end())
+                {
+                  for (size_t j = 0; j < it->second.size(); ++j)
+                    tokens[i].push_back(FeatureTypeToString(it->second[j]));
+                }
+              }
+            }
+
+            MatchFeaturesInTrie(tokens, m_prefix, *pTrieRoot,
                                 &m_offsetsInViewport[mwmId], f, m_results.max_size() * 10);
 
             LOG(LINFO, ("Matched: ", f.m_count));
