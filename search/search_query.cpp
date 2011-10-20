@@ -108,6 +108,7 @@ void Query::Search(string const & query,
     m_rawQuery = query;
     m_uniQuery = NormalizeAndSimplifyString(m_rawQuery);
     m_tokens.clear();
+    m_prefix.clear();
 
     search::Delimiters delims;
     SplitUniString(m_uniQuery, MakeBackInsertFunctor(m_tokens), delims);
