@@ -463,8 +463,9 @@ namespace feature
 
               SimplifyPoints(*iH, simplified.back(), level, isCoast, rect);
 
-              // Do not skip small coastline polygons for the first scale level.
-              if ((isCoast && i == 0) || IsGoodArea(simplified.back(), level))
+              // Increment level check for coastline polygons for the first scale level.
+              // This is used for better coastlines quality.
+              if (IsGoodArea(simplified.back(), (isCoast && i == 0) ? level + 1 : level))
               {
                 // At this point we don't need last point equal to first.
                 simplified.back().pop_back();
