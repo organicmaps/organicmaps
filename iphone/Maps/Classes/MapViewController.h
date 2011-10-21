@@ -34,6 +34,8 @@
 - (void) onResize: (GLint)width withHeight: (GLint)height;
 - (void) drawFrame;
 
+- (void) SetupMeasurementSystem;
+
 // called when app is terminated by system
 - (void) OnTerminate;
 - (void) OnEnterForeground;

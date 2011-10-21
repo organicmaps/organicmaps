@@ -369,4 +369,9 @@ NSInteger compareAddress(id l, id r, void * context)
   [super viewWillDisappear:animated];
 }
 
+- (void) SetupMeasurementSystem
+{
+  m_framework->SetupMeasurementSystem();
+}
+
 @end

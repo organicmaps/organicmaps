@@ -14,6 +14,7 @@
 
 void Ruler::initFeets()
 {
+  m_units.clear();
   m_units.push_back(make_pair("100 ft", 100));
   m_units.push_back(make_pair("200 ft", 200));
   m_units.push_back(make_pair("0.1 mi", 528));
@@ -32,6 +33,7 @@ void Ruler::initFeets()
 
 void Ruler::initYards()
 {
+  m_units.clear();
   m_units.push_back(make_pair("50 yd", 50));
   m_units.push_back(make_pair("100 yd", 100));
   m_units.push_back(make_pair("200 yd", 200));
@@ -50,6 +52,7 @@ void Ruler::initYards()
 
 void Ruler::initMetres()
 {
+  m_units.clear();
   m_units.push_back(make_pair("20 m", 20));
   m_units.push_back(make_pair("50 m", 50));
   m_units.push_back(make_pair("100 m", 100));
@@ -74,8 +77,7 @@ namespace {
   }
 }
 
-Ruler::Ruler(Params const & p)
-  : base_t(p), m_boundRects(1)
+void Ruler::setup()
 {
   Settings::Units units;
   units = Settings::Metric;
@@ -103,6 +105,16 @@ Ruler::Ruler(Params const & p)
       break;
     }
   }
+
+  m_isInitialized = true;
+  if (m_hasPendingUpdate)
+    update();
+}
+
+Ruler::Ruler(Params const & p)
+  : base_t(p), m_boundRects(1), m_isInitialized(false), m_hasPendingUpdate(false)
+{
+
 }
 
 void Ruler::setScreen(ScreenBase const & screen)
@@ -142,83 +154,88 @@ void Ruler::setFontDesc(yg::FontDesc const & fontDesc)
 
 void Ruler::update()
 {
-  m2::PointD glbPivot = m_screen.PtoG(pivot());
-
-  int rulerHeight = static_cast<int>(14 * m_visualScale);
-  unsigned minPxWidth = static_cast<unsigned>(m_minPxWidth * m_visualScale);
-
-  m2::PointD pt0 = m_screen.PtoG(pivot() - m2::PointD(minPxWidth / 2, 0));
-  m2::PointD pt1 = m_screen.PtoG(pivot() + m2::PointD(minPxWidth / 2, 0));
-
-  /// correction factor, calculated from Y-coordinate.
-  double const lonDiffCorrection = cos(MercatorBounds::YToLat(glbPivot.y) / 180.0 * math::pi);
-
-  /// longitude difference between two points
-  double lonDiff = fabs(MercatorBounds::XToLon(pt0.x) - MercatorBounds::XToLon(pt1.x));
-
-  /// converting into metres
-  /// TODO : calculate in different units
-
-  m_metresDiff = lonDiff / MercatorBounds::degreeInMetres * lonDiffCorrection;
-
-  if (m_units[0].second > m_conversionFn(m_metresDiff))
+  if (m_isInitialized)
   {
-    m_scalerText = "<" + m_units[0].first;
-    m_metresDiff = m_minUnitsWidth - 1;
-  }
-  else if (m_units.back().second <= m_conversionFn(m_metresDiff))
-  {
-    m_scalerText = ">" + m_units.back().first;
-    m_metresDiff = m_maxUnitsWidth + 1;
+    m2::PointD glbPivot = m_screen.PtoG(pivot());
+
+    int rulerHeight = static_cast<int>(14 * m_visualScale);
+    unsigned minPxWidth = static_cast<unsigned>(m_minPxWidth * m_visualScale);
+
+    m2::PointD pt0 = m_screen.PtoG(pivot() - m2::PointD(minPxWidth / 2, 0));
+    m2::PointD pt1 = m_screen.PtoG(pivot() + m2::PointD(minPxWidth / 2, 0));
+
+    /// correction factor, calculated from Y-coordinate.
+    double const lonDiffCorrection = cos(MercatorBounds::YToLat(glbPivot.y) / 180.0 * math::pi);
+
+    /// longitude difference between two points
+    double lonDiff = fabs(MercatorBounds::XToLon(pt0.x) - MercatorBounds::XToLon(pt1.x));
+
+    /// converting into metres
+    /// TODO : calculate in different units
+
+    m_metresDiff = lonDiff / MercatorBounds::degreeInMetres * lonDiffCorrection;
+
+    if (m_units[0].second > m_conversionFn(m_metresDiff))
+    {
+      m_scalerText = "<" + m_units[0].first;
+      m_metresDiff = m_minUnitsWidth - 1;
+    }
+    else if (m_units.back().second <= m_conversionFn(m_metresDiff))
+    {
+      m_scalerText = ">" + m_units.back().first;
+      m_metresDiff = m_maxUnitsWidth + 1;
+    }
+    else
+      for (size_t i = 0; i < m_units.size(); ++i)
+      {
+        if (m_units[i].second > m_conversionFn(m_metresDiff))
+        {
+          m_metresDiff = m_units[i].second / m_conversionFn(1);
+          m_scalerText = m_units[i].first;
+          break;
+        }
+      }
+
+    bool higherThanMax = m_metresDiff > m_maxUnitsWidth;
+    bool lessThanMin = m_metresDiff < m_minUnitsWidth;
+
+    /// translating metres into pixels
+    double scalerWidthLatDiff = (double)m_metresDiff * MercatorBounds::degreeInMetres / lonDiffCorrection;
+    double scalerWidthXDiff = MercatorBounds::LonToX(glbPivot.x + scalerWidthLatDiff / 2)
+                            - MercatorBounds::LonToX(glbPivot.x - scalerWidthLatDiff / 2);
+
+    double scalerWidthInPx = m_screen.GtoP(glbPivot).x - m_screen.GtoP(glbPivot + m2::PointD(scalerWidthXDiff, 0)).x;
+    scalerWidthInPx = (higherThanMax || lessThanMin) ? minPxWidth : abs(my::rounds(scalerWidthInPx));
+
+    m2::PointD scalerOrg = pivot() + m2::PointD(-scalerWidthInPx / 2, rulerHeight / 2);
+
+    if (position() & yg::EPosLeft)
+      scalerOrg.x -= scalerWidthInPx / 2;
+
+    if (position() & yg::EPosRight)
+      scalerOrg.x += scalerWidthInPx / 2;
+
+    if (position() & yg::EPosAbove)
+      scalerOrg.y -= rulerHeight / 2;
+
+    if (position() & yg::EPosUnder)
+      scalerOrg.y += rulerHeight / 2;
+
+    m_path.clear();
+    m_path.push_back(scalerOrg + m2::PointD(0, -rulerHeight));
+    m_path.push_back(scalerOrg);
+    m_path.push_back(scalerOrg + m2::PointD(scalerWidthInPx, 0));
+    m_path.push_back(m_path[2] + m2::PointD(0, -rulerHeight));
+
+    /// calculating bound rect
+
+    m_boundRect = m2::RectD(m_path[0], m_path[0]);
+    m_boundRect.Add(m_path[1]);
+    m_boundRect.Add(m_path[2]);
+    m_boundRect.Add(m_path[3]);
   }
   else
-    for (size_t i = 0; i < m_units.size(); ++i)
-    {
-      if (m_units[i].second > m_conversionFn(m_metresDiff))
-      {
-        m_metresDiff = m_units[i].second / m_conversionFn(1);
-        m_scalerText = m_units[i].first;
-        break;
-      }
-    }
-
-  bool higherThanMax = m_metresDiff > m_maxUnitsWidth;
-  bool lessThanMin = m_metresDiff < m_minUnitsWidth;
-
-  /// translating metres into pixels
-  double scalerWidthLatDiff = (double)m_metresDiff * MercatorBounds::degreeInMetres / lonDiffCorrection;
-  double scalerWidthXDiff = MercatorBounds::LonToX(glbPivot.x + scalerWidthLatDiff / 2)
-                          - MercatorBounds::LonToX(glbPivot.x - scalerWidthLatDiff / 2);
-
-  double scalerWidthInPx = m_screen.GtoP(glbPivot).x - m_screen.GtoP(glbPivot + m2::PointD(scalerWidthXDiff, 0)).x;
-  scalerWidthInPx = (higherThanMax || lessThanMin) ? minPxWidth : abs(my::rounds(scalerWidthInPx));
-
-  m2::PointD scalerOrg = pivot() + m2::PointD(-scalerWidthInPx / 2, rulerHeight / 2);
-
-  if (position() & yg::EPosLeft)
-    scalerOrg.x -= scalerWidthInPx / 2;
-
-  if (position() & yg::EPosRight)
-    scalerOrg.x += scalerWidthInPx / 2;
-
-  if (position() & yg::EPosAbove)
-    scalerOrg.y -= rulerHeight / 2;
-
-  if (position() & yg::EPosUnder)
-    scalerOrg.y += rulerHeight / 2;
-
-  m_path.clear();
-  m_path.push_back(scalerOrg + m2::PointD(0, -rulerHeight));
-  m_path.push_back(scalerOrg);
-  m_path.push_back(scalerOrg + m2::PointD(scalerWidthInPx, 0));
-  m_path.push_back(m_path[2] + m2::PointD(0, -rulerHeight));
-
-  /// calculating bound rect
-
-  m_boundRect = m2::RectD(m_path[0], m_path[0]);
-  m_boundRect.Add(m_path[1]);
-  m_boundRect.Add(m_path[2]);
-  m_boundRect.Add(m_path[3]);
+    m_hasPendingUpdate = true;
 }
 
 vector<m2::AnyRectD> const & Ruler::boundRects() const
@@ -229,39 +246,41 @@ vector<m2::AnyRectD> const & Ruler::boundRects() const
 
 void Ruler::draw(yg::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const
 {
-  s->drawPath(
-      &m_path[0], m_path.size(), 0,
-        s->skin()->mapPenInfo(yg::PenInfo(yg::Color(255, 255, 255, 255), 2 * m_visualScale, 0, 0, 0)),
-      depth() - 3);
+  if (m_isInitialized)
+  {
+    s->drawPath(
+        &m_path[0], m_path.size(), 0,
+          s->skin()->mapPenInfo(yg::PenInfo(yg::Color(255, 255, 255, 255), 2 * m_visualScale, 0, 0, 0)),
+        depth() - 3);
 
-  s->drawPath(
-      &m_path[0], m_path.size(), 0,
-      s->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 255), 1 * m_visualScale, 0, 0, 0)),
-      depth() - 2);
+    s->drawPath(
+        &m_path[0], m_path.size(), 0,
+        s->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 255), 1 * m_visualScale, 0, 0, 0)),
+        depth() - 2);
 
-  if (position() & yg::EPosLeft)
-    s->drawText(m_fontDesc,
-                m_path[2] + m2::PointD(-7, -7),
-                yg::EPosAboveLeft,
-                m_scalerText.c_str(),
-                depth(),
-                false);
-  else
-    if (position() & yg::EPosRight)
+    if (position() & yg::EPosLeft)
       s->drawText(m_fontDesc,
-                  m_path[1] + m2::PointD(7, -7),
-                  yg::EPosAboveRight,
+                  m_path[2] + m2::PointD(-7, -7),
+                  yg::EPosAboveLeft,
                   m_scalerText.c_str(),
                   depth(),
                   false);
     else
-      s->drawText(m_fontDesc,
-                  (m_path[1] + m_path[2]) * 0.5 + m2::PointD(0, -7),
-                  yg::EPosAbove,
-                  m_scalerText.c_str(),
-                  depth(),
-                  false);
-
+      if (position() & yg::EPosRight)
+        s->drawText(m_fontDesc,
+                    m_path[1] + m2::PointD(7, -7),
+                    yg::EPosAboveRight,
+                    m_scalerText.c_str(),
+                    depth(),
+                    false);
+      else
+        s->drawText(m_fontDesc,
+                    (m_path[1] + m_path[2]) * 0.5 + m2::PointD(0, -7),
+                    yg::EPosAbove,
+                    m_scalerText.c_str(),
+                    depth(),
+                    false);
+  }
 }
 
 void Ruler::map(yg::StylesCache * stylesCache) const

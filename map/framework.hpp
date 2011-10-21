@@ -183,6 +183,8 @@ public:
 
 public:
 
+  void SetupMeasurementSystem();
+
   void DrawModel(shared_ptr<PaintEvent> const & e,
                  ScreenBase const & screen,
                  m2::RectD const & selectRect,

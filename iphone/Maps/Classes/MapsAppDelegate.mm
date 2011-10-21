@@ -31,7 +31,7 @@
 
 - (void) applicationDidFinishLaunching: (UIApplication *) application
 {
-  [Preferences setup];
+  [Preferences setup:m_mapViewController];
 
   [m_window addSubview:m_navigationController.view];
   [m_window makeKeyAndVisible];

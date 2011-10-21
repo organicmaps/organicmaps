@@ -84,6 +84,7 @@ public:
   void enableRuler(bool doEnable);
   void drawRuler(DrawerYG * pDrawer);
   void setRulerParams(unsigned pxMinWidth, double metresMinWidth, double metresMaxWidth);
+  void setupRuler();
 
   void enableCenter(bool doEnable);
   void setCenter(m2::PointD const & latLongPt);

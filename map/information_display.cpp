@@ -401,6 +401,11 @@ void InformationDisplay::drawBenchmarkInfo(DrawerYG * pDrawer)
 
 }
 
+void InformationDisplay::setupRuler()
+{
+  m_ruler.setup();
+}
+
 void InformationDisplay::doDraw(DrawerYG *drawer)
 {
   m_yOffset = 0;

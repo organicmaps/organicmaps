@@ -704,4 +704,11 @@ void Framework<TModel>::SetRenderPolicy(shared_ptr<RenderPolicy> const & renderP
   m_renderPolicy = renderPolicy;
 }
 
+template <typename TModel>
+void Framework<TModel>::SetupMeasurementSystem()
+{
+  m_informationDisplay.setupRuler();
+  Invalidate();
+}
+
 template class Framework<model::FeaturesFetcher>;

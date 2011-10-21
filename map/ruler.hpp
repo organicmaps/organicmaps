@@ -47,6 +47,9 @@ private:
   vector<pair<string, double> > m_units;
   ConversionFn m_conversionFn;
 
+  bool m_isInitialized;
+  bool m_hasPendingUpdate;
+
   void initYards();
   void initMetres();
   void initFeets();
@@ -60,6 +63,7 @@ public:
   };
 
   Ruler(Params const & p);
+  void setup();
 
   void setScreen(ScreenBase const & screen);
   ScreenBase const & screen() const;
