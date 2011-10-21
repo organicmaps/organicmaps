@@ -7,8 +7,7 @@
 
 class FilesContainerBase
 {
-protected:
-
+public:
   typedef string Tag;
 
   struct Info
@@ -21,6 +20,7 @@ protected:
     Info(Tag const & tag, uint64_t offset) : m_tag(tag), m_offset(offset) {}
   };
 
+protected:
   struct LessInfo
   {
     bool operator() (Info const & t1, Info const & t2) const

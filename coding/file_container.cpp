@@ -1,10 +1,26 @@
 #include "../base/SRC_FIRST.hpp"
 
 #include "file_container.hpp"
-#include "varint.hpp"
+#include "read_write_utils.hpp"
 #include "write_to_sink.hpp"
 #include "internal/file_data.hpp"
 
+
+template <class TSource> void Read(TSource & src, FilesContainerBase::Info & i)
+{
+  rw::Read(src, i.m_tag);
+
+  i.m_offset = ReadVarUint<uint64_t>(src);
+  i.m_size = ReadVarUint<uint64_t>(src);
+}
+
+template <class TSink> void Write(TSink & sink, FilesContainerBase::Info const & i)
+{
+  rw::Write(sink, i.m_tag);
+
+  WriteVarUint(sink, i.m_offset);
+  WriteVarUint(sink, i.m_size);
+}
 
 /////////////////////////////////////////////////////////////////////////////
 // FilesContainerBase
@@ -18,18 +34,7 @@ void FilesContainerBase::ReadInfo(ReaderT & reader)
   ReaderSource<ReaderT> src(reader);
   src.Skip(offset);
 
-  uint32_t const count = ReadVarUint<uint32_t>(src);
-  m_info.resize(count);
-
-  for (uint32_t i = 0; i < count; ++i)
-  {
-    uint32_t const tagSize = ReadVarUint<uint32_t>(src);
-    m_info[i].m_tag.resize(tagSize);
-    src.Read(&m_info[i].m_tag[0], tagSize);
-
-    m_info[i].m_offset = ReadVarUint<uint64_t>(src);
-    m_info[i].m_size = ReadVarUint<uint64_t>(src);
-  }
+  rw::Read(src, m_info);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -233,18 +238,7 @@ void FilesContainerW::Finish()
 
   sort(m_info.begin(), m_info.end(), LessInfo());
 
-  uint32_t const count = m_info.size();
-  WriteVarUint(writer, count);
-
-  for (uint32_t i = 0; i < count; ++i)
-  {
-    size_t const tagSize = m_info[i].m_tag.size();
-    WriteVarUint(writer, tagSize);
-    writer.Write(&m_info[i].m_tag[0], tagSize);
-
-    WriteVarUint(writer, m_info[i].m_offset);
-    WriteVarUint(writer, m_info[i].m_size);
-  }
+  rw::Write(writer, m_info);
 
   m_bFinished = true;
 }

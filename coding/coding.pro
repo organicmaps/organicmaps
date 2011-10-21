@@ -75,4 +75,5 @@ HEADERS += \
     trie.hpp \
     trie_builder.hpp \
     trie_reader.hpp \
-		mmap_reader.hpp \
+    mmap_reader.hpp \
+    read_write_utils.hpp \
