@@ -105,7 +105,7 @@ void FilesContainerW::Open(FileWriter::Op op)
     }
 
   default:
-    ASSERT ( false, ("Unsupperted options") );
+    ASSERT ( false, ("Unsupported options") );
     break;
   }
 

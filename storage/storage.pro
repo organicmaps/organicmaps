@@ -16,7 +16,10 @@ HEADERS += \
   country.hpp \
   simple_tree.hpp \
   storage.hpp \
+  country_polygon.hpp \
+  country_info.hpp \
 
 SOURCES += \
   country.cpp \
   storage.cpp \
+  country_info.cpp \

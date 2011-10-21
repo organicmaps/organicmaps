@@ -14,6 +14,14 @@ namespace borders
   {
     CountryPolygons(string const & name = "") : m_name(name), m_index(-1) {}
 
+    bool IsEmpty() const { return m_regions.IsEmpty(); }
+    void Clear()
+    {
+      m_regions.Clear();
+      m_name.clear();
+      m_index = -1;
+    }
+
     RegionsContainerT m_regions;
     string m_name;
     mutable int m_index;
@@ -22,4 +30,6 @@ namespace borders
   typedef m4::Tree<CountryPolygons> CountriesContainerT;
 
   bool LoadCountriesList(string const & baseDir, CountriesContainerT & countries);
+
+  void GeneratePackedBorders(string const & baseDir);
 }

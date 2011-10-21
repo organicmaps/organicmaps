@@ -127,6 +127,8 @@ namespace m2
       std::swap(m_rect, rhs.m_rect);
     }
 
+    ContainerT Data() const { return m_points; }
+
   public:
     /// Taken from Computational Geometry in C and modified
     template <class EqualF>

@@ -3,6 +3,7 @@
 #include "../feature_sorter.hpp"
 #include "../update_generator.hpp"
 #include "../borders_generator.hpp"
+#include "../borders_loader.hpp"
 #include "../classif_routine.hpp"
 #include "../dumper.hpp"
 #include "../statistics.hpp"
@@ -56,6 +57,7 @@ DEFINE_string(generate_borders, "",
 DEFINE_bool(dump_types, false, "If defined, prints all types combinations and their total count");
 DEFINE_bool(dump_prefixes, false, "If defined, prints statistics on feature name prefixes");
 DEFINE_bool(unpack_mwm, false, "Unpack each section of mwm into a separate file with name filePath.sectionName.");
+DEFINE_bool(generate_packed_borders, false, "Generate packed file with country polygons");
 
 string AddSlashIfNeeded(string const & str)
 {
@@ -237,9 +239,10 @@ int main(int argc, char ** argv)
     feature::DumpPrefixes(path + FLAGS_output + ".mwm");
 
   if (FLAGS_unpack_mwm)
-  {
     UnpackMwm(path + FLAGS_output + ".mwm");
-  }
+
+  if (FLAGS_generate_packed_borders)
+    borders::GeneratePackedBorders(path);
 
   return 0;
 }
