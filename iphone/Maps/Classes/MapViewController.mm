@@ -28,62 +28,71 @@ storage::Storage m_storage;
     m_framework->ShowRect(rect);
 }
 
-- (void)startLocation
+//********************************************************************************************
+//*********************** Callbacks from LocationManager *************************************
+- (void)onLocationStatusChanged:(location::TLocationStatus)newStatus
 {
-  typedef void (*OnLocationUpdatedFunc)(id, SEL, location::TLocationStatus);
-  SEL onLocUpdatedSel = @selector(OnLocationUpdated:);
-  OnLocationUpdatedFunc locUpdatedImpl = (OnLocationUpdatedFunc)[self methodForSelector:onLocUpdatedSel];
-
-  m_myPositionButton.selected = YES;
-  [m_myPositionButton setImage:[UIImage imageNamed:@"location-search.png"] forState:UIControlStateSelected];
-  [[MapsAppDelegate theApp] disableStandby];
-
-  m_framework->StartLocationService(bind(locUpdatedImpl, self, onLocUpdatedSel, _1));
-}
-
-- (void)stopLocation
-{
-  m_myPositionButton.selected = NO;
-  [m_myPositionButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
-  [[MapsAppDelegate theApp] enableStandby];
-
-  m_framework->StopLocationService();
-}
-
-- (IBAction)OnMyPositionClicked:(id)sender
-{
-  if (m_myPositionButton.isSelected == NO)
-    [self startLocation];
-  else
-    [self stopLocation];
-}
-
-- (void)OnLocationUpdated:(location::TLocationStatus) status
-{
-  switch (status)
+  m_framework->OnLocationStatusChanged(newStatus);
+  switch (newStatus)
   {
   case location::EDisabledByUser:
     {
-      UIAlertView * alert = [[[UIAlertView alloc] initWithTitle:@"Location Services are disabled"
-                                                      message:@"You currently have all location services for this device or application disabled. Please, enable them in Settings->Location Services."
-                                                     delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+      UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Location Services are disabled"
+                                                       message:@"You currently have all location services for this device or application disabled. Please, enable them in Settings Application->Location Services."
+                                                      delegate:nil 
+                                             cancelButtonTitle:@"Ok"
+                                             otherButtonTitles:nil];
       [alert show];
-      [self stopLocation];
+      [alert release];
+      [[MapsAppDelegate theApp].m_locationManager stop:self];
     }
     break;
   case location::ENotSupported:
     {
-      UIAlertView * alert = [[[UIAlertView alloc] initWithTitle:@"Location Services are not supported"
-                                                      message:@"Your device doesn't support location services"
-                                                     delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+      UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Location Services are not supported"
+                                                       message:@"Your device doesn't support location services"
+                                                      delegate:nil
+                                             cancelButtonTitle:@"Ok"
+                                             otherButtonTitles:nil];
       [alert show];
-      [self stopLocation];
+      [alert release];
+      [[MapsAppDelegate theApp].m_locationManager stop:self];
     }
     break;
-  case location::ERoughMode:
-  case location::EAccurateMode:
-    [m_myPositionButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
+  case location::EFirstEvent:
+      [m_myPositionButton setImage:[UIImage imageNamed:@"location-selected.png"] forState:UIControlStateSelected];
     break;
+  default:
+    break;
+  }
+}
+
+- (void)onGpsUpdate:(location::GpsInfo const &)info
+{
+  m_framework->OnGpsUpdate(info);
+}
+
+- (void)onCompassUpdate:(location::CompassInfo const &)info
+{
+  m_framework->OnCompassUpdate(info);
+}
+//********************************************************************************************
+//********************************************************************************************
+- (IBAction)OnMyPositionClicked:(id)sender
+{
+  if (m_myPositionButton.isSelected == NO)
+  {
+    m_myPositionButton.selected = YES;
+    [m_myPositionButton setImage:[UIImage imageNamed:@"location-search.png"] forState:UIControlStateSelected];
+    [[MapsAppDelegate theApp] disableStandby];
+    [[MapsAppDelegate theApp].m_locationManager start:self];
+  }
+  else
+  {
+    m_myPositionButton.selected = NO;
+    [m_myPositionButton setImage:[UIImage imageNamed:@"location.png"] forState:UIControlStateSelected];
+    [[MapsAppDelegate theApp] enableStandby];
+    [[MapsAppDelegate theApp].m_locationManager stop:self];
   }
 }
 

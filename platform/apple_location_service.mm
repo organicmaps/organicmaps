@@ -1,4 +1,4 @@
-#include "location.hpp"
+#include "location_service.hpp"
 
 #include "../std/target_os.hpp"
 
@@ -23,89 +23,60 @@ class AppleLocationService : public LocationService
   CLLocationManager * m_locationManager;
 
 public:
-  AppleLocationService()
+  AppleLocationService(LocationObserver & observer) : LocationService(observer)
   {
     m_objCppWrapper = [[LocationManagerWrapper alloc] initWithService:this];
     m_locationManager = [[CLLocationManager alloc] init];
     m_locationManager.delegate = m_objCppWrapper;
+    m_locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    m_locationManager.purpose = @"Location services are needed to display your current position on the map.";
   }
 
-  ~AppleLocationService()
+  virtual ~AppleLocationService()
   {
     [m_locationManager release];
     [m_objCppWrapper release];
   }
 
-  void OnLocationUpdate(GpsInfo & newLocation)
+  void OnLocationUpdate(GpsInfo const & info)
   {
-    NotifyGpsObserver(newLocation);
+    m_observer.OnGpsUpdated(info);
   }
 
-  void OnHeadingUpdate(CompassInfo & newHeading)
+  void OnDeniedError()
   {
-    NotifyCompassObserver(newHeading);
+    m_observer.OnLocationStatusChanged(location::EDisabledByUser);
   }
 
-//  virtual bool IsServiceSupported()
-//  {
-//    // Mac OS 10.6+ and iOS 4.0+ support this definitely
-//    return true;
-//  }
-
-//  virtual bool IsServiceEnabled()
-//  {
-//    return [CLLocationManager locationServicesEnabled];
-//  }
-
-//  virtual bool IsCompassAvailable()
-//  {
-//#ifdef OMIM_OS_MAC
-//      return false;
-//#else // iOS 4.0+ have it
-//      return [CLLocationManager headingAvailable];
-//#endif
-//  }
-
-  virtual void StartUpdate(bool useAccurateMode)
+  virtual void Start()
   {
     if (![CLLocationManager locationServicesEnabled])
     {
-      GpsInfo info;
-      info.m_status = EDisabledByUser;
-      info.m_source = location::EAppleNative;
-      info.m_timestamp = [[NSDate date] timeIntervalSince1970];
-      NotifyGpsObserver(info);
+      // @TODO correctly handle situation in GUI when wifi is working and native is disabled
+      // m_observer.OnLocationStatusChanged(location::ENotSupported);
     }
     else
     {
-      if (useAccurateMode)
-        m_locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-      else
-        m_locationManager.desiredAccuracy = ROUGH_ACCURACY;
-      [m_locationManager startUpdatingLocation];
-      // enable compass
-#ifdef OMIM_OS_IPHONE
-      if ([CLLocationManager headingAvailable])
+      switch([CLLocationManager authorizationStatus])
       {
-        m_locationManager.headingFilter = 1.0;
-        [m_locationManager startUpdatingHeading];
+      case kCLAuthorizationStatusAuthorized:
+      case kCLAuthorizationStatusNotDetermined:
+        [m_locationManager startUpdatingLocation];
+        m_observer.OnLocationStatusChanged(location::EStarted);
+        break;
+      case kCLAuthorizationStatusRestricted:
+      case kCLAuthorizationStatusDenied:
+        // @TODO correctly handle situation in GUI when wifi is working and native is disabled
+        //m_observer.OnLocationStatusChanged(location::EDisabledByUser);
+        break;
       }
-#endif
     }
   }
 
-  virtual void StopUpdate()
+  virtual void Stop()
   {
-#ifdef OMIM_OS_IPHONE
-    if ([CLLocationManager headingAvailable])
-      [m_locationManager stopUpdatingHeading];
-#endif
     [m_locationManager stopUpdatingLocation];
-  }
-
-  bool IsAccurateMode() const
-  {
-    return m_locationManager.desiredAccuracy == kCLLocationAccuracyBest;
+    m_observer.OnLocationStatusChanged(location::EStopped);
   }
 };
 
@@ -113,29 +84,22 @@ public:
 
 - (id)initWithService:(AppleLocationService *) service
 {
-  self = [super init];
-  if (self) {
+  if (self = [super init])
     m_service = service;
-  }
   return self;
-}
-
-- (void)dealloc
-{
-  [super dealloc];
 }
 
 + (void)location:(CLLocation *)location toGpsInfo:(GpsInfo &) info
 {
-  info.m_altitude = location.altitude;
-  info.m_course = location.course;
-  info.m_speed = location.speed;
   info.m_horizontalAccuracy = location.horizontalAccuracy;
-  info.m_verticalAccuracy = location.verticalAccuracy;
   info.m_latitude = location.coordinate.latitude;
   info.m_longitude = location.coordinate.longitude;
   info.m_timestamp = [location.timestamp timeIntervalSince1970];
   info.m_source = location::EAppleNative;
+  //info.m_verticalAccuracy = location.verticalAccuracy;
+  //info.m_altitude = location.altitude;
+  //info.m_course = location.course;
+  //info.m_speed = location.speed;
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -144,49 +108,20 @@ public:
 {
   GpsInfo newInfo;
   [LocationManagerWrapper location:newLocation toGpsInfo:newInfo];
-  newInfo.m_status = m_service->IsAccurateMode() ? EAccurateMode : ERoughMode;
   m_service->OnLocationUpdate(newInfo);
 }
-
-#ifdef OMIM_OS_IPHONE
-- (void)locationManager:(CLLocationManager *)manager
-       didUpdateHeading:(CLHeading *)newHeading
-{
-  CompassInfo newInfo;
-  newInfo.m_magneticHeading = newHeading.magneticHeading;
-  newInfo.m_trueHeading = newHeading.trueHeading;
-  newInfo.m_accuracy = newHeading.headingAccuracy;
-  newInfo.m_x = newHeading.x;
-  newInfo.m_y = newHeading.y;
-  newInfo.m_z = newHeading.z;
-  newInfo.m_timestamp = [newHeading.timestamp timeIntervalSince1970];
-  m_service->OnHeadingUpdate(newInfo);
-}
-#endif
 
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
   NSLog(@"locationManager failed with error: %ld, %@", error.code, error.description);
   if (error.code == kCLErrorDenied)
-  {
-    GpsInfo info;
-    info.m_status = EDisabledByUser;
-    info.m_source = location::EAppleNative;
-    info.m_timestamp = [[NSDate date] timeIntervalSince1970];
-    m_service->OnLocationUpdate(info);
-  }
-}
-
-// Display compass calibration dialog automatically
-- (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
-{
-  return YES;
+    m_service->OnDeniedError();
 }
 
 @end
 
-location::LocationService * CreateAppleLocationService()
+extern "C" location::LocationService * CreateAppleLocationService(LocationObserver & observer)
 {
-  return new AppleLocationService();
+  return new AppleLocationService(observer);
 }

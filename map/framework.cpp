@@ -1,5 +1,3 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "framework.hpp"
 #include "draw_processor.hpp"
 #include "drawer_yg.hpp"
@@ -26,6 +24,7 @@
 
 #include "../std/algorithm.hpp"
 #include "../std/fstream.hpp"
+#include "../std/target_os.hpp"
 
 #include "render_policy_st.hpp"
 #include "render_policy_mt.hpp"
@@ -60,24 +59,31 @@ void Framework<TModel>::RemoveMap(string const & datFile)
 }
 
 template <typename TModel>
-void Framework<TModel>::OnGpsUpdate(location::GpsInfo const & info)
+void Framework<TModel>::OnLocationStatusChanged(location::TLocationStatus newStatus)
 {
-  // notify GUI (note that gps can be disabled by user or even not available)
-  if (!(m_locationState & location::State::EGps) && m_locationObserver)
-    m_locationObserver(info.m_status);
-
-  if (info.m_status == location::EAccurateMode || info.m_status == location::ERoughMode)
+  if (newStatus == location::EStarted)
+    // reset centering mode
+    m_centeringMode = ECenterAndScale;
+  else
   {
-    m_locationState.UpdateGps(info);
-    if (m_centeringMode == ECenterAndScale)
-    {
-      CenterAndScaleViewport();
-      m_centeringMode = ECenterOnly;
-    }
-    else if (m_centeringMode == ECenterOnly)
-      SetViewportCenter(m_locationState.Position());
+    m_centeringMode = EDoNothing;
+    m_locationState.TurnOff();
     Invalidate();
   }
+}
+
+template <typename TModel>
+void Framework<TModel>::OnGpsUpdate(location::GpsInfo const & info)
+{
+  m_locationState.UpdateGps(info);
+  if (m_centeringMode == ECenterAndScale)
+  {
+    CenterAndScaleViewport();
+    m_centeringMode = ECenterOnly;
+  }
+  else if (m_centeringMode == ECenterOnly)
+    SetViewportCenter(m_locationState.Position());
+  Invalidate();
 }
 
 template <typename TModel>
@@ -133,12 +139,6 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
   Settings::Get("VisualLog", isVisualLogEnabled);
   m_informationDisplay.enableLog(isVisualLogEnabled, m_windowHandle.get());
   m_informationDisplay.setVisualScale(visScale);
-
-  // initialize gps and compass subsystem
-  GetLocationManager().SetGpsObserver(
-        bind(&this_type::OnGpsUpdate, this, _1));
-  GetLocationManager().SetCompassObserver(
-        bind(&this_type::OnCompassUpdate, this, _1));
 
   // set language priorities
   languages::CodesT langCodes;
@@ -197,26 +197,6 @@ template <typename TModel>
 TModel & Framework<TModel>::get_model()
 {
   return m_model;
-}
-
-template <typename TModel>
-void Framework<TModel>::StartLocationService(LocationRetrievedCallbackT observer)
-{
-  m_locationObserver = observer;
-  m_centeringMode = ECenterAndScale;
-  // by default, we always start in accurate mode
-  GetLocationManager().StartUpdate(true);
-}
-
-template <typename TModel>
-void Framework<TModel>::StopLocationService()
-{
-  // reset callback
-  m_locationObserver.clear();
-  m_centeringMode = EDoNothing;
-  GetLocationManager().StopUpdate();
-  m_locationState.TurnOff();
-  Invalidate();
 }
 
 template <typename TModel>

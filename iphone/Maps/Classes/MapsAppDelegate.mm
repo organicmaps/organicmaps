@@ -2,12 +2,14 @@
 #import "MapViewController.h"
 #import "SettingsManager.h"
 #import "Preferences.h"
+#import "LocationManager.h"
 
 @implementation MapsAppDelegate
 
 @synthesize m_navigationController;
 @synthesize m_window;
 @synthesize m_mapViewController;
+@synthesize m_locationManager;
 
 + (MapsAppDelegate *) theApp
 {
@@ -32,6 +34,7 @@
 - (void) applicationDidFinishLaunching: (UIApplication *) application
 {
   [Preferences setup:m_mapViewController];
+  m_locationManager = [[LocationManager alloc] init];
 
   [m_window addSubview:m_navigationController.view];
   [m_window makeKeyAndVisible];
@@ -46,6 +49,7 @@
 
 - (void) dealloc
 {
+  [m_locationManager release];
   [m_settingsManager release];
   m_mapViewController = nil;
   m_window = nil;

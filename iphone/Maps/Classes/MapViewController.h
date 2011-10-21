@@ -1,4 +1,5 @@
-#import  <UIKit/UIKit.h>
+#import <UIKit/UIKit.h>
+#import "LocationManager.h"
 
 #include "../../geometry/point2d.hpp"
 #include "../../yg/texture.hpp"
@@ -8,7 +9,7 @@
 #include "../../map/feature_vec_model.hpp"
 #include "../../std/shared_ptr.hpp"
 
-@interface MapViewController : UIViewController
+@interface MapViewController : UIViewController <LocationObserver>
 {
   enum Action
 	{

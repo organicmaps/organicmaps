@@ -2,6 +2,10 @@
 
 #include "../storage/storage.hpp"
 
+#include "../platform/location_service.hpp"
+
+#include "../std/scoped_ptr.hpp"
+
 #include <QtGui/QMainWindow>
 
 class QDockWidget;
@@ -13,7 +17,7 @@ namespace qt
   class DrawWidget;
   class UpdateDialog;
 
-  class MainWindow : public QMainWindow
+  class MainWindow : public QMainWindow, location::LocationObserver
   {
     QAction * m_pMyPositionAction;
     QAction * m_pSearchAction;
@@ -27,19 +31,21 @@ namespace qt
 
     storage::Storage m_storage;
 
+    scoped_ptr<location::LocationService> m_locationService;
+
     Q_OBJECT
 
   public:
     MainWindow();
     virtual ~MainWindow();
 
+    virtual void OnLocationStatusChanged(location::TLocationStatus newStatus);
+    virtual void OnGpsUpdated(location::GpsInfo const & info);
+
   protected:
     string GetIniFile();
     void SaveState();
     void LoadState();
-
-  private:
-    void OnLocationFound();
 
   protected:
 #ifndef NO_DOWNLOADER

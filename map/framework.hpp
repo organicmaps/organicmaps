@@ -52,8 +52,6 @@ struct BenchmarkRectProvider;
 namespace search { class Result; }
 typedef function<void (search::Result const &)> SearchCallbackT;
 
-typedef function<void (location::TLocationStatus)> LocationRetrievedCallbackT;
-
 class DrawerYG;
 class RenderPolicy;
 
@@ -118,7 +116,6 @@ protected:
   };
 
   TGpsCenteringMode m_centeringMode;
-  LocationRetrievedCallbackT m_locationObserver;
   location::State m_locationState;
 
   mutable threads::Mutex m_modelSyn;
@@ -133,14 +130,12 @@ protected:
   void RemoveMap(string const & datFile);
 
 public:
-  void OnGpsUpdate(location::GpsInfo const & info);
-
-  void OnCompassUpdate(location::CompassInfo const & info);
-
-  Framework(shared_ptr<WindowHandle> windowHandle,
-            size_t bottomShift);
-
+  Framework(shared_ptr<WindowHandle> windowHandle, size_t bottomShift);
   virtual ~Framework();
+
+  void OnLocationStatusChanged(location::TLocationStatus newStatus);
+  void OnGpsUpdate(location::GpsInfo const & info);
+  void OnCompassUpdate(location::CompassInfo const & info);
 
   void SetRenderPolicy(shared_ptr<RenderPolicy> const & rp);
 
@@ -170,9 +165,6 @@ public:
                  enumMapsFn);
     LOG(LINFO, ("Storage initialized"));
   }
-
-  void StartLocationService(LocationRetrievedCallbackT observer);
-  void StopLocationService();
 
   bool IsEmptyModel();
 

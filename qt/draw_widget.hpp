@@ -9,7 +9,7 @@
 
 #include "../platform/video_timer.hpp"
 
-#include "../std/auto_ptr.hpp"
+#include "../std/scoped_ptr.hpp"
 
 #include <QtCore/QTimer>
 
@@ -38,9 +38,9 @@ namespace qt
 
     typedef model::FeaturesFetcher model_t;
 
-    auto_ptr<Framework<model_t> > m_framework;
+    scoped_ptr<Framework<model_t> > m_framework;
 
-    auto_ptr<VideoTimer> m_videoTimer;
+    scoped_ptr<VideoTimer> m_videoTimer;
 
     bool m_isDrag;
     bool m_isRotate;
@@ -76,9 +76,6 @@ namespace qt
 
     void SetScaleControl(QScaleSlider * pScale);
 
-    void OnEnableMyPosition(LocationRetrievedCallbackT observer);
-    void OnDisableMyPosition();
-
     void Search(string const & text, SearchCallbackT callback);
     void ShowFeature(m2::RectD const & rect);
 
@@ -89,6 +86,8 @@ namespace qt
     void UpdateNow();
 
     void PrepareShutdown();
+
+    Framework<model_t> & Framework() { return *m_framework.get(); }
 
   protected:
     static const uint32_t ini_file_version = 0;

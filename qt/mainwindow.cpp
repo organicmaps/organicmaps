@@ -43,6 +43,7 @@ MainWindow::MainWindow()
 #endif // NO_DOWNLOADER
 {
   m_pDrawWidget = new DrawWidget(this, m_storage);
+  m_locationService.reset(CreateDesktopLocationService(*this));
 
   CreateNavigationBar();
   CreateSearchBarAndPanel();
@@ -301,10 +302,27 @@ void MainWindow::OnAbout()
   dlg.exec();
 }
 
-void MainWindow::OnLocationFound()
+void MainWindow::OnLocationStatusChanged(location::TLocationStatus newStatus)
 {
-  m_pMyPositionAction->setIcon(QIcon(":/navig64/location.png"));
-  m_pMyPositionAction->setToolTip(tr("My Position"));
+  switch (newStatus)
+  {
+  case location::EFirstEvent:
+    m_pMyPositionAction->setIcon(QIcon(":/navig64/location.png"));
+    m_pMyPositionAction->setToolTip(tr("My Position"));
+    break;
+  case location::EDisabledByUser:
+  case location::ENotSupported:
+    m_pMyPositionAction->setChecked(false);
+    break;
+  default:
+    break;
+  }
+  m_pDrawWidget->Framework().OnLocationStatusChanged(newStatus);
+}
+
+void MainWindow::OnGpsUpdated(location::GpsInfo const & info)
+{
+  m_pDrawWidget->Framework().OnGpsUpdate(info);
 }
 
 void MainWindow::OnMyPosition()
@@ -313,13 +331,13 @@ void MainWindow::OnMyPosition()
   {
     m_pMyPositionAction->setIcon(QIcon(":/navig64/location-search.png"));
     m_pMyPositionAction->setToolTip(tr("Looking for position..."));
-    m_pDrawWidget->OnEnableMyPosition(bind(&MainWindow::OnLocationFound, this));
+    m_locationService->Start();
   }
   else
   {
     m_pMyPositionAction->setIcon(QIcon(":/navig64/location.png"));
     m_pMyPositionAction->setToolTip(tr("My Position"));
-    m_pDrawWidget->OnDisableMyPosition();
+    m_locationService->Stop();
   }
 }
 

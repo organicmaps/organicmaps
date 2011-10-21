@@ -1,12 +1,13 @@
-#include "location.hpp"
+#include "location_service.hpp"
 
 #include "../std/target_os.hpp"
 #include "../std/vector.hpp"
-#include "../std/bind.hpp"
 #include "../std/ctime.hpp"
 
+namespace
+{
 
-double ApproxDistanceSquareInMetres(double lat1, double lon1, double lat2, double lon2)
+static double ApproxDistanceSquareInMetres(double lat1, double lon1, double lat2, double lon2)
 {
   double const m1 = (lat1 - lat2) / 111111.;
   double const m2 = (lon1 - lon2) / 111111.;
@@ -42,69 +43,74 @@ public:
     }
     else
       m_prevLocation = new location::GpsInfo(newLocation);
-    return true;
+    return passes;
   }
 };
 
+} // namespace
+
+extern "C" location::LocationService * CreateAppleLocationService(location::LocationObserver &);
+extern "C" location::LocationService * CreateWiFiLocationService(location::LocationObserver &);
+
 namespace location
 {
-  class LocationManager : public LocationService
+  class DesktopLocationService : public LocationService, public LocationObserver
   {
     vector<LocationService *> m_services;
     PositionFilter m_filter;
+    bool m_reportFirstEvent;
 
-    void OnGpsUpdate(GpsInfo const & info)
+    virtual void OnLocationStatusChanged(location::TLocationStatus newStatus)
     {
-      if (m_filter.Passes(info))
-        NotifyGpsObserver(info);
+      m_observer.OnLocationStatusChanged(newStatus);
     }
 
-    void OnCompassUpdate(CompassInfo const & info)
+    virtual void OnGpsUpdated(GpsInfo const & info)
     {
-      NotifyCompassObserver(info);
+      if (m_reportFirstEvent)
+      {
+        m_observer.OnLocationStatusChanged(location::EFirstEvent);
+        m_reportFirstEvent = false;
+      }
+      if (m_filter.Passes(info))
+        m_observer.OnGpsUpdated(info);
     }
 
   public:
-    LocationManager()
+    DesktopLocationService(LocationObserver & observer)
+      : LocationService(observer), m_reportFirstEvent(true)
     {
-      LocationService * service;
-
-#if defined(OMIM_OS_IPHONE) || defined(OMIM_OS_MAC)
-      service = CreateAppleLocationService();
-      service->SetGpsObserver(bind(&LocationManager::OnGpsUpdate, this, _1));
-      service->SetCompassObserver(bind(&LocationManager::OnCompassUpdate, this, _1));
-      m_services.push_back(service);
+#if defined(OMIM_OS_MAC)
+      m_services.push_back(CreateAppleLocationService(*this));
 #endif
 
-#if defined(OMIM_OS_WINDOWS) || defined(OMIM_OS_MAC)
-      service = CreateWiFiLocationService();
-      service->SetGpsObserver(bind(&LocationManager::OnGpsUpdate, this, _1));
-      m_services.push_back(service);
+#if defined(OMIM_OS_DESKTOP)
+      m_services.push_back(CreateWiFiLocationService(*this));
 #endif
     }
 
-    virtual ~LocationManager()
+    virtual ~DesktopLocationService()
     {
       for (size_t i = 0; i < m_services.size(); ++i)
         delete m_services[i];
     }
 
-    virtual void StartUpdate(bool useAccurateMode)
+    virtual void Start()
     {
       for (size_t i = 0; i < m_services.size(); ++i)
-        m_services[i]->StartUpdate(useAccurateMode);
+        m_services[i]->Start();
     }
 
-    virtual void StopUpdate()
+    virtual void Stop()
     {
       for (size_t i = 0; i < m_services.size(); ++i)
-        m_services[i]->StopUpdate();
+        m_services[i]->Stop();
+      m_reportFirstEvent = true;
     }
   };
 }
 
-location::LocationService & GetLocationManager()
+location::LocationService * CreateDesktopLocationService(location::LocationObserver & observer)
 {
-  static location::LocationManager mgr;
-  return mgr;
+  return new location::DesktopLocationService(observer);
 }

@@ -18,17 +18,20 @@ QT *= core network
              wifi_location_service.cpp \
              qt_download_manager.cpp \
              qt_download.cpp \
-             qt_concurrent_runner.cpp
+             qt_concurrent_runner.cpp \
+             location_service.cpp
   HEADERS += qt_download_manager.hpp \
              qt_download.hpp \
-             wifi_info.hpp
+             wifi_info.hpp \
+             location_service.hpp
   win32* {
     SOURCES += platform_win.cpp \
                wifi_info_windows.cpp
   } else:macx* {
     OBJECTIVE_SOURCES += platform_mac.mm \
                          wifi_info_mac.mm \
-                         apple_video_timer.mm
+                         apple_video_timer.mm \
+                         apple_location_service.mm
   } else:linux* {
     SOURCES += platform_linux.cpp
   }
@@ -38,10 +41,6 @@ QT *= core network
                        platform_ios.mm
 } else:android* {
   SOURCES += platform_android.cpp
-}
-
-macx|iphone* {
-  OBJECTIVE_SOURCES += apple_location_service.mm
 }
 
 # common sources for all platforms
@@ -58,7 +57,6 @@ HEADERS += \
     url_generator.hpp \
 
 SOURCES += \
-    location_manager.cpp \
     preferred_languages.cpp \
     settings.cpp \
     video_timer.cpp \

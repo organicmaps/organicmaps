@@ -14,27 +14,14 @@ namespace location
 
   void State::UpdateGps(GpsInfo const & info)
   {
-    if (info.m_status == EAccurateMode
-        || info.m_status == ERoughMode)
-    {
-      m_flags |= EGps;
-      if (info.m_status == EAccurateMode)
-        m_flags |= EPreciseMode;
-      else
-        m_flags &= !EPreciseMode;
-
-      m_positionMercator = m2::PointD(MercatorBounds::LonToX(info.m_longitude),
-                                        MercatorBounds::LatToY(info.m_latitude));
-      m2::RectD const errorRectXY =
-          MercatorBounds::MetresToXY(info.m_longitude, info.m_latitude,
-                                     info.m_horizontalAccuracy);
-      m_errorRadiusMercator = sqrt((errorRectXY.SizeX() * errorRectXY.SizeX()
-                               + errorRectXY.SizeY() * errorRectXY.SizeY()) / 4);
-    }
-    else
-    {
-      m_flags &= !EGps;
-    }
+    m_flags |= EGps;
+    m_positionMercator = m2::PointD(MercatorBounds::LonToX(info.m_longitude),
+                                    MercatorBounds::LatToY(info.m_latitude));
+    m2::RectD const errorRectXY =
+        MercatorBounds::MetresToXY(info.m_longitude, info.m_latitude,
+                                   info.m_horizontalAccuracy);
+    m_errorRadiusMercator = sqrt((errorRectXY.SizeX() * errorRectXY.SizeX()
+                                  + errorRectXY.SizeY() * errorRectXY.SizeY()) / 4);
   }
 
   void State::UpdateCompass(CompassInfo const & info)
@@ -84,7 +71,7 @@ namespace location
         drawer.drawSymbol(pxPosition, "current-position", yg::EPosCenter, yg::maxDepth);
         // my position circle
         drawer.screen()->fillSector(pxPosition, 0, math::pi * 2, pxErrorRadius,
-                                      yg::Color(0, 0, 255, (m_flags & State::EPreciseMode) ? 32 : 16),
+                                      yg::Color(0, 0, 255, 32),
                                       yg::maxDepth - 3);
         // display compass only if position is available
         if (m_flags & State::ECompass)

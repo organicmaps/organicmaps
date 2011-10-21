@@ -1,4 +1,4 @@
-#include "location.hpp"
+#include "location_service.hpp"
 #include "wifi_info.hpp"
 #include "download_manager.hpp"
 
@@ -46,10 +46,9 @@ namespace location
               info.m_longitude = json_real_value(lon);
               info.m_horizontalAccuracy = json_real_value(acc);
               // @TODO introduce flags to mark valid values
-              info.m_status = EAccurateMode;
               info.m_timestamp = static_cast<double>(time(NULL));
               info.m_source = location::EGoogle;
-              NotifyGpsObserver(info);
+              m_observer.OnGpsUpdated(info);
               return;
             }
           }
@@ -91,21 +90,25 @@ namespace location
     }
 
   public:
-    virtual void StartUpdate(bool)
+    WiFiLocationService(LocationObserver & observer) : LocationService(observer)
+    {
+    }
+
+    virtual void Start()
     {
       m_wifiInfo.RequestWiFiBSSIDs(bind(&WiFiLocationService::OnWifiScanCompleted, this, _1));
     }
 
-    virtual void StopUpdate()
+    virtual void Stop()
     {
       m_wifiInfo.Stop();
     }
   };
 }
 
-location::LocationService * CreateWiFiLocationService()
+extern "C" location::LocationService * CreateWiFiLocationService(location::LocationObserver & observer)
 {
   // small hack - create and initialize downloader in main thread
   GetDownloadManager();
-  return new location::WiFiLocationService();
+  return new location::WiFiLocationService(observer);
 }

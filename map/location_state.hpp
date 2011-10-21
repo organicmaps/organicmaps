@@ -24,8 +24,7 @@ namespace location
     {
       ENone = 0x0,
       EGps = 0x1,
-      EPreciseMode = 0x2,
-      ECompass = 0x4,
+      ECompass = 0x2
     };
 
     State();
