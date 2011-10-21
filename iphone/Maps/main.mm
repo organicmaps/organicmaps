@@ -7,16 +7,12 @@
 
 //////////////////////////////////////////////////////////////////////////////////
 /// Used to trick iOs and enable multithreading support with non-native pthreads
-@interface Dummy : NSObject
-{
-}
+@interface Dummy : NSObject 
 - (void) dummyThread: (id) obj;
 @end
 
 @implementation Dummy
-- (void) dummyThread: (id) obj
-{
-}
+- (void) dummyThread: (id) obj {}
 @end
 ///////////////////////////////////////////////////////////////////////////////////
 
