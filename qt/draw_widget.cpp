@@ -18,13 +18,13 @@ namespace qt
   DrawWidget::DrawWidget(QWidget * pParent, Storage & storage)
     : base_type(pParent),
       m_handle(new WindowHandle()),
+      m_isInitialized(false),
+      m_isTimerStarted(false),
       m_framework(FrameworkFactory<model_t>::CreateFramework(m_handle, 0)),
       m_isDrag(false),
       m_isRotate(false),
       m_redrawInterval(100),
-      m_pScale(0),
-      m_isInitialized(false),
-      m_isTimerStarted(false)
+      m_pScale(0)
   {
     m_framework->InitStorage(storage);
     m_timer = new QTimer(this);
