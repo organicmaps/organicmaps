@@ -1,4 +1,5 @@
 #include "search_engine.hpp"
+#include "category_info.hpp"
 #include "result.hpp"
 #include "search_query.hpp"
 
@@ -7,6 +8,7 @@
 
 #include "../base/logging.hpp"
 
+#include "../std/algorithm.hpp"
 #include "../std/function.hpp"
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
@@ -16,20 +18,21 @@ namespace search
 {
 
 Engine::Engine(IndexType const * pIndex, CategoriesHolder * pCategories)
-  : m_pIndex(pIndex)
+  : m_pIndex(pIndex), m_pCategories(new map<strings::UniString, CategoryInfo>())
 {
   for (CategoriesHolder::const_iterator it = pCategories->begin(); it != pCategories->end(); ++it)
   {
     for (size_t i = 0; i < it->m_synonyms.size(); ++i)
     {
-      vector<uint32_t> & types = m_categories[NormalizeAndSimplifyString(it->m_synonyms[i].m_name)];
-      types.insert(types.end(), it->m_types.begin(), it->m_types.end());
+      CategoryInfo & info = (*m_pCategories)[NormalizeAndSimplifyString(it->m_synonyms[i].m_name)];
+      info.m_types.insert(info.m_types.end(), it->m_types.begin(), it->m_types.end());
+      info.m_prefixLengthToSuggest = min(info.m_prefixLengthToSuggest,
+                                         it->m_synonyms[i].m_prefixLengthToSuggest);
     }
   }
-
   delete pCategories;
 
-  m_pQuery.reset(new Query(pIndex, &m_categories));
+  m_pQuery.reset(new Query(pIndex, m_pCategories.get()));
 }
 
 Engine::~Engine()

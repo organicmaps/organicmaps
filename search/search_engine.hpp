@@ -19,6 +19,7 @@ class Index;
 namespace search
 {
 
+class CategoryInfo;
 class Query;
 class Result;
 
@@ -36,7 +37,7 @@ public:
 
 private:
   Index const * m_pIndex;
-  map<strings::UniString, vector<uint32_t> > m_categories;
+  scoped_ptr<map<strings::UniString, CategoryInfo> > m_pCategories;
   scoped_ptr<search::Query> m_pQuery;
 };
 

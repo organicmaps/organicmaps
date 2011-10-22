@@ -21,6 +21,7 @@ HEADERS += \
     search_trie_matching.hpp \
     approximate_string_match.hpp \
     feature_offset_match.hpp \
+    category_info.hpp \
 
 SOURCES += \
     search_engine.cpp \

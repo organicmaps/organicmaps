@@ -1,9 +1,10 @@
 #include "search_query.hpp"
+#include "category_info.hpp"
 #include "feature_offset_match.hpp"
 #include "keyword_matcher.hpp"
 #include "latlon_match.hpp"
 #include "result.hpp"
-#include "../indexer/categories_holder.hpp"
+#include "search_common.hpp"
 #include "../indexer/feature_covering.hpp"
 #include "../indexer/features_vector.hpp"
 #include "../indexer/index.hpp"
@@ -137,6 +138,8 @@ void Query::Search(string const & query,
     }
   }
 
+  SuggestCategories();
+
   SearchFeatures();
 
   FlushResults(f);
@@ -264,8 +267,8 @@ void Query::SearchFeatures()
                 CategoriesMapT::const_iterator it = m_pCategories->find(m_tokens[i]);
                 if (it != m_pCategories->end())
                 {
-                  for (size_t j = 0; j < it->second.size(); ++j)
-                    tokens[i].push_back(FeatureTypeToString(it->second[j]));
+                  for (size_t j = 0; j < it->second.m_types.size(); ++j)
+                    tokens[i].push_back(FeatureTypeToString(it->second.m_types[j]));
                 }
               }
             }
@@ -276,6 +279,24 @@ void Query::SearchFeatures()
             LOG(LINFO, ("Matched: ", f.m_count));
           }
         }
+      }
+    }
+  }
+}
+
+void Query::SuggestCategories()
+{
+  // Category matching.
+  if (m_pCategories && !m_prefix.empty())
+  {
+    for (CategoriesMapT::const_iterator it = m_pCategories->begin();
+         it != m_pCategories->end(); ++it)
+    {
+      if (it->second.m_prefixLengthToSuggest <= m_prefix.size() &&
+          StartsWith(it->first.begin(), it->first.end(), m_prefix.begin(), m_prefix.end()))
+      {
+        string name = strings::ToUtf8(it->first);
+        AddResult(impl::IntermediateResult(name, name + " ", it->second.m_prefixLengthToSuggest));
       }
     }
   }

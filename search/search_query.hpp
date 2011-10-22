@@ -17,13 +17,14 @@ class Index;
 namespace search
 {
 
+class CategoryInfo;
 class KeywordMatcher;
 namespace impl { class IntermediateResult; struct FeatureLoader; class BestNameFinder; }
 
 class Query
 {
 public:
-  typedef map<strings::UniString, vector<uint32_t> > CategoriesMapT;
+  typedef map<strings::UniString, CategoryInfo > CategoriesMapT;
 
   Query(Index const * pIndex, CategoriesMapT const * pCategories);
   ~Query();
@@ -45,6 +46,7 @@ private:
   void FlushResults(function<void (Result const &)> const & f);
   void UpdateViewportOffsets();
   void SearchFeatures();
+  void SuggestCategories();
   void GetBestMatchName(FeatureType const & feature, uint32_t & penalty, string & name);
 
   Index const * m_pIndex;
