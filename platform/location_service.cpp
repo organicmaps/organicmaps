@@ -84,7 +84,7 @@ namespace location
       m_services.push_back(CreateAppleLocationService(*this));
 #endif
 
-#if defined(OMIM_OS_DESKTOP)
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_WINDOWS)
       m_services.push_back(CreateWiFiLocationService(*this));
 #endif
     }

@@ -87,7 +87,7 @@ namespace qt
 
     void PrepareShutdown();
 
-    Framework<model_t> & Framework() { return *m_framework.get(); }
+    Framework<model_t> & GetFramework() { return *m_framework.get(); }
 
   protected:
     static const uint32_t ini_file_version = 0;

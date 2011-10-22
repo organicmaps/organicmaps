@@ -317,12 +317,12 @@ void MainWindow::OnLocationStatusChanged(location::TLocationStatus newStatus)
   default:
     break;
   }
-  m_pDrawWidget->Framework().OnLocationStatusChanged(newStatus);
+  m_pDrawWidget->GetFramework().OnLocationStatusChanged(newStatus);
 }
 
 void MainWindow::OnGpsUpdated(location::GpsInfo const & info)
 {
-  m_pDrawWidget->Framework().OnGpsUpdate(info);
+  m_pDrawWidget->GetFramework().OnGpsUpdate(info);
 }
 
 void MainWindow::OnMyPosition()
