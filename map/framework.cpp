@@ -61,11 +61,14 @@ void Framework<TModel>::RemoveMap(string const & datFile)
 template <typename TModel>
 void Framework<TModel>::OnLocationStatusChanged(location::TLocationStatus newStatus)
 {
-  if (newStatus == location::EStarted)
+  switch (newStatus)
+  {
+  case location::EStarted:
+  case location::EFirstEvent:
     // reset centering mode
     m_centeringMode = ECenterAndScale;
-  else
-  {
+    break;
+  default:
     m_centeringMode = EDoNothing;
     m_locationState.TurnOff();
     Invalidate();
