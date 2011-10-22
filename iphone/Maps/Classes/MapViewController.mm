@@ -118,8 +118,6 @@ storage::Storage m_storage;
 {
 	if ((self = [super initWithCoder:coder]))
 	{
-    m_mapIsVisible = false;
-
     [(EAGLView*)self.view setController : self];
 
 		shared_ptr<iphone::WindowHandle> windowHandle = [(EAGLView*)self.view windowHandle];
@@ -355,8 +353,8 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void) OnEnterForeground
 {
   m_framework->EnterForeground();
-  if (m_mapIsVisible)
-    [self Invalidate];
+  if (self.isViewLoaded && self.view.window)
+    [self Invalidate]; // only invalidate when map is displayed on the screen
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -365,7 +363,6 @@ NSInteger compareAddress(id l, id r, void * context)
   // and orientation changes when mapVC is not visible
   [self.view layoutSubviews];
 
-  m_mapIsVisible = true;
   [self Invalidate];
   [self.navigationController setNavigationBarHidden:YES animated:YES];
   [super viewWillAppear:animated];
@@ -373,7 +370,6 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-  m_mapIsVisible = false;
   m_framework->SetUpdatesEnabled(false);
   [self.navigationController setNavigationBarHidden:NO animated:YES];
   [super viewWillDisappear:animated];

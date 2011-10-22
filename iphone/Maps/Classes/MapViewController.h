@@ -24,10 +24,7 @@
 
 	m2::PointD m_Pt1, m_Pt2;
   
-  UIButton * m_myPositionButton;
   NSTimer * m_iconTimer;
-
-  bool m_mapIsVisible;
 }
 
 - (void) ZoomToRect: (m2::RectD const &) rect;

@@ -2,7 +2,7 @@
 
 @implementation CompassView
 
-@synthesize angle = m_angle;
+@synthesize angle;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -15,9 +15,9 @@
   return self;
 }
 
-- (void)setAngle:(float)angle
+- (void)setAngle:(float)aAngle
 {
-  m_angle = angle;
+  angle = aAngle;
   [self setNeedsDisplay];
 }
 
@@ -38,7 +38,7 @@
   [aPath closePath];
   
   CGAffineTransform matrix = CGAffineTransformMakeTranslation(w2, w2);
-  matrix = CGAffineTransformRotate(matrix, -m_angle);
+  matrix = CGAffineTransformRotate(matrix, -angle);
   matrix = CGAffineTransformTranslate(matrix, -w2, -w2);
   [aPath applyTransform:matrix];
   

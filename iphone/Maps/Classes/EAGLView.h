@@ -39,8 +39,6 @@ namespace yg
 	shared_ptr<iphone::WindowHandle> windowHandle;
   shared_ptr<DrawerYG> drawer;
 	shared_ptr<iphone::RenderBuffer> renderBuffer;  
-
-  MapViewController * controller;
 }
 
 // Called as a result of invalidate on iphone::WindowHandle

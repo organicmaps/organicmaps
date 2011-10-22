@@ -201,7 +201,7 @@ bool _inRepaint = false;
 {
   CGFloat const scale = self.contentScaleFactor;
   CGSize const s = self.frame.size;
-	[self.controller onResize:s.width * scale withHeight:s.height * scale];
+	[controller onResize:s.width * scale withHeight:s.height * scale];
 	[self onSize:s.width * scale withHeight:s.height * scale];
 }
 
