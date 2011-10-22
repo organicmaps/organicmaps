@@ -1,5 +1,6 @@
 #import "SearchVC.h"
 #import "CompassView.h"
+#import "LocationManager.h"
 
 #include "../../geometry/angles.hpp"
 #include "../../geometry/distance_on_sphere.hpp"
@@ -69,6 +70,59 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 @synthesize m_searchBar;
 @synthesize m_table;
 
+// Controls visibility of information window with GPS location problems
+- (void)showOrHideGPSWarningIfNeeded
+{
+  if (m_searchBar.selectedScopeButtonIndex == 2)
+  {
+    if (m_warningViewText)
+    {
+      if (!m_warningView)
+      {
+        CGRect const rSearch = m_searchBar.frame;
+        CGFloat const h = rSearch.size.height / 3.0;
+        CGRect rWarning = CGRectMake(rSearch.origin.x, rSearch.origin.y + rSearch.size.height,
+                                   rSearch.size.width, 0);
+        m_warningView = [[UILabel alloc] initWithFrame:rWarning];
+        m_warningView.textAlignment = UITextAlignmentCenter;
+        m_warningView.numberOfLines = 0;
+        m_warningView.backgroundColor = [UIColor yellowColor];
+      
+        rWarning.size.height = h;
+
+        CGRect rTable = m_table.frame;
+        rTable.origin.y += h; 
+
+        [UIView animateWithDuration:0.5 animations:^{
+          [self.view addSubview:m_warningView];
+          m_table.frame = rTable;
+          m_warningView.frame = rWarning;
+        }];
+      }
+      m_warningView.text = m_warningViewText;
+      return;
+    }
+  }
+  // in all other cases hide this window
+  if (m_warningView)
+  {
+    CGRect const rSearch = m_searchBar.frame;
+    CGRect rTable = m_table.frame;
+    rTable.origin.y = rSearch.origin.y + rSearch.size.height;
+    [self.view sendSubviewToBack:m_warningView];
+  
+    [UIView animateWithDuration:0.5 
+                     animations:^{
+                       m_table.frame = rTable;
+                     }
+                     completion:^(BOOL finished){
+                       [m_warningView removeFromSuperview];
+                       [m_warningView release];
+                       m_warningView = nil;
+                     }];
+  }
+}
+
 - (void)setSearchMode:(string const &)mode
 {
   if (mode == SEARCH_MODE_POPULARITY)
@@ -90,22 +144,16 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
     //m_framework->SearchEngine()->SetXXXXXX();
   }
   Settings::Set(SEARCH_MODE_SETTING, mode);
+  [self showOrHideGPSWarningIfNeeded];
 }
 
-- (id)initWithFramework:(framework_t *)framework
+- (id)initWithFramework:(framework_t *)framework andLocationManager:(LocationManager *)lm
 {
   if ((self = [super initWithNibName:@"Search" bundle:nil]))
   {
     m_framework = framework;
-    m_locationManager = [[CLLocationManager alloc] init];
-    m_locationManager.delegate = self;
-    // filter out unnecessary events
-    m_locationManager.headingFilter = 3;
-    m_locationManager.distanceFilter = 1.0;
-    [m_locationManager startUpdatingLocation];
-    if ([CLLocationManager headingAvailable])
-      [m_locationManager startUpdatingHeading];
-  }  
+    m_locationManager = lm;
+  }
   return self;
 }
 
@@ -116,7 +164,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
 - (void)dealloc
 {
-  [m_locationManager release];
+  [m_warningViewText release];
   g_searchVC = nil;
   [self clearResults];
   [super dealloc];
@@ -129,20 +177,13 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
 - (void)viewDidUnload
 {
-  if ([CLLocationManager headingAvailable])
-    [m_locationManager stopUpdatingHeading];
-  [m_locationManager stopUpdatingLocation];
   g_searchVC = nil;
   // to correctly free memory
   self.m_searchBar = nil;
   self.m_table = nil;
   m_results.clear();
+  
   [super viewDidUnload];
-}
-
-- (void)fixHeadingOrientation
-{
-  m_locationManager.headingOrientation = (CLDeviceOrientation)[UIDevice currentDevice].orientation;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -153,16 +194,21 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
     searchMode = SEARCH_MODE_DEFAULT;
   [self setSearchMode:searchMode];
 
-  [self fixHeadingOrientation];
+  [m_locationManager start:self];
+
   // show keyboard
   [m_searchBar becomeFirstResponder];
+  
   [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+  [m_locationManager stop:self];
+  
   // hide keyboard immediately
   [m_searchBar resignFirstResponder];
+  
   [super viewWillDisappear:animated];
 }
 
@@ -173,11 +219,11 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
 // correctly pass rotation event up to the root mapViewController
 // to fix rotation bug when other controller is above the root
-- (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
-{
-  [[self.navigationController.viewControllers objectAtIndex:0] didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-  [self fixHeadingOrientation];
-}
+//- (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
+//{
+//  [[self.navigationController.viewControllers objectAtIndex:0] didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+//  [self fixHeadingOrientation];
+//}
 
 //**************************************************************************
 //*********** SearchBar handlers *******************************************
@@ -188,10 +234,8 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   ++g_queryId;
 
   if ([searchText length] > 0)
-  {
     m_framework->Search([[searchText precomposedStringWithCompatibilityMapping] UTF8String],
               bind(&OnSearchResultCallback, _1, g_queryId));
-  }
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
@@ -204,69 +248,54 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   string searchMode;
   switch (selectedScope)
   {
-  case 0: searchMode = SEARCH_MODE_POPULARITY; break;
-  case 1: searchMode = SEARCH_MODE_ONTHESCREEN; break;
-  default: searchMode = SEARCH_MODE_NEARME; break;
+    case 0: searchMode = SEARCH_MODE_POPULARITY; break;
+    case 1: searchMode = SEARCH_MODE_ONTHESCREEN; break;
+    default: searchMode = SEARCH_MODE_NEARME; break;
   }
   [self setSearchMode:searchMode];
 }
 //*********** End of SearchBar handlers *************************************
 //***************************************************************************
 
-- (double)calculateAngle:(m2::PointD const &)pt
+- (void)updateCellAngle:(UITableViewCell *)cell withIndex:(NSUInteger)index andAngle:(double)northDeg
 {
-  if ([CLLocationManager headingAvailable])
+  CLLocation * loc = [m_locationManager lastLocation];
+  if (loc)
   {
-    CLLocation * loc = m_locationManager.location;
-    if (loc)
+    m2::PointD const center = m_results[index].GetFeatureCenter();
+    double const angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(loc.coordinate.longitude),
+        MercatorBounds::LatToY(loc.coordinate.latitude)), center) + northDeg / 180. * math::pi;
+    
+    if (m_results[index].GetResultType() == search::Result::RESULT_FEATURE)
     {
-      double angle = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(loc.coordinate.longitude),
-                                             MercatorBounds::LatToY(loc.coordinate.latitude)), pt);
-      CLHeading * h = m_locationManager.heading;
-      if (h)
+      CompassView * cv = (CompassView *)cell.accessoryView;
+      if (!cv)
       {
-        CLLocationDirection northDeg = h.trueHeading;
-        if (northDeg < 0.)
-          northDeg = h.magneticHeading;
-        double const northRad = northDeg / 180. * math::pi;
-        angle += northRad;
+        float const h = m_table.rowHeight * 0.6;
+        cv = [[CompassView alloc] initWithFrame:CGRectMake(0, 0, h, h)];
+        cell.accessoryView = cv;
+        [cv release];
       }
-      return angle;
+      cv.angle = angle;
     }
   }
-  
-  m2::PointD const center = m_framework->GetViewportCenter();
-  return ang::AngleTo(center, pt);
-}
-
-- (double)calculateDistance:(m2::PointD const &)pt
-{
-  double const ptLat = MercatorBounds::YToLat(pt.y);
-  double const ptLon = MercatorBounds::XToLon(pt.x);
-  CLLocation * loc = m_locationManager.location;
-  if (loc)
-    return ms::DistanceOnEarth(loc.coordinate.latitude, loc.coordinate.longitude, ptLat, ptLon);
-  else
-  {
-    m2::PointD const center = m_framework->GetViewportCenter();
-    return ms::DistanceOnEarth(MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x),
-                             ptLat, ptLon);
-  }
-}
-
-- (void)updateCellAngle:(UITableViewCell *)cell withIndex:(NSUInteger)index
-{
-  double const angle = [self calculateAngle:m_results[index].GetFeatureCenter()];  
-  CompassView * compass = (CompassView *)cell.accessoryView;
-  compass.angle = angle;
 }
 
 - (void)updateCellDistance:(UITableViewCell *)cell withIndex:(NSUInteger)index
 {
-  // @TODO use imperial system from the settings if needed
-  // @TODO use meters too
-  cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1lf km", 
-                               [self calculateDistance:m_results[index].GetFeatureCenter()] / 1000.0];
+  CLLocation * loc = [m_locationManager lastLocation];
+  if (loc)
+  {
+    m2::PointD const center = m_results[index].GetFeatureCenter();
+    double const centerLat = MercatorBounds::YToLat(center.y);
+    double const centerLon = MercatorBounds::XToLon(center.x);
+    double const distance = ms::DistanceOnEarth(loc.coordinate.latitude, loc.coordinate.longitude, centerLat, centerLon);
+
+    // @TODO use imperial system from the settings if needed
+    // @TODO use meters too
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1lf km", 
+                                 distance / 1000.0];
+  }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -292,18 +321,8 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   if (indexPath.row < m_results.size())
   {
     search::Result const & r = m_results[indexPath.row];
-
     cell.textLabel.text = [NSString stringWithUTF8String:r.GetString()];
-    if (r.GetResultType() == search::Result::RESULT_FEATURE)
-    {
-      [self updateCellDistance:cell withIndex:indexPath.row];
-      
-      float const h = tableView.rowHeight * 0.6;
-      CompassView * v = [[[CompassView alloc] initWithFrame:
-                          CGRectMake(0, 0, h, h)] autorelease];
-      cell.accessoryView = v;
-      [self updateCellAngle:cell withIndex:indexPath.row];
-    }
+    [self updateCellDistance:cell withIndex:indexPath.row];
   }
   else
     cell.textLabel.text = @"BUG";
@@ -336,23 +355,32 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   [m_table reloadData];
 }
 
-- (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
-{
-  return YES;
-}
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
+//****************************************************************** 
+//*********** Location manager callbacks ***************************
+- (void)onLocationStatusChanged:(location::TLocationStatus)newStatus
 {
-  NSArray * cells = [m_table visibleCells];
-  for (NSUInteger i = 0; i < cells.count; ++i)
+  [m_warningViewText release];
+  switch (newStatus)
   {
-    UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
-    [self updateCellAngle:cell withIndex:[m_table indexPathForCell:cell].row];
+  case location::EDisabledByUser:
+    m_warningViewText = [[NSString alloc] initWithString:@"Please enable location services"];
+    break;
+  case location::ENotSupported:
+    m_warningViewText = [[NSString alloc] initWithString:@"Location services are not supported"];
+    break;
+  case location::EStarted:
+    m_warningViewText = [[NSString alloc] initWithString:@"Determining your location..."];
+    break;
+  case location::EStopped:
+  case location::EFirstEvent:
+    m_warningViewText = nil;
+    break;
   }
+  [self showOrHideGPSWarningIfNeeded];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation
+- (void)onGpsUpdate:(location::GpsInfo const &)info
 {
   NSArray * cells = [m_table visibleCells];
   for (NSUInteger i = 0; i < cells.count; ++i)
@@ -361,6 +389,19 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
     [self updateCellDistance:cell withIndex:[m_table indexPathForCell:cell].row];
   }
 }
+
+- (void)onCompassUpdate:(location::CompassInfo const &)info
+{
+  NSArray * cells = [m_table visibleCells];
+  for (NSUInteger i = 0; i < cells.count; ++i)
+  {
+    UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
+    [self updateCellAngle:cell withIndex:[m_table indexPathForCell:cell].row
+        andAngle:((info.m_trueHeading < 0) ? info.m_magneticHeading : info.m_trueHeading)];
+  }
+}
+//*********** End of Location manager callbacks ********************
+//****************************************************************** 
 
 //****************************************************************** 
 //*********** Hack to keep Cancel button always enabled ************

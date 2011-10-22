@@ -74,6 +74,11 @@
   [observer onLocationStatusChanged:location::EStopped];
 }
 
+- (CLLocation *)lastLocation
+{
+  return m_locationManager.location;
+}
+
 - (void)location:(CLLocation *)location toGpsInfo:(location::GpsInfo &)info
 {
   info.m_horizontalAccuracy = location.horizontalAccuracy;

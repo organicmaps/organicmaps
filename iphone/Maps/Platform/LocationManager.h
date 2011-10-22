@@ -20,4 +20,5 @@
 
 - (void)start:(id <LocationObserver>)observer;
 - (void)stop:(id <LocationObserver>)observer;
+- (CLLocation *)lastLocation;
 @end

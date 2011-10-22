@@ -103,8 +103,9 @@ storage::Storage m_storage;
 
 - (IBAction)OnSearchClicked:(id)sender
 {
-  SearchVC * searchVC = [[[SearchVC alloc] initWithFramework:m_framework] autorelease];
+  SearchVC * searchVC = [[SearchVC alloc] initWithFramework:m_framework andLocationManager:[MapsAppDelegate theApp].m_locationManager];
   [self presentModalViewController:searchVC animated:YES];
+  [searchVC release];
 }
 
 - (void) dealloc
