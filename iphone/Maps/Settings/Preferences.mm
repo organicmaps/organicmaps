@@ -5,17 +5,13 @@
 
 #include "../../platform/settings.hpp"
 
+//********************* Helper delegate to handle async dialog message ******************
 @interface PrefDelegate : NSObject
-{
-}
-
-@property (nonatomic, retain) id m_controller;
-
+@property (nonatomic, assign) id m_controller;
 @end
+
 @implementation PrefDelegate
-
 @synthesize m_controller;
-
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
   // User decided to override Imperial system with metric one
@@ -27,6 +23,7 @@
   [self autorelease];
 }
 @end
+//***************************************************************************************
 
 @implementation Preferences
 
