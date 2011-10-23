@@ -1,5 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <UIKit/UIApplication.h>
 
 #include "../../platform/location.hpp"
 
@@ -21,4 +22,6 @@
 - (void)start:(id <LocationObserver>)observer;
 - (void)stop:(id <LocationObserver>)observer;
 - (CLLocation *)lastLocation;
+// Fixes compass angle orientation when rotating screen to landscape
+- (void)setOrientation:(UIInterfaceOrientation)orientation;
 @end

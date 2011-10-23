@@ -137,4 +137,9 @@
   return YES;
 }
 
+- (void)setOrientation:(UIInterfaceOrientation)orientation
+{
+  m_locationManager.headingOrientation = (CLDeviceOrientation)orientation;
+}
+
 @end

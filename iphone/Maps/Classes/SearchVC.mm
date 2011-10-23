@@ -212,6 +212,11 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   [super viewWillDisappear:animated];
 }
 
+- (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
+{
+  [m_locationManager setOrientation:self.interfaceOrientation];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
   return YES;  // All orientations are supported.
