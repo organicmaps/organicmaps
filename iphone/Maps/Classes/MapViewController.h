@@ -29,9 +29,6 @@
 
 - (void) ZoomToRect: (m2::RectD const &) rect;
 
-- (void) onResize: (GLint)width withHeight: (GLint)height;
-- (void) drawFrame;
-
 - (void) SetupMeasurementSystem;
 
 // called when app is terminated by system

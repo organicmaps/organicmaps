@@ -4,9 +4,12 @@
 #import <OpenGLES/ES1/glext.h>
 #import <QuartzCore/CADisplayLink.h>
 #import "MapViewController.h"
+
 #include "../../std/shared_ptr.hpp"
 #include "../../map/drawer_yg.hpp"
-#include"RenderBuffer.hpp"
+#include "../../map/framework.hpp"
+#include "../../map/feature_vec_model.hpp"
+#include "RenderBuffer.hpp"
 
 namespace iphone
 {
@@ -22,6 +25,8 @@ namespace yg
 		class FrameBuffer;
 	}
 }
+
+typedef Framework<model::FeaturesFetcher> framework_t;
 
 // This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
 // The view content is basically an EAGL surface you render your OpenGL scene into.
@@ -45,7 +50,7 @@ namespace yg
 - (void)drawViewOnMainThread;
 
 @property (nonatomic, assign) CADisplayLink * displayLink;
-@property (nonatomic, assign) MapViewController * controller;
+@property (nonatomic, assign) framework_t * framework;
 @property (nonatomic, assign) shared_ptr<iphone::WindowHandle> windowHandle;
 @property (nonatomic, assign) shared_ptr<DrawerYG> drawer;
 @property (nonatomic, assign) shared_ptr<iphone::RenderContext> renderContext;

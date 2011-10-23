@@ -118,13 +118,17 @@ storage::Storage m_storage;
 {
 	if ((self = [super initWithCoder:coder]))
 	{
-    [(EAGLView*)self.view setController : self];
+    // cyclic dependence, @TODO refactor.
+    // Here we're creating view and window handle in it, and later we should pass framework to the view
+    EAGLView * v = (EAGLView *)self.view;
 
 		shared_ptr<iphone::WindowHandle> windowHandle = [(EAGLView*)self.view windowHandle];
 		shared_ptr<yg::ResourceManager> resourceManager = [(EAGLView*)self.view resourceManager];
         
     m_framework = FrameworkFactory<model::FeaturesFetcher>::CreateFramework(windowHandle, 40);
 		m_framework->InitStorage(m_storage);
+    v.framework = m_framework;
+
 		m_StickyThreshold = 10;
 
 		m_CurrentAction = NOTHING;
@@ -141,11 +145,6 @@ storage::Storage m_storage;
 	}
 
 	return self;
-}
-
-- (void)onResize:(GLint) width withHeight:(GLint) height
-{
-	m_framework->OnSize(width, height);
 }
 
 NSInteger compareAddress(id l, id r, void * context)
@@ -279,24 +278,6 @@ NSInteger compareAddress(id l, id r, void * context)
   
   if ((touchesCount == 2) && (tapCount == 1) && m_isSticking)
     m_framework->Scale(0.5);
-}
-
-- (void)drawFrame
-{
-  EAGLView * v = (EAGLView*)self.view;
-  boost::shared_ptr<WindowHandle> wh = [v windowHandle];
-  boost::shared_ptr<iphone::RenderBuffer> rb = [v renderBuffer];
-  shared_ptr<DrawerYG> drawer = [v drawer];
-	shared_ptr<PaintEvent> pe(new PaintEvent(drawer.get()));
-  
-  if (wh->needRedraw())
-  {
-    wh->setNeedRedraw(false);
-    m_framework->BeginPaint(pe);
-    m_framework->DoPaint(pe);
-    rb->present();
-    m_framework->EndPaint(pe);
-  }
 }
 
 - (BOOL) shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation) interfaceOrientation

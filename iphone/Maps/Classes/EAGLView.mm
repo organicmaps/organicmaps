@@ -18,7 +18,7 @@ bool _inRepaint = false;
 
 @implementation EAGLView
 
-@synthesize controller;
+@synthesize framework;
 @synthesize windowHandle;
 @synthesize drawer;
 @synthesize renderContext;
@@ -157,6 +157,7 @@ bool _inRepaint = false;
 
 - (void)onSize:(int)width withHeight:(int)height
 {
+  framework->OnSize(width, height);
 	/// free old video memory
 	frameBuffer->resetRenderTarget();
 	renderBuffer.reset();
@@ -168,7 +169,6 @@ bool _inRepaint = false;
 	frameBuffer->onSize(width, height);
 	drawer->onSize(width, height);
 
-  
   drawer->screen()->beginFrame();
   drawer->screen()->clear();
   drawer->screen()->endFrame();
@@ -176,15 +176,15 @@ bool _inRepaint = false;
 
 - (void)drawView
 {
-  [controller drawFrame];
-  /*if (windowHandle->needRedraw())
+	shared_ptr<PaintEvent> pe(new PaintEvent(drawer.get()));
+  if (windowHandle->needRedraw())
   {
     windowHandle->setNeedRedraw(false);
-    [controller beginPaint];
-  	[controller doPaint];
-	  renderBuffer->present();
-    [controller endPaint];
-  }*/
+    framework->BeginPaint(pe);
+    framework->DoPaint(pe);
+    renderBuffer->present();
+    framework->EndPaint(pe);
+  }
 }
 
 - (void)drawViewThunk:(id)obj
@@ -201,7 +201,6 @@ bool _inRepaint = false;
 {
   CGFloat const scale = self.contentScaleFactor;
   CGSize const s = self.frame.size;
-	[controller onResize:s.width * scale withHeight:s.height * scale];
 	[self onSize:s.width * scale withHeight:s.height * scale];
 }
 
