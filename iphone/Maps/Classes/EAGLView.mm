@@ -200,7 +200,7 @@ bool _inRepaint = false;
 - (void)layoutSubviews
 {
   CGFloat const scale = self.contentScaleFactor;
-  CGSize const s = self.frame.size;
+  CGSize const s = self.bounds.size;
 	[self onSize:s.width * scale withHeight:s.height * scale];
 }
 

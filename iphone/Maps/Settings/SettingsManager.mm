@@ -5,7 +5,7 @@
 
 #include "../../../storage/storage.hpp"
 
-#include <boost/bind.hpp>
+#include "../../../std/bind.hpp"
 
 using namespace storage;
 
@@ -14,19 +14,21 @@ using namespace storage;
 
 - (void) dealloc
 {
+  [m_navigationController release];
   [super dealloc];
 }
+
 
 /// Get right controller from the stack
 - (UIViewController *) ControllerByIndex:(TIndex const &)index
 {
-  NSArray * controllers = [[MapsAppDelegate theApp].m_navigationController viewControllers];
-  if (index.m_region != TIndex::INVALID && [controllers count] >= 4)
-    return [controllers objectAtIndex:3];
-  else if (index.m_country != TIndex::INVALID && [controllers count] >= 3)
+  NSArray * controllers = m_navigationController.viewControllers;
+  if (index.m_region != TIndex::INVALID && [controllers count] >= 3)
     return [controllers objectAtIndex:2];
-  else if (index.m_group != TIndex::INVALID && [controllers count] >= 2)
+  else if (index.m_country != TIndex::INVALID && [controllers count] >= 2)
     return [controllers objectAtIndex:1];
+  else if (index.m_group != TIndex::INVALID && [controllers count] >= 1)
+    return [controllers objectAtIndex:0];
   return nil;
 }
 
@@ -48,9 +50,11 @@ using namespace storage;
 - (void) Show:(UIViewController *)prevController WithStorage:(Storage *)storage
 {
   m_storage = storage;
+
   CountriesViewController * countriesController = [[[CountriesViewController alloc]
       initWithStorage:*m_storage andIndex:TIndex() andHeader:@"Download"] autorelease];
-  [[MapsAppDelegate theApp].m_navigationController pushViewController:countriesController animated:YES];
+  m_navigationController = [[UINavigationController alloc] initWithRootViewController:countriesController];
+  [prevController presentModalViewController:m_navigationController animated:YES];
 
   // Subscribe to storage callbacks.
   {
@@ -63,8 +67,7 @@ using namespace storage;
 		SEL progressSel = @selector(OnCountryDownload:withProgress:);
 		TProgressFunc progressImpl = (TProgressFunc)[self methodForSelector:progressSel];
 
-		m_storage->Subscribe(boost::bind(changeImpl, self, changeSel, _1),
-    		boost::bind(progressImpl, self, progressSel, _1, _2));
+		m_storage->Subscribe(bind(changeImpl, self, changeSel, _1), bind(progressImpl, self, progressSel, _1, _2));
   }
 }
 
@@ -73,7 +76,8 @@ using namespace storage;
 {
   m_storage->Unsubscribe();
 
-  [[MapsAppDelegate theApp].m_navigationController popToRootViewControllerAnimated:YES];
+  [m_navigationController dismissModalViewControllerAnimated:YES];
+  [m_navigationController release], m_navigationController = nil;
 
   m_storage = nil;
 }

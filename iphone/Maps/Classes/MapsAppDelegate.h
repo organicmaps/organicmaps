@@ -10,7 +10,6 @@
   NSInteger m_standbyCounter;
 }
 
-@property (nonatomic, retain) IBOutlet UINavigationController * m_navigationController;
 @property (nonatomic, retain) IBOutlet UIWindow * m_window;
 @property (nonatomic, retain) IBOutlet MapViewController * m_mapViewController;
 

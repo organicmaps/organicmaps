@@ -38,7 +38,6 @@ static NSInteger RowFromIndex(TIndex const & index)
   	return index.m_group;
 }
 
-
 static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 {
   TIndex theirsFixed = theirs;
@@ -53,7 +52,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 
 @implementation CountriesViewController
 
-- (void) OnAboutButton:(id)sender
+- (void) onAboutButton:(id)sender
 {
   // display WebView with About text
   NSString * text;
@@ -70,6 +69,11 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   [aboutViewController release];
 }
 
+- (void) onCloseButton:(id)sender
+{
+  [[[MapsAppDelegate theApp] settingsManager] Hide];
+}
+
 - (id) initWithStorage: (Storage &)storage andIndex: (TIndex const &) index andHeader: (NSString *)header
 {
 	m_storage = &storage;
@@ -81,6 +85,13 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
     UIBarButtonItem * aboutButton = [[[UIBarButtonItem alloc] initWithTitle:@"About" style: UIBarButtonItemStylePlain
                                     target:self action:@selector(OnAboutButton:)] autorelease];
     self.navigationItem.rightBarButtonItem = aboutButton;
+    // Show Close button only on the first page
+    if ([header compare:@"Download"] == NSOrderedSame)
+    {
+      UIBarButtonItem * closeButton = [[[UIBarButtonItem alloc] initWithTitle:@"Close" style: UIBarButtonItemStylePlain
+                                                                     target:self action:@selector(onCloseButton:)] autorelease];
+      self.navigationItem.leftBarButtonItem = closeButton;
+    }
   }
 	return self;
 }
@@ -100,13 +111,6 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 - (BOOL) shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation) interfaceOrientation
 {
 	return YES;
-}
-
-// correctly pass rotation event up to the root mapViewController
-// to fix rotation bug when other controller is above the root
-- (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
-{
-  [[self.navigationController.viewControllers objectAtIndex:0] didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath

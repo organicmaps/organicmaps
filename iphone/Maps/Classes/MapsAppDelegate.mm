@@ -6,7 +6,6 @@
 
 @implementation MapsAppDelegate
 
-@synthesize m_navigationController;
 @synthesize m_window;
 @synthesize m_mapViewController;
 @synthesize m_locationManager;
@@ -36,7 +35,7 @@
   [Preferences setup:m_mapViewController];
   m_locationManager = [[LocationManager alloc] init];
 
-  [m_window addSubview:m_navigationController.view];
+  [m_window addSubview:m_mapViewController.view];
   [m_window makeKeyAndVisible];
 }
 

@@ -7,6 +7,7 @@ namespace storage { class Storage; }
 @interface SettingsManager : NSObject
 {
   storage::Storage * m_storage;
+  UINavigationController * m_navigationController;
 }
 
 // TODO: Refactor SettingsManager.Show: remove storage.
