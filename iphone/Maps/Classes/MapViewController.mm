@@ -156,18 +156,19 @@ NSInteger compareAddress(id l, id r, void * context)
 {
 	NSSet * allTouches = [event allTouches];
 
-  CGFloat const scaleFactor = self.view.contentScaleFactor;
+  UIView * v = self.view;
+  CGFloat const scaleFactor = v.contentScaleFactor;
 
 	if ([allTouches count] == 1)
 	{
-		CGPoint const pt = [[[allTouches allObjects] objectAtIndex:0] locationInView:nil];
+		CGPoint const pt = [[[allTouches allObjects] objectAtIndex:0] locationInView:v];
 		m_Pt1 = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
 	}
 	else
 	{
 		NSArray * sortedTouches = [[allTouches allObjects] sortedArrayUsingFunction:compareAddress context:NULL];
-		CGPoint const pt1 = [[sortedTouches objectAtIndex:0] locationInView:nil];
-		CGPoint const pt2 = [[sortedTouches objectAtIndex:1] locationInView:nil];
+		CGPoint const pt1 = [[sortedTouches objectAtIndex:0] locationInView:v];
+		CGPoint const pt2 = [[sortedTouches objectAtIndex:1] locationInView:v];
 
 		m_Pt1 = m2::PointD(pt1.x * scaleFactor, pt1.y * scaleFactor);
 	  m_Pt2 = m2::PointD(pt2.x * scaleFactor, pt2.y * scaleFactor);
@@ -298,29 +299,20 @@ NSInteger compareAddress(id l, id r, void * context)
   [super viewDidUnload];
 }
 
-- (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
-{
-	EOrientation newOrientation = EOrientation0;
-	switch (self.interfaceOrientation)
-  {
-		case UIInterfaceOrientationPortrait: newOrientation = EOrientation0;break;
-		case UIInterfaceOrientationPortraitUpsideDown: newOrientation = EOrientation180; break;
-		case UIInterfaceOrientationLandscapeLeft: newOrientation = EOrientation90; break;
-		case UIInterfaceOrientationLandscapeRight: newOrientation = EOrientation270; break;
-  }
-	m_framework->SetOrientation(newOrientation);
-}
-
 - (void) OnTerminate
 {
-  if (m_framework)
-    m_framework->SaveState();
+  m_framework->SaveState();
 }
 
 - (void) Invalidate
 {
   if (!m_framework->SetUpdatesEnabled(true))
     m_framework->Invalidate();
+}
+
+- (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
+{
+  [self Invalidate];
 }
 
 - (void) OnEnterBackground

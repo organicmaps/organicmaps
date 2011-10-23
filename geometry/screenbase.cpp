@@ -6,8 +6,6 @@
 #include "transformations.hpp"
 #include "angles.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
 ScreenBase::ScreenBase() :
     m_PixelRect(0, 0, 640, 480),
     m_Scale(0.1),

@@ -200,9 +200,6 @@ public:
 
   bool SetUpdatesEnabled(bool doEnable);
 
-  /// respond to device orientation changes
-  void SetOrientation(EOrientation orientation);
-
   double GetCurrentScale() const;
 
   m2::PointD GetViewportCenter() const;

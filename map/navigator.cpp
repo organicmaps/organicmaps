@@ -21,7 +21,6 @@
 Navigator::Navigator()
   : m_worldRect(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY),
     m_InAction(false),
-    m_orientation(EOrientation0),
     m_doSupportRotation(false)
 {
 }
@@ -31,7 +30,6 @@ Navigator::Navigator(ScreenBase const & screen)
     m_StartScreen(screen),
     m_Screen(screen),
     m_InAction(false),
-    m_orientation(EOrientation0),
     m_doSupportRotation(false)
 {
 }
@@ -495,34 +493,6 @@ bool Navigator::Update(double timeInSec)
 {
   m_LastUpdateTimeInSec = timeInSec;
   return false;
-}
-
-void Navigator::SetOrientation(EOrientation orientation)
-{
-  m_orientation = orientation;
-}
-
-EOrientation Navigator::Orientation() const
-{
-  return m_orientation;
-}
-
-m2::PointD const Navigator::OrientPoint(m2::PointD const & pt) const
-{
-  m2::PointD ptShift(m_Screen.PixelRect().minX(), m_Screen.PixelRect().minY());
-
-  switch (m_orientation)
-  {
-  case EOrientation90:
-    return m2::PointD(m_Screen.GetWidth() - pt.y, pt.x) + ptShift;
-  case EOrientation180:
-    return m2::PointD(m_Screen.GetWidth() - pt.x, m_Screen.GetHeight() - pt.y) + ptShift;
-  case EOrientation270:
-    return m2::PointD(pt.y, m_Screen.GetHeight() - pt.x) + ptShift;
-  case EOrientation0:
-    return pt + ptShift;
-  };
-  return ptShift;
 }
 
 void Navigator::SetSupportRotation(bool flag)

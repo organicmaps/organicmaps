@@ -8,7 +8,7 @@
 namespace location
 {
 
-  State::State() : m_deviceOrientation(-math::pi / 2), m_flags(ENone)
+  State::State() : m_flags(ENone)
   {
   }
 
@@ -31,25 +31,6 @@ namespace location
     m_headingRad = ((info.m_trueHeading >= 0.0) ? info.m_trueHeading : info.m_magneticHeading)
         / 180 * math::pi;
     m_headingAccuracyRad = info.m_accuracy / 180 * math::pi;
-  }
-
-  void State::SetOrientation(EOrientation orientation)
-  {
-    switch (orientation)
-    {
-    case EOrientation0:
-      m_deviceOrientation = -math::pi / 2;
-      break;
-    case EOrientation90:
-      m_deviceOrientation = math::pi;
-      break;
-    case EOrientation180:
-      m_deviceOrientation = math::pi / 2;
-      break;
-    case EOrientation270:
-      m_deviceOrientation = 0;
-      break;
-    }
   }
 
   void State::DrawMyPosition(DrawerYG & drawer, ScreenBase const & screen)
@@ -77,14 +58,14 @@ namespace location
         if (m_flags & State::ECompass)
         {
           drawer.screen()->drawSector(pxPosition,
-                m_deviceOrientation + m_headingRad - m_headingAccuracyRad,
-                m_deviceOrientation + m_headingRad + m_headingAccuracyRad,
+                m_headingRad - m_headingAccuracyRad,
+                m_headingRad + m_headingAccuracyRad,
                 pxErrorRadius,
                 yg::Color(255, 255, 255, 192),
                 yg::maxDepth);
           drawer.screen()->fillSector(pxPosition,
-                m_deviceOrientation + m_headingRad - m_headingAccuracyRad,
-                m_deviceOrientation + m_headingRad + m_headingAccuracyRad,
+                m_headingRad - m_headingAccuracyRad,
+                m_headingRad + m_headingAccuracyRad,
                 pxErrorRadius,
                 yg::Color(255, 255, 255, 96),
                 yg::maxDepth - 1);

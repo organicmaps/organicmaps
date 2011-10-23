@@ -55,12 +55,6 @@ public:
 
   bool InAction() const;
 
-  void SetOrientation(EOrientation orientation);
-  EOrientation Orientation() const;
-
-  // Do appropriate coordinate axes swapping according to orientation
-  m2::PointD const OrientPoint(m2::PointD const & pt) const;
-
   void SetSupportRotation(bool flag);
 
 private:
@@ -105,8 +99,6 @@ private:
   math::Matrix<float, 3, 3> m_DeltaMatrix;
   // Flag, which indicates, whether we are in the middle of some action.
   bool m_InAction;
-  // Device orientation
-  EOrientation m_orientation;
   // Does Navigator supports screen rotation.
   bool m_doSupportRotation;
   // Used in DoScale and ScaleByPoint

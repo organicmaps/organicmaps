@@ -284,15 +284,6 @@ bool Framework<TModel>::SetUpdatesEnabled(bool doEnable)
   return m_windowHandle->setUpdatesEnabled(doEnable);
 }
 
-/// respond to device orientation changes
-template <typename TModel>
-void Framework<TModel>::SetOrientation(EOrientation orientation)
-{
-  m_navigator.SetOrientation(orientation);
-  m_locationState.SetOrientation(orientation);
-  Invalidate();
-}
-
 template <typename TModel>
 double Framework<TModel>::GetCurrentScale() const
 {
@@ -478,14 +469,12 @@ void Framework<TModel>::InvalidateRect(m2::RectD const & rect)
 template <typename TModel>
 void Framework<TModel>::StartDrag(DragEvent const & e)
 {
-  m2::PointD pos = m_navigator.OrientPoint(e.Pos());
-
 #ifdef DRAW_TOUCH_POINTS
-  m_informationDisplay.setDebugPoint(0, pos);
+  m_informationDisplay.setDebugPoint(0, e.Pos());
 #endif
 
-  m_navigator.StartDrag(pos, m_timer.ElapsedSeconds());
-  m_renderPolicy->StartDrag(pos, m_timer.ElapsedSeconds());
+  m_navigator.StartDrag(e.Pos(), m_timer.ElapsedSeconds());
+  m_renderPolicy->StartDrag(e.Pos(), m_timer.ElapsedSeconds());
 }
 
 template <typename TModel>
@@ -493,29 +482,25 @@ void Framework<TModel>::DoDrag(DragEvent const & e)
 {
   m_centeringMode = EDoNothing;
 
-  m2::PointD pos = m_navigator.OrientPoint(e.Pos());
-
 #ifdef DRAW_TOUCH_POINTS
-  m_informationDisplay.setDebugPoint(0, pos);
+  m_informationDisplay.setDebugPoint(0, e.Pos());
 #endif
 
-  m_navigator.DoDrag(pos, m_timer.ElapsedSeconds());
+  m_navigator.DoDrag(e.Pos(), m_timer.ElapsedSeconds());
 
-  m_renderPolicy->DoDrag(pos, m_timer.ElapsedSeconds());
+  m_renderPolicy->DoDrag(e.Pos(), m_timer.ElapsedSeconds());
 }
 
 template <typename TModel>
 void Framework<TModel>::StopDrag(DragEvent const & e)
 {
-  m2::PointD pos = m_navigator.OrientPoint(e.Pos());
-
-  m_navigator.StopDrag(pos, m_timer.ElapsedSeconds(), true);
+  m_navigator.StopDrag(e.Pos(), m_timer.ElapsedSeconds(), true);
 
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));
 #endif
 
-  m_renderPolicy->StopDrag(pos, m_timer.ElapsedSeconds());
+  m_renderPolicy->StopDrag(e.Pos(), m_timer.ElapsedSeconds());
 }
 
 template <typename TModel>
@@ -564,8 +549,7 @@ template <typename TModel>
 void Framework<TModel>::ScaleToPoint(ScaleToPointEvent const & e)
 {
   m2::PointD const pt = (m_centeringMode == EDoNothing)
-      ? m_navigator.OrientPoint(e.Pt())
-      : m_navigator.Screen().PixelRect().Center();
+      ? e.Pt() : m_navigator.Screen().PixelRect().Center();
 
   m_navigator.ScaleToPoint(pt, e.ScaleFactor(), m_timer.ElapsedSeconds());
 
@@ -590,8 +574,8 @@ void Framework<TModel>::Scale(double scale)
 template <typename TModel>
 void Framework<TModel>::StartScale(ScaleEvent const & e)
 {
-  m2::PointD pt1 = m_navigator.OrientPoint(e.Pt1());
-  m2::PointD pt2 = m_navigator.OrientPoint(e.Pt2());
+  m2::PointD pt1 = e.Pt1();
+  m2::PointD pt2 = e.Pt2();
 
   if ((m_locationState & location::State::EGps) && (m_centeringMode == ECenterOnly))
   {
@@ -613,8 +597,8 @@ void Framework<TModel>::StartScale(ScaleEvent const & e)
 template <typename TModel>
 void Framework<TModel>::DoScale(ScaleEvent const & e)
 {
-  m2::PointD pt1 = m_navigator.OrientPoint(e.Pt1());
-  m2::PointD pt2 = m_navigator.OrientPoint(e.Pt2());
+  m2::PointD pt1 = e.Pt1();
+  m2::PointD pt2 = e.Pt2();
 
   if ((m_locationState & location::State::EGps) && (m_centeringMode == ECenterOnly))
   {
@@ -636,8 +620,8 @@ void Framework<TModel>::DoScale(ScaleEvent const & e)
 template <typename TModel>
 void Framework<TModel>::StopScale(ScaleEvent const & e)
 {
-  m2::PointD pt1 = m_navigator.OrientPoint(e.Pt1());
-  m2::PointD pt2 = m_navigator.OrientPoint(e.Pt2());
+  m2::PointD pt1 = e.Pt1();
+  m2::PointD pt2 = e.Pt2();
 
   if ((m_locationState & location::State::EGps) && (m_centeringMode == ECenterOnly))
   {

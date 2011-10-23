@@ -15,7 +15,6 @@ namespace location
     double m_errorRadiusMercator;
     m2::PointD m_positionMercator;
 
-    double m_deviceOrientation;
     double m_headingRad;
     double m_headingAccuracyRad;
 
@@ -37,7 +36,6 @@ namespace location
     void TurnOff() { m_flags = ENone; }
     void UpdateGps(GpsInfo const & info);
     void UpdateCompass(CompassInfo const & info);
-    void SetOrientation(EOrientation orientation);
 
     void DrawMyPosition(DrawerYG & drawer, ScreenBase const & screen);
     operator int() const

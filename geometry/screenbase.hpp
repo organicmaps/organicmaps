@@ -6,16 +6,6 @@
 
 #include "../base/math.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
-enum EOrientation
-{
-  EOrientation0,
-  EOrientation90,
-  EOrientation180,
-  EOrientation270
-};
-
 class ScreenBase
 {
   m2::RectD m_PixelRect;
@@ -134,5 +124,3 @@ public:
 
 /// checking whether the s1 transforms into s2 without scaling, only with shift and rotation
 bool IsPanningAndRotate(ScreenBase const & s1, ScreenBase const & s2);
-
-#include "../base/stop_mem_debug.hpp"
