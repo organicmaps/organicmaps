@@ -21,9 +21,9 @@ typedef Framework<model::FeaturesFetcher> framework_t;
   framework_t * m_framework;
   LocationManager * m_locationManager;
   vector<search::Result> m_results;
-  UILabel * m_warningView;
+//  UILabel * m_warningView;
   /// Warning view shows only if this text is not nil
-  NSString * m_warningViewText;
+//  NSString * m_warningViewText;
 }
 
 @property (nonatomic, retain) IBOutlet UISearchBar * m_searchBar;

@@ -71,57 +71,57 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 @synthesize m_table;
 
 // Controls visibility of information window with GPS location problems
-- (void)showOrHideGPSWarningIfNeeded
-{
-  if (m_searchBar.selectedScopeButtonIndex == 2)
-  {
-    if (m_warningViewText)
-    {
-      if (!m_warningView)
-      {
-        CGRect const rSearch = m_searchBar.frame;
-        CGFloat const h = rSearch.size.height / 3.0;
-        CGRect rWarning = CGRectMake(rSearch.origin.x, rSearch.origin.y + rSearch.size.height,
-                                   rSearch.size.width, 0);
-        m_warningView = [[UILabel alloc] initWithFrame:rWarning];
-        m_warningView.textAlignment = UITextAlignmentCenter;
-        m_warningView.numberOfLines = 0;
-        m_warningView.backgroundColor = [UIColor yellowColor];
-      
-        rWarning.size.height = h;
-
-        CGRect rTable = m_table.frame;
-        rTable.origin.y += h; 
-
-        [UIView animateWithDuration:0.5 animations:^{
-          [self.view addSubview:m_warningView];
-          m_table.frame = rTable;
-          m_warningView.frame = rWarning;
-        }];
-      }
-      m_warningView.text = m_warningViewText;
-      return;
-    }
-  }
-  // in all other cases hide this window
-  if (m_warningView)
-  {
-    CGRect const rSearch = m_searchBar.frame;
-    CGRect rTable = m_table.frame;
-    rTable.origin.y = rSearch.origin.y + rSearch.size.height;
-    [self.view sendSubviewToBack:m_warningView];
-  
-    [UIView animateWithDuration:0.5 
-                     animations:^{
-                       m_table.frame = rTable;
-                     }
-                     completion:^(BOOL finished){
-                       [m_warningView removeFromSuperview];
-                       [m_warningView release];
-                       m_warningView = nil;
-                     }];
-  }
-}
+//- (void)showOrHideGPSWarningIfNeeded
+//{
+//  if (m_searchBar.selectedScopeButtonIndex == 2)
+//  {
+//    if (m_warningViewText)
+//    {
+//      if (!m_warningView)
+//      {
+//        CGRect const rSearch = m_searchBar.frame;
+//        CGFloat const h = rSearch.size.height / 3.0;
+//        CGRect rWarning = CGRectMake(rSearch.origin.x, rSearch.origin.y + rSearch.size.height,
+//                                   rSearch.size.width, 0);
+//        m_warningView = [[UILabel alloc] initWithFrame:rWarning];
+//        m_warningView.textAlignment = UITextAlignmentCenter;
+//        m_warningView.numberOfLines = 0;
+//        m_warningView.backgroundColor = [UIColor yellowColor];
+//      
+//        rWarning.size.height = h;
+//
+//        CGRect rTable = m_table.frame;
+//        rTable.origin.y += h; 
+//
+//        [UIView animateWithDuration:0.5 animations:^{
+//          [self.view addSubview:m_warningView];
+//          m_table.frame = rTable;
+//          m_warningView.frame = rWarning;
+//        }];
+//      }
+//      m_warningView.text = m_warningViewText;
+//      return;
+//    }
+//  }
+//  // in all other cases hide this window
+//  if (m_warningView)
+//  {
+//    CGRect const rSearch = m_searchBar.frame;
+//    CGRect rTable = m_table.frame;
+//    rTable.origin.y = rSearch.origin.y + rSearch.size.height;
+//    [self.view sendSubviewToBack:m_warningView];
+//  
+//    [UIView animateWithDuration:0.5 
+//                     animations:^{
+//                       m_table.frame = rTable;
+//                     }
+//                     completion:^(BOOL finished){
+//                       [m_warningView removeFromSuperview];
+//                       [m_warningView release];
+//                       m_warningView = nil;
+//                     }];
+//  }
+//}
 
 - (void)setSearchMode:(string const &)mode
 {
@@ -144,7 +144,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
     //m_framework->SearchEngine()->SetXXXXXX();
   }
   Settings::Set(SEARCH_MODE_SETTING, mode);
-  [self showOrHideGPSWarningIfNeeded];
+//  [self showOrHideGPSWarningIfNeeded];
 }
 
 - (id)initWithFramework:(framework_t *)framework andLocationManager:(LocationManager *)lm
@@ -164,7 +164,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
 - (void)dealloc
 {
-  [m_warningViewText release];
+//  [m_warningViewText release];
   g_searchVC = nil;
   [self clearResults];
   [super dealloc];
@@ -357,24 +357,24 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 //*********** Location manager callbacks ***************************
 - (void)onLocationStatusChanged:(location::TLocationStatus)newStatus
 {
-  [m_warningViewText release];
-  switch (newStatus)
-  {
-  case location::EDisabledByUser:
-    m_warningViewText = [[NSString alloc] initWithString:@"Please enable location services"];
-    break;
-  case location::ENotSupported:
-    m_warningViewText = [[NSString alloc] initWithString:@"Location services are not supported"];
-    break;
-  case location::EStarted:
-    m_warningViewText = [[NSString alloc] initWithString:@"Determining your location..."];
-    break;
-  case location::EStopped:
-  case location::EFirstEvent:
-    m_warningViewText = nil;
-    break;
-  }
-  [self showOrHideGPSWarningIfNeeded];
+//  [m_warningViewText release];
+//  switch (newStatus)
+//  {
+//  case location::EDisabledByUser:
+//    m_warningViewText = [[NSString alloc] initWithString:@"Please enable location services"];
+//    break;
+//  case location::ENotSupported:
+//    m_warningViewText = [[NSString alloc] initWithString:@"Location services are not supported"];
+//    break;
+//  case location::EStarted:
+//    m_warningViewText = [[NSString alloc] initWithString:@"Determining your location..."];
+//    break;
+//  case location::EStopped:
+//  case location::EFirstEvent:
+//    m_warningViewText = nil;
+//    break;
+//  }
+//  [self showOrHideGPSWarningIfNeeded];
 }
 
 - (void)onGpsUpdate:(location::GpsInfo const &)info
