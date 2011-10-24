@@ -104,7 +104,7 @@ win32-msvc2010 {
 unix|win32-g++ {
   QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-compare -Wno-strict-aliasing -Wno-unused-parameter \
       -Werror=return-type
-  !*-g++* {
+  *-clang {
     QMAKE_CXXFLAGS_WARN_ON += -Wno-sign-conversion
   }
   # experimental
