@@ -27,7 +27,7 @@ void RenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e,
   int scaleEtalonSize = GetPlatform().ScaleEtalonSize();
 
   m2::RectD glbRect;
-  m2::PointD pxCenter = s.PixelRect().Center();
+  m2::PointD const pxCenter = s.PixelRect().Center();
   s.PtoG(m2::RectD(pxCenter - m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2),
                    pxCenter + m2::PointD(scaleEtalonSize / 2, scaleEtalonSize / 2)),
          glbRect);

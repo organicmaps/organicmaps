@@ -469,38 +469,42 @@ void Framework<TModel>::InvalidateRect(m2::RectD const & rect)
 template <typename TModel>
 void Framework<TModel>::StartDrag(DragEvent const & e)
 {
+  m2::PointD const pt = m_navigator.ShiftPoint(e.Pos());
 #ifdef DRAW_TOUCH_POINTS
-  m_informationDisplay.setDebugPoint(0, e.Pos());
+  m_informationDisplay.setDebugPoint(0, pt);
 #endif
 
-  m_navigator.StartDrag(e.Pos(), m_timer.ElapsedSeconds());
-  m_renderPolicy->StartDrag(e.Pos(), m_timer.ElapsedSeconds());
+  m_navigator.StartDrag(pt, 0./*m_timer.ElapsedSeconds()*/);
+  m_renderPolicy->StartDrag();
 }
 
 template <typename TModel>
 void Framework<TModel>::DoDrag(DragEvent const & e)
 {
+  m2::PointD const pt = m_navigator.ShiftPoint(e.Pos());
+
   m_centeringMode = EDoNothing;
 
 #ifdef DRAW_TOUCH_POINTS
-  m_informationDisplay.setDebugPoint(0, e.Pos());
+  m_informationDisplay.setDebugPoint(0, pt);
 #endif
 
-  m_navigator.DoDrag(e.Pos(), m_timer.ElapsedSeconds());
-
-  m_renderPolicy->DoDrag(e.Pos(), m_timer.ElapsedSeconds());
+  m_navigator.DoDrag(pt, 0./*m_timer.ElapsedSeconds()*/);
+  m_renderPolicy->DoDrag();
 }
 
 template <typename TModel>
 void Framework<TModel>::StopDrag(DragEvent const & e)
 {
-  m_navigator.StopDrag(e.Pos(), m_timer.ElapsedSeconds(), true);
+  m2::PointD const pt = m_navigator.ShiftPoint(e.Pos());
+
+  m_navigator.StopDrag(pt, 0./*m_timer.ElapsedSeconds()*/, true);
 
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));
 #endif
 
-  m_renderPolicy->StopDrag(e.Pos(), m_timer.ElapsedSeconds());
+  m_renderPolicy->StopDrag();
 }
 
 template <typename TModel>
@@ -549,9 +553,9 @@ template <typename TModel>
 void Framework<TModel>::ScaleToPoint(ScaleToPointEvent const & e)
 {
   m2::PointD const pt = (m_centeringMode == EDoNothing)
-      ? e.Pt() : m_navigator.Screen().PixelRect().Center();
+      ? m_navigator.ShiftPoint(e.Pt()) : m_navigator.Screen().PixelRect().Center();
 
-  m_navigator.ScaleToPoint(pt, e.ScaleFactor(), m_timer.ElapsedSeconds());
+  m_navigator.ScaleToPoint(pt, e.ScaleFactor(), 0./*m_timer.ElapsedSeconds()*/);
 
   Invalidate();
 }
@@ -574,8 +578,8 @@ void Framework<TModel>::Scale(double scale)
 template <typename TModel>
 void Framework<TModel>::StartScale(ScaleEvent const & e)
 {
-  m2::PointD pt1 = e.Pt1();
-  m2::PointD pt2 = e.Pt2();
+  m2::PointD pt1 = m_navigator.ShiftPoint(e.Pt1());
+  m2::PointD pt2 = m_navigator.ShiftPoint(e.Pt2());
 
   if ((m_locationState & location::State::EGps) && (m_centeringMode == ECenterOnly))
   {
@@ -590,15 +594,15 @@ void Framework<TModel>::StartScale(ScaleEvent const & e)
   m_informationDisplay.setDebugPoint(1, pt2);
 #endif
 
-  m_navigator.StartScale(pt1, pt2, m_timer.ElapsedSeconds());
-  m_renderPolicy->StartScale(pt1, pt2, m_timer.ElapsedSeconds());
+  m_navigator.StartScale(pt1, pt2, 0./*m_timer.ElapsedSeconds()*/);
+  m_renderPolicy->StartScale();
 }
 
 template <typename TModel>
 void Framework<TModel>::DoScale(ScaleEvent const & e)
 {
-  m2::PointD pt1 = e.Pt1();
-  m2::PointD pt2 = e.Pt2();
+  m2::PointD pt1 = m_navigator.ShiftPoint(e.Pt1());
+  m2::PointD pt2 = m_navigator.ShiftPoint(e.Pt2());
 
   if ((m_locationState & location::State::EGps) && (m_centeringMode == ECenterOnly))
   {
@@ -613,15 +617,15 @@ void Framework<TModel>::DoScale(ScaleEvent const & e)
   m_informationDisplay.setDebugPoint(1, pt2);
 #endif
 
-  m_navigator.DoScale(pt1, pt2, m_timer.ElapsedSeconds());
-  m_renderPolicy->DoScale(pt1, pt2, m_timer.ElapsedSeconds());
+  m_navigator.DoScale(pt1, pt2, 0./*m_timer.ElapsedSeconds()*/);
+  m_renderPolicy->DoScale();
 }
 
 template <typename TModel>
 void Framework<TModel>::StopScale(ScaleEvent const & e)
 {
-  m2::PointD pt1 = e.Pt1();
-  m2::PointD pt2 = e.Pt2();
+  m2::PointD pt1 = m_navigator.ShiftPoint(e.Pt1());
+  m2::PointD pt2 = m_navigator.ShiftPoint(e.Pt2());
 
   if ((m_locationState & location::State::EGps) && (m_centeringMode == ECenterOnly))
   {
@@ -636,8 +640,8 @@ void Framework<TModel>::StopScale(ScaleEvent const & e)
   m_informationDisplay.setDebugPoint(0, m2::PointD(0, 0));
 #endif
 
-  m_navigator.StopScale(pt1, pt2, m_timer.ElapsedSeconds());
-  m_renderPolicy->StopScale(pt1, pt2, m_timer.ElapsedSeconds());
+  m_navigator.StopScale(pt1, pt2, 0./*m_timer.ElapsedSeconds()*/);
+  m_renderPolicy->StopScale();
 }
 
 template<typename TModel>

@@ -31,11 +31,11 @@ public:
 
   m2::RectI const OnSize(int w, int h);
 
-  void StartDrag(m2::PointD const & pt, double timeInSec);
-  void StopDrag(m2::PointD const & pt, double timeInSec);
+  void StartDrag();
+  void StopDrag();
 
-  void StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
-  void StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
+  void StartScale();
+  void StopScale();
 
   RenderQueue & GetRenderQueue();
 

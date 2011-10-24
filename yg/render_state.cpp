@@ -75,7 +75,7 @@ namespace yg
     {
       if (doLock)
         m_mutex->Lock();
-      m2::PointU res((m_textureWidth - m_surfaceWidth) / 2,
+      m2::PointU const res((m_textureWidth - m_surfaceWidth) / 2,
                      (m_textureHeight - m_surfaceHeight) / 2);
       if (doLock)
         m_mutex->Unlock();

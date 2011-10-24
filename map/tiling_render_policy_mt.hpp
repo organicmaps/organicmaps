@@ -49,6 +49,6 @@ public:
   void DrawFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
   void EndFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
 
-  void StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
-  void StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
+  virtual void StartScale();
+  virtual void StopScale();
 };

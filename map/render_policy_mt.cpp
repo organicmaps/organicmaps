@@ -68,38 +68,37 @@ void RenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   if (m_renderQueue.renderState().m_actualTarget.get() != 0)
   {
-    m2::PointD ptShift = m_renderQueue.renderState().coordSystemShift(false);
+    m2::PointD const ptShift = m_renderQueue.renderState().coordSystemShift(false);
 
     math::Matrix<double, 3, 3> m = m_renderQueue.renderState().m_actualScreen.PtoGMatrix() * s.GtoPMatrix();
     m = math::Shift(m, -ptShift);
 
-    pDrawer->screen()->blit(m_renderQueue.renderState().m_actualTarget,
-                            m);
+    pDrawer->screen()->blit(m_renderQueue.renderState().m_actualTarget, m);
   }
 }
 
-void RenderPolicyMT::StartDrag(m2::PointD const & pt, double timeInSec)
+void RenderPolicyMT::StartDrag()
 {
   m_DoAddCommand = false;
-  RenderPolicy::StartDrag(pt, timeInSec);
+  RenderPolicy::StartDrag();
 }
 
-void RenderPolicyMT::StopDrag(m2::PointD const & pt, double timeInSec)
+void RenderPolicyMT::StopDrag()
 {
   m_DoAddCommand = true;
-  RenderPolicy::StopDrag(pt, timeInSec);
+  RenderPolicy::StopDrag();
 }
 
-void RenderPolicyMT::StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec)
+void RenderPolicyMT::StartScale()
 {
   m_DoAddCommand = false;
-  RenderPolicy::StartScale(pt1, pt2, timeInSec);
+  RenderPolicy::StartScale();
 }
 
-void RenderPolicyMT::StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec)
+void RenderPolicyMT::StopScale()
 {
   m_DoAddCommand = true;
-  RenderPolicy::StartScale(pt1, pt2, timeInSec);
+  RenderPolicy::StartScale();
 }
 
 RenderQueue & RenderPolicyMT::GetRenderQueue()

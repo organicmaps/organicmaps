@@ -62,13 +62,13 @@ public:
 
   /// reacting on navigation actions
   /// @{
-  virtual void StartDrag(m2::PointD const & pt, double timeInSec);
-  virtual void DoDrag(m2::PointD const & pt, double timeInSec);
-  virtual void StopDrag(m2::PointD const & pt, double timeInSec);
+  virtual void StartDrag();
+  virtual void DoDrag();
+  virtual void StopDrag();
 
-  virtual void StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
-  virtual void DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
-  virtual void StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
+  virtual void StartScale();
+  virtual void DoScale();
+  virtual void StopScale();
 
   virtual void StartRotate(double a, double timeInSec);
   virtual void DoRotate(double a, double timeInSec);

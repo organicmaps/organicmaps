@@ -57,6 +57,10 @@ public:
 
   void SetSupportRotation(bool flag);
 
+  /// Our surface is a square which is bigger than visible screen area on the device,
+  /// so we should take it into an account
+  m2::PointD ShiftPoint(m2::PointD const & pt) const;
+
 private:
 
   m2::RectD m_worldRect;

@@ -274,6 +274,11 @@ void Navigator::StopRotate(double a, double timeInSec)
   m_InAction = false;
 }
 
+m2::PointD Navigator::ShiftPoint(m2::PointD const & pt) const
+{
+  return pt + m2::PointD(m_Screen.PixelRect().minX(), m_Screen.PixelRect().minY());
+}
+
 void Navigator::StartDrag(m2::PointD const & pt, double /*timeInSec*/)
 {
   //LOG(LDEBUG, (pt.x, pt.y));

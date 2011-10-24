@@ -43,32 +43,32 @@ m2::RectI const RenderPolicy::OnSize(int w, int h)
   return m2::RectI(0, 0, w, h);
 }
 
-void RenderPolicy::StartDrag(m2::PointD const &, double)
+void RenderPolicy::StartDrag()
 {
   m_windowHandle->invalidate();
 }
 
-void RenderPolicy::DoDrag(m2::PointD const &, double)
+void RenderPolicy::DoDrag()
 {
   m_windowHandle->invalidate();
 }
 
-void RenderPolicy::StopDrag(m2::PointD const &, double)
+void RenderPolicy::StopDrag()
 {
   m_windowHandle->invalidate();
 }
 
-void RenderPolicy::StartScale(m2::PointD const &, m2::PointD const &, double)
+void RenderPolicy::StartScale()
 {
   m_windowHandle->invalidate();
 }
 
-void RenderPolicy::DoScale(m2::PointD const &, m2::PointD const &, double)
+void RenderPolicy::DoScale()
 {
   m_windowHandle->invalidate();
 }
 
-void RenderPolicy::StopScale(m2::PointD const &, m2::PointD const &, double)
+void RenderPolicy::StopScale()
 {
   m_windowHandle->invalidate();
 }

@@ -73,12 +73,12 @@ TileRenderer & TilingRenderPolicyMT::GetTileRenderer()
   return m_tileRenderer;
 }
 
-void TilingRenderPolicyMT::StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec)
+void TilingRenderPolicyMT::StartScale()
 {
   m_isScaling = true;
 }
 
-void TilingRenderPolicyMT::StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec)
+void TilingRenderPolicyMT::StopScale()
 {
   m_isScaling = false;
 }
