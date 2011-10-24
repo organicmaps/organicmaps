@@ -26,6 +26,26 @@ namespace qt
   /// Replace this to set a draw widget kernel.
   typedef GLDrawWidget widget_type;
 
+  class DrawWidget;
+
+  class QtVideoTimer : public ::VideoTimer
+  {
+  private:
+
+    QTimer * m_timer;
+    DrawWidget * m_widget;
+
+  public:
+
+    QtVideoTimer(DrawWidget * w, ::VideoTimer::TFrameFn frameFn);
+
+    void resume();
+    void pause();
+
+    void start();
+    void stop();
+  };
+
   class DrawWidget : public widget_type
   {
     typedef widget_type base_type;
@@ -40,7 +60,7 @@ namespace qt
 
     scoped_ptr<Framework<model_t> > m_framework;
 
-    scoped_ptr<VideoTimer> m_videoTimer;
+    shared_ptr<VideoTimer> m_videoTimer;
 
     bool m_isDrag;
     bool m_isRotate;

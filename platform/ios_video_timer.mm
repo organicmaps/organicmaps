@@ -38,7 +38,9 @@ public:
       m_objCppWrapper = [[VideoTimerWrapper alloc] initWithTimer:this];
       m_displayLink = [CADisplayLink displayLinkWithTarget:m_objCppWrapper selector:@selector(perform)];
       m_displayLink.frameInterval = 1;
+      m_displayLink.paused = true;
       [m_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+      resume();
     }
   }
 
@@ -49,7 +51,20 @@ public:
       [m_displayLink invalidate];
       [m_objCppWrapper release];
       m_displayLink = 0;
+      m_state = EStopped;
     }
+  }
+
+  void pause()
+  {
+    m_displayLink.paused = true;
+    m_state = EPaused;
+  }
+
+  void resume()
+  {
+    m_displayLink.paused = false;
+    m_state = ERunning;
   }
 
   void perform()

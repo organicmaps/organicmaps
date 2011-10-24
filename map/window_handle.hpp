@@ -1,6 +1,9 @@
 #pragma once
 
+#include "../platform/video_timer.hpp"
+
 #include "../std/shared_ptr.hpp"
+#include "../std/bind.hpp"
 #include "events.hpp"
 #include "drawer_yg.hpp"
 #include "../base/logging.hpp"
@@ -21,52 +24,30 @@ class WindowHandle
   bool m_isUpdatesEnabled;
   bool m_needRedraw;
 
+  shared_ptr<VideoTimer> m_videoTimer;
+  VideoTimer::TFrameFn m_frameFn;
+  int m_stallsCount;
+
 public:
-  WindowHandle() :
-    m_hasPendingUpdates(false),
-    m_isUpdatesEnabled(true),
-    m_needRedraw(true)
-  {}
-  virtual ~WindowHandle() {}
 
-  bool needRedraw() const
-  {
-    return m_isUpdatesEnabled && m_needRedraw;
-  }
+  WindowHandle();
+  virtual ~WindowHandle();
 
-  void setNeedRedraw(bool flag)
-  {
-    m_needRedraw = flag;
-  }
+  void setVideoTimer(shared_ptr<VideoTimer> const & videoTimer);
 
-  shared_ptr<yg::gl::RenderContext> const & renderContext()
-  {
-    return m_renderContext;
-  }
+  void checkedFrameFn();
 
-  void setRenderContext(shared_ptr<yg::gl::RenderContext> const & renderContext)
-  {
-    m_renderContext = renderContext;
-  }
+  bool needRedraw() const;
 
-  bool setUpdatesEnabled(bool doEnable)
-  {
-    bool res = false;
-    if ((!m_isUpdatesEnabled) && (doEnable) && (m_hasPendingUpdates))
-    {
-      setNeedRedraw(true);
-      m_hasPendingUpdates = false;
-      res = true;
-    }
-    m_isUpdatesEnabled = doEnable;
-    return res;
-  }
+  void checkTimer();
 
-  void invalidate()
-  {
-    if (m_isUpdatesEnabled)
-      setNeedRedraw(true);
-    else
-      m_hasPendingUpdates = true;
-  }
+  void setNeedRedraw(bool flag);
+
+  shared_ptr<yg::gl::RenderContext> const & renderContext();
+
+  void setRenderContext(shared_ptr<yg::gl::RenderContext> const & renderContext);
+
+  bool setUpdatesEnabled(bool doEnable);
+
+  void invalidate();
 };

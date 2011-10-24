@@ -2,7 +2,6 @@
 #import "SearchVC.h"
 #import "MapsAppDelegate.h"
 #import "EAGLView.h"
-#import "WindowHandle.h"
 #import "../Settings/SettingsManager.h"
 
 #include "RenderContext.hpp"
@@ -122,7 +121,7 @@ storage::Storage m_storage;
     // Here we're creating view and window handle in it, and later we should pass framework to the view
     EAGLView * v = (EAGLView *)self.view;
 
-		shared_ptr<iphone::WindowHandle> windowHandle = [(EAGLView*)self.view windowHandle];
+		shared_ptr<WindowHandle> windowHandle = [(EAGLView*)self.view windowHandle];
 		shared_ptr<yg::ResourceManager> resourceManager = [(EAGLView*)self.view resourceManager];
         
     m_framework = FrameworkFactory<model::FeaturesFetcher>::CreateFramework(windowHandle, 40);

@@ -69,6 +69,7 @@ SOURCES += \
     benchmark_render_policy_mt.cpp \
     ruler.cpp \
     measurement_utils.cpp \
+    window_handle.cpp
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp

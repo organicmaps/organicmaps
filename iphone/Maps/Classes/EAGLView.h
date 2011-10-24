@@ -9,7 +9,8 @@
 #include "../../map/drawer_yg.hpp"
 #include "../../map/framework.hpp"
 #include "../../map/feature_vec_model.hpp"
-#include "RenderBuffer.hpp"
+#include "../../platform/video_timer.hpp"
+#include"RenderBuffer.hpp"
 
 namespace iphone
 {
@@ -41,17 +42,15 @@ typedef Framework<model::FeaturesFetcher> framework_t;
 
 @public
 
-	shared_ptr<iphone::WindowHandle> windowHandle;
+	shared_ptr<WindowHandle> windowHandle;
+  shared_ptr<VideoTimer> videoTimer;
   shared_ptr<DrawerYG> drawer;
 	shared_ptr<iphone::RenderBuffer> renderBuffer;  
 }
 
-// Called as a result of invalidate on iphone::WindowHandle
-- (void)drawViewOnMainThread;
-
-@property (nonatomic, assign) CADisplayLink * displayLink;
+- (void) drawFrame;
 @property (nonatomic, assign) framework_t * framework;
-@property (nonatomic, assign) shared_ptr<iphone::WindowHandle> windowHandle;
+@property (nonatomic, assign) shared_ptr<WindowHandle> windowHandle;
 @property (nonatomic, assign) shared_ptr<DrawerYG> drawer;
 @property (nonatomic, assign) shared_ptr<iphone::RenderContext> renderContext;
 @property (nonatomic, assign) shared_ptr<iphone::RenderBuffer> renderBuffer;

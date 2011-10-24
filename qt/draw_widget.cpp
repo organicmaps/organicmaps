@@ -15,6 +15,37 @@ using namespace storage;
 
 namespace qt
 {
+  QtVideoTimer::QtVideoTimer(DrawWidget * w, TFrameFn frameFn)
+    : ::VideoTimer(frameFn), m_widget(w)
+  {}
+
+  void QtVideoTimer::start()
+  {
+    m_timer = new QTimer();
+    m_widget->connect(m_timer, SIGNAL(timeout()), m_widget, SLOT(AnimTimerElapsed()));
+    resume();
+  }
+
+  void QtVideoTimer::pause()
+  {
+    m_timer->stop();
+    m_state = EPaused;
+  }
+
+  void QtVideoTimer::resume()
+  {
+    m_timer->start(1000 / 60);
+    m_state = ERunning;
+  }
+
+  void QtVideoTimer::stop()
+  {
+    pause();
+    delete m_timer;
+    m_timer = 0;
+    m_state = EStopped;
+  }
+
   DrawWidget::DrawWidget(QWidget * pParent, Storage & storage)
     : base_type(pParent),
       m_handle(new WindowHandle()),
@@ -28,22 +59,21 @@ namespace qt
   {
     m_framework->InitStorage(storage);
     m_timer = new QTimer(this);
-//#ifdef OMIM_OS_MAC
-//    m_videoTimer.reset(CreateAppleVideoTimer(bind(&DrawWidget::DrawFrame, this)));
-//#else
-    m_animTimer = new QTimer(this);
-    connect(m_animTimer, SIGNAL(timeout()), this, SLOT(AnimTimerElapsed()));
-//#endif
+    m_handle->setUpdatesEnabled(false);
+#ifdef OMIM_OS_MAC
+    m_videoTimer.reset(CreateAppleVideoTimer(bind(&DrawWidget::DrawFrame, this)));
+#else
+    m_videoTimer.reset(new QtVideoTimer(this, bind(&DrawWidget::DrawFrame, this)));
+#endif
+
+    m_handle->setVideoTimer(m_videoTimer);
+
     connect(m_timer, SIGNAL(timeout()), this, SLOT(ScaleTimerElapsed()));
   }
 
   void DrawWidget::PrepareShutdown()
   {
-//#ifdef OMIM_OS_MAC
-//    m_videoTimer->stop();
-//#else
-    m_animTimer->stop();
-//#endif
+    m_videoTimer->stop();
     m_framework->PrepareToShutdown();
   }
 
@@ -200,11 +230,8 @@ namespace qt
       /// timer should be started upon the first repaint
       /// request to fully initialized GLWidget.
       m_isTimerStarted = true;
-//#ifdef OMIM_OS_MAC
-//      m_videoTimer->start();
-//#else
-      m_animTimer->start(1000 / 60);
-//#endif
+      m_handle->setUpdatesEnabled(true);
+      m_handle->invalidate();
     }
 
     m_framework->Invalidate();

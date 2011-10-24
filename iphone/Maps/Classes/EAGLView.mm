@@ -2,7 +2,6 @@
 #import <OpenGLES/EAGLDrawable.h>
 
 #import "EAGLView.h"
-#import "WindowHandle.h"
 
 #include "../../yg/screen.hpp"
 #include "../../yg/texture.hpp"
@@ -13,18 +12,15 @@
 #include "RenderBuffer.hpp"
 #include "RenderContext.hpp"
 
-bool _doRepaint = true;
-bool _inRepaint = false;
-
 @implementation EAGLView
 
 @synthesize framework;
 @synthesize windowHandle;
+@synthesize videoTimer;
 @synthesize drawer;
 @synthesize renderContext;
 @synthesize renderBuffer;
 @synthesize resourceManager;
-@synthesize displayLink;
 
 // You must implement this method
 + (Class)layerClass
@@ -143,13 +139,19 @@ bool _inRepaint = false;
 
 		drawer = shared_ptr<DrawerYG>(new DrawerYG(p));
 
-    windowHandle = shared_ptr<iphone::WindowHandle>(new iphone::WindowHandle(_doRepaint));
+    windowHandle.reset(new WindowHandle());
     
+    windowHandle->setUpdatesEnabled(false);
+
+    typedef void (*drawFrameFn)(id, SEL);
+    SEL drawFrameSel = @selector(drawFrame);
+    drawFrameFn drawFrameImpl = (drawFrameFn)[self methodForSelector:drawFrameSel];
+
+    videoTimer.reset(CreateIOSVideoTimer(bind(drawFrameImpl, self, drawFrameSel)));
+    
+    windowHandle->setVideoTimer(videoTimer);
+
 		windowHandle->setRenderContext(renderContext);
-    
-    displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(drawView)];
-    displayLink.frameInterval = 1;
-    [displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
   }
 
   return self;
@@ -174,7 +176,7 @@ bool _inRepaint = false;
   drawer->screen()->endFrame();
 }
 
-- (void)drawView
+- (void)drawFrame
 {
 	shared_ptr<PaintEvent> pe(new PaintEvent(drawer.get()));
   if (windowHandle->needRedraw())
@@ -187,16 +189,6 @@ bool _inRepaint = false;
   }
 }
 
-- (void)drawViewThunk:(id)obj
-{
-	[self drawView];
-}
-
-- (void)drawViewOnMainThread
-{
-	[self performSelectorOnMainThread:@selector(drawViewThunk:) withObject:nil waitUntilDone:NO];
-}
-
 - (void)layoutSubviews
 {
   CGFloat const scale = self.contentScaleFactor;
@@ -206,8 +198,7 @@ bool _inRepaint = false;
 
 - (void)dealloc
 {
-  [displayLink invalidate];
-  [displayLink release];
+  videoTimer.reset();
   [EAGLContext setCurrentContext:nil];
   [super dealloc];
 }

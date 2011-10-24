@@ -9,13 +9,29 @@ public:
 
   typedef function<void()> TFrameFn;
 
+  enum EState
+  {
+    EStopped,
+    EPaused,
+    ERunning
+  };
+
 protected:
 
   TFrameFn m_frameFn;
+  EState m_state;
 
 public:
   VideoTimer(TFrameFn fn);
-  virtual ~VideoTimer() {}
+  virtual ~VideoTimer();
+
+  TFrameFn frameFn() const;
+  void setFrameFn(TFrameFn fn);
+
+  EState state() const;
+
+  virtual void resume() = 0;
+  virtual void pause() = 0;
 
   virtual void start() = 0;
   virtual void stop() = 0;

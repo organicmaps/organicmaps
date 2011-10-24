@@ -20,23 +20,13 @@ public:
     stop();
   }
 
-  void start()
-  {
-    if (m_displayLink == 0)
-    {
-      CVDisplayLinkCreateWithActiveCGDisplays(&m_displayLink);
-      CVDisplayLinkSetOutputCallback(m_displayLink, &displayLinkCallback, (void*)this);
-      CVDisplayLinkStart(m_displayLink);
-    }
-  }
-
   static CVReturn displayLinkCallback(
-     CVDisplayLinkRef displayLink,
-     const CVTimeStamp *inNow,
-     const CVTimeStamp *inOutputTime,
-     CVOptionFlags flagsIn,
-     CVOptionFlags *flagsOut,
-     void *displayLinkContext
+     CVDisplayLinkRef /*displayLink*/,
+     const CVTimeStamp * /*inNow*/,
+     const CVTimeStamp * /*inOutputTime*/,
+     CVOptionFlags /*flagsIn*/,
+     CVOptionFlags * /*flagsOut*/,
+     void * displayLinkContext
      )
   {
     AppleVideoTimer * t = reinterpret_cast<AppleVideoTimer*>(displayLinkContext);
@@ -45,13 +35,37 @@ public:
     return kCVReturnSuccess;
   }
 
+  void start()
+  {
+    if (m_displayLink == 0)
+    {
+      CVDisplayLinkCreateWithActiveCGDisplays(&m_displayLink);
+      CVDisplayLinkSetOutputCallback(m_displayLink, &displayLinkCallback, (void*)this);
+      resume();
+    }
+  }
+
+  void resume()
+  {
+    CVDisplayLinkStart(m_displayLink);
+    m_state = ERunning;
+  }
+
+  void pause()
+  {
+    CVDisplayLinkStop(m_displayLink);
+    m_state = EPaused;
+  }
+
   void stop()
   {
     if (m_displayLink)
     {
-      CVDisplayLinkStop(m_displayLink);
+      if (state() == ERunning)
+        pause();
       CVDisplayLinkRelease(m_displayLink);
       m_displayLink = 0;
+      m_state = EStopped;
     }
   }
 
