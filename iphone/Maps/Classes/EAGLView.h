@@ -51,6 +51,7 @@ typedef Framework<model::FeaturesFetcher> framework_t;
 - (void) drawFrame;
 @property (nonatomic, assign) framework_t * framework;
 @property (nonatomic, assign) shared_ptr<WindowHandle> windowHandle;
+@property (nonatomic, assign) shared_ptr<VideoTimer> videoTimer;
 @property (nonatomic, assign) shared_ptr<DrawerYG> drawer;
 @property (nonatomic, assign) shared_ptr<iphone::RenderContext> renderContext;
 @property (nonatomic, assign) shared_ptr<iphone::RenderBuffer> renderBuffer;
