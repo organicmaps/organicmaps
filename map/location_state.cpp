@@ -29,7 +29,8 @@ namespace location
     m_flags |= ECompass;
 
     m_headingRad = ((info.m_trueHeading >= 0.0) ? info.m_trueHeading : info.m_magneticHeading)
-        / 180 * math::pi;
+        / 180 * math::pi
+        - math::pi / 2;  // 0 angle is for North ("up"), but in our coordinates it's to the right.
     m_headingAccuracyRad = info.m_accuracy / 180 * math::pi;
   }
 
