@@ -83,7 +83,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
     self.navigationItem.title = header;
 
     UIBarButtonItem * aboutButton = [[[UIBarButtonItem alloc] initWithTitle:@"About" style: UIBarButtonItemStylePlain
-                                    target:self action:@selector(OnAboutButton:)] autorelease];
+                                    target:self action:@selector(onAboutButton:)] autorelease];
     self.navigationItem.rightBarButtonItem = aboutButton;
     // Show Close button only on the first page
     if ([header compare:@"Download"] == NSOrderedSame)
