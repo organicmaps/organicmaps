@@ -29,7 +29,6 @@ public:
     m_locationManager = [[CLLocationManager alloc] init];
     m_locationManager.delegate = m_objCppWrapper;
     m_locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    m_locationManager.purpose = @"Location services are needed to display your current position on the map.";
   }
 
   virtual ~AppleLocationService()
@@ -53,23 +52,12 @@ public:
     if (![CLLocationManager locationServicesEnabled])
     {
       // @TODO correctly handle situation in GUI when wifi is working and native is disabled
-      // m_observer.OnLocationStatusChanged(location::ENotSupported);
+      //m_observer.OnLocationStatusChanged(location::ENotSupported);
     }
     else
     {
-      switch([CLLocationManager authorizationStatus])
-      {
-      case kCLAuthorizationStatusAuthorized:
-      case kCLAuthorizationStatusNotDetermined:
-        [m_locationManager startUpdatingLocation];
-        m_observer.OnLocationStatusChanged(location::EStarted);
-        break;
-      case kCLAuthorizationStatusRestricted:
-      case kCLAuthorizationStatusDenied:
-        // @TODO correctly handle situation in GUI when wifi is working and native is disabled
-        //m_observer.OnLocationStatusChanged(location::EDisabledByUser);
-        break;
-      }
+      [m_locationManager startUpdatingLocation];
+      m_observer.OnLocationStatusChanged(location::EStarted);
     }
   }
 
