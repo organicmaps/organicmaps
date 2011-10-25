@@ -5,7 +5,7 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 ROOT_DIR = ..
-DEPENDENCIES = indexer geometry coding base
+DEPENDENCIES = storage indexer geometry coding base
 
 include($$ROOT_DIR/common.pri)
 
@@ -33,17 +33,3 @@ SOURCES += \
     latlon_match.cpp \
     search_trie_matching.cpp \
     approximate_string_match.cpp \
-
-
-
-
-
-
-
-
-
-
-
-
-
-
