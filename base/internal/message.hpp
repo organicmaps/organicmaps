@@ -28,7 +28,10 @@ template <typename U, typename V> inline string DebugPrint(map<U,V> const & v);
 
 inline string DebugPrint(char const * t)
 {
-  return DebugPrint(string(t));
+  if (t)
+    return DebugPrint(string(t));
+  else
+    return string("NULL string pointer");
 }
 
 inline string DebugPrint(char t)

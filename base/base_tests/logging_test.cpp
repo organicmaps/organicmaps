@@ -38,3 +38,9 @@ UNIT_TEST(Logging_Level)
   my::SetLogMessageFn(logMessageSaved);
   my::g_LogLevel = logLevelSaved;
 }
+
+UNIT_TEST(NullMessage)
+{
+  char const * ptr = 0;
+  LOG(LINFO, ("Null message test", ptr));
+}
