@@ -146,9 +146,7 @@ public:
 
   virtual ModelReader * CreateSubReader(uint64_t pos, uint64_t size) const = 0;
 
-  bool IsEqual(string const & name) const;
-
-  string GetName() const { return m_name; }
+  inline string GetName() const { return m_name; }
 };
 
 // Reader pointer class for data files.
@@ -163,6 +161,8 @@ public:
   {
     return m_p->CreateSubReader(pos, size);
   }
+
+  inline string GetName() const { return m_p->GetName(); }
 };
 
 

@@ -22,10 +22,12 @@ public:
   IndexFactory m_factory;
 
   MwmValue(string const & name);
+
   inline feature::DataHeader const & GetHeader() const
   {
     return m_factory.GetHeader();
   }
+  inline string GetFileName() const { return m_cont.GetFileName(); }
 };
 
 class Index : public MwmSet

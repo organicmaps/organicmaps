@@ -147,7 +147,7 @@ namespace
                       char const * key[], char const * value[], size_t count)
   {
     FilesContainerR reader(fName);
-    LOG(LINFO, ("Size=", reader.GetSize()));
+    LOG(LINFO, ("Size=", reader.GetFileSize()));
 
     for (size_t i = 0; i < count; ++i)
     {

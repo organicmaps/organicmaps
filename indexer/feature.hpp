@@ -94,6 +94,13 @@ public:
     return m_LimitRect ;
   }
 
+  inline m2::PointD GetCenter() const
+  {
+    ASSERT_EQUAL ( GetFeatureType(), feature::GEOM_POINT, () );
+    ParseCommon();
+    return m_Center;
+  }
+
   class GetTypesFn
   {
   public:

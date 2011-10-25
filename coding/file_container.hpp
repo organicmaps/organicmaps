@@ -98,7 +98,8 @@ public:
       f(m_info[i].m_tag);
   }
 
-  inline uint64_t GetSize() const { return m_source.Size(); }
+  inline uint64_t GetFileSize() const { return m_source.Size(); }
+  inline string GetFileName() const { return m_source.GetName(); }
 
 private:
   ReaderT m_source;
