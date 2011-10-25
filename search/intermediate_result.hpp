@@ -26,7 +26,7 @@ public:
   IntermediateResult(m2::RectD const & viewportRect, double lat, double lon, double precision);
 
   // For RESULT_CATEGORY.
-  IntermediateResult(string name, string completionString, int penalty);
+  IntermediateResult(string const & name, string const & completionString, int penalty);
 
   bool operator < (IntermediateResult const & o) const;
 
