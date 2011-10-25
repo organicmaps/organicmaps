@@ -1,6 +1,6 @@
 # Main application in qt.
 ROOT_DIR = ..
-DEPENDENCIES = words map storage search indexer yg platform geometry coding base \
+DEPENDENCIES = words map search storage indexer yg platform geometry coding base \
                bzip2 freetype expat fribidi tomcrypt jansson version
 
 include($$ROOT_DIR/common.pri)

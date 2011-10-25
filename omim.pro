@@ -13,12 +13,12 @@ SUBDIRS = 3party \
           geometry \
           indexer \
           platform \
-          search search/search_tests \
           geometry/geometry_tests \
           version \
           platform/platform_tests \
           yg \
           storage storage/storage_tests \
+          search search/search_tests \
           map map/map_tests map/benchmark_tool \
           generator generator/generator_tests \
           generator/generator_tool \
