@@ -1,6 +1,12 @@
-#import "IPhoneDownload.h"
+#import "apple_download.h"
 
-#import <UIKit/UIApplication.h>
+#include "../base/logging.hpp"
+
+#include "../std/target_os.hpp"
+
+#ifdef OMIM_OS_IPHONE
+  #import <UIKit/UIApplication.h>
+#endif
 
 #include "../../platform/download_manager.hpp"
 #include "../../platform/platform.hpp"
@@ -12,7 +18,7 @@ static bool NeedToGenerateUrl(string const & url)
   return url.find("http://") != 0 && url.find("https://") != 0;
 }
 
-@implementation IPhoneDownload
+@implementation AppleDownload
 
 - (string const &) Url
 {
@@ -27,7 +33,7 @@ static bool NeedToGenerateUrl(string const & url)
 
 - (void) dealloc
 {
-//  NSLog(@"~IPhoneDownload() for url: %s", m_url.c_str());
+  LOG(LDEBUG, ("destructor for url", m_params.m_url));
   if (m_connection)
   {
     [m_connection cancel];
@@ -54,9 +60,8 @@ static bool NeedToGenerateUrl(string const & url)
 		long long fileSize = ftello(m_file);
 		if (fileSize > 0)
 		{
-			NSLog(@"Resuming download for file %s from position %qi",
-						(m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str(),
-						fileSize);
+			LOG(LINFO, ("Resuming download for file", m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION,
+									"from position", fileSize));
 			NSString * val = [[NSString alloc] initWithFormat: @"bytes=%qi-", fileSize];
 			[request addValue:val forHTTPHeaderField:@"Range"];
 			[val release];
@@ -91,7 +96,7 @@ static bool NeedToGenerateUrl(string const & url)
     m_file = fopen(tmpFile.c_str(), "ab");
     if (m_file == 0)
     {
-      NSLog(@"Error opening %s file for download: %s", tmpFile.c_str(), strerror(errno));
+      LOG(LERROR, ("Error opening file for download", tmpFile, strerror(errno)));
       // notify observer about error and exit
       if (m_params.m_finish)
       {
@@ -113,7 +118,7 @@ static bool NeedToGenerateUrl(string const & url)
 
   if (m_connection == 0)
   {
-    NSLog(@"Can't create connection for url %s", m_currentUrl.c_str());
+    LOG(LERROR, ("Can't create connection for url", m_currentUrl));
     // notify observer about error and exit
     if (m_params.m_finish)
     {
@@ -140,7 +145,7 @@ static bool NeedToGenerateUrl(string const & url)
     NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
     if (statusCode < 200 || statusCode > 299)
     {
-      NSLog(@"Received HTTP error code %d, canceling download", statusCode);
+      LOG(LWARNING, ("Received HTTP error, canceling download", statusCode));
       if (m_file)
       {
         long long fileSize = ftello(m_file);
@@ -165,8 +170,10 @@ static bool NeedToGenerateUrl(string const & url)
     }
   }
 
+#ifdef OMIM_OS_IPHONE
   // enable network activity indicator in top system toolbar
   [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+#endif
 
   m_projectedFileSize = [response expectedContentLength];
   // if server doesn't support resume, make sure we're downloading file from scratch
@@ -175,7 +182,7 @@ static bool NeedToGenerateUrl(string const & url)
     fclose(m_file);
     m_file = fopen((m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str(), "wb");
   }
-  NSLog(@"Projected file size: %qi", m_projectedFileSize);
+  LOG(LDEBUG, ("Projected download file size", m_projectedFileSize));
 }
 
 - (void) connection: (NSURLConnection *)connection didReceiveData: (NSData *)data
@@ -211,7 +218,7 @@ static bool NeedToGenerateUrl(string const & url)
 - (void) connection: (NSURLConnection *)connection didFailWithError: (NSError *)error
 {
   // inform the user
-  NSLog(@"Connection failed for url %s\n%@", m_currentUrl.c_str(), [error localizedDescription]);
+  LOG(LWARNING, ("Connection failed for", m_currentUrl, [[error localizedDescription] cStringUsingEncoding:NSUTF8StringEncoding]));
 
   // retry connection if it's network-specific error
   if ([self shouldRetry:error])
@@ -227,7 +234,7 @@ static bool NeedToGenerateUrl(string const & url)
       if (m_connection)
         return;	// successfully restarted connection
 
-      NSLog(@"Can't retry connection");
+      LOG(LWARNING, ("Can't retry connection"));
       // notify observer about error and exit after this if-block
     }
   }
@@ -268,14 +275,12 @@ static bool NeedToGenerateUrl(string const & url)
     if (rename((m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str(), m_params.m_fileToSave.c_str()))
     {
       isLocked = true;
-      NSLog(@"Can't rename to file %s", m_params.m_fileToSave.c_str());
+      LOG(LERROR, ("Can't rename to file", m_params.m_fileToSave));
       // delete downloaded file
       remove((m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str());
     }
     else
-    {
-      NSLog(@"Successfully downloaded %s", m_params.m_url.c_str());
-    }
+      LOG(LDEBUG, ("Successfully downloaded", m_params.m_url));
   }
   if (m_params.m_finish)
   {

@@ -16,7 +16,7 @@ win32* {
   LIBS *= -lShell32
   win32-g++: LIBS *= -lpthread
 }
-macx*: LIBS *= "-framework CoreFoundation"
+macx*: LIBS *= "-framework Foundation" "-framework IOKit"
 
 SOURCES += \
     ../../testing/testingmain.cpp \

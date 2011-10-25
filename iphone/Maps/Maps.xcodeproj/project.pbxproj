@@ -90,8 +90,6 @@
 		FAD4906C13EFF61F005E7D43 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = FAD4906A13EFF61F005E7D43 /* search.png */; };
 		FAD4906D13EFF61F005E7D43 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAD4906B13EFF61F005E7D43 /* search@2x.png */; };
 		FAEA8B2A1437CA80002A6737 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEA8B291437CA80002A6737 /* libjansson.a */; };
-		FAF37EFF126DCE6F005EA154 /* IPhoneDownload.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAF37EFA126DCE6F005EA154 /* IPhoneDownload.mm */; };
-		FAF37F00126DCE6F005EA154 /* IPhoneDownloadManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAF37EFB126DCE6F005EA154 /* IPhoneDownloadManager.mm */; };
 		FAF8003C1417D7E50024E8C1 /* ad.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF8FF3E1417D7E50024E8C1 /* ad.png */; };
 		FAF8003D1417D7E50024E8C1 /* ae.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF8FF3F1417D7E50024E8C1 /* ae.png */; };
 		FAF8003E1417D7E50024E8C1 /* af.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF8FF401417D7E50024E8C1 /* af.png */; };
@@ -706,9 +704,6 @@
 		FAD4906A13EFF61F005E7D43 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		FAD4906B13EFF61F005E7D43 /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
 		FAEA8B291437CA80002A6737 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjansson.a; sourceTree = SOURCE_ROOT; };
-		FAF37EFA126DCE6F005EA154 /* IPhoneDownload.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = IPhoneDownload.mm; path = Platform/IPhoneDownload.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		FAF37EFB126DCE6F005EA154 /* IPhoneDownloadManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = IPhoneDownloadManager.mm; path = Platform/IPhoneDownloadManager.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		FAF37F03126DCF11005EA154 /* IPhoneDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = IPhoneDownload.h; path = Platform/IPhoneDownload.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FAF800001417D7E50024E8C1 /* sc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sc.png; path = ../../data/flags/sc.png; sourceTree = SOURCE_ROOT; };
 		FAF800011417D7E50024E8C1 /* sd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sd.png; path = ../../data/flags/sd.png; sourceTree = SOURCE_ROOT; };
 		FAF800021417D7E50024E8C1 /* se.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = se.png; path = ../../data/flags/se.png; sourceTree = SOURCE_ROOT; };
@@ -1452,9 +1447,6 @@
 		FA6E1F1B124E6B2800F59149 /* Platform */ = {
 			isa = PBXGroup;
 			children = (
-				FAF37EFB126DCE6F005EA154 /* IPhoneDownloadManager.mm */,
-				FAF37F03126DCF11005EA154 /* IPhoneDownload.h */,
-				FAF37EFA126DCE6F005EA154 /* IPhoneDownload.mm */,
 				FAA5C2A0144F135F005337F6 /* LocationManager.h */,
 				FAA5C2A1144F135F005337F6 /* LocationManager.mm */,
 			);
@@ -2604,8 +2596,6 @@
 				FA4135ED120A263C0062D5B4 /* SettingsManager.mm in Sources */,
 				EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */,
 				EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */,
-				FAF37EFF126DCE6F005EA154 /* IPhoneDownload.mm in Sources */,
-				FAF37F00126DCE6F005EA154 /* IPhoneDownloadManager.mm in Sources */,
 				FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */,
 				FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */,
 				FA09E01113F71F6C007E69CA /* SearchVC.mm in Sources */,

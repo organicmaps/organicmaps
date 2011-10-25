@@ -1,5 +1,7 @@
 #include "location_service.hpp"
 
+#include "../base/logging.hpp"
+
 #include "../std/target_os.hpp"
 
 #import <CoreLocation/CoreLocation.h>
@@ -102,7 +104,7 @@ public:
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
-  NSLog(@"locationManager failed with error: %ld, %@", error.code, error.description);
+  LOG(LWARNING, ("locationManager failed with error", error.code, error.description));
   if (error.code == kCLErrorDenied)
     m_service->OnDeniedError();
 }

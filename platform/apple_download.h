@@ -7,7 +7,7 @@
 @interface IPhoneDownload : NSObject
 {
   HttpStartParams m_params;
-  
+
   string m_currentUrl;
   UrlGenerator m_urlGenerator;
 

@@ -18,7 +18,8 @@ win32 {
 }
 
 macx* {
-  LIBS *= "-framework CoreLocation" "-framework Foundation" "-framework CoreWLAN" "-framework QuartzCore"
+  LIBS *= "-framework CoreLocation" "-framework Foundation" "-framework CoreWLAN" \
+          "-framework QuartzCore" "-framework IOKit"
 
   ICON = res/mac.icns
   PLIST_FILE = Info.plist

@@ -9,20 +9,16 @@ DEPENDENCIES = coding base jansson
 
 include($$ROOT_DIR/common.pri)
 
-QT *= core network
-
 !iphone*:!android*:!bada {
+  QT *= core network
+
   INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 
   SOURCES += platform_qt.cpp \
              wifi_location_service.cpp \
-             qt_download_manager.cpp \
-             qt_download.cpp \
              qt_concurrent_runner.cpp \
              location_service.cpp
-  HEADERS += qt_download_manager.hpp \
-             qt_download.hpp \
-             wifi_info.hpp \
+  HEADERS += wifi_info.hpp \
              location_service.hpp
   win32* {
     SOURCES += platform_win.cpp \
@@ -41,6 +37,19 @@ QT *= core network
                        platform_ios.mm
 } else:android* {
   SOURCES += platform_android.cpp
+}
+
+macx*|iphone* {
+  HEADERS += apple_download.h
+  OBJECTIVE_SOURCES += apple_download.mm \
+                       apple_download_manager.mm
+}
+
+win32*|linux* {
+  HEADERS += qt_download_manager.hpp \
+             qt_download.hpp
+  SOURCES += qt_download_manager.cpp \
+             qt_download.cpp
 }
 
 # common sources for all platforms
