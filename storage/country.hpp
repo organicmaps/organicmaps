@@ -70,5 +70,7 @@ namespace storage
 
   /// @return version of country file or -1 if error was encountered
   int64_t LoadCountries(string const & jsonBuffer, CountriesContainerT & countries);
+  void LoadCountryNames(string const & jsonBuffer, map<string, string> & id2name);
+
   bool SaveCountries(int64_t version, CountriesContainerT const & countries, string & jsonBuffer);
 }

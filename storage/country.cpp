@@ -72,7 +72,8 @@ int64_t Country::Price() const
 
 ////////////////////////////////////////////////////////////////////////
 
-void LoadGroupImpl(int depth, json_t * group, CountriesContainerT & container)
+template <class ToDo>
+void LoadGroupImpl(int depth, json_t * group, ToDo & toDo)
 {
   for (size_t i = 0; i < json_array_size(group); ++i)
   {
@@ -92,21 +93,17 @@ void LoadGroupImpl(int depth, json_t * group, CountriesContainerT & container)
     json_t * jPrice = json_object_get(j, "p");
     json_int_t price = jPrice ? json_integer_value(jPrice) : INVALID_PRICE;
 
-    Country country(name, flag ? flag : "");
-    if (size)
-      country.AddFile(CountryFile(file, size, price));
-    container.AddAtDepth(depth, country);
+    toDo(name, file, flag ? flag : "", size, price, depth);
 
     json_t * children = json_object_get(j, "g");
     if (children)
-      LoadGroupImpl(depth + 1, children, container);
+      LoadGroupImpl(depth + 1, children, toDo);
   }
 }
 
-int64_t LoadCountries(string const & jsonBuffer, CountriesContainerT & countries)
+template <class ToDo>
+int64_t LoadCountriesImpl(string const & jsonBuffer, ToDo & toDo)
 {
-  countries.Clear();
-
   int64_t version = -1;
 
   try
@@ -116,7 +113,7 @@ int64_t LoadCountries(string const & jsonBuffer, CountriesContainerT & countries
     json_t * children = json_object_get(root, "g");
     if (!children)
       MYTHROW(my::Json::Exception, ("Root country doesn't have any groups"));
-    LoadGroupImpl(0, children, countries);
+    LoadGroupImpl(0, children, toDo);
   }
   catch (my::Json::Exception const & e)
   {
@@ -125,6 +122,61 @@ int64_t LoadCountries(string const & jsonBuffer, CountriesContainerT & countries
   }
 
   return version;
+}
+
+namespace
+{
+  class DoStoreCountries
+  {
+    CountriesContainerT & m_cont;
+  public:
+    DoStoreCountries(CountriesContainerT & cont) : m_cont(cont) {}
+
+    void operator() (string const & name, string const & file, string const & flag,
+                     uint32_t size, int64_t price, int depth)
+    {
+      Country country(name, flag);
+      if (size)
+        country.AddFile(CountryFile(file, size, price));
+      m_cont.AddAtDepth(depth, country);
+    }
+  };
+
+  class DoStoreNames
+  {
+    map<string, string> & m_id2name;
+  public:
+    DoStoreNames(map<string, string> & id2name) : m_id2name(id2name) {}
+
+    void operator() (string name, string const & file, string const &,
+                     uint32_t size, int64_t, int)
+    {
+      // if 'file' is empty - it's equal to name
+      if (size && !file.empty())
+      {
+        size_t const i = file.find_first_of('_');
+        if (i != string::npos)
+          name = file.substr(0, i) + '_' + name;
+
+        if (name != file)
+          m_id2name[file] = name;
+      }
+    }
+  };
+}
+
+int64_t LoadCountries(string const & jsonBuffer, CountriesContainerT & countries)
+{
+  countries.Clear();
+  DoStoreCountries doStore(countries);
+  return LoadCountriesImpl(jsonBuffer, doStore);
+}
+
+void LoadCountryNames(string const & jsonBuffer, map<string, string> & id2name)
+{
+  ASSERT ( id2name.empty(), () );
+  DoStoreNames doStore(id2name);
+  LoadCountriesImpl(jsonBuffer, doStore);
 }
 
 template <class T>
