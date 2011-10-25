@@ -11,13 +11,16 @@
 #include "../std/unordered_set.hpp"
 #include "../std/vector.hpp"
 
+
 class FeatureType;
 class Index;
+
+namespace storage { class CountryInfoGetter; }
 
 namespace search
 {
 
-class CategoryInfo;
+struct CategoryInfo;
 class KeywordMatcher;
 namespace impl { class IntermediateResult; struct FeatureLoader; class BestNameFinder; }
 
@@ -26,7 +29,8 @@ class Query
 public:
   typedef map<strings::UniString, CategoryInfo > CategoriesMapT;
 
-  Query(Index const * pIndex, CategoriesMapT const * pCategories);
+  Query(Index const * pIndex, CategoriesMapT const * pCategories,
+        storage::CountryInfoGetter const * pInfoGetter);
   ~Query();
 
   void SetViewport(m2::RectD const & viewport);
@@ -42,15 +46,18 @@ private:
   friend class impl::BestNameFinder;
 
   void AddResult(impl::IntermediateResult const & result);
-  void AddFeatureResult(FeatureType const & feature);
+  void AddFeatureResult(FeatureType const & f, string const & fName);
   void FlushResults(function<void (Result const &)> const & f);
   void UpdateViewportOffsets();
   void SearchFeatures();
   void SuggestCategories();
-  void GetBestMatchName(FeatureType const & feature, uint32_t & penalty, string & name);
+
+  void GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name);
+  string GetRegionName(FeatureType const & f, string const & fName);
 
   Index const * m_pIndex;
   CategoriesMapT const * m_pCategories;
+  storage::CountryInfoGetter const * m_pInfoGetter;
 
   string m_rawQuery;
   strings::UniString m_uniQuery;

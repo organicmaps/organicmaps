@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../storage/country_info.hpp"
+
 #include "../indexer/index.hpp"
 
 #include "../geometry/rect2d.hpp"
@@ -19,7 +21,7 @@ class Index;
 namespace search
 {
 
-class CategoryInfo;
+struct CategoryInfo;
 class Query;
 class Result;
 
@@ -29,7 +31,8 @@ public:
   typedef Index IndexType;
 
   // Doesn't take ownership of @pIndex. Takes ownership of pCategories
-  Engine(IndexType const * pIndex, CategoriesHolder * pCategories);
+  Engine(IndexType const * pIndex, CategoriesHolder * pCategories,
+         ModelReaderPtr polyR, ModelReaderPtr countryR);
   ~Engine();
 
   void SetViewport(m2::RectD const & viewport);
@@ -39,6 +42,7 @@ private:
   Index const * m_pIndex;
   scoped_ptr<map<strings::UniString, CategoryInfo> > m_pCategories;
   scoped_ptr<search::Query> m_pQuery;
+  storage::CountryInfoGetter m_infoGetter;
 };
 
 }  // namespace search

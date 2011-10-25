@@ -17,8 +17,10 @@
 namespace search
 {
 
-Engine::Engine(IndexType const * pIndex, CategoriesHolder * pCategories)
-  : m_pIndex(pIndex), m_pCategories(new map<strings::UniString, CategoryInfo>())
+Engine::Engine(IndexType const * pIndex, CategoriesHolder * pCategories,
+               ModelReaderPtr polyR, ModelReaderPtr countryR)
+: m_pIndex(pIndex), m_pCategories(new map<strings::UniString, CategoryInfo>()),
+  m_infoGetter(polyR, countryR)
 {
   for (CategoriesHolder::const_iterator it = pCategories->begin(); it != pCategories->end(); ++it)
   {
@@ -32,7 +34,7 @@ Engine::Engine(IndexType const * pIndex, CategoriesHolder * pCategories)
   }
   delete pCategories;
 
-  m_pQuery.reset(new Query(pIndex, m_pCategories.get()));
+  m_pQuery.reset(new Query(pIndex, m_pCategories.get(), &m_infoGetter));
 }
 
 Engine::~Engine()

@@ -653,9 +653,13 @@ search::Engine * Framework<TModel>::GetSearchEngine()
     threads::MutexGuard lock(m_modelSyn);
     if (!m_pSearchEngine)
     {
-      scoped_ptr<Reader> pReader(GetPlatform().GetReader(SEARCH_CATEGORIES_FILE_NAME));
+      Platform & pl = GetPlatform();
+
+      scoped_ptr<Reader> pReader(pl.GetReader(SEARCH_CATEGORIES_FILE_NAME));
       m_pSearchEngine.reset(
-            new search::Engine(&m_model.GetIndex(), new CategoriesHolder(*pReader)));
+            new search::Engine(&m_model.GetIndex(), new CategoriesHolder(*pReader),
+                               pl.GetReader(PACKED_POLYGONS_FILE),
+                               pl.GetReader(COUNTRIES_FILE)));
     }
   }
   return m_pSearchEngine.get();

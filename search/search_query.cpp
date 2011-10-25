@@ -5,24 +5,32 @@
 #include "latlon_match.hpp"
 #include "result.hpp"
 #include "search_common.hpp"
+
+#include "../storage/country_info.hpp"
+
 #include "../indexer/feature_covering.hpp"
 #include "../indexer/features_vector.hpp"
 #include "../indexer/index.hpp"
 #include "../indexer/scales.hpp"
 #include "../indexer/search_delimiters.hpp"
 #include "../indexer/search_string_utils.hpp"
+
 #include "../base/logging.hpp"
 #include "../base/string_utils.hpp"
 #include "../base/stl_add.hpp"
+
 #include "../std/algorithm.hpp"
 #include "../std/vector.hpp"
+
 
 namespace search
 {
 
-Query::Query(Index const * pIndex, CategoriesMapT const * pCategories)
-  : m_pIndex(pIndex), m_pCategories(pCategories), m_viewport(m2::RectD::GetEmptyRect()),
-    m_viewportExtended(m2::RectD::GetEmptyRect()), m_bOffsetsCacheIsValid(false)
+Query::Query(Index const * pIndex, CategoriesMapT const * pCategories,
+             storage::CountryInfoGetter const * pInfoGetter)
+  : m_pIndex(pIndex), m_pCategories(pCategories), m_pInfoGetter(pInfoGetter),
+    m_viewport(m2::RectD::GetEmptyRect()), m_viewportExtended(m2::RectD::GetEmptyRect()),
+    m_bOffsetsCacheIsValid(false)
 {
 }
 
@@ -158,12 +166,13 @@ void Query::FlushResults(function<void (Result const &)> const & f)
     f(it->GenerateFinalResult());
 }
 
-void Query::AddFeatureResult(FeatureType const & feature)
+void Query::AddFeatureResult(FeatureType const & f, string const & fName)
 {
   uint32_t penalty;
   string name;
-  GetBestMatchName(feature, penalty, name);
-  AddResult(impl::IntermediateResult(m_viewport, feature, name));
+  GetBestMatchName(f, penalty, name);
+
+  AddResult(impl::IntermediateResult(m_viewport, f, name + ", " + GetRegionName(f, fName)));
 }
 
 namespace impl
@@ -195,10 +204,25 @@ public:
 
 }  // namespace search::impl
 
-void Query::GetBestMatchName(FeatureType const & feature, uint32_t & penalty, string & name)
+void Query::GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name)
 {
   impl::BestNameFinder bestNameFinder(penalty, name, *m_pKeywordMatcher);
-  feature.ForEachNameRef(bestNameFinder);
+  f.ForEachNameRef(bestNameFinder);
+}
+
+string Query::GetRegionName(FeatureType const & f, string const & fName)
+{
+  if (!fName.empty())
+  {
+    return m_pInfoGetter->GetRegionName(fName);
+  }
+  else
+  {
+    if (f.GetFeatureType() == feature::GEOM_POINT)
+      return m_pInfoGetter->GetRegionName(f.GetCenter());
+  }
+
+  return string();
 }
 
 namespace impl
@@ -209,9 +233,10 @@ struct FeatureLoader
   uint32_t m_count;
   FeaturesVector & m_featuresVector;
   Query & m_query;
+  string m_fName;
 
-  FeatureLoader(FeaturesVector & featuresVector, Query & query)
-    : m_count(0), m_featuresVector(featuresVector), m_query(query)
+  FeatureLoader(FeaturesVector & featuresVector, Query & query, string const & fName)
+    : m_count(0), m_featuresVector(featuresVector), m_query(query), m_fName(fName)
   {
   }
 
@@ -220,7 +245,7 @@ struct FeatureLoader
     ++m_count;
     FeatureType feature;
     m_featuresVector.Get(offset, feature);
-    m_query.AddFeatureResult(feature);
+    m_query.AddFeatureResult(feature, m_fName);
   }
 };
 
@@ -250,8 +275,10 @@ void Query::SearchFeatures()
                                                ::search::trie::EdgeValueReader()));
           if (pTrieRoot)
           {
-            FeaturesVector featuresVector(pMwm->m_cont, pMwm->GetHeader());
-            impl::FeatureLoader f(featuresVector, *this);
+            feature::DataHeader const & h = pMwm->GetHeader();
+            FeaturesVector featuresVector(pMwm->m_cont, h);
+            impl::FeatureLoader f(featuresVector, *this,
+                                  (h.GetType() == feature::DataHeader::world) ? "" : pMwm->GetFileName());
 
             vector<vector<strings::UniString> > tokens(m_tokens.size());
 
