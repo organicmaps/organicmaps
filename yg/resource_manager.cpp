@@ -57,7 +57,7 @@ namespace yg
                                      m_format(fmt),
                                      m_useVA(useVA)
   {
-    LOG(LINFO, ("allocating ", glyphCacheCount, " glyphCaches, ", glyphCacheSize, " bytes total."));
+    LOG(LDEBUG, ("allocating ", glyphCacheCount, " glyphCaches, ", glyphCacheSize, " bytes total."));
 
     for (size_t i = 0; i < glyphCacheCount; ++i)
       m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, glyphCacheSize / glyphCacheCount)));

@@ -19,7 +19,7 @@ namespace my
   class SrcPoint
   {
   public:
-    SrcPoint() : m_FileName("X"), m_Line(-1), m_Function("X")
+    SrcPoint() : m_FileName(""), m_Line(-1), m_Function("")
     {
       TruncateFileName();
     }
@@ -69,7 +69,8 @@ namespace my
 inline string DebugPrint(my::SrcPoint const & srcPoint)
 {
     ostringstream out;
-    out << srcPoint.FileName() << ":" << srcPoint.Line() << " " << srcPoint.Function() << "()";
+    if (srcPoint.Line() > 0)
+      out << srcPoint.FileName() << ":" << srcPoint.Line() << " " << srcPoint.Function() << "()";
     return out.str();
 }
 

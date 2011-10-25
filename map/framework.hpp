@@ -157,13 +157,13 @@ public:
 
     enumMapsFn = bind(&Framework::EnumLocalMaps, this, _1);
 
-    LOG(LINFO, ("Initializing storage"));
+    LOG(LDEBUG, ("Initializing storage"));
     // initializes model with locally downloaded maps
     storage.Init(bind(&Framework::AddMap, this, _1),
                  bind(&Framework::RemoveMap, this, _1),
                  bind(&Framework::InvalidateRect, this, _1),
                  enumMapsFn);
-    LOG(LINFO, ("Storage initialized"));
+    LOG(LDEBUG, ("Storage initialized"));
   }
 
   bool IsEmptyModel();

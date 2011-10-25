@@ -45,7 +45,7 @@ sl::SloynikEngine::SloynikEngine(string const & dictionary,
     needIndexBuild = true;
   }
 
-  LOG(LINFO, ("Started sloynik engine. Words in the dictionary:", m_pDictionary->KeyCount()));
+  LOG(LDEBUG, ("Started sloynik engine. Words in the dictionary:", m_pDictionary->KeyCount()));
 
   // Uncomment to always rebuild the index: needIndexBuild = true;
   if (needIndexBuild)

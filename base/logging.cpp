@@ -46,7 +46,7 @@ namespace my
     double const sec = s_Timer.ElapsedSeconds();
     out << " " << std::setfill(' ') << std::setw(16 - len[level]) << sec;
 
-    out << " " << srcPoint.FileName() << ":" << srcPoint.Line() << " " << srcPoint.Function() << "() " << msg << endl;
+    out << " " << DebugPrint(srcPoint) << msg << endl;
 
     string const outString = out.str();
     std::cerr << outString;

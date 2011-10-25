@@ -73,14 +73,13 @@ namespace
 #endif
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char * argv[])
 {
   InitializeFinalize mainGuard;
   UNUSED_VALUE(mainGuard);
 
-  LOG(LINFO, ("MapsWithMe started"));
-  LOG(LINFO, ("Version : ", VERSION_STRING));
-  LOG(LINFO, ("Built on : ", VERSION_DATE_STRING));
+  LOG_SHORT(LINFO, ("Started MapsWithMe version", VERSION_STRING));
+  LOG_SHORT(LINFO, ("Built on", VERSION_DATE_STRING));
 
   QApplication a(argc, argv);
 
