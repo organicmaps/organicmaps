@@ -4,7 +4,7 @@
 #   2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
 #   2011 Free Software Foundation, Inc.
 
-timestamp='2011-06-03'
+timestamp='2011-10-01'
 
 # This file is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -792,13 +792,12 @@ EOF
 	echo ${UNAME_MACHINE}-unknown-bsdi${UNAME_RELEASE}
 	exit ;;
     *:FreeBSD:*:*)
-	case ${UNAME_MACHINE} in
-	    pc98)
-		echo i386-unknown-freebsd`echo ${UNAME_RELEASE}|sed -e 's/[-(].*//'` ;;
+	UNAME_PROCESSOR=`/usr/bin/uname -p`
+	case ${UNAME_PROCESSOR} in
 	    amd64)
 		echo x86_64-unknown-freebsd`echo ${UNAME_RELEASE}|sed -e 's/[-(].*//'` ;;
 	    *)
-		echo ${UNAME_MACHINE}-unknown-freebsd`echo ${UNAME_RELEASE}|sed -e 's/[-(].*//'` ;;
+		echo ${UNAME_PROCESSOR}-unknown-freebsd`echo ${UNAME_RELEASE}|sed -e 's/[-(].*//'` ;;
 	esac
 	exit ;;
     i*:CYGWIN*:*)
@@ -902,6 +901,9 @@ EOF
 	exit ;;
     frv:Linux:*:*)
 	echo frv-unknown-linux-gnu
+	exit ;;
+    hexagon:Linux:*:*)
+	echo hexagon-unknown-linux-gnu
 	exit ;;
     i*86:Linux:*:*)
 	LIBC=gnu

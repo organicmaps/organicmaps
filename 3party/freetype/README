@@ -1,15 +1,4 @@
-  Special notes to Unix users
-  ===========================
-
-  Please  read  the file  `docs/UPGRADE.UNIX'.  It contains  important
-  information regarding the installation  of FreeType on Unix systems,
-  especially GNU based operating systems like GNU/Linux.
-
-  FreeType 2's  library is called `libfreetype',  FreeType 1's library
-  is called `libttf'.  They are *not* compatible!
-
-
-  FreeType 2.4.6
+  FreeType 2.4.7
   ==============
 
   Please   read   the  docs/CHANGES   file,   it  contains   IMPORTANT
@@ -26,9 +15,9 @@
 
   and download one of the following files.
 
-    freetype-doc-2.4.6.tar.bz2
-    freetype-doc-2.4.6.tar.gz
-    ftdoc246.zip
+    freetype-doc-2.4.7.tar.bz2
+    freetype-doc-2.4.7.tar.gz
+    ftdoc247.zip
 
 
   Bugs

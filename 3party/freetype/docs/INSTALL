@@ -9,10 +9,10 @@ I. Normal installation and upgrades
 
   1. Unix Systems (including Mac OS X, Cygwin, and MSys on Windows)
 
-    Please read *both* `UPGRADE.UNIX' and `INSTALL.UNIX' to install or
-    upgrade FreeType  2 on  a Unix system.   Note that you  *need* GNU
-    Make for automatic compilation,  since other make tools won't work
-    (this includes BSD Make).
+    Please read `INSTALL.UNIX' to install or upgrade FreeType  2 on  a
+    Unix system.   Note  that  you  *need*  GNU  Make   for  automatic
+    compilation,  since other make tools won't work (this includes BSD
+    Make).
 
     GNU Make VERSION 3.80 OR NEWER IS NEEDED!
 
@@ -70,7 +70,7 @@ II. Custom builds of the library
 
 ----------------------------------------------------------------------
 
-Copyright   2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2010
+Copyright   2000-2008, 2010-2011
 by David Turner, Robert Wilhelm, and Werner Lemberg.
 
 This  file is  part of  the FreeType  project, and  may only  be used,

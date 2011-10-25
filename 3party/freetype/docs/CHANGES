@@ -1,3 +1,19 @@
+CHANGES BETWEEN 2.4.6 and 2.4.7
+
+  I. IMPORTANT BUG FIXES
+
+    - Some  vulnerabilities in handling Type 1 fonts  have been fixed;
+      see CVE-2011-3256.
+
+  II. MISCELLANEOUS
+
+    - FreeType  now properly  handles ZapfDingbats  glyph names  while
+      constructing a Unicode character map (for fonts which don't have
+      one).
+
+
+======================================================================
+
 CHANGES BETWEEN 2.4.5 and 2.4.6
 
   I. IMPORTANT BUG FIXES
