@@ -14,7 +14,7 @@ namespace feature
     str.reserve(strlen(prefix) + 1);
     str = prefix;
 
-    char arrChar[] = { '0', '1', '2', '3' };
+    static char const arrChar[] = { '0', '1', '2', '3' };
     STATIC_ASSERT ( ARRAY_SIZE(arrChar) >= ARRAY_SIZE(g_arrWorldScales) );
     STATIC_ASSERT ( ARRAY_SIZE(arrChar) >= ARRAY_SIZE(g_arrCountryScales) );
     ASSERT ( ind >= 0 && ind < ARRAY_SIZE(arrChar), (ind) );
