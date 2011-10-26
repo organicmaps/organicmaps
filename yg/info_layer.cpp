@@ -4,10 +4,12 @@
 #include "text_element.hpp"
 #include "styles_cache.hpp"
 
+#include "../base/logging.hpp"
+#include "../base/stl_add.hpp"
+
 #include "../std/bind.hpp"
 #include "../std/vector.hpp"
 
-#include "../base/logging.hpp"
 
 namespace yg
 {
@@ -29,7 +31,7 @@ namespace yg
 
   void InfoLayer::draw(gl::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m)
   {
-    m_tree.ForEach(bind(&OverlayElement::draw, _1, r, m));
+    m_tree.ForEach(bind(&OverlayElement::draw, _1, r, cref(m)));
   }
 
   InfoLayer::InfoLayer()
@@ -192,7 +194,7 @@ namespace yg
 
   void InfoLayer::merge(InfoLayer const & layer, math::Matrix<double, 3, 3> const & m)
   {
-    layer.m_tree.ForEach(bind(&InfoLayer::processOverlayElement, this, _1, m));
+    layer.m_tree.ForEach(bind(&InfoLayer::processOverlayElement, this, _1, cref(m)));
   }
 
   bool greater_priority(shared_ptr<OverlayElement> const & l,
@@ -206,7 +208,7 @@ namespace yg
     /// collecting elements into vector sorted by visualPriority
 
     vector<shared_ptr<OverlayElement> > v;
-    m_tree.ForEach(bind(&vector<shared_ptr<OverlayElement> >::push_back, &v, _1));
+    m_tree.ForEach(MakeBackInsertFunctor(v));
 
     sort(v.begin(), v.end(), &greater_priority);
 
