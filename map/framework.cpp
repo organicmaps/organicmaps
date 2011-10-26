@@ -17,7 +17,6 @@
 #include "../indexer/feature.hpp"
 #include "../indexer/scales.hpp"
 #include "../indexer/drawing_rules.hpp"
-#include "../indexer/data_factory.hpp"
 
 #include "../base/math.hpp"
 #include "../base/string_utils.hpp"
@@ -42,12 +41,8 @@ template <typename TModel>
 void Framework<TModel>::AddMap(string const & file)
 {
   LOG(LDEBUG, ("Loading map:", file));
+
   threads::MutexGuard lock(m_modelSyn);
-
-  feature::DataHeader h;
-  LoadMapHeader(GetPlatform().GetReader(file), h);
-
-  m_model.AddWorldRect(h.GetBounds());
   m_model.AddMap(file);
 }
 

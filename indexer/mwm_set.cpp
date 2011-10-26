@@ -108,7 +108,7 @@ string MwmSet::MwmLock::GetCountryName() const
   return src.substr(0, src.size() - strlen(DATA_FILE_EXTENSION));
 }
 
-bool MwmSet::Add(string const & fileName)
+bool MwmSet::Add(string const & fileName, m2::RectD & r)
 {
   threads::MutexGuard mutexGuard(m_lock);
   UNUSED_VALUE(mutexGuard);
@@ -124,6 +124,8 @@ bool MwmSet::Add(string const & fileName)
   GetInfo(fileName, m_info[id]);
   m_info[id].m_lockCount = 0;
   m_info[id].m_status = MwmInfo::STATUS_ACTIVE;
+
+  r = m_info[id].m_limitRect;
   return true;
 }
 

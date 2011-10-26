@@ -56,8 +56,15 @@ public:
     MwmValueBase * m_pValue;
   };
 
-  // Add new mwm. Returns false, if mwm with given fileName already exists.
-  bool Add(string const & fileName);
+  /// Add new mwm. Returns false, if mwm with given fileName already exists.
+  /// @param[in]  fileName  File name (without full path) of country.
+  /// @param[out] r         Limit rect of country.
+  bool Add(string const & fileName, m2::RectD & r);
+  inline bool Add(string const & fileName)
+  {
+    m2::RectD dummy;
+    return Add(fileName, dummy);
+  }
 
   // Remove mwm.
   void Remove(string const & fileName);

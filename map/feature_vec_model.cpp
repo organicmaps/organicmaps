@@ -42,7 +42,9 @@ void FeaturesFetcher::AddMap(string const & file)
 {
   try
   {
-    m_multiIndex.Add(file);
+    m2::RectD r;
+    m_multiIndex.Add(file, r);
+    m_rect.Add(r);
   }
   catch (Reader::Exception const & e)
   {
