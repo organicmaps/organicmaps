@@ -1,5 +1,3 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "ruler.hpp"
 #include "measurement_utils.hpp"
 
@@ -15,59 +13,59 @@
 void Ruler::initFeets()
 {
   m_units.clear();
-  m_units.push_back(make_pair("100 ft", 100));
-  m_units.push_back(make_pair("200 ft", 200));
-  m_units.push_back(make_pair("0.1 mi", 528));
-  m_units.push_back(make_pair("0.2 mi", 528 * 2));
-  m_units.push_back(make_pair("0.5 mi", 528 * 5));
-  m_units.push_back(make_pair("1 mi", 5280));
-  m_units.push_back(make_pair("2 mi", 2 * 5280));
-  m_units.push_back(make_pair("5 mi", 5 * 5280));
-  m_units.push_back(make_pair("10 mi", 10 * 5280));
-  m_units.push_back(make_pair("20 mi", 20 * 5280));
-  m_units.push_back(make_pair("50 mi", 50 * 5280));
-  m_units.push_back(make_pair("100 mi", 100 * 5280));
-  m_units.push_back(make_pair("200 mi", 200 * 5280));
-  m_units.push_back(make_pair("500 mi", 500 * 5280));
+  m_units.push_back(make_pair(string("100 ft"), 100));
+  m_units.push_back(make_pair(string("200 ft"), 200));
+  m_units.push_back(make_pair(string("0.1 mi"), 528));
+  m_units.push_back(make_pair(string("0.2 mi"), 528 * 2));
+  m_units.push_back(make_pair(string("0.5 mi"), 528 * 5));
+  m_units.push_back(make_pair(string("1 mi"), 5280));
+  m_units.push_back(make_pair(string("2 mi"), 2 * 5280));
+  m_units.push_back(make_pair(string("5 mi"), 5 * 5280));
+  m_units.push_back(make_pair(string("10 mi"), 10 * 5280));
+  m_units.push_back(make_pair(string("20 mi"), 20 * 5280));
+  m_units.push_back(make_pair(string("50 mi"), 50 * 5280));
+  m_units.push_back(make_pair(string("100 mi"), 100 * 5280));
+  m_units.push_back(make_pair(string("200 mi"), 200 * 5280));
+  m_units.push_back(make_pair(string("500 mi"), 500 * 5280));
 }
 
 void Ruler::initYards()
 {
   m_units.clear();
-  m_units.push_back(make_pair("50 yd", 50));
-  m_units.push_back(make_pair("100 yd", 100));
-  m_units.push_back(make_pair("200 yd", 200));
-  m_units.push_back(make_pair("500 yd", 500));
-  m_units.push_back(make_pair("0.5 mi", 0.5 * 1760));
-  m_units.push_back(make_pair("1 mi", 1760));
-  m_units.push_back(make_pair("2 mi", 2 * 1760));
-  m_units.push_back(make_pair("5 mi", 5 * 1760));
-  m_units.push_back(make_pair("10 mi", 10 * 1760));
-  m_units.push_back(make_pair("20 mi", 20 * 1760));
-  m_units.push_back(make_pair("50 mi", 50 * 1760));
-  m_units.push_back(make_pair("100 mi", 100 * 1760));
-  m_units.push_back(make_pair("200 mi", 200 * 1760));
-  m_units.push_back(make_pair("500 mi", 500 * 1760));
+  m_units.push_back(make_pair(string("50 yd"), 50));
+  m_units.push_back(make_pair(string("100 yd"), 100));
+  m_units.push_back(make_pair(string("200 yd"), 200));
+  m_units.push_back(make_pair(string("500 yd"), 500));
+  m_units.push_back(make_pair(string("0.5 mi"), 0.5 * 1760));
+  m_units.push_back(make_pair(string("1 mi"), 1760));
+  m_units.push_back(make_pair(string("2 mi"), 2 * 1760));
+  m_units.push_back(make_pair(string("5 mi"), 5 * 1760));
+  m_units.push_back(make_pair(string("10 mi"), 10 * 1760));
+  m_units.push_back(make_pair(string("20 mi"), 20 * 1760));
+  m_units.push_back(make_pair(string("50 mi"), 50 * 1760));
+  m_units.push_back(make_pair(string("100 mi"), 100 * 1760));
+  m_units.push_back(make_pair(string("200 mi"), 200 * 1760));
+  m_units.push_back(make_pair(string("500 mi"), 500 * 1760));
 }
 
 void Ruler::initMetres()
 {
   m_units.clear();
-  m_units.push_back(make_pair("20 m", 20));
-  m_units.push_back(make_pair("50 m", 50));
-  m_units.push_back(make_pair("100 m", 100));
-  m_units.push_back(make_pair("200 m", 200));
-  m_units.push_back(make_pair("500 m", 500));
-  m_units.push_back(make_pair("1 km", 1000));
-  m_units.push_back(make_pair("2 km", 2000));
-  m_units.push_back(make_pair("5 km", 5000));
-  m_units.push_back(make_pair("10 km", 10000));
-  m_units.push_back(make_pair("20 km", 20000));
-  m_units.push_back(make_pair("50 km", 50000));
-  m_units.push_back(make_pair("100 km", 100000));
-  m_units.push_back(make_pair("200 km", 200000));
-  m_units.push_back(make_pair("500 km", 500000));
-  m_units.push_back(make_pair("1000 km", 1000000));
+  m_units.push_back(make_pair(string("20 m"), 20));
+  m_units.push_back(make_pair(string("50 m"), 50));
+  m_units.push_back(make_pair(string("100 m"), 100));
+  m_units.push_back(make_pair(string("200 m"), 200));
+  m_units.push_back(make_pair(string("500 m"), 500));
+  m_units.push_back(make_pair(string("1 km"), 1000));
+  m_units.push_back(make_pair(string("2 km"), 2000));
+  m_units.push_back(make_pair(string("5 km"), 5000));
+  m_units.push_back(make_pair(string("10 km"), 10000));
+  m_units.push_back(make_pair(string("20 km"), 20000));
+  m_units.push_back(make_pair(string("50 km"), 50000));
+  m_units.push_back(make_pair(string("100 km"), 100000));
+  m_units.push_back(make_pair(string("200 km"), 200000));
+  m_units.push_back(make_pair(string("500 km"), 500000));
+  m_units.push_back(make_pair(string("1000 km"), 1000000));
 }
 
 namespace {
