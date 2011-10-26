@@ -30,11 +30,6 @@
 
 #define TEST_BIG_FILE_URL "http://melnichek.ath.cx:34568/unit_tests/47kb.file"
 
-int gArgc = 1;
-char * gArgv[] = { 0 };
-QCoreApplication gQtApplication(gArgc, gArgv);
-#define WAIT_FOR_ASYNC_DOWNLOAD gQtApplication.exec()
-#define STOP_WAITING_FOR_ASYNC_DOWNLOAD gQtApplication.exit()
 Platform & gPlatform = GetPlatform();
 DownloadManager & gMgr = GetDownloadManager();
 
@@ -69,7 +64,7 @@ struct DlObserver
   {
     m_result[m_downloadsProcessed++] = result;
     if (m_downloadsProcessed >= TMaxDownloadsNum)
-      STOP_WAITING_FOR_ASYNC_DOWNLOAD;  // return control to test function body
+      QCoreApplication::quit();  // return control to test function body
   }
 
   void OnDownloadProgress(HttpProgressT const & progress)
@@ -86,6 +81,9 @@ struct DlObserver
   }
 };
 
+int gArgc = 1;
+char * gArgv[] = { 0 };
+
 UNIT_TEST(SingleDownload)
 {
   size_t const NUM = 1;
@@ -98,7 +96,9 @@ UNIT_TEST(SingleDownload)
   params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1);
   params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1);
   gMgr.HttpRequest(params);
-  WAIT_FOR_ASYNC_DOWNLOAD;
+
+  QCoreApplication::exec();
+
   TEST_EQUAL( observer.m_result[0].m_error, EHttpDownloadOk, ("Do you have internet connection?") );
   TEST( gPlatform.IsFileExists(TEST_FILE_NAME1), () );
   FileWriter::DeleteFileX(TEST_FILE_NAME1);
@@ -124,7 +124,8 @@ UNIT_TEST(MultiDownload)
   params.m_url = TEST_FILE_URL3;
   params.m_fileToSave = TEST_FILE_NAME3;
   gMgr.HttpRequest(params);
-  WAIT_FOR_ASYNC_DOWNLOAD;
+
+  QCoreApplication::exec();
 
   TEST_EQUAL( observer.m_result[0].m_error, EHttpDownloadOk, ("Do you have internet connection?") );
   TEST( gPlatform.IsFileExists(TEST_FILE_NAME1), () );
@@ -152,7 +153,8 @@ UNIT_TEST(InvalidUrl)
   params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1);
   params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1);
   gMgr.HttpRequest(params);
-  WAIT_FOR_ASYNC_DOWNLOAD;
+
+  QCoreApplication::exec();
 
   TEST_EQUAL( observer.m_result[0].m_error, EHttpDownloadFailed, () );
 
@@ -195,7 +197,8 @@ UNIT_TEST(DownloadFileExists)
   params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1);
   params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1);
   gMgr.HttpRequest(params);
-  WAIT_FOR_ASYNC_DOWNLOAD;
+
+  QCoreApplication::exec();
 
   TEST_EQUAL( observer.m_result[0].m_error, EHttpDownloadOk, () );
 
@@ -226,7 +229,9 @@ UNIT_TEST(DownloadResume)
   params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer1, _1);
   params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer1, _1);
   gMgr.HttpRequest(params);
-  WAIT_FOR_ASYNC_DOWNLOAD;
+
+  QCoreApplication::exec();
+
   TEST_EQUAL( observer1.m_result[0].m_error, EHttpDownloadOk, () );
 
   DlObserver<NUM> observer2;
@@ -235,7 +240,9 @@ UNIT_TEST(DownloadResume)
   params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer2, _1);
   params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer2, _1);
   gMgr.HttpRequest(params);
-  WAIT_FOR_ASYNC_DOWNLOAD;
+
+  QCoreApplication::exec();
+
   TEST_EQUAL( observer2.m_result[0].m_error, EHttpDownloadOk, () );
 
   uint64_t size1 = 4, size2 = 5;
@@ -255,7 +262,9 @@ UNIT_TEST(DownloadResume)
   params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer3, _1);
   params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer3, _1);
   gMgr.HttpRequest(params);
-  WAIT_FOR_ASYNC_DOWNLOAD;
+
+  QCoreApplication::exec();
+
   TEST_EQUAL( observer3.m_result[0].m_error, EHttpDownloadOk, () );
 
   TEST( GetPlatform().GetFileSize(TEST_FILE_NAME1, size1), ());
@@ -283,7 +292,8 @@ UNIT_TEST(DownloadAbsentFile)
   params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1);
   params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1);
   gMgr.HttpRequest(params);
-  WAIT_FOR_ASYNC_DOWNLOAD;
+
+  QCoreApplication::exec();
 
   TEST_EQUAL( observer.m_result[0].m_error, EHttpDownloadFileNotFound, () );
   TEST( !GetPlatform().IsFileExists(TEST_ABSENT_FILE_NAME), () );
@@ -304,7 +314,8 @@ UNIT_TEST(DownloadUsingUrlGenerator)
   params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1);
   params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1);
   gMgr.HttpRequest(params);
-  WAIT_FOR_ASYNC_DOWNLOAD;
+
+  QCoreApplication::exec();
 
   TEST_NOT_EQUAL( observer.m_result[0].m_error, EHttpDownloadFileNotFound, () );
   TEST( GetPlatform().IsFileExists(LOCAL_FILE), () );
@@ -321,7 +332,13 @@ UNIT_TEST(DownloadLockedFile)
     DlObserver<NUM> observer;
 
     FileWriter lockedFile(TEST_LOCKED_FILE_NAME);
-    TEST( GetPlatform().IsFileExists(TEST_LOCKED_FILE_NAME), () );
+    // check that file is actually exists
+    {
+      bool exists = true;
+      try { FileReader f(TEST_LOCKED_FILE_NAME); }
+      catch (Reader::OpenException const &) { exists = false; }
+      TEST(exists, ("Locked file wasn't created"));
+    }
 
     HttpStartParams params;
     params.m_url = TEST_LOCKED_FILE_URL;
@@ -329,11 +346,12 @@ UNIT_TEST(DownloadLockedFile)
     params.m_finish = bind(&DlObserver<NUM>::OnDownloadFinished, &observer, _1);
     params.m_progress = bind(&DlObserver<NUM>::OnDownloadProgress, &observer, _1);
     gMgr.HttpRequest(params);
-    WAIT_FOR_ASYNC_DOWNLOAD;
+
+    QCoreApplication::exec();
 
     TEST_EQUAL( observer.m_result[0].m_error, EHttpDownloadFileIsLocked, () );
   }
-  FileWriter::DeleteFileX(TEST_LOCKED_FILE_NAME);
+  FileWriter::DeleteFileX(GetPlatform().WritablePathForFile(TEST_LOCKED_FILE_NAME));
 }
 #endif
 
@@ -345,7 +363,7 @@ struct HttpPostCallbackHolder
   void OnHttpPost(HttpFinishedParams const & result)
   {
     m_pResult = new HttpFinishedParams(result);
-    STOP_WAITING_FOR_ASYNC_DOWNLOAD;
+    QCoreApplication::quit();
   }
 };
 
@@ -358,7 +376,8 @@ UNIT_TEST(HttpPost)
   params.m_postData = "{\"version\":\"1.1.0\",\"request_address\":true}";
   params.m_url = "http://melnichek.ath.cx:34568/unit_tests/post.php";
   gMgr.HttpRequest(params);
-  WAIT_FOR_ASYNC_DOWNLOAD;
+
+  QCoreApplication::exec();
 
   TEST( cbHolder.m_pResult, () );
   TEST_EQUAL(cbHolder.m_pResult->m_error, EHttpDownloadOk,

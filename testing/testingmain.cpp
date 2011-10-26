@@ -1,4 +1,3 @@
-#include "../base/SRC_FIRST.hpp"
 #include "testregister.hpp"
 #include "testing.hpp"
 #include "../base/logging.hpp"
@@ -7,10 +6,21 @@
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 
+#ifdef OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP
+  #include <QCoreApplication>
+#endif
+
 static bool g_bLastTestOK = true;
 
-int main()
+int main(int argc, char * argv[])
 {
+#ifdef OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP
+  QCoreApplication theApp(argc, argv);
+#else
+  UNUSED_VALUE(argc);
+  UNUSED_VALUE(argv);
+#endif
+
   my::g_LogLevel = LINFO;
 
   vector<string> testNames;

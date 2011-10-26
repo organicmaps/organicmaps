@@ -8,7 +8,9 @@ DEPENDENCIES = platform coding base tomcrypt jansson
 
 include($$ROOT_DIR/common.pri)
 
-INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
+INCLUDEPATH *= $$ROOT_DIR/3party/jansson/src
+
+DEFINES *= OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP
 
 QT *= core network
 
