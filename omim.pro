@@ -37,10 +37,10 @@ SUBDIRS = 3party \
             geometry \
             platform \
             indexer \
+            storage \
             yg \
             search \
             version \
-            storage \
             map \
             words
 }
