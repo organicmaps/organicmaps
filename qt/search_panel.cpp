@@ -136,9 +136,9 @@ void SearchPanel::OnSearchResult(ResultT * res, int queryId)
       m_pTable->setItem(rowCount, 0,
                         create_item(QString::fromUtf8(res->GetFetureTypeAsString().c_str())));
 
-      bool drawDir;
-      m_pTable->setItem(rowCount, 2,
-                        create_item(MeasurementUtils::FormatDistance(res->GetDistanceFromCenter(), drawDir).c_str()));
+      string strDist;
+      bool const drawDir = MeasurementUtils::FormatDistance(res->GetDistanceFromCenter(), strDist);
+      m_pTable->setItem(rowCount, 2, create_item(strDist.c_str()));
 
       if (drawDir)
       {

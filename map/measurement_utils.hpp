@@ -16,8 +16,8 @@ inline double YardToMiles(double yd) { return yd * 1760; }
 
 /// Takes into an account user settings [metric, imperial]
 /// @param[in] m meters
-/// @param[out] drawDir should be direction arrow drawed? false if distance is < 1.0
-/// @return formatted string for search
-string FormatDistance(double m, bool & drawDir);
+/// @param[out] res formatted string for search
+/// @return should be direction arrow drawed? false if distance is to small (< 1.0)
+bool FormatDistance(double m, string & res);
 
 }

@@ -6,24 +6,25 @@
 namespace MeasurementUtils
 {
 
-string FormatDistanceImpl(double m, bool & drawDir,
+bool FormatDistanceImpl(double m, string & res,
                           char const * high, char const * low, double highF, double lowF)
 {
   double const lowV = m / lowF;
-  drawDir = true;
   if (lowV < 1.0)
   {
-    drawDir = false;
-    return string("0") + low;
+    res = string("0") + low;
+    return false;
   }
 
   if (m >= highF)
-    return strings::to_string(m / highF) + high;
+    res = strings::to_string(m / highF) + high;
   else
-    return strings::to_string(lowV) + low;
+    res = strings::to_string(lowV) + low;
+
+  return true;
 }
 
-string FormatDistance(double m, bool & drawDir)
+bool FormatDistance(double m, string & res)
 {
   using namespace Settings;
   Units u = Metric;
@@ -31,9 +32,9 @@ string FormatDistance(double m, bool & drawDir)
 
   switch (u)
   {
-  case Yard: return FormatDistanceImpl(m, drawDir, " mi", " yd", 1609.344, 0.9144);
-  case Foot: return FormatDistanceImpl(m, drawDir, " mi", " ft", 1609.344, 0.3048);
-  default: return FormatDistanceImpl(m, drawDir, " km", " m", 1000.0, 1.0);
+  case Yard: return FormatDistanceImpl(m, res, " mi", " yd", 1609.344, 0.9144);
+  case Foot: return FormatDistanceImpl(m, res, " mi", " ft", 1609.344, 0.3048);
+  default: return FormatDistanceImpl(m, res, " km", " m", 1000.0, 1.0);
   }
 }
 
