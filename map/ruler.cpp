@@ -7,68 +7,73 @@
 #include "../yg/skin.hpp"
 
 #include "../indexer/mercator.hpp"
+
 #include "../base/logging.hpp"
 #include "../base/string_utils.hpp"
+#include "../base/macros.hpp"
 
-void Ruler::initFeets()
+
+namespace
 {
-  m_units.clear();
-  m_units.push_back(make_pair(string("100 ft"), 100));
-  m_units.push_back(make_pair(string("200 ft"), 200));
-  m_units.push_back(make_pair(string("0.1 mi"), 528));
-  m_units.push_back(make_pair(string("0.2 mi"), 528 * 2));
-  m_units.push_back(make_pair(string("0.5 mi"), 528 * 5));
-  m_units.push_back(make_pair(string("1 mi"), 5280));
-  m_units.push_back(make_pair(string("2 mi"), 2 * 5280));
-  m_units.push_back(make_pair(string("5 mi"), 5 * 5280));
-  m_units.push_back(make_pair(string("10 mi"), 10 * 5280));
-  m_units.push_back(make_pair(string("20 mi"), 20 * 5280));
-  m_units.push_back(make_pair(string("50 mi"), 50 * 5280));
-  m_units.push_back(make_pair(string("100 mi"), 100 * 5280));
-  m_units.push_back(make_pair(string("200 mi"), 200 * 5280));
-  m_units.push_back(make_pair(string("500 mi"), 500 * 5280));
-}
 
-void Ruler::initYards()
+struct UnitValue
 {
-  m_units.clear();
-  m_units.push_back(make_pair(string("50 yd"), 50));
-  m_units.push_back(make_pair(string("100 yd"), 100));
-  m_units.push_back(make_pair(string("200 yd"), 200));
-  m_units.push_back(make_pair(string("500 yd"), 500));
-  m_units.push_back(make_pair(string("0.5 mi"), 0.5 * 1760));
-  m_units.push_back(make_pair(string("1 mi"), 1760));
-  m_units.push_back(make_pair(string("2 mi"), 2 * 1760));
-  m_units.push_back(make_pair(string("5 mi"), 5 * 1760));
-  m_units.push_back(make_pair(string("10 mi"), 10 * 1760));
-  m_units.push_back(make_pair(string("20 mi"), 20 * 1760));
-  m_units.push_back(make_pair(string("50 mi"), 50 * 1760));
-  m_units.push_back(make_pair(string("100 mi"), 100 * 1760));
-  m_units.push_back(make_pair(string("200 mi"), 200 * 1760));
-  m_units.push_back(make_pair(string("500 mi"), 500 * 1760));
-}
+  char const * m_s;
+  int m_i;
+};
 
-void Ruler::initMetres()
-{
-  m_units.clear();
-  m_units.push_back(make_pair(string("20 m"), 20));
-  m_units.push_back(make_pair(string("50 m"), 50));
-  m_units.push_back(make_pair(string("100 m"), 100));
-  m_units.push_back(make_pair(string("200 m"), 200));
-  m_units.push_back(make_pair(string("500 m"), 500));
-  m_units.push_back(make_pair(string("1 km"), 1000));
-  m_units.push_back(make_pair(string("2 km"), 2000));
-  m_units.push_back(make_pair(string("5 km"), 5000));
-  m_units.push_back(make_pair(string("10 km"), 10000));
-  m_units.push_back(make_pair(string("20 km"), 20000));
-  m_units.push_back(make_pair(string("50 km"), 50000));
-  m_units.push_back(make_pair(string("100 km"), 100000));
-  m_units.push_back(make_pair(string("200 km"), 200000));
-  m_units.push_back(make_pair(string("500 km"), 500000));
-  m_units.push_back(make_pair(string("1000 km"), 1000000));
-}
+UnitValue g_arrFeets[] = {
+  { "100 ft", 100 },
+  { "200 ft", 200 },
+  { "0.1 mi", 528 },
+  { "0.2 mi", 528 * 2 },
+  { "0.5 mi", 528 * 5 },
+  { "1 mi", 5280 },
+  { "2 mi", 2 * 5280 },
+  { "5 mi", 5 * 5280 },
+  { "10 mi", 10 * 5280 },
+  { "20 mi", 20 * 5280 },
+  { "50 mi", 50 * 5280 },
+  { "100 mi", 100 * 5280 },
+  { "200 mi", 200 * 5280 },
+  { "500 mi", 500 * 5280 }
+};
 
-namespace {
+UnitValue g_arrYards[] = {
+  { "50 yd", 50 },
+  { "100 yd", 100 },
+  { "200 yd", 200 },
+  { "500 yd", 500 },
+  { "0.5 mi", 0.5 * 1760 },
+  { "1 mi", 1760 },
+  { "2 mi", 2 * 1760 },
+  { "5 mi", 5 * 1760 },
+  { "10 mi", 10 * 1760 },
+  { "20 mi", 20 * 1760 },
+  { "50 mi", 50 * 1760 },
+  { "100 mi", 100 * 1760 },
+  { "200 mi", 200 * 1760 },
+  { "500 mi", 500 * 1760 }
+};
+
+UnitValue g_arrMetres[] = {
+  { "20 m", 20 },
+  { "50 m", 50 },
+  { "100 m", 100 },
+  { "200 m", 200 },
+  { "500 m", 500 },
+  { "1 km", 1000 },
+  { "2 km", 2000 },
+  { "5 km", 5000 },
+  { "10 km", 10000 },
+  { "20 km", 20000 },
+  { "50 km", 50000 },
+  { "100 km", 100000 },
+  { "200 km", 200000 },
+  { "500 km", 500000 },
+  { "1000 km", 1000000 }
+};
+
   double identity(double val)
   {
     return val;
@@ -77,31 +82,26 @@ namespace {
 
 void Ruler::setup()
 {
-  Settings::Units units;
-  units = Settings::Metric;
-
+  Settings::Units units = Settings::Metric;
   Settings::Get("Units", units);
 
   switch (units)
   {
-    case Settings::Foot:
-    {
-      initFeets();
-      m_conversionFn = &MeasurementUtils::MetersToFeet;
-      break;
-    }
-    case Settings::Metric:
-    {
-      initMetres();
-      m_conversionFn = &identity;
-      break;
-    }
-    case Settings::Yard:
-    {
-      initYards();
-      m_conversionFn = &MeasurementUtils::MetersToYards;
-      break;
-    }
+  default:
+    ASSERT_EQUAL ( units, Settings::Metric, () );
+    m_currSystem = 0;
+    m_conversionFn = &identity;
+    break;
+
+  case Settings::Foot:
+    m_currSystem = 1;
+    m_conversionFn = &MeasurementUtils::MetersToFeet;
+    break;
+
+  case Settings::Yard:
+    m_currSystem = 2;
+    m_conversionFn = &MeasurementUtils::MetersToYards;
+    break;
   }
 
   m_isInitialized = true;
@@ -109,10 +109,56 @@ void Ruler::setup()
     update();
 }
 
-Ruler::Ruler(Params const & p)
-  : base_t(p), m_boundRects(1), m_isInitialized(false), m_hasPendingUpdate(false)
+void Ruler::CalcMetresDiff(double v)
 {
+  UnitValue * arrU;
+  int count;
 
+  switch (m_currSystem)
+  {
+  default:
+    ASSERT_EQUAL ( m_currSystem, 0, () );
+    arrU = g_arrMetres;
+    count = ARRAY_SIZE(g_arrMetres);
+    break;
+
+  case 1:
+    arrU = g_arrFeets;
+    count = ARRAY_SIZE(g_arrFeets);
+    break;
+
+  case 2:
+    arrU = g_arrYards;
+    count = ARRAY_SIZE(g_arrYards);
+    break;
+  }
+
+  if (arrU[0].m_i > v)
+  {
+    m_scalerText = string("<") + arrU[0].m_s;
+    m_metresDiff = m_minUnitsWidth - 1;
+  }
+  else if (arrU[count-1].m_i <= v)
+  {
+    m_scalerText = string(">") + arrU[count-1].m_s;
+    m_metresDiff = m_maxUnitsWidth + 1;
+  }
+  else
+    for (int i = 0; i < count; ++i)
+    {
+      if (arrU[i].m_i > v)
+      {
+        m_metresDiff = arrU[i].m_i / m_conversionFn(1);
+        m_scalerText = arrU[i].m_s;
+        break;
+      }
+    }
+}
+
+
+Ruler::Ruler(Params const & p)
+  : base_t(p), m_boundRects(1), m_isInitialized(false), m_hasPendingUpdate(false), m_currSystem(0)
+{
 }
 
 void Ruler::setScreen(ScreenBase const & screen)
@@ -169,30 +215,7 @@ void Ruler::update()
     double lonDiff = fabs(MercatorBounds::XToLon(pt0.x) - MercatorBounds::XToLon(pt1.x));
 
     /// converting into metres
-    /// TODO : calculate in different units
-
-    m_metresDiff = lonDiff / MercatorBounds::degreeInMetres * lonDiffCorrection;
-
-    if (m_units[0].second > m_conversionFn(m_metresDiff))
-    {
-      m_scalerText = "<" + m_units[0].first;
-      m_metresDiff = m_minUnitsWidth - 1;
-    }
-    else if (m_units.back().second <= m_conversionFn(m_metresDiff))
-    {
-      m_scalerText = ">" + m_units.back().first;
-      m_metresDiff = m_maxUnitsWidth + 1;
-    }
-    else
-      for (size_t i = 0; i < m_units.size(); ++i)
-      {
-        if (m_units[i].second > m_conversionFn(m_metresDiff))
-        {
-          m_metresDiff = m_units[i].second / m_conversionFn(1);
-          m_scalerText = m_units[i].first;
-          break;
-        }
-      }
+    CalcMetresDiff(m_conversionFn(lonDiff / MercatorBounds::degreeInMetres * lonDiffCorrection));
 
     bool higherThanMax = m_metresDiff > m_maxUnitsWidth;
     bool lessThanMin = m_metresDiff < m_minUnitsWidth;

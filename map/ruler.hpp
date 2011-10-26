@@ -37,25 +37,20 @@ private:
 
   m2::RectD m_boundRect;
 
-  unsigned ceil(double unitsDiff);
-
   typedef OverlayElement base_t;
 
   mutable vector<m2::AnyRectD> m_boundRects;
 
   typedef double (*ConversionFn)(double);
-  vector<pair<string, double> > m_units;
   ConversionFn m_conversionFn;
+
+  int m_currSystem;
+  void CalcMetresDiff(double v);
 
   bool m_isInitialized;
   bool m_hasPendingUpdate;
 
-  void initYards();
-  void initMetres();
-  void initFeets();
-
 public:
-
   void update(); //< update internal params after some other params changed.
 
   struct Params : public base_t::Params
