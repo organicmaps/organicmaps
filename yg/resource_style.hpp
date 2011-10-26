@@ -1,18 +1,26 @@
 #pragma once
 
-#include "../geometry/rect2d.hpp"
 #include "pen_info.hpp"
+#include "circle_info.hpp"
+
+#include "../geometry/rect2d.hpp"
+
+#include "../std/shared_ptr.hpp"
 
 namespace yg
 {
+  struct GlyphInfo;
+
   struct ResourceStyle
   {
     enum Category
     {
-        ELineStyle = 1,
-        ECharStyle,
+        EColorStyle = 1,
+        ELineStyle,
+        EGlyphStyle,
         EPointStyle,
-        EGenericStyle
+        ECircleStyle,
+        EUnknownStyle
     };
 
     Category m_cat;
@@ -21,6 +29,9 @@ namespace yg
 
     ResourceStyle();
     ResourceStyle(m2::RectU const & texRect, int pipelineID);
+
+    virtual ~ResourceStyle();
+    virtual void render(void * dst) = 0;
 
   protected:
     ResourceStyle(Category cat, m2::RectU const & texRect, int pipelineID);
@@ -43,25 +54,38 @@ namespace yg
     double rawTileLen() const;
     double rawTileWidth() const;
 
+    void render(void * dst);
   };
 
-  struct CharStyle : public ResourceStyle
+  struct GlyphStyle : public ResourceStyle
   {
-    int8_t m_xOffset;
-    int8_t m_yOffset;
-    int8_t m_xAdvance;
+    shared_ptr<GlyphInfo> m_gi;
+    GlyphStyle(m2::RectU const & texRect, int pipelineID, shared_ptr<GlyphInfo> const & gi);
 
-    CharStyle(m2::RectU const & texRect, int pipelineID, int8_t xOffset, int8_t yOffset, int8_t xAdvance);
+    void render(void * dst);
   };
 
   struct PointStyle : public ResourceStyle
   {
     string m_styleName;
     PointStyle(m2::RectU const & texRect, int pipelineID, string const & styleName);
+
+    void render(void * dst);
   };
 
-  struct GenericStyle : public ResourceStyle
+  struct CircleStyle : public ResourceStyle
   {
-    GenericStyle(m2::RectU const & texRect, int pipelineID);
+    yg::CircleInfo m_ci;
+    CircleStyle(m2::RectU const & texRect, int pipelineID, yg::CircleInfo const & ci);
+
+    void render(void * dst);
+  };
+
+  struct ColorStyle : public ResourceStyle
+  {
+    yg::Color m_c;
+    ColorStyle(m2::RectU const & texRect, int pipelineID, yg::Color const & c);
+
+    void render(void * dst);
   };
 }

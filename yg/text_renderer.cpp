@@ -28,10 +28,10 @@ namespace yg
     {}
 
 
-    void TextRenderer::drawGlyph(m2::PointD const & ptOrg, m2::PointD const & ptGlyph, ang::AngleD const & angle, float /*blOffset*/, CharStyle const * p, double depth)
+    void TextRenderer::drawGlyph(m2::PointD const & ptOrg, m2::PointD const & ptGlyph, ang::AngleD const & angle, float /*blOffset*/, GlyphStyle const * p, double depth)
     {
-      float x0 = ptGlyph.x + (p->m_xOffset - 1);
-      float y1 = ptGlyph.y - (p->m_yOffset - 1);
+      float x0 = ptGlyph.x + (p->m_gi->m_metrics.m_xOffset - 1);
+      float y1 = ptGlyph.y - (p->m_gi->m_metrics.m_yOffset - 1);
       float y0 = y1 - (p->m_texRect.SizeY() - 2);
       float x1 = x0 + (p->m_texRect.SizeX() - 2);
 

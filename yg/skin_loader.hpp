@@ -39,7 +39,7 @@ namespace yg
   class ResourceManager;
   class SkinPage;
   struct ResourceStyle;
-  struct CharStyle;
+  struct GlyphStyle;
 
   class SkinLoader
   {
@@ -53,11 +53,7 @@ namespace yg
       EFontStyle,
       EPointStyle,
       ELineStyle,
-      EResourceStyle,
-      ECharStyle,
-      EGlyphInfo,
-      EGlyphMaskInfo,
-      EFontInfo
+      EResourceStyle
     };
 
     list<EMode> m_mode;
@@ -70,23 +66,13 @@ namespace yg
     uint32_t m_texHeight;
     m2::RectU m_texRect;
 
-/// fontInfo-specific parameters
-    typedef map<int32_t, pair<shared_ptr<CharStyle>, shared_ptr<CharStyle> > > TChars;
-    TChars m_chars;
-    typedef map<int8_t, TChars> TFonts;
-    TFonts m_fonts;
-    int8_t m_fontSize;
-
-/// charStyle-specific parameters
-
-
 /// glyphInfo and glyphMaskInfo specific parameters
     int8_t m_xOffset;
     int8_t m_yOffset;
     int8_t m_xAdvance;
 
-    shared_ptr<CharStyle> m_glyphInfo;
-    shared_ptr<CharStyle> m_glyphMaskInfo;
+    shared_ptr<GlyphStyle> m_glyphInfo;
+    shared_ptr<GlyphStyle> m_glyphMaskInfo;
 
 /// pointStyle-specific parameters
     string m_styleID;
@@ -118,10 +104,6 @@ namespace yg
     void AddAttr(string const & attribute, string const & value);
     void CharData(string const &) {}
 
-    void popCharStyle();
-    void popGlyphInfo();
-    void popGlyphMaskInfo();
-    void popFontInfo();
     void popPointStyle();
     void popSkin();
     void pushPage();
@@ -129,9 +111,7 @@ namespace yg
 
     void pushResourceStyle();
     void popResourceStyle();
-    void pushFontInfo();
 
     Skin * skin();
-
   };
 }

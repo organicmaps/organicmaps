@@ -35,32 +35,6 @@ namespace yg
     m_texRect = m2::RectU(m_texX, m_texY, m_texX + m_texWidth, m_texY + m_texHeight);
   }
 
-  void SkinLoader::popCharStyle()
-  {
-    m_chars[m_id] = make_pair(m_glyphInfo, m_glyphMaskInfo);
-  }
-
-  void SkinLoader::popGlyphInfo()
-  {
-    m_glyphInfo = shared_ptr<CharStyle>(new CharStyle(m_texRect, m_pages.size(), m_xOffset, m_yOffset, m_xAdvance));
-  }
-
-  void SkinLoader::popGlyphMaskInfo()
-  {
-    m_glyphMaskInfo = shared_ptr<CharStyle>(new CharStyle(m_texRect, m_pages.size(), m_xOffset, m_yOffset, m_xAdvance));
-  }
-
-  void SkinLoader::pushFontInfo()
-  {
-    m_chars.clear();
-    m_fontSize = 0;
-  }
-
-  void SkinLoader::popFontInfo()
-  {
-    m_fonts[m_fontSize] = m_chars;
-  }
-
   void SkinLoader::popPointStyle()
   {
     uint32_t id = m_id;
@@ -91,16 +65,6 @@ namespace yg
         m_stylesList.erase(prevIt);
       prevIt = it;
     }
-
-    for (TFonts::const_iterator it = m_fonts.begin(); it != m_fonts.end(); ++it)
-    {
-      FontInfo fontInfo;
-      fontInfo.m_fontSize = it->first;
-      fontInfo.m_chars = it->second;
-      m_pages.back()->m_fonts.push_back(fontInfo);
-    }
-
-    m_fonts.clear();
   }
 
   void SkinLoader::popSkin()
@@ -135,10 +99,6 @@ namespace yg
   {
     PUSH_MODE(ESkin, "skin");
     PUSH_MODE_EX(EPage, "page", pushPage);
-    PUSH_MODE(ECharStyle, "charStyle");
-    PUSH_MODE(EGlyphInfo, "glyphInfo");
-    PUSH_MODE(EGlyphMaskInfo, "glyphMaskInfo");
-    PUSH_MODE_EX(EFontInfo, "fontInfo", pushFontInfo);
     PUSH_MODE(EPointStyle, "symbolStyle");
     PUSH_MODE(ELineStyle, "lineStyle");
     PUSH_MODE_EX(EResourceStyle, "resourceStyle", pushResourceStyle);
@@ -149,10 +109,6 @@ namespace yg
   {
     POP_MODE_EX(ESkin, "skin", popSkin);
     POP_MODE_EX(EPage, "page", popPage);
-    POP_MODE_EX(ECharStyle, "charStyle", popCharStyle);
-    POP_MODE_EX(EGlyphInfo, "glyphInfo", popGlyphInfo);
-    POP_MODE_EX(EGlyphMaskInfo, "glyphMaskInfo", popGlyphMaskInfo);
-    POP_MODE_EX(EFontInfo, "fontInfo", popFontInfo);
     POP_MODE_EX(EPointStyle, "symbolStyle", popPointStyle);
     POP_MODE(ELineStyle, "lineStyle");
     POP_MODE_EX(EResourceStyle, "resourceStyle", popResourceStyle);
@@ -174,21 +130,6 @@ namespace yg
     case EPage:
       if (attr == "file")
         m_fileName = value;
-      break;
-    case ECharStyle:
-      if (attr == "id")
-        m_id = StrToInt(value);
-    case EGlyphInfo: case EGlyphMaskInfo:
-      if (attr == "xOffset")
-        m_xOffset = StrToInt(value);
-      else if (attr == "yOffset")
-        m_yOffset = StrToInt(value);
-      else if (attr == "xAdvance")
-        m_xAdvance = StrToInt(value);
-      break;
-    case EFontInfo:
-      if (attr == "size")
-        m_fontSize = StrToInt(value);
       break;
     case EPointStyle:
       if (attr == "id")

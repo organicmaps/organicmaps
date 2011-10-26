@@ -34,4 +34,10 @@ namespace yg
       return l.m_outlineWidth < r.m_outlineWidth;
     return l.m_outlineColor < r.m_outlineColor;
   }
+
+  m2::PointU const CircleInfo::patternSize() const
+  {
+    unsigned r = m_isOutlined ? m_radius + m_outlineWidth : m_radius;
+    return m2::PointU(r * 2 + 4, r * 2 + 4);
+  }
 }

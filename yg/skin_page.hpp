@@ -17,47 +17,15 @@ namespace yg
     class BaseTexture;
   }
 
-  struct CharStyle;
+  struct GlyphStyle;
   struct ResourceStyle;
   class ResourceManager;
   struct GlyphInfo;
 
-  struct GlyphUploadCmd
-  {
-    shared_ptr<GlyphInfo> m_glyphInfo;
-    m2::RectU m_rect;
-    GlyphUploadCmd(shared_ptr<GlyphInfo> const & glyphInfo, m2::RectU const & rect);
-    GlyphUploadCmd();
-  };
-
-  struct ColorUploadCmd
-  {
-    yg::Color m_color;
-    m2::RectU m_rect;
-    ColorUploadCmd(yg::Color const & color, m2::RectU const & rect);
-    ColorUploadCmd();
-  };
-
-  struct PenUploadCmd
-  {
-    yg::PenInfo m_penInfo;
-    m2::RectU m_rect;
-    PenUploadCmd(yg::PenInfo const & penInfo, m2::RectU const & rect);
-    PenUploadCmd();
-  };
-
-  struct CircleUploadCmd
-  {
-    yg::CircleInfo m_circleInfo;
-    m2::RectU m_rect;
-    CircleUploadCmd(yg::CircleInfo const & circleInfo, m2::RectU const & rect);
-    CircleUploadCmd();
-  };
-
   struct FontInfo
   {
     int8_t m_fontSize;
-    typedef map<int32_t, pair<shared_ptr<CharStyle>, shared_ptr<CharStyle> > > TChars;
+    typedef map<int32_t, pair<shared_ptr<GlyphStyle>, shared_ptr<GlyphStyle> > > TChars;
     TChars m_chars;
 
     mutable pair<ResourceStyle *, ResourceStyle *> m_invalidChar;
@@ -106,17 +74,9 @@ namespace yg
     mutable shared_ptr<ResourceManager> m_resourceManager;
     /// @}
 
-    vector<ColorUploadCmd> m_colorUploadCommands;
-    vector<PenUploadCmd> m_penUploadCommands;
-    vector<GlyphUploadCmd> m_glyphUploadCommands;
-    vector<CircleUploadCmd> m_circleUploadCommands;
+    vector<shared_ptr<ResourceStyle> > m_uploadQueue;
 
-    void uploadPenInfo();
-    void uploadColors();
-    void uploadGlyphs();
-    void uploadCircleInfo();
-
-    void clearUploadCommands();
+    void clearUploadQueue();
 
     typedef vector<FontInfo> TFonts;
     TFonts m_fonts;

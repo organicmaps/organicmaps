@@ -5,6 +5,7 @@
 #include "straight_text_element.hpp"
 #include "path_text_element.hpp"
 #include "symbol_element.hpp"
+#include "circle_element.hpp"
 #include "render_state.hpp"
 #include "info_layer.hpp"
 #include "resource_manager.hpp"
@@ -75,23 +76,25 @@ namespace yg
     }
 
     void OverlayRenderer::drawCircle(m2::PointD const & pt,
-                                     uint32_t styleID,
+                                     yg::CircleInfo const & ci,
                                      EPosition pos,
                                      int depth)
     {
-      SymbolElement::Params params;
+      CircleElement::Params params;
 
       params.m_depth = depth;
       params.m_position = pos;
       params.m_pivot = pt;
-      params.m_styleID = styleID;
-      params.m_skin = skin().get();
+      params.m_ci = ci;
 
-      SymbolElement se(params);
+      shared_ptr<OverlayElement> oe(new CircleElement(params));
 
       math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
 
-      se.draw(this, id);
+      if (!m_infoLayer.get())
+        oe->draw(this, id);
+      else
+        m_infoLayer->processOverlayElement(oe);
     }
 
     void OverlayRenderer::drawText(FontDesc const & fontDesc,

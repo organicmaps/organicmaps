@@ -1,4 +1,3 @@
-#include "../base/SRC_FIRST.hpp"
 #include "../base/logging.hpp"
 
 #include "symbol_element.hpp"

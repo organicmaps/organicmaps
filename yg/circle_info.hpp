@@ -2,6 +2,8 @@
 
 #include "color.hpp"
 
+#include "../geometry/point2d.hpp"
+
 namespace yg
 {
   struct CircleInfo
@@ -19,6 +21,8 @@ namespace yg
         bool isOutlined = false,
         double outlineWidth = 1,
         Color const & outlineColor = Color(255, 255, 255, 255));
+
+    m2::PointU const patternSize() const;
   };
 
   bool operator< (CircleInfo const & l, CircleInfo const & r);

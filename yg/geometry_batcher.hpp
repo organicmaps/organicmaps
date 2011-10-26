@@ -26,7 +26,6 @@ namespace threads
 namespace yg
 {
   class Skin;
-  struct CharStyle;
 
   namespace gl
   {

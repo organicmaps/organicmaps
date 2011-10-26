@@ -75,7 +75,7 @@ namespace yg
                         fontDesc.m_isMasked,
                         fontDesc.m_isMasked ? fontDesc.m_maskColor : fontDesc.m_color);
       uint32_t const glyphID = skin->mapGlyph(glyphKey, screen->glyphCache());
-      CharStyle const * charStyle = static_cast<CharStyle const *>(skin->fromID(glyphID));
+      GlyphStyle const * glyphStyle = static_cast<GlyphStyle const *>(skin->fromID(glyphID));
 
       m2::PointD glyphPt;
       ang::AngleD glyphAngle;
@@ -91,7 +91,7 @@ namespace yg
         glyphAngle = ang::AngleD(elem.m_angle.val() + deltaA);
       }
 
-      screen->drawGlyph(glyphPt, m2::PointD(0.0, 0.0), glyphAngle, 0, charStyle, depth);
+      screen->drawGlyph(glyphPt, m2::PointD(0.0, 0.0), glyphAngle, 0, glyphStyle, depth);
     }
   }
 

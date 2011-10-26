@@ -102,30 +102,17 @@ void DrawerYG::drawSymbol(m2::PointD const & pt, string const & symbolName, yg::
 
 void DrawerYG::drawCircle(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth)
 {
-  uint32_t id = pRule->GetID(m_threadID);
-  if (id == drule::BaseRule::empty_id)
-  {
-    double const radius = min(max(pRule->GetRadius() * m_scale, 3.0), 6.0) * m_visualScale;
-    unsigned char const alpha = pRule->GetAlpha();
-    int const lineC = pRule->GetColor();
+  double const radius = min(max(pRule->GetRadius() * m_scale, 3.0), 6.0) * m_visualScale;
+  unsigned char const alpha = pRule->GetAlpha();
+  int const lineC = pRule->GetColor();
 
-    id = m_pSkin->mapCircleInfo(yg::CircleInfo(
-                  radius,
-                  yg::Color::fromXRGB(pRule->GetFillColor(), alpha),
-                  lineC != -1,
-                  (lineC != -1) ? min(max(pRule->GetWidth() * m_scale * m_visualScale, 1.0), 3.0) : 1.0,
-                  yg::Color::fromXRGB(lineC, alpha)));
+  yg::CircleInfo ci(radius,
+                    yg::Color::fromXRGB(pRule->GetFillColor(), alpha),
+                    lineC != -1,
+                    (lineC != -1) ? min(max(pRule->GetWidth() * m_scale * m_visualScale, 1.0), 3.0) : 1.0,
+                    yg::Color::fromXRGB(lineC, alpha));
 
-    if (id != drule::BaseRule::empty_id)
-      pRule->SetID(m_threadID, id);
-    else
-    {
-      //ASSERT ( false, ("Can't find symbol by id = ", (name)) );
-      return;
-    }
-  }
-
-  m_pScreen->drawCircle(pt, id, pos, depth);
+  m_pScreen->drawCircle(pt, ci, pos, depth);
 }
 
 void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth)

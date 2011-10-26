@@ -36,7 +36,7 @@ namespace yg
       void drawSymbol(m2::PointD const & pt, string const & symbolName, EPosition pos, int depth);
 
       /// Drawing circle
-      void drawCircle(m2::PointD const & pt, uint32_t styleID, EPosition pos, int depth);
+      void drawCircle(m2::PointD const & pt, yg::CircleInfo const & ci, EPosition pos, int depth);
 
       /// drawing straight text
       void drawText(FontDesc const & fontDesc,

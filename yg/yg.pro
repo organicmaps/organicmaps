@@ -57,7 +57,11 @@ SOURCES += \
     composite_overlay_element.cpp \
     path_text_element.cpp \
     straight_text_element.cpp \
-    rendercontext.cpp
+    rendercontext.cpp \
+    line_style.cpp \
+    circle_style.cpp \
+    glyph_style.cpp \
+    circle_element.cpp
 
 HEADERS += \
     internal/opengl.hpp \
@@ -110,17 +114,11 @@ HEADERS += \
     styles_cache.hpp \
     composite_overlay_element.hpp \
     path_text_element.hpp \
-    straight_text_element.hpp
+    straight_text_element.hpp \
+    agg_traits.hpp \
+    circle_element.hpp
 
 win32 {
   HEADERS += internal/opengl_win32.hpp
   SOURCES += internal/opengl_win32.cpp
 }
-
-
-
-
-
-
-
-

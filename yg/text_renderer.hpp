@@ -38,7 +38,7 @@ namespace yg
                      m2::PointD const & ptGlyph,
                      ang::AngleD const & angle,
                      float blOffset,
-                     CharStyle const * p,
+                     GlyphStyle const * p,
                      double depth);
 
 
