@@ -104,6 +104,7 @@ namespace qt
     bool LoadState();
 
     void UpdateNow();
+    void UpdateAfterSettingsChanged();
 
     void PrepareShutdown();
 

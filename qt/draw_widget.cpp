@@ -58,8 +58,10 @@ namespace qt
       m_pScale(0)
   {
     m_framework->InitStorage(storage);
+
     m_timer = new QTimer(this);
     m_handle->setUpdatesEnabled(false);
+
 #ifdef OMIM_OS_MAC
     m_videoTimer.reset(CreateAppleVideoTimer(bind(&DrawWidget::DrawFrame, this)));
 #else
@@ -87,6 +89,11 @@ namespace qt
   void DrawWidget::UpdateNow()
   {
     m_framework->Invalidate();
+  }
+
+  void DrawWidget::UpdateAfterSettingsChanged()
+  {
+    m_framework->SetupMeasurementSystem();
   }
 
   bool DrawWidget::LoadState()

@@ -119,6 +119,8 @@ MainWindow::MainWindow()
       ShowUpdateDialog();
   }
 #endif // NO_DOWNLOADER
+
+  m_pDrawWidget->UpdateAfterSettingsChanged();
 }
 
 #if defined(Q_WS_WIN)
@@ -358,6 +360,8 @@ void MainWindow::OnPreferences()
 {
   PreferencesDialog dlg(this);
   dlg.exec();
+
+  m_pDrawWidget->UpdateAfterSettingsChanged();
 }
 
 #ifndef NO_DOWNLOADER
