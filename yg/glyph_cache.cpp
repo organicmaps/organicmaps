@@ -45,10 +45,20 @@ namespace yg
   }
 
   GlyphInfo::GlyphInfo()
-  {}
+  {
+  }
 
   GlyphInfo::~GlyphInfo()
-  {}
+  {
+  }
+
+  struct RawGlyphInfo : public GlyphInfo
+  {
+    ~RawGlyphInfo()
+    {
+      delete m_bitmapData;
+    }
+  };
 
   struct FTGlyphInfo : public GlyphInfo
   {
@@ -225,7 +235,7 @@ namespace yg
       FTCHECK(FT_Glyph_Stroke(&glyph, m_impl->m_stroker, 0));
       FTCHECK(FT_Glyph_To_Bitmap(&glyph, FT_RENDER_MODE_NORMAL, 0, 1));
 
-      info = new FTStrokedGlyphInfo(glyph);
+//      info = new FTStrokedGlyphInfo(glyph);
     }
     else
     {
@@ -238,8 +248,10 @@ namespace yg
           &node
           ));
 
-      info = new FTGlyphInfo(node, m_impl->m_manager);
+//      info = new FTGlyphInfo(node, m_impl->m_manager);
     }
+
+    info = new RawGlyphInfo();
 
     FT_BitmapGlyph bitmapGlyph = (FT_BitmapGlyph)glyph;
 
@@ -256,30 +268,17 @@ namespace yg
 
     if ((info->m_metrics.m_width != 0) && (info->m_metrics.m_height != 0))
     {
-      info->m_bitmapData = bitmapGlyph->bitmap.buffer;
+//      info->m_bitmapData = bitmapGlyph->bitmap.buffer;
+//      info->m_bitmapPitch = bitmapGlyph->bitmap.pitch;
+
       info->m_bitmapPitch = bitmapGlyph->bitmap.pitch;
+      info->m_bitmapData = new unsigned char[info->m_bitmapPitch * info->m_metrics.m_height];
 
-/*      gil::gray8c_view_t srcView = gil::interleaved_view(
-          info->m_metrics.m_width,
-          info->m_metrics.m_height,
-          (gil::gray8_pixel_t*)bitmapGlyph->bitmap.buffer,
-          bitmapGlyph->bitmap.pitch
-          );
-
-      DATA_TRAITS::pixel_t c;
-
-      gil::get_color(c, gil::red_t()) = key.m_color.r / DATA_TRAITS::channelScaleFactor;
-      gil::get_color(c, gil::green_t()) = key.m_color.g / DATA_TRAITS::channelScaleFactor;
-      gil::get_color(c, gil::blue_t()) = key.m_color.b / DATA_TRAITS::channelScaleFactor;
-      gil::get_color(c, gil::alpha_t()) = key.m_color.a / DATA_TRAITS::channelScaleFactor;
-
-      for (size_t y = 0; y < static_cast<size_t>(srcView.height()); ++y)
-        for (size_t x = 0; x < static_cast<size_t>(srcView.width()); ++x)
-        {
-          gil::get_color(c, gil::alpha_t()) = srcView(x, y) / DATA_TRAITS::channelScaleFactor;
-          dstView(x, y) = c;
-        }*/
+      memcpy(info->m_bitmapData, bitmapGlyph->bitmap.buffer, info->m_bitmapPitch * info->m_metrics.m_height);
     }
+
+    if (key.m_isMask)
+      FT_Done_Glyph(glyph);
 
     return make_shared_ptr(info);
   }
