@@ -189,7 +189,7 @@ UNIT_TEST(to_uint64)
 
   s = "123456789101112";
   TEST(strings::to_uint64(s, i), ());
-  TEST_EQUAL(123456789101112UL, i, ());
+  TEST_EQUAL(123456789101112ULL, i, ());
 
   s = "labuda";
   TEST(!strings::to_uint64(s, i), ());
@@ -210,7 +210,7 @@ UNIT_TEST(to_int64)
 
   s = "12345678911212";
   TEST(strings::to_int64(s, i), ());
-  TEST_EQUAL(12345678911212L, i, ());
+  TEST_EQUAL(12345678911212LL, i, ());
 
   s = "labuda";
   TEST(!strings::to_int64(s, i), ());
