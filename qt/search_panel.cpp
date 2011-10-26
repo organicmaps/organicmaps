@@ -26,7 +26,7 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   connect(m_pEditor, SIGNAL(textChanged(QString const &)),
           this, SLOT(OnSearchTextChanged(QString const &)));
 
-  m_pTable = new QTableWidget(0, 4, this);
+  m_pTable = new QTableWidget(0, 5, this);
   m_pTable->setFocusPolicy(Qt::NoFocus);
   m_pTable->setAlternatingRowColors(true);
   m_pTable->setShowGrid(false);
@@ -130,6 +130,7 @@ void SearchPanel::OnSearchResult(ResultT * res, int queryId)
     m_pTable->insertRow(rowCount);
 
     m_pTable->setItem(rowCount, 1, create_item(QString::fromUtf8(res->GetString())));
+    m_pTable->setItem(rowCount, 2, create_item(QString::fromUtf8(res->GetRegionString())));
 
     if (res->GetResultType() == ResultT::RESULT_FEATURE)
     {
@@ -138,14 +139,14 @@ void SearchPanel::OnSearchResult(ResultT * res, int queryId)
 
       string strDist;
       bool const drawDir = MeasurementUtils::FormatDistance(res->GetDistanceFromCenter(), strDist);
-      m_pTable->setItem(rowCount, 2, create_item(strDist.c_str()));
+      m_pTable->setItem(rowCount, 3, create_item(strDist.c_str()));
 
       if (drawDir)
       {
         QTableWidgetItem * item =
             new QTableWidgetItem(draw_direction(res->GetDirectionFromCenter()), QString());
         item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-        m_pTable->setItem(rowCount, 3, item);
+        m_pTable->setItem(rowCount, 4, item);
       }
     }
 

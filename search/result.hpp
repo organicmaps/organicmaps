@@ -16,7 +16,8 @@ public:
     RESULT_SUGGESTION
   };
 
-  Result(string const & str, uint32_t featureType, m2::RectD const & featureRect,
+  Result(string const & str, string const & region,
+         uint32_t featureType, m2::RectD const & featureRect,
          double distanceFromCenter, double directionFromCenter);
   Result(string const & str, string const & suggestionStr);
 
@@ -25,6 +26,7 @@ public:
 
   // String that is displayed in the GUI.
   char const * GetString() const { return m_str.c_str(); }
+  char const * GetRegionString() const { return m_region.c_str(); }
 
   // Type of the result.
   ResultType GetResultType() const;
@@ -49,7 +51,7 @@ public:
   char const * GetSuggestionString() const;
 
 private:
-  string m_str;
+  string m_str, m_region;
   m2::RectD m_featureRect;
   uint32_t m_featureType;
   double m_distanceFromCenter;

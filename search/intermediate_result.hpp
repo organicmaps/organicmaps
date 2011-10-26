@@ -19,11 +19,12 @@ public:
 
   // For RESULT_FEATURE.
   IntermediateResult(m2::RectD const & viewportRect,
-                     FeatureType const & feature,
-                     string const & displayName);
+                     FeatureType const & f,
+                     string const & displayName, string const & regionName);
 
   // For RESULT_LATLON.
-  IntermediateResult(m2::RectD const & viewportRect, double lat, double lon, double precision);
+  IntermediateResult(m2::RectD const & viewportRect, string const & regionName,
+                     double lat, double lon, double precision);
 
   // For RESULT_CATEGORY.
   IntermediateResult(string const & name, string const & completionString, int penalty);
@@ -38,8 +39,7 @@ private:
   static double ResultDirection(m2::PointD const & viewportCenter,
                                 m2::PointD const & featureCenter);
 
-  string m_str;
-  string m_completionString;
+  string m_str, m_completionString, m_region;
   m2::RectD m_rect;
   uint32_t m_type;
   double m_distance;

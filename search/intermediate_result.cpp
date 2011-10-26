@@ -11,23 +11,26 @@ namespace impl
 {
 
 IntermediateResult::IntermediateResult(m2::RectD const & viewportRect,
-                                       FeatureType const & feature,
-                                       string const & displayName)
-  : m_str(displayName), m_rect(feature::GetFeatureViewport(feature)),
+                                       FeatureType const & f,
+                                       string const & displayName,
+                                       string const & regionName)
+  : m_str(displayName), m_region(regionName),
+    m_rect(feature::GetFeatureViewport(f)),
     m_resultType(RESULT_FEATURE)
 {
   FeatureType::GetTypesFn types;
-  feature.ForEachTypeRef(types);
+  f.ForEachTypeRef(types);
   ASSERT_GREATER(types.m_size, 0, ());
   m_type = types.m_types[0];
   m_distance = ResultDistance(viewportRect.Center(), m_rect.Center());
   m_direction = ResultDirection(viewportRect.Center(), m_rect.Center());
-  m_searchRank = feature::GetSearchRank(feature);
+  m_searchRank = feature::GetSearchRank(f);
 }
 
-IntermediateResult::IntermediateResult(m2::RectD const & viewportRect,
+IntermediateResult::IntermediateResult(m2::RectD const & viewportRect, string const & regionName,
                                        double lat, double lon, double precision)
   : m_str("(" + strings::to_string(lat) + ", " + strings::to_string(lon) + ")"),
+    m_region(regionName),
     m_rect(MercatorBounds::LonToX(lon - precision), MercatorBounds::LatToY(lat - precision),
            MercatorBounds::LonToX(lon + precision), MercatorBounds::LatToY(lat + precision)),
     m_type(0), m_resultType(RESULT_LATLON), m_searchRank(0)
@@ -60,10 +63,10 @@ Result IntermediateResult::GenerateFinalResult() const
   switch (m_resultType)
   {
   case RESULT_FEATURE:
-    return Result(m_str + ' ' + strings::to_string(static_cast<int>(m_searchRank)),
-                  m_type, m_rect, m_distance, m_direction);
+    return Result(m_str/* + ' ' + strings::to_string(static_cast<int>(m_searchRank))*/,
+                  m_region, m_type, m_rect, m_distance, m_direction);
   case RESULT_LATLON:
-    return Result(m_str, 0, m_rect, m_distance, m_direction);
+    return Result(m_str, m_region, 0, m_rect, m_distance, m_direction);
   case RESULT_CATEGORY:
     return Result(m_str, m_completionString);
   default:

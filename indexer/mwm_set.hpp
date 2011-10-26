@@ -48,6 +48,7 @@ public:
     ~MwmLock();
 
     inline MwmValueBase * GetValue() const { return m_pValue; }
+    string GetCountryName() const;
 
   private:
     MwmSet const & m_mwmSet;

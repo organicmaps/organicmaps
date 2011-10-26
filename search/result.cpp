@@ -6,9 +6,10 @@
 namespace search
 {
 
-Result::Result(string const & str, uint32_t featureType, m2::RectD const & featureRect,
+Result::Result(string const & str, string const & region,
+               uint32_t featureType, m2::RectD const & featureRect,
                double distanceFromCenter, double directionFromCenter)
-  : m_str(str), m_featureRect(featureRect), m_featureType(featureType),
+  : m_str(str), m_region(region), m_featureRect(featureRect), m_featureType(featureType),
     m_distanceFromCenter(distanceFromCenter), m_directionFromCenter(directionFromCenter)
 {
 }

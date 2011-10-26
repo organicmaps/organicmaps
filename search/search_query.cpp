@@ -141,8 +141,11 @@ void Query::Search(string const & query,
     double lat, lon, latPrec, lonPrec;
     if (search::MatchLatLon(m_rawQuery, lat, lon, latPrec, lonPrec))
     {
+      string const region = m_pInfoGetter->GetRegionName(m2::PointD(MercatorBounds::LonToX(lon),
+                                                                    MercatorBounds::LatToY(lat)));
       double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
-      AddResult(impl::IntermediateResult(m_viewport, lat, lon, precision));
+
+      AddResult(impl::IntermediateResult(m_viewport, region, lat, lon, precision));
     }
   }
 
@@ -171,8 +174,7 @@ void Query::AddFeatureResult(FeatureType const & f, string const & fName)
   uint32_t penalty;
   string name;
   GetBestMatchName(f, penalty, name);
-
-  AddResult(impl::IntermediateResult(m_viewport, f, name + ", " + GetRegionName(f, fName)));
+  AddResult(impl::IntermediateResult(m_viewport, f, name, GetRegionName(f, fName)));
 }
 
 namespace impl
@@ -278,7 +280,7 @@ void Query::SearchFeatures()
             feature::DataHeader const & h = pMwm->GetHeader();
             FeaturesVector featuresVector(pMwm->m_cont, h);
             impl::FeatureLoader f(featuresVector, *this,
-                                  (h.GetType() == feature::DataHeader::world) ? "" : pMwm->GetFileName());
+                      (h.GetType() == feature::DataHeader::world) ? "" : mwmLock.GetCountryName());
 
             vector<vector<strings::UniString> > tokens(m_tokens.size());
 
