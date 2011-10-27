@@ -163,3 +163,78 @@ UNIT_TEST(FileWriter_AppendAndOpenExisting)
   }
   FileWriter::DeleteFileX(fileName);
 }
+
+size_t const CHUNK_SIZE = 1024;
+size_t const CHUNKS_COUNT = 21;
+string const TEST_STRING = "Some Test String";
+
+void WriteTestData1(Writer & w)
+{
+  w.Seek(CHUNKS_COUNT * CHUNK_SIZE);
+  w.Write(TEST_STRING.data(), TEST_STRING.size());
+}
+
+void WriteTestData2(Writer & w)
+{
+  char c[CHUNK_SIZE];
+  for (size_t i = 1; i < CHUNKS_COUNT; i +=2)
+  {
+    for (size_t j = 0; j < ARRAY_SIZE(c); ++j)
+      c[j] = i;
+    w.Seek(i * CHUNK_SIZE);
+    w.Write(&c[0], ARRAY_SIZE(c));
+  }
+  for (size_t i = 0; i < CHUNKS_COUNT; i +=2)
+  {
+    for (size_t j = 0; j < ARRAY_SIZE(c); ++j)
+      c[j] = i;
+    w.Seek(i * CHUNK_SIZE);
+    w.Write(&c[0], ARRAY_SIZE(c));
+  }
+}
+
+void ReadTestData(Reader & r)
+{
+  string s;
+  r.ReadAsString(s);
+  for (size_t i = 0; i < CHUNKS_COUNT; ++i)
+    for (size_t j = 0; j < CHUNK_SIZE; ++j)
+      TEST_EQUAL(s[i * CHUNK_SIZE + j], static_cast<char>(i), (i, j));
+  string const sub = s.substr(CHUNKS_COUNT * CHUNK_SIZE);
+  TEST_EQUAL(sub, TEST_STRING, (sub, TEST_STRING));
+}
+
+UNIT_TEST(FileWriter_Chunks)
+{
+  string const TEST_FILE = "FileWriter_Chunks.test";
+  {
+    FileWriter fileWriter(TEST_FILE, FileWriter::OP_WRITE_TRUNCATE);
+    WriteTestData1(fileWriter);
+  }
+  {
+    FileWriter fileWriter(TEST_FILE, FileWriter::OP_WRITE_EXISTING);
+    WriteTestData2(fileWriter);
+  }
+  {
+    FileReader r(TEST_FILE);
+    ReadTestData(r);
+  }
+  FileWriter::DeleteFileX(TEST_FILE);
+}
+
+UNIT_TEST(MemWriter_Chunks)
+{
+  string buffer;
+  {
+    MemWriter<string> memWriter(buffer);
+    WriteTestData1(memWriter);
+  }
+  {
+    MemWriter<string> memWriter(buffer);
+    WriteTestData2(memWriter);
+  }
+  {
+    MemReader r(buffer.data(), buffer.size());
+    ReadTestData(r);
+  }
+}
