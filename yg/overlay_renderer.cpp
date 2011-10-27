@@ -42,7 +42,6 @@ namespace yg
       params.m_position = pos;
       params.m_pivot = pt;
       params.m_symbolName = symbolName;
-      params.m_styleID = 0;
       params.m_skin = skin().get();
 
       shared_ptr<OverlayElement> oe(new SymbolElement(params));

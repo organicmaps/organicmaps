@@ -12,10 +12,8 @@ namespace yg
   {
   private:
 
-    mutable uint32_t m_styleID;
-    mutable ResourceStyle const * m_style;
     string m_symbolName;
-    mutable m2::RectU m_symbolRect;
+    m2::RectU m_symbolRect;
 
     mutable vector<m2::AnyRectD> m_boundRects;
 
@@ -29,7 +27,6 @@ namespace yg
     {
       Skin * m_skin;
       string m_symbolName;
-      uint32_t m_styleID;
     };
 
     SymbolElement(Params const & p);

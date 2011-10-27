@@ -10,24 +10,23 @@ namespace yg
 {
   SymbolElement::SymbolElement(Params const & p)
     : base_t(p),
-      m_styleID(p.m_styleID),
-      m_symbolName(p.m_symbolName)
+      m_symbolName(p.m_symbolName),
+      m_symbolRect(0, 0, 0, 0)
   {
-    if (m_styleID == 0)
-      m_styleID = p.m_skin->mapSymbol(m_symbolName.c_str());
+    uint32_t styleID = p.m_skin->mapSymbol(m_symbolName.c_str());
+    ResourceStyle const * style = p.m_skin->fromID(styleID);
 
-    m_style = p.m_skin->fromID(m_styleID);
+    if (style == 0)
+    {
+      LOG(LINFO, ("POI ", m_symbolName, " wasn't found on the current skin"));
+      return;
+    }
 
-    if (m_style == 0)
-      LOG(LINFO, ("drawSymbolImpl: styleID=", m_styleID, " wasn't found on the current skin"));
-    else
-      m_symbolRect = m_style->m_texRect;
+    m_symbolRect = style->m_texRect;
   }
 
   SymbolElement::SymbolElement(SymbolElement const & se, math::Matrix<double, 3, 3> const & m)
     : base_t(se),
-      m_styleID(0),
-      m_style(0),
       m_symbolName(se.m_symbolName),
       m_symbolRect(se.m_symbolRect)
   {
@@ -60,17 +59,22 @@ namespace yg
     if (!isNeedRedraw())
       return;
 
-    if (m_styleID == 0)
+    uint32_t styleID = r->skin()->mapSymbol(m_symbolName.c_str());
+    ResourceStyle const * style = r->skin()->fromID(styleID);
+
+    if (style == 0)
     {
-      m_styleID = r->skin()->mapSymbol(m_symbolName.c_str());
-      m_style = r->skin()->fromID(m_styleID);
-      m_symbolRect = m_style->m_texRect;
+      LOG(LINFO, ("POI(", m_symbolName, ") wasn't found on the current skin"));
+      return;
     }
 
-    if (m_style == 0)
+    if (style->m_texRect != m_symbolRect)
+    {
+      LOG(LINFO, ("POI(", m_symbolName, ") rects do not match."));
       return;
+    }
 
-    m2::RectI texRect(m_symbolRect);
+    m2::RectI texRect(style->m_texRect);
     texRect.Inflate(-1, -1);
 
     m2::PointD posPt = tieRect(m2::RectD(texRect), m);
@@ -79,12 +83,7 @@ namespace yg
                           texRect.minX(), texRect.minY(), texRect.maxX(), texRect.maxY(),
                           posPt.x, posPt.y, posPt.x + texRect.SizeX(), posPt.y + texRect.SizeY(),
                           yg::maxDepth,
-                          m_style->m_pipelineID);
-  }
-
-  uint32_t SymbolElement::styleID() const
-  {
-    return m_styleID;
+                          style->m_pipelineID);
   }
 
   void SymbolElement::map(StylesCache * stylesCache) const
