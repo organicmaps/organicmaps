@@ -60,7 +60,7 @@ static bool NeedToGenerateUrl(string const & url)
 		long long fileSize = ftello(m_file);
 		if (fileSize > 0)
 		{
-			LOG(LINFO, ("Resuming download for file", m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION,
+			LOG(LDEBUG, ("Resuming download for file", m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION,
 									"from position", fileSize));
 			NSString * val = [[NSString alloc] initWithFormat: @"bytes=%qi-", fileSize];
 			[request addValue:val forHTTPHeaderField:@"Range"];
