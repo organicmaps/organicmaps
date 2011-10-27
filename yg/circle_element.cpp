@@ -50,6 +50,7 @@ namespace yg
     uint32_t styleID = r->skin()->mapCircleInfo(m_ci);
 
     ResourceStyle const * style = r->skin()->fromID(styleID);
+    ASSERT_NOT_EQUAL ( style, 0, () );
 
     m2::RectI texRect(style->m_texRect);
     texRect.Inflate(-1, -1);
