@@ -209,8 +209,13 @@ IntervalsT const & CoveringGetter::Get(int scale)
       break;
 
     case 1:
-      AppendLowerLevels(GetRectIdAsIs(m_rect), cellDepth, m_res[ind]);
+    {
+      RectId id = GetRectIdAsIs(m_rect);
+      while (id.Level() >= cellDepth)
+        id = id.Parent();
+      AppendLowerLevels(id, cellDepth, m_res[ind]);
       break;
+    }
 
     case 2:
       m_res[ind].push_back(IntervalsT::value_type(0, static_cast<int64_t>((1ULL << 63) - 1)));
