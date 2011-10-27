@@ -75,6 +75,7 @@ static bool NeedToGenerateUrl(string const & url)
 	{
 		NSData * postData = [NSData dataWithBytes:m_params.m_postData.data() length:m_params.m_postData.size()];
 		[request setHTTPBody:postData];
+		[request setHTTPMethod:@"POST"];
 	}
 	// set user-agent with unique client id only for mapswithme requests
 	if (m_currentUrl.find("mapswithme.com") != string::npos)
@@ -112,6 +113,8 @@ static bool NeedToGenerateUrl(string const & url)
 
   if (NeedToGenerateUrl(m_params.m_url))
     m_currentUrl = m_urlGenerator.PopNextUrl() + m_params.m_url;
+  else
+    m_currentUrl = m_params.m_url;
 
 	// create the connection with the request and start loading the data
 	m_connection = [[NSURLConnection alloc] initWithRequest:[self CreateRequest] delegate:self];
