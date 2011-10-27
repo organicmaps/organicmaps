@@ -5,9 +5,16 @@
 #include "../std/iostream.hpp"
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
+#include "../std/target_os.hpp"
 
 #ifdef OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP
-  #include <QCoreApplication>
+  #ifdef OMIM_OS_MAC // on Mac OS X native run loop works only for QApplication :(
+    #include <QApplication>
+    #define QAPP QApplication
+  #else
+    #include <QCoreApplication>
+    #define QAPP QCoreApplication
+  #endif
 #endif
 
 static bool g_bLastTestOK = true;
@@ -15,7 +22,8 @@ static bool g_bLastTestOK = true;
 int main(int argc, char * argv[])
 {
 #ifdef OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP
-  QCoreApplication theApp(argc, argv);
+  QAPP theApp(argc, argv);
+  UNUSED_VALUE(theApp);
 #else
   UNUSED_VALUE(argc);
   UNUSED_VALUE(argv);
