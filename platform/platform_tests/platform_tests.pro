@@ -22,7 +22,7 @@ macx* {
   QT *= gui # needed for QApplication with event loop, to test async events (downloader, etc.)
   LIBS *= "-framework Foundation" "-framework IOKit"
 }
-win32*:linux* {
+win32*|linux* {
   QT *= network
 }
 
