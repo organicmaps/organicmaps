@@ -54,9 +54,8 @@ using namespace storage;
   CountriesViewController * countriesController = [[[CountriesViewController alloc]
       initWithStorage:*m_storage andIndex:TIndex() andHeader:@"Download"] autorelease];
   m_navigationController = [[UINavigationController alloc] initWithRootViewController:countriesController];
-  [prevController presentModalViewController:m_navigationController animated:YES];
 
-  // Subscribe to storage callbacks.
+  // Subscribe to storage callbacks AND load country names after calling Storage::Subscribe()
   {
     // tricky boost::bind for objC class methods
 		typedef void (*TChangeFunc)(id, SEL, TIndex const &);
@@ -69,6 +68,8 @@ using namespace storage;
 
 		m_storage->Subscribe(bind(changeImpl, self, changeSel, _1), bind(progressImpl, self, progressSel, _1, _2));
   }
+  // display controller only when countries are loaded
+  [prevController presentModalViewController:m_navigationController animated:YES];
 }
 
 // Hides all opened settings windows
