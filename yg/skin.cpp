@@ -13,8 +13,6 @@
 
 #include "internal/opengl.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
 
 namespace yg
 {

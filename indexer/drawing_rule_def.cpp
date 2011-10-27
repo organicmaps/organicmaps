@@ -8,7 +8,6 @@
 
 #include "../std/cstdio.hpp"
 
-#include "../base/start_mem_debug.hpp"
 
 namespace drule
 {

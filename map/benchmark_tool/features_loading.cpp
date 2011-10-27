@@ -11,8 +11,6 @@
 
 #include "../../base/timer.hpp"
 
-#include "../../base/start_mem_debug.hpp"
-
 
 namespace bench
 {

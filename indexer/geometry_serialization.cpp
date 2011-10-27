@@ -10,8 +10,6 @@
 #include "../std/iterator.hpp"
 #include "../std/stack.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
 
 namespace serial
 {

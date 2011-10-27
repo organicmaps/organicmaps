@@ -8,7 +8,6 @@
 #include "../std/limits.hpp"
 #include "../std/type_traits.hpp"
 
-#include "../base/start_mem_debug.hpp"
 
 namespace m2
 {
@@ -353,5 +352,3 @@ namespace m2
     return out.str();
   }
 }
-
-#include "../base/stop_mem_debug.hpp"

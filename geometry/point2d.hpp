@@ -8,7 +8,6 @@
 #include "../std/sstream.hpp"
 #include "../std/typeinfo.hpp"
 
-#include "../base/start_mem_debug.hpp"
 
 namespace m2
 {
@@ -295,5 +294,3 @@ namespace m2
   typedef Point<int32_t> PointI;
   typedef Point<int64_t> PointI64;
 }
-
-#include "../base/stop_mem_debug.hpp"

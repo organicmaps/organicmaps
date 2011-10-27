@@ -4,7 +4,6 @@
 
 #include "../../std/memcpy.hpp"    // for strlen :)
 
-#include "../../base/start_mem_debug.hpp"
 
 //-----------------------------------------------------------------------------
 //
@@ -865,8 +864,5 @@ public:
     return;
   }
 };
-
-
-#include "../../base/stop_mem_debug.hpp"
 
 #endif // DSSI_EXPATIMPL_H

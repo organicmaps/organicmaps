@@ -1,7 +1,6 @@
 #include "../base/SRC_FIRST.hpp"
 #include "hex.hpp"
 
-#include "../base/start_mem_debug.hpp"
 
 namespace impl {
   static const char kToHexTable[] = "0123456789ABCDEF";

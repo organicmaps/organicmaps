@@ -12,7 +12,6 @@
 
 #include "../std/bind.hpp"
 
-#include "../base/start_mem_debug.hpp"
 
 namespace model
 {

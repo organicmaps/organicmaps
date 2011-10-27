@@ -10,7 +10,6 @@
 #include "../std/vector.hpp"
 #include "../std/scoped_ptr.hpp"
 
-#include "../base/start_mem_debug.hpp"
 
 template <typename ItT, typename TDstStream>
 void WriteVarSerialVector(ItT begin, ItT end, TDstStream & dst)
@@ -112,5 +111,3 @@ private:
   ReaderT m_offsetsReader;
   ReaderT m_dataReader;
 };
-
-#include "../base/stop_mem_debug.hpp"

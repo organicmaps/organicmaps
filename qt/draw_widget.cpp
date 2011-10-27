@@ -9,7 +9,7 @@
 #include <QtGui/QMouseEvent>
 
 #include "../map/framework_factory.hpp"
-#include "../base/start_mem_debug.hpp"
+
 
 using namespace storage;
 

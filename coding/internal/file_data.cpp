@@ -9,10 +9,8 @@
 #include "../../std/target_os.hpp"
 
 #ifdef OMIM_OS_WINDOWS
-#include <io.h>
+  #include <io.h>
 #endif
-
-#include "../../base/start_mem_debug.hpp"
 
 
 namespace my {

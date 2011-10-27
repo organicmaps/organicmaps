@@ -20,8 +20,6 @@
 #include "../std/exception.hpp"
 #include "../std/limits.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
 
 namespace drule {
 

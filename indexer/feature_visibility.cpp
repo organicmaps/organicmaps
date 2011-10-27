@@ -7,8 +7,6 @@
 
 #include "../std/array.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
 
 namespace
 {
@@ -271,7 +269,7 @@ int MinDrawableScaleForFeature(FeatureBase const & f)
   return -1;
 }
 
-namespace 
+namespace
 {
   bool IsDrawable(FeatureBase::GetTypesFn const & types, int level, EGeomType geomType)
   {

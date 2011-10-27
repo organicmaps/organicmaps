@@ -8,7 +8,6 @@
 #include "../../std/string.hpp"
 #include "../../std/sstream.hpp"
 
-#include "../../base/start_mem_debug.hpp"
 
 UNIT_TEST(MyersSimpleDiff)
 {
@@ -274,6 +273,3 @@ UNIT_TEST(DiffWithRollingHash2)
   differ.Diff(srcV.begin(), srcV.end(), dstV.begin(), dstV.end(), testPatchCoder);
   TEST_EQUAL(testPatchCoder.Str(), "=2.-1.+x.=3.-5.=1.=3.=1.", ());
 }
-
-#include "../../base/stop_mem_debug.hpp"
-

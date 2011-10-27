@@ -16,8 +16,6 @@
 
 #include "../platform/platform.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
 
 template class qt::GLDrawWidgetT<yg::gl::Screen>;
 

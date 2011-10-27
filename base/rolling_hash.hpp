@@ -6,7 +6,7 @@
 #ifdef DEBUG
 #include "../std/queue.hpp"
 #endif
-#include "../base/start_mem_debug.hpp"
+
 
 template <typename T, typename HashT> class RabinKarpRollingHasher
 {
@@ -76,5 +76,3 @@ public:
 
 typedef RabinKarpRollingHasher32 RollingHasher32;
 typedef RabinKarpRollingHasher64 RollingHasher64;
-
-#include "../base/stop_mem_debug.hpp"

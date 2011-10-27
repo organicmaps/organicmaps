@@ -4,7 +4,7 @@
 #include "source.hpp"
 
 #include "../base/assert.hpp"
-#include "../base/start_mem_debug.hpp"
+
 
 static const size_t KMaxXMLFileBufferSize = 16384;
 
@@ -35,5 +35,3 @@ bool ParseXML(SourceT & source, XMLDispatcherT & dispatcher, bool useCharData = 
 
   return true;
 }
-
-#include "../base/stop_mem_debug.hpp"

@@ -6,8 +6,6 @@
 
 #include "../defines.hpp" // just for file extensions
 
-#include "../base/start_mem_debug.hpp"
-
 
 using namespace feature;
 

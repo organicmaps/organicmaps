@@ -2,7 +2,7 @@
 
 #include "../base/base.hpp"
 #include "../base/exception.hpp"
-#include "../base/start_mem_debug.hpp"
+
 
 class SourceOutOfBoundsException : public RootException
 {
@@ -17,5 +17,3 @@ public:
 private:
   size_t const m_BytesRead;
 };
-
-#include "../base/stop_mem_debug.hpp"

@@ -4,7 +4,6 @@
 #include "base_texture.hpp"
 #include "utils.hpp"
 
-#include "../base/start_mem_debug.hpp"
 
 namespace yg
 {

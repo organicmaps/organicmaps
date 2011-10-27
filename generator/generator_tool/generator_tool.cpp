@@ -28,7 +28,6 @@
 
 #include "../../version/version.hpp"
 
-#include "../../base/start_mem_debug.hpp"
 
 DEFINE_bool(version, false, "Display version");
 DEFINE_bool(generate_update, false,

@@ -5,8 +5,6 @@
 
 #include "../base/math.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
 
 namespace qt
 {

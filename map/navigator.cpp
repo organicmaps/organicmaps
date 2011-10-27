@@ -15,8 +15,6 @@
 #include "../base/std_serialization.hpp"
 #include "../base/logging.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
 
 Navigator::Navigator()
   : m_worldRect(MercatorBounds::minX, MercatorBounds::minY, MercatorBounds::maxX, MercatorBounds::maxY),

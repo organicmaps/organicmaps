@@ -7,8 +7,6 @@
 #include "../../geometry/rect_intersect.hpp"
 #include "../../geometry/angles.hpp"
 
-#include "../../base/start_mem_debug.hpp"
-
 
 using namespace test;
 
@@ -132,7 +130,7 @@ UNIT_TEST(IntersectRect_Section)
   check_eps_boundaries(r);
 }
 
-namespace 
+namespace
 {
   void check_point_in_rect(m2::RectD const & r, m2::PointD const & p)
   {

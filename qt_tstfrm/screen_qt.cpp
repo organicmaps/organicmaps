@@ -2,8 +2,6 @@
 
 #include <QtGui/QPainter>
 
-#include "../base/start_mem_debug.hpp"
-
 
 namespace qt
 {

@@ -17,10 +17,8 @@
 #include <QtGui/QToolBar>
 #include <QtGui/QFileDialog>
 
-#include "../base/start_mem_debug.hpp"
 
-
-namespace qt 
+namespace qt
 {
 
 typedef ClassifObject::visible_mask_t mask_t;
@@ -132,7 +130,7 @@ ClassifTreeHolder::ClassifTreeHolder(QWidget * pParent,
   setLayout(pLayout);
 }
 
-namespace 
+namespace
 {
   void to_item(QTreeWidgetItem * p, ClassifObject * pObj)
   {

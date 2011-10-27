@@ -5,7 +5,7 @@
 #include "../base.hpp"
 #include "../logging.hpp"
 #include "../macros.hpp"
-#include "../../base/start_mem_debug.hpp"
+
 
 namespace
 {
@@ -121,5 +121,3 @@ BENCHMARK_TEST(RollingHasher64)
   }
 }
 #endif
-
-#include "../../base/stop_mem_debug.hpp"

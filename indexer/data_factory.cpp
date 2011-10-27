@@ -9,8 +9,6 @@
 #include "../coding/file_reader.hpp"
 #include "../coding/file_container.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
 
 void LoadMapHeader(FilesContainerR const & cont, feature::DataHeader & header)
 {

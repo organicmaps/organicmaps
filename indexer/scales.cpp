@@ -5,7 +5,6 @@
 
 #include "../std/algorithm.hpp"
 
-#include "../base/start_mem_debug.hpp"
 
 namespace scales
 {

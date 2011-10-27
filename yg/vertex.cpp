@@ -1,6 +1,5 @@
 #include "vertex.hpp"
 
-#include "../base/start_mem_debug.hpp"
 #include "internal/opengl.hpp"
 
 namespace yg

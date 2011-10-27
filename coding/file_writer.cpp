@@ -1,8 +1,6 @@
 #include "file_writer.hpp"
 #include "internal/file_data.hpp"
 
-#include "../../base/start_mem_debug.hpp"
-
 
 FileWriter::FileWriter(FileWriter const & rhs)
 : Writer(*this), m_bTruncOnClose(rhs.m_bTruncOnClose)

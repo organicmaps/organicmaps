@@ -12,15 +12,13 @@
 #include "../std/iostream.hpp"
 #include "../std/iomanip.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
 
 using namespace feature;
 
 namespace stats
 {
   void FileContainerStatistic(string const & fPath)
-  { 
+  {
     feature::DataHeader header;
     ModelReaderPtr reader(new FileReader(fPath));
     LoadMapHeader(reader, header);

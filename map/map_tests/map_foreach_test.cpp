@@ -20,8 +20,6 @@
 #include "../../std/algorithm.hpp"
 #include "../../std/iostream.hpp"
 
-#include "../../base/start_mem_debug.hpp"
-
 
 typedef vector<pair<FeatureType, string> > feature_cont_t;
 

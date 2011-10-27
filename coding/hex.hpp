@@ -82,5 +82,3 @@ inline string NumToQuat(IntT n)
   }
   return result;
 }
-
-#include "../base/stop_mem_debug.hpp"

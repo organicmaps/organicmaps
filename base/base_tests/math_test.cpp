@@ -1,7 +1,7 @@
 #include "../../testing/testing.hpp"
 #include "../math.hpp"
 #include "../../std/limits.hpp"
-#include "../../base/start_mem_debug.hpp"
+
 
 UNIT_TEST(id)
 {
@@ -138,5 +138,3 @@ UNIT_TEST(IsIntersect_Intervals)
   TEST(my::IsIntersect(0, 100, -50, 0), ());
   TEST(!my::IsIntersect(0, 100, -50, -20), ());
 }
-
-#include "../../base/stop_mem_debug.hpp"

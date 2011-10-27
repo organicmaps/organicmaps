@@ -9,7 +9,6 @@
 #include "../std/fstream.hpp"
 #include "../std/bitset.hpp"
 
-#include "../base/start_mem_debug.hpp"
 
 class ClassifObject;
 
@@ -255,5 +254,3 @@ public:
 };
 
 Classificator & classif();
-
-#include "../base/stop_mem_debug.hpp"

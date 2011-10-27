@@ -4,8 +4,6 @@
 #include <QtGui/QFrame>
 #include <QtGui/QBoxLayout>
 
-#include "../base/start_mem_debug.hpp"
-
 
 namespace tst
 {

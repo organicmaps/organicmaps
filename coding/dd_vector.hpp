@@ -7,7 +7,6 @@
 #include "../std/type_traits.hpp"
 #include <boost/iterator/iterator_facade.hpp>
 
-#include "../base/start_mem_debug.hpp"
 
 template <
     typename T,
@@ -161,5 +160,3 @@ private:
   ReaderType m_reader;
   size_type m_Size;
 };
-
-#include "../base/stop_mem_debug.hpp"

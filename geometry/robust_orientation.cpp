@@ -7,9 +7,6 @@ extern "C"
   #include "../3party/robust/predicates.c"
 }
 
-#include "../base/start_mem_debug.hpp"
-
-
 namespace m2 { namespace robust
 {
   bool Init()

@@ -8,7 +8,6 @@
 #include "../../coding/internal/file_data.hpp"
 
 #include "../../base/logging.hpp"
-#include "../../base/start_mem_debug.hpp"
 
 
 char const * TEST_FILE_NAME = "some_temporary_unit_test_file.tmp";

@@ -9,8 +9,6 @@
 #include "../coding/reader.hpp"
 #include "../coding/buffer_reader.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
 
 namespace model
 {
@@ -65,5 +63,3 @@ namespace model
     m2::RectD GetWorldRect() const;
   };
 }
-
-#include "../base/stop_mem_debug.hpp"

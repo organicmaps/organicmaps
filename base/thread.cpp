@@ -9,7 +9,6 @@
   #include <pthread.h>
 #endif
 
-#include "../base/start_mem_debug.hpp"
 
 namespace threads
 {

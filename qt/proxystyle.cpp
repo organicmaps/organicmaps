@@ -2,8 +2,6 @@
 
 #include "proxystyle.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
 
 ProxyStyle::ProxyStyle(QStyle * p)
 	: QStyle(), style(p)

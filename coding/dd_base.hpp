@@ -3,7 +3,6 @@
 #include "../base/base.hpp"
 #include "../base/exception.hpp"
 
-#include "../base/start_mem_debug.hpp"
 
 DECLARE_EXCEPTION(DDParseException, RootException);
 
@@ -26,5 +25,3 @@ private:
   ReaderSource<TReader> m_source;
   bool m_bFailOnError;
 };
-
-#include "../base/stop_mem_debug.hpp"

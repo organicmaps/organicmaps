@@ -2,8 +2,6 @@
 
 #include "../../base/logging.hpp"
 
-#include "../../base/start_mem_debug.hpp"
-
 #ifdef OMIM_OS_BADA
   #include <FBaseSys.h>
 #endif

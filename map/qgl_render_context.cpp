@@ -9,7 +9,6 @@
 #include <QtOpenGL/QGLWidget>
 #include <QtOpenGL/QGLFramebufferObject>
 
-#include "../base/start_mem_debug.hpp"
 
 namespace qt
 {

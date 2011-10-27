@@ -18,8 +18,6 @@
 
 //#include <google/protobuf/stubs/common.h>
 
-#include "../base/start_mem_debug.hpp"
-
 #define SETTING_EULA_ACCEPTED "EulaAccepted"
 
 namespace

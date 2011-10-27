@@ -10,13 +10,11 @@
 #include "../coding/write_to_sink.hpp"
 #include "../coding/varint.hpp"
 
-#include "../base/start_mem_debug.hpp"
-
 
 namespace feature
 {
   serial::CodingParams DataHeader::GetCodingParams(int scaleIndex) const
-  { 
+  {
     return serial::CodingParams(m_codingParams.GetCoordBits() -
                                 (m_scales.back() - m_scales[scaleIndex]) / 2,
                                 m_codingParams.GetBasePointUint64());

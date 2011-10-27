@@ -4,7 +4,7 @@
 #include "point2d.hpp"
 
 #include "../base/matrix.hpp"
-#include "../base/start_mem_debug.hpp"
+
 
 namespace ang
 {
@@ -114,5 +114,3 @@ namespace ang
     }
   };
 }
-
-#include "../base/stop_mem_debug.hpp"

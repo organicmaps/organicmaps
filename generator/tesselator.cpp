@@ -13,8 +13,6 @@
 
 #include "../../3party/sgitess/interface.h"
 
-#include "../base/start_mem_debug.hpp"
-
 
 namespace tesselator
 {
