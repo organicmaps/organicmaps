@@ -137,6 +137,6 @@ int main(int argc, char * argv[])
 //  }
 //#endif
 
-  LOG(LINFO, ("MapsWithMe finished with code : ", returnCode));
+  LOG_SHORT(LINFO, ("MapsWithMe finished with code", returnCode));
   return returnCode;
 }
