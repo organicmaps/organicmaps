@@ -8,13 +8,17 @@ include($$ROOT_DIR/common.pri)
 TARGET = MapsWithMe
 TEMPLATE = app
 
-QT *= core gui opengl network
+QT *= core gui opengl
 
-win32 {
+win32* {
   LIBS += -lopengl32 -lws2_32 -lshell32 -liphlpapi
   RC_FILE = res/windows.rc
   win32-msvc*: LIBS += -lwlanapi
   win32-g++: LIBS += -lpthread
+}
+
+win32*|linux* {
+  QT *= network
 }
 
 macx* {

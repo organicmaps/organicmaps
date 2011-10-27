@@ -10,12 +10,10 @@ DEPENDENCIES = storage indexer platform coding base jansson tomcrypt
 
 include($$ROOT_DIR/common.pri)
 
-QT *= network
-
-win32: LIBS *= -lshell32
+win32*: LIBS *= -lshell32
 macx*: LIBS *= "-framework Foundation" "-framework IOKit"
 
-QT += core
+QT *= core
 
 HEADERS +=
 

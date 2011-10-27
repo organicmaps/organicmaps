@@ -10,8 +10,7 @@ DEPENDENCIES = coding base jansson
 include($$ROOT_DIR/common.pri)
 
 !iphone*:!android*:!bada {
-  QT *= core network
-
+  QT *= core
   INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 
   SOURCES += platform_qt.cpp \
@@ -46,6 +45,7 @@ macx*|iphone* {
 }
 
 win32*|linux* {
+  QT *= network
   HEADERS += qt_download_manager.hpp \
              qt_download.hpp
   SOURCES += qt_download_manager.cpp \
