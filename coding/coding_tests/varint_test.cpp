@@ -116,7 +116,7 @@ UNIT_TEST(ReadVarInt64Array)
   {
     int64_t const baseValues [] =
     {
-      0, 127, 128, (2 << 28) - 1, (2 << 28), (2 << 31), (2 << 31) - 1,
+      0, 127, 128, (2 << 28) - 1, (2 << 28), (2LL << 31), (2LL << 31) - 1,
       0xFFFFFFFF - 1, 0xFFFFFFFF, 0xFFFFFFFFFFULL
     };
     for (size_t i = 0; i < ARRAY_SIZE(baseValues); ++i)
