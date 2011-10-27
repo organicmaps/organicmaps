@@ -186,10 +186,12 @@ namespace yg
   void InfoLayer::processOverlayElement(shared_ptr<OverlayElement> const & oe)
   {
     if (oe->isVisible())
+    {
       if (m_couldOverlap)
         addOverlayElement(oe);
       else
         replaceOverlayElement(oe);
+    }
   }
 
   void InfoLayer::merge(InfoLayer const & layer, math::Matrix<double, 3, 3> const & m)

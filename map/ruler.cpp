@@ -157,7 +157,7 @@ void Ruler::CalcMetresDiff(double v)
 
 
 Ruler::Ruler(Params const & p)
-  : base_t(p), m_boundRects(1), m_isInitialized(false), m_hasPendingUpdate(false), m_currSystem(0)
+  : base_t(p), m_boundRects(1), m_currSystem(0), m_isInitialized(false), m_hasPendingUpdate(false)
 {
 }
 

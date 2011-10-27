@@ -109,6 +109,7 @@ namespace m2
         yStep = 0;
 
         if (width <= m_width - currentX)
+        {
           if (height <= m_height - currentY)
           {
             yStep = max(height, yStep);
@@ -116,6 +117,7 @@ namespace m2
           }
           else
             return false;
+        }
       }
     }
 

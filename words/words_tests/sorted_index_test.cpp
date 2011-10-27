@@ -61,13 +61,13 @@ namespace
     return strFn;
   }
 
-  void PushBackArticleIntoVector(vector<string> & v,
-                                 sl::Dictionary const * pDic,
-                                 sl::Dictionary::Id id)
-  {
-    v.push_back("");
-    pDic->ArticleById(id, v.back());
-  }
+//  void PushBackArticleIntoVector(vector<string> & v,
+//                                 sl::Dictionary const * pDic,
+//                                 sl::Dictionary::Id id)
+//  {
+//    v.push_back("");
+//    pDic->ArticleById(id, v.back());
+//  }
 
   string KeyByIndexId(sl::SortedIndex const & idx, sl::SortedIndex::Pos id)
   {
