@@ -180,7 +180,7 @@ static bool NeedToGenerateUrl(string const & url)
 
   m_projectedFileSize = [response expectedContentLength];
   // if server doesn't support resume, make sure we're downloading file from scratch
-  if (m_projectedFileSize < 0)
+  if (!m_params.m_fileToSave.empty() && m_projectedFileSize < 0)
   {
     fclose(m_file);
     m_file = fopen((m_params.m_fileToSave + DOWNLOADING_FILE_EXTENSION).c_str(), "wb");
