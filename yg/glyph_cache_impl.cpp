@@ -388,6 +388,7 @@ namespace yg
     FTCHECK(FTC_Manager_New(m_lib, 3, 10, params.m_maxSize, &RequestFace, 0, &m_manager));
 
     FTCHECK(FTC_ImageCache_New(m_manager, &m_normalGlyphCache));
+    FTCHECK(FTC_ImageCache_New(m_manager, &m_strokedGlyphCache));
     FTCHECK(FTC_ImageCache_New(m_manager, &m_glyphMetricsCache));
 
     /// Initializing stroker

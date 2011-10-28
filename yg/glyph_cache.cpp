@@ -218,19 +218,20 @@ namespace yg
     };
 
     FT_Glyph glyph = 0;
-    FTC_Node node;
+//    FTC_Node node;
 
     GlyphInfo * info = 0;
 
     if (key.m_isMask)
     {
       FTCHECK(FTC_ImageCache_LookupScaler(
-          m_impl->m_normalGlyphCache,
+          m_impl->m_strokedGlyphCache,
           &fontScaler,
           FT_LOAD_DEFAULT,
           charIDX.second,
           &glyph,
-          &node
+          0
+          //&node
           ));
       FTCHECK(FT_Glyph_Stroke(&glyph, m_impl->m_stroker, 0));
       FTCHECK(FT_Glyph_To_Bitmap(&glyph, FT_RENDER_MODE_NORMAL, 0, 1));
@@ -245,7 +246,8 @@ namespace yg
           FT_LOAD_DEFAULT | FT_LOAD_RENDER,
           charIDX.second,
           &glyph,
-          &node
+          0
+          //&node
           ));
 
 //      info = new FTGlyphInfo(node, m_impl->m_manager);
