@@ -8,8 +8,8 @@
   #import <UIKit/UIApplication.h>
 #endif
 
-#include "../../platform/download_manager.hpp"
-#include "../../platform/platform.hpp"
+#include "download_manager.hpp"
+#include "platform.hpp"
 
 #define TIMEOUT_IN_SECONDS 15.0
 

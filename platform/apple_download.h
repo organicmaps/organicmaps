@@ -1,8 +1,8 @@
 #import <Foundation/Foundation.h>
 
-#include "../../../platform/download_manager.hpp"
-#include "../../../platform/url_generator.hpp"
-#include "../../../std/string.hpp"
+#include "download_manager.hpp"
+#include "url_generator.hpp"
+#include "../std/string.hpp"
 
 @interface AppleDownload : NSObject
 {
