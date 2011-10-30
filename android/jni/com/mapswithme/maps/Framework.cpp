@@ -205,10 +205,10 @@ namespace android
 
   void Framework::EnableLocation(bool enable)
   {
-    if (enable)
-      m_work.StartLocationService(bind(&f));
-    else
-      m_work.StopLocationService();
+//    if (enable)
+//      m_work.StartLocationService(bind(&f));
+//    else
+//      m_work.StopLocationService();
   }
 
   void Framework::UpdateLocation(uint64_t timestamp, double lat, double lon, float accuracy)
@@ -218,10 +218,10 @@ namespace android
     info.m_latitude = lat;
     info.m_longitude = lon;
     info.m_horizontalAccuracy = accuracy;
-    info.m_status = location::EAccurateMode;
-    info.m_altitude = 0;
-    info.m_course = 0;
-    info.m_verticalAccuracy = 0;
+//    info.m_status = location::EAccurateMode;
+//    info.m_altitude = 0;
+//    info.m_course = 0;
+//    info.m_verticalAccuracy = 0;
     m_work.OnGpsUpdate(info);
   }
 

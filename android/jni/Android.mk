@@ -35,7 +35,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/MWMActivity.cpp \
 	
 LOCAL_LDLIBS := -llog -lGLESv1_CM \
-  	-lwords -lmap -lstorage -lversion -lsearch -lindexer -lyg -lplatform \
+  	-lwords -lmap -lversion -lsearch -lstorage -lindexer -lyg -lplatform \
   	-lgeometry -lcoding -lbase -lexpat -lfreetype -lfribidi -lzlib -lbzip2 \
   	-ljansson -ltomcrypt ./obj/local/armeabi/libstdc++.a
 

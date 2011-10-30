@@ -30,7 +30,7 @@ SUBDIRS = 3party \
           publisher publisher/publisher_tests \
           console_sloynik
 } else {
-  # libraries which are used on iphone and bada
+  # libraries which are used on mobile devices
   SUBDIRS = 3party \
             base \
             coding \
