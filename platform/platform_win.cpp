@@ -1,11 +1,12 @@
 #include "platform.hpp"
 
+#include "../base/logging.hpp"
+
 #include "../coding/file_writer.hpp"
 
 #include "../std/windows.hpp"
 
 #include <shlobj.h>
-#include <sys/stat.h>
 
 static bool GetUserWritableDir(string & outDir)
 {
@@ -64,13 +65,13 @@ Platform::Platform()
   {
     FileWriter tmpfile(m_resourcesDir + "mapswithmetmptestfile");
     tmpfile.Write("Hi from Alex!", 13);
-    FileWriter::DeleteFileX(m_resourcesDir + "mapswithmetmptestfile");
     m_writableDir = m_resourcesDir;
   }
-  catch (FileWriter::RootException const &)
+  catch (RootException const &)
   {
     CHECK(GetUserWritableDir(m_writableDir), ("Can't get writable directory"));
   }
+  FileWriter::DeleteFileX(m_resourcesDir + "mapswithmetmptestfile");
 
   LOG(LDEBUG, ("Resources Directory:", m_resourcesDir));
   LOG(LDEBUG, ("Writable Directory:", m_writableDir));
@@ -82,8 +83,7 @@ Platform::~Platform()
 
 bool Platform::IsFileExists(string const & file) const
 {
-  struct _stat s;
-  return _stat(file.c_str(), &s) == 0;
+  return ::GetFileAttributesA(file.c_str()) != INVALID_FILE_ATTRIBUTES;
 }
 
 int Platform::CpuCores() const
