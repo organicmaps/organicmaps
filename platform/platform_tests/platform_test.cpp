@@ -4,7 +4,7 @@
 
 #include "../../defines.hpp"
 
-#include "../../coding/writer.hpp"
+#include "../../coding/file_writer.hpp"
 #include "../../coding/internal/file_data.hpp"
 
 #include "../../base/logging.hpp"
@@ -72,13 +72,20 @@ UNIT_TEST(GetFilesInDir)
   TEST_EQUAL(files.size(), 0, ());
 }
 
-//UNIT_TEST(GetFileSize)
-//{
-//  Platform & pl = GetPlatform();
-//  uint64_t size = 0;
-//  pl.GetFileSize(pl.ReadPathForFile("classificator.txt").c_str(), size);
-//  TEST_GREATER(size, 0, ("File classificator.txt should exist for test"));
-//}
+UNIT_TEST(GetFileSize)
+{
+  Platform & pl = GetPlatform();
+
+  {
+    FileWriter testFile(TEST_FILE_NAME);
+    testFile.Write("HOHOHO", 6);
+  }
+  uint64_t size = 0;
+  pl.GetFileSize(TEST_FILE_NAME, size);
+  TEST_EQUAL(size, 6, ());
+
+  FileWriter::DeleteFileX(TEST_FILE_NAME);
+}
 
 UNIT_TEST(CpuCores)
 {

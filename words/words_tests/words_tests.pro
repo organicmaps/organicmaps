@@ -11,6 +11,7 @@ include($$ROOT_DIR/common.pri)
 QT *= core
 
 win32: LIBS *= -lshell32
+macx*: LIBS *= "-framework Foundation"
 
 SOURCES += $$ROOT_DIR/testing/testingmain.cpp \
   sorted_index_test.cpp \

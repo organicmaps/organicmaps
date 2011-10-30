@@ -91,6 +91,12 @@ Platform::~Platform()
   delete m_impl;
 }
 
+bool Platform::IsFileExists(string const & file) const
+{
+  struct stat s;
+  return stat(file.c_str(), &s) == 0;
+}
+
 void Platform::GetFilesInDir(string const & directory, string const & mask, FilesList & res) const
 {
   DIR * dir;
@@ -144,22 +150,9 @@ void Platform::GetFontNames(FilesList & res) const
   sort(res.begin(), res.end());
 }
 
-static string ReadPathForFile(string const & writableDir,
-    string const & resourcesDir, string const & file)
-{
-  string fullPath = writableDir + file;
-  if (!GetPlatform().IsFileExists(fullPath))
-  {
-    fullPath = resourcesDir + file;
-    if (!GetPlatform().IsFileExists(fullPath))
-      MYTHROW(FileAbsentException, ("File doesn't exist", fullPath));
-  }
-  return fullPath;
-}
-
 ModelReader * Platform::GetReader(string const & file) const
 {
-  return new FileReader(ReadPathForFile(m_writableDir, m_resourcesDir, file), 10, 12);
+  return new FileReader(ReadPathForFile(file), 10, 12);
 }
 
 int Platform::CpuCores() const

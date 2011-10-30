@@ -4,31 +4,54 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
-#define LOCALAPPDATA_DIR "MapsWithMe"
+//static bool GetUserWritableDir(string & outDir)
+//{
+//  char * path = ::getenv("HOME");
+//  if (path)
+//  {
+//    outDir = path;
+//    outDir += "/.MapsWithMe/";
+//    ::mkdir(outDir.c_str(), 0755);
+//    return true;
+//  }
+//  return false;
+//}
 
-bool GetUserWritableDir(string & outDir)
-{
-  char * path = ::getenv("HOME");
-  if (path)
-  {
-    outDir = path;
-    outDir += "." LOCALAPPDATA_DIR "/";
-    ::mkdir(outDir.c_str(), 0755);
-    return true;
-  }
-  return false;
-}
-
-/// @return full path including binary itself
-bool GetPathToBinary(string & outPath)
+/// @return directory where binary resides, including slash at the end
+static bool GetBinaryFolder(string & outPath)
 {
   char path[4096] = {0};
   if (0 < ::readlink("/proc/self/exe", path, ARRAY_SIZE(path)))
   {
     outPath = path;
+    outPath.erase(outPath.find_last_of('/') + 1);
     return true;
   }
   return false;
+}
+
+Platform::Platform()
+{
+  // init directories
+  string path;
+  CHECK(GetBinaryFolder(path), ("Can't retrieve path to executable"));
+
+  // @TODO implement correct resources and writable directories for public releases
+  m_resourcesDir = path + "../../../data";
+  m_writableDir = m_resourcesDir;
+
+  LOG(LDEBUG, ("Resources directory:", m_resourcesDir));
+  LOG(LDEBUG, ("Writable directory:", m_writableDir));
+}
+
+Platform::~Platform()
+{
+}
+
+bool Platform::IsFileExists(string const & file) const
+{
+  struct stat s;
+  return stat(file.c_str(), &s) == 0;
 }
 
 int Platform::CpuCores() const

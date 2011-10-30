@@ -16,7 +16,21 @@ class Platform
 protected:
   string m_writableDir, m_resourcesDir;
   class PlatformImpl;
+  /// Used only on those platforms where needed
   PlatformImpl * m_impl;
+
+  /// Internal function to use files from writable dir if they override the same in the resources
+  string ReadPathForFile(string const & file) const
+  {
+    string fullPath = m_writableDir + file;
+    if (!IsFileExists(fullPath))
+    {
+      fullPath = m_resourcesDir + file;
+      if (!IsFileExists(fullPath))
+        MYTHROW(FileAbsentException, ("File doesn't exist", fullPath));
+    }
+    return fullPath;
+  }
 
 public:
   Platform();
@@ -46,11 +60,7 @@ public:
   /// @return false if file is not exist
   bool GetFileSize(string const & file, uint64_t & size) const;
   /// Simple file existing check
-  bool IsFileExists(string const & file) const
-  {
-    uint64_t dummy;
-    return GetFileSize(file, dummy);
-  }
+  bool IsFileExists(string const & file) const;
   //@}
 
   int CpuCores() const;

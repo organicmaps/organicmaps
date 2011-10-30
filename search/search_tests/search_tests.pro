@@ -10,7 +10,6 @@ DEPENDENCIES =  search platform indexer geometry coding base
 
 include($$ROOT_DIR/common.pri)
 
-# needed for GetPlatform::ReadPathForFile()
 QT *= core
 
 win32 {

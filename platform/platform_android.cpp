@@ -7,26 +7,14 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
-static string ReadPathForFile(string const & writableDir,
-    string const & resourcesDir, string const & file)
-{
-  string fullPath = writableDir + file;
-  if (!GetPlatform().IsFileExists(fullPath))
-  {
-    fullPath = resourcesDir + file;
-    if (!GetPlatform().IsFileExists(fullPath))
-      MYTHROW(FileAbsentException, ("File doesn't exist", fullPath));
-  }
-  return fullPath;
-}
-
 Platform::Platform()
 {}
 
 Platform::~Platform()
 {}
 
-static bool IsFilePresent(string const & file)
+/// @warning doesn't work for files inside .apk (zip)!!!
+bool Platform::IsFileExists(string const & file) const
 {
   struct stat s;
   return stat(file.c_str(), &s) == 0;
@@ -34,9 +22,8 @@ static bool IsFilePresent(string const & file)
 
 ModelReader * Platform::GetReader(string const & file) const
 {
-  // can't use Platform::IsFileExists here to avoid recursion
-  if (IsFilePresent(m_writableDir + file))
-    return new FileReader(ReadPathForFile(m_writableDir, m_resourcesDir, file), 10, 12);
+  if (IsFileExists(m_writableDir + file))
+    return new FileReader(ReadPathForFile(file), 10, 12);
   else
   { // paths from GetFilesInDir will already contain "assets/"
     if (file.find("assets/") != string::npos)

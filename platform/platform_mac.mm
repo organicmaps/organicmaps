@@ -1,62 +1,65 @@
 #include "platform.hpp"
 
+#include "../base/logging.hpp"
+
 #include "../std/target_os.hpp"
 
-#include <glob.h>
-#include <NSSystemDirectories.h>
-#include <mach-o/dyld.h>
-#include <sys/param.h>
+#include <IOKit/IOKitLib.h>
+#include <Foundation/NSBundle.h>
+#include <Foundation/NSPathUtilities.h>
+#include <Foundation/NSAutoreleasePool.h>
+
 #include <sys/stat.h>
 #include <sys/sysctl.h>
-#include <IOKit/IOKitLib.h>
 
-#define LOCALAPPDATA_DIR "MapsWithMe"
-
-static string ExpandTildePath(char const * path)
+Platform::Platform()
 {
-  glob_t globbuf;
-  string result = path;
+  NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 
-  if (::glob(path, GLOB_TILDE, NULL, &globbuf) == 0) //success
+  // get resources directory path
+  string const resourcesPath = [[[NSBundle mainBundle] resourcePath] UTF8String];
+  string const bundlePath = [[[NSBundle mainBundle] bundlePath] UTF8String];
+  if (resourcesPath == bundlePath)
   {
-    if (globbuf.gl_pathc > 0)
-      result = globbuf.gl_pathv[0];
-
-    globfree(&globbuf);
+    // we're the console app, probably unit test, and path is our directory
+    m_resourcesDir = bundlePath + "/../../data/";
+    m_writableDir = m_resourcesDir;
   }
-  return result;
-}
-
-bool GetUserWritableDir(string & outDir)
-{
-  char pathBuf[PATH_MAX];
-  NSSearchPathEnumerationState state = ::NSStartSearchPathEnumeration(NSApplicationSupportDirectory, NSUserDomainMask);
-  while ((state = NSGetNextSearchPathEnumeration(state, pathBuf)))
+  else
   {
-    outDir = ExpandTildePath(pathBuf);
-    ::mkdir(outDir.c_str(), 0755);
-    outDir += "/" LOCALAPPDATA_DIR "/";
-    ::mkdir(outDir.c_str(), 0755);
-    return true;
-  }
-  return false;
-}
+    m_resourcesDir = resourcesPath + "/";
 
-/// @return full path including binary itself
-bool GetPathToBinary(string & outPath)
-{
-  char path[MAXPATHLEN] = {0};
-  uint32_t pathSize = ARRAY_SIZE(path);
-  if (0 == ::_NSGetExecutablePath(path, &pathSize))
-  {
-    char fixedPath[MAXPATHLEN] = {0};
-    if (::realpath(path, fixedPath))
+    // get writable path
+#ifndef OMIM_PRODUCTION
+    // developers can have symlink to data folder
+    char const * dataPath = "../../../../../data/";
+    if (IsFileExists(m_resourcesDir + dataPath))
+      m_writableDir = m_resourcesDir + dataPath;
+#endif
+
+    if (m_writableDir.empty())
     {
-      outPath = fixedPath;
-      return true;
+      NSArray * dirPaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+      NSString * supportDir = [dirPaths objectAtIndex:0];
+      m_writableDir = [supportDir UTF8String];
+      m_writableDir += "/MapsWithMe/";
+      ::mkdir(m_writableDir.c_str(), 0755);
     }
   }
-  return false;
+  [pool release];
+
+  LOG(LDEBUG, ("Resources Directory:", m_resourcesDir));
+  LOG(LDEBUG, ("Writable Directory:", m_writableDir));
+}
+
+Platform::~Platform()
+{
+}
+
+bool Platform::IsFileExists(string const & file) const
+{
+  struct stat s;
+  return stat(file.c_str(), &s) == 0;
 }
 
 int Platform::CpuCores() const
