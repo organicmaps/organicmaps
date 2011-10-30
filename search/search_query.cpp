@@ -104,7 +104,7 @@ void Query::UpdateViewportOffsets()
   size_t offsetsCached = 0;
   for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
     offsetsCached += m_offsetsInViewport[mwmId].size();
-  LOG(LINFO, ("For search in viewport cached ",
+  LOG(LDEBUG, ("For search in viewport cached ",
               "mwms:", mwmInfo.size(),
               "offsets:", offsetsCached));
 }
@@ -305,7 +305,7 @@ void Query::SearchFeatures()
             MatchFeaturesInTrie(tokens, m_prefix, *pTrieRoot,
                                 &m_offsetsInViewport[mwmId], f, m_results.max_size() * 10);
 
-            LOG(LINFO, ("Matched: ", f.m_count));
+            LOG(LDEBUG, ("Matched: ", f.m_count));
           }
         }
       }
