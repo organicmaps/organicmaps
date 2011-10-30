@@ -39,7 +39,8 @@ macx* {
     OTHER_RES.path = Contents/Resources
     OTHER_RES.files = ../data/about-travelguide-desktop.html ../data/eula.html ../data/welcome.html \
                       ../data/countries.txt  \
-                      ../data/dictionary.slf ../data/languages.txt ../data/categories.txt
+                      ../data/dictionary.slf ../data/languages.txt ../data/categories.txt \
+                      ../data/packed_polygons.bin
     CLASSIFICATOR_RES.path = Contents/Resources
     CLASSIFICATOR_RES.files = ../data/classificator.txt ../data/drawing_rules.bin ../data/visibility.txt ../data/types.txt
     SKIN_RES.path = Contents/Resources
@@ -55,7 +56,7 @@ macx* {
                      ../data/fonts_whitelist.txt \
                      ../data/unicode_blocks.txt
     MWM_RES.path = Contents/Resources
-    MWM_RES.files = ../data/World.mwm
+    MWM_RES.files = ../data/World.mwm ../data/WorldCoasts.mwm
 
     QMAKE_BUNDLE_DATA += OTHER_RES CLASSIFICATOR_RES SKIN_RES FONT_RES MWM_RES
   }

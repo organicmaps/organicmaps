@@ -79,6 +79,7 @@
 		FA5005671287BFCE002961F0 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA5005611287BFCE002961F0 /* Icon@2x.png */; };
 		FA500588128907F0002961F0 /* visibility.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA500587128907F0002961F0 /* visibility.txt */; };
 		FA64D9A913F975AD00350ECF /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA64D9A813F975AD00350ECF /* types.txt */; };
+		FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA85F632145DDDC20090E1A0 /* packed_polygons.bin */; };
 		FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
 		FA8F8938132D5DB00048E3FE /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8F8937132D5DB00048E3FE /* libtomcrypt.a */; };
 		FAA5C2A2144F135F005337F6 /* LocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA5C2A1144F135F005337F6 /* LocationManager.mm */; };
@@ -689,6 +690,7 @@
 		FA5005611287BFCE002961F0 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = SOURCE_ROOT; };
 		FA500587128907F0002961F0 /* visibility.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = visibility.txt; path = ../../data/visibility.txt; sourceTree = SOURCE_ROOT; };
 		FA64D9A813F975AD00350ECF /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = SOURCE_ROOT; };
+		FA85F632145DDDC20090E1A0 /* packed_polygons.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = packed_polygons.bin; path = omim/omim/data/packed_polygons.bin; sourceTree = DEVELOPER_DIR; };
 		FA87151A12B1518F00592DAF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FA8F8937132D5DB00048E3FE /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtomcrypt.a; sourceTree = SOURCE_ROOT; };
 		FAA4B13E13EC1C8C00BCAB63 /* DiskFreeSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiskFreeSpace.h; sourceTree = "<group>"; };
@@ -1374,6 +1376,7 @@
 				EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */,
 				FA46DA2B12D4166E00968C36 /* countries.txt */,
 				EEE4C9411298A31B007231A9 /* basic_highres.skn */,
+				FA85F632145DDDC20090E1A0 /* packed_polygons.bin */,
 				EEE4C93F1298A303007231A9 /* symbols_48.png */,
 				EEE4C93D1298A2F3007231A9 /* symbols_24.png */,
 				FA500587128907F0002961F0 /* visibility.txt */,
@@ -2578,6 +2581,7 @@
 				490830561426B0900088EE84 /* downloader@2x.png in Resources */,
 				490830591426BD460088EE84 /* Search.xib in Resources */,
 				FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */,
+				FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
