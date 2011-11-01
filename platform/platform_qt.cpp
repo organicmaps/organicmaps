@@ -1,8 +1,11 @@
 #include "platform.hpp"
 
+#include "../base/logging.hpp"
+
 #include "../coding/file_reader.hpp"
 
 #include "../std/target_os.hpp"
+#include "../std/algorithm.hpp"
 
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
@@ -49,7 +52,13 @@ string Platform::SkinName() const
 void Platform::GetFontNames(FilesList & res) const
 {
   GetFilesInDir(ResourcesDir(), "*.ttf", res);
+  GetFilesInDir(WritableDir(), "*.ttf", res);
+  res.resize(unique(res.begin(), res.end()) - res.begin());
   sort(res.begin(), res.end());
+#ifdef DEBUG
+  for (size_t i = 0; i < res.size(); ++i)
+    LOG(LDEBUG, ("Found font:", res[i]));
+#endif
 }
 
 int Platform::MaxTilesCount() const
