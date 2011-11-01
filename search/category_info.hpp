@@ -10,10 +10,11 @@ struct CategoryInfo
 {
   static uint32_t const DO_NOT_SUGGEST = 255;
 
-  CategoryInfo() : m_prefixLengthToSuggest(DO_NOT_SUGGEST) {}
+  CategoryInfo() : m_score(DO_NOT_SUGGEST) {}
 
   vector<uint32_t> m_types;
-  uint8_t m_prefixLengthToSuggest;
+  // Score to
+  uint8_t m_score;
 };
 
 }  // namespace search

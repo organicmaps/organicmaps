@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../storage/country_info.hpp"
-
 #include "../indexer/index.hpp"
 
 #include "../geometry/rect2d.hpp"
@@ -9,11 +7,8 @@
 #include "../base/base.hpp"
 #include "../base/string_utils.hpp"
 
-#include "../std/function.hpp"
-#include "../std/map.hpp"
 #include "../std/scoped_ptr.hpp"
 #include "../std/string.hpp"
-#include "../std/vector.hpp"
 
 class CategoriesHolder;
 class Index;
@@ -24,6 +19,8 @@ namespace search
 struct CategoryInfo;
 class Query;
 class Result;
+
+class EngineData;
 
 class Engine
 {
@@ -39,10 +36,11 @@ public:
   void Search(string const & query, function<void (Result const &)> const & f);
 
 private:
+  void InitializeCategoriesAndSuggestStrings(CategoriesHolder const & categories);
+
   Index const * m_pIndex;
-  scoped_ptr<map<strings::UniString, CategoryInfo> > m_pCategories;
   scoped_ptr<search::Query> m_pQuery;
-  storage::CountryInfoGetter m_infoGetter;
+  scoped_ptr<EngineData> m_pData;
 };
 
 }  // namespace search

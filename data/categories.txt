@@ -22,10 +22,6 @@ amenity-bureau_de_change
 en:change|exchange|currency
 ru:обменник|обмен валюты
 
-amenity-bus_station
-en:bus station
-ru:автостанция
-
 amenity-cafe
 en:1cafe|coffee
 ru:1кафе|кофе
@@ -182,8 +178,12 @@ en:street
 ru:улица
 
 highway-bus_stop
-en:bus stop
+en:2bus stop
 ru:остановка|автобус
+
+amenity-bus_station
+en:2bus station
+ru:автостанция
 
 natural-peak
 en:peak|mountain

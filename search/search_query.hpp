@@ -27,9 +27,14 @@ namespace impl { class IntermediateResult; struct FeatureLoader; class BestNameF
 class Query
 {
 public:
-  typedef map<strings::UniString, CategoryInfo > CategoriesMapT;
+  // Map category_token -> category_type.
+  typedef multimap<strings::UniString, uint32_t> CategoriesMapT;
+  // Vector of pairs (string_to_suggest, min_prefix_length_to_suggest).
+  typedef vector<pair<strings::UniString, uint8_t> > StringsToSuggestVectorT;
 
-  Query(Index const * pIndex, CategoriesMapT const * pCategories,
+  Query(Index const * pIndex,
+        CategoriesMapT const * pCategories,
+        StringsToSuggestVectorT const * pStringsToSuggest,
         storage::CountryInfoGetter const * pInfoGetter);
   ~Query();
 
@@ -50,13 +55,14 @@ private:
   void FlushResults(function<void (Result const &)> const & f);
   void UpdateViewportOffsets();
   void SearchFeatures();
-  void SuggestCategories();
+  void SuggestStrings();
 
   void GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name);
   string GetRegionName(FeatureType const & f, string const & fName);
 
   Index const * m_pIndex;
   CategoriesMapT const * m_pCategories;
+  StringsToSuggestVectorT const * m_pStringsToSuggest;
   storage::CountryInfoGetter const * m_pInfoGetter;
 
   string m_rawQuery;

@@ -26,9 +26,14 @@
 namespace search
 {
 
-Query::Query(Index const * pIndex, CategoriesMapT const * pCategories,
+Query::Query(Index const * pIndex,
+             CategoriesMapT const * pCategories,
+             StringsToSuggestVectorT const * pStringsToSuggest,
              storage::CountryInfoGetter const * pInfoGetter)
-  : m_pIndex(pIndex), m_pCategories(pCategories), m_pInfoGetter(pInfoGetter),
+  : m_pIndex(pIndex),
+    m_pCategories(pCategories),
+    m_pStringsToSuggest(pStringsToSuggest),
+    m_pInfoGetter(pInfoGetter),
     m_viewport(m2::RectD::GetEmptyRect()), m_viewportExtended(m2::RectD::GetEmptyRect()),
     m_bOffsetsCacheIsValid(false)
 {
@@ -149,7 +154,7 @@ void Query::Search(string const & query,
     }
   }
 
-  SuggestCategories();
+  SuggestStrings();
 
   SearchFeatures();
 
@@ -293,12 +298,10 @@ void Query::SearchFeatures()
             {
               for (size_t i = 0; i < m_tokens.size(); ++i)
               {
-                CategoriesMapT::const_iterator it = m_pCategories->find(m_tokens[i]);
-                if (it != m_pCategories->end())
-                {
-                  for (size_t j = 0; j < it->second.m_types.size(); ++j)
-                    tokens[i].push_back(FeatureTypeToString(it->second.m_types[j]));
-                }
+                pair<CategoriesMapT::const_iterator, CategoriesMapT::const_iterator> range
+                    = m_pCategories->equal_range(m_tokens[i]);
+                for (CategoriesMapT::const_iterator it = range.first; it != range.second; ++it)
+                  tokens[i].push_back(FeatureTypeToString(it->second));
               }
             }
 
@@ -313,19 +316,35 @@ void Query::SearchFeatures()
   }
 }
 
-void Query::SuggestCategories()
+void Query::SuggestStrings()
 {
-  // Category matching.
-  if (m_pCategories && !m_prefix.empty())
+  if (m_pStringsToSuggest)
   {
-    for (CategoriesMapT::const_iterator it = m_pCategories->begin();
-         it != m_pCategories->end(); ++it)
+    typedef StringsToSuggestVectorT::const_iterator ItT;
+
+    if (m_tokens.size() == 0 && !m_prefix.empty())
     {
-      if (it->second.m_prefixLengthToSuggest <= m_prefix.size() &&
-          StartsWith(it->first.begin(), it->first.end(), m_prefix.begin(), m_prefix.end()))
+      // Match prefix.
+      for (ItT it = m_pStringsToSuggest->begin(); it != m_pStringsToSuggest->end(); ++it)
+        if (it->second <= m_prefix.size() &&
+            StartsWith(it->first.begin(), it->first.end(), m_prefix.begin(), m_prefix.end()))
+          AddResult(impl::IntermediateResult(strings::ToUtf8(it->first), it->second));
+    }
+    else if (m_tokens.size() == 1)
+    {
+      // Match token + prefix.
+      strings::UniString tokenAndPrefix = m_tokens[0];
+      if (!m_prefix.empty())
       {
-        string name = strings::ToUtf8(it->first);
-        AddResult(impl::IntermediateResult(name, name + " ", it->second.m_prefixLengthToSuggest));
+        tokenAndPrefix.push_back(' ');
+        tokenAndPrefix.append(m_prefix.begin(), m_prefix.end());
+      }
+      for (ItT it = m_pStringsToSuggest->begin(); it != m_pStringsToSuggest->end(); ++it)
+      {
+        strings::UniString const & s = it->first;
+        if (it->second <= tokenAndPrefix.size() &&
+            StartsWith(s.begin(), s.end(), tokenAndPrefix.begin(), tokenAndPrefix.end()))
+          AddResult(impl::IntermediateResult(strings::ToUtf8(it->first), it->second));
       }
     }
   }
