@@ -117,11 +117,9 @@ unix|win32-g++ {
 }
 
 linux-g++* {
-  QMAKE_CC                = gcc-4.5
-  QMAKE_CXX               = g++-4.5
-  QMAKE_CFLAGS_RELEASE   += -flto
-  QMAKE_CXXFLAGS_RELEASE += -flto
-  QMAKE_LFLAGS_RELEASE   += -flto
+#  QMAKE_CFLAGS_RELEASE   += -flto
+#  QMAKE_CXXFLAGS_RELEASE += -flto
+#  QMAKE_LFLAGS_RELEASE   += -flto
   QMAKE_CFLAGS *= -fdata-sections -ffunction-sections
   QMAKE_CXXFLAGS *= -fdata-sections -ffunction-sections
   QMAKE_LFLAGS *= -Wl,--gc-sections

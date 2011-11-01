@@ -1,5 +1,7 @@
 #include "platform.hpp"
 
+#include "../base/logging.hpp"
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/stat.h>
