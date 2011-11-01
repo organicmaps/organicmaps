@@ -3,6 +3,12 @@
 #include "drawer_yg.hpp"
 #include "feature_vec_model.hpp"
 #include "benchmark_provider.hpp"
+#include "render_policy_st.hpp"
+#include "render_policy_mt.hpp"
+#include "tiling_render_policy_st.hpp"
+#include "tiling_render_policy_mt.hpp"
+
+#include "../defines.hpp"
 
 #include "../platform/languages.hpp"
 #include "../platform/settings.hpp"
@@ -24,12 +30,6 @@
 #include "../std/algorithm.hpp"
 #include "../std/fstream.hpp"
 #include "../std/target_os.hpp"
-
-#include "render_policy_st.hpp"
-#include "render_policy_mt.hpp"
-
-#include "tiling_render_policy_st.hpp"
-#include "tiling_render_policy_mt.hpp"
 
 using namespace feature;
 

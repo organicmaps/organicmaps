@@ -1,15 +1,13 @@
 #pragma once
 
+#include "../defines.hpp"
+
 #include "../indexer/point_to_int64.hpp"
 #include "../indexer/coding_params.hpp"
 
 #include "../geometry/rect2d.hpp"
 
 #include "../coding/read_write_utils.hpp"
-
-
-#define PACKED_POLYGONS_FILE "packed_polygons.bin"
-#define PACKED_POLYGONS_INFO_TAG "info"
 
 namespace storage
 {

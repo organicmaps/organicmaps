@@ -18,6 +18,9 @@
 
 #define SEARCH_CATEGORIES_FILE_NAME "categories.txt"
 
+#define PACKED_POLYGONS_FILE "packed_polygons.bin"
+#define PACKED_POLYGONS_INFO_TAG "info"
+
 #define DEFAULT_AUTO_UPDATES_ENABLED true
 
 /// How many langs we're supporting on indexing stage
