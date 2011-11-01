@@ -33,19 +33,6 @@
 Platform & gPlatform = GetPlatform();
 DownloadManager & gMgr = GetDownloadManager();
 
-string GetHostFromUrl(string const & url)
-{
-  size_t start = url.find("://");
-  if (start != string::npos)
-    start += 3;
-  else
-    start = 0;
-  size_t end = url.find('/', start);
-  if (end == string::npos)
-    end = url.size();
-  return url.substr(start, end - start);
-}
-
 template<int TMaxDownloadsNum>
 struct DlObserver
 {
