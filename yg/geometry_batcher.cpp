@@ -34,34 +34,12 @@ namespace yg
         m_useTinyStorage(params.m_useTinyStorage)
     {
       reset(-1);
-      applyStates();
+      base_t::applyStates(m_isAntiAliased);
 
       /// 1 to turn antialiasing on
       /// 2 to switch it off
       m_aaShift = m_isAntiAliased ? 1 : 2;
     }
-
-   void GeometryBatcher::applyStates()
-   {
-     OGLCHECK(glEnable(GL_TEXTURE_2D));
-
-     if (!m_isAntiAliased)
-     {
-       OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
-       OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
-     }
-
-     OGLCHECK(glEnable(GL_DEPTH_TEST));
-     OGLCHECK(glDepthFunc(GL_LEQUAL));
-
-     OGLCHECK(glEnable(GL_ALPHA_TEST));
-     OGLCHECK(glAlphaFunc(GL_GREATER, 0.0));
-
-     OGLCHECK(glEnable(GL_BLEND));
-     OGLCHECK(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
-
-     OGLCHECK(glColor4f(1.0f, 1.0f, 1.0f, 1.0f));
-   }
 
    GeometryBatcher::~GeometryBatcher()
    {}
@@ -78,15 +56,15 @@ namespace yg
      }
    }
 
-   void GeometryBatcher::GeometryPipeline::checkStorage(shared_ptr<ResourceManager> const & resourceManager, SkinPage::EUsage usage) const
+   void GeometryBatcher::GeometryPipeline::checkStorage(shared_ptr<ResourceManager> const & resourceManager) const
    {
      if (!m_hasStorage)
      {
        if (m_useTinyStorage)
          m_storage = resourceManager->tinyStorages()->Reserve();
        else
-         m_storage = usage != SkinPage::EStaticUsage ? resourceManager->storages()->Reserve()
-                                                     : resourceManager->smallStorages()->Reserve();
+         m_storage = m_usage != SkinPage::EStaticUsage ? resourceManager->storages()->Reserve()
+                                                       : resourceManager->smallStorages()->Reserve();
 
        m_maxVertices = m_storage.m_vertices->size() / sizeof(Vertex);
        m_maxIndices = m_storage.m_indices->size() / sizeof(unsigned short);
@@ -97,6 +75,38 @@ namespace yg
      }
    }
 
+   void GeometryBatcher::FreeStorage::perform()
+   {
+     if (m_isDebugging)
+       LOG(LINFO, ("performing FreeStorage command"));
+     m_storagePool->Free(m_storage);
+   }
+
+   void GeometryBatcher::freeStorage(int pipelineID)
+   {
+     GeometryPipeline & pipeline = m_pipelines[pipelineID];
+
+     shared_ptr<FreeStorage> freeStorage(new FreeStorage());
+
+     freeStorage->m_storage = pipeline.m_storage;
+
+     if (pipeline.m_hasStorage)
+     {
+       if (pipeline.m_useTinyStorage)
+         freeStorage->m_storagePool = resourceManager()->tinyStorages();
+       else
+         if (pipeline.m_usage != SkinPage::EStaticUsage)
+           freeStorage->m_storagePool = resourceManager()->storages();
+         else
+           freeStorage->m_storagePool = resourceManager()->smallStorages();
+
+       pipeline.m_hasStorage = false;
+       pipeline.m_storage = Storage();
+     }
+
+     processCommand(freeStorage);
+   }
+
    void GeometryBatcher::setAdditionalSkinPage(shared_ptr<SkinPage> const & p)
    {
      if (m_skin != 0)
@@ -105,11 +115,11 @@ namespace yg
        int pagesCount = m_skin->getPagesCount();
        m_pipelines.resize(pagesCount + 1);
 
-       /// additional page are fixed
+       /// additional page are fixed-content page, and shouldn't be modified by this screen.
        /*m_skin->addOverflowFn(bind(&GeometryBatcher::flush, this, _1), 100);
 
        m_skin->addClearPageFn(bind(&GeometryBatcher::flush, this, _1), 100);
-       m_skin->addClearPageFn(bind(&GeometryBatcher::switchTextures, this, _1), 99);*/
+       m_skin->addClearPageFn(bind(&GeometryBatcher::freeTexture, this, _1), 99);*/
 
        for (size_t i = 0; i < 1; ++i)
        {
@@ -118,6 +128,7 @@ namespace yg
          m_pipelines[i + pagesCount].m_currentIndex = 0;
 
          m_pipelines[i + pagesCount].m_hasStorage = false;
+         m_pipelines[i + pagesCount].m_usage = p->usage();
 
          m_pipelines[i + pagesCount].m_maxVertices = 0;
          m_pipelines[i + pagesCount].m_maxIndices = 0;
@@ -138,18 +149,7 @@ namespace yg
        m_skin->clearAdditionalPage();
 
        for (unsigned i = pagesCount; i < pagesCount + additionalPagesCount; ++i)
-       {
-         if (m_pipelines[i].m_hasStorage)
-         {
-           if (m_useTinyStorage)
-             resourceManager()->tinyStorages()->Free(m_pipelines[i].m_storage);
-           else
-             if (m_skin->getPage(i)->usage() != SkinPage::EStaticUsage)
-               resourceManager()->storages()->Free(m_pipelines[i].m_storage);
-             else
-               resourceManager()->smallStorages()->Free(m_pipelines[i].m_storage);
-         }
-       }
+         freeStorage(i);
 
        m_pipelines.resize(m_skin->getPagesCount());
      }
@@ -165,7 +165,7 @@ namespace yg
        m_skin->addOverflowFn(bind(&GeometryBatcher::flush, this, _1), 100);
 
        m_skin->addClearPageFn(bind(&GeometryBatcher::flush, this, _1), 100);
-       m_skin->addClearPageFn(bind(&GeometryBatcher::switchTextures, this, _1), 99);
+       m_skin->addClearPageFn(bind(&GeometryBatcher::freeTexture, this, _1), 99);
 
        for (size_t i = 0; i < m_pipelines.size(); ++i)
        {
@@ -174,6 +174,7 @@ namespace yg
          m_pipelines[i].m_currentIndex = 0;
 
          m_pipelines[i].m_hasStorage = false;
+         m_pipelines[i].m_usage = skin->getPage(i)->usage();
 
          m_pipelines[i].m_maxVertices = 0;
          m_pipelines[i].m_maxIndices = 0;
@@ -219,7 +220,7 @@ namespace yg
      enableClipRect(false);
 
      if (m_isSynchronized)
-       OGLCHECK(glFinish());
+       processCommand(shared_ptr<Command>(new FinishCommand()));
 
      if (isDebugging())
      {
@@ -237,7 +238,7 @@ namespace yg
    {
      GeometryPipeline const & pipeline = m_pipelines[pipelineID];
 
-     pipeline.checkStorage(resourceManager(), skin()->getPage(pipelineID)->usage());
+     pipeline.checkStorage(resourceManager());
 
      return ((pipeline.m_currentVertex + verticesCount <= pipeline.m_maxVertices)
          &&  (pipeline.m_currentIndex + indicesCount <= pipeline.m_maxIndices));
@@ -247,7 +248,7 @@ namespace yg
    {
      GeometryPipeline const & pipeline = m_pipelines[pipelineID];
 
-     pipeline.checkStorage(resourceManager(), skin()->getPage(pipelineID)->usage());
+     pipeline.checkStorage(resourceManager());
 
      return pipeline.m_maxVertices - pipeline.m_currentVertex;
    }
@@ -255,71 +256,99 @@ namespace yg
    size_t GeometryBatcher::indicesLeft(int pipelineID) const
    {
      GeometryPipeline const & pipeline = m_pipelines[pipelineID];
-     pipeline.checkStorage(resourceManager(), skin()->getPage(pipelineID)->usage());
+
+     pipeline.checkStorage(resourceManager());
+
      return pipeline.m_maxIndices - pipeline.m_currentIndex;
    }
 
    void GeometryBatcher::flush(int pipelineID)
    {
-     bool renderedData = false;
-
      if (m_skin)
      {
        for (size_t i = m_pipelines.size(); i > 0; --i)
        {
          if ((pipelineID == -1) || ((i - 1) == (size_t)pipelineID))
          {
-           shared_ptr<SkinPage> skinPage = m_skin->getPage(i - 1);
-           GeometryPipeline & pipeline = m_pipelines[i - 1];
-
-           skinPage->uploadData();
-
-           if (pipeline.m_currentIndex)
-           {
-             pipeline.m_storage.m_vertices->unlock();
-             pipeline.m_storage.m_indices->unlock();
-
-             drawGeometry(skinPage->texture(),
-                          pipeline.m_storage.m_vertices,
-                          pipeline.m_storage.m_indices,
-                          pipeline.m_currentIndex);
-
-
-             if (isDebugging())
-             {
-               pipeline.m_verticesDrawn += pipeline.m_currentVertex;
-               pipeline.m_indicesDrawn += pipeline.m_currentIndex;
-//               LOG(LINFO, ("Pipeline #", i - 1, "draws ", pipeline.m_currentIndex / 3, "/", pipeline.m_maxIndices / 3," triangles"));
-             }
-
-             renderedData = true;
-
-             if (m_useTinyStorage)
-               resourceManager()->tinyStorages()->Free(pipeline.m_storage);
-             else
-               if (skinPage->usage() != SkinPage::EStaticUsage)
-                 resourceManager()->storages()->Free(pipeline.m_storage);
-               else
-                 resourceManager()->smallStorages()->Free(pipeline.m_storage);
-
-             pipeline.m_hasStorage = false;
-             pipeline.m_storage = Storage();
-             pipeline.m_maxIndices = 0;
-             pipeline.m_maxVertices = 0;
-             pipeline.m_vertices = 0;
-             pipeline.m_indices = 0;
-
-           }
-
+           flushPipeline(m_skin->getPage(i - 1), i - 1);
            reset(i - 1);
          }
        }
      }
    }
 
-   void GeometryBatcher::switchTextures(int pipelineID)
+   void GeometryBatcher::FreeTexture::perform()
    {
-       m_skin->getPage(pipelineID)->freeTexture();
+     if (m_isDebugging)
+       LOG(LINFO, ("performing FreeTexture command"));
+     m_texturePool->Free(m_texture);
+   }
+
+   void GeometryBatcher::freeTexture(int pipelineID)
+   {
+     shared_ptr<FreeTexture> freeTexCmd(new FreeTexture());
+
+     freeTexCmd->m_texture = m_skin->getPage(pipelineID)->texture();
+
+     switch (m_skin->getPage(pipelineID)->usage())
+     {
+     case SkinPage::EDynamicUsage:
+       freeTexCmd->m_texturePool = resourceManager()->dynamicTextures();
+       break;
+     case SkinPage::EFontsUsage:
+       freeTexCmd->m_texturePool = resourceManager()->fontTextures();
+       break;
+     }
+
+     if (freeTexCmd->m_texture)
+       processCommand(freeTexCmd);
+/*
+     m_skin->getPage(pipelineID)->freeTexture();*/
+   }
+
+   void GeometryBatcher::uploadData(shared_ptr<SkinPage> const & skinPage)
+   {
+     if (skinPage->hasData())
+     {
+       base_t::uploadData(skinPage->uploadQueue(), skinPage->texture());
+       skinPage->clearUploadQueue();
+     }
+   }
+
+   void GeometryBatcher::flushPipeline(shared_ptr<SkinPage> const & skinPage,
+                                       int pipelineID)
+   {
+     GeometryPipeline & pipeline = m_pipelines[pipelineID];
+     if (pipeline.m_currentIndex)
+     {
+       uploadData(skinPage);
+
+       pipeline.m_storage.m_vertices->unlock();
+       pipeline.m_storage.m_indices->unlock();
+
+//             base_t::applyStates(m_isAntiAliased);
+
+       drawGeometry(skinPage->texture(),
+                    pipeline.m_storage.m_vertices,
+                    pipeline.m_storage.m_indices,
+                    pipeline.m_currentIndex);
+
+
+       if (isDebugging())
+       {
+         pipeline.m_verticesDrawn += pipeline.m_currentVertex;
+         pipeline.m_indicesDrawn += pipeline.m_currentIndex;
+//               LOG(LINFO, ("Pipeline #", i - 1, "draws ", pipeline.m_currentIndex / 3, "/", pipeline.m_maxIndices / 3," triangles"));
+       }
+
+       freeStorage(pipelineID);
+
+       pipeline.m_maxIndices = 0;
+       pipeline.m_maxVertices = 0;
+       pipeline.m_vertices = 0;
+       pipeline.m_indices = 0;
+
+     }
    }
 
    void GeometryBatcher::drawTexturedPolygon(
@@ -333,7 +362,7 @@ namespace yg
      if (!hasRoom(4, 6, pipelineID))
        flush(pipelineID);
 
-     m_pipelines[pipelineID].checkStorage(resourceManager(), skin()->getPage(pipelineID)->usage());
+     m_pipelines[pipelineID].checkStorage(resourceManager());
 
      float texMinX = tx0;
      float texMaxX = tx1;
@@ -386,7 +415,7 @@ namespace yg
 
      GeometryPipeline & pipeline = m_pipelines[pipelineID];
 
-     pipeline.checkStorage(resourceManager(), skin()->getPage(pipelineID)->usage());
+     pipeline.checkStorage(resourceManager());
 
      ASSERT(size > 2, ());
 
@@ -437,7 +466,7 @@ namespace yg
 
      GeometryPipeline & pipeline = m_pipelines[pipelineID];
 
-     pipeline.checkStorage(resourceManager(), skin()->getPage(pipelineID)->usage());
+     pipeline.checkStorage(resourceManager());
 
      ASSERT(size > 2, ());
 
@@ -485,7 +514,7 @@ namespace yg
 
      GeometryPipeline & pipeline = m_pipelines[pipelineID];
 
-     pipeline.checkStorage(resourceManager(), skin()->getPage(pipelineID)->usage());
+     pipeline.checkStorage(resourceManager());
 
      ASSERT(size > 2, ());
 
@@ -524,7 +553,7 @@ namespace yg
 
      GeometryPipeline & pipeline = m_pipelines[pipelineID];
 
-     pipeline.checkStorage(resourceManager(), skin()->getPage(pipelineID)->usage());
+     pipeline.checkStorage(resourceManager());
 
      ASSERT(size > 2, ());
 

@@ -25,6 +25,25 @@ namespace yg
       double m_updateInterval;
       my::Timer m_updateTimer;
 
+      struct UpdateActualTarget : base_t::Command
+      {
+        bool m_doSynchronize;
+        shared_ptr<RenderState> m_renderState;
+        ScreenBase m_currentScreen;
+
+        void perform();
+      };
+
+      struct UpdateBackBuffer : base_t::Command
+      {
+        shared_ptr<BaseTexture> m_actualTarget;
+        shared_ptr<RenderState> m_renderState;
+        shared_ptr<ResourceManager> m_resourceManager;
+        bool m_isClipRectEnabled;
+
+        void perform();
+      };
+
     public:
 
       struct Params : base_t::Params
@@ -47,7 +66,7 @@ namespace yg
       void beginFrame();
       void endFrame();
       void setClipRect(m2::RectI const & rect);
-      virtual void updateActualTarget();
+      void updateActualTarget();
     };
   }
 }

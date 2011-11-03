@@ -104,7 +104,11 @@ public:
 
   ResourcePool(TPoolTraits const & traits)
     : m_traits(traits)
-  {}
+  {
+    /// quick trick to perform lazy initialization
+    /// on the same thread the pool was created.
+    Free(Reserve());
+  }
 
   TElem const Reserve()
   {

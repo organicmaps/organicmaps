@@ -8,6 +8,7 @@
 #include "internal/opengl.hpp"
 
 #include "../base/logging.hpp"
+#include "../std/bind.hpp"
 
 namespace yg
 {
@@ -48,22 +49,19 @@ namespace yg
       }
     }
 
-    void RenderStateUpdater::updateActualTarget()
+    void RenderStateUpdater::UpdateActualTarget::perform()
     {
-      /// Carefully synchronizing the access to the m_renderState to minimize wait time.
-      OGLCHECK(glFinish());
+      if (m_doSynchronize)
+        m_renderState->m_mutex->Lock();
+      m_renderState->m_actualScreen = m_currentScreen;
+      if (m_doSynchronize)
+        m_renderState->m_mutex->Unlock();
+    }
 
-      {
-        threads::MutexGuard guard(*m_renderState->m_mutex.get());
-        swap(m_renderState->m_actualTarget, m_renderState->m_backBufferLayers.front());
-        m_renderState->m_actualScreen = m_renderState->m_currentScreen;
-      }
-
-      /// blitting will be performed through
-      /// non-multisampled framebuffer for the sake of speed
-
-      frameBuffer()->setRenderTarget(m_renderState->m_backBufferLayers.front());
-      frameBuffer()->makeCurrent();
+    void RenderStateUpdater::UpdateBackBuffer::perform()
+    {
+      if (m_isDebugging)
+        LOG(LINFO, ("performing UpdateBackBuffer command"));
 
       OGLCHECK(glFinish());
 
@@ -72,20 +70,52 @@ namespace yg
       OGLCHECK(glClearColor(192 / 255.0, 192 / 255.0, 192 / 255.0, 1.0));
       OGLCHECK(glClear(GL_COLOR_BUFFER_BIT));
 
-      shared_ptr<BaseTexture> actualTarget = m_renderState->m_actualTarget;
+      shared_ptr<IMMDrawTexturedRect> immDrawTexturedRect(
+            new IMMDrawTexturedRect(m2::RectF(0, 0, m_actualTarget->width(), m_actualTarget->height()),
+                                    m2::RectF(0, 0, 1, 1),
+                                    m_actualTarget,
+                                    m_resourceManager));
 
-      immDrawTexturedRect(
-          m2::RectF(0, 0, actualTarget->width(), actualTarget->height()),
-          m2::RectF(0, 0, 1, 1),
-          actualTarget
-          );
+      immDrawTexturedRect->perform();
 
-      if (clipRectEnabled())
+      if (m_isClipRectEnabled)
         OGLCHECK(glEnable(GL_SCISSOR_TEST));
 
       OGLCHECK(glFinish());
 
       m_renderState->invalidate();
+    }
+
+    void RenderStateUpdater::updateActualTarget()
+    {
+      /// Carefully synchronizing the access to the m_renderState to minimize wait time.
+      processCommand(shared_ptr<Command>(new FinishCommand()));
+
+      m_renderState->m_mutex->Lock();
+
+      swap(m_renderState->m_actualTarget, m_renderState->m_backBufferLayers.front());
+
+      shared_ptr<UpdateActualTarget> command(new UpdateActualTarget());
+      command->m_renderState = m_renderState;
+      command->m_currentScreen = m_renderState->m_currentScreen;
+      command->m_doSynchronize = renderQueue();
+
+      processCommand(command);
+
+      shared_ptr<UpdateBackBuffer> command1(new UpdateBackBuffer());
+      command1->m_actualTarget = m_renderState->m_actualTarget;
+      command1->m_renderState = m_renderState;
+      command1->m_resourceManager = resourceManager();
+      command1->m_isClipRectEnabled = clipRectEnabled();
+
+      /// blitting will be performed through
+      /// non-multisampled framebuffer for the sake of speed
+      setRenderTarget(m_renderState->m_backBufferLayers.front());
+
+//    m_renderState->m_actualScreen = m_renderState->m_currentScreen;
+      m_renderState->m_mutex->Unlock();
+
+      processCommand(command1);
     }
 
     void RenderStateUpdater::beginFrame()

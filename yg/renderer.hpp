@@ -2,6 +2,8 @@
 
 #include "color.hpp"
 
+#include "../base/threaded_list.hpp"
+#include "../std/function.hpp"
 #include "../std/shared_ptr.hpp"
 
 namespace yg
@@ -18,23 +20,73 @@ namespace yg
     class Renderer
     {
     public:
-      virtual ~Renderer() {}
+
+      struct BaseState
+      {
+        virtual ~BaseState();
+        virtual void apply(BaseState const * prev) = 0;
+      };
+
+      struct State : BaseState
+      {
+        shared_ptr<FrameBuffer> m_frameBuffer;
+        shared_ptr<RenderTarget> m_renderTarget;
+        shared_ptr<RenderTarget> m_depthBuffer;
+        shared_ptr<ResourceManager> m_resourceManager;
+
+        void apply(BaseState const * prev);
+      };
+
+      struct Command
+      {
+        bool m_isDebugging;
+        virtual ~Command();
+        virtual void perform() = 0;
+      };
+
+      struct Packet
+      {
+        shared_ptr<BaseState> m_state;
+        shared_ptr<Command> m_command;
+        Packet();
+        Packet(shared_ptr<BaseState> const & state,
+               shared_ptr<Command> const & command);
+      };
+
+      struct ClearCommand : Command
+      {
+        yg::Color m_color;
+        bool m_clearRT;
+        float m_depth;
+        bool m_clearDepth;
+
+        void perform();
+      };
+
+      struct FinishCommand : Command
+      {
+        void perform();
+      };
+
+      virtual ~Renderer();
 
       struct Params
       {
         shared_ptr<ResourceManager> m_resourceManager;
         shared_ptr<FrameBuffer> m_frameBuffer;
         bool m_isDebugging;
+        ThreadedList<Packet> * m_renderQueue;
         Params();
       };
 
     private:
 
+      shared_ptr<FrameBuffer> m_frameBuffer;
+      shared_ptr<RenderTarget> m_renderTarget;
+      shared_ptr<RenderTarget> m_depthBuffer;
       shared_ptr<ResourceManager> m_resourceManager;
 
-      shared_ptr<FrameBuffer> m_frameBuffer;
-      shared_ptr<BaseTexture> m_renderTarget;
-      shared_ptr<RenderBuffer> m_depthBuffer;
+      ThreadedList<Packet> * m_renderQueue;
 
       bool m_isDebugging;
 
@@ -55,12 +107,12 @@ namespace yg
       shared_ptr<ResourceManager> const & resourceManager() const;
 
       shared_ptr<FrameBuffer> const & frameBuffer() const;
-//      void setFrameBuffer(shared_ptr<FrameBuffer> const & fb);
-
-      shared_ptr<FrameBuffer> const & multiSampledFrameBuffer() const;
 
       void setRenderTarget(shared_ptr<RenderTarget> const & rt);
       shared_ptr<RenderTarget> const & renderTarget() const;
+
+      void setDepthBuffer(shared_ptr<RenderTarget> const & rt);
+      shared_ptr<RenderTarget> const & depthBuffer() const;
 
       /// @param clearRT - should we clear the renderTarget data (visible pixels)?
       /// @param clearDepth - should we clear depthBuffer data?
@@ -77,6 +129,13 @@ namespace yg
       void finish();
 
       bool isDebugging() const;
+
+      virtual shared_ptr<BaseState> const createState() const;
+
+      virtual void getState(BaseState * state);
+
+      void processCommand(shared_ptr<Command> const & command);
+      ThreadedList<Packet> * renderQueue();
     };
   }
 }

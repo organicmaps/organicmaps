@@ -15,7 +15,8 @@ RenderQueue::RenderQueue(
     double visualScale,
     yg::Color const & bgColor
   )
-  : m_renderState(new yg::gl::RenderState())
+  : m_renderState(new yg::gl::RenderState()),
+    m_hasPendingResize(false)
 {
   m_renderState->m_surfaceWidth = 100;
   m_renderState->m_surfaceHeight = 100;
@@ -41,7 +42,14 @@ void RenderQueue::initializeGL(shared_ptr<yg::gl::RenderContext> const & primary
   m_resourceManager = resourceManager;
   m_routine->initializeGL(primaryContext->createShared(),
                           m_resourceManager);
+
+  if (m_hasPendingResize)
+  {
+    m_routine->onSize(m_savedWidth, m_savedHeight);
+    m_hasPendingResize = false;
+  }
   m_renderQueueThread.Create(m_routine);
+
 }
 
 RenderQueue::~RenderQueue()
@@ -67,6 +75,14 @@ void RenderQueue::AddWindowHandle(shared_ptr<WindowHandle> const & windowHandle)
 void RenderQueue::OnSize(size_t w, size_t h)
 {
   m_renderState->onSize(w, h);
+  if (!m_resourceManager)
+  {
+    m_hasPendingResize = true;
+    m_savedWidth = w;
+    m_savedHeight = h;
+  }
+  else
+    m_routine->onSize(w, h);
 }
 
 yg::gl::RenderState const RenderQueue::CopyState() const
@@ -104,5 +120,10 @@ void RenderQueue::enterForeground()
 void RenderQueue::WaitForEmptyAndFinished()
 {
   m_routine->waitForEmptyAndFinished();
+}
+
+void RenderQueue::SetGLQueue(ThreadedList<yg::gl::Renderer::Packet> * glQueue)
+{
+  m_routine->SetGLQueue(glQueue);
 }
 

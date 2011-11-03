@@ -47,6 +47,8 @@ namespace yg
 
     typedef m2::Packer::overflowFn overflowFn;
 
+    typedef vector<shared_ptr<ResourceStyle> > TUploadQueue;
+
   private:
 
     typedef map<uint32_t, shared_ptr<ResourceStyle> > TStyles;
@@ -74,9 +76,7 @@ namespace yg
     mutable shared_ptr<ResourceManager> m_resourceManager;
     /// @}
 
-    vector<shared_ptr<ResourceStyle> > m_uploadQueue;
-
-    void clearUploadQueue();
+    TUploadQueue m_uploadQueue;
 
     typedef vector<FontInfo> TFonts;
     TFonts m_fonts;
@@ -104,6 +104,9 @@ namespace yg
     void clear();
 
     bool hasData();
+    TUploadQueue const & uploadQueue() const;
+    void clearUploadQueue();
+
     void uploadData();
 
     void checkTexture() const;

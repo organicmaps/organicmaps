@@ -1,39 +1,120 @@
 #include "../base/SRC_FIRST.hpp"
 #include "geometry_renderer.hpp"
+#include "resource_style.hpp"
 #include "base_texture.hpp"
+#include "texture.hpp"
 #include "vertexbuffer.hpp"
 #include "indexbuffer.hpp"
+#include "managed_texture.hpp"
 #include "vertex.hpp"
 #include "internal/opengl.hpp"
+
+#include "../std/bind.hpp"
+#include "../base/logging.hpp"
 
 namespace yg
 {
   namespace gl
   {
-    GeometryRenderer::GeometryRenderer(base_t::Params const & params) : base_t(params)
+    typedef Texture<DATA_TRAITS, true> TDynamicTexture;
+
+    GeometryRenderer::GeometryRenderer(base_t::Params const & params)
+      : base_t(params)
     {}
+
+    void GeometryRenderer::DrawGeometry::perform()
+    {
+      if (m_isDebugging)
+        LOG(LINFO, ("performing DrawGeometry command"));
+
+      m_vertices->makeCurrent();
+      /// it's important to setupLayout after vertices->makeCurrent
+      Vertex::setupLayout(m_vertices->glPtr());
+      m_indices->makeCurrent();
+
+      m_texture->makeCurrent();
+
+//      OGLCHECK(glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ));
+
+      OGLCHECK(glDrawElements(
+        GL_TRIANGLES,
+        m_indicesCount,
+        GL_UNSIGNED_SHORT,
+        m_indices->glPtr()));
+
+//      OGLCHECK(glPolygonMode( GL_FRONT_AND_BACK, GL_FILL ));
+    }
 
     void GeometryRenderer::drawGeometry(shared_ptr<BaseTexture> const & texture,
                                         shared_ptr<VertexBuffer> const & vertices,
                                         shared_ptr<IndexBuffer> const & indices,
                                         size_t indicesCount)
     {
-      vertices->makeCurrent();
-      /// it's important to setupLayout after vertices->makeCurrent
-      Vertex::setupLayout(vertices->glPtr());
-      indices->makeCurrent();
+      shared_ptr<DrawGeometry> command(new DrawGeometry());
+      command->m_texture = texture;
+      command->m_indices = indices;
+      command->m_vertices = vertices;
+      command->m_indicesCount = indicesCount;
+      command->m_isDebugging = renderQueue();
 
-      texture->makeCurrent();
+      processCommand(command);
+    }
 
-//      OGLCHECK(glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ));
+    void GeometryRenderer::UploadData::perform()
+    {
+      if (m_isDebugging)
+        LOG(LINFO, ("performing UploadData command"));
 
-      OGLCHECK(glDrawElements(
-        GL_TRIANGLES,
-        indicesCount,
-        GL_UNSIGNED_SHORT,
-        indices->glPtr()));
+      static_cast<gl::ManagedTexture*>(m_texture.get())->lock();
 
-//      OGLCHECK(glPolygonMode( GL_FRONT_AND_BACK, GL_FILL ));
+      TDynamicTexture * dynTexture = static_cast<TDynamicTexture*>(m_texture.get());
+
+      for (size_t i = 0; i < m_styles.size(); ++i)
+      {
+        shared_ptr<ResourceStyle> const & style = m_styles[i];
+
+        TDynamicTexture::view_t v = dynTexture->view(style->m_texRect.SizeX(),
+                                                     style->m_texRect.SizeY());
+
+        style->render(&v(0, 0));
+
+        dynTexture->upload(&v(0, 0), style->m_texRect);
+      }
+
+      static_cast<gl::ManagedTexture*>(m_texture.get())->unlock();
+    }
+
+    void GeometryRenderer::uploadData(vector<shared_ptr<ResourceStyle> > const & v,
+                                      shared_ptr<BaseTexture> const & texture)
+    {
+      shared_ptr<UploadData> uploadData(new UploadData());
+      uploadData->m_styles = v;
+      uploadData->m_texture = texture;
+      uploadData->m_isDebugging = renderQueue();
+
+      processCommand(uploadData);
+    }
+
+    void GeometryRenderer::applyStates(bool isAntiAliased)
+    {
+      if (renderQueue())
+        return;
+
+      OGLCHECK(glEnable(GL_TEXTURE_2D));
+
+//      OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
+//      OGLCHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
+
+      OGLCHECK(glEnable(GL_DEPTH_TEST));
+      OGLCHECK(glDepthFunc(GL_LEQUAL));
+
+      OGLCHECK(glEnable(GL_ALPHA_TEST));
+      OGLCHECK(glAlphaFunc(GL_GREATER, 0.0));
+
+      OGLCHECK(glEnable(GL_BLEND));
+      OGLCHECK(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+
+      OGLCHECK(glColor4f(1.0f, 1.0f, 1.0f, 1.0f));
     }
   }
 }

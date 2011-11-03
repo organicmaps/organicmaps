@@ -135,7 +135,7 @@
     p.m_skinName = pl.SkinName();
     p.m_visualScale = pl.VisualScale();
     p.m_isSynchronized = false;
-    p.m_useTinyStorage = false; //< use tiny buffers to minimize CPU->GPU data transfer overhead. 
+    p.m_useTinyStorage = true; //< use tiny buffers to minimize CPU->GPU data transfer overhead. 
 
 		drawer = shared_ptr<DrawerYG>(new DrawerYG(p));
 

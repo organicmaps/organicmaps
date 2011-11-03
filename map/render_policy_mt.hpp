@@ -8,10 +8,11 @@ class WindowHandle;
 
 class RenderPolicyMT : public RenderPolicy
 {
-private:
+protected:
 
   RenderQueue m_renderQueue;
   bool m_DoAddCommand;
+  bool m_DoSynchronize;
 
 public:
   RenderPolicyMT(shared_ptr<WindowHandle> const & wh,
@@ -38,5 +39,6 @@ public:
   void StopScale();
 
   RenderQueue & GetRenderQueue();
+  void SetNeedSynchronize(bool flag);
 
 };

@@ -18,6 +18,40 @@ namespace yg
 {
   namespace gl
   {
+    Blitter::IMMDrawTexturedRect::IMMDrawTexturedRect(
+        m2::RectF const & rect,
+        m2::RectF const & texRect,
+        shared_ptr<BaseTexture> const & texture,
+        shared_ptr<ResourceManager> const & rm)
+    {
+      m2::PointF rectPoints[4] =
+      {
+        m2::PointF(rect.minX(), rect.minY()),
+        m2::PointF(rect.maxX(), rect.minY()),
+        m2::PointF(rect.maxX(), rect.maxY()),
+        m2::PointF(rect.minX(), rect.maxY())
+      };
+
+      m2::PointF texRectPoints[4] =
+      {
+        m2::PointF(texRect.minX(), texRect.minY()),
+        m2::PointF(texRect.maxX(), texRect.minY()),
+        m2::PointF(texRect.maxX(), texRect.maxY()),
+        m2::PointF(texRect.minX(), texRect.maxY()),
+      };
+
+      m_pts.resize(4);
+      m_texPts.resize(4);
+
+      copy(rectPoints, rectPoints + 4, &m_pts[0]);
+      copy(texRectPoints, texRectPoints + 4, &m_texPts[0]);
+      m_ptsCount = 4;
+      m_texture = texture;
+      m_hasTexture = true;
+      m_hasColor = false;
+      m_resourceManager = rm;
+    }
+
     Blitter::Blitter(base_t::Params const & params) : base_t(params)
     {
     }
@@ -222,26 +256,35 @@ namespace yg
     }
 
     void Blitter::immDrawTexturedRect(m2::RectF const & rect,
-                                     m2::RectF const & texRect,
-                                     shared_ptr<BaseTexture> const & texture)
+                                      m2::RectF const & texRect,
+                                      shared_ptr<BaseTexture> const & texture)
     {
-      m2::PointF rectPoints[4] =
-      {
-        m2::PointF(rect.minX(), rect.minY()),
-        m2::PointF(rect.maxX(), rect.minY()),
-        m2::PointF(rect.maxX(), rect.maxY()),
-        m2::PointF(rect.minX(), rect.maxY())
-      };
+      shared_ptr<IMMDrawTexturedRect> command(new IMMDrawTexturedRect(rect, texRect, texture, resourceManager()));
+      processCommand(command);
+    }
 
-      m2::PointF texRectPoints[4] =
-      {
-        m2::PointF(texRect.minX(), texRect.minY()),
-        m2::PointF(texRect.maxX(), texRect.minY()),
-        m2::PointF(texRect.maxX(), texRect.maxY()),
-        m2::PointF(texRect.minX(), texRect.maxY()),
-      };
+    void Blitter::immDrawTexturedPrimitives(m2::PointF const * pts,
+                                   m2::PointF const * texPts,
+                                   size_t size,
+                                   shared_ptr<BaseTexture> const & texture,
+                                   bool hasTexture,
+                                   yg::Color const & color,
+                                   bool hasColor)
+    {
+      shared_ptr<IMMDrawTexturedPrimitives> command(new IMMDrawTexturedPrimitives());
 
-      immDrawTexturedPrimitives(rectPoints, texRectPoints, 4, texture, true, yg::Color(), false);
+      command->m_ptsCount = size;
+      command->m_pts.resize(size);
+      command->m_texPts.resize(size);
+      copy(pts, pts + size, command->m_pts.begin());
+      copy(texPts, texPts + size, command->m_texPts.begin());
+      command->m_texture = texture;
+      command->m_hasTexture = hasTexture;
+      command->m_color = color;
+      command->m_hasColor = hasColor;
+      command->m_resourceManager = resourceManager();
+
+      processCommand(command);
     }
 
     void Blitter::setupAuxVertexLayout(bool hasColor, bool hasTexture, void * glPtr)
@@ -269,51 +312,46 @@ namespace yg
       }
     }
 
-    void Blitter::immDrawTexturedPrimitives(m2::PointF const * pts,
-                                           m2::PointF const * texPts,
-                                           size_t size,
-                                           shared_ptr<BaseTexture> const & texture,
-                                           bool hasTexture,
-                                           yg::Color const & color,
-                                           bool hasColor)
+    void Blitter::IMMDrawTexturedPrimitives::perform()
     {
-      m_blitStorage = resourceManager()->blitStorages()->Reserve();
+      if (m_isDebugging)
+        LOG(LINFO, ("performing IMMDrawTexturedPrimitives command"));
+      yg::gl::Storage blitStorage = m_resourceManager->blitStorages()->Reserve();
 
-      AuxVertex * pointsData = (AuxVertex*)m_blitStorage.m_vertices->lock();
+      AuxVertex * pointsData = (AuxVertex*)blitStorage.m_vertices->lock();
 
-      for (size_t i = 0; i < size; ++i)
+      for (size_t i = 0; i < m_ptsCount; ++i)
       {
-        pointsData[i].pt.x = pts[i].x;
-        pointsData[i].pt.y = pts[i].y;
-        pointsData[i].texPt.x = texPts[i].x;
-        pointsData[i].texPt.y = texPts[i].y;
-        pointsData[i].color = color;
+        pointsData[i].pt.x = m_pts[i].x;
+        pointsData[i].pt.y = m_pts[i].y;
+        pointsData[i].texPt.x = m_texPts[i].x;
+        pointsData[i].texPt.y = m_texPts[i].y;
+        pointsData[i].color = m_color;
       }
 
-      m_blitStorage.m_vertices->unlock();
-      m_blitStorage.m_vertices->makeCurrent();
+      blitStorage.m_vertices->unlock();
+      blitStorage.m_vertices->makeCurrent();
 
-      setupAuxVertexLayout(hasColor, hasTexture, m_blitStorage.m_vertices->glPtr());
+      Blitter::setupAuxVertexLayout(m_hasColor, m_hasTexture, blitStorage.m_vertices->glPtr());
 
-      if (texture)
-        texture->makeCurrent();
+      if (m_texture)
+        m_texture->makeCurrent();
 
       unsigned short idxData[4] = {0, 1, 2, 3};
-      memcpy(m_blitStorage.m_indices->lock(), idxData, sizeof(idxData));
-      m_blitStorage.m_indices->unlock();
-      m_blitStorage.m_indices->makeCurrent();
+      memcpy(blitStorage.m_indices->lock(), idxData, sizeof(idxData));
+      blitStorage.m_indices->unlock();
+      blitStorage.m_indices->makeCurrent();
 
       OGLCHECK(glDisable(GL_BLEND));
       OGLCHECK(glDisable(GL_DEPTH_TEST));
-      OGLCHECK(glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, m_blitStorage.m_indices->glPtr()));
+      OGLCHECK(glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_SHORT, blitStorage.m_indices->glPtr()));
       OGLCHECK(glEnable(GL_DEPTH_TEST));
       OGLCHECK(glEnable(GL_TEXTURE_2D));
       OGLCHECK(glEnable(GL_BLEND));
 //      /// This call is necessary to avoid parasite blitting in updateActualTarget() on IPhone.
 //      OGLCHECK(glFinish());
 
-      resourceManager()->blitStorages()->Free(m_blitStorage);
-      m_blitStorage = yg::gl::Storage();
+      m_resourceManager->blitStorages()->Free(blitStorage);
     }
   }
 }

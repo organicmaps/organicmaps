@@ -8,6 +8,7 @@
 #include "render_state_updater.hpp"
 #include "storage.hpp"
 #include "skin_page.hpp"
+#include "resource_manager.hpp"
 
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
@@ -62,21 +63,20 @@ namespace yg
         /// @}
 
         bool m_useTinyStorage;
+        yg::SkinPage::EUsage m_usage;
 
         size_t verticesLeft();
         size_t indicesLeft();
 
-        void checkStorage(shared_ptr<ResourceManager> const & resourceManager, yg::SkinPage::EUsage usage) const;
+        void checkStorage(shared_ptr<ResourceManager> const & resourceManager) const;
       };
 
       vector<GeometryPipeline> m_pipelines;
 
       void reset(int pipelineID);
 
-      void switchTextures(int pipelineID);
-
-      /// Apply all states needed for rendering a batch of geometry.
-      void applyStates();
+      void freeStorage(int pipelineID);
+      void freeTexture(int pipelineID);
 
       bool m_isAntiAliased;
       bool m_isSynchronized;
@@ -84,6 +84,21 @@ namespace yg
 
       int m_aaShift;
 
+      struct FreeStorage : public Command
+      {
+        ResourceManager::TStoragePool * m_storagePool;
+        Storage m_storage;
+
+        void perform();
+      };
+
+      struct FreeTexture : public Command
+      {
+        ResourceManager::TTexturePool * m_texturePool;
+        shared_ptr<BaseTexture> m_texture;
+
+        void perform();
+      };
 
     public:
 
@@ -109,6 +124,10 @@ namespace yg
       void beginFrame();
       void endFrame();
 
+      void uploadData(shared_ptr<SkinPage> const & skinPage);
+
+      void flushPipeline(shared_ptr<SkinPage> const & skinPage, int pipelineID);
+
     public:
 
       /// This functions hide the base_t functions with the same name and signature
@@ -118,7 +137,6 @@ namespace yg
       void setClipRect(m2::RectI const & rect);
 
       void clear(yg::Color const & c = yg::Color(187, 187, 187, 255), bool clearRT = true, float depth = 1.0, bool clearDepth = true);
-
       /// @}
 
       void setRenderTarget(shared_ptr<RenderTarget> const & rt);

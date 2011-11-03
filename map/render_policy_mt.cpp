@@ -22,9 +22,15 @@ RenderPolicyMT::RenderPolicyMT(shared_ptr<WindowHandle> const & wh,
                   GetPlatform().ScaleEtalonSize(),
                   GetPlatform().VisualScale(),
                   bgColor()),
-    m_DoAddCommand(true)
+    m_DoAddCommand(true),
+    m_DoSynchronize(true)
 {
   m_renderQueue.AddWindowHandle(wh);
+}
+
+void RenderPolicyMT::SetNeedSynchronize(bool flag)
+{
+  m_DoSynchronize = flag;
 }
 
 void RenderPolicyMT::Initialize(shared_ptr<yg::gl::RenderContext> const & rc,
@@ -51,7 +57,8 @@ void RenderPolicyMT::BeginFrame(shared_ptr<PaintEvent> const & e,
 void RenderPolicyMT::EndFrame(shared_ptr<PaintEvent> const & e,
                               ScreenBase const & s)
 {
-  m_renderQueue.renderState().m_mutex->Unlock();
+  if (m_DoSynchronize)
+    m_renderQueue.renderState().m_mutex->Unlock();
 }
 
 void RenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,
@@ -64,7 +71,8 @@ void RenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   e->drawer()->screen()->clear(bgColor());
 
-  m_renderQueue.renderState().m_mutex->Lock();
+  if (m_DoSynchronize)
+    m_renderQueue.renderState().m_mutex->Lock();
 
   if (m_renderQueue.renderState().m_actualTarget.get() != 0)
   {

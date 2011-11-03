@@ -31,6 +31,14 @@
 #include "../std/fstream.hpp"
 #include "../std/target_os.hpp"
 
+#include "render_policy_st.hpp"
+#include "render_policy_mt.hpp"
+
+#include "tiling_render_policy_st.hpp"
+#include "tiling_render_policy_mt.hpp"
+
+#include "partial_render_policy.hpp"
+
 using namespace feature;
 
 template <typename TModel>
@@ -107,11 +115,11 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
 {
   // on Android policy is created in AndroidFramework
 #ifndef OMIM_OS_ANDROID
+
 //  SetRenderPolicy(make_shared_ptr(new RenderPolicyST(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5, false))));
 //  SetRenderPolicy(make_shared_ptr(new TilingRenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5, true))));
   SetRenderPolicy(make_shared_ptr(new RenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5, false))));
-
-  m_navigator.SetSupportRotation(m_renderPolicy->DoSupportRotation());
+//  SetRenderPolicy(make_shared_ptr(new PartialRenderPolicy(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5, false))));
 
 #endif
 
@@ -672,6 +680,7 @@ template <typename TModel>
 void Framework<TModel>::SetRenderPolicy(shared_ptr<RenderPolicy> const & renderPolicy)
 {
   m_renderPolicy = renderPolicy;
+  m_navigator.SetSupportRotation(m_renderPolicy->DoSupportRotation());
 }
 
 template <typename TModel>

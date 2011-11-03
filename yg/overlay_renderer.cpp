@@ -51,27 +51,7 @@ namespace yg
       if (!m_infoLayer.get())
         oe->draw(this, id);
       else
-      {
         m_infoLayer->processOverlayElement(oe);
-/*        m2::PointI keyPt((int)pt.x, (int)pt.y);
-        LOG(LINFO, ("symbolPos:", keyPt));
-
-        TElements::const_iterator it = m_elements.find(keyPt);
-
-        if (it != m_elements.end())
-        {
-          LOG(LINFO, ("matched : ", keyPt));
-          shared_ptr<OverlayElement> e = it->second;
-
-          shared_ptr<CompositeOverlayElement> coe(new CompositeOverlayElement(OverlayElement::Params()));
-          coe->addElement(it->second);
-          coe->addElement(oe);
-
-          oe = coe;
-        }
-
-        m_elements[keyPt] = oe;*/
-      }
     }
 
     void OverlayRenderer::drawCircle(m2::PointD const & pt,
@@ -124,27 +104,7 @@ namespace yg
       if (!m_infoLayer.get())
         oe->draw(this, id);
       else
-      {
         m_infoLayer->processOverlayElement(oe);
-/*        m2::PointI keyPt((int)pt.x, (int)pt.y);
-        LOG(LINFO, ("textPos:", keyPt));
-
-        TElements::const_iterator it = m_elements.find(keyPt);
-
-        if (it != m_elements.end())
-        {
-          LOG(LINFO, ("matched :", keyPt));
-          shared_ptr<OverlayElement> e = it->second;
-
-          shared_ptr<CompositeOverlayElement> coe(new CompositeOverlayElement(OverlayElement::Params()));
-          coe->addElement(it->second);
-          coe->addElement(oe);
-
-          oe = coe;
-        }
-
-        m_elements[keyPt] = oe;*/
-      }
     }
 
     bool OverlayRenderer::drawPathText(

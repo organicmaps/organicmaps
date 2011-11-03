@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../base/thread.hpp"
+#include "../base/threaded_list.hpp"
+#include "../yg/renderer.hpp"
 #include "../geometry/screenbase.hpp"
 #include "../std/shared_ptr.hpp"
 #include "render_queue_routine.hpp"
@@ -28,6 +30,9 @@ private:
   shared_ptr<yg::gl::RenderState> m_renderState;
   shared_ptr<yg::ResourceManager> m_resourceManager;
   RenderQueueRoutine * m_routine;
+  bool m_hasPendingResize;
+  int m_savedWidth;
+  int m_savedHeight;
 
 public:
   /// constructor.
@@ -71,4 +76,6 @@ public:
   void enterForeground();
 
   void WaitForEmptyAndFinished();
+
+  void SetGLQueue(ThreadedList<yg::gl::Renderer::Packet> * glQueue);
 };

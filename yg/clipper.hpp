@@ -16,9 +16,23 @@ namespace yg
       bool m_isClippingEnabled;
       m2::RectI m_clipRect;
 
+      void enableClipRectImpl(bool flag);
+      void setClipRectImpl(m2::RectI const & rect);
+
     public:
 
+      struct State : public base_t::State
+      {
+        bool m_isClippingEnabled;
+        m2::RectI m_clipRect;
+
+        void apply(BaseState const * prev);
+      };
+
       Clipper(base_t::Params const & params);
+
+      shared_ptr<BaseState> const createState() const;
+      void getState(BaseState * state);
 
       void beginFrame();
       void endFrame();

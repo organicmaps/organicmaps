@@ -40,6 +40,7 @@ HEADERS += \
     benchmark_render_policy_mt.hpp \
     ruler.hpp \
     measurement_utils.hpp \
+    partial_render_policy.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -69,13 +70,16 @@ SOURCES += \
     benchmark_render_policy_mt.cpp \
     ruler.cpp \
     measurement_utils.cpp \
-    window_handle.cpp
+    window_handle.cpp \
+    partial_render_policy.cpp
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp
   SOURCES += qgl_render_context.cpp
   QT += opengl
 }
+
+
 
 
 

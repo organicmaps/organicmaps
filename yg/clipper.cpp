@@ -1,6 +1,8 @@
 #include "../base/SRC_FIRST.hpp"
 #include "clipper.hpp"
 #include "internal/opengl.hpp"
+#include "../std/bind.hpp"
+#include "../base/logging.hpp"
 
 namespace yg
 {
@@ -10,6 +12,33 @@ namespace yg
       : base_t(params),
       m_isClippingEnabled(false)
     {}
+
+    void Clipper::State::apply(BaseState const * prev)
+    {
+      base_t::State::apply(prev);
+
+      State const * state = static_cast<State const *>(prev);
+
+      if (state->m_isClippingEnabled != m_isClippingEnabled)
+      {
+        if (m_isClippingEnabled)
+        {
+//        LOG(LINFO, ("enabling scissors"));
+          OGLCHECK(glEnable(GL_SCISSOR_TEST));
+        }
+        else
+        {
+//          LOG(LINFO, ("disabling scissors"));
+          OGLCHECK(glDisable(GL_SCISSOR_TEST));
+        }
+      }
+
+      if (state->m_clipRect != m_clipRect)
+      {
+//        LOG(LINFO, ("scissorRect(", m_clipRect.minX(), m_clipRect.minY(), m_clipRect.maxX(), m_clipRect.maxY(), ")"));
+        OGLCHECK(glScissor(m_clipRect.minX(), m_clipRect.minY(), m_clipRect.SizeX(), m_clipRect.SizeY()));
+      }
+    }
 
     void Clipper::beginFrame()
     {
@@ -28,6 +57,10 @@ namespace yg
     void Clipper::enableClipRect(bool flag)
     {
       m_isClippingEnabled = flag;
+
+      if (renderQueue())
+        return;
+
       if (m_isClippingEnabled)
         OGLCHECK(glEnable(GL_SCISSOR_TEST));
       else
@@ -45,12 +78,29 @@ namespace yg
       if (!m_clipRect.Intersect(m2::RectI(0, 0, width(), height())))
         m_clipRect = m2::RectI(0, 0, 0, 0);
 
+      if (renderQueue())
+        return;
+
       OGLCHECK(glScissor(m_clipRect.minX(), m_clipRect.minY(), m_clipRect.SizeX(), m_clipRect.SizeY()));
     }
 
     m2::RectI const & Clipper::clipRect() const
     {
       return m_clipRect;
+    }
+
+    shared_ptr<Clipper::BaseState> const Clipper::createState() const
+    {
+      return shared_ptr<BaseState>(new State());
+    }
+
+    void Clipper::getState(BaseState * s)
+    {
+      State * state = static_cast<State *>(s);
+      base_t::getState(s);
+
+      state->m_clipRect = m_clipRect;
+      state->m_isClippingEnabled = m_isClippingEnabled;
     }
   }
 }

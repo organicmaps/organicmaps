@@ -303,6 +303,11 @@ namespace yg
     return !m_uploadQueue.empty();
   }
 
+  SkinPage::TUploadQueue const & SkinPage::uploadQueue() const
+  {
+    return m_uploadQueue;
+  }
+
   void SkinPage::checkTexture() const
   {
     if ((m_usage != EStaticUsage) && (m_texture == 0))

@@ -48,6 +48,7 @@ RenderQueueRoutine::RenderQueueRoutine(shared_ptr<yg::gl::RenderState> const & r
   m_isBenchmarking = isBenchmarking;
   m_scaleEtalonSize = scaleEtalonSize;
   m_bgColor = bgColor;
+  m_glQueue = 0;
 }
 
 void RenderQueueRoutine::Cancel()
@@ -60,6 +61,21 @@ void RenderQueueRoutine::Cancel()
     m_currentRenderCommand->m_paintEvent->Cancel();
 }
 
+void RenderQueueRoutine::onSize(int w, int h)
+{
+  size_t texW = m_renderState->m_textureWidth;
+  size_t texH = m_renderState->m_textureHeight;
+
+  m_newDepthBuffer.reset(new yg::gl::RenderBuffer(texW, texH, true));
+  m_newActualTarget = m_resourceManager->createRenderTarget(texW, texH);
+
+  m_newBackBufferLayers.clear();
+  m_newBackBufferLayers.resize(m_renderState->m_backBufferLayers.size());
+
+  for (unsigned i = 0; i < m_renderState->m_backBufferLayers.size(); ++i)
+    m_newBackBufferLayers[i] = m_resourceManager->createRenderTarget(texW, texH);
+}
+
 void RenderQueueRoutine::processResize(ScreenBase const & frameScreen)
 {
   if (m_renderState->m_isResized)
@@ -67,21 +83,17 @@ void RenderQueueRoutine::processResize(ScreenBase const & frameScreen)
     size_t texW = m_renderState->m_textureWidth;
     size_t texH = m_renderState->m_textureHeight;
 
-    m_renderState->m_depthBuffer.reset();
-
-    if (!m_isMultiSampled)
-    {
-      m_renderState->m_depthBuffer = make_shared_ptr(new yg::gl::RenderBuffer(texW, texH, true));
-      m_threadDrawer->screen()->frameBuffer()->setDepthBuffer(m_renderState->m_depthBuffer);
-    }
-
     m_threadDrawer->onSize(texW, texH);
-    m_threadDrawer->screen()->frameBuffer()->onSize(texW, texH);
+
+    m_renderState->m_depthBuffer = m_newDepthBuffer;
+    m_threadDrawer->screen()->setDepthBuffer(m_renderState->m_depthBuffer);
+    m_newDepthBuffer.reset();
 
     shared_ptr<yg::gl::BaseTexture> oldActualTarget = m_renderState->m_actualTarget;
 
     m_renderState->m_actualTarget.reset();
-    m_renderState->m_actualTarget = m_resourceManager->createRenderTarget(texW, texH);
+    m_renderState->m_actualTarget = m_newActualTarget;
+    m_newActualTarget.reset();
 
     m_auxScreen->onSize(texW, texH);
     m_auxScreen->setRenderTarget(m_renderState->m_actualTarget);
@@ -101,7 +113,8 @@ void RenderQueueRoutine::processResize(ScreenBase const & frameScreen)
     {
       shared_ptr<yg::gl::BaseTexture> oldBackBuffer = m_renderState->m_backBufferLayers[i];
       m_renderState->m_backBufferLayers[i].reset();
-      m_renderState->m_backBufferLayers[i] = m_resourceManager->createRenderTarget(texW, texH);
+      m_renderState->m_backBufferLayers[i] = m_newBackBufferLayers[i];
+      m_newBackBufferLayers[i].reset();
       m_auxScreen->setRenderTarget(m_renderState->m_backBufferLayers[i]);
       m_auxScreen->beginFrame();
       m_auxScreen->clear(m_bgColor);
@@ -229,8 +242,6 @@ void RenderQueueRoutine::Do()
 {
   m_renderContext->makeCurrent();
 
-  m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer());
-
   DrawerYG::params_t params;
 
   params.m_resourceManager = m_resourceManager;
@@ -242,6 +253,7 @@ void RenderQueueRoutine::Do()
   params.m_visualScale = m_visualScale;
   params.m_threadID = 0;
   params.m_glyphCacheID = m_resourceManager->renderThreadGlyphCacheID(0);
+  params.m_renderQueue = m_glQueue;
 /*  params.m_isDebugging = true;
   params.m_drawPathes = false;
   params.m_drawAreas = false;
@@ -250,8 +262,9 @@ void RenderQueueRoutine::Do()
   m_threadDrawer = make_shared_ptr(new DrawerYG(params));
 
   yg::gl::Screen::Params auxParams;
-  auxParams.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer());
+  auxParams.m_frameBuffer = m_auxFrameBuffer;
   auxParams.m_resourceManager = m_resourceManager;
+  auxParams.m_renderQueue = m_glQueue;
 
   m_auxScreen = make_shared_ptr(new yg::gl::Screen(auxParams));
 
@@ -493,6 +506,8 @@ void RenderQueueRoutine::addCommand(render_fn_t const & fn, ScreenBase const & f
 void RenderQueueRoutine::initializeGL(shared_ptr<yg::gl::RenderContext> const & renderContext,
                                       shared_ptr<yg::ResourceManager> const & resourceManager)
 {
+  m_frameBuffer.reset(new yg::gl::FrameBuffer());
+  m_auxFrameBuffer.reset(new yg::gl::FrameBuffer());
   m_renderContext = renderContext;
   m_resourceManager = resourceManager;
 }
@@ -519,4 +534,9 @@ void RenderQueueRoutine::waitForEmptyAndFinished()
 
   if (!m_renderCommands.empty() || (m_currentRenderCommand != 0))
     guard.Wait();
+}
+
+void RenderQueueRoutine::SetGLQueue(ThreadedList<yg::gl::Renderer::Packet> * glQueue)
+{
+  m_glQueue = glQueue;
 }

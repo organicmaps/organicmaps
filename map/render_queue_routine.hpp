@@ -54,6 +54,10 @@ private:
 
   shared_ptr<yg::gl::RenderContext> m_renderContext;
   shared_ptr<yg::gl::FrameBuffer> m_frameBuffer;
+  shared_ptr<yg::gl::FrameBuffer> m_auxFrameBuffer;
+  shared_ptr<yg::gl::RenderBuffer> m_newDepthBuffer;
+  shared_ptr<yg::gl::BaseTexture> m_newActualTarget;
+  vector<shared_ptr<yg::gl::BaseTexture> > m_newBackBufferLayers;
   shared_ptr<DrawerYG> m_threadDrawer;
   shared_ptr<yg::gl::Screen> m_auxScreen;
 
@@ -78,6 +82,7 @@ private:
   bool m_isBenchmarking;
   unsigned m_scaleEtalonSize;
   yg::Color m_bgColor;
+  ThreadedList<yg::gl::Renderer::Packet> * m_glQueue;
 
   void waitForRenderCommand(list<shared_ptr<RenderModelCommand> > & cmdList,
                             threads::ConditionGuard & guard);
@@ -98,6 +103,9 @@ public:
                     shared_ptr<yg::ResourceManager> const & resourceManager);
   /// This function should always be called from the main thread.
   void Cancel();
+
+  void onSize(int w, int h);
+
   /// Check, whether the resize command is queued, and resize accordingly.
   void processResize(ScreenBase const & frameScreen);
   /// Get update areas for the current render state
@@ -122,4 +130,6 @@ public:
   void enterForeground();
   /// wait for all commands are processed.
   void waitForEmptyAndFinished();
+
+  void SetGLQueue(ThreadedList<yg::gl::Renderer::Packet> * glQueue);
 };

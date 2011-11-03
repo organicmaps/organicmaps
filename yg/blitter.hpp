@@ -2,9 +2,13 @@
 
 #include "clipper.hpp"
 #include "storage.hpp"
-#include "../std/shared_ptr.hpp"
+
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
+
+#include "../base/buffer_vector.hpp"
+
+#include "../std/shared_ptr.hpp"
 
 class ScreenBase;
 
@@ -32,11 +36,11 @@ namespace yg
 
       yg::gl::Storage m_blitStorage;
 
+     static void setupAuxVertexLayout(bool hasColor, bool hasTexture, void * glPtr);
+
     protected:
 
       typedef Clipper base_t;
-
-      void setupAuxVertexLayout(bool hasColor, bool hasTexture, void * glPtr);
 
       void calcPoints(m2::RectI const & srcRect,
                       m2::RectU const & texRect,
@@ -45,6 +49,29 @@ namespace yg
                       bool isSubPixel,
                       m2::PointF * geomPts,
                       m2::PointF * texPts);
+
+      struct IMMDrawTexturedPrimitives : Command
+      {
+        buffer_vector<m2::PointF, 8> m_pts;
+        buffer_vector<m2::PointF, 8> m_texPts;
+        unsigned m_ptsCount;
+        shared_ptr<BaseTexture> m_texture;
+        bool m_hasTexture;
+        yg::Color m_color;
+        bool m_hasColor;
+
+        shared_ptr<ResourceManager> m_resourceManager;
+
+        void perform();
+      };
+
+      struct IMMDrawTexturedRect : IMMDrawTexturedPrimitives
+      {
+        IMMDrawTexturedRect(m2::RectF const & rect,
+                            m2::RectF const & texRect,
+                            shared_ptr<BaseTexture> const & texture,
+                            shared_ptr<ResourceManager> const & rm);
+      };
 
     public:
 

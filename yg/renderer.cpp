@@ -11,16 +11,83 @@ namespace yg
 {
   namespace gl
   {
-    Renderer::Params::Params() : m_isDebugging(false)
+    Renderer::BaseState::~BaseState()
+    {}
+
+    Renderer::Command::~Command()
+    {}
+
+    void Renderer::State::apply(BaseState const * prevBase)
+    {
+      State const * prevState = static_cast<State const *>(prevBase);
+
+      if (m_frameBuffer)
+      {
+        bool shouldApply = false;
+
+        if (m_frameBuffer == prevState->m_frameBuffer)
+        {
+//          LOG(LINFO, ("equal framebuffers"));
+          if (m_renderTarget != prevState->m_renderTarget)
+          {
+//            LOG(LINFO, ("non-equal renderbuffers, ", m_renderTarget.get(), prevState->m_renderTarget.get()));
+            m_frameBuffer->setRenderTarget(m_renderTarget);
+            shouldApply = true;
+          }
+
+          if (m_depthBuffer != prevState->m_depthBuffer)
+          {
+//            LOG(LINFO, ("non-equal depthbuffers, ", m_depthBuffer.get(), prevState->m_depthBuffer.get()));
+            m_frameBuffer->setDepthBuffer(m_depthBuffer);
+            shouldApply = true;
+          }
+        }
+        else
+        {
+//          LOG(LINFO, ("non-equal framebuffers"));
+          m_frameBuffer->setRenderTarget(m_renderTarget);
+          m_frameBuffer->setDepthBuffer(m_depthBuffer);
+          shouldApply = true;
+        }
+
+        if (shouldApply)
+          m_frameBuffer->makeCurrent();
+      }
+      else
+        CHECK(false, ());
+    }
+
+    Renderer::Packet::Packet()
+    {}
+
+    Renderer::Packet::Packet(shared_ptr<BaseState> const & state,
+                             shared_ptr<Command> const & command)
+      : m_state(state), m_command(command)
+    {}
+
+    Renderer::Params::Params()
+      : m_isDebugging(false),
+        m_renderQueue(0)
     {}
 
     Renderer::Renderer(Params const & params)
-      : m_frameBuffer(params.m_frameBuffer),
-        m_isDebugging(params.m_isDebugging),
+      : m_isDebugging(params.m_isDebugging),
         m_isRendering(false)
     {
+      m_frameBuffer = params.m_frameBuffer;
       m_resourceManager = params.m_resourceManager;
+
+      if (m_frameBuffer)
+      {
+        m_renderTarget = m_frameBuffer->renderTarget();
+        m_depthBuffer = m_frameBuffer->depthBuffer();
+      }
+
+      m_renderQueue = params.m_renderQueue;
     }
+
+    Renderer::~Renderer()
+    {}
 
     shared_ptr<ResourceManager> const & Renderer::resourceManager() const
     {
@@ -30,7 +97,11 @@ namespace yg
     void Renderer::beginFrame()
     {
       m_isRendering = true;
-      if (m_frameBuffer.get() != 0)
+
+      if (m_renderQueue)
+        return;
+
+      if (m_frameBuffer)
         m_frameBuffer->makeCurrent();
     }
 
@@ -51,36 +122,95 @@ namespace yg
 
     shared_ptr<RenderTarget> const & Renderer::renderTarget() const
     {
-      return m_frameBuffer->renderTarget();
+      return m_renderTarget;
     }
 
     void Renderer::setRenderTarget(shared_ptr<RenderTarget> const & rt)
     {
-      m_frameBuffer->setRenderTarget(rt);
-      m_frameBuffer->makeCurrent(); //< to attach renderTarget
+      m_renderTarget = rt;
+
+      if (!m_renderQueue)
+      {
+        m_frameBuffer->setRenderTarget(rt);
+        m_frameBuffer->makeCurrent(); //< to attach renderTarget
+      }
     }
 
-    void Renderer::clear(yg::Color const & c, bool clearRT, float depth, bool clearDepth)
+    shared_ptr<RenderTarget> const & Renderer::depthBuffer() const
     {
-      OGLCHECK(glClearColor(c.r / 255.0f, c.g / 255.0f, c.b / 255.0f, c.a / 255.0f));
+      return m_depthBuffer;
+    }
+
+    void Renderer::setDepthBuffer(shared_ptr<RenderTarget> const & rt)
+    {
+      m_depthBuffer = rt;
+
+      if (!m_renderQueue)
+        m_frameBuffer->setDepthBuffer(rt);
+    }
+
+    void Renderer::ClearCommand::perform()
+    {
+      if (m_isDebugging)
+        LOG(LINFO, ("performing clear command"));
+      OGLCHECK(glClearColor(m_color.r / 255.0f,
+                            m_color.g / 255.0f,
+                            m_color.b / 255.0f,
+                            m_color.a / 255.0f));
  #ifdef OMIM_GL_ES
-      OGLCHECK(glClearDepthf(depth));
+      OGLCHECK(glClearDepthf(m_depth));
  #else
-      OGLCHECK(glClearDepth(depth));
+      OGLCHECK(glClearDepth(m_depth));
  #endif
 
       GLbitfield mask = 0;
-      if (clearRT)
+      if (m_clearRT)
         mask |= GL_COLOR_BUFFER_BIT;
-      if (clearDepth)
+      if (m_clearDepth)
         mask |= GL_DEPTH_BUFFER_BIT;
 
       OGLCHECK(glClear(mask));
     }
 
+    void Renderer::clear(yg::Color const & c, bool clearRT, float depth, bool clearDepth)
+    {
+      shared_ptr<ClearCommand> command(new ClearCommand());
+
+      command->m_color = c;
+      command->m_clearRT = clearRT;
+      command->m_depth = depth;
+      command->m_clearDepth = clearDepth;
+      command->m_isDebugging = renderQueue();
+
+      processCommand(command);
+    }
+
+    shared_ptr<Renderer::BaseState> const Renderer::createState() const
+    {
+      return shared_ptr<BaseState>(new State());
+    }
+
+    void Renderer::getState(BaseState * baseState)
+    {
+      State * state = static_cast<State *>(baseState);
+
+      state->m_frameBuffer = m_frameBuffer;
+      state->m_renderTarget = m_renderTarget;
+      state->m_depthBuffer = m_depthBuffer;
+      state->m_resourceManager = m_resourceManager;
+    }
+
+    void Renderer::FinishCommand::perform()
+    {
+      if (m_isDebugging)
+        LOG(LINFO, ("performing FinishCommand command"));
+      OGLCHECK(glFinish());
+    }
+
     void Renderer::finish()
     {
-      OGLCHECK(glFinish());
+      shared_ptr<Command> command(new FinishCommand());
+      processCommand(command);
     }
 
     void Renderer::onSize(unsigned int width, unsigned int height)
@@ -108,6 +238,26 @@ namespace yg
     bool Renderer::isDebugging() const
     {
       return m_isDebugging;
+    }
+
+    void Renderer::processCommand(shared_ptr<Command> const & command)
+    {
+      command->m_isDebugging = false;
+//      command->m_isDebugging = renderQueue();
+
+      if (renderQueue())
+      {
+        shared_ptr<BaseState> state = createState();
+        getState(state.get());
+        m_renderQueue->PushBack(Packet(state, command));
+      }
+      else
+        command->perform();
+    }
+
+    ThreadedList<Renderer::Packet> * Renderer::renderQueue()
+    {
+      return m_renderQueue;
     }
   }
 }
