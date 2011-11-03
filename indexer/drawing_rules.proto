@@ -45,3 +45,27 @@ message CircleRuleProto
 // PathTextRule is same as CaptionRule
 
 // WayMarkerRule not used yet
+
+
+// Describe containers.
+
+message DrawElementProto
+{
+  required int8 scale = 1;
+  optional repeated LineRuleProto lines = 2;
+  optional AreaRuleProto area = 3;
+  optional SymbolRuleProto = 4;
+  optional CaptionRuleProto = 5;
+  optional CircleRuleProto = 6;
+}
+
+message ClassifElementProto
+{
+  required string name = 1;
+  repeated DrawElementProto lines = 2;
+}
+
+message ContainerProto
+{
+  repeated ClassifElementProto cont = 1;
+}
