@@ -14,6 +14,15 @@ namespace yg
     Renderer::BaseState::~BaseState()
     {}
 
+    bool Renderer::Command::isDebugging() const
+    {
+      return m_isDebugging;
+    }
+
+    Renderer::Command::Command()
+      : m_isDebugging(false)
+    {}
+
     Renderer::Command::~Command()
     {}
 
@@ -151,7 +160,7 @@ namespace yg
 
     void Renderer::ClearCommand::perform()
     {
-      if (m_isDebugging)
+      if (isDebugging())
         LOG(LINFO, ("performing clear command"));
       OGLCHECK(glClearColor(m_color.r / 255.0f,
                             m_color.g / 255.0f,

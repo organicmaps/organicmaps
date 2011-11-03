@@ -24,7 +24,7 @@ namespace yg
 
     void GeometryRenderer::DrawGeometry::perform()
     {
-      if (m_isDebugging)
+      if (isDebugging())
         LOG(LINFO, ("performing DrawGeometry command"));
 
       m_vertices->makeCurrent();
@@ -55,14 +55,13 @@ namespace yg
       command->m_indices = indices;
       command->m_vertices = vertices;
       command->m_indicesCount = indicesCount;
-      command->m_isDebugging = renderQueue();
 
       processCommand(command);
     }
 
     void GeometryRenderer::UploadData::perform()
     {
-      if (m_isDebugging)
+      if (isDebugging())
         LOG(LINFO, ("performing UploadData command"));
 
       static_cast<gl::ManagedTexture*>(m_texture.get())->lock();
@@ -90,7 +89,6 @@ namespace yg
       shared_ptr<UploadData> uploadData(new UploadData());
       uploadData->m_styles = v;
       uploadData->m_texture = texture;
-      uploadData->m_isDebugging = renderQueue();
 
       processCommand(uploadData);
     }

@@ -77,7 +77,7 @@ namespace yg
 
    void GeometryBatcher::FreeStorage::perform()
    {
-     if (m_isDebugging)
+     if (isDebugging())
        LOG(LINFO, ("performing FreeStorage command"));
      m_storagePool->Free(m_storage);
    }
@@ -279,7 +279,7 @@ namespace yg
 
    void GeometryBatcher::FreeTexture::perform()
    {
-     if (m_isDebugging)
+     if (isDebugging())
        LOG(LINFO, ("performing FreeTexture command"));
      m_texturePool->Free(m_texture);
    }

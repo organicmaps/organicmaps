@@ -39,9 +39,18 @@ namespace yg
 
       struct Command
       {
+      private:
         bool m_isDebugging;
+      public:
+
+        bool isDebugging() const;
+
+        Command();
+
         virtual ~Command();
         virtual void perform() = 0;
+
+        friend class Renderer;
       };
 
       struct Packet

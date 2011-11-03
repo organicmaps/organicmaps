@@ -314,7 +314,7 @@ namespace yg
 
     void Blitter::IMMDrawTexturedPrimitives::perform()
     {
-      if (m_isDebugging)
+      if (isDebugging())
         LOG(LINFO, ("performing IMMDrawTexturedPrimitives command"));
       yg::gl::Storage blitStorage = m_resourceManager->blitStorages()->Reserve();
 

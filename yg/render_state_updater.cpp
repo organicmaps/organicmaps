@@ -60,7 +60,7 @@ namespace yg
 
     void RenderStateUpdater::UpdateBackBuffer::perform()
     {
-      if (m_isDebugging)
+      if (isDebugging())
         LOG(LINFO, ("performing UpdateBackBuffer command"));
 
       OGLCHECK(glFinish());
