@@ -1,0 +1,47 @@
+
+message ColorProto
+{
+  required int32 color = 1;
+  optional uint8 opacity = 2;  // opacity : 0 - completly invisible, 255 - completly visible
+}
+
+message DashDotProto
+{
+  repeated double dd = 1;
+}
+
+message LineRuleProto
+{
+  required double width = 1;
+  required ColorProto color = 2;
+  optional DashDotProto dashdot = 4;
+}
+
+message AreaRuleProto
+{
+  required ColorProto color = 1;
+  optional LineRuleProto border = 3;
+}
+
+message SymbolRuleProto
+{
+  required string name = 1;
+}
+
+message CaptionRuleProto
+{
+  required int32 height = 1;
+  optional ColorProto color = 2;
+  optional ColorProto stroke_color = 3;
+}
+
+message CircleRuleProto
+{
+  required double rad = 1;
+  required ColorProto color = 2;
+  optional LineRuleProto border = 3;
+}
+
+// PathTextRule is same as CaptionRule
+
+// WayMarkerRule not used yet
