@@ -14,7 +14,6 @@ HEADERS += \
     search_engine.hpp \
     intermediate_result.hpp \
     keyword_matcher.hpp \
-    query.hpp \
     search_query.hpp \
     result.hpp \
     latlon_match.hpp \
@@ -27,7 +26,6 @@ SOURCES += \
     search_engine.cpp \
     intermediate_result.cpp \
     keyword_matcher.cpp \
-    query.cpp \
     search_query.cpp \
     result.cpp \
     latlon_match.cpp \
