@@ -1,8 +1,9 @@
+option optimize_for = LITE_RUNTIME;
 
 message ColorProto
 {
   required int32 color = 1;
-  optional int32 opacity = 2;  // opacity : 0 - completly invisible, 255 - completly visible
+  optional int32 opacity = 2;  // opacity : 0 - completely invisible, 255 - completely visible
 }
 
 message DashDotProto

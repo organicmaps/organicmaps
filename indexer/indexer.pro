@@ -3,9 +3,10 @@
 TARGET = indexer
 TEMPLATE = lib
 CONFIG += staticlib
+INCLUDEPATH += ../3party/protobuf/src
 
 ROOT_DIR = ..
-DEPENDENCIES = geometry coding base expat
+DEPENDENCIES = geometry coding base expat protobuf
 
 include($$ROOT_DIR/common.pri)
 
@@ -38,7 +39,8 @@ SOURCES += \
     mwm_set.cpp \
     index.cpp \
     categories_holder.cpp \
-    search_string_utils.cpp
+    search_string_utils.cpp \
+    drules_struct.pb.cc \
 
 HEADERS += \
     feature.hpp \
@@ -85,3 +87,6 @@ HEADERS += \
     search_delimiters.hpp \
     mwm_set.hpp \
     categories_holder.hpp \
+    drules_struct.pb.h \
+
+OTHER_FILES += drules_struct.proto
