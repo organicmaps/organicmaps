@@ -2,7 +2,7 @@
 message ColorProto
 {
   required int32 color = 1;
-  optional uint8 opacity = 2;  // opacity : 0 - completly invisible, 255 - completly visible
+  optional int32 opacity = 2;  // opacity : 0 - completly invisible, 255 - completly visible
 }
 
 message DashDotProto
@@ -14,13 +14,13 @@ message LineRuleProto
 {
   required double width = 1;
   required ColorProto color = 2;
-  optional DashDotProto dashdot = 4;
+  optional DashDotProto dashdot = 3;
 }
 
 message AreaRuleProto
 {
   required ColorProto color = 1;
-  optional LineRuleProto border = 3;
+  optional LineRuleProto border = 2;
 }
 
 message SymbolRuleProto
@@ -51,12 +51,12 @@ message CircleRuleProto
 
 message DrawElementProto
 {
-  required int8 scale = 1;
-  optional repeated LineRuleProto lines = 2;
+  required int32 scale = 1;
+  repeated LineRuleProto lines = 2;
   optional AreaRuleProto area = 3;
-  optional SymbolRuleProto = 4;
-  optional CaptionRuleProto = 5;
-  optional CircleRuleProto = 6;
+  optional SymbolRuleProto sym = 4;
+  optional CaptionRuleProto cap = 5;
+  optional CircleRuleProto cir = 6;
 }
 
 message ClassifElementProto
