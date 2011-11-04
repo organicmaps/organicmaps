@@ -3,6 +3,7 @@
 TARGET = protobuf
 TEMPLATE = lib
 CONFIG += staticlib
+INCLUDEPATH += ./src
 
 ROOT_DIR = ../..
 DEPENDENCIES =
