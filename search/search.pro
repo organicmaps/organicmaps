@@ -29,5 +29,4 @@ SOURCES += \
     search_query.cpp \
     result.cpp \
     latlon_match.cpp \
-    search_trie_matching.cpp \
     approximate_string_match.cpp \
