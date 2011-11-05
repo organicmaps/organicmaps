@@ -1,6 +1,7 @@
 package com.mapswithme.maps;
 
 import com.mapswithme.maps.GesturesProcessor;
+import com.mapswithme.maps.VideoTimer;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -15,6 +16,7 @@ public class MainGLView extends GLSurfaceView
   private static String TAG = "MainGLView";
 
   GesturesProcessor m_gestures;
+  VideoTimer m_timer;
 
   public MainGLView(Context context)
   {
@@ -29,6 +31,8 @@ public class MainGLView extends GLSurfaceView
     // Do native initialization with OpenGL.
     nativeInit();
 
+    m_timer = new VideoTimer();
+    
     setRenderer(new MainRenderer());
 
     // When renderMode is RENDERMODE_WHEN_DIRTY, the renderer only rendered

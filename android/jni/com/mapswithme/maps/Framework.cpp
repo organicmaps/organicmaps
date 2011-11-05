@@ -6,6 +6,7 @@
  */
 
 #include "Framework.hpp"
+#include "VideoTimer.hpp"
 
 #include "../core/jni_helper.hpp"
 #include "../core/render_context.hpp"
@@ -47,7 +48,7 @@ namespace android
     ASSERT(g_framework == 0, ());
     g_framework = this;
 
-    // @TODO refactor storage
+   // @TODO refactor storage
     m_storage.ReInitCountries(false);
   }
 
@@ -86,6 +87,7 @@ namespace android
     p.m_glyphCacheID = m_rm->guiThreadGlyphCacheID();
     p.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
     p.m_skinName = pl.SkinName();
+    p.m_useTinyStorage = true;
 
     m_drawer = make_shared_ptr(new DrawerYG(p));
   }
@@ -103,8 +105,8 @@ namespace android
 
     Platform & pl = GetPlatform();
     m_rm = make_shared_ptr(new yg::ResourceManager(
-          bigVBSize, bigIBSize, 40,
-          smallVBSize, smallIBSize, 10,
+          bigVBSize, bigIBSize, 100,
+          smallVBSize, smallIBSize, 100,
           blitVBSize, blitIBSize, 10,
           512, 256, 6,
           512, 256, 4,
@@ -112,9 +114,11 @@ namespace android
           "fonts_whitelist.txt",
           "fonts_blacklist.txt",
           2 * 1024 * 1024,
-          1,
+          3,
           yg::Rt8Bpp,
-          false));
+          true));
+
+    m_rm->initTinyStorage(300 * sizeof(yg::gl::Vertex), 600 * sizeof(unsigned short), 30);
 
     Platform::FilesList fonts;
     pl.GetFontNames(fonts);
@@ -128,7 +132,7 @@ namespace android
     drule::rules().ForEachRule(make_all_invalid(GetPlatform().CpuCores() + 1));
 
     // temporary workaround
-    m_work.SetRenderPolicy(shared_ptr<RenderPolicy>(new RenderPolicyST(m_handle, bind(&::Framework<model::FeaturesFetcher>::DrawModel, &m_work, _1, _2, _3, _4, _5, false))));
+    m_work.SetRenderPolicy(shared_ptr<RenderPolicy>(new PartialRenderPolicy(m_handle, bind(&::Framework<model::FeaturesFetcher>::DrawModel, &m_work, _1, _2, _3, _4, _5, false))));
 
     m_rc = make_shared_ptr(new android::RenderContext());
 
