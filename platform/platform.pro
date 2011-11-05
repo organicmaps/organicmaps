@@ -39,9 +39,11 @@ include($$ROOT_DIR/common.pri)
 }
 
 macx*|iphone* {
-  HEADERS += apple_download.h
+  HEADERS += apple_download.h \
+             http_request_impl_apple.h
   OBJECTIVE_SOURCES += apple_download.mm \
-                       apple_download_manager.mm
+                       apple_download_manager.mm \
+                       http_request_impl_apple.mm
 }
 
 win32*|linux* {
@@ -64,6 +66,8 @@ HEADERS += \
     video_timer.hpp \
     languages.hpp \
     url_generator.hpp \
+    http_request.hpp \
+    http_request_impl_callback.hpp
 
 SOURCES += \
     preferred_languages.cpp \
@@ -71,3 +75,4 @@ SOURCES += \
     video_timer.cpp \
     languages.cpp \
     url_generator.cpp \
+    http_request.cpp

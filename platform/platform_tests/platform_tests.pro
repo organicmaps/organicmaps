@@ -26,11 +26,13 @@ win32*|linux* {
   QT *= network
 }
 
+#    download_test.cpp \
+
 SOURCES += \
     ../../testing/testingmain.cpp \
     platform_test.cpp \
-    download_test.cpp \
     jansson_test.cpp \
     concurrent_runner_test.cpp \
     language_test.cpp \
     url_generator_test.cpp \
+    downloader_test.cpp \
