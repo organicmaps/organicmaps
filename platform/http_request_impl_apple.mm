@@ -105,11 +105,7 @@
       return;
     }
 
-    int64_t const expectedLength = [response expectedContentLength];
-    if (expectedLength < 0)
-      LOG(LDEBUG, ("Server doesn't support HTTP Range"));
-    else
-      LOG(LDEBUG, ("Expected content length", expectedLength));
+    m_callback->OnSizeKnown([response expectedContentLength]);
   }
   else
   { // in theory, we should never be here

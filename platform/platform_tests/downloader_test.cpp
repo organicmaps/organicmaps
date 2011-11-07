@@ -3,8 +3,10 @@
 #include "../../base/logging.hpp"
 
 #include "../../coding/writer.hpp"
+#include "../../coding/sha2.hpp"
 
-#include "../../platform/http_request.hpp"
+#include "../http_request.hpp"
+#include "../chunks_download_strategy.hpp"
 
 #include "../../std/scoped_ptr.hpp"
 #include "../../std/bind.hpp"
@@ -167,5 +169,153 @@ UNIT_TEST(DownloaderSimplePost)
     QCoreApplication::exec();
     observer.TestOk();
     TEST_EQUAL(buffer, postData, (buffer));
+  }
+}
+
+UNIT_TEST(ChunksDownloadStrategy)
+{
+  string const S1 = "UrlOfServer1";
+  string const S2 = "UrlOfServer2";
+  string const S3 = "UrlOfServer3";
+  pair<int64_t, int64_t> const R1(0, 249), R2(250, 499), R3(500, 749), R4(750, 800);
+  vector<string> servers;
+  servers.push_back(S1);
+  servers.push_back(S2);
+  servers.push_back(S3);
+  int64_t const FILE_SIZE = 800;
+  int64_t const CHUNK_SIZE = 250;
+  ChunksDownloadStrategy strategy(servers, FILE_SIZE, CHUNK_SIZE);
+
+  string s1;
+  int64_t beg1, end1;
+  TEST_EQUAL(strategy.NextChunk(s1, beg1, end1), ChunksDownloadStrategy::ENextChunk, ());
+
+  string s2;
+  int64_t beg2, end2;
+  TEST_EQUAL(strategy.NextChunk(s2, beg2, end2), ChunksDownloadStrategy::ENextChunk, ());
+
+  string s3;
+  int64_t beg3, end3;
+  TEST_EQUAL(strategy.NextChunk(s3, beg3, end3), ChunksDownloadStrategy::ENextChunk, ());
+
+  string sEmpty;
+  int64_t begEmpty, endEmpty;
+  TEST_EQUAL(strategy.NextChunk(sEmpty, begEmpty, endEmpty), ChunksDownloadStrategy::ENoFreeServers, ());
+  TEST_EQUAL(strategy.NextChunk(sEmpty, begEmpty, endEmpty), ChunksDownloadStrategy::ENoFreeServers, ());
+
+  TEST(s1 != s2 && s2 != s3 && s3 != s1, (s1, s2, s3));
+
+  pair<int64_t, int64_t> const r1(beg1, end1), r2(beg2, end2), r3(beg3, end3);
+  TEST(r1 != r2 && r2 != r3 && r3 != r1, (r1, r2, r3));
+  TEST(r1 == R1 || r1 == R2 || r1 == R3 || r1 == R4, (r1));
+  TEST(r2 == R1 || r2 == R2 || r2 == R3 || r2 == R4, (r2));
+  TEST(r3 == R1 || r3 == R2 || r3 == R3 || r3 == R4, (r3));
+
+  strategy.ChunkFinished(true, beg1, end1);
+
+  string s4;
+  int64_t beg4, end4;
+  TEST_EQUAL(strategy.NextChunk(s4, beg4, end4), ChunksDownloadStrategy::ENextChunk, ());
+  TEST_EQUAL(s4, s1, ());
+  pair<int64_t, int64_t> const r4(beg4, end4);
+  TEST(r4 != r1 && r4 != r2 && r4 != r3, (r4));
+
+  TEST_EQUAL(strategy.NextChunk(sEmpty, begEmpty, endEmpty), ChunksDownloadStrategy::ENoFreeServers, ());
+  TEST_EQUAL(strategy.NextChunk(sEmpty, begEmpty, endEmpty), ChunksDownloadStrategy::ENoFreeServers, ());
+
+  strategy.ChunkFinished(false, beg2, end2);
+
+  TEST_EQUAL(strategy.NextChunk(sEmpty, begEmpty, endEmpty), ChunksDownloadStrategy::ENoFreeServers, ());
+
+  strategy.ChunkFinished(true, beg4, end4);
+
+  string s5;
+  int64_t beg5, end5;
+  TEST_EQUAL(strategy.NextChunk(s5, beg5, end5), ChunksDownloadStrategy::ENextChunk, ());
+  TEST_EQUAL(s5, s4, (s5, s4));
+  TEST(beg5 == beg2 && end5 == end2, ());
+
+  TEST_EQUAL(strategy.NextChunk(sEmpty, begEmpty, endEmpty), ChunksDownloadStrategy::ENoFreeServers, ());
+  TEST_EQUAL(strategy.NextChunk(sEmpty, begEmpty, endEmpty), ChunksDownloadStrategy::ENoFreeServers, ());
+
+  strategy.ChunkFinished(true, beg5, end5);
+
+  // 3rd is still alive here
+  TEST_EQUAL(strategy.NextChunk(sEmpty, begEmpty, endEmpty), ChunksDownloadStrategy::ENoFreeServers, ());
+  TEST_EQUAL(strategy.NextChunk(sEmpty, begEmpty, endEmpty), ChunksDownloadStrategy::ENoFreeServers, ());
+
+  strategy.ChunkFinished(true, beg3, end3);
+
+  TEST_EQUAL(strategy.NextChunk(sEmpty, begEmpty, endEmpty), ChunksDownloadStrategy::EDownloadSucceeded, ());
+  TEST_EQUAL(strategy.NextChunk(sEmpty, begEmpty, endEmpty), ChunksDownloadStrategy::EDownloadSucceeded, ());
+}
+
+UNIT_TEST(ChunksDownloadStrategyFAIL)
+{
+  string const S1 = "UrlOfServer1";
+  string const S2 = "UrlOfServer2";
+  pair<int64_t, int64_t> const R1(0, 249), R2(250, 499), R3(500, 749), R4(750, 800);
+  vector<string> servers;
+  servers.push_back(S1);
+  servers.push_back(S2);
+  int64_t const FILE_SIZE = 800;
+  int64_t const CHUNK_SIZE = 250;
+  ChunksDownloadStrategy strategy(servers, FILE_SIZE, CHUNK_SIZE);
+
+  string s1;
+  int64_t beg1, end1;
+  TEST_EQUAL(strategy.NextChunk(s1, beg1, end1), ChunksDownloadStrategy::ENextChunk, ());
+  string s2;
+  int64_t beg2, end2;
+  TEST_EQUAL(strategy.NextChunk(s2, beg2, end2), ChunksDownloadStrategy::ENextChunk, ());
+  TEST_EQUAL(strategy.NextChunk(s2, beg2, end2), ChunksDownloadStrategy::ENoFreeServers, ());
+
+  strategy.ChunkFinished(false, beg1, end1);
+
+  TEST_EQUAL(strategy.NextChunk(s2, beg2, end2), ChunksDownloadStrategy::ENoFreeServers, ());
+
+  strategy.ChunkFinished(false, beg2, end2);
+
+  TEST_EQUAL(strategy.NextChunk(s2, beg2, end2), ChunksDownloadStrategy::EDownloadFailed, ());
+
+}
+
+UNIT_TEST(DownloadChunks)
+{
+  DownloadObserver observer;
+  string buffer;
+  MemWriter<string> writer(buffer);
+  HttpRequest::CallbackT onFinish = bind(&DownloadObserver::OnDownloadFinish, &observer, _1);
+  HttpRequest::CallbackT onProgress = bind(&DownloadObserver::OnDownloadProgress, &observer, _1);
+
+  vector<string> urls;
+  urls.push_back(TEST_URL1);
+  urls.push_back(TEST_URL1);
+
+  { // should use only one thread
+    scoped_ptr<HttpRequest> request(HttpRequest::GetChunks(urls, writer, 5, onFinish, onProgress));
+    // wait until download is finished
+    QCoreApplication::exec();
+    observer.TestOk();
+    TEST_EQUAL(buffer, "Test1", (buffer));
+  }
+
+  string const SHA256 = "EE6AE6A2A3619B2F4A397326BEC32583DE2196D9D575D66786CB3B6F9D04A633";
+
+  observer.Reset();
+  writer.Seek(0);
+  buffer.clear();
+
+  urls.clear();
+  urls.push_back(TEST_URL_BIG_FILE);
+  urls.push_back(TEST_URL_BIG_FILE);
+  urls.push_back(TEST_URL_BIG_FILE);
+
+  { // 3 threads
+    scoped_ptr<HttpRequest> request(HttpRequest::GetChunks(urls, writer, 5, onFinish, onProgress, 2048));
+    // wait until download is finished
+    QCoreApplication::exec();
+    observer.TestOk();
+    TEST_EQUAL(sha2::digest256(buffer), SHA256, (buffer));
   }
 }

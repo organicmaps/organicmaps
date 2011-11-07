@@ -67,7 +67,8 @@ HEADERS += \
     languages.hpp \
     url_generator.hpp \
     http_request.hpp \
-    http_request_impl_callback.hpp
+    http_request_impl_callback.hpp \
+    chunks_download_strategy.hpp
 
 SOURCES += \
     preferred_languages.cpp \
@@ -75,4 +76,6 @@ SOURCES += \
     video_timer.cpp \
     languages.cpp \
     url_generator.cpp \
-    http_request.cpp
+    http_request.cpp \
+    chunks_download_strategy.cpp
+
