@@ -22,6 +22,8 @@ class ChunksDownloadStrategy
 public:
   ChunksDownloadStrategy(vector<string> const & urls, int64_t fileSize, int64_t chunkSize = 512 * 1024);
 
+  int64_t ChunkSize() const { return m_chunkSize; }
+  /// Should be called when each chunk is completed
   void ChunkFinished(bool successfully, int64_t begRange, int64_t endRange);
   enum ResultT
   {
@@ -30,6 +32,7 @@ public:
     EDownloadFailed,
     EDownloadSucceeded
   };
+  /// Should be called until returns ENextChunk
   ResultT NextChunk(string & outUrl, int64_t & begRange, int64_t & endRange);
 };
 

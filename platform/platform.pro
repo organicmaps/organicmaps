@@ -40,10 +40,10 @@ include($$ROOT_DIR/common.pri)
 
 macx*|iphone* {
   HEADERS += apple_download.h \
-             http_request_impl_apple.h
+             http_thread_apple.h
   OBJECTIVE_SOURCES += apple_download.mm \
                        apple_download_manager.mm \
-                       http_request_impl_apple.mm
+                       http_thread_apple.mm
 }
 
 win32*|linux* {
@@ -67,8 +67,8 @@ HEADERS += \
     languages.hpp \
     url_generator.hpp \
     http_request.hpp \
-    http_request_impl_callback.hpp \
-    chunks_download_strategy.hpp
+    http_thread_callback.hpp \
+    chunks_download_strategy.hpp \
 
 SOURCES += \
     preferred_languages.cpp \
@@ -77,5 +77,4 @@ SOURCES += \
     languages.cpp \
     url_generator.cpp \
     http_request.cpp \
-    chunks_download_strategy.cpp
-
+    chunks_download_strategy.cpp \

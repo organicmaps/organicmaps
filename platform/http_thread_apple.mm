@@ -1,13 +1,13 @@
-#import "http_request_impl_apple.h"
+#import "http_thread_apple.h"
 
-#include "http_request_impl_callback.hpp"
+#include "http_thread_callback.hpp"
 #include "platform.hpp"
 
 #include "../base/logging.hpp"
 
 #define TIMEOUT_IN_SECONDS 15.0
 
-@implementation HttpRequestImpl
+@implementation HttpThread
 
 - (void) dealloc
 {
@@ -22,8 +22,8 @@
   [m_connection cancel];
 }
 
-- (id) initWith:(string const &)url callback:(downloader::IHttpRequestImplCallback &)cb
-       begRange:(int64_t)beg endRange:(int64_t)end postBody:(string const &)pb
+- (id) initWith:(string const &)url callback:(downloader::IHttpThreadCallback &)cb begRange:(int64_t)beg
+       endRange:(int64_t)end expectedSize:(int64_t)size postBody:(string const &)pb
 {
   self = [super init];
 
@@ -31,12 +31,14 @@
 	m_begRange = beg;
 	m_endRange = end;
 	m_downloadedBytes = 0;
+	m_expectedSize = size;
 
 	NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:
 			[NSURL URLWithString:[NSString stringWithUTF8String:url.c_str()]]
 			cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:TIMEOUT_IN_SECONDS];
 
-	if (beg > 0)
+	// use Range header only if we don't download whole file from start
+	if (!(beg == 0 && end < 0))
 	{
 		NSString * val;
 		if (end > 0)
@@ -82,6 +84,19 @@
   return self;
 }
 
+/// @return -1 if can't decode
++ (int64_t) getContentRange:(NSDictionary *)httpHeader
+{
+	NSString * cr = [httpHeader valueForKey:@"Content-Range"];
+	if (cr)
+	{
+		NSArray * arr = [cr componentsSeparatedByString:@"/"];
+		if (arr && [arr count])
+			return [(NSString *)[arr objectAtIndex:[arr count] - 1] longLongValue];
+	}
+	return -1;
+}
+
 - (void) connection: (NSURLConnection *)connection didReceiveResponse: (NSURLResponse *)response
 {
 	// This method is called when the server has determined that it
@@ -92,11 +107,6 @@
   {
     NSInteger const statusCode = [(NSHTTPURLResponse *)response statusCode];
     LOG(LDEBUG, ("Got response with status code", statusCode));
-#ifdef DEBUG
-//    NSDictionary * fields = [(NSHTTPURLResponse *)response allHeaderFields];
-//    for (id key in fields)
-//      NSLog(@"%@: %@", key, [fields objectForKey:key]);
-#endif
     if (statusCode < 200 || statusCode > 299)
     {
       LOG(LWARNING, ("Received HTTP error, canceling download", statusCode));
@@ -104,8 +114,23 @@
       m_callback->OnFinish(statusCode, m_begRange, m_endRange);
       return;
     }
+    else if (m_expectedSize > 0)
+    {
+      // get full file expected size from Content-Range header
+      int64_t sizeOnServer = [HttpThread getContentRange:[(NSHTTPURLResponse *)response allHeaderFields]];
+      // if it's absent, use Content-Length instead
+      if (sizeOnServer < 0)
+        sizeOnServer = [response expectedContentLength];
+      if (sizeOnServer > 0 & m_expectedSize != sizeOnServer)
+      {
 
-    m_callback->OnSizeKnown([response expectedContentLength]);
+        LOG(LWARNING, ("Canceling download - server replied with invalid size",
+                       sizeOnServer, "!=", m_expectedSize));
+        [m_connection cancel];
+        m_callback->OnFinish(-2, m_begRange, m_endRange);
+        return;
+      }
+    }
   }
   else
   { // in theory, we should never be here
@@ -138,16 +163,17 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 namespace downloader
 {
-HttpRequestImpl * CreateNativeHttpRequest(string const & url,
-                                          downloader::IHttpRequestImplCallback & cb,
-                                          int64_t beg,
-                                          int64_t end,
-                                          string const & pb)
+HttpThread * CreateNativeHttpThread(string const & url,
+                                    downloader::IHttpThreadCallback & cb,
+                                    int64_t beg,
+                                    int64_t end,
+                                    int64_t size,
+                                    string const & pb)
 {
-  return [[HttpRequestImpl alloc] initWith:url callback:cb begRange:beg endRange:end postBody:pb];
+  return [[HttpThread alloc] initWith:url callback:cb begRange:beg endRange:end expectedSize:size postBody:pb];
 }
 
-void DeleteNativeHttpRequest(HttpRequestImpl * request)
+void DeleteNativeHttpThread(HttpThread * request)
 {
   [request cancel];
   [request release];

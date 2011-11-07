@@ -291,13 +291,33 @@ UNIT_TEST(DownloadChunks)
   vector<string> urls;
   urls.push_back(TEST_URL1);
   urls.push_back(TEST_URL1);
+  int64_t FILESIZE = 5;
 
   { // should use only one thread
-    scoped_ptr<HttpRequest> request(HttpRequest::GetChunks(urls, writer, 5, onFinish, onProgress));
+    scoped_ptr<HttpRequest> request(HttpRequest::GetChunks(urls, writer, FILESIZE, onFinish, onProgress));
     // wait until download is finished
     QCoreApplication::exec();
     observer.TestOk();
+    TEST_EQUAL(buffer.size(), FILESIZE, ());
     TEST_EQUAL(buffer, "Test1", (buffer));
+  }
+
+  observer.Reset();
+  writer.Seek(0);
+  buffer.clear();
+
+  urls.clear();
+  urls.push_back(TEST_URL_BIG_FILE);
+  urls.push_back(TEST_URL_BIG_FILE);
+  urls.push_back(TEST_URL_BIG_FILE);
+  FILESIZE = 5;
+
+  { // 3 threads - fail, because of invalid size
+    scoped_ptr<HttpRequest> request(HttpRequest::GetChunks(urls, writer, FILESIZE, onFinish, onProgress, 2048));
+    // wait until download is finished
+    QCoreApplication::exec();
+    observer.TestFailed();
+    TEST_EQUAL(buffer.size(), 0, ());
   }
 
   string const SHA256 = "EE6AE6A2A3619B2F4A397326BEC32583DE2196D9D575D66786CB3B6F9D04A633";
@@ -310,12 +330,50 @@ UNIT_TEST(DownloadChunks)
   urls.push_back(TEST_URL_BIG_FILE);
   urls.push_back(TEST_URL_BIG_FILE);
   urls.push_back(TEST_URL_BIG_FILE);
+  FILESIZE = 47684;
 
-  { // 3 threads
-    scoped_ptr<HttpRequest> request(HttpRequest::GetChunks(urls, writer, 5, onFinish, onProgress, 2048));
+  { // 3 threads - succeeded
+    scoped_ptr<HttpRequest> request(HttpRequest::GetChunks(urls, writer, FILESIZE, onFinish, onProgress, 2048));
     // wait until download is finished
     QCoreApplication::exec();
     observer.TestOk();
+    TEST_EQUAL(buffer.size(), FILESIZE, ());
     TEST_EQUAL(sha2::digest256(buffer), SHA256, (buffer));
+  }
+
+  observer.Reset();
+  writer.Seek(0);
+  buffer.clear();
+
+  urls.clear();
+  urls.push_back(TEST_URL_BIG_FILE);
+  urls.push_back(TEST_URL1);
+  urls.push_back(TEST_URL_404);
+  FILESIZE = 47684;
+
+  { // 3 threads with only one valid url - succeeded
+    scoped_ptr<HttpRequest> request(HttpRequest::GetChunks(urls, writer, FILESIZE, onFinish, onProgress, 2048));
+    // wait until download is finished
+    QCoreApplication::exec();
+    observer.TestOk();
+    TEST_EQUAL(buffer.size(), FILESIZE, ());
+    TEST_EQUAL(sha2::digest256(buffer), SHA256, (buffer));
+  }
+
+  observer.Reset();
+  writer.Seek(0);
+  buffer.clear();
+
+  urls.clear();
+  urls.push_back(TEST_URL_BIG_FILE);
+  urls.push_back(TEST_URL_BIG_FILE);
+  FILESIZE = 12345;
+
+  { // 2 threads and all points to file with invalid size - fail
+    scoped_ptr<HttpRequest> request(HttpRequest::GetChunks(urls, writer, FILESIZE, onFinish, onProgress, 2048));
+    // wait until download is finished
+    QCoreApplication::exec();
+    observer.TestFailed();
+    TEST_EQUAL(buffer.size(), 0, ());
   }
 }
