@@ -9,7 +9,13 @@ namespace yg
 {
   namespace gl
   {
-    void BaseTexture::init()
+    void BaseTexture::checkID() const
+    {
+      if (m_id == -1)
+        init();
+    }
+
+    void BaseTexture::init() const
     {
       OGLCHECK(glGenTextures(1, &m_id));
 
@@ -22,20 +28,21 @@ namespace yg
     }
 
     BaseTexture::BaseTexture(m2::PointU const & size)
-      : m_width(size.x), m_height(size.y)
+      : m_width(size.x), m_height(size.y), m_id(-1)
     {
-      init();
+//      init();
     }
 
     BaseTexture::BaseTexture(unsigned width, unsigned height)
-      : m_width(width), m_height(height)
+      : m_width(width), m_height(height), m_id(-1)
     {
-      init();
+//      init();
     }
 
     BaseTexture::~BaseTexture()
     {
-      OGLCHECK(glDeleteTextures(1, &m_id));
+      if (m_id != -1)
+        OGLCHECK(glDeleteTextures(1, &m_id));
     }
 
     unsigned BaseTexture::width() const
@@ -50,6 +57,7 @@ namespace yg
 
     void BaseTexture::attachToFrameBuffer()
     {
+      checkID();
 #ifdef OMIM_GL_ES
       OGLCHECK(glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, id(), 0));
 #else
@@ -65,8 +73,9 @@ namespace yg
       return id;
     }
 
-    void BaseTexture::makeCurrent()
+    void BaseTexture::makeCurrent() const
     {
+      checkID();
 #ifndef OMIM_OS_ANDROID
       if (current() != m_id)
 #endif

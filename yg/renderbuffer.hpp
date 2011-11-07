@@ -11,11 +11,13 @@ namespace yg
     {
     private:
 
-      unsigned int m_id;
+      mutable unsigned int m_id;
       bool m_isDepthBuffer;
 
       size_t m_width;
       size_t m_height;
+
+      void checkID() const;
 
     public:
 
@@ -23,7 +25,7 @@ namespace yg
       ~RenderBuffer();
 
       unsigned int id() const;
-      void makeCurrent();
+      void makeCurrent() const;
 
       void attachToFrameBuffer();
 

@@ -14,14 +14,15 @@ namespace yg
       private:
 
         /// OpenGL texture ID
-        unsigned m_id;
+        mutable unsigned m_id;
         /// texture dimensions
         /// @{
         unsigned m_width;
         unsigned m_height;
         /// @}
 
-        void init();
+        void init() const;
+        void checkID() const;
 
       public:
 
@@ -33,7 +34,7 @@ namespace yg
         unsigned height() const;
 
         unsigned id() const;
-        void makeCurrent();
+        void makeCurrent() const;
         void attachToFrameBuffer();
 
         m2::PointF const mapPixel(m2::PointF const & p) const;

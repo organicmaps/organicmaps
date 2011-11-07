@@ -25,9 +25,10 @@ namespace yg
       return id;
     }
 
-    RenderBuffer::RenderBuffer(size_t width, size_t height, bool isDepthBuffer)
-      : m_isDepthBuffer(isDepthBuffer), m_width(width), m_height(height)
+    void RenderBuffer::checkID() const
     {
+      if (m_id == -1)
+      {
 #ifdef OMIM_GL_ES
         OGLCHECK(glGenRenderbuffersOES(1, &m_id));
         makeCurrent();
@@ -37,8 +38,8 @@ namespace yg
 
         OGLCHECK(glRenderbufferStorageOES(target,
                                           internalFormat,
-                                          width,
-                                          height));
+                                          m_width,
+                                          m_height));
 #else
         OGLCHECK(glGenRenderbuffers(1, &m_id));
         makeCurrent();
@@ -48,15 +49,20 @@ namespace yg
 
         OGLCHECK(glRenderbufferStorageEXT(target,
                                           internalFormat,
-                                          width,
-                                          height));
+                                          m_width,
+                                          m_height));
 
 #endif
+      }
     }
+
+    RenderBuffer::RenderBuffer(size_t width, size_t height, bool isDepthBuffer)
+      : m_isDepthBuffer(isDepthBuffer), m_width(width), m_height(height), m_id(-1)
+    {}
 
     RenderBuffer::~RenderBuffer()
     {
-      if (m_id != 0)
+      if (m_id != -1)
       {
 #ifdef OMIM_GL_ES
         OGLCHECK(glDeleteRenderbuffersOES(1, &m_id));
@@ -68,11 +74,13 @@ namespace yg
 
     unsigned int RenderBuffer::id() const
     {
+      checkID();
       return m_id;
     }
 
     void RenderBuffer::attachToFrameBuffer()
     {
+      checkID();
 #ifdef OMIM_GL_ES
       OGLCHECK(glFramebufferRenderbufferOES(
           GL_FRAMEBUFFER_OES,
@@ -90,8 +98,9 @@ namespace yg
         utils::setupCoordinates(width(), height(), false);
     }
 
-    void RenderBuffer::makeCurrent()
+    void RenderBuffer::makeCurrent() const
     {
+      checkID();
 #ifndef OMIM_OS_ANDROID
       if (m_id != current())
 #endif
