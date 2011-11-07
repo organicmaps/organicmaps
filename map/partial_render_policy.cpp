@@ -56,8 +56,11 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & paintEvent,
     if ((m_hasPacket) && (cmdProcessed < maxCmdPerFrame))
     {
       cmdProcessed++;
-      m_currentPacket.m_state->apply(curState.get());
-      curState = m_currentPacket.m_state;
+      if (m_currentPacket.m_state)
+      {
+        m_currentPacket.m_state->apply(curState.get());
+        curState = m_currentPacket.m_state;
+      }
       m_currentPacket.m_command->perform();
     }
     else
