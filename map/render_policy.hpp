@@ -76,4 +76,6 @@ public:
   /// @}
 
   bool DoSupportRotation() const;
+
+  bool NeedRedraw() const;
 };

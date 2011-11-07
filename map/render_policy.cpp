@@ -98,3 +98,8 @@ bool RenderPolicy::DoSupportRotation() const
 {
   return m_doSupportRotation;
 }
+
+bool RenderPolicy::NeedRedraw() const
+{
+  return false;
+}

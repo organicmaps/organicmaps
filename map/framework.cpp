@@ -244,7 +244,7 @@ void Framework<TModel>::SetMaxWorldRect()
 template <typename TModel>
 bool Framework<TModel>::NeedRedraw() const
 {
-  return m_windowHandle->needRedraw();
+  return m_windowHandle->needRedraw() || m_renderPolicy->NeedRedraw();
 }
 
 template <typename TModel>

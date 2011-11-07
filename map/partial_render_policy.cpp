@@ -88,4 +88,8 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & paintEvent,
   RenderPolicyMT::DrawFrame(paintEvent, screenBase);
 
 //  OGLCHECK(glFinish());
+
+bool PartialRenderPolicy::NeedRedraw() const
+{
+  return !m_glQueue.Empty();
 }

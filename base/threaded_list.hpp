@@ -108,7 +108,7 @@ public:
     return m_list.size();
   }
 
-  bool Empty()
+  bool Empty() const
   {
     threads::ConditionGuard g(m_Cond);
     return m_list.empty();

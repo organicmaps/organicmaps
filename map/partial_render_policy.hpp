@@ -29,4 +29,6 @@ public:
 
   void DrawFrame(shared_ptr<PaintEvent> const & paintEvent,
                  ScreenBase const & screenBase);
+
+  bool NeedRedraw() const;
 };
