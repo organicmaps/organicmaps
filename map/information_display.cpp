@@ -91,11 +91,13 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
   m_ruler.setVisualScale(m_visualScale);
 
 #ifdef OMIM_OS_IPHONE
-  m2::PointD pivot(m2::PointD(m_displayRect.maxX(), m_displayRect.maxY() - m_bottomShift * m_visualScale)
+  m2::PointD pivot(m2::PointD(m_displayRect.maxX(),
+                              m_displayRect.maxY() - 20 * m_visualScale)
                  + m2::PointD(-10 * m_visualScale, -10 * m_visualScale));
   m_ruler.setPosition(yg::EPosAboveLeft);
 #else
-  m2::PointD pivot(m2::PointD(m_displayRect.minX(), m_displayRect.maxY() - m_bottomShift * m_visualScale)
+  m2::PointD pivot(m2::PointD(m_displayRect.minX(),
+                              m_displayRect.maxY() - m_bottomShift * m_visualScale)
                  + m2::PointD(10 * m_visualScale, -10 * m_visualScale));
 
   m_ruler.setPosition(yg::EPosAboveRight);
@@ -138,14 +140,15 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
   params.m_log2vis = false;
 
 #ifdef OMIM_OS_IPHONE
-  params.m_pivot = m2::PointD(m_displayRect.maxX() - 10 * m_visualScale,
-                              m_displayRect.maxY() - 20 * m_visualScale - 5);
+  params.m_pivot = m2::PointD(m_displayRect.maxX() - 5 * m_visualScale,
+                              m_displayRect.maxY() - 5 * m_visualScale);
+  params.m_position = yg::EPosAboveLeft;
 #else
   params.m_pivot = m2::PointD(m_displayRect.maxX() - 10 * m_visualScale,
                               m_displayRect.maxY() - (/*m_bottomShift*/ + 14) * m_visualScale - 5);
+  params.m_position = yg::EPosAboveLeft;
 #endif
 
-  params.m_position = yg::EPosAboveLeft;
   params.m_glyphCache = drawer->screen()->glyphCache();
   params.m_logText = strings::MakeUniString(out.str());
 

@@ -108,7 +108,7 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_WINDOWS) || defined(OMIM_OS_LINUX)
     m_minRulerWidth(97),
 #else
-    m_minRulerWidth(48),
+    m_minRulerWidth(60),
 #endif
     m_centeringMode(EDoNothing)
 //    m_tileSize(GetPlatform().TileSize())
