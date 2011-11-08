@@ -4,6 +4,7 @@
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 #include "../std/utility.hpp"
+#include "../std/scoped_ptr.hpp"
 
 class Writer;
 
@@ -28,24 +29,28 @@ public:
 protected:
   StatusT m_status;
   ProgressT m_progress;
-  Writer & m_writer;
   CallbackT m_onFinish;
   CallbackT m_onProgress;
+  string m_data;
+  scoped_ptr<Writer> m_writer;
 
-  explicit HttpRequest(Writer & writer, CallbackT onFinish, CallbackT onProgress);
+  explicit HttpRequest(string const & filePath, CallbackT onFinish, CallbackT onProgress);
 
 public:
   virtual ~HttpRequest() = 0;
 
   StatusT Status() const { return m_status; }
   ProgressT Progress() const { return m_progress; }
+  /// Retrieve either file path or downloaded data
+  string const & Data() const { return m_data; }
 
-  static HttpRequest * Get(string const & url, Writer & writer, CallbackT onFinish,
+  /// @param[in] filePath if empty, request will be saved to memory, see Data()
+  static HttpRequest * Get(string const & url, string const & filePath, CallbackT onFinish,
                            CallbackT onProgress = CallbackT());
   /// Content-type for request is always "application/json"
-  static HttpRequest * Post(string const & url, Writer & writer, string const & postData,
+  static HttpRequest * Post(string const & url, string const & filePath, string const & postData,
                             CallbackT onFinish, CallbackT onProgress = CallbackT());
-  static HttpRequest * GetChunks(vector<string> const & urls, Writer & writer, int64_t fileSize,
+  static HttpRequest * GetChunks(vector<string> const & urls, string const & filePath, int64_t fileSize,
                                  CallbackT onFinish, CallbackT onProgress = CallbackT(),
                                  int64_t chunkSize = 512 * 1024);
 };

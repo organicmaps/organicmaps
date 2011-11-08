@@ -6,7 +6,7 @@
   #include "../base/thread.hpp"
 #endif
 
-#include "../coding/writer.hpp"
+#include "../coding/file_writer.hpp"
 
 class HttpThread;
 
@@ -23,10 +23,17 @@ HttpThread * CreateNativeHttpThread(string const & url,
 void DeleteNativeHttpThread(HttpThread * request);
 
 //////////////////////////////////////////////////////////////////////////////////////////
-HttpRequest::HttpRequest(Writer & writer, CallbackT onFinish, CallbackT onProgress)
-  : m_status(EInProgress), m_progress(make_pair(0, -1)), m_writer(writer),
+HttpRequest::HttpRequest(string const & filePath, CallbackT onFinish, CallbackT onProgress)
+  : m_status(EInProgress), m_progress(make_pair(0, -1)),
     m_onFinish(onFinish), m_onProgress(onProgress)
 {
+  if (filePath.empty())
+    m_writer.reset(new MemWriter<string>(m_data));
+  else
+  {
+    m_data = filePath;
+    m_writer.reset(new FileWriter(filePath, FileWriter::OP_WRITE_EXISTING));
+  }
 }
 
 HttpRequest::~HttpRequest()
@@ -39,28 +46,29 @@ class SimpleHttpRequest : public HttpRequest, public IHttpThreadCallback
 
   virtual void OnWrite(int64_t, void const * buffer, size_t size)
   {
-    m_writer.Write(buffer, size);
+    m_writer->Write(buffer, size);
     m_progress.first += size;
     if (m_onProgress)
       m_onProgress(*this);
   }
 
-  virtual void OnFinish(long httpCode, int64_t begRange, int64_t endRange)
+  virtual void OnFinish(long httpCode, int64_t, int64_t)
   {
     m_status = (httpCode == 200) ? ECompleted : EFailed;
+    m_writer.reset();
     m_onFinish(*this);
   }
 
 public:
-  SimpleHttpRequest(string const & url, Writer & writer, CallbackT onFinish, CallbackT onProgress)
-    : HttpRequest(writer, onFinish, onProgress)
+  SimpleHttpRequest(string const & url, string const & filePath, CallbackT onFinish, CallbackT onProgress)
+    : HttpRequest(filePath, onFinish, onProgress)
   {
     m_thread = CreateNativeHttpThread(url, *this);
   }
 
-  SimpleHttpRequest(string const & url, Writer & writer, string const & postData,
+  SimpleHttpRequest(string const & url, string const & filePath, string const & postData,
                     CallbackT onFinish, CallbackT onProgress)
-    : HttpRequest(writer, onFinish, onProgress)
+    : HttpRequest(filePath, onFinish, onProgress)
   {
     m_thread = CreateNativeHttpThread(url, *this, 0, -1, -1, postData);
   }
@@ -71,15 +79,16 @@ public:
   }
 };
 
-HttpRequest * HttpRequest::Get(string const & url, Writer & writer, CallbackT onFinish, CallbackT onProgress)
+HttpRequest * HttpRequest::Get(string const & url, string const & filePath,
+                               CallbackT onFinish, CallbackT onProgress)
 {
-  return new SimpleHttpRequest(url, writer, onFinish, onProgress);
+  return new SimpleHttpRequest(url, filePath, onFinish, onProgress);
 }
 
-HttpRequest * HttpRequest::Post(string const & url, Writer & writer, string const & postData,
+HttpRequest * HttpRequest::Post(string const & url, string const & filePath, string const & postData,
                                 CallbackT onFinish, CallbackT onProgress)
 {
-  return new SimpleHttpRequest(url, writer, postData, onFinish, onProgress);
+  return new SimpleHttpRequest(url, filePath, postData, onFinish, onProgress);
 }
 
 
@@ -118,8 +127,8 @@ class ChunksHttpRequest : public HttpRequest, public IHttpThreadCallback
     static threads::ThreadID const id = threads::GetCurrentThreadID();
     ASSERT_EQUAL(id, threads::GetCurrentThreadID(), ("OnWrite called from different threads"));
   #endif
-    m_writer.Seek(offset);
-    m_writer.Write(buffer, size);
+    m_writer->Seek(offset);
+    m_writer->Write(buffer, size);
   }
 
   virtual void OnFinish(long httpCode, int64_t begRange, int64_t endRange)
@@ -149,13 +158,16 @@ class ChunksHttpRequest : public HttpRequest, public IHttpThreadCallback
       m_status = ECompleted;
 
     if (m_status != EInProgress)
+    {
+      m_writer.reset();
       m_onFinish(*this);
+    }
   }
 
 public:
-  ChunksHttpRequest(vector<string> const & urls, Writer & writer, int64_t fileSize,
+  ChunksHttpRequest(vector<string> const & urls, string const & filePath, int64_t fileSize,
                     CallbackT onFinish, CallbackT onProgress, int64_t chunkSize)
-    : HttpRequest(writer, onFinish, onProgress), m_strategy(urls, fileSize, chunkSize)
+    : HttpRequest(filePath, onFinish, onProgress), m_strategy(urls, fileSize, chunkSize)
   {
     ASSERT(!urls.empty(), ("Urls list shouldn't be empty"));
     // store expected file size for future checks
@@ -170,10 +182,10 @@ public:
   }
 };
 
-HttpRequest * HttpRequest::GetChunks(vector<string> const & urls, Writer & writer, int64_t fileSize,
+HttpRequest * HttpRequest::GetChunks(vector<string> const & urls, string const & filePath, int64_t fileSize,
                                CallbackT onFinish, CallbackT onProgress, int64_t chunkSize)
 {
-  return new ChunksHttpRequest(urls, writer, fileSize, onFinish, onProgress, chunkSize);
+  return new ChunksHttpRequest(urls, filePath, fileSize, onFinish, onProgress, chunkSize);
 }
 
 } // namespace downloader
