@@ -15,6 +15,7 @@ namespace yg
 
         /// OpenGL texture ID
         mutable unsigned m_id;
+        mutable bool m_hasID;
         /// texture dimensions
         /// @{
         unsigned m_width;

@@ -27,8 +27,9 @@ namespace yg
 
     void RenderBuffer::checkID() const
     {
-      if (m_id == -1)
+      if (!m_hasID)
       {
+        m_hasID = true;
 #ifdef OMIM_GL_ES
         OGLCHECK(glGenRenderbuffersOES(1, &m_id));
         makeCurrent();
@@ -57,12 +58,12 @@ namespace yg
     }
 
     RenderBuffer::RenderBuffer(size_t width, size_t height, bool isDepthBuffer)
-      : m_isDepthBuffer(isDepthBuffer), m_width(width), m_height(height), m_id(-1)
+      : m_isDepthBuffer(isDepthBuffer), m_width(width), m_height(height), m_hasID(false), m_id(0)
     {}
 
     RenderBuffer::~RenderBuffer()
     {
-      if (m_id != -1)
+      if (m_hasID)
       {
 #ifdef OMIM_GL_ES
         OGLCHECK(glDeleteRenderbuffersOES(1, &m_id));

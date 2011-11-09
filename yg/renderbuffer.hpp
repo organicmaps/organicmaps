@@ -11,6 +11,7 @@ namespace yg
     {
     private:
 
+      mutable bool m_hasID;
       mutable unsigned int m_id;
       bool m_isDepthBuffer;
 

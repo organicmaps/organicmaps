@@ -11,8 +11,11 @@ namespace yg
   {
     void BaseTexture::checkID() const
     {
-      if (m_id == -1)
+      if (!m_hasID)
+      {
+        m_hasID = true;
         init();
+      }
     }
 
     void BaseTexture::init() const
@@ -28,20 +31,20 @@ namespace yg
     }
 
     BaseTexture::BaseTexture(m2::PointU const & size)
-      : m_width(size.x), m_height(size.y), m_id(-1)
+      : m_width(size.x), m_height(size.y), m_id(0), m_hasID(false)
     {
 //      init();
     }
 
     BaseTexture::BaseTexture(unsigned width, unsigned height)
-      : m_width(width), m_height(height), m_id(-1)
+      : m_width(width), m_height(height), m_id(0), m_hasID(false)
     {
 //      init();
     }
 
     BaseTexture::~BaseTexture()
     {
-      if (m_id != -1)
+      if (m_hasID)
         OGLCHECK(glDeleteTextures(1, &m_id));
     }
 
@@ -84,6 +87,7 @@ namespace yg
 
     unsigned BaseTexture::id() const
     {
+      checkID();
       return m_id;
     }
 
