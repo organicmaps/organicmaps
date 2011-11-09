@@ -3,10 +3,11 @@
 
 #include "../indexer/classificator.hpp"
 #include "../indexer/drawing_rules.hpp"
-#include "../indexer/file_reader_stream.hpp"
 #include "../indexer/scales.hpp"
 
 #include "../platform/platform.hpp"
+
+#include "../coding/file_reader_stream.hpp"
 
 #include "../base/logging.hpp"
 

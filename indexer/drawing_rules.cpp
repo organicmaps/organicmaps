@@ -1,12 +1,10 @@
 #include "../base/SRC_FIRST.hpp"
 
 #include "drawing_rules.hpp"
-#include "file_reader_stream.hpp"
-#include "file_writer_stream.hpp"
 #include "scales.hpp"
 
-#include "../coding/file_reader.hpp"
-#include "../coding/file_writer.hpp"
+#include "../coding/file_writer_stream.hpp"
+#include "../coding/file_reader_stream.hpp"
 
 #include "../base/std_serialization.hpp"
 #include "../base/assert.hpp"

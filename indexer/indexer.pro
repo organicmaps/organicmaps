@@ -61,8 +61,6 @@ HEADERS += \
     feature_covering.hpp \
     mercator.hpp \
     feature_processor.hpp \
-    file_reader_stream.hpp \
-    file_writer_stream.hpp \
     feature_visibility.hpp \
     data_header.hpp \
     tree_structure.hpp \

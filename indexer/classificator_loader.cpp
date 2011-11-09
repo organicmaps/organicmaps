@@ -1,8 +1,8 @@
 #include "classificator_loader.hpp"
-#include "file_reader_stream.hpp"
 #include "classificator.hpp"
 #include "drawing_rules.hpp"
 
+#include "../coding/file_reader_stream.hpp"
 #include "../coding/file_reader.hpp"
 
 #include "../base/logging.hpp"

@@ -2,11 +2,8 @@
 
 #include "osm_decl.hpp"
 
-#include "../indexer/file_reader_stream.hpp"
-#include "../indexer/file_writer_stream.hpp"
-
-#include "../coding/file_reader.hpp"
-#include "../coding/file_writer.hpp"
+#include "../coding/file_reader_stream.hpp"
+#include "../coding/file_writer_stream.hpp"
 
 #include "../base/logging.hpp"
 

@@ -77,3 +77,5 @@ HEADERS += \
     trie_reader.hpp \
     mmap_reader.hpp \
     read_write_utils.hpp \
+    file_reader_stream.hpp \
+    file_writer_stream.hpp \

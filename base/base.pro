@@ -69,5 +69,5 @@ HEADERS += \
     threaded_list.hpp \
     resource_pool.hpp \
     limited_priority_queue.hpp \
-    threaded_priority_queue.hpp
-
+    threaded_priority_queue.hpp \
+    std_serialization.hpp \
