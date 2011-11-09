@@ -1,13 +1,15 @@
 #include "../../testing/testing.hpp"
 
 #include "../../base/logging.hpp"
+#include "../../base/std_serialization.hpp"
 
-#include "../../coding/file_reader.hpp"
-#include "../../coding/file_writer.hpp"
+#include "../../coding/file_reader_stream.hpp"
+#include "../../coding/file_writer_stream.hpp"
 #include "../../coding/sha2.hpp"
 
 #include "../http_request.hpp"
 #include "../chunks_download_strategy.hpp"
+#include "../platform.hpp"
 
 #include "../../std/scoped_ptr.hpp"
 #include "../../std/bind.hpp"
@@ -107,7 +109,7 @@ UNIT_TEST(DownloaderSimpleGet)
   HttpRequest::CallbackT onFinish = bind(&DownloadObserver::OnDownloadFinish, &observer, _1);
   HttpRequest::CallbackT onProgress = bind(&DownloadObserver::OnDownloadProgress, &observer, _1);
   { // simple success case
-    scoped_ptr<HttpRequest> request(HttpRequest::Get(TEST_URL1, string(), onFinish, onProgress));
+    scoped_ptr<HttpRequest> request(HttpRequest::Get(TEST_URL1, onFinish, onProgress));
     // wait until download is finished
     QCoreApplication::exec();
     observer.TestOk();
@@ -116,7 +118,7 @@ UNIT_TEST(DownloaderSimpleGet)
 
   observer.Reset();
   { // permanent redirect success case
-    scoped_ptr<HttpRequest> request(HttpRequest::Get(TEST_URL_PERMANENT, string(), onFinish, onProgress));
+    scoped_ptr<HttpRequest> request(HttpRequest::Get(TEST_URL_PERMANENT, onFinish, onProgress));
     QCoreApplication::exec();
     observer.TestOk();
     TEST_EQUAL(request->Data(), "Test1", ());
@@ -124,7 +126,7 @@ UNIT_TEST(DownloaderSimpleGet)
 
   observer.Reset();
   { // fail case 404
-    scoped_ptr<HttpRequest> request(HttpRequest::Get(TEST_URL_404, string(), onFinish, onProgress));
+    scoped_ptr<HttpRequest> request(HttpRequest::Get(TEST_URL_404, onFinish, onProgress));
     QCoreApplication::exec();
     observer.TestFailed();
     TEST_EQUAL(request->Data().size(), 0, (request->Data()));
@@ -132,7 +134,7 @@ UNIT_TEST(DownloaderSimpleGet)
 
   observer.Reset();
   { // fail case not existing host
-    scoped_ptr<HttpRequest> request(HttpRequest::Get(TEST_URL_INVALID_HOST, string(), onFinish, onProgress));
+    scoped_ptr<HttpRequest> request(HttpRequest::Get(TEST_URL_INVALID_HOST, onFinish, onProgress));
     QCoreApplication::exec();
     observer.TestFailed();
     TEST_EQUAL(request->Data().size(), 0, (request->Data()));
@@ -141,7 +143,7 @@ UNIT_TEST(DownloaderSimpleGet)
   { // cancel download in the middle of the progress
     CancelDownload canceler;
     /// should be deleted in canceler
-    HttpRequest::Get(TEST_URL_BIG_FILE, string(),
+    HttpRequest::Get(TEST_URL_BIG_FILE,
         bind(&CancelDownload::OnFinish, &canceler, _1),
         bind(&CancelDownload::OnProgress, &canceler, _1));
     QCoreApplication::exec();
@@ -149,58 +151,20 @@ UNIT_TEST(DownloaderSimpleGet)
 
   observer.Reset();
   { // https success case
-    scoped_ptr<HttpRequest> request(HttpRequest::Get(TEST_URL_HTTPS, string(), onFinish, onProgress));
+    scoped_ptr<HttpRequest> request(HttpRequest::Get(TEST_URL_HTTPS, onFinish, onProgress));
     // wait until download is finished
     QCoreApplication::exec();
     observer.TestOk();
     TEST_GREATER(request->Data().size(), 0, ());
   }
 
-  string const FILENAME = "some_downloader_test_file";
-  observer.Reset();
-  { // download file success case
-    scoped_ptr<HttpRequest> request(HttpRequest::Get(TEST_URL1, FILENAME, onFinish, onProgress));
-    // wait until download is finished
-    QCoreApplication::exec();
-    observer.TestOk();
-    {
-      FileReader f(FILENAME);
-      string s;
-      f.ReadAsString(s);
-      TEST_EQUAL(s, "Test1", ());
-    }
-    TEST_EQUAL(request->Data(), FILENAME, (request->Data()));
-    FileWriter::DeleteFileX(FILENAME);
-  }
-
-  observer.Reset();
-  { // download file error case
-    scoped_ptr<HttpRequest> request(HttpRequest::Get(TEST_URL_404, FILENAME, onFinish, onProgress));
-    // wait until download is finished
-    QCoreApplication::exec();
-    observer.TestFailed();
-    {
-      FileReader f(FILENAME);
-      TEST_EQUAL(f.Size(), 0, ());
-    }
-    TEST_EQUAL(request->Data(), FILENAME, (request->Data()));
-    FileWriter::DeleteFileX(FILENAME);
-  }
-
-  { // Delete request at the end of successful file download
+  { // Delete request at the end of successful download
     DeleteOnFinish deleter;
     /// should be deleted in deleter on finish
-    HttpRequest::Get(TEST_URL1, FILENAME,
+    HttpRequest::Get(TEST_URL1,
         bind(&DeleteOnFinish::OnFinish, &deleter, _1),
         bind(&DeleteOnFinish::OnProgress, &deleter, _1));
     QCoreApplication::exec();
-    {
-      FileReader f(FILENAME);
-      string s;
-      f.ReadAsString(s);
-      TEST_EQUAL(s, "Test1", ());
-    }
-    FileWriter::DeleteFileX(FILENAME);
   }
 }
 
@@ -211,7 +175,7 @@ UNIT_TEST(DownloaderSimplePost)
   HttpRequest::CallbackT onProgress = bind(&DownloadObserver::OnDownloadProgress, &observer, _1);
   { // simple success case
     string const postData = "{\"jsonKey\":\"jsonValue\"}";
-    scoped_ptr<HttpRequest> request(HttpRequest::Post(TEST_URL_POST, string(), postData, onFinish, onProgress));
+    scoped_ptr<HttpRequest> request(HttpRequest::PostJson(TEST_URL_POST, postData, onFinish, onProgress));
     // wait until download is finished
     QCoreApplication::exec();
     observer.TestOk();
@@ -326,8 +290,24 @@ UNIT_TEST(ChunksDownloadStrategyFAIL)
   TEST_EQUAL(strategy.NextChunk(s2, beg2, end2), ChunksDownloadStrategy::EDownloadFailed, ());
 }
 
+bool ReadFileAsString(string const & file, string & outStr)
+{
+  try
+  {
+    FileReader f(file);
+    f.ReadAsString(outStr);
+  }
+  catch (FileReader::Exception const &)
+  {
+    return false;
+  }
+  return true;
+}
+
 UNIT_TEST(DownloadChunks)
 {
+  string const FILENAME = "some_downloader_test_file";
+
   DownloadObserver observer;
   HttpRequest::CallbackT onFinish = bind(&DownloadObserver::OnDownloadFinish, &observer, _1);
   HttpRequest::CallbackT onProgress = bind(&DownloadObserver::OnDownloadProgress, &observer, _1);
@@ -338,12 +318,16 @@ UNIT_TEST(DownloadChunks)
   int64_t FILESIZE = 5;
 
   { // should use only one thread
-    scoped_ptr<HttpRequest> request(HttpRequest::GetChunks(urls, string(), FILESIZE, onFinish, onProgress));
+    scoped_ptr<HttpRequest> request(HttpRequest::GetFile(urls, FILENAME, FILESIZE,
+                                                           onFinish, onProgress));
     // wait until download is finished
     QCoreApplication::exec();
     observer.TestOk();
-    TEST_EQUAL(request->Data().size(), FILESIZE, ());
-    TEST_EQUAL(request->Data(), "Test1", ());
+    TEST_EQUAL(request->Data(), FILENAME, ());
+    string s;
+    TEST(ReadFileAsString(FILENAME, s), ());
+    TEST_EQUAL(s, "Test1", ());
+    FileWriter::DeleteFileX(FILENAME);
   }
 
   observer.Reset();
@@ -355,11 +339,12 @@ UNIT_TEST(DownloadChunks)
   FILESIZE = 5;
 
   { // 3 threads - fail, because of invalid size
-    scoped_ptr<HttpRequest> request(HttpRequest::GetChunks(urls, string(), FILESIZE, onFinish, onProgress, 2048));
+    scoped_ptr<HttpRequest> request(HttpRequest::GetFile(urls, FILENAME, FILESIZE,
+                                                           onFinish, onProgress, 2048));
     // wait until download is finished
     QCoreApplication::exec();
     observer.TestFailed();
-    TEST_EQUAL(request->Data().size(), 0, ());
+    FileWriter::DeleteFileX(FILENAME);
   }
 
   string const SHA256 = "EE6AE6A2A3619B2F4A397326BEC32583DE2196D9D575D66786CB3B6F9D04A633";
@@ -373,12 +358,15 @@ UNIT_TEST(DownloadChunks)
   FILESIZE = 47684;
 
   { // 3 threads - succeeded
-    scoped_ptr<HttpRequest> request(HttpRequest::GetChunks(urls, string(), FILESIZE, onFinish, onProgress, 2048));
+    scoped_ptr<HttpRequest> request(HttpRequest::GetFile(urls, FILENAME, FILESIZE,
+                                                           onFinish, onProgress, 2048));
     // wait until download is finished
     QCoreApplication::exec();
     observer.TestOk();
-    TEST_EQUAL(request->Data().size(), FILESIZE, ());
-    TEST_EQUAL(sha2::digest256(request->Data()), SHA256, ());
+    string s;
+    TEST(ReadFileAsString(FILENAME, s), ());
+    TEST_EQUAL(sha2::digest256(s), SHA256, ());
+    FileWriter::DeleteFileX(FILENAME);
   }
 
   observer.Reset();
@@ -390,12 +378,14 @@ UNIT_TEST(DownloadChunks)
   FILESIZE = 47684;
 
   { // 3 threads with only one valid url - succeeded
-    scoped_ptr<HttpRequest> request(HttpRequest::GetChunks(urls, string(), FILESIZE, onFinish, onProgress, 2048));
+    scoped_ptr<HttpRequest> request(HttpRequest::GetFile(urls, FILENAME, FILESIZE, onFinish, onProgress, 2048));
     // wait until download is finished
     QCoreApplication::exec();
     observer.TestOk();
-    TEST_EQUAL(request->Data().size(), FILESIZE, ());
-    TEST_EQUAL(sha2::digest256(request->Data()), SHA256, ());
+    string s;
+    TEST(ReadFileAsString(FILENAME, s), ());
+    TEST_EQUAL(sha2::digest256(s), SHA256, ());
+    FileWriter::DeleteFileX(FILENAME);
   }
 
   observer.Reset();
@@ -406,34 +396,106 @@ UNIT_TEST(DownloadChunks)
   FILESIZE = 12345;
 
   { // 2 threads and all points to file with invalid size - fail
-    scoped_ptr<HttpRequest> request(HttpRequest::GetChunks(urls, string(), FILESIZE, onFinish, onProgress, 2048));
+    scoped_ptr<HttpRequest> request(HttpRequest::GetFile(urls, FILENAME, FILESIZE, onFinish, onProgress, 2048));
     // wait until download is finished
     QCoreApplication::exec();
     observer.TestFailed();
-    TEST_EQUAL(request->Data().size(), 0, ());
+    FileWriter::DeleteFileX(FILENAME);
   }
+}
 
-  observer.Reset();
 
-  urls.clear();
+int64_t FILESIZE = 47684;
+int64_t const beg1 = 123, end1 = 1230, beg2 = 44000, end2 = 47683;
+
+struct ResumeChecker
+{
+  size_t m_counter;
+  ResumeChecker() : m_counter(0) {}
+  void OnProgress(HttpRequest & request)
+  {
+    if (m_counter == 0)
+    {
+      TEST_EQUAL(request.Progress(), make_pair(FILESIZE - beg2, FILESIZE), ());
+    }
+    else if (m_counter == 1)
+    {
+      TEST_EQUAL(request.Progress(), make_pair(FILESIZE, FILESIZE), ());
+    }
+    else
+    {
+      TEST(false, ("Progress should be called exactly 2 times"));
+    }
+    ++m_counter;
+  }
+  void OnFinish(HttpRequest & request)
+  {
+    TEST_EQUAL(request.Status(), HttpRequest::ECompleted, ());
+    QCoreApplication::exit();
+  }
+};
+
+UNIT_TEST(DownloadResumeChunks)
+{
+  string const FILENAME = "some_test_filename_12345";
+  string const RESUME_FILENAME = FILENAME + ".resume";
+  string const SHA256 = "EE6AE6A2A3619B2F4A397326BEC32583DE2196D9D575D66786CB3B6F9D04A633";
+
+  vector<string> urls;
   urls.push_back(TEST_URL_BIG_FILE);
-  urls.push_back(TEST_URL_BIG_FILE);
-  FILESIZE = 47684;
-  string const FILENAME = "some_downloader_test_file";
 
-  { // 3 threads - download to file - succeeded
-    scoped_ptr<HttpRequest> request(HttpRequest::GetChunks(urls, FILENAME, FILESIZE, onFinish, onProgress, 10000));
-    // wait until download is finished
+  // 1st step - download full file
+  {
+    DownloadObserver observer;
+
+    scoped_ptr<HttpRequest> request(HttpRequest::GetFile(urls, FILENAME, FILESIZE,
+                            bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
+                            bind(&DownloadObserver::OnDownloadProgress, &observer, _1)));
     QCoreApplication::exec();
     observer.TestOk();
-    TEST_EQUAL(request->Data(), FILENAME, ());
+    string s;
+    TEST(ReadFileAsString(FILENAME, s), ());
+    TEST_EQUAL(sha2::digest256(s), SHA256, ());
+  }
+  // 2nd step - mark some file blocks as not downloaded
+  {
+    FileWriter f(FILENAME, FileWriter::OP_WRITE_EXISTING);
+    f.Seek(beg1);
+    char b1[end1 - beg1];
+    for (size_t i = 0; i < ARRAY_SIZE(b1); ++i) b1[i] = 0;
+    f.Write(b1, ARRAY_SIZE(b1));
+
+    f.Seek(beg2);
+    char b2[end2 - beg2];
+    for (size_t i = 0; i < ARRAY_SIZE(b2); ++i) b2[i] = 0;
+    f.Write(b2, ARRAY_SIZE(b2));
+
+    vector<pair<int64_t, int64_t> > originalRanges;
+    originalRanges.push_back(make_pair(beg1, end1));
+    originalRanges.push_back(make_pair(beg2, end2));
     {
-      FileReader f(FILENAME);
-      TEST_EQUAL(f.Size(), FILESIZE, ());
-      string s;
-      f.ReadAsString(s);
-      TEST_EQUAL(sha2::digest256(s), SHA256, ());
+      FileWriterStream fws(RESUME_FILENAME);
+      fws << originalRanges;
     }
+    // check if ranges are stored correctly
+    vector<pair<int64_t, int64_t> > loadedRanges;
+    {
+      FileReaderStream frs(RESUME_FILENAME);
+      frs >> loadedRanges;
+    }
+    TEST_EQUAL(originalRanges, loadedRanges, ());
+  }
+  // 3rd step - check that resume works
+  {
+    ResumeChecker checker;
+    scoped_ptr<HttpRequest> request(HttpRequest::GetFile(urls, FILENAME, FILESIZE,
+                                                         bind(&ResumeChecker::OnFinish, &checker, _1),
+                                                         bind(&ResumeChecker::OnProgress, &checker, _1)));
+    QCoreApplication::exec();
+    string s;
+    TEST(ReadFileAsString(FILENAME, s), ());
+    TEST_EQUAL(sha2::digest256(s), SHA256, ());
+    TEST(!GetPlatform().IsFileExists(RESUME_FILENAME), ());
     FileWriter::DeleteFileX(FILENAME);
   }
 }
