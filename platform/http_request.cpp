@@ -6,7 +6,10 @@
   #include "../base/thread.hpp"
 #endif
 
-#include "../coding/file_writer.hpp"
+#include "../base/std_serialization.hpp"
+
+#include "../coding/file_writer_stream.hpp"
+#include "../coding/file_reader_stream.hpp"
 
 #include "../std/scoped_ptr.hpp"
 
@@ -102,6 +105,9 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
   string m_filePath;
   scoped_ptr<FileWriter> m_writer;
 
+  /// Used to save not downloaded chunks for later resume not so often
+  size_t m_goodChunksCount;
+
   ChunksDownloadStrategy::ResultT StartThreads()
   {
     string url;
@@ -150,7 +156,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     if (result == ChunksDownloadStrategy::EDownloadSucceeded
         || result == ChunksDownloadStrategy::ENoFreeServers)
     {
-      m_progress.first += m_strategy.ChunkSize();
+      m_progress.first += (endRange - begRange);
       if (m_onProgress)
         m_onProgress(*this);
     }
@@ -158,7 +164,17 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     if (result == ChunksDownloadStrategy::EDownloadFailed)
       m_status = EFailed;
     else if (result == ChunksDownloadStrategy::EDownloadSucceeded)
+    {
       m_status = ECompleted;
+      ++m_goodChunksCount;
+      if (m_strategy.ChunksLeft().empty())
+        FileWriter::DeleteFileX(m_filePath + ".resume");
+      else
+      {
+        if (m_goodChunksCount % 10 == 0)
+          SaveRanges(m_filePath + ".resume", m_strategy.ChunksLeft());
+      }
+    }
 
     if (m_status != EInProgress)
     {
@@ -167,15 +183,60 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     }
   }
 
+  /// @return true if ranges are present and loaded
+  static bool LoadRanges(string const & file, ChunksDownloadStrategy::RangesContainerT & ranges)
+  {
+    ranges.clear();
+    try
+    {
+      FileReaderStream frs(file);
+      frs >> ranges;
+    }
+    catch (std::exception const &)
+    {
+      return false;
+    }
+    return !ranges.empty();
+  }
+
+  static void SaveRanges(string const & file, ChunksDownloadStrategy::RangesContainerT const & ranges)
+  {
+    FileWriterStream fws(file);
+    fws << ranges;
+  }
+
+  struct CalcRanges
+  {
+    int64_t & m_summ;
+    CalcRanges(int64_t & summ) : m_summ(summ) {}
+    void operator()(ChunksDownloadStrategy::RangeT const & range)
+    {
+      m_summ += (range.second - range.first);
+    }
+  };
+
 public:
   FileHttpRequest(vector<string> const & urls, string const & filePath, int64_t fileSize,
                     CallbackT onFinish, CallbackT onProgress, int64_t chunkSize)
     : HttpRequest(onFinish, onProgress), m_strategy(urls, fileSize, chunkSize),
-      m_filePath(filePath), m_writer(new FileWriter(filePath, FileWriter::OP_WRITE_EXISTING))
+      m_filePath(filePath), m_writer(new FileWriter(filePath, FileWriter::OP_WRITE_EXISTING)),
+      m_goodChunksCount(0)
   {
+    ASSERT_GREATER(fileSize, 0, ("At the moment only known file sizes are supported"));
     ASSERT(!urls.empty(), ("Urls list shouldn't be empty"));
-    // store expected file size for future checks
     m_progress.second = fileSize;
+
+    // Resume support - load chunks which should be downloaded (if they're present)
+    ChunksDownloadStrategy::RangesContainerT ranges;
+    if (LoadRanges(filePath + ".resume", ranges))
+    {
+      // fix progress
+      int64_t sizeLeft = 0;
+      for_each(ranges.begin(), ranges.end(), CalcRanges(sizeLeft));
+      m_progress.first = fileSize - sizeLeft;
+      m_strategy.SetChunksToDownload(ranges);
+    }
+
     StartThreads();
   }
 

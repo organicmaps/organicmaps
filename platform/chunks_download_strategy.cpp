@@ -10,7 +10,8 @@ namespace downloader
 
 ChunksDownloadStrategy::RangeT const ChunksDownloadStrategy::INVALID_RANGE = RangeT(-1, -1);
 
-ChunksDownloadStrategy::ChunksDownloadStrategy(vector<string> const & urls, int64_t fileSize, int64_t chunkSize)
+ChunksDownloadStrategy::ChunksDownloadStrategy(vector<string> const & urls, int64_t fileSize,
+                                               int64_t chunkSize)
   : m_chunkSize(chunkSize)
 {
   // init servers list
@@ -18,12 +19,13 @@ ChunksDownloadStrategy::ChunksDownloadStrategy(vector<string> const & urls, int6
     m_servers.push_back(make_pair(urls[i], INVALID_RANGE));
 
   // init chunks which should be downloaded
-  // @TODO implement download resume by saving chunks to download for specified file
   for (int64_t i = 0; i < fileSize; i += chunkSize)
-  {
-    m_chunksToDownload.insert(RangeT(i, min(i + chunkSize - 1,
-                                            fileSize - 1)));
-  }
+    m_chunksToDownload.insert(RangeT(i, min(i + chunkSize - 1, fileSize - 1)));
+}
+
+void ChunksDownloadStrategy::SetChunksToDownload(RangesContainerT & chunks)
+{
+  m_chunksToDownload.swap(chunks);
 }
 
 void ChunksDownloadStrategy::ChunkFinished(bool successfully, int64_t begRange, int64_t endRange)
