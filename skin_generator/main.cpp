@@ -24,10 +24,6 @@ int main(int argc, char *argv[])
 
   tools::SkinGenerator gen;
 
-  std::vector<int8_t> glyphSizes;
-
-  glyphSizes.push_back(FLAGS_fixedGlyphSize);
-
   std::vector<QSize> symbolSizes;
   symbolSizes.push_back(QSize(FLAGS_symbolWidth, FLAGS_symbolHeight));
 
