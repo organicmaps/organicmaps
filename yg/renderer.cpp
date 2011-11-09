@@ -11,6 +11,10 @@ namespace yg
 {
   namespace gl
   {
+    Renderer::BaseState::BaseState()
+      : m_isDebugging(false)
+    {}
+
     Renderer::BaseState::~BaseState()
     {}
 
@@ -36,24 +40,134 @@ namespace yg
 
         if (m_frameBuffer == prevState->m_frameBuffer)
         {
-//          LOG(LINFO, ("equal framebuffers"));
+          if (m_isDebugging)
+          {
+            std::ostringstream out;
+            out << "equal frameBuffers, ";
+            if (m_frameBuffer)
+              out << m_frameBuffer->id() << ", " << prevState->m_frameBuffer->id();
+            else
+              out << "(null), (null)";
+
+            LOG(LINFO, (out.str().c_str()));
+          }
+
           if (m_renderTarget != prevState->m_renderTarget)
           {
-//            LOG(LINFO, ("non-equal renderbuffers, ", m_renderTarget.get(), prevState->m_renderTarget.get()));
+            if (m_isDebugging)
+            {
+              std::ostringstream out;
+              out << "non-equal renderBuffers, ";
+
+              if (prevState->m_renderTarget)
+                out << prevState->m_renderTarget->id();
+              else
+                out << "(null)";
+
+              out << " => ";
+
+              if (m_renderTarget)
+                out << m_renderTarget->id();
+              else
+                out << "(null)";
+
+              LOG(LINFO, (out.str().c_str()));
+            }
+
             m_frameBuffer->setRenderTarget(m_renderTarget);
             shouldApply = true;
+          }
+          else
+          {
+            if (m_isDebugging)
+            {
+              std::ostringstream out;
+              out << "equal renderBuffers, ";
+
+              if (m_renderTarget)
+                out << m_renderTarget->id() << ", " << m_renderTarget->id();
+              else
+                out << "(null), (null)";
+              LOG(LINFO, (out.str().c_str()));
+            }
           }
 
           if (m_depthBuffer != prevState->m_depthBuffer)
           {
-//            LOG(LINFO, ("non-equal depthbuffers, ", m_depthBuffer.get(), prevState->m_depthBuffer.get()));
+            if (m_isDebugging)
+            {
+              std::ostringstream out;
+              out << "non-equal depthBuffers, ";
+
+              if (prevState->m_depthBuffer)
+                out << prevState->m_depthBuffer->id();
+              else
+                out << "(null)";
+
+              out << " => ";
+
+              if (m_depthBuffer)
+                out << m_depthBuffer->id();
+              else
+                out << "(null)";
+
+              LOG(LINFO, (out.str().c_str()));
+            }
+
             m_frameBuffer->setDepthBuffer(m_depthBuffer);
             shouldApply = true;
           }
+          else
+          {
+            if (m_isDebugging)
+            {
+              std::ostringstream out;
+              out << "equal depthBuffers, ";
+              if (m_depthBuffer)
+                out << m_depthBuffer->id() << ", " << m_depthBuffer->id();
+              else
+                out << "(null), (null)";
+              LOG(LINFO, (out.str().c_str()));
+            }
+          }
+
         }
         else
         {
-//          LOG(LINFO, ("non-equal framebuffers"));
+          if (m_isDebugging)
+          {
+            ostringstream out;
+            out << "non-equal frameBuffers, ";
+            if (prevState->m_frameBuffer)
+              out << prevState->m_frameBuffer->id() << ", ";
+            else
+              out << "(null)";
+
+            out << " => ";
+
+            if (m_frameBuffer)
+              out << m_frameBuffer->id() << ", ";
+            else
+              out << "(null)";
+
+            LOG(LINFO, (out.str().c_str()));
+
+            out.str("");
+            out << "renderTarget=";
+            if (m_renderTarget)
+              out << m_renderTarget->id();
+            else
+              out << "(null)";
+
+            out << ", depthBuffer=";
+            if (m_depthBuffer)
+              out << m_depthBuffer->id();
+            else
+              out << "(null)";
+
+            LOG(LINFO, (out.str().c_str()));
+          }
+
           m_frameBuffer->setRenderTarget(m_renderTarget);
           m_frameBuffer->setDepthBuffer(m_depthBuffer);
           shouldApply = true;
@@ -69,10 +183,17 @@ namespace yg
     Renderer::Packet::Packet()
     {}
 
+    Renderer::Packet::Packet(shared_ptr<Command> const & command)
+      : m_command(command)
+    {}
+
     Renderer::Packet::Packet(shared_ptr<BaseState> const & state,
                              shared_ptr<Command> const & command)
       : m_state(state), m_command(command)
-    {}
+    {
+      if (m_state && m_command)
+        m_state->m_isDebugging = m_command->isDebugging();
+    }
 
     Renderer::Params::Params()
       : m_isDebugging(false),
@@ -189,7 +310,6 @@ namespace yg
       command->m_clearRT = clearRT;
       command->m_depth = depth;
       command->m_clearDepth = clearDepth;
-      command->m_isDebugging = renderQueue();
 
       processCommand(command);
     }

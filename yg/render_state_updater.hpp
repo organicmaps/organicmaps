@@ -40,7 +40,14 @@ namespace yg
         shared_ptr<RenderState> m_renderState;
         shared_ptr<ResourceManager> m_resourceManager;
         bool m_isClipRectEnabled;
+        bool m_doSynchronize;
 
+        void perform();
+      };
+
+      struct Invalidate : base_t::Command
+      {
+        shared_ptr<RenderState> m_renderState;
         void perform();
       };
 

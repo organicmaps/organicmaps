@@ -11,8 +11,10 @@ class PartialRenderPolicy : public RenderPolicyMT
 private:
 
   ThreadedList<yg::gl::Renderer::Packet> m_glQueue;
+  threads::Condition m_glCondition;
 
   yg::gl::Renderer::Packet m_currentPacket;
+  shared_ptr<yg::gl::Screen::BaseState> m_curState;
   bool m_hasPacket;
 
   shared_ptr<yg::gl::Renderer::BaseState> m_state;
@@ -29,6 +31,9 @@ public:
 
   void DrawFrame(shared_ptr<PaintEvent> const & paintEvent,
                  ScreenBase const & screenBase);
+
+  void EndFrame(shared_ptr<PaintEvent> const & paintEvent,
+                ScreenBase const & screenBase);
 
   bool NeedRedraw() const;
 };

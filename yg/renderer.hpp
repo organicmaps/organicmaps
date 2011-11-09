@@ -23,6 +23,8 @@ namespace yg
 
       struct BaseState
       {
+        bool m_isDebugging;
+        BaseState();
         virtual ~BaseState();
         virtual void apply(BaseState const * prev) = 0;
       };
@@ -58,6 +60,7 @@ namespace yg
         shared_ptr<BaseState> m_state;
         shared_ptr<Command> m_command;
         Packet();
+        Packet(shared_ptr<Command> const & command);
         Packet(shared_ptr<BaseState> const & state,
                shared_ptr<Command> const & command);
       };

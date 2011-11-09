@@ -51,8 +51,11 @@ namespace yg
 
     void RenderStateUpdater::UpdateActualTarget::perform()
     {
+      OGLCHECK(glFinish());
+
       if (m_doSynchronize)
         m_renderState->m_mutex->Lock();
+      swap(m_renderState->m_actualTarget, m_renderState->m_backBuffer);
       m_renderState->m_actualScreen = m_currentScreen;
       if (m_doSynchronize)
         m_renderState->m_mutex->Unlock();
@@ -63,11 +66,15 @@ namespace yg
       if (isDebugging())
         LOG(LINFO, ("performing UpdateBackBuffer command"));
 
+      if (m_doSynchronize)
+        m_renderState->m_mutex->Lock();
+
       OGLCHECK(glFinish());
 
       OGLCHECK(glDisable(GL_SCISSOR_TEST));
 
       OGLCHECK(glClearColor(192 / 255.0, 192 / 255.0, 192 / 255.0, 1.0));
+
       OGLCHECK(glClear(GL_COLOR_BUFFER_BIT));
 
       shared_ptr<IMMDrawTexturedRect> immDrawTexturedRect(
@@ -83,6 +90,12 @@ namespace yg
 
       OGLCHECK(glFinish());
 
+      if (m_doSynchronize)
+        m_renderState->m_mutex->Unlock();
+    }
+
+    void RenderStateUpdater::Invalidate::perform()
+    {
       m_renderState->invalidate();
     }
 
@@ -92,8 +105,6 @@ namespace yg
       processCommand(shared_ptr<Command>(new FinishCommand()));
 
       m_renderState->m_mutex->Lock();
-
-      swap(m_renderState->m_actualTarget, m_renderState->m_backBufferLayers.front());
 
       shared_ptr<UpdateActualTarget> command(new UpdateActualTarget());
       command->m_renderState = m_renderState;
@@ -107,15 +118,22 @@ namespace yg
       command1->m_renderState = m_renderState;
       command1->m_resourceManager = resourceManager();
       command1->m_isClipRectEnabled = clipRectEnabled();
+      command1->m_doSynchronize = renderQueue();
 
       /// blitting will be performed through
       /// non-multisampled framebuffer for the sake of speed
-      setRenderTarget(m_renderState->m_backBufferLayers.front());
+      setRenderTarget(m_renderState->m_backBuffer);
 
-//    m_renderState->m_actualScreen = m_renderState->m_currentScreen;
       m_renderState->m_mutex->Unlock();
 
       processCommand(command1);
+
+      m_renderState->invalidate();
+
+      shared_ptr<Invalidate> command2(new Invalidate());
+      command2->m_renderState = m_renderState;
+
+      processCommand(command2);
     }
 
     void RenderStateUpdater::beginFrame()

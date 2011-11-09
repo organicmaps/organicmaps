@@ -47,7 +47,8 @@ public:
 
   /// constructor
   RenderPolicy(shared_ptr<WindowHandle> const & windowHandle, TRenderFn const & renderFn, bool doSupportRotation);
-  virtual ~RenderPolicy() {}
+  /// destructor
+  virtual ~RenderPolicy();
   /// starting frame
   virtual void BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s);
   /// drawing single frame

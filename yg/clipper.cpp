@@ -23,19 +23,22 @@ namespace yg
       {
         if (m_isClippingEnabled)
         {
-//        LOG(LINFO, ("enabling scissors"));
+          if (m_isDebugging)
+            LOG(LINFO, ("enabling scissors"));
           OGLCHECK(glEnable(GL_SCISSOR_TEST));
         }
         else
         {
-//          LOG(LINFO, ("disabling scissors"));
+          if (m_isDebugging)
+            LOG(LINFO, ("disabling scissors"));
           OGLCHECK(glDisable(GL_SCISSOR_TEST));
         }
       }
 
       if (state->m_clipRect != m_clipRect)
       {
-//        LOG(LINFO, ("scissorRect(", m_clipRect.minX(), m_clipRect.minY(), m_clipRect.maxX(), m_clipRect.maxY(), ")"));
+        if (m_isDebugging)
+          LOG(LINFO, ("scissor(", m_clipRect.minX(), m_clipRect.minY(), m_clipRect.maxX(), m_clipRect.maxY(), ")"));
         OGLCHECK(glScissor(m_clipRect.minX(), m_clipRect.minY(), m_clipRect.SizeX(), m_clipRect.SizeY()));
       }
     }

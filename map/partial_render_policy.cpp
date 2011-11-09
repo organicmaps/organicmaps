@@ -15,14 +15,17 @@ PartialRenderPolicy::PartialRenderPolicy(shared_ptr<WindowHandle> const & wh,
 void PartialRenderPolicy::Initialize(shared_ptr<yg::gl::RenderContext> const & rc,
                                      shared_ptr<yg::ResourceManager> const & rm)
 {
-  m_renderQueue.SetGLQueue(&m_glQueue);
+  m_renderQueue.SetGLQueue(&m_glQueue, &m_glCondition);
   RenderPolicyMT::Initialize(rc, rm);
 }
 
 void PartialRenderPolicy::ProcessRenderQueue(list<yg::gl::Renderer::Packet> & renderQueue)
 {
   if (renderQueue.empty())
+  {
     m_hasPacket = false;
+    m_glCondition.Signal();
+  }
   else
   {
     m_hasPacket = true;
@@ -44,10 +47,10 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & paintEvent,
 
   screen->getState(m_state.get());
 
-  shared_ptr<yg::gl::Renderer::BaseState> curState = m_state;
+  m_curState = m_state;
 
   unsigned cmdProcessed = 0;
-  unsigned const maxCmdPerFrame = 1000;
+  unsigned const maxCmdPerFrame = 10;
 
   while (true)
   {
@@ -58,8 +61,8 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & paintEvent,
       cmdProcessed++;
       if (m_currentPacket.m_state)
       {
-        m_currentPacket.m_state->apply(curState.get());
-        curState = m_currentPacket.m_state;
+        m_currentPacket.m_state->apply(m_curState.get());
+        m_curState = m_currentPacket.m_state;
       }
       m_currentPacket.m_command->perform();
     }
@@ -70,24 +73,36 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & paintEvent,
   /// should we continue drawing commands on the next frame
   if ((cmdProcessed == maxCmdPerFrame) && m_hasPacket)
   {
-    LOG(LINFO, ("will continue on the next frame"));
-    windowHandle()->invalidate();
+    LOG(LINFO, ("will continue on the next frame(", cmdProcessed, ")"));
   }
   else
-    LOG(LINFO, ("finished sequence of commands"));
+    LOG(LINFO, ("finished sequence of commands(", cmdProcessed, ")"));
 
-//  OGLCHECK(glFinish());
+  {
+    threads::ConditionGuard guard(m_glCondition);
+    if (m_glQueue.Empty())
+      guard.Signal();
+  }
 
-  m_state->apply(curState.get());
+  OGLCHECK(glFinish());
 
-//  LOG(LINFO, (cmdProcessed, " commands processed"));
+  m_state->apply(m_curState.get());
 
-//  OGLCHECK(glFinish());
+  OGLCHECK(glFinish());
 
   /// blitting from the current surface onto screen
   RenderPolicyMT::DrawFrame(paintEvent, screenBase);
 
-//  OGLCHECK(glFinish());
+  OGLCHECK(glFinish());
+
+}
+
+void PartialRenderPolicy::EndFrame(shared_ptr<PaintEvent> const & paintEvent,
+                                   ScreenBase const & screenBase)
+{
+  RenderPolicyMT::EndFrame(paintEvent, screenBase);
+  LOG(LINFO, ("-------EndFrame-------"));
+}
 
 bool PartialRenderPolicy::NeedRedraw() const
 {

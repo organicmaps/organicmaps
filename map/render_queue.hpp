@@ -77,5 +77,6 @@ public:
 
   void WaitForEmptyAndFinished();
 
-  void SetGLQueue(ThreadedList<yg::gl::Renderer::Packet> * glQueue);
+  void SetGLQueue(ThreadedList<yg::gl::Renderer::Packet> * glQueue,
+                  threads::Condition * glCondition);
 };

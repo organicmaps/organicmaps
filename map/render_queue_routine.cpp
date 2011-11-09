@@ -68,12 +68,7 @@ void RenderQueueRoutine::onSize(int w, int h)
 
   m_newDepthBuffer.reset(new yg::gl::RenderBuffer(texW, texH, true));
   m_newActualTarget = m_resourceManager->createRenderTarget(texW, texH);
-
-  m_newBackBufferLayers.clear();
-  m_newBackBufferLayers.resize(m_renderState->m_backBufferLayers.size());
-
-  for (unsigned i = 0; i < m_renderState->m_backBufferLayers.size(); ++i)
-    m_newBackBufferLayers[i] = m_resourceManager->createRenderTarget(texW, texH);
+  m_newBackBuffer = m_resourceManager->createRenderTarget(texW, texH);
 }
 
 void RenderQueueRoutine::processResize(ScreenBase const & frameScreen)
@@ -109,27 +104,25 @@ void RenderQueueRoutine::processResize(ScreenBase const & frameScreen)
     }
     m_auxScreen->endFrame();
 
-    for (size_t i = 0; i < m_renderState->m_backBufferLayers.size(); ++i)
+    shared_ptr<yg::gl::BaseTexture> oldBackBuffer = m_renderState->m_backBuffer;
+    m_renderState->m_backBuffer.reset();
+    m_renderState->m_backBuffer = m_newBackBuffer;
+    m_newBackBuffer.reset();
+    m_auxScreen->setRenderTarget(m_renderState->m_backBuffer);
+    m_auxScreen->beginFrame();
+    m_auxScreen->clear(m_bgColor);
+
+    if (oldBackBuffer != 0)
     {
-      shared_ptr<yg::gl::BaseTexture> oldBackBuffer = m_renderState->m_backBufferLayers[i];
-      m_renderState->m_backBufferLayers[i].reset();
-      m_renderState->m_backBufferLayers[i] = m_newBackBufferLayers[i];
-      m_newBackBufferLayers[i].reset();
-      m_auxScreen->setRenderTarget(m_renderState->m_backBufferLayers[i]);
-      m_auxScreen->beginFrame();
-      m_auxScreen->clear(m_bgColor);
-
-      if (oldBackBuffer != 0)
-      {
-        m_auxScreen->blit(oldBackBuffer,
-                          m_renderState->m_actualScreen,
-                          frameScreen);
-        oldBackBuffer.reset();
-      }
-      m_auxScreen->endFrame();
-
-      m_renderState->m_actualScreen = frameScreen;
+      m_auxScreen->blit(oldBackBuffer,
+                        m_renderState->m_actualScreen,
+                        frameScreen);
+      oldBackBuffer.reset();
     }
+    m_auxScreen->endFrame();
+
+    /// TODO : make as a command
+    m_renderState->m_actualScreen = frameScreen;
 
     m_renderState->m_isResized = false;
   }
@@ -187,39 +180,7 @@ void RenderQueueRoutine::getUpdateAreas(
       areas.push_back(m2::RectI((int)leftBarMinX, (int)bottomBarMinY, (int)rightBarMinX, (int)bottomBarMaxY));
   }
   else
-  {
     areas.push_back(newRect);
-
-/*    int rectW = (w + 9) / 5;
-    int rectH = (h + 9) / 5;
-    m2::RectI r( 2 * rectW, 2 * rectH, 3 * rectW, 3 * rectH);
-    areas.push_back(r);
-    areas.push_back(m2::Offset(r, -rectW, 0));
-    areas.push_back(m2::Offset(r, -rectW, -rectH));
-    areas.push_back(m2::Offset(r, 0, -rectH));
-    areas.push_back(m2::Offset(r, rectW, -rectH));
-    areas.push_back(m2::Offset(r, rectW, 0));
-    areas.push_back(m2::Offset(r, rectW, rectH));
-    areas.push_back(m2::Offset(r, 0, rectH));
-    areas.push_back(m2::Offset(r, -rectW, rectH));
-    areas.push_back(m2::Offset(r, -2 * rectW, rectH));
-    areas.push_back(m2::Offset(r, -2 * rectW, 0));
-    areas.push_back(m2::Offset(r, -2 * rectW, -rectH));
-    areas.push_back(m2::Offset(r, -2 * rectW, -2*rectH));
-    areas.push_back(m2::Offset(r, -rectW, -2*rectH));
-    areas.push_back(m2::Offset(r, 0, -2*rectH));
-    areas.push_back(m2::Offset(r, rectW, -2*rectH));
-    areas.push_back(m2::Offset(r, 2 * rectW, -2*rectH));
-    areas.push_back(m2::Offset(r, 2 * rectW, -rectH));
-    areas.push_back(m2::Offset(r, 2 * rectW, 0));
-    areas.push_back(m2::Offset(r, 2 * rectW, rectH));
-    areas.push_back(m2::Offset(r, 2 * rectW, 2*rectH));
-    areas.push_back(m2::Offset(r, rectW, 2*rectH));
-    areas.push_back(m2::Offset(r, 0, 2*rectH));
-    areas.push_back(m2::Offset(r, -rectW, 2*rectH));
-    areas.push_back(m2::Offset(r, -2*rectW, 2*rectH));
-*/
-  }
 }
 
 void RenderQueueRoutine::setVisualScale(double visualScale)
@@ -240,7 +201,8 @@ void RenderQueueRoutine::waitForRenderCommand(list<shared_ptr<RenderModelCommand
 
 void RenderQueueRoutine::Do()
 {
-  m_renderContext->makeCurrent();
+  if (!m_glQueue)
+    m_renderContext->makeCurrent();
 
   DrawerYG::params_t params;
 
@@ -379,7 +341,7 @@ void RenderQueueRoutine::Do()
     {
       /// this fixes some strange issue with multisampled framebuffer.
       /// setRenderTarget should be made here.
-      m_threadDrawer->screen()->setRenderTarget(m_renderState->m_backBufferLayers.front());
+      m_threadDrawer->screen()->setRenderTarget(m_renderState->m_backBuffer);
 
       m_threadDrawer->beginFrame();
 
@@ -424,6 +386,28 @@ void RenderQueueRoutine::Do()
         }
       }
 
+//      if (m_currentRenderCommand->m_paintEvent->isCancelled())
+//      {
+//        /// cancelling all the commands in the queue
+//        if (m_glQueue)
+//        {
+//          m_glQueue->Clear();
+//
+//          {
+//            threads::ConditionGuard guard(*m_glCondition);
+//            if (m_glQueue->Empty())
+//              guard.Wait();
+//          }
+//        }
+//
+//        {
+//          threads::MutexGuard guard(*m_renderState->m_mutex.get());
+//          /// refreshing shadow parameters from the primary parameters
+//          m_renderState->m_shadowActualTarget = m_renderState->m_actualTarget;
+//          m_renderState->m_shadowBackBuffer = m_renderState->m_backBuffer;
+//        }
+//      }
+
       /// if something were actually drawn, or (exclusive or) we are repainting the whole rect
       if ((!m_renderState->m_isEmptyModelCurrent) || (fullRectRepaint))
         m_renderState->m_isEmptyModelActual = m_renderState->m_isEmptyModelCurrent;
@@ -440,10 +424,6 @@ void RenderQueueRoutine::Do()
 
     if (!IsCancelled())
     {
-      /// We shouldn't update the actual target as it's already happened (through callback function)
-      /// in the endFrame function
-      /// updateActualTarget();
-
       {
         threads::ConditionGuard g1(m_hasRenderCommands);
 
@@ -465,7 +445,8 @@ void RenderQueueRoutine::Do()
 
   // By VNG: We can't destroy render context in drawing thread.
   // Notify render context instead.
-  m_renderContext->endThreadDrawing();
+  if (!m_glQueue)
+    m_renderContext->endThreadDrawing();
 }
 
 void RenderQueueRoutine::addWindowHandle(shared_ptr<WindowHandle> window)
@@ -473,11 +454,27 @@ void RenderQueueRoutine::addWindowHandle(shared_ptr<WindowHandle> window)
   m_windowHandles.push_back(window);
 }
 
+void RenderQueueRoutine::Invalidate::perform()
+{
+  if (isDebugging())
+    LOG(LINFO, ("performing Invalidate command"));
+  for_each(m_windowHandles.begin(),
+           m_windowHandles.end(),
+           bind(&WindowHandle::invalidate, _1));
+}
+
 void RenderQueueRoutine::invalidate()
 {
   for_each(m_windowHandles.begin(),
            m_windowHandles.end(),
            bind(&WindowHandle::invalidate, _1));
+
+  if (m_glQueue)
+  {
+    shared_ptr<Invalidate> command(new Invalidate());
+    command->m_windowHandles = m_windowHandles;
+    m_glQueue->PushBack(yg::gl::Renderer::Packet(command));
+  }
 }
 
 void RenderQueueRoutine::addCommand(render_fn_t const & fn, ScreenBase const & frameScreen)
@@ -536,7 +533,9 @@ void RenderQueueRoutine::waitForEmptyAndFinished()
     guard.Wait();
 }
 
-void RenderQueueRoutine::SetGLQueue(ThreadedList<yg::gl::Renderer::Packet> * glQueue)
+void RenderQueueRoutine::setGLQueue(ThreadedList<yg::gl::Renderer::Packet> * glQueue,
+                                    threads::Condition * glCondition)
 {
   m_glQueue = glQueue;
+  m_glCondition = glCondition;
 }

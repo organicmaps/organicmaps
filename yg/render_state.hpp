@@ -42,7 +42,7 @@ namespace yg
       /// information layer
       shared_ptr<yg::InfoLayer> m_currentInfoLayer;
       /// at least one backBuffer layer
-      vector<shared_ptr<BaseTexture> > m_backBufferLayers;
+      shared_ptr<BaseTexture> m_backBuffer;
       /// depth buffer used for rendering
       shared_ptr<RenderBuffer> m_depthBuffer;
       /// Duration of the rendering operation

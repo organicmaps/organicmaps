@@ -8,6 +8,7 @@
 #include "../std/list.hpp"
 #include "../std/function.hpp"
 #include "../yg/color.hpp"
+#include "../yg/renderer.hpp"
 
 class DrawerYG;
 
@@ -30,7 +31,6 @@ namespace yg
     class RenderBuffer;
     class BaseTexture;
     class RenderState;
-    class RenderState;
     class Screen;
   }
 }
@@ -52,16 +52,24 @@ private:
                        render_fn_t renderFn);
   };
 
+  struct Invalidate : public yg::gl::Renderer::Command
+  {
+    list<shared_ptr<WindowHandle> > m_windowHandles;
+    void perform();
+  };
+
   shared_ptr<yg::gl::RenderContext> m_renderContext;
   shared_ptr<yg::gl::FrameBuffer> m_frameBuffer;
   shared_ptr<yg::gl::FrameBuffer> m_auxFrameBuffer;
-  shared_ptr<yg::gl::RenderBuffer> m_newDepthBuffer;
-  shared_ptr<yg::gl::BaseTexture> m_newActualTarget;
-  vector<shared_ptr<yg::gl::BaseTexture> > m_newBackBufferLayers;
   shared_ptr<DrawerYG> m_threadDrawer;
   shared_ptr<yg::gl::Screen> m_auxScreen;
 
+  shared_ptr<yg::gl::RenderBuffer> m_newDepthBuffer;
+  shared_ptr<yg::gl::BaseTexture> m_newActualTarget;
+  shared_ptr<yg::gl::BaseTexture> m_newBackBuffer;
+
   threads::Condition m_hasRenderCommands;
+  threads::Condition * m_glCondition;
 
   shared_ptr<RenderModelCommand> m_currentRenderCommand;
   list<shared_ptr<RenderModelCommand> > m_renderCommands;
@@ -131,5 +139,6 @@ public:
   /// wait for all commands are processed.
   void waitForEmptyAndFinished();
 
-  void SetGLQueue(ThreadedList<yg::gl::Renderer::Packet> * glQueue);
+  void setGLQueue(ThreadedList<yg::gl::Renderer::Packet> * glQueue,
+                  threads::Condition * glCondition);
 };

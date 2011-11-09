@@ -3,6 +3,9 @@
 #include "render_policy.hpp"
 #include "window_handle.hpp"
 
+RenderPolicy::~RenderPolicy()
+{}
+
 RenderPolicy::RenderPolicy(shared_ptr<WindowHandle> const & windowHandle,
                            TRenderFn const & renderFn,
                            bool doSupportRotation)
