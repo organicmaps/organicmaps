@@ -1056,7 +1056,7 @@ void RulesHolder::Write(FileWriterStream & s)
   s << m_container << m_rules;
 }
 
-void WriteRules(char const * fPath)
+void WriteRules(string const & fPath)
 {
   FileWriterStream file(fPath);
   rules().Write(file);

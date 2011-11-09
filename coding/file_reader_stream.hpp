@@ -25,7 +25,7 @@ class FileReaderStream : public stream::ReaderStream<ReaderSource<FileReader> >
   ReaderSource<FileReader> m_reader;
 
 public:
-  FileReaderStream(char const * fName)
+  FileReaderStream(string const & fName)
     : base_type(m_reader), m_file(fName), m_reader(m_file)
   {
   }

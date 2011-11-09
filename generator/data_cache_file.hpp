@@ -136,7 +136,7 @@ namespace cache
 
   public:
     DataFileBase(string const & name)
-      : m_stream(name.c_str()), m_offsets(name + OFFSET_EXT)
+      : m_stream(name), m_offsets(name + OFFSET_EXT)
     {
     }
   };

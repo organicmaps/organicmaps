@@ -10,7 +10,7 @@ class FileWriterStream : public stream::WriterStream<FileWriter>
   FileWriter m_file;
 
 public:
-  FileWriterStream(char const * fName)
+  FileWriterStream(string const & fName)
     : base_type(m_file), m_file(fName) {}
 
   using base_type::operator <<;

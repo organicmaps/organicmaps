@@ -92,7 +92,7 @@ namespace classificator
     for (int i = 0; i <= 17; ++i)
       ftype::ParseOSMTypes(inFile.c_str(), i);
 
-    drule::WriteRules(string(path + "drawing_rules.bin").c_str());
+    drule::WriteRules(string(path + "drawing_rules.bin"));
     classif().PrintClassificator(string(path + "classificator.txt").c_str());
   }
 

@@ -166,7 +166,7 @@ namespace drule
     }
   };
 
-  void WriteRules(char const * fPath);
+  void WriteRules(string const & fPath);
   void ReadRules(ReaderPtrStream & s);
 
   RulesHolder & rules();
