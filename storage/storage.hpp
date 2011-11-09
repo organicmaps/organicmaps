@@ -108,8 +108,7 @@ namespace storage
     /// @TODO temporarily made public for Android, refactor
     void ReInitCountries(bool forceReload);
 
-    /// Adds all locally downloaded maps to the model
-    void Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc, TUpdateRectFunction updateRectFunc, TEnumMapsFunction enumMapFunction);
+    void Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc, TUpdateRectFunction updateRectFunc);
 
     /// @name Called from DownloadManager
     //@{

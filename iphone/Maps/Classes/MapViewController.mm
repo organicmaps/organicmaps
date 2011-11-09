@@ -9,7 +9,6 @@
 #include "../../yg/internal/opengl.hpp"
 #include "../../yg/screen.hpp"
 #include "../../map/drawer_yg.hpp"
-#include "../../storage/storage.hpp"
 
 typedef Framework<model::FeaturesFetcher> framework_t;
 
@@ -19,7 +18,6 @@ typedef Framework<model::FeaturesFetcher> framework_t;
 
 // @TODO Make m_framework and m_storage MapsAppDelegate properties instead of global variables.
 framework_t * m_framework = NULL;
-storage::Storage m_storage;
 
 - (void) ZoomToRect: (m2::RectD const &) rect
 {
@@ -97,7 +95,7 @@ storage::Storage m_storage;
 
 - (IBAction)OnSettingsClicked:(id)sender
 {
-  [[[MapsAppDelegate theApp] settingsManager] Show:self WithStorage:&m_storage];
+  [[[MapsAppDelegate theApp] settingsManager] Show:self WithStorage:&m_framework->Storage()];
 }
 
 - (IBAction)OnSearchClicked:(id)sender
@@ -125,7 +123,6 @@ storage::Storage m_storage;
 		shared_ptr<yg::ResourceManager> resourceManager = [(EAGLView*)self.view resourceManager];
         
     m_framework = FrameworkFactory<model::FeaturesFetcher>::CreateFramework(windowHandle, 40);
-		m_framework->InitStorage(m_storage);
     v.framework = m_framework;
 
 		m_StickyThreshold = 10;

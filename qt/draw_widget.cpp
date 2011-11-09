@@ -2,8 +2,6 @@
 #include "proxystyle.hpp"
 #include "slider_ctrl.hpp"
 
-#include "../storage/storage.hpp"
-
 #include "../platform/settings.hpp"
 
 #include <QtGui/QMouseEvent>
@@ -46,7 +44,7 @@ namespace qt
     m_state = EStopped;
   }
 
-  DrawWidget::DrawWidget(QWidget * pParent, Storage & storage)
+  DrawWidget::DrawWidget(QWidget * pParent)
     : base_type(pParent),
       m_handle(new WindowHandle()),
       m_isInitialized(false),
@@ -57,8 +55,6 @@ namespace qt
       m_redrawInterval(100),
       m_pScale(0)
   {
-    m_framework->InitStorage(storage);
-
     m_timer = new QTimer(this);
     m_handle->setUpdatesEnabled(false);
 

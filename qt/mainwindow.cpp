@@ -42,7 +42,7 @@ MainWindow::MainWindow()
   : m_updateDialog(0)
 #endif // NO_DOWNLOADER
 {
-  m_pDrawWidget = new DrawWidget(this, m_storage);
+  m_pDrawWidget = new DrawWidget(this);
   m_locationService.reset(CreateDesktopLocationService(*this));
 
   CreateNavigationBar();
@@ -368,7 +368,7 @@ void MainWindow::OnPreferences()
 void MainWindow::ShowUpdateDialog()
 {
   if (!m_updateDialog)
-    m_updateDialog = new UpdateDialog(this, m_storage);
+    m_updateDialog = new UpdateDialog(this, m_pDrawWidget->GetFramework().Storage());
   m_updateDialog->ShowDialog();
 }
 

@@ -13,12 +13,6 @@
 
 #include <QtCore/QTimer>
 
-//class FileReader;
-//template <class> class ReaderSource;
-//class FileWriter;
-
-namespace storage { class Storage; }
-
 namespace qt
 {
   class QScaleSlider;
@@ -92,7 +86,7 @@ namespace qt
     void AnimTimerElapsed();
 
   public:
-    DrawWidget(QWidget * pParent, storage::Storage & storage);
+    DrawWidget(QWidget * pParent);
 
     void SetScaleControl(QScaleSlider * pScale);
 

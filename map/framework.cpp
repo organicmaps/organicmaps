@@ -146,6 +146,27 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
   m_informationDisplay.enableLog(isVisualLogEnabled, m_windowHandle.get());
   m_informationDisplay.setVisualScale(visScale);
 
+  m_model.InitClassificator();
+
+  // initializes model with locally downloaded maps
+  LOG(LDEBUG, ("Initializing storage"));
+  // add maps to the model
+  Platform::FilesList maps;
+  GetLocalMaps(maps);
+  try
+  {
+    for_each(maps.begin(), maps.end(), bind(&Framework::AddMap, this, _1));
+  }
+  catch (RootException const & e)
+  {
+    LOG(LERROR, ("Can't add map: ", e.what()));
+  }
+
+  m_storage.Init(bind(&Framework::AddMap, this, _1),
+               bind(&Framework::RemoveMap, this, _1),
+               bind(&Framework::InvalidateRect, this, _1));
+  LOG(LDEBUG, ("Storage initialized"));
+
   // set language priorities
   languages::CodesT langCodes;
   languages::GetCurrentSettings(langCodes);
@@ -153,20 +174,18 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
 }
 
 template <typename TModel>
-void Framework<TModel>::EnumLocalMaps(maps_list_t & filesList)
+void Framework<TModel>::GetLocalMaps(vector<string> & outMaps)
 {
   Platform & pl = GetPlatform();
-
+  outMaps.clear();
   // scan for pre-installed maps in resources
   string const resPath = pl.ResourcesDir();
   Platform::FilesList resFiles;
   pl.GetFilesInDir(resPath, "*" DATA_FILE_EXTENSION, resFiles);
-
   // scan for probably updated maps in data dir
   string const dataPath = pl.WritableDir();
   Platform::FilesList dataFiles;
   pl.GetFilesInDir(dataPath, "*" DATA_FILE_EXTENSION, dataFiles);
-
   // wipe out same maps from resources, which have updated
   // downloaded versions in data path
   for (Platform::FilesList::iterator it = resFiles.begin(); it != resFiles.end();)
@@ -177,17 +196,10 @@ void Framework<TModel>::EnumLocalMaps(maps_list_t & filesList)
     else
       ++it;
   }
-
-  try
-  {
-    filesList.clear();
-    for_each(resFiles.begin(), resFiles.end(), ReadersAdder(pl, filesList));
-    for_each(dataFiles.begin(), dataFiles.end(), ReadersAdder(pl, filesList));
-  }
-  catch (RootException const & e)
-  {
-    LOG(LERROR, ("Can't add map: ", e.what()));
-  }
+  for (size_t i = 0; i < resFiles.size(); ++i)
+    outMaps.push_back(resFiles[i]);
+  for (size_t i = 0; i < dataFiles.size(); ++i)
+    outMaps.push_back(dataFiles[i]);
 }
 
 template <typename TModel>

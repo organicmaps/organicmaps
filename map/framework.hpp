@@ -10,6 +10,8 @@
 
 #include "../defines.hpp"
 
+#include "../storage/storage.hpp"
+
 #include "../indexer/mercator.hpp"
 #include "../indexer/data_header.hpp"
 #include "../indexer/scales.hpp"
@@ -55,39 +57,7 @@ typedef function<void (search::Result const &)> SearchCallbackT;
 class DrawerYG;
 class RenderPolicy;
 
-struct PathAppender
-{
-  string const & m_path;
-  PathAppender(string const & path) : m_path(path) {}
-  void operator()(string & elem)
-  {
-    elem.insert(elem.begin(), m_path.begin(), m_path.end());
-  }
-};
-
-class ReadersAdder
-{
-protected:
-
-  typedef vector<string> maps_list_t;
-
-private:
-  Platform & m_pl;
-  maps_list_t & m_lst;
-
-public:
-  ReadersAdder(Platform & pl, maps_list_t & lst) : m_pl(pl), m_lst(lst) {}
-
-  void operator() (string const & name)
-  {
-    m_lst.push_back(name);
-  }
-};
-
-template
-<
-  class TModel
->
+template <class TModel>
 class Framework
 {
 protected:
@@ -120,7 +90,7 @@ protected:
 
   mutable threads::Mutex m_modelSyn;
 
-//  int m_tileSize;
+  storage::Storage m_storage;
 
   my::Timer m_timer;
 
@@ -128,10 +98,14 @@ protected:
 
   void AddMap(string const & file);
   void RemoveMap(string const & datFile);
+  /// Only file names
+  void GetLocalMaps(vector<string> & outMaps);
 
 public:
   Framework(shared_ptr<WindowHandle> windowHandle, size_t bottomShift);
   virtual ~Framework();
+
+  storage::Storage & Storage() { return m_storage; }
 
   void OnLocationStatusChanged(location::TLocationStatus newStatus);
   void OnGpsUpdate(location::GpsInfo const & info);
@@ -143,28 +117,6 @@ public:
                     shared_ptr<yg::ResourceManager> const & resourceManager);
 
   model_t & get_model();
-
-  typedef vector<string> maps_list_t;
-  virtual void EnumLocalMaps(maps_list_t & filesList);
-
-  /// Initialization.
-  template <class TStorage>
-  void InitStorage(TStorage & storage)
-  {
-    m_model.InitClassificator();
-
-    typename TStorage::TEnumMapsFunction enumMapsFn;
-
-    enumMapsFn = bind(&Framework::EnumLocalMaps, this, _1);
-
-    LOG(LDEBUG, ("Initializing storage"));
-    // initializes model with locally downloaded maps
-    storage.Init(bind(&Framework::AddMap, this, _1),
-                 bind(&Framework::RemoveMap, this, _1),
-                 bind(&Framework::InvalidateRect, this, _1),
-                 enumMapsFn);
-    LOG(LDEBUG, ("Storage initialized"));
-  }
 
   bool IsEmptyModel();
 

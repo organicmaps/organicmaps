@@ -13,8 +13,6 @@
 #include "../../../../../map/window_handle.hpp"
 #include "../../../../../map/feature_vec_model.hpp"
 
-#include "../../../../../storage/storage.hpp"
-
 namespace android
 {
   class Framework
@@ -30,8 +28,6 @@ namespace android
     shared_ptr<yg::gl::RenderContext> m_rc;
 
     ::Framework<model::FeaturesFetcher> m_work;
-    storage::Storage m_storage;
-
 
     void CallRepaint();
 

@@ -60,7 +60,8 @@ private:
 
   void InitBenchmark();
 
-  void EnumLocalMaps(typename base_type::maps_list_t & filesList);
+  /// Removes all maps added in base class and adds only benchmarking maps
+  void ReAddLocalMaps();
 
 public:
 

@@ -111,25 +111,29 @@ void ForEachBenchmarkRecord(ToDo & toDo)
   }
 }
 
-class FirstReaderAdder : public ReadersAdder
+struct MapsCollector
 {
-  typedef ReadersAdder base_type;
-public:
-  FirstReaderAdder(maps_list_t & lst) : base_type(GetPlatform(), lst) {}
+  vector<string> m_maps;
   void operator() (vector<string> const & v)
   {
     if (!v[0].empty())
       if (v[0][0] == '#')
         return;
-    base_type::operator() (v[0]);
+    m_maps.push_back(v[0]);
   }
 };
 
 template <typename TModel>
-void BenchmarkFramework<TModel>::EnumLocalMaps(typename base_type::maps_list_t & filesList)
+void BenchmarkFramework<TModel>::ReAddLocalMaps()
 {
-  FirstReaderAdder adder(filesList);
-  ForEachBenchmarkRecord(adder);
+  // remove all previously added maps in framework constructor
+  Platform::FilesList files;
+  base_type::GetLocalMaps(files);
+  for_each(files.begin(), files.end(), bind(&base_type::RemoveMap, this, _1));
+  // add only maps needed for benchmarks
+  MapsCollector collector;
+  ForEachBenchmarkRecord(collector);
+  for_each(collector.m_maps.begin(), collector.m_maps.end(), bind(&base_type::AddMap, this, _1));
 }
 
 template <typename TModel>
@@ -152,6 +156,8 @@ BenchmarkFramework<TModel>::BenchmarkFramework(shared_ptr<WindowHandle> const & 
   m_startTime = my::FormatCurrentTime();
 
   base_type::m_informationDisplay.enableBenchmarkInfo(true);
+
+  ReAddLocalMaps();
 }
 
 template <typename TModel>

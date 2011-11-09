@@ -13,7 +13,6 @@
 #include "../../../../../indexer/drawing_rules.hpp"
 
 #include "../../../../../map/render_policy_st.hpp"
-#include "../../../../../map/partial_render_policy.hpp"
 #include "../../../../../map/tiling_render_policy_st.hpp"
 #include "../../../../../map/framework.hpp"
 
@@ -48,7 +47,6 @@ namespace android
     ASSERT(g_framework == 0, ());
     g_framework = this;
 
-    m_work.InitStorage(m_storage);
     // @TODO refactor storage
     m_storage.ReInitCountries(false);
   }
@@ -88,7 +86,6 @@ namespace android
     p.m_glyphCacheID = m_rm->guiThreadGlyphCacheID();
     p.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
     p.m_skinName = pl.SkinName();
-    p.m_useTinyStorage = true;
 
     m_drawer = make_shared_ptr(new DrawerYG(p));
   }
@@ -117,9 +114,7 @@ namespace android
           2 * 1024 * 1024,
           1,
           yg::Rt8Bpp,
-          true));
-
-    m_rm->initTinyStorage(300 * sizeof(yg::gl::Vertex), 600 * sizeof(unsigned short), 30);
+          false));
 
     Platform::FilesList fonts;
     pl.GetFontNames(fonts);
@@ -133,7 +128,7 @@ namespace android
     drule::rules().ForEachRule(make_all_invalid(GetPlatform().CpuCores() + 1));
 
     // temporary workaround
-    m_work.SetRenderPolicy(shared_ptr<RenderPolicy>(new PartialRenderPolicy(m_handle, bind(&::Framework<model::FeaturesFetcher>::DrawModel, &m_work, _1, _2, _3, _4, _5, false))));
+    m_work.SetRenderPolicy(shared_ptr<RenderPolicy>(new RenderPolicyST(m_handle, bind(&::Framework<model::FeaturesFetcher>::DrawModel, &m_work, _1, _2, _3, _4, _5, false))));
 
     m_rc = make_shared_ptr(new android::RenderContext());
 
@@ -156,7 +151,7 @@ namespace android
 
   storage::Storage & Framework::Storage()
   {
-    return m_storage;
+    return m_work.Storage();
   }
 
   void Framework::Resize(int w, int h)

@@ -45,19 +45,13 @@ namespace storage
 //  }
 
   ////////////////////////////////////////////////////////////////////////////
-  void Storage::Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc, TUpdateRectFunction updateRectFunc, TEnumMapsFunction enumMapsFunc)
+  void Storage::Init(TAddMapFunction addFunc, TRemoveMapFunction removeFunc, TUpdateRectFunction updateRectFunc)
   {
     m_currentVersion = static_cast<uint32_t>(Version::BUILD);
 
     m_addMap = addFunc;
     m_removeMap = removeFunc;
     m_updateRect = updateRectFunc;
-
-    map_list_t filesList;
-    enumMapsFunc(filesList);
-
-    for (map_list_t::iterator it = filesList.begin(); it != filesList.end(); ++it)
-      m_addMap(*it);
   }
 
   string Storage::UpdateBaseUrl() const

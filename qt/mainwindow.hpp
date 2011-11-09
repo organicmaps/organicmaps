@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../storage/storage.hpp"
-
 #include "../platform/location_service.hpp"
 
 #include "../std/scoped_ptr.hpp"
@@ -28,8 +26,6 @@ namespace qt
 #ifndef NO_DOWNLOADER
     UpdateDialog * m_updateDialog;
 #endif // NO_DOWNLOADER
-
-    storage::Storage m_storage;
 
     scoped_ptr<location::LocationService> m_locationService;
 
