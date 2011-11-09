@@ -12,8 +12,9 @@ namespace stream
 
     ReaderStream & operator >> (char & t) { m_reader.Read(&t, sizeof(t)); return (*this); }
     ReaderStream & operator >> (uint32_t & t) { m_reader.Read(&t, sizeof(t)); return (*this); }
-    ReaderStream & operator >> (uint64_t & t) { m_reader.Read(&t, sizeof(t)); return (*this); }
     ReaderStream & operator >> (int32_t & t) { m_reader.Read(&t, sizeof(t)); return (*this); }
+    ReaderStream & operator >> (uint64_t & t) { m_reader.Read(&t, sizeof(t)); return (*this); }
+    ReaderStream & operator >> (int64_t & t) { m_reader.Read(&t, sizeof(t)); return (*this); }
     ReaderStream & operator >> (double & t) { m_reader.Read(&t, sizeof(t)); return (*this); }
 
     ReaderStream & operator >> (bool & t)
