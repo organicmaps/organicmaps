@@ -3,6 +3,7 @@
 #include "../base/base.hpp"
 
 #include "../std/map.hpp"
+#include "../std/set.hpp"
 #include "../std/unordered_map.hpp"
 #include "../std/vector.hpp"
 #include "../std/array.hpp"
@@ -75,6 +76,30 @@ template <class TArchive, class TCont> void load_like_vector(TArchive & ar, TCon
     ar >> rCont[i];
 }
 
+template <class TArchive, class TCont> void save_like_set(TArchive & ar, TCont const & rSet)
+{
+  uint32_t const count = static_cast<uint32_t>(rSet.size());
+  ar << count;
+
+  for (typename TCont::const_iterator it = rSet.begin(); it != rSet.end(); ++it)
+    ar << *it;
+}
+
+template <class TArchive, class TCont> void load_like_set(TArchive & ar, TCont & rSet)
+{
+  rSet.clear();
+
+  uint32_t count;
+  ar >> count;
+
+  for (uint32_t i = 0; i < count; ++i)
+  {
+    typename TCont::value_type val;
+    ar >> val;
+    rSet.insert(val);
+  }
+}
+
 template <class TArchive, class T1, class T2> TArchive & operator << (TArchive & ar, map<T1, T2> const & rMap)
 {
   save_like_map(ar, rMap);
@@ -120,6 +145,18 @@ template <class TArchive, class T> TArchive & operator << (TArchive & ar, vector
 template <class TArchive, class T> TArchive & operator >> (TArchive & ar, vector<T> & rVector)
 {
   load_like_vector(ar, rVector);
+  return ar;
+}
+
+template <class TArchive, class T> TArchive & operator << (TArchive & ar, set<T> const & rSet)
+{
+  save_like_set(ar, rSet);
+  return ar;
+}
+
+template <class TArchive, class T> TArchive & operator >> (TArchive & ar, set<T> & rSet)
+{
+  load_like_set(ar, rSet);
   return ar;
 }
 
