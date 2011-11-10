@@ -85,7 +85,6 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
   string m_filePath;
   scoped_ptr<FileWriter> m_writer;
 
-  /// Used to save not downloaded chunks for later resume not so often
   size_t m_goodChunksCount;
 
   ChunksDownloadStrategy::ResultT StartThreads()
@@ -121,13 +120,15 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     m_writer->Write(buffer, size);
   }
 
+  /// Called by each http thread
   virtual void OnFinish(long httpCode, int64_t begRange, int64_t endRange)
   {
 #ifdef DEBUG
     static threads::ThreadID const id = threads::GetCurrentThreadID();
     ASSERT_EQUAL(id, threads::GetCurrentThreadID(), ("OnFinish called from different threads"));
 #endif
-    m_strategy.ChunkFinished(httpCode == 200, ChunksDownloadStrategy::RangeT(begRange, endRange));
+    bool const isChunkOk = (httpCode == 200);
+    m_strategy.ChunkFinished(isChunkOk, ChunksDownloadStrategy::RangeT(begRange, endRange));
 
     // remove completed chunk from the list, beg is the key
     RemoveHttpThreadByKey(begRange);
@@ -145,21 +146,27 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     if (result == ChunksDownloadStrategy::EDownloadFailed)
       m_status = EFailed;
     else if (result == ChunksDownloadStrategy::EDownloadSucceeded)
-    {
       m_status = ECompleted;
+
+    if (isChunkOk)
+    { // save information for download resume
       ++m_goodChunksCount;
-      if (m_strategy.ChunksLeft().empty())
-        FileWriter::DeleteFileX(m_filePath + ".resume");
-      else
-      {
-        if (m_goodChunksCount % 10 == 0)
-          SaveRanges(m_filePath + ".resume", m_strategy.ChunksLeft());
-      }
+      if (m_goodChunksCount % 10)
+        SaveRanges(m_filePath + ".resume", m_strategy.ChunksLeft());
     }
 
     if (m_status != EInProgress)
     {
       m_writer.reset();
+      // clean up resume file with chunks range on success
+      if (m_strategy.ChunksLeft().empty())
+      {
+        FileWriter::DeleteFileX(m_filePath + ".resume");
+        // rename finished file to it's original name
+        rename((m_filePath + ".downloading").c_str(), m_filePath.c_str());
+      }
+      else // or save "chunks left" otherwise
+        SaveRanges(m_filePath + ".resume", m_strategy.ChunksLeft());
       m_onFinish(*this);
     }
   }
@@ -200,7 +207,8 @@ public:
   FileHttpRequest(vector<string> const & urls, string const & filePath, int64_t fileSize,
                     CallbackT onFinish, CallbackT onProgress, int64_t chunkSize)
     : HttpRequest(onFinish, onProgress), m_strategy(urls, fileSize, chunkSize),
-      m_filePath(filePath), m_writer(new FileWriter(filePath, FileWriter::OP_WRITE_EXISTING)),
+      m_filePath(filePath),
+      m_writer(new FileWriter(filePath + ".downloading", FileWriter::OP_WRITE_EXISTING)),
       m_goodChunksCount(0)
   {
     ASSERT_GREATER(fileSize, 0, ("At the moment only known file sizes are supported"));
@@ -225,6 +233,14 @@ public:
   {
     for (ThreadsContainerT::iterator it = m_threads.begin(); it != m_threads.end(); ++it)
       DeleteNativeHttpThread(it->first);
+
+    if (m_status == EInProgress)
+    { // means that client canceled donwload process
+      // so delete all temporary files
+      m_writer.reset();
+      FileWriter::DeleteFileX(m_filePath + ".downloading");
+      FileWriter::DeleteFileX(m_filePath + ".resume");
+    }
   }
 
   virtual string const & Data() const
