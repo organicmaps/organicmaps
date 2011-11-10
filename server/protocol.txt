@@ -51,21 +51,21 @@ Response: Credit [, Error]
   "Error":"Promo Code is already used"    // optional, sent if promo code is invalid
 }
 
-Description: Sent by client when he tries to download the country
-Request: ID, Country
+Description: Sent by client when he tries to download the country file
+Request: ID, File
 {
   "ID":"12345",
   "Cmd":"Download",
   "Params":
   {
-    "Country":"Belarus"
+    "File":"Belarus.mwm"
   }
 }
-Response: Country[, Url | Error]
+Response: File[, Urls | Error]
 {
-  "Country":"Belarus",
-  "Url":"http://blablalba.com/casd/234dsf",  // special url valid only for this client to download given country
-  "Error":"Invalid country or no credit"     // sent if no credit is left instead of Url
+  "File":"Belarus.mwm",
+  "Urls":["http://blablalba.com/casd/234dsf","http://asd.com/fda/qwert"],  // special urls valid only for this client to download given file
+  "Error":"Invalid file or no credit"     // sent if no credit is left instead of Urls
 }
 
 Description: Client requests own "Bring friend" code once, which should be entered as Promo code by any friend
