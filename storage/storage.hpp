@@ -1,10 +1,8 @@
 #pragma once
 
-#include "../platform/download_manager.hpp"
-#include "../platform/platform.hpp"
-
-#include "../defines.hpp"
 #include "../storage/country.hpp"
+
+#include "../platform/http_request.hpp"
 
 #include "../std/vector.hpp"
 #include "../std/map.hpp"
@@ -12,6 +10,7 @@
 #include "../std/string.hpp"
 #include "../std/set.hpp"
 #include "../std/function.hpp"
+#include "../std/scoped_ptr.hpp"
 
 namespace storage
 {
@@ -24,17 +23,6 @@ namespace storage
     EDownloading,
     EInQueue,
     EUnknown
-  };
-
-  enum TUpdateResult
-  {
-    ENoAnyUpdateAvailable = 0,
-    ENewBinaryAvailable = 0x01,
-    EBinaryCheckFailed = 0x02,
-    EBinaryUpdateFailed = 0x04,
-    ENewDataAvailable = 0x08,
-    EDataCheckFailed = 0x10,
-    EDataUpdateFailed = 0x20
   };
 
   struct TIndex
@@ -62,6 +50,9 @@ namespace storage
   /// Can be used to store local maps and/or maps available for download
   class Storage
   {
+    /// We support only one simultaneous request at the moment
+    scoped_ptr<downloader::HttpRequest> m_request;
+
     /// stores timestamp for update checks
     int64_t m_currentVersion;
 
@@ -69,8 +60,9 @@ namespace storage
 
     typedef list<TIndex> TQueue;
     TQueue m_queue;
-    /// used to correctly calculate total country download progress
-    HttpProgressT m_countryProgress;
+    /// used to correctly calculate total country download progress with more than 1 file
+    /// <current, total>
+    downloader::HttpRequest::ProgressT m_countryProgress;
 
     typedef set<TIndex> TFailedCountries;
     /// stores countries which download has failed recently
@@ -79,7 +71,7 @@ namespace storage
     /// @name Communicate with GUI
     //@{
     typedef function<void (TIndex const &)> TObserverChangeCountryFunction;
-    typedef function<void (TIndex const &, HttpProgressT const &)> TObserverProgressFunction;
+    typedef function<void (TIndex const &, pair<int64_t, int64_t> const &)> TObserverProgressFunction;
     TObserverChangeCountryFunction m_observerChange;
     TObserverProgressFunction m_observerProgress;
     //@}
@@ -112,8 +104,8 @@ namespace storage
 
     /// @name Called from DownloadManager
     //@{
-    void OnMapDownloadFinished(HttpFinishedParams const & params);
-    void OnMapDownloadProgress(HttpProgressT const & progress);
+    void OnMapDownloadFinished(downloader::HttpRequest & request);
+    void OnMapDownloadProgress(downloader::HttpRequest & request);
     //@}
 
     /// @name Current impl supports only one observer

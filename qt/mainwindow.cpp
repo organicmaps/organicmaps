@@ -147,7 +147,6 @@ bool MainWindow::winEvent(MSG * msg, long * result)
 MainWindow::~MainWindow()
 {
   SaveState();
-  GetDownloadManager().CancelAllDownloads();
 }
 
 void MainWindow::SaveState()

@@ -16,7 +16,7 @@
 namespace storage
 {
 
-/// Simple check - compare url size with real file size on disk
+/// Simple check - if file is present on disk. Incomplete download has different file name.
 bool IsFileDownloaded(CountryFile const & file)
 {
   uint64_t size = 0;

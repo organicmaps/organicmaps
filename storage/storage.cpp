@@ -5,6 +5,8 @@
 
 #include "../indexer/data_factory.hpp"
 
+#include "../platform/platform.hpp"
+
 #include "../coding/file_writer.hpp"
 #include "../coding/file_reader.hpp"
 #include "../coding/file_container.hpp"
@@ -12,7 +14,6 @@
 
 #include "../version/version.hpp"
 
-#include "../std/set.hpp"
 #include "../std/algorithm.hpp"
 #include "../std/target_os.hpp"
 #include "../std/bind.hpp"
@@ -56,8 +57,7 @@ namespace storage
 
   string Storage::UpdateBaseUrl() const
   {
-    // we do not add server name here - it should be added automatically in Downloader Engine
-    return OMIM_OS_NAME "/" + strings::to_string(m_currentVersion) + "/";
+    return "http://svobodu404popugajam.mapswithme.com:34568/maps/" OMIM_OS_NAME "/" + strings::to_string(m_currentVersion) + "/";
   }
 
   CountriesContainerT const & NodeFromIndex(CountriesContainerT const & root, TIndex const & index)
@@ -145,8 +145,8 @@ namespace storage
     {
       // reset total country's download progress
       LocalAndRemoteSizeT const size = CountryByIndex(index).Size();
-      m_countryProgress.m_current = 0;
-      m_countryProgress.m_total = size.second;
+      m_countryProgress.first = 0;
+      m_countryProgress.second = size.second;
 
       DownloadNextCountryFromQueue();
     }
@@ -183,12 +183,13 @@ namespace storage
       {
         if (!IsFileDownloaded(*it))
         {
-          HttpStartParams params;
-          params.m_url = UpdateBaseUrl() + UrlEncode(it->GetFileWithExt());
-          params.m_fileToSave = GetPlatform().WritablePathForFile(it->GetFileWithExt());
-          params.m_finish = bind(&Storage::OnMapDownloadFinished, this, _1);
-          params.m_progress = bind(&Storage::OnMapDownloadProgress, this, _1);
-          GetDownloadManager().HttpRequest(params);
+          vector<string> urls;
+          urls.push_back(UpdateBaseUrl() + UrlEncode(it->GetFileWithExt()));
+          m_request.reset(downloader::HttpRequest::GetFile(urls,
+                                           GetPlatform().WritablePathForFile(it->GetFileWithExt()),
+                                           it->m_remoteSize,
+                                           bind(&Storage::OnMapDownloadFinished, this, _1),
+                                           bind(&Storage::OnMapDownloadProgress, this, _1)));
           // notify GUI - new status for country, "Downloading"
           if (m_observerChange)
             m_observerChange(index);
@@ -200,24 +201,14 @@ namespace storage
       // reset total country's download progress
       if (!m_queue.empty())
       {
-        m_countryProgress.m_current = 0;
-        m_countryProgress.m_total = CountryByIndex(m_queue.front()).Size().second;
+        m_countryProgress.first = 0;
+        m_countryProgress.second = CountryByIndex(m_queue.front()).Size().second;
       }
       // and notify GUI - new status for country, "OnDisk"
       if (m_observerChange)
         m_observerChange(index);
     }
   }
-
-  struct CancelDownloading
-  {
-    string const m_baseUrl;
-    CancelDownloading(string const & baseUrl) : m_baseUrl(baseUrl) {}
-    void operator()(CountryFile const & file)
-    {
-      GetDownloadManager().CancelDownload((m_baseUrl + UrlEncode(file.GetFileWithExt())).c_str());
-    }
-  };
 
   class DeleteMap
   {
@@ -261,7 +252,7 @@ namespace storage
     {
       if (found == m_queue.begin())
       { // stop download
-        for_each(country.Files().begin(), country.Files().end(), CancelDownloading(UpdateBaseUrl()));
+        m_request.reset();
         // remove from the queue
         m_queue.erase(found);
         // start another download if the queue is not empty
@@ -315,18 +306,18 @@ namespace storage
     m_observerProgress.clear();
   }
 
-  void Storage::OnMapDownloadFinished(HttpFinishedParams const & result)
+  void Storage::OnMapDownloadFinished(downloader::HttpRequest & request)
   {
     if (m_queue.empty())
     {
-      ASSERT(false, ("Invalid url?", result.m_url));
+      ASSERT(false, ("Invalid url?", request.Data()));
       return;
     }
 
-    if (result.m_error != EHttpDownloadOk)
+    if (request.Status() == downloader::HttpRequest::EFailed)
     {
       // remove failed country from the queue
-      TIndex failedIndex = m_queue.front();
+      TIndex const failedIndex = m_queue.front();
       m_queue.pop_front();
       m_failedCountries.insert(failedIndex);
       // notify GUI about failed country
@@ -335,12 +326,12 @@ namespace storage
     }
     else
     {
-      LocalAndRemoteSizeT size = CountryByIndex(m_queue.front()).Size();
+      LocalAndRemoteSizeT const size = CountryByIndex(m_queue.front()).Size();
       if (size.second != 0)
-        m_countryProgress.m_current = size.first;
+        m_countryProgress.first = size.first;
 
       // get file descriptor
-      string file = result.m_file;
+      string file = request.Data();
 
       // FIXME
       string::size_type const i = file.find_last_of("/\\");
@@ -355,10 +346,11 @@ namespace storage
       LoadMapHeader(GetPlatform().GetReader(file), header);
       m_updateRect(header.GetBounds());
     }
+    m_request.reset();
     DownloadNextCountryFromQueue();
   }
 
-  void Storage::OnMapDownloadProgress(HttpProgressT const & progress)
+  void Storage::OnMapDownloadProgress(downloader::HttpRequest & request)
   {
     if (m_queue.empty())
     {
@@ -368,9 +360,9 @@ namespace storage
 
     if (m_observerProgress)
     {
-      HttpProgressT p(progress);
-      p.m_current = m_countryProgress.m_current + progress.m_current;
-      p.m_total = m_countryProgress.m_total;
+      downloader::HttpRequest::ProgressT p = request.Progress();
+      p.first += m_countryProgress.first;
+      p.second = m_countryProgress.second;
       m_observerProgress(m_queue.front(), p);
     }
   }

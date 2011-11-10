@@ -39,7 +39,7 @@ using namespace storage;
     [(CountriesViewController *)controller OnCountryChange: index];
 }
 
-- (void) OnCountryDownload: (TIndex const &) index withProgress: (HttpProgressT const &) progress
+- (void) OnCountryDownload: (TIndex const &) index withProgress: (pair<int64_t, int64_t> const &) progress
 {
   UIViewController * controller = [self ControllerByIndex:index];
   if (controller && [controller respondsToSelector:@selector(OnDownload:withProgress:)])

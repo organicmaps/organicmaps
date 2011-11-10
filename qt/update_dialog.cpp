@@ -303,22 +303,23 @@ namespace qt
   }
 
   void UpdateDialog::OnCountryDownloadProgress(TIndex const & index,
-                                               HttpProgressT const & progress)
+                                               pair<int64_t, int64_t> const & progress)
   {
     QTreeWidgetItem * item = GetTreeItemByIndex(*m_tree, index);
     if (item)
     {
-      QString speed;
-      if (progress.m_bytesPerSec > 1000 * 1000)
-        speed = QString(" %1 MB/s").arg(QString::number(static_cast<double>(progress.m_bytesPerSec) / (1000.0 * 1000.0),
-                                                         'f', 1));
-      else if (progress.m_bytesPerSec > 1000)
-        speed = QString(" %1 kB/s").arg(progress.m_bytesPerSec / 1000);
-      else if (progress.m_bytesPerSec >= 0)
-        speed = QString(" %1 B/sec").arg(progress.m_bytesPerSec);
+//      QString speed;
+//      if (progress.m_bytesPerSec > 1000 * 1000)
+//        speed = QString(" %1 MB/s").arg(QString::number(static_cast<double>(progress.m_bytesPerSec) / (1000.0 * 1000.0),
+//                                                         'f', 1));
+//      else if (progress.m_bytesPerSec > 1000)
+//        speed = QString(" %1 kB/s").arg(progress.m_bytesPerSec / 1000);
+//      else if (progress.m_bytesPerSec >= 0)
+//        speed = QString(" %1 B/sec").arg(progress.m_bytesPerSec);
 
-      item->setText(KColumnIndexSize, QString("%1%%2").arg(progress.m_current * 100 / progress.m_total)
-                    .arg(speed));
+      item->setText(KColumnIndexSize, QString("%1%").arg(progress.first * 100 / progress.second));
+//      item->setText(KColumnIndexSize, QString("%1%%2").arg(progress.m_current * 100 / progress.m_total)
+//                    .arg(speed));
     }
   }
 
