@@ -129,11 +129,13 @@ void BenchmarkFramework<TModel>::ReAddLocalMaps()
   // remove all previously added maps in framework constructor
   Platform::FilesList files;
   base_type::GetLocalMaps(files);
-  for_each(files.begin(), files.end(), bind(&base_type::RemoveMap, this, _1));
+  for_each(files.begin(), files.end(),
+           bind(&BenchmarkFramework<TModel>::RemoveMap, this, _1));
   // add only maps needed for benchmarks
   MapsCollector collector;
   ForEachBenchmarkRecord(collector);
-  for_each(collector.m_maps.begin(), collector.m_maps.end(), bind(&base_type::AddMap, this, _1));
+  for_each(collector.m_maps.begin(), collector.m_maps.end(),
+           bind(&BenchmarkFramework<TModel>::AddMap, this, _1));
 }
 
 template <typename TModel>
