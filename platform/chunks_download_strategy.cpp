@@ -8,7 +8,7 @@
 namespace downloader
 {
 
-ChunksDownloadStrategy::RangeT const ChunksDownloadStrategy::INVALID_RANGE = RangeT(-1, -1);
+ChunksDownloadStrategy::RangeT const ChunksDownloadStrategy::INVALID_RANGE = RangeT(INVALID_CHUNK, INVALID_CHUNK);
 
 ChunksDownloadStrategy::ChunksDownloadStrategy(vector<string> const & urls, int64_t fileSize,
                                                int64_t chunkSize)
@@ -28,21 +28,21 @@ void ChunksDownloadStrategy::SetChunksToDownload(RangesContainerT & chunks)
   m_chunksToDownload.swap(chunks);
 }
 
-void ChunksDownloadStrategy::ChunkFinished(bool successfully, int64_t begRange, int64_t endRange)
+void ChunksDownloadStrategy::ChunkFinished(bool successfully, RangeT const & range)
 {
-  RangeT const chunk(begRange, endRange);
   // find server which was downloading this chunk
   for (ServersT::iterator it = m_servers.begin(); it != m_servers.end(); ++it)
   {
-    if (it->second == chunk)
+    if (it->second == range)
     {
       if (successfully)
         it->second = INVALID_RANGE;
       else
       {
+        // @TODO implement connection retry
         // remove failed server and mark chunk as not downloaded
         m_servers.erase(it);
-        m_chunksToDownload.insert(chunk);
+        m_chunksToDownload.insert(range);
       }
       break;
     }
@@ -50,8 +50,7 @@ void ChunksDownloadStrategy::ChunkFinished(bool successfully, int64_t begRange, 
 }
 
 ChunksDownloadStrategy::ResultT ChunksDownloadStrategy::NextChunk(string & outUrl,
-                                                                  int64_t & begRange,
-                                                                  int64_t & endRange)
+                                                                  RangeT & range)
 {
   if (m_servers.empty())
     return EDownloadFailed;
@@ -80,8 +79,7 @@ ChunksDownloadStrategy::ResultT ChunksDownloadStrategy::NextChunk(string & outUr
         // found not used server
         m_servers[i].second = nextChunk;
         outUrl = m_servers[i].first;
-        begRange = nextChunk.first;
-        endRange = nextChunk.second;
+        range = nextChunk;
         m_chunksToDownload.erase(m_chunksToDownload.begin());
         return ENextChunk;
       }

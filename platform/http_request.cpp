@@ -25,19 +25,10 @@ HttpThread * CreateNativeHttpThread(string const & url,
                                     int64_t endRange = -1,
                                     int64_t expectedSize = -1,
                                     string const & postBody = string());
-void DeleteNativeHttpThread(HttpThread * request);
+void DeleteNativeHttpThread(HttpThread * thread);
 
 //////////////////////////////////////////////////////////////////////////////////////////
-HttpRequest::HttpRequest(CallbackT onFinish, CallbackT onProgress)
-  : m_status(EInProgress), m_progress(make_pair(0, -1)),
-    m_onFinish(onFinish), m_onProgress(onProgress)
-{
-}
-
-HttpRequest::~HttpRequest()
-{
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// Stores server response into the memory
 class MemoryHttpRequest : public HttpRequest, public IHttpThreadCallback
 {
   HttpThread * m_thread;
@@ -84,17 +75,6 @@ public:
   }
 };
 
-HttpRequest * HttpRequest::Get(string const & url, CallbackT onFinish, CallbackT onProgress)
-{
-  return new MemoryHttpRequest(url, onFinish, onProgress);
-}
-
-HttpRequest * HttpRequest::PostJson(string const & url, string const & postData,
-                                CallbackT onFinish, CallbackT onProgress)
-{
-  return new MemoryHttpRequest(url, postData, onFinish, onProgress);
-}
-
 ////////////////////////////////////////////////////////////////////////////////////////////////
 class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
 {
@@ -111,10 +91,11 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
   ChunksDownloadStrategy::ResultT StartThreads()
   {
     string url;
-    int64_t beg, end;
+    ChunksDownloadStrategy::RangeT range;
     ChunksDownloadStrategy::ResultT result;
-    while ((result = m_strategy.NextChunk(url, beg, end)) == ChunksDownloadStrategy::ENextChunk)
-      m_threads.push_back(make_pair(CreateNativeHttpThread(url, *this, beg, end, m_progress.second), beg));
+    while ((result = m_strategy.NextChunk(url, range)) == ChunksDownloadStrategy::ENextChunk)
+      m_threads.push_back(make_pair(CreateNativeHttpThread(url, *this, range.first, range.second,
+                                                           m_progress.second), range.first));
     return result;
   }
 
@@ -146,7 +127,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     static threads::ThreadID const id = threads::GetCurrentThreadID();
     ASSERT_EQUAL(id, threads::GetCurrentThreadID(), ("OnFinish called from different threads"));
 #endif
-    m_strategy.ChunkFinished(httpCode == 200, begRange, endRange);
+    m_strategy.ChunkFinished(httpCode == 200, ChunksDownloadStrategy::RangeT(begRange, endRange));
 
     // remove completed chunk from the list, beg is the key
     RemoveHttpThreadByKey(begRange);
@@ -251,6 +232,28 @@ public:
     return m_filePath;
   }
 };
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+HttpRequest::HttpRequest(CallbackT onFinish, CallbackT onProgress)
+  : m_status(EInProgress), m_progress(make_pair(0, -1)),
+    m_onFinish(onFinish), m_onProgress(onProgress)
+{
+}
+
+HttpRequest::~HttpRequest()
+{
+}
+
+HttpRequest * HttpRequest::Get(string const & url, CallbackT onFinish, CallbackT onProgress)
+{
+  return new MemoryHttpRequest(url, onFinish, onProgress);
+}
+
+HttpRequest * HttpRequest::PostJson(string const & url, string const & postData,
+                                CallbackT onFinish, CallbackT onProgress)
+{
+  return new MemoryHttpRequest(url, postData, onFinish, onProgress);
+}
 
 HttpRequest * HttpRequest::GetFile(vector<string> const & urls, string const & filePath, int64_t fileSize,
                                CallbackT onFinish, CallbackT onProgress, int64_t chunkSize)

@@ -8,6 +8,7 @@
 namespace downloader
 {
 
+/// Single-threaded code
 class ChunksDownloadStrategy
 {
 public:
@@ -24,11 +25,11 @@ private:
 
 public:
   /// @param[in] chunksToDownload used for resume
-  ChunksDownloadStrategy(vector<string> const & urls, int64_t fileSize, int64_t chunkSize = 512 * 1024);
+  ChunksDownloadStrategy(vector<string> const & urls, int64_t fileSize, int64_t chunkSize);
 
   int64_t ChunkSize() const { return m_chunkSize; }
   /// Should be called when each chunk is completed
-  void ChunkFinished(bool successfully, int64_t begRange, int64_t endRange);
+  void ChunkFinished(bool successfully, RangeT const & range);
   enum ResultT
   {
     ENextChunk,
@@ -37,8 +38,8 @@ public:
     EDownloadSucceeded
   };
   /// Should be called until returns ENextChunk
-  ResultT NextChunk(string & outUrl, int64_t & begRange, int64_t & endRange);
-
+  ResultT NextChunk(string & outUrl, RangeT & range);
+  /// Used for resume support - external code knows when it's necessary
   void SetChunksToDownload(RangesContainerT & chunks);
   RangesContainerT const & ChunksLeft() const { return m_chunksToDownload; }
 };

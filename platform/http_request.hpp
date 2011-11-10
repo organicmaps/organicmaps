@@ -44,11 +44,11 @@ public:
                            CallbackT onProgress = CallbackT());
   /// Content-type for request is always "application/json"
   static HttpRequest * PostJson(string const & url, string const & postData,
-                            CallbackT onFinish, CallbackT onProgress = CallbackT());
+                                CallbackT onFinish, CallbackT onProgress = CallbackT());
   static HttpRequest * GetFile(vector<string> const & urls, string const & filePath,
-                                 int64_t projectedFileSize,
-                                 CallbackT onFinish, CallbackT onProgress = CallbackT(),
-                                 int64_t chunkSize = 512 * 1024);
+                               int64_t projectedFileSize,
+                               CallbackT onFinish, CallbackT onProgress = CallbackT(),
+                               int64_t chunkSize = 512 * 1024);
 };
 
 } // namespace downloader
