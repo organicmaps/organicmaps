@@ -24,7 +24,7 @@ class WindowHandle
   bool m_isUpdatesEnabled;
   bool m_needRedraw;
 
-  shared_ptr<VideoTimer> m_videoTimer;
+  VideoTimer * m_videoTimer;
   VideoTimer::TFrameFn m_frameFn;
   int m_stallsCount;
 
@@ -33,7 +33,7 @@ public:
   WindowHandle();
   virtual ~WindowHandle();
 
-  void setVideoTimer(shared_ptr<VideoTimer> const & videoTimer);
+  void setVideoTimer(VideoTimer * videoTimer);
 
   void checkedFrameFn();
 

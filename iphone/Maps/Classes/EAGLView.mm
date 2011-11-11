@@ -17,6 +17,7 @@
 @implementation EAGLView
 
 @synthesize framework;
+@synthesize videoTimer;
 @synthesize frameBuffer;
 @synthesize renderContext;
 @synthesize renderBuffer;
@@ -95,7 +96,7 @@
   SEL drawFrameSel = @selector(drawFrame);
   drawFrameFn drawFrameImpl = (drawFrameFn)[self methodForSelector:drawFrameSel];
 
-  VideoTimer * videoTimer = CreateIOSVideoTimer(bind(drawFrameImpl, self, drawFrameSel));
+  videoTimer = CreateIOSVideoTimer(bind(drawFrameImpl, self, drawFrameSel));
   
   renderPolicy = CreateRenderPolicy(videoTimer, p, renderContext);
 
@@ -151,6 +152,7 @@
 
 - (void)dealloc
 {
+  delete videoTimer;
   // m_framework->SetRenderPolicy(0);
   [EAGLContext setCurrentContext:nil];
   [super dealloc];

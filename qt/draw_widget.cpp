@@ -201,14 +201,14 @@ namespace qt
 
     if (!m_isInitialized)
     {
-      VideoTimer * videoTimer = CreateVideoTimer();
+      m_videoTimer.reset(CreateVideoTimer());
 
       DrawerYG::Params params;
       params.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
 
       shared_ptr<qt::gl::RenderContext> primaryRC(new qt::gl::RenderContext(this));
 
-      m_framework->SetRenderPolicy(CreateRenderPolicy(videoTimer, params, primaryRC));
+      m_framework->SetRenderPolicy(CreateRenderPolicy(m_videoTimer.get(), params, primaryRC));
 
       m_isInitialized = true;
     }

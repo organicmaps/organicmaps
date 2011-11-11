@@ -45,6 +45,7 @@ namespace qt
     bool m_isTimerStarted;
 
     scoped_ptr<Framework<model_t> > m_framework;
+    scoped_ptr<VideoTimer> m_videoTimer;
 
     bool m_isDrag;
     bool m_isRotate;

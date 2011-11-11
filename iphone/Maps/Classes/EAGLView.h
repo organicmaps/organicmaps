@@ -32,6 +32,7 @@ typedef Framework<model::FeaturesFetcher> framework_t;
 @public
 
   framework_t * framework;
+  VideoTimer * videoTimer;
 	shared_ptr<iphone::RenderContext> renderContext;
 	shared_ptr<yg::gl::FrameBuffer> frameBuffer;
 	shared_ptr<iphone::RenderBuffer> renderBuffer;  
@@ -41,6 +42,7 @@ typedef Framework<model::FeaturesFetcher> framework_t;
 - (void) initRenderPolicy;
 
 @property (nonatomic, assign) framework_t * framework;
+@property (nonatomic, assign) VideoTimer * videoTimer;
 @property (nonatomic, assign) shared_ptr<iphone::RenderContext> renderContext;
 @property (nonatomic, assign) shared_ptr<iphone::RenderBuffer> renderBuffer;
 @property (nonatomic, assign) shared_ptr<yg::gl::FrameBuffer> frameBuffer;

@@ -8,7 +8,7 @@ WindowHandle::WindowHandle() :
 {
 }
 
-void WindowHandle::setVideoTimer(shared_ptr<VideoTimer> const & videoTimer)
+void WindowHandle::setVideoTimer(VideoTimer * videoTimer)
 {
   m_videoTimer = videoTimer;
   m_frameFn = videoTimer->frameFn();
