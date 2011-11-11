@@ -113,6 +113,16 @@ int Platform::ScaleEtalonSize() const
   return 512 + 256;
 }
 
+int Platform::TileSize() const
+{
+  return 256;
+}
+
+int Platform::MaxTilesCount() const
+{
+  return 120;
+}
+
 bool Platform::GetFileSize(string const & file, uint64_t & size) const
 {
   try

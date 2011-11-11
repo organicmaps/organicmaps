@@ -14,7 +14,7 @@
 #include "../core/logging.hpp"
 
 #include "Framework.hpp"
-#include "Platform.hpp"
+#include "../platform/Platform.hpp"
 
 JavaVM * g_jvm;
 

@@ -29,7 +29,7 @@ extern "C"
   Java_com_mapswithme_maps_MainRenderer_nativeInit(JNIEnv * env, jobject thiz)
   {
     ASSERT ( g_framework, () );
-    g_framework->InitRenderer();
+    g_framework->InitRenderPolicy();
   }
 
   JNIEXPORT void JNICALL

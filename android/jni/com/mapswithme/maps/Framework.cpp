@@ -13,8 +13,7 @@
 
 #include "../../../../../indexer/drawing_rules.hpp"
 
-#include "../../../../../map/render_policy_st.hpp"
-#include "../../../../../map/tiling_render_policy_st.hpp"
+#include "../../../../../map/partial_render_policy.hpp"
 #include "../../../../../map/framework.hpp"
 
 #include "../../../../../std/shared_ptr.hpp"
@@ -42,14 +41,20 @@ namespace android
 
   Framework::Framework(JavaVM * jvm)
   : m_jvm(jvm),
-    m_handle(new WindowHandle()),
-    m_work(m_handle, 0)
+    m_work()
   {
     ASSERT(g_framework == 0, ());
     g_framework = this;
 
+    m_videoTimer = new VideoTimer(jvm, bind(&Framework::CallRepaint, this));
+
    // @TODO refactor storage
     m_work.Storage().ReInitCountries(false);
+  }
+
+  Framework::~Framework()
+  {
+    delete m_videoTimer;
   }
 
   void Framework::SetParentView(jobject view)
@@ -78,79 +83,22 @@ namespace android
     };
   }
 
-  void Framework::CreateDrawer()
-  {
-    Platform & pl = GetPlatform();
-
-    DrawerYG::params_t p;
-    p.m_resourceManager = m_rm;
-    p.m_glyphCacheID = m_rm->guiThreadGlyphCacheID();
-    p.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
-    p.m_skinName = pl.SkinName();
-    p.m_useTinyStorage = true;
-
-    m_drawer = make_shared_ptr(new DrawerYG(p));
-  }
-
-  void Framework::CreateResourceManager()
-  {
-    int bigVBSize = pow(2, ceil(log(1500.0 * sizeof(yg::gl::Vertex)) / log(2)));
-    int bigIBSize = pow(2, ceil(log(3000.0 * sizeof(unsigned short)) / log(2)));
-
-    int smallVBSize = pow(2, ceil(log(1500.0 * sizeof(yg::gl::Vertex)) / log(2)));
-    int smallIBSize = pow(2, ceil(log(3000.0 * sizeof(unsigned short)) / log(2)));
-
-    int blitVBSize = pow(2, ceil(log(10.0 * sizeof(yg::gl::AuxVertex)) / log(2)));
-    int blitIBSize = pow(2, ceil(log(10.0 * sizeof(unsigned short)) / log(2)));
-
-    Platform & pl = GetPlatform();
-    m_rm = make_shared_ptr(new yg::ResourceManager(
-          bigVBSize, bigIBSize, 100,
-          smallVBSize, smallIBSize, 100,
-          blitVBSize, blitIBSize, 10,
-          512, 256, 6,
-          512, 256, 4,
-          "unicode_blocks.txt",
-          "fonts_whitelist.txt",
-          "fonts_blacklist.txt",
-          2 * 1024 * 1024,
-          3,
-          yg::Rt8Bpp,
-          true));
-
-    m_rm->initTinyStorage(300 * sizeof(yg::gl::Vertex), 600 * sizeof(unsigned short), 30);
-
-    Platform::FilesList fonts;
-    pl.GetFontNames(fonts);
-    m_rm->addFonts(fonts);
-  }
-
-  void Framework::InitRenderer()
+  void Framework::InitRenderPolicy()
   {
     LOG(LDEBUG, ("AF::InitRenderer 1"));
 
     drule::rules().ForEachRule(make_all_invalid(GetPlatform().CpuCores() + 1));
 
-    // temporary workaround
-    m_work.SetRenderPolicy(shared_ptr<RenderPolicy>(new PartialRenderPolicy(m_handle, bind(&::Framework<model::FeaturesFetcher>::DrawModel, &m_work, _1, _2, _3, _4, _5, false))));
+    DrawerYG::Params params;
+    params.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
 
-    m_rc = make_shared_ptr(new android::RenderContext());
+    m_work.SetRenderPolicy(new PartialRenderPolicy(m_videoTimer, params, make_shared_ptr(new android::RenderContext())));
 
     LOG(LDEBUG, ("AF::InitRenderer 2"));
-    CreateResourceManager();
-
-    LOG(LDEBUG, ("AF::InitRenderer 3"));
-    //m_view->setRenderContext(pRC);
-    CreateDrawer();
-
-    LOG(LDEBUG, ("AF::InitRenderer 4"));
-    m_work.InitializeGL(m_rc, m_rm);
-
-    LOG(LDEBUG, ("AF::InitRenderer 5"));
 
     m_work.ShowAll();
 
-    LOG(LDEBUG, ("AF::InitRenderer 6"));
+    LOG(LDEBUG, ("AF::InitRenderer 3"));
   }
 
   storage::Storage & Framework::Storage()
@@ -160,7 +108,6 @@ namespace android
 
   void Framework::Resize(int w, int h)
   {
-    m_drawer->onSize(w, h);
     m_work.OnSize(w, h);
   }
 
@@ -170,7 +117,7 @@ namespace android
     {
       m_work.SetNeedRedraw(false);
 
-      shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_drawer.get()));
+      shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_work.GetRenderPolicy()->GetDrawer().get()));
 
       m_work.BeginPaint(paintEvent);
       m_work.DoPaint(paintEvent);

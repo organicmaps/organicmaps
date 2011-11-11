@@ -22,12 +22,9 @@ namespace android
     JavaVM * m_jvm;
     jobject m_mainGLView;
 
-    shared_ptr<DrawerYG> m_drawer;
-    shared_ptr<WindowHandle> m_handle;
-    shared_ptr<yg::ResourceManager> m_rm;
-    shared_ptr<yg::gl::RenderContext> m_rc;
-
     ::Framework<model::FeaturesFetcher> m_work;
+
+    VideoTimer * m_videoTimer;
 
     void CallRepaint();
 
@@ -38,12 +35,13 @@ namespace android
   public:
 
     Framework(JavaVM * jvm);
+    ~Framework();
 
     storage::Storage & Storage();
 
     void SetParentView(jobject view);
 
-    void InitRenderer();
+    void InitRenderPolicy();
 
     void Resize(int w, int h);
 
