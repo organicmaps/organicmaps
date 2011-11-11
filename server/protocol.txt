@@ -52,13 +52,15 @@ Response: Credit [, Error]
 }
 
 Description: Sent by client when he tries to download the country file
-Request: ID, File
+Request: ID, Version, File, Size
 {
   "ID":"12345",
   "Cmd":"Download",
   "Params":
   {
-    "File":"Belarus.mwm"
+    "Version":110920,
+    "File":"Belarus.mwm",
+    "Size":47123456
   }
 }
 Response: File[, Urls | Error]
