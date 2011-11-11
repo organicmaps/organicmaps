@@ -1,6 +1,6 @@
 #include "location_service.hpp"
 #include "wifi_info.hpp"
-#include "download_manager.hpp"
+#include "http_request.hpp"
 
 #include "../base/logging.hpp"
 
@@ -18,47 +18,51 @@ namespace location
   {
     WiFiInfo m_wifiInfo;
 
-    void OnHttpPostFinished(HttpFinishedParams const & result)
+    void OnHttpPostFinished(downloader::HttpRequest & response)
     {
-      if (result.m_error != EHttpDownloadOk)
+      if (response.Status() == downloader::HttpRequest::ECompleted)
       {
-        LOG(LWARNING, ("Location server is not available"));
-        return;
-      }
-      // stop requesting wifi updates if reply from server is received
-      m_wifiInfo.Stop();
-      // here we should receive json reply with coordinates and accuracy
-      try
-      {
-        my::Json root(result.m_data.c_str());
-        if (json_is_object(root))
+        // stop requesting wifi updates if reply from server is received
+        m_wifiInfo.Stop();
+        // here we should receive json reply with coordinates and accuracy
+        try
         {
-          json_t * location = json_object_get(root, "location");
-          if (json_is_object(location))
+          bool success = false;
+          my::Json root(response.Data().c_str());
+          if (json_is_object(root))
           {
-            json_t * lat = json_object_get(location, "latitude");
-            json_t * lon = json_object_get(location, "longitude");
-            json_t * acc = json_object_get(location, "accuracy");
-            if (json_is_real(lat) && json_is_real(lon) && json_is_real(acc))
+            json_t * location = json_object_get(root, "location");
+            if (json_is_object(location))
             {
-              GpsInfo info;
-              info.m_latitude = json_real_value(lat);
-              info.m_longitude = json_real_value(lon);
-              info.m_horizontalAccuracy = json_real_value(acc);
-              // @TODO introduce flags to mark valid values
-              info.m_timestamp = static_cast<double>(time(NULL));
-              info.m_source = location::EGoogle;
-              m_observer.OnGpsUpdated(info);
-              return;
+              json_t * lat = json_object_get(location, "latitude");
+              json_t * lon = json_object_get(location, "longitude");
+              json_t * acc = json_object_get(location, "accuracy");
+              if (json_is_real(lat) && json_is_real(lon) && json_is_real(acc))
+              {
+                GpsInfo info;
+                info.m_latitude = json_real_value(lat);
+                info.m_longitude = json_real_value(lon);
+                info.m_horizontalAccuracy = json_real_value(acc);
+                // @TODO introduce flags to mark valid values
+                info.m_timestamp = static_cast<double>(time(NULL));
+                info.m_source = location::EGoogle;
+                m_observer.OnGpsUpdated(info);
+                success = true;
+              }
             }
           }
+          if (!success)
+            LOG(LWARNING, ("Invalid reply from location server:", response.Data()));
+        }
+        catch (my::Json::Exception const & e)
+        {
+          LOG(LWARNING, ("Invalid reply from location server:", e.what(), response.Data()));
         }
       }
-      catch (my::Json::Exception const & e)
-      {
-        LOG(LWARNING, ("Invalid reply from location server:", e.what(), result.m_data));
-      }
-      LOG(LWARNING, ("Invalid reply from location server:", result.m_data));
+      else
+        LOG(LWARNING, ("Location server is not available"));
+      /// free memory
+      delete &response;
     }
 
     void OnWifiScanCompleted(vector<WiFiInfo::AccessPoint> const & accessPoints)
@@ -81,12 +85,10 @@ namespace location
         jsonRequest[jsonRequest.size() - 1] = ']';
       jsonRequest += "}";
 
-      HttpStartParams params;
-      params.m_finish = bind(&WiFiLocationService::OnHttpPostFinished, this, _1);
-      params.m_contentType = "application/json";
-      params.m_postData = jsonRequest;
-      params.m_url = MWM_GEOLOCATION_SERVER;
-      GetDownloadManager().HttpRequest(params);
+      // memory will be freed in callback
+      downloader::HttpRequest::PostJson(MWM_GEOLOCATION_SERVER,
+                                        jsonRequest,
+                                        bind(&WiFiLocationService::OnHttpPostFinished, this, _1));
     }
 
   public:
@@ -108,7 +110,5 @@ namespace location
 
 extern "C" location::LocationService * CreateWiFiLocationService(location::LocationObserver & observer)
 {
-  // small hack - create and initialize downloader in main thread
-  GetDownloadManager();
   return new location::WiFiLocationService(observer);
 }
