@@ -19,6 +19,11 @@ include($$ROOT_DIR/common.pri)
              location_service.cpp
   HEADERS += wifi_info.hpp \
              location_service.hpp
+  !macx* {
+    SOURCES += http_thread_qt.cpp
+    HEADERS += http_thread_qt.hpp
+  }
+
   win32* {
     SOURCES += platform_win.cpp \
                wifi_info_windows.cpp
