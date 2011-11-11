@@ -11,6 +11,7 @@
 #include "../generate_info.hpp"
 
 #include "../../indexer/classificator_loader.hpp"
+#include "../../indexer/drawing_rules.hpp"
 #include "../../indexer/data_header.hpp"
 #include "../../indexer/features_vector.hpp"
 #include "../../indexer/index_builder.hpp"
@@ -95,7 +96,18 @@ int main(int argc, char ** argv)
   // Make a classificator
   if (FLAGS_generate_classif)
   {
-    classificator::GenerateAndWrite(path);
+    //classificator::GenerateAndWrite(path);
+
+    classificator::Read(pl.GetReader("drawing_rules.bin"),
+                        pl.GetReader("classificator.txt"),
+                        pl.GetReader("visibility.txt"),
+                        pl.GetReader("types.txt"));
+
+    string buffer;
+    drule::ConvertToProtocolBuffers(buffer);
+
+    FileWriter w(path + "drules_proto.txt");
+    w.Write(buffer.c_str(), buffer.size());
   }
 
   // Generating intermediate files

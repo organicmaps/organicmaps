@@ -1,7 +1,8 @@
 # Generator binary
 
 ROOT_DIR = ../..
-DEPENDENCIES = generator storage indexer platform geometry coding base gflags expat sgitess jansson version
+DEPENDENCIES = generator storage indexer platform geometry coding base gflags expat sgitess \
+               jansson version protobuf
 
 include($$ROOT_DIR/common.pri)
 

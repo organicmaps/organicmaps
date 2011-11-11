@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map generator indexer platform geometry coding base expat sgitess
+DEPENDENCIES = map generator indexer platform geometry coding base expat sgitess protobuf
 
 include($$ROOT_DIR/common.pri)
 

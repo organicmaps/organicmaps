@@ -170,4 +170,6 @@ namespace drule
   void ReadRules(ReaderPtrStream & s);
 
   RulesHolder & rules();
+
+  void ConvertToProtocolBuffers(string & res);
 }

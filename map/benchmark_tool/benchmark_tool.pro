@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map indexer platform coding base gflags
+DEPENDENCIES = map indexer platform coding base gflags protobuf
 
 include($$ROOT_DIR/common.pri)
 

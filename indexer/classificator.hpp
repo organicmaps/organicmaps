@@ -81,6 +81,7 @@ public:
 
   enum FeatureGeoType { FEATURE_TYPE_POINT = 0, FEATURE_TYPE_LINE, FEATURE_TYPE_AREA };
   void GetSuitable(int scale, FeatureGeoType ft, vector<drule::Key> & keys) const;
+  inline vector<drule::Key> const & GetDrawingRules() const { return m_drawRule; }
 
   bool IsDrawable(int scale) const;
   bool IsDrawableAny() const;
@@ -91,6 +92,13 @@ public:
   {
     for (size_t i = 0; i < m_objs.size(); ++i)
       toDo(&m_objs[i]);
+  }
+
+  template <class ToDo>
+  void ForEachObjectConst(ToDo & toDo) const
+  {
+    for (size_t i = 0; i < m_objs.size(); ++i)
+      toDo(m_objs[i]);
   }
 
   typedef bitset<18> visible_mask_t;

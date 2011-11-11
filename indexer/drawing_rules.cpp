@@ -2,6 +2,8 @@
 
 #include "drawing_rules.hpp"
 #include "scales.hpp"
+#include "classificator.hpp"
+#include "drules_struct.pb.h"
 
 #include "../coding/file_writer_stream.hpp"
 #include "../coding/file_reader_stream.hpp"
@@ -17,6 +19,8 @@
 #include "../std/fstream.hpp"
 #include "../std/exception.hpp"
 #include "../std/limits.hpp"
+
+#include <google/protobuf/text_format.h>
 
 
 namespace drule {
@@ -830,7 +834,8 @@ namespace
   char const * arrClassTags[] = { "class", "mask-class" };
 }
 
-void RulesHolder::CreateRules(string const & name, uint8_t type, AttrsMapType const & attrs, vector<Key> & v)
+void RulesHolder::CreateRules(string const & name, uint8_t type, AttrsMapType const & attrs,
+                              vector<Key> & v)
 {
   bool added = false;
 
@@ -1072,6 +1077,153 @@ RulesHolder & rules()
 {
   static RulesHolder holder;
   return holder;
+}
+
+namespace
+{
+  class RulesConvertor
+  {
+    RulesHolder & m_rules;
+    ContainerProto & m_cont;
+
+    static int32_t GetStoringAlpha(BaseRule const * pSrc)
+    {
+      // 255 is default value for BaseRule - completely visible
+      // when storing alpha, 0 - is default value
+      int32_t r = 255 - pSrc->GetAlpha();
+      r = r << 24;
+      return r;
+    }
+
+    static int32_t GetColor(BaseRule const * pSrc)
+    {
+      return (pSrc->GetColor() | GetStoringAlpha(pSrc));
+    }
+    static int32_t GetFillColor(BaseRule const * pSrc)
+    {
+      return (pSrc->GetFillColor() | GetStoringAlpha(pSrc));
+    }
+
+    static void Convert(BaseRule const * pSrc, LineRuleProto * pDest)
+    {
+      pDest->set_width(pSrc->GetWidth());
+      pDest->set_color(GetColor(pSrc));
+
+      vector<double> dd;
+      double dummy;
+      pSrc->GetPattern(dd, dummy);
+      if (!dd.empty())
+      {
+        DashDotProto * p = pDest->mutable_dashdot();
+        for_each(dd.begin(), dd.end(), bind(&DashDotProto::add_dd, p, _1));
+      }
+    }
+
+    static void Convert(BaseRule const * pSrc, AreaRuleProto * pDest)
+    {
+      pDest->set_color(GetFillColor(pSrc));
+      if (pSrc->GetColor() != -1)
+        Convert(pSrc, pDest->mutable_border());
+    }
+
+    static void Convert(BaseRule const * pSrc, SymbolRuleProto * pDest)
+    {
+      string s;
+      pSrc->GetSymbol(s);
+      pDest->set_name(s);
+    }
+
+    static void Convert(BaseRule const * pSrc, CaptionRuleProto * pDest)
+    {
+      pDest->set_height(pSrc->GetTextHeight());
+
+      if (pSrc->GetFillColor() != -1)
+        pDest->set_color(GetFillColor(pSrc));
+      if (pSrc->GetColor() != -1)
+        pDest->set_stroke_color(GetColor(pSrc));
+    }
+
+    static void Convert(BaseRule const * pSrc, CircleRuleProto * pDest)
+    {
+      pDest->set_radius(pSrc->GetRadius());
+      pDest->set_color(GetFillColor(pSrc));
+    }
+
+    vector<string> m_parents;
+
+    string GetFullName(ClassifObject const & o) const
+    {
+      string res;
+      for (size_t i = 0; i < m_parents.size(); ++i)
+        res = res + m_parents[i] + "-";
+      res = res + o.GetName();
+      return res;
+    }
+
+  public:
+    RulesConvertor(ContainerProto & cont)
+      : m_rules(drule::rules()), m_cont(cont)
+    {
+    }
+
+    void operator() (ClassifObject const & o)
+    {
+      using namespace drule;
+
+      vector<drule::Key> keys = o.GetDrawingRules();
+      MakeUnique(keys);
+      SortByScaleTypeDepth(keys);
+
+      if (!keys.empty())
+      {
+        ClassifElementProto * pCE = m_cont.add_cont();
+        pCE->set_name(GetFullName(o));
+
+        for (size_t i = 0; i < keys.size(); ++i)
+        {
+          // skip unnecessary trash
+          if (keys[i].m_type > circle)
+            continue;
+
+          DrawElementProto * pDE = pCE->add_element();
+          pDE->set_scale(keys[i].m_scale);
+
+          BaseRule const * pRule = m_rules.Find(keys[i]);
+          switch (keys[i].m_type)
+          {
+          case line:
+            Convert(pRule, pDE->add_lines());
+            break;
+          case area:
+            Convert(pRule, pDE->mutable_area());
+            break;
+          case  symbol:
+            Convert(pRule, pDE->mutable_symbol());
+            break;
+          case caption:
+            Convert(pRule, pDE->mutable_caption());
+            break;
+          case circle:
+            Convert(pRule, pDE->mutable_circle());
+            break;
+          }
+        }
+      }
+
+      m_parents.push_back(o.GetName());
+      o.ForEachObjectConst(*this);
+      m_parents.pop_back();
+    }
+  };
+}
+
+void ConvertToProtocolBuffers(string & res)
+{
+  ContainerProto cont;
+  RulesConvertor conv(cont);
+  classif().GetRoot()->ForEachObjectConst(conv);
+
+  google::protobuf::TextFormat::PrintToString(cont, &res);
 }
 
 }
