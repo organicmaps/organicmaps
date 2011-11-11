@@ -9,5 +9,5 @@ template <typename TModel>
 class FrameworkFactory
 {
 public:
-  static Framework<TModel> * CreateFramework(shared_ptr<WindowHandle> const & wh, size_t bottomShift);
+  static Framework<TModel> * CreateFramework();
 };

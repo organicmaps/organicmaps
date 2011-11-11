@@ -50,7 +50,9 @@ public:
   CoverageGenerator(size_t tileSize,
                     size_t scaleEtalonSize,
                     TileRenderer * tileRenderer,
-                    shared_ptr<WindowHandle> const & windowHandle);
+                    shared_ptr<WindowHandle> const & windowHandle,
+                    shared_ptr<yg::gl::RenderContext> const & primaryRC,
+                    shared_ptr<yg::ResourceManager> const & rm);
 
   ~CoverageGenerator();
 
@@ -64,9 +66,6 @@ public:
   void MergeTile(Tiler::RectInfo const & rectInfo);
 
   void Cancel();
-
-  void Initialize(shared_ptr<yg::gl::RenderContext> const & rc,
-                  shared_ptr<yg::ResourceManager> const & rm);
 
   void WaitForEmptyAndFinished();
 

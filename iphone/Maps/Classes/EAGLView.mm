@@ -8,19 +8,19 @@
 #include "../../yg/resource_manager.hpp"
 #include "../../yg/internal/opengl.hpp"
 #include "../../yg/skin.hpp"
+#include "../../map/render_policy.hpp"
 #include "../../platform/platform.hpp"
+#include "../../platform/video_timer.hpp"
 #include "RenderBuffer.hpp"
 #include "RenderContext.hpp"
 
 @implementation EAGLView
 
 @synthesize framework;
-@synthesize windowHandle;
-@synthesize videoTimer;
-@synthesize drawer;
+@synthesize frameBuffer;
 @synthesize renderContext;
 @synthesize renderBuffer;
-@synthesize resourceManager;
+@synthesize renderPolicy;
 
 // You must implement this method
 + (Class)layerClass
@@ -47,11 +47,6 @@
     }
     
     renderContext->makeCurrent();
-
-    // to avoid grid bug on 3G device
-    yg::RtFormat fmt = yg::Rt4Bpp;
-    if ([[NSString stringWithFormat:@"%s", glGetString(GL_RENDERER)] hasPrefix:@"PowerVR MBX"])
-      fmt = yg::Rt8Bpp;
     
     /// ColorFormat : RGB565
     /// Backbuffer : YES, (to prevent from loosing content when mixing with ordinary layers).
@@ -77,100 +72,55 @@
       if (scrW == 640)
         self.contentScaleFactor = 2.0;
     }
-
-    frameBuffer = shared_ptr<yg::gl::FrameBuffer>(new yg::gl::FrameBuffer());
-
-    int bigVBSize = pow(2, ceil(log2(15000 * sizeof(yg::gl::Vertex))));
-    int bigIBSize = pow(2, ceil(log2(30000 * sizeof(unsigned short))));
-
-    int smallVBSize = pow(2, ceil(log2(1500 * sizeof(yg::gl::Vertex))));
-    int smallIBSize = pow(2, ceil(log2(3000 * sizeof(unsigned short))));
-    
-    int blitVBSize = pow(2, ceil(log2(10 * sizeof(yg::gl::AuxVertex))));
-    int blitIBSize = pow(2, ceil(log2(10 * sizeof(unsigned short))));
-    
-    int multiBlitVBSize = pow(2, ceil(log2(300 * sizeof(yg::gl::AuxVertex))));
-    int multiBlitIBSize = pow(2, ceil(log2(300 * sizeof(unsigned short))));
-
-    int tinyVBSize = pow(2, ceil(log2(300 * sizeof(yg::gl::AuxVertex))));
-    int tinyIBSize = pow(2, ceil(log2(300 * sizeof(unsigned short))));
-    
-    NSLog(@"Vendor: %s, Renderer: %s", glGetString(GL_VENDOR), glGetString(GL_RENDERER));
-    
-    Platform & pl = GetPlatform();
-    
-    size_t dynTexWidth = 512;
-    size_t dynTexHeight = 256;
-    size_t dynTexCount = 10;
-    
-    size_t fontTexWidth = 512;
-    size_t fontTexHeight = 256;
-    size_t fontTexCount = 5;
-    
-    resourceManager = shared_ptr<yg::ResourceManager>(new yg::ResourceManager(
-          bigVBSize, bigIBSize, 6 * GetPlatform().CpuCores(),
-          smallVBSize, smallIBSize, 15 * GetPlatform().CpuCores(),
-          blitVBSize, blitIBSize, 15 * GetPlatform().CpuCores(),
-          dynTexWidth, dynTexHeight, dynTexCount * GetPlatform().CpuCores(),
-          fontTexWidth, fontTexHeight, fontTexCount * GetPlatform().CpuCores(),
-					"unicode_blocks.txt",
-					"fonts_whitelist.txt",
- 					"fonts_blacklist.txt",
-          2 * 1024 * 1024,
-          GetPlatform().CpuCores() + 2,
-          fmt,
-          !yg::gl::g_isBufferObjectsSupported));
-    
-    resourceManager->initMultiBlitStorage(multiBlitVBSize, multiBlitIBSize, 10);
-    resourceManager->initTinyStorage(tinyVBSize, tinyIBSize, 10);
-    
-    Platform::FilesList fonts;
-    pl.GetFontNames(fonts);
-		resourceManager->addFonts(fonts);
-
-		DrawerYG::params_t p;
-		p.m_resourceManager = resourceManager;
-    p.m_frameBuffer = frameBuffer;
-    p.m_glyphCacheID = resourceManager->guiThreadGlyphCacheID();
-    p.m_skinName = pl.SkinName();
-    p.m_visualScale = pl.VisualScale();
-    p.m_isSynchronized = false;
-    p.m_useTinyStorage = true; //< use tiny buffers to minimize CPU->GPU data transfer overhead. 
-
-		drawer = shared_ptr<DrawerYG>(new DrawerYG(p));
-
-    windowHandle.reset(new WindowHandle());
-    
-    windowHandle->setUpdatesEnabled(false);
-
-    typedef void (*drawFrameFn)(id, SEL);
-    SEL drawFrameSel = @selector(drawFrame);
-    drawFrameFn drawFrameImpl = (drawFrameFn)[self methodForSelector:drawFrameSel];
-
-    videoTimer.reset(CreateIOSVideoTimer(bind(drawFrameImpl, self, drawFrameSel)));
-    
-    windowHandle->setVideoTimer(videoTimer);
-
-		windowHandle->setRenderContext(renderContext);
   }
-
+  
   return self;
+}
+
+- (void)initRenderPolicy
+{
+  frameBuffer = shared_ptr<yg::gl::FrameBuffer>(new yg::gl::FrameBuffer());
+
+  NSLog(@"Vendor: %s, Renderer: %s", glGetString(GL_VENDOR), glGetString(GL_RENDERER));
+  
+  // to avoid grid bug on 3G device
+  yg::RtFormat fmt = yg::Rt4Bpp;
+  if ([[NSString stringWithFormat:@"%s", glGetString(GL_RENDERER)] hasPrefix:@"PowerVR MBX"])
+    fmt = yg::Rt8Bpp;
+  
+	DrawerYG::params_t p;
+  p.m_frameBuffer = frameBuffer;
+  
+  typedef void (*drawFrameFn)(id, SEL);
+  SEL drawFrameSel = @selector(drawFrame);
+  drawFrameFn drawFrameImpl = (drawFrameFn)[self methodForSelector:drawFrameSel];
+
+  VideoTimer * videoTimer = CreateIOSVideoTimer(bind(drawFrameImpl, self, drawFrameSel));
+  
+  renderPolicy = CreateRenderPolicy(videoTimer, p, renderContext);
+
+  framework->SetRenderPolicy(renderPolicy);
 }
 
 - (void)onSize:(int)width withHeight:(int)height
 {
-  framework->OnSize(width, height);
 	/// free old video memory
 	frameBuffer->resetRenderTarget();
+  frameBuffer->resetDepthBuffer();
 	renderBuffer.reset();
 
 	/// allocate the new one
 	renderBuffer = shared_ptr<iphone::RenderBuffer>(new iphone::RenderBuffer(renderContext, (CAEAGLLayer*)self.layer));
 	frameBuffer->setRenderTarget(renderBuffer);
   frameBuffer->setDepthBuffer(make_shared_ptr(new yg::gl::RenderBuffer(width, height, true)));
-	frameBuffer->onSize(width, height);
-	drawer->onSize(width, height);
 
+  framework->OnSize(width, height);
+  
+/*  frameBuffer->onSize(width, height);
+	drawer->onSize(width, height);*/
+
+  shared_ptr<DrawerYG> drawer = framework->GetRenderPolicy()->GetDrawer();
+  
   drawer->screen()->beginFrame();
   drawer->screen()->clear();
   drawer->screen()->endFrame();
@@ -178,10 +128,13 @@
 
 - (void)drawFrame
 {
+  shared_ptr<DrawerYG> drawer = framework->GetRenderPolicy()->GetDrawer();
+
 	shared_ptr<PaintEvent> pe(new PaintEvent(drawer.get()));
-  if (windowHandle->needRedraw())
+  
+  if (framework->NeedRedraw())
   {
-    windowHandle->setNeedRedraw(false);
+    framework->SetNeedRedraw(false);
     framework->BeginPaint(pe);
     framework->DoPaint(pe);
     renderBuffer->present();
@@ -198,7 +151,7 @@
 
 - (void)dealloc
 {
-  videoTimer.reset();
+  // m_framework->SetRenderPolicy(0);
   [EAGLContext setCurrentContext:nil];
   [super dealloc];
 }

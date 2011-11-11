@@ -29,7 +29,7 @@ namespace iphone
 		OGLCHECK(glDeleteRenderbuffersOES(1, &m_id));
 	}
 
-	unsigned int RenderBuffer::id()
+	unsigned int RenderBuffer::id() const
 	{
 		return m_id;
 	}

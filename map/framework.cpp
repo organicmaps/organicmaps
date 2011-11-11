@@ -3,10 +3,6 @@
 #include "drawer_yg.hpp"
 #include "feature_vec_model.hpp"
 #include "benchmark_provider.hpp"
-#include "render_policy_st.hpp"
-#include "render_policy_mt.hpp"
-#include "tiling_render_policy_st.hpp"
-#include "tiling_render_policy_mt.hpp"
 
 #include "../defines.hpp"
 
@@ -31,19 +27,7 @@
 #include "../std/fstream.hpp"
 #include "../std/target_os.hpp"
 
-#include "render_policy_st.hpp"
-#include "render_policy_mt.hpp"
-
-#include "tiling_render_policy_st.hpp"
-#include "tiling_render_policy_mt.hpp"
-
-#include "partial_render_policy.hpp"
-
 using namespace feature;
-
-template <typename TModel>
-Framework<TModel>::~Framework()
-{}
 
 template <typename TModel>
 void Framework<TModel>::AddMap(string const & file)
@@ -100,9 +84,8 @@ void Framework<TModel>::OnCompassUpdate(location::CompassInfo const & info)
 }
 
 template <typename TModel>
-Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
-          size_t bottomShift)
-  : m_windowHandle(windowHandle),
+Framework<TModel>::Framework()
+  : m_hasPendingInvalidate(false),
     m_metresMinWidth(20),
     m_metresMaxWidth(1000000),
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_WINDOWS) || defined(OMIM_OS_LINUX)
@@ -110,21 +93,11 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
 #else
     m_minRulerWidth(60),
 #endif
+    m_width(0),
+    m_height(0),
     m_centeringMode(EDoNothing)
 //    m_tileSize(GetPlatform().TileSize())
 {
-  // on Android policy is created in AndroidFramework
-#ifndef OMIM_OS_ANDROID
-
-//  SetRenderPolicy(make_shared_ptr(new RenderPolicyST(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5, false))));
-//  SetRenderPolicy(make_shared_ptr(new TilingRenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5, true))));
-  SetRenderPolicy(make_shared_ptr(new RenderPolicyMT(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5, false))));
-//  SetRenderPolicy(make_shared_ptr(new PartialRenderPolicy(windowHandle, bind(&this_type::DrawModel, this, _1, _2, _3, _4, _5, false))));
-
-#endif
-
-  m_informationDisplay.setBottomShift(bottomShift);
-
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.enableDebugPoints(true);
 #endif
@@ -140,11 +113,6 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
 #ifdef DEBUG
   m_informationDisplay.enableDebugInfo(true);
 #endif
-
-  bool isVisualLogEnabled = false;
-  Settings::Get("VisualLog", isVisualLogEnabled);
-  m_informationDisplay.enableLog(isVisualLogEnabled, m_windowHandle.get());
-  m_informationDisplay.setVisualScale(visScale);
 
   m_model.InitClassificator();
 
@@ -174,6 +142,10 @@ Framework<TModel>::Framework(shared_ptr<WindowHandle> windowHandle,
 }
 
 template <typename TModel>
+Framework<TModel>::~Framework()
+{}
+
+template <typename TModel>
 void Framework<TModel>::GetLocalMaps(vector<string> & outMaps)
 {
   Platform & pl = GetPlatform();
@@ -200,15 +172,6 @@ void Framework<TModel>::GetLocalMaps(vector<string> & outMaps)
     outMaps.push_back(resFiles[i]);
   for (size_t i = 0; i < dataFiles.size(); ++i)
     outMaps.push_back(dataFiles[i]);
-}
-
-template <typename TModel>
-void Framework<TModel>::InitializeGL(
-                  shared_ptr<yg::gl::RenderContext> const & primaryContext,
-                  shared_ptr<yg::ResourceManager> const & resourceManager)
-{
-  yg::gl::RenderContext::initParams();
-  m_renderPolicy->Initialize(primaryContext, resourceManager);
 }
 
 template <typename TModel>
@@ -244,19 +207,22 @@ void Framework<TModel>::SetMaxWorldRect()
 template <typename TModel>
 bool Framework<TModel>::NeedRedraw() const
 {
-  return m_windowHandle->needRedraw() || m_renderPolicy->NeedRedraw();
+  return m_renderPolicy->NeedRedraw();
 }
 
 template <typename TModel>
 void Framework<TModel>::SetNeedRedraw(bool flag)
 {
-  m_windowHandle->setNeedRedraw(false);
+  m_renderPolicy->GetWindowHandle()->setNeedRedraw(false);
 }
 
 template <typename TModel>
 void Framework<TModel>::Invalidate()
 {
-  m_windowHandle->invalidate();
+  if (m_renderPolicy)
+    m_renderPolicy->GetWindowHandle()->invalidate();
+  else
+    m_hasPendingInvalidate = true;
 }
 
 template <typename TModel>
@@ -282,21 +248,27 @@ void Framework<TModel>::OnSize(int w, int h)
   if (w < 2) w = 2;
   if (h < 2) h = 2;
 
-  m_informationDisplay.setDisplayRect(m2::RectI(m2::PointI(0, 0), m2::PointU(w, h)));
+  if (m_renderPolicy)
+  {
+    m_informationDisplay.setDisplayRect(m2::RectI(m2::PointI(0, 0), m2::PointU(w, h)));
 
-  m2::RectI const & viewPort = m_renderPolicy->OnSize(w, h);
+    m2::RectI const & viewPort = m_renderPolicy->OnSize(w, h);
 
-  m_navigator.OnSize(
-        viewPort.minX(),
-        viewPort.minY(),
-        viewPort.SizeX(),
-        viewPort.SizeY());
+    m_navigator.OnSize(
+          viewPort.minX(),
+          viewPort.minY(),
+          viewPort.SizeX(),
+          viewPort.SizeY());
+  }
+
+  m_width = w;
+  m_height = h;
 }
 
 template <typename TModel>
 bool Framework<TModel>::SetUpdatesEnabled(bool doEnable)
 {
-  return m_windowHandle->setUpdatesEnabled(doEnable);
+  return m_renderPolicy->GetWindowHandle()->setUpdatesEnabled(doEnable);
 }
 
 template <typename TModel>
@@ -312,21 +284,26 @@ double Framework<TModel>::GetCurrentScale() const
   return scales::GetScaleLevelD(glbRect);
 }
 
+template <typename TModel>
+RenderPolicy::TRenderFn Framework<TModel>::DrawModelFn()
+{
+  return bind(&Framework<TModel>::DrawModel, this, _1, _2, _3, _4, _5);
+}
+
 /// Actual rendering function.
 template <typename TModel>
 void Framework<TModel>::DrawModel(shared_ptr<PaintEvent> const & e,
                                   ScreenBase const & screen,
                                   m2::RectD const & selectRect,
                                   m2::RectD const & clipRect,
-                                  int scaleLevel,
-                                  bool isTiling)
+                                  int scaleLevel)
 {
   fwork::DrawProcessor doDraw(clipRect, screen, e, scaleLevel);
 
   try
   {
     //threads::MutexGuard lock(m_modelSyn);
-    if (isTiling)
+    if (m_renderPolicy->IsTiling())
       m_model.ForEachFeature_TileDrawing(selectRect, doDraw, scaleLevel);
     else
       m_model.ForEachFeature(selectRect, doDraw, scaleLevel);
@@ -689,10 +666,34 @@ void Framework<TModel>::Search(string const & text, SearchCallbackT callback)
 }
 
 template <typename TModel>
-void Framework<TModel>::SetRenderPolicy(shared_ptr<RenderPolicy> const & renderPolicy)
+void Framework<TModel>::SetRenderPolicy(RenderPolicy * renderPolicy)
 {
-  m_renderPolicy = renderPolicy;
+  bool isVisualLogEnabled = false;
+  Settings::Get("VisualLog", isVisualLogEnabled);
+  m_informationDisplay.enableLog(isVisualLogEnabled, renderPolicy->GetWindowHandle().get());
+  m_informationDisplay.setVisualScale(GetPlatform().VisualScale());
+
+  yg::gl::RenderContext::initParams();
+  m_renderPolicy.reset(renderPolicy);
+
+  m_renderPolicy->SetRenderFn(DrawModelFn());
+
   m_navigator.SetSupportRotation(m_renderPolicy->DoSupportRotation());
+
+  if ((m_width != 0) && (m_height != 0))
+    OnSize(m_width, m_height);
+
+  if (m_hasPendingInvalidate)
+  {
+    m_renderPolicy->GetWindowHandle()->invalidate();
+    m_hasPendingInvalidate = false;
+  }
+}
+
+template <typename TModel>
+RenderPolicy * Framework<TModel>::GetRenderPolicy() const
+{
+  return m_renderPolicy.get();
 }
 
 template <typename TModel>

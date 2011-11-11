@@ -12,10 +12,6 @@
 
 #include "../version/version.hpp"
 
-#include "benchmark_tiling_render_policy_mt.hpp"
-#include "benchmark_render_policy_mt.hpp"
-#include "render_policy_st.hpp"
-
 template <class T> class DoGetBenchmarks
 {
   set<string> m_processed;
@@ -139,21 +135,12 @@ void BenchmarkFramework<TModel>::ReAddLocalMaps()
 }
 
 template <typename TModel>
-BenchmarkFramework<TModel>::BenchmarkFramework(shared_ptr<WindowHandle> const & wh,
-                                               size_t bottomShift)
-  : base_type(wh, bottomShift),
-    m_paintDuration(0),
+BenchmarkFramework<TModel>::BenchmarkFramework()
+  : m_paintDuration(0),
     m_maxDuration(0),
     m_isBenchmarkFinished(false),
     m_isBenchmarkInitialized(false)
 {
-  bool isBenchmarkingMT = false;
-  Settings::Get("IsBenchmarkingMT", isBenchmarkingMT);
-
-  if (isBenchmarkingMT)
-    base_type::SetRenderPolicy(make_shared_ptr(new BenchmarkTilingRenderPolicyMT(wh, bind(&base_type::DrawModel, this, _1, _2, _3, _4, _5, true))));
-  else
-    base_type::SetRenderPolicy(make_shared_ptr(new BenchmarkRenderPolicyMT(wh, bind(&base_type::DrawModel, this, _1, _2, _3, _4, _5, false))));
 
   m_startTime = my::FormatCurrentTime();
 

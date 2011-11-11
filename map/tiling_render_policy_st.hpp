@@ -1,6 +1,7 @@
 #pragma once
 
 #include "render_policy.hpp"
+#include "drawer_yg.hpp"
 #include "tiler.hpp"
 #include "tile_cache.hpp"
 
@@ -10,8 +11,16 @@
 
 #include "../geometry/screenbase.hpp"
 
-class DrawerYG;
 class WindowHandle;
+class VideoTimer;
+
+namespace yg
+{
+  namespace gl
+  {
+    class RenderContext;
+  }
+}
 
 class TilingRenderPolicyST : public RenderPolicy
 {
@@ -27,11 +36,11 @@ private:
 
 public:
 
-  TilingRenderPolicyST(shared_ptr<WindowHandle> const & windowHandle,
-                       RenderPolicy::TRenderFn const & renderFn);
-
-  void Initialize(shared_ptr<yg::gl::RenderContext> const & renderContext,
-                  shared_ptr<yg::ResourceManager> const & resourceManager);
+  TilingRenderPolicyST(VideoTimer * videoTimer,
+                       DrawerYG::Params const & params,
+                       shared_ptr<yg::gl::RenderContext> const & primaryRC);
 
   void DrawFrame(shared_ptr<PaintEvent> const & paintEvent, ScreenBase const & screenBase);
+
+  bool IsTiling() const;
 };

@@ -24,7 +24,7 @@ namespace	iphone
 
 		void makeCurrent();
 
-		unsigned int id();
+		unsigned int id() const;
 
 		void present();
 

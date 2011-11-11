@@ -5,18 +5,13 @@
 #include "../yg/internal/opengl.hpp"
 #include "../std/bind.hpp"
 
-PartialRenderPolicy::PartialRenderPolicy(shared_ptr<WindowHandle> const & wh,
-                                         RenderPolicy::TRenderFn const & renderFn)
-  : RenderPolicyMT(wh, renderFn)
+PartialRenderPolicy::PartialRenderPolicy(VideoTimer * videoTimer,
+                                         DrawerYG::Params const & params,
+                                         shared_ptr<yg::gl::RenderContext> const & primaryRC)
+  : RenderPolicyMT(videoTimer, params, primaryRC)
 {
   SetNeedSynchronize(true);
-}
-
-void PartialRenderPolicy::Initialize(shared_ptr<yg::gl::RenderContext> const & rc,
-                                     shared_ptr<yg::ResourceManager> const & rm)
-{
-  m_renderQueue.SetGLQueue(&m_glQueue, &m_glCondition);
-  RenderPolicyMT::Initialize(rc, rm);
+  m_renderQueue->SetGLQueue(&m_glQueue, &m_glCondition);
 }
 
 void PartialRenderPolicy::ProcessRenderQueue(list<yg::gl::Renderer::Packet> & renderQueue)
@@ -106,5 +101,5 @@ void PartialRenderPolicy::EndFrame(shared_ptr<PaintEvent> const & paintEvent,
 
 bool PartialRenderPolicy::NeedRedraw() const
 {
-  return !m_glQueue.Empty();
+  return RenderPolicyMT::NeedRedraw() || !m_glQueue.Empty();
 }

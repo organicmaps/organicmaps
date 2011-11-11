@@ -70,13 +70,12 @@ public:
                unsigned maxTilesCount,
                unsigned tasksCount,
                yg::Color const & bgColor,
-               RenderPolicy::TRenderFn const & renderFn);
+               RenderPolicy::TRenderFn const & renderFn,
+               shared_ptr<yg::gl::RenderContext> const & primaryRC,
+               shared_ptr<yg::ResourceManager> const & rm,
+               double visualScale);
   /// destructor.
-  ~TileRenderer();
-  /// set the primary context. it starts the rendering thread.
-  void Initialize(shared_ptr<yg::gl::RenderContext> const & primaryContext,
-                  shared_ptr<yg::ResourceManager> const & resourceManager,
-                  double visualScale);
+  virtual ~TileRenderer();
   /// add command to the commands queue.
   void AddCommand(Tiler::RectInfo const & rectInfo,
                   int sequenceID,

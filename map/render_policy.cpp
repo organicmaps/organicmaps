@@ -1,48 +1,30 @@
 #include "../base/SRC_FIRST.hpp"
 
 #include "render_policy.hpp"
-#include "window_handle.hpp"
+
+#include "../map/render_policy_st.hpp"
+#include "../map/render_policy_mt.hpp"
+#include "../map/tiling_render_policy_st.hpp"
+#include "../map/tiling_render_policy_mt.hpp"
+#include "../map/partial_render_policy.hpp"
+#include "../map/benchmark_render_policy_mt.hpp"
+#include "../map/benchmark_tiling_render_policy_mt.hpp"
+
+#include "../platform/video_timer.hpp"
+#include "../platform/settings.hpp"
 
 RenderPolicy::~RenderPolicy()
 {}
 
-RenderPolicy::RenderPolicy(shared_ptr<WindowHandle> const & windowHandle,
-                           TRenderFn const & renderFn,
-                           bool doSupportRotation)
+RenderPolicy::RenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC, bool doSupportRotation)
   : m_bgColor(0xEE, 0xEE, 0xDD, 0xFF),
-    m_windowHandle(windowHandle),
-    m_renderFn(renderFn),
+    m_primaryRC(primaryRC),
     m_doSupportRotation(doSupportRotation)
 {}
 
-yg::Color const & RenderPolicy::bgColor() const
-{
-  return m_bgColor;
-}
-
-shared_ptr<yg::ResourceManager> const & RenderPolicy::resourceManager() const
-{
-  return m_resourceManager;
-}
-
-shared_ptr<WindowHandle> const & RenderPolicy::windowHandle() const
-{
-  return m_windowHandle;
-}
-
-RenderPolicy::TRenderFn RenderPolicy::renderFn() const
-{
-  return m_renderFn;
-}
-
-void RenderPolicy::Initialize(shared_ptr<yg::gl::RenderContext> const &,
-                              shared_ptr<yg::ResourceManager> const & resourceManager)
-{
-  m_resourceManager = resourceManager;
-}
-
 m2::RectI const RenderPolicy::OnSize(int w, int h)
 {
+  m_drawer->onSize(w, h);
   return m2::RectI(0, 0, w, h);
 }
 
@@ -104,5 +86,56 @@ bool RenderPolicy::DoSupportRotation() const
 
 bool RenderPolicy::NeedRedraw() const
 {
+  return m_windowHandle->needRedraw();
+}
+
+bool RenderPolicy::IsTiling() const
+{
   return false;
+}
+
+shared_ptr<DrawerYG> const & RenderPolicy::GetDrawer() const
+{
+  return m_drawer;
+}
+
+shared_ptr<WindowHandle> const & RenderPolicy::GetWindowHandle() const
+{
+  return m_windowHandle;
+}
+
+void RenderPolicy::SetRenderFn(TRenderFn renderFn)
+{
+  m_renderFn = renderFn;
+}
+
+RenderPolicy * CreateRenderPolicy(VideoTimer * videoTimer,
+                                  DrawerYG::Params const & params,
+                                  shared_ptr<yg::gl::RenderContext> const & primaryRC)
+{
+  bool benchmarkingEnabled = false;
+  Settings::Get("IsBenchmarking", benchmarkingEnabled);
+
+  if (benchmarkingEnabled)
+  {
+    bool isBenchmarkingMT = false;
+    Settings::Get("IsBenchmarkingMT", isBenchmarkingMT);
+
+    if (isBenchmarkingMT)
+      return new BenchmarkTilingRenderPolicyMT(videoTimer, params, primaryRC);
+    else
+      return new BenchmarkRenderPolicyMT(videoTimer, params, primaryRC);
+  }
+  else
+  {
+#ifdef OMIM_OS_ANDROID
+    return new PartialRenderPolicy(videoTimer, params, primaryRC);
+#endif
+#ifdef OMIM_OS_IPHONE
+    return new RenderPolicyMT(videoTimer, params, primaryRC);
+#endif
+#ifdef OMIM_OS_DESKTOP
+    return new RenderPolicyMT(videoTimer, params, primaryRC);
+#endif
+  }
 }

@@ -118,11 +118,8 @@ framework_t * m_framework = NULL;
     // cyclic dependence, @TODO refactor.
     // Here we're creating view and window handle in it, and later we should pass framework to the view
     EAGLView * v = (EAGLView *)self.view;
-
-		shared_ptr<WindowHandle> windowHandle = [(EAGLView*)self.view windowHandle];
-		shared_ptr<yg::ResourceManager> resourceManager = [(EAGLView*)self.view resourceManager];
         
-    m_framework = FrameworkFactory<model::FeaturesFetcher>::CreateFramework(windowHandle, 40);
+    m_framework = FrameworkFactory<model::FeaturesFetcher>::CreateFramework();
     v.framework = m_framework;
 
 		m_StickyThreshold = 10;
@@ -135,7 +132,7 @@ framework_t * m_framework = NULL;
     if (!res)
       m_framework->SetMaxWorldRect();
 
-    m_framework->InitializeGL([(EAGLView*)self.view renderContext], resourceManager);
+    [v initRenderPolicy];
 
     m_framework->Invalidate();
 	}

@@ -65,8 +65,7 @@ private:
 
 public:
 
-  BenchmarkFramework(shared_ptr<WindowHandle> const & wh,
-                     size_t bottomShift);
+  BenchmarkFramework();
 
   void OnSize(int w, int h);
 

@@ -17,7 +17,10 @@ TileRenderer::TileRenderer(
     unsigned maxTilesCount,
     unsigned executorsCount,
     yg::Color const & bgColor,
-    RenderPolicy::TRenderFn const & renderFn
+    RenderPolicy::TRenderFn const & renderFn,
+    shared_ptr<yg::gl::RenderContext> const & primaryRC,
+    shared_ptr<yg::ResourceManager> const & rm,
+    double visualScale
   ) : m_queue(executorsCount),
       m_tileCache(maxTilesCount - executorsCount - 1),
       m_renderFn(renderFn),
@@ -25,14 +28,8 @@ TileRenderer::TileRenderer(
       m_bgColor(bgColor),
       m_sequenceID(0)
 {
-}
-
-void TileRenderer::Initialize(shared_ptr<yg::gl::RenderContext> const & primaryContext,
-                             shared_ptr<yg::ResourceManager> const & resourceManager,
-                             double visualScale)
-{
-  m_resourceManager = resourceManager;
-  m_primaryContext = primaryContext;
+  m_resourceManager = rm;
+  m_primaryContext = primaryRC;
 
   m_threadData.resize(m_queue.ExecutorsCount());
 

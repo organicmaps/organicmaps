@@ -5,11 +5,9 @@
 class BenchmarkRenderPolicyMT : public RenderPolicyMT
 {
 public:
-  BenchmarkRenderPolicyMT(shared_ptr<WindowHandle> const & wh,
-                          RenderPolicy::TRenderFn const & renderFn);
-
-  void Initialize(shared_ptr<yg::gl::RenderContext> const & rc,
-                  shared_ptr<yg::ResourceManager> const & rm);
+  BenchmarkRenderPolicyMT(VideoTimer * videoTimer,
+                          DrawerYG::Params const & params,
+                          shared_ptr<yg::gl::RenderContext> const & primaryRC);
 
   void DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s);
 };

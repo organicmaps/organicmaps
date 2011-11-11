@@ -7,6 +7,7 @@
 #include "screen_coverage.hpp"
 
 #include "../yg/info_layer.hpp"
+#include "../std/scoped_ptr.hpp"
 
 namespace yg
 {
@@ -23,9 +24,9 @@ class TilingRenderPolicyMT : public RenderPolicy
 {
 private:
 
-  TileRenderer m_tileRenderer;
+  scoped_ptr<TileRenderer> m_tileRenderer;
 
-  CoverageGenerator m_coverageGenerator;
+  scoped_ptr<CoverageGenerator> m_coverageGenerator;
 
   ScreenBase m_currentScreen;
 
@@ -39,11 +40,9 @@ protected:
 
 public:
 
-  TilingRenderPolicyMT(shared_ptr<WindowHandle> const & windowHandle,
-                       RenderPolicy::TRenderFn const & renderFn);
-
-  void Initialize(shared_ptr<yg::gl::RenderContext> const & renderContext,
-                  shared_ptr<yg::ResourceManager> const & resourceManager);
+  TilingRenderPolicyMT(VideoTimer * videoTimer,
+                       DrawerYG::Params const & params,
+                       shared_ptr<yg::gl::RenderContext> const & primaryRC);
 
   void BeginFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
   void DrawFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);
@@ -51,4 +50,8 @@ public:
 
   virtual void StartScale();
   virtual void StopScale();
+
+  bool IsTiling() const;
+
+  void SetRenderFn(TRenderFn renderFn);
 };

@@ -2,24 +2,27 @@
 
 #include "render_policy.hpp"
 #include "render_queue.hpp"
+#include "drawer_yg.hpp"
+
 #include "../geometry/point2d.hpp"
+#include "../std/scoped_ptr.hpp"
 
 class WindowHandle;
+class VideoTimer;
 
 class RenderPolicyMT : public RenderPolicy
 {
 protected:
 
-  RenderQueue m_renderQueue;
+  scoped_ptr<RenderQueue> m_renderQueue;
   bool m_DoAddCommand;
   bool m_DoSynchronize;
 
 public:
-  RenderPolicyMT(shared_ptr<WindowHandle> const & wh,
-                 RenderPolicy::TRenderFn const & renderFn);
 
-  void Initialize(shared_ptr<yg::gl::RenderContext> const & rc,
-                  shared_ptr<yg::ResourceManager> const & rm);
+  RenderPolicyMT(VideoTimer * videoTimer,
+                 DrawerYG::Params const & params,
+                 shared_ptr<yg::gl::RenderContext> const & primaryRC);
 
   void BeginFrame(shared_ptr<PaintEvent> const & e,
                   ScreenBase const & s);
@@ -41,4 +44,5 @@ public:
   RenderQueue & GetRenderQueue();
   void SetNeedSynchronize(bool flag);
 
+  void SetRenderFn(TRenderFn renderFn);
 };

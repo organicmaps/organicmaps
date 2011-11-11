@@ -7,7 +7,7 @@
 #include <QtGui/QMouseEvent>
 
 #include "../map/framework_factory.hpp"
-
+#include "../map/render_policy.hpp"
 
 using namespace storage;
 
@@ -45,33 +45,21 @@ namespace qt
   }
 
   DrawWidget::DrawWidget(QWidget * pParent)
-    : base_type(pParent),
-      m_handle(new WindowHandle()),
+    : QGLWidget(pParent),
       m_isInitialized(false),
       m_isTimerStarted(false),
-      m_framework(FrameworkFactory<model_t>::CreateFramework(m_handle, 0)),
+      m_framework(FrameworkFactory<model_t>::CreateFramework()),
       m_isDrag(false),
       m_isRotate(false),
       m_redrawInterval(100),
       m_pScale(0)
   {
     m_timer = new QTimer(this);
-    m_handle->setUpdatesEnabled(false);
-
-#ifdef OMIM_OS_MAC
-    m_videoTimer.reset(CreateAppleVideoTimer(bind(&DrawWidget::DrawFrame, this)));
-#else
-    m_videoTimer.reset(new QtVideoTimer(this, bind(&DrawWidget::DrawFrame, this)));
-#endif
-
-    m_handle->setVideoTimer(m_videoTimer);
-
     connect(m_timer, SIGNAL(timeout()), this, SLOT(ScaleTimerElapsed()));
   }
 
   void DrawWidget::PrepareShutdown()
   {
-    m_videoTimer->stop();
     m_framework->PrepareToShutdown();
   }
 
@@ -84,7 +72,7 @@ namespace qt
 
   void DrawWidget::UpdateNow()
   {
-    m_framework->Invalidate();
+    update();
   }
 
   void DrawWidget::UpdateAfterSettingsChanged()
@@ -98,7 +86,7 @@ namespace qt
     if (!Settings::Get("DrawWidgetSize", widthAndHeight))
       return false;
 
-    m_framework->OnSize(widthAndHeight.first, widthAndHeight.second);
+   m_framework->OnSize(widthAndHeight.first, widthAndHeight.second);
 
     if (!m_framework->LoadState())
       return false;
@@ -115,11 +103,6 @@ namespace qt
 
     m_framework->SaveState();
   }
-
-  //void DrawWidget::ShowFeature(Feature const & p)
-  //{
-  //  m_framework.ShowFeature(p);
-  //}
 
   void DrawWidget::MoveLeft()
   {
@@ -185,6 +168,15 @@ namespace qt
     m_framework->Invalidate();
   }
 
+  VideoTimer * DrawWidget::CreateVideoTimer()
+  {
+#ifdef OMIM_OS_MAC
+    return CreateAppleVideoTimer(bind(&DrawWidget::DrawFrame, this));
+#else
+    return new QtVideoTimer(this, bind(&DrawWidget::DrawFrame, this));
+#endif
+  }
+
   void DrawWidget::ScaleChanged(int action)
   {
     if (action != QAbstractSlider::SliderNoAction)
@@ -200,10 +192,49 @@ namespace qt
 
   void DrawWidget::initializeGL()
   {
-    widget_type::initializeGL();
-    m_handle->setRenderContext(renderContext());
-    m_framework->InitializeGL(renderContext(), resourceManager());
-    m_isInitialized = true;
+#ifdef OMIM_OS_WINDOWS
+      win32::InitOpenGL();
+#endif
+
+    /// we'll perform swap by ourselves, see issue #333
+    setAutoBufferSwap(false);
+
+    if (!m_isInitialized)
+    {
+      VideoTimer * videoTimer = CreateVideoTimer();
+
+      DrawerYG::Params params;
+      params.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
+
+      shared_ptr<qt::gl::RenderContext> primaryRC(new qt::gl::RenderContext(this));
+
+      m_framework->SetRenderPolicy(CreateRenderPolicy(videoTimer, params, primaryRC));
+
+      m_isInitialized = true;
+    }
+  }
+
+  void DrawWidget::resizeGL(int w, int h)
+  {
+    m_framework->OnSize(w, h);
+    m_framework->Invalidate();
+    if (m_isInitialized && m_isTimerStarted)
+      DrawFrame();
+    UpdateScaleControl();
+    emit ViewportChanged();
+  }
+
+  void DrawWidget::paintGL()
+  {
+    if ((m_isInitialized) && (!m_isTimerStarted))
+    {
+      /// timer should be started upon the first repaint
+      /// request to fully initialized GLWidget.
+      m_isTimerStarted = true;
+      m_framework->SetUpdatesEnabled(true);
+    }
+
+    m_framework->Invalidate();
   }
 
   void DrawWidget::DrawFrame()
@@ -213,7 +244,7 @@ namespace qt
       makeCurrent();
       m_framework->SetNeedRedraw(false);
 
-      shared_ptr<PaintEvent> paintEvent(new PaintEvent(GetDrawer().get()));
+      shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_framework->GetRenderPolicy()->GetDrawer().get()));
 
       m_framework->BeginPaint(paintEvent);
       m_framework->DoPaint(paintEvent);
@@ -224,30 +255,6 @@ namespace qt
       m_framework->EndPaint(paintEvent);
       doneCurrent();
     }
-  }
-
-  void DrawWidget::DoDraw(shared_ptr<screen_t> p)
-  {
-    if ((m_isInitialized) && (!m_isTimerStarted))
-    {
-      /// timer should be started upon the first repaint
-      /// request to fully initialized GLWidget.
-      m_isTimerStarted = true;
-      m_handle->setUpdatesEnabled(true);
-      m_handle->invalidate();
-    }
-
-    m_framework->Invalidate();
-  }
-
-  void DrawWidget::DoResize(int w, int h)
-  {
-    m_framework->OnSize(w, h);
-    m_framework->Invalidate();
-    if (m_isInitialized && m_isTimerStarted)
-      DrawFrame();
-    UpdateScaleControl();
-    emit ViewportChanged();
   }
 
   namespace
@@ -266,7 +273,7 @@ namespace qt
 
   void DrawWidget::mousePressEvent(QMouseEvent * e)
   {
-    base_type::mousePressEvent(e);
+    QGLWidget::mousePressEvent(e);
 
     if (e->button() == Qt::LeftButton)
     {
@@ -290,7 +297,7 @@ namespace qt
 
   void DrawWidget::mouseDoubleClickEvent(QMouseEvent * e)
   {
-    base_type::mouseDoubleClickEvent(e);
+    QGLWidget::mouseDoubleClickEvent(e);
 
     if (e->button() == Qt::LeftButton)
     {
@@ -305,7 +312,7 @@ namespace qt
 
   void DrawWidget::mouseMoveEvent(QMouseEvent * e)
   {
-    base_type::mouseMoveEvent(e);
+    QGLWidget::mouseMoveEvent(e);
 
     if (m_isDrag)
       m_framework->DoDrag(get_drag_event(e));
@@ -316,7 +323,7 @@ namespace qt
 
   void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
   {
-    base_type::mouseReleaseEvent(e);
+    QGLWidget::mouseReleaseEvent(e);
 
     StopDragging(e);
     StopRotating(e);
@@ -326,7 +333,7 @@ namespace qt
 
   void DrawWidget::keyReleaseEvent(QKeyEvent * e)
   {
-    base_type::keyReleaseEvent(e);
+    QGLWidget::keyReleaseEvent(e);
 
     StopRotating(e);
 

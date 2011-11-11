@@ -17,9 +17,6 @@ namespace qt
 {
   class QScaleSlider;
 
-  /// Replace this to set a draw widget kernel.
-  typedef GLDrawWidget widget_type;
-
   class DrawWidget;
 
   class QtVideoTimer : public ::VideoTimer
@@ -40,21 +37,14 @@ namespace qt
     void stop();
   };
 
-  class DrawWidget : public widget_type
+  class DrawWidget : public QGLWidget
   {
-    typedef widget_type base_type;
+    typedef model::FeaturesFetcher model_t;
 
-    shared_ptr<WindowHandle> m_handle;
-
-    shared_ptr<drawer_t> m_drawer;
     bool m_isInitialized;
     bool m_isTimerStarted;
 
-    typedef model::FeaturesFetcher model_t;
-
     scoped_ptr<Framework<model_t> > m_framework;
-
-    shared_ptr<VideoTimer> m_videoTimer;
 
     bool m_isDrag;
     bool m_isRotate;
@@ -105,14 +95,18 @@ namespace qt
     Framework<model_t> & GetFramework() { return *m_framework.get(); }
 
   protected:
+
+    VideoTimer * CreateVideoTimer();
+
     static const uint32_t ini_file_version = 0;
 
   protected:
+
     /// @name Overriden from base_type.
     //@{
     virtual void initializeGL();
-    virtual void DoDraw(shared_ptr<screen_t> p);
-    virtual void DoResize(int w, int h);
+    virtual void resizeGL(int w, int h);
+    virtual void paintGL();
     //@}
 
     void DrawFrame();

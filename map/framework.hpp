@@ -69,14 +69,17 @@ protected:
   model_t m_model;
   Navigator m_navigator;
 
-  shared_ptr<WindowHandle> m_windowHandle;
-  shared_ptr<RenderPolicy> m_renderPolicy;
+  scoped_ptr<RenderPolicy> m_renderPolicy;
+  bool m_hasPendingInvalidate;
 
   InformationDisplay m_informationDisplay;
 
   double const m_metresMinWidth;
   double const m_metresMaxWidth;
   int const m_minRulerWidth;
+
+  int m_width;
+  int m_height;
 
   enum TGpsCenteringMode
   {
@@ -102,7 +105,8 @@ protected:
   void GetLocalMaps(vector<string> & outMaps);
 
 public:
-  Framework(shared_ptr<WindowHandle> windowHandle, size_t bottomShift);
+
+  Framework();
   virtual ~Framework();
 
   storage::Storage & Storage() { return m_storage; }
@@ -111,10 +115,8 @@ public:
   void OnGpsUpdate(location::GpsInfo const & info);
   void OnCompassUpdate(location::CompassInfo const & info);
 
-  void SetRenderPolicy(shared_ptr<RenderPolicy> const & rp);
-
-  void InitializeGL(shared_ptr<yg::gl::RenderContext> const & primaryContext,
-                    shared_ptr<yg::ResourceManager> const & resourceManager);
+  void SetRenderPolicy(RenderPolicy * renderPolicy);
+  RenderPolicy * GetRenderPolicy() const;
 
   model_t & get_model();
 
@@ -125,16 +127,15 @@ public:
 
   void PrepareToShutdown();
 
-public:
-
   void SetupMeasurementSystem();
+
+  RenderPolicy::TRenderFn DrawModelFn();
 
   void DrawModel(shared_ptr<PaintEvent> const & e,
                  ScreenBase const & screen,
                  m2::RectD const & selectRect,
                  m2::RectD const & clipRect,
-                 int scaleLevel,
-                 bool isTiling);
+                 int scaleLevel);
 
   void Search(string const & text, SearchCallbackT callback);
   search::Engine * GetSearchEngine();

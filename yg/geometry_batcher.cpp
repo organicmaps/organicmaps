@@ -88,10 +88,10 @@ namespace yg
 
      shared_ptr<FreeStorage> freeStorage(new FreeStorage());
 
-     freeStorage->m_storage = pipeline.m_storage;
-
      if (pipeline.m_hasStorage)
      {
+       freeStorage->m_storage = pipeline.m_storage;
+
        if (pipeline.m_useTinyStorage)
          freeStorage->m_storagePool = resourceManager()->tinyStorages();
        else
@@ -102,9 +102,9 @@ namespace yg
 
        pipeline.m_hasStorage = false;
        pipeline.m_storage = Storage();
-     }
 
-     processCommand(freeStorage);
+       processCommand(freeStorage);
+     }
    }
 
    void GeometryBatcher::setAdditionalSkinPage(shared_ptr<SkinPage> const & p)

@@ -7,15 +7,15 @@
 #include "../platform/settings.hpp"
 
 template <typename TModel>
-Framework<TModel> * FrameworkFactory<TModel>::CreateFramework(shared_ptr<WindowHandle> const & wh, size_t bottomShift)
+Framework<TModel> * FrameworkFactory<TModel>::CreateFramework()
 {
   bool benchmarkingEnabled = false;
   (void)Settings::Get("IsBenchmarking", benchmarkingEnabled);
 
   if (benchmarkingEnabled)
-    return new BenchmarkFramework<TModel>(wh, bottomShift);
+    return new BenchmarkFramework<TModel>();
   else
-    return new Framework<TModel>(wh, bottomShift);
+    return new Framework<TModel>();
 }
 
 template class FrameworkFactory<model::FeaturesFetcher>;

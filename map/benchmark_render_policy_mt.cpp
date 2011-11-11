@@ -4,16 +4,11 @@
 
 #include "../base/logging.hpp"
 
-BenchmarkRenderPolicyMT::BenchmarkRenderPolicyMT(shared_ptr<WindowHandle> const & wh,
-                                                 RenderPolicy::TRenderFn const & renderFn)
-  : RenderPolicyMT(wh, renderFn)
+BenchmarkRenderPolicyMT::BenchmarkRenderPolicyMT(VideoTimer * videoTimer,
+                                                 DrawerYG::Params const & params,
+                                                 shared_ptr<yg::gl::RenderContext> const & primaryRC)
+  : RenderPolicyMT(videoTimer, params, primaryRC)
 {}
-
-void BenchmarkRenderPolicyMT::Initialize(shared_ptr<yg::gl::RenderContext> const & rc,
-                                         shared_ptr<yg::ResourceManager> const & rm)
-{
-  RenderPolicyMT::Initialize(rc, rm);
-}
 
 void BenchmarkRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,
                                         ScreenBase const & s)
