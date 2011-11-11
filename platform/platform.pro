@@ -20,6 +20,7 @@ include($$ROOT_DIR/common.pri)
   HEADERS += wifi_info.hpp \
              location_service.hpp
   !macx* {
+    QT *= network
     SOURCES += http_thread_qt.cpp
     HEADERS += http_thread_qt.hpp
   }
@@ -44,33 +45,20 @@ include($$ROOT_DIR/common.pri)
 }
 
 macx*|iphone* {
-  HEADERS += apple_download.h \
-             http_thread_apple.h
-  OBJECTIVE_SOURCES += apple_download.mm \
-                       apple_download_manager.mm \
-                       http_thread_apple.mm
-}
-
-win32*|linux* {
-  QT *= network
-  HEADERS += qt_download_manager.hpp \
-             qt_download.hpp
-  SOURCES += qt_download_manager.cpp \
-             qt_download.cpp
+  HEADERS += http_thread_apple.h
+  OBJECTIVE_SOURCES += http_thread_apple.mm
 }
 
 # common sources for all platforms
 
 HEADERS += \
     platform.hpp \
-    download_manager.hpp \
     location.hpp \
     concurrent_runner.hpp \
     preferred_languages.hpp \
     settings.hpp \
     video_timer.hpp \
     languages.hpp \
-    url_generator.hpp \
     http_request.hpp \
     http_thread_callback.hpp \
     chunks_download_strategy.hpp \
@@ -80,6 +68,5 @@ SOURCES += \
     settings.cpp \
     video_timer.cpp \
     languages.cpp \
-    url_generator.cpp \
     http_request.cpp \
     chunks_download_strategy.cpp \
