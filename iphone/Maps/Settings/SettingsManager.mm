@@ -62,7 +62,7 @@ using namespace storage;
 		SEL changeSel = @selector(OnCountryChange:);
 		TChangeFunc changeImpl = (TChangeFunc)[self methodForSelector:changeSel];
 
-		typedef void (*TProgressFunc)(id, SEL, TIndex const &, HttpProgressT const &);
+		typedef void (*TProgressFunc)(id, SEL, TIndex const &, pair<int64_t, int64_t> const &);
 		SEL progressSel = @selector(OnCountryDownload:withProgress:);
 		TProgressFunc progressImpl = (TProgressFunc)[self methodForSelector:progressSel];
 
