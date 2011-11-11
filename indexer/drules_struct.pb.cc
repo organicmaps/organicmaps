@@ -8,19 +8,251 @@
 #include <google/protobuf/stubs/once.h>
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/wire_format_lite_inl.h>
+#include <google/protobuf/descriptor.h>
+#include <google/protobuf/reflection_ops.h>
+#include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 
+namespace {
+
+const ::google::protobuf::Descriptor* DashDotProto_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  DashDotProto_reflection_ = NULL;
+const ::google::protobuf::Descriptor* LineRuleProto_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  LineRuleProto_reflection_ = NULL;
+const ::google::protobuf::Descriptor* AreaRuleProto_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  AreaRuleProto_reflection_ = NULL;
+const ::google::protobuf::Descriptor* SymbolRuleProto_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  SymbolRuleProto_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CaptionRuleProto_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CaptionRuleProto_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CircleRuleProto_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CircleRuleProto_reflection_ = NULL;
+const ::google::protobuf::Descriptor* DrawElementProto_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  DrawElementProto_reflection_ = NULL;
+const ::google::protobuf::Descriptor* ClassifElementProto_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  ClassifElementProto_reflection_ = NULL;
+const ::google::protobuf::Descriptor* ContainerProto_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  ContainerProto_reflection_ = NULL;
+
+}  // namespace
+
+
+void protobuf_AssignDesc_drules_5fstruct_2eproto() {
+  protobuf_AddDesc_drules_5fstruct_2eproto();
+  const ::google::protobuf::FileDescriptor* file =
+    ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
+      "drules_struct.proto");
+  GOOGLE_CHECK(file != NULL);
+  DashDotProto_descriptor_ = file->message_type(0);
+  static const int DashDotProto_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DashDotProto, dd_),
+  };
+  DashDotProto_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      DashDotProto_descriptor_,
+      DashDotProto::default_instance_,
+      DashDotProto_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DashDotProto, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DashDotProto, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(DashDotProto));
+  LineRuleProto_descriptor_ = file->message_type(1);
+  static const int LineRuleProto_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, width_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, color_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, dashdot_),
+  };
+  LineRuleProto_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      LineRuleProto_descriptor_,
+      LineRuleProto::default_instance_,
+      LineRuleProto_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LineRuleProto, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(LineRuleProto));
+  AreaRuleProto_descriptor_ = file->message_type(2);
+  static const int AreaRuleProto_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AreaRuleProto, color_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AreaRuleProto, border_),
+  };
+  AreaRuleProto_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      AreaRuleProto_descriptor_,
+      AreaRuleProto::default_instance_,
+      AreaRuleProto_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AreaRuleProto, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AreaRuleProto, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(AreaRuleProto));
+  SymbolRuleProto_descriptor_ = file->message_type(3);
+  static const int SymbolRuleProto_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolRuleProto, name_),
+  };
+  SymbolRuleProto_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      SymbolRuleProto_descriptor_,
+      SymbolRuleProto::default_instance_,
+      SymbolRuleProto_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolRuleProto, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolRuleProto, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(SymbolRuleProto));
+  CaptionRuleProto_descriptor_ = file->message_type(4);
+  static const int CaptionRuleProto_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionRuleProto, height_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionRuleProto, color_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionRuleProto, stroke_color_),
+  };
+  CaptionRuleProto_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      CaptionRuleProto_descriptor_,
+      CaptionRuleProto::default_instance_,
+      CaptionRuleProto_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionRuleProto, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CaptionRuleProto, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(CaptionRuleProto));
+  CircleRuleProto_descriptor_ = file->message_type(5);
+  static const int CircleRuleProto_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CircleRuleProto, radius_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CircleRuleProto, color_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CircleRuleProto, border_),
+  };
+  CircleRuleProto_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      CircleRuleProto_descriptor_,
+      CircleRuleProto::default_instance_,
+      CircleRuleProto_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CircleRuleProto, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CircleRuleProto, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(CircleRuleProto));
+  DrawElementProto_descriptor_ = file->message_type(6);
+  static const int DrawElementProto_offsets_[6] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, scale_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, lines_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, area_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, symbol_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, caption_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, circle_),
+  };
+  DrawElementProto_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      DrawElementProto_descriptor_,
+      DrawElementProto::default_instance_,
+      DrawElementProto_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(DrawElementProto));
+  ClassifElementProto_descriptor_ = file->message_type(7);
+  static const int ClassifElementProto_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ClassifElementProto, name_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ClassifElementProto, element_),
+  };
+  ClassifElementProto_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      ClassifElementProto_descriptor_,
+      ClassifElementProto::default_instance_,
+      ClassifElementProto_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ClassifElementProto, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ClassifElementProto, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(ClassifElementProto));
+  ContainerProto_descriptor_ = file->message_type(8);
+  static const int ContainerProto_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ContainerProto, cont_),
+  };
+  ContainerProto_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      ContainerProto_descriptor_,
+      ContainerProto::default_instance_,
+      ContainerProto_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ContainerProto, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ContainerProto, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(ContainerProto));
+}
+
+namespace {
+
+GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
+inline void protobuf_AssignDescriptorsOnce() {
+  ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
+                 &protobuf_AssignDesc_drules_5fstruct_2eproto);
+}
+
+void protobuf_RegisterTypes(const ::std::string&) {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    DashDotProto_descriptor_, &DashDotProto::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    LineRuleProto_descriptor_, &LineRuleProto::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    AreaRuleProto_descriptor_, &AreaRuleProto::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    SymbolRuleProto_descriptor_, &SymbolRuleProto::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    CaptionRuleProto_descriptor_, &CaptionRuleProto::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    CircleRuleProto_descriptor_, &CircleRuleProto::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    DrawElementProto_descriptor_, &DrawElementProto::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    ClassifElementProto_descriptor_, &ClassifElementProto::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    ContainerProto_descriptor_, &ContainerProto::default_instance());
+}
+
+}  // namespace
+
 void protobuf_ShutdownFile_drules_5fstruct_2eproto() {
-  delete ColorProto::default_instance_;
   delete DashDotProto::default_instance_;
+  delete DashDotProto_reflection_;
   delete LineRuleProto::default_instance_;
+  delete LineRuleProto_reflection_;
   delete AreaRuleProto::default_instance_;
+  delete AreaRuleProto_reflection_;
   delete SymbolRuleProto::default_instance_;
+  delete SymbolRuleProto_reflection_;
   delete CaptionRuleProto::default_instance_;
+  delete CaptionRuleProto_reflection_;
   delete CircleRuleProto::default_instance_;
+  delete CircleRuleProto_reflection_;
   delete DrawElementProto::default_instance_;
+  delete DrawElementProto_reflection_;
   delete ClassifElementProto::default_instance_;
+  delete ClassifElementProto_reflection_;
   delete ContainerProto::default_instance_;
+  delete ContainerProto_reflection_;
 }
 
 void protobuf_AddDesc_drules_5fstruct_2eproto() {
@@ -29,7 +261,27 @@ void protobuf_AddDesc_drules_5fstruct_2eproto() {
   already_here = true;
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ColorProto::default_instance_ = new ColorProto();
+  ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
+    "\n\023drules_struct.proto\"\032\n\014DashDotProto\022\n\n"
+    "\002dd\030\001 \003(\001\"M\n\rLineRuleProto\022\r\n\005width\030\001 \002("
+    "\001\022\r\n\005color\030\002 \002(\005\022\036\n\007dashdot\030\003 \001(\0132\r.Dash"
+    "DotProto\">\n\rAreaRuleProto\022\r\n\005color\030\001 \002(\005"
+    "\022\036\n\006border\030\002 \001(\0132\016.LineRuleProto\"\037\n\017Symb"
+    "olRuleProto\022\014\n\004name\030\001 \002(\t\"G\n\020CaptionRule"
+    "Proto\022\016\n\006height\030\001 \002(\005\022\r\n\005color\030\002 \001(\005\022\024\n\014"
+    "stroke_color\030\003 \001(\005\"P\n\017CircleRuleProto\022\016\n"
+    "\006radius\030\001 \002(\001\022\r\n\005color\030\002 \002(\005\022\036\n\006border\030\003"
+    " \001(\0132\016.LineRuleProto\"\306\001\n\020DrawElementProt"
+    "o\022\r\n\005scale\030\001 \002(\005\022\035\n\005lines\030\002 \003(\0132\016.LineRu"
+    "leProto\022\034\n\004area\030\003 \001(\0132\016.AreaRuleProto\022 \n"
+    "\006symbol\030\004 \001(\0132\020.SymbolRuleProto\022\"\n\007capti"
+    "on\030\005 \001(\0132\021.CaptionRuleProto\022 \n\006circle\030\006 "
+    "\001(\0132\020.CircleRuleProto\"G\n\023ClassifElementP"
+    "roto\022\014\n\004name\030\001 \002(\t\022\"\n\007element\030\002 \003(\0132\021.Dr"
+    "awElementProto\"4\n\016ContainerProto\022\"\n\004cont"
+    "\030\001 \003(\0132\024.ClassifElementProto", 708);
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
+    "drules_struct.proto", &protobuf_RegisterTypes);
   DashDotProto::default_instance_ = new DashDotProto();
   LineRuleProto::default_instance_ = new LineRuleProto();
   AreaRuleProto::default_instance_ = new AreaRuleProto();
@@ -39,7 +291,6 @@ void protobuf_AddDesc_drules_5fstruct_2eproto() {
   DrawElementProto::default_instance_ = new DrawElementProto();
   ClassifElementProto::default_instance_ = new ClassifElementProto();
   ContainerProto::default_instance_ = new ContainerProto();
-  ColorProto::default_instance_->InitAsDefaultInstance();
   DashDotProto::default_instance_->InitAsDefaultInstance();
   LineRuleProto::default_instance_->InitAsDefaultInstance();
   AreaRuleProto::default_instance_->InitAsDefaultInstance();
@@ -63,205 +314,11 @@ struct StaticDescriptorInitializer_drules_5fstruct_2eproto {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int ColorProto::kColorFieldNumber;
-const int ColorProto::kOpacityFieldNumber;
-#endif  // !_MSC_VER
-
-ColorProto::ColorProto()
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-}
-
-void ColorProto::InitAsDefaultInstance() {
-}
-
-ColorProto::ColorProto(const ColorProto& from)
-  : ::google::protobuf::MessageLite() {
-  SharedCtor();
-  MergeFrom(from);
-}
-
-void ColorProto::SharedCtor() {
-  _cached_size_ = 0;
-  color_ = 0;
-  opacity_ = 0;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-ColorProto::~ColorProto() {
-  SharedDtor();
-}
-
-void ColorProto::SharedDtor() {
-  if (this != default_instance_) {
-  }
-}
-
-void ColorProto::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ColorProto& ColorProto::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();  return *default_instance_;
-}
-
-ColorProto* ColorProto::default_instance_ = NULL;
-
-ColorProto* ColorProto::New() const {
-  return new ColorProto;
-}
-
-void ColorProto::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    color_ = 0;
-    opacity_ = 0;
-  }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-bool ColorProto::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
-  ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required int32 color = 1;
-      case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &color_)));
-          set_has_color();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(16)) goto parse_opacity;
-        break;
-      }
-      
-      // optional int32 opacity = 2;
-      case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_opacity:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &opacity_)));
-          set_has_opacity();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectAtEnd()) return true;
-        break;
-      }
-      
-      default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-  return true;
-#undef DO_
-}
-
-void ColorProto::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // required int32 color = 1;
-  if (has_color()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->color(), output);
-  }
-  
-  // optional int32 opacity = 2;
-  if (has_opacity()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->opacity(), output);
-  }
-  
-}
-
-int ColorProto::ByteSize() const {
-  int total_size = 0;
-  
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required int32 color = 1;
-    if (has_color()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->color());
-    }
-    
-    // optional int32 opacity = 2;
-    if (has_opacity()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->opacity());
-    }
-    
-  }
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void ColorProto::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const ColorProto*>(&from));
-}
-
-void ColorProto::MergeFrom(const ColorProto& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_color()) {
-      set_color(from.color());
-    }
-    if (from.has_opacity()) {
-      set_opacity(from.opacity());
-    }
-  }
-}
-
-void ColorProto::CopyFrom(const ColorProto& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool ColorProto::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
-  
-  return true;
-}
-
-void ColorProto::Swap(ColorProto* other) {
-  if (other != this) {
-    std::swap(color_, other->color_);
-    std::swap(opacity_, other->opacity_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::std::string ColorProto::GetTypeName() const {
-  return "ColorProto";
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
 const int DashDotProto::kDdFieldNumber;
 #endif  // !_MSC_VER
 
 DashDotProto::DashDotProto()
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
@@ -269,7 +326,7 @@ void DashDotProto::InitAsDefaultInstance() {
 }
 
 DashDotProto::DashDotProto(const DashDotProto& from)
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -293,6 +350,11 @@ void DashDotProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
+const ::google::protobuf::Descriptor* DashDotProto::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return DashDotProto_descriptor_;
+}
+
 const DashDotProto& DashDotProto::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();  return *default_instance_;
 }
@@ -306,6 +368,7 @@ DashDotProto* DashDotProto::New() const {
 void DashDotProto::Clear() {
   dd_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
 }
 
 bool DashDotProto::MergePartialFromCodedStream(
@@ -342,7 +405,8 @@ bool DashDotProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
         break;
       }
     }
@@ -359,6 +423,25 @@ void DashDotProto::SerializeWithCachedSizes(
       1, this->dd(i), output);
   }
   
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* DashDotProto::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // repeated double dd = 1;
+  for (int i = 0; i < this->dd_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteDoubleToArray(1, this->dd(i), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
 }
 
 int DashDotProto::ByteSize() const {
@@ -371,20 +454,39 @@ int DashDotProto::ByteSize() const {
     total_size += 1 * this->dd_size() + data_size;
   }
   
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void DashDotProto::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const DashDotProto*>(&from));
+void DashDotProto::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const DashDotProto* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const DashDotProto*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
 }
 
 void DashDotProto::MergeFrom(const DashDotProto& from) {
   GOOGLE_CHECK_NE(&from, this);
   dd_.MergeFrom(from.dd_);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void DashDotProto::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void DashDotProto::CopyFrom(const DashDotProto& from) {
@@ -402,12 +504,17 @@ void DashDotProto::Swap(DashDotProto* other) {
   if (other != this) {
     dd_.Swap(&other->dd_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::std::string DashDotProto::GetTypeName() const {
-  return "DashDotProto";
+::google::protobuf::Metadata DashDotProto::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = DashDotProto_descriptor_;
+  metadata.reflection = DashDotProto_reflection_;
+  return metadata;
 }
 
 
@@ -420,17 +527,16 @@ const int LineRuleProto::kDashdotFieldNumber;
 #endif  // !_MSC_VER
 
 LineRuleProto::LineRuleProto()
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
 void LineRuleProto::InitAsDefaultInstance() {
-  color_ = const_cast< ::ColorProto*>(&::ColorProto::default_instance());
   dashdot_ = const_cast< ::DashDotProto*>(&::DashDotProto::default_instance());
 }
 
 LineRuleProto::LineRuleProto(const LineRuleProto& from)
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -438,7 +544,7 @@ LineRuleProto::LineRuleProto(const LineRuleProto& from)
 void LineRuleProto::SharedCtor() {
   _cached_size_ = 0;
   width_ = 0;
-  color_ = NULL;
+  color_ = 0;
   dashdot_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -449,7 +555,6 @@ LineRuleProto::~LineRuleProto() {
 
 void LineRuleProto::SharedDtor() {
   if (this != default_instance_) {
-    delete color_;
     delete dashdot_;
   }
 }
@@ -459,6 +564,11 @@ void LineRuleProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
+const ::google::protobuf::Descriptor* LineRuleProto::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return LineRuleProto_descriptor_;
+}
+
 const LineRuleProto& LineRuleProto::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();  return *default_instance_;
 }
@@ -472,14 +582,13 @@ LineRuleProto* LineRuleProto::New() const {
 void LineRuleProto::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     width_ = 0;
-    if (has_color()) {
-      if (color_ != NULL) color_->::ColorProto::Clear();
-    }
+    color_ = 0;
     if (has_dashdot()) {
       if (dashdot_ != NULL) dashdot_->::DashDotProto::Clear();
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
 }
 
 bool LineRuleProto::MergePartialFromCodedStream(
@@ -499,17 +608,19 @@ bool LineRuleProto::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_color;
+        if (input->ExpectTag(16)) goto parse_color;
         break;
       }
       
-      // required .ColorProto color = 2;
+      // required int32 color = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_color:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_color()));
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &color_)));
+          set_has_color();
         } else {
           goto handle_uninterpreted;
         }
@@ -537,7 +648,8 @@ bool LineRuleProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
         break;
       }
     }
@@ -553,18 +665,47 @@ void LineRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->width(), output);
   }
   
-  // required .ColorProto color = 2;
+  // required int32 color = 2;
   if (has_color()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
-      2, this->color(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->color(), output);
   }
   
   // optional .DashDotProto dashdot = 3;
   if (has_dashdot()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, this->dashdot(), output);
   }
   
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* LineRuleProto::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required double width = 1;
+  if (has_width()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(1, this->width(), target);
+  }
+
+  // required int32 color = 2;
+  if (has_color()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->color(), target);
+  }
+
+  // optional .DashDotProto dashdot = 3;
+  if (has_dashdot()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->dashdot(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
 }
 
 int LineRuleProto::ByteSize() const {
@@ -576,10 +717,10 @@ int LineRuleProto::ByteSize() const {
       total_size += 1 + 8;
     }
     
-    // required .ColorProto color = 2;
+    // required int32 color = 2;
     if (has_color()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->color());
     }
     
@@ -591,15 +732,27 @@ int LineRuleProto::ByteSize() const {
     }
     
   }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void LineRuleProto::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const LineRuleProto*>(&from));
+void LineRuleProto::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const LineRuleProto* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const LineRuleProto*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
 }
 
 void LineRuleProto::MergeFrom(const LineRuleProto& from) {
@@ -609,12 +762,19 @@ void LineRuleProto::MergeFrom(const LineRuleProto& from) {
       set_width(from.width());
     }
     if (from.has_color()) {
-      mutable_color()->::ColorProto::MergeFrom(from.color());
+      set_color(from.color());
     }
     if (from.has_dashdot()) {
       mutable_dashdot()->::DashDotProto::MergeFrom(from.dashdot());
     }
   }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void LineRuleProto::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void LineRuleProto::CopyFrom(const LineRuleProto& from) {
@@ -626,9 +786,6 @@ void LineRuleProto::CopyFrom(const LineRuleProto& from) {
 bool LineRuleProto::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
   
-  if (has_color()) {
-    if (!this->color().IsInitialized()) return false;
-  }
   return true;
 }
 
@@ -638,12 +795,17 @@ void LineRuleProto::Swap(LineRuleProto* other) {
     std::swap(color_, other->color_);
     std::swap(dashdot_, other->dashdot_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::std::string LineRuleProto::GetTypeName() const {
-  return "LineRuleProto";
+::google::protobuf::Metadata LineRuleProto::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = LineRuleProto_descriptor_;
+  metadata.reflection = LineRuleProto_reflection_;
+  return metadata;
 }
 
 
@@ -655,24 +817,23 @@ const int AreaRuleProto::kBorderFieldNumber;
 #endif  // !_MSC_VER
 
 AreaRuleProto::AreaRuleProto()
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
 void AreaRuleProto::InitAsDefaultInstance() {
-  color_ = const_cast< ::ColorProto*>(&::ColorProto::default_instance());
   border_ = const_cast< ::LineRuleProto*>(&::LineRuleProto::default_instance());
 }
 
 AreaRuleProto::AreaRuleProto(const AreaRuleProto& from)
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
 
 void AreaRuleProto::SharedCtor() {
   _cached_size_ = 0;
-  color_ = NULL;
+  color_ = 0;
   border_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -683,7 +844,6 @@ AreaRuleProto::~AreaRuleProto() {
 
 void AreaRuleProto::SharedDtor() {
   if (this != default_instance_) {
-    delete color_;
     delete border_;
   }
 }
@@ -693,6 +853,11 @@ void AreaRuleProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
+const ::google::protobuf::Descriptor* AreaRuleProto::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return AreaRuleProto_descriptor_;
+}
+
 const AreaRuleProto& AreaRuleProto::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();  return *default_instance_;
 }
@@ -705,14 +870,13 @@ AreaRuleProto* AreaRuleProto::New() const {
 
 void AreaRuleProto::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (has_color()) {
-      if (color_ != NULL) color_->::ColorProto::Clear();
-    }
+    color_ = 0;
     if (has_border()) {
       if (border_ != NULL) border_->::LineRuleProto::Clear();
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
 }
 
 bool AreaRuleProto::MergePartialFromCodedStream(
@@ -721,12 +885,14 @@ bool AreaRuleProto::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .ColorProto color = 1;
+      // required int32 color = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_color()));
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &color_)));
+          set_has_color();
         } else {
           goto handle_uninterpreted;
         }
@@ -754,7 +920,8 @@ bool AreaRuleProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
         break;
       }
     }
@@ -765,28 +932,52 @@ bool AreaRuleProto::MergePartialFromCodedStream(
 
 void AreaRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required .ColorProto color = 1;
+  // required int32 color = 1;
   if (has_color()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
-      1, this->color(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->color(), output);
   }
   
   // optional .LineRuleProto border = 2;
   if (has_border()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->border(), output);
   }
   
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* AreaRuleProto::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required int32 color = 1;
+  if (has_color()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->color(), target);
+  }
+
+  // optional .LineRuleProto border = 2;
+  if (has_border()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->border(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
 }
 
 int AreaRuleProto::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required .ColorProto color = 1;
+    // required int32 color = 1;
     if (has_color()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->color());
     }
     
@@ -798,27 +989,46 @@ int AreaRuleProto::ByteSize() const {
     }
     
   }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void AreaRuleProto::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const AreaRuleProto*>(&from));
+void AreaRuleProto::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const AreaRuleProto* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const AreaRuleProto*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
 }
 
 void AreaRuleProto::MergeFrom(const AreaRuleProto& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_color()) {
-      mutable_color()->::ColorProto::MergeFrom(from.color());
+      set_color(from.color());
     }
     if (from.has_border()) {
       mutable_border()->::LineRuleProto::MergeFrom(from.border());
     }
   }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void AreaRuleProto::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void AreaRuleProto::CopyFrom(const AreaRuleProto& from) {
@@ -830,9 +1040,6 @@ void AreaRuleProto::CopyFrom(const AreaRuleProto& from) {
 bool AreaRuleProto::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
   
-  if (has_color()) {
-    if (!this->color().IsInitialized()) return false;
-  }
   if (has_border()) {
     if (!this->border().IsInitialized()) return false;
   }
@@ -844,12 +1051,17 @@ void AreaRuleProto::Swap(AreaRuleProto* other) {
     std::swap(color_, other->color_);
     std::swap(border_, other->border_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::std::string AreaRuleProto::GetTypeName() const {
-  return "AreaRuleProto";
+::google::protobuf::Metadata AreaRuleProto::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = AreaRuleProto_descriptor_;
+  metadata.reflection = AreaRuleProto_reflection_;
+  return metadata;
 }
 
 
@@ -860,7 +1072,7 @@ const int SymbolRuleProto::kNameFieldNumber;
 #endif  // !_MSC_VER
 
 SymbolRuleProto::SymbolRuleProto()
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
@@ -868,7 +1080,7 @@ void SymbolRuleProto::InitAsDefaultInstance() {
 }
 
 SymbolRuleProto::SymbolRuleProto(const SymbolRuleProto& from)
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -896,6 +1108,11 @@ void SymbolRuleProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
+const ::google::protobuf::Descriptor* SymbolRuleProto::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return SymbolRuleProto_descriptor_;
+}
+
 const SymbolRuleProto& SymbolRuleProto::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();  return *default_instance_;
 }
@@ -915,6 +1132,7 @@ void SymbolRuleProto::Clear() {
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
 }
 
 bool SymbolRuleProto::MergePartialFromCodedStream(
@@ -929,6 +1147,9 @@ bool SymbolRuleProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->name().data(), this->name().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
         } else {
           goto handle_uninterpreted;
         }
@@ -942,7 +1163,8 @@ bool SymbolRuleProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
         break;
       }
     }
@@ -955,10 +1177,36 @@ void SymbolRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // required string name = 1;
   if (has_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
       1, this->name(), output);
   }
   
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* SymbolRuleProto::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required string name = 1;
+  if (has_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->name(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
 }
 
 int SymbolRuleProto::ByteSize() const {
@@ -973,15 +1221,27 @@ int SymbolRuleProto::ByteSize() const {
     }
     
   }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void SymbolRuleProto::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const SymbolRuleProto*>(&from));
+void SymbolRuleProto::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const SymbolRuleProto* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const SymbolRuleProto*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
 }
 
 void SymbolRuleProto::MergeFrom(const SymbolRuleProto& from) {
@@ -991,6 +1251,13 @@ void SymbolRuleProto::MergeFrom(const SymbolRuleProto& from) {
       set_name(from.name());
     }
   }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void SymbolRuleProto::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void SymbolRuleProto::CopyFrom(const SymbolRuleProto& from) {
@@ -1009,12 +1276,17 @@ void SymbolRuleProto::Swap(SymbolRuleProto* other) {
   if (other != this) {
     std::swap(name_, other->name_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::std::string SymbolRuleProto::GetTypeName() const {
-  return "SymbolRuleProto";
+::google::protobuf::Metadata SymbolRuleProto::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = SymbolRuleProto_descriptor_;
+  metadata.reflection = SymbolRuleProto_reflection_;
+  return metadata;
 }
 
 
@@ -1027,17 +1299,15 @@ const int CaptionRuleProto::kStrokeColorFieldNumber;
 #endif  // !_MSC_VER
 
 CaptionRuleProto::CaptionRuleProto()
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
 void CaptionRuleProto::InitAsDefaultInstance() {
-  color_ = const_cast< ::ColorProto*>(&::ColorProto::default_instance());
-  stroke_color_ = const_cast< ::ColorProto*>(&::ColorProto::default_instance());
 }
 
 CaptionRuleProto::CaptionRuleProto(const CaptionRuleProto& from)
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -1045,8 +1315,8 @@ CaptionRuleProto::CaptionRuleProto(const CaptionRuleProto& from)
 void CaptionRuleProto::SharedCtor() {
   _cached_size_ = 0;
   height_ = 0;
-  color_ = NULL;
-  stroke_color_ = NULL;
+  color_ = 0;
+  stroke_color_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1056,8 +1326,6 @@ CaptionRuleProto::~CaptionRuleProto() {
 
 void CaptionRuleProto::SharedDtor() {
   if (this != default_instance_) {
-    delete color_;
-    delete stroke_color_;
   }
 }
 
@@ -1066,6 +1334,11 @@ void CaptionRuleProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
+const ::google::protobuf::Descriptor* CaptionRuleProto::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CaptionRuleProto_descriptor_;
+}
+
 const CaptionRuleProto& CaptionRuleProto::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();  return *default_instance_;
 }
@@ -1079,14 +1352,11 @@ CaptionRuleProto* CaptionRuleProto::New() const {
 void CaptionRuleProto::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     height_ = 0;
-    if (has_color()) {
-      if (color_ != NULL) color_->::ColorProto::Clear();
-    }
-    if (has_stroke_color()) {
-      if (stroke_color_ != NULL) stroke_color_->::ColorProto::Clear();
-    }
+    color_ = 0;
+    stroke_color_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
 }
 
 bool CaptionRuleProto::MergePartialFromCodedStream(
@@ -1106,31 +1376,35 @@ bool CaptionRuleProto::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_color;
+        if (input->ExpectTag(16)) goto parse_color;
         break;
       }
       
-      // optional .ColorProto color = 2;
+      // optional int32 color = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_color:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_color()));
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &color_)));
+          set_has_color();
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(26)) goto parse_stroke_color;
+        if (input->ExpectTag(24)) goto parse_stroke_color;
         break;
       }
       
-      // optional .ColorProto stroke_color = 3;
+      // optional int32 stroke_color = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_stroke_color:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_stroke_color()));
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &stroke_color_)));
+          set_has_stroke_color();
         } else {
           goto handle_uninterpreted;
         }
@@ -1144,7 +1418,8 @@ bool CaptionRuleProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
         break;
       }
     }
@@ -1160,18 +1435,44 @@ void CaptionRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->height(), output);
   }
   
-  // optional .ColorProto color = 2;
+  // optional int32 color = 2;
   if (has_color()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
-      2, this->color(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->color(), output);
   }
   
-  // optional .ColorProto stroke_color = 3;
+  // optional int32 stroke_color = 3;
   if (has_stroke_color()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
-      3, this->stroke_color(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->stroke_color(), output);
   }
   
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* CaptionRuleProto::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required int32 height = 1;
+  if (has_height()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->height(), target);
+  }
+
+  // optional int32 color = 2;
+  if (has_color()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->color(), target);
+  }
+
+  // optional int32 stroke_color = 3;
+  if (has_stroke_color()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->stroke_color(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
 }
 
 int CaptionRuleProto::ByteSize() const {
@@ -1185,20 +1486,25 @@ int CaptionRuleProto::ByteSize() const {
           this->height());
     }
     
-    // optional .ColorProto color = 2;
+    // optional int32 color = 2;
     if (has_color()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->color());
     }
     
-    // optional .ColorProto stroke_color = 3;
+    // optional int32 stroke_color = 3;
     if (has_stroke_color()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->stroke_color());
     }
     
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
   }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
@@ -1206,9 +1512,16 @@ int CaptionRuleProto::ByteSize() const {
   return total_size;
 }
 
-void CaptionRuleProto::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const CaptionRuleProto*>(&from));
+void CaptionRuleProto::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const CaptionRuleProto* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const CaptionRuleProto*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
 }
 
 void CaptionRuleProto::MergeFrom(const CaptionRuleProto& from) {
@@ -1218,12 +1531,19 @@ void CaptionRuleProto::MergeFrom(const CaptionRuleProto& from) {
       set_height(from.height());
     }
     if (from.has_color()) {
-      mutable_color()->::ColorProto::MergeFrom(from.color());
+      set_color(from.color());
     }
     if (from.has_stroke_color()) {
-      mutable_stroke_color()->::ColorProto::MergeFrom(from.stroke_color());
+      set_stroke_color(from.stroke_color());
     }
   }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void CaptionRuleProto::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void CaptionRuleProto::CopyFrom(const CaptionRuleProto& from) {
@@ -1235,12 +1555,6 @@ void CaptionRuleProto::CopyFrom(const CaptionRuleProto& from) {
 bool CaptionRuleProto::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
   
-  if (has_color()) {
-    if (!this->color().IsInitialized()) return false;
-  }
-  if (has_stroke_color()) {
-    if (!this->stroke_color().IsInitialized()) return false;
-  }
   return true;
 }
 
@@ -1250,43 +1564,47 @@ void CaptionRuleProto::Swap(CaptionRuleProto* other) {
     std::swap(color_, other->color_);
     std::swap(stroke_color_, other->stroke_color_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::std::string CaptionRuleProto::GetTypeName() const {
-  return "CaptionRuleProto";
+::google::protobuf::Metadata CaptionRuleProto::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CaptionRuleProto_descriptor_;
+  metadata.reflection = CaptionRuleProto_reflection_;
+  return metadata;
 }
 
 
 // ===================================================================
 
 #ifndef _MSC_VER
-const int CircleRuleProto::kRadFieldNumber;
+const int CircleRuleProto::kRadiusFieldNumber;
 const int CircleRuleProto::kColorFieldNumber;
 const int CircleRuleProto::kBorderFieldNumber;
 #endif  // !_MSC_VER
 
 CircleRuleProto::CircleRuleProto()
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
 void CircleRuleProto::InitAsDefaultInstance() {
-  color_ = const_cast< ::ColorProto*>(&::ColorProto::default_instance());
   border_ = const_cast< ::LineRuleProto*>(&::LineRuleProto::default_instance());
 }
 
 CircleRuleProto::CircleRuleProto(const CircleRuleProto& from)
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
 
 void CircleRuleProto::SharedCtor() {
   _cached_size_ = 0;
-  rad_ = 0;
-  color_ = NULL;
+  radius_ = 0;
+  color_ = 0;
   border_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -1297,7 +1615,6 @@ CircleRuleProto::~CircleRuleProto() {
 
 void CircleRuleProto::SharedDtor() {
   if (this != default_instance_) {
-    delete color_;
     delete border_;
   }
 }
@@ -1307,6 +1624,11 @@ void CircleRuleProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
+const ::google::protobuf::Descriptor* CircleRuleProto::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CircleRuleProto_descriptor_;
+}
+
 const CircleRuleProto& CircleRuleProto::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();  return *default_instance_;
 }
@@ -1319,15 +1641,14 @@ CircleRuleProto* CircleRuleProto::New() const {
 
 void CircleRuleProto::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    rad_ = 0;
-    if (has_color()) {
-      if (color_ != NULL) color_->::ColorProto::Clear();
-    }
+    radius_ = 0;
+    color_ = 0;
     if (has_border()) {
       if (border_ != NULL) border_->::LineRuleProto::Clear();
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
 }
 
 bool CircleRuleProto::MergePartialFromCodedStream(
@@ -1336,28 +1657,30 @@ bool CircleRuleProto::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required double rad = 1;
+      // required double radius = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &rad_)));
-          set_has_rad();
+                 input, &radius_)));
+          set_has_radius();
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_color;
+        if (input->ExpectTag(16)) goto parse_color;
         break;
       }
       
-      // required .ColorProto color = 2;
+      // required int32 color = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_color:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_color()));
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &color_)));
+          set_has_color();
         } else {
           goto handle_uninterpreted;
         }
@@ -1385,7 +1708,8 @@ bool CircleRuleProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
         break;
       }
     }
@@ -1396,38 +1720,67 @@ bool CircleRuleProto::MergePartialFromCodedStream(
 
 void CircleRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required double rad = 1;
-  if (has_rad()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->rad(), output);
+  // required double radius = 1;
+  if (has_radius()) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->radius(), output);
   }
   
-  // required .ColorProto color = 2;
+  // required int32 color = 2;
   if (has_color()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
-      2, this->color(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->color(), output);
   }
   
   // optional .LineRuleProto border = 3;
   if (has_border()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, this->border(), output);
   }
   
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* CircleRuleProto::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required double radius = 1;
+  if (has_radius()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(1, this->radius(), target);
+  }
+
+  // required int32 color = 2;
+  if (has_color()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->color(), target);
+  }
+
+  // optional .LineRuleProto border = 3;
+  if (has_border()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->border(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
 }
 
 int CircleRuleProto::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required double rad = 1;
-    if (has_rad()) {
+    // required double radius = 1;
+    if (has_radius()) {
       total_size += 1 + 8;
     }
     
-    // required .ColorProto color = 2;
+    // required int32 color = 2;
     if (has_color()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->color());
     }
     
@@ -1439,30 +1792,49 @@ int CircleRuleProto::ByteSize() const {
     }
     
   }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void CircleRuleProto::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const CircleRuleProto*>(&from));
+void CircleRuleProto::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const CircleRuleProto* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const CircleRuleProto*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
 }
 
 void CircleRuleProto::MergeFrom(const CircleRuleProto& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_rad()) {
-      set_rad(from.rad());
+    if (from.has_radius()) {
+      set_radius(from.radius());
     }
     if (from.has_color()) {
-      mutable_color()->::ColorProto::MergeFrom(from.color());
+      set_color(from.color());
     }
     if (from.has_border()) {
       mutable_border()->::LineRuleProto::MergeFrom(from.border());
     }
   }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void CircleRuleProto::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void CircleRuleProto::CopyFrom(const CircleRuleProto& from) {
@@ -1474,9 +1846,6 @@ void CircleRuleProto::CopyFrom(const CircleRuleProto& from) {
 bool CircleRuleProto::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
   
-  if (has_color()) {
-    if (!this->color().IsInitialized()) return false;
-  }
   if (has_border()) {
     if (!this->border().IsInitialized()) return false;
   }
@@ -1485,16 +1854,21 @@ bool CircleRuleProto::IsInitialized() const {
 
 void CircleRuleProto::Swap(CircleRuleProto* other) {
   if (other != this) {
-    std::swap(rad_, other->rad_);
+    std::swap(radius_, other->radius_);
     std::swap(color_, other->color_);
     std::swap(border_, other->border_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::std::string CircleRuleProto::GetTypeName() const {
-  return "CircleRuleProto";
+::google::protobuf::Metadata CircleRuleProto::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CircleRuleProto_descriptor_;
+  metadata.reflection = CircleRuleProto_reflection_;
+  return metadata;
 }
 
 
@@ -1504,25 +1878,25 @@ void CircleRuleProto::Swap(CircleRuleProto* other) {
 const int DrawElementProto::kScaleFieldNumber;
 const int DrawElementProto::kLinesFieldNumber;
 const int DrawElementProto::kAreaFieldNumber;
-const int DrawElementProto::kSymFieldNumber;
-const int DrawElementProto::kCapFieldNumber;
-const int DrawElementProto::kCirFieldNumber;
+const int DrawElementProto::kSymbolFieldNumber;
+const int DrawElementProto::kCaptionFieldNumber;
+const int DrawElementProto::kCircleFieldNumber;
 #endif  // !_MSC_VER
 
 DrawElementProto::DrawElementProto()
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
 void DrawElementProto::InitAsDefaultInstance() {
   area_ = const_cast< ::AreaRuleProto*>(&::AreaRuleProto::default_instance());
-  sym_ = const_cast< ::SymbolRuleProto*>(&::SymbolRuleProto::default_instance());
-  cap_ = const_cast< ::CaptionRuleProto*>(&::CaptionRuleProto::default_instance());
-  cir_ = const_cast< ::CircleRuleProto*>(&::CircleRuleProto::default_instance());
+  symbol_ = const_cast< ::SymbolRuleProto*>(&::SymbolRuleProto::default_instance());
+  caption_ = const_cast< ::CaptionRuleProto*>(&::CaptionRuleProto::default_instance());
+  circle_ = const_cast< ::CircleRuleProto*>(&::CircleRuleProto::default_instance());
 }
 
 DrawElementProto::DrawElementProto(const DrawElementProto& from)
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -1531,9 +1905,9 @@ void DrawElementProto::SharedCtor() {
   _cached_size_ = 0;
   scale_ = 0;
   area_ = NULL;
-  sym_ = NULL;
-  cap_ = NULL;
-  cir_ = NULL;
+  symbol_ = NULL;
+  caption_ = NULL;
+  circle_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1544,9 +1918,9 @@ DrawElementProto::~DrawElementProto() {
 void DrawElementProto::SharedDtor() {
   if (this != default_instance_) {
     delete area_;
-    delete sym_;
-    delete cap_;
-    delete cir_;
+    delete symbol_;
+    delete caption_;
+    delete circle_;
   }
 }
 
@@ -1555,6 +1929,11 @@ void DrawElementProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
+const ::google::protobuf::Descriptor* DrawElementProto::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return DrawElementProto_descriptor_;
+}
+
 const DrawElementProto& DrawElementProto::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();  return *default_instance_;
 }
@@ -1571,18 +1950,19 @@ void DrawElementProto::Clear() {
     if (has_area()) {
       if (area_ != NULL) area_->::AreaRuleProto::Clear();
     }
-    if (has_sym()) {
-      if (sym_ != NULL) sym_->::SymbolRuleProto::Clear();
+    if (has_symbol()) {
+      if (symbol_ != NULL) symbol_->::SymbolRuleProto::Clear();
     }
-    if (has_cap()) {
-      if (cap_ != NULL) cap_->::CaptionRuleProto::Clear();
+    if (has_caption()) {
+      if (caption_ != NULL) caption_->::CaptionRuleProto::Clear();
     }
-    if (has_cir()) {
-      if (cir_ != NULL) cir_->::CircleRuleProto::Clear();
+    if (has_circle()) {
+      if (circle_ != NULL) circle_->::CircleRuleProto::Clear();
     }
   }
   lines_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
 }
 
 bool DrawElementProto::MergePartialFromCodedStream(
@@ -1631,45 +2011,45 @@ bool DrawElementProto::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(34)) goto parse_sym;
+        if (input->ExpectTag(34)) goto parse_symbol;
         break;
       }
       
-      // optional .SymbolRuleProto sym = 4;
+      // optional .SymbolRuleProto symbol = 4;
       case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_sym:
+         parse_symbol:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_sym()));
+               input, mutable_symbol()));
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(42)) goto parse_cap;
+        if (input->ExpectTag(42)) goto parse_caption;
         break;
       }
       
-      // optional .CaptionRuleProto cap = 5;
+      // optional .CaptionRuleProto caption = 5;
       case 5: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_cap:
+         parse_caption:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_cap()));
+               input, mutable_caption()));
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(50)) goto parse_cir;
+        if (input->ExpectTag(50)) goto parse_circle;
         break;
       }
       
-      // optional .CircleRuleProto cir = 6;
+      // optional .CircleRuleProto circle = 6;
       case 6: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_cir:
+         parse_circle:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_cir()));
+               input, mutable_circle()));
         } else {
           goto handle_uninterpreted;
         }
@@ -1683,7 +2063,8 @@ bool DrawElementProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
         break;
       }
     }
@@ -1701,34 +2082,87 @@ void DrawElementProto::SerializeWithCachedSizes(
   
   // repeated .LineRuleProto lines = 2;
   for (int i = 0; i < this->lines_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->lines(i), output);
   }
   
   // optional .AreaRuleProto area = 3;
   if (has_area()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, this->area(), output);
   }
   
-  // optional .SymbolRuleProto sym = 4;
-  if (has_sym()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
-      4, this->sym(), output);
+  // optional .SymbolRuleProto symbol = 4;
+  if (has_symbol()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->symbol(), output);
   }
   
-  // optional .CaptionRuleProto cap = 5;
-  if (has_cap()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
-      5, this->cap(), output);
+  // optional .CaptionRuleProto caption = 5;
+  if (has_caption()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, this->caption(), output);
   }
   
-  // optional .CircleRuleProto cir = 6;
-  if (has_cir()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
-      6, this->cir(), output);
+  // optional .CircleRuleProto circle = 6;
+  if (has_circle()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      6, this->circle(), output);
   }
   
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* DrawElementProto::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required int32 scale = 1;
+  if (has_scale()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->scale(), target);
+  }
+
+  // repeated .LineRuleProto lines = 2;
+  for (int i = 0; i < this->lines_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->lines(i), target);
+  }
+
+  // optional .AreaRuleProto area = 3;
+  if (has_area()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->area(), target);
+  }
+
+  // optional .SymbolRuleProto symbol = 4;
+  if (has_symbol()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->symbol(), target);
+  }
+
+  // optional .CaptionRuleProto caption = 5;
+  if (has_caption()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        5, this->caption(), target);
+  }
+
+  // optional .CircleRuleProto circle = 6;
+  if (has_circle()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        6, this->circle(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
 }
 
 int DrawElementProto::ByteSize() const {
@@ -1749,25 +2183,25 @@ int DrawElementProto::ByteSize() const {
           this->area());
     }
     
-    // optional .SymbolRuleProto sym = 4;
-    if (has_sym()) {
+    // optional .SymbolRuleProto symbol = 4;
+    if (has_symbol()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->sym());
+          this->symbol());
     }
     
-    // optional .CaptionRuleProto cap = 5;
-    if (has_cap()) {
+    // optional .CaptionRuleProto caption = 5;
+    if (has_caption()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->cap());
+          this->caption());
     }
     
-    // optional .CircleRuleProto cir = 6;
-    if (has_cir()) {
+    // optional .CircleRuleProto circle = 6;
+    if (has_circle()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->cir());
+          this->circle());
     }
     
   }
@@ -1779,15 +2213,27 @@ int DrawElementProto::ByteSize() const {
         this->lines(i));
   }
   
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void DrawElementProto::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const DrawElementProto*>(&from));
+void DrawElementProto::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const DrawElementProto* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const DrawElementProto*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
 }
 
 void DrawElementProto::MergeFrom(const DrawElementProto& from) {
@@ -1800,16 +2246,23 @@ void DrawElementProto::MergeFrom(const DrawElementProto& from) {
     if (from.has_area()) {
       mutable_area()->::AreaRuleProto::MergeFrom(from.area());
     }
-    if (from.has_sym()) {
-      mutable_sym()->::SymbolRuleProto::MergeFrom(from.sym());
+    if (from.has_symbol()) {
+      mutable_symbol()->::SymbolRuleProto::MergeFrom(from.symbol());
     }
-    if (from.has_cap()) {
-      mutable_cap()->::CaptionRuleProto::MergeFrom(from.cap());
+    if (from.has_caption()) {
+      mutable_caption()->::CaptionRuleProto::MergeFrom(from.caption());
     }
-    if (from.has_cir()) {
-      mutable_cir()->::CircleRuleProto::MergeFrom(from.cir());
+    if (from.has_circle()) {
+      mutable_circle()->::CircleRuleProto::MergeFrom(from.circle());
     }
   }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void DrawElementProto::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void DrawElementProto::CopyFrom(const DrawElementProto& from) {
@@ -1827,14 +2280,14 @@ bool DrawElementProto::IsInitialized() const {
   if (has_area()) {
     if (!this->area().IsInitialized()) return false;
   }
-  if (has_sym()) {
-    if (!this->sym().IsInitialized()) return false;
+  if (has_symbol()) {
+    if (!this->symbol().IsInitialized()) return false;
   }
-  if (has_cap()) {
-    if (!this->cap().IsInitialized()) return false;
+  if (has_caption()) {
+    if (!this->caption().IsInitialized()) return false;
   }
-  if (has_cir()) {
-    if (!this->cir().IsInitialized()) return false;
+  if (has_circle()) {
+    if (!this->circle().IsInitialized()) return false;
   }
   return true;
 }
@@ -1844,16 +2297,21 @@ void DrawElementProto::Swap(DrawElementProto* other) {
     std::swap(scale_, other->scale_);
     lines_.Swap(&other->lines_);
     std::swap(area_, other->area_);
-    std::swap(sym_, other->sym_);
-    std::swap(cap_, other->cap_);
-    std::swap(cir_, other->cir_);
+    std::swap(symbol_, other->symbol_);
+    std::swap(caption_, other->caption_);
+    std::swap(circle_, other->circle_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::std::string DrawElementProto::GetTypeName() const {
-  return "DrawElementProto";
+::google::protobuf::Metadata DrawElementProto::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = DrawElementProto_descriptor_;
+  metadata.reflection = DrawElementProto_reflection_;
+  return metadata;
 }
 
 
@@ -1861,11 +2319,11 @@ void DrawElementProto::Swap(DrawElementProto* other) {
 
 #ifndef _MSC_VER
 const int ClassifElementProto::kNameFieldNumber;
-const int ClassifElementProto::kLinesFieldNumber;
+const int ClassifElementProto::kElementFieldNumber;
 #endif  // !_MSC_VER
 
 ClassifElementProto::ClassifElementProto()
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
@@ -1873,7 +2331,7 @@ void ClassifElementProto::InitAsDefaultInstance() {
 }
 
 ClassifElementProto::ClassifElementProto(const ClassifElementProto& from)
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -1901,6 +2359,11 @@ void ClassifElementProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
+const ::google::protobuf::Descriptor* ClassifElementProto::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return ClassifElementProto_descriptor_;
+}
+
 const ClassifElementProto& ClassifElementProto::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();  return *default_instance_;
 }
@@ -1919,8 +2382,9 @@ void ClassifElementProto::Clear() {
       }
     }
   }
-  lines_.Clear();
+  element_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
 }
 
 bool ClassifElementProto::MergePartialFromCodedStream(
@@ -1935,24 +2399,27 @@ bool ClassifElementProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->name().data(), this->name().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_lines;
+        if (input->ExpectTag(18)) goto parse_element;
         break;
       }
       
-      // repeated .DrawElementProto lines = 2;
+      // repeated .DrawElementProto element = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_lines:
+         parse_element:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-                input, add_lines()));
+                input, add_element()));
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_lines;
+        if (input->ExpectTag(18)) goto parse_element;
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -1963,7 +2430,8 @@ bool ClassifElementProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
         break;
       }
     }
@@ -1976,16 +2444,49 @@ void ClassifElementProto::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // required string name = 1;
   if (has_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
       1, this->name(), output);
   }
   
-  // repeated .DrawElementProto lines = 2;
-  for (int i = 0; i < this->lines_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
-      2, this->lines(i), output);
+  // repeated .DrawElementProto element = 2;
+  for (int i = 0; i < this->element_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->element(i), output);
   }
   
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* ClassifElementProto::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required string name = 1;
+  if (has_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->name(), target);
+  }
+
+  // repeated .DrawElementProto element = 2;
+  for (int i = 0; i < this->element_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->element(i), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
 }
 
 int ClassifElementProto::ByteSize() const {
@@ -2000,33 +2501,52 @@ int ClassifElementProto::ByteSize() const {
     }
     
   }
-  // repeated .DrawElementProto lines = 2;
-  total_size += 1 * this->lines_size();
-  for (int i = 0; i < this->lines_size(); i++) {
+  // repeated .DrawElementProto element = 2;
+  total_size += 1 * this->element_size();
+  for (int i = 0; i < this->element_size(); i++) {
     total_size +=
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->lines(i));
+        this->element(i));
   }
   
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void ClassifElementProto::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const ClassifElementProto*>(&from));
+void ClassifElementProto::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ClassifElementProto* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ClassifElementProto*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
 }
 
 void ClassifElementProto::MergeFrom(const ClassifElementProto& from) {
   GOOGLE_CHECK_NE(&from, this);
-  lines_.MergeFrom(from.lines_);
+  element_.MergeFrom(from.element_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_name()) {
       set_name(from.name());
     }
   }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ClassifElementProto::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void ClassifElementProto::CopyFrom(const ClassifElementProto& from) {
@@ -2038,8 +2558,8 @@ void ClassifElementProto::CopyFrom(const ClassifElementProto& from) {
 bool ClassifElementProto::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
   
-  for (int i = 0; i < lines_size(); i++) {
-    if (!this->lines(i).IsInitialized()) return false;
+  for (int i = 0; i < element_size(); i++) {
+    if (!this->element(i).IsInitialized()) return false;
   }
   return true;
 }
@@ -2047,14 +2567,19 @@ bool ClassifElementProto::IsInitialized() const {
 void ClassifElementProto::Swap(ClassifElementProto* other) {
   if (other != this) {
     std::swap(name_, other->name_);
-    lines_.Swap(&other->lines_);
+    element_.Swap(&other->element_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::std::string ClassifElementProto::GetTypeName() const {
-  return "ClassifElementProto";
+::google::protobuf::Metadata ClassifElementProto::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = ClassifElementProto_descriptor_;
+  metadata.reflection = ClassifElementProto_reflection_;
+  return metadata;
 }
 
 
@@ -2065,7 +2590,7 @@ const int ContainerProto::kContFieldNumber;
 #endif  // !_MSC_VER
 
 ContainerProto::ContainerProto()
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
 }
 
@@ -2073,7 +2598,7 @@ void ContainerProto::InitAsDefaultInstance() {
 }
 
 ContainerProto::ContainerProto(const ContainerProto& from)
-  : ::google::protobuf::MessageLite() {
+  : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
 }
@@ -2097,6 +2622,11 @@ void ContainerProto::SetCachedSize(int size) const {
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
+const ::google::protobuf::Descriptor* ContainerProto::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return ContainerProto_descriptor_;
+}
+
 const ContainerProto& ContainerProto::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();  return *default_instance_;
 }
@@ -2110,6 +2640,7 @@ ContainerProto* ContainerProto::New() const {
 void ContainerProto::Clear() {
   cont_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
 }
 
 bool ContainerProto::MergePartialFromCodedStream(
@@ -2139,7 +2670,8 @@ bool ContainerProto::MergePartialFromCodedStream(
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
           return true;
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
         break;
       }
     }
@@ -2152,10 +2684,30 @@ void ContainerProto::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // repeated .ClassifElementProto cont = 1;
   for (int i = 0; i < this->cont_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->cont(i), output);
   }
   
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* ContainerProto::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // repeated .ClassifElementProto cont = 1;
+  for (int i = 0; i < this->cont_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->cont(i), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
 }
 
 int ContainerProto::ByteSize() const {
@@ -2169,20 +2721,39 @@ int ContainerProto::ByteSize() const {
         this->cont(i));
   }
   
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
-void ContainerProto::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const ContainerProto*>(&from));
+void ContainerProto::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ContainerProto* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ContainerProto*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
 }
 
 void ContainerProto::MergeFrom(const ContainerProto& from) {
   GOOGLE_CHECK_NE(&from, this);
   cont_.MergeFrom(from.cont_);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ContainerProto::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 void ContainerProto::CopyFrom(const ContainerProto& from) {
@@ -2203,12 +2774,17 @@ void ContainerProto::Swap(ContainerProto* other) {
   if (other != this) {
     cont_.Swap(&other->cont_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
 }
 
-::std::string ContainerProto::GetTypeName() const {
-  return "ContainerProto";
+::google::protobuf::Metadata ContainerProto::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = ContainerProto_descriptor_;
+  metadata.reflection = ContainerProto_reflection_;
+  return metadata;
 }
 
 

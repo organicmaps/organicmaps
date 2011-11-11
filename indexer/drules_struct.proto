@@ -1,10 +1,4 @@
-option optimize_for = LITE_RUNTIME;
-
-message ColorProto
-{
-  required int32 color = 1;
-  optional int32 opacity = 2;  // opacity : 0 - completely invisible, 255 - completely visible
-}
+// option optimize_for = LITE_RUNTIME;
 
 message DashDotProto
 {
@@ -14,13 +8,13 @@ message DashDotProto
 message LineRuleProto
 {
   required double width = 1;
-  required ColorProto color = 2;
+  required int32 color = 2;
   optional DashDotProto dashdot = 3;
 }
 
 message AreaRuleProto
 {
-  required ColorProto color = 1;
+  required int32 color = 1;
   optional LineRuleProto border = 2;
 }
 
@@ -32,14 +26,14 @@ message SymbolRuleProto
 message CaptionRuleProto
 {
   required int32 height = 1;
-  optional ColorProto color = 2;
-  optional ColorProto stroke_color = 3;
+  optional int32 color = 2;
+  optional int32 stroke_color = 3;
 }
 
 message CircleRuleProto
 {
-  required double rad = 1;
-  required ColorProto color = 2;
+  required double radius = 1;
+  required int32 color = 2;
   optional LineRuleProto border = 3;
 }
 
@@ -55,15 +49,15 @@ message DrawElementProto
   required int32 scale = 1;
   repeated LineRuleProto lines = 2;
   optional AreaRuleProto area = 3;
-  optional SymbolRuleProto sym = 4;
-  optional CaptionRuleProto cap = 5;
-  optional CircleRuleProto cir = 6;
+  optional SymbolRuleProto symbol = 4;
+  optional CaptionRuleProto caption = 5;
+  optional CircleRuleProto circle = 6;
 }
 
 message ClassifElementProto
 {
   required string name = 1;
-  repeated DrawElementProto lines = 2;
+  repeated DrawElementProto element = 2;
 }
 
 message ContainerProto

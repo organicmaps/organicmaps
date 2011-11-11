@@ -22,6 +22,7 @@
 #include <google/protobuf/generated_message_util.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
+#include <google/protobuf/generated_message_reflection.h>
 // @@protoc_insertion_point(includes)
 
 // Internal implementation detail -- do not call these.
@@ -29,7 +30,6 @@ void  protobuf_AddDesc_drules_5fstruct_2eproto();
 void protobuf_AssignDesc_drules_5fstruct_2eproto();
 void protobuf_ShutdownFile_drules_5fstruct_2eproto();
 
-class ColorProto;
 class DashDotProto;
 class LineRuleProto;
 class AreaRuleProto;
@@ -42,86 +42,7 @@ class ContainerProto;
 
 // ===================================================================
 
-class ColorProto : public ::google::protobuf::MessageLite {
- public:
-  ColorProto();
-  virtual ~ColorProto();
-  
-  ColorProto(const ColorProto& from);
-  
-  inline ColorProto& operator=(const ColorProto& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  
-  static const ColorProto& default_instance();
-  
-  void Swap(ColorProto* other);
-  
-  // implements Message ----------------------------------------------
-  
-  ColorProto* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const ColorProto& from);
-  void MergeFrom(const ColorProto& from);
-  void Clear();
-  bool IsInitialized() const;
-  
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-  
-  ::std::string GetTypeName() const;
-  
-  // nested types ----------------------------------------------------
-  
-  // accessors -------------------------------------------------------
-  
-  // required int32 color = 1;
-  inline bool has_color() const;
-  inline void clear_color();
-  static const int kColorFieldNumber = 1;
-  inline ::google::protobuf::int32 color() const;
-  inline void set_color(::google::protobuf::int32 value);
-  
-  // optional int32 opacity = 2;
-  inline bool has_opacity() const;
-  inline void clear_opacity();
-  static const int kOpacityFieldNumber = 2;
-  inline ::google::protobuf::int32 opacity() const;
-  inline void set_opacity(::google::protobuf::int32 value);
-  
-  // @@protoc_insertion_point(class_scope:ColorProto)
- private:
-  inline void set_has_color();
-  inline void clear_has_color();
-  inline void set_has_opacity();
-  inline void clear_has_opacity();
-  
-  ::google::protobuf::int32 color_;
-  ::google::protobuf::int32 opacity_;
-  
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
-  
-  friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
-  friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
-  friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
-  
-  void InitAsDefaultInstance();
-  static ColorProto* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class DashDotProto : public ::google::protobuf::MessageLite {
+class DashDotProto : public ::google::protobuf::Message {
  public:
   DashDotProto();
   virtual ~DashDotProto();
@@ -133,6 +54,15 @@ class DashDotProto : public ::google::protobuf::MessageLite {
     return *this;
   }
   
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
   static const DashDotProto& default_instance();
   
   void Swap(DashDotProto* other);
@@ -140,7 +70,8 @@ class DashDotProto : public ::google::protobuf::MessageLite {
   // implements Message ----------------------------------------------
   
   DashDotProto* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
   void CopyFrom(const DashDotProto& from);
   void MergeFrom(const DashDotProto& from);
   void Clear();
@@ -151,6 +82,7 @@ class DashDotProto : public ::google::protobuf::MessageLite {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -158,7 +90,7 @@ class DashDotProto : public ::google::protobuf::MessageLite {
   void SetCachedSize(int size) const;
   public:
   
-  ::std::string GetTypeName() const;
+  ::google::protobuf::Metadata GetMetadata() const;
   
   // nested types ----------------------------------------------------
   
@@ -179,6 +111,8 @@ class DashDotProto : public ::google::protobuf::MessageLite {
   // @@protoc_insertion_point(class_scope:DashDotProto)
  private:
   
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
   ::google::protobuf::RepeatedField< double > dd_;
   
   mutable int _cached_size_;
@@ -193,7 +127,7 @@ class DashDotProto : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class LineRuleProto : public ::google::protobuf::MessageLite {
+class LineRuleProto : public ::google::protobuf::Message {
  public:
   LineRuleProto();
   virtual ~LineRuleProto();
@@ -205,6 +139,15 @@ class LineRuleProto : public ::google::protobuf::MessageLite {
     return *this;
   }
   
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
   static const LineRuleProto& default_instance();
   
   void Swap(LineRuleProto* other);
@@ -212,7 +155,8 @@ class LineRuleProto : public ::google::protobuf::MessageLite {
   // implements Message ----------------------------------------------
   
   LineRuleProto* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
   void CopyFrom(const LineRuleProto& from);
   void MergeFrom(const LineRuleProto& from);
   void Clear();
@@ -223,6 +167,7 @@ class LineRuleProto : public ::google::protobuf::MessageLite {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -230,7 +175,7 @@ class LineRuleProto : public ::google::protobuf::MessageLite {
   void SetCachedSize(int size) const;
   public:
   
-  ::std::string GetTypeName() const;
+  ::google::protobuf::Metadata GetMetadata() const;
   
   // nested types ----------------------------------------------------
   
@@ -243,13 +188,12 @@ class LineRuleProto : public ::google::protobuf::MessageLite {
   inline double width() const;
   inline void set_width(double value);
   
-  // required .ColorProto color = 2;
+  // required int32 color = 2;
   inline bool has_color() const;
   inline void clear_color();
   static const int kColorFieldNumber = 2;
-  inline const ::ColorProto& color() const;
-  inline ::ColorProto* mutable_color();
-  inline ::ColorProto* release_color();
+  inline ::google::protobuf::int32 color() const;
+  inline void set_color(::google::protobuf::int32 value);
   
   // optional .DashDotProto dashdot = 3;
   inline bool has_dashdot() const;
@@ -268,9 +212,11 @@ class LineRuleProto : public ::google::protobuf::MessageLite {
   inline void set_has_dashdot();
   inline void clear_has_dashdot();
   
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
   double width_;
-  ::ColorProto* color_;
   ::DashDotProto* dashdot_;
+  ::google::protobuf::int32 color_;
   
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
@@ -284,7 +230,7 @@ class LineRuleProto : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class AreaRuleProto : public ::google::protobuf::MessageLite {
+class AreaRuleProto : public ::google::protobuf::Message {
  public:
   AreaRuleProto();
   virtual ~AreaRuleProto();
@@ -296,6 +242,15 @@ class AreaRuleProto : public ::google::protobuf::MessageLite {
     return *this;
   }
   
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
   static const AreaRuleProto& default_instance();
   
   void Swap(AreaRuleProto* other);
@@ -303,7 +258,8 @@ class AreaRuleProto : public ::google::protobuf::MessageLite {
   // implements Message ----------------------------------------------
   
   AreaRuleProto* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
   void CopyFrom(const AreaRuleProto& from);
   void MergeFrom(const AreaRuleProto& from);
   void Clear();
@@ -314,6 +270,7 @@ class AreaRuleProto : public ::google::protobuf::MessageLite {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -321,19 +278,18 @@ class AreaRuleProto : public ::google::protobuf::MessageLite {
   void SetCachedSize(int size) const;
   public:
   
-  ::std::string GetTypeName() const;
+  ::google::protobuf::Metadata GetMetadata() const;
   
   // nested types ----------------------------------------------------
   
   // accessors -------------------------------------------------------
   
-  // required .ColorProto color = 1;
+  // required int32 color = 1;
   inline bool has_color() const;
   inline void clear_color();
   static const int kColorFieldNumber = 1;
-  inline const ::ColorProto& color() const;
-  inline ::ColorProto* mutable_color();
-  inline ::ColorProto* release_color();
+  inline ::google::protobuf::int32 color() const;
+  inline void set_color(::google::protobuf::int32 value);
   
   // optional .LineRuleProto border = 2;
   inline bool has_border() const;
@@ -350,8 +306,10 @@ class AreaRuleProto : public ::google::protobuf::MessageLite {
   inline void set_has_border();
   inline void clear_has_border();
   
-  ::ColorProto* color_;
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
   ::LineRuleProto* border_;
+  ::google::protobuf::int32 color_;
   
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
@@ -365,7 +323,7 @@ class AreaRuleProto : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class SymbolRuleProto : public ::google::protobuf::MessageLite {
+class SymbolRuleProto : public ::google::protobuf::Message {
  public:
   SymbolRuleProto();
   virtual ~SymbolRuleProto();
@@ -377,6 +335,15 @@ class SymbolRuleProto : public ::google::protobuf::MessageLite {
     return *this;
   }
   
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
   static const SymbolRuleProto& default_instance();
   
   void Swap(SymbolRuleProto* other);
@@ -384,7 +351,8 @@ class SymbolRuleProto : public ::google::protobuf::MessageLite {
   // implements Message ----------------------------------------------
   
   SymbolRuleProto* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
   void CopyFrom(const SymbolRuleProto& from);
   void MergeFrom(const SymbolRuleProto& from);
   void Clear();
@@ -395,6 +363,7 @@ class SymbolRuleProto : public ::google::protobuf::MessageLite {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -402,7 +371,7 @@ class SymbolRuleProto : public ::google::protobuf::MessageLite {
   void SetCachedSize(int size) const;
   public:
   
-  ::std::string GetTypeName() const;
+  ::google::protobuf::Metadata GetMetadata() const;
   
   // nested types ----------------------------------------------------
   
@@ -424,6 +393,8 @@ class SymbolRuleProto : public ::google::protobuf::MessageLite {
   inline void set_has_name();
   inline void clear_has_name();
   
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
   ::std::string* name_;
   
   mutable int _cached_size_;
@@ -438,7 +409,7 @@ class SymbolRuleProto : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class CaptionRuleProto : public ::google::protobuf::MessageLite {
+class CaptionRuleProto : public ::google::protobuf::Message {
  public:
   CaptionRuleProto();
   virtual ~CaptionRuleProto();
@@ -450,6 +421,15 @@ class CaptionRuleProto : public ::google::protobuf::MessageLite {
     return *this;
   }
   
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
   static const CaptionRuleProto& default_instance();
   
   void Swap(CaptionRuleProto* other);
@@ -457,7 +437,8 @@ class CaptionRuleProto : public ::google::protobuf::MessageLite {
   // implements Message ----------------------------------------------
   
   CaptionRuleProto* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
   void CopyFrom(const CaptionRuleProto& from);
   void MergeFrom(const CaptionRuleProto& from);
   void Clear();
@@ -468,6 +449,7 @@ class CaptionRuleProto : public ::google::protobuf::MessageLite {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -475,7 +457,7 @@ class CaptionRuleProto : public ::google::protobuf::MessageLite {
   void SetCachedSize(int size) const;
   public:
   
-  ::std::string GetTypeName() const;
+  ::google::protobuf::Metadata GetMetadata() const;
   
   // nested types ----------------------------------------------------
   
@@ -488,21 +470,19 @@ class CaptionRuleProto : public ::google::protobuf::MessageLite {
   inline ::google::protobuf::int32 height() const;
   inline void set_height(::google::protobuf::int32 value);
   
-  // optional .ColorProto color = 2;
+  // optional int32 color = 2;
   inline bool has_color() const;
   inline void clear_color();
   static const int kColorFieldNumber = 2;
-  inline const ::ColorProto& color() const;
-  inline ::ColorProto* mutable_color();
-  inline ::ColorProto* release_color();
+  inline ::google::protobuf::int32 color() const;
+  inline void set_color(::google::protobuf::int32 value);
   
-  // optional .ColorProto stroke_color = 3;
+  // optional int32 stroke_color = 3;
   inline bool has_stroke_color() const;
   inline void clear_stroke_color();
   static const int kStrokeColorFieldNumber = 3;
-  inline const ::ColorProto& stroke_color() const;
-  inline ::ColorProto* mutable_stroke_color();
-  inline ::ColorProto* release_stroke_color();
+  inline ::google::protobuf::int32 stroke_color() const;
+  inline void set_stroke_color(::google::protobuf::int32 value);
   
   // @@protoc_insertion_point(class_scope:CaptionRuleProto)
  private:
@@ -513,9 +493,11 @@ class CaptionRuleProto : public ::google::protobuf::MessageLite {
   inline void set_has_stroke_color();
   inline void clear_has_stroke_color();
   
-  ::ColorProto* color_;
-  ::ColorProto* stroke_color_;
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
   ::google::protobuf::int32 height_;
+  ::google::protobuf::int32 color_;
+  ::google::protobuf::int32 stroke_color_;
   
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
@@ -529,7 +511,7 @@ class CaptionRuleProto : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class CircleRuleProto : public ::google::protobuf::MessageLite {
+class CircleRuleProto : public ::google::protobuf::Message {
  public:
   CircleRuleProto();
   virtual ~CircleRuleProto();
@@ -541,6 +523,15 @@ class CircleRuleProto : public ::google::protobuf::MessageLite {
     return *this;
   }
   
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
   static const CircleRuleProto& default_instance();
   
   void Swap(CircleRuleProto* other);
@@ -548,7 +539,8 @@ class CircleRuleProto : public ::google::protobuf::MessageLite {
   // implements Message ----------------------------------------------
   
   CircleRuleProto* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
   void CopyFrom(const CircleRuleProto& from);
   void MergeFrom(const CircleRuleProto& from);
   void Clear();
@@ -559,6 +551,7 @@ class CircleRuleProto : public ::google::protobuf::MessageLite {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -566,26 +559,25 @@ class CircleRuleProto : public ::google::protobuf::MessageLite {
   void SetCachedSize(int size) const;
   public:
   
-  ::std::string GetTypeName() const;
+  ::google::protobuf::Metadata GetMetadata() const;
   
   // nested types ----------------------------------------------------
   
   // accessors -------------------------------------------------------
   
-  // required double rad = 1;
-  inline bool has_rad() const;
-  inline void clear_rad();
-  static const int kRadFieldNumber = 1;
-  inline double rad() const;
-  inline void set_rad(double value);
+  // required double radius = 1;
+  inline bool has_radius() const;
+  inline void clear_radius();
+  static const int kRadiusFieldNumber = 1;
+  inline double radius() const;
+  inline void set_radius(double value);
   
-  // required .ColorProto color = 2;
+  // required int32 color = 2;
   inline bool has_color() const;
   inline void clear_color();
   static const int kColorFieldNumber = 2;
-  inline const ::ColorProto& color() const;
-  inline ::ColorProto* mutable_color();
-  inline ::ColorProto* release_color();
+  inline ::google::protobuf::int32 color() const;
+  inline void set_color(::google::protobuf::int32 value);
   
   // optional .LineRuleProto border = 3;
   inline bool has_border() const;
@@ -597,16 +589,18 @@ class CircleRuleProto : public ::google::protobuf::MessageLite {
   
   // @@protoc_insertion_point(class_scope:CircleRuleProto)
  private:
-  inline void set_has_rad();
-  inline void clear_has_rad();
+  inline void set_has_radius();
+  inline void clear_has_radius();
   inline void set_has_color();
   inline void clear_has_color();
   inline void set_has_border();
   inline void clear_has_border();
   
-  double rad_;
-  ::ColorProto* color_;
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  double radius_;
   ::LineRuleProto* border_;
+  ::google::protobuf::int32 color_;
   
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
@@ -620,7 +614,7 @@ class CircleRuleProto : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class DrawElementProto : public ::google::protobuf::MessageLite {
+class DrawElementProto : public ::google::protobuf::Message {
  public:
   DrawElementProto();
   virtual ~DrawElementProto();
@@ -632,6 +626,15 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
     return *this;
   }
   
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
   static const DrawElementProto& default_instance();
   
   void Swap(DrawElementProto* other);
@@ -639,7 +642,8 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   // implements Message ----------------------------------------------
   
   DrawElementProto* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
   void CopyFrom(const DrawElementProto& from);
   void MergeFrom(const DrawElementProto& from);
   void Clear();
@@ -650,6 +654,7 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -657,7 +662,7 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   void SetCachedSize(int size) const;
   public:
   
-  ::std::string GetTypeName() const;
+  ::google::protobuf::Metadata GetMetadata() const;
   
   // nested types ----------------------------------------------------
   
@@ -690,29 +695,29 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   inline ::AreaRuleProto* mutable_area();
   inline ::AreaRuleProto* release_area();
   
-  // optional .SymbolRuleProto sym = 4;
-  inline bool has_sym() const;
-  inline void clear_sym();
-  static const int kSymFieldNumber = 4;
-  inline const ::SymbolRuleProto& sym() const;
-  inline ::SymbolRuleProto* mutable_sym();
-  inline ::SymbolRuleProto* release_sym();
+  // optional .SymbolRuleProto symbol = 4;
+  inline bool has_symbol() const;
+  inline void clear_symbol();
+  static const int kSymbolFieldNumber = 4;
+  inline const ::SymbolRuleProto& symbol() const;
+  inline ::SymbolRuleProto* mutable_symbol();
+  inline ::SymbolRuleProto* release_symbol();
   
-  // optional .CaptionRuleProto cap = 5;
-  inline bool has_cap() const;
-  inline void clear_cap();
-  static const int kCapFieldNumber = 5;
-  inline const ::CaptionRuleProto& cap() const;
-  inline ::CaptionRuleProto* mutable_cap();
-  inline ::CaptionRuleProto* release_cap();
+  // optional .CaptionRuleProto caption = 5;
+  inline bool has_caption() const;
+  inline void clear_caption();
+  static const int kCaptionFieldNumber = 5;
+  inline const ::CaptionRuleProto& caption() const;
+  inline ::CaptionRuleProto* mutable_caption();
+  inline ::CaptionRuleProto* release_caption();
   
-  // optional .CircleRuleProto cir = 6;
-  inline bool has_cir() const;
-  inline void clear_cir();
-  static const int kCirFieldNumber = 6;
-  inline const ::CircleRuleProto& cir() const;
-  inline ::CircleRuleProto* mutable_cir();
-  inline ::CircleRuleProto* release_cir();
+  // optional .CircleRuleProto circle = 6;
+  inline bool has_circle() const;
+  inline void clear_circle();
+  static const int kCircleFieldNumber = 6;
+  inline const ::CircleRuleProto& circle() const;
+  inline ::CircleRuleProto* mutable_circle();
+  inline ::CircleRuleProto* release_circle();
   
   // @@protoc_insertion_point(class_scope:DrawElementProto)
  private:
@@ -720,18 +725,20 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
   inline void clear_has_scale();
   inline void set_has_area();
   inline void clear_has_area();
-  inline void set_has_sym();
-  inline void clear_has_sym();
-  inline void set_has_cap();
-  inline void clear_has_cap();
-  inline void set_has_cir();
-  inline void clear_has_cir();
+  inline void set_has_symbol();
+  inline void clear_has_symbol();
+  inline void set_has_caption();
+  inline void clear_has_caption();
+  inline void set_has_circle();
+  inline void clear_has_circle();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
   ::google::protobuf::RepeatedPtrField< ::LineRuleProto > lines_;
   ::AreaRuleProto* area_;
-  ::SymbolRuleProto* sym_;
-  ::CaptionRuleProto* cap_;
-  ::CircleRuleProto* cir_;
+  ::SymbolRuleProto* symbol_;
+  ::CaptionRuleProto* caption_;
+  ::CircleRuleProto* circle_;
   ::google::protobuf::int32 scale_;
   
   mutable int _cached_size_;
@@ -746,7 +753,7 @@ class DrawElementProto : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class ClassifElementProto : public ::google::protobuf::MessageLite {
+class ClassifElementProto : public ::google::protobuf::Message {
  public:
   ClassifElementProto();
   virtual ~ClassifElementProto();
@@ -758,6 +765,15 @@ class ClassifElementProto : public ::google::protobuf::MessageLite {
     return *this;
   }
   
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
   static const ClassifElementProto& default_instance();
   
   void Swap(ClassifElementProto* other);
@@ -765,7 +781,8 @@ class ClassifElementProto : public ::google::protobuf::MessageLite {
   // implements Message ----------------------------------------------
   
   ClassifElementProto* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
   void CopyFrom(const ClassifElementProto& from);
   void MergeFrom(const ClassifElementProto& from);
   void Clear();
@@ -776,6 +793,7 @@ class ClassifElementProto : public ::google::protobuf::MessageLite {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -783,7 +801,7 @@ class ClassifElementProto : public ::google::protobuf::MessageLite {
   void SetCachedSize(int size) const;
   public:
   
-  ::std::string GetTypeName() const;
+  ::google::protobuf::Metadata GetMetadata() const;
   
   // nested types ----------------------------------------------------
   
@@ -800,25 +818,27 @@ class ClassifElementProto : public ::google::protobuf::MessageLite {
   inline ::std::string* mutable_name();
   inline ::std::string* release_name();
   
-  // repeated .DrawElementProto lines = 2;
-  inline int lines_size() const;
-  inline void clear_lines();
-  static const int kLinesFieldNumber = 2;
-  inline const ::DrawElementProto& lines(int index) const;
-  inline ::DrawElementProto* mutable_lines(int index);
-  inline ::DrawElementProto* add_lines();
+  // repeated .DrawElementProto element = 2;
+  inline int element_size() const;
+  inline void clear_element();
+  static const int kElementFieldNumber = 2;
+  inline const ::DrawElementProto& element(int index) const;
+  inline ::DrawElementProto* mutable_element(int index);
+  inline ::DrawElementProto* add_element();
   inline const ::google::protobuf::RepeatedPtrField< ::DrawElementProto >&
-      lines() const;
+      element() const;
   inline ::google::protobuf::RepeatedPtrField< ::DrawElementProto >*
-      mutable_lines();
+      mutable_element();
   
   // @@protoc_insertion_point(class_scope:ClassifElementProto)
  private:
   inline void set_has_name();
   inline void clear_has_name();
   
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
   ::std::string* name_;
-  ::google::protobuf::RepeatedPtrField< ::DrawElementProto > lines_;
+  ::google::protobuf::RepeatedPtrField< ::DrawElementProto > element_;
   
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
@@ -832,7 +852,7 @@ class ClassifElementProto : public ::google::protobuf::MessageLite {
 };
 // -------------------------------------------------------------------
 
-class ContainerProto : public ::google::protobuf::MessageLite {
+class ContainerProto : public ::google::protobuf::Message {
  public:
   ContainerProto();
   virtual ~ContainerProto();
@@ -844,6 +864,15 @@ class ContainerProto : public ::google::protobuf::MessageLite {
     return *this;
   }
   
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
   static const ContainerProto& default_instance();
   
   void Swap(ContainerProto* other);
@@ -851,7 +880,8 @@ class ContainerProto : public ::google::protobuf::MessageLite {
   // implements Message ----------------------------------------------
   
   ContainerProto* New() const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
   void CopyFrom(const ContainerProto& from);
   void MergeFrom(const ContainerProto& from);
   void Clear();
@@ -862,6 +892,7 @@ class ContainerProto : public ::google::protobuf::MessageLite {
       ::google::protobuf::io::CodedInputStream* input);
   void SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
   int GetCachedSize() const { return _cached_size_; }
   private:
   void SharedCtor();
@@ -869,7 +900,7 @@ class ContainerProto : public ::google::protobuf::MessageLite {
   void SetCachedSize(int size) const;
   public:
   
-  ::std::string GetTypeName() const;
+  ::google::protobuf::Metadata GetMetadata() const;
   
   // nested types ----------------------------------------------------
   
@@ -890,6 +921,8 @@ class ContainerProto : public ::google::protobuf::MessageLite {
   // @@protoc_insertion_point(class_scope:ContainerProto)
  private:
   
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
   ::google::protobuf::RepeatedPtrField< ::ClassifElementProto > cont_;
   
   mutable int _cached_size_;
@@ -906,54 +939,6 @@ class ContainerProto : public ::google::protobuf::MessageLite {
 
 
 // ===================================================================
-
-// ColorProto
-
-// required int32 color = 1;
-inline bool ColorProto::has_color() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void ColorProto::set_has_color() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void ColorProto::clear_has_color() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void ColorProto::clear_color() {
-  color_ = 0;
-  clear_has_color();
-}
-inline ::google::protobuf::int32 ColorProto::color() const {
-  return color_;
-}
-inline void ColorProto::set_color(::google::protobuf::int32 value) {
-  set_has_color();
-  color_ = value;
-}
-
-// optional int32 opacity = 2;
-inline bool ColorProto::has_opacity() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void ColorProto::set_has_opacity() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void ColorProto::clear_has_opacity() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void ColorProto::clear_opacity() {
-  opacity_ = 0;
-  clear_has_opacity();
-}
-inline ::google::protobuf::int32 ColorProto::opacity() const {
-  return opacity_;
-}
-inline void ColorProto::set_opacity(::google::protobuf::int32 value) {
-  set_has_opacity();
-  opacity_ = value;
-}
-
-// -------------------------------------------------------------------
 
 // DashDotProto
 
@@ -1008,7 +993,7 @@ inline void LineRuleProto::set_width(double value) {
   width_ = value;
 }
 
-// required .ColorProto color = 2;
+// required int32 color = 2;
 inline bool LineRuleProto::has_color() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -1019,22 +1004,15 @@ inline void LineRuleProto::clear_has_color() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void LineRuleProto::clear_color() {
-  if (color_ != NULL) color_->::ColorProto::Clear();
+  color_ = 0;
   clear_has_color();
 }
-inline const ::ColorProto& LineRuleProto::color() const {
-  return color_ != NULL ? *color_ : *default_instance_->color_;
-}
-inline ::ColorProto* LineRuleProto::mutable_color() {
-  set_has_color();
-  if (color_ == NULL) color_ = new ::ColorProto;
+inline ::google::protobuf::int32 LineRuleProto::color() const {
   return color_;
 }
-inline ::ColorProto* LineRuleProto::release_color() {
-  clear_has_color();
-  ::ColorProto* temp = color_;
-  color_ = NULL;
-  return temp;
+inline void LineRuleProto::set_color(::google::protobuf::int32 value) {
+  set_has_color();
+  color_ = value;
 }
 
 // optional .DashDotProto dashdot = 3;
@@ -1070,7 +1048,7 @@ inline ::DashDotProto* LineRuleProto::release_dashdot() {
 
 // AreaRuleProto
 
-// required .ColorProto color = 1;
+// required int32 color = 1;
 inline bool AreaRuleProto::has_color() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1081,22 +1059,15 @@ inline void AreaRuleProto::clear_has_color() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void AreaRuleProto::clear_color() {
-  if (color_ != NULL) color_->::ColorProto::Clear();
+  color_ = 0;
   clear_has_color();
 }
-inline const ::ColorProto& AreaRuleProto::color() const {
-  return color_ != NULL ? *color_ : *default_instance_->color_;
-}
-inline ::ColorProto* AreaRuleProto::mutable_color() {
-  set_has_color();
-  if (color_ == NULL) color_ = new ::ColorProto;
+inline ::google::protobuf::int32 AreaRuleProto::color() const {
   return color_;
 }
-inline ::ColorProto* AreaRuleProto::release_color() {
-  clear_has_color();
-  ::ColorProto* temp = color_;
-  color_ = NULL;
-  return temp;
+inline void AreaRuleProto::set_color(::google::protobuf::int32 value) {
+  set_has_color();
+  color_ = value;
 }
 
 // optional .LineRuleProto border = 2;
@@ -1216,7 +1187,7 @@ inline void CaptionRuleProto::set_height(::google::protobuf::int32 value) {
   height_ = value;
 }
 
-// optional .ColorProto color = 2;
+// optional int32 color = 2;
 inline bool CaptionRuleProto::has_color() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -1227,25 +1198,18 @@ inline void CaptionRuleProto::clear_has_color() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void CaptionRuleProto::clear_color() {
-  if (color_ != NULL) color_->::ColorProto::Clear();
+  color_ = 0;
   clear_has_color();
 }
-inline const ::ColorProto& CaptionRuleProto::color() const {
-  return color_ != NULL ? *color_ : *default_instance_->color_;
-}
-inline ::ColorProto* CaptionRuleProto::mutable_color() {
-  set_has_color();
-  if (color_ == NULL) color_ = new ::ColorProto;
+inline ::google::protobuf::int32 CaptionRuleProto::color() const {
   return color_;
 }
-inline ::ColorProto* CaptionRuleProto::release_color() {
-  clear_has_color();
-  ::ColorProto* temp = color_;
-  color_ = NULL;
-  return temp;
+inline void CaptionRuleProto::set_color(::google::protobuf::int32 value) {
+  set_has_color();
+  color_ = value;
 }
 
-// optional .ColorProto stroke_color = 3;
+// optional int32 stroke_color = 3;
 inline bool CaptionRuleProto::has_stroke_color() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
@@ -1256,51 +1220,44 @@ inline void CaptionRuleProto::clear_has_stroke_color() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline void CaptionRuleProto::clear_stroke_color() {
-  if (stroke_color_ != NULL) stroke_color_->::ColorProto::Clear();
+  stroke_color_ = 0;
   clear_has_stroke_color();
 }
-inline const ::ColorProto& CaptionRuleProto::stroke_color() const {
-  return stroke_color_ != NULL ? *stroke_color_ : *default_instance_->stroke_color_;
-}
-inline ::ColorProto* CaptionRuleProto::mutable_stroke_color() {
-  set_has_stroke_color();
-  if (stroke_color_ == NULL) stroke_color_ = new ::ColorProto;
+inline ::google::protobuf::int32 CaptionRuleProto::stroke_color() const {
   return stroke_color_;
 }
-inline ::ColorProto* CaptionRuleProto::release_stroke_color() {
-  clear_has_stroke_color();
-  ::ColorProto* temp = stroke_color_;
-  stroke_color_ = NULL;
-  return temp;
+inline void CaptionRuleProto::set_stroke_color(::google::protobuf::int32 value) {
+  set_has_stroke_color();
+  stroke_color_ = value;
 }
 
 // -------------------------------------------------------------------
 
 // CircleRuleProto
 
-// required double rad = 1;
-inline bool CircleRuleProto::has_rad() const {
+// required double radius = 1;
+inline bool CircleRuleProto::has_radius() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void CircleRuleProto::set_has_rad() {
+inline void CircleRuleProto::set_has_radius() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void CircleRuleProto::clear_has_rad() {
+inline void CircleRuleProto::clear_has_radius() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void CircleRuleProto::clear_rad() {
-  rad_ = 0;
-  clear_has_rad();
+inline void CircleRuleProto::clear_radius() {
+  radius_ = 0;
+  clear_has_radius();
 }
-inline double CircleRuleProto::rad() const {
-  return rad_;
+inline double CircleRuleProto::radius() const {
+  return radius_;
 }
-inline void CircleRuleProto::set_rad(double value) {
-  set_has_rad();
-  rad_ = value;
+inline void CircleRuleProto::set_radius(double value) {
+  set_has_radius();
+  radius_ = value;
 }
 
-// required .ColorProto color = 2;
+// required int32 color = 2;
 inline bool CircleRuleProto::has_color() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -1311,22 +1268,15 @@ inline void CircleRuleProto::clear_has_color() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void CircleRuleProto::clear_color() {
-  if (color_ != NULL) color_->::ColorProto::Clear();
+  color_ = 0;
   clear_has_color();
 }
-inline const ::ColorProto& CircleRuleProto::color() const {
-  return color_ != NULL ? *color_ : *default_instance_->color_;
-}
-inline ::ColorProto* CircleRuleProto::mutable_color() {
-  set_has_color();
-  if (color_ == NULL) color_ = new ::ColorProto;
+inline ::google::protobuf::int32 CircleRuleProto::color() const {
   return color_;
 }
-inline ::ColorProto* CircleRuleProto::release_color() {
-  clear_has_color();
-  ::ColorProto* temp = color_;
-  color_ = NULL;
-  return temp;
+inline void CircleRuleProto::set_color(::google::protobuf::int32 value) {
+  set_has_color();
+  color_ = value;
 }
 
 // optional .LineRuleProto border = 3;
@@ -1438,90 +1388,90 @@ inline ::AreaRuleProto* DrawElementProto::release_area() {
   return temp;
 }
 
-// optional .SymbolRuleProto sym = 4;
-inline bool DrawElementProto::has_sym() const {
+// optional .SymbolRuleProto symbol = 4;
+inline bool DrawElementProto::has_symbol() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void DrawElementProto::set_has_sym() {
+inline void DrawElementProto::set_has_symbol() {
   _has_bits_[0] |= 0x00000008u;
 }
-inline void DrawElementProto::clear_has_sym() {
+inline void DrawElementProto::clear_has_symbol() {
   _has_bits_[0] &= ~0x00000008u;
 }
-inline void DrawElementProto::clear_sym() {
-  if (sym_ != NULL) sym_->::SymbolRuleProto::Clear();
-  clear_has_sym();
+inline void DrawElementProto::clear_symbol() {
+  if (symbol_ != NULL) symbol_->::SymbolRuleProto::Clear();
+  clear_has_symbol();
 }
-inline const ::SymbolRuleProto& DrawElementProto::sym() const {
-  return sym_ != NULL ? *sym_ : *default_instance_->sym_;
+inline const ::SymbolRuleProto& DrawElementProto::symbol() const {
+  return symbol_ != NULL ? *symbol_ : *default_instance_->symbol_;
 }
-inline ::SymbolRuleProto* DrawElementProto::mutable_sym() {
-  set_has_sym();
-  if (sym_ == NULL) sym_ = new ::SymbolRuleProto;
-  return sym_;
+inline ::SymbolRuleProto* DrawElementProto::mutable_symbol() {
+  set_has_symbol();
+  if (symbol_ == NULL) symbol_ = new ::SymbolRuleProto;
+  return symbol_;
 }
-inline ::SymbolRuleProto* DrawElementProto::release_sym() {
-  clear_has_sym();
-  ::SymbolRuleProto* temp = sym_;
-  sym_ = NULL;
+inline ::SymbolRuleProto* DrawElementProto::release_symbol() {
+  clear_has_symbol();
+  ::SymbolRuleProto* temp = symbol_;
+  symbol_ = NULL;
   return temp;
 }
 
-// optional .CaptionRuleProto cap = 5;
-inline bool DrawElementProto::has_cap() const {
+// optional .CaptionRuleProto caption = 5;
+inline bool DrawElementProto::has_caption() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }
-inline void DrawElementProto::set_has_cap() {
+inline void DrawElementProto::set_has_caption() {
   _has_bits_[0] |= 0x00000010u;
 }
-inline void DrawElementProto::clear_has_cap() {
+inline void DrawElementProto::clear_has_caption() {
   _has_bits_[0] &= ~0x00000010u;
 }
-inline void DrawElementProto::clear_cap() {
-  if (cap_ != NULL) cap_->::CaptionRuleProto::Clear();
-  clear_has_cap();
+inline void DrawElementProto::clear_caption() {
+  if (caption_ != NULL) caption_->::CaptionRuleProto::Clear();
+  clear_has_caption();
 }
-inline const ::CaptionRuleProto& DrawElementProto::cap() const {
-  return cap_ != NULL ? *cap_ : *default_instance_->cap_;
+inline const ::CaptionRuleProto& DrawElementProto::caption() const {
+  return caption_ != NULL ? *caption_ : *default_instance_->caption_;
 }
-inline ::CaptionRuleProto* DrawElementProto::mutable_cap() {
-  set_has_cap();
-  if (cap_ == NULL) cap_ = new ::CaptionRuleProto;
-  return cap_;
+inline ::CaptionRuleProto* DrawElementProto::mutable_caption() {
+  set_has_caption();
+  if (caption_ == NULL) caption_ = new ::CaptionRuleProto;
+  return caption_;
 }
-inline ::CaptionRuleProto* DrawElementProto::release_cap() {
-  clear_has_cap();
-  ::CaptionRuleProto* temp = cap_;
-  cap_ = NULL;
+inline ::CaptionRuleProto* DrawElementProto::release_caption() {
+  clear_has_caption();
+  ::CaptionRuleProto* temp = caption_;
+  caption_ = NULL;
   return temp;
 }
 
-// optional .CircleRuleProto cir = 6;
-inline bool DrawElementProto::has_cir() const {
+// optional .CircleRuleProto circle = 6;
+inline bool DrawElementProto::has_circle() const {
   return (_has_bits_[0] & 0x00000020u) != 0;
 }
-inline void DrawElementProto::set_has_cir() {
+inline void DrawElementProto::set_has_circle() {
   _has_bits_[0] |= 0x00000020u;
 }
-inline void DrawElementProto::clear_has_cir() {
+inline void DrawElementProto::clear_has_circle() {
   _has_bits_[0] &= ~0x00000020u;
 }
-inline void DrawElementProto::clear_cir() {
-  if (cir_ != NULL) cir_->::CircleRuleProto::Clear();
-  clear_has_cir();
+inline void DrawElementProto::clear_circle() {
+  if (circle_ != NULL) circle_->::CircleRuleProto::Clear();
+  clear_has_circle();
 }
-inline const ::CircleRuleProto& DrawElementProto::cir() const {
-  return cir_ != NULL ? *cir_ : *default_instance_->cir_;
+inline const ::CircleRuleProto& DrawElementProto::circle() const {
+  return circle_ != NULL ? *circle_ : *default_instance_->circle_;
 }
-inline ::CircleRuleProto* DrawElementProto::mutable_cir() {
-  set_has_cir();
-  if (cir_ == NULL) cir_ = new ::CircleRuleProto;
-  return cir_;
+inline ::CircleRuleProto* DrawElementProto::mutable_circle() {
+  set_has_circle();
+  if (circle_ == NULL) circle_ = new ::CircleRuleProto;
+  return circle_;
 }
-inline ::CircleRuleProto* DrawElementProto::release_cir() {
-  clear_has_cir();
-  ::CircleRuleProto* temp = cir_;
-  cir_ = NULL;
+inline ::CircleRuleProto* DrawElementProto::release_circle() {
+  clear_has_circle();
+  ::CircleRuleProto* temp = circle_;
+  circle_ = NULL;
   return temp;
 }
 
@@ -1587,29 +1537,29 @@ inline ::std::string* ClassifElementProto::release_name() {
   }
 }
 
-// repeated .DrawElementProto lines = 2;
-inline int ClassifElementProto::lines_size() const {
-  return lines_.size();
+// repeated .DrawElementProto element = 2;
+inline int ClassifElementProto::element_size() const {
+  return element_.size();
 }
-inline void ClassifElementProto::clear_lines() {
-  lines_.Clear();
+inline void ClassifElementProto::clear_element() {
+  element_.Clear();
 }
-inline const ::DrawElementProto& ClassifElementProto::lines(int index) const {
-  return lines_.Get(index);
+inline const ::DrawElementProto& ClassifElementProto::element(int index) const {
+  return element_.Get(index);
 }
-inline ::DrawElementProto* ClassifElementProto::mutable_lines(int index) {
-  return lines_.Mutable(index);
+inline ::DrawElementProto* ClassifElementProto::mutable_element(int index) {
+  return element_.Mutable(index);
 }
-inline ::DrawElementProto* ClassifElementProto::add_lines() {
-  return lines_.Add();
+inline ::DrawElementProto* ClassifElementProto::add_element() {
+  return element_.Add();
 }
 inline const ::google::protobuf::RepeatedPtrField< ::DrawElementProto >&
-ClassifElementProto::lines() const {
-  return lines_;
+ClassifElementProto::element() const {
+  return element_;
 }
 inline ::google::protobuf::RepeatedPtrField< ::DrawElementProto >*
-ClassifElementProto::mutable_lines() {
-  return &lines_;
+ClassifElementProto::mutable_element() {
+  return &element_;
 }
 
 // -------------------------------------------------------------------
@@ -1643,6 +1593,15 @@ ContainerProto::mutable_cont() {
 
 
 // @@protoc_insertion_point(namespace_scope)
+
+#ifndef SWIG
+namespace google {
+namespace protobuf {
+
+
+}  // namespace google
+}  // namespace protobuf
+#endif  // SWIG
 
 // @@protoc_insertion_point(global_scope)
 
