@@ -11,6 +11,7 @@
 #include <stddef.h>
 #include "jansson.h"
 #include "hashtable.h"
+#include "strbuffer.h"
 
 #define container_of(ptr_, type_, member_)  \
     ((type_ *)((char *)ptr_ - offsetof(type_, member_)))
@@ -82,6 +83,10 @@ void jsonp_error_set(json_error_t *error, int line, int column,
                      size_t position, const char *msg, ...);
 void jsonp_error_vset(json_error_t *error, int line, int column,
                       size_t position, const char *msg, va_list ap);
+
+/* Locale independent string<->double conversions */
+int jsonp_strtod(strbuffer_t *strbuffer, double *out);
+int jsonp_dtostr(char *buffer, size_t size, double value);
 
 /* Wrappers for custom memory functions */
 void* jsonp_malloc(size_t size);

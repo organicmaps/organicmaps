@@ -10,8 +10,8 @@
 
 typedef struct {
     char *value;
-    int length;   /* bytes used */
-    int size;     /* bytes allocated */
+    size_t length;   /* bytes used */
+    size_t size;     /* bytes allocated */
 } strbuffer_t;
 
 int strbuffer_init(strbuffer_t *strbuff);
@@ -24,7 +24,7 @@ char *strbuffer_steal_value(strbuffer_t *strbuff);
 
 int strbuffer_append(strbuffer_t *strbuff, const char *string);
 int strbuffer_append_byte(strbuffer_t *strbuff, char byte);
-int strbuffer_append_bytes(strbuffer_t *strbuff, const char *data, int size);
+int strbuffer_append_bytes(strbuffer_t *strbuff, const char *data, size_t size);
 
 char strbuffer_pop(strbuffer_t *strbuff);
 

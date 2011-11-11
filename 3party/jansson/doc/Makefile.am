@@ -1,6 +1,6 @@
 EXTRA_DIST = conf.py apiref.rst changes.rst conformance.rst		\
-	gettingstarted.rst github_commits.c index.rst tutorial.rst	\
-	upgrading.rst ext/refcounting.py
+	gettingstarted.rst github_commits.c index.rst portability.rst	\
+	tutorial.rst upgrading.rst ext/refcounting.py
 
 SPHINXBUILD = sphinx-build
 SPHINXOPTS = -d _build/doctrees $(SPHINXOPTS_EXTRA)

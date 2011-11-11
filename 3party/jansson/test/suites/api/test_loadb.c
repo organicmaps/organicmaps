@@ -9,7 +9,7 @@
 #include <string.h>
 #include "util.h"
 
-int main()
+static void run_tests()
 {
     json_t *json;
     json_error_t error;
@@ -33,6 +33,4 @@ int main()
     if(strcmp(error.text, "']' expected near end of file") != 0) {
         fail("json_loadb returned an invalid error message for an unclosed top-level array");
     }
-
-    return 0;
 }

@@ -387,7 +387,7 @@ static void test_circular()
 }
 
 
-int main()
+static void run_tests()
 {
     test_misc();
     test_insert();
@@ -395,6 +395,4 @@ int main()
     test_clear();
     test_extend();
     test_circular();
-
-    return 0;
 }

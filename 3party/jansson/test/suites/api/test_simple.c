@@ -10,7 +10,7 @@
 #include "util.h"
 
 /* Call the simple functions not covered by other tests of the public API */
-int main()
+static void run_tests()
 {
     json_t *value;
 
@@ -180,6 +180,4 @@ int main()
     json_incref(value);
     if(value->refcount != (size_t)-1)
       fail("refcounting null works incorrectly");
-
-    return 0;
 }

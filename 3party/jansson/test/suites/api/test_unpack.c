@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include "util.h"
 
-int main()
+static void run_tests()
 {
     json_t *j, *j2;
     int i1, i2, i3;
@@ -336,6 +336,4 @@ int main()
         fail("json_unpack nested array with strict validation failed");
     check_error("1 array item(s) left unpacked", "<validation>", 1, 5, 5);
     json_decref(j);
-
-    return 0;
 }

@@ -8,7 +8,7 @@
 #include <jansson.h>
 #include "util.h"
 
-int main()
+static void run_tests()
 {
     json_t *integer, *real;
     int i;
@@ -39,6 +39,4 @@ int main()
 
     json_decref(integer);
     json_decref(real);
-
-    return 0;
 }

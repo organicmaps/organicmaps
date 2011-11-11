@@ -22,6 +22,11 @@ data. Its main features and design principles are:
 Jansson is licensed under the `MIT license`_; see LICENSE in the
 source distribution for details.
 
+Jansson is used in production and its API is stable. It works on
+numerous platforms, including numerous Unix like systems and Windows.
+It's suitable for use on any system, including desktop, server, and
+small embedded systems.
+
 
 .. _`MIT license`: http://www.opensource.org/licenses/mit-license.php
 .. _Jansson: http://www.digip.org/jansson/
@@ -36,6 +41,7 @@ Contents
    upgrading
    tutorial
    conformance
+   portability
    apiref
    changes
 

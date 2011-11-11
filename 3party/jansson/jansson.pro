@@ -15,6 +15,7 @@ SOURCES += \
     src/value.c \
     src/memory.c \
     src/error.c \
+    src/strconv.c \
 
 HEADERS += \
     myjansson.hpp \

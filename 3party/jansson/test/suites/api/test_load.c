@@ -50,11 +50,9 @@ static void disable_eof_check()
     json_decref(json);
 }
 
-int main()
+static void run_tests()
 {
     file_not_found();
     reject_duplicates();
     disable_eof_check();
-
-    return 0;
 }

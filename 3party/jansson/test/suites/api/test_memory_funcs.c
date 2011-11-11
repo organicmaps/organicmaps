@@ -75,10 +75,8 @@ static void test_secure_funcs(void)
     create_and_free_complex_object();
 }
 
-int main()
+static void run_tests()
 {
     test_simple();
     test_secure_funcs();
-
-    return 0;
 }

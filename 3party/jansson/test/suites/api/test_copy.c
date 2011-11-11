@@ -307,7 +307,7 @@ static void test_deep_copy_object(void)
     json_decref(copy);
 }
 
-int main()
+static void run_tests()
 {
     test_copy_simple();
     test_deep_copy_simple();
@@ -315,5 +315,4 @@ int main()
     test_deep_copy_array();
     test_copy_object();
     test_deep_copy_object();
-    return 0;
 }

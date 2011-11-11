@@ -1,5 +1,5 @@
 AC_PREREQ([2.60])
-AC_INIT([jansson], [2.1], [petri@digip.org])
+AC_INIT([jansson], [2.2.1], [petri@digip.org])
 
 AM_INIT_AUTOMAKE([1.10 foreign])
 
@@ -14,6 +14,7 @@ AM_CONDITIONAL([GCC], [test x$GCC = xyes])
 # Checks for libraries.
 
 # Checks for header files.
+AC_CHECK_HEADERS([locale.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_INT32_T
@@ -34,6 +35,12 @@ esac
 AC_SUBST([json_inline])
 
 # Checks for library functions.
+AC_CHECK_FUNCS([setlocale localeconv])
+case "$ac_cv_header_locale_h$ac_cv_func_localeconv" in
+     yesyes) json_have_localeconv=1;;
+     *) json_have_localeconv=0;;
+esac
+AC_SUBST([json_have_localeconv])
 
 AC_CONFIG_FILES([
         jansson.pc

@@ -180,11 +180,10 @@ static void test_equal_complex()
     /* TODO: There's no negative test case here */
 }
 
-int main()
+static void run_tests()
 {
     test_equal_simple();
     test_equal_array();
     test_equal_object();
     test_equal_complex();
-    return 0;
 }

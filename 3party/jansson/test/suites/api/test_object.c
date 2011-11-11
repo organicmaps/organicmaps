@@ -437,7 +437,7 @@ static void test_preserve_order()
     json_decref(object);
 }
 
-int main()
+static void run_tests()
 {
     test_misc();
     test_clear();
@@ -446,6 +446,4 @@ int main()
     test_set_nocheck();
     test_iterators();
     test_preserve_order();
-
-    return 0;
 }

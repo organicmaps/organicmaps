@@ -34,10 +34,11 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 check_PROGRAMS = test_array$(EXEEXT) test_copy$(EXEEXT) \
-	test_dump$(EXEEXT) test_equal$(EXEEXT) test_load$(EXEEXT) \
-	test_loadb$(EXEEXT) test_memory_funcs$(EXEEXT) \
-	test_number$(EXEEXT) test_object$(EXEEXT) test_pack$(EXEEXT) \
-	test_simple$(EXEEXT) test_unpack$(EXEEXT)
+	test_dump$(EXEEXT) test_dump_callback$(EXEEXT) \
+	test_equal$(EXEEXT) test_load$(EXEEXT) test_loadb$(EXEEXT) \
+	test_memory_funcs$(EXEEXT) test_number$(EXEEXT) \
+	test_object$(EXEEXT) test_pack$(EXEEXT) test_simple$(EXEEXT) \
+	test_unpack$(EXEEXT)
 subdir = test/suites/api
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -60,6 +61,10 @@ am_test_dump_OBJECTS = test_dump.$(OBJEXT)
 test_dump_OBJECTS = $(am_test_dump_OBJECTS)
 test_dump_LDADD = $(LDADD)
 test_dump_DEPENDENCIES = $(top_builddir)/src/libjansson.la
+am_test_dump_callback_OBJECTS = test_dump_callback.$(OBJEXT)
+test_dump_callback_OBJECTS = $(am_test_dump_callback_OBJECTS)
+test_dump_callback_LDADD = $(LDADD)
+test_dump_callback_DEPENDENCIES = $(top_builddir)/src/libjansson.la
 test_equal_SOURCES = test_equal.c
 test_equal_OBJECTS = test_equal.$(OBJEXT)
 test_equal_LDADD = $(LDADD)
@@ -110,17 +115,17 @@ LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 SOURCES = $(test_array_SOURCES) $(test_copy_SOURCES) \
-	$(test_dump_SOURCES) test_equal.c $(test_load_SOURCES) \
-	$(test_loadb_SOURCES) $(test_memory_funcs_SOURCES) \
-	$(test_number_SOURCES) $(test_object_SOURCES) \
-	$(test_pack_SOURCES) $(test_simple_SOURCES) \
-	$(test_unpack_SOURCES)
+	$(test_dump_SOURCES) $(test_dump_callback_SOURCES) \
+	test_equal.c $(test_load_SOURCES) $(test_loadb_SOURCES) \
+	$(test_memory_funcs_SOURCES) $(test_number_SOURCES) \
+	$(test_object_SOURCES) $(test_pack_SOURCES) \
+	$(test_simple_SOURCES) $(test_unpack_SOURCES)
 DIST_SOURCES = $(test_array_SOURCES) $(test_copy_SOURCES) \
-	$(test_dump_SOURCES) test_equal.c $(test_load_SOURCES) \
-	$(test_loadb_SOURCES) $(test_memory_funcs_SOURCES) \
-	$(test_number_SOURCES) $(test_object_SOURCES) \
-	$(test_pack_SOURCES) $(test_simple_SOURCES) \
-	$(test_unpack_SOURCES)
+	$(test_dump_SOURCES) $(test_dump_callback_SOURCES) \
+	test_equal.c $(test_load_SOURCES) $(test_loadb_SOURCES) \
+	$(test_memory_funcs_SOURCES) $(test_number_SOURCES) \
+	$(test_object_SOURCES) $(test_pack_SOURCES) \
+	$(test_simple_SOURCES) $(test_unpack_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -215,6 +220,7 @@ htmldir = @htmldir@
 includedir = @includedir@
 infodir = @infodir@
 install_sh = @install_sh@
+json_have_localeconv = @json_have_localeconv@
 json_have_long_long = @json_have_long_long@
 json_inline = @json_inline@
 libdir = @libdir@
@@ -241,6 +247,7 @@ EXTRA_DIST = run
 test_array_SOURCES = test_array.c util.h
 test_copy_SOURCES = test_copy.c util.h
 test_dump_SOURCES = test_dump.c util.h
+test_dump_callback_SOURCES = test_dump_callback.c util.h
 test_load_SOURCES = test_load.c util.h
 test_loadb_SOURCES = test_loadb.c util.h
 test_memory_funcs_SOURCES = test_memory_funcs.c util.h
@@ -304,6 +311,9 @@ test_copy$(EXEEXT): $(test_copy_OBJECTS) $(test_copy_DEPENDENCIES)
 test_dump$(EXEEXT): $(test_dump_OBJECTS) $(test_dump_DEPENDENCIES) 
 	@rm -f test_dump$(EXEEXT)
 	$(LINK) $(test_dump_OBJECTS) $(test_dump_LDADD) $(LIBS)
+test_dump_callback$(EXEEXT): $(test_dump_callback_OBJECTS) $(test_dump_callback_DEPENDENCIES) 
+	@rm -f test_dump_callback$(EXEEXT)
+	$(LINK) $(test_dump_callback_OBJECTS) $(test_dump_callback_LDADD) $(LIBS)
 test_equal$(EXEEXT): $(test_equal_OBJECTS) $(test_equal_DEPENDENCIES) 
 	@rm -f test_equal$(EXEEXT)
 	$(LINK) $(test_equal_OBJECTS) $(test_equal_LDADD) $(LIBS)
@@ -341,6 +351,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_array.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_copy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_dump.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_dump_callback.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_equal.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_load.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_loadb.Po@am__quote@

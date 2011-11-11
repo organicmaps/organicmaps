@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include "util.h"
 
-int main()
+static void run_tests()
 {
     json_t *value;
     int i;
@@ -227,6 +227,4 @@ int main()
     if(json_pack_ex(&error, 0, "{s:s}", "foo", "\xff\xff"))
         fail("json_pack failed to catch invalid UTF-8 in a string");
     check_error("Invalid UTF-8 string", "<args>", 1, 4, 4);
-
-    return 0;
 }

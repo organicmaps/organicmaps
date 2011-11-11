@@ -71,7 +71,8 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libjansson_la_LIBADD =
 am_libjansson_la_OBJECTS = dump.lo error.lo hashtable.lo load.lo \
-	memory.lo pack_unpack.lo strbuffer.lo utf.lo value.lo
+	memory.lo pack_unpack.lo strbuffer.lo strconv.lo utf.lo \
+	value.lo
 libjansson_la_OBJECTS = $(am_libjansson_la_OBJECTS)
 libjansson_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
@@ -186,6 +187,7 @@ htmldir = @htmldir@
 includedir = @includedir@
 infodir = @infodir@
 install_sh = @install_sh@
+json_have_localeconv = @json_have_localeconv@
 json_have_long_long = @json_have_long_long@
 json_inline = @json_inline@
 libdir = @libdir@
@@ -221,13 +223,14 @@ libjansson_la_SOURCES = \
 	pack_unpack.c \
 	strbuffer.c \
 	strbuffer.h \
+	strconv.c \
 	utf.c \
 	utf.h \
 	value.c
 
 libjansson_la_LDFLAGS = \
 	-export-symbols-regex '^json_' \
-	-version-info 5:0:1
+	-version-info 6:1:2
 
 
 # These flags are gcc specific
@@ -315,6 +318,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/memory.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pack_unpack.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/strbuffer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/strconv.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/utf.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/value.Plo@am__quote@
 

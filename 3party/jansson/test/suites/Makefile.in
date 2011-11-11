@@ -177,6 +177,7 @@ htmldir = @htmldir@
 includedir = @includedir@
 infodir = @infodir@
 install_sh = @install_sh@
+json_have_localeconv = @json_have_localeconv@
 json_have_long_long = @json_have_long_long@
 json_inline = @json_inline@
 libdir = @libdir@

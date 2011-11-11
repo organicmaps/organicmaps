@@ -6,7 +6,6 @@
  */
 
 #define _GNU_SOURCE
-#include <ctype.h>
 #include <errno.h>
 #include <limits.h>
 #include <stdio.h>
@@ -31,6 +30,14 @@
 #define TOKEN_TRUE           259
 #define TOKEN_FALSE          260
 #define TOKEN_NULL           261
+
+/* Locale independent versions of isxxx() functions */
+#define l_isupper(c)  ('A' <= c && c <= 'Z')
+#define l_islower(c)  ('a' <= c && c <= 'z')
+#define l_isalpha(c)  (l_isupper(c) || l_islower(c))
+#define l_isdigit(c)  ('0' <= c && c <= '9')
+#define l_isxdigit(c) \
+    (l_isdigit(c) || 'A' <= c || c <= 'F' || 'a' <= c || c <= 'f')
 
 /* Read one byte from stream, convert to unsigned char, then int, and
    return. return EOF on end of file. This corresponds to the
@@ -69,6 +76,7 @@ static void error_set(json_error_t *error, const lex_t *lex,
 {
     va_list ap;
     char msg_text[JSON_ERROR_TEXT_LENGTH];
+    char msg_with_context[JSON_ERROR_TEXT_LENGTH];
 
     int line = -1, col = -1;
     size_t pos = 0;
@@ -84,7 +92,6 @@ static void error_set(json_error_t *error, const lex_t *lex,
     if(lex)
     {
         const char *saved_text = strbuffer_value(&lex->saved_text);
-        char msg_with_context[JSON_ERROR_TEXT_LENGTH];
 
         line = lex->stream.line;
         col = lex->stream.column;
@@ -268,11 +275,11 @@ static int32_t decode_unicode_escape(const char *str)
     for(i = 1; i <= 4; i++) {
         char c = str[i];
         value <<= 4;
-        if(isdigit(c))
+        if(l_isdigit(c))
             value += c - '0';
-        else if(islower(c))
+        else if(l_islower(c))
             value += c - 'a' + 10;
-        else if(isupper(c))
+        else if(l_isupper(c))
             value += c - 'A' + 10;
         else
             assert(0);
@@ -317,7 +324,7 @@ static void lex_scan_string(lex_t *lex, json_error_t *error)
             if(c == 'u') {
                 c = lex_get_save(lex, error);
                 for(i = 0; i < 4; i++) {
-                    if(!isxdigit(c)) {
+                    if(!l_isxdigit(c)) {
                         error_set(error, lex, "invalid escape");
                         goto out;
                     }
@@ -455,14 +462,14 @@ static int lex_scan_number(lex_t *lex, int c, json_error_t *error)
 
     if(c == '0') {
         c = lex_get_save(lex, error);
-        if(isdigit(c)) {
+        if(l_isdigit(c)) {
             lex_unget_unsave(lex, c);
             goto out;
         }
     }
-    else if(isdigit(c)) {
+    else if(l_isdigit(c)) {
         c = lex_get_save(lex, error);
-        while(isdigit(c))
+        while(l_isdigit(c))
             c = lex_get_save(lex, error);
     }
     else {
@@ -496,14 +503,14 @@ static int lex_scan_number(lex_t *lex, int c, json_error_t *error)
 
     if(c == '.') {
         c = lex_get(lex, error);
-        if(!isdigit(c)) {
+        if(!l_isdigit(c)) {
             lex_unget(lex, c);
             goto out;
         }
         lex_save(lex, c);
 
         c = lex_get_save(lex, error);
-        while(isdigit(c))
+        while(l_isdigit(c))
             c = lex_get_save(lex, error);
     }
 
@@ -512,24 +519,19 @@ static int lex_scan_number(lex_t *lex, int c, json_error_t *error)
         if(c == '+' || c == '-')
             c = lex_get_save(lex, error);
 
-        if(!isdigit(c)) {
+        if(!l_isdigit(c)) {
             lex_unget_unsave(lex, c);
             goto out;
         }
 
         c = lex_get_save(lex, error);
-        while(isdigit(c))
+        while(l_isdigit(c))
             c = lex_get_save(lex, error);
     }
 
     lex_unget_unsave(lex, c);
 
-    saved_text = strbuffer_value(&lex->saved_text);
-    errno = 0;
-    value = strtod(saved_text, &end);
-    assert(end == saved_text + lex->saved_text.length);
-
-    if(errno == ERANGE && value != 0) {
+    if(jsonp_strtod(&lex->saved_text, &value)) {
         error_set(error, lex, "real number overflow");
         goto out;
     }
@@ -575,17 +577,17 @@ static int lex_scan(lex_t *lex, json_error_t *error)
     else if(c == '"')
         lex_scan_string(lex, error);
 
-    else if(isdigit(c) || c == '-') {
+    else if(l_isdigit(c) || c == '-') {
         if(lex_scan_number(lex, c, error))
             goto out;
     }
 
-    else if(isupper(c) || islower(c)) {
+    else if(l_isalpha(c)) {
         /* eat up the whole identifier for clearer error messages */
         const char *saved_text;
 
         c = lex_get_save(lex, error);
-        while(isupper(c) || islower(c))
+        while(l_isalpha(c))
             c = lex_get_save(lex, error);
         lex_unget_unsave(lex, c);
 
@@ -945,7 +947,7 @@ json_t *json_load_file(const char *path, size_t flags, json_error_t *error)
 
     jsonp_error_init(error, path);
 
-    fp = fopen(path, "r");
+    fp = fopen(path, "rb");
     if(!fp)
     {
         error_set(error, NULL, "unable to open %s: %s",

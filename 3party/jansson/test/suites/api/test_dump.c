@@ -133,10 +133,9 @@ static void encode_other_than_array_or_object()
 
 }
 
-int main()
+static void run_tests()
 {
     encode_twice();
     circular_references();
     encode_other_than_array_or_object();
-    return 0;
 }

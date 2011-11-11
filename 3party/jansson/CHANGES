@@ -1,5 +1,55 @@
-Version 2.1 (in development)
-============================
+Version 2.2.1
+=============
+
+Released 2011-10-06
+
+* Bug fixes:
+
+  - Fix real number encoding and decoding under non-C locales. (#32)
+
+  - Fix identifier decoding under non-UTF-8 locales. (#35)
+
+  - `json_load_file()`: Open the input file in binary mode for maximum
+    compatiblity.
+
+* Documentation:
+
+  - Clarify the lifecycle of the result of the ``s`` fromat of
+    `json_unpack()`. (#31)
+
+  - Add some portability info. (#36)
+
+  - Little clarifications here and there.
+
+* Other:
+
+  - Some style fixes, issues detected by static analyzers.
+
+
+Version 2.2
+===========
+
+Released 2011-09-03
+
+* New features:
+
+  - `json_dump_callback()`: Pass the encoder output to a callback
+    function in chunks.
+
+* Bug fixes:
+
+  - `json_string_set()`: Check that target is a string and value is
+    not NULL.
+
+* Other:
+
+  - Documentation typo fixes and clarifications.
+
+
+Version 2.1
+===========
+
+Released 2011-06-10
 
 * New features:
 

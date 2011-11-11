@@ -13,6 +13,7 @@
 
 #define STRBUFFER_MIN_SIZE  16
 #define STRBUFFER_FACTOR    2
+#define STRBUFFER_SIZE_MAX  ((size_t)-1)
 
 int strbuffer_init(strbuffer_t *strbuff)
 {
@@ -64,12 +65,18 @@ int strbuffer_append_byte(strbuffer_t *strbuff, char byte)
     return strbuffer_append_bytes(strbuff, &byte, 1);
 }
 
-int strbuffer_append_bytes(strbuffer_t *strbuff, const char *data, int size)
+int strbuffer_append_bytes(strbuffer_t *strbuff, const char *data, size_t size)
 {
-    if(strbuff->length + size >= strbuff->size)
+    if(size >= strbuff->size - strbuff->length)
     {
         size_t new_size;
         char *new_value;
+
+        /* avoid integer overflow */
+        if (strbuff->size > STRBUFFER_SIZE_MAX / STRBUFFER_FACTOR
+            || size > STRBUFFER_SIZE_MAX - 1
+            || strbuff->length > STRBUFFER_SIZE_MAX - 1 - size)
+            return -1;
 
         new_size = max(strbuff->size * STRBUFFER_FACTOR,
                        strbuff->length + size + 1);

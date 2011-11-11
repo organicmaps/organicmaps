@@ -12,12 +12,13 @@ libjansson_la_SOURCES = \
 	pack_unpack.c \
 	strbuffer.c \
 	strbuffer.h \
+	strconv.c \
 	utf.c \
 	utf.h \
 	value.c
 libjansson_la_LDFLAGS = \
 	-export-symbols-regex '^json_' \
-	-version-info 5:0:1
+	-version-info 6:1:2
 
 if GCC
 # These flags are gcc specific

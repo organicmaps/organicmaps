@@ -5,8 +5,7 @@ RFC Conformance
 ***************
 
 JSON is specified in :rfc:`4627`, *"The application/json Media Type
-for JavaScript Object Notation (JSON)"*. This chapter discusses
-Jansson's conformance to this specification.
+for JavaScript Object Notation (JSON)"*.
 
 Character Encoding
 ==================
