@@ -1,5 +1,7 @@
 #include "storage.hpp"
 
+#include "../defines.hpp"
+
 #include "../base/logging.hpp"
 #include "../base/string_utils.hpp"
 
@@ -17,6 +19,13 @@
 #include "../std/algorithm.hpp"
 #include "../std/target_os.hpp"
 #include "../std/bind.hpp"
+#include "../std/sstream.hpp"
+
+#include "../3party/jansson/myjansson.hpp"
+
+#define SERVER_LIST_FILE "servers.txt"
+
+using namespace downloader;
 
 namespace storage
 {
@@ -173,6 +182,16 @@ namespace storage
     }
   };
 
+  static string CreateServersListRequest(string const & id, uint32_t version,
+                                         string const & file, uint32_t fileSize)
+  {
+    ostringstream stream;
+    stream << "{\"ID\":\"" << id << "\",\"Cmd\":\"Download\",\"Params\":{";
+    stream << "\"Version\":" << version << ",\"File\":\"" << file << "\",";
+    stream << "\"Size\":" << fileSize << "}}";
+    return stream.str();
+  }
+
   void Storage::DownloadNextCountryFromQueue()
   {
     while (!m_queue.empty())
@@ -183,13 +202,13 @@ namespace storage
       {
         if (!IsFileDownloaded(*it))
         {
-          vector<string> urls;
-          urls.push_back(UpdateBaseUrl() + UrlEncode(it->GetFileWithExt()));
-          m_request.reset(downloader::HttpRequest::GetFile(urls,
-                                           GetPlatform().WritablePathForFile(it->GetFileWithExt()),
-                                           it->m_remoteSize,
-                                           bind(&Storage::OnMapDownloadFinished, this, _1),
-                                           bind(&Storage::OnMapDownloadProgress, this, _1)));
+          string const postBody = CreateServersListRequest(GetPlatform().UniqueClientId(),
+                                                           m_currentVersion,
+                                                           it->GetFileWithExt(),
+                                                           it->m_remoteSize);
+          m_request.reset(HttpRequest::PostJson(URL_SERVERS_LIST,
+              postBody,
+              bind(&Storage::OnServerListDownloaded, this, _1)));
           // notify GUI - new status for country, "Downloading"
           if (m_observerChange)
             m_observerChange(index);
@@ -306,7 +325,7 @@ namespace storage
     m_observerProgress.clear();
   }
 
-  void Storage::OnMapDownloadFinished(downloader::HttpRequest & request)
+  void Storage::OnMapDownloadFinished(HttpRequest & request)
   {
     if (m_queue.empty())
     {
@@ -314,7 +333,7 @@ namespace storage
       return;
     }
 
-    if (request.Status() == downloader::HttpRequest::EFailed)
+    if (request.Status() == HttpRequest::EFailed)
     {
       // remove failed country from the queue
       TIndex const failedIndex = m_queue.front();
@@ -350,7 +369,7 @@ namespace storage
     DownloadNextCountryFromQueue();
   }
 
-  void Storage::OnMapDownloadProgress(downloader::HttpRequest & request)
+  void Storage::OnMapDownloadProgress(HttpRequest & request)
   {
     if (m_queue.empty())
     {
@@ -360,10 +379,79 @@ namespace storage
 
     if (m_observerProgress)
     {
-      downloader::HttpRequest::ProgressT p = request.Progress();
+      HttpRequest::ProgressT p = request.Progress();
       p.first += m_countryProgress.first;
       p.second = m_countryProgress.second;
       m_observerProgress(m_queue.front(), p);
     }
+  }
+
+  static void SaveDefaultServerList(string data)
+  {
+    FileWriter f(GetPlatform().WritablePathForFile(SERVER_LIST_FILE));
+    f.Write(data.data(), data.size());
+  }
+
+  static void LoadDefaultServerList(string & data)
+  {
+    try
+    {
+      ReaderPtr<Reader> r = GetPlatform().GetReader(SERVER_LIST_FILE);
+      r.ReadAsString(data);
+    }
+    catch (std::exception const & e)
+    {
+      LOG(LERROR, ("Can't load default server list file", e.what()));
+    }
+  }
+
+  static bool ParseServerList(string const & jsonStr, string const & file, vector<string> & outUrls)
+  {
+    outUrls.clear();
+    try
+    {
+      my::Json root(jsonStr.c_str());
+      json_t * urlsArray = json_object_get(root, "Urls");
+      for (size_t i = 0; i < json_array_size(urlsArray); ++i)
+      {
+        char const * url = json_string_value(json_array_get(urlsArray, i));
+        if (url)
+          outUrls.push_back(url + file);
+      }
+    }
+    catch (std::exception const & e)
+    {
+      LOG(LERROR, ("Can't parse server list json", e.what(), jsonStr));
+    }
+    return !outUrls.empty();
+  }
+
+  void Storage::OnServerListDownloaded(HttpRequest & request)
+  {
+    if (m_queue.empty())
+    {
+      ASSERT(false, ("this should never happen"));
+      return;
+    }
+
+    // @TODO now supports only one file in the country
+    CountryFile const & file = CountryByIndex(m_queue.front()).Files().front();
+
+    vector<string> urls;
+    if (request.Status() == HttpRequest::ECompleted
+        && ParseServerList(request.Data(), file.GetFileWithExt(), urls))
+        SaveDefaultServerList(request.Data());
+    else
+    {
+      string serverList;
+      LoadDefaultServerList(serverList);
+      ParseServerList(request.Data(), file.GetFileWithExt(), urls);
+    }
+
+    m_request.reset(HttpRequest::GetFile(urls,
+                                         GetPlatform().WritablePathForFile(file.GetFileWithExt()),
+                                         file.m_remoteSize,
+                                         bind(&Storage::OnMapDownloadFinished, this, _1),
+                                         bind(&Storage::OnMapDownloadProgress, this, _1)));
   }
 }

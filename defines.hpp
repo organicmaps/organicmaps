@@ -25,3 +25,9 @@
 
 /// How many langs we're supporting on indexing stage
 #define MAX_SUPPORTED_LANGUAGES 64
+
+#ifdef OMIM_PRODUCTION
+  #error "Please define production server url"
+#else
+  #define URL_SERVERS_LIST "http://melnichek.ath.cx:34568/download.php"
+#endif

@@ -104,6 +104,7 @@ namespace storage
 
     /// @name Called from DownloadManager
     //@{
+    void OnServerListDownloaded(downloader::HttpRequest & request);
     void OnMapDownloadFinished(downloader::HttpRequest & request);
     void OnMapDownloadProgress(downloader::HttpRequest & request);
     //@}
