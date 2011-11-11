@@ -18,11 +18,7 @@ DEFINE_bool(print_scales, false, "Print geometry scales for MWM and exit");
 
 int main(int argc, char ** argv)
 {
-  Platform & pl = GetPlatform();
-  classificator::Read(pl.GetReader("drawing_rules.bin"),
-                      pl.GetReader("classificator.txt"),
-                      pl.GetReader("visibility.txt"),
-                      pl.GetReader("types.txt"));
+  classificator::Load();
 
   google::SetUsageMessage("MWM benchmarking tool");
   if (argc < 2)
@@ -36,7 +32,7 @@ int main(int argc, char ** argv)
   if (FLAGS_print_scales)
   {
     feature::DataHeader h;
-    LoadMapHeader(pl.GetReader(FLAGS_input), h);
+    LoadMapHeader(GetPlatform().GetReader(FLAGS_input), h);
 
     cout << "Scales with geometry: ";
     for (size_t i = 0; i < h.GetScalesCount(); ++i)

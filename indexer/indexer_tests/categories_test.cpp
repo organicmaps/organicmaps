@@ -5,11 +5,10 @@
 #include "../../indexer/classificator.hpp"
 #include "../../indexer/classificator_loader.hpp"
 
-#include "../../platform/platform.hpp"
-
 #include "../../coding/multilang_utf8_string.hpp"
 
 #include "../../std/sstream.hpp"
+
 
 char const * TEST_STRING =  "amenity-bench\n"
                             "en:1bench|sit down|to sit\n"
@@ -69,11 +68,8 @@ struct Checker
 
 UNIT_TEST(LoadCategories)
 {
-  Platform & p = GetPlatform();
-  classificator::Read(p.GetReader("drawing_rules.bin"),
-                      p.GetReader("classificator.txt"),
-                      p.GetReader("visibility.txt"),
-                      p.GetReader("types.txt"));
+  classificator::Load();
+
   CategoriesHolder h;
   string buffer = TEST_STRING;
   TEST_GREATER(h.LoadFromStream(buffer), 0, ());

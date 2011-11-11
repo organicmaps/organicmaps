@@ -2,6 +2,8 @@
 #include "classificator.hpp"
 #include "drawing_rules.hpp"
 
+#include "../../platform/platform.hpp"
+
 #include "../coding/file_reader_stream.hpp"
 #include "../coding/file_reader.hpp"
 
@@ -44,5 +46,15 @@ namespace classificator
     string buffer;
     ReaderType(new FileReader(fPath)).ReadAsString(buffer);
     classif().ReadVisibility(buffer);
+  }
+
+  void Load()
+  {
+    Platform & p = GetPlatform();
+
+    Read(p.GetReader("drawing_rules.bin"),
+         p.GetReader("classificator.txt"),
+         p.GetReader("visibility.txt"),
+         p.GetReader("types.txt"));
   }
 }

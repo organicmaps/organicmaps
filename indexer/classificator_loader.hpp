@@ -14,4 +14,6 @@ namespace classificator
             ReaderType const & visibility,
             ReaderType const & types);
   void ReadVisibility(string const & fPath);
+
+  void Load();
 }

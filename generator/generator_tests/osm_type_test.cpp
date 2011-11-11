@@ -7,8 +7,6 @@
 #include "../../indexer/classificator.hpp"
 #include "../../indexer/classificator_loader.hpp"
 
-#include "../../platform/platform.hpp"
-
 
 namespace
 {
@@ -35,11 +33,7 @@ namespace
 
 UNIT_TEST(OsmType_SkipDummy)
 {
-  Platform & p = GetPlatform();
-  classificator::Read(p.GetReader("drawing_rules.bin"),
-                      p.GetReader("classificator.txt"),
-                      p.GetReader("visibility.txt"),
-                      p.GetReader("types.txt"));
+  classificator::Load();
 
   char const * arr[][2] = {
     { "abutters", "residential" },

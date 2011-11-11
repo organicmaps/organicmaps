@@ -18,14 +18,9 @@ namespace model
 
 void FeaturesFetcher::InitClassificator()
 {
-  Platform & p = GetPlatform();
-
   try
   {
-    classificator::Read(p.GetReader("drawing_rules.bin"),
-                        p.GetReader("classificator.txt"),
-                        p.GetReader("visibility.txt"),
-                        p.GetReader("types.txt"));
+    classificator::Load();
   }
   catch (FileAbsentException const & e)
   {

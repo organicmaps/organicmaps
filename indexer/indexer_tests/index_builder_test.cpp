@@ -18,10 +18,7 @@
 UNIT_TEST(BuildIndexTest)
 {
   Platform & p = GetPlatform();
-  classificator::Read(p.GetReader("drawing_rules.bin"),
-                      p.GetReader("classificator.txt"),
-                      p.GetReader("visibility.txt"),
-                      p.GetReader("types.txt"));
+  classificator::Load();
 
   FilesContainerR originalContainer(p.GetReader("minsk-pass" DATA_FILE_EXTENSION));
 

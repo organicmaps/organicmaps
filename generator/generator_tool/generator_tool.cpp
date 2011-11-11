@@ -98,16 +98,16 @@ int main(int argc, char ** argv)
   {
     //classificator::GenerateAndWrite(path);
 
-    classificator::Read(pl.GetReader("drawing_rules.bin"),
-                        pl.GetReader("classificator.txt"),
-                        pl.GetReader("visibility.txt"),
-                        pl.GetReader("types.txt"));
+    /// This is temporary code for rules dumping.
+    //@{
+    classificator::Load();
 
     string buffer;
     drule::ConvertToProtocolBuffers(buffer);
 
     FileWriter w(path + "drules_proto.txt");
     w.Write(buffer.c_str(), buffer.size());
+    //@}
   }
 
   // Generating intermediate files
@@ -126,10 +126,7 @@ int main(int argc, char ** argv)
       FLAGS_generate_index || FLAGS_generate_search_index ||
       FLAGS_calc_statistics || FLAGS_dump_types || FLAGS_dump_prefixes)
   {
-    classificator::Read(pl.GetReader("drawing_rules.bin"),
-                        pl.GetReader("classificator.txt"),
-                        pl.GetReader("visibility.txt"),
-                        pl.GetReader("types.txt"));
+    classificator::Load();
     classificator::PrepareForFeatureGeneration();
   }
 
