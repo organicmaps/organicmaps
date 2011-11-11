@@ -94,6 +94,8 @@ namespace android
 
     m_work.SetRenderPolicy(new PartialRenderPolicy(m_videoTimer, params, make_shared_ptr(new android::RenderContext())));
 
+    m_work.SetUpdatesEnabled(true);
+
     LOG(LDEBUG, ("AF::InitRenderer 2"));
 
     m_work.ShowAll();
