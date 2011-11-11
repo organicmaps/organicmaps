@@ -49,7 +49,7 @@ namespace android
     g_framework = this;
 
    // @TODO refactor storage
-    m_storage.ReInitCountries(false);
+    m_work.Storage().ReInitCountries(false);
   }
 
   void Framework::SetParentView(jobject view)

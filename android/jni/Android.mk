@@ -14,14 +14,12 @@ LOCAL_HEADER_FILES := \
  	com/mapswithme/core/jni_helper.hpp \
 	com/mapswithme/core/jni_string.hpp \
 	com/mapswithme/core/logging.hpp \
-	com/mapswithme/core/download_manager.hpp \
 	com/mapswithme/core/render_context.hpp \
 	com/mapswithme/maps/Framework.hpp \
-	com/mapswithme/maps/Platform.hpp \
+	com/mapswithme/platform/Platform.hpp \
 
 LOCAL_SRC_FILES := \
 	com/mapswithme/core/concurrent_runner.cpp \
-	com/mapswithme/core/download_manager.cpp \
 	com/mapswithme/core/jni_helper.cpp \
 	com/mapswithme/core/jni_string.cpp \
 	com/mapswithme/core/logging.cpp \
@@ -32,8 +30,8 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/VideoTimer.cpp \
 	com/mapswithme/maps/GesturesProcessor.cpp \
 	com/mapswithme/maps/MainGLView.cpp \
-	com/mapswithme/maps/Platform.cpp \
 	com/mapswithme/maps/MWMActivity.cpp \
+	com/mapswithme/platform/Platform.cpp \
 	
 LOCAL_LDLIBS := -llog -lGLESv1_CM \
   	-lwords -lmap -lversion -lsearch -lstorage -lindexer -lyg -lplatform \

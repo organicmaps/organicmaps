@@ -14,5 +14,3 @@ namespace android
     static Platform & Instance();
   };
 }
-
-

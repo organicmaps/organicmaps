@@ -25,4 +25,3 @@ Platform & GetPlatform()
 {
   return android::Platform::Instance();
 }
-
