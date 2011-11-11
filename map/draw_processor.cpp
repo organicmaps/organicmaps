@@ -229,38 +229,11 @@ namespace fwork
         return (r1.m_depth < r2.m_depth);
       }
     };
-
-    struct less_key
-    {
-      bool operator() (drule::Key const & r1, drule::Key const & r2) const
-      {
-        if (r1.m_type == r2.m_type)
-        {
-          // assume that unique algo leaves the first element (with max priority), others - go away
-          return (r1.m_priority > r2.m_priority);
-        }
-        else
-          return (r1.m_type < r2.m_type);
-      }
-    };
-
-    struct equal_key
-    {
-      bool operator() (drule::Key const & r1, drule::Key const & r2) const
-      {
-        // many line and area rules - is ok, other rules - one is enough
-        if (r1.m_type == drule::line || r1.m_type == drule::area)
-          return (r1 == r2);
-        else
-          return (r1.m_type == r2.m_type);
-      }
-    };
   }
 
   void DrawProcessor::PreProcessKeys(vector<drule::Key> & keys) const
   {
-    sort(keys.begin(), keys.end(), less_key());
-    keys.erase(unique(keys.begin(), keys.end(), equal_key()), keys.end());
+    drule::MakeUnique(keys);
   }
 
 #define GET_POINTS(f, for_each_fun, fun, assign_fun)       \

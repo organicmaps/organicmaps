@@ -38,4 +38,61 @@ namespace drule
       beg = end + 1;
     } while (beg < count);
   }
+
+  namespace
+  {
+    struct less_key
+    {
+      bool operator() (drule::Key const & r1, drule::Key const & r2) const
+      {
+        if (r1.m_type == r2.m_type)
+        {
+          // assume that unique algo leaves the first element (with max priority), others - go away
+          return (r1.m_priority > r2.m_priority);
+        }
+        else
+          return (r1.m_type < r2.m_type);
+      }
+    };
+
+    struct equal_key
+    {
+      bool operator() (drule::Key const & r1, drule::Key const & r2) const
+      {
+        // many line and area rules - is ok, other rules - one is enough
+        // By VNG: Why many area styles ??? Did I miss something ???
+        if (r1.m_type == drule::line /*|| r1.m_type == drule::area*/)
+          return (r1 == r2);
+        else
+          return (r1.m_type == r2.m_type);
+      }
+    };
+
+    struct less_scale_type_depth
+    {
+      bool operator() (drule::Key const & r1, drule::Key const & r2) const
+      {
+        if (r1.m_scale == r2.m_scale)
+        {
+          if (r1.m_type == r2.m_type)
+          {
+            return (r1.m_priority < r2.m_priority);
+          }
+          else return (r1.m_type < r2.m_type);
+        }
+        else return (r1.m_scale < r2.m_scale);
+      }
+    };
+  }
+
+  void MakeUnique(vector<Key> & keys)
+  {
+    sort(keys.begin(), keys.end(), less_key());
+    keys.erase(unique(keys.begin(), keys.end(), equal_key()), keys.end());
+  }
+
+  void SortByScaleTypeDepth(vector<Key> & keys)
+  {
+    sort(keys.begin(), keys.end(), less_scale_type_depth());
+  }
 }

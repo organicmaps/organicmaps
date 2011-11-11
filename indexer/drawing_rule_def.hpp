@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../std/string.hpp"
+#include "../std/vector.hpp"
+
 
 namespace drule
 {
@@ -33,4 +35,7 @@ namespace drule
   enum rule_geo_t { node = 1, way = 2 };
 
   int const layer_base_priority = 2000;
+
+  void MakeUnique(vector<Key> & keys);
+  void SortByScaleTypeDepth(vector<Key> & keys);
 }
