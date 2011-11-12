@@ -85,11 +85,6 @@ void RenderPolicyMT::SetRenderFn(TRenderFn renderFn)
   m_renderQueue->initializeGL(m_primaryRC, m_resourceManager);
 }
 
-void RenderPolicyMT::SetNeedSynchronize(bool flag)
-{
-  m_DoSynchronize = flag;
-}
-
 m2::RectI const RenderPolicyMT::OnSize(int w, int h)
 {
   RenderPolicy::OnSize(w, h);

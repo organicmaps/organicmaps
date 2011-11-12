@@ -42,7 +42,6 @@ public:
   void StopScale();
 
   RenderQueue & GetRenderQueue();
-  void SetNeedSynchronize(bool flag);
 
   void SetRenderFn(TRenderFn renderFn);
 };

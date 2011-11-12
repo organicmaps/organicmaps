@@ -2,16 +2,88 @@
 #include "events.hpp"
 #include "window_handle.hpp"
 #include "drawer_yg.hpp"
+#include "render_queue.hpp"
+
 #include "../yg/internal/opengl.hpp"
+#include "../yg/render_state.hpp"
+
+#include "../geometry/transformations.hpp"
+
+#include "../platform/platform.hpp"
+
 #include "../std/bind.hpp"
 
 PartialRenderPolicy::PartialRenderPolicy(VideoTimer * videoTimer,
                                          DrawerYG::Params const & params,
                                          shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : RenderPolicyMT(videoTimer, params, primaryRC)
+  : RenderPolicy(primaryRC, false),
+    m_DoAddCommand(true)
 {
-  SetNeedSynchronize(true);
+  m_resourceManager = make_shared_ptr(new yg::ResourceManager(
+      5000 * sizeof(yg::gl::Vertex),
+      10000 * sizeof(unsigned short),
+      15,
+      2000 * sizeof(yg::gl::Vertex),
+      4000 * sizeof(unsigned short),
+      100,
+      10 * sizeof(yg::gl::AuxVertex),
+      10 * sizeof(unsigned short),
+      50,
+      512, 256,
+      10,
+      512, 256,
+      5,
+      "unicode_blocks.txt",
+      "fonts_whitelist.txt",
+      "fonts_blacklist.txt",
+      2 * 1024 * 1024,
+      3,
+      yg::Rt8Bpp,
+      !yg::gl::g_isBufferObjectsSupported));
+
+  m_resourceManager->initTinyStorage(300 * sizeof(yg::gl::Vertex), 600 * sizeof(unsigned short), 20);
+
+  Platform::FilesList fonts;
+  GetPlatform().GetFontNames(fonts);
+  m_resourceManager->addFonts(fonts);
+
+  DrawerYG::params_t p = params;
+
+  p.m_resourceManager = m_resourceManager;
+  p.m_dynamicPagesCount = 2;
+  p.m_textPagesCount = 2;
+  p.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
+  p.m_skinName = GetPlatform().SkinName();
+  p.m_visualScale = GetPlatform().VisualScale();
+  p.m_isSynchronized = true;
+  p.m_useTinyStorage = true;
+
+  m_drawer.reset(new DrawerYG(p));
+
+  m_windowHandle.reset(new WindowHandle());
+
+  m_windowHandle->setUpdatesEnabled(false);
+  m_windowHandle->setVideoTimer(videoTimer);
+  m_windowHandle->setRenderContext(primaryRC);
+
+  m_renderQueue.reset(new RenderQueue(GetPlatform().SkinName(),
+                false,
+                true,
+                0.1,
+                false,
+                GetPlatform().ScaleEtalonSize(),
+                GetPlatform().VisualScale(),
+                m_bgColor));
+
+  m_renderQueue->AddWindowHandle(m_windowHandle);
+
   m_renderQueue->SetGLQueue(&m_glQueue, &m_glCondition);
+}
+
+void PartialRenderPolicy::SetRenderFn(TRenderFn renderFn)
+{
+  RenderPolicy::SetRenderFn(renderFn);
+  m_renderQueue->initializeGL(m_primaryRC, m_resourceManager);
 }
 
 void PartialRenderPolicy::ProcessRenderQueue(list<yg::gl::Renderer::Packet> & renderQueue)
@@ -29,14 +101,12 @@ void PartialRenderPolicy::ProcessRenderQueue(list<yg::gl::Renderer::Packet> & re
   }
 }
 
-void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & paintEvent,
-                                    ScreenBase const & screenBase)
+void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
+                                    ScreenBase const & s)
 {
   m_resourceManager->mergeFreeResources();
-  /// blitting from the current surface onto screen
-//  RenderPolicyMT::DrawFrame(paintEvent, screenBase);
 
-  yg::gl::Screen * screen = paintEvent->drawer()->screen().get();
+  yg::gl::Screen * screen = e->drawer()->screen().get();
 
   if (!m_state)
     m_state = screen->createState();
@@ -86,21 +156,84 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & paintEvent,
 
   OGLCHECK(glFinish());
 
-  /// blitting from the current surface onto screen
-  RenderPolicyMT::DrawFrame(paintEvent, screenBase);
+  /// blitting actualTarget
+
+  if (m_DoAddCommand && (s != m_renderQueue->renderState().m_actualScreen))
+    m_renderQueue->AddCommand(m_renderFn, s);
+
+  DrawerYG * pDrawer = e->drawer();
+
+  e->drawer()->screen()->clear(m_bgColor);
+
+  m_renderQueue->renderState().m_mutex->Lock();
+
+  if (m_renderQueue->renderState().m_actualTarget.get() != 0)
+  {
+    m2::PointD const ptShift = m_renderQueue->renderState().coordSystemShift(false);
+
+    math::Matrix<double, 3, 3> m = m_renderQueue->renderState().m_actualScreen.PtoGMatrix() * s.GtoPMatrix();
+    m = math::Shift(m, -ptShift);
+
+    pDrawer->screen()->blit(m_renderQueue->renderState().m_actualTarget, m);
+  }
 
   OGLCHECK(glFinish());
 
 }
 
+void PartialRenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & paintEvent,
+                                     ScreenBase const & screenBase)
+{
+}
+
 void PartialRenderPolicy::EndFrame(shared_ptr<PaintEvent> const & paintEvent,
                                    ScreenBase const & screenBase)
 {
-  RenderPolicyMT::EndFrame(paintEvent, screenBase);
+  m_renderQueue->renderState().m_mutex->Unlock();
   LOG(LINFO, ("-------EndFrame-------"));
 }
 
 bool PartialRenderPolicy::NeedRedraw() const
 {
-  return RenderPolicyMT::NeedRedraw() || !m_glQueue.Empty();
+  return RenderPolicy::NeedRedraw() || !m_glQueue.Empty();
+}
+
+m2::RectI const PartialRenderPolicy::OnSize(int w, int h)
+{
+  RenderPolicy::OnSize(w, h);
+
+  m_renderQueue->OnSize(w, h);
+
+  m2::PointU pt = m_renderQueue->renderState().coordSystemShift();
+
+  return m2::RectI(pt.x, pt.y, pt.x + w, pt.y + h);
+}
+
+void PartialRenderPolicy::StartDrag()
+{
+  m_DoAddCommand = false;
+  RenderPolicy::StartDrag();
+}
+
+void PartialRenderPolicy::StopDrag()
+{
+  m_DoAddCommand = true;
+  RenderPolicy::StopDrag();
+}
+
+void PartialRenderPolicy::StartScale()
+{
+  m_DoAddCommand = false;
+  RenderPolicy::StartScale();
+}
+
+void PartialRenderPolicy::StopScale()
+{
+  m_DoAddCommand = true;
+  RenderPolicy::StartScale();
+}
+
+RenderQueue & PartialRenderPolicy::GetRenderQueue()
+{
+  return *m_renderQueue.get();
 }
