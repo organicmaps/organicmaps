@@ -14,6 +14,7 @@ namespace yg
 
       /// using VA instead of buffer objects on some old GPU's
       bool m_useVA;
+      bool m_isLocked;
 
     public:
 
@@ -27,7 +28,9 @@ namespace yg
       void makeCurrent();
       void * lock();
       void unlock();
-      void * glPtr() const;
+      void * glPtr();
+      void * data();
+      bool isLocked() const;
 
       static unsigned current();
     };

@@ -21,14 +21,14 @@ namespace yg
     }
 
     VertexBuffer::VertexBuffer(bool useVA)
-      : m_size(0), m_gpuData(0), m_useVA(useVA)
+      : m_size(0), m_gpuData(0), m_useVA(useVA), m_isLocked(false)
     {
       if (!m_useVA)
         OGLCHECK(glGenBuffers(1, &m_id));
     }
 
     VertexBuffer::VertexBuffer(size_t size, bool useVA)
-      : m_size(0), m_gpuData(0), m_useVA(useVA)
+      : m_size(0), m_gpuData(0), m_useVA(useVA), m_isLocked(false)
     {
       if (!m_useVA)
         OGLCHECK(glGenBuffers(1, &m_id));
@@ -37,6 +37,7 @@ namespace yg
 
     void VertexBuffer::resize(size_t size)
     {
+      ASSERT(!m_isLocked, ());
       if (size != m_size)
       {
         m_size = size;
@@ -64,8 +65,17 @@ namespace yg
         OGLCHECK(glDeleteBuffers(1, &m_id));
     }
 
+    void * VertexBuffer::data()
+    {
+      ASSERT(m_isLocked, ("IndexBuffer is not locked"));
+      return m_gpuData;
+    }
+
     void * VertexBuffer::lock()
     {
+      ASSERT(!m_isLocked, ());
+      m_isLocked = true;
+
       if (m_useVA)
         return m_gpuData;
 
@@ -86,6 +96,9 @@ namespace yg
 
     void VertexBuffer::unlock()
     {
+      ASSERT(m_isLocked, ());
+      m_isLocked = false;
+
       if (m_useVA)
         return;
 
@@ -99,11 +112,16 @@ namespace yg
       m_gpuData = 0;
     }
 
-    void * VertexBuffer::glPtr() const
+    void * VertexBuffer::glPtr()
     {
       if (m_useVA)
         return m_gpuData;
       return 0;
+    }
+
+    bool VertexBuffer::isLocked() const
+    {
+      return m_isLocked;
     }
 
     void VertexBuffer::makeCurrent()

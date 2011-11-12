@@ -45,17 +45,21 @@ namespace yg
     bool m_useVA;
     TStorageFactory(size_t vbSize, size_t ibSize, bool useVA, char const * resName);
     gl::Storage const Create();
+    void BeforeMerge(gl::Storage const & e);
   };
 
   class ResourceManager
   {
   public:
 
-    typedef FixedSizePoolTraits<shared_ptr<gl::BaseTexture>, TTextureFactory> TTexturePoolTraits;
-    typedef ResourcePool<shared_ptr<gl::BaseTexture>, TTexturePoolTraits> TTexturePool;
+    typedef BasePoolTraits<shared_ptr<gl::BaseTexture>, TTextureFactory> TBaseTexturePoolTraits;
+    typedef FixedSizePoolTraits<TTextureFactory, TBaseTexturePoolTraits > TTexturePoolTraits;
+    typedef ResourcePool<TTexturePoolTraits> TTexturePool;
 
-    typedef FixedSizePoolTraits<gl::Storage, TStorageFactory> TStoragePoolTraits;
-    typedef ResourcePool<gl::Storage, TStoragePoolTraits> TStoragePool;
+    typedef BasePoolTraits<gl::Storage, TStorageFactory> TBaseStoragePoolTraits;
+    typedef SeparateFreePoolTraits<TStorageFactory, TBaseStoragePoolTraits> TSeparateFreeStoragePoolTraits;
+    typedef FixedSizePoolTraits<TStorageFactory, TSeparateFreeStoragePoolTraits> TStoragePoolTraits;
+    typedef ResourcePool<TStoragePoolTraits> TStoragePool;
 
   private:
 
@@ -165,6 +169,8 @@ namespace yg
     void memoryWarning();
     void enterBackground();
     void enterForeground();
+
+    void mergeFreeResources();
 
     shared_ptr<yg::gl::BaseTexture> createRenderTarget(unsigned w, unsigned h);
   };

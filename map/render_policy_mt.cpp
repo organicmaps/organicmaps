@@ -116,6 +116,8 @@ void RenderPolicyMT::EndFrame(shared_ptr<PaintEvent> const & e,
 void RenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,
                                ScreenBase const & s)
 {
+  m_resourceManager->mergeFreeResources();
+
   if (m_DoAddCommand && (s != m_renderQueue->renderState().m_actualScreen))
     m_renderQueue->AddCommand(m_renderFn, s);
 

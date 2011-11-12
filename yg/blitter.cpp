@@ -318,7 +318,7 @@ namespace yg
         LOG(LINFO, ("performing IMMDrawTexturedPrimitives command"));
       yg::gl::Storage blitStorage = m_resourceManager->blitStorages()->Reserve();
 
-      AuxVertex * pointsData = (AuxVertex*)blitStorage.m_vertices->lock();
+      AuxVertex * pointsData = (AuxVertex*)blitStorage.m_vertices->data();
 
       for (size_t i = 0; i < m_ptsCount; ++i)
       {
@@ -338,7 +338,7 @@ namespace yg
         m_texture->makeCurrent();
 
       unsigned short idxData[4] = {0, 1, 2, 3};
-      memcpy(blitStorage.m_indices->lock(), idxData, sizeof(idxData));
+      memcpy(blitStorage.m_indices->data(), idxData, sizeof(idxData));
       blitStorage.m_indices->unlock();
       blitStorage.m_indices->makeCurrent();
 

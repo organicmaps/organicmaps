@@ -21,14 +21,14 @@ namespace yg
     }
 
     IndexBuffer::IndexBuffer(bool useVA)
-      : m_size(0), m_gpuData(0), m_useVA(useVA)
+      : m_size(0), m_gpuData(0), m_useVA(useVA), m_isLocked(false)
     {
       if (!m_useVA)
         OGLCHECK(glGenBuffers(1, &m_id));
     }
 
     IndexBuffer::IndexBuffer(size_t size, bool useVA)
-      : m_size(0), m_gpuData(0), m_useVA(useVA)
+      : m_size(0), m_gpuData(0), m_useVA(useVA), m_isLocked(false)
     {
       if (!m_useVA)
         OGLCHECK(glGenBuffers(1, &m_id));
@@ -37,6 +37,7 @@ namespace yg
 
     void IndexBuffer::resize(size_t size)
     {
+      ASSERT(!m_isLocked, ());
       if (size != m_size)
       {
         m_size = size;
@@ -62,8 +63,22 @@ namespace yg
         OGLCHECK(glDeleteBuffers(1, &m_id));
     }
 
+    bool IndexBuffer::isLocked() const
+    {
+      return m_isLocked;
+    }
+
+    void * IndexBuffer::data()
+    {
+      ASSERT(m_isLocked, ("IndexBuffer is not locked"));
+      return m_gpuData;
+    }
+
     void * IndexBuffer::lock()
     {
+      ASSERT(!m_isLocked, ());
+      m_isLocked = true;
+
       if (m_useVA)
         return m_gpuData;
 
@@ -84,6 +99,9 @@ namespace yg
 
     void IndexBuffer::unlock()
     {
+      ASSERT(m_isLocked, ());
+      m_isLocked = false;
+
       if (m_useVA)
         return;
 

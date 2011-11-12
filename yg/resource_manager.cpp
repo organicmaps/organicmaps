@@ -5,6 +5,8 @@
 #include "skin_loader.hpp"
 #include "storage.hpp"
 #include "texture.hpp"
+#include "vertexbuffer.hpp"
+#include "indexbuffer.hpp"
 
 #include "../coding/file_reader.hpp"
 #include "../coding/parse_xml.hpp"
@@ -36,7 +38,25 @@ namespace yg
 
   gl::Storage const TStorageFactory::Create()
   {
-    return gl::Storage(m_vbSize, m_ibSize, m_useVA);
+    gl::Storage res(m_vbSize, m_ibSize, m_useVA);
+
+    res.m_indices->lock();
+    res.m_vertices->lock();
+
+    return res;
+  }
+
+  void TStorageFactory::BeforeMerge(gl::Storage const & e)
+  {
+    if (e.m_indices->isLocked())
+      e.m_indices->unlock();
+
+    e.m_indices->lock();
+
+    if (e.m_vertices->isLocked())
+      e.m_vertices->unlock();
+
+    e.m_vertices->lock();
   }
 
   ResourceManager::ResourceManager(size_t vbSize, size_t ibSize, size_t storagesCount,
@@ -65,12 +85,12 @@ namespace yg
     if (useVA)
       LOG(LINFO, ("buffer objects are unsupported. using client vertex array instead."));
 
-    m_storages.reset(new TStoragePool(TStoragePoolTraits(TStorageFactory(vbSize, ibSize, useVA, "primaryStorage"), storagesCount)));
-    m_smallStorages.reset(new TStoragePool(TStoragePoolTraits(TStorageFactory(smallVBSize, smallIBSize, useVA, "smallStorage"), smallStoragesCount)));
-    m_blitStorages.reset(new TStoragePool(TStoragePoolTraits(TStorageFactory(blitVBSize, blitIBSize, useVA, "blitStorage"), blitStoragesCount)));
+    m_storages.reset(new TStoragePool(new TStoragePoolTraits(TStorageFactory(vbSize, ibSize, useVA, "primaryStorage"), storagesCount)));
+    m_smallStorages.reset(new TStoragePool(new TStoragePoolTraits(TStorageFactory(smallVBSize, smallIBSize, useVA, "smallStorage"), smallStoragesCount)));
+    m_blitStorages.reset(new TStoragePool(new TStoragePoolTraits(TStorageFactory(blitVBSize, blitIBSize, useVA, "blitStorage"), blitStoragesCount)));
 
-    m_dynamicTextures.reset(new TTexturePool(TTexturePoolTraits(TTextureFactory(dynamicTexWidth, dynamicTexHeight, "dynamicTexture"), dynamicTexCount)));
-    m_fontTextures.reset(new TTexturePool(TTexturePoolTraits(TTextureFactory(fontTexWidth, fontTexHeight, "fontTexture"), fontTexCount)));
+    m_dynamicTextures.reset(new TTexturePool(new TTexturePoolTraits(TTextureFactory(dynamicTexWidth, dynamicTexHeight, "dynamicTexture"), dynamicTexCount)));
+    m_fontTextures.reset(new TTexturePool(new TTexturePoolTraits(TTextureFactory(fontTexWidth, fontTexHeight, "fontTexture"), fontTexCount)));
   }
 
   void ResourceManager::initMultiBlitStorage(size_t multiBlitVBSize, size_t multiBlitIBSize, size_t multiBlitStoragesCount)
@@ -78,7 +98,7 @@ namespace yg
     m_multiBlitVBSize = multiBlitVBSize;
     m_multiBlitIBSize = multiBlitIBSize;
 
-    m_multiBlitStorages.reset(new TStoragePool(TStoragePoolTraits(TStorageFactory(multiBlitVBSize, multiBlitIBSize, m_useVA, "multiBlitStorage"), multiBlitStoragesCount)));
+    m_multiBlitStorages.reset(new TStoragePool(new TStoragePoolTraits(TStorageFactory(multiBlitVBSize, multiBlitIBSize, m_useVA, "multiBlitStorage"), multiBlitStoragesCount)));
   }
 
   void ResourceManager::initTinyStorage(size_t tinyVBSize, size_t tinyIBSize, size_t tinyStoragesCount)
@@ -86,7 +106,7 @@ namespace yg
     m_tinyVBSize = tinyVBSize;
     m_tinyIBSize = tinyIBSize;
 
-    m_tinyStorages.reset(new TStoragePool(TStoragePoolTraits(TStorageFactory(tinyVBSize, tinyIBSize, m_useVA, "tinyStorage"), tinyStoragesCount)));
+    m_tinyStorages.reset(new TStoragePool(new TStoragePoolTraits(TStorageFactory(tinyVBSize, tinyIBSize, m_useVA, "tinyStorage"), tinyStoragesCount)));
   }
 
   void ResourceManager::initRenderTargets(size_t renderTargetWidth, size_t renderTargetHeight, size_t renderTargetsCount)
@@ -94,7 +114,7 @@ namespace yg
     m_renderTargetWidth = renderTargetWidth;
     m_renderTargetHeight = renderTargetHeight;
 
-    m_renderTargets.reset(new TTexturePool(TTexturePoolTraits(TTextureFactory(renderTargetWidth, renderTargetHeight, "renderTargets"), renderTargetsCount)));
+    m_renderTargets.reset(new TTexturePool(new TTexturePoolTraits(TTextureFactory(renderTargetWidth, renderTargetHeight, "renderTargets"), renderTargetsCount)));
   }
 
   void ResourceManager::initStyleCacheTextures(size_t styleCacheTextureWidth, size_t styleCacheTextureHeight, size_t styleCacheTexturesCount)
@@ -102,7 +122,7 @@ namespace yg
     m_styleCacheTextureWidth = styleCacheTextureWidth;
     m_styleCacheTextureHeight = styleCacheTextureHeight;
 
-    m_styleCacheTextures.reset(new TTexturePool(TTexturePoolTraits(TTextureFactory(styleCacheTextureWidth, styleCacheTextureHeight, "styleCacheTextures"), styleCacheTexturesCount)));
+    m_styleCacheTextures.reset(new TTexturePool(new TTexturePoolTraits(TTextureFactory(styleCacheTextureWidth, styleCacheTextureHeight, "styleCacheTextures"), styleCacheTexturesCount)));
   }
 
   shared_ptr<gl::BaseTexture> const & ResourceManager::getTexture(string const & fileName)
@@ -322,5 +342,19 @@ namespace yg
   ResourceManager::TTexturePool * ResourceManager::styleCacheTextures()
   {
     return m_styleCacheTextures.get();
+  }
+
+  void ResourceManager::mergeFreeResources()
+  {
+    if (m_tinyStorages.get())
+      m_tinyStorages->Merge();
+    if (m_storages.get())
+      m_storages->Merge();
+    if (m_smallStorages.get())
+      m_smallStorages->Merge();
+    if (m_blitStorages.get())
+      m_blitStorages->Merge();
+    if (m_multiBlitStorages.get())
+      m_multiBlitStorages->Merge();
   }
 }

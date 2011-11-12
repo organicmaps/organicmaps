@@ -100,6 +100,13 @@ namespace yg
         void perform();
       };
 
+      struct UnlockStorage : public Command
+      {
+        Storage m_storage;
+
+        void perform();
+      };
+
     public:
 
       /// INTERNAL API! USE WITH CAUTION
@@ -127,6 +134,7 @@ namespace yg
       void uploadData(shared_ptr<SkinPage> const & skinPage);
 
       void flushPipeline(shared_ptr<SkinPage> const & skinPage, int pipelineID);
+      void unlockPipeline(int pipelineID);
 
     public:
 

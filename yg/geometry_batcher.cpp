@@ -69,8 +69,8 @@ namespace yg
        m_maxVertices = m_storage.m_vertices->size() / sizeof(Vertex);
        m_maxIndices = m_storage.m_indices->size() / sizeof(unsigned short);
 
-       m_vertices = (Vertex*)m_storage.m_vertices->lock();
-       m_indices = (unsigned short *)m_storage.m_indices->lock();
+       m_vertices = (Vertex*)m_storage.m_vertices->data();
+       m_indices = (unsigned short *)m_storage.m_indices->data();
        m_hasStorage = true;
      }
    }
@@ -315,6 +315,26 @@ namespace yg
      }
    }
 
+   void GeometryBatcher::UnlockStorage::perform()
+   {
+     if (isDebugging())
+       LOG(LINFO, ("performing UnlockPipeline command"));
+     m_storage.m_vertices->unlock();
+     m_storage.m_indices->unlock();
+   }
+
+   void GeometryBatcher::unlockPipeline(int pipelineID)
+   {
+     GeometryPipeline & pipeline = m_pipelines[pipelineID];
+
+     Storage storage = pipeline.m_storage;
+
+     shared_ptr<UnlockStorage> command(new UnlockStorage());
+     command->m_storage = storage;
+
+     processCommand(command);
+   }
+
    void GeometryBatcher::flushPipeline(shared_ptr<SkinPage> const & skinPage,
                                        int pipelineID)
    {
@@ -323,8 +343,7 @@ namespace yg
      {
        uploadData(skinPage);
 
-       pipeline.m_storage.m_vertices->unlock();
-       pipeline.m_storage.m_indices->unlock();
+       unlockPipeline(pipelineID);
 
 //             base_t::applyStates(m_isAntiAliased);
 

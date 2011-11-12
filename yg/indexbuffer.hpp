@@ -12,6 +12,7 @@ namespace yg
       unsigned int m_size;
       void * m_gpuData;
       bool m_useVA;
+      bool m_isLocked;
 
     public:
 
@@ -27,6 +28,8 @@ namespace yg
       void unlock();
 
       void * glPtr();
+      void * data();
+      bool isLocked() const;
 
       static int current();
     };

@@ -32,6 +32,7 @@ void PartialRenderPolicy::ProcessRenderQueue(list<yg::gl::Renderer::Packet> & re
 void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & paintEvent,
                                     ScreenBase const & screenBase)
 {
+  m_resourceManager->mergeFreeResources();
   /// blitting from the current surface onto screen
 //  RenderPolicyMT::DrawFrame(paintEvent, screenBase);
 
