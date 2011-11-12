@@ -63,8 +63,11 @@ Result IntermediateResult::GenerateFinalResult() const
   switch (m_resultType)
   {
   case RESULT_FEATURE:
-    return Result(m_str/* + ' ' + strings::to_string(static_cast<int>(m_searchRank))*/,
-                  m_region, m_type, m_rect, m_distance, m_direction);
+    return Result(m_str
+              #ifdef DEBUG
+                  + ' ' + strings::to_string(static_cast<int>(m_searchRank))
+              #endif
+                  , m_region, m_type, m_rect, m_distance, m_direction);
   case RESULT_LATLON:
     return Result(m_str, m_region, 0, m_rect, m_distance, m_direction);
   case RESULT_CATEGORY:
