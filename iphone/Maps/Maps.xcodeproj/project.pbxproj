@@ -91,6 +91,7 @@
 		FAD4906C13EFF61F005E7D43 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = FAD4906A13EFF61F005E7D43 /* search.png */; };
 		FAD4906D13EFF61F005E7D43 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAD4906B13EFF61F005E7D43 /* search@2x.png */; };
 		FAEA8B2A1437CA80002A6737 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEA8B291437CA80002A6737 /* libjansson.a */; };
+		FAF29847146EEF4A00FF0057 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF29846146EEF4A00FF0057 /* libprotobuf.a */; };
 		FAF8003C1417D7E50024E8C1 /* ad.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF8FF3E1417D7E50024E8C1 /* ad.png */; };
 		FAF8003D1417D7E50024E8C1 /* ae.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF8FF3F1417D7E50024E8C1 /* ae.png */; };
 		FAF8003E1417D7E50024E8C1 /* af.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF8FF401417D7E50024E8C1 /* af.png */; };
@@ -706,6 +707,7 @@
 		FAD4906A13EFF61F005E7D43 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		FAD4906B13EFF61F005E7D43 /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
 		FAEA8B291437CA80002A6737 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjansson.a; sourceTree = SOURCE_ROOT; };
+		FAF29846146EEF4A00FF0057 /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libprotobuf.a; sourceTree = SOURCE_ROOT; };
 		FAF800001417D7E50024E8C1 /* sc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sc.png; path = ../../data/flags/sc.png; sourceTree = SOURCE_ROOT; };
 		FAF800011417D7E50024E8C1 /* sd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sd.png; path = ../../data/flags/sd.png; sourceTree = SOURCE_ROOT; };
 		FAF800021417D7E50024E8C1 /* se.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = se.png; path = ../../data/flags/se.png; sourceTree = SOURCE_ROOT; };
@@ -1248,6 +1250,7 @@
 				FA2EF9C713630C3B00E3E484 /* libplatform.a in Frameworks */,
 				FAAFD699139D9C6B000AE70C /* libsearch.a in Frameworks */,
 				FAEA8B2A1437CA80002A6737 /* libjansson.a in Frameworks */,
+				FAF29847146EEF4A00FF0057 /* libprotobuf.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1400,6 +1403,7 @@
 		FA1DE68411E15D4E00C6D69A /* Static Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				FAF29846146EEF4A00FF0057 /* libprotobuf.a */,
 				FAEA8B291437CA80002A6737 /* libjansson.a */,
 				FAAFD698139D9C6B000AE70C /* libsearch.a */,
 				FA2EF9C613630C3B00E3E484 /* libplatform.a */,
@@ -2616,7 +2620,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/omim/omim-iphonesim-debug/out/debug\"",
+				);
 			};
 			name = "Simulator Debug";
 		};
@@ -2705,7 +2712,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/omim/omim-iphonesim-debug/out/debug\"",
+				);
 			};
 			name = "Production Release";
 		};
@@ -2750,7 +2760,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/omim/omim-iphonesim-debug/out/debug\"",
+				);
 			};
 			name = "Simulator Release";
 		};
@@ -2800,7 +2813,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/omim/omim-iphonesim-debug/out/debug\"",
+				);
 			};
 			name = "Device Debug";
 		};
@@ -2852,7 +2868,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/omim/omim-iphonesim-debug/out/debug\"",
+				);
 			};
 			name = "Device Release";
 		};

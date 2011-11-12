@@ -41,6 +41,7 @@ SOURCES += \
   src/google/protobuf/io/coded_stream.cc \
   src/google/protobuf/io/tokenizer.cc \
   src/google/protobuf/io/zero_copy_stream.cc \
+  src/google/protobuf/io/zero_copy_stream_impl.cc \
   src/google/protobuf/io/zero_copy_stream_impl_lite.cc \
   src/google/protobuf/stubs/common.cc \
   src/google/protobuf/stubs/once.cc \
