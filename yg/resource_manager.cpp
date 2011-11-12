@@ -31,32 +31,41 @@ namespace yg
     return shared_ptr<gl::BaseTexture>(new TDynamicTexture(m_w, m_h));
   }
 
-  TStorageFactory::TStorageFactory(size_t vbSize, size_t ibSize, bool useVA, char const * resName)
+  TStorageFactory::TStorageFactory(size_t vbSize, size_t ibSize, bool useVA, bool isMergeable, char const * resName)
     : BasePoolElemFactory(resName, vbSize + ibSize),
-      m_vbSize(vbSize), m_ibSize(ibSize), m_useVA(useVA)
+      m_vbSize(vbSize),
+      m_ibSize(ibSize),
+      m_useVA(useVA),
+      m_isMergeable(isMergeable)
   {}
 
   gl::Storage const TStorageFactory::Create()
   {
     gl::Storage res(m_vbSize, m_ibSize, m_useVA);
 
-    res.m_indices->lock();
-    res.m_vertices->lock();
+    if (m_isMergeable)
+    {
+      res.m_indices->lock();
+      res.m_vertices->lock();
+    }
 
     return res;
   }
 
   void TStorageFactory::BeforeMerge(gl::Storage const & e)
   {
-    if (e.m_indices->isLocked())
-      e.m_indices->unlock();
+    if (m_isMergeable)
+    {
+      if (e.m_indices->isLocked())
+        e.m_indices->unlock();
 
-    e.m_indices->lock();
+      e.m_indices->lock();
 
-    if (e.m_vertices->isLocked())
-      e.m_vertices->unlock();
+      if (e.m_vertices->isLocked())
+        e.m_vertices->unlock();
 
-    e.m_vertices->lock();
+      e.m_vertices->lock();
+    }
   }
 
   ResourceManager::ResourceManager(size_t vbSize, size_t ibSize, size_t storagesCount,
@@ -68,14 +77,16 @@ namespace yg
                                    size_t glyphCacheSize,
                                    size_t glyphCacheCount,
                                    RtFormat fmt,
-                                   bool useVA)
+                                   bool useVA,
+                                   bool isMergeable)
                                      : m_dynamicTextureWidth(dynamicTexWidth), m_dynamicTextureHeight(dynamicTexHeight),
                                        m_fontTextureWidth(fontTexWidth), m_fontTextureHeight(fontTexHeight),
                                      m_vbSize(vbSize), m_ibSize(ibSize),
                                      m_smallVBSize(smallVBSize), m_smallIBSize(smallIBSize),
                                      m_blitVBSize(blitVBSize), m_blitIBSize(blitIBSize),
                                      m_format(fmt),
-                                     m_useVA(useVA)
+                                     m_useVA(useVA),
+                                     m_isMergeable(isMergeable)
   {
     LOG(LDEBUG, ("allocating ", glyphCacheCount, " glyphCaches, ", glyphCacheSize, " bytes total."));
 
@@ -85,12 +96,23 @@ namespace yg
     if (useVA)
       LOG(LINFO, ("buffer objects are unsupported. using client vertex array instead."));
 
-    m_storages.reset(new TStoragePool(new TStoragePoolTraits(TStorageFactory(vbSize, ibSize, useVA, "primaryStorage"), storagesCount)));
-    m_smallStorages.reset(new TStoragePool(new TStoragePoolTraits(TStorageFactory(smallVBSize, smallIBSize, useVA, "smallStorage"), smallStoragesCount)));
-    m_blitStorages.reset(new TStoragePool(new TStoragePoolTraits(TStorageFactory(blitVBSize, blitIBSize, useVA, "blitStorage"), blitStoragesCount)));
+    if (m_isMergeable)
+      m_storages.reset(new TMergeableStoragePoolImpl(new TMergeableStoragePoolTraits(TStorageFactory(vbSize, ibSize, useVA, m_isMergeable, "primaryStorage"), storagesCount)));
+    else
+      m_storages.reset(new TNonMergeableStoragePoolImpl(new TNonMergeableStoragePoolTraits(TStorageFactory(vbSize, ibSize, useVA, m_isMergeable, "primaryStorage"), storagesCount)));
 
-    m_dynamicTextures.reset(new TTexturePool(new TTexturePoolTraits(TTextureFactory(dynamicTexWidth, dynamicTexHeight, "dynamicTexture"), dynamicTexCount)));
-    m_fontTextures.reset(new TTexturePool(new TTexturePoolTraits(TTextureFactory(fontTexWidth, fontTexHeight, "fontTexture"), fontTexCount)));
+    if (m_isMergeable)
+      m_smallStorages.reset(new TMergeableStoragePoolImpl(new TMergeableStoragePoolTraits(TStorageFactory(smallVBSize, smallIBSize, useVA, m_isMergeable, "smallStorage"), smallStoragesCount)));
+    else
+      m_smallStorages.reset(new TNonMergeableStoragePoolImpl(new TNonMergeableStoragePoolTraits(TStorageFactory(smallVBSize, smallIBSize, useVA, m_isMergeable, "smallStorage"), smallStoragesCount)));
+
+    if (m_isMergeable)
+      m_blitStorages.reset(new TMergeableStoragePoolImpl(new TMergeableStoragePoolTraits(TStorageFactory(blitVBSize, blitIBSize, useVA, m_isMergeable, "blitStorage"), blitStoragesCount)));
+    else
+      m_blitStorages.reset(new TNonMergeableStoragePoolImpl(new TNonMergeableStoragePoolTraits(TStorageFactory(blitVBSize, blitIBSize, useVA, m_isMergeable, "blitStorage"), blitStoragesCount)));
+
+    m_dynamicTextures.reset(new TTexturePoolImpl(new TTexturePoolTraits(TTextureFactory(dynamicTexWidth, dynamicTexHeight, "dynamicTexture"), dynamicTexCount)));
+    m_fontTextures.reset(new TTexturePoolImpl(new TTexturePoolTraits(TTextureFactory(fontTexWidth, fontTexHeight, "fontTexture"), fontTexCount)));
   }
 
   void ResourceManager::initMultiBlitStorage(size_t multiBlitVBSize, size_t multiBlitIBSize, size_t multiBlitStoragesCount)
@@ -98,7 +120,10 @@ namespace yg
     m_multiBlitVBSize = multiBlitVBSize;
     m_multiBlitIBSize = multiBlitIBSize;
 
-    m_multiBlitStorages.reset(new TStoragePool(new TStoragePoolTraits(TStorageFactory(multiBlitVBSize, multiBlitIBSize, m_useVA, "multiBlitStorage"), multiBlitStoragesCount)));
+    if (m_isMergeable)
+      m_multiBlitStorages.reset(new TMergeableStoragePoolImpl(new TMergeableStoragePoolTraits(TStorageFactory(multiBlitVBSize, multiBlitIBSize, m_useVA, m_isMergeable, "multiBlitStorage"), multiBlitStoragesCount)));
+    else
+      m_multiBlitStorages.reset(new TNonMergeableStoragePoolImpl(new TNonMergeableStoragePoolTraits(TStorageFactory(multiBlitVBSize, multiBlitIBSize, m_useVA, m_isMergeable, "multiBlitStorage"), multiBlitStoragesCount)));
   }
 
   void ResourceManager::initTinyStorage(size_t tinyVBSize, size_t tinyIBSize, size_t tinyStoragesCount)
@@ -106,7 +131,10 @@ namespace yg
     m_tinyVBSize = tinyVBSize;
     m_tinyIBSize = tinyIBSize;
 
-    m_tinyStorages.reset(new TStoragePool(new TStoragePoolTraits(TStorageFactory(tinyVBSize, tinyIBSize, m_useVA, "tinyStorage"), tinyStoragesCount)));
+    if (m_isMergeable)
+      m_tinyStorages.reset(new TMergeableStoragePoolImpl(new TMergeableStoragePoolTraits(TStorageFactory(tinyVBSize, tinyIBSize, m_useVA, m_isMergeable, "tinyStorage"), tinyStoragesCount)));
+    else
+      m_tinyStorages.reset(new TNonMergeableStoragePoolImpl(new TNonMergeableStoragePoolTraits(TStorageFactory(tinyVBSize, tinyIBSize, m_useVA, m_isMergeable, "tinyStorage"), tinyStoragesCount)));
   }
 
   void ResourceManager::initRenderTargets(size_t renderTargetWidth, size_t renderTargetHeight, size_t renderTargetsCount)
@@ -114,7 +142,7 @@ namespace yg
     m_renderTargetWidth = renderTargetWidth;
     m_renderTargetHeight = renderTargetHeight;
 
-    m_renderTargets.reset(new TTexturePool(new TTexturePoolTraits(TTextureFactory(renderTargetWidth, renderTargetHeight, "renderTargets"), renderTargetsCount)));
+    m_renderTargets.reset(new TTexturePoolImpl(new TTexturePoolTraits(TTextureFactory(renderTargetWidth, renderTargetHeight, "renderTargets"), renderTargetsCount)));
   }
 
   void ResourceManager::initStyleCacheTextures(size_t styleCacheTextureWidth, size_t styleCacheTextureHeight, size_t styleCacheTexturesCount)
@@ -122,7 +150,7 @@ namespace yg
     m_styleCacheTextureWidth = styleCacheTextureWidth;
     m_styleCacheTextureHeight = styleCacheTextureHeight;
 
-    m_styleCacheTextures.reset(new TTexturePool(new TTexturePoolTraits(TTextureFactory(styleCacheTextureWidth, styleCacheTextureHeight, "styleCacheTextures"), styleCacheTexturesCount)));
+    m_styleCacheTextures.reset(new TTexturePoolImpl(new TTexturePoolTraits(TTextureFactory(styleCacheTextureWidth, styleCacheTextureHeight, "styleCacheTextures"), styleCacheTexturesCount)));
   }
 
   shared_ptr<gl::BaseTexture> const & ResourceManager::getTexture(string const & fileName)

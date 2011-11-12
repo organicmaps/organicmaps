@@ -37,7 +37,8 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
       2 * 1024 * 1024,
       1,
       yg::Rt8Bpp,
-      !yg::gl::g_isBufferObjectsSupported));
+      !yg::gl::g_isBufferObjectsSupported,
+      false));
 
   Platform::FilesList fonts;
   GetPlatform().GetFontNames(fonts);

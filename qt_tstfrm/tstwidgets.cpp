@@ -60,7 +60,8 @@ void GLDrawWidget::initializeGL()
       2 * 1024 * 1024,
       GetPlatform().CpuCores() + 2,
       yg::Rt8Bpp,
-      !yg::gl::g_isBufferObjectsSupported));
+      !yg::gl::g_isBufferObjectsSupported,
+      false));
 
   m_resourceManager->initMultiBlitStorage(500 * sizeof(yg::gl::AuxVertex), 500 * sizeof(unsigned short), 10);
 

@@ -318,6 +318,12 @@ namespace yg
         LOG(LINFO, ("performing IMMDrawTexturedPrimitives command"));
       yg::gl::Storage blitStorage = m_resourceManager->blitStorages()->Reserve();
 
+      if (!blitStorage.m_vertices->isLocked())
+        blitStorage.m_vertices->lock();
+
+      if (!blitStorage.m_indices->isLocked())
+        blitStorage.m_indices->lock();
+
       AuxVertex * pointsData = (AuxVertex*)blitStorage.m_vertices->data();
 
       for (size_t i = 0; i < m_ptsCount; ++i)

@@ -39,7 +39,8 @@ PartialRenderPolicy::PartialRenderPolicy(VideoTimer * videoTimer,
       2 * 1024 * 1024,
       3,
       yg::Rt8Bpp,
-      !yg::gl::g_isBufferObjectsSupported));
+      !yg::gl::g_isBufferObjectsSupported,
+      true));
 
   m_resourceManager->initTinyStorage(300 * sizeof(yg::gl::Vertex), 600 * sizeof(unsigned short), 20);
 

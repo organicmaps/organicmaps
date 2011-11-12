@@ -69,8 +69,14 @@ namespace yg
        m_maxVertices = m_storage.m_vertices->size() / sizeof(Vertex);
        m_maxIndices = m_storage.m_indices->size() / sizeof(unsigned short);
 
+       if (!m_storage.m_vertices->isLocked())
+         m_storage.m_vertices->lock();
+       if (!m_storage.m_indices->isLocked())
+         m_storage.m_indices->lock();
+
        m_vertices = (Vertex*)m_storage.m_vertices->data();
        m_indices = (unsigned short *)m_storage.m_indices->data();
+
        m_hasStorage = true;
      }
    }

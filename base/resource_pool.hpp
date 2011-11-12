@@ -47,6 +47,11 @@ struct BasePoolTraits
   {
     return m_pool.IsCancelled();
   }
+
+  /// non-intuitive name, should refactor to more meaningfull
+  void Merge()
+  {
+  }
 };
 
 /// This traits stores the free elements in a separate pool and has
@@ -157,10 +162,25 @@ struct AllocateOnDemandPoolTraits : TBase
   }
 };
 
+/// resource pool interface
+template <typename TElem>
+class ResourcePool
+{
+public:
+  virtual TElem const Reserve() = 0;
+  virtual void Free(TElem const & elem) = 0;
+  virtual size_t Size() const = 0;
+  virtual void EnterForeground() = 0;
+  virtual void EnterBackground() = 0;
+  virtual void Cancel() = 0;
+  virtual bool IsCancelled() const = 0;
+  virtual void Merge() = 0;
+};
+
 // This class tracks OpenGL resources allocation in
 // a multithreaded environment.
 template <typename TPoolTraits>
-class ResourcePool
+class ResourcePoolImpl : public ResourcePool<typename TPoolTraits::elem_t>
 {
 private:
 
@@ -170,7 +190,7 @@ public:
 
   typedef typename TPoolTraits::elem_t elem_t;
 
-  ResourcePool(TPoolTraits * traits)
+  ResourcePoolImpl(TPoolTraits * traits)
     : m_traits(traits)
   {
     /// quick trick to perform lazy initialization

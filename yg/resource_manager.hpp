@@ -43,7 +43,8 @@ namespace yg
     size_t m_vbSize;
     size_t m_ibSize;
     bool m_useVA;
-    TStorageFactory(size_t vbSize, size_t ibSize, bool useVA, char const * resName);
+    bool m_isMergeable;
+    TStorageFactory(size_t vbSize, size_t ibSize, bool useVA, bool isMergeable, char const * resName);
     gl::Storage const Create();
     void BeforeMerge(gl::Storage const & e);
   };
@@ -54,12 +55,20 @@ namespace yg
 
     typedef BasePoolTraits<shared_ptr<gl::BaseTexture>, TTextureFactory> TBaseTexturePoolTraits;
     typedef FixedSizePoolTraits<TTextureFactory, TBaseTexturePoolTraits > TTexturePoolTraits;
-    typedef ResourcePool<TTexturePoolTraits> TTexturePool;
+    typedef ResourcePoolImpl<TTexturePoolTraits> TTexturePoolImpl;
+
+    typedef ResourcePool<shared_ptr<gl::BaseTexture> > TTexturePool;
 
     typedef BasePoolTraits<gl::Storage, TStorageFactory> TBaseStoragePoolTraits;
     typedef SeparateFreePoolTraits<TStorageFactory, TBaseStoragePoolTraits> TSeparateFreeStoragePoolTraits;
-    typedef FixedSizePoolTraits<TStorageFactory, TSeparateFreeStoragePoolTraits> TStoragePoolTraits;
-    typedef ResourcePool<TStoragePoolTraits> TStoragePool;
+
+    typedef FixedSizePoolTraits<TStorageFactory, TSeparateFreeStoragePoolTraits> TMergeableStoragePoolTraits;
+    typedef ResourcePoolImpl<TMergeableStoragePoolTraits> TMergeableStoragePoolImpl;
+
+    typedef FixedSizePoolTraits<TStorageFactory, TBaseStoragePoolTraits> TNonMergeableStoragePoolTraits;
+    typedef ResourcePoolImpl<TNonMergeableStoragePoolTraits> TNonMergeableStoragePoolImpl;
+
+    typedef ResourcePool<gl::Storage> TStoragePool;
 
   private:
 
@@ -115,6 +124,7 @@ namespace yg
     RtFormat m_format;
 
     bool m_useVA;
+    bool m_isMergeable;
 
   public:
 
@@ -127,7 +137,8 @@ namespace yg
                     size_t glyphCacheSize,
                     size_t glyphCacheCount,
                     RtFormat fmt,
-                    bool useVA);
+                    bool useVA,
+                    bool isMergeable);
 
     void initMultiBlitStorage(size_t multiBlitVBSize, size_t multiBlitIBSize, size_t multiBlitStoragesCount);
     void initRenderTargets(size_t renderTargetWidth, size_t renderTargetHeight, size_t renderTargetCount);

@@ -41,7 +41,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
       2 * 1024 * 1024,
       GetPlatform().CpuCores() + 2,
       yg::Rt8Bpp,
-      !yg::gl::g_isBufferObjectsSupported));
+      !yg::gl::g_isBufferObjectsSupported,
+      false));
 
   m_resourceManager->initMultiBlitStorage(500 * sizeof(yg::gl::AuxVertex), 500 * sizeof(unsigned short), 10);
   m_resourceManager->initRenderTargets(GetPlatform().TileSize(), GetPlatform().TileSize(), GetPlatform().MaxTilesCount());
