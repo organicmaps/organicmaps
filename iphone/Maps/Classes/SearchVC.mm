@@ -58,6 +58,23 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
 /////////////////////////////////////////////////////////////////////
 
+@interface CustomView : UIView
+@end
+@implementation CustomView
+- (void)layoutSubviews
+{
+  UISearchBar * searchBar = (UISearchBar *)[self.subviews objectAtIndex:0];
+  [searchBar sizeToFit];
+  UITableView * table = (UITableView *)[self.subviews objectAtIndex:1];
+  CGRect rTable;
+  rTable.origin = CGPointMake(searchBar.frame.origin.x, searchBar.frame.origin.y + searchBar.frame.size.height);
+  rTable.size = self.bounds.size;
+  rTable.size.height -= searchBar.bounds.size.height;
+  table.frame = rTable;
+}
+@end
+
+////////////////////////////////////////////////////////////////////
 /// Key to store settings
 #define SEARCH_MODE_SETTING     "SearchMode"
 #define SEARCH_MODE_POPULARITY  "ByPopularity"
@@ -66,9 +83,6 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 #define SEARCH_MODE_DEFAULT     SEARCH_MODE_POPULARITY
 
 @implementation SearchVC
-
-@synthesize m_searchBar;
-@synthesize m_table;
 
 // Controls visibility of information window with GPS location problems
 //- (void)showOrHideGPSWarningIfNeeded
@@ -149,12 +163,36 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
 - (id)initWithFramework:(framework_t *)framework andLocationManager:(LocationManager *)lm
 {
-  if ((self = [super initWithNibName:@"Search" bundle:nil]))
+  if ((self = [super initWithNibName:nil bundle:nil]))
   {
     m_framework = framework;
     m_locationManager = lm;
   }
   return self;
+}
+
+- (void)loadView
+{
+  // create user interface
+  CustomView * parentView = [[[CustomView alloc] init] autorelease];
+  parentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+
+  m_searchBar = [[UISearchBar alloc] init];
+  m_searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+  m_searchBar.delegate = self;
+  m_searchBar.placeholder = @"Search map";
+  m_searchBar.showsCancelButton = YES;
+  m_searchBar.showsScopeBar = YES;
+  m_searchBar.scopeButtonTitles = [NSArray arrayWithObjects:@"By popularity", @"On the screen", @"Near me", nil];
+  [parentView addSubview:m_searchBar];
+
+  m_table = [[UITableView alloc] init];
+  m_table.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+  m_table.delegate = self;
+  m_table.dataSource = self;
+  [parentView addSubview:m_table];
+
+  self.view = parentView;
 }
 
 - (void)clearResults
@@ -166,6 +204,8 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 {
 //  [m_warningViewText release];
   g_searchVC = nil;
+  [m_searchBar release];
+  [m_table release];
   [self clearResults];
   [super dealloc];
 }
@@ -179,8 +219,8 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 {
   g_searchVC = nil;
   // to correctly free memory
-  self.m_searchBar = nil;
-  self.m_table = nil;
+  [m_searchBar release]; m_searchBar = nil;
+  [m_table release]; m_table = nil;
   m_results.clear();
   
   [super viewDidUnload];
@@ -308,18 +348,23 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"MyTableViewCell"];
+  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"SearchVCTableViewCell"];
   if (!cell)
+  {
     cell = [[[UITableViewCell alloc]
-           initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MyTableViewCell"]
+           initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"SearchVCTableViewCell"]
            autorelease];
+  }
   
   cell.accessoryView = nil;
   if (indexPath.row < m_results.size())
   {
     search::Result const & r = m_results[indexPath.row];
     cell.textLabel.text = [NSString stringWithUTF8String:r.GetString()];
-    [self updateCellDistance:cell withIndex:indexPath.row];
+    if (r.GetResultType() == search::Result::RESULT_FEATURE)
+      [self updateCellDistance:cell withIndex:indexPath.row];
+    else
+      cell.detailTextLabel.text = nil;
   }
   else
     cell.textLabel.text = @"BUG";
@@ -393,8 +438,9 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   for (NSUInteger i = 0; i < cells.count; ++i)
   {
     UITableViewCell * cell = (UITableViewCell *)[cells objectAtIndex:i];
-    [self updateCellAngle:cell withIndex:[m_table indexPathForCell:cell].row
-        andAngle:((info.m_trueHeading < 0) ? info.m_magneticHeading : info.m_trueHeading)];
+    NSInteger const index = [m_table indexPathForCell:cell].row;
+    if (m_results[index].GetResultType() == search::Result::RESULT_FEATURE)
+      [self updateCellAngle:cell withIndex:index andAngle:((info.m_trueHeading < 0) ? info.m_magneticHeading : info.m_trueHeading)];
   }
 }
 //*********** End of Location manager callbacks ********************

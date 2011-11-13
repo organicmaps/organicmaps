@@ -18,7 +18,6 @@
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
 		490830551426B0900088EE84 /* downloader.png in Resources */ = {isa = PBXBuildFile; fileRef = 490830531426B0900088EE84 /* downloader.png */; };
 		490830561426B0900088EE84 /* downloader@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 490830541426B0900088EE84 /* downloader@2x.png */; };
-		490830591426BD460088EE84 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 490830581426BD460088EE84 /* Search.xib */; };
 		4938BB1D1343652600E0815A /* dictionary.slf in Resources */ = {isa = PBXBuildFile; fileRef = 4938BB1C1343652600E0815A /* dictionary.slf */; };
 		4945D21C1334187D0082387C /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 4945D21A1334187D0082387C /* settings.png */; };
 		4945D21D1334187D0082387C /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4945D21B1334187D0082387C /* settings@2x.png */; };
@@ -622,7 +621,6 @@
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		490830531426B0900088EE84 /* downloader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downloader.png; sourceTree = "<group>"; };
 		490830541426B0900088EE84 /* downloader@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "downloader@2x.png"; sourceTree = "<group>"; };
-		490830581426BD460088EE84 /* Search.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Search.xib; sourceTree = SOURCE_ROOT; };
 		4938BB1C1343652600E0815A /* dictionary.slf */ = {isa = PBXFileReference; lastKnownFileType = file; name = dictionary.slf; path = ../../data/dictionary.slf; sourceTree = "<group>"; };
 		4945D21A1334187D0082387C /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		4945D21B1334187D0082387C /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
@@ -1338,7 +1336,6 @@
 				FA5005611287BFCE002961F0 /* Icon@2x.png */,
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* MapsWithMe-Info.plist */,
-				490830581426BD460088EE84 /* Search.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2583,7 +2580,6 @@
 				FAF805311417E3510024E8C1 /* zw@2x.png in Resources */,
 				490830551426B0900088EE84 /* downloader.png in Resources */,
 				490830561426B0900088EE84 /* downloader@2x.png in Resources */,
-				490830591426BD460088EE84 /* Search.xib in Resources */,
 				FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */,
 				FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */,
 			);
