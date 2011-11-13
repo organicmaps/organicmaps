@@ -39,7 +39,7 @@ Platform::Platform()
   CHECK(GetBinaryFolder(path), ("Can't retrieve path to executable"));
 
   // @TODO implement correct resources and writable directories for public releases
-  m_resourcesDir = path + "../../../data";
+  m_resourcesDir = path + "../../data/";
   m_writableDir = m_resourcesDir;
 
   LOG(LDEBUG, ("Resources directory:", m_resourcesDir));
