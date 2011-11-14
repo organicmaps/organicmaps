@@ -3,7 +3,7 @@
 # To use it, define ROOT_DIR variable and include($$ROOT_DIR/common.pri)
 
 # our own version variables
-VERSION_MAJOR = 1
+VERSION_MAJOR = 2
 VERSION_MINOR = 0
 
 # qt's variable
