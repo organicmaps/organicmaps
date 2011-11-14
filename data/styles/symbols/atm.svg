@@ -1,30 +1,72 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.0"
-   width="20"
-   height="20"
-   id="symbol-atm">
+   width="24"
+   height="24"
+   id="symbol-atm"
+   inkscape:version="0.48.2 r9819"
+   sodipodi:docname="atm.svg">
+  <title
+     id="title2983">ATM Map Icon</title>
+  <metadata
+     id="metadata10">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>ATM Map Icon</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Yury Melnichek</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1059"
+     inkscape:window-height="716"
+     id="namedview8"
+     showgrid="true"
+     inkscape:zoom="17.531842"
+     inkscape:cx="10.71227"
+     inkscape:cy="11.398954"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="symbol-atm">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985"
+       empspacing="2"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
   <defs
      id="defs2387" />
-  <g
-     id="layer1">
-    <path
-       d="M 4.9278227,4.4824438 L 2.8457825,17.656773 L 16.915327,17.656773 L 14.864833,4.4445865 L 4.9278227,4.4824438 z"
-       id="path2425"
-       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.10947382;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <rect
-       width="14.015866"
-       height="3.0304577"
-       x="2.841054"
-       y="1.4384469"
-       id="rect2397"
-       style="stroke-width:2.49099994;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none" />
-    <path
-       d="M 9.4571335,15.333227 C 8.7115335,15.333227 6.6238535,15.034987 6.7729735,13.692907 C 6.9220935,12.350827 8.4132935,13.096427 9.4571335,13.245547 L 9.4571335,11.306987 C 8.2641735,11.008747 6.7729735,10.114027 6.7729735,8.4737071 C 6.7729735,6.8333871 8.2641735,5.7895471 9.4571335,5.7895471 C 9.4571335,4.8948271 9.4571335,4.5965871 9.9044935,4.5965871 C 10.351854,4.5965871 10.351854,4.8948271 10.351854,5.7895471 C 11.246573,5.7895471 13.334253,6.0877871 12.886893,7.1316271 C 12.439533,8.1754671 11.097454,7.7281071 10.351854,7.5789871 L 10.351854,9.5175471 C 11.693933,9.8157871 13.185133,10.710507 13.185133,12.350827 C 13.185133,13.991147 11.843053,15.333227 10.351854,15.333227 C 10.351854,16.227947 10.351854,16.526187 9.9044935,16.526187 C 9.4571335,16.526187 9.4571335,16.227947 9.4571335,15.333227 z M 9.4571335,9.2193071 L 9.4571335,7.5789871 C 8.4132935,7.7281071 8.4132935,9.0701871 9.4571335,9.2193071 z M 10.351854,11.605227 L 10.351854,13.245547 C 11.395693,13.096427 11.395693,11.754347 10.351854,11.605227 z"
-       id="path5"
-       style="fill:#ffffff;stroke:none" />
-  </g>
+  <path
+     style="fill:#505050;fill-opacity:1;stroke:none"
+     d="M 4,2 4,22 20,22 20,2 4,2 z m 2.59375,1 4.8125,0 C 12.29265,3 13,3.892 13,5 l 0,5 c 0,1.108 -0.70735,2 -1.59375,2 l -4.8125,0 C 5.70735,12 5,11.108 5,10 L 5,5 C 5,3.892 5.70735,3 6.59375,3 z M 14,4 l 1,0 0,1 -1,0 0,-1 z m 2,0 1,0 0,1 -1,0 0,-1 z m 2,0 1,0 0,1 -1,0 0,-1 z m -4,2 1,0 0,1 -1,0 0,-1 z m 2,0 1,0 0,1 -1,0 0,-1 z m 2,0 1,0 0,1 -1,0 0,-1 z m -4,2 1,0 0,1 -1,0 0,-1 z m 2,0 1,0 0,1 -1,0 0,-1 z m 2,0 1,0 0,1 -1,0 0,-1 z m -4,3 5,0 0,1 -5,0 0,-1 z m -6.46875,4 0.5,0 0.46875,0 1.53125,5 -1,0 L 8.71875,19 7.3125,19 7,20 l -0.96875,0 1.5,-5 z M 10,15 l 1,0 1,0 1,0 0,1 -1,0 0,4 -1,0 0,-4 -1,0 0,-1 z m 4,0 0.875,0 0.125,0 1,2 1,-2 1,0 0,5 -1,0 0,-3 -0.625,1.09375 -0.875,0 L 15,17.21875 15,20 14,20 14,15.5 14,15 z M 8,16.3125 7.625,18 8.40625,18 8,16.3125 z"
+     id="rect2987"
+     inkscape:connector-curvature="0" />
 </svg>
