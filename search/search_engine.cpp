@@ -35,7 +35,8 @@ public:
 
 Engine::Engine(IndexType const * pIndex, CategoriesHolder * pCategories,
                ModelReaderPtr polyR, ModelReaderPtr countryR)
-  : m_pIndex(pIndex), m_pData(new EngineData(polyR, countryR))
+  : m_pIndex(pIndex), m_pData(new EngineData(polyR, countryR)),
+    m_preferredLanguage(1) // TODO: Get id for English language properly.
 {
   if (pCategories)
   {
@@ -46,7 +47,8 @@ Engine::Engine(IndexType const * pIndex, CategoriesHolder * pCategories,
   m_pQuery.reset(new Query(pIndex,
                            &m_pData->m_categories,
                            &m_pData->m_stringsToSuggest,
-                           &m_pData->m_infoGetter));
+                           &m_pData->m_infoGetter,
+                           m_preferredLanguage));
 }
 
 Engine::~Engine()
@@ -84,6 +86,11 @@ void Engine::InitializeCategoriesAndSuggestStrings(CategoriesHolder const & cate
 void Engine::SetViewport(m2::RectD const & viewport)
 {
   m_pQuery->SetViewport(viewport);
+}
+
+void Engine::SetPreferredLanguage(int lang)
+{
+  m_pQuery->SetPreferredLanguage(lang);
 }
 
 void Engine::Search(string const & queryText, function<void (Result const &)> const & f)

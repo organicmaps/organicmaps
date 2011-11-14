@@ -29,11 +29,13 @@ namespace search
 Query::Query(Index const * pIndex,
              CategoriesMapT const * pCategories,
              StringsToSuggestVectorT const * pStringsToSuggest,
-             storage::CountryInfoGetter const * pInfoGetter)
+             storage::CountryInfoGetter const * pInfoGetter,
+             int preferredLanguage)
   : m_pIndex(pIndex),
     m_pCategories(pCategories),
     m_pStringsToSuggest(pStringsToSuggest),
     m_pInfoGetter(pInfoGetter),
+    m_preferredLanguage(preferredLanguage),
     m_viewport(m2::RectD::GetEmptyRect()), m_viewportExtended(m2::RectD::GetEmptyRect()),
     m_bOffsetsCacheIsValid(false)
 {
@@ -55,6 +57,11 @@ void Query::SetViewport(m2::RectD const & viewport)
 
     UpdateViewportOffsets();
   }
+}
+
+void Query::SetPreferredLanguage(int lang)
+{
+  m_preferredLanguage = lang;
 }
 
 void Query::ClearCache()

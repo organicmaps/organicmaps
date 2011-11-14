@@ -35,10 +35,12 @@ public:
   Query(Index const * pIndex,
         CategoriesMapT const * pCategories,
         StringsToSuggestVectorT const * pStringsToSuggest,
-        storage::CountryInfoGetter const * pInfoGetter);
+        storage::CountryInfoGetter const * pInfoGetter,
+        int preferredLanguage);
   ~Query();
 
   void SetViewport(m2::RectD const & viewport);
+  void SetPreferredLanguage(int lang);
   void Search(string const & query,
               function<void (Result const &)> const & f,
               unsigned int resultsNeeded = 10);
@@ -64,6 +66,7 @@ private:
   CategoriesMapT const * m_pCategories;
   StringsToSuggestVectorT const * m_pStringsToSuggest;
   storage::CountryInfoGetter const * m_pInfoGetter;
+  int m_preferredLanguage;
 
   string m_rawQuery;
   strings::UniString m_uniQuery;

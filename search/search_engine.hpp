@@ -33,11 +33,13 @@ public:
   ~Engine();
 
   void SetViewport(m2::RectD const & viewport);
+  void SetPreferredLanguage(int lang);
   void Search(string const & query, function<void (Result const &)> const & f);
 
 private:
   void InitializeCategoriesAndSuggestStrings(CategoriesHolder const & categories);
 
+  int m_preferredLanguage;
   Index const * m_pIndex;
   scoped_ptr<search::Query> m_pQuery;
   scoped_ptr<EngineData> m_pData;
