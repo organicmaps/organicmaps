@@ -76,7 +76,7 @@ namespace yg
       string m_whiteListFile;
       string m_blackListFile;
       size_t m_maxSize;
-      Params(char const * blocksFile, char const * whiteListFile, char const * blackListFile, size_t maxSize);
+      Params(string const & blocksFile, string const & whiteListFile, string const & blackListFile, size_t maxSize);
     };
 
     GlyphCache();

@@ -29,7 +29,7 @@ public:
     static void Evict(Entry & val)
     {
       if (val.m_rm)
-        val.m_rm->renderTargets()->Free(val.m_tile.m_renderTarget);
+        val.m_rm->renderTargetTextures()->Free(val.m_tile.m_renderTarget);
     }
   };
 

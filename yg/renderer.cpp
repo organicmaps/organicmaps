@@ -371,8 +371,8 @@ namespace yg
 
     void Renderer::processCommand(shared_ptr<Command> const & command)
     {
-      command->m_isDebugging = false;
-//      command->m_isDebugging = renderQueue();
+//      command->m_isDebugging = false;
+      command->m_isDebugging = renderQueue();
 
       if (renderQueue())
       {

@@ -35,8 +35,8 @@ TileRenderer::TileRenderer(
 
   LOG(LINFO, ("initializing ", m_queue.ExecutorsCount(), " rendering threads"));
 
-  int tileWidth = m_resourceManager->tileTextureWidth();
-  int tileHeight = m_resourceManager->tileTextureHeight();
+  int tileWidth = m_resourceManager->params().m_renderTargetTexturesParams.m_texWidth;
+  int tileHeight = m_resourceManager->params().m_renderTargetTexturesParams.m_texHeight;
 
   for (unsigned i = 0; i < m_queue.ExecutorsCount(); ++i)
   {
@@ -76,7 +76,7 @@ TileRenderer::~TileRenderer()
 
 void TileRenderer::CancelThread(core::CommandsQueue::Environment const & /*env*/)
 {
-  m_resourceManager->renderTargets()->Cancel();
+  m_resourceManager->renderTargetTextures()->Cancel();
 }
 
 void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & env)
@@ -114,8 +114,8 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   ScreenBase frameScreen;
 
-  unsigned tileWidth = m_resourceManager->tileTextureWidth();
-  unsigned tileHeight = m_resourceManager->tileTextureHeight();
+  unsigned tileWidth = m_resourceManager->params().m_renderTargetTexturesParams.m_texWidth;
+  unsigned tileHeight = m_resourceManager->params().m_renderTargetTexturesParams.m_texHeight;
 
   m2::RectI renderRect(1, 1, tileWidth - 1, tileHeight - 1);
 
@@ -125,9 +125,9 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   my::Timer timer;
 
-  shared_ptr<yg::gl::BaseTexture> tileTarget = m_resourceManager->renderTargets()->Reserve();
+  shared_ptr<yg::gl::BaseTexture> tileTarget = m_resourceManager->renderTargetTextures()->Reserve();
 
-  if (m_resourceManager->renderTargets()->IsCancelled())
+  if (m_resourceManager->renderTargetTextures()->IsCancelled())
     return;
 
   drawer->screen()->setRenderTarget(tileTarget);
@@ -172,7 +172,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   double duration = timer.ElapsedSeconds();
 
   if (env.IsCancelled())
-    m_resourceManager->renderTargets()->Free(tileTarget);
+    m_resourceManager->renderTargetTextures()->Free(tileTarget);
   else
     AddTile(rectInfo, Tile(tileTarget, tileInfoLayer, frameScreen, rectInfo, duration));
 }
@@ -226,7 +226,7 @@ void TileRenderer::AddTile(Tiler::RectInfo const & rectInfo, Tile const & tile)
   m_tileCache.writeLock();
   if (m_tileCache.hasTile(rectInfo))
   {
-    m_resourceManager->renderTargets()->Free(tile.m_renderTarget);
+    m_resourceManager->renderTargetTextures()->Free(tile.m_renderTarget);
     m_tileCache.touchTile(rectInfo);
   }
   else

@@ -70,6 +70,91 @@ namespace yg
 
     typedef ResourcePool<gl::Storage> TStoragePool;
 
+  public:
+
+    struct StoragePoolParams
+    {
+      size_t m_vbSize;
+      size_t m_ibSize;
+      size_t m_storagesCount;
+      bool m_isFixed; //< should this params be scaled while fitting into videoMemoryLimit
+
+      StoragePoolParams(size_t vbSize, size_t ibSize, size_t storagesCount, bool isFixed);
+      StoragePoolParams();
+
+      bool isValid() const;
+      void scaleMemoryUsage(double k);
+      size_t memoryUsage() const;
+    };
+
+    struct TexturePoolParams
+    {
+      size_t m_texWidth;
+      size_t m_texHeight;
+      size_t m_texCount;
+      yg::RtFormat m_rtFormat;
+      bool m_isFixed; //< should this params be scaled while fitting into videoMemoryLimit
+
+      TexturePoolParams(size_t texWidth, size_t texHeight, size_t texCount, yg::RtFormat rtFormat, bool isFixed);
+      TexturePoolParams();
+
+      bool isValid() const;
+      void scaleMemoryUsage(double k);
+      size_t memoryUsage() const;
+    };
+
+    struct GlyphCacheParams
+    {
+      string m_unicodeBlockFile;
+      string m_whiteListFile;
+      string m_blackListFile;
+
+      size_t m_glyphCacheMemoryLimit;
+      size_t m_glyphCacheCount;
+      size_t m_renderThreadCount;
+
+      GlyphCacheParams();
+      GlyphCacheParams(string const & unicodeBlockFile,
+                       string const & whiteListFile,
+                       string const & blackListFile,
+                       size_t glyphCacheMemoryLimit,
+                       size_t glyphCacheCount,
+                       size_t renderThreadCount);
+    };
+
+    struct Params
+    {
+      RtFormat m_rtFormat;
+      bool m_isMergeable;
+      bool m_useVA;
+
+      size_t m_videoMemoryLimit;
+
+      /// storages params
+
+      StoragePoolParams m_primaryStoragesParams;
+      StoragePoolParams m_smallStoragesParams;
+      StoragePoolParams m_blitStoragesParams;
+      StoragePoolParams m_multiBlitStoragesParams;
+      StoragePoolParams m_tinyStoragesParams;
+
+      /// textures params
+
+      TexturePoolParams m_primaryTexturesParams;
+      TexturePoolParams m_fontTexturesParams;
+      TexturePoolParams m_renderTargetTexturesParams;
+      TexturePoolParams m_styleCacheTexturesParams;
+
+      /// glyph caches params
+
+      GlyphCacheParams m_glyphCacheParams;
+
+      Params();
+
+      void scaleMemoryUsage(double k);
+      void fitIntoLimits();
+    };
+
   private:
 
     typedef map<string, shared_ptr<gl::BaseTexture> > TStaticTextures;
@@ -78,42 +163,12 @@ namespace yg
 
     threads::Mutex m_mutex;
 
-    size_t m_dynamicTextureWidth;
-    size_t m_dynamicTextureHeight;
-
-    auto_ptr<TTexturePool> m_dynamicTextures;
-
-    size_t m_fontTextureWidth;
-    size_t m_fontTextureHeight;
-
+    auto_ptr<TTexturePool> m_primaryTextures;
     auto_ptr<TTexturePool> m_fontTextures;
-
-    size_t m_styleCacheTextureWidth;
-    size_t m_styleCacheTextureHeight;
-
     auto_ptr<TTexturePool> m_styleCacheTextures;
-
-    size_t m_renderTargetWidth;
-    size_t m_renderTargetHeight;
-
     auto_ptr<TTexturePool> m_renderTargets;
 
-    size_t m_vbSize;
-    size_t m_ibSize;
-
-    size_t m_smallVBSize;
-    size_t m_smallIBSize;
-
-    size_t m_blitVBSize;
-    size_t m_blitIBSize;
-
-    size_t m_multiBlitVBSize;
-    size_t m_multiBlitIBSize;
-
-    size_t m_tinyVBSize;
-    size_t m_tinyIBSize;
-
-    auto_ptr<TStoragePool> m_storages;
+    auto_ptr<TStoragePool> m_primaryStorages;
     auto_ptr<TStoragePool> m_smallStorages;
     auto_ptr<TStoragePool> m_blitStorages;
     auto_ptr<TStoragePool> m_multiBlitStorages;
@@ -121,51 +176,39 @@ namespace yg
 
     vector<GlyphCache> m_glyphCaches;
 
-    RtFormat m_format;
-
-    bool m_useVA;
-    bool m_isMergeable;
+    Params m_params;
 
   public:
 
-    ResourceManager(size_t vbSize, size_t ibSize, size_t storagesCount,
-                    size_t smallVBSize, size_t smallIBSize, size_t smallStoragesCount,
-                    size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
-                    size_t texWidth, size_t texHeight, size_t texCount,
-                    size_t fontTexWidth, size_t fontTexHeight, size_t fontTexCount,
-                    char const * blocksFile, char const * whileListFile, char const * blackListFile,
-                    size_t glyphCacheSize,
-                    size_t glyphCacheCount,
-                    RtFormat fmt,
-                    bool useVA,
-                    bool isMergeable);
+    ResourceManager(Params const & p);
 
-    void initMultiBlitStorage(size_t multiBlitVBSize, size_t multiBlitIBSize, size_t multiBlitStoragesCount);
-    void initRenderTargets(size_t renderTargetWidth, size_t renderTargetHeight, size_t renderTargetCount);
-    void initTinyStorage(size_t tinyVBSize, size_t tinyIBSize, size_t tinyStoragesCount);
-    void initStyleCacheTextures(size_t styleCacheTextureWidth, size_t styleCacheTextureHeight, size_t styleCacheTexturesCount);
+    void initGlyphCaches(GlyphCacheParams const & p);
 
-    shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
+    void initPrimaryStorage(StoragePoolParams const & p);
+    void initSmallStorage(StoragePoolParams const & p);
+    void initBlitStorage(StoragePoolParams const & p);
+    void initMultiBlitStorage(StoragePoolParams const & p);
+    void initTinyStorage(StoragePoolParams const & p);
 
-    TStoragePool * storages();
+    TStoragePool * primaryStorages();
     TStoragePool * smallStorages();
     TStoragePool * blitStorages();
     TStoragePool * multiBlitStorages();
     TStoragePool * tinyStorages();
 
-    TTexturePool * dynamicTextures();
+    void initPrimaryTextures(TexturePoolParams const & p);
+    void initFontTextures(TexturePoolParams const & p);
+    void initRenderTargetTextures(TexturePoolParams const & p);
+    void initStyleCacheTextures(TexturePoolParams const & p);
+
+    TTexturePool * primaryTextures();
     TTexturePool * fontTextures();
-    TTexturePool * renderTargets();
+    TTexturePool * renderTargetTextures();
     TTexturePool * styleCacheTextures();
 
-    size_t dynamicTextureWidth() const;
-    size_t dynamicTextureHeight() const;
+    shared_ptr<gl::BaseTexture> const & getTexture(string const & fileName);
 
-    size_t fontTextureWidth() const;
-    size_t fontTextureHeight() const;
-
-    size_t tileTextureWidth() const;
-    size_t tileTextureHeight() const;
+    Params const & params() const;
 
     shared_ptr<GlyphInfo> const getGlyphInfo(GlyphKey const & key);
     GlyphMetrics const getGlyphMetrics(GlyphKey const & key);

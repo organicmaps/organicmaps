@@ -15,35 +15,51 @@
 
 RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
                                DrawerYG::Params const & params,
+                               yg::ResourceManager::Params const & rmParams,
                                shared_ptr<yg::gl::RenderContext> const & primaryRC)
   : RenderPolicy(primaryRC, false),
     m_DoAddCommand(true),
     m_DoSynchronize(true)
 {
-  m_resourceManager = make_shared_ptr(new yg::ResourceManager(
-      50000 * sizeof(yg::gl::Vertex),
-      100000 * sizeof(unsigned short),
-      15,
-      5000 * sizeof(yg::gl::Vertex),
-      10000 * sizeof(unsigned short),
-      100,
-      10 * sizeof(yg::gl::AuxVertex),
-      10 * sizeof(unsigned short),
-      50,
-      512, 256,
-      10,
-      512, 256,
-      5,
-      "unicode_blocks.txt",
-      "fonts_whitelist.txt",
-      "fonts_blacklist.txt",
-      2 * 1024 * 1024,
-      GetPlatform().CpuCores() + 2,
-      yg::Rt8Bpp,
-      !yg::gl::g_isBufferObjectsSupported,
-      false));
+  yg::ResourceManager::Params rmp = rmParams;
 
-  m_resourceManager->initTinyStorage(300 * sizeof(yg::gl::Vertex), 600 * sizeof(unsigned short), 20);
+  rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(500 * sizeof(yg::gl::Vertex),
+                                                                       100 * sizeof(unsigned short),
+                                                                       15,
+                                                                       false);
+
+  rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(50 * sizeof(yg::gl::Vertex),
+                                                                     10 * sizeof(unsigned short),
+                                                                     100,
+                                                                     false);
+
+  rmp.m_blitStoragesParams = yg::ResourceManager::StoragePoolParams(10 * sizeof(yg::gl::AuxVertex),
+                                                                    10 * sizeof(unsigned short),
+                                                                    50,
+                                                                    true);
+
+  rmp.m_tinyStoragesParams = yg::ResourceManager::StoragePoolParams(300 * sizeof(yg::gl::Vertex),
+                                                                    600 * sizeof(unsigned short),
+                                                                    20,
+                                                                    true);
+
+  rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512, 256, 10, rmp.m_rtFormat, true);
+
+  rmp.m_fontTexturesParams = yg::ResourceManager::TexturePoolParams(512, 256, 5, rmp.m_rtFormat, true);
+
+  rmp.m_glyphCacheParams = yg::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
+                                                                 "fonts_whitelist.txt",
+                                                                 "fonts_blacklist.txt",
+                                                                 2 * 1024 * 1024,
+                                                                 3,
+                                                                 1);
+
+  rmp.m_isMergeable = false;
+  rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;
+
+  rmp.fitIntoLimits();
+
+  m_resourceManager.reset(new yg::ResourceManager(rmp));
 
   Platform::FilesList fonts;
   GetPlatform().GetFontNames(fonts);

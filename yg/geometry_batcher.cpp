@@ -63,7 +63,7 @@ namespace yg
        if (m_useTinyStorage)
          m_storage = resourceManager->tinyStorages()->Reserve();
        else
-         m_storage = m_usage != SkinPage::EStaticUsage ? resourceManager->storages()->Reserve()
+         m_storage = m_usage != SkinPage::EStaticUsage ? resourceManager->primaryStorages()->Reserve()
                                                        : resourceManager->smallStorages()->Reserve();
 
        m_maxVertices = m_storage.m_vertices->size() / sizeof(Vertex);
@@ -102,7 +102,7 @@ namespace yg
          freeStorage->m_storagePool = resourceManager()->tinyStorages();
        else
          if (pipeline.m_usage != SkinPage::EStaticUsage)
-           freeStorage->m_storagePool = resourceManager()->storages();
+           freeStorage->m_storagePool = resourceManager()->primaryStorages();
          else
            freeStorage->m_storagePool = resourceManager()->smallStorages();
 
@@ -299,7 +299,7 @@ namespace yg
      switch (m_skin->getPage(pipelineID)->usage())
      {
      case SkinPage::EDynamicUsage:
-       freeTexCmd->m_texturePool = resourceManager()->dynamicTextures();
+       freeTexCmd->m_texturePool = resourceManager()->primaryTextures();
        break;
      case SkinPage::EFontsUsage:
        freeTexCmd->m_texturePool = resourceManager()->fontTextures();

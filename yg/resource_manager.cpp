@@ -68,89 +68,329 @@ namespace yg
     }
   }
 
-  ResourceManager::ResourceManager(size_t vbSize, size_t ibSize, size_t storagesCount,
-                                   size_t smallVBSize, size_t smallIBSize, size_t smallStoragesCount,
-                                   size_t blitVBSize, size_t blitIBSize, size_t blitStoragesCount,
-                                   size_t dynamicTexWidth, size_t dynamicTexHeight, size_t dynamicTexCount,
-                                   size_t fontTexWidth, size_t fontTexHeight, size_t fontTexCount,
-                                   char const * blocksFile, char const * whiteListFile, char const * blackListFile,
-                                   size_t glyphCacheSize,
-                                   size_t glyphCacheCount,
-                                   RtFormat fmt,
-                                   bool useVA,
-                                   bool isMergeable)
-                                     : m_dynamicTextureWidth(dynamicTexWidth), m_dynamicTextureHeight(dynamicTexHeight),
-                                       m_fontTextureWidth(fontTexWidth), m_fontTextureHeight(fontTexHeight),
-                                     m_vbSize(vbSize), m_ibSize(ibSize),
-                                     m_smallVBSize(smallVBSize), m_smallIBSize(smallIBSize),
-                                     m_blitVBSize(blitVBSize), m_blitIBSize(blitIBSize),
-                                     m_format(fmt),
-                                     m_useVA(useVA),
-                                     m_isMergeable(isMergeable)
+  ResourceManager::StoragePoolParams::StoragePoolParams()
+    : m_vbSize(0), m_ibSize(0), m_storagesCount(0), m_isFixed(true)
+  {}
+
+  ResourceManager::StoragePoolParams::StoragePoolParams(size_t vbSize, size_t ibSize, size_t storagesCount, bool isFixed)
+    : m_vbSize(vbSize), m_ibSize(ibSize), m_storagesCount(storagesCount), m_isFixed(isFixed)
+  {}
+
+  bool ResourceManager::StoragePoolParams::isValid() const
   {
-    LOG(LDEBUG, ("allocating ", glyphCacheCount, " glyphCaches, ", glyphCacheSize, " bytes total."));
+    return m_vbSize && m_ibSize && m_storagesCount;
+  }
 
-    for (size_t i = 0; i < glyphCacheCount; ++i)
-      m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(blocksFile, whiteListFile, blackListFile, glyphCacheSize / glyphCacheCount)));
+  size_t ResourceManager::StoragePoolParams::memoryUsage() const
+  {
+    return (m_vbSize + m_ibSize) * m_storagesCount;
+  }
 
-    if (useVA)
+  void ResourceManager::StoragePoolParams::scaleMemoryUsage(double k)
+  {
+    m_vbSize *= k;
+    m_ibSize *= k;
+  }
+
+  ResourceManager::TexturePoolParams::TexturePoolParams()
+    : m_texWidth(0), m_texHeight(0), m_texCount(0), m_rtFormat(yg::Rt8Bpp), m_isFixed(true)
+  {}
+
+  ResourceManager::TexturePoolParams::TexturePoolParams(size_t texWidth, size_t texHeight, size_t texCount, yg::RtFormat rtFormat, bool isFixed)
+    : m_texWidth(texWidth), m_texHeight(texHeight), m_texCount(texCount), m_rtFormat(rtFormat), m_isFixed(isFixed)
+  {}
+
+  bool ResourceManager::TexturePoolParams::isValid() const
+  {
+    return m_texWidth && m_texHeight && m_texCount;
+  }
+
+  size_t ResourceManager::TexturePoolParams::memoryUsage() const
+  {
+    size_t pixelSize = 0;
+    switch (m_rtFormat)
+    {
+    case yg::Rt4Bpp:
+      pixelSize = 2;
+      break;
+    case yg::Rt8Bpp:
+      pixelSize = 4;
+      break;
+    }
+
+    return m_texWidth * m_texHeight * pixelSize * m_texCount;
+  }
+
+  void ResourceManager::TexturePoolParams::scaleMemoryUsage(double k)
+  {
+    if (k > 1)
+    {
+      while (k > 2)
+      {
+        if (k > 2)
+        {
+          m_texWidth *= 2;
+          k /= 2;
+        }
+
+        if (k > 2)
+        {
+          m_texHeight *= 2;
+          k /= 2;
+        }
+      }
+    }
+    else
+    {
+      if (k < 1)
+      {
+        while (k < 1)
+        {
+          if (k < 0.5)
+          {
+            m_texHeight /= 2;
+            k *= 2;
+          }
+
+          if (k < 0.5)
+          {
+            m_texWidth /= 2;
+            k *= 2;
+          }
+        }
+      }
+    }
+
+    m_texCount *= k;
+  }
+
+  ResourceManager::GlyphCacheParams::GlyphCacheParams()
+    : m_glyphCacheMemoryLimit(0),
+      m_glyphCacheCount(0),
+      m_renderThreadCount(0)
+  {}
+
+  ResourceManager::GlyphCacheParams::GlyphCacheParams(string const & unicodeBlockFile,
+                                                      string const & whiteListFile,
+                                                      string const & blackListFile,
+                                                      size_t glyphCacheMemoryLimit,
+                                                      size_t glyphCacheCount,
+                                                      size_t renderThreadCount)
+    : m_unicodeBlockFile(unicodeBlockFile),
+      m_whiteListFile(whiteListFile),
+      m_blackListFile(blackListFile),
+      m_glyphCacheMemoryLimit(glyphCacheMemoryLimit),
+      m_glyphCacheCount(glyphCacheCount),
+      m_renderThreadCount(renderThreadCount)
+  {}
+
+  ResourceManager::Params::Params()
+    : m_rtFormat(yg::Rt8Bpp),
+      m_isMergeable(false),
+      m_useVA(true),
+      m_videoMemoryLimit(0)
+  {}
+
+  void ResourceManager::Params::fitIntoLimits()
+  {
+    size_t storageMemoryUsage = m_primaryStoragesParams.memoryUsage()
+        + m_smallStoragesParams.memoryUsage()
+        + m_blitStoragesParams.memoryUsage()
+        + m_multiBlitStoragesParams.memoryUsage()
+        + m_tinyStoragesParams.memoryUsage();
+
+    size_t fixedStorageMemoryUsage = (m_primaryStoragesParams.m_isFixed ? m_primaryStoragesParams.memoryUsage() : 0)
+                                   + (m_smallStoragesParams.m_isFixed ? m_smallStoragesParams.memoryUsage() : 0)
+                                   + (m_blitStoragesParams.m_isFixed ? m_blitStoragesParams.memoryUsage() : 0)
+                                   + (m_multiBlitStoragesParams.m_isFixed ? m_multiBlitStoragesParams.memoryUsage() : 0)
+                                   + (m_tinyStoragesParams.m_isFixed ? m_tinyStoragesParams.memoryUsage() : 0);
+
+    size_t textureMemoryUsage = m_primaryTexturesParams.memoryUsage()
+        + m_fontTexturesParams.memoryUsage()
+        + m_renderTargetTexturesParams.memoryUsage()
+        + m_styleCacheTexturesParams.memoryUsage();
+
+    size_t fixedTextureMemoryUsage = (m_primaryTexturesParams.m_isFixed ? m_primaryTexturesParams.memoryUsage() : 0)
+                                   + (m_fontTexturesParams.m_isFixed ? m_fontTexturesParams.memoryUsage() : 0)
+                                   + (m_renderTargetTexturesParams.m_isFixed ? m_renderTargetTexturesParams.memoryUsage() : 0)
+                                   + (m_styleCacheTexturesParams.m_isFixed ? m_styleCacheTexturesParams.memoryUsage() : 0);
+
+    size_t videoMemoryLimit = m_videoMemoryLimit;
+    if (videoMemoryLimit == 0)
+      videoMemoryLimit = storageMemoryUsage + textureMemoryUsage;
+
+    double k = ((int)videoMemoryLimit - (int)fixedStorageMemoryUsage - (int)fixedTextureMemoryUsage)* 1.0 / ((int)storageMemoryUsage + (int)textureMemoryUsage - (int)fixedStorageMemoryUsage - (int)fixedTextureMemoryUsage);
+
+    if (k < 0)
+      k = 1;
+
+    scaleMemoryUsage(k);
+
+    storageMemoryUsage = m_primaryStoragesParams.memoryUsage()
+        + m_smallStoragesParams.memoryUsage()
+        + m_blitStoragesParams.memoryUsage()
+        + m_multiBlitStoragesParams.memoryUsage()
+        + m_tinyStoragesParams.memoryUsage();
+
+    textureMemoryUsage = m_primaryTexturesParams.memoryUsage()
+        + m_fontTexturesParams.memoryUsage()
+        + m_renderTargetTexturesParams.memoryUsage()
+        + m_styleCacheTexturesParams.memoryUsage();
+
+    LOG(LINFO, ("allocating ", storageMemoryUsage + textureMemoryUsage, " bytes of videoMemory, with initial limit ", m_videoMemoryLimit));
+  }
+
+  void ResourceManager::Params::scaleMemoryUsage(double k)
+  {
+    if (!m_primaryStoragesParams.m_isFixed)
+      m_primaryStoragesParams.scaleMemoryUsage(k);
+    if (!m_smallStoragesParams.m_isFixed)
+      m_smallStoragesParams.scaleMemoryUsage(k);
+    if (!m_blitStoragesParams.m_isFixed)
+      m_blitStoragesParams.scaleMemoryUsage(k);
+    if (!m_multiBlitStoragesParams.m_isFixed)
+      m_multiBlitStoragesParams.scaleMemoryUsage(k);
+    if (!m_tinyStoragesParams.m_isFixed)
+      m_tinyStoragesParams.scaleMemoryUsage(k);
+
+    if (!m_primaryTexturesParams.m_isFixed)
+      m_primaryTexturesParams.scaleMemoryUsage(k);
+    if (!m_fontTexturesParams.m_isFixed)
+      m_fontTexturesParams.scaleMemoryUsage(k);
+    if (!m_renderTargetTexturesParams.m_isFixed)
+      m_renderTargetTexturesParams.scaleMemoryUsage(k);
+    if (!m_styleCacheTexturesParams.m_isFixed)
+      m_styleCacheTexturesParams.scaleMemoryUsage(k);
+  }
+
+  ResourceManager::ResourceManager(Params const & p)
+    : m_params(p)
+  {
+    initGlyphCaches(p.m_glyphCacheParams);
+
+    initPrimaryStorage(p.m_primaryStoragesParams);
+    initSmallStorage(p.m_smallStoragesParams);
+    initBlitStorage(p.m_blitStoragesParams);
+    initMultiBlitStorage(p.m_multiBlitStoragesParams);
+    initTinyStorage(p.m_tinyStoragesParams);
+
+    initPrimaryTextures(p.m_primaryTexturesParams);
+    initFontTextures(p.m_fontTexturesParams);
+    initRenderTargetTextures(p.m_renderTargetTexturesParams);
+    initStyleCacheTextures(p.m_styleCacheTexturesParams);
+
+    if (p.m_useVA)
       LOG(LINFO, ("buffer objects are unsupported. using client vertex array instead."));
-
-    if (m_isMergeable)
-      m_storages.reset(new TMergeableStoragePoolImpl(new TMergeableStoragePoolTraits(TStorageFactory(vbSize, ibSize, useVA, m_isMergeable, "primaryStorage"), storagesCount)));
-    else
-      m_storages.reset(new TNonMergeableStoragePoolImpl(new TNonMergeableStoragePoolTraits(TStorageFactory(vbSize, ibSize, useVA, m_isMergeable, "primaryStorage"), storagesCount)));
-
-    if (m_isMergeable)
-      m_smallStorages.reset(new TMergeableStoragePoolImpl(new TMergeableStoragePoolTraits(TStorageFactory(smallVBSize, smallIBSize, useVA, m_isMergeable, "smallStorage"), smallStoragesCount)));
-    else
-      m_smallStorages.reset(new TNonMergeableStoragePoolImpl(new TNonMergeableStoragePoolTraits(TStorageFactory(smallVBSize, smallIBSize, useVA, m_isMergeable, "smallStorage"), smallStoragesCount)));
-
-    if (m_isMergeable)
-      m_blitStorages.reset(new TMergeableStoragePoolImpl(new TMergeableStoragePoolTraits(TStorageFactory(blitVBSize, blitIBSize, useVA, m_isMergeable, "blitStorage"), blitStoragesCount)));
-    else
-      m_blitStorages.reset(new TNonMergeableStoragePoolImpl(new TNonMergeableStoragePoolTraits(TStorageFactory(blitVBSize, blitIBSize, useVA, m_isMergeable, "blitStorage"), blitStoragesCount)));
-
-    m_dynamicTextures.reset(new TTexturePoolImpl(new TTexturePoolTraits(TTextureFactory(dynamicTexWidth, dynamicTexHeight, "dynamicTexture"), dynamicTexCount)));
-    m_fontTextures.reset(new TTexturePoolImpl(new TTexturePoolTraits(TTextureFactory(fontTexWidth, fontTexHeight, "fontTexture"), fontTexCount)));
   }
 
-  void ResourceManager::initMultiBlitStorage(size_t multiBlitVBSize, size_t multiBlitIBSize, size_t multiBlitStoragesCount)
+  void ResourceManager::initGlyphCaches(GlyphCacheParams const & p)
   {
-    m_multiBlitVBSize = multiBlitVBSize;
-    m_multiBlitIBSize = multiBlitIBSize;
+    if (p.m_glyphCacheMemoryLimit && p.m_glyphCacheCount)
+    {
+      LOG(LDEBUG, ("allocating ", p.m_glyphCacheCount, " glyphCaches, ", p.m_glyphCacheMemoryLimit, " bytes total."));
 
-    if (m_isMergeable)
-      m_multiBlitStorages.reset(new TMergeableStoragePoolImpl(new TMergeableStoragePoolTraits(TStorageFactory(multiBlitVBSize, multiBlitIBSize, m_useVA, m_isMergeable, "multiBlitStorage"), multiBlitStoragesCount)));
+      for (size_t i = 0; i < p.m_glyphCacheCount; ++i)
+        m_glyphCaches.push_back(GlyphCache(GlyphCache::Params(p.m_unicodeBlockFile, p.m_whiteListFile, p.m_blackListFile, p.m_glyphCacheMemoryLimit / p.m_glyphCacheCount)));
+    }
     else
-      m_multiBlitStorages.reset(new TNonMergeableStoragePoolImpl(new TNonMergeableStoragePoolTraits(TStorageFactory(multiBlitVBSize, multiBlitIBSize, m_useVA, m_isMergeable, "multiBlitStorage"), multiBlitStoragesCount)));
+      LOG(LERROR, ("no params to init glyph caches."));
   }
 
-  void ResourceManager::initTinyStorage(size_t tinyVBSize, size_t tinyIBSize, size_t tinyStoragesCount)
+  void ResourceManager::initPrimaryStorage(StoragePoolParams const & p)
   {
-    m_tinyVBSize = tinyVBSize;
-    m_tinyIBSize = tinyIBSize;
-
-    if (m_isMergeable)
-      m_tinyStorages.reset(new TMergeableStoragePoolImpl(new TMergeableStoragePoolTraits(TStorageFactory(tinyVBSize, tinyIBSize, m_useVA, m_isMergeable, "tinyStorage"), tinyStoragesCount)));
+    if (p.isValid())
+    {
+      if (m_params.m_isMergeable)
+        m_primaryStorages.reset(new TMergeableStoragePoolImpl(new TMergeableStoragePoolTraits(TStorageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useVA, m_params.m_isMergeable, "primaryStorage"), p.m_storagesCount)));
+      else
+        m_primaryStorages.reset(new TNonMergeableStoragePoolImpl(new TNonMergeableStoragePoolTraits(TStorageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useVA, m_params.m_isMergeable, "primaryStorage"), p.m_storagesCount)));
+    }
     else
-      m_tinyStorages.reset(new TNonMergeableStoragePoolImpl(new TNonMergeableStoragePoolTraits(TStorageFactory(tinyVBSize, tinyIBSize, m_useVA, m_isMergeable, "tinyStorage"), tinyStoragesCount)));
+      LOG(LINFO, ("no primary storages"));
   }
 
-  void ResourceManager::initRenderTargets(size_t renderTargetWidth, size_t renderTargetHeight, size_t renderTargetsCount)
+  void ResourceManager::initSmallStorage(StoragePoolParams const & p)
   {
-    m_renderTargetWidth = renderTargetWidth;
-    m_renderTargetHeight = renderTargetHeight;
-
-    m_renderTargets.reset(new TTexturePoolImpl(new TTexturePoolTraits(TTextureFactory(renderTargetWidth, renderTargetHeight, "renderTargets"), renderTargetsCount)));
+    if (p.isValid())
+    {
+      if (m_params.m_isMergeable)
+        m_smallStorages.reset(new TMergeableStoragePoolImpl(new TMergeableStoragePoolTraits(TStorageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useVA, m_params.m_isMergeable, "smallStorage"), p.m_storagesCount)));
+      else
+        m_smallStorages.reset(new TNonMergeableStoragePoolImpl(new TNonMergeableStoragePoolTraits(TStorageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useVA, m_params.m_isMergeable, "smallStorage"), p.m_storagesCount)));
+    }
+    else
+      LOG(LINFO, ("no small storages"));
   }
 
-  void ResourceManager::initStyleCacheTextures(size_t styleCacheTextureWidth, size_t styleCacheTextureHeight, size_t styleCacheTexturesCount)
+  void ResourceManager::initBlitStorage(StoragePoolParams const & p)
   {
-    m_styleCacheTextureWidth = styleCacheTextureWidth;
-    m_styleCacheTextureHeight = styleCacheTextureHeight;
+    if (p.isValid())
+    {
+      if (m_params.m_isMergeable)
+        m_blitStorages.reset(new TMergeableStoragePoolImpl(new TMergeableStoragePoolTraits(TStorageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useVA, m_params.m_isMergeable, "blitStorage"), p.m_storagesCount)));
+      else
+        m_blitStorages.reset(new TNonMergeableStoragePoolImpl(new TNonMergeableStoragePoolTraits(TStorageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useVA, m_params.m_isMergeable, "blitStorage"), p.m_storagesCount)));
+    }
+    else
+      LOG(LINFO, ("no blit storages"));
+  }
 
-    m_styleCacheTextures.reset(new TTexturePoolImpl(new TTexturePoolTraits(TTextureFactory(styleCacheTextureWidth, styleCacheTextureHeight, "styleCacheTextures"), styleCacheTexturesCount)));
+  void ResourceManager::initMultiBlitStorage(StoragePoolParams const & p)
+  {
+    if (p.isValid())
+    {
+      if (m_params.m_isMergeable)
+        m_multiBlitStorages.reset(new TMergeableStoragePoolImpl(new TMergeableStoragePoolTraits(TStorageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useVA, m_params.m_isMergeable, "multiBlitStorage"), p.m_storagesCount)));
+      else
+        m_multiBlitStorages.reset(new TNonMergeableStoragePoolImpl(new TNonMergeableStoragePoolTraits(TStorageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useVA, m_params.m_isMergeable, "multiBlitStorage"), p.m_storagesCount)));
+    }
+    else
+      LOG(LINFO, ("no multiBlit storages"));
+  }
+
+  void ResourceManager::initTinyStorage(StoragePoolParams const & p)
+  {
+    if (p.isValid())
+    {
+      if (m_params.m_isMergeable)
+        m_tinyStorages.reset(new TMergeableStoragePoolImpl(new TMergeableStoragePoolTraits(TStorageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useVA, m_params.m_isMergeable, "tinyStorage"), p.m_storagesCount)));
+      else
+        m_tinyStorages.reset(new TNonMergeableStoragePoolImpl(new TNonMergeableStoragePoolTraits(TStorageFactory(p.m_vbSize, p.m_ibSize, m_params.m_useVA, m_params.m_isMergeable, "tinyStorage"), p.m_storagesCount)));
+    }
+    else
+      LOG(LINFO, ("no tiny storages"));
+  }
+
+  void ResourceManager::initPrimaryTextures(TexturePoolParams const & p)
+  {
+    if (p.isValid())
+      m_primaryTextures.reset(new TTexturePoolImpl(new TTexturePoolTraits(TTextureFactory(p.m_texWidth, p.m_texHeight, "primaryTextures"), p.m_texCount)));
+    else
+      LOG(LINFO, ("no primary textures"));
+  }
+
+  void ResourceManager::initFontTextures(TexturePoolParams const & p)
+  {
+    if (p.isValid())
+      m_fontTextures.reset(new TTexturePoolImpl(new TTexturePoolTraits(TTextureFactory(p.m_texWidth, p.m_texHeight, "fontTextures"), p.m_texCount)));
+    else
+      LOG(LINFO, ("no font textures"));
+  }
+
+  void ResourceManager::initRenderTargetTextures(TexturePoolParams const & p)
+  {
+    if (p.isValid())
+      m_renderTargets.reset(new TTexturePoolImpl(new TTexturePoolTraits(TTextureFactory(p.m_texWidth, p.m_texHeight, "renderTargets"), p.m_texCount)));
+    else
+      LOG(LINFO, ("no renderTarget textures"));
+  }
+
+  void ResourceManager::initStyleCacheTextures(TexturePoolParams const & p)
+  {
+    if (p.isValid())
+      m_styleCacheTextures.reset(new TTexturePoolImpl(new TTexturePoolTraits(TTextureFactory(p.m_texWidth, p.m_texHeight, "styleCacheTextures"), p.m_texCount)));
+    else
+      LOG(LINFO, ("no styleCache textures"));
   }
 
   shared_ptr<gl::BaseTexture> const & ResourceManager::getTexture(string const & fileName)
@@ -190,34 +430,9 @@ namespace yg
     return loader.skin();
   }
 
-  size_t ResourceManager::dynamicTextureWidth() const
+  ResourceManager::Params const & ResourceManager::params() const
   {
-    return m_dynamicTextureWidth;
-  }
-
-  size_t ResourceManager::dynamicTextureHeight() const
-  {
-    return m_dynamicTextureHeight;
-  }
-
-  size_t ResourceManager::fontTextureWidth() const
-  {
-    return m_fontTextureWidth;
-  }
-
-  size_t ResourceManager::fontTextureHeight() const
-  {
-    return m_fontTextureHeight;
-  }
-
-  size_t ResourceManager::tileTextureWidth() const
-  {
-    return m_renderTargetWidth;
-  }
-
-  size_t ResourceManager::tileTextureHeight() const
-  {
-    return m_renderTargetHeight;
+    return m_params;
   }
 
   GlyphCache * ResourceManager::glyphCache(int glyphCacheID)
@@ -239,8 +454,8 @@ namespace yg
   {
     threads::MutexGuard guard(m_mutex);
 
-    if (m_storages.get())
-    m_storages->EnterBackground();
+    if (m_primaryStorages.get())
+      m_primaryStorages->EnterBackground();
 
     if (m_smallStorages.get())
       m_smallStorages->EnterBackground();
@@ -254,8 +469,8 @@ namespace yg
     if (m_tinyStorages.get())
       m_tinyStorages->EnterBackground();
 
-    if (m_dynamicTextures.get())
-      m_dynamicTextures->EnterBackground();
+    if (m_primaryTextures.get())
+      m_primaryTextures->EnterBackground();
 
     if (m_fontTextures.get())
       m_fontTextures->EnterBackground();
@@ -271,8 +486,8 @@ namespace yg
   {
     threads::MutexGuard guard(m_mutex);
 
-    if (m_storages.get())
-      m_storages->EnterForeground();
+    if (m_primaryStorages.get())
+      m_primaryStorages->EnterForeground();
 
     if (m_smallStorages.get())
       m_smallStorages->EnterForeground();
@@ -286,8 +501,8 @@ namespace yg
     if (m_tinyStorages.get())
       m_tinyStorages->EnterForeground();
 
-    if (m_dynamicTextures.get())
-      m_dynamicTextures->EnterForeground();
+    if (m_primaryTextures.get())
+      m_primaryTextures->EnterForeground();
 
     if (m_fontTextures.get())
       m_fontTextures->EnterForeground();
@@ -301,7 +516,7 @@ namespace yg
 
   shared_ptr<yg::gl::BaseTexture> ResourceManager::createRenderTarget(unsigned w, unsigned h)
   {
-    switch (m_format)
+    switch (m_params.m_rtFormat)
     {
     case Rt8Bpp:
       return make_shared_ptr(new gl::Texture<RGBA8Traits, false>(w, h));
@@ -314,7 +529,8 @@ namespace yg
 
   int ResourceManager::renderThreadGlyphCacheID(int threadNum) const
   {
-    return 2 + threadNum;
+    ASSERT(threadNum < m_params.m_glyphCacheParams.m_renderThreadCount, ());
+    return 1 + threadNum;
   }
 
   int ResourceManager::guiThreadGlyphCacheID() const
@@ -324,17 +540,22 @@ namespace yg
 
   int ResourceManager::cacheThreadGlyphCacheID() const
   {
-    return 1;
+    return 1 + m_params.m_glyphCacheParams.m_renderThreadCount;
   }
 
-  ResourceManager::TStoragePool * ResourceManager::storages()
+  ResourceManager::TStoragePool * ResourceManager::primaryStorages()
   {
-    return m_storages.get();
+    return m_primaryStorages.get();
   }
 
   ResourceManager::TStoragePool * ResourceManager::smallStorages()
   {
     return m_smallStorages.get();
+  }
+
+  ResourceManager::TStoragePool * ResourceManager::tinyStorages()
+  {
+    return m_tinyStorages.get();
   }
 
   ResourceManager::TStoragePool * ResourceManager::blitStorages()
@@ -347,14 +568,9 @@ namespace yg
     return m_multiBlitStorages.get();
   }
 
-  ResourceManager::TStoragePool * ResourceManager::tinyStorages()
+  ResourceManager::TTexturePool * ResourceManager::primaryTextures()
   {
-    return m_tinyStorages.get();
-  }
-
-  ResourceManager::TTexturePool * ResourceManager::dynamicTextures()
-  {
-    return m_dynamicTextures.get();
+    return m_primaryTextures.get();
   }
 
   ResourceManager::TTexturePool * ResourceManager::fontTextures()
@@ -362,7 +578,7 @@ namespace yg
     return m_fontTextures.get();
   }
 
-  ResourceManager::TTexturePool * ResourceManager::renderTargets()
+  ResourceManager::TTexturePool * ResourceManager::renderTargetTextures()
   {
     return m_renderTargets.get();
   }
@@ -376,8 +592,8 @@ namespace yg
   {
     if (m_tinyStorages.get())
       m_tinyStorages->Merge();
-    if (m_storages.get())
-      m_storages->Merge();
+    if (m_primaryStorages.get())
+      m_primaryStorages->Merge();
     if (m_smallStorages.get())
       m_smallStorages->Merge();
     if (m_blitStorages.get())

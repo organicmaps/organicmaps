@@ -88,7 +88,7 @@ namespace yg
     }
   };
 
-  GlyphCache::Params::Params(char const * blocksFile, char const * whiteListFile, char const * blackListFile, size_t maxSize)
+  GlyphCache::Params::Params(string const & blocksFile, string const & whiteListFile, string const & blackListFile, size_t maxSize)
     : m_blocksFile(blocksFile), m_whiteListFile(whiteListFile), m_blackListFile(blackListFile), m_maxSize(maxSize)
   {}
 

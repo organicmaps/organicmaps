@@ -384,7 +384,7 @@ namespace yg
       switch (m_usage)
       {
       case EDynamicUsage:
-        m_resourceManager->dynamicTextures()->Free(m_texture);
+        m_resourceManager->primaryTextures()->Free(m_texture);
         break;
       case EFontsUsage:
         m_resourceManager->fontTextures()->Free(m_texture);
@@ -402,7 +402,7 @@ namespace yg
     switch (m_usage)
     {
     case EDynamicUsage:
-      m_texture = m_resourceManager->dynamicTextures()->Reserve();
+      m_texture = m_resourceManager->primaryTextures()->Reserve();
       break;
     case EFontsUsage:
       m_texture = m_resourceManager->fontTextures()->Reserve();
@@ -417,13 +417,13 @@ namespace yg
     switch (m_usage)
     {
     case EDynamicUsage:
-      m_packer = m2::Packer(m_resourceManager->dynamicTextureWidth(),
-                            m_resourceManager->dynamicTextureHeight(),
+      m_packer = m2::Packer(m_resourceManager->params().m_primaryTexturesParams.m_texWidth,
+                            m_resourceManager->params().m_primaryTexturesParams.m_texHeight,
                             0x00FFFFFF - 1);
       break;
     case EFontsUsage:
-      m_packer = m2::Packer(m_resourceManager->fontTextureWidth(),
-                            m_resourceManager->fontTextureHeight(),
+      m_packer = m2::Packer(m_resourceManager->params().m_fontTexturesParams.m_texWidth,
+                            m_resourceManager->params().m_fontTexturesParams.m_texHeight,
                             0x00FFFFFF - 1);
       break;
     default:

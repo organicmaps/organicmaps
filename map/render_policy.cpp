@@ -111,6 +111,7 @@ void RenderPolicy::SetRenderFn(TRenderFn renderFn)
 
 RenderPolicy * CreateRenderPolicy(VideoTimer * videoTimer,
                                   DrawerYG::Params const & params,
+                                  yg::ResourceManager::Params const & rmParams,
                                   shared_ptr<yg::gl::RenderContext> const & primaryRC)
 {
   bool benchmarkingEnabled = false;
@@ -122,20 +123,20 @@ RenderPolicy * CreateRenderPolicy(VideoTimer * videoTimer,
     Settings::Get("IsBenchmarkingMT", isBenchmarkingMT);
 
     if (isBenchmarkingMT)
-      return new BenchmarkTilingRenderPolicyMT(videoTimer, params, primaryRC);
+      return new BenchmarkTilingRenderPolicyMT(videoTimer, params, rmParams, primaryRC);
     else
-      return new BenchmarkRenderPolicyMT(videoTimer, params, primaryRC);
+      return new BenchmarkRenderPolicyMT(videoTimer, params, rmParams, primaryRC);
   }
   else
   {
 #ifdef OMIM_OS_ANDROID
-    return new PartialRenderPolicy(videoTimer, params, primaryRC);
+    return new PartialRenderPolicy(videoTimer, params, rmParams, primaryRC);
 #endif
 #ifdef OMIM_OS_IPHONE
-    return new RenderPolicyMT(videoTimer, params, primaryRC);
+    return new RenderPolicyMT(videoTimer, params, rmParams, primaryRC);
 #endif
 #ifdef OMIM_OS_DESKTOP
-    return new RenderPolicyMT(videoTimer, params, primaryRC);
+    return new RenderPolicyMT(videoTimer, params, rmParams, primaryRC);
 #endif
   }
 }

@@ -15,34 +15,48 @@
 
 PartialRenderPolicy::PartialRenderPolicy(VideoTimer * videoTimer,
                                          DrawerYG::Params const & params,
+                                         yg::ResourceManager::Params const & rmParams,
                                          shared_ptr<yg::gl::RenderContext> const & primaryRC)
   : RenderPolicy(primaryRC, false),
     m_DoAddCommand(true)
 {
-  m_resourceManager = make_shared_ptr(new yg::ResourceManager(
-      5000 * sizeof(yg::gl::Vertex),
-      10000 * sizeof(unsigned short),
-      15,
-      2000 * sizeof(yg::gl::Vertex),
-      4000 * sizeof(unsigned short),
-      100,
-      10 * sizeof(yg::gl::AuxVertex),
-      10 * sizeof(unsigned short),
-      50,
-      512, 256,
-      10,
-      512, 256,
-      5,
-      "unicode_blocks.txt",
-      "fonts_whitelist.txt",
-      "fonts_blacklist.txt",
-      2 * 1024 * 1024,
-      3,
-      yg::Rt8Bpp,
-      !yg::gl::g_isBufferObjectsSupported,
-      true));
+  yg::ResourceManager::Params rmp = rmParams;
 
-  m_resourceManager->initTinyStorage(300 * sizeof(yg::gl::Vertex), 600 * sizeof(unsigned short), 20);
+  rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(5000 * sizeof(yg::gl::Vertex),
+                                                                       10000 * sizeof(unsigned short),
+                                                                       15,
+                                                                       false);
+
+  rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(2000 * sizeof(yg::gl::Vertex),
+                                                                     4000 * sizeof(unsigned short),
+                                                                     100,
+                                                                     false);
+
+  rmp.m_blitStoragesParams = yg::ResourceManager::StoragePoolParams(10 * sizeof(yg::gl::AuxVertex),
+                                                                    10 * sizeof(unsigned short),
+                                                                    50,
+                                                                    true);
+
+  rmp.m_tinyStoragesParams = yg::ResourceManager::StoragePoolParams(300 * sizeof(yg::gl::Vertex),
+                                                                    600 * sizeof(unsigned short),
+                                                                    20,
+                                                                    true);
+
+  rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512, 256, 10, rmp.m_rtFormat, true);
+
+  rmp.m_fontTexturesParams = yg::ResourceManager::TexturePoolParams(512, 256, 5, rmp.m_rtFormat, true);
+
+  rmp.m_glyphCacheParams = yg::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
+                                                                 "fonts_whitelist.txt",
+                                                                 "fonts_blacklist.txt",
+                                                                 2 * 1024 * 1024,
+                                                                 2,
+                                                                 1);
+
+  rmp.m_isMergeable = true;
+  rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;
+
+  m_resourceManager.reset(new yg::ResourceManager(rmp));
 
   Platform::FilesList fonts;
   GetPlatform().GetFontNames(fonts);
@@ -110,7 +124,10 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
   yg::gl::Screen * screen = e->drawer()->screen().get();
 
   if (!m_state)
+  {
     m_state = screen->createState();
+    m_state->m_isDebugging = true;
+  }
 
   screen->getState(m_state.get());
 
@@ -143,7 +160,10 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
     LOG(LINFO, ("will continue on the next frame(", cmdProcessed, ")"));
   }
   else
-    LOG(LINFO, ("finished sequence of commands(", cmdProcessed, ")"));
+  {
+    if (cmdProcessed != 0)
+      LOG(LINFO, ("finished sequence of commands(", cmdProcessed, ")"));
+  }
 
   {
     threads::ConditionGuard guard(m_glCondition);
@@ -185,6 +205,7 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 void PartialRenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & paintEvent,
                                      ScreenBase const & screenBase)
 {
+  LOG(LINFO, ("-------BeginFrame-------"));
 }
 
 void PartialRenderPolicy::EndFrame(shared_ptr<PaintEvent> const & paintEvent,

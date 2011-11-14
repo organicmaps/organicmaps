@@ -42,28 +42,45 @@ void GLDrawWidget::initializeGL()
 
   m_primaryContext = make_shared_ptr(new qt::gl::RenderContext(this));
 
-  m_resourceManager = make_shared_ptr(new yg::ResourceManager(
-      30000 * sizeof(yg::gl::Vertex),
-      50000 * sizeof(unsigned short),
-      20,
-      3000 * sizeof(yg::gl::Vertex),
-      5000 * sizeof(unsigned short),
-      100,
-      10 * sizeof(yg::gl::AuxVertex),
-      10 * sizeof(unsigned short),
-      30,
-      512, 256, 10,
-      512, 256, 5,
-      "unicode_blocks.txt",
-      "fonts_whitelist.txt",
-      "fonts_blacklist.txt",
-      2 * 1024 * 1024,
-      GetPlatform().CpuCores() + 2,
-      yg::Rt8Bpp,
-      !yg::gl::g_isBufferObjectsSupported,
-      false));
+  yg::ResourceManager::Params rmp;
 
-  m_resourceManager->initMultiBlitStorage(500 * sizeof(yg::gl::AuxVertex), 500 * sizeof(unsigned short), 10);
+  rmp.m_videoMemoryLimit = 20 * 1024 * 1024;
+  rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(30000 * sizeof(yg::gl::Vertex),
+                                                                       50000 * sizeof(unsigned short),
+                                                                       20,
+                                                                       false);
+
+  rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(3000 * sizeof(yg::gl::Vertex),
+                                                                     5000 * sizeof(unsigned short),
+                                                                     100,
+                                                                     false);
+
+  rmp.m_blitStoragesParams = yg::ResourceManager::StoragePoolParams(10 * sizeof(yg::gl::AuxVertex),
+                                                                    10 * sizeof(unsigned short),
+                                                                    30,
+                                                                    true);
+
+  rmp.m_multiBlitStoragesParams = yg::ResourceManager::StoragePoolParams(500 * sizeof(yg::gl::AuxVertex),
+                                                                         500 * sizeof(unsigned short),
+                                                                         10,
+                                                                         true);
+
+  rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512, 256, 10, rmp.m_rtFormat, true);
+
+  rmp.m_fontTexturesParams = yg::ResourceManager::TexturePoolParams(512, 256, 5, rmp.m_rtFormat, true);
+
+  rmp.m_glyphCacheParams = yg::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
+                                                                 "fonts_whitelist.txt",
+                                                                 "fonts_blacklist.txt",
+                                                                 2 * 1024 * 1024,
+                                                                 1,
+                                                                 0);
+
+  rmp.m_isMergeable = false;
+  rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;
+  rmp.m_rtFormat = yg::Rt8Bpp;
+
+  m_resourceManager.reset(new yg::ResourceManager(rmp));
 
   Platform::FilesList fonts;
   GetPlatform().GetFontNames(fonts);

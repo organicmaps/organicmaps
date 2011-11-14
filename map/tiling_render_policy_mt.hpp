@@ -42,6 +42,7 @@ public:
 
   TilingRenderPolicyMT(VideoTimer * videoTimer,
                        DrawerYG::Params const & params,
+                       yg::ResourceManager::Params const & rmParams,
                        shared_ptr<yg::gl::RenderContext> const & primaryRC);
 
   void BeginFrame(shared_ptr<PaintEvent> const & ev, ScreenBase const & s);

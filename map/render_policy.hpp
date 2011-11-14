@@ -89,5 +89,6 @@ public:
 
 RenderPolicy * CreateRenderPolicy(VideoTimer * videoTimer,
                                   DrawerYG::Params const & params,
+                                  yg::ResourceManager::Params const & rmParams,
                                   shared_ptr<yg::gl::RenderContext> const & primaryRC);
 

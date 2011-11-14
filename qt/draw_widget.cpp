@@ -208,7 +208,11 @@ namespace qt
 
       shared_ptr<qt::gl::RenderContext> primaryRC(new qt::gl::RenderContext(this));
 
-      m_framework->SetRenderPolicy(CreateRenderPolicy(m_videoTimer.get(), params, primaryRC));
+      yg::ResourceManager::Params rmParams;
+      rmParams.m_rtFormat = yg::Rt8Bpp;
+      rmParams.m_videoMemoryLimit = 30 * 1024 * 1024;
+
+      m_framework->SetRenderPolicy(CreateRenderPolicy(m_videoTimer.get(), params, rmParams, primaryRC));
 
       m_isInitialized = true;
     }

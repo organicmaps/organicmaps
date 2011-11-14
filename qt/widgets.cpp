@@ -36,65 +36,6 @@ namespace qt
 
   void GLDrawWidget::initializeGL()
   {
-    /// we'll perform swap by ourselves, see issue #333
-    setAutoBufferSwap(false);
-
-    if (m_p == 0)
-    {
-#ifdef OMIM_OS_WINDOWS
-      win32::InitOpenGL();
-#endif
-
-      if (!yg::gl::CheckExtensionSupport())
-      {
-        /// TODO: Show "Please Update Drivers" dialog and close the program.
-      }
-
-      Platform & pl = GetPlatform();
-
-      m_renderContext = shared_ptr<yg::gl::RenderContext>(new qt::gl::RenderContext(this));
-      m_resourceManager = make_shared_ptr(new yg::ResourceManager(
-          50000 * sizeof(yg::gl::Vertex),
-          100000 * sizeof(unsigned short),
-          15,
-          5000 * sizeof(yg::gl::Vertex),
-          10000 * sizeof(unsigned short),
-          100,
-          10 * sizeof(yg::gl::AuxVertex),
-          10 * sizeof(unsigned short),
-          50,
-          512, 256,
-          10,
-          512, 256,
-          5,
-          "unicode_blocks.txt",
-          "fonts_whitelist.txt",
-          "fonts_blacklist.txt",
-          2 * 1024 * 1024,
-          GetPlatform().CpuCores() + 2,
-          yg::Rt8Bpp,
-          !yg::gl::g_isBufferObjectsSupported,
-          false));
-
-      m_resourceManager->initMultiBlitStorage(500 * sizeof(yg::gl::AuxVertex), 500 * sizeof(unsigned short), 10);
-
-      Platform::FilesList fonts;
-      pl.GetFontNames(fonts);
-      m_resourceManager->addFonts(fonts);
-
-      DrawerYG::params_t p;
-
-      p.m_resourceManager = m_resourceManager;
-      p.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
-      p.m_dynamicPagesCount = 2;
-      p.m_textPagesCount = 2;
-      p.m_glyphCacheID = m_resourceManager->guiThreadGlyphCacheID();
-      p.m_skinName = GetPlatform().SkinName();
-      p.m_visualScale = GetPlatform().VisualScale();
-      p.m_isSynchronized = true;
-
-      m_p = shared_ptr<DrawerYG>(new DrawerYG(p));
-    }
   }
 
   shared_ptr<yg::gl::RenderContext> const & GLDrawWidget::renderContext()

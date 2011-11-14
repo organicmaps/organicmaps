@@ -16,36 +16,56 @@
 
 TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                            DrawerYG::Params const & params,
+                                           yg::ResourceManager::Params const & rmParams,
                                            shared_ptr<yg::gl::RenderContext> const & primaryRC)
   : RenderPolicy(primaryRC, true),
     m_tileCache(GetPlatform().MaxTilesCount() - 1),
     m_tiler(GetPlatform().TileSize(), GetPlatform().ScaleEtalonSize())
 {
-  m_resourceManager = make_shared_ptr(new yg::ResourceManager(
-      50000 * sizeof(yg::gl::Vertex),
-      100000 * sizeof(unsigned short),
-      15,
-      5000 * sizeof(yg::gl::Vertex),
-      10000 * sizeof(unsigned short),
-      100,
-      10 * sizeof(yg::gl::AuxVertex),
-      10 * sizeof(unsigned short),
-      50,
-      512, 256,
-      10,
-      512, 256,
-      5,
-      "unicode_blocks.txt",
-      "fonts_whitelist.txt",
-      "fonts_blacklist.txt",
-      2 * 1024 * 1024,
-      GetPlatform().CpuCores() + 2,
-      yg::Rt8Bpp,
-      !yg::gl::g_isBufferObjectsSupported,
-      false));
+  yg::ResourceManager::Params rmp = rmParams;
 
-  m_resourceManager->initMultiBlitStorage(500 * sizeof(yg::gl::AuxVertex), 500 * sizeof(unsigned short), 10);
-  m_resourceManager->initRenderTargets(GetPlatform().TileSize(), GetPlatform().TileSize(), GetPlatform().MaxTilesCount());
+  rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(50000 * sizeof(yg::gl::Vertex),
+                                                                       10000 * sizeof(unsigned short),
+                                                                       15,
+                                                                       false);
+
+  rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(5000 * sizeof(yg::gl::Vertex),
+                                                                     10000 * sizeof(unsigned short),
+                                                                     100,
+                                                                     false);
+
+  rmp.m_blitStoragesParams = yg::ResourceManager::StoragePoolParams(10 * sizeof(yg::gl::AuxVertex),
+                                                                    10 * sizeof(unsigned short),
+                                                                    50,
+                                                                    true);
+
+  rmp.m_multiBlitStoragesParams = yg::ResourceManager::StoragePoolParams(500 * sizeof(yg::gl::AuxVertex),
+                                                                         500 * sizeof(unsigned short),
+                                                                         10,
+                                                                         true);
+
+  rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512, 256, 10, rmp.m_rtFormat, true);
+
+  rmp.m_fontTexturesParams = yg::ResourceManager::TexturePoolParams(512, 256, 5, rmp.m_rtFormat, true);
+
+  rmp.m_renderTargetTexturesParams = yg::ResourceManager::TexturePoolParams(GetPlatform().TileSize(),
+                                                                            GetPlatform().TileSize(),
+                                                                            GetPlatform().MaxTilesCount(),
+                                                                            rmp.m_rtFormat,
+                                                                            true);
+
+  rmp.m_glyphCacheParams = yg::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
+                                                                 "fonts_whitelist.txt",
+                                                                 "fonts_blacklist.txt",
+                                                                 2 * 1024 * 1024,
+                                                                 GetPlatform().CpuCores() + 2,
+                                                                 GetPlatform().CpuCores());
+
+
+  rmp.m_isMergeable = false;
+  rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;
+
+  m_resourceManager.reset(new yg::ResourceManager(rmp));
 
   Platform::FilesList fonts;
   GetPlatform().GetFontNames(fonts);
@@ -72,8 +92,8 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
   /// render single tile on the same thread
   shared_ptr<yg::gl::FrameBuffer> frameBuffer(new yg::gl::FrameBuffer());
 
-  unsigned tileWidth = m_resourceManager->tileTextureWidth();
-  unsigned tileHeight = m_resourceManager->tileTextureHeight();
+  unsigned tileWidth = m_resourceManager->params().m_renderTargetTexturesParams.m_texWidth;
+  unsigned tileHeight = m_resourceManager->params().m_renderTargetTexturesParams.m_texHeight;
 
   shared_ptr<yg::gl::RenderBuffer> depthBuffer(new yg::gl::RenderBuffer(tileWidth, tileHeight, true));
   frameBuffer->setDepthBuffer(depthBuffer);
@@ -134,7 +154,7 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
     {
       m_tileCache.readUnlock();
       shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_tileDrawer.get()));
-      shared_ptr<yg::gl::BaseTexture> tileTarget = m_resourceManager->renderTargets()->Reserve();
+      shared_ptr<yg::gl::BaseTexture> tileTarget = m_resourceManager->renderTargetTextures()->Reserve();
 
       shared_ptr<yg::InfoLayer> tileInfoLayer(new yg::InfoLayer());
 
@@ -146,7 +166,11 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
       yg::Color c = m_bgColor;
 
       m_tileDrawer->clear(yg::Color(c.r, c.g, c.b, 0));
-      m2::RectI renderRect(1, 1, m_resourceManager->tileTextureWidth() - 1, m_resourceManager->tileTextureHeight() - 1);
+
+      unsigned tileWidth = m_resourceManager->params().m_renderTargetTexturesParams.m_texWidth;
+      unsigned tileHeight = m_resourceManager->params().m_renderTargetTexturesParams.m_texHeight;
+
+      m2::RectI renderRect(1, 1, tileWidth - 1, tileHeight - 1);
       m_tileDrawer->screen()->setClipRect(renderRect);
       m_tileDrawer->clear(c);
 
@@ -178,9 +202,6 @@ void TilingRenderPolicyST::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBas
       m_tileCache.touchTile(ri);
       tile = m_tileCache.getTile(ri);
       m_tileCache.readUnlock();
-
-      size_t tileWidth = tile.m_renderTarget->width();
-      size_t tileHeight = tile.m_renderTarget->height();
 
       pDrawer->screen()->blit(tile.m_renderTarget, tile.m_tileScreen, currentScreen, true,
                               yg::Color(),
