@@ -1,6 +1,7 @@
 #include "classificator_loader.hpp"
 #include "classificator.hpp"
 #include "drawing_rules.hpp"
+#include "drules_struct.pb.h"
 
 #include "../../platform/platform.hpp"
 
@@ -12,33 +13,26 @@
 
 namespace classificator
 {
-  void Read(ReaderType const & rules,
-            ReaderType const & classificator,
-            ReaderType const & visibility,
-            ReaderType const & types)
+  void ReadCommon(ReaderType const & classificator,
+                  ReaderType const & visibility,
+                  ReaderType const & types)
   {
-//    LOG(LINFO, ("Reading drawing rules"));
-    ReaderPtrStream rulesS(rules);
-    drule::ReadRules(rulesS);
-
     string buffer;
 
     Classificator & c = classif();
     c.Clear();
 
-//    LOG(LINFO, ("Reading classificator"));
+    //LOG(LINFO, ("Reading classificator"));
     classificator.ReadAsString(buffer);
     c.ReadClassificator(buffer);
 
-//    LOG(LINFO, ("Reading visibility"));
+    //LOG(LINFO, ("Reading visibility"));
     visibility.ReadAsString(buffer);
     c.ReadVisibility(buffer);
 
-//    LOG(LINFO, ("Reading types mapping"));
+    //LOG(LINFO, ("Reading types mapping"));
     types.ReadAsString(buffer);
     c.ReadTypesMapping(buffer);
-
-//    LOG(LINFO, ("Reading of classificator done"));
   }
 
   void ReadVisibility(string const & fPath)
@@ -50,11 +44,25 @@ namespace classificator
 
   void Load()
   {
+    LOG(LINFO, ("Reading of classificator started"));
+
     Platform & p = GetPlatform();
 
-    Read(p.GetReader("drawing_rules.bin"),
-         p.GetReader("classificator.txt"),
-         p.GetReader("visibility.txt"),
-         p.GetReader("types.txt"));
+    ReadCommon(p.GetReader("classificator.txt"),
+               p.GetReader("visibility.txt"),
+               p.GetReader("types.txt"));
+
+    //LOG(LINFO, ("Reading of drawing rules"));
+#ifdef USE_PROTO_STYLES
+    // Load from protobuffer text file.
+    string buffer;
+    ReaderType(p.GetReader("drules_proto.txt")).ReadAsString(buffer);
+    drule::rules().LoadFromProto(buffer);
+#else
+    ReaderPtrStream rulesS(p.GetReader("drawing_rules.bin"));
+    drule::ReadRules(rulesS);
+#endif
+
+    LOG(LINFO, ("Reading of classificator done"));
   }
 }

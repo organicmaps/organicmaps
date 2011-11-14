@@ -80,7 +80,10 @@ void ClassifObject::LoadPolicy::Serialize(string const & s)
   // load drawing rule
   drule::Key key;
   key.fromString(s);
+
+#ifndef USE_PROTO_STYLES
   p->m_drawRule.push_back(key);
+#endif
 
   // mark as visible in rule's scale
   p->m_visibility[key.m_scale] = true;

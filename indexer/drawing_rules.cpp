@@ -1089,7 +1089,7 @@ namespace
     static int32_t GetStoringAlpha(BaseRule const * pSrc)
     {
       // 255 is default value for BaseRule - completely visible
-      // when storing alpha, 0 - is default value
+      // when storing alpha, 0 - is default value for visible
       int32_t r = 255 - pSrc->GetAlpha();
       r = r << 24;
       return r;
@@ -1104,7 +1104,7 @@ namespace
       return (pSrc->GetFillColor() | GetStoringAlpha(pSrc));
     }
 
-    static void Convert(BaseRule const * pSrc, LineRuleProto * pDest)
+    static void ConvertImpl(BaseRule const * pSrc, LineRuleProto * pDest)
     {
       pDest->set_width(pSrc->GetWidth());
       pDest->set_color(GetColor(pSrc));
@@ -1119,21 +1119,21 @@ namespace
       }
     }
 
-    static void Convert(BaseRule const * pSrc, AreaRuleProto * pDest)
+    static void ConvertImpl(BaseRule const * pSrc, AreaRuleProto * pDest)
     {
       pDest->set_color(GetFillColor(pSrc));
       if (pSrc->GetColor() != -1)
-        Convert(pSrc, pDest->mutable_border());
+        ConvertImpl(pSrc, pDest->mutable_border());
     }
 
-    static void Convert(BaseRule const * pSrc, SymbolRuleProto * pDest)
+    static void ConvertImpl(BaseRule const * pSrc, SymbolRuleProto * pDest)
     {
       string s;
       pSrc->GetSymbol(s);
       pDest->set_name(s);
     }
 
-    static void Convert(BaseRule const * pSrc, CaptionRuleProto * pDest)
+    static void ConvertImpl(BaseRule const * pSrc, CaptionRuleProto * pDest)
     {
       pDest->set_height(pSrc->GetTextHeight());
 
@@ -1143,10 +1143,17 @@ namespace
         pDest->set_stroke_color(GetColor(pSrc));
     }
 
-    static void Convert(BaseRule const * pSrc, CircleRuleProto * pDest)
+    static void ConvertImpl(BaseRule const * pSrc, CircleRuleProto * pDest)
     {
       pDest->set_radius(pSrc->GetRadius());
       pDest->set_color(GetFillColor(pSrc));
+    }
+
+    template <class T>
+    static void Convert(BaseRule const * pSrc, int priority, T * pDest)
+    {
+      pDest->set_priority(priority);
+      ConvertImpl(pSrc, pDest);
     }
 
     vector<string> m_parents;
@@ -1179,32 +1186,38 @@ namespace
         ClassifElementProto * pCE = m_cont.add_cont();
         pCE->set_name(GetFullName(o));
 
+        DrawElementProto * pDE = 0;
         for (size_t i = 0; i < keys.size(); ++i)
         {
           // skip unnecessary trash
           if (keys[i].m_type > circle)
             continue;
 
-          DrawElementProto * pDE = pCE->add_element();
-          pDE->set_scale(keys[i].m_scale);
+          if (pDE == 0 || pDE->scale() != keys[i].m_scale)
+          {
+            pDE = pCE->add_element();
+            pDE->set_scale(keys[i].m_scale);
+          }
 
           BaseRule const * pRule = m_rules.Find(keys[i]);
+          if (pRule->GetAlpha() == 0) continue;
+
           switch (keys[i].m_type)
           {
           case line:
-            Convert(pRule, pDE->add_lines());
+            Convert(pRule, keys[i].m_priority, pDE->add_lines());
             break;
           case area:
-            Convert(pRule, pDE->mutable_area());
+            Convert(pRule, keys[i].m_priority, pDE->mutable_area());
             break;
           case  symbol:
-            Convert(pRule, pDE->mutable_symbol());
+            Convert(pRule, keys[i].m_priority, pDE->mutable_symbol());
             break;
           case caption:
-            Convert(pRule, pDE->mutable_caption());
+            Convert(pRule, keys[i].m_priority, pDE->mutable_caption());
             break;
           case circle:
-            Convert(pRule, pDE->mutable_circle());
+            Convert(pRule, keys[i].m_priority, pDE->mutable_circle());
             break;
           }
         }
@@ -1224,6 +1237,234 @@ void ConvertToProtocolBuffers(string & res)
   classif().GetRoot()->ForEachObjectConst(conv);
 
   google::protobuf::TextFormat::PrintToString(cont, &res);
+}
+
+namespace
+{
+  namespace proto_rules
+  {
+    unsigned char AlphaFromColor(int c)
+    {
+      c = c >> 24;
+      return (255 - c);
+    }
+
+    void GetPattern(LineRuleProto const & ln, vector<double> & v, double & offset)
+    {
+      offset = 0.0;
+      if (ln.has_dashdot())
+      {
+        DashDotProto const & dd = ln.dashdot();
+
+        int const count = dd.dd_size();
+        v.reserve(count);
+        for (int i = 0; i < count; ++i)
+          v.push_back(dd.dd(i));
+      }
+    }
+
+    class MyBase : public BaseRule
+    {
+    public:
+      virtual bool IsEqual(BaseRule const *) const { return false; }
+      virtual void Read(ReaderPtrStream &) {}
+      virtual void Write(FileWriterStream &) const {}
+    };
+
+    class Line : public MyBase
+    {
+      LineRuleProto m_line;
+    public:
+      Line(LineRuleProto const & r) : m_line(r) {}
+
+      virtual int GetColor() const
+      {
+        return m_line.color();
+      }
+      virtual unsigned char GetAlpha() const
+      {
+        return AlphaFromColor(GetColor());
+      }
+      virtual double GetWidth() const
+      {
+        return m_line.width();
+      }
+      virtual void GetPattern(vector<double> & v, double & offset) const
+      {
+        proto_rules::GetPattern(m_line, v, offset);
+      }
+    };
+
+    class Area : public MyBase
+    {
+      AreaRuleProto m_area;
+    public:
+      Area(AreaRuleProto const & r) : m_area(r) {}
+
+      virtual int GetColor() const
+      {
+        if (m_area.has_border())
+          return m_area.border().color();
+        return -1;
+      }
+      virtual int GetFillColor() const
+      {
+        return m_area.color();
+      }
+      virtual unsigned char GetAlpha () const
+      {
+        return AlphaFromColor(GetFillColor());
+      }
+      virtual double GetWidth() const
+      {
+        if (m_area.has_border())
+          return m_area.border().width();
+        return -1;
+      }
+      virtual void GetPattern(vector<double> & v, double & offset) const
+      {
+        if (m_area.has_border())
+          proto_rules::GetPattern(m_area.border(), v, offset);
+      }
+    };
+
+    class Symbol : public MyBase
+    {
+      SymbolRuleProto m_symbol;
+    public:
+      Symbol(SymbolRuleProto const & r) : m_symbol(r) {}
+
+      virtual void GetSymbol(string & name) const
+      {
+        name = m_symbol.name();
+      }
+    };
+
+    class Caption : public MyBase
+    {
+      CaptionRuleProto m_caption;
+    public:
+      Caption(CaptionRuleProto const & r) : m_caption(r) {}
+
+      virtual int GetColor() const
+      {
+        if (m_caption.has_stroke_color())
+          return m_caption.stroke_color();
+        return -1;
+      }
+      virtual int GetFillColor() const
+      {
+        return m_caption.color();
+      }
+      virtual double GetTextHeight() const
+      {
+        return m_caption.height();
+      }
+      virtual unsigned char GetAlpha () const
+      {
+        return AlphaFromColor(GetFillColor());
+      }
+    };
+
+    class Circle : public MyBase
+    {
+      CircleRuleProto m_circle;
+    public:
+      Circle(CircleRuleProto const & r) : m_circle(r) {}
+
+      virtual int GetFillColor() const
+      {
+        return m_circle.color();
+      }
+      virtual double GetRadius() const
+      {
+        return m_circle.radius();
+      }
+    };
+  }
+
+  class DoSetIndex
+  {
+  public:
+    ContainerProto m_cont;
+
+  private:
+    vector<string> m_names;
+
+    int FindIndex() const
+    {
+      string name = m_names[0];
+      for (size_t i = 1; i < m_names.size(); ++i)
+        name = name + "-" + m_names[i];
+
+      /// @todo Make binary search (need iterator on ProtobufRepeatedPtrField).
+      for (int i = 0; i < m_cont.cont_size(); ++i)
+        if (m_cont.cont(i).name() == name)
+          return i;
+
+      return -1;
+    }
+
+    RulesHolder & m_holder;
+
+    template <class TRule, class TProtoRule>
+    void AddRule(ClassifObject * p, int scale, rule_type_t type, TProtoRule const & rule)
+    {
+      size_t const i = m_holder.AddRule(scale, type, new TRule(rule));
+      Key k(scale, type, i);
+      k.SetPriority(rule.priority());
+      p->AddDrawRule(k);
+    }
+
+  public:
+    DoSetIndex(RulesHolder & holder)
+      : m_holder(holder) {}
+
+    void operator() (ClassifObject * p)
+    {
+      m_names.push_back(p->GetName());
+
+      int const i = FindIndex();
+      if (i != -1)
+      {
+        ClassifElementProto const & ce = m_cont.cont(i);
+        for (int j = 0; j < ce.element_size(); ++j)
+        {
+          DrawElementProto const & de = ce.element(j);
+
+          using namespace proto_rules;
+
+          for (size_t k = 0; k < de.lines_size(); ++k)
+            AddRule<Line>(p, de.scale(), line, de.lines(k));
+
+          if (de.has_area())
+            AddRule<Area>(p, de.scale(), area, de.area());
+
+          if (de.has_symbol())
+            AddRule<Symbol>(p, de.scale(), symbol, de.symbol());
+
+          if (de.has_caption())
+            AddRule<Caption>(p, de.scale(), caption, de.caption());
+
+          if (de.has_circle())
+            AddRule<Circle>(p, de.scale(), circle, de.circle());
+        }
+      }
+
+      p->ForEachObject(bind<void>(ref(*this), _1));
+
+      m_names.pop_back();
+    }
+  };
+}
+
+void RulesHolder::LoadFromProto(string const & buffer)
+{
+  Clean();
+
+  DoSetIndex doSet(*this);
+  google::protobuf::TextFormat::ParseFromString(buffer, &doSet.m_cont);
+  classif().GetMutableRoot()->ForEachObject(bind<void>(ref(doSet), _1));
 }
 
 }

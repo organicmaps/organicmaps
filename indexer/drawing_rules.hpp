@@ -2,12 +2,13 @@
 #include "drawing_rule_def.hpp"
 
 #include "../base/base.hpp"
+#include "../base/buffer_vector.hpp"
 
 #include "../std/map.hpp"
 #include "../std/vector.hpp"
 #include "../std/array.hpp"
 #include "../std/string.hpp"
-#include "../base/buffer_vector.hpp"
+
 
 class ReaderPtrStream;
 class FileWriterStream;
@@ -18,9 +19,10 @@ namespace drule
 
   class BaseRule
   {
-    string m_class;
+    string m_class;   // for debug use only, can be removed
+
     mutable buffer_vector<uint32_t, 8> m_id1, m_id2;
-    char m_type;
+    char m_type;      // obsolete for new styles, can be removed
 
   public:
     static uint32_t const empty_id = 0xFFFFFFFF;
@@ -78,8 +80,15 @@ namespace drule
 
     void SetClassName(string const & cl) { m_class = cl; }
     void SetType(char type) { m_type = type; }
-
-    char GetType() const { return m_type; }
+    inline char GetType() const
+    {
+#ifdef USE_PROTO_STYLES
+      // Assume that they all are acceptable.
+      return (node | way);
+#else
+      return m_type;
+#endif
+    }
 
     bool IsEqualBase(BaseRule const * p) const { return (m_type == p->m_type); }
     void ReadBase(ReaderPtrStream & ar);
@@ -92,7 +101,7 @@ namespace drule
     /// @name This functions can tell us about the type of rule.
     //@{
     virtual int GetColor() const { return -1; }           ///< path "line" color
-    virtual int GetFillColor()const { return -1; }        ///< fill "area" color
+    virtual int GetFillColor() const { return -1; }        ///< fill "area" color
     virtual double GetTextHeight() const { return -1.0; } ///< text height of "caption"
     //@}
 
@@ -148,6 +157,7 @@ namespace drule
 
     void Read(ReaderPtrStream & s);
     void Write(FileWriterStream & s);
+    void LoadFromProto(string const & buffer);
 
     template <class ToDo> void ForEachRule(ToDo toDo)
     {
