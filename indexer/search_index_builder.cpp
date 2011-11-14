@@ -67,14 +67,19 @@ struct FeatureNameInserter
 {
   vector<FeatureName> & m_names;
   uint32_t m_pos;
-  uint8_t m_rank;
+  uint32_t m_rank;
 
   FeatureNameInserter(vector<FeatureName> & names, uint32_t pos, uint8_t rank)
     : m_names(names), m_pos(pos), m_rank(rank) {}
 
-  void AddToken(signed char, strings::UniString const & s) const
+  void AddToken(signed char lang, strings::UniString const & s) const
   {
-    m_names.push_back(FeatureName(s, m_pos, m_rank));
+    AddToken(lang, s, m_rank);
+  }
+
+  void AddToken(signed char, strings::UniString const & s, uint32_t rank) const
+  {
+    m_names.push_back(FeatureName(s, m_pos, static_cast<uint8_t>(min(rank, 255U))));
   }
 
   bool operator()(signed char lang, string const & name) const
@@ -89,7 +94,7 @@ struct FeatureNameInserter
       tokens.resize(30);
     }
     for (size_t i = 0; i < tokens.size(); ++i)
-      AddToken(lang, tokens[i]);
+      AddToken(lang, tokens[i], /*i < 3 ? m_rank + 10 * (3 - i) : */m_rank);
     return true;
   }
 };
