@@ -17,7 +17,6 @@ HEADERS += \
     search_query.hpp \
     result.hpp \
     latlon_match.hpp \
-    search_trie_matching.hpp \
     approximate_string_match.hpp \
     feature_offset_match.hpp \
     category_info.hpp \
