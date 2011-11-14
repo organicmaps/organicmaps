@@ -24,6 +24,7 @@
 
 #elif defined(OMIM_OS_ANDROID)
   #include <GLES/gl.h>
+  #define GL_GLEXT_PROTOTYPES
   #include <GLES/glext.h>
   #define OMIM_GL_ES
 

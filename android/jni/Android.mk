@@ -2,6 +2,8 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
+#LOCAL_CPP_FEATURES += exceptions rtti
+
 LOCAL_MODULE    := mapswithme
 
 #LOCAL_CFLAGS := -DANDROID_NDK \
@@ -9,6 +11,7 @@ LOCAL_MODULE    := mapswithme
 
 LOCAL_CFLAGS := -ffunction-sections -fdata-sections
 
+TARGET_PLATFORM := android-5
 
 LOCAL_HEADER_FILES := \
  	com/mapswithme/core/jni_helper.hpp \
@@ -38,7 +41,7 @@ LOCAL_SRC_FILES := \
 LOCAL_LDLIBS := -llog -lGLESv1_CM \
   	-lwords -lmap -lversion -lsearch -lstorage -lindexer -lyg -lplatform \
   	-lgeometry -lcoding -lbase -lexpat -lfreetype -lfribidi -lzlib -lbzip2 \
-  	-ljansson -ltomcrypt ./obj/local/armeabi/libstdc++.a
+	-ljansson -ltomcrypt -lprotobuf ./obj/local/armeabi/libstdc++.a
 
 LOCAL_LDLIBS += -L../../omim-android-debug/out/debug
 #LOCAL_LDLIBS += -L../../omim-android-release/out/release

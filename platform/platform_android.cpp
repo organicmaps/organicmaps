@@ -135,3 +135,8 @@ bool Platform::GetFileSize(string const & file, uint64_t & size) const
     return false;
   }
 }
+
+string Platform::UniqueClientId() const
+{
+  return "@TODO";
+}
