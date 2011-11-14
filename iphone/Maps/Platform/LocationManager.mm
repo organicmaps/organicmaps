@@ -9,7 +9,7 @@
   {
     m_locationManager = [[CLLocationManager alloc] init];
     m_locationManager.delegate = self;
-    m_locationManager.purpose = @"Location services are needed to display your current position on the map.";
+    m_locationManager.purpose = NSLocalizedString(@"Location services are needed to display your current position on the map.", @"Location purpose text description");
     m_locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     m_locationManager.headingFilter = 3.0;
     m_locationManager.distanceFilter = 1.0;

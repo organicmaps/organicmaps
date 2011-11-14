@@ -180,10 +180,12 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
   m_searchBar = [[UISearchBar alloc] init];
   m_searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   m_searchBar.delegate = self;
-  m_searchBar.placeholder = @"Search map";
+  m_searchBar.placeholder = NSLocalizedString(@"Search map", @"Search box placeholder text");
   m_searchBar.showsCancelButton = YES;
   m_searchBar.showsScopeBar = YES;
-  m_searchBar.scopeButtonTitles = [NSArray arrayWithObjects:@"By popularity", @"On the screen", @"Near me", nil];
+  m_searchBar.scopeButtonTitles = [NSArray arrayWithObjects:NSLocalizedString(@"By popularity", @"Search scope criteria"),
+                                   NSLocalizedString(@"On the screen", @"Search scope criteria"),
+                                   NSLocalizedString(@"Near me", @"Search scope criteria"), nil];
   [parentView addSubview:m_searchBar];
 
   m_table = [[UITableView alloc] init];
@@ -330,7 +332,11 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 
     // @TODO use imperial system from the settings if needed
     // @TODO use meters too
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1lf km", 
+    // NSLocalizedString(@"%.1lf m", @"Search results - Metres")
+    // NSLocalizedString(@"%.1lf ft", @"Search results - Feet")
+    // NSLocalizedString(@"%.1lf mi", @"Search results - Miles")
+    // NSLocalizedString(@"%.1lf yd", @"Search results - Yards")
+    cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%.1lf km", @"Search results - Kilometres"),
                                  distance / 1000.0];
   }
 }
@@ -406,13 +412,13 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 //  switch (newStatus)
 //  {
 //  case location::EDisabledByUser:
-//    m_warningViewText = [[NSString alloc] initWithString:@"Please enable location services"];
+//    m_warningViewText = [[NSString alloc] initWithString:NSLocalizedString(@"Please enable location services", @"Search View - Location is disabled by user warning text")];
 //    break;
 //  case location::ENotSupported:
-//    m_warningViewText = [[NSString alloc] initWithString:@"Location services are not supported"];
+//    m_warningViewText = [[NSString alloc] initWithString:NSLocalizedString(@"Location Services are not supported", @"Search View - Location is not supported on the device warning text")];
 //    break;
 //  case location::EStarted:
-//    m_warningViewText = [[NSString alloc] initWithString:@"Determining your location..."];
+//    m_warningViewText = [[NSString alloc] initWithString:NSLocalizedString(@"Determining your location...", @"Search View - Trying to determine location warning text")];
 //    break;
 //  case location::EStopped:
 //  case location::EFirstEvent:

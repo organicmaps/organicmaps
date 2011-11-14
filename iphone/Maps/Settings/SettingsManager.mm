@@ -9,6 +9,36 @@
 
 using namespace storage;
 
+// @TODO update data to new format
+// NSLocalizedString(@"Upgrade maps", @"Downloader/Upgrade message title")
+// NSLocalizedString(@"MapsWithMe uses new, fresh and more compact maps. For example, USA, Germany, France, Canada and Russia are splitted to smaller States/Regions. But to use new maps you should delete all previously downloaded data and download new maps.", @"Downloader/Upgrade dialog message")
+// NSLocalizedString(@"Delete old maps and download new maps", @"Downloader/Upgrade OK button")
+// NSLocalizedString(@"Do nothing at the moment", @"Downloader/Upgrade Cancel button")
+
+// @TODO advertisement banner
+// NSLocalizedString(@"MapsWithMe Pro", @"Banner title")
+// NSLocalizedString(@"One step ahead! Cool search feature! Bla bla bla", @"Banner message")
+// NSLocalizedString(@"Check MapsWithMe Pro", @"Banner Ok button - go to the appstore for paid version")
+// NSLocalizedString(@"Remind me later", @"Banner postpone button - remind later about paid version")
+// NSLocalizedString(@"Don't bother me", @"Banner cancel button - never remind user about paid version")
+
+// @TODO Write Review dialog
+// NSLocalizedString(@"Leave your review", @"Leave Review dialog title")
+// NSLocalizedString(@"If you like MapsWithMe, please support us with your review. If you want to complain - please leave it on our support site", @"Leave Review dialog message")
+// NSLocalizedString(@"Write a review", @"Leave Review dialog - Review button")
+// NSLocalizedString(@"Complain", @"Leave Review dialog - Complain button (goes to support site)")
+// NSLocalizedString(@"Not now", @"Leave Review dialog - Not now button (remond me later)")
+// NSLocalizedString(@"Dismiss", @"Leave Review dialog - Dismiss forever button")
+
+// @TODO Buttons in main maps view
+// NSLocalizedString(@"Maps", @"View and button titles for accessibility")
+// NSLocalizedString(@"Download Maps", @"View and button titles for accessibility")
+// NSLocalizedString(@"Search", @"View and button titles for accessibility")
+// NSLocalizedString(@"My Position", @"View and button titles for accessibility")
+// NSLocalizedString(@"Travel Guide", @"View and button titles for accessibility")
+// NSLocalizedString(@"Back", @"View and button titles for accessibility")
+// NSLocalizedString(@"Zoom to the country", @"View and button titles for accessibility")
+
 // Settings are always present globally
 @implementation SettingsManager
 
@@ -52,7 +82,7 @@ using namespace storage;
   m_storage = storage;
 
   CountriesViewController * countriesController = [[[CountriesViewController alloc]
-      initWithStorage:*m_storage andIndex:TIndex() andHeader:@"Download"] autorelease];
+      initWithStorage:*m_storage andIndex:TIndex() andHeader:NSLocalizedString(@"Download", @"Settings/Downloader - Main downloader window title")] autorelease];
   m_navigationController = [[UINavigationController alloc] initWithRootViewController:countriesController];
 
   // Subscribe to storage callbacks AND load country names after calling Storage::Subscribe()
