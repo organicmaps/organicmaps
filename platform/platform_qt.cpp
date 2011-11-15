@@ -26,7 +26,6 @@ bool Platform::GetFileSize(string const & file, uint64_t & size) const
 
 void Platform::GetFilesInDir(string const & directory, string const & mask, FilesList & outFiles) const
 {
-  outFiles.clear();
   QDir dir(directory.c_str(), mask.c_str(), QDir::Unsorted,
            QDir::Files | QDir::Readable | QDir::Dirs | QDir::NoDotAndDotDot);
   int const count = dir.count();
@@ -55,10 +54,7 @@ void Platform::GetFontNames(FilesList & res) const
   GetFilesInDir(WritableDir(), "*.ttf", res);
   res.resize(unique(res.begin(), res.end()) - res.begin());
   sort(res.begin(), res.end());
-#ifdef DEBUG
-  for (size_t i = 0; i < res.size(); ++i)
-    LOG(LDEBUG, ("Found font:", res[i]));
-#endif
+  CHECK(!res.empty(), ("Can't find any valid font in", ResourcesDir(), WritableDir()));
 }
 
 int Platform::MaxTilesCount() const

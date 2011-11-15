@@ -68,6 +68,8 @@ UNIT_TEST(GetFilesInDir)
   pl.GetFilesInDir(pl.WritableDir(), "*" DATA_FILE_EXTENSION, files);
   TEST_GREATER(files.size(), 0, ("/data/ folder should contain some data files"));
 
+  files.clear();
+
   pl.GetFilesInDir(pl.WritableDir(), "asdnonexistentfile.dsa", files);
   TEST_EQUAL(files.size(), 0, ());
 }
