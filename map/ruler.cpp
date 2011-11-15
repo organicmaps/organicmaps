@@ -202,7 +202,7 @@ void Ruler::update()
   {
     m2::PointD glbPivot = m_screen.PtoG(pivot());
 
-    int rulerHeight = static_cast<int>(14 * m_visualScale);
+    int rulerHeight = static_cast<int>(7 * m_visualScale);
     unsigned minPxWidth = static_cast<unsigned>(m_minPxWidth * m_visualScale);
 
     m2::PointD pt0 = m_screen.PtoG(pivot() - m2::PointD(minPxWidth / 2, 0));
