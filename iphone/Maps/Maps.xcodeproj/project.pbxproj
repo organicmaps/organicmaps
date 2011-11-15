@@ -78,6 +78,8 @@
 		FA5005671287BFCE002961F0 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA5005611287BFCE002961F0 /* Icon@2x.png */; };
 		FA500588128907F0002961F0 /* visibility.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA500587128907F0002961F0 /* visibility.txt */; };
 		FA64D9A913F975AD00350ECF /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA64D9A813F975AD00350ECF /* types.txt */; };
+		FA7A0ECD1472DA0000E57AD3 /* drules_proto.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA7A0ECC1472DA0000E57AD3 /* drules_proto.txt */; };
+		FA7A0ED01472DA3E00E57AD3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA7A0ECE1472DA3E00E57AD3 /* InfoPlist.strings */; };
 		FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA85F632145DDDC20090E1A0 /* packed_polygons.bin */; };
 		FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
 		FA8F8938132D5DB00048E3FE /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8F8937132D5DB00048E3FE /* libtomcrypt.a */; };
@@ -690,6 +692,8 @@
 		FA5005611287BFCE002961F0 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = SOURCE_ROOT; };
 		FA500587128907F0002961F0 /* visibility.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = visibility.txt; path = ../../data/visibility.txt; sourceTree = SOURCE_ROOT; };
 		FA64D9A813F975AD00350ECF /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = SOURCE_ROOT; };
+		FA7A0ECC1472DA0000E57AD3 /* drules_proto.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = drules_proto.txt; path = ../../data/drules_proto.txt; sourceTree = SOURCE_ROOT; };
+		FA7A0ECF1472DA3E00E57AD3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FA85F632145DDDC20090E1A0 /* packed_polygons.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = packed_polygons.bin; path = ../../data/packed_polygons.bin; sourceTree = SOURCE_ROOT; };
 		FA87151A12B1518F00592DAF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FA8F8937132D5DB00048E3FE /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtomcrypt.a; sourceTree = SOURCE_ROOT; };
@@ -1316,6 +1320,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FA7A0ECE1472DA3E00E57AD3 /* InfoPlist.strings */,
 				FA99CB71147089B100689A9A /* Localizable.strings */,
 				490830531426B0900088EE84 /* downloader.png */,
 				490830541426B0900088EE84 /* downloader@2x.png */,
@@ -1361,9 +1366,10 @@
 			isa = PBXGroup;
 			children = (
 				FAB5841914168E3200CEA40C /* Flags */,
-				FA64D9A813F975AD00350ECF /* types.txt */,
 				FAAFD696139D9BE2000AE70C /* categories.txt */,
+				FA7A0ECC1472DA0000E57AD3 /* drules_proto.txt */,
 				FA0E845D138554CF008CEABB /* languages.txt */,
+				FA64D9A813F975AD00350ECF /* types.txt */,
 				EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */,
 				EEA615E6134C4968003A9827 /* 02_wqy-microhei.ttf */,
 				EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */,
@@ -2588,6 +2594,8 @@
 				FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */,
 				FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */,
 				FA99CB73147089B100689A9A /* Localizable.strings in Resources */,
+				FA7A0ECD1472DA0000E57AD3 /* drules_proto.txt in Resources */,
+				FA7A0ED01472DA3E00E57AD3 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2618,6 +2626,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		FA7A0ECE1472DA3E00E57AD3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA7A0ECF1472DA3E00E57AD3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		FA99CB71147089B100689A9A /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
