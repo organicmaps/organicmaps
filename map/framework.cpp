@@ -148,30 +148,13 @@ Framework<TModel>::~Framework()
 template <typename TModel>
 void Framework<TModel>::GetLocalMaps(vector<string> & outMaps)
 {
-  Platform & pl = GetPlatform();
   outMaps.clear();
-  // scan for pre-installed maps in resources
-  string const resPath = pl.ResourcesDir();
-  Platform::FilesList resFiles;
-  pl.GetFilesInDir(resPath, "*" DATA_FILE_EXTENSION, resFiles);
-  // scan for probably updated maps in data dir
-  string const dataPath = pl.WritableDir();
-  Platform::FilesList dataFiles;
-  pl.GetFilesInDir(dataPath, "*" DATA_FILE_EXTENSION, dataFiles);
-  // wipe out same maps from resources, which have updated
-  // downloaded versions in data path
-  for (Platform::FilesList::iterator it = resFiles.begin(); it != resFiles.end();)
-  {
-    Platform::FilesList::iterator found = find(dataFiles.begin(), dataFiles.end(), *it);
-    if (found != dataFiles.end())
-      it = resFiles.erase(it);
-    else
-      ++it;
-  }
-  for (size_t i = 0; i < resFiles.size(); ++i)
-    outMaps.push_back(resFiles[i]);
-  for (size_t i = 0; i < dataFiles.size(); ++i)
-    outMaps.push_back(dataFiles[i]);
+
+  Platform & pl = GetPlatform();
+  pl.GetFilesInDir(pl.ResourcesDir(), "*" DATA_FILE_EXTENSION, outMaps);
+  pl.GetFilesInDir(pl.WritableDir(), "*" DATA_FILE_EXTENSION, outMaps);
+  outMaps.resize(unique(outMaps.begin(), outMaps.end()) - outMaps.begin());
+  sort(outMaps.begin(), outMaps.end());
 }
 
 template <typename TModel>
