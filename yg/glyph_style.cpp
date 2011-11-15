@@ -71,6 +71,7 @@ namespace yg
          {
            gil::get_color(c, gil::alpha_t()) = srcView(x - 2, y - 2) / DATA_TRAITS::channelScaleFactor;
            v(x, y) = c;
+           gil::get_color(c, gil::alpha_t()) *= gi->m_color.a / 255.0f;
          }
     }
   }

@@ -90,7 +90,7 @@ void InformationDisplay::setRulerParams(unsigned pxMinWidth, double metresMinWid
 void InformationDisplay::drawRuler(DrawerYG * pDrawer)
 {
   yg::FontDesc rulerFont = m_fontDesc;
-  rulerFont.m_color = yg::Color(0x44, 0x44, 0x44, 0xFF);
+  rulerFont.m_color = yg::Color(0x44, 0x44, 0x44, 0xD9);
 
   m_ruler.setFontDesc(rulerFont);
   m_ruler.setVisualScale(m_visualScale);
@@ -142,7 +142,7 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
 
   params.m_depth = yg::maxDepth;
   params.m_fontDesc = m_fontDesc;
-  params.m_fontDesc.m_color = yg::Color(0x44, 0x44, 0x44, 0xFF);
+  params.m_fontDesc.m_color = yg::Color(0x44, 0x44, 0x44, 0xD9);
   params.m_log2vis = false;
 
 #ifdef OMIM_OS_IPHONE
@@ -194,7 +194,7 @@ void InformationDisplay::drawDebugInfo(DrawerYG * drawer)
 
   m_yOffset += 20;
 
-  m2::PointD pos = m2::PointD(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset);
+  m2::PointD pos = m2::PointD(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset + 5 * m_visualScale);
 
   drawer->screen()->drawText(m_fontDesc,
                              pos,
