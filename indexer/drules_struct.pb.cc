@@ -106,8 +106,8 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto() {
   SymbolRuleProto_descriptor_ = file->message_type(3);
   static const int SymbolRuleProto_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolRuleProto, name_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolRuleProto, priority_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolRuleProto, apply_for_type_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolRuleProto, priority_),
   };
   SymbolRuleProto_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -271,16 +271,16 @@ void protobuf_AddDesc_drules_5fstruct_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\023drules_struct.proto\"*\n\014DashDotProto\022\n\n"
     "\002dd\030\001 \003(\001\022\016\n\006offset\030\002 \001(\001\"_\n\rLineRulePro"
-    "to\022\r\n\005width\030\001 \002(\001\022\r\n\005color\030\002 \002(\005\022\036\n\007dash"
+    "to\022\r\n\005width\030\001 \002(\001\022\r\n\005color\030\002 \002(\r\022\036\n\007dash"
     "dot\030\003 \001(\0132\r.DashDotProto\022\020\n\010priority\030\004 \002"
-    "(\005\"P\n\rAreaRuleProto\022\r\n\005color\030\001 \002(\005\022\036\n\006bo"
+    "(\005\"P\n\rAreaRuleProto\022\r\n\005color\030\001 \002(\r\022\036\n\006bo"
     "rder\030\002 \001(\0132\016.LineRuleProto\022\020\n\010priority\030\003"
-    " \002(\005\"I\n\017SymbolRuleProto\022\014\n\004name\030\001 \002(\t\022\020\n"
-    "\010priority\030\002 \002(\005\022\026\n\016apply_for_type\030\003 \001(\005\""
+    " \002(\005\"I\n\017SymbolRuleProto\022\014\n\004name\030\001 \002(\t\022\026\n"
+    "\016apply_for_type\030\002 \001(\005\022\020\n\010priority\030\003 \002(\005\""
     "Y\n\020CaptionRuleProto\022\016\n\006height\030\001 \002(\005\022\r\n\005c"
-    "olor\030\002 \001(\005\022\024\n\014stroke_color\030\003 \001(\005\022\020\n\010prio"
+    "olor\030\002 \001(\r\022\024\n\014stroke_color\030\003 \001(\r\022\020\n\010prio"
     "rity\030\004 \002(\005\"b\n\017CircleRuleProto\022\016\n\006radius\030"
-    "\001 \002(\001\022\r\n\005color\030\002 \002(\005\022\036\n\006border\030\003 \001(\0132\016.L"
+    "\001 \002(\001\022\r\n\005color\030\002 \002(\r\022\036\n\006border\030\003 \001(\0132\016.L"
     "ineRuleProto\022\020\n\010priority\030\004 \002(\005\"\306\001\n\020DrawE"
     "lementProto\022\r\n\005scale\030\001 \002(\005\022\035\n\005lines\030\002 \003("
     "\0132\016.LineRuleProto\022\034\n\004area\030\003 \001(\0132\016.AreaRu"
@@ -413,7 +413,7 @@ bool DashDotProto::MergePartialFromCodedStream(
         if (input->ExpectTag(17)) goto parse_offset;
         break;
       }
-
+      
       // optional double offset = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -458,7 +458,7 @@ void DashDotProto::SerializeWithCachedSizes(
   if (has_offset()) {
     ::google::protobuf::internal::WireFormatLite::WriteDouble(2, this->offset(), output);
   }
-
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -472,12 +472,12 @@ void DashDotProto::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::
       WriteDoubleToArray(1, this->dd(i), target);
   }
-
+  
   // optional double offset = 2;
   if (has_offset()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(2, this->offset(), target);
   }
-
+  
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -493,7 +493,7 @@ int DashDotProto::ByteSize() const {
     if (has_offset()) {
       total_size += 1 + 8;
     }
-
+    
   }
   // repeated double dd = 1;
   {
@@ -599,7 +599,7 @@ LineRuleProto::LineRuleProto(const LineRuleProto& from)
 void LineRuleProto::SharedCtor() {
   _cached_size_ = 0;
   width_ = 0;
-  color_ = 0;
+  color_ = 0u;
   dashdot_ = NULL;
   priority_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -638,7 +638,7 @@ LineRuleProto* LineRuleProto::New() const {
 void LineRuleProto::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     width_ = 0;
-    color_ = 0;
+    color_ = 0u;
     if (has_dashdot()) {
       if (dashdot_ != NULL) dashdot_->::DashDotProto::Clear();
     }
@@ -669,13 +669,13 @@ bool LineRuleProto::MergePartialFromCodedStream(
         break;
       }
       
-      // required int32 color = 2;
+      // required uint32 color = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_color:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &color_)));
           set_has_color();
         } else {
@@ -698,7 +698,7 @@ bool LineRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(32)) goto parse_priority;
         break;
       }
-
+      
       // required int32 priority = 4;
       case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -738,9 +738,9 @@ void LineRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->width(), output);
   }
   
-  // required int32 color = 2;
+  // required uint32 color = 2;
   if (has_color()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->color(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->color(), output);
   }
   
   // optional .DashDotProto dashdot = 3;
@@ -753,7 +753,7 @@ void LineRuleProto::SerializeWithCachedSizes(
   if (has_priority()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->priority(), output);
   }
-
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -766,24 +766,24 @@ void LineRuleProto::SerializeWithCachedSizes(
   if (has_width()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(1, this->width(), target);
   }
-
-  // required int32 color = 2;
+  
+  // required uint32 color = 2;
   if (has_color()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->color(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->color(), target);
   }
-
+  
   // optional .DashDotProto dashdot = 3;
   if (has_dashdot()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         3, this->dashdot(), target);
   }
-
+  
   // required int32 priority = 4;
   if (has_priority()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->priority(), target);
   }
-
+  
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -800,10 +800,10 @@ int LineRuleProto::ByteSize() const {
       total_size += 1 + 8;
     }
     
-    // required int32 color = 2;
+    // required uint32 color = 2;
     if (has_color()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->color());
     }
     
@@ -820,7 +820,7 @@ int LineRuleProto::ByteSize() const {
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->priority());
     }
-
+    
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -928,7 +928,7 @@ AreaRuleProto::AreaRuleProto(const AreaRuleProto& from)
 
 void AreaRuleProto::SharedCtor() {
   _cached_size_ = 0;
-  color_ = 0;
+  color_ = 0u;
   border_ = NULL;
   priority_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -966,7 +966,7 @@ AreaRuleProto* AreaRuleProto::New() const {
 
 void AreaRuleProto::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    color_ = 0;
+    color_ = 0u;
     if (has_border()) {
       if (border_ != NULL) border_->::LineRuleProto::Clear();
     }
@@ -982,12 +982,12 @@ bool AreaRuleProto::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required int32 color = 1;
+      // required uint32 color = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &color_)));
           set_has_color();
         } else {
@@ -1010,7 +1010,7 @@ bool AreaRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(24)) goto parse_priority;
         break;
       }
-
+      
       // required int32 priority = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -1045,9 +1045,9 @@ bool AreaRuleProto::MergePartialFromCodedStream(
 
 void AreaRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required int32 color = 1;
+  // required uint32 color = 1;
   if (has_color()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->color(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->color(), output);
   }
   
   // optional .LineRuleProto border = 2;
@@ -1060,7 +1060,7 @@ void AreaRuleProto::SerializeWithCachedSizes(
   if (has_priority()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->priority(), output);
   }
-
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -1069,23 +1069,23 @@ void AreaRuleProto::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* AreaRuleProto::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // required int32 color = 1;
+  // required uint32 color = 1;
   if (has_color()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->color(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->color(), target);
   }
-
+  
   // optional .LineRuleProto border = 2;
   if (has_border()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         2, this->border(), target);
   }
-
+  
   // required int32 priority = 3;
   if (has_priority()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->priority(), target);
   }
-
+  
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -1097,10 +1097,10 @@ int AreaRuleProto::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required int32 color = 1;
+    // required uint32 color = 1;
     if (has_color()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->color());
     }
     
@@ -1117,7 +1117,7 @@ int AreaRuleProto::ByteSize() const {
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->priority());
     }
-
+    
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -1203,8 +1203,8 @@ void AreaRuleProto::Swap(AreaRuleProto* other) {
 
 #ifndef _MSC_VER
 const int SymbolRuleProto::kNameFieldNumber;
-const int SymbolRuleProto::kPriorityFieldNumber;
 const int SymbolRuleProto::kApplyForTypeFieldNumber;
+const int SymbolRuleProto::kPriorityFieldNumber;
 #endif  // !_MSC_VER
 
 SymbolRuleProto::SymbolRuleProto()
@@ -1224,8 +1224,8 @@ SymbolRuleProto::SymbolRuleProto(const SymbolRuleProto& from)
 void SymbolRuleProto::SharedCtor() {
   _cached_size_ = 0;
   name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  priority_ = 0;
   apply_for_type_ = 0;
+  priority_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1268,8 +1268,8 @@ void SymbolRuleProto::Clear() {
         name_->clear();
       }
     }
-    priority_ = 0;
     apply_for_type_ = 0;
+    priority_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -1293,28 +1293,12 @@ bool SymbolRuleProto::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(16)) goto parse_priority;
+        if (input->ExpectTag(16)) goto parse_apply_for_type;
         break;
       }
-
-      // required int32 priority = 2;
+      
+      // optional int32 apply_for_type = 2;
       case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_priority:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &priority_)));
-          set_has_priority();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(24)) goto parse_apply_for_type;
-        break;
-      }
-
-      // optional int32 apply_for_type = 3;
-      case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_apply_for_type:
@@ -1322,6 +1306,22 @@ bool SymbolRuleProto::MergePartialFromCodedStream(
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &apply_for_type_)));
           set_has_apply_for_type();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(24)) goto parse_priority;
+        break;
+      }
+      
+      // required int32 priority = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_priority:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &priority_)));
+          set_has_priority();
         } else {
           goto handle_uninterpreted;
         }
@@ -1356,16 +1356,16 @@ void SymbolRuleProto::SerializeWithCachedSizes(
       1, this->name(), output);
   }
   
-  // required int32 priority = 2;
-  if (has_priority()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->priority(), output);
-  }
-
-  // optional int32 apply_for_type = 3;
+  // optional int32 apply_for_type = 2;
   if (has_apply_for_type()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->apply_for_type(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->apply_for_type(), output);
   }
-
+  
+  // required int32 priority = 3;
+  if (has_priority()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->priority(), output);
+  }
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -1383,17 +1383,17 @@ void SymbolRuleProto::SerializeWithCachedSizes(
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->name(), target);
   }
-
-  // required int32 priority = 2;
-  if (has_priority()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->priority(), target);
-  }
-
-  // optional int32 apply_for_type = 3;
+  
+  // optional int32 apply_for_type = 2;
   if (has_apply_for_type()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->apply_for_type(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->apply_for_type(), target);
   }
-
+  
+  // required int32 priority = 3;
+  if (has_priority()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->priority(), target);
+  }
+  
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -1412,20 +1412,20 @@ int SymbolRuleProto::ByteSize() const {
           this->name());
     }
     
-    // required int32 priority = 2;
-    if (has_priority()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->priority());
-    }
-
-    // optional int32 apply_for_type = 3;
+    // optional int32 apply_for_type = 2;
     if (has_apply_for_type()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->apply_for_type());
     }
-
+    
+    // required int32 priority = 3;
+    if (has_priority()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->priority());
+    }
+    
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -1456,11 +1456,11 @@ void SymbolRuleProto::MergeFrom(const SymbolRuleProto& from) {
     if (from.has_name()) {
       set_name(from.name());
     }
-    if (from.has_priority()) {
-      set_priority(from.priority());
-    }
     if (from.has_apply_for_type()) {
       set_apply_for_type(from.apply_for_type());
+    }
+    if (from.has_priority()) {
+      set_priority(from.priority());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -1479,7 +1479,7 @@ void SymbolRuleProto::CopyFrom(const SymbolRuleProto& from) {
 }
 
 bool SymbolRuleProto::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  if ((_has_bits_[0] & 0x00000005) != 0x00000005) return false;
   
   return true;
 }
@@ -1487,8 +1487,8 @@ bool SymbolRuleProto::IsInitialized() const {
 void SymbolRuleProto::Swap(SymbolRuleProto* other) {
   if (other != this) {
     std::swap(name_, other->name_);
-    std::swap(priority_, other->priority_);
     std::swap(apply_for_type_, other->apply_for_type_);
+    std::swap(priority_, other->priority_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -1530,8 +1530,8 @@ CaptionRuleProto::CaptionRuleProto(const CaptionRuleProto& from)
 void CaptionRuleProto::SharedCtor() {
   _cached_size_ = 0;
   height_ = 0;
-  color_ = 0;
-  stroke_color_ = 0;
+  color_ = 0u;
+  stroke_color_ = 0u;
   priority_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -1568,8 +1568,8 @@ CaptionRuleProto* CaptionRuleProto::New() const {
 void CaptionRuleProto::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     height_ = 0;
-    color_ = 0;
-    stroke_color_ = 0;
+    color_ = 0u;
+    stroke_color_ = 0u;
     priority_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -1597,13 +1597,13 @@ bool CaptionRuleProto::MergePartialFromCodedStream(
         break;
       }
       
-      // optional int32 color = 2;
+      // optional uint32 color = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_color:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &color_)));
           set_has_color();
         } else {
@@ -1613,13 +1613,13 @@ bool CaptionRuleProto::MergePartialFromCodedStream(
         break;
       }
       
-      // optional int32 stroke_color = 3;
+      // optional uint32 stroke_color = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_stroke_color:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &stroke_color_)));
           set_has_stroke_color();
         } else {
@@ -1628,7 +1628,7 @@ bool CaptionRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(32)) goto parse_priority;
         break;
       }
-
+      
       // required int32 priority = 4;
       case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -1668,21 +1668,21 @@ void CaptionRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->height(), output);
   }
   
-  // optional int32 color = 2;
+  // optional uint32 color = 2;
   if (has_color()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->color(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->color(), output);
   }
   
-  // optional int32 stroke_color = 3;
+  // optional uint32 stroke_color = 3;
   if (has_stroke_color()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->stroke_color(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->stroke_color(), output);
   }
   
   // required int32 priority = 4;
   if (has_priority()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->priority(), output);
   }
-
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -1695,22 +1695,22 @@ void CaptionRuleProto::SerializeWithCachedSizes(
   if (has_height()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->height(), target);
   }
-
-  // optional int32 color = 2;
+  
+  // optional uint32 color = 2;
   if (has_color()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->color(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->color(), target);
   }
-
-  // optional int32 stroke_color = 3;
+  
+  // optional uint32 stroke_color = 3;
   if (has_stroke_color()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->stroke_color(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->stroke_color(), target);
   }
-
+  
   // required int32 priority = 4;
   if (has_priority()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->priority(), target);
   }
-
+  
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -1729,17 +1729,17 @@ int CaptionRuleProto::ByteSize() const {
           this->height());
     }
     
-    // optional int32 color = 2;
+    // optional uint32 color = 2;
     if (has_color()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->color());
     }
     
-    // optional int32 stroke_color = 3;
+    // optional uint32 stroke_color = 3;
     if (has_stroke_color()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->stroke_color());
     }
     
@@ -1749,7 +1749,7 @@ int CaptionRuleProto::ByteSize() const {
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->priority());
     }
-
+    
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -1859,7 +1859,7 @@ CircleRuleProto::CircleRuleProto(const CircleRuleProto& from)
 void CircleRuleProto::SharedCtor() {
   _cached_size_ = 0;
   radius_ = 0;
-  color_ = 0;
+  color_ = 0u;
   border_ = NULL;
   priority_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -1898,7 +1898,7 @@ CircleRuleProto* CircleRuleProto::New() const {
 void CircleRuleProto::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     radius_ = 0;
-    color_ = 0;
+    color_ = 0u;
     if (has_border()) {
       if (border_ != NULL) border_->::LineRuleProto::Clear();
     }
@@ -1929,13 +1929,13 @@ bool CircleRuleProto::MergePartialFromCodedStream(
         break;
       }
       
-      // required int32 color = 2;
+      // required uint32 color = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_color:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &color_)));
           set_has_color();
         } else {
@@ -1958,7 +1958,7 @@ bool CircleRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(32)) goto parse_priority;
         break;
       }
-
+      
       // required int32 priority = 4;
       case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -1998,9 +1998,9 @@ void CircleRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->radius(), output);
   }
   
-  // required int32 color = 2;
+  // required uint32 color = 2;
   if (has_color()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->color(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->color(), output);
   }
   
   // optional .LineRuleProto border = 3;
@@ -2013,7 +2013,7 @@ void CircleRuleProto::SerializeWithCachedSizes(
   if (has_priority()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->priority(), output);
   }
-
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -2026,24 +2026,24 @@ void CircleRuleProto::SerializeWithCachedSizes(
   if (has_radius()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(1, this->radius(), target);
   }
-
-  // required int32 color = 2;
+  
+  // required uint32 color = 2;
   if (has_color()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->color(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->color(), target);
   }
-
+  
   // optional .LineRuleProto border = 3;
   if (has_border()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         3, this->border(), target);
   }
-
+  
   // required int32 priority = 4;
   if (has_priority()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->priority(), target);
   }
-
+  
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -2060,10 +2060,10 @@ int CircleRuleProto::ByteSize() const {
       total_size += 1 + 8;
     }
     
-    // required int32 color = 2;
+    // required uint32 color = 2;
     if (has_color()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->color());
     }
     
@@ -2080,7 +2080,7 @@ int CircleRuleProto::ByteSize() const {
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->priority());
     }
-
+    
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -2416,42 +2416,42 @@ void DrawElementProto::SerializeWithCachedSizes(
   if (has_scale()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->scale(), target);
   }
-
+  
   // repeated .LineRuleProto lines = 2;
   for (int i = 0; i < this->lines_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         2, this->lines(i), target);
   }
-
+  
   // optional .AreaRuleProto area = 3;
   if (has_area()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         3, this->area(), target);
   }
-
+  
   // optional .SymbolRuleProto symbol = 4;
   if (has_symbol()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         4, this->symbol(), target);
   }
-
+  
   // optional .CaptionRuleProto caption = 5;
   if (has_caption()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         5, this->caption(), target);
   }
-
+  
   // optional .CircleRuleProto circle = 6;
   if (has_circle()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         6, this->circle(), target);
   }
-
+  
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -2768,14 +2768,14 @@ void ClassifElementProto::SerializeWithCachedSizes(
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->name(), target);
   }
-
+  
   // repeated .DrawElementProto element = 2;
   for (int i = 0; i < this->element_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         2, this->element(i), target);
   }
-
+  
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -2996,7 +2996,7 @@ void ContainerProto::SerializeWithCachedSizes(
       WriteMessageNoVirtualToArray(
         1, this->cont(i), target);
   }
-
+  
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);

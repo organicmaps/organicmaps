@@ -9,14 +9,14 @@ message DashDotProto
 message LineRuleProto
 {
   required double width = 1;
-  required int32 color = 2;
+  required uint32 color = 2;
   optional DashDotProto dashdot = 3;
   required int32 priority = 4;
 }
 
 message AreaRuleProto
 {
-  required int32 color = 1;
+  required uint32 color = 1;
   optional LineRuleProto border = 2;
   required int32 priority = 3;
 }
@@ -31,15 +31,15 @@ message SymbolRuleProto
 message CaptionRuleProto
 {
   required int32 height = 1;
-  optional int32 color = 2;
-  optional int32 stroke_color = 3;
+  optional uint32 color = 2;
+  optional uint32 stroke_color = 3;
   required int32 priority = 4;
 }
 
 message CircleRuleProto
 {
   required double radius = 1;
-  required int32 color = 2;
+  required uint32 color = 2;
   optional LineRuleProto border = 3;
   required int32 priority = 4;
 }

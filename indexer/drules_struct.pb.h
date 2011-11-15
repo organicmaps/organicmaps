@@ -57,11 +57,11 @@ class DashDotProto : public ::google::protobuf::Message {
   inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
-
+  
   inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
-
+  
   static const ::google::protobuf::Descriptor* descriptor();
   static const DashDotProto& default_instance();
   
@@ -114,14 +114,14 @@ class DashDotProto : public ::google::protobuf::Message {
   static const int kOffsetFieldNumber = 2;
   inline double offset() const;
   inline void set_offset(double value);
-
+  
   // @@protoc_insertion_point(class_scope:DashDotProto)
  private:
   inline void set_has_offset();
   inline void clear_has_offset();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
+  
   ::google::protobuf::RepeatedField< double > dd_;
   double offset_;
   
@@ -152,11 +152,11 @@ class LineRuleProto : public ::google::protobuf::Message {
   inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
-
+  
   inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
-
+  
   static const ::google::protobuf::Descriptor* descriptor();
   static const LineRuleProto& default_instance();
   
@@ -198,12 +198,12 @@ class LineRuleProto : public ::google::protobuf::Message {
   inline double width() const;
   inline void set_width(double value);
   
-  // required int32 color = 2;
+  // required uint32 color = 2;
   inline bool has_color() const;
   inline void clear_color();
   static const int kColorFieldNumber = 2;
-  inline ::google::protobuf::int32 color() const;
-  inline void set_color(::google::protobuf::int32 value);
+  inline ::google::protobuf::uint32 color() const;
+  inline void set_color(::google::protobuf::uint32 value);
   
   // optional .DashDotProto dashdot = 3;
   inline bool has_dashdot() const;
@@ -219,7 +219,7 @@ class LineRuleProto : public ::google::protobuf::Message {
   static const int kPriorityFieldNumber = 4;
   inline ::google::protobuf::int32 priority() const;
   inline void set_priority(::google::protobuf::int32 value);
-
+  
   // @@protoc_insertion_point(class_scope:LineRuleProto)
  private:
   inline void set_has_width();
@@ -232,10 +232,10 @@ class LineRuleProto : public ::google::protobuf::Message {
   inline void clear_has_priority();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
+  
   double width_;
   ::DashDotProto* dashdot_;
-  ::google::protobuf::int32 color_;
+  ::google::protobuf::uint32 color_;
   ::google::protobuf::int32 priority_;
   
   mutable int _cached_size_;
@@ -265,11 +265,11 @@ class AreaRuleProto : public ::google::protobuf::Message {
   inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
-
+  
   inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
-
+  
   static const ::google::protobuf::Descriptor* descriptor();
   static const AreaRuleProto& default_instance();
   
@@ -304,12 +304,12 @@ class AreaRuleProto : public ::google::protobuf::Message {
   
   // accessors -------------------------------------------------------
   
-  // required int32 color = 1;
+  // required uint32 color = 1;
   inline bool has_color() const;
   inline void clear_color();
   static const int kColorFieldNumber = 1;
-  inline ::google::protobuf::int32 color() const;
-  inline void set_color(::google::protobuf::int32 value);
+  inline ::google::protobuf::uint32 color() const;
+  inline void set_color(::google::protobuf::uint32 value);
   
   // optional .LineRuleProto border = 2;
   inline bool has_border() const;
@@ -325,7 +325,7 @@ class AreaRuleProto : public ::google::protobuf::Message {
   static const int kPriorityFieldNumber = 3;
   inline ::google::protobuf::int32 priority() const;
   inline void set_priority(::google::protobuf::int32 value);
-
+  
   // @@protoc_insertion_point(class_scope:AreaRuleProto)
  private:
   inline void set_has_color();
@@ -336,9 +336,9 @@ class AreaRuleProto : public ::google::protobuf::Message {
   inline void clear_has_priority();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
+  
   ::LineRuleProto* border_;
-  ::google::protobuf::int32 color_;
+  ::google::protobuf::uint32 color_;
   ::google::protobuf::int32 priority_;
   
   mutable int _cached_size_;
@@ -368,11 +368,11 @@ class SymbolRuleProto : public ::google::protobuf::Message {
   inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
-
+  
   inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
-
+  
   static const ::google::protobuf::Descriptor* descriptor();
   static const SymbolRuleProto& default_instance();
   
@@ -418,34 +418,34 @@ class SymbolRuleProto : public ::google::protobuf::Message {
   inline ::std::string* mutable_name();
   inline ::std::string* release_name();
   
-  // required int32 priority = 2;
-  inline bool has_priority() const;
-  inline void clear_priority();
-  static const int kPriorityFieldNumber = 2;
-  inline ::google::protobuf::int32 priority() const;
-  inline void set_priority(::google::protobuf::int32 value);
-
-  // optional int32 apply_for_type = 3;
+  // optional int32 apply_for_type = 2;
   inline bool has_apply_for_type() const;
   inline void clear_apply_for_type();
-  static const int kApplyForTypeFieldNumber = 3;
+  static const int kApplyForTypeFieldNumber = 2;
   inline ::google::protobuf::int32 apply_for_type() const;
   inline void set_apply_for_type(::google::protobuf::int32 value);
-
+  
+  // required int32 priority = 3;
+  inline bool has_priority() const;
+  inline void clear_priority();
+  static const int kPriorityFieldNumber = 3;
+  inline ::google::protobuf::int32 priority() const;
+  inline void set_priority(::google::protobuf::int32 value);
+  
   // @@protoc_insertion_point(class_scope:SymbolRuleProto)
  private:
   inline void set_has_name();
   inline void clear_has_name();
-  inline void set_has_priority();
-  inline void clear_has_priority();
   inline void set_has_apply_for_type();
   inline void clear_has_apply_for_type();
+  inline void set_has_priority();
+  inline void clear_has_priority();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
+  
   ::std::string* name_;
-  ::google::protobuf::int32 priority_;
   ::google::protobuf::int32 apply_for_type_;
+  ::google::protobuf::int32 priority_;
   
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
@@ -474,11 +474,11 @@ class CaptionRuleProto : public ::google::protobuf::Message {
   inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
-
+  
   inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
-
+  
   static const ::google::protobuf::Descriptor* descriptor();
   static const CaptionRuleProto& default_instance();
   
@@ -520,19 +520,19 @@ class CaptionRuleProto : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 height() const;
   inline void set_height(::google::protobuf::int32 value);
   
-  // optional int32 color = 2;
+  // optional uint32 color = 2;
   inline bool has_color() const;
   inline void clear_color();
   static const int kColorFieldNumber = 2;
-  inline ::google::protobuf::int32 color() const;
-  inline void set_color(::google::protobuf::int32 value);
+  inline ::google::protobuf::uint32 color() const;
+  inline void set_color(::google::protobuf::uint32 value);
   
-  // optional int32 stroke_color = 3;
+  // optional uint32 stroke_color = 3;
   inline bool has_stroke_color() const;
   inline void clear_stroke_color();
   static const int kStrokeColorFieldNumber = 3;
-  inline ::google::protobuf::int32 stroke_color() const;
-  inline void set_stroke_color(::google::protobuf::int32 value);
+  inline ::google::protobuf::uint32 stroke_color() const;
+  inline void set_stroke_color(::google::protobuf::uint32 value);
   
   // required int32 priority = 4;
   inline bool has_priority() const;
@@ -540,7 +540,7 @@ class CaptionRuleProto : public ::google::protobuf::Message {
   static const int kPriorityFieldNumber = 4;
   inline ::google::protobuf::int32 priority() const;
   inline void set_priority(::google::protobuf::int32 value);
-
+  
   // @@protoc_insertion_point(class_scope:CaptionRuleProto)
  private:
   inline void set_has_height();
@@ -553,10 +553,10 @@ class CaptionRuleProto : public ::google::protobuf::Message {
   inline void clear_has_priority();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
+  
   ::google::protobuf::int32 height_;
-  ::google::protobuf::int32 color_;
-  ::google::protobuf::int32 stroke_color_;
+  ::google::protobuf::uint32 color_;
+  ::google::protobuf::uint32 stroke_color_;
   ::google::protobuf::int32 priority_;
   
   mutable int _cached_size_;
@@ -586,11 +586,11 @@ class CircleRuleProto : public ::google::protobuf::Message {
   inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
-
+  
   inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
-
+  
   static const ::google::protobuf::Descriptor* descriptor();
   static const CircleRuleProto& default_instance();
   
@@ -632,12 +632,12 @@ class CircleRuleProto : public ::google::protobuf::Message {
   inline double radius() const;
   inline void set_radius(double value);
   
-  // required int32 color = 2;
+  // required uint32 color = 2;
   inline bool has_color() const;
   inline void clear_color();
   static const int kColorFieldNumber = 2;
-  inline ::google::protobuf::int32 color() const;
-  inline void set_color(::google::protobuf::int32 value);
+  inline ::google::protobuf::uint32 color() const;
+  inline void set_color(::google::protobuf::uint32 value);
   
   // optional .LineRuleProto border = 3;
   inline bool has_border() const;
@@ -653,7 +653,7 @@ class CircleRuleProto : public ::google::protobuf::Message {
   static const int kPriorityFieldNumber = 4;
   inline ::google::protobuf::int32 priority() const;
   inline void set_priority(::google::protobuf::int32 value);
-
+  
   // @@protoc_insertion_point(class_scope:CircleRuleProto)
  private:
   inline void set_has_radius();
@@ -666,10 +666,10 @@ class CircleRuleProto : public ::google::protobuf::Message {
   inline void clear_has_priority();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
+  
   double radius_;
   ::LineRuleProto* border_;
-  ::google::protobuf::int32 color_;
+  ::google::protobuf::uint32 color_;
   ::google::protobuf::int32 priority_;
   
   mutable int _cached_size_;
@@ -699,11 +699,11 @@ class DrawElementProto : public ::google::protobuf::Message {
   inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
-
+  
   inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
-
+  
   static const ::google::protobuf::Descriptor* descriptor();
   static const DrawElementProto& default_instance();
   
@@ -801,7 +801,7 @@ class DrawElementProto : public ::google::protobuf::Message {
   inline void clear_has_caption();
   inline void set_has_circle();
   inline void clear_has_circle();
-
+  
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
   ::google::protobuf::RepeatedPtrField< ::LineRuleProto > lines_;
@@ -838,11 +838,11 @@ class ClassifElementProto : public ::google::protobuf::Message {
   inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
-
+  
   inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
-
+  
   static const ::google::protobuf::Descriptor* descriptor();
   static const ClassifElementProto& default_instance();
   
@@ -906,7 +906,7 @@ class ClassifElementProto : public ::google::protobuf::Message {
   inline void clear_has_name();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
+  
   ::std::string* name_;
   ::google::protobuf::RepeatedPtrField< ::DrawElementProto > element_;
   
@@ -937,11 +937,11 @@ class ContainerProto : public ::google::protobuf::Message {
   inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
-
+  
   inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
-
+  
   static const ::google::protobuf::Descriptor* descriptor();
   static const ContainerProto& default_instance();
   
@@ -992,7 +992,7 @@ class ContainerProto : public ::google::protobuf::Message {
  private:
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
+  
   ::google::protobuf::RepeatedPtrField< ::ClassifElementProto > cont_;
   
   mutable int _cached_size_;
@@ -1085,7 +1085,7 @@ inline void LineRuleProto::set_width(double value) {
   width_ = value;
 }
 
-// required int32 color = 2;
+// required uint32 color = 2;
 inline bool LineRuleProto::has_color() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -1096,13 +1096,13 @@ inline void LineRuleProto::clear_has_color() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void LineRuleProto::clear_color() {
-  color_ = 0;
+  color_ = 0u;
   clear_has_color();
 }
-inline ::google::protobuf::int32 LineRuleProto::color() const {
+inline ::google::protobuf::uint32 LineRuleProto::color() const {
   return color_;
 }
-inline void LineRuleProto::set_color(::google::protobuf::int32 value) {
+inline void LineRuleProto::set_color(::google::protobuf::uint32 value) {
   set_has_color();
   color_ = value;
 }
@@ -1162,7 +1162,7 @@ inline void LineRuleProto::set_priority(::google::protobuf::int32 value) {
 
 // AreaRuleProto
 
-// required int32 color = 1;
+// required uint32 color = 1;
 inline bool AreaRuleProto::has_color() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1173,13 +1173,13 @@ inline void AreaRuleProto::clear_has_color() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void AreaRuleProto::clear_color() {
-  color_ = 0;
+  color_ = 0u;
   clear_has_color();
 }
-inline ::google::protobuf::int32 AreaRuleProto::color() const {
+inline ::google::protobuf::uint32 AreaRuleProto::color() const {
   return color_;
 }
-inline void AreaRuleProto::set_color(::google::protobuf::int32 value) {
+inline void AreaRuleProto::set_color(::google::protobuf::uint32 value) {
   set_has_color();
   color_ = value;
 }
@@ -1297,37 +1297,15 @@ inline ::std::string* SymbolRuleProto::release_name() {
   }
 }
 
-// required int32 priority = 2;
-inline bool SymbolRuleProto::has_priority() const {
+// optional int32 apply_for_type = 2;
+inline bool SymbolRuleProto::has_apply_for_type() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void SymbolRuleProto::set_has_priority() {
+inline void SymbolRuleProto::set_has_apply_for_type() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void SymbolRuleProto::clear_has_priority() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void SymbolRuleProto::clear_priority() {
-  priority_ = 0;
-  clear_has_priority();
-}
-inline ::google::protobuf::int32 SymbolRuleProto::priority() const {
-  return priority_;
-}
-inline void SymbolRuleProto::set_priority(::google::protobuf::int32 value) {
-  set_has_priority();
-  priority_ = value;
-}
-
-// optional int32 apply_for_type = 3;
-inline bool SymbolRuleProto::has_apply_for_type() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void SymbolRuleProto::set_has_apply_for_type() {
-  _has_bits_[0] |= 0x00000004u;
-}
 inline void SymbolRuleProto::clear_has_apply_for_type() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline void SymbolRuleProto::clear_apply_for_type() {
   apply_for_type_ = 0;
@@ -1339,6 +1317,28 @@ inline ::google::protobuf::int32 SymbolRuleProto::apply_for_type() const {
 inline void SymbolRuleProto::set_apply_for_type(::google::protobuf::int32 value) {
   set_has_apply_for_type();
   apply_for_type_ = value;
+}
+
+// required int32 priority = 3;
+inline bool SymbolRuleProto::has_priority() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void SymbolRuleProto::set_has_priority() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void SymbolRuleProto::clear_has_priority() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void SymbolRuleProto::clear_priority() {
+  priority_ = 0;
+  clear_has_priority();
+}
+inline ::google::protobuf::int32 SymbolRuleProto::priority() const {
+  return priority_;
+}
+inline void SymbolRuleProto::set_priority(::google::protobuf::int32 value) {
+  set_has_priority();
+  priority_ = value;
 }
 
 // -------------------------------------------------------------------
@@ -1367,7 +1367,7 @@ inline void CaptionRuleProto::set_height(::google::protobuf::int32 value) {
   height_ = value;
 }
 
-// optional int32 color = 2;
+// optional uint32 color = 2;
 inline bool CaptionRuleProto::has_color() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -1378,18 +1378,18 @@ inline void CaptionRuleProto::clear_has_color() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void CaptionRuleProto::clear_color() {
-  color_ = 0;
+  color_ = 0u;
   clear_has_color();
 }
-inline ::google::protobuf::int32 CaptionRuleProto::color() const {
+inline ::google::protobuf::uint32 CaptionRuleProto::color() const {
   return color_;
 }
-inline void CaptionRuleProto::set_color(::google::protobuf::int32 value) {
+inline void CaptionRuleProto::set_color(::google::protobuf::uint32 value) {
   set_has_color();
   color_ = value;
 }
 
-// optional int32 stroke_color = 3;
+// optional uint32 stroke_color = 3;
 inline bool CaptionRuleProto::has_stroke_color() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
@@ -1400,13 +1400,13 @@ inline void CaptionRuleProto::clear_has_stroke_color() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline void CaptionRuleProto::clear_stroke_color() {
-  stroke_color_ = 0;
+  stroke_color_ = 0u;
   clear_has_stroke_color();
 }
-inline ::google::protobuf::int32 CaptionRuleProto::stroke_color() const {
+inline ::google::protobuf::uint32 CaptionRuleProto::stroke_color() const {
   return stroke_color_;
 }
-inline void CaptionRuleProto::set_stroke_color(::google::protobuf::int32 value) {
+inline void CaptionRuleProto::set_stroke_color(::google::protobuf::uint32 value) {
   set_has_stroke_color();
   stroke_color_ = value;
 }
@@ -1459,7 +1459,7 @@ inline void CircleRuleProto::set_radius(double value) {
   radius_ = value;
 }
 
-// required int32 color = 2;
+// required uint32 color = 2;
 inline bool CircleRuleProto::has_color() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -1470,13 +1470,13 @@ inline void CircleRuleProto::clear_has_color() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void CircleRuleProto::clear_color() {
-  color_ = 0;
+  color_ = 0u;
   clear_has_color();
 }
-inline ::google::protobuf::int32 CircleRuleProto::color() const {
+inline ::google::protobuf::uint32 CircleRuleProto::color() const {
   return color_;
 }
-inline void CircleRuleProto::set_color(::google::protobuf::int32 value) {
+inline void CircleRuleProto::set_color(::google::protobuf::uint32 value) {
   set_has_color();
   color_ = value;
 }
