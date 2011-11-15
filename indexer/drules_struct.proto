@@ -3,6 +3,7 @@
 message DashDotProto
 {
   repeated double dd = 1;
+  optional double offset = 2;
 }
 
 message LineRuleProto
@@ -23,7 +24,8 @@ message AreaRuleProto
 message SymbolRuleProto
 {
   required string name = 1;
-  required int32 priority = 2;
+  optional int32 apply_for_type = 2;  // 1 - for nodes, 2 - for ways, default - for all
+  required int32 priority = 3;
 }
 
 message CaptionRuleProto

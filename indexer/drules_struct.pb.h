@@ -108,15 +108,25 @@ class DashDotProto : public ::google::protobuf::Message {
   inline ::google::protobuf::RepeatedField< double >*
       mutable_dd();
   
+  // optional double offset = 2;
+  inline bool has_offset() const;
+  inline void clear_offset();
+  static const int kOffsetFieldNumber = 2;
+  inline double offset() const;
+  inline void set_offset(double value);
+
   // @@protoc_insertion_point(class_scope:DashDotProto)
  private:
+  inline void set_has_offset();
+  inline void clear_has_offset();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::RepeatedField< double > dd_;
+  double offset_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
   
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
@@ -415,20 +425,30 @@ class SymbolRuleProto : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 priority() const;
   inline void set_priority(::google::protobuf::int32 value);
 
+  // optional int32 apply_for_type = 3;
+  inline bool has_apply_for_type() const;
+  inline void clear_apply_for_type();
+  static const int kApplyForTypeFieldNumber = 3;
+  inline ::google::protobuf::int32 apply_for_type() const;
+  inline void set_apply_for_type(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:SymbolRuleProto)
  private:
   inline void set_has_name();
   inline void clear_has_name();
   inline void set_has_priority();
   inline void clear_has_priority();
+  inline void set_has_apply_for_type();
+  inline void clear_has_apply_for_type();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::std::string* name_;
   ::google::protobuf::int32 priority_;
+  ::google::protobuf::int32 apply_for_type_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
   
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
@@ -1017,6 +1037,28 @@ DashDotProto::mutable_dd() {
   return &dd_;
 }
 
+// optional double offset = 2;
+inline bool DashDotProto::has_offset() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void DashDotProto::set_has_offset() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void DashDotProto::clear_has_offset() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void DashDotProto::clear_offset() {
+  offset_ = 0;
+  clear_has_offset();
+}
+inline double DashDotProto::offset() const {
+  return offset_;
+}
+inline void DashDotProto::set_offset(double value) {
+  set_has_offset();
+  offset_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // LineRuleProto
@@ -1275,6 +1317,28 @@ inline ::google::protobuf::int32 SymbolRuleProto::priority() const {
 inline void SymbolRuleProto::set_priority(::google::protobuf::int32 value) {
   set_has_priority();
   priority_ = value;
+}
+
+// optional int32 apply_for_type = 3;
+inline bool SymbolRuleProto::has_apply_for_type() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void SymbolRuleProto::set_has_apply_for_type() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void SymbolRuleProto::clear_has_apply_for_type() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void SymbolRuleProto::clear_apply_for_type() {
+  apply_for_type_ = 0;
+  clear_has_apply_for_type();
+}
+inline ::google::protobuf::int32 SymbolRuleProto::apply_for_type() const {
+  return apply_for_type_;
+}
+inline void SymbolRuleProto::set_apply_for_type(::google::protobuf::int32 value) {
+  set_has_apply_for_type();
+  apply_for_type_ = value;
 }
 
 // -------------------------------------------------------------------
