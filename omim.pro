@@ -25,10 +25,7 @@ SUBDIRS = 3party \
           qt_tstfrm \
           indexer/indexer_tests \
           yg/yg_tests \
-          words words/words_tests \
-          qt \
-          publisher publisher/publisher_tests \
-          console_sloynik
+          qt
 } else {
   # libraries which are used on mobile devices
   SUBDIRS = 3party \
@@ -41,6 +38,5 @@ SUBDIRS = 3party \
             yg \
             search \
             version \
-            map \
-            words
+            map
 }

@@ -25,7 +25,6 @@
 #include "update_dialog.hpp"
 #include "classificator_tree.hpp"
 #include "info_dialog.hpp"
-#include "guide_page.hpp"
 
 #include "../indexer/classificator.hpp"
 
@@ -50,7 +49,7 @@ MainWindow::MainWindow()
 
 #ifndef NO_DOWNLOADER
   CreateClassifPanel();
-  CreateGuidePanel();
+//  CreateGuidePanel();
 #endif // NO_DOWNLOADER
 
   setCentralWidget(m_pDrawWidget);
@@ -392,15 +391,15 @@ void MainWindow::CreateClassifPanel()
   m_Docks[0]->setWidget(pCTree);
 }
 
-void MainWindow::CreateGuidePanel()
-{
-  CreatePanelImpl(1, Qt::LeftDockWidgetArea, tr("Guide Bar"),
-                  QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_G), SLOT(ShowGuidePanel()));
+//void MainWindow::CreateGuidePanel()
+//{
+//  CreatePanelImpl(1, Qt::LeftDockWidgetArea, tr("Guide Bar"),
+//                  QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_G), SLOT(ShowGuidePanel()));
 
-  qt::GuidePageHolder * pGPage = new qt::GuidePageHolder(m_Docks[1]);
+//  qt::GuidePageHolder * pGPage = new qt::GuidePageHolder(m_Docks[1]);
 
-  m_Docks[1]->setWidget(pGPage);
-}
+//  m_Docks[1]->setWidget(pGPage);
+//}
 #endif // NO_DOWNLOADER
 
 void MainWindow::CreateSearchBarAndPanel()

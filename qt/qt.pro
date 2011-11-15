@@ -1,6 +1,6 @@
 # Main application in qt.
 ROOT_DIR = ..
-DEPENDENCIES = words map search storage indexer yg platform geometry coding base \
+DEPENDENCIES = map search storage indexer yg platform geometry coding base \
                bzip2 freetype expat fribidi tomcrypt jansson version protobuf
 
 include($$ROOT_DIR/common.pri)
@@ -39,7 +39,7 @@ macx* {
     OTHER_RES.path = Contents/Resources
     OTHER_RES.files = ../data/about-travelguide-desktop.html ../data/eula.html ../data/welcome.html \
                       ../data/countries.txt  \
-                      ../data/dictionary.slf ../data/languages.txt ../data/categories.txt \
+                      ../data/languages.txt ../data/categories.txt \
                       ../data/packed_polygons.bin
     CLASSIFICATOR_RES.path = Contents/Resources
     CLASSIFICATOR_RES.files = ../data/classificator.txt ../data/drawing_rules.bin \
@@ -90,15 +90,13 @@ RESOURCES += res/resources.qrc
 
 # removed for desktop releases
 !CONFIG(no_downloader) {
-  QT *= webkit
 
   SOURCES += \
     update_dialog.cpp \
     classificator_tree.cpp \
-    guide_page.cpp
 
   HEADERS += \
     update_dialog.hpp \
     classificator_tree.hpp \
-    guide_page.hpp
+
 }
