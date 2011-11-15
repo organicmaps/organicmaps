@@ -18,9 +18,11 @@
 
 #include "../std/fstream.hpp"
 #include "../std/iomanip.hpp"
+#include "../std/target_os.hpp"
 
 InformationDisplay::InformationDisplay()
-  : m_ruler(Ruler::Params())
+  : m_ruler(Ruler::Params()),
+    m_bottomShift(0)
 {
   enableDebugPoints(false);
   enableRuler(false);
@@ -92,8 +94,8 @@ void InformationDisplay::drawRuler(DrawerYG * pDrawer)
 
 #ifdef OMIM_OS_IPHONE
   m2::PointD pivot(m2::PointD(m_displayRect.maxX(),
-                              m_displayRect.maxY() - 20 * m_visualScale)
-                 + m2::PointD(-10 * m_visualScale, -10 * m_visualScale));
+                              m_displayRect.maxY() - 30 * m_visualScale)
+                 + m2::PointD(-10 * m_visualScale, - 10 * m_visualScale));
   m_ruler.setPosition(yg::EPosAboveLeft);
 #else
   m2::PointD pivot(m2::PointD(m_displayRect.minX(),
@@ -139,9 +141,11 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
   params.m_fontDesc = m_fontDesc;
   params.m_log2vis = false;
 
+  LOG(LINFO, (m_visualScale));
+
 #ifdef OMIM_OS_IPHONE
-  params.m_pivot = m2::PointD(m_displayRect.maxX() - 5 * m_visualScale,
-                              m_displayRect.maxY() - 5 * m_visualScale);
+  params.m_pivot = m2::PointD(m_displayRect.maxX() - 10 * m_visualScale,
+                              m_displayRect.maxY() - 15 * m_visualScale);
   params.m_position = yg::EPosAboveLeft;
 #else
   params.m_pivot = m2::PointD(m_displayRect.maxX() - 10 * m_visualScale,
