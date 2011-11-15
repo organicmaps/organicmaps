@@ -42,7 +42,8 @@ macx* {
                       ../data/dictionary.slf ../data/languages.txt ../data/categories.txt \
                       ../data/packed_polygons.bin
     CLASSIFICATOR_RES.path = Contents/Resources
-    CLASSIFICATOR_RES.files = ../data/classificator.txt ../data/drawing_rules.bin ../data/visibility.txt ../data/types.txt
+    CLASSIFICATOR_RES.files = ../data/classificator.txt ../data/drawing_rules.bin \
+                     ../data/visibility.txt ../data/types.txt ../data/drules_proto.txt
     SKIN_RES.path = Contents/Resources
     SKIN_RES.files = ../data/basic.skn ../data/symbols_24.png
     FONT_RES.path = Contents/Resources
