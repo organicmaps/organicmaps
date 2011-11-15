@@ -23,45 +23,89 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
   yg::ResourceManager::Params rmp = rmParams;
 
   rmp.m_primaryStoragesParams = yg::ResourceManager::StoragePoolParams(50000 * sizeof(yg::gl::Vertex),
-                                                                       10000 * sizeof(unsigned short),
+                                                                       sizeof(yg::gl::Vertex),
+                                                                       100000 * sizeof(unsigned short),
+                                                                       sizeof(unsigned short),
                                                                        15,
-                                                                       false);
+                                                                       false,
+                                                                       1,
+                                                                       "primaryStorage");
 
   rmp.m_smallStoragesParams = yg::ResourceManager::StoragePoolParams(5000 * sizeof(yg::gl::Vertex),
+                                                                     sizeof(yg::gl::Vertex),
                                                                      10000 * sizeof(unsigned short),
+                                                                     sizeof(unsigned short),
                                                                      100,
-                                                                     false);
+                                                                     false,
+                                                                     1,
+                                                                     "smallStorage");
 
   rmp.m_blitStoragesParams = yg::ResourceManager::StoragePoolParams(10 * sizeof(yg::gl::AuxVertex),
+                                                                    sizeof(yg::gl::AuxVertex),
                                                                     10 * sizeof(unsigned short),
+                                                                    sizeof(unsigned short),
                                                                     50,
-                                                                    true);
+                                                                    true,
+                                                                    1,
+                                                                    "blitStorage");
 
   rmp.m_multiBlitStoragesParams = yg::ResourceManager::StoragePoolParams(500 * sizeof(yg::gl::AuxVertex),
+                                                                         sizeof(yg::gl::AuxVertex),
                                                                          500 * sizeof(unsigned short),
+                                                                         sizeof(unsigned short),
                                                                          10,
-                                                                         true);
+                                                                         true,
+                                                                         1,
+                                                                         "multiBlitStorage");
 
   rmp.m_tinyStoragesParams = yg::ResourceManager::StoragePoolParams(300 * sizeof(yg::gl::Vertex),
+                                                                    sizeof(yg::gl::Vertex),
                                                                     600 * sizeof(unsigned short),
+                                                                    sizeof(unsigned short),
                                                                     20,
-                                                                    true);
+                                                                    true,
+                                                                    1,
+                                                                    "tinyStorage");
 
-  rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512, 256, 10, rmp.m_rtFormat, true);
+  rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
+                                                                       256,
+                                                                       10,
+                                                                       rmp.m_rtFormat,
+                                                                       true,
+                                                                       true,
+                                                                       true,
+                                                                       1,
+                                                                       "primaryTexture");
 
-  rmp.m_fontTexturesParams = yg::ResourceManager::TexturePoolParams(512, 256, 5, rmp.m_rtFormat, true);
+  rmp.m_fontTexturesParams = yg::ResourceManager::TexturePoolParams(512,
+                                                                    256,
+                                                                    5,
+                                                                    rmp.m_rtFormat,
+                                                                    true,
+                                                                    true,
+                                                                    true,
+                                                                    1,
+                                                                    "fontTexture");
 
   rmp.m_renderTargetTexturesParams = yg::ResourceManager::TexturePoolParams(GetPlatform().TileSize(),
                                                                             GetPlatform().TileSize(),
                                                                             GetPlatform().MaxTilesCount(),
                                                                             rmp.m_rtFormat,
-                                                                            true);
+                                                                            true,
+                                                                            true,
+                                                                            false,
+                                                                            5,
+                                                                            "renderTargetTexture");
 
   rmp.m_styleCacheTexturesParams = yg::ResourceManager::TexturePoolParams(rmp.m_fontTexturesParams.m_texWidth,
                                                                           rmp.m_fontTexturesParams.m_texHeight,
                                                                           2,
                                                                           rmp.m_rtFormat,
-                                                                          true);
+                                                                          true,
+                                                                          true,
+                                                                          true,
+                                                                          1,
+                                                                          "styleCacheTexture");
 
   rmp.m_glyphCacheParams = yg::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
                                                                  "fonts_whitelist.txt",
@@ -70,7 +114,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(VideoTimer * videoTimer,
                                                                  GetPlatform().CpuCores() + 2,
                                                                  GetPlatform().CpuCores());
 
-  rmp.m_isMergeable = false;
+  rmp.m_useSingleThreadedOGL = false;
   rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;
 
   m_resourceManager.reset(new yg::ResourceManager(rmp));

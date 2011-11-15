@@ -123,6 +123,11 @@ int Platform::MaxTilesCount() const
   return 120;
 }
 
+int Platform::VideoMemoryLimit() const
+{
+  return 10 * 1024 * 1024;
+}
+
 bool Platform::GetFileSize(string const & file, uint64_t & size) const
 {
   try

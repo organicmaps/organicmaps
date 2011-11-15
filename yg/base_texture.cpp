@@ -31,13 +31,13 @@ namespace yg
     }
 
     BaseTexture::BaseTexture(m2::PointU const & size)
-      : m_width(size.x), m_height(size.y), m_id(0), m_hasID(false)
+      : m_id(0), m_hasID(false), m_width(size.x), m_height(size.y)
     {
 //      init();
     }
 
     BaseTexture::BaseTexture(unsigned width, unsigned height)
-      : m_width(width), m_height(height), m_id(0), m_hasID(false)
+      : m_id(0), m_hasID(false), m_width(width), m_height(height)
     {
 //      init();
     }

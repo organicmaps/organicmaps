@@ -76,6 +76,11 @@ int Platform::ScaleEtalonSize() const
   return 512 + 256;
 }
 
+int Platform::VideoMemoryLimit() const
+{
+  return 20 * 1024 * 1024;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 extern "C" Platform & GetPlatform()
 {

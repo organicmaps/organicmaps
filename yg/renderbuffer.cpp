@@ -58,7 +58,7 @@ namespace yg
     }
 
     RenderBuffer::RenderBuffer(size_t width, size_t height, bool isDepthBuffer)
-      : m_isDepthBuffer(isDepthBuffer), m_width(width), m_height(height), m_hasID(false), m_id(0)
+      : m_hasID(false), m_id(0), m_isDepthBuffer(isDepthBuffer), m_width(width), m_height(height)
     {}
 
     RenderBuffer::~RenderBuffer()

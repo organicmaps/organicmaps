@@ -77,6 +77,8 @@ public:
 
   int MaxTilesCount() const;
 
+  int VideoMemoryLimit() const;
+
   string DeviceName() const;
 
   int ScaleEtalonSize() const;

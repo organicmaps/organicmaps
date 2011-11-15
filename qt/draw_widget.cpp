@@ -210,7 +210,7 @@ namespace qt
 
       yg::ResourceManager::Params rmParams;
       rmParams.m_rtFormat = yg::Rt8Bpp;
-      rmParams.m_videoMemoryLimit = 30 * 1024 * 1024;
+      rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
 
       m_framework->SetRenderPolicy(CreateRenderPolicy(m_videoTimer.get(), params, rmParams, primaryRC));
 

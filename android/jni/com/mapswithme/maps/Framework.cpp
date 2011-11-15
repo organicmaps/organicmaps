@@ -92,7 +92,11 @@ namespace android
     DrawerYG::Params params;
     params.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
 
-    m_work.SetRenderPolicy(new PartialRenderPolicy(m_videoTimer, params, make_shared_ptr(new android::RenderContext())));
+    yg::ResourceManager::Params rmParams;
+    rmParams.m_videoMemoryLimit = 15 * 1024 * 1024;
+    rmParams.m_rtTarget = yg::Rt8Bpp;
+
+    m_work.SetRenderPolicy(new PartialRenderPolicy(m_videoTimer, params, rmParams, make_shared_ptr(new android::RenderContext())));
 
     m_work.SetUpdatesEnabled(true);
 

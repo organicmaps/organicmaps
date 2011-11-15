@@ -98,7 +98,11 @@
 
   videoTimer = CreateIOSVideoTimer(bind(drawFrameImpl, self, drawFrameSel));
   
-  renderPolicy = CreateRenderPolicy(videoTimer, p, renderContext);
+  yg::ResourceManager::Params rmParams;
+  rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
+  rmParams.m_rtFormat = fmt;
+  
+  renderPolicy = CreateRenderPolicy(videoTimer, p, rmParams, renderContext);
 
   framework->SetRenderPolicy(renderPolicy);
 }

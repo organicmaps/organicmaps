@@ -25,8 +25,6 @@
 #import <UIKit/UIScreen.h>
 #import <UIKit/UIScreenMode.h>
 
-
-
 class Platform::PlatformImpl
 {
 public:
@@ -34,6 +32,7 @@ public:
   int m_scaleEtalonSize;
   string m_skinName;
   string m_deviceName;
+  int m_videoMemoryLimit;
 };
 
 Platform::Platform()
@@ -55,6 +54,7 @@ Platform::Platform()
   // Hardcoding screen resolution depending on the device we are running.
   m_impl->m_visualScale = 1.0;
   m_impl->m_skinName = "basic.skn";
+  m_impl->m_videoMemoryLimit = 8 * 1024 * 1024;
 
   // Calculating resolution
   UIDevice * device = [UIDevice currentDevice];
@@ -176,6 +176,11 @@ double Platform::VisualScale() const
 int Platform::ScaleEtalonSize() const
 {
   return m_impl->m_scaleEtalonSize;
+}
+
+int Platform::VideoMemoryLimit() const
+{
+  return m_impl->m_videoMemoryLimit;
 }
 
 int Platform::MaxTilesCount() const

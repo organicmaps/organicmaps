@@ -16,7 +16,6 @@ protected:
 
   scoped_ptr<RenderQueue> m_renderQueue;
   bool m_DoAddCommand;
-  bool m_DoSynchronize;
 
 public:
 

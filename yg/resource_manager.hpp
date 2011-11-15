@@ -43,8 +43,8 @@ namespace yg
     size_t m_vbSize;
     size_t m_ibSize;
     bool m_useVA;
-    bool m_isMergeable;
-    TStorageFactory(size_t vbSize, size_t ibSize, bool useVA, bool isMergeable, char const * resName);
+    bool m_useSingleThreadedOGL;
+    TStorageFactory(size_t vbSize, size_t ibSize, bool useVA, bool useSingleThreadedOGL, char const * resName);
     gl::Storage const Create();
     void BeforeMerge(gl::Storage const & e);
   };
@@ -75,15 +75,33 @@ namespace yg
     struct StoragePoolParams
     {
       size_t m_vbSize;
+      size_t m_vertexSize;
       size_t m_ibSize;
+      size_t m_indexSize;
       size_t m_storagesCount;
-      bool m_isFixed; //< should this params be scaled while fitting into videoMemoryLimit
 
-      StoragePoolParams(size_t vbSize, size_t ibSize, size_t storagesCount, bool isFixed);
-      StoragePoolParams();
+      bool m_isFixed;
 
+      int m_scalePriority;
+      double m_scaleFactor;
+
+      string m_poolName;
+
+      StoragePoolParams(size_t vbSize,
+                        size_t vertexSize,
+                        size_t ibSize,
+                        size_t indexSize,
+                        size_t storagesCount,
+                        bool isFixed,
+                        int scalePriority,
+                        string const & poolName);
+
+      StoragePoolParams(string const & poolName);
+
+      bool isFixed() const;
       bool isValid() const;
       void scaleMemoryUsage(double k);
+      void distributeFreeMemory(int freeVideoMemory);
       size_t memoryUsage() const;
     };
 
@@ -93,13 +111,32 @@ namespace yg
       size_t m_texHeight;
       size_t m_texCount;
       yg::RtFormat m_rtFormat;
-      bool m_isFixed; //< should this params be scaled while fitting into videoMemoryLimit
 
-      TexturePoolParams(size_t texWidth, size_t texHeight, size_t texCount, yg::RtFormat rtFormat, bool isFixed);
-      TexturePoolParams();
+      bool m_isWidthFixed;
+      bool m_isHeightFixed;
+      bool m_isCountFixed;
 
+      int m_scalePriority;
+      double m_scaleFactor;
+
+      string m_poolName;
+
+      TexturePoolParams(size_t texWidth,
+                        size_t texHeight,
+                        size_t texCount,
+                        yg::RtFormat rtFormat,
+                        bool isWidthFixed,
+                        bool isHeightFixed,
+                        bool isCountFixed,
+                        int scalePriority,
+                        string const & poolName);
+
+      TexturePoolParams(string const & poolName);
+
+      bool isFixed() const;
       bool isValid() const;
       void scaleMemoryUsage(double k);
+      void distributeFreeMemory(int freeVideoMemory);
       size_t memoryUsage() const;
     };
 
@@ -125,7 +162,7 @@ namespace yg
     struct Params
     {
       RtFormat m_rtFormat;
-      bool m_isMergeable;
+      bool m_useSingleThreadedOGL;
       bool m_useVA;
 
       size_t m_videoMemoryLimit;
@@ -151,8 +188,11 @@ namespace yg
 
       Params();
 
-      void scaleMemoryUsage(double k);
+      void distributeFreeMemory(int freeVideoMemory);
       void fitIntoLimits();
+      int memoryUsage() const;
+      int fixedMemoryUsage() const;
+      void initScaleWeights();
     };
 
   private:
@@ -184,11 +224,7 @@ namespace yg
 
     void initGlyphCaches(GlyphCacheParams const & p);
 
-    void initPrimaryStorage(StoragePoolParams const & p);
-    void initSmallStorage(StoragePoolParams const & p);
-    void initBlitStorage(StoragePoolParams const & p);
-    void initMultiBlitStorage(StoragePoolParams const & p);
-    void initTinyStorage(StoragePoolParams const & p);
+    void initStoragePool(StoragePoolParams const & p, auto_ptr<TStoragePool> & pool);
 
     TStoragePool * primaryStorages();
     TStoragePool * smallStorages();
@@ -196,10 +232,7 @@ namespace yg
     TStoragePool * multiBlitStorages();
     TStoragePool * tinyStorages();
 
-    void initPrimaryTextures(TexturePoolParams const & p);
-    void initFontTextures(TexturePoolParams const & p);
-    void initRenderTargetTextures(TexturePoolParams const & p);
-    void initStyleCacheTextures(TexturePoolParams const & p);
+    void initTexturePool(TexturePoolParams const & p, auto_ptr<TTexturePool> & pool);
 
     TTexturePool * primaryTextures();
     TTexturePool * fontTextures();
