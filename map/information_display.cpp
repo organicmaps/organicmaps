@@ -89,12 +89,15 @@ void InformationDisplay::setRulerParams(unsigned pxMinWidth, double metresMinWid
 
 void InformationDisplay::drawRuler(DrawerYG * pDrawer)
 {
-  m_ruler.setFontDesc(m_fontDesc);
+  yg::FontDesc rulerFont = m_fontDesc;
+  rulerFont.m_color = yg::Color(0x44, 0x44, 0x44, 0xFF);
+
+  m_ruler.setFontDesc(rulerFont);
   m_ruler.setVisualScale(m_visualScale);
 
 #ifdef OMIM_OS_IPHONE
   m2::PointD pivot(m2::PointD(m_displayRect.maxX(),
-                              m_displayRect.maxY() - 30 * m_visualScale)
+                              m_displayRect.maxY() - 20 * m_visualScale)
                  + m2::PointD(-10 * m_visualScale, - 10 * m_visualScale));
   m_ruler.setPosition(yg::EPosAboveLeft);
 #else
@@ -139,13 +142,12 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
 
   params.m_depth = yg::maxDepth;
   params.m_fontDesc = m_fontDesc;
+  params.m_fontDesc.m_color = yg::Color(0x44, 0x44, 0x44, 0xFF);
   params.m_log2vis = false;
-
-  LOG(LINFO, (m_visualScale));
 
 #ifdef OMIM_OS_IPHONE
   params.m_pivot = m2::PointD(m_displayRect.maxX() - 10 * m_visualScale,
-                              m_displayRect.maxY() - 15 * m_visualScale);
+                              m_displayRect.maxY() - 10 * m_visualScale);
   params.m_position = yg::EPosAboveLeft;
 #else
   params.m_pivot = m2::PointD(m_displayRect.maxX() - 10 * m_visualScale,
@@ -160,10 +162,10 @@ void InformationDisplay::drawCenter(DrawerYG * drawer)
 
   m2::RectD bgRect = m2::Inflate(ste.roughBoundRect(), 5.0, 5.0);
 
-  drawer->screen()->drawRectangle(
-        bgRect,
-        yg::Color(187, 187, 187, 128),
-        yg::maxDepth - 1);
+//  drawer->screen()->drawRectangle(
+//        bgRect,
+//        yg::Color(187, 187, 187, 128),
+//        yg::maxDepth - 1);
 
   ste.draw(drawer->screen().get(), math::Identity<double, 3>());
 }

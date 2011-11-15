@@ -269,14 +269,14 @@ void Ruler::draw(yg::gl::OverlayRenderer * s, math::Matrix<double, 3, 3> const &
 {
   if (m_isInitialized)
   {
-    s->drawPath(
-        &m_path[0], m_path.size(), 0,
-          s->skin()->mapPenInfo(yg::PenInfo(yg::Color(255, 255, 255, 255), 2 * m_visualScale, 0, 0, 0)),
-        depth() - 3);
+//    s->drawPath(
+//        &m_path[0], m_path.size(), 0,
+//          s->skin()->mapPenInfo(yg::PenInfo(m_fontDesc.m_color, 2 * m_visualScale, 0, 0, 0)),
+//        depth() - 3);
 
     s->drawPath(
         &m_path[0], m_path.size(), 0,
-        s->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 255), 1 * m_visualScale, 0, 0, 0)),
+          s->skin()->mapPenInfo(yg::PenInfo(yg::Color(0, 0, 0, 0x99), 1 * m_visualScale, 0, 0, 0)),
         depth() - 2);
 
     if (position() & yg::EPosLeft)
