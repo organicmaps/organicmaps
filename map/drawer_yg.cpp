@@ -309,7 +309,12 @@ double DrawerYG::VisualScale() const
 void DrawerYG::SetScale(int level)
 {
   m_level = level;
+
+#ifdef USE_PROTO_STYLES
+  m_scale = 1.0;
+#else
   m_scale = scales::GetM2PFactor(level);
+#endif
 }
 
 void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t count)

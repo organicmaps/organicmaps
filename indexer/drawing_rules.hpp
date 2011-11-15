@@ -27,7 +27,7 @@ namespace drule
   public:
     static uint32_t const empty_id = 0xFFFFFFFF;
 
-    BaseRule()
+    BaseRule() : m_type(node | way)
     {
     }
 
@@ -80,15 +80,7 @@ namespace drule
 
     void SetClassName(string const & cl) { m_class = cl; }
     void SetType(char type) { m_type = type; }
-    inline char GetType() const
-    {
-#ifdef USE_PROTO_STYLES
-      // Assume that they all are acceptable.
-      return (node | way);
-#else
-      return m_type;
-#endif
-    }
+    inline char GetType() const { return m_type; }
 
     bool IsEqualBase(BaseRule const * p) const { return (m_type == p->m_type); }
     void ReadBase(ReaderPtrStream & ar);

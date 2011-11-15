@@ -1086,6 +1086,13 @@ namespace
     RulesHolder & m_rules;
     ContainerProto & m_cont;
 
+    double m_factor;
+
+    double ToPixels(double d) const
+    {
+      return d * m_factor;
+    }
+
     static int32_t GetStoringAlpha(BaseRule const * pSrc)
     {
       // 255 is default value for BaseRule - completely visible
@@ -1104,38 +1111,43 @@ namespace
       return (pSrc->GetFillColor() | GetStoringAlpha(pSrc));
     }
 
-    static void ConvertImpl(BaseRule const * pSrc, LineRuleProto * pDest)
+    void ConvertImpl(BaseRule const * pSrc, LineRuleProto * pDest) const
     {
-      pDest->set_width(pSrc->GetWidth());
+      pDest->set_width(ToPixels(pSrc->GetWidth()));
       pDest->set_color(GetColor(pSrc));
 
       vector<double> dd;
-      double dummy;
-      pSrc->GetPattern(dd, dummy);
+      double offset;
+      pSrc->GetPattern(dd, offset);
       if (!dd.empty())
       {
         DashDotProto * p = pDest->mutable_dashdot();
-        for_each(dd.begin(), dd.end(), bind(&DashDotProto::add_dd, p, _1));
+
+        for (size_t i = 0; i < dd.size(); ++i)
+          p->add_dd(ToPixels(dd[i]));
+
+        if (offset != 0.0)
+          p->set_offset(ToPixels(offset));
       }
     }
 
-    static void ConvertImpl(BaseRule const * pSrc, AreaRuleProto * pDest)
+    void ConvertImpl(BaseRule const * pSrc, AreaRuleProto * pDest) const
     {
       pDest->set_color(GetFillColor(pSrc));
       if (pSrc->GetColor() != -1)
         ConvertImpl(pSrc, pDest->mutable_border());
     }
 
-    static void ConvertImpl(BaseRule const * pSrc, SymbolRuleProto * pDest)
+    void ConvertImpl(BaseRule const * pSrc, SymbolRuleProto * pDest) const
     {
       string s;
       pSrc->GetSymbol(s);
       pDest->set_name(s);
     }
 
-    static void ConvertImpl(BaseRule const * pSrc, CaptionRuleProto * pDest)
+    void ConvertImpl(BaseRule const * pSrc, CaptionRuleProto * pDest) const
     {
-      pDest->set_height(pSrc->GetTextHeight());
+      pDest->set_height(ToPixels(pSrc->GetTextHeight()));
 
       if (pSrc->GetFillColor() != -1)
         pDest->set_color(GetFillColor(pSrc));
@@ -1143,14 +1155,14 @@ namespace
         pDest->set_stroke_color(GetColor(pSrc));
     }
 
-    static void ConvertImpl(BaseRule const * pSrc, CircleRuleProto * pDest)
+    void ConvertImpl(BaseRule const * pSrc, CircleRuleProto * pDest) const
     {
-      pDest->set_radius(pSrc->GetRadius());
+      pDest->set_radius(ToPixels(pSrc->GetRadius()));
       pDest->set_color(GetFillColor(pSrc));
     }
 
     template <class T>
-    static void Convert(BaseRule const * pSrc, int priority, T * pDest)
+    void Convert(BaseRule const * pSrc, int priority, T * pDest) const
     {
       pDest->set_priority(priority);
       ConvertImpl(pSrc, pDest);
@@ -1197,6 +1209,7 @@ namespace
           {
             pDE = pCE->add_element();
             pDE->set_scale(keys[i].m_scale);
+            m_factor = scales::GetM2PFactor(keys[i].m_scale);
           }
 
           BaseRule const * pRule = m_rules.Find(keys[i]);
@@ -1260,6 +1273,9 @@ namespace
         v.reserve(count);
         for (int i = 0; i < count; ++i)
           v.push_back(dd.dd(i));
+
+        if (dd.has_offset())
+          offset = dd.offset();
       }
     }
 
@@ -1332,7 +1348,11 @@ namespace
     {
       SymbolRuleProto m_symbol;
     public:
-      Symbol(SymbolRuleProto const & r) : m_symbol(r) {}
+      Symbol(SymbolRuleProto const & r) : m_symbol(r)
+      {
+        if (r.has_apply_for_type())
+          SetType(r.apply_for_type());
+      }
 
       virtual void GetSymbol(string & name) const
       {

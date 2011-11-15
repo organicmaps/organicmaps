@@ -1,7 +1,6 @@
 #include "classificator_loader.hpp"
 #include "classificator.hpp"
 #include "drawing_rules.hpp"
-#include "drules_struct.pb.h"
 
 #include "../../platform/platform.hpp"
 
@@ -63,6 +62,6 @@ namespace classificator
     drule::ReadRules(rulesS);
 #endif
 
-    LOG(LINFO, ("Reading of classificator done"));
+    LOG(LINFO, ("Reading of classificator finished"));
   }
 }
