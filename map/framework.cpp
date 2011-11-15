@@ -110,7 +110,7 @@ Framework<TModel>::Framework()
   m_navigator.SetMinScreenParams(
         static_cast<unsigned>(m_minRulerWidth * visScale), m_metresMinWidth);
 
-#ifdef DEBUG
+#ifndef OMIM_PRODUCTION
   m_informationDisplay.enableDebugInfo(true);
 #endif
 
