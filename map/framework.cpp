@@ -217,10 +217,7 @@ void Framework<TModel>::SaveState()
 template <typename TModel>
 bool Framework<TModel>::LoadState()
 {
-  if (!m_navigator.LoadState())
-    return false;
-
-  return true;
+  return m_navigator.LoadState();
 }
 //@}
 

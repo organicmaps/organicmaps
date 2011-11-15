@@ -94,17 +94,21 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-  if (m_reportFirstUpdate)
+  if (location::IsLatValid(newLocation.coordinate.latitude)
+    && location::IsLonValid(newLocation.coordinate.longitude))
   {
-    for (id observer in m_observers)
-      [observer onLocationStatusChanged:location::EFirstEvent];
-    m_reportFirstUpdate = NO;
-  }
+    if (m_reportFirstUpdate)
+    {
+      for (id observer in m_observers)
+        [observer onLocationStatusChanged:location::EFirstEvent];
+      m_reportFirstUpdate = NO;
+    }
   
-  location::GpsInfo newInfo;
-  [self location:newLocation toGpsInfo:newInfo];
-  for (id observer in m_observers)
-    [observer onGpsUpdate:newInfo];
+    location::GpsInfo newInfo;
+    [self location:newLocation toGpsInfo:newInfo];
+    for (id observer in m_observers)
+      [observer onGpsUpdate:newInfo];
+  }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading

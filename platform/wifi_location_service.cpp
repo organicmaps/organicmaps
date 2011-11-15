@@ -42,12 +42,15 @@ namespace location
                 GpsInfo info;
                 info.m_latitude = json_real_value(lat);
                 info.m_longitude = json_real_value(lon);
-                info.m_horizontalAccuracy = json_real_value(acc);
-                // @TODO introduce flags to mark valid values
-                info.m_timestamp = static_cast<double>(time(NULL));
-                info.m_source = location::EGoogle;
-                m_observer.OnGpsUpdated(info);
-                success = true;
+                if (IsLatValid(info.m_latitude) && IsLonValid(info.m_latitude))
+                {
+                  info.m_horizontalAccuracy = json_real_value(acc);
+                  // @TODO introduce flags to mark valid values
+                  info.m_timestamp = static_cast<double>(time(NULL));
+                  info.m_source = location::EGoogle;
+                  m_observer.OnGpsUpdated(info);
+                  success = true;
+                }
               }
             }
           }

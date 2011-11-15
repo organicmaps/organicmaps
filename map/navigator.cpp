@@ -76,6 +76,12 @@ bool Navigator::LoadState()
   if (!Settings::Get("ScreenClipRect", rect))
     return false;
 
+  // additional check for valid rect
+  m2::RectD const r = rect.GetGlobalRect();
+  if (r.minX() < MercatorBounds::minX || r.minY() < MercatorBounds::minY
+      || r.maxX() > MercatorBounds::maxX || r.maxY() > MercatorBounds::maxY)
+    return false;
+
   SetFromRect(rect);
   return true;
 }
