@@ -11,7 +11,7 @@ message LineRuleProto
   required double width = 1;
   required uint32 color = 2;
   optional DashDotProto dashdot = 3;
-  required int32 priority = 4;
+  optional int32 priority = 4;    // optional, because it can be used as part of AreaRule
 }
 
 message AreaRuleProto

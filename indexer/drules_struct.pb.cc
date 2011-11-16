@@ -272,7 +272,7 @@ void protobuf_AddDesc_drules_5fstruct_2eproto() {
     "\n\023drules_struct.proto\"*\n\014DashDotProto\022\n\n"
     "\002dd\030\001 \003(\001\022\016\n\006offset\030\002 \001(\001\"_\n\rLineRulePro"
     "to\022\r\n\005width\030\001 \002(\001\022\r\n\005color\030\002 \002(\r\022\036\n\007dash"
-    "dot\030\003 \001(\0132\r.DashDotProto\022\020\n\010priority\030\004 \002"
+    "dot\030\003 \001(\0132\r.DashDotProto\022\020\n\010priority\030\004 \001"
     "(\005\"P\n\rAreaRuleProto\022\r\n\005color\030\001 \002(\r\022\036\n\006bo"
     "rder\030\002 \001(\0132\016.LineRuleProto\022\020\n\010priority\030\003"
     " \002(\005\"I\n\017SymbolRuleProto\022\014\n\004name\030\001 \002(\t\022\026\n"
@@ -699,7 +699,7 @@ bool LineRuleProto::MergePartialFromCodedStream(
         break;
       }
       
-      // required int32 priority = 4;
+      // optional int32 priority = 4;
       case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
@@ -749,7 +749,7 @@ void LineRuleProto::SerializeWithCachedSizes(
       3, this->dashdot(), output);
   }
   
-  // required int32 priority = 4;
+  // optional int32 priority = 4;
   if (has_priority()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->priority(), output);
   }
@@ -779,7 +779,7 @@ void LineRuleProto::SerializeWithCachedSizes(
         3, this->dashdot(), target);
   }
   
-  // required int32 priority = 4;
+  // optional int32 priority = 4;
   if (has_priority()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->priority(), target);
   }
@@ -814,7 +814,7 @@ int LineRuleProto::ByteSize() const {
           this->dashdot());
     }
     
-    // required int32 priority = 4;
+    // optional int32 priority = 4;
     if (has_priority()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
@@ -877,7 +877,7 @@ void LineRuleProto::CopyFrom(const LineRuleProto& from) {
 }
 
 bool LineRuleProto::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000000b) != 0x0000000b) return false;
+  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
   
   return true;
 }

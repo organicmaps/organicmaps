@@ -213,7 +213,7 @@ class LineRuleProto : public ::google::protobuf::Message {
   inline ::DashDotProto* mutable_dashdot();
   inline ::DashDotProto* release_dashdot();
   
-  // required int32 priority = 4;
+  // optional int32 priority = 4;
   inline bool has_priority() const;
   inline void clear_priority();
   static const int kPriorityFieldNumber = 4;
@@ -1136,7 +1136,7 @@ inline ::DashDotProto* LineRuleProto::release_dashdot() {
   return temp;
 }
 
-// required int32 priority = 4;
+// optional int32 priority = 4;
 inline bool LineRuleProto::has_priority() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
