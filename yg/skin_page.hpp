@@ -69,12 +69,13 @@ namespace yg
     typedef map<GlyphKey, uint32_t> TGlyphMap;
     TGlyphMap m_glyphMap;
 
-    m2::Packer m_packer;
     /// made mutable to implement lazy reservation of texture
     /// @{
     mutable shared_ptr<gl::BaseTexture> m_texture;
     mutable shared_ptr<ResourceManager> m_resourceManager;
     /// @}
+
+    m2::Packer m_packer;
 
     TUploadQueue m_uploadQueue;
 

@@ -54,10 +54,10 @@ namespace yg
                      char const * name,
                      uint8_t pipelineID)
                    : m_texture(resourceManager->getTexture(name)),
+                     m_packer(m_texture->width(), m_texture->height(), 0x00FFFFFF - 1),
                      m_usage(EStaticUsage),
                      m_pipelineID(pipelineID)
   {
-    m_packer = m2::Packer(m_texture->width(), m_texture->height(), 0x00FFFFFF - 1);
   }
 
   SkinPage::SkinPage(shared_ptr<ResourceManager> const & resourceManager,
