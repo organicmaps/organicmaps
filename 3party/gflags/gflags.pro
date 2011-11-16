@@ -4,6 +4,9 @@ DEPENDENCIES =
 
 include($$ROOT_DIR/common.pri)
 
+CONFIG -= warn_on
+CONFIG *= warn_off
+
 TEMPLATE = lib
 CONFIG += staticlib
 

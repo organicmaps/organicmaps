@@ -10,6 +10,9 @@ DEPENDENCIES =
 
 include($$ROOT_DIR/common.pri)
 
+CONFIG -= warn_on
+CONFIG *= warn_off
+
 HEADERS += \
     config_omim.h \
     config_mac.h \

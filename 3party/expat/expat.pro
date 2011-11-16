@@ -9,9 +9,8 @@ DEPENDENCIES =
 
 include($$ROOT_DIR/common.pri)
 
-unix|win32-g++ {
-  QMAKE_CFLAGS_WARN_ON += -Wno-unused -Wno-missing-field-initializers -Wno-switch -Wno-uninitialized
-}
+CONFIG -= warn_on
+CONFIG *= warn_off
 
 SOURCES += \
     lib/xmlparse.c \
