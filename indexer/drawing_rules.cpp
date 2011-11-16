@@ -1202,7 +1202,7 @@ namespace
         for (size_t i = 0; i < keys.size(); ++i)
         {
           // skip unnecessary trash
-          if (keys[i].m_type > circle)
+          if (keys[i].m_type == waymarker)
             continue;
 
           if (pDE == 0 || pDE->scale() != keys[i].m_scale)
@@ -1227,6 +1227,7 @@ namespace
             Convert(pRule, keys[i].m_priority, pDE->mutable_symbol());
             break;
           case caption:
+          case pathtext:
             Convert(pRule, keys[i].m_priority, pDE->mutable_caption());
             break;
           case circle:

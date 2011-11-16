@@ -292,7 +292,11 @@ namespace
     {
       static const int visible[3][drule::count_of_rules] = {
         {0, 0, 1, 1, 1, 0, 0},   // fpoint
+  #ifdef USE_PROTO_STYLES
+        {1, 0, 0, 1, 0, 0, 0},   // fline
+  #else
         {1, 0, 0, 0, 0, 1, 0},   // fline
+  #endif
         {1, 1, 1, 1, 0, 0, 0}    // farea
       };
 
@@ -412,7 +416,11 @@ bool ClassifObject::IsDrawableLike(FeatureGeoType ft) const
 
   static const int visible[3][drule::count_of_rules] = {
     {0, 0, 1, 1, 1, 0, 0},   // fpoint
+  #ifdef USE_PROTO_STYLES
+    {1, 0, 0, 1, 0, 0, 0},   // fline
+  #else
     {1, 0, 0, 0, 0, 1, 0},   // fline
+  #endif
     {0, 1, 0, 0, 0, 0, 0}    // farea (!!! key difference with GetSuitable !!!)
   };
 
