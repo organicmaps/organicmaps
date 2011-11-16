@@ -34,7 +34,7 @@ macx* {
   PLIST_PATH = $${DESTDIR}/$${TARGET}.app/Contents/$${PLIST_FILE}
   QMAKE_POST_LINK = $${IN_PWD}/../tools/unix/process_plist.sh $${IN_PWD}/.. $$VERSION_MAJOR $$VERSION_MINOR $$PLIST_PATH
 
-  CONFIG(production) {
+#  CONFIG(production) {
     # Bundle Resouces
     OTHER_RES.path = Contents/Resources
     OTHER_RES.files = ../data/about-travelguide-desktop.html ../data/eula.html ../data/welcome.html \
@@ -60,7 +60,7 @@ macx* {
     MWM_RES.files = ../data/World.mwm ../data/WorldCoasts.mwm
 
     QMAKE_BUNDLE_DATA += OTHER_RES CLASSIFICATOR_RES SKIN_RES FONT_RES MWM_RES
-  }
+#  }
 }
 
 SOURCES += \
