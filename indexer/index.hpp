@@ -32,7 +32,8 @@ public:
 class Index : public MwmSet
 {
 protected:
-  virtual void GetInfo(string const & name, MwmInfo & info) const;
+  /// @return mwm format version
+  virtual int GetInfo(string const & name, MwmInfo & info) const;
   virtual MwmValue * CreateValue(string const & name) const;
 
 public:

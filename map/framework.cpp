@@ -35,7 +35,9 @@ void Framework<TModel>::AddMap(string const & file)
   LOG(LDEBUG, ("Loading map:", file));
 
   threads::MutexGuard lock(m_modelSyn);
-  m_model.AddMap(file);
+  int const version = m_model.AddMap(file);
+  if (m_lowestMapVersion == -1 || (version != -1 && m_lowestMapVersion > version))
+    m_lowestMapVersion = version;
 }
 
 template <typename TModel>
@@ -95,8 +97,8 @@ Framework<TModel>::Framework()
 #endif
     m_width(0),
     m_height(0),
-    m_centeringMode(EDoNothing)
-//    m_tileSize(GetPlatform().TileSize())
+    m_centeringMode(EDoNothing),
+    m_lowestMapVersion(-1)
 {
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.enableDebugPoints(true);

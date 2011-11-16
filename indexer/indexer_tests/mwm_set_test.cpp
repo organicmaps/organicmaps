@@ -11,10 +11,11 @@ namespace
   class TestMwmSet : public MwmSet
   {
   protected:
-    virtual void GetInfo(string const & path, MwmInfo & info) const
+    virtual int GetInfo(string const & path, MwmInfo & info) const
     {
       int n = path[0] - '0';
       info.m_maxScale = n;
+      return 1;
     }
     virtual MwmValue * CreateValue(string const &) const
     {

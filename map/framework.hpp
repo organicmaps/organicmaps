@@ -97,7 +97,11 @@ protected:
 
   my::Timer m_timer;
 
-  typedef typename TModel::ReaderT ReaderT;
+  /// Stores lowest loaded map version
+  /// Holds -1 if no maps were added
+  /// @see feature::DataHeader::Version
+  int m_lowestMapVersion;
+//  typedef typename TModel::ReaderT ReaderT;
 
   void AddMap(string const & file);
   void RemoveMap(string const & datFile);
@@ -108,6 +112,8 @@ public:
 
   Framework();
   virtual ~Framework();
+
+  int GetLowestLoadedMapVersion() const { return m_lowestMapVersion; }
 
   storage::Storage & Storage() { return m_storage; }
 

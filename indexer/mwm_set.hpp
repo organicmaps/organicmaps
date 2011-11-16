@@ -59,7 +59,8 @@ public:
   /// Add new mwm. Returns false, if mwm with given fileName already exists.
   /// @param[in]  fileName  File name (without full path) of country.
   /// @param[out] r         Limit rect of country.
-  bool Add(string const & fileName, m2::RectD & r);
+  /// @return Map format version or -1 if not added
+  int Add(string const & fileName, m2::RectD & r);
   inline bool Add(string const & fileName)
   {
     m2::RectD dummy;
@@ -76,7 +77,8 @@ public:
   void ClearCache();
 
 protected:
-  virtual void GetInfo(string const & name, MwmInfo & info) const = 0;
+  /// @return mwm format version
+  virtual int GetInfo(string const & name, MwmInfo & info) const = 0;
   virtual MwmValueBase * CreateValue(string const & name) const = 0;
 
   void Cleanup();

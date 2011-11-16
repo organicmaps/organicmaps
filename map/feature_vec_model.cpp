@@ -32,18 +32,20 @@ void FeaturesFetcher::InitClassificator()
   }
 }
 
-void FeaturesFetcher::AddMap(string const & file)
+int FeaturesFetcher::AddMap(string const & file)
 {
+  int version = -1;
   try
   {
     m2::RectD r;
-    m_multiIndex.Add(file, r);
+    version = m_multiIndex.Add(file, r);
     m_rect.Add(r);
   }
   catch (Reader::Exception const & e)
   {
     LOG(LERROR, ("Data file adding error: ", e.what()));
   }
+  return version;
 }
 
 void FeaturesFetcher::RemoveMap(string const & fName)

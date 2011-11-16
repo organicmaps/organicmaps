@@ -10,7 +10,7 @@ MwmValue::MwmValue(string const & name)
   m_factory.Load(m_cont);
 }
 
-void Index::GetInfo(string const & name, MwmInfo & info) const
+int Index::GetInfo(string const & name, MwmInfo & info) const
 {
   MwmValue value(name);
 
@@ -20,6 +20,8 @@ void Index::GetInfo(string const & name, MwmInfo & info) const
   pair<int, int> const scaleR = h.GetScaleRange();
   info.m_minScale = static_cast<uint8_t>(scaleR.first);
   info.m_maxScale = static_cast<uint8_t>(scaleR.second);
+
+  return h.GetVersion();
 }
 
 MwmValue * Index::CreateValue(string const & name) const

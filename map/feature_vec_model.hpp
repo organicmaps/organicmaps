@@ -33,7 +33,8 @@ namespace model
   public:
     void InitClassificator();
 
-    void AddMap(string const & file);
+    /// @return MWM format version for file or -1 if error and map was not added
+    int AddMap(string const & file);
     void RemoveMap(string const & fName);
     void Clean();
     void ClearCaches();
