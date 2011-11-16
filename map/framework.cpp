@@ -153,8 +153,8 @@ void Framework<TModel>::GetLocalMaps(vector<string> & outMaps)
   Platform & pl = GetPlatform();
   pl.GetFilesInDir(pl.ResourcesDir(), "*" DATA_FILE_EXTENSION, outMaps);
   pl.GetFilesInDir(pl.WritableDir(), "*" DATA_FILE_EXTENSION, outMaps);
-  outMaps.resize(unique(outMaps.begin(), outMaps.end()) - outMaps.begin());
   sort(outMaps.begin(), outMaps.end());
+  outMaps.erase(unique(outMaps.begin(), outMaps.end()), outMaps.end());
 }
 
 template <typename TModel>

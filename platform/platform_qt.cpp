@@ -52,8 +52,8 @@ void Platform::GetFontNames(FilesList & res) const
 {
   GetFilesInDir(ResourcesDir(), "*.ttf", res);
   GetFilesInDir(WritableDir(), "*.ttf", res);
-  res.resize(unique(res.begin(), res.end()) - res.begin());
   sort(res.begin(), res.end());
+  res.erase(unique(res.begin(), res.end()), res.end());
   CHECK(!res.empty(), ("Can't find any valid font in", ResourcesDir(), WritableDir()));
 }
 
