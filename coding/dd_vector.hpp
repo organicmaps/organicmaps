@@ -1,11 +1,13 @@
 #pragma once
 #include "reader.hpp"
 #include "varint.hpp"
+
 #include "../base/assert.hpp"
 #include "../base/base.hpp"
 #include "../base/src_point.hpp"
+
 #include "../std/type_traits.hpp"
-#include <boost/iterator/iterator_facade.hpp>
+#include "../std/iterator_facade.hpp"
 
 
 template <
@@ -40,12 +42,10 @@ public:
     return result;
   }
 
-  class const_iterator : public boost::iterator_facade<
+  class const_iterator : public iterator_facade<
       const_iterator,
       value_type const,
-      boost::random_access_traversal_tag,
-      value_type const &,
-      difference_type>
+      random_access_traversal_tag>
   {
   public:
     const_iterator() : m_pReader(NULL), m_I(0), m_bValueRead(false)
