@@ -648,7 +648,7 @@ namespace drule {
     virtual void Write(FileWriterStream & ar) const { write_rules(ar, this); }
 
     virtual double GetTextHeight() const { return m_params.get<6>().m_v; }
-    virtual int GetColor() const {return m_params.get<7>().m_v;}
+    virtual int GetFillColor() const {return m_params.get<7>().m_v;}
 
     static string arrKeys[10];
   };
@@ -1149,11 +1149,16 @@ namespace
     void ConvertImpl(BaseRule const * pSrc, CaptionRuleProto * pDest) const
     {
       pDest->set_height(ToPixels(pSrc->GetTextHeight()));
+      pDest->set_color(GetFillColor(pSrc));
 
-      if (pSrc->GetFillColor() != -1)
-        pDest->set_color(GetFillColor(pSrc));
       if (pSrc->GetColor() != -1)
         pDest->set_stroke_color(GetColor(pSrc));
+    }
+
+    void ConvertImpl(BaseRule const * pSrc, PathTextRuleProto * pDest) const
+    {
+      pDest->set_height(ToPixels(pSrc->GetTextHeight()));
+      pDest->set_color(GetFillColor(pSrc));
     }
 
     void ConvertImpl(BaseRule const * pSrc, CircleRuleProto * pDest) const
@@ -1228,12 +1233,13 @@ namespace
             Convert(pRule, keys[i].m_priority, pDE->mutable_symbol());
             break;
           case caption:
-          case pathtext:
             Convert(pRule, keys[i].m_priority, pDE->mutable_caption());
             break;
           case circle:
             Convert(pRule, keys[i].m_priority, pDE->mutable_circle());
             break;
+          case pathtext:
+            Convert(pRule, keys[i].m_priority, pDE->mutable_path_text());
           }
         }
       }
@@ -1329,7 +1335,7 @@ namespace
       {
         return m_area.color();
       }
-      virtual unsigned char GetAlpha () const
+      virtual unsigned char GetAlpha() const
       {
         return AlphaFromColor(GetFillColor());
       }
@@ -1382,7 +1388,7 @@ namespace
       {
         return m_caption.height();
       }
-      virtual unsigned char GetAlpha () const
+      virtual unsigned char GetAlpha() const
       {
         return AlphaFromColor(GetFillColor());
       }
@@ -1401,6 +1407,26 @@ namespace
       virtual double GetRadius() const
       {
         return m_circle.radius();
+      }
+    };
+
+    class PathText : public MyBase
+    {
+      PathTextRuleProto m_text;
+    public:
+      PathText(PathTextRuleProto const & r) : m_text(r) {}
+
+      virtual int GetFillColor() const
+      {
+        return m_text.color();
+      }
+      virtual double GetTextHeight() const
+      {
+        return m_text.height();
+      }
+      virtual unsigned char GetAlpha() const
+      {
+        return AlphaFromColor(GetFillColor());
       }
     };
   }
@@ -1511,6 +1537,9 @@ namespace
 
           if (de.has_circle())
             AddRule<Circle>(p, de.scale(), circle, de.circle());
+
+          if (de.has_path_text())
+            AddRule<PathText>(p, de.scale(), pathtext, de.path_text());
         }
       }
 

@@ -4719,9 +4719,9 @@ cont {
       color: 0xD3CB98
       priority: 694
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11537
     }
   }
@@ -4732,9 +4732,9 @@ cont {
       color: 0xD3CB98
       priority: 735
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11770
     }
   }
@@ -5749,9 +5749,9 @@ cont {
       color: 0xEFADAA
       priority: 697
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11538
     }
   }
@@ -5786,9 +5786,9 @@ cont {
       color: 0xEFADAA
       priority: 738
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11771
     }
   }
@@ -6370,9 +6370,9 @@ cont {
       color: 0xD1FAD1
       priority: 287
     }
-    caption {
+    path_text {
       height: 9
-      stroke_color: 0x0
+      color: 0x0
       priority: 10609
     }
   }
@@ -6383,9 +6383,9 @@ cont {
       color: 0xD1FAD1
       priority: 399
     }
-    caption {
+    path_text {
       height: 9
-      stroke_color: 0x0
+      color: 0x0
       priority: 10820
     }
   }
@@ -6396,9 +6396,9 @@ cont {
       color: 0xD1FAD1
       priority: 715
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11546
     }
   }
@@ -6409,9 +6409,9 @@ cont {
       color: 0xD1FAD1
       priority: 757
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11779
     }
   }
@@ -6825,9 +6825,9 @@ cont {
       color: 0xD1FAD1
       priority: 689
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11532
     }
   }
@@ -6838,9 +6838,9 @@ cont {
       color: 0xD1FAD1
       priority: 730
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11765
     }
   }
@@ -7762,9 +7762,9 @@ cont {
       color: 0xE5E0C2
       priority: 687
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11529
     }
   }
@@ -7775,9 +7775,9 @@ cont {
       color: 0xE5E0C2
       priority: 728
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11762
     }
   }
@@ -8283,9 +8283,9 @@ cont {
       color: 0xE5E0C2
       priority: 686
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11528
     }
   }
@@ -8296,9 +8296,9 @@ cont {
       color: 0xE5E0C2
       priority: 727
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11761
     }
   }
@@ -9665,9 +9665,9 @@ cont {
       }
       priority: 397
     }
-    caption {
+    path_text {
       height: 9
-      stroke_color: 0x0
+      color: 0x0
       priority: 10819
     }
   }
@@ -9692,9 +9692,9 @@ cont {
       }
       priority: 713
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11545
     }
   }
@@ -9719,9 +9719,9 @@ cont {
       }
       priority: 755
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11778
     }
   }
@@ -10195,9 +10195,9 @@ cont {
       color: 0xFFFFFF
       priority: 291
     }
-    caption {
+    path_text {
       height: 9
-      stroke_color: 0x0
+      color: 0x0
       priority: 10607
     }
   }
@@ -10208,9 +10208,9 @@ cont {
       color: 0xFFFFFF
       priority: 395
     }
-    caption {
+    path_text {
       height: 9
-      stroke_color: 0x0
+      color: 0x0
       priority: 10818
     }
   }
@@ -10221,9 +10221,9 @@ cont {
       color: 0xFFFFFF
       priority: 709
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11544
     }
   }
@@ -10234,9 +10234,9 @@ cont {
       color: 0xFFFFFF
       priority: 751
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11777
     }
   }
@@ -11028,9 +11028,9 @@ cont {
       color: 0x809BC0
       priority: 302
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 10625
     }
   }
@@ -11041,9 +11041,9 @@ cont {
       color: 0x809BC0
       priority: 410
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 10892
     }
   }
@@ -11054,9 +11054,9 @@ cont {
       color: 0x809BC0
       priority: 725
     }
-    caption {
+    path_text {
       height: 16
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11552
     }
   }
@@ -11067,9 +11067,9 @@ cont {
       color: 0x809BC0
       priority: 767
     }
-    caption {
+    path_text {
       height: 16
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11785
     }
   }
@@ -12334,9 +12334,9 @@ cont {
       color: 0x809BC0
       priority: 299
     }
-    caption {
+    path_text {
       height: 8
-      stroke_color: 0x0
+      color: 0x0
       priority: 10617
     }
   }
@@ -12347,9 +12347,9 @@ cont {
       color: 0x809BC0
       priority: 407
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x0
+      color: 0x0
       priority: 10828
     }
   }
@@ -12360,9 +12360,9 @@ cont {
       color: 0x809BC0
       priority: 722
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x0
+      color: 0x0
       priority: 11459
     }
   }
@@ -12373,9 +12373,9 @@ cont {
       color: 0x809BC0
       priority: 764
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x0
+      color: 0x0
       priority: 11737
     }
   }
@@ -13141,9 +13141,9 @@ cont {
       color: 0xD0D0D0
       priority: 693
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11536
     }
   }
@@ -13154,9 +13154,9 @@ cont {
       color: 0xD0D0D0
       priority: 734
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11769
     }
   }
@@ -13404,9 +13404,9 @@ cont {
       color: 0xD1FAD1
       priority: 690
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11534
     }
   }
@@ -13417,9 +13417,9 @@ cont {
       color: 0xD1FAD1
       priority: 731
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11767
     }
   }
@@ -14389,9 +14389,9 @@ cont {
       color: 0xD3CB98
       priority: 691
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11535
     }
   }
@@ -14402,9 +14402,9 @@ cont {
       color: 0xD3CB98
       priority: 732
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11768
     }
   }
@@ -15047,9 +15047,9 @@ cont {
       color: 0xE5E0C2
       priority: 688
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11530
     }
   }
@@ -15060,9 +15060,9 @@ cont {
       color: 0xE5E0C2
       priority: 729
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11763
     }
   }
@@ -15502,9 +15502,9 @@ cont {
       color: 0xE46D71
       priority: 300
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 10623
     }
   }
@@ -15515,9 +15515,9 @@ cont {
       color: 0xE46D71
       priority: 408
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 10890
     }
   }
@@ -15528,9 +15528,9 @@ cont {
       color: 0xE46D71
       priority: 723
     }
-    caption {
+    path_text {
       height: 16
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11550
     }
   }
@@ -15541,9 +15541,9 @@ cont {
       color: 0xE46D71
       priority: 765
     }
-    caption {
+    path_text {
       height: 16
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11783
     }
   }
@@ -16444,9 +16444,9 @@ cont {
       color: 0xE46D71
       priority: 297
     }
-    caption {
+    path_text {
       height: 8
-      stroke_color: 0x0
+      color: 0x0
       priority: 10615
     }
   }
@@ -16457,9 +16457,9 @@ cont {
       color: 0xE46D71
       priority: 405
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x0
+      color: 0x0
       priority: 10826
     }
   }
@@ -16470,9 +16470,9 @@ cont {
       color: 0xE46D71
       priority: 720
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x0
+      color: 0x0
       priority: 11457
     }
   }
@@ -16483,9 +16483,9 @@ cont {
       color: 0xE46D71
       priority: 762
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x0
+      color: 0x0
       priority: 11735
     }
   }
@@ -17911,9 +17911,9 @@ cont {
       color: 0xFFFFFF
       priority: 394
     }
-    caption {
+    path_text {
       height: 9
-      stroke_color: 0x0
+      color: 0x0
       priority: 10817
     }
   }
@@ -17924,9 +17924,9 @@ cont {
       color: 0xFFFFFF
       priority: 710
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11543
     }
   }
@@ -17937,9 +17937,9 @@ cont {
       color: 0xFFFFFF
       priority: 752
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11776
     }
   }
@@ -18715,9 +18715,9 @@ cont {
       color: 0xD0D0D0
       priority: 288
     }
-    caption {
+    path_text {
       height: 9
-      stroke_color: 0x0
+      color: 0x0
       priority: 10610
     }
   }
@@ -18728,9 +18728,9 @@ cont {
       color: 0xD0D0D0
       priority: 400
     }
-    caption {
+    path_text {
       height: 9
-      stroke_color: 0x0
+      color: 0x0
       priority: 10821
     }
   }
@@ -18741,9 +18741,9 @@ cont {
       color: 0xD0D0D0
       priority: 711
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11547
     }
   }
@@ -18754,9 +18754,9 @@ cont {
       color: 0xD0D0D0
       priority: 753
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11780
     }
   }
@@ -19439,9 +19439,9 @@ cont {
       color: 0xFDBF6F
       priority: 296
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 10622
     }
   }
@@ -19452,9 +19452,9 @@ cont {
       color: 0xFDBF6F
       priority: 404
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 10889
     }
   }
@@ -19465,9 +19465,9 @@ cont {
       color: 0xFDBF6F
       priority: 719
     }
-    caption {
+    path_text {
       height: 16
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11549
     }
   }
@@ -19478,9 +19478,9 @@ cont {
       color: 0xFDBF6F
       priority: 761
     }
-    caption {
+    path_text {
       height: 16
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11782
     }
   }
@@ -20341,9 +20341,9 @@ cont {
       color: 0xFDBF6F
       priority: 295
     }
-    caption {
+    path_text {
       height: 8
-      stroke_color: 0x0
+      color: 0x0
       priority: 10613
     }
   }
@@ -20354,9 +20354,9 @@ cont {
       color: 0xFDBF6F
       priority: 403
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x0
+      color: 0x0
       priority: 10824
     }
   }
@@ -20367,9 +20367,9 @@ cont {
       color: 0xFDBF6F
       priority: 718
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x0
+      color: 0x0
       priority: 11455
     }
   }
@@ -20380,9 +20380,9 @@ cont {
       color: 0xFDBF6F
       priority: 760
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x0
+      color: 0x0
       priority: 11733
     }
   }
@@ -21251,9 +21251,9 @@ cont {
       color: 0xFFFFFF
       priority: 707
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11541
     }
   }
@@ -21264,9 +21264,9 @@ cont {
       color: 0xFFFFFF
       priority: 749
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11774
     }
   }
@@ -22657,9 +22657,9 @@ cont {
       }
       priority: 685
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11527
     }
   }
@@ -22704,9 +22704,9 @@ cont {
       }
       priority: 726
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11760
     }
   }
@@ -23498,9 +23498,9 @@ cont {
       color: 0xFFFF90
       priority: 402
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 10888
     }
   }
@@ -23511,9 +23511,9 @@ cont {
       color: 0xFFFF90
       priority: 717
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11548
     }
   }
@@ -23524,9 +23524,9 @@ cont {
       color: 0xFFFF90
       priority: 759
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11781
     }
   }
@@ -24393,9 +24393,9 @@ cont {
       color: 0xFFFF90
       priority: 401
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x0
+      color: 0x0
       priority: 10822
     }
   }
@@ -24406,9 +24406,9 @@ cont {
       color: 0xFFFF90
       priority: 716
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x0
+      color: 0x0
       priority: 11453
     }
   }
@@ -24419,9 +24419,9 @@ cont {
       color: 0xFFFF90
       priority: 758
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x0
+      color: 0x0
       priority: 11731
     }
   }
@@ -25285,9 +25285,9 @@ cont {
       color: 0xFFF2DE
       priority: 704
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11539
     }
   }
@@ -25298,9 +25298,9 @@ cont {
       color: 0xFFF2DE
       priority: 745
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11772
     }
   }
@@ -27513,9 +27513,9 @@ cont {
       color: 0x7FC97F
       priority: 301
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 10624
     }
   }
@@ -27531,9 +27531,9 @@ cont {
       color: 0x7FC97F
       priority: 409
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 10891
     }
   }
@@ -27549,9 +27549,9 @@ cont {
       color: 0x7FC97F
       priority: 724
     }
-    caption {
+    path_text {
       height: 16
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11551
     }
   }
@@ -27572,9 +27572,9 @@ cont {
       color: 0x7FC97F
       priority: 766
     }
-    caption {
+    path_text {
       height: 16
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11784
     }
   }
@@ -28915,9 +28915,9 @@ cont {
       color: 0x7FC97F
       priority: 298
     }
-    caption {
+    path_text {
       height: 8
-      stroke_color: 0x0
+      color: 0x0
       priority: 10616
     }
   }
@@ -28933,9 +28933,9 @@ cont {
       color: 0x7FC97F
       priority: 406
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x0
+      color: 0x0
       priority: 10827
     }
   }
@@ -28951,9 +28951,9 @@ cont {
       color: 0x7FC97F
       priority: 721
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x0
+      color: 0x0
       priority: 11458
     }
   }
@@ -28969,9 +28969,9 @@ cont {
       color: 0x7FC97F
       priority: 763
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x0
+      color: 0x0
       priority: 11736
     }
   }
@@ -29917,9 +29917,9 @@ cont {
       color: 0xFFFFFF
       priority: 393
     }
-    caption {
+    path_text {
       height: 9
-      stroke_color: 0x0
+      color: 0x0
       priority: 10816
     }
   }
@@ -29930,9 +29930,9 @@ cont {
       color: 0xFFFFFF
       priority: 708
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11542
     }
   }
@@ -29943,9 +29943,9 @@ cont {
       color: 0xFFFFFF
       priority: 750
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11775
     }
   }
@@ -30745,9 +30745,9 @@ cont {
       color: 0xFFFFFF
       priority: 705
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11540
     }
   }
@@ -30758,9 +30758,9 @@ cont {
       color: 0xFFFFFF
       priority: 746
     }
-    caption {
+    path_text {
       height: 10
-      stroke_color: 0x606060
+      color: 0x606060
       priority: 11773
     }
   }
@@ -45572,9 +45572,9 @@ cont {
       }
       priority: 534
     }
-    caption {
+    path_text {
       height: 7
-      stroke_color: 0x0
+      color: 0x0
       priority: 537
     }
   }
@@ -45683,9 +45683,9 @@ cont {
       }
       priority: 535
     }
-    caption {
+    path_text {
       height: 7
-      stroke_color: 0x0
+      color: 0x0
       priority: 538
     }
   }
@@ -45806,9 +45806,9 @@ cont {
       }
       priority: 533
     }
-    caption {
+    path_text {
       height: 7
-      stroke_color: 0x0
+      color: 0x0
       priority: 536
     }
   }
@@ -55009,9 +55009,9 @@ cont {
       color: 0xB5D6F1
       priority: 103
     }
-    caption {
+    path_text {
       height: 6
-      stroke_color: 0xFFFFFF
+      color: 0xFFFFFF
       priority: 10602
     }
   }
@@ -55027,9 +55027,9 @@ cont {
       color: 0xB5D6F1
       priority: 108
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0xFFFFFF
+      color: 0xFFFFFF
       priority: 10813
     }
   }
@@ -55045,9 +55045,9 @@ cont {
       color: 0xB5D6F1
       priority: 110
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0xFFFFFF
+      color: 0xFFFFFF
       priority: 11429
     }
   }
@@ -55063,9 +55063,9 @@ cont {
       color: 0xB5D6F1
       priority: 112
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0xFFFFFF
+      color: 0xFFFFFF
       priority: 11707
     }
   }
@@ -55246,9 +55246,9 @@ cont {
       color: 0xB5D6F1
       priority: 112
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0xFFFFFF
+      color: 0xFFFFFF
       priority: 11419
     }
   }
@@ -55264,9 +55264,9 @@ cont {
       color: 0xB5D6F1
       priority: 114
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0xFFFFFF
+      color: 0xFFFFFF
       priority: 11697
     }
   }
@@ -55599,9 +55599,9 @@ cont {
       color: 0xB5D6F1
       priority: 111
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0xFFFFFF
+      color: 0xFFFFFF
       priority: 11421
     }
   }
@@ -55617,9 +55617,9 @@ cont {
       color: 0xB5D6F1
       priority: 113
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0xFFFFFF
+      color: 0xFFFFFF
       priority: 11699
     }
   }
@@ -55865,9 +55865,9 @@ cont {
       color: 0xB5D6F1
       priority: 99
     }
-    caption {
+    path_text {
       height: 6
-      stroke_color: 0xFFFFFF
+      color: 0xFFFFFF
       priority: 10604
     }
   }
@@ -55883,9 +55883,9 @@ cont {
       color: 0xB5D6F1
       priority: 104
     }
-    caption {
+    path_text {
       height: 6
-      stroke_color: 0xFFFFFF
+      color: 0xFFFFFF
       priority: 10815
     }
   }
@@ -55901,9 +55901,9 @@ cont {
       color: 0xB5D6F1
       priority: 106
     }
-    caption {
+    path_text {
       height: 8
-      stroke_color: 0xFFFFFF
+      color: 0xFFFFFF
       priority: 11433
     }
   }
@@ -55919,9 +55919,9 @@ cont {
       color: 0xB5D6F1
       priority: 108
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0xFFFFFF
+      color: 0xFFFFFF
       priority: 11711
     }
   }
@@ -56254,9 +56254,9 @@ cont {
       color: 0xB5D6F1
       priority: 109
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0xFFFFFF
+      color: 0xFFFFFF
       priority: 11431
     }
   }
@@ -56272,9 +56272,9 @@ cont {
       color: 0xB5D6F1
       priority: 111
     }
-    caption {
+    path_text {
       height: 12
-      stroke_color: 0xFFFFFF
+      color: 0xFFFFFF
       priority: 11709
     }
   }

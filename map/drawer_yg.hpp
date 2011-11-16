@@ -80,7 +80,7 @@ protected:
   void drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int depth);
 
   void drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_ptr_t pRule, yg::EPosition pos, int depth);
-  bool drawPathText(di::PathInfo const & info, string const & name, uint8_t fontSize, int depth);
+  bool drawPathText(di::PathInfo const & info, string const & name, rule_ptr_t pRule, int depth);
   void drawPathNumber(di::PathInfo const & path, di::DrawInfo const * pInfo);
 
   typedef shared_ptr<yg::gl::BaseTexture> texture_t;

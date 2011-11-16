@@ -230,16 +230,24 @@ bool DrawerYG::filter_text_size(rule_ptr_t pRule) const
   return pRule->GetTextHeight() * m_scale <= min_text_height_filtered;
 }
 
+namespace
+{
+  yg::Color GetTextColor(drule::BaseRule const * pRule)
+  {
+    int const color = pRule->GetFillColor();
+    return (color == -1 ? yg::Color(0, 0, 0, 0) : yg::Color::fromXRGB(color, pRule->GetAlpha()));
+  }
+}
+
 void DrawerYG::drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_ptr_t pRule, yg::EPosition pos, int depth)
 {
-  int const color = pRule->GetFillColor();
-  yg::Color textColor(color == -1 ? yg::Color(0, 0, 0, 0) : yg::Color::fromXRGB(color, pRule->GetAlpha()));
+  yg::Color textColor = GetTextColor(pRule);
 
   /// to prevent white text on white outline
   if (textColor == yg::Color(255, 255, 255, 255))
     textColor = yg::Color(0, 0, 0, 0);
 
-//  bool isMasked = pRule->GetColor() != -1;
+  //bool isMasked = pRule->GetColor() != -1;
   bool isMasked = true;
   yg::FontDesc fontDesc(get_text_font_size(pRule), textColor, isMasked, yg::Color(255, 255, 255, 255));
   fontDesc.SetRank(pInfo->m_rank);
@@ -255,11 +263,9 @@ void DrawerYG::drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_
           true);
 }
 
-bool DrawerYG::drawPathText(di::PathInfo const & info, string const & name, uint8_t fontSize, int depth)
+bool DrawerYG::drawPathText(di::PathInfo const & info, string const & name, rule_ptr_t pRule, int depth)
 {
-//  bool const isMasked = (double(fontSize) / m_visualScale >= min_text_height);
-
-  yg::FontDesc fontDesc(fontSize);
+  yg::FontDesc fontDesc(get_pathtext_font_size(pRule), GetTextColor(pRule));
 
   return m_pScreen->drawPathText( fontDesc,
                                   &info.m_path[0],
@@ -416,7 +422,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
             if (filter_text_size(pRule))
               continue;
 
-            drawPathText(*i, pInfo->m_name, get_pathtext_font_size(pRule), depth);
+            drawPathText(*i, pInfo->m_name, pRule, depth);
           }
         }
 

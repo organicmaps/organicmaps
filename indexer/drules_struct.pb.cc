@@ -33,6 +33,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* CircleRuleProto_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   CircleRuleProto_reflection_ = NULL;
+const ::google::protobuf::Descriptor* PathTextRuleProto_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  PathTextRuleProto_reflection_ = NULL;
 const ::google::protobuf::Descriptor* DrawElementProto_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   DrawElementProto_reflection_ = NULL;
@@ -156,14 +159,32 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CircleRuleProto));
-  DrawElementProto_descriptor_ = file->message_type(6);
-  static const int DrawElementProto_offsets_[6] = {
+  PathTextRuleProto_descriptor_ = file->message_type(6);
+  static const int PathTextRuleProto_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathTextRuleProto, height_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathTextRuleProto, color_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathTextRuleProto, priority_),
+  };
+  PathTextRuleProto_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      PathTextRuleProto_descriptor_,
+      PathTextRuleProto::default_instance_,
+      PathTextRuleProto_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathTextRuleProto, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathTextRuleProto, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(PathTextRuleProto));
+  DrawElementProto_descriptor_ = file->message_type(7);
+  static const int DrawElementProto_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, scale_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, lines_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, area_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, symbol_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, caption_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, circle_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DrawElementProto, path_text_),
   };
   DrawElementProto_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -176,7 +197,7 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(DrawElementProto));
-  ClassifElementProto_descriptor_ = file->message_type(7);
+  ClassifElementProto_descriptor_ = file->message_type(8);
   static const int ClassifElementProto_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ClassifElementProto, name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ClassifElementProto, element_),
@@ -192,7 +213,7 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ClassifElementProto));
-  ContainerProto_descriptor_ = file->message_type(8);
+  ContainerProto_descriptor_ = file->message_type(9);
   static const int ContainerProto_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ContainerProto, cont_),
   };
@@ -232,6 +253,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     CircleRuleProto_descriptor_, &CircleRuleProto::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    PathTextRuleProto_descriptor_, &PathTextRuleProto::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     DrawElementProto_descriptor_, &DrawElementProto::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     ClassifElementProto_descriptor_, &ClassifElementProto::default_instance());
@@ -254,6 +277,8 @@ void protobuf_ShutdownFile_drules_5fstruct_2eproto() {
   delete CaptionRuleProto_reflection_;
   delete CircleRuleProto::default_instance_;
   delete CircleRuleProto_reflection_;
+  delete PathTextRuleProto::default_instance_;
+  delete PathTextRuleProto_reflection_;
   delete DrawElementProto::default_instance_;
   delete DrawElementProto_reflection_;
   delete ClassifElementProto::default_instance_;
@@ -278,18 +303,21 @@ void protobuf_AddDesc_drules_5fstruct_2eproto() {
     " \002(\005\"I\n\017SymbolRuleProto\022\014\n\004name\030\001 \002(\t\022\026\n"
     "\016apply_for_type\030\002 \001(\005\022\020\n\010priority\030\003 \002(\005\""
     "Y\n\020CaptionRuleProto\022\016\n\006height\030\001 \002(\005\022\r\n\005c"
-    "olor\030\002 \001(\r\022\024\n\014stroke_color\030\003 \001(\r\022\020\n\010prio"
+    "olor\030\002 \002(\r\022\024\n\014stroke_color\030\003 \001(\r\022\020\n\010prio"
     "rity\030\004 \002(\005\"b\n\017CircleRuleProto\022\016\n\006radius\030"
     "\001 \002(\001\022\r\n\005color\030\002 \002(\r\022\036\n\006border\030\003 \001(\0132\016.L"
-    "ineRuleProto\022\020\n\010priority\030\004 \002(\005\"\306\001\n\020DrawE"
-    "lementProto\022\r\n\005scale\030\001 \002(\005\022\035\n\005lines\030\002 \003("
-    "\0132\016.LineRuleProto\022\034\n\004area\030\003 \001(\0132\016.AreaRu"
-    "leProto\022 \n\006symbol\030\004 \001(\0132\020.SymbolRuleProt"
-    "o\022\"\n\007caption\030\005 \001(\0132\021.CaptionRuleProto\022 \n"
-    "\006circle\030\006 \001(\0132\020.CircleRuleProto\"G\n\023Class"
-    "ifElementProto\022\014\n\004name\030\001 \002(\t\022\"\n\007element\030"
-    "\002 \003(\0132\021.DrawElementProto\"4\n\016ContainerPro"
-    "to\022\"\n\004cont\030\001 \003(\0132\024.ClassifElementProto", 838);
+    "ineRuleProto\022\020\n\010priority\030\004 \002(\005\"D\n\021PathTe"
+    "xtRuleProto\022\016\n\006height\030\001 \002(\005\022\r\n\005color\030\002 \002"
+    "(\r\022\020\n\010priority\030\003 \002(\005\"\355\001\n\020DrawElementProt"
+    "o\022\r\n\005scale\030\001 \002(\005\022\035\n\005lines\030\002 \003(\0132\016.LineRu"
+    "leProto\022\034\n\004area\030\003 \001(\0132\016.AreaRuleProto\022 \n"
+    "\006symbol\030\004 \001(\0132\020.SymbolRuleProto\022\"\n\007capti"
+    "on\030\005 \001(\0132\021.CaptionRuleProto\022 \n\006circle\030\006 "
+    "\001(\0132\020.CircleRuleProto\022%\n\tpath_text\030\007 \001(\013"
+    "2\022.PathTextRuleProto\"G\n\023ClassifElementPr"
+    "oto\022\014\n\004name\030\001 \002(\t\022\"\n\007element\030\002 \003(\0132\021.Dra"
+    "wElementProto\"4\n\016ContainerProto\022\"\n\004cont\030"
+    "\001 \003(\0132\024.ClassifElementProto", 947);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "drules_struct.proto", &protobuf_RegisterTypes);
   DashDotProto::default_instance_ = new DashDotProto();
@@ -298,6 +326,7 @@ void protobuf_AddDesc_drules_5fstruct_2eproto() {
   SymbolRuleProto::default_instance_ = new SymbolRuleProto();
   CaptionRuleProto::default_instance_ = new CaptionRuleProto();
   CircleRuleProto::default_instance_ = new CircleRuleProto();
+  PathTextRuleProto::default_instance_ = new PathTextRuleProto();
   DrawElementProto::default_instance_ = new DrawElementProto();
   ClassifElementProto::default_instance_ = new ClassifElementProto();
   ContainerProto::default_instance_ = new ContainerProto();
@@ -307,6 +336,7 @@ void protobuf_AddDesc_drules_5fstruct_2eproto() {
   SymbolRuleProto::default_instance_->InitAsDefaultInstance();
   CaptionRuleProto::default_instance_->InitAsDefaultInstance();
   CircleRuleProto::default_instance_->InitAsDefaultInstance();
+  PathTextRuleProto::default_instance_->InitAsDefaultInstance();
   DrawElementProto::default_instance_->InitAsDefaultInstance();
   ClassifElementProto::default_instance_->InitAsDefaultInstance();
   ContainerProto::default_instance_->InitAsDefaultInstance();
@@ -1597,7 +1627,7 @@ bool CaptionRuleProto::MergePartialFromCodedStream(
         break;
       }
       
-      // optional uint32 color = 2;
+      // required uint32 color = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
@@ -1668,7 +1698,7 @@ void CaptionRuleProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->height(), output);
   }
   
-  // optional uint32 color = 2;
+  // required uint32 color = 2;
   if (has_color()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->color(), output);
   }
@@ -1696,7 +1726,7 @@ void CaptionRuleProto::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->height(), target);
   }
   
-  // optional uint32 color = 2;
+  // required uint32 color = 2;
   if (has_color()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->color(), target);
   }
@@ -1729,7 +1759,7 @@ int CaptionRuleProto::ByteSize() const {
           this->height());
     }
     
-    // optional uint32 color = 2;
+    // required uint32 color = 2;
     if (has_color()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -1806,7 +1836,7 @@ void CaptionRuleProto::CopyFrom(const CaptionRuleProto& from) {
 }
 
 bool CaptionRuleProto::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000009) != 0x00000009) return false;
+  if ((_has_bits_[0] & 0x0000000b) != 0x0000000b) return false;
   
   return true;
 }
@@ -2169,12 +2199,301 @@ void CircleRuleProto::Swap(CircleRuleProto* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
+const int PathTextRuleProto::kHeightFieldNumber;
+const int PathTextRuleProto::kColorFieldNumber;
+const int PathTextRuleProto::kPriorityFieldNumber;
+#endif  // !_MSC_VER
+
+PathTextRuleProto::PathTextRuleProto()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void PathTextRuleProto::InitAsDefaultInstance() {
+}
+
+PathTextRuleProto::PathTextRuleProto(const PathTextRuleProto& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void PathTextRuleProto::SharedCtor() {
+  _cached_size_ = 0;
+  height_ = 0;
+  color_ = 0u;
+  priority_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+PathTextRuleProto::~PathTextRuleProto() {
+  SharedDtor();
+}
+
+void PathTextRuleProto::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void PathTextRuleProto::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* PathTextRuleProto::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return PathTextRuleProto_descriptor_;
+}
+
+const PathTextRuleProto& PathTextRuleProto::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_drules_5fstruct_2eproto();  return *default_instance_;
+}
+
+PathTextRuleProto* PathTextRuleProto::default_instance_ = NULL;
+
+PathTextRuleProto* PathTextRuleProto::New() const {
+  return new PathTextRuleProto;
+}
+
+void PathTextRuleProto::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    height_ = 0;
+    color_ = 0u;
+    priority_ = 0;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool PathTextRuleProto::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required int32 height = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &height_)));
+          set_has_height();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(16)) goto parse_color;
+        break;
+      }
+
+      // required uint32 color = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_color:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &color_)));
+          set_has_color();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(24)) goto parse_priority;
+        break;
+      }
+
+      // required int32 priority = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_priority:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &priority_)));
+          set_has_priority();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void PathTextRuleProto::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // required int32 height = 1;
+  if (has_height()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->height(), output);
+  }
+
+  // required uint32 color = 2;
+  if (has_color()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->color(), output);
+  }
+
+  // required int32 priority = 3;
+  if (has_priority()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->priority(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* PathTextRuleProto::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required int32 height = 1;
+  if (has_height()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->height(), target);
+  }
+
+  // required uint32 color = 2;
+  if (has_color()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->color(), target);
+  }
+
+  // required int32 priority = 3;
+  if (has_priority()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->priority(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int PathTextRuleProto::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required int32 height = 1;
+    if (has_height()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->height());
+    }
+
+    // required uint32 color = 2;
+    if (has_color()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->color());
+    }
+
+    // required int32 priority = 3;
+    if (has_priority()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->priority());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void PathTextRuleProto::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const PathTextRuleProto* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const PathTextRuleProto*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void PathTextRuleProto::MergeFrom(const PathTextRuleProto& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_height()) {
+      set_height(from.height());
+    }
+    if (from.has_color()) {
+      set_color(from.color());
+    }
+    if (from.has_priority()) {
+      set_priority(from.priority());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void PathTextRuleProto::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void PathTextRuleProto::CopyFrom(const PathTextRuleProto& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PathTextRuleProto::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+
+  return true;
+}
+
+void PathTextRuleProto::Swap(PathTextRuleProto* other) {
+  if (other != this) {
+    std::swap(height_, other->height_);
+    std::swap(color_, other->color_);
+    std::swap(priority_, other->priority_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata PathTextRuleProto::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = PathTextRuleProto_descriptor_;
+  metadata.reflection = PathTextRuleProto_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
 const int DrawElementProto::kScaleFieldNumber;
 const int DrawElementProto::kLinesFieldNumber;
 const int DrawElementProto::kAreaFieldNumber;
 const int DrawElementProto::kSymbolFieldNumber;
 const int DrawElementProto::kCaptionFieldNumber;
 const int DrawElementProto::kCircleFieldNumber;
+const int DrawElementProto::kPathTextFieldNumber;
 #endif  // !_MSC_VER
 
 DrawElementProto::DrawElementProto()
@@ -2187,6 +2506,7 @@ void DrawElementProto::InitAsDefaultInstance() {
   symbol_ = const_cast< ::SymbolRuleProto*>(&::SymbolRuleProto::default_instance());
   caption_ = const_cast< ::CaptionRuleProto*>(&::CaptionRuleProto::default_instance());
   circle_ = const_cast< ::CircleRuleProto*>(&::CircleRuleProto::default_instance());
+  path_text_ = const_cast< ::PathTextRuleProto*>(&::PathTextRuleProto::default_instance());
 }
 
 DrawElementProto::DrawElementProto(const DrawElementProto& from)
@@ -2202,6 +2522,7 @@ void DrawElementProto::SharedCtor() {
   symbol_ = NULL;
   caption_ = NULL;
   circle_ = NULL;
+  path_text_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -2215,6 +2536,7 @@ void DrawElementProto::SharedDtor() {
     delete symbol_;
     delete caption_;
     delete circle_;
+    delete path_text_;
   }
 }
 
@@ -2252,6 +2574,9 @@ void DrawElementProto::Clear() {
     }
     if (has_circle()) {
       if (circle_ != NULL) circle_->::CircleRuleProto::Clear();
+    }
+    if (has_path_text()) {
+      if (path_text_ != NULL) path_text_->::PathTextRuleProto::Clear();
     }
   }
   lines_.Clear();
@@ -2347,6 +2672,20 @@ bool DrawElementProto::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(58)) goto parse_path_text;
+        break;
+      }
+
+      // optional .PathTextRuleProto path_text = 7;
+      case 7: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_path_text:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_path_text()));
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -2404,6 +2743,12 @@ void DrawElementProto::SerializeWithCachedSizes(
       6, this->circle(), output);
   }
   
+  // optional .PathTextRuleProto path_text = 7;
+  if (has_path_text()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      7, this->path_text(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -2452,6 +2797,13 @@ void DrawElementProto::SerializeWithCachedSizes(
         6, this->circle(), target);
   }
   
+  // optional .PathTextRuleProto path_text = 7;
+  if (has_path_text()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        7, this->path_text(), target);
+  }
+
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -2498,6 +2850,13 @@ int DrawElementProto::ByteSize() const {
           this->circle());
     }
     
+    // optional .PathTextRuleProto path_text = 7;
+    if (has_path_text()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->path_text());
+    }
+
   }
   // repeated .LineRuleProto lines = 2;
   total_size += 1 * this->lines_size();
@@ -2549,6 +2908,9 @@ void DrawElementProto::MergeFrom(const DrawElementProto& from) {
     if (from.has_circle()) {
       mutable_circle()->::CircleRuleProto::MergeFrom(from.circle());
     }
+    if (from.has_path_text()) {
+      mutable_path_text()->::PathTextRuleProto::MergeFrom(from.path_text());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -2583,6 +2945,9 @@ bool DrawElementProto::IsInitialized() const {
   if (has_circle()) {
     if (!this->circle().IsInitialized()) return false;
   }
+  if (has_path_text()) {
+    if (!this->path_text().IsInitialized()) return false;
+  }
   return true;
 }
 
@@ -2594,6 +2959,7 @@ void DrawElementProto::Swap(DrawElementProto* other) {
     std::swap(symbol_, other->symbol_);
     std::swap(caption_, other->caption_);
     std::swap(circle_, other->circle_);
+    std::swap(path_text_, other->path_text_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
