@@ -26,7 +26,8 @@ PartialRenderPolicy::PartialRenderPolicy(VideoTimer * videoTimer,
                                                                        sizeof(yg::gl::Vertex),
                                                                        10000 * sizeof(unsigned short),
                                                                        sizeof(unsigned short),
-                                                                       15,
+                                                                       4,
+                                                                       true,
                                                                        false,
                                                                        1,
                                                                        "primaryStorage");
@@ -35,9 +36,10 @@ PartialRenderPolicy::PartialRenderPolicy(VideoTimer * videoTimer,
                                                                      sizeof(yg::gl::Vertex),
                                                                      4000 * sizeof(unsigned short),
                                                                      sizeof(unsigned short),
-                                                                     100,
+                                                                     4,
+                                                                     true,
                                                                      false,
-                                                                     1,
+                                                                     3,
                                                                      "smallStorage");
 
   rmp.m_blitStoragesParams = yg::ResourceManager::StoragePoolParams(10 * sizeof(yg::gl::AuxVertex),
@@ -45,6 +47,7 @@ PartialRenderPolicy::PartialRenderPolicy(VideoTimer * videoTimer,
                                                                     10 * sizeof(unsigned short),
                                                                     sizeof(unsigned short),
                                                                     50,
+                                                                    true,
                                                                     true,
                                                                     1,
                                                                     "blitStorage");
@@ -55,12 +58,13 @@ PartialRenderPolicy::PartialRenderPolicy(VideoTimer * videoTimer,
                                                                     sizeof(unsigned short),
                                                                     20,
                                                                     true,
+                                                                    true,
                                                                     1,
                                                                     "tinyStorage");
 
   rmp.m_primaryTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                        256,
-                                                                       10,
+                                                                       6,
                                                                        rmp.m_rtFormat,
                                                                        true,
                                                                        true,
@@ -70,7 +74,7 @@ PartialRenderPolicy::PartialRenderPolicy(VideoTimer * videoTimer,
 
   rmp.m_fontTexturesParams = yg::ResourceManager::TexturePoolParams(512,
                                                                     256,
-                                                                    5,
+                                                                    6,
                                                                     rmp.m_rtFormat,
                                                                     true,
                                                                     true,
@@ -87,6 +91,8 @@ PartialRenderPolicy::PartialRenderPolicy(VideoTimer * videoTimer,
 
   rmp.m_useSingleThreadedOGL = true;
   rmp.m_useVA = !yg::gl::g_isBufferObjectsSupported;
+
+  rmp.fitIntoLimits();
 
   m_resourceManager.reset(new yg::ResourceManager(rmp));
 
@@ -158,7 +164,7 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
   if (!m_state)
   {
     m_state = screen->createState();
-    m_state->m_isDebugging = true;
+    m_state->m_isDebugging = m_IsDebugging;
   }
 
   screen->getState(m_state.get());
@@ -166,7 +172,7 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
   m_curState = m_state;
 
   unsigned cmdProcessed = 0;
-  unsigned const maxCmdPerFrame = 10;
+  unsigned const maxCmdPerFrame = 10000;
 
   while (true)
   {
@@ -177,24 +183,29 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
       cmdProcessed++;
       if (m_currentPacket.m_state)
       {
+        m_currentPacket.m_state->m_isDebugging = m_IsDebugging;
         m_currentPacket.m_state->apply(m_curState.get());
         m_curState = m_currentPacket.m_state;
       }
+      m_currentPacket.m_command->setIsDebugging(m_IsDebugging);
       m_currentPacket.m_command->perform();
     }
     else
       break;
   }
 
-  /// should we continue drawing commands on the next frame
-  if ((cmdProcessed == maxCmdPerFrame) && m_hasPacket)
+  if (m_IsDebugging)
   {
-    LOG(LINFO, ("will continue on the next frame(", cmdProcessed, ")"));
-  }
-  else
-  {
-    if (cmdProcessed != 0)
-      LOG(LINFO, ("finished sequence of commands(", cmdProcessed, ")"));
+    /// should we continue drawing commands on the next frame
+    if ((cmdProcessed == maxCmdPerFrame) && m_hasPacket)
+    {
+      LOG(LINFO, ("will continue on the next frame(", cmdProcessed, ")"));
+    }
+    else
+    {
+      if (cmdProcessed != 0)
+        LOG(LINFO, ("finished sequence of commands(", cmdProcessed, ")"));
+    }
   }
 
   {
@@ -237,14 +248,17 @@ void PartialRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 void PartialRenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & paintEvent,
                                      ScreenBase const & screenBase)
 {
-  LOG(LINFO, ("-------BeginFrame-------"));
+  m_IsDebugging = false;
+  if (m_IsDebugging)
+    LOG(LINFO, ("-------BeginFrame-------"));
 }
 
 void PartialRenderPolicy::EndFrame(shared_ptr<PaintEvent> const & paintEvent,
                                    ScreenBase const & screenBase)
 {
   m_renderQueue->renderState().m_mutex->Unlock();
-  LOG(LINFO, ("-------EndFrame-------"));
+  if (m_IsDebugging)
+    LOG(LINFO, ("-------EndFrame-------"));
 }
 
 bool PartialRenderPolicy::NeedRedraw() const

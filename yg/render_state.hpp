@@ -51,6 +51,9 @@ namespace yg
       bool m_isEmptyModelCurrent;
       /// @}
 
+      shared_ptr<BaseTexture> m_shadowActualTarget;
+      shared_ptr<BaseTexture> m_shadowBackBuffer;
+
       /// Surface height and width.
       unsigned int m_surfaceWidth;
       unsigned int m_surfaceHeight;

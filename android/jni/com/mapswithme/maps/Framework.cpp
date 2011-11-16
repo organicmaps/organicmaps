@@ -94,7 +94,7 @@ namespace android
 
     yg::ResourceManager::Params rmParams;
     rmParams.m_videoMemoryLimit = 15 * 1024 * 1024;
-    rmParams.m_rtTarget = yg::Rt8Bpp;
+    rmParams.m_rtFormat = yg::Rt8Bpp;
 
     m_work.SetRenderPolicy(new PartialRenderPolicy(m_videoTimer, params, rmParams, make_shared_ptr(new android::RenderContext())));
 

@@ -124,6 +124,9 @@ void RenderQueueRoutine::processResize(ScreenBase const & frameScreen)
     /// TODO : make as a command
     m_renderState->m_actualScreen = frameScreen;
 
+    m_renderState->m_shadowActualTarget = m_renderState->m_actualTarget;
+    m_renderState->m_shadowBackBuffer = m_renderState->m_backBuffer;
+
     m_renderState->m_isResized = false;
   }
 }
@@ -386,28 +389,6 @@ void RenderQueueRoutine::Do()
         }
       }
 
-//      if (m_currentRenderCommand->m_paintEvent->isCancelled())
-//      {
-//        /// cancelling all the commands in the queue
-//        if (m_glQueue)
-//        {
-//          m_glQueue->Clear();
-//
-//          {
-//            threads::ConditionGuard guard(*m_glCondition);
-//            if (m_glQueue->Empty())
-//              guard.Wait();
-//          }
-//        }
-//
-//        {
-//          threads::MutexGuard guard(*m_renderState->m_mutex.get());
-//          /// refreshing shadow parameters from the primary parameters
-//          m_renderState->m_shadowActualTarget = m_renderState->m_actualTarget;
-//          m_renderState->m_shadowBackBuffer = m_renderState->m_backBuffer;
-//        }
-//      }
-
       /// if something were actually drawn, or (exclusive or) we are repainting the whole rect
       if ((!m_renderState->m_isEmptyModelCurrent) || (fullRectRepaint))
         m_renderState->m_isEmptyModelActual = m_renderState->m_isEmptyModelCurrent;
@@ -440,6 +421,24 @@ void RenderQueueRoutine::Do()
 
       invalidate();
     }
+
+    /// waiting for all collected commands to complete.
+    if (m_glQueue)
+    {
+      {
+        threads::ConditionGuard guard(*m_glCondition);
+        if (!m_glQueue->Empty())
+          guard.Wait();
+      }
+    }
+
+    {
+      threads::MutexGuard guard(*m_renderState->m_mutex.get());
+      /// refreshing shadow parameters from the primary parameters
+      m_renderState->m_shadowActualTarget = m_renderState->m_actualTarget;
+      m_renderState->m_shadowBackBuffer = m_renderState->m_backBuffer;
+    }
+
 
   }
 

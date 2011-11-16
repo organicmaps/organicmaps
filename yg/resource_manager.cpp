@@ -74,7 +74,8 @@ namespace yg
       m_ibSize(0),
       m_indexSize(0),
       m_storagesCount(0),
-      m_isFixed(true),
+      m_isFixedBufferSize(true),
+      m_isFixedBufferCount(true),
       m_scalePriority(0),
       m_poolName(poolName)
   {}
@@ -84,7 +85,8 @@ namespace yg
                                                         size_t ibSize,
                                                         size_t indexSize,
                                                         size_t storagesCount,
-                                                        bool isFixed,
+                                                        bool isFixedBufferSize,
+                                                        bool isFixedBufferCount,
                                                         int scalePriority,
                                                         string const & poolName)
     : m_vbSize(vbSize),
@@ -92,14 +94,15 @@ namespace yg
       m_ibSize(ibSize),
       m_indexSize(indexSize),
       m_storagesCount(storagesCount),
-      m_isFixed(isFixed),
+      m_isFixedBufferSize(isFixedBufferSize),
+      m_isFixedBufferCount(isFixedBufferCount),
       m_scalePriority(scalePriority),
       m_poolName(poolName)
   {}
 
   bool ResourceManager::StoragePoolParams::isFixed() const
   {
-    return m_isFixed;
+    return m_isFixedBufferSize && m_isFixedBufferCount;
   }
 
   bool ResourceManager::StoragePoolParams::isValid() const
@@ -117,11 +120,20 @@ namespace yg
     int oldMemoryUsage = memoryUsage();
     int oldVBSize = m_vbSize;
     int oldIBSize = m_ibSize;
+    int oldStoragesCount = m_storagesCount;
 
-    m_vbSize *= k;
-    m_ibSize *= k;
+    if (!m_isFixedBufferSize)
+    {
+      m_vbSize *= k;
+      m_ibSize *= k;
+      k = 1;
+    }
+
+    if (!m_isFixedBufferCount)
+      m_storagesCount *= k;
+
     LOG(LINFO, ("resizing ", m_poolName));
-    LOG(LINFO, (" from : ", oldVBSize / m_vertexSize, " vertices, ", oldIBSize / m_indexSize, " indices, ", m_storagesCount, " storages, ", oldMemoryUsage, " bytes total"));
+    LOG(LINFO, (" from : ", oldVBSize / m_vertexSize, " vertices, ", oldIBSize / m_indexSize, " indices, ", oldStoragesCount, " storages, ", oldMemoryUsage, " bytes total"));
     LOG(LINFO, (" to   : ", m_vbSize / m_vertexSize, " vertices, ", m_ibSize / m_indexSize, " indices, ", m_storagesCount, " storages, ", memoryUsage(), " bytes total"));
   }
 

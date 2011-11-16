@@ -23,6 +23,11 @@ namespace yg
       return m_isDebugging;
     }
 
+    void Renderer::Command::setIsDebugging(bool flag)
+    {
+      m_isDebugging = flag;
+    }
+
     Renderer::Command::Command()
       : m_isDebugging(false)
     {}

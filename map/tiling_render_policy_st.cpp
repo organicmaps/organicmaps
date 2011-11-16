@@ -30,6 +30,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                        sizeof(unsigned short),
                                                                        15,
                                                                        false,
+                                                                       true,
                                                                        1,
                                                                        "primaryStorage");
 
@@ -39,6 +40,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                      sizeof(unsigned short),
                                                                      100,
                                                                      false,
+                                                                     true,
                                                                      1,
                                                                      "smallStorage");
 
@@ -47,6 +49,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                     10 * sizeof(unsigned short),
                                                                     sizeof(unsigned short),
                                                                     50,
+                                                                    true,
                                                                     true,
                                                                     1,
                                                                     "blitStorage");
@@ -57,6 +60,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                          sizeof(unsigned short),
                                                                          10,
                                                                          true,
+                                                                         true,
                                                                          1,
                                                                          "multiBlitStorage");
 
@@ -65,6 +69,7 @@ TilingRenderPolicyST::TilingRenderPolicyST(VideoTimer * videoTimer,
                                                                     600 * sizeof(unsigned short),
                                                                     sizeof(unsigned short),
                                                                     20,
+                                                                    true,
                                                                     true,
                                                                     1,
                                                                     "tinyStorage");

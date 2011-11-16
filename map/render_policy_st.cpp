@@ -26,6 +26,7 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
                                                                        sizeof(unsigned short),
                                                                        15,
                                                                        false,
+                                                                       true,
                                                                        1,
                                                                        "primaryStorage");
 
@@ -35,6 +36,7 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
                                                                      sizeof(unsigned short),
                                                                      100,
                                                                      false,
+                                                                     true,
                                                                      1,
                                                                      "smallStorage");
 
@@ -43,6 +45,7 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
                                                                     10 * sizeof(unsigned short),
                                                                     sizeof(unsigned short),
                                                                     50,
+                                                                    true,
                                                                     true,
                                                                     1,
                                                                     "blitStorage");

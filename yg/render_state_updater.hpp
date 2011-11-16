@@ -36,7 +36,6 @@ namespace yg
 
       struct UpdateBackBuffer : base_t::Command
       {
-        shared_ptr<BaseTexture> m_actualTarget;
         shared_ptr<RenderState> m_renderState;
         shared_ptr<ResourceManager> m_resourceManager;
         bool m_isClipRectEnabled;

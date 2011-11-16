@@ -28,6 +28,7 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
                                                                        sizeof(unsigned short),
                                                                        7,
                                                                        false,
+                                                                       true,
                                                                        10,
                                                                        "primaryStorage");
 
@@ -37,6 +38,7 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
                                                                      sizeof(unsigned short),
                                                                      7,
                                                                      false,
+                                                                     true,
                                                                      5,
                                                                      "smallStorage");
 
@@ -46,6 +48,7 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
                                                                     sizeof(unsigned short),
                                                                     7,
                                                                     true,
+                                                                    true,
                                                                     1,
                                                                     "blitStorage");
 
@@ -54,6 +57,7 @@ RenderPolicyMT::RenderPolicyMT(VideoTimer * videoTimer,
                                                                     600 * sizeof(unsigned short),
                                                                     sizeof(unsigned short),
                                                                     7,
+                                                                    true,
                                                                     true,
                                                                     1,
                                                                     "tinyStorage");

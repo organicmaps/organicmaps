@@ -46,6 +46,7 @@ namespace yg
       public:
 
         bool isDebugging() const;
+        void setIsDebugging(bool flag);
 
         Command();
 

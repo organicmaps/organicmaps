@@ -80,7 +80,8 @@ namespace yg
       size_t m_indexSize;
       size_t m_storagesCount;
 
-      bool m_isFixed;
+      bool m_isFixedBufferSize;
+      bool m_isFixedBufferCount;
 
       int m_scalePriority;
       double m_scaleFactor;
@@ -92,7 +93,8 @@ namespace yg
                         size_t ibSize,
                         size_t indexSize,
                         size_t storagesCount,
-                        bool isFixed,
+                        bool isFixedBufferSize,
+                        bool isFixedBufferCount,
                         int scalePriority,
                         string const & poolName);
 

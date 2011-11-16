@@ -51,6 +51,7 @@ void GLDrawWidget::initializeGL()
                                                                        sizeof(unsigned short),
                                                                        20,
                                                                        false,
+                                                                       true,
                                                                        1,
                                                                        "primaryStorage");
 
@@ -60,6 +61,7 @@ void GLDrawWidget::initializeGL()
                                                                      sizeof(unsigned short),
                                                                      100,
                                                                      false,
+                                                                     true,
                                                                      1,
                                                                      "smallStorage");
 
@@ -69,6 +71,7 @@ void GLDrawWidget::initializeGL()
                                                                     sizeof(unsigned short),
                                                                     30,
                                                                     true,
+                                                                    true,
                                                                     1,
                                                                     "blitStorage");
 
@@ -77,6 +80,7 @@ void GLDrawWidget::initializeGL()
                                                                          500 * sizeof(unsigned short),
                                                                          sizeof(unsigned short),
                                                                          10,
+                                                                         true,
                                                                          true,
                                                                          1,
                                                                          "multiBlitStorage");

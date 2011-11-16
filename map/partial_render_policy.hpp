@@ -27,6 +27,8 @@ private:
 
   void ProcessRenderQueue(list<yg::gl::Renderer::Packet> & renderQueue);
 
+  bool m_IsDebugging;
+
 public:
 
   PartialRenderPolicy(VideoTimer * videoTimer,

@@ -78,9 +78,9 @@ namespace yg
       OGLCHECK(glClear(GL_COLOR_BUFFER_BIT));
 
       shared_ptr<IMMDrawTexturedRect> immDrawTexturedRect(
-            new IMMDrawTexturedRect(m2::RectF(0, 0, m_actualTarget->width(), m_actualTarget->height()),
+            new IMMDrawTexturedRect(m2::RectF(0, 0, m_renderState->m_actualTarget->width(), m_renderState->m_actualTarget->height()),
                                     m2::RectF(0, 0, 1, 1),
-                                    m_actualTarget,
+                                    m_renderState->m_actualTarget,
                                     m_resourceManager));
 
       immDrawTexturedRect->perform();
@@ -106,6 +106,8 @@ namespace yg
 
       m_renderState->m_mutex->Lock();
 
+      swap(m_renderState->m_shadowActualTarget, m_renderState->m_shadowBackBuffer);
+
       shared_ptr<UpdateActualTarget> command(new UpdateActualTarget());
       command->m_renderState = m_renderState;
       command->m_currentScreen = m_renderState->m_currentScreen;
@@ -114,7 +116,7 @@ namespace yg
       processCommand(command);
 
       shared_ptr<UpdateBackBuffer> command1(new UpdateBackBuffer());
-      command1->m_actualTarget = m_renderState->m_actualTarget;
+
       command1->m_renderState = m_renderState;
       command1->m_resourceManager = resourceManager();
       command1->m_isClipRectEnabled = clipRectEnabled();
@@ -122,7 +124,7 @@ namespace yg
 
       /// blitting will be performed through
       /// non-multisampled framebuffer for the sake of speed
-      setRenderTarget(m_renderState->m_backBuffer);
+      setRenderTarget(m_renderState->m_shadowBackBuffer);
 
       m_renderState->m_mutex->Unlock();
 
