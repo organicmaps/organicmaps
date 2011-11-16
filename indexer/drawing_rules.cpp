@@ -19,6 +19,7 @@
 #include "../std/fstream.hpp"
 #include "../std/exception.hpp"
 #include "../std/limits.hpp"
+#include "../std/iterator_facade.hpp"
 
 #include <google/protobuf/text_format.h>
 
@@ -1412,18 +1413,59 @@ namespace
   private:
     vector<string> m_names;
 
+    typedef ClassifElementProto ElementT;
+
+    class RandI : public iterator_facade<
+        RandI,
+        ElementT const,
+        random_access_traversal_tag>
+    {
+      ContainerProto const * m_cont;
+    public:
+      int m_index;
+
+      RandI() : m_cont(0), m_index(-1) {}
+      RandI(ContainerProto const & cont, int ind) : m_cont(&cont), m_index(ind) {}
+
+      ElementT const & dereference() const { return m_cont->cont(m_index); }
+      bool equal(RandI const & r) const { return m_index == r.m_index; }
+      void increment() { ++m_index; }
+      void decrement() { --m_index; }
+      void advance(size_t n) { m_index += n; }
+      difference_type distance_to(RandI const & r) const { return (r.m_index - m_index); }
+    };
+
+    struct less_name
+    {
+      bool operator() (ElementT const & e1, ElementT const & e2) const
+      {
+        return (e1.name() < e2.name());
+      }
+      bool operator() (string const & e1, ElementT const & e2) const
+      {
+        return (e1 < e2.name());
+      }
+      bool operator() (ElementT const & e1, string const & e2) const
+      {
+        return (e1.name() < e2);
+      }
+    };
+
     int FindIndex() const
     {
       string name = m_names[0];
       for (size_t i = 1; i < m_names.size(); ++i)
         name = name + "-" + m_names[i];
 
-      /// @todo Make binary search (need iterator on ProtobufRepeatedPtrField).
-      for (int i = 0; i < m_cont.cont_size(); ++i)
-        if (m_cont.cont(i).name() == name)
-          return i;
+      int const count = m_cont.cont_size();
+      int const i = lower_bound(RandI(m_cont, 0), RandI(m_cont, count), name, less_name()).m_index;
+      ASSERT_GREATER_OR_EQUAL(i, 0, ());
+      ASSERT_LESS_OR_EQUAL(i, count, ());
 
-      return -1;
+      if (i < count && m_cont.cont(i).name() == name)
+        return i;
+      else
+        return -1;
     }
 
     RulesHolder & m_holder;
