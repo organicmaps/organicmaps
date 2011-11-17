@@ -35,8 +35,8 @@ public:
 
 Engine::Engine(IndexType const * pIndex, CategoriesHolder * pCategories,
                ModelReaderPtr polyR, ModelReaderPtr countryR)
-  : m_pIndex(pIndex), m_pData(new EngineData(polyR, countryR)),
-    m_preferredLanguage(1) // TODO: Get id for English language properly.
+  : m_preferredLanguage(1), // TODO: Get id for English language properly.
+    m_pIndex(pIndex), m_pData(new EngineData(polyR, countryR))
 {
   if (pCategories)
   {
