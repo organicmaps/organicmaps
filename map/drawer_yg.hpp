@@ -120,6 +120,6 @@ public:
   void Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t count);
 
   uint8_t get_text_font_size(rule_ptr_t pRule) const;
-  uint8_t get_pathtext_font_size(rule_ptr_t pRule) const;
+  yg::FontDesc get_text_font(rule_ptr_t pRule) const;
   bool filter_text_size(rule_ptr_t pRule) const;
 };

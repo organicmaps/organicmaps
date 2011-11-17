@@ -219,37 +219,29 @@ uint8_t DrawerYG::get_text_font_size(rule_ptr_t pRule) const
   return my::rounds(max(h, min_text_height) * m_visualScale);
 }
 
-uint8_t DrawerYG::get_pathtext_font_size(rule_ptr_t pRule) const
-{
-  double const h = pRule->GetTextHeight() * m_scale;
-  return my::rounds(max(h, min_text_height) * m_visualScale);
-}
-
 bool DrawerYG::filter_text_size(rule_ptr_t pRule) const
 {
   return pRule->GetTextHeight() * m_scale <= min_text_height_filtered;
 }
 
-namespace
+yg::FontDesc DrawerYG::get_text_font(rule_ptr_t pRule) const
 {
-  yg::Color GetTextColor(drule::BaseRule const * pRule)
-  {
-    int const color = pRule->GetFillColor();
-    return (color == -1 ? yg::Color(0, 0, 0, 0) : yg::Color::fromXRGB(color, pRule->GetAlpha()));
-  }
+  int const c = pRule->GetFillColor();
+  unsigned char const a = pRule->GetAlpha();
+  yg::Color color = (c == -1 ? yg::Color(0, 0, 0, 0) : yg::Color::fromXRGB(c, a));
+
+  // to prevent white text on white outline
+  if (color == yg::Color(255, 255, 255, 255))
+    color = yg::Color(0, 0, 0, 0);
+
+  /// @todo We always draw white text stroke-outline now.
+  /// You can get stroke color from pRule->GetColor() when they will be nice.
+  return yg::FontDesc(get_text_font_size(pRule), color, true, yg::Color(255, 255, 255, 255));
 }
 
 void DrawerYG::drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_ptr_t pRule, yg::EPosition pos, int depth)
 {
-  yg::Color textColor = GetTextColor(pRule);
-
-  /// to prevent white text on white outline
-  if (textColor == yg::Color(255, 255, 255, 255))
-    textColor = yg::Color(0, 0, 0, 0);
-
-  //bool isMasked = pRule->GetColor() != -1;
-  bool isMasked = true;
-  yg::FontDesc fontDesc(get_text_font_size(pRule), textColor, isMasked, yg::Color(255, 255, 255, 255));
+  yg::FontDesc fontDesc(get_text_font(pRule));
   fontDesc.SetRank(pInfo->m_rank);
 
   if (!filter_text_size(pRule))
@@ -265,7 +257,7 @@ void DrawerYG::drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_
 
 bool DrawerYG::drawPathText(di::PathInfo const & info, string const & name, rule_ptr_t pRule, int depth)
 {
-  yg::FontDesc fontDesc(get_pathtext_font_size(pRule), GetTextColor(pRule));
+  yg::FontDesc fontDesc(get_text_font(pRule));
 
   return m_pScreen->drawPathText( fontDesc,
                                   &info.m_path[0],
