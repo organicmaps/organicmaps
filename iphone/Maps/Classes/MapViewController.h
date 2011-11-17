@@ -2,12 +2,7 @@
 #import "LocationManager.h"
 
 #include "../../geometry/point2d.hpp"
-#include "../../yg/texture.hpp"
-#include "../../map/framework_factory.hpp"
-#include "../../map/drawer_yg.hpp"
-#include "../../map/navigator.hpp"
-#include "../../map/feature_vec_model.hpp"
-#include "../../std/shared_ptr.hpp"
+#include "../../geometry/rect2d.hpp"
 
 @interface MapViewController : UIViewController <LocationObserver>
 {

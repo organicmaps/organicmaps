@@ -5,10 +5,8 @@
 #import "../Settings/SettingsManager.h"
 
 #include "RenderContext.hpp"
-#include "../../geometry/rect2d.hpp"
-#include "../../yg/internal/opengl.hpp"
-#include "../../yg/screen.hpp"
-#include "../../map/drawer_yg.hpp"
+
+#include "../../map/framework_factory.hpp"
 
 @implementation MapViewController
 
@@ -93,7 +91,7 @@ Framework * m_framework = NULL;
 
 - (IBAction)OnSettingsClicked:(id)sender
 {
-  [[[MapsAppDelegate theApp] settingsManager] Show:self WithStorage:&m_framework->Storage()];
+  [[[MapsAppDelegate theApp] settingsManager] show:self withFramework:m_framework];
 }
 
 - (IBAction)OnSearchClicked:(id)sender

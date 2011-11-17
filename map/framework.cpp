@@ -626,3 +626,30 @@ void Framework::SetupMeasurementSystem()
   Invalidate();
 }
 
+// 0 - old April version which we should delete
+#define MAXIMUM_VERSION_TO_DELETE 0
+
+bool Framework::NeedToDeleteOldMaps() const
+{
+  return m_lowestMapVersion == MAXIMUM_VERSION_TO_DELETE;
+}
+
+void Framework::DeleteOldMaps()
+{
+  Platform & p = GetPlatform();
+  vector<string> maps;
+  p.GetFilesInDir(p.WritableDir(), "*" DATA_FILE_EXTENSION, maps);
+  for (vector<string>::iterator it = maps.begin(); it != maps.end(); ++it)
+  {
+    feature::DataHeader header;
+    LoadMapHeader(p.GetReader(*it), header);
+    if (header.GetVersion() <= MAXIMUM_VERSION_TO_DELETE)
+    {
+      LOG(LINFO, ("Deleting old map", *it));
+      RemoveMap(*it);
+      FileWriter::DeleteFileX(p.WritablePathForFile(*it));
+      InvalidateRect(header.GetBounds());
+    }
+  }
+  m_lowestMapVersion = MAXIMUM_VERSION_TO_DELETE + 1;
+}

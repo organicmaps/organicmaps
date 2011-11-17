@@ -3,17 +3,11 @@
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 
-#include "../../../storage/storage.hpp"
+#include "../../../map/framework.hpp"
 
 #include "../../../std/bind.hpp"
 
 using namespace storage;
-
-// @TODO update data to new format
-// NSLocalizedString(@"Upgrade maps", @"Downloader/Upgrade message title")
-// NSLocalizedString(@"MapsWithMe uses new, fresh and more compact maps. For example, USA, Germany, France, Canada and Russia are splitted to smaller States/Regions. But to use new maps you should delete all previously downloaded data and download new maps.", @"Downloader/Upgrade dialog message")
-// NSLocalizedString(@"Delete old maps and download new maps", @"Downloader/Upgrade OK button")
-// NSLocalizedString(@"Do nothing at the moment", @"Downloader/Upgrade Cancel button")
 
 // @TODO advertisement banner
 // NSLocalizedString(@"MapsWithMe Pro", @"Banner title")
@@ -76,13 +70,12 @@ using namespace storage;
     [(CountriesViewController *)controller OnDownload: index withProgress: progress];
 }
 
-// Currently displays only countries to download
-- (void) Show:(UIViewController *)prevController WithStorage:(Storage *)storage
+- (void) show:(UIViewController *)prevController withFramework:(Framework *)framework
 {
-  m_storage = storage;
+  m_framework = framework;
 
   CountriesViewController * countriesController = [[[CountriesViewController alloc]
-      initWithStorage:*m_storage andIndex:TIndex() andHeader:NSLocalizedString(@"Download", @"Settings/Downloader - Main downloader window title")] autorelease];
+      initWithStorage:framework->Storage() andIndex:TIndex() andHeader:NSLocalizedString(@"Download", @"Settings/Downloader - Main downloader window title")] autorelease];
   m_navigationController = [[UINavigationController alloc] initWithRootViewController:countriesController];
 
   // Subscribe to storage callbacks AND load country names after calling Storage::Subscribe()
@@ -96,21 +89,47 @@ using namespace storage;
 		SEL progressSel = @selector(OnCountryDownload:withProgress:);
 		TProgressFunc progressImpl = (TProgressFunc)[self methodForSelector:progressSel];
 
-		m_storage->Subscribe(bind(changeImpl, self, changeSel, _1), bind(progressImpl, self, progressSel, _1, _2));
+		framework->Storage().Subscribe(bind(changeImpl, self, changeSel, _1), bind(progressImpl, self, progressSel, _1, _2));
   }
   // display controller only when countries are loaded
   [prevController presentModalViewController:m_navigationController animated:YES];
+
+  // display upgrade/delete old maps dialog if necessary
+  if (framework->NeedToDeleteOldMaps())
+  {
+    UIActionSheet * dialog = [[UIActionSheet alloc]
+        initWithTitle:NSLocalizedString(@"MapsWithMe uses new, fresh and more compact maps. For example, USA, Germany, France, Canada and Russia are splitted to smaller States/Regions. But to use new maps you should delete all previously downloaded data and download new maps.", @"Downloader/Upgrade dialog message")
+        delegate:self
+        cancelButtonTitle:NSLocalizedString(@"Do nothing at the moment", @"Downloader/Upgrade Cancel button")
+        destructiveButtonTitle:NSLocalizedString(@"Delete old and download new maps", @"Downloader/Upgrade OK button")
+        otherButtonTitles:nil];
+    [dialog showInView:m_navigationController.view];
+    [dialog release];
+  }
 }
 
 // Hides all opened settings windows
-- (void) Hide
+- (void) hide
 {
-  m_storage->Unsubscribe();
+  m_framework->Storage().Unsubscribe();
 
   [m_navigationController dismissModalViewControllerAnimated:YES];
   [m_navigationController release], m_navigationController = nil;
 
-  m_storage = nil;
+  m_framework = nil;
+}
+
+// Called from Upgrade/Delete old maps dialog
+- (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+  if (buttonIndex == 0)
+  { // delete old maps and show downloader
+    m_framework->DeleteOldMaps();
+  }
+  else
+  { // User don't want to upgrade at the moment - so be it.
+    [self hide];
+  }
 }
 
 @end

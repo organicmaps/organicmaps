@@ -1,12 +1,13 @@
 #import <UIKit/UIKit.h>
 #import <OpenGLES/EAGL.h>
 #import <QuartzCore/CADisplayLink.h>
-#import "MapViewController.h"
 
 #include "../../std/shared_ptr.hpp"
 #include "RenderBuffer.hpp"
 
 class Framework;
+class VideoTimer;
+class RenderPolicy;
 
 namespace iphone
 {

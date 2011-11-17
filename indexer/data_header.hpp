@@ -62,7 +62,8 @@ namespace feature
 
     enum Version {
       v1,     // April 2011
-      v2      // November 2011
+      v2,      // November 2011
+      latestVersion = v2
     };
     inline Version GetVersion() const { return m_ver; }
 

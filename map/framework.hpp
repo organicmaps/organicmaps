@@ -109,7 +109,12 @@ public:
   Framework();
   virtual ~Framework();
 
-  int GetLowestLoadedMapVersion() const { return m_lowestMapVersion; }
+  /// @name Used on iPhone for upgrade from April 1.0.1 version
+  //@{
+  /// @return true if client should display delete old maps dialog before using downloader
+  bool NeedToDeleteOldMaps() const;
+  void DeleteOldMaps();
+  //@}
 
   storage::Storage & Storage() { return m_storage; }
 

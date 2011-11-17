@@ -1,17 +1,17 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
-namespace storage { class Storage; }
+class Framework;
 
 /// Responsible for all settings dialogs
-@interface SettingsManager : NSObject
+@interface SettingsManager : NSObject <UIActionSheetDelegate>
 {
-  storage::Storage * m_storage;
+  Framework * m_framework;
   UINavigationController * m_navigationController;
 }
 
 // TODO: Refactor SettingsManager.Show: remove storage.
-- (void) Show: (UIViewController *)prevController WithStorage: (storage::Storage *)storage;
-- (void) Hide;
+- (void) show:(UIViewController *)prevController withFramework:(Framework *)framework;
+- (void) hide;
 
 @end

@@ -71,7 +71,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
 
 - (void) onCloseButton:(id)sender
 {
-  [[[MapsAppDelegate theApp] settingsManager] Hide];
+  [[[MapsAppDelegate theApp] settingsManager] hide];
 }
 
 - (id) initWithStorage: (Storage &)storage andIndex: (TIndex const &) index andHeader: (NSString *)header
@@ -119,7 +119,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   if (m_storage->CountryStatus(index) == EOnDisk)
   {
     m2::RectD const bounds = m_storage->CountryBounds(index);
-    [[[MapsAppDelegate theApp] settingsManager] Hide];
+    [[[MapsAppDelegate theApp] settingsManager] hide];
     [[MapsAppDelegate theApp].m_mapViewController ZoomToRect:bounds];
   }
 }
