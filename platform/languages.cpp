@@ -41,6 +41,7 @@ namespace languages
     size_t const size = langCodes.size();
     CHECK_EQUAL(size, MAX_SUPPORTED_LANGUAGES, ());
     CHECK_EQUAL(size, static_cast<int8_t>(size), ());
+
     for (int8_t i = 0; i < static_cast<int8_t>(size); ++i)
     {
       int8_t const index = StringUtf8Multilang::GetLangIndex(langCodes[i]);
@@ -50,6 +51,7 @@ namespace languages
       {
         ASSERT(false, ("Invalid language code"));
       }
+
       CHECK_GREATER_OR_EQUAL(gDefaultPriorities[i], 0, ("Unsupported language", langCodes[i]));
     }
   }

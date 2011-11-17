@@ -507,6 +507,8 @@ namespace ftype {
 
     class do_find_name
     {
+      set<string> m_savedNames;
+
       size_t & m_count;
       FeatureParams & m_params;
       bool m_tunnel;
@@ -525,6 +527,35 @@ namespace ftype {
           m_params.layer = feature::LAYER_TRANSPARENT_TUNNEL;
       }
 
+      bool GetLangByKey(string const & k, string & lang)
+      {
+        strings::SimpleTokenizer token(k, "\t :");
+        if (!token)
+          return false;
+
+        // this is an international (latin) name
+        if (*token == "int_name")
+          lang = "int_name";
+        else
+        {
+          if (*token == "name")
+          {
+            ++token;
+            lang = (token ? *token : "default");
+
+            // replace dummy arabian tag with correct tag
+            if (lang == "ar1")
+              lang = "ar";
+          }
+        }
+
+        if (lang.empty())
+          return false;
+
+        // avoid duplicating names
+        return m_savedNames.insert(lang).second;
+      }
+
       bool operator() (string const & k, string const & v)
       {
         ++m_count;
@@ -532,12 +563,9 @@ namespace ftype {
         if (v.empty()) return false;
 
         // get name with language suffix
-        strings::SimpleTokenizer token(k, "\t :");
-        if (token && *token == "name")
+        string lang;
+        if (GetLangByKey(k, lang))
         {
-          ++token;
-          string lang = (token ? *token : "default");
-
           // Unicode Compatibility Decomposition,
           // followed by Canonical Composition (NFKC).
           // Needed for better search matching

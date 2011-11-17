@@ -52,6 +52,34 @@ namespace feature
     }
   }
 
+  namespace
+  {
+    template <class TSink, class TCont>
+    void SaveBytes(TSink & sink, TCont const & cont)
+    {
+      STATIC_ASSERT(sizeof(typename TCont::value_type) == 1);
+
+      uint32_t const count = cont.size();
+      WriteVarUint(sink, count);
+      if (count > 0)
+        sink.Write(&cont[0], count);
+    }
+
+    template <class TSource, class TCont>
+    void LoadBytes(TSource & src, TCont & cont)
+    {
+      STATIC_ASSERT(sizeof(typename TCont::value_type) == 1);
+      ASSERT ( cont.empty(), () );
+
+      uint32_t const count = ReadVarUint<uint32_t>(src);
+      if (count > 0)
+      {
+        cont.resize(count);
+        src.Read(&cont[0], count);
+      }
+    }
+  }
+
   void DataHeader::Save(FileWriter & w) const
   {
     m_codingParams.Save(w);
@@ -59,8 +87,8 @@ namespace feature
     WriteVarInt(w, m_bounds.first);
     WriteVarInt(w, m_bounds.second);
 
-    WriteVarUint(w, m_scales.size());
-    w.Write(m_scales.data(), m_scales.size());
+    SaveBytes(w, m_scales);
+    SaveBytes(w, m_langs);
 
     WriteVarInt(w, static_cast<int32_t>(m_type));
   }
@@ -73,9 +101,8 @@ namespace feature
     m_bounds.first = ReadVarInt<int64_t>(src);
     m_bounds.second = ReadVarInt<int64_t>(src);
 
-    uint32_t const count = ReadVarUint<uint32_t>(src);
-    m_scales.resize(count);
-    src.Read(m_scales.data(), count);
+    LoadBytes(src, m_scales);
+    LoadBytes(src, m_langs);
 
     m_type = static_cast<MapType>(ReadVarInt<int32_t>(src));
 

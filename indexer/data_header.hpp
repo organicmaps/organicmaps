@@ -24,6 +24,7 @@ namespace feature
     pair<int64_t, int64_t> m_bounds;
 
     buffer_vector<uint8_t, MAX_SCALES_COUNT> m_scales;
+    buffer_vector<uint8_t, 2> m_langs;
 
   public:
 

@@ -2,14 +2,13 @@
 
 #include "../defines.hpp"
 
-static char const * gLangs[] = { "default",
-                       "en", "ja", "fr", "ko_rm", "ar", "de", "ru", "sv", "zh", "fi",
-                       "ko", "ka", "he", "be", "nl", "ga", "ja_rm", "el", "it", "es",
-                       "th", "zh_pinyin", "ca", "cy", "hu", "hsb", "sr", "fa", "eu", "pl",
-                       "br", "uk", "sl", "ro", "sq", "am", "fy", "gd", "cs", "sk",
-                       "af", "hr", "hy", "tr", "kn", "pt", "lt", "lb", "bg", "eo",
-                       "kk", "la", "et", "vi", "mn", "mk", "lv", "fur", "gsw", "ja_kana",
-                       "is", "hi", "ku" };
+static char const * gLangs[] = {
+    "default",
+    "en", "ja", "fr", "ko_rm", "ar", "de", "int_name", "ru", "sv", "zh", "fi", "be", "ka", "ko",
+    "he", "nl", "ga", "ja_rm", "el", "it", "es", "zh_pinyin", "th", "cy", "sr", "uk", "ca", "hu",
+    "hsb", "eu", "fa", "br", "pl", "hy", "kn", "sl", "ro", "sq", "am", "fy", "cs", "gd", "sk",
+    "af", "ja_kana", "lb", "pt", "hr", "fur", "vi", "tr", "bg", "eo", "lt", "la", "kk", "gsw",
+    "et", "ku", "mn", "mk", "lv", "hi" };
 
 int8_t StringUtf8Multilang::GetLangIndex(string const & lang)
 {
