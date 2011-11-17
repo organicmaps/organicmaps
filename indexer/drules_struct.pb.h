@@ -689,29 +689,29 @@ class PathTextRuleProto : public ::google::protobuf::Message {
  public:
   PathTextRuleProto();
   virtual ~PathTextRuleProto();
-
+  
   PathTextRuleProto(const PathTextRuleProto& from);
-
+  
   inline PathTextRuleProto& operator=(const PathTextRuleProto& from) {
     CopyFrom(from);
     return *this;
   }
-
+  
   inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
     return _unknown_fields_;
   }
-
+  
   inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
     return &_unknown_fields_;
   }
-
+  
   static const ::google::protobuf::Descriptor* descriptor();
   static const PathTextRuleProto& default_instance();
-
+  
   void Swap(PathTextRuleProto* other);
-
+  
   // implements Message ----------------------------------------------
-
+  
   PathTextRuleProto* New() const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
@@ -719,7 +719,7 @@ class PathTextRuleProto : public ::google::protobuf::Message {
   void MergeFrom(const PathTextRuleProto& from);
   void Clear();
   bool IsInitialized() const;
-
+  
   int ByteSize() const;
   bool MergePartialFromCodedStream(
       ::google::protobuf::io::CodedInputStream* input);
@@ -732,56 +732,66 @@ class PathTextRuleProto : public ::google::protobuf::Message {
   void SharedDtor();
   void SetCachedSize(int size) const;
   public:
-
+  
   ::google::protobuf::Metadata GetMetadata() const;
-
+  
   // nested types ----------------------------------------------------
-
+  
   // accessors -------------------------------------------------------
-
+  
   // required int32 height = 1;
   inline bool has_height() const;
   inline void clear_height();
   static const int kHeightFieldNumber = 1;
   inline ::google::protobuf::int32 height() const;
   inline void set_height(::google::protobuf::int32 value);
-
+  
   // required uint32 color = 2;
   inline bool has_color() const;
   inline void clear_color();
   static const int kColorFieldNumber = 2;
   inline ::google::protobuf::uint32 color() const;
   inline void set_color(::google::protobuf::uint32 value);
-
-  // required int32 priority = 3;
+  
+  // optional uint32 stroke_color = 3;
+  inline bool has_stroke_color() const;
+  inline void clear_stroke_color();
+  static const int kStrokeColorFieldNumber = 3;
+  inline ::google::protobuf::uint32 stroke_color() const;
+  inline void set_stroke_color(::google::protobuf::uint32 value);
+  
+  // required int32 priority = 4;
   inline bool has_priority() const;
   inline void clear_priority();
-  static const int kPriorityFieldNumber = 3;
+  static const int kPriorityFieldNumber = 4;
   inline ::google::protobuf::int32 priority() const;
   inline void set_priority(::google::protobuf::int32 value);
-
+  
   // @@protoc_insertion_point(class_scope:PathTextRuleProto)
  private:
   inline void set_has_height();
   inline void clear_has_height();
   inline void set_has_color();
   inline void clear_has_color();
+  inline void set_has_stroke_color();
+  inline void clear_has_stroke_color();
   inline void set_has_priority();
   inline void clear_has_priority();
-
+  
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
+  
   ::google::protobuf::int32 height_;
   ::google::protobuf::uint32 color_;
+  ::google::protobuf::uint32 stroke_color_;
   ::google::protobuf::int32 priority_;
-
+  
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
-
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+  
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
   friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
-
+  
   void InitAsDefaultInstance();
   static PathTextRuleProto* default_instance_;
 };
@@ -899,7 +909,7 @@ class DrawElementProto : public ::google::protobuf::Message {
   inline const ::PathTextRuleProto& path_text() const;
   inline ::PathTextRuleProto* mutable_path_text();
   inline ::PathTextRuleProto* release_path_text();
-
+  
   // @@protoc_insertion_point(class_scope:DrawElementProto)
  private:
   inline void set_has_scale();
@@ -1694,15 +1704,37 @@ inline void PathTextRuleProto::set_color(::google::protobuf::uint32 value) {
   color_ = value;
 }
 
-// required int32 priority = 3;
-inline bool PathTextRuleProto::has_priority() const {
+// optional uint32 stroke_color = 3;
+inline bool PathTextRuleProto::has_stroke_color() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void PathTextRuleProto::set_has_priority() {
+inline void PathTextRuleProto::set_has_stroke_color() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void PathTextRuleProto::clear_has_priority() {
+inline void PathTextRuleProto::clear_has_stroke_color() {
   _has_bits_[0] &= ~0x00000004u;
+}
+inline void PathTextRuleProto::clear_stroke_color() {
+  stroke_color_ = 0u;
+  clear_has_stroke_color();
+}
+inline ::google::protobuf::uint32 PathTextRuleProto::stroke_color() const {
+  return stroke_color_;
+}
+inline void PathTextRuleProto::set_stroke_color(::google::protobuf::uint32 value) {
+  set_has_stroke_color();
+  stroke_color_ = value;
+}
+
+// required int32 priority = 4;
+inline bool PathTextRuleProto::has_priority() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void PathTextRuleProto::set_has_priority() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void PathTextRuleProto::clear_has_priority() {
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void PathTextRuleProto::clear_priority() {
   priority_ = 0;

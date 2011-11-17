@@ -575,7 +575,8 @@ namespace drule {
 
     virtual double GetTextHeight() const { return m_params.get<5>().m_v; }
     virtual int GetFillColor() const { return m_params.get<6>().m_v; }
-    virtual int GetColor() const {return m_params.get<8>().m_v; }
+    virtual unsigned char GetAlpha() const { return alpha_opacity(m_params.get<7>()); }
+    virtual int GetColor() const { return m_params.get<8>().m_v; }
 
     static string arrKeys[9];
   };
@@ -648,7 +649,9 @@ namespace drule {
     virtual void Write(FileWriterStream & ar) const { write_rules(ar, this); }
 
     virtual double GetTextHeight() const { return m_params.get<6>().m_v; }
-    virtual int GetFillColor() const {return m_params.get<7>().m_v;}
+    virtual int GetFillColor() const { return m_params.get<7>().m_v; }
+    virtual unsigned char GetAlpha() const { return alpha_opacity(m_params.get<8>()); }
+    virtual int GetColor() const { return m_params.get<9>().m_v; }
 
     static string arrKeys[10];
   };
@@ -1146,19 +1149,24 @@ namespace
       pDest->set_name(s);
     }
 
-    void ConvertImpl(BaseRule const * pSrc, CaptionRuleProto * pDest) const
+    template <class T>
+    void ConvertCaptionT(BaseRule const * pSrc, T * pDest) const
     {
       pDest->set_height(ToPixels(pSrc->GetTextHeight()));
-      pDest->set_color(GetFillColor(pSrc));
+      pDest->set_color((pSrc->GetFillColor() != -1) ? GetFillColor(pSrc) : 0);
 
       if (pSrc->GetColor() != -1)
         pDest->set_stroke_color(GetColor(pSrc));
     }
 
+    void ConvertImpl(BaseRule const * pSrc, CaptionRuleProto * pDest) const
+    {
+      ConvertCaptionT(pSrc, pDest);
+    }
+
     void ConvertImpl(BaseRule const * pSrc, PathTextRuleProto * pDest) const
     {
-      pDest->set_height(ToPixels(pSrc->GetTextHeight()));
-      pDest->set_color(GetFillColor(pSrc));
+      ConvertCaptionT(pSrc, pDest);
     }
 
     void ConvertImpl(BaseRule const * pSrc, CircleRuleProto * pDest) const
@@ -1368,11 +1376,11 @@ namespace
       }
     };
 
-    class Caption : public MyBase
+    template <class T> class CaptionT : public MyBase
     {
-      CaptionRuleProto m_caption;
+      T m_caption;
     public:
-      Caption(CaptionRuleProto const & r) : m_caption(r) {}
+      CaptionT(T const & r) : m_caption(r) {}
 
       virtual int GetColor() const
       {
@@ -1394,6 +1402,9 @@ namespace
       }
     };
 
+    typedef CaptionT<CaptionRuleProto> Caption;
+    typedef CaptionT<PathTextRuleProto> PathText;
+
     class Circle : public MyBase
     {
       CircleRuleProto m_circle;
@@ -1407,26 +1418,6 @@ namespace
       virtual double GetRadius() const
       {
         return m_circle.radius();
-      }
-    };
-
-    class PathText : public MyBase
-    {
-      PathTextRuleProto m_text;
-    public:
-      PathText(PathTextRuleProto const & r) : m_text(r) {}
-
-      virtual int GetFillColor() const
-      {
-        return m_text.color();
-      }
-      virtual double GetTextHeight() const
-      {
-        return m_text.height();
-      }
-      virtual unsigned char GetAlpha() const
-      {
-        return AlphaFromColor(GetFillColor());
       }
     };
   }

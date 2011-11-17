@@ -48,7 +48,8 @@ message PathTextRuleProto
 {
   required int32 height = 1;
   required uint32 color = 2;
-  required int32 priority = 3;
+  optional uint32 stroke_color = 3;
+  required int32 priority = 4;
 }
 
 // WayMarkerRule not used yet

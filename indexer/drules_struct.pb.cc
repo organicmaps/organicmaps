@@ -160,9 +160,10 @@ void protobuf_AssignDesc_drules_5fstruct_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CircleRuleProto));
   PathTextRuleProto_descriptor_ = file->message_type(6);
-  static const int PathTextRuleProto_offsets_[3] = {
+  static const int PathTextRuleProto_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathTextRuleProto, height_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathTextRuleProto, color_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathTextRuleProto, stroke_color_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathTextRuleProto, priority_),
   };
   PathTextRuleProto_reflection_ =
@@ -306,18 +307,19 @@ void protobuf_AddDesc_drules_5fstruct_2eproto() {
     "olor\030\002 \002(\r\022\024\n\014stroke_color\030\003 \001(\r\022\020\n\010prio"
     "rity\030\004 \002(\005\"b\n\017CircleRuleProto\022\016\n\006radius\030"
     "\001 \002(\001\022\r\n\005color\030\002 \002(\r\022\036\n\006border\030\003 \001(\0132\016.L"
-    "ineRuleProto\022\020\n\010priority\030\004 \002(\005\"D\n\021PathTe"
+    "ineRuleProto\022\020\n\010priority\030\004 \002(\005\"Z\n\021PathTe"
     "xtRuleProto\022\016\n\006height\030\001 \002(\005\022\r\n\005color\030\002 \002"
-    "(\r\022\020\n\010priority\030\003 \002(\005\"\355\001\n\020DrawElementProt"
-    "o\022\r\n\005scale\030\001 \002(\005\022\035\n\005lines\030\002 \003(\0132\016.LineRu"
-    "leProto\022\034\n\004area\030\003 \001(\0132\016.AreaRuleProto\022 \n"
-    "\006symbol\030\004 \001(\0132\020.SymbolRuleProto\022\"\n\007capti"
-    "on\030\005 \001(\0132\021.CaptionRuleProto\022 \n\006circle\030\006 "
-    "\001(\0132\020.CircleRuleProto\022%\n\tpath_text\030\007 \001(\013"
-    "2\022.PathTextRuleProto\"G\n\023ClassifElementPr"
-    "oto\022\014\n\004name\030\001 \002(\t\022\"\n\007element\030\002 \003(\0132\021.Dra"
-    "wElementProto\"4\n\016ContainerProto\022\"\n\004cont\030"
-    "\001 \003(\0132\024.ClassifElementProto", 947);
+    "(\r\022\024\n\014stroke_color\030\003 \001(\r\022\020\n\010priority\030\004 \002"
+    "(\005\"\355\001\n\020DrawElementProto\022\r\n\005scale\030\001 \002(\005\022\035"
+    "\n\005lines\030\002 \003(\0132\016.LineRuleProto\022\034\n\004area\030\003 "
+    "\001(\0132\016.AreaRuleProto\022 \n\006symbol\030\004 \001(\0132\020.Sy"
+    "mbolRuleProto\022\"\n\007caption\030\005 \001(\0132\021.Caption"
+    "RuleProto\022 \n\006circle\030\006 \001(\0132\020.CircleRulePr"
+    "oto\022%\n\tpath_text\030\007 \001(\0132\022.PathTextRulePro"
+    "to\"G\n\023ClassifElementProto\022\014\n\004name\030\001 \002(\t\022"
+    "\"\n\007element\030\002 \003(\0132\021.DrawElementProto\"4\n\016C"
+    "ontainerProto\022\"\n\004cont\030\001 \003(\0132\024.ClassifEle"
+    "mentProto", 969);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "drules_struct.proto", &protobuf_RegisterTypes);
   DashDotProto::default_instance_ = new DashDotProto();
@@ -2201,6 +2203,7 @@ void CircleRuleProto::Swap(CircleRuleProto* other) {
 #ifndef _MSC_VER
 const int PathTextRuleProto::kHeightFieldNumber;
 const int PathTextRuleProto::kColorFieldNumber;
+const int PathTextRuleProto::kStrokeColorFieldNumber;
 const int PathTextRuleProto::kPriorityFieldNumber;
 #endif  // !_MSC_VER
 
@@ -2222,6 +2225,7 @@ void PathTextRuleProto::SharedCtor() {
   _cached_size_ = 0;
   height_ = 0;
   color_ = 0u;
+  stroke_color_ = 0u;
   priority_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -2259,6 +2263,7 @@ void PathTextRuleProto::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     height_ = 0;
     color_ = 0u;
+    stroke_color_ = 0u;
     priority_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -2285,7 +2290,7 @@ bool PathTextRuleProto::MergePartialFromCodedStream(
         if (input->ExpectTag(16)) goto parse_color;
         break;
       }
-
+      
       // required uint32 color = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -2298,12 +2303,28 @@ bool PathTextRuleProto::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(24)) goto parse_priority;
+        if (input->ExpectTag(24)) goto parse_stroke_color;
         break;
       }
-
-      // required int32 priority = 3;
+      
+      // optional uint32 stroke_color = 3;
       case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_stroke_color:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &stroke_color_)));
+          set_has_stroke_color();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(32)) goto parse_priority;
+        break;
+      }
+      
+      // required int32 priority = 4;
+      case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_priority:
@@ -2317,7 +2338,7 @@ bool PathTextRuleProto::MergePartialFromCodedStream(
         if (input->ExpectAtEnd()) return true;
         break;
       }
-
+      
       default: {
       handle_uninterpreted:
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -2340,17 +2361,22 @@ void PathTextRuleProto::SerializeWithCachedSizes(
   if (has_height()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->height(), output);
   }
-
+  
   // required uint32 color = 2;
   if (has_color()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->color(), output);
   }
-
-  // required int32 priority = 3;
-  if (has_priority()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->priority(), output);
+  
+  // optional uint32 stroke_color = 3;
+  if (has_stroke_color()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->stroke_color(), output);
   }
-
+  
+  // required int32 priority = 4;
+  if (has_priority()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->priority(), output);
+  }
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -2363,17 +2389,22 @@ void PathTextRuleProto::SerializeWithCachedSizes(
   if (has_height()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->height(), target);
   }
-
+  
   // required uint32 color = 2;
   if (has_color()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->color(), target);
   }
-
-  // required int32 priority = 3;
-  if (has_priority()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->priority(), target);
+  
+  // optional uint32 stroke_color = 3;
+  if (has_stroke_color()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->stroke_color(), target);
   }
-
+  
+  // required int32 priority = 4;
+  if (has_priority()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->priority(), target);
+  }
+  
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -2383,7 +2414,7 @@ void PathTextRuleProto::SerializeWithCachedSizes(
 
 int PathTextRuleProto::ByteSize() const {
   int total_size = 0;
-
+  
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     // required int32 height = 1;
     if (has_height()) {
@@ -2391,21 +2422,28 @@ int PathTextRuleProto::ByteSize() const {
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->height());
     }
-
+    
     // required uint32 color = 2;
     if (has_color()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->color());
     }
-
-    // required int32 priority = 3;
+    
+    // optional uint32 stroke_color = 3;
+    if (has_stroke_color()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->stroke_color());
+    }
+    
+    // required int32 priority = 4;
     if (has_priority()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->priority());
     }
-
+    
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -2439,6 +2477,9 @@ void PathTextRuleProto::MergeFrom(const PathTextRuleProto& from) {
     if (from.has_color()) {
       set_color(from.color());
     }
+    if (from.has_stroke_color()) {
+      set_stroke_color(from.stroke_color());
+    }
     if (from.has_priority()) {
       set_priority(from.priority());
     }
@@ -2459,8 +2500,8 @@ void PathTextRuleProto::CopyFrom(const PathTextRuleProto& from) {
 }
 
 bool PathTextRuleProto::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
-
+  if ((_has_bits_[0] & 0x0000000b) != 0x0000000b) return false;
+  
   return true;
 }
 
@@ -2468,6 +2509,7 @@ void PathTextRuleProto::Swap(PathTextRuleProto* other) {
   if (other != this) {
     std::swap(height_, other->height_);
     std::swap(color_, other->color_);
+    std::swap(stroke_color_, other->stroke_color_);
     std::swap(priority_, other->priority_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
@@ -2675,7 +2717,7 @@ bool DrawElementProto::MergePartialFromCodedStream(
         if (input->ExpectTag(58)) goto parse_path_text;
         break;
       }
-
+      
       // optional .PathTextRuleProto path_text = 7;
       case 7: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
@@ -2748,7 +2790,7 @@ void DrawElementProto::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       7, this->path_text(), output);
   }
-
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -2803,7 +2845,7 @@ void DrawElementProto::SerializeWithCachedSizes(
       WriteMessageNoVirtualToArray(
         7, this->path_text(), target);
   }
-
+  
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -2856,7 +2898,7 @@ int DrawElementProto::ByteSize() const {
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
           this->path_text());
     }
-
+    
   }
   // repeated .LineRuleProto lines = 2;
   total_size += 1 * this->lines_size();
