@@ -221,6 +221,8 @@ class points_in_map
 public:
   points_in_map(string const & name)
   {
+    LOG(LINFO, ("Nodes reading is started"));
+
     FileReader reader(name);
     uint64_t const count = reader.Size();
 
@@ -234,6 +236,8 @@ public:
 
       pos += sizeof(ll);
     }
+
+    LOG(LINFO, ("Nodes reading is finished"));
   }
 
   bool GetPoint(uint64_t id, double & lat, double & lng) const

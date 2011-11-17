@@ -71,7 +71,7 @@ namespace cache
         uint64_t const fileSize = m_file.Size();
         if (fileSize == 0) return;
 
-        LOG_SHORT(LINFO, ("Reading offsets started in file ", get_name()));
+        LOG_SHORT(LINFO, ("Offsets reading is started for file ", get_name()));
 
         try
         {
@@ -86,7 +86,7 @@ namespace cache
 
         sort(m_memory.begin(), m_memory.end(), element_less_t());
 
-        LOG_SHORT(LINFO, ("Reading offsets finished"));
+        LOG_SHORT(LINFO, ("Offsets reading is finished"));
       }
 
       void write(uint64_t k, TValue const & v)
