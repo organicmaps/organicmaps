@@ -3,7 +3,6 @@
 #include "widgets.hpp"
 
 #include "../map/window_handle.hpp"
-#include "../map/feature_vec_model.hpp"
 #include "../map/framework.hpp"
 #include "../map/navigator.hpp"
 
@@ -39,12 +38,10 @@ namespace qt
 
   class DrawWidget : public QGLWidget
   {
-    typedef model::FeaturesFetcher model_t;
-
     bool m_isInitialized;
     bool m_isTimerStarted;
 
-    scoped_ptr<Framework<model_t> > m_framework;
+    scoped_ptr<Framework> m_framework;
     scoped_ptr<VideoTimer> m_videoTimer;
 
     bool m_isDrag;
@@ -93,7 +90,7 @@ namespace qt
 
     void PrepareShutdown();
 
-    Framework<model_t> & GetFramework() { return *m_framework.get(); }
+    Framework & GetFramework() { return *m_framework.get(); }
 
   protected:
 

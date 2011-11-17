@@ -4,9 +4,9 @@
 #import "MapViewController.h"
 
 #include "../../std/shared_ptr.hpp"
-#include "../../map/framework.hpp"
-#include "../../map/feature_vec_model.hpp"
-#include"RenderBuffer.hpp"
+#include "RenderBuffer.hpp"
+
+class Framework;
 
 namespace iphone
 {
@@ -22,8 +22,6 @@ namespace yg
 	}
 }
 
-typedef Framework<model::FeaturesFetcher> framework_t;
-
 // This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
 // The view content is basically an EAGL surface you render your OpenGL scene into.
 // Note that setting the view non-opaque will only work if the EAGL surface has an alpha channel.
@@ -31,7 +29,7 @@ typedef Framework<model::FeaturesFetcher> framework_t;
 {
 @public
 
-  framework_t * framework;
+  Framework * framework;
   VideoTimer * videoTimer;
 	shared_ptr<iphone::RenderContext> renderContext;
 	shared_ptr<yg::gl::FrameBuffer> frameBuffer;
@@ -41,7 +39,7 @@ typedef Framework<model::FeaturesFetcher> framework_t;
 
 - (void) initRenderPolicy;
 
-@property (nonatomic, assign) framework_t * framework;
+@property (nonatomic, assign) Framework * framework;
 @property (nonatomic, assign) VideoTimer * videoTimer;
 @property (nonatomic, assign) shared_ptr<iphone::RenderContext> renderContext;
 @property (nonatomic, assign) shared_ptr<iphone::RenderBuffer> renderBuffer;

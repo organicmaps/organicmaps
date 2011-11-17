@@ -1,7 +1,6 @@
 #include "framework.hpp"
 #include "draw_processor.hpp"
 #include "drawer_yg.hpp"
-#include "feature_vec_model.hpp"
 #include "benchmark_provider.hpp"
 
 #include "../defines.hpp"
@@ -29,8 +28,7 @@
 
 using namespace feature;
 
-template <typename TModel>
-void Framework<TModel>::AddMap(string const & file)
+void Framework::AddMap(string const & file)
 {
   LOG(LDEBUG, ("Loading map:", file));
 
@@ -40,15 +38,13 @@ void Framework<TModel>::AddMap(string const & file)
     m_lowestMapVersion = version;
 }
 
-template <typename TModel>
-void Framework<TModel>::RemoveMap(string const & datFile)
+void Framework::RemoveMap(string const & datFile)
 {
   threads::MutexGuard lock(m_modelSyn);
   m_model.RemoveMap(datFile);
 }
 
-template <typename TModel>
-void Framework<TModel>::OnLocationStatusChanged(location::TLocationStatus newStatus)
+void Framework::OnLocationStatusChanged(location::TLocationStatus newStatus)
 {
   switch (newStatus)
   {
@@ -64,8 +60,7 @@ void Framework<TModel>::OnLocationStatusChanged(location::TLocationStatus newSta
   }
 }
 
-template <typename TModel>
-void Framework<TModel>::OnGpsUpdate(location::GpsInfo const & info)
+void Framework::OnGpsUpdate(location::GpsInfo const & info)
 {
   m_locationState.UpdateGps(info);
   if (m_centeringMode == ECenterAndScale)
@@ -78,15 +73,13 @@ void Framework<TModel>::OnGpsUpdate(location::GpsInfo const & info)
   Invalidate();
 }
 
-template <typename TModel>
-void Framework<TModel>::OnCompassUpdate(location::CompassInfo const & info)
+void Framework::OnCompassUpdate(location::CompassInfo const & info)
 {
   m_locationState.UpdateCompass(info);
   Invalidate();
 }
 
-template <typename TModel>
-Framework<TModel>::Framework()
+Framework::Framework()
   : m_hasPendingInvalidate(false),
     m_metresMinWidth(20),
     m_metresMaxWidth(1000000),
@@ -143,12 +136,10 @@ Framework<TModel>::Framework()
   languages::SaveSettings(langCodes);
 }
 
-template <typename TModel>
-Framework<TModel>::~Framework()
+Framework::~Framework()
 {}
 
-template <typename TModel>
-void Framework<TModel>::GetLocalMaps(vector<string> & outMaps)
+void Framework::GetLocalMaps(vector<string> & outMaps)
 {
   outMaps.clear();
 
@@ -159,50 +150,37 @@ void Framework<TModel>::GetLocalMaps(vector<string> & outMaps)
   outMaps.erase(unique(outMaps.begin(), outMaps.end()), outMaps.end());
 }
 
-template <typename TModel>
-TModel & Framework<TModel>::get_model()
-{
-  return m_model;
-}
-
-template <typename TModel>
-bool Framework<TModel>::IsEmptyModel()
+bool Framework::IsEmptyModel()
 {
   return m_model.GetWorldRect() == m2::RectD::GetEmptyRect();
 }
 
 // Cleanup.
-template <typename TModel>
-void Framework<TModel>::Clean()
+void Framework::Clean()
 {
   m_model.Clean();
 }
 
-template <typename TModel>
-void Framework<TModel>::PrepareToShutdown()
+void Framework::PrepareToShutdown()
 {
 }
 
-template <typename TModel>
-void Framework<TModel>::SetMaxWorldRect()
+void Framework::SetMaxWorldRect()
 {
   m_navigator.SetFromRect(m2::AnyRectD(m_model.GetWorldRect()));
 }
 
-template <typename TModel>
-bool Framework<TModel>::NeedRedraw() const
+bool Framework::NeedRedraw() const
 {
   return m_renderPolicy->NeedRedraw();
 }
 
-template <typename TModel>
-void Framework<TModel>::SetNeedRedraw(bool flag)
+void Framework::SetNeedRedraw(bool flag)
 {
   m_renderPolicy->GetWindowHandle()->setNeedRedraw(false);
 }
 
-template <typename TModel>
-void Framework<TModel>::Invalidate()
+void Framework::Invalidate()
 {
   if (m_renderPolicy)
     m_renderPolicy->GetWindowHandle()->invalidate();
@@ -210,22 +188,19 @@ void Framework<TModel>::Invalidate()
     m_hasPendingInvalidate = true;
 }
 
-template <typename TModel>
-void Framework<TModel>::SaveState()
+void Framework::SaveState()
 {
   m_navigator.SaveState();
 }
 
-template <typename TModel>
-bool Framework<TModel>::LoadState()
+bool Framework::LoadState()
 {
   return m_navigator.LoadState();
 }
 //@}
 
 /// Resize event from window.
-template <typename TModel>
-void Framework<TModel>::OnSize(int w, int h)
+void Framework::OnSize(int w, int h)
 {
   if (w < 2) w = 2;
   if (h < 2) h = 2;
@@ -247,14 +222,12 @@ void Framework<TModel>::OnSize(int w, int h)
   m_height = h;
 }
 
-template <typename TModel>
-bool Framework<TModel>::SetUpdatesEnabled(bool doEnable)
+bool Framework::SetUpdatesEnabled(bool doEnable)
 {
   return m_renderPolicy->GetWindowHandle()->setUpdatesEnabled(doEnable);
 }
 
-template <typename TModel>
-double Framework<TModel>::GetCurrentScale() const
+double Framework::GetCurrentScale() const
 {
   m2::PointD textureCenter(m_navigator.Screen().PixelRect().Center());
   m2::RectD glbRect;
@@ -266,15 +239,13 @@ double Framework<TModel>::GetCurrentScale() const
   return scales::GetScaleLevelD(glbRect);
 }
 
-template <typename TModel>
-RenderPolicy::TRenderFn Framework<TModel>::DrawModelFn()
+RenderPolicy::TRenderFn Framework::DrawModelFn()
 {
-  return bind(&Framework<TModel>::DrawModel, this, _1, _2, _3, _4, _5);
+  return bind(&Framework::DrawModel, this, _1, _2, _3, _4, _5);
 }
 
 /// Actual rendering function.
-template <typename TModel>
-void Framework<TModel>::DrawModel(shared_ptr<PaintEvent> const & e,
+void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
                                   ScreenBase const & screen,
                                   m2::RectD const & selectRect,
                                   m2::RectD const & clipRect,
@@ -300,21 +271,18 @@ void Framework<TModel>::DrawModel(shared_ptr<PaintEvent> const & e,
     Invalidate();
 }
 
-template <typename TModel>
-void Framework<TModel>::BeginPaint(shared_ptr<PaintEvent> const & e)
+void Framework::BeginPaint(shared_ptr<PaintEvent> const & e)
 {
   m_renderPolicy->BeginFrame(e, m_navigator.Screen());
 }
 
-template <typename TModel>
-void Framework<TModel>::EndPaint(shared_ptr<PaintEvent> const & e)
+void Framework::EndPaint(shared_ptr<PaintEvent> const & e)
 {
   m_renderPolicy->EndFrame(e, m_navigator.Screen());
 }
 
 /// Function for calling from platform dependent-paint function.
-template <typename TModel>
-void Framework<TModel>::DoPaint(shared_ptr<PaintEvent> const & e)
+void Framework::DoPaint(shared_ptr<PaintEvent> const & e)
 {
   DrawerYG * pDrawer = e->drawer();
 
@@ -339,23 +307,20 @@ void Framework<TModel>::DoPaint(shared_ptr<PaintEvent> const & e)
   e->drawer()->screen()->endFrame();
 }
 
-template <typename TModel>
-m2::PointD Framework<TModel>::GetViewportCenter() const
+m2::PointD Framework::GetViewportCenter() const
 {
   return m_navigator.Screen().GlobalRect().GlobalCenter();
 }
 
-template <typename TModel>
-void Framework<TModel>::SetViewportCenter(m2::PointD const & pt)
+void Framework::SetViewportCenter(m2::PointD const & pt)
 {
   m_navigator.CenterViewport(pt);
   Invalidate();
  }
 
-int const theMetersFactor = 6;
+static int const theMetersFactor = 6;
 
-template <typename TModel>
-void Framework<TModel>::ShowRect(m2::RectD rect)
+void Framework::ShowRect(m2::RectD rect)
 {
   double const minSizeX = MercatorBounds::ConvertMetresToX(rect.minX(), theMetersFactor * m_metresMinWidth);
   double const minSizeY = MercatorBounds::ConvertMetresToY(rect.minY(), theMetersFactor * m_metresMinWidth);
@@ -367,29 +332,25 @@ void Framework<TModel>::ShowRect(m2::RectD rect)
   Invalidate();
 }
 
-template <typename TModel>
-void Framework<TModel>::MemoryWarning()
+void Framework::MemoryWarning()
 {
   // clearing caches on memory warning.
   m_model.ClearCaches();
   LOG(LINFO, ("MemoryWarning"));
 }
 
-template <typename TModel>
-void Framework<TModel>::EnterBackground()
+void Framework::EnterBackground()
 {
   // clearing caches on entering background.
   m_model.ClearCaches();
 }
 
-template <typename TModel>
-void Framework<TModel>::EnterForeground()
+void Framework::EnterForeground()
 {
 }
 
 /// @TODO refactor to accept point and min visible length
-template <typename TModel>
-void Framework<TModel>::CenterAndScaleViewport()
+void Framework::CenterAndScaleViewport()
 {
   m2::PointD const pt = m_locationState.Position();
   m_navigator.CenterViewport(pt);
@@ -424,15 +385,13 @@ void Framework<TModel>::CenterAndScaleViewport()
 }
 
 /// Show all model by it's world rect.
-template <typename TModel>
-void Framework<TModel>::ShowAll()
+void Framework::ShowAll()
 {
   SetMaxWorldRect();
   Invalidate();
 }
 
-template <typename TModel>
-void Framework<TModel>::InvalidateRect(m2::RectD const & rect)
+void Framework::InvalidateRect(m2::RectD const & rect)
 {
   if (m_navigator.Screen().GlobalRect().IsIntersect(m2::AnyRectD(rect)))
     Invalidate();
@@ -440,8 +399,7 @@ void Framework<TModel>::InvalidateRect(m2::RectD const & rect)
 
 /// @name Drag implementation.
 ///@{
-template <typename TModel>
-void Framework<TModel>::StartDrag(DragEvent const & e)
+void Framework::StartDrag(DragEvent const & e)
 {
   m2::PointD const pt = m_navigator.ShiftPoint(e.Pos());
 #ifdef DRAW_TOUCH_POINTS
@@ -452,8 +410,7 @@ void Framework<TModel>::StartDrag(DragEvent const & e)
   m_renderPolicy->StartDrag();
 }
 
-template <typename TModel>
-void Framework<TModel>::DoDrag(DragEvent const & e)
+void Framework::DoDrag(DragEvent const & e)
 {
   m2::PointD const pt = m_navigator.ShiftPoint(e.Pos());
 
@@ -467,8 +424,7 @@ void Framework<TModel>::DoDrag(DragEvent const & e)
   m_renderPolicy->DoDrag();
 }
 
-template <typename TModel>
-void Framework<TModel>::StopDrag(DragEvent const & e)
+void Framework::StopDrag(DragEvent const & e)
 {
   m2::PointD const pt = m_navigator.ShiftPoint(e.Pos());
 
@@ -481,8 +437,7 @@ void Framework<TModel>::StopDrag(DragEvent const & e)
   m_renderPolicy->StopDrag();
 }
 
-template <typename TModel>
-void Framework<TModel>::StartRotate(RotateEvent const & e)
+void Framework::StartRotate(RotateEvent const & e)
 {
   if (m_renderPolicy->DoSupportRotation())
   {
@@ -491,8 +446,7 @@ void Framework<TModel>::StartRotate(RotateEvent const & e)
   }
 }
 
-template <typename TModel>
-void Framework<TModel>::DoRotate(RotateEvent const & e)
+void Framework::DoRotate(RotateEvent const & e)
 {
   if (m_renderPolicy->DoSupportRotation())
   {
@@ -501,8 +455,7 @@ void Framework<TModel>::DoRotate(RotateEvent const & e)
   }
 }
 
-template <typename TModel>
-void Framework<TModel>::StopRotate(RotateEvent const & e)
+void Framework::StopRotate(RotateEvent const & e)
 {
   if (m_renderPolicy->DoSupportRotation())
   {
@@ -512,8 +465,7 @@ void Framework<TModel>::StopRotate(RotateEvent const & e)
 }
 
 
-template <typename TModel>
-void Framework<TModel>::Move(double azDir, double factor)
+void Framework::Move(double azDir, double factor)
 {
   m_navigator.Move(azDir, factor);
 
@@ -523,8 +475,7 @@ void Framework<TModel>::Move(double azDir, double factor)
 
 /// @name Scaling.
 //@{
-template <typename TModel>
-void Framework<TModel>::ScaleToPoint(ScaleToPointEvent const & e)
+void Framework::ScaleToPoint(ScaleToPointEvent const & e)
 {
   m2::PointD const pt = (m_centeringMode == EDoNothing)
       ? m_navigator.ShiftPoint(e.Pt()) : m_navigator.Screen().PixelRect().Center();
@@ -534,14 +485,12 @@ void Framework<TModel>::ScaleToPoint(ScaleToPointEvent const & e)
   Invalidate();
 }
 
-template <typename TModel>
-void Framework<TModel>::ScaleDefault(bool enlarge)
+void Framework::ScaleDefault(bool enlarge)
 {
   Scale(enlarge ? 1.5 : 2.0/3.0);
 }
 
-template <typename TModel>
-void Framework<TModel>::Scale(double scale)
+void Framework::Scale(double scale)
 {
   m_navigator.Scale(scale);
   //m_tiler.seed(m_navigator.Screen(), m_tileSize);
@@ -549,8 +498,7 @@ void Framework<TModel>::Scale(double scale)
   Invalidate();
 }
 
-template <typename TModel>
-void Framework<TModel>::StartScale(ScaleEvent const & e)
+void Framework::StartScale(ScaleEvent const & e)
 {
   m2::PointD pt1 = m_navigator.ShiftPoint(e.Pt1());
   m2::PointD pt2 = m_navigator.ShiftPoint(e.Pt2());
@@ -572,8 +520,7 @@ void Framework<TModel>::StartScale(ScaleEvent const & e)
   m_renderPolicy->StartScale();
 }
 
-template <typename TModel>
-void Framework<TModel>::DoScale(ScaleEvent const & e)
+void Framework::DoScale(ScaleEvent const & e)
 {
   m2::PointD pt1 = m_navigator.ShiftPoint(e.Pt1());
   m2::PointD pt2 = m_navigator.ShiftPoint(e.Pt2());
@@ -595,8 +542,7 @@ void Framework<TModel>::DoScale(ScaleEvent const & e)
   m_renderPolicy->DoScale();
 }
 
-template <typename TModel>
-void Framework<TModel>::StopScale(ScaleEvent const & e)
+void Framework::StopScale(ScaleEvent const & e)
 {
   m2::PointD pt1 = m_navigator.ShiftPoint(e.Pt1());
   m2::PointD pt2 = m_navigator.ShiftPoint(e.Pt2());
@@ -618,8 +564,7 @@ void Framework<TModel>::StopScale(ScaleEvent const & e)
   m_renderPolicy->StopScale();
 }
 
-template<typename TModel>
-search::Engine * Framework<TModel>::GetSearchEngine()
+search::Engine * Framework::GetSearchEngine()
 {
   // Classical "double check" synchronization pattern.
   if (!m_pSearchEngine)
@@ -639,16 +584,14 @@ search::Engine * Framework<TModel>::GetSearchEngine()
   return m_pSearchEngine.get();
 }
 
-template<typename TModel>
-void Framework<TModel>::Search(string const & text, SearchCallbackT callback)
+void Framework::Search(string const & text, SearchCallbackT callback)
 {
   search::Engine * pSearchEngine = GetSearchEngine();
   pSearchEngine->SetViewport(m_navigator.Screen().ClipRect());
   pSearchEngine->Search(text, callback);
 }
 
-template <typename TModel>
-void Framework<TModel>::SetRenderPolicy(RenderPolicy * renderPolicy)
+void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 {
   bool isVisualLogEnabled = false;
   Settings::Get("VisualLog", isVisualLogEnabled);
@@ -672,17 +615,14 @@ void Framework<TModel>::SetRenderPolicy(RenderPolicy * renderPolicy)
   }
 }
 
-template <typename TModel>
-RenderPolicy * Framework<TModel>::GetRenderPolicy() const
+RenderPolicy * Framework::GetRenderPolicy() const
 {
   return m_renderPolicy.get();
 }
 
-template <typename TModel>
-void Framework<TModel>::SetupMeasurementSystem()
+void Framework::SetupMeasurementSystem()
 {
   m_informationDisplay.setupRuler();
   Invalidate();
 }
 
-template class Framework<model::FeaturesFetcher>;

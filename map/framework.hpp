@@ -7,6 +7,7 @@
 #include "window_handle.hpp"
 #include "location_state.hpp"
 #include "navigator.hpp"
+#include "feature_vec_model.hpp"
 
 #include "../defines.hpp"
 
@@ -57,16 +58,11 @@ typedef function<void (search::Result const &)> SearchCallbackT;
 class DrawerYG;
 class RenderPolicy;
 
-template <class TModel>
 class Framework
 {
 protected:
-  typedef TModel model_t;
-
-  typedef Framework<model_t> this_type;
-
   scoped_ptr<search::Engine> m_pSearchEngine;
-  model_t m_model;
+  model::FeaturesFetcher m_model;
   Navigator m_navigator;
 
   scoped_ptr<RenderPolicy> m_renderPolicy;
@@ -123,8 +119,6 @@ public:
 
   void SetRenderPolicy(RenderPolicy * renderPolicy);
   RenderPolicy * GetRenderPolicy() const;
-
-  model_t & get_model();
 
   bool IsEmptyModel();
 

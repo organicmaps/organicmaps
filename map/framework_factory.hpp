@@ -5,9 +5,8 @@
 
 class WindowHandle;
 
-template <typename TModel>
 class FrameworkFactory
 {
 public:
-  static Framework<TModel> * CreateFramework();
+  static Framework * CreateFramework();
 };

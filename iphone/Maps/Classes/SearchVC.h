@@ -2,23 +2,19 @@
 
 #import "LocationManager.h"
 
-#include "../../map/framework.hpp"
-#include "../../map/feature_vec_model.hpp"
-
 #include "../../std/vector.hpp"
 #include "../../std/function.hpp"
 #include "../../std/string.hpp"
 
 @class LocationManager;
 
+class Framework;
 namespace search { class Result; }
-
-typedef Framework<model::FeaturesFetcher> framework_t;
 
 @interface SearchVC : UIViewController
     <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, LocationObserver>
 {
-  framework_t * m_framework;
+  Framework * m_framework;
   LocationManager * m_locationManager;
   vector<search::Result> m_results;
   UISearchBar * m_searchBar;
@@ -28,6 +24,6 @@ typedef Framework<model::FeaturesFetcher> framework_t;
 //  NSString * m_warningViewText;
 }
 
-- (id)initWithFramework:(framework_t *)framework andLocationManager:(LocationManager *)lm;
+- (id)initWithFramework:(Framework *)framework andLocationManager:(LocationManager *)lm;
 
 @end

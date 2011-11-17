@@ -14,12 +14,9 @@ struct BenchmarkRectProvider;
 class WindowHandle;
 class PaintEvent;
 
-template <typename TModel>
-class BenchmarkFramework : public Framework<TModel>
+class BenchmarkFramework : public Framework
 {
 private:
-
-  typedef Framework<TModel> base_type;
 
   double m_paintDuration;
   double m_maxDuration;

@@ -10,14 +10,12 @@
 #include "../../yg/screen.hpp"
 #include "../../map/drawer_yg.hpp"
 
-typedef Framework<model::FeaturesFetcher> framework_t;
-
 @implementation MapViewController
 
 @synthesize m_myPositionButton;
 
 // @TODO Make m_framework and m_storage MapsAppDelegate properties instead of global variables.
-framework_t * m_framework = NULL;
+Framework * m_framework = NULL;
 
 - (void) ZoomToRect: (m2::RectD const &) rect
 {
@@ -119,7 +117,7 @@ framework_t * m_framework = NULL;
     // Here we're creating view and window handle in it, and later we should pass framework to the view
     EAGLView * v = (EAGLView *)self.view;
         
-    m_framework = FrameworkFactory<model::FeaturesFetcher>::CreateFramework();
+    m_framework = FrameworkFactory::CreateFramework();
     v.framework = m_framework;
 
 		m_StickyThreshold = 10;

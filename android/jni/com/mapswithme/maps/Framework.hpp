@@ -22,7 +22,7 @@ namespace android
     JavaVM * m_jvm;
     jobject m_mainGLView;
 
-    ::Framework<model::FeaturesFetcher> m_work;
+    ::Framework m_work;
 
     VideoTimer * m_videoTimer;
 

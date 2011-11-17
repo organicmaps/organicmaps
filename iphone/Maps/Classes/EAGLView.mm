@@ -9,6 +9,7 @@
 #include "../../yg/internal/opengl.hpp"
 #include "../../yg/skin.hpp"
 #include "../../map/render_policy.hpp"
+#include "../../map/framework.hpp"
 #include "../../platform/platform.hpp"
 #include "../../platform/video_timer.hpp"
 #include "RenderBuffer.hpp"

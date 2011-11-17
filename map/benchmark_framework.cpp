@@ -1,8 +1,5 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "benchmark_framework.hpp"
 #include "benchmark_provider.hpp"
-#include "feature_vec_model.hpp"
 
 #include "../coding/file_container.hpp"
 
@@ -119,23 +116,21 @@ struct MapsCollector
   }
 };
 
-template <typename TModel>
-void BenchmarkFramework<TModel>::ReAddLocalMaps()
+void BenchmarkFramework::ReAddLocalMaps()
 {
   // remove all previously added maps in framework constructor
   Platform::FilesList files;
-  base_type::GetLocalMaps(files);
+  Framework::GetLocalMaps(files);
   for_each(files.begin(), files.end(),
-           bind(&BenchmarkFramework<TModel>::RemoveMap, this, _1));
+           bind(&BenchmarkFramework::RemoveMap, this, _1));
   // add only maps needed for benchmarks
   MapsCollector collector;
   ForEachBenchmarkRecord(collector);
   for_each(collector.m_maps.begin(), collector.m_maps.end(),
-           bind(&BenchmarkFramework<TModel>::AddMap, this, _1));
+           bind(&BenchmarkFramework::AddMap, this, _1));
 }
 
-template <typename TModel>
-BenchmarkFramework<TModel>::BenchmarkFramework()
+BenchmarkFramework::BenchmarkFramework()
   : m_paintDuration(0),
     m_maxDuration(0),
     m_isBenchmarkFinished(false),
@@ -144,13 +139,12 @@ BenchmarkFramework<TModel>::BenchmarkFramework()
 
   m_startTime = my::FormatCurrentTime();
 
-  base_type::m_informationDisplay.enableBenchmarkInfo(true);
+  Framework::m_informationDisplay.enableBenchmarkInfo(true);
 
   ReAddLocalMaps();
 }
 
-template <typename TModel>
-void BenchmarkFramework<TModel>::BenchmarkCommandFinished()
+void BenchmarkFramework::BenchmarkCommandFinished()
 {
   double duration = m_paintDuration;
 
@@ -158,7 +152,7 @@ void BenchmarkFramework<TModel>::BenchmarkCommandFinished()
   {
     m_maxDuration = duration;
     m_maxDurationRect = m_curBenchmarkRect;
-    base_type::m_informationDisplay.addBenchmarkInfo("maxDurationRect: ", m_maxDurationRect, m_maxDuration);
+    Framework::m_informationDisplay.addBenchmarkInfo("maxDurationRect: ", m_maxDurationRect, m_maxDuration);
   }
 
   BenchmarkResult res;
@@ -176,8 +170,7 @@ void BenchmarkFramework<TModel>::BenchmarkCommandFinished()
     NextBenchmarkCommand();
 }
 
-template <typename TModel>
-void BenchmarkFramework<TModel>::SaveBenchmarkResults()
+void BenchmarkFramework::SaveBenchmarkResults()
 {
   string resultsPath;
   Settings::Get("BenchmarkResults", resultsPath);
@@ -200,8 +193,7 @@ void BenchmarkFramework<TModel>::SaveBenchmarkResults()
   m_benchmarkResults.clear();
 }
 
-template <typename TModel>
-void BenchmarkFramework<TModel>::SendBenchmarkResults()
+void BenchmarkFramework::SendBenchmarkResults()
 {
 //    ofstream fout(GetPlatform().WritablePathForFile("benchmarks/results.txt").c_str(), ios::app);
 //    fout << "[COMPLETED]";
@@ -210,8 +202,7 @@ void BenchmarkFramework<TModel>::SendBenchmarkResults()
   /// and delete results file
 }
 
-template <typename TModel>
-void BenchmarkFramework<TModel>::MarkBenchmarkResultsEnd()
+void BenchmarkFramework::MarkBenchmarkResultsEnd()
 {
   string resultsPath;
   Settings::Get("BenchmarkResults", resultsPath);
@@ -220,8 +211,7 @@ void BenchmarkFramework<TModel>::MarkBenchmarkResultsEnd()
   fout << "END " << m_startTime << endl;
 }
 
-template <typename TModel>
-void BenchmarkFramework<TModel>::MarkBenchmarkResultsStart()
+void BenchmarkFramework::MarkBenchmarkResultsStart()
 {
   string resultsPath;
   Settings::Get("BenchmarkResults", resultsPath);
@@ -230,14 +220,13 @@ void BenchmarkFramework<TModel>::MarkBenchmarkResultsStart()
   fout << "START " << m_startTime << endl;
 }
 
-template <typename TModel>
-void BenchmarkFramework<TModel>::NextBenchmarkCommand()
+void BenchmarkFramework::NextBenchmarkCommand()
 {
   if ((m_benchmarks[m_curBenchmark].m_provider->hasRect()) || (++m_curBenchmark < m_benchmarks.size()))
   {
     m_curBenchmarkRect = m_benchmarks[m_curBenchmark].m_provider->nextRect();
-    base_type::m_navigator.SetFromRect(m2::AnyRectD(m_curBenchmarkRect));
-    base_type::Invalidate();
+    Framework::m_navigator.SetFromRect(m2::AnyRectD(m_curBenchmarkRect));
+    Framework::Invalidate();
   }
   else
   {
@@ -254,8 +243,7 @@ void BenchmarkFramework<TModel>::NextBenchmarkCommand()
   }
 }
 
-template <typename TModel>
-void BenchmarkFramework<TModel>::InitBenchmark()
+void BenchmarkFramework::InitBenchmark()
 {
   DoGetBenchmarks<Benchmark> doGet(m_benchmarks);
   ForEachBenchmarkRecord(doGet);
@@ -269,13 +257,12 @@ void BenchmarkFramework<TModel>::InitBenchmark()
   MarkBenchmarkResultsStart();
   NextBenchmarkCommand();
 
-  base_type::Invalidate();
+  Framework::Invalidate();
 }
 
-template <typename TModel>
-void BenchmarkFramework<TModel>::OnSize(int w, int h)
+void BenchmarkFramework::OnSize(int w, int h)
 {
-  Framework<TModel>::OnSize(w, h);
+  Framework::OnSize(w, h);
   if (!m_isBenchmarkInitialized)
   {
     m_isBenchmarkInitialized = true;
@@ -283,14 +270,11 @@ void BenchmarkFramework<TModel>::OnSize(int w, int h)
   }
 }
 
-template <typename TModel>
-void BenchmarkFramework<TModel>::DoPaint(shared_ptr<PaintEvent> const & e)
+void BenchmarkFramework::DoPaint(shared_ptr<PaintEvent> const & e)
 {
   double s = m_benchmarksTimer.ElapsedSeconds();
-  Framework<TModel>::DoPaint(e);
+  Framework::DoPaint(e);
   m_paintDuration += m_benchmarksTimer.ElapsedSeconds() - s;
   if (!m_isBenchmarkFinished)
     BenchmarkCommandFinished();
 }
-
-template class BenchmarkFramework<model::FeaturesFetcher>;

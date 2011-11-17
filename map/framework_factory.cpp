@@ -1,21 +1,15 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "framework_factory.hpp"
 #include "benchmark_framework.hpp"
-#include "feature_vec_model.hpp"
 
 #include "../platform/settings.hpp"
 
-template <typename TModel>
-Framework<TModel> * FrameworkFactory<TModel>::CreateFramework()
+Framework * FrameworkFactory::CreateFramework()
 {
   bool benchmarkingEnabled = false;
   (void)Settings::Get("IsBenchmarking", benchmarkingEnabled);
 
   if (benchmarkingEnabled)
-    return new BenchmarkFramework<TModel>();
+    return new BenchmarkFramework();
   else
-    return new Framework<TModel>();
+    return new Framework();
 }
-
-template class FrameworkFactory<model::FeaturesFetcher>;

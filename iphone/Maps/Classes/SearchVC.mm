@@ -161,7 +161,7 @@ static void OnSearchResultCallback(search::Result const & res, int queryId)
 //  [self showOrHideGPSWarningIfNeeded];
 }
 
-- (id)initWithFramework:(framework_t *)framework andLocationManager:(LocationManager *)lm
+- (id)initWithFramework:(Framework *)framework andLocationManager:(LocationManager *)lm
 {
   if ((self = [super initWithNibName:nil bundle:nil]))
   {

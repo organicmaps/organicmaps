@@ -48,7 +48,7 @@ namespace qt
     : QGLWidget(pParent),
       m_isInitialized(false),
       m_isTimerStarted(false),
-      m_framework(FrameworkFactory<model_t>::CreateFramework()),
+      m_framework(FrameworkFactory::CreateFramework()),
       m_isDrag(false),
       m_isRotate(false),
       m_redrawInterval(100),
