@@ -17,6 +17,7 @@
   BOOL m_isStarted;
   BOOL m_reportFirstUpdate;
   NSMutableSet * m_observers;
+  BOOL m_isTimerActive;
 }
 
 - (void)start:(id <LocationObserver>)observer;
