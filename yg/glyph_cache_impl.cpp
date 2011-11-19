@@ -129,6 +129,8 @@ namespace yg
         if (!fin)
           break;
 
+        LOG(LINFO, ("whitelisting ", fontName, " for ", ubName));
+
         if (ubName == "*")
           for (unicode_blocks_t::iterator it = m_unicodeBlocks.begin(); it != m_unicodeBlocks.end(); ++it)
             it->m_whitelist.push_back(fontName);
@@ -161,6 +163,8 @@ namespace yg
         fin >> ubName >> fontName;
         if (!fin)
           break;
+
+        LOG(LINFO, ("blacklisting ", fontName, " for ", ubName));
 
         if (ubName == "*")
           for (unicode_blocks_t::iterator it = m_unicodeBlocks.begin(); it != m_unicodeBlocks.end(); ++it)

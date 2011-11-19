@@ -2,11 +2,10 @@ package com.mapswithme.maps;
 
 import java.io.File;
 
-import com.mapswithme.maps.MainGLView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationService;
+import com.nvidia.devtech.NvEventQueueActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -16,15 +15,13 @@ import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.util.Log;
 
-public class MWMActivity extends Activity
+public class MWMActivity extends NvEventQueueActivity
 {
+  VideoTimer m_timer;
   private static String TAG = "MWMActivity";
   private final static String PACKAGE_NAME = "com.mapswithme.maps";
   
-  private MainGLView m_view;
-
   private boolean m_locationEnabled = false;
 
   private String getAppBundlePath() throws NameNotFoundException
@@ -58,13 +55,16 @@ public class MWMActivity extends Activity
     {
       e.printStackTrace();
     }
-    
-    m_view = new MainGLView(getApplication());
 
-    setContentView(m_view);
+    m_timer = new VideoTimer();
+
+    
+    /*m_view = new MainGLView(getApplication());
+
+    setContentView(m_view);*/
   }
 
-  @Override
+/*  @Override
   protected void onPause()
   {
     super.onPause();
@@ -80,7 +80,7 @@ public class MWMActivity extends Activity
     m_view.onResume();
     if (m_locationEnabled)
       LocationService.start(this);
-  }
+  }*/
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu)

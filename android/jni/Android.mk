@@ -20,7 +20,12 @@ LOCAL_HEADER_FILES := \
 	com/mapswithme/core/render_context.hpp \
 	com/mapswithme/maps/Framework.hpp \
 	com/mapswithme/platform/Platform.hpp \
-  com/mapswithme/platform/http_thread_android.hpp \
+	com/mapswithme/platform/http_thread_android.hpp \
+	nv_thread/nv_thread.hpp \
+	nv_event/nv_event_queue.hpp \
+	nv_event/nv_event.hpp \
+	nv_event/nv_keycode_mapping.hpp \
+	nv_event/scoped_profiler.hpp
 
 LOCAL_SRC_FILES := \
 	com/mapswithme/core/concurrent_runner.cpp \
@@ -33,15 +38,19 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/Framework.cpp \
 	com/mapswithme/maps/VideoTimer.cpp \
 	com/mapswithme/maps/GesturesProcessor.cpp \
-	com/mapswithme/maps/MainGLView.cpp \
 	com/mapswithme/maps/MWMActivity.cpp \
+	com/mapswithme/maps/Lifecycle.cpp \
 	com/mapswithme/platform/Platform.cpp \
 	com/mapswithme/platform/http_thread_android.cpp \
+	nv_thread/nv_thread.cpp \
+	nv_event/nv_event_queue.cpp \
+	nv_event/nv_event.cpp \
+	nv_time/nv_time.cpp
 	
 LOCAL_LDLIBS := -llog -lGLESv1_CM \
-  	-lwords -lmap -lversion -lsearch -lstorage -lindexer -lyg -lplatform \
-  	-lgeometry -lcoding -lbase -lexpat -lfreetype -lfribidi -lzlib -lbzip2 \
-	-ljansson -ltomcrypt -lprotobuf ./obj/local/armeabi/libstdc++.a
+		-lwords -lmap -lversion -lsearch -lstorage -lindexer -lyg -lplatform \
+		-lgeometry -lcoding -lbase -lexpat -lfreetype -lfribidi -lzlib -lbzip2 \
+		-ljansson -ltomcrypt -lprotobuf ./obj/local/armeabi/libstdc++.a
 
 LOCAL_LDLIBS += -L../../omim-android-debug/out/debug
 #LOCAL_LDLIBS += -L../../omim-android-release/out/release

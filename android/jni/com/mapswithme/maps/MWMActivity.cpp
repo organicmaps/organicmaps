@@ -15,6 +15,7 @@
 
 #include "Framework.hpp"
 #include "../platform/Platform.hpp"
+#include "../../../nv_event/nv_event.hpp"
 
 JavaVM * g_jvm;
 
@@ -23,6 +24,7 @@ extern "C"
   JNIEXPORT jint JNICALL
   JNI_OnLoad(JavaVM * jvm, void * reserved)
   {
+    InitNVEvent(jvm);
     g_jvm = jvm;
     jni::InitSystemLog();
     jni::InitAssertLog();

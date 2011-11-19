@@ -408,6 +408,7 @@ void Framework::StartDrag(DragEvent const & e)
 
   m_navigator.StartDrag(pt, 0./*m_timer.ElapsedSeconds()*/);
   m_renderPolicy->StartDrag();
+//  LOG(LINFO, ("StartDrag", e.Pos()));
 }
 
 void Framework::DoDrag(DragEvent const & e)
@@ -422,6 +423,7 @@ void Framework::DoDrag(DragEvent const & e)
 
   m_navigator.DoDrag(pt, 0./*m_timer.ElapsedSeconds()*/);
   m_renderPolicy->DoDrag();
+//  LOG(LINFO, ("DoDrag", e.Pos()));
 }
 
 void Framework::StopDrag(DragEvent const & e)
@@ -435,6 +437,8 @@ void Framework::StopDrag(DragEvent const & e)
 #endif
 
   m_renderPolicy->StopDrag();
+
+//  LOG(LINFO, ("StopDrag", e.Pos()));
 }
 
 void Framework::StartRotate(RotateEvent const & e)
@@ -518,6 +522,8 @@ void Framework::StartScale(ScaleEvent const & e)
 
   m_navigator.StartScale(pt1, pt2, 0./*m_timer.ElapsedSeconds()*/);
   m_renderPolicy->StartScale();
+
+//  LOG(LINFO, ("StartScale", e.Pt1(), e.Pt2()));
 }
 
 void Framework::DoScale(ScaleEvent const & e)
@@ -540,6 +546,7 @@ void Framework::DoScale(ScaleEvent const & e)
 
   m_navigator.DoScale(pt1, pt2, 0./*m_timer.ElapsedSeconds()*/);
   m_renderPolicy->DoScale();
+//  LOG(LINFO, ("DoScale", e.Pt1(), e.Pt2()));
 }
 
 void Framework::StopScale(ScaleEvent const & e)
@@ -562,6 +569,7 @@ void Framework::StopScale(ScaleEvent const & e)
 
   m_navigator.StopScale(pt1, pt2, 0./*m_timer.ElapsedSeconds()*/);
   m_renderPolicy->StopScale();
+//  LOG(LINFO, ("StopScale", e.Pt1(), e.Pt2()));
 }
 
 search::Engine * Framework::GetSearchEngine()
@@ -593,25 +601,33 @@ void Framework::Search(string const & text, SearchCallbackT callback)
 
 void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 {
-  bool isVisualLogEnabled = false;
-  Settings::Get("VisualLog", isVisualLogEnabled);
-  m_informationDisplay.enableLog(isVisualLogEnabled, renderPolicy->GetWindowHandle().get());
-  m_informationDisplay.setVisualScale(GetPlatform().VisualScale());
+  if (renderPolicy)
+  {
+    bool isVisualLogEnabled = false;
+    Settings::Get("VisualLog", isVisualLogEnabled);
+    m_informationDisplay.enableLog(isVisualLogEnabled, renderPolicy->GetWindowHandle().get());
+    m_informationDisplay.setVisualScale(GetPlatform().VisualScale());
+  }
 
   yg::gl::RenderContext::initParams();
+
+  m_renderPolicy.reset();
   m_renderPolicy.reset(renderPolicy);
 
-  m_renderPolicy->SetRenderFn(DrawModelFn());
-
-  m_navigator.SetSupportRotation(m_renderPolicy->DoSupportRotation());
-
-  if ((m_width != 0) && (m_height != 0))
-    OnSize(m_width, m_height);
-
-  if (m_hasPendingInvalidate)
+  if (m_renderPolicy.get())
   {
-    m_renderPolicy->GetWindowHandle()->invalidate();
-    m_hasPendingInvalidate = false;
+    m_renderPolicy->SetRenderFn(DrawModelFn());
+
+    m_navigator.SetSupportRotation(m_renderPolicy->DoSupportRotation());
+
+    if ((m_width != 0) && (m_height != 0))
+      OnSize(m_width, m_height);
+
+    if (m_hasPendingInvalidate)
+    {
+      m_renderPolicy->GetWindowHandle()->invalidate();
+      m_hasPendingInvalidate = false;
+    }
   }
 }
 

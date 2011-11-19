@@ -12,16 +12,13 @@
 #include "../../../../../map/drawer_yg.hpp"
 #include "../../../../../map/window_handle.hpp"
 #include "../../../../../map/feature_vec_model.hpp"
+#include "../../../nv_event/nv_event.hpp"
 
 namespace android
 {
   class Framework
   {
   private:
-
-    JavaVM * m_jvm;
-    jobject m_mainGLView;
-
     ::Framework m_work;
 
     VideoTimer * m_videoTimer;
@@ -32,6 +29,17 @@ namespace android
 
     void CreateResourceManager();
 
+    NVMultiTouchEventType m_eventType; //< multitouch action
+
+    double m_x1;
+    double m_y1;
+    double m_x2;
+    double m_y2;
+
+    bool m_hasFirst;
+    bool m_hasSecond;
+    int m_mask;
+
   public:
 
     Framework(JavaVM * jvm);
@@ -39,9 +47,8 @@ namespace android
 
     storage::Storage & Storage();
 
-    void SetParentView(jobject view);
-
     void InitRenderPolicy();
+    void DeleteRenderPolicy();
 
     void Resize(int w, int h);
 
@@ -49,12 +56,11 @@ namespace android
 
     void Move(int mode, double x, double y);
     void Zoom(int mode, double x1, double y1, double x2, double y2);
+    void Touch(int action, int mask, double x1, double y1, double x2, double y2);
 
     void EnableLocation(bool enable);
     void UpdateLocation(uint64_t timestamp, double lat, double lon, float accuracy);
     void UpdateCompass(uint64_t timestamp, double magneticNorth, double trueNorth, float accuracy);
-
-    JavaVM * javaVM() const;
   };
 }
 

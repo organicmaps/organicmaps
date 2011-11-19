@@ -33,15 +33,15 @@ namespace android
 {
   void Framework::CallRepaint()
   {
-    // Always get current env pointer, it's different for each thread
-    JNIEnv * env;
-    m_jvm->AttachCurrentThread(&env, NULL);
-    env->CallVoidMethod(m_mainGLView, jni::GetJavaMethodID(env, m_mainGLView, "requestRender", "()V"));
+    //LOG(LINFO, ("Calling Repaint"));
   }
 
   Framework::Framework(JavaVM * jvm)
-  : m_jvm(jvm),
-    m_work()
+   : m_work(),
+     m_eventType(NVMultiTouchEventType(0)),
+     m_hasFirst(false),
+     m_hasSecond(false),
+     m_mask(0)
   {
     ASSERT(g_framework == 0, ());
     g_framework = this;
@@ -55,11 +55,6 @@ namespace android
   Framework::~Framework()
   {
     delete m_videoTimer;
-  }
-
-  void Framework::SetParentView(jobject view)
-  {
-    m_mainGLView = view;
   }
 
   namespace
@@ -83,11 +78,15 @@ namespace android
     };
   }
 
+  void Framework::DeleteRenderPolicy()
+  {
+    drule::rules().ForEachRule(make_all_invalid(GetPlatform().CpuCores() + 1));
+    m_work.SetRenderPolicy(0);
+  }
+
   void Framework::InitRenderPolicy()
   {
     LOG(LDEBUG, ("AF::InitRenderer 1"));
-
-    drule::rules().ForEachRule(make_all_invalid(GetPlatform().CpuCores() + 1));
 
     DrawerYG::Params params;
     params.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
@@ -99,6 +98,8 @@ namespace android
     m_work.SetRenderPolicy(new PartialRenderPolicy(m_videoTimer, params, rmParams, make_shared_ptr(new android::RenderContext())));
 
     m_work.SetUpdatesEnabled(true);
+
+    DrawFrame();
 
     LOG(LDEBUG, ("AF::InitRenderer 2"));
 
@@ -154,6 +155,107 @@ namespace android
     }
   }
 
+  void Framework::Touch(int action, int mask, double x1, double y1, double x2, double y2)
+  {
+    NVMultiTouchEventType eventType = (NVMultiTouchEventType)action;
+
+    if (m_mask != mask)
+    {
+      if (m_mask == 0x0)
+      {
+        if (mask == 0x1)
+          m_work.StartDrag(DragEvent(x1, y1));
+
+        if (mask == 0x2)
+          m_work.StartDrag(DragEvent(x2, y2));
+
+        if (mask == 0x3)
+          m_work.StartScale(ScaleEvent(x1, y1, x2, y2));
+      }
+
+      if (m_mask == 0x1)
+      {
+        m_work.StopDrag(DragEvent(x1, y1));
+
+        if (mask == 0x0)
+        {
+          if ((eventType != NV_MULTITOUCH_UP) && (eventType != NV_MULTITOUCH_CANCEL))
+            LOG(LINFO, ("should be NV_MULTITOUCH_UP or NV_MULTITOUCH_CANCEL"));
+        }
+
+        if (m_mask == 0x2)
+          m_work.StartDrag(DragEvent(x2, y2));
+
+        if (mask == 0x3)
+          m_work.StartScale(ScaleEvent(x1, y1, x2, y2));
+      }
+
+      if (m_mask == 0x2)
+      {
+        m_work.StopDrag(DragEvent(x2, y2));
+
+        if (mask == 0x0)
+        {
+          if ((eventType != NV_MULTITOUCH_UP) && (eventType != NV_MULTITOUCH_CANCEL))
+            LOG(LINFO, ("should be NV_MULTITOUCH_UP or NV_MULTITOUCH_CANCEL"));
+        }
+
+        if (mask == 0x1)
+          m_work.StartDrag(DragEvent(x1, y1));
+
+        if (mask == 0x3)
+          m_work.StartScale(ScaleEvent(x1, y1, x2, y2));
+      }
+
+      if (m_mask == 0x3)
+      {
+        m_work.StopScale(ScaleEvent(m_x1, m_y1, m_x2, m_y2));
+
+        if ((eventType == NV_MULTITOUCH_MOVE))
+        {
+          if (mask == 0x1)
+            m_work.StartDrag(DragEvent(x1, y1));
+
+          if (mask == 0x2)
+            m_work.StartDrag(DragEvent(x2, y2));
+        }
+        else
+          mask = 0;
+      }
+    }
+    else
+    {
+      if (eventType == NV_MULTITOUCH_MOVE)
+      {
+        if (m_mask == 0x1)
+          m_work.DoDrag(DragEvent(x1, y1));
+        if (m_mask == 0x2)
+          m_work.DoDrag(DragEvent(x2, y2));
+        if (m_mask == 0x3)
+          m_work.DoScale(ScaleEvent(x1, y1, x2, y2));
+      }
+
+      if ((eventType == NV_MULTITOUCH_CANCEL) || (eventType == NV_MULTITOUCH_UP))
+      {
+        if (m_mask == 0x1)
+          m_work.StopDrag(DragEvent(x1, y1));
+        if (m_mask == 0x2)
+          m_work.StopDrag(DragEvent(x2, y2));
+        if (m_mask == 0x3)
+          m_work.StopScale(ScaleEvent(m_x1, m_y1, m_x2, m_y2));
+        mask = 0;
+      }
+    }
+
+    m_x1 = x1;
+    m_y1 = y1;
+    m_x2 = x2;
+    m_y2 = y2;
+    m_mask = mask;
+    m_eventType = eventType;
+
+  }
+
   void f()
   {
     // empty location stub
@@ -189,10 +291,5 @@ namespace android
     info.m_trueHeading = trueNorth;
     info.m_accuracy = accuracy;
     m_work.OnCompassUpdate(info);
-  }
-
-  JavaVM * Framework::javaVM() const
-  {
-    return m_jvm;
   }
 }
