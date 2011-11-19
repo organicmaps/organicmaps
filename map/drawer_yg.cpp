@@ -226,7 +226,7 @@ bool DrawerYG::filter_text_size(rule_ptr_t pRule) const
 
 yg::FontDesc DrawerYG::get_text_font(rule_ptr_t pRule) const
 {
-  int const c = pRule->GetFillColor();
+  int c = pRule->GetFillColor();
   unsigned char const a = pRule->GetAlpha();
   yg::Color color = (c == -1 ? yg::Color(0, 0, 0, 0) : yg::Color::fromXRGB(c, a));
 
@@ -234,9 +234,14 @@ yg::FontDesc DrawerYG::get_text_font(rule_ptr_t pRule) const
   if (color == yg::Color(255, 255, 255, 255))
     color = yg::Color(0, 0, 0, 0);
 
+  c = pRule->GetColor();
+
+  bool hasStroke = (c != -1);
+  yg::Color strokeColor = (hasStroke ? yg::Color::fromXRGB(c, a) : yg::Color(255, 255, 255, 255));
+
   /// @todo We always draw white text stroke-outline now.
   /// You can get stroke color from pRule->GetColor() when they will be nice.
-  return yg::FontDesc(get_text_font_size(pRule), color, true, yg::Color(255, 255, 255, 255));
+  return yg::FontDesc(get_text_font_size(pRule), color, hasStroke, strokeColor);
 }
 
 void DrawerYG::drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_ptr_t pRule, yg::EPosition pos, int depth)
