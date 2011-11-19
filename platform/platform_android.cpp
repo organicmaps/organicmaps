@@ -94,12 +94,12 @@ string Platform::DeviceName() const
 
 double Platform::VisualScale() const
 {
-  return 1.3;
+  return 2;
 }
 
 string Platform::SkinName() const
 {
-  return "basic.skn";
+  return "basic_highres.skn";
 }
 
 void Platform::GetFontNames(FilesList & res) const
