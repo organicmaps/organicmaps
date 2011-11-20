@@ -11,7 +11,8 @@ typedef uint32_t TrieChar;
 
 // 95 is a good value for the default baseChar, since both small and capital latin letters
 // are less than +/- 32 from it and thus can fit into supershort edge.
-static uint32_t const DEFAULT_CHAR = 95;
+// However 0 is used because the first byte is actually language id.
+static uint32_t const DEFAULT_CHAR = 0;
 
 template <typename ValueT, typename EdgeValueT>
 class Iterator
