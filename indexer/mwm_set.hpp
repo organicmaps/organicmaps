@@ -10,8 +10,9 @@
 
 
 // Information about stored mwm.
-struct MwmInfo
+class MwmInfo
 {
+public:
   m2::RectD m_limitRect;    // Limit rect of mwm.
   uint8_t m_minScale;       // Min zoom level of mwm.
   uint8_t m_maxScale;       // Max zoom level of mwm.
