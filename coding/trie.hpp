@@ -20,7 +20,8 @@ class Iterator
 public:
   struct Edge
   {
-    buffer_vector<TrieChar, 8> m_str;
+    typedef buffer_vector<TrieChar, 8> EdgeStrT;
+    EdgeStrT m_str;
     EdgeValueT m_value;
   };
 
