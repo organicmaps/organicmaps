@@ -81,7 +81,7 @@ void Framework::OnCompassUpdate(location::CompassInfo const & info)
 
 Framework::Framework()
   : m_hasPendingInvalidate(false),
-    m_metresMinWidth(20),
+    m_metresMinWidth(10),
     m_metresMaxWidth(1000000),
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_WINDOWS) || defined(OMIM_OS_LINUX)
     m_minRulerWidth(97),
