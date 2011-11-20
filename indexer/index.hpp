@@ -21,7 +21,7 @@ public:
   FilesContainerR m_cont;
   IndexFactory m_factory;
 
-  MwmValue(string const & name);
+  explicit MwmValue(string const & name);
 
   inline feature::DataHeader const & GetHeader() const
   {
