@@ -99,7 +99,7 @@ double Platform::VisualScale() const
 
 string Platform::SkinName() const
 {
-  return "basic_hdpi.skn";
+  return "basic_mdpi.skn";
 }
 
 void Platform::GetFontNames(FilesList & res) const
