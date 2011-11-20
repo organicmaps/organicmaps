@@ -24,7 +24,7 @@
 		49B3FB8E132FA43E00057053 /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B3FB8C132FA43E00057053 /* location@2x.png */; };
 		49DE1CA413437D7A00A93417 /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DE1CA213437D7A00A93417 /* libbzip2.a */; };
 		EE026F0611D6AC0D00645242 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
-		EE026F0D11D6AC2800645242 /* basic.skn in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0811D6AC2800645242 /* basic.skn */; };
+		EE026F0D11D6AC2800645242 /* basic_ldpi.skn in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0811D6AC2800645242 /* basic_ldpi.skn */; };
 		EE026F0E11D6AC2800645242 /* drawing_rules.bin in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0911D6AC2800645242 /* drawing_rules.bin */; };
 		EE12020911CD464100ABDD5D /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1201FF11CD464100ABDD5D /* libbase.a */; };
 		EE12020A11CD464100ABDD5D /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020011CD464100ABDD5D /* libcoding.a */; };
@@ -46,9 +46,9 @@
 		EEAF65E6134BCBD500A81C82 /* location-search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EEAF65E4134BCBD500A81C82 /* location-search@2x.png */; };
 		EEB7E22211E9079400080A68 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB7E22111E9079400080A68 /* CoreLocation.framework */; };
 		EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EED10A4411F78D120095FAD4 /* MapViewController.mm */; };
-		EEE4C93E1298A2F3007231A9 /* symbols_24.png in Resources */ = {isa = PBXBuildFile; fileRef = EEE4C93D1298A2F3007231A9 /* symbols_24.png */; };
-		EEE4C9401298A303007231A9 /* symbols_48.png in Resources */ = {isa = PBXBuildFile; fileRef = EEE4C93F1298A303007231A9 /* symbols_48.png */; };
-		EEE4C9421298A31B007231A9 /* basic_highres.skn in Resources */ = {isa = PBXBuildFile; fileRef = EEE4C9411298A31B007231A9 /* basic_highres.skn */; };
+		EEE4C93E1298A2F3007231A9 /* symbols_ldpi.png in Resources */ = {isa = PBXBuildFile; fileRef = EEE4C93D1298A2F3007231A9 /* symbols_ldpi.png */; };
+		EEE4C9401298A303007231A9 /* symbols_hdpi.png in Resources */ = {isa = PBXBuildFile; fileRef = EEE4C93F1298A303007231A9 /* symbols_hdpi.png */; };
+		EEE4C9421298A31B007231A9 /* basic_hdpi.skn in Resources */ = {isa = PBXBuildFile; fileRef = EEE4C9411298A31B007231A9 /* basic_hdpi.skn */; };
 		EEF5745512DE1AD50082F472 /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF5745412DE1AD50082F472 /* libfribidi.a */; };
 		EEFC0BBF12B5656A002914FF /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020311CD464100ABDD5D /* libfreetype.a */; };
 		EEFE7C1412F8C9E1006AF8C3 /* fonts_blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */; };
@@ -629,7 +629,7 @@
 		49DE1CA213437D7A00A93417 /* libbzip2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbzip2.a; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* MapsWithMe-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		EE026F0511D6AC0D00645242 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = classificator.txt; path = ../../data/classificator.txt; sourceTree = SOURCE_ROOT; };
-		EE026F0811D6AC2800645242 /* basic.skn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic.skn; path = ../../data/basic.skn; sourceTree = SOURCE_ROOT; };
+		EE026F0811D6AC2800645242 /* basic_ldpi.skn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic_ldpi.skn; path = ../../data/basic_ldpi.skn; sourceTree = SOURCE_ROOT; };
 		EE026F0911D6AC2800645242 /* drawing_rules.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drawing_rules.bin; path = ../../data/drawing_rules.bin; sourceTree = SOURCE_ROOT; };
 		EE1201FF11CD464100ABDD5D /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbase.a; sourceTree = SOURCE_ROOT; };
 		EE12020011CD464100ABDD5D /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcoding.a; sourceTree = SOURCE_ROOT; };
@@ -654,9 +654,9 @@
 		EEAF65E4134BCBD500A81C82 /* location-search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-search@2x.png"; sourceTree = "<group>"; };
 		EEB7E22111E9079400080A68 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		EED10A4411F78D120095FAD4 /* MapViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MapViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		EEE4C93D1298A2F3007231A9 /* symbols_24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = symbols_24.png; path = ../../data/symbols_24.png; sourceTree = SOURCE_ROOT; };
-		EEE4C93F1298A303007231A9 /* symbols_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = symbols_48.png; path = ../../data/symbols_48.png; sourceTree = SOURCE_ROOT; };
-		EEE4C9411298A31B007231A9 /* basic_highres.skn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic_highres.skn; path = ../../data/basic_highres.skn; sourceTree = SOURCE_ROOT; };
+		EEE4C93D1298A2F3007231A9 /* symbols_ldpi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = symbols_ldpi.png; path = ../../data/symbols_ldpi.png; sourceTree = SOURCE_ROOT; };
+		EEE4C93F1298A303007231A9 /* symbols_hdpi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = symbols_hdpi.png; path = ../../data/symbols_hdpi.png; sourceTree = SOURCE_ROOT; };
+		EEE4C9411298A31B007231A9 /* basic_hdpi.skn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic_hdpi.skn; path = ../../data/basic_hdpi.skn; sourceTree = SOURCE_ROOT; };
 		EEF5745412DE1AD50082F472 /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfribidi.a; sourceTree = SOURCE_ROOT; };
 		EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_blacklist.txt; path = ../../data/fonts_blacklist.txt; sourceTree = "<group>"; };
 		EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_whitelist.txt; path = ../../data/fonts_whitelist.txt; sourceTree = "<group>"; };
@@ -1378,12 +1378,12 @@
 				EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */,
 				EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */,
 				FA46DA2B12D4166E00968C36 /* countries.txt */,
-				EEE4C9411298A31B007231A9 /* basic_highres.skn */,
+				EEE4C9411298A31B007231A9 /* basic_hdpi.skn */,
 				FA85F632145DDDC20090E1A0 /* packed_polygons.bin */,
-				EEE4C93F1298A303007231A9 /* symbols_48.png */,
-				EEE4C93D1298A2F3007231A9 /* symbols_24.png */,
+				EEE4C93F1298A303007231A9 /* symbols_hdpi.png */,
+				EEE4C93D1298A2F3007231A9 /* symbols_ldpi.png */,
 				FA500587128907F0002961F0 /* visibility.txt */,
-				EE026F0811D6AC2800645242 /* basic.skn */,
+				EE026F0811D6AC2800645242 /* basic_ldpi.skn */,
 				EE026F0911D6AC2800645242 /* drawing_rules.bin */,
 				EE026F0511D6AC0D00645242 /* classificator.txt */,
 			);
@@ -2031,7 +2031,7 @@
 			files = (
 				28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */,
 				EE026F0611D6AC0D00645242 /* classificator.txt in Resources */,
-				EE026F0D11D6AC2800645242 /* basic.skn in Resources */,
+				EE026F0D11D6AC2800645242 /* basic_ldpi.skn in Resources */,
 				EE026F0E11D6AC2800645242 /* drawing_rules.bin in Resources */,
 				FA065FED128614C400FEA989 /* MainWindow-iPad.xib in Resources */,
 				FA065FFF1286167A00FEA989 /* Default@2x.png in Resources */,
@@ -2045,9 +2045,9 @@
 				FA5005661287BFCE002961F0 /* Icon.png in Resources */,
 				FA5005671287BFCE002961F0 /* Icon@2x.png in Resources */,
 				FA500588128907F0002961F0 /* visibility.txt in Resources */,
-				EEE4C93E1298A2F3007231A9 /* symbols_24.png in Resources */,
-				EEE4C9401298A303007231A9 /* symbols_48.png in Resources */,
-				EEE4C9421298A31B007231A9 /* basic_highres.skn in Resources */,
+				EEE4C93E1298A2F3007231A9 /* symbols_ldpi.png in Resources */,
+				EEE4C9401298A303007231A9 /* symbols_hdpi.png in Resources */,
+				EEE4C9421298A31B007231A9 /* basic_hdpi.skn in Resources */,
 				FA46DA2C12D4166E00968C36 /* countries.txt in Resources */,
 				EE583CBB12F773F00042CBE3 /* unicode_blocks.txt in Resources */,
 				EEFE7C1412F8C9E1006AF8C3 /* fonts_blacklist.txt in Resources */,
