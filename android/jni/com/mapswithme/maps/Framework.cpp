@@ -129,6 +129,8 @@ namespace android
       m_work.BeginPaint(paintEvent);
       m_work.DoPaint(paintEvent);
 
+      NVEventSwapBuffersEGL();
+
       m_work.EndPaint(paintEvent);
     }
   }

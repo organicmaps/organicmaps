@@ -130,7 +130,7 @@ bool renderFrame(bool allocateIfNeeded)
 //    if (s_glesAutopaused)
 //        renderPauseScreen();
 
-    NVEventSwapBuffersEGL();
+//    NVEventSwapBuffersEGL();
 
     // A debug printout every 256 frames so we can see when we're
     // actively rendering and swapping
