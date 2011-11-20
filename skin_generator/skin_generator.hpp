@@ -94,7 +94,10 @@ namespace tools
 
       SkinGenerator();
       void processFont(string const & fileName, string const & skinName, vector<int8_t> const & fontSizes, int symbolScale);
-      void processSymbols(string const & symbolsDir, string const & skinName, std::vector<QSize> const & symbolSizes, std::vector<double> const & symbolScales);
+      void processSymbols(string const & symbolsDir,
+                          string const & skinName,
+                          vector<QSize> const & symbolSizes,
+                          vector<string> const & suffix);
       void renderPages();
       bool writeToFile(string const & skinName);
     };

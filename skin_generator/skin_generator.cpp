@@ -205,7 +205,10 @@ namespace tools
     }
   };
 
-  void SkinGenerator::processSymbols(string const & svgDataDir, string const & skinName, std::vector<QSize> const & symbolSizes, std::vector<double> const & symbolScales)
+  void SkinGenerator::processSymbols(string const & svgDataDir,
+                                     string const & skinName,
+                                     vector<QSize> const & symbolSizes,
+                                     vector<string> const & suffixes)
   {
     for (int i = 0; i < symbolSizes.size(); ++i)
     {
@@ -216,10 +219,9 @@ namespace tools
       m_pages.push_back(SkinPageInfo());
       SkinPageInfo & page = m_pages.back();
 
-      double symbolScale = symbolScales[i];
       QSize symbolSize = symbolSizes[i];
 
-      page.m_fileName = skinName.substr(0, skinName.find_last_of("/") + 1) + "symbols_" + QString("%1").arg(symbolSize.width()).toLocal8Bit().constData();
+      page.m_fileName = skinName.substr(0, skinName.find_last_of("/") + 1) + "symbols_" + suffixes[i];
 
       for (int i = 0; i < fileNames.size(); ++i)
       {
@@ -232,7 +234,9 @@ namespace tools
             QRect viewBox = m_svgRenderer.viewBox();
             QSize defaultSize = m_svgRenderer.defaultSize();
 
-            QSize size = defaultSize * symbolScale;
+            QSize size = defaultSize * (symbolSize.width() / 24.0);
+
+            /// fitting symbol into symbolSize, saving aspect ratio
 
             if (size.width() > symbolSize.width())
             {
@@ -509,6 +513,8 @@ namespace tools
       throw std::exception();
 
     QFile file(QString((skinName + ".skn").c_str()));
+
+    LOG(LINFO, ("writing skin into ", skinName + ".skn"));
 
     if (!file.open(QIODevice::ReadWrite))
       throw std::exception();

@@ -6,9 +6,14 @@ DATA_PATH="$MY_PATH/../../data"
 
 "$BINARY_PATH" --symbolWidth 24 --symbolHeight 24 \
     --symbolsDir "$DATA_PATH/styles/symbols" \
-    --symbolScale 1 --skinName "$DATA_PATH/basic"
+    --skinName "$DATA_PATH/basic" --skinSuffix="ldpi"
 
+"$BINARY_PATH" --symbolWidth 36 --symbolHeight 36 \
+    --symbolsDir "$DATA_PATH/styles/symbols" \
+    --skinName "$DATA_PATH/basic" --skinSuffix="mdpi"
 
 "$BINARY_PATH" --symbolWidth 48 --symbolHeight 48 \
     --symbolsDir "$DATA_PATH/styles/symbols" \
-    --symbolScale 2 --skinName "$DATA_PATH/basic_highres"
+    --skinName "$DATA_PATH/basic" --skinSuffix="hdpi"
+
+
