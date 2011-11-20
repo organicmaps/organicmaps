@@ -304,6 +304,9 @@ namespace yg
      case SkinPage::EFontsUsage:
        freeTexCmd->m_texturePool = resourceManager()->fontTextures();
        break;
+     case SkinPage::EStaticUsage:
+       LOG(LWARNING, ("texture with EStaticUsage can't be freed."));
+       return;
      }
 
      if (freeTexCmd->m_texture)
