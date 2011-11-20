@@ -20,6 +20,7 @@ class MwmValue : public MwmSet::MwmValueBase
 public:
   FilesContainerR m_cont;
   IndexFactory m_factory;
+  string m_name;
 
   explicit MwmValue(string const & name);
 

@@ -5,7 +5,7 @@
 
 
 MwmValue::MwmValue(string const & name)
-  : m_cont(GetPlatform().GetReader(name))
+  : m_name(name), m_cont(GetPlatform().GetReader(name))
 {
   m_factory.Load(m_cont);
 }
