@@ -45,7 +45,7 @@ macx* {
     CLASSIFICATOR_RES.files = ../data/classificator.txt ../data/drawing_rules.bin \
                      ../data/visibility.txt ../data/types.txt ../data/drules_proto.txt
     SKIN_RES.path = Contents/Resources
-    SKIN_RES.files = ../data/basic.skn ../data/symbols_24.png
+    SKIN_RES.files = ../data/basic_ldpi.skn ../data/symbols_ldpi.png
     FONT_RES.path = Contents/Resources
     FONT_RES.files = ../data/01_dejavusans.ttf \
                      ../data/02_wqy-microhei.ttf \
