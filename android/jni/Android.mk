@@ -37,7 +37,6 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/DownloadUI.cpp \
 	com/mapswithme/maps/Framework.cpp \
 	com/mapswithme/maps/VideoTimer.cpp \
-	com/mapswithme/maps/GesturesProcessor.cpp \
 	com/mapswithme/maps/MWMActivity.cpp \
 	com/mapswithme/maps/Lifecycle.cpp \
 	com/mapswithme/platform/Platform.cpp \

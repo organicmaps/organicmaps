@@ -54,11 +54,20 @@ RenderQueueRoutine::RenderQueueRoutine(shared_ptr<yg::gl::RenderState> const & r
 void RenderQueueRoutine::Cancel()
 {
   IRoutine::Cancel();
-  /// Waking up the sleeping thread...
-  m_hasRenderCommands.Signal();
-  /// ...Or cancelling the current rendering command in progress.
-  if (m_currentRenderCommand != 0)
-    m_currentRenderCommand->m_paintEvent->Cancel();
+
+  {
+    threads::ConditionGuard guard(m_hasRenderCommands);
+
+    if (m_currentRenderCommand != 0)
+    {
+      LOG(LINFO, ("cancelling current renderCommand in progress"));
+      m_currentRenderCommand->m_paintEvent->Cancel();
+    }
+
+    LOG(LINFO, ("waking up the sleeping thread..."));
+
+    m_hasRenderCommands.Signal();
+  }
 }
 
 void RenderQueueRoutine::onSize(int w, int h)
@@ -254,7 +263,10 @@ void RenderQueueRoutine::Do()
       waitForRenderCommand(m_renderCommands, guard);
 
       if (IsCancelled())
+      {
+        LOG(LINFO, ("thread is cancelled while waiting for a render command"));
         break;
+      }
 
       m_currentRenderCommand = m_renderCommands.front();
       m_renderCommands.erase(m_renderCommands.begin());
@@ -322,12 +334,6 @@ void RenderQueueRoutine::Do()
                 m2::PointD(0, 0) * offsetM,
                 redrawTextRect
                 );
-
-/*          shared_ptr<yg::InfoLayer> infoLayer(new yg::InfoLayer());
-          infoLayer->merge(*m_threadDrawer->screen()->infoLayer().get(),
-                           prevScreen.PtoGMatrix() * m_renderState->m_currentScreen.GtoPMatrix());
-
-          m_threadDrawer->screen()->setInfoLayer(infoLayer);*/
         }
         else
           m_threadDrawer->screen()->infoLayer()->clear();
@@ -340,7 +346,11 @@ void RenderQueueRoutine::Do()
     /// main thread to add new rendering tasks and blit already
     /// rendered model while the current command is actually rendering.
 
-    if (m_currentRenderCommand != 0)
+    if (IsCancelled())
+    {
+      LOG(LINFO, ("cancelled before processing currentRenderCommand"));
+    }
+    else if (m_currentRenderCommand != 0)
     {
       /// this fixes some strange issue with multisampled framebuffer.
       /// setRenderTarget should be made here.
@@ -386,8 +396,14 @@ void RenderQueueRoutine::Do()
               glbRect,
               glbRect,
               scaleLevel);
+
+          if (IsCancelled())
+            break;
         }
       }
+
+      if (IsCancelled())
+        break;
 
       /// if something were actually drawn, or (exclusive or) we are repainting the whole rect
       if ((!m_renderState->m_isEmptyModelCurrent) || (fullRectRepaint))
@@ -420,26 +436,26 @@ void RenderQueueRoutine::Do()
       }
 
       invalidate();
-    }
 
-    /// waiting for all collected commands to complete.
-    if (m_glQueue)
-    {
+      /// waiting for all collected commands to complete.
+      if (m_glQueue)
       {
-        threads::ConditionGuard guard(*m_glCondition);
-        if (!m_glQueue->Empty())
-          guard.Wait();
+        {
+          threads::ConditionGuard guard(*m_glCondition);
+          if (!m_glQueue->Empty())
+          {
+            guard.Wait();
+          }
+        }
+      }
+
+      {
+        threads::MutexGuard guard(*m_renderState->m_mutex.get());
+        /// refreshing shadow parameters from the primary parameters
+        m_renderState->m_shadowActualTarget = m_renderState->m_actualTarget;
+        m_renderState->m_shadowBackBuffer = m_renderState->m_backBuffer;
       }
     }
-
-    {
-      threads::MutexGuard guard(*m_renderState->m_mutex.get());
-      /// refreshing shadow parameters from the primary parameters
-      m_renderState->m_shadowActualTarget = m_renderState->m_actualTarget;
-      m_renderState->m_shadowBackBuffer = m_renderState->m_backBuffer;
-    }
-
-
   }
 
   // By VNG: We can't destroy render context in drawing thread.

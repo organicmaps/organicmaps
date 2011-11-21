@@ -18,6 +18,7 @@
 #include "../../../nv_event/nv_event.hpp"
 #include "../../../nv_thread/nv_thread.hpp"
 #include "../../../../../base/logging.hpp"
+#include "../../../../../yg/internal/opengl.hpp"
 #include "Framework.hpp"
 #include "../platform/Platform.hpp"
 
@@ -31,12 +32,11 @@ static unsigned int s_swapCount = 0;
 
 static bool s_glesLoaded = false;
 static bool s_glesAutopaused = false;
+static bool shouldLoadState = true;
 
 static bool renderGameplay()
 {
   g_framework->DrawFrame();
-  //glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
-  //glClear(GL_COLOR_BUFFER_BIT);
 
   return true; //return true to update screen
 }
@@ -57,7 +57,6 @@ bool SetupGLESResources()
     NVDEBUG(reinterpret_cast<char const *>(glGetString(GL_VERSION)));
    // NVDEBUG(reinterpret_cast<char const *>(glGetString(GL_SHADING_LANGUAGE_VERSION)));
 
-    g_framework->DeleteRenderPolicy();
     g_framework->InitRenderPolicy();
 
     s_glesLoaded = true;
@@ -76,6 +75,15 @@ bool ShutdownGLESResources()
     if (!NVEventStatusEGLIsBound())
     {
         NVDEBUG("ShutdownGLESResources: GLES not bound, shutting down EGL to release");
+
+        yg::gl::g_doDeleteOnDestroy = false;
+
+        g_framework->DeleteRenderPolicy();
+
+        yg::gl::g_doDeleteOnDestroy = true;
+
+        NVDEBUG("Cleaning up EGL");
+
         if (NVEventCleanupEGL())
         {
             s_glesLoaded = false;
@@ -89,7 +97,7 @@ bool ShutdownGLESResources()
 
     NVDEBUG("ShutdownGLESResources event: GLES bound, manually deleting GLES resources");
 
-    g_framework->DeleteRenderPolicy();/// delete RenderPolicy and ResourceManager here
+    g_framework->DeleteRenderPolicy();
 
     s_glesLoaded = false;
 
@@ -244,6 +252,11 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
           s_winHeight = ev->m_data.m_size.m_h;
 
           g_framework->Resize(s_winWidth, s_winHeight);
+	  /*          if (shouldLoadState)
+          {
+            g_framework->LoadState();
+            shouldLoadState = false;
+	    }*/
 
           NVDEBUG( "Surface create/resize event: %d x %d", s_winWidth, s_winHeight);
 
@@ -259,26 +272,59 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
         case NV_EVENT_FOCUS_LOST:
           NVDEBUG("Focus lost event");
 //          s_glesAutopaused = true;
+          /// need to investigate deeper, whether i could call it only once in a sequence of lifecycle events
+/*          if (g_framework)
+          {
+            NVDEBUG("saving state");
+            g_framework->SaveState();
+          }*/
+
           renderFrame(false);
           break;
 
         case NV_EVENT_PAUSE:
           NVDEBUG("Pause event");
+
+/*          /// need to investigate deeper, whether i could call it only once in a sequence of lifecycle events
+          if (g_framework)
+          {
+            NVDEBUG("saving state");
+            g_framework->SaveState();
+          }*/
+
           //s_glesAutopaused = true;
           renderFrame(false);
           break;
 
         case NV_EVENT_STOP:
           NVDEBUG("Stop event");
+
+/*          /// need to investigate deeper, whether i could call it only once in a sequence of lifecycle events
+          if (g_framework)
+          {
+            NVDEBUG("saving state");
+            g_framework->SaveState();
+          }*/
+
           // As per Google's recommendation, we release GLES resources here
           ShutdownGLESResources();
+          break;
+        case NV_EVENT_QUIT:
+          NVDEBUG("Quit event");
+
+/*          /// need to investigate deeper, whether i could call it only once in a sequence of lifecycle events
+          if (g_framework)
+          {
+            NVDEBUG("saving state");
+            g_framework->SaveState();
+          }*/
+
           break;
         case NV_EVENT_ACCEL:
         case NV_EVENT_START:
         case NV_EVENT_RESTART:
         case NV_EVENT_RESUME:
         case NV_EVENT_FOCUS_GAINED:
-        case NV_EVENT_QUIT:
           NVDEBUG("%s event: no specific app action", NVEventGetEventStr(ev->m_type));
           break;
 

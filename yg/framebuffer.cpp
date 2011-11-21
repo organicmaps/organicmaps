@@ -41,7 +41,7 @@ namespace yg
 
     FrameBuffer::~FrameBuffer()
     {
-      if (m_id != 0)
+      if ((m_id != 0) && g_doDeleteOnDestroy)
       {
 #ifdef OMIM_GL_ES
         OGLCHECK(glDeleteFramebuffersOES(1, &m_id));

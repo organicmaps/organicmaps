@@ -364,7 +364,7 @@ The application should always pair calls to this function that return non-NULL e
 to NVEventDoneWithEvent()
 @param waitMSecs The maximum time (in milisecs) to wait for an event before returning "no event".  
 	Pass NV_EVENT_WAIT_FOREVER to wait indefinitely for an event.  Note that NV_EVENT_WAIT_FOREVER
-	does not gaurantee an event on return.  The function can still return on error or if the
+	does not guarantee an event on return.  The function can still return on error or if the
 	app is exiting. Default is to return immediately, event or not. 
 @return Non-NULL pointer to a constant event structure if an event was pending, NULL if no event was
 	pending in the requested timeout period
@@ -413,8 +413,8 @@ This function will be spawned in its own thread.
 extern int32_t NVEventAppMain(int32_t argc, char** argv);
 
 
-/** Initializes EGL, queries a valid ES2 config and creates (but does not bind) 
- an ES2-compatible EGLContext
+/** Initializes EGL, queries a valid ES1 config and creates (but does not bind)
+ an ES1-compatible EGLContext
 @return true on success, false on failure
 */
 bool NVEventInitEGL();

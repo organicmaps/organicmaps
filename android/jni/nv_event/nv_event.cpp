@@ -874,20 +874,6 @@ void InitNVEvent(JavaVM* vm)
       "(FFF)Z",
       (void *) NVEventAccelerometerEvent
     },
-
-    // TODO TBD - this should be done in NVTimeInit(), but we use a different
-    // class than most apps.  Need to clean this up, as it is fragile w.r.t.
-    // changes in nv_time
-    {
-      "nvAcquireTimeExtension",
-      "()V",
-      (void *) nvAcquireTimeExtensionJNI
-    },
-    {
-      "nvGetSystemTime",
-      "()J",
-      (void *) nvGetSystemTimeJNI
-    },
   };
 
   jclass k;

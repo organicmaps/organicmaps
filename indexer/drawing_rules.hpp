@@ -59,6 +59,12 @@ namespace drule
       m_id1[threadID] = empty_id;
     }
 
+    void MakeEmptyID()
+    {
+      for (size_t i = 0; i < m_id1.size(); ++i)
+        MakeEmptyID(i);
+    }
+
     uint32_t GetID2(size_t threadID) const
     {
       CheckSize(m_id2, threadID + 1);
@@ -75,6 +81,12 @@ namespace drule
     {
       CheckSize(m_id2, threadID + 1);
       m_id2[threadID] = empty_id;
+    }
+
+    void MakeEmptyID2()
+    {
+      for (size_t i = 0; i < m_id2.size(); ++i)
+        MakeEmptyID2(i);
     }
     //@}
 

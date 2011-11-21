@@ -75,7 +75,7 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
                                                                  "fonts_blacklist.txt",
                                                                  2 * 1024 * 1024,
                                                                  1,
-                                                                 GetPlatform().CpuCores());
+                                                                 0);
 
 
   rmp.m_useSingleThreadedOGL = false;

@@ -63,7 +63,7 @@ namespace yg
 
     RenderBuffer::~RenderBuffer()
     {
-      if (m_hasID)
+      if ((m_hasID) && (g_doDeleteOnDestroy))
       {
 #ifdef OMIM_GL_ES
         OGLCHECK(glDeleteRenderbuffersOES(1, &m_id));

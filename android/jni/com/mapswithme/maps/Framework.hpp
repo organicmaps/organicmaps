@@ -58,6 +58,9 @@ namespace android
     void Zoom(int mode, double x1, double y1, double x2, double y2);
     void Touch(int action, int mask, double x1, double y1, double x2, double y2);
 
+    void LoadState();
+    void SaveState();
+
     void EnableLocation(bool enable);
     void UpdateLocation(uint64_t timestamp, double lat, double lon, float accuracy);
     void UpdateCompass(uint64_t timestamp, double magneticNorth, double trueNorth, float accuracy);

@@ -36,6 +36,8 @@ public:
                       yg::ResourceManager::Params const & rmParams,
                       shared_ptr<yg::gl::RenderContext> const & primaryRC);
 
+  ~PartialRenderPolicy();
+
   void BeginFrame(shared_ptr<PaintEvent> const & paintEvent,
                   ScreenBase const & screenBase);
 

@@ -16,6 +16,8 @@ namespace yg
     bool g_isRenderbufferSupported = true;
     bool g_isMultisamplingSupported = true;
 
+    bool g_doDeleteOnDestroy = true;
+
     bool CheckExtensionSupport()
     {
       /// this functionality must be supported

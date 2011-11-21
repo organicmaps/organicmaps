@@ -44,7 +44,7 @@ namespace yg
 
     BaseTexture::~BaseTexture()
     {
-      if (m_hasID)
+      if ((m_hasID) && (g_doDeleteOnDestroy))
         OGLCHECK(glDeleteTextures(1, &m_id));
     }
 

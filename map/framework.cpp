@@ -607,9 +607,9 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
     Settings::Get("VisualLog", isVisualLogEnabled);
     m_informationDisplay.enableLog(isVisualLogEnabled, renderPolicy->GetWindowHandle().get());
     m_informationDisplay.setVisualScale(GetPlatform().VisualScale());
-  }
 
-  yg::gl::RenderContext::initParams();
+    yg::gl::RenderContext::initParams();
+  }
 
   m_renderPolicy.reset();
   m_renderPolicy.reset(renderPolicy);

@@ -62,7 +62,8 @@ namespace yg
       if (m_useVA)
         delete [] (unsigned char*)m_gpuData;
       else
-        OGLCHECK(glDeleteBuffers(1, &m_id));
+        if (g_doDeleteOnDestroy)
+          OGLCHECK(glDeleteBuffers(1, &m_id));
     }
 
     void * VertexBuffer::data()

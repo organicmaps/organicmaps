@@ -139,8 +139,35 @@ void PartialRenderPolicy::SetRenderFn(TRenderFn renderFn)
   m_renderQueue->initializeGL(m_primaryRC, m_resourceManager);
 }
 
+PartialRenderPolicy::~PartialRenderPolicy()
+{
+  LOG(LINFO, ("destroying PartialRenderPolicy"));
+
+  {
+    threads::ConditionGuard guard(m_glCondition);
+    /// unlocking waiting renderThread
+    if (!m_glQueue.Empty())
+    {
+      LOG(LINFO, ("clearing glQueue"));
+      m_glQueue.Clear();
+      guard.Signal();
+    }
+  }
+
+  LOG(LINFO, ("shutting down renderQueue"));
+
+  m_renderQueue.reset();
+
+  m_state.reset();
+  m_curState.reset();
+
+  LOG(LINFO, ("PartialRenderPolicy destroyed"));
+}
+
 void PartialRenderPolicy::ProcessRenderQueue(list<yg::gl::Renderer::Packet> & renderQueue)
 {
+  threads::ConditionGuard g(m_glCondition);
+
   if (renderQueue.empty())
   {
     m_hasPacket = false;

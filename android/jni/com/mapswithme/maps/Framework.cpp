@@ -61,27 +61,23 @@ namespace android
   {
     struct make_all_invalid
     {
-      size_t m_threadCount;
-
-      make_all_invalid(size_t threadCount)
-        : m_threadCount(threadCount)
+      make_all_invalid()
       {}
 
       void operator() (int, int, int, drule::BaseRule * p)
       {
-        for (size_t threadID = 0; threadID < m_threadCount; ++threadID)
-        {
-          p->MakeEmptyID(threadID);
-          p->MakeEmptyID2(threadID);
-        }
+        p->MakeEmptyID();
+        p->MakeEmptyID2();
       }
     };
   }
 
   void Framework::DeleteRenderPolicy()
   {
-    drule::rules().ForEachRule(make_all_invalid(GetPlatform().CpuCores() + 1));
+    LOG(LINFO, ("clearing current render policy."));
     m_work.SetRenderPolicy(0);
+    LOG(LINFO, ("cleaning all cached ruleID values."));
+    drule::rules().ForEachRule(make_all_invalid());
   }
 
   void Framework::InitRenderPolicy()
@@ -95,15 +91,12 @@ namespace android
     rmParams.m_videoMemoryLimit = 15 * 1024 * 1024;
     rmParams.m_rtFormat = yg::Rt8Bpp;
 
-    m_work.SetRenderPolicy(new PartialRenderPolicy(m_videoTimer, params, rmParams, make_shared_ptr(new android::RenderContext())));
+    m_work.SetRenderPolicy(new PartialRenderPolicy(m_videoTimer,
+                                                   params,
+                                                   rmParams,
+                                                   make_shared_ptr(new android::RenderContext())));
 
     m_work.SetUpdatesEnabled(true);
-
-    DrawFrame();
-
-    LOG(LDEBUG, ("AF::InitRenderer 2"));
-
-    m_work.ShowAll();
 
     LOG(LDEBUG, ("AF::InitRenderer 3"));
   }
@@ -293,5 +286,23 @@ namespace android
     info.m_trueHeading = trueNorth;
     info.m_accuracy = accuracy;
     m_work.OnCompassUpdate(info);
+  }
+
+  void Framework::LoadState()
+  {
+    if (!m_work.LoadState())
+    {
+      LOG(LINFO, ("no saved state, showing all world"));
+      m_work.ShowAll();
+    }
+    else
+    {
+      LOG(LINFO, ("state loaded successfully"));
+    }
+  }
+
+  void Framework::SaveState()
+  {
+    m_work.SaveState();
   }
 }

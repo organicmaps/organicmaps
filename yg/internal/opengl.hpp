@@ -46,6 +46,13 @@ namespace yg
     extern bool g_isRenderbufferSupported;
     extern bool g_isMultisamplingSupported;
 
+    /// This flag controls, whether OpenGL resources should delete themselves upon destruction.
+    /// Sounds odd, but in EGL there are cases when the only function one should call to finish
+    /// its work with resources is eglTerminate, which by itself internally deletes all OpenGL resources.
+    /// In this case we should set this variable to true to correctly deletes all our classes.
+
+    extern bool g_doDeleteOnDestroy;
+
     /// return false to terminate program
     bool CheckExtensionSupport();
 
@@ -63,3 +70,4 @@ namespace yg
 #define OGLCHECKAFTER
 #define EGLCHECK
 #endif
+
