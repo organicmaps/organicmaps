@@ -162,6 +162,7 @@ namespace drule
     void Read(ReaderPtrStream & s);
     void Write(FileWriterStream & s);
     void LoadFromProto(string const & buffer);
+    void ClearCaches();
 
     template <class ToDo> void ForEachRule(ToDo toDo)
     {

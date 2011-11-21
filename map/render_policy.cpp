@@ -2,6 +2,8 @@
 
 #include "render_policy.hpp"
 
+#include "../indexer/drawing_rules.hpp"
+
 #include "../map/render_policy_st.hpp"
 #include "../map/render_policy_mt.hpp"
 #include "../map/tiling_render_policy_st.hpp"
@@ -14,7 +16,10 @@
 #include "../platform/settings.hpp"
 
 RenderPolicy::~RenderPolicy()
-{}
+{
+  LOG(LINFO, ("clearing cached drawing rules"));
+  drule::rules().ClearCaches();
+}
 
 RenderPolicy::RenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC, bool doSupportRotation)
   : m_bgColor(0xEE, 0xEE, 0xDD, 0xFF),

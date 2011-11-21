@@ -1550,4 +1550,10 @@ void RulesHolder::LoadFromProto(string const & buffer)
   classif().GetMutableRoot()->ForEachObject(bind<void>(ref(doSet), _1));
 }
 
+void RulesHolder::ClearCaches()
+{
+  ForEachRule(bind(&BaseRule::MakeEmptyID, _4));
+  ForEachRule(bind(&BaseRule::MakeEmptyID2, _4));
+}
+
 }

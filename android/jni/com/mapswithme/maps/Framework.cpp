@@ -57,27 +57,10 @@ namespace android
     delete m_videoTimer;
   }
 
-  namespace
-  {
-    struct make_all_invalid
-    {
-      make_all_invalid()
-      {}
-
-      void operator() (int, int, int, drule::BaseRule * p)
-      {
-        p->MakeEmptyID();
-        p->MakeEmptyID2();
-      }
-    };
-  }
-
   void Framework::DeleteRenderPolicy()
   {
     LOG(LINFO, ("clearing current render policy."));
     m_work.SetRenderPolicy(0);
-    LOG(LINFO, ("cleaning all cached ruleID values."));
-    drule::rules().ForEachRule(make_all_invalid());
   }
 
   void Framework::InitRenderPolicy()
