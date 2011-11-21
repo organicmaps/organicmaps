@@ -133,15 +133,15 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     // remove completed chunk from the list, beg is the key
     RemoveHttpThreadByKey(begRange);
 
-    ChunksDownloadStrategy::ResultT const result = StartThreads();
     // report progress
-    if (result == ChunksDownloadStrategy::EDownloadSucceeded
-        || result == ChunksDownloadStrategy::ENoFreeServers)
+    if (isChunkOk)
     {
       m_progress.first += (endRange - begRange);
       if (m_onProgress)
         m_onProgress(*this);
     }
+
+    ChunksDownloadStrategy::ResultT const result = StartThreads();
 
     if (result == ChunksDownloadStrategy::EDownloadFailed)
       m_status = EFailed;
