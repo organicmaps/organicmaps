@@ -81,6 +81,7 @@ void Framework::OnCompassUpdate(location::CompassInfo const & info)
 
 Framework::Framework()
   : m_hasPendingInvalidate(false),
+    m_doForceUpdate(false),
     m_metresMinWidth(10),
     m_metresMaxWidth(1000000),
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_WINDOWS) || defined(OMIM_OS_LINUX)
@@ -127,7 +128,7 @@ Framework::Framework()
 
   m_storage.Init(bind(&Framework::AddMap, this, _1),
                bind(&Framework::RemoveMap, this, _1),
-               bind(&Framework::InvalidateRect, this, _1));
+               bind(&Framework::InvalidateRect, this, _1, true));
   LOG(LDEBUG, ("Storage initialized"));
 
   // set language priorities
@@ -177,15 +178,23 @@ bool Framework::NeedRedraw() const
 
 void Framework::SetNeedRedraw(bool flag)
 {
-  m_renderPolicy->GetWindowHandle()->setNeedRedraw(false);
+  m_renderPolicy->GetWindowHandle()->setNeedRedraw(flag);
+  if (!flag)
+    m_doForceUpdate = false;
 }
 
-void Framework::Invalidate()
+void Framework::Invalidate(bool doForceUpdate)
 {
   if (m_renderPolicy)
+  {
+    m_renderPolicy->SetForceUpdate(doForceUpdate);
     m_renderPolicy->GetWindowHandle()->invalidate();
+  }
   else
+  {
     m_hasPendingInvalidate = true;
+    m_doForceUpdate = doForceUpdate;
+  }
 }
 
 void Framework::SaveState()
@@ -391,10 +400,10 @@ void Framework::ShowAll()
   Invalidate();
 }
 
-void Framework::InvalidateRect(m2::RectD const & rect)
+void Framework::InvalidateRect(m2::RectD const & rect, bool doForceUpdate)
 {
   if (m_navigator.Screen().GlobalRect().IsIntersect(m2::AnyRectD(rect)))
-    Invalidate();
+    Invalidate(doForceUpdate);
 }
 
 /// @name Drag implementation.
@@ -625,6 +634,7 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 
     if (m_hasPendingInvalidate)
     {
+      m_renderPolicy->SetForceUpdate(m_doForceUpdate);
       m_renderPolicy->GetWindowHandle()->invalidate();
       m_hasPendingInvalidate = false;
     }

@@ -166,8 +166,6 @@ PartialRenderPolicy::~PartialRenderPolicy()
 
 void PartialRenderPolicy::ProcessRenderQueue(list<yg::gl::Renderer::Packet> & renderQueue)
 {
-  threads::ConditionGuard g(m_glCondition);
-
   if (renderQueue.empty())
   {
     m_hasPacket = false;

@@ -164,14 +164,18 @@ void RenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,
 {
   m_resourceManager->mergeFreeResources();
 
-  if (m_DoAddCommand && (s != m_renderQueue->renderState().m_actualScreen))
+  m_renderQueue->renderState().m_mutex->Lock();
+
+  m_renderQueue->renderStatePtr()->m_doRepaintAll = DoForceUpdate();
+
+  if (m_DoAddCommand && (DoForceUpdate() || (s != m_renderQueue->renderState().m_actualScreen)))
     m_renderQueue->AddCommand(m_renderFn, s);
+
+  SetForceUpdate(false);
 
   DrawerYG * pDrawer = e->drawer();
 
   e->drawer()->screen()->clear(m_bgColor);
-
-  m_renderQueue->renderState().m_mutex->Lock();
 
   if (m_renderQueue->renderState().m_actualTarget.get() != 0)
   {

@@ -44,6 +44,7 @@ protected:
   shared_ptr<DrawerYG> m_drawer;
   TRenderFn m_renderFn;
   bool m_doSupportRotation;
+  bool m_doForceUpdate;
 
 public:
 
@@ -81,6 +82,9 @@ public:
   bool IsTiling() const;
 
   bool NeedRedraw() const;
+
+  bool DoForceUpdate() const;
+  void SetForceUpdate(bool flag);
 
   shared_ptr<DrawerYG> const & GetDrawer() const;
   shared_ptr<WindowHandle> const & GetWindowHandle() const;

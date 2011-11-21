@@ -67,6 +67,7 @@ protected:
 
   scoped_ptr<RenderPolicy> m_renderPolicy;
   bool m_hasPendingInvalidate;
+  bool m_doForceUpdate;
 
   InformationDisplay m_informationDisplay;
 
@@ -147,8 +148,8 @@ public:
 
   void SetMaxWorldRect();
 
-  void Invalidate();
-  void InvalidateRect(m2::RectD const & rect);
+  void Invalidate(bool doForceUpdate = false);
+  void InvalidateRect(m2::RectD const & rect, bool doForceUpdate = false);
 
   void SaveState();
   bool LoadState();

@@ -24,7 +24,8 @@ RenderPolicy::~RenderPolicy()
 RenderPolicy::RenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC, bool doSupportRotation)
   : m_bgColor(0xEE, 0xEE, 0xDD, 0xFF),
     m_primaryRC(primaryRC),
-    m_doSupportRotation(doSupportRotation)
+    m_doSupportRotation(doSupportRotation),
+    m_doForceUpdate(false)
 {}
 
 m2::RectI const RenderPolicy::OnSize(int w, int h)
@@ -112,6 +113,16 @@ shared_ptr<WindowHandle> const & RenderPolicy::GetWindowHandle() const
 void RenderPolicy::SetRenderFn(TRenderFn renderFn)
 {
   m_renderFn = renderFn;
+}
+
+bool RenderPolicy::DoForceUpdate() const
+{
+  return m_doForceUpdate;
+}
+
+void RenderPolicy::SetForceUpdate(bool flag)
+{
+  m_doForceUpdate = flag;
 }
 
 RenderPolicy * CreateRenderPolicy(VideoTimer * videoTimer,
