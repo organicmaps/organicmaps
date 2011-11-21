@@ -8,6 +8,7 @@
 #include "../indexer/data_factory.hpp"
 
 #include "../platform/platform.hpp"
+#include "../platform/settings.hpp"
 
 #include "../coding/file_writer.hpp"
 #include "../coding/file_reader.hpp"
@@ -23,7 +24,7 @@
 
 #include "../3party/jansson/myjansson.hpp"
 
-#define SERVER_LIST_FILE "servers.txt"
+#define SETTINGS_SERVERS_KEY "LastBaseUrls"
 
 using namespace downloader;
 
@@ -62,11 +63,6 @@ namespace storage
     m_addMap = addFunc;
     m_removeMap = removeFunc;
     m_updateRect = updateRectFunc;
-  }
-
-  string Storage::UpdateBaseUrl() const
-  {
-    return "http://svobodu404popugajam.mapswithme.com:34568/maps/" OMIM_OS_NAME "/" + strings::to_string(m_currentVersion) + "/";
   }
 
   CountriesContainerT const & NodeFromIndex(CountriesContainerT const & root, TIndex const & index)
@@ -182,16 +178,6 @@ namespace storage
     }
   };
 
-  static string CreateServersListRequest(string const & id, uint32_t version,
-                                         string const & file, uint32_t fileSize)
-  {
-    ostringstream stream;
-    stream << "{\"ID\":\"" << id << "\",\"Cmd\":\"Download\",\"Params\":{";
-    stream << "\"Version\":" << version << ",\"File\":\"" << file << "\",";
-    stream << "\"Size\":" << fileSize << "}}";
-    return stream.str();
-  }
-
   void Storage::DownloadNextCountryFromQueue()
   {
     while (!m_queue.empty())
@@ -202,10 +188,8 @@ namespace storage
       {
         if (!IsFileDownloaded(*it))
         {
-          string const postBody = CreateServersListRequest(GetPlatform().UniqueClientId(),
-                                                           m_currentVersion,
-                                                           it->GetFileWithExt(),
-                                                           it->m_remoteSize);
+          // send Country name for statistics
+          string const postBody = it->m_fileName;
           m_request.reset(HttpRequest::PostJson(URL_SERVERS_LIST,
               postBody,
               bind(&Storage::OnServerListDownloaded, this, _1)));
@@ -386,37 +370,17 @@ namespace storage
     }
   }
 
-  static void SaveDefaultServerList(string data)
-  {
-    FileWriter f(GetPlatform().WritablePathForFile(SERVER_LIST_FILE));
-    f.Write(data.data(), data.size());
-  }
-
-  static void LoadDefaultServerList(string & data)
-  {
-    try
-    {
-      ReaderPtr<Reader> r = GetPlatform().GetReader(SERVER_LIST_FILE);
-      r.ReadAsString(data);
-    }
-    catch (std::exception const & e)
-    {
-      LOG(LERROR, ("Can't load default server list file", e.what()));
-    }
-  }
-
-  static bool ParseServerList(string const & jsonStr, string const & file, vector<string> & outUrls)
+  static bool ParseServerList(string const & jsonStr, vector<string> & outUrls)
   {
     outUrls.clear();
     try
     {
       my::Json root(jsonStr.c_str());
-      json_t * urlsArray = json_object_get(root, "Urls");
-      for (size_t i = 0; i < json_array_size(urlsArray); ++i)
+      for (size_t i = 0; i < json_array_size(root); ++i)
       {
-        char const * url = json_string_value(json_array_get(urlsArray, i));
+        char const * url = json_string_value(json_array_get(root, i));
         if (url)
-          outUrls.push_back(url + file);
+          outUrls.push_back(url);
       }
     }
     catch (std::exception const & e)
@@ -439,14 +403,20 @@ namespace storage
 
     vector<string> urls;
     if (request.Status() == HttpRequest::ECompleted
-        && ParseServerList(request.Data(), file.GetFileWithExt(), urls))
-        SaveDefaultServerList(request.Data());
+        && ParseServerList(request.Data(), urls))
+      Settings::Set(SETTINGS_SERVERS_KEY, request.Data());
     else
     {
       string serverList;
-      LoadDefaultServerList(serverList);
-      ParseServerList(request.Data(), file.GetFileWithExt(), urls);
+      if (!Settings::Get(SETTINGS_SERVERS_KEY, serverList))
+        serverList = DEFAULT_SERVERS_JSON;
+      VERIFY(ParseServerList(request.Data(), urls), ());
     }
+
+    // append actual version and file name
+    for (size_t i = 0; i < urls.size(); ++i)
+      urls[i] = urls[i] + OMIM_OS_NAME "/"
+          + strings::to_string(m_currentVersion)  + "/" + file.GetFileWithExt();
 
     m_request.reset(HttpRequest::GetFile(urls,
                                          GetPlatform().WritablePathForFile(file.GetFileWithExt()),

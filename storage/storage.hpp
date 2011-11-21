@@ -93,7 +93,6 @@ namespace storage
 
     void DownloadNextCountryFromQueue();
     Country const & CountryByIndex(TIndex const & index) const;
-    string UpdateBaseUrl() const;
 
   public:
     Storage() {}

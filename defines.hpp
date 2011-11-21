@@ -21,13 +21,13 @@
 #define PACKED_POLYGONS_FILE "packed_polygons.bin"
 #define PACKED_POLYGONS_INFO_TAG "info"
 
-#define DEFAULT_AUTO_UPDATES_ENABLED true
-
 /// How many langs we're supporting on indexing stage
 #define MAX_SUPPORTED_LANGUAGES 64
 
 #ifdef OMIM_PRODUCTION
-  #error "Please define production server url"
+  #define URL_SERVERS_LIST "http://mapswithme-metaserver.appspot.com/server_data/active_servers"
+  #define DEFAULT_SERVERS_JSON "[\"http://1st.default.server/\",\"http://2nd.default.server/\"]"
 #else
-  #define URL_SERVERS_LIST "http://melnichek.ath.cx:34568/download.php"
+  #define URL_SERVERS_LIST "http://mwm-dev.appspot.com/server_data/active_servers"
+  #define DEFAULT_SERVERS_JSON "[\"http://svobodu404popugajam.mapswithme.com:34568/maps/\",\"http://svobodu404popugajam.mapswithme.com:34568/maps/\"]"
 #endif
