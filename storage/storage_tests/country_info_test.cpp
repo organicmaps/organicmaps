@@ -27,7 +27,7 @@ UNIT_TEST(CountryInfo_ValidName_Smoke)
   ReaderPtr<Reader>(GetPlatform().GetReader(COUNTRIES_FILE)).ReadAsString(buffer);
 
   map<string, string> id2name;
-  storage::LoadCountryNames(buffer, id2name);
+  storage::LoadCountryFile2Name(buffer, id2name);
 
   TEST(id2name.count("Germany_Baden-Wurttemberg") == 1, ());
   TEST(id2name.count("France_Paris & Ile-de-France") == 1, ());

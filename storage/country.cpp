@@ -142,11 +142,11 @@ namespace
     }
   };
 
-  class DoStoreNames
+  class DoStoreFile2Name
   {
-    map<string, string> & m_id2name;
+    map<string, string> & m_file2name;
   public:
-    DoStoreNames(map<string, string> & id2name) : m_id2name(id2name) {}
+    DoStoreFile2Name(map<string, string> & file2name) : m_file2name(file2name) {}
 
     void operator() (string name, string const & file, string const &,
                      uint32_t size, int64_t, int)
@@ -159,8 +159,21 @@ namespace
           name = file.substr(0, i) + '_' + name;
 
         if (name != file)
-          m_id2name[file] = name;
+          m_file2name[file] = name;
       }
+    }
+  };
+
+  class DoStoreCode2File
+  {
+    multimap<string, string> & m_code2file;
+  public:
+    DoStoreCode2File(multimap<string, string> & code2file) : m_code2file(code2file) {}
+
+    void operator() (string const &, string const & file, string const & flag,
+                     uint32_t, int64_t, int)
+    {
+      m_code2file.insert(make_pair(flag, file));
     }
   };
 }
@@ -172,10 +185,17 @@ int64_t LoadCountries(string const & jsonBuffer, CountriesContainerT & countries
   return LoadCountriesImpl(jsonBuffer, doStore);
 }
 
-void LoadCountryNames(string const & jsonBuffer, map<string, string> & id2name)
+void LoadCountryFile2Name(string const & jsonBuffer, map<string, string> & id2name)
 {
   ASSERT ( id2name.empty(), () );
-  DoStoreNames doStore(id2name);
+  DoStoreFile2Name doStore(id2name);
+  LoadCountriesImpl(jsonBuffer, doStore);
+}
+
+void LoadCountryCode2File(string const & jsonBuffer, multimap<string, string> & code2file)
+{
+  ASSERT ( code2file.empty(), () );
+  DoStoreCode2File doStore(code2file);
   LoadCountriesImpl(jsonBuffer, doStore);
 }
 

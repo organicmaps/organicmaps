@@ -20,7 +20,7 @@ namespace storage
 
     string buffer;
     countryR.ReadAsString(buffer);
-    LoadCountryNames(buffer, m_id2name);
+    LoadCountryFile2Name(buffer, m_id2name);
   }
 
   template <class ToDo>

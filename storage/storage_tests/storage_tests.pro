@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = storage indexer platform coding base jansson tomcrypt
+DEPENDENCIES = storage indexer platform coding base jansson tomcrypt expat
 
 include($$ROOT_DIR/common.pri)
 
@@ -22,3 +22,4 @@ SOURCES += \
   country_test.cpp \
   simple_tree_test.cpp \
   country_info_test.cpp \
+  generate_langs.cpp \
