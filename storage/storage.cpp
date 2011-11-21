@@ -410,13 +410,13 @@ namespace storage
       string serverList;
       if (!Settings::Get(SETTINGS_SERVERS_KEY, serverList))
         serverList = DEFAULT_SERVERS_JSON;
-      VERIFY(ParseServerList(request.Data(), urls), ());
+      VERIFY(ParseServerList(serverList, urls), ());
     }
 
     // append actual version and file name
     for (size_t i = 0; i < urls.size(); ++i)
       urls[i] = urls[i] + OMIM_OS_NAME "/"
-          + strings::to_string(m_currentVersion)  + "/" + file.GetFileWithExt();
+          + strings::to_string(m_currentVersion)  + "/" + UrlEncode(file.GetFileWithExt());
 
     m_request.reset(HttpRequest::GetFile(urls,
                                          GetPlatform().WritablePathForFile(file.GetFileWithExt()),
