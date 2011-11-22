@@ -80,6 +80,9 @@ namespace yg
 
   ResourceStyle const * Skin::fromID(uint32_t id)
   {
+    if (id == invalidHandle())
+      return 0;
+
     id_pair_t p = unpackID(id);
     if (p.first < m_pages.size())
       return m_pages[p.first]->fromID(p.second);
