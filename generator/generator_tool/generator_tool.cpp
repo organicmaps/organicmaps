@@ -135,12 +135,19 @@ int main(int argc, char ** argv)
   {
     LOG(LINFO, ("Generating final data ..."));
 
-    if (FLAGS_output.empty() || FLAGS_split_by_polygons)  // do not break data path for polygons
+    if (FLAGS_split_by_polygons)
+    {
+      // do split by countries
       genInfo.m_datFilePrefix = path;
+    }
     else
+    {
+      // used for one country generation - append destination file
+      CHECK ( !FLAGS_output.empty(), ("No destination specified. Did you forget --output?") );
       genInfo.m_datFilePrefix = path + FLAGS_output;
+    }
 
-    genInfo.m_datFileSuffix = DATA_FILE_EXTENSION;
+    genInfo.m_datFileSuffix = DATA_FILE_EXTENSION_TMP;
 
     genInfo.m_splitByPolygons = FLAGS_split_by_polygons;
     genInfo.m_createWorld = FLAGS_generate_world;
@@ -150,50 +157,51 @@ int main(int argc, char ** argv)
     if (!feature::GenerateFeatures(genInfo, FLAGS_use_light_nodes))
       return -1;
 
-    for (size_t i = 0; i < genInfo.m_bucketNames.size(); ++i)
-      genInfo.m_bucketNames[i] = genInfo.m_datFilePrefix + genInfo.m_bucketNames[i] + genInfo.m_datFileSuffix;
+    // without --spit_by_polygons, we have empty name country as result - assign it
+    if (genInfo.m_bucketNames.size() == 1 && genInfo.m_bucketNames[0].empty())
+      genInfo.m_bucketNames[0] = FLAGS_output;
 
     if (FLAGS_generate_world)
     {
-      genInfo.m_bucketNames.push_back(genInfo.m_datFilePrefix + WORLD_FILE_NAME + genInfo.m_datFileSuffix);
-      genInfo.m_bucketNames.push_back(genInfo.m_datFilePrefix + WORLD_COASTS_FILE_NAME + genInfo.m_datFileSuffix);
+      genInfo.m_bucketNames.push_back(WORLD_FILE_NAME);
+      genInfo.m_bucketNames.push_back(WORLD_COASTS_FILE_NAME);
     }
   }
   else
   {
-    genInfo.m_bucketNames.push_back(path + FLAGS_output + DATA_FILE_EXTENSION);
+    if (!FLAGS_output.empty())
+      genInfo.m_bucketNames.push_back(FLAGS_output);
   }
 
   // Enumerate over all dat files that were created.
   size_t const count = genInfo.m_bucketNames.size();
-  string const worldPath = path + WORLD_FILE_NAME + DATA_FILE_EXTENSION;
-  string const worldCoastsPath = path + WORLD_COASTS_FILE_NAME + DATA_FILE_EXTENSION;
-
   for (size_t i = 0; i < count; ++i)
   {
-    string const & datFile = genInfo.m_bucketNames[i];
+    string const & country = genInfo.m_bucketNames[i];
 
     if (FLAGS_generate_geometry)
     {
-      LOG(LINFO, ("Generating result features for ", datFile));
+      LOG(LINFO, ("Generating result features for file", country));
 
       int mapType = feature::DataHeader::country;
-      if (datFile == worldPath)
+      if (country == WORLD_FILE_NAME)
         mapType = feature::DataHeader::world;
-      if (datFile == worldCoastsPath)
+      if (country == WORLD_COASTS_FILE_NAME)
         mapType = feature::DataHeader::worldcoasts;
 
-      if (!feature::GenerateFinalFeatures(datFile, mapType))
+      if (!feature::GenerateFinalFeatures(path, country, mapType))
       {
         // If error - move to next bucket without index generation
         continue;
       }
     }
 
+    string const datFile = path + country + DATA_FILE_EXTENSION;
+
     if (FLAGS_generate_index)
     {
       LOG(LINFO, ("Generating index for ", datFile));
-      if (!indexer::BuildIndexFromDatFile(datFile, FLAGS_intermediate_data_path + FLAGS_output))
+      if (!indexer::BuildIndexFromDatFile(datFile, FLAGS_intermediate_data_path + country))
       {
         LOG(LCRITICAL, ("Error generating index."));
       }
@@ -206,17 +214,6 @@ int main(int argc, char ** argv)
       {
         LOG(LCRITICAL, ("Error generating search index."));
       }
-    }
-
-    if (FLAGS_calc_statistics)
-    {
-      LOG(LINFO, ("Calculating statistics for ", datFile));
-
-      stats::FileContainerStatistic(datFile);
-
-      stats::MapInfo info;
-      stats::CalcStatistic(datFile, info);
-      stats::PrintStatistic(info);
     }
   }
 
@@ -241,17 +238,30 @@ int main(int argc, char ** argv)
     }
   }
 
+  string const datFile = path + FLAGS_output + DATA_FILE_EXTENSION;
+
+  if (FLAGS_calc_statistics)
+  {
+    LOG(LINFO, ("Calculating statistics for ", datFile));
+
+    stats::FileContainerStatistic(datFile);
+
+    stats::MapInfo info;
+    stats::CalcStatistic(datFile, info);
+    stats::PrintStatistic(info);
+  }
+
   if (FLAGS_dump_types)
-    feature::DumpTypes(path + FLAGS_output + ".mwm");
+    feature::DumpTypes(datFile);
 
   if (FLAGS_dump_prefixes)
-    feature::DumpPrefixes(path + FLAGS_output + ".mwm");
+    feature::DumpPrefixes(datFile);
 
   if (FLAGS_dump_search_tokens)
-    feature::DumpSearchTokens(path + FLAGS_output + ".mwm");
+    feature::DumpSearchTokens(datFile);
 
   if (FLAGS_unpack_mwm)
-    UnpackMwm(path + FLAGS_output + ".mwm");
+    UnpackMwm(datFile);
 
   if (FLAGS_generate_packed_borders)
     borders::GeneratePackedBorders(path);

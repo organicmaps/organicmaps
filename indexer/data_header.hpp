@@ -47,6 +47,12 @@ namespace feature
       m_scales.assign(arr, arr + N);
     }
 
+    inline void AddLanguage(int8_t i)
+    {
+      ASSERT ( i > 0, () );
+      m_langs.push_back(static_cast<uint8_t>(i));
+    }
+
     inline size_t GetScalesCount() const { return m_scales.size(); }
     inline int GetScale(int i) const { return static_cast<int>(m_scales[i]); }
     inline int GetLastScale() const { return m_scales.back(); }

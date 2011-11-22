@@ -14,8 +14,6 @@
 
 #include "../geometry/polygon.hpp"
 
-#include "../platform/platform.hpp"
-
 #include "../version/ver_serialization.hpp"
 
 #include "../coding/internal/file_data.hpp"
@@ -102,7 +100,7 @@ namespace feature
 
     ~FeaturesCollector2()
     {
-      // write own mwm header (now it's a base point only)
+      // write own mwm header
       m_header.SetBounds(m_bounds);
       {
         FileWriter w = m_writer.GetWriter(HEADER_FILE_TAG);
@@ -498,46 +496,73 @@ namespace feature
     return static_cast<FeatureBuilder2 &>(fb);
   }
 
-  bool GenerateFinalFeatures(string const & datFilePath, int mapType)
+  class DoStoreLanguages
   {
-    // rename input file
-    string tempDatFilePath(datFilePath);
-    tempDatFilePath += ".notsorted";
-
-    FileWriter::DeleteFileX(tempDatFilePath);
-    if (!my::RenameFileX(datFilePath, tempDatFilePath))
+    DataHeader & m_header;
+  public:
+    DoStoreLanguages(DataHeader & header) : m_header(header) {}
+    void operator() (string const & s)
     {
-      LOG(LWARNING, ("File ", datFilePath, " doesn't exist or sharing violation!"));
-      return false;
+      int8_t const i = StringUtf8Multilang::GetLangIndex(s);
+      if (i > 0)
+      {
+        // 0 index is always 'default'
+        m_header.AddLanguage(i);
+      }
     }
+  };
+
+  bool GenerateFinalFeatures(string const & path, string const & name, int mapType)
+  {
+    string const srcFilePath = path + name + DATA_FILE_EXTENSION_TMP;
+    string const datFilePath = path + name + DATA_FILE_EXTENSION;
 
     // stores cellIds for middle points
     CalculateMidPoints midPoints;
-    ForEachFromDatRawFormat(tempDatFilePath, midPoints);
+    ForEachFromDatRawFormat(srcFilePath, midPoints);
 
     // sort features by their middle point
-    LOG(LINFO, ("Sorting features..."));
     std::sort(midPoints.m_vec.begin(), midPoints.m_vec.end(), &SortMidPointsFunc);
-    LOG(LINFO, ("Done sorting features"));
 
     // store sorted features
     {
-      FileReader reader(tempDatFilePath);
+      FileReader reader(srcFilePath);
 
       bool const isWorld = (mapType != DataHeader::country);
 
+      // Fill mwm header.
       DataHeader header;
+
       uint32_t coordBits = 27;
       if (isWorld)
         coordBits -= ((scales::GetUpperScale() - scales::GetUpperWorldScale()) / 2);
 
+      // coding params
       header.SetCodingParams(serial::CodingParams(coordBits, midPoints.GetCenter()));
+
+      // scales
       if (isWorld)
         header.SetScales(g_arrWorldScales);
       else
         header.SetScales(g_arrCountryScales);
+
+      // type
       header.SetType(static_cast<DataHeader::MapType>(mapType));
 
+      // languages
+      try
+      {
+        FileReader reader(path + "metainfo/" + name + ".meta");
+        string buffer;
+        reader.ReadAsString(buffer);
+        strings::Tokenize(buffer, "|", DoStoreLanguages(header));
+      }
+      catch (Reader::OpenException const &)
+      {
+        LOG(LWARNING, ("No language file for country ", name));
+      }
+
+      // Transform features from row format to optimized format.
       FeaturesCollector2 collector(datFilePath, header);
 
       for (size_t i = 0; i < midPoints.m_vec.size(); ++i)
@@ -556,7 +581,7 @@ namespace feature
     }
 
     // remove old not-sorted dat file
-    FileWriter::DeleteFileX(tempDatFilePath);
+    FileWriter::DeleteFileX(srcFilePath);
     FileWriter::DeleteFileX(datFilePath + DATA_FILE_TAG);
 
     return true;
