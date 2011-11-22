@@ -47,6 +47,16 @@ namespace yg
                     bool log2vis,
                     bool doSplit = false);
 
+      void drawTextEx(FontDesc const & primaryFont,
+                      FontDesc const & secondaryFont,
+                      m2::PointD const & pt,
+                      yg::EPosition pos,
+                      string const & text,
+                      string const & secondaryText,
+                      double depth,
+                      bool log2vis,
+                      bool doSplit = false);
+
       /// drawing text on the path
       bool drawPathText(FontDesc const & fontDesc,
                         m2::PointD const * path,

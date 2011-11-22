@@ -107,11 +107,19 @@ namespace yg
       allElemHeight += r.SizeY();
     }
 
+    if (!auxVisText().empty())
+    {
+      m_glyphLayouts.push_back(GlyphLayout(p.m_glyphCache, p.m_auxFontDesc, m2::PointD(0, 0), auxVisText(), yg::EPosCenter));
+      m2::RectD r = m_glyphLayouts.back().boundRects().back().GetGlobalRect();
+      allElemWidth = max(r.SizeX(), allElemWidth);
+      allElemHeight += r.SizeY();
+    }
+
     double curShift = allElemHeight / 2;
 
     /// performing aligning of glyphLayouts as for the center position
 
-    for (unsigned i = 0; i < res.size(); ++i)
+    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
       double elemSize = m_glyphLayouts[i].boundRects().back().GetGlobalRect().SizeY();
       m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + m2::PointD(0, -curShift + elemSize / 2));
@@ -119,22 +127,22 @@ namespace yg
     }
 
     if (position() & yg::EPosLeft)
-      for (unsigned i = 0; i < res.size(); ++i)
+      for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
         m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + m2::PointD(-allElemWidth / 2, 0));
 
     if (position() & yg::EPosRight)
-      for (unsigned i = 0; i < res.size(); ++i)
+      for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
         m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + m2::PointD(allElemWidth / 2, 0));
 
     if (position() & yg::EPosAbove)
-      for (unsigned i = 0; i < res.size(); ++i)
+      for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
         m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + m2::PointD(0, -allElemHeight / 2));
 
     if (position() & yg::EPosUnder)
-      for (unsigned i = 0; i < res.size(); ++i)
+      for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
         m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + m2::PointD(0, allElemHeight / 2));
 
-    for (unsigned i = 0; i < res.size(); ++i)
+    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
       m_offsets.push_back(m_glyphLayouts[i].pivot());
       m_glyphLayouts[i].setPivot(m_offsets[i] + pivot());
@@ -149,7 +157,8 @@ namespace yg
       m_doSplit(false)
   {}
 
-  StraightTextElement::StraightTextElement(StraightTextElement const & src, math::Matrix<double, 3, 3> const & m)
+  StraightTextElement::StraightTextElement(StraightTextElement const & src,
+                                           math::Matrix<double, 3, 3> const & m)
     : TextElement(src),
       m_glyphLayouts(src.m_glyphLayouts)
   {
@@ -198,18 +207,18 @@ namespace yg
       if (!isNeedRedraw())
         return;
 
-    yg::FontDesc desc = m_fontDesc;
-
-    if (m_fontDesc.m_isMasked)
+    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
     {
-      for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-        drawTextImpl(m_glyphLayouts[i], screen, m, true, m_fontDesc, yg::maxDepth - 1);
-
-      desc.m_isMasked = false;
+      if (m_glyphLayouts[i].fontDesc().m_isMasked)
+        drawTextImpl(m_glyphLayouts[i], screen, m, true, m_glyphLayouts[i].fontDesc(), yg::maxDepth - 1);
     }
 
     for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
-      drawTextImpl(m_glyphLayouts[i], screen, m, true, desc, yg::maxDepth);
+    {
+      yg::FontDesc fontDesc = m_glyphLayouts[i].fontDesc();
+      fontDesc.m_isMasked = false;
+      drawTextImpl(m_glyphLayouts[i], screen, m, true, fontDesc, yg::maxDepth);
+    }
   }
 
   void StraightTextElement::offset(m2::PointD const & offs)

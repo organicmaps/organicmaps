@@ -25,6 +25,24 @@ DrawerYG::Params::Params()
 {
 }
 
+di::DrawInfo::DrawInfo(string const & name,
+         string const & secondaryName,
+         string const & road,
+         double rank)
+  : m_name(name),
+    m_secondaryName(secondaryName),
+    m_road(road),
+    m_rank(rank)
+{}
+
+string const di::DrawInfo::GetPathName() const
+{
+  if (m_secondaryName.empty())
+    return m_name;
+  else
+    return m_name + "      " + m_secondaryName;
+}
+
 uint32_t di::DrawRule::GetID(size_t threadID) const
 {
   return (m_transparent ? m_rule->GetID2(threadID) : m_rule->GetID(threadID));
@@ -249,29 +267,34 @@ void DrawerYG::drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_
   yg::FontDesc fontDesc(get_text_font(pRule));
   fontDesc.SetRank(pInfo->m_rank);
 
+  yg::FontDesc smallFontDesc(fontDesc);
+  smallFontDesc.m_size *= 0.75;
+
   if (!filter_text_size(pRule))
-    m_pScreen->drawText(
+    m_pScreen->drawTextEx(
           fontDesc,
+          smallFontDesc,
           pt,
           pos,
           pInfo->m_name,
+          pInfo->m_secondaryName,
           depth,
           true,
           true);
 }
 
-bool DrawerYG::drawPathText(di::PathInfo const & info, string const & name, rule_ptr_t pRule, int depth)
+bool DrawerYG::drawPathText(di::PathInfo const & info, di::DrawInfo const * pInfo, rule_ptr_t pRule, int depth)
 {
-  yg::FontDesc fontDesc(get_text_font(pRule));
+  yg::FontDesc primaryFont(get_text_font(pRule));
 
-  return m_pScreen->drawPathText( fontDesc,
-                                  &info.m_path[0],
-                                  info.m_path.size(),
-                                  name,
-                                  info.GetFullLength(),
-                                  info.GetOffset(),
-                                  yg::EPosCenter,
-                                  depth);
+  return m_pScreen->drawPathText(primaryFont,
+                                 &info.m_path[0],
+                                 info.m_path.size(),
+                                 pInfo->GetPathName(),
+                                 info.GetFullLength(),
+                                 info.GetOffset(),
+                                 yg::EPosCenter,
+                                 depth);
 }
 
 void DrawerYG::drawPathNumber(di::PathInfo const & path, di::DrawInfo const * pInfo)
@@ -419,7 +442,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
             if (filter_text_size(pRule))
               continue;
 
-            drawPathText(*i, pInfo->m_name, pRule, depth);
+            drawPathText(*i, pInfo, pRule, depth);
           }
         }
 

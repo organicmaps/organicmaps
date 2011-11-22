@@ -29,8 +29,14 @@ namespace yg
 
     /// text-element specific
     FontDesc m_fontDesc;
+    FontDesc m_auxFontDesc;
+
     strings::UniString m_logText; //< logical string
+    strings::UniString m_auxLogText;
+
     strings::UniString m_visText; //< visual string, BIDI processed
+    strings::UniString m_auxVisText;
+
     bool m_log2vis;
     GlyphCache * m_glyphCache;
 
@@ -63,6 +69,10 @@ namespace yg
     {
       FontDesc m_fontDesc;
       strings::UniString m_logText;
+
+      FontDesc m_auxFontDesc;
+      strings::UniString m_auxLogText;
+
       bool m_log2vis;
       GlyphCache * m_glyphCache;
     };
@@ -76,7 +86,10 @@ namespace yg
                       FontDesc const & desc,
                       double depth) const;
     strings::UniString const & logText() const;
+    strings::UniString const & auxLogText() const;
     strings::UniString const & visText() const;
+    strings::UniString const & auxVisText() const;
     FontDesc const & fontDesc() const;
+    FontDesc const & auxFontDesc() const;
   };
 }

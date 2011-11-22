@@ -14,14 +14,23 @@ namespace yg
   TextElement::TextElement(Params const & p)
     : OverlayElement(p),
       m_fontDesc(p.m_fontDesc),
+      m_auxFontDesc(p.m_auxFontDesc),
       m_logText(p.m_logText),
+      m_auxLogText(p.m_auxLogText),
       m_log2vis(p.m_log2vis),
       m_glyphCache(p.m_glyphCache)
   {
     if (m_log2vis)
+    {
       m_visText = m_glyphCache->log2vis(m_logText);
+      if (!m_auxLogText.empty())
+        m_auxVisText = m_glyphCache->log2vis(m_auxLogText);
+    }
     else
+    {
       m_visText = m_logText;
+      m_auxVisText = m_auxLogText;
+    }
   }
 
   strings::UniString const & TextElement::logText() const
@@ -29,14 +38,29 @@ namespace yg
     return m_logText;
   }
 
+  strings::UniString const & TextElement::auxLogText() const
+  {
+    return m_auxLogText;
+  }
+
   strings::UniString const & TextElement::visText() const
   {
     return m_visText;
   }
 
+  strings::UniString const & TextElement::auxVisText() const
+  {
+    return m_auxVisText;
+  }
+
   FontDesc const & TextElement::fontDesc() const
   {
     return m_fontDesc;
+  }
+
+  FontDesc const & TextElement::auxFontDesc() const
+  {
+    return m_auxFontDesc;
   }
 
   bool TextElement::isBidi() const

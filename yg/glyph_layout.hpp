@@ -91,6 +91,7 @@ namespace yg
     vector<m2::AnyRectD> const & boundRects() const;
 
     m2::PointD const & pivot() const;
+    yg::FontDesc const & fontDesc() const;
 
     void setPivot(m2::PointD const & pv);
   };

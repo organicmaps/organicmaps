@@ -304,6 +304,7 @@ namespace fwork
 
     shared_ptr<di::DrawInfo> ptr(new di::DrawInfo(
       f.GetPreferredDrawableName(languages::GetCurrentPriorities()),
+      f.GetPreferredDrawableName(0),
       f.GetRoadNumber(),
       (m_zoom > 5) ? f.GetPopulationDrawRank() : 0.0));
 
@@ -364,7 +365,7 @@ namespace fwork
 
           if (fontSize != 0)
           {
-            double textLength = m_glyphCache->getTextLength(fontSize, ptr->m_name);
+            double textLength = m_glyphCache->getTextLength(fontSize, ptr->GetPathName());
             typedef calc_length<base_global> functor_t;
             functor_t::params p1;
             p1.m_convertor = &m_convertor;

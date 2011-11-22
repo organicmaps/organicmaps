@@ -66,6 +66,7 @@ namespace yg
                            yg::EPosition pos)
     : m_firstVisible(0),
       m_lastVisible(visText.size()),
+      m_fontDesc(fontDesc),
       m_pivot(pt)
   {
     m2::RectD boundRect;
@@ -403,5 +404,10 @@ namespace yg
       m_boundRects[i].Offset(pivot - m_pivot);
 
     m_pivot = pivot;
+  }
+
+  yg::FontDesc const & GlyphLayout::fontDesc() const
+  {
+    return m_fontDesc;
   }
 }

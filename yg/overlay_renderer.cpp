@@ -77,12 +77,12 @@ namespace yg
     }
 
     void OverlayRenderer::drawText(FontDesc const & fontDesc,
-                                m2::PointD const & pt,
-                                yg::EPosition pos,
-                                string const & utf8Text,
-                                double depth,
-                                bool log2vis,
-                                bool doSplit)
+                                   m2::PointD const & pt,
+                                   yg::EPosition pos,
+                                   string const & utf8Text,
+                                   double depth,
+                                   bool log2vis,
+                                   bool doSplit)
     {
       if (!m_drawTexts)
         return;
@@ -95,6 +95,41 @@ namespace yg
       params.m_position = pos;
       params.m_glyphCache = glyphCache();
       params.m_logText = strings::MakeUniString(utf8Text);
+      params.m_doSplit = doSplit;
+
+      shared_ptr<OverlayElement> oe(new StraightTextElement(params));
+
+      math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
+
+      if (!m_infoLayer.get())
+        oe->draw(this, id);
+      else
+        m_infoLayer->processOverlayElement(oe);
+    }
+
+    void OverlayRenderer::drawTextEx(FontDesc const & primaryFont,
+                                     FontDesc const & secondaryFont,
+                                     m2::PointD const & pt,
+                                     yg::EPosition pos,
+                                     string const & text,
+                                     string const & secondaryText,
+                                     double depth,
+                                     bool log2vis,
+                                     bool doSplit)
+    {
+      if (!m_drawTexts)
+        return;
+
+      StraightTextElement::Params params;
+      params.m_depth = depth;
+      params.m_fontDesc = primaryFont;
+      params.m_auxFontDesc = secondaryFont;
+      params.m_log2vis = log2vis;
+      params.m_pivot = pt;
+      params.m_position = pos;
+      params.m_glyphCache = glyphCache();
+      params.m_logText = strings::MakeUniString(text);
+      params.m_auxLogText = strings::MakeUniString(secondaryText);
       params.m_doSplit = doSplit;
 
       shared_ptr<OverlayElement> oe(new StraightTextElement(params));
