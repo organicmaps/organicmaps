@@ -107,13 +107,34 @@ namespace yg
       allElemHeight += r.SizeY();
     }
 
+    buffer_vector<strings::UniString, 3> auxRes;
+
     if (!auxVisText().empty())
     {
-      m_glyphLayouts.push_back(GlyphLayout(p.m_glyphCache, p.m_auxFontDesc, m2::PointD(0, 0), auxVisText(), yg::EPosCenter));
-      m2::RectD r = m_glyphLayouts.back().boundRects().back().GetGlobalRect();
-      allElemWidth = max(r.SizeX(), allElemWidth);
-      allElemHeight += r.SizeY();
+      GlyphLayout l(p.m_glyphCache, p.m_auxFontDesc, m2::PointD(0, 0), auxVisText(), yg::EPosCenter);
+      if (l.boundRects().back().GetGlobalRect().SizeX() > allElemWidth)
+      {
+        // should split
+        if ((p.m_doSplit) && (!isBidi()))
+        {
+          if (!p.m_delimiters.empty())
+            visSplit(auxVisText(), auxRes, p.m_delimiters.c_str(), p.m_delimiters.size());
+          else
+            visSplit(auxVisText(), auxRes, " \n\t", 3);
+        }
+      }
+      else
+        auxRes.push_back(auxVisText());
+
+      for (int i = 0; i < auxRes.size(); ++i)
+      {
+        m_glyphLayouts.push_back(GlyphLayout(p.m_glyphCache, p.m_auxFontDesc, m2::PointD(0, 0), auxRes[i], yg::EPosCenter));
+        m2::RectD r = m_glyphLayouts.back().boundRects().back().GetGlobalRect();
+        allElemWidth = max(r.SizeX(), allElemWidth);
+        allElemHeight += r.SizeY();
+      }
     }
+
 
     double curShift = allElemHeight / 2;
 
