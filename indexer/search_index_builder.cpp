@@ -26,8 +26,12 @@ struct FeatureName
   strings::UniString m_name;
   char m_Value[5];
 
-  FeatureName(strings::UniString const & name, uint32_t id, uint8_t rank) : m_name(name)
+  FeatureName(strings::UniString const & name, signed char lang, uint32_t id, uint8_t rank)
   {
+    m_name.reserve(name.size() + 1);
+    m_name.push_back(static_cast<uint8_t>(lang));
+    m_name.append(name.begin(), name.end());
+
     m_Value[0] = rank;
     uint32_t const idToWrite = SwapIfBigEndian(id);
     memcpy(&m_Value[1], &idToWrite, 4);
@@ -77,9 +81,9 @@ struct FeatureNameInserter
     AddToken(lang, s, m_rank);
   }
 
-  void AddToken(signed char, strings::UniString const & s, uint32_t rank) const
+  void AddToken(signed char lang, strings::UniString const & s, uint32_t rank) const
   {
-    m_names.push_back(FeatureName(s, m_pos, static_cast<uint8_t>(min(rank, 255U))));
+    m_names.push_back(FeatureName(s, lang, m_pos, static_cast<uint8_t>(min(rank, 255U))));
   }
 
   bool operator()(signed char lang, string const & name) const

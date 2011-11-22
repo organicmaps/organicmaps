@@ -14,6 +14,7 @@
 
 class FeatureType;
 class Index;
+class MwmInfo;
 
 namespace storage { class CountryInfoGetter; }
 
@@ -57,6 +58,10 @@ private:
   void FlushResults(function<void (Result const &)> const & f);
   void UpdateViewportOffsets();
   void SearchFeatures();
+  void SearchFeatures(vector<vector<strings::UniString> > const & tokens,
+                      vector<MwmInfo> const & mwmInfo,
+                      unordered_set<int8_t> const & langs,
+                      bool onlyInViewport);
   void SuggestStrings();
 
   void GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name);

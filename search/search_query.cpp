@@ -15,6 +15,8 @@
 #include "../indexer/search_delimiters.hpp"
 #include "../indexer/search_string_utils.hpp"
 
+#include "../coding/multilang_utf8_string.hpp"
+
 #include "../base/logging.hpp"
 #include "../base/string_utils.hpp"
 #include "../base/stl_add.hpp"
@@ -270,13 +272,42 @@ void Query::SearchFeatures()
   if (!m_pIndex)
     return;
 
+  vector<vector<strings::UniString> > tokens(m_tokens.size());
+
+  // Add normal tokens.
+  for (size_t i = 0; i < m_tokens.size(); ++i)
+    tokens[i].push_back(m_tokens[i]);
+
+  // Add names of categories.
+  if (m_pCategories)
+  {
+    for (size_t i = 0; i < m_tokens.size(); ++i)
+    {
+      pair<CategoriesMapT::const_iterator, CategoriesMapT::const_iterator> range
+          = m_pCategories->equal_range(m_tokens[i]);
+      for (CategoriesMapT::const_iterator it = range.first; it != range.second; ++it)
+        tokens[i].push_back(FeatureTypeToString(it->second));
+    }
+  }
+
   vector<MwmInfo> mwmInfo;
   m_pIndex->GetMwmInfo(mwmInfo);
 
+  unordered_set<int8_t> langs;
+  langs.insert(StringUtf8Multilang::GetLangIndex("en"));
+  SearchFeatures(tokens, mwmInfo, langs, true);
+}
+
+void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
+                           vector<MwmInfo> const & mwmInfo,
+                           unordered_set<int8_t> const & langs,
+                           bool onlyInViewport)
+{
   for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
   {
     // Search only mwms that intersect with viewport (world always does).
-    if (m_viewportExtended.IsIntersect(mwmInfo[mwmId].m_limitRect))
+    if (!onlyInViewport ||
+        m_viewportExtended.IsIntersect(mwmInfo[mwmId].m_limitRect))
     {
       Index::MwmLock mwmLock(*m_pIndex, mwmId);
       if (MwmValue * pMwm = mwmLock.GetValue())
@@ -289,33 +320,30 @@ void Query::SearchFeatures()
                                                ::search::trie::EdgeValueReader()));
           if (pTrieRoot)
           {
-            feature::DataHeader const & h = pMwm->GetHeader();
-            FeaturesVector featuresVector(pMwm->m_cont, h);
-            impl::FeatureLoader f(featuresVector, *this,
+            for (size_t i = 0; i < pTrieRoot->m_edge.size(); ++i)
+            {
+              TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
+              ASSERT_EQUAL(edge.size(), 1, ());
+              if (edge.size() == 1 && edge[0] < 128 && langs.count(static_cast<int8_t>(edge[0])))
+              {
+                scoped_ptr<TrieIterator> pLangRoot(pTrieRoot->GoToEdge(i));
+
+                feature::DataHeader const & h = pMwm->GetHeader();
+                FeaturesVector featuresVector(pMwm->m_cont, h);
+                impl::FeatureLoader f(
+                      featuresVector,
+                      *this,
                       (h.GetType() == feature::DataHeader::world) ? "" : mwmLock.GetCountryName());
 
-            vector<vector<strings::UniString> > tokens(m_tokens.size());
+                MatchFeaturesInTrie(tokens, m_prefix, *pLangRoot,
+                                    &m_offsetsInViewport[mwmId], f, m_results.max_size() * 10);
 
-            // Add normal tokens.
-            for (size_t i = 0; i < m_tokens.size(); ++i)
-              tokens[i].push_back(m_tokens[i]);
-
-            // Add names of categories.
-            if (m_pCategories)
-            {
-              for (size_t i = 0; i < m_tokens.size(); ++i)
-              {
-                pair<CategoriesMapT::const_iterator, CategoriesMapT::const_iterator> range
-                    = m_pCategories->equal_range(m_tokens[i]);
-                for (CategoriesMapT::const_iterator it = range.first; it != range.second; ++it)
-                  tokens[i].push_back(FeatureTypeToString(it->second));
+                LOG(LDEBUG, ("Lang:",
+                             StringUtf8Multilang::GetLangByCode(static_cast<int8_t>(edge[0])),
+                             "Matched: ",
+                             f.m_count));
               }
             }
-
-            MatchFeaturesInTrie(tokens, m_prefix, *pTrieRoot,
-                                &m_offsetsInViewport[mwmId], f, m_results.max_size() * 10);
-
-            LOG(LDEBUG, ("Matched: ", f.m_count));
           }
         }
       }
