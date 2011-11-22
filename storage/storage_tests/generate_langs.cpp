@@ -8,6 +8,8 @@
 #include "../../coding/parse_xml.hpp"
 
 #include "../../base/string_utils.hpp"
+#include "../../base/stl_add.hpp"
+#include "../../base/logging.hpp"
 
 #include "../../std/fstream.hpp"
 
@@ -135,5 +137,48 @@ UNIT_TEST(GenerateLanguages)
   ReaderSource<FileReader> src(reader);
   LangXMLGetter parser(path, code2file);
   ParseXML(src, parser);
+}
+*/
+
+/*
+UNIT_TEST(MergeLanguages)
+{
+  string const paths[] = { "/Users/alena/omim/omim/data/metainfo/",
+                           "/Users/alena/omim/omim/data/metainfo_test/"
+                         };
+
+  Platform::FilesList fList;
+  GetPlatform().GetFilesInDir(paths[0], "*.meta", fList);
+
+  for (size_t i = 0; i < fList.size(); ++i)
+  {
+    vector<string> res;
+
+    for (size_t j = 0; j < ARRAY_SIZE(paths); ++j)
+    {
+      try
+      {
+        FileReader reader(paths[j] + fList[i]);
+        string buffer;
+        reader.ReadAsString(buffer);
+        strings::Tokenize(buffer, "|", MakeBackInsertFunctor(res));
+      }
+      catch (Reader::OpenException const &)
+      {
+        LOG(LINFO, ("No file ", fList[i], " in merge directory."));
+      }
+    }
+
+    sort(res.begin(), res.end());
+    res.erase(unique(res.begin(), res.end()), res.end());
+
+    CHECK ( !res.empty(), () );
+    string outStr = res[0];
+    for (size_t j = 1; j < res.size(); ++j)
+      outStr = outStr + "|" + res[j];
+
+    ofstream file((paths[0] + fList[i]).c_str());
+    file << outStr;
+  }
 }
 */
