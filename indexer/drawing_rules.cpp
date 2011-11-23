@@ -1115,7 +1115,8 @@ namespace
       return (pSrc->GetFillColor() | GetStoringAlpha(pSrc));
     }
 
-    void ConvertImpl(BaseRule const * pSrc, LineRuleProto * pDest) const
+    template <class T>
+    void ConvertLineStyle(BaseRule const * pSrc, T * pDest) const
     {
       pDest->set_width(ToPixels(pSrc->GetWidth()));
       pDest->set_color(GetColor(pSrc));
@@ -1135,11 +1136,16 @@ namespace
       }
     }
 
+    void ConvertImpl(BaseRule const * pSrc, LineRuleProto * pDest) const
+    {
+      ConvertLineStyle(pSrc, pDest);
+    }
+
     void ConvertImpl(BaseRule const * pSrc, AreaRuleProto * pDest) const
     {
       pDest->set_color(GetFillColor(pSrc));
       if (pSrc->GetColor() != -1)
-        ConvertImpl(pSrc, pDest->mutable_border());
+        ConvertLineStyle(pSrc, pDest->mutable_border());
     }
 
     void ConvertImpl(BaseRule const * pSrc, SymbolRuleProto * pDest) const
@@ -1150,7 +1156,7 @@ namespace
     }
 
     template <class T>
-    void ConvertCaptionT(BaseRule const * pSrc, T * pDest) const
+    void ConvertCaptionStyle(BaseRule const * pSrc, T * pDest) const
     {
       pDest->set_height(ToPixels(pSrc->GetTextHeight()));
       pDest->set_color((pSrc->GetFillColor() != -1) ? GetFillColor(pSrc) : 0);
@@ -1161,12 +1167,12 @@ namespace
 
     void ConvertImpl(BaseRule const * pSrc, CaptionRuleProto * pDest) const
     {
-      ConvertCaptionT(pSrc, pDest);
+      ConvertCaptionStyle(pSrc, pDest->mutable_primary());
     }
 
     void ConvertImpl(BaseRule const * pSrc, PathTextRuleProto * pDest) const
     {
-      ConvertCaptionT(pSrc, pDest);
+      ConvertCaptionStyle(pSrc, pDest->mutable_primary());
     }
 
     void ConvertImpl(BaseRule const * pSrc, CircleRuleProto * pDest) const
@@ -1278,7 +1284,8 @@ namespace
       return (255 - c);
     }
 
-    void GetPattern(LineRuleProto const & ln, vector<double> & v, double & offset)
+    template <class T>
+    void GetPattern(T const & ln, vector<double> & v, double & offset)
     {
       offset = 0.0;
       if (ln.has_dashdot())
@@ -1379,22 +1386,24 @@ namespace
     template <class T> class CaptionT : public MyBase
     {
       T m_caption;
+      inline CaptionDefProto const & primary() const { return m_caption.primary(); }
+
     public:
       CaptionT(T const & r) : m_caption(r) {}
 
       virtual int GetColor() const
       {
-        if (m_caption.has_stroke_color())
-          return m_caption.stroke_color();
+        if (primary().has_stroke_color())
+          return primary().stroke_color();
         return -1;
       }
       virtual int GetFillColor() const
       {
-        return m_caption.color();
+        return primary().color();
       }
       virtual double GetTextHeight() const
       {
-        return m_caption.height();
+        return primary().height();
       }
       virtual unsigned char GetAlpha() const
       {

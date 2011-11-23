@@ -32,8 +32,10 @@ void protobuf_ShutdownFile_drules_5fstruct_2eproto();
 
 class DashDotProto;
 class LineRuleProto;
+class LineDefProto;
 class AreaRuleProto;
 class SymbolRuleProto;
+class CaptionDefProto;
 class CaptionRuleProto;
 class CircleRuleProto;
 class PathTextRuleProto;
@@ -214,7 +216,7 @@ class LineRuleProto : public ::google::protobuf::Message {
   inline ::DashDotProto* mutable_dashdot();
   inline ::DashDotProto* release_dashdot();
   
-  // optional int32 priority = 4;
+  // required int32 priority = 4;
   inline bool has_priority() const;
   inline void clear_priority();
   static const int kPriorityFieldNumber = 4;
@@ -248,6 +250,109 @@ class LineRuleProto : public ::google::protobuf::Message {
   
   void InitAsDefaultInstance();
   static LineRuleProto* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class LineDefProto : public ::google::protobuf::Message {
+ public:
+  LineDefProto();
+  virtual ~LineDefProto();
+  
+  LineDefProto(const LineDefProto& from);
+  
+  inline LineDefProto& operator=(const LineDefProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+  
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+  
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const LineDefProto& default_instance();
+  
+  void Swap(LineDefProto* other);
+  
+  // implements Message ----------------------------------------------
+  
+  LineDefProto* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const LineDefProto& from);
+  void MergeFrom(const LineDefProto& from);
+  void Clear();
+  bool IsInitialized() const;
+  
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  
+  ::google::protobuf::Metadata GetMetadata() const;
+  
+  // nested types ----------------------------------------------------
+  
+  // accessors -------------------------------------------------------
+  
+  // required double width = 1;
+  inline bool has_width() const;
+  inline void clear_width();
+  static const int kWidthFieldNumber = 1;
+  inline double width() const;
+  inline void set_width(double value);
+  
+  // required uint32 color = 2;
+  inline bool has_color() const;
+  inline void clear_color();
+  static const int kColorFieldNumber = 2;
+  inline ::google::protobuf::uint32 color() const;
+  inline void set_color(::google::protobuf::uint32 value);
+  
+  // optional .DashDotProto dashdot = 3;
+  inline bool has_dashdot() const;
+  inline void clear_dashdot();
+  static const int kDashdotFieldNumber = 3;
+  inline const ::DashDotProto& dashdot() const;
+  inline ::DashDotProto* mutable_dashdot();
+  inline ::DashDotProto* release_dashdot();
+  
+  // @@protoc_insertion_point(class_scope:LineDefProto)
+ private:
+  inline void set_has_width();
+  inline void clear_has_width();
+  inline void set_has_color();
+  inline void clear_has_color();
+  inline void set_has_dashdot();
+  inline void clear_has_dashdot();
+  
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+  
+  double width_;
+  ::DashDotProto* dashdot_;
+  ::google::protobuf::uint32 color_;
+  
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
+  friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
+  
+  void InitAsDefaultInstance();
+  static LineDefProto* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -312,13 +417,13 @@ class AreaRuleProto : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 color() const;
   inline void set_color(::google::protobuf::uint32 value);
   
-  // optional .LineRuleProto border = 2;
+  // optional .LineDefProto border = 2;
   inline bool has_border() const;
   inline void clear_border();
   static const int kBorderFieldNumber = 2;
-  inline const ::LineRuleProto& border() const;
-  inline ::LineRuleProto* mutable_border();
-  inline ::LineRuleProto* release_border();
+  inline const ::LineDefProto& border() const;
+  inline ::LineDefProto* mutable_border();
+  inline ::LineDefProto* release_border();
   
   // required int32 priority = 3;
   inline bool has_priority() const;
@@ -338,7 +443,7 @@ class AreaRuleProto : public ::google::protobuf::Message {
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
-  ::LineRuleProto* border_;
+  ::LineDefProto* border_;
   ::google::protobuf::uint32 color_;
   ::google::protobuf::int32 priority_;
   
@@ -460,6 +565,108 @@ class SymbolRuleProto : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
+class CaptionDefProto : public ::google::protobuf::Message {
+ public:
+  CaptionDefProto();
+  virtual ~CaptionDefProto();
+  
+  CaptionDefProto(const CaptionDefProto& from);
+  
+  inline CaptionDefProto& operator=(const CaptionDefProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+  
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+  
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CaptionDefProto& default_instance();
+  
+  void Swap(CaptionDefProto* other);
+  
+  // implements Message ----------------------------------------------
+  
+  CaptionDefProto* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const CaptionDefProto& from);
+  void MergeFrom(const CaptionDefProto& from);
+  void Clear();
+  bool IsInitialized() const;
+  
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  
+  ::google::protobuf::Metadata GetMetadata() const;
+  
+  // nested types ----------------------------------------------------
+  
+  // accessors -------------------------------------------------------
+  
+  // required int32 height = 1;
+  inline bool has_height() const;
+  inline void clear_height();
+  static const int kHeightFieldNumber = 1;
+  inline ::google::protobuf::int32 height() const;
+  inline void set_height(::google::protobuf::int32 value);
+  
+  // required uint32 color = 2;
+  inline bool has_color() const;
+  inline void clear_color();
+  static const int kColorFieldNumber = 2;
+  inline ::google::protobuf::uint32 color() const;
+  inline void set_color(::google::protobuf::uint32 value);
+  
+  // optional uint32 stroke_color = 3;
+  inline bool has_stroke_color() const;
+  inline void clear_stroke_color();
+  static const int kStrokeColorFieldNumber = 3;
+  inline ::google::protobuf::uint32 stroke_color() const;
+  inline void set_stroke_color(::google::protobuf::uint32 value);
+  
+  // @@protoc_insertion_point(class_scope:CaptionDefProto)
+ private:
+  inline void set_has_height();
+  inline void clear_has_height();
+  inline void set_has_color();
+  inline void clear_has_color();
+  inline void set_has_stroke_color();
+  inline void clear_has_stroke_color();
+  
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+  
+  ::google::protobuf::int32 height_;
+  ::google::protobuf::uint32 color_;
+  ::google::protobuf::uint32 stroke_color_;
+  
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  
+  friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
+  friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
+  friend void protobuf_ShutdownFile_drules_5fstruct_2eproto();
+  
+  void InitAsDefaultInstance();
+  static CaptionDefProto* default_instance_;
+};
+// -------------------------------------------------------------------
+
 class CaptionRuleProto : public ::google::protobuf::Message {
  public:
   CaptionRuleProto();
@@ -514,54 +721,46 @@ class CaptionRuleProto : public ::google::protobuf::Message {
   
   // accessors -------------------------------------------------------
   
-  // required int32 height = 1;
-  inline bool has_height() const;
-  inline void clear_height();
-  static const int kHeightFieldNumber = 1;
-  inline ::google::protobuf::int32 height() const;
-  inline void set_height(::google::protobuf::int32 value);
+  // required .CaptionDefProto primary = 1;
+  inline bool has_primary() const;
+  inline void clear_primary();
+  static const int kPrimaryFieldNumber = 1;
+  inline const ::CaptionDefProto& primary() const;
+  inline ::CaptionDefProto* mutable_primary();
+  inline ::CaptionDefProto* release_primary();
   
-  // required uint32 color = 2;
-  inline bool has_color() const;
-  inline void clear_color();
-  static const int kColorFieldNumber = 2;
-  inline ::google::protobuf::uint32 color() const;
-  inline void set_color(::google::protobuf::uint32 value);
+  // optional .CaptionDefProto secondary = 2;
+  inline bool has_secondary() const;
+  inline void clear_secondary();
+  static const int kSecondaryFieldNumber = 2;
+  inline const ::CaptionDefProto& secondary() const;
+  inline ::CaptionDefProto* mutable_secondary();
+  inline ::CaptionDefProto* release_secondary();
   
-  // optional uint32 stroke_color = 3;
-  inline bool has_stroke_color() const;
-  inline void clear_stroke_color();
-  static const int kStrokeColorFieldNumber = 3;
-  inline ::google::protobuf::uint32 stroke_color() const;
-  inline void set_stroke_color(::google::protobuf::uint32 value);
-  
-  // required int32 priority = 4;
+  // required int32 priority = 3;
   inline bool has_priority() const;
   inline void clear_priority();
-  static const int kPriorityFieldNumber = 4;
+  static const int kPriorityFieldNumber = 3;
   inline ::google::protobuf::int32 priority() const;
   inline void set_priority(::google::protobuf::int32 value);
   
   // @@protoc_insertion_point(class_scope:CaptionRuleProto)
  private:
-  inline void set_has_height();
-  inline void clear_has_height();
-  inline void set_has_color();
-  inline void clear_has_color();
-  inline void set_has_stroke_color();
-  inline void clear_has_stroke_color();
+  inline void set_has_primary();
+  inline void clear_has_primary();
+  inline void set_has_secondary();
+  inline void clear_has_secondary();
   inline void set_has_priority();
   inline void clear_has_priority();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
-  ::google::protobuf::int32 height_;
-  ::google::protobuf::uint32 color_;
-  ::google::protobuf::uint32 stroke_color_;
+  ::CaptionDefProto* primary_;
+  ::CaptionDefProto* secondary_;
   ::google::protobuf::int32 priority_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
   
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
@@ -640,13 +839,13 @@ class CircleRuleProto : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 color() const;
   inline void set_color(::google::protobuf::uint32 value);
   
-  // optional .LineRuleProto border = 3;
+  // optional .LineDefProto border = 3;
   inline bool has_border() const;
   inline void clear_border();
   static const int kBorderFieldNumber = 3;
-  inline const ::LineRuleProto& border() const;
-  inline ::LineRuleProto* mutable_border();
-  inline ::LineRuleProto* release_border();
+  inline const ::LineDefProto& border() const;
+  inline ::LineDefProto* mutable_border();
+  inline ::LineDefProto* release_border();
   
   // required int32 priority = 4;
   inline bool has_priority() const;
@@ -669,7 +868,7 @@ class CircleRuleProto : public ::google::protobuf::Message {
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
   double radius_;
-  ::LineRuleProto* border_;
+  ::LineDefProto* border_;
   ::google::protobuf::uint32 color_;
   ::google::protobuf::int32 priority_;
   
@@ -739,54 +938,46 @@ class PathTextRuleProto : public ::google::protobuf::Message {
   
   // accessors -------------------------------------------------------
   
-  // required int32 height = 1;
-  inline bool has_height() const;
-  inline void clear_height();
-  static const int kHeightFieldNumber = 1;
-  inline ::google::protobuf::int32 height() const;
-  inline void set_height(::google::protobuf::int32 value);
+  // required .CaptionDefProto primary = 1;
+  inline bool has_primary() const;
+  inline void clear_primary();
+  static const int kPrimaryFieldNumber = 1;
+  inline const ::CaptionDefProto& primary() const;
+  inline ::CaptionDefProto* mutable_primary();
+  inline ::CaptionDefProto* release_primary();
   
-  // required uint32 color = 2;
-  inline bool has_color() const;
-  inline void clear_color();
-  static const int kColorFieldNumber = 2;
-  inline ::google::protobuf::uint32 color() const;
-  inline void set_color(::google::protobuf::uint32 value);
+  // optional .CaptionDefProto secondary = 2;
+  inline bool has_secondary() const;
+  inline void clear_secondary();
+  static const int kSecondaryFieldNumber = 2;
+  inline const ::CaptionDefProto& secondary() const;
+  inline ::CaptionDefProto* mutable_secondary();
+  inline ::CaptionDefProto* release_secondary();
   
-  // optional uint32 stroke_color = 3;
-  inline bool has_stroke_color() const;
-  inline void clear_stroke_color();
-  static const int kStrokeColorFieldNumber = 3;
-  inline ::google::protobuf::uint32 stroke_color() const;
-  inline void set_stroke_color(::google::protobuf::uint32 value);
-  
-  // required int32 priority = 4;
+  // required int32 priority = 3;
   inline bool has_priority() const;
   inline void clear_priority();
-  static const int kPriorityFieldNumber = 4;
+  static const int kPriorityFieldNumber = 3;
   inline ::google::protobuf::int32 priority() const;
   inline void set_priority(::google::protobuf::int32 value);
   
   // @@protoc_insertion_point(class_scope:PathTextRuleProto)
  private:
-  inline void set_has_height();
-  inline void clear_has_height();
-  inline void set_has_color();
-  inline void clear_has_color();
-  inline void set_has_stroke_color();
-  inline void clear_has_stroke_color();
+  inline void set_has_primary();
+  inline void clear_has_primary();
+  inline void set_has_secondary();
+  inline void clear_has_secondary();
   inline void set_has_priority();
   inline void clear_has_priority();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
-  ::google::protobuf::int32 height_;
-  ::google::protobuf::uint32 color_;
-  ::google::protobuf::uint32 stroke_color_;
+  ::CaptionDefProto* primary_;
+  ::CaptionDefProto* secondary_;
   ::google::protobuf::int32 priority_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
   
   friend void  protobuf_AddDesc_drules_5fstruct_2eproto();
   friend void protobuf_AssignDesc_drules_5fstruct_2eproto();
@@ -1260,7 +1451,7 @@ inline ::DashDotProto* LineRuleProto::release_dashdot() {
   return temp;
 }
 
-// optional int32 priority = 4;
+// required int32 priority = 4;
 inline bool LineRuleProto::has_priority() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
@@ -1280,6 +1471,83 @@ inline ::google::protobuf::int32 LineRuleProto::priority() const {
 inline void LineRuleProto::set_priority(::google::protobuf::int32 value) {
   set_has_priority();
   priority_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// LineDefProto
+
+// required double width = 1;
+inline bool LineDefProto::has_width() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void LineDefProto::set_has_width() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void LineDefProto::clear_has_width() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void LineDefProto::clear_width() {
+  width_ = 0;
+  clear_has_width();
+}
+inline double LineDefProto::width() const {
+  return width_;
+}
+inline void LineDefProto::set_width(double value) {
+  set_has_width();
+  width_ = value;
+}
+
+// required uint32 color = 2;
+inline bool LineDefProto::has_color() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void LineDefProto::set_has_color() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void LineDefProto::clear_has_color() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void LineDefProto::clear_color() {
+  color_ = 0u;
+  clear_has_color();
+}
+inline ::google::protobuf::uint32 LineDefProto::color() const {
+  return color_;
+}
+inline void LineDefProto::set_color(::google::protobuf::uint32 value) {
+  set_has_color();
+  color_ = value;
+}
+
+// optional .DashDotProto dashdot = 3;
+inline bool LineDefProto::has_dashdot() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void LineDefProto::set_has_dashdot() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void LineDefProto::clear_has_dashdot() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void LineDefProto::clear_dashdot() {
+  if (dashdot_ != NULL) dashdot_->::DashDotProto::Clear();
+  clear_has_dashdot();
+}
+inline const ::DashDotProto& LineDefProto::dashdot() const {
+  return dashdot_ != NULL ? *dashdot_ : *default_instance_->dashdot_;
+}
+inline ::DashDotProto* LineDefProto::mutable_dashdot() {
+  set_has_dashdot();
+  if (dashdot_ == NULL) dashdot_ = new ::DashDotProto;
+  return dashdot_;
+}
+inline ::DashDotProto* LineDefProto::release_dashdot() {
+  clear_has_dashdot();
+  ::DashDotProto* temp = dashdot_;
+  dashdot_ = NULL;
+  return temp;
 }
 
 // -------------------------------------------------------------------
@@ -1308,7 +1576,7 @@ inline void AreaRuleProto::set_color(::google::protobuf::uint32 value) {
   color_ = value;
 }
 
-// optional .LineRuleProto border = 2;
+// optional .LineDefProto border = 2;
 inline bool AreaRuleProto::has_border() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -1319,20 +1587,20 @@ inline void AreaRuleProto::clear_has_border() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void AreaRuleProto::clear_border() {
-  if (border_ != NULL) border_->::LineRuleProto::Clear();
+  if (border_ != NULL) border_->::LineDefProto::Clear();
   clear_has_border();
 }
-inline const ::LineRuleProto& AreaRuleProto::border() const {
+inline const ::LineDefProto& AreaRuleProto::border() const {
   return border_ != NULL ? *border_ : *default_instance_->border_;
 }
-inline ::LineRuleProto* AreaRuleProto::mutable_border() {
+inline ::LineDefProto* AreaRuleProto::mutable_border() {
   set_has_border();
-  if (border_ == NULL) border_ = new ::LineRuleProto;
+  if (border_ == NULL) border_ = new ::LineDefProto;
   return border_;
 }
-inline ::LineRuleProto* AreaRuleProto::release_border() {
+inline ::LineDefProto* AreaRuleProto::release_border() {
   clear_has_border();
-  ::LineRuleProto* temp = border_;
+  ::LineDefProto* temp = border_;
   border_ = NULL;
   return temp;
 }
@@ -1467,83 +1735,145 @@ inline void SymbolRuleProto::set_priority(::google::protobuf::int32 value) {
 
 // -------------------------------------------------------------------
 
-// CaptionRuleProto
+// CaptionDefProto
 
 // required int32 height = 1;
-inline bool CaptionRuleProto::has_height() const {
+inline bool CaptionDefProto::has_height() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void CaptionRuleProto::set_has_height() {
+inline void CaptionDefProto::set_has_height() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void CaptionRuleProto::clear_has_height() {
+inline void CaptionDefProto::clear_has_height() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void CaptionRuleProto::clear_height() {
+inline void CaptionDefProto::clear_height() {
   height_ = 0;
   clear_has_height();
 }
-inline ::google::protobuf::int32 CaptionRuleProto::height() const {
+inline ::google::protobuf::int32 CaptionDefProto::height() const {
   return height_;
 }
-inline void CaptionRuleProto::set_height(::google::protobuf::int32 value) {
+inline void CaptionDefProto::set_height(::google::protobuf::int32 value) {
   set_has_height();
   height_ = value;
 }
 
 // required uint32 color = 2;
-inline bool CaptionRuleProto::has_color() const {
+inline bool CaptionDefProto::has_color() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void CaptionRuleProto::set_has_color() {
+inline void CaptionDefProto::set_has_color() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void CaptionRuleProto::clear_has_color() {
+inline void CaptionDefProto::clear_has_color() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void CaptionRuleProto::clear_color() {
+inline void CaptionDefProto::clear_color() {
   color_ = 0u;
   clear_has_color();
 }
-inline ::google::protobuf::uint32 CaptionRuleProto::color() const {
+inline ::google::protobuf::uint32 CaptionDefProto::color() const {
   return color_;
 }
-inline void CaptionRuleProto::set_color(::google::protobuf::uint32 value) {
+inline void CaptionDefProto::set_color(::google::protobuf::uint32 value) {
   set_has_color();
   color_ = value;
 }
 
 // optional uint32 stroke_color = 3;
-inline bool CaptionRuleProto::has_stroke_color() const {
+inline bool CaptionDefProto::has_stroke_color() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void CaptionRuleProto::set_has_stroke_color() {
+inline void CaptionDefProto::set_has_stroke_color() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void CaptionRuleProto::clear_has_stroke_color() {
+inline void CaptionDefProto::clear_has_stroke_color() {
   _has_bits_[0] &= ~0x00000004u;
 }
-inline void CaptionRuleProto::clear_stroke_color() {
+inline void CaptionDefProto::clear_stroke_color() {
   stroke_color_ = 0u;
   clear_has_stroke_color();
 }
-inline ::google::protobuf::uint32 CaptionRuleProto::stroke_color() const {
+inline ::google::protobuf::uint32 CaptionDefProto::stroke_color() const {
   return stroke_color_;
 }
-inline void CaptionRuleProto::set_stroke_color(::google::protobuf::uint32 value) {
+inline void CaptionDefProto::set_stroke_color(::google::protobuf::uint32 value) {
   set_has_stroke_color();
   stroke_color_ = value;
 }
 
-// required int32 priority = 4;
+// -------------------------------------------------------------------
+
+// CaptionRuleProto
+
+// required .CaptionDefProto primary = 1;
+inline bool CaptionRuleProto::has_primary() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void CaptionRuleProto::set_has_primary() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void CaptionRuleProto::clear_has_primary() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void CaptionRuleProto::clear_primary() {
+  if (primary_ != NULL) primary_->::CaptionDefProto::Clear();
+  clear_has_primary();
+}
+inline const ::CaptionDefProto& CaptionRuleProto::primary() const {
+  return primary_ != NULL ? *primary_ : *default_instance_->primary_;
+}
+inline ::CaptionDefProto* CaptionRuleProto::mutable_primary() {
+  set_has_primary();
+  if (primary_ == NULL) primary_ = new ::CaptionDefProto;
+  return primary_;
+}
+inline ::CaptionDefProto* CaptionRuleProto::release_primary() {
+  clear_has_primary();
+  ::CaptionDefProto* temp = primary_;
+  primary_ = NULL;
+  return temp;
+}
+
+// optional .CaptionDefProto secondary = 2;
+inline bool CaptionRuleProto::has_secondary() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void CaptionRuleProto::set_has_secondary() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void CaptionRuleProto::clear_has_secondary() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void CaptionRuleProto::clear_secondary() {
+  if (secondary_ != NULL) secondary_->::CaptionDefProto::Clear();
+  clear_has_secondary();
+}
+inline const ::CaptionDefProto& CaptionRuleProto::secondary() const {
+  return secondary_ != NULL ? *secondary_ : *default_instance_->secondary_;
+}
+inline ::CaptionDefProto* CaptionRuleProto::mutable_secondary() {
+  set_has_secondary();
+  if (secondary_ == NULL) secondary_ = new ::CaptionDefProto;
+  return secondary_;
+}
+inline ::CaptionDefProto* CaptionRuleProto::release_secondary() {
+  clear_has_secondary();
+  ::CaptionDefProto* temp = secondary_;
+  secondary_ = NULL;
+  return temp;
+}
+
+// required int32 priority = 3;
 inline bool CaptionRuleProto::has_priority() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void CaptionRuleProto::set_has_priority() {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000004u;
 }
 inline void CaptionRuleProto::clear_has_priority() {
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline void CaptionRuleProto::clear_priority() {
   priority_ = 0;
@@ -1605,7 +1935,7 @@ inline void CircleRuleProto::set_color(::google::protobuf::uint32 value) {
   color_ = value;
 }
 
-// optional .LineRuleProto border = 3;
+// optional .LineDefProto border = 3;
 inline bool CircleRuleProto::has_border() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
@@ -1616,20 +1946,20 @@ inline void CircleRuleProto::clear_has_border() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline void CircleRuleProto::clear_border() {
-  if (border_ != NULL) border_->::LineRuleProto::Clear();
+  if (border_ != NULL) border_->::LineDefProto::Clear();
   clear_has_border();
 }
-inline const ::LineRuleProto& CircleRuleProto::border() const {
+inline const ::LineDefProto& CircleRuleProto::border() const {
   return border_ != NULL ? *border_ : *default_instance_->border_;
 }
-inline ::LineRuleProto* CircleRuleProto::mutable_border() {
+inline ::LineDefProto* CircleRuleProto::mutable_border() {
   set_has_border();
-  if (border_ == NULL) border_ = new ::LineRuleProto;
+  if (border_ == NULL) border_ = new ::LineDefProto;
   return border_;
 }
-inline ::LineRuleProto* CircleRuleProto::release_border() {
+inline ::LineDefProto* CircleRuleProto::release_border() {
   clear_has_border();
-  ::LineRuleProto* temp = border_;
+  ::LineDefProto* temp = border_;
   border_ = NULL;
   return temp;
 }
@@ -1660,81 +1990,73 @@ inline void CircleRuleProto::set_priority(::google::protobuf::int32 value) {
 
 // PathTextRuleProto
 
-// required int32 height = 1;
-inline bool PathTextRuleProto::has_height() const {
+// required .CaptionDefProto primary = 1;
+inline bool PathTextRuleProto::has_primary() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void PathTextRuleProto::set_has_height() {
+inline void PathTextRuleProto::set_has_primary() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void PathTextRuleProto::clear_has_height() {
+inline void PathTextRuleProto::clear_has_primary() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void PathTextRuleProto::clear_height() {
-  height_ = 0;
-  clear_has_height();
+inline void PathTextRuleProto::clear_primary() {
+  if (primary_ != NULL) primary_->::CaptionDefProto::Clear();
+  clear_has_primary();
 }
-inline ::google::protobuf::int32 PathTextRuleProto::height() const {
-  return height_;
+inline const ::CaptionDefProto& PathTextRuleProto::primary() const {
+  return primary_ != NULL ? *primary_ : *default_instance_->primary_;
 }
-inline void PathTextRuleProto::set_height(::google::protobuf::int32 value) {
-  set_has_height();
-  height_ = value;
+inline ::CaptionDefProto* PathTextRuleProto::mutable_primary() {
+  set_has_primary();
+  if (primary_ == NULL) primary_ = new ::CaptionDefProto;
+  return primary_;
+}
+inline ::CaptionDefProto* PathTextRuleProto::release_primary() {
+  clear_has_primary();
+  ::CaptionDefProto* temp = primary_;
+  primary_ = NULL;
+  return temp;
 }
 
-// required uint32 color = 2;
-inline bool PathTextRuleProto::has_color() const {
+// optional .CaptionDefProto secondary = 2;
+inline bool PathTextRuleProto::has_secondary() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void PathTextRuleProto::set_has_color() {
+inline void PathTextRuleProto::set_has_secondary() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void PathTextRuleProto::clear_has_color() {
+inline void PathTextRuleProto::clear_has_secondary() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void PathTextRuleProto::clear_color() {
-  color_ = 0u;
-  clear_has_color();
+inline void PathTextRuleProto::clear_secondary() {
+  if (secondary_ != NULL) secondary_->::CaptionDefProto::Clear();
+  clear_has_secondary();
 }
-inline ::google::protobuf::uint32 PathTextRuleProto::color() const {
-  return color_;
+inline const ::CaptionDefProto& PathTextRuleProto::secondary() const {
+  return secondary_ != NULL ? *secondary_ : *default_instance_->secondary_;
 }
-inline void PathTextRuleProto::set_color(::google::protobuf::uint32 value) {
-  set_has_color();
-  color_ = value;
+inline ::CaptionDefProto* PathTextRuleProto::mutable_secondary() {
+  set_has_secondary();
+  if (secondary_ == NULL) secondary_ = new ::CaptionDefProto;
+  return secondary_;
+}
+inline ::CaptionDefProto* PathTextRuleProto::release_secondary() {
+  clear_has_secondary();
+  ::CaptionDefProto* temp = secondary_;
+  secondary_ = NULL;
+  return temp;
 }
 
-// optional uint32 stroke_color = 3;
-inline bool PathTextRuleProto::has_stroke_color() const {
+// required int32 priority = 3;
+inline bool PathTextRuleProto::has_priority() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void PathTextRuleProto::set_has_stroke_color() {
+inline void PathTextRuleProto::set_has_priority() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void PathTextRuleProto::clear_has_stroke_color() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void PathTextRuleProto::clear_stroke_color() {
-  stroke_color_ = 0u;
-  clear_has_stroke_color();
-}
-inline ::google::protobuf::uint32 PathTextRuleProto::stroke_color() const {
-  return stroke_color_;
-}
-inline void PathTextRuleProto::set_stroke_color(::google::protobuf::uint32 value) {
-  set_has_stroke_color();
-  stroke_color_ = value;
-}
-
-// required int32 priority = 4;
-inline bool PathTextRuleProto::has_priority() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void PathTextRuleProto::set_has_priority() {
-  _has_bits_[0] |= 0x00000008u;
-}
 inline void PathTextRuleProto::clear_has_priority() {
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline void PathTextRuleProto::clear_priority() {
   priority_ = 0;

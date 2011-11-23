@@ -11,13 +11,20 @@ message LineRuleProto
   required double width = 1;
   required uint32 color = 2;
   optional DashDotProto dashdot = 3;
-  optional int32 priority = 4;    // optional, because it can be used as part of AreaRule
+  required int32 priority = 4;
+}
+
+message LineDefProto
+{
+  required double width = 1;
+  required uint32 color = 2;
+  optional DashDotProto dashdot = 3;
 }
 
 message AreaRuleProto
 {
   required uint32 color = 1;
-  optional LineRuleProto border = 2;
+  optional LineDefProto border = 2;
   required int32 priority = 3;
 }
 
@@ -28,28 +35,33 @@ message SymbolRuleProto
   required int32 priority = 3;
 }
 
-message CaptionRuleProto
+message CaptionDefProto
 {
   required int32 height = 1;
   required uint32 color = 2;
   optional uint32 stroke_color = 3;
-  required int32 priority = 4;
+}
+
+message CaptionRuleProto
+{
+  required CaptionDefProto primary = 1;
+  optional CaptionDefProto secondary = 2;
+  required int32 priority = 3;
 }
 
 message CircleRuleProto
 {
   required double radius = 1;
   required uint32 color = 2;
-  optional LineRuleProto border = 3;
+  optional LineDefProto border = 3;
   required int32 priority = 4;
 }
 
 message PathTextRuleProto
 {
-  required int32 height = 1;
-  required uint32 color = 2;
-  optional uint32 stroke_color = 3;
-  required int32 priority = 4;
+  required CaptionDefProto primary = 1;
+  optional CaptionDefProto secondary = 2;
+  required int32 priority = 3;
 }
 
 // WayMarkerRule not used yet
