@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>FreeType-2.4.7 API Reference</title>
+<title>FreeType-2.4.8 API Reference</title>
 <style type="text/css">
   body { font-family: Verdana, Geneva, Arial, Helvetica, serif;
          color: #000000;
@@ -35,18 +35,19 @@
 <table align=center><tr><td><font size=-1>[<a href="ft2-index.html">Index</a>]</font></td>
 <td width="100%"></td>
 <td><font size=-1>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
-<center><h1>FreeType-2.4.7 API Reference</h1></center>
+<center><h1>FreeType-2.4.8 API Reference</h1></center>
 
 <center><h1>
 Type 1 Tables
 </h1></center>
 <h2>Synopsis</h2>
 <table align=center cellspacing=5 cellpadding=0 border=0>
-<tr><td></td><td><a href="#PS_FontInfoRec">PS_FontInfoRec</a></td><td></td><td><a href="#T1_Private">T1_Private</a></td><td></td><td><a href="#CID_FaceInfo">CID_FaceInfo</a></td></tr>
-<tr><td></td><td><a href="#PS_FontInfo">PS_FontInfo</a></td><td></td><td><a href="#T1_Blend_Flags">T1_Blend_Flags</a></td><td></td><td><a href="#CID_Info">CID_Info</a></td></tr>
-<tr><td></td><td><a href="#T1_FontInfo">T1_FontInfo</a></td><td></td><td><a href="#CID_FaceDictRec">CID_FaceDictRec</a></td><td></td><td><a href="#FT_Has_PS_Glyph_Names">FT_Has_PS_Glyph_Names</a></td></tr>
-<tr><td></td><td><a href="#PS_PrivateRec">PS_PrivateRec</a></td><td></td><td><a href="#CID_FaceDict">CID_FaceDict</a></td><td></td><td><a href="#FT_Get_PS_Font_Info">FT_Get_PS_Font_Info</a></td></tr>
-<tr><td></td><td><a href="#PS_Private">PS_Private</a></td><td></td><td><a href="#CID_FaceInfoRec">CID_FaceInfoRec</a></td><td></td><td><a href="#FT_Get_PS_Font_Private">FT_Get_PS_Font_Private</a></td></tr>
+<tr><td></td><td><a href="#PS_FontInfoRec">PS_FontInfoRec</a></td><td></td><td><a href="#T1_Blend_Flags">T1_Blend_Flags</a></td><td></td><td><a href="#FT_Has_PS_Glyph_Names">FT_Has_PS_Glyph_Names</a></td></tr>
+<tr><td></td><td><a href="#PS_FontInfo">PS_FontInfo</a></td><td></td><td><a href="#CID_FaceDictRec">CID_FaceDictRec</a></td><td></td><td><a href="#FT_Get_PS_Font_Info">FT_Get_PS_Font_Info</a></td></tr>
+<tr><td></td><td><a href="#T1_FontInfo">T1_FontInfo</a></td><td></td><td><a href="#CID_FaceDict">CID_FaceDict</a></td><td></td><td><a href="#FT_Get_PS_Font_Private">FT_Get_PS_Font_Private</a></td></tr>
+<tr><td></td><td><a href="#PS_PrivateRec">PS_PrivateRec</a></td><td></td><td><a href="#CID_FaceInfoRec">CID_FaceInfoRec</a></td><td></td><td><a href="#T1_EncodingType">T1_EncodingType</a></td></tr>
+<tr><td></td><td><a href="#PS_Private">PS_Private</a></td><td></td><td><a href="#CID_FaceInfo">CID_FaceInfo</a></td><td></td><td><a href="#PS_Dict_Keys">PS_Dict_Keys</a></td></tr>
+<tr><td></td><td><a href="#T1_Private">T1_Private</a></td><td></td><td><a href="#CID_Info">CID_Info</a></td><td></td><td><a href="#FT_Get_PS_Font_Value">FT_Get_PS_Font_Value</a></td></tr>
 </table><br><br>
 
 <table align=center width="87%"><tr><td>
@@ -510,6 +511,172 @@ Defined in FT_TYPE1_TABLES_H (freetype/t1tables.h).
 </td></tr></table>
 <table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>note</b></em></td></tr><tr><td>
 <p>The string pointers within the <a href="ft2-type1_tables.html#PS_PrivateRec">PS_PrivateRec</a> structure are owned by the face and don't need to be freed by the caller.</p>
+<p>If the font's format is not PostScript-based, this function returns the &lsquo;FT_Err_Invalid_Argument&rsquo; error code.</p>
+</td></tr></table>
+</td></tr></table>
+<hr width="75%">
+<table align=center width="75%"><tr><td><font size=-2>[<a href="ft2-index.html">Index</a>]</font></td>
+<td width="100%"></td>
+<td><font size=-2>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
+
+<table align=center width="75%"><tr><td>
+<h4><a name="T1_EncodingType">T1_EncodingType</a></h4>
+<table align=center width="87%"><tr><td>
+Defined in FT_TYPE1_TABLES_H (freetype/t1tables.h).
+</td></tr></table><br>
+<table align=center width="87%"><tr bgcolor="#D6E8FF"><td><pre>
+
+  <span class="keyword">typedef</span> <span class="keyword">enum</span>  T1_EncodingType_
+  {
+    T1_ENCODING_TYPE_NONE = 0,
+    T1_ENCODING_TYPE_ARRAY,
+    T1_ENCODING_TYPE_STANDARD,
+    T1_ENCODING_TYPE_ISOLATIN1,
+    T1_ENCODING_TYPE_EXPERT
+
+  } <b>T1_EncodingType</b>;
+
+</pre></table><br>
+<table align=center width="87%"><tr><td>
+<p>An enumeration describing the &lsquo;Encoding&rsquo; entry in a Type 1 dictionary.</p>
+</td></tr></table><br>
+</td></tr></table>
+<hr width="75%">
+<table align=center width="75%"><tr><td><font size=-2>[<a href="ft2-index.html">Index</a>]</font></td>
+<td width="100%"></td>
+<td><font size=-2>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
+
+<table align=center width="75%"><tr><td>
+<h4><a name="PS_Dict_Keys">PS_Dict_Keys</a></h4>
+<table align=center width="87%"><tr><td>
+Defined in FT_TYPE1_TABLES_H (freetype/t1tables.h).
+</td></tr></table><br>
+<table align=center width="87%"><tr bgcolor="#D6E8FF"><td><pre>
+
+  <span class="keyword">typedef</span> <span class="keyword">enum</span>  PS_Dict_Keys_
+  {
+    /* conventionally in the font dictionary */
+    PS_DICT_FONT_TYPE,              /* <a href="ft2-basic_types.html#FT_Byte">FT_Byte</a>         */
+    PS_DICT_FONT_MATRIX,            /* <a href="ft2-basic_types.html#FT_Fixed">FT_Fixed</a>        */
+    PS_DICT_FONT_BBOX,              /* <a href="ft2-basic_types.html#FT_Fixed">FT_Fixed</a>        */
+    PS_DICT_PAINT_TYPE,             /* <a href="ft2-basic_types.html#FT_Byte">FT_Byte</a>         */
+    PS_DICT_FONT_NAME,              /* <a href="ft2-basic_types.html#FT_String">FT_String</a>*      */
+    PS_DICT_UNIQUE_ID,              /* <a href="ft2-basic_types.html#FT_Int">FT_Int</a>          */
+    PS_DICT_NUM_CHAR_STRINGS,       /* <a href="ft2-basic_types.html#FT_Int">FT_Int</a>          */
+    PS_DICT_CHAR_STRING_KEY,        /* <a href="ft2-basic_types.html#FT_String">FT_String</a>*      */
+    PS_DICT_CHAR_STRING,            /* <a href="ft2-basic_types.html#FT_String">FT_String</a>*      */
+    PS_DICT_ENCODING_TYPE,          /* <a href="ft2-type1_tables.html#T1_EncodingType">T1_EncodingType</a> */
+    PS_DICT_ENCODING_ENTRY,         /* <a href="ft2-basic_types.html#FT_String">FT_String</a>*      */
+
+    /* conventionally in the font Private dictionary */
+    PS_DICT_NUM_SUBRS,              /* <a href="ft2-basic_types.html#FT_Int">FT_Int</a>     */
+    PS_DICT_SUBR,                   /* <a href="ft2-basic_types.html#FT_String">FT_String</a>* */
+    PS_DICT_STD_HW,                 /* <a href="ft2-basic_types.html#FT_UShort">FT_UShort</a>  */
+    PS_DICT_STD_VW,                 /* <a href="ft2-basic_types.html#FT_UShort">FT_UShort</a>  */
+    PS_DICT_NUM_BLUE_VALUES,        /* <a href="ft2-basic_types.html#FT_Byte">FT_Byte</a>    */
+    PS_DICT_BLUE_VALUE,             /* <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   */
+    PS_DICT_BLUE_FUZZ,              /* <a href="ft2-basic_types.html#FT_Int">FT_Int</a>     */
+    PS_DICT_NUM_OTHER_BLUES,        /* <a href="ft2-basic_types.html#FT_Byte">FT_Byte</a>    */
+    PS_DICT_OTHER_BLUE,             /* <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   */
+    PS_DICT_NUM_FAMILY_BLUES,       /* <a href="ft2-basic_types.html#FT_Byte">FT_Byte</a>    */
+    PS_DICT_FAMILY_BLUE,            /* <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   */
+    PS_DICT_NUM_FAMILY_OTHER_BLUES, /* <a href="ft2-basic_types.html#FT_Byte">FT_Byte</a>    */
+    PS_DICT_FAMILY_OTHER_BLUE,      /* <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   */
+    PS_DICT_BLUE_SCALE,             /* <a href="ft2-basic_types.html#FT_Fixed">FT_Fixed</a>   */
+    PS_DICT_BLUE_SHIFT,             /* <a href="ft2-basic_types.html#FT_Int">FT_Int</a>     */
+    PS_DICT_NUM_STEM_SNAP_H,        /* <a href="ft2-basic_types.html#FT_Byte">FT_Byte</a>    */
+    PS_DICT_STEM_SNAP_H,            /* <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   */
+    PS_DICT_NUM_STEM_SNAP_V,        /* <a href="ft2-basic_types.html#FT_Byte">FT_Byte</a>    */
+    PS_DICT_STEM_SNAP_V,            /* <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   */
+    PS_DICT_FORCE_BOLD,             /* <a href="ft2-basic_types.html#FT_Bool">FT_Bool</a>    */
+    PS_DICT_RND_STEM_UP,            /* <a href="ft2-basic_types.html#FT_Bool">FT_Bool</a>    */
+    PS_DICT_MIN_FEATURE,            /* <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   */
+    PS_DICT_LEN_IV,                 /* <a href="ft2-basic_types.html#FT_Int">FT_Int</a>     */
+    PS_DICT_PASSWORD,               /* <a href="ft2-basic_types.html#FT_Long">FT_Long</a>    */
+    PS_DICT_LANGUAGE_GROUP,         /* <a href="ft2-basic_types.html#FT_Long">FT_Long</a>    */
+
+    /* conventionally in the font FontInfo dictionary */
+    PS_DICT_VERSION,                /* <a href="ft2-basic_types.html#FT_String">FT_String</a>* */
+    PS_DICT_NOTICE,                 /* <a href="ft2-basic_types.html#FT_String">FT_String</a>* */
+    PS_DICT_FULL_NAME,              /* <a href="ft2-basic_types.html#FT_String">FT_String</a>* */
+    PS_DICT_FAMILY_NAME,            /* <a href="ft2-basic_types.html#FT_String">FT_String</a>* */
+    PS_DICT_WEIGHT,                 /* <a href="ft2-basic_types.html#FT_String">FT_String</a>  */
+    PS_DICT_IS_FIXED_PITCH,         /* <a href="ft2-basic_types.html#FT_Bool">FT_Bool</a>    */
+    PS_DICT_UNDERLINE_POSITION,     /* <a href="ft2-basic_types.html#FT_Short">FT_Short</a>   */
+    PS_DICT_UNDERLINE_THICKNESS,    /* <a href="ft2-basic_types.html#FT_UShort">FT_UShort</a>  */
+    PS_DICT_FS_TYPE,                /* <a href="ft2-basic_types.html#FT_UShort">FT_UShort</a>  */
+    PS_DICT_ITALIC_ANGLE,           /* <a href="ft2-basic_types.html#FT_Long">FT_Long</a>    */
+
+    PS_DICT_MAX = PS_DICT_ITALIC_ANGLE
+
+  } <b>PS_Dict_Keys</b>;
+
+</pre></table><br>
+<table align=center width="87%"><tr><td>
+<p>An enumeration used in calls to <a href="ft2-type1_tables.html#FT_Get_PS_Font_Value">FT_Get_PS_Font_Value</a> to identify the Type&nbsp;1 dictionary entry to retrieve.</p>
+</td></tr></table><br>
+</td></tr></table>
+<hr width="75%">
+<table align=center width="75%"><tr><td><font size=-2>[<a href="ft2-index.html">Index</a>]</font></td>
+<td width="100%"></td>
+<td><font size=-2>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
+
+<table align=center width="75%"><tr><td>
+<h4><a name="FT_Get_PS_Font_Value">FT_Get_PS_Font_Value</a></h4>
+<table align=center width="87%"><tr><td>
+Defined in FT_TYPE1_TABLES_H (freetype/t1tables.h).
+</td></tr></table><br>
+<table align=center width="87%"><tr bgcolor="#D6E8FF"><td><pre>
+
+  FT_EXPORT( <a href="ft2-basic_types.html#FT_Long">FT_Long</a> )
+  <b>FT_Get_PS_Font_Value</b>( <a href="ft2-base_interface.html#FT_Face">FT_Face</a>       face,
+                        <a href="ft2-type1_tables.html#PS_Dict_Keys">PS_Dict_Keys</a>  key,
+                        <a href="ft2-basic_types.html#FT_UInt">FT_UInt</a>       idx,
+                        <span class="keyword">void</span>         *value,
+                        <a href="ft2-basic_types.html#FT_Long">FT_Long</a>       value_len );
+
+</pre></table><br>
+<table align=center width="87%"><tr><td>
+<p>Retrieve the value for the supplied key from a PostScript font.</p>
+</td></tr></table><br>
+<table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>input</b></em></td></tr><tr><td>
+<p></p>
+<table cellpadding=3 border=0>
+<tr valign=top><td><b>face</b></td><td>
+<p>PostScript face handle.</p>
+</td></tr>
+<tr valign=top><td><b>key</b></td><td>
+<p>An enumeration value representing the dictionary key to retrieve.</p>
+</td></tr>
+<tr valign=top><td><b>idx</b></td><td>
+<p>For array values, this specifies the index to be returned.</p>
+</td></tr>
+<tr valign=top><td><b>value</b></td><td>
+<p>A pointer to memory into which to write the value.</p>
+</td></tr>
+<tr valign=top><td><b>valen_len</b></td><td>
+<p>The size, in bytes, of the memory supplied for the value.</p>
+</td></tr>
+</table>
+</td></tr></table>
+<table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>output</b></em></td></tr><tr><td>
+<p></p>
+<table cellpadding=3 border=0>
+<tr valign=top><td><b>value</b></td><td>
+<p>The value matching the above key, if it exists.</p>
+</td></tr>
+</table>
+</td></tr></table>
+<table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>return</b></em></td></tr><tr><td>
+<p>The amount of memory (in bytes) required to hold the requested value (if it exists, -1 otherwise).</p>
+</td></tr></table>
+<table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>note</b></em></td></tr><tr><td>
+<p>The values returned are not pointers into the internal structures of the face, but are &lsquo;fresh&rsquo; copies, so that the memory containing them belongs to the calling application. This also enforces the &lsquo;read-only&rsquo; nature of these values, i.e., this function cannot be used to manipulate the face.</p>
+<p>&lsquo;value&rsquo; is a void pointer because the values returned can be of various types.</p>
+<p>If either &lsquo;value&rsquo; is NULL or &lsquo;value_len&rsquo; is too small, just the required memory size for the requested entry is returned.</p>
+<p>The &lsquo;idx&rsquo; parameter is used, not only to retrieve elements of, for example, the FontMatrix or FontBBox, but also to retrieve name keys from the CharStrings dictionary, and the charstrings themselves. It is ignored for atomic values.</p>
+<p>PS_DICT_BLUE_SCALE returns a value that is scaled up by 1000. To get the value as in the font stream, you need to divide by 65536000.0 (to remove the FT_Fixed scale, and the x1000 scale).</p>
+<p>IMPORTANT: Only key/value pairs read by the FreeType interpreter can be retrieved. So, for example, PostScript procedures such as NP, ND, and RD are not available. Arbitrary keys are, obviously, not be available either.</p>
 <p>If the font's format is not PostScript-based, this function returns the &lsquo;FT_Err_Invalid_Argument&rsquo; error code.</p>
 </td></tr></table>
 </td></tr></table>

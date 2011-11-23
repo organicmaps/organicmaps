@@ -4,7 +4,7 @@
 #   2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
 #   2011 Free Software Foundation, Inc.
 
-timestamp='2011-10-01'
+timestamp='2011-11-11'
 
 # This file is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -805,6 +805,9 @@ EOF
 	exit ;;
     *:MINGW*:*)
 	echo ${UNAME_MACHINE}-pc-mingw32
+	exit ;;
+    i*:MSYS*:*)
+	echo ${UNAME_MACHINE}-pc-msys
 	exit ;;
     i*:windows32*:*)
 	# uname -m includes "-pc" on this system.

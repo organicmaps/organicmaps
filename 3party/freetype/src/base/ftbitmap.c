@@ -417,8 +417,8 @@
 
         target->pitch = source->width + pad;
 
-        if ( target->pitch > 0                           &&
-             target->rows > FT_ULONG_MAX / target->pitch )
+        if ( target->pitch > 0                                     &&
+             (FT_ULong)target->rows > FT_ULONG_MAX / target->pitch )
           return FT_Err_Invalid_Argument;
 
         if ( target->rows * target->pitch > old_size             &&

@@ -4,7 +4,7 @@
 #   2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
 #   2011 Free Software Foundation, Inc.
 
-timestamp='2011-10-08'
+timestamp='2011-11-11'
 
 # This file is (in principle) common to ALL GNU software.
 # The presence of a machine in this file suggests that SOME GNU software
@@ -295,7 +295,7 @@ case $basic_machine in
 	| pdp10 | pdp11 | pj | pjl \
 	| powerpc | powerpc64 | powerpc64le | powerpcle \
 	| pyramid \
-	| rx \
+	| rl78 | rx \
 	| score \
 	| sh | sh[1234] | sh[24]a | sh[24]aeb | sh[23]e | sh[34]eb | sheb | shbe | shle | sh[1234]le | sh3ele \
 	| sh64 | sh64le \
@@ -407,7 +407,7 @@ case $basic_machine in
 	| pdp10-* | pdp11-* | pj-* | pjl-* | pn-* | power-* \
 	| powerpc-* | powerpc64-* | powerpc64le-* | powerpcle-* \
 	| pyramid-* \
-	| romp-* | rs6000-* | rx-* \
+	| rl78-* | romp-* | rs6000-* | rx-* \
 	| sh-* | sh[1234]-* | sh[24]a-* | sh[24]aeb-* | sh[23]e-* | sh[34]eb-* | sheb-* | shbe-* \
 	| shle-* | sh[1234]le-* | sh3ele-* | sh64-* | sh64le-* \
 	| sparc-* | sparc64-* | sparc64b-* | sparc64v-* | sparc86x-* | sparclet-* \
@@ -815,6 +815,10 @@ case $basic_machine in
 		;;
 	ms1-*)
 		basic_machine=`echo $basic_machine | sed -e 's/ms1-/mt-/'`
+		;;
+	msys)
+		basic_machine=i386-pc
+		os=-msys
 		;;
 	mvs)
 		basic_machine=i370-ibm
@@ -1343,7 +1347,7 @@ case $os in
 	      | -ptx* | -coff* | -ecoff* | -winnt* | -domain* | -vsta* \
 	      | -udi* | -eabi* | -lites* | -ieee* | -go32* | -aux* \
 	      | -chorusos* | -chorusrdb* | -cegcc* \
-	      | -cygwin* | -pe* | -psos* | -moss* | -proelf* | -rtems* \
+	      | -cygwin* | -msys* | -pe* | -psos* | -moss* | -proelf* | -rtems* \
 	      | -mingw32* | -linux-gnu* | -linux-android* \
 	      | -linux-newlib* | -linux-uclibc* \
 	      | -uxpv* | -beos* | -mpeix* | -udk* \
