@@ -2,12 +2,15 @@
 #include "proxystyle.hpp"
 #include "slider_ctrl.hpp"
 
+#include "../map/framework_factory.hpp"
+#include "../map/render_policy.hpp"
+
+#include "../yg/internal/opengl.hpp"
+
 #include "../platform/settings.hpp"
 
 #include <QtGui/QMouseEvent>
 
-#include "../map/framework_factory.hpp"
-#include "../map/render_policy.hpp"
 
 using namespace storage;
 
