@@ -229,9 +229,10 @@ public:
   /// For test cases only.
   string DebugString(int scale) const;
 
-  /// @param priorities optional array of languages priorities
-  /// if NULL, default (0) lang will be used
-  string GetPreferredDrawableName(int8_t const * priorities = NULL) const;
+  /// @param[out] defaultName corresponds to osm tag "name"
+  /// @param[out] intName optionally choosen from tags "name:<lang_code>" by the algorithm
+  /// @return true if at least defaultName is filled
+  void GetPreferredDrawableNames(string & defaultName, string & intName) const;
 
   uint32_t GetPopulation() const;
   double GetPopulationDrawRank() const;

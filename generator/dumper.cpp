@@ -34,7 +34,9 @@ namespace feature
     void operator()(FeatureType & f, uint32_t)
     {
       ++m_totalCount;
-      if (!f.GetPreferredDrawableName().empty())
+      string s1, s2;
+      f.GetPreferredDrawableNames(s1, s2);
+      if (!s1.empty())
         ++m_namesCount;
 
       m_currFeatureTypes.clear();

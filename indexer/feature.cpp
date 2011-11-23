@@ -1,8 +1,8 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "feature.hpp"
 #include "feature_visibility.hpp"
 #include "feature_loader_base.hpp"
+
+#include "../platform/preferred_languages.hpp"
 
 #include "../defines.hpp" // just for file extensions
 
@@ -204,53 +204,66 @@ FeatureType::geom_stat_t FeatureType::GetTrianglesSize(int scale) const
   return geom_stat_t(sz, m_Triangles.size());
 }
 
-class BestMatchedLangName
+struct BestMatchedLangNames
 {
-  int8_t const * m_priorities;
-  string & m_result;
-  int m_minPriority;
-
-public:
-  BestMatchedLangName(int8_t const * priorities, string & result)
-    : m_priorities(priorities), m_result(result), m_minPriority(256)
+  string & m_defaultName;
+  string m_nativeName;
+  string m_intName;
+  string m_englishName;
+  BestMatchedLangNames(string & defaultName) : m_defaultName(defaultName) {}
+  bool operator()(int8_t code, string const & name)
   {
-  }
-
-  bool operator() (int8_t lang, string const & utf8s)
-  {
-    ASSERT(lang >= 0 && lang < MAX_SUPPORTED_LANGUAGES, ());
-    int8_t const priority = m_priorities[lang];
-    if (priority == 0)
-    {
-      m_result = utf8s;
-      return false; // stop foreach
-    }
-    if (priority < m_minPriority)
-    {
-      m_minPriority = priority;
-      m_result = utf8s;
-    }
+    static int8_t defaultCode = StringUtf8Multilang::GetLangIndex("default");
+    // @TODO support list of preferred languages
+    // We can get them also from input keyboard languages
+    static int8_t const nativeCode = StringUtf8Multilang::GetLangIndex(languages::CurrentLanguage());
+    static int8_t const intCode = StringUtf8Multilang::GetLangIndex("int_name");
+    static int8_t const englishCode = StringUtf8Multilang::GetLangIndex("en");
+    if (code == defaultCode)
+      m_defaultName = name;
+    else if (code == nativeCode)
+      m_nativeName = name;
+    else if (code == intCode)
+      m_intName = name;
+    else if (code == englishCode)
+      m_englishName = name;
     return true;
   }
 };
 
-string FeatureType::GetPreferredDrawableName(int8_t const * priorities) const
+void FeatureType::GetPreferredDrawableNames(string & defaultName, string & intName) const
 {
   ParseCommon();
 
-  string res;
-  if (priorities)
+  if (GetFeatureType() == GEOM_AREA)
+    defaultName = m_Params.house.Get();
+
+  if (defaultName.empty())
   {
-    BestMatchedLangName matcher(priorities, res);
+    BestMatchedLangNames matcher(defaultName);
     ForEachNameRef(matcher);
+
+    // match intName
+    if (!matcher.m_nativeName.empty())
+      intName.swap(matcher.m_nativeName);
+    else if (!matcher.m_intName.empty())
+      intName.swap(matcher.m_intName);
+    else
+      intName.swap(matcher.m_englishName);
+
+    if (defaultName.empty())
+      defaultName.swap(intName);
+    else
+    {  // filter out similar intName
+      if (!intName.empty() && defaultName.find(intName) != string::npos)
+        intName.clear();
+    }
   }
   else
-    m_Params.name.GetString(0, res);
-
-  if (res.empty() && GetFeatureType() == GEOM_AREA)
-    res = m_Params.house.Get();
-
-  return res;
+  {
+    BestMatchedLangNames matcher(intName);
+    ForEachNameRef(matcher);
+  }
 }
 
 uint32_t FeatureType::GetPopulation() const

@@ -58,7 +58,6 @@ HEADERS += \
     preferred_languages.hpp \
     settings.hpp \
     video_timer.hpp \
-    languages.hpp \
     http_request.hpp \
     http_thread_callback.hpp \
     chunks_download_strategy.hpp \
@@ -67,6 +66,5 @@ SOURCES += \
     preferred_languages.cpp \
     settings.cpp \
     video_timer.cpp \
-    languages.cpp \
     http_request.cpp \
     chunks_download_strategy.cpp \

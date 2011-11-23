@@ -5,7 +5,6 @@
 
 #include "../defines.hpp"
 
-#include "../platform/languages.hpp"
 #include "../platform/settings.hpp"
 
 #include "../yg/rendercontext.hpp"
@@ -130,11 +129,6 @@ Framework::Framework()
                bind(&Framework::RemoveMap, this, _1),
                bind(&Framework::InvalidateRect, this, _1, true));
   LOG(LDEBUG, ("Storage initialized"));
-
-  // set language priorities
-  languages::CodesT langCodes;
-  languages::GetCurrentSettings(langCodes);
-  languages::SaveSettings(langCodes);
 }
 
 Framework::~Framework()

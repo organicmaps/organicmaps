@@ -1,7 +1,7 @@
 #include "draw_processor.hpp"
 #include "drawer_yg.hpp"
 
-#include "../platform/languages.hpp"
+#include "../platform/preferred_languages.hpp"
 
 #include "../geometry/screenbase.hpp"
 #include "../geometry/rect_intersect.hpp"
@@ -267,7 +267,9 @@ namespace fwork
     if (type.second)
     {
       // Draw coastlines features only once.
-      if (!m_coasts.insert(f.GetPreferredDrawableName(0)).second)
+      string s1, s2;
+      f.GetPreferredDrawableNames(s1, s2);
+      if (!m_coasts.insert(s1).second)
         return true;
     }
 
@@ -302,11 +304,13 @@ namespace fwork
 
     sort(rules.begin(), rules.end(), less_depth());
 
+    string defaultName, intName;
+    f.GetPreferredDrawableNames(defaultName, intName);
     shared_ptr<di::DrawInfo> ptr(new di::DrawInfo(
-      f.GetPreferredDrawableName(languages::GetCurrentPriorities()),
-      f.GetPreferredDrawableName(0),
-      f.GetRoadNumber(),
-      (m_zoom > 5) ? f.GetPopulationDrawRank() : 0.0));
+        defaultName,
+        intName,
+        f.GetRoadNumber(),
+        (m_zoom > 5) ? f.GetPopulationDrawRank() : 0.0));
 
     DrawerYG * pDrawer = GetDrawer();
 
