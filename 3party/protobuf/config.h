@@ -1,20 +1,32 @@
 /* config.h.  Generated from config.h.in by configure.  */
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
-/* the name of <hash_set> */
+/* the name of <hash_map> */
 #define HASH_MAP_CLASS unordered_map
 
 /* the location of <hash_map> */
-#define HASH_MAP_H <tr1/unordered_map>
+#ifdef _MSC_VER
+  #define HASH_MAP_H <hash_map>
+#else
+  #define HASH_MAP_H <tr1/unordered_map>
+#endif
 
 /* the namespace of hash_map/hash_set */
-#define HASH_NAMESPACE std::tr1
+#ifdef _MSC_VER
+  #define HASH_NAMESPACE stdext
+#else
+  #define HASH_NAMESPACE std::tr1
+#endif
 
 /* the name of <hash_set> */
 #define HASH_SET_CLASS unordered_set
 
 /* the location of <hash_set> */
-#define HASH_SET_H <tr1/unordered_set>
+#ifdef _MSC_VER
+  #define HASH_SET_H <hash_set>
+#else
+  #define HASH_SET_H <tr1/unordered_set>
+#endif
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define HAVE_DLFCN_H 1
