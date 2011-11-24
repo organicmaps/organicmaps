@@ -18,9 +18,9 @@
 class MwmValue : public MwmSet::MwmValueBase
 {
 public:
+  string m_name;
   FilesContainerR m_cont;
   IndexFactory m_factory;
-  string m_name;
 
   explicit MwmValue(string const & name);
 
