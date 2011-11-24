@@ -6,6 +6,10 @@
 #include "../file_reader.hpp"
 #include "../file_writer.hpp"
 #include "../buffer_reader.hpp"
+#include "../reader_streambuf.hpp"
+
+#include "../../std/fstream.hpp"
+
 
 namespace
 {
@@ -96,4 +100,34 @@ UNIT_TEST(SharedMemReader)
   reader2.Read(0, &s2[0], 3);
   TEST_EQUAL(s1, "123", ());
   TEST_EQUAL(s2, "123", ());
+}
+
+UNIT_TEST(ReaderStreamBuf)
+{
+  string const name = "test.txt";
+
+  {
+    WriterStreamBuf buffer(new FileWriter(name));
+    ostream s(&buffer);
+    s << "hey!" << '\n' << 1 << '\n' << 3.14 << '\n' << 0x0102030405060708ull << std::endl;
+  }
+
+  {
+    ReaderStreamBuf buffer(new FileReader(name));
+    istream s(&buffer);
+
+    std::string str;
+    int i;
+    double d;
+    unsigned long long ull;
+
+    s >> str >> i >> d >> ull;
+
+    TEST_EQUAL(str, "hey!", ());
+    TEST_EQUAL(i, 1, ());
+    TEST_ALMOST_EQUAL(d, 3.14, ());
+    TEST_EQUAL(ull, 0x0102030405060708ull, ());
+  }
+
+  FileWriter::DeleteFileX(name);
 }
