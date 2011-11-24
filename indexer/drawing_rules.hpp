@@ -104,17 +104,18 @@ namespace drule
 
     /// @name This functions can tell us about the type of rule.
     //@{
-    virtual int GetColor() const { return -1; }           ///< path "line" color
-    virtual int GetFillColor() const { return -1; }        ///< fill "area" color
-    virtual double GetTextHeight() const { return -1.0; } ///< text height of "caption"
+    virtual int GetColor() const { return -1; }             ///< path "line" color
+    virtual int GetFillColor() const { return -1; }         ///< fill "area" color
+    virtual double GetTextHeight() const { return -1.0; }   ///< text height of "caption"
+    virtual double GetRadius() const { return -1; }         ///< radius "circle"
+    virtual void GetSymbol(string &) const {}               ///< name of "symbol"
     //@}
 
     virtual unsigned char GetAlpha() const { return 255; }
+    virtual unsigned char GetStrokeAlpha() const { return 255; }
+
     virtual double GetWidth() const { return -1; }
     virtual void GetPattern(vector<double> &, double &) const {}
-    virtual void GetSymbol(string &) const {}
-
-    virtual double GetRadius() const { return -1; }
   };
 
   class RulesHolder

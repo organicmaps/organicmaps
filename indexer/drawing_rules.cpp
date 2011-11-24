@@ -1409,6 +1409,10 @@ namespace
       {
         return AlphaFromColor(GetFillColor());
       }
+      virtual unsigned char GetStrokeAlpha() const
+      {
+        return AlphaFromColor(GetColor());
+      }
     };
 
     typedef CaptionT<CaptionRuleProto> Caption;
@@ -1427,6 +1431,14 @@ namespace
       virtual double GetRadius() const
       {
         return m_circle.radius();
+      }
+      virtual unsigned char GetAlpha() const
+      {
+        return AlphaFromColor(GetFillColor());
+      }
+      virtual unsigned char GetStrokeAlpha() const
+      {
+        return AlphaFromColor(GetColor());
       }
     };
   }

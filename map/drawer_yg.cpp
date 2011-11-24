@@ -121,14 +121,14 @@ void DrawerYG::drawSymbol(m2::PointD const & pt, string const & symbolName, yg::
 void DrawerYG::drawCircle(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth)
 {
   double const radius = min(max(pRule->GetRadius() * m_scale, 3.0), 6.0) * m_visualScale;
-  unsigned char const alpha = pRule->GetAlpha();
   int const lineC = pRule->GetColor();
+  double const width = (lineC != -1) ? min(max(pRule->GetWidth() * m_scale * m_visualScale, 1.0), 3.0) : 1.0;
 
   yg::CircleInfo ci(radius,
-                    yg::Color::fromXRGB(pRule->GetFillColor(), alpha),
+                    yg::Color::fromXRGB(pRule->GetFillColor(), pRule->GetAlpha()),
                     lineC != -1,
-                    (lineC != -1) ? min(max(pRule->GetWidth() * m_scale * m_visualScale, 1.0), 3.0) : 1.0,
-                    yg::Color::fromXRGB(lineC, alpha));
+                    width,
+                    yg::Color::fromXRGB(lineC, pRule->GetStrokeAlpha()));
 
   m_pScreen->drawCircle(pt, ci, pos, depth);
 }
@@ -245,20 +245,19 @@ bool DrawerYG::filter_text_size(rule_ptr_t pRule) const
 yg::FontDesc DrawerYG::get_text_font(rule_ptr_t pRule) const
 {
   int c = pRule->GetFillColor();
-  unsigned char const a = pRule->GetAlpha();
-  yg::Color color = (c == -1 ? yg::Color(0, 0, 0, 0) : yg::Color::fromXRGB(c, a));
+  yg::Color color = (c != -1 ? yg::Color::fromXRGB(c, pRule->GetAlpha()) :
+                               yg::Color(0, 0, 0, 0));
 
   // to prevent white text on white outline
-  if (color == yg::Color(255, 255, 255, 255))
-    color = yg::Color(0, 0, 0, 0);
+  //if (color == yg::Color(255, 255, 255, 255))
+  //  color = yg::Color(0, 0, 0, 0);
 
   c = pRule->GetColor();
 
-  bool hasStroke = (c != -1);
-  yg::Color strokeColor = (hasStroke ? yg::Color::fromXRGB(c, a) : yg::Color(255, 255, 255, 255));
+  bool const hasStroke = (c != -1);
+  yg::Color strokeColor = (hasStroke ? yg::Color::fromXRGB(c, pRule->GetStrokeAlpha()) :
+                                       yg::Color(255, 255, 255, 255));
 
-  /// @todo We always draw white text stroke-outline now.
-  /// You can get stroke color from pRule->GetColor() when they will be nice.
   return yg::FontDesc(get_text_font_size(pRule), color, hasStroke, strokeColor);
 }
 
