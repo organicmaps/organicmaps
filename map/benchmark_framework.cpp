@@ -13,11 +13,12 @@ template <class T> class DoGetBenchmarks
 {
   set<string> m_processed;
   vector<T> & m_benchmarks;
+  Navigator & m_navigator;
   Platform & m_pl;
 
 public:
-  DoGetBenchmarks(vector<T> & benchmarks)
-    : m_benchmarks(benchmarks), m_pl(GetPlatform())
+  DoGetBenchmarks(vector<T> & benchmarks, Navigator & navigator)
+    : m_benchmarks(benchmarks), m_navigator(navigator), m_pl(GetPlatform())
   {
   }
 
@@ -60,6 +61,10 @@ public:
       strings::to_int(v[2], lastScale);
 
     ASSERT ( r != m2::RectD::GetEmptyRect(), (r) );
+
+    m_navigator.SetFromRect(m2::AnyRectD(r));
+    r = m_navigator.Screen().GlobalRect().GetGlobalRect();
+
     b.m_provider.reset(new BenchmarkRectProvider(scales::GetScaleLevel(r), r, lastScale));
 
     m_benchmarks.push_back(b);
@@ -224,8 +229,8 @@ void BenchmarkFramework::NextBenchmarkCommand()
 {
   if ((m_benchmarks[m_curBenchmark].m_provider->hasRect()) || (++m_curBenchmark < m_benchmarks.size()))
   {
-    m_curBenchmarkRect = m_benchmarks[m_curBenchmark].m_provider->nextRect();
-    Framework::m_navigator.SetFromRect(m2::AnyRectD(m_curBenchmarkRect));
+    Framework::m_navigator.SetFromRect(m2::AnyRectD(m_benchmarks[m_curBenchmark].m_provider->nextRect()));
+    m_curBenchmarkRect = Framework::m_navigator.Screen().GlobalRect().GetGlobalRect();
     Framework::Invalidate();
   }
   else
@@ -245,7 +250,7 @@ void BenchmarkFramework::NextBenchmarkCommand()
 
 void BenchmarkFramework::InitBenchmark()
 {
-  DoGetBenchmarks<Benchmark> doGet(m_benchmarks);
+  DoGetBenchmarks<Benchmark> doGet(m_benchmarks, Framework::m_navigator);
   ForEachBenchmarkRecord(doGet);
 
   m_curBenchmark = 0;
