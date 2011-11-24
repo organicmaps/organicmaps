@@ -75,19 +75,6 @@ namespace yg
     }
   };
 
-  struct FTStrokedGlyphInfo : GlyphInfo
-  {
-    FT_Glyph m_glyph;
-
-    FTStrokedGlyphInfo(FT_Glyph glyph) : m_glyph(glyph)
-    {}
-
-    ~FTStrokedGlyphInfo()
-    {
-      FT_Done_Glyph(m_glyph);
-    }
-  };
-
   GlyphCache::Params::Params(string const & blocksFile, string const & whiteListFile, string const & blackListFile, size_t maxSize)
     : m_blocksFile(blocksFile), m_whiteListFile(whiteListFile), m_blackListFile(blackListFile), m_maxSize(maxSize)
   {}
@@ -224,19 +211,18 @@ namespace yg
 
     if (key.m_isMask)
     {
-      FTCHECK(FTC_ImageCache_LookupScaler(
+      FTCHECK(FTC_StrokedImageCache_LookupScaler(
           m_impl->m_strokedGlyphCache,
           &fontScaler,
+          m_impl->m_stroker,
           FT_LOAD_DEFAULT,
           charIDX.second,
           &glyph,
           0
           //&node
           ));
-      FTCHECK(FT_Glyph_Stroke(&glyph, m_impl->m_stroker, 0));
-      FTCHECK(FT_Glyph_To_Bitmap(&glyph, FT_RENDER_MODE_NORMAL, 0, 1));
 
-//      info = new FTStrokedGlyphInfo(glyph);
+//      info = new FTGlyphInfo(node, m_impl->m_manager);
     }
     else
     {
@@ -278,9 +264,6 @@ namespace yg
 
       memcpy(info->m_bitmapData, bitmapGlyph->bitmap.buffer, info->m_bitmapPitch * info->m_metrics.m_height);
     }
-
-    if (key.m_isMask)
-      FT_Done_Glyph(glyph);
 
     return make_shared_ptr(info);
   }
