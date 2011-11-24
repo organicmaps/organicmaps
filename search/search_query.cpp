@@ -300,7 +300,9 @@ void Query::SearchFeatures()
   m_pIndex->GetMwmInfo(mwmInfo);
 
   unordered_set<int8_t> langs;
+  langs.insert(StringUtf8Multilang::GetLangIndex("int_name"));
   langs.insert(StringUtf8Multilang::GetLangIndex("en"));
+  langs.insert(StringUtf8Multilang::GetLangIndex("default"));
   SearchFeatures(tokens, mwmInfo, langs, true);
 }
 
