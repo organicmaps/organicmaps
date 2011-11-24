@@ -360,11 +360,11 @@ namespace fwork
 
         if (!ptr->m_name.empty())
         {
-          double fontSize = 0;
+          uint8_t fontSize = 0;
           for (size_t i = 0; i < count; ++i)
           {
-            if (pDrawer->filter_text_size(rules[i].m_rule))
-              fontSize = max((uint8_t)fontSize, pDrawer->get_text_font_size(rules[i].m_rule));
+            if (!pDrawer->filter_text_size(rules[i].m_rule))
+              fontSize = max(fontSize, pDrawer->get_text_font_size(rules[i].m_rule));
           }
 
           if (fontSize != 0)

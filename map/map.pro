@@ -3,6 +3,7 @@
 TARGET = map
 TEMPLATE = lib
 CONFIG += staticlib
+INCLUDEPATH += ../3party/protobuf/src
 
 ROOT_DIR = ..
 DEPENDENCIES = search yg indexer geometry coding base expat
@@ -40,7 +41,8 @@ HEADERS += \
     benchmark_render_policy_mt.hpp \
     ruler.hpp \
     measurement_utils.hpp \
-    partial_render_policy.hpp
+    partial_render_policy.hpp \
+    proto_to_yg_styles.hpp \
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -71,16 +73,11 @@ SOURCES += \
     ruler.cpp \
     measurement_utils.cpp \
     window_handle.cpp \
-    partial_render_policy.cpp
+    partial_render_policy.cpp \
+    proto_to_yg_styles.cpp \
 
 !iphone*:!bada*:!android* {
   HEADERS += qgl_render_context.hpp
   SOURCES += qgl_render_context.cpp
   QT += opengl
 }
-
-
-
-
-
-

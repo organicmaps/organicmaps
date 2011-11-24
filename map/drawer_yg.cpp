@@ -1,4 +1,5 @@
 #include "drawer_yg.hpp"
+#include "proto_to_yg_styles.hpp"
 
 #include "../std/bind.hpp"
 
@@ -9,13 +10,12 @@
 #include "../yg/screen.hpp"
 #include "../yg/skin.hpp"
 #include "../yg/resource_manager.hpp"
-#include "../yg/circle_info.hpp"
-#include "../yg/pen_info.hpp"
 
 #include "../geometry/screenbase.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/buffer_vector.hpp"
+
 
 DrawerYG::Params::Params()
   : m_dynamicPagesCount(2),
@@ -120,41 +120,16 @@ void DrawerYG::drawSymbol(m2::PointD const & pt, string const & symbolName, yg::
 
 void DrawerYG::drawCircle(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth)
 {
-  double const radius = min(max(pRule->GetRadius() * m_scale, 3.0), 6.0) * m_visualScale;
-  int const lineC = pRule->GetColor();
-  double const width = (lineC != -1) ? min(max(pRule->GetWidth() * m_scale * m_visualScale, 1.0), 3.0) : 1.0;
-
-  yg::CircleInfo ci(radius,
-                    yg::Color::fromXRGB(pRule->GetFillColor(), pRule->GetAlpha()),
-                    lineC != -1,
-                    width,
-                    yg::Color::fromXRGB(lineC, pRule->GetStrokeAlpha()));
+  yg::CircleInfo ci;
+  ConvertStyle(pRule->GetCircle(), m_visualScale, ci);
 
   m_pScreen->drawCircle(pt, ci, pos, depth);
 }
 
 void DrawerYG::drawSymbol(m2::PointD const & pt, rule_ptr_t pRule, yg::EPosition pos, int depth)
 {
-  // Use BaseRule::m_id to cache for point draw rule.
-  // This rules doesn't mix with other rule-types.
-
-//  uint32_t id = pRule->GetID(m_threadID);
-
   string name;
-  pRule->GetSymbol(name);
-
-/*  if (id == drule::BaseRule::empty_id)
-  {
-    id = m_pSkin->mapSymbol(name.c_str());
-
-    if (id != drule::BaseRule::empty_id)
-      pRule->SetID(m_threadID, id);
-    else
-    {
-      //ASSERT ( false, ("Can't find symbol by id = ", (name)) );
-      return;
-    }
-  }*/
+  ConvertStyle(pRule->GetSymbol(), name);
 
   m_pScreen->drawSymbol(pt, name, pos, depth);
 }
@@ -180,18 +155,11 @@ void DrawerYG::drawPath(di::PathInfo const & info, di::DrawRule const * rules, s
     // collect yg::PenInfo into array and pack them as a whole
     for (size_t i = 0; i < count; ++i)
     {
-      rule_ptr_t pRule = rules[i].m_rule;
-      vector<double> pattern;
-      double offset;
-      pRule->GetPattern(pattern, offset);
+      ConvertStyle(rules[i].m_rule->GetLine(), m_visualScale, penInfos[i]);
 
-      for (size_t j = 0; j < pattern.size(); ++j)
-        pattern[j] *= m_scale * m_visualScale;
+      if (rules[i].m_transparent)
+        penInfos[i].m_color.a = 100;
 
-      penInfos[i] = yg::PenInfo(
-            yg::Color::fromXRGB(pRule->GetColor(), rules[i].m_transparent ? 100 : pRule->GetAlpha()),
-            max(pRule->GetWidth() * m_scale, 1.0) * m_visualScale,
-            pattern.empty() ? 0 : &pattern[0], pattern.size(), offset * m_scale);
       styleIDs[i] = m_pSkin->invalidHandle();
     }
 
@@ -218,75 +186,54 @@ void DrawerYG::drawArea(vector<m2::PointD> const & pts, rule_ptr_t pRule, int de
   // DO NOT cache 'id' in pRule, because one rule can use in drawPath and drawArea.
   // Leave CBaseRule::m_id for drawPath. mapColor working fast enough.
 
-  uint32_t const id = m_pSkin->mapColor(yg::Color::fromXRGB(pRule->GetFillColor(), pRule->GetAlpha()));
+  yg::Color color;
+  ConvertStyle(pRule->GetArea(), color);
+  uint32_t const id = m_pSkin->mapColor(color);
   ASSERT ( id != -1, () );
 
   m_pScreen->drawTrianglesList(&pts[0], pts.size()/*, res*/, id, depth);
 }
 
-namespace
-{
-  double const min_text_height_filtered = 2;
-  double const min_text_height = 12;          // 8
-  //double const min_text_height_mask = 9.99; // 10
-}
-
 uint8_t DrawerYG::get_text_font_size(rule_ptr_t pRule) const
 {
-  double const h = pRule->GetTextHeight() * m_scale;
-  return my::rounds(max(h, min_text_height) * m_visualScale);
+  return GetFontSize(pRule->GetCaption(0)) * m_visualScale;
 }
 
 bool DrawerYG::filter_text_size(rule_ptr_t pRule) const
 {
-  return pRule->GetTextHeight() * m_scale <= min_text_height_filtered;
-}
-
-yg::FontDesc DrawerYG::get_text_font(rule_ptr_t pRule) const
-{
-  int c = pRule->GetFillColor();
-  yg::Color color = (c != -1 ? yg::Color::fromXRGB(c, pRule->GetAlpha()) :
-                               yg::Color(0, 0, 0, 0));
-
-  // to prevent white text on white outline
-  //if (color == yg::Color(255, 255, 255, 255))
-  //  color = yg::Color(0, 0, 0, 0);
-
-  c = pRule->GetColor();
-
-  bool const hasStroke = (c != -1);
-  yg::Color strokeColor = (hasStroke ? yg::Color::fromXRGB(c, pRule->GetStrokeAlpha()) :
-                                       yg::Color(255, 255, 255, 255));
-
-  return yg::FontDesc(get_text_font_size(pRule), color, hasStroke, strokeColor);
+  if (pRule->GetCaption(0))
+    return (GetFontSize(pRule->GetCaption(0)) < 3);
+  else
+  {
+    // this rule is not a caption at all
+    return true;
+  }
 }
 
 void DrawerYG::drawText(m2::PointD const & pt, di::DrawInfo const * pInfo, rule_ptr_t pRule, yg::EPosition pos, int depth)
 {
-  yg::FontDesc fontDesc(get_text_font(pRule));
-  fontDesc.SetRank(pInfo->m_rank);
+  yg::FontDesc font;
+  ConvertStyle(pRule->GetCaption(0), m_visualScale, font);
+  font.SetRank(pInfo->m_rank);
 
-  yg::FontDesc smallFontDesc(fontDesc);
-  smallFontDesc.m_size *= 0.75;
+  yg::FontDesc smallFont;
+  if (pRule->GetCaption(1))
+  {
+    ConvertStyle(pRule->GetCaption(1), m_visualScale, smallFont);
+    smallFont.SetRank(pInfo->m_rank);
+  }
 
-  if (!filter_text_size(pRule))
-    m_pScreen->drawTextEx(
-          fontDesc,
-          smallFontDesc,
-          pt,
-          pos,
-          pInfo->m_name,
-          pInfo->m_secondaryName,
-          depth,
-          true,
-          true);
+  m_pScreen->drawTextEx(font, smallFont, pt, pos,
+                        pInfo->m_name, pInfo->m_secondaryName,
+                        depth, true, true);
 }
 
 bool DrawerYG::drawPathText(di::PathInfo const & info, di::DrawInfo const * pInfo, rule_ptr_t pRule, int depth)
 {
-  yg::FontDesc primaryFont(get_text_font(pRule));
+  yg::FontDesc font;
+  ConvertStyle(pRule->GetCaption(0), m_visualScale, font);
 
-  return m_pScreen->drawPathText(primaryFont,
+  return m_pScreen->drawPathText(font,
                                  &info.m_path[0],
                                  info.m_path.size(),
                                  pInfo->GetPathName(),
@@ -334,12 +281,6 @@ double DrawerYG::VisualScale() const
 void DrawerYG::SetScale(int level)
 {
   m_level = level;
-
-#ifdef USE_PROTO_STYLES
-  m_scale = 1.0;
-#else
-  m_scale = scales::GetM2PFactor(level);
-#endif
 }
 
 void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size_t count)
@@ -353,13 +294,11 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
   for (unsigned i = 0; i < count; ++i)
   {
     rule_ptr_t pRule = rules[i].m_rule;
-    string symbol;
-    pRule->GetSymbol(symbol);
 
-    bool const hasSymbol = !symbol.empty();
-    bool const isCaption = pRule->GetTextHeight() >= 0.0;
+    bool const hasSymbol = pRule->GetSymbol() != 0;
+    bool const isCaption = pRule->GetCaption(0) != 0;
 
-    if (!isCaption && isPath && !hasSymbol && (pRule->GetColor() != -1))
+    if (!isCaption && isPath && !hasSymbol && (pRule->GetLine() != 0))
       pathRules.push_back(rules[i]);
   }
 
@@ -378,28 +317,16 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
     rule_ptr_t pRule = rules[i].m_rule;
     int const depth = rules[i].m_depth;
 
-    bool const isCaption = pRule->GetTextHeight() >= 0.0;
-
-    string symbol;
-    pRule->GetSymbol(symbol);
-    bool const hasSymbol = !symbol.empty();
-
-    bool const isCircle = (pRule->GetRadius() != -1);
+    bool const isCaption = pRule->GetCaption(0) != 0;
+    bool const hasSymbol = pRule->GetSymbol() != 0;
+    bool const isCircle = pRule->GetCircle() != 0;
 
     if (!isCaption)
     {
-      // path is drawn separately in the code above
-      // draw path
-      //if (isPath && !isSymbol && (pRule->GetColor() != -1))
-      //{
-      //  for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
-      //    drawPath(*i, pRule, depth);
-      //}
-
       // draw area
       if (isArea)
       {
-        bool const isFill = pRule->GetFillColor() != -1;
+        bool const isFill = pRule->GetArea() != 0;
         bool const hasSym = hasSymbol && ((pRule->GetType() & drule::way) != 0);
 
         for (list<di::AreaInfo>::const_iterator i = pInfo->m_areas.begin(); i != pInfo->m_areas.end(); ++i)
@@ -437,12 +364,7 @@ void DrawerYG::Draw(di::DrawInfo const * pInfo, di::DrawRule const * rules, size
         if (isPath && !isArea && isN && !filter_text_size(pRule))
         {
           for (list<di::PathInfo>::const_iterator i = pInfo->m_pathes.begin(); i != pInfo->m_pathes.end(); ++i)
-          {
-            if (filter_text_size(pRule))
-              continue;
-
             drawPathText(*i, pInfo, pRule, depth);
-          }
         }
 
         // draw point text

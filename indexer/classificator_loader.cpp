@@ -52,15 +52,11 @@ namespace classificator
                p.GetReader("types.txt"));
 
     //LOG(LINFO, ("Reading of drawing rules"));
-#ifdef USE_PROTO_STYLES
+
     // Load from protobuffer text file.
     string buffer;
     ReaderType(p.GetReader("drules_proto.txt")).ReadAsString(buffer);
-    drule::rules().LoadFromProto(buffer);
-#else
-    ReaderPtrStream rulesS(p.GetReader("drawing_rules.bin"));
-    drule::ReadRules(rulesS);
-#endif
+    drule::rules().LoadFromTextProto(buffer);
 
     LOG(LINFO, ("Reading of classificator finished"));
   }

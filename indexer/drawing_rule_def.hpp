@@ -4,8 +4,6 @@
 #include "../std/vector.hpp"
 
 
-#define USE_PROTO_STYLES 1
-
 namespace drule
 {
   class Key

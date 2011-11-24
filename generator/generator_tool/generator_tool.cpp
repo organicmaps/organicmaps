@@ -4,14 +4,12 @@
 #include "../update_generator.hpp"
 #include "../borders_generator.hpp"
 #include "../borders_loader.hpp"
-#include "../classif_routine.hpp"
 #include "../dumper.hpp"
 #include "../statistics.hpp"
 #include "../unpack_mwm.hpp"
 #include "../generate_info.hpp"
 
 #include "../../indexer/classificator_loader.hpp"
-#include "../../indexer/drawing_rules.hpp"
 #include "../../indexer/data_header.hpp"
 #include "../../indexer/features_vector.hpp"
 #include "../../indexer/index_builder.hpp"
@@ -96,18 +94,6 @@ int main(int argc, char ** argv)
   // Make a classificator
   if (FLAGS_generate_classif)
   {
-    //classificator::GenerateAndWrite(path);
-
-    /// This is temporary code for rules dumping.
-    //@{
-    classificator::Load();
-
-    string buffer;
-    drule::ConvertToProtocolBuffers(buffer);
-
-    FileWriter w(path + "drules_proto.txt");
-    w.Write(buffer.c_str(), buffer.size());
-    //@}
   }
 
   // Generating intermediate files
@@ -127,7 +113,7 @@ int main(int argc, char ** argv)
       FLAGS_calc_statistics || FLAGS_dump_types || FLAGS_dump_prefixes)
   {
     classificator::Load();
-    classificator::PrepareForFeatureGeneration();
+    classif().SortClassificator();
   }
 
   // Generate dat file

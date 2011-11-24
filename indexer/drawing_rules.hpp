@@ -10,17 +10,17 @@
 #include "../std/string.hpp"
 
 
-class ReaderPtrStream;
-class FileWriterStream;
+class LineDefProto;
+class AreaRuleProto;
+class SymbolRuleProto;
+class CaptionDefProto;
+class CircleRuleProto;
+
 
 namespace drule
 {
-  typedef map<string, string> AttrsMapType;
-
   class BaseRule
   {
-    string m_class;   // for debug use only, can be removed
-
     mutable buffer_vector<uint32_t, 8> m_id1, m_id2;
     char m_type;      // obsolete for new styles, can be removed
 
@@ -30,11 +30,8 @@ namespace drule
     BaseRule() : m_type(node | way)
     {
     }
-
     virtual ~BaseRule() {}
 
-    /// @todo Rewrite this. Make an array of IDs.
-    //@{
     void CheckSize(buffer_vector<uint32_t, 8> & v, size_t s) const
     {
       if (v.size() < s)
@@ -88,34 +85,15 @@ namespace drule
       for (size_t i = 0; i < m_id2.size(); ++i)
         MakeEmptyID2(i);
     }
-    //@}
 
-    void SetClassName(string const & cl) { m_class = cl; }
     void SetType(char type) { m_type = type; }
     inline char GetType() const { return m_type; }
 
-    bool IsEqualBase(BaseRule const * p) const { return (m_type == p->m_type); }
-    void ReadBase(ReaderPtrStream & ar);
-    void WriteBase(FileWriterStream & ar) const;
-
-    virtual bool IsEqual(BaseRule const * p) const = 0;
-    virtual void Read(ReaderPtrStream & ar) = 0;
-    virtual void Write(FileWriterStream & ar) const = 0;
-
-    /// @name This functions can tell us about the type of rule.
-    //@{
-    virtual int GetColor() const { return -1; }             ///< path "line" color
-    virtual int GetFillColor() const { return -1; }         ///< fill "area" color
-    virtual double GetTextHeight() const { return -1.0; }   ///< text height of "caption"
-    virtual double GetRadius() const { return -1; }         ///< radius "circle"
-    virtual void GetSymbol(string &) const {}               ///< name of "symbol"
-    //@}
-
-    virtual unsigned char GetAlpha() const { return 255; }
-    virtual unsigned char GetStrokeAlpha() const { return 255; }
-
-    virtual double GetWidth() const { return -1; }
-    virtual void GetPattern(vector<double> &, double &) const {}
+    virtual LineDefProto const * GetLine() const { return 0; }
+    virtual AreaRuleProto const * GetArea() const { return 0; }
+    virtual SymbolRuleProto const * GetSymbol() const { return 0; }
+    virtual CaptionDefProto const * GetCaption(int) const { return 0; }
+    virtual CircleRuleProto const * GetCircle() const { return 0; }
   };
 
   class RulesHolder
@@ -128,42 +106,18 @@ namespace drule
     typedef map<int32_t, array<vector<uint32_t>, count_of_rules> > rules_map_t;
     rules_map_t m_rules;
 
-    /// @name temporary for search rules parameters by 'class' attribute
-    //@{
-    string m_file;
-    int m_currScale;
-    //@}
-
-    void PushAttributes(string objClass, AttrsMapType & attrs);
-
-    Key CreateRuleImpl1(string const & name, uint8_t type, string const & clValue,
-                        AttrsMapType const & attrs, bool isMask);
-    Key CreateRuleImpl2(string const & name, uint8_t type, string const & clName,
-                        AttrsMapType const & attrs);
-
   public:
     ~RulesHolder();
 
     size_t AddRule(int scale, rule_type_t type, BaseRule * p);
-    size_t AddLineRule(int scale, int color, double pixWidth);
-    size_t AddAreaRule(int scale, int color);
-    size_t AddSymbolRule(int scale, string const & sym);
 
     void Clean();
 
-    void SetParseFile(char const * fPath, int scale);
-
-    void CreateRules(string const & name, uint8_t type,
-                     AttrsMapType const & attrs, vector<Key> & v);
+    void ClearCaches();
 
     BaseRule const * Find(Key const & k) const;
 
-    int GetScale() const { return m_currScale; }
-
-    void Read(ReaderPtrStream & s);
-    void Write(FileWriterStream & s);
-    void LoadFromProto(string const & buffer);
-    void ClearCaches();
+    void LoadFromTextProto(string const & buffer);
 
     template <class ToDo> void ForEachRule(ToDo toDo)
     {
@@ -182,10 +136,5 @@ namespace drule
     }
   };
 
-  void WriteRules(string const & fPath);
-  void ReadRules(ReaderPtrStream & s);
-
   RulesHolder & rules();
-
-  void ConvertToProtocolBuffers(string & res);
 }

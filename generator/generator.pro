@@ -20,7 +20,6 @@ SOURCES += \
     update_generator.cpp \
     statistics.cpp \
     osm2type.cpp \
-    classif_routine.cpp \
     borders_generator.cpp \
     osm_xml_parser.cpp \
     borders_loader.cpp \
@@ -46,7 +45,6 @@ HEADERS += \
     polygonizer.hpp \
     world_map_generator.hpp \
     osm2type.hpp \
-    classif_routine.hpp \
     borders_generator.hpp \
     osm_xml_parser.hpp \
     borders_loader.hpp \
