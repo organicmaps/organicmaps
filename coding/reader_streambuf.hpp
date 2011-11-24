@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../std/stdint.hpp"
 #include "../std/iostream.hpp"
 
 class Reader;

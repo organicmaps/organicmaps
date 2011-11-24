@@ -7,17 +7,19 @@
 
 #include "../../std/bind.hpp"
 
+
 void incrementValue(int & i)
 {
   ++i;
 }
 
+#ifdef OMIM_OS_MAC
+
 UNIT_TEST(TimerTest)
 {
   int i = 0;
-#ifdef OMIM_OS_MAC
+
   VideoTimer * videoTimer = CreatePThreadVideoTimer(bind(&incrementValue, ref(i)));
-#endif
 
   LOG(LINFO, ("checking for approximately 60 cycles in second"));
 
@@ -42,5 +44,4 @@ UNIT_TEST(TimerTest)
   videoTimer->stop();
 }
 
-
-
+#endif
