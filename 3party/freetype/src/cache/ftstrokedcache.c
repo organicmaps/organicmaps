@@ -140,7 +140,7 @@ ftc_stroked_family_load_glyph( FTC_Family  ftcfamily,
         if (error)
             goto Exit;
 
-        error = FT_Glyph_Stroke(&glyph, family->attrs.stroker, 0);
+        error = FT_Glyph_Stroke(&glyph, family->attrs.stroker, 1);
 
         if (error)
           goto Exit;
