@@ -18,8 +18,6 @@
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
 		490830551426B0900088EE84 /* downloader.png in Resources */ = {isa = PBXBuildFile; fileRef = 490830531426B0900088EE84 /* downloader.png */; };
 		490830561426B0900088EE84 /* downloader@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 490830541426B0900088EE84 /* downloader@2x.png */; };
-		4945D21C1334187D0082387C /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 4945D21A1334187D0082387C /* settings.png */; };
-		4945D21D1334187D0082387C /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4945D21B1334187D0082387C /* settings@2x.png */; };
 		49B3FB8D132FA43E00057053 /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B3FB8B132FA43E00057053 /* location.png */; };
 		49B3FB8E132FA43E00057053 /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49B3FB8C132FA43E00057053 /* location@2x.png */; };
 		49DE1CA413437D7A00A93417 /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DE1CA213437D7A00A93417 /* libbzip2.a */; };
@@ -621,8 +619,6 @@
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		490830531426B0900088EE84 /* downloader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downloader.png; sourceTree = "<group>"; };
 		490830541426B0900088EE84 /* downloader@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "downloader@2x.png"; sourceTree = "<group>"; };
-		4945D21A1334187D0082387C /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
-		4945D21B1334187D0082387C /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
 		49B3FB8B132FA43E00057053 /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
 		49B3FB8C132FA43E00057053 /* location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location@2x.png"; sourceTree = "<group>"; };
 		49DE1CA213437D7A00A93417 /* libbzip2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbzip2.a; sourceTree = SOURCE_ROOT; };
@@ -1323,8 +1319,6 @@
 				FAD4906B13EFF61F005E7D43 /* search@2x.png */,
 				EEAF65E3134BCBD500A81C82 /* location-search.png */,
 				EEAF65E4134BCBD500A81C82 /* location-search@2x.png */,
-				4945D21A1334187D0082387C /* settings.png */,
-				4945D21B1334187D0082387C /* settings@2x.png */,
 				49B3FB8B132FA43E00057053 /* location.png */,
 				49B3FB8C132FA43E00057053 /* location@2x.png */,
 				FA065FFD1286167A00FEA989 /* Default@2x.png */,
@@ -2049,8 +2043,6 @@
 				EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */,
 				49B3FB8D132FA43E00057053 /* location.png in Resources */,
 				49B3FB8E132FA43E00057053 /* location@2x.png in Resources */,
-				4945D21C1334187D0082387C /* settings.png in Resources */,
-				4945D21D1334187D0082387C /* settings@2x.png in Resources */,
 				FAFCB63813367AD1001A5C59 /* about-travelguide-iphone.html in Resources */,
 				FAFF422A1347F101009BBB14 /* World.mwm in Resources */,
 				EEAF65E5134BCBD500A81C82 /* location-search.png in Resources */,
