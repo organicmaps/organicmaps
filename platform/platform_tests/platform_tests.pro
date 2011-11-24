@@ -20,7 +20,7 @@ win32* {
 }
 macx* {
   QT *= gui # needed for QApplication with event loop, to test async events (downloader, etc.)
-  LIBS *= "-framework Foundation" "-framework IOKit"
+  LIBS *= "-framework Foundation" "-framework IOKit" "-framework QuartzCore"
 }
 win32*|linux* {
   QT *= network
@@ -33,4 +33,4 @@ SOURCES += \
     concurrent_runner_test.cpp \
     language_test.cpp \
     downloader_test.cpp \
-
+    video_timer_test.cpp \

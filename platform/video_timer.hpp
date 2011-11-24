@@ -40,3 +40,4 @@ public:
 extern "C" VideoTimer * CreateIOSVideoTimer(VideoTimer::TFrameFn frameFn);
 extern "C" VideoTimer * CreateAppleVideoTimer(VideoTimer::TFrameFn frameFn);
 extern "C" VideoTimer * CreateWin32VideoTimer(VideoTimer::TFrameFn frameFn);
+extern "C" VideoTimer * CreatePThreadVideoTimer(VideoTimer::TFrameFn frameFn);

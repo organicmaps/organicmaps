@@ -41,7 +41,8 @@ include($$ROOT_DIR/common.pri)
                        ios_concurrent_runner.mm \
                        platform_ios.mm
 } else:android* {
-  SOURCES += platform_android.cpp
+  SOURCES += platform_android.cpp \
+             pthread_video_timer.cpp
 }
 
 macx*|iphone* {
@@ -68,3 +69,4 @@ SOURCES += \
     video_timer.cpp \
     http_request.cpp \
     chunks_download_strategy.cpp \
+    pthread_video_timer.cpp \
