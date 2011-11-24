@@ -1,7 +1,7 @@
 #include "search_query.hpp"
 #include "category_info.hpp"
 #include "feature_offset_match.hpp"
-#include "keyword_matcher.hpp"
+#include "lang_keywords_scorer.hpp"
 #include "latlon_match.hpp"
 #include "result.hpp"
 #include "search_common.hpp"
@@ -145,7 +145,13 @@ void Query::Search(string const & query,
     if (m_tokens.size() > 31)
       m_tokens.resize(31);
 
-    m_pKeywordMatcher.reset(new KeywordMatcher(m_tokens.data(), m_tokens.size(), &m_prefix));
+    vector<vector<int8_t> > langPriorities(3);
+    langPriorities[0].push_back(m_preferredLanguage);
+    langPriorities[1].push_back(StringUtf8Multilang::GetLangIndex("int_name"));
+    langPriorities[1].push_back(StringUtf8Multilang::GetLangIndex("en"));
+    langPriorities[2].push_back(StringUtf8Multilang::GetLangIndex("default"));
+    m_pKeywordsScorer.reset(new LangKeywordsScorer(langPriorities,
+                                                   m_tokens.data(), m_tokens.size(), &m_prefix));
 
     m_results = my::limited_priority_queue<impl::IntermediateResult>(resultsNeeded);
   }
@@ -198,17 +204,17 @@ class BestNameFinder
 {
   uint32_t & m_penalty;
   string & m_name;
-  KeywordMatcher & m_keywordMatcher;
+  LangKeywordsScorer & m_keywordsScorer;
 public:
-  BestNameFinder(uint32_t & penalty, string & name, KeywordMatcher & keywordMatcher)
-    : m_penalty(penalty), m_name(name), m_keywordMatcher(keywordMatcher)
+  BestNameFinder(uint32_t & penalty, string & name, LangKeywordsScorer & keywordsScorer)
+    : m_penalty(penalty), m_name(name), m_keywordsScorer(keywordsScorer)
   {
     m_penalty = uint32_t(-1);
   }
 
-  bool operator()(signed char, string const & name) const
+  bool operator()(signed char lang, string const & name) const
   {
-    uint32_t penalty = m_keywordMatcher.Score(name);
+    uint32_t penalty = m_keywordsScorer.Score(lang, name);
     if (penalty < m_penalty)
     {
       m_penalty = penalty;
@@ -222,7 +228,7 @@ public:
 
 void Query::GetBestMatchName(FeatureType const & f, uint32_t & penalty, string & name)
 {
-  impl::BestNameFinder bestNameFinder(penalty, name, *m_pKeywordMatcher);
+  impl::BestNameFinder bestNameFinder(penalty, name, *m_pKeywordsScorer);
   f.ForEachNameRef(bestNameFinder);
 }
 

@@ -22,7 +22,7 @@ namespace search
 {
 
 struct CategoryInfo;
-class KeywordMatcher;
+class LangKeywordsScorer;
 namespace impl { class IntermediateResult; struct FeatureLoader; class BestNameFinder; }
 
 class Query
@@ -80,7 +80,7 @@ private:
   m2::RectD m_viewport;
   m2::RectD m_viewportExtended;
 
-  scoped_ptr<KeywordMatcher> m_pKeywordMatcher;
+  scoped_ptr<LangKeywordsScorer> m_pKeywordsScorer;
 
   bool m_bOffsetsCacheIsValid;
   vector<unordered_set<uint32_t> > m_offsetsInViewport;

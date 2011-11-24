@@ -20,6 +20,7 @@ HEADERS += \
     approximate_string_match.hpp \
     feature_offset_match.hpp \
     category_info.hpp \
+    lang_keywords_scorer.hpp
 
 SOURCES += \
     search_engine.cpp \
@@ -29,3 +30,4 @@ SOURCES += \
     result.cpp \
     latlon_match.cpp \
     approximate_string_match.cpp \
+    lang_keywords_scorer.cpp
