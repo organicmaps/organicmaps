@@ -3081,6 +3081,30 @@ cont {
 cont {
   name: "boundary-administrative-2"
   element {
+    scale: 4
+    lines {
+      width: 1
+      color: 0xA0A090
+      dashdot {
+        dd: 3.125
+        dd: 3.125
+      }
+      priority: 3
+    }
+  }
+  element {
+    scale: 5
+    lines {
+      width: 1
+      color: 0xD9775B
+      dashdot {
+        dd: 3.125
+        dd: 3.125
+      }
+      priority: 3
+    }
+  }
+  element {
     scale: 6
     lines {
       width: 2.5390625
@@ -11077,18 +11101,10 @@ cont {
 cont {
   name: "highway-motorway"
   element {
-    scale: 6
-    lines {
-      width: 1
-      color: 0xf08800
-      priority: 600
-    }
-  }
-  element {
     scale: 7
     lines {
       width: 1
-      color: 0xf08800
+      color: 0xEFBB6E
       priority: 600
     }
   }
@@ -11096,7 +11112,7 @@ cont {
     scale: 8
     lines {
       width: 2
-      color: 0xf08800
+      color: 0xEF9721
       priority: 600
     }
   }
@@ -12544,7 +12560,7 @@ cont {
     lines {
       width: 9
       color: 0xf08800
-      priority: 407
+      priority: 600
     }
     path_text {
       primary {
@@ -12560,7 +12576,7 @@ cont {
     lines {
       width: 12
       color: 0xf08800
-      priority: 722
+      priority: 600
     }
     path_text {
       primary {
@@ -12576,7 +12592,7 @@ cont {
     lines {
       width: 12
       color: 0xf08800
-      priority: 764
+      priority: 600
     }
     path_text {
       primary {
@@ -15685,26 +15701,18 @@ cont {
 cont {
   name: "highway-primary"
   element {
-    scale: 6
-    lines {
-      width: 0.5
-      color: 0xffb84f
-      priority: 540
-    }
-  }
-  element {
     scale: 7
     lines {
-      width: 1.2
-      color: 0xffb84f
+      width: 1
+      color: 0xEED4A6
       priority: 540
     }
   }
   element {
     scale: 8
     lines {
-      width: 1.8
-      color: 0xffb84f
+      width: 1
+      color: 0xF7D396
       priority: 540
     }
   }
@@ -20713,7 +20721,7 @@ cont {
     lines {
       width: 1.6875
       color: 0xfffb80
-      priority: 222
+      priority: 510
     }
   }
   element {
@@ -20721,7 +20729,7 @@ cont {
     lines {
       width: 2.75
       color: 0xfffb80
-      priority: 233
+      priority: 510
     }
   }
   element {
@@ -20745,7 +20753,7 @@ cont {
     lines {
       width: 9
       color: 0xfffb80
-      priority: 403
+      priority: 510
     }
     path_text {
       primary {
@@ -20761,7 +20769,7 @@ cont {
     lines {
       width: 12
       color: 0xfffb80
-      priority: 718
+      priority: 510
     }
     path_text {
       primary {
@@ -20777,7 +20785,7 @@ cont {
     lines {
       width: 12
       color: 0xfffb80
-      priority: 760
+      priority: 510
     }
     path_text {
       primary {
@@ -27887,26 +27895,18 @@ cont {
 cont {
   name: "highway-trunk"
   element {
-    scale: 6
-    lines {
-      width: 0.5
-      color: 0xffb84f
-      priority: 540
-    }
-  }
-  element {
     scale: 7
     lines {
       width: 1.2
-      color: 0xffb84f
+      color: 0xEED4A6
       priority: 540
     }
   }
   element {
     scale: 8
     lines {
-      width: 1.8
-      color: 0xffb84f
+      width: 1
+      color: 0xF7D396
       priority: 540
     }
   }
@@ -29420,7 +29420,7 @@ cont {
     lines {
       width: 9
       color: 0xffb84f
-      priority: 406
+      priority: 540
     }
     path_text {
       primary {
@@ -29436,12 +29436,12 @@ cont {
     lines {
       width: 15.6
       color: 0xfffb80
-      priority: 598
+      priority: 490
     }
     lines {
       width: 12
       color: 0xffb84f
-      priority: 721
+      priority: 540
     }
     path_text {
       primary {
@@ -29457,12 +29457,12 @@ cont {
     lines {
       width: 17.2
       color: 0xfffb80
-      priority: 650
+      priority: 490
     }
     lines {
       width: 12
       color: 0xffb84f
-      priority: 763
+      priority: 540
     }
     path_text {
       primary {
@@ -47334,9 +47334,8 @@ cont {
     scale: 5
     caption {
       primary {
-        height: 7
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        height: 8
+        color: 0x505050
       }
       priority: 1
     }
@@ -47346,8 +47345,7 @@ cont {
     caption {
       primary {
         height: 10
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        color: 0x505050
       }
       priority: 5
     }
@@ -47357,8 +47355,7 @@ cont {
     caption {
       primary {
         height: 11
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        color: 0x505050
       }
       priority: 5
     }
@@ -47368,8 +47365,7 @@ cont {
     caption {
       primary {
         height: 11
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        color: 0x505050
       }
       priority: 5
     }
@@ -47379,8 +47375,7 @@ cont {
     caption {
       primary {
         height: 11
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        color: 0x505050
       }
       priority: 5
     }
@@ -47390,8 +47385,7 @@ cont {
     caption {
       primary {
         height: 15
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        color: 0x505050
       }
       priority: 5
     }
@@ -47444,20 +47438,25 @@ cont {
     scale: 5
     caption {
       primary {
-        height: 7
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        height: 10
+        color: 0x404040
+        stroke_color: 0xEEEEDD
       }
-      priority: 2
+      secondary {
+        height: 8
+        color: 0xFF6060
+        stroke_color: 0xEEEEDD
+      }
+      priority: 6
     }
   }
   element {
     scale: 6
     caption {
       primary {
-        height: 10
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        height: 12
+        color: 0x404040
+        stroke_color: 0xEEEEDD
       }
       priority: 6
     }
@@ -47466,9 +47465,9 @@ cont {
     scale: 7
     caption {
       primary {
-        height: 11
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        height: 14
+        color: 0x404040
+        stroke_color: 0xEEEEDD
       }
       priority: 6
     }
@@ -47477,9 +47476,9 @@ cont {
     scale: 8
     caption {
       primary {
-        height: 11
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        height: 16
+        color: 0x404040
+        stroke_color: 0xEEEEDD
       }
       priority: 6
     }
@@ -47488,9 +47487,9 @@ cont {
     scale: 9
     caption {
       primary {
-        height: 11
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        height: 16
+        color: 0x404040
+        stroke_color: 0xEEEEDD
       }
       priority: 6
     }
@@ -47499,9 +47498,9 @@ cont {
     scale: 10
     caption {
       primary {
-        height: 15
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        height: 18
+        color: 0x404040
+        stroke_color: 0xEEEEDD
       }
       priority: 6
     }
@@ -47511,8 +47510,8 @@ cont {
     caption {
       primary {
         height: 18
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        color: 0x404040
+        stroke_color: 0xEEEEDD
       }
       priority: 6
     }
@@ -47521,9 +47520,9 @@ cont {
     scale: 12
     caption {
       primary {
-        height: 20
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        height: 22
+        color: 0x606060
+        stroke_color: 0xEEEEDD
       }
       priority: 10501
     }
@@ -47532,20 +47531,10 @@ cont {
     scale: 13
     caption {
       primary {
-        height: 22
-        color: 0x606060
+        height: 24
+        color: 0x808080
       }
       priority: 10501
-    }
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 22
-        color: 0x606060
-      }
-      priority: 10651
     }
   }
 }
@@ -47555,9 +47544,8 @@ cont {
     scale: 1
     caption {
       primary {
-        height: 12
-        color: 0x606060
-        stroke_color: 0xFFFFFF
+        height: 16
+        color: 0x505050
       }
       priority: 1
     }
@@ -47566,9 +47554,8 @@ cont {
     scale: 2
     caption {
       primary {
-        height: 12
-        color: 0x606060
-        stroke_color: 0xFFFFFF
+        height: 18
+        color: 0x808078
       }
       priority: 1
     }
@@ -47580,9 +47567,8 @@ cont {
     scale: 3
     caption {
       primary {
-        height: 8
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        height: 10
+        color: 0x404040
       }
       priority: 1
     }
@@ -47591,9 +47577,8 @@ cont {
     scale: 4
     caption {
       primary {
-        height: 9
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        height: 12
+        color: 0x404040
       }
       priority: 1
     }
@@ -47602,11 +47587,11 @@ cont {
     scale: 5
     caption {
       primary {
-        height: 11
-        color: 0xFFFFFF
-        stroke_color: 0xFFFFFF
+        height: 14
+        color: 0x606060
+        stroke_color: 0xEEEEDD
       }
-      priority: 10
+      priority: 40
     }
   }
 }
@@ -47616,11 +47601,11 @@ cont {
     scale: 6
     caption {
       primary {
-        height: 0
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        height: 14
+        color: 0x606060
+        stroke_color: 0xEEEEDD
       }
-      priority: 2
+      priority: 20
     }
   }
   element {
@@ -47628,8 +47613,8 @@ cont {
     caption {
       primary {
         height: 0
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        color: 0x404040
+        stroke_color: 0xEEEEDD
       }
       priority: 2
     }
@@ -47639,8 +47624,8 @@ cont {
     caption {
       primary {
         height: 9
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        color: 0x404040
+        stroke_color: 0xEEEEDD
       }
       priority: 2
     }
@@ -47650,8 +47635,8 @@ cont {
     caption {
       primary {
         height: 3
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        color: 0x404040
+        stroke_color: 0xEEEEDD
       }
       priority: 2
     }
@@ -47661,8 +47646,8 @@ cont {
     caption {
       primary {
         height: 7
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        color: 0x404040
+        stroke_color: 0xEEEEDD
       }
       priority: 2
     }
@@ -48011,7 +47996,6 @@ cont {
       primary {
         height: 12
         color: 0x202020
-        stroke_color: 0xFFFFFF
       }
       priority: 70
     }
@@ -48022,7 +48006,6 @@ cont {
       primary {
         height: 5
         color: 0x202020
-        stroke_color: 0xFFFFFF
       }
       priority: 70
     }
@@ -48036,7 +48019,6 @@ cont {
       primary {
         height: 10
         color: 0x202020
-        stroke_color: 0xFFFFFF
       }
       priority: 10484
     }
@@ -48047,7 +48029,6 @@ cont {
       primary {
         height: 10
         color: 0x202020
-        stroke_color: 0xFFFFFF
       }
       priority: 10634
     }
@@ -48058,7 +48039,6 @@ cont {
       primary {
         height: 16
         color: 0x202020
-        stroke_color: 0xFFFFFF
       }
       priority: 10899
     }
@@ -48069,7 +48049,6 @@ cont {
       primary {
         height: 24
         color: 0x202020
-        stroke_color: 0xFFFFFF
       }
       priority: 11559
     }
@@ -48080,7 +48059,6 @@ cont {
       primary {
         height: 24
         color: 0x202020
-        stroke_color: 0xFFFFFF
       }
       priority: 11795
     }
@@ -48093,8 +48071,8 @@ cont {
     caption {
       primary {
         height: 3
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        color: 0x505050
+        stroke_color: 0xEEEEDD
       }
       priority: 3
     }
@@ -48104,8 +48082,8 @@ cont {
     caption {
       primary {
         height: 4
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        color: 0x505050
+        stroke_color: 0xEEEEDD
       }
       priority: 3
     }
@@ -48115,8 +48093,8 @@ cont {
     caption {
       primary {
         height: 5
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        color: 0x505050
+        stroke_color: 0xEEEEDD
       }
       priority: 3
     }
@@ -48126,8 +48104,8 @@ cont {
     caption {
       primary {
         height: 6
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        color: 0x505050
+        stroke_color: 0xEEEEDD
       }
       priority: 3
     }
@@ -48137,8 +48115,8 @@ cont {
     caption {
       primary {
         height: 6
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        color: 0x505050
+        stroke_color: 0xEEEEDD
       }
       priority: 3
     }
@@ -48148,8 +48126,8 @@ cont {
     caption {
       primary {
         height: 12
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        color: 0x505050
+        stroke_color: 0xEEEEDD
       }
       priority: 3
     }
@@ -48159,8 +48137,8 @@ cont {
     caption {
       primary {
         height: 12
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        color: 0x505050
+        stroke_color: 0xEEEEDD
       }
       priority: 10453
     }
@@ -48170,8 +48148,8 @@ cont {
     caption {
       primary {
         height: 15
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        color: 0x505050
+        stroke_color: 0xEEEEDD
       }
       priority: 10480
     }
@@ -48180,9 +48158,9 @@ cont {
     scale: 14
     caption {
       primary {
-        height: 12
-        color: 0x202020
-        stroke_color: 0xFFFFFF
+        height: 16
+        color: 0x505050
+        stroke_color: 0xEEEEDD
       }
       priority: 10625
     }
@@ -50466,10 +50444,9 @@ cont {
       }
       priority: 11569
     }
-    circle {
-      radius: 4
-      color: 0x3050D8
-      priority: 1276
+    symbol {
+      name: "railway-station-mini"
+      priority: 1358
     }
   }
   element {
@@ -50482,10 +50459,9 @@ cont {
       }
       priority: 11805
     }
-    circle {
-      radius: 3.2
-      color: 0x3050D8
-      priority: 1437
+    symbol {
+      name: "railway-station"
+      priority: 1358
     }
   }
 }
@@ -50858,50 +50834,18 @@ cont {
 cont {
   name: "railway-light_rail"
   element {
-    scale: 6
-    lines {
-      width: 0.0078125
-      color: 0x666666
-      priority: 128
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.015625
-      color: 0x666666
-      priority: 129
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.125
-      color: 0x666666
-      priority: 138
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.25
-      color: 0x666666
-      priority: 138
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 1
-      color: 0x8000
+      color: 0x90D090
       priority: 239
     }
   }
   element {
     scale: 13
     lines {
-      width: 1.35
-      color: 0x8000
+      width: 1
+      color: 0x90D090
       priority: 490
     }
   }
@@ -53905,8 +53849,8 @@ cont {
       radius: 3
       color: 0x3050D8
       border {
-	color: 0xF8FCFF
-	width: 2
+      	color: 0xF8FCFF
+      	width: 2
       }
       priority: 750
     }
@@ -53921,14 +53865,9 @@ cont {
       }
       priority: 15567
     }
-    circle {
-      radius: 4
-      color: 0x3050D8
-      border {
-	color: 0xF8FCFF
-	width: 2
-      }
-      priority: 1275
+    symbol {
+      name: "railway-station-mini"
+      priority: 1358
     }
   }
   element {
@@ -53941,149 +53880,14 @@ cont {
       }
       priority: 15803
     }
-    circle {
-      radius: 4
-      color: 0x3050D8
-      border {
-	color: 0xF8FCFF
-	width: 4
-      }
-      priority: 1436
+    symbol {
+      name: "railway-station"
+      priority: 1358
     }
   }
 }
 cont {
   name: "railway-subway"
-  element {
-    scale: 6
-    lines {
-      width: 0.0078125
-      color: 0x666666
-      dashdot {
-        dd: 0.01171875
-        dd: 0.00390625
-      }
-      priority: 130
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.015625
-      color: 0x666666
-      dashdot {
-        dd: 0.0234375
-        dd: 0.0078125
-      }
-      priority: 131
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.125
-      color: 0x666666
-      dashdot {
-        dd: 0.1875
-        dd: 0.0625
-      }
-      priority: 140
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.25
-      color: 0x666666
-      dashdot {
-        dd: 0.375
-        dd: 0.125
-      }
-      priority: 140
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 1
-      color: 0x80
-      priority: 241
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.35
-      color: 0x80
-      priority: 252
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 2.4
-      color: 0x90959
-      priority: 217
-    }
-    lines {
-      width: 1.7
-      color: 0xB7B7E6
-      priority: 314
-    }
-    lines {
-      width: 1.7
-      color: 0x90959
-      dashdot {
-        dd: 3.6
-        dd: 5.4
-      }
-      priority: 332
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 3.2
-      color: 0xF0F4C
-      priority: 316
-    }
-    lines {
-      width: 2
-      color: 0xB7B7E6
-      priority: 422
-    }
-    lines {
-      width: 2
-      color: 0xF0F4C
-      dashdot {
-        dd: 7.2
-        dd: 10.8
-      }
-      priority: 440
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 3.2
-      color: 0xF0F4C
-      priority: 631
-    }
-    lines {
-      width: 2
-      color: 0xB7B7E6
-      priority: 738
-    }
-    lines {
-      width: 2
-      color: 0xF0F4C
-      dashdot {
-        dd: 9.6
-        dd: 14.4
-      }
-      priority: 757
-    }
-  }
   element {
     scale: 17
     lines {
@@ -54363,64 +54167,16 @@ cont {
 cont {
   name: "railway-tram"
   element {
-    scale: 6
-    lines {
-      width: 0.0078125
-      color: 0x666666
-      priority: 129
-    }
-  }
-  element {
-    scale: 7
-    lines {
-      width: 0.015625
-      color: 0x666666
-      priority: 130
-    }
-  }
-  element {
-    scale: 10
-    lines {
-      width: 0.125
-      color: 0x666666
-      priority: 139
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 0.25
-      color: 0x666666
-      priority: 139
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 1
-      color: 0x800080
-      priority: 240
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.35
-      color: 0x800080
-      priority: 251
-    }
-  }
-  element {
     scale: 14
     lines {
-      width: 2.4
+      width: 2
       color: 0x590959
-      priority: 216
+      priority: 650
     }
     lines {
       width: 1.7
       color: 0xE6B7E6
-      priority: 313
+      priority: 650
     }
     lines {
       width: 1.7
@@ -54437,12 +54193,12 @@ cont {
     lines {
       width: 3.2
       color: 0x4C0F4C
-      priority: 315
+      priority: 650
     }
     lines {
       width: 2
       color: 0xE6B7E6
-      priority: 421
+      priority: 655
     }
     lines {
       width: 2
@@ -54451,7 +54207,7 @@ cont {
         dd: 7.2
         dd: 10.8
       }
-      priority: 439
+      priority: 660
     }
   }
   element {
@@ -54459,12 +54215,12 @@ cont {
     lines {
       width: 3.2
       color: 0x4C0F4C
-      priority: 630
+      priority: 650
     }
     lines {
       width: 2
       color: 0xE6B7E6
-      priority: 737
+      priority: 655
     }
     lines {
       width: 2
@@ -54473,7 +54229,7 @@ cont {
         dd: 9.6
         dd: 14.4
       }
-      priority: 756
+      priority: 660
     }
   }
   element {
@@ -54481,12 +54237,12 @@ cont {
     lines {
       width: 3.2
       color: 0x4C0F4C
-      priority: 666
+      priority: 650
     }
     lines {
       width: 2
       color: 0xE6B7E6
-      priority: 779
+      priority: 655
     }
     lines {
       width: 2
@@ -54495,7 +54251,7 @@ cont {
         dd: 9.6
         dd: 14.4
       }
-      priority: 798
+      priority: 660
     }
   }
 }
@@ -54738,14 +54494,6 @@ cont {
 cont {
   name: "railway-tram_stop"
   element {
-    scale: 13
-    circle {
-      radius: 1
-      color: 0x202020
-      priority: 449
-    }
-  }
-  element {
     scale: 14
     circle {
       radius: 2
@@ -54763,6 +54511,10 @@ cont {
   }
   element {
     scale: 16
+    symbol {
+      name: "tramway-mini"
+      priority: 1358
+    }
     caption {
       primary {
         height: 10
@@ -54771,14 +54523,13 @@ cont {
       }
       priority: 11571
     }
-    circle {
-      radius: 4
-      color: 0x3050D8
-      priority: 1277
-    }
   }
   element {
     scale: 17
+    symbol {
+      name: "tramway"
+      priority: 1358
+    }
     caption {
       primary {
         height: 10
@@ -54786,11 +54537,6 @@ cont {
         stroke_color: 0xFFFFFF
       }
       priority: 11807
-    }
-    circle {
-      radius: 3.2
-      color: 0x3050D8
-      priority: 1438
     }
   }
 }
