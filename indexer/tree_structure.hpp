@@ -59,7 +59,7 @@ namespace tree
   }
 
   template <class ToDo>
-  bool LoadTreeAsText(istringstream & s, ToDo & toDo)
+  bool LoadTreeAsText(istream & s, ToDo & toDo)
   {
     string name;
     s >> name;

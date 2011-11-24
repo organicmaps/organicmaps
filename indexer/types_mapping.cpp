@@ -5,26 +5,25 @@
 #include "../base/stl_add.hpp"
 
 
-void BaseTypeMapper::Load(string const & buffer)
+void BaseTypeMapper::Load(istream & s)
 {
-  istringstream ss(buffer);
   Classificator const & c = classif();
 
   string v;
   vector<string> path;
 
   uint32_t ind = 0;
-  while (true)
+  while (s.good())
   {
-    ss >> v;
+    s >> v;
 
-    if (ss.eof())
-      break;
+    if (!v.empty())
+    {
+      path.clear();
+      strings::Tokenize(v, "|", MakeBackInsertFunctor(path));
 
-    path.clear();
-    strings::Tokenize(v, "|", MakeBackInsertFunctor(path));
-
-    Add(ind++, c.GetTypeByPath(path));
+      Add(ind++, c.GetTypeByPath(path));
+    }
   }
 }
 

@@ -273,6 +273,26 @@ void RulesHolder::LoadFromTextProto(string const & buffer)
 
   DoSetIndex doSet(*this);
   google::protobuf::TextFormat::ParseFromString(buffer, &doSet.m_cont);
+
+  classif().GetMutableRoot()->ForEachObject(bind<void>(ref(doSet), _1));
+}
+
+void RulesHolder::SaveToBinaryProto(string const & buffer, ostream & s)
+{
+  ContainerProto cont;
+  google::protobuf::TextFormat::ParseFromString(buffer, &cont);
+
+  CHECK ( cont.SerializeToOstream(&s), ("Error in proto saving!") );
+}
+
+void RulesHolder::LoadFromBinaryProto(istream & s)
+{
+  Clean();
+
+  DoSetIndex doSet(*this);
+
+  CHECK ( doSet.m_cont.ParseFromIstream(&s), ("Error in proto loading!") );
+
   classif().GetMutableRoot()->ForEachObject(bind<void>(ref(doSet), _1));
 }
 

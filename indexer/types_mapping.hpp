@@ -3,6 +3,7 @@
 
 #include "../std/vector.hpp"
 #include "../std/map.hpp"
+#include "../std/fstream.hpp"
 
 
 class BaseTypeMapper
@@ -11,7 +12,7 @@ protected:
   virtual void Add(uint32_t ind, uint32_t type) = 0;
 
 public:
-  void Load(string const & buffer);
+  void Load(istream & s);
 };
 
 class Index2Type : public BaseTypeMapper

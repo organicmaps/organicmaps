@@ -217,13 +217,13 @@ public:
 
   /// @name Serialization-like functions.
   //@{
-  void ReadClassificator(string const & buffer);
+  void ReadClassificator(istream & s);
   void PrintClassificator(char const * fPath);
 
-  void ReadVisibility(string const & buffer);
+  void ReadVisibility(istream & s);
   void PrintVisibility(char const * fPath);
 
-  void ReadTypesMapping(string const & buffer);
+  void ReadTypesMapping(istream & s);
 
   void SortClassificator();
   //@}

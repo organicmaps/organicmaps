@@ -8,6 +8,7 @@
 #include "../std/vector.hpp"
 #include "../std/array.hpp"
 #include "../std/string.hpp"
+#include "../std/fstream.hpp"
 
 
 class LineDefProto;
@@ -118,6 +119,9 @@ namespace drule
     BaseRule const * Find(Key const & k) const;
 
     void LoadFromTextProto(string const & buffer);
+
+    static void SaveToBinaryProto(string const & buffer, ostream & s);
+    void LoadFromBinaryProto(istream & s);
 
     template <class ToDo> void ForEachRule(ToDo toDo)
     {

@@ -427,14 +427,12 @@ bool ClassifObject::IsDrawableLike(FeatureGeoType ft) const
   return false;
 }
 
-void Classificator::ReadClassificator(string const & buffer)
+void Classificator::ReadClassificator(istream & s)
 {
-  istringstream iss(buffer);
-
   m_root.Clear();
 
   ClassifObject::LoadPolicy policy(&m_root);
-  tree::LoadTreeAsText(iss, policy);
+  tree::LoadTreeAsText(s, policy);
 
   m_root.Sort();
 
@@ -455,12 +453,10 @@ void Classificator::PrintClassificator(char const * fPath)
 #endif
 }
 
-void Classificator::ReadVisibility(string const & buffer)
+void Classificator::ReadVisibility(istream & s)
 {
-  istringstream iss(buffer);
-
   ClassifObject::VisLoadPolicy policy(&m_root);
-  tree::LoadTreeAsText(iss, policy);
+  tree::LoadTreeAsText(s, policy);
 }
 
 void Classificator::PrintVisibility(char const * fPath)
@@ -502,10 +498,10 @@ uint32_t Classificator::GetTypeByPath(vector<string> const & path) const
   return type;
 }
 
-void Classificator::ReadTypesMapping(string const & buffer)
+void Classificator::ReadTypesMapping(istream & s)
 {
-  m_i2t.Load(buffer);
-  m_t2i.Load(buffer);
+  m_i2t.Load(s);
+  m_t2i.Load(s);
 }
 
 void Classificator::Clear()
