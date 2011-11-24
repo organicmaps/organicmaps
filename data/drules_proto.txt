@@ -53904,12 +53904,11 @@ cont {
     circle {
       radius: 3
       color: 0x3050D8
+      border {
+	color: 0xF8FCFF
+	width: 2
+      }
       priority: 750
-    }
-    circle {
-      radius: 5
-      color: 0xF8FCFF
-      priority: 749
     }
   }
   element {
@@ -53925,12 +53924,11 @@ cont {
     circle {
       radius: 4
       color: 0x3050D8
+      border {
+	color: 0xF8FCFF
+	width: 2
+      }
       priority: 1275
-    }
-    circle {
-      radius: 6
-      color: 0xF8FCFF
-      priority: 1274
     }
   }
   element {
@@ -53946,12 +53944,11 @@ cont {
     circle {
       radius: 4
       color: 0x3050D8
+      border {
+	color: 0xF8FCFF
+	width: 4
+      }
       priority: 1436
-    }
-    circle {
-      radius: 8
-      color: 0xF8FCFF
-      priority: 1433
     }
   }
 }
@@ -56994,6 +56991,7 @@ cont {
 cont {
   name: "waterway-river"
   element {
+    scale: 6
     lines {
       width: 0.03125
       color: 0xcde5ea
