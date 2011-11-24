@@ -9,6 +9,7 @@
 #include "../unpack_mwm.hpp"
 #include "../generate_info.hpp"
 
+#include "../../indexer/drawing_rules.hpp"
 #include "../../indexer/classificator_loader.hpp"
 #include "../../indexer/data_header.hpp"
 #include "../../indexer/features_vector.hpp"
@@ -94,6 +95,15 @@ int main(int argc, char ** argv)
   // Make a classificator
   if (FLAGS_generate_classif)
   {
+    drule::RulesHolder & rules = drule::rules();
+
+    string buffer;
+    ModelReaderPtr(pl.GetReader(DRAWING_RULES_TXT_FILE)).ReadAsString(buffer);
+
+    rules.LoadFromTextProto(buffer);
+
+    ofstream s((path + DRAWING_RULES_BIN_FILE).c_str(), ios::out | ios::binary);
+    rules.SaveToBinaryProto(buffer, s);
   }
 
   // Generating intermediate files

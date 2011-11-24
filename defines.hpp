@@ -22,6 +22,9 @@
 #define PACKED_POLYGONS_FILE "packed_polygons.bin"
 #define PACKED_POLYGONS_INFO_TAG "info"
 
+#define DRAWING_RULES_TXT_FILE "drules_proto.txt"
+#define DRAWING_RULES_BIN_FILE "drules_proto.bin"
+
 /// How many langs we're supporting on indexing stage
 #define MAX_SUPPORTED_LANGUAGES 64
 

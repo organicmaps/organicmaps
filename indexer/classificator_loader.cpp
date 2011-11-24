@@ -2,7 +2,9 @@
 #include "classificator.hpp"
 #include "drawing_rules.hpp"
 
-#include "../../platform/platform.hpp"
+#include "../defines.hpp"
+
+#include "../platform/platform.hpp"
 
 #include "../coding/reader_streambuf.hpp"
 
@@ -67,7 +69,7 @@ namespace classificator
     try
     {
       // Load from protobuffer binary file.
-      ReaderStreamBuf buffer(p.GetReader("drules_proto.bin"));
+      ReaderStreamBuf buffer(p.GetReader(DRAWING_RULES_BIN_FILE));
 
       istream s(&buffer);
       rules.LoadFromBinaryProto(s);
@@ -78,13 +80,9 @@ namespace classificator
       {
         // Load from protobuffer text file.
         string buffer;
-        ModelReaderPtr(p.GetReader("drules_proto.txt")).ReadAsString(buffer);
+        ModelReaderPtr(p.GetReader(DRAWING_RULES_TXT_FILE)).ReadAsString(buffer);
 
         rules.LoadFromTextProto(buffer);
-
-        // Uncomment this to save actual drawing rules to binary proto format.
-        //ofstream s(p.WritablePathForFile("drules_proto.bin").c_str(), ios::out | ios::binary);
-        //rules.SaveToBinaryProto(buffer, s);
       }
       catch (Reader::OpenException const &)
       {
