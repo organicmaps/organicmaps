@@ -68,26 +68,19 @@ namespace classificator
 
     try
     {
-      // Load from protobuffer binary file.
+      // Load from proto buffer binary file.
       ReaderStreamBuf buffer(p.GetReader(DRAWING_RULES_BIN_FILE));
 
       istream s(&buffer);
       rules.LoadFromBinaryProto(s);
     }
-    catch (Reader::OpenException const &)
+    catch (FileAbsentException const &)
     {
-      try
-      {
-        // Load from protobuffer text file.
-        string buffer;
-        ModelReaderPtr(p.GetReader(DRAWING_RULES_TXT_FILE)).ReadAsString(buffer);
+      // Load from proto buffer text file.
+      string buffer;
+      ModelReaderPtr(p.GetReader(DRAWING_RULES_TXT_FILE)).ReadAsString(buffer);
 
-        rules.LoadFromTextProto(buffer);
-      }
-      catch (Reader::OpenException const &)
-      {
-        LOG(LERROR, ("No drawing rules found"));
-      }
+      rules.LoadFromTextProto(buffer);
     }
 
     LOG(LINFO, ("Reading of classificator finished"));
