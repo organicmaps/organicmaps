@@ -150,6 +150,9 @@ namespace yg
 //      /// This call is necessary to avoid parasite blitting in updateActualTarget() on IPhone.
 //      OGLCHECK(glFinish());
 
+      storage.m_vertices->discard();
+      storage.m_indices->discard();
+
       resourceManager()->multiBlitStorages()->Free(storage);
     }
 
@@ -356,6 +359,9 @@ namespace yg
       OGLCHECK(glEnable(GL_BLEND));
 //      /// This call is necessary to avoid parasite blitting in updateActualTarget() on IPhone.
 //      OGLCHECK(glFinish());
+
+      blitStorage.m_vertices->discard();
+      blitStorage.m_indices->discard();
 
       m_resourceManager->blitStorages()->Free(blitStorage);
     }

@@ -336,10 +336,27 @@ namespace yg
    {
      GeometryPipeline & pipeline = m_pipelines[pipelineID];
 
-     Storage storage = pipeline.m_storage;
-
      shared_ptr<UnlockStorage> command(new UnlockStorage());
-     command->m_storage = storage;
+     command->m_storage = pipeline.m_storage;
+
+     processCommand(command);
+   }
+
+   void GeometryBatcher::DiscardStorage::perform()
+   {
+     if (isDebugging())
+       LOG(LINFO, ("performing DiscardStorage command"));
+
+     m_storage.m_vertices->discard();
+     m_storage.m_indices->discard();
+   }
+
+   void GeometryBatcher::discardPipeline(int pipelineID)
+   {
+     GeometryPipeline & pipeline = m_pipelines[pipelineID];
+
+     shared_ptr<DiscardStorage> command(new DiscardStorage());
+     command->m_storage = pipeline.m_storage;
 
      processCommand(command);
    }
@@ -360,6 +377,8 @@ namespace yg
                     pipeline.m_storage.m_vertices,
                     pipeline.m_storage.m_indices,
                     pipeline.m_currentIndex);
+
+       discardPipeline(pipelineID);
 
 
        if (isDebugging())

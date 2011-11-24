@@ -1,5 +1,8 @@
 #pragma once
 
+#include "../std/vector.hpp"
+#include "../std/shared_ptr.hpp"
+
 namespace yg
 {
   namespace gl
@@ -11,6 +14,8 @@ namespace yg
       unsigned int m_id;
       unsigned int m_size;
       void * m_gpuData;
+
+      shared_ptr<vector<unsigned char> > m_sharedBuffer;
 
       /// using VA instead of buffer objects on some old GPU's
       bool m_useVA;
@@ -28,6 +33,7 @@ namespace yg
       void makeCurrent();
       void * lock();
       void unlock();
+      void discard();
       void * glPtr();
       void * data();
       bool isLocked() const;

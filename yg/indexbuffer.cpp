@@ -1,6 +1,7 @@
 #include "../base/SRC_FIRST.hpp"
 #include "../base/logging.hpp"
 #include "../base/assert.hpp"
+#include "../base/shared_buffer_manager.hpp"
 
 #include "internal/opengl.hpp"
 
@@ -40,14 +41,10 @@ namespace yg
       ASSERT(!m_isLocked, ());
       if (size != m_size)
       {
+        discard();
         m_size = size;
         makeCurrent();
-        if (m_useVA)
-        {
-          delete [] (unsigned char*) m_gpuData;
-          m_gpuData = new unsigned char[size];
-        }
-        else
+        if (!m_useVA)
           OGLCHECK(glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_size, 0, GL_DYNAMIC_DRAW));
       }
     }
@@ -80,7 +77,13 @@ namespace yg
       m_isLocked = true;
 
       if (m_useVA)
+      {
+        if (!m_sharedBuffer)
+          m_sharedBuffer = SharedBufferManager::instance().reserveSharedBuffer(m_size);
+
+        m_gpuData = &m_sharedBuffer->at(0);
         return m_gpuData;
+      }
 
       makeCurrent();
 
@@ -113,6 +116,19 @@ namespace yg
       OGLCHECK(glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER));
 #endif
       m_gpuData = 0;
+    }
+
+    void IndexBuffer::discard()
+    {
+      if (m_useVA)
+      {
+        if (m_sharedBuffer)
+        {
+          SharedBufferManager::instance().freeSharedBuffer(m_size, m_sharedBuffer);
+          m_sharedBuffer.reset();
+          m_gpuData = 0;
+        }
+      }
     }
 
     void IndexBuffer::makeCurrent()

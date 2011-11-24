@@ -107,6 +107,13 @@ namespace yg
         void perform();
       };
 
+      struct DiscardStorage : public Command
+      {
+        Storage m_storage;
+
+        void perform();
+      };
+
     public:
 
       /// INTERNAL API! USE WITH CAUTION
@@ -135,6 +142,7 @@ namespace yg
 
       void flushPipeline(shared_ptr<SkinPage> const & skinPage, int pipelineID);
       void unlockPipeline(int pipelineID);
+      void discardPipeline(int pipelineID);
 
     public:
 
