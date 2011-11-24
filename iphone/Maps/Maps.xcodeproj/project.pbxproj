@@ -25,7 +25,6 @@
 		49DE1CA413437D7A00A93417 /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DE1CA213437D7A00A93417 /* libbzip2.a */; };
 		EE026F0611D6AC0D00645242 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
 		EE026F0D11D6AC2800645242 /* basic_ldpi.skn in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0811D6AC2800645242 /* basic_ldpi.skn */; };
-		EE026F0E11D6AC2800645242 /* drawing_rules.bin in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0911D6AC2800645242 /* drawing_rules.bin */; };
 		EE12020911CD464100ABDD5D /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1201FF11CD464100ABDD5D /* libbase.a */; };
 		EE12020A11CD464100ABDD5D /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020011CD464100ABDD5D /* libcoding.a */; };
 		EE12020C11CD464100ABDD5D /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020211CD464100ABDD5D /* libexpat.a */; };
@@ -630,7 +629,6 @@
 		8D1107310486CEB800E47090 /* MapsWithMe-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		EE026F0511D6AC0D00645242 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = classificator.txt; path = ../../data/classificator.txt; sourceTree = SOURCE_ROOT; };
 		EE026F0811D6AC2800645242 /* basic_ldpi.skn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = basic_ldpi.skn; path = ../../data/basic_ldpi.skn; sourceTree = SOURCE_ROOT; };
-		EE026F0911D6AC2800645242 /* drawing_rules.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drawing_rules.bin; path = ../../data/drawing_rules.bin; sourceTree = SOURCE_ROOT; };
 		EE1201FF11CD464100ABDD5D /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbase.a; sourceTree = SOURCE_ROOT; };
 		EE12020011CD464100ABDD5D /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcoding.a; sourceTree = SOURCE_ROOT; };
 		EE12020211CD464100ABDD5D /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexpat.a; sourceTree = SOURCE_ROOT; };
@@ -1384,7 +1382,6 @@
 				EEE4C93D1298A2F3007231A9 /* symbols_ldpi.png */,
 				FA500587128907F0002961F0 /* visibility.txt */,
 				EE026F0811D6AC2800645242 /* basic_ldpi.skn */,
-				EE026F0911D6AC2800645242 /* drawing_rules.bin */,
 				EE026F0511D6AC0D00645242 /* classificator.txt */,
 			);
 			name = "External Resources";
@@ -2032,7 +2029,6 @@
 				28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */,
 				EE026F0611D6AC0D00645242 /* classificator.txt in Resources */,
 				EE026F0D11D6AC2800645242 /* basic_ldpi.skn in Resources */,
-				EE026F0E11D6AC2800645242 /* drawing_rules.bin in Resources */,
 				FA065FED128614C400FEA989 /* MainWindow-iPad.xib in Resources */,
 				FA065FFF1286167A00FEA989 /* Default@2x.png in Resources */,
 				FA0660001286167A00FEA989 /* Default.png in Resources */,
