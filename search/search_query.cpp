@@ -323,7 +323,8 @@ void Query::SearchFeatures(vector<vector<strings::UniString> > const & tokens,
             for (size_t i = 0; i < pTrieRoot->m_edge.size(); ++i)
             {
               TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
-              ASSERT_EQUAL(edge.size(), 1, ());
+              ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
+              // TODO: edge.size() > 1 !!
               if (edge.size() == 1 && edge[0] < 128 && langs.count(static_cast<int8_t>(edge[0])))
               {
                 scoped_ptr<TrieIterator> pLangRoot(pTrieRoot->GoToEdge(i));
