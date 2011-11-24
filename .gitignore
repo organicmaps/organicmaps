@@ -83,7 +83,10 @@ data/index.stamp
 
 # benchmark results
 data/benchmarks/*.trace
-data/benchmarks/results.txt
+data/benchmarks/iphone3g/*
+data/benchmarks/ipod4/*
+data/benchmarks/ipad/*
+data/benchmarks/mac/*
 
 android/.classpath
 android/.cproject

@@ -63,6 +63,7 @@ class BenchmarkResultsFrame(Frame):
         self.grid(padx=10, pady=10)
         
         self.createWidgets()
+        self.resultsDir = os.path.dirname(results_file)
         self.readResults(cfg_file, results_file)
         self.current = None
         self.poll()
@@ -264,7 +265,7 @@ class BenchmarkResultsFrame(Frame):
         return start_time.strip("\n").replace("_", "").replace(":", "").replace("-", "")
     
     def traceAttachementFile(self, start_time):
-        trace_files = [t for t in os.listdir(os.curdir) if t.endswith(".trace")]
+        trace_files = [t for t in os.listdir(os.path.join(os.curdir, self.resultsDir)) if t.endswith(".trace")]
         sst = self.traceAttachementName(start_time)
         for tf in trace_files:
             stf = tf[0:-6].replace("_", "").replace(":", "").replace("-", "")
