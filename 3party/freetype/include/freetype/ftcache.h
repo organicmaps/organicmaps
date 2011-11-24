@@ -22,6 +22,7 @@
 
 #include <ft2build.h>
 #include FT_GLYPH_H
+#include FT_STROKER_H
 
 
 FT_BEGIN_HEADER
@@ -857,6 +858,30 @@ FT_BEGIN_HEADER
                                FT_UInt         gindex,
                                FT_Glyph       *aglyph,
                                FTC_Node       *anode );
+
+  /// stroked image cache
+
+  FT_EXPORT( FT_Error )
+  FTC_StrokedImageCache_New( FTC_Manager      manager,
+                             FTC_ImageCache  *acache);
+
+  FT_EXPORT( FT_Error )
+  FTC_StrokedImageCache_Lookup( FTC_ImageCache  cache,
+                                FTC_ImageType   type,
+                                FT_Stroker      stroker,
+                                FT_UInt         gindex,
+                                FT_Glyph       *aglyph,
+                                FTC_Node       *anode );
+
+  FT_EXPORT( FT_Error )
+  FTC_StrokedImageCache_LookupScaler( FTC_ImageCache  cache,
+                                      FTC_Scaler      scaler,
+                                      FT_Stroker      stroker,
+                                      FT_ULong        load_flags,
+                                      FT_UInt         gindex,
+                                      FT_Glyph       *aglyph,
+                                      FTC_Node       *anode );
+
 
 
   /*************************************************************************/

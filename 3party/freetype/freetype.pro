@@ -102,3 +102,5 @@ SOURCES += \
     src/type42/t42objs.c \
     src/type42/t42parse.c \
     src/winfonts/winfnt.c \
+    src/cache/ftstrokedcache.c
+
