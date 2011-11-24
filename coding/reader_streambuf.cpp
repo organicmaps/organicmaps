@@ -1,5 +1,6 @@
 #include "reader_streambuf.hpp"
 #include "reader.hpp"
+#include "file_writer.hpp"
 
 #include "../std/algorithm.hpp"
 
@@ -37,4 +38,34 @@ ReaderStreamBuf::int_type ReaderStreamBuf::underflow()
   {
     return traits_type::eof();
   }
+}
+
+
+WriterStreamBuf::~WriterStreamBuf()
+{
+  delete m_writer;
+}
+
+std::streamsize WriterStreamBuf::xsputn(char_type const * s, std::streamsize n)
+{
+  m_writer->Write(s, n);
+  return n;
+}
+
+WriterStreamBuf::int_type WriterStreamBuf::overflow(int_type c)
+{
+  if (!traits_type::eq_int_type(c, traits_type::eof()))
+  {
+    char_type const t = traits_type::to_char_type(c);
+    xsputn(&t, 1);
+  }
+  return !traits_type::eof();
+}
+
+int WriterStreamBuf::sync()
+{
+  FileWriter * p = dynamic_cast<FileWriter *>(m_writer);
+  if (p)
+    p->Flush();
+  return 0;
 }
