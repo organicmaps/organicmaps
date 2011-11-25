@@ -53887,6 +53887,9 @@ cont {
   }
 }
 cont {
+  name: "railway-station-subway"
+}
+cont {
   name: "railway-subway"
   element {
     scale: 17
