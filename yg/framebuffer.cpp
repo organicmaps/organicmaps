@@ -17,11 +17,7 @@ namespace yg
     unsigned FrameBuffer::current()
     {
       int id;
-#ifdef OMIM_GL_ES
-      OGLCHECK(glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, &id));
-#else
-      OGLCHECK(glGetIntegerv(GL_FRAMEBUFFER_BINDING_EXT, &id));
-#endif
+      OGLCHECK(glGetIntegerv(GL_FRAMEBUFFER_BINDING_MWM, &id));
       return id;
     }
 
@@ -30,25 +26,13 @@ namespace yg
       if (defaultFB)
         m_id = 0;
       else
-      {
-#ifdef OMIM_GL_ES
-        OGLCHECK(glGenFramebuffersOES(1, &m_id));
-#else
-        OGLCHECK(glGenFramebuffers(1, &m_id));
-#endif
-      }
+        OGLCHECK(glGenFramebuffersFn(1, &m_id));
     }
 
     FrameBuffer::~FrameBuffer()
     {
       if ((m_id != 0) && g_doDeleteOnDestroy)
-      {
-#ifdef OMIM_GL_ES
-        OGLCHECK(glDeleteFramebuffersOES(1, &m_id));
-#else
-        OGLCHECK(glDeleteFramebuffers(1, &m_id));
-#endif
-      }
+        OGLCHECK(glDeleteFramebuffersFn(1, &m_id));
     }
 
     void FrameBuffer::makeCurrent()
@@ -57,11 +41,7 @@ namespace yg
       if (m_id != current())
 #endif
       {
-#ifdef OMIM_GL_ES
-        OGLCHECK(glBindFramebufferOES(GL_FRAMEBUFFER_OES, m_id));
-#else
-        OGLCHECK(glBindFramebuffer(GL_FRAMEBUFFER_EXT, m_id));
-#endif
+        OGLCHECK(glBindFramebufferFn(GL_FRAMEBUFFER_MWM, m_id));
 //        LOG(LINFO, ("FrameBuffer::makeCurrent", m_id));
       }
 
@@ -129,31 +109,16 @@ namespace yg
 
     void FrameBuffer::checkStatus()
     {
-      if (!yg::gl::g_doFakeOpenGLCalls)
+      GLenum res = glCheckFramebufferStatusFn(GL_FRAMEBUFFER_MWM);
+      if (res == GL_FRAMEBUFFER_UNSUPPORTED_MWM)
+        LOG(LINFO, ("unsupported combination of attached target formats. could be possibly skipped"));
+      else if (res == GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_MWM)
+        LOG(LINFO, ("incomplete attachement"));
+      else if (res == GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_MWM)
+        LOG(LINFO, ("incomplete missing attachement"));
+      else if (res == GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_MWM)
       {
-#ifdef OMIM_GL_ES
-        GLenum res = glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES);
-        if (res == GL_FRAMEBUFFER_UNSUPPORTED_OES)
-          LOG(LINFO, ("unsupported combination of attached target formats. could be possibly skipped"));
-        else if (res == GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_OES)
-          LOG(LINFO, ("incomplete attachement"));
-        else if (res == GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_OES)
-          LOG(LINFO, ("incomplete missing attachement"));
-        else if (res == GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_OES)
-        {
-          LOG(LINFO, ("incomplete dimensions"));
-        }
-#else
-        GLenum res = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
-        if (res == GL_FRAMEBUFFER_UNSUPPORTED)
-        {
-          LOG(LINFO, ("unsupported combination of attached target formats. could be possibly skipped"));
-        }
-        else if (res != GL_FRAMEBUFFER_COMPLETE_EXT)
-        {
-          LOG(LERROR, ("incomplete framebuffer"));
-        }
-#endif
+        LOG(LINFO, ("incomplete dimensions"));
       }
     }
   }

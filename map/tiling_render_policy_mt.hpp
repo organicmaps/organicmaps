@@ -41,7 +41,7 @@ protected:
 public:
 
   TilingRenderPolicyMT(VideoTimer * videoTimer,
-                       DrawerYG::Params const & params,
+                       bool useDefaultFB,
                        yg::ResourceManager::Params const & rmParams,
                        shared_ptr<yg::gl::RenderContext> const & primaryRC);
 

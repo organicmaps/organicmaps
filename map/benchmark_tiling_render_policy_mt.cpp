@@ -3,10 +3,10 @@
 
 BenchmarkTilingRenderPolicyMT::BenchmarkTilingRenderPolicyMT(
     VideoTimer * videoTimer,
-    DrawerYG::Params const & params,
+    bool useDefaultFB,
     yg::ResourceManager::Params const & rmParams,
     shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : TilingRenderPolicyMT(videoTimer, params, rmParams, primaryRC)
+  : TilingRenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC)
 {}
 
 void BenchmarkTilingRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,

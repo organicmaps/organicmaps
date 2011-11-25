@@ -206,16 +206,13 @@ namespace qt
     {
       m_videoTimer.reset(CreateVideoTimer());
 
-      DrawerYG::Params params;
-      params.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
-
       shared_ptr<qt::gl::RenderContext> primaryRC(new qt::gl::RenderContext(this));
 
       yg::ResourceManager::Params rmParams;
       rmParams.m_rtFormat = yg::Rt8Bpp;
       rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
 
-      m_framework->SetRenderPolicy(CreateRenderPolicy(m_videoTimer.get(), params, rmParams, primaryRC));
+      m_framework->SetRenderPolicy(CreateRenderPolicy(m_videoTimer.get(), true, rmParams, primaryRC));
 
       m_isInitialized = true;
     }

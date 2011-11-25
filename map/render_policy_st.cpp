@@ -13,7 +13,7 @@
 #include "../platform/platform.hpp"
 
 RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
-                               DrawerYG::Params const & params,
+                               bool useDefaultFB,
                                yg::ResourceManager::Params const & rmParams,
                                shared_ptr<yg::gl::RenderContext> const & primaryRC)
   : RenderPolicy(primaryRC, false)
@@ -87,8 +87,9 @@ RenderPolicyST::RenderPolicyST(VideoTimer * videoTimer,
   GetPlatform().GetFontNames(fonts);
   m_resourceManager->addFonts(fonts);
 
-  DrawerYG::params_t p = params;
+  DrawerYG::params_t p;
 
+  p.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(useDefaultFB));
   p.m_resourceManager = m_resourceManager;
   p.m_dynamicPagesCount = 2;
   p.m_textPagesCount = 2;

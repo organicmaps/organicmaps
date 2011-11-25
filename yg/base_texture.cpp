@@ -61,11 +61,8 @@ namespace yg
     void BaseTexture::attachToFrameBuffer()
     {
       checkID();
-#ifdef OMIM_GL_ES
-      OGLCHECK(glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, id(), 0));
-#else
-      OGLCHECK(glFramebufferTexture2D(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, id(), 0));
-#endif
+      OGLCHECK(glFramebufferTexture2DFn(GL_FRAMEBUFFER_MWM,
+                                        GL_COLOR_ATTACHMENT0_MWM, GL_TEXTURE_2D, id(), 0));
       utils::setupCoordinates(width(), height(), false);
     }
 

@@ -5,10 +5,10 @@
 #include "../base/logging.hpp"
 
 BenchmarkRenderPolicyMT::BenchmarkRenderPolicyMT(VideoTimer * videoTimer,
-                                                 DrawerYG::Params const & params,
+                                                 bool useDefaultFB,
                                                  yg::ResourceManager::Params const & rmParams,
                                                  shared_ptr<yg::gl::RenderContext> const & primaryRC)
-  : RenderPolicyMT(videoTimer, params, rmParams, primaryRC)
+  : RenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC)
 {}
 
 void BenchmarkRenderPolicyMT::DrawFrame(shared_ptr<PaintEvent> const & e,

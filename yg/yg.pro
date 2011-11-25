@@ -118,7 +118,14 @@ HEADERS += \
     agg_traits.hpp \
     circle_element.hpp
 
-win32 {
-  HEADERS += internal/opengl_win32.hpp
+win32* {
   SOURCES += internal/opengl_win32.cpp
+}
+
+android*|iphone* {
+  SOURCES += internal/opengl_es.cpp
+}
+
+macx* {
+  SOURCES += internal/opengl_ext.cpp
 }

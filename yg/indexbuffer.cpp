@@ -25,14 +25,14 @@ namespace yg
       : m_size(0), m_gpuData(0), m_useVA(useVA), m_isLocked(false)
     {
       if (!m_useVA)
-        OGLCHECK(glGenBuffers(1, &m_id));
+        OGLCHECK(glGenBuffersFn(1, &m_id));
     }
 
     IndexBuffer::IndexBuffer(size_t size, bool useVA)
       : m_size(0), m_gpuData(0), m_useVA(useVA), m_isLocked(false)
     {
       if (!m_useVA)
-        OGLCHECK(glGenBuffers(1, &m_id));
+        OGLCHECK(glGenBuffersFn(1, &m_id));
       resize(size);
     }
 
@@ -45,7 +45,7 @@ namespace yg
         m_size = size;
         makeCurrent();
         if (!m_useVA)
-          OGLCHECK(glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_size, 0, GL_DYNAMIC_DRAW));
+          OGLCHECK(glBufferDataFn(GL_ELEMENT_ARRAY_BUFFER, m_size, 0, GL_DYNAMIC_DRAW));
       }
     }
 
@@ -57,7 +57,7 @@ namespace yg
     IndexBuffer::~IndexBuffer()
     {
       if ((!m_useVA) && (g_doDeleteOnDestroy))
-        OGLCHECK(glDeleteBuffers(1, &m_id));
+        OGLCHECK(glDeleteBuffersFn(1, &m_id));
     }
 
     bool IndexBuffer::isLocked() const
@@ -91,11 +91,8 @@ namespace yg
       /// this provides that the glMapBuffer will not wait.
       OGLCHECK(glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_size, 0, GL_DYNAMIC_DRAW));
 
-#ifdef OMIM_GL_ES
-      m_gpuData = glMapBufferOES(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY_OES);
-#else
-      m_gpuData = glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY);
-#endif
+      m_gpuData = glMapBufferFn(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY_MWM);
+
       OGLCHECKAFTER;
       return m_gpuData;
     }
@@ -110,11 +107,7 @@ namespace yg
 
       ASSERT(m_gpuData != 0, ("IndexBuffer is not locked"));
       makeCurrent();
-#ifdef OMIM_GL_ES
-      OGLCHECK(glUnmapBufferOES(GL_ELEMENT_ARRAY_BUFFER));
-#else
-      OGLCHECK(glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER));
-#endif
+      OGLCHECK(glUnmapBufferFn(GL_ELEMENT_ARRAY_BUFFER));
       m_gpuData = 0;
     }
 
@@ -139,7 +132,7 @@ namespace yg
 #ifndef OMIM_OS_ANDROID
       if (m_id != current())
 #endif
-        OGLCHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id));
+        OGLCHECK(glBindBufferFn(GL_ELEMENT_ARRAY_BUFFER, m_id));
     }
 
     void * IndexBuffer::glPtr()

@@ -25,14 +25,14 @@ namespace yg
       : m_size(0), m_gpuData(0), m_useVA(useVA), m_isLocked(false)
     {
       if (!m_useVA)
-        OGLCHECK(glGenBuffers(1, &m_id));
+        OGLCHECK(glGenBuffersFn(1, &m_id));
     }
 
     VertexBuffer::VertexBuffer(size_t size, bool useVA)
       : m_size(0), m_gpuData(0), m_useVA(useVA), m_isLocked(false)
     {
       if (!m_useVA)
-        OGLCHECK(glGenBuffers(1, &m_id));
+        OGLCHECK(glGenBuffersFn(1, &m_id));
       resize(size);
     }
 
@@ -47,7 +47,7 @@ namespace yg
         m_size = size;
         makeCurrent();
         if (!m_useVA)
-          OGLCHECK(glBufferData(GL_ARRAY_BUFFER, m_size, 0, GL_DYNAMIC_DRAW));
+          OGLCHECK(glBufferDataFn(GL_ARRAY_BUFFER, m_size, 0, GL_DYNAMIC_DRAW));
       }
     }
 
@@ -59,7 +59,7 @@ namespace yg
     VertexBuffer::~VertexBuffer()
     {
       if ((!m_useVA) && (g_doDeleteOnDestroy))
-        OGLCHECK(glDeleteBuffers(1, &m_id));
+        OGLCHECK(glDeleteBuffersFn(1, &m_id));
     }
 
     void * VertexBuffer::data()
@@ -86,13 +86,10 @@ namespace yg
 
       /// orphaning the old copy of the buffer data.
       /// this provides that the glMapBuffer will not wait.
-      OGLCHECK(glBufferData(GL_ARRAY_BUFFER, m_size, 0, GL_DYNAMIC_DRAW));
+      OGLCHECK(glBufferDataFn(GL_ARRAY_BUFFER, m_size, 0, GL_DYNAMIC_DRAW));
 
-#ifdef OMIM_GL_ES
-      m_gpuData = glMapBufferOES(GL_ARRAY_BUFFER, GL_WRITE_ONLY_OES);
-#else
-      m_gpuData = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-#endif
+      m_gpuData = glMapBufferFn(GL_ARRAY_BUFFER, GL_WRITE_ONLY_MWM);
+
       OGLCHECKAFTER;
       return m_gpuData;
     }
@@ -107,11 +104,9 @@ namespace yg
 
       ASSERT(m_gpuData != 0, ("VertexBuffer is not locked"));
       makeCurrent();
-#ifdef OMIM_GL_ES
-      OGLCHECK(glUnmapBufferOES(GL_ARRAY_BUFFER));
-#else
-      OGLCHECK(glUnmapBuffer(GL_ARRAY_BUFFER));
-#endif
+
+      OGLCHECK(glUnmapBufferFn(GL_ARRAY_BUFFER));
+
       m_gpuData = 0;
     }
 
@@ -148,7 +143,7 @@ namespace yg
 #ifndef OMIM_OS_ANDROID
       if (m_id != current())
 #endif
-        OGLCHECK(glBindBuffer(GL_ARRAY_BUFFER, m_id));
+        OGLCHECK(glBindBufferFn(GL_ARRAY_BUFFER, m_id));
     }
 
   }

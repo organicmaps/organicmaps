@@ -1,62 +1,63 @@
-#include "opengl_win32.hpp"
+#include "opengl.hpp"
+
+#include "../../3party/GL/glext.h"
 
 #include "../../base/logging.hpp"
 
-#ifdef OMIM_OS_WINDOWS
-
-#define DEFINE_GL_PROC(type, name) \
-  type name;
-#include "gl_procedures.inl"
-#undef DEFINE_GL_PROC
-
-namespace win32
+namespace yg
 {
-  template <class TRet>
-  TRet GetGLProc(HMODULE, char const * name)
+  namespace gl
   {
-    PROC p = ::wglGetProcAddress(name);
-    if (p == 0)
+    GL_FRAMEBUFFER_BINDING = GL_FRAMEBUFFER_BINDING_EXT;
+
+    template <class TRet>
+    TRet GetGLProc(HMODULE, char const * name)
     {
-      DWORD const err = ::GetLastError();
-      LOG(LINFO, ("OpenGL extension function ", name, " not found. Last error = ", err));
+      PROC p = ::wglGetProcAddress(name);
+      if (p == 0)
+      {
+        DWORD const err = ::GetLastError();
+        LOG(LINFO, ("OpenGL extension function ", name, " not found. Last error = ", err));
+      }
+      return reinterpret_cast<TRet>(p);
     }
-    return reinterpret_cast<TRet>(p);
-  }
 
-  void InitOpenGL()
-  {
-    HMODULE hInst = 0;
+    void InitExtensions()
+    {
+      HMODULE hInst = 0;
 
-    // Loading procedures, trying "EXT" suffix if alias doesn't exist
-#define DEFINE_GL_PROC(type, name) \
-    name = GetGLProc<type>(hInst, #name);             \
-    if (name == NULL)                                 \
-      name = GetGLProc<type>(hInst, #name "EXT");
+      // Loading procedures, trying "EXT" suffix if alias doesn't exist
+
+#define DEFINE_GL_PROC_WIN32(type, name, fn) \
+      fn = GetGLProc<type>(hInst, name);             \
+      if (fn == NULL)
+      {
+        string extName = string(name) + "EXT";
+        fn = GetGLProc<type>(hInst, extName);
+      }
 #include "gl_procedures.inl"
 #undef DEFINE_GL_PROC
 
-    yg::gl::g_isBufferObjectsSupported = glBindBuffer
-                              && glGenBuffers
-                              && glBufferData
-                              && glBufferSubData
-                              && glDeleteBuffers
-                              && glMapBuffer
-                              && glUnmapBuffer;
+      yg::gl::g_isBufferObjectsSupported = glBindBufferFn
+                                        && glGenBuffersFn
+                                        && glBufferDataFn
+                                        && glBufferSubDataFn
+                                        && glDeleteBuffersFn
+                                        && glMapBufferFn
+                                        && glUnmapBufferFn;
 
-    yg::gl::g_isFramebufferSupported = glBindFramebuffer
-                            && glFramebufferTexture2D
-                            && glFramebufferRenderbuffer
-                            && glGenFramebuffers
-                            && glDeleteFramebuffers
-                            && glCheckFramebufferStatusEXT
-                            && glBlitFramebuffer;
+      yg::gl::g_isFramebufferSupported = glBindFramebufferFn
+                                      && glFramebufferTexture2DFn
+                                      && glFramebufferRenderbufferFn
+                                      && glGenFramebuffersFn
+                                      && glDeleteFramebuffersFn
+                                      && glCheckFramebufferStatusFn;
 
-    yg::gl::g_isRenderbufferSupported = glGenRenderbuffers
-                             && glDeleteRenderbuffersEXT
-                             && glBindRenderbufferEXT
-                             && glRenderbufferStorageEXT;
-
-    yg::gl::g_isMultisamplingSupported = (glRenderbufferStorageMultisample != NULL);
+      yg::gl::g_isRenderbufferSupported = glGenRenderbuffersFn
+                                       && glDeleteRenderbuffersFn
+                                       && glBindRenderbufferFn
+                                       && glRenderbufferStorageFn;
+    }
   }
 } // namespace win32
 

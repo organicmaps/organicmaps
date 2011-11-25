@@ -32,7 +32,7 @@ private:
 public:
 
   PartialRenderPolicy(VideoTimer * videoTimer,
-                      DrawerYG::Params const & params,
+                      bool useDefaultFB,
                       yg::ResourceManager::Params const & rmParams,
                       shared_ptr<yg::gl::RenderContext> const & primaryRC);
 

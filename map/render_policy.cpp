@@ -12,6 +12,8 @@
 #include "../map/benchmark_render_policy_mt.hpp"
 #include "../map/benchmark_tiling_render_policy_mt.hpp"
 
+#include "../yg/internal/opengl.hpp"
+
 #include "../platform/video_timer.hpp"
 #include "../platform/settings.hpp"
 
@@ -26,7 +28,11 @@ RenderPolicy::RenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC, 
     m_primaryRC(primaryRC),
     m_doSupportRotation(doSupportRotation),
     m_doForceUpdate(false)
-{}
+{
+  yg::gl::InitExtensions();
+  if (!yg::gl::CheckExtensionSupport())
+    throw std::exception();
+}
 
 m2::RectI const RenderPolicy::OnSize(int w, int h)
 {
@@ -126,7 +132,7 @@ void RenderPolicy::SetForceUpdate(bool flag)
 }
 
 RenderPolicy * CreateRenderPolicy(VideoTimer * videoTimer,
-                                  DrawerYG::Params const & params,
+                                  bool useDefaultFB,
                                   yg::ResourceManager::Params const & rmParams,
                                   shared_ptr<yg::gl::RenderContext> const & primaryRC)
 {
@@ -139,20 +145,20 @@ RenderPolicy * CreateRenderPolicy(VideoTimer * videoTimer,
     Settings::Get("IsBenchmarkingMT", isBenchmarkingMT);
 
     if (isBenchmarkingMT)
-      return new BenchmarkTilingRenderPolicyMT(videoTimer, params, rmParams, primaryRC);
+      return new BenchmarkTilingRenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC);
     else
-      return new BenchmarkRenderPolicyMT(videoTimer, params, rmParams, primaryRC);
+      return new BenchmarkRenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC);
   }
   else
   {
 #ifdef OMIM_OS_ANDROID
-    return new PartialRenderPolicy(videoTimer, params, rmParams, primaryRC);
+    return new PartialRenderPolicy(videoTimer, useDefaultFB, rmParams, primaryRC);
 #endif
 #ifdef OMIM_OS_IPHONE
-    return new RenderPolicyMT(videoTimer, params, rmParams, primaryRC);
+    return new RenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC);
 #endif
 #ifdef OMIM_OS_DESKTOP
-    return new RenderPolicyMT(videoTimer, params, rmParams, primaryRC);
+    return new RenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC);
 #endif
   }
 }

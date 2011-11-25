@@ -81,17 +81,10 @@
 
 - (void)initRenderPolicy
 {
-  frameBuffer = shared_ptr<yg::gl::FrameBuffer>(new yg::gl::FrameBuffer());
-
-  NSLog(@"Vendor: %s, Renderer: %s", glGetString(GL_VENDOR), glGetString(GL_RENDERER));
-  
   // to avoid grid bug on 3G device
   yg::RtFormat fmt = yg::Rt4Bpp;
   if ([[NSString stringWithFormat:@"%s", glGetString(GL_RENDERER)] hasPrefix:@"PowerVR MBX"])
     fmt = yg::Rt8Bpp;
-  
-	DrawerYG::params_t p;
-  p.m_frameBuffer = frameBuffer;
   
   typedef void (*drawFrameFn)(id, SEL);
   SEL drawFrameSel = @selector(drawFrame);
@@ -103,7 +96,8 @@
   rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
   rmParams.m_rtFormat = fmt;
   
-  renderPolicy = CreateRenderPolicy(videoTimer, p, rmParams, renderContext);
+  renderPolicy = CreateRenderPolicy(videoTimer, false, rmParams, renderContext);
+  frameBuffer = renderPolicy->GetDrawer()->screen()->frameBuffer();
 
   framework->SetRenderPolicy(renderPolicy);
 }
