@@ -57,11 +57,6 @@ public class MWMActivity extends NvEventQueueActivity
     }
 
     m_timer = new VideoTimer();
-
-    
-    /*m_view = new MainGLView(getApplication());
-
-    setContentView(m_view);*/
   }
 
 /*  @Override
