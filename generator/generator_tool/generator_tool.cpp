@@ -138,8 +138,8 @@ int main(int argc, char ** argv)
     }
     else
     {
-      // used for one country generation - append destination file
-      CHECK ( !FLAGS_output.empty(), ("No destination specified. Did you forget --output?") );
+      // Used for one country generation - append destination file.
+      // FLAGS_output may be empty for FLAGS_make_coasts flag.
       genInfo.m_datFilePrefix = path + FLAGS_output;
     }
 
