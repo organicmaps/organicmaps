@@ -700,3 +700,4 @@ highway|tertiary_link|area|
 highway|unsurfaced|tunnel|
 highway|secondary_link|area|
 natural|allotments|
+railway|station|subway
