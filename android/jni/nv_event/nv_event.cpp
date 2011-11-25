@@ -456,6 +456,16 @@ bool NVEventReadyToRenderEGL(bool allocateIfNeeded)
   return true;
 }
 
+bool NVEventRepaint()
+{
+  NVEvent ev;
+  ev.m_type = NV_EVENT_USER;
+  ev.m_data.m_user.m_u0 = 1;
+  NVEventInsert(&ev);
+
+  return true;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // Input event-related Java to Native callback functions
 
