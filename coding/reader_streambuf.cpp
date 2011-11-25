@@ -17,7 +17,7 @@ ReaderStreamBuf::~ReaderStreamBuf()
 
 std::streamsize ReaderStreamBuf::xsgetn(char_type * s, std::streamsize n)
 {
-  uint64_t const count = min(static_cast<uint64_t>(n), m_size - m_pos);
+  std::streamsize const count = min(n, static_cast<std::streamsize>(m_size - m_pos));
   if (count > 0)
   {
     m_p->Read(m_pos, s, count);

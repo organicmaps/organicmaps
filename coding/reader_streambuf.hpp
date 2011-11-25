@@ -37,7 +37,7 @@ class WriterStreamBuf : public BaseStreamBuf
   Writer * m_writer;
 
 public:
-  /// Takes the ownership of p. Reader should be allocated in dynamic memory.
+  /// Takes the ownership of p. Writer should be allocated in dynamic memory.
   WriterStreamBuf(Writer * p) : m_writer(p) {}
   virtual ~WriterStreamBuf();
 
