@@ -104,10 +104,14 @@ namespace yg
     void DumpGLInformation();
 
     /// return false to terminate program
-    bool CheckExtensionSupport();
+    /// @throws platform_unsupported - is the platform we are running on is unsupported.
+    void CheckExtensionSupport();
+
+    struct platform_unsupported{};
 
     void CheckError(my::SrcPoint const & srcPt);
     void CheckEGLError(my::SrcPoint const & srcPt);
+
   }
 }
 

@@ -46,7 +46,7 @@ namespace yg
       glMapBufferFn = &glMapBufferOES;
       glUnmapBufferFn = &glUnmapBufferOES;
 
-      g_isFramebufferSupported = true;
+      g_isFramebufferSupported = HasExtension("GL_OES_framebuffer_object");
 
       glBindFramebufferFn = &glBindFramebufferOES;
       glFramebufferTexture2DFn = &glFramebufferTexture2DOES;
@@ -55,7 +55,7 @@ namespace yg
       glDeleteFramebuffersFn = &glDeleteFramebuffersOES;
       glCheckFramebufferStatusFn = &glCheckFramebufferStatusOES;
 
-      g_isRenderbufferSupported = true;
+      g_isRenderbufferSupported = g_isFramebufferSupported;
 
       glGenRenderbuffersFn = &glGenRenderbuffersOES;
       glDeleteRenderbuffersFn = &glDeleteRenderbuffersOES;

@@ -30,8 +30,7 @@ RenderPolicy::RenderPolicy(shared_ptr<yg::gl::RenderContext> const & primaryRC, 
     m_doForceUpdate(false)
 {
   yg::gl::InitExtensions();
-  if (!yg::gl::CheckExtensionSupport())
-    throw std::exception();
+  yg::gl::CheckExtensionSupport();
 }
 
 m2::RectI const RenderPolicy::OnSize(int w, int h)
@@ -136,29 +135,36 @@ RenderPolicy * CreateRenderPolicy(VideoTimer * videoTimer,
                                   yg::ResourceManager::Params const & rmParams,
                                   shared_ptr<yg::gl::RenderContext> const & primaryRC)
 {
-  bool benchmarkingEnabled = false;
-  Settings::Get("IsBenchmarking", benchmarkingEnabled);
-
-  if (benchmarkingEnabled)
+  try
   {
-    bool isBenchmarkingMT = false;
-    Settings::Get("IsBenchmarkingMT", isBenchmarkingMT);
+    bool benchmarkingEnabled = false;
+    Settings::Get("IsBenchmarking", benchmarkingEnabled);
 
-    if (isBenchmarkingMT)
-      return new BenchmarkTilingRenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC);
+    if (benchmarkingEnabled)
+    {
+      bool isBenchmarkingMT = false;
+      Settings::Get("IsBenchmarkingMT", isBenchmarkingMT);
+
+      if (isBenchmarkingMT)
+        return new BenchmarkTilingRenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC);
+      else
+        return new BenchmarkRenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC);
+    }
     else
-      return new BenchmarkRenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC);
-  }
-  else
-  {
+    {
 #ifdef OMIM_OS_ANDROID
-    return new PartialRenderPolicy(videoTimer, useDefaultFB, rmParams, primaryRC);
+      return new PartialRenderPolicy(videoTimer, useDefaultFB, rmParams, primaryRC);
 #endif
 #ifdef OMIM_OS_IPHONE
-    return new RenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC);
+      return new RenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC);
 #endif
 #ifdef OMIM_OS_DESKTOP
-    return new RenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC);
+      return new RenderPolicyMT(videoTimer, useDefaultFB, rmParams, primaryRC);
 #endif
+    }
+  }
+  catch (yg::gl::platform_unsupported const &)
+  {
+    return 0;
   }
 }

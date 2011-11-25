@@ -97,8 +97,14 @@
   rmParams.m_rtFormat = fmt;
   
   renderPolicy = CreateRenderPolicy(videoTimer, false, rmParams, renderContext);
+  
+  // check for error
+  if (renderPolicy == 0)
+  {
+    /// terminate program (though this situation is unreal :) )
+  }
+  
   frameBuffer = renderPolicy->GetDrawer()->screen()->frameBuffer();
-
   framework->SetRenderPolicy(renderPolicy);
 }
 

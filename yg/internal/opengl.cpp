@@ -67,10 +67,10 @@ namespace yg
 
     bool g_doDeleteOnDestroy = true;
 
-    bool CheckExtensionSupport()
+    void CheckExtensionSupport()
     {
-      /// this functionality must be supported
-      return (g_isFramebufferSupported && g_isRenderbufferSupported);
+      if (!(g_isFramebufferSupported && g_isRenderbufferSupported))
+        throw platform_unsupported();
     }
 
     void LogError(char const * err, my::SrcPoint const & srcPt)
