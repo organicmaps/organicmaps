@@ -113,7 +113,7 @@ public:
 
     inline bool Has(uint32_t t) const
     {
-      for (int i = 0; i < m_size; ++i)
+      for (size_t i = 0; i < m_size; ++i)
         if (m_types[i] == t)
           return true;
       return false;

@@ -164,7 +164,7 @@ namespace feature
 
     SearchTokensCollector() : m_currentS(), m_currentCount(0) {}
 
-    void operator() (strings::UniString const & s, search::trie::ValueReader::ValueType value)
+    void operator() (strings::UniString const & s, search::trie::ValueReader::ValueType)
     {
       if (m_currentS == s)
       {

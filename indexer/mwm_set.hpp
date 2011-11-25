@@ -65,7 +65,7 @@ public:
   inline bool Add(string const & fileName)
   {
     m2::RectD dummy;
-    return Add(fileName, dummy);
+    return (-1 != Add(fileName, dummy));
   }
 
   // Remove mwm.
