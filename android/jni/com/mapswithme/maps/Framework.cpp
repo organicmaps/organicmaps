@@ -288,4 +288,9 @@ namespace android
   {
     m_work.SaveState();
   }
+
+  void Framework::Invalidate()
+  {
+    m_work.Invalidate();
+  }
 }

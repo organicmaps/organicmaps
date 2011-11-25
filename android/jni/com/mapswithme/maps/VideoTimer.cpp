@@ -8,6 +8,7 @@
 #include "../core/jni_helper.hpp"
 #include "VideoTimer.hpp"
 #include "../../../../../base/assert.hpp"
+#include "../../../../../base/logging.hpp"
 
 android::VideoTimer * g_timer = 0;
 
@@ -33,39 +34,39 @@ namespace android
 
   void VideoTimer::start()
   {
-/*    JNIEnv * env;
+    JNIEnv * env;
     m_javaVM->AttachCurrentThread(&env, NULL);
     env->CallVoidMethod(m_videoTimer, jni::GetJavaMethodID(env, m_videoTimer, "start", "()V"));
-    m_state = ERunning;*/
+    m_state = ERunning;
   }
 
   void VideoTimer::resume()
   {
-/*    JNIEnv * env;
+    JNIEnv * env;
     m_javaVM->AttachCurrentThread(&env, NULL);
     env->CallVoidMethod(m_videoTimer, jni::GetJavaMethodID(env, m_videoTimer, "resume", "()V"));
-    m_state = ERunning;*/
+    m_state = ERunning;
   }
 
   void VideoTimer::pause()
   {
-/*    JNIEnv * env;
+    JNIEnv * env;
     m_javaVM->AttachCurrentThread(&env, NULL);
     env->CallVoidMethod(m_videoTimer, jni::GetJavaMethodID(env, m_videoTimer, "pause", "()V"));
-    m_state = EPaused;*/
+    m_state = EPaused;
   }
 
   void VideoTimer::stop()
   {
-/*    JNIEnv * env;
+    JNIEnv * env;
     m_javaVM->AttachCurrentThread(&env, NULL);
     env->CallVoidMethod(m_videoTimer, jni::GetJavaMethodID(env, m_videoTimer, "stop", "()V"));
-    m_state = EStopped;*/
+    m_state = EStopped;
   }
 
   void VideoTimer::perform()
   {
-    //m_frameFn();
+    m_frameFn();
   }
 }
 

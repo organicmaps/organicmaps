@@ -47,6 +47,8 @@ namespace android
 
     storage::Storage & Storage();
 
+    void Invalidate();
+
     void InitRenderPolicy();
     void DeleteRenderPolicy();
 
