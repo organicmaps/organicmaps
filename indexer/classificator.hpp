@@ -203,8 +203,7 @@ class Classificator
 {
   ClassifObject m_root;
 
-  Index2Type m_i2t;
-  Type2Index m_t2i;
+  IndexAndTypeMapping m_mapping;
 
   uint32_t m_coastType;
 
@@ -234,8 +233,8 @@ public:
   /// path = ["natural", "caostline"].
   uint32_t GetTypeByPath(vector<string> const & path) const;
 
-  uint32_t GetIndexForType(uint32_t t) const { return m_t2i.GetIndex(t); }
-  uint32_t GetTypeForIndex(uint32_t i) const { return m_i2t.GetType(i); }
+  uint32_t GetIndexForType(uint32_t t) const { return m_mapping.GetIndex(t); }
+  uint32_t GetTypeForIndex(uint32_t i) const { return m_mapping.GetType(i); }
 
   inline uint32_t GetCoastType() const { return m_coastType; }
 

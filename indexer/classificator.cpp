@@ -500,8 +500,7 @@ uint32_t Classificator::GetTypeByPath(vector<string> const & path) const
 
 void Classificator::ReadTypesMapping(istream & s)
 {
-  m_i2t.Load(s);
-  m_t2i.Load(s);
+  m_mapping.Load(s);
 }
 
 void Classificator::Clear()

@@ -5,7 +5,7 @@
 #include "../base/stl_add.hpp"
 
 
-void BaseTypeMapper::Load(istream & s)
+void IndexAndTypeMapping::Load(istream & s)
 {
   Classificator const & c = classif();
 
@@ -15,6 +15,7 @@ void BaseTypeMapper::Load(istream & s)
   uint32_t ind = 0;
   while (s.good())
   {
+    v.clear();
     s >> v;
 
     if (!v.empty())
@@ -27,13 +28,10 @@ void BaseTypeMapper::Load(istream & s)
   }
 }
 
-void Index2Type::Add(uint32_t ind, uint32_t type)
+void IndexAndTypeMapping::Add(uint32_t ind, uint32_t type)
 {
   ASSERT_EQUAL ( ind, m_types.size(), () );
   m_types.push_back(type);
-}
 
-void Type2Index::Add(uint32_t ind, uint32_t type)
-{
   VERIFY ( m_map.insert(make_pair(type, ind)).second, (type, ind) );
 }
