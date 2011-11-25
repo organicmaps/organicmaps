@@ -52,6 +52,7 @@
 		EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */; };
 		F7FDD823147F30CC005900FA /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = F7FDD822147F30CC005900FA /* drules_proto.bin */; };
 		FA04373212CAB83F00017494 /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA04373112CAB83F00017494 /* libstorage.a */; };
+		FA065FED128614C400FEA989 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */; };
 		FA065FFF1286167A00FEA989 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA065FFD1286167A00FEA989 /* Default@2x.png */; };
 		FA0660001286167A00FEA989 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FA065FFE1286167A00FEA989 /* Default.png */; };
 		FA0660031286168700FEA989 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0660011286168700FEA989 /* Default-Portrait.png */; };
@@ -662,6 +663,7 @@
 		EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_whitelist.txt; path = ../../data/fonts_whitelist.txt; sourceTree = "<group>"; };
 		F7FDD822147F30CC005900FA /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto.bin; path = ../../data/drules_proto.bin; sourceTree = "<group>"; };
 		FA04373112CAB83F00017494 /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libstorage.a; sourceTree = SOURCE_ROOT; };
+		FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = SOURCE_ROOT; };
 		FA065FFD1286167A00FEA989 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = SOURCE_ROOT; };
 		FA065FFE1286167A00FEA989 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
 		FA0660011286168700FEA989 /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = SOURCE_ROOT; };
@@ -1405,6 +1407,7 @@
 			children = (
 				FA0660011286168700FEA989 /* Default-Portrait.png */,
 				FA0660021286168700FEA989 /* Default-Landscape.png */,
+				FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */,
 			);
 			name = "Resources-iPad";
 			sourceTree = "<group>";
@@ -2041,6 +2044,7 @@
 				28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */,
 				EE026F0611D6AC0D00645242 /* classificator.txt in Resources */,
 				EE026F0D11D6AC2800645242 /* basic_ldpi.skn in Resources */,
+				FA065FED128614C400FEA989 /* MainWindow-iPad.xib in Resources */,
 				FA065FFF1286167A00FEA989 /* Default@2x.png in Resources */,
 				FA0660001286167A00FEA989 /* Default.png in Resources */,
 				FA0660031286168700FEA989 /* Default-Portrait.png in Resources */,

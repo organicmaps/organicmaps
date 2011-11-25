@@ -324,7 +324,7 @@ NSInteger compareAddress(id l, id r, void * context)
 {
   // needed to correctly handle startup landscape orientation
   // and orientation changes when mapVC is not visible
-  [self.view layoutSubviews];
+//  [self.view layoutSubviews];
 
   [self Invalidate];
   [self.navigationController setNavigationBarHidden:YES animated:YES];
