@@ -195,10 +195,6 @@ namespace qt
 
   void DrawWidget::initializeGL()
   {
-#ifdef OMIM_OS_WINDOWS
-      win32::InitOpenGL();
-#endif
-
     /// we'll perform swap by ourselves, see issue #333
     setAutoBufferSwap(false);
 
@@ -212,7 +208,15 @@ namespace qt
       rmParams.m_rtFormat = yg::Rt8Bpp;
       rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
 
-      m_framework->SetRenderPolicy(CreateRenderPolicy(m_videoTimer.get(), true, rmParams, primaryRC));
+      try
+      {
+        m_framework->SetRenderPolicy(CreateRenderPolicy(m_videoTimer.get(), true, rmParams, primaryRC));
+      }
+      catch (yg::gl::platform_unsupported const & e)
+      {
+        LOG(LERROR, ("OpenGL platform is unsupported, reason: ", e.what()));
+        /// TODO: Show "Please Update Drivers" dialog and close the program.
+      }
 
       m_isInitialized = true;
     }

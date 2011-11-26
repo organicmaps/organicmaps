@@ -33,6 +33,7 @@
 #endif
 
 #include "../../base/src_point.hpp"
+#include "../../std/exception.hpp"
 
 namespace yg
 {
@@ -107,7 +108,13 @@ namespace yg
     /// @throws platform_unsupported - is the platform we are running on is unsupported.
     void CheckExtensionSupport();
 
-    struct platform_unsupported{};
+    struct platform_unsupported : public exception
+    {
+      string m_reason;
+      const char * what() const throw();
+      platform_unsupported(char const * reason);
+      ~platform_unsupported() throw();
+    };
 
     void CheckError(my::SrcPoint const & srcPt);
     void CheckEGLError(my::SrcPoint const & srcPt);

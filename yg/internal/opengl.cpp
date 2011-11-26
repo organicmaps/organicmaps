@@ -12,6 +12,18 @@ namespace yg
 {
   namespace gl
   {
+    platform_unsupported::platform_unsupported(char const * reason)
+      : m_reason(reason)
+    {}
+
+    platform_unsupported::~platform_unsupported() throw()
+    {}
+
+    char const * platform_unsupported::what() const throw()
+    {
+      return m_reason.c_str();
+    }
+
     bool HasExtension(const char *name)
     {
       string allExtensions(reinterpret_cast<char const * >(glGetString(GL_EXTENSIONS)));
@@ -69,8 +81,11 @@ namespace yg
 
     void CheckExtensionSupport()
     {
-      if (!(g_isFramebufferSupported && g_isRenderbufferSupported))
-        throw platform_unsupported();
+      if (!g_isFramebufferSupported)
+        throw platform_unsupported("no framebuffer support");
+
+      if (!g_isRenderbufferSupported)
+        throw platform_unsupported("no renderbuffer support");
     }
 
     void LogError(char const * err, my::SrcPoint const & srcPt)

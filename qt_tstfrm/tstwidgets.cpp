@@ -31,11 +31,12 @@ GLDrawWidget::~GLDrawWidget()
 
 void GLDrawWidget::initializeGL()
 {
-#ifdef OMIM_OS_WINDOWS
-  win32::InitOpenGL();
-#endif
-
-  if (!yg::gl::CheckExtensionSupport())
+  try
+  {
+    yg::gl::InitExtensions();
+    yg::gl::CheckExtensionSupport();
+  }
+  catch (yg::gl::platform_unsupported & e)
   {
     /// TODO: Show "Please Update Drivers" dialog and close the program.
   }

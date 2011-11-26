@@ -71,18 +71,18 @@ namespace android
     rmParams.m_videoMemoryLimit = 15 * 1024 * 1024;
     rmParams.m_rtFormat = yg::Rt8Bpp;
 
-    RenderPolicy * renderPolicy = new PartialRenderPolicy(m_videoTimer,
-                                                          true,
-                                                          rmParams,
-                                                          make_shared_ptr(new android::RenderContext()));
-
-    if (renderPolicy == 0)
+    try
     {
-      LOG(LINFO, ("No Render Policy is created"));
+      m_work.SetRenderPolicy(CreateRenderPolicy(m_videoTimer,
+                                                true,
+                                                rmParams,
+                                                make_shared_ptr(new android::RenderContext())));
+    }
+    catch (yg::gl::platform_unsupported const & e)
+    {
+      LOG(LINFO, ("this android platform is unsupported, reason=", e.what()));
       return false;
     }
-
-    m_work.SetRenderPolicy(renderPolicy);
 
     m_work.SetUpdatesEnabled(true);
 

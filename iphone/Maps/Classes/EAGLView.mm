@@ -96,10 +96,11 @@
   rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
   rmParams.m_rtFormat = fmt;
   
-  renderPolicy = CreateRenderPolicy(videoTimer, false, rmParams, renderContext);
-  
-  // check for error
-  if (renderPolicy == 0)
+  try
+  {
+    renderPolicy = CreateRenderPolicy(videoTimer, false, rmParams, renderContext);
+  }
+  catch (yg::gl::platform_unsupported const & )
   {
     /// terminate program (though this situation is unreal :) )
   }
