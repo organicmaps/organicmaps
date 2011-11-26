@@ -5,21 +5,33 @@
 #include "../thread.hpp"
 #include "../logging.hpp"
 
-void add_int(core::CommandsQueue::Environment const & env, int & i, int a)
+void add_int(core::CommandsQueue::Environment const & env,
+             int & i,
+             int a)
 {
   threads::Sleep(500);
-  if (env.IsCancelled())
+  if (env.isCancelled())
     return;
   i += a;
   LOG(LINFO, ("add_int result:", i));
 }
 
+void join_mul_int(core::CommandsQueue::Environment const & env,
+                  shared_ptr<core::CommandsQueue::Command> const & command,
+                  int & i,
+                  int b)
+{
+  command->join();
+  i *= b;
+  LOG(LINFO, ("join_mul_int result: ", i));
+}
+
 void mul_int(core::CommandsQueue::Environment const & env, int & i, int b)
 {
-  if (env.IsCancelled())
+  if (env.isCancelled())
     return;
   i *= b;
-  LOG(LINFO, ("mul_int result:", i));
+  LOG(LINFO, ("mul_int result: ", i));
 }
 
 UNIT_TEST(CommandsQueue_SetupAndPerformSimpleTask)
@@ -77,4 +89,26 @@ UNIT_TEST(CommandsQueue_TestEnvironmentCancellation)
   queue.Cancel();
 
   TEST(i == 9, ());
+}
+
+UNIT_TEST(CommandsQueue_TestJoinCommand)
+{
+  core::CommandsQueue queue0(1);
+  core::CommandsQueue queue1(1);
+
+  int i = 3;
+
+  queue0.Start();
+  queue1.Start();
+
+  shared_ptr<core::CommandsQueue::Command> cmd = queue0.AddCommand(bind(&add_int, _1, ref(i), 5), true);
+  queue1.AddCommand(bind(&join_mul_int, _1, cmd, ref(i), 3), false);
+
+  queue0.Join();
+  queue1.Join();
+
+  queue0.Cancel();
+  queue1.Cancel();
+
+  TEST(i == 24, ("core::CommandsQueue::Command::join doesn't work"));
 }

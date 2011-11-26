@@ -81,7 +81,7 @@ void TileRenderer::CancelThread(core::CommandsQueue::Environment const & /*env*/
 
 void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & env)
 {
-  ThreadData & threadData = m_threadData[env.GetThreadNum()];
+  ThreadData & threadData = m_threadData[env.threadNum()];
 
   threadData.m_renderContext->makeCurrent();
   threadData.m_drawer = new DrawerYG(threadData.m_drawerParams);
@@ -89,7 +89,7 @@ void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & e
 
 void TileRenderer::FinalizeThreadGL(core::CommandsQueue::Environment const & env)
 {
-  ThreadData & threadData = m_threadData[env.GetThreadNum()];
+  ThreadData & threadData = m_threadData[env.threadNum()];
 
   threadData.m_renderContext->endThreadDrawing();
 
@@ -108,7 +108,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   if (HasTile(rectInfo))
     return;
 
-  ThreadData & threadData = m_threadData[env.GetThreadNum()];
+  ThreadData & threadData = m_threadData[env.threadNum()];
 
   DrawerYG * drawer = threadData.m_drawer;
 
@@ -171,7 +171,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   double duration = timer.ElapsedSeconds();
 
-  if (env.IsCancelled())
+  if (env.isCancelled())
     m_resourceManager->renderTargetTextures()->Free(tileTarget);
   else
     AddTile(rectInfo, Tile(tileTarget, tileInfoLayer, frameScreen, rectInfo, duration));

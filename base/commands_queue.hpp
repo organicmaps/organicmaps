@@ -2,6 +2,7 @@
 
 #include "../std/function.hpp"
 #include "../std/vector.hpp"
+#include "../std/shared_ptr.hpp"
 
 #include "thread.hpp"
 #include "threaded_list.hpp"
@@ -35,24 +36,50 @@ namespace core
     protected:
 
       explicit Environment(int threadNum);
-      void Cancel();
+
+      void cancel(); //< call this from the control thread
+                     //< to cancel execution of the tasks
 
       friend class Routine;
 
     public:
 
-      int GetThreadNum() const; //< number of thread executing the commands
-      bool IsCancelled() const; //< command should ping this flag to see,
+      int threadNum() const; //< number of the thread, which is executing the commands
+      bool isCancelled() const; //< command should ping this flag to see,
                                 //  whether it should cancel execution
     };
 
     /// single commmand
     typedef function<void(Environment const &)> function_t;
 
+    /// basic command
+    /// - could wait for the completion of its execution
+    struct BaseCommand
+    {
+      shared_ptr<threads::Condition> m_cond;
+      mutable int m_waitCount;
+      mutable bool m_isCompleted;
+
+      /// should we create the threads::Condition ?
+      /// this flag is used to save resources
+      BaseCommand(bool isWaitable);
+
+      /// call this function when the execution
+      /// of the command is finished to release the waiters.
+      void finish() const;
+
+      /// @warning only single thread could "join" command
+      void join();
+    };
+
     /// chain of commands
     struct Chain
     {
+    private:
+
       list<function_t> m_fns;
+
+    public:
 
       Chain();
 
@@ -73,20 +100,23 @@ namespace core
     };
 
     /// single command.
-    /// - could be chained together, using Chain class
-    struct Command
+    /// - commands could be chained together, using Chain class
+    struct Command : BaseCommand
     {
-      uint64_t m_id;
+    private:
+
       function_t m_fn;
 
-      Command() : m_id(static_cast<uint64_t>(-1))
-      {}
+    public:
 
+      Command(bool isWaitable = false);
 
       template <typename tt>
-      Command(uint64_t id, tt t)
-        : m_id(id), m_fn(t)
+      Command(tt t, bool isWaitable = false)
+        : BaseCommand(isWaitable), m_fn(t)
       {}
+
+      void perform(Environment const & env) const;
     };
 
   private:
@@ -121,12 +151,11 @@ namespace core
 
     Executor * m_executors;
     size_t m_executorsCount;
-    ThreadedList<Command> m_commands;
-    uint64_t m_cmdId;
+    ThreadedList<shared_ptr<Command> > m_commands;
 
-    list<Command> m_initCommands;
-    list<Command> m_finCommands;
-    list<Command> m_cancelCommands;
+    list<shared_ptr<Command> > m_initCommands;
+    list<shared_ptr<Command> > m_finCommands;
+    list<shared_ptr<Command> > m_cancelCommands;
 
     friend class Routine;
 
@@ -147,10 +176,10 @@ namespace core
 
     /// Adding different types of commands
     /// @{
-    void AddCommand(Command const & cmd);
-    void AddInitCommand(Command const & cmd);
-    void AddFinCommand(Command const & cmd);
-    void AddCancelCommand(Command const & cmd);
+    void AddCommand(shared_ptr<Command> const & cmd);
+    void AddInitCommand(shared_ptr<Command> const & cmd);
+    void AddFinCommand(shared_ptr<Command> const & cmd);
+    void AddCancelCommand(shared_ptr<Command> const & cmd);
     /// @}
 
     void Start();
@@ -160,28 +189,35 @@ namespace core
     void Clear();
 
     template<typename command_tt>
-    void AddCommand(command_tt cmd)
+    shared_ptr<Command> AddCommand(command_tt cmd, bool isWaitable = false)
     {
-      AddCommand(Command(m_cmdId++, cmd));
+      shared_ptr<Command> pcmd(new Command(cmd, isWaitable));
+      AddCommand(pcmd);
+      return pcmd;
     }
 
     template <typename command_tt>
-    void AddInitCommand(command_tt cmd)
+    shared_ptr<Command> AddInitCommand(command_tt cmd, bool isWaitable = false)
     {
-      AddInitCommand(Command(m_cmdId++, cmd));
+      shared_ptr<Command> const pcmd(new Command(cmd, isWaitable));
+      AddInitCommand(pcmd);
+      return pcmd;
     }
 
     template <typename command_tt>
-    void AddFinCommand(command_tt cmd)
+    shared_ptr<Command> const AddFinCommand(command_tt cmd, bool isWaitable = false)
     {
-      AddFinCommand(Command(m_cmdId++, cmd));
+      shared_ptr<Command> pcmd(new Command(cmd, isWaitable));
+      AddFinCommand(pcmd);
+      return pcmd;
     }
 
     template <typename command_tt>
-    void AddCancelCommand(command_tt cmd)
+    shared_ptr<Command> const AddCancelCommand(command_tt cmd, bool isWaitable = false)
     {
-      AddCancelCommand(Command(m_cmdId++, cmd));
+      shared_ptr<Command> pcmd(new Command(cmd, isWaitable));
+      AddCancelCommand(pcmd);
+      return pcmd;
     }
-
   };
 }

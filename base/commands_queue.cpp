@@ -1,6 +1,7 @@
 #include "../base/SRC_FIRST.hpp"
 
 #include "../base/logging.hpp"
+#include "../base/assert.hpp"
 
 #include "commands_queue.hpp"
 
@@ -10,19 +11,51 @@ namespace core
     : m_threadNum(threadNum), m_isCancelled(false)
   {}
 
-  void CommandsQueue::Environment::Cancel()
+  void CommandsQueue::Environment::cancel()
   {
     m_isCancelled = true;
   }
 
-  bool CommandsQueue::Environment::IsCancelled() const
+  bool CommandsQueue::Environment::isCancelled() const
   {
     return m_isCancelled;
   }
 
-  int CommandsQueue::Environment::GetThreadNum() const
+  int CommandsQueue::Environment::threadNum() const
   {
     return m_threadNum;
+  }
+
+  CommandsQueue::BaseCommand::BaseCommand(bool isWaitable)
+    : m_waitCount(0), m_isCompleted(false)
+  {
+    if (isWaitable)
+      m_cond.reset(new threads::Condition());
+  }
+
+  void CommandsQueue::BaseCommand::join()
+  {
+    if (m_cond)
+    {
+      threads::ConditionGuard g(*m_cond.get());
+      m_waitCount++;
+      if (!m_isCompleted)
+        m_cond->Wait();
+    }
+    else
+      LOG(LERROR, ("command isn't waitable"));
+  }
+
+  void CommandsQueue::BaseCommand::finish() const
+  {
+    if (m_cond)
+    {
+      threads::ConditionGuard g(*m_cond.get());
+      m_isCompleted = true;
+      CHECK(m_waitCount < 2, ("only one thread could wait for the queued command"));
+      if (m_waitCount)
+        m_cond->Signal(true);
+    }
   }
 
   CommandsQueue::Chain::Chain()
@@ -33,9 +66,20 @@ namespace core
     for (list<function_t>::const_iterator it = m_fns.begin(); it != m_fns.end(); ++it)
     {
       (*it)(env);
-      if (env.IsCancelled())
+
+      if (env.isCancelled())
         break;
     }
+  }
+
+  CommandsQueue::Command::Command(bool isWaitable)
+    : BaseCommand(isWaitable)
+  {}
+
+  void CommandsQueue::Command::perform(Environment const & env) const
+  {
+    m_fn(env);
+    finish();
   }
 
   CommandsQueue::Routine::Routine(CommandsQueue * parent, int idx)
@@ -45,49 +89,49 @@ namespace core
   void CommandsQueue::Routine::Do()
   {
     // performing initialization tasks
-    for(list<Command>::const_iterator it = m_parent->m_initCommands.begin();
+    for(list<shared_ptr<Command> >::const_iterator it = m_parent->m_initCommands.begin();
         it != m_parent->m_initCommands.end();
         ++it)
-      it->m_fn(m_env);
+      (*it)->perform(m_env);
 
     // main loop
     while (!IsCancelled())
     {
-      CommandsQueue::Command cmd = m_parent->m_commands.Front(true);
+      shared_ptr<CommandsQueue::Command> cmd = m_parent->m_commands.Front(true);
 
       if (m_parent->m_commands.IsCancelled())
         break;
 
       m_env.m_isCancelled = false;
 
-      cmd.m_fn(m_env);
+      cmd->perform(m_env);
 
       m_parent->FinishCommand();
     }
 
     // performing finalization tasks
-    for(list<Command>::const_iterator it = m_parent->m_finCommands.begin();
+    for(list<shared_ptr<Command> >::const_iterator it = m_parent->m_finCommands.begin();
         it != m_parent->m_finCommands.end();
         ++it)
-      it->m_fn(m_env);
+      (*it)->perform(m_env);
   }
 
   void CommandsQueue::Routine::Cancel()
   {
-    m_env.Cancel();
+    m_env.cancel();
 
     // performing cancellation tasks
-    for(list<Command>::const_iterator it = m_parent->m_cancelCommands.begin();
+    for(list<shared_ptr<Command> >::const_iterator it = m_parent->m_cancelCommands.begin();
         it != m_parent->m_cancelCommands.end();
         ++it)
-      it->m_fn(m_env);
+      (*it)->perform(m_env);
 
     IRoutine::Cancel();
   }
 
   void CommandsQueue::Routine::CancelCommand()
   {
-    m_env.Cancel();
+    m_env.cancel();
   }
 
   CommandsQueue::Executor::Executor() : m_routine(0)
@@ -106,7 +150,7 @@ namespace core
 
   CommandsQueue::CommandsQueue(size_t executorsCount)
     : m_executors(new Executor[executorsCount]), m_executorsCount(executorsCount),
-      m_cmdId(0), m_activeCommands(0)
+      m_activeCommands(0)
   {
   }
 
@@ -141,24 +185,24 @@ namespace core
     }
   }
 
-  void CommandsQueue::AddCommand(Command const & cmd)
+  void CommandsQueue::AddCommand(shared_ptr<Command> const & cmd)
   {
     threads::ConditionGuard g(m_cond);
     m_commands.PushBack(cmd);
     ++m_activeCommands;
   }
 
-  void CommandsQueue::AddInitCommand(Command const & cmd)
+  void CommandsQueue::AddInitCommand(shared_ptr<Command> const & cmd)
   {
     m_initCommands.push_back(cmd);
   }
 
-  void CommandsQueue::AddFinCommand(Command const & cmd)
+  void CommandsQueue::AddFinCommand(shared_ptr<Command> const & cmd)
   {
     m_finCommands.push_back(cmd);
   }
 
-  void CommandsQueue::AddCancelCommand(Command const & cmd)
+  void CommandsQueue::AddCancelCommand(shared_ptr<Command> const & cmd)
   {
     m_cancelCommands.push_back(cmd);
   }

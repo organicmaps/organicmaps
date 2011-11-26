@@ -77,7 +77,7 @@ public:
   bool isCancelled() const
   {
     if (m_env)
-      return m_env->IsCancelled();
+      return m_env->isCancelled();
     else
       return m_isCancelled;
   }
