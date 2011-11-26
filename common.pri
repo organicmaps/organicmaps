@@ -37,7 +37,7 @@ RCC_DIR = $$TEMP_PATH
 MOC_DIR = $$TEMP_PATH
 UI_DIR = $$TEMP_PATH
 
-LIBS += -L$$BINARIES_PATH
+QMAKE_LIBDIR *= $$BINARIES_PATH
 
 # By default, do not include base QT classes in any project.
 QT -= core gui
