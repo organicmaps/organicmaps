@@ -63,25 +63,32 @@ namespace android
     m_work.SetRenderPolicy(0);
   }
 
-  void Framework::InitRenderPolicy()
+  bool Framework::InitRenderPolicy()
   {
     LOG(LDEBUG, ("AF::InitRenderer 1"));
-
-    DrawerYG::Params params;
-    params.m_frameBuffer = make_shared_ptr(new yg::gl::FrameBuffer(true));
 
     yg::ResourceManager::Params rmParams;
     rmParams.m_videoMemoryLimit = 15 * 1024 * 1024;
     rmParams.m_rtFormat = yg::Rt8Bpp;
 
-    m_work.SetRenderPolicy(new PartialRenderPolicy(m_videoTimer,
-                                                   params,
-                                                   rmParams,
-                                                   make_shared_ptr(new android::RenderContext())));
+    RenderPolicy * renderPolicy = new PartialRenderPolicy(m_videoTimer,
+                                                          true,
+                                                          rmParams,
+                                                          make_shared_ptr(new android::RenderContext()));
+
+    if (renderPolicy == 0)
+    {
+      LOG(LINFO, ("No Render Policy is created"));
+      return false;
+    }
+
+    m_work.SetRenderPolicy(renderPolicy);
 
     m_work.SetUpdatesEnabled(true);
 
     LOG(LDEBUG, ("AF::InitRenderer 3"));
+
+    return true;
   }
 
   storage::Storage & Framework::Storage()

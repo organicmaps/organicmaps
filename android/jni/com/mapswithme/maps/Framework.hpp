@@ -49,7 +49,7 @@ namespace android
 
     void Invalidate();
 
-    void InitRenderPolicy();
+    bool InitRenderPolicy();
     void DeleteRenderPolicy();
 
     void Resize(int w, int h);

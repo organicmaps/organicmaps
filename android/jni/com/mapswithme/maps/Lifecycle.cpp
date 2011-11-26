@@ -51,13 +51,8 @@ bool SetupGLESResources()
     if (s_glesLoaded)
         return true;
 
-    NVDEBUG(reinterpret_cast<char const *>(glGetString(GL_EXTENSIONS)));
-    NVDEBUG(reinterpret_cast<char const *>(glGetString(GL_VENDOR)));
-    NVDEBUG(reinterpret_cast<char const *>(glGetString(GL_RENDERER)));
-    NVDEBUG(reinterpret_cast<char const *>(glGetString(GL_VERSION)));
-   // NVDEBUG(reinterpret_cast<char const *>(glGetString(GL_SHADING_LANGUAGE_VERSION)));
-
-    g_framework->InitRenderPolicy();
+    if (!g_framework->InitRenderPolicy())
+      return false;
 
     s_glesLoaded = true;
 
