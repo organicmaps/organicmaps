@@ -24,7 +24,7 @@ namespace yg
 
   struct GlyphLayoutElem
   {
-    wchar_t m_sym;
+    strings::UniChar m_sym;
     ang::AngleD m_angle;
     m2::PointD m_pt;
 
