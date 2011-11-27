@@ -8,6 +8,7 @@
 {
   SettingsManager * m_settingsManager;
   NSInteger m_standbyCounter;
+  NSInteger m_activeDownloadsCounter;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow * m_window;
@@ -18,7 +19,11 @@
 + (MapsAppDelegate *) theApp;
 
 - (SettingsManager *)settingsManager;
+
 - (void)disableStandby;
 - (void)enableStandby;
+
+- (void)disableDownloadIndicator;
+- (void)enableDownloadIndicator;
 
 @end

@@ -5,6 +5,10 @@
 
 #include "../base/logging.hpp"
 
+#ifdef OMIM_OS_IPHONE
+  #include "../iphone/Maps/Classes/MapsAppDelegate.h"
+#endif
+
 #define TIMEOUT_IN_SECONDS 15.0
 
 @implementation HttpThread
@@ -14,6 +18,10 @@
   LOG(LDEBUG, ("ID:", [self hash], "Connection is destroyed"));
   [m_connection cancel];
   [m_connection release];
+#ifdef OMIM_OS_IPHONE
+  [[MapsAppDelegate theApp] enableStandby];
+  [[MapsAppDelegate theApp] disableDownloadIndicator];
+#endif
   [super dealloc];
 }
 
@@ -68,6 +76,11 @@
 		static string const uid = GetPlatform().UniqueClientId();
 		[request addValue:[NSString stringWithUTF8String: uid.c_str()] forHTTPHeaderField:@"User-Agent"];
 	}
+
+#ifdef OMIM_OS_IPHONE
+  [[MapsAppDelegate theApp] disableStandby];
+  [[MapsAppDelegate theApp] enableDownloadIndicator];
+#endif
 
 	// create the connection with the request and start loading the data
 	m_connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];

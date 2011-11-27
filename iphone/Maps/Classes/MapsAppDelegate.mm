@@ -64,8 +64,27 @@
 - (void) enableStandby
 {
   --m_standbyCounter;
-  if (m_standbyCounter == 0)
+  if (m_standbyCounter <= 0)
+  {
     [UIApplication sharedApplication].idleTimerDisabled = NO;
+    m_standbyCounter = 0;
+  }
+}
+
+- (void) disableDownloadIndicator
+{
+  --m_activeDownloadsCounter;
+  if (m_activeDownloadsCounter <= 0)
+  {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    m_activeDownloadsCounter = 0;
+  }
+}
+
+- (void) enableDownloadIndicator
+{
+  ++m_activeDownloadsCounter;
+  [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
