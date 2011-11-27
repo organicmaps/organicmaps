@@ -1735,13 +1735,6 @@
        "s":2272395
       },
       {
-       "n":"District of Columbia",
-       "c":"us",
-       "p":0,
-       "f":"USA_District of Columbia",
-       "s":3643325
-      },
-      {
        "n":"Florida",
        "c":"us",
        "p":1,
@@ -2015,6 +2008,13 @@
        "s":31311674
       },
       {
+       "n":"Washington, District of Columbia",
+       "c":"us",
+       "p":0,
+       "f":"USA_District of Columbia",
+       "s":3643325
+      },
+      {
        "n":"West Virginia",
        "c":"us",
        "p":1,
@@ -2167,6 +2167,12 @@
      "c":"ws",
      "p":0,
      "s":131418
+    },
+    {
+     "n":"Solomon Islands",
+     "c":"sb",
+     "p":0,
+     "s":123456
     },
     {
      "n":"Tokelau",
