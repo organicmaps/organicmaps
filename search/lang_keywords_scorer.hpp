@@ -10,7 +10,9 @@ class LangKeywordsScorer
 {
 public:
   enum { NUM_LANG_PRIORITY_TIERS = 3 };
-  enum { MAX_SCORE = KeywordMatcher::MAX_SCORE * (NUM_LANG_PRIORITY_TIERS + 1) };
+  enum { MAX_LANGS_IN_TIER = 3 };
+  enum { MAX_SCORE = KeywordMatcher::MAX_SCORE
+         * (NUM_LANG_PRIORITY_TIERS + 1) * (MAX_LANGS_IN_TIER + 1) };
 
   explicit LangKeywordsScorer(vector<vector<int8_t> > const & languagePriorities,
                               strings::UniString const * keywords, size_t keywordCount,

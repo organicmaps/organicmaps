@@ -30,12 +30,15 @@ uint32_t LangKeywordsScorer::Score(int8_t lang, strings::UniString const & name)
 uint32_t LangKeywordsScorer::Score(int8_t lang,
                                    strings::UniString const * tokens, int tokenCount) const
 {
-  uint32_t keywordScore = m_keywordMatcher.Score(tokens, tokenCount);
+  uint32_t const keywordScore = m_keywordMatcher.Score(tokens, tokenCount);
   for (uint32_t i = 0; i < NUM_LANG_PRIORITY_TIERS; ++i)
-    if (find(m_languagePriorities[i].begin(), m_languagePriorities[i].end(), lang) !=
-        m_languagePriorities[i].end())
-      return i * KeywordMatcher::MAX_SCORE + keywordScore;
-  return NUM_LANG_PRIORITY_TIERS * KeywordMatcher::MAX_SCORE + keywordScore;
+    for (uint32_t j = 0; j < m_languagePriorities[i].size(); ++j)
+      if (m_languagePriorities[i][j] == lang)
+        return i * KeywordMatcher::MAX_SCORE * (MAX_LANGS_IN_TIER + 1)
+            + keywordScore * (MAX_LANGS_IN_TIER + 1)
+            + min(j, MAX_LANGS_IN_TIER);
+  return NUM_LANG_PRIORITY_TIERS * KeywordMatcher::MAX_SCORE * (MAX_LANGS_IN_TIER + 1)
+      + keywordScore * (MAX_LANGS_IN_TIER + 1);
 }
 
 }  // namespace search
