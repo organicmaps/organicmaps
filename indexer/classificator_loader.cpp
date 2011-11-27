@@ -55,7 +55,7 @@ namespace classificator
 
   void Load()
   {
-    LOG(LINFO, ("Reading of classificator started"));
+    LOG(LDEBUG, ("Reading of classificator started"));
 
     Platform & p = GetPlatform();
 
@@ -66,23 +66,20 @@ namespace classificator
     //LOG(LINFO, ("Reading of drawing rules"));
     drule::RulesHolder & rules = drule::rules();
 
-    try
-    {
-      // Load from proto buffer binary file.
-      ReaderStreamBuf buffer(p.GetReader(DRAWING_RULES_BIN_FILE));
+#if defined(OMIM_PRODUCTION) || defined(USE_BINARY_STYLES)
+    // Load from proto buffer binary file.
+    ReaderStreamBuf buffer(p.GetReader(DRAWING_RULES_BIN_FILE));
 
-      istream s(&buffer);
-      rules.LoadFromBinaryProto(s);
-    }
-    catch (FileAbsentException const &)
-    {
-      // Load from proto buffer text file.
-      string buffer;
-      ModelReaderPtr(p.GetReader(DRAWING_RULES_TXT_FILE)).ReadAsString(buffer);
+    istream s(&buffer);
+    rules.LoadFromBinaryProto(s);
+#else
+    // Load from proto buffer text file.
+    string buffer;
+    ModelReaderPtr(p.GetReader(DRAWING_RULES_TXT_FILE)).ReadAsString(buffer);
 
-      rules.LoadFromTextProto(buffer);
-    }
+    rules.LoadFromTextProto(buffer);
+#endif
 
-    LOG(LINFO, ("Reading of classificator finished"));
+    LOG(LDEBUG, ("Reading of classificator finished"));
   }
 }

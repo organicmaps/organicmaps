@@ -34,33 +34,37 @@ macx* {
   PLIST_PATH = $${DESTDIR}/$${TARGET}.app/Contents/$${PLIST_FILE}
   QMAKE_POST_LINK = $${IN_PWD}/../tools/unix/process_plist.sh $${IN_PWD}/.. $$VERSION_MAJOR $$VERSION_MINOR $$PLIST_PATH
 
-#  CONFIG(production) {
-    # Bundle Resouces
-    OTHER_RES.path = Contents/Resources
-    OTHER_RES.files = ../data/about-travelguide-desktop.html ../data/eula.html ../data/welcome.html \
-                      ../data/countries.txt  \
-                      ../data/languages.txt ../data/categories.txt \
-                      ../data/packed_polygons.bin
-    CLASSIFICATOR_RES.path = Contents/Resources
-    CLASSIFICATOR_RES.files = ../data/classificator.txt ../data/visibility.txt \
-                              ../data/types.txt ../data/drules_proto.txt
-    SKIN_RES.path = Contents/Resources
-    SKIN_RES.files = ../data/basic_ldpi.skn ../data/symbols_ldpi.png
-    FONT_RES.path = Contents/Resources
-    FONT_RES.files = ../data/01_dejavusans.ttf \
-                     ../data/02_wqy-microhei.ttf \
-                     ../data/03_jomolhari-id-a3d.ttf \
-                     ../data/04_padauk.ttf \
-                     ../data/05_khmeros.ttf \
-                     ../data/06_code2000.ttf \
-                     ../data/fonts_blacklist.txt \
-                     ../data/fonts_whitelist.txt \
-                     ../data/unicode_blocks.txt
-    MWM_RES.path = Contents/Resources
-    MWM_RES.files = ../data/World.mwm ../data/WorldCoasts.mwm
 
-    QMAKE_BUNDLE_DATA += OTHER_RES CLASSIFICATOR_RES SKIN_RES FONT_RES MWM_RES
-#  }
+  # Bundle Resouces
+  OTHER_RES.path = Contents/Resources
+  OTHER_RES.files = ../data/about-travelguide-desktop.html ../data/eula.html ../data/welcome.html \
+                    ../data/countries.txt  \
+                    ../data/languages.txt ../data/categories.txt \
+                    ../data/packed_polygons.bin
+  CLASSIFICATOR_RES.path = Contents/Resources
+  CLASSIFICATOR_RES.files = ../data/classificator.txt ../data/visibility.txt \
+                            ../data/types.txt
+  CONFIG(production) {
+    CLASSIFICATOR_RES.files += ../data/drules_proto.bin
+  } else {
+    CLASSIFICATOR_RES.files += ../data/drules_proto.txt
+  }
+  SKIN_RES.path = Contents/Resources
+  SKIN_RES.files = ../data/basic_ldpi.skn ../data/symbols_ldpi.png
+  FONT_RES.path = Contents/Resources
+  FONT_RES.files = ../data/01_dejavusans.ttf \
+                   ../data/02_wqy-microhei.ttf \
+                   ../data/03_jomolhari-id-a3d.ttf \
+                   ../data/04_padauk.ttf \
+                   ../data/05_khmeros.ttf \
+                   ../data/06_code2000.ttf \
+                    ../data/fonts_blacklist.txt \
+                   ../data/fonts_whitelist.txt \
+                   ../data/unicode_blocks.txt
+  MWM_RES.path = Contents/Resources
+  MWM_RES.files = ../data/World.mwm ../data/WorldCoasts.mwm
+
+  QMAKE_BUNDLE_DATA += OTHER_RES CLASSIFICATOR_RES SKIN_RES FONT_RES MWM_RES
 }
 
 SOURCES += \
