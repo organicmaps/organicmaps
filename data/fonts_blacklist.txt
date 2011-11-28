@@ -1,7 +1,2 @@
-* Apple_Braille_Outline_6_Dot.ttf
-* Apple_Braille_Outline_8_Dot.ttf
-* Apple_Braille_Pinpoint_6_Dot.ttf
-* Apple_Braille_Pinpoint_8_Dot.ttf
-* Apple_Braille.ttf
-* LastResort.ttf
 Basic_Latin 06_umpush.ttf
+

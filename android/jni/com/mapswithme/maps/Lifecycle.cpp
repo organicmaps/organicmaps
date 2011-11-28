@@ -137,10 +137,10 @@ bool renderFrame(bool allocateIfNeeded)
 
     // A debug printout every 256 frames so we can see when we're
     // actively rendering and swapping
-    if (!(s_swapCount++ & 0x00ff))
+    /*if (!(s_swapCount++ & 0x00ff))
     {
       NVDEBUG("Swap count is %d", s_swapCount);
-    }
+    }*/
 
     return true;
 }

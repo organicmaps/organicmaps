@@ -22,12 +22,7 @@
 package com.nvidia.devtech;
 
 import android.app.Activity;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 
 import javax.microedition.khronos.egl.EGL10;
@@ -41,28 +36,9 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder.Callback;
 
-/**
-A base class used to provide a native-code event-loop interface to an
-application.  This class is designed to be subclassed by the application
-with very little need to extend the Java.  Paired with its native static-link
-library, libnv_event.a, this package makes it possible for native applciations
-to avoid any direct use of Java code.  In addition, input and other events are
-automatically queued and provided to the application in native code via a
-classic event queue-like API.  EGL functionality such as bind/unbind and swap
-are also made available to the native code for ease of application porting.
-Please see the external SDK documentation for an introduction to the use of
-this class and its paired native library.
-*/
 public abstract class NvEventQueueActivity
 	extends Activity 
-    implements SensorEventListener
 {
-  protected boolean wantsMultitouch = true;
-
-  protected boolean wantsAccelerometer = false;
-  protected SensorManager mSensorManager = null;
-  protected int mSensorDelay = SensorManager.SENSOR_DELAY_UI; //other options: SensorManager.SENSOR_DELAY_FASTEST, SensorManager.SENSOR_DELAY_NORMAL and SensorManager.SENSOR_DELAY_UI
-
   protected SurfaceView view3d = null;
 	
   //private static final int EGL_RENDERABLE_TYPE = 0x3040;
@@ -87,9 +63,6 @@ public abstract class NvEventQueueActivity
     
   private boolean nativeLaunched = false;
 
-  /* *
-   * Helper function to select fixed window size.
-   * */ 
   public void setFixedSize(int fw, int fh)
   {
 	fixedWidth = fw;
@@ -106,54 +79,23 @@ public abstract class NvEventQueueActivity
     return surfaceHeight;           
   }
        
-  /**
-   * Function called when app requests accelerometer events.
-   * Applications need/should NOT overide this function - it will provide
-   * accelerometer events into the event queue that is accessible
-   * via the calls in nv_event.h
-   * 
-   * @param values0: values[0] passed to onSensorChanged(). For accelerometer: Acceleration minus Gx on the x-axis.
-   * @param values1: values[1] passed to onSensorChanged(). For accelerometer: Acceleration minus Gy on the y-axis.
-   * @param values2: values[2] passed to onSensorChanged(). For accelerometer: Acceleration minus Gz on the z-axis.
-   * @return True if the event was handled.
-   */
-  public native boolean accelerometerEvent(float values0, float values1, float values2);
-    
-  /**
-   * The following indented function implementations are defined in libnvevent.a
-   * The application does not and should not overide this; nv_event handles this internally
-   * And remaps as needed into the native calls exposed by nv_event.h
-   */
-     
-   protected native boolean onCreateNative();
-   protected native boolean onStartNative();
-   protected native boolean onRestartNative();
-   protected native boolean onResumeNative();
-   protected native boolean onSurfaceCreatedNative(int w, int h);
-   protected native boolean onFocusChangedNative(boolean focused);
-   protected native boolean onSurfaceChangedNative(int w, int h);
-   protected native boolean onSurfaceDestroyedNative();
-   protected native boolean onPauseNative();
-   protected native boolean onStopNative();
-   protected native boolean onDestroyNative();
+  protected native boolean onCreateNative();
+  protected native boolean onStartNative();
+  protected native boolean onRestartNative();
+  protected native boolean onResumeNative();
+  protected native boolean onSurfaceCreatedNative(int w, int h);
+  protected native boolean onFocusChangedNative(boolean focused);
+  protected native boolean onSurfaceChangedNative(int w, int h);
+  protected native boolean onSurfaceDestroyedNative();
+  protected native boolean onPauseNative();
+  protected native boolean onStopNative();
+  protected native boolean onDestroyNative();
 
-   protected native boolean postUserEvent(int u0, int u1, int u2, int u3, 
-		   								  boolean blocking);
-     
-   public native boolean touchEvent(int action, int x, int y, 
-		   							MotionEvent event);
-   
-   public native boolean multiTouchEvent(int action, 
-		   		 						 boolean hasFirst,
-		   		 						 boolean hasSecond, 
-		   	                             int x0, int y0, int x1, int y1, 
-		   	                             MotionEvent event);
-   
-   public native boolean keyEvent(int action, int keycode, int unicodeChar, KeyEvent event);
-   
-  /**
-   * END indented block, see in comment at top of block
-   */
+  public native boolean multiTouchEvent(int action, 
+                                        boolean hasFirst,
+		   		 						boolean hasSecond, 
+		   	                            int x0, int y0, int x1, int y1, 
+		   	                            MotionEvent event);
 
    @Override
    public void onCreate(Bundle savedInstanceState)
@@ -161,20 +103,9 @@ public abstract class NvEventQueueActivity
      System.out.println("**** onCreate");
      super.onCreate(savedInstanceState);
         
-     if( wantsAccelerometer && (mSensorManager == null) )
-       mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-
-     // If the app provides a non-null view3d, then we assume that the
-     // app is doing its own custom layout, and we do not create a view
-     // We use the supplied one.  Otherwise, we create it for them.
-     if (view3d == null)
-     {
-       System.out.println("**** onCreate: Creating default view");        
-       view3d = new SurfaceView(this);
-       setContentView(view3d);
-     }
-     else
-       System.out.println("**** onCreate: App specified custom view");        		
+     System.out.println("**** onCreate: Creating default view");        
+     view3d = new SurfaceView(this);
+     setContentView(view3d);
      
      SurfaceHolder holder = view3d.getHolder();
      holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
@@ -246,13 +177,7 @@ public abstract class NvEventQueueActivity
       System.out.println("**** onResume");
       super.onResume();
       if (nativeLaunched)
-      {
-		if(mSensorManager != null)
-          mSensorManager.registerListener(this, 
-										  mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), 
-										  mSensorDelay);
 		onResumeNative();
-      }
     }
     
     @Override
@@ -294,12 +219,7 @@ public abstract class NvEventQueueActivity
       super.onStop(); 
 
       if (nativeLaunched)
-      {
-        if(mSensorManager != null)
-          mSensorManager.unregisterListener(this);
-	        
 	    onStopNative();
-	  }
 	}
 
     @Override
@@ -316,111 +236,42 @@ public abstract class NvEventQueueActivity
       }
 	}
 
-    /**
-     * Implementation function: defined in libnvevent.a
-     * The application does not and should not overide this; nv_event handles this internally
-     * And remaps as needed into the native calls exposed by nv_event.h
-     */
-	public void onAccuracyChanged(Sensor sensor, int accuracy) {
-	  // Auto-generated method stub
-	}
-
-    /**
-     * Implementation function: defined in libnvevent.a
-     * The application does not and should not overide this; nv_event handles this internally
-     * And remaps as needed into the native calls exposed by nv_event.h
-     */
-	public void onSensorChanged(SensorEvent event) {
-	  // Auto-generated method stub
-	  if (nativeLaunched && (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER))
-	    accelerometerEvent(event.values[0], event.values[1], event.values[2]);
-	}
-    
-    /**
-     * Implementation function: defined in libnvevent.a
-     * The application does not and should not overide this; nv_event handles this internally
-     * And remaps as needed into the native calls exposed by nv_event.h
-     */
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
       boolean ret = super.onTouchEvent(event);
       if (nativeLaunched && !ret)
       {
-        if (wantsMultitouch)
-        {
-          boolean hasFirst = false;
-          boolean hasSecond = false;
+        boolean hasFirst = false;
+        boolean hasSecond = false;
 
-          int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
-          // marshal up the data.
-          int numEvents = event.getPointerCount();
-          for (int i=0; i<numEvents; i++)
+        int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+        // marshal up the data.
+        int numEvents = event.getPointerCount();
+        for (int i=0; i<numEvents; i++)
+        {
+          // only use pointers 0 and 1...
+          int index = event.getPointerId(i);
+          if (index < 2)
           {
-            // only use pointers 0 and 1...
-            int index = event.getPointerId(i);
-            if (index < 2)
+            if (index == 0)
             {
-              if (index == 0)
-              {
-                hasFirst = true;
-                x1 = (int)event.getX(i);
-                y1 = (int)event.getY(i);
-              }
-              else if (index == 1)
-              {
-                hasSecond = true;
-                x2 = (int)event.getX(i);
-                y2 = (int)event.getY(i);
-              }
-/*              if (count == 0)
-              {
-                x1 = (int)event.getX(i);
-                y1 = (int)event.getY(i);
-                count++;
-              }
-              else if (count == 1)
-              {
-                x2 = (int)event.getX(i);
-                y2 = (int)event.getY(i);
-                count++;
-              }*/
+              hasFirst = true;
+              x1 = (int)event.getX(i);
+              y1 = (int)event.getY(i);
+            }
+            else if (index == 1)
+            {
+              hasSecond = true;
+              x2 = (int)event.getX(i);
+              y2 = (int)event.getY(i);
             }
           }
-          ret = multiTouchEvent(event.getAction(), hasFirst, hasSecond, x1, y1, x2, y2, event);
         }
-        else // old style input.*/
-        {
-          ret = touchEvent(event.getAction(), (int)event.getX(), (int)event.getY(), event);
-        }
+        
+        ret = multiTouchEvent(event.getAction(), hasFirst, hasSecond, x1, y1, x2, y2, event);
       }
       return ret;
-    }
-
-    /**
-     * Implementation function: defined in libnvevent.a
-     * The application does not and should not overide this; nv_event handles this internally
-     * And remaps as needed into the native calls exposed by nv_event.h
-     */
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-      if (nativeLaunched && keyEvent(event.getAction(), keyCode, event.getUnicodeChar(), event))
-        return true;
-      return super.onKeyDown(keyCode, event);
-    }
- 
-    /**
-     * Implementation function: defined in libnvevent.a
-     * The application does not and should not overide this; nv_event handles this internally
-     * And remaps as needed into the native calls exposed by nv_event.h
-     */
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event)
-    {
-      if (nativeLaunched && keyEvent(event.getAction(), keyCode, event.getUnicodeChar(), event))
-        return true;
-      return super.onKeyUp(keyCode, event);
     }
 
     /** The number of bits requested for the red component */
@@ -605,13 +456,6 @@ public abstract class NvEventQueueActivity
       return true;
     }
 
-    /**
-     * Called to create the EGLSurface to be used for rendering. This function should not be called by the inheriting
-     * activity, but can be overridden if needed.
-     * 
-     * @param surface The SurfaceHolder that holds the surface that we are going to render to.
-     * @return True if successful
-     */
     protected boolean CreateSurfaceEGL()
     {
       if (cachedSurfaceHolder == null)
@@ -681,16 +525,9 @@ public abstract class NvEventQueueActivity
         return false;
       }
 
-//        nvAcquireTimeExtension(); 
       return true;
     }
 
-    /**
-     * Implementation function: 
-     * The application does not and should not overide or call this directly
-     * Instead, the application should call NVEventEGLUnmakeCurrent(),
-     * which is declared in nv_event.h
-     */
     public boolean UnbindSurfaceAndContextEGL()
     {
       System.out.println("UnbindSurfaceAndContextEGL");
