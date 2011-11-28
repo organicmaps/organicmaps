@@ -120,7 +120,7 @@ HEADERS += \
 
 win32* {
   SOURCES += internal/opengl_win32.cpp
-} else android*|iphone* {
+} else: android*|iphone* {
   SOURCES += internal/opengl_es.cpp
 } else {
   SOURCES += internal/opengl_ext.cpp
