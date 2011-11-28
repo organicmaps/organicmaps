@@ -1,17 +1,18 @@
 #include "opengl.hpp"
 
-#include "../../3party/GL/glext.h"
+//#include "../../3party/GL/glext.h"
 
 #include "../../base/logging.hpp"
+
 
 namespace yg
 {
   namespace gl
   {
-    GL_FRAMEBUFFER_BINDING = GL_FRAMEBUFFER_BINDING_EXT;
+    //GL_FRAMEBUFFER_BINDING = GL_FRAMEBUFFER_BINDING_EXT;
 
-    template <class TRet>
-    TRet GetGLProc(HMODULE, char const * name)
+    template <class T>
+    void AssignGLProc(HMODULE, char const * name, T & res)
     {
       PROC p = ::wglGetProcAddress(name);
       if (p == 0)
@@ -19,7 +20,7 @@ namespace yg
         DWORD const err = ::GetLastError();
         LOG(LINFO, ("OpenGL extension function ", name, " not found. Last error = ", err));
       }
-      return reinterpret_cast<TRet>(p);
+      res = reinterpret_cast<T>(p);
     }
 
     void InitExtensions()
@@ -28,12 +29,12 @@ namespace yg
 
       // Loading procedures, trying "EXT" suffix if alias doesn't exist
 
-#define DEFINE_GL_PROC_WIN32(type, name, fn) \
-      fn = GetGLProc<type>(hInst, name);             \
-      if (fn == NULL)
-      {
-        string extName = string(name) + "EXT";
-        fn = GetGLProc<type>(hInst, extName);
+#define DEFINE_GL_PROC(name, fn)                      \
+      AssignGLProc(hInst, name, fn);                  \
+      if (fn == NULL)                                 \
+      {                                               \
+        string const extName = string(name) + "EXT";  \
+        AssignGLProc(hInst, extName.c_str(), fn);     \
       }
 #include "gl_procedures.inl"
 #undef DEFINE_GL_PROC
@@ -60,5 +61,3 @@ namespace yg
     }
   }
 } // namespace win32
-
-#endif

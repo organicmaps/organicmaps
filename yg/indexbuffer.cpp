@@ -89,7 +89,7 @@ namespace yg
 
       /// orphaning the old copy of the buffer data.
       /// this provides that the glMapBuffer will not wait.
-      OGLCHECK(glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_size, 0, GL_DYNAMIC_DRAW));
+      OGLCHECK(glBufferDataFn(GL_ELEMENT_ARRAY_BUFFER, m_size, 0, GL_DYNAMIC_DRAW));
 
       m_gpuData = glMapBufferFn(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY_MWM);
 

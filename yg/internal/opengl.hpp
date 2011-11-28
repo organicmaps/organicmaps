@@ -2,9 +2,10 @@
 #include "../../std/target_os.hpp"
 
 #if defined(OMIM_OS_WINDOWS)
-
   #include "../../std/windows.hpp"
   #include <gl/gl.h>
+  #define GL_GLEXT_PROTOTYPES
+  #include "../../3party/GL/glext.h"
 
 #elif defined(OMIM_OS_BADA)
   #include <FGraphicsOpengl.h>
@@ -20,6 +21,7 @@
     #define OMIM_GL_ES
   #else
     #include <OpenGL/gl.h>
+    #include <OpenGL/glext.h>
   #endif
 
 #elif defined(OMIM_OS_ANDROID)
@@ -32,8 +34,17 @@
   #include <GL/glext.h>
 #endif
 
+
+#ifdef OMIM_OS_WINDOWS
+  #define OPENGL_CALLING_CONVENTION __stdcall
+#else
+  #define OPENGL_CALLING_CONVENTION
+#endif
+
+
 #include "../../base/src_point.hpp"
 #include "../../std/exception.hpp"
+
 
 namespace yg
 {
@@ -47,13 +58,13 @@ namespace yg
 
     extern const int GL_WRITE_ONLY_MWM;
 
-    extern void (* glBindBufferFn) (GLenum target, GLuint buffer);
-    extern void (* glGenBuffersFn) (GLsizei n, GLuint *buffers);
-    extern void (* glBufferDataFn) (GLenum target, long size, const GLvoid *data, GLenum usage);
-    extern void (* glBufferSubDataFn) (GLenum target, long offset, long size, const GLvoid *data);
-    extern void (* glDeleteBuffersFn) (GLsizei n, const GLuint *buffers);
-    extern void* (* glMapBufferFn) (GLenum target, GLenum access);
-    extern GLboolean (* glUnmapBufferFn) (GLenum target);
+    extern void (OPENGL_CALLING_CONVENTION * glBindBufferFn) (GLenum target, GLuint buffer);
+    extern void (OPENGL_CALLING_CONVENTION * glGenBuffersFn) (GLsizei n, GLuint *buffers);
+    extern void (OPENGL_CALLING_CONVENTION * glBufferDataFn) (GLenum target, GLsizeiptr size, const GLvoid *data, GLenum usage);
+    extern void (OPENGL_CALLING_CONVENTION * glBufferSubDataFn) (GLenum target, GLintptr offset, GLsizeiptr size, const GLvoid *data);
+    extern void (OPENGL_CALLING_CONVENTION * glDeleteBuffersFn) (GLsizei n, const GLuint *buffers);
+    extern void * (OPENGL_CALLING_CONVENTION * glMapBufferFn) (GLenum target, GLenum access);
+    extern GLboolean (OPENGL_CALLING_CONVENTION * glUnmapBufferFn) (GLenum target);
 
     // framebuffers extensions
 
@@ -72,20 +83,20 @@ namespace yg
     extern const int GL_DEPTH_COMPONENT24_MWM;
     extern const int GL_RGBA8_MWM;
 
-    extern void (* glBindFramebufferFn) (GLenum target, GLuint framebuffer);
-    extern void (* glFramebufferTexture2DFn) (GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
-    extern void (* glFramebufferRenderbufferFn) (GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer);
-    extern void (* glGenFramebuffersFn) (GLsizei n, GLuint *framebuffers);
-    extern void (* glDeleteFramebuffersFn) (GLsizei n, const GLuint *framebuffers);
-    extern GLenum (* glCheckFramebufferStatusFn) (GLenum target);
+    extern void (OPENGL_CALLING_CONVENTION * glBindFramebufferFn) (GLenum target, GLuint framebuffer);
+    extern void (OPENGL_CALLING_CONVENTION * glFramebufferTexture2DFn) (GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
+    extern void (OPENGL_CALLING_CONVENTION * glFramebufferRenderbufferFn) (GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer);
+    extern void (OPENGL_CALLING_CONVENTION * glGenFramebuffersFn) (GLsizei n, GLuint *framebuffers);
+    extern void (OPENGL_CALLING_CONVENTION * glDeleteFramebuffersFn) (GLsizei n, const GLuint *framebuffers);
+    extern GLenum (OPENGL_CALLING_CONVENTION * glCheckFramebufferStatusFn) (GLenum target);
 
     // renderbuffer extensions
 
 
-    extern void (* glGenRenderbuffersFn) (GLsizei n, GLuint *renderbuffers);
-    extern void (* glDeleteRenderbuffersFn) (GLsizei n, const GLuint *renderbuffers);
-    extern void (* glBindRenderbufferFn) (GLenum target, GLuint renderbuffer);
-    extern void (* glRenderbufferStorageFn) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
+    extern void (OPENGL_CALLING_CONVENTION * glGenRenderbuffersFn) (GLsizei n, GLuint *renderbuffers);
+    extern void (OPENGL_CALLING_CONVENTION * glDeleteRenderbuffersFn) (GLsizei n, const GLuint *renderbuffers);
+    extern void (OPENGL_CALLING_CONVENTION * glBindRenderbufferFn) (GLenum target, GLuint renderbuffer);
+    extern void (OPENGL_CALLING_CONVENTION * glRenderbufferStorageFn) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
 
     /// This flag controls, whether OpenGL resources should delete themselves upon destruction.
     /// Sounds odd, but in EGL there are cases when the only function one should call to finish

@@ -2,16 +2,36 @@
 
 #include "../../base/logging.hpp"
 #include "../../base/string_utils.hpp"
+
 #include "../../std/bind.hpp"
 
 #ifdef OMIM_OS_BADA
   #include <FBaseSys.h>
 #endif
 
+
 namespace yg
 {
   namespace gl
   {
+    const int GL_FRAMEBUFFER_BINDING_MWM = GL_FRAMEBUFFER_BINDING_EXT;
+    const int GL_FRAMEBUFFER_MWM = GL_FRAMEBUFFER_EXT;
+    const int GL_FRAMEBUFFER_UNSUPPORTED_MWM = GL_FRAMEBUFFER_UNSUPPORTED_EXT;
+    const int GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_MWM = GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT;
+    const int GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_MWM = GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_EXT;
+    const int GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_MWM = GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT;
+    const int GL_FRAMEBUFFER_COMPLETE_MWM = GL_FRAMEBUFFER_COMPLETE_EXT;
+
+    const int GL_DEPTH_ATTACHMENT_MWM = GL_DEPTH_ATTACHMENT_EXT;
+    const int GL_COLOR_ATTACHMENT0_MWM = GL_COLOR_ATTACHMENT0_EXT;
+    const int GL_RENDERBUFFER_MWM = GL_RENDERBUFFER_EXT;
+    const int GL_RENDERBUFFER_BINDING_MWM = GL_RENDERBUFFER_BINDING_EXT;
+    const int GL_DEPTH_COMPONENT16_MWM = GL_DEPTH_COMPONENT16;
+    const int GL_DEPTH_COMPONENT24_MWM = GL_DEPTH_COMPONENT24;
+    const int GL_RGBA8_MWM = GL_RGBA8;
+
+    const int GL_WRITE_ONLY_MWM = GL_WRITE_ONLY;
+
     platform_unsupported::platform_unsupported(char const * reason)
       : m_reason(reason)
     {}
@@ -57,25 +77,25 @@ namespace yg
     bool g_isFramebufferSupported = true;
     bool g_isRenderbufferSupported = true;
 
-    void (* glBindBufferFn) (GLenum target, GLuint buffer);
-    void (* glGenBuffersFn) (GLsizei n, GLuint *buffers);
-    void (* glBufferDataFn) (GLenum target, long size, const GLvoid *data, GLenum usage);
-    void (* glBufferSubDataFn) (GLenum target, long offset, long size, const GLvoid *data);
-    void (* glDeleteBuffersFn) (GLsizei n, const GLuint *buffers);
-    void* (* glMapBufferFn) (GLenum target, GLenum access);
-    GLboolean (* glUnmapBufferFn) (GLenum target);
+    void (OPENGL_CALLING_CONVENTION * glBindBufferFn) (GLenum target, GLuint buffer);
+    void (OPENGL_CALLING_CONVENTION * glGenBuffersFn) (GLsizei n, GLuint *buffers);
+    void (OPENGL_CALLING_CONVENTION * glBufferDataFn) (GLenum target, GLsizeiptr size, const GLvoid *data, GLenum usage);
+    void (OPENGL_CALLING_CONVENTION * glBufferSubDataFn) (GLenum target, GLintptr offset, GLsizeiptr size, const GLvoid *data);
+    void (OPENGL_CALLING_CONVENTION * glDeleteBuffersFn) (GLsizei n, const GLuint *buffers);
+    void * (OPENGL_CALLING_CONVENTION * glMapBufferFn) (GLenum target, GLenum access);
+    GLboolean (OPENGL_CALLING_CONVENTION * glUnmapBufferFn) (GLenum target);
 
-    void (* glBindFramebufferFn) (GLenum target, GLuint framebuffer);
-    void (* glFramebufferTexture2DFn) (GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
-    void (* glFramebufferRenderbufferFn) (GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer);
-    void (* glGenFramebuffersFn) (GLsizei n, GLuint *framebuffers);
-    void (* glDeleteFramebuffersFn) (GLsizei n, const GLuint *framebuffers);
-    GLenum (* glCheckFramebufferStatusFn) (GLenum target);
+    void (OPENGL_CALLING_CONVENTION * glBindFramebufferFn) (GLenum target, GLuint framebuffer);
+    void (OPENGL_CALLING_CONVENTION * glFramebufferTexture2DFn) (GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
+    void (OPENGL_CALLING_CONVENTION * glFramebufferRenderbufferFn) (GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer);
+    void (OPENGL_CALLING_CONVENTION * glGenFramebuffersFn) (GLsizei n, GLuint *framebuffers);
+    void (OPENGL_CALLING_CONVENTION * glDeleteFramebuffersFn) (GLsizei n, const GLuint *framebuffers);
+    GLenum (OPENGL_CALLING_CONVENTION * glCheckFramebufferStatusFn) (GLenum target);
 
-    void (* glGenRenderbuffersFn) (GLsizei n, GLuint *renderbuffers);
-    void (* glDeleteRenderbuffersFn) (GLsizei n, const GLuint *renderbuffers);
-    void (* glBindRenderbufferFn) (GLenum target, GLuint renderbuffer);
-    void (* glRenderbufferStorageFn) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
+    void (OPENGL_CALLING_CONVENTION * glGenRenderbuffersFn) (GLsizei n, GLuint *renderbuffers);
+    void (OPENGL_CALLING_CONVENTION * glDeleteRenderbuffersFn) (GLsizei n, const GLuint *renderbuffers);
+    void (OPENGL_CALLING_CONVENTION * glBindRenderbufferFn) (GLenum target, GLuint renderbuffer);
+    void (OPENGL_CALLING_CONVENTION * glRenderbufferStorageFn) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
 
     bool g_doDeleteOnDestroy = true;
 

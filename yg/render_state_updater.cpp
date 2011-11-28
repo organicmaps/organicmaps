@@ -111,7 +111,7 @@ namespace yg
       shared_ptr<UpdateActualTarget> command(new UpdateActualTarget());
       command->m_renderState = m_renderState;
       command->m_currentScreen = m_renderState->m_currentScreen;
-      command->m_doSynchronize = renderQueue();
+      command->m_doSynchronize = (renderQueue() != 0);
 
       processCommand(command);
 
