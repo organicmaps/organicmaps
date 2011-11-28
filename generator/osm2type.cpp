@@ -216,6 +216,18 @@ namespace ftype
       ClassifObject const * m_parent;
       bool m_isKey;
 
+      bool is_good_tag(string const & k, string const & v) const
+      {
+        if (is_name_tag(k))
+          return false;
+
+        int dummy;
+        if (!m_isKey && strings::to_int(v, dummy))
+          return (k == "admin_level");
+
+        return true;
+      }
+
     public:
       typedef ClassifObjectPtr result_type;
 
@@ -223,7 +235,7 @@ namespace ftype
 
       ClassifObjectPtr operator() (string const & k, string const & v) const
       {
-        if (!is_name_tag(k))
+        if (is_good_tag(k, v))
         {
           ClassifObjectPtr p = m_parent->BinaryFind(m_isKey ? k : v);
           if (p) return p;
