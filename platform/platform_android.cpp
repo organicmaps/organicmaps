@@ -25,11 +25,9 @@ ModelReader * Platform::GetReader(string const & file) const
   if (IsFileExists(m_writableDir + file))
     return new FileReader(ReadPathForFile(file), 10, 12);
   else
-  { // paths from GetFilesInDir will already contain "assets/"
-    if (file.find("assets/") != string::npos)
-      return new ZipFileReader(m_resourcesDir, file);
-    else
-      return new ZipFileReader(m_resourcesDir, "assets/" + file);
+  {
+    ASSERT_EQUAL(file.find("assets/"), string::npos, ("Do not use assets/, only file name"));
+    return new ZipFileReader(m_resourcesDir, "assets/" + file);
   }
 }
 
@@ -48,7 +46,13 @@ void Platform::GetFilesInDir(string const & directory, string const & mask, File
       if (it->find(fixedMask) == string::npos)
         it = res.erase(it);
       else
+      {
+        // Remove assets/ prefix - clean files are needed for fonts white/blacklisting logic
+        static size_t const ASSETS_LENGTH = 7;
+        if (it->find("assets/") == 0)
+          it->erase(0, ASSETS_LENGTH);
         ++it;
+      }
     }
   }
   else
