@@ -9,6 +9,7 @@
 #include "../indexer/feature_visibility.hpp"
 #include "../indexer/drawing_rules.hpp"
 #include "../indexer/feature_data.hpp"
+#include "../indexer/feature_impl.hpp"
 
 #include "../std/bind.hpp"
 
@@ -212,6 +213,7 @@ namespace fwork
       m_convertor(convertor),
       m_paintEvent(e),
       m_zoom(scaleLevel),
+      m_hasNonCoast(false),
       m_glyphCache(e->drawer()->screen()->glyphCache())
 #ifdef PROFILER_DRAWING
       , m_drawCount(0)
@@ -272,6 +274,8 @@ namespace fwork
       if (!m_coasts.insert(s1).second)
         return true;
     }
+    else
+      m_hasNonCoast = true;
 
     // remove duplicating identical drawing keys
     PreProcessKeys(keys);
@@ -282,7 +286,7 @@ namespace fwork
     m_drawCount += count;
 #endif
 
-    buffer_vector<di::DrawRule, reserve_rules_count> rules;
+    buffer_vector<di::DrawRule, 16> rules;
     rules.resize(count);
 
     int layer = f.GetLayer();
@@ -400,5 +404,10 @@ namespace fwork
       pDrawer->Draw(ptr.get(), rules.data(), count);
 
     return true;
+  }
+
+  bool DrawProcessor::IsEmptyDrawing() const
+  {
+    return (m_zoom >= feature::g_arrCountryScales[0] && !m_hasNonCoast);
   }
 }

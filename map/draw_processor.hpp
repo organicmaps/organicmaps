@@ -325,6 +325,8 @@ namespace fwork
     shared_ptr<PaintEvent> m_paintEvent;
 
     int m_zoom;
+    bool m_hasNonCoast;
+
     yg::GlyphCache * m_glyphCache;
 
 #ifdef PROFILER_DRAWING
@@ -335,8 +337,6 @@ namespace fwork
 
     void PreProcessKeys(vector<drule::Key> & keys) const;
 
-    static const int reserve_rules_count = 16;
-
   public:
 
     DrawProcessor(m2::RectD const & r,
@@ -345,6 +345,7 @@ namespace fwork
                   int scaleLevel);
 
     bool operator() (FeatureType const & f);
+
+    bool IsEmptyDrawing() const;
   };
 }
-
